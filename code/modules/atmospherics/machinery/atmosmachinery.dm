@@ -63,6 +63,9 @@
 	///If we should init and immediately start processing
 	var/init_processing = FALSE
 
+//Blank to not inherit parent
+/obj/machinery/add_context_self(datum/screentip_context/context, mob/user)
+
 /obj/machinery/atmospherics/LateInitialize()
 	. = ..()
 	update_name()

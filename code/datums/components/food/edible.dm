@@ -79,6 +79,7 @@ Behavior that's still missing from this component that original food items had t
 	RegisterSignal(parent, COMSIG_ITEM_MICROWAVE_COOKED, PROC_REF(on_microwave_cooked))
 	RegisterSignal(parent, COMSIG_FOOD_INGREDIENT_ADDED, PROC_REF(edible_ingredient_added))
 	RegisterSignal(parent, COMSIG_EDIBLE_ON_COMPOST, PROC_REF(compost))
+	RegisterSignal(parent, COMSIG_FOOD_FEED_ITEM, PROC_REF(feed_to_item))
 
 	if(isitem(parent))
 		RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(use_from_hand))
@@ -333,7 +334,7 @@ Behavior that's still missing from this component that original food items had t
 			eater.visible_message(span_notice("[eater] [eatverb]s \the [parent]."), span_notice("You [eatverb] \the [parent]."))
 		else if(fullness > 500 && fullness < 600)
 			eater.visible_message(span_notice("[eater] unwillingly [eatverb]s a bit of \the [parent]."), span_notice("You unwillingly [eatverb] a bit of \the [parent]."))
-		else if(fullness > (600 * (1 + eater.overeatduration / 2000)))	// The more you eat - the more you can eat
+		else if(fullness > (600 * (1 + eater.overeatduration / (4000 SECONDS))))	// The more you eat - the more you can eat
 			eater.visible_message(span_warning("[eater] cannot force any more of \the [parent] to go down [eater.p_their()] throat!"), span_warning("You cannot force any more of \the [parent] to go down your throat!"))
 			return
 
@@ -341,7 +342,7 @@ Behavior that's still missing from this component that original food items had t
 		if(isbrain(eater))
 			to_chat(feeder, span_warning("[eater] doesn't seem to have a mouth!"))
 			return
-		if(fullness <= (600 * (1 + eater.overeatduration / 1000)))
+		if(fullness <= (600 * (1 + eater.overeatduration / (2000 SECONDS))))
 			eater.visible_message(
 				span_danger("[feeder] attempts to feed [eater] [parent]."), \
 				span_userdanger("[feeder] attempts to feed you [parent].")
@@ -456,7 +457,7 @@ Behavior that's still missing from this component that original food items had t
 	if(!ishuman(eater))
 		return FALSE
 	var/mob/living/carbon/human/human_eater = eater
-	var/obj/item/organ/tongue/tongue = human_eater.getorganslot(ORGAN_SLOT_TONGUE)
+	var/obj/item/organ/tongue/tongue = human_eater.get_organ_slot(ORGAN_SLOT_TONGUE)
 	if((foodtypes & BREAKFAST) && world.time - SSticker.round_start_time < STOP_SERVING_BREAKFAST)
 		SEND_SIGNAL(human_eater, COMSIG_ADD_MOOD_EVENT, "breakfast", /datum/mood_event/breakfast)
 	if(HAS_TRAIT(human_eater, TRAIT_AGEUSIA))
@@ -505,7 +506,7 @@ Behavior that's still missing from this component that original food items had t
 			if(FOOD_TOXIC)
 				return TOXIC_FOOD_QUALITY_THRESHOLD
 
-	var/obj/item/organ/tongue/tongue = eater.getorganslot(ORGAN_SLOT_TONGUE)
+	var/obj/item/organ/tongue/tongue = eater.get_organ_slot(ORGAN_SLOT_TONGUE)
 	if(ishuman(eater))
 		if(count_matching_foodtypes(foodtypes, tongue?.toxic_food)) //if the food is toxic, we don't care about anything else
 			return TOXIC_FOOD_QUALITY_THRESHOLD
@@ -556,6 +557,19 @@ Behavior that's still missing from this component that original food items had t
 	if(bitecount >= 5)
 		var/satisfaction_text = pick("burps from enjoyment.", "yaps for more!", "woofs twice.", "looks at the area where \the [parent] was.")
 		L.manual_emote(satisfaction_text)
+		qdel(parent)
+
+///Ability to feed food to items?
+/datum/component/edible/proc/feed_to_item(datum/source, atom/movable/eater)
+	SIGNAL_HANDLER
+
+	if(bitecount == 0 || prob(50))
+		eater.visible_message("[eater] nibbles away at \the [parent].", allow_inside_usr = TRUE)
+	bitecount++
+	. = COMPONENT_CANCEL_ATTACK_CHAIN
+	if(bitecount >= 5)
+		var/satisfaction_text = pick("burps from enjoyment.", "looks at the area where \the [parent] was.")
+		eater.visible_message("[eater] [satisfaction_text]", allow_inside_usr = TRUE)
 		qdel(parent)
 
 ///Response to being used to customize something

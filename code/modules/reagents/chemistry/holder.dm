@@ -15,29 +15,44 @@
 	//Chemical Reactions - Initialises all /datum/chemical_reaction into a list
 	// It is filtered into multiple lists within a list.
 	// For example:
-	// chemical_reaction_list[/datum/reagent/toxin/plasma] is a list of all reactions relating to plasma
+	// chemical_reactions_list_reactant_index[/datum/reagent/toxin/plasma] is a list of all reactions relating to plasma
 
-	if(GLOB.chemical_reactions_list)
+	if(GLOB.chemical_reactions_list_reactant_index)
 		return
 
 	var/paths = subtypesof(/datum/chemical_reaction)
-	GLOB.chemical_reactions_list = list()
+	GLOB.chemical_reactions_list = list() //typepath to reaction list
+	GLOB.chemical_reactions_list_reactant_index = list() //reagents to reaction list
 
 	for(var/path in paths)
 		var/datum/chemical_reaction/D = new path()
 		var/list/reaction_ids = list()
+		var/list/reagents = list()
 
 		if(!D.required_reagents || !D.required_reagents.len) //Skip impossible reactions
 			continue
 
+		GLOB.chemical_reactions_list[path] = D
+
 		for(var/reaction in D.required_reagents)
 			reaction_ids += reaction
+			var/datum/reagent/reagent = find_reagent_object_from_type(reaction)
+			if(!istype(reagent))
+				stack_trace("Invalid reagent found in [D] required_reagents: [reaction]")
+				continue
+			reagents += list(list("name" = reagent.name, "id" = reagent.type))
+
+		for(var/product in D.results)
+			var/datum/reagent/reagent = find_reagent_object_from_type(product)
+			if(!istype(reagent))
+				stack_trace("Invalid reagent found in [D] results: [product]")
+				continue
 
 		// Create filters based on each reagent id in the required reagents list
 		for(var/id in reaction_ids)
-			if(!GLOB.chemical_reactions_list[id])
-				GLOB.chemical_reactions_list[id] = list()
-			GLOB.chemical_reactions_list[id] += D
+			if(!GLOB.chemical_reactions_list_reactant_index[id])
+				GLOB.chemical_reactions_list_reactant_index[id] = list()
+			GLOB.chemical_reactions_list_reactant_index[id] += D
 			break // Don't bother adding ourselves to other reagent ids, it is redundant
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -360,73 +375,73 @@
   * * can_overdose - Allows overdosing
   * * liverless - Stops reagents that aren't set as [/datum/reagent/var/self_consuming] from metabolizing
   */
-/datum/reagents/proc/metabolize(mob/living/carbon/C, can_overdose = FALSE, liverless = FALSE)
-	if(C?.dna?.species && (NOREAGENTS in C.dna.species.species_traits))
+/datum/reagents/proc/metabolize(mob/living/carbon/owner, delta_time, times_fired, can_overdose = FALSE, liverless = FALSE)
+	if(owner?.dna?.species && (NOREAGENTS in owner.dna.species.species_traits))
 		return 0
 	var/list/cached_reagents = reagent_list
 	var/list/cached_addictions = addiction_list
-	if(C)
-		expose_temperature(C.bodytemperature, 0.25)
+	if(owner)
+		expose_temperature(owner.bodytemperature, 0.25)
 	var/need_mob_update = 0
 	for(var/reagent in cached_reagents)
 		var/datum/reagent/R = reagent
 		if(QDELETED(R.holder))
 			continue
 
-		if(!C)
-			C = R.holder.my_atom
+		if(!owner)
+			owner = R.holder.my_atom
 
-		if(C && R)
-			if(C.reagent_check(R) != TRUE) //Most relevant to Humans, this handles species-specific chem interactions.
+		if(owner && R)
+			if(owner.reagent_check(R, delta_time, times_fired) != TRUE) //Most relevant to Humans, this handles species-specific chem interactions.
 				if(liverless && !R.self_consuming) //need to be metabolized
 					continue
 				if(!R.metabolizing)
 					R.metabolizing = TRUE
-					R.on_mob_metabolize(C)
+					R.on_mob_metabolize(owner)
 				if(can_overdose)
 					if(R.overdose_threshold)
 						if(R.volume >= R.overdose_threshold && !R.overdosed)
-							R.overdosed = 1
-							need_mob_update += R.overdose_start(C)
-							log_game("[key_name(C)] has started overdosing on [R.name] at [R.volume] units.")
+							R.overdosed = TRUE
+							need_mob_update += R.overdose_start(owner)
+							log_game("[key_name(owner)] has started overdosing on [R.name] at [R.volume] units.")
 					if(R.addiction_threshold)
 						if(R.volume >= R.addiction_threshold && !is_type_in_list(R, cached_addictions))
 							var/datum/reagent/new_reagent = new R.type()
 							cached_addictions.Add(new_reagent)
-							log_game("[key_name(C)] has become addicted to [R.name] at [R.volume] units.")
+							log_game("[key_name(owner)] has become addicted to [R.name] at [R.volume] units.")
 					if(R.overdosed)
-						need_mob_update += R.overdose_process(C)
+						need_mob_update += R.overdose_process(owner, delta_time, times_fired)
 					if(is_type_in_list(R,cached_addictions))
 						for(var/addiction in cached_addictions)
 							var/datum/reagent/A = addiction
 							if(istype(R, A))
 								A.addiction_stage = -15 // you're satisfied for a good while.
-				need_mob_update += R.on_mob_life(C)
+				need_mob_update += R.on_mob_life(owner, delta_time, times_fired)
 
 	if(can_overdose)
 		if(addiction_tick == 6)
 			addiction_tick = 1
 			for(var/addiction in cached_addictions)
 				var/datum/reagent/R = addiction
-				if(C && R)
+				if(owner && R)
 					R.addiction_stage++
 					switch(R.addiction_stage)
 						if(1 to 10)
-							need_mob_update += R.addiction_act_stage1(C)
+							need_mob_update += R.addiction_act_stage1(owner)
 						if(10 to 20)
-							need_mob_update += R.addiction_act_stage2(C)
+							need_mob_update += R.addiction_act_stage2(owner)
 						if(20 to 30)
-							need_mob_update += R.addiction_act_stage3(C)
+							need_mob_update += R.addiction_act_stage3(owner)
 						if(30 to 40)
-							need_mob_update += R.addiction_act_stage4(C)
+							need_mob_update += R.addiction_act_stage4(owner)
 						if(40 to INFINITY)
 							remove_addiction(R)
 						else
-							SEND_SIGNAL(C, COMSIG_CLEAR_MOOD_EVENT, "[R.type]_overdose")
+							SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "[R.type]_overdose")
 		addiction_tick++
-	if(C && need_mob_update) //some of the metabolized reagents had effects on the mob that requires some updates.
-		C.updatehealth()
-		C.update_stamina()
+	if(owner && need_mob_update) //some of the metabolized reagents had effects on the mob that requires some updates.
+		owner.updatehealth()
+		owner.update_stamina()
 	update_total()
 
 /// Removes addiction to a specific reagent on [/datum/reagents/var/my_atom]
@@ -480,11 +495,17 @@
 
 /// Handle any reactions possible in this holder
 /datum/reagents/proc/handle_reactions()
+	if(QDELING(src))
+		CRASH("[my_atom] is trying to handle reactions while being flagged for deletion. It presently has [length(reagent_list)] number of reactants in it. If that is over 0 then something terrible happened.")
+
+	if(!length(reagent_list))
+		return FALSE
+
 	if(flags & NO_REACT)
 		return //Yup, no reactions here. No siree.
 
 	var/list/cached_reagents = reagent_list
-	var/list/cached_reactions = GLOB.chemical_reactions_list
+	var/list/cached_reactions = GLOB.chemical_reactions_list_reactant_index
 	var/datum/cached_my_atom = my_atom
 
 	var/reaction_occurred = 0
@@ -519,30 +540,23 @@
 						break
 					total_matching_catalysts++
 				if(cached_my_atom)
-					if(!C.required_container)
-						matching_container = 1
-
+					if(C.required_container_accepts_subtypes)
+						matching_container = !C.required_container || istype(cached_my_atom, C.required_container)
 					else
-						if(cached_my_atom.type == C.required_container)
-							matching_container = 1
-					if (isliving(cached_my_atom) && !C.mob_react) //Makes it so certain chemical reactions don't occur in mobs
+						matching_container = !C.required_container || cached_my_atom.type == C.required_container
+
+					if(isliving(cached_my_atom) && !C.mob_react) //Makes it so certain chemical reactions don't occur in mobs
 						matching_container = FALSE
-					if(!C.required_other)
-						matching_other = 1
 
-					else if(istype(cached_my_atom, /obj/item/slime_extract))
-						var/obj/item/slime_extract/M = cached_my_atom
+					matching_other = C.required_other ? C.pre_reaction_other_checks(src) : TRUE
 
-						if(M.Uses > 0) // added a limit to slime cores -- Muskets requested this
-							matching_other = 1
-
-					else if(C.check_other()) //if a recipe has required_other, call this proc to see if it meets requirements
-						matching_other = 1
+					if(C.check_other()) //if a recipe has required_other, call this proc to see if it meets requirements
+						matching_other = TRUE
 				else
 					if(!C.required_container)
-						matching_container = 1
+						matching_container = TRUE
 					if(!C.required_other)
-						matching_other = 1
+						matching_other = TRUE
 
 				if(required_temp == 0 || (is_cold_recipe && chem_temp <= required_temp) || (!is_cold_recipe && chem_temp >= required_temp))
 					meets_temp_requirement = 1
@@ -879,14 +893,12 @@
 		stack_trace("invalid reagent passed to remove reagent [reagent]")
 		return FALSE
 
-	if(isnull(amount))
-		amount = 0
-		CRASH("null amount passed to reagent code")
-
-	if(!isnum_safe(amount))
+	if(!IS_FINITE(amount))
+		stack_trace("invalid number passed to remove_reagent [amount]")
 		return FALSE
 
-	if(amount < 0)
+	amount = round(amount, CHEMICAL_QUANTISATION_LEVEL)
+	if(amount <= 0)
 		return FALSE
 
 	var/list/cached_reagents = reagent_list

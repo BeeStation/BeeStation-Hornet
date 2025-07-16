@@ -11,7 +11,7 @@
 		if(CLONE)
 			adjustCloneLoss(amount)
 		if(STAMINA)
-			adjustStaminaLoss(amount)
+			adjustStaminaLoss(damage_amount, forced = forced)
 
 /mob/living/proc/get_damage_amount(damagetype = BRUTE)
 	switch(damagetype)
@@ -27,6 +27,10 @@
 			return getCloneLoss()
 		if(STAMINA)
 			return getStaminaLoss()
+
+/// return the total damage of all types which update your health
+/mob/living/proc/get_total_damage(precision = DAMAGE_PRECISION)
+	return round(getBruteLoss() + getFireLoss() + getToxLoss() + getOxyLoss() + getCloneLoss(), precision)
 
 /mob/living/proc/apply_effect(effect = 0,effecttype = EFFECT_STUN, blocked = FALSE)
 	var/hit_percent = (100-blocked)/100
@@ -189,9 +193,7 @@
 
 // heal ONE external organ, organ gets randomly selected from damaged ones.
 /mob/living/proc/heal_bodypart_damage(brute = 0, burn = 0, stamina = 0, updating_health = TRUE, required_status)
-	adjustBruteLoss(-brute, FALSE) //zero as argument for no instant health update
-	adjustFireLoss(-burn, FALSE)
-	adjustStaminaLoss(-stamina, FALSE)
+	. = (adjustBruteLoss(-brute, FALSE) + adjustFireLoss(-burn, FALSE) + adjustStaminaLoss(-stamina, FALSE)) //zero as argument for no instant health update
 	if(updating_health)
 		updatehealth()
 		update_stamina()

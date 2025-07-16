@@ -15,4 +15,4 @@
 	attack_verb_continuous = list("warns", "cautions", "smashes")
 	attack_verb_simple = list("warn", "caution", "smash")
 	armor_type = /datum/armor/civilian_padded
-	pocket_storage_component_path = null
+	pockets = FALSE

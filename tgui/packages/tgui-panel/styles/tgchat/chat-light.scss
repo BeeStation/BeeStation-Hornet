@@ -624,6 +624,7 @@ h2.alert {
   padding: 10px;
   margin: 10px 20px;
 }
+
 .death_message {
   display: block;
   color: white;
@@ -1590,4 +1591,9 @@ $border-width-px: $border-width * 1px;
   .chat_alert_#{$color-name} .major_announcement_text {
     background-color: lighten(map.get($alert-stripe-alternate-colors, $color-name), 5);
   }
+}
+
+.tooltip {
+  font-style: italic;
+  border-bottom: 1px dashed #000;
 }

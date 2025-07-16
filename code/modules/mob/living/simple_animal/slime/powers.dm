@@ -109,6 +109,10 @@
 		layer = M.layer+0.01 //appear above the target mob
 		M.visible_message(span_danger("[name] has latched onto [M]!"), \
 						span_userdanger("[name] has latched onto [M]!"))
+		if(colour == SLIME_TYPE_GREEN && istype(get_turf(M), /turf/open/floor/grass))
+			special_mutation = TRUE
+			special_mutation_type = SLIME_TYPE_DARK_GREEN
+			M.visible_message(span_danger("[name] absorbs vitality from the surrounding grass, green membrane darkening at the touch."))
 	else
 		to_chat(src, span_warning("<i>I have failed to latch onto the subject!</i>"))
 
@@ -223,10 +227,12 @@
 	var/child_colour = colour
 	if(!force_original_colour)
 		if(mutation_chance >= 100)
-			child_colour = "rainbow"
+			child_colour = SLIME_TYPE_RAINBOW
+		else if(special_mutation == TRUE)
+			child_colour = special_mutation_type
 		else if(prob(mutation_chance))
 			if(transformeffects & SLIME_EFFECT_PYRITE)
-				slime_mutation = mutation_table(pick(slime_colours - list("rainbow")))
+				slime_mutation = mutation_table(pick(slime_colours - SLIME_TYPE_RAINBOW))
 			child_colour = slime_mutation[rand(1,4)]
 		else
 			child_colour = colour
@@ -234,6 +240,7 @@
 	M.transformeffects = transformeffects
 	M.set_nutrition(new_nutrition)
 	M.powerlevel = new_powerlevel
+	M.special_mutation = FALSE
 	if(transformeffects & SLIME_EFFECT_METAL)
 		M.maxHealth = round(M.maxHealth * 1.3)
 		M.health = M.maxHealth
@@ -246,8 +253,7 @@
 	if(transformeffects & SLIME_EFFECT_LIGHT_PINK)
 		GLOB.poi_list |= M
 		M.master = master
-		LAZYADD(GLOB.mob_spawners["[master.real_name]'s slime"], M)
-		SSmobs.update_spawners()
+		M.set_playable_slime(ROLE_SENTIENCE)
 	M.set_friends(Friends)
 	if(step_away)
 		step_away(M,src)

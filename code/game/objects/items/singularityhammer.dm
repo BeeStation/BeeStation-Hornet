@@ -9,7 +9,7 @@
 	slot_flags = ITEM_SLOT_BACK
 	force = 5
 	attack_weight = 3
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	throwforce = 15
 	throw_range = 1
 	w_class = WEIGHT_CLASS_HUGE

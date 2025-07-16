@@ -22,7 +22,7 @@
 		else
 			return
 	// Client does NOT have tgui_input on: Returns regular input
-	if(!user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_input))
+	if(user.client.prefs && !user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_input))
 		return input(user, message, title) as null|anything in items
 	var/datum/tgui_list_input/input = new(user, message, title, items, default, timeout)
 	input.ui_interact(user)
@@ -56,7 +56,7 @@
 		else
 			return
 	// Client does NOT have tgui_input on: Returns regular input
-	if(!user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_input))
+	if(user.client.prefs && !user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_input))
 		return input(user, message, title) as null|anything in items
 	var/datum/tgui_list_input/async/input = new(user, message, title, items, default, callback, timeout)
 	input.ui_interact(user)

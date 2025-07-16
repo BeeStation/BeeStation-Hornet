@@ -90,12 +90,6 @@
 		var/mob/living/M = target
 		M.adjust_bodytemperature(((100-blocked)/100)*(temperature - M.bodytemperature))
 
-/obj/projectile/bullet/c38/improv
-	damage = 25
-	ricochets_max = 1
-	ricochet_chance = 80
-	ricochet_auto_aim_range = 0
-
 /obj/projectile/bullet/c38/mime
 	name = "invisible .38 bullet"
 	icon_state = null
@@ -130,10 +124,6 @@
 	name = ".357 bullet"
 	damage = 60
 	sharpness = SHARP_X
-
-/obj/projectile/bullet/a357/improv
-	damage = 50
-	sharpness = SHARP_III
 
 // admin only really, for ocelot memes
 /obj/projectile/bullet/a357/match

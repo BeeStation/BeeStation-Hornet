@@ -64,8 +64,9 @@
 	beating = FALSE
 	update_icon()
 
-/obj/item/organ/heart/on_life()
+/obj/item/organ/heart/on_life(delta_time, times_fired)
 	..()
+
 	if(owner.client && beating)
 		failed = FALSE
 		var/sound/slowbeat = sound('sound/health/slowbeat.ogg', repeat = TRUE)
@@ -95,10 +96,8 @@
 		owner.set_heartattack(TRUE)
 		failed = TRUE
 
-/obj/item/organ/heart/get_availability(mob/living/carbon/target, datum/species/species)
-	if(species.mutantheart)
-		return TRUE && ..() //always give heart if mutant is defined
-	return !(NOBLOOD in species.species_traits) && ..()
+/obj/item/organ/heart/get_availability(datum/species/owner_species, mob/living/owner_mob)
+	return owner_species.mutantheart && ..()
 
 /obj/item/organ/heart/cursed
 	name = "cursed heart"
@@ -126,11 +125,12 @@
 	else
 		return ..()
 
-/obj/item/organ/heart/cursed/on_life()
+/obj/item/organ/heart/cursed/on_life(delta_time, times_fired)
+	SHOULD_CALL_PARENT(FALSE)
 	if(world.time > (last_pump + pump_delay))
 		if(ishuman(owner) && owner.client) //While this entire item exists to make people suffer, they can't control disconnects.
 			var/mob/living/carbon/human/H = owner
-			if(H.dna && !(NOBLOOD in H.dna.species.species_traits))
+			if(H.dna && !HAS_TRAIT(H, TRAIT_NOBLOOD))
 				H.blood_volume = max(H.blood_volume - blood_loss, 0)
 				to_chat(H, span_userdanger("You have to keep pumping your blood!"))
 				if(add_colour)
@@ -139,10 +139,9 @@
 		else
 			last_pump = world.time //lets be extra fair *sigh*
 
-/obj/item/organ/heart/cursed/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
-	..()
-	if(owner)
-		to_chat(owner, span_userdanger("Your heart has been replaced with a cursed one, you have to pump this one manually otherwise you'll die!"))
+/obj/item/organ/heart/cursed/on_insert(mob/living/carbon/accursed)
+	. = ..()
+	to_chat(accursed, span_userdanger("Your heart has been replaced with a cursed one, you have to pump this one manually otherwise you'll die!"))
 
 /obj/item/organ/heart/cursed/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
@@ -167,7 +166,7 @@
 
 		var/mob/living/carbon/human/H = owner
 		if(istype(H))
-			if(H.dna && !(NOBLOOD in H.dna.species.species_traits))
+			if(H.dna && !HAS_TRAIT(H, TRAIT_NOBLOOD))
 				H.blood_volume = min(H.blood_volume + cursed_heart.blood_loss*0.5, BLOOD_VOLUME_MAXIMUM)
 				H.remove_client_colour(/datum/client_colour/cursed_heart_blood)
 				cursed_heart.add_colour = TRUE
@@ -199,7 +198,7 @@
 		Stop()
 		addtimer(CALLBACK(src, PROC_REF(Restart)), 10 SECONDS)
 
-/obj/item/organ/heart/cybernetic/on_life()
+/obj/item/organ/heart/cybernetic/on_life(delta_time, times_fired)
 	. = ..()
 	if(dose_available && owner.stat == UNCONSCIOUS && !owner.reagents.has_reagent(rid))
 		owner.reagents.add_reagent(rid, ramount)
@@ -226,12 +225,13 @@
 	name = "heart of freedom"
 	desc = "This heart pumps with the passion to give... something freedom."
 	organ_flags = ORGAN_SYNTHETIC //the power of freedom prevents heart attacks
-	var/min_next_adrenaline = 0
+	/// The cooldown until the next time this heart can give the host an adrenaline boost.
+	COOLDOWN_DECLARE(adrenaline_cooldown)
 
-/obj/item/organ/heart/freedom/on_life()
+/obj/item/organ/heart/freedom/on_life(delta_time, times_fired)
 	. = ..()
-	if(owner.health < 5 && world.time > min_next_adrenaline)
-		min_next_adrenaline = world.time + rand(250, 600) //anywhere from 4.5 to 10 minutes
+	if(owner.health < 5 && COOLDOWN_FINISHED(src, adrenaline_cooldown))
+		COOLDOWN_START(src, adrenaline_cooldown, rand(25 SECONDS, 1 MINUTES))
 		to_chat(owner, span_userdanger("You feel yourself dying, but you refuse to give up!"))
 		owner.heal_overall_damage(15, 15, 0, BODYTYPE_ORGANIC)
 		if(owner.reagents.get_reagent_amount(/datum/reagent/medicine/ephedrine) < 20)

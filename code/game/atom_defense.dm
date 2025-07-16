@@ -204,6 +204,10 @@
 	SHOULD_BE_PURE(TRUE)
 	return atom_integrity
 
+/atom/proc/get_integrity_ratio()
+	SHOULD_BE_PURE(TRUE)
+	return (atom_integrity - integrity_failure * max_integrity) / (max_integrity * (1 - integrity_failure))
+
 ///the sound played when the atom is damaged.
 /atom/proc/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)

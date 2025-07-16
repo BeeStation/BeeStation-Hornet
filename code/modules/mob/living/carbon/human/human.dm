@@ -39,7 +39,6 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 	AddElement(/datum/element/mechanical_repair)
-	ADD_TRAIT(src, TRAIT_ADVANCEDTOOLUSER, ROUNDSTART_TRAIT)
 	GLOB.human_list += src
 
 /mob/living/carbon/human/proc/setup_human_dna()
@@ -92,7 +91,7 @@
 			tab_data["Energy Charge"] = GENERATE_STAT_TEXT("[round(SN.cell.charge/100)]%")
 			tab_data["Smoke Bombs"] = GENERATE_STAT_TEXT("[SN.s_bombs]")
 			//Ninja status
-			tab_data["Fingerprints"] = GENERATE_STAT_TEXT("[rustg_hash_string(RUSTG_HASH_MD5, dna.uni_identity)]")
+			tab_data["Fingerprints"] = GENERATE_STAT_TEXT("[rustg_hash_string(RUSTG_HASH_MD5, dna.unique_identity)]")
 			tab_data["Unique Identity"] = GENERATE_STAT_TEXT("[dna.unique_enzymes]")
 			tab_data["Overall Status"] = GENERATE_STAT_TEXT("[stat > 1 ? "dead" : "[health]% healthy"]")
 			tab_data["Nutrition Status"] = GENERATE_STAT_TEXT("[nutrition]")
@@ -320,33 +319,23 @@
 			if(ishuman(human_or_ghost_user))
 				if(href_list["add_citation"])
 					var/max_fine = CONFIG_GET(number/maxfine)
-					var/citation_name = tgui_input_text(human_user, "Citation crime", "Security HUD", max_length = MAX_MESSAGE_LEN)
+					var/citation_name = sanitize_ic(tgui_input_text(human_user, "Citation crime", "Security HUD", max_length = MAX_MESSAGE_LEN))
 					var/fine = tgui_input_number(human_user, "Citation fine", "Security HUD", 50, max_fine, 5)
 					if(!fine || !target_record || !citation_name || !allowed_access || !isnum(fine) || fine > max_fine || fine <= 0 || !human_user.canUseHUD() || !HAS_TRAIT(human_user, TRAIT_SECURITY_HUD))
 						return
-
-					var/datum/crime_record/citation/new_citation = new(name = citation_name, author = allowed_access, fine = fine)
-
-					target_record.citations += new_citation
-					new_citation.alert_owner(usr, src, target_record.name, "You have been fined [fine] credits for '[citation_name]'. Fines may be paid at security.")
-					investigate_log("New Citation: <strong>[citation_name]</strong> Fine: [fine] | Added to [target_record.name] by [key_name(human_user)]", INVESTIGATE_RECORDS)
+					target_record.add_crime(usr, citation_name, fine, null, src)
 					return
 
 				if(href_list["add_crime"])
-					var/crime_name = tgui_input_text(human_user, "Crime name", "Security HUD", max_length = MAX_MESSAGE_LEN)
+					var/crime_name = sanitize_ic(tgui_input_text(human_user, "Crime name", "Security HUD", max_length = MAX_MESSAGE_LEN))
 					if(!target_record || !crime_name || !allowed_access || !human_user.canUseHUD() || !HAS_TRAIT(human_user, TRAIT_SECURITY_HUD))
 						return
-
-					var/datum/crime_record/new_crime = new(name = crime_name, author = allowed_access)
-
-					target_record.crimes += new_crime
-					investigate_log("New Crime: <strong>[crime_name]</strong> | Added to [target_record.name] by [key_name(human_user)]", INVESTIGATE_RECORDS)
+					target_record.add_crime(human_user, crime_name, 0, null, src)
 					to_chat(human_user, span_notice("Successfully added a crime."))
-
 					return
 
 				if(href_list["add_note"])
-					var/new_note = tgui_input_text(human_user, "Security note", "Security Records", max_length = MAX_MESSAGE_LEN, multiline = TRUE)
+					var/new_note = sanitize_ic(tgui_input_text(human_user, "Security note", "Security Records", max_length = MAX_MESSAGE_LEN, multiline = TRUE))
 					if(!target_record || !new_note || !allowed_access || !human_user.canUseHUD() || !HAS_TRAIT(human_user, TRAIT_SECURITY_HUD))
 						return
 
@@ -363,19 +352,30 @@
 	. = TRUE // Default to returning true.
 	if(user && !target_zone)
 		target_zone = user.get_combat_bodyzone()
+	var/obj/item/bodypart/the_part = get_bodypart(target_zone) || get_bodypart(BODY_ZONE_CHEST)
 	// we may choose to ignore species trait pierce immunity in case we still want to check skellies for thick clothing without insta failing them (wounds)
 	if(injection_flags & INJECT_CHECK_IGNORE_SPECIES)
 		if(HAS_TRAIT_NOT_FROM(src, TRAIT_PIERCEIMMUNE, SPECIES_TRAIT))
-			. = FALSE
+			if (user && (injection_flags & INJECT_TRY_SHOW_ERROR_MESSAGE))
+				to_chat(user, span_alert("The skin on [p_their()] [the_part.name] is too thick!"))
+			return FALSE
 	else if(HAS_TRAIT(src, TRAIT_PIERCEIMMUNE))
-		. = FALSE
-	var/obj/item/bodypart/the_part = get_bodypart(target_zone) || get_bodypart(BODY_ZONE_CHEST)
+		if (user && (injection_flags & INJECT_TRY_SHOW_ERROR_MESSAGE))
+			to_chat(user, span_alert("The skin on [p_their()] [the_part.name] is too thick!"))
+		return FALSE
 	// Loop through the clothing covering this bodypart and see if there's any thiccmaterials
-	if(!(injection_flags & INJECT_CHECK_PENETRATE_THICK))
-		for(var/obj/item/clothing/iter_clothing in clothingonpart(the_part))
-			if(iter_clothing.clothing_flags & THICKMATERIAL)
-				. = FALSE
-				break
+	var/require_thickness = (injection_flags & INJECT_CHECK_PENETRATE_THICK)
+	for(var/obj/item/clothing/iter_clothing in clothingonpart(the_part))
+		// If it has armour, it has enough thickness to block basic things
+		if(!require_thickness && (iter_clothing.get_armor().get_rating(MELEE) >= 10 || iter_clothing.get_armor().get_rating(BULLET) >= 10))
+			if (user && (injection_flags & INJECT_TRY_SHOW_ERROR_MESSAGE))
+				to_chat(user, span_alert("The clothing on [p_their()] [the_part.name] is too thick!"))
+			return FALSE
+		// If it is ultra thick, then block piercing syringes
+		if(iter_clothing.clothing_flags & THICKMATERIAL)
+			if (user && (injection_flags & INJECT_TRY_SHOW_ERROR_MESSAGE))
+				to_chat(user, span_alert("The clothing on [p_their()] [the_part.name] is too thick!"))
+			return FALSE
 
 /mob/living/carbon/human/try_inject(mob/user, target_zone, injection_flags)
 	. = ..()
@@ -509,7 +509,7 @@
 			to_chat(src, span_warning("Remove [p_their()] mask first!"))
 			return FALSE
 
-		if (!getorganslot(ORGAN_SLOT_LUNGS))
+		if (!get_organ_slot(ORGAN_SLOT_LUNGS))
 			to_chat(src, span_warning("You have no lungs to breathe with, so you cannot perform CPR!"))
 			return FALSE
 
@@ -533,7 +533,7 @@
 
 		if (HAS_TRAIT(target, TRAIT_NOBREATH))
 			to_chat(target, span_unconscious("You feel a breath of fresh air... which is a sensation you don't recognise..."))
-		else if (!target.getorganslot(ORGAN_SLOT_LUNGS))
+		else if (!target.get_organ_slot(ORGAN_SLOT_LUNGS))
 			to_chat(target, span_unconscious("You feel a breath of fresh air... but you don't feel any better..."))
 		else
 			target.adjustOxyLoss(-min(target.getOxyLoss(), 7))
@@ -779,7 +779,7 @@
 	return TRUE
 
 /mob/living/carbon/human/vomit(lost_nutrition = 10, blood = 0, stun = 1, distance = 0, message = 1, toxic = 0)
-	if(blood && (NOBLOOD in dna.species.species_traits))
+	if(blood && HAS_TRAIT(src, TRAIT_NOBLOOD))
 		if(message)
 			visible_message(span_warning("[src] dry heaves!"), \
 							span_userdanger("You try to throw up, but there's nothing in your stomach!"))
@@ -857,11 +857,15 @@
 	if(href_list[VV_HK_SET_SPECIES])
 		if(!check_rights(R_SPAWN))
 			return
-		var/result = input(usr, "Please choose a new species","Species") as null|anything in GLOB.species_list
-		if(result)
-			var/newtype = GLOB.species_list[result]
-			admin_ticket_log("[key_name_admin(usr)] has modified the bodyparts of [src] to [result]")
-			set_species(newtype)
+		var/list/species_list = GLOB.species_list
+		var/result = tgui_input_list(usr, "Please choose a new species", "Species", sort_list(species_list))
+		if(isnull(result))
+			return
+		var/newtype = GLOB.species_list[result]
+		if(isnull(newtype))
+			return
+		admin_ticket_log("[key_name_admin(usr)] has modified the bodyparts of [src] to [result]")
+		set_species(newtype)
 	if(href_list[VV_HK_PURRBATION])
 		if(!check_rights(R_SPAWN))
 			return
@@ -1073,7 +1077,7 @@
 	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_POWERHUNGRY))
-		var/obj/item/organ/stomach/battery/battery = getorganslot(ORGAN_SLOT_STOMACH)
+		var/obj/item/organ/stomach/battery/battery = get_organ_slot(ORGAN_SLOT_STOMACH)
 		if(istype(battery))
 			battery.adjust_charge_scaled(change)
 		return FALSE
@@ -1083,7 +1087,7 @@
 	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_POWERHUNGRY))
-		var/obj/item/organ/stomach/battery/battery = getorganslot(ORGAN_SLOT_STOMACH)
+		var/obj/item/organ/stomach/battery/battery = get_organ_slot(ORGAN_SLOT_STOMACH)
 		if(istype(battery))
 			battery.set_charge_scaled(change)
 		return FALSE
@@ -1133,9 +1137,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/human/species)
 
 /mob/living/carbon/human/species/golem
 	race = /datum/species/golem
-
-/mob/living/carbon/human/species/golem/random
-	race = /datum/species/golem/random
 
 /mob/living/carbon/human/species/golem/adamantine
 	race = /datum/species/golem/adamantine
@@ -1251,6 +1252,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/human/species)
 
 /mob/living/carbon/human/species/shadow/nightmare
 	race = /datum/species/shadow/nightmare
+
+/mob/living/carbon/human/species/shadow/blessed
+	race = /datum/species/shadow/blessed
 
 /mob/living/carbon/human/species/skeleton
 	race = /datum/species/skeleton

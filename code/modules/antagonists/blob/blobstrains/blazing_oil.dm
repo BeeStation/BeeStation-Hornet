@@ -12,6 +12,7 @@
 	message = "The blob splashes you with burning oil"
 	message_living = ", and you feel your skin char and melt"
 	reagent = /datum/reagent/blob/blazing_oil
+	fire_based = TRUE
 
 /datum/blobstrain/reagent/blazing_oil/extinguish_reaction(obj/structure/blob/B)
 	B.deal_damage(1.5, 0, BURN, DAMAGE_ENERGY)

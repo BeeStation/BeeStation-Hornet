@@ -46,47 +46,59 @@
 	limb_id = "abductor"
 	should_draw_greyscale = FALSE
 
-///JELLY
-/obj/item/bodypart/head/jelly
-	limb_id = "jelly"
-	is_dimorphic = TRUE
-
-/obj/item/bodypart/chest/jelly
-	limb_id = "jelly"
-	is_dimorphic = TRUE
-
-/obj/item/bodypart/l_arm/jelly
-	limb_id = "jelly"
-
-/obj/item/bodypart/r_arm/jelly
-	limb_id = "jelly"
-
-/obj/item/bodypart/l_leg/jelly
-	limb_id = "jelly"
-
-/obj/item/bodypart/r_leg/jelly
-	limb_id = "jelly"
-
 ///SLIME
 /obj/item/bodypart/head/slime
-	limb_id = "slime"
+	limb_id = SPECIES_SLIMEPERSON
 	is_dimorphic = FALSE
+	dmg_overlay_type = null
 
 /obj/item/bodypart/chest/slime
-	limb_id = "slime"
+	limb_id = SPECIES_SLIMEPERSON
 	is_dimorphic = TRUE
+	dmg_overlay_type = null
 
 /obj/item/bodypart/l_arm/slime
-	limb_id = "slime"
+	limb_id = SPECIES_SLIMEPERSON
+	dmg_overlay_type = null
 
 /obj/item/bodypart/r_arm/slime
-	limb_id = "slime"
+	limb_id = SPECIES_SLIMEPERSON
+	dmg_overlay_type = null
 
 /obj/item/bodypart/l_leg/slime
-	limb_id = "slime"
+	limb_id = SPECIES_SLIMEPERSON
+	dmg_overlay_type = null
 
 /obj/item/bodypart/r_leg/slime
-	limb_id = "slime"
+	limb_id = SPECIES_SLIMEPERSON
+	dmg_overlay_type = null
+
+///LUMINESCENT
+/obj/item/bodypart/head/luminescent
+	limb_id = SPECIES_LUMINESCENT
+	is_dimorphic = TRUE
+	dmg_overlay_type = null
+
+/obj/item/bodypart/chest/luminescent
+	limb_id = SPECIES_LUMINESCENT
+	is_dimorphic = TRUE
+	dmg_overlay_type = null
+
+/obj/item/bodypart/l_arm/luminescent
+	limb_id = SPECIES_LUMINESCENT
+	dmg_overlay_type = null
+
+/obj/item/bodypart/r_arm/luminescent
+	limb_id = SPECIES_LUMINESCENT
+	dmg_overlay_type = null
+
+/obj/item/bodypart/l_leg/luminescent
+	limb_id = SPECIES_LUMINESCENT
+	dmg_overlay_type = null
+
+/obj/item/bodypart/r_leg/luminescent
+	limb_id = SPECIES_LUMINESCENT
+	dmg_overlay_type = null
 
 ///ZAMBONI
 /obj/item/bodypart/head/zombie
@@ -178,45 +190,51 @@
 
 ///SKELETON
 /obj/item/bodypart/head/skeleton
-	limb_id = "skeleton"
+	limb_id = SPECIES_SKELETON
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
+	dmg_overlay_type = null
 
 /obj/item/bodypart/head/skeleton/setup_injury_trees()
 	apply_injury_tree(/datum/injury/trauma_healthy)
 
 /obj/item/bodypart/chest/skeleton
-	limb_id = "skeleton"
+	limb_id = SPECIES_SKELETON
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
+	dmg_overlay_type = null
 
 /obj/item/bodypart/head/skeleton/setup_injury_trees()
 	apply_injury_tree(/datum/injury/trauma_healthy)
 
 /obj/item/bodypart/l_arm/skeleton
-	limb_id = "skeleton"
+	limb_id = SPECIES_SKELETON
 	should_draw_greyscale = FALSE
+	dmg_overlay_type = null
 
 /obj/item/bodypart/l_arm/skeleton/setup_injury_trees()
 	apply_injury_tree(/datum/injury/trauma_healthy)
 
 /obj/item/bodypart/r_arm/skeleton
-	limb_id = "skeleton"
+	limb_id = SPECIES_SKELETON
 	should_draw_greyscale = FALSE
+	dmg_overlay_type = null
 
 /obj/item/bodypart/r_arm/skeleton/setup_injury_trees()
 	apply_injury_tree(/datum/injury/trauma_healthy)
 
 /obj/item/bodypart/l_leg/skeleton
-	limb_id = "skeleton"
+	limb_id = SPECIES_SKELETON
 	should_draw_greyscale = FALSE
+	dmg_overlay_type = null
 
 /obj/item/bodypart/l_leg/skeleton/setup_injury_trees()
 	apply_injury_tree(/datum/injury/trauma_healthy)
 
 /obj/item/bodypart/r_leg/skeleton
-	limb_id = "skeleton"
+	limb_id = SPECIES_SKELETON
 	should_draw_greyscale = FALSE
+	dmg_overlay_type = null
 
 /obj/item/bodypart/r_leg/skeleton/setup_injury_trees()
 	apply_injury_tree(/datum/injury/trauma_healthy)
@@ -246,6 +264,7 @@
 /obj/item/bodypart/head/golem
 	limb_id = "golem"
 	is_dimorphic = FALSE
+	dmg_overlay_type = null
 
 /obj/item/bodypart/head/golem/setup_injury_trees()
 	return
@@ -253,30 +272,35 @@
 /obj/item/bodypart/chest/golem
 	limb_id = "golem"
 	is_dimorphic = FALSE
+	dmg_overlay_type = null
 
 /obj/item/bodypart/chest/golem/setup_injury_trees()
 	return
 
 /obj/item/bodypart/l_arm/golem
 	limb_id = "golem"
+	dmg_overlay_type = null
 
 /obj/item/bodypart/l_arm/golem/setup_injury_trees()
 	return
 
 /obj/item/bodypart/r_arm/golem
 	limb_id = "golem"
+	dmg_overlay_type = null
 
 /obj/item/bodypart/r_arm/golem/setup_injury_trees()
 	return
 
 /obj/item/bodypart/l_leg/golem
 	limb_id = "golem"
+	dmg_overlay_type = null
 
 /obj/item/bodypart/l_leg/golem/setup_injury_trees()
 	return
 
 /obj/item/bodypart/r_leg/golem
 	limb_id = "golem"
+	dmg_overlay_type = null
 
 /obj/item/bodypart/r_leg/golem/setup_injury_trees()
 	return
@@ -367,27 +391,33 @@
 	limb_id = "clockgolem"
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
+	dmg_overlay_type = "synth"
 
 /obj/item/bodypart/chest/golem/clock
 	limb_id = "clockgolem"
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
+	dmg_overlay_type = "synth"
 
 /obj/item/bodypart/l_arm/golem/clock
 	limb_id = "clockgolem"
 	should_draw_greyscale = FALSE
+	dmg_overlay_type = "synth"
 
 /obj/item/bodypart/r_arm/golem/clock
 	limb_id = "clockgolem"
 	should_draw_greyscale = FALSE
+	dmg_overlay_type = "synth"
 
 /obj/item/bodypart/l_leg/golem/clock
 	limb_id = "clockgolem"
 	should_draw_greyscale = FALSE
+	dmg_overlay_type = "synth"
 
 /obj/item/bodypart/r_leg/golem/clock
 	limb_id = "clockgolem"
 	should_draw_greyscale = FALSE
+	dmg_overlay_type = "synth"
 
 ///
 /obj/item/bodypart/head/golem/cloth

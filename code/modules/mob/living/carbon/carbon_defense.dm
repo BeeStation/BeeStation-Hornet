@@ -96,7 +96,7 @@
 
 /mob/living/carbon/get_eye_protection()
 	. = ..()
-	var/obj/item/organ/eyes/E = getorganslot(ORGAN_SLOT_EYES)
+	var/obj/item/organ/eyes/E = get_organ_slot(ORGAN_SLOT_EYES)
 	if(!E)
 		return INFINITY //Can't get flashed without eyes
 	. += E.flash_protect
@@ -109,7 +109,7 @@
 
 /mob/living/carbon/get_ear_protection()
 	. = ..()
-	var/obj/item/organ/ears/E = getorganslot(ORGAN_SLOT_EARS)
+	var/obj/item/organ/ears/E = get_organ_slot(ORGAN_SLOT_EARS)
 	if(!E)
 		return INFINITY
 	. += E.bang_protect
@@ -208,9 +208,9 @@
 		if(mangled_state == BODYPART_MANGLED_BOTH)
 			extra_wound_details = ", threatening to sever it entirely"
 		else if((mangled_state == BODYPART_MANGLED_FLESH && I.get_sharpness()) || (mangled_state & BODYPART_MANGLED_BONE && bio_state == BIO_JUST_BONE))
-			extra_wound_details = ", [I.get_sharpness() == SHARP_EDGED ? "slicing" : "piercing"] through to the bone"
+			extra_wound_details = ", [I.get_sharpness() == SHARP ? "slicing" : "piercing"] through to the bone"
 		else if((mangled_state == BODYPART_MANGLED_BONE && I.get_sharpness()) || (mangled_state & BODYPART_MANGLED_FLESH && bio_state == BIO_JUST_FLESH))
-			extra_wound_details = ", [I.get_sharpness() == SHARP_EDGED ? "slicing" : "piercing"] at the remaining tissue"
+			extra_wound_details = ", [I.get_sharpness() == SHARP ? "slicing" : "piercing"] at the remaining tissue"
 	*/
 
 	var/message_hit_area = ""
@@ -279,7 +279,7 @@
 		help_shake_act(M)
 		return FALSE
 
-	if(..() && can_inject(M, TRUE)) //successful monkey bite.
+	if(..() && can_inject(M, get_combat_bodyzone(), INJECT_CHECK_PENETRATE_THICK | INJECT_TRY_SHOW_ERROR_MESSAGE)) //successful monkey bite.
 		for(var/thing in M.diseases)
 			var/datum/disease/D = thing
 			ForceContractDisease(D)
@@ -329,6 +329,7 @@
  * Attempt to disarm the target mob.
  * Will shove the target mob back, and drop them if they're in front of something dense
  * or another carbon.
+ * src is the attacker
 */
 /mob/living/carbon/proc/disarm(mob/living/carbon/target)
 	do_attack_animation(target, ATTACK_EFFECT_DISARM)
@@ -493,7 +494,7 @@
 /mob/living/carbon/flash_act(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
 	if(NOFLASH in dna?.species?.species_traits)
 		return
-	var/obj/item/organ/eyes/eyes = getorganslot(ORGAN_SLOT_EYES)
+	var/obj/item/organ/eyes/eyes = get_organ_slot(ORGAN_SLOT_EYES)
 	if(!eyes || (!override_blindness_check && HAS_TRAIT(src, TRAIT_BLIND))) //can't flash what can't see!
 		return
 	. = ..()
@@ -544,7 +545,7 @@
 	SEND_SIGNAL(src, COMSIG_CARBON_SOUNDBANG, reflist)
 	intensity = reflist[1]
 	var/ear_safety = get_ear_protection()
-	var/obj/item/organ/ears/ears = getorganslot(ORGAN_SLOT_EARS)
+	var/obj/item/organ/ears/ears = get_organ_slot(ORGAN_SLOT_EARS)
 	var/effect_amount = intensity - ear_safety
 	if(effect_amount > 0)
 		if(stun_pwr)
@@ -586,7 +587,7 @@
 
 /mob/living/carbon/can_hear()
 	. = FALSE
-	var/obj/item/organ/ears/ears = getorganslot(ORGAN_SLOT_EARS)
+	var/obj/item/organ/ears/ears = get_organ_slot(ORGAN_SLOT_EARS)
 	if(istype(ears) && !ears.deaf)
 		. = TRUE
 

@@ -286,7 +286,7 @@
 	desc = "This one is rusted."
 	force = 30
 	block_level = 1
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	sharpness = SHARP_III
 

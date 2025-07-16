@@ -11,26 +11,29 @@
 	desc = "If left untreated the subject will burn to death for being a heretic."
 	danger = DISEASE_DANGEROUS
 
-/datum/disease/fluspanish/stage_act()
-	..()
+
+/datum/disease/fluspanish/stage_act(delta_time, times_fired)
+	. = ..()
+	if(!.)
+		return
+
 	switch(stage)
 		if(2)
-			affected_mob.adjust_bodytemperature(10)
-			if(prob(5))
+			affected_mob.adjust_bodytemperature(5 * delta_time)
+			if(DT_PROB(2.5, delta_time))
 				affected_mob.emote("sneeze")
-			if(prob(5))
+			if(DT_PROB(2.5, delta_time))
 				affected_mob.emote("cough")
-			if(prob(1))
+			if(DT_PROB(0.5, delta_time))
 				to_chat(affected_mob, span_danger("You're burning in your own skin!"))
-				affected_mob.take_bodypart_damage(0,5)
+				affected_mob.take_bodypart_damage(0, 5, updating_health = FALSE)
 
 		if(3)
-			affected_mob.adjust_bodytemperature(20)
-			if(prob(5))
+			affected_mob.adjust_bodytemperature(10 * delta_time)
+			if(DT_PROB(2.5, delta_time))
 				affected_mob.emote("sneeze")
-			if(prob(5))
+			if(DT_PROB(2.5, delta_time))
 				affected_mob.emote("cough")
-			if(prob(5))
+			if(DT_PROB(2.5, delta_time))
 				to_chat(affected_mob, span_danger("You're burning in your own skin!"))
-				affected_mob.take_bodypart_damage(0,5)
-	return
+				affected_mob.take_bodypart_damage(0, 5, updating_health = FALSE)

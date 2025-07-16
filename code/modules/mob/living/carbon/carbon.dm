@@ -6,6 +6,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	. = ..()
 	create_reagents(1000)
 	update_body_parts() //to update the carbon's new bodyparts appearance
+
 	GLOB.carbon_list += src
 	RegisterSignal(src, COMSIG_MOB_LOGOUT, PROC_REF(med_hud_set_status))
 	RegisterSignal(src, COMSIG_MOB_LOGIN, PROC_REF(med_hud_set_status))
@@ -43,7 +44,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		H = hud_used.hand_slots["[held_index]"]
 		if(H)
 			H.update_icon()
-
+	refresh_self_screentips()
 
 /mob/living/carbon/activate_hand(selhand) //l/r OR 1-held_items.len
 	if(!selhand)
@@ -62,11 +63,13 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		mode() // Activate held item
 
 /mob/living/carbon/attackby(obj/item/I, mob/living/user, params)
-	for(var/datum/surgery/S in surgeries)
-		if(body_position == LYING_DOWN || !S.lying_required)
+	for(var/datum/surgery/operations as anything in surgeries)
+		if(user.combat_mode)
+			break
+		if(body_position == LYING_DOWN || !operations.lying_required)
 			var/list/modifiers = params2list(params)
-			if((S.self_operable || user != src) && !user.combat_mode)
-				if(S.next_step(user, modifiers))
+			if((operations.self_operable || user != src))
+				if(operations.next_step(user, modifiers))
 					return TRUE
 	return ..()
 
@@ -405,7 +408,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 /mob/living/carbon/get_stat_tab_status()
 	var/list/tab_data = ..()
-	var/obj/item/organ/alien/plasmavessel/vessel = getorgan(/obj/item/organ/alien/plasmavessel)
+	var/obj/item/organ/alien/plasmavessel/vessel = get_organ_by_type(/obj/item/organ/alien/plasmavessel)
 	if(vessel)
 		tab_data["Plasma Stored"] = GENERATE_STAT_TEXT("[vessel.stored_plasma]/[vessel.max_plasma]")
 	if(locate(/obj/item/assembly/health) in src)
@@ -457,6 +460,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	if(!blood)
 		adjust_nutrition(-lost_nutrition)
 		adjustToxLoss(-3)
+
 	for(var/i=0 to distance)
 		if(blood)
 			if(T)
@@ -470,9 +474,9 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 			if(T)
 				T.add_vomit_floor(src, toxic, purge)//toxic barf looks different
 		T = get_step(T, dir)
-		if (T.is_blocked_turf())
+		if (T?.is_blocked_turf())
 			break
-	return 1
+	return TRUE
 
 /mob/living/carbon/proc/spew_organ(power = 5, amt = 1)
 	for(var/i in 1 to amt)
@@ -549,7 +553,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 	sight = initial(sight)
 	lighting_alpha = initial(lighting_alpha)
-	var/obj/item/organ/eyes/E = getorganslot(ORGAN_SLOT_EYES)
+	var/obj/item/organ/eyes/E = get_organ_slot(ORGAN_SLOT_EYES)
 	if(!E)
 		update_tint()
 	else
@@ -613,7 +617,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	if(isclothing(wear_mask))
 		. += wear_mask.tint
 
-	var/obj/item/organ/eyes/E = getorganslot(ORGAN_SLOT_EYES)
+	var/obj/item/organ/eyes/E = get_organ_slot(ORGAN_SLOT_EYES)
 	if(E)
 		. += E.tint
 	else
@@ -625,7 +629,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	if(!client)
 		return
 
-	if(health <= crit_threshold)
+	if(health <= crit_threshold && !HAS_TRAIT(src,TRAIT_NOSOFTCRIT))
 		var/severity = 0
 		switch(health)
 			if(-20 to -10)
@@ -648,7 +652,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 				severity = 9
 			if(-INFINITY to -95)
 				severity = 10
-		if(stat != HARD_CRIT)
+		if(stat != HARD_CRIT && !HAS_TRAIT(src,TRAIT_NOHARDCRIT))
 			var/visionseverity = 4
 			switch(health)
 				if(-8 to -4)
@@ -826,15 +830,15 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 /mob/living/carbon/heal_and_revive(heal_to = 75, revive_message)
 	// We can't heal them if they're missing a heart
-	if(needs_heart() && !getorganslot(ORGAN_SLOT_HEART))
+	if(needs_heart() && !get_organ_slot(ORGAN_SLOT_HEART))
 		return FALSE
 
 	// We can't heal them if they're missing their lungs
-	if(!HAS_TRAIT(src, TRAIT_NOBREATH) && !getorganslot(ORGAN_SLOT_LUNGS))
+	if(!HAS_TRAIT(src, TRAIT_NOBREATH) && !isnull(dna?.species.mutantlungs) && !get_organ_slot(ORGAN_SLOT_LUNGS))
 		return FALSE
 
 	// And we can't heal them if they're missing their liver
-	if(!getorganslot(ORGAN_SLOT_LIVER))
+	if(!HAS_TRAIT(src, TRAIT_NOMETABOLISM) && !isnull(dna?.species.mutantliver) && !get_organ_slot(ORGAN_SLOT_LIVER))
 		return FALSE
 
 	// We don't want walking husks god no
@@ -848,8 +852,8 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		for(var/addi in reagents.addiction_list)
 			reagents.remove_addiction(addi)
 	for(var/obj/item/organ/organ as anything in internal_organs)
-		organ.setOrganDamage(0)
-	var/obj/item/organ/brain/B = getorgan(/obj/item/organ/brain)
+		organ.set_organ_damage(0)
+	var/obj/item/organ/brain/B = get_organ_by_type(/obj/item/organ/brain)
 	if(B)
 		B.brain_death = FALSE
 	for(var/thing in diseases)
@@ -874,7 +878,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 /mob/living/carbon/can_be_revived()
 	. = ..()
-	if(!getorgan(/obj/item/organ/brain) && (!mind || !mind.has_antag_datum(/datum/antagonist/changeling)))
+	if(!get_organ_by_type(/obj/item/organ/brain) && (!mind || !mind.has_antag_datum(/datum/antagonist/changeling)))
 		return 0
 
 /mob/living/carbon/harvest(mob/living/user)
@@ -926,8 +930,10 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 				hand_bodyparts += bodypart_instance
 
 
-///Proc to hook behavior on bodypart additions.
+///Proc to hook behavior on bodypart additions. Do not directly call. You're looking for [/obj/item/bodypart/proc/attach_limb()].
 /mob/living/carbon/proc/add_bodypart(obj/item/bodypart/new_bodypart)
+	SHOULD_NOT_OVERRIDE(TRUE)
+
 	bodyparts += new_bodypart
 	new_bodypart.set_owner(src)
 
@@ -942,8 +948,10 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 				set_usable_hands(usable_hands + 1)
 
 
-///Proc to hook behavior on bodypart removals.
+///Proc to hook behavior on bodypart removals.  Do not directly call. You're looking for [/obj/item/bodypart/proc/drop_limb()].
 /mob/living/carbon/proc/remove_bodypart(obj/item/bodypart/old_bodypart)
+	SHOULD_NOT_OVERRIDE(TRUE)
+
 	bodyparts -= old_bodypart
 	switch(old_bodypart.body_part)
 		if(LEG_LEFT, LEG_RIGHT)

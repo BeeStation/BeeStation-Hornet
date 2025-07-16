@@ -12,6 +12,7 @@
 	item_state = null
 	blood_overlay_type = "armor"
 	body_parts_covered = CHEST|GROIN
+	pockets = FALSE
 	allowed = list(
 		/obj/item/reagent_containers/spray/plantbgone,
 		/obj/item/plant_analyzer,

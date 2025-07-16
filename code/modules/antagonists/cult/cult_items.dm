@@ -50,7 +50,7 @@ Striking a noncultist, however, will tear their flesh."}
 	sharpness = SHARP_VI
 	w_class = WEIGHT_CLASS_BULKY
 	block_level = 1
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	throwforce = 10
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -159,6 +159,10 @@ Striking a noncultist, however, will tear their flesh."}
 	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
 	heat_protection = CHEST|GROIN|LEGS|ARMS
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
+
+/obj/item/clothing/suit/hooded/cultrobes/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100)
 
 /obj/item/clothing/head/hooded/cult_hoodie/alt
 	name = "cultist hood"
@@ -475,7 +479,7 @@ Striking a noncultist, however, will tear their flesh."}
 	throwforce = 40
 	throw_speed = 2
 	sharpness = SHARP_VI
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	attack_verb_continuous = list("attacks", "impales", "stabs", "tears", "lacerates", "gores")
 	attack_verb_simple = list("attack", "impale", "stab", "tear", "lacerate", "gore")
 	hitsound = 'sound/weapons/bladeslice.ogg'

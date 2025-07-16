@@ -160,7 +160,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		add_splatter_floor(src.loc, 1)
 
 /mob/living/carbon/human/add_bleeding(bleed_level, silent = FALSE)
-	if (NOBLOOD in dna.species.species_traits)
+	if(HAS_TRAIT(src, TRAIT_NOBLOOD))
 		return
 	..()
 
@@ -263,9 +263,9 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 				adjustOxyLoss(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.02, 1))
 
 // Takes care blood loss and regeneration
-/mob/living/carbon/human/handle_blood()
+/mob/living/carbon/human/handle_blood(delta_time, times_fired)
 
-	if((NOBLOOD in dna.species.species_traits) || HAS_TRAIT(src, TRAIT_NO_BLOOD))
+	if(HAS_TRAIT(src, TRAIT_NOBLOOD) || HAS_TRAIT(src, TRAIT_NOBLOOD))
 		cauterise_wounds()
 		return
 
@@ -286,8 +286,8 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 					nutrition_ratio = 1
 			if(satiety > 80)
 				nutrition_ratio *= 1.25
-			adjust_nutrition(-nutrition_ratio * HUNGER_FACTOR)
-			blood_volume = min(BLOOD_VOLUME_NORMAL, blood_volume + 0.5 * nutrition_ratio)
+			adjust_nutrition(-nutrition_ratio * HUNGER_FACTOR * delta_time)
+			blood_volume = min(blood_volume + (BLOOD_REGEN_FACTOR * nutrition_ratio * delta_time), BLOOD_VOLUME_NORMAL)
 
 		//Effects of bloodloss
 		var/word = pick("dizzy","woozy","faint")
@@ -312,14 +312,17 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 			return
 		switch(blood_volume)
 			if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)
-				if(prob(5))
+				if(DT_PROB(2.5, delta_time))
 					to_chat(src, span_warning("You feel [word]."))
+				//adjustOxyLoss(round(0.005 * (BLOOD_VOLUME_NORMAL - blood_volume) * delta_time, 1))
 			if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY)
-				if(prob(5))
+				//adjustOxyLoss(round(0.01 * (BLOOD_VOLUME_NORMAL - blood_volume) * delta_time, 1))
+				if(DT_PROB(2.5, delta_time))
 					blur_eyes(6)
 					to_chat(src, span_warning("You feel very [word]."))
 			if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD)
-				if(prob(30))
+				//adjustOxyLoss(2.5 * delta_time)
+				if(DT_PROB(15, delta_time))
 					blur_eyes(6)
 					Unconscious(rand(3,6))
 					to_chat(src, span_warning("You feel extremely [word]."))
@@ -339,7 +342,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		// As you get less bloodloss, you bleed slower
 		// See the top of this file for desmos lines
 		var/decrease_multiplier = BLEED_RATE_MULTIPLIER
-		var/obj/item/organ/heart/heart = getorganslot(ORGAN_SLOT_HEART)
+		var/obj/item/organ/heart/heart = get_organ_slot(ORGAN_SLOT_HEART)
 		if (!heart || !heart.beating)
 			decrease_multiplier = BLEED_RATE_MULTIPLIER_NO_HEART
 		var/blood_loss_amount = blood_volume - blood_volume * NUM_E ** (-(amt * decrease_multiplier)/BLOOD_VOLUME_NORMAL)
@@ -352,7 +355,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 
 /mob/living/carbon/human/bleed(amt)
 	amt *= physiology.bleed_mod
-	if(!(NOBLOOD in dna.species.species_traits))
+	if(!HAS_TRAIT(src, TRAIT_NOBLOOD))
 		..()
 
 /mob/living/proc/restore_blood()
@@ -460,7 +463,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		return
 	if(dna.species.exotic_blood)
 		return dna.species.exotic_blood
-	else if((NOBLOOD in dna.species.species_traits))
+	else if(HAS_TRAIT(src, TRAIT_NOBLOOD))
 		return
 	return /datum/reagent/blood
 
@@ -526,7 +529,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		B.add_blood_DNA(temp_blood_DNA)
 
 /mob/living/carbon/human/add_splatter_floor(turf/T, small_drip)
-	if(!(NOBLOOD in dna.species.species_traits))
+	if(!HAS_TRAIT(src, TRAIT_NOBLOOD))
 		..()
 
 /mob/living/carbon/alien/add_splatter_floor(turf/T, small_drip)

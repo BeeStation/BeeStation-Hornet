@@ -9,7 +9,7 @@
 	force = 5
 	throwforce = 30
 	throw_range = 7
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	attack_weight = 3
 	w_class = WEIGHT_CLASS_HUGE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF

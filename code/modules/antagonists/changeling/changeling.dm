@@ -18,7 +18,7 @@
 	var/absorbedcount = 0
 	var/chem_charges = 20
 	var/chem_storage = 75
-	var/chem_recharge_rate = 1
+	var/chem_recharge_rate = 0.5
 	var/chem_recharge_slowdown = 0
 	var/sting_range = 2
 	var/changelingID = "Changeling"
@@ -104,7 +104,7 @@
 	//We'll be using this from now on
 	var/mob/living/carbon/C = owner.current
 	if(istype(C))
-		var/obj/item/organ/brain/B = C.getorganslot(ORGAN_SLOT_BRAIN)
+		var/obj/item/organ/brain/B = C.get_organ_slot(ORGAN_SLOT_BRAIN)
 		if(B && (B.decoy_override != initial(B.decoy_override)))
 			B.organ_flags |= ORGAN_VITAL
 			B.decoy_override = FALSE
@@ -232,15 +232,15 @@
 		return 0
 
 //Called in life()
-/datum/antagonist/changeling/proc/regenerate()//grants the HuD in life.dm
+/datum/antagonist/changeling/proc/regenerate(delta_time, times_fired)//grants the HuD in life.dm
 	var/mob/living/carbon/the_ling = owner.current
 	if(istype(the_ling))
 		if(the_ling.stat == DEAD)
-			chem_charges = min(max(0, chem_charges + chem_recharge_rate - chem_recharge_slowdown), (chem_storage*0.5))
-			geneticdamage = max(LING_DEAD_GENETICDAMAGE_HEAL_CAP,geneticdamage-1)
+			chem_charges = min(max(0, chem_charges + ((chem_recharge_rate - chem_recharge_slowdown) * delta_time)), (chem_storage * 0.5))
+			geneticdamage = max(geneticdamage - (0.5 * delta_time), LING_DEAD_GENETICDAMAGE_HEAL_CAP)
 		else //not dead? no chem/geneticdamage caps.
-			chem_charges = min(max(0, chem_charges + chem_recharge_rate - chem_recharge_slowdown), chem_storage)
-			geneticdamage = max(0, geneticdamage-1)
+			chem_charges = min(max(0, chem_charges + ((chem_recharge_rate - chem_recharge_slowdown) * delta_time)), chem_storage)
+			geneticdamage = max(geneticdamage - (0.5 * delta_time), 0)
 
 
 /datum/antagonist/changeling/proc/get_dna(dna_owner)
@@ -366,7 +366,8 @@
 
 /datum/antagonist/changeling/proc/create_initial_profile()
 	var/mob/living/carbon/C = owner.current	//only carbons have dna now, so we have to typecaste
-	if(C.dna.species.species_bitflags & NOT_TRANSMORPHIC)
+	//If you can't be turned into that creature, you shouldnt start as that creature
+	if(NOTRANSSTING in C.dna.species.species_traits)
 		C.set_species(/datum/species/human)
 		C.fully_replace_character_name(C.real_name, C.client.prefs.read_character_preference(/datum/preference/name/backup_human))
 		for(var/datum/record/crew/E in GLOB.manifest.general)
@@ -390,7 +391,7 @@
 	//Brains optional.
 	var/mob/living/carbon/C = owner.current
 	if(istype(C))
-		var/obj/item/organ/brain/B = C.getorganslot(ORGAN_SLOT_BRAIN)
+		var/obj/item/organ/brain/B = C.get_organ_slot(ORGAN_SLOT_BRAIN)
 		if(B)
 			B.organ_flags &= ~ORGAN_VITAL
 			B.decoy_override = TRUE
@@ -625,3 +626,4 @@
 
 /datum/antagonist/changeling/xenobio/antag_listing_name()
 	return ..() + "(Xenobio)"
+

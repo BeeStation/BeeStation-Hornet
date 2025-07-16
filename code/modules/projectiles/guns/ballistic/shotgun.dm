@@ -82,7 +82,7 @@
 	weapon_weight = WEAPON_MEDIUM
 	w_class = WEIGHT_CLASS_BULKY
 
-/obj/item/gun/ballistic/shotgun/automatic/combat/compact/shoot_live_shot(mob/living/user, pointblank, atom/pbtarget, message)
+/obj/item/gun/ballistic/shotgun/automatic/combat/compact/after_live_shot_fired(mob/living/user, pointblank, atom/pbtarget, message)
 	if(!is_wielded)
 		recoil = 6
 	else
@@ -248,12 +248,12 @@
 	var/reinforced = FALSE
 	var/barrel_stress = 0
 
-/obj/item/gun/ballistic/shotgun/doublebarrel/improvised/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
+/obj/item/gun/ballistic/shotgun/doublebarrel/improvised/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
 	if(chambered.BB && !reinforced)
 		var/obj/item/ammo_casing/shotgun/S = chambered
 		if(prob(10 + barrel_stress) && S.high_power)	//Base 10% chance of misfiring. Goes up with each shot of high_power ammo
 			backfire(user)
-			return 0
+			return FALSE
 
 		else if (S.high_power)
 			barrel_stress += 5
@@ -264,8 +264,8 @@
 
 		else if (prob(5) && barrel_stress >= 30) // If the barrel is damaged enough to be cracked, flat 5% chance to detonate on low-power ammo as well.
 			backfire(user)
-			return 0
-	..()
+			return FALSE
+	return ..()
 
 /obj/item/gun/ballistic/shotgun/doublebarrel/improvised/proc/backfire(mob/living/user)
 	playsound(user, fire_sound, fire_sound_volume, vary_fire_sound)
@@ -391,7 +391,7 @@
 	. = ..()
 	. += span_info("You will instantly reload it after a shot if you have another hand free.")
 
-/obj/item/gun/ballistic/shotgun/lever_action/shoot_live_shot(mob/living/user, pointblank = 0, atom/pbtarget = null, message = 1)
+/obj/item/gun/ballistic/shotgun/lever_action/after_live_shot_fired(mob/living/user, pointblank = 0, atom/pbtarget = null, message = 1)
 	..()
 	if(user.get_inactive_held_item())
 		return
@@ -401,7 +401,10 @@
 /obj/item/gun/ballistic/shotgun/lever_action/rack(mob/user = null)
 	if (user)
 		to_chat(user, span_notice("You rack the [bolt_wording] of \the [src]."))
-	process_chamber(!chambered, FALSE)
+	if (chambered)
+		eject_chamber()
+	else
+		chamber_round()
 	playsound(src, rack_sound, rack_sound_volume, rack_sound_vary)
 	update_icon()
 	if(user.get_inactive_held_item() && prob(50) && chambered)

@@ -379,6 +379,12 @@
 	credit_cost = 2000
 	description = "The gold standard in emergency exfiltration, this tried and true design is equipped with everything the crew needs for a safe flight home."
 
+/datum/map_template/shuttle/emergency/card
+	suffix = "card"
+	name = "Card Station Emergency Shuttle"
+	credit_cost = 4000
+	description = "A standard pattern exfiltration shuttle, equipped with a medbay, brig and an aft engineering section. It's upgraded engines ensure the smoothest and quickest ride."
+
 /datum/map_template/shuttle/emergency/clown
 	suffix = "clown"
 	name = "Snappop(tm)!"
@@ -710,6 +716,10 @@
 	name = "exploration shuttle"
 	can_be_bought = FALSE
 
+/datum/map_template/shuttle/exploration/card
+	suffix = "card"
+	name = "card exploration shuttle"
+
 /datum/map_template/shuttle/exploration/corg
 	suffix = "corg"
 	name = "corg exploration shuttle"
@@ -741,6 +751,22 @@
 /datum/map_template/shuttle/arrival/delta
 	suffix = "delta"
 	name = "arrival shuttle (Delta)"
+
+/datum/map_template/shuttle/arrival/card
+	suffix = "card"
+	name = "arrival shuttle (Card)"
+
+/datum/map_template/shuttle/cargo/card
+	suffix = "card"
+	name = "cargo ferry (Card)"
+
+/datum/map_template/shuttle/mining/card
+	suffix = "card"
+	name = "mining shuttle (Card)"
+
+/datum/map_template/shuttle/labour/card
+	suffix = "card"
+	name = "labour shuttle (Card)"
 
 /datum/map_template/shuttle/arrival/kilo
 	suffix = "kilo"

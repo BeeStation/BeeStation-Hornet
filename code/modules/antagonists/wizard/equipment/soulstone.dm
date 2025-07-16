@@ -385,9 +385,18 @@
 	chosen_ghost = T.get_ghost(TRUE,TRUE) //Try to grab original owner's ghost first
 
 	if(!chosen_ghost || !chosen_ghost.client) //Failing that, we grab a ghosts
-		var/list/consenting_candidates = poll_ghost_candidates("Would you like to play as a Shade?", ROLE_CULTIST, null, 5 SECONDS, ignore_category = POLL_IGNORE_CULT_SHADE)
-		if(consenting_candidates.len)
-			chosen_ghost = pick(consenting_candidates)
+		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(
+			check_jobban = ROLE_CULTIST,
+			poll_time = 10 SECONDS,
+			checked_target = T,
+			ignore_category = POLL_IGNORE_CULT_SHADE,
+			jump_target = T,
+			role_name_text = "shade",
+			alert_pic = /mob/living/simple_animal/shade,
+		)
+
+		if(candidate)
+			chosen_ghost = candidate
 	if(!T)
 		return FALSE
 	if(!chosen_ghost)

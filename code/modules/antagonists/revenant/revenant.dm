@@ -57,7 +57,7 @@
 	var/essence = 75 //The resource, and health, of revenants.
 	var/essence_regen_cap = 75 //The regeneration cap of essence (go figure); regenerates every Life() tick up to this amount.
 	var/essence_regenerating = TRUE //If the revenant regenerates essence or not
-	var/essence_regen_amount = 5 //How much essence regenerates
+	var/essence_regen_amount = 2.5 //How much essence regenerates per second
 	var/essence_accumulated = 0 //How much essence the revenant has stolen
 	var/essence_excess = 0 //How much stolen essence avilable for unlocks
 	var/revealed = FALSE //If the revenant can take damage from normal sources.
@@ -136,7 +136,7 @@
 		mind.add_antag_datum(/datum/antagonist/revenant)
 
 //Life, Stat, Hud Updates, and Say
-/mob/living/simple_animal/revenant/Life()
+/mob/living/simple_animal/revenant/Life(delta_time = SSMOBS_DT, times_fired)
 	if(stasis)
 		return
 	if(revealed && essence <= 0)
@@ -152,7 +152,7 @@
 		notransform = FALSE
 		to_chat(src, span_revenboldnotice("You can move again!"))
 	if(essence_regenerating && !inhibited && essence < essence_regen_cap) //While inhibited, essence will not regenerate
-		essence = min(essence_regen_cap, essence+essence_regen_amount)
+		essence = min(essence + (essence_regen_amount * delta_time), essence_regen_cap)
 		update_action_buttons_icon() //because we update something required by our spells in life, we need to update our buttons
 	update_spooky_icon()
 	update_health_hud()
@@ -508,15 +508,23 @@
 				break
 	if(!key_of_revenant)
 		message_admins("The new revenant's old client either could not be found or is in a new, living mob - grabbing a random candidate instead...")
-		var/list/candidates = poll_candidates_for_mob("Do you want to be [revenant.name] (reforming)?", ROLE_REVENANT, /datum/role_preference/midround_ghost/revenant, 7.5 SECONDS, revenant)
-		if(!LAZYLEN(candidates))
+		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
+			question = "Do you want to be [revenant.name] (reforming)?",
+			role = /datum/role_preference/midround_ghost/revenant,
+			check_jobban = ROLE_REVENANT,
+			poll_time = 10 SECONDS,
+			jump_target = revenant,
+			role_name_text = "revenant",
+			alert_pic = revenant,
+		)
+		if(!candidate)
 			qdel(revenant)
 			message_admins("No candidates were found for the new revenant. Oh well!")
 			inert = TRUE
 			visible_message(span_revenwarning("[src] settles down and seems lifeless."))
 			return
-		var/mob/dead/observer/C = pick(candidates)
-		key_of_revenant = C.key
+
+		key_of_revenant = candidate.key
 		if(!key_of_revenant)
 			qdel(revenant)
 			message_admins("No ckey was found for the new revenant. Oh well!")

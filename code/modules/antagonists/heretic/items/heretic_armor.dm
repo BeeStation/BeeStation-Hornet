@@ -68,6 +68,7 @@
 	armor_type = /datum/armor/security_runed_cloth
 	body_parts_covered = CHEST|GROIN|ARMS
 	qdel_hood = TRUE
+	pockets = FALSE
 
 /obj/item/clothing/suit/hooded/cultrobes/void/Initialize(mapload)
 	. = ..()

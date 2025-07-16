@@ -133,7 +133,7 @@
 		)
 	. = ..()
 
-/obj/item/gun/ballistic/revolver/detective/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
+/obj/item/gun/ballistic/revolver/detective/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
 	if(magazine.caliber != initial(magazine.caliber))
 		if(prob(70 - (magazine.ammo_count() * 10)))	//minimum probability of 10, maximum of 60
 			playsound(user, fire_sound, fire_sound_volume, vary_fire_sound)
@@ -142,7 +142,7 @@
 			explosion(src, 0, 0, 1, 1)
 			user.dropItemToGround(src)
 			return 0
-	..()
+	return ..()
 
 /obj/item/gun/ballistic/revolver/detective/screwdriver_act(mob/living/user, obj/item/I)
 	if(..())
@@ -274,7 +274,7 @@
 		user.visible_message(span_danger("*click*"))
 		playsound(src, dry_fire_sound, 30, TRUE)
 
-/obj/item/gun/ballistic/revolver/russian/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
+/obj/item/gun/ballistic/revolver/russian/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
 	add_fingerprint(user)
 	playsound(src, dry_fire_sound, 30, TRUE)
 	user.visible_message(span_danger("[user.name] tries to fire \the [src] at the same time, but only succeeds at looking like an idiot."), span_danger("\The [src]'s anti-combat mechanism prevents you from firing it at the same time!"))
@@ -306,6 +306,7 @@
 		user.emote("scream")
 		user.drop_all_held_items()
 		user.Paralyze(80)
+	return FALSE
 
 /obj/item/gun/ballistic/revolver/mime
 	name = "finger gun"

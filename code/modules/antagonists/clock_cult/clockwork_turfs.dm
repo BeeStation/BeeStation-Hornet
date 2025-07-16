@@ -553,6 +553,13 @@
 	reinf = FALSE
 	var/made_glow = FALSE
 
+/obj/structure/window/reinforced/clockwork/corner
+	icon_state = "clockwork_window_single_corner"
+	density = FALSE
+
+/obj/structure/window/reinforced/clockwork/corner/unanchored
+	anchored = FALSE
+
 /obj/structure/window/reinforced/clockwork/spawnDebris(location)
 	. = list()
 	var/gearcount = fulltile ? 4 : 2

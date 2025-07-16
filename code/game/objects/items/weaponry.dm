@@ -42,7 +42,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	slot_flags = ITEM_SLOT_BELT
 	force = 2
 	throwforce = 1
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	w_class = WEIGHT_CLASS_LARGE
 	item_flags = ISWEAPON
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -80,7 +80,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	block_power = 40
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	block_level = 1
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	sharpness = SHARP_VI
@@ -259,7 +259,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	block_power = 20
 	block_level = 1
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
 	sharpness = SHARP_IIX
 	max_integrity = 200
@@ -462,7 +462,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	item_state = "stick"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	force = 5
 	throwforce = 5
 	w_class = WEIGHT_CLASS_SMALL
@@ -477,7 +477,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	icon_state = "staff"
 	lefthand_file = 'icons/mob/inhands/weapons/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	force = 3
 	throwforce = 5
 	throw_speed = 2
@@ -547,7 +547,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	sharpness = SHARP_VII
 	attack_verb_continuous = list("saws", "tears", "lacerates", "cuts", "chops", "dices")
 	attack_verb_simple = list("saw", "tear", "lacerate", "cut", "chop", "dice")
-	hitsound = 'sound/weapons/chainsawhit.ogg'
+	hitsound = 'sound/weapons/chainsaw_hit.ogg'
 	tool_behaviour = TOOL_SAW
 	toolspeed = 1
 
@@ -575,7 +575,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	desc = "An energy chainsaw that has replaced your arm."
 	force = 40
 	sharpness = SHARP_IIX
-	hitsound = 'sound/weapons/echainsawhit1.ogg'
+	hitsound = 'sound/weapons/energychainsaw_hit1.ogg'
 
 /obj/item/mounted_chainsaw/energy/Destroy()
 	var/obj/item/bodypart/part
@@ -594,7 +594,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	desc = "A super energy chainsaw that has replaced your arm."
 	force = 60
 	sharpness = SHARP_IIX
-	hitsound = 'sound/weapons/echainsawhit1.ogg'
+	hitsound = 'sound/weapons/energychainsaw_hit1.ogg'
 
 /obj/item/mounted_chainsaw/super/Destroy()
 	var/obj/item/bodypart/part
@@ -652,7 +652,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	desc = "A skateboard. It can be placed on its wheels and ridden, or used as a strong weapon."
 	icon_state = "skateboard"
 	item_state = "skateboard"
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	force = 12
 	throwforce = 4
 	w_class = WEIGHT_CLASS_LARGE
@@ -697,7 +697,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	item_state = "baseball_bat"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	attack_weight = 2
 	force = 13
 	throwforce = 6
@@ -1001,7 +1001,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	force = 20
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	sharpness = SHARP_IV
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")

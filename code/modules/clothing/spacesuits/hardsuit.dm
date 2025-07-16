@@ -152,7 +152,6 @@
 	)
 	var/helmettype = /obj/item/clothing/head/helmet/space/hardsuit
 	var/obj/item/tank/jetpack/suit/jetpack = null
-	pocket_storage_component_path = null
 	var/hardsuit_type
 	/// Whether the helmet is on.
 	var/helmet_on = FALSE
@@ -549,7 +548,7 @@
 	resistance_flags = ACID_PROOF
 	supports_variations = DIGITIGRADE_VARIATION
 	armor_type = /datum/armor/security_heavy_armor
-	allowed = list(/obj/item/gun, /obj/item/ammo_box,/obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/transforming/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
+	allowed = list(/obj/item/gun, /obj/item/ammo_box,/obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi
 	jetpack = /obj/item/tank/jetpack/suit
 	cell = /obj/item/stock_parts/cell/hyper
@@ -724,7 +723,13 @@
 	desc = "A special suit that protects against hazardous, low pressure environments. Built with lightweight materials for easier movement."
 	item_state = "medical_hardsuit"
 	supports_variations = DIGITIGRADE_VARIATION
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/storage/firstaid, /obj/item/healthanalyzer, /obj/item/stack/medical)
+	allowed = list(
+		/obj/item/flashlight,
+		/obj/item/tank/internals,
+		/obj/item/storage/firstaid,
+		/obj/item/healthanalyzer,
+		/obj/item/stack/medical,
+	)
 	armor_type = /datum/armor/civilian_metal
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/medical
 	slowdown = 0.5
@@ -973,6 +978,7 @@
 	greyscale_config = /datum/greyscale_config/ctf_standard
 	greyscale_config_worn = /datum/greyscale_config/ctf_standard_worn
 	greyscale_colors = "#ffffff"
+	clothing_flags = THICKMATERIAL
 
 	///Icon state to be fed into the shielded component
 	var/team_shield_icon = "shield-old"
@@ -1036,7 +1042,7 @@
 	item_state = "syndie_hardsuit"
 	hardsuit_type = "syndi"
 	armor_type = /datum/armor/security_heavy_armor
-	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/transforming/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
+	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/syndi
 	slowdown = 0
 	actions_types = list(

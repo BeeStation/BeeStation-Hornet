@@ -9,7 +9,6 @@
 	fire_sound = 'sound/weapons/blastcannon.ogg'
 	item_flags = NONE
 	clumsy_check = FALSE
-	randomspread = FALSE
 
 	var/hugbox = TRUE
 	var/max_power = INFINITY

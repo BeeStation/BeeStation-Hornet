@@ -41,13 +41,15 @@
 		return
 	user.visible_message(span_warning("[src] powers up!"))
 	playsound(src, 'sound/machines/ping.ogg', 30, TRUE)
-	var/list/candidates = poll_candidates_for_mob(
-		question = "Do you want to play as a mind magnified monkey?",
-		jobban_type = ROLE_MONKEY_HELMET,
-		role_preference_key = null,
-		poll_time = 100,
-		target_mob = user,
-		ignore_category = POLL_IGNORE_MONKEY_HELMET)
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(
+		check_jobban = ROLE_MONKEY_HELMET,
+		poll_time = 10 SECONDS,
+		checked_target = user,
+		ignore_category = POLL_IGNORE_MONKEY_HELMET,
+		jump_target = user,
+		role_name_text = "mind magnified monkey",
+		alert_pic = src,
+	)
 
 	//Some time has passed, and we could've been disintegrated for all we know (especially if we touch touch supermatter), or monkey has died
 	if(QDELETED(src) || !user || magnification || user.stat)
@@ -56,12 +58,12 @@
 		user.visible_message(span_notice("[src] powers down!"))
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
 		return
-	if(!candidates.len)
+	if(!candidate)
 		user.visible_message(span_notice("[src] falls silent. Maybe you should try again later?"))
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
 		return
-	var/mob/picked = pick(candidates)
-	user.key = picked.key
+
+	user.key = candidate.key
 	magnification = user.mind
 	RegisterSignal(magnification, COMSIG_MIND_TRANSFER_TO, PROC_REF(disconnect))
 	RegisterSignal(magnification.current, COMSIG_MOB_LOGOUT, PROC_REF(disconnect))

@@ -12,7 +12,6 @@
 	max_integrity = 250
 	resistance_flags = NONE
 	armor_type = /datum/armor/security_light_armor
-	clothing_flags = THICKMATERIAL
 	slowdown = 0.08
 
 /obj/item/clothing/suit/armor/Initialize(mapload)
@@ -48,15 +47,6 @@
 	custom_premium_price = 600
 	armor_type = /datum/armor/security_heavy_armor
 	slowdown = 0.14
-
-/obj/item/clothing/suit/armor/vest/corporate
-	name = "corporate Jacket"
-	desc = "A Stylish Corporate Jacket which also provides Protection."
-	icon_state = "secjacket"
-	item_state = "secjacket"
-	body_parts_covered = CHEST|ARMS
-	armor_type = /datum/armor/civilian_light_armor
-	slowdown = 0.02
 
 /obj/item/clothing/suit/armor/hos
 	name = "armored greatcoat"
@@ -118,6 +108,7 @@
 	armor_type = /datum/armor/security_heavy_armor
 	dog_fashion = null
 	resistance_flags = FIRE_PROOF
+	clothing_flags = THICKMATERIAL
 
 /obj/item/clothing/suit/armor/vest/capcarapace/syndicate
 	name = "syndicate captain's vest"
@@ -130,6 +121,7 @@
 	icon_state = "capformal"
 	item_state = null
 	body_parts_covered = CHEST|GROIN|ARMS
+	clothing_flags = NONE
 
 /obj/item/clothing/suit/armor/vest/capcarapace/jacket
 	name = "captain's jacket"
@@ -138,6 +130,7 @@
 	item_state = null
 	body_parts_covered = CHEST|ARMS
 	armor_type = /datum/armor/security_light_armor
+	clothing_flags = NONE
 
 /obj/item/clothing/suit/armor/riot
 	name = "riot suit"
@@ -153,6 +146,7 @@
 	equip_delay_other = 60
 	slowdown = 0.15
 	move_sound = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
+	clothing_flags = THICKMATERIAL
 
 /obj/item/clothing/suit/armor/bone
 	name = "bone armor"
@@ -163,6 +157,7 @@
 	armor_type = /datum/armor/security_chitin
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS
 	slowdown = 0.1
+	clothing_flags = THICKMATERIAL
 
 /obj/item/clothing/suit/armor/bulletproof
 	name = "bulletproof armor"
@@ -173,6 +168,7 @@
 	armor_type = /datum/armor/bulletproof
 	strip_delay = 70
 	equip_delay_other = 50
+	clothing_flags = THICKMATERIAL
 
 /obj/item/clothing/suit/armor/laserproof
 	name = "reflector vest"
@@ -215,6 +211,7 @@
 	armor_type = /datum/armor/security_heavy_armor
 	move_sound = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
 	slowdown = 0.3
+	clothing_flags = THICKMATERIAL
 
 /obj/item/clothing/suit/armor/tdome
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
@@ -283,6 +280,7 @@
 	resistance_flags = FLAMMABLE
 	armor_type = /datum/armor/durathread
 	dog_fashion = null
+	clothing_flags = THICKMATERIAL
 
 /obj/item/clothing/suit/armor/vest/russian
 	name = "russian vest"

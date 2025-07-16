@@ -59,7 +59,7 @@
 	ui_interact(owner.current)
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
 
-	to_chat(owner.current, EXAMINE_BLOCK(msg.Join("\n")))
+	to_chat(owner.current, examine_block(msg.Join("\n")))
 
 
 /datum/antagonist/traitor/proc/update_traitor_icons_added(datum/mind/traitor_mind)
@@ -241,7 +241,7 @@
 		/// Special case for reinforcements, we want to show their ckey and name on round end.
 		if (istype(contractor_purchase, /datum/contractor_item/contractor_partner))
 			var/datum/contractor_item/contractor_partner/partner = contractor_purchase
-			contractor_support_unit += "<br><b>[partner.partner_mind.key]</b> played <b>[partner.partner_mind.current.name]</b>, their contractor support unit."
+			contractor_support_unit += "<br><b>[partner.partner_mind.display_key()]</b> played <b>[partner.partner_mind.current.name]</b>, their contractor support unit."
 
 	if (contractor_hub.purchased_items.len)
 		result += "<br>(used [total_spent_rep] Rep) "
@@ -269,8 +269,3 @@
 
 /datum/antagonist/traitor/is_gamemode_hero()
 	return SSticker.mode.name == "traitor"
-
-/datum/antagonist/traitor/excommunicate
-	name = "Excommunicate Traitor"
-	banning_key = ROLE_EXCOMM
-	special_role = ROLE_EXCOMM

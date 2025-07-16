@@ -32,6 +32,14 @@
 //#define TRACK_MAX_SHARE	//Allows max share tracking, for use in the atmos debugging ui
 #endif //ifdef TESTING
 
+/// Disables hub authentication. This must be done at compile time due to /client::authenticate being read-only
+/// All connecting users will be forced to use external auth. If external auth is not enabled in the config, the connection is blindly trusted.
+/// DO NOT ENABLE THIS FLAG ON PRODUCTION WITHOUT EXTERNAL AUTH SET UP
+/// Toggle ENABLE_GUEST_EXTERNAL_AUTH to require external auth, otherwise CKEYs are blindly trusted!
+/// This flag also forcibly enables guest connections, because every client has its key reassigned on login.
+/// This flag also disables BYOND account age checks, BYOND Key change verification, and makes the config flag use_account_age_for_jobs useless.
+//#define DISABLE_BYOND_AUTH
+
 /// Enables BYOND TRACY, which allows profiling using Tracy.
 /// The prof.dll/libprof.so must be built and placed in the repo folder.
 /// https://github.com/mafemergency/byond-tracy
@@ -97,13 +105,16 @@
 	#else
 	#define FORCE_MAP "runtimestation"
 	#endif
+	#ifdef CIBUILDING
+	#error LOWMEMORYMODE is enabled, disable this!
+	#endif
 #endif
 
 //TODO Remove the SDMM check when it supports 1568
 #if !defined(SPACEMAN_DMM) && (DM_VERSION < MIN_COMPILER_VERSION || DM_BUILD < MIN_COMPILER_BUILD) && !defined(FASTDMM)
 //Don't forget to update this part
 #error Your version of BYOND is too out-of-date to compile this project. Go to https://secure.byond.com/download and update.
-#error You need version 514.1583 or higher.
+#error You need version 515.1642 or higher.
 #endif
 
 //Update this whenever the byond version is stable so people stop updating to hilariously broken versions
@@ -112,15 +123,16 @@
 #if DM_VERSION > MAX_COMPILER_VERSION || DM_BUILD > MAX_COMPILER_BUILD
 #warn WARNING: Your BYOND version is over the recommended version (516.1700)! Stability is not guaranteed.
 #endif
-//Log the full sendmaps profile on 514.1556+, any earlier and we get bugs or it not existing
-#if DM_VERSION >= 514 && DM_BUILD >= 1556
-#define SENDMAPS_PROFILE
-#endif
 
+#define SENDMAPS_PROFILE
 
 //Additional code for the above flags.
 #ifdef TESTING
 #warn compiling in TESTING mode. testing() debug messages will be visible.
+
+#ifdef CIBUILDING
+#error TESTING is enabled, disable this!
+#endif
 #endif
 
 #ifdef CIBUILDING
@@ -145,9 +157,9 @@
 #endif
 
 
-//Someone else should probably update this once LINDA is fully merged. Probably Bacon or Crossed.
 #if defined(OPENDREAM) && !defined(CIBUILDING)
-#error Compiling BeeStation in OpenDream is unsupported due to BeeStation's dependence on the auxtools DLL to function.
+#warn You are building with OpenDream. Remember to build TGUI manually.
+#warn You can do this by running tgui-build.cmd from the bin directory.
 #elif !defined(CBT) && !defined(SPACEMAN_DMM) && !defined(FASTDMM) && !defined(CIBUILDING)
 #warn Building with Dream Maker is no longer supported and will result in missing interface files.
 #warn Switch to VSCode and when prompted install the recommended extensions, you can then either use the UI or press Ctrl+Shift+B to build the codebase.

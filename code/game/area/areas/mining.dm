@@ -68,19 +68,32 @@
 
 /area/mine/laborcamp
 	name = "Labor Camp"
+	camera_networks = list(CAMERA_NETWORK_LABOR)
 
 /area/mine/laborcamp/security
 	name = "Labor Camp Security"
 	icon_state = "security"
 	ambience_index = AMBIENCE_DANGER
+	camera_networks = list(CAMERA_NETWORK_LABOR)
 
 //This is a placeholder for the lavaland sci area. Whoever is here after me, I have made you some additional areas to work with.
 //You are free to rename these and change their icons. My job is done here.
 
-/area/mine/science
-	name = "Research Outpost"
-	icon_state = "medresearch"
-	requires_power = TRUE	//Remove this when there will be pre-built APCs in the area.
+/area/mine/atmospost
+	name = "Atmospheric Wing"
+	icon_state = "atmos"
+
+/area/mine/atmosfarmpost
+	name = "Atmospheric Gas Farm"
+	icon_state = "atmos"
+
+/area/mine/atmosposthallway
+	name = "Atmospheric Wing Hallway"
+	icon_state = "engine_hallway"
+
+/area/mine/atmospostengine
+	name = "Atmospheric Wing Engine"
+	icon_state = "atmos_engine"
 
 
 

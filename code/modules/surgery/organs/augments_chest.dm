@@ -14,7 +14,8 @@
 	var/malfunctioning = FALSE
 	slot = ORGAN_SLOT_STOMACH_AID
 
-/obj/item/organ/cyberimp/chest/nutriment/on_life()
+/obj/item/organ/cyberimp/chest/nutriment/on_life(delta_time, times_fired)
+	SHOULD_CALL_PARENT(FALSE)
 	if(synthesizing)
 		return
 
@@ -27,7 +28,7 @@
 	else if(owner.nutrition <= hunger_threshold)
 		synthesizing = TRUE
 		to_chat(owner, span_notice("You feel less hungry..."))
-		owner.adjust_nutrition(50)
+		owner.adjust_nutrition(25 * delta_time)
 		addtimer(CALLBACK(src, PROC_REF(synth_cool)), 5 SECONDS)
 
 /obj/item/organ/cyberimp/chest/nutriment/proc/synth_cool()
@@ -57,7 +58,8 @@
 	var/reviving = FALSE
 	COOLDOWN_DECLARE(reviver_cooldown)
 
-/obj/item/organ/cyberimp/chest/reviver/on_life()
+/obj/item/organ/cyberimp/chest/reviver/on_life(delta_time, times_fired)
+	SHOULD_CALL_PARENT(FALSE)
 	if(reviving)
 		switch(owner.stat)
 			if(UNCONSCIOUS, HARD_CRIT)
@@ -117,7 +119,7 @@
 	var/on = FALSE
 	var/datum/effect_system/trail_follow/ion/ion_trail
 
-/obj/item/organ/cyberimp/chest/thrusters/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
+/obj/item/organ/cyberimp/chest/thrusters/Insert(mob/living/carbon/M, special = 0, drop_if_replaced = TRUE, pref_load = FALSE)
 	. = ..()
 	if(!ion_trail)
 		ion_trail = new
