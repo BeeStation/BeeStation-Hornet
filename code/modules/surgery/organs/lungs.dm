@@ -291,6 +291,10 @@
 		if (nitrium_pp > 5)
 			var/existing = H.reagents.get_reagent_amount(/datum/reagent/nitrium)
 			H.reagents.add_reagent(/datum/reagent/nitrium, max(0, 4 - existing))
+		if (nitrium_pp > 10)
+			var/existing = H.reagents.get_reagent_amount(/datum/reagent/nitrosyl_plasmide)
+			H.reagents.add_reagent(/datum/reagent/nitrosyl_plasmide, max(0, 4 - existing))
+			H.reagents.add_reagent(/datum/reagent/nitrium, 2) //Nitrium addiction and eventually overdose will come from this.
 
 		REMOVE_MOLES(/datum/gas/nitrium, breath, gas_breathed)
 

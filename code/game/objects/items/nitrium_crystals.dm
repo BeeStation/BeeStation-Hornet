@@ -9,8 +9,9 @@
 	. = ..()
 	var/datum/effect_system/smoke_spread/chem/smoke = new
 	var/turf/location = get_turf(src)
-	create_reagents(5)
-	reagents.add_reagent(/datum/reagent/nitrium, 3)
+	create_reagents(10)
+	reagents.add_reagent(/datum/reagent/nitrium, 5)
+	reagents.add_reagent(/datum/reagent/nitrosyl_plasmide, 5)
 	smoke.attach(location)
 	smoke.set_up(reagents, cloud_size, location, silent = TRUE)
 	smoke.start()
