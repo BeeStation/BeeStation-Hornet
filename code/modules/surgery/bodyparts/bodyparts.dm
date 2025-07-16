@@ -98,7 +98,7 @@
 	/// Amount of penetration that the skin will reduce an attack by
 	var/skin_penetration_resistance = 5
 	// The amount of damage that will be deleted when the damage reaches bones
-	var/bone_deflection = 5
+	var/bone_deflection = 0
 	/// The amount of penetration that the bones reduce an attack by
 	var/bone_penetration_resistance = 15
 	/// Amount of blunt armour provided by the skin
