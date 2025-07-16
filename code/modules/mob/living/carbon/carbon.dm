@@ -236,7 +236,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	var/buckle_cd = 1 MINUTES
 
 	if(handcuffed)
-		to_chat(src, span_warning("You need to remove your restraints first!"))
+		resist_restraints()
 		return
 
 	visible_message(span_warning("[src] attempts to unbuckle [p_them()]self!"), span_notice("You attempt to unbuckle yourself... (This will take around [DisplayTimeText(buckle_cd)] and you need to stay still.)"))
@@ -311,7 +311,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		while(do_after(src, 5 SECONDS, timed_action_flags = IGNORE_USER_LOC_CHANGE|IGNORE_HELD_ITEM, hidden = TRUE))
 			cuff_breakout_attempts++
 			if(cuff_breakout_attempts * 5 SECONDS >= breakouttime || (prob(cuff_breakout_attempts/4)))
-				log_combat(src, src, "slipped out of [cuffs] after [cuff_breakout_attempts]/[breakouttime / 5 SECONDS] attempts", important = FALSE)
+				log_combat(src, src, "slipped out of [cuffs] after [cuff_breakout_attempts]/[breakouttime / (5 SECONDS)] attempts", important = FALSE)
 				. = clear_cuffs(cuffs, cuff_break)
 				break
 			else if(prob(4))
