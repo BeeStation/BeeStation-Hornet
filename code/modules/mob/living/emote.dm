@@ -132,16 +132,16 @@
 	if(. && ishuman(user))
 		var/mob/living/carbon/human/human_user = user
 		var/open = FALSE
-		var/obj/item/organ/external/wings/functional/wings = human_user.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS)
+		var/obj/item/organ/external/wings/wings = human_user.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS)
 
-		// open/close functional wings
+		// open/close wings
 		if(istype(wings))
 			if(wings.wings_open)
 				open = TRUE
 				wings.close_wings()
 			else
 				wings.open_wings()
-			addtimer(CALLBACK(wings,  open ? TYPE_PROC_REF(/obj/item/organ/external/wings/functional, open_wings) : TYPE_PROC_REF(/obj/item/organ/external/wings/functional, close_wings)), wing_time)
+			addtimer(CALLBACK(wings,  open ? TYPE_PROC_REF(/obj/item/organ/external/wings, open_wings) : TYPE_PROC_REF(/obj/item/organ/external/wings, close_wings)), wing_time)
 
 		// play a flapping noise if the wing has this implemented
 		wings.make_flap_sound(human_user)

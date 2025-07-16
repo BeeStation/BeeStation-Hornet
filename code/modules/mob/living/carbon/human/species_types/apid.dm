@@ -13,7 +13,7 @@
 		"apid_antenna" = "curled"
 	)
 	external_organs = list(
-		/obj/item/organ/external/wings/functional/bee = "Bee"
+		/obj/item/organ/external/wings/bee = "Bee"
 	)
 	hair_color_mode = USE_FIXED_MUTANT_COLOR
 	meat = /obj/item/food/meat/slab/human/mutant/apid

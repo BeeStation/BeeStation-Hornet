@@ -145,7 +145,7 @@
 		/obj/item/organ/internal/cyberimp/chest/thrusters,
 		/obj/item/organ/internal/cyberimp/chest/nutriment,
 		/obj/item/organ/internal/cyberimp/arm/toolset,
-		/obj/item/organ/external/wings/functional/cybernetic,
+		/obj/item/organ/external/wings/cybernetic,
 		/obj/item/organ/internal/eyes/robotic/glow)
 	new blessing(altar_turf)
 	return TRUE

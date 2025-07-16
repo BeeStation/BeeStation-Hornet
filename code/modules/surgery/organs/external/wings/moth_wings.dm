@@ -9,6 +9,8 @@
 
 	bodypart_overlay = /datum/bodypart_overlay/mutant/wings/moth
 
+	flight_level = WINGS_FLIGHTLESS
+
 	///Are we burned?
 	var/burnt = FALSE
 	///Store our old datum here for if our burned wings are healed
@@ -86,7 +88,10 @@
 	burn_datum = fetch_sprite_datum(burn_datum)
 
 /datum/bodypart_overlay/mutant/wings/moth/get_global_feature_list()
-	return GLOB.moth_wings_list
+	if(wings_open)
+		return GLOB.moth_wingsopen_list
+	else
+		return GLOB.moth_wings_list
 
 /datum/bodypart_overlay/mutant/wings/moth/can_draw_on_bodypart(mob/living/carbon/human/human)
 	if(!(human.wear_suit?.flags_inv & HIDEMUTWINGS))
@@ -95,3 +100,20 @@
 
 /datum/bodypart_overlay/mutant/wings/moth/get_base_icon_state()
 	return burnt ? burn_datum.icon_state : sprite_datum.icon_state
+
+/obj/item/organ/external/wings/moth/robust
+	flight_level = WINGS_AIRWORTHY
+
+///mothra wings, which relate to moths.
+/obj/item/organ/external/wings/moth/mothra
+	name = "mothra wings"
+	desc = "Fly like the mighty mothra of legend once did."
+	sprite_accessory_override = /datum/sprite_accessory/wings/mothra
+	flight_level = WINGS_AIRWORTHY
+
+///megamoth wings, which relate to moths as an alternate choice. they're both pretty cool.
+/obj/item/organ/external/wings/moth/megamoth
+	name = "megamoth wings"
+	desc = "Don't get murderous."
+	sprite_accessory_override = /datum/sprite_accessory/wings/megamoth
+	flight_level = WINGS_AIRWORTHY

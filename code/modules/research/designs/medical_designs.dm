@@ -660,7 +660,7 @@
 	build_type = PROTOLATHE | MECHFAB
 	construction_time = 500
 	materials = list(/datum/material/iron = 10000, /datum/material/glass = 1000, /datum/material/uranium = 4000, /datum/material/silver = 100, /datum/material/titanium = 8000, /datum/material/plasma = 10000)
-	build_path = /obj/item/organ/external/wings/functional/cybernetic
+	build_path = /obj/item/organ/external/wings/cybernetic
 	category = list("Cybernetics", "Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
@@ -671,7 +671,7 @@
 	build_type = PROTOLATHE | MECHFAB
 	construction_time = 1000
 	materials = list(/datum/material/iron = 10000, /datum/material/glass = 1000, /datum/material/uranium = 500, /datum/material/silver = 100, /datum/material/titanium = 8000, /datum/material/bluespace = 2000, /datum/material/plasma = 5000)
-	build_path = /obj/item/organ/external/wings/functional/cybernetic/ayy
+	build_path = /obj/item/organ/external/wings/cybernetic/ayy
 	category = list("Cybernetics", "Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 

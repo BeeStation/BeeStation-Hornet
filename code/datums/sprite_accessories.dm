@@ -2060,11 +2060,6 @@
 	name = "White Fly"
 	icon_state = "whitefly"
 
-/datum/sprite_accessory/moth_wings/clockwork
-	name = "Clockwork"
-	icon_state = "clockwork"
-	locked = TRUE
-
 /datum/sprite_accessory/moth_wings/punished
 	name = "Burnt Off"
 	icon_state = "burnt_off"
@@ -2214,11 +2209,6 @@
 /datum/sprite_accessory/moth_antennae/lovers
 	name = "Lovers"
 	icon_state = "lovers"
-
-/datum/sprite_accessory/moth_antennae/clockwork
-	name = "Clockwork"
-	icon_state = "clockwork"
-	locked = TRUE
 
 /datum/sprite_accessory/moth_antennae/punished
 	name = "Burnt Off"

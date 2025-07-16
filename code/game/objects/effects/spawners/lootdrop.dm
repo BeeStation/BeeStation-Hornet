@@ -217,8 +217,8 @@
 		/obj/effect/gibspawner/human = 1,
 		/obj/item/organ/external/wings = 1,
 		/obj/item/organ/external/wings/moth = 1,
-		/obj/item/organ/external/wings/functional/bee = 1,
-		//obj/item/organ/external/wings/dragon/fake = 1
+		/obj/item/organ/external/wings/bee = 1,
+		/obj/item/organ/external/wings/dragon = 1
 	)
 
 /obj/effect/spawner/lootdrop/teratoma/major
@@ -240,8 +240,8 @@
 		/obj/item/organ/internal/vocal_cords/adamantine = 1,
 		/obj/effect/gibspawner/xeno = 1,
 		/obj/effect/mob_spawn/human/corpse/assistant = 1,
-		///obj/item/organ/external/wings/moth/robust = 1,
-		/obj/item/organ/external/wings/functional/dragon = 1)
+		/obj/item/organ/external/wings/moth/robust = 1,
+		/obj/item/organ/external/wings/dragon = 1)
 
 /obj/effect/spawner/lootdrop/teratoma/robot
 	name = "robotic teratoma spawner"
@@ -261,7 +261,7 @@
 		/obj/item/organ/internal/eyes/robotic/shield = 2,
 		/obj/item/organ/internal/eyes/robotic/glow = 2,
 		/obj/item/organ/internal/heart/cybernetic = 2,
-		/obj/item/organ/external/wings/functional/cybernetic = 2,
+		/obj/item/organ/external/wings/cybernetic = 2,
 		/obj/effect/gibspawner/robot = 4,
 		/obj/effect/mob_spawn/drone = 1,
 		)

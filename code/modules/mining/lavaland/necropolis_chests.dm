@@ -627,7 +627,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 		to_chat(exposed_human, span_userdanger("A terrible pain travels down your back as your wings change shape!"))
 	else
 		to_chat(exposed_human, span_userdanger("A terrible pain travels down your back as wings burst out!"))
-	var/obj/item/organ/external/wings/functional/wings = get_wing_choice(exposed_human, chest)
+	var/obj/item/organ/external/wings/wings = get_wing_choice(exposed_human, chest)
 	wings = new wings()
 	wings.Insert(exposed_human)
 	exposed_human.dna.species.handle_mutant_bodyparts(exposed_human)
@@ -641,7 +641,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 		return wing_types[1]
 	var/list/radial_wings = list()
 	var/list/name2type = list()
-	for(var/obj/item/organ/external/wings/functional/possible_type as anything in wing_types)
+	for(var/obj/item/organ/external/wings/possible_type as anything in wing_types)
 		var/datum/sprite_accessory/accessory = initial(possible_type.sprite_accessory_override) //get the type
 		accessory = GLOB.wings_list[initial(accessory.name)] //get the singleton instance
 		var/image/img = image(icon = accessory.icon, icon_state = "m_wingsopen_[accessory.icon_state]_BEHIND") //Process the HUD elements

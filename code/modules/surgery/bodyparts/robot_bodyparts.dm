@@ -153,7 +153,7 @@
 	medium_burn_msg = ROBOTIC_MEDIUM_BURN_MSG
 	heavy_burn_msg = ROBOTIC_HEAVY_BURN_MSG
 
-	wing_types = list(/obj/item/organ/external/wings/functional/robotic)
+	wing_types = list(/obj/item/organ/external/wings/robotic)
 
 	var/wired = FALSE
 	var/obj/item/stock_parts/cell/cell = null
