@@ -23,7 +23,7 @@
 /datum/injury/cut_laceration/on_damage_taken(total_damage, delta_damage, damage_type, damage_flag, is_sharp)
 	if (!is_sharp)
 		return FALSE
-	if (total_damage >= 10)
+	if (total_damage >= 30)
 		transition_to(/datum/injury/cut_muscle_tear)
 	return TRUE
 

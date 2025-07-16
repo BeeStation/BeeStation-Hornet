@@ -702,8 +702,8 @@
 	// =====================================
 	// Deal with armour, the penetration power gets flat reduced by the relevant armour stat
 	var/armour = owner.get_bodyzone_armor_flag(body_zone, ARMOUR_PENETRATION)
-	var/blunt_armour = owner.get_bodyzone_armor_flag(body_zone, ARMOUR_BLUNT)
-	blunt_armour = clamp(blunt_armour, 0, 100)
+	// Blunt armour from clothing is applied before we ever touch this proc
+	var/blunt_armour = 0
 	penetration_power -= armour
 	// Damage multiplier
 	damage += max(0, clamp(penetration_power, 0, 30) / 30 * (UNPROTECTED_SHARPNESS_INJURY_MULTIPLIER - 1) * penetration_power)
@@ -714,7 +714,7 @@
 	if (owner && owner.stat == DEAD)
 		current_damage *= 0.2
 	// If the penetration delta falls below -30, then we deal no blunt damage at all
-	if (current_damage < 0 || penetration_power  < INJURY_PENETRATION_MINIMUM)
+	if (current_damage < 0)
 		return
 	// Add in blunt armour from skin
 	blunt_armour += skin_rating * skin_blunt_armour
@@ -736,7 +736,7 @@
 	// Deflection - Permanently reduces damage
 	damage -= bone_deflection * bone_rating
 	current_damage = damage
-	if (current_damage <= 0 || penetration_power < INJURY_PENETRATION_MINIMUM)
+	if (current_damage <= 0)
 		return
 	// Add in blunt armour from bones
 	blunt_armour += bone_rating * bone_blunt_armour
@@ -752,8 +752,6 @@
 	// =====================================
 	penetration_power -= rand(0, bone_penetration_resistance * bone_rating)
 	current_damage = damage
-	if (penetration_power < 0 || current_damage < 0)
-		return
 	// Organ damage
 	proportion = CLAMP01(penetration_power / BLUNT_DAMAGE_START)
 	sharp_damage = current_damage * proportion
@@ -761,6 +759,8 @@
 	// If our bones are destroyed, then they will cause damage to organs when taking blunt hits
 	if (bone_rating <= 0)
 		sharp_damage += blunt_damage
+	if (sharp_damage <= 0)
+		return
 	// Damage organs
 	for (var/slot in organ_slots)
 		var/obj/item/organ/organ = owner.getorganslot(slot)
@@ -769,6 +769,8 @@
 		if (!prob(organ.organ_size))
 			continue
 		organ.applyOrganDamage(sharp_damage * ORGAN_DAMAGE_MULTIPLIER)
+	if (penetration_power <= 0)
+		return
 	// Dismemberment
 	var/dismemberment_chance = (1 - bone_rating) * sharpness
 	if (dismemberment_requires_death && bone_rating > 0)

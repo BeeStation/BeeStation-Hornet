@@ -10,7 +10,7 @@
 	if (damage_type != BURN)
 		return FALSE
 	// If the skin gets burnt in an unprotected way, get blisters
-	if (total_damage >= 10 && (delta_damage > 2 || prob(delta_damage * 5)))
+	if (total_damage >= 30 && (delta_damage > 2 || prob(delta_damage * 5)))
 		transition_to(/datum/injury/second_degree_burns)
 	return TRUE
 

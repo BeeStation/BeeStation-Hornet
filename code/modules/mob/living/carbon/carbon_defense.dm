@@ -40,6 +40,9 @@
 	// Handle with adjust loss procs
 	if (!zone)
 		..()
+		// If the coder didn't specify a zone, everywhere gets hurt. Thats just how it works in this world.
+		for (var/obj/item/bodypart/part in bodyparts)
+			part.run_limb_injuries(amount, type, flag, 0)
 		return
 	// Handle with body zone damage
 	var/obj/item/bodypart/part = get_bodypart(zone)
