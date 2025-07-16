@@ -31,62 +31,82 @@ Buildable meters
 
 /obj/item/pipe/directional
 	RPD_type = PIPE_UNARY
+
 /obj/item/pipe/directional/he_junction
 	icon_state_preview = "junction"
 	pipe_type = /obj/machinery/atmospherics/pipe/heat_exchanging/junction
+
 /obj/item/pipe/directional/vent
 	name = "air vent fitting"
 	icon_state_preview = "uvent"
 	pipe_type = /obj/machinery/atmospherics/components/unary/vent_pump
+
 /obj/item/pipe/directional/scrubber
 	name = "air scrubber fitting"
 	icon_state_preview = "scrubber"
 	pipe_type = /obj/machinery/atmospherics/components/unary/vent_scrubber
+
 /obj/item/pipe/directional/connector
 	icon_state_preview = "connector"
 	pipe_type = /obj/machinery/atmospherics/components/unary/portables_connector
+
 /obj/item/pipe/directional/passive_vent
 	icon_state_preview = "pvent"
 	pipe_type = /obj/machinery/atmospherics/components/unary/passive_vent
+
 /obj/item/pipe/directional/injector
 	icon_state_preview = "injector"
 	pipe_type = /obj/machinery/atmospherics/components/unary/outlet_injector
+
 /obj/item/pipe/directional/he_exchanger
 	icon_state_preview = "heunary"
 	pipe_type = /obj/machinery/atmospherics/components/unary/heat_exchanger
+
 /obj/item/pipe/directional/airlock_pump
 	icon_state_preview = "airlock_pump"
 	pipe_type = /obj/machinery/atmospherics/components/unary/airlock_pump
+
 /obj/item/pipe/binary
 	RPD_type = PIPE_STRAIGHT
+
 /obj/item/pipe/binary/layer_adapter
 	icon_state_preview = "manifoldlayer"
 	pipe_type = /obj/machinery/atmospherics/pipe/layer_manifold
+
 /obj/item/pipe/binary/color_adapter
 	icon_state_preview = "adapter_center"
 	pipe_type = /obj/machinery/atmospherics/pipe/color_adapter
+
 /obj/item/pipe/binary/pressure_pump
 	icon_state_preview = "pump"
 	pipe_type = /obj/machinery/atmospherics/components/binary/pump
+
 /obj/item/pipe/binary/manual_valve
 	icon_state_preview = "mvalve"
 	pipe_type = /obj/machinery/atmospherics/components/binary/valve
+
 /obj/item/pipe/binary/bendable
 	RPD_type = PIPE_BENDABLE
+
 /obj/item/pipe/trinary
 	RPD_type = PIPE_TRINARY
+
 /obj/item/pipe/trinary/flippable
 	RPD_type = PIPE_TRIN_M
 	var/flipped = FALSE
+
 /obj/item/pipe/trinary/flippable/filter
 	name = "gas filter fitting"
 	icon_state_preview = "filter"
 	pipe_type = /obj/machinery/atmospherics/components/trinary/filter
+
 /obj/item/pipe/trinary/flippable/mixer
 	icon_state_preview = "mixer"
 	pipe_type = /obj/machinery/atmospherics/components/trinary/mixer
+
 /obj/item/pipe/quaternary
 	RPD_type = PIPE_ONEDIR
+
 /obj/item/pipe/quaternary/pipe
 	icon_state_preview = "manifold4w"
 	pipe_type = /obj/machinery/atmospherics/pipe/smart

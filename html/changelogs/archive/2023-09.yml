@@ -1,0 +1,297 @@
+2023-09-01:
+  CydiaLamiales:
+  - rscadd: Added the ability for Obsessed people to open the mail addressed to their
+      obsessions
+2023-09-02:
+  Absolucy:
+  - rscdel: Abductors can no longer customize abductee objectives.
+  CydiaLamiales:
+  - balance: Made the shove intent stun of an emagged/EMP'd/combat defib be blocked
+      by shields
+  - tweak: Made crafting an item be put on a table or rack in front of the user if
+      their hands are full
+2023-09-03:
+  Absolucy, Itsmeowdev:
+  - bugfix: The PDA/NtOS notepad is now actually usable, you won't hit rate limits
+      just typing into it normally!
+  CydiaLamiales:
+  - config: Made unstaffed departments having their lights be turned off at roundstart
+      a config option
+  HowToLoLu:
+  - bugfix: RadStation's Air Mixer no longer requires roundstart attention due to
+      being improperly setup
+  Kapu1178,CydiaLamiales:
+  - rscadd: Lockers, crates, and machines no longer block click attempts in adjacency
+      checks. Basically, you can reach tables cornered between lockers/machines.
+  - code_imp: Adds a new pass_flags_self flag called LETPASSCLICKS that lets you mark
+      an atom to not block ClickCross() attempts.
+  PowerfulBacon, KubeRoot, Victor239, stylemistake:
+  - rscadd: Adds fullscreen mode, toggleable with F11 or via game preferences.
+2023-09-04:
+  Absolucy:
+  - rscadd: Made the viral extrapolator output look much better.
+  - rscadd: Added some additional info to the viral extrapolator's examine - telling
+      the user the maximum stealth / level it can extract, and how long extractions
+      take.
+  - rscadd: The viral extrapolator will now tell you when scanning if it has extracted
+      that same virus previously.
+  - tweak: You no longer have to click on an exact sprite to scan or extract a virus
+      from something with the viral extrapolator - if you click on something that
+      doesn't have any valid diseases (such as a floor tile), you will instead scan/extract
+      whatever thing on that tile that does have a valid disease. (And if there's
+      multiple things on the tile, you can choose which one to scan from a popup)
+  - tweak: Extracting a virus from someone now displays a visible message, rather
+      than being completely silent except for the beep afterwards.
+  - rscadd: Vector (the virologist's pet hamster) is always guaranteed to have at
+      least one level 9 symptom in its freebie virus.
+  - rscadd: Morgue corpses and roundstart monkeys can also generate with dormant diseases
+      now, although they can be less reliable and more of a wildcard than diseases
+      in dried blood/vomit/gibs or crew members.
+  - bugfix: Fixed only being able to extract symptoms rather than full diseases from
+      rats.
+  - bugfix: Morgue corpses now have a small chance to be a non-human (and non-IPC)
+      roundstart race.
+  - refactor: Refactored how `extrapolator_act` works.
+  - bugfix: Fix incorrect custom virus names being shown by health analyzers and viral
+      extrapolators.
+  - bugfix: Obsession objectives no longer bug out if the target has a heirloom.
+  - code_imp: Fixed the unit test for operating computer linking.
+  CydiaLamiales:
+  - tweak: Made sleeper beds no longer block chemicals other than Epinephrine from
+      being injected into patients in critical state.
+  - bugfix: Fixed the contents of the sleeper being duplicated after the person who
+      inserted them got forcestripped.
+  - rscadd: Added a new mood event associated with the Aurora Caelus event
+  - tweak: Tweaked the colors of the Aurora Caelus event
+  - rscadd: Added an efficiency and smart foam for the Backpack Firefighting Tank
+  - rscadd: Added the research node for the BFT upgrades
+  - rscadd: Added a new advanced ATMOS resin
+  - rscadd: Added reagent overlays to the water backpacks and the atmos nozzle
+  - imageadd: added reagent overlays for liquid holder backpacks, alternative appearances
+      for the atmos waterpack and nozzle
+  - balance: Decreased the default cooldown time of the BFT's resin modes from 10
+      to 8 seconds
+  PowerfulBacon:
+  - code_imp: Deployables are now a component.
+  - tweak: Dragging a bodybag onto your mob while it is open will try to zip it up
+      instead of instantly failing.
+  Rukofamicom:
+  - tweak: Trash bags can no longer be opened to view contents, the bag must be dumped
+      out onto the floor instead.
+  lowwy:
+  - tweak: Rust heretic will no longer mansus grasping floors/walls/objects when on
+      harm intent
+2023-09-05:
+  CydiaLamiales:
+  - bugfix: fixed installing the efficiency upgrade to the firefighting atmos backpack
+      breaking the worn icon
+  - bugfix: fixed not being able to shoot normal foam with an upgraded firefighting
+      atmos backpack
+  - bugfix: fixed the resin launcher mode of the nozzle shooting a capsule when breaking
+      placed resin point-blank
+2023-09-07:
+  EvilDragonfiend:
+  - bugfix: a random maint with three fridges no longer shows dead body placer icons.
+  - code_imp: dead_body_placer mapping effect has more subtypes
+  HowToLoLu:
+  - bugfix: You can drag action buttons to anywhere on the screen again
+2023-09-08:
+  HowToLoLu:
+  - bugfix: Air Mixers are no longer use an invalid icon state, and are now visible
+      in a map editor.
+  - rscadd: Temperature Pumps and Gates now have additional mapping helpers, which
+      bring them inline with other binary atmospheric devices.
+  - imageadd: Images for said temperature pump and gate mapping helpers.
+  boombaklops:
+  - bugfix: removed mystery meat from vegetarian burritos and fixed a taste typo
+2023-09-10:
+  Absolucy:
+  - soundadd: 'Added a greeting sound for abductee victims. (credit: https://freesound.org/people/Breviceps/sounds/453391)'
+  - soundadd: 'Added a greeting sound for brainwashing victims. (credit: https://freesound.org/people/_NOMINAL_/sounds/124602)'
+  - soundadd: 'Added a greeting sound for hypnosis victims. (credit: https://freesound.org/people/Sclolex/sounds/342103)'
+  - soundadd: 'Added a unique greeting sound for incursion members. (credit: FeiH,
+      OracleStation)'
+  - tweak: Antagonist greeting sounds now use their own sound channel, ensuring they
+      don't overlap in the (extremely rare) case where you get multiple antags in
+      a short period.
+  EvilDragonfiend:
+  - bugfix: Holocall runechat will not show sayer mods (xx says part)
+  HowToLoLu:
+  - bugfix: Syndicate bombs no longer gain a negative timer when pulsing.
+  rkz, ATH1909:
+  - rscadd: Cyborgs can unbuckle mobs, same as any other mob can.
+2023-09-11:
+  itsmeow:
+  - bugfix: Fixed broken message monitor UI causing you to be unable to log out.
+2023-09-12:
+  Impish_Delights, HowToLoLu:
+  - bugfix: Projectile Shrapnel Generates and Embeds Properly
+2023-09-13:
+  itsmeow:
+  - bugfix: "You can now use keybinds bound to common AZERTY keys such as: & \xE9\
+      \ \" ( \xE8 _ \xE7 \xE0 ) \xB2 $ \xF9 : * !"
+  - bugfix: Keys will no longer get stuck down when using key combinations like Alt,
+      Shift, and Ctrl.
+  - tweak: Improved the error message when preferences/keybinds fail to fetch client
+      data, stating that reconnecting will likely fix it.
+2023-09-15:
+  CidyaLamiales,PestoVerde332:
+  - balance: Made the emag have four charges that each take 30 seconds to recharge
+      individually
+  - imageadd: added new icons and overlays for the emag that show its charges
+  RKz, Fikou:
+  - rscadd: plastic, admantine can be put in coin mint and autolathe
+  - rscadd: titanium can go in the coin mint
+  - code_imp: makes coin code datum mats
+2023-09-16:
+  CydiaLamiales:
+  - tweak: Made applying glue to an item make it stuck either after 30 seconds pass
+      or after you drop/move/equip the item
+  - bugfix: Fixed being able to add/remove glued wigs to hats
+  RKz, LemonInTheDark:
+  - bugfix: fixes visual bug with movement delay calculation, making it cleaner
+2023-09-17:
+  Absolucy:
+  - bugfix: Fixed a compile error with BYOND 515.
+  Absolucy, Pirill, Aramix:
+  - rscadd: Almost completely reworked holoparasites.
+  - rscadd: New holoparasite major ability, Dextrous, which allows the holoparasite
+      to hold and use items, in additional to having a single internal storage slot.
+      However, Dextrous holoparasites have limitations on being able to use guns or
+      two-handed weapons, and they rely on weapons in order to do notable damage,
+      as their punches are weak.
+  - rscadd: New holoparasite minor ability, Telepathy. It's exactly what it says on
+      the tin.
+  - rscadd: New holoparasite minor ability, Babeltongue. It allows your holoparasite
+      (only the holopara, not the summoner) to both speak and understand all languages,
+      akin to a pAI with the universal translator, or the curator.
+  - rscadd: New holoparasite minor ability, Radio Noise. It allows your holoparasite
+      (only the holopara, not the summoner) to hear most radio channels (except Centcom
+      and Syndicate).
+  - rscadd: Added stat thresholds for many holoparasite abilities.
+  - rscadd: 'Reworked the melee/ranged system for holoparasites into a ''weapons''
+      system, with 3 main weapons being offered for them: Punch, Ranged, and Bladed.'
+  - tweak: You can now only see the name of a holoparasite whenever the summoner takes
+      recoil damage if the holoparasite taking damage can actually be seen within
+      range of the summoner.
+  - tweak: Brute and burn damage absorbed by holoparasites now transfer 'properly'
+      to the summoner, rather than all damage being transformed into brute.
+  - tweak: The movement speed of holoparasites is now affected by their Speed stat.
+  - rscdel: Removed requiem holoparasites. As with stand arrows, they were nigh-unobtainable
+      anyways, and there was literally only one requiem ability left in the code.
+  PowerfulBacon:
+  - tweak: Looking at the protection stats of armour will now compare it to what you
+      are wearing
+2023-09-18:
+  Absolucy:
+  - rscadd: Abductor mental interface devices messages are now shown to deadchat.
+  PowerfulBacon:
+  - bugfix: Fixes being able to access beakers which hold 5000 units of chems.
+  itsmeow:
+  - tweak: Fixed SHIT IS FUCK turfs in explo generation, improved debugging message
+      so the root cause can be identified.
+  - bugfix: Fixed large baseturf lists from Z-Clear not clearing baseturfs.
+2023-09-19:
+  Absolucy:
+  - bugfix: You will no longer suffocate eternally if you stop needing to breathe
+      while in the middle of suffocating.
+  AgentCitrus, Time-Green:
+  - rscadd: You can exit shuttles in transit and cling onto their sides, fly around
+      them with jetpacks, etc.
+  - rscadd: Pulled & no longer pulled signals
+  - tweak: Mobs and items no longer instantly teleport into deep space after walking
+      out of shuttles.
+  PowerfulBacon:
+  - bugfix: Fixes random spawned humans not having their bodytype setup during DNA
+      generation.
+  Tyranicranger4:
+  - bugfix: Fixes a runtime in antag_panel.dm that prevents you from opening the Antagonist
+      Panel on disconnected observers
+  - admin: Improved holodeck logging
+2023-09-20:
+  PowerfulBacon:
+  - balance: DNA locking has been removed from mechs.
+  Tyranicranger4:
+  - rscdel: Removed the duplicate Detective's locker - and thus the duplicate revolver
+      from MetaStation
+  - tweak: Forensics crates now include the detective's camera instead of a normal
+      camera (20 extra charges)
+  - rscadd: Adds a spare detective armor vest to their vendor
+  - bugfix: Fixes a minor runtime in rust_lore.dm
+2023-09-21:
+  CydiaLamiales:
+  - bugfix: Fixed wigs not properly updating the mob's hair when detached from a worn
+      hat
+  HowToLoLu:
+  - bugfix: You can no longer interact with stuff through windows, windoors, and anything
+      that should've blocked you from interacting really.
+2023-09-22:
+  Absolucy, RKz, celotajstg, Mothblocks:
+  - rscadd: Ports the crew manifest to TGUI.
+  Impish_Delights:
+  - admin: additional logging for organ manipulation, cavity implant, and implant
+      removal surgeries
+2023-09-23:
+  CydiaLamiales:
+  - tweak: removed the "Sucessfully scraped off the rust!" message from the advanced
+      wirebrush to prevent text overlap
+  - bugfix: fixed the advanced wirebrush irradiating the user on any click instead
+      of only after scraping
+  Impish_Delights:
+  - rscadd: Billy Clubs now deal minor bonus damage to windows, grilles, glass tables,
+      and windoors/windoor assemblies.
+  - rscadd: Fireaxes additionally deal bonus damage to glass tables, windoors, and
+      windoor assemblies.
+  - rscadd: Syndicate Coat Pistol; Cheap Sidearm w/ lots of utility focused ammo
+  - rscadd: Coat Pistol, .38 standard, DumDum, HotShot, Iceblox, Blister, and BLK_OUT
+      ammo available in Syndie uplink
+  - imageadd: Added sprite for Coat Pistol & .38 Blister rounds
+  - balance: Iceblox .38 deal less damage (20 -> 15)
+  - balance: Hot Shot .38 deal less damage (20 -> 12) and less fire stacks (6 -> 2)
+  - rscadd: Adds 'Wild Spread' and 'Wild Factor' variables to guns, allows 'minimum'
+      recoil to be set
+  - rscadd: Enables 'Wild Spread' on Coat Pistol only, all other guns unaffected
+2023-09-25:
+  Ivniinvi:
+  - spellcheck: Fixed typo in ERT intro text
+  RKz, Ghommie, tralezab, cacogen, Krysonism, qustinnus:
+  - rscadd: Added Pizza and Burgers to Newfood.
+  - tweak: processable element uses the correct grammar and references
+  - code_imp: split pizzaspaghetti.dmi into pizza.dmi and spaghetti.dmi
+  Rkz, Fhaxaris:
+  - balance: floating/flying mobs are no longer affected by turf movespeed modifiers
+2023-09-27:
+  mystery3525:
+  - bugfix: Being on the Emergency Shuttle now counts as "escaping", instead of just
+      arriving at CentCom.
+2023-09-28:
+  itsmeow:
+  - tweak: Improved the user experience within the crew manifest TGUI - adding collapsible
+      sections, relocating the job icons, and right-aligning job titles for better
+      text flow.
+2023-09-29:
+  Absolucy:
+  - bugfix: Fixed ranged holoparas having a massively slower fire rate than they should.
+  CydiaLamiales:
+  - bugfix: Fixed being cloned as an antag not giving the antag moodlet
+  - bugfix: Fixed being cloned as a heretic not giving the forbidden knowledge button
+  HowToLoLu:
+  - bugfix: Attacks on turfs no longer randomly appear in the area containing it.
+  - bugfix: Swarmer attacks no longer use the default attack effect, as they already
+      apply their own.
+  RKz, spookydonut:
+  - code_imp: Changes power_change() to respect parent calls. Should generate less
+      edge-cases and be more performant
+  Tyranicranger4, AnturK, Rkz:
+  - admin: Adds "Sequential Mode" to SDQL2.
+2023-09-30:
+  Absolucy, Bieyes:
+  - bugfix: Fixed an exploit where a holoparasite player could be sent back to the
+      lobby after being reset. Thank you Bieyes (Theodore Cooper) for alerting me
+      of this exploit after coming across it!
+  MMMiracles, goober3:
+  - rscadd: Ports Dirt linings and corners
+  'citrus ':
+  - rscadd: ports the code needed for hedges to work
+  itsmeow:
+  - bugfix: Fixed the Shuttle Designator not working.

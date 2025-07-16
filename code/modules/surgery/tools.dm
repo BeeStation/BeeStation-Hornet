@@ -8,6 +8,7 @@
 	item_state = "clamps"
 	custom_materials = list(/datum/material/iron=6000, /datum/material/glass=3000)
 	flags_1 = CONDUCT_1
+	item_flags = SURGICAL_TOOL
 	w_class = WEIGHT_CLASS_TINY
 	tool_behaviour = TOOL_RETRACTOR
 	toolspeed = 1
@@ -34,6 +35,7 @@
 	item_state = "clamps"
 	custom_materials = list(/datum/material/iron=5000, /datum/material/glass=2500)
 	flags_1 = CONDUCT_1
+	item_flags = SURGICAL_TOOL
 	w_class = WEIGHT_CLASS_TINY
 	attack_verb_continuous = list("attacks", "pinches")
 	attack_verb_simple = list("attack", "pinch")
@@ -64,6 +66,7 @@
 	item_state = "cautery"
 	custom_materials = list(/datum/material/iron=2500, /datum/material/glass=750)
 	flags_1 = CONDUCT_1
+	item_flags = SURGICAL_TOOL
 	w_class = WEIGHT_CLASS_TINY
 	attack_verb_continuous = list("burns")
 	attack_verb_simple = list("burn")
@@ -131,11 +134,17 @@
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	custom_materials = list(/datum/material/iron=2000, /datum/material/glass=1500, /datum/material/silver=500)
 	flags_1 = CONDUCT_1
+	item_flags = SURGICAL_TOOL
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb_continuous = list("pumps", "siphons")
 	attack_verb_simple = list("pump", "siphon")
 	tool_behaviour = TOOL_BLOODFILTER
 	toolspeed = 1
+
+/obj/item/blood_filter/augment
+	name = "integrated blood filter"
+	desc = "For filtering the blood, now inside your arm."
+	toolspeed = 0.5
 
 
 /obj/item/surgicaldrill
@@ -148,6 +157,7 @@
 	hitsound = 'sound/weapons/circsawhit.ogg'
 	custom_materials = list(/datum/material/iron=10000, /datum/material/glass=6000)
 	flags_1 = CONDUCT_1
+	item_flags = SURGICAL_TOOL
 	force = 15
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb_continuous = list("drills")
@@ -186,6 +196,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	item_state = "scalpel"
 	flags_1 = CONDUCT_1
+	item_flags = SURGICAL_TOOL
 	force = 10
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 5
@@ -237,6 +248,7 @@
 	hitsound = 'sound/weapons/circsawhit.ogg'
 	throwhitsound =  'sound/weapons/pierce.ogg'
 	flags_1 = CONDUCT_1
+	item_flags = SURGICAL_TOOL
 	force = 15
 	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 9

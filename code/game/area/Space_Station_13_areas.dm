@@ -78,30 +78,33 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/asteroid/nearstation/bomb_site
 	name = "Bomb Testing Asteroid"
 
-/area/asteroid/paradise
+/area/paradise
 	name = "paradise"
 	icon_state = "asteroid"
 	outdoors = TRUE
-	area_flags = VALID_TERRITORY | UNIQUE_AREA | CAVES_ALLOWED
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	area_flags = UNIQUE_AREA | BLOBS_ALLOWED
 	camera_networks = list(CAMERA_NETWORK_STATION)
+	requires_power = FALSE
 
-/area/asteroid/paradise/surface
+/area/paradise/surface
 	name = "paradise surface"
 	ambientsounds = list('sound/ambience/seag1.ogg','sound/ambience/seag2.ogg','sound/ambience/seag2.ogg','sound/ambience/ambiodd.ogg','sound/ambience/ambinice.ogg')
 	sound_environment = null
+	area_flags = VALID_TERRITORY | UNIQUE_AREA | HIDDEN_STASH_LOCATION
+	fullbright_type = FULLBRIGHT_STARLIGHT
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 
-/area/asteroid/paradise/surface/sand
+/area/paradise/surface/sand
 	name = "paradise surface sand"
 	map_generator = /datum/map_generator/grass_generator
 
-/area/asteroid/paradise/surface/water
+/area/paradise/surface/water
 	name = "paradise surface water"
 	ambientsounds = list('sound/ambience/shore.ogg')
 	mood_bonus = 1
 	mood_message = span_warning("The waves sound nice.\n")
 
-/area/asteroid/paradise/surface/grass
+/area/paradise/surface/grass
 	name = "paradise surface grass"
 	map_generator = /datum/map_generator/grass_generator
 
@@ -266,10 +269,15 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "maint_engi"
 
 /area/maintenance/department/science/xenobiology
-	name = "Xenobiology Maintenance"
+	name = "Abandoned Club"
 	icon_state = "xenomaint"
 	area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA | XENOBIOLOGY_COMPATIBLE
 
+//Maintenance - Cardstation's club
+
+/area/maintenance/club
+	name = "Xenobiology Maintenance"
+	icon_state = "yellow"
 
 //Maintenance - Generic
 
@@ -708,6 +716,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Lounge"
 	icon_state = "yellow"
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
+
+/area/crew_quarters/barbershop
+	name = "Barbershop"
+	icon_state = "yellow"
+	sound_environment = SOUND_AREA_TUNNEL_ENCLOSED
 
 /area/crew_quarters/fitness
 	name = "Fitness Room"
@@ -1179,6 +1192,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/medical/surgery/aux
 	name = "Auxillery Surgery"
 	icon_state = "surgery"
+
+/area/medical/booth
+	name = "Medical Booth"
 
 /area/medical/cryo
 	name = "Cryogenics"
@@ -1829,3 +1845,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/tcommsat/relay
 	name = "Telecommunications Relay"
 	icon_state = "tcom_sat_cham"
+
+//Flavor area on Card Station
+
+/area/syndicate_sat
+	name = "Starboard Aft Bathroom" //syndies are spoofing sensor area reading
+	icon_state = "syndie-control"
+	sound_environment = SOUND_AREA_TUNNEL_ENCLOSED

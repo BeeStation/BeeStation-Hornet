@@ -23,3 +23,15 @@
 
 /datum/preference/choiced/show_balloon_alerts/init_possible_values()
 	return list(BALLOON_ALERT_ALWAYS, BALLOON_ALERT_WITH_CHAT, BALLOON_ALERT_NEVER)
+
+/datum/preference/toggle/enable_runechat_looc
+	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
+	db_key = "enable_runechat_looc"
+	preference_type = PREFERENCE_PLAYER
+
+/datum/preference/toggle/enable_runechat_looc/is_accessible(datum/preferences/preferences,  ignore_page = TRUE)
+	. = ..()
+	if(!CONFIG_GET(flag/looc_enabled))
+		return FALSE
+	if(!preferences.read_player_preference(/datum/preference/toggle/enable_runechat))
+		return FALSE
