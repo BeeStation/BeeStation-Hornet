@@ -101,6 +101,10 @@
 	var/bone_deflection = 5
 	/// The amount of penetration that the bones reduce an attack by
 	var/bone_penetration_resistance = 15
+	/// Amount of blunt armour provided by the skin
+	var/skin_blunt_armour = 5
+	/// Amount of blunt armour provided by the bones
+	var/bone_blunt_armour = 15
 	/// Injury status effects applied to this limb
 	var/list/injuries = list()
 
@@ -685,8 +689,21 @@
 	var/current_damage = damage
 	if (!owner || damage <= 0)
 		return
+	// =====================================
+	// Calculate skin and bone strength
+	// =====================================
+	var/skin_rating = 1
+	var/bone_rating = 1
+	for (var/datum/injury/injury_graph as anything in injuries)
+		skin_rating *= injury_graph.skin_armour_modifier
+		bone_rating *= injury_graph.bone_armour_modifier
+	// =====================================
+	// Account for armour resistance
+	// =====================================
 	// Deal with armour, the penetration power gets flat reduced by the relevant armour stat
 	var/armour = owner.get_bodyzone_armor_flag(body_zone, ARMOUR_PENETRATION)
+	var/blunt_armour = owner.get_bodyzone_armor_flag(body_zone, ARMOUR_BLUNT)
+	blunt_armour = clamp(blunt_armour, 0, 100)
 	penetration_power -= armour
 	// Damage multiplier
 	damage += max(0, clamp(penetration_power, 0, 30) / 30 * (UNPROTECTED_SHARPNESS_INJURY_MULTIPLIER - 1) * penetration_power)
@@ -696,13 +713,15 @@
 	// due to so many injuries.
 	if (owner && owner.stat == DEAD)
 		current_damage *= 0.2
-	// Even without penetration, having high damage results in blunt damage falling down
-	if (penetration_power < 0)
-		current_damage += penetration_power
-	if (current_damage < 0 || penetration_power + damage < INJURY_PENETRATION_MINIMUM)
+	// If the penetration delta falls below -30, then we deal no blunt damage at all
+	if (current_damage < 0 || penetration_power  < INJURY_PENETRATION_MINIMUM)
 		return
+	// Add in blunt armour from skin
+	blunt_armour += skin_rating * skin_blunt_armour
+	blunt_armour = clamp(blunt_armour, 0, 100)
+	// Calculate damages
 	var/proportion = CLAMP01(penetration_power / BLUNT_DAMAGE_START)
-	var/blunt_damage = (current_damage * (1 - proportion)) * BLUNT_DAMAGE_RATIO
+	var/blunt_damage = (current_damage * (1 - proportion)) * BLUNT_DAMAGE_RATIO * ((100 - blunt_armour) / 100)
 	var/sharp_damage = current_damage * proportion
 	// Take sharp & blunt damage
 	for (var/datum/injury/injury_graph as anything in injuries)
@@ -710,27 +729,27 @@
 		// Burn damage affects the skin, not the bones
 		if (damage_type == BURN)
 			injury_graph.apply_damage(blunt_damage, damage_type, damage_flag, FALSE)
-	var/skin_rating = 1
-	var/bone_rating = 1
-	for (var/datum/injury/injury_graph as anything in injuries)
-		skin_rating *= injury_graph.skin_armour_modifier
-		bone_rating *= injury_graph.bone_armour_modifier
-	// Reduce penetration
+	// =====================================
+	// Account for skin resistance
+	// =====================================
 	penetration_power -= rand(0, skin_penetration_resistance * skin_rating)
 	// Deflection - Permanently reduces damage
 	damage -= bone_deflection * bone_rating
 	current_damage = damage
-	if (penetration_power < 0)
-		current_damage += penetration_power
-	if (current_damage <= 0 || penetration_power + damage < INJURY_PENETRATION_MINIMUM)
+	if (current_damage <= 0 || penetration_power < INJURY_PENETRATION_MINIMUM)
 		return
+	// Add in blunt armour from bones
+	blunt_armour += bone_rating * bone_blunt_armour
+	blunt_armour = clamp(blunt_armour, 0, 100)
 	// Bone health
 	proportion = CLAMP01(penetration_power / BLUNT_DAMAGE_START)
+	blunt_damage = (current_damage * (1 - proportion)) * BLUNT_DAMAGE_RATIO * ((100 - blunt_armour) / 100)
 	if (damage_type != BURN)
-		blunt_damage = (current_damage * (1 - proportion)) * BLUNT_DAMAGE_RATIO
 		for (var/datum/injury/injury_graph as anything in injuries)
 			injury_graph.apply_damage(blunt_damage, damage_type, damage_flag, FALSE)
-	// Bone pentration
+	// =====================================
+	// Account for bone resistance
+	// =====================================
 	penetration_power -= rand(0, bone_penetration_resistance * bone_rating)
 	current_damage = damage
 	if (penetration_power < 0 || current_damage < 0)
