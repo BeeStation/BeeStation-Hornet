@@ -1396,7 +1396,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		var/obj/item/bodypart/affecting = target.get_bodypart(target.get_random_valid_zone(target.get_combat_bodyzone(src)))
 
 		var/miss_chance = 100//calculate the odds that a punch misses entirely. considers stamina and brute damage of the puncher. punches miss by default to prevent weird cases
-		if(attacking_bodypart.unarmed_damage_low)
+		if((target.body_position == LYING_DOWN) || HAS_TRAIT(user, TRAIT_PERFECT_ATTACKER))
 			if((target.body_position == LYING_DOWN)) //kicks never miss (provided your species deals more than 0 damage)
 				miss_chance = 0
 			else

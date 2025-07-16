@@ -31,6 +31,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_CRITICAL_CONDITION "critical-condition"
 // Grants them the ability to move even when without any limbs.
 #define TRAIT_MOBILE "mobile"
+/// Doesn't miss attacks
+#define TRAIT_PERFECT_ATTACKER "perfect_attacker"
 
 //mob traits
 #define TRAIT_BLIND "blind"
