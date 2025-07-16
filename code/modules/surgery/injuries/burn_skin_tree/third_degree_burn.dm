@@ -15,7 +15,7 @@
 		target.add_bleeding(BLEED_CRITICAL)
 	// Gain organ damage over time
 	for (var/slot in bodypart.organ_slots)
-		var/obj/item/organ/organ = target.getorganslot(slot)
+		var/obj/item/organ/organ = target.get_organ_slot(slot)
 		if (!organ)
 			continue
 		if (!prob(organ.organ_size))

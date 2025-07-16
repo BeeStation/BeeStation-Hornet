@@ -362,7 +362,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 /obj/item/organ/proc/get_availability(datum/species/owner_species, mob/living/owner_mob)
 	SHOULD_CALL_PARENT(TRUE)
 	. = FALSE
-	for (var/obj/item/bodypart/part in target.bodyparts)
+	for (var/obj/item/bodypart/part in owner_mob.bodyparts)
 		// If we have a bodypart that can hold this, then we should have this organ
 		if (slot in part.organ_slots)
 			. = TRUE

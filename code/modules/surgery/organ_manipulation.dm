@@ -101,14 +101,11 @@
 		var/obj/item/bodypart/target_bodypart = target.get_bodypart(check_zone(surgery.location))
 		if (!target_bodypart)
 			CRASH("Surgery somehow was completed when the target didn't have the correct bodypart at [surgery.location].")
-		if (!(target_organ.slot in target_bodypart.organ_slots) || target.getorganslot(target_organ.slot))
+		if (!(target_organ.slot in target_bodypart.organ_slots) || target.get_organ_slot(target_organ.slot))
 			to_chat(user, span_notice("There is no room for [target_organ] in [target]'s [parse_zone(target_zone)]!"))
 			return -1
 		if(istype(target_organ, /obj/item/organ/brain/positron))
-			var/obj/item/bodypart/affected = target.get_bodypart(check_zone(target_organ.zone))
-			if(!affected)
-				return -1
-			if(IS_ORGANIC_LIMB(affected))
+			if(IS_ORGANIC_LIMB(target_bodypart))
 				to_chat(user, span_notice("You can't put [target_organ] into a meat enclosure!"))
 				return -1
 			if(!isipc(target))

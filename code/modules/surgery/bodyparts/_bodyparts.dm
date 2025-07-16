@@ -754,7 +754,7 @@
 		return
 	// Damage organs
 	for (var/slot in organ_slots)
-		var/obj/item/organ/organ = owner.getorganslot(slot)
+		var/obj/item/organ/organ = owner.get_organ_slot(slot)
 		if (!organ)
 			continue
 		if (!prob(organ.organ_size))
