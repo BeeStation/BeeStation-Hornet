@@ -421,6 +421,32 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 /datum/preference/color/is_valid(value)
 	return findtext(value, GLOB.is_color)
 
+/proc/pick_default_accessory(list/sprite_accessories, datum/sprite_accessory/default = null, default_probability = 0, required_gender = null)
+	RETURN_TYPE(/datum/sprite_accessory)
+
+	if (default && prob(default_probability))
+		return default
+
+	var/list/allowed = list()
+	for (var/datum/sprite_accessory/accessory as anything in sprite_accessories)
+		// Source list is an assoc list
+		if (!istype(accessory))
+			accessory = sprite_accessories[accessory]
+		if (!accessory || !istype(accessory))
+			continue
+		if (!accessory.use_default)
+			continue
+		if (required_gender && accessory.use_default_gender != NEUTER && accessory.use_default_gender != required_gender)
+			continue
+		allowed += accessory
+
+	if (length(allowed) == 0)
+		if (default)
+			return default
+		return pick(sprite_accessories)
+
+	return pick(allowed)
+
 /// A numeric preference with a minimum and maximum value
 /datum/preference/numeric
 	/// The minimum value

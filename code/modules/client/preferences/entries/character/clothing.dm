@@ -63,6 +63,7 @@
 /datum/preference/choiced/jumpsuit_style
 	db_key = "jumpsuit_style"
 	preference_type = PREFERENCE_CHARACTER
+	priority = PREFERENCE_PRIORITY_BODY_TYPE
 	main_feature_name = "Jumpsuit"
 	category = PREFERENCE_CATEGORY_CLOTHING
 	should_generate_icons = TRUE
@@ -175,6 +176,7 @@
 /datum/preference/choiced/underwear
 	db_key = "underwear"
 	preference_type = PREFERENCE_CHARACTER
+	priority = PREFERENCE_PRIORITY_BODY_TYPE
 	main_feature_name = "Underwear"
 	category = PREFERENCE_CATEGORY_CLOTHING
 	should_generate_icons = TRUE
@@ -186,6 +188,13 @@
 
 /datum/preference/choiced/underwear/create_default_value()
 	return /datum/sprite_accessory/underwear/male_hearts::name
+
+/datum/preference/choiced/underwear/create_informed_default_value(datum/preferences/preferences)
+	var/gender = preferences.read_preference(/datum/preference/choiced/gender)
+	var/datum/sprite_accessory/picked_underwear = pick_default_accessory(GLOB.underwear_list, null, 0, gender)
+	if(!picked_underwear)
+		return ..()
+	return picked_underwear?.name
 
 /datum/preference/choiced/underwear/icon_for(value)
 	var/static/datum/universal_icon/lower_half

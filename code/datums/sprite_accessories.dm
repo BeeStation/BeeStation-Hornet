@@ -34,7 +34,7 @@
 		else
 			L += D.name
 
-		switch(D.gender)
+		switch(D.use_default_gender)
 			if(MALE)
 				male += D.name
 			if(FEMALE)
@@ -57,11 +57,14 @@
 	var/emissive_alpha = 255	//Alpha of the emissive
 	/// The preview name of the accessory.
 	var/name
-	var/gender = NEUTER //Determines if the accessory will be skipped or included in random hair generations
 	/// Something that can be worn by either gender, but looks different on each.
 	var/gender_specific
 	/// Determines if the accessory will be skipped by color preferences.
 	var/use_static
+	/// Whether this accessory should be included in default/random selections.
+	var/use_default = TRUE
+	/// What gender should this accessory be used for in random generation? MALE, FEMALE, or NEUTER (all)
+	var/use_default_gender = NEUTER
 	/**
 	 * Currently only used by mutantparts so don't worry about hair and stuff.
 	 * This is the source that this accessory will get its color from. Default is MUTCOLOR, but can also be HAIR, FACEHAIR, EYECOLOR and 0 if none.
@@ -121,6 +124,7 @@
 /datum/sprite_accessory/hair/antenna
 	name = "Ahoge"
 	icon_state = "hair_antenna"
+	use_default = FALSE // Very unusual/anime style
 
 /datum/sprite_accessory/hair/balding
 	name = "Balding Hair"
@@ -197,46 +201,57 @@
 /datum/sprite_accessory/hair/front_braid
 	name = "Braided Front"
 	icon_state = "hair_braidfront"
+	use_default_gender = FEMALE // Feminine style
 
 /datum/sprite_accessory/hair/not_floorlength_braid
 	name = "Braid (High)"
 	icon_state = "hair_braid2"
+	use_default_gender = FEMALE // Feminine style
 
 /datum/sprite_accessory/hair/lowbraid
 	name = "Braid (Low)"
 	icon_state = "hair_hbraid"
+	use_default_gender = FEMALE // Feminine style
 
 /datum/sprite_accessory/hair/shortbraid
 	name = "Braid (Short)"
 	icon_state = "hair_shortbraid"
+	use_default_gender = FEMALE // Feminine style
 
 /datum/sprite_accessory/hair/braidtail
 	name = "Braided Tail"
 	icon_state = "hair_braidtail"
+	use_default_gender = FEMALE // Feminine style
 
 /datum/sprite_accessory/hair/bun
 	name = "Bun Head"
 	icon_state = "hair_bun"
+	use_default_gender = FEMALE // Feminine style
 
 /datum/sprite_accessory/hair/bun2
 	name = "Bun Head 2"
 	icon_state = "hair_bunhead2"
+	use_default_gender = FEMALE // Feminine style
 
 /datum/sprite_accessory/hair/bun3
 	name = "Bun Head 3"
 	icon_state = "hair_bun3"
+	use_default_gender = FEMALE // Feminine style
 
 /datum/sprite_accessory/hair/largebun
 	name = "Bun (Large)"
 	icon_state = "hair_largebun"
+	use_default_gender = FEMALE // Feminine style
 
 /datum/sprite_accessory/hair/manbun
 	name = "Bun (Manbun)"
 	icon_state = "hair_manbun"
+	// Keep default - this is specifically for men
 
 /datum/sprite_accessory/hair/tightbun
 	name = "Bun (Tight)"
 	icon_state = "hair_tightbun"
+	use_default_gender = FEMALE // Feminine style
 
 /datum/sprite_accessory/hair/bun2
 	name = "Bun Head 2"
@@ -289,14 +304,17 @@
 /datum/sprite_accessory/hair/cornrowbun
 	name = "Cornrow Bun"
 	icon_state = "hair_cornrowbun"
+	use_default_gender = FEMALE // Feminine style
 
 /datum/sprite_accessory/hair/cornrowbraid
 	name = "Cornrow Braid"
 	icon_state = "hair_cornrowbraid"
+	use_default_gender = FEMALE // Feminine style
 
 /datum/sprite_accessory/hair/cornrowdualtail
 	name = "Cornrow Tail"
 	icon_state = "hair_cornrowtail"
+	use_default_gender = FEMALE // Feminine style
 
 /datum/sprite_accessory/hair/crew
 	name = "Crewcut"
@@ -325,6 +343,7 @@
 /datum/sprite_accessory/hair/doublebun
 	name = "Double Bun"
 	icon_state = "hair_doublebun"
+	use_default_gender = FEMALE // Feminine style
 
 /datum/sprite_accessory/hair/dreadlocks
 	name = "Dreadlocks"
@@ -333,10 +352,12 @@
 /datum/sprite_accessory/hair/drillhair
 	name = "Drill Hair"
 	icon_state = "hair_drillhair"
+	use_default = FALSE // Very unusual/anime style
 
 /datum/sprite_accessory/hair/drillhairextended
 	name = "Drill Hair (Extended)"
 	icon_state = "hair_drillhairextended"
+	use_default = FALSE // Very unusual/anime style
 
 /datum/sprite_accessory/hair/emo
 	name = "Emo"
@@ -417,18 +438,22 @@
 /datum/sprite_accessory/hair/himecut
 	name = "Hime Cut"
 	icon_state = "hair_himecut"
+	use_default = FALSE // Very specific anime style
 
 /datum/sprite_accessory/hair/himecut2
 	name = "Hime Cut 2"
 	icon_state = "hair_himecut2"
+	use_default = FALSE // Very specific anime style
 
 /datum/sprite_accessory/hair/shorthime
 	name = "Hime Cut (Short)"
 	icon_state = "hair_shorthime"
+	use_default = FALSE // Very specific anime style
 
 /datum/sprite_accessory/hair/himeup
 	name = "Hime Updo"
 	icon_state = "hair_himeup"
+	use_default = FALSE // Very specific anime style
 
 /datum/sprite_accessory/hair/hitop
 	name = "Hitop"
@@ -445,6 +470,7 @@
 /datum/sprite_accessory/hair/Joestar
 	name = "Joestar"
 	icon_state = "hair_joestar"
+	use_default = FALSE // Very specific anime reference
 
 /datum/sprite_accessory/hair/keanu
 	name = "Keanu Hair"
@@ -457,26 +483,32 @@
 /datum/sprite_accessory/hair/long
 	name = "Long Hair 1"
 	icon_state = "hair_long"
+	use_default_gender = FALSE // Typically feminine
 
 /datum/sprite_accessory/hair/long2
 	name = "Long Hair 2"
 	icon_state = "hair_long2"
+	use_default_gender = FALSE // Typically feminine
 
 /datum/sprite_accessory/hair/long3
 	name = "Long Hair 3"
 	icon_state = "hair_long3"
+	use_default_gender = FALSE // Typically feminine
 
 /datum/sprite_accessory/hair/long_over_eye
 	name = "Long Over Eye"
 	icon_state = "hair_longovereye"
+	use_default_gender = FALSE // Typically feminine
 
 /datum/sprite_accessory/hair/longbangs
 	name = "Long Bangs"
 	icon_state = "hair_lbangs"
+	use_default_gender = FALSE // Typically feminine
 
 /datum/sprite_accessory/hair/longemo
 	name = "Long Emo"
 	icon_state = "hair_longemo"
+	use_default_gender = FALSE // Typically feminine
 
 /datum/sprite_accessory/hair/longfringe
 	name = "Long Fringe"
@@ -525,6 +557,7 @@
 /datum/sprite_accessory/hair/mulder
 	name = "Mulder"
 	icon_state = "hair_mulder"
+	use_default = FALSE // Specific character reference
 
 /datum/sprite_accessory/hair/mullet
 	name = "Mullet"
@@ -533,14 +566,17 @@
 /datum/sprite_accessory/hair/odango
 	name = "Odango"
 	icon_state = "hair_odango"
+	use_default = FALSE // Very specific anime style
 
 /datum/sprite_accessory/hair/ombre
 	name = "Ombre"
 	icon_state = "hair_ombre"
+	use_default_gender = FALSE // Typically feminine
 
 /datum/sprite_accessory/hair/oneshoulder
 	name = "One Shoulder"
 	icon_state = "hair_oneshoulder"
+	use_default_gender = FALSE // Typically feminine
 
 /datum/sprite_accessory/hair/over_eye
 	name = "Over Eye"
@@ -565,10 +601,12 @@
 /datum/sprite_accessory/hair/kagami
 	name = "Pigtails"
 	icon_state = "hair_kagami"
+	use_default_gender = FEMALE // Feminine style
 
 /datum/sprite_accessory/hair/pigtail
 	name = "Pigtails 2"
 	icon_state = "hair_pigtails"
+	use_default_gender = FEMALE // Feminine style
 
 /datum/sprite_accessory/hair/pigtail2
 	name = "Pigtails 3"
@@ -593,74 +631,92 @@
 /datum/sprite_accessory/hair/ponytail1
 	name = "Ponytail"
 	icon_state = "hair_ponytail"
+	use_default_gender = FEMALE // Feminine style
 
 /datum/sprite_accessory/hair/ponytail2
 	name = "Ponytail 2"
 	icon_state = "hair_ponytail2"
+	use_default_gender = FEMALE // Feminine style
 
 /datum/sprite_accessory/hair/ponytail3
 	name = "Ponytail 3"
 	icon_state = "hair_ponytail3"
+	use_default_gender = FEMALE // Feminine style
 
 /datum/sprite_accessory/hair/ponytail4
 	name = "Ponytail 4"
 	icon_state = "hair_ponytail4"
+	use_default_gender = FEMALE // Feminine style
 
 /datum/sprite_accessory/hair/ponytail5
 	name = "Ponytail 5"
 	icon_state = "hair_ponytail5"
+	use_default_gender = FEMALE // Feminine style
 
 /datum/sprite_accessory/hair/ponytail6
 	name = "Ponytail 6"
 	icon_state = "hair_ponytail6"
+	use_default_gender = FEMALE // Feminine style
 
 /datum/sprite_accessory/hair/ponytail7
 	name = "Ponytail 7"
 	icon_state = "hair_ponytail7"
+	use_default_gender = FEMALE // Feminine style
 
 /datum/sprite_accessory/hair/ponytailalchemist
 	name = "Ponytail (Alchemist)"
 	icon_state = "hair_alchemist"
+	use_default_gender = FEMALE // Feminine style
 
 /datum/sprite_accessory/hair/highponytail
 	name = "Ponytail (High)"
 	icon_state = "hair_highponytail"
+	use_default_gender = FEMALE // Feminine style
 
 /datum/sprite_accessory/hair/tightponytail
 	name = "Ponytail (Tight)"
 	icon_state = "hair_tightponytail"
+	use_default_gender = FEMALE // Feminine style
 
 /datum/sprite_accessory/hair/stail
 	name = "Ponytail (Short)"
 	icon_state = "hair_stail"
+	use_default_gender = FEMALE // Feminine style
 
 /datum/sprite_accessory/hair/longponytail
 	name = "Ponytail (Long)"
 	icon_state = "hair_longstraightponytail"
+	use_default_gender = FEMALE // Feminine style
 
 /datum/sprite_accessory/hair/countryponytail
 	name = "Ponytail (Country)"
 	icon_state = "hair_country"
+	use_default_gender = FEMALE // Feminine style
 
 /datum/sprite_accessory/hair/fringetail
 	name = "Ponytail (Fringe)"
 	icon_state = "hair_fringetail"
+	use_default_gender = FEMALE // Feminine style
 
 /datum/sprite_accessory/hair/sidetail
 	name = "Ponytail (Side)"
 	icon_state = "hair_sidetail"
+	use_default_gender = FEMALE // Feminine style
 
 /datum/sprite_accessory/hair/sidetail2
 	name = "Ponytail (Side) 2"
 	icon_state = "hair_sidetail2"
+	use_default_gender = FEMALE // Feminine style
 
 /datum/sprite_accessory/hair/sidetail3
 	name = "Ponytail (Side) 3"
 	icon_state = "hair_sidetail3"
+	use_default_gender = FEMALE // Feminine style
 
 /datum/sprite_accessory/hair/sidetail4
 	name = "Ponytail (Side) 4"
 	icon_state = "hair_sidetail4"
+	use_default_gender = FEMALE // Feminine style
 
 /datum/sprite_accessory/hair/spikyponytail
 	name = "Ponytail (Spiky)"
@@ -809,6 +865,7 @@
 /datum/sprite_accessory/hair/twintails
 	name = "Twintails"
 	icon_state = "hair_twintail"
+	use_default_gender = FEMALE // Feminine style
 
 /datum/sprite_accessory/hair/undercut
 	name = "Undercut"

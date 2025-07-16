@@ -46,47 +46,28 @@
 /proc/random_underwear(gender)
 	if(!GLOB.underwear_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/underwear, GLOB.underwear_list, GLOB.underwear_m, GLOB.underwear_f)
-	switch(gender)
-		if(MALE)
-			return pick(GLOB.underwear_m)
-		if(FEMALE)
-			return pick(GLOB.underwear_f)
-		else
-			return pick(GLOB.underwear_list)
+	var/datum/sprite_accessory/picked = pick_default_accessory(GLOB.underwear_list, null, 0, gender)
+	return picked?.name || "Nude"
 
 /proc/random_undershirt(gender)
 	if(!GLOB.undershirt_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/undershirt, GLOB.undershirt_list, GLOB.undershirt_m, GLOB.undershirt_f)
-	switch(gender)
-		if(MALE)
-			return pick(GLOB.undershirt_m)
-		if(FEMALE)
-			return pick(GLOB.undershirt_f)
-		else
-			return pick(GLOB.undershirt_list)
+	var/datum/sprite_accessory/picked = pick_default_accessory(GLOB.undershirt_list, null, 0, gender)
+	return picked?.name || "Nude"
 
-/proc/random_socks()
+/proc/random_socks(gender)
 	if(!GLOB.socks_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/socks, GLOB.socks_list)
-	return pick(GLOB.socks_list)
+	var/datum/sprite_accessory/picked = pick_default_accessory(GLOB.socks_list, null, 0, gender)
+	return picked?.name || "Nude"
 
 /proc/random_hairstyle(gender)
-	switch(gender)
-		if(MALE)
-			return pick(GLOB.hair_styles_male_list)
-		if(FEMALE)
-			return pick(GLOB.hair_styles_female_list)
-		else
-			return pick(GLOB.hairstyles_list)
+	var/datum/sprite_accessory/picked = pick_default_accessory(GLOB.hairstyles_list, null, 0, gender)
+	return picked?.name || "Bald"
 
 /proc/random_facial_hairstyle(gender)
-	switch(gender)
-		if(MALE)
-			return pick(GLOB.facial_hairstyles_male_list)
-		if(FEMALE)
-			return pick(GLOB.facial_hairstyles_female_list)
-		else
-			return pick(GLOB.facial_hairstyles_list)
+	var/datum/sprite_accessory/picked = pick_default_accessory(GLOB.facial_hairstyles_list, null, 0, gender)
+	return picked?.name || "Shaved"
 
 /proc/random_unique_name(gender, attempts_to_find_unique_name=10)
 	for(var/i in 1 to attempts_to_find_unique_name)

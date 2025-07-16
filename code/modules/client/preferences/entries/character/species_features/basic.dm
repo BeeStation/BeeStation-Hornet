@@ -39,7 +39,7 @@
 	return random_eye_color()
 
 /datum/preference/choiced/facial_hairstyle
-	priority = PREFERENCE_PRORITY_LATE_BODY_TYPE
+	priority = PREFERENCE_PRIORITY_LATE_BODY_TYPE
 	db_key = "facial_style_name"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_FEATURES
@@ -67,12 +67,13 @@
 	if(!gender || !species_real || !species_real.sexes)
 		return ..()
 
-	var/picked_beard = random_facial_hairstyle(gender)
-	var/datum/sprite_accessory/beard_style = GLOB.facial_hairstyles_list[picked_beard]
-	if(!beard_style || beard_style.locked) // Invalid, go with god(bald)
+	var/datum/sprite_accessory/picked_beard = pick_default_accessory(GLOB.facial_hairstyles_list, null, 0, gender)
+	if(!picked_beard)
+		return ..()
+	if(picked_beard?.locked) // Invalid, go with god(bald)
 		return ..()
 
-	return picked_beard
+	return picked_beard?.name
 
 /datum/preference/choiced/facial_hairstyle/compile_constant_data()
 	var/list/data = ..()
@@ -82,7 +83,7 @@
 	return data
 
 /datum/preference/color/facial_hair_color
-	priority = PREFERENCE_PRORITY_LATE_BODY_TYPE // Need to happen after hair color is set so we can match by default
+	priority = PREFERENCE_PRIORITY_LATE_BODY_TYPE // Need to happen after hair color is set so we can match by default
 	db_key = "facial_hair_color"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
@@ -95,7 +96,7 @@
 	return preferences.read_preference(/datum/preference/color/hair_color) || random_hair_color()
 
 /datum/preference/choiced/facial_hair_gradient
-	priority = PREFERENCE_PRORITY_LATE_BODY_TYPE
+	priority = PREFERENCE_PRIORITY_LATE_BODY_TYPE
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
 	preference_type = PREFERENCE_CHARACTER
 	db_key = "facial_hair_gradient"
@@ -112,7 +113,7 @@
 	return /datum/sprite_accessory/gradient/none::name
 
 /datum/preference/color/facial_hair_gradient
-	priority = PREFERENCE_PRORITY_LATE_BODY_TYPE
+	priority = PREFERENCE_PRIORITY_LATE_BODY_TYPE
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
 	preference_type = PREFERENCE_CHARACTER
 	db_key = "facial_hair_gradient_color"
@@ -171,12 +172,13 @@
 	if(!gender || !species_real || !species_real.sexes)
 		return ..()
 
-	var/picked_hair = random_hairstyle(gender)
-	var/datum/sprite_accessory/hair_style = GLOB.hairstyles_list[picked_hair]
-	if(!hair_style || hair_style.locked) // Invalid, go with god(bald)
+	var/datum/sprite_accessory/picked_hair = pick_default_accessory(GLOB.hairstyles_list, null, 0, gender)
+	if(!picked_hair)
+		return ..()
+	if(picked_hair?.locked) // Invalid, go with god(bald)
 		return ..()
 
-	return picked_hair
+	return picked_hair?.name
 
 /datum/preference/choiced/hairstyle/compile_constant_data()
 	var/list/data = ..()
