@@ -137,11 +137,15 @@ export type FeatureChoicedServerData = {
 
 export type FeatureChoiced = Feature<string, string, FeatureChoicedServerData>;
 
-const capitalizeFirstLetter = (text: string) =>
-  text
+const capitalizeFirstLetter = (text: string) => {
+  if (text === null || text === undefined) {
+    return '';
+  }
+  return text
     .toString()
     .charAt(0)
     .toUpperCase() + text.toString().slice(1);
+};
 
 export const StandardizedDropdown = (props: {
   choices: string[];

@@ -50,8 +50,28 @@ export const feature_monkey_tail: FeatureChoiced = {
   component: FeatureButtonedDropdownInput,
 };
 
+export const feature_lizard_body_markings: FeatureChoiced = {
+  name: 'Body Markings',
+  component: FeatureButtonedDropdownInput,
+};
+
+export const feature_lizard_frills: FeatureChoiced = {
+  name: 'Frills',
+  component: FeatureButtonedDropdownInput,
+};
+
+export const feature_lizard_horns: FeatureChoiced = {
+  name: 'Horns',
+  component: FeatureButtonedDropdownInput,
+};
+
 export const feature_lizard_legs: FeatureChoiced = {
   name: 'Legs',
+  component: FeatureButtonedDropdownInput,
+};
+
+export const feature_lizard_snout: FeatureChoiced = {
+  name: 'Snout',
   component: FeatureButtonedDropdownInput,
 };
 
