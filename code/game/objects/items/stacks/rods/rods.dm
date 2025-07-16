@@ -82,29 +82,42 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 		return ..()
 
 /obj/item/stack/rods/scrap
-	/// This will be used during automation for name, description and icon states!
+	name = null
+	desc =null
+	singular_name = null
+	icon_state = null
+	item_state = null
+	/// This is used to for name, descriptions and icon states that are empty above!
 	var/name_type = "metal"
 	w_class = WEIGHT_CLASS_SMALL
 	material_flags = MATERIAL_EFFECTS //This is necessary to ensure the rods behave as the materials would have them behave
 	force = 5  //being hit with this must be the equivalent of being hit with a random assortment of pebbles
 	throwforce = 5
-	mats_per_unit = list(/datum/material/iron=100)
 	max_amount = 100
-	merge_type = /obj/item/stack/rods/scrap
 	matter_amount = 0
 	source = null
 	amount_needed = 10
 
-/obj/item/stack/rods/scrap/get_recipes()
-	return GLOB.metal_scrap_recipes
-
 /obj/item/stack/rods/scrap/Initialize()
 	name = "[name_type] scraps"
-	if(!istype(src, /obj/item/stack/rods/scrap/paper) && !istype(src, /obj/item/stack/rods/scrap/plasma))
+	if(isnull(desc))
 		desc = "Scraps of [name_type] salvaged with rudimentary tools. It can be welded into a [welding_result.name]."
 	singular_name = "[name_type] scrap"
 	icon_state = "[name_type]_scraps"
 	item_state = "[name_type]_scraps"
+
+/obj/item/stack/rods/scrap/get_recipes()
+	return list()
+
+/obj/item/stack/rods/scrap/metal
+	/// This will be used during automation for name, description and icon states!
+	name_type = "metal"
+	mats_per_unit = list(/datum/material/iron=100)
+	merge_type = /obj/item/stack/rods/scrap
+	welding_result = /obj/item/stack/sheet/mineral/iron	// We're duping this just for the sake of clarity
+
+/obj/item/stack/rods/scrap/metal/get_recipes()
+	return GLOB.metal_scrap_recipes
 
 /obj/item/stack/rods/scrap/silver
 	name_type = "silver"
@@ -112,17 +125,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 	merge_type = /obj/item/stack/rods/scrap/silver
 	welding_result = /obj/item/stack/sheet/mineral/silver
 
-/obj/item/stack/rods/scrap/silver/get_recipes()
-	return list()
-
 /obj/item/stack/rods/scrap/gold
 	name_type = "gold"
 	mats_per_unit = list(/datum/material/gold=100)
 	merge_type = /obj/item/stack/rods/scrap/gold
 	welding_result = /obj/item/stack/sheet/mineral/gold
-
-/obj/item/stack/rods/scrap/gold/get_recipes()
-	return list()
 
 /obj/item/stack/rods/scrap/plasteel
 	name_type = "plasteel"
@@ -131,18 +138,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 	merge_type = /obj/item/stack/rods/scrap/plasteel
 	welding_result = /obj/item/stack/sheet/plasteel
 
-/obj/item/stack/rods/scrap/plasteel/get_recipes()
-	return list()
-
 /obj/item/stack/rods/scrap/bronze
 	name_type = "bronze"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	mats_per_unit = list(/datum/material/copper=50, /datum/material/iron=50)
 	merge_type = /obj/item/stack/rods/scrap/bronze
 	welding_result = /obj/item/stack/sheet/bronze
-
-/obj/item/stack/rods/scrap/bronze/get_recipes()
-	return list()
 
 /obj/item/stack/rods/scrap/glass
 	name_type = "glass"
@@ -165,9 +166,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 	merge_type = /obj/item/stack/rods/scrap/uranium
 	welding_result = /obj/item/stack/sheet/mineral/uranium
 
-/obj/item/stack/rods/scrap/uranium/get_recipes()
-	return list()
-
 /obj/item/stack/rods/scrap/plasma
 	name = "plasma scraps"
 	desc = "Scraps of plasma salvaged with rudimentary tools. Try welding them, see what happens."
@@ -187,13 +185,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 	merge_type = /obj/item/stack/rods/scrap/plastic
 	welding_result = /obj/item/stack/sheet/plastic
 
-/obj/item/stack/rods/scrap/plastic/get_recipes()
-	return list()
-
 //Yes hello, Joon here, I know paper is tecnically not a mineral but I wanted a way to make crafting with paper easier since paper doesn't stack
 //salvaging the paper scraps requires you to have a wirecutter anyways so might as well be able to craft while avoiding the crafting menu
 /obj/item/stack/rods/scrap/paper
-	name_type = "plastic"
+	name_type = "paper"
 	desc = "Scraps of paper cut haphazardly."
 	flags_1 = NONE
 	resistance_flags = FLAMMABLE
