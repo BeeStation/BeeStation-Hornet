@@ -34,7 +34,7 @@
 		else //we're going to drop all bodyparts except chest, so the only organs that needs spilling are those inside it.
 			var/obj/item/bodypart/chest = get_bodypart(BODY_ZONE_CHEST)
 			for(var/X in chest.organ_slots)
-				var/obj/item/organ/O = getorganslot(X)
+				var/obj/item/organ/O = get_organ_slot(X)
 				if (!O)
 					continue
 				if(no_brain && istype(O, /obj/item/organ/brain))
@@ -44,7 +44,7 @@
 				O.forceMove(Tsec)
 				O.throw_at(get_edge_target_turf(src,pick(GLOB.alldirs)),rand(1,3),5)
 			if (no_brain)
-				var/obj/item/brain = getorganslot(ORGAN_SLOT_BRAIN)
+				var/obj/item/brain = get_organ_slot(ORGAN_SLOT_BRAIN)
 				if (brain)
 					qdel(brain)
 	else

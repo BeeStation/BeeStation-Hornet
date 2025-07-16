@@ -28,7 +28,7 @@
 
 
 /datum/weather/rad_storm/weather_act(mob/living/L)
-	var/resist = L.getarmor(null, RAD)
+	var/resist = L.get_radiation_protection()
 	if(!prob(40))
 		return
 

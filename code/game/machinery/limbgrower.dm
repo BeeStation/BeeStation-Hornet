@@ -150,7 +150,7 @@
 	limb.icon_state = "[selected_category]_[limb.body_zone]"
 	limb.name = "\improper synthetic [selected_category] [parse_zone(limb.body_zone)]"
 	limb.limb_id = selected_category
-	ADD_VALUE_TRAIT(limb, TRAIT_OVERRIDE_SKIN_COLOUR, "#62A262", TODO)
+	ADD_VALUE_TRAIT(limb, TRAIT_OVERRIDE_SKIN_COLOUR, INNATE_TRAIT, "#62A262", SKIN_PRIORITY_GROWN)
 	limb.update_icon_dropped()
 
 /obj/machinery/limbgrower/RefreshParts()

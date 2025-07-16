@@ -114,7 +114,7 @@
 		BP.drop_limb(1)
 		if(!(tr_flags & TR_KEEPORGANS)) //we didn't already get rid of the organs of the newly spawned mob
 			for (var/organ_slot in BP.organ_slots)
-				var/obj/item/organ/G = getorganslot(organ_slot)
+				var/obj/item/organ/G = get_organ_slot(organ_slot)
 				if(!G)
 					continue
 				if(mind && mind.has_antag_datum(/datum/antagonist/changeling) && istype(G, /obj/item/organ/brain))
@@ -265,7 +265,7 @@
 		BP.drop_limb(1)
 		if(!(tr_flags & TR_KEEPORGANS)) //we didn't already get rid of the organs of the newly spawned mob
 			for(var/organ_slot in BP.organ_slots)
-				var/obj/item/organ/G = getorganslot(organ_slot)
+				var/obj/item/organ/G = get_organ_slot(organ_slot)
 				if(!G)
 					continue
 				if(mind && mind.has_antag_datum(/datum/antagonist/changeling) && istype(G, /obj/item/organ/brain))
@@ -413,7 +413,7 @@
 		BP.drop_limb(1)
 		if(!(tr_flags & TR_KEEPORGANS)) //we didn't already get rid of the organs of the newly spawned mob
 			for(var/X in BP.organ_slots)
-				var/obj/item/organ/G = getorganslot(X)
+				var/obj/item/organ/G = get_organ_slot(X)
 				if (!G)
 					continue
 				if(mind && mind.has_antag_datum(/datum/antagonist/changeling) && istype(G, /obj/item/organ/brain))

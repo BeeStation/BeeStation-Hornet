@@ -463,7 +463,7 @@
 		user.client?.give_cooldown_cursor(CLICK_CD_RANGE)
 	// Take damage if necessary
 	if (taken_damage)
-		take_damage(taken_damage, BRUTE, MELEE, sound_effect = FALSE, armour_penetration = 100)
+		take_direct_damage(taken_damage, BRUTE)
 	after_live_shot_fired(user, get_dist(user, target) <= 1, target, message)
 	on_chamber_fired()
 	update_appearance()

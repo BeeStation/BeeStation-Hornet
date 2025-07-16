@@ -29,7 +29,7 @@
 	/// How much bleed damage the chainsaw deals while active
 	var/active_bleedforce = BLEED_DEEP_WOUND
 	/// How sharp this is when active
-	var/active_sharpness = SHARP_DISMEMBER
+	var/active_sharpness = SHARP_V
 	/// The sound this chainsaw makes when attacking something while active
 	var/sound/active_hitsound = 'sound/weapons/chainsaw_hit.ogg'
 	/// The sound that plays when the chainsaw is enabled
@@ -149,7 +149,6 @@
 	block_level = 1
 	attack_weight = 3 //fear him
 	sharpness = SHARP_IIX
-	armour_penetration = 75
 	light_range = 6
 	active_force = 60
 

@@ -273,11 +273,8 @@
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, TRUE, -1)
 			Knockdown(20)
 			log_combat(user, src, "tackled")
-			var/obj/item/bodypart/affecting = get_bodypart(ran_zone(user.get_combat_bodyzone(src)))
-			if(!affecting)
-				affecting = get_bodypart(BODY_ZONE_CHEST)
-			var/armor_block = run_armor_check(affecting, MELEE,"","",10)
-			apply_damage(30, STAMINA, affecting, armor_block)
+			var/zone = ran_zone(user.get_combat_bodyzone(src))
+			deal_damage(30, 0, STAMINA, DAMAGE_STANDARD, zone = zone)
 			visible_message(span_danger("[user] tackles [src] down!"), \
 					span_userdanger("[user] tackles you down!"), span_hear("You hear aggressive shuffling followed by a loud thud!"), null, user)
 			to_chat(user, span_danger("You tackle [src] down!"))
@@ -307,7 +304,7 @@
 		return FALSE
 	if(stat != DEAD)
 		L.amount_grown = min(L.amount_grown + damage, L.max_grown)
-		deal_damage(damage, L.sharpness, zone = ran_zone(L.get_combat_bodyzone(src)))
+		deal_damage(damage, SHARP_II, zone = ran_zone(L.get_combat_bodyzone(src)))
 
 /mob/living/carbon/human/attack_slime(mob/living/simple_animal/slime/M, list/modifiers)
 	. = ..()
@@ -327,11 +324,7 @@
 	if(!dam_zone) //Dismemberment successful
 		return TRUE
 
-	var/obj/item/bodypart/affecting = get_bodypart(ran_zone(dam_zone))
-	if(!affecting)
-		affecting = get_bodypart(BODY_ZONE_CHEST)
-	var/armor_block = run_armor_check(affecting, MELEE)
-	apply_damage(damage, BRUTE, affecting, armor_block)
+	deal_damage(damage, 0, BRUTE, zone = dam_zone)
 
 /mob/living/carbon/human/ex_act(severity, target, origin)
 	if(TRAIT_BOMBIMMUNE in dna.species.species_traits)

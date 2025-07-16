@@ -304,10 +304,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
  * * organ_holder - carbon, the owner of the species datum AKA whoever we're regenerating organs in
  * * old_species - datum, used when regenerate organs is called in a switching species to remove old mutant organs.
  * * replace_current - boolean, forces all old organs to get deleted whether or not they pass the species' ability to keep that organ
- * * excluded_zones - list, add zone defines to block organs inside of the zones from getting handled. see headless mutation for an example
  * * visual_only - boolean, only load organs that change how the species looks. Do not use for normal gameplay stuff
  */
-/datum/species/proc/regenerate_organs(mob/living/carbon/organ_holder, datum/species/old_species, replace_current = TRUE, list/excluded_zones, visual_only = FALSE)
+/datum/species/proc/regenerate_organs(mob/living/carbon/organ_holder, datum/species/old_species, replace_current = TRUE, visual_only = FALSE)
 	var/list/organ_slots = list(
 		ORGAN_SLOT_BRAIN,
 		ORGAN_SLOT_HEART,
@@ -355,7 +354,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 		// Check for an existing organ, and if there is one check to see if we should remove it
 		var/health_pct = 1
-		var/remove_existing = !isnull(existing_organ) && !(existing_organ.zone in excluded_zones) && !(existing_organ.organ_flags & ORGAN_UNREMOVABLE)
+		var/remove_existing = !isnull(existing_organ) && !(existing_organ.organ_flags & ORGAN_UNREMOVABLE)
 		if(remove_existing)
 			health_pct = (existing_organ.maxHealth - existing_organ.damage) / existing_organ.maxHealth
 			if(slot == ORGAN_SLOT_BRAIN)
@@ -369,7 +368,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				existing_organ.Remove(organ_holder, special = TRUE)
 				QDEL_NULL(existing_organ)
 
-		if(isnull(existing_organ) && should_have && !(new_organ.zone in excluded_zones))
+		if(isnull(existing_organ) && should_have)
 			used_neworgan = TRUE
 			new_organ.set_organ_damage(new_organ.maxHealth * (1 - health_pct))
 			new_organ.Insert(organ_holder, special = TRUE, drop_if_replaced = FALSE)

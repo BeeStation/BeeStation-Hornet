@@ -340,18 +340,11 @@
 /obj/item/clothing/head/beret/science
 	name = "science beret"
 	desc = "A purple beret with the science insignia emblazoned on it. It has that authentic burning plasma smell."
-	armor_type = /datum/armor/beret_sci
 	icon_state = "beret_badge"
 	greyscale_config = /datum/greyscale_config/beret_badge
 	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
 	greyscale_colors = "#A04BD9#FFFFFF"
 	flags_1 = NONE
-
-/datum/armor/beret_sci
-	bomb = 5
-	bio = 5
-	fire = 5
-	acid = 10
 
 //Medical
 
@@ -362,11 +355,7 @@
 	greyscale_config = /datum/greyscale_config/beret_badge
 	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
 	greyscale_colors = "#E1E1E1#EDCC6A"
-	armor_type = /datum/armor/beret_med
 	flags_1 = NONE
-
-/datum/armor/beret_med
-	bio = 20
 
 /obj/item/clothing/head/beret/medical/paramedic
 	name = "paramedic beret"
@@ -380,12 +369,6 @@
 	greyscale_config = /datum/greyscale_config/beret_badge
 	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
 	greyscale_colors = "#73B1D7#FFFFFF"
-	armor_type = /datum/armor/beret_cmo
-
-/datum/armor/beret_cmo
-	bio = 30
-	rad = 10
-	acid = 20
 
 //Engineering
 /obj/item/clothing/head/beret/engi
@@ -468,17 +451,6 @@
 	greyscale_colors = "#C5D4F3#ECF1F8"
 	armor_type = /datum/armor/durathread
 
-/datum/armor/beret_durathread
-	melee = 15
-	bullet = 25
-	laser = 15
-	energy = 20
-	bomb = 10
-	fire = 30
-	acid = 5
-	stamina = 20
-	bleed = 45
-
 /obj/item/clothing/head/beret/highlander
 	desc = "That was white fabric. <i>Was.</i>"
 	dog_fashion = null //THIS IS FOR SLAUGHTER, NOT PUPPIES
@@ -499,8 +471,3 @@
 	greyscale_colors = "#46b946#f2c42e"
 	armor_type = /datum/armor/security_padded
 	strip_delay = 10 SECONDS
-
-#undef DRILL_DEFAULT
-#undef DRILL_SHOUTING
-#undef DRILL_YELLING
-#undef DRILL_CANADIAN

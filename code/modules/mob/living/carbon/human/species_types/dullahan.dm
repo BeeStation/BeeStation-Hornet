@@ -16,8 +16,14 @@
 	inherent_biotypes = list(MOB_UNDEAD, MOB_HUMANOID)
 	mutant_bodyparts = list("wings" = "None", "body_size" = "Normal")
 	use_skintones = TRUE
-	species_chest = /obj/item/bodypart/chest/dullahan
-	species_head = /obj/item/bodypart/head/dullahan
+	bodypart_overrides = list(
+		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm,
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/dullahan,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/dullahan,
+	)
 	mutantbrain = /obj/item/organ/brain/dullahan
 	mutanteyes = /obj/item/organ/eyes/dullahan
 	mutanttongue = /obj/item/organ/tongue/dullahan
@@ -46,14 +52,14 @@
 	var/obj/item/bodypart/head/dullahan/head = human.get_bodypart(BODY_ZONE_HEAD)
 
 	if(head)
-		head.drop_limb()
-
 		head.remote_organs = list(
-			human.getorganslot(ORGAN_SLOT_BRAIN),
-			human.getorganslot(ORGAN_SLOT_EARS),
-			human.getorganslot(ORGAN_SLOT_TONGUE),
-			human.getorganslot(ORGAN_SLOT_EYES),
+			human.get_organ_slot(ORGAN_SLOT_BRAIN),
+			human.get_organ_slot(ORGAN_SLOT_EARS),
+			human.get_organ_slot(ORGAN_SLOT_TONGUE),
+			human.get_organ_slot(ORGAN_SLOT_EYES),
 		)
+
+		head.drop_limb()
 
 		for (var/obj/item/organ in head.remote_organs)
 			head.RegisterSignal(organ, COMSIG_PARENT_QDELETING, TYPE_PROC_REF(/obj/item/bodypart/head/dullahan, on_remote_organ_deleted))

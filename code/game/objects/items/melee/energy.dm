@@ -22,7 +22,7 @@
 	/// Force while active.
 	var/active_bleedforce = 0
 	/// Sharpness while active.
-	var/active_sharpness = SHARP
+	var/active_sharpness = SHARP_VII
 	/// Hitsound played attacking while active.
 	var/active_hitsound = 'sound/weapons/blade1.ogg'
 	/// Weight class while active.
@@ -140,9 +140,7 @@
 	throw_speed = 3
 	throw_range = 5
 	w_class = WEIGHT_CLASS_NORMAL
-	w_class_on = WEIGHT_CLASS_HUGE
 	flags_1 = CONDUCT_1
-	sharpness = SHARP_VII
 	light_color = LIGHT_COLOR_LIGHT_CYAN
 
 	active_force = 150
@@ -177,7 +175,6 @@
 	throw_speed = 3
 	throw_range = 5
 	embedding = list("embed_chance" = 200, "armour_block" = 60, "max_pain_mult" = 15)
-	sharpness = SHARP_VII
 	block_level = 1
 	block_upgrade_walk = TRUE
 	block_power = 35
@@ -346,7 +343,7 @@
 	hitsound = 'sound/weapons/blade1.ogg'
 	throw_speed = 3
 	throw_range = 1
-	sharpness = SHARP
+	active_sharpness = SHARP_V
 	heat = 3500
 	w_class = WEIGHT_CLASS_BULKY
 	/// Our linked spark system that emits from our sword.

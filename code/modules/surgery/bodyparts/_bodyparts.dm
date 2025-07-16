@@ -225,8 +225,6 @@
 
 //empties the bodypart from its organs and other things inside it
 /obj/item/bodypart/proc/drop_organs(mob/user, violent_removal)
-	SHOULD_CALL_PARENT(TRUE)
-
 	var/turf/T = get_turf(src)
 	if(IS_ORGANIC_LIMB(src))
 		playsound(T, 'sound/misc/splort.ogg', 50, 1, -1)
@@ -333,8 +331,6 @@
 
 ///Proc to hook behavior associated to the change of the brute_dam variable's value.
 /obj/item/bodypart/proc/set_brute_dam(new_value)
-	PROTECTED_PROC(TRUE)
-
 	if(brute_dam == new_value)
 		return
 	. = brute_dam
@@ -343,8 +339,6 @@
 
 ///Proc to hook behavior associated to the change of the burn_dam variable's value.
 /obj/item/bodypart/proc/set_burn_dam(new_value)
-	PROTECTED_PROC(TRUE)
-
 	if(burn_dam == new_value)
 		return
 	. = burn_dam

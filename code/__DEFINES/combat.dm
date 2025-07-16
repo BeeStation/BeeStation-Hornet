@@ -61,6 +61,8 @@
 /// Standard penetration based damage
 /// 100% blunt, with sharpness converting to blunt
 #define DAMAGE_STANDARD "standard"
+/// Damage caused by the universe and the powers that be. No injuries applied.
+#define DAMAGE_EXISTENTIAL "existential"
 
 #define ARMOR_ALL "all_damage_types"
 

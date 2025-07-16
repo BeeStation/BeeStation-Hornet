@@ -12,17 +12,9 @@
 	var/blocking_dir
 
 	armor_type = /datum/armor/structure_platform
-	max_integrity = 60
+	max_integrity = 120
 
 	var/climbable = TRUE
-
-/datum/armor/structure_platform
-	melee = 50
-	bullet = 90
-	laser = 90
-	energy = 100
-	bomb = 20
-	rad = 100
 
 /obj/structure/platform/black
 	icon_state = "platform_black"

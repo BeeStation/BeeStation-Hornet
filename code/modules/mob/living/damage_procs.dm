@@ -11,7 +11,7 @@
 		if(CLONE)
 			adjustCloneLoss(amount)
 		if(STAMINA)
-			adjustStaminaLoss(damage_amount, forced = forced)
+			adjustStaminaLoss(amount)
 
 /mob/living/proc/get_damage_amount(damagetype = BRUTE)
 	switch(damagetype)

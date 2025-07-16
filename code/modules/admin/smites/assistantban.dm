@@ -65,7 +65,7 @@
 	maxHealth = 10000
 	health = 10000
 	melee_damage = 12
-	armour_penetration = 100
+	sharpness = SHARP_X
 	obj_damage = 0
 	environment_smash = 0
 	attack_verb_continuous = "robusts"
@@ -178,7 +178,7 @@
 	maxHealth = 150
 	health = 150
 	melee_damage = 15
-	armour_penetration = 50
+	sharpness = SHARP_V
 	attack_verb_continuous = "punches"
 	attack_verb_simple = "punch"
 	attack_sound = 'sound/weapons/punch1.ogg'
@@ -241,7 +241,7 @@
 	maxHealth = 100
 	health = 100
 	melee_damage = 10
-	armour_penetration = 25
+	sharpness = SHARP_II
 	attack_verb_continuous = "punches"
 	attack_verb_simple = "punch"
 	attack_sound = 'sound/weapons/punch1.ogg'

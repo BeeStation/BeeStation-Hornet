@@ -62,7 +62,7 @@
 	C.add_bleeding(BLEED_CRITICAL)
 	playsound(get_turf(C), 'sound/misc/splort.ogg', 80, 1)
 	for(var/X in organ_slots)
-		var/obj/item/organ/O = C.getorganslot(X)
+		var/obj/item/organ/O = C.get_organ_slot(X)
 		if(!O)
 			continue
 		O.Remove(C)
@@ -112,7 +112,7 @@
 					C.dna.force_lose(MT)
 
 		for(var/X in organ_slots) //internal organs inside the dismembered limb are dropped.
-			var/obj/item/organ/O = C.getorganslot(X)
+			var/obj/item/organ/O = C.get_organ_slot(X)
 			if (!O)
 				continue
 			O.transfer_to_limb(src, C)
@@ -304,7 +304,7 @@
 	for(var/obj/item/organ/limb_organ in contents)
 		limb_organ.Insert(new_limb_owner)
 
-	synchronize_bodytypes(C)
+	synchronize_bodytypes(new_limb_owner)
 	if(is_creating)
 		update_limb(is_creating = TRUE)
 
