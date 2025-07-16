@@ -82,11 +82,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 		return ..()
 
 /obj/item/stack/rods/scrap
-	name = "metal scraps"
-	desc = "Scraps of metal salvaged with rudimentary tools. It can be welded into an iron sheet."
-	singular_name = "metal scrap"
-	icon_state = "metal_scraps"
-	item_state = "metal_scraps"
+	/// This will be used during automation for name, description and icon states!
+	var/name_type = "metal"
 	w_class = WEIGHT_CLASS_SMALL
 	material_flags = MATERIAL_EFFECTS //This is necessary to ensure the rods behave as the materials would have them behave
 	force = 5  //being hit with this must be the equivalent of being hit with a random assortment of pebbles
@@ -101,12 +98,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 /obj/item/stack/rods/scrap/get_recipes()
 	return GLOB.metal_scrap_recipes
 
+/obj/item/stack/rods/scrap/Initialize()
+	name = "[name_type] scraps"
+	if(!istype(src, /obj/item/stack/rods/scrap/paper) && !istype(src, /obj/item/stack/rods/scrap/plasma))
+		desc = "Scraps of [name_type] salvaged with rudimentary tools. It can be welded into a [welding_result.name]."
+	singular_name = "[name_type] scrap"
+	icon_state = "[name_type]_scraps"
+	item_state = "[name_type]_scraps"
+
 /obj/item/stack/rods/scrap/silver
-	name = "silver scraps"
-	desc = "Scraps of silver salvaged with rudimentary tools. It can be welded into a silver sheet."
-	singular_name = "silver scrap"
-	icon_state = "silver_scraps"
-	item_state = "silver_scraps"
+	name_type = "silver"
 	mats_per_unit = list(/datum/material/silver=100)
 	merge_type = /obj/item/stack/rods/scrap/silver
 	welding_result = /obj/item/stack/sheet/mineral/silver
@@ -115,11 +116,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 	return list()
 
 /obj/item/stack/rods/scrap/gold
-	name = "gold scraps"
-	desc = "Scraps of gold salvaged with rudimentary tools. It can be welded into a gold sheet."
-	singular_name = "gold scrap"
-	icon_state = "gold_scraps"
-	item_state = "gold_scraps"
+	name_type = "gold"
 	mats_per_unit = list(/datum/material/gold=100)
 	merge_type = /obj/item/stack/rods/scrap/gold
 	welding_result = /obj/item/stack/sheet/mineral/gold
@@ -128,11 +125,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 	return list()
 
 /obj/item/stack/rods/scrap/plasteel
-	name = "plasteel scraps"
-	desc = "Scraps of plasteel salvaged with rudimentary tools. It can be welded into a plasteel sheet."
-	singular_name = "plasteel scrap"
-	icon_state = "plasteel_scraps"
-	item_state = "plasteel_scraps"
+	name_type = "plasteel"
 	resistance_flags = FIRE_PROOF
 	mats_per_unit = list(/datum/material/alloy/plasteel=100)
 	merge_type = /obj/item/stack/rods/scrap/plasteel
@@ -142,11 +135,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 	return list()
 
 /obj/item/stack/rods/scrap/bronze
-	name = "bronze scraps"
-	desc = "Scraps of bronze salvaged with rudimentary tools. It can be welded into a bronze sheet."
-	singular_name = "bronze scrap"
-	icon_state = "bronze_scraps"
-	item_state = "bronze_scraps"
+	name_type = "bronze"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	mats_per_unit = list(/datum/material/copper=50, /datum/material/iron=50)
 	merge_type = /obj/item/stack/rods/scrap/bronze
@@ -156,11 +145,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 	return list()
 
 /obj/item/stack/rods/scrap/glass
-	name = "glass scraps"
-	desc = "Scraps of glass salvaged with rudimentary tools. It can be welded into a glass sheet."
-	singular_name = "glass scrap"
-	icon_state = "glass_scraps"
-	item_state = "glass_scraps"
+	name_type = "glass"
 	flags_1 = NONE
 	resistance_flags = ACID_PROOF
 	mats_per_unit = list(/datum/material/glass=100)
@@ -174,11 +159,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 	return GLOB.glass_scrap_recipes
 
 /obj/item/stack/rods/scrap/uranium
-	name = "uranium scraps"
-	desc = "Scraps of uranium salvaged with rudimentary tools. Can be welded into an uranium bar. You... probably shouldn't be holding this for too long..."
-	singular_name = "uranium scrap"
-	icon_state = "uranium_scraps"
-	item_state = "uranium_scraps"
+	name_type = "uranium"
 	flags_1 = NONE
 	mats_per_unit = list(/datum/material/uranium=100)
 	merge_type = /obj/item/stack/rods/scrap/uranium
@@ -189,10 +170,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 
 /obj/item/stack/rods/scrap/plasma
 	name = "plasma scraps"
-	desc = "Scraps of plasma salvaged with rudimentary tools. Try welding it, see what happens."
-	singular_name = "plasma scrap"
-	icon_state = "plasma_scraps"
-	item_state = "plasma_scraps"
+	desc = "Scraps of plasma salvaged with rudimentary tools. Try welding them, see what happens."
 	flags_1 = NONE
 	resistance_flags = FLAMMABLE
 	max_integrity = 100
@@ -204,26 +182,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 	return GLOB.plasma_scrap_recipes
 
 /obj/item/stack/rods/scrap/plastic
-	name = "plastic scraps"
-	desc = "Scraps of plastic salvaged with rudimentary tools. It can be welded into a plastic sheet."
-	singular_name = "plastic scrap"
-	icon_state = "plastic_scraps"
-	item_state = "plastic_scraps"
+	name_type = "plastic"
 	mats_per_unit = list(/datum/material/plastic=100)
 	merge_type = /obj/item/stack/rods/scrap/plastic
 	welding_result = /obj/item/stack/sheet/plastic
 
-/obj/item/stack/rods/scrap/silver/get_recipes()
+/obj/item/stack/rods/scrap/plastic/get_recipes()
 	return list()
 
 //Yes hello, Joon here, I know paper is tecnically not a mineral but I wanted a way to make crafting with paper easier since paper doesn't stack
 //salvaging the paper scraps requires you to have a wirecutter anyways so might as well be able to craft while avoiding the crafting menu
 /obj/item/stack/rods/scrap/paper
-	name = "paper scraps"
+	name_type = "plastic"
 	desc = "Scraps of paper cut haphazardly."
-	singular_name = "paper scrap"
-	icon_state = "paper_scraps"
-	item_state = "paper_scraps"
 	flags_1 = NONE
 	resistance_flags = FLAMMABLE
 	max_integrity = 100
