@@ -77,8 +77,6 @@
 		// Increase our total damage amount
 		current_damage += delta_damage - absorbed_amount
 		message_admins("Injury tree [type] took [delta_damage] damage. Now has [current_damage] damage, with [absorbed_damage] absorbed")
-	else
-		message_admins("Injury tree [type] ignored [delta_damage] damage.")
 
 /// Called when damage is taken
 /// Return false if the damage is not relevant and should be ignored, true otherwise.

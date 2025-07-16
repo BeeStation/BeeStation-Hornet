@@ -705,8 +705,8 @@
 	// Blunt armour from clothing is applied before we ever touch this proc
 	var/blunt_armour = 0
 	penetration_power -= armour
-	// Damage multiplier
-	damage += max(0, clamp(penetration_power, 0, 30) / 30 * (UNPROTECTED_SHARPNESS_INJURY_MULTIPLIER - 1) * penetration_power)
+	// Damage multiplier if unarmoured and taking penetration damage
+	damage += max(0, max(clamp(penetration_power, 0, 30) - blunt_armour, 0) / 30 * (UNPROTECTED_SHARPNESS_INJURY_MULTIPLIER - 1) * damage)
 	// Deal with base damage
 	current_damage = damage
 	// Innate resistance to injury damage when dead, prevent being completely impossible to revive
