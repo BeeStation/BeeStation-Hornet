@@ -83,11 +83,15 @@
 	var/species_color = ""
 	///Limbs need this information as a back-up incase they are generated outside of a carbon (limbgrower)
 	var/should_draw_greyscale = TRUE
-	///An "override" color that can be applied to ANY limb, greyscale or not.
-	var/variable_color = ""
 
 	///whether it can be dismembered with a weapon.
 	var/dismemberable = TRUE
+	/// Does dismemberment require the mob to be dead?
+	var/dismemberment_requires_death = FALSE
+
+	/// Effectiveness of the limb
+	/// Pairs of limbs together make up 100%
+	var/effectiveness = 50
 
 	var/px_x = 0
 	var/px_y = 0
@@ -102,11 +106,30 @@
 	var/heavy_brute_msg = "mangled"
 
 	var/light_burn_msg = "numb"
-	var/medium_burn_msg = "blistered"
+	var/medium_burn_msg = "burnt"
 	var/heavy_burn_msg = "peeling away"
 
 	/// So we know if we need to scream if this limb hits max damage
 	var/last_maxed
+
+	/// List of organs contained by this bodypart.
+	var/list/organ_slots = null
+
+	/// Amount of penetration that the skin will reduce an attack by
+	var/skin_penetration_resistance = 5
+	// The amount of damage that will be deleted when the damage reaches bones
+	var/bone_deflection = 0
+	/// The amount of penetration that the bones reduce an attack by
+	var/bone_penetration_resistance = 15
+	/// Amount of blunt armour provided by the skin
+	var/skin_blunt_armour = 5
+	/// Amount of blunt armour provided by the bones
+	var/bone_blunt_armour = 15
+	/// Injury status effects applied to this limb
+	var/list/injuries = list()
+
+	/// If the bodypart is permanently destroyed
+	var/destroyed = FALSE
 
 /obj/item/bodypart/Initialize(mapload)
 	. = ..()
@@ -117,6 +140,14 @@
 	if(is_dimorphic)
 		limb_gender = pick("m", "f")
 	update_icon_dropped()
+	setup_injury_trees()
+
+/// Not all bodyparts have the same injury trees
+/// Allow them to be overriden
+/obj/item/bodypart/proc/setup_injury_trees()
+	apply_injury_tree(/datum/injury/healthy_skin_burn)
+	apply_injury_tree(/datum/injury/cut_healthy)
+	apply_injury_tree(/datum/injury/trauma_healthy)
 
 /obj/item/bodypart/Destroy()
 	if(owner)
@@ -146,7 +177,7 @@
 		. += span_notice("It is a [limb_id] [parse_zone(body_zone)].")
 
 /obj/item/bodypart/blob_act()
-	receive_damage(max_damage)
+	take_direct_damage(max_damage)
 
 /obj/item/bodypart/attack(mob/living/carbon/C, mob/user)
 	SHOULD_CALL_PARENT(TRUE)
@@ -207,15 +238,7 @@
 	SHOULD_CALL_PARENT(TRUE)
 	RETURN_TYPE(/list)
 
-	if(!owner)
-		return FALSE
-
-	var/list/bodypart_organs
-	for(var/obj/item/organ/organ_check as anything in owner.internal_organs) //internal organs inside the dismembered limb are dropped.
-		if(check_zone(organ_check.zone) == body_zone)
-			LAZYADD(bodypart_organs, organ_check) // this way if we don't have any, it'll just return null
-
-	return bodypart_organs
+	return contents
 
 //Return TRUE to get whatever mob this is in to update health.
 /obj/item/bodypart/proc/on_life(delta_time, times_fired, stam_regen)
@@ -267,7 +290,7 @@
 		set_burn_dam(burn_dam + burn)
 
 	//We've dealt the physical damages, if there's room lets apply the stamina damage.
-	if(stamina)
+	if(stamina && !HAS_TRAIT(src, TRAIT_BODYPART_NO_STAMINA_REGENERATION))
 		set_stamina_dam(stamina_dam + round(clamp(stamina, 0, max_stamina_damage - stamina_dam), DAMAGE_PRECISION))
 
 	if(owner)
@@ -294,7 +317,7 @@
 		set_brute_dam(round(max(brute_dam - brute, 0), DAMAGE_PRECISION))
 	if(burn)
 		set_burn_dam(round(max(burn_dam - burn, 0), DAMAGE_PRECISION))
-	if(stamina)
+	if(stamina && !HAS_TRAIT(src, TRAIT_BODYPART_NO_STAMINA_REGENERATION))
 		set_stamina_dam(round(max(stamina_dam - stamina, 0), DAMAGE_PRECISION))
 
 	if(owner)
@@ -359,6 +382,10 @@
 	if(!owner)
 		return
 
+	if (destroyed)
+		set_disabled(TRUE)
+		return
+
 	if(!can_be_disabled)
 		set_disabled(FALSE)
 		CRASH("update_disabled called with can_be_disabled false")
@@ -416,6 +443,9 @@
 				SIGNAL_REMOVETRAIT(TRAIT_NOLIMBDISABLE),
 				SIGNAL_ADDTRAIT(TRAIT_NOLIMBDISABLE),
 				))
+		// Remove all injuries
+		for (var/datum/injury/injury in injuries)
+			injury.remove_from_human(old_owner)
 	if(owner)
 		if(initial(can_be_disabled))
 			if(HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE))
@@ -426,6 +456,10 @@
 
 		if(needs_update_disabled)
 			update_disabled()
+
+		// Apply all injuries
+		for (var/datum/injury/injury in injuries)
+			injury.apply_to_human(owner)
 
 	return old_owner
 
@@ -531,8 +565,8 @@
 			dmg_overlay_type = initial(dmg_overlay_type)
 			is_husked = FALSE
 
-	if(variable_color)
-		draw_color = variable_color
+	if(HAS_TRAIT(src, TRAIT_OVERRIDE_SKIN_COLOUR))
+		draw_color = GET_TRAIT_VALUE(src, TRAIT_OVERRIDE_SKIN_COLOUR)
 	else if(should_draw_greyscale)
 		draw_color = (species_color) || (skin_tone && skintone2hex(skin_tone, include_tag = FALSE))
 	else
@@ -561,7 +595,7 @@
 	else
 		species_color = null
 
-	draw_color = variable_color
+	draw_color = GET_TRAIT_VALUE(src, TRAIT_OVERRIDE_SKIN_COLOUR)
 	if(should_draw_greyscale) //Should the limb be colored?
 		draw_color ||= (species_color) || (skin_tone && skintone2hex(skin_tone, include_tag = FALSE))
 
@@ -633,7 +667,7 @@
 		. += aux
 		. += emissive_blocker(limb.icon, "[limb_id]_[aux_zone]", CALCULATE_MOB_OVERLAY_LAYER(aux_layer), image_dir)
 
-	draw_color = variable_color
+	draw_color = GET_TRAIT_VALUE(src, TRAIT_OVERRIDE_SKIN_COLOUR)
 	if(should_draw_greyscale) //Should the limb be colored?
 		draw_color ||= (species_color) || (skin_tone && skintone2hex(skin_tone, include_tag = FALSE))
 
@@ -647,6 +681,178 @@
 
 	drop_organs()
 	return ..()
+
+/obj/item/bodypart/proc/run_limb_injuries(damage, damage_type, damage_flag, penetration_power)
+	var/current_damage = damage
+	if (!owner || damage <= 0)
+		return
+	// =====================================
+	// Calculate skin and bone strength
+	// =====================================
+	var/skin_rating = 1
+	var/bone_rating = 1
+	for (var/datum/injury/injury_graph as anything in injuries)
+		skin_rating *= injury_graph.skin_armour_modifier
+		bone_rating *= injury_graph.bone_armour_modifier
+	// =====================================
+	// Account for armour resistance
+	// =====================================
+	// Deal with armour, the penetration power gets flat reduced by the relevant armour stat
+	var/armour = owner.get_bodyzone_armor_flag(body_zone, ARMOUR_PENETRATION)
+	// Blunt armour from clothing is applied before we ever touch this proc
+	var/blunt_armour = 0
+	penetration_power -= armour
+	// Damage multiplier if unarmoured and taking penetration damage
+	damage += max(0, max(clamp(penetration_power, 0, 30) - blunt_armour, 0) / 30 * (UNPROTECTED_SHARPNESS_INJURY_MULTIPLIER - 1) * damage)
+	// Deal with base damage
+	current_damage = damage
+	// Innate resistance to injury damage when dead, prevent being completely impossible to revive
+	// due to so many injuries.
+	if (owner && owner.stat == DEAD)
+		current_damage *= 0.2
+	// If the penetration delta falls below -30, then we deal no blunt damage at all
+	if (current_damage < 0)
+		return
+	// Add in blunt armour from skin
+	blunt_armour += skin_rating * skin_blunt_armour
+	blunt_armour = clamp(blunt_armour, 0, 100)
+	// Calculate damages
+	var/proportion = CLAMP01(penetration_power / BLUNT_DAMAGE_START)
+	var/blunt_damage = (current_damage * (1 - proportion)) * BLUNT_DAMAGE_RATIO * ((100 - blunt_armour) / 100)
+	var/sharp_damage = current_damage * proportion
+	// Take sharp & blunt damage
+	for (var/datum/injury/injury_graph as anything in injuries)
+		injury_graph.apply_damage(sharp_damage, damage_type, damage_flag, TRUE)
+		// Burn damage affects the skin, not the bones
+		if (damage_type == BURN)
+			injury_graph.apply_damage(blunt_damage, damage_type, damage_flag, FALSE)
+	// =====================================
+	// Account for skin resistance
+	// =====================================
+	penetration_power -= rand(0, skin_penetration_resistance * skin_rating)
+	// Deflection - Permanently reduces damage
+	damage -= bone_deflection * bone_rating
+	current_damage = damage
+	if (current_damage <= 0)
+		return
+	// Add in blunt armour from bones
+	blunt_armour += bone_rating * bone_blunt_armour
+	blunt_armour = clamp(blunt_armour, 0, 100)
+	// Bone health
+	proportion = CLAMP01(penetration_power / BLUNT_DAMAGE_START)
+	blunt_damage = (current_damage * (1 - proportion)) * BLUNT_DAMAGE_RATIO * ((100 - blunt_armour) / 100)
+	if (damage_type != BURN)
+		for (var/datum/injury/injury_graph as anything in injuries)
+			injury_graph.apply_damage(blunt_damage, damage_type, damage_flag, FALSE)
+	// =====================================
+	// Account for bone resistance
+	// =====================================
+	penetration_power -= rand(0, bone_penetration_resistance * bone_rating)
+	current_damage = damage
+	// Organ damage
+	proportion = CLAMP01(penetration_power / BLUNT_DAMAGE_START)
+	sharp_damage = current_damage * proportion
+	blunt_damage = (current_damage * (1 - proportion)) * BLUNT_DAMAGE_RATIO
+	// If our bones are destroyed, then they will cause damage to organs when taking blunt hits
+	if (bone_rating <= 0)
+		sharp_damage += blunt_damage
+	if (sharp_damage <= 0)
+		return
+	// Damage organs
+	for (var/slot in organ_slots)
+		var/obj/item/organ/organ = owner.getorganslot(slot)
+		if (!organ)
+			continue
+		if (!prob(organ.organ_size))
+			continue
+		organ.applyOrganDamage(sharp_damage * ORGAN_DAMAGE_MULTIPLIER)
+	if (penetration_power <= 0)
+		return
+	// Dismemberment
+	var/dismemberment_chance = (1 - bone_rating) * sharpness
+	if (dismemberment_requires_death && bone_rating > 0)
+		dismemberment_chance = 0
+	if (dismemberable && prob(dismemberment_chance))
+		dismember(damage_type)
+
+/// Internal, do not move to transition injuries to another type
+/// since this completely removes the entire damage tree and the
+/// ability to be injured by that type of damage.
+/obj/item/bodypart/proc/remove_injury_tree(datum/injury/injury)
+	injuries -= injury
+	injury.remove_from_part(src)
+	if (owner && ishuman(owner))
+		injury.remove_from_human(owner)
+	qdel(injury)
+	check_effectiveness()
+
+/obj/item/bodypart/proc/get_injury_by_base(base_path)
+	for (var/datum/injury/injury in injuries)
+		if (injury.base_type == base_path)
+			return injury
+	return null
+
+/// Add a new injury to the set of injury trees on this bodypart
+/// Do not use this to set an injury, as the previous injury tree
+/// node has to be removed first, simply adding a new injury due
+/// to damage will result in multiple trees of that damage type.
+/obj/item/bodypart/proc/apply_injury_tree(injury_path, injury_base_path)
+	for (var/datum/injury/injury in injuries)
+		if (injury.type == injury_path)
+			return
+	var/datum/injury/injury = new injury_path()
+	injury.base_type = injury_base_path || injury_path
+	injuries += injury
+	injury.bodypart = src
+	injury.gained_time = world.time
+	injury.apply_to_part(src)
+	if (owner && ishuman(owner))
+		injury.apply_to_human(owner)
+	check_effectiveness()
+
+/obj/item/bodypart/proc/get_skin_multiplier()
+	var/rate = 1
+	for (var/datum/injury/injury in injuries)
+		rate *= injury.skin_armour_modifier
+	return rate
+
+/obj/item/bodypart/proc/get_bone_multiplier()
+	var/rate = 1
+	for (var/datum/injury/injury in injuries)
+		rate *= injury.bone_armour_modifier
+	return rate
+
+/obj/item/bodypart/proc/check_effectiveness()
+	check_destroyed()
+	if (destroyed)
+		effectiveness = 0
+		clear_effectiveness_modifiers()
+		update_effectiveness()
+		return
+	effectiveness = initial(effectiveness)
+	for (var/datum/injury/injury in injuries)
+		effectiveness *= injury.effectiveness_modifier
+	if (!owner)
+		return
+	clear_effectiveness_modifiers()
+	update_effectiveness()
+
+/obj/item/bodypart/proc/update_effectiveness()
+	return
+
+/obj/item/bodypart/proc/clear_effectiveness_modifiers()
+	return
+
+/obj/item/bodypart/proc/check_destroyed()
+	if (destroyed)
+		return
+	for (var/datum/injury/injury_graph as anything in injuries)
+		if (injury_graph.skin_armour_modifier && injury_graph.bone_armour_modifier)
+			continue
+		destroyed = TRUE
+		if (owner)
+			to_chat(owner, span_userdanger("Your [name] falls limp and unresponsive!"))
+		update_disabled()
 
 ///A multi-purpose setter for all things immediately important to the icon and iconstate of the limb.
 /obj/item/bodypart/proc/change_appearance(icon, id, greyscale, dimorphic)
