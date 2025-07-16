@@ -114,7 +114,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 	name_type = "metal"
 	mats_per_unit = list(/datum/material/iron=100)
 	merge_type = /obj/item/stack/rods/scrap
-	welding_result = /obj/item/stack/sheet/mineral/iron	// We're duping this just for the sake of clarity
+	welding_result = /obj/item/stack/sheet/iron	// We're duping this just for the sake of clarity
 
 /obj/item/stack/rods/scrap/metal/get_recipes()
 	return GLOB.metal_scrap_recipes

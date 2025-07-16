@@ -53,18 +53,6 @@ Various Cloths
 /obj/item/stack/sheet/cotton/cloth/get_recipes()
 	return GLOB.cloth_recipes
 
-/obj/item/stack/sheet/cotton/cloth/bloody
-	name = "bloody cloth"
-	desc = "Cloth soaked in blood. Sins of the past remain as hard to wash stains."
-	singular_name = "bloody cloth roll"
-	icon_state = "sheet-cloth-bloody"
-	item_state = "sheet-cloth-bloody"
-	resistance_flags = NONE //It stands to reason that this cloth is wet
-	merge_type = /obj/item/stack/sheet/cotton/cloth/bloody
-
-/obj/item/stack/sheet/cotton/cloth/bloody/get_recipes()
-	return
-
 /* Durathread cloth */
 
 /obj/item/stack/sheet/cotton/durathread

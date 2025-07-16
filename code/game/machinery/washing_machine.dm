@@ -305,10 +305,6 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	held_mob.machine_wash(WM)
 	qdel(src)
 
-/obj/item/stack/sheet/cotton/cloth/bloody/machine_wash(obj/machinery/washing_machine/WM)
-	new /obj/item/stack/sheet/cotton/cloth(get_turf(loc), amount) //This is spawning outside of the machine, but so far no solution was found for this unwanted behaviour
-	qdel(src)
-
 /mob/living/simple_animal/pet/machine_wash(obj/machinery/washing_machine/WM)
 	WM.bloody_mess = TRUE
 	investigate_log("has been gibbed by a washing machine.", INVESTIGATE_DEATHS)
