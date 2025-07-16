@@ -98,7 +98,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 	source = null
 	amount_needed = 10
 
-/obj/item/stack/rods/scrap/Initialize()
+/obj/item/stack/rods/scrap/Initialize(mapload, new_amount, merge, mob/user)
+	. = ..()
 	name = "[name_type] scraps"
 	if(isnull(desc))
 		desc = "Scraps of [name_type] salvaged with rudimentary tools. It can be welded into a [welding_result.name]."
