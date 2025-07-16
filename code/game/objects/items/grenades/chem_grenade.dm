@@ -190,6 +190,7 @@
 		landminemode.activate()
 		return
 	active = TRUE
+	det_time *= (0.1 * (rand(6, 14))) //between 60% and 140% of set time
 	addtimer(CALLBACK(src, PROC_REF(prime)), isnull(delayoverride)? det_time : delayoverride)
 
 /obj/item/grenade/chem_grenade/prime(mob/living/lanced_by)
