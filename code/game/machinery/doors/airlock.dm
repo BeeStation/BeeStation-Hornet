@@ -1073,6 +1073,7 @@
 		update_icon()
 		user.transferItemToLoc(C, src, TRUE)
 		charge = C
+		return
 	else if(istype(C, /obj/item/paper) || istype(C, /obj/item/photo))
 		if(note)
 			to_chat(user, span_warning("There's already something pinned to this airlock! Use wirecutters to remove it."))
@@ -1149,6 +1150,7 @@
 		to_chat(user, span_notice("You carefully start removing [charge] from [src]..."))
 		if(!I.use_tool(src, user, 150, volume=50))
 			to_chat(user, span_warning("You slip and [charge] detonates!"))
+			charge.forceMove(user.loc)
 			charge.prime()
 			return
 		user.visible_message(span_notice("[user] removes [charge] from [src]."), \
@@ -1212,10 +1214,10 @@
 		update_icon(state=AIRLOCK_OPENING)
 		visible_message(span_warning("[src]'s panel flies open!"))
 		charge.forceMove(drop_location())
-		charge.prime()
+		addtimer(CALLBACK(charge, TYPE_PROC_REF(/obj/item/grenade, prime)), 3)
+//		charge.prime()
 		detonated = 1
 		charge = null
-		return
 	if(forced < 2)
 		if(!protected_door)
 			use_power(50)
