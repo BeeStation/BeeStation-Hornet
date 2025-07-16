@@ -80,7 +80,7 @@
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Horns"
 	should_generate_icons = TRUE
-	relevant_mutant_bodypart =  "horns"
+	relevant_external_organ = /obj/item/organ/external/horns
 
 /datum/preference/choiced/lizard_horns/init_possible_values()
 	return assoc_to_keys_features(GLOB.horns_list)
@@ -95,13 +95,19 @@
 	db_key = "feature_lizard_legs"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
-	relevant_mutant_bodypart = "legs"
+	//relevant_mutant_bodypart = "legs"
 
 /datum/preference/choiced/lizard_legs/init_possible_values()
 	return assoc_to_keys_features(GLOB.legs_list)
 
 /datum/preference/choiced/lizard_legs/apply_to_human(mob/living/carbon/human/target, value)
 	target.dna.features["legs"] = value
+
+/datum/preference/choiced/lizard_legs/is_accessible(datum/preferences/preferences, ignore_page = FALSE)
+	if(!..())
+		return FALSE
+	var/datum/species/species_type = preferences.read_preference(/datum/preference/choiced/species)
+	return initial(species_type.digitigrade_customization) == DIGITIGRADE_OPTIONAL
 
 /datum/preference/choiced/lizard_snout
 	db_key = "feature_lizard_snout"
@@ -110,7 +116,7 @@
 	main_feature_name = "Snout"
 	should_generate_icons = TRUE
 	//relevant_mutant_bodypart = "snout"
-	//relevant_external_organ = /obj/item/organ/external/snout
+	relevant_external_organ = /obj/item/organ/external/snout
 
 /datum/preference/choiced/lizard_snout/init_possible_values()
 	return assoc_to_keys_features(GLOB.snouts_list)
@@ -149,5 +155,4 @@
 	target.dna.features["tail_lizard"] = value
 
 /datum/preference/choiced/lizard_tail/create_default_value()
-	var/datum/sprite_accessory/tails/lizard/smooth/tail = /datum/sprite_accessory/tails/lizard/smooth
-	return initial(tail.name)
+	return /datum/sprite_accessory/tails/lizard/smooth::name

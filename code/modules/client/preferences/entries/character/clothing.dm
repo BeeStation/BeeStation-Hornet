@@ -31,6 +31,9 @@
 		DDUFFELBAG,
 	)
 
+/datum/preference/choiced/backpack/create_default_value()
+	return GBACKPACK
+
 /datum/preference/choiced/backpack/icon_for(value)
 	switch (value)
 		if (GBACKPACK)
@@ -80,6 +83,15 @@
 /datum/preference/choiced/jumpsuit_style/apply_to_human(mob/living/carbon/human/target, value)
 	target.jumpsuit_style = value
 
+/datum/preference/choiced/jumpsuit_style/create_informed_default_value(datum/preferences/preferences)
+	switch(preferences.read_preference(/datum/preference/choiced/gender))
+		if(MALE)
+			return PREF_SUIT
+		if(FEMALE)
+			return PREF_SKIRT
+
+	return ..()
+
 /// Socks preference
 /datum/preference/choiced/socks
 	db_key = "socks"
@@ -88,9 +100,13 @@
 	category = PREFERENCE_CATEGORY_CLOTHING
 	should_generate_icons = TRUE
 	preference_spritesheet = PREFERENCE_SHEET_LARGE
+	can_randomize = FALSE
 
 /datum/preference/choiced/socks/init_possible_values()
 	return assoc_to_keys_features(GLOB.socks_list)
+
+/datum/preference/choiced/socks/create_default_value()
+	return /datum/sprite_accessory/socks/nude::name
 
 /datum/preference/choiced/socks/icon_for(value)
 	var/static/datum/universal_icon/lower_half
@@ -109,13 +125,27 @@
 /datum/preference/choiced/undershirt
 	db_key = "undershirt"
 	preference_type = PREFERENCE_CHARACTER
+	priority = PREFERENCE_PRIORITY_BODY_TYPE
 	main_feature_name = "Undershirt"
 	category = PREFERENCE_CATEGORY_CLOTHING
 	should_generate_icons = TRUE
 	preference_spritesheet = PREFERENCE_SHEET_LARGE
+	can_randomize = FALSE
 
 /datum/preference/choiced/undershirt/init_possible_values()
 	return assoc_to_keys_features(GLOB.undershirt_list)
+
+/datum/preference/choiced/undershirt/create_default_value()
+	return /datum/sprite_accessory/undershirt/nude::name
+
+/datum/preference/choiced/undershirt/create_informed_default_value(datum/preferences/preferences)
+	switch(preferences.read_preference(/datum/preference/choiced/gender))
+		if(MALE)
+			return /datum/sprite_accessory/undershirt/nude::name
+		if(FEMALE)
+			return /datum/sprite_accessory/undershirt/sports_bra::name
+
+	return ..()
 
 /datum/preference/choiced/undershirt/icon_for(value)
 	var/static/datum/universal_icon/body
@@ -149,9 +179,13 @@
 	category = PREFERENCE_CATEGORY_CLOTHING
 	should_generate_icons = TRUE
 	preference_spritesheet = PREFERENCE_SHEET_LARGE
+	can_randomize = FALSE
 
 /datum/preference/choiced/underwear/init_possible_values()
 	return assoc_to_keys_features(GLOB.underwear_list)
+
+/datum/preference/choiced/underwear/create_default_value()
+	return /datum/sprite_accessory/underwear/male_hearts::name
 
 /datum/preference/choiced/underwear/icon_for(value)
 	var/static/datum/universal_icon/lower_half

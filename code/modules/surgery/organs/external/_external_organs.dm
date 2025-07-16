@@ -15,7 +15,7 @@
 	///If not null, overrides the appearance with this sprite accessory datum
 	var/sprite_accessory_override
 
-	/// The savefile_key of the preference this relates to. Used for the preferences UI.
+	/// The db_key of the preference this relates to. Used for the preferences UI.
 	var/preference
 	///With what DNA block do we mutate in mutate_feature() ? For genetics
 	var/dna_block

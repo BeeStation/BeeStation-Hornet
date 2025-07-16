@@ -210,18 +210,21 @@ GLOBAL_PROTECT(undatumized_preference_tags_character)
 /// The priority at which gender is determined, needed for proper randomization.
 #define PREFERENCE_PRIORITY_GENDER 4
 
-/// The priority at which body model is decided, applied after gender so we can
-/// make sure they're non-binary.
-#define PREFERENCE_PRIORITY_BODY_MODEL 5
+/// The priority at which body type is decided, applied after gender so we can
+/// support the "use gender" option.
+#define PREFERENCE_PRIORITY_BODY_TYPE 5
+
+/// Used for preferences that rely on body setup being finalized.
+#define PREFERENCE_PRORITY_LATE_BODY_TYPE 6
 
 /// The priority at which eye color is applied, needed so IPCs get the right screen color.
-#define PREFERENCE_PRIORITY_EYE_COLOR 6
+#define PREFERENCE_PRIORITY_EYE_COLOR 7
 
 /// The priority at which hair color is applied, needed so IPCs get the right antenna color.
-#define PREFERENCE_PRIORITY_HAIR_COLOR 7
+#define PREFERENCE_PRIORITY_HAIR_COLOR 8
 
 /// The priority at which names are decided, needed for proper randomization.
-#define PREFERENCE_PRIORITY_NAMES 8
+#define PREFERENCE_PRIORITY_NAMES 9
 
 /// The maximum preference priority, keep this updated, but don't use it for `priority`.
 #define MAX_PREFERENCE_PRIORITY PREFERENCE_PRIORITY_NAMES

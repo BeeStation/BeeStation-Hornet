@@ -299,6 +299,8 @@
 	var/datum/preferences/preferences = new
 
 	for (var/datum/preference/preference as anything in get_preferences_in_priority_order())
+		if (!preference) // Skip null entries
+			continue
 		if (!preference.included_in_randomization_flags(randomize_flags))
 			continue
 
