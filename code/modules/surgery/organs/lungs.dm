@@ -294,7 +294,7 @@
 		if (nitrium_pp > 10)
 			var/existing = H.reagents.get_reagent_amount(/datum/reagent/nitrosyl_plasmide)
 			H.reagents.add_reagent(/datum/reagent/nitrosyl_plasmide, max(0, 4 - existing))
-			H.reagents.add_reagent(/datum/reagent/nitrium, 2) //Nitrium addiction and eventually overdose will come from this.
+			H.reagents.add_reagent(/datum/reagent/nitrium, 2) //Triggers overdose message primarily, so players aren't stuck in extreme slowdown for too long.
 
 		REMOVE_MOLES(/datum/gas/nitrium, breath, gas_breathed)
 

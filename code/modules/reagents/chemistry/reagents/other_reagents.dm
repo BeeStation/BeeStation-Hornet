@@ -1353,7 +1353,7 @@
 	var/warned = FALSE
 	var/feeling_high = FALSE
 	overdose_threshold = 10
-	addiction_threshold = 5 // You will be addicted if you huff too much at once
+	addiction_threshold = 4 //Nitrium is highly addictive
 
 /datum/reagent/nitrium/on_mob_metabolize(mob/living/L)
 	. = ..()
@@ -1380,7 +1380,7 @@
 
 	//Whether they go back to huffing too soon, or they have just started huffing, this calculation will handle stamina restoration and exhaustion both.
 	else
-		M.adjustStaminaLoss((clamp((-30 + current_cycle), -2, 2)) * REM * delta_time, 0)
+		M.adjustStaminaLoss((clamp((-30 + current_cycle), -2, 5)) * REM * delta_time, 0)
 		if(!warned && current_cycle >= 31)
 			M.visible_message(span_danger("Your body aches!"))
 			warned = TRUE
@@ -1390,13 +1390,6 @@
 /datum/reagent/nitrium/overdose_start(mob/living/M)
 	//Because otherwise it lasts for a punishingly long time if an overdose is reached
 	metabolization_rate = REAGENTS_METABOLISM
-
-/datum/reagent/nitrium/overdose_process(mob/living/M, delta_time, times_fired)
-	. = ..()
-	if(feeling_high)
-		M.adjustStaminaLoss(3 * REM * delta_time, 0)
-
-	return TRUE
 
 /datum/reagent/nitrosyl_plasmide
 	name = "Nitrosyl plasmide"
