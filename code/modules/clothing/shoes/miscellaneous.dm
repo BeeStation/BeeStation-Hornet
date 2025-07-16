@@ -334,15 +334,6 @@
 
 	create_storage(storage_type = /datum/storage/pockets/shoes)
 
-
-/datum/armor/shoes_bhop
-	bio = 90
-
-/obj/item/clothing/shoes/bhop/Initialize(mapload)
-	. = ..()
-
-	create_storage(storage_type = /datum/storage/pockets/shoes)
-
 /obj/item/clothing/shoes/bhop/ui_action_click(mob/user, action)
 	if(!isliving(user))
 		return

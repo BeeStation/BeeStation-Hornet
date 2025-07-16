@@ -393,17 +393,6 @@
 	stamina = 50
 	bleed = 10
 
-
-/datum/armor/helmet_knight
-	melee = 50
-	bullet = 10
-	laser = 10
-	energy = 10
-	fire = 80
-	acid = 80
-	stamina = 50
-	bleed = 10
-
 /obj/item/clothing/head/helmet/knight/blue
 	icon_state = "knight_blue"
 	item_state = "knight_blue"

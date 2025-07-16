@@ -423,17 +423,6 @@
 	flags_1 = NONE
 	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
-/obj/item/clothing/head/beret/sec/navyhos
-	name = "head of security's beret"
-	desc = "A special beret with the Head of Security's insignia emblazoned on it. A symbol of excellence, a badge of courage, a mark of distinction."
-	icon_state = "hosberet"
-	icon_state = "beret_badge"
-	greyscale_config = /datum/greyscale_config/beret_badge
-	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
-	greyscale_colors = "#3f3c40#FF0000"
-	armor_type = /datum/armor/beret_spacepol
-	flags_1 = NONE
-
 /datum/armor/beret_spacepol
 	melee = 40
 	bullet = 30
