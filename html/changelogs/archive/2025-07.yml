@@ -205,3 +205,8 @@
   itsmeow:
   - rscadd: TGUI Say now supports system DPI scaling on BYOND 516, and will no longer
       display at the incorrect size.
+2025-07-16:
+  Asdfagi:
+  - tweak: pyroclastic anomaly slimes now spawn with a transformative light pink extract
+      applied, meaning that their offspring can also become sentient
+  - tweak: some wording for ghostspawn slimes without a master expanded for clarity

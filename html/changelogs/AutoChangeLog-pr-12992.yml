@@ -1,6 +1,0 @@
-author: Asdfagi
-delete-after: true
-changes:
-  - tweak: pyroclastic anomaly slimes now spawn with a transformative light pink extract
-      applied, meaning that their offspring can also become sentient
-  - tweak: some wording for ghostspawn slimes without a master expanded for clarity
