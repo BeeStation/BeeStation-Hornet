@@ -115,8 +115,8 @@
 				O.resistance_flags |= FLAMMABLE //Even fireproof things burn up in lava
 			if(O.resistance_flags & FIRE_PROOF)
 				O.resistance_flags &= ~FIRE_PROOF
-			if(O.get_armor_rating(DAMAGE_FIRE) > 50) //obj with 100% fire armor still get slowly burned away.
-				O.set_armor_rating(DAMAGE_FIRE, 50)
+			if(O.get_armor_rating(ARMOUR_HEAT) > 50) //obj with 100% fire armor still get slowly burned away.
+				O.set_armor_rating(ARMOUR_HEAT, 50)
 			O.fire_act(10000, 1000 * delta_time)
 			if(istype(O, /obj/structure/closet))
 				var/obj/structure/closet/C = O
