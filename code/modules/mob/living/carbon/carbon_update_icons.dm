@@ -453,12 +453,12 @@ GLOBAL_LIST_EMPTY(masked_leg_icons_cache)
 	//this could break layering in oddjob cases, but i'm sure it will work fine most of the time... right?
 	var/mutable_appearance/new_leg_appearance = new(limb_overlay)
 	new_leg_appearance.icon = new_leg_icon
-	new_leg_appearance.layer = -BODYPARTS_LAYER
+	new_leg_appearance.layer = CALCULATE_MOB_OVERLAY_LAYER(BODYPARTS_LAYER)
 	new_leg_appearance.dir = image_dir //for some reason, things do not work properly otherwise
 	. += new_leg_appearance
 	var/mutable_appearance/new_leg_appearance_lower = new(limb_overlay)
 	new_leg_appearance_lower.icon = new_leg_icon_lower
-	new_leg_appearance_lower.layer = -BODYPARTS_LOW_LAYER
+	new_leg_appearance_lower.layer = CALCULATE_MOB_OVERLAY_LAYER(BODYPARTS_LOW_LAYER)
 	new_leg_appearance_lower.dir = image_dir
 	. += new_leg_appearance_lower
 	return .
