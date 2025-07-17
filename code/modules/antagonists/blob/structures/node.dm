@@ -6,7 +6,6 @@
 	max_integrity = BLOB_NODE_MAX_HP
 	max_hit_damage = BLOB_NODE_MAX_HP / 10
 	health_regen = BLOB_NODE_HP_REGEN
-	armor_type = /datum/armor/blob_node
 	point_return = BLOB_REFUND_NODE_COST
 	claim_range	= BLOB_NODE_CLAIM_RANGE
 	pulse_range = BLOB_NODE_PULSE_RANGE

@@ -305,8 +305,6 @@
 		limb_organ.Insert(new_limb_owner)
 
 	synchronize_bodytypes(new_limb_owner)
-	if(is_creating)
-		update_limb(is_creating = TRUE)
 
 	update_bodypart_damage_state()
 	if(can_be_disabled)

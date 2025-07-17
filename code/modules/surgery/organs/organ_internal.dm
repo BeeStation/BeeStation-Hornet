@@ -359,7 +359,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
   * owner_species - species, needed to return the mutant slot as true or false. stomach set to null means it shouldn't have one.
   * owner_mob - for more specific checks, like nightmares.
   */
-/obj/item/organ/proc/get_availability(datum/species/owner_species, mob/living/owner_mob)
+/obj/item/organ/proc/get_availability(datum/species/owner_species, mob/living/carbon/owner_mob)
 	SHOULD_CALL_PARENT(TRUE)
 	. = FALSE
 	for (var/obj/item/bodypart/part in owner_mob.bodyparts)

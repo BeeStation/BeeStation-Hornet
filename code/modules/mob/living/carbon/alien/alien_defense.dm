@@ -75,8 +75,7 @@ In all, this is a lot like the monkey code. /N
 			return
 		playsound(loc, "punch", 25, 1, -1)
 		visible_message(span_danger("[user] punches [src]!"), \
-				span_userdanger("[user] punches you!"), null, COMBAT_MESSAGE_RANGE)
-		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(user.get_combat_bodyzone(src)))
+		span_userdanger("[user] punches you!"), null, COMBAT_MESSAGE_RANGE)
 		deal_damage(user.dna.species.punchdamage, user.dna.species.attack_sharpness, BRUTE, zone = ran_zone(user.get_combat_bodyzone(src)))
 		log_combat(user, src, "attacked", user)
 		user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)

@@ -46,7 +46,7 @@
 	return ..()
 
 
-/datum/surgery/proc/can_start(mob/user, mob/living/patient) //FALSE to not show in list
+/datum/surgery/proc/can_start(mob/user, mob/living/patient, target_zone) //FALSE to not show in list
 	. = TRUE
 	if(replaced_by == /datum/surgery)
 		return FALSE

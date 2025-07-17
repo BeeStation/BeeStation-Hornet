@@ -27,7 +27,7 @@
 	if(isitem(item_parent))
 		//Sharpness
 		old_sharp = item_parent.sharpness
-		item_parent.sharpness = SHARP_DISMEMBER
+		item_parent.sharpness = SHARP_V
 		//Force
 		old_force = item_parent.force
 		item_parent.force = max_force * (component_parent.trait_strength/100)

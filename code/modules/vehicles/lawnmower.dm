@@ -109,7 +109,7 @@
 		if(!istype(flora, /obj/structure/flora/rock))
 			qdel(flora)
 		else
-			take_damage(25)
+			deal_damage(25, SHARP_X)
 			visible_message(span_danger("\the [src] makes a awful grinding sound as it drives over [flora]!"))
 
 /obj/vehicle/ridden/lawnmower/nukie

@@ -11,7 +11,6 @@
 	var/reverse = FALSE //for end pieces which block all but one dir of movement
 	var/blocking_dir
 
-	armor_type = /datum/armor/structure_platform
 	max_integrity = 120
 
 	var/climbable = TRUE
