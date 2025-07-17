@@ -54,7 +54,7 @@
 	visible_message(span_danger("[user] punches [src]!"), \
 					span_userdanger("You're punched by [user]!"), null, COMBAT_MESSAGE_RANGE, user)
 	to_chat(user, span_danger("You punch [src]!"))
-	apply_damage(15, damagetype = BRUTE)
+	deal_damage(15, 0, BRUTE)
 
 /mob/living/basic/attack_paw(mob/living/carbon/human/user, list/modifiers)
 	if(..()) //successful monkey bite.
@@ -131,8 +131,8 @@
 	if(temp_damage >= 0 && temp_damage <= force_threshold)
 		visible_message(span_warning("[src] looks unharmed!"))
 		return FALSE
-	elseif(actuallydamage)
-			deal_damage(damage, 0, damagetype)
+	else if(actuallydamage)
+		deal_damage(damage, 0, damagetype)
 		return TRUE
 
 /mob/living/basic/bullet_act(obj/projectile/Proj, def_zone, piercing_hit = FALSE)
@@ -196,8 +196,8 @@
 	switch(severity)
 		if(EMP_LIGHT)
 			visible_message(span_danger("[src] shakes violently, its parts coming loose!"))
-			apply_damage(maxHealth * 0.6)
+			take_direct_damage(maxHealth * 0.6)
 			Shake(5, 5, 1 SECONDS)
 		if(EMP_HEAVY)
 			visible_message(span_danger("[src] suddenly bursts apart!"))
-			apply_damage(maxHealth)
+			take_direct_damage(maxHealth)
