@@ -8816,6 +8816,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
+/obj/structure/railing/white,
 /turf/open/floor/iron/showroomfloor,
 /area/medical/medbay/central)
 "bLn" = (
@@ -10615,6 +10616,19 @@
 /obj/structure/lattice,
 /turf/open/space/basic,
 /area/space/nearstation)
+"chN" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/railing/single_end{
+	dir = 4
+	},
+/obj/structure/railing/single_end{
+	dir = 1
+	},
+/turf/open/floor/prison,
+/area/security/prison)
 "chO" = (
 /obj/structure/sign/warning/vacuum/external,
 /turf/closed/wall,
@@ -44950,9 +44964,6 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 1
 	},
-/obj/structure/railing{
-	pixel_y = -8
-	},
 /turf/open/floor/iron/showroomfloor,
 /area/medical/medbay/central)
 "mDN" = (
@@ -52207,8 +52218,11 @@
 	},
 /area/quartermaster/exploration_dock)
 "oVs" = (
-/obj/structure/railing,
 /obj/structure/flora/junglebush/large,
+/obj/structure/railing/white{
+	dir = 1
+	},
+/obj/structure/railing/white,
 /turf/open/floor/grass,
 /area/medical/medbay/central)
 "oVE" = (
@@ -78096,6 +78110,12 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/caution,
+/obj/structure/railing/single_end{
+	dir = 1
+	},
+/obj/structure/railing/single_end{
+	dir = 4
+	},
 /turf/open/floor/iron/techmaint,
 /area/security/prison)
 "xeJ" = (
@@ -102129,7 +102149,7 @@ wFa
 tDv
 wFa
 oae
-fVm
+chN
 fVm
 fVm
 dtY
