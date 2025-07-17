@@ -1,5 +1,5 @@
 /// The essential proc to call when an atom must receive damage of any kind.
-/// amount: The amount of damage to be recieved
+/// amount: The amount of damage to be received
 /// penetration: The amount of penetration that the damage is applying
 /// type: The damage type being dealt
 /// flag: Defines a special DAMAGE_ flag, which changes the behaviour of how armour is calculated.
@@ -16,8 +16,6 @@
 	if(sound)
 		play_attack_sound(amount, type, flag)
 	if((resistance_flags & INDESTRUCTIBLE))
-		return
-	if (type != BRUTE && type != BURN)
 		return
 	if(flag == DAMAGE_STANDARD && amount < damage_deflection)
 		return
