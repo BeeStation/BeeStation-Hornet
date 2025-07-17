@@ -153,6 +153,9 @@
 /atom/proc/take_direct_damage(amount, type, flag = DAMAGE_STANDARD, zone = null)
 	if (!uses_integrity)
 		CRASH("take_direct_damage called on [src.type] not using atom integrity which also hasn't implemented it's own handling.")
+	// Standard objects do not take these types of damage
+	if (type != BRUTE && type != BURN)
+		return
 	var/previous_atom_integrity = atom_integrity
 
 	update_integrity(atom_integrity - amount)

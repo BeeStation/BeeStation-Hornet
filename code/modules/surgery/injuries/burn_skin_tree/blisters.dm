@@ -2,6 +2,7 @@
 	skin_armour_modifier = 0.9
 	effectiveness_modifier = 0.7
 	surgeries_provided = list(/datum/surgery/skin_graft)
+	severity_level = INJURY_PRIORITY_ACTIVE
 	health_doll_icon = "blood"
 	examine_description = "<b>blisters</b>"
 	healed_type = /datum/injury/treated_burn
