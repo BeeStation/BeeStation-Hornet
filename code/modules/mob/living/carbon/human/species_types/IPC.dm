@@ -20,7 +20,8 @@
 		TRAIT_MUTANT_COLORS,
 		TRAIT_NOHUSK,
 		TRAIT_NOMOUTH,
-		TRAIT_REVIVESBYHEALING
+		TRAIT_REVIVESBYHEALING,
+		TRAIT_NO_DEBRAIN_OVERLAY
 	)
 	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
 	mutantbrain = /obj/item/organ/internal/brain/positron
