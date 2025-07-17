@@ -72,4 +72,11 @@
 	desc = "Set up the mood for an interrogation."
 	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "noir_mode"
-	cooldown_time = 15 SECONDS
+	cooldown_time = 30 SECONDS
+
+/datum/action/noirmode/on_activate(mob/user, atom/target)
+	if(target)
+		var/obj/item/D = target
+		D.ui_action_click(owner, src)
+		start_cooldown()
+	return TRUE
