@@ -212,3 +212,7 @@
   - tweak: some wording for ghostspawn slimes without a master expanded for clarity
   Rukofamicom:
   - rscdel: Removed TC fuel rods
+2025-07-17:
+  VmpOS2NHSkhkejA9:
+  - tweak: honeycombs are food, they must be ground up to get their reagents now.
+  - bugfix: honeycombs no longer shatter into glass when thrown
