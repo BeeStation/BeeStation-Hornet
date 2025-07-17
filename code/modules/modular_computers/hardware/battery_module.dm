@@ -13,6 +13,14 @@
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 
+/obj/item/computer_hardware/battery/on_remove(obj/item/modular_computer/remove_from, mob/user)
+	if(!holder)
+		return ..()
+	var/obj/item/computer_hardware/recharger/recharger = holder.all_components[MC_CHARGE]
+	if(!recharger)	// We need to shutdown the computer if the battery is removed and theres nothing to give it power
+		remove_from.shutdown_computer()
+	return ..()
+
 /obj/item/computer_hardware/battery/Initialize(mapload, battery_type)
 	. = ..()
 	if(battery_type)
@@ -48,6 +56,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 
 	battery = I
 	to_chat(user, span_notice("You connect \the [I] to \the [src]."))
+	playsound(src, 'sound/items/handling/tape_drop.ogg', 50, TRUE)
 
 	return TRUE
 

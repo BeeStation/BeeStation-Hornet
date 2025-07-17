@@ -709,10 +709,16 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	ui_update()
 
 /obj/item/modular_computer/pre_attack(atom/A, mob/living/user, params)
-	if(!istype(A, /obj/item/computer_hardware))
+	if(!istype(A, /obj/item/computer_hardware) && !istype(A, /obj/item/stock_parts/cell/computer))
 		return
-	var/obj/item/computer_hardware/inserted_hardware = A
-	if(istype(inserted_hardware))
+
+	var/obj/item/computer_hardware/battery/battery_module = all_components[MC_CELL]
+
+	if(istype(A, /obj/item/stock_parts/cell/computer) && battery_module)
+		if(battery_module.try_insert(A, user))
+			return TRUE
+	if(istype(A, /obj/item/computer_hardware))
+		var/obj/item/computer_hardware/inserted_hardware = A
 		if(install_component(inserted_hardware, user))
 			inserted_hardware.on_inserted(user)
 			ui_update()
