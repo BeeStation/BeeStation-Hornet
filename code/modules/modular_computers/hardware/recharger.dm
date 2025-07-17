@@ -57,6 +57,11 @@
 		balloon_alert(user, "<font color='#e06eb1'>Update:</font> // Rate Limiter // <font color='#17c011'>Engaged</font>")
 		to_chat(user, "<span class='cfc_magenta'>Update:</span> // Rate Limiter // <span class='cfc_green'>Engaged</span>")
 
+/obj/item/computer_hardware/recharger/APC/pda
+	name = "micro area recharger"
+	desc = "A device that wirelessly recharges connected device from nearby APC. Standard issue for Engineers."
+	w_class = WEIGHT_CLASS_TINY // This premium little item can be fit into PDAs
+
 /obj/item/computer_hardware/recharger/wired
 	name = "wired power connector"
 	desc = "A power connector that recharges connected device from nearby power wire. Incompatible with portable computers."

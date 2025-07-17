@@ -64,6 +64,10 @@
 	default_disk = /obj/item/computer_hardware/hard_drive/role/engineering
 	icon_state = "pda-engineer"
 
+/obj/item/modular_computer/tablet/pda/station_engineer/Initialize(mapload)
+	. = ..()
+	install_component(new /obj/item/computer_hardware/recharger/APC/pda)
+
 /obj/item/modular_computer/tablet/pda/security
 	name = "security PDA"
 	default_disk = /obj/item/computer_hardware/hard_drive/role/security
