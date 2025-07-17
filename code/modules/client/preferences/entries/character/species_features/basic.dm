@@ -100,6 +100,7 @@
 	category = PREFERENCE_CATEGORY_FEATURES
 	preference_type = PREFERENCE_CHARACTER
 	db_key = "facial_hair_gradient"
+	main_feature_name = "Facial Hair Gradient"
 	relevant_head_flag = HEAD_FACIAL_HAIR
 	can_randomize = FALSE
 	should_generate_icons = TRUE
@@ -111,18 +112,32 @@
 	target.set_facial_hair_gradient_style(new_style = value, update = FALSE)
 
 /datum/preference/choiced/facial_hair_gradient/icon_for(value)
-	// Generate a simple icon for facial hair gradients - could be enhanced later
+	var/datum/sprite_accessory/gradient_accessory = GLOB.facial_hair_gradients_list[value]
+	if (!gradient_accessory || gradient_accessory.icon_state == "none")
+		return uni_icon('icons/mob/landmarks.dmi', "x")
+
+	// Create base head
 	var/datum/universal_icon/final_icon = uni_icon('icons/mob/species/human/bodyparts_greyscale.dmi', "human_head_m")
 	final_icon.blend_color(skintone2hex("caucasian1"), ICON_MULTIPLY)
-	
-	// Add a simple beard representation
-	var/datum/universal_icon/beard_icon = uni_icon('icons/mob/species/human/human_face.dmi', "facial_hair_fullbeard")
-	beard_icon.blend_color(COLOR_DARK_BROWN, ICON_MULTIPLY)
-	final_icon.blend_icon(beard_icon, ICON_OVERLAY)
-	
+
+	// Use a standard facial hair style for the preview
+	var/datum/sprite_accessory/facial_hair_accessory = GLOB.facial_hairstyles_list["Beard (Full)"] || GLOB.facial_hairstyles_list["Beard (Cropped Fullbeard)"]
+	if (facial_hair_accessory)
+		var/datum/universal_icon/base_facial_hair_icon = uni_icon(facial_hair_accessory.icon, facial_hair_accessory.icon_state)
+		base_facial_hair_icon.blend_color("#080501", ICON_MULTIPLY)
+
+		// Create gradient overlay
+		var/datum/universal_icon/gradient_icon = uni_icon(facial_hair_accessory.icon, facial_hair_accessory.icon_state)
+		gradient_icon.blend_icon(uni_icon(gradient_accessory.icon, gradient_accessory.icon_state), ICON_ADD)
+		gradient_icon.blend_color("#42250a", ICON_MULTIPLY)
+
+		// Combine base facial hair with gradient
+		base_facial_hair_icon.blend_icon(gradient_icon, ICON_OVERLAY)
+		final_icon.blend_icon(base_facial_hair_icon, ICON_OVERLAY)
+
 	final_icon.crop(10, 19, 22, 31)
 	final_icon.scale(32, 32)
-	
+
 	return final_icon
 
 /datum/preference/choiced/facial_hair_gradient/create_default_value()
@@ -131,7 +146,7 @@
 /datum/preference/choiced/facial_hair_gradient/compile_constant_data()
 	var/list/data = ..()
 
-	data[SUPPLEMENTAL_FEATURE_KEY] = /datum/preference/color/facial_hair_gradient::db_key
+	data[SUPPLEMENTAL_FEATURE_KEY] = "facial_hair_gradient_color"
 
 	return data
 
@@ -144,6 +159,9 @@
 
 /datum/preference/color/facial_hair_gradient/apply_to_human(mob/living/carbon/human/target, value)
 	target.set_facial_hair_gradient_color(new_color = value, update = FALSE)
+
+/datum/preference/color/facial_hair_gradient/create_default_value()
+	return random_hair_color()
 
 /datum/preference/color/facial_hair_gradient/is_accessible(datum/preferences/preferences, ignore_page = FALSE)
 	if (!..(preferences))
@@ -215,6 +233,7 @@
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_FEATURES
 	db_key = "gradient_style"
+	main_feature_name = "Hair Gradient"
 	relevant_head_flag = HEAD_HAIR
 	can_randomize = FALSE
 	should_generate_icons = TRUE
@@ -226,18 +245,32 @@
 	target.set_hair_gradient_style(new_style = value, update = FALSE)
 
 /datum/preference/choiced/hair_gradient/icon_for(value)
-	// Generate a simple icon for hair gradients - could be enhanced later
+	var/datum/sprite_accessory/gradient_accessory = GLOB.hair_gradients_list[value]
+	if (!gradient_accessory || gradient_accessory.icon_state == "none")
+		return uni_icon('icons/mob/landmarks.dmi', "x")
+
+	// Create base head
 	var/datum/universal_icon/final_icon = uni_icon('icons/mob/species/human/bodyparts_greyscale.dmi', "human_head_m")
 	final_icon.blend_color(skintone2hex("caucasian1"), ICON_MULTIPLY)
-	
-	// Add a simple hair representation
-	var/datum/universal_icon/hair_icon = uni_icon('icons/mob/species/human/human_face.dmi', "hair_short")
-	hair_icon.blend_color(COLOR_DARK_BROWN, ICON_MULTIPLY)
-	final_icon.blend_icon(hair_icon, ICON_OVERLAY)
-	
+
+	// Use a standard hair style for the preview
+	var/datum/sprite_accessory/hair_accessory = GLOB.hairstyles_list["Very Long Hair 2"] || GLOB.hairstyles_list["Short Hair"]
+	if (hair_accessory)
+		var/datum/universal_icon/base_hair_icon = uni_icon(hair_accessory.icon, hair_accessory.icon_state)
+		base_hair_icon.blend_color("#080501", ICON_MULTIPLY)
+
+		// Create gradient overlay
+		var/datum/universal_icon/gradient_icon = uni_icon(hair_accessory.icon, hair_accessory.icon_state)
+		gradient_icon.blend_icon(uni_icon(gradient_accessory.icon, gradient_accessory.icon_state), ICON_ADD)
+		gradient_icon.blend_color("#42250a", ICON_MULTIPLY)
+
+		// Combine base hair with gradient
+		base_hair_icon.blend_icon(gradient_icon, ICON_OVERLAY)
+		final_icon.blend_icon(base_hair_icon, ICON_OVERLAY)
+
 	final_icon.crop(10, 19, 22, 31)
 	final_icon.scale(32, 32)
-	
+
 	return final_icon
 
 /datum/preference/choiced/hair_gradient/create_default_value()
@@ -246,7 +279,7 @@
 /datum/preference/choiced/hair_gradient/compile_constant_data()
 	var/list/data = ..()
 
-	data[SUPPLEMENTAL_FEATURE_KEY] = /datum/preference/color/hair_gradient::db_key
+	data[SUPPLEMENTAL_FEATURE_KEY] = "gradient_color"
 
 	return data
 
@@ -259,6 +292,9 @@
 
 /datum/preference/color/hair_gradient/apply_to_human(mob/living/carbon/human/target, value)
 	target.set_hair_gradient_color(new_color = value, update = FALSE)
+
+/datum/preference/color/hair_gradient/create_default_value()
+	return random_hair_color()
 
 /datum/preference/color/hair_gradient/is_accessible(datum/preferences/preferences, ignore_page = FALSE)
 	if (!..(preferences))
