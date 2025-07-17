@@ -7,10 +7,10 @@
 	possible_transfer_amounts = list()
 	spillable = FALSE
 	disease_amount = 0
-	volume = 20
+	volume = 10
 	amount_per_transfer_from_this = 0
 	has_variable_transfer_amount = FALSE
-	list_reagents = list(/datum/reagent/consumable/honey = 20)
+	list_reagents = list(/datum/reagent/consumable/honey = 5)
 	grind_results = list()
 	var/honey_color = ""
 
@@ -35,7 +35,7 @@
 	if(istype(R))
 		name = "honeycomb ([R.name])"
 		honey_color = R.color
-		reagents.add_reagent(R.type,20)
+		reagents.add_reagent(R.type,5)
 	else
 		honey_color = ""
 	update_icon()
