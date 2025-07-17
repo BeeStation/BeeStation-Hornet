@@ -166,7 +166,7 @@
 			deal_damage(bloss, 0, BRUTE, DAMAGE_BOMB)
 
 /mob/living/basic/blob_act(obj/structure/blob/attacking_blob)
-	apply_damage(20, damagetype = BRUTE)
+	deal_damage(20, 0, BRUTE, DAMAGE_ABSORPTION)
 
 /mob/living/basic/do_attack_animation(atom/A, visual_effect_icon, used_item, no_effect)
 	if(!no_effect && !visual_effect_icon && melee_damage)
