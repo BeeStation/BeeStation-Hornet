@@ -16,9 +16,10 @@
 	mutantlungs = /obj/item/organ/lungs/apid
 	mutantwings = /obj/item/organ/wings/bee
 	mutanttongue = /obj/item/organ/tongue/bee
-	burnmod = 1.5
-	toxmod = 1.5
-	staminamod = 1.25
+	mutant_organs = list(/obj/item/organ/apid_stinger)
+	brutemod = 0.8
+	toxmod = 0.5
+	staminamod = 1.2
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/apid
 	inert_mutation = /datum/mutation/wax_saliva

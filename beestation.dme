@@ -4301,6 +4301,7 @@
 #include "code\modules\surgery\organs\liver.dm"
 #include "code\modules\surgery\organs\lungs.dm"
 #include "code\modules\surgery\organs\organ_internal.dm"
+#include "code\modules\surgery\organs\special.dm"
 #include "code\modules\surgery\organs\stomach.dm"
 #include "code\modules\surgery\organs\tails.dm"
 #include "code\modules\surgery\organs\tongue.dm"
