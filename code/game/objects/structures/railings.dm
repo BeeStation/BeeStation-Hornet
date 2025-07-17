@@ -231,11 +231,6 @@
 	reverse = TRUE
 	diagonals_possible = FALSE
 
-/obj/structure/railing/perspective
-	icon_state = "railing_gray"
-	density = FALSE
-	climbable = FALSE
-
 /obj/structure/railing/perspective/gray/corner
 	icon_state = "railing_gray_corner"
 	density = FALSE
