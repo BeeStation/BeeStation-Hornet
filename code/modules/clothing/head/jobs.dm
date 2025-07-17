@@ -157,6 +157,10 @@
 	name = "H.O.N.K. tactical beret"
 	desc = "A tactical beret to be used during the enacting of the most dangerous of pranks."
 	icon_state = "beret_clown"
+	icon = 'icons/obj/clothing/head/beret_unique.dmi'
+	worn_icon = 'icons/mob/clothing/head/beret_unique.dmi'
+	greyscale_colors = null
+	flags_1 = NONE
 
 //Security
 

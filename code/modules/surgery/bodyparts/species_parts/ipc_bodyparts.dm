@@ -53,7 +53,8 @@
 		ORGAN_SLOT_HEART,
 		ORGAN_SLOT_THRUSTERS,
 		ORGAN_SLOT_HEART_AID,
-		ORGAN_SLOT_TAIL
+		ORGAN_SLOT_TAIL,
+		ORGAN_SLOT_LIVER
 	)
 
 /obj/item/bodypart/chest/ipc/setup_injury_trees()

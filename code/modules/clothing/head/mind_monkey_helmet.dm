@@ -30,7 +30,7 @@
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
 		if(isliving(user)) //I don't know what normally would force us to check this, but it's worth checking
 			var/mob/living/M = user
-			M.deal_damage(5,BRUTE,zone = BODY_ZONE_HEAD) //notably: no damage resist (it's in your helmet), no damage spread (it's in your helmet)
+			M.take_direct_damage(5, BRUTE,zone = BODY_ZONE_HEAD) //notably: no damage resist (it's in your helmet), no damage spread (it's in your helmet)
 			return
 		return
 	INVOKE_ASYNC(src, PROC_REF(poll), user)

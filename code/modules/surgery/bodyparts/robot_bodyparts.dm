@@ -135,7 +135,7 @@
 	medium_burn_msg = ROBOTIC_MEDIUM_BURN_MSG
 	heavy_burn_msg = ROBOTIC_HEAVY_BURN_MSG
 
-/obj/item/bodypart/l_r_legarm/robot/setup_injury_trees()
+/obj/item/bodypart/r_leg/robot/setup_injury_trees()
 	return // TODO: Robot injury trees. Progress through damage slowly, but have no way to be healed without replacement.
 
 /obj/item/bodypart/chest/robot
