@@ -6,7 +6,6 @@
 	supervisors = "the chief medical officer"
 	faction = "Station"
 	total_positions = 2
-	spawn_positions = 2
 	selection_color = "#d4ebf2"
 	// Requires a round in medical, this is a decent role for new players but is poorly
 	// communicated. Once the onboarding is better for this role, playtime requirements

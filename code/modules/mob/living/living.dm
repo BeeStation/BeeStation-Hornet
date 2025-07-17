@@ -680,7 +680,7 @@
 	med_hud_set_health()
 	med_hud_set_status()
 	update_health_hud()
-	SEND_SIGNAL(src, COMSIG_LIVING_UPDATE_HEALTH)
+	SEND_SIGNAL(src, COMSIG_LIVING_HEALTH_UPDATE)
 
 /mob/living/update_health_hud()
 	var/severity = 0
@@ -959,6 +959,9 @@
 	set name = "Resist"
 	set category = "IC"
 
+	CALLBACK(src, TYPE_PROC_REF(/mob/living, execute_resist))
+
+/mob/living/proc/execute_resist()
 	if(!can_resist())
 		return
 	changeNext_move(CLICK_CD_RESIST)
@@ -2053,3 +2056,56 @@
 	var/mob/living/unshapeshifted_mob = shapechange.caster_mob
 	remove_status_effect(/datum/status_effect/shapechange_mob)
 	return unshapeshifted_mob
+/**
+ * Helper proc for basic and simple animals to return true if the passed sentience type matches theirs
+ * Living doesn't have a sentience type though so it always returns false if not a basic or simple mob
+ */
+/mob/living/proc/compare_sentience_type(compare_type)
+	return FALSE
+
+/// Proc called when targetted by a lazarus injector
+/mob/living/proc/lazarus_revive(mob/living/reviver, malfunctioning)
+	if(mind)
+		if(suiciding || ishellbound())
+			reviver.visible_message(span_notice("[reviver] injects [src], but nothing happened."))
+			return
+		process_revival(src)
+		//befriend(reviver)
+		//Try to notify the ghost that they are being revived, but also that they are not loyal to the reviver
+		var/mob/ghostmob = notify_ghost_cloning("Your body is revived by [reviver] with a lazarus injector!", source=src)
+		if(ghostmob)
+			to_chat(ghostmob, span_userdanger("Lazarus does not change your loyalties or force obedience to [reviver] if you weren't already under their control."))
+		log_game("[key_name(reviver)] has revived a player mob [key_name(src)] with a lazarus injector")
+
+	else // only do this to mindless mobs
+		process_revival(src)
+		//befriend(reviver)
+		faction = (malfunctioning) ? list("[REF(reviver)]") : list(FACTION_NEUTRAL) //Neutral includes crew and entirely passive mobs
+		if(!ishostile(src))
+			return
+		var/mob/living/simple_animal/hostile/target_hostile = src
+		target_hostile.robust_searching = TRUE
+		target_hostile.friends += reviver
+		if(malfunctioning)
+			target_hostile.attack_same = TRUE //Will attack all other mobs and crew, but not the person who revived
+			reviver.log_message("has revived mob [key_name(src)] with a malfunctioning lazarus injector.", LOG_GAME)
+		else
+			target_hostile.attack_same = FALSE //Will only attack non-passive mobs
+			if(prob(10)) //chance of sentience without loyaltyAdd commentMore actions
+				var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
+					question = "Do you want to play as \a [src] being revived by [reviver]?",
+					check_jobban = ROLE_SENTIENCE,
+					poll_time = 15 SECONDS,
+					jump_target = src,
+					role_name_text = "lazarus revived mob",
+					alert_pic = src,
+					)
+				if(candidate)
+					src.key = candidate.key
+					target_hostile.sentience_act()
+					to_chat(target_hostile, span_userdanger("In a striking moment of clarity you have gained greater intellect. You feel no strong sense of loyalty to anyone or anything, you simply feel... free"))
+
+/mob/living/proc/process_revival(mob/living/simple_animal/target)
+	target.do_jitter_animation(10)
+	addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living, do_jitter_animation), 10), 5 SECONDS)
+	addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living, revive), TRUE, TRUE), 10 SECONDS)

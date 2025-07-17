@@ -59,18 +59,6 @@
 	if(attack_generic(user, 60, BRUTE, DAMAGE_STANDARD, 0))
 		playsound(src.loc, 'sound/weapons/slash.ogg', 100, 1)
 
-/obj/attack_basic_mob(mob/living/basic/user)
-	if(!user.melee_damage && !user.obj_damage) //No damage
-		user.emote("custom", message = "[user.friendly_verb_continuous] [src].")
-		return FALSE
-	else
-		if(user.obj_damage)
-			. = attack_generic(user, user.obj_damage, user.melee_damage_type, DAMAGE_STANDARD, TRUE, user.sharpness)
-		else
-			. = attack_generic(user, user.melee_damage, user.melee_damage_type, DAMAGE_STANDARD, TRUE, user.sharpness)
-		if(.)
-			playsound(src, 'sound/effects/meteorimpact.ogg', 100, TRUE)
-
 /obj/attack_animal(mob/living/simple_animal/M)
 	if(!M.melee_damage && !M.obj_damage)
 		M.emote("custom", message = "[M.friendly_verb_continuous] [src].")

@@ -9,7 +9,6 @@
 	held_rh = 'icons/mob/pets_held_rh.dmi'
 	head_icon = 'icons/mob/pets_held.dmi'
 	butcher_results = list(/obj/item/food/meat/slab/mothroach = 3, /obj/item/stack/sheet/animalhide/mothroach = 1)
-	density = TRUE
 	mob_biotypes = list(MOB_ORGANIC, MOB_BUG)
 	mob_size = MOB_SIZE_SMALL
 	mobility_flags = MOBILITY_FLAGS_DEFAULT
@@ -39,6 +38,7 @@
 /mob/living/basic/mothroach/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/pet_bonus, "squeaks happily!", emote_sound = 'sound/voice/moth/scream_moth.ogg')
+	//add_verb(src, /mob/living/proc/toggle_resting)
 
 /mob/living/basic/mothroach/update_resting()
 	. = ..()
@@ -48,6 +48,7 @@
 		icon_state = "[icon_living]_rest"
 	else
 		icon_state = "[icon_living]"
+	regenerate_icons()
 
 /datum/ai_controller/basic_controller/mothroach
 	blackboard = list()

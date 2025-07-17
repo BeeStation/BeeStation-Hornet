@@ -212,3 +212,37 @@
   - tweak: some wording for ghostspawn slimes without a master expanded for clarity
   Rukofamicom:
   - rscdel: Removed TC fuel rods
+2025-07-17:
+  PowerfulBacon:
+  - tweak: The job assignment algorithm has been changed to prioritise statistical
+      randomness for players with many job roles enabled, over ensuring that head
+      and security positions are filled. Selecting all jobs to medium ensures that
+      you have the same probability of rolling any job, while setting all jobs to
+      low means that you will get the jobs which other players did not select.
+  - tweak: If the round starts with less than 7 players online, then all but the captain,
+      shaft miner and basic department jobs will be disabled and these roles will
+      be given access to their entire department.
+  - tweak: If the roundstarts with less than 14 players online, some non-important
+      job roles will be disabled.
+  - tweak: Skeleton crew access is now based on job presence rather than population.
+  - tweak: There are now unlimited job slots for medical doctors, security officers,
+      engineerings, cargo technicians and scientists but for these slots to be open
+      requires there to be at most a difference of 2 between the most and least populated
+      of these jobs.
+  VmpOS2NHSkhkejA9:
+  - tweak: honeycombs are food, they must be ground up to get their reagents now.
+  - bugfix: honeycombs no longer shatter into glass when thrown
+  rkz, Jacquerel, tralezab, seris02, LemonInTheDark, itseasytosee, Capybara Holly, MrMelbert, vinylspiders:
+  - rscadd: Monkeys will play songs if handed instruments
+  - refactor: Refactored monkey AI trees
+  - code_imp: replaced a lot of var usages that were resulting in harddels with weakrefs
+  - bugfix: Monkeys will no longer attack with items worse than their basic bite
+  - refactor: Datum AI can now switch to different movement datums in their behavior
+  - code_imp: added AI support for untamed mobs to run away from humans. Not added
+      to any basic controllers at the moment.
+  - bugfix: fixed erroneous target removal in the middle of AI actions
+  - bugfix: hostile basic mobs cant bite through walls
+  - refactor: refactored most mob ai code to operate off of signals
+  - bugfix: basic mobs can now be scanned for DNA vault
+  - bugfix: basic mobs can now receive bluespace radio
+  - bugfix: adds handling for basic mobs when slime fed on (invincible ian moment)
