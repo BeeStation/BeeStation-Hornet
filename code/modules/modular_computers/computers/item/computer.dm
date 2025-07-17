@@ -303,9 +303,11 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	var/turf/start = get_turf(src)
 	if(!target)
 		return
-	if(!enabled)
-		return
 	if(!cpu.hacked)
+		return
+	if(!enabled)
+		new /obj/effect/particle_effect/sparks(start)
+		playsound(start, "sparks", 50, 1)
 		return
 	// The better the CPU the farther it goes, and the more battery it needs
 	playsound(target, 'sound/effects/phasein.ogg', 25, 1)
