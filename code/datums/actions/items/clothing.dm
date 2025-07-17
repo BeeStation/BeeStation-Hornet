@@ -74,7 +74,7 @@
 	button_icon_state = "noir_mode"
 	cooldown_time = 30 SECONDS
 
-/datum/action/noirmode/on_activate(mob/user, atom/target)
+/datum/action/item_action/noirmode/on_activate(mob/user, atom/target)
 	if(target)
 		var/obj/item/D = target
 		D.ui_action_click(owner, src)
