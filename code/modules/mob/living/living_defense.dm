@@ -50,6 +50,9 @@
 /mob/living/proc/run_armor_check(def_zone = null, armour_flag = ARMOUR_BLUNT, absorb_text = null, soften_text = null, armour_penetration, penetrated_text, silent=FALSE)
 	var/armor = get_bodyzone_armor_flag(def_zone, armour_flag)
 
+	// Apply armour penetration
+	armor *= (100 - armour_penetration) / 100
+
 	if(armor <= 0)
 		return armor
 
