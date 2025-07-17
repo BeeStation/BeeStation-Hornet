@@ -141,10 +141,12 @@ const capitalizeFirstLetter = (text: string) => {
   if (text === null || text === undefined) {
     return '';
   }
-  return text
-    .toString()
-    .charAt(0)
-    .toUpperCase() + text.toString().slice(1);
+  return (
+    text
+      .toString()
+      .charAt(0)
+      .toUpperCase() + text.toString().slice(1)
+  );
 };
 
 export const StandardizedDropdown = (props: {

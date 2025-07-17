@@ -43786,11 +43786,6 @@
 /obj/item/clothing/under/rank/prisoner,
 /turf/open/floor/iron,
 /area/security/prison)
-"xay" = (
-/obj/machinery/aug_manipulator,
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/iron/white,
-/area/science/robotics)
 "xaA" = (
 /obj/effect/turf_decal/box,
 /obj/machinery/ai_slipper{
@@ -194158,7 +194153,7 @@ qyt
 ohi
 lsH
 cZy
-xay
+ueQ
 obp
 xiY
 eni

@@ -19381,7 +19381,6 @@
 /turf/open/floor/iron/dark,
 /area/maintenance/club)
 "dTJ" = (
-/obj/machinery/aug_manipulator,
 /obj/effect/decal/cleanable/robot_debris{
 	icon_state = "gib4";
 	pixel_x = 14;

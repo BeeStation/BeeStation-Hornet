@@ -65200,7 +65200,6 @@
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
 "vsj" = (
-/obj/machinery/aug_manipulator,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
