@@ -818,6 +818,7 @@
 #include "code\datums\components\crafting\crafting.dm"
 #include "code\datums\components\crafting\guncrafting.dm"
 #include "code\datums\components\crafting\crafting_lists\drinks.dm"
+#include "code\datums\components\crafting\crafting_lists\medical.dm"
 #include "code\datums\components\crafting\crafting_lists\misc.dm"
 #include "code\datums\components\crafting\crafting_lists\primal.dm"
 #include "code\datums\components\crafting\crafting_lists\robots.dm"

@@ -140,10 +140,6 @@
 #define ORGAN_SLOT_BRAIN_ANTIDROP "brain_antidrop"
 #define ORGAN_SLOT_BRAIN_ANTISTUN "brain_antistun"
 #define ORGAN_SLOT_BRAIN_SURGICAL_IMPLANT "brain_surgical"
-#define ORGAN_SLOT_NEUROTOXIN_GLAND "neurotoxingland"
-#define ORGAN_SLOT_HIVE_NODE "hive_node"
-#define ORGAN_SLOT_RESIN_SPINNER "resin_spinner"
-#define ORGAN_SLOT_ACID_GLAND "acid_gland"
 
 // Chest
 #define ORGAN_SLOT_APPENDIX "appendix"
@@ -160,6 +156,10 @@
 #define ORGAN_SLOT_PARASITE_EGG "parasite_egg"
 #define ORGAN_SLOT_PLASMA_VESSEL "plasma_vessel"
 #define ORGAN_SLOT_EGGSAC "eggsac"
+#define ORGAN_SLOT_NEUROTOXIN_GLAND "neurotoxingland"
+#define ORGAN_SLOT_HIVE_NODE "hive_node"
+#define ORGAN_SLOT_RESIN_SPINNER "resin_spinner"
+#define ORGAN_SLOT_ACID_GLAND "acid_gland"
 
 // Arms
 #define ORGAN_SLOT_RIGHT_ARM_AUG "r_arm_device"
