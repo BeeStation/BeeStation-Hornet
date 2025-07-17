@@ -99,7 +99,6 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	/// Level of Virus Defense to be added on initialize to the pre instaled hard drive this happens in tablet/PDA, Normal detomatix halves at 2, fails at 3
 	var/default_virus_defense = ANTIVIRUS_NONE
 
-
 /datum/armor/item_modular_computer
 	bullet = 20
 	laser = 20
@@ -840,6 +839,58 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 // Make messages visible via allow_inside_usr
 /obj/item/modular_computer/visible_message(message, self_message, blind_message, vision_distance, list/ignored_mobs, list/visible_message_flags, allow_inside_usr = TRUE)
 	return ..()
+
+/obj/item/modular_computer/multitool_act(mob/living/user, obj/item/I)
+	var/time_to_diagnose = 3 SECONDS
+	var/will_pass = FALSE
+	if(user.mind?.assigned_role == (JOB_NAME_SCIENTIST || JOB_NAME_RESEARCHDIRECTOR || JOB_NAME_DETECTIVE))	// Scientist and Detective buff
+		will_pass = TRUE
+	if(HAS_TRAIT(user, TRAIT_COMPUTER_WHIZ))	// Trait buff
+		time_to_diagnose = 1 SECONDS
+		will_pass = TRUE
+	balloon_alert_to_viewers("Printing Diagnostics...")
+	new /obj/effect/particle_effect/sparks(get_turf(src))
+	playsound(src, "sparks", 50, 1)
+	if(!do_after(user, time_to_diagnose, src))
+		balloon_alert(user, "<font color='#d80000'>ERROR:</font> Unauthorized access detected!")
+		to_chat(user, "<span class='cfc_red'>ERROR:</span> Unauthorized access detected!")
+		playsound(src, 'sound/machines/defib_failed.ogg', 50, TRUE)
+		new /obj/effect/particle_effect/sparks(get_turf(src))
+		playsound(src, "sparks", 40)
+		user.electrocute_act(25, src, 1)
+		return TRUE
+	if(!will_pass)
+		balloon_alert(user, "<font color='#d80000'>ERROR:</font> Diagonostics Failure // Unauthoried Access Detected. Contact I.T.")
+		to_chat(user, "<span class='cfc_red'>ERROR:</span> Diagonostics Failure // Unauthoried Access Detected. Contact I.T.")
+		playsound(src, 'sound/machines/defib_failed.ogg', 50, TRUE)
+		new /obj/effect/particle_effect/sparks/red(get_turf(src))
+		playsound(src, "sparks", 50, 1)
+		return TRUE
+	balloon_alert_to_viewers("Diagnostics Retrieved.")
+	var/list/result = diagnostics()
+	to_chat(user, examine_block("<span class='infoplain'>[result.Join("<br>")]</span>"))
+	playsound(src, 'sound/effects/fastbeep.ogg', 20)
+	return TRUE
+
+/obj/item/modular_computer/proc/diagnostics()
+	. = list()
+	. += "***** DIAGNOSTICS REPORT *****"
+	. += "Running Hardware Tests... (Maximum Hardware Size: [max_hardware_size]))"
+	var/total_power_usage
+	var/obj/item/computer_hardware/battery/battery_module = all_components[MC_CELL]
+	for(var/port in all_components)
+		var/obj/item/computer_hardware/component = all_components[port]
+		total_power_usage |= component.power_usage
+		. += "INFO :: <span class='cfc_orange'>[component.device_type]</span> accounted for."
+		if(!component.enabled)
+			. += "<span class='cfc_soul_glimmer_humour'>Warning</span> // [component.device_type] Disabled"
+		if(component.hacked)
+			. += "<span class='cfc_magenta'>WARNING ::</span> [component.device_type] <span class='cfc_magenta'>OPERATING BEYOND RATED PARAMETERS</span>"
+	if(battery_module?.battery)
+		. += "INFO :: <span class='cfc_orange'>[battery_module.battery.name]</span> accounted for."
+		. += "INFO :: Cell Current charge [battery_module.battery.percent()]%."
+	. += "Total Power consumption :: [total_power_usage]"
+	return
 
 /obj/item/modular_computer/proc/virus_blocked_info(gift_card = FALSE)	// If we caught a Virus, tell the player
 	var/mob/living/holder = src.loc
