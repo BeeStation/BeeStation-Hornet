@@ -1,0 +1,18 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - tweak: The job assignment algorithm has been changed to prioritise statistical
+      randomness for players with many job roles enabled, over ensuring that head
+      and security positions are filled. Selecting all jobs to medium ensures that
+      you have the same probability of rolling any job, while setting all jobs to
+      low means that you will get the jobs which other players did not select.
+  - tweak: If the round starts with less than 7 players online, then all but the captain,
+      shaft miner and basic department jobs will be disabled and these roles will
+      be given access to their entire department.
+  - tweak: If the roundstarts with less than 14 players online, some non-important
+      job roles will be disabled.
+  - tweak: Skeleton crew access is now based on job presence rather than population.
+  - tweak: There are now unlimited job slots for medical doctors, security officers,
+      engineerings, cargo technicians and scientists but for these slots to be open
+      requires there to be at most a difference of 2 between the most and least populated
+      of these jobs.
