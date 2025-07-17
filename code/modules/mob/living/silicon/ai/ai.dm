@@ -348,7 +348,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 			return FALSE
 		return ISINRANGE(target.x, ai.x - interaction_range, ai.x + interaction_range) && ISINRANGE(target.y, ai.y - interaction_range, ai.y + interaction_range)
 	else
-		return GLOB.cameranet.checkTurfVis(get_turf(A))
+		return TRUE
 
 /mob/living/silicon/ai/cancel_camera()
 	view_core()

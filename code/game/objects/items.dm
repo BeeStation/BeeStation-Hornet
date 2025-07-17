@@ -55,6 +55,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	///The config type to use for greyscaled belt overlays. Both this and greyscale_colors must be assigned to work.
 	var/greyscale_config_belt
 
+	// AI machinery view
+	var/ai_view_icon = "ai_item"
+	var/ai_view_enabled = FALSE
+	var/ai_view_x = 0
+	var/ai_view_y = 0
+
 	max_integrity = 200
 
 	obj_flags = NONE
@@ -279,6 +285,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	if(LAZYLEN(embedding))
 		updateEmbedding()
+
+	add_ai_view()
 
 /obj/item/Destroy()
 	master = null
@@ -1606,3 +1614,20 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/add_strip_actions(datum/strip_context/context)
 
 /obj/item/proc/perform_strip_actions(action_key, mob/actor)
+
+/obj/item/proc/add_ai_view()
+	if(ai_view_enabled)
+		var/image/overlay = image(icon ='icons/effects/ai_view.dmi', icon_state = ai_view_icon, loc = src, pixel_x = ai_view_x, pixel_y = ai_view_y)
+		overlay.appearance_flags = RESET_COLOR | RESET_ALPHA
+		overlay.alpha = 256
+		overlay.plane = HUD_PLANE
+		overlay.override = FALSE
+		add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/aiview, ai_view_icon, overlay, )
+
+/obj/item/proc/remove_ai_view()
+	remove_alt_appearance(ai_view_icon)
+
+//This is so ass, feel free to screenshot
+/obj/item/proc/update_ai_view()
+	remove_alt_appearance(ai_view_icon)
+	add_ai_view()

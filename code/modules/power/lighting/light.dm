@@ -15,6 +15,9 @@
 	active_power_usage = 20
 	power_channel = AREA_USAGE_LIGHT //Lights are calc'd via area so they dont need to be in the machine list
 	always_area_sensitive = TRUE
+	ai_view_x = 0
+	ai_view_y = 0
+	ai_view_icon = "ai_light"
 	var/on = FALSE					// 1 if on, 0 if off
 	var/on_gs = FALSE
 	var/static_power_used = 0
@@ -79,6 +82,18 @@
 // create a new lighting fixture
 /obj/machinery/light/Initialize(mapload)
 	. = ..()
+
+	switch(dir)
+		if(NORTH)
+			ai_view_y = 14
+		if(SOUTH)
+			ai_view_y = -14
+		if(WEST)
+			ai_view_x = -14
+		if(EAST)
+			ai_view_x = 14
+
+	update_ai_view()
 
 	//Setup area colours -pb
 	var/area/A = get_area(src)

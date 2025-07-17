@@ -1099,3 +1099,8 @@
 
 /obj/machinery/proc/remove_ai_view()
 	remove_alt_appearance(ai_view_icon)
+
+//This is so ass, feel free to screenshot
+/obj/machinery/proc/update_ai_view()
+	remove_alt_appearance(ai_view_icon)
+	add_ai_view()

@@ -8,6 +8,7 @@
 	dog_fashion = null
 	unscrewed = FALSE
 	layer = ABOVE_WINDOW_LAYER
+	ai_view_enabled = TRUE
 
 /obj/item/radio/intercom/unscrewed
 	unscrewed = TRUE

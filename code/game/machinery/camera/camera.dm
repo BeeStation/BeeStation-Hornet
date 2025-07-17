@@ -13,6 +13,9 @@
 	armor_type = /datum/armor/machinery_camera
 	max_integrity = 100
 	integrity_failure = 0.5
+	ai_view_x = 0
+	ai_view_y = 0
+	ai_view_icon = "ai_camera"
 	var/default_camera_icon = "camera" //the camera's base icon used by update_icon - icon_state is primarily used for mapping display purposes.
 	var/list/network
 	var/c_tag = null
@@ -30,8 +33,8 @@
 
 	//OTHER
 
-	var/view_range = 7
-	var/short_range = 2
+	var/view_range = 3
+	var/short_range = 1
 
 	var/alarm_on = FALSE
 	var/busy = FALSE
@@ -130,6 +133,22 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 		update_appearance()
 
 	alarm_manager = new(src)
+
+	switch(dir)
+		if(NORTH)
+			ai_view_x = -11
+			ai_view_y = 11
+		if(SOUTH)
+			ai_view_x = -11
+			ai_view_y = -11
+		if(WEST)
+			ai_view_x = -11
+			ai_view_y = 11
+		if(EAST)
+			ai_view_x = 11
+			ai_view_y = 11
+
+	update_ai_view()
 
 /obj/machinery/camera/ComponentInitialize()
 	. = ..()
