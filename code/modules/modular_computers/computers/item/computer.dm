@@ -680,17 +680,15 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	var/list/component_names = list()
 	for(var/h in all_components)
 		var/obj/item/computer_hardware/H = all_components[h]
-		component_names.Add(H.name)
+		component_names.Add(H.device_type)
 
-	var/choice = input(user, "Which component do you want to uninstall?", "Computer maintenance", null) as null|anything in sort_list(component_names)
-
+	var/choice = tgui_input_list(user, "Which component do you want to uninstall?", "Computer maintenance", component_names)
 	if(!choice)
 		return
-
 	if(!Adjacent(user))
 		return
 
-	var/obj/item/computer_hardware/H = find_hardware_by_name(choice)
+	var/obj/item/computer_hardware/H = find_hardware_by_type(choice)
 
 	if(!H)
 		return
