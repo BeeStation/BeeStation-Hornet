@@ -70,7 +70,8 @@
 	else
 		I.forceMove(src)
 	if(fake_card)
-		QDEL_NULL(fake_card)
+		qdel(fake_card)
+		fake_card = null
 	stored_card = I
 	to_chat(user, span_notice("You insert \the [I] into \the [expansion_hw ? "secondary":"primary"] [src]."))
 	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
@@ -89,10 +90,10 @@
 		to_chat(user, span_warning("There are no cards in \the [src]."))
 		return FALSE
 	var/obj/item/computer_hardware/card_slot/card_slot2 = holder?.all_components[MC_CARD2]
-	if(card_slot2?.hacked)
-		fake_card = new stored_card.type(src) // make a fake clone using the same type
-		fake_card.name = "[stored_card.name] (Simulated)"
-		fake_card.access = stored_card.access
+	if(card_slot2?.hacked && card_slot2.stored_card)
+		card_slot2.fake_card = new card_slot2.stored_card.type(src) // make a fake clone using the same type
+		card_slot2.fake_card.name = "[card_slot2.stored_card.name] (Simulated)"
+		card_slot2.fake_card.access = card_slot2.stored_card.access.Copy()
 	if(user && !issilicon(user) && in_range(src, user))
 		user.put_in_hands(stored_card)
 	else
