@@ -27,7 +27,7 @@
 //for antag huds. these are used at the /mob level
 #define ANTAG_HUD		"23"
 #define DIAG_WAKE_HUD	"24" // Bluespace Wakes
-
+#define DIAG_AI_VIEW "25"//! AI machinery view hud
 //by default everything in the hud_list of an atom is an image
 //a value in hud_list with one of these will change that behavior
 #define HUD_LIST_LIST 1

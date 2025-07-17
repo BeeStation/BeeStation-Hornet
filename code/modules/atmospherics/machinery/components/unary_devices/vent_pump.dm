@@ -13,6 +13,7 @@
 	hide = TRUE
 	shift_underlay_only = FALSE
 	pipe_state = "uvent"
+	ai_view_enabled = FALSE
 
 	interacts_with_air = TRUE
 

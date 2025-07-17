@@ -17,6 +17,7 @@
 	flags_1 = PREVENT_CLICK_UNDER_1
 	ricochet_chance_mod = 0.8
 	damage_deflection = 10
+	ai_view_icon = "ai_door"
 
 	interaction_flags_atom = INTERACT_ATOM_UI_INTERACT
 

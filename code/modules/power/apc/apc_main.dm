@@ -20,6 +20,7 @@
 	clicksound = 'sound/machines/terminal_select.ogg'
 	layer = ABOVE_WINDOW_LAYER
 	zmm_flags = ZMM_MANGLE_PLANES
+	ai_view_icon = "ai_apc_atmos"
 
 	light_power = 0.85
 
