@@ -15433,7 +15433,7 @@
 	req_access_txt = "25"
 	},
 /obj/machinery/door/firedoor,
-/turf/open/floor/carpet/green,
+/turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
 "eWf" = (
 /turf/open/floor/iron/dark,
@@ -22426,7 +22426,6 @@
 /turf/open/floor/iron,
 /area/science/shuttle)
 "hjh" = (
-/obj/structure/closet/secure_closet/bar,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
 "hjo" = (
@@ -45924,10 +45923,11 @@
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "oNL" = (
-/obj/machinery/newscaster{
-	pixel_x = 28
+/obj/machinery/door/airlock/maintenance{
+	name = "Bar Backroom Maintenance";
+	req_access_txt = "25"
 	},
-/turf/open/floor/carpet/green,
+/turf/open/floor/plating,
 /area/crew_quarters/bar)
 "oNM" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
@@ -50910,6 +50910,9 @@
 	pixel_y = 32
 	},
 /obj/effect/landmark/start/bartender,
+/obj/machinery/newscaster{
+	pixel_x = 28
+	},
 /turf/open/floor/carpet/green,
 /area/crew_quarters/bar)
 "qAG" = (
@@ -112666,11 +112669,11 @@ vmQ
 lNT
 fhO
 qAo
-oNL
+cKR
 eVW
 bmH
 hjh
-fhO
+oNL
 pLJ
 oXu
 kfy
@@ -112923,7 +112926,7 @@ vUC
 flN
 fhO
 fhO
-fhO
+oNL
 fhO
 fhO
 fhO
