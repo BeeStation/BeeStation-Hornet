@@ -33,6 +33,16 @@
 	result = /obj/item/stack/medical/tourniquet
 	time = 1 SECONDS
 	reqs = list(
+		/obj/item/stack/medical/gauze = 2,
+		/obj/item/stack/sheet/plastic = 4,
+	)
+	category = CAT_MEDICAL
+
+/datum/crafting_recipe/splint
+	name = "Splint"
+	result = /obj/item/stack/medical/splint/one
+	time = 1 SECONDS
+	reqs = list(
 		/obj/item/stack/medical/gauze = 3,
 		/obj/item/stack/sheet/wood = 1,
 	)

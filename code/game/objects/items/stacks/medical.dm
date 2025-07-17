@@ -302,4 +302,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 	max_amount = 3
 	self_delay = 10 SECONDS
 
+/obj/item/stack/medical/splint/one
+	amount = 1
+
 #undef REAGENT_AMOUNT_PER_ITEM
