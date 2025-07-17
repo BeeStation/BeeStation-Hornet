@@ -106431,9 +106431,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/Mapper_Comment{
-	desc = "I gave this single tile the interrogation room space so it is affected by the detective noir black and white ability."
-	},
 /turf/open/floor/iron/dark/textured_half,
 /area/security/interrogation_room)
 "vBI" = (
@@ -153737,7 +153734,7 @@ phD
 phD
 pqm
 phD
-phD
+qcB
 hyT
 nzj
 nzj
@@ -153994,7 +153991,7 @@ phD
 eYM
 krP
 xzh
-phD
+qcB
 qcB
 qcB
 qcB
@@ -154251,7 +154248,7 @@ phD
 jBy
 aOh
 gQb
-phD
+qcB
 aPZ
 uCG
 phn
@@ -154508,7 +154505,7 @@ phD
 fia
 gVm
 pdg
-phD
+qcB
 dxv
 eLG
 fAC
@@ -155022,7 +155019,7 @@ phD
 qLh
 hVl
 eTA
-phD
+qcB
 eBQ
 qgZ
 jaI
@@ -155280,7 +155277,7 @@ eQO
 eQO
 eQO
 eQO
-eQO
+qcB
 qcB
 xXT
 qcB
