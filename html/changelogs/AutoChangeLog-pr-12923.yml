@@ -1,0 +1,6 @@
+author: ClownMoff
+delete-after: true
+changes:
+  - tweak: 'Corgstation: Gave the kitchen and bar a more modern look and added some
+      more doors'
+  - bugfix: fixed monkeys not using their icon on StrongDMM
