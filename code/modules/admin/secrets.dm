@@ -667,7 +667,6 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			if(!J)
 				return
 			J.total_positions = -1
-			J.spawn_positions = -1
 			message_admins("[key_name_admin(usr)] has removed the cap on security officers.")
 
 		if("ctfbutton")

@@ -82,12 +82,12 @@
 	if(!istype(thrown_thing) || !isturf(thrown_thing.loc) || !can_see(pawn, thrown_thing, length=AI_DOG_VISION_RANGE) || !throwing_datum?.thrower)
 		return
 
-	current_movement_target = thrown_thing
+	set_movement_target(thrown_thing)
 	blackboard[BB_FETCH_TARGET] = thrown_thing
 	blackboard[BB_FETCH_DELIVER_TO] = throwing_datum.thrower
 	queue_behavior(/datum/ai_behavior/fetch)
 
-/// Someone's interacting with us by hand, see if they're being nice or mean
+/// Someone's interacting with us by hand, see if they're being nice or mean 
 /datum/ai_controller/dog/proc/on_attack_hand(datum/source, mob/living/user)
 	SIGNAL_HANDLER
 
@@ -261,7 +261,7 @@
 			if(pointed_item.obj_flags & ABSTRACT)
 				return
 			pawn.visible_message(span_notice("[pawn] follows [pointing_friend]'s gesture towards [pointed_movable] and barks excitedly!"))
-			current_movement_target = pointed_movable
+			set_movement_target(pointed_movable)
 			blackboard[BB_FETCH_TARGET] = pointed_movable
 			blackboard[BB_FETCH_DELIVER_TO] = pointing_friend
 			if(living_pawn.buckled)
@@ -269,7 +269,7 @@
 			queue_behavior(/datum/ai_behavior/fetch)
 		if(DOG_COMMAND_ATTACK)
 			pawn.visible_message(span_notice("[pawn] follows [pointing_friend]'s gesture towards [pointed_movable] and growls intensely!"))
-			current_movement_target = pointed_movable
+			set_movement_target(pointed_movable)
 			blackboard[BB_DOG_HARASS_TARGET] = WEAKREF(pointed_movable)
 			if(living_pawn.buckled)
 				queue_behavior(/datum/ai_behavior/resist)//in case they are in bed or something

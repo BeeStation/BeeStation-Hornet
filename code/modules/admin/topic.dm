@@ -810,7 +810,7 @@
 		var/Remove = href_list["removejobslot"]
 
 		for(var/datum/job/job in SSjob.occupations)
-			if(job.title == Remove && job.total_positions - job.current_positions > 0)
+			if(job.title == Remove && job.get_spawn_position_count() - job.current_positions > 0)
 				job.total_positions -= 1
 				break
 

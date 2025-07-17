@@ -871,7 +871,7 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "anL" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
 "aoy" = (
@@ -3723,7 +3723,7 @@
 /turf/open/floor/iron/tech,
 /area/science/xenobiology)
 "biX" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/iron/sepia,
 /area/maintenance/port/central)
 "bjt" = (
@@ -12162,7 +12162,7 @@
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/iron/sepia,
-/area/vacant_room/commissary/commissary2)
+/area/maintenance/port/central)
 "dRq" = (
 /turf/closed/wall,
 /area/science/xenobiology)
@@ -21293,7 +21293,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/bot,
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
 "gPh" = (
@@ -22980,8 +22980,10 @@
 /turf/open/floor/iron/grid/steel,
 /area/medical/virology)
 "hvg" = (
+/obj/structure/closet,
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/iron/sepia,
-/area/vacant_room/commissary/commissary2)
+/area/maintenance/port/central)
 "hvo" = (
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/power/apc/auto_name/directional/south,
@@ -41432,7 +41434,7 @@
 /area/engine/engineering)
 "nGL" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
 "nHb" = (
@@ -45308,7 +45310,7 @@
 /obj/effect/spawner/lootdrop/maintenance/three,
 /obj/effect/decal/cleanable/glass,
 /turf/open/floor/iron/sepia,
-/area/vacant_room/commissary/commissary2)
+/area/maintenance/port/central)
 "oYy" = (
 /obj/structure/disposalpipe/segment{
 	dir = 2
@@ -46705,9 +46707,10 @@
 /turf/open/floor/plating/airless,
 /area/science/test_area)
 "pud" = (
-/obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance/two,
-/turf/open/floor/plating,
+/obj/structure/extinguisher_cabinet{
+	pixel_y = -32
+	},
+/turf/open/floor/iron,
 /area/vacant_room/commissary/commissary2)
 "pun" = (
 /obj/structure/tank_dispenser/oxygen,
@@ -52436,7 +52439,7 @@
 /area/engine/atmos)
 "rqk" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/closed/wall,
+/turf/open/floor/iron,
 /area/vacant_room/commissary/commissary2)
 "rqm" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/visible{
@@ -53255,10 +53258,6 @@
 "rDZ" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/food/plant_smudge,
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -32
-	},
-/obj/machinery/grill/unwrenched,
 /obj/machinery/button/door{
 	id = "commissarydoor2";
 	name = "Cabin 2 Privacy Lock";
@@ -53640,7 +53639,7 @@
 /turf/open/floor/plating,
 /area/hallway/secondary/service)
 "rJX" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/plating,
 /area/maintenance/department/security)
 "rKk" = (
@@ -54303,7 +54302,7 @@
 /area/security/brig)
 "rXp" = (
 /obj/structure/window/reinforced,
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
@@ -61689,7 +61688,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/plating/rust,
-/area/vacant_room/commissary/commissary2)
+/area/maintenance/port/central)
 "umg" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
@@ -63211,7 +63210,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = -32
 	},
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/wood{
 	broken = 1
 	},
@@ -66743,8 +66742,11 @@
 /turf/open/floor/iron,
 /area/hallway/primary/port)
 "vXD" = (
-/obj/effect/spawner/lootdrop/grille_or_trash,
-/turf/open/floor/plating,
+/obj/machinery/door/airlock/personal{
+	id_tag = "commissarydoor2"
+	},
+/obj/effect/mapping_helpers/airlock/abandoned,
+/turf/open/floor/iron,
 /area/vacant_room/commissary/commissary2)
 "vXV" = (
 /obj/structure/sign/departments/minsky/engineering/engineering{
@@ -67776,15 +67778,13 @@
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat/foyer)
 "wtv" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	id_tag = "commissarydoor2";
-	name = "Maintenance Hatch";
-	req_access_txt = "12"
-	},
 /obj/structure/barricade/wooden/crude,
 /obj/machinery/door/firedoor,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/personal{
+	id_tag = "commissarydoor2"
 	},
 /turf/open/floor/iron,
 /area/vacant_room/commissary/commissary2)
@@ -70382,7 +70382,7 @@
 	dir = 8;
 	pixel_y = 1
 	},
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
@@ -72578,7 +72578,8 @@
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain)
 "xRC" = (
-/turf/open/floor/plating,
+/obj/machinery/grill/unwrenched,
+/turf/open/floor/iron,
 /area/vacant_room/commissary/commissary2)
 "xRJ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -73116,25 +73117,21 @@
 /turf/open/floor/iron/dark,
 /area/quartermaster/exploration_prep)
 "ybh" = (
-/obj/effect/mapping_helpers/airlock/abandoned,
-/obj/machinery/door/airlock/maintenance_hatch{
-	id_tag = "commissarydoor1";
-	name = "Maintenance Hatch";
-	req_access_txt = "12"
+/obj/machinery/door/airlock/personal{
+	id_tag = "commissarydoor1"
 	},
+/obj/structure/barricade/wooden/crude,
 /turf/open/floor/plating,
-/area/maintenance/department/security)
+/area/vacant_room/commissary/commissary1)
 "ybl" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/maintenance_hatch{
-	id_tag = "commissarydoor1";
-	name = "Maintenance Hatch";
-	req_access_txt = "12"
-	},
-/obj/structure/barricade/wooden/crude,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/personal{
+	id_tag = "commissarydoor1"
+	},
+/obj/effect/mapping_helpers/airlock/abandoned,
 /turf/open/floor/iron,
 /area/vacant_room/commissary/commissary1)
 "ycb" = (
@@ -103605,11 +103602,11 @@ oiI
 fRc
 fRc
 fRc
-bzO
+eXl
 oYx
 dRn
-xRC
-hvg
+fRc
+xIX
 utF
 rAY
 ggJ
@@ -103866,7 +103863,7 @@ bzO
 lkl
 lkl
 bzO
-xRC
+fRc
 utF
 rAY
 cXC
@@ -104637,7 +104634,7 @@ bzO
 eGr
 wwg
 bzO
-vXD
+bce
 fcR
 bGd
 rZL
@@ -104893,8 +104890,8 @@ bzO
 mcm
 hBR
 cSY
-bzO
 xRC
+bzO
 utF
 rAY
 aRE
@@ -105151,7 +105148,7 @@ jSx
 dXn
 vWs
 rqk
-hvg
+bzO
 utF
 rAY
 xvc
@@ -105407,8 +105404,8 @@ ppw
 dHm
 vvJ
 rDZ
-bzO
 pud
+bzO
 utF
 rAY
 rAY
@@ -105664,7 +105661,7 @@ bzO
 aDC
 bzO
 bzO
-bzO
+vXD
 bzO
 lTj
 gnc

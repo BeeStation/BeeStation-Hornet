@@ -13872,11 +13872,11 @@
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
 "cMc" = (
+/obj/effect/spawner/structure/window,
 /obj/machinery/door/poddoor/shutters{
 	name = "Vacant Commissary Shutters";
 	id = "commissaryshutters2"
 	},
-/obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
 /area/vacant_room/commissary/commissary2)
 "cMf" = (
@@ -14530,13 +14530,11 @@
 /turf/open/floor/iron/smooth,
 /area/medical/apothecary)
 "cRO" = (
-/obj/machinery/door/airlock{
-	name = "Food Stall";
-	id_tag = "foodcommissarydoor";
-	req_access_txt = "12"
+/obj/machinery/door/airlock/personal{
+	id_tag = "foodcommissarydoor"
 	},
-/turf/open/floor/plating,
-/area/maintenance/central)
+/turf/open/floor/iron/dark/textured_half,
+/area/vacant_room/commissary/commissaryFood)
 "cRW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -33438,7 +33436,7 @@
 /obj/effect/turf_decal/siding/dark{
 	dir = 1
 	},
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /obj/structure/railing/perspective/black{
 	dir = 8
 	},
@@ -45422,19 +45420,11 @@
 /turf/open/floor/prison/dark,
 /area/teleporter)
 "jhU" = (
-/obj/machinery/door/airlock{
-	name = "Vacant Commissary";
-	req_access_txt = "12";
+/obj/machinery/door/airlock/personal{
 	id_tag = "commissarydoor2"
 	},
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
-	},
-/turf/open/floor/iron/dark/textured_half{
-	dir = 1
-	},
-/area/maintenance/central)
+/turf/open/floor/iron/dark/textured_half,
+/area/vacant_room/commissary/commissary2)
 "jia" = (
 /obj/structure/window/reinforced/spawner/north,
 /obj/structure/window/reinforced/tinted,
@@ -47908,10 +47898,6 @@
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "jLa" = (
-/obj/machinery/door/airlock{
-	name = "Food Stall";
-	id_tag = "foodcommissarydoor"
-	},
 /obj/machinery/door/firedoor,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -47922,6 +47908,9 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 1
+	},
+/obj/machinery/door/airlock/personal{
+	id_tag = "foodcommissarydoor"
 	},
 /turf/open/floor/iron/dark/textured_half,
 /area/vacant_room/commissary/commissaryFood)
@@ -50400,10 +50389,6 @@
 /turf/open/floor/iron/showroomfloor,
 /area/medical/cryo)
 "kih" = (
-/obj/machinery/door/airlock{
-	name = "Vacant Commissary";
-	id_tag = "commissarydoor2"
-	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
 /obj/structure/cable/yellow{
@@ -50413,6 +50398,9 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/door/airlock/personal{
+	id_tag = "commissarydoor2"
+	},
 /turf/open/floor/iron/dark/textured_half,
 /area/vacant_room/commissary/commissary2)
 "kip" = (
@@ -93721,7 +93709,7 @@
 /turf/open/floor/iron,
 /area/hallway/upper/primary/starboard)
 "tci" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/hidden{
 	dir = 9
 	},

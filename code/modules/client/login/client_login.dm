@@ -5,15 +5,14 @@
 	if(connection != "seeker" && connection != "web")//Invalid connection type.
 		return null
 
+	var/new_key = null
 #ifdef DISABLE_BYOND_AUTH
 	if(is_localhost() && CONFIG_GET(flag/localhost_auth_bypass))
 		logged_in = TRUE
 	else if(CONFIG_GET(flag/enable_guest_external_auth))
 		// If auth isn't set up, immediately change their key to a guest key
 		// IT IS VERY IMPORTANT THAT IS_GUEST_KEY RETURNS TRUE OTHERWISE THE DB WILL GET POLLUTED
-		var/new_key = "Guest-preauth-[computer_id]-[rand(1000,9999)]"
-		ckey = ckey(key)
-		key = new_key
+		new_key = "Guest-preauth-[computer_id]-[rand(1000,9999)]"
 		logged_in = FALSE
 	else
 		to_chat_immediate(src, span_dangerbold("Authorization is totally disabled! The game is configured to blindly trust connecting CKEYs!!!"))
@@ -26,9 +25,7 @@
 		else if(!CONFIG_GET(flag/guest_ban)) // guests are allowed to connect, no authorization necessary
 			logged_in = TRUE
 		else if(CONFIG_GET(flag/enable_guest_external_auth)) // guests need to authorize
-			var/new_key = "Guest-preauth-[computer_id]-[rand(1000,9999)]"
-			ckey = ckey(key)
-			key = new_key
+			new_key = "Guest-preauth-[computer_id]-[rand(1000,9999)]"
 			logged_in = FALSE
 		else // should be caught by IsBanned, but localhost can get to this point
 			src << "NOTICE: Guests are not currently allowed to connect!"
@@ -38,31 +35,50 @@
 			return null
 	else if(CONFIG_GET(flag/force_byond_external_auth) && CONFIG_GET(flag/enable_guest_external_auth))
 		byond_authenticated_key = key
-		var/new_key = "Guest-preauth-[computer_id]-[rand(1000,9999)]"
-		ckey = ckey(key)
-		key = new_key
+		new_key = "Guest-preauth-[computer_id]-[rand(1000,9999)]"
 		logged_in = FALSE
 	else
 		logged_in = TRUE
 #endif
+	var/old_key = key
+
+	// Our key has changed
+	if(!isnull(new_key))
+		src.ckey = ckey(new_key)
+		src.key = new_key
+
+	// We connected with a mob that isn't ours.
+	// The connection CKEY matches an existing logged in mob's key
+	// This means someone got kicked, but it's okay. We'll try to return it to them.
+	if(!logged_in && ismob(mob) && !istype(mob, /mob/dead/new_player/pre_auth))
+		var/mob/my_old_mob = src.mob
+		var/mob/dead/new_player/pre_auth/my_new_mob = new()
+		my_new_mob.key = src.key
+		my_old_mob.key = old_key // GIVE IT BACK
 
 	if(!logged_in)
 		tgui_login = new(src)
 
-	if(!client_pre_login(logged_in, TRUE))
+	if(!client_pre_login(logged_in, TRUE) || QDELETED(src))
 		return null
 
+
 	. = ..()	//calls mob.Login()
+
+	var/mob/logout_mob = GLOB.disconnected_mobs[src.ckey]
+	if(logged_in && ismob(logout_mob) && !isnewplayer(logout_mob))
+		var/mob/original_mob = src.mob
+		GLOB.disconnected_mobs -= src.ckey
+		transfer_preauthenticated_player_mob(original_mob, logout_mob)
 
 	if(QDELETED(src))
 		return null
 
 	// if the user logged in directly with a valid key, we can convert them now
 	if(logged_in && istype(mob, /mob/dead/new_player/pre_auth))
-		var/mob/dead/new_player/pre_auth/pre_auth_player = mob
-		pre_auth_player.convert_to_authed()
+		transfer_preauthenticated_player_mob(mob, null)
 
-	if(!client_post_login(logged_in, TRUE, logged_in && !!(holder || GLOB.deadmins[ckey])))
+	if(!client_post_login(logged_in, TRUE, logged_in && !!(holder || GLOB.deadmins[ckey])) || QDELETED(src))
 		return null
 	fully_created = TRUE
 	if(logged_in)
@@ -133,15 +149,19 @@
 
 			// Retrieve cached metabalance
 			get_metabalance_db()
+			if(QDELETED(src))
+				return FALSE
 			// Retrieve cached antag token count
 			get_antag_token_count_db()
-			if(QDELETED(src)) // Yes this is possible, because the procs above sleep.
+			if(QDELETED(src))
 				return FALSE
 		else
 			metabalance_cached = 0
 			antag_token_count_cached = 0
 		//preferences datum - also holds some persistent data for the client (because we may as well keep these datums to a minimum)
 		init_client_prefs()
+		if(QDELETED(src))
+			return FALSE
 		setup_player_details()
 
 		if(fexists(roundend_report_file()))
@@ -153,7 +173,8 @@
 			log_access("Login: [key_name(src)] from [address ? address : "localhost"]-[computer_id] || BYOND v[full_version]")
 		else
 			log_access("Pre-Login: [key_name(src)] from [address ? address : "localhost"]-[computer_id] || BYOND v[full_version]")
-
+	if(authenticated && src.external_uid)
+		to_chat_immediate(src, span_good("Successfully signed in as [span_bold("[src.display_name_chat()]")]"))
 	return TRUE
 
 /client/proc/client_post_login(authenticated, first_run, connecting_admin)
@@ -210,7 +231,7 @@
 		// We're done using this now
 		temp_topicdata = null
 		if(QDELETED(src))
-			return
+			return FALSE
 		// The following is only relevant to BYOND accounts.
 		if (isnum_safe(cached_player_age) && cached_player_age == -1) //first connection
 			player_age = 0
@@ -236,6 +257,8 @@
 	if(authenticated)
 		check_ip_intel()
 		sync_db_key_with_byond_key()
+		if(QDELETED(src))
+			return FALSE
 
 	// If we aren't already generating a ban cache, fire off a build request
 	// This way hopefully any users of request_ban_cache will never need to yield
@@ -244,6 +267,8 @@
 
 	if(authenticated && !is_guest)
 		fetch_uuid()
+		if(QDELETED(src))
+			return FALSE
 		add_verb(/client/proc/show_account_identifier)
 
 	if(first_run)
@@ -263,6 +288,8 @@
 
 	if(authenticated && !is_guest && CONFIG_GET(flag/autoconvert_notes))
 		convert_notes_sql(ckey)
+		if(QDELETED(src))
+			return FALSE
 	if(authenticated && !is_guest)
 		to_chat(src, get_message_output("message", ckey))
 	if(first_run)
@@ -297,11 +324,11 @@
 
 	if(!authenticated)
 		spawn(2 SECONDS) // wait a sec for the client to send a valid token
-			if(!src.logged_in) // client did not send a valid token in the last 2 seconds
+			if(!QDELETED(src) && !src.logged_in) // client did not send a valid token in the last 2 seconds
 				tgui_login?.open()
 
 	//Load the TGUI stat in case of TGUI subsystem not ready (startup)
-	mob.UpdateMobStat(TRUE)
+	mob?.UpdateMobStat(TRUE)
 	return TRUE
 
 /client/proc/check_client_blocked_byond_versions(connecting_admin)
@@ -405,12 +432,6 @@
 	if(istype(src.external_method))
 		external_uid = src.external_uid // link BYOND ckeys to external method
 		external_column = external_method::db_id_column_name
-		// Double check
-		var/list/acceptable_ids = list()
-		for(var/datum/external_login_method/method_path as anything in subtypesof(/datum/external_login_method))
-			acceptable_ids += method_path::db_id_column_name
-		if(!(external_column in acceptable_ids))
-			CRASH("PANIC! POSSIBLE SQL INJECTION! external_column value of [external_column] WAS NOT IN LIST OF ACCEPTABLE IDS [english_list(acceptable_ids)]")
 	var/external_column_selectable = istext(external_column) && length(external_column) ? external_column : "NULL"
 	related_accounts_ip = ""
 	if(!is_localhost())
