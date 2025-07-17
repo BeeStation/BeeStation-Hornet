@@ -141,7 +141,7 @@
 			// stamina and burn damage doesn't result in blunt force trauma
 			if (type == BRUTE)
 				take_direct_damage(taken_damage * 0.5, type, flag, zone)
-				take_direct_damage(taken_damage * 0.5, CONSCIOUSNESS, flag, zone)
+				//take_direct_damage(taken_damage * 0.5, CONSCIOUSNESS, flag, zone)
 			else
 				take_direct_damage(taken_damage, type, flag, zone)
 
