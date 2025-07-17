@@ -213,6 +213,10 @@
   Rukofamicom:
   - rscdel: Removed TC fuel rods
 2025-07-17:
+  ClownMoff:
+  - tweak: 'Corgstation: Gave the kitchen and bar a more modern look and added some
+      more doors'
+  - bugfix: fixed monkeys not using their icon on StrongDMM
   PowerfulBacon:
   - tweak: The job assignment algorithm has been changed to prioritise statistical
       randomness for players with many job roles enabled, over ensuring that head
