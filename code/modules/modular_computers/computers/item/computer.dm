@@ -308,14 +308,12 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		return
 	if(!cpu.hacked)
 		return
-	if(use_power((250 * cpu.max_idle_programs) / GLOB.CELLRATE)) // The better the CPU the farther it goes, and the more battery it needs
-		playsound(target, 'sound/effects/phasein.ogg', 25, 1)
-		playsound(start, "sparks", 50, 1)
-		playsound(target, "sparks", 50, 1)
-		do_dash(src, start, target, 0, TRUE)
-	else
-		new /obj/effect/particle_effect/sparks(start)
-		playsound(start, "sparks", 50, 1)
+	// The better the CPU the farther it goes, and the more battery it needs
+	playsound(target, 'sound/effects/phasein.ogg', 25, 1)
+	playsound(start, "sparks", 50, 1)
+	playsound(target, "sparks", 50, 1)
+	do_dash(src, start, target, 0, TRUE)
+	use_power((250 * cpu.max_idle_programs) / GLOB.CELLRATE)
 	return
 
 /obj/item/modular_computer/proc/get_blink_destination(turf/start, direction, range)
