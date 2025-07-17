@@ -723,6 +723,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 /obj/item/modular_computer/add_context_self(datum/screentip_context/context, mob/user)
 	context.add_right_click_tool_action("Uninstall all", TOOL_SCREWDRIVER)
 	context.add_left_click_tool_action("Uninstall", TOOL_SCREWDRIVER)
+	context.add_left_click_tool_action("Diagnose", TOOL_MULTITOOL)
 	context.add_left_click_tool_action("Repair", TOOL_WELDER)
 	context.add_left_click_tool_action("Disassemble", TOOL_WRENCH)
 
