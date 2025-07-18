@@ -1,0 +1,5 @@
+author: Asdfagi
+delete-after: true
+changes:
+  - bugfix: mindless bodies can once again be body-only scanned in the clone scanner
+      instead of causing a runtime error
