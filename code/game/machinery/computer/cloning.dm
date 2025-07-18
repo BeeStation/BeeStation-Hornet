@@ -609,7 +609,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 		cloning_record.traumas = human_brain.get_traumas()
 	else if(ishuman(mob_occupant))
 		cloning_record.traumas = human_mob.get_traumas()
-	//Traumas will be overriden if the brain transplant is made because '/obj/item/organ/brain/Insert' does that thing. This should be done since we want a monkey yelling to people with 'God voice syndrome'
+	//Traumas will be overriden if the brain transplant is made because '/obj/item/organ/internal/brain/Insert' does that thing. This should be done since we want a monkey yelling to people with 'God voice syndrome'
 
 	cloning_record.bank_account = has_bank_account
 	if(!experimental)

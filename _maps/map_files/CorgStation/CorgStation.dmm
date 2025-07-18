@@ -26088,7 +26088,7 @@
 /turf/open/floor/wood,
 /area/maintenance/port)
 "irL" = (
-/obj/item/organ/eyes/diona,
+/obj/item/organ/internal/eyes/diona,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "isl" = (
@@ -47684,7 +47684,7 @@
 "pzB" = (
 /obj/structure/table/wood,
 /obj/item/soulstone/anybody/chaplain,
-/obj/item/organ/heart,
+/obj/item/organ/internal/heart,
 /obj/effect/turf_decal/tile/brown/opposingcorners,
 /turf/open/floor/iron/dark,
 /area/chapel/office)
@@ -50233,7 +50233,7 @@
 /area/ai_monitored/turret_protected/ai)
 "qsH" = (
 /obj/machinery/gibber,
-/obj/item/organ/brain/diona,
+/obj/item/organ/internal/brain/diona,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "qsK" = (

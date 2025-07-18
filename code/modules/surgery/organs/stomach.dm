@@ -1,6 +1,7 @@
-/obj/item/organ/stomach
+/obj/item/organ/internal/stomach
 	name = "stomach"
 	icon_state = "stomach"
+	visual = FALSE
 	w_class = WEIGHT_CLASS_SMALL
 	zone = BODY_ZONE_CHEST
 	slot = ORGAN_SLOT_STOMACH
@@ -18,7 +19,7 @@
 
 	var/disgust_metabolism = 1
 
-/obj/item/organ/stomach/on_life(delta_time, times_fired)
+/obj/item/organ/internal/stomach/on_life(delta_time, times_fired)
 	. = ..()
 	var/mob/living/carbon/human/H = owner
 	var/datum/reagent/nutriment
@@ -43,10 +44,10 @@
 			H.vomit(damage)
 			to_chat(H, span_warning("Your stomach reels in pain as you're incapable of holding down all that food!"))
 
-/obj/item/organ/stomach/get_availability(datum/species/owner_species, mob/living/owner_mob)
+/obj/item/organ/internal/stomach/get_availability(datum/species/owner_species, mob/living/owner_mob)
 	return owner_species.mutantstomach
 
-/obj/item/organ/stomach/proc/handle_disgust(mob/living/carbon/human/H, delta_time, times_fired)
+/obj/item/organ/internal/stomach/proc/handle_disgust(mob/living/carbon/human/H, delta_time, times_fired)
 	if(H.disgust)
 		var/pukeprob = 2.5 + (0.025 * H.disgust)
 		if(H.disgust >= DISGUST_LEVEL_GROSS)
@@ -81,74 +82,74 @@
 			H.throw_alert("disgust", /atom/movable/screen/alert/disgusted)
 			SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "disgust", /datum/mood_event/disgusted)
 
-/obj/item/organ/stomach/mob_remove(mob/living/carbon/stomach_owner, special, movement_flags)
+/obj/item/organ/internal/stomach/Remove(mob/living/carbon/M, special, movement_flags)
 	var/mob/living/carbon/human/H = owner
 	if(istype(H))
 		H.clear_alert("disgust")
 		SEND_SIGNAL(H, COMSIG_CLEAR_MOOD_EVENT, "disgust")
 	return ..()
 
-/obj/item/organ/stomach/fly
+/obj/item/organ/internal/stomach/fly
 	name = "insectoid stomach"
 	icon_state = "stomach-x" //xenomorph liver? It's just a black liver so it fits.
 	desc = "A mutant stomach designed to handle the unique diet of a flyperson."
 
-/obj/item/organ/stomach/plasmaman
+/obj/item/organ/internal/stomach/plasmaman
 	name = "digestive crystal"
 	icon_state = "stomach-p"
 	desc = "A strange crystal that is responsible for metabolizing the unseen energy force that feeds plasmamen."
 
-/obj/item/organ/stomach/battery
+/obj/item/organ/internal/stomach/battery
 	name = "implantable battery"
 	icon_state = "implant-power"
 	desc = "A battery that stores charge for species that run on electricity."
 	var/max_charge = 5000 //same as upgraded+ cell
 	var/charge = 5000
 
-/obj/item/organ/stomach/battery/Insert(mob/living/carbon/M, special, movement_flags)
+/obj/item/organ/internal/stomach/battery/Insert(mob/living/carbon/M, special, movement_flags)
 	. = ..()
 	RegisterSignal(owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, PROC_REF(charge))
 	update_nutrition()
 
-/obj/item/organ/stomach/battery/Remove(mob/living/carbon/M, special, movement_flags)
+/obj/item/organ/internal/stomach/battery/Remove(mob/living/carbon/M, special, movement_flags)
 	UnregisterSignal(owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT)
 	if(!HAS_TRAIT(owner, TRAIT_NOHUNGER) && HAS_TRAIT(owner, TRAIT_POWERHUNGRY))
 		owner.nutrition = 0
 		owner.throw_alert("nutrition", /atom/movable/screen/alert/nocell)
 	return ..()
 
-/obj/item/organ/stomach/battery/proc/charge(datum/source, amount, repairs)
+/obj/item/organ/internal/stomach/battery/proc/charge(datum/source, amount, repairs)
 	SIGNAL_HANDLER
 	adjust_charge(amount)
 
-/obj/item/organ/stomach/battery/proc/adjust_charge(amount)
+/obj/item/organ/internal/stomach/battery/proc/adjust_charge(amount)
 	if(amount > 0)
 		charge = clamp((charge + amount)*(1-(damage/maxHealth)), 0, max_charge)
 	else
 		charge = clamp(charge + amount, 0, max_charge)
 	update_nutrition()
 
-/obj/item/organ/stomach/battery/proc/adjust_charge_scaled(amount)
+/obj/item/organ/internal/stomach/battery/proc/adjust_charge_scaled(amount)
 	adjust_charge(amount*max_charge/NUTRITION_LEVEL_FULL)
 
-/obj/item/organ/stomach/battery/proc/set_charge(amount)
+/obj/item/organ/internal/stomach/battery/proc/set_charge(amount)
 	charge = clamp(amount*(1-(damage/maxHealth)), 0, max_charge)
 	update_nutrition()
 
-/obj/item/organ/stomach/battery/proc/set_charge_scaled(amount)
+/obj/item/organ/internal/stomach/battery/proc/set_charge_scaled(amount)
 	set_charge(amount*max_charge/NUTRITION_LEVEL_FULL)
 
-/obj/item/organ/stomach/battery/proc/update_nutrition()
+/obj/item/organ/internal/stomach/battery/proc/update_nutrition()
 	if(!owner)
 		return
 	if(!HAS_TRAIT(owner, TRAIT_NOHUNGER) && HAS_TRAIT(owner, TRAIT_POWERHUNGRY))
 		owner.nutrition = (charge/max_charge)*NUTRITION_LEVEL_FULL
 
-/obj/item/organ/stomach/battery/emp_act(severity)
+/obj/item/organ/internal/stomach/battery/emp_act(severity)
 	. = ..()
 	adjust_charge((-0.3 * max_charge) / severity)
 
-/obj/item/organ/stomach/battery/ipc
+/obj/item/organ/internal/stomach/battery/ipc
 	name = "micro-cell"
 	icon_state = "microcell"
 	w_class = WEIGHT_CLASS_NORMAL
@@ -159,7 +160,7 @@
 	max_charge = 2750 //50 nutrition from 250 charge
 	charge = 2750
 
-/obj/item/organ/stomach/battery/ipc/emp_act(severity)
+/obj/item/organ/internal/stomach/battery/ipc/emp_act(severity)
 	. = ..()
 	switch(severity)
 		if(1)
@@ -167,22 +168,22 @@
 		if(2)
 			to_chat(owner, span_warning("Alert: EMP Detected. Cycling battery."))
 
-/obj/item/organ/stomach/battery/ethereal
+/obj/item/organ/internal/stomach/battery/ethereal
 	name = "biological battery"
 	icon_state = "stomach-p" //Welp. At least it's more unique in functionaliy.
 	desc = "A crystal-like organ that stores the electric charge of ethereals."
 	max_charge = 2500 //same as upgraded cell
 	charge = 2500
 
-/obj/item/organ/stomach/battery/ethereal/Insert(mob/living/carbon/M, special, movement_flags)
+/obj/item/organ/internal/stomach/battery/ethereal/Insert(mob/living/carbon/M, special, movement_flags)
 	RegisterSignal(owner, COMSIG_LIVING_ELECTROCUTE_ACT, PROC_REF(on_electrocute))
 	return ..()
 
-/obj/item/organ/stomach/battery/ethereal/Remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/stomach/battery/ethereal/Remove(mob/living/carbon/M, special = 0)
 	UnregisterSignal(owner, COMSIG_LIVING_ELECTROCUTE_ACT)
 	return ..()
 
-/obj/item/organ/stomach/battery/ethereal/proc/on_electrocute(datum/source, shock_damage, siemens_coeff = 1, flags = NONE)
+/obj/item/organ/internal/stomach/battery/ethereal/proc/on_electrocute(datum/source, shock_damage, siemens_coeff = 1, flags = NONE)
 	SIGNAL_HANDLER
 
 	if(flags & SHOCK_ILLUSION)
@@ -190,28 +191,28 @@
 	adjust_charge(shock_damage * siemens_coeff * 20)
 	to_chat(owner, span_notice("You absorb some of the shock into your body!"))
 
-/obj/item/organ/stomach/cybernetic
+/obj/item/organ/internal/stomach/cybernetic
 	name = "basic cybernetic stomach"
 	icon_state = "stomach-c"
 	desc = "A basic device designed to mimic the functions of a human stomach"
 	organ_flags = ORGAN_ROBOTIC
 	maxHealth = STANDARD_ORGAN_THRESHOLD * 0.5
 
-/obj/item/organ/stomach/cybernetic/upgraded
+/obj/item/organ/internal/stomach/cybernetic/upgraded
 	name = "cybernetic stomach"
 	icon_state = "stomach-c-u"
 	desc = "An electronic device designed to mimic the functions of a human stomach. Handles disgusting food a bit better."
 	maxHealth = 1.5 * STANDARD_ORGAN_THRESHOLD
 	disgust_metabolism = 2
 
-/obj/item/organ/stomach/cybernetic/emp_act(severity)
+/obj/item/organ/internal/stomach/cybernetic/emp_act(severity)
 	. = ..()
 	if(. & EMP_PROTECT_SELF)
 		return
 	if(prob(30/severity))
 		owner.vomit(stun = FALSE)
 
-/obj/item/organ/stomach/diona
+/obj/item/organ/internal/stomach/diona
 	name = "nutrient vessel"
 	desc = "A group of plant matter and vines, useful for digestion of light and radiation."
 	icon_state = "diona_stomach"

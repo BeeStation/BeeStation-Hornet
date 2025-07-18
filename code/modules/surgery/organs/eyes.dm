@@ -1,4 +1,4 @@
-/obj/item/organ/eyes
+/obj/item/organ/internal/eyes
 	name = BODY_ZONE_PRECISE_EYES
 	icon_state = "eyes"
 	desc = "I see you!"
@@ -43,9 +43,9 @@
 	///Can these eyes every be cured of blind? - Each eye atom should handle this themselves, don't make this make you blind
 	var/can_see = TRUE
 
-/obj/item/organ/eyes/mob_insert(mob/living/carbon/receiver, special, movement_flags)
-	if(ishuman(receiver))
-		var/mob/living/carbon/human/human_recipient = receiver
+/obj/item/organ/internal/eyes/Insert(mob/living/carbon/eye_recipient, special = FALSE, movement_flags = DELETE_IF_REPLACED)
+	if(ishuman(eye_recipient))
+		var/mob/living/carbon/human/human_recipient = eye_recipient
 		old_eye_color = human_recipient.eye_color
 		if(HAS_TRAIT(human_recipient, TRAIT_NIGHT_VISION_WEAK) && !lighting_alpha)
 			lighting_alpha = LIGHTING_PLANE_ALPHA_NV_TRAIT
@@ -55,12 +55,12 @@
 	if(!.)
 		return
 
-	receiver.cure_blind()
-	refresh(receiver, call_update = TRUE)
+	eye_recipient.cure_blind()
+	refresh(eye_recipient, call_update = TRUE)
 
 /// Refreshes the visuals of the eyes
 /// If call_update is TRUE, we also will call update_body
-/obj/item/organ/eyes/proc/refresh(mob/living/carbon/eye_owner = owner, call_update = TRUE)
+/obj/item/organ/internal/eyes/proc/refresh(mob/living/carbon/eye_owner = owner, call_update = TRUE)
 	owner.update_sight()
 	owner.update_tint()
 
@@ -76,25 +76,24 @@
 	if(call_update)
 		affected_human.update_body()
 
-/obj/item/organ/eyes/mob_remove(mob/living/carbon/organ_owner, special, movement_flags)
+/obj/item/organ/internal/eyes/Remove(mob/living/carbon/eye_owner, special, movement_flags)
 	. = ..()
-
-	if(ishuman(organ_owner))
-		var/mob/living/carbon/human/human_owner = organ_owner
+	if(ishuman(eye_owner))
+		var/mob/living/carbon/human/human_owner = eye_owner
 		if(initial(eye_color))
 			human_owner.eye_color = old_eye_color
 		if(!special)
 			human_owner.update_body()
 
-	organ_owner.update_tint()
-	organ_owner.update_sight()
+	eye_owner.update_tint()
+	eye_owner.update_sight()
 
 #define OFFSET_X 1
 #define OFFSET_Y 2
 
 /// This proc generates a list of overlays that the eye should be displayed using for the given parent
-/obj/item/organ/eyes/proc/generate_body_overlay(mob/living/carbon/human/parent)
-	if(!istype(parent) || parent.get_organ_by_type(/obj/item/organ/eyes) != src)
+/obj/item/organ/internal/eyes/proc/generate_body_overlay(mob/living/carbon/human/parent)
+	if(!istype(parent) || parent.get_organ_by_type(/obj/item/organ/internal/eyes) != src)
 		CRASH("Generating a body overlay for [src] targeting an invalid parent '[parent]'.")
 
 	if(isnull(eye_icon_state))
@@ -119,11 +118,11 @@
 #undef OFFSET_Y
 
 //Gotta reset the eye color, because that persists
-/obj/item/organ/eyes/enter_wardrobe()
+/obj/item/organ/internal/eyes/enter_wardrobe()
 	. = ..()
 	eye_color = initial(eye_color)
 
-/obj/item/organ/eyes/on_life(delta_time, times_fired)
+/obj/item/organ/internal/eyes/on_life(delta_time, times_fired)
 	..()
 	var/mob/living/carbon/C = owner
 	//since we can repair fully damaged eyes, check if healing has occurred
@@ -146,7 +145,7 @@
 	return
 
 
-/obj/item/organ/eyes/night_vision
+/obj/item/organ/internal/eyes/night_vision
 	name = "shadow eyes"
 	desc = "A spooky set of eyes that can see in the dark."
 	see_in_dark = NIGHTVISION_FOV_RANGE
@@ -154,7 +153,7 @@
 	actions_types = list(/datum/action/item_action/organ_action/use)
 	var/night_vision = TRUE
 
-/obj/item/organ/eyes/night_vision/ui_action_click()
+/obj/item/organ/internal/eyes/night_vision/ui_action_click()
 	sight_flags = initial(sight_flags)
 	switch(lighting_alpha)
 		if (LIGHTING_PLANE_ALPHA_VISIBLE)
@@ -168,28 +167,28 @@
 			sight_flags &= ~SEE_BLACKNESS
 	owner.update_sight()
 
-/obj/item/organ/eyes/night_vision/alien
+/obj/item/organ/internal/eyes/night_vision/alien
 	name = "alien eyes"
 	desc = "It turned out they had them after all!"
 	sight_flags = SEE_MOBS
 
-/obj/item/organ/eyes/night_vision/zombie
+/obj/item/organ/internal/eyes/night_vision/zombie
 	name = "undead eyes"
 	desc = "Somewhat counterintuitively, these half-rotten eyes actually have superior vision to those of a living human."
 
-/obj/item/organ/eyes/night_vision/mushroom
+/obj/item/organ/internal/eyes/night_vision/mushroom
 	name = "fung-eye"
 	desc = "While on the outside they look inert and dead, the eyes of mushroom people are actually very advanced."
 
 ///Robotic
 
-/obj/item/organ/eyes/robotic
+/obj/item/organ/internal/eyes/robotic
 	name = "robotic eyes"
 	icon_state = "cybernetic_eyeballs"
 	desc = "A very basic set of optical sensors with no extra vision modes or functions."
 	organ_flags = ORGAN_ROBOTIC
 
-/obj/item/organ/eyes/robotic/emp_act(severity)
+/obj/item/organ/internal/eyes/robotic/emp_act(severity)
 	. = ..()
 	if((. & EMP_PROTECT_SELF) || !owner)
 		return
@@ -197,7 +196,7 @@
 		to_chat(owner, span_warning("Static obfuscates your vision!"))
 		owner.flash_act(visual = 1)
 
-/obj/item/organ/eyes/robotic/xray
+/obj/item/organ/internal/eyes/robotic/xray
 	name = "\improper X-ray eyes"
 	desc = "These cybernetic eyes will give you X-ray vision. Blinking is futile."
 	eye_color = "000"
@@ -206,11 +205,11 @@
 	flash_protect = -INFINITY
 	tint = -INFINITY
 
-/obj/item/organ/eyes/robotic/xray/syndicate
+/obj/item/organ/internal/eyes/robotic/xray/syndicate
 	desc = "These cybernetic eyes will give you X-ray vision. Blinking is futile. On closer look, they have been modified to protect from sudden bright flashes."
 	flash_protect = 0
 
-/obj/item/organ/eyes/robotic/thermals
+/obj/item/organ/internal/eyes/robotic/thermals
 	name = "thermal eyes"
 	desc = "These cybernetic eye implants will give you thermal vision. Vertical slit pupil included."
 	eye_color = "FC0"
@@ -219,7 +218,7 @@
 	flash_protect = -1
 	see_in_dark = NIGHTVISION_FOV_RANGE
 
-/obj/item/organ/eyes/robotic/flashlight
+/obj/item/organ/internal/eyes/robotic/flashlight
 	name = "flashlight eyes"
 	desc = "It's two flashlights rigged together with some wire. Why would you put these in someone's head?"
 	eye_color ="fee5a3"
@@ -229,10 +228,10 @@
 	tint = INFINITY
 	var/obj/item/flashlight/eyelight/eye
 
-/obj/item/organ/eyes/robotic/flashlight/emp_act(severity)
+/obj/item/organ/internal/eyes/robotic/flashlight/emp_act(severity)
 	return
 
-/obj/item/organ/eyes/robotic/flashlight/on_mob_insert(mob/living/carbon/victim)
+/obj/item/organ/internal/eyes/robotic/flashlight/on_mob_insert(mob/living/carbon/victim)
 	. = ..()
 	if(!eye)
 		eye = new /obj/item/flashlight/eyelight()
@@ -242,7 +241,7 @@
 	victim.become_blind("flashlight_eyes")
 
 
-/obj/item/organ/eyes/robotic/flashlight/on_mob_remove(mob/living/carbon/victim)
+/obj/item/organ/internal/eyes/robotic/flashlight/on_mob_remove(mob/living/carbon/victim)
 	. = ..()
 	eye.on = FALSE
 	eye.update_brightness(victim)
@@ -250,17 +249,17 @@
 	victim.cure_blind("flashlight_eyes")
 
 // Welding shield implant
-/obj/item/organ/eyes/robotic/shield
+/obj/item/organ/internal/eyes/robotic/shield
 	name = "shielded robotic eyes"
 	desc = "These reactive micro-shields will protect you from welders and flashes without obscuring your vision."
 	flash_protect = 2
 
-/obj/item/organ/eyes/robotic/shield/emp_act(severity)
+/obj/item/organ/internal/eyes/robotic/shield/emp_act(severity)
 	return
 
 #define RGB2EYECOLORSTRING(definitionvar) ("[copytext_char(definitionvar, 2, 3)][copytext_char(definitionvar, 4, 5)][copytext_char(definitionvar, 6, 7)]")
 
-/obj/item/organ/eyes/robotic/glow
+/obj/item/organ/internal/eyes/robotic/glow
 	name = "High Luminosity Eyes"
 	desc = "Special glowing eyes, used by snowflakes who want to be special."
 	eye_color = "000"
@@ -276,38 +275,38 @@
 	var/image/mob_overlay
 	var/datum/component/mobhook
 
-/obj/item/organ/eyes/robotic/glow/Initialize(mapload)
+/obj/item/organ/internal/eyes/robotic/glow/Initialize(mapload)
 	. = ..()
 	mob_overlay = image('icons/mob/species/human/human_face.dmi', "eyes_glow_gs")
 
-/obj/item/organ/eyes/robotic/glow/Destroy()
+/obj/item/organ/internal/eyes/robotic/glow/Destroy()
 	terminate_effects()
 	. = ..()
 
-/obj/item/organ/eyes/robotic/glow/Remove(mob/living/carbon/M, special = FALSE, pref_load = FALSE)
+/obj/item/organ/internal/eyes/robotic/glow/Remove(mob/living/carbon/M, special = FALSE, pref_load = FALSE)
 	terminate_effects()
 	. = ..()
 
-/obj/item/organ/eyes/robotic/glow/proc/terminate_effects()
+/obj/item/organ/internal/eyes/robotic/glow/proc/terminate_effects()
 	if(owner && active)
 		deactivate()
 	active = FALSE
 	clear_visuals(TRUE)
 	STOP_PROCESSING(SSfastprocess, src)
 
-/obj/item/organ/eyes/robotic/glow/ui_action_click(owner, action)
+/obj/item/organ/internal/eyes/robotic/glow/ui_action_click(owner, action)
 	if(istype(action, /datum/action/item_action/organ_action/toggle))
 		toggle_active()
 	else if(istype(action, /datum/action/item_action/organ_action/use))
 		prompt_for_controls(owner)
 
-/obj/item/organ/eyes/robotic/glow/proc/toggle_active()
+/obj/item/organ/internal/eyes/robotic/glow/proc/toggle_active()
 	if(active)
 		deactivate()
 	else
 		activate()
 
-/obj/item/organ/eyes/robotic/glow/proc/prompt_for_controls(mob/user)
+/obj/item/organ/internal/eyes/robotic/glow/proc/prompt_for_controls(mob/user)
 	var/C = tgui_color_picker(owner, "Select Color", "Select color", "#ffffff")
 	if(!C || QDELETED(src) || QDELETED(user) || QDELETED(owner) || owner != user)
 		return
@@ -316,7 +315,7 @@
 	set_distance(clamp(range, 0, max_light_beam_distance))
 	assume_rgb(C)
 
-/obj/item/organ/eyes/robotic/glow/proc/assume_rgb(newcolor)
+/obj/item/organ/internal/eyes/robotic/glow/proc/assume_rgb(newcolor)
 	current_color_string = newcolor
 	eye_color = RGB2EYECOLORSTRING(current_color_string)
 	sync_light_effects()
@@ -324,30 +323,30 @@
 	if(!QDELETED(owner) && ishuman(owner))		//Other carbon mobs don't have eye color.
 		owner.dna.species.handle_body(owner)
 
-/obj/item/organ/eyes/robotic/glow/proc/cycle_mob_overlay()
+/obj/item/organ/internal/eyes/robotic/glow/proc/cycle_mob_overlay()
 	remove_mob_overlay()
 	mob_overlay.color = current_color_string
 	add_mob_overlay()
 
-/obj/item/organ/eyes/robotic/glow/proc/add_mob_overlay()
+/obj/item/organ/internal/eyes/robotic/glow/proc/add_mob_overlay()
 	if(!QDELETED(owner))
 		owner.add_overlay(mob_overlay)
 
-/obj/item/organ/eyes/robotic/glow/proc/remove_mob_overlay()
+/obj/item/organ/internal/eyes/robotic/glow/proc/remove_mob_overlay()
 	if(!QDELETED(owner))
 		owner.cut_overlay(mob_overlay)
 
-/obj/item/organ/eyes/robotic/glow/emp_act()
+/obj/item/organ/internal/eyes/robotic/glow/emp_act()
 	. = ..()
 	if(!active || . & EMP_PROTECT_SELF)
 		return
 	deactivate(silent = TRUE)
 
-/obj/item/organ/eyes/robotic/glow/Destroy()
+/obj/item/organ/internal/eyes/robotic/glow/Destroy()
 	QDEL_NULL(mobhook) // mobhook is not our component
 	return ..()
 
-/obj/item/organ/eyes/robotic/glow/proc/activate(silent = FALSE)
+/obj/item/organ/internal/eyes/robotic/glow/proc/activate(silent = FALSE)
 	start_visuals()
 	RegisterSignal(owner, COMSIG_ATOM_DIR_CHANGE, PROC_REF(update_visuals))
 	if(!silent)
@@ -355,7 +354,7 @@
 	active = TRUE
 	cycle_mob_overlay()
 
-/obj/item/organ/eyes/robotic/glow/proc/deactivate(silent = FALSE)
+/obj/item/organ/internal/eyes/robotic/glow/proc/deactivate(silent = FALSE)
 	UnregisterSignal(owner, COMSIG_ATOM_DIR_CHANGE)
 	clear_visuals()
 	if(!silent)
@@ -363,7 +362,7 @@
 	active = FALSE
 	remove_mob_overlay()
 
-/obj/item/organ/eyes/robotic/glow/proc/update_visuals(datum/source, olddir, newdir)
+/obj/item/organ/internal/eyes/robotic/glow/proc/update_visuals(datum/source, olddir, newdir)
 	SIGNAL_HANDLER
 
 	if((LAZYLEN(eye_lighting) < light_beam_distance) || !on_mob)
@@ -388,7 +387,7 @@
 		else
 			L.forceMove(scanning)
 
-/obj/item/organ/eyes/robotic/glow/proc/clear_visuals(delete_everything = FALSE)
+/obj/item/organ/internal/eyes/robotic/glow/proc/clear_visuals(delete_everything = FALSE)
 	if(delete_everything)
 		QDEL_LIST(eye_lighting)
 		QDEL_NULL(on_mob)
@@ -400,7 +399,7 @@
 			on_mob.set_light_flags(on_mob.light_flags | LIGHT_ATTACHED)
 			on_mob.forceMove(src)
 
-/obj/item/organ/eyes/robotic/glow/proc/start_visuals()
+/obj/item/organ/internal/eyes/robotic/glow/proc/start_visuals()
 	if(!islist(eye_lighting))
 		regenerate_light_effects()
 	if((eye_lighting.len < light_beam_distance) || !on_mob)
@@ -408,11 +407,11 @@
 	sync_light_effects()
 	update_visuals()
 
-/obj/item/organ/eyes/robotic/glow/proc/set_distance(dist)
+/obj/item/organ/internal/eyes/robotic/glow/proc/set_distance(dist)
 	light_beam_distance = dist
 	regenerate_light_effects()
 
-/obj/item/organ/eyes/robotic/glow/proc/regenerate_light_effects()
+/obj/item/organ/internal/eyes/robotic/glow/proc/regenerate_light_effects()
 	clear_visuals(TRUE)
 	on_mob = new (src, light_object_range, light_object_power, current_color_string, LIGHT_ATTACHED)
 	for(var/i in 1 to light_beam_distance)
@@ -420,7 +419,7 @@
 	sync_light_effects()
 
 
-/obj/item/organ/eyes/robotic/glow/proc/sync_light_effects()
+/obj/item/organ/internal/eyes/robotic/glow/proc/sync_light_effects()
 	for(var/e in eye_lighting)
 		var/obj/effect/abstract/eye_lighting/eye_lighting = e
 		eye_lighting.set_light_color(current_color_string)
@@ -429,7 +428,7 @@
 
 /obj/effect/abstract/eye_lighting
 	light_system = MOVABLE_LIGHT
-	var/obj/item/organ/eyes/robotic/glow/parent
+	var/obj/item/organ/internal/eyes/robotic/glow/parent
 
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/abstract/eye_lighting)
@@ -451,7 +450,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/abstract/eye_lighting)
 		set_light_flags(light_flags)
 
 
-/obj/item/organ/eyes/moth
+/obj/item/organ/internal/eyes/moth
 	name = "moth eyes"
 	desc = "These eyes seem to have increased sensitivity to bright light, with a small improvement to low light vision."
 	eye_icon_state = "motheyes"
@@ -459,18 +458,18 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/abstract/eye_lighting)
 	see_in_dark = NIGHTVISION_FOV_RANGE/2 //4 tiles compared to 8 of the apids
 	flash_protect = -1
 
-/obj/item/organ/eyes/snail
+/obj/item/organ/internal/eyes/snail
 	name = "snail eyes"
 	desc = "These eyes seem to have a large range, but might be cumbersome with glasses."
 	eye_icon_state = "snail_eyes"
 	icon_state = "snail_eyeballs"
 
-/obj/item/organ/eyes/apid
+/obj/item/organ/internal/eyes/apid
 	name = "apid eyes"
 	desc = "Designed for navigating dark hives, these eyes have improvement to low light vision."
 	see_in_dark = NIGHTVISION_FOV_RANGE
 
-/obj/item/organ/eyes/psyphoza
+/obj/item/organ/internal/eyes/psyphoza
 	name = "psyphoza eyes"
 	desc = "Conduits for psychic energy, hardly even eyes."
 	icon_state = "psyphoza_eyeballs"
@@ -481,7 +480,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/abstract/eye_lighting)
 	sight_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
 	can_see = FALSE
 
-/obj/item/organ/eyes/psyphoza/Insert(mob/living/carbon/M, special, movement_flags)
+/obj/item/organ/internal/eyes/psyphoza/Insert(mob/living/carbon/M, special, movement_flags)
 	. = ..()
 	M.become_blind("uncurable", /atom/movable/screen/fullscreen/blind/psychic, FALSE)
 	M.remove_client_colour(/datum/client_colour/monochrome/blind)
@@ -491,13 +490,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/abstract/eye_lighting)
 		P.Grant(M)
 		P?.removed = FALSE
 
-/obj/item/organ/eyes/psyphoza/Remove(mob/living/carbon/M, special = FALSE)
+/obj/item/organ/internal/eyes/psyphoza/Remove(mob/living/carbon/M, special = FALSE)
 	M.cure_blind("uncurable", TRUE)
 	var/datum/action/item_action/organ_action/psychic_highlight/P = locate(/datum/action/item_action/organ_action/psychic_highlight) in M.actions
 	P?.remove()
 	return ..()
 
-/obj/item/organ/eyes/diona
+/obj/item/organ/internal/eyes/diona
 	name = "receptor node"
 	desc = "A combination of plant matter and neurons used to produce visual feedback."
 	icon_state = "diona_eyeballs"

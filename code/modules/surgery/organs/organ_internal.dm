@@ -1,11 +1,11 @@
-/obj/item/organ
+/obj/item/organ/internal
 	name = "organ"
 
-/obj/item/organ/Initialize(mapload)
+/obj/item/organ/internal/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
-/obj/item/organ/on_mob_insert(mob/living/carbon/organ_owner, special, movement_flags)
+/obj/item/organ/internal/on_mob_insert(mob/living/carbon/organ_owner, special, movement_flags)
 	. = ..()
 
 	// organs_slot must ALWAYS be ordered in the same way as organ_process_order
@@ -14,7 +14,7 @@
 
 	STOP_PROCESSING(SSobj, src)
 
-/obj/item/organ/on_mob_remove(mob/living/carbon/organ_owner, special = FALSE)
+/obj/item/organ/internal/on_mob_remove(mob/living/carbon/organ_owner, special = FALSE)
 	. = ..()
 
 	if((organ_flags & ORGAN_VITAL) && !special && !(organ_owner.status_flags & GODMODE))
@@ -24,10 +24,10 @@
 
 	START_PROCESSING(SSobj, src)
 
-/obj/item/organ/process(delta_time, times_fired)
+/obj/item/organ/internal/process(delta_time, times_fired)
 	on_death(delta_time, times_fired) //Kinda hate doing it like this, but I really don't want to call process directly.
 
-/obj/item/organ/on_death(delta_time, times_fired) //runs decay when outside of a person
+/obj/item/organ/internal/on_death(delta_time, times_fired) //runs decay when outside of a person
 	if(organ_flags & (ORGAN_ROBOTIC | ORGAN_FROZEN))
 		return
 	applyOrganDamage(decay_factor * maxHealth * delta_time)
@@ -35,7 +35,7 @@
 /// NOTE: THIS IS VERY HOT. Be careful what you put in here
 /// To give you some scale, if there's 100 carbons in the game, they each have maybe 9 organs
 /// So that's 900 calls to this proc every life process. Please don't be dumb
-/obj/item/organ/on_life(delta_time, times_fired) //repair organ damage if the organ is not failing
+/obj/item/organ/internal/on_life(delta_time, times_fired) //repair organ damage if the organ is not failing
 	if(organ_flags & ORGAN_FAILING)
 		return
 
@@ -53,9 +53,9 @@
 	applyOrganDamage(-healing_amount * maxHealth * delta_time, damage) // pass current damage incase we are over cap
 
 ///Used as callbacks by object pooling
-/obj/item/organ/exit_wardrobe()
+/obj/item/organ/internal/exit_wardrobe()
 	START_PROCESSING(SSobj, src)
 
 //See above
-/obj/item/organ/enter_wardrobe()
+/obj/item/organ/internal/enter_wardrobe()
 	STOP_PROCESSING(SSobj, src)

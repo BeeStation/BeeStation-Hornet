@@ -26,7 +26,7 @@
 	item_state = "syndicate-helm-black-red"
 	desc = "A plastic replica of a Syndicate agent's space helmet. You'll look just like a real murderous Syndicate agent in this! This is a toy, it is not made for use in space!"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
-	clothing_flags = SNUG_FIT | STACKABLE_HELMET_EXEMPT
+	clothing_flags = SNUG_FIT
 
 /obj/item/clothing/head/costume/cueball
 	name = "cueball helmet"
@@ -173,12 +173,6 @@
 	icon_state = "carp_helm"
 	item_state = "syndicate"
 	armor_type = /datum/armor/carp_hood_spaceproof
-	flags_inv = HIDEEARS|HIDEHAIR|HIDEFACIALHAIR //facial hair will clip with the helm
-	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
-	heat_protection = HEAD
-	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
-	clothing_flags = STOPSPRESSUREDAMAGE|THICKMATERIAL|SNUG_FIT|STACKABLE_HELMET_EXEMPT
-	body_parts_covered = HEAD
 	light_system = NO_LIGHT_SUPPORT
 	light_range = 0 //luminosity when on
 	actions_types = list()

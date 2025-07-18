@@ -387,11 +387,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 		var/obj/item/stack/sheet/mineral/plasma/S = W
 		S.use(1)
 		return
-	if(istype(W, /obj/item/organ/regenerative_core) && !stat && colour == SLIME_TYPE_PINK)
+	if(istype(W, /obj/item/organ/internal/regenerative_core) && !stat && colour == SLIME_TYPE_PINK)
 		to_chat(user, span_warning("The slime absorbs the regenerative core, pink darkening to an ominous grey"))
 		special_mutation = TRUE
 		special_mutation_type = SLIME_TYPE_DARK_GREY
-		var/obj/item/organ/regenerative_core/R = W
+		var/obj/item/organ/internal/regenerative_core/R = W
 		qdel(R)
 		return
 	if(W.force > 0)

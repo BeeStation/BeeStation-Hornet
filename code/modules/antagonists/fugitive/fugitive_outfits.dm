@@ -61,7 +61,7 @@
 /datum/outfit/synthetic/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
 		return
-	var/obj/item/organ/eyes/robotic/glow/eyes = new()
+	var/obj/item/organ/internal/eyes/robotic/glow/eyes = new()
 	eyes.Insert(H, movement_flags = DELETE_IF_REPLACED)
 
 /datum/outfit/synthetic/leader

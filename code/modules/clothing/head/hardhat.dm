@@ -11,7 +11,7 @@
 	flags_inv = NONE
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	resistance_flags = FIRE_PROOF
-	clothing_flags = SNUG_FIT | STACKABLE_HELMET_EXEMPT
+	clothing_flags = SNUG_FIT
 
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	light_range = 4
@@ -76,7 +76,7 @@
 	item_state = null
 	hat_type = "red"
 	dog_fashion = null
-	clothing_flags = STOPSPRESSUREDAMAGE | STACKABLE_HELMET_EXEMPT
+	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
 	cold_protection = HEAD
@@ -91,7 +91,7 @@
 	icon_state = "hardhat0_white"
 	item_state = null
 	hat_type = "white"
-	clothing_flags = STOPSPRESSUREDAMAGE | STACKABLE_HELMET_EXEMPT
+	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
 	cold_protection = HEAD
@@ -178,7 +178,7 @@
 	item_state = "hardhat0_white"
 	light_range = 4 //Boss always takes the best stuff
 	hat_type = "white"
-	clothing_flags = STOPSPRESSUREDAMAGE | STACKABLE_HELMET_EXEMPT
+	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
 	cold_protection = HEAD

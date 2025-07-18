@@ -1,8 +1,9 @@
-/obj/item/organ/alien
+/obj/item/organ/internal/alien
 	icon_state = "acid"
+	visual = FALSE
 	food_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/toxin/acid = 10)
 
-/obj/item/organ/alien/plasmavessel
+/obj/item/organ/internal/alien/plasmavessel
 	name = "plasma vessel"
 	icon_state = "plasma"
 	w_class = WEIGHT_CLASS_NORMAL
@@ -23,7 +24,7 @@
 	/// The rate this organ regenerates plasma at per second.
 	var/plasma_rate = 5
 
-/obj/item/organ/alien/plasmavessel/large
+/obj/item/organ/internal/alien/plasmavessel/large
 	name = "large plasma vessel"
 	icon_state = "plasma_large"
 	w_class = WEIGHT_CLASS_BULKY
@@ -31,10 +32,10 @@
 	max_plasma = 500
 	plasma_rate = 7.5
 
-/obj/item/organ/alien/plasmavessel/large/queen
+/obj/item/organ/internal/alien/plasmavessel/large/queen
 	plasma_rate = 10
 
-/obj/item/organ/alien/plasmavessel/small
+/obj/item/organ/internal/alien/plasmavessel/small
 	name = "small plasma vessel"
 	icon_state = "plasma_small"
 	w_class = WEIGHT_CLASS_SMALL
@@ -42,14 +43,14 @@
 	max_plasma = 150
 	plasma_rate = 2.5
 
-/obj/item/organ/alien/plasmavessel/small/tiny
+/obj/item/organ/internal/alien/plasmavessel/small/tiny
 	name = "tiny plasma vessel"
 	icon_state = "plasma_tiny"
 	w_class = WEIGHT_CLASS_TINY
 	max_plasma = 100
 	actions_types = list(/datum/action/alien/transfer)
 
-/obj/item/organ/alien/plasmavessel/on_life(delta_time, times_fired)
+/obj/item/organ/internal/alien/plasmavessel/on_life(delta_time, times_fired)
 	SHOULD_CALL_PARENT(FALSE)
 	//If there are alien weeds on the ground then heal if needed or give some plasma
 	if(locate(/obj/structure/alien/weeds) in owner.loc)
@@ -67,14 +68,14 @@
 	else
 		owner.adjustPlasma(0.1 * plasma_rate * delta_time)
 
-/obj/item/organ/alien/plasmavessel/on_mob_insert(mob/living/carbon/organ_owner)
+/obj/item/organ/internal/alien/plasmavessel/on_mob_insert(mob/living/carbon/organ_owner)
 	. = ..()
 	if(!isalien(organ_owner))
 		return
 	var/mob/living/carbon/alien/A = organ_owner
 	A.updatePlasmaDisplay()
 
-/obj/item/organ/alien/plasmavessel/on_mob_remove(mob/living/carbon/organ_owner)
+/obj/item/organ/internal/alien/plasmavessel/on_mob_remove(mob/living/carbon/organ_owner)
 	. = ..()
 	if(!isalien(organ_owner))
 		return
@@ -83,7 +84,7 @@
 
 #define QUEEN_DEATH_DEBUFF_DURATION 2400
 
-/obj/item/organ/alien/hivenode
+/obj/item/organ/internal/alien/hivenode
 	name = "hive node"
 	icon_state = "hivenode"
 	zone = BODY_ZONE_HEAD
@@ -93,17 +94,17 @@
 	actions_types = list(/datum/action/alien/whisper)
 	var/recent_queen_death = 0 //Indicates if the queen died recently, aliens are heavily weakened while this is active.
 
-/obj/item/organ/alien/hivenode/on_mob_insert(mob/living/carbon/organ_owner)
+/obj/item/organ/internal/alien/hivenode/on_mob_insert(mob/living/carbon/organ_owner)
 	organ_owner.faction |= FACTION_ALIEN
 	return ..()
 
-/obj/item/organ/alien/hivenode/on_mob_remove(mob/living/carbon/organ_owner, special = FALSE)
+/obj/item/organ/internal/alien/hivenode/on_mob_remove(mob/living/carbon/organ_owner, special = FALSE)
 	if(organ_owner)
 		organ_owner.faction -= ROLE_ALIEN
 	return ..()
 
 //When the alien queen dies, all aliens suffer a penalty as punishment for failing to protect her.
-/obj/item/organ/alien/hivenode/proc/queen_death()
+/obj/item/organ/internal/alien/hivenode/proc/queen_death()
 	if(!owner|| owner.stat == DEAD)
 		return
 	if(isalien(owner)) //Different effects for aliens than humans
@@ -126,7 +127,7 @@
 	addtimer(CALLBACK(src, PROC_REF(clear_queen_death)), QUEEN_DEATH_DEBUFF_DURATION)
 
 
-/obj/item/organ/alien/hivenode/proc/clear_queen_death()
+/obj/item/organ/internal/alien/hivenode/proc/clear_queen_death()
 	if(QDELETED(src)) //In case the node is deleted
 		return
 	recent_queen_death = FALSE
@@ -137,7 +138,7 @@
 
 #undef QUEEN_DEATH_DEBUFF_DURATION
 
-/obj/item/organ/alien/resinspinner
+/obj/item/organ/internal/alien/resinspinner
 	name = "resin spinner"
 	icon_state = "stomach-x"
 	zone = BODY_ZONE_PRECISE_MOUTH
@@ -145,7 +146,7 @@
 	actions_types = list(/datum/action/alien/make_structure/resin)
 
 
-/obj/item/organ/alien/acid
+/obj/item/organ/internal/alien/acid
 	name = "acid gland"
 	icon_state = "acid"
 	zone = BODY_ZONE_PRECISE_MOUTH
@@ -153,7 +154,7 @@
 	actions_types = list(/datum/action/alien/acid/corrosion)
 
 
-/obj/item/organ/alien/neurotoxin
+/obj/item/organ/internal/alien/neurotoxin
 	name = "neurotoxin gland"
 	icon_state = "neurotox"
 	zone = BODY_ZONE_PRECISE_MOUTH
@@ -161,7 +162,7 @@
 	actions_types = list(/datum/action/alien/acid/neurotoxin)
 
 
-/obj/item/organ/alien/eggsac
+/obj/item/organ/internal/alien/eggsac
 	name = "egg sac"
 	icon_state = "eggsac"
 	zone = BODY_ZONE_PRECISE_GROIN

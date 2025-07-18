@@ -54,7 +54,7 @@
 		/obj/item/food/candy,
 		/obj/item/food/candiedapple,
 		/obj/item/food/chocolatebar,
-		/obj/item/organ/brain ) // OH GOD THIS ISN'T CANDY!
+		/obj/item/organ/internal/brain ) // OH GOD THIS ISN'T CANDY!
 		new type(src)
 
 /obj/item/card/emag/halloween

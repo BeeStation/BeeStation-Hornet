@@ -25,7 +25,7 @@
 		TRAIT_NOBLOOD,
 	)
 	inherent_biotypes = list(MOB_UNDEAD, MOB_HUMANOID)
-	mutanttongue = /obj/item/organ/tongue/bone
+	mutanttongue = /obj/item/organ/internal/tongue/bone
 	mutantappendix = null
 	mutantheart = null
 	mutantliver = null

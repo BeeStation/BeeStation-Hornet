@@ -105,25 +105,20 @@ SUBSYSTEM_DEF(traumas)
 			/obj/machinery/door/airlock/security, /obj/effect/hallucination/simple/securitron)),
 
 		"clowns"    = typecacheof(list(
-			/obj/item/clothing/under/rank/civilian/clown, 
-			/obj/item/clothing/shoes/clown_shoes,
-			/obj/item/clothing/mask/gas/clown_hat, 
-			/obj/item/instrument/bikehorn,
-			/obj/item/modular_computer/tablet/pda/clown, 
-			/obj/item/grown/bananapeel)),
+			/obj/item/clothing/under/rank/civilian/clown, /obj/item/clothing/shoes/clown_shoes,
+			/obj/item/clothing/mask/gas/clown_hat, /obj/item/instrument/bikehorn,
+			/obj/item/modular_computer/tablet/pda/clown, /obj/item/grown/bananapeel)),
 
 		"greytide"  = typecacheof(list(
 			/obj/item/clothing/under/color/grey, /obj/item/melee/baton/cattleprod,
 			/obj/item/spear, /obj/item/clothing/mask/gas/old)),
 
 		"lizards"   = typecacheof(list(
-			/obj/item/toy/plush/lizard_plushie, 
-			/obj/item/food/kebab/tail,
-			/obj/item/organ/tail/lizard, 
-			/obj/item/reagent_containers/cup/glass/bottle/lizardwine)),
+			/obj/item/toy/plush/lizard_plushie, /obj/item/food/kebab/tail,
+			/obj/item/organ/external/tail/lizard, /obj/item/reagent_containers/cup/glass/bottle/lizardwine)),
 
 		"skeletons" = typecacheof(list(
-			/obj/item/organ/tongue/bone, /obj/item/clothing/suit/armor/bone, /obj/item/stack/sheet/bone,
+			/obj/item/organ/internal/tongue/bone, /obj/item/clothing/suit/armor/bone, /obj/item/stack/sheet/bone,
 			/obj/item/food/meat/slab/human/mutant/skeleton,
 			/obj/effect/decal/remains/human)),
 
@@ -179,13 +174,13 @@ SUBSYSTEM_DEF(traumas)
 			/obj/item/nullrod, /obj/item/clothing/under/rank/civilian/chaplain)),
 
 		"aliens" = typecacheof(list(
-			/obj/item/clothing/mask/facehugger, /obj/item/organ/body_egg/alien_embryo,
+			/obj/item/clothing/mask/facehugger, /obj/item/organ/internal/body_egg/alien_embryo,
 			/obj/structure/alien, /obj/item/toy/toy_xeno,
 			/obj/item/clothing/suit/armor/abductor, /obj/item/abductor, /obj/item/gun/energy/alien,
 			/obj/item/melee/baton/abductor, /obj/item/radio/headset/abductor, /obj/item/scalpel/alien, /obj/item/hemostat/alien,
 			/obj/item/retractor/alien, /obj/item/circular_saw/alien, /obj/item/surgicaldrill/alien, /obj/item/cautery/alien,
 			/obj/item/clothing/head/helmet/abductor, /obj/structure/bed/abductor, /obj/structure/table_frame/abductor,
-			/obj/structure/table/abductor, /obj/structure/table/optable/abductor, /obj/structure/closet/abductor, /obj/item/organ/heart/gland,
+			/obj/structure/table/abductor, /obj/structure/table/optable/abductor, /obj/structure/closet/abductor, /obj/item/organ/internal/heart/gland,
 			/obj/machinery/abductor, /obj/item/crowbar/abductor, /obj/item/screwdriver/abductor, /obj/item/weldingtool/abductor,
 			/obj/item/wirecutters/abductor, /obj/item/wrench/abductor, /obj/item/stack/sheet/mineral/abductor,
 			/obj/item/toy/plush/slimeplushie)),

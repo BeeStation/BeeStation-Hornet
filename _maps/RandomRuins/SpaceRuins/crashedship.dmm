@@ -988,7 +988,7 @@
 "zB" = (
 /obj/structure/closet/crate/freezer,
 /obj/item/food/hugemushroomslice,
-/obj/item/organ/appendix,
+/obj/item/organ/internal/appendix,
 /obj/item/food/meat/slab,
 /obj/item/food/meat/slab/human/mutant/golem/adamantine,
 /obj/effect/turf_decal/stripes/line{
@@ -1360,7 +1360,7 @@
 /area/awaymission/BMPship/Aft)
 "HE" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/organ/appendix,
+/obj/item/organ/internal/appendix,
 /obj/item/food/meat/slab,
 /obj/item/food/meat/slab/human/mutant/golem,
 /obj/effect/turf_decal/stripes/line{
@@ -1627,7 +1627,7 @@
 /area/awaymission/BMPship/Aft)
 "NX" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/organ/brain,
+/obj/item/organ/internal/brain,
 /obj/item/food/meat/slab,
 /obj/item/food/meat/slab/human/mutant/slime,
 /obj/effect/turf_decal/stripes/line{

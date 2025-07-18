@@ -58,7 +58,7 @@ Bonus
 		return
 
 	var/mob/living/carbon/M = A.affected_mob
-	var/obj/item/organ/eyes/eyes = M.get_organ_slot(ORGAN_SLOT_EYES)
+	var/obj/item/organ/internal/eyes/eyes = M.get_organ_slot(ORGAN_SLOT_EYES)
 	switch(A.stage)
 		if(1, 2)
 			if(prob(base_message_chance) && !suppress_warning && M.stat != DEAD)

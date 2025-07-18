@@ -1,4 +1,4 @@
-/obj/item/organ/brain
+/obj/item/organ/internal/brain
 	name = "brain"
 	desc = "A piece of juicy meat found in a person's head."
 	icon_state = "brain"
@@ -35,7 +35,7 @@
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
 /*
-/obj/item/organ/brain/examine()
+/obj/item/organ/internal/brain/examine()
 	. = ..()
 	if(brain_size < 1)
 		. += span_notice("It is a bit on the smaller side...")
@@ -43,7 +43,7 @@
 		. += span_notice("It is bigger than average...")
 */
 
-/obj/item/organ/brain/mob_insert(mob/living/carbon/brain_owner, special = FALSE, movement_flags)
+/obj/item/organ/internal/brain/mob_insert(mob/living/carbon/brain_owner, special = FALSE, movement_flags)
 	. = ..()
 	if(!.)
 		return
@@ -97,7 +97,7 @@
 	if(!special && !(brain_owner.living_flags & STOP_OVERLAY_UPDATE_BODY_PARTS))
 		brain_owner.update_body_parts()
 
-/obj/item/organ/brain/mob_remove(mob/living/carbon/organ_owner, special, movement_flags)
+/obj/item/organ/internal/brain/mob_remove(mob/living/carbon/organ_owner, special, movement_flags)
 
 	. = ..()
 
@@ -118,13 +118,13 @@
 			organ_owner.update_body_parts()
 		SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "brain_damage")
 
-/obj/item/organ/brain/set_organ_damage(d)
+/obj/item/organ/internal/brain/set_organ_damage(d)
 	. = ..()
 	if(brain_death && !(organ_flags & ORGAN_FAILING))
 		brain_death = FALSE
 		brainmob.revive(TRUE) // We fixed the brain, fix the brainmob too.
 
-/obj/item/organ/brain/proc/transfer_identity(mob/living/L)
+/obj/item/organ/internal/brain/proc/transfer_identity(mob/living/L)
 	name = "[L.name]'s brain"
 	if(brainmob || decoy_override)
 		return
@@ -140,11 +140,11 @@
 		C.dna.copy_dna(brainmob.stored_dna)
 		if(HAS_TRAIT(L, TRAIT_BADDNA))
 			LAZYSET(brainmob.status_traits, TRAIT_BADDNA, L.status_traits[TRAIT_BADDNA])
-		var/obj/item/organ/zombie_infection/ZI = L.get_organ_slot(ORGAN_SLOT_ZOMBIE)
+		var/obj/item/organ/internal/zombie_infection/ZI = L.get_organ_slot(ORGAN_SLOT_ZOMBIE)
 		if(ZI)
 			brainmob.set_species(ZI.old_species)	//For if the brain is cloned
 
-/obj/item/organ/brain/attackby(obj/item/O, mob/user, params)
+/obj/item/organ/internal/brain/attackby(obj/item/O, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 
 	if(istype(O, /obj/item/organ_storage))
@@ -173,7 +173,7 @@
 	if(O.force != 0 && !(O.item_flags & NOBLUDGEON))
 		set_organ_damage(maxHealth) //fails the brain as the brain was attacked, they're pretty fragile.
 
-/obj/item/organ/brain/examine(mob/user)
+/obj/item/organ/internal/brain/examine(mob/user)
 	. = ..()
 
 	if(suicided)
@@ -199,7 +199,7 @@
 		else
 			. += span_info("This one is completely devoid of life.")
 
-/obj/item/organ/brain/Destroy() //copypasted from MMIs.
+/obj/item/organ/internal/brain/Destroy() //copypasted from MMIs.
 	if(brainmob)
 		QDEL_NULL(brainmob)
 	QDEL_LIST(traumas)
@@ -208,7 +208,7 @@
 		owner.mind.set_current(null)
 	return ..()
 
-/obj/item/organ/brain/on_life(delta_time, times_fired)
+/obj/item/organ/internal/brain/on_life(delta_time, times_fired)
 	SHOULD_CALL_PARENT(FALSE)
 	if(damage >= BRAIN_DAMAGE_DEATH) //rip
 		to_chat(owner, span_userdanger("The last spark of life in your brain fizzles out."))
@@ -216,7 +216,7 @@
 		owner.death()
 		brain_death = TRUE
 
-/obj/item/organ/brain/check_damage_thresholds(mob/M)
+/obj/item/organ/internal/brain/check_damage_thresholds(mob/M)
 	. = ..()
 	//if we're not more injured than before, return without gambling for a trauma
 	if(damage <= prev_damage)
@@ -249,9 +249,9 @@
 			else
 				return brain_message
 
-/obj/item/organ/brain/before_organ_replacement(obj/item/organ/replacement)
+/obj/item/organ/internal/brain/before_organ_replacement(obj/item/organ/replacement)
 	. = ..()
-	var/obj/item/organ/brain/replacement_brain = replacement
+	var/obj/item/organ/internal/brain/replacement_brain = replacement
 	if(!istype(replacement_brain))
 		return
 
@@ -260,26 +260,26 @@
 		remove_trauma_from_traumas(trauma)
 		replacement_brain.add_trauma_to_traumas(trauma)
 
-/obj/item/organ/brain/alien
+/obj/item/organ/internal/brain/alien
 	name = "alien brain"
 	desc = "We barely understand the brains of terrestial animals. Who knows what we may find in the brain of such an advanced species?"
 	icon_state = "brain-x"
 	organ_traits = null
 
-/obj/item/organ/brain/diona
+/obj/item/organ/internal/brain/diona
 	name = "diona nymph"
 	desc = "A small mass of roots and plant matter, it looks to be moving."
 	icon_state = "diona_brain"
 	decoy_override = TRUE
 
-/obj/item/organ/brain/diona/on_mob_remove(mob/living/carbon/organ_owner, special)
+/obj/item/organ/internal/brain/diona/on_mob_remove(mob/living/carbon/organ_owner, special)
 	. = ..()
 	if(special)
 		return
 	organ_owner.dna.species.spec_death(FALSE, src)
 	QDEL_NULL(src)
 
-/obj/item/organ/brain/positron
+/obj/item/organ/internal/brain/positron
 	name = "positronic brain"
 	slot = ORGAN_SLOT_BRAIN
 	zone = BODY_ZONE_CHEST
@@ -288,7 +288,7 @@
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "posibrain-ipc"
 
-/obj/item/organ/brain/positron/on_mob_insert(mob/living/carbon/human/brain_owner)
+/obj/item/organ/internal/brain/positron/on_mob_insert(mob/living/carbon/human/brain_owner)
 	. = ..()
 	if(ishuman(brain_owner))
 		var/mob/living/carbon/human/H = brain_owner
@@ -297,13 +297,13 @@
 				if(H.health > 0)
 					H.revive(0)
 
-/obj/item/organ/brain/positron/emp_act(severity)
+/obj/item/organ/internal/brain/positron/emp_act(severity)
 	owner.apply_status_effect(/datum/status_effect/ipc/emp)
 	to_chat(owner, span_warning("Alert: Posibrain function disrupted."))
 
 ////////////////////////////////////TRAUMAS////////////////////////////////////////
 
-/obj/item/organ/brain/proc/has_trauma_type(brain_trauma_type = /datum/brain_trauma, resilience = TRAUMA_RESILIENCE_ABSOLUTE, special_method = FALSE)
+/obj/item/organ/internal/brain/proc/has_trauma_type(brain_trauma_type = /datum/brain_trauma, resilience = TRAUMA_RESILIENCE_ABSOLUTE, special_method = FALSE)
 	for(var/X in traumas)
 		var/datum/brain_trauma/BT = X
 		if(!istype(BT, brain_trauma_type))
@@ -314,7 +314,7 @@
 			continue
 		. += BT
 
-/obj/item/organ/brain/proc/get_traumas_type(brain_trauma_type = /datum/brain_trauma, resilience = TRAUMA_RESILIENCE_ABSOLUTE, special_method = FALSE)
+/obj/item/organ/internal/brain/proc/get_traumas_type(brain_trauma_type = /datum/brain_trauma, resilience = TRAUMA_RESILIENCE_ABSOLUTE, special_method = FALSE)
 	. = list()
 	for(var/X in traumas)
 		var/datum/brain_trauma/BT = X
@@ -326,7 +326,7 @@
 			continue
 		. += BT
 
-/obj/item/organ/brain/proc/can_gain_trauma(datum/brain_trauma/trauma, resilience)
+/obj/item/organ/internal/brain/proc/can_gain_trauma(datum/brain_trauma/trauma, resilience)
 	if(!ispath(trauma))
 		trauma = trauma.type
 	if(!initial(trauma.can_gain))
@@ -360,14 +360,14 @@
 	return TRUE
 
 //Proc to use when directly adding a trauma to the brain, so extra args can be given
-/obj/item/organ/brain/proc/gain_trauma(datum/brain_trauma/trauma, resilience, ...)
+/obj/item/organ/internal/brain/proc/gain_trauma(datum/brain_trauma/trauma, resilience, ...)
 	var/list/arguments = list()
 	if(args.len > 2)
 		arguments = args.Copy(3)
 	. = brain_gain_trauma(trauma, resilience, arguments)
 
 //Direct trauma gaining proc. Necessary to assign a trauma to its brain. Avoid using directly.
-/obj/item/organ/brain/proc/brain_gain_trauma(datum/brain_trauma/trauma, resilience, list/arguments)
+/obj/item/organ/internal/brain/proc/brain_gain_trauma(datum/brain_trauma/trauma, resilience, list/arguments)
 	if(!can_gain_trauma(trauma, resilience))
 		return
 
@@ -398,18 +398,18 @@
 
 /// Adds the passed trauma instance to our list of traumas and links it to our brain.
 /// DOES NOT handle setting up the trauma, that's done by [proc/brain_gain_trauma]!
-/obj/item/organ/brain/proc/add_trauma_to_traumas(datum/brain_trauma/trauma)
+/obj/item/organ/internal/brain/proc/add_trauma_to_traumas(datum/brain_trauma/trauma)
 	trauma.brain = src
 	traumas += trauma
 
 /// Removes the passed trauma instance to our list of traumas and links it to our brain
 /// DOES NOT handle removing the trauma's effects, that's done by [/datum/brain_trauma/Destroy()]!
-/obj/item/organ/brain/proc/remove_trauma_from_traumas(datum/brain_trauma/trauma)
+/obj/item/organ/internal/brain/proc/remove_trauma_from_traumas(datum/brain_trauma/trauma)
 	trauma.brain = null
 	traumas -= trauma
 
 //Add a random trauma of a certain subtype
-/obj/item/organ/brain/proc/gain_trauma_type(brain_trauma_type = /datum/brain_trauma, resilience)
+/obj/item/organ/internal/brain/proc/gain_trauma_type(brain_trauma_type = /datum/brain_trauma, resilience)
 	var/list/datum/brain_trauma/possible_traumas = list()
 	for(var/T in subtypesof(brain_trauma_type))
 		var/datum/brain_trauma/BT = T
@@ -423,18 +423,18 @@
 	gain_trauma(trauma_type, resilience)
 
 //Cure a random trauma of a certain resilience level
-/obj/item/organ/brain/proc/cure_trauma_type(brain_trauma_type = /datum/brain_trauma, resilience = TRAUMA_RESILIENCE_BASIC, special_method = FALSE)
+/obj/item/organ/internal/brain/proc/cure_trauma_type(brain_trauma_type = /datum/brain_trauma, resilience = TRAUMA_RESILIENCE_BASIC, special_method = FALSE)
 	var/list/traumas = get_traumas_type(brain_trauma_type, resilience, special_method)
 	if(LAZYLEN(traumas))
 		qdel(pick(traumas))
 
-/obj/item/organ/brain/proc/cure_all_traumas(resilience = TRAUMA_RESILIENCE_BASIC, special_method = FALSE)
+/obj/item/organ/internal/brain/proc/cure_all_traumas(resilience = TRAUMA_RESILIENCE_BASIC, special_method = FALSE)
 	var/list/traumas = get_traumas_type(resilience = resilience, special_method = special_method)
 	for(var/X in traumas)
 		qdel(X)
 
 /// This proc lets the mob's brain decide what bodypart to attack with in an unarmed strike.
-/obj/item/organ/brain/proc/get_attacking_limb(mob/living/carbon/human/target)
+/obj/item/organ/internal/brain/proc/get_attacking_limb(mob/living/carbon/human/target)
 	var/obj/item/bodypart/arm/active_hand = owner.get_active_hand()
 	if(target.body_position == LYING_DOWN && owner.usable_legs)
 		var/obj/item/bodypart/found_bodypart = owner.get_bodypart((active_hand.held_index % 2) ? BODY_ZONE_L_LEG : BODY_ZONE_R_LEG)
@@ -442,8 +442,8 @@
 	return active_hand
 
 /// Brains REALLY like ghosting people. we need special tricks to avoid that, namely removing the old brain with no_id_transfer
-/obj/item/organ/brain/replace_into(mob/living/carbon/new_owner)
-	var/obj/item/organ/brain/old_brain = new_owner.get_organ_slot(ORGAN_SLOT_BRAIN)
+/obj/item/organ/internal/brain/replace_into(mob/living/carbon/new_owner)
+	var/obj/item/organ/internal/brain/old_brain = new_owner.get_organ_slot(ORGAN_SLOT_BRAIN)
 	old_brain.Remove(new_owner, special = TRUE, movement_flags = NO_ID_TRANSFER)
 	qdel(old_brain)
 	return Insert(new_owner, special = TRUE, movement_flags = NO_ID_TRANSFER | DELETE_IF_REPLACED)

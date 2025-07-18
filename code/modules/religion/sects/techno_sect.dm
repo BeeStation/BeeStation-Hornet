@@ -32,7 +32,7 @@
 
 	//first we determine if we can charge them
 	var/did_we_charge = FALSE
-	var/obj/item/organ/stomach/battery/ethereal/eth_stomach = blessed.get_organ_slot(ORGAN_SLOT_STOMACH)
+	var/obj/item/organ/internal/stomach/battery/ethereal/eth_stomach = blessed.get_organ_slot(ORGAN_SLOT_STOMACH)
 	if(istype(eth_stomach))
 		eth_stomach.adjust_charge(60)
 		did_we_charge = TRUE
@@ -138,15 +138,15 @@
 	..()
 	var/altar_turf = get_turf(religious_tool)
 	var/blessing = pick(
-		/obj/item/organ/cyberimp/arm/surgery,
-		/obj/item/organ/cyberimp/eyes/hud/diagnostic,
-		/obj/item/organ/cyberimp/eyes/hud/medical,
-		/obj/item/organ/cyberimp/mouth/breathing_tube,
-		/obj/item/organ/cyberimp/chest/thrusters,
-		/obj/item/organ/cyberimp/chest/nutriment,
-		/obj/item/organ/cyberimp/arm/toolset,
-		/obj/item/organ/wings/cybernetic,
-		/obj/item/organ/eyes/robotic/glow)
+		/obj/item/organ/internal/cyberimp/arm/surgery,
+		/obj/item/organ/internal/cyberimp/eyes/hud/diagnostic,
+		/obj/item/organ/internal/cyberimp/eyes/hud/medical,
+		/obj/item/organ/internal/cyberimp/mouth/breathing_tube,
+		/obj/item/organ/internal/cyberimp/chest/thrusters,
+		/obj/item/organ/internal/cyberimp/chest/nutriment,
+		/obj/item/organ/internal/cyberimp/arm/toolset,
+		/obj/item/organ/external/wings/cybernetic,
+		/obj/item/organ/internal/eyes/robotic/glow)
 	new blessing(altar_turf)
 	return TRUE
 

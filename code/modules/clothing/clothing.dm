@@ -41,7 +41,6 @@
 	var/list/user_vars_remembered //Auto built by the above + dropped() + equipped()
 
 	/// Trait modification, lazylist of traits to add/take away, on equipment/drop in the correct slot
-	var/list/clothing_traits
 
 	var/high_pressure_multiplier = 1
 	var/static/list/high_pressure_multiplier_types = list(MELEE, BULLET, LASER, ENERGY, BOMB)
@@ -123,8 +122,8 @@
 /obj/item/clothing/attack(mob/living/target, mob/living/user, params)
 	if(user.combat_mode)
 		return //combat mode doesnt eat
-	var/obj/item/organ/tongue/tongue = target.get_organ_slot(ORGAN_SLOT_TONGUE)
-	if(!istype(tongue, /obj/item/organ/tongue/moth) && !istype(tongue, /obj/item/organ/tongue/psyphoza))
+	var/obj/item/organ/internal/tongue/tongue = target.get_organ_slot(ORGAN_SLOT_TONGUE)
+	if(!istype(tongue, /obj/item/organ/internal/tongue/moth) && !istype(tongue, /obj/item/organ/internal/tongue/psyphoza))
 		return ..() //Not a clotheater tongue? No Clotheating!
 	if((clothing_flags & NOTCONSUMABLE) && (resistance_flags & INDESTRUCTIBLE) && (get_armor_rating(MELEE) != 0))
 		return ..() //Any remaining flags that make eating it impossible?
@@ -252,8 +251,7 @@
 	if(!istype(user))
 		return
 	UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
-	for(var/trait in clothing_traits)
-		REMOVE_CLOTHING_TRAIT(user, trait)
+
 	if(LAZYLEN(user_vars_remembered))
 		for(var/variable in user_vars_remembered)
 			if(variable in user.vars)
@@ -268,47 +266,12 @@
 	if(slot_flags & slot) //Was equipped to a valid slot for this item?
 		if(iscarbon(user) && LAZYLEN(zones_disabled))
 			RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(bristle))
-		for(var/trait in clothing_traits)
-			ADD_CLOTHING_TRAIT(user, trait)
+
 		if(LAZYLEN(user_vars_to_edit))
 			for(var/variable in user_vars_to_edit)
 				if(variable in user.vars)
 					LAZYSET(user_vars_remembered, variable, user.vars[variable])
 					user.vv_edit_var(variable, user_vars_to_edit[variable])
-
-/**
- * Inserts a trait (or multiple traits) into the clothing traits list
- *
- * If worn, then we will also give the wearer the trait as if equipped
- *
- * This is so you can add clothing traits without worrying about needing to equip or unequip them to gain effects
- */
-/obj/item/clothing/proc/attach_clothing_traits(trait_or_traits)
-	if(!islist(trait_or_traits))
-		trait_or_traits = list(trait_or_traits)
-
-	LAZYOR(clothing_traits, trait_or_traits)
-	var/mob/wearer = loc
-	if(istype(wearer) && (wearer.get_slot_by_item(src) & slot_flags))
-		for(var/new_trait in trait_or_traits)
-			ADD_CLOTHING_TRAIT(wearer, new_trait)
-
-/**
- * Removes a trait (or multiple traits) from the clothing traits list
- *
- * If worn, then we will also remove the trait from the wearer as if unequipped
- *
- * This is so you can add clothing traits without worrying about needing to equip or unequip them to gain effects
- */
-/obj/item/clothing/proc/detach_clothing_traits(trait_or_traits)
-	if(!islist(trait_or_traits))
-		trait_or_traits = list(trait_or_traits)
-
-	LAZYREMOVE(clothing_traits, trait_or_traits)
-	var/mob/wearer = loc
-	if(istype(wearer))
-		for(var/new_trait in trait_or_traits)
-			REMOVE_CLOTHING_TRAIT(wearer, new_trait)
 
 /obj/item/clothing/examine(mob/user)
 	. = ..()

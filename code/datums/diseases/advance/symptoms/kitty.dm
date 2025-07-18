@@ -48,9 +48,9 @@
 		if(uwu && prob(40))
 			M.say(pick("", "", "", ";", ".h")+pick("Nya", "MIAOW", "Ny- NYAAA", "meow", "NYAAA", "nya", "Ny- meow", "mrrrr", "Mew- Nya") + pick("!", "!!", "~!!", "!~", "~", "", "", ""), forced = "toxoplasmosis")
 		if(mania)
-			var/obj/item/organ/ears/cat/ears = M.get_organ_by_type(/obj/item/organ/ears/cat)
-			var/obj/item/organ/tail/tail = M.get_organ_by_type(/obj/item/organ/tail)
-			if(tail && !istype(tail, /obj/item/organ/tail/cat))
+			var/obj/item/organ/internal/ears/cat/ears = M.get_organ_by_type(/obj/item/organ/internal/ears/cat)
+			var/obj/item/organ/external/tail/tail = M.get_organ_by_type(/obj/item/organ/external/tail)
+			if(tail && !istype(tail, /obj/item/organ/external/tail/cat))
 				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "toxoplasmosis", /datum/mood_event/feline_dysmorphia)
 				M.adjustOrganLoss(ORGAN_SLOT_EXTERNAL_TAIL, 30, 200)
 				M.visible_message(span_hypnophrase("This tail is disgusting! you have to get rid of it!"), span_warning("[M] pulls viciously at their own tail!"))
@@ -66,13 +66,13 @@
 				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "toxoplasmosis", /datum/mood_event/feline_dysmorphia)
 				if(dnacounter >= 5)
 					if(!tail)
-						var/obj/item/organ/tail/cat/cattail = new()
+						var/obj/item/organ/external/tail/cat/cattail = new()
 						cattail.Insert(M, movement_flags = DELETE_IF_REPLACED)
 						M.visible_message(span_warning("With the sound of grinding flesh and rearranging bone, a grotesque tail springs forth from [M]'s flesh."), span_hypnophrase("A tail spontaneously sprouts from your pelvis! It's so cute!"))
 						playsound(M, 'sound/magic/demon_consume.ogg', 50, 1)
 						M.add_splatter_floor(get_turf(M))
 					else
-						var/obj/item/organ/ears/cat/catears = new()
+						var/obj/item/organ/internal/ears/cat/catears = new()
 						catears.Insert(M, movement_flags = DELETE_IF_REPLACED)
 						M.visible_message( span_warning("[M]'s ears recede into their skull momentarily before their flesh contorts, and a pair of sickening cat ears erupts from their head."), span_hypnophrase("Your ears reshape themselves into an <b>ADORABLE</b> pair of cat ears!"))
 						playsound(M, 'sound/magic/demon_consume.ogg', 50, 1)
@@ -103,9 +103,9 @@
 			return
 		if(ishuman(cat))
 			var/mob/living/carbon/human/target = cat
-			var/obj/item/organ/ears/cat/targetears = target.get_organ_by_type(/obj/item/organ/ears/cat)
-			var/obj/item/organ/tail/cat/targettail = target.get_organ_by_type(/obj/item/organ/tail/cat)
-			if(!H.get_organ_by_type(/obj/item/organ/tail/cat) && targettail)
+			var/obj/item/organ/internal/ears/cat/targetears = target.get_organ_by_type(/obj/item/organ/internal/ears/cat)
+			var/obj/item/organ/external/tail/cat/targettail = target.get_organ_by_type(/obj/item/organ/external/tail/cat)
+			if(!H.get_organ_by_type(/obj/item/organ/external/tail/cat) && targettail)
 				target.adjustOrganLoss(ORGAN_SLOT_EXTERNAL_TAIL, 20, 200)
 				dnacounter += 1
 				if(targettail.organ_flags & ORGAN_FAILING)
@@ -124,7 +124,7 @@
 					H.visible_message(span_warning("[H] pulls at [target]'s tail!"), span_hypnophrase("You bat at [target]'s tail!"))
 					to_chat(target, span_userdanger("[H] pulls at your tail!"))
 					H.emote("laugh")
-			else if(!H.get_organ_by_type(/obj/item/organ/ears/cat) && targetears)
+			else if(!H.get_organ_by_type(/obj/item/organ/internal/ears/cat) && targetears)
 				target.adjustOrganLoss(ORGAN_SLOT_EARS, 20, 200)
 				dnacounter += 1
 				if(targetears.organ_flags & ORGAN_FAILING)
@@ -158,8 +158,8 @@
 			return L
 		if(ishuman(L))
 			var/mob/living/carbon/human/H = L
-			var/ears = H.get_organ_by_type(/obj/item/organ/ears/cat)
-			var/tail = H.get_organ_by_type(/obj/item/organ/tail/cat)
+			var/ears = H.get_organ_by_type(/obj/item/organ/internal/ears/cat)
+			var/tail = H.get_organ_by_type(/obj/item/organ/external/tail/cat)
 			if((ears && requiresears) || (tail && requirestail))
 				return H
 

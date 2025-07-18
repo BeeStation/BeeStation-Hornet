@@ -454,7 +454,13 @@ export const MainPage = (props: { openSpecies: () => void }) => {
 
         const mainFeatures = [
           ...Object.entries(data.character_preferences.clothing),
-          ...Object.entries(data.character_preferences.features),
+          ...Object.entries(data.character_preferences.features).filter(([featureName]) => {
+            if (!currentSpeciesData) {
+              return false;
+            }
+
+            return currentSpeciesData.enabled_features.indexOf(featureName) !== -1;
+          }),
         ];
 
         const randomBodyEnabled =

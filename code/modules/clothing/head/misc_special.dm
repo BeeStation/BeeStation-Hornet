@@ -26,7 +26,7 @@
 	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	resistance_flags = FIRE_PROOF
-	clothing_flags = SNUG_FIT | STACKABLE_HELMET_EXEMPT
+
 
 /datum/armor/utility_welding
 	melee = 10

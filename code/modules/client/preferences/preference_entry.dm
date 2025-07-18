@@ -281,27 +281,29 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 
 	return null
 
-/// Checks the species currently selected by the passed preferences object to see if it has this preference's key as a feature.
-/datum/preference/proc/current_species_has_savekey(datum/preferences/preferences)
-	var/species_type = preferences.read_preference(/datum/preference/choiced/species)
-	var/datum/species/species = GLOB.species_prototypes[species_type]
-	return (db_key in species.get_features())
-
-/// Checks if this preference is relevant and thus visible to the passed preferences object.
-/datum/preference/proc/has_relevant_feature(datum/preferences/preferences)
-	if(isnull(relevant_mutant_bodypart) && isnull(relevant_inherent_trait) && isnull(relevant_external_organ) && isnull(relevant_head_flag) && isnull(relevant_body_markings))
-		return TRUE
-
-	return current_species_has_savekey(preferences)
-
 /// Returns whether or not this preference is accessible.
 /// If FALSE, will not show in the UI and will not be editable (by update_preference).
 /datum/preference/proc/is_accessible(datum/preferences/preferences, ignore_page = FALSE)
 	SHOULD_CALL_PARENT(TRUE)
 	SHOULD_NOT_SLEEP(TRUE)
 
-	if (!has_relevant_feature(preferences))
+	if ( \
+		!isnull(relevant_mutant_bodypart) \
+		|| !isnull(relevant_inherent_trait) \
+		|| !isnull(relevant_external_organ) \
+		|| !isnull(relevant_head_flag) \
+		|| !isnull(relevant_body_markings) \
+	)
+		var/species_type = preferences.read_character_preference(/datum/preference/choiced/species)
+
+		var/datum/species/species = new species_type
+		if (!(db_key in species.get_features()))
+			return FALSE
+
+	if (!ignore_page && !should_show_on_page(preferences.current_window))
 		return FALSE
+
+	return TRUE
 
 /// Returns whether or not, given the PREFERENCE_TAB_*, this preference should
 /// appear.

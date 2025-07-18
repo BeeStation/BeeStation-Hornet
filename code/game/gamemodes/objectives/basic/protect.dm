@@ -9,7 +9,7 @@
 	..()
 
 /datum/objective/protect/check_completion()
-	var/obj/item/organ/brain/brain_target
+	var/obj/item/organ/internal/brain/brain_target
 	if(human_check)
 		brain_target = target?.current.get_organ_slot(ORGAN_SLOT_BRAIN)
 	if(..() || !target)

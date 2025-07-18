@@ -923,7 +923,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	log_combat(user, M, "attacked", "[src.name]", "(Combat mode: [user.combat_mode ? "On" : "Off"])")
 
-	var/obj/item/organ/eyes/eyes = M.get_organ_slot(ORGAN_SLOT_EYES)
+	var/obj/item/organ/internal/eyes/eyes = M.get_organ_slot(ORGAN_SLOT_EYES)
 	if (!eyes)
 		return
 	M.adjust_blurriness(3)

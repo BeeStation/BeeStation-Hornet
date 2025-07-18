@@ -474,7 +474,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cerulean_slime_crystal)
 		return ..()
 
 	blood_amt -= 100
-	var/type = pick(/obj/item/food/meat/slab,/obj/item/organ/heart,/obj/item/organ/lungs,/obj/item/organ/liver,/obj/item/organ/eyes,/obj/item/organ/tongue,/obj/item/organ/stomach,/obj/item/organ/ears)
+	var/type = pick(/obj/item/food/meat/slab,/obj/item/organ/internal/heart,/obj/item/organ/internal/lungs,/obj/item/organ/internal/liver,/obj/item/organ/internal/eyes,/obj/item/organ/internal/tongue,/obj/item/organ/internal/stomach,/obj/item/organ/internal/ears)
 	new type(get_turf(src))
 
 /obj/structure/slime_crystal/red/attacked_by(obj/item/I, mob/living/user)

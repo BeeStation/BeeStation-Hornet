@@ -29,7 +29,7 @@
 		return
 	target.eye_color = value
 
-	var/obj/item/organ/eyes/eyes_organ = target.get_organ_by_type(/obj/item/organ/eyes)
+	var/obj/item/organ/internal/eyes/eyes_organ = target.get_organ_by_type(/obj/item/organ/internal/eyes)
 	if (istype(eyes_organ))
 		if (!initial(eyes_organ.eye_color))
 			eyes_organ.eye_color = value
@@ -176,9 +176,6 @@
 	relevant_head_flag = HEAD_HAIR
 	priority = PREFERENCE_PRIORITY_HAIR_COLOR
 
-/datum/preference/color/hair_color/has_relevant_feature(datum/preferences/preferences)
-	return ..() || (/datum/quirk/item_quirk/bald::name in preferences.all_quirks)
-
 /datum/preference/color/hair_color/apply_to_human(mob/living/carbon/human/target, value)
 	if(isipc(target))
 		return
@@ -196,9 +193,6 @@
 	should_generate_icons = TRUE
 	relevant_head_flag = HEAD_HAIR
 	preference_spritesheet = PREFERENCE_SHEET_HUGE
-
-/datum/preference/choiced/hairstyle/has_relevant_feature(datum/preferences/preferences)
-	return ..() || (/datum/quirk/item_quirk/bald::name in preferences.all_quirks)
 
 /datum/preference/choiced/hairstyle/init_possible_values()
 	return assoc_to_keys_features(GLOB.hairstyles_list)

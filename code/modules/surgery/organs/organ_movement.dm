@@ -21,8 +21,7 @@
 	if(!special && !(receiver.living_flags & STOP_OVERLAY_UPDATE_BODY_PARTS))
 		receiver.update_body_parts()
 
-	if(!special)
-		receiver.update_body_parts()
+	return TRUE
 
 /*
  * Remove the organ from the select mob.
@@ -71,11 +70,6 @@
 		// wash also adds the blood dna again
 		wash(CLEAN_TYPE_BLOOD)
 		organ_flags &= ~ORGAN_VIRGIN
-
-	if(external_bodytypes)
-		receiver.synchronize_bodytypes()
-	if(external_bodyshapes)
-		receiver.synchronize_bodyshapes()
 
 	receiver.organs |= src
 	receiver.organs_slot[slot] = src
@@ -132,9 +126,6 @@
 	ADD_TRAIT(src, TRAIT_NODROP, ORGAN_INSIDE_BODY_TRAIT)
 	interaction_flags_item &= ~INTERACT_ITEM_ATTACK_HAND_PICKUP
 
-	if(bodypart_overlay)
-		limb.add_bodypart_overlay(bodypart_overlay)
-
 /*
  * Remove the organ from the select mob.
  *
@@ -176,9 +167,6 @@
 	UnregisterSignal(organ_owner, COMSIG_PARENT_EXAMINE)
 	SEND_SIGNAL(src, COMSIG_ORGAN_REMOVED, organ_owner)
 	SEND_SIGNAL(organ_owner, COMSIG_CARBON_LOSE_ORGAN, src, special)
-
-	organ_owner.synchronize_bodytypes()
-	organ_owner.synchronize_bodyshapes()
 
 	var/list/diseases = organ_owner.get_static_viruses()
 	if(!LAZYLEN(diseases))
@@ -227,16 +215,6 @@
 	item_flags &= ~ABSTRACT
 	REMOVE_TRAIT(src, TRAIT_NODROP, ORGAN_INSIDE_BODY_TRAIT)
 	interaction_flags_item |= INTERACT_ITEM_ATTACK_HAND_PICKUP
-
-	if(!bodypart_overlay)
-		return
-
-	limb.remove_bodypart_overlay(bodypart_overlay)
-
-	if(use_mob_sprite_as_obj_sprite)
-		update_appearance(UPDATE_OVERLAYS)
-
-	color = bodypart_overlay.draw_color // so a pink felinid doesn't drop a gray tail
 
 /// In space station videogame, nothing is sacred. If somehow an organ is removed unexpectedly, handle it properly
 /obj/item/organ/proc/forced_removal()

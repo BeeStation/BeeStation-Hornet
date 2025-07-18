@@ -54,7 +54,7 @@
 	greyscale_config_inhand_left = /datum/greyscale_config/plasmaman_helmet_default_inhand_left
 	greyscale_config_inhand_right = /datum/greyscale_config/plasmaman_helmet_default_inhand_right
 	greyscale_config_worn = /datum/greyscale_config/plasmaman_helmet_default_worn
-	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT | STACKABLE_HELMET_EXEMPT | HEADINTERNALS
+	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS
 	strip_delay = 80
 	flash_protect = 2
 	tint = 2
@@ -138,7 +138,7 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/human_user = user
-	var/obj/item/organ/lungs/living_lungs = human_user.get_organ_slot(ORGAN_SLOT_LUNGS)
+	var/obj/item/organ/internal/lungs/living_lungs = human_user.get_organ_slot(ORGAN_SLOT_LUNGS)
 	//Early return if its not on the head slot, on a mob that breathes plasma
 	if(slot != ITEM_SLOT_HEAD || living_lungs.breathing_class == /datum/breathing_class/plasma)
 		return

@@ -1,7 +1,7 @@
 /datum/round_event_control/spontaneous_appendicitis
 	name = "Spontaneous Appendicitis"
 	typepath = /datum/round_event/spontaneous_appendicitis
-	weight = 10
+	weight = 10 
 	max_occurrences = 4
 	earliest_start = 10 MINUTES
 	min_players = 25 // This sucks when there's no medical staff
@@ -15,7 +15,7 @@
 			continue
 		if(H.stat == DEAD)
 			continue
-		if(!H.get_organ_by_type(/obj/item/organ/appendix)) //Don't give the disease to some who lacks it, only for it to be auto-cured
+		if(!H.get_organ_by_type(/obj/item/organ/internal/appendix)) //Don't give the disease to some who lacks it, only for it to be auto-cured
 			continue
 		if(!(MOB_ORGANIC in H.mob_biotypes)) //biotype sleeper bugs strike again, once again making appendicitis pick a target that can't take it
 			continue

@@ -225,8 +225,8 @@
 		icon_state = "[initial(icon_state)]_impregnated"
 
 		var/obj/item/bodypart/chest/LC = target.get_bodypart(BODY_ZONE_CHEST)
-		if((!LC || IS_ORGANIC_LIMB(LC)) && !target.get_organ_by_type(/obj/item/organ/body_egg/alien_embryo))
-			new /obj/item/organ/body_egg/alien_embryo(target)
+		if((!LC || IS_ORGANIC_LIMB(LC)) && !target.get_organ_by_type(/obj/item/organ/internal/body_egg/alien_embryo))
+			new /obj/item/organ/internal/body_egg/alien_embryo(target)
 			var/turf/T = get_turf(target)
 			log_game("[key_name(target)] was impregnated by a facehugger at [loc_name(T)]")
 
@@ -261,14 +261,14 @@
 	visible_message(span_danger("[src] curls up into a ball!"))
 
 /proc/CanHug(mob/living/M)
-	if(!istype(M) || M.stat == DEAD || M.get_organ_by_type(/obj/item/organ/alien/hivenode))
+	if(!istype(M) || M.stat == DEAD || M.get_organ_by_type(/obj/item/organ/internal/alien/hivenode))
 		return FALSE
 
 	if(ismonkey(M))
 		return TRUE
 
 	var/mob/living/carbon/C = M
-	if(ishuman(C) && !(C.dna.species.no_equip_flags & ITEM_SLOT_MASK))
+	if(ishuman(C) && !(ITEM_SLOT_MASK in C.dna.species.no_equip))
 		var/mob/living/carbon/human/H = C
 		if(H.is_mouth_covered(head_only = 1))
 			return FALSE

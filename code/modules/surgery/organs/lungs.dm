@@ -2,9 +2,10 @@
 #define BREATH_OXY		/datum/breathing_class/oxygen
 #define BREATH_PLASMA	/datum/breathing_class/plasma
 
-/obj/item/organ/lungs
+/obj/item/organ/internal/lungs
 	name = "lungs"
 	icon_state = "lungs"
+	visual = FALSE
 	zone = BODY_ZONE_CHEST
 	slot = ORGAN_SLOT_LUNGS
 	gender = PLURAL
@@ -77,25 +78,26 @@
 
 	var/crit_stabilizing_reagent = /datum/reagent/medicine/epinephrine
 
-/obj/item/organ/lungs/New()
+/obj/item/organ/internal/lungs/New()
 	. = ..()
 	populate_gas_info()
 
-/obj/item/organ/lungs/mob_insert(mob/living/carbon/receiver, special = FALSE, movement_flags)
+/obj/item/organ/internal/lungs/Insert(mob/living/carbon/M, special = FALSE, movement_flags)
 	// This may look weird, but uh, organ code is weird, so we FIRST check to see if this organ is going into a NEW person.
 	// If it is going into a new person, ..() will ensure that organ is Remove()d first, and we won't run into any issues with duplicate signals.
-	var/new_owner = QDELETED(owner) || owner != receiver
+	var/new_owner = QDELETED(owner) || owner != M
 	. = ..()
-
+	if(!.)
+		return .
 	if(new_owner)
-		RegisterSignal(receiver, SIGNAL_ADDTRAIT(TRAIT_NOBREATH), PROC_REF(on_nobreath))
+		RegisterSignal(M, SIGNAL_ADDTRAIT(TRAIT_NOBREATH), PROC_REF(on_nobreath))
 
-/obj/item/organ/lungs/mob_remove(mob/living/carbon/organ_owner, special, movement_flags)
+/obj/item/organ/internal/lungs/Remove(mob/living/carbon/organ_owner, special, movement_flags)
 	. = ..()
 	UnregisterSignal(organ_owner, SIGNAL_ADDTRAIT(TRAIT_NOBREATH))
 	LAZYNULL(thrown_alerts)
 
-/obj/item/organ/lungs/proc/populate_gas_info()
+/obj/item/organ/internal/lungs/proc/populate_gas_info()
 	gas_min[breathing_class] = safe_breath_min
 	gas_max[breathing_class] = safe_breath_max
 	gas_damage[breathing_class] = list(
@@ -104,7 +106,7 @@
 		damage_type = safe_damage_type
 	)
 
-/obj/item/organ/lungs/proc/on_nobreath(mob/living/carbon/source)
+/obj/item/organ/internal/lungs/proc/on_nobreath(mob/living/carbon/source)
 	SIGNAL_HANDLER
 	var/static/list/breath_moodlets = list("chemical_euphoria", "suffocation") // Moodlets directly caused by breathing
 	if(!istype(source))
@@ -116,19 +118,19 @@
 	for(var/moodlet in breath_moodlets)
 		SEND_SIGNAL(source, COMSIG_CLEAR_MOOD_EVENT, moodlet)
 
-/obj/item/organ/lungs/proc/throw_alert_for(mob/living/carbon/target, alert_category, alert_type)
+/obj/item/organ/internal/lungs/proc/throw_alert_for(mob/living/carbon/target, alert_category, alert_type)
 	if(!istype(target) || !alert_category || !alert_type)
 		return
 	target.throw_alert(alert_category, alert_type)
 	LAZYOR(thrown_alerts, alert_category)
 
-/obj/item/organ/lungs/proc/clear_alert_for(mob/living/carbon/target, alert_category)
+/obj/item/organ/internal/lungs/proc/clear_alert_for(mob/living/carbon/target, alert_category)
 	if(!istype(target) || !alert_category)
 		return
 	target.clear_alert(alert_category)
 	LAZYREMOVE(thrown_alerts, alert_category)
 
-/obj/item/organ/lungs/proc/check_breath(datum/gas_mixture/breath, mob/living/carbon/human/H)
+/obj/item/organ/internal/lungs/proc/check_breath(datum/gas_mixture/breath, mob/living/carbon/human/H)
 	//TODO: add lung damage = less oxygen gains
 	var/breathModifier = (5-(5*(damage/maxHealth)/2)) //range 2.5 - 5
 	if(H.status_flags & GODMODE)
@@ -299,7 +301,7 @@
 
 	return TRUE
 
-/obj/item/organ/lungs/proc/handle_too_little_breath(mob/living/carbon/human/H = null, breath_pp = 0, safe_breath_min = 0, true_pp = 0)
+/obj/item/organ/internal/lungs/proc/handle_too_little_breath(mob/living/carbon/human/H = null, breath_pp = 0, safe_breath_min = 0, true_pp = 0)
 	. = 0
 	if(!H || !safe_breath_min) //the other args are either: Ok being 0 or Specifically handled.
 		return FALSE
@@ -315,7 +317,7 @@
 		H.adjustOxyLoss(HUMAN_MAX_OXYLOSS)
 		H.failed_last_breath = TRUE
 
-/obj/item/organ/lungs/proc/handle_breath_temperature(datum/gas_mixture/breath, mob/living/carbon/human/H) // called by human/life, handles temperatures
+/obj/item/organ/internal/lungs/proc/handle_breath_temperature(datum/gas_mixture/breath, mob/living/carbon/human/H) // called by human/life, handles temperatures
 	var/breath_temperature = breath.return_temperature()
 
 	if(!HAS_TRAIT(H, TRAIT_RESISTCOLD)) // COLD DAMAGE
@@ -345,7 +347,7 @@
 	// The air you breathe out should match your body temperature
 	breath.temperature = H.bodytemperature
 
-/obj/item/organ/lungs/on_life(delta_time, times_fired)
+/obj/item/organ/internal/lungs/on_life(delta_time, times_fired)
 	..()
 	if((!failed) && ((organ_flags & ORGAN_FAILING)))
 		if(owner.stat == CONSCIOUS)
@@ -355,25 +357,25 @@
 		failed = FALSE
 	return
 
-/obj/item/organ/lungs/get_availability(datum/species/owner_species, mob/living/owner_mob)
+/obj/item/organ/internal/lungs/get_availability(datum/species/owner_species, mob/living/owner_mob)
 	return owner_species.mutantlungs
 
-/obj/item/organ/lungs/plasmaman
+/obj/item/organ/internal/lungs/plasmaman
 	name = "plasma filter"
 	desc = "A spongy rib-shaped mass for filtering plasma from the air."
 	icon_state = "lungs-plasma"
 
 	breathing_class = BREATH_PLASMA
 
-/obj/item/organ/lungs/plasmaman/populate_gas_info()
+/obj/item/organ/internal/lungs/plasmaman/populate_gas_info()
 	..()
 	gas_max -= /datum/breathing_class/plasma
 
-/obj/item/organ/lungs/slime
+/obj/item/organ/internal/lungs/slime
 	name = "vacuole"
 	desc = "A large organelle designed to store oxygen and filter toxins."
 
-/obj/item/organ/lungs/cybernetic
+/obj/item/organ/internal/lungs/cybernetic
 	name = "cybernetic lungs"
 	desc = "A cybernetic version of the lungs found in traditional humanoid entities. Allows for greater intakes of oxygen than organic lungs, requiring slightly less pressure."
 	icon_state = "lungs-c"
@@ -382,7 +384,7 @@
 	safe_breath_min = 13
 	safe_breath_max = 100
 
-/obj/item/organ/lungs/cybernetic/emp_act(severity)
+/obj/item/organ/internal/lungs/cybernetic/emp_act(severity)
 	. = ..()
 	if(. & EMP_PROTECT_SELF)
 		return
@@ -390,7 +392,7 @@
 		owner.losebreath += 10
 
 
-/obj/item/organ/lungs/cybernetic/upgraded
+/obj/item/organ/internal/lungs/cybernetic/upgraded
 	name = "upgraded cybernetic lungs"
 	desc = "A more advanced version of the stock cybernetic lungs. Features the ability to filter out lower levels of toxins and carbon dioxide."
 	icon_state = "lungs-c-u"
@@ -406,13 +408,13 @@
 	cold_level_2_threshold = 140
 	cold_level_3_threshold = 100
 
-/obj/item/organ/lungs/apid
+/obj/item/organ/internal/lungs/apid
 	name = "apid lungs"
 	desc = "Lungs from an apid, or beeperson. Thanks to the many spiracles an apid has, these lungs are capable of gathering more oxygen from low-pressure environments."
 	icon_state = "lungs"
 	safe_breath_min = 8
 
-/obj/item/organ/lungs/ashwalker
+/obj/item/organ/internal/lungs/ashwalker
 	name = "ash walker lungs"
 	desc = "Lungs belonging to the tribal group of lizardmen that have adapted to Lavaland's atmosphere, and thus can breathe its air safely but find the station's \
 	air to be oversaturated with oxygen."
@@ -423,7 +425,7 @@
 		/datum/gas/plasma = 1
 	)
 
-/obj/item/organ/lungs/diona
+/obj/item/organ/internal/lungs/diona
 	name = "diona leaves"
 	desc = "A small mass concentrated leaves, used for breathing."
 	icon_state = "diona_lungs"

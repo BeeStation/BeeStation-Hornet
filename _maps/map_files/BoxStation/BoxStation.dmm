@@ -33696,7 +33696,7 @@
 /obj/machinery/camera/directional/west,
 /obj/structure/table/wood/fancy,
 /obj/item/soulstone/anybody/chaplain,
-/obj/item/organ/heart,
+/obj/item/organ/internal/heart,
 /obj/item/reagent_containers/cup/glass/bottle/holywater,
 /obj/item/book/granter/action/spell/smoke/lesser,
 /turf/open/floor/iron/dark,

@@ -47140,7 +47140,7 @@
 "jdj" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/closet/crate/freezer/surplus_limbs,
-/obj/item/organ/ears/cat,
+/obj/item/organ/internal/ears/cat,
 /turf/open/floor/iron/dark,
 /area/medical/surgery)
 "jdl" = (
@@ -49544,7 +49544,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/surgical_drapes,
-/obj/item/organ/ears/cat,
+/obj/item/organ/internal/ears/cat,
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "jUh" = (
@@ -83018,7 +83018,7 @@
 /area/hallway/primary/aft)
 "uDQ" = (
 /obj/structure/table/wood/fancy,
-/obj/item/organ/heart,
+/obj/item/organ/internal/heart,
 /obj/item/reagent_containers/cup/glass/bottle/holywater,
 /obj/item/soulstone/anybody/chaplain,
 /obj/item/book/granter/action/spell/smoke/lesser,

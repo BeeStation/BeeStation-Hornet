@@ -65,11 +65,11 @@
 /obj/structure/closet/crate/freezer{
 	name = "organ storage"
 	},
-/obj/item/organ/tail/cat,
-/obj/item/organ/tail/cat,
-/obj/item/organ/ears/cat,
-/obj/item/organ/ears/cat,
-/obj/item/organ/heart,
+/obj/item/organ/external/tail/cat,
+/obj/item/organ/external/tail/cat,
+/obj/item/organ/internal/ears/cat,
+/obj/item/organ/internal/ears/cat,
+/obj/item/organ/internal/heart,
 /turf/open/floor/plating,
 /area/template_noop)
 "o" = (

@@ -2,8 +2,8 @@
 	name = "\improper Ethereal"
 	id = SPECIES_ETHEREAL
 	meat = /obj/item/food/meat/slab/human/mutant/ethereal
-	mutantstomach = /obj/item/organ/stomach/battery/ethereal
-	mutanttongue = /obj/item/organ/tongue/ethereal
+	mutantstomach = /obj/item/organ/internal/stomach/battery/ethereal
+	mutanttongue = /obj/item/organ/internal/tongue/ethereal
 	exotic_blood = /datum/reagent/consumable/liquidelectricity //Liquid Electricity. fuck you think of something better gamer
 	siemens_coeff = 0.5 //They thrive on energy
 	inherent_traits = list(
@@ -72,7 +72,7 @@
 	spec_updatehealth(ethereal)
 	new_ethereal.set_safe_hunger_level()
 
-	//var/obj/item/organ/heart/ethereal/ethereal_heart = new_ethereal.get_organ_slot(ORGAN_SLOT_HEART)
+	//var/obj/item/organ/internal/heart/ethereal/ethereal_heart = new_ethereal.get_organ_slot(ORGAN_SLOT_HEART)
 	//ethereal_heart.ethereal_color = default_color
 
 	for(var/obj/item/bodypart/limb as anything in new_ethereal.bodyparts)
