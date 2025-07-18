@@ -1,0 +1,4 @@
+author: Nakalon
+delete-after: true
+changes:
+  - tweak: Stripping a mob now puts the item in the strippers hands
