@@ -597,6 +597,7 @@
 	hardsuit_type = "cybersun"
 	armor_type = /datum/armor/hardsuit_cybersun
 	strip_delay = 600
+	clothing_flags = NOTCONSUMABLE | STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS | THICKMATERIAL
 
 
 /datum/armor/hardsuit_cybersun
@@ -623,6 +624,7 @@
 	item_state = "death_commando_mask"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/cybersun
 	jetpack = /obj/item/tank/jetpack/suit
+	clothing_flags = NOTCONSUMABLE | STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS | THICKMATERIAL
 
 	//Syndicate hardsuit
 
@@ -655,7 +657,7 @@
 	)
 	visor_flags_inv = HIDEMASK|HIDEEYES|HIDEFACE|HIDEFACIALHAIR|HIDEEARS|HIDESNOUT
 	visor_flags = STOPSPRESSUREDAMAGE | HEADINTERNALS
-
+	clothing_flags = NOTCONSUMABLE | STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS | THICKMATERIAL
 
 /datum/armor/hardsuit_syndi
 	melee = 40
@@ -765,6 +767,7 @@
 		/datum/action/item_action/toggle_beacon,
 		/datum/action/item_action/toggle_beacon_frequency
 	)
+	clothing_flags = NOTCONSUMABLE | STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS | THICKMATERIAL
 
 /obj/item/clothing/suit/space/hardsuit/syndi/ComponentInitialize()
 	. = ..()
