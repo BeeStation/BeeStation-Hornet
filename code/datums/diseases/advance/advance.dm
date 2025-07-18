@@ -694,7 +694,7 @@
 				bodies += list("Needle", "Maint")
 			if(/obj/item/fugu_gland)
 				prefixes += "Wumbo"
-			if(/obj/item/organ/internal/lungs)
+			if(/obj/item/organ/lungs)
 				prefixes += "Miasmic "
 				bodies += list("Stench", "Lung")
 	for(var/datum/symptom/Symptom as() in symptoms)

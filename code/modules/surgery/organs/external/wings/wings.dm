@@ -1,5 +1,5 @@
 ///Wing base type. doesn't really do anything
-/obj/item/organ/external/wings
+/obj/item/organ/wings
 	name = "wings"
 	desc = "Spread your wings and FLLLLLLLLYYYYY!"
 
@@ -8,6 +8,8 @@
 
 	use_mob_sprite_as_obj_sprite = TRUE
 	bodypart_overlay = /datum/bodypart_overlay/mutant/wings
+
+	organ_flags = parent_type::organ_flags | ORGAN_EXTERNAL
 
 	///The flight action object
 	var/datum/action/innate/flight/fly
@@ -23,11 +25,11 @@
 	food_reagents = list(/datum/reagent/flightpotion = 5)
 
 ///Checks if the wings can soften short falls
-/obj/item/organ/external/wings/proc/can_soften_fall()
+/obj/item/organ/wings/proc/can_soften_fall()
 	return TRUE
 
 ///Implement as needed to play a sound effect on *flap emote
-/obj/item/organ/external/wings/proc/make_flap_sound(mob/living/carbon/wing_owner)
+/obj/item/organ/wings/proc/make_flap_sound(mob/living/carbon/wing_owner)
 	return
 
 ///hud action for starting and stopping flight
@@ -40,7 +42,7 @@
 
 /datum/action/innate/flight/on_activate(mob/user, atom/target)
 	var/mob/living/carbon/human/human = owner
-	var/obj/item/organ/external/wings/wings = human.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS)
+	var/obj/item/organ/wings/wings = human.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS)
 	if(wings?.can_fly(human))
 		wings.toggle_flight(human)
 		if(!(human.movement_type & FLYING))
@@ -49,27 +51,27 @@
 			to_chat(human, span_notice("You beat your wings and begin to hover gently above the ground..."))
 			human.set_resting(FALSE, TRUE)
 
-/obj/item/organ/external/wings/Destroy()
+/obj/item/organ/wings/Destroy()
 	if(fly)
 		QDEL_NULL(fly)
 	return ..()
 
-/obj/item/organ/external/wings/mob_insert(mob/living/carbon/receiver, special, movement_flags)
+/obj/item/organ/wings/mob_insert(mob/living/carbon/receiver, special, movement_flags)
 	. = ..()
 
 	update_flight(receiver)
 
-/obj/item/organ/external/wings/mob_remove(mob/living/carbon/organ_owner, special, movement_flags)
+/obj/item/organ/wings/mob_remove(mob/living/carbon/organ_owner, special, movement_flags)
 	. = ..()
 	update_flight(null)
 
-/obj/item/organ/external/wings/proc/set_flight(mob/living/carbon/organ_owner, state = null)
+/obj/item/organ/wings/proc/set_flight(mob/living/carbon/organ_owner, state = null)
 	if(!isnull(state))
 		flight_level = state
 
 	update_flight(organ_owner)
 
-/obj/item/organ/external/wings/proc/update_flight(mob/living/carbon/organ_owner)
+/obj/item/organ/wings/proc/update_flight(mob/living/carbon/organ_owner)
 	// Remove any existing flight ability
 	fly?.Remove(owner)
 	if(wings_open)
@@ -83,12 +85,12 @@
 		// Grant the flight action to the owner
 		fly.Grant(organ_owner)
 
-/obj/item/organ/external/wings/on_life(seconds_per_tick, times_fired)
+/obj/item/organ/wings/on_life(seconds_per_tick, times_fired)
 	. = ..()
 	handle_flight(owner)
 
 ///Called on_life(). Handle flight code and check if we're still flying
-/obj/item/organ/external/wings/proc/handle_flight(mob/living/carbon/human/human)
+/obj/item/organ/wings/proc/handle_flight(mob/living/carbon/human/human)
 	if(!(human.movement_type & FLYING))
 		return FALSE
 	if(!can_fly(human))
@@ -98,7 +100,7 @@
 
 
 ///Check if we're still eligible for flight (wings covered, atmosphere too thin, etc)
-/obj/item/organ/external/wings/proc/can_fly(mob/living/carbon/human/human)
+/obj/item/organ/wings/proc/can_fly(mob/living/carbon/human/human)
 	if(human.stat || human.body_position == LYING_DOWN)
 		return FALSE
 	if(flight_level < WINGS_AIRWORTHY)
@@ -119,7 +121,7 @@
 		return TRUE
 
 ///Slipping but in the air?
-/obj/item/organ/external/wings/proc/fly_slip(mob/living/carbon/human/human)
+/obj/item/organ/wings/proc/fly_slip(mob/living/carbon/human/human)
 	var/obj/buckled_obj
 	if(human.buckled)
 		buckled_obj = human.buckled
@@ -142,7 +144,7 @@
 	return TRUE
 
 ///UNSAFE PROC, should only be called through the Activate or other sources that check for CanFly
-/obj/item/organ/external/wings/proc/toggle_flight(mob/living/carbon/human/human)
+/obj/item/organ/wings/proc/toggle_flight(mob/living/carbon/human/human)
 	if(!HAS_TRAIT_FROM(human, TRAIT_MOVE_FLYING, SPECIES_FLIGHT_TRAIT))
 		human.physiology.stun_mod *= 2
 		human.add_traits(list(TRAIT_NO_FLOATING_ANIM, TRAIT_MOVE_FLYING), SPECIES_FLIGHT_TRAIT)
@@ -157,14 +159,14 @@
 	human.refresh_gravity()
 
 ///SPREAD OUR WINGS AND FLLLLLYYYYYY
-/obj/item/organ/external/wings/proc/open_wings()
+/obj/item/organ/wings/proc/open_wings()
 	var/datum/bodypart_overlay/mutant/wings/overlay = bodypart_overlay
 	overlay.open_wings()
 	wings_open = TRUE
 	owner.update_body_parts()
 
 ///close our wings
-/obj/item/organ/external/wings/proc/close_wings()
+/obj/item/organ/wings/proc/close_wings()
 	var/datum/bodypart_overlay/mutant/wings/overlay = bodypart_overlay
 	wings_open = FALSE
 	overlay.close_wings()
@@ -215,7 +217,7 @@
 	. += wings_open ? "open" : "closed"
 
 ///angel wings, which relate to humans. comes with holiness.
-/obj/item/organ/external/wings/angel
+/obj/item/organ/wings/angel
 	name = "angel wings"
 	desc = "Holier-than-thou attitude not included."
 	sprite_accessory_override = /datum/sprite_accessory/wings_open/angel
@@ -223,36 +225,36 @@
 	organ_traits = list(TRAIT_HOLY)
 
 ///dragon wings, which relate to lizards.
-/obj/item/organ/external/wings/dragon
+/obj/item/organ/wings/dragon
 	name = "dragon wings"
 	desc = "Hey, HEY- NOT lizard wings. Dragon wings. Mighty dragon wings."
 	sprite_accessory_override = /datum/sprite_accessory/wings/dragon
 
 ///robotic wings, which relate to androids.
-/obj/item/organ/external/wings/robotic
+/obj/item/organ/wings/robotic
 	name = "robotic wings"
 	desc = "Using microscopic hover-engines, or \"microwings,\" as they're known in the trade, these tiny devices are able to lift a few grams at a time. Gathering enough of them, and you can lift impressively large things."
 	organ_flags = ORGAN_ROBOTIC
 	sprite_accessory_override = /datum/sprite_accessory/wings/robotic
 
 ///skeletal wings, which relate to skeletal races.
-/obj/item/organ/external/wings/skeleton
+/obj/item/organ/wings/skeleton
 	name = "skeletal wings"
 	desc = "Powered by pure edgy-teenager-notebook-scribblings. Just kidding. But seriously, how do these keep you flying?!"
 	sprite_accessory_override = /datum/sprite_accessory/wings/skeleton
 
-/obj/item/organ/external/wings/moth/make_flap_sound(mob/living/carbon/wing_owner)
+/obj/item/organ/wings/moth/make_flap_sound(mob/living/carbon/wing_owner)
 	playsound(wing_owner, 'sound/emotes/moth/moth_flutter.ogg', 50, TRUE)
 
 ///fly wings, which relate to flies.
-/obj/item/organ/external/wings/fly
+/obj/item/organ/wings/fly
 	name = "fly wings"
 	desc = "Fly as a fly."
 	sprite_accessory_override = /datum/sprite_accessory/wings/fly
 	//flight_level = WINGS_COSMETIC
 
 ///Bee wings with special dash ability
-/obj/item/organ/external/wings/bee
+/obj/item/organ/wings/bee
 	name = "pair of bee wings"
 	desc = "A pair of bee wings. They seem tiny and undergrown."
 	icon_state = "beewings"
@@ -269,7 +271,7 @@
 
 /datum/action/item_action/organ_action/use/bee_dash/on_activate(mob/user, atom/target)
 	var/mob/living/carbon/human/H = owner
-	var/obj/item/organ/external/wings/bee/wings = H.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS)
+	var/obj/item/organ/wings/bee/wings = H.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS)
 	var/jumpdistance = wings.jumpdist
 
 	if(H.buckled)
@@ -316,19 +318,19 @@
 		playsound(src,'sound/weapons/punch1.ogg', 50, TRUE)
 
 ///Cybernetic wings that can malfunction from EMP
-/obj/item/organ/external/wings/cybernetic
+/obj/item/organ/wings/cybernetic
 	name = "cybernetic wingpack"
 	desc = "A compact pair of mechanical wings, which use the atmosphere to create thrust."
 	icon_state = "wingpack"
 	color = "#FFFFFF"
 	organ_flags = ORGAN_ROBOTIC
 
-/obj/item/organ/external/wings/cybernetic/emp_act(severity)
+/obj/item/organ/wings/cybernetic/emp_act(severity)
 	. = ..()
 	if(owner && (organ_flags & ORGAN_ROBOTIC))
 		fly_slip()
 
 ///Advanced alien wings that don't need atmosphere
-/obj/item/organ/external/wings/cybernetic/ayy
+/obj/item/organ/wings/cybernetic/ayy
 	name = "advanced cybernetic wingpack"
 	desc = "A compact pair of mechanical wings. They are equipped with miniaturized void engines, and can fly in any atmosphere, or lack thereof."

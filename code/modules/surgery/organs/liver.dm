@@ -1,7 +1,7 @@
 #define LIVER_DEFAULT_TOX_TOLERANCE 3 //amount of toxins the liver can filter out
 #define LIVER_DEFAULT_TOX_LETHALITY 0.005 //lower values lower how harmful toxins are to the liver
 
-/obj/item/organ/internal/liver
+/obj/item/organ/liver
 	name = "liver"
 	icon_state = "liver"
 
@@ -27,7 +27,7 @@
 #define HAS_NO_TOXIN 1
 #define HAS_PAINFUL_TOXIN 2
 
-/obj/item/organ/internal/liver/on_life(delta_time, times_fired)
+/obj/item/organ/liver/on_life(delta_time, times_fired)
 	. = ..()
 
 	if(!(organ_flags & ORGAN_FAILING) || !HAS_TRAIT(owner, TRAIT_LIVERLESS_METABOLISM))
@@ -60,28 +60,28 @@
 #undef HAS_NO_TOXIN
 #undef HAS_PAINFUL_TOXIN
 
-/obj/item/organ/internal/liver/get_availability(datum/species/owner_species, mob/living/owner_mob)
+/obj/item/organ/liver/get_availability(datum/species/owner_species, mob/living/owner_mob)
 	return owner_species.mutantliver
 
-/obj/item/organ/internal/liver/fly
+/obj/item/organ/liver/fly
 	name = "insectoid liver"
 	icon_state = "liver-x" //xenomorph liver? It's just a black liver so it fits.
 	desc = "A mutant liver designed to handle the unique diet of a flyperson."
 	alcohol_tolerance = 0.007 //flies eat vomit, so a lower alcohol tolerance is perfect!
 
-/obj/item/organ/internal/liver/plasmaman
+/obj/item/organ/liver/plasmaman
 	name = "reagent processing crystal"
 	icon_state = "liver-p"
 	desc = "A large crystal that is somehow capable of metabolizing chemicals, these are found in plasmamen."
 
-/obj/item/organ/internal/liver/alien
+/obj/item/organ/liver/alien
 	name = "alien liver" // doesnt matter for actual aliens because they dont take toxin damage
 	icon_state = "liver-x" // Same sprite as fly-person liver.
 	desc = "A liver that used to belong to a killer alien, who knows what it used to eat."
 	toxTolerance = 15 // complete toxin immunity like xenos have would be too powerful
 	toxLethality = 2.5 * LIVER_DEFAULT_TOX_LETHALITY // rejects its owner early after too much punishment
 
-/obj/item/organ/internal/liver/cybernetic
+/obj/item/organ/liver/cybernetic
 	name = "cybernetic liver"
 	icon_state = "liver-c"
 	desc = "An electronic device designed to mimic the functions of a human liver. Handles toxins slightly better than an organic liver."
@@ -90,7 +90,7 @@
 	toxTolerance = 3.3
 	toxLethality = 0.8 * LIVER_DEFAULT_TOX_LETHALITY //20% less damage than a normal liver
 
-/obj/item/organ/internal/liver/cybernetic/upgraded
+/obj/item/organ/liver/cybernetic/upgraded
 	name = "upgraded cybernetic liver"
 	icon_state = "liver-c-u"
 	desc = "An upgraded version of the cybernetic liver, designed to improve further upon organic livers. It is resistant to alcohol poisoning and is very robust at filtering toxins."
@@ -99,14 +99,14 @@
 	toxTolerance = 15 //can shrug off up to 15u of toxins
 	toxLethality = 0.8 * LIVER_DEFAULT_TOX_LETHALITY //20% less damage than a normal liver
 
-/obj/item/organ/internal/liver/cybernetic/emp_act(severity)
+/obj/item/organ/liver/cybernetic/emp_act(severity)
 	. = ..()
 	if(. & EMP_PROTECT_SELF)
 		return
 	if(prob(30/severity))
 		damage += (30/severity)
 
-/obj/item/organ/internal/liver/cybernetic/upgraded/ipc
+/obj/item/organ/liver/cybernetic/upgraded/ipc
 	name = "substance processor"
 	icon_state = "substance_processor"
 	attack_verb_continuous = list("processes")
@@ -116,12 +116,12 @@
 	toxTolerance = -1
 	toxLethality = 0
 
-/obj/item/organ/internal/liver/cybernetic/upgraded/ipc/emp_act(severity)
+/obj/item/organ/liver/cybernetic/upgraded/ipc/emp_act(severity)
 	if(prob(30/severity))
 		to_chat(owner, span_warning("Alert: Your Substance Processor has been damaged. An internal chemical leak is affecting performance."))
 		owner.adjustToxLoss(8/severity)
 
-/obj/item/organ/internal/liver/diona
+/obj/item/organ/liver/diona
 	name = "liverwort"
 	desc = "A mass of plant vines and leaves, seeming to be responsible for chemical digestion."
 	icon_state = "diona_liver"

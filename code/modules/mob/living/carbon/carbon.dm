@@ -418,7 +418,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 /mob/living/carbon/get_stat_tab_status()
 	var/list/tab_data = ..()
-	var/obj/item/organ/internal/alien/plasmavessel/vessel = get_organ_by_type(/obj/item/organ/internal/alien/plasmavessel)
+	var/obj/item/organ/alien/plasmavessel/vessel = get_organ_by_type(/obj/item/organ/alien/plasmavessel)
 	if(vessel)
 		tab_data["Plasma Stored"] = GENERATE_STAT_TEXT("[vessel.stored_plasma]/[vessel.max_plasma]")
 	if(locate(/obj/item/assembly/health) in src)
@@ -566,7 +566,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 	sight = initial(sight)
 	lighting_alpha = initial(lighting_alpha)
-	var/obj/item/organ/internal/eyes/E = get_organ_slot(ORGAN_SLOT_EYES)
+	var/obj/item/organ/eyes/E = get_organ_slot(ORGAN_SLOT_EYES)
 	if(!E)
 		update_tint()
 	else
@@ -630,7 +630,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	if(isclothing(wear_mask))
 		. += wear_mask.tint
 
-	var/obj/item/organ/internal/eyes/E = get_organ_slot(ORGAN_SLOT_EYES)
+	var/obj/item/organ/eyes/E = get_organ_slot(ORGAN_SLOT_EYES)
 	if(E)
 		. += E.tint
 	else
@@ -866,7 +866,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 			reagents.remove_addiction(addi)
 	for(var/obj/item/organ/organ as anything in organs)
 		organ.set_organ_damage(0)
-	var/obj/item/organ/internal/brain/B = get_organ_by_type(/obj/item/organ/internal/brain)
+	var/obj/item/organ/brain/B = get_organ_by_type(/obj/item/organ/brain)
 	if(B)
 		B.brain_death = FALSE
 	for(var/thing in diseases)
@@ -891,7 +891,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 /mob/living/carbon/can_be_revived()
 	. = ..()
-	if(!get_organ_by_type(/obj/item/organ/internal/brain) && (!mind || !mind.has_antag_datum(/datum/antagonist/changeling)))
+	if(!get_organ_by_type(/obj/item/organ/brain) && (!mind || !mind.has_antag_datum(/datum/antagonist/changeling)))
 		return 0
 
 /mob/living/carbon/harvest(mob/living/user)
@@ -1003,7 +1003,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/bodypart, update = TRUE, multiplicative_slowdown = final_modification)
 
 /mob/living/carbon/proc/create_internal_organs()
-	for(var/obj/item/organ/internal/internal_organ in organs)
+	for(var/obj/item/organ/internal_organ in organs)
 		internal_organ.Insert(src)
 
 /proc/cmp_organ_slot_asc(slot_a, slot_b)
@@ -1329,7 +1329,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 /// Accepts an optional timeout after which we remove the tail wagging
 /// Returns true if successful, false otherwise
 /mob/living/carbon/proc/wag_tail(timeout = INFINITY)
-	var/obj/item/organ/external/tail/wagged = get_organ_slot(ORGAN_SLOT_EXTERNAL_TAIL)
+	var/obj/item/organ/tail/wagged = get_organ_slot(ORGAN_SLOT_EXTERNAL_TAIL)
 	if(!wagged)
 		return FALSE
 	return wagged.start_wag(src, timeout)
@@ -1337,7 +1337,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 /// Helper to cleanly stop all tail wagging
 /// Returns true if successful, false otherwise
 /mob/living/carbon/proc/unwag_tail() // can't unwag a tail
-	var/obj/item/organ/external/tail/unwagged = get_organ_slot(ORGAN_SLOT_EXTERNAL_TAIL)
+	var/obj/item/organ/tail/unwagged = get_organ_slot(ORGAN_SLOT_EXTERNAL_TAIL)
 	if(!unwagged)
 		return FALSE
 	return unwagged.stop_wag(src)

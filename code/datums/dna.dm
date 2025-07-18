@@ -765,7 +765,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	if(dna.features["diona_pbody"])
 		dna.features["diona_pbody"] = GLOB.diona_pbody_list[deconstruct_block(get_uni_feature_block(features, DNA_DIONA_PBODY_BLOCK), GLOB.diona_pbody_list.len)]
 
-	var/obj/item/organ/internal/eyes/organ_eyes = get_organ_by_type(/obj/item/organ/internal/eyes)
+	var/obj/item/organ/eyes/organ_eyes = get_organ_by_type(/obj/item/organ/eyes)
 	if(organ_eyes)
 		organ_eyes.eye_color = eye_color
 		organ_eyes.old_eye_color = eye_color
@@ -983,7 +983,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 				ForceContractDisease(new/datum/disease/decloning()) //slow acting, non-viral clone damage based GBS
 			if(8)
 				var/list/elligible_organs = list()
-				for(var/obj/item/organ/internal/internal_organ as anything in organs) //make sure we dont get an implant or cavity item
+				for(var/obj/item/organ/internal_organ as anything in organs) //make sure we dont get an implant or cavity item
 					elligible_organs += internal_organ
 				vomit(20, TRUE)
 				if(length(elligible_organs))
@@ -1034,7 +1034,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 
 /mob/living/carbon/proc/something_horrible_mindmelt()
 	if(!is_blind())
-		var/obj/item/organ/internal/eyes/eyes = locate(/obj/item/organ/internal/eyes) in organs
+		var/obj/item/organ/eyes/eyes = locate(/obj/item/organ/eyes) in organs
 		if(!eyes)
 			return
 		eyes.Remove(src)

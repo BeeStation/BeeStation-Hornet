@@ -470,13 +470,13 @@
 	desc = "A large duffel bag for holding implants - this one has a material inlay with space for various implants."
 
 /obj/item/storage/backpack/duffelbag/med/implant/PopulateContents()
-	var/implants = list(/obj/item/organ/internal/cyberimp/arm/janitor,
-						/obj/item/organ/internal/cyberimp/arm/botany,
-						/obj/item/organ/internal/cyberimp/arm/surgery,
-						/obj/item/organ/internal/cyberimp/chest/nutriment,
-						/obj/item/organ/internal/cyberimp/mouth/breathing_tube,
-						/obj/item/organ/internal/eyes/robotic/glow,
-						/obj/item/organ/internal/eyes/robotic/shield)
+	var/implants = list(/obj/item/organ/cyberimp/arm/janitor,
+						/obj/item/organ/cyberimp/arm/botany,
+						/obj/item/organ/cyberimp/arm/surgery,
+						/obj/item/organ/cyberimp/chest/nutriment,
+						/obj/item/organ/cyberimp/mouth/breathing_tube,
+						/obj/item/organ/eyes/robotic/glow,
+						/obj/item/organ/eyes/robotic/shield)
 	for(var/i in 1 to 4)
 		var/ctype = pick(implants)
 		new ctype(src)

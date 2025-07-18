@@ -80,7 +80,7 @@
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Horns"
 	should_generate_icons = TRUE
-	relevant_external_organ = /obj/item/organ/external/horns
+	relevant_external_organ = /obj/item/organ/horns
 
 /datum/preference/choiced/lizard_horns/init_possible_values()
 	return assoc_to_keys_features(GLOB.horns_list)
@@ -147,7 +147,7 @@
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Snout"
 	should_generate_icons = TRUE
-	relevant_external_organ = /obj/item/organ/external/snout
+	relevant_external_organ = /obj/item/organ/snout
 
 /datum/preference/choiced/lizard_snout/init_possible_values()
 	return assoc_to_keys_features(GLOB.snouts_list)
@@ -164,7 +164,7 @@
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Spines"
 	should_generate_icons = TRUE
-	relevant_external_organ = /obj/item/organ/external/spines
+	relevant_external_organ = /obj/item/organ/spines
 
 /datum/preference/choiced/lizard_spines/init_possible_values()
 	return assoc_to_keys_features(GLOB.spines_list)
@@ -181,7 +181,7 @@
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Tail"
 	should_generate_icons = TRUE
-	relevant_external_organ = /obj/item/organ/external/tail/lizard
+	relevant_external_organ = /obj/item/organ/tail/lizard
 
 /datum/preference/choiced/lizard_tail/init_possible_values()
 	return assoc_to_keys_features(GLOB.tails_list_lizard)

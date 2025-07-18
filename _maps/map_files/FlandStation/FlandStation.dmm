@@ -3047,7 +3047,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/surgical_drapes,
-/obj/item/organ/internal/ears/cat,
+/obj/item/organ/ears/cat,
 /turf/open/floor/plating,
 /area/maintenance/port/central)
 "aKC" = (
@@ -37762,7 +37762,7 @@
 	pixel_x = -5;
 	pixel_y = 3
 	},
-/obj/item/organ/internal/eyes,
+/obj/item/organ/eyes,
 /turf/open/floor/iron,
 /area/maintenance/department/security/brig)
 "jIo" = (
@@ -66239,7 +66239,7 @@
 "qXX" = (
 /obj/structure/table/wood/fancy,
 /obj/item/soulstone/anybody/chaplain,
-/obj/item/organ/internal/heart{
+/obj/item/organ/heart{
 	pixel_x = 8;
 	pixel_y = 7
 	},

@@ -1,5 +1,5 @@
 ///Tail parent, it doesn't do very much.
-/obj/item/organ/external/tail
+/obj/item/organ/tail
 	name = "tail"
 	desc = "A severed tail. What did you cut this off of?"
 	icon_state = "severedtail"
@@ -13,6 +13,8 @@
 	// defaults to cat, but the parent type shouldn't be created regardless
 	bodypart_overlay = /datum/bodypart_overlay/mutant/tail/cat
 
+	organ_flags = parent_type::organ_flags | ORGAN_EXTERNAL
+
 	///Does this tail have a wagging sprite, and is it currently wagging?
 	var/wag_flags = NONE
 	///The original owner of this tail
@@ -20,7 +22,7 @@
 	///The overlay for tail spines, if any
 	var/datum/bodypart_overlay/mutant/tail_spines/tail_spines_overlay
 
-/obj/item/organ/external/tail/mob_insert(mob/living/carbon/receiver, special, movement_flags)
+/obj/item/organ/tail/mob_insert(mob/living/carbon/receiver, special, movement_flags)
 	. = ..()
 	if(.)
 		SEND_SIGNAL(receiver, COMSIG_CLEAR_MOOD_EVENT, "tail_lost")
@@ -39,18 +41,18 @@
 		else
 			SEND_SIGNAL(receiver, COMSIG_ADD_MOOD_EVENT, "tail_regained", /datum/mood_event/tail_regained_wrong)
 
-/obj/item/organ/external/tail/on_bodypart_insert(obj/item/bodypart/bodypart)
-	var/obj/item/organ/external/spines/our_spines = bodypart.owner.get_organ_slot(ORGAN_SLOT_EXTERNAL_SPINES)
+/obj/item/organ/tail/on_bodypart_insert(obj/item/bodypart/bodypart)
+	var/obj/item/organ/spines/our_spines = bodypart.owner.get_organ_slot(ORGAN_SLOT_EXTERNAL_SPINES)
 	if(our_spines)
 		try_insert_tail_spines(bodypart)
 	return ..()
 
-/obj/item/organ/external/tail/on_bodypart_remove(obj/item/bodypart/bodypart)
+/obj/item/organ/tail/on_bodypart_remove(obj/item/bodypart/bodypart)
 	remove_tail_spines(bodypart)
 	return ..()
 
 /// If the owner has spines and an appropriate overlay exists, add a tail spines overlay.
-/obj/item/organ/external/tail/proc/try_insert_tail_spines(obj/item/bodypart/bodypart)
+/obj/item/organ/tail/proc/try_insert_tail_spines(obj/item/bodypart/bodypart)
 	// Don't insert another overlay if there already is one.
 	if(tail_spines_overlay)
 		return
@@ -69,13 +71,13 @@
 	bodypart.add_bodypart_overlay(tail_spines_overlay)
 
 /// If we have a tail spines overlay, delete it
-/obj/item/organ/external/tail/proc/remove_tail_spines(obj/item/bodypart/bodypart)
+/obj/item/organ/tail/proc/remove_tail_spines(obj/item/bodypart/bodypart)
 	if(!tail_spines_overlay)
 		return
 	bodypart.remove_bodypart_overlay(tail_spines_overlay)
 	QDEL_NULL(tail_spines_overlay)
 
-/obj/item/organ/external/tail/on_mob_remove(mob/living/carbon/organ_owner, special)
+/obj/item/organ/tail/on_mob_remove(mob/living/carbon/organ_owner, special)
 	. = ..()
 
 	if(wag_flags & WAG_WAGGING)
@@ -90,7 +92,7 @@
 ///We need some special behaviour for accessories, wrapped here so we can easily add more interactions later
 ///Accepts an optional timeout after which we remove the tail wagging
 ///Returns false if the wag worked, true otherwise
-/obj/item/organ/external/tail/proc/start_wag(mob/living/carbon/organ_owner, stop_after = INFINITY)
+/obj/item/organ/tail/proc/start_wag(mob/living/carbon/organ_owner, stop_after = INFINITY)
 	if(wag_flags & WAG_WAGGING || !(wag_flags & WAG_ABLE)) // we are already wagging
 		return FALSE
 	if(organ_owner.stat == DEAD || organ_owner != owner) // no wagging when owner is dead or tail has been disembodied
@@ -108,13 +110,13 @@
 	RegisterSignal(organ_owner, COMSIG_LIVING_DEATH, PROC_REF(owner_died))
 	return TRUE
 
-/obj/item/organ/external/tail/proc/owner_died(mob/living/carbon/organ_owner) // Resisting the urge to replace owner with daddy
+/obj/item/organ/tail/proc/owner_died(mob/living/carbon/organ_owner) // Resisting the urge to replace owner with daddy
 	SIGNAL_HANDLER
 	stop_wag(organ_owner)
 
 ///We need some special behaviour for accessories, wrapped here so we can easily add more interactions later
 ///Returns false if the wag stopping worked, true otherwise
-/obj/item/organ/external/tail/proc/stop_wag(mob/living/carbon/organ_owner)
+/obj/item/organ/tail/proc/stop_wag(mob/living/carbon/organ_owner)
 	if(!(wag_flags & WAG_ABLE))
 		return FALSE
 
@@ -147,7 +149,7 @@
 		return FALSE
 	return TRUE
 
-/obj/item/organ/external/tail/cat
+/obj/item/organ/tail/cat
 	name = "cat tail"
 	desc = "A severed cat tail. Who's wagging now?"
 	preference = "feature_human_tail"
@@ -166,7 +168,7 @@
 	feature_key = "tail_cat"
 	color_source = ORGAN_COLOR_HAIR
 
-/obj/item/organ/external/tail/monkey
+/obj/item/organ/tail/monkey
 	name = "monkey tail"
 	preference = "feature_monkey_tail"
 
@@ -182,7 +184,7 @@
 /datum/bodypart_overlay/mutant/tail/monkey/get_global_feature_list()
 	return GLOB.tails_list_monkey
 
-/obj/item/organ/external/tail/lizard
+/obj/item/organ/tail/lizard
 	name = "lizard tail"
 	desc = "A severed lizard tail. Somewhere, no doubt, a lizard hater is very pleased with themselves."
 	preference = "feature_lizard_tail"
@@ -199,7 +201,7 @@
 /datum/bodypart_overlay/mutant/tail/lizard/get_global_feature_list()
 	return GLOB.tails_list_lizard
 
-/obj/item/organ/external/tail/lizard/fake
+/obj/item/organ/tail/lizard/fake
 	name = "fabricated lizard tail"
 	desc = "A fabricated severed lizard tail. This one's made of synthflesh. Probably not usable for lizard wine."
 

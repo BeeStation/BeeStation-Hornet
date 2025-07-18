@@ -11,7 +11,7 @@
 	// STOP_OVERLAY_UPDATE_BODY_PARTS is removed after we call update_body_parts() during init.
 	living_flags = STOP_OVERLAY_UPDATE_BODY_PARTS
 	///List of [/obj/item/organ/internal] in the mob. They don't go in the contents for some reason I don't want to know.
-	var/list/obj/item/organ/internal/organs = list()
+	var/list/obj/item/organ/organs = list()
 	///Same as [above][/mob/living/carbon/var/organs], but stores "slot ID" - "organ" pairs for easy access.
 	var/list/organs_slot = list()
 	///Can't talk. Value goes down every life proc. NOTE TO FUTURE CODERS: DO NOT INITIALIZE NUMERICAL VARS AS NULL OR I WILL MURDER YOU.

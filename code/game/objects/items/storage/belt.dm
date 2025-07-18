@@ -438,7 +438,7 @@
 		/obj/item/stack/ore,
 		/obj/item/reagent_containers/cup/glass,
 		/obj/item/reagent_containers/cup/glass/bottle,
-		/obj/item/organ/internal/regenerative_core,
+		/obj/item/organ/regenerative_core,
 		/obj/item/wormhole_jaunter,
 		/obj/item/storage/bag/plants,
 		/obj/item/stack/marker_beacon,

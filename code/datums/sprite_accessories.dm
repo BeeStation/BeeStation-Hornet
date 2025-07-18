@@ -1794,7 +1794,7 @@
 	icon_state = "angler"
 
 /datum/sprite_accessory/ears
-	icon = 'icons/mob/mutant_bodyparts.dmi'
+	icon = 'icons/mob/cat_features.dmi'
 
 /datum/sprite_accessory/ears/cat
 	name = "Cat"

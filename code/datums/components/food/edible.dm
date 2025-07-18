@@ -457,7 +457,7 @@ Behavior that's still missing from this component that original food items had t
 	if(!ishuman(eater))
 		return FALSE
 	var/mob/living/carbon/human/human_eater = eater
-	var/obj/item/organ/internal/tongue/tongue = human_eater.get_organ_slot(ORGAN_SLOT_TONGUE)
+	var/obj/item/organ/tongue/tongue = human_eater.get_organ_slot(ORGAN_SLOT_TONGUE)
 	if((foodtypes & BREAKFAST) && world.time - SSticker.round_start_time < STOP_SERVING_BREAKFAST)
 		SEND_SIGNAL(human_eater, COMSIG_ADD_MOOD_EVENT, "breakfast", /datum/mood_event/breakfast)
 	if(HAS_TRAIT(human_eater, TRAIT_AGEUSIA))
@@ -506,7 +506,7 @@ Behavior that's still missing from this component that original food items had t
 			if(FOOD_TOXIC)
 				return TOXIC_FOOD_QUALITY_THRESHOLD
 
-	var/obj/item/organ/internal/tongue/tongue = eater.get_organ_slot(ORGAN_SLOT_TONGUE)
+	var/obj/item/organ/tongue/tongue = eater.get_organ_slot(ORGAN_SLOT_TONGUE)
 	if(ishuman(eater))
 		if(count_matching_foodtypes(foodtypes, tongue?.toxic_food)) //if the food is toxic, we don't care about anything else
 			return TOXIC_FOOD_QUALITY_THRESHOLD

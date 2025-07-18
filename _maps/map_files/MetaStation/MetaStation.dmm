@@ -29216,7 +29216,7 @@
 	pixel_x = -2;
 	pixel_y = 2
 	},
-/obj/item/organ/internal/heart,
+/obj/item/organ/heart,
 /obj/item/soulstone/anybody/chaplain,
 /obj/item/book/granter/action/spell/smoke/lesser,
 /turf/open/floor/cult,
@@ -70273,7 +70273,7 @@
 "uTs" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/closet/crate/freezer/surplus_limbs,
-/obj/item/organ/internal/ears/cat,
+/obj/item/organ/ears/cat,
 /obj/machinery/firealarm/directional/east,
 /turf/open/floor/iron/dark,
 /area/medical/surgery)

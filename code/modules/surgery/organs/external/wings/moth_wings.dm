@@ -1,5 +1,5 @@
 ///Moth wings! They can flutter in low-grav and burn off in heat
-/obj/item/organ/external/wings/moth
+/obj/item/organ/wings/moth
 	name = "moth wings"
 	desc = "Spread your wings and FLOOOOAAAAAT!"
 
@@ -16,25 +16,25 @@
 	///Store our old datum here for if our burned wings are healed
 	var/original_sprite_datum
 
-/obj/item/organ/external/wings/moth/on_mob_insert(mob/living/carbon/receiver)
+/obj/item/organ/wings/moth/on_mob_insert(mob/living/carbon/receiver)
 	. = ..()
 	RegisterSignal(receiver, COMSIG_HUMAN_BURNING, PROC_REF(try_burn_wings))
 	RegisterSignal(receiver, COMSIG_LIVING_POST_FULLY_HEAL, PROC_REF(heal_wings))
 	RegisterSignal(receiver, COMSIG_MOVABLE_PRE_MOVE, PROC_REF(update_float_move))
 
-/obj/item/organ/external/wings/moth/on_mob_remove(mob/living/carbon/organ_owner)
+/obj/item/organ/wings/moth/on_mob_remove(mob/living/carbon/organ_owner)
 	. = ..()
 	UnregisterSignal(organ_owner, list(COMSIG_HUMAN_BURNING, COMSIG_LIVING_POST_FULLY_HEAL, COMSIG_MOVABLE_PRE_MOVE))
 	REMOVE_TRAIT(organ_owner, TRAIT_FREE_FLOAT_MOVEMENT, REF(src))
 
-/obj/item/organ/external/wings/moth/make_flap_sound(mob/living/carbon/wing_owner)
+/obj/item/organ/wings/moth/make_flap_sound(mob/living/carbon/wing_owner)
 	playsound(wing_owner, 'sound/emotes/moth/moth_flutter.ogg', 50, TRUE)
 
-/obj/item/organ/external/wings/moth/can_soften_fall()
+/obj/item/organ/wings/moth/can_soften_fall()
 	return !burnt
 
 ///Check if we can flutter around
-/obj/item/organ/external/wings/moth/proc/update_float_move()
+/obj/item/organ/wings/moth/proc/update_float_move()
 	SIGNAL_HANDLER
 
 	if(!isspaceturf(owner.loc) && !burnt)
@@ -46,7 +46,7 @@
 	REMOVE_TRAIT(owner, TRAIT_FREE_FLOAT_MOVEMENT, REF(src))
 
 ///check if our wings can burn off ;_;
-/obj/item/organ/external/wings/moth/proc/try_burn_wings(mob/living/carbon/human/human)
+/obj/item/organ/wings/moth/proc/try_burn_wings(mob/living/carbon/human/human)
 	SIGNAL_HANDLER
 
 	if(!burnt && human.bodytemperature >= 800 && human.fire_stacks > 0) //do not go into the extremely hot light. you will not survive
@@ -57,13 +57,13 @@
 		human.update_body_parts()
 
 ///burn the wings off
-/obj/item/organ/external/wings/moth/proc/burn_wings()
+/obj/item/organ/wings/moth/proc/burn_wings()
 	var/datum/bodypart_overlay/mutant/wings/moth/wings = bodypart_overlay
 	wings.burnt = TRUE
 	burnt = TRUE
 
 ///heal our wings back up!!
-/obj/item/organ/external/wings/moth/proc/heal_wings()
+/obj/item/organ/wings/moth/proc/heal_wings()
 	SIGNAL_HANDLER
 
 	if(!burnt)
@@ -101,18 +101,18 @@
 /datum/bodypart_overlay/mutant/wings/moth/get_base_icon_state()
 	return burnt ? burn_datum.icon_state : sprite_datum.icon_state
 
-/obj/item/organ/external/wings/moth/robust
+/obj/item/organ/wings/moth/robust
 	flight_level = WINGS_AIRWORTHY
 
 ///mothra wings, which relate to moths.
-/obj/item/organ/external/wings/moth/mothra
+/obj/item/organ/wings/moth/mothra
 	name = "mothra wings"
 	desc = "Fly like the mighty mothra of legend once did."
 	sprite_accessory_override = /datum/sprite_accessory/wings/mothra
 	flight_level = WINGS_AIRWORTHY
 
 ///megamoth wings, which relate to moths as an alternate choice. they're both pretty cool.
-/obj/item/organ/external/wings/moth/megamoth
+/obj/item/organ/wings/moth/megamoth
 	name = "megamoth wings"
 	desc = "Don't get murderous."
 	sprite_accessory_override = /datum/sprite_accessory/wings/megamoth

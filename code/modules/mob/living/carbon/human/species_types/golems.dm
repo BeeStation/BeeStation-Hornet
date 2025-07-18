@@ -22,8 +22,8 @@
 	mutantheart = null
 	mutantlungs = null
 	inherent_biotypes = list(MOB_INORGANIC, MOB_HUMANOID)
-	mutant_organs = list(/obj/item/organ/internal/adamantine_resonator)
-	mutanttongue = /obj/item/organ/internal/tongue/golem
+	mutant_organs = list(/obj/item/organ/adamantine_resonator)
+	mutanttongue = /obj/item/organ/tongue/golem
 	damage_modifier = 55
 	siemens_coeff = 0
 	no_equip = list(ITEM_SLOT_MASK, ITEM_SLOT_OCLOTHING, ITEM_SLOT_GLOVES, ITEM_SLOT_FEET, ITEM_SLOT_ICLOTHING, ITEM_SLOT_SUITSTORE)
@@ -84,7 +84,7 @@
 	name = "Adamantine Golem"
 	id = SPECIES_GOLEM_ADAMANTINE
 	meat = /obj/item/food/meat/slab/human/mutant/golem/adamantine
-	mutant_organs = list(/obj/item/organ/internal/adamantine_resonator, /obj/item/organ/internal/vocal_cords/adamantine)
+	mutant_organs = list(/obj/item/organ/adamantine_resonator, /obj/item/organ/vocal_cords/adamantine)
 	fixed_mut_color = "#44eedd"
 	info_text = "As an " + span_danger("Adamantine Golem") + ", you possess special vocal cords allowing you to \"resonate\" messages to all golems. Your unique mineral makeup makes you immune to most types of magic."
 	prefix = "Adamantine"
@@ -355,7 +355,7 @@
 		TRAIT_NO_TRANSFORMATION_STING
 	)
 	meat = /obj/item/stack/sheet/mineral/abductor
-	mutanttongue = /obj/item/organ/internal/tongue/abductor
+	mutanttongue = /obj/item/organ/tongue/abductor
 	info_text = "As an " + span_danger("Alloy Golem") + ", you are made of advanced alien materials: you are faster and regenerate over time. You are, however, only able to be heard by other alloy golems."
 	prefix = "Alien"
 	special_names = list("Outsider", "Technology", "Watcher", "Stranger") //ominous and unknown
@@ -650,7 +650,7 @@
 		TRAIT_NO_TRANSFORMATION_STING
 	)
 	meat = /obj/item/stack/ore/bananium
-	mutanttongue = /obj/item/organ/internal/tongue/golem/bananium
+	mutanttongue = /obj/item/organ/tongue/golem/bananium
 	info_text = "As a " + span_danger("Bananium Golem") + ", you are made for pranking. Your body emits natural honks, and you can barely even hurt people when punching them. Your skin also bleeds banana peels when damaged."
 	prefix = "Bananium"
 	special_names = null
@@ -824,7 +824,7 @@
 	prefix = "Clockwork"
 	special_names = list("Remnant", "Relic", "Scrap", "Vestige") //RIP Ratvar
 	inherent_factions = list(FACTION_RATVAR)
-	mutanttongue = /obj/item/organ/internal/tongue/golem/clockwork
+	mutanttongue = /obj/item/organ/tongue/golem/clockwork
 	var/has_corpse
 
 	bodypart_overrides = list(
@@ -1075,7 +1075,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	fixed_mut_color = "#cd7f32"
 	info_text = "As a " + span_danger("Bronze Golem") + ", you are very resistant to loud noises, and make loud noises if something hard hits you, however this ability does hurt your hearing."
 	special_step_sounds = list('sound/machines/clockcult/integration_cog_install.ogg', 'sound/magic/clockwork/fellowship_armory.ogg' )
-	mutantears = /obj/item/organ/internal/ears/bronze
+	mutantears = /obj/item/organ/ears/bronze
 	var/last_gong_time = 0
 	var/gong_cooldown = 150
 
@@ -1256,7 +1256,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	prefix = "Bone"
 	special_names = list("Head", "Broth", "Fracture", "Rattler", "Appetit")
 	inherent_biotypes = list(MOB_UNDEAD, MOB_HUMANOID)
-	mutanttongue = /obj/item/organ/internal/tongue/bone
+	mutanttongue = /obj/item/organ/tongue/bone
 	sexes = FALSE
 	fixed_mut_color = null
 	inherent_traits = list(

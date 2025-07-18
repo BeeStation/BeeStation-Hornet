@@ -193,7 +193,7 @@
 /area/template_noop)
 "K" = (
 /obj/effect/decal/cleanable/blood/old,
-/obj/item/organ/internal/tongue/bone,
+/obj/item/organ/tongue/bone,
 /turf/open/floor/plating,
 /area/template_noop)
 "L" = (

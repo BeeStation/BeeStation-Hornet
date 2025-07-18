@@ -22,7 +22,25 @@
 		/datum/surgery_step/clamp_bleeders,
 		/datum/surgery_step/incise,
 		/datum/surgery_step/manipulate_organs/internal,
-		/datum/surgery_step/close
+		/datum/surgery_step/close,
+	)
+
+/datum/surgery/organ_manipulation/external
+	name = "Feature manipulation"
+	possible_locs = list(
+		BODY_ZONE_CHEST,
+		BODY_ZONE_HEAD,
+		BODY_ZONE_PRECISE_GROIN,
+		BODY_ZONE_L_ARM,
+		BODY_ZONE_R_ARM,
+		BODY_ZONE_L_LEG,
+		BODY_ZONE_R_LEG,
+	)
+	steps = list(
+		/datum/surgery_step/incise,
+		/datum/surgery_step/retract_skin,
+		/datum/surgery_step/manipulate_organs/external,
+		/datum/surgery_step/close,
 	)
 
 /datum/surgery/organ_manipulation/alien
@@ -50,7 +68,7 @@
 		/datum/surgery_step/open_hatch,
 		/datum/surgery_step/mechanic_unwrench,
 		/datum/surgery_step/prepare_electronics,
-		/datum/surgery_step/manipulate_organs/internal,
+		/datum/surgery_step/manipulate_organs/internal/mechanic,
 		/datum/surgery_step/mechanic_wrench,
 		/datum/surgery_step/mechanic_close
 		)
@@ -61,18 +79,19 @@
 		/datum/surgery_step/mechanic_open,
 		/datum/surgery_step/open_hatch,
 		/datum/surgery_step/prepare_electronics,
-		/datum/surgery_step/manipulate_organs/internal,
+		/datum/surgery_step/manipulate_organs/internal/mechanic,
 		/datum/surgery_step/mechanic_close
 		)
 
-/datum/surgery/organ_manipulation/external
-	name = "Feature manipulation"
+/datum/surgery/organ_manipulation/mechanic/external
+	name = "Prosthetic feature manipulation"
 	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
-	steps = list(
-		/datum/surgery_step/incise,
-		/datum/surgery_step/retract_skin,
-		/datum/surgery_step/manipulate_organs/external,
-		/datum/surgery_step/close
+	steps = list( //not shorter than soft prosthetic manip because I dunno what steps could be cut here
+		/datum/surgery_step/mechanic_open,
+		/datum/surgery_step/open_hatch,
+		/datum/surgery_step/prepare_electronics,
+		/datum/surgery_step/manipulate_organs/external/mechanic,
+		/datum/surgery_step/mechanic_close,
 	)
 
 ///Organ manipulation base class. Do not use, it wont work. Use it's subtypes
@@ -111,7 +130,7 @@
 		if(target_zone != target_organ.zone || target.get_organ_slot(target_organ.slot))
 			to_chat(user, span_notice("There is no room for [target_organ] in [target]'s [parse_zone(target_zone)]!"))
 			return SURGERY_STEP_FAIL
-		if(istype(target_organ, /obj/item/organ/internal/brain/positron))
+		if(istype(target_organ, /obj/item/organ/brain/positron))
 			var/obj/item/bodypart/affected = target.get_bodypart(check_zone(target_organ.zone))
 			if(!affected)
 				return SURGERY_STEP_FAIL
@@ -229,9 +248,14 @@
 	time = 6.4 SECONDS
 	name = "manipulate organs (hemostat/organ)"
 
-///only operate on not external organs (so internal organs)
-/datum/surgery_step/manipulate_organs/internal/can_use_organ(mob/user, obj/item/organ/organ)
-	return isinternalorgan(organ)
+///only operate on internal organs
+/datum/surgery_step/manipulate_organs/internal/can_use_organ(obj/item/organ/organ)
+	return !(organ.organ_flags & ORGAN_EXTERNAL)
+
+///prosthetic surgery gives full effectiveness to crowbars (and hemostats)
+/datum/surgery_step/manipulate_organs/internal/mechanic
+	implements_extract = list(TOOL_HEMOSTAT = 100, TOOL_CROWBAR = 100, /obj/item/kitchen/fork = 35)
+	name = "manipulate prosthetic organs (hemostat or crowbar/organ)"
 
 ///Surgery step for external organs/features, like tails, frills, wings etc
 /datum/surgery_step/manipulate_organs/external
@@ -239,5 +263,10 @@
 	name = "manipulate features (hemostat/feature)"
 
 ///Only operate on external organs
-/datum/surgery_step/manipulate_organs/external/can_use_organ(mob/user, obj/item/organ/organ)
-	return isexternalorgan(organ)
+/datum/surgery_step/manipulate_organs/external/can_use_organ(obj/item/organ/organ)
+	return (organ.organ_flags & ORGAN_EXTERNAL)
+
+///prosthetic surgery gives full effectiveness to crowbars (and hemostats)
+/datum/surgery_step/manipulate_organs/external/mechanic
+	implements_extract = list(TOOL_HEMOSTAT = 100, TOOL_CROWBAR = 100, /obj/item/kitchen/fork = 35)
+	name = "manipulate prosthetic features (hemostat or crowbar/feature)"

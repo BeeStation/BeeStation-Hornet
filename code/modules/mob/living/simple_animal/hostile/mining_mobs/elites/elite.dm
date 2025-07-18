@@ -202,8 +202,8 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 /obj/structure/elite_tumor/attackby(obj/item/I, mob/user, params)
 	. = ..()
-	if(istype(I, /obj/item/organ/internal/regenerative_core) && activity == TUMOR_INACTIVE && !boosted)
-		var/obj/item/organ/internal/regenerative_core/core = I
+	if(istype(I, /obj/item/organ/regenerative_core) && activity == TUMOR_INACTIVE && !boosted)
+		var/obj/item/organ/regenerative_core/core = I
 		if(!core.preserved)
 			return
 		visible_message(span_boldwarning("As [user] drops the core into [src], [src] appears to swell."))

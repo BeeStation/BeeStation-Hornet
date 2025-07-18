@@ -999,7 +999,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 
 /mob/living/carbon/human/cult_ghost/get_organs_for_zone(zone, include_children)
 	. = ..()
-	for(var/obj/item/organ/internal/brain/B in .) //they're not that smart, really
+	for(var/obj/item/organ/brain/B in .) //they're not that smart, really
 		. -= B
 
 

@@ -9,7 +9,7 @@
 	var/mask_adjusted = FALSE
 	var/adjusted_flags = null
 	var/voice_change = FALSE //Used to mask/change the user's voice, only specific masks can set this to TRUE
-	var/obj/item/organ/internal/tongue/chosen_tongue = null
+	var/obj/item/organ/tongue/chosen_tongue = null
 	var/unique_death /// The unique sound effect of dying while wearing this
 
 /obj/item/clothing/mask/attack_self(mob/user)

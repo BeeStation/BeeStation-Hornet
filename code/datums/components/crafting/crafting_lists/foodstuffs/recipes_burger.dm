@@ -33,7 +33,7 @@
 	name = "Appendix burger"
 	result = /obj/item/food/burger/appendix
 	reqs = list(
-		/obj/item/organ/internal/appendix = 1,
+		/obj/item/organ/appendix = 1,
 		/obj/item/food/bun = 1
 	)
 	category = CAT_BURGER
@@ -42,7 +42,7 @@
 	name = "Brain burger"
 	result = /obj/item/food/burger/brain
 	reqs = list(
-		/obj/item/organ/internal/brain = 1,
+		/obj/item/organ/brain = 1,
 		/obj/item/food/bun = 1
 	)
 	category = CAT_BURGER
