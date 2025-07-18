@@ -12,7 +12,7 @@
 		"apid_headstripes" = "thick",
 		"apid_antenna" = "curled"
 	)
-	external_organs = list(
+	mutant_organs = list(
 		/obj/item/organ/external/wings/bee = "Bee"
 	)
 	hair_color_mode = USE_FIXED_MUTANT_COLOR

@@ -4,7 +4,7 @@
 	desc = "There are three parts to the ear. Inner, middle and outer. Only one of these parts should be normally visible."
 	zone = BODY_ZONE_HEAD
 	slot = ORGAN_SLOT_EARS
-	visual = FALSE
+
 	gender = PLURAL
 
 	healing_factor = STANDARD_ORGAN_HEALING
@@ -99,21 +99,33 @@
 	icon_state = "kitty"
 	visual = TRUE
 	bang_protect = -2
+	preference = "feature_human_ears"
 
-/obj/item/organ/internal/ears/cat/on_mob_insert(mob/living/carbon/human/ear_owner)
-	. = ..()
-	if(istype(ear_owner) && ear_owner.dna)
-		color = ear_owner.hair_color
-		ear_owner.dna.features["ears"] = ear_owner.dna.species.mutant_bodyparts["ears"] = "Cat"
-		ear_owner.update_body()
+	dna_block = DNA_EARS_BLOCK
 
-/obj/item/organ/internal/ears/cat/on_mob_remove(mob/living/carbon/human/ear_owner)
-	. = ..()
-	if(istype(ear_owner) && ear_owner.dna)
-		color = ear_owner.hair_color
-		ear_owner.dna.features["ears"] = "None"
-		ear_owner.dna.species.mutant_bodyparts -= "ears"
-		ear_owner.update_body()
+	bodypart_overlay = /datum/bodypart_overlay/mutant/cat_ears
+
+/// Bodypart overlay for the horrible cat ears
+/datum/bodypart_overlay/mutant/cat_ears
+	layers = EXTERNAL_FRONT | EXTERNAL_ADJACENT
+	color_source = ORGAN_COLOR_HAIR
+	feature_key = "ears"
+
+	/// We dont color the inner part, which is the front layer
+	var/colorless_layer = EXTERNAL_FRONT
+
+/datum/bodypart_overlay/mutant/cat_ears/get_global_feature_list()
+	return GLOB.ears_list
+
+/datum/bodypart_overlay/mutant/cat_ears/can_draw_on_bodypart(mob/living/carbon/human/human)
+	if((human.head?.flags_inv & HIDEHAIR) || (human.wear_mask?.flags_inv & HIDEHAIR))
+		return FALSE
+	return TRUE
+
+/datum/bodypart_overlay/mutant/cat_ears/color_image(image/overlay, draw_layer, obj/item/bodypart/limb)
+	if(draw_layer != bitflag_to_layer(colorless_layer))
+		return ..()
+	return overlay
 
 /obj/item/organ/internal/ears/penguin
 	name = "penguin ears"

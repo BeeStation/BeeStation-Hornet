@@ -197,9 +197,10 @@
 /obj/item/organ/internal/heart/nightmare
 	name = "heart of darkness"
 	desc = "An alien organ that twists and writhes when exposed to light."
+	visual = TRUE
 	icon = 'icons/obj/medical/organs/organs.dmi'
 	icon_state = "demon_heart-on"
-	visual = TRUE
+
 	color = "#1C1C1C"
 	var/respawn_progress = 0
 	var/obj/item/light_eater/blade

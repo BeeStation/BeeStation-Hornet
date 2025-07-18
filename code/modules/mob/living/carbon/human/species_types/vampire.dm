@@ -9,8 +9,6 @@
 	)
 	inherent_biotypes = list(MOB_UNDEAD, MOB_HUMANOID)
 	mutant_bodyparts = list(
-		"ears" = "None",
-		"wings" = "None",
 		"body_size" = "Normal"
 	)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | ERT_SPAWN

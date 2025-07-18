@@ -54,14 +54,12 @@
 		QDEL_NULL(fly)
 	return ..()
 
-/obj/item/organ/external/wings/Insert(mob/living/carbon/receiver, special, movement_flags)
+/obj/item/organ/external/wings/mob_insert(mob/living/carbon/receiver, special, movement_flags)
 	. = ..()
-	if(!.)
-		return
 
 	update_flight(receiver)
 
-/obj/item/organ/external/wings/Remove(mob/living/carbon/organ_owner, special, movement_flags)
+/obj/item/organ/external/wings/mob_remove(mob/living/carbon/organ_owner, special, movement_flags)
 	. = ..()
 	update_flight(null)
 

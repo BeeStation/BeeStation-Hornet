@@ -1,7 +1,7 @@
 /obj/item/organ/internal/stomach
 	name = "stomach"
 	icon_state = "stomach"
-	visual = FALSE
+
 	w_class = WEIGHT_CLASS_SMALL
 	zone = BODY_ZONE_CHEST
 	slot = ORGAN_SLOT_STOMACH
@@ -106,16 +106,16 @@
 	var/max_charge = 5000 //same as upgraded+ cell
 	var/charge = 5000
 
-/obj/item/organ/internal/stomach/battery/Insert(mob/living/carbon/M, special, movement_flags)
+/obj/item/organ/internal/stomach/battery/mob_insert(mob/living/carbon/receiver, special, movement_flags)
 	. = ..()
-	RegisterSignal(owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, PROC_REF(charge))
+	RegisterSignal(receiver, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, PROC_REF(charge))
 	update_nutrition()
 
-/obj/item/organ/internal/stomach/battery/Remove(mob/living/carbon/M, special, movement_flags)
-	UnregisterSignal(owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT)
-	if(!HAS_TRAIT(owner, TRAIT_NOHUNGER) && HAS_TRAIT(owner, TRAIT_POWERHUNGRY))
-		owner.nutrition = 0
-		owner.throw_alert("nutrition", /atom/movable/screen/alert/nocell)
+/obj/item/organ/internal/stomach/battery/mob_remove(mob/living/carbon/stomach_owner, special, movement_flags)
+	UnregisterSignal(stomach_owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT)
+	if(!HAS_TRAIT(stomach_owner, TRAIT_NOHUNGER) && HAS_TRAIT(stomach_owner, TRAIT_POWERHUNGRY))
+		stomach_owner.nutrition = 0
+		stomach_owner.throw_alert("nutrition", /atom/movable/screen/alert/nocell)
 	return ..()
 
 /obj/item/organ/internal/stomach/battery/proc/charge(datum/source, amount, repairs)

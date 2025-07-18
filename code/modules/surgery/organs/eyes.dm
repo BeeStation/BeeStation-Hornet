@@ -43,20 +43,17 @@
 	///Can these eyes every be cured of blind? - Each eye atom should handle this themselves, don't make this make you blind
 	var/can_see = TRUE
 
-/obj/item/organ/internal/eyes/Insert(mob/living/carbon/eye_recipient, special = FALSE, movement_flags = DELETE_IF_REPLACED)
-	if(ishuman(eye_recipient))
-		var/mob/living/carbon/human/human_recipient = eye_recipient
+/obj/item/organ/internal/eyes/mob_insert(mob/living/carbon/receiver, special, movement_flags)
+	if(ishuman(receiver))
+		var/mob/living/carbon/human/human_recipient = receiver
 		old_eye_color = human_recipient.eye_color
 		if(HAS_TRAIT(human_recipient, TRAIT_NIGHT_VISION_WEAK) && !lighting_alpha)
 			lighting_alpha = LIGHTING_PLANE_ALPHA_NV_TRAIT
 
 	. = ..()
 
-	if(!.)
-		return
-
-	eye_recipient.cure_blind()
-	refresh(eye_recipient, call_update = TRUE)
+	receiver.cure_blind()
+	refresh(receiver, call_update = TRUE)
 
 /// Refreshes the visuals of the eyes
 /// If call_update is TRUE, we also will call update_body
@@ -76,17 +73,18 @@
 	if(call_update)
 		affected_human.update_body()
 
-/obj/item/organ/internal/eyes/Remove(mob/living/carbon/eye_owner, special, movement_flags)
+/obj/item/organ/internal/eyes/mob_remove(mob/living/carbon/organ_owner, special, movement_flags)
 	. = ..()
-	if(ishuman(eye_owner))
-		var/mob/living/carbon/human/human_owner = eye_owner
+
+	if(ishuman(organ_owner))
+		var/mob/living/carbon/human/human_owner = organ_owner
 		if(initial(eye_color))
 			human_owner.eye_color = old_eye_color
 		if(!special)
 			human_owner.update_body()
 
-	eye_owner.update_tint()
-	eye_owner.update_sight()
+	organ_owner.update_tint()
+	organ_owner.update_sight()
 
 #define OFFSET_X 1
 #define OFFSET_Y 2
@@ -480,19 +478,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/abstract/eye_lighting)
 	sight_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
 	can_see = FALSE
 
-/obj/item/organ/internal/eyes/psyphoza/Insert(mob/living/carbon/M, special, movement_flags)
+/obj/item/organ/internal/eyes/psyphoza/mob_insert(mob/living/carbon/eye_recipient, special = FALSE, movement_flags = DELETE_IF_REPLACED)
 	. = ..()
-	M.become_blind("uncurable", /atom/movable/screen/fullscreen/blind/psychic, FALSE)
-	M.remove_client_colour(/datum/client_colour/monochrome/blind)
+	eye_recipient.become_blind("uncurable", /atom/movable/screen/fullscreen/blind/psychic, FALSE)
+	eye_recipient.remove_client_colour(/datum/client_colour/monochrome/blind)
 	//Handle weird ability code
-	var/datum/action/item_action/organ_action/psychic_highlight/P = locate(/datum/action/item_action/organ_action/psychic_highlight) in M.actions
+	var/datum/action/item_action/organ_action/psychic_highlight/P = locate(/datum/action/item_action/organ_action/psychic_highlight) in eye_recipient.actions
 	if(P?.removed)
-		P.Grant(M)
+		P.Grant(eye_recipient)
 		P?.removed = FALSE
 
-/obj/item/organ/internal/eyes/psyphoza/Remove(mob/living/carbon/M, special = FALSE)
-	M.cure_blind("uncurable", TRUE)
-	var/datum/action/item_action/organ_action/psychic_highlight/P = locate(/datum/action/item_action/organ_action/psychic_highlight) in M.actions
+/obj/item/organ/internal/eyes/psyphoza/mob_remove(mob/living/carbon/organ_owner, special, movement_flags)
+	organ_owner.cure_blind("uncurable", TRUE)
+	var/datum/action/item_action/organ_action/psychic_highlight/P = locate(/datum/action/item_action/organ_action/psychic_highlight) in organ_owner.actions
 	P?.remove()
 	return ..()
 

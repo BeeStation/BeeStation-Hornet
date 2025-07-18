@@ -2,7 +2,7 @@
 	name = "tongue"
 	desc = "A fleshy muscle mostly used for lying."
 	icon_state = "tonguenormal"
-	visual = FALSE
+
 	zone = BODY_ZONE_PRECISE_MOUTH
 	slot = ORGAN_SLOT_TONGUE
 	attack_verb_continuous = list("licks", "slobbers", "slaps", "frenches", "tongues")
@@ -74,13 +74,12 @@
 /obj/item/organ/internal/tongue/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER
 
-/obj/item/organ/internal/tongue/Insert(mob/living/carbon/tongue_owner, special = FALSE, movement_flags)
+/obj/item/organ/internal/tongue/mob_insert(mob/living/carbon/receiver, special, movement_flags)
 	. = ..()
-	if(!.)
-		return
+
 	if(modifies_speech)
-		RegisterSignal(tongue_owner, COMSIG_MOB_SAY, PROC_REF(handle_speech))
-	tongue_owner.UnregisterSignal(tongue_owner, COMSIG_MOB_SAY)
+		RegisterSignal(receiver, COMSIG_MOB_SAY, PROC_REF(handle_speech))
+	receiver.UnregisterSignal(receiver, COMSIG_MOB_SAY)
 
 /obj/item/organ/internal/tongue/Remove(mob/living/carbon/tongue_owner, special, movement_flags)
 	UnregisterSignal(tongue_owner, COMSIG_MOB_SAY, PROC_REF(handle_speech))

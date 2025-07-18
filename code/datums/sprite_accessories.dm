@@ -70,8 +70,6 @@
 	 * This is the source that this accessory will get its color from. Default is MUTCOLOR, but can also be HAIR, FACEHAIR, EYECOLOR and 0 if none.
 	 */
 	var/color_src = MUTANT_COLOR
-	/// Decides if this sprite has an "inner" part, such as the fleshy parts on ears.
-	var/hasinner
 	/// Is this part locked from roundstart selection? Used for parts that apply effects.
 	var/locked = FALSE
 	/// Should we center the sprite?
@@ -1801,7 +1799,6 @@
 /datum/sprite_accessory/ears/cat
 	name = "Cat"
 	icon_state = "cat"
-	hasinner = 1
 	color_src = HAIR_COLOR
 
 /datum/sprite_accessory/wings
@@ -2021,15 +2018,6 @@
 /datum/sprite_accessory/tail_spines/aquatic
 	name = "Aquatic"
 	icon_state = "aqua"
-
-/datum/sprite_accessory/legs //legs are a special case, they aren't actually sprite_accessories but are updated with them.
-	icon = null //These datums exist for selecting legs on preference, and little else
-
-/datum/sprite_accessory/legs/none
-	name = "Normal Legs"
-
-/datum/sprite_accessory/legs/digitigrade_lizard
-	name = DIGITIGRADE_LEGS
 
 /datum/sprite_accessory/moth_wings
 	icon = 'icons/mob/species/moth/moth_wings.dmi'

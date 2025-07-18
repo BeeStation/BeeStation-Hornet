@@ -20,7 +20,7 @@
 	///The overlay for tail spines, if any
 	var/datum/bodypart_overlay/mutant/tail_spines/tail_spines_overlay
 
-/obj/item/organ/external/tail/Insert(mob/living/carbon/receiver, special, movement_flags)
+/obj/item/organ/external/tail/mob_insert(mob/living/carbon/receiver, special, movement_flags)
 	. = ..()
 	if(.)
 		SEND_SIGNAL(receiver, COMSIG_CLEAR_MOOD_EVENT, "tail_lost")
@@ -34,7 +34,7 @@
 		// If it's not your tail AND of different species, we are horrified
 		if(IS_WEAKREF_OF(receiver, original_owner))
 			SEND_SIGNAL(receiver, COMSIG_ADD_MOOD_EVENT, "tail_regained", /datum/mood_event/tail_regained_right)
-		else if(type in receiver.dna.species.external_organs)
+		else if(type in receiver.dna.species.mutant_organs)
 			SEND_SIGNAL(receiver, COMSIG_ADD_MOOD_EVENT, "tail_regained", /datum/mood_event/tail_regained_species)
 		else
 			SEND_SIGNAL(receiver, COMSIG_ADD_MOOD_EVENT, "tail_regained", /datum/mood_event/tail_regained_wrong)
@@ -83,7 +83,7 @@
 
 	SEND_SIGNAL(organ_owner, COMSIG_CLEAR_MOOD_EVENT, "tail_regained")
 
-	if(type in organ_owner.dna.species.external_organs)
+	if(type in organ_owner.dna.species.mutant_organs)
 		SEND_SIGNAL(organ_owner, COMSIG_ADD_MOOD_EVENT, "tail_lost", /datum/mood_event/tail_lost)
 		SEND_SIGNAL(organ_owner, COMSIG_ADD_MOOD_EVENT, "tail_balance_lost", /datum/mood_event/tail_balance_lost)
 

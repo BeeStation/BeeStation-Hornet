@@ -9,13 +9,12 @@
 	)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_REPTILE)
 	mutant_bodyparts = list(
-		"legs" = "Normal Legs",
 		"body_size" = "Normal"
 	)
 	body_markings = list(
 		/datum/bodypart_overlay/simple/body_marking/lizard = "None"
 	)
-	external_organs = list(
+	mutant_organs = list(
 		/obj/item/organ/external/horns = SPRITE_ACCESSORY_NONE,
 		/obj/item/organ/external/frills = SPRITE_ACCESSORY_NONE,
 		/obj/item/organ/external/snout = "Round",

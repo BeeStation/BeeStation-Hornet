@@ -3,10 +3,10 @@
 	name = "Felinid"
 	id = SPECIES_FELINID
 	examine_limb_id = SPECIES_HUMAN
-	mutant_bodyparts = list("ears" = "Cat", "wings" = "None", "body_size" = "Normal")
+	mutant_bodyparts = list("body_size" = "Normal")
 	mutanttongue = /obj/item/organ/internal/tongue/cat
 	mutantears = /obj/item/organ/internal/ears/cat
-	external_organs = list(
+	mutant_organs = list(
 		/obj/item/organ/external/tail/cat = "Cat",
 	)
 	inherent_traits = list(

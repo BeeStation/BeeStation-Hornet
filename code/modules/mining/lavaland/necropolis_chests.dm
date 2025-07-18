@@ -1015,7 +1015,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 				"snout" = "Sharp",
 				"horns" = "Curled",
 				"ears" = "None",
-				"wings" = "None",
 				"frills" = "None",
 				"spines" = "Long",
 				"lizard_markings" = "Dark Tiger Body",

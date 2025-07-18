@@ -19,7 +19,7 @@
 	body_markings = list(
 		/datum/bodypart_overlay/simple/body_marking/moth = "None"
 	)
-	external_organs = list(
+	mutant_organs = list(
 		/obj/item/organ/external/wings/moth = "Plain",
 		/obj/item/organ/external/antennae = "Plain"
 	)
