@@ -133,7 +133,7 @@
 			take_sharpness_damage(penetration_damage, type, flag, zone, penetration)
 			// Protected damage
 			var/blunt_damage = amount * (1 - penetration_proportion)
-			var/blunt_rating = 100 - (get_armor_rating(ARMOUR_BLUNT) / 100)
+			var/blunt_rating = (100 - get_armor_rating(ARMOUR_BLUNT)) / 100
 			var/absorbed_damage = blunt_damage * (1 - blunt_rating)
 			var/taken_damage = blunt_damage * blunt_rating
 			absorb_damage_amount(absorbed_damage, type)

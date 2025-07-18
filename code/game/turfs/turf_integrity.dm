@@ -46,11 +46,12 @@
 	update_integrity(new_integrity)
 	var/additional_damage = max(-new_integrity, 0)
 
-	var/integrity_failure_amount = integrity_failure * max_integrity
+	if (integrity_failure > 0)
+		var/integrity_failure_amount = integrity_failure * max_integrity
 
-	//BREAKING FIRST
-	if(integrity_failure && previous_atom_integrity > integrity_failure_amount && atom_integrity <= integrity_failure_amount)
-		atom_break(flag)
+		//BREAKING FIRST
+		if(integrity_failure && previous_atom_integrity > integrity_failure_amount && atom_integrity <= integrity_failure_amount)
+			atom_break(flag)
 
 	//DESTROYING SECOND
 	if(atom_integrity <= 0 && previous_atom_integrity > 0)
