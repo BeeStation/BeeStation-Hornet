@@ -8,6 +8,7 @@
 	surgeries_provided = list(
 		/datum/surgery/cauterize
 	)
+	heal_description = "The victim requires sutures to prevent further bleeding."
 
 /datum/injury/cut_laceration/on_tick(mob/living/carbon/human/target, delta_time)
 	. = ..()

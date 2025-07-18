@@ -7,6 +7,7 @@
 	surgeries_provided = list(
 		/datum/surgery/bone_setting
 	)
+	heal_description = "The victim requires bone setting surgery to make a full recovery."
 
 /datum/injury/trauma_splinted_broken_bone/on_damage_taken(total_damage, delta_damage, damage_type, damage_flag, is_sharp)
 	if (is_sharp || damage_type != BRUTE)

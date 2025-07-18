@@ -5,6 +5,7 @@
 	effectiveness_modifier = 0.5
 	bone_armour_modifier = 0.7
 	healed_type = /datum/injury/trauma_splinted_bone
+	heal_description = "The victim requires a splint to make a full recovery."
 
 /datum/injury/trauma_fracture/apply_to_part(obj/item/bodypart/part)
 	// If we lose the injury, stop the timer

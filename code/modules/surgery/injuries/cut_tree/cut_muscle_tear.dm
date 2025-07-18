@@ -8,6 +8,7 @@
 	surgeries_provided = list(
 		/datum/surgery/stitch_muscle
 	)
+	heal_description = "The victim requires a suture to stop the bleeding, and surgery to stitch the muscle for a full recovery."
 
 /datum/injury/cut_muscle_tear/on_tick(mob/living/carbon/human/target, delta_time)
 	. = ..()

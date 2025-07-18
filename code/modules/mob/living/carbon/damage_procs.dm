@@ -102,12 +102,16 @@
 ////////////////////////////////////////////
 
 //Returns a list of damaged bodyparts
-/mob/living/carbon/proc/get_damaged_bodyparts(brute = FALSE, burn = FALSE, stamina = FALSE, status)
+/mob/living/carbon/proc/get_damaged_bodyparts(brute = FALSE, burn = FALSE, stamina = FALSE, injuries = FALSE, status)
 	var/list/obj/item/bodypart/parts = list()
 	for(var/obj/item/bodypart/BP as() in bodyparts)
 		if(status && !(BP.bodytype & status))
 			continue
-		if((brute && BP.brute_dam) || (burn && BP.burn_dam) || (stamina && BP.stamina_dam))
+		var/has_injuries = FALSE
+		for (var/datum/injury/injury in BP.injuries)
+			if (injury.examine_description)
+				has_injuries = TRUE
+		if((brute && BP.brute_dam) || (burn && BP.burn_dam) || (stamina && BP.stamina_dam) || (injuries && has_injuries))
 			parts += BP
 	return parts
 

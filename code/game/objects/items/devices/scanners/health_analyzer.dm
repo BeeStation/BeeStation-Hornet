@@ -198,20 +198,27 @@
 	// Body part damage report
 	if(iscarbon(target))
 		var/mob/living/carbon/carbontarget = target
-		var/list/damaged = carbontarget.get_damaged_bodyparts(1,1)
+		var/list/damaged = carbontarget.get_damaged_bodyparts(TRUE, TRUE, FALSE, TRUE)
 		if(length(damaged)>0 || oxy_loss>0 || tox_loss>0 || fire_loss>0)
-			var/dmgreport = "<span class='info ml-1'>General status:</span>\
-							<table class='ml-2'><tr><font face='Verdana'>\
-							<td style='width:7em;'><font color='#ff0000'><b>Damage:</b></font></td>\
-							<td style='width:5em;'><font color='#ff3333'><b>Brute</b></font></td>\
-							<td style='width:4em;'><font color='#ff9933'><b>Burn</b></font></td>\
-							<td style='width:4em;'><font color='#00cc66'><b>Toxin</b></font></td>\
-							<td style='width:8em;'><font color='#00cccc'><b>Suffocation</b></font></td></tr>\
-							<tr><td><font color='#ff3333'><b>Overall:</b></font></td>\
-							<td><font color='#ff3333'><b>[CEILING(brute_loss,1)]</b></font></td>\
-							<td><font color='#ff9933'><b>[CEILING(fire_loss,1)]</b></font></td>\
-							<td><font color='#00cc66'><b>[CEILING(tox_loss,1)]</b></font></td>\
-							<td><font color='#33ccff'><b>[CEILING(oxy_loss,1)]</b></font></td></tr>"
+			var/dmgreport = {"
+<span class='info ml-1'>General status:</span>
+<table class='ml-2' style='width:100%'>
+	<tr><font face='Verdana'>
+		<td style='width:7em;'><font color='#ff0000'><b>Damage:</b></font></td>
+		<td style='width:5em;'><font color='#ff3333'><b>Brute</b></font></td>
+		<td style='width:4em;'><font color='#ff9933'><b>Burn</b></font></td>
+		<td style='width:4em;'><font color='#00cc66'><b>Toxin</b></font></td>
+		<td style='width:8em;'><font color='#00cccc'><b>Suffocation</b></td>
+		<td style='width:calc(100%-28em);'><font color='#7c7c7c'><b>Injuries</b></td>
+	</font></tr>
+	<tr>
+		<td><font color='#ff3333'><b>Overall:</b></font></td>
+		<td><font color='#ff3333'><b>[CEILING(brute_loss,1)]</b></font></td>
+		<td><font color='#ff9933'><b>[CEILING(fire_loss,1)]</b></font></td>
+		<td><font color='#00cc66'><b>[CEILING(tox_loss,1)]</b></font></td>
+		<td><font color='#33ccff'><b>[CEILING(oxy_loss,1)]</b></font></td>
+		<td></td>
+	</tr>"}
 
 			if(mode == SCANNER_VERBOSE)
 				for(var/obj/item/bodypart/limb as anything in damaged)
@@ -220,7 +227,19 @@
 					else
 						dmgreport += "<tr><td><font color='#cc3333'>[capitalize(limb.plaintext_zone)]:</font></td>"
 					dmgreport += "<td><font color='#cc3333'>[(limb.brute_dam > 0) ? "[CEILING(limb.brute_dam,1)]" : "0"]</font></td>"
-					dmgreport += "<td><font color='#ff9933'>[(limb.burn_dam > 0) ? "[CEILING(limb.burn_dam,1)]" : "0"]</font></td></tr>"
+					dmgreport += "<td><font color='#ff9933'>[(limb.burn_dam > 0) ? "[CEILING(limb.burn_dam,1)]" : "0"]</font></td>"
+					dmgreport += "<td></td>"
+					dmgreport += "<td></td>"
+					var/list/injury_texts = list()
+					for (var/datum/injury/injury in limb.injuries)
+						if (!injury.examine_description)
+							continue
+						if (injury.heal_description)
+							injury_texts += span_tooltip(injury.heal_description, injury.examine_description)
+						else
+							injury_texts += injury.examine_description
+					dmgreport += "<td>[jointext(injury_texts, ", ")]</td>"
+					dmgreport += "</tr>"
 			dmgreport += "</font></table>"
 			render_list += dmgreport // tables do not need extra linebreak
 		for(var/obj/item/bodypart/limb as anything in carbontarget.bodyparts)
