@@ -194,8 +194,9 @@
 	blend_mode = BLEND_OVERLAY
 
 //TODO: FIGURE OUT HOW MASKS WORK
-///atom/movable/screen/plane_master/ai_machinery/backdrop(mob/mymob)
+//atom/movable/screen/plane_master/ai_machinery/backdrop(mob/mymob)
 //	. = ..()
+//	add_filter("glow", 1, list(type = "bloom", threshold = rgb(128, 128, 128), size = 2, offset = 1, alpha = 255))
 //	add_filter("mask", 2, alpha_mask_filter(render_source = "blind_fullscreen_overlay"))
 
 /atom/movable/screen/plane_master/o_light_visual

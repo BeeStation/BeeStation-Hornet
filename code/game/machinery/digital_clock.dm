@@ -9,6 +9,7 @@
 	max_integrity = 250
 	density = FALSE
 	layer = ABOVE_WINDOW_LAYER
+	ai_view_enabled = FALSE
 	var/station_minutes
 	var/station_hours
 

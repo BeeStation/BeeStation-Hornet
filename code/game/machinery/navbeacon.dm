@@ -10,6 +10,7 @@
 	layer = UNDER_CATWALK
 	max_integrity = 500
 	armor_type = /datum/armor/machinery_navbeacon
+	ai_view_enabled = FALSE
 
 	var/open = FALSE		// true if cover is open
 	var/locked = TRUE		// true if controls are locked

@@ -10,6 +10,8 @@
 	max_integrity = 150
 	integrity_failure = 0.33
 
+	ai_view_enabled = FALSE
+
 	var/id = 0
 	max_integrity = 150
 	integrity_failure = 0.33

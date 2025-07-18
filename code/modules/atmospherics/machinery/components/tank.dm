@@ -14,6 +14,8 @@
 	initialize_directions = NONE
 	custom_reconcilation = TRUE
 
+	ai_view_enabled = FALSE
+
 	/// The open node directions of the tank, assuming that the tank is facing NORTH.
 	var/open_ports = NONE
 	/// The volume of the gas mixture

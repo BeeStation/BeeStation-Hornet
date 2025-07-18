@@ -150,6 +150,8 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	anchored = TRUE
 	state_open = TRUE
 
+	ai_view_enabled = FALSE
+
 	var/on_store_message = "has entered long-term storage."
 	var/on_store_name = "Cryogenic Oversight"
 

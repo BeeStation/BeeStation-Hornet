@@ -6,6 +6,7 @@
 	desc = "Make dark."
 	power_channel = AREA_USAGE_LIGHT
 	layer = ABOVE_WINDOW_LAYER
+	ai_view_icon = "ai_switch"
 	/// Set this to a string, path, or area instance to control that area
 	/// instead of the switch's location.
 	var/area/area = null
