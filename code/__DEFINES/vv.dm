@@ -124,7 +124,7 @@
 #define VV_ID_PAYDAY "id_payday"
 #define VV_ID_GIVE_MINING_POINT "id_give_mining_points"
 
-// /obj/item/organ/internal/cyberimp/arm
+// /obj/item/organ/cyberimp/arm
 #define VV_HK_ADD_IMPLANT_TOOL	"add_implant_tool"
 #define VV_HK_DEL_IMPLANT_TOOL	"del_implant_tool"
 

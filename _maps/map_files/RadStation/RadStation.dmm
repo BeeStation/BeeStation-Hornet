@@ -7596,7 +7596,7 @@
 	dir = 8
 	},
 /obj/structure/closet/crate/freezer/surplus_limbs,
-/obj/item/organ/internal/ears/cat,
+/obj/item/organ/ears/cat,
 /turf/open/floor/iron,
 /area/medical/surgery)
 "ctt" = (
@@ -24890,7 +24890,7 @@
 /obj/item/book/granter/action/spell/smoke/lesser,
 /obj/item/reagent_containers/cup/glass/bottle/holywater,
 /obj/item/soulstone/anybody/chaplain,
-/obj/item/organ/internal/heart,
+/obj/item/organ/heart,
 /turf/open/floor/carpet/grimy,
 /area/chapel/office)
 "ifH" = (

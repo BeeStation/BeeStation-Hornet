@@ -57,8 +57,8 @@
 //Start of a breath chain, calls breathe()
 /mob/living/carbon/handle_breathing(delta_time, times_fired)
 	var/next_breath = 4
-	var/obj/item/organ/internal/lungs/L = get_organ_slot(ORGAN_SLOT_LUNGS)
-	var/obj/item/organ/internal/heart/H = get_organ_slot(ORGAN_SLOT_HEART)
+	var/obj/item/organ/lungs/L = get_organ_slot(ORGAN_SLOT_LUNGS)
+	var/obj/item/organ/heart/H = get_organ_slot(ORGAN_SLOT_HEART)
 	if(L)
 		if(L.damage > L.high_threshold)
 			next_breath--
@@ -79,7 +79,7 @@
 
 //Second link in a breath chain, calls check_breath()
 /mob/living/carbon/proc/breathe(delta_time, times_fired)
-	var/obj/item/organ/internal/lungs = get_organ_slot(ORGAN_SLOT_LUNGS)
+	var/obj/item/organ/lungs = get_organ_slot(ORGAN_SLOT_LUNGS)
 	if(reagents.has_reagent(/datum/reagent/toxin/lexorin, needs_metabolizing = TRUE))
 		return
 
@@ -145,7 +145,7 @@
 	if(HAS_TRAIT(src, TRAIT_NOBREATH))
 		return
 
-	var/obj/item/organ/internal/lungs = get_organ_slot(ORGAN_SLOT_LUNGS)
+	var/obj/item/organ/lungs = get_organ_slot(ORGAN_SLOT_LUNGS)
 	if(!lungs)
 		adjustOxyLoss(2)
 
@@ -315,7 +315,7 @@
 	if(stat == DEAD)
 		if(reagents.has_reagent(/datum/reagent/toxin/formaldehyde, 1) || reagents.has_reagent(/datum/reagent/cryostylane)) // No organ decay if the body contains formaldehyde.
 			return
-		for(var/obj/item/organ/internal/organ in organs)
+		for(var/obj/item/organ/organ in organs)
 			// On-death is where organ decay is handled
 			organ?.on_death(delta_time, times_fired) // organ can be null due to reagent metabolization causing organ shuffling
 			// We need to re-check the stat every organ, as one of our others may have revived us
@@ -327,7 +327,7 @@
 	for(var/slot in organs_slot)
 		// We don't use get_organ_slot here because we know we have the organ we want, since we're iterating the list containing em already
 		// This code is hot enough that it's just not worth the time
-		var/obj/item/organ/internal/organ = organs_slot[slot]
+		var/obj/item/organ/organ = organs_slot[slot]
 		if(organ?.owner) // This exist mostly because reagent metabolization can cause organ reshuffling
 			organ.on_life(delta_time, times_fired)
 
@@ -697,12 +697,12 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 /mob/living/carbon/proc/handle_liver(delta_time, times_fired)
 	if(!dna)
 		return
-	var/obj/item/organ/internal/liver/liver = get_organ_slot(ORGAN_SLOT_LIVER)
+	var/obj/item/organ/liver/liver = get_organ_slot(ORGAN_SLOT_LIVER)
 	if(!liver)
 		liver_failure(delta_time, times_fired)
 
 /mob/living/carbon/proc/undergoing_liver_failure()
-	var/obj/item/organ/internal/liver/liver = get_organ_slot(ORGAN_SLOT_LIVER)
+	var/obj/item/organ/liver/liver = get_organ_slot(ORGAN_SLOT_LIVER)
 	if(liver && (liver.organ_flags & ORGAN_FAILING))
 		return TRUE
 
@@ -722,7 +722,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 /mob/living/carbon/proc/can_heartattack()
 	if(!needs_heart())
 		return FALSE
-	var/obj/item/organ/internal/heart/heart = get_organ_slot(ORGAN_SLOT_HEART)
+	var/obj/item/organ/heart/heart = get_organ_slot(ORGAN_SLOT_HEART)
 	if(!heart || IS_ROBOTIC_ORGAN(heart))
 		return FALSE
 	return TRUE
@@ -742,7 +742,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
  * related situations (i.e not just cardiac arrest)
  */
 /mob/living/carbon/proc/undergoing_cardiac_arrest()
-	var/obj/item/organ/internal/heart/heart = get_organ_slot(ORGAN_SLOT_HEART)
+	var/obj/item/organ/heart/heart = get_organ_slot(ORGAN_SLOT_HEART)
 	if(istype(heart) && heart.beating)
 		return FALSE
 	else if(!needs_heart())
@@ -753,7 +753,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 	if(!can_heartattack())
 		return FALSE
 
-	var/obj/item/organ/internal/heart/heart = get_organ_slot(ORGAN_SLOT_HEART)
+	var/obj/item/organ/heart/heart = get_organ_slot(ORGAN_SLOT_HEART)
 	if(!istype(heart))
 		return
 

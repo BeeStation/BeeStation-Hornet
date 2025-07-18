@@ -133,7 +133,7 @@
 			else
 				. += span_deadsay("[t_He] [t_is] limp and unresponsive; there are no signs of life...")
 
-	if(get_bodypart(BODY_ZONE_HEAD) && !get_organ_by_type(/obj/item/organ/internal/brain))
+	if(get_bodypart(BODY_ZONE_HEAD) && !get_organ_by_type(/obj/item/organ/brain))
 		. += span_deadsay("It appears that [t_his] brain is missing.")
 
 	var/temp = getBruteLoss() //no need to calculate each of these twice
@@ -314,7 +314,7 @@
 			if(CONSCIOUS)
 				if(HAS_TRAIT(src, TRAIT_DUMB))
 					msg += "[t_He] [t_has] a stupid expression on [t_his] face.\n"
-		if(get_organ_by_type(/obj/item/organ/internal/brain))
+		if(get_organ_by_type(/obj/item/organ/brain))
 			if(ai_controller?.ai_status == AI_STATUS_ON)
 				msg += "[span_deadsay("[t_He] do[t_es]n't appear to be [t_him]self.")]\n"
 			if(!key)
@@ -349,7 +349,7 @@
 			. += "[span_deptradio("Rank:")] [target_record.rank]"
 		if(HAS_TRAIT(user, TRAIT_MEDICAL_HUD))
 			var/cyberimp_detect
-			for(var/obj/item/organ/internal/cyberimp/cyberimp in organs)
+			for(var/obj/item/organ/cyberimp/cyberimp in organs)
 				if(IS_ROBOTIC_ORGAN(cyberimp) && !(cyberimp.organ_flags & ORGAN_HIDDEN))
 					cyberimp_detect += "[!cyberimp_detect ? "[cyberimp.get_examine_string(user)]" : ", [cyberimp.get_examine_string(user)]"]"
 			if(cyberimp_detect)
@@ -406,4 +406,4 @@
 	return !key && !get_ghost(FALSE, TRUE)
 
 /mob/living/soul_departed()
-	return get_organ_by_type(/obj/item/organ/internal/brain) && !key && !get_ghost(FALSE, TRUE)
+	return get_organ_by_type(/obj/item/organ/brain) && !key && !get_ghost(FALSE, TRUE)

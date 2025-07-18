@@ -36,7 +36,7 @@
 		/obj/item/clothing/glasses/godeye									= 5,
 		/obj/item/clothing/gloves/concussive_gauntlets						= 5,
 		/obj/item/rod_of_asclepius											= 5,
-		/obj/item/organ/internal/heart/cursed/wizard						 			= 5,
+		/obj/item/organ/heart/cursed/wizard						 			= 5,
 		/obj/item/ship_in_a_bottle											= 5,
 		/obj/item/jacobs_ladder												= 5,
 		/obj/item/warp_cube/red												= 5,
@@ -627,10 +627,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 		to_chat(exposed_human, span_userdanger("A terrible pain travels down your back as your wings change shape!"))
 	else
 		to_chat(exposed_human, span_userdanger("A terrible pain travels down your back as wings burst out!"))
-	var/obj/item/organ/external/wings/wings = get_wing_choice(exposed_human, chest)
+	var/obj/item/organ/wings/wings = get_wing_choice(exposed_human, chest)
 	wings = new wings()
 	wings.Insert(exposed_human)
-	exposed_human.dna.species.handle_mutant_bodyparts(exposed_human)
 	playsound(exposed_human.loc, 'sound/items/poster_ripped.ogg', 50, TRUE, -1)
 	exposed_human.apply_damage(20, def_zone = BODY_ZONE_CHEST, forced = TRUE)
 	exposed_human.emote("scream")
@@ -641,7 +640,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 		return wing_types[1]
 	var/list/radial_wings = list()
 	var/list/name2type = list()
-	for(var/obj/item/organ/external/wings/possible_type as anything in wing_types)
+	for(var/obj/item/organ/wings/possible_type as anything in wing_types)
 		var/datum/sprite_accessory/accessory = initial(possible_type.sprite_accessory_override) //get the type
 		accessory = GLOB.wings_list[initial(accessory.name)] //get the singleton instance
 		var/image/img = image(icon = accessory.icon, icon_state = "m_wingsopen_[accessory.icon_state]_BEHIND") //Process the HUD elements
@@ -1198,7 +1197,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 
 /obj/structure/closet/crate/necropolis/colossus/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot
 	if(..())
-		new /obj/item/organ/internal/vocal_cords/colossus(src)
+		new /obj/item/organ/vocal_cords/colossus(src)
 		new /obj/item/crusher_trophy/blaster_tubes(src)
 
 //Hierophant

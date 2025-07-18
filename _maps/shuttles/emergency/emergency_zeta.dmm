@@ -264,7 +264,7 @@
 /area/shuttle/escape)
 "aX" = (
 /obj/structure/table/abductor,
-/obj/item/organ/internal/heart/gland/egg,
+/obj/item/organ/heart/gland/egg,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
 "aY" = (

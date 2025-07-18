@@ -5,7 +5,7 @@
 	name = "High-Functioning Zombie"
 	id = SPECIES_ZOMBIE
 	meat = /obj/item/food/meat/slab/human/mutant/zombie
-	mutanttongue = /obj/item/organ/internal/tongue/zombie
+	mutanttongue = /obj/item/organ/tongue/zombie
 	inherent_traits = list(
 		// SHARED WITH ALL ZOMBIES
 		TRAIT_NO_ZOMBIFY,
@@ -76,7 +76,7 @@
 	id = SPECIES_ZOMBIE_INFECTIOUS
 	examine_limb_id = SPECIES_ZOMBIE
 	damage_modifier = 20 // 120 damage to KO a zombie, which kills it
-	mutanteyes = /obj/item/organ/internal/eyes/night_vision/zombie
+	mutanteyes = /obj/item/organ/eyes/night_vision/zombie
 	var/muthands_path = /obj/item/mutant_hand/zombie
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | ERT_SPAWN
 	/// The rate the zombies regenerate at
@@ -153,7 +153,7 @@
 //Congrats you somehow died so hard you stopped being a zombie
 /datum/species/zombie/infectious/spec_death(gibbed, mob/living/carbon/C)
 	. = ..()
-	var/obj/item/organ/internal/zombie_infection/infection
+	var/obj/item/organ/zombie_infection/infection
 	infection = C.get_organ_slot(ORGAN_SLOT_ZOMBIE)
 	if(infection)
 		qdel(infection)
@@ -164,7 +164,7 @@
 	// Deal with the source of this zombie corruption
 	//  Infection organ needs to be handled separately from mutant_organs
 	//  because it persists through species transitions
-	var/obj/item/organ/internal/zombie_infection/infection
+	var/obj/item/organ/zombie_infection/infection
 	infection = C.get_organ_slot(ORGAN_SLOT_ZOMBIE)
 	if(!infection)
 		infection = new()
@@ -175,7 +175,7 @@
 	id = "memezombiesfast"
 	damage_modifier = 0
 	inherent_biotypes = list(MOB_ORGANIC, MOB_UNDEAD, MOB_HUMANOID) //mob organic, so still susceptible to the disease that created it
-	mutanteyes = /obj/item/organ/internal/eyes/night_vision/zombie
+	mutanteyes = /obj/item/organ/eyes/night_vision/zombie
 	muthands_path = /obj/item/mutant_hand/zombie/infectious
 
 	bodypart_overrides = list(
@@ -193,7 +193,7 @@
 	id = SPECIES_ZOMBIE_KROKODIL
 	examine_limb_id = SPECIES_HUMAN
 	meat = /obj/item/food/meat/slab/human/mutant/zombie
-	mutanttongue = /obj/item/organ/internal/tongue/zombie
+	mutanttongue = /obj/item/organ/tongue/zombie
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | ERT_SPAWN
 
 	examine_limb_id = SPECIES_HUMAN

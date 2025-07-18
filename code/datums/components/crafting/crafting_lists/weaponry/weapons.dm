@@ -110,7 +110,7 @@
 	result = /obj/item/club/tailclub
 	time = 4 SECONDS
 	reqs = list(
-		/obj/item/organ/external/tail/lizard = 1,
+		/obj/item/organ/tail/lizard = 1,
 		/obj/item/stack/sheet/iron = 1
 	)
 	category = CAT_WEAPON_MELEE
@@ -133,7 +133,7 @@
 	result = /obj/item/melee/chainofcommand/tailwhip
 	time = 4 SECONDS
 	reqs = list(
-		/obj/item/organ/external/tail/lizard = 1,
+		/obj/item/organ/tail/lizard = 1,
 		/obj/item/stack/cable_coil = 1
 	)
 	category = CAT_WEAPON_MELEE
@@ -143,7 +143,7 @@
 	result = /obj/item/melee/chainofcommand/tailwhip/kitty
 	time = 4 SECONDS
 	reqs = list(
-		/obj/item/organ/external/tail/cat = 1,
+		/obj/item/organ/tail/cat = 1,
 		/obj/item/stack/cable_coil = 1
 	)
 	category = CAT_WEAPON_MELEE

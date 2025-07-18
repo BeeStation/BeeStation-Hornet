@@ -3,11 +3,11 @@
 	name = "Felinid"
 	id = SPECIES_FELINID
 	examine_limb_id = SPECIES_HUMAN
-	mutant_bodyparts = list("ears" = "Cat", "wings" = "None", "body_size" = "Normal")
-	mutanttongue = /obj/item/organ/internal/tongue/cat
-	mutantears = /obj/item/organ/internal/ears/cat
-	external_organs = list(
-		/obj/item/organ/external/tail/cat = "Cat",
+	mutant_bodyparts = list("body_size" = "Normal")
+	mutanttongue = /obj/item/organ/tongue/cat
+	mutantears = /obj/item/organ/ears/cat
+	mutant_organs = list(
+		/obj/item/organ/tail/cat = "Cat",
 	)
 	inherent_traits = list(
 		TRAIT_USES_SKINTONES,
@@ -27,9 +27,9 @@
 			if(target_human.dna.features["ears"] == "None")
 				target_human.dna.features["ears"] = "Cat"
 		if(target_human.dna.features["ears"] == "None")
-			mutantears = /obj/item/organ/internal/ears
+			mutantears = /obj/item/organ/ears
 		else
-			var/obj/item/organ/internal/ears/cat/ears = new(FALSE, target_human.dna.features["ears"])
+			var/obj/item/organ/ears/cat/ears = new(FALSE, target_human.dna.features["ears"])
 			ears.Insert(target_human, movement_flags = DELETE_IF_REPLACED)
 	return ..()
 
@@ -43,8 +43,8 @@
 			var/sick_message = pick("You feel nauseous.", "You feel like your insides are melting.")
 			to_chat(M, span_notice("[sick_message]"))
 		if(prob(15))
-			if(locate(/obj/item/organ/internal/stomach) in M.organs)
-				var/obj/item/organ/internal/stomach/cat_stomach = M.organs_slot[ORGAN_SLOT_STOMACH]
+			if(locate(/obj/item/organ/stomach) in M.organs)
+				var/obj/item/organ/stomach/cat_stomach = M.organs_slot[ORGAN_SLOT_STOMACH]
 				cat_stomach.applyOrganDamage(15)
 		return FALSE
 	return ..() //second part of this effect is handled elsewhere
@@ -98,7 +98,7 @@
 	human_for_preview.set_haircolor("#ffcccc", update = FALSE) // pink
 	human_for_preview.set_hairstyle("Hime Cut", update = TRUE)
 
-	var/obj/item/organ/internal/ears/cat/cat_ears = human_for_preview.get_organ_by_type(/obj/item/organ/internal/ears/cat)
+	var/obj/item/organ/ears/cat/cat_ears = human_for_preview.get_organ_by_type(/obj/item/organ/ears/cat)
 	if (cat_ears)
 		cat_ears.color = human_for_preview.hair_color
 		human_for_preview.update_body()

@@ -438,7 +438,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	return ..()
 
 //Provides a decent heal, need to pump every 6 seconds
-/obj/item/organ/internal/heart/cursed/wizard
+/obj/item/organ/heart/cursed/wizard
 	pump_delay = 60
 	heal_brute = 25
 	heal_burn = 25

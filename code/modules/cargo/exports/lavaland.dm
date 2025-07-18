@@ -15,7 +15,7 @@
 						/obj/item/voodoo,
 						/obj/item/grenade/clusterbuster/inferno,
 						/obj/item/clothing/neck/necklace/memento_mori,
-						/obj/item/organ/internal/heart/cursed/wizard,
+						/obj/item/organ/heart/cursed/wizard,
 						/obj/item/clothing/suit/hooded/cloak/drake,
 						/obj/item/dragons_blood,
 						/obj/item/lava_staff,
@@ -42,7 +42,7 @@
 	unit_name = "major lava planet artifact"
 	export_types = list(/obj/item/hierophant_club,
 						/obj/item/melee/cleaving_saw,
-						/obj/item/organ/internal/vocal_cords/colossus,
+						/obj/item/organ/vocal_cords/colossus,
 						/obj/machinery/anomalous_crystal,
 						/obj/item/mayhem,
 						/obj/item/blood_contract,

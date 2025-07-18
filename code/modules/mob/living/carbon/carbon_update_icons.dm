@@ -297,6 +297,7 @@
 	. = list()
 	if(blocks_emissive != FALSE)
 		. += emissive_blocker(standing.icon, standing.icon_state, alpha = standing.alpha)
+	SEND_SIGNAL(src, COMSIG_ITEM_GET_WORN_OVERLAYS, ., standing, isinhands, icon_file)
 
 /mob/living/carbon/proc/update_body_parts(update_limb_data)
 	//Check the cache to see if it needs a new sprite

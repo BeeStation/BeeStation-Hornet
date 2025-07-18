@@ -8,7 +8,7 @@
 	icon_greyscale = 'icons/mob/species/lizard/bodyparts.dmi'
 	limb_id = SPECIES_LIZARD
 	is_dimorphic = TRUE
-	wing_types = list(/obj/item/organ/external/wings/dragon)
+	wing_types = list(/obj/item/organ/wings/dragon)
 
 /obj/item/bodypart/arm/left/lizard
 	icon_greyscale = 'icons/mob/species/lizard/bodyparts.dmi'

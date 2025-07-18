@@ -12,7 +12,7 @@
 	create_dna(src)
 	stored_dna.initialize_dna(random_blood_type())
 	if(isturf(loc)) //not spawned in an MMI or brain organ (most likely adminspawned)
-		var/obj/item/organ/internal/brain/OB = new(loc) //we create a new brain organ for it.
+		var/obj/item/organ/brain/OB = new(loc) //we create a new brain organ for it.
 		OB.brainmob = src
 		forceMove(OB)
 	if(!container?.mecha) //Unless inside a mecha, brains are rather helpless.
@@ -65,10 +65,10 @@
 /mob/living/brain/forceMove(atom/destination)
 	if(container)
 		return container.forceMove(destination)
-	else if (istype(loc, /obj/item/organ/internal/brain))
-		var/obj/item/organ/internal/brain/B = loc
+	else if (istype(loc, /obj/item/organ/brain))
+		var/obj/item/organ/brain/B = loc
 		B.forceMove(destination)
-	else if (istype(destination, /obj/item/organ/internal/brain))
+	else if (istype(destination, /obj/item/organ/brain))
 		doMove(destination)
 	else if (istype(destination, /obj/item/mmi))
 		doMove(destination)
@@ -88,8 +88,8 @@
 
 /mob/living/brain/proc/get_traumas()
 	. = list()
-	if(istype(loc, /obj/item/organ/internal/brain))
-		var/obj/item/organ/internal/brain/B = loc
+	if(istype(loc, /obj/item/organ/brain))
+		var/obj/item/organ/brain/B = loc
 		. = B.traumas
 
 /mob/living/brain/soul_departed()

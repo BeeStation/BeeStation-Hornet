@@ -9,20 +9,19 @@
 	)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_REPTILE)
 	mutant_bodyparts = list(
-		"legs" = "Normal Legs",
 		"body_size" = "Normal"
 	)
 	body_markings = list(
 		/datum/bodypart_overlay/simple/body_marking/lizard = "None"
 	)
-	external_organs = list(
-		/obj/item/organ/external/horns = SPRITE_ACCESSORY_NONE,
-		/obj/item/organ/external/frills = SPRITE_ACCESSORY_NONE,
-		/obj/item/organ/external/snout = "Round",
-		/obj/item/organ/external/spines = SPRITE_ACCESSORY_NONE,
-		/obj/item/organ/external/tail/lizard = "Smooth",
+	mutant_organs = list(
+		/obj/item/organ/horns = SPRITE_ACCESSORY_NONE,
+		/obj/item/organ/frills = SPRITE_ACCESSORY_NONE,
+		/obj/item/organ/snout = "Round",
+		/obj/item/organ/spines = SPRITE_ACCESSORY_NONE,
+		/obj/item/organ/tail/lizard = "Smooth",
 	)
-	mutanttongue = /obj/item/organ/internal/tongue/lizard
+	mutanttongue = /obj/item/organ/tongue/lizard
 	coldmod = 1.5
 	heatmod = 0.67
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
@@ -112,7 +111,7 @@
 		)
 	inherent_factions = list(FACTION_ASHWALKER)
 	species_language_holder = /datum/language_holder/lizard/ash
-	mutantlungs = /obj/item/organ/internal/lungs/ashwalker
+	mutantlungs = /obj/item/organ/lungs/ashwalker
 	digitigrade_customization = DIGITIGRADE_FORCED
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/lizard,

@@ -7,7 +7,7 @@
 	result = /obj/item/reagent_containers/cup/glass/bottle/lizardwine
 	time = 4 SECONDS
 	reqs = list(
-		/obj/item/organ/external/tail/lizard = 1,
+		/obj/item/organ/tail/lizard = 1,
 		/datum/reagent/consumable/ethanol = 100
 	)
 	category = CAT_DRINK

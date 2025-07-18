@@ -27541,7 +27541,7 @@
 	pixel_x = 33;
 	pixel_y = -1
 	},
-/obj/item/organ/internal/heart{
+/obj/item/organ/heart{
 	pixel_x = -5;
 	pixel_y = -1
 	},

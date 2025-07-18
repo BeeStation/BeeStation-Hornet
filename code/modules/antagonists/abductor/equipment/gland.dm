@@ -1,4 +1,4 @@
-/obj/item/organ/internal/heart/gland
+/obj/item/organ/heart/gland
 	name = "fleshy mass"
 	desc = "A nausea-inducing hunk of twisting flesh and metal."
 	icon = 'icons/obj/abductor.dmi'
@@ -22,28 +22,28 @@
 	var/mind_control_duration = 1800
 	var/active_mind_control = FALSE
 
-/obj/item/organ/internal/heart/gland/Initialize(mapload)
+/obj/item/organ/heart/gland/Initialize(mapload)
 	. = ..()
 	icon_state = pick(list("health", "spider", "slime", "emp", "species", "egg", "vent", "mindshock", "viral"))
 	AddElement(/datum/element/update_icon_blocker)
 
-/obj/item/organ/internal/heart/gland/examine(mob/user)
+/obj/item/organ/heart/gland/examine(mob/user)
 	. = ..()
 	if(HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_SCIENTIST_TRAINING) || isobserver(user))
 		. += span_notice("It is \a [true_name].")
 
-/obj/item/organ/internal/heart/gland/proc/ownerCheck()
+/obj/item/organ/heart/gland/proc/ownerCheck()
 	if(ishuman(owner))
 		return TRUE
 	if(!human_only && iscarbon(owner))
 		return TRUE
 	return FALSE
 
-/obj/item/organ/internal/heart/gland/proc/Start()
+/obj/item/organ/heart/gland/proc/Start()
 	active = 1
 	COOLDOWN_START(src, activation_cooldown, rand(cooldown_low, cooldown_high))
 
-/obj/item/organ/internal/heart/gland/proc/update_gland_hud()
+/obj/item/organ/heart/gland/proc/update_gland_hud()
 	if(!owner)
 		return
 	var/image/holder = owner.hud_list[GLAND_HUD]
@@ -56,7 +56,7 @@
 	else
 		holder.icon_state = "hudgland_spent"
 
-/obj/item/organ/internal/heart/gland/proc/mind_control(command, mob/living/user)
+/obj/item/organ/heart/gland/proc/mind_control(command, mob/living/user)
 	if(!ownerCheck() || !mind_control_uses || active_mind_control)
 		return
 	mind_control_uses--
@@ -70,14 +70,14 @@
 	mind_alert.command = command
 	addtimer(CALLBACK(src, PROC_REF(clear_mind_control)), mind_control_duration)
 
-/obj/item/organ/internal/heart/gland/proc/clear_mind_control()
+/obj/item/organ/heart/gland/proc/clear_mind_control()
 	if(!ownerCheck() || !active_mind_control)
 		return
 	to_chat(owner, span_userdanger("You feel the compulsion fade, and you <i>completely forget</i> about your previous orders."))
 	owner.clear_alert("mind_control")
 	active_mind_control = FALSE
 
-/obj/item/organ/internal/heart/gland/Remove(mob/living/carbon/gland_owner, special, movement_flags)
+/obj/item/organ/heart/gland/mob_remove(mob/living/carbon/gland_owner, special, movement_flags)
 	. = ..()
 	active = FALSE
 	if(initial(uses) == 1)
@@ -86,10 +86,8 @@
 	hud.remove_from_hud(gland_owner)
 	clear_mind_control()
 
-/obj/item/organ/internal/heart/gland/Insert(mob/living/carbon/gland_owner, special = FALSE, movement_flags = DELETE_IF_REPLACED)
+/obj/item/organ/heart/gland/mob_insert(mob/living/carbon/gland_owner, special = FALSE, movement_flags = DELETE_IF_REPLACED)
 	. = ..()
-	if(!.)
-		return
 
 	if(special != 2 && uses) // Special 2 means abductor surgery
 		Start()
@@ -97,7 +95,7 @@
 	hud.add_to_hud(gland_owner)
 	update_gland_hud()
 
-/obj/item/organ/internal/heart/gland/on_life(delta_time, times_fired)
+/obj/item/organ/heart/gland/on_life(delta_time, times_fired)
 	if(!beating)
 		// alien glands are immune to stopping.
 		beating = TRUE
@@ -113,10 +111,10 @@
 	if(!uses)
 		active = FALSE
 
-/obj/item/organ/internal/heart/gland/proc/activate()
+/obj/item/organ/heart/gland/proc/activate()
 	return
 
-/obj/item/organ/internal/heart/gland/heals
+/obj/item/organ/heart/gland/heals
 	true_name = "coherency harmonizer"
 	cooldown_low = 200
 	cooldown_high = 400
@@ -125,13 +123,13 @@
 	mind_control_uses = 3
 	mind_control_duration = 3000
 
-/obj/item/organ/internal/heart/gland/heals/activate()
+/obj/item/organ/heart/gland/heals/activate()
 	to_chat(owner, span_notice("You feel curiously revitalized."))
 	owner.adjustToxLoss(-20, FALSE, TRUE)
 	owner.heal_bodypart_damage(20, 20, 0, TRUE)
 	owner.adjustOxyLoss(-20)
 
-/obj/item/organ/internal/heart/gland/slime
+/obj/item/organ/heart/gland/slime
 	true_name = "gastric animation galvanizer"
 	cooldown_low = 600
 	cooldown_high = 1200
@@ -140,19 +138,19 @@
 	mind_control_uses = 1
 	mind_control_duration = 2400
 
-/obj/item/organ/internal/heart/gland/slime/on_mob_insert(mob/living/carbon/gland_owner)
+/obj/item/organ/heart/gland/slime/on_mob_insert(mob/living/carbon/gland_owner)
 	. = ..()
 	owner.faction |= FACTION_SLIME
 	owner.grant_language(/datum/language/slime, source = LANGUAGE_GLAND)
 
-/obj/item/organ/internal/heart/gland/slime/on_mob_remove(mob/living/carbon/gland_owner)
+/obj/item/organ/heart/gland/slime/on_mob_remove(mob/living/carbon/gland_owner)
 	. = ..()
 	if(!owner) // Add null check
 		return
 	owner.faction -= FACTION_SLIME
 	owner.remove_language(/datum/language/slime, source = LANGUAGE_GLAND)
 
-/obj/item/organ/internal/heart/gland/slime/activate()
+/obj/item/organ/heart/gland/slime/activate()
 	to_chat(owner, span_warning("You feel nauseated!"))
 	owner.vomit(20)
 
@@ -160,7 +158,7 @@
 	Slime.set_friends(list(owner))
 	Slime.set_leader(owner)
 
-/obj/item/organ/internal/heart/gland/mindshock
+/obj/item/organ/heart/gland/mindshock
 	true_name = "neural crosstalk uninhibitor"
 	cooldown_low = 400
 	cooldown_high = 700
@@ -169,7 +167,7 @@
 	mind_control_uses = 1
 	mind_control_duration = 6000
 
-/obj/item/organ/internal/heart/gland/mindshock/activate()
+/obj/item/organ/heart/gland/mindshock/activate()
 	to_chat(owner, span_notice("You get a headache."))
 
 	var/turf/T = get_turf(owner)
@@ -187,7 +185,7 @@
 			if(3)
 				H.hallucination += 60
 
-/obj/item/organ/internal/heart/gland/pop
+/obj/item/organ/heart/gland/pop
 	true_name = "anthropmorphic translocator"
 	cooldown_low = 900
 	cooldown_high = 1800
@@ -197,13 +195,13 @@
 	mind_control_uses = 5
 	mind_control_duration = 300
 
-/obj/item/organ/internal/heart/gland/pop/activate()
+/obj/item/organ/heart/gland/pop/activate()
 	to_chat(owner, span_notice("You feel unlike yourself."))
 	randomize_human(owner)
 	var/species = pick(list(/datum/species/human, /datum/species/lizard, /datum/species/moth, /datum/species/fly))
 	owner.set_species(species)
 
-/obj/item/organ/internal/heart/gland/ventcrawling
+/obj/item/organ/heart/gland/ventcrawling
 	true_name = "pliant cartilage enabler"
 	cooldown_low = 1800
 	cooldown_high = 2400
@@ -212,11 +210,11 @@
 	mind_control_uses = 4
 	mind_control_duration = 1800
 
-/obj/item/organ/internal/heart/gland/ventcrawling/activate()
+/obj/item/organ/heart/gland/ventcrawling/activate()
 	to_chat(owner, span_notice("You feel very stretchy."))
 	owner.ventcrawler = VENTCRAWLER_ALWAYS
 
-/obj/item/organ/internal/heart/gland/viral
+/obj/item/organ/heart/gland/viral
 	true_name = "contamination incubator"
 	cooldown_low = 1800
 	cooldown_high = 2400
@@ -225,13 +223,13 @@
 	mind_control_uses = 1
 	mind_control_duration = 1800
 
-/obj/item/organ/internal/heart/gland/viral/activate()
+/obj/item/organ/heart/gland/viral/activate()
 	to_chat(owner, span_warning("You feel sick."))
 	var/datum/disease/advance/A = random_virus(pick(2,6),6)
 	A.carrier = TRUE
 	owner.ForceContractDisease(A, FALSE, TRUE)
 
-/obj/item/organ/internal/heart/gland/viral/proc/random_virus(max_symptoms, max_level)
+/obj/item/organ/heart/gland/viral/proc/random_virus(max_symptoms, max_level)
 	if(max_symptoms > VIRUS_SYMPTOM_LIMIT)
 		max_symptoms = VIRUS_SYMPTOM_LIMIT
 	var/datum/disease/advance/A = new /datum/disease/advance()
@@ -252,7 +250,7 @@
 	A.Finalize()
 	return A
 
-/obj/item/organ/internal/heart/gland/trauma
+/obj/item/organ/heart/gland/trauma
 	true_name = "white matter randomiser"
 	cooldown_low = 800
 	cooldown_high = 1200
@@ -261,7 +259,7 @@
 	mind_control_uses = 3
 	mind_control_duration = 1800
 
-/obj/item/organ/internal/heart/gland/trauma/activate()
+/obj/item/organ/heart/gland/trauma/activate()
 	to_chat(owner, span_warning("You feel a spike of pain in your head."))
 	if(prob(33))
 		owner.gain_trauma_type(BRAIN_TRAUMA_SPECIAL, rand(TRAUMA_RESILIENCE_BASIC, TRAUMA_RESILIENCE_LOBOTOMY))
@@ -271,7 +269,7 @@
 		else
 			owner.gain_trauma_type(BRAIN_TRAUMA_MILD, rand(TRAUMA_RESILIENCE_BASIC, TRAUMA_RESILIENCE_LOBOTOMY))
 
-/obj/item/organ/internal/heart/gland/spiderman
+/obj/item/organ/heart/gland/spiderman
 	true_name = "araneae cloister accelerator"
 	cooldown_low = 450
 	cooldown_high = 900
@@ -280,12 +278,12 @@
 	mind_control_uses = 2
 	mind_control_duration = 2400
 
-/obj/item/organ/internal/heart/gland/spiderman/activate()
+/obj/item/organ/heart/gland/spiderman/activate()
 	to_chat(owner, span_warning("You feel something crawling in your skin."))
 	owner.faction |= FACTION_SPIDER
 	new /obj/structure/spider/spiderling(owner.drop_location())
 
-/obj/item/organ/internal/heart/gland/egg
+/obj/item/organ/heart/gland/egg
 	true_name = "roe/enzymatic synthesizer"
 	cooldown_low = 300
 	cooldown_high = 400
@@ -296,12 +294,12 @@
 	mind_control_uses = 2
 	mind_control_duration = 1800
 
-/obj/item/organ/internal/heart/gland/egg/activate()
+/obj/item/organ/heart/gland/egg/activate()
 	owner.visible_message(span_alertalien("[owner] [pick(EGG_LAYING_MESSAGES)]"))
 	var/turf/T = owner.drop_location()
 	new /obj/item/food/egg/gland(T)
 
-/obj/item/organ/internal/heart/gland/electric
+/obj/item/organ/heart/gland/electric
 	true_name = "electron accumulator/discharger"
 	cooldown_low = 800
 	cooldown_high = 1200
@@ -309,25 +307,25 @@
 	mind_control_uses = 2
 	mind_control_duration = 900
 
-/obj/item/organ/internal/heart/gland/electric/on_mob_insert(mob/living/carbon/gland_owner)
+/obj/item/organ/heart/gland/electric/on_mob_insert(mob/living/carbon/gland_owner)
 	. = ..()
 	ADD_TRAIT(gland_owner, TRAIT_SHOCKIMMUNE, ABDUCTOR_GLAND_TRAIT)
 
-/obj/item/organ/internal/heart/gland/electric/on_mob_remove(mob/living/carbon/gland_owner)
+/obj/item/organ/heart/gland/electric/on_mob_remove(mob/living/carbon/gland_owner)
 	. = ..()
 	REMOVE_TRAIT(gland_owner, TRAIT_SHOCKIMMUNE, ABDUCTOR_GLAND_TRAIT)
 
-/obj/item/organ/internal/heart/gland/electric/activate()
+/obj/item/organ/heart/gland/electric/activate()
 	owner.visible_message(span_danger("[owner]'s skin starts emitting electric arcs!"),\
 	span_warning("You feel electric energy building up inside you!"))
 	playsound(get_turf(owner), "sparks", 100, 1, -1)
 	addtimer(CALLBACK(src, PROC_REF(zap)), rand(30, 100))
 
-/obj/item/organ/internal/heart/gland/electric/proc/zap()
+/obj/item/organ/heart/gland/electric/proc/zap()
 	tesla_zap(owner, 4, 8000, TESLA_MOB_DAMAGE | TESLA_OBJ_DAMAGE | TESLA_MOB_STUN)
 	playsound(get_turf(owner), 'sound/magic/lightningshock.ogg', 50, 1)
 
-/obj/item/organ/internal/heart/gland/chem
+/obj/item/organ/heart/gland/chem
 	true_name = "intrinsic pharma-provider"
 	cooldown_low = 50
 	cooldown_high = 50
@@ -336,18 +334,18 @@
 	mind_control_duration = 1200
 	var/list/possible_reagents = list()
 
-/obj/item/organ/internal/heart/gland/chem/Initialize(mapload)
+/obj/item/organ/heart/gland/chem/Initialize(mapload)
 	. = ..()
 	for(var/R in subtypesof(/datum/reagent/drug) + subtypesof(/datum/reagent/medicine) + typesof(/datum/reagent/toxin))
 		possible_reagents += R
 
-/obj/item/organ/internal/heart/gland/chem/activate()
+/obj/item/organ/heart/gland/chem/activate()
 	var/chem_to_add = pick(possible_reagents)
 	owner.reagents.add_reagent(chem_to_add, 2)
 	owner.adjustToxLoss(-2, TRUE, TRUE)
 	..()
 
-/obj/item/organ/internal/heart/gland/plasma
+/obj/item/organ/heart/gland/plasma
 	true_name = "effluvium sanguine-synonym emitter"
 	cooldown_low = 1200
 	cooldown_high = 1800
@@ -355,12 +353,12 @@
 	mind_control_uses = 1
 	mind_control_duration = 800
 
-/obj/item/organ/internal/heart/gland/plasma/activate()
+/obj/item/organ/heart/gland/plasma/activate()
 	to_chat(owner, span_warning("You feel bloated."))
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), owner, span_userdanger("A massive stomachache overcomes you.")), 150)
 	addtimer(CALLBACK(src, PROC_REF(vomit_plasma)), 200)
 
-/obj/item/organ/internal/heart/gland/plasma/proc/vomit_plasma()
+/obj/item/organ/heart/gland/plasma/proc/vomit_plasma()
 	if(!owner)
 		return
 	owner.visible_message(span_danger("[owner] vomits a cloud of plasma!"))

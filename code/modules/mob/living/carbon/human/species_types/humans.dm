@@ -4,7 +4,7 @@
 	inherent_traits = list(
 		TRAIT_USES_SKINTONES,
 	)
-	mutant_bodyparts = list("wings" = "None", "body_size" = "Normal")
+	mutant_bodyparts = list("body_size" = "Normal")
 	skinned_type = /obj/item/stack/sheet/animalhide/human
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 

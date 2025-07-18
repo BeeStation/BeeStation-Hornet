@@ -104,7 +104,7 @@
 	var/obj/item/stock_parts/cell/C = A.get_cell()
 	var/obj/O
 	var/coefficient = 1
-	var/obj/item/organ/internal/stomach/battery/battery
+	var/obj/item/organ/stomach/battery/battery
 	if(istype(A, /obj/item/gun/energy))
 		to_chat(user, span_alert("Error unable to interface with device."))
 		return FALSE

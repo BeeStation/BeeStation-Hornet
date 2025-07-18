@@ -11,7 +11,7 @@
 	display_name = "Object Overlay"
 	desc = "Requires a BCI shell. A component that shows an overlay on top of an object."
 
-	required_shells = list(/obj/item/organ/internal/cyberimp/bci)
+	required_shells = list(/obj/item/organ/cyberimp/bci)
 
 	var/datum/port/input/option/object_overlay_options
 
@@ -28,7 +28,7 @@
 	var/datum/port/input/signal_off
 	var/datum/port/input/signal_all_off
 
-	var/obj/item/organ/internal/cyberimp/bci/bci
+	var/obj/item/organ/cyberimp/bci/bci
 	var/list/active_overlays = list()
 	var/list/options_map
 
@@ -65,7 +65,7 @@
 	options_map = component_options
 
 /obj/item/circuit_component/object_overlay/register_shell(atom/movable/shell)
-	if(istype(shell, /obj/item/organ/internal/cyberimp/bci))
+	if(istype(shell, /obj/item/organ/cyberimp/bci))
 		bci = shell
 		RegisterSignal(shell, COMSIG_ORGAN_REMOVED, PROC_REF(on_organ_removed))
 

@@ -86,6 +86,8 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define ishuman(A) (istype(A, /mob/living/carbon/human))
 
+#define isdummy(A) (istype(A, /mob/living/carbon/human/dummy))
+
 //Human sub-species
 #define isabductor(A) (is_species(A, /datum/species/abductor))
 #define isgolem(A) (is_species(A, /datum/species/golem))
@@ -239,10 +241,6 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define ismopable(A) (A && (A.layer <= HIGH_SIGIL_LAYER)) //If something can be cleaned by floor-cleaning devices such as mops or clean bots
 
 #define isorgan(A) (istype(A, /obj/item/organ))
-
-#define isinternalorgan(A) (istype(A, /obj/item/organ/internal))
-
-#define isexternalorgan(A) (istype(A, /obj/item/organ/external))
 
 #define isclothing(A) (istype(A, /obj/item/clothing))
 

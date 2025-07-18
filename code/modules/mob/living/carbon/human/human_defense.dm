@@ -447,7 +447,7 @@
 	//If they can't, they're missing their heart and this would runtime
 	if(undergoing_cardiac_arrest() && can_heartattack() && !(flags & SHOCK_ILLUSION))
 		if(shock_damage * siemens_coeff >= 1 && prob(25))
-			var/obj/item/organ/internal/heart/heart = get_organ_slot(ORGAN_SLOT_HEART)
+			var/obj/item/organ/heart/heart = get_organ_slot(ORGAN_SLOT_HEART)
 			if(heart.Restart() && stat == CONSCIOUS)
 				to_chat(src, span_notice("You feel your heart beating again!"))
 	electrocution_animation(40)
@@ -647,7 +647,7 @@
 		missing -= LB.body_zone
 		if(LB.bodypart_flags & BODYPART_PSEUDOPART) //don't show injury text for fake bodyparts; ie chainsaw arms or synthetic armblades
 			continue
-			
+
 		var/self_aware = FALSE
 		if(HAS_TRAIT(src, TRAIT_SELF_AWARE))
 			self_aware = TRUE

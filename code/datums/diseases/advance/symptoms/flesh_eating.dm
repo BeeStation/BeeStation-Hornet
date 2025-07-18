@@ -164,6 +164,6 @@ Bonus
 	if(zombie)
 		if(ishuman(A.affected_mob))
 			if(!A.affected_mob.get_organ_slot(ORGAN_SLOT_ZOMBIE))
-				var/obj/item/organ/internal/zombie_infection/virus/ZI = new()
+				var/obj/item/organ/zombie_infection/virus/ZI = new()
 				ZI.Insert(M)
 	return 1

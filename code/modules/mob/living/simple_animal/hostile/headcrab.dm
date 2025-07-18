@@ -25,7 +25,7 @@
 	discovery_points = 2000
 
 /mob/living/simple_animal/hostile/headcrab/proc/Infect(mob/living/carbon/victim)
-	var/obj/item/organ/internal/body_egg/changeling_egg/egg = new(victim)
+	var/obj/item/organ/body_egg/changeling_egg/egg = new(victim)
 	egg.Insert(victim)
 	if(origin)
 		egg.origin = origin
@@ -50,30 +50,38 @@
 			to_chat(src, span_userdanger("With our egg laid, our death approaches rapidly..."))
 			addtimer(CALLBACK(src, PROC_REF(death)), 100)
 
-/obj/item/organ/internal/body_egg/changeling_egg
+/obj/item/organ/body_egg/changeling_egg
 	name = "changeling egg"
 	desc = "Twitching and disgusting."
 	/// The mind of the original changeling that gave forth to the headslug mob.
 	var/datum/mind/origin
-	/// Tracks how long the egg has been growing.
-	var/time = 0
+	/// When we're expected to hatch.
+	var/hatch_time = 0
+	/// When this egg last got removed from a body. If -1, the egg hasn't been removed from a body.
+	var/removal_time = -1
 
-/obj/item/organ/internal/body_egg/changeling_egg/egg_process(delta_time, times_fired)
-	// Changeling eggs grow in dead people
-	time += delta_time
-	if(time >= EGG_INCUBATION_TIME)
-		Pop()
-		Remove(owner.loc)
-		qdel(src)
+/obj/item/organ/body_egg/changeling_egg/mob_insert(mob/living/carbon/egg_owner, special = FALSE, movement_flags = DELETE_IF_REPLACED)
+	. = ..()
+	hatch_time = world.time + (removal_time == -1 ? EGG_INCUBATION_TIME : (hatch_time - removal_time))
 
-/obj/item/organ/internal/body_egg/changeling_egg/proc/Pop()
+/obj/item/organ/body_egg/changeling_egg/mob_remove(mob/living/carbon/egg_owner, special, movement_flags)
+	. = ..()
+	removal_time = world.time
+
+/obj/item/organ/body_egg/changeling_egg/egg_process(delta_time, times_fired)
+	if(owner && hatch_time <= world.time)
+		pop()
+
+/obj/item/organ/body_egg/changeling_egg/proc/Pop()
 	var/mob/living/carbon/monkey/M = new(owner.loc)
+	M.set_species(/datum/species/monkey)
 
 	for(var/obj/item/organ/I in src)
 		I.Insert(M, 1)
 
 	if(origin && (origin.current ? (origin.current.stat == DEAD) : origin.get_ghost()))
 		origin.transfer_to(M)
+		M.key = origin.key
 		var/datum/antagonist/changeling/C = origin.has_antag_datum(/datum/antagonist/changeling)
 		if(!C)
 			C = origin.add_antag_datum(/datum/antagonist/changeling/xenobio)
@@ -83,8 +91,9 @@
 		var/datum/action/changeling/humanform/hf = new
 		C.purchasedpowers += hf
 		C.regain_powers()
-		M.key = origin.key
+
 	owner.investigate_log("has been gibbed by a changeling egg burst.", INVESTIGATE_DEATHS)
 	owner.gib()
+	qdel(src)
 
 #undef EGG_INCUBATION_TIME

@@ -195,7 +195,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/split_personality)
 	var/codeword
 	var/objective
 
-/datum/brain_trauma/severe/split_personality/brainwashing/New(obj/item/organ/internal/brain/B, _permanent, _codeword, _objective)
+/datum/brain_trauma/severe/split_personality/brainwashing/New(obj/item/organ/brain/B, _permanent, _codeword, _objective)
 	..()
 	if(_codeword)
 		codeword = _codeword

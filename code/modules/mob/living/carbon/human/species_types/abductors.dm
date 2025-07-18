@@ -10,7 +10,7 @@
 		TRAIT_NOBLOOD,
 		TRAIT_NOMOUTH
 	)
-	mutanttongue = /obj/item/organ/internal/tongue/abductor
+	mutanttongue = /obj/item/organ/tongue/abductor
 	mutantstomach = null
 	mutantheart = null
 	mutantlungs = null

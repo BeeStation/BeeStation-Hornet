@@ -70,7 +70,7 @@ GLOBAL_LIST_INIT(battle_royale_basic_loot, list(
 		/obj/item/storage/firstaid/medical,
 		/obj/item/storage/firstaid/tactical,
 		/obj/item/gun/energy/ionrifle,
-		/obj/item/organ/internal/regenerative_core/battle_royale
+		/obj/item/organ/regenerative_core/battle_royale
 	))
 
 GLOBAL_LIST_INIT(battle_royale_good_loot, list(
@@ -465,7 +465,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 //=====
 // Heal
 // =====
-/obj/item/organ/internal/regenerative_core/battle_royale
+/obj/item/organ/regenerative_core/battle_royale
 	preserved = TRUE
 
 #undef BATTLE_ROYALE_AVERBS

@@ -74,7 +74,7 @@
 	if(!quirk_target.reagents.has_reagent(/datum/reagent/medicine/mannitol))
 		if(prob(80))
 			quirk_target.adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.1 * delta_time)
-	var/obj/item/organ/internal/brain/B = quirk_target.get_organ_by_type(/obj/item/organ/internal/brain)
+	var/obj/item/organ/brain/B = quirk_target.get_organ_by_type(/obj/item/organ/brain)
 	if(B)
 		if(B.damage>BRAIN_DAMAGE_MILD-1 && !notified)
 			to_chat(quirk_target, span_danger("You sense your brain is getting beyond your control..."))

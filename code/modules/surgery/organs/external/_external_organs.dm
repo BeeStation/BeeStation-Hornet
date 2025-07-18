@@ -1,19 +1,11 @@
-/**
-* System for drawing organs with overlays. These overlays are drawn directly on the bodypart, attached to a person or not
-* Works in tandem with the /datum/sprite_accessory datum to generate sprites
-* Unlike normal organs, we're actually inside a persons limbs at all times
+/*
+System for drawing organs with overlays. These overlays are drawn directly on the bodypart, attached to a person or not
+Works in tandem with the /datum/sprite_accessory datum to generate sprites
+Unlike normal organs, we're actually inside a persons limbs at all times
 */
-/obj/item/organ/external
-	name = "external organ"
-	desc = "An external organ that is too external."
-
-	organ_flags = ORGAN_ORGANIC | ORGAN_EDIBLE
-	visual = TRUE
-
+/obj/item/organ
 	///The overlay datum that actually draws stuff on the limb
 	var/datum/bodypart_overlay/mutant/bodypart_overlay
-	///If not null, overrides the appearance with this sprite accessory datum
-	var/sprite_accessory_override
 
 	/// The db_key of the preference this relates to. Used for the preferences UI.
 	var/preference
@@ -23,21 +15,24 @@
 	///Set to EXTERNAL_BEHIND, EXTERNAL_FRONT or EXTERNAL_ADJACENT if you want to draw one of those layers as the object sprite. FALSE to use your own
 	///This will not work if it doesn't have a limb to generate its icon with
 	var/use_mob_sprite_as_obj_sprite = FALSE
+
 	///Does this organ have any bodytypes to pass to its bodypart_owner?
 	var/external_bodytypes = NONE
 	///Does this organ have any bodyshapes to pass to its bodypart_owner?
 	var/external_bodyshapes = NONE
+
 	///Which flags does a 'modification tool' need to have to restyle us, if it all possible (located in code/_DEFINES/mobs)
 	var/restyle_flags = NONE
 
-/**mob_sprite is optional if you havent set sprite_datums for the object, and is used mostly to generate sprite_datums from a persons DNA
+	///If not null, overrides the appearance with this sprite accessory datum
+	var/sprite_accessory_override
+
+/**accessory_type is optional if you havent set sprite_datums for the object, and is used mostly to generate sprite_datums from a persons DNA
 * For _mob_sprite we make a distinction between "Round Snout" and "round". Round Snout is the name of the sprite datum, while "round" would be part of the sprite
 * I'm sorry
 */
-/obj/item/organ/external/Initialize(mapload, accessory_type)
-	. = ..()
-
-	bodypart_overlay = new bodypart_overlay()
+/obj/item/organ/proc/setup_bodypart_overlay(accessory_type)
+	bodypart_overlay = new bodypart_overlay(src)
 
 	accessory_type = accessory_type ? accessory_type : sprite_accessory_override
 	var/update_overlays = TRUE
@@ -55,61 +50,13 @@
 	if(restyle_flags)
 		RegisterSignal(src, COMSIG_ATOM_RESTYLE, PROC_REF(on_attempt_feature_restyle))
 
-/obj/item/organ/external/Insert(mob/living/carbon/receiver, special, movement_flags)
-	. = ..()
-	receiver.update_body_parts()
+/// Some sanity checks, but mostly to check if the person has their preference/dna set to load
+/proc/should_visual_organ_apply_to(obj/item/organ/organpath, mob/living/carbon/target)
+	if(!initial(organpath.bodypart_overlay))
+		return TRUE
 
-/obj/item/organ/external/Remove(mob/living/carbon/organ_owner, special, movement_flags)
-	. = ..()
-	if(!special)
-		organ_owner.update_body_parts()
-
-/obj/item/organ/external/mob_insert(mob/living/carbon/receiver, special, movement_flags)
-	if(!should_external_organ_apply_to(type, receiver))
-		stack_trace("adding a [type] to a [receiver.type] when it shouldn't be!")
-
-	. = ..()
-
-	if(!.)
-		return
-
-	if(bodypart_overlay.imprint_on_next_insertion) //We only want this set *once*
-		var/feature_name = receiver.dna.features[bodypart_overlay.feature_key]
-		if (isnull(feature_name))
-			feature_name = receiver.dna.species.external_organs[type]
-		bodypart_overlay.set_appearance_from_name(feature_name)
-		bodypart_overlay.imprint_on_next_insertion = FALSE
-
-	if(external_bodytypes)
-		receiver.synchronize_bodytypes()
-	if(external_bodyshapes)
-		receiver.synchronize_bodyshapes()
-
-	receiver.update_body_parts()
-
-/obj/item/organ/external/mob_remove(mob/living/carbon/organ_owner, special, moving)
-	if(!special)
-		organ_owner.synchronize_bodytypes()
-		organ_owner.synchronize_bodyshapes()
-		organ_owner.update_body_parts()
-	return ..()
-
-/obj/item/organ/external/on_bodypart_insert(obj/item/bodypart/bodypart)
-	bodypart.add_bodypart_overlay(bodypart_overlay)
-	return ..()
-
-/obj/item/organ/external/on_bodypart_remove(obj/item/bodypart/bodypart)
-	bodypart.remove_bodypart_overlay(bodypart_overlay)
-
-	if(use_mob_sprite_as_obj_sprite)
-		update_appearance(UPDATE_OVERLAYS)
-
-	color = bodypart_overlay.draw_color // so a pink felinid doesn't drop a gray tail
-	return ..()
-
-/proc/should_external_organ_apply_to(obj/item/organ/external/organpath, mob/living/carbon/target)
 	if(isnull(organpath) || isnull(target))
-		stack_trace("passed a null path or mob to 'should_external_organ_apply_to'")
+		stack_trace("passed a null path or mob to 'should_visual_organ_apply_to'")
 		return FALSE
 
 	var/datum/bodypart_overlay/mutant/bodypart_overlay = initial(organpath.bodypart_overlay)
@@ -122,7 +69,7 @@
 	return FALSE
 
 ///Update our features after something changed our appearance
-/obj/item/organ/external/proc/mutate_feature(features, mob/living/carbon/human/human)
+/obj/item/organ/proc/mutate_feature(features, mob/living/carbon/human/human)
 	if(!dna_block)
 		return
 
@@ -131,7 +78,7 @@
 	bodypart_overlay.set_appearance_from_name(feature_list[deconstruct_block(get_uni_feature_block(features, dna_block), feature_list.len)])
 
 ///If you need to change an external_organ for simple one-offs, use this. Pass the accessory type : /datum/accessory/something
-/obj/item/organ/external/proc/simple_change_sprite(accessory_type)
+/obj/item/organ/proc/simple_change_sprite(accessory_type)
 	var/datum/sprite_accessory/typed_accessory = accessory_type //we only take types for maintainability
 
 	bodypart_overlay.set_appearance(typed_accessory)
@@ -141,10 +88,7 @@
 	else if(owner && !(owner.living_flags & STOP_OVERLAY_UPDATE_BODY_PARTS)) //are we a person?
 		owner.update_body_parts()
 
-/obj/item/organ/external/on_life(delta_time, times_fired)
-	return
-
-/obj/item/organ/external/update_overlays()
+/obj/item/organ/update_overlays()
 	. = ..()
 
 	if(!use_mob_sprite_as_obj_sprite)
@@ -156,7 +100,7 @@
 			. += bodypart_overlay.get_overlay(external_layer, bodypart_owner)
 
 ///The horns of a lizard!
-/obj/item/organ/external/horns
+/obj/item/organ/horns
 	name = "horns"
 	desc = "Why do lizards even have horns? Well, this one obviously doesn't."
 	icon_state = "horns"
@@ -169,6 +113,8 @@
 	restyle_flags = EXTERNAL_RESTYLE_ENAMEL
 
 	bodypart_overlay = /datum/bodypart_overlay/mutant/horns
+
+	organ_flags = parent_type::organ_flags | ORGAN_EXTERNAL
 
 /datum/bodypart_overlay/mutant/horns
 	layers = EXTERNAL_ADJACENT
@@ -184,7 +130,7 @@
 	return GLOB.horns_list
 
 ///The frills of a lizard (like weird fin ears)
-/obj/item/organ/external/frills
+/obj/item/organ/frills
 	name = "frills"
 	desc = "Ear-like external organs often seen on aquatic reptillians."
 	icon_state = "frills"
@@ -197,6 +143,8 @@
 	restyle_flags = EXTERNAL_RESTYLE_FLESH
 
 	bodypart_overlay = /datum/bodypart_overlay/mutant/frills
+
+	organ_flags = parent_type::organ_flags | ORGAN_EXTERNAL
 
 /datum/bodypart_overlay/mutant/frills
 	layers = EXTERNAL_ADJACENT
@@ -211,7 +159,7 @@
 	return GLOB.frills_list
 
 ///Guess what part of the lizard this is?
-/obj/item/organ/external/snout
+/obj/item/organ/snout
 	name = "lizard snout"
 	desc = "Take a closer look at that snout!"
 	icon_state = "snout"
@@ -227,6 +175,8 @@
 
 	bodypart_overlay = /datum/bodypart_overlay/mutant/snout
 
+	organ_flags = parent_type::organ_flags | ORGAN_EXTERNAL
+
 /datum/bodypart_overlay/mutant/snout
 	layers = EXTERNAL_ADJACENT
 	feature_key = "snout"
@@ -240,7 +190,7 @@
 	return GLOB.snouts_list
 
 ///A moth's antennae
-/obj/item/organ/external/antennae
+/obj/item/organ/antennae
 	name = "moth antennae"
 	desc = "A moths antennae. What is it telling them? What are they sensing?"
 	icon_state = "antennae"
@@ -254,25 +204,26 @@
 
 	bodypart_overlay = /datum/bodypart_overlay/mutant/antennae
 
+	organ_flags = parent_type::organ_flags | ORGAN_EXTERNAL
+
 	///Are we burned?
 	var/burnt = FALSE
 	///Store our old datum here for if our antennae are healed
 	var/original_sprite_datum
 
-/obj/item/organ/external/antennae/Insert(mob/living/carbon/receiver, special, movement_flags)
+/obj/item/organ/antennae/mob_insert(mob/living/carbon/receiver, special, movement_flags)
 	. = ..()
-	if(!.)
-		return
+
 	RegisterSignal(receiver, COMSIG_HUMAN_BURNING, PROC_REF(try_burn_antennae))
 	RegisterSignal(receiver, COMSIG_LIVING_POST_FULLY_HEAL, PROC_REF(heal_antennae))
 
-/obj/item/organ/external/antennae/Remove(mob/living/carbon/organ_owner, special, movement_flags)
+/obj/item/organ/antennae/mob_remove(mob/living/carbon/organ_owner, special, movement_flags)
 	. = ..()
-	if(organ_owner)
-		UnregisterSignal(organ_owner, list(COMSIG_HUMAN_BURNING, COMSIG_LIVING_POST_FULLY_HEAL))
+
+	UnregisterSignal(organ_owner, list(COMSIG_HUMAN_BURNING, COMSIG_LIVING_POST_FULLY_HEAL))
 
 ///check if our antennae can burn off ;_;
-/obj/item/organ/external/antennae/proc/try_burn_antennae(mob/living/carbon/human/human)
+/obj/item/organ/antennae/proc/try_burn_antennae(mob/living/carbon/human/human)
 	SIGNAL_HANDLER
 
 	if(!burnt && human.bodytemperature >= 800 && human.fire_stacks > 0) //do not go into the extremely hot light. you will not survive
@@ -282,13 +233,13 @@
 		human.update_body_parts()
 
 ///Burn our antennae off ;_;
-/obj/item/organ/external/antennae/proc/burn_antennae()
+/obj/item/organ/antennae/proc/burn_antennae()
 	var/datum/bodypart_overlay/mutant/antennae/antennae = bodypart_overlay
 	antennae.burnt = TRUE
 	burnt = TRUE
 
 ///heal our antennae back up!!
-/obj/item/organ/external/antennae/proc/heal_antennae()
+/obj/item/organ/antennae/proc/heal_antennae()
 	SIGNAL_HANDLER
 
 	if(!burnt)

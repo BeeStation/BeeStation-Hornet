@@ -189,7 +189,7 @@
 	should_draw_greyscale = FALSE
 	burn_modifier = 1.4
 	brute_modifier = 1.4
-	wing_types = list(/obj/item/organ/external/wings/fly)
+	wing_types = list(/obj/item/organ/wings/fly)
 
 /obj/item/bodypart/arm/left/fly
 	limb_id = SPECIES_FLYPERSON
@@ -265,7 +265,7 @@
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = null
-	wing_types = list(/obj/item/organ/external/wings/skeleton)
+	wing_types = list(/obj/item/organ/wings/skeleton)
 
 /obj/item/bodypart/arm/left/skeleton
 	limb_id = SPECIES_SKELETON

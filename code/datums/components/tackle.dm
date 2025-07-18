@@ -397,7 +397,7 @@
 		if(tackle_target.is_shove_knockdown_blocked()) // riot armor and such
 			defense_mod += 5
 
-		var/obj/item/organ/external/tail/el_tail = tackle_target.get_organ_slot(ORGAN_SLOT_EXTERNAL_TAIL)
+		var/obj/item/organ/tail/el_tail = tackle_target.get_organ_slot(ORGAN_SLOT_EXTERNAL_TAIL)
 		if(HAS_TRAIT(tackle_target, TRAIT_TACKLING_TAILED_DEFENDER) && !el_tail)
 			defense_mod -= 1
 		else if(el_tail.wag_flags & WAG_WAGGING) // lizard tail wagging is robust and can swat away assailants!
@@ -420,10 +420,10 @@
 		attack_mod += 2
 
 	if(HAS_TRAIT(sacker, TRAIT_TACKLING_WINGED_ATTACKER))
-		var/obj/item/organ/external/wings/moth/sacker_moth_wing = sacker.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS)
+		var/obj/item/organ/wings/moth/sacker_moth_wing = sacker.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS)
 		if(!sacker_moth_wing || HAS_TRAIT(sacker_moth_wing, TRAIT_MOTH_BURNT))
 			attack_mod -= 2
-	var/obj/item/organ/external/wings/sacker_wing = sacker.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS)
+	var/obj/item/organ/wings/sacker_wing = sacker.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS)
 	if(sacker_wing)
 		attack_mod += 2
 

@@ -9,7 +9,7 @@
 	var/mob/living/brain/brainmob = null //The current occupant.
 	var/mob/living/silicon/robot = null //Appears unused.
 	var/obj/vehicle/sealed/mecha = null //This does not appear to be used outside of reference in mecha.dm.
-	var/obj/item/organ/internal/brain/brain = null //The actual brain
+	var/obj/item/organ/brain/brain = null //The actual brain
 	var/datum/ai_laws/laws = new()
 	var/force_replace_ai_name = FALSE
 	var/overrides_aicore_laws = FALSE // Whether the laws on the MMI, if any, override possible pre-existing laws loaded on the AI core.
@@ -37,10 +37,10 @@
 	if(!brain)
 		icon_state = "mmi_off"
 		return
-	if(istype(brain, /obj/item/organ/internal/brain/alien))
+	if(istype(brain, /obj/item/organ/brain/alien))
 		icon_state = "mmi_brain_alien"
 		braintype = "Xenoborg" //HISS....Beep.
-	if(istype(brain, /obj/item/organ/internal/brain/positron))
+	if(istype(brain, /obj/item/organ/brain/positron))
 		icon_state = "mmi_brain_IPC"
 	else
 		icon_state = "mmi_brain"
@@ -52,8 +52,8 @@
 
 /obj/item/mmi/attackby(obj/item/O, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
-	if(istype(O, /obj/item/organ/internal/brain)) //Time to stick a brain in it --NEO
-		var/obj/item/organ/internal/brain/newbrain = O
+	if(istype(O, /obj/item/organ/brain)) //Time to stick a brain in it --NEO
+		var/obj/item/organ/brain/newbrain = O
 		if(brain)
 			to_chat(user, span_warning("There's already a brain in the MMI!"))
 			return
@@ -138,7 +138,7 @@
 	if(brainmob)
 		QDEL_NULL(brainmob)
 
-	var/obj/item/organ/BR = L.get_organ_by_type(/obj/item/organ/internal/brain)
+	var/obj/item/organ/BR = L.get_organ_by_type(/obj/item/organ/brain)
 	if(BR)
 		brain = new BR.type (src)
 	else
