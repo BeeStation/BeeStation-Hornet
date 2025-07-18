@@ -98,6 +98,9 @@
 /obj/structure/stone_tile/cracked{
 	dir = 4
 	},
+/obj/item/stack/sheet/sinew{
+	amount = 3
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "ey" = (
@@ -323,6 +326,9 @@
 /obj/structure/stone_tile/cracked{
 	dir = 1
 	},
+/obj/item/stack/sheet/bone{
+	amount = 4
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "pp" = (
@@ -368,6 +374,9 @@
 	dir = 1
 	},
 /obj/structure/stone_tile/block/cracked,
+/obj/item/stack/sheet/bone{
+	amount = 3
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "sl" = (
@@ -539,6 +548,9 @@
 	dir = 1
 	},
 /obj/structure/stone_tile/cracked,
+/obj/item/stack/sheet/bone{
+	amount = 3
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "yz" = (
@@ -588,6 +600,9 @@
 	dir = 4
 	},
 /obj/structure/stone_tile/cracked,
+/obj/item/stack/sheet/bone{
+	amount = 4
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "Ah" = (
@@ -985,6 +1000,7 @@
 /obj/structure/stone_tile/cracked{
 	dir = 8
 	},
+/obj/item/stack/sheet/sinew,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "OA" = (
