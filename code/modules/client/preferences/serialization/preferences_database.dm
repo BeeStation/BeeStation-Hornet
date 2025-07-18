@@ -403,8 +403,6 @@
 	log_preferences("[prefs?.parent?.ckey]: Holder of type [pref_type] providing defaults (informed: [should_use_informed]).")
 	// Uses priority order as some values may rely on others for creating default values
 	for (var/datum/preference/preference as anything in get_preferences_in_priority_order())
-		if (!preference) // Skip null entries
-			continue
 		if (preference.preference_type != pref_type || (preference.informed != should_use_informed))
 			continue
 

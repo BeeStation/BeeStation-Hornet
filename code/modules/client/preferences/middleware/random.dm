@@ -27,8 +27,6 @@
 /datum/preference_middleware/random/proc/randomize_character()
 	log_preferences("[preferences?.parent?.ckey]: Force randomized their character.")
 	for (var/datum/preference/preference as anything in get_preferences_in_priority_order())
-		if (!preference) // Skip null entries
-			continue
 		if (preferences.should_randomize(preference))
 			preferences.write_preference(preference, preference.create_random_value(preferences))
 

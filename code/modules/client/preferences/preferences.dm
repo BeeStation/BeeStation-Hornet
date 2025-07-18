@@ -383,8 +383,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/list/preferences = list()
 
 	for (var/datum/preference/preference as anything in get_preferences_in_priority_order())
-		if (!preference) // Skip null entries
-			continue
 		if (!preference.is_accessible(src))
 			continue
 
@@ -412,8 +410,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 /datum/preferences/proc/apply_all_client_preferences()
 	log_preferences("[parent?.ckey]: Applying client preferences.")
 	for (var/datum/preference/preference as anything in get_preferences_in_priority_order())
-		if (!preference) // Skip null entries
-			continue
 		if (preference.preference_type != PREFERENCE_PLAYER)
 			continue
 
@@ -437,8 +433,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	character.dna.features = list()
 
 	for (var/datum/preference/preference as anything in get_preferences_in_priority_order())
-		if (!preference) // Skip null entries
-			continue
 		if (preference.preference_type != PREFERENCE_CHARACTER)
 			continue
 

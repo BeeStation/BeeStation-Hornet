@@ -1,8 +1,6 @@
 /// Fully randomizes everything in the character.
 /datum/preferences/proc/randomize_appearance_prefs(randomize_flags = ALL)
 	for (var/datum/preference/preference as anything in get_preferences_in_priority_order())
-		if (!preference) // Skip null entries
-			continue
 		if (!preference.included_in_randomization_flags(randomize_flags))
 			continue
 
@@ -20,8 +18,6 @@
 		return
 
 	for (var/datum/preference/preference as anything in get_preferences_in_priority_order())
-		if (!preference) // Skip null entries
-			continue
 		if (should_randomize(preference, antag_override))
 			log_preferences("[parent?.ckey]: Randomizing [preference.type] according to randomization options.")
 			write_preference(preference, preference.create_random_value(src))
