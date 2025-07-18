@@ -250,3 +250,7 @@
   - bugfix: basic mobs can now be scanned for DNA vault
   - bugfix: basic mobs can now receive bluespace radio
   - bugfix: adds handling for basic mobs when slime fed on (invincible ian moment)
+2025-07-18:
+  Asdfagi:
+  - bugfix: mindless bodies can once again be body-only scanned in the clone scanner
+      instead of causing a runtime error
