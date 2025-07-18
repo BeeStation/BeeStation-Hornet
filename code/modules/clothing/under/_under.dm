@@ -5,6 +5,7 @@
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	slot_flags = ITEM_SLOT_ICLOTHING
 	armor_type = /datum/armor/clothing_under
+	supports_variations_flags = CLOTHING_DIGITIGRADE_MASK
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 	/// The variable containing the flags for how the woman uniform cropping is supposed to interact with the sprite.
@@ -130,6 +131,10 @@
 		attached_accessory.on_uniform_equip(src, user)
 		if(attached_accessory.above_suit)
 			H.update_worn_oversuit()
+
+/obj/item/clothing/under/generate_digitigrade_icons(icon/base_icon, greyscale_colors)
+	var/icon/legs = icon(SSgreyscale.GetColoredIconByType(/datum/greyscale_config/digitigrade, greyscale_colors), "jumpsuit_worn")
+	return replace_icon_legs(base_icon, legs)
 
 /obj/item/clothing/under/equipped(mob/user, slot)
 	..()

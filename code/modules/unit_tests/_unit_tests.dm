@@ -75,6 +75,7 @@
 #include "reagent_id_duplicates.dm"
 #include "reagent_id_typos.dm"
 #include "reagent_recipe_collisions.dm"
+#include "screenshot_digi.dm"
 #include "security_levels.dm"
 #include "serving_tray.dm"
 #include "shuttle_width_height_correctness.dm"

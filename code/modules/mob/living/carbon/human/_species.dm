@@ -580,9 +580,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			var/mutable_appearance/underwear_overlay
 			if(underwear)
 				if(species_human.dna.species.sexes && species_human.physique == FEMALE && underwear.gender_specific)
-					underwear_overlay = wear_female_version(underwear.icon_state, underwear.icon, CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), FEMALE_UNIFORM_FULL)
+					underwear_overlay = mutable_appearance(wear_female_version(underwear.icon_state, underwear.icon, FEMALE_UNIFORM_FULL), layer = CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
 				else
-					underwear_overlay = mutable_appearance(underwear.icon, underwear.icon_state, CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
+					underwear_overlay = mutable_appearance(underwear.icon, underwear.icon_state, layer = CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
 				if(!underwear.use_static)
 					underwear_overlay.color = species_human.underwear_color
 				standing += underwear_overlay
@@ -592,9 +592,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			if(undershirt)
 				var/mutable_appearance/working_shirt
 				if(species_human.dna.species.sexes && species_human.physique == FEMALE)
-					working_shirt = wear_female_version(undershirt.icon_state, undershirt.icon, CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
+					working_shirt = mutable_appearance(wear_female_version(undershirt.icon_state, undershirt.icon), layer = CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
 				else
-					working_shirt = mutable_appearance(undershirt.icon, undershirt.icon_state, CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
+					working_shirt = mutable_appearance(undershirt.icon, undershirt.icon_state, layer = CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
 				standing += working_shirt
 
 		if(species_human.socks && species_human.num_legs >= 2 && !(species_human.bodyshape & BODYSHAPE_DIGITIGRADE) && !(TRAIT_NOSOCKS in inherent_traits))
@@ -898,7 +898,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			if(H.num_legs < 2)
 				return FALSE
 			if((H.bodyshape & BODYSHAPE_DIGITIGRADE) && !(I.item_flags & IGNORE_DIGITIGRADE))
-				if(!(I.supports_variations_flags & (CLOTHING_DIGITIGRADE_VARIATION|CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON)))
+				if(!(I.supports_variations_flags & DIGITIGRADE_VARIATIONS))
 					if(!disable_warning)
 						to_chat(H, span_warning("The footwear around here isn't compatible with your feet!"))
 					return FALSE

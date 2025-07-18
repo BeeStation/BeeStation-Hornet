@@ -486,15 +486,13 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	add_fingerprint(usr)
 	return ..()
 
-/obj/item/attack_hand(mob/user, modifiers)
+/obj/item/attack_hand(mob/user, list/modifiers)
 	. = ..()
-	if(.)
+	if(. || !user || anchored)
 		return
-	if(!user)
-		return
-	if(anchored)
-		return
+	return attempt_pickup(user)
 
+/obj/item/proc/attempt_pickup(mob/user)
 	. = TRUE
 
 	if(resistance_flags & ON_FIRE)

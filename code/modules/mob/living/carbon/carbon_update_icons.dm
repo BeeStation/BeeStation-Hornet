@@ -298,12 +298,14 @@
 	if(blocks_emissive != FALSE)
 		. += emissive_blocker(standing.icon, standing.icon_state, alpha = standing.alpha)
 
+///Checks to see if any bodyparts need to be redrawn, then does so. update_limb_data = TRUE redraws the limbs to conform to the owner.
+///Returns an integer representing the number of limbs that were updated.
 /mob/living/carbon/proc/update_body_parts(update_limb_data)
 	//Check the cache to see if it needs a new sprite
 	update_damage_overlays()
 	//update_wound_overlays()
 	var/list/needs_update = list()
-	var/limb_count_update = FALSE
+	var/limb_count_update = 0
 	for(var/obj/item/bodypart/limb as anything in bodyparts)
 		limb.update_limb(is_creating = update_limb_data) //Update limb actually doesn't do much, get_limb_icon is the cpu eater.
 
@@ -313,13 +315,15 @@
 		if(icon_render_keys[limb.body_zone] != old_key) //If the keys match, that means the limb doesn't need to be redrawn
 			needs_update += limb
 
+	limb_count_update += length(needs_update)
 	var/list/missing_bodyparts = get_missing_limbs()
 	if(((dna ? dna.species.max_bodypart_count : BODYPARTS_DEFAULT_MAXIMUM) - icon_render_keys.len) != missing_bodyparts.len) //Checks to see if the target gained or lost any limbs.
 		limb_count_update = TRUE
 		for(var/missing_limb in missing_bodyparts)
 			icon_render_keys -= missing_limb //Removes dismembered limbs from the key list
 
-	if(!needs_update.len && !limb_count_update)
+	. = limb_count_update
+	if(!.)
 		return
 
 	//GENERATE NEW LIMBS

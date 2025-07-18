@@ -6,6 +6,7 @@
 	icon = 'icons/obj/clothing/suits/utility.dmi'
 	worn_icon = 'icons/mob/clothing/suits/utility.dmi'
 	item_state = null
+	supports_variations_flags = CLOTHING_DIGITIGRADE_MASK
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	cold_protection = CHEST|GROIN|LEGS|ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
@@ -26,6 +27,8 @@
 	high_pressure_multiplier = 0.4
 	flags_inv = HIDEJUMPSUIT
 
+/obj/item/clothing/suit/hooded/explorer/get_general_color(icon/base_icon)
+	return "#796755"
 
 /datum/armor/hooded_explorer
 	melee = 30

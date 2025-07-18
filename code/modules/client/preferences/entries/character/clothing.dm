@@ -84,6 +84,9 @@
 /datum/preference/choiced/jumpsuit_style/apply_to_human(mob/living/carbon/human/target, value)
 	target.jumpsuit_style = value
 
+/datum/preference/choiced/jumpsuit_style/create_default_value()
+	return PREF_SUIT
+/*
 /datum/preference/choiced/jumpsuit_style/create_informed_default_value(datum/preferences/preferences)
 	switch(preferences.read_preference(/datum/preference/choiced/gender))
 		if(MALE)
@@ -92,7 +95,7 @@
 			return PREF_SKIRT
 
 	return ..()
-
+*/
 /// Socks preference
 /datum/preference/choiced/socks
 	db_key = "socks"
