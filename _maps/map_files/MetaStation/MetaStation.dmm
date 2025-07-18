@@ -1317,6 +1317,7 @@
 /obj/structure/chair{
 	dir = 4
 	},
+/obj/machinery/light_switch/directional/south,
 /turf/open/floor/iron/dark/textured,
 /area/security/interrogation_room)
 "amt" = (

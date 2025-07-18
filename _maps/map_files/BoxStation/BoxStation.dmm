@@ -61156,6 +61156,7 @@
 /obj/structure/sign/poster/official/do_not_question{
 	pixel_x = -32
 	},
+/obj/machinery/light_switch/directional/north,
 /turf/open/floor/iron/dark,
 /area/security/interrogation_room)
 "uUq" = (

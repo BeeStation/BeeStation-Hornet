@@ -45048,7 +45048,7 @@
 	dir = 5
 	},
 /obj/structure/cable/yellow{
-	icon_state = "1-4"
+	icon_state = "4-8"
 	},
 /turf/open/floor/iron/dark,
 /area/security/interrogation_room)
@@ -50351,6 +50351,9 @@
 "kgi" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
 	},
 /turf/open/floor/iron/dark,
 /area/security/interrogation_room)
@@ -67532,6 +67535,10 @@
 /obj/structure/chair/foldable{
 	dir = 4
 	},
+/obj/machinery/power/apc/auto_name/directional/west,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
 /turf/open/floor/iron/dark,
 /area/security/interrogation_room)
 "pJR" = (
@@ -73400,6 +73407,9 @@
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/iron/dark,
 /area/security/interrogation_room)
@@ -88084,10 +88094,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/machinery/power/apc/auto_name/directional/east,
+/obj/machinery/light_switch/directional/east,
 /turf/open/floor/iron/dark,
 /area/security/interrogation_room)
 "wjf" = (
@@ -92394,6 +92401,9 @@
 	},
 /obj/structure/chair/foldable{
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
 /turf/open/floor/iron/dark,
 /area/security/interrogation_room)

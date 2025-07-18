@@ -3927,6 +3927,7 @@
 	dir = 9
 	},
 /obj/machinery/light/small/directional/west,
+/obj/machinery/light_switch/directional/north,
 /turf/open/floor/iron/dark,
 /area/security/interrogation_room)
 "aQi" = (
