@@ -759,18 +759,78 @@
 		rev.remove_revolutionary(TRUE)
 
 /datum/game_mode/proc/generate_station_goals()
-	var/list/possible = list()
-	for(var/T in subtypesof(/datum/station_goal))
-		var/datum/station_goal/G = T
-		if(config_tag in initial(G.gamemode_blacklist))
-			continue
-		possible += T
-	var/goal_weights = 0
-	while(possible.len && goal_weights < STATION_GOAL_BUDGET)
-		var/datum/station_goal/picked = pick_n_take(possible)
-		goal_weights += initial(picked.weight)
-		station_goals += new picked
+	// Check if the budget has already been met
+	if(station_goals.len >= STATION_GOAL_BUDGET)
+		return // No more goals can be generated
 
+	GLOB.station_goal_selection_open = TRUE
+	GLOB.selected_station_goal = null
+	//Comms Message
+	var/datum/comm_message/msg = new
+	msg.title = "Nanotrasen Directive Selection"
+	msg.content = "Command staff must select a station directive within 20 minutes. Failure to do so will result in automatic assignment."
+	//Setup options
+	for(var/datum/station_goal/each_goal as anything in subtypesof(/datum/station_goal))
+		if(config_tag in initial(each_goal.gamemode_blacklist))
+			continue
+		msg.possible_answers += list("[initial(each_goal.type)]" = "[initial(each_goal.name)]") //tgui will convert the typepath to text regardless
+	//Await answer
+	msg.answer_callback = CALLBACK(src, PROC_REF(station_goal_selected), msg)
+	SScommunications.send_message(msg, unique=TRUE)
+
+	// Set up a timer to automatically select a random goal after 20 minutes
+	addtimer(CALLBACK(src, PROC_REF(select_random_station_goal), msg), 20 MINUTES)
+
+/datum/game_mode/proc/station_goal_selected(var/datum/comm_message/msg)
+	if(!GLOB.station_goal_selection_open)
+		// If a goal has already been selected automatically inform the player.
+		var/datum/comm_message/already_selected_msg = new
+		already_selected_msg.title = "Directive Assigned"
+		already_selected_msg.content = "Station directive has already been assigned by Central Command. Your selection was not taken into account." // You were too late, tell them their selection wont do anything.
+		SScommunications.send_message(already_selected_msg, unique=TRUE)
+		return
+
+	// Check if adding this goal would exceed the budget
+	if(station_goals.len >= STATION_GOAL_BUDGET)
+		return
+
+	//Grab our choosen station goal
+	var/datum/station_goal/selected = text2path(msg.answered)
+	//Send it
+	selected = new selected
+	station_goals += selected
+	selected.prepare_report()
+
+	// If we've reached the budget, close further selection
+	if (station_goals.len >= STATION_GOAL_BUDGET)
+		GLOB.station_goal_selection_open = FALSE
+
+
+/datum/game_mode/proc/select_random_station_goal(var/datum/comm_message/msg_to_clear)
+
+	if(!GLOB.station_goal_selection_open)
+		// If a goal has already been manually selected, do nothing.
+		return
+
+	// Check if adding a random goal would exceed the budget
+	if(station_goals.len >= STATION_GOAL_BUDGET)
+		GLOB.station_goal_selection_open = FALSE // Close selection if budget met
+		return
+
+	GLOB.station_goal_selection_open = FALSE
+
+	// Select a random goal from the available options
+	var/list/available_goals = list()
+	for(var/datum/station_goal/each_goal as anything in subtypesof(/datum/station_goal))
+		if(config_tag in initial(each_goal.gamemode_blacklist))
+			continue
+		available_goals += initial(each_goal.type)
+
+	var/datum/station_goal/selected = pick(available_goals) // Picks a random type path
+	selected = new selected // New goal acquired
+
+	station_goals += selected
+	selected.prepare_report()
 
 /datum/game_mode/proc/generate_report() //Generates a small text blurb for the gamemode in centcom report
 	return "Gamemode report for [name] not set.  Contact a coder."
