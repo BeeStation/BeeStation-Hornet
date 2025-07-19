@@ -1,5 +1,4 @@
 import { sortBy } from 'common/collections';
-import { flow } from 'common/fp';
 import { useBackend } from '../backend';
 import { Box, Button, Dropdown, Section, Knob, LabeledControls, LabeledList } from '../components';
 import { Window } from '../layouts';
@@ -7,7 +6,7 @@ import { Window } from '../layouts';
 export const Jukebox = (props) => {
   const { act, data } = useBackend();
   const { active, track_selected, track_length, track_beat, volume } = data;
-  const songs = flow([sortBy((song) => song.name)])(data.songs || []);
+  const songs = sortBy(songs, (song) => song.name);
   return (
     <Window width={370} height={313}>
       <Window.Content>

@@ -7,10 +7,11 @@ import { createSetPreference, Job, JoblessRole, JobPriority, PreferencesMenuData
 import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
 
 const sortJobs = (entries: [string, Job][], head?: string) =>
-  sortBy<[string, Job]>(
+  sortBy(
+    entries,
     ([key, _]) => (key === head ? -1 : 1),
     ([key, _]) => key
-  )(entries);
+  );
 
 const PriorityButton = (props: { name: string; modifier?: string; enabled: boolean; onClick: () => void }) => {
   const className = `PreferencesMenu__Jobs__departments__priority`;

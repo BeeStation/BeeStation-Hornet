@@ -1,4 +1,3 @@
-import { map } from 'common/collections';
 import { useBackend, useLocalState } from '../backend';
 import { Button, Flex, LabeledList, NoticeBox, Section, Tabs } from '../components';
 import { Window } from '../layouts';
@@ -48,7 +47,7 @@ export const NaniteProgramHub = (props) => {
             <Flex>
               <Flex.Item minWidth="110px" mr={1}>
                 <Tabs vertical>
-                  {map((cat_contents, category) => {
+                  {Object.entries(programs).map(([category, cat_contents]) => {
                     const progs = cat_contents || [];
                     // Backend was sending stupid data that would have been
                     // annoying to fix
@@ -61,7 +60,7 @@ export const NaniteProgramHub = (props) => {
                         {tabLabel}
                       </Tabs.Tab>
                     );
-                  })(programs)}
+                  })}
                 </Tabs>
               </Flex.Item>
               <Flex.Item grow={1} basis={0}>
