@@ -21,7 +21,6 @@
 
 	var/datum/job/job = SSjob.GetJobType(job_to_add)
 	job.total_positions++
-	job.spawn_positions++
 	return ..()
 
 /* subtype example:
