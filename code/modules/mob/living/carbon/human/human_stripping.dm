@@ -182,6 +182,17 @@ GLOBAL_LIST_INIT(strippable_human_layout, list(
 	user.log_message(log_message, LOG_ATTACK, color="red", log_globally=FALSE)
 	item.add_fingerprint(src)
 
+	if(iscarbon(user))
+		var/mob/living/carbon/carbon_user = user
+
+		if(istype(item, /obj/item/reagent_containers/syringe/)  && !istype(carbon_user.gloves, /obj/item/clothing/gloves/tackler))
+			var/obj/item/reagent_containers/syringe/syringeitem = item
+			finish_unequip_mob(item, source, user)
+			syringeitem.embed(user)
+			user.visible_message(span_danger("You see [user] yank their hand out of [source]'s pocket and scream in pain!"), span_userdanger("A syringe embeds itself in your hand!"))
+			user.emote("scream")
+			return TRUE
+
 	var/result = start_unequip_mob(item, source, user, strip_delay = POCKET_STRIP_DELAY, hidden = TRUE)
 
 	if(!result && !HAS_TRAIT(user, TRAIT_STEALTH_PICKPOCKET))
