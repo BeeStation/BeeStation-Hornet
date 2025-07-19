@@ -1358,3 +1358,27 @@
 /obj/item/storage/box/locker/security
 	name = "security locker box"
 	icon_state = "secbox"
+
+/obj/item/storage/box/locker/security/detective
+	name = "detective essentials"
+	desc = "The necessary equipment for any detective!"
+	illustration = "fpen"
+
+/obj/item/storage/box/locker/security/detective/PopulateContents()
+	new /obj/item/camera/detective(src)
+	new /obj/item/taperecorder(src)
+	new /obj/item/pinpointer/crew(src)
+	new /obj/item/binoculars(src)
+	new /obj/item/detective_scanner(src)
+	new /obj/item/flashlight/seclite(src)
+	new /obj/item/holosign_creator/security(src)
+	new /obj/item/reagent_containers/peppercloud_deployer(src)
+
+/obj/item/storage/box/party_poppers
+	name = "box of party_poppers"
+	desc = "Turn any event into a celebration and ensure the janitor stays busy."
+
+/obj/item/storage/box/party_poppers/PopulateContents()
+	for(var/i in 1 to 5)
+		new /obj/item/reagent_containers/spray/chemsprayer/party(src)
+
