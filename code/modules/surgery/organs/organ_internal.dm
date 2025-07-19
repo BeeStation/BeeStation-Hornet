@@ -1,4 +1,4 @@
-/obj/item/organ/internal
+/obj/item/organ
 	name = "organ"
 
 /obj/item/organ/Initialize(mapload)
