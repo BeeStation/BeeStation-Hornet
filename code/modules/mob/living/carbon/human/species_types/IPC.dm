@@ -115,7 +115,7 @@
 	button_icon_state = "drone_vision"
 
 /datum/action/innate/change_screen/on_activate()
-	var/screen_choice = tgui_input_list(usr, "Which screen do you want to use?", "Screen Change", GLOB.ipc_screens_list)
+	var/screen_choice = tgui_input_list(usr, "Which screen do you want to use?", "Screen Change", SSaccessories.ipc_screens_list)
 	var/color_choice = tgui_color_picker(usr, "Which color do you want your screen to be?", "Color Change")
 	if(!screen_choice)
 		return
@@ -251,7 +251,7 @@
 /datum/species/ipc/replace_body(mob/living/carbon/C, datum/species/new_species)
 	..()
 
-	var/datum/sprite_accessory/ipc_chassis/chassis_of_choice = GLOB.ipc_chassis_list[C.dna.features["ipc_chassis"]]
+	var/datum/sprite_accessory/ipc_chassis/chassis_of_choice = SSaccessories.ipc_chassis_list[C.dna.features["ipc_chassis"]]
 
 	for(var/obj/item/bodypart/BP as() in C.bodyparts) //Override bodypart data as necessary
 		BP.should_draw_greyscale = chassis_of_choice.color_src ? TRUE : FALSE

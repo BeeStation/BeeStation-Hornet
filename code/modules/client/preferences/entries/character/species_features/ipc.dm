@@ -7,7 +7,7 @@
 	relevant_mutant_bodypart = "ipc_screen"
 
 /datum/preference/choiced/ipc_screen/init_possible_values()
-	return assoc_to_keys_features(GLOB.ipc_screens_list)
+	return assoc_to_keys_features(SSaccessories.ipc_screens_list)
 
 /datum/preference/choiced/ipc_screen/icon_for(value)
 	var/static/datum/universal_icon/ipc_head
@@ -15,7 +15,7 @@
 	if (isnull(ipc_head))
 		ipc_head = uni_icon('icons/mob/species/ipc/bodyparts.dmi', "mcgipc_head", dir = SOUTH)
 
-	var/datum/sprite_accessory/screen = GLOB.ipc_screens_list[value]
+	var/datum/sprite_accessory/screen = SSaccessories.ipc_screens_list[value]
 	var/datum/universal_icon/icon_with_screen = ipc_head.copy()
 
 	if (value != FEATURE_NONE)
@@ -66,7 +66,7 @@
 	relevant_mutant_bodypart = "ipc_antenna"
 
 /datum/preference/choiced/ipc_antenna/init_possible_values()
-	return assoc_to_keys_features(GLOB.ipc_antennas_list)
+	return assoc_to_keys_features(SSaccessories.ipc_antennas_list)
 
 /datum/preference/choiced/ipc_antenna/icon_for(value)
 	var/static/datum/universal_icon/ipc_head
@@ -74,7 +74,7 @@
 	if (isnull(ipc_head))
 		ipc_head = uni_icon('icons/mob/species/ipc/bodyparts.dmi', "mcgipc_head", dir = SOUTH)
 
-	var/datum/sprite_accessory/antenna = GLOB.ipc_antennas_list[value]
+	var/datum/sprite_accessory/antenna = SSaccessories.ipc_antennas_list[value]
 	var/datum/universal_icon/icon_with_antennae = ipc_head.copy()
 
 	if (antenna.icon_state != "none")
@@ -122,7 +122,7 @@
 	relevant_mutant_bodypart = "ipc_chassis"
 
 /datum/preference/choiced/ipc_chassis/init_possible_values()
-	return assoc_to_keys_features(GLOB.ipc_chassis_list)
+	return assoc_to_keys_features(SSaccessories.ipc_chassis_list)
 
 /datum/preference/choiced/ipc_chassis/icon_for(value)
 	var/static/list/body_parts = list(
@@ -136,7 +136,7 @@
 		BODY_ZONE_R_LEG,
 	)
 
-	var/datum/sprite_accessory/chassis = GLOB.ipc_chassis_list[value]
+	var/datum/sprite_accessory/chassis = SSaccessories.ipc_chassis_list[value]
 	var/datum/universal_icon/icon_with_chassis = uni_icon('icons/effects/effects.dmi', "nothing")
 
 	for (var/body_part in body_parts)

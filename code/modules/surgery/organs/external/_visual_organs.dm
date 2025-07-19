@@ -127,7 +127,7 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 	return TRUE
 
 /datum/bodypart_overlay/mutant/horns/get_global_feature_list()
-	return GLOB.horns_list
+	return SSaccessories.horns_list
 
 ///The frills of a lizard (like weird fin ears)
 /obj/item/organ/frills
@@ -156,7 +156,7 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 	return FALSE
 
 /datum/bodypart_overlay/mutant/frills/get_global_feature_list()
-	return GLOB.frills_list
+	return SSaccessories.frills_list
 
 ///Guess what part of the lizard this is?
 /obj/item/organ/snout
@@ -187,7 +187,7 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 	return FALSE
 
 /datum/bodypart_overlay/mutant/snout/get_global_feature_list()
-	return GLOB.snouts_list
+	return SSaccessories.snouts_list
 
 ///A moth's antennae
 /obj/item/organ/antennae
@@ -264,7 +264,7 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 	burn_datum = fetch_sprite_datum(burn_datum) //turn the path into the singleton instance
 
 /datum/bodypart_overlay/mutant/antennae/get_global_feature_list()
-	return GLOB.moth_antennae_list
+	return SSaccessories.moth_antennae_list
 
 /datum/bodypart_overlay/mutant/antennae/get_base_icon_state()
 	return burnt ? burn_datum.icon_state : sprite_datum.icon_state

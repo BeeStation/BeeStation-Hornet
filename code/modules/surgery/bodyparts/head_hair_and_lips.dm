@@ -98,7 +98,7 @@
 
 	var/image/facial_hair_overlay
 	if(!facial_hair_hidden && facial_hairstyle && (head_flags & HEAD_FACIAL_HAIR))
-		sprite_accessory = GLOB.facial_hairstyles_list[facial_hairstyle]
+		sprite_accessory = SSaccessories.facial_hairstyles_list[facial_hairstyle]
 		if(sprite_accessory)
 			//Overlay
 			facial_hair_overlay = image(sprite_accessory.icon, sprite_accessory.icon_state, layer = CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER), dir = image_dir)
@@ -113,12 +113,12 @@
 			var/facial_hair_gradient_style = gradient_styles[GRADIENT_FACIAL_HAIR_KEY]
 			if(facial_hair_gradient_style != "None")
 				var/facial_hair_gradient_color = gradient_colors[GRADIENT_FACIAL_HAIR_KEY]
-				var/image/facial_hair_gradient_overlay = get_gradient_overlay(sprite_accessory.icon, sprite_accessory.icon_state, CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER), GLOB.facial_hair_gradients_list[facial_hair_gradient_style], facial_hair_gradient_color, image_dir)
+				var/image/facial_hair_gradient_overlay = get_gradient_overlay(sprite_accessory.icon, sprite_accessory.icon_state, CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER), SSaccessories.facial_hair_gradients_list[facial_hair_gradient_style], facial_hair_gradient_color, image_dir)
 				. += facial_hair_gradient_overlay
 
 	var/image/hair_overlay
 	if(!(show_debrained && (head_flags & HEAD_DEBRAIN)) && !hair_hidden && hairstyle && (head_flags & HEAD_HAIR))
-		var/datum/sprite_accessory/hair/hair_sprite_accessory = GLOB.hairstyles_list[hairstyle]
+		var/datum/sprite_accessory/hair/hair_sprite_accessory = SSaccessories.hairstyles_list[hairstyle]
 		if(hair_sprite_accessory)
 			//Overlay
 			hair_overlay = image(hair_sprite_accessory.icon, hair_sprite_accessory.icon_state, CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER), image_dir)
@@ -133,7 +133,7 @@
 			var/hair_gradient_style = gradient_styles[GRADIENT_HAIR_KEY]
 			if(hair_gradient_style != "None")
 				var/hair_gradient_color = gradient_colors[GRADIENT_HAIR_KEY]
-				var/image/hair_gradient_overlay = get_gradient_overlay(hair_sprite_accessory.icon, hair_sprite_accessory.icon_state, CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER), GLOB.hair_gradients_list[hair_gradient_style], hair_gradient_color, image_dir)
+				var/image/hair_gradient_overlay = get_gradient_overlay(hair_sprite_accessory.icon, hair_sprite_accessory.icon_state, CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER), SSaccessories.hair_gradients_list[hair_gradient_style], hair_gradient_color, image_dir)
 				. += hair_gradient_overlay
 
 	if(show_debrained && (head_flags & HEAD_DEBRAIN))

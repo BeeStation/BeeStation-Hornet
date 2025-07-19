@@ -7,7 +7,7 @@
 	relevant_external_organ = /obj/item/organ/antennae
 
 /datum/preference/choiced/moth_antennae/init_possible_values()
-	return assoc_to_keys_features(GLOB.moth_antennae_list)
+	return assoc_to_keys_features(SSaccessories.moth_antennae_list)
 
 /datum/preference/choiced/moth_antennae/icon_for(value)
 	var/static/datum/universal_icon/moth_head
@@ -16,7 +16,7 @@
 		moth_head = uni_icon('icons/mob/species/moth/bodyparts.dmi', "moth_head")
 		moth_head.blend_icon(uni_icon('icons/mob/species/human/human_face.dmi', "motheyes", dir = SOUTH), ICON_OVERLAY)
 
-	var/datum/sprite_accessory/antennae = GLOB.moth_antennae_list[value]
+	var/datum/sprite_accessory/antennae = SSaccessories.moth_antennae_list[value]
 
 	var/datum/universal_icon/icon_with_antennae = moth_head.copy()
 	icon_with_antennae.blend_icon(uni_icon(antennae.icon, "m_moth_antennae_[antennae.icon_state]_FRONT"), ICON_OVERLAY)
@@ -37,7 +37,7 @@
 	relevant_body_markings = /datum/bodypart_overlay/simple/body_marking/moth
 
 /datum/preference/choiced/moth_markings/init_possible_values()
-	return assoc_to_keys_features(GLOB.moth_markings_list)
+	return assoc_to_keys_features(SSaccessories.moth_markings_list)
 
 /datum/preference/choiced/moth_markings/icon_for(value)
 	var/static/list/body_parts = list(
@@ -56,7 +56,7 @@
 
 		moth_body.blend_icon(uni_icon('icons/mob/species/human/human_face.dmi', "motheyes"), ICON_OVERLAY)
 
-	var/datum/sprite_accessory/markings = GLOB.moth_markings_list[value]
+	var/datum/sprite_accessory/markings = SSaccessories.moth_markings_list[value]
 	var/datum/universal_icon/icon_with_markings = moth_body.copy()
 
 	if (value != SPRITE_ACCESSORY_NONE)
@@ -86,10 +86,10 @@
 	relevant_external_organ = /obj/item/organ/wings/moth
 
 /datum/preference/choiced/moth_wings/init_possible_values()
-	return assoc_to_keys_features(GLOB.moth_wings_list)
+	return assoc_to_keys_features(SSaccessories.moth_wings_list)
 
 /datum/preference/choiced/moth_wings/icon_for(value)
-	var/datum/sprite_accessory/moth_wings = GLOB.moth_wings_list[value]
+	var/datum/sprite_accessory/moth_wings = SSaccessories.moth_wings_list[value]
 	return uni_icon(moth_wings.icon, "m_moth_wings_[moth_wings.icon_state]_BEHIND")
 
 

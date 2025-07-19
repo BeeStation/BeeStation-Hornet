@@ -68,7 +68,7 @@
 		dye_wig(worn_wig, user)
 		return
 
-	var/list/choices = what_to_dye == "Hair" ? GLOB.hair_gradients_list : GLOB.facial_hair_gradients_list
+	var/list/choices = what_to_dye == "Hair" ? SSaccessories.hair_gradients_list : SSaccessories.facial_hair_gradients_list
 	var/new_grad_style = tgui_input_list(user, "Choose a color pattern", "Character Preference", choices)
 	if(isnull(new_grad_style))
 		return

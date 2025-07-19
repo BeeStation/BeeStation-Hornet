@@ -107,7 +107,7 @@
 	can_randomize = FALSE
 
 /datum/preference/choiced/socks/init_possible_values()
-	return assoc_to_keys_features(GLOB.socks_list)
+	return assoc_to_keys_features(SSaccessories.socks_list)
 
 /datum/preference/choiced/socks/create_default_value()
 	return /datum/sprite_accessory/socks/nude::name
@@ -120,7 +120,7 @@
 		lower_half.blend_icon(uni_icon('icons/mob/species/human/bodyparts_greyscale.dmi', "human_r_leg"), ICON_OVERLAY)
 		lower_half.blend_icon(uni_icon('icons/mob/species/human/bodyparts_greyscale.dmi', "human_l_leg"), ICON_OVERLAY)
 
-	return generate_underwear_icon(GLOB.socks_list[value], lower_half)
+	return generate_underwear_icon(SSaccessories.socks_list[value], lower_half)
 
 /datum/preference/choiced/socks/apply_to_human(mob/living/carbon/human/target, value)
 	target.socks = value
@@ -137,7 +137,7 @@
 	can_randomize = FALSE
 
 /datum/preference/choiced/undershirt/init_possible_values()
-	return assoc_to_keys_features(GLOB.undershirt_list)
+	return assoc_to_keys_features(SSaccessories.undershirt_list)
 
 /datum/preference/choiced/undershirt/create_default_value()
 	return /datum/sprite_accessory/undershirt/nude::name
@@ -165,7 +165,7 @@
 	var/datum/universal_icon/icon_with_undershirt = body.copy()
 
 	if (value != "Nude")
-		var/datum/sprite_accessory/accessory = GLOB.undershirt_list[value]
+		var/datum/sprite_accessory/accessory = SSaccessories.undershirt_list[value]
 		icon_with_undershirt.blend_icon(uni_icon('icons/mob/clothing/underwear.dmi', accessory.icon_state), ICON_OVERLAY)
 
 	icon_with_undershirt.crop(9, 9, 23, 23)
@@ -187,7 +187,7 @@
 	can_randomize = FALSE
 
 /datum/preference/choiced/underwear/init_possible_values()
-	return assoc_to_keys_features(GLOB.underwear_list)
+	return assoc_to_keys_features(SSaccessories.underwear_list)
 
 /datum/preference/choiced/underwear/create_default_value()
 	return /datum/sprite_accessory/underwear/male_hearts::name
@@ -199,7 +199,7 @@
 		return /datum/sprite_accessory/underwear/male_mankini::name
 
 	var/gender = preferences.read_preference(/datum/preference/choiced/gender)
-	var/datum/sprite_accessory/picked_underwear = pick_default_accessory(GLOB.underwear_list, null, 0, gender)
+	var/datum/sprite_accessory/picked_underwear = pick_default_accessory(SSaccessories.underwear_list, null, 0, gender)
 	if(!picked_underwear)
 		return ..()
 	return picked_underwear?.name
@@ -213,7 +213,7 @@
 		lower_half.blend_icon(uni_icon('icons/mob/species/human/bodyparts_greyscale.dmi', "human_r_leg"), ICON_OVERLAY)
 		lower_half.blend_icon(uni_icon('icons/mob/species/human/bodyparts_greyscale.dmi', "human_l_leg"), ICON_OVERLAY)
 
-	return generate_underwear_icon(GLOB.underwear_list[value], lower_half, COLOR_ALMOST_BLACK)
+	return generate_underwear_icon(SSaccessories.underwear_list[value], lower_half, COLOR_ALMOST_BLACK)
 
 /datum/preference/choiced/underwear/apply_to_human(mob/living/carbon/human/target, value)
 	target.underwear = value

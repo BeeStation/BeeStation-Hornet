@@ -44,29 +44,32 @@
 	return pick(natural_hair_colors)
 
 /proc/random_underwear(gender)
-	if(!GLOB.underwear_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/underwear, GLOB.underwear_list, GLOB.underwear_m, GLOB.underwear_f)
-	var/datum/sprite_accessory/picked = pick_default_accessory(GLOB.underwear_list, null, 0, gender)
+	if(length(SSaccessories.underwear_list) == 0)
+		CRASH("No underwear to choose from!")
+
+	var/datum/sprite_accessory/picked = pick_default_accessory(SSaccessories.underwear_list, null, 0, gender)
 	return picked?.name || "Nude"
 
 /proc/random_undershirt(gender)
-	if(!GLOB.undershirt_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/undershirt, GLOB.undershirt_list, GLOB.undershirt_m, GLOB.undershirt_f)
-	var/datum/sprite_accessory/picked = pick_default_accessory(GLOB.undershirt_list, null, 0, gender)
+	if(length(SSaccessories.undershirt_list) == 0)
+		CRASH("No undershirts to choose from!")
+
+	var/datum/sprite_accessory/picked = pick_default_accessory(SSaccessories.undershirt_list, null, 0, gender)
 	return picked?.name || "Nude"
 
 /proc/random_socks(gender)
-	if(!GLOB.socks_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/socks, GLOB.socks_list)
-	var/datum/sprite_accessory/picked = pick_default_accessory(GLOB.socks_list, null, 0, gender)
+	if(length(SSaccessories.socks_list) == 0)
+		CRASH("No socks to choose from!")
+
+	var/datum/sprite_accessory/picked = pick_default_accessory(SSaccessories.socks_list, null, 0, gender)
 	return picked?.name || "Nude"
 
 /proc/random_hairstyle(gender)
-	var/datum/sprite_accessory/picked = pick_default_accessory(GLOB.hairstyles_list, null, 0, gender)
+	var/datum/sprite_accessory/picked = pick_default_accessory(SSaccessories.hairstyles_list, null, 0, gender)
 	return picked?.name || "Bald"
 
 /proc/random_facial_hairstyle(gender)
-	var/datum/sprite_accessory/picked = pick_default_accessory(GLOB.facial_hairstyles_list, null, 0, gender)
+	var/datum/sprite_accessory/picked = pick_default_accessory(SSaccessories.facial_hairstyles_list, null, 0, gender)
 	return picked?.name || "Shaved"
 
 /proc/random_unique_name(gender, attempts_to_find_unique_name=10)

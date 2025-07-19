@@ -1,66 +1,11 @@
 //Preferences stuff
 	//Hairstyles
-GLOBAL_LIST_EMPTY(hairstyles_list) //stores /datum/sprite_accessory/hair indexed by name
-GLOBAL_LIST_EMPTY(hair_styles_male_list) //stores only hair names
-GLOBAL_LIST_EMPTY(hair_styles_female_list) //stores only hair names
-GLOBAL_LIST_EMPTY(facial_hairstyles_list) //stores /datum/sprite_accessory/facial_hair indexed by name
-GLOBAL_LIST_EMPTY(facial_hairstyles_male_list) //stores only hair names
-GLOBAL_LIST_EMPTY(facial_hairstyles_female_list) //stores only hair names
-GLOBAL_LIST_EMPTY(hair_gradients_list) //stores /datum/sprite_accessory/hair_gradient indexed by name
-GLOBAL_LIST_EMPTY(facial_hair_gradients_list) //stores /datum/sprite_accessory/facial_hair_gradient indexed by name
-	//Underwear
-GLOBAL_LIST_EMPTY(underwear_list) //stores /datum/sprite_accessory/underwear indexed by name
-GLOBAL_LIST_EMPTY(underwear_m) //stores only underwear name
-GLOBAL_LIST_EMPTY(underwear_f) //stores only underwear name
-	//Undershirts
-GLOBAL_LIST_EMPTY(undershirt_list) //stores /datum/sprite_accessory/undershirt indexed by name
-GLOBAL_LIST_EMPTY(undershirt_m) //stores only undershirt name
-GLOBAL_LIST_EMPTY(undershirt_f) //stores only undershirt name
-	//Socks
-GLOBAL_LIST_EMPTY(socks_list) //stores /datum/sprite_accessory/socks indexed by name
 /// Body sizes. The names (keys) are what is actually stored in the database. Don't get crazy with changing them.
 GLOBAL_LIST_INIT(body_sizes, list(
 	"Normal" = BODY_SIZE_NORMAL,
 	"Short" = BODY_SIZE_SHORT,
 	"Tall" = BODY_SIZE_TALL
 ))
-	//Lizard Bits (all datum lists indexed by name)
-GLOBAL_LIST_EMPTY(lizard_markings_list)
-GLOBAL_LIST_EMPTY(snouts_list)
-GLOBAL_LIST_EMPTY(horns_list)
-GLOBAL_LIST_EMPTY(frills_list)
-GLOBAL_LIST_EMPTY(spines_list)
-GLOBAL_LIST_EMPTY(tail_spines_list)
-GLOBAL_LIST_EMPTY(animated_spines_list)
-
-	//Mutant Human bits
-GLOBAL_LIST_EMPTY(tails_list_human)
-GLOBAL_LIST_EMPTY(tails_list_lizard)
-GLOBAL_LIST_EMPTY(tails_list_monkey)
-GLOBAL_LIST_EMPTY(ears_list)
-GLOBAL_LIST_EMPTY(wings_list)
-GLOBAL_LIST_EMPTY(wings_open_list)
-GLOBAL_LIST_EMPTY(moth_wings_list)
-GLOBAL_LIST_EMPTY(moth_antennae_list)
-GLOBAL_LIST_EMPTY(moth_markings_list)
-GLOBAL_LIST_EMPTY(moth_wingsopen_list)
-GLOBAL_LIST_EMPTY(ipc_screens_list)
-GLOBAL_LIST_EMPTY(ipc_antennas_list)
-GLOBAL_LIST_EMPTY(ipc_chassis_list)
-GLOBAL_LIST_EMPTY(insect_type_list)
-GLOBAL_LIST_EMPTY(apid_antenna_list)
-GLOBAL_LIST_EMPTY(apid_stripes_list)
-GLOBAL_LIST_EMPTY(apid_headstripes_list)
-GLOBAL_LIST_EMPTY(psyphoza_cap_list)
-GLOBAL_LIST_EMPTY(diona_leaves_list)
-GLOBAL_LIST_EMPTY(diona_thorns_list)
-GLOBAL_LIST_EMPTY(diona_flowers_list)
-GLOBAL_LIST_EMPTY(diona_moss_list)
-GLOBAL_LIST_EMPTY(diona_mushroom_list)
-GLOBAL_LIST_EMPTY(diona_antennae_list)
-GLOBAL_LIST_EMPTY(diona_eyes_list)
-GLOBAL_LIST_EMPTY(diona_pbody_list)
-
 
 GLOBAL_LIST_INIT(color_list_ethereal, list(
 	"Red" = "#ff3131",

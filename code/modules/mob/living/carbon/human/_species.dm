@@ -576,7 +576,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	//Underwear, Undershirts & Socks
 	if(!HAS_TRAIT(species_human, TRAIT_NO_UNDERWEAR))
 		if(species_human.underwear)
-			var/datum/sprite_accessory/underwear/underwear = GLOB.underwear_list[species_human.underwear]
+			var/datum/sprite_accessory/underwear/underwear = SSaccessories.underwear_list[species_human.underwear]
 			var/mutable_appearance/underwear_overlay
 			if(underwear)
 				if(species_human.dna.species.sexes && species_human.physique == FEMALE && underwear.gender_specific)
@@ -588,7 +588,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				standing += underwear_overlay
 
 		if(species_human.undershirt)
-			var/datum/sprite_accessory/undershirt/undershirt = GLOB.undershirt_list[species_human.undershirt]
+			var/datum/sprite_accessory/undershirt/undershirt = SSaccessories.undershirt_list[species_human.undershirt]
 			if(undershirt)
 				var/mutable_appearance/working_shirt
 				if(species_human.dna.species.sexes && species_human.physique == FEMALE)
@@ -598,7 +598,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				standing += working_shirt
 
 		if(species_human.socks && species_human.num_legs >= 2 && !(species_human.bodyshape & BODYSHAPE_DIGITIGRADE) && !(TRAIT_NOSOCKS in inherent_traits))
-			var/datum/sprite_accessory/socks/socks = GLOB.socks_list[species_human.socks]
+			var/datum/sprite_accessory/socks/socks = SSaccessories.socks_list[species_human.socks]
 			if(socks)
 				standing += mutable_appearance(socks.icon, socks.icon_state, CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
 
@@ -697,37 +697,37 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			var/datum/sprite_accessory/accessory
 			switch(bodypart)
 				if("ipc_screen")
-					accessory = GLOB.ipc_screens_list[source.dna.features["ipc_screen"]]
+					accessory = SSaccessories.ipc_screens_list[source.dna.features["ipc_screen"]]
 				if("ipc_antenna")
-					accessory = GLOB.ipc_antennas_list[source.dna.features["ipc_antenna"]]
+					accessory = SSaccessories.ipc_antennas_list[source.dna.features["ipc_antenna"]]
 				if("ipc_chassis")
-					accessory = GLOB.ipc_chassis_list[source.dna.features["ipc_chassis"]]
+					accessory = SSaccessories.ipc_chassis_list[source.dna.features["ipc_chassis"]]
 				if("insect_type")
-					accessory = GLOB.insect_type_list[source.dna.features["insect_type"]]
+					accessory = SSaccessories.insect_type_list[source.dna.features["insect_type"]]
 				if("apid_antenna")
-					accessory = GLOB.apid_antenna_list[source.dna.features["apid_antenna"]]
+					accessory = SSaccessories.apid_antenna_list[source.dna.features["apid_antenna"]]
 				if("apid_stripes")
-					accessory = GLOB.apid_stripes_list[source.dna.features["apid_stripes"]]
+					accessory = SSaccessories.apid_stripes_list[source.dna.features["apid_stripes"]]
 				if("apid_headstripes")
-					accessory = GLOB.apid_headstripes_list[source.dna.features["apid_headstripes"]]
+					accessory = SSaccessories.apid_headstripes_list[source.dna.features["apid_headstripes"]]
 				if("psyphoza_cap")
-					accessory = GLOB.psyphoza_cap_list[source.dna.features["psyphoza_cap"]]
+					accessory = SSaccessories.psyphoza_cap_list[source.dna.features["psyphoza_cap"]]
 				if("diona_leaves")
-					accessory = GLOB.diona_leaves_list[source.dna.features["diona_leaves"]]
+					accessory = SSaccessories.diona_leaves_list[source.dna.features["diona_leaves"]]
 				if("diona_thorns")
-					accessory = GLOB.diona_thorns_list[source.dna.features["diona_thorns"]]
+					accessory = SSaccessories.diona_thorns_list[source.dna.features["diona_thorns"]]
 				if("diona_flowers")
-					accessory = GLOB.diona_flowers_list[source.dna.features["diona_flowers"]]
+					accessory = SSaccessories.diona_flowers_list[source.dna.features["diona_flowers"]]
 				if("diona_moss")
-					accessory = GLOB.diona_moss_list[source.dna.features["diona_moss"]]
+					accessory = SSaccessories.diona_moss_list[source.dna.features["diona_moss"]]
 				if("diona_mushroom")
-					accessory = GLOB.diona_mushroom_list[source.dna.features["diona_mushroom"]]
+					accessory = SSaccessories.diona_mushroom_list[source.dna.features["diona_mushroom"]]
 				if("diona_antennae")
-					accessory = GLOB.diona_antennae_list[source.dna.features["diona_antennae"]]
+					accessory = SSaccessories.diona_antennae_list[source.dna.features["diona_antennae"]]
 				if("diona_eyes")
-					accessory = GLOB.diona_eyes_list[source.dna.features["diona_eyes"]]
+					accessory = SSaccessories.diona_eyes_list[source.dna.features["diona_eyes"]]
 				if("diona_pbody")
-					accessory = GLOB.diona_pbody_list[source.dna.features["diona_pbody"]]
+					accessory = SSaccessories.diona_pbody_list[source.dna.features["diona_pbody"]]
 
 
 			if(!accessory || accessory.icon_state == "none")

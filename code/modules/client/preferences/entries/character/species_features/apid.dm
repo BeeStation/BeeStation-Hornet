@@ -7,10 +7,10 @@
 	relevant_mutant_bodypart = "apid_stripes"
 
 /datum/preference/choiced/apid_stripes/init_possible_values()
-	return assoc_to_keys_features(GLOB.apid_stripes_list)
+	return assoc_to_keys_features(SSaccessories.apid_stripes_list)
 
 /datum/preference/choiced/apid_stripes/icon_for(value)
-	var/datum/sprite_accessory/stripe = GLOB.apid_stripes_list[value]
+	var/datum/sprite_accessory/stripe = SSaccessories.apid_stripes_list[value]
 
 	var/datum/universal_icon/icon_with_stripes = uni_icon('icons/mob/species/apid/bodyparts.dmi', "apid_chest_m", dir = SOUTH)
 	if (stripe.icon_state != "none")
@@ -36,7 +36,7 @@
 	relevant_mutant_bodypart = "apid_antenna"
 
 /datum/preference/choiced/apid_antenna/init_possible_values()
-	return assoc_to_keys_features(GLOB.apid_antenna_list)
+	return assoc_to_keys_features(SSaccessories.apid_antenna_list)
 
 /datum/preference/choiced/apid_antenna/icon_for(value)
 	var/static/datum/universal_icon/apid_head
@@ -44,7 +44,7 @@
 	if (isnull(apid_head))
 		apid_head = uni_icon('icons/mob/species/apid/bodyparts.dmi', "apid_head_m", dir = SOUTH)
 
-	var/datum/sprite_accessory/antenna = GLOB.apid_antenna_list[value]
+	var/datum/sprite_accessory/antenna = SSaccessories.apid_antenna_list[value]
 
 	var/datum/universal_icon/icon_with_antennae = apid_head.copy()
 	if (antenna.icon_state != "none")
@@ -68,7 +68,7 @@
 	relevant_mutant_bodypart = "apid_headstripes"
 
 /datum/preference/choiced/apid_headstripes/init_possible_values()
-	return assoc_to_keys_features(GLOB.apid_headstripes_list)
+	return assoc_to_keys_features(SSaccessories.apid_headstripes_list)
 
 /datum/preference/choiced/apid_headstripes/icon_for(value)
 	var/static/datum/universal_icon/apid_head
@@ -76,7 +76,7 @@
 	if (isnull(apid_head))
 		apid_head = uni_icon('icons/mob/species/apid/bodyparts.dmi', "apid_head_m", dir = SOUTH)
 
-	var/datum/sprite_accessory/headstripe = GLOB.apid_headstripes_list[value]
+	var/datum/sprite_accessory/headstripe = SSaccessories.apid_headstripes_list[value]
 
 	var/datum/universal_icon/icon_with_headstripes = apid_head.copy()
 	if (headstripe.icon_state != "none")
