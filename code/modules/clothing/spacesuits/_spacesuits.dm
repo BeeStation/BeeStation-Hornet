@@ -24,6 +24,11 @@
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	resistance_flags = NONE
 	dog_fashion = null
+	salvage_material = null
+	salvage_material = /obj/item/stack/rods/scrap/plasteel
+	salvage_amount = 10
+	secondary_salvage_material = /obj/item/stack/rods/scrap/glass
+	secondary_salvage_amount = 5
 	var/obj/item/clothing/head/attached_hat
 
 /datum/armor/helmet_space
@@ -133,6 +138,10 @@
 	equip_delay_other = 80
 	resistance_flags = NONE
 	actions_types = list(/datum/action/item_action/toggle_spacesuit)
+	salvage_material = /obj/item/stack/rods/scrap/plasteel
+	salvage_amount = 10
+	secondary_salvage_material = /obj/item/stack/rods/scrap/silver
+	secondary_salvage_amount = 5
 	pockets = FALSE
 	var/temperature_setting = BODYTEMP_NORMAL /// The default temperature setting
 	var/obj/item/stock_parts/cell/cell = /obj/item/stock_parts/cell/high /// If this is a path, this gets created as an object in Initialize.

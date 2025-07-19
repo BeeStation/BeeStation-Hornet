@@ -50,6 +50,7 @@
 	item_state = "coatcaptain"
 	armor_type = /datum/armor/wintercoat_captain
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/captain
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread //There is no fur so we're using this specially because these are armoured
 
 
 /datum/armor/wintercoat_captain
@@ -76,6 +77,7 @@
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/security
 	armor_type = /datum/armor/wintercoat_security
 	slowdown = 0.04
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 
 /datum/armor/wintercoat_security
@@ -130,6 +132,7 @@
 	armor_type = /datum/armor/wintercoat_detective
 	heat_protection = CHEST|GROIN|ARMS
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/detective
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 
 /datum/armor/wintercoat_detective
@@ -183,6 +186,8 @@
 	)
 	armor_type = /datum/armor/wintercoat_brigphys
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/brigphys
+	secondary_salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
+	secondary_salvage_amount = 2
 
 
 /datum/armor/wintercoat_brigphys
@@ -485,6 +490,7 @@
 	resistance_flags = FIRE_PROOF
 	high_pressure_multiplier = 0.4
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/miner
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 
 /datum/armor/wintercoat_miner
@@ -611,6 +617,7 @@
 	item_state = "coatcentcom"
 	armor_type = /datum/armor/wintercoat_centcom
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/centcom
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 
 /datum/armor/wintercoat_centcom

@@ -8,7 +8,7 @@
 	alt_covers_chest = TRUE
 	icon = 'icons/obj/clothing/under/syndicate.dmi'
 	worn_icon = 'icons/mob/clothing/under/syndicate.dmi'
-
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /datum/armor/under_syndicate
 	melee = 10
@@ -24,7 +24,7 @@
 	icon_state = "tactifool"
 	item_state = "bl_suit"
 	armor_type = /datum/armor/syndicate_tacticool
-
+	salvage_material = /obj/item/stack/sheet/cotton/cloth
 
 /datum/armor/syndicate_tacticool
 	bio = 10

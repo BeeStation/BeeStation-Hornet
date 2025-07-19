@@ -62,6 +62,10 @@
 	/// A lazily initiated "food" version of the clothing for moths
 	var/obj/item/food/clothing/moth_snack
 
+	salvage_material = /obj/item/stack/sheet/cotton/cloth
+	salvage_amount = 3
+	secondary_salvage_amount = 1
+
 /obj/item/clothing/Initialize(mapload)
 	if(clothing_flags & VOICEBOX_TOGGLABLE)
 		actions_types += /datum/action/item_action/toggle_voice_box
@@ -142,28 +146,25 @@
 	moth_snack.attack(target, user, params)
 
 /obj/item/clothing/attackby(obj/item/W, mob/user, params)
-	if(!istype(W, repairable_by))
-		return ..()
-
-	switch(damaged_clothes)
-		if(CLOTHING_PRISTINE)
-			return..()
-		if(CLOTHING_DAMAGED)
-			var/obj/item/stack/cloth_repair = W
-			cloth_repair.use(1)
-			repair(user, params)
-			return TRUE
-		if(CLOTHING_SHREDDED)
-			var/obj/item/stack/cloth_repair = W
-			if(cloth_repair.amount < 3)
-				to_chat(user, span_warning("You require 3 [cloth_repair.name] to repair [src]."))
+	if(istype(W, repairable_by))
+		switch(damaged_clothes)
+			if(CLOTHING_PRISTINE)
+				return..()
+			if(CLOTHING_DAMAGED)
+				var/obj/item/stack/cloth_repair = W
+				cloth_repair.use(1)
+				repair(user, params)
 				return TRUE
-			to_chat(user, span_notice("You begin fixing the damage to [src] with [cloth_repair]..."))
-			if(!do_after(user, 6 SECONDS, src) || !cloth_repair.use(3))
+			if(CLOTHING_SHREDDED)
+				var/obj/item/stack/cloth_repair = W
+				if(cloth_repair.amount < 3)
+					to_chat(user, span_warning("You require 3 [cloth_repair.name] to repair [src]."))
+					return TRUE
+				to_chat(user, span_notice("You begin fixing the damage to [src] with [cloth_repair]..."))
+				if(!do_after(user, 6 SECONDS, src) || !cloth_repair.use(3))
+					return TRUE
+				repair(user, params)
 				return TRUE
-			repair(user, params)
-			return TRUE
-
 	return ..()
 
 /// Set the clothing's integrity back to 100%, remove all damage to bodyparts, and generally fix it up

@@ -46,6 +46,7 @@
 	can_adjust = FALSE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	blocks_shove_knockdown = TRUE
+	salvage_material = null
 
 
 /datum/armor/misc_adminsuit

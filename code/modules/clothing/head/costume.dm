@@ -83,6 +83,8 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	clothing_flags = SNUG_FIT
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	salvage_material = /obj/item/stack/sheet/animalhide/xeno
+	salvage_amount = 1
 
 /obj/item/clothing/head/costume/lobsterhat
 	name = "foam lobster head"
@@ -105,6 +107,7 @@
 	clothing_flags = SNUG_FIT
 	flags_cover = HEADCOVERSEYES
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	salvage_material = /obj/item/stack/sheet/cardboard
 
 	dog_fashion = /datum/dog_fashion/head/cardborg
 
@@ -127,7 +130,8 @@
 	icon_state = "clockwork_helmet_old"
 	flags_inv = HIDEEARS|HIDEHAIR
 	armor_type = /datum/armor/costume_bronze
-
+	salvage_material = /obj/item/stack/rods/scrap/bronze
+	salvage_amount = 5
 
 /datum/armor/costume_bronze
 	melee = 5

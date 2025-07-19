@@ -344,6 +344,7 @@
 	resistance_flags = NONE
 	can_adjust = FALSE
 	armor_type = /datum/armor/under_chameleon
+	salvage_material = null //These things need some interesting way to handle salvage in a way that doesn't totally destruct them, I thought of cloth and telecrystals but thats for the future
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
@@ -433,6 +434,7 @@
 	blood_overlay_type = "armor"
 	resistance_flags = NONE
 	armor_type = /datum/armor/suit_chameleon
+	salvage_material = null
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
@@ -488,6 +490,7 @@
 	item_state = "meson"
 	resistance_flags = NONE
 	armor_type = /datum/armor/glasses_chameleon
+	salvage_material = null
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
@@ -549,9 +552,9 @@
 	icon_state = "yellow"
 	item_state = "ygloves"
 	worn_icon_state = "ygloves"
-
 	resistance_flags = NONE
 	armor_type = /datum/armor/gloves_chameleon
+	salvage_material = null
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
@@ -613,7 +616,7 @@
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	armor_type = /datum/armor/chameleon_combat
-
+	salvage_material = null
 
 /datum/armor/chameleon_combat
 	melee = 10
@@ -634,6 +637,7 @@
 	icon_state = "greysoft"
 	resistance_flags = NONE
 	armor_type = /datum/armor/head_chameleon
+	salvage_material = null
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
@@ -767,6 +771,7 @@
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE|HIDEFACIALHAIR|HIDESNOUT
 	gas_transfer_coefficient = 0.01
 	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
+	salvage_material = null
 
 	voice_change = TRUE
 
@@ -870,6 +875,7 @@
 	desc = "A pair of black shoes."
 	resistance_flags = NONE
 	armor_type = /datum/armor/shoes_chameleon
+	salvage_material = null
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
@@ -1126,7 +1132,7 @@
 	icon_state = "blacktie"
 	resistance_flags = NONE
 	armor_type = /datum/armor/neck_chameleon
-
+	salvage_material = null
 
 /datum/armor/neck_chameleon
 	fire = 50

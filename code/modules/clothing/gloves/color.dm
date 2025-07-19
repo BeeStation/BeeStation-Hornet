@@ -9,11 +9,12 @@
 	siemens_coefficient = 0
 	armor_type = /datum/armor/color_yellow
 	resistance_flags = NONE
-	cut_type = /obj/item/clothing/gloves/cut
-
+	salvage_amount = 1
+	secondary_salvage_material = /obj/item/clothing/gloves/cut
 
 /datum/armor/color_yellow
 	bio = 50
+
 
 /obj/item/clothing/gloves/color/black/equipped(mob/user, slot)
 	. = ..()
@@ -54,8 +55,8 @@
 	siemens_coefficient = 1 //Set to a default of 1, gets overridden in Initialize()
 	armor_type = /datum/armor/color_fyellow
 	resistance_flags = NONE
-	cut_type = /obj/item/clothing/gloves/cut
-
+	salvage_amount = 1
+	secondary_salvage_material = /obj/item/clothing/gloves/cut
 
 /datum/armor/color_fyellow
 	bio = 25
@@ -94,7 +95,8 @@
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	cut_type = /obj/item/clothing/gloves/fingerless
+	salvage_amount = 1
+	secondary_salvage_material = /obj/item/clothing/gloves/fingerless
 
 /obj/item/clothing/gloves/color/orange
 	name = "orange gloves"
@@ -186,12 +188,13 @@
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	strip_delay = 60
 	armor_type = /datum/armor/color_captain
-
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /datum/armor/color_captain
 	bio = 90
 	fire = 70
 	acid = 50
+
 
 /obj/item/clothing/gloves/color/latex
 	name = "latex gloves"
@@ -204,6 +207,8 @@
 	transfer_prints = TRUE
 	resistance_flags = NONE
 	var/carrytrait = TRAIT_QUICKER_CARRY
+	salvage_material = /obj/item/stack/sheet/plastic
+	salvage_amount = 1
 
 
 /datum/armor/color_latex

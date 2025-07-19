@@ -41,6 +41,9 @@
 	strip_delay = 60
 	equip_delay_other = 60
 	resistance_flags = FIRE_PROOF
+	salvage_material = /obj/item/stack/sheet/cotton/cloth //These here are possibly waiting for a special fire resistant cloth type
+	secondary_salvage_material = /obj/item/stack/rods/scrap/plastic
+	secondary_salvage_amount = 5
 
 
 /datum/armor/utility_fire
@@ -95,6 +98,9 @@
 	equip_delay_other = 70
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	resistance_flags = NONE
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
+	secondary_salvage_material = /obj/item/stack/rods/scrap/plasteel
+	secondary_salvage_amount = 2
 
 
 
@@ -127,6 +133,9 @@
 	strip_delay = 70
 	equip_delay_other = 70
 	resistance_flags = NONE
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
+	secondary_salvage_material = /obj/item/stack/rods/scrap/plasteel
+	secondary_salvage_amount = 5
 
 
 /datum/armor/utility_bomb_suit
@@ -173,6 +182,7 @@
 	equip_delay_other = 60
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	rad_flags = RAD_PROTECT_CONTENTS
+	salvage_material = /obj/item/stack/rods/scrap/plastic //There is no lead yet, so this will do for now
 
 
 /datum/armor/utility_radiation
@@ -199,6 +209,7 @@
 	equip_delay_other = 60
 	flags_inv = HIDEJUMPSUIT
 	rad_flags = RAD_PROTECT_CONTENTS
+	salvage_material = /obj/item/stack/rods/scrap/plastic //There is no lead yet, so this will do for now
 
 
 /datum/armor/utility_radiation

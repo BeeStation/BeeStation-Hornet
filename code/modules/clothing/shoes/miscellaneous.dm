@@ -9,6 +9,7 @@
 	armor_type = /datum/armor/shoes_combat
 	strip_delay = 40
 	resistance_flags = NONE
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /datum/armor/shoes_combat
 	melee = 25
@@ -56,7 +57,7 @@
 	equip_delay_other = 50
 	armor_type = /datum/armor/shoes_sandal
 	strip_delay = 5
-
+	salvage_material = /obj/item/stack/sheet/wood
 
 /datum/armor/shoes_sandal
 	bio = 10
@@ -84,7 +85,8 @@
 	armor_type = /datum/armor/shoes_galoshes
 	can_be_bloody = FALSE
 	custom_price = 100
-
+	salvage_material = /obj/item/stack/rods/scrap/plastic
+	salvage_amount = 5
 
 /datum/armor/shoes_galoshes
 	bio = 100
@@ -114,6 +116,8 @@
 	slowdown = SHOES_SLOWDOWN+1
 	var/datum/component/waddle
 	var/enabled_waddle = TRUE
+	salvage_material = /obj/item/food/pie/cream //Everyone knows keep 10 pies in their boots
+	salvage_amount = 10
 
 /obj/item/clothing/shoes/clown_shoes/Initialize(mapload)
 	. = ..()
@@ -278,6 +282,7 @@
 	desc = "The height of fashion, and they're pre-polished!"
 	icon_state = "laceups"
 	equip_delay_other = 50
+	salvage_material = /obj/item/stack/sheet/leather
 
 /obj/item/clothing/shoes/roman
 	name = "roman sandals"
@@ -287,7 +292,7 @@
 	strip_delay = 100
 	equip_delay_other = 100
 	armor_type = /datum/armor/shoes_roman
-
+	salvage_material = /obj/item/stack/sheet/leather
 
 /datum/armor/shoes_roman
 	bio = 10
@@ -316,7 +321,10 @@
 	var/jumpspeed = 3
 	var/recharging_rate = 60 //default 6 seconds between each dash
 	var/recharging_time = 0 //time until next dash
-
+	salvage_material = /obj/item/stack/rods/scrap
+	salvage_amount = 5
+	secondary_salvage_material = /obj/item/stack/rods/scrap/silver
+	secondary_salvage_amount = 5
 
 /datum/armor/shoes_bhop
 	bio = 90
@@ -360,6 +368,8 @@
 	desc = "A giant, clunky pair of shoes crudely made out of bronze. Why would anyone wear these?"
 	icon = 'icons/obj/clothing/clockwork_garb.dmi'
 	icon_state = "clockwork_treads"
+	salvage_material = /obj/item/stack/rods/scrap/bronze
+	salvage_amount = 5
 
 /obj/item/clothing/shoes/bronze/Initialize(mapload)
 	. = ..()
@@ -377,6 +387,8 @@
 	light_range = 2
 	light_power = 3
 	light_on = FALSE
+	secondary_salvage_material = /obj/item/stack/cable_coil
+	secondary_salvage_amount = 15
 
 /obj/item/clothing/shoes/kindleKicks/ui_action_click(mob/user, action)
 	if(active)
