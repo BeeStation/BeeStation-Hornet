@@ -881,23 +881,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		to_chat(C.mob, span_warning("Cyborg name already used this round by another character, your name has been randomized"))
 		return FALSE
 
-/proc/view_or_range(distance = world.view , center = usr , type)
-	switch(type)
-		if("view")
-			. = view(distance,center)
-		if("range")
-			. = range(distance,center)
-	return
-
-//Currently not used
-/proc/oview_or_orange(distance = world.view , center = usr , type)
-	switch(type)
-		if("view")
-			. = oview(distance,center)
-		if("range")
-			. = orange(distance,center)
-	return
-
 /**
  * Gets the mind from a variable, whether it be a mob, or a mind itself.
  * If [include_last] is true, then it will also return last_mind for carbons if there isn't a current mind.
