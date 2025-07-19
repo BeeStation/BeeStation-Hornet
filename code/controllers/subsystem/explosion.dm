@@ -90,7 +90,7 @@ SUBSYSTEM_DEF(explosions)
 	set name = "Check Bomb Impact"
 	set category = "Debug"
 
-	var/newmode = alert("Use reactionary explosions?","Check Bomb Impact", "Yes", "No")
+	var/newmode = tgui_alert(usr, "Use reactionary explosions?","Check Bomb Impact", list("Yes", "No"))
 	var/turf/epicenter = get_turf(mob)
 	if(!epicenter)
 		return
@@ -98,8 +98,7 @@ SUBSYSTEM_DEF(explosions)
 	var/dev = 0
 	var/heavy = 0
 	var/light = 0
-	var/list/choices = list("Small Bomb","Medium Bomb","Big Bomb","Custom Bomb")
-	var/choice = input("Bomb Size?") in choices
+	var/choice = tgui_input_list(usr, "Bomb Size?", "", list("Small Bomb","Medium Bomb","Big Bomb","Custom Bomb"))
 	switch(choice)
 		if(null)
 			return 0
@@ -116,9 +115,12 @@ SUBSYSTEM_DEF(explosions)
 			heavy = 5
 			light = 7
 		if("Custom Bomb")
-			dev = input("Devastation range (Tiles):") as num
-			heavy = input("Heavy impact range (Tiles):") as num
-			light = input("Light impact range (Tiles):") as num
+			dev = tgui_input_number(usr, "Devastation range (Tiles):")
+			heavy = tgui_input_number(usr, "Heavy impact range (Tiles):")
+			light = tgui_input_number(usr, "Light impact range (Tiles):")
+			if(dev > 256 || heavy > 256 || light > 256) // I totally didn't almost kill my computer when trying a 10000 tile explosion, why do you ask?
+				if(tgui_alert(usr, "One or more of the ranges are over 256 tiles and may cause stupid ammounts of lag, are you sure you want to continue?", "", list("Yes", "No")) == "No")
+					return
 
 	var/max_range = max(dev, heavy, light)
 	var/x0 = epicenter.x
