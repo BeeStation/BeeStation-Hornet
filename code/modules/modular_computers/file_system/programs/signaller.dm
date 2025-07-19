@@ -7,7 +7,7 @@
 	size = 2
 	tgui_id = "NtosSignaller"
 	program_icon = "satellite-dish"
-	usage_flags = PROGRAM_PDA | PROGRAM_LAPTOP
+	hardware_requirement = MC_SIGNALLER
 	///What is the saved signal frequency?
 	var/signal_frequency = FREQ_SIGNALER
 	/// What is the saved signal code?
@@ -24,8 +24,6 @@
 	if (!.)
 		return
 	set_frequency(signal_frequency)
-	if(!computer?.get_modular_computer_part(MC_SIGNALLER)) //Giving a clue to users why the program is spitting out zeros.
-		to_chat(user, span_warning("\The [computer] flashes an error: \"hardware\\signal_hardware\\startup.bin -- file not found\"."))
 
 /datum/computer_file/program/signaller/kill_program(forced)
 	. = ..()

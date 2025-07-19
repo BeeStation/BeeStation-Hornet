@@ -5,10 +5,10 @@
 	category = PROGRAM_CATEGORY_MISC
 	extended_desc = "This program allows the tablet to scan physical objects and display a data output."
 	size = 4
-	usage_flags = PROGRAM_PDA
 	available_on_ntnet = FALSE
 	tgui_id = "NtosPhysScanner"
 	program_icon = "barcode"
+	hardware_requirement = MC_SENSORS
 	/// Information from the last scanned person, to display on the app.
 	var/last_record = ""
 

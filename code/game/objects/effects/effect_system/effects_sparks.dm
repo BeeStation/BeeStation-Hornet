@@ -50,6 +50,15 @@
 /datum/effect_system/spark_spread
 	effect_type = /obj/effect/particle_effect/sparks
 
+/obj/effect/particle_effect/sparks/red // Dark Red light for fun!
+	name = "red sparks"
+	icon_state = "sparks_white"
+	light_color = COLOR_RED_LIGHT
+
+/obj/effect/particle_effect/sparks/blue // Dark Red light for fun!
+	name = "blue sparks"
+	icon_state = "sparks_white"
+	light_color = LIGHT_COLOR_LIGHT_CYAN
 
 //electricity
 
