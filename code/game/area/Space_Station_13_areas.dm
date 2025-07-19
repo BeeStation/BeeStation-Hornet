@@ -1300,10 +1300,28 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "detective"
 	ambientsounds = list('sound/ambience/ambidet1.ogg','sound/ambience/ambidet2.ogg','sound/ambience/ambidet3.ogg','sound/ambience/ambidet4.ogg')
 
+/area/security/detectives_office/Exited(atom/movable/a, atom/oldloc)
+	..()
+	if (istype(a, /mob/living/carbon/human))
+		var/mob/living/carbon/human/human_a = a
+		if ((HAS_TRAIT(human_a, TRAIT_NOIR)) && (!human_a.has_quirk(/datum/quirk/monochromatic)))
+			human_a.remove_client_colour(/datum/client_colour/monochrome)
+
 /area/security/detectives_office/private_investigators_office
 	name = "Private Investigator's Office"
 	icon_state = "detective"
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
+
+/area/security/interrogation_room
+	name = "Interrogation Room"
+	icon_state = "interrogation"
+
+/area/security/interrogation_room/Exited(atom/movable/a, atom/oldloc)
+	..()
+	if (istype(a, /mob/living/carbon/human))
+		var/mob/living/carbon/human/human_a = a
+		if ((HAS_TRAIT(human_a, TRAIT_NOIR)) && (!human_a.has_quirk(/datum/quirk/monochromatic)))
+			human_a.remove_client_colour(/datum/client_colour/monochrome)
 
 /area/security/range
 	name = "Firing Range"

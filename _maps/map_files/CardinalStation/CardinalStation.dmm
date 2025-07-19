@@ -3927,8 +3927,9 @@
 	dir = 9
 	},
 /obj/machinery/light/small/directional/west,
+/obj/machinery/light_switch/directional/north,
 /turf/open/floor/iron/dark,
-/area/security/brig)
+/area/security/interrogation_room)
 "aQi" = (
 /obj/machinery/door/window/westleft{
 	req_one_access_txt = "29"
@@ -12682,7 +12683,7 @@
 	dir = 6
 	},
 /turf/open/floor/iron/dark,
-/area/security/brig)
+/area/security/interrogation_room)
 "czb" = (
 /obj/machinery/door/airlock{
 	name = "Bathroom"
@@ -17527,7 +17528,7 @@
 	},
 /obj/machinery/power/apc/auto_name/directional/north,
 /turf/open/floor/iron/dark,
-/area/security/brig)
+/area/security/interrogation_room)
 "dxB" = (
 /obj/machinery/hydroponics/constructable,
 /obj/machinery/light/dim/directional/east,
@@ -22272,7 +22273,7 @@
 	},
 /obj/machinery/airalarm/directional/east,
 /turf/open/floor/iron/dark,
-/area/security/brig)
+/area/security/interrogation_room)
 "eBT" = (
 /obj/effect/turf_decal/tile/yellow/opposingcorners,
 /obj/structure/cable/yellow{
@@ -23272,7 +23273,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/iron/dark/textured,
-/area/security/brig)
+/area/security/interrogation_room)
 "eLQ" = (
 /obj/effect/decal/cleanable/cobweb,
 /obj/structure/closet/crate/trashcart,
@@ -26908,7 +26909,7 @@
 	icon_state = "1-4"
 	},
 /turf/open/floor/iron/dark/textured,
-/area/security/brig)
+/area/security/interrogation_room)
 "fAG" = (
 /obj/effect/turf_decal/siding/dark,
 /turf/open/floor/iron/smooth,
@@ -27800,7 +27801,7 @@
 	pixel_y = -28
 	},
 /turf/open/floor/iron/dark,
-/area/security/brig)
+/area/security/interrogation_room)
 "fJC" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 1;
@@ -42287,6 +42288,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /turf/open/floor/iron/dark/smooth_half{
 	dir = 1
 	},
@@ -44862,7 +44866,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
-/area/security/brig)
+/area/security/interrogation_room)
 "jaW" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -52937,7 +52941,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
-/area/security/brig)
+/area/security/interrogation_room)
 "kKX" = (
 /obj/structure/table/wood,
 /obj/effect/turf_decal/siding/wood{
@@ -68778,7 +68782,7 @@
 /obj/effect/turf_decal/siding/dark,
 /obj/machinery/camera/directional/south,
 /turf/open/floor/iron/dark,
-/area/security/brig)
+/area/security/interrogation_room)
 "nVa" = (
 /obj/effect/turf_decal/trimline/blue/filled/corner,
 /obj/structure/window/reinforced/tinted/corner,
@@ -73642,7 +73646,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/iron/dark/textured,
-/area/security/brig)
+/area/security/interrogation_room)
 "oUE" = (
 /obj/effect/turf_decal/plaque{
 	icon_state = "L5"
@@ -74986,7 +74990,7 @@
 	},
 /obj/item/radio/intercom/directional/west,
 /turf/open/floor/iron/dark/textured,
-/area/security/brig)
+/area/security/interrogation_room)
 "phu" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -79397,6 +79401,9 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/maintenance/department/medical/central)
+"qcB" = (
+/turf/closed/wall/r_wall,
+/area/security/interrogation_room)
 "qcN" = (
 /obj/structure/table,
 /obj/item/clothing/glasses/science,
@@ -79775,7 +79782,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
-/area/security/brig)
+/area/security/interrogation_room)
 "qha" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Medbay Desk";
@@ -101388,7 +101395,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark/textured,
-/area/security/brig)
+/area/security/interrogation_room)
 "uCN" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -106426,7 +106433,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark/textured_half,
-/area/security/brig)
+/area/security/interrogation_room)
 "vBI" = (
 /turf/closed/wall,
 /area/science/lobby)
@@ -108808,6 +108815,16 @@
 	},
 /turf/open/floor/plating,
 /area/crew_quarters/heads/chief)
+"vZb" = (
+/obj/effect/turf_decal/siding/red{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/apc/auto_name/directional/north,
+/turf/open/floor/iron/dark,
+/area/security/brig)
 "vZg" = (
 /obj/machinery/power/port_gen/pacman,
 /obj/effect/turf_decal/stripes/corner{
@@ -113221,7 +113238,7 @@
 	},
 /obj/machinery/light/small/directional/west,
 /turf/open/floor/iron/dark,
-/area/security/brig)
+/area/security/interrogation_room)
 "wVJ" = (
 /obj/machinery/conveyor{
 	id = "garbage"
@@ -118260,7 +118277,7 @@
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
 	},
-/area/security/brig)
+/area/security/interrogation_room)
 "xXZ" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -118834,7 +118851,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark/textured,
-/area/security/brig)
+/area/security/interrogation_room)
 "yfg" = (
 /obj/effect/turf_decal/siding/purple/corner,
 /obj/effect/turf_decal/edges/borderfloor/black/corner1{
@@ -153718,7 +153735,7 @@ phD
 phD
 pqm
 phD
-phD
+qcB
 hyT
 nzj
 nzj
@@ -153975,11 +153992,11 @@ phD
 eYM
 krP
 xzh
-phD
-phD
-phD
-phD
-phD
+qcB
+qcB
+qcB
+qcB
+qcB
 kdI
 kdI
 kdI
@@ -154232,7 +154249,7 @@ phD
 jBy
 aOh
 gQb
-phD
+qcB
 aPZ
 uCG
 phn
@@ -154489,7 +154506,7 @@ phD
 fia
 gVm
 pdg
-phD
+qcB
 dxv
 eLG
 fAC
@@ -155003,7 +155020,7 @@ phD
 qLh
 hVl
 eTA
-phD
+qcB
 eBQ
 qgZ
 jaI
@@ -155261,10 +155278,10 @@ eQO
 eQO
 eQO
 eQO
-eQO
-phD
+qcB
+qcB
 xXT
-phD
+qcB
 kdI
 kIP
 vxJ
@@ -157061,7 +157078,7 @@ fCL
 oHS
 kLg
 eQO
-xki
+vZb
 iAZ
 qVw
 vBP
