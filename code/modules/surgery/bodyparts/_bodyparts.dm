@@ -753,13 +753,14 @@
 	if (sharp_damage <= 0)
 		return
 	// Damage organs
-	for (var/slot in organ_slots)
+	for (var/slot in shuffle(organ_slots))
 		var/obj/item/organ/organ = owner.get_organ_slot(slot)
 		if (!organ)
 			continue
 		if (!prob(organ.organ_size))
 			continue
 		organ.applyOrganDamage(sharp_damage * ORGAN_DAMAGE_MULTIPLIER)
+		break
 	if (penetration_power <= 0)
 		return
 	// Dismemberment
