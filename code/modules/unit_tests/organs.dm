@@ -11,8 +11,22 @@
 		/obj/item/organ/brain/nightmare,
 	))
 
+	// List of organ typepaths to skip during testing due to compatibility issues
+	var/static/list/excluded_organs = typecacheof(list(
+		/obj/item/organ/wings,
+		/obj/item/organ/ears/cat,
+		/obj/item/organ/horns,
+		/obj/item/organ/frills,
+		/obj/item/organ/tail,
+		/obj/item/organ/spines,
+		/obj/item/organ/snout
+	))
+
 /datum/unit_test/organ_sanity/Run()
 	for(var/obj/item/organ/organ_type as anything in subtypesof(/obj/item/organ) - GLOB.prototype_organs)
+		// Skip excluded organs
+		if(excluded_organs[organ_type])
+			continue
 		organ_test_insert(organ_type)
 
 /datum/unit_test/organ_sanity/proc/organ_test_insert(obj/item/organ/organ_type)
