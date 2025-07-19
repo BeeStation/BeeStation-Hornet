@@ -6,6 +6,7 @@
 /obj/item/circuit_component/getter
 	display_name = "Variable Getter"
 	desc = "A component that gets a variable globally on the circuit."
+	category = "Utility"
 
 	/// Variable name
 	var/datum/port/input/option/variable_name
