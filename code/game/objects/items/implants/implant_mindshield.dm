@@ -33,11 +33,11 @@
 			qdel(src)
 			return FALSE
 
-		var/datum/antagonist/rev/rev = target.mind.has_antag_datum(/datum/antagonist/rev)
+		var/datum/antagonist/rev/rev = IS_REVOLUTIONARY(target)
 		if(rev)
 			rev.remove_revolutionary(FALSE, user)
 		if(!silent)
-			if(target.mind in SSticker.mode.cult)
+			if(target.mind.has_antag_datum(/datum/antagonist/cult))
 				to_chat(target, span_warning("You feel something interfering with your mental conditioning, but you resist it!"))
 			else
 				to_chat(target, span_notice("You feel a sense of peace and security. You are now protected from brainwashing."))

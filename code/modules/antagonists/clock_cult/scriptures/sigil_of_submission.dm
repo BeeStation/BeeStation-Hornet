@@ -1,3 +1,26 @@
+//Similar to cultist one, except silicons are allowed
+/proc/is_convertable_to_clockcult(mob/living/M)
+	if(!istype(M))
+		return FALSE
+	if(!M.mind)
+		return FALSE
+	if(ishuman(M) && (M.mind.assigned_role in list(JOB_NAME_CAPTAIN, JOB_NAME_CHAPLAIN)))
+		return FALSE
+	if(istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
+		return FALSE
+	if(IS_SERVANT_OF_RATVAR(M))
+		return FALSE
+	if(M.mind.enslaved_to && !M.mind.enslaved_to.has_antag_datum(/datum/antagonist/servant_of_ratvar))
+		return FALSE
+	if(M.mind.unconvertable)
+		return FALSE
+	if(IS_CULTIST(M) || isconstruct(M) || ispAI(M))
+		return FALSE
+	if(HAS_TRAIT(M, TRAIT_MINDSHIELD))
+		return FALSE
+	return TRUE
+
+
 //==================================//
 // !      Sigil of Submission     ! //
 //==================================//

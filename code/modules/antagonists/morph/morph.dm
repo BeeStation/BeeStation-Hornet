@@ -271,46 +271,4 @@
 	if(!mind.has_antag_datum(/datum/antagonist/morph))
 		to_chat(src, span_boldwarning("If you were not an antagonist before you did not become one now. You still retain your retain your original loyalties and mind!"))
 
-//Spawn Event
-
-/datum/round_event_control/morph
-	name = "Spawn Morph"
-	typepath = /datum/round_event/ghost_role/morph
-	weight = 2
-	max_occurrences = 1
-
-/datum/round_event/ghost_role/morph
-	minimum_required = 1
-	role_name = ROLE_MORPH
-
-/datum/round_event/ghost_role/morph/spawn_role()
-	if(!GLOB.xeno_spawn)
-		return MAP_ERROR
-
-	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
-		role = /datum/role_preference/midround_ghost/morph,
-		check_jobban = ROLE_MORPH,
-		poll_time = 30 SECONDS,
-		role_name_text = "morph",
-		alert_pic = /mob/living/simple_animal/hostile/morph,
-	)
-	if(!candidate)
-		return NOT_ENOUGH_PLAYERS
-
-	var/mob/living/simple_animal/hostile/morph/morph = new(pick(GLOB.xeno_spawn))
-
-	var/datum/mind/player_mind = new /datum/mind(candidate.key)
-	player_mind.active = TRUE
-	player_mind.transfer_to(morph)
-	player_mind.assigned_role = ROLE_MORPH
-	player_mind.special_role = ROLE_MORPH
-	player_mind.add_antag_datum(/datum/antagonist/morph)
-
-	to_chat(morph, morph.playstyle_string)
-	SEND_SOUND(morph, sound('sound/magic/mutate.ogg'))
-	message_admins("[ADMIN_LOOKUPFLW(morph)] has been made into a morph by an event.")
-	log_game("[key_name(morph)] was spawned as a morph by an event.")
-	spawned_mobs += morph
-	return SUCCESSFUL_SPAWN
-
 #undef MORPH_COOLDOWN

@@ -1,3 +1,4 @@
+GLOBAL_DATUM_INIT(reality_smash_track, /datum/reality_smash_tracker, new)
 
 /// The number of influences spawned per heretic
 #define NUM_INFLUENCES_PER_HERETIC 4

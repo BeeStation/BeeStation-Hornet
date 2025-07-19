@@ -35,14 +35,14 @@
 	..()
 	if(!user.mind)
 		return
-	if(is_servant_of_ratvar(user) && !SS)
+	if(IS_SERVANT_OF_RATVAR(user) && !SS)
 		SS = new
 		SS.marked_item = src
 		SS.Grant(user)
 
 /obj/item/clockwork/weapon/examine(mob/user)
 	. = ..()
-	if(is_servant_of_ratvar(user) && clockwork_hint)
+	if(IS_SERVANT_OF_RATVAR(user) && clockwork_hint)
 		. += clockwork_hint
 
 /obj/item/clockwork/weapon/attack(mob/living/target, mob/living/user)
@@ -68,7 +68,7 @@
 	force += force_buff
 	. = ..()
 	force -= force_buff
-	if(!QDELETED(target) && target.stat != DEAD && !is_servant_of_ratvar(target) && !target.can_block_magic(MAGIC_RESISTANCE_HOLY))
+	if(!QDELETED(target) && target.stat != DEAD && !IS_SERVANT_OF_RATVAR(target) && !target.can_block_magic(MAGIC_RESISTANCE_HOLY))
 		hit_effect(target, user)
 
 /obj/item/clockwork/weapon/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
@@ -78,7 +78,7 @@
 	if(isliving(hit_atom))
 		var/mob/living/target = hit_atom
 		if(!.)
-			if(!target.can_block_magic(MAGIC_RESISTANCE_HOLY) && !is_servant_of_ratvar(target))
+			if(!target.can_block_magic(MAGIC_RESISTANCE_HOLY) && !IS_SERVANT_OF_RATVAR(target))
 				hit_effect(target, throwingdatum?.thrower, TRUE)
 
 /obj/item/clockwork/weapon/proc/hit_effect(mob/living/target, mob/living/user, thrown=FALSE)

@@ -36,6 +36,9 @@ GLOBAL_LIST(admin_antag_list)
 	/// Weakref to button to access antag interface
 	var/datum/weakref/info_button_ref
 
+/datum/antagonist/proc/get_dynamic_midround_points()
+	return 0
+
 /datum/antagonist/proc/show_tips(fileid)
 	if(!owner || !owner.current || !owner.current.client)
 		return
@@ -299,8 +302,6 @@ GLOBAL_LIST(admin_antag_list)
 	message_admins("[key_name_admin(user)] has removed [name] antagonist status from [key_name_admin(owner)].")
 	log_admin("[key_name(user)] has removed [name] antagonist status from [key_name(owner)].")
 	on_removal()
-
-//gamemode/proc/is_mode_antag(antagonist/A) => TRUE/FALSE
 
 //Additional data to display in antagonist panel section
 //nuke disk code, genome count, etc

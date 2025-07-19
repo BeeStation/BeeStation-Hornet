@@ -1,29 +1,7 @@
 GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 
-// Pirates threat
-/// No way
 #define PIRATE_RESPONSE_NO_PAY "pirate_answer_no_pay"
-/// We'll pay
 #define PIRATE_RESPONSE_PAY "pirate_answer_pay"
-
-/datum/round_event_control/pirates
-	name = "Space Pirates"
-	typepath = /datum/round_event/pirates
-	weight = 10
-	max_occurrences = 1
-	min_players = 20
-	dynamic_should_hijack = TRUE
-	gamemode_blacklist = list("nuclear")
-	cannot_spawn_after_shuttlecall = TRUE
-
-/datum/round_event_control/pirates/preRunEvent()
-	if (!SSmapping.empty_space)
-		return EVENT_CANT_RUN
-	return ..()
-
-/datum/round_event/pirates/start()
-	if(!GLOB.pirates_spawned)
-		send_pirate_threat()
 
 /proc/send_pirate_threat()
 	GLOB.pirates_spawned = TRUE
