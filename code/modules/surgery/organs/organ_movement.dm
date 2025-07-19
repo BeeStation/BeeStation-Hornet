@@ -49,11 +49,9 @@
 /obj/item/organ/proc/mob_insert(mob/living/carbon/receiver, special, movement_flags)
 	SHOULD_NOT_OVERRIDE(TRUE)
 
-	//if(!iscarbon(receiver))
-	//	//We try to insert the organ in a corgi when running the test, expecting it to return FALSE.
-	//	if(!PERFORM_ALL_TESTS(organ_sanity))
-	//		stack_trace("Tried to insert organ into non-carbon: [receiver.type]")
-	//	return FALSE
+	if(!iscarbon(receiver))
+		stack_trace("Tried to insert organ into non-carbon: [receiver.type]")
+		return FALSE
 
 	if(owner == receiver)
 		stack_trace("Organ receiver is already organ owner")
