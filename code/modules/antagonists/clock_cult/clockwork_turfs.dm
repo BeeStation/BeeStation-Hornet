@@ -486,7 +486,7 @@
 		new /obj/effect/temp_visual/ratvar/beam/grille(get_turf(src))
 
 /obj/structure/grille/ratvar/narsie_act()
-	take_damage(rand(1, 3), BRUTE)
+	take_direct_damage(rand(1, 3), BRUTE)
 	if(src)
 		var/previouscolor = color
 		color = "#960000"
@@ -533,7 +533,7 @@
 
 /obj/structure/grille/ratvar/broken/Initialize(mapload)
 	. = ..()
-	take_damage(max_integrity * 0.6)
+	take_direct_damage(max_integrity * 0.6)
 
 //=================================================
 //Ratvar Window: A transparent window
@@ -546,23 +546,12 @@
 	icon_state = "clockwork_window_single"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	max_integrity = 80
-	armor_type = /datum/armor/reinforced_clockwork
 	explosion_block = 2 //fancy AND hard to destroy. the most useful combination.
 	decon_speed = 40
 	glass_type = /obj/item/stack/sheet/brass
 	glass_amount = 1
 	reinf = FALSE
 	var/made_glow = FALSE
-
-
-/datum/armor/reinforced_clockwork
-	melee = 40
-	bullet = -20
-	bomb = 25
-	bio = 100
-	rad = 100
-	fire = 80
-	acid = 100
 
 /obj/structure/window/reinforced/clockwork/corner
 	icon_state = "clockwork_window_single_corner"
@@ -585,7 +574,7 @@
 	..()
 
 /obj/structure/window/reinforced/clockwork/narsie_act()
-	take_damage(rand(25, 75), BRUTE)
+	take_direct_damage(rand(25, 75), BRUTE)
 	if(!QDELETED(src))
 		var/previouscolor = color
 		color = "#960000"

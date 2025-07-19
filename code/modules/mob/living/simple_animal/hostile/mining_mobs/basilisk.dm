@@ -41,7 +41,7 @@
 	damage = 0
 	damage_type = BURN
 	nodamage = TRUE
-	armor_flag = ENERGY
+	damage_flag = DAMAGE_ENERGY
 	temperature = -50 // Cools you down! per hit!
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/GiveTarget(new_target)

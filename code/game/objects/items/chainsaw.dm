@@ -18,10 +18,10 @@
 	throw_range = 4
 	custom_materials = list(/datum/material/iron = 13000)
 	hitsound = "swing_hit"
+	sharpness = SHARP_VII
 	actions_types = list(/datum/action/item_action/startchainsaw)
 	toolspeed = 0.5
 	item_flags = ISWEAPON
-
 	/// How much damage the chainsaw deals while active
 	var/active_force = 24
 	/// How much damage the chainsaw deals when thrown, while active
@@ -29,7 +29,7 @@
 	/// How much bleed damage the chainsaw deals while active
 	var/active_bleedforce = BLEED_DEEP_WOUND
 	/// How sharp this is when active
-	var/active_sharpness = SHARP_DISMEMBER
+	var/active_sharpness = SHARP_V
 	/// The sound this chainsaw makes when attacking something while active
 	var/sound/active_hitsound = 'sound/weapons/chainsaw_hit.ogg'
 	/// The sound that plays when the chainsaw is enabled
@@ -100,7 +100,7 @@
 /obj/item/chainsaw/doomslayer
 	name = "THE GREAT COMMUNICATOR"
 	desc = span_warning("VRRRRRRR!!!")
-	armour_penetration = 100
+	sharpness = SHARP_X
 	active_force = 30
 
 /obj/item/chainsaw/doomslayer/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
@@ -121,7 +121,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	actions_types = list(/datum/action/item_action/startchainsaw)
 	block_power = 50
-	armour_penetration = 50
+	sharpness = SHARP_IIX
 	light_color = "#ff0000"
 	light_system = MOVABLE_LIGHT
 	light_range = 3
@@ -147,8 +147,8 @@
 	w_class = WEIGHT_CLASS_LARGE
 	block_power = 75
 	block_level = 1
-	attack_weight = 3
-	armour_penetration = 75
+	attack_weight = 3 //fear him
+	sharpness = SHARP_IIX
 	light_range = 6
 	active_force = 60
 

@@ -31,21 +31,7 @@
 	allowed = list(/obj/item/melee/sickly_blade)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch
 	// Slightly better than normal cult robes
-	armor_type = /datum/armor/cultrobes_eldritch
-
-
-/datum/armor/cultrobes_eldritch
-	melee = 50
-	bullet = 50
-	laser = 50
-	energy = 50
-	bomb = 35
-	bio = 20
-	rad = 20
-	fire = 20
-	acid = 20
-	stamina = 50
-	bleed = 40
+	armor_type = /datum/armor/military_runed_cloth
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/examine(mob/user)
 	. = ..()
@@ -65,17 +51,7 @@
 	flags_cover = NONE
 	desc = "Black like tar and doesn't reflect any light. Runic symbols line the outside, with each flash you lose comprehension of what you are seeing."
 	item_flags = EXAMINE_SKIP
-	armor_type = /datum/armor/cult_hoodie_void
-
-
-/datum/armor/cult_hoodie_void
-	melee = 30
-	bullet = 30
-	laser = 30
-	energy = 30
-	bomb = 15
-	stamina = 30
-	bleed = 40
+	armor_type = /datum/armor/civilian_runed_cloth
 
 /obj/item/clothing/head/hooded/cult_hoodie/void/Initialize(mapload)
 	. = ..()
@@ -89,21 +65,10 @@
 	allowed = list(/obj/item/melee/sickly_blade)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/void
 	flags_inv = NONE
-	// slightly worse than normal cult robes
-	armor_type = /datum/armor/cultrobes_void
+	armor_type = /datum/armor/security_runed_cloth
 	body_parts_covered = CHEST|GROIN|ARMS
 	qdel_hood = TRUE
 	pockets = FALSE
-
-
-/datum/armor/cultrobes_void
-	melee = 30
-	bullet = 30
-	laser = 30
-	energy = 30
-	bomb = 15
-	stamina = 30
-	bleed = 40
 
 /obj/item/clothing/suit/hooded/cultrobes/void/Initialize(mapload)
 	. = ..()

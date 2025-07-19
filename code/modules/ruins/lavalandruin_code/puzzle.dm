@@ -294,20 +294,9 @@
 	prisoner.notransform = FALSE
 	prisoner = null
 
-//Some armor so it's harder to kill someone by mistake.
+//Some extra health so it's harder to kill someone by mistake.
 /obj/structure/puzzle_element/prison
-	armor_type = /datum/armor/puzzle_element_prison
-
-
-/datum/armor/puzzle_element_prison
-	melee = 50
-	bullet = 50
-	laser = 50
-	energy = 50
-	bomb = 50
-	rad = 50
-	fire = 50
-	acid = 50
+	max_integrity = 450
 
 /obj/structure/puzzle_element/prison/relaymove(mob/living/user, direction)
 	return

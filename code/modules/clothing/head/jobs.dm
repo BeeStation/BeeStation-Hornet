@@ -32,23 +32,12 @@
 	icon_state = "captain"
 	item_state = "that"
 	flags_inv = 0
-	armor_type = /datum/armor/hats_caphat
+	armor_type = /datum/armor/military_padded
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/captain
 	dying_key = DYE_REGISTRY_CAP
 
 //Captain: This is no longer space-worthy
-
-/datum/armor/hats_caphat
-	melee = 25
-	bullet = 15
-	laser = 25
-	energy = 30
-	bomb = 25
-	fire = 50
-	acid = 50
-	stamina = 30
-	bleed = 30
 
 /obj/item/clothing/head/hats/caphat/parade
 	name = "captain's parade cap"
@@ -70,22 +59,11 @@
 	name = "head of personnel's cap"
 	icon_state = "hopcap"
 	desc = "The symbol of true bureaucratic micromanagement."
-	armor_type = /datum/armor/hats_hopcap
+	armor_type = /datum/armor/security_padded
 	dog_fashion = /datum/dog_fashion/head/hop
 	dying_key = DYE_REGISTRY_CAP
 
 //Chaplain
-
-/datum/armor/hats_hopcap
-	melee = 25
-	bullet = 15
-	laser = 25
-	energy = 30
-	bomb = 25
-	fire = 50
-	acid = 50
-	stamina = 30
-	bleed = 15
 
 /obj/item/clothing/head/chaplain/nun_hood
 	name = "nun hood"
@@ -106,23 +84,11 @@
 /obj/item/clothing/head/fedora/det_hat
 	name = "detective's fedora"
 	desc = "There's only one man who can sniff out the dirty stench of crime, and he's likely wearing this hat."
-	armor_type = /datum/armor/fedora_det_hat
+	armor_type = /datum/armor/security_padded
 	icon_state = "detective"
 	item_state = "det_hat"
 	var/candy_cooldown = 0
 	dog_fashion = /datum/dog_fashion/head/detective
-
-
-/datum/armor/fedora_det_hat
-	melee = 25
-	bullet = 5
-	laser = 25
-	energy = 30
-	fire = 30
-	acid = 50
-	stamina = 25
-	bleed = 20
-
 /obj/item/clothing/head/fedora/det_hat/Initialize(mapload)
 	. = ..()
 
@@ -202,23 +168,10 @@
 	name = "head of security cap"
 	desc = "The robust standard-issue cap of the Head of Security. For showing the officers who's in charge."
 	icon_state = "hoscap"
-	armor_type = /datum/armor/hats_hos
+	armor_type = /datum/armor/security_padded
 	strip_delay = 80
 	dynamic_hair_suffix = ""
 	dying_key = DYE_REGISTRY_CAP
-
-
-/datum/armor/hats_hos
-	melee = 40
-	bullet = 30
-	laser = 25
-	energy = 30
-	bomb = 25
-	bio = 10
-	fire = 50
-	acid = 60
-	stamina = 30
-	bleed = 30
 
 /obj/item/clothing/head/hats/hos/syndicate
 	name = "syndicate cap"
@@ -247,7 +200,7 @@
 	name = "warden's police hat"
 	desc = "It's a special armored hat issued to the Warden of a security force. Protects the head from impacts."
 	icon_state = "policehelm"
-	armor_type = /datum/armor/hats_warden
+	armor_type = /datum/armor/security_padded
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/warden
 
@@ -255,17 +208,6 @@
 	name = "warden's hat"
 	desc = "A warden's red hat. Looking at it gives you the feeling of wanting to keep people in cells for as long as possible."
 	icon_state = "wardenhat"
-
-/datum/armor/hats_warden
-	melee = 40
-	bullet = 30
-	laser = 30
-	energy = 30
-	bomb = 25
-	fire = 30
-	acid = 60
-	stamina = 30
-	bleed = 25
 
 /obj/item/clothing/head/hats/warden/drill
 	name = "warden's campaign hat"
@@ -344,107 +286,54 @@
 /obj/item/clothing/head/beret/corpwarden
 	name = "corporate warden beret"
 	desc = "A special black beret with the Warden's insignia in the middle. This one is commonly worn by wardens of the corporation."
+	armor_type = /datum/armor/security_padded
+	strip_delay = 60
 	icon_state = "beret_badge"
 	greyscale_config = /datum/greyscale_config/beret_badge
 	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
 	greyscale_colors = "#3f3c40#ACACAC"
-	armor_type = /datum/armor/beret_corpwarden
 	flags_1 = NONE
-
-/datum/armor/beret_corpwarden
-	melee = 40
-	bullet = 30
-	laser = 30
-	energy = 30
-	bomb = 25
-	fire = 30
-	acid = 60
-	stamina = 30
-	bleed = 25
 
 /obj/item/clothing/head/beret/sec
 	name = "security beret"
 	desc = "A robust beret with the security insignia emblazoned on it. Uses reinforced fabric to offer sufficient protection."
 	icon_state = "beret_badge"
+	armor_type = /datum/armor/security_padded
+	strip_delay = 60
+	dog_fashion = null
 	greyscale_config = /datum/greyscale_config/beret_badge
 	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
 	greyscale_colors = "#972A2A#F2F2F2"
-	armor_type = /datum/armor/beret_sec
-	strip_delay = 60
-	dog_fashion = null
 	flags_1 = NONE
-
-/datum/armor/beret_sec
-	melee = 35
-	bullet = 30
-	laser = 30
-	energy = 40
-	bomb = 25
-	fire = 50
-	acid = 50
-	stamina = 30
-	bleed = 25
 
 /obj/item/clothing/head/beret/corpsec
 	name = "corporate security beret"
 	desc = "A special black beret for the mundane life of a corporate security officer."
+	armor_type = /datum/armor/security_padded
+	strip_delay = 60
 	icon_state = "beret_badge"
 	greyscale_config = /datum/greyscale_config/beret_badge
 	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
 	greyscale_colors = "#3f3c40#FF0000"
-	armor_type = /datum/armor/beret_corpsec
 	flags_1 = NONE
-
-/datum/armor/beret_corpsec
-	melee = 40
-	bullet = 30
-	laser = 30
-	energy = 30
-	bomb = 25
-	fire = 20
-	acid = 50
-	stamina = 30
-	bleed = 25
 
 /obj/item/clothing/head/beret/spacepol
 	name = "spacepol officer beret"
 	desc = "A special black beret for the mundane life of a SpacePol officer."
+	armor_type = /datum/armor/security_padded
 	icon_state = "beret_badge"
 	greyscale_config = /datum/greyscale_config/beret_badge
 	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
 	greyscale_colors = "#3f3c40#FF0000"
-	armor_type = /datum/armor/beret_spacepol
 	flags_1 = NONE
-
-/datum/armor/beret_spacepol
-	melee = 40
-	bullet = 30
-	laser = 30
-	energy = 30
-	bomb = 25
-	fire = 20
-	acid = 50
-	stamina = 30
-	bleed = 25
+	strip_delay = 60
 
 /obj/item/clothing/head/beret/sec/navywarden
 	name = "warden's beret"
 	desc = "A special beret with the Warden's insignia emblazoned on it. For wardens with class."
+	armor_type = /datum/armor/security_padded
 	greyscale_colors = "#3C485A#00AEEF"
-	armor_type = /datum/armor/sec_navywarden
 	strip_delay = 60
-
-
-/datum/armor/sec_navywarden
-	melee = 40
-	bullet = 30
-	laser = 30
-	energy = 10
-	bomb = 25
-	fire = 30
-	acid = 50
-	stamina = 30
-	bleed = 25
 
 /obj/item/clothing/head/beret/sec/navyofficer
 	desc = "A special beret with the security insignia emblazoned on it. For officers with class."
@@ -455,18 +344,11 @@
 /obj/item/clothing/head/beret/science
 	name = "science beret"
 	desc = "A purple beret with the science insignia emblazoned on it. It has that authentic burning plasma smell."
-	armor_type = /datum/armor/beret_sci
 	icon_state = "beret_badge"
 	greyscale_config = /datum/greyscale_config/beret_badge
 	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
 	greyscale_colors = "#A04BD9#FFFFFF"
 	flags_1 = NONE
-
-/datum/armor/beret_sci
-	bomb = 5
-	bio = 5
-	fire = 5
-	acid = 10
 
 //Medical
 
@@ -477,11 +359,7 @@
 	greyscale_config = /datum/greyscale_config/beret_badge
 	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
 	greyscale_colors = "#E1E1E1#EDCC6A"
-	armor_type = /datum/armor/beret_med
 	flags_1 = NONE
-
-/datum/armor/beret_med
-	bio = 20
 
 /obj/item/clothing/head/beret/medical/paramedic
 	name = "paramedic beret"
@@ -495,41 +373,27 @@
 	greyscale_config = /datum/greyscale_config/beret_badge
 	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
 	greyscale_colors = "#73B1D7#FFFFFF"
-	armor_type = /datum/armor/beret_cmo
-
-/datum/armor/beret_cmo
-	bio = 30
-	rad = 10
-	acid = 20
 
 //Engineering
 /obj/item/clothing/head/beret/engi
 	name = "engineering beret"
 	desc = "A beret with the engineering insignia emblazoned on it. For engineers that are more inclined towards style than safety."
-	armor_type = /datum/armor/beret_eng
+	armor_type = /datum/armor/civilian_padded
 	icon_state = "beret_badge"
 	greyscale_config = /datum/greyscale_config/beret_badge
 	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
 	greyscale_colors = "#FFBC30#FFFFFF"
 	flags_1 = NONE
 
-/datum/armor/beret_eng
-	rad = 10
-	fire = 10
-
 /obj/item/clothing/head/beret/atmos
 	name = "atmospherics beret"
 	desc = "A beret for those who have shown immaculate proficiency in piping. Or plumbing."
-	armor_type = /datum/armor/beret_atmos
+	armor_type = /datum/armor/civilian_padded
 	icon_state = "beret_badge"
 	greyscale_config = /datum/greyscale_config/beret_badge
 	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
 	greyscale_colors = "#E56A0A#FFFFFF"
 	flags_1 = NONE
-
-/datum/armor/beret_atmos
-	rad = 10
-	fire = 10
 
 /obj/item/clothing/head/beret/ce
 	name = "chief engineer beret"
@@ -538,17 +402,13 @@
 	greyscale_config = /datum/greyscale_config/beret_badge
 	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
 	greyscale_colors = "#E1E1E1#EDCC6A"
-	armor_type = /datum/armor/beret_ce
+	armor_type = /datum/armor/civilian_padded
 	flags_1 = NONE
-
-/datum/armor/beret_ce
-	rad = 20
-	fire = 30
 
 /obj/item/clothing/head/beret/cargo
 	name = "cargo beret"
 	desc = "A brown beret with the supply insignia emblazoned on it. You can't help but wonder how much it'd sell for."
-	armor_type = /datum/armor/beret_supply
+	armor_type = /datum/armor/civilian_padded
 	icon_state = "beret_badge"
 	greyscale_config = /datum/greyscale_config/beret_badge
 	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
@@ -563,46 +423,17 @@
 
 //Medical
 
-/datum/armor/beret_supply
-	rad = 10
-	fire = 10
-
 /obj/item/clothing/head/beret/sergeant
 	name = "spacepol sergeant beret"
 	desc = "A navy SpacePol sergeant's beret."
+	armor_type = /datum/armor/security_padded
 	icon_state = "beret_badge"
 	greyscale_config = /datum/greyscale_config/beret_badge
 	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
 	greyscale_colors = "#39393f#BBBBBB"
-	armor_type = /datum/armor/beret_sergeant
 
-/datum/armor/beret_sergeant
-	melee = 40
-	bullet = 20
-	laser = 10
-	energy = 10
-	bomb = 10
-	bio = 5
-	rad = 5
-	fire = 5
-	acid = 30
-	stamina = 30
-	bleed = 20
 
 //CentCom
-
-/datum/armor/beret_captain
-	melee = 50
-	bullet = 30
-	laser = 20
-	energy = 30
-	bomb = 15
-	bio = 10
-	rad = 10
-	fire = 10
-	acid = 60
-	stamina = 40
-	bleed = 20
 
 
 //Miscellaneous
@@ -622,18 +453,7 @@
 	greyscale_config = /datum/greyscale_config/beret_badge
 	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
 	greyscale_colors = "#C5D4F3#ECF1F8"
-	armor_type = /datum/armor/beret_durathread
-
-/datum/armor/beret_durathread
-	melee = 15
-	bullet = 25
-	laser = 15
-	energy = 20
-	bomb = 10
-	fire = 30
-	acid = 5
-	stamina = 20
-	bleed = 45
+	armor_type = /datum/armor/durathread
 
 /obj/item/clothing/head/beret/highlander
 	desc = "That was white fabric. <i>Was.</i>"
@@ -653,15 +473,5 @@
 	greyscale_config = /datum/greyscale_config/beret_badge
 	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
 	greyscale_colors = "#46b946#f2c42e"
-	armor_type = /datum/armor/beret_centcom_formal
+	armor_type = /datum/armor/security_padded
 	strip_delay = 10 SECONDS
-
-/datum/armor/beret_centcom_formal
-	melee = 80
-	bullet = 80
-	laser = 50
-	energy = 50
-	bomb = 100
-	bio = 100
-	fire = 100
-	acid = 90

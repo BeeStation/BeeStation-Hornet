@@ -37,11 +37,7 @@
 
 
 /datum/armor/clockwork_ocular_warden
-	melee = -80
-	bullet = -50
-	laser = 40
-	energy = 40
-	bomb = 20
+	reflectivity = 80
 
 /obj/structure/destructible/clockwork/ocular_warden/process(delta_time)
 	//Can we fire?
@@ -59,7 +55,7 @@
 	if(!target)
 		return
 	dir = get_dir(get_turf(src), get_turf(target))
-	target.apply_damage(max(10 - (get_dist(src, target)*2.5), 5)*delta_time, BURN)
+	target.deal_damage(max(10 - (get_dist(src, target)*2.5), 5)*delta_time, 0, BURN, DAMAGE_LASER)
 	new /obj/effect/temp_visual/ratvar/ocular_warden(get_turf(target))
 	new /obj/effect/temp_visual/ratvar/ocular_warden(get_turf(src))
 	playsound(get_turf(target), 'sound/machines/clockcult/ocularwarden-dot1.ogg', 60, TRUE)

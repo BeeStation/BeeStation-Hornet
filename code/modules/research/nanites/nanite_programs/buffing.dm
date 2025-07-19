@@ -40,8 +40,8 @@
 	var/datum/armor/nanite_armor = /datum/armor/hardening_armor
 
 /datum/armor/hardening_armor
-	melee = 30
-	bullet = 30
+	penetration = 35
+	blunt = 15
 
 //TODO on_hit effect that turns skin grey for a moment
 
@@ -66,8 +66,8 @@
 	var/datum/armor/nanite_armor = /datum/armor/refractive_armor
 
 /datum/armor/refractive_armor
-	laser = 30
-	energy = 30
+	heat = 40
+	reflectivity = 40
 
 /datum/nanite_program/refractive/enable_passive_effect()
 	. = ..()
@@ -177,7 +177,7 @@
 	name = "metallic armblade"
 	desc = "Nanites have formed this extremely sharp blade around your arm. Owie."
 	force = 20
-	sharpness = SHARP_DISMEMBER
+	sharpness = SHARP_V
 	icon = 'icons/obj/nanite.dmi'
 	icon_state = "nanite_blade"
 	item_state = "nanite_blade"

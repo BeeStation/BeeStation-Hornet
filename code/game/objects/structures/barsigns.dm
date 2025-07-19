@@ -6,20 +6,10 @@
 	req_access = list(ACCESS_BAR)
 	max_integrity = 500
 	integrity_failure = 0.5
-	armor_type = /datum/armor/sign_barsign
 	buildable_sign = 0
 
 	var/panel_open = FALSE
 	var/datum/barsign/chosen_sign
-
-
-/datum/armor/sign_barsign
-	melee = 20
-	bullet = 20
-	laser = 20
-	energy = 100
-	fire = 50
-	acid = 50
 
 /obj/structure/sign/barsign/Initialize(mapload)
 	. = ..()

@@ -17,7 +17,6 @@
 	active_power_usage = 0
 	power_channel = AREA_USAGE_ENVIRON
 	layer = GAS_PIPE_HIDDEN_LAYER //under wires
-	armor_type = /datum/armor/machinery_atmospherics
 	resistance_flags = FIRE_PROOF
 	max_integrity = 200
 	obj_flags = CAN_BE_HIT | ON_BLUEPRINTS
@@ -63,15 +62,6 @@
 
 	///If we should init and immediately start processing
 	var/init_processing = FALSE
-
-/datum/armor/machinery_atmospherics
-	melee = 25
-	bullet = 10
-	laser = 10
-	energy = 100
-	rad = 100
-	fire = 100
-	acid = 70
 
 //Blank to not inherit parent
 /obj/machinery/add_context_self(datum/screentip_context/context, mob/user)
@@ -471,7 +461,7 @@
 			var/obj/item/pipe/stored = new construction_type(loc, null, dir, src, pipe_color)
 			stored.set_piping_layer(piping_layer)
 			if(!disassembled)
-				stored.take_damage(stored.max_integrity * 0.5, sound_effect=FALSE)
+				stored.deal_damage(stored.max_integrity * 0.5, 0, sound=FALSE)
 			transfer_fingerprints_to(stored)
 			. = stored
 	..()

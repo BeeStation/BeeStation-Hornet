@@ -24,7 +24,6 @@
 	opacity = FALSE
 	resistance_flags = FLAMMABLE
 	max_integrity = 200
-	armor_type = /datum/armor/structure_bookcase
 	var/state = BOOKCASE_UNANCHORED
 	var/list/allowed_books = list(/obj/item/book, /obj/item/spellbook, /obj/item/storage/book, /obj/item/codex_cicatrix) //Things allowed in the bookcase
 	/// When enabled, books_to_load number of random books will be generated for this bookcase when first interacted with.
@@ -33,10 +32,6 @@
 	var/random_category = null
 	/// How many random books to generate.
 	var/books_to_load = 0
-
-
-/datum/armor/structure_bookcase
-	fire = 50
 
 /obj/structure/bookcase/Initialize(mapload)
 	. = ..()

@@ -18,7 +18,6 @@
 	icon_state = "fire0"
 	max_integrity = 250
 	integrity_failure = 0.4
-	armor_type = /datum/armor/machinery_firealarm
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 6
@@ -47,12 +46,6 @@
 	var/locked = FALSE
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
-
-
-/datum/armor/machinery_firealarm
-	rad = 100
-	fire = 90
-	acid = 30
 
 /obj/machinery/firealarm/Initialize(mapload, dir, building)
 	. = ..()
@@ -445,12 +438,11 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/firealarm, "Push")
 			return TRUE
 	return FALSE
 
-/obj/machinery/firealarm/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
-	. = ..()
-	if(.) //damage received
-		if(atom_integrity > 0 && !(machine_stat & BROKEN) && buildstage != FIRE_ALARM_BUILD_NO_CIRCUIT)
-			if(prob(33))
-				alarm()
+/obj/machinery/firealarm/take_direct_damage(amount, type = BRUTE, flag = DAMAGE_STANDARD, zone = null)
+	..()
+	if(atom_integrity > 0 && !(machine_stat & BROKEN) && buildstage != FIRE_ALARM_BUILD_NO_CIRCUIT)
+		if(prob(33))
+			alarm()
 
 /obj/machinery/firealarm/singularity_pull(S, current_size)
 	if (current_size >= STAGE_FIVE) // If the singulo is strong enough to pull anchored objects, the fire alarm experiences integrity failure

@@ -54,7 +54,7 @@
 				playsound(src,'sound/weapons/drill.ogg',40,TRUE)
 			else if(isobj(target))
 				var/obj/O = target
-				O.take_damage(15, BRUTE, 0, FALSE, get_dir(chassis, target))
+				O.deal_damage(15, SHARP_III, BRUTE, dir = get_dir(chassis, target), sound = FALSE)
 				playsound(src,'sound/weapons/drill.ogg',40,TRUE)
 
 			if(QDELETED(target))
@@ -130,8 +130,9 @@
 			target.gib()
 	else
 		//drill makes a hole
-		var/obj/item/bodypart/target_part = target.get_bodypart(ran_zone(BODY_ZONE_CHEST))
-		target.apply_damage(10, BRUTE, BODY_ZONE_CHEST, target.run_armor_check(target_part, MELEE))
+		var/target_zone = ran_zone(BODY_ZONE_CHEST)
+		var/obj/item/bodypart/target_part = target.get_bodypart(target_zone)
+		target.deal_damage(10, SHARP_III, zone = target_zone)
 
 		//blood splatters and sparks
 		if(issilicon(target)  || isbot(target) || isswarmer(target) || IS_ROBOTIC_LIMB(target_part))

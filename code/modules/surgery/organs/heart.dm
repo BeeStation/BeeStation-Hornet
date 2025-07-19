@@ -3,7 +3,6 @@
 	desc = "I feel bad for the heartless bastard who lost this."
 	icon_state = "heart-on"
 	visual = FALSE
-	zone = BODY_ZONE_CHEST
 	slot = ORGAN_SLOT_HEART
 
 	healing_factor = STANDARD_ORGAN_HEALING
@@ -98,7 +97,7 @@
 		failed = TRUE
 
 /obj/item/organ/heart/get_availability(datum/species/owner_species, mob/living/owner_mob)
-	return owner_species.mutantheart
+	return owner_species.mutantheart && ..()
 
 /obj/item/organ/heart/cursed
 	name = "cursed heart"

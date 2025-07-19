@@ -367,7 +367,7 @@
 	var/require_thickness = (injection_flags & INJECT_CHECK_PENETRATE_THICK)
 	for(var/obj/item/clothing/iter_clothing in clothingonpart(the_part))
 		// If it has armour, it has enough thickness to block basic things
-		if(!require_thickness && (iter_clothing.get_armor().get_rating(MELEE) >= 10 || iter_clothing.get_armor().get_rating(BULLET) >= 10))
+		if(!require_thickness && (iter_clothing.get_armor().get_rating(ARMOUR_PENETRATION) >= 20))
 			if (user && (injection_flags & INJECT_TRY_SHOW_ERROR_MESSAGE))
 				to_chat(user, span_alert("The clothing on [p_their()] [the_part.name] is too thick!"))
 			return FALSE
@@ -711,6 +711,7 @@
 			hud_used.healthdoll.cut_overlays()
 			if(stat != DEAD)
 				hud_used.healthdoll.icon_state = "healthdoll_OVERLAY"
+				var/list/injury_list = list()
 				for(var/obj/item/bodypart/BP as() in bodyparts)
 					var/damage = BP.burn_dam + BP.brute_dam + (hallucination ? BP.stamina_dam : 0)
 					var/comparison = (BP.max_damage/5)
@@ -727,6 +728,21 @@
 						icon_num = 5
 					if(hal_screwyhud == SCREWYHUD_HEALTHY)
 						icon_num = 0
+					if (BP.bodypart_disabled)
+						icon_num = 7
+					// Add injuries
+					var/highest_injury_level = 0
+					injury_list.Cut()
+					for (var/datum/injury/injury in BP.injuries)
+						if (injury.severity_level <= 0 || !injury.health_doll_icon || injury.severity_level < highest_injury_level)
+							continue
+						if (injury.severity_level > highest_injury_level)
+							highest_injury_level = injury.severity_level
+							injury_list.Cut()
+						injury_list |= injury.health_doll_icon
+					// If you have an active injury, it can never be healthy
+					if (highest_injury_level >= INJURY_PRIORITY_ACTIVE)
+						icon_num = max(1, icon_num)
 					if(icon_num)
 						hud_used.healthdoll.add_overlay(mutable_appearance('icons/hud/screen_gen.dmi', "[BP.body_zone][icon_num]"))
 					//Stamina Outline (Communicate that we have stamina damage)
@@ -735,10 +751,10 @@
 						var/mutable_appearance/MA = mutable_appearance('icons/hud/screen_gen.dmi', "[BP.body_zone]stam")
 						MA.alpha = (BP.stamina_dam / BP.max_stamina_damage) * 70 + 30
 						hud_used.healthdoll.add_overlay(MA)
+					for (var/injury_icon in injury_list)
+						hud_used.healthdoll.add_overlay(mutable_appearance('icons/hud/screen_gen.dmi', "[BP.body_zone]_[injury_icon]"))
 				for(var/t in get_missing_limbs()) //Missing limbs
 					hud_used.healthdoll.add_overlay(mutable_appearance('icons/hud/screen_gen.dmi', "[t]6"))
-				for(var/t in get_disabled_limbs()) //Disabled limbs
-					hud_used.healthdoll.add_overlay(mutable_appearance('icons/hud/screen_gen.dmi', "[t]7"))
 			else
 				hud_used.healthdoll.icon_state = "healthdoll_DEAD"
 
@@ -912,6 +928,7 @@
 				var/obj/item/bodypart/BP = T.get_bodypart(BODY_ZONE_HEAD)
 				if(BP)
 					BP.receive_damage(36) //so 3 toolbox hits
+					BP.run_limb_injuries(36, BRUTE, DAMAGE_STANDARD, 0)
 
 				T.visible_message(span_warning("[src] curbstomps [T]!"), span_warning("[src] curbstomps you!"))
 
@@ -938,8 +955,10 @@
 				if(BP)
 					if(T.gender == MALE)
 						BP.receive_damage(25)
+						BP.run_limb_injuries(25, BRUTE, DAMAGE_STANDARD, 0)
 					else
 						BP.receive_damage(15)
+						BP.run_limb_injuries(15, BRUTE, DAMAGE_STANDARD, 0)
 
 				T.visible_message(span_warning("[src] kicks [T] in the groin!"), "<span class='warning'>[src] kicks you in the groin!</span")
 
@@ -1046,9 +1065,9 @@
 		remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown_flying)
 		return
 	var/health_deficiency = max((maxHealth - health), staminaloss)
-	if(health_deficiency >= 40)
-		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown, TRUE, multiplicative_slowdown = health_deficiency / 75)
-		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown_flying, TRUE, multiplicative_slowdown = health_deficiency / 25)
+	if(health_deficiency >= DAMAGE_SLOWDOWN_START)
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown, TRUE, multiplicative_slowdown = (health_deficiency / 100) * DAMAGE_SLOWDOWN_CRIT)
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown_flying, TRUE, multiplicative_slowdown = (health_deficiency / 100) * DAMAGE_SLOWDOWN_CRIT * DAMAGE_SLOWDOWN_FLYING_MULTIPLIER)
 	else
 		remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown)
 		remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown_flying)
@@ -1080,7 +1099,7 @@
 		src.emote("gasp")
 	else
 		src.emote("scream")
-	src.apply_damage(power, BRUTE, def_zone = pick(BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
+	src.deal_damage(power, 0, BRUTE, zone = pick(BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
 	src.Paralyze(10 * power)
 
 /mob/living/carbon/human/monkeybrain

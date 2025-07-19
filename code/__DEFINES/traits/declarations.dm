@@ -196,7 +196,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NO_BUMP_SLAM		"no_bump_slam"	// Disables the ability to slam into walls
 /// Trait given by being a hulk
 #define TRAIT_HULK "hulk"
-/// Trait that stores the skin colour of a mob
+/// Trait that stores the skin colour of a bodypart. Must be applied to a bodypart and not the mob as a whole.
 #define TRAIT_OVERRIDE_SKIN_COLOUR "skin_colour"
 #define TRAIT_STEALTH_PICKPOCKET "stealth_pickpocket" // The user can take something off of someone via the strip menu without sending a message.
 /// Trait that prevents you from being moved when pulled.
@@ -406,5 +406,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NEGATES_GRAVITY "negates_gravity"
 #define TRAIT_NIGHT_VISION "night_vision"
 
+/// When applied to a bodypart, it will not regenerate stamina damage
+#define TRAIT_BODYPART_NO_STAMINA_REGENERATION "no_stamina_regen"
+
+/// The mob will not be able to take organ damage from penetration attacks
+#define TRAIT_NO_ORGAN_PENETRATION "no_organ_penetration"
 
 // END TRAIT DEFINES

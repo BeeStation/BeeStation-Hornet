@@ -192,8 +192,8 @@
 			for(var/X in C.bodyparts)
 				var/obj/item/bodypart/BP = X
 				BP.max_damage *= 10
-				BP.brute_dam *= 10
-				BP.burn_dam *= 10
+				BP.set_brute_dam(BP.brute_dam * 10)
+				BP.set_burn_dam(BP.burn_dam * 10)
 		owner.toxloss *= 10
 		owner.oxyloss *= 10
 		owner.cloneloss *= 10
@@ -275,8 +275,8 @@
 		var/mob/living/carbon/C = owner
 		for(var/X in C.bodyparts)
 			var/obj/item/bodypart/BP = X
-			BP.brute_dam *= 0.1
-			BP.burn_dam *= 0.1
+			BP.set_brute_dam(BP.brute_dam * 0.1)
+			BP.set_burn_dam(BP.burn_dam * 0.1)
 			BP.max_damage /= 10
 	owner.toxloss *= 0.1
 	owner.oxyloss *= 0.1

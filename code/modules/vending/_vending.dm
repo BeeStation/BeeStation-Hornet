@@ -57,7 +57,6 @@
 	verb_exclaim = "beeps"
 	max_integrity = 300
 	integrity_failure = 0.33
-	armor_type = /datum/armor/machinery_vending
 	circuit = /obj/item/circuitboard/machine/vendor
 	clicksound = 'sound/machines/pda_button1.ogg'
 	dept_req_for_free = ACCOUNT_SRV_BITFLAG
@@ -177,12 +176,6 @@
 
 	///Name of lighting mask for the vending machine
 	var/light_mask
-
-
-/datum/armor/machinery_vending
-	melee = 20
-	fire = 50
-	acid = 70
 
 /obj/item/circuitboard
 	///determines if the circuit board originated from a vendor off station or not.
@@ -674,14 +667,14 @@
 							qdel(O)
 							new /obj/effect/gibspawner/human/bodypartless(get_turf(C))
 
-				C.apply_damage(max(0, squish_damage - crit_rebate), forced=TRUE)
+				C.take_direct_damage(max(0, squish_damage - crit_rebate))
 				C.AddElement(/datum/element/squish, 80 SECONDS)
 			else
 				L.visible_message(span_danger("[L] is crushed by [src]!"), \
 				span_userdanger("You are crushed by [src]!"))
-				L.apply_damage(squish_damage, forced=TRUE)
+				L.take_direct_damage(squish_damage)
 				if(crit_case)
-					L.apply_damage(squish_damage, forced=TRUE)
+					L.take_direct_damage(squish_damage)
 
 			L.Paralyze(60)
 			L.emote("scream")

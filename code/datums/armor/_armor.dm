@@ -25,25 +25,29 @@ GLOBAL_LIST_INIT(armor_by_type, generate_armor_type_cache())
  * It also contains logic and helpers for calculating damage and effective damage
  */
 /datum/armor
-
-/**
- * The armor datum holds information about different types of armor that an atom can have.
- * It also contains logic and helpers for calculating damage and effective damage
- */
-/datum/armor
-	VAR_PROTECTED/acid = 0
-	VAR_PROTECTED/bio = 0
-	VAR_PROTECTED/bleed = 0
-	VAR_PROTECTED/bomb = 0
-	VAR_PROTECTED/bullet = 0
-	VAR_PROTECTED/consume = 0
-	VAR_PROTECTED/energy = 0
-	VAR_PROTECTED/fire = 0
-	VAR_PROTECTED/laser = 0
-	VAR_PROTECTED/melee = 0
-	VAR_PROTECTED/rad = 0
-	VAR_PROTECTED/stamina = 0
-	//VAR_PROTECTED/wound = 0
+	/// How much penetration resistance the armour has
+	/// Sharp damage is converted into blunt based on this, and
+	/// then reduced by the blunt resistance amount.
+	/// Reduces based on the health proportion of the armour.
+	VAR_PROTECTED/penetration = 0
+	/// Percentage of blunt damage reduction. 30 means 30%
+	/// of incoming blunt damage is fully protected against.
+	/// Reduces based on the health proportion of the armour.
+	VAR_PROTECTED/blunt = 0
+	/// How much is the armour protected from damage that it
+	/// absorbs? A value of 50 means that if a user is protected
+	/// against 10 damage, then the armour takes 5 damage.
+	/// Reflects the underlying strength of the armour and
+	/// affects damage taken from acid
+	VAR_PROTECTED/absorption = 0
+	/// How much does the armour protect against light based
+	/// projectiles. Higher values reduce the amount of damage
+	/// caused by energy/laser projectiles and give some
+	/// chance for those projectiles to be reflected.
+	VAR_PROTECTED/reflectivity = 0
+	/// Amount of protection from heat based attacks such as
+	/// lasers and fire.
+	VAR_PROTECTED/heat = 0
 
 /// A version of armor with no protections
 /datum/armor/none
@@ -208,32 +212,14 @@ GLOBAL_LIST_INIT(armor_by_type, generate_armor_type_cache())
  */
 /proc/armor_to_protection_name(armor_type)
 	switch(armor_type)
-		if(ACID)
-			return "ACID"
-		if(BIO)
-			return "BIOHAZARD"
-		if(BLEED)
-			return "BLEEDING"
-		if(BOMB)
-			return "EXPLOSIVE"
-		if(BULLET)
-			return "BULLET"
-		if(CONSUME)
-			return "CONSUMING"
-		if(ENERGY)
-			return "ENERGY"
-		if(FIRE)
-			return "FIRE"
-		if(LASER)
-			return "LASER"
-		if(MELEE)
-			return "MELEE"
-		if(RAD)
-			return "RAD"
-		if(STAMINA)
-			return "STAMINA"
-		/*
-		if(WOUND)
-			return "WOUNDING"
-		*/
+		if(ARMOUR_PENETRATION)
+			return "PENETRATION"
+		if(ARMOUR_BLUNT)
+			return "BLUNT"
+		if(ARMOUR_ABSORPTION)
+			return "ABSORPTION"
+		if(ARMOUR_REFLECTIVITY)
+			return "REFLECTIVITY"
+		if(ARMOUR_HEAT)
+			return "HEAT"
 	CRASH("Unknown armor type '[armor_type]'")

@@ -1,9 +1,57 @@
+/// Convert a damage flag into an armour rating.
+/// Does not work for DAMAGE_STANDARD, as the logic is more complex.
+/// Output value is between 0 and 100.
+/mob/living/damage_flag_to_armour_rating(damage_flag, zone = null)
+	switch (damage_flag)
+		// Runs through absorption and blunt independantly
+		if (DAMAGE_ACID)
+			var/absorption = (100 - (zone ? get_bodyzone_armor_flag(zone, ARMOUR_ABSORPTION) : get_average_armor_flag(ARMOUR_ABSORPTION)) * 0.5) / 100
+			var/blunt = (100 - (zone ? get_bodyzone_armor_flag(zone, ARMOUR_BLUNT) : get_average_armor_flag(ARMOUR_BLUNT)) * 0.5) / 100
+			// 0 = 100, 1 = 0
+			var/multiplier = absorption * blunt
+			return (1 - multiplier) * 100
+		// Runs through absorption
+		if (DAMAGE_ABSORPTION)
+			return zone ? get_bodyzone_armor_flag(zone, ARMOUR_ABSORPTION) : get_average_armor_flag(ARMOUR_ABSORPTION)
+		// Runs through absorption and 50% of the heat, 50% of the absorption and 50% of the blunt independantly
+		if (DAMAGE_BOMB)
+			var/heat = (100 - (zone ? get_bodyzone_armor_flag(zone, ARMOUR_HEAT) : get_average_armor_flag(ARMOUR_HEAT)) * 0.5) / 100
+			var/absorption = (100 - (zone ? get_bodyzone_armor_flag(zone, ARMOUR_ABSORPTION) : get_average_armor_flag(ARMOUR_ABSORPTION)) * 0.5) / 100
+			var/blunt = (100 - (zone ? get_bodyzone_armor_flag(zone, ARMOUR_BLUNT) : get_average_armor_flag(ARMOUR_BLUNT)) * 0.5) / 100
+			// 0 = 100, 1 = 0
+			var/multiplier = heat * absorption * blunt
+			return (1 - multiplier) * 100
+		// Run through stamina damage
+		if (DAMAGE_SHOCK)
+			var/reflectivity = (100 - (zone ? get_bodyzone_armor_flag(zone, ARMOUR_REFLECTIVITY) : get_average_armor_flag(ARMOUR_REFLECTIVITY)) * 0.5) / 100
+			var/absorption = (100 - (zone ? get_bodyzone_armor_flag(zone, ARMOUR_ABSORPTION) : get_average_armor_flag(ARMOUR_ABSORPTION)) * 0.5) / 100
+			var/blunt = (100 - (zone ? get_bodyzone_armor_flag(zone, ARMOUR_BLUNT) : get_average_armor_flag(ARMOUR_BLUNT)) * 0.5) / 100
+			// 0 = 100, 1 = 0
+			var/multiplier = reflectivity * absorption * blunt
+			return (1 - multiplier) * 100
+		// Runs through 50% of the reflectivity
+		if (DAMAGE_ENERGY)
+			return (zone ? get_bodyzone_armor_flag(zone, ARMOUR_REFLECTIVITY) : get_average_armor_flag(ARMOUR_REFLECTIVITY)) * 0.5
+		// Runs through 100% of the heat armour
+		if (DAMAGE_FIRE)
+			return (zone ? get_bodyzone_armor_flag(zone, ARMOUR_HEAT) : get_average_armor_flag(ARMOUR_HEAT))
+		// Runs through the average armour between reflectivity and heat, simultaneously
+		if (DAMAGE_LASER)
+			return (zone ? get_bodyzone_armor_flag(zone, ARMOUR_REFLECTIVITY) : get_average_armor_flag(ARMOUR_REFLECTIVITY)) * 0.5 + (zone ? get_bodyzone_armor_flag(zone, ARMOUR_HEAT) : get_average_armor_flag(ARMOUR_HEAT)) * 0.5
+	CRASH("Could not convert damage flag '[damage_flag]' into an armour value as it is incompatible.")
+
+/mob/living/play_attack_sound(damage_amount, damage_type, damage_flag)
+	return
+
 /// Runs an armour check against a mob and returns the armour value to use.
 /// 0 represents 0% protection, while 100 represents 100% protection.
 /// The return value for this proc can be negative, indicating that the damage values should be increased.
 /// A message will be thrown to the user if their armour protects them, unless the silent flag is set.
-/mob/living/proc/run_armor_check(def_zone = null, attack_flag = MELEE, absorb_text = null, soften_text = null, armour_penetration, penetrated_text, silent=FALSE)
-	var/armor = getarmor(def_zone, attack_flag, penetration = armour_penetration)
+/mob/living/proc/run_armor_check(def_zone = null, armour_flag = ARMOUR_BLUNT, absorb_text = null, soften_text = null, armour_penetration, penetrated_text, silent=FALSE)
+	var/armor = get_bodyzone_armor_flag(def_zone, armour_flag)
+
+	// Apply armour penetration
+	armor *= (100 - armour_penetration) / 100
 
 	if(armor <= 0)
 		return armor
@@ -32,14 +80,26 @@
 			to_chat(src, span_warning("Your armor softens the blow!"))
 	return armor
 
+/mob/living/proc/get_average_armor_flag(armour_flag = ARMOUR_BLUNT)
+	return (get_bodyzone_armor_flag(BODY_ZONE_CHEST, armour_flag) +\
+		get_bodyzone_armor_flag(BODY_ZONE_HEAD, armour_flag) +\
+		get_bodyzone_armor_flag(BODY_ZONE_L_ARM, armour_flag) +\
+		get_bodyzone_armor_flag(BODY_ZONE_L_LEG, armour_flag) +\
+		get_bodyzone_armor_flag(BODY_ZONE_R_ARM, armour_flag) +\
+		get_bodyzone_armor_flag(BODY_ZONE_R_LEG, armour_flag)\
+		) / 6
+
 /// Get the armour value for a specific damage type, targetting a particular zone.
 /// def_zone: The body zone to get the armour for. Null indicates no body zone and will calculate an average armour value instead.
 /// type: The damage type to test for. Must not be null.
 /// penetration: The amount of penetration to add. A value of 20 will reduce the effectiveness of each individual armour piece by 80%.
 /// Returns: An integer value with 0 representing 0% protection and 100 representing 100% protection.
 /// - The return value can be negative which indicates additional armour, but will never exceed 100.
-/// - Armour penetration should not be applied on the return value of this proc, due to its upper bound of 100.
-/mob/living/proc/getarmor(def_zone, type, penetration = 0)
+/mob/living/proc/get_bodyzone_armor_flag(bodyzone = null, armour_flag = ARMOUR_BLUNT)
+	return get_armor_rating(armour_flag)
+
+/// Get percentage of the body protected by radiation
+/mob/living/proc/get_radiation_protection()
 	return 0
 
 //this returns the mob's protection against eye damage (number between -1 and 2) from bright lights
@@ -56,23 +116,22 @@
 /mob/living/proc/is_eyes_covered(check_glasses = 1, check_head = 1, check_mask = 1)
 	return FALSE
 
-/mob/living/proc/on_hit(obj/projectile/P)
+/mob/living/proc/on_hit(obj/projectile/P, def_zone, piercing_hit = FALSE)
 	return BULLET_ACT_HIT
 
 /mob/living/bullet_act(obj/projectile/P, def_zone, piercing_hit = FALSE)
-	var/bullet_signal = SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
+	var/bullet_signal = SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, P.def_zone)
 	if(bullet_signal & COMSIG_ATOM_BULLET_ACT_FORCE_PIERCE)
 		return BULLET_ACT_FORCE_PIERCE
 	else if(bullet_signal & COMSIG_ATOM_BULLET_ACT_BLOCK)
 		return BULLET_ACT_BLOCK
 	else if(bullet_signal & COMSIG_ATOM_BULLET_ACT_HIT)
 		return BULLET_ACT_HIT
-	var/armor = run_armor_check(def_zone, P.armor_flag, "","",P.armour_penetration)
 	if(!P.nodamage)
-		apply_damage(P.damage, P.damage_type, def_zone, armor)
+		deal_damage(P.damage, P.sharpness, P.damage_type, P.damage_flag, null, def_zone, zone = P.def_zone)
 		if(P.dismemberment)
 			check_projectile_dismemberment(P, def_zone)
-	return P.on_hit(src, armor, piercing_hit)? BULLET_ACT_HIT : BULLET_ACT_BLOCK
+	return P.on_hit(src, def_zone, piercing_hit) ? BULLET_ACT_HIT : BULLET_ACT_BLOCK
 
 /mob/living/proc/check_projectile_dismemberment(obj/projectile/P, def_zone)
 	return 0
@@ -128,8 +187,7 @@
 		if(!blocked)
 			visible_message(span_danger("[src] is hit by [I]!"), \
 							span_userdanger("You're hit by [I]!"))
-			var/armor = run_armor_check(zone, MELEE, "Your armor has protected your [parse_zone(zone)].", "Your armor has softened hit to your [parse_zone(zone)].",I.armour_penetration)
-			apply_damage(I.throwforce, dtype, zone, armor)
+			deal_damage(I.throwforce, I.sharpness, dtype, DAMAGE_STANDARD, null, FALSE, zone)
 
 			var/mob/thrown_by = I.thrownby?.resolve()
 			if(thrown_by)
@@ -623,7 +681,7 @@
 	if(method == INGEST)
 		taste(source)
 
-	var/touch_protection = (method == VAPOR) ? getarmor(null, BIO) * 0.01 : 0
+	var/touch_protection = (method == VAPOR) ? get_biological_seal_rating() : 0
 	for(var/reagent in reagents)
 		var/datum/reagent/R = reagent
 		. |= R.expose_mob(src, method, reagents[R], show_message, touch_protection, affecting)

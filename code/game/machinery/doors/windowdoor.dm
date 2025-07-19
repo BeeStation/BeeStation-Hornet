@@ -10,7 +10,6 @@
 	var/base_state = "left"
 	max_integrity = 150 //If you change this, consider changing ../door/window/brigdoor/ max_integrity at the bottom of this .dm file
 	integrity_failure = 0
-	armor_type = /datum/armor/door_window
 	visible = FALSE
 	flags_1 = ON_BORDER_1
 	opacity = FALSE
@@ -27,17 +26,6 @@
 	var/cable = 1
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
-
-
-/datum/armor/door_window
-	melee = 20
-	bullet = 50
-	laser = 50
-	energy = 50
-	bomb = 10
-	rad = 100
-	fire = 70
-	acid = 100
 
 /obj/machinery/door/window/Initialize(mapload, set_dir, unres_sides)
 	. = ..()
@@ -263,7 +251,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 	return (exposed_temperature > T0C + (reinf ? 1600 : 800))
 
 /obj/machinery/door/window/atmos_expose(datum/gas_mixture/air, exposed_temperature)
-	take_damage(round(exposed_temperature / 200), BURN, 0, 0)
+	deal_damage(round(exposed_temperature / 200), 0, BURN, DAMAGE_FIRE, sound = FALSE)
 
 /obj/machinery/door/window/should_emag(mob/user)
 	// Don't allow emag if the door is currently open or moving
@@ -455,18 +443,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 	shards = 0
 	rods = 0
 	max_integrity = 50
-	armor_type = /datum/armor/window_clockwork
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	operationdelay = 10
 	var/made_glow = FALSE
-
-
-/datum/armor/window_clockwork
-	bomb = 10
-	bio = 100
-	rad = 100
-	fire = 70
-	acid = 100
 
 /obj/machinery/door/window/clockwork/deconstruct(disassembled)
 	if(!(flags_1 & NODECONSTRUCT_1) && !disassembled)
@@ -496,7 +475,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 	return FALSE
 
 /obj/machinery/door/window/clockwork/narsie_act()
-	take_damage(rand(30, 60), BRUTE)
+	deal_damage(rand(30, 60), 0, BRUTE, DAMAGE_ACID)
 	if(src)
 		var/previouscolor = color
 		color = "#960000"

@@ -47,11 +47,6 @@
 	greyscale_colors = "#ffffff#ffffff"
 	icon_preview = 'icons/obj/previews.dmi'
 	icon_state_preview = "shoes_cloth"
-	armor_type = /datum/armor/sneakers_white
-
-
-/datum/armor/sneakers_white
-	bio = 95
 
 /obj/item/clothing/shoes/sneakers/rainbow
 	name = "rainbow shoes"
@@ -130,13 +125,6 @@
 	strip_delay = 5
 	equip_delay_other = 50
 	resistance_flags = FIRE_PROOF |  ACID_PROOF
-	armor_type = /datum/armor/sneakers_marisa
-
-
-/datum/armor/sneakers_marisa
-	bio = 50
-	fire = 70
-	acid = 30
 
 /obj/item/clothing/shoes/sneakers/cyborg
 	name = "cyborg boots"

@@ -96,10 +96,8 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	SSticker.force_ending = TRUE
 	qdel(src)
 
-/obj/structure/destructible/clockwork/massive/celestial_gateway/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armour_penetration)
-	. = ..()
-	if(!.)
-		return
+/obj/structure/destructible/clockwork/massive/celestial_gateway/take_direct_damage(amount, type = BRUTE, flag = DAMAGE_STANDARD, zone = null)
+	..()
 	hierophant_message("The ark is taking damage!", null, "<span class='large_brass'>")
 	flick("clockwork_gateway_damaged", src)
 	playsound(src, 'sound/machines/clockcult/ark_damage.ogg', 75, FALSE)

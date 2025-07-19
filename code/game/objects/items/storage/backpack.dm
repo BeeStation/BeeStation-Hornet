@@ -41,12 +41,6 @@
 	item_state = "holdingpack"
 	resistance_flags = FIRE_PROOF
 	item_flags = NO_MAT_REDEMPTION
-	armor_type = /datum/armor/backpack_holding
-
-
-/datum/armor/backpack_holding
-	fire = 60
-	acid = 50
 
 /obj/item/storage/backpack/holding/clown
 	name = "bag of honking"
@@ -79,18 +73,6 @@
 	worn_icon_state = "baguette"
 	resistance_flags = FIRE_PROOF
 	item_flags = NO_MAT_REDEMPTION
-	armor_type = /datum/armor/backpack_hammerspace
-
-/datum/armor/backpack_hammerspace
-	melee = 100
-	bullet = 100
-	laser = 100
-	energy = 100
-	bomb = 100
-	bio = 100
-	rad = 100
-	fire = 100
-	acid = 100
 
 /obj/item/storage/backpack/hammerspace/Initialize(mapload)
 	. = ..()

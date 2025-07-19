@@ -26,7 +26,6 @@
 	throw_speed = 3
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
-	armor_type = /datum/armor/item_weldingtool
 	resistance_flags = FIRE_PROOF
 
 	custom_materials = list(/datum/material/iron=70, /datum/material/glass=30)
@@ -44,11 +43,6 @@
 	heat = 3800
 	tool_behaviour = TOOL_WELDER
 	toolspeed = 1
-
-
-/datum/armor/item_weldingtool
-	fire = 100
-	acid = 30
 
 /obj/item/weldingtool/Initialize(mapload)
 	. = ..()

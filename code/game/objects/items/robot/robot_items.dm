@@ -11,7 +11,6 @@
 	var/charge_cost = 30
 
 /obj/item/borg/stun/attack(mob/living/M, mob/living/user)
-	var/armor_block = M.run_armor_check(attack_flag = STAMINA)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.check_shields(src, 0, "[M]'s [name]", MELEE_ATTACK))
@@ -21,7 +20,7 @@
 		var/mob/living/silicon/robot/R = user
 		if(!R.cell.use(charge_cost))
 			return
-	M.apply_damage(80, STAMINA, blocked = armor_block)
+	M.deal_damage(80, 0, STAMINA)
 	user.do_attack_animation(M)
 	M.apply_effect(EFFECT_STUTTER, 5)
 
@@ -596,7 +595,6 @@
 	icon_state = "gumball"
 	ammo_type = /obj/item/food/gumball/cyborg
 	nodamage = TRUE
-	bleed_force = 0
 
 /obj/projectile/bullet/reusable/gumball/handle_drop()
 	if(!dropped)
@@ -617,7 +615,6 @@
 	ammo_type = /obj/item/food/lollipop/cyborg
 	var/color2 = rgb(0, 0, 0)
 	nodamage = TRUE
-	bleed_force = 0
 
 /obj/projectile/bullet/reusable/lollipop/Initialize(mapload)
 	. = ..()

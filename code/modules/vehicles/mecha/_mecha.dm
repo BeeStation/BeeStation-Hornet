@@ -179,11 +179,7 @@
 
 
 /datum/armor/sealed_mecha
-	melee = 20
-	bullet = 10
-	bomb = 10
-	fire = 100
-	acid = 100
+	penetration = 80
 
 /obj/item/radio/mech //this has to go somewhere
 	subspace_transmission = TRUE
@@ -297,7 +293,7 @@
 	return cell
 
 /obj/vehicle/sealed/mecha/rust_heretic_act()
-	take_damage(500,  BRUTE)
+	deal_damage(500, 0, BRUTE, DAMAGE_ACID)
 	return TRUE
 
 /obj/vehicle/sealed/mecha/proc/restore_equipment()
@@ -324,8 +320,8 @@
 		step_energy_drain = normal_step_energy_drain
 	if(capacitor)
 		var/datum/armor/stock_armor = get_armor_by_type(armor_type)
-		var/initial_energy = stock_armor.get_rating(ENERGY)
-		set_armor_rating(ENERGY, initial_energy + (capacitor.rating * 5))
+		var/initial_energy = stock_armor.get_rating(ARMOUR_REFLECTIVITY)
+		set_armor_rating(ARMOUR_REFLECTIVITY, initial_energy + (capacitor.rating * 5))
 
 
 ////////////////////////
@@ -412,7 +408,7 @@
 			if(cabin_air && cabin_air.return_volume()>0)
 				cabin_air.temperature = (min(6000+T0C, cabin_air.return_temperature()+rand(10,15)))
 				if(cabin_air.return_temperature() > max_temperature/2)
-					take_damage(delta_time*2/round(max_temperature/cabin_air.return_temperature(),0.1), BURN, 0, 0)
+					take_direct_damage(delta_time*2/round(max_temperature/cabin_air.return_temperature(),0.1), BURN, DAMAGE_FIRE)
 
 		if(internal_damage & MECHA_INT_TANK_BREACH) //remove some air from internal tank
 			if(internal_tank)

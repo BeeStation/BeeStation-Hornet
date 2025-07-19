@@ -15,7 +15,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	var/w_class_on = WEIGHT_CLASS_BULKY
 	hitsound = "swing_hit"
-	armour_penetration = 35
+	sharpness = SHARP_IIX
 	item_flags = ISWEAPON
 	var/saber_color = "green"
 	light_color = "#00ff00"//green
@@ -37,10 +37,8 @@
 	var/hacked = FALSE
 	var/list/possible_colors = list("red", "blue", "green", "purple")
 
-
 /datum/armor/item_dualsaber
-	fire = 100
-	acid = 70
+	absorption = 70
 
 /obj/item/dualsaber/Initialize(mapload)
 	if(LAZYLEN(possible_colors))
@@ -76,8 +74,7 @@
 		if(user.dna.check_mutation(/datum/mutation/hulk))
 			to_chat(user, span_warning("You lack the grace to wield this!"))
 			return COMPONENT_TWOHANDED_BLOCK_WIELD
-	sharpness = SHARP_DISMEMBER_EASY
-	bleed_force = BLEED_DEEP_WOUND
+	sharpness = SHARP_VII
 	w_class = w_class_on
 	hitsound = 'sound/weapons/blade1.ogg'
 	START_PROCESSING(SSobj, src)
@@ -90,7 +87,6 @@
 
 	sharpness = initial(sharpness)
 	w_class = initial(w_class)
-	bleed_force = initial(bleed_force)
 	hitsound = "swing_hit"
 	STOP_PROCESSING(SSobj, src)
 	set_light_on(FALSE)
@@ -144,7 +140,7 @@
 /obj/item/dualsaber/proc/impale(mob/living/user)
 	to_chat(user, span_warning("You twirl around a bit before losing your balance and impaling yourself on [src]."))
 	if(ISWIELDED(src))
-		user.take_bodypart_damage(20,25,check_armor = TRUE)
+		user.take_bodypart_damage(20,25)
 	else
 		user.adjustStaminaLoss(25)
 

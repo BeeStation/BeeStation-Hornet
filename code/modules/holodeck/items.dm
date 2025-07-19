@@ -13,7 +13,7 @@
 	damtype = STAMINA
 	throw_speed = 2
 	throwforce = 0
-	bleed_force = 0
+	sharpness = SHARP_V
 	embedding = null
 	sword_color_icon = null
 
@@ -53,7 +53,7 @@
 	if((ishuman(hit_atom)))
 		var/mob/living/carbon/M = hit_atom
 		playsound(src, 'sound/items/dodgeball.ogg', 50, 1)
-		M.apply_damage(10, STAMINA)
+		M.take_direct_damage(10, STAMINA)
 		if(prob(5))
 			M.Paralyze(60)
 			visible_message(span_danger("[M] is knocked right off [M.p_their()] feet!"))

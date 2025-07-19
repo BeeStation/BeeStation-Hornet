@@ -5,21 +5,11 @@
 	icon_state = "wheelchair"
 	layer = OBJ_LAYER
 	max_integrity = 100
-	armor_type = /datum/armor/ridden_wheelchair
 	canmove = TRUE
 	density = FALSE		//Thought I couldn't fix this one easily, phew
 	move_resist = MOVE_FORCE_WEAK
 	// Run speed delay is multiplied with this for vehicle move delay.
 	var/delay_multiplier = 6.7
-
-
-/datum/armor/ridden_wheelchair
-	melee = 10
-	bullet = 10
-	laser = 10
-	bomb = 10
-	fire = 20
-	acid = 30
 
 /obj/vehicle/ridden/wheelchair/Initialize(mapload)
 	. = ..()

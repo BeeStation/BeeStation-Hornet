@@ -10,10 +10,8 @@
 	layer = BELOW_MOB_LAYER
 	pass_flags_self = PASSBLOB
 	can_atmos_pass = ATMOS_PASS_PROC
-	/// How many points the blob gets back when it removes a blob of that type. If less than 0, blob cannot be removed.
-	var/point_return = 0
+	var/point_return = 0 //How many points the blob gets back when it removes a blob of that type. If less than 0, blob cannot be removed.
 	max_integrity = BLOB_REGULAR_MAX_HP
-	armor_type = /datum/armor/structure_blob
 	/// how much health this blob regens when pulsed
 	var/health_regen = BLOB_REGULAR_HP_REGEN
 	/// We got pulsed when?
@@ -31,11 +29,6 @@
 	var/mob/camera/blob/overmind
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
-
-
-/datum/armor/structure_blob
-	fire = 80
-	acid = 70
 
 /obj/structure/blob/Initialize(mapload, owner_overmind)
 	. = ..()
@@ -195,7 +188,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
 	if(istype(P))
 		playsound(src, 'sound/weapons/pierce.ogg', 50, TRUE) //we don't have a hitsound so lets just overwrite it here
 		visible_message(span_danger("[src] is hit by \a [P]!"), null, null, COMBAT_MESSAGE_RANGE)
-		take_damage((P.energy)*0.6)
+		deal_damage((P.energy)*0.6, P.sharpness, P.damage_type, P.damage_flag)
 	else
 		. = ..()
 
@@ -213,9 +206,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
 	..()
 	if(overmind)
 		if(overmind.blobstrain.tesla_reaction(src, power))
-			take_damage(power/400, BURN, ENERGY)
+			deal_damage(power/400, 0, BURN, DAMAGE_ENERGY)
 	else
-		take_damage(power/400, BURN, ENERGY)
+		deal_damage(power/400, 0, BURN, DAMAGE_ENERGY)
 
 /obj/structure/blob/extinguish()
 	..()
@@ -271,26 +264,22 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
 		if(BURN)
 			playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
 
-/obj/structure/blob/run_atom_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	switch(damage_type)
-		if(BRUTE)
-			damage_amount *= brute_resist
-		if(BURN)
-			damage_amount *= fire_resist
-		if(CLONE)
+/obj/structure/blob/take_direct_damage(amount, type = BRUTE, flag = DAMAGE_STANDARD, zone = null)
+	switch (type)
+		if (BRUTE)
+			amount *= brute_resist
+		if (BURN)
+			amount *= fire_resist
+		if (CLONE)
 		else
-			return 0
-	var/armor_protection = 0
-	if(damage_flag)
-		armor_protection = get_armor_rating(damage_flag)
-	damage_amount = round(damage_amount * (100 - armor_protection)*0.01, 0.1)
-	if(overmind && damage_flag)
-		damage_amount = overmind.blobstrain.damage_reaction(src, damage_amount, damage_type, damage_flag)
-	return damage_amount
+			return
+	if(overmind && flag)
+		amount = overmind.blobstrain.damage_reaction(src, amount, type, flag)
+	..()
 
-/obj/structure/blob/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
-	. = ..()
-	if(. && atom_integrity > 0)
+/obj/structure/blob/take_direct_damage(amount, type = BRUTE, flag = DAMAGE_STANDARD, zone = null)
+	..()
+	if (atom_integrity > 0)
 		update_appearance()
 
 /obj/structure/blob/atom_destruction(damage_flag)

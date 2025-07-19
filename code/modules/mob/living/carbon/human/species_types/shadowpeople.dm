@@ -126,6 +126,7 @@
 		TRAIT_NODISMEMBER,
 		TRAIT_NOHUNGER,
 		TRAIT_NOBLOOD,
+		TRAIT_NO_ORGAN_PENETRATION
 	)
 	mutanteyes = /obj/item/organ/eyes/night_vision/nightmare
 	mutantheart = /obj/item/organ/heart/nightmare
@@ -252,13 +253,11 @@
 	item_state = "arm_blade"
 	force = 25
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
-	armour_penetration = 35
+	sharpness = SHARP_VI
 	lefthand_file = 'icons/mob/inhands/antag/changeling_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/antag/changeling_righthand.dmi'
 	item_flags = ABSTRACT | DROPDEL | ISWEAPON
 	w_class = WEIGHT_CLASS_HUGE
-	sharpness = SHARP_DISMEMBER_EASY
-	bleed_force = BLEED_DEEP_WOUND
 	//Fuck you, *crowbars your evil thing
 	tool_behaviour = TOOL_CROWBAR
 

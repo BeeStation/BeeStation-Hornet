@@ -16,6 +16,14 @@
 	inherent_biotypes = list(MOB_UNDEAD, MOB_HUMANOID)
 	mutant_bodyparts = list("wings" = "None", "body_size" = "Normal")
 	use_skintones = TRUE
+	bodypart_overrides = list(
+		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm,
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/dullahan,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/dullahan,
+	)
 	mutantbrain = /obj/item/organ/brain/dullahan
 	mutanteyes = /obj/item/organ/eyes/dullahan
 	mutanttongue = /obj/item/organ/tongue/dullahan
@@ -41,10 +49,20 @@
 /datum/species/dullahan/on_species_gain(mob/living/carbon/human/human, datum/species/old_species)
 	. = ..()
 	human.lose_hearing_sensitivity(TRAIT_GENERIC)
-	var/obj/item/bodypart/head/head = human.get_bodypart(BODY_ZONE_HEAD)
+	var/obj/item/bodypart/head/dullahan/head = human.get_bodypart(BODY_ZONE_HEAD)
 
 	if(head)
+		head.remote_organs = list(
+			human.get_organ_slot(ORGAN_SLOT_BRAIN),
+			human.get_organ_slot(ORGAN_SLOT_EARS),
+			human.get_organ_slot(ORGAN_SLOT_TONGUE),
+			human.get_organ_slot(ORGAN_SLOT_EYES),
+		)
+
 		head.drop_limb()
+
+		for (var/obj/item/organ in head.remote_organs)
+			head.RegisterSignal(organ, COMSIG_PARENT_QDELETING, TYPE_PROC_REF(/obj/item/bodypart/head/dullahan, on_remote_organ_deleted))
 
 		if(!QDELETED(head)) //drop_limb() deletes the limb if no drop location exists and character setup dummies are located in nullspace.
 			head.throwforce = 25
@@ -163,11 +181,11 @@
 
 /obj/item/organ/brain/dullahan
 	decoy_override = TRUE
-	organ_flags = NONE
+	organ_flags = ORGAN_UNREMOVABLE
 
 /obj/item/organ/tongue/dullahan
-	zone = "abstract"
 	modifies_speech = TRUE
+	organ_flags = ORGAN_UNREMOVABLE
 
 /obj/item/organ/tongue/dullahan/handle_speech(datum/source, list/speech_args)
 	if(ishuman(owner))
@@ -180,14 +198,14 @@
 	speech_args[SPEECH_MESSAGE] = ""
 
 /obj/item/organ/ears/dullahan
-	zone = "abstract"
+	organ_flags = ORGAN_UNREMOVABLE
 
 /obj/item/organ/eyes/dullahan
 	name = "head vision"
 	desc = "An abstraction."
 	actions_types = list(/datum/action/item_action/organ_action/dullahan)
-	zone = "abstract"
 	tint = INFINITY // to switch the vision perspective to the head on species_gain() without issue.
+	organ_flags = ORGAN_UNREMOVABLE
 
 /datum/action/item_action/organ_action/dullahan
 	name = "Toggle Perspective"
@@ -272,3 +290,70 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/dullahan_relay)
 			owner.gib()
 	owner = null
 	return ..()
+
+/obj/item/bodypart/chest/dullahan
+	organ_slots = list(
+		ORGAN_SLOT_APPENDIX,
+		ORGAN_SLOT_WINGS,
+		ORGAN_SLOT_STOMACH,
+		ORGAN_SLOT_LUNGS,
+		ORGAN_SLOT_HEART,
+		ORGAN_SLOT_ZOMBIE,
+		ORGAN_SLOT_THRUSTERS,
+		ORGAN_SLOT_LIVER,
+		ORGAN_SLOT_HEART_AID,
+		ORGAN_SLOT_TAIL,
+		ORGAN_SLOT_PARASITE_EGG,
+		ORGAN_SLOT_EYES,
+		ORGAN_SLOT_BRAIN,
+		ORGAN_SLOT_TONGUE,
+		ORGAN_SLOT_EARS
+	)
+	dismemberable = FALSE
+
+/obj/item/bodypart/chest/dullahan/drop_organs(mob/user, violent_removal)
+	if(cavity_item)
+		cavity_item.forceMove(drop_location())
+		cavity_item = null
+	var/turf/T = get_turf(src)
+	if(IS_ORGANIC_LIMB(src))
+		playsound(T, 'sound/misc/splort.ogg', 50, 1, -1)
+	for(var/obj/item/I in src)
+		var/obj/item/organ/organ = I
+		// Located elsewhere
+		if (istype(organ))
+			switch (organ.slot)
+				if (ORGAN_SLOT_EYES)
+					return
+				if (ORGAN_SLOT_BRAIN)
+					return
+				if (ORGAN_SLOT_TONGUE)
+					return
+				if (ORGAN_SLOT_EARS)
+					return
+		// Drop
+		I.forceMove(T)
+
+/obj/item/bodypart/head/dullahan
+	organ_slots = list()
+	var/list/remote_organs = list()
+
+/obj/item/bodypart/head/dullahan/drop_organs(mob/user, violent_removal)
+	var/obj/original_loc = null
+	for (var/obj/item/organ/organ in remote_organs)
+		if (!istype(organ.loc, /obj/item/bodypart/chest))
+			continue
+		original_loc = organ.loc
+		organ.forceMove(src)
+		organ.organ_flags = NONE
+	. = ..()
+	// Wasn't dropped
+	for (var/obj/item/organ/organ in remote_organs)
+		if (organ.loc == src)
+			organ.forceMove(original_loc)
+			organ.organ_flags = ORGAN_UNREMOVABLE
+
+/obj/item/bodypart/head/dullahan/proc/on_remote_organ_deleted(datum/deleted_item)
+	SIGNAL_HANDLER
+	remote_organs -= deleted_item
+	UnregisterSignal(deleted_item, COMSIG_PARENT_QDELETING)

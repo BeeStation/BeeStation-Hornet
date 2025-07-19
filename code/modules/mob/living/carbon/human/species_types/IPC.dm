@@ -12,7 +12,7 @@
 		MUTCOLORS,
 		REVIVESBYHEALING,
 		NOHUSK,
-		NOMOUTH, 
+		NOMOUTH,
 		MUTCOLORS
 	)
 	inherent_traits = list(
@@ -24,7 +24,7 @@
 		TRAIT_LIMBATTACHMENT,
 		TRAIT_EASYDISMEMBER,
 		TRAIT_POWERHUNGRY,
-		TRAIT_XENO_IMMUNE, 
+		TRAIT_XENO_IMMUNE,
 		TRAIT_TOXIMMUNE
 	)
 	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
@@ -85,14 +85,6 @@
 
 /datum/species/ipc/on_species_gain(mob/living/carbon/C)
 	. = ..()
-	var/obj/item/organ/appendix/A = C.get_organ_slot("appendix") //See below.
-	if(A)
-		A.Remove(C)
-		QDEL_NULL(A)
-	var/obj/item/organ/lungs/L = C.get_organ_slot("lungs") //Hacky and bad. Will be rewritten entirely in KapuCarbons anyway.
-	if(L)
-		L.Remove(C)
-		QDEL_NULL(L)
 	if(ishuman(C) && !change_screen)
 		change_screen = new
 		change_screen.Grant(C)
