@@ -36,6 +36,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	*/
 
 /client/Topic(href, href_list, hsrc, hsrc_command)
+	//-------------------------
+	// #1. Failproofs
 	if(!usr || usr != mob)	//stops us calling Topic for somebody else's client. Also helps prevent usr=null
 		return
 
@@ -45,13 +47,15 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		return
 #endif
 
-	// asset_cache
+	// asset caching - Check browse_queue_flush() proc
 	var/asset_cache_job
 	if(href_list["asset_cache_confirm_arrival"])
 		asset_cache_job = asset_cache_confirm_arrival(href_list["asset_cache_confirm_arrival"])
 		if (!asset_cache_job)
 			return
 
+	//-------------------------
+	// #2. Spam-proofs
 	var/mtl = CONFIG_GET(number/minute_topic_limit)
 	if (!holder && mtl)
 		var/minute = round(world.time, 600)
@@ -84,22 +88,41 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			to_chat(src, span_danger("Your previous action was ignored because you've done too many in a second"))
 			return
 
+	//---------------------------
+	// #Pre-3+4. Caches session token to a variable
+	var/session_token = LOCATE_HREF(href_login::session_token, href_list)
+	if(session_token)
+		LOCATE_HREF(href_login::session_token, href_list) = "TOKEN_REDACTED"
+		href = replacetextEx(href, session_token, "TOKEN_REDACTED")
+
+	//-------------------------
+	// #3. Logging
 	//Logs all hrefs, except chat pings and session tokens
 	var/is_chat_ping = href_list["window_id"] == "browseroutput" && href_list["type"] == "ping" && LAZYLEN(href_list) == 4
 	if(!is_chat_ping)
-		var/logged_href = href
-		if(href_list["session_token"])
-			logged_href = replacetextEx(logged_href, href_list["session_token"], "TOKEN_REDACTED")
-		log_href("[src] (usr:[usr]\[[COORD(usr)]\]) : [hsrc ? "[hsrc] " : ""][logged_href]")
+		log_href("[src] (usr:[usr]\[[COORD(usr)]\]) : [hsrc ? "[hsrc] " : ""][href]")
 
+		// Prints href params you have taken in the chat window
+		if(src.check_my_topic_href)
+			to_chat(src, span_notice("<i>\[T[worldtime2text()]\] Href data:</i> [json_encode(href_list)]"))
+
+	//-------------------------
+	// #4. Client sesssion management
 	// Run this EARLY so it can't be hijacked by any other topics later on
-	if(href_list["session_token"])
-		var/token = href_list["session_token"]
-		href_list["session_token"] = ""
-		href = replacetextEx(href, href_list["session_token"], "")
-		login_with_token(token, text2num(href_list["from_ui"]))
+	if(session_token)
+		login_with_token(session_token, LOCATE_HREF(href_login::from_ui, href_list))
 		return
 
+	if(LOCATE_HREF(href_login::seeker_port, href_list))
+		winshow(src, "login", FALSE) // make sure this thing is hidden
+		var/port_num = text2num(LOCATE_HREF(href_login::seeker_port, href_list))
+		if(isnum_safe(port_num))
+			seeker_port = port_num
+		if(!logged_in) // the login handler is ready now
+			src?.send_saved_session_token()
+		return
+
+	//-------------------------
 	//byond bug ID:2256651
 	if (asset_cache_job && (asset_cache_job in completed_asset_jobs))
 		to_chat(src, span_danger("An error has been detected in how your client is receiving resources. Attempting to correct.... (If you keep seeing these messages you might want to close byond and reconnect)"))
@@ -109,34 +132,37 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		asset_cache_preload_data(href_list["asset_cache_preload_data"])
 		return
 
-	// Tgui Topic middleware
+	//-------------------------
+	// #5. TGUI Topic middleware
 	if(tgui_Topic(href_list))
 		return
 
-	if(href_list["reload_tguipanel"])
-		nuke_chat()
+	//-------------------------
+	// #6. /datum/hrefcmd system
+	// For /datum/hrefcmd type, check "href_commands.dm"
+	var/hrefcmd_type = LOCATE_HREF(hrefcmd, href_list)
+	if(hrefcmd_type)
+		switch(hrefcmd_type)
+			if(NAMEOF_HREF(admin_pm)) // Admin PM
+				cmd_admin_pm(LOCATE_HREF(admin_pm::msg_target, href_list), null)
+			if(NAMEOF_HREF(mentor_msg)) // Mentor PM
+				cmd_mentor_pm(LOCATE_HREF(mentor_msg::msg_target, href_list), null)
 
-	// Admin PM
-	if(href_list["priv_msg"])
-		cmd_admin_pm(href_list["priv_msg"],null)
+			if(NAMEOF_HREF(commandbar_typing))
+				handle_commandbar_typing(href_list)
+
+			if(NAMEOF_HREF(openLink))
+				src << link(LOCATE_HREF(openLink::link, href_list))
+			if(NAMEOF_HREF(var_edit))
+				view_var_Topic(href, href_list, hsrc)
+			if(NAMEOF_HREF(reload_tguipanel)) // Attempts to fix TGUI panel
+				nuke_chat()
+			else
+				to_chat(src, span_danger("Your href seems to be broken. Please report this to a coder or an admin. (Href data: [json_encode(href_list)])"))
 		return
 
-	// Mentor PM
-	if(href_list["mentor_msg"])
-		cmd_mentor_pm(href_list["mentor_msg"], null)
-		return TRUE
-
-	if(href_list["commandbar_typing"])
-		handle_commandbar_typing(href_list)
-
-	if(href_list["seeker_port"])
-		winshow(src, "login", FALSE) // make sure this thing is hidden
-		var/port_num = text2num(href_list["seeker_port"])
-		if(isnum_safe(port_num))
-			seeker_port = port_num
-		if(!logged_in) // the login handler is ready now
-			src?.send_saved_session_token()
-
+	//-------------------------
+	// #7. Old href command system -- should be refactored
 	switch(href_list["_src_"])
 		if("holder")
 			hsrc = holder
@@ -144,12 +170,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			hsrc = mentor_datum
 		if("usr")
 			hsrc = mob
-		if("vars")
-			return view_var_Topic(href,href_list,hsrc)
 
-	switch(href_list["action"])
-		if("openLink")
-			src << link(href_list["link"])
 	if (hsrc)
 		var/datum/real_src = hsrc
 		if(QDELETED(real_src))
