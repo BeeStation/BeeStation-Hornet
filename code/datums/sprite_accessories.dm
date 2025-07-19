@@ -1803,7 +1803,7 @@
 	dimension_x = 96
 	center = TRUE
 	dimension_y = 32
-
+/*
 /datum/sprite_accessory/wings/megamoth
 	name = "Megamoth"
 	icon_state = "megamoth"
@@ -1837,6 +1837,7 @@
 	dimension_x = 96
 	center = TRUE
 	dimension_y = 32
+*/
 
 /datum/sprite_accessory/wings/skeleton
 	name = "Skeleton"

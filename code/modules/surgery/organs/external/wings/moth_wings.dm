@@ -104,6 +104,7 @@
 /obj/item/organ/wings/moth/robust
 	flight_level = WINGS_AIRWORTHY
 
+/*
 ///mothra wings, which relate to moths.
 /obj/item/organ/wings/moth/mothra
 	name = "mothra wings"
@@ -117,3 +118,4 @@
 	desc = "Don't get murderous."
 	sprite_accessory_override = /datum/sprite_accessory/wings/megamoth
 	flight_level = WINGS_AIRWORTHY
+*/
