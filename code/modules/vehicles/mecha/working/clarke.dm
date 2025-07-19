@@ -1,6 +1,6 @@
 ///Lavaproof, fireproof, fast mech with low armor and higher energy consumption, cannot strafe and has an internal ore box.
 /obj/vehicle/sealed/mecha/working/clarke
-	desc = "Combining man and machine for a better, stronger engineer. Can even resist lava!"
+	desc = "Combining man and machine for a better, stronger engineer. Its reinforced tire tracks can travel safely on lava, but are slower on the metalic station floor."
 	name = "\improper Clarke"
 	icon_state = "clarke"
 	base_icon_state = "clarke"
@@ -19,7 +19,8 @@
 	internals_req_access = list(ACCESS_MECH_ENGINE, ACCESS_MECH_SCIENCE, ACCESS_MECH_MINING)
 	allow_diagonal_movement = FALSE
 	pivot_step = TRUE
-
+	var/fast_pressure_step_in = 1.25
+	var/slow_pressure_step_in = 3.5
 
 /datum/armor/working_clarke
 	melee = 20
@@ -65,6 +66,27 @@
 /obj/vehicle/sealed/mecha/working/clarke/generate_actions()
 	. = ..()
 	initialize_passenger_action_type(/datum/action/vehicle/sealed/mecha/mech_search_ruins)
+
+/obj/vehicle/sealed/mecha/working/clarke/Move()
+	. = ..()
+	update_pressure()
+
+/**
+  * Makes the mecha go faster and halves the mecha drill cooldown if in Lavaland pressure.
+  *
+  * Checks for Lavaland pressure, if that works out the mech's speed is equal to fast_pressure_step_in and the cooldown for the mecha drill is halved. If not it uses slow_pressure_step_in and drill cooldown is normal.
+  */
+/obj/vehicle/sealed/mecha/working/clarke/proc/update_pressure()
+	var/turf/T = get_turf(loc)
+
+	if(lavaland_equipment_pressure_check(T))
+		movedelay = fast_pressure_step_in
+		for(var/obj/item/mecha_parts/mecha_equipment/drill/drill in equipment)
+			drill.equip_cooldown = initial(drill.equip_cooldown)/2
+	else
+		movedelay = slow_pressure_step_in
+		for(var/obj/item/mecha_parts/mecha_equipment/drill/drill in equipment)
+			drill.equip_cooldown = initial(drill.equip_cooldown)
 
 //Ore Box Controls
 
