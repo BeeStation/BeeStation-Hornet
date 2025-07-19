@@ -150,7 +150,7 @@
 	limb.icon_state = "[selected_category]_[limb.body_zone]"
 	limb.name = "\improper synthetic [selected_category] [parse_zone(limb.body_zone)]"
 	limb.limb_id = selected_category
-	limb.mutation_color = "62A262" //Gets turned into a full color in limb code
+	limb.variable_color = "62A262" //Gets turned into a full color in limb code
 	limb.update_icon_dropped()
 
 /obj/machinery/limbgrower/RefreshParts()

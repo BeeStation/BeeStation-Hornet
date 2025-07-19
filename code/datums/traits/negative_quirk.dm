@@ -413,7 +413,6 @@
 /datum/quirk/prosthetic_limb/on_spawn()
 	var/limb_slot = read_choice_preference(/datum/preference/choiced/quirk/prosthetic_limb_location) || pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG) // default to random
 	var/mob/living/carbon/human/H = quirk_target
-	var/obj/item/bodypart/old_part = H.get_bodypart(limb_slot)
 	var/obj/item/bodypart/prosthetic
 	switch(limb_slot)
 		if(BODY_ZONE_L_ARM)
@@ -428,9 +427,7 @@
 		if(BODY_ZONE_R_LEG)
 			prosthetic = new/obj/item/bodypart/r_leg/robot/surplus(quirk_target)
 			slot_string = "right leg"
-	prosthetic.replace_limb(H)
-	qdel(old_part)
-	H.regenerate_icons()
+	H.del_and_replace_bodypart(prosthetic)
 	medical_record_text = "Patient uses a low-budget prosthetic on the [prosthetic.name]."
 
 /datum/quirk/prosthetic_limb/post_spawn()

@@ -614,13 +614,6 @@
 	program_type = /datum/nanite_program/protocol/offline
 	category = list("Protocols_Nanites")
 
-/datum/design/nanites/hive
-	name = "Hive Protocol"
-	desc = "Storage Protocol: the nanites use a more efficient grid arrangment for volume storage, increasing maximum volume in a host."
-	id = "hive_nanites"
-	program_type = /datum/nanite_program/protocol/hive
-	category = list("Protocols_Nanites")
-
 /datum/design/nanites/zip
 	name = "Zip Protocol"
 	desc = "Storage Protocol: the nanites are disassembled and compacted when unused, greatly increasing the maximum volume while in a host. However, the process slows down the replication rate slightly."
@@ -642,7 +635,7 @@
 	id = "unsafe_storage_nanites"
 	program_type = /datum/nanite_program/protocol/unsafe_storage
 	category = list("Protocols_Nanites")
-	
+
 ////////////////////NANITE CLASSIFIED//////////////////////////////////////
 /datum/design/nanites/mindshield
 	name = "Mental Barrier"

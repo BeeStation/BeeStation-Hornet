@@ -1081,11 +1081,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		return ..()
 	return 0
 
-/obj/item/attack_basic_mob(mob/living/basic/user)
-	if (obj_flags & CAN_BE_HIT)
-		return ..()
-	return 0
-
 /obj/item/burn()
 	if(!QDELETED(src))
 		var/turf/T = get_turf(src)
@@ -1319,7 +1314,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	return !HAS_TRAIT(src, TRAIT_NODROP)
 
 /obj/item/proc/doStrip(mob/stripper, mob/owner)
-	return owner.dropItemToGround(src)
+	. = owner.doUnEquip(src, force, drop_location(), FALSE)
+	return stripper.put_in_hands(src)
 
 /obj/item/ex_act(severity, target)
 	if(resistance_flags & INDESTRUCTIBLE)

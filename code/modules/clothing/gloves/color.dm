@@ -84,7 +84,7 @@
 	desc = "The old gloves your great grandfather stole from Engineering, many moons ago. They've seen some tough times recently."
 
 /obj/item/clothing/gloves/color/black
-	desc = "These gloves are fire-resistant."
+	desc = "These gloves are thick and fire-resistant."
 	name = "black gloves"
 	icon_state = "black"
 	item_state = "blackgloves"
