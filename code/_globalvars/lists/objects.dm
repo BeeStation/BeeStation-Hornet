@@ -89,3 +89,15 @@ GLOBAL_LIST_INIT(prototype_organs, typecacheof(list(
 	/obj/item/organ/tongue/dullahan,
 	/obj/item/organ/eyes/dullahan,
 ), only_root_path = TRUE))
+
+// List of organ typepaths similiar to prototype_organs, but including subtypes
+GLOBAL_LIST_INIT(blacklist_organs, typecacheof(list(
+	//initilization check these at some point
+	/obj/item/organ/wings,
+	/obj/item/organ/ears/cat,
+	/obj/item/organ/horns,
+	/obj/item/organ/frills,
+	/obj/item/organ/tail,
+	/obj/item/organ/spines,
+	/obj/item/organ/snout,
+), only_root_path = FALSE))
