@@ -409,4 +409,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// When applied to a bodypart, it will not regenerate stamina damage
 #define TRAIT_BODYPART_NO_STAMINA_REGENERATION "no_stamina_regen"
 
+/// The mob will not be able to take organ damage from penetration attacks
+#define TRAIT_NO_ORGAN_PENETRATION "no_organ_penetration"
+
 // END TRAIT DEFINES

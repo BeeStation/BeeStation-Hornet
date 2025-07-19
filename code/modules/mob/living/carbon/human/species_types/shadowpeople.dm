@@ -126,6 +126,7 @@
 		TRAIT_NODISMEMBER,
 		TRAIT_NOHUNGER,
 		TRAIT_NOBLOOD,
+		TRAIT_NO_ORGAN_PENETRATION
 	)
 	mutanteyes = /obj/item/organ/eyes/night_vision/nightmare
 	mutantheart = /obj/item/organ/heart/nightmare
