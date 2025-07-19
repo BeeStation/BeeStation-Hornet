@@ -413,7 +413,7 @@
 	name = "apid lungs"
 	desc = "Lungs from an apid, or beeperson. Thanks to the many spiracles an apid has, these lungs are capable of gathering more oxygen from low-pressure environments."
 	icon_state = "lungs"
-	safe_breath_min = 8
+	safe_breath_min = 1 // If oxygen is present, they can breathe
 
 /obj/item/organ/lungs/ashwalker
 	name = "ash walker lungs"
