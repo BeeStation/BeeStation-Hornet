@@ -193,6 +193,11 @@
 	return /datum/sprite_accessory/underwear/male_hearts::name
 
 /datum/preference/choiced/underwear/create_informed_default_value(datum/preferences/preferences)
+	var/species_type = preferences.read_preference(/datum/preference/choiced/species)
+	// Mankini has the least confliction with digilegs and tails
+	if(species_type == /datum/species/lizard)
+		return /datum/sprite_accessory/underwear/male_mankini::name
+
 	var/gender = preferences.read_preference(/datum/preference/choiced/gender)
 	var/datum/sprite_accessory/picked_underwear = pick_default_accessory(GLOB.underwear_list, null, 0, gender)
 	if(!picked_underwear)

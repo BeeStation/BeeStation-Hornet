@@ -69,14 +69,21 @@
 	return ..()
 
 /datum/status_effect/process()
-	if(!owner)
+	SHOULD_NOT_OVERRIDE(TRUE)
+
+	if(QDELETED(owner))
 		qdel(src)
 		return
+
 	var/needs_update = last_shown_duration != CEILING((duration - world.time) / 10, 1)
 	if(tick_interval < world.time)
 		tick()
 		tick_interval = world.time + initial(tick_interval)
+		if(QDELING(src))
+			// tick deleted us, no need to continue
+			return
 		needs_update = TRUE
+
 	if (needs_update)
 		update_icon()
 	if(duration != -1 && duration < world.time)
