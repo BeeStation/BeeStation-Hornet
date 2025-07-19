@@ -6,7 +6,6 @@
 	supervisors = "the chief medical officer"
 	faction = "Station"
 	total_positions = 2
-	spawn_positions = 2
 	selection_color = "#d4ebf2"
 	// Requires some understanding of medical, but is a relatively
 	// easy role to learn.

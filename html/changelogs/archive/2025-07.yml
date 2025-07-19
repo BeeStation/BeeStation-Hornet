@@ -205,3 +205,78 @@
   itsmeow:
   - rscadd: TGUI Say now supports system DPI scaling on BYOND 516, and will no longer
       display at the incorrect size.
+2025-07-16:
+  Asdfagi:
+  - tweak: pyroclastic anomaly slimes now spawn with a transformative light pink extract
+      applied, meaning that their offspring can also become sentient
+  - tweak: some wording for ghostspawn slimes without a master expanded for clarity
+  Rukofamicom:
+  - rscdel: Removed TC fuel rods
+2025-07-17:
+  ClownMoff:
+  - tweak: 'Corgstation: Gave the kitchen and bar a more modern look and added some
+      more doors'
+  - bugfix: fixed monkeys not using their icon on StrongDMM
+  PowerfulBacon:
+  - tweak: The job assignment algorithm has been changed to prioritise statistical
+      randomness for players with many job roles enabled, over ensuring that head
+      and security positions are filled. Selecting all jobs to medium ensures that
+      you have the same probability of rolling any job, while setting all jobs to
+      low means that you will get the jobs which other players did not select.
+  - tweak: If the round starts with less than 7 players online, then all but the captain,
+      shaft miner and basic department jobs will be disabled and these roles will
+      be given access to their entire department.
+  - tweak: If the roundstarts with less than 14 players online, some non-important
+      job roles will be disabled.
+  - tweak: Skeleton crew access is now based on job presence rather than population.
+  - tweak: There are now unlimited job slots for medical doctors, security officers,
+      engineerings, cargo technicians and scientists but for these slots to be open
+      requires there to be at most a difference of 2 between the most and least populated
+      of these jobs.
+  VmpOS2NHSkhkejA9:
+  - tweak: honeycombs are food, they must be ground up to get their reagents now.
+  - bugfix: honeycombs no longer shatter into glass when thrown
+  rkz, Jacquerel, tralezab, seris02, LemonInTheDark, itseasytosee, Capybara Holly, MrMelbert, vinylspiders:
+  - rscadd: Monkeys will play songs if handed instruments
+  - refactor: Refactored monkey AI trees
+  - code_imp: replaced a lot of var usages that were resulting in harddels with weakrefs
+  - bugfix: Monkeys will no longer attack with items worse than their basic bite
+  - refactor: Datum AI can now switch to different movement datums in their behavior
+  - code_imp: added AI support for untamed mobs to run away from humans. Not added
+      to any basic controllers at the moment.
+  - bugfix: fixed erroneous target removal in the middle of AI actions
+  - bugfix: hostile basic mobs cant bite through walls
+  - refactor: refactored most mob ai code to operate off of signals
+  - bugfix: basic mobs can now be scanned for DNA vault
+  - bugfix: basic mobs can now receive bluespace radio
+  - bugfix: adds handling for basic mobs when slime fed on (invincible ian moment)
+2025-07-18:
+  Asdfagi:
+  - bugfix: mindless bodies can once again be body-only scanned in the clone scanner
+      instead of causing a runtime error
+  Nakalon:
+  - tweak: Stripping a mob now puts the item in the strippers hands
+  Rukofamicom:
+  - balance: Hand restraints such as handcuffs are now much simpler to break out of.
+      Each attempt takes only five seconds and gives a miniscule chance of breaking
+      out immediately if you get lucky with a compounding chance after each attempt.
+      Each attempt stacks up to eventually being enough to guarantee the cuffs are
+      removed once your total attempts are equal to the breakout time as well.
+  - balance: Attempts to remove any types of restraint (Bola, cuffs, straight jackets,
+      etc.) no longer require you to be still and motionless, which means you can
+      run around like a headless chicken and still break out of some cuffs. Being
+      dragged in circles by an officer no longer interrupts breakout attempts either.
+  - balance: Because the general process for breaking hand restraints is now much
+      more consistent, the base times for all three hand restraints has been increased
+      dramatically so that handcuffs are still effective at their intended purpose,
+      just without being an indefinite restraint.
+  - tweak: Buckle-cuffed players are able to remove their restraints first now, so
+      buckling a player who is cuffed does nothing to lengthen the effective restraint
+      time further, it only prevents them from running around.
+  - tweak: straight jackets take two minutes to break out of instead of five now,
+      because five is an excessive amount of time to potentially stack on top of cuffs.
+  - tweak: Xenomorphs can no longer instantly break cuffs. They use the same define
+      and code as hulks do, taking five seconds to break the cuffs. In both hulk and
+      xeno cases, the cuffs can now be broken while moving.
+  marshmellow10:
+  - bugfix: fixes resist

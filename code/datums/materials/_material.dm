@@ -164,7 +164,7 @@ Simple datum which is instanced once per type and is used for every object of sa
 	if(istype(source, /obj)) //objs
 		on_removed_obj(source, amount, material_flags)
 
-	if(istype(source, /turf)) //turfs
+	else if(istype(source, /turf)) //turfs
 		on_removed_turf(source, amount, material_flags)
 
 ///This proc is called when the material is removed from an object specifically.

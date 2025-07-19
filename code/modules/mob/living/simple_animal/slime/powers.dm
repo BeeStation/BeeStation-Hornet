@@ -53,27 +53,34 @@
 		Feedstop()
 		return FALSE
 
-	if(issilicon(M))
+	if(issilicon(M) || (MOB_ROBOTIC in M.mob_biotypes))
 		return FALSE
 
 	if(isanimal(M))
-		var/mob/living/simple_animal/S = M
-		if(S.damage_coeff[TOX] <= 0 && S.damage_coeff[CLONE] <= 0) //The creature wouldn't take any damage, it must be too weird even for us.
+		var/mob/living/simple_animal/simple_meal = M
+		if(simple_meal.damage_coeff[TOX] <= 0 && simple_meal.damage_coeff[CLONE] <= 0) //The creature wouldn't take any damage, it must be too weird even for us.
 			if(silent)
 				return FALSE
-			to_chat(src, span_warning(pick("This subject is incompatible", "This subject does not have life energy", "This subject is empty", "I am not satisified", "I can not feed from this subject", "I do not feel nourished", "This subject is not food")))
+			to_chat(src, "<span class='warning'>[pick("This subject is incompatible", \
+				"This subject does not have life energy", "This subject is empty", \
+				"I am not satisified", "I can not feed from this subject", \
+				"I do not feel nourished", "This subject is not food")]!</span>")
+			return FALSE
+	else if(isbasicmob(M))
+		var/mob/living/basic/basic_meal = M
+		if(basic_meal.damage_coeff[TOX] <= 0 && basic_meal.damage_coeff[CLONE] <= 0)
+			if (silent)
+				return FALSE
+			to_chat(src, "<span class='warning'>[pick("This subject is incompatible", \
+				"This subject does not have life energy", "This subject is empty", \
+				"I am not satisified", "I can not feed from this subject", \
+				"I do not feel nourished", "This subject is not food")]!</span>")
 			return FALSE
 
 	if(isslime(M))
 		if(silent)
 			return FALSE
 		to_chat(src, span_warning("<i>I can't latch onto another slime...</i>"))
-		return FALSE
-
-	if(isipc(M))
-		if(silent)
-			return FALSE
-		to_chat(src, span_warning("<i>This subject does not have life energy...</i>"))
 		return FALSE
 
 	if(docile)
