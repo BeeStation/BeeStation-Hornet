@@ -1,0 +1,5 @@
+author: Solene & Mr.Yoshimoto
+delete-after: true
+changes:
+  - tweak: Mouse diseases are now always dormant, eating one won't infect anyone.
+  - rscadd: Extrapolators now work on dead mice
