@@ -1,6 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - bugfix: Fixed species icons, antagonist icons, paper stamps, and CondiMaster icons
-      being invisible.
-  - tweak: Capitalized 'prisoner' in the antagonist preferences menu.
