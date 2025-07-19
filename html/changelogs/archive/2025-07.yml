@@ -281,6 +281,9 @@
   marshmellow10:
   - bugfix: fixes resist
 2025-07-19:
+  Solene & Mr.Yoshimoto:
+  - tweak: Mouse diseases are now always dormant, eating one won't infect anyone.
+  - rscadd: Extrapolators now work on dead mice
   itsmeow:
   - bugfix: Fixed species icons, antagonist icons, paper stamps, and CondiMaster icons
       being invisible.
