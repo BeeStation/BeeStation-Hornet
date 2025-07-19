@@ -213,6 +213,10 @@
   Rukofamicom:
   - rscdel: Removed TC fuel rods
 2025-07-17:
+  ClownMoff:
+  - tweak: 'Corgstation: Gave the kitchen and bar a more modern look and added some
+      more doors'
+  - bugfix: fixed monkeys not using their icon on StrongDMM
   PowerfulBacon:
   - tweak: The job assignment algorithm has been changed to prioritise statistical
       randomness for players with many job roles enabled, over ensuring that head
@@ -246,3 +250,38 @@
   - bugfix: basic mobs can now be scanned for DNA vault
   - bugfix: basic mobs can now receive bluespace radio
   - bugfix: adds handling for basic mobs when slime fed on (invincible ian moment)
+2025-07-18:
+  Asdfagi:
+  - bugfix: mindless bodies can once again be body-only scanned in the clone scanner
+      instead of causing a runtime error
+  Nakalon:
+  - tweak: Stripping a mob now puts the item in the strippers hands
+  Rukofamicom:
+  - balance: Hand restraints such as handcuffs are now much simpler to break out of.
+      Each attempt takes only five seconds and gives a miniscule chance of breaking
+      out immediately if you get lucky with a compounding chance after each attempt.
+      Each attempt stacks up to eventually being enough to guarantee the cuffs are
+      removed once your total attempts are equal to the breakout time as well.
+  - balance: Attempts to remove any types of restraint (Bola, cuffs, straight jackets,
+      etc.) no longer require you to be still and motionless, which means you can
+      run around like a headless chicken and still break out of some cuffs. Being
+      dragged in circles by an officer no longer interrupts breakout attempts either.
+  - balance: Because the general process for breaking hand restraints is now much
+      more consistent, the base times for all three hand restraints has been increased
+      dramatically so that handcuffs are still effective at their intended purpose,
+      just without being an indefinite restraint.
+  - tweak: Buckle-cuffed players are able to remove their restraints first now, so
+      buckling a player who is cuffed does nothing to lengthen the effective restraint
+      time further, it only prevents them from running around.
+  - tweak: straight jackets take two minutes to break out of instead of five now,
+      because five is an excessive amount of time to potentially stack on top of cuffs.
+  - tweak: Xenomorphs can no longer instantly break cuffs. They use the same define
+      and code as hulks do, taking five seconds to break the cuffs. In both hulk and
+      xeno cases, the cuffs can now be broken while moving.
+  marshmellow10:
+  - bugfix: fixes resist
+2025-07-19:
+  itsmeow:
+  - bugfix: Fixed species icons, antagonist icons, paper stamps, and CondiMaster icons
+      being invisible.
+  - tweak: Capitalized 'prisoner' in the antagonist preferences menu.
