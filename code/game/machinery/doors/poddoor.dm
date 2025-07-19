@@ -14,7 +14,6 @@
 	armor_type = /datum/armor/door_poddoor
 	resistance_flags = FIRE_PROOF
 	damage_deflection = 70
-	ai_view_enabled = FALSE
 	var/datum/crafting_recipe/recipe_type = /datum/crafting_recipe/blast_doors
 	var/deconstruction = BLASTDOOR_FINISHED // deconstruction step
 	var/base_state = "blast"

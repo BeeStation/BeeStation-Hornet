@@ -7,7 +7,6 @@
 	resistance_flags = FIRE_PROOF
 	power_channel = AREA_USAGE_ENVIRON
 	active_power_usage = 1
-	ai_view_enabled = FALSE
 	var/on = TRUE
 
 	/// The unique string that represents which atmos chamber to associate with.

@@ -78,6 +78,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 			ai_view_x = 14
 
 	update_ai_view()
+	add_ai_view()
 
 /obj/machinery/door/window/ComponentInitialize()
 	. = ..()

@@ -1,6 +1,5 @@
 /obj/machinery/atmospherics/pipe
 	icon = 'icons/obj/atmospherics/pipes/!pipes_bitmask.dmi'
-	ai_view_enabled = FALSE
 	damage_deflection = 12
 	/// Temporary holder for gases in the absence of a pipenet
 	var/datum/gas_mixture/air_temporary

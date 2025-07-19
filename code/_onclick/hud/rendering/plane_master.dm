@@ -186,6 +186,7 @@
 	plane = CAMERA_STATIC_PLANE
 	appearance_flags = PLANE_MASTER
 	blend_mode = BLEND_OVERLAY
+	render_target = CAMERA_STATIC_PLANE_RENDER_TARGET
 
 /atom/movable/screen/plane_master/ai_machinery
 	name = "ai machinery plane master"
@@ -193,11 +194,9 @@
 	appearance_flags = PLANE_MASTER
 	blend_mode = BLEND_OVERLAY
 
-//TODO: FIGURE OUT HOW MASKS WORK
-//atom/movable/screen/plane_master/ai_machinery/backdrop(mob/mymob)
-//	. = ..()
-//	add_filter("glow", 1, list(type = "bloom", threshold = rgb(128, 128, 128), size = 2, offset = 1, alpha = 255))
-//	add_filter("mask", 2, alpha_mask_filter(render_source = "blind_fullscreen_overlay"))
+/atom/movable/screen/plane_master/ai_machinery/backdrop(mob/mymob)
+	. = ..()
+	add_filter("mask", 1, alpha_mask_filter(render_source = CAMERA_STATIC_PLANE_RENDER_TARGET))
 
 /atom/movable/screen/plane_master/o_light_visual
 	name = "overlight light visual plane master"
