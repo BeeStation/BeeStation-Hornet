@@ -78,6 +78,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 
 	if(bodypart_overlay)
 		setup_bodypart_overlay()
+	START_PROCESSING(SSobj, src)
 
 /obj/item/organ/Destroy()
 	if(bodypart_owner && !owner && !QDELETED(bodypart_owner))
@@ -119,10 +120,6 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		return
 	owner.remove_status_effect(status, type)
 
-/obj/item/organ/proc/on_owner_examine(datum/source, mob/user, list/examine_list)
-	SIGNAL_HANDLER
-	return
-
 /obj/item/organ/proc/on_find(mob/living/finder)
 	return
 
@@ -133,14 +130,30 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 	if(!IS_ROBOTIC_ORGAN(src) && (clean_types & CLEAN_TYPE_BLOOD))
 		add_blood_DNA(blood_dna_info)
 
-/obj/item/organ/process(delta_time, times_fired)
-	return
+/obj/item/organ/proc/on_death(delta_time, times_fired) //runs decay when outside of a person
+	if(organ_flags & (ORGAN_ROBOTIC | ORGAN_FROZEN))
+		return
+	applyOrganDamage(decay_factor * maxHealth * delta_time)
 
-/obj/item/organ/proc/on_death(delta_time, times_fired)
-	return
+/// NOTE: THIS IS VERY HOT. Be careful what you put in here
+/// To give you some scale, if there's 100 carbons in the game, they each have maybe 9 organs
+/// So that's 900 calls to this proc every life process. Please don't be dumb
+/obj/item/organ/proc/on_life(delta_time, times_fired) //repair organ damage if the organ is not failing
+	if(organ_flags & ORGAN_FAILING)
+		return
 
-/obj/item/organ/proc/on_life(delta_time, times_fired)
-	return
+	if(!damage) // No sense healing if you're not even hurt bro
+		return
+
+	if(IS_ROBOTIC_ORGAN(src)) // Robotic organs don't naturally heal
+		return
+
+	///Damage decrements by a percent of its maxhealth
+	var/healing_amount = healing_factor
+	///Damage decrements again by a percent of its maxhealth, up to a total of 4 extra times depending on the owner's health
+	if(owner)
+		healing_amount += (owner.satiety > 0) ? (4 * healing_factor * owner.satiety / MAX_SATIETY) : 0
+	applyOrganDamage(-healing_amount * maxHealth * delta_time, damage) // pass current damage incase we are over cap
 
 /obj/item/organ/examine(mob/user)
 	. = ..()
@@ -162,11 +175,14 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 
 ///Used as callbacks by object pooling
 /obj/item/organ/proc/exit_wardrobe()
-	return
+	START_PROCESSING(SSobj, src)
 
 //See above
 /obj/item/organ/proc/enter_wardrobe()
-	return
+	STOP_PROCESSING(SSobj, src)
+
+/obj/item/organ/process(seconds_per_tick, times_fired)
+	on_death(seconds_per_tick, times_fired) //Kinda hate doing it like this, but I really don't want to call process directly.
 
 /obj/item/organ/proc/OnEatFrom(eater, feeder)
 	useable = FALSE //You can't use it anymore after eating it you spaztic

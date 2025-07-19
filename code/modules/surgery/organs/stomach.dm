@@ -106,12 +106,12 @@
 	var/max_charge = 5000 //same as upgraded+ cell
 	var/charge = 5000
 
-/obj/item/organ/stomach/battery/mob_insert(mob/living/carbon/receiver, special, movement_flags)
+/obj/item/organ/stomach/battery/on_mob_insert(mob/living/carbon/receiver, special, movement_flags)
 	. = ..()
 	RegisterSignal(receiver, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, PROC_REF(charge))
 	update_nutrition()
 
-/obj/item/organ/stomach/battery/mob_remove(mob/living/carbon/stomach_owner, special, movement_flags)
+/obj/item/organ/stomach/battery/on_mob_insert(mob/living/carbon/stomach_owner, special, movement_flags)
 	UnregisterSignal(stomach_owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT)
 	if(!HAS_TRAIT(stomach_owner, TRAIT_NOHUNGER) && HAS_TRAIT(stomach_owner, TRAIT_POWERHUNGRY))
 		stomach_owner.nutrition = 0

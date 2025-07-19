@@ -82,7 +82,7 @@
 	. = ..()
 	populate_gas_info()
 
-/obj/item/organ/lungs/mob_insert(mob/living/carbon/receiver, special = FALSE, movement_flags)
+/obj/item/organ/lungs/on_mob_insert(mob/living/carbon/receiver, special = FALSE, movement_flags)
 	// This may look weird, but uh, organ code is weird, so we FIRST check to see if this organ is going into a NEW person.
 	// If it is going into a new person, ..() will ensure that organ is Remove()d first, and we won't run into any issues with duplicate signals.
 	var/new_owner = QDELETED(owner) || owner != receiver
@@ -91,7 +91,7 @@
 	if(new_owner)
 		RegisterSignal(receiver, SIGNAL_ADDTRAIT(TRAIT_NOBREATH), PROC_REF(on_nobreath))
 
-/obj/item/organ/lungs/mob_remove(mob/living/carbon/organ_owner, special, movement_flags)
+/obj/item/organ/lungs/on_mob_remove(mob/living/carbon/organ_owner, special, movement_flags)
 	. = ..()
 	UnregisterSignal(organ_owner, SIGNAL_ADDTRAIT(TRAIT_NOBREATH))
 	LAZYNULL(thrown_alerts)

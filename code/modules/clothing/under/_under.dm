@@ -31,7 +31,7 @@
 	if(!isinhands)
 		if(damaged_clothes)
 			. += mutable_appearance('icons/effects/item_damage.dmi', "damageduniform", item_layer +  0.0002)
-		if(HAS_BLOOD_DNA(src))
+		if(GET_ATOM_BLOOD_DNA_LENGTH(src))
 			. += mutable_appearance('icons/effects/blood.dmi', "uniformblood", item_layer +  0.0002)
 		if(accessory_overlay)
 			accessory_overlay.layer = item_layer +  0.0001

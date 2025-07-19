@@ -74,14 +74,14 @@
 /obj/item/organ/tongue/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER
 
-/obj/item/organ/tongue/mob_insert(mob/living/carbon/receiver, special, movement_flags)
+/obj/item/organ/tongue/on_mob_insert(mob/living/carbon/receiver, special, movement_flags)
 	. = ..()
 
 	if(modifies_speech)
 		RegisterSignal(receiver, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 	receiver.UnregisterSignal(receiver, COMSIG_MOB_SAY)
 
-/obj/item/organ/tongue/Remove(mob/living/carbon/tongue_owner, special, movement_flags)
+/obj/item/organ/tongue/on_mob_remove(mob/living/carbon/tongue_owner, special, movement_flags)
 	UnregisterSignal(tongue_owner, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 	tongue_owner.RegisterSignal(tongue_owner, COMSIG_MOB_SAY, TYPE_PROC_REF(/mob/living/carbon, handle_tongueless_speech))
 	return ..()

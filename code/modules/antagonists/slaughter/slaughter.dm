@@ -138,7 +138,7 @@
 	var/datum/action/spell/jaunt/bloodcrawl/crawl = new(heart_owner)
 	crawl.Grant(heart_owner)
 
-/obj/item/organ/heart/demon/on_mob_remove(mob/living/carbon/heart_owner, special = FALSE)
+/obj/item/organ/heart/demon/on_mob_remove(mob/living/carbon/heart_owner, special = FALSE, movement_flags)
 	..()
 	var/datum/action/spell/jaunt/bloodcrawl/crawl = locate() in heart_owner.actions
 	qdel(crawl)

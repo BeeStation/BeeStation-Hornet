@@ -111,14 +111,14 @@
 	if(user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		applyto(user, user)
 
-/obj/item/organ/regenerative_core/mob_insert(mob/living/carbon/target_carbon, special, movement_flags)
+/obj/item/organ/regenerative_core/on_mob_insert(mob/living/carbon/target_carbon, special, movement_flags)
 	. = ..()
 
 	if(!preserved && !inert)
 		preserved(TRUE)
 		owner.visible_message(span_notice("[src] stabilizes as it's inserted."))
 
-/obj/item/organ/regenerative_core/mob_remove(mob/living/carbon/M, special)
+/obj/item/organ/regenerative_core/on_mob_insert(mob/living/carbon/M, special, movement_flags)
 	if(!inert && !special)
 		owner.visible_message(span_notice("[src] rapidly decays as it's removed."))
 		go_inert()

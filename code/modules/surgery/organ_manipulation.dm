@@ -145,7 +145,7 @@
 			to_chat(user, span_warning("[target_organ] seems to have been chewed on, you can't use this!"))
 			return SURGERY_STEP_FAIL
 
-		if(!can_use_organ(user, meatslab))
+		if(!can_use_organ(meatslab))
 			return SURGERY_STEP_FAIL
 
 		display_results(
@@ -162,7 +162,7 @@
 		var/list/unfiltered_organs = target.get_organs_for_zone(target_zone)
 		var/list/organs = list()
 		for(var/organ in unfiltered_organs)
-			if(can_use_organ(user, organ))
+			if(can_use_organ(organ))
 				organs.Add(organ)
 		if(!length(organs))
 			to_chat(user, span_warning("There are no removable organs in [target]'s [parse_zone(target_zone)]!"))
@@ -240,7 +240,7 @@
 	return ..()
 
 ///You can never use this MUHAHAHAHAHAHAH (because its the byond version of abstract)
-/datum/surgery_step/manipulate_organs/proc/can_use_organ(mob/user, obj/item/organ/organ)
+/datum/surgery_step/manipulate_organs/proc/can_use_organ(obj/item/organ/organ)
 	return FALSE
 
 ///Surgery step for internal organs, like hearts and brains

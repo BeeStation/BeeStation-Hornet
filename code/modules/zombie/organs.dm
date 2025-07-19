@@ -24,19 +24,24 @@
 	GLOB.zombie_infection_list -= src
 	. = ..()
 
-/obj/item/organ/zombie_infection/on_mob_insert(mob/living/carbon/M, special = FALSE, movement_flags)
+/obj/item/organ/zombie_infection/on_mob_insert(mob/living/carbon/new_owner, special = FALSE, movement_flags)
 	. = ..()
-	if(!.)
-		return .
+	RegisterSignal(new_owner, COMSIG_LIVING_DEATH, PROC_REF(organ_owner_died))
 	START_PROCESSING(SSobj, src)
 
-/obj/item/organ/zombie_infection/on_mob_remove(mob/living/carbon/M, special = FALSE)
+/obj/item/organ/zombie_infection/on_mob_remove(mob/living/carbon/new_owner, special = FALSE, movement_flags)
 	. = ..()
 	STOP_PROCESSING(SSobj, src)
-	if(iszombie(M) && old_species && !special && !QDELETED(src))
-		M.set_species(old_species)
+	if(iszombie(new_owner) && old_species && !special)
+		new_owner.set_species(old_species)
 	if(timer_id)
 		deltimer(timer_id)
+	UnregisterSignal(new_owner, COMSIG_LIVING_DEATH)
+
+/obj/item/organ/zombie_infection/proc/organ_owner_died(mob/living/carbon/source, gibbed)
+	SIGNAL_HANDLER
+	if(iszombie(source))
+		qdel(src) // Congrats you somehow died so hard you stopped being a zombie
 
 /obj/item/organ/zombie_infection/on_find(mob/living/finder)
 	to_chat(finder, span_warning("Inside the head is a disgusting black web of pus and viscera, bound tightly around the brain like some biological harness."))

@@ -158,7 +158,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/bci_action)
 	var/datum/port/input/message
 	var/datum/port/input/send_message_signal
 	var/datum/port/output/user_port
-	var/datum/weakref/user
+
+	var/obj/item/organ/cyberimp/bci/bci
 
 /obj/item/circuit_component/bci_core/populate_ports()
 	message = add_input_port("Message", PORT_TYPE_STRING)
@@ -171,7 +172,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/bci_action)
 	return ..()
 
 /obj/item/circuit_component/bci_core/register_shell(atom/movable/shell)
-	var/obj/item/organ/cyberimp/bci/bci = shell
+	bci = shell
 
 	charge_action = new(src)
 	bci.actions += list(charge_action)
@@ -180,7 +181,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/bci_action)
 	RegisterSignal(shell, COMSIG_ORGAN_REMOVED, PROC_REF(on_organ_removed))
 
 /obj/item/circuit_component/bci_core/unregister_shell(atom/movable/shell)
-	var/obj/item/organ/cyberimp/bci/bci = shell
+	bci = shell
 
 	bci.actions -= charge_action
 	QDEL_NULL(charge_action)
@@ -200,20 +201,18 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/bci_action)
 	if (!sent_message)
 		return
 
-	var/mob/living/carbon/resolved_owner = user?.resolve()
-	if (isnull(resolved_owner))
+	if (isnull(bci.owner))
 		return
 
-	if (resolved_owner.stat == DEAD)
+	if (bci.owner.stat == DEAD)
 		return
 
-	to_chat(resolved_owner, "<i>You hear a strange, robotic voice in your head...</i> \"[span_robot("[html_encode(sent_message)]")]\"")
+	to_chat(bci.owner, "<i>You hear a strange, robotic voice in your head...</i> \"[span_robot("[html_encode(sent_message)]")]\"")
 
 /obj/item/circuit_component/bci_core/proc/on_organ_implanted(datum/source, mob/living/carbon/owner)
 	SIGNAL_HANDLER
 
 	user_port.set_output(owner)
-	user = WEAKREF(owner)
 
 	RegisterSignal(owner, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, PROC_REF(on_borg_charge))
@@ -223,7 +222,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/bci_action)
 	SIGNAL_HANDLER
 
 	user_port.set_output(null)
-	user = null
 
 	UnregisterSignal(owner, list(
 		COMSIG_PARENT_EXAMINE,

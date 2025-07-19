@@ -43,7 +43,7 @@
 		. += span_notice("It is bigger than average...")
 */
 
-/obj/item/organ/brain/mob_insert(mob/living/carbon/brain_owner, special = FALSE, movement_flags)
+/obj/item/organ/brain/on_mob_insert(mob/living/carbon/brain_owner, special = FALSE, movement_flags)
 	. = ..()
 	if(!.)
 		return
@@ -97,7 +97,7 @@
 	if(!special && !(brain_owner.living_flags & STOP_OVERLAY_UPDATE_BODY_PARTS))
 		brain_owner.update_body_parts()
 
-/obj/item/organ/brain/mob_remove(mob/living/carbon/organ_owner, special, movement_flags)
+/obj/item/organ/brain/on_mob_remove(mob/living/carbon/organ_owner, special, movement_flags)
 
 	. = ..()
 
@@ -111,7 +111,7 @@
 		src.ai_controller = organ_owner.ai_controller //AI is stored in the brain but doesn't control it.
 		organ_owner.ai_controller.UnpossessPawn(FALSE) //The body no longer has AI.
 
-	if((!gc_destroyed || (owner && !owner.gc_destroyed)) && !(movement_flags & NO_ID_TRANSFER))
+	if((!QDELETED(src) || !QDELETED(owner)) && !(movement_flags & NO_ID_TRANSFER))
 		transfer_identity(organ_owner)
 	if(!special)
 		if(!(organ_owner.living_flags & STOP_OVERLAY_UPDATE_BODY_PARTS))

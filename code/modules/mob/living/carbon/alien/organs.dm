@@ -97,7 +97,7 @@
 	organ_owner.faction |= FACTION_ALIEN
 	return ..()
 
-/obj/item/organ/alien/hivenode/on_mob_remove(mob/living/carbon/organ_owner, special = FALSE)
+/obj/item/organ/alien/hivenode/on_mob_remove(mob/living/carbon/organ_owner, special = FALSE, movement_flags)
 	if(organ_owner)
 		organ_owner.faction -= ROLE_ALIEN
 	return ..()

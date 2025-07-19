@@ -140,6 +140,8 @@
 	var/max_hit_damage = null
 
 	var/resistance_flags = NONE // INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ON_FIRE | UNACIDABLE | ACID_PROOF
+	/// forensics datum, contains fingerprints, fibres, blood_dna and hiddenprints on this atom
+	var/datum/forensics/forensics
 
 	/// the datum handler for our contents - see create_storage() for creation method
 	var/datum/storage/atom_storage
@@ -333,6 +335,9 @@
 
 	if(reagents)
 		QDEL_NULL(reagents)
+
+	if(forensics)
+		QDEL_NULL(forensics)
 
 	if(atom_storage)
 		QDEL_NULL(atom_storage)
@@ -756,7 +761,7 @@
 					. += span_danger("It's empty.")
 
 	if(HAS_TRAIT(user, TRAIT_PSYCHIC_SENSE))
-		var/list/souls = return_souls()
+		var/list/souls = GET_ATOM_SOULS(src)
 		if(!length(souls))
 			return
 		to_chat(user, span_notice("You sense a presence here..."))
@@ -853,6 +858,7 @@
 /// Updates the icon of the atom
 /atom/proc/update_icon(updates=ALL)
 	// SHOULD_CALL_PARENT(TRUE) this should eventually be set when all update_icons() are updated. As of current this makes zmimic sometimes not catch updates
+
 	SIGNAL_HANDLER
 
 	. = NONE
@@ -1038,9 +1044,9 @@
 	var/new_blood_dna = L.get_blood_dna_list()
 	if(!new_blood_dna)
 		return FALSE
-	var/old_length = blood_DNA_length()
+	var/old_length = GET_ATOM_BLOOD_DNA_LENGTH(src)
 	add_blood_DNA(new_blood_dna)
-	if(blood_DNA_length() == old_length)
+	if(GET_ATOM_BLOOD_DNA_LENGTH(src) == old_length)
 		return FALSE
 	return TRUE
 
