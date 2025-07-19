@@ -50,7 +50,9 @@
 	SHOULD_NOT_OVERRIDE(TRUE)
 
 	if(!iscarbon(receiver))
+		#ifdef TESTING
 		stack_trace("Tried to insert organ into non-carbon: [receiver.type]")
+		#endif
 		return FALSE
 
 	if(owner == receiver)
