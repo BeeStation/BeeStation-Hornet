@@ -173,6 +173,15 @@
 	/// Amount of users hovering us, if this is greater than 1 we need to clear references on destroy
 	var/hovered_user_count = 0
 
+// AI machinery view
+	var/ai_view_icon
+	var/ai_view_x = 0
+	var/ai_view_y = 0
+	///Does this atom have an AI appearance - used for stuff an AI can see through the fog of war
+	var/ai_view_enabled = FALSE
+	///Dedicated appearance the AI can see through the fog
+	var/mutable_appearance/hologram_appearance
+
 /**
   * Called when an atom is created in byond (built in engine proc)
   *
@@ -2178,3 +2187,28 @@ if (UNLINT(target.base_luminosity != new_value)) {\
 		new /datum/merger(id, allowed_types, src)
 		candidate = mergers[id]
 	return candidate
+
+/atom/proc/add_ai_view()
+	if(!ai_view_enabled)
+		return
+	add_overlay(hologram_appearance)
+
+/atom/proc/remove_ai_view()
+	cut_overlay(hologram_appearance)
+
+//This is so ass, feel free to screenshot
+/atom/proc/update_ai_view()
+	if(!ai_view_enabled)
+		return
+	var/replace = (hologram_appearance in overlays)
+	//Remove old appearance
+	remove_ai_view()
+	//Build new appearance
+	hologram_appearance = mutable_appearance('icons/effects/ai_view.dmi', ai_view_icon)
+	hologram_appearance.appearance_flags = KEEP_APART
+	hologram_appearance.pixel_x = ai_view_x || pixel_x
+	hologram_appearance.pixel_y = ai_view_y || pixel_y
+	hologram_appearance.plane = AI_MACHINERY_PLANE
+	//Put it back where you found it
+	if(replace)
+		add_ai_view()

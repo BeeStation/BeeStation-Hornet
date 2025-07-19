@@ -101,6 +101,11 @@
 	anchored = TRUE
 	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND | INTERACT_ATOM_UI_INTERACT
 
+	armor_type = /datum/armor/obj_machinery
+
+	ai_view_enabled = TRUE
+	ai_view_icon = "ai_machine"
+
 	var/machine_stat = NONE
 	var/use_power = IDLE_POWER_USE
 		//0 = dont use power
@@ -143,12 +148,6 @@
 	var/next_clicksound = 0	// value to compare with world.time for whether to play clicksound according to CLICKSOUND_INTERVAL
 	var/clicksound	// sound played on successful interface use by a carbon lifeform
 
-	// AI machinery view
-	var/ai_view_icon = "ai_machine"
-	var/ai_view_enabled = TRUE
-	var/ai_view_x = 0
-	var/ai_view_y = 0
-
 	// For storing and overriding ui id and dimensions
 	var/tgui_id // ID of TGUI interface
 	var/ui_style // ID of custom TGUI style (optional)
@@ -168,8 +167,6 @@
 
 	/// Disables some optimizations
 	var/always_area_sensitive = FALSE
-
-	armor_type = /datum/armor/obj_machinery
 
 /datum/armor/obj_machinery
 	melee = 25
@@ -195,6 +192,8 @@
 	if(!seller_department)
 		seller_department = dept_req_for_free
 
+	// Build our AI view / hologram appearance
+	update_ai_view()
 	// Add AI view
 	add_ai_view()
 
@@ -1087,20 +1086,3 @@
 	if(isliving(user))
 		last_used_time = world.time
 		last_user_mobtype = user.type
-
-/obj/machinery/proc/add_ai_view()
-	if(ai_view_enabled)
-		var/image/overlay = image(icon ='icons/effects/ai_view.dmi', icon_state = ai_view_icon, loc = src, pixel_x = ai_view_x, pixel_y = ai_view_y)
-		overlay.appearance_flags = RESET_COLOR | RESET_ALPHA
-		overlay.alpha = 256
-		overlay.plane = HUD_PLANE
-		overlay.override = FALSE
-		add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/aiview, ai_view_icon, overlay, )
-
-/obj/machinery/proc/remove_ai_view()
-	remove_alt_appearance(ai_view_icon)
-
-//This is so ass, feel free to screenshot
-/obj/machinery/proc/update_ai_view()
-	remove_alt_appearance(ai_view_icon)
-	add_ai_view()

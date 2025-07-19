@@ -13,8 +13,6 @@
 	max_integrity = 250
 	integrity_failure = 0.2
 
-	ai_view_enabled = FALSE
-
 	var/id = 0
 	var/sun_angle = 0		// sun angle as set by sun datum
 	var/obj/machinery/power/solar_control/control = null

@@ -15,9 +15,9 @@
 	active_power_usage = 20
 	power_channel = AREA_USAGE_LIGHT //Lights are calc'd via area so they dont need to be in the machine list
 	always_area_sensitive = TRUE
+	ai_view_icon = "ai_light"
 	ai_view_x = 0
 	ai_view_y = 0
-	ai_view_icon = "ai_light"
 	var/on = FALSE					// 1 if on, 0 if off
 	var/on_gs = FALSE
 	var/static_power_used = 0
@@ -94,6 +94,7 @@
 			ai_view_x = 14
 
 	update_ai_view()
+	add_ai_view()
 
 	//Setup area colours -pb
 	var/area/A = get_area(src)

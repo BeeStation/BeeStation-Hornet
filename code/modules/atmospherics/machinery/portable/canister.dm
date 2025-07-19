@@ -17,7 +17,6 @@
 	integrity_failure = 0.4
 	pressure_resistance = 7 * ONE_ATMOSPHERE
 	req_access = list()
-	ai_view_enabled = FALSE
 
 	var/icon/canister_overlay_file = 'icons/obj/atmospherics/canisters.dmi'
 
