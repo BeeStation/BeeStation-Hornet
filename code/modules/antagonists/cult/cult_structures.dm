@@ -35,11 +35,11 @@
 /obj/structure/destructible/cult/examine(mob/user)
 	. = ..()
 	. += span_notice("\The [src] is [anchored ? "":"not "]secured to the floor.")
-	if((iscultist(user) || isobserver(user)) && cooldowntime > world.time)
+	if((IS_CULTIST(user) || isobserver(user)) && cooldowntime > world.time)
 		. += span_cultitalic("The magic in [src] is too weak, [p_they()] will be ready to use again in [DisplayTimeText(cooldowntime - world.time)].")
 
 /obj/structure/destructible/cult/examine_status(mob/user)
-	if(iscultist(user) || isobserver(user))
+	if(IS_CULTIST(user) || isobserver(user))
 		var/t_It = p_they(TRUE)
 		var/t_is = p_are()
 		return span_cult("[t_It] [t_is] at <b>[round(atom_integrity * 100 / max_integrity)]%</b> stability.")
@@ -75,7 +75,7 @@
 	. = ..()
 	if(.)
 		return
-	if(!iscultist(user))
+	if(!IS_CULTIST(user))
 		to_chat(user, span_warning("You're pretty sure you know exactly what this is used for and you can't seem to touch it."))
 		return
 	if(!anchored)
@@ -100,7 +100,7 @@
 			pickedtype += /obj/item/reagent_containers/cup/glass/bottle/unholywater
 		else
 			return
-	if(src && !QDELETED(src) && anchored && pickedtype && Adjacent(user) && !user.incapacitated() && iscultist(user) && cooldowntime <= world.time)
+	if(src && !QDELETED(src) && anchored && pickedtype && Adjacent(user) && !user.incapacitated() && IS_CULTIST(user) && cooldowntime <= world.time)
 		cooldowntime = world.time + 2400
 		for(var/N in pickedtype)
 			new N(get_turf(src))
@@ -118,7 +118,7 @@
 	. = ..()
 	if(.)
 		return
-	if(!iscultist(user))
+	if(!IS_CULTIST(user))
 		to_chat(user, span_warning("The heat radiating from [src] pushes you back."))
 		return
 	if(!anchored)
@@ -143,7 +143,7 @@
 			pickedtype += /obj/item/shield/mirror
 		else
 			return
-	if(src && !QDELETED(src) && anchored && pickedtype && Adjacent(user) && !user.incapacitated() && iscultist(user) && cooldowntime <= world.time)
+	if(src && !QDELETED(src) && anchored && pickedtype && Adjacent(user) && !user.incapacitated() && IS_CULTIST(user) && cooldowntime <= world.time)
 		cooldowntime = world.time + 2400
 		for(var/N in pickedtype)
 			new N(get_turf(src))
@@ -184,7 +184,7 @@
 		for(var/mob/living/L in range(5, src))
 			if(L.health == L.maxHealth)
 				continue
-			if(!iscultist(L) && !isshade(L) && !isconstruct(L))
+			if(!IS_CULTIST(L) && !isshade(L) && !isconstruct(L))
 				continue
 			new /obj/effect/temp_visual/heal(get_turf(src), "#960000")
 			if(ishuman(L))
@@ -246,7 +246,7 @@
 	. = ..()
 	if(.)
 		return
-	if(!iscultist(user))
+	if(!IS_CULTIST(user))
 		to_chat(user, span_warning("These books won't open and it hurts to even try and read the covers."))
 		return
 	if(!anchored)
@@ -272,7 +272,7 @@
 			pickedtype += /obj/item/flashlight/flare/culttorch
 		else
 			return
-	if(src && !QDELETED(src) && anchored && pickedtype.len && Adjacent(user) && !user.incapacitated() && iscultist(user) && cooldowntime <= world.time)
+	if(src && !QDELETED(src) && anchored && pickedtype.len && Adjacent(user) && !user.incapacitated() && IS_CULTIST(user) && cooldowntime <= world.time)
 		cooldowntime = world.time + 2400
 		for(var/N in pickedtype)
 			new N(get_turf(src))
