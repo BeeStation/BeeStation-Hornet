@@ -148,7 +148,7 @@ GLOBAL_LIST_INIT(ai_employers, list(
 ///Checks if given mob is an awakened vessel
 #define IS_WOKEVESSEL(mob) (mob.mind?.has_antag_datum(/datum/antagonist/hivevessel))
 ///Checks if the given mob is a malfunctioning AI
-#define IS_MALF_AI(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/malf_ai))
+#define IS_MALF(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/malf_ai))
 
 // Max of all fugitive types
 #define MAXIMUM_TOTAL_FUGITIVES 4

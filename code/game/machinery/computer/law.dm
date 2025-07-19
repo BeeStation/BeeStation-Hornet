@@ -16,11 +16,9 @@
 	GLOB.uploads_list -= src
 	return ..()
 
-
-
 /obj/machinery/computer/upload/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/aiModule))
-		var/obj/item/aiModule/M = O
+	if(istype(O, /obj/item/ai_module))
+		var/obj/item/ai_module/M = O
 		if(machine_stat & (NOPOWER|BROKEN|MAINT))
 			return
 		if(!current)

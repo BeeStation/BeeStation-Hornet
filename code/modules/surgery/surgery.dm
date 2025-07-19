@@ -71,12 +71,12 @@
 		. = FALSE
 
 	if(iscyborg(user))
-		var/mob/living/silicon/robot/R = user
-		var/obj/item/surgical_processor/SP = locate() in R.module.modules
-		if(!isnull(SP))
-			if(replaced_by in SP.advanced_surgeries)
+		var/mob/living/silicon/robot/robot = user
+		var/obj/item/surgical_processor/surgical_processor = locate() in robot.model.modules
+		if(!isnull(surgical_processor))
+			if(replaced_by in surgical_processor.advanced_surgeries)
 				return FALSE
-			if(type in SP.advanced_surgeries)
+			if(type in surgical_processor.advanced_surgeries)
 				return TRUE
 
 	if(iscarbon(user))
