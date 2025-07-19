@@ -10,6 +10,10 @@
 
 	for(var/obj/item/W in M)
 		if(!M.dropItemToGround(W))
+			// I hate that this is necessary, but the code is literally just dropping or deleting everything otherwise
+			// people should be allowed to keep their fucking organs
+			if(istype(W, /obj/item/organ) || istype(W, /obj/item/bodypart))
+				continue
 			qdel(W)
 			M.regenerate_icons()
 
@@ -1107,7 +1111,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	var/obj/item/food/cookie/cookie = new(src)
 	if(src.put_in_hands(cookie))
 		if(ishuman(src))
-			src.update_inv_hands()
+			src.update_held_items()
 		log_admin("[key_name(src)] got their cookie, spawned by [key_name(admin_client)].")
 		message_admins("[key_name_admin(src)] got their cookie, spawned by [ADMIN_LOOKUPFLW(admin_client)].")
 		to_chat(src, span_adminnotice("Your prayers have been answered!! You received the <b>best cookie</b>!"))

@@ -1,14 +1,12 @@
 /datum/species/skeleton
 	// 2spooky
-	name = "\improper Spooky Scary Skeleton"
+	name = "Spooky Scary Skeleton"
 	plural_form = "Skeletons"
 	id = SPECIES_SKELETON
 	sexes = 0
 	meat = /obj/item/food/meat/slab/human/mutant/skeleton
-	species_traits = list(
-		NOHUSK,
-	)
 	inherent_traits = list(
+		TRAIT_NO_UNDERWEAR,
 		TRAIT_TOXIMMUNE,
 		TRAIT_RESISTHEAT,
 		TRAIT_NOBREATH,
@@ -37,15 +35,15 @@
 	species_language_holder = /datum/language_holder/skeleton
 
 	bodypart_overrides = list(
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/skeleton,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/skeleton,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/skeleton,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/skeleton,
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/skeleton,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/skeleton,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/skeleton,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/skeleton,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/skeleton,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/skeleton,
 	)
 
-/datum/species/plasmaman/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
+/datum/species/skeleton/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()
 	C.set_safe_hunger_level()
 

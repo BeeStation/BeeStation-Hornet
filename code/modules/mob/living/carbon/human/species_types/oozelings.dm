@@ -1,21 +1,15 @@
 /datum/species/oozeling
 	name = "\improper Oozeling"
 	id = SPECIES_OOZELING
-	bodyflag = FLAG_OOZELING
-	species_traits = list(
-		MUTCOLORS,
-		EYECOLOR,
-		HAIR,
-		FACEHAIR,
-		NOAUGMENTS
-	)
 	inherent_traits = list(
 		TRAIT_TOXINLOVER,
 		TRAIT_NOHAIRLOSS,
 		TRAIT_NOFIRE,
 		TRAIT_EASYDISMEMBER,
+		TRAIT_MUTANT_COLORS,
+		TRAIT_NO_AUGMENTS
 	)
-	hair_color = "mutcolor"
+	hair_color_mode = USE_MUTANT_COLOR
 	hair_alpha = 150
 	mutantlungs = /obj/item/organ/lungs/slime
 	mutanttongue = /obj/item/organ/tongue/slime
@@ -33,10 +27,10 @@
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/oozeling,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/oozeling,
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/oozeling,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/oozeling,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/oozeling,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/oozeling
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/oozeling,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/oozeling,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/oozeling,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/oozeling
 	)
 
 /datum/species/oozeling/random_name(gender, unique, lastname, attempts)
@@ -55,7 +49,7 @@
 		regenerate_limbs.Remove(C)
 	..()
 
-/datum/species/oozeling/on_species_gain(mob/living/carbon/C, datum/species/old_species)
+/datum/species/oozeling/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	..()
 	if(ishuman(C))
 		regenerate_limbs = new

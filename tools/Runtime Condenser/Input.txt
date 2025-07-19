@@ -777,7 +777,7 @@ the storage1 (/atom/movable/screen): attack hand(Chip Harshman (/mob/living/carb
 the storage1 (/atom/movable/screen): DblClick(null, null, null)
 the storage1 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=16;icon-y=20;left=1;scr...")
 runtime error: Cannot read null.blood_DNA
-proc name: update inv w uniform (/mob/living/carbon/human/update_inv_w_uniform)
+proc name: update inv w uniform (/mob/living/carbon/human/update_worn_undersuit)
   source file: update_icons.dm,372
   usr: null
   src: Chip Harshman (/mob/living/carbon/human)

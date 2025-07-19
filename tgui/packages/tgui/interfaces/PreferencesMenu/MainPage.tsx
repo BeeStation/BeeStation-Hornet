@@ -239,7 +239,7 @@ const GenderButton = (props: { handleSetGender: (gender: Gender) => void; gender
           <TrackOutsideClicks onOutsideClick={() => setGenderMenuOpen(false)} removeOnOutsideClick>
             <Box className="theme-generic-yellow">
               <Stack className="PopupWindow" ml={0.5} p={0.5}>
-                {[Gender.Male, Gender.Female, Gender.Other].map((gender) => {
+                {[Gender.Male, Gender.Female, Gender.Other, Gender.Other2].map((gender) => {
                   return (
                     <Stack.Item key={gender}>
                       <Button
@@ -454,13 +454,7 @@ export const MainPage = (props: { openSpecies: () => void }) => {
 
         const mainFeatures = [
           ...Object.entries(data.character_preferences.clothing),
-          ...Object.entries(data.character_preferences.features).filter(([featureName]) => {
-            if (!currentSpeciesData) {
-              return false;
-            }
-
-            return currentSpeciesData.enabled_features.indexOf(featureName) !== -1;
-          }),
+          ...Object.entries(data.character_preferences.features),
         ];
 
         const randomBodyEnabled =

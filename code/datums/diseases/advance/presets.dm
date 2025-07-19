@@ -149,9 +149,6 @@
 	if(MOB_INORGANIC in mob_biotypes)
 		sickrisk -= 0.5
 		guaranteed_symptoms |= /datum/symptom/inorganic_adaptation
-	else if(MOB_ROBOTIC in mob_biotypes)
-		sickrisk -= 0.75
-		guaranteed_symptoms |= /datum/symptom/robotic_adaptation
 	else if(MOB_UNDEAD in mob_biotypes)//this doesnt matter if it's not halloween, but...
 		sickrisk -= 0.25
 		guaranteed_symptoms |= /datum/symptom/undead_adaptation

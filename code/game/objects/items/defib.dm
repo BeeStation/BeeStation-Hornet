@@ -378,6 +378,7 @@
 
 /obj/item/shockpaddles/Initialize(mapload)
 	. = ..()
+	AddElement(/datum/element/update_icon_updates_onmob, ITEM_SLOT_BACK)
 	ADD_TRAIT(src, TRAIT_NO_STORAGE_INSERT, GENERIC_ITEM_TRAIT) //stops shockpaddles from being inserted in BoH
 	if(!req_defib)
 		return //If it doesn't need a defib, just say it exists

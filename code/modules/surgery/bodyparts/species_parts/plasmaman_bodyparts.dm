@@ -4,6 +4,9 @@
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = null
+	burn_modifier = 1.5
+	brute_modifier = 1.5
+	head_flags = HEAD_EYESPRITES
 
 /obj/item/bodypart/chest/plasmaman
 	icon_static = 'icons/mob/species/plasmaman/bodyparts.dmi'
@@ -11,27 +14,38 @@
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = null
+	burn_modifier = 1.5
+	brute_modifier = 1.5
+	wing_types = NONE
 
-/obj/item/bodypart/l_arm/plasmaman
+/obj/item/bodypart/arm/left/plasmaman
 	icon_static = 'icons/mob/species/plasmaman/bodyparts.dmi'
 	limb_id = SPECIES_PLASMAMAN
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = null
+	burn_modifier = 1.5
+	brute_modifier = 1.5
 
-/obj/item/bodypart/r_arm/plasmaman
+/obj/item/bodypart/arm/right/plasmaman
 	icon_static = 'icons/mob/species/plasmaman/bodyparts.dmi'
 	limb_id = SPECIES_PLASMAMAN
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = null
+	burn_modifier = 1.5
+	brute_modifier = 1.5
 
-/obj/item/bodypart/l_leg/plasmaman
+/obj/item/bodypart/leg/left/plasmaman
 	icon_static = 'icons/mob/species/plasmaman/bodyparts.dmi'
 	limb_id = SPECIES_PLASMAMAN
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = null
+	burn_modifier = 1.5
+	brute_modifier = 1.5
 
-/obj/item/bodypart/r_leg/plasmaman
+/obj/item/bodypart/leg/right/plasmaman
 	icon_static = 'icons/mob/species/plasmaman/bodyparts.dmi'
 	limb_id = SPECIES_PLASMAMAN
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = null
+	burn_modifier = 1.5
+	brute_modifier = 1.5

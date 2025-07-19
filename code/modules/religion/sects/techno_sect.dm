@@ -138,15 +138,15 @@
 	..()
 	var/altar_turf = get_turf(religious_tool)
 	var/blessing = pick(
-					/obj/item/organ/cyberimp/arm/surgery,
-					/obj/item/organ/cyberimp/eyes/hud/diagnostic,
-					/obj/item/organ/cyberimp/eyes/hud/medical,
-					/obj/item/organ/cyberimp/mouth/breathing_tube,
-					/obj/item/organ/cyberimp/chest/thrusters,
-					/obj/item/organ/cyberimp/chest/nutriment,
-					/obj/item/organ/cyberimp/arm/toolset,
-					/obj/item/organ/wings/cybernetic,
-					/obj/item/organ/eyes/robotic/glow)
+		/obj/item/organ/cyberimp/arm/surgery,
+		/obj/item/organ/cyberimp/eyes/hud/diagnostic,
+		/obj/item/organ/cyberimp/eyes/hud/medical,
+		/obj/item/organ/cyberimp/mouth/breathing_tube,
+		/obj/item/organ/cyberimp/chest/thrusters,
+		/obj/item/organ/cyberimp/chest/nutriment,
+		/obj/item/organ/cyberimp/arm/toolset,
+		/obj/item/organ/wings/cybernetic,
+		/obj/item/organ/eyes/robotic/glow)
 	new blessing(altar_turf)
 	return TRUE
 

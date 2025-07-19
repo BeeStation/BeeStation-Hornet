@@ -40,19 +40,19 @@
 	return default_name
 
 /obj/item/clothing/mask/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
-	. = list()
+	. = ..()
 	if(!isinhands)
 		if(body_parts_covered & HEAD)
 			if(damaged_clothes)
 				. += mutable_appearance('icons/effects/item_damage.dmi', "damagedmask", item_layer)
-			if(HAS_BLOOD_DNA(src))
+			if(GET_ATOM_BLOOD_DNA_LENGTH(src))
 				. += mutable_appearance('icons/effects/blood.dmi', "maskblood", item_layer)
 
 /obj/item/clothing/mask/update_clothes_damaged_state(damaged_state = CLOTHING_DAMAGED)
 	..()
 	if(ismob(loc))
 		var/mob/M = loc
-		M.update_inv_wear_mask()
+		M.update_worn_mask()
 
 //Proc that moves gas/breath masks out of the way, disabling them and allowing pill/food consumption
 /obj/item/clothing/mask/proc/adjustmask(mob/living/carbon/user)

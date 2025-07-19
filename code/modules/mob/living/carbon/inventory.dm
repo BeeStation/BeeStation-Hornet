@@ -38,6 +38,16 @@
 
 	return ..()
 
+/mob/living/carbon/proc/get_all_worn_items()
+	return list(
+		back,
+		wear_mask,
+		wear_neck,
+		head,
+		handcuffed,
+		legcuffed,
+	)
+
 /mob/living/carbon/proc/equip_in_one_of_slots(obj/item/I, list/slots, qdel_on_fail = TRUE)
 	for(var/slot in slots)
 		if(equip_to_slot_if_possible(I, slots[slot], qdel_on_fail = FALSE, disable_warning = TRUE))
@@ -76,26 +86,35 @@
 	var/not_handled = FALSE
 	switch(slot)
 		if(ITEM_SLOT_BACK)
+			if(back)
+				return
 			back = I
-			update_inv_back()
+			update_worn_back()
 		if(ITEM_SLOT_MASK)
+			if(wear_mask)
+				return
 			wear_mask = I
 			wear_mask_update(I, toggle_off = 0)
 		if(ITEM_SLOT_HEAD)
+			if(head)
+				return
 			head = I
+			SEND_SIGNAL(src, COMSIG_CARBON_EQUIP_HAT, I)
 			head_update(I)
 		if(ITEM_SLOT_NECK)
+			if(wear_neck)
+				return
 			wear_neck = I
-			update_inv_neck(I)
+			update_worn_neck(I)
 		if(ITEM_SLOT_HANDCUFFED)
 			set_handcuffed(I)
 			update_handcuffed()
 		if(ITEM_SLOT_LEGCUFFED)
 			legcuffed = I
-			update_inv_legcuffed()
+			update_worn_legcuffs()
 		if(ITEM_SLOT_HANDS)
 			put_in_hands(I)
-			update_inv_hands()
+			update_held_items()
 		if(ITEM_SLOT_BACKPACK)
 			if(!back || !back.atom_storage?.attempt_insert(I, src, override = TRUE))
 				not_handled = TRUE
@@ -117,12 +136,13 @@
 
 	if(I == head)
 		head = null
+		SEND_SIGNAL(src, COMSIG_CARBON_UNEQUIP_HAT, I, force, newloc, no_move, invdrop, silent)
 		if(!QDELETED(src))
 			head_update(I)
 	else if(I == back)
 		back = null
 		if(!QDELETED(src))
-			update_inv_back()
+			update_worn_back()
 	else if(I == wear_mask)
 		wear_mask = null
 		if(!QDELETED(src))
@@ -130,7 +150,7 @@
 	if(I == wear_neck)
 		wear_neck = null
 		if(!QDELETED(src))
-			update_inv_neck(I)
+			update_worn_neck(I)
 	else if(I == handcuffed)
 		set_handcuffed(null)
 		if(buckled && buckled.buckle_requires_restraints)
@@ -140,7 +160,7 @@
 	else if(I == legcuffed)
 		legcuffed = null
 		if(!QDELETED(src))
-			update_inv_legcuffed()
+			update_worn_legcuffs()
 	if(I == internal && (QDELETED(src) || QDELETED(I) || I.loc != src))
 		cutoff_internals()
 		if(!QDELETED(src))
@@ -297,13 +317,13 @@
 
 //handle stuff to update when a mob equips/unequips a mask.
 /mob/living/proc/wear_mask_update(obj/item/I, toggle_off = 1)
-	update_inv_wear_mask()
+	update_worn_mask()
 
 /mob/living/carbon/wear_mask_update(obj/item/I, toggle_off = 1)
 	var/obj/item/clothing/C = I
 	if(istype(C) && (C.tint || initial(C.tint)))
 		update_tint()
-	update_inv_wear_mask()
+	update_worn_mask()
 
 //handle stuff to update when a mob equips/unequips a headgear.
 /mob/living/carbon/proc/head_update(obj/item/I, forced)
@@ -313,8 +333,8 @@
 			update_tint()
 		update_sight()
 	if(I.flags_inv & HIDEMASK || forced)
-		update_inv_wear_mask()
-	update_inv_head()
+		update_worn_mask()
+	update_worn_head()
 
 /mob/living/carbon/proc/get_holding_bodypart_of_item(obj/item/I)
 	var/index = get_held_index_of_item(I)
@@ -395,3 +415,26 @@
 	visible_message(span_notice("[src] takes [I] from [offerer]"), \
 					span_notice("You take [I] from [offerer]"))
 	put_in_hands(I)
+
+///Returns a list of all body_zones covered by clothing
+/mob/living/carbon/proc/get_covered_body_zones()
+	RETURN_TYPE(/list)
+	SHOULD_NOT_OVERRIDE(TRUE)
+
+	var/covered_flags = NONE
+	var/list/all_worn_items = get_all_worn_items()
+	for(var/obj/item/worn_item in all_worn_items)
+		covered_flags |= worn_item.body_parts_covered
+
+	return cover_flags2body_zones(covered_flags)
+
+///Returns a bitfield of all zones covered by clothing
+/mob/living/carbon/proc/get_all_covered_flags()
+	SHOULD_NOT_OVERRIDE(TRUE)
+
+	var/covered_flags = NONE
+	var/list/all_worn_items = get_all_worn_items()
+	for(var/obj/item/worn_item in all_worn_items)
+		covered_flags |= worn_item.body_parts_covered
+
+	return covered_flags

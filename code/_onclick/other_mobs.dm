@@ -214,7 +214,8 @@
 				span_danger("You avoid [src]'s bite!"), span_hear("You hear jaws snapping shut!"), COMBAT_MESSAGE_RANGE, src)
 			to_chat(src, span_danger("Your bite misses [victim]!"))
 			return
-		victim.apply_damage(rand(1, 3), BRUTE, affecting, armor)
+		var/obj/item/bodypart/arm/mouth = victim.get_bodypart(BODY_ZONE_HEAD)
+		victim.apply_damage(rand(mouth.unarmed_damage_low, mouth.unarmed_damage_high), BRUTE, affecting, armor)
 		victim.visible_message(span_danger("[name] bites [victim]!"),
 			span_userdanger("[name] bites you!"), span_hear("You hear a chomp!"), COMBAT_MESSAGE_RANGE, name)
 		to_chat(name, span_danger("You bite [victim]!"))
@@ -336,14 +337,14 @@
 /mob/living/simple_animal/resolve_unarmed_attack(atom/attack_target, list/modifiers)
 	if(dextrous && (isitem(attack_target) || !combat_mode))
 		attack_target.attack_hand(src, modifiers)
-		update_inv_hands()
+		update_held_items()
 	else
 		return ..()
 
 /mob/living/simple_animal/resolve_right_click_attack(atom/target, list/modifiers)
 	if(dextrous && (isitem(target) || !combat_mode))
 		. = target.attack_hand_secondary(src, modifiers)
-		update_inv_hands()
+		update_held_items()
 	else
 		return ..()
 

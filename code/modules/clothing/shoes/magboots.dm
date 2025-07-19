@@ -12,6 +12,10 @@
 	equip_delay_other = 70
 	resistance_flags = FIRE_PROOF
 
+/obj/item/clothing/shoes/magboots/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/update_icon_updates_onmob)
+
 /obj/item/clothing/shoes/magboots/equipped(mob/user, slot)
 	. = ..()
 	if(slot & ITEM_SLOT_FEET)
@@ -113,7 +117,7 @@
 	magpulse = !magpulse
 	icon_state = "[magboot_state][magpulse]"
 	to_chat(user, span_notice("You [magpulse ? "enable" : "disable"] the mag-pulse traction system."))
-	user.update_inv_shoes()
+	user.update_worn_shoes()
 	update_action_buttons()
 
 /obj/item/clothing/shoes/magboots/crushing
