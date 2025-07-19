@@ -2096,11 +2096,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		var/damage_type = BURN
 		var/damage_mod = coldmod * humi.physiology.cold_mod
 		if(humi.coretemperature in 201 to bodytemp_cold_damage_limit)
-			humi.take_direct_damage(COLD_DAMAGE_LEVEL_1 * damage_mod * delta_time, damage_type)
+			humi.take_direct_damage(COLD_DAMAGE_LEVEL_1 * damage_mod * delta_time, damage_type, DAMAGE_EXISTENTIAL)
 		else if(humi.coretemperature in 120 to 200)
-			humi.take_direct_damage(COLD_DAMAGE_LEVEL_2 * damage_mod * delta_time, damage_type)
+			humi.take_direct_damage(COLD_DAMAGE_LEVEL_2 * damage_mod * delta_time, damage_type, DAMAGE_EXISTENTIAL)
 		else
-			humi.take_direct_damage(COLD_DAMAGE_LEVEL_3 * damage_mod * delta_time, damage_type)
+			humi.take_direct_damage(COLD_DAMAGE_LEVEL_3 * damage_mod * delta_time, damage_type, DAMAGE_EXISTENTIAL)
 
 /**
  * Used to apply burn wounds on random limbs
