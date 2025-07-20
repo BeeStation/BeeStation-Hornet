@@ -969,6 +969,28 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 		else
 			playsound(src, drop_sound, YEET_SOUND_VOLUME, ignore_walls = FALSE)
+		var/obj/item/modular_computer/comp
+		var/obj/item/computer_hardware/processor_unit/cpu
+		for(var/obj/item/modular_computer/M in contents)
+			cpu = comp.all_components[MC_CPU]
+			if(!cpu?.hacked)
+				comp = M
+			break
+		if(comp)
+			var/turf/target = comp.get_blink_destination(get_turf(src), dir, (cpu.max_idle_programs * 2))
+			var/turf/start = get_turf(src)
+			if(!comp.enabled)
+				new /obj/effect/particle_effect/sparks(start)
+				playsound(start, "sparks", 50, 1)
+				return
+			if(!target)
+				return
+			// The better the CPU the farther it goes, and the more battery it needs
+			playsound(target, 'sound/effects/phasein.ogg', 25, 1)
+			playsound(start, "sparks", 50, 1)
+			playsound(target, "sparks", 50, 1)
+			do_dash(src, start, target, 0, TRUE)
+			comp.use_power((250 * cpu.max_idle_programs) / GLOB.CELLRATE)
 		return hit_atom.hitby(src, 0, itempush, throwingdatum=throwingdatum)
 
 
@@ -1314,7 +1336,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	return !HAS_TRAIT(src, TRAIT_NODROP)
 
 /obj/item/proc/doStrip(mob/stripper, mob/owner)
-	return owner.dropItemToGround(src)
+	. = owner.doUnEquip(src, force, drop_location(), FALSE)
+	return stripper.put_in_hands(src)
 
 /obj/item/ex_act(severity, target)
 	if(resistance_flags & INDESTRUCTIBLE)

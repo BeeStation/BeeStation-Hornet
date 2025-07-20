@@ -33895,13 +33895,11 @@
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
 "iWs" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/machinery/vending/modularpc,
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "iWv" = (

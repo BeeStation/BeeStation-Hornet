@@ -250,3 +250,103 @@
   - bugfix: basic mobs can now be scanned for DNA vault
   - bugfix: basic mobs can now receive bluespace radio
   - bugfix: adds handling for basic mobs when slime fed on (invincible ian moment)
+2025-07-18:
+  Asdfagi:
+  - bugfix: mindless bodies can once again be body-only scanned in the clone scanner
+      instead of causing a runtime error
+  Nakalon:
+  - tweak: Stripping a mob now puts the item in the strippers hands
+  Rukofamicom:
+  - balance: Hand restraints such as handcuffs are now much simpler to break out of.
+      Each attempt takes only five seconds and gives a miniscule chance of breaking
+      out immediately if you get lucky with a compounding chance after each attempt.
+      Each attempt stacks up to eventually being enough to guarantee the cuffs are
+      removed once your total attempts are equal to the breakout time as well.
+  - balance: Attempts to remove any types of restraint (Bola, cuffs, straight jackets,
+      etc.) no longer require you to be still and motionless, which means you can
+      run around like a headless chicken and still break out of some cuffs. Being
+      dragged in circles by an officer no longer interrupts breakout attempts either.
+  - balance: Because the general process for breaking hand restraints is now much
+      more consistent, the base times for all three hand restraints has been increased
+      dramatically so that handcuffs are still effective at their intended purpose,
+      just without being an indefinite restraint.
+  - tweak: Buckle-cuffed players are able to remove their restraints first now, so
+      buckling a player who is cuffed does nothing to lengthen the effective restraint
+      time further, it only prevents them from running around.
+  - tweak: straight jackets take two minutes to break out of instead of five now,
+      because five is an excessive amount of time to potentially stack on top of cuffs.
+  - tweak: Xenomorphs can no longer instantly break cuffs. They use the same define
+      and code as hulks do, taking five seconds to break the cuffs. In both hulk and
+      xeno cases, the cuffs can now be broken while moving.
+  marshmellow10:
+  - bugfix: fixes resist
+2025-07-19:
+  Solene & Mr.Yoshimoto:
+  - tweak: Mouse diseases are now always dormant, eating one won't infect anyone.
+  - rscadd: Extrapolators now work on dead mice
+  itsmeow:
+  - bugfix: Fixed species icons, antagonist icons, paper stamps, and CondiMaster icons
+      being invisible.
+  - tweak: Capitalized 'prisoner' in the antagonist preferences menu.
+2025-07-20:
+  Gboster-0:
+  - code_imp: code for slime pylons has been slightly changed making them extremelly
+      lightly more performant
+  Gilgax:
+  - tweak: 'Modernized the UI on (TGUIfied) a bunch of inputs (most things that had
+      a white box and looked old should be cooler looking now). Notable examples include:
+      the hand teleporter list, the spawn command, a lot of admin secret buttons,
+      brain washing, some security consoles, blood cultist teleport runes, law consoles,
+      pen rotation, slime feeding target list, comms console announcement, some ghost
+      role alerts, fulton packs, choice beacon pet naming and many more!'
+  - bugfix: Ventriloquist forced speech fixed for special characthers
+  - bugfix: Fixed the apply damage smite
+  PinkSuzuki, TsunamiAnt & The Hellraisers:
+  - rscadd: PC Components can now be manually hacked via tools
+  - rscadd: Added an Antivirus
+  - rscadd: Reworked Viruses. Included logging. visual and sound effects, on send
+      and receive.
+  - rscadd: Added 3 new viruses with TGUI windows.
+  - balance: Super Portable disks now cost 30 credits instead of 10
+  - rscadd: You can now fit components inside Modular PC's by attacking them with
+      the PC.
+  - rscadd: Screw driver secondary action now uninstalls all components form a Modular
+      PC at once.
+  - tweak: Tweaked some values related to programs
+  - code_imp: Added vars and a proc to be able to start and stop music and sounds
+      played by programs
+  - code_imp: Removed some duplicated vars from programs
+  - code_imp: Reworked and simplified Program hardware requirements
+  - tweak: Paper ID now accepts "Assignment" input and respects it
+  - code_imp: Refactored Network and Virus code a little bit
+  - imageadd: Add gifs for various UI elements on Computers such as the Virus Buster
+  - imageadd: Added a white version of sparks (to be dyed with lights)
+  - imageadd: Changed sprites for Antivirus and added overlays for when components
+      are "open"
+  - rscadd: Added a blue and red light spark effects
+  - tweak: Antivirus disks are now a subtype of portable disk
+  - tweak: Lightly Reworked Netmonitor (and network logging) and gave it to Science
+      jobdisks
+  - rscadd: Created a new trait, computer whiz
+  - code_imp: changed add_log procs to make them accept Network Cards to extract information
+      from
+  - code_imp: slightly changed network procs to accept the difference between no_relay
+      and hacker network cards
+  - balance: Reworked special Detomatix protection. Sec and head PDAs had their protection
+      substituted by an Antivirus
+  - tweak: Detomatix now uses a battery_explosion proc, explosion based on the size
+      of the battery installed
+  - tweak: Raised the size of the largest battery (and others) and raised the max
+      hardware size on laptops
+  - tweak: components are now repairable with a welder instead of cable coil
+  - code_imp: moved 4 files, portable disk, job disk, antivirus disk and virus disk
+      into a portable disks folder
+  - tweak: antivirus are now a part of the computer hardware techtree
+  - bugfix: Fixed apostrophes not being correctly logged
+  - bugfix: Component parts not drawing power from the battery
+  - tweak: added baloon alerts and QOL things for effect when handling Modular computers
+  - bugfix: PAIs can now be inserted inside Tablets.
+  - tweak: Laptops can now imprint IDs
+  - tweak: PAIs can now be ejected with alt-click.
+  PowerfulBacon:
+  - balance: Clarke moves slower on station.
