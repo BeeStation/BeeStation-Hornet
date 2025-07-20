@@ -5,8 +5,7 @@
 	desc = "An advanced computer."
 
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 5
-	var/hardware_flag = 0								// A flag that describes this device type
+	idle_power_usage = 5								// A flag that describes this device type
 	var/last_power_usage = 0							// Power usage during last tick
 
 	// Modular computers can run on various devices. Each DEVICE (Laptop, Console, Tablet,..)

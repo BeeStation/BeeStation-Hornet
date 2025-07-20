@@ -35,7 +35,6 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	/// Color used for the Thinktronic Classic theme.
 	var/classic_color = COLOR_OLIVE
 	var/datum/computer_file/program/active_program = null	// A currently active program running on the computer.
-	var/hardware_flag = 0									// A flag that describes this device type
 	var/last_power_usage = 0
 	var/last_battery_percent = 0							// Used for deciding if battery percentage has chandged
 	var/last_world_time = "00:00"
@@ -97,7 +96,8 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	var/obj/item/paicard/stored_pai_card
 	/// If the device is capable of storing a pAI
 	var/can_store_pai = FALSE
-
+	/// Level of Virus Defense to be added on initialize to the pre instaled hard drive this happens in tablet/PDA, Normal detomatix halves at 2, fails at 3
+	var/default_virus_defense = ANTIVIRUS_NONE
 
 /datum/armor/item_modular_computer
 	bullet = 20
@@ -144,9 +144,16 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 /obj/item/modular_computer/Destroy()
 	kill_program(forced = TRUE)
 	STOP_PROCESSING(SSobj, src)
+	var/obj/item/computer_hardware/card_slot/card_slot = all_components[MC_CARD]
+	if(card_slot)
+		if(card_slot.stored_card)
+			card_slot.RemoveID()
 	for(var/port in all_components)
 		var/obj/item/computer_hardware/component = all_components[port]
-		qdel(component)
+		if(prob(50))
+			uninstall_component(component)	// Lets not just delete all components like that
+		else
+			qdel(component)
 	all_components?.Cut()
 	if(istype(stored_pai_card))
 		qdel(stored_pai_card)
@@ -290,6 +297,42 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	to_chat(user, span_notice("You swipe \the [src]. A console window fills the screen, but it quickly closes itself after only a few lines are written to it."))
 	return FALSE
 
+/obj/item/modular_computer/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum) // Teleporting for hacked CPU's
+	var/obj/item/computer_hardware/processor_unit/cpu = all_components[MC_CPU]
+	var/turf/target = get_blink_destination(get_turf(src), dir, (cpu.max_idle_programs * 2))
+	var/turf/start = get_turf(src)
+	if(!target)
+		return
+	if(!cpu.hacked)
+		return
+	if(!enabled)
+		new /obj/effect/particle_effect/sparks(start)
+		playsound(start, "sparks", 50, 1)
+		return
+	// The better the CPU the farther it goes, and the more battery it needs
+	playsound(target, 'sound/effects/phasein.ogg', 25, 1)
+	playsound(start, "sparks", 50, 1)
+	playsound(target, "sparks", 50, 1)
+	do_dash(src, start, target, 0, TRUE)
+	use_power((250 * cpu.max_idle_programs) / GLOB.CELLRATE)
+	return
+
+/obj/item/modular_computer/proc/get_blink_destination(turf/start, direction, range)
+	var/turf/t = start
+	var/open_tiles_crossed = 0
+	// Will teleport trough walls untill finding open space, then will subtract from range every open turf
+	for(var/i = 1 to 100) // hard limit to avoid infinite loops
+		var/turf/next = get_step(t, direction)
+		if(!isturf(next))
+			break
+		t = next
+		if(!t.density)
+			open_tiles_crossed++
+		if(open_tiles_crossed >= range)
+			return t
+	// If we exit the loop without finding enough open tiles, we return the last valid turf
+	return t
+
 /obj/item/modular_computer/examine(mob/user)
 	. = ..()
 	if(atom_integrity <= integrity_failure * max_integrity)
@@ -327,6 +370,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 			to_chat(user, span_warning("You send an activation signal to \the [src], but it responds with an error code. It must be damaged."))
 		else
 			to_chat(user, span_warning("You press the power button, but the computer fails to boot up, displaying variety of errors before shutting down again."))
+		playsound(src, 'sound/machines/terminal_error.ogg', 50, TRUE)
 		return FALSE
 
 	// If we have a recharger, enable it automatically. Lets computer without a battery work.
@@ -340,6 +384,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		else
 			to_chat(user, span_notice("You press the power button and start up \the [src]."))
 		enabled = 1
+		playsound(src, 'sound/machines/terminal_on.ogg', 50, TRUE)
 		update_appearance()
 		if(open_ui)
 			ui_interact(user)
@@ -349,6 +394,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 			to_chat(user, span_warning("You send an activation signal to \the [src] but it does not respond."))
 		else
 			to_chat(user, span_warning("You press the power button but \the [src] does not respond."))
+		playsound(src, 'sound/machines/terminal_error.ogg', 50, TRUE)
 	return FALSE
 
 // Process currently calls handle_power(), may be expanded in future if more things are added.
@@ -432,6 +478,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 
 	var/obj/item/computer_hardware/battery/battery_module = all_components[MC_CELL]
 	var/obj/item/computer_hardware/recharger/recharger = all_components[MC_CHARGE]
+	var/obj/item/computer_hardware/hard_drive/drive = all_components[MC_HDD]
 
 	if(battery_module?.battery)
 		switch(battery_module.battery.percent())
@@ -455,7 +502,21 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		data["PC_showbatteryicon"] = battery_module ? 1 : 0
 
 	if(recharger && recharger.enabled && recharger.check_functionality() && recharger.use_power(0))
-		data["PC_apclinkicon"] = "charging.gif"
+		if(!recharger.hacked)
+			data["PC_apclinkicon"] = "charging.gif"
+		else
+			data["PC_apclinkicon"] = "power_drain.gif" // If hacked glitches (to make it very obvious its hacked)
+	switch(drive.virus_defense)
+		if(ANTIVIRUS_NONE)
+			data["PC_AntiVirus"] = "antivirus_0.gif"
+		if(ANTIVIRUS_BASIC)
+			data["PC_AntiVirus"] = "antivirus_1.gif"
+		if(ANTIVIRUS_MEDIUM)
+			data["PC_AntiVirus"] = "antivirus_2.gif"
+		if(ANTIVIRUS_GOOD)
+			data["PC_AntiVirus"] = "antivirus_3.gif"
+		if(ANTIVIRUS_BEST)
+			data["PC_AntiVirus"] = "antivirus_4.gif"
 
 	switch(get_ntnet_status())
 		if(0)
@@ -466,6 +527,8 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 			data["PC_ntneticon"] = "sig_high.gif"
 		if(3)
 			data["PC_ntneticon"] = "sig_lan.gif"
+		if(4)
+			data["PC_ntneticon"] = "no_relay.gif" // This exists to give a hacked UI indicator
 
 	var/list/program_headers = list()
 	for(var/datum/computer_file/program/P as anything in idle_threads)
@@ -504,7 +567,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		to_chat(user, span_danger("\The [src]'s screen shows \"I/O ERROR - Unable to run program\" warning."))
 		return FALSE
 
-	if(!program.is_supported_by_hardware(hardware_flag, 1, user))
+	if(!program.is_supported_by_hardware(user))
 		return FALSE
 
 	// The program is already running. Resume it.
@@ -550,13 +613,27 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	else
 		return 0
 
-/obj/item/modular_computer/proc/add_log(text)
+/**
+ * Passes a message to be logged by SSnetworks
+ *
+ * Should a Modular want to create a log on the network this is the proc to use
+ * it will pass all its information onto SSnetworks which have their own add_log proc.
+ * It will automatically apply the network argument on its own.
+ * Arguments:
+ * * text - message to log
+ * * log_id - if we want IDs not to be printed on the log (Hardware ID and Identification string)
+ * * card = network card, will extract identification string and hardware ID from it (if log_id = TRUE).
+ */
+/obj/item/modular_computer/proc/add_log(text, log_id = FALSE, obj/item/computer_hardware/network_card/card)
 	if(!get_ntnet_status())
 		return FALSE
-	var/obj/item/computer_hardware/network_card/network_card = all_components[MC_NET]
-	return SSnetworks.add_log(text, network_card.GetComponent(/datum/component/ntnet_interface).network, network_card.hardware_id)
+	if(!card)
+		card = all_components[MC_NET]
+	return SSnetworks.add_log(text, card.GetComponent(/datum/component/ntnet_interface).network, card.hardware_id, log_id, card)
+	// We also return network_card so SSnetworks can extract values from it itself
 
 /obj/item/modular_computer/proc/shutdown_computer(loud = 1)
+	playsound(src, 'sound/machines/terminal_off.ogg', 50, TRUE)
 	kill_program(forced = TRUE)
 	for(var/datum/computer_file/program/P in idle_threads)
 		P.kill_program(forced = TRUE)
@@ -605,17 +682,15 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	var/list/component_names = list()
 	for(var/h in all_components)
 		var/obj/item/computer_hardware/H = all_components[h]
-		component_names.Add(H.name)
+		component_names.Add(H.device_type)
 
-	var/choice = input(user, "Which component do you want to uninstall?", "Computer maintenance", null) as null|anything in sort_list(component_names)
-
+	var/choice = tgui_input_list(user, "Which component do you want to uninstall?", "Computer maintenance", component_names)
 	if(!choice)
 		return
-
 	if(!Adjacent(user))
 		return
 
-	var/obj/item/computer_hardware/H = find_hardware_by_name(choice)
+	var/obj/item/computer_hardware/H = find_hardware_by_type(choice)
 
 	if(!H)
 		return
@@ -624,6 +699,39 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	uninstall_component(H, user, TRUE)
 	ui_update()
 	return
+
+/obj/item/modular_computer/screwdriver_act_secondary(mob/living/user, obj/item/tool) // Removes all components at once
+	if(!length(all_components))
+		balloon_alert(user, "no components installed!")
+		return
+	for(var/h in all_components)
+		var/obj/item/computer_hardware/H = all_components[h]
+		uninstall_component(H, user, TRUE)
+	tool.play_tool_sound(user, volume = 20)
+	ui_update()
+
+/obj/item/modular_computer/pre_attack(atom/A, mob/living/user, params)
+	if(!istype(A, /obj/item/computer_hardware) && !istype(A, /obj/item/stock_parts/cell/computer))
+		return
+
+	var/obj/item/computer_hardware/battery/battery_module = all_components[MC_CELL]
+
+	if(istype(A, /obj/item/stock_parts/cell/computer) && battery_module)
+		if(battery_module.try_insert(A, user))
+			return TRUE
+	if(istype(A, /obj/item/computer_hardware))
+		var/obj/item/computer_hardware/inserted_hardware = A
+		if(install_component(inserted_hardware, user))
+			inserted_hardware.on_inserted(user)
+			ui_update()
+			return TRUE
+
+/obj/item/modular_computer/add_context_self(datum/screentip_context/context, mob/user)
+	context.add_right_click_tool_action("Uninstall all", TOOL_SCREWDRIVER)
+	context.add_left_click_tool_action("Uninstall", TOOL_SCREWDRIVER)
+	context.add_left_click_tool_action("Diagnose", TOOL_MULTITOOL)
+	context.add_left_click_tool_action("Repair", TOOL_WELDER)
+	context.add_left_click_tool_action("Disassemble", TOOL_WRENCH)
 
 /obj/item/modular_computer/attackby(obj/item/attacking_item, mob/user, params)
 	// Check for ID first
@@ -716,6 +824,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	UnregisterSignal(stored_pai_card, COMSIG_MOVABLE_MOVED)
 	UnregisterSignal(stored_pai_card, COMSIG_PARENT_QDELETING)
 	stored_pai_card = null
+	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
 	update_appearance()
 
 // Used by processor to relay qdel() to machinery type.
@@ -737,3 +846,81 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 // Make messages visible via allow_inside_usr
 /obj/item/modular_computer/visible_message(message, self_message, blind_message, vision_distance, list/ignored_mobs, list/visible_message_flags, allow_inside_usr = TRUE)
 	return ..()
+
+/obj/item/modular_computer/multitool_act(mob/living/user, obj/item/I)
+	var/time_to_diagnose = 3 SECONDS
+	var/will_pass = FALSE
+	if(user.mind?.assigned_role == (JOB_NAME_SCIENTIST || JOB_NAME_RESEARCHDIRECTOR || JOB_NAME_DETECTIVE))	// Scientist and Detective buff
+		will_pass = TRUE
+	if(HAS_TRAIT(user, TRAIT_COMPUTER_WHIZ))	// Trait buff
+		time_to_diagnose = 1 SECONDS
+		will_pass = TRUE
+	balloon_alert_to_viewers("Printing Diagnostics...")
+	new /obj/effect/particle_effect/sparks(get_turf(src))
+	playsound(src, "sparks", 50, 1)
+	if(!do_after(user, time_to_diagnose, src))
+		balloon_alert(user, "<font color='#d80000'>ERROR:</font> Unauthorized access detected!")
+		to_chat(user, "<span class='cfc_red'>ERROR:</span> Unauthorized access detected!")
+		playsound(src, 'sound/machines/defib_failed.ogg', 50, TRUE)
+		new /obj/effect/particle_effect/sparks(get_turf(src))
+		playsound(src, "sparks", 40)
+		user.electrocute_act(25, src, 1)
+		return TRUE
+	if(!will_pass)
+		balloon_alert(user, "<font color='#d80000'>ERROR:</font> Diagonostics Failure // Unauthoried Access Detected. Contact I.T.")
+		to_chat(user, "<span class='cfc_red'>ERROR:</span> Diagonostics Failure // Unauthoried Access Detected. Contact I.T.")
+		playsound(src, 'sound/machines/defib_failed.ogg', 50, TRUE)
+		new /obj/effect/particle_effect/sparks/red(get_turf(src))
+		playsound(src, "sparks", 50, 1)
+		return TRUE
+	balloon_alert_to_viewers("Diagnostics Retrieved.")
+	var/list/result = diagnostics()
+	to_chat(user, examine_block("<span class='infoplain'>[result.Join("<br>")]</span>"))
+	playsound(src, 'sound/effects/fastbeep.ogg', 20)
+	return TRUE
+
+/obj/item/modular_computer/proc/diagnostics()
+	. = list()
+	. += "***** DIAGNOSTICS REPORT *****"
+	. += "Running Hardware Tests... (Maximum Hardware Size: [max_hardware_size]))"
+	var/total_power_usage
+	var/obj/item/computer_hardware/battery/battery_module = all_components[MC_CELL]
+	for(var/port in all_components)
+		var/obj/item/computer_hardware/component = all_components[port]
+		total_power_usage |= component.power_usage
+		. += "INFO :: <span class='cfc_orange'>[component.device_type]</span> accounted for."
+		if(!component.enabled)
+			. += "<span class='cfc_soul_glimmer_humour'>Warning</span> // [component.device_type] Disabled"
+		if(component.hacked)
+			. += "<span class='cfc_magenta'>WARNING ::</span> [component.device_type] <span class='cfc_magenta'>OPERATING BEYOND RATED PARAMETERS</span>"
+	if(battery_module?.battery)
+		. += "INFO :: <span class='cfc_orange'>[battery_module.battery.name]</span> accounted for."
+		. += "INFO :: Cell Current charge [battery_module.battery.percent()]%."
+	. += "Total Power consumption :: [total_power_usage]"
+	return
+
+/obj/item/modular_computer/proc/virus_blocked_info(gift_card = FALSE)	// If we caught a Virus, tell the player
+	var/mob/living/holder = src.loc
+	var/obj/item/computer_hardware/hard_drive/drive = all_components[MC_HDD]
+	playsound(src, "sparks", 50, 1)
+	if(gift_card)
+		new /obj/effect/particle_effect/sparks/red(get_turf(src))
+		playsound(src, 'sound/machines/defib_failed.ogg', 50, TRUE)
+		balloon_alert(holder, "Notification! Someone sent you an <font color='#00f7ff'>NTOS Virus Buster</font> package you already own! Your subscription remains <font color='#00ff2a'>UNALTERED!</font>")
+		to_chat(holder, span_notice("Notification! Someone sent you an <span class='cfc_cyan'>NTOS Virus Buster</span> package you already own! Your subscription remains <span clas='cfc_green'>UNALTERED!</span>"))
+	else
+		new /obj/effect/particle_effect/sparks/blue(get_turf(src))
+		playsound(src, 'sound/machines/defib_ready.ogg', 50, TRUE)
+		balloon_alert(holder, "Virus <font color='#ff0000'>BUSTED!</font> Your <font color='#00f7ff'>NTOS Virus Buster Lvl-[drive.virus_defense]</font> kept your data <font color='#00ff2a'>SAFE!</font>")
+		to_chat(holder, span_notice("Virus <span class='cfc_red'>BUSTED!</span> Your <span class='cfc_cyan'>NTOS Virus Buster Lvl-[drive.virus_defense]</span> kept your data <span clas='cfc_green'>SAFE!</span>"))
+
+/obj/item/modular_computer/proc/antivirus_gift(virus_strength = 0)	// If we caught a Virus, tell the player
+	var/mob/living/holder = src.loc
+	var/obj/item/computer_hardware/hard_drive/drive = all_components[MC_HDD]
+	new /obj/effect/particle_effect/sparks/blue(get_turf(src))
+	drive.virus_defense = virus_strength
+	playsound(src, 'sound/machines/defib_ready.ogg', 50, TRUE)
+	playsound(src, "sparks", 50, 1)
+	balloon_alert(holder, "<font color='#00f7ff'>CONGRATULATIONS!</font> Someone has sent you an <font color='#00f7ff'>NTOS Virus Buster Lvl-[drive.virus_defense]</font> subscription package! Your device is now <font color='#00ff2a'>SAFE!</font>")
+	to_chat(holder, span_notice("<span class='cfc_cyan'>CONGRATULATIONS!</span> Someone has sent you an <span class='cfc_cyan'>NTOS Virus Buster Lvl-[drive.virus_defense]</span> subscription package! Your device is now <span clas='cfc_green'>SAFE!</span>"))
+	ui_update(holder)

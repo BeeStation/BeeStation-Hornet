@@ -13,6 +13,7 @@
 	size = 4
 	tgui_id = "NtosGasAnalyzer"
 	program_icon = "thermometer-half"
+	hardware_requirement = MC_SENSORS
 
 /// Whether we scan the current turf automatically (env) or scan tapped objects manually (click).
 	var/atmozphere_mode = ATMOZPHERE_SCAN_ENV
@@ -58,7 +59,7 @@
 	var/list/data = list()
 	var/turf/turf = get_turf(computer)
 	data["atmozphereMode"] = atmozphere_mode
-	data["clickAtmozphereCompatible"] = (computer.hardware_flag & PROGRAM_PDA)
+	data["clickAtmozphereCompatible"] = (!istype(computer, /obj/machinery/modular_computer/console))
 	switch (atmozphere_mode) //Null air wont cause errors, don't worry.
 		if(ATMOZPHERE_SCAN_ENV)
 			var/datum/gas_mixture/air = turf?.return_air()
@@ -76,9 +77,6 @@
 				atmozphere_mode = ATMOZPHERE_SCAN_ENV
 				UnregisterSignal(computer, COMSIG_ITEM_ATTACK_SELF_SECONDARY)
 				return TRUE
-			if(!(computer.hardware_flag & PROGRAM_PDA))
-				computer.say("Device incompatible for scanning objects!")
-				return FALSE
 			atmozphere_mode = ATMOZPHERE_SCAN_CLICK
 			RegisterSignal(computer, COMSIG_ITEM_ATTACK_SELF_SECONDARY, PROC_REF(turf_analyze))
 			var/turf/turf = get_turf(computer)

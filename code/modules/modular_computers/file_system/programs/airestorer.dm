@@ -5,12 +5,10 @@
 	program_icon_state = "ai_restorer_off"
 	extended_desc = "This program is capable of reconstructing damaged AI systems. Requires direct AI connection via intellicard slot."
 	size = 12
-	requires_ntnet = FALSE
-	usage_flags = PROGRAM_ALL
-	transfer_access = list(ACCESS_HEADS)
-	available_on_ntnet = TRUE
+	transfer_access = list(ACCESS_HEADS, ACCESS_ROBOTICS, ACCESS_RESEARCH)
 	tgui_id = "NtosAiRestorer"
 	program_icon = "laptop-code"
+	hardware_requirement = MC_AI
 	/// Variable dictating if we are in the process of restoring the AI in the inserted intellicard
 	var/restoring = FALSE
 
