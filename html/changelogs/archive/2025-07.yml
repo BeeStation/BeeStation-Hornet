@@ -288,3 +288,15 @@
   - bugfix: Fixed species icons, antagonist icons, paper stamps, and CondiMaster icons
       being invisible.
   - tweak: Capitalized 'prisoner' in the antagonist preferences menu.
+2025-07-20:
+  Gilgax:
+  - tweak: 'Modernized the UI on (TGUIfied) a bunch of inputs (most things that had
+      a white box and looked old should be cooler looking now). Notable examples include:
+      the hand teleporter list, the spawn command, a lot of admin secret buttons,
+      brain washing, some security consoles, blood cultist teleport runes, law consoles,
+      pen rotation, slime feeding target list, comms console announcement, some ghost
+      role alerts, fulton packs, choice beacon pet naming and many more!'
+  - bugfix: Ventriloquist forced speech fixed for special characthers
+  - bugfix: Fixed the apply damage smite
+  PowerfulBacon:
+  - balance: Clarke moves slower on station.

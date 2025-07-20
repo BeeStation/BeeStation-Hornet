@@ -712,7 +712,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	var/list/borgs = active_free_borgs()
 	if(borgs.len)
 		if(user)
-			. = input(user,"Unshackled cyborg signals detected:", "Cyborg Selection", borgs[1]) in sort_list(borgs)
+			. = tgui_input_list(user,"Unshackled cyborg signals detected:", "Cyborg Selection", sort_list(borgs))
 		else
 			. = pick(borgs)
 	return .
@@ -722,7 +722,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	var/list/ais = active_ais()
 	if(ais.len)
 		if(user)
-			. = input(user,"AI signals detected:", "AI Selection", ais[1]) in sort_list(ais)
+			. = tgui_input_list(user,"AI signals detected:", "AI Selection", sort_list(ais))
 		else
 			. = pick(ais)
 	return .
