@@ -14,7 +14,7 @@
 	/// How many players are drafted by this ruleset. This should usually be 1 but should be increased for team antagonists (cult, incursion)
 	var/drafted_players_amount = 1
 	/// The role preference used for this ruleset
-	var/datum/role_preference/antagonist/role_preference = /datum/role_preference/antagonist/traitor
+	var/datum/role_preference/roundstart/role_preference = /datum/role_preference/roundstart/traitor
 	/// The antag datum assigned to a candidates mind on execution
 	var/datum/antagonist/antag_datum = /datum/antagonist/traitor
 	/// If the config flag `protect_roles_from_antagonist` is set, these roles are excluded

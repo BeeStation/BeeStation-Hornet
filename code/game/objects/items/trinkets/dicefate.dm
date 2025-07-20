@@ -153,7 +153,6 @@
 
 			var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
 				role = ROLE_WIZARD,
-				check_jobban = /datum/role_preference/midround_ghost/wizard,
 				poll_time = 15 SECONDS,
 				jump_target = H,
 				role_name_text = "[user.real_name] magical servant?",

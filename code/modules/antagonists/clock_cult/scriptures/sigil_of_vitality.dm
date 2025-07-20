@@ -55,7 +55,7 @@
 				else
 					var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(
 						question = "Do you want to play as a [M.name], an inactive clock cultist?",
-						role = /datum/role_preference/antagonist/clock_cultist,
+						role = /datum/role_preference/roundstart/clock_cultist,
 						check_jobban = ROLE_SERVANT_OF_RATVAR,
 						poll_time = 10 SECONDS,
 						checked_target = M,

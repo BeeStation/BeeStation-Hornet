@@ -652,7 +652,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/narsie)
 		set waitfor = FALSE
 		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(
 			question = "Do you want to play as a [mob_to_revive.name], an inactive blood cultist?",
-			role = /datum/role_preference/antagonist/blood_cultist,
+			role = /datum/role_preference/roundstart/blood_cultist,
 			check_jobban = ROLE_CULTIST,
 			poll_time = 10 SECONDS,
 			checked_target = mob_to_revive,

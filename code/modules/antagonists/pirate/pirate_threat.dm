@@ -50,7 +50,6 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 		return
 
 	var/list/candidates = SSpolling.poll_ghost_candidates(
-		role = /datum/role_preference/midround_ghost/space_pirate,
 		check_jobban = ROLE_SPACE_PIRATE,
 		poll_time = 15 SECONDS,
 		role_name_text = "pirate crew",

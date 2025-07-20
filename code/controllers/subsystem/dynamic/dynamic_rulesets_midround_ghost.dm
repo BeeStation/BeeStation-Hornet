@@ -126,7 +126,6 @@
 	name = "Wizard"
 	severity = DYNAMIC_MIDROUND_HEAVY
 	antag_datum = /datum/antagonist/wizard
-	role_preference = /datum/role_preference/midround_ghost/wizard
 	points_cost = 50
 	weight = 2
 
@@ -153,7 +152,6 @@
 	name = "Nuclear Assault"
 	severity = DYNAMIC_MIDROUND_HEAVY
 	antag_datum = /datum/antagonist/nukeop
-	role_preference = /datum/role_preference/midround_ghost/nuclear_operative
 	drafted_players_amount = 3
 	points_cost = 50
 	weight = 1
@@ -189,7 +187,6 @@
 	name = "Blob"
 	severity = DYNAMIC_MIDROUND_HEAVY
 	antag_datum = /datum/antagonist/blob
-	role_preference = /datum/role_preference/midround_ghost/blob
 	points_cost = 50
 	weight = 6
 	use_spawn_locations = FALSE
@@ -215,7 +212,6 @@
 	name = "Xenomorph Infestation"
 	severity = DYNAMIC_MIDROUND_HEAVY
 	antag_datum = /datum/antagonist/xeno
-	role_preference = /datum/role_preference/midround_ghost/xenomorph
 	points_cost = 50
 	weight = 4
 	flags = CANNOT_REPEAT
@@ -259,7 +255,6 @@
 	name = "Space Dragon"
 	severity = DYNAMIC_MIDROUND_HEAVY
 	antag_datum = /datum/antagonist/space_dragon
-	role_preference = /datum/role_preference/midround_ghost/space_dragon
 	points_cost = 40
 	weight = 6
 	flags = CANNOT_REPEAT
@@ -289,7 +284,6 @@
 	name = "Space Ninja"
 	severity = DYNAMIC_MIDROUND_MEDIUM
 	antag_datum = /datum/antagonist/ninja
-	role_preference = /datum/role_preference/midround_ghost/ninja
 	points_cost = 40
 	weight = 6
 	flags = CANNOT_REPEAT
@@ -319,7 +313,6 @@
 	name = "Nightmare"
 	severity = DYNAMIC_MIDROUND_MEDIUM
 	antag_datum = /datum/antagonist/nightmare
-	role_preference = /datum/role_preference/midround_ghost/nightmare
 	points_cost = 30
 	weight = 6
 
@@ -353,7 +346,6 @@
 	name = "Abductors"
 	severity = DYNAMIC_MIDROUND_MEDIUM
 	antag_datum = /datum/antagonist/abductor/agent
-	role_preference = /datum/role_preference/midround_ghost/abductor
 	drafted_players_amount = 2
 	points_cost = 30
 	weight = 6
@@ -387,7 +379,6 @@
 	name = "Lone Abductor"
 	severity = DYNAMIC_MIDROUND_MEDIUM
 	antag_datum = /datum/antagonist/abductor/scientist/solo
-	role_preference = /datum/role_preference/midround_ghost/abductor
 	points_cost = 30
 	weight = 6
 	use_spawn_locations = FALSE
@@ -414,7 +405,6 @@
 	name = "Revenant"
 	severity = DYNAMIC_MIDROUND_MEDIUM
 	antag_datum = /datum/antagonist/revenant
-	role_preference = /datum/role_preference/midround_ghost/revenant
 	points_cost = 30
 	weight = 6
 
@@ -460,7 +450,6 @@
 	name = "Spider Infestation"
 	severity = DYNAMIC_MIDROUND_MEDIUM
 	antag_datum = /datum/antagonist/spider
-	role_preference = /datum/role_preference/midround_ghost/spider
 	drafted_players_amount = 3
 	points_cost = 40
 	weight = 4
@@ -519,7 +508,6 @@
 	name = "Swarmer"
 	severity = DYNAMIC_MIDROUND_MEDIUM
 	antag_datum = /datum/antagonist/swarmer
-	role_preference = /datum/role_preference/midround_ghost/swarmer
 	points_cost = 40
 	weight = 4
 	flags = CANNOT_REPEAT
@@ -558,7 +546,6 @@
 	name = "Morph"
 	severity = DYNAMIC_MIDROUND_MEDIUM
 	antag_datum = /datum/antagonist/morph
-	role_preference = /datum/role_preference/midround_ghost/morph
 	points_cost = 30
 	weight = 4
 
@@ -590,7 +577,6 @@
 	name = "Prisoners"
 	severity = DYNAMIC_MIDROUND_LIGHT
 	antag_datum = /datum/antagonist/prisoner
-	role_preference = /datum/role_preference/midround_ghost/prisoner
 	points_cost = 30
 	weight = 4
 
@@ -630,7 +616,6 @@
 	name = "Fugitives"
 	severity = DYNAMIC_MIDROUND_LIGHT
 	antag_datum = /datum/antagonist/fugitive
-	role_preference = /datum/role_preference/midround_ghost/fugitive
 	points_cost = 30
 	weight = 4
 

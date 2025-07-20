@@ -1,26 +1,14 @@
-#define TRAITOR_DESC "An unpaid debt. A score to be settled. Maybe you were just in the wrong \
-	place at the wrong time. Whatever the reasons, you were selected to \
-	infiltrate Space Station 13."
-#define TRAITOR_DESC_DETAILS "Start with a set of sinister objectives and an uplink to purchase \
-	items to get the job done."
-
-/datum/role_preference/antagonist/traitor
+/datum/role_preference/roundstart/traitor
 	name = "Traitor"
-	description = TRAITOR_DESC + "\n" + TRAITOR_DESC_DETAILS
+	description = "An unpaid debt. A score to be settled. Maybe you were just in the wrong \
+		place at the wrong time. Whatever the reasons, you were selected to infiltrate Space Station 13. \n\
+		Start with a set of sinister objectives and an uplink to purchase \
+		items to get the job done."
 	antag_datum = /datum/antagonist/traitor
 	preview_outfit = /datum/outfit/traitor
 
-/datum/role_preference/midround_living/traitor
-	name = "Syndicate Sleeper Agent"
-	description = TRAITOR_DESC + "\n" + TRAITOR_DESC_DETAILS
-	antag_datum = /datum/antagonist/traitor
-	use_icon = /datum/role_preference/antagonist/traitor
-
-#undef TRAITOR_DESC
-
 /datum/outfit/traitor
 	name = "Traitor (Preview only)"
-
 	uniform = /obj/item/clothing/under/syndicate
 	gloves = /obj/item/clothing/gloves/tackler/combat
 	mask = /obj/item/clothing/mask/gas
@@ -35,15 +23,15 @@
 	H.hair_color = "431"
 	H.update_hair()
 
-/datum/role_preference/antagonist/changeling
+/datum/role_preference/roundstart/changeling
 	name = "Changeling"
 	description = "A highly intelligent alien predator that is capable of altering their \
-	shape to flawlessly resemble a human.\n\
-	Transform yourself or others into different identities, and buy from an \
-	arsenal of biological weaponry with the DNA you collect."
+		shape to flawlessly resemble a human. \n\
+		Transform yourself or others into different identities, and buy from an \
+		arsenal of biological weaponry with the DNA you collect."
 	antag_datum = /datum/antagonist/changeling
 
-/datum/role_preference/antagonist/changeling/get_preview_icon()
+/datum/role_preference/roundstart/changeling/get_preview_icon()
 	var/icon/final_icon = render_preview_outfit(/datum/outfit/medical_doctor_changeling_preview)
 	var/icon/split_icon = render_preview_outfit(/datum/outfit/job/engineer)
 
@@ -70,13 +58,13 @@
 	H.dna.features["frills"] = "Simple"
 	H.set_species(/datum/species/lizard)
 
-/datum/role_preference/antagonist/blood_brother
+/datum/role_preference/roundstart/blood_brother
 	name = "Blood Brother"
 	description = "Team up with other crew members as blood brothers to combine the strengths \
 	of your departments, break each other out of prison, and overwhelm the station."
 	antag_datum = /datum/antagonist/brother
 
-/datum/role_preference/antagonist/blood_brother/get_preview_icon()
+/datum/role_preference/roundstart/blood_brother/get_preview_icon()
 	var/mob/living/carbon/human/dummy/consistent/brother1 = new
 	var/mob/living/carbon/human/dummy/consistent/brother2 = new
 
@@ -105,17 +93,17 @@
 
 	return finish_preview_icon(final_icon)
 
-/datum/role_preference/antagonist/blood_cultist
+/datum/role_preference/roundstart/blood_cultist
 	name = "Blood Cultist"
 	description = "The Geometer of Blood, Nar-Sie, has sent a number of her followers to \
-	Space Station 13. As a cultist, you have an abundance of cult magics at \
-	your disposal, something for all situations. You must work with your \
-	brethren to summon an avatar of your eldritch goddess!\n\
-	Armed with blood magic, convert crew members to the Blood Cult, sacrifice \
-	those who get in the way, and summon Nar-Sie."
+		Space Station 13. As a cultist, you have an abundance of cult magics at \
+		your disposal, something for all situations. You must work with your \
+		brethren to summon an avatar of your eldritch goddess! \n\
+		Armed with blood magic, convert crew members to the Blood Cult, sacrifice \
+		those who get in the way, and summon Nar-Sie."
 	antag_datum = /datum/antagonist/cult
 
-/datum/role_preference/antagonist/blood_cultist/get_preview_icon()
+/datum/role_preference/roundstart/blood_cultist/get_preview_icon()
 	var/icon/icon = render_preview_outfit(/datum/outfit/blood_cult_preview)
 
 	// The longsword is 64x64, but getFlatIcon crunches to 32x32.
@@ -146,12 +134,12 @@
 	H.eye_color = BLOODCULT_EYE
 	H.update_body()
 
-/datum/role_preference/antagonist/clock_cultist
+/datum/role_preference/roundstart/clock_cultist
 	name = "Clock Cultist"
 	description = "Hailing from the clockwork city of Reebe, serve your god, Ratvar. \
-	Gather power to summon an avatar of Ratvar through the clockwork rift!\n\
-	Drop down among the station to install cogs into APCs to gain power. Be careful, as when the rift opens, \
-	the crew will rush into Reebe! Build defenses to slow down their entry."
+		Gather power to summon an avatar of Ratvar through the clockwork rift! \n\
+		Drop down among the station to install cogs into APCs to gain power. Be careful, as when the rift opens, \
+		the crew will rush into Reebe! Build defenses to slow down their entry."
 	antag_datum = /datum/antagonist/servant_of_ratvar
 	preview_outfit = /datum/outfit/clockcult_preview
 
@@ -164,10 +152,10 @@
 	head = /obj/item/clothing/head/helmet/clockcult
 	gloves = /obj/item/clothing/gloves/clockcult
 
-/datum/role_preference/antagonist/revolutionary
+/datum/role_preference/roundstart/revolutionary
 	name = "Head Revolutionary"
-	description = "Armed with a flash, convert as many people to the revolution as you can.\n\
-	Kill or exile all heads of staff on the station."
+	description = "Armed with a flash, convert as many people to the revolution as you can. \n\
+		Kill or exile all heads of staff on the station."
 	antag_datum = /datum/antagonist/rev/head
 	preview_outfit = /datum/outfit/revolutionary
 
@@ -179,7 +167,7 @@
 	l_hand = /obj/item/spear
 	r_hand = /obj/item/assembly/flash
 
-/datum/role_preference/antagonist/revolutionary/get_preview_icon()
+/datum/role_preference/roundstart/revolutionary/get_preview_icon()
 	var/icon/final_icon = render_preview_outfit(preview_outfit)
 
 	final_icon.Blend(make_assistant_icon("Business Hair"), ICON_UNDERLAY, -8, 0)
@@ -198,7 +186,7 @@
 
 	return finish_preview_icon(final_icon)
 
-/datum/role_preference/antagonist/revolutionary/proc/make_assistant_icon(hair_style)
+/datum/role_preference/roundstart/revolutionary/proc/make_assistant_icon(hair_style)
 	var/mob/living/carbon/human/dummy/consistent/assistant = new
 	assistant.hair_style = hair_style
 	assistant.update_hair()
@@ -210,7 +198,7 @@
 
 	return assistant_icon
 
-/datum/role_preference/antagonist/heretic
+/datum/role_preference/roundstart/heretic
 	name = "Heretic"
 	description = "Find hidden influences and sacrifice crew members to gain magical \
 		powers and ascend as one of several paths. \n\
@@ -219,17 +207,7 @@
 		again..."
 	antag_datum = /datum/antagonist/heretic
 
-/datum/role_preference/midround_living/heretic
-	name = "Heretic"
-	description = "Find hidden influences and sacrifice crew members to gain magical \
-		powers and ascend as one of several paths. \n\
-		Forgotten, devoured, gutted. Humanity has forgotten the eldritch forces \
-		of decay, but the mansus veil has weakened. We will make them taste fear \
-		again..."
-	antag_datum = /datum/antagonist/heretic
-	use_icon = /datum/role_preference/antagonist/heretic
-
-/datum/role_preference/antagonist/heretic/get_preview_icon()
+/datum/role_preference/roundstart/heretic/get_preview_icon()
 	var/icon/icon = render_preview_outfit(/datum/outfit/heretic_preview)
 
 	// The sickly blade is 64x64, but getFlatIcon crunches to 32x32.
@@ -254,17 +232,17 @@
 	head = /obj/item/clothing/head/hooded/cult_hoodie/eldritch
 	r_hand = /obj/item/melee/touch_attack/mansus_fist
 
-/datum/role_preference/antagonist/nuclear_operative
+/datum/role_preference/roundstart/nuclear_operative
 	name = "Nuclear Operative"
 	description = "Congratulations, agent. You have been chosen to join the Syndicate \
-	Nuclear Operative strike team. Your mission, whether or not you choose \
-	to accept it, is to destroy Nanotrasen's most advanced research facility! \
-	That's right, you're going to Space Station 13.\n\
-	Retrieve the nuclear authentication disk, use it to activate the nuclear \
-	fission explosive, and destroy the station."
+		Nuclear Operative strike team. Your mission, whether or not you choose \
+		to accept it, is to destroy Nanotrasen's most advanced research facility! \
+		That's right, you're going to Space Station 13. \n\
+		Retrieve the nuclear authentication disk, use it to activate the nuclear \
+		fission explosive, and destroy the station."
 	antag_datum = /datum/antagonist/nukeop
 
-/datum/role_preference/antagonist/nuclear_operative/get_preview_icon()
+/datum/role_preference/roundstart/nuclear_operative/get_preview_icon()
 	var/icon/final_icon = icon('icons/effects/effects.dmi', "nothing")
 	var/icon/foreground = render_preview_outfit(/datum/outfit/nuclear_operative)
 	var/icon/background = icon(foreground)
@@ -278,35 +256,24 @@
 
 /datum/outfit/nuclear_operative
 	name = "Nuclear Operative (Preview only)"
-
 	suit = /obj/item/clothing/suit/space/hardsuit/syndipreview
 	head = /obj/item/clothing/head/helmet/space/hardsuit/syndi
 
-/datum/role_preference/antagonist/wizard
+/datum/role_preference/roundstart/wizard
 	name = "Wizard"
-	description = "GREETINGS. WE'RE THE WIZARDS OF THE WIZARD'S FEDERATION.\n\
-	Choose between a variety of powerful spells in order to cause chaos among Space Station 13."
+	description = "GREETINGS. WE'RE THE WIZARDS OF THE WIZARD'S FEDERATION. \n\
+		Choose between a variety of powerful spells in order to cause chaos among Space Station 13."
 	antag_datum = /datum/antagonist/wizard
 	preview_outfit = /datum/outfit/wizard
 
-#undef TRAITOR_DESC_DETAILS
-
-/datum/role_preference/antagonist/malfunctioning_ai
+/datum/role_preference/roundstart/malfunctioning_ai
 	name = "Malfunctioning AI"
 	description = "With a law zero to complete your objectives at all costs, combine your \
-	omnipotence and malfunction modules to wreak havoc across the station. \
-	Go delta to destroy the station and all those who opposed you."
+		omnipotence and malfunction modules to wreak havoc across the station. \
+		Go delta to destroy the station and all those who opposed you."
 	antag_datum = /datum/antagonist/malf_ai
 
-/datum/role_preference/midround_living/malfunctioning_ai
-	name = "Value Drifted AI"
-	description = "With a law zero to complete your objectives at all costs, combine your \
-	omnipotence and malfunction modules to wreak havoc across the station. \
-	Go delta to destroy the station and all those who opposed you."
-	antag_datum = /datum/antagonist/malf_ai
-	use_icon = /datum/role_preference/antagonist/malfunctioning_ai
-
-/datum/role_preference/antagonist/malfunctioning_ai/get_preview_icon()
+/datum/role_preference/roundstart/malfunctioning_ai/get_preview_icon()
 	var/icon/malf_ai_icon = icon('icons/mob/ai.dmi', "ai-red")
 
 	// Crop out the borders of the AI, just the face

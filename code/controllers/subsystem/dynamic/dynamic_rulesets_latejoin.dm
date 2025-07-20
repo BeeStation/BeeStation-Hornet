@@ -20,9 +20,9 @@
 //                                          //
 //////////////////////////////////////////////
 
-/datum/dynamic_ruleset/latejoin/infiltrator
+/datum/dynamic_ruleset/latejoin/traitor
 	name = "Syndicate Infiltrator"
-	role_preference = /datum/role_preference/antagonist/traitor
+	role_preference = /datum/role_preference/latejoin/traitor
 	antag_datum = /datum/antagonist/traitor
 	weight = 7
 
@@ -32,9 +32,9 @@
 //                                          //
 //////////////////////////////////////////////
 
-/datum/dynamic_ruleset/latejoin/changeling_stowaway
+/datum/dynamic_ruleset/latejoin/changeling
 	name = "Changeling Stowaway"
-	role_preference = /datum/role_preference/antagonist/changeling
+	role_preference = /datum/role_preference/latejoin/changeling
 	antag_datum = /datum/antagonist/changeling
 	weight = 4
 
@@ -44,13 +44,13 @@
 //                                          //
 //////////////////////////////////////////////
 
-/datum/dynamic_ruleset/latejoin/heretic_smuggler
+/datum/dynamic_ruleset/latejoin/heretic
 	name = "Heretic Smuggler"
-	role_preference = /datum/role_preference/antagonist/heretic
+	role_preference = /datum/role_preference/latejoin/heretic
 	antag_datum = /datum/antagonist/heretic
 	weight = 4
 
-/datum/dynamic_ruleset/latejoin/heretic_smuggler/execute()
+/datum/dynamic_ruleset/latejoin/heretic/execute()
 	. = ..()
 	for(var/mob/chosen_candidate in chosen_candidates)
 		var/datum/antagonist/heretic/new_heretic = IS_HERETIC(chosen_candidate)

@@ -66,7 +66,7 @@
 
 /datum/dynamic_ruleset/roundstart/traitor
 	name = "Traitor"
-	role_preference = /datum/role_preference/antagonist/traitor
+	role_preference = /datum/role_preference/roundstart/traitor
 	antag_datum = /datum/antagonist/traitor
 	weight = 10
 
@@ -78,7 +78,7 @@
 
 /datum/dynamic_ruleset/roundstart/changeling
 	name = "Changeling"
-	role_preference = /datum/role_preference/antagonist/changeling
+	role_preference = /datum/role_preference/roundstart/changeling
 	antag_datum = /datum/antagonist/changeling
 	weight = 8
 
@@ -90,7 +90,7 @@
 
 /datum/dynamic_ruleset/roundstart/heretic
 	name = "Heretic"
-	role_preference = /datum/role_preference/antagonist/heretic
+	role_preference = /datum/role_preference/roundstart/heretic
 	antag_datum = /datum/antagonist/heretic
 	weight = 8
 
@@ -102,7 +102,7 @@
 
 /datum/dynamic_ruleset/roundstart/malf
 	name = "Malfunctioning AI"
-	role_preference = /datum/role_preference/antagonist/malfunctioning_ai
+	role_preference = /datum/role_preference/roundstart/malfunctioning_ai
 	antag_datum = /datum/antagonist/malf_ai
 	minimum_points_required = 24
 	weight = 6
@@ -131,7 +131,7 @@
 
 /datum/dynamic_ruleset/roundstart/wizard
 	name = "Wizard"
-	role_preference = /datum/role_preference/antagonist/wizard
+	role_preference = /datum/role_preference/roundstart/wizard
 	antag_datum = /datum/antagonist/wizard
 	weight = 1
 	points_cost = 15
@@ -166,7 +166,7 @@
 
 /datum/dynamic_ruleset/roundstart/brothers
 	name = "Blood Brothers"
-	role_preference = /datum/role_preference/antagonist/blood_brother
+	role_preference = /datum/role_preference/roundstart/blood_brother
 	antag_datum = /datum/antagonist/brother
 	drafted_players_amount = 2
 	weight = 6
@@ -200,7 +200,7 @@
 
 /datum/dynamic_ruleset/roundstart/bloodcult
 	name = "Blood Cult"
-	role_preference = /datum/role_preference/antagonist/blood_cultist
+	role_preference = /datum/role_preference/roundstart/blood_cultist
 	antag_datum = /datum/antagonist/cult
 	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_CHAPLAIN, JOB_NAME_HEADOFPERSONNEL)
 	drafted_players_amount = 2
@@ -247,7 +247,7 @@
 
 /datum/dynamic_ruleset/roundstart/clockcult
 	name = "Clockwork Cult"
-	role_preference = /datum/role_preference/antagonist/clock_cultist
+	role_preference = /datum/role_preference/roundstart/clock_cultist
 	antag_datum = /datum/antagonist/servant_of_ratvar
 	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE,JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_CHAPLAIN, JOB_NAME_HEADOFPERSONNEL)
 	drafted_players_amount = 4
@@ -306,7 +306,7 @@
 
 /datum/dynamic_ruleset/roundstart/nuclear
 	name = "Nuclear Operatives"
-	role_preference = /datum/role_preference/antagonist/nuclear_operative
+	role_preference = /datum/role_preference/roundstart/nuclear_operative
 	antag_datum = /datum/antagonist/nukeop
 	drafted_players_amount = 3
 	weight = 3
@@ -402,7 +402,7 @@
 
 /datum/dynamic_ruleset/roundstart/revolution
 	name = "Revolution"
-	role_preference = /datum/role_preference/antagonist/revolutionary
+	role_preference = /datum/role_preference/roundstart/revolutionary
 	antag_datum = /datum/antagonist/rev/head
 	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_CHIEFENGINEER, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_RESEARCHDIRECTOR)
 	drafted_players_amount = 3
