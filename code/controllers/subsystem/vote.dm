@@ -224,13 +224,18 @@ SUBSYSTEM_DEF(vote)
 				for(var/valid_map in maps)
 					choices.Add(valid_map)
 			if("custom")
-				question = stripped_input(usr,"What is the vote for?")
-				if(!question)
+				question = tgui_input_text(usr, "What is the vote for?", "Vote Title")
+				if(!question) // no input so we return
+					to_chat(usr, span_warning("You must enter a title for the vote."))
 					return 0
 				for(var/i in 1 to 10)
-					var/option = capitalize(stripped_input(usr,"Please enter an option or hit cancel to finish"))
+					var/option = capitalize(tgui_input_text(usr, "Please enter an option or hit cancel to finish (only already submitted answers will be shown)", "Question [i]:"))
 					if(!option || mode || !usr.client)
-						break
+						if (i == 1)
+							to_chat(usr, span_warning("You must enter at least one option."))
+							return 0
+						else
+							break
 					choices.Add(option)
 			else
 				return 0
