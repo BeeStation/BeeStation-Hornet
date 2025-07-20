@@ -7,17 +7,17 @@ export enum Gender {
 
 export const GENDERS = {
   [Gender.Male]: {
-    icon: 'mars',
+    icon: 'male',
     text: 'He/Him',
   },
 
   [Gender.Female]: {
-    icon: 'venus',
+    icon: 'female',
     text: 'She/Her',
   },
 
   [Gender.Other]: {
-    icon: 'transgender',
+    icon: 'tg-non-binary',
     text: 'They/Them',
   },
 
