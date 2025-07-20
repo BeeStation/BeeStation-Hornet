@@ -65,7 +65,7 @@
 	return data
 
 /datum/preference/color/facial_hair_color
-	priority = PREFERENCE_PRIORITY_LATE_BODY_TYPE // Need to happen after hair color is set so we can match by default
+	priority = PREFERENCE_PRIORITY_FACIAL_COLOR // Need to happen after hair color is set so we can match by default
 	db_key = "facial_hair_color"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
@@ -251,7 +251,7 @@
 	return data
 
 /datum/preference/color/hair_gradient
-	priority = PREFERENCE_PRIORITY_BODY_TYPE
+	priority = PREFERENCE_PRIORITY_GRADIENT_COLOR
 	db_key = "gradient_color"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES

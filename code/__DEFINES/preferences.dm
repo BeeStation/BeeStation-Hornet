@@ -201,37 +201,31 @@ GLOBAL_PROTECT(undatumized_preference_tags_character)
 /// The priority at which species runs, needed for external organs to apply properly.
 #define PREFERENCE_PRIORITY_SPECIES 2
 
-/**
- * Some preferences get applied directly to bodyparts (anything head_flags related right now).
- * These must apply after species, as species gaining might replace the bodyparts of the human.
- */
-#define PREFERENCE_PRIORITY_BODYPARTS 3
-
 /// The priority at which gender is determined, needed for proper randomization.
-#define PREFERENCE_PRIORITY_GENDER 4
+#define PREFERENCE_PRIORITY_GENDER 3
 
 /// The priority at which body type is decided, applied after gender so we can
 /// support the "use gender" option.
-#define PREFERENCE_PRIORITY_BODY_TYPE 5
+#define PREFERENCE_PRIORITY_BODY_TYPE 4
 
 /// Used for preferences that rely on body setup being finalized.
-#define PREFERENCE_PRIORITY_LATE_BODY_TYPE 6
+#define PREFERENCE_PRIORITY_LATE_BODY_TYPE 5
 
 /// The priority at which eye color is applied, needed so IPCs get the right screen color.
-#define PREFERENCE_PRIORITY_EYE_COLOR 7
+#define PREFERENCE_PRIORITY_EYE_COLOR 6
 
 /// The priority at which hair color is applied, needed so IPCs get the right antenna color.
 /// Dependant on gender to create an informed value
-#define PREFERENCE_PRIORITY_HAIR_COLOR 8
+#define PREFERENCE_PRIORITY_HAIR_COLOR 7
 
 /// Dependant on hair colour to create an informed value
-#define PREFERENCE_PRIORITY_FACIAL_COLOR 9
+#define PREFERENCE_PRIORITY_FACIAL_COLOR 8
 
 /// Dependant on hair colour and gender to create an informed value
-#define PREFERENCE_PRIORITY_GRADIENT_COLOR 10
+#define PREFERENCE_PRIORITY_GRADIENT_COLOR 9
 
 /// The priority at which names are decided, needed for proper randomization.
-#define PREFERENCE_PRIORITY_NAMES 11
+#define PREFERENCE_PRIORITY_NAMES 10
 
 /// The maximum preference priority, keep this updated, but don't use it for `priority`.
 #define MAX_PREFERENCE_PRIORITY PREFERENCE_PRIORITY_NAMES
