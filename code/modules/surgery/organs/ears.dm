@@ -99,7 +99,7 @@
 	icon_state = "kitty"
 	visual = TRUE
 	bang_protect = -2
-	preference = "feature_human_ears"
+	//preference = "feature_human_ears"
 
 	dna_block = DNA_EARS_BLOCK
 

@@ -203,6 +203,7 @@ export const gradient_color: Feature<string> = {
   },
 };
 
+/*
 export const feature_human_ears: FeatureChoiced = {
   name: 'Ears',
   component: FeatureButtonedDropdownInput,
@@ -217,6 +218,7 @@ export const feature_monkey_tail: FeatureChoiced = {
   name: 'Tail',
   component: FeatureButtonedDropdownInput,
 };
+*/
 
 export const feature_lizard_body_markings: FeatureChoiced = {
   name: 'Body Markings',

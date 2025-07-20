@@ -173,7 +173,9 @@
 	relevant_external_organ = /obj/item/organ/tail/lizard
 
 /datum/preference/choiced/lizard_tail/init_possible_values()
-	return assoc_to_keys_features(SSaccessories.tails_list_lizard)
+	var/list/values = assoc_to_keys_features(SSaccessories.tails_list_lizard)
+	values -= "None" // Remove "None" tails"
+	return values
 
 /datum/preference/choiced/lizard_tail/icon_for(value)
 	return generate_lizard_body_shot(SSaccessories.tails_list_lizard[value], "tail")

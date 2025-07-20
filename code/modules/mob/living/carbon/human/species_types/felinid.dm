@@ -22,15 +22,13 @@
 /datum/species/human/felinid/on_species_gain(mob/living/carbon/carbon_being, datum/species/old_species, pref_load, regenerate_icons)
 	if(ishuman(carbon_being))
 		var/mob/living/carbon/human/target_human = carbon_being
-		if(!pref_load) //Hah! They got forcefully purrbation'd. Force default felinid parts on them if they have no mutant parts in those areas!
-			target_human.dna.features["tail_cat"] = "Cat"
-			if(target_human.dna.features["ears"] == "None")
-				target_human.dna.features["ears"] = "Cat"
-		if(target_human.dna.features["ears"] == "None")
-			mutantears = /obj/item/organ/ears
-		else
-			var/obj/item/organ/ears/cat/ears = new(FALSE, target_human.dna.features["ears"])
-			ears.Insert(target_human, movement_flags = DELETE_IF_REPLACED)
+
+		//Force ears/tails for felinids
+		target_human.dna.features["tail_cat"] = "Cat"
+		target_human.dna.features["ears"] = "Cat"
+
+		var/obj/item/organ/ears/cat/ears = new(FALSE, target_human.dna.features["ears"])
+		ears.Insert(target_human, movement_flags = DELETE_IF_REPLACED)
 	return ..()
 
 /datum/species/human/felinid/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/M)
@@ -51,7 +49,8 @@
 
 /datum/species/human/felinid/randomize_features(mob/living/carbon/human/human_mob)
 	var/list/features = ..()
-	features["ears"] = pick("None", "Cat")
+	features["ears"] = "Cat"
+	features["tail_cat"] = "Cat"
 	return features
 
 /proc/mass_purrbation()

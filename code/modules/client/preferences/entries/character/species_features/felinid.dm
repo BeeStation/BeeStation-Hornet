@@ -1,3 +1,4 @@
+/*
 /datum/preference/choiced/tail_human
 	db_key = "feature_human_tail"
 	preference_type = PREFERENCE_CHARACTER
@@ -31,3 +32,4 @@
 /datum/preference/choiced/ears/create_default_value()
 	return /datum/sprite_accessory/ears/cat::name
 
+*/
