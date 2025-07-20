@@ -6,7 +6,6 @@
 	supervisors = "the chief engineer"
 	faction = "Station"
 	total_positions = 3
-	spawn_positions = 2
 	selection_color = "#fff5cc"
 	// Requires advanced knowledge of the engineering department
 	// and can easilly disrupt large portions of the station

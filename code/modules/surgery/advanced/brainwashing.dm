@@ -42,8 +42,12 @@
 	var/objective
 
 /datum/surgery_step/brainwash/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	objective = tgui_input_text(user, "Choose the objective to imprint on your victim's brain", "Brainwashing")
-	if(!objective)
+	objective = tgui_input_text(user, "Choose the objective to imprint on your victim's brain.", "Brainwashing")
+	if(!objective) // no input so we return
+		to_chat(user, span_warning("No objective input found, please try again!"))
+		return -1
+	if(CHAT_FILTER_CHECK(objective)) // check for forbidden words
+		to_chat(user, span_warning("Your objective contains forbidden words."))
 		return -1
 	display_results(
 		user,

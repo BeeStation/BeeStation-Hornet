@@ -17,3 +17,6 @@ GLOBAL_VAR_INIT(byond_http, TRUE)
 #else
 GLOBAL_VAR_INIT(byond_http, FALSE)
 #endif
+
+GLOBAL_LIST_EMPTY(disconnected_mobs)
+GLOBAL_PROTECT(disconnected_mobs)

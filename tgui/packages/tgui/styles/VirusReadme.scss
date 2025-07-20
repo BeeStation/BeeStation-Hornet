@@ -1,0 +1,23 @@
+.virus-readme {
+  font-family: monospace;
+  font-size: 14px;
+  color: #ffffff;
+  white-space: pre;
+  background: black;
+  padding: 0.5rem;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.readme-line {
+  opacity: 0;
+  transform: translateY(0.125rem);
+  animation: fadeInLine 0.2s ease-out forwards;
+}
+
+@keyframes fadeInLine {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

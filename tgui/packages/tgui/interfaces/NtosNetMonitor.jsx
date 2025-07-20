@@ -2,6 +2,14 @@ import { useBackend } from '../backend';
 import { Box, Button, LabeledList, NoticeBox, NumberInput, Section } from '../components';
 import { NtosWindow } from '../layouts';
 
+const decodeHtml = (html) => {
+  const el = document.createElement('textarea');
+  el.innerHTML = html;
+  return el.value;
+};
+
+const decodeHtmlDeep = (s) => decodeHtml(decodeHtml(s));
+
 export const NtosNetMonitor = (props) => {
   const { act, data } = useBackend();
   const {
@@ -134,9 +142,9 @@ export const NtosNetMonitor = (props) => {
             title="System Log"
             level={2}
             buttons={<Button.Confirm icon="trash" content="Clear Logs" onClick={() => act('purgelogs')} />}>
-            {ntnetlogs.map((log) => (
-              <Box key={log.entry} className="candystripe">
-                {log.entry}
+            {ntnetlogs.map((log, index) => (
+              <Box key={index} className="candystripe" style={{ color: log.color || '#ffffff' }}>
+                {decodeHtmlDeep(log.entry)}
               </Box>
             ))}
           </Section>

@@ -1362,6 +1362,14 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 1
 	surplus = 8
 
+/datum/uplink_item/explosives/hellfirecandle
+	name = "Portable Hellfire"
+	desc = "This modified oxygen candle is delivered fresh directly off the conveyor at one of our signature warcrime factories. \
+			Pull the tab and watch in glee as a solid quarter of the station becomes uninhabitable."
+	item = /obj/item/flashlight/oxycandle/hellfire
+	player_minimum = 15
+	cost = 10
+
 //Support and Mechs
 /datum/uplink_item/support
 	category = "Support and Exosuits"
@@ -2431,16 +2439,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 12
 	item = /obj/item/autosurgeon/syndicate/laser_arm
 	restricted_roles = list(JOB_NAME_ROBOTICIST, JOB_NAME_RESEARCHDIRECTOR)
-
-/datum/uplink_item/role_restricted/tc_rod
-	name = "Telecrystal Fuel Rod"
-	desc = "This special fuel rod has eight material slots that can be inserted with telecrystals, \
-			once the rod has been fully depleted, you will be able to harvest the extra telecrystals. \
-			Please note: This Rod fissiles much faster than it's nanotrasen counterpart, it doesn't take \
-			much to overload the reactor with these..."
-	item = /obj/item/fuel_rod/material/telecrystal
-	cost = 7
-	restricted_roles = list(JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN, JOB_NAME_CHIEFENGINEER)
 
 // Pointless
 /datum/uplink_item/badass
