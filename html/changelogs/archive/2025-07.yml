@@ -289,6 +289,13 @@
       being invisible.
   - tweak: Capitalized 'prisoner' in the antagonist preferences menu.
 2025-07-20:
+  ClownMoff:
+  - rscadd: Added to the detective fedoras the ability to turn your screen black and
+      white while you are inside their room or the interrogation room.
+  - rscadd: Added the ability to the detective fedoras to adjust it to cast a shadow
+      over their eyes
+  - rscadd: Added a new area for the interrogation room with the proper APCs
+  - rscadd: Added lightswitches in interrogation rooms that were missing them
   Gboster-0:
   - code_imp: code for slime pylons has been slightly changed making them extremelly
       lightly more performant

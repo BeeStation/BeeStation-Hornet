@@ -1,9 +1,0 @@
-author: ClownMoff
-delete-after: true
-changes:
-  - rscadd: Added to the detective fedoras the ability to turn your screen black and
-      white while you are inside their room or the interrogation room.
-  - rscadd: Added the ability to the detective fedoras to adjust it to cast a shadow
-      over their eyes
-  - rscadd: Added a new area for the interrogation room with the proper APCs
-  - rscadd: Added lightswitches in interrogation rooms that were missing them
