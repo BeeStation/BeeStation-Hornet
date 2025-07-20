@@ -530,7 +530,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////ADMIN HELPER PROCS
 
-/datum/admins/proc/spawn_atom(object as text)
+/datum/admins/proc/spawn_atom()
 	set category = "Debug"
 	set desc = "(atom path) Spawn an atom"
 	set name = "Spawn"
@@ -538,7 +538,7 @@
 	if(!check_rights(R_SPAWN))
 		return
 
-	var/chosen = pick_closest_path(object)
+	var/chosen = pick_closest_path(tgui_input_text(usr, "Spawn an atom:", "Spawn"))
 	if(!chosen)
 		return
 	var/turf/T = get_turf(usr)
@@ -683,16 +683,17 @@
 		var/datum/job/job = j
 		count++
 		var/J_title = html_encode(job.title)
-		var/J_opPos = html_encode(job.total_positions - (job.total_positions - job.current_positions))
-		var/J_totPos = html_encode(job.total_positions)
-		dat += "<tr><td>[J_title]:</td> <td>[J_opPos]/[job.total_positions < 0 ? " (unlimited)" : J_totPos]"
+		var/job_positions = job.get_spawn_position_count()
+		var/J_opPos = html_encode(job_positions - (job_positions - job.current_positions))
+		var/J_totPos = html_encode(job_positions)
+		dat += "<tr><td>[J_title]:</td> <td>[J_opPos]/[job_positions < 0 ? " (unlimited)" : J_totPos]"
 
 		dat += "</td>"
 		dat += "<td>"
-		if(job.total_positions >= 0)
+		if(job_positions >= 0)
 			dat += "<A href='byond://?src=[REF(src)];[HrefToken()];customjobslot=[job.title]'>Custom</A> | "
 			dat += "<A href='byond://?src=[REF(src)];[HrefToken()];addjobslot=[job.title]'>Add 1</A> | "
-			if(job.total_positions > job.current_positions)
+			if(job_positions > job.current_positions)
 				dat += "<A href='byond://?src=[REF(src)];[HrefToken()];removejobslot=[job.title]'>Remove</A> | "
 			else
 				dat += "Remove | "

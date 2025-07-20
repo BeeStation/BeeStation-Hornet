@@ -263,7 +263,7 @@ AUTH_CLIENT_VERB(map)
 	if(SSmapping.config.map_link == "None")
 		to_chat(src,span_danger("The current map does not have a webmap. "))
 	else if(SSmapping.config.map_link)
-		if(alert("This will open the current map in your browser. Are you sure?",,"Yes","No")!="Yes")
+		if(tgui_alert(src, "This will open the current map in your browser. Are you sure?", "", list("Yes","No"))!="Yes")
 			return
 		src << link("https://webmap.affectedarc07.co.uk/maps/bee/[SSmapping.config.map_link]")
 	else

@@ -329,6 +329,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_BRAIN_TUMOR		"brain_tumor"
 #define TRAIT_PROSKATER			"pro_skater"
 #define TRAIT_PLUSHIELOVER		"plushie lover"
+#define TRAIT_COMPUTER_WHIZ		"computer_whiz"
 
 ///Trait for dryable items
 #define TRAIT_DRYABLE "trait_dryable"
@@ -408,5 +409,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// Oozelings with this trait will not lose limbs from low blood/nutrition.
 #define TRAIT_OOZELING_NO_CANNIBALIZE "oozeling_no_cannibalize"
+
+/// For the detective aurafarming ability
+#define TRAIT_NOIR "noir"
 
 // END TRAIT DEFINES

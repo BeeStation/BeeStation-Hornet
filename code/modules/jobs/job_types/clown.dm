@@ -6,7 +6,6 @@
 	supervisors = "the head of personnel"
 	faction = "Station"
 	total_positions = 1
-	spawn_positions = 1
 	selection_color = "#dddddd"
 
 	outfit = /datum/outfit/job/clown
@@ -53,6 +52,8 @@
 		/obj/item/reagent_containers/spray/waterflower = 1,
 		/obj/item/food/grown/banana = 1,
 		/obj/item/instrument/bikehorn = 1,
+		/obj/item/food/pie/cream = 1,
+		/obj/item/megaphone/clown = 1,
 		)
 
 	implants = list(/obj/item/implant/sad_trombone)

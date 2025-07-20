@@ -153,6 +153,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 	set_target(null)
 	set_leader(null)
 	clear_friends()
+	remove_from_spawner_menu()
 	return ..()
 
 /mob/living/simple_animal/slime/proc/set_colour(new_colour)
@@ -560,14 +561,24 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime/random)
 	return .
 
 /mob/living/simple_animal/slime/get_spawner_desc()
-	return "be a slime[master ? " under the command of [master.real_name]" : ""]."
+	return "be a slime[master ? " under the command of [master.real_name]" : " with free will"]."
 
 /mob/living/simple_animal/slime/get_spawner_flavour_text()
-	return "You are a slime born and raised in a laboratory.[master ? " Your duty is to follow the orders of [master.real_name].": ""]"
+	return "You are a slime born and raised in a laboratory.[master ? " Your duty is to follow the orders of [master.real_name].": " You are not subject to anyone's commands, but the crew may not take kindly to a murderous slime!"]"
 
 /mob/living/simple_animal/slime/proc/make_master(mob/user)
 	Friends[user] += SLIME_FRIENDSHIP_ATTACK * 2
 	master = user
+
+// edited version of set_playable to prevent spawner menu flooding
+/mob/living/simple_animal/slime/proc/set_playable_slime(ban_type = null, poll_ignore_key = null)
+	playable = TRUE
+	playable_bantype = ban_type
+	LAZYADD(GLOB.mob_spawners["[master ? "[src.master.real_name]'s slime" : "free [src.colour] slime"]"], src)
+	SSmobs.update_spawners()
+	if (!key)	//ping only if there is no one inhabiting this mob
+		notify_ghosts("[name] can be controlled", null, enter_link="<a href='byond://?src=[REF(src)];activate=1'>(Click to play)</a>", source=src, action=NOTIFY_ATTACK, ignore_key = poll_ignore_key)
+		AddElement(/datum/element/point_of_interest)
 
 CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime/rainbow)
 

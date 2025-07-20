@@ -7,7 +7,6 @@
 	program_icon_state = "crew"
 	tgui_id = "NtosRecords"
 	size = 4
-	usage_flags = PROGRAM_PDA | PROGRAM_LAPTOP
 	available_on_ntnet = FALSE
 
 	var/mode
