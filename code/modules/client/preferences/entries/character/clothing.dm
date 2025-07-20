@@ -109,9 +109,6 @@
 /datum/preference/choiced/socks/init_possible_values()
 	return assoc_to_keys_features(SSaccessories.socks_list)
 
-/datum/preference/choiced/socks/create_default_value()
-	return /datum/sprite_accessory/socks/nude::name
-
 /datum/preference/choiced/socks/icon_for(value)
 	var/static/datum/universal_icon/lower_half
 
@@ -138,18 +135,6 @@
 
 /datum/preference/choiced/undershirt/init_possible_values()
 	return assoc_to_keys_features(SSaccessories.undershirt_list)
-
-/datum/preference/choiced/undershirt/create_default_value()
-	return /datum/sprite_accessory/undershirt/nude::name
-
-/datum/preference/choiced/undershirt/create_informed_default_value(datum/preferences/preferences)
-	switch(preferences.read_preference(/datum/preference/choiced/gender))
-		if(MALE)
-			return /datum/sprite_accessory/undershirt/nude::name
-		if(FEMALE)
-			return /datum/sprite_accessory/undershirt/sports_bra::name
-
-	return ..()
 
 /datum/preference/choiced/undershirt/icon_for(value)
 	var/static/datum/universal_icon/body
@@ -189,14 +174,7 @@
 /datum/preference/choiced/underwear/init_possible_values()
 	return assoc_to_keys_features(SSaccessories.underwear_list)
 
-/datum/preference/choiced/underwear/create_default_value()
-	return /datum/sprite_accessory/underwear/male_hearts::name
-
 /datum/preference/choiced/underwear/create_informed_default_value(datum/preferences/preferences)
-	var/species_type = preferences.read_preference(/datum/preference/choiced/species)
-	// Mankini has the least confliction with digilegs and tails
-	if(species_type == /datum/species/lizard)
-		return /datum/sprite_accessory/underwear/male_mankini::name
 
 	var/gender = preferences.read_preference(/datum/preference/choiced/gender)
 	var/datum/sprite_accessory/picked_underwear = pick_default_accessory(SSaccessories.underwear_list, null, 0, gender)

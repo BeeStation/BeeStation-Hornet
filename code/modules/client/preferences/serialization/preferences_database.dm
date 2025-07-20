@@ -401,8 +401,8 @@
 
 /datum/preferences_holder/proc/provide_defaults(datum/preferences/prefs, should_use_informed)
 	log_preferences("[prefs?.parent?.ckey]: Holder of type [pref_type] providing defaults (informed: [should_use_informed]).")
-	// Uses priority order as some values may rely on others for creating default values
-	for (var/datum/preference/preference as anything in get_preferences_in_priority_order())
+	for (var/preference_type in GLOB.preference_entries)
+		var/datum/preference/preference = GLOB.preference_entries[preference_type]
 		if (preference.preference_type != pref_type || (preference.informed != should_use_informed))
 			continue
 

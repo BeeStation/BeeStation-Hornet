@@ -182,7 +182,8 @@
 	target.dna.features["tail_lizard"] = value
 
 /datum/preference/choiced/lizard_tail/create_default_value()
-	return /datum/sprite_accessory/tails/lizard/smooth::name
+	var/datum/sprite_accessory/tails/lizard/smooth/tail = /datum/sprite_accessory/tails/lizard/smooth
+	return initial(tail.name)
 
 /proc/generate_lizard_body_shot(datum/sprite_accessory/sprite_accessory, key, show_tail = FALSE, shift_x = -8)
 	var/static/datum/universal_icon/body_icon

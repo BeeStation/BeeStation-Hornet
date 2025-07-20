@@ -30,8 +30,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 
 	var/list/flattened = list()
 	for (var/index in 1 to MAX_PREFERENCE_PRIORITY)
-		if(preferences[index]) // Only add if the priority slot exists
-			flattened += preferences[index]
+		flattened += preferences[index]
 	return flattened
 
 /// Represents an individual preference.
