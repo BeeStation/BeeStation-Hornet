@@ -128,25 +128,20 @@
 	name = "Vampire Breakout"
 	antag_datum = /datum/antagonist/vampire
 	role_preference = /datum/role_preference/antagonist/vampire
-	protected_roles = list(JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_HEADOFSECURITY, JOB_NAME_WARDEN, JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_CURATOR)
-	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG)
+	protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
+	restricted_roles = list(JOB_NAME_AI,JOB_NAME_CYBORG)
 	required_candidates = 1
-	weight = 5
+	weight = 4
 	cost = 10
-	requirements = list(10,10,10,10,10,10,10,10,10,10)
-	repeatable = FALSE
+	requirements = list(101,101,101,10,10,10,10,10,10,10)
+	repeatable = TRUE
 
 /datum/dynamic_ruleset/latejoin/vampire/execute()
-	var/mob/latejoiner = pick(candidates) // This should contain a single player, but in case.
-	assigned += latejoiner.mind
+	var/mob/picked_mob = pick(candidates)
+	assigned += picked_mob.mind
 
-	for(var/datum/mind/candidate_mind as anything in assigned)
-		var/datum/antagonist/vampire/vampiredatum = candidate_mind.make_vampire()
-		if(!vampiredatum)
-			assigned -= candidate_mind
-			message_admins("[ADMIN_LOOKUPFLW(candidate_mind)] was selected by the [name] ruleset, but couldn't be made into a Vampire.")
-			continue
-		vampiredatum.vampire_level_unspent = rand(2,3)
-		message_admins("[ADMIN_LOOKUPFLW(candidate_mind)] was selected by the [name] ruleset and has been made into a midround Vampire.")
-		log_game("DYNAMIC: [key_name(candidate_mind)] was selected by the [name] ruleset and has been made into a midround Vampire.")
-	return TRUE
+	picked_mob.mind.special_role = ROLE_VAMPIRE
+	var/datum/antagonist/vampire/vampiredatum = picked_mob.mind.add_antag_datum(antag_datum)
+	vampiredatum.vampire_level_unspent = rand(2,3)
+
+	return DYNAMIC_EXECUTE_SUCCESS
