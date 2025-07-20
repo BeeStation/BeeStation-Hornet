@@ -7,6 +7,8 @@
 **/
 
 /datum/dynamic_ruleset/midround/ghost
+	abstract_type = /datum/dynamic_ruleset/midround/ghost
+
 	/// List of possible locations for this antag to spawn
 	var/list/spawn_locations = list()
 	/// Whether or not this ruleset should be blocked if there aren't any spawn locations

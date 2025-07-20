@@ -1,6 +1,7 @@
 /datum/dynamic_ruleset/roundstart
 	rule_category = DYNAMIC_CATEGORY_ROUNDSTART
 	flags = SHOULD_USE_ANTAG_REP
+	abstract_type = /datum/dynamic_ruleset/roundstart
 
 	/// The minimum number of points that dynamic has to initially generate for this to be drafted
 	var/minimum_points_required = 0

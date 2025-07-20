@@ -1,4 +1,6 @@
 /datum/dynamic_ruleset/midround/living
+	abstract_type = /datum/dynamic_ruleset/midround/living
+
 	/// Whether or not ghost roles are allowed to roll this ruleset (Ashwalkers, Golems, Drones, etc.)
 	var/allow_ghost_roles = FALSE
 	/// What mob type the ruleset is restricted to.
