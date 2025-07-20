@@ -1,5 +1,0 @@
-author: Gboster-0
-delete-after: true
-changes:
-  - code_imp: code for slime pylons has been slightly changed making them extremelly
-      lightly more performant
