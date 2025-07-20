@@ -41,7 +41,7 @@
 		to_chat(user, span_danger("You [response_harm_simple] [src]!"))
 		playsound(loc, attacked_sound, 25, TRUE, -1)
 		var/obj/item/bodypart/arm/active_arm = user.get_active_hand()
-		var/damage = rand(active_arm.unarmed_damage_low, active_arm.unarmed_damage_high)
+		var/damage = active_arm.unarmed_damage
 
 		attack_threshold_check(damage)
 		log_combat(user, src, "attacked", user)

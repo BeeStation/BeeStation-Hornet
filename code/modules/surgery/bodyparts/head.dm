@@ -19,8 +19,7 @@
 	unarmed_attack_effect = ATTACK_EFFECT_BITE
 	unarmed_attack_sound = 'sound/weapons/bite.ogg'
 	unarmed_miss_sound = 'sound/weapons/bite.ogg'
-	unarmed_damage_low = 1
-	unarmed_damage_high = 3
+	unarmed_damage = 3
 	bodypart_trait_source = HEAD_TRAIT
 
 	/// Do we show the information about missing organs upon being examined? Defaults to TRUE, useful for Dullahan heads.

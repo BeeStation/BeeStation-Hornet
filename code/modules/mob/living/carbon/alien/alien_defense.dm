@@ -80,7 +80,7 @@ In all, this is a lot like the monkey code. /N
 		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(user.get_combat_bodyzone(src)))
 
 		var/obj/item/bodypart/arm/active_arm = user.get_active_hand()
-		var/damage = rand(active_arm.unarmed_damage_low, active_arm.unarmed_damage_high)
+		var/damage = active_arm.unarmed_damage
 		apply_damage(damage, active_arm.attack_type, affecting)
 		log_combat(user, src, "attacked", user)
 		user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)

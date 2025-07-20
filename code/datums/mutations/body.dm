@@ -435,8 +435,7 @@
 
 			// Apply claw damage and effects
 			var/damage_increase = min(17, damage_boost * GET_MUTATION_POWER(src))
-			arm.unarmed_damage_low += damage_increase
-			arm.unarmed_damage_high += damage_increase
+			arm.unarmed_damage += damage_increase
 			arm.unarmed_attack_verb = "slash"
 			arm.unarmed_attack_sound = 'sound/weapons/slash.ogg'
 			arm.unarmed_miss_sound = 'sound/weapons/slashmiss.ogg'
@@ -451,11 +450,8 @@
 	for(var/obj/item/bodypart/arm in owner.bodyparts)
 		if((arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM))
 			// Only restore if the original values exist
-			if(isnum(arm.unarmed_damage_low))
-				arm.unarmed_damage_low = initial(arm.unarmed_damage_low)
-
-			if(isnum(arm.unarmed_damage_high))
-				arm.unarmed_damage_high = initial(arm.unarmed_damage_high)
+			if(isnum(arm.unarmed_damage))
+				arm.unarmed_damage = initial(arm.unarmed_damage)
 
 			if(arm.unarmed_attack_verb)
 				arm.unarmed_attack_verb = initial(arm.unarmed_attack_verb)
@@ -473,12 +469,10 @@
 
 	// Update damage values when mutation power changes
 	for(var/obj/item/bodypart/arm in owner.bodyparts)
-		if((arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM) && isnum(arm.unarmed_damage_low))
+		if((arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM) && isnum(arm.unarmed_damage))
 			// Reset to original values first
-			arm.unarmed_damage_low = initial(arm.unarmed_damage_low)
-			arm.unarmed_damage_high = initial(arm.unarmed_damage_high)
+			arm.unarmed_damage = initial(arm.unarmed_damage)
 
 			// Apply updated damage boost
 			var/damage_increase = min(17, damage_boost * GET_MUTATION_POWER(src))
-			arm.unarmed_damage_low += damage_increase
-			arm.unarmed_damage_high += damage_increase
+			arm.unarmed_damage += damage_increase

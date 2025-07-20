@@ -62,7 +62,7 @@
 				tendril(A)
 			for(var/obj/item/bodypart/arm in M.bodyparts)
 				if(arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM)
-					arm.unarmed_damage_low = max(12, arm.unarmed_damage_low)
+					arm.unarmed_damage = max(12, arm.unarmed_damage)
 			M.physiology.brute_mod = min(0.6, M.physiology.brute_mod)
 			M.physiology.burn_mod = min(0.6, M.physiology.burn_mod)
 			M.physiology.heat_mod = min(0.6, M.physiology.heat_mod)
@@ -107,8 +107,7 @@
 	to_chat(M, span_danger("You feel weak and powerless as the necropolis' blessing leaves your body, leaving you quicker but vulnerable."))
 	for(var/obj/item/bodypart/arm in M.bodyparts)
 		if(arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM)
-			arm.unarmed_damage_low = initial(arm.unarmed_damage_low)
-			arm.unarmed_damage_high = initial(arm.unarmed_damage_high)
+			arm.unarmed_damage = initial(arm.unarmed_damage)
 
 	M.physiology.brute_mod = initial(M.physiology.heat_mod)
 	M.physiology.burn_mod = initial(M.physiology.heat_mod)

@@ -144,10 +144,8 @@
 	/// Sounds when this bodypart is used in an umarmed attack
 	var/sound/unarmed_attack_sound = 'sound/weapons/punch1.ogg'
 	var/sound/unarmed_miss_sound = 'sound/weapons/punchmiss.ogg'
-	///Lowest possible punch damage this bodypart can give. If this is set to 0, unarmed attacks will always miss.
-	var/unarmed_damage_low = 1
-	///Highest possible punch damage this bodypart can ive.
-	var/unarmed_damage_high = 1
+	///punch damage this bodypart can give.
+	var/unarmed_damage = 1
 
 	/// Traits that are given to the holder of the part. If you want an effect that changes this, don't add directly to this. Use the add_bodypart_trait() proc
 	var/list/bodypart_traits = list()

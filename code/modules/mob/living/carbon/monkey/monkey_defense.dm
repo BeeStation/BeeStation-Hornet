@@ -41,7 +41,7 @@
 		to_chat(M, "<span class='danger'>You punch [name]!</span>")
 		playsound(loc, "punch", 25, 1, -1)
 		var/obj/item/bodypart/arm/active_arm = M.get_active_hand()
-		var/damage = rand(active_arm.unarmed_damage_low, active_arm.unarmed_damage_high)
+		var/damage = active_arm.unarmed_damage
 		var/obj/item/bodypart/affecting = get_bodypart(check_zone(M.get_combat_bodyzone(src)))
 		if(!affecting)
 			affecting = get_bodypart(BODY_ZONE_CHEST)

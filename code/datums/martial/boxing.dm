@@ -20,7 +20,7 @@
 
 	var/atk_verb = pick("left hook","right hook","straight punch")
 
-	var/damage = rand(5, 8) + active_arm.unarmed_damage_low
+	var/damage = rand(5, 8) + active_arm.unarmed_damage
 	if(!damage)
 		playsound(D.loc, active_arm.unarmed_miss_sound, 25, TRUE, -1)
 		D.visible_message(span_warning("[A]'s [atk_verb] misses [D]!"), \

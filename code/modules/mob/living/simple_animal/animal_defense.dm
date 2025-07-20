@@ -34,7 +34,7 @@
 		playsound(loc, attacked_sound, 25, TRUE, -1)
 
 		var/obj/item/bodypart/arm/active_arm = user.get_active_hand()
-		attack_threshold_check(rand(active_arm.unarmed_damage_low, active_arm.unarmed_damage_high), active_arm.attack_type)
+		attack_threshold_check(active_arm.unarmed_damage, active_arm.attack_type)
 		log_combat(user, src, "attacked")
 		updatehealth()
 		return TRUE

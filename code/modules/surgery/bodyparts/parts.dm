@@ -123,8 +123,7 @@
 	body_damage_coeff = 0.75
 	can_be_disabled = TRUE
 	unarmed_attack_verb = "punch" /// The classic punch, wonderfully classic and completely random
-	unarmed_damage_low = 1
-	unarmed_damage_high = 10
+	unarmed_damage = 7
 	body_zone = BODY_ZONE_L_ARM
 	/// Datum describing how to offset things worn on the hands of this arm, note that an x offset won't do anything here
 	var/datum/worn_feature_offset/worn_glove_offset
@@ -247,8 +246,7 @@
 	px_x = -5
 	px_y = -3
 	dmg_overlay_type = SPECIES_MONKEY
-	unarmed_damage_low = 1 /// monkey punches must be really weak, considering they bite people instead and their bites are weak as hell.
-	unarmed_damage_high = 2
+	unarmed_damage = 3
 
 /obj/item/bodypart/arm/left/monkey/teratoma
 	icon_state = "teratoma_l_arm"
@@ -343,8 +341,7 @@
 	px_x = 5
 	px_y = -3
 	dmg_overlay_type = SPECIES_MONKEY
-	unarmed_damage_low = 1
-	unarmed_damage_high = 2
+	unarmed_damage = 3
 
 /obj/item/bodypart/arm/right/monkey/teratoma
 	icon_state = "teratoma_r_arm"
@@ -377,8 +374,7 @@
 	unarmed_attack_effect = ATTACK_EFFECT_KICK
 	body_zone = BODY_ZONE_L_LEG
 	unarmed_attack_verb = "kick" // The lovely kick, typically only accessable by attacking a grouded foe. 1.5 times better than the punch.
-	unarmed_damage_low = 2
-	unarmed_damage_high = 15
+	unarmed_damage = 7
 
 	/// Datum describing how to offset things worn on the foot of this leg, note that an x offset won't do anything here
 	var/datum/worn_feature_offset/worn_foot_offset
@@ -452,8 +448,7 @@
 	bodyshape = BODYSHAPE_MONKEY
 	px_y = 4
 	dmg_overlay_type = SPECIES_MONKEY
-	unarmed_damage_low = 2
-	unarmed_damage_high = 3
+	unarmed_damage = 3
 
 /obj/item/bodypart/leg/left/monkey/teratoma
 	icon_state = "teratoma_l_leg"
@@ -543,8 +538,7 @@
 	bodyshape = BODYSHAPE_MONKEY
 	px_y = 4
 	dmg_overlay_type = SPECIES_MONKEY
-	unarmed_damage_low = 2
-	unarmed_damage_high = 3
+	unarmed_damage = 3
 
 /obj/item/bodypart/leg/right/monkey/teratoma
 	icon_state = "teratoma_r_leg"

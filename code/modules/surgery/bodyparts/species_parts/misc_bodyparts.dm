@@ -15,7 +15,7 @@
 	limb_id = SPECIES_SNAIL
 	unarmed_attack_verb = "slap"
 	unarmed_attack_effect = ATTACK_EFFECT_DISARM
-	unarmed_damage_high = 0.5 //snails are soft and squishy
+	unarmed_damage = 3 //snails are soft and squishy
 	movespeed_contribution = 3 //disgustingly slow
 	burn_modifier = 1.5
 
@@ -23,18 +23,18 @@
 	limb_id = SPECIES_SNAIL
 	unarmed_attack_verb = "slap"
 	unarmed_attack_effect = ATTACK_EFFECT_DISARM
-	unarmed_damage_high = 0.5
+	unarmed_damage = 3
 	movespeed_contribution = 3 //disgustingly slow
 	burn_modifier = 1.5
 
 /obj/item/bodypart/leg/left/snail
 	limb_id = SPECIES_SNAIL
-	unarmed_damage_high = 0.5
+	unarmed_damage = 3
 	burn_modifier = 1.5
 
 /obj/item/bodypart/leg/right/snail
 	limb_id = SPECIES_SNAIL
-	unarmed_damage_high = 0.5
+	unarmed_damage = 3
 	burn_modifier = 1.5
 
 ///ABDUCTOR
@@ -305,29 +305,25 @@
 	limb_id = SPECIES_GOLEM
 	dmg_overlay_type = null
 	bodypart_traits = list(TRAIT_CHUNKYFINGERS)
-	unarmed_damage_low = 5 // I'd like to take the moment that maintaining all of these random ass golem species is hell and oranges was right
-	unarmed_damage_high = 14
+	unarmed_damage = 11 // I'd like to take the moment that maintaining all of these random ass golem species is hell and oranges was right
 
 /obj/item/bodypart/arm/right/golem
 	limb_id = SPECIES_GOLEM
 	dmg_overlay_type = null
 	bodypart_traits = list(TRAIT_CHUNKYFINGERS)
-	unarmed_damage_low = 5
-	unarmed_damage_high = 14
+	unarmed_damage = 11
 	movespeed_contribution = 1
 
 /obj/item/bodypart/leg/left/golem
 	limb_id = SPECIES_GOLEM
 	dmg_overlay_type = null
-	unarmed_damage_low = 7
-	unarmed_damage_high = 21
+	unarmed_damage = 11
 	movespeed_contribution = 1
 
 /obj/item/bodypart/leg/right/golem
 	limb_id = SPECIES_GOLEM
 	dmg_overlay_type = null
-	unarmed_damage_low = 7
-	unarmed_damage_high = 21
+	unarmed_damage = 11
 
 /obj/item/bodypart/leg/left/golem/gold
 	movespeed_contribution = 0.5
@@ -496,30 +492,26 @@
 /obj/item/bodypart/arm/left/golem/cloth
 	limb_id = "clothgolem"
 	should_draw_greyscale = FALSE
-	unarmed_damage_low = 4
-	unarmed_damage_high = 8
+	unarmed_damage = 6
 	burn_modifier = 2 // don't get burned
 
 /obj/item/bodypart/arm/right/golem/cloth
 	limb_id = "clothgolem"
 	should_draw_greyscale = FALSE
-	unarmed_damage_low = 4
-	unarmed_damage_high = 8
+	unarmed_damage = 6
 	burn_modifier = 2 // don't get burned
 
 /obj/item/bodypart/leg/left/golem/cloth
 	limb_id = "clothgolem"
 	should_draw_greyscale = FALSE
-	unarmed_damage_low = 6
-	unarmed_damage_high = 12
+	unarmed_damage = 6
 	movespeed_contribution = 0.5 // not as heavy as stone
 	burn_modifier = 2 // don't get burned
 
 /obj/item/bodypart/leg/right/golem/cloth
 	limb_id = "clothgolem"
 	should_draw_greyscale = FALSE
-	unarmed_damage_low = 6
-	unarmed_damage_high = 12
+	unarmed_damage = 6
 	movespeed_contribution = 0.5 // not as heavy as stone
 	burn_modifier = 2 // don't get burned
 
@@ -542,8 +534,7 @@
 	unarmed_attack_verb = "whip"
 	unarmed_attack_sound = 'sound/weapons/whip.ogg'
 	unarmed_miss_sound = 'sound/weapons/etherealmiss.ogg'
-	unarmed_damage_low = 4
-	unarmed_damage_high = 8
+	unarmed_damage = 6
 	burn_modifier = 1.25
 
 /obj/item/bodypart/arm/right/golem/cardboard
@@ -552,8 +543,7 @@
 	unarmed_attack_verb = "whip"
 	unarmed_attack_sound = 'sound/weapons/whip.ogg'
 	unarmed_miss_sound = 'sound/weapons/etherealmiss.ogg'
-	unarmed_damage_low = 4
-	unarmed_damage_high = 8
+	unarmed_damage = 6
 	burn_modifier = 1.25
 
 /obj/item/bodypart/leg/left/golem/cardboard
@@ -561,8 +551,7 @@
 	should_draw_greyscale = FALSE
 	unarmed_attack_sound = 'sound/weapons/whip.ogg'
 	unarmed_miss_sound = 'sound/weapons/etherealmiss.ogg'
-	unarmed_damage_low = 6
-	unarmed_damage_high = 12
+	unarmed_damage = 6
 	movespeed_contribution = 0.75
 	burn_modifier = 1.25
 
@@ -571,8 +560,7 @@
 	should_draw_greyscale = FALSE
 	unarmed_attack_sound = 'sound/weapons/whip.ogg'
 	unarmed_miss_sound = 'sound/weapons/etherealmiss.ogg'
-	unarmed_damage_low = 6
-	unarmed_damage_high = 12
+	unarmed_damage = 6
 	movespeed_contribution = 0.75
 	burn_modifier = 1.25
 
@@ -674,30 +662,26 @@
 	attack_type = BURN
 	unarmed_attack_verb = "burn"
 	unarmed_attack_sound = 'sound/weapons/sear.ogg'
-	unarmed_damage_low = 1
-	unarmed_damage_high = 10
+	unarmed_damage = 8
 	brute_modifier = 0.5
 
 /obj/item/bodypart/arm/right/golem/uranium
 	attack_type = BURN
 	unarmed_attack_verb = "burn"
 	unarmed_attack_sound = 'sound/weapons/sear.ogg'
-	unarmed_damage_low = 1
-	unarmed_damage_high = 10
+	unarmed_damage = 8
 	brute_modifier = 0.5
 
 /obj/item/bodypart/leg/left/golem/uranium
 	attack_type = BURN
 	unarmed_attack_sound = 'sound/weapons/sear.ogg'
-	unarmed_damage_low = 2
-	unarmed_damage_high = 15
+	unarmed_damage = 8
 	brute_modifier = 0.5
 
 /obj/item/bodypart/leg/right/golem/uranium
 	attack_type = BURN
 	unarmed_attack_sound = 'sound/weapons/sear.ogg'
-	unarmed_damage_low = 2
-	unarmed_damage_high = 15
+	unarmed_damage = 8
 	brute_modifier = 0.5
 
 //Sand
@@ -755,29 +739,25 @@
 	unarmed_attack_verb = "smash"
 	unarmed_attack_effect = ATTACK_EFFECT_SMASH
 	unarmed_attack_sound = 'sound/effects/meteorimpact.ogg' //hits pretty hard
-	unarmed_damage_low = 12
-	unarmed_damage_high = 21
+	unarmed_damage = 18
 
 /obj/item/bodypart/arm/right/golem/plasteel
 	unarmed_attack_verb = "smash"
 	unarmed_attack_effect = ATTACK_EFFECT_SMASH
 	unarmed_attack_sound = 'sound/effects/meteorimpact.ogg'
-	unarmed_damage_low = 12
-	unarmed_damage_high = 21
+	unarmed_damage = 18
 	movespeed_contribution = 2 //pretty fucking slow
 
 /obj/item/bodypart/leg/left/golem/plasteel
 	unarmed_attack_effect = ATTACK_EFFECT_SMASH
 	unarmed_attack_sound = 'sound/effects/meteorimpact.ogg'
-	unarmed_damage_low = 18
-	unarmed_damage_high = 32
+	unarmed_damage = 18
 	movespeed_contribution = 2 //pretty fucking slow
 
 /obj/item/bodypart/leg/right/golem/plasteel
 	unarmed_attack_effect = ATTACK_EFFECT_SMASH
 	unarmed_attack_sound = 'sound/effects/meteorimpact.ogg'
-	unarmed_damage_low = 18
-	unarmed_damage_high = 32
+	unarmed_damage = 18
 
 
 //Titanium
@@ -822,26 +802,22 @@
 /obj/item/bodypart/arm/left/golem/bananium
 	unarmed_attack_verb = "honk"
 	unarmed_attack_sound = 'sound/items/airhorn2.ogg'
-	unarmed_damage_low = 0
-	unarmed_damage_high = 1
+	unarmed_damage = 0
 
 /obj/item/bodypart/arm/right/golem/bananium
 	unarmed_attack_verb = "honk"
 	unarmed_attack_sound = 'sound/items/airhorn2.ogg'
-	unarmed_damage_low = 0
-	unarmed_damage_high = 1
+	unarmed_damage = 0
 
 /obj/item/bodypart/leg/right/golem/bananium
 	unarmed_attack_verb = "honk"
 	unarmed_attack_sound = 'sound/items/airhorn2.ogg'
-	unarmed_damage_low = 0
-	unarmed_damage_high = 1
+	unarmed_damage = 0
 
 /obj/item/bodypart/leg/left/golem/bananium
 	unarmed_attack_verb = "honk"
 	unarmed_attack_sound = 'sound/items/airhorn2.ogg'
-	unarmed_damage_low = 0
-	unarmed_damage_high = 1
+	unarmed_damage = 0
 
 /// Pumpkin people
 
