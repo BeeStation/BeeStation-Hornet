@@ -31,8 +31,8 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	var/list/flattened = list()
 	for (var/index in 1 to MAX_PREFERENCE_PRIORITY)
 		// VALIDATION CHECK: Scream if we have empty priority slots
-        if(!preferences[index])
-            CRASH("PREFERENCE SYSTEM ERROR: Priority slot [index] is EMPTY! This will cause null runtime errors. Check that all priority levels 1-[MAX_PREFERENCE_PRIORITY] have at least one preference assigned")
+		if(!preferences[index])
+			CRASH("PREFERENCE SYSTEM ERROR: Priority slot [index] is EMPTY! This will cause null runtime errors. Check that all priority levels 1-[MAX_PREFERENCE_PRIORITY] have at least one preference assigned")
 		flattened += preferences[index]
 	return flattened
 
