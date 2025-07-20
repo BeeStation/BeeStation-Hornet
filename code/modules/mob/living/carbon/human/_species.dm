@@ -737,7 +737,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 			// Add on emissives, if they have one
 			if (accessory.emissive_state)
-				accessory_overlay.overlays.Add(emissive_appearance(accessory.icon, accessory.emissive_state, layer = CALCULATE_MOB_OVERLAY_LAYER(layer), alpha = accessory.emissive_alpha, filters = source.filters))
+				accessory_overlay.overlays.Add(emissive_appearance(accessory.icon, accessory.emissive_state, layer = layer, alpha = accessory.emissive_alpha, filters = source.filters))
 				ADD_LUM_SOURCE(source, LUM_SOURCE_MUTANT_BODYPART)
 
 			if(accessory.gender_specific)
@@ -1375,6 +1375,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(!istype(M)) //sanity check for drones.
 		return
 	if(M.mind)
+
 		attacker_style = M.mind.martial_art
 	if((M != H) && M.combat_mode && H.check_shields(M, 0, M.name, attack_type = UNARMED_ATTACK))
 		log_combat(M, H, "attempted to touch")
