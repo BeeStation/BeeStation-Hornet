@@ -203,15 +203,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 	merge_type = /obj/item/stack/medical/gauze
 
 /obj/item/stack/medical/gauze/attackby(obj/item/I, mob/user, params)
-	if(I.tool_behaviour == TOOL_WIRECUTTER || I.is_sharp())
+	if(I.tool_behaviour == TOOL_WIRECUTTER || I.is_sharp()) //keeping this because its what people will expect
 		if(get_amount() < 2)
 			to_chat(user, span_warning("You need at least two gauzes to do this!"))
 			return
-		new /obj/item/stack/sheet/cotton/cloth(user.drop_location())
-		user.visible_message("[user] cuts [src] into pieces of cloth with [I].", \
-					span_notice("You cut [src] into pieces of cloth with [I]."), \
-					span_italics("You hear cutting."))
-		use(2)
+		if(do_after(user, 1.5 SECONDS))
+			new /obj/item/stack/sheet/cotton/cloth(user.drop_location())
+			user.visible_message("[user] cuts [src] into pieces of cloth with [I].", \
+				"<span class='notice'>You cut [src] into pieces of cloth with [I].</span>", \
+				"<span class='italics'>You hear cutting.</span>")
+			playsound(user, 'sound/items/handling/wirecutter_pickup.ogg', 50, TRUE)
+			use(2)
 	else
 		return ..()
 

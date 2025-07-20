@@ -670,6 +670,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 		var/obj/item/stack/S = W
 		if(merge(S))
 			to_chat(user, span_notice("Your [S.name] stack now contains [S.get_amount()] [S.singular_name]\s."))
+			return TRUE
 	else
 		return ..()
 

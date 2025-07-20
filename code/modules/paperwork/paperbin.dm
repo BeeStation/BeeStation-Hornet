@@ -99,6 +99,18 @@
 	return ..()
 
 /obj/item/paper_bin/attackby(obj/item/I, mob/user, params)
+	if((I.tool_behaviour == TOOL_WIRECUTTER || I.is_sharp())) //Mirrors Item/Paper, requires snowflake code due to it being a paper bin thus, salvage functions differently.
+		if(total_paper > 0)
+			new /obj/item/stack/rods/scrap/paper(get_turf(src), 5)
+			playsound(user, 'sound/items/handling/wirecutter_pickup.ogg', 50, TRUE)
+			user.visible_message("[user] cuts a paper sheet into tiny pieces.", \
+				span_notice("You cut a paper sheet into tiny pieces."), \
+				span_hear("You hear cutting."))
+			total_paper--
+			update_icon()
+		else
+			to_chat(user, span_notice("The paper tray is empty!."))
+		return TRUE
 	if(istype(I, /obj/item/paper))
 		var/obj/item/paper/P = I
 		if(!user.transferItemToLoc(P, src))

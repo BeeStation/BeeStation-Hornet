@@ -18,7 +18,10 @@
 	bang_protect = 1
 	// Much thicker and more rigid than body armour, able to block even piercing syringes
 	clothing_flags = THICKMATERIAL
-
+	salvage_material = /obj/item/stack/rods/scrap/plasteel
+	salvage_amount = 5
+	secondary_salvage_material = /obj/item/stack/sheet/leather
+	secondary_salvage_amount = 2
 
 /datum/armor/head_helmet
 	melee = 35
@@ -148,7 +151,7 @@
 	visor_flags_inv = HIDEFACE|HIDESNOUT
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-
+	salvage_amount = 10
 
 /datum/armor/toggleable_riot
 	melee = 50
@@ -215,7 +218,7 @@
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT
 	strip_delay = 80
-
+	salvage_amount = 10
 
 /datum/armor/helmet_swat
 	melee = 40
@@ -287,7 +290,7 @@
 	icon_state = "roman"
 	item_state = "roman"
 	strip_delay = 100
-
+	salvage_material = /obj/item/stack/rods/scrap/bronze
 
 /datum/armor/helmet_roman
 	melee = 25
@@ -302,7 +305,7 @@
 /obj/item/clothing/head/helmet/roman/fake
 	desc = "An ancient helmet made of plastic and leather."
 	armor_type = /datum/armor/roman_fake
-
+	salvage_material = /obj/item/stack/rods/scrap/plastic
 
 /datum/armor/roman_fake
 	bleed = 10
@@ -316,7 +319,7 @@
 /obj/item/clothing/head/helmet/roman/legionnaire/fake
 	desc = "An ancient helmet made of plastic and leather. Has a red crest on top of it."
 	armor_type = /datum/armor/legionnaire_fake
-
+	salvage_material = /obj/item/stack/rods/scrap/plastic
 
 /datum/armor/legionnaire_fake
 	bleed = 10
@@ -328,6 +331,7 @@
 	item_state = "gladiator"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR
 	flags_cover = HEADCOVERSEYES
+	salvage_material = /obj/item/stack/rods/scrap/bronze
 
 /obj/item/clothing/head/helmet/redtaghelm
 	name = "red laser tag helmet"
@@ -336,7 +340,7 @@
 	flags_cover = HEADCOVERSEYES
 	item_state = "redtaghelm"
 	armor_type = /datum/armor/helmet_redtaghelm
-
+	salvage_material = /obj/item/stack/rods/scrap
 
 /datum/armor/helmet_redtaghelm
 	melee = 15
@@ -355,7 +359,7 @@
 	flags_cover = HEADCOVERSEYES
 	item_state = "bluetaghelm"
 	armor_type = /datum/armor/helmet_bluetaghelm
-
+	salvage_material = /obj/item/stack/rods/scrap
 
 /datum/armor/helmet_bluetaghelm
 	melee = 15
@@ -377,7 +381,7 @@
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	strip_delay = 80
 	bang_protect = 1
-
+	salvage_material = /obj/item/stack/rods/scrap
 
 /datum/armor/helmet_knight
 	melee = 50
@@ -410,7 +414,8 @@
 	icon_state = "skull"
 	item_state = "skull"
 	strip_delay = 100
-
+	salvage_material = /obj/item/stack/sheet/bone
+	secondary_salvage_material = null
 
 /datum/armor/helmet_skull
 	melee = 35
@@ -431,7 +436,7 @@
 	resistance_flags = FLAMMABLE
 	armor_type = /datum/armor/helmet_durathread
 	strip_delay = 60
-
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /datum/armor/helmet_durathread
 	melee = 20
@@ -501,7 +506,8 @@
 	worn_icon_state = "cowboy_outlaw"
 	body_parts_covered = HEAD
 	armor_type = /datum/armor/helmet_outlaw
-
+	salvage_material = /obj/item/stack/sheet/leather
+	secondary_salvage_material = null
 
 /datum/armor/helmet_outlaw
 	melee = 25

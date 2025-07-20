@@ -11,6 +11,9 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR|HIDEFACE|HIDESNOUT
 	resistance_flags = ACID_PROOF
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	salvage_material = /obj/item/stack/rods/scrap/plastic
+	secondary_salvage_material = /obj/item/stack/rods/scrap/glass
+	secondary_salvage_amount = 2
 
 
 /datum/armor/head_bio_hood
@@ -38,6 +41,10 @@
 	strip_delay = 70
 	equip_delay_other = 70
 	resistance_flags = ACID_PROOF
+	salvage_material = /obj/item/stack/sheet/cotton/cloth
+	salvage_amount = 2
+	secondary_salvage_material = /obj/item/stack/rods/scrap/plastic
+	secondary_salvage_amount = 3
 
 
 /datum/armor/suit_bio_suit
@@ -69,6 +76,7 @@
 /obj/item/clothing/head/bio_hood/security
 	armor_type = /datum/armor/bio_hood_security
 	icon_state = "bio_security"
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 
 /datum/armor/bio_hood_security
@@ -87,6 +95,7 @@
 /obj/item/clothing/suit/bio_suit/security
 	armor_type = /datum/armor/bio_suit_security
 	icon_state = "bio_security"
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 
 //Janitor's biosuit, grey with purple arms
@@ -135,3 +144,4 @@
 	item_state = "bio_suit"
 	strip_delay = 40
 	equip_delay_other = 20
+	salvage_material = /obj/item/stack/sheet/leather

@@ -12,6 +12,8 @@
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	resistance_flags = FIRE_PROOF
 	clothing_flags = SNUG_FIT
+	salvage_material = /obj/item/stack/rods/scrap/plastic
+	secondary_salvage_material = /obj/item/flashlight
 
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	light_range = 4
@@ -97,6 +99,7 @@
 	cold_protection = HEAD
 	heat_protection = HEAD
 	dog_fashion = /datum/dog_fashion/head
+	salvage_material = /obj/item/stack/rods/scrap/plasteel
 
 /obj/item/clothing/head/utility/hardhat/dblue
 	icon_state = "hardhat0_dblue"
@@ -133,6 +136,8 @@
 	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	///Icon state of the welding visor.
 	var/visor_state = "weldvisor"
+	salvage_material = /obj/item/stack/rods/scrap
+	salvage_amount = 5
 
 /obj/item/clothing/head/utility/hardhat/welding/Initialize(mapload)
 	. = ..()
@@ -197,6 +202,9 @@
 	armor_type = /datum/armor/hardhat_pumpkinhead
 	light_range = 2 //luminosity when on
 	flags_cover = HEADCOVERSEYES
+	salvage_material = /obj/item/seeds/pumpkin
+	salvage_amount = 1
+	secondary_salvage_material = null
 
 
 /datum/armor/hardhat_pumpkinhead

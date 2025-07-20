@@ -10,7 +10,10 @@
 	armor_type = /datum/armor/mask_gas
 	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
 	resistance_flags = NONE
-
+	salvage_material = /obj/item/stack/rods/scrap
+	salvage_amount = 6
+	secondary_salvage_material = /obj/item/stack/rods/scrap/glass
+	secondary_salvage_amount = 2
 
 /datum/armor/mask_gas
 	bio = 100
@@ -66,6 +69,9 @@
 	desc = "A modernised version of the classic design, this mask will not only filter out toxins but it can also be connected to an air supply."
 	icon_state = "plaguedoctor"
 	item_state = "gas_mask"
+	salvage_material = /obj/item/stack/sheet/leather
+	salvage_amount = 2
+	secondary_salvage_material = /obj/item/stack/sheet/cotton/cloth
 
 /obj/item/clothing/mask/gas/syndicate
 	name = "syndicate mask"
@@ -86,6 +92,10 @@
 	actions_types = list(/datum/action/item_action/adjust)
 	dog_fashion = /datum/dog_fashion/head/clown
 	var/list/mask_designs = list()
+	salvage_material = /obj/item/reagent_containers/cup/soda_cans/canned_laughter
+	salvage_amount = 1
+	secondary_salvage_material = /obj/item/reagent_containers/spray/waterflower/superlube //Have fun clown mains
+	secondary_salvage_amount = 1
 
 /obj/item/clothing/mask/gas/clown_hat/Initialize(mapload)
 	.=..()
@@ -140,6 +150,9 @@
 	resistance_flags = FLAMMABLE
 	actions_types = list(/datum/action/item_action/adjust)
 	var/list/mask_designs = list()
+	salvage_material = /obj/item/reagent_containers/cup/glass/bottle/bottleofnothing
+	salvage_amount = 1
+	secondary_salvage_material = /obj/item/toy/crayon/spraycan/mimecan
 
 /obj/item/clothing/mask/gas/mime/Initialize(mapload)
 	.=..()
@@ -224,6 +237,9 @@
 	actions_types = list(/datum/action/item_action/adjust)
 	dog_fashion = null
 	var/list/mask_designs = list()
+	salvage_material = /obj/item/stack/sheet/wood
+	salvage_amount = 2
+	secondary_salvage_material = null
 
 /obj/item/clothing/mask/gas/tiki_mask/Initialize(mapload)
 	.=..()
@@ -267,6 +283,10 @@
 	desc = "A face-covering mask that can be connected to an air supply. This one appears to be one of the older models."
 	voice_change = TRUE
 	chosen_tongue = /obj/item/organ/tongue/robot
+	salvage_material = /obj/item/clothing/mask/gas/old
+	salvage_amount = 1
+	secondary_salvage_material = /obj/item/assembly/voice
+	secondary_salvage_amount = 1
 
 /obj/item/clothing/mask/gas/old/modulator/get_name(mob/user, default_name)
 	return voice_change ? "Unknown" : default_name

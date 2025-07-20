@@ -6,6 +6,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	item_flags = DROPDEL
 	slowdown = SHOES_SLOWDOWN+1
+	salvage_material = null
 	var/footstep = 1
 
 /obj/item/clothing/shoes/cluwne/Initialize(mapload)
