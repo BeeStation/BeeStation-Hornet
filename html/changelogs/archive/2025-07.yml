@@ -288,3 +288,6 @@
   - bugfix: Fixed species icons, antagonist icons, paper stamps, and CondiMaster icons
       being invisible.
   - tweak: Capitalized 'prisoner' in the antagonist preferences menu.
+2025-07-20:
+  PowerfulBacon:
+  - balance: Clarke moves slower on station.
