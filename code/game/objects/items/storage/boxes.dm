@@ -1319,7 +1319,7 @@
 	name = "colorizer box"
 	desc = "A box full of Tablet Colorizers. Unleash your inner child and play around with a vast array of colors!"
 	icon_state = "tabletcbox"
-	custom_price = 50
+	custom_price = PAYCHECK_MEDIUM * 4
 
 /obj/item/storage/box/tabletcolorizer/PopulateContents()
 	new /obj/item/colorizer/tablet(src)
@@ -1349,6 +1349,21 @@
 	new /obj/item/computer_hardware/card_slot(src)
 	new /obj/item/screwdriver(src)
 	new /obj/item/paper/tablet_guide(src)
+
+/obj/item/storage/box/hacking4dummies
+	name = "'Hacking For Dummies'"
+	desc = "Hacking for Dummies kit, made by the HELLRAISER Crack team. Meant to teach you how to stick it to the man! (metaphorically)."
+	icon_state = "syndiebox"
+	illustration = "disk_kit"
+	custom_price = 200
+
+/obj/item/storage/box/hacking4dummies/PopulateContents()
+	new /obj/item/screwdriver(src)
+	new /obj/item/multitool(src)
+	new /obj/item/computer_hardware/hard_drive/portable(src)
+	new /obj/item/computer_hardware/hard_drive/portable/advanced(src)
+	new /obj/item/computer_hardware/hard_drive/portable/super(src)
+	new /obj/item/paper/manualhacking_guide(src)
 
 /obj/item/storage/box/locker
 	name = "locker box"

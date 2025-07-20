@@ -11,8 +11,6 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	///Assoc list of affected mobs, the key is the mob while the value of the map is the amount of ticks spent inside of the zone.
 	var/list/affected_mobs = list()
-	///Used to determine whether we use view or range
-	var/range_type = "range"
 	///What color is it?
 	var/colour
 	///Does it use process?
@@ -86,7 +84,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	if(!uses_process)
 		return PROCESS_KILL
 
-	var/list/current_mobs = view_or_range(3, src, range_type)
+	var/list/current_mobs = get_targets()
 	for(var/mob/living/mob_in_range in current_mobs)
 		if(!(mob_in_range in affected_mobs))
 			on_mob_enter(mob_in_range)
@@ -99,8 +97,11 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 		on_mob_leave(M)
 		affected_mobs -= M
 
+/obj/structure/slime_crystal/proc/get_targets()
+	return range(3, src)
+
 /obj/structure/slime_crystal/gold/process()
-	var/list/current_mobs = view_or_range(3, src, range_type)
+	var/list/current_mobs = range(3, src)
 	for(var/M in affected_mobs - current_mobs)
 		on_mob_leave(M)
 		affected_mobs -= M
@@ -124,7 +125,9 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 
 /obj/structure/slime_crystal/grey
 	colour = SLIME_TYPE_GREY
-	range_type = "view"
+
+/obj/structure/slime_crystal/grey/get_targets()
+	return view(3, src)
 
 /obj/structure/slime_crystal/grey/on_mob_effect(mob/living/affected_mob)
 	if(!istype(affected_mob, /mob/living/simple_animal/slime))
@@ -134,7 +137,9 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 
 /obj/structure/slime_crystal/orange
 	colour = SLIME_TYPE_ORANGE
-	range_type = "view"
+
+/obj/structure/slime_crystal/orange/get_targets()
+	return view(3, src)
 
 /obj/structure/slime_crystal/orange/on_mob_effect(mob/living/affected_mob)
 	if(!istype(affected_mob, /mob/living/carbon))
@@ -183,7 +188,6 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 
 /obj/structure/slime_crystal/blue
 	colour = SLIME_TYPE_BLUE
-	range_type = "view"
 
 /obj/structure/slime_crystal/blue/process()
 	for(var/turf/open/T in view(2, src))
@@ -266,7 +270,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	colour = SLIME_TYPE_SILVER
 
 /obj/structure/slime_crystal/silver/process(delta_time)
-	for(var/obj/machinery/hydroponics/hydr in range(5,src))
+	for(var/obj/machinery/hydroponics/hydr in range(5, src))
 		hydr.weedlevel = 0
 		hydr.pestlevel = 0
 		if(DT_PROB(10, delta_time))
@@ -411,10 +415,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cerulean_slime_crystal)
 /obj/structure/slime_crystal/cerulean/proc/spawn_crystal()
 	if(crystals >= 3)
 		return
-	for(var/turf/T as() in RANGE_TURFS(2,src))
+	for(var/turf/T as anything in RANGE_TURFS(2, src))
 		if(T.is_blocked_turf() || isspaceturf(T)  || T == get_turf(src) || prob(50))
 			continue
-		var/obj/structure/cerulean_slime_crystal/CSC = locate() in range(1,T)
+		var/obj/structure/cerulean_slime_crystal/CSC = locate() in range(1, T)
 		if(CSC)
 			continue
 		new /obj/structure/cerulean_slime_crystal(T, src)
@@ -432,7 +436,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cerulean_slime_crystal)
 /obj/structure/slime_crystal/pyrite/proc/change_colour()
 	var/list/color_list = list("#FFA500","#B19CD9", "#ADD8E6","#7E7E7E","#FFFF00","#551A8B","#0000FF","#D3D3D3", "#32CD32","#704214","#2956B2","#FAFAD2", "#FF0000",
 					"#00FF00", "#FF69B4","#FFD700", "#505050", "#FFB6C1","#008B8B")
-	for(var/turf/T as() in RANGE_TURFS(4,src))
+	for(var/turf/T as anything in RANGE_TURFS(4, src))
 		T.add_atom_colour(pick(color_list), FIXED_COLOUR_PRIORITY)
 
 	addtimer(CALLBACK(src,PROC_REF(change_colour)),rand(0.75 SECONDS,1.25 SECONDS))
@@ -453,7 +457,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cerulean_slime_crystal)
 	if(blood_amt == max_blood_amt)
 		return
 
-	var/list/range_objects = range(3,src)
+	var/list/range_objects = range(3, src)
 
 	for(var/obj/effect/decal/cleanable/trail_holder/TH in range_objects)
 		qdel(TH)
@@ -574,8 +578,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cerulean_slime_crystal)
 	colour = SLIME_TYPE_OIL
 
 /obj/structure/slime_crystal/oil/process()
-	for(var/turf/open/turf_in_range in RANGE_TURFS(3,src))
-		turf_in_range.MakeSlippery(TURF_WET_LUBE,5 SECONDS)
+	for(var/turf/open/turf_in_range in RANGE_TURFS(3, src))
+		turf_in_range.MakeSlippery(TURF_WET_LUBE, 5 SECONDS)
 
 /obj/structure/slime_crystal/black
 	colour = SLIME_TYPE_BLACK

@@ -570,7 +570,10 @@
 			return "#[num2hex(c, 2)][num2hex(m, 2)][num2hex(x, 2)]"
 
 /atom/proc/balloon_alert(mob/viewer, text, color = null, show_in_chat = TRUE, offset_x, offset_y)
-	if(!viewer?.client)
+	if(!ismob(viewer))
+		return
+	var/mob/M = viewer
+	if(!M.client)
 		return
 	switch(viewer.client.prefs.read_player_preference(/datum/preference/choiced/show_balloon_alerts))
 		if(BALLOON_ALERT_ALWAYS)

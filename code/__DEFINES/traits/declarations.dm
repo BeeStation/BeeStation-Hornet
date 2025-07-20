@@ -370,6 +370,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_PLUSHIELOVER		"plushie lover"
 #define TRAIT_BALD "bald"
 #define TRAIT_SHAVED "shaved"
+#define TRAIT_COMPUTER_WHIZ		"computer_whiz"
 
 ///Trait for dryable items
 #define TRAIT_DRYABLE "trait_dryable"

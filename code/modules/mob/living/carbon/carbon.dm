@@ -87,7 +87,32 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	var/hurt = TRUE
 	if(!throwingdatum || throwingdatum.force <= MOVE_FORCE_WEAK)
 		hurt = FALSE
-
+	var/obj/item/modular_computer/comp
+	var/obj/item/computer_hardware/processor_unit/cpu
+	for(var/obj/item/modular_computer/M in contents)
+		cpu = M.all_components[MC_CPU]
+		if(cpu?.hacked)
+			comp = M
+	for(var/obj/item/S in contents)	// We're looking for storages inside the mobs storage (wow)
+		for(var/obj/item/modular_computer/M in S.contents)
+			cpu = M.all_components[MC_CPU]
+			if(cpu?.hacked)
+				comp = M
+	if(comp)
+		var/turf/target = comp.get_blink_destination(get_turf(src), dir, (cpu.max_idle_programs * 2))
+		var/turf/start = get_turf(src)
+		if(!comp.enabled)
+			new /obj/effect/particle_effect/sparks(start)
+			playsound(start, "sparks", 50, 1)
+			return
+		if(!target)
+			return
+		// The better the CPU the farther it goes, and the more battery it needs
+		playsound(target, 'sound/effects/phasein.ogg', 25, 1)
+		playsound(start, "sparks", 50, 1)
+		playsound(target, "sparks", 50, 1)
+		do_dash(src, start, target, 0, TRUE)
+		comp.use_power((250 * cpu.max_idle_programs) / GLOB.CELLRATE)
 	if(iscarbon(hit_atom) && hit_atom != src)
 		var/mob/living/carbon/victim = hit_atom
 		if(!(victim.movement_type & FLYING))
