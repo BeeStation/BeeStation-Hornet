@@ -361,7 +361,7 @@
 					dna.temporary_mutations.Remove(mut)
 					continue
 		for(var/datum/mutation/HM as() in dna.mutations)
-			if(HM?.timed)
+			if(HM?.timeout)
 				dna.remove_mutation(HM.type)
 
 	radiation = max(radiation - (RAD_LOSS_PER_SECOND * delta_time), 0)
@@ -719,7 +719,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 /mob/living/carbon/proc/needs_heart()
 	if(HAS_TRAIT(src, TRAIT_STABLEHEART))
 		return FALSE
-	if(dna && dna.species && HAS_TRAIT(src, TRAIT_NOBLOOD)) //not all carbons have species!
+	if(dna && dna.species && (HAS_TRAIT(src, TRAIT_NOBLOOD) || isnull(dna.species.mutantheart))) //not all carbons have species!
 		return FALSE
 	return TRUE
 

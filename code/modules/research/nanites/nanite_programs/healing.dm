@@ -171,7 +171,7 @@
 	name = "Bio-Reconstruction"
 	desc = "The nanites manually repair and replace organic cells, acting much faster than normal regeneration. \
 			However, this program cannot detect the difference between harmed and unharmed, causing it to consume nanites even if it has no effect."
-	use_rate = 5.5
+	use_rate = 3
 	rogue_types = list(/datum/nanite_program/suffocating, /datum/nanite_program/necrotic)
 
 /datum/nanite_program/regenerative_advanced/active_effect()
@@ -182,13 +182,13 @@
 			return
 		var/update = FALSE
 		for(var/obj/item/bodypart/L in parts)
-			if(L.heal_damage(3/parts.len, 3/parts.len, null, BODYTYPE_ORGANIC))
+			if(L.heal_damage(1.5/parts.len, 1.5/parts.len, null, BODYTYPE_ORGANIC))
 				update = TRUE
 		if(update)
 			host_mob.update_damage_overlays()
 	else
-		host_mob.adjustBruteLoss(-3, TRUE)
-		host_mob.adjustFireLoss(-3, TRUE)
+		host_mob.adjustBruteLoss(-1.5, TRUE)
+		host_mob.adjustFireLoss(-1.5, TRUE)
 
 /datum/nanite_program/brain_heal_advanced
 	name = "Neural Reimaging"

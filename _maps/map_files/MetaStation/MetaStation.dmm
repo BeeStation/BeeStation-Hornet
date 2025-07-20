@@ -7951,23 +7951,21 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/maintenance{
-	id_tag = "commissarydoor";
-	req_one_access_txt = "12;63;48;50"
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/machinery/door/airlock/personal{
+	id_tag = "commissarydoor"
+	},
 /turf/open/floor/plating,
-/area/maintenance/central)
+/area/vacant_room/commissary)
 "bfo" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/grille,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},

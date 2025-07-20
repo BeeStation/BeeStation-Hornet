@@ -367,7 +367,7 @@ SUBSYSTEM_DEF(ticker)
 
 	// Store areas where lights need to stay on
 	var/list/lightup_area_typecache = list()
-	var/minimal_access = CONFIG_GET(flag/jobs_have_minimal_access)
+	var/minimal_access = SSjob.initial_players_to_assign < LOWPOP_JOB_LIMIT
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
 		var/role = player.mind?.assigned_role
 		if(!role)

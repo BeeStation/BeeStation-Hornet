@@ -6,14 +6,12 @@
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the quartermaster and the head of personnel"
 	faction = "Station"
-	total_positions = 3
-	spawn_positions = 2
+	dynamic_spawn_group = JOB_SPAWN_GROUP_DEPARTMENT
 	selection_color = "#dcba97"
 
 	outfit = /datum/outfit/job/cargo_technician
 
 	base_access = list(ACCESS_MAINT_TUNNELS, ACCESS_CARGO, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM)
-	extra_access = list(ACCESS_QM, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MECH_MINING, ACCESS_GATEWAY)
 
 	departments = DEPT_BITFLAG_CAR
 	bank_account_department = ACCOUNT_CAR_BITFLAG
@@ -29,6 +27,16 @@
 	biohazard = 25
 
 	lightup_areas = list(/area/quartermaster/qm, /area/quartermaster/qm_bedroom)
+
+/datum/job/cargo_technician/get_access()
+	. = ..()
+	if (SSjob.initial_players_to_assign < LOWPOP_JOB_LIMIT)
+		. |= ACCESS_GATEWAY
+	LOWPOP_GRANT_ACCESS(JOB_NAME_QUARTERMASTER, ACCESS_QM)
+	LOWPOP_GRANT_ACCESS(JOB_NAME_QUARTERMASTER, ACCESS_VAULT)
+	LOWPOP_GRANT_ACCESS(JOB_NAME_SHAFTMINER, ACCESS_GATEWAY)
+	LOWPOP_GRANT_ACCESS(JOB_NAME_SHAFTMINER, ACCESS_MINING)
+	LOWPOP_GRANT_ACCESS(JOB_NAME_SHAFTMINER, ACCESS_MINING_STATION)
 
 /datum/outfit/job/cargo_technician
 	name = JOB_NAME_CARGOTECHNICIAN
