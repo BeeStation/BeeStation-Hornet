@@ -605,6 +605,11 @@
 	if(!spraycan_touch_normally)
 		spraycan_touch_normally = typecacheof(list(/obj/machinery/modular_fabricator/autolathe, /obj/structure/closet, /obj/machinery/disposal))
 
+/obj/item/toy/crayon/spraycan/add_context_self(datum/screentip_context/context, mob/user, atom/target)
+
+	context.add_left_click_action("Paint")
+	context.add_right_click_action("Copy color")
+
 /obj/item/toy/crayon/spraycan/isValidSurface(surface)
 	return (istype(surface, /turf/open/floor) || istype(surface, /turf/closed/wall))
 
@@ -615,23 +620,23 @@
 		user.visible_message(span_suicide("[user] shakes up [src] with a rattle and lifts it to [user.p_their()] mouth, but nothing happens!"))
 		user.say("MEDIOCRE!!", forced="spraycan suicide")
 		return SHAME
-	else
-		user.visible_message(span_suicide("[user] shakes up [src] with a rattle and lifts it to [user.p_their()] mouth, spraying paint across [user.p_their()] teeth!"))
-		user.say("WITNESS ME!!", forced="spraycan suicide")
-		if(pre_noise || post_noise)
-			playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 5)
-		if(can_change_colour)
-			set_painting_tool_color("#C0C0C0")
-		update_icon()
-		if(actually_paints)
-			H.lip_style = "spray_face"
-			H.lip_color = paint_color
-			H.update_body()
-		var/used = use_charges(user, 10, FALSE)
-		var/fraction = min(1, used / reagents.maximum_volume)
-		reagents.expose(user, VAPOR, fraction * volume_multiplier)
-		reagents.trans_to(user, used, volume_multiplier, transfered_by = user)
-		return OXYLOSS
+
+	user.visible_message(span_suicide("[user] shakes up [src] with a rattle and lifts it to [user.p_their()] mouth, spraying paint across [user.p_their()] teeth!"))
+	user.say("WITNESS ME!!", forced="spraycan suicide")
+	if(pre_noise || post_noise)
+		playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 5)
+	if(can_change_colour)
+		set_painting_tool_color("#C0C0C0")
+	update_icon()
+	if(actually_paints)
+		H.lip_style = "spray_face"
+		H.lip_color = paint_color
+		H.update_body()
+	var/used = use_charges(user, 10, FALSE)
+	var/fraction = min(1, used / reagents.maximum_volume)
+	reagents.expose(user, VAPOR, fraction * volume_multiplier)
+	reagents.trans_to(user, used, volume_multiplier, transfered_by = user)
+	return OXYLOSS
 
 /obj/item/toy/crayon/spraycan/Initialize(mapload)
 	. = ..()
@@ -649,7 +654,7 @@
 		. += "It is empty."
 	. += span_notice("Alt-click [src] to [ is_capped ? "take the cap off" : "put the cap on"]. Right-click a colored object to match its existing color.")
 
-/obj/item/toy/crayon/spraycan/pre_attack(atom/target, mob/user, proximity, params)
+/obj/item/toy/crayon/spraycan/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity)
 		return ..()
 

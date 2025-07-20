@@ -174,6 +174,10 @@
 		limb_gender = pick("m", "f")
 	update_icon_dropped()
 
+/obj/item/bodypart/add_context_self(datum/screentip_context/context, mob/user, atom/target)
+	if(istype(context.held_item, /obj/item/clothing/accessory))
+		context.add_right_click_action("Color Limb")
+
 /obj/item/bodypart/Destroy()
 	if(owner && !QDELETED(owner))
 		forced_removal(special = FALSE, dismembered = TRUE, move_to_floor = FALSE)
