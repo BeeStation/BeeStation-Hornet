@@ -5,8 +5,7 @@
 	department_head = list(JOB_NAME_CHIEFENGINEER)
 	supervisors = "the chief engineer"
 	faction = "Station"
-	total_positions = 5
-	spawn_positions = 5
+	dynamic_spawn_group = JOB_SPAWN_GROUP_DEPARTMENT
 	selection_color = "#fff5cc"
 	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
@@ -15,7 +14,6 @@
 
 	base_access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_MECH_ENGINE,
 						ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_TCOMSAT, ACCESS_MINERAL_STOREROOM, ACCESS_AUX_BASE)
-	extra_access = list(ACCESS_ATMOSPHERICS)
 
 	departments = DEPT_BITFLAG_ENG
 	bank_account_department = ACCOUNT_ENG_BITFLAG
@@ -29,6 +27,12 @@
 	)
 
 	lightup_areas = list(/area/engine/atmos)
+
+/datum/job/station_engineer/get_access()
+	. = ..()
+	LOWPOP_GRANT_ACCESS(JOB_NAME_ATMOSPHERICTECHNICIAN, ACCESS_ATMOSPHERICS)
+	if (SSjob.initial_players_to_assign < COMMAND_POPULATION_MINIMUM)
+		. |= ACCESS_CE
 
 /datum/outfit/job/engineer
 	name = JOB_NAME_STATIONENGINEER

@@ -1317,8 +1317,9 @@
 /obj/structure/chair{
 	dir = 4
 	},
+/obj/machinery/light_switch/directional/south,
 /turf/open/floor/iron/dark/textured,
-/area/security/brig)
+/area/security/interrogation_room)
 "amt" = (
 /obj/structure/table,
 /obj/item/paper/fluff/holodeck/disclaimer,
@@ -7954,23 +7955,21 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/maintenance{
-	id_tag = "commissarydoor";
-	req_one_access_txt = "12;63;48;50"
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/machinery/door/airlock/personal{
+	id_tag = "commissarydoor"
+	},
 /turf/open/floor/plating,
-/area/maintenance/central)
+/area/vacant_room/commissary)
 "bfo" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/grille,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -14990,8 +14989,11 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 9
 	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron/dark/textured,
-/area/security/brig)
+/area/security/interrogation_room)
 "bWC" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
@@ -21000,7 +21002,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark/textured,
-/area/security/brig)
+/area/security/interrogation_room)
 "deS" = (
 /obj/machinery/atmospherics/pipe/smart/simple/general/visible{
 	dir = 10
@@ -23128,8 +23130,11 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron/dark/smooth_large,
-/area/security/brig)
+/area/security/interrogation_room)
 "dEV" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -23232,8 +23237,11 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron/dark/textured,
-/area/security/brig)
+/area/security/interrogation_room)
 "dGK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/grille,
@@ -30141,6 +30149,9 @@
 	},
 /turf/open/floor/iron,
 /area/engine/break_room)
+"gnQ" = (
+/turf/closed/wall/r_wall,
+/area/security/interrogation_room)
 "gnR" = (
 /obj/item/radio/intercom{
 	pixel_y = 21
@@ -33380,6 +33391,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 5
 	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/security/brig)
 "hDO" = (
@@ -35833,8 +35847,11 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron/dark/textured,
-/area/security/brig)
+/area/security/interrogation_room)
 "iuw" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -39942,7 +39959,7 @@
 	pixel_y = -24
 	},
 /turf/open/floor/iron/dark/textured,
-/area/security/brig)
+/area/security/interrogation_room)
 "jXI" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
@@ -39962,7 +39979,7 @@
 /area/engine/break_room)
 "jXW" = (
 /turf/open/floor/iron/dark/textured,
-/area/security/brig)
+/area/security/interrogation_room)
 "jYi" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -43001,8 +43018,12 @@
 /obj/machinery/camera/directional/east{
 	c_tag = "Interrogation room"
 	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/apc/auto_name/directional/east,
 /turf/open/floor/iron/dark/textured,
-/area/security/brig)
+/area/security/interrogation_room)
 "lfZ" = (
 /obj/structure/filingcabinet/chestdrawer,
 /obj/machinery/button/door{
@@ -43196,6 +43217,15 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2,
 /turf/open/floor/iron/dark,
 /area/aisat)
+"llb" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron/dark/textured,
+/area/security/interrogation_room)
 "llo" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -52531,7 +52561,7 @@
 "oxz" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/iron/dark/textured,
-/area/security/brig)
+/area/security/interrogation_room)
 "oxF" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -56897,6 +56927,9 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/security/brig)
 "qda" = (
@@ -74978,6 +75011,9 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/medical/virology)
+"wEi" = (
+/turf/closed/wall,
+/area/security/interrogation_room)
 "wEp" = (
 /obj/structure/grille/broken,
 /obj/structure/lattice,
@@ -111290,7 +111326,7 @@ urs
 mVf
 ajD
 rMC
-ryP
+oVG
 fJp
 ayG
 ozl
@@ -111803,9 +111839,9 @@ jgG
 kqh
 itu
 aqa
-ajm
+gnQ
 dEQ
-ajm
+gnQ
 ayF
 azV
 owo
@@ -112320,7 +112356,7 @@ atZ
 jXW
 iuq
 amm
-ahx
+wEi
 azW
 vMO
 epz
@@ -112577,7 +112613,7 @@ atZ
 oxz
 bWn
 jXA
-ahx
+wEi
 oEY
 mLy
 axC
@@ -112832,9 +112868,9 @@ imY
 uSp
 atZ
 jXW
+llb
 deP
-deP
-ahx
+wEi
 dhz
 nrZ
 axC
@@ -113091,7 +113127,7 @@ ajD
 jXW
 lfV
 jXW
-ahx
+wEi
 tnS
 wdT
 axC
@@ -113345,10 +113381,10 @@ ajD
 ajD
 ajD
 ajD
-ahx
-ahx
-ahx
-ahx
+wEi
+wEi
+wEi
+wEi
 aGE
 iax
 aCz

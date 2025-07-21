@@ -234,6 +234,7 @@
 		current_item = H.wear_id
 		if(current_item)
 			nanite_access |= current_item.GetAccess()
+	//Swap this to basicmob eventually
 	else if(isanimal(host_mob))
 		var/mob/living/simple_animal/A = host_mob
 		current_item = A.access_card

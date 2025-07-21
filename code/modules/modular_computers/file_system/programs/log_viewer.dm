@@ -1,9 +1,9 @@
 /datum/computer_file/program/log_viewer
-	filename = "log_viewer"
-	filedesc = "Log Viewer"
+	filename = "ore_log_viewer"
+	filedesc = "Ore Silo Log Viewer"
 	category = PROGRAM_CATEGORY_MISC
 	program_icon_state = "comm_logs"
-	extended_desc = "View logs via NTNet or saved to your system."
+	extended_desc = "View ore silo logs via NTNet or saved to your system."
 	size = 4
 	tgui_id = "NtosLogViewer"
 	program_icon = "database"

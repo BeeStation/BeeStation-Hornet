@@ -2524,6 +2524,14 @@
 /obj/machinery/light/small,
 /turf/open/floor/plating,
 /area/maintenance/port/central)
+"aFT" = (
+/obj/structure/chair/foldable{
+	dir = 4
+	},
+/obj/structure/cable/yellow,
+/obj/machinery/power/apc/auto_name/directional/south,
+/turf/open/floor/iron,
+/area/security/interrogation_room)
 "aGf" = (
 /obj/machinery/computer/station_alert{
 	dir = 4
@@ -6582,10 +6590,6 @@
 /turf/open/floor/iron/techmaint,
 /area/tcommsat/computer)
 "bFI" = (
-/obj/machinery/door/airlock{
-	id_tag = "commissarydoor2";
-	name = "Commissary #2"
-	},
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
@@ -6595,6 +6599,9 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 8
+	},
+/obj/machinery/door/airlock/personal{
+	id_tag = "commissarydoor2"
 	},
 /turf/open/floor/iron/techmaint,
 /area/vacant_room/commissary/commissary2)
@@ -12282,6 +12289,9 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/science/research)
+"dhT" = (
+/turf/closed/wall/r_wall,
+/area/security/interrogation_room)
 "did" = (
 /obj/structure/table/wood,
 /obj/item/clothing/mask/cigarette/cigar/cohiba{
@@ -15337,8 +15347,11 @@
 /obj/structure/chair/foldable{
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/iron,
-/area/security/main)
+/area/security/interrogation_room)
 "dZI" = (
 /obj/structure/cable,
 /obj/structure/lattice/catwalk,
@@ -24850,6 +24863,9 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron,
 /area/security/main)
 "gpP" = (
@@ -31143,7 +31159,7 @@
 /obj/item/taperecorder,
 /obj/item/folder/red,
 /turf/open/floor/iron,
-/area/security/main)
+/area/security/interrogation_room)
 "hVm" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/loading_area{
@@ -33199,6 +33215,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 1
 	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron,
 /area/security/main)
 "ivb" = (
@@ -33478,7 +33497,7 @@
 	icon_state = "0-4"
 	},
 /turf/open/floor/plating,
-/area/security/main)
+/area/security/interrogation_room)
 "iyg" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/dirt,
@@ -34585,8 +34604,11 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
 /turf/open/floor/iron,
-/area/security/main)
+/area/security/interrogation_room)
 "iMl" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -41051,7 +41073,7 @@
 	pixel_y = -32
 	},
 /turf/open/floor/iron,
-/area/security/main)
+/area/security/interrogation_room)
 "kvw" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -44449,8 +44471,11 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron/techmaint,
-/area/security/main)
+/area/security/interrogation_room)
 "liJ" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -47103,6 +47128,9 @@
 "lTx" = (
 /turf/open/floor/plating/rust,
 /area/maintenance/aft)
+"lTA" = (
+/turf/closed/wall,
+/area/security/interrogation_room)
 "lTB" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -64697,7 +64725,7 @@
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/techmaint,
-/area/security/main)
+/area/security/interrogation_room)
 "qBA" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
@@ -67075,6 +67103,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 1
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
 /turf/open/floor/iron,
 /area/security/main)
 "rgr" = (
@@ -69362,7 +69393,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/security/main)
+/area/security/interrogation_room)
 "rKW" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /obj/effect/turf_decal/tile/green/opposingcorners{
@@ -70090,7 +70121,7 @@
 	pixel_y = -32
 	},
 /turf/open/floor/iron,
-/area/security/main)
+/area/security/interrogation_room)
 "rRI" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -72559,8 +72590,11 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron,
-/area/security/main)
+/area/security/interrogation_room)
 "szM" = (
 /obj/effect/spawner/structure/window/plasma/reinforced,
 /obj/machinery/atmospherics/pipe/smart/simple/general/visible{
@@ -76103,7 +76137,7 @@
 "tvh" = (
 /obj/effect/spawner/structure/window/reinforced/tinted,
 /turf/open/floor/plating,
-/area/security/main)
+/area/security/interrogation_room)
 "tvl" = (
 /turf/open/floor/glass/reinforced,
 /area/crew_quarters/heads/captain)
@@ -76255,8 +76289,11 @@
 	pixel_x = 24;
 	pixel_y = 24
 	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron,
-/area/security/main)
+/area/security/interrogation_room)
 "txJ" = (
 /obj/docking_port/stationary{
 	dir = 8;
@@ -84228,10 +84265,6 @@
 /turf/open/floor/iron/dark,
 /area/quartermaster/storage)
 "vsD" = (
-/obj/machinery/door/airlock{
-	id_tag = "commissarydoor1";
-	name = "Commissary #1"
-	},
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
@@ -84241,6 +84274,9 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 8
+	},
+/obj/machinery/door/airlock/personal{
+	id_tag = "commissarydoor1"
 	},
 /turf/open/floor/iron/techmaint,
 /area/vacant_room/commissary/commissary1)
@@ -85918,12 +85954,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/tcommsat/computer)
-"vJN" = (
-/obj/effect/turf_decal/trimline/purple/filled/line{
-	dir = 9
-	},
-/turf/open/floor/iron/white,
-/area/science/lobby)
 "vJW" = (
 /turf/open/floor/iron/dark/side{
 	dir = 8
@@ -128542,11 +128572,11 @@ thk
 xIt
 xIt
 xIt
-vUR
+dhT
 tvh
 tvh
 tvh
-wBt
+lTA
 uoz
 ito
 mMk
@@ -128799,11 +128829,11 @@ vUR
 vUR
 vUR
 vUR
-vUR
+dhT
 iMi
 dZG
-dZG
-wBt
+aFT
+lTA
 rjL
 kKL
 uoz
@@ -129056,11 +129086,11 @@ vUR
 wdH
 rGl
 jFK
-vUR
+dhT
 szG
 hUW
 kvo
-wBt
+lTA
 qQg
 mxQ
 wKP
@@ -129317,7 +129347,7 @@ qBs
 txx
 rKK
 rRH
-wBt
+lTA
 ehl
 rpf
 sNE
@@ -129570,11 +129600,11 @@ xYu
 vUR
 vUR
 vUR
-vUR
+dhT
 liz
 iyd
-wBt
-wBt
+lTA
+lTA
 aHI
 vjz
 mJl
@@ -131411,7 +131441,7 @@ dQo
 dQo
 uma
 wKk
-vJN
+uuA
 bHe
 cvE
 bVQ

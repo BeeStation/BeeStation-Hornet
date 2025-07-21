@@ -10,7 +10,7 @@
 	allowed = list(
 		/obj/item/analyzer,
 		/obj/item/stack/medical,
-		/obj/item/storage/firstaid/medical,
+		/obj/item/storage/firstaid,
 		/obj/item/dnainjector,
 		/obj/item/reagent_containers/dropper,
 		/obj/item/reagent_containers/syringe,

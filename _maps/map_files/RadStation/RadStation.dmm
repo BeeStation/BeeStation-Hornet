@@ -694,7 +694,7 @@
 	pixel_y = 4
 	},
 /turf/open/floor/iron/dark,
-/area/security/brig)
+/area/security/interrogation_room)
 "aly" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -2828,6 +2828,9 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/iron/dark,
 /area/security/brig)
 "aSu" = (
@@ -10862,8 +10865,11 @@
 	},
 /obj/effect/turf_decal/box,
 /obj/effect/landmark/navigate_destination,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/iron/dark,
-/area/security/brig)
+/area/security/interrogation_room)
 "dwu" = (
 /obj/structure/plasticflaps/opaque,
 /obj/machinery/navbeacon{
@@ -12176,7 +12182,7 @@
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/iron/sepia,
-/area/vacant_room/commissary/commissary2)
+/area/maintenance/port/central)
 "dRq" = (
 /turf/closed/wall,
 /area/science/xenobiology)
@@ -19048,7 +19054,7 @@
 	},
 /obj/item/flashlight/lamp,
 /turf/open/floor/iron/dark,
-/area/security/brig)
+/area/security/interrogation_room)
 "gdU" = (
 /obj/effect/turf_decal/delivery,
 /obj/item/paper/fluff/jobs/mining/smelter_notice,
@@ -22996,8 +23002,10 @@
 /turf/open/floor/iron/grid/steel,
 /area/medical/virology)
 "hvg" = (
+/obj/structure/closet,
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/iron/sepia,
-/area/vacant_room/commissary/commissary2)
+/area/maintenance/port/central)
 "hvo" = (
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/power/apc/auto_name/directional/south,
@@ -23691,8 +23699,11 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
 /turf/open/floor/iron/dark,
-/area/security/brig)
+/area/security/interrogation_room)
 "hJf" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -31485,7 +31496,7 @@
 	pixel_y = -7
 	},
 /turf/open/floor/iron/dark,
-/area/security/brig)
+/area/security/interrogation_room)
 "knW" = (
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
@@ -35233,6 +35244,9 @@
 	dir = 1
 	},
 /area/hallway/primary/central)
+"lFu" = (
+/turf/closed/wall/r_wall,
+/area/security/interrogation_room)
 "lFE" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -37999,8 +38013,11 @@
 	dir = 4
 	},
 /obj/machinery/firealarm/directional/east,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/iron/dark,
-/area/security/brig)
+/area/security/interrogation_room)
 "mDq" = (
 /obj/machinery/holopad,
 /turf/open/floor/iron/sepia,
@@ -44695,8 +44712,12 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/machinery/power/apc/auto_name/directional/west,
 /turf/open/floor/iron/dark,
-/area/security/brig)
+/area/security/interrogation_room)
 "oPc" = (
 /obj/effect/turf_decal/guideline/guideline_edge/purple,
 /obj/machinery/firealarm/directional/south,
@@ -45378,7 +45399,7 @@
 /obj/effect/spawner/lootdrop/maintenance/three,
 /obj/effect/decal/cleanable/glass,
 /turf/open/floor/iron/sepia,
-/area/vacant_room/commissary/commissary2)
+/area/maintenance/port/central)
 "oYy" = (
 /obj/structure/disposalpipe/segment{
 	dir = 2
@@ -46775,9 +46796,10 @@
 /turf/open/floor/plating/airless,
 /area/science/test_area)
 "pud" = (
-/obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance/two,
-/turf/open/floor/plating,
+/obj/structure/extinguisher_cabinet{
+	pixel_y = -32
+	},
+/turf/open/floor/iron,
 /area/vacant_room/commissary/commissary2)
 "pun" = (
 /obj/structure/tank_dispenser/oxygen,
@@ -50706,6 +50728,18 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
 /turf/open/floor/iron,
 /area/engine/atmos)
+"qJL" = (
+/obj/structure/chair/office{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron/dark,
+/area/security/interrogation_room)
 "qJO" = (
 /obj/structure/frame,
 /turf/open/space/basic,
@@ -52514,7 +52548,7 @@
 /area/engine/atmos)
 "rqk" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/closed/wall,
+/turf/open/floor/iron,
 /area/vacant_room/commissary/commissary2)
 "rqm" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/visible{
@@ -53335,10 +53369,6 @@
 "rDZ" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/food/plant_smudge,
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -32
-	},
-/obj/machinery/grill/unwrenched,
 /obj/machinery/button/door{
 	id = "commissarydoor2";
 	name = "Cabin 2 Privacy Lock";
@@ -58106,7 +58136,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
-/area/security/brig)
+/area/security/interrogation_room)
 "tiy" = (
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
@@ -61796,7 +61826,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/plating/rust,
-/area/vacant_room/commissary/commissary2)
+/area/maintenance/port/central)
 "umg" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
@@ -66855,8 +66885,11 @@
 /turf/open/floor/iron,
 /area/hallway/primary/port)
 "vXD" = (
-/obj/effect/spawner/lootdrop/grille_or_trash,
-/turf/open/floor/plating,
+/obj/machinery/door/airlock/personal{
+	id_tag = "commissarydoor2"
+	},
+/obj/effect/mapping_helpers/airlock/abandoned,
+/turf/open/floor/iron,
 /area/vacant_room/commissary/commissary2)
 "vXV" = (
 /obj/structure/sign/departments/minsky/engineering/engineering{
@@ -67893,15 +67926,13 @@
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat/foyer)
 "wtv" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	id_tag = "commissarydoor2";
-	name = "Maintenance Hatch";
-	req_access_txt = "12"
-	},
 /obj/structure/barricade/wooden/crude,
 /obj/machinery/door/firedoor,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/personal{
+	id_tag = "commissarydoor2"
 	},
 /turf/open/floor/iron,
 /area/vacant_room/commissary/commissary2)
@@ -72699,7 +72730,8 @@
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain)
 "xRC" = (
-/turf/open/floor/plating,
+/obj/machinery/grill/unwrenched,
+/turf/open/floor/iron,
 /area/vacant_room/commissary/commissary2)
 "xRJ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -73237,25 +73269,21 @@
 /turf/open/floor/iron/dark,
 /area/quartermaster/exploration_prep)
 "ybh" = (
-/obj/effect/mapping_helpers/airlock/abandoned,
-/obj/machinery/door/airlock/maintenance_hatch{
-	id_tag = "commissarydoor1";
-	name = "Maintenance Hatch";
-	req_access_txt = "12"
+/obj/machinery/door/airlock/personal{
+	id_tag = "commissarydoor1"
 	},
+/obj/structure/barricade/wooden/crude,
 /turf/open/floor/plating,
-/area/maintenance/department/security)
+/area/vacant_room/commissary/commissary1)
 "ybl" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/maintenance_hatch{
-	id_tag = "commissarydoor1";
-	name = "Maintenance Hatch";
-	req_access_txt = "12"
-	},
-/obj/structure/barricade/wooden/crude,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/personal{
+	id_tag = "commissarydoor1"
+	},
+/obj/effect/mapping_helpers/airlock/abandoned,
 /turf/open/floor/iron,
 /area/vacant_room/commissary/commissary1)
 "ycb" = (
@@ -99312,10 +99340,10 @@ nis
 yji
 fHK
 fHK
-fHK
-fHK
-fHK
-fHK
+lFu
+lFu
+lFu
+lFu
 aJB
 wCj
 ksd
@@ -99572,7 +99600,7 @@ kzB
 knv
 gdN
 oOI
-fHK
+lFu
 rci
 xoe
 hwP
@@ -99828,8 +99856,8 @@ aUH
 kRQ
 tiw
 alu
-oOI
-fHK
+qJL
+lFu
 lKm
 wQr
 ksd
@@ -100086,7 +100114,7 @@ aSs
 mDm
 dwo
 hIT
-fHK
+lFu
 jFM
 aPu
 bFE
@@ -103726,11 +103754,11 @@ oiI
 fRc
 fRc
 fRc
-bzO
+eXl
 oYx
 dRn
-xRC
-hvg
+fRc
+xIX
 utF
 rAY
 ggJ
@@ -103987,7 +104015,7 @@ bzO
 lkl
 lkl
 bzO
-xRC
+fRc
 utF
 rAY
 cXC
@@ -104758,7 +104786,7 @@ bzO
 eGr
 wwg
 bzO
-vXD
+bce
 fcR
 bGd
 rZL
@@ -105014,8 +105042,8 @@ bzO
 mcm
 hBR
 cSY
-bzO
 xRC
+bzO
 utF
 rAY
 aRE
@@ -105272,7 +105300,7 @@ jSx
 dXn
 vWs
 rqk
-hvg
+bzO
 utF
 rAY
 xvc
@@ -105528,8 +105556,8 @@ ppw
 dHm
 vvJ
 rDZ
-bzO
 pud
+bzO
 utF
 rAY
 rAY
@@ -105785,7 +105813,7 @@ bzO
 aDC
 bzO
 bzO
-bzO
+vXD
 bzO
 lTj
 gnc
