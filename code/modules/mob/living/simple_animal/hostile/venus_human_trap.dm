@@ -155,7 +155,7 @@
 		if(withering)
 			to_chat(src, span_notice(" The vines nourish you, healing your wounds."))
 			stop_automated_movement = 0
-		adjustHealth(-maxHealth*0.1)
+		adjustHealth(-maxHealth*0.05)
 		withering = FALSE
 		retreating = FALSE
 		return
@@ -173,7 +173,7 @@
 			Goto(possible_retreat_turfs[rand(1,possible_retreat_turfs.len)], move_to_delay, 0)
 			retreating = TRUE
 	playsound(src.loc, 'sound/creatures/venus_trap_hurt.ogg', 50, 1)
-	adjustHealth(maxHealth*0.1)
+	adjustHealth(maxHealth*0.15)
 
 /mob/living/simple_animal/hostile/venus_human_trap/Moved(atom/OldLoc, Dir)
 	. = ..()
