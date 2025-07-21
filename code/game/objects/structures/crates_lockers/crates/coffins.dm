@@ -202,6 +202,7 @@
 		var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(user)
 		if(!vampiredatum)
 			return FALSE
+
 		if(!vampiredatum.coffin && !resident)
 			switch(tgui_alert(user, "Do you wish to claim this as your coffin? [get_area(src)] will be your lair.", "Claim Lair", list("Yes", "No")))
 				if("Yes")
@@ -209,15 +210,14 @@
 				if("No")
 					return
 		LockMe(user)
-		//Level up if possible.
-		if(!vampiredatum.my_clan)
+
+		// If we're in a clan, level up. If not, choose a clan.
+		if(vampiredatum.my_clan)
+			vampiredatum.spend_rank()
+		else
 			vampiredatum.assign_clan_and_bane()
 
-			if(!vampiredatum.my_clan)
-				to_chat(user, span_notice("You must enter a Clan to rank up."))
-		else
-			vampiredatum.spend_rank()
-		// You're in a Coffin, everything else is done, you're likely here to heal. Let's offer them the oppertunity to do so.
+		// You're in a Coffin, everything else is done, you're likely here to heal. Let's offer them the opportunity to do so.
 		vampiredatum.check_begin_torpor()
 
 /// You cannot weld or deconstruct an owned coffin. Only the owner can destroy their own coffin.
@@ -228,11 +228,12 @@
 		if(istype(item, cutting_tool))
 			to_chat(user, span_notice("This is a much more complex mechanical structure than you thought. You don't know where to begin cutting [src]."))
 			return
-	if(anchored && (item.tool_behaviour == TOOL_WRENCH))
-		to_chat(user, span_danger("The coffin won't come unanchored from the floor.[user == resident ? " You can Alt-Click to unclaim and unwrench your Coffin." : ""]"))
+
+	if(anchored && item.tool_behaviour == TOOL_WRENCH)
+		to_chat(user, span_danger("The coffin won't detach from the floor.[user == resident ? " You can Alt-Click to unclaim and unwrench your Coffin." : ""]"))
 		return
 
-	if(locked && (item.tool_behaviour == TOOL_CROWBAR))
+	if(locked && item.tool_behaviour == TOOL_CROWBAR)
 		var/pry_time = pry_lid_timer * item.toolspeed // Pry speed must be affected by the speed of the tool.
 		user.visible_message(
 			span_notice("[user] tries to pry the lid off of [src] with [item]."),
@@ -274,6 +275,7 @@
 			else
 				to_chat(user, span_notice("You flip a secret latch and unlock [src]."))
 			return
+
 		// Broken? Let's fix it.
 		to_chat(resident, span_notice("The secret latch that would lock [src] from the inside is broken. You set it back into place..."))
 		if(!do_after(resident, 5 SECONDS, src))

@@ -36,16 +36,28 @@
 	if(!owner?.current)
 		return
 
+	// Give Sol debuff if not in a coffin
 	if(!istype(owner.current.loc, /obj/structure/closet/crate/coffin))
 		owner.current.apply_status_effect(/datum/status_effect/vampire_sol)
-		return
-	owner.current.remove_status_effect(/datum/status_effect/vampire_sol)
-	if(check_if_staked() && COOLDOWN_FINISHED(src, vampire_spam_sol_burn))
-		to_chat(owner.current, span_userdanger("You are staked! Remove the offending weapon from your heart before sleeping."))
-		COOLDOWN_START(src, vampire_spam_sol_burn, VAMPIRE_SPAM_SOL) //This should happen twice per Sol
-	if(!is_in_torpor())
-		check_begin_torpor(TRUE)
-		SEND_SIGNAL(owner.current, COMSIG_ADD_MOOD_EVENT, "vampsleep", /datum/mood_event/coffinsleep)
+	else
+		// Try to remove Sol debuff
+		owner.current.remove_status_effect(/datum/status_effect/vampire_sol)
+
+		// Try to enter torpor if we're not in a frenzy or staked
+		if(frenzied)
+			if(COOLDOWN_FINISHED(src, vampire_spam_sol_burn))
+				to_chat(owner.current, span_userdanger("You are in a frenzy! You cannot enter Torpor until you have enough blood."))
+				COOLDOWN_START(src, vampire_spam_sol_burn, VAMPIRE_SPAM_SOL)
+			return
+		if(check_if_staked())
+			if(COOLDOWN_FINISHED(src, vampire_spam_sol_burn))
+				to_chat(owner.current, span_userdanger("You are staked! Remove the offending weapon from your heart before sleeping."))
+				COOLDOWN_START(src, vampire_spam_sol_burn, VAMPIRE_SPAM_SOL)
+			return
+		if(!is_in_torpor())
+			torpor_begin()
+			SEND_SIGNAL(owner.current, COMSIG_ADD_MOOD_EVENT, "vampsleep", /datum/mood_event/coffinsleep)
+			return
 
 /datum/antagonist/vampire/proc/give_warning(atom/source, danger_level, vampire_warning_message, vassal_warning_message)
 	SIGNAL_HANDLER
@@ -74,22 +86,32 @@
  * You cannot manually exit Torpor, it is instead entered/exited by:
  *
  * Torpor is triggered by:
- * - Entering a Coffin with more than 10 combined Brute/Burn damage, dealt with by /closet/crate/coffin/close() [vampire_coffin.dm]
+ * - Entering a Coffin with more than 10 combined Brute/Burn damage, dealt with by /closet/crate/coffin/close() [coffins.dm]
  * - Death, dealt with by /HandleDeath()
  * Torpor is ended by:
  * - Having less than 10 Brute damage while OUTSIDE of your Coffin while it isnt Sol.
  * - Having less than 10 Brute & Burn Combined while INSIDE of your Coffin while it isnt Sol.
  * - Sol being over, dealt with by /sunlight/process() [vampire_daylight.dm]
-*/
+**/
 /datum/antagonist/vampire/proc/check_begin_torpor()
-	var/mob/living/carbon/user = owner.current
+	var/mob/living/carbon/carbon_owner = owner.current
+	var/total_damage = carbon_owner.getBruteLoss() + carbon_owner.getFireLoss()
+	if(total_damage < 10)
+		return
+	if(is_in_torpor())
+		return
+	if(SSsunlight.sunlight_active)
+		return
+	if(frenzied)
+		return
 
-	var/total_damage = user.getBruteLoss() + user.getFireLoss()
-	/// Checks - Not daylight & Has more than 10 Brute/Burn & not already in Torpor
-	if(!SSsunlight.sunlight_active && total_damage >= 10 && !HAS_TRAIT_FROM(owner.current, TRAIT_NODEATH, TRAIT_TORPOR))
-		torpor_begin()
+	torpor_begin()
 
 /datum/antagonist/vampire/proc/check_end_torpor()
+	if(frenzied)
+		torpor_end()
+		return
+
 	var/mob/living/carbon/user = owner.current
 
 	var/total_brute = user.getBruteLoss()
@@ -102,6 +124,7 @@
 
 	if(check_if_staked())
 		torpor_end()
+		return
 
 	// You are in a Coffin, so instead we'll check TOTAL damage.
 	var/total_damage = total_brute + total_burn
@@ -119,36 +142,34 @@
 	return HAS_TRAIT_FROM(owner.current, TRAIT_NODEATH, TRAIT_TORPOR)
 
 /datum/antagonist/vampire/proc/torpor_begin()
-	var/mob/living/living_current = owner.current
+	var/mob/living/living_owner = owner.current
+	if(QDELETED(living_owner))
+		return
 
-	// Torpor doesn't work properly if the vampire has these traits
-	REMOVE_TRAIT(living_current, TRAIT_SLEEPIMMUNE, TRAIT_VAMPIRE)
-	REMOVE_TRAIT(living_current, TRAIT_NOBREATH, TRAIT_VAMPIRE)
+	// Handle traits - Torpor doesn't work with TRAIT_SLEEPIMMUNE or TRAIT_NOBREATH
+	living_owner.remove_traits(list(TRAIT_SLEEPIMMUNE, TRAIT_NOBREATH), TRAIT_VAMPIRE)
+	living_owner.add_traits(torpor_traits, TRAIT_TORPOR)
 
-	living_current.add_traits(torpor_traits, TRAIT_TORPOR)
-
-	living_current.jitteriness = 0
+	living_owner.jitteriness = 0
 
 	DisableAllPowers()
 
-	to_chat(living_current, span_notice("You enter the horrible slumber of deathless Torpor. You will heal until you are renewed."))
+	to_chat(living_owner, span_notice("You enter the horrible slumber of deathless Torpor. You will heal until you are renewed."))
 
 /datum/antagonist/vampire/proc/torpor_end()
-	var/mob/living/current = owner.current
+	var/mob/living/living_owner = owner.current
 
-	current.remove_status_effect(/datum/status_effect/vampire_sol)
-	current.grab_ghost()
+	living_owner.remove_status_effect(/datum/status_effect/vampire_sol)
+	living_owner.grab_ghost()
 
-	// Return the traits that don't work with Torpor if the vampire isn't using masquerade
-	if(!HAS_TRAIT(current, TRAIT_MASQUERADE))
-		ADD_TRAIT(current, TRAIT_SLEEPIMMUNE, TRAIT_VAMPIRE)
-		ADD_TRAIT(current, TRAIT_NOBREATH, TRAIT_VAMPIRE)
-
-	current.remove_traits(torpor_traits, TRAIT_TORPOR)
+	// Handle traits - Torpor doesn't work with TRAIT_SLEEPIMMUNE or TRAIT_NOBREATH
+	if(!HAS_TRAIT(living_owner, TRAIT_MASQUERADE))
+		living_owner.add_traits(list(TRAIT_SLEEPIMMUNE, TRAIT_NOBREATH), TRAIT_VAMPIRE)
+	living_owner.remove_traits(torpor_traits, TRAIT_TORPOR)
 
 	heal_vampire_organs()
 
-	to_chat(current, span_notice("You have recovered from Torpor."))
+	to_chat(living_owner, span_notice("You have recovered from Torpor."))
 	SEND_SIGNAL(src, VAMPIRE_EXIT_TORPOR)
 
 /datum/status_effect/vampire_sol

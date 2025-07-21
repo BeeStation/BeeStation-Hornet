@@ -54,7 +54,7 @@
 	return ..()
 
 /datum/status_effect/frenzy/on_apply()
-// This is called when the status effect is applied to the Vampire.. = ..()
+	. = ..()
 	var/mob/living/carbon/human/user = owner
 	vampiredatum = IS_VAMPIRE(user)
 
@@ -71,10 +71,9 @@
 		was_tooluser = TRUE
 		ADD_TRAIT(owner, TRAIT_ADVANCEDTOOLUSER, TRAIT_FRENZY)
 
-	owner.add_movespeed_modifier(/datum/movespeed_modifier/dna_vault_speedup)
+	owner.add_movespeed_modifier(/datum/movespeed_modifier/frenzy_speed)
 	owner.add_client_colour(/datum/client_colour/cursed_heart_blood)
 	vampiredatum.frenzygrab.teach(user, TRUE)
-	user.Jitter(60 SECONDS)
 	user.uncuff()
 	vampiredatum.frenzied = TRUE
 
@@ -89,7 +88,7 @@
 		REMOVE_TRAIT(owner, TRAIT_ADVANCEDTOOLUSER, TRAIT_FRENZY)
 		was_tooluser = FALSE
 
-	owner.remove_movespeed_modifier(/datum/movespeed_modifier/dna_vault_speedup)
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/frenzy_speed)
 	vampiredatum.frenzygrab.remove(user)
 	owner.remove_client_colour(/datum/client_colour/cursed_heart_blood)
 
@@ -101,3 +100,8 @@
 	if(!vampiredatum?.frenzied)
 		return
 	user.adjustFireLoss(0.75)
+	user.Jitter(5)
+
+/datum/movespeed_modifier/frenzy_speed
+	blacklisted_movetypes = (FLYING|FLOATING)
+	multiplicative_slowdown = -0.5

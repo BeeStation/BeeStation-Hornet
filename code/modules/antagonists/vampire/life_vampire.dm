@@ -10,7 +10,7 @@
 		return
 
 	// Handle Torpor
-	if(HAS_TRAIT(owner.current, TRAIT_NODEATH))
+	if(is_in_torpor())
 		check_end_torpor()
 
 	// Deduct Blood
@@ -31,13 +31,11 @@
 
 	// Set our body's blood_volume to mimick our vampire one (if we aren't using the Masquerade power)
 	INVOKE_ASYNC(src, PROC_REF(update_blood))
-
 	INVOKE_ASYNC(src, PROC_REF(update_hud))
 
-/*
-* If your species has blood, set the body's blood_volume to the internal vampire blood volume
-* ASSUMING you aren't Masquerading
-*/
+/**
+ * Assuming you aren't Masquerading and your species has blood, set the body's blood_volume to the internal vampire blood volume
+**/
 /datum/antagonist/vampire/proc/update_blood()
 	if(HAS_TRAIT(owner.current, TRAIT_NO_BLOOD))
 		return
@@ -48,19 +46,19 @@
 
 	owner.current.blood_volume = vampire_blood_volume
 
-/*
-* Pretty simple, add a value to the vampire's blood volume
-*/
+/**
+ * Pretty simple, add a value to the vampire's blood volume
+**/
 /datum/antagonist/vampire/proc/AddBloodVolume(value)
 	vampire_blood_volume = clamp(vampire_blood_volume + value, 0, max_blood_volume)
 
-/*
-* Runs on the vampire's lifetick.
-* Heal clone damage, brain damage, brute and burn damage.
-*
-* By default, burn damage is healed 50% as much as brute
-* When undergoing torpor it's 80%, if you're in a coffin 100%
-*/
+/**
+ * Runs on the vampire's lifetick.
+ * Heal clone, brain, brute and burn damage.
+ *
+ * By default, burn damage is healed 50% as effectively as brute
+ * When undergoing torpor it's 80%, if you're in a coffin 100%
+**/
 /datum/antagonist/vampire/proc/handle_healing()
 	var/in_torpor = is_in_torpor()
 
@@ -74,7 +72,7 @@
 	if(!in_torpor && HAS_TRAIT(owner.current, TRAIT_MASQUERADE))
 		return FALSE
 	// No healing during sol, cry about it
-	if(!in_torpor && (HAS_TRAIT(owner.current, TRAIT_MASQUERADE) || owner.current.has_status_effect(/datum/status_effect/vampire_sol)))
+	if(!in_torpor && owner.current.has_status_effect(/datum/status_effect/vampire_sol))
 		return FALSE
 
 	var/actual_regen = vampire_regen_rate + additional_regen
@@ -145,13 +143,12 @@
 		playsound(carbon_owner, 'sound/magic/demon_consume.ogg', 50, TRUE)
 		return TRUE
 
-/*
-* This is used when exiting Torpor and when given vampire status, these are the steps of this proc:
-* Step 1 - Cure husking and Regenerate organs. regenerate_organs() removes their Vampire Heart & Eye augments, which leads us to...
-* Step 2 - Repair any (shouldn't be possible) Organ damage, then return their Vampiric Heart & Eye benefits.
-* Step 3 - Revive them, clear all wounds, remove any Tumors (If any).
-*/
-
+/**
+ * This is used when exiting Torpor and when given vampire status, these are the steps of this proc:
+ * Step 1 - Cure husking and Regenerate organs. regenerate_organs() removes their Vampire Heart & Eye augments, which leads us to...
+ * Step 2 - Repair any (shouldn't be possible) Organ damage, then return their Vampiric Heart & Eye benefits.
+ * Step 3 - Revive them, clear all wounds, remove any Tumors (If any).
+**/
 /datum/antagonist/vampire/proc/heal_vampire_organs()
 	var/mob/living/carbon/carbon_user = owner.current
 
@@ -177,12 +174,11 @@
 		current_eyes.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 		carbon_user.update_sight()
 
-	// Get rid of icky organs. From 'panacea.dm'
+	// Get rid of icky organs. From `panacea.dm`
 	var/list/bad_organs = list(
 		carbon_user.get_organ_by_type(/obj/item/organ/body_egg),
-		carbon_user.get_organ_by_type(/obj/item/organ/zombie_infection)
+		carbon_user.get_organ_by_type(/obj/item/organ/zombie_infection),
 	)
-
 	for(var/obj/item/organ/bad_organ as anything in bad_organs)
 		var/obj/item/organ/yucky_organ = bad_organ
 		if(!istype(yucky_organ))
@@ -198,9 +194,9 @@
 	// Heal suffocation
 	carbon_user.adjustOxyLoss(-200)
 
-/*
-* Called when we die
-*/
+/**
+ * Called when we die
+**/
 /datum/antagonist/vampire/proc/on_death(mob/living/source, gibbed)
 	SIGNAL_HANDLER
 
@@ -210,29 +206,20 @@
 	INVOKE_ASYNC(src, PROC_REF(handle_death))
 
 /datum/antagonist/vampire/proc/handle_death()
-	if(handling_death)
-		return
-
-	handling_death = TRUE
-	do_handle_death()
-	handling_death = FALSE
-
-/*
-* Don't call this directly, use handle_death()
-*/
-/datum/antagonist/vampire/proc/do_handle_death()
 	if(QDELETED(owner.current) || check_if_staked() || is_in_torpor())
 		return
 
 	torpor_begin()
 
-/*
-* 1. Set nutrition to our blood level
-* 2. If we are in a frenzy, check if we have enough blood to exit it
-* 3. If we have too little blood, enter a frenzy
-* 4. If we're low on blood, start jittering
-* 5. Set regeneration rate based off how much blood we have
-*/
+/**
+ * Handle things related to blood
+ *
+ * Step 1 - Set nutrition to our blood level
+ * Step 2 - If we are in a frenzy, check if we have enough blood to exit it
+ * Step 3 - If we have too little blood, enter a frenzy
+ * Step 4 - If we're low on blood, start jittering
+ * Step 5 - Set regeneration rate based off how much blood we have
+**/
 /datum/antagonist/vampire/proc/handle_blood(delta_time)
 	// Set nutrition
 	if(!isoozeling(owner.current))

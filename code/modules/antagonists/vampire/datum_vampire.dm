@@ -33,9 +33,6 @@
 	/// How many Masquerade Infractions do we have?
 	var/masquerade_infractions = 0
 
-	/// Whether the death handling code is active or not.
-	var/handling_death = FALSE
-
 	/// Blood required to enter Frenzy
 	var/frenzy_threshold = FRENZY_THRESHOLD_ENTER
 	/// If we are currently in a Frenzy
