@@ -332,9 +332,13 @@ const RoundstartPage = () => {
         {executed_roundstart_rulesets.length === 0 ? (
           <Box italic>No executed roundstart rulesets.</Box>
         ) : (
-          executed_roundstart_rulesets.map((ruleset, idx) => (
-            <LabeledList.Item key={ruleset.path + idx} label={ruleset.name} verticalAlign="middle">
-              <Box>Cost: {ruleset.cost}</Box>
+          executed_roundstart_rulesets.map((executed_ruleset, idx) => (
+            <LabeledList.Item key={executed_ruleset.path + idx} label={executed_ruleset.name} verticalAlign="middle">
+              <Box>
+                {forced_roundstart_rulesets.find((forced_ruleset) => forced_ruleset.name === executed_ruleset.name)
+                  ? 'Forced'
+                  : `Cost: ${executed_ruleset.cost}`}
+              </Box>
             </LabeledList.Item>
           ))
         )}
