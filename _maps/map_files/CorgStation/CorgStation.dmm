@@ -19976,14 +19976,6 @@
 /obj/effect/turf_decal/caution,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/structure/railing/single_end{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
@@ -29000,10 +28992,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/machinery/door/poddoor/shutters{
-	id = "gateshutter";
-	name = "Gateway Access Shutter"
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
 	},
@@ -29583,8 +29571,8 @@
 	req_access_txt = "62";
 	dir = 4
 	},
-/obj/structure/railing/perspective/gray,
 /obj/structure/closet/emcloset,
+/obj/structure/railing,
 /turf/open/floor/noslip/standard,
 /area/hallway/secondary/service)
 "jxO" = (
@@ -39227,10 +39215,6 @@
 "mBK" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
-	},
-/obj/machinery/door/poddoor/shutters{
-	id = "gateshutter";
-	name = "Gateway Access Shutter"
 	},
 /turf/open/floor/iron,
 /area/gateway)
@@ -50340,6 +50324,11 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "qrf" = (
+/obj/structure/platform/gray,
+/obj/machinery/door/poddoor/shutters{
+	id = "gateshutter";
+	name = "Gateway Access Shutter"
+	},
 /turf/open/floor/iron/stairs/right{
 	dir = 4
 	},
@@ -64534,10 +64523,7 @@
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 1
 	},
-/obj/structure/railing/perspective/gray/corner{
-	dir = 1;
-	pixel_y = -20
-	},
+/obj/structure/railing/single_end,
 /turf/open/floor/noslip/standard,
 /area/hallway/secondary/service)
 "vcZ" = (
@@ -67329,6 +67315,13 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
+	},
+/obj/structure/platform/gray/stair_cutoff{
+	dir = 4
+	},
+/obj/machinery/door/poddoor/shutters{
+	id = "gateshutter";
+	name = "Gateway Access Shutter"
 	},
 /turf/open/floor/iron/stairs/left{
 	dir = 4
