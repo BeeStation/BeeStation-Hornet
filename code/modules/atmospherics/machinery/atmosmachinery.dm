@@ -22,7 +22,7 @@
 	max_integrity = 200
 	obj_flags = CAN_BE_HIT | ON_BLUEPRINTS
 	flags_1 = STAT_UNIQUE_1
-	ai_view_enabled = FALSE
+	ai_view = FALSE
 	///Check if the object can be unwrenched
 	var/can_unwrench = FALSE
 	///Bitflag of the initialized directions (NORTH | SOUTH | EAST | WEST)

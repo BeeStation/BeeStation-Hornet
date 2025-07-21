@@ -188,6 +188,11 @@
 	blend_mode = BLEND_OVERLAY
 	render_target = CAMERA_STATIC_PLANE_RENDER_TARGET
 
+/atom/movable/screen/plane_master/camera_static/backdrop(mob/mymob)
+	. = ..()
+	add_filter("blur", 2, gauss_blur_filter(size = 0.75))
+	add_filter("buffer", 1, outline_filter(size = 1.5, color = "#151515"))
+
 /atom/movable/screen/plane_master/ai_machinery
 	name = "ai machinery plane master"
 	plane = AI_MACHINERY_PLANE
@@ -196,7 +201,8 @@
 
 /atom/movable/screen/plane_master/ai_machinery/backdrop(mob/mymob)
 	. = ..()
-	add_filter("mask", 1, alpha_mask_filter(render_source = CAMERA_STATIC_PLANE_RENDER_TARGET))
+	//add_filter("mask", 1, alpha_mask_filter(render_source = CAMERA_STATIC_PLANE_RENDER_TARGET))
+	add_filter("bloom", 2, list(type = "bloom", size = 2, threshold = rgb(85, 85, 85)))
 
 /atom/movable/screen/plane_master/o_light_visual
 	name = "overlight light visual plane master"

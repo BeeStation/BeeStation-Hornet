@@ -103,7 +103,7 @@
 
 	armor_type = /datum/armor/obj_machinery
 
-	ai_view_enabled = TRUE
+	ai_view = TRUE
 	ai_view_icon = "ai_machine"
 
 	var/machine_stat = NONE

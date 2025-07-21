@@ -478,6 +478,23 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	update_appearance()
 
 /**
+  *Called when the area AI status changes
+  *
+  * Calls AI view change on all atoms in an area, and sends the `COMSIG_AREA_AI_CONTROL` signal.
+  */
+/area/proc/ai_control_on()
+	SEND_SIGNAL(src, COMSIG_AREA_AI_CON_ON)
+
+/**
+  *Called when the area AI status changes
+  *
+  * Calls AI view change on all atoms in an area, and sends the `COMSIG_AREA_AI_CONTROL` signal.
+  */
+/area/proc/ai_control_off()
+	SEND_SIGNAL(src, COMSIG_AREA_AI_CON_OFF)
+
+
+/**
   * Add a static amount of power load to an area
   *
   * Possible channels

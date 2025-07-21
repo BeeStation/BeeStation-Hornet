@@ -178,7 +178,9 @@
 	var/ai_view_x = 0
 	var/ai_view_y = 0
 	///Does this atom have an AI appearance - used for stuff an AI can see through the fog of war
-	var/ai_view_enabled = FALSE
+	var/ai_view = FALSE
+	///Is it's AI hologram active?
+	var/ai_view_active = TRUE
 	///Dedicated appearance the AI can see through the fog
 	var/mutable_appearance/hologram_appearance
 
@@ -2189,16 +2191,17 @@ if (UNLINT(target.base_luminosity != new_value)) {\
 	return candidate
 
 /atom/proc/add_ai_view()
-	if(!ai_view_enabled)
+	if(!ai_view)
 		return
 	add_overlay(hologram_appearance)
 
 /atom/proc/remove_ai_view()
 	cut_overlay(hologram_appearance)
 
-//This is so ass, feel free to screenshot
 /atom/proc/update_ai_view()
-	if(!ai_view_enabled)
+	if(!ai_view)
+		return
+	if(!ai_view_active)
 		return
 	var/replace = (hologram_appearance in overlays)
 	//Remove old appearance
@@ -2206,8 +2209,6 @@ if (UNLINT(target.base_luminosity != new_value)) {\
 	//Build new appearance
 	hologram_appearance = mutable_appearance('icons/effects/ai_view.dmi', ai_view_icon)
 	hologram_appearance.appearance_flags = KEEP_APART
-	hologram_appearance.pixel_x = ai_view_x || pixel_x
-	hologram_appearance.pixel_y = ai_view_y || pixel_y
 	hologram_appearance.plane = AI_MACHINERY_PLANE
 	//Put it back where you found it
 	if(replace)

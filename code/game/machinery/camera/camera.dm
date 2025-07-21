@@ -33,7 +33,7 @@
 
 	//OTHER
 
-	var/view_range = 2
+	var/view_range = 100
 	var/short_range = 1
 
 	var/alarm_on = FALSE
