@@ -112,17 +112,9 @@
 	flags = SHOULD_USE_ANTAG_REP | CANNOT_REPEAT
 
 /datum/dynamic_ruleset/roundstart/malf/choose_candidates()
-	return
-
-/datum/dynamic_ruleset/roundstart/malf/execute()
-	var/list/living_players = SSdynamic.current_players[CURRENT_LIVING_PLAYERS]
-	for(var/mob/living/silicon/ai/ai in living_players)
-		candidates -= ai
-		ai.mind.special_role = antag_datum.banning_key
-		ai.mind.add_antag_datum(antag_datum)
-		return DYNAMIC_EXECUTE_SUCCESS
-
-	return DYNAMIC_EXECUTE_NOT_ENOUGH_PLAYERS
+	. = ..()
+	for(var/datum/mind/chosen_mind in chosen_candidates)
+		SSjob.AssignRole(chosen_mind.current, JOB_NAME_AI)
 
 //////////////////////////////////////////////
 //                                          //
