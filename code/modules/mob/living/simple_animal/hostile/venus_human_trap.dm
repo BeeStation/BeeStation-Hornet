@@ -155,7 +155,7 @@
 		if(withering)
 			to_chat(src, span_notice(" The vines nourish you, healing your wounds."))
 			stop_automated_movement = 0
-		adjustHealth(-maxHealth*0.05)
+		adjustHealth(-maxHealth*0.1)
 		withering = FALSE
 		retreating = FALSE
 		return
