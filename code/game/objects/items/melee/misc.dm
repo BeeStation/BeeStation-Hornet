@@ -1056,23 +1056,22 @@
 		return
 	if(target == user)
 		return
-	if(!target.can_be_staked()) // Oops! Can't.
-		to_chat(user, span_danger("You can't stake [target] when they are moving about! They have to be laying down or grabbed by the neck!"))
+	if(!can_be_staked(target)) // Oops! Can't.
+		to_chat(user, span_danger("You can't stake [target] when they are mobile! Incapacitate [target.p_them()]"))
 		return
 	if(HAS_TRAIT(target, TRAIT_PIERCEIMMUNE))
 		to_chat(user, span_danger("[target]'s chest resists the stake. It won't go in."))
 		return
 
 	to_chat(user, span_notice("You put all your weight into embedding the stake into [target]'s chest..."))
-	playsound(user, 'sound/magic/Demon_consume.ogg', 50, 1)
-	if(!do_after(user, staketime, target, extra_checks = CALLBACK(target, TYPE_PROC_REF(/mob/living/carbon, can_be_staked)))) // user / target / time / uninterruptable / show progress bar / extra checks
+	if(!do_after(user, staketime, target, extra_checks = CALLBACK(src, PROC_REF(can_be_staked), target))) // user / target / time / uninterruptable / show progress bar / extra checks
 		return
 	// Drop & Embed Stake
 	user.visible_message(
-		span_danger("[user.name] drives the [src] into [target]'s chest!"),
+		span_danger("[user] drives the [src] into [target]'s chest!"),
 		span_danger("You drive the [src] into [target]'s chest!"),
 	)
-	playsound(get_turf(target), 'sound/effects/splat.ogg', 40, 1)
+	playsound(target, 'sound/magic/Demon_consume.ogg', 50, 1)
 	if(tryEmbed(target.get_bodypart(BODY_ZONE_CHEST), TRUE, TRUE)) //and if it embeds successfully in their chest, cause a lot of pain
 		target.apply_damage(max(10, force * 1.2), BRUTE, BODY_ZONE_CHEST)
 	if(QDELETED(src)) // in case trying to embed it caused its deletion (say, if it's DROPDEL)
@@ -1085,11 +1084,10 @@
 		target.balloon_alert(target, "you have been staked!")
 
 ///Can this target be staked? If someone stands up before this is complete, it fails. Best used on someone stationary.
-/mob/living/proc/can_be_staked()
-	return FALSE
-
-/mob/living/carbon/can_be_staked()
-	if(!(mobility_flags & MOBILITY_MOVE))
+/obj/item/stake/proc/can_be_staked(mob/living/carbon/target)
+	if(!istype(target))
+		return FALSE
+	if(!CHECK_BITFIELD(target.mobility_flags, MOBILITY_MOVE))
 		return TRUE
 	return FALSE
 
