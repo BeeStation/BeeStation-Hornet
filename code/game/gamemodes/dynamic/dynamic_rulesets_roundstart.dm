@@ -634,6 +634,6 @@
 
 /datum/dynamic_ruleset/roundstart/vampire/execute()
 	for(var/datum/mind/candidate_mind as anything in assigned)
-		candidate_mind.make_vampire()
+		candidate_mind.add_antag_datum(antag_datum)
 		GLOB.pre_setup_antags -= candidate_mind
 	return TRUE

@@ -245,6 +245,7 @@
 	check_blacklisted_species()
 	give_starting_powers()
 	assign_starting_stats()
+	owner.special_role = ROLE_VAMPIRE
 	. = ..()
 
 /// Called by the remove_antag_datum() and remove_all_antag_datums() mind procs for the antag datum to handle its own removal and deletion.
