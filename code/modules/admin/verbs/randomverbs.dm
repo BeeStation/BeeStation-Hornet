@@ -435,7 +435,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		var/datum/dna/found_dna = record_found.weakref_dna.resolve()
 		new_character.hardset_dna(found_dna.unique_identity, record_found.dna_string, null, record_found.name, record_found.blood_type, new record_found.species, found_dna.features)
 	else
-		randomize_human(new_character)
+		randomize_human_normie(new_character)
 		new_character.real_name = new_character.dna.species.random_name(new_character.gender, TRUE)
 		new_character.name = new_character.real_name
 		new_character.dna.update_dna_identity()

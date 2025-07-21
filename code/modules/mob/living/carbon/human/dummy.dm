@@ -87,7 +87,7 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 	icon_state = initial(icon_state)
 
 /mob/living/carbon/human/dummy/setup_human_dna()
-	randomize_human(src, randomize_mutations = FALSE)
+	randomize_human_normie(src, randomize_mutations = FALSE, update_body = FALSE)
 
 //Inefficient pooling/caching way.
 GLOBAL_LIST_EMPTY(human_dummy_list)
