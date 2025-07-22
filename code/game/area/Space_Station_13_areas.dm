@@ -1302,15 +1302,20 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/security/detectives_office/Exited(atom/movable/a, atom/oldloc)
 	..()
-	if (isliving(a))
-		var/mob/living/living_a = a
-		if((HAS_TRAIT(living_a, TRAIT_NOIR)))
-			REMOVE_TRAIT(living_a, TRAIT_NOIR, TRAIT_GENERIC)
-			if(ishuman(a))
-				var/mob/living/carbon/human/human_a = a
-				if (human_a.has_quirk(/datum/quirk/monochromatic))
-					return
-			living_a.remove_client_colour(/datum/client_colour/monochrome)
+	if (!isliving(a))
+		return
+
+	var/mob/living/living_a = a
+	if(!(HAS_TRAIT(living_a, TRAIT_NOIR)))
+		REMOVE_TRAIT(living_a, TRAIT_NOIR, TRAIT_GENERIC)
+		return
+
+	if(ishuman(a))
+		var/mob/living/carbon/human/human_a = a
+		if (human_a.has_quirk(/datum/quirk/monochromatic))
+			return
+
+	living_a.remove_client_colour(/datum/client_colour/monochrome)
 
 /area/security/detectives_office/private_investigators_office
 	name = "Private Investigator's Office"
@@ -1323,15 +1328,20 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/security/interrogation_room/Exited(atom/movable/a, atom/oldloc)
 	..()
-	if (isliving(a))
-		var/mob/living/living_a = a
-		if((HAS_TRAIT(living_a, TRAIT_NOIR)))
-			REMOVE_TRAIT(living_a, TRAIT_NOIR, TRAIT_GENERIC)
-			if(ishuman(a))
-				var/mob/living/carbon/human/human_a = a
-				if (human_a.has_quirk(/datum/quirk/monochromatic))
-					return
-			living_a.remove_client_colour(/datum/client_colour/monochrome)
+	if (!isliving(a))
+		return
+
+	var/mob/living/living_a = a
+	if(!(HAS_TRAIT(living_a, TRAIT_NOIR)))
+		REMOVE_TRAIT(living_a, TRAIT_NOIR, TRAIT_GENERIC)
+		return
+
+	if(ishuman(a))
+		var/mob/living/carbon/human/human_a = a
+		if (human_a.has_quirk(/datum/quirk/monochromatic))
+			return
+
+	living_a.remove_client_colour(/datum/client_colour/monochrome)
 
 /area/security/range
 	name = "Firing Range"
