@@ -108,9 +108,9 @@ SUBSYSTEM_DEF(dynamic)
 
 	/// In order to make rounds less predictable, a randomized divergence percentage is applied to the total point value
 	/// These should be decimals. i.e: 0.20, 0.75, 1.5
-	var/roundstart_divergence_percent_lower = 0.8
-	var/roundstart_divergence_percent_upper = 1.4
-	/// How many roundstart points should be granted per player based off ready status (OBSERVING, READY, UNREADY)
+	var/roundstart_divergence_percent_lower = 1
+	var/roundstart_divergence_percent_upper = 1
+	/// How many roundstart points should be granted per player based off ready status
 	var/roundstart_points_per_ready = 1
 	var/roundstart_points_per_unready = 0.5
 	var/roundstart_points_per_observer = 0
@@ -155,11 +155,11 @@ SUBSYSTEM_DEF(dynamic)
 	var/midround_grace_period = 25 MINUTES
 	/// The amount of midround points given per minute for every type of player
 	/// The total midround points delta cannot be lower than 0, it always increases or stays the same
-	var/midround_living_delta = 0.2
+	var/midround_living_delta = 0.1
 	var/midround_observer_delta = 0
-	var/midround_dead_delta = -0.5
+	var/midround_dead_delta = -0.3
 	/// This ignores the previous rule about the delta not going lower than 0
-	var/midround_linear_delta = 2
+	var/midround_linear_delta = 1
 
 	/**
 	 * Latejoin

@@ -5,25 +5,25 @@
 
 	/// For admin logging and round end screen.
 	var/name
-	/// For admin logging and round end screen. DYNAMIC_CATEGORY_ROUNDSTART, DYNAMIC_CATEGORY_MIDROUND, DYNAMIC_CATEGORY_LATEJOIN
+	/// When this ruleset runs. (Roundstart, Midround, Latejoin)
 	var/rule_category
-	/// The probability of this ruleset being picked against other rulesets. Try and keep this in-between 0 - 10
+	/// The probability of this ruleset being picked against other rulesets.
 	var/weight = 5
-	/// How many points this ruleset costs to run. (How many players for one of this antagonist to spawn)
+	/// How many points this ruleset costs to run.
 	var/points_cost = 7
 	/// How many players are drafted by this ruleset. This should usually be 1 but should be increased for team antagonists (cult, incursion)
 	var/drafted_players_amount = 1
 	/// The role preference used for this ruleset
-	var/datum/role_preference/roundstart/role_preference = /datum/role_preference/roundstart/traitor
-	/// The antag datum assigned to a candidates mind on execution
-	var/datum/antagonist/antag_datum = /datum/antagonist/traitor
+	var/datum/role_preference/roundstart/role_preference
+	/// The antag datum assigned to a candidate's mind on execution
+	var/datum/antagonist/antag_datum
 	/// If the config flag `protect_roles_from_antagonist` is set, these roles are excluded
 	var/list/protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
 	/// The roles that can never have this ruleset applied to them regardless of the config
 	var/list/restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG)
 	/// A list of rulesets that this ruleset is not compatible with. (A blood and clock cult can't both run)
 	var/list/blocking_rulesets = list()
-	/// A flag that determines how the ruleset is handled. (HIGH_IMPACT_RULESET, CANNOT_REPEAT, SHOULD_PROCESS_RULESET)
+	/// A flag that determines how the ruleset is handled.
 	var/flags = NONE
 
 	/**
@@ -32,14 +32,14 @@
 
 	/// The base abstract path for this subtype.
 	var/abstract_type = /datum/dynamic_ruleset
-	/// List of possible mobs or minds for this ruleset to draft.
+	/// List of possible mobs (or minds for roundstart rulesets) for this ruleset to draft.
 	var/list/candidates = list()
-	/// A list of mobs or minds chosen for this ruleset.
+	/// A list of mobs (or minds for roundstart rulesets) chosen for this ruleset.
 	var/list/chosen_candidates = list()
 
 /**
  * Set the amount of players to be drafted.
- * IMPORTANT: use ROUND_UP instead of round. We (usually) don't want drafted players to be 0
+ * IMPORTANT: use ROUND_UP instead of round. We don't want the amount of drafted players to be 0
 **/
 /datum/dynamic_ruleset/proc/set_drafted_players_amount()
 	return
@@ -122,7 +122,8 @@
 /datum/dynamic_ruleset/proc/rule_process()
 	return
 
-/// Set mode result and news report here.
-/// Only called if ruleset is flagged as HIGH_IMPACT_RULESET
+/**
+ * Set the news report and mode result here. Only call this if your ruleset is "big" (nukies, etc.)
+**/
 /datum/dynamic_ruleset/proc/round_result()
 	return
