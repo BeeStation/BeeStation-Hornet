@@ -114,7 +114,6 @@
 	var/adjustable = TRUE
 	var/aura_icon_on = "detective_aura"
 	dog_fashion = /datum/dog_fashion/head/detective
-	actions_types = list(/datum/action/item_action/noirmode)
 
 /datum/armor/fedora_det_hat
 	melee = 25
