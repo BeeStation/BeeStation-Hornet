@@ -1307,9 +1307,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 	var/mob/living/living_a = a
 	if(!(HAS_TRAIT(living_a, TRAIT_NOIR)))
-		REMOVE_TRAIT(living_a, TRAIT_NOIR, TRAIT_GENERIC)
 		return
 
+	REMOVE_TRAIT(living_a, TRAIT_NOIR, TRAIT_GENERIC)
 	if(ishuman(a))
 		var/mob/living/carbon/human/human_a = a
 		if (human_a.has_quirk(/datum/quirk/monochromatic))
@@ -1333,9 +1333,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 	var/mob/living/living_a = a
 	if(!(HAS_TRAIT(living_a, TRAIT_NOIR)))
-		REMOVE_TRAIT(living_a, TRAIT_NOIR, TRAIT_GENERIC)
 		return
 
+	REMOVE_TRAIT(living_a, TRAIT_NOIR, TRAIT_GENERIC)
 	if(ishuman(a))
 		var/mob/living/carbon/human/human_a = a
 		if (human_a.has_quirk(/datum/quirk/monochromatic))
