@@ -1317,9 +1317,8 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/machinery/light_switch/directional/south,
 /turf/open/floor/iron/dark/textured,
-/area/security/interrogation_room)
+/area/security/brig)
 "amt" = (
 /obj/structure/table,
 /obj/item/paper/fluff/holodeck/disclaimer,
@@ -14986,11 +14985,8 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 9
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /turf/open/floor/iron/dark/textured,
-/area/security/interrogation_room)
+/area/security/brig)
 "bWC" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
@@ -20999,7 +20995,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark/textured,
-/area/security/interrogation_room)
+/area/security/brig)
 "deS" = (
 /obj/machinery/atmospherics/pipe/smart/simple/general/visible{
 	dir = 10
@@ -23127,11 +23123,8 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /turf/open/floor/iron/dark/smooth_large,
-/area/security/interrogation_room)
+/area/security/brig)
 "dEV" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -23234,11 +23227,8 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /turf/open/floor/iron/dark/textured,
-/area/security/interrogation_room)
+/area/security/brig)
 "dGK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/grille,
@@ -30136,9 +30126,6 @@
 	},
 /turf/open/floor/iron,
 /area/engine/break_room)
-"gnQ" = (
-/turf/closed/wall/r_wall,
-/area/security/interrogation_room)
 "gnR" = (
 /obj/item/radio/intercom{
 	pixel_y = 21
@@ -33386,9 +33373,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 5
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/security/brig)
 "hDO" = (
@@ -35842,11 +35826,8 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /turf/open/floor/iron/dark/textured,
-/area/security/interrogation_room)
+/area/security/brig)
 "iuw" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -39954,7 +39935,7 @@
 	pixel_y = -24
 	},
 /turf/open/floor/iron/dark/textured,
-/area/security/interrogation_room)
+/area/security/brig)
 "jXI" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
@@ -39974,7 +39955,7 @@
 /area/engine/break_room)
 "jXW" = (
 /turf/open/floor/iron/dark/textured,
-/area/security/interrogation_room)
+/area/security/brig)
 "jYi" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -43010,12 +42991,8 @@
 /obj/machinery/camera/directional/east{
 	c_tag = "Interrogation room"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/machinery/power/apc/auto_name/directional/east,
 /turf/open/floor/iron/dark/textured,
-/area/security/interrogation_room)
+/area/security/brig)
 "lfZ" = (
 /obj/structure/filingcabinet/chestdrawer,
 /obj/machinery/button/door{
@@ -43209,15 +43186,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2,
 /turf/open/floor/iron/dark,
 /area/aisat)
-"llb" = (
-/obj/structure/chair{
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/iron/dark/textured,
-/area/security/interrogation_room)
 "llo" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -52550,7 +52518,7 @@
 "oxz" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/iron/dark/textured,
-/area/security/interrogation_room)
+/area/security/brig)
 "oxF" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -56916,9 +56884,6 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/security/brig)
 "qda" = (
@@ -74977,9 +74942,6 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/medical/virology)
-"wEi" = (
-/turf/closed/wall,
-/area/security/interrogation_room)
 "wEp" = (
 /obj/structure/grille/broken,
 /obj/structure/lattice,
@@ -111292,7 +111254,7 @@ urs
 mVf
 ajD
 rMC
-oVG
+ryP
 fJp
 ayG
 ozl
@@ -111805,9 +111767,9 @@ jgG
 kqh
 itu
 aqa
-gnQ
+ajm
 dEQ
-gnQ
+ajm
 ayF
 azV
 owo
@@ -112322,7 +112284,7 @@ atZ
 jXW
 iuq
 amm
-wEi
+ahx
 azW
 vMO
 epz
@@ -112579,7 +112541,7 @@ atZ
 oxz
 bWn
 jXA
-wEi
+ahx
 oEY
 mLy
 axC
@@ -112834,9 +112796,9 @@ imY
 uSp
 atZ
 jXW
-llb
 deP
-wEi
+deP
+ahx
 dhz
 nrZ
 axC
@@ -113093,7 +113055,7 @@ ajD
 jXW
 lfV
 jXW
-wEi
+ahx
 tnS
 wdT
 axC
@@ -113347,10 +113309,10 @@ ajD
 ajD
 ajD
 ajD
-wEi
-wEi
-wEi
-wEi
+ahx
+ahx
+ahx
+ahx
 aGE
 iax
 aCz
