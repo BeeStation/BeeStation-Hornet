@@ -194,3 +194,53 @@
 		SEND_SIGNAL(quirk_target, COMSIG_ADD_MOOD_EVENT, "religious_comfort", /datum/mood_event/religiously_comforted)
 	else
 		SEND_SIGNAL(quirk_target, COMSIG_CLEAR_MOOD_EVENT, "religious_comfort")
+
+/datum/quirk/accent	//base accent is medieval
+	name = "Accent: Medieval"
+	desc = "You have a distinct way of speaking, resembling days of yore."
+	icon = "comment-dots"
+	mob_trait = TRAIT_ACC_MEDIEVAL
+	gain_text = span_notice("You are aflicted with an accent.")
+	lose_text = span_danger("You are no longer aflicted with an accent.")
+	medical_record_text = "Patient has a distinct accent. One that seems to archon back to the forgotten middle ages."
+	accent_to_use = MEDIEVAL_SPEECH_FILE
+
+/datum/quirk/accent/add()	// We want admins to be able to give this this to people. But we also want it to work on spawn propper.
+	var/mob/living/carbon/human/H = quirk_target
+	RegisterSignal(H, COMSIG_MOB_SAY, PROC_REF(handle_speech))
+
+/datum/quirk/accent/remove()
+	var/mob/living/carbon/human/H = quirk_target
+	UnregisterSignal(H, COMSIG_MOB_SAY)
+
+/datum/quirk/accent/proc/handle_speech(datum/source, list/speech_args)
+	SIGNAL_HANDLER
+	handle_accented_speech(speech_args, accent_to_use)
+
+/datum/quirk/accent/italian
+	name = "Accent: Italian"
+	desc = "You have a distinct way of speaking, ketchup on pasta sends you into a rage..."
+	mob_trait = TRAIT_ACC_ITALIAN
+	medical_record_text = "Patient has a distinct accent. Potential Italian heritage."
+	accent_to_use = ITALIAN_TALK_FILE
+
+/datum/quirk/accent/french
+	name = "Accent: French"
+	desc = "You have a distinct way of speaking. Like the way a mime would talk if they... talked."
+	mob_trait = TRAIT_NEET
+	medical_record_text = "Patient has a distinct accent. Potential French heritage."
+	accent_to_use = FRENCH_TALK_FILE
+
+/datum/quirk/accent/canadian
+	name = "Accent: Canadian"
+	desc = "You have a distinct way of speaking and an undying will to apologize!"
+	mob_trait = TRAIT_ACC_CANADIAN
+	medical_record_text = "Patient has a distinct accent. Potential Canadian heritage."
+	accent_to_use = CANADIAN_TALK_FILE
+
+/datum/quirk/accent/british
+	name = "Accent: British"
+	desc = "You have a distinct way of speaking. Each word is like a sharp knife!"
+	mob_trait = TRAIT_ACC_BRITISH
+	medical_record_text = "Patient has a distinct accent. Potential British heritage."
+	accent_to_use = BRITISH_TALK_FILE

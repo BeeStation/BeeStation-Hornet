@@ -1,7 +1,7 @@
 {
 
     "words": {
-        "id": "BBM Pin",
+        "id": "papers",
         "ass": "batty",
         "crazy": "mad",
         "cool": "calm",
@@ -47,7 +47,6 @@
 		"family": "fam",
 		"boy": ["block", "lad"],
 		"dude": ["block", "lad"],
-		"crazy": "bonkers",
 		"insane": "bonkers",
 		"run": "leg it",
 		"credit": "quid",
@@ -62,7 +61,6 @@
 		"tired": "knackered",
 		"seriously?": "drunk",
 		"tea": "cuppa",
-		"drink": "cuppa",
 		"girl": ["bird", "chick"],
 		"isnt it": "innit",
 		"isn't it": "innit",
@@ -81,7 +79,6 @@
 		"my name is": "its yer boy",
 		"a lot": "bare",
 		"tons": "bare",
-		"i ": "man ",
 		"thing": "ting",
 		"dont know": "dun kno",
 		"dunno": "dun kno",
@@ -113,27 +110,27 @@
 		"conflict": "beef",
 		"beautiful": "peng",
 		"cute": "peng",
-		"cool": "sick",
 		"good": "sick",
 		"amazing": "sick",
 		"bayonet": "shank",
 		"thanks": "cheers",
 		"thank you": "cheers",
-		"i am": "man is",
-		"fries": "chips"
+		"am": "is",
+		"I": "man"
     },
-    "sounds": {
+    "end": {
         "t": "'",
-		"g ": "' ",
-		"s ": "z "
+		"g": "'",
+		"s": "z"
     },
 	"appends": [
-		" innit bruv",
-		" br-r-r-rap!",
-		" man",
-		" blud",
-		" innit",
-		" still"
+		"innit bruv.",
+		"br-r-r-rap!",
+		"man.",
+		"blud.",
+		"innit.",
+		"still.",
+		"gov'."
 	]
 
 

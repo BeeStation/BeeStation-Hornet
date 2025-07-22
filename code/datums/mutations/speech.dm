@@ -153,35 +153,7 @@
 
 /datum/mutation/chav/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER
-
-	var/message = speech_args[SPEECH_MESSAGE]
-	if(message[1] != "*")
-		message = " [message]"
-		var/list/whole_words = strings(BRIISH_TALK_FILE, "words")
-		var/list/british_sounds = strings(BRIISH_TALK_FILE, "sounds")
-		var/list/british_appends = strings(BRIISH_TALK_FILE, "appends")
-
-		for(var/key in whole_words)
-			var/value = whole_words[key]
-			if(islist(value))
-				value = pick(value)
-
-			message = replacetextEx(message, " [uppertext(key)]", " [uppertext(value)]")
-			message = replacetextEx(message, " [capitalize(key)]", " [capitalize(value)]")
-			message = replacetextEx(message, " [key]", " [value]")
-
-		for(var/key in british_sounds)
-			var/value = british_sounds[key]
-			if(islist(value))
-				value = pick(value)
-
-			message = replacetextEx(message, "[uppertext(key)]", "[uppertext(value)]")
-			message = replacetextEx(message, "[capitalize(key)]", "[capitalize(value)]")
-			message = replacetextEx(message, "[key]", "[value]")
-
-		if(prob(8))
-			message += pick(british_appends)
-	speech_args[SPEECH_MESSAGE] = trim(message)
+	handle_accented_speech(speech_args, BRITISH_TALK_FILE)
 
 
 /datum/mutation/elvis
@@ -262,19 +234,4 @@
 
 /datum/mutation/medieval/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER
-
-	var/message = speech_args[SPEECH_MESSAGE]
-	if(message[1] != "*")
-		message = " [message]"
-		var/list/whole_words = strings(MEDIEVAL_SPEECH_FILE, "words")
-
-		for(var/key in whole_words)
-			var/value = whole_words[key]
-			if(islist(value))
-				value = pick(value)
-
-			message = replacetextEx(message, " [uppertext(key)]", " [uppertext(value)]")
-			message = replacetextEx(message, " [capitalize(key)]", " [capitalize(value)]")
-			message = replacetextEx(message, " [key]", " [value]")
-
-	speech_args[SPEECH_MESSAGE] = trim(message)
+	handle_accented_speech(speech_args, MEDIEVAL_SPEECH_FILE)
