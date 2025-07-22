@@ -15,7 +15,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 	///time it takes to draw the rune
 	var/drawing_time = 5 SECONDS
 	var/max_cooldown = 30 SECONDS
-	var/cooldown = 0
+	COOLDOWN_DECLARE(drawing_cooldown)
 
 /obj/effect/warped_rune
 	name = "warped rune"
@@ -102,7 +102,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 	if(do_after(user, drawing_time,target = target))
 		if((!locate(/obj/effect/warped_rune) in target) && check_cd(user))  //check one last time if a rune has been drawn during the do_after and if there's enough charges left
 			warping_crossbreed_spawn(target,user)
-			cooldown = world.time + max_cooldown
+			COOLDOWN_START(src, drawing_cooldown, max_cooldown)
 
 ///spawns the rune
 /obj/item/slimecross/warping/proc/warping_crossbreed_spawn(atom/target, mob/user)
@@ -111,7 +111,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 	to_chat(user, span_notice("You carefully draw the rune with [src]."))
 
 /obj/item/slimecross/warping/proc/check_cd(user)
-	if(world.time < cooldown)
+	if(!COOLDOWN_FINISHED(src, drawing_cooldown))
 		if(user)
 			to_chat(user, span_warning("[src] is recharging energy."))
 		return FALSE
