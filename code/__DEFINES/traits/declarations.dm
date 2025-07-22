@@ -412,4 +412,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// The mob will not be able to take organ damage from penetration attacks
 #define TRAIT_NO_ORGAN_PENETRATION "no_organ_penetration"
 
+#define TRAIT_VALUE_SOUND_SCAPE "sound_scape"
+
 // END TRAIT DEFINES

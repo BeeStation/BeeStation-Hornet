@@ -564,6 +564,46 @@ h2.alert {
 .danger {
   color: #ff0000;
 }
+
+.pain {
+  color: rgb(60, 40, 40);
+  text-shadow: 0 0 4px rgba(255, 0, 0, 0.5);
+  display: inline-block;
+  animation: subtle-shake 1s infinite, pulse-shadow 3s infinite ease-in-out;
+  will-change: transform;
+}
+
+@keyframes pain-shake {
+  0% {
+    transform: translate(0.5px, -0.5px) rotate(-0.2deg);
+  }
+  20% {
+    transform: translate(-1px, 1px) rotate(0.2deg);
+  }
+  40% {
+    transform: translate(0.5px, 0px) rotate(-0.1deg);
+  }
+  60% {
+    transform: translate(0px, 0.5px) rotate(0.1deg);
+  }
+  80% {
+    transform: translate(-0.5px, -0.5px) rotate(0deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+}
+
+@keyframes pain-shadow {
+  0%,
+  100% {
+    text-shadow: 0 0 2px rgba(255, 0, 0, 0.5); /* darkred @ 25% */
+  }
+  50% {
+    text-shadow: 0 0 4px rgba(255, 0, 0, 0); /* darkred @ 50% */
+  }
+}
+
 .warning {
   color: #ff0000;
   font-style: italic;

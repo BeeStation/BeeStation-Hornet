@@ -50,7 +50,7 @@
 				to_chat(affected_mob, "<span class='danger'>You feel very strange.</span>")
 			if(DT_PROB(2, delta_time))
 				to_chat(affected_mob, "<span class='danger'>You feel a stabbing pain in your head!</span>")
-				affected_mob.Unconscious(40)
+				affected_mob.take_consciousness_damage(60)
 			if(DT_PROB(2, delta_time))
 				to_chat(affected_mob, "<span class='danger'>Your stomach churns.</span>")
 			if(restcure && affected_mob.body_position == LYING_DOWN && DT_PROB(10, delta_time))

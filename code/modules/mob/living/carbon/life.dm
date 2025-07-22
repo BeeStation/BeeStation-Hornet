@@ -488,7 +488,6 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 			throw_alert("drunk", /atom/movable/screen/alert/drunk)
 		else
 			SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "drunk")
-			sound_environment_override = SOUND_ENVIRONMENT_NONE
 			clear_alert("drunk")
 
 		if(drunkenness >= 11 && slurring < 5)

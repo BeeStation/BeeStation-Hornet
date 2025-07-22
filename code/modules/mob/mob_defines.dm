@@ -219,6 +219,7 @@ CREATION_TEST_IGNORE_SELF(/mob)
 	var/datum/client_interface/mock_client
 
 	///Override for sound_environments. If this is set the user will always hear a specific type of reverb (Instead of the area defined reverb)
+	///Do not set this directly, use ADD_VALUE_TRAIT(src, TRAIT_VALUE_SOUND_SCAPE, TRAIT_SOURCE, SOUND_ENVIRONMENT, SOUND_PRIORITY)
 	var/sound_environment_override = SOUND_ENVIRONMENT_NONE
 
 	///Is the mob pixel shifted?

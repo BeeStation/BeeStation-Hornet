@@ -248,7 +248,7 @@
 				to_chat(owner, span_warning("[reason] makes you uneasy..."))
 		if(PHOBIA_STATE_FIGHTORFLIGHT)
 			owner.adjustStaminaLoss(-10 * (min(1, spooklevel)))
-			owner.SetUnconscious(0)
+			owner.take_consciousness_damage(-100)
 			owner.SetStun(0)
 			owner.SetKnockdown(0)
 			owner.SetImmobilized(0)

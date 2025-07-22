@@ -93,6 +93,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/plane_master_controller)
 	controlled_planes = list(
 		FLOOR_PLANE,
 		GAME_PLANE,
+		GAME_BLUR_PLANE,
 		MASSIVE_OBJ_PLANE,
 		GHOST_PLANE,
 		POINT_PLANE,

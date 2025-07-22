@@ -242,7 +242,7 @@
 
 
 //////////////////UNCONSCIOUS
-/mob/living/proc/IsUnconscious() //If we're unconscious
+/mob/living/proc/IsUnconscious()
 	return has_status_effect(/datum/status_effect/incapacitating/unconscious)
 
 /mob/living/proc/AmountUnconscious() //How many deciseconds remain in our unconsciousness
@@ -250,6 +250,11 @@
 	if(U)
 		return U.duration - world.time
 	return 0
+
+/// Take consciousness damage. When we reach 100 then we will be knocked out
+/// for 5 seconds + 1 second for every 5 damage over 100.
+/mob/living/proc/take_consciousness_damage(amount)
+	SEND_SIGNAL(src, COMSIG_MOB_TAKE_CONSCIOUSNESS_DAMAGE, amount)
 
 /mob/living/proc/Unconscious(amount, ignore_canstun = FALSE) //Can't go below remaining duration
 	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_UNCONSCIOUS, amount, ignore_canstun) & COMPONENT_NO_STUN)

@@ -145,3 +145,5 @@
 #define IGNORING_GRAVITY_NEGATION "ignoring_gravity_negation"
 #define FROM_SHADOW_SECT "shadow_sect"
 #define FROM_NOOARTRIUM "nooartrium"
+#define FROM_UNCONSCIOUS "unconscious"
+#define FROM_DRUGS "drugs"

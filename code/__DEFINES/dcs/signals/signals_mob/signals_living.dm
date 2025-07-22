@@ -110,3 +110,10 @@
 /// from /mob/proc/change_mob_type() : ()
 #define COMSIG_PRE_MOB_CHANGED_TYPE "mob_changed_type"
 	#define COMPONENT_BLOCK_MOB_CHANGE (1<<0)
+
+//==========================
+// Consciousness Damage
+//==========================
+
+/// From /mob/living/proc/take_consciousness_damage(amount): (mob/living/source, amount)
+#define COMSIG_MOB_TAKE_CONSCIOUSNESS_DAMAGE "take_consciousness_damage"

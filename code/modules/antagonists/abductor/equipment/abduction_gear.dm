@@ -119,7 +119,7 @@
 			return
 		var/mob/living/carbon/human/M = loc
 		M.adjustStaminaLoss(-75)
-		M.SetUnconscious(0)
+		M.take_consciousness_damage(-INFINITY)
 		M.SetStun(0)
 		M.SetKnockdown(0)
 		M.SetImmobilized(0)

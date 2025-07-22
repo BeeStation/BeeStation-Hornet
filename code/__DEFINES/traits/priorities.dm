@@ -1,3 +1,7 @@
 /// Skin colour
 #define SKIN_PRIORITY_HULK 10
 #define SKIN_PRIORITY_GROWN 5
+
+/// Sound scape
+#define SOUND_PRIORITY_DRUGGED 1
+#define SOUND_PRIORITY_UNCONSCIOUS 2

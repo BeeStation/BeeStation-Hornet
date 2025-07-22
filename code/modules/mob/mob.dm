@@ -90,6 +90,7 @@
 	//Give verbs to stat
 	add_verb(verbs, TRUE)
 	become_hearing_sensitive()
+	RegisterSignal(src, SIGNAL_UPDATETRAIT(TRAIT_VALUE_SOUND_SCAPE), PROC_REF(on_sound_scape_updated))
 
 /**
   * Generate the tag for this mob
@@ -1384,5 +1385,12 @@
 	. = stat
 	stat = new_stat
 	update_action_buttons_icon(TRUE)
+
+/// Called when a mob's sound scape override trait is updated.
+/mob/proc/on_sound_scape_updated(datum/source, trait)
+	SIGNAL_HANDLER
+	sound_environment_override = GET_TRAIT_VALUE(src, TRAIT_VALUE_SOUND_SCAPE)
+	if (!sound_environment_override)
+		sound_environment_override = SOUND_ENVIRONMENT_NONE
 
 #undef MOB_FACE_DIRECTION_DELAY

@@ -13,7 +13,7 @@
 	..()
 	to_chat(user, span_notice("Energy rushes through us.[(user.body_position == LYING_DOWN) ? " We arise." : ""]"))
 	user.SetSleeping(0)
-	user.SetUnconscious(0)
+	user.take_consciousness_damage(-INFINITY)
 	user.SetStun(0)
 	user.SetKnockdown(0)
 	user.SetImmobilized(0)
