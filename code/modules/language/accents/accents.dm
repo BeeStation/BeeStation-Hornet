@@ -21,7 +21,7 @@
 		message = treat_message_accent(message, speech_data["end"], REGEX_ENDWORD)
 	if(speech_data["syllables"])
 		message = treat_message_accent(message, speech_data["syllables"], REGEX_ANY)
-	if(speech_data["appends"] && prob(30))
+	if(speech_data["appends"] && prob(20))
 		var/regex/punct_regex = regex(@"[.!?]$", "")
 		message = replacetextEx(message, punct_regex, "")  // Remove final punctuation
 

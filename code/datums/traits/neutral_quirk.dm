@@ -197,7 +197,7 @@
 
 /datum/quirk/accent	//base accent is medieval
 	name = "Accent"
-	desc = "You have a distinct way of speaking!."
+	desc = "You have a distinct way of speaking! (Select one in character creation)"
 	icon = "comment-dots"
 	mob_trait = TRAIT_ACCENT
 	gain_text = span_notice("You are aflicted with an accent.")

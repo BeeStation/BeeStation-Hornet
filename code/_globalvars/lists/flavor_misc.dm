@@ -329,10 +329,12 @@ GLOBAL_LIST_INIT(pAI_faces_icons, list(
 
 GLOBAL_LIST_INIT(accents, list(
 	"Medieval" = MEDIEVAL_SPEECH_FILE,
-	"Roadman" = ROADMAN_TALK_FILE,
+	"British" = BRITISH_TALK_FILE,
 	"Canadian" = CANADIAN_TALK_FILE,
 	"French" = FRENCH_TALK_FILE,
-	"Italian" = ITALIAN_TALK_FILE
+	"Italian" = ITALIAN_TALK_FILE,
+	"Scotish" = SCOTISH_TALK_FILE,
+	"Roadman" = ROADMAN_TALK_FILE
 ))
 
 GLOBAL_LIST_INIT(smoker_cigarettes, list(
