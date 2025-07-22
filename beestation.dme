@@ -2542,6 +2542,7 @@
 #include "code\modules\client\preferences\entries\character\species.dm"
 #include "code\modules\client\preferences\entries\character\underwear_color.dm"
 #include "code\modules\client\preferences\entries\character\uplink_location.dm"
+#include "code\modules\client\preferences\entries\character\quirks\accents.dm"
 #include "code\modules\client\preferences\entries\character\quirks\alcoholic.dm"
 #include "code\modules\client\preferences\entries\character\quirks\junkie.dm"
 #include "code\modules\client\preferences\entries\character\quirks\multilingual.dm"

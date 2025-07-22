@@ -327,6 +327,14 @@ GLOBAL_LIST_INIT(pAI_faces_icons, list(
 	"What" = image(icon = 'icons/obj/aicards.dmi', icon_state = "pai-what"),
 ))
 
+GLOBAL_LIST_INIT(accents, list(
+	"Medieval" = MEDIEVAL_SPEECH_FILE,
+	"Roadman" = ROADMAN_TALK_FILE,
+	"Canadian" = CANADIAN_TALK_FILE,
+	"French" = FRENCH_TALK_FILE,
+	"Italian" = ITALIAN_TALK_FILE
+))
+
 GLOBAL_LIST_INIT(smoker_cigarettes, list(
 	/obj/item/storage/fancy/cigarettes,
 	/obj/item/storage/fancy/cigarettes/cigpack_midori,

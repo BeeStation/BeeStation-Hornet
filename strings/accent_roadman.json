@@ -30,6 +30,8 @@
         "security":"coppers",
         "shitsec":"coppers",
         "shitcurity":"coppers",
+		"officer":"copper",
+		"secoff":"copper",
         "captain": "queen",
         "cap": "queen",
         "kill": ["shank", "bang"],
@@ -116,7 +118,7 @@
 		"thanks": "cheers",
 		"thank you": "cheers",
 		"am": "is",
-		"I": "man"
+		"i": "man"
     },
     "end": {
         "t": "'",

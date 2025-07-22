@@ -133,7 +133,7 @@
 		message = replacetext(message,"bo","bjo")
 		message = replacetext(message,"o",pick("ö","ø","o"))
 		if(prob(30))
-			message += " Bork[pick("",", bork",", bork, bork")]!"
+			message += " bork!"
 		speech_args[SPEECH_MESSAGE] = trim(message)
 
 /datum/mutation/chav
@@ -153,7 +153,7 @@
 
 /datum/mutation/chav/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER
-	handle_accented_speech(speech_args, BRITISH_TALK_FILE)
+	handle_accented_speech(speech_args, ROADMAN_TALK_FILE)
 
 
 /datum/mutation/elvis

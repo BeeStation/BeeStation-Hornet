@@ -330,11 +330,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_PROSKATER			"pro_skater"
 #define TRAIT_PLUSHIELOVER		"plushie lover"
 #define TRAIT_COMPUTER_WHIZ		"computer_whiz"
-#define	TRAIT_ACC_MEDIEVAL		"medieval"
-#define	TRAIT_ACC_ITALIAN		"italian"
-#define	TRAIT_ACC_FRENCH		"french"
-#define	TRAIT_ACC_CANADIAN		"canadian"
-#define	TRAIT_ACC_BRITISH		"british"
+#define	TRAIT_ACCENT			"Accent"
 
 ///Trait for dryable items
 #define TRAIT_DRYABLE "trait_dryable"
