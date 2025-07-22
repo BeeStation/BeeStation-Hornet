@@ -24,6 +24,7 @@
 	. = ..()
 	RegisterSignal(parent, COMSIG_MOB_CLIENT_LOGIN, PROC_REF(associate_with_client))
 	RegisterSignal(parent, COMSIG_MOB_LOGOUT, PROC_REF(logout))
+	START_PROCESSING(SSinjuries, src)
 
 /datum/component/conscious/process(delta_time)
 	if (consciousness_heal_time > world.time)
@@ -51,13 +52,13 @@
 				severity = 6
 			if(90 to INFINITY)
 				severity = 7
-		overlay_fullscreen("pain", /atom/movable/screen/fullscreen/oxy, severity)
+		client.mob.overlay_fullscreen("pain", /atom/movable/screen/fullscreen/oxy, severity)
 	else
-		clear_fullscreen("pain")
+		client.mob.clear_fullscreen("pain")
 	// While our consciousness value is above 0, we will wince from pain occassionally
 	if (damage < unconscious_threshold)
 		if (DT_PROB(damage * 0.1, delta_time))
-			wince_from_pain(owner)
+			wince_from_pain(parent)
 
 /datum/component/conscious/proc/associate_with_client(datum/source, client/target)
 	client = target
@@ -113,3 +114,6 @@
 	REMOVE_TRAIT(victim, TRAIT_VALUE_SOUND_SCAPE, FROM_UNCONSCIOUS)
 	is_unconscious = FALSE
 	is_deaf = FALSE
+
+/datum/component/conscious/proc/fall_unconscious(atom/victim, duration)
+	unconscious_time = max(unconscious_time, world.time + duration)
