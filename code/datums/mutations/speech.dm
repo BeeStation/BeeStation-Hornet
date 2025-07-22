@@ -124,17 +124,7 @@
 
 /datum/mutation/swedish/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER
-
-	var/message = speech_args[SPEECH_MESSAGE]
-	if(message)
-		message = replacetext(message,"w","v")
-		message = replacetext(message,"j","y")
-		message = replacetext(message,"a",pick("å","ä","æ","a"))
-		message = replacetext(message,"bo","bjo")
-		message = replacetext(message,"o",pick("ö","ø","o"))
-		if(prob(30))
-			message += " bork!"
-		speech_args[SPEECH_MESSAGE] = trim(message)
+	handle_accented_speech(speech_args, SWEDISH_TALK_FILE)
 
 /datum/mutation/chav
 	name = "Chav"
