@@ -43,11 +43,6 @@
 	config_entry_value = 1
 	integer = FALSE
 
-/datum/config_entry/number/minimal_access_threshold	//If the number of players is larger than this threshold, minimal access will be turned on.
-	min_val = 0
-
-/datum/config_entry/flag/jobs_have_minimal_access	//determines whether jobs use minimal access or expanded access.
-
 /datum/config_entry/flag/assistants_have_maint_access
 
 /datum/config_entry/flag/security_has_maint_access
@@ -66,7 +61,7 @@
 
 /datum/config_entry/flag/disable_human_mood
 
-/datum/config_entry/flag/disable_secborg	// disallow secborg module to be chosen.
+/datum/config_entry/flag/disable_secborg	// disallow secborg model to be chosen.
 
 /datum/config_entry/flag/disable_peaceborg
 
@@ -89,11 +84,6 @@
 
 /datum/config_entry/number/ecult_scaling_coeff	//how much does the amount of players get divided by to determine e_cult
 	config_entry_value = 6
-	integer = FALSE
-	min_val = 1
-
-/datum/config_entry/number/security_scaling_coeff	//how much does the amount of players get divided by to determine open security officer positions
-	config_entry_value = 8
 	integer = FALSE
 	min_val = 1
 
@@ -327,11 +317,15 @@
 /datum/config_entry/number/default_laws //Controls what laws the AI spawns with.
 	config_entry_value = 0
 	min_val = 0
-	max_val = 3
+	max_val = 4
 
 /datum/config_entry/number/silicon_max_law_amount
 	config_entry_value = 12
 	min_val = 0
+
+/datum/config_entry/keyed_list/specified_laws
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_FLAG
 
 /datum/config_entry/keyed_list/random_laws
 	key_mode = KEY_MODE_TEXT

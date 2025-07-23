@@ -3,11 +3,11 @@
 	filename = "robocontrol"
 	filedesc = "Bot Remote Controller"
 	category = PROGRAM_CATEGORY_ROBO
-	program_icon_state = "robot"
+	program_icon_state = "generic"
 	extended_desc = "A remote controller used for giving basic commands to non-sentient robots."
 	requires_ntnet = TRUE
 	network_destination = "robotics control network"
-	size = 12
+	size = 10
 	tgui_id = "NtosRoboControl"
 	program_icon = "robot"
 	///Number of simple robots on-station.

@@ -5,8 +5,10 @@
 	icon_state = "card_mini"
 	w_class = WEIGHT_CLASS_TINY
 	device_type = MC_CARD
+	custom_price = PAYCHECK_EASY
 
 	var/obj/item/card/id/stored_card
+	var/obj/item/card/id/fake_card
 	var/current_identification
 	var/current_job
 
@@ -21,12 +23,14 @@
 	return ..()
 
 /obj/item/computer_hardware/card_slot/GetAccess()
-	var/list/total_access
+	var/list/total_access = list()
 	if(stored_card)
 		total_access = stored_card.GetAccess()
 	var/obj/item/computer_hardware/card_slot/card_slot2 = holder?.all_components[MC_CARD2] //Best of both worlds
 	if(card_slot2?.stored_card)
 		total_access |= card_slot2.stored_card.GetAccess()
+	if(card_slot2?.fake_card)
+		total_access |= card_slot2.fake_card.GetAccess()
 	return total_access
 
 /obj/item/computer_hardware/card_slot/GetID()
@@ -49,7 +53,7 @@
 		return FALSE
 
 	var/obj/item/card/id/newcard = I
-	if(!newcard.electric)
+	if(!newcard.electric && !hacked) //Lets Non Eletric IDs pass if Hacked
 		to_chat(user, span_warning("You attempt to jam \the [I] into \the [expansion_hw ? "secondary" : "primary"] [src]. It doesn't fit."))
 		return
 
@@ -65,7 +69,9 @@
 			return FALSE
 	else
 		I.forceMove(src)
-
+	if(fake_card)
+		qdel(fake_card)
+		fake_card = null
 	stored_card = I
 	to_chat(user, span_notice("You insert \the [I] into \the [expansion_hw ? "secondary":"primary"] [src]."))
 	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
@@ -75,7 +81,7 @@
 	current_identification = stored_card.registered_name
 	current_job = stored_card.assignment
 	holder?.on_id_insert()
-	holder?.update_icon()
+	holder?.update_appearance()
 	return TRUE
 
 
@@ -83,7 +89,11 @@
 	if(!stored_card)
 		to_chat(user, span_warning("There are no cards in \the [src]."))
 		return FALSE
-
+	var/obj/item/computer_hardware/card_slot/card_slot2 = holder?.all_components[MC_CARD2]
+	if(card_slot2?.hacked && card_slot2.stored_card)
+		card_slot2.fake_card = new card_slot2.stored_card.type(src) // make a fake clone using the same type
+		card_slot2.fake_card.name = "[card_slot2.stored_card.name] (Simulated)"
+		card_slot2.fake_card.access = card_slot2.stored_card.access.Copy()
 	if(user && !issilicon(user) && in_range(src, user))
 		user.put_in_hands(stored_card)
 	else
@@ -106,7 +116,7 @@
 	stored_card = null
 	current_identification = null
 	current_job = null
-	holder?.update_icon()
+	holder?.update_appearance()
 	holder?.ui_update()
 	return TRUE
 
@@ -138,8 +148,37 @@
 	. += "The connector is set to fit into [expansion_hw ? "an expansion bay" : "a computer's primary ID bay"], but can be adjusted with a screwdriver."
 	if(stored_card)
 		. += "There appears to be something loaded in the card slots."
+	if(fake_card)
+		. += "<span class='cfc_red'>ERROR DETECTED:</span> Phantom credentials present in port 2."
+
+/obj/item/computer_hardware/battery/update_overclocking(mob/living/user, obj/item/tool)
+	if(hacked)
+		balloon_alert(user, "<font color='#e06eb1'>Update:</font> // Electronic Sensor // <font color='#e60000'>Disabled</font>")
+		to_chat(user, "<span class='cfc_magenta'>Update:</span> // Electronic Sensor // <span class='cfc_red'>Disabled</span>")
+	else
+		balloon_alert(user, "<font color='#e06eb1'>Update:</font> // Electronic Sensor // <font color='#e60000'>Enabled</font>")
+		to_chat(user, "<span class='cfc_magenta'>Update:</span> // Electronic Sensor // <span class='cfc_red'>Enabled</span>")
 
 /obj/item/computer_hardware/card_slot/secondary
 	name = "secondary RFID card module"
 	device_type = MC_CARD2
 	expansion_hw = TRUE
+	custom_price = PAYCHECK_MEDIUM * 2
+
+/obj/item/computer_hardware/card_slot/secondary/update_overclocking(mob/living/user, obj/item/tool)
+	if(hacked)
+		balloon_alert(user, "<font color='#e06eb1'>Update:</font> // Access Storing Malfunction // <font color='#cc00ff'>Detected</font>")
+		to_chat(user, "<span class='cfc_magenta'>Update:</span> // Access Storing Malfunction // <span class='cfc_violet'>Detected</span>")
+	else
+		balloon_alert(user, "<font color='#e06eb1'>Update:</font> // Access Storing Component // <font color='#00d41c'>Functional</font>")
+		to_chat(user, "<span class='cfc_magenta'>Update:</span> // Access Storing Component // <span class='cfc_violet'>Functional</span>")
+	if(fake_card) // IF theres a fake card inside then it stands to reason the module is being de-hacked, thus, we remove the fake card
+		qdel(fake_card)
+		fake_card = null
+		balloon_alert(user, "<font color='#e06eb1'>Update:</font> // Phantom Card protocol engaged")
+		to_chat(user, "<span class='cfc_magenta'>Update:</span> // Phantom Card protocol engaged")
+	else
+		balloon_alert(user, "<font color='#e06eb1'>Update:</font> // Phantom Card protocol disengaged")
+		to_chat(user, "<span class='cfc_magenta'>Update:</span> // Phantom Card protocol disengaged")
+
+

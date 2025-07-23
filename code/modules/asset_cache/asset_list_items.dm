@@ -50,6 +50,13 @@
 		"smmon_4.gif" = 'icons/program_icons/smmon_4.gif',
 		"smmon_5.gif" = 'icons/program_icons/smmon_5.gif',
 		"smmon_6.gif" = 'icons/program_icons/smmon_6.gif',
+		"antivirus_0.gif" = 'icons/program_icons/antivirus_0.gif',
+		"antivirus_1.gif" = 'icons/program_icons/antivirus_1.gif',
+		"antivirus_2.gif" = 'icons/program_icons/antivirus_2.gif',
+		"antivirus_3.gif" = 'icons/program_icons/antivirus_3.gif',
+		"antivirus_4.gif" = 'icons/program_icons/antivirus_4.gif',
+		"power_drain.gif" = 'icons/program_icons/power_drain.gif',
+		"no_relay.gif" = 'icons/program_icons/no_relay.gif',
 		"borg_self_monitor.gif" = 'icons/program_icons/borg_self_monitor.gif'
 	)
 
@@ -135,31 +142,6 @@
 	assets = list(
 		"fuckywucky.png" = 'html/fuckywucky.png'
 	)
-
-/datum/asset/simple/namespaced/changelog
-	assets = list(
-		"88x31.png" = 'html/88x31.png',
-		"bug-minus.png" = 'html/bug-minus.png',
-		"cross-circle.png" = 'html/cross-circle.png',
-		"hard-hat-exclamation.png" = 'html/hard-hat-exclamation.png',
-		"image-minus.png" = 'html/image-minus.png',
-		"image-plus.png" = 'html/image-plus.png',
-		"music-minus.png" = 'html/music-minus.png',
-		"music-plus.png" = 'html/music-plus.png',
-		"tick-circle.png" = 'html/tick-circle.png',
-		"wrench-screwdriver.png" = 'html/wrench-screwdriver.png',
-		"spell-check.png" = 'html/spell-check.png',
-		"burn-exclamation.png" = 'html/burn-exclamation.png',
-		"chevron.png" = 'html/chevron.png',
-		"chevron-expand.png" = 'html/chevron-expand.png',
-		"scales.png" = 'html/scales.png',
-		"coding.png" = 'html/coding.png',
-		"ban.png" = 'html/ban.png',
-		"chrome-wrench.png" = 'html/chrome-wrench.png',
-		"changelog.css" = 'html/changelog.css'
-	)
-	parents = list("changelog.html" = 'html/changelog.html')
-
 
 /datum/asset/simple/jquery
 	legacy = TRUE
@@ -378,7 +360,7 @@
 				continue
 			if(ispath(item, /obj/item/bodypart)) // mmm snowflake limbcode as usual
 				var/obj/item/bodypart/body_part = item
-				icon_file = initial(body_part.static_icon)
+				icon_file = initial(body_part.icon_static)
 			else
 				icon_file = initial(item.icon)
 

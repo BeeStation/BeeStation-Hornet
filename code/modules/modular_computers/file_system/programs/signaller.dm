@@ -7,7 +7,7 @@
 	size = 2
 	tgui_id = "NtosSignaller"
 	program_icon = "satellite-dish"
-	usage_flags = PROGRAM_PDA | PROGRAM_LAPTOP
+	hardware_requirement = MC_SIGNALLER
 	///What is the saved signal frequency?
 	var/signal_frequency = FREQ_SIGNALER
 	/// What is the saved signal code?
@@ -24,8 +24,6 @@
 	if (!.)
 		return
 	set_frequency(signal_frequency)
-	if(!computer?.get_modular_computer_part(MC_SIGNALLER)) //Giving a clue to users why the program is spitting out zeros.
-		to_chat(user, span_warning("\The [computer] flashes an error: \"hardware\\signal_hardware\\startup.bin -- file not found\"."))
 
 /datum/computer_file/program/signaller/kill_program(forced)
 	. = ..()
@@ -84,8 +82,8 @@
 	var/time = time2text(world.realtime,"hh:mm:ss")
 	var/turf/T = get_turf(computer)
 	if(usr)
-		log_telecomms("[time] <B>:</B> [usr.key] used [src] @ location [AREACOORD(T)] <B>:</B> with frequency: [format_frequency(signal_frequency)]/[signal_code]")
-		message_admins("<B>:</B> [usr.key] used [src] @ location [AREACOORD(T)] <B>:</B> with frequency: [format_frequency(signal_frequency)]/[signal_code]")
+		log_telecomms("[time] <B>:</B> [key_name(usr)] used [src] @ location [AREACOORD(T)] <B>:</B> with frequency: [format_frequency(signal_frequency)]/[signal_code]")
+		message_admins("<B>:</B> [ADMIN_LOOKUPFLW(usr)] used [src] @ location [AREACOORD(T)] <B>:</B> with frequency: [format_frequency(signal_frequency)]/[signal_code]")
 	var/logging_data = "[time] <B>:</B> [key_name(usr)] used the computer '[initial(computer.name)]' @ location ([T.x],[T.y],[T.z]) <B>:</B> [format_frequency(signal_frequency)]/[signal_code]"
 	add_to_signaler_investigate_log(logging_data)
 

@@ -343,7 +343,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 /datum/asset/spritesheet/proc/read_css_from_cache()
 	var/replaced_css = file2text(css_cache_filename())
 
-	var/regex/find_background_urls = regex(@"background:url\('%(.+?)%'\)", "g")
+	var/regex/find_background_urls = regex(@"background-image:url\('%(.+?)%'\)", "g")
 	while (find_background_urls.Find(replaced_css))
 		var/asset_id = find_background_urls.group[1]
 		var/file_path = "[ASSET_CROSS_ROUND_CACHE_DIRECTORY]/spritesheet.[asset_id]"
@@ -351,7 +351,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		var/hash = rustg_hash_file("md5", file_path)
 		var/asset_cache_item = SSassets.transport.register_asset(asset_id, file_path, file_hash=hash)
 		var/asset_url = SSassets.transport.get_asset_url(asset_cache_item = asset_cache_item)
-		replaced_css = replacetext(replaced_css, find_background_urls.match, "background:url('[asset_url]')")
+		replaced_css = replacetext(replaced_css, find_background_urls.match, "background-image:url('[asset_url]')")
 		LAZYADD(cached_spritesheets_needed, asset_id)
 
 	var/replaced_css_filename = "data/spritesheets/spritesheet_[name].css"
@@ -504,6 +504,23 @@ GLOBAL_LIST_EMPTY(asset_datums)
 #undef SPRSZ_ICON
 #undef SPRSZ_STRIPPED
 
+/datum/asset/changelog_item
+	_abstract = /datum/asset/changelog_item
+	var/item_filename
+
+/datum/asset/changelog_item/New(date)
+	item_filename = SANITIZE_FILENAME("[date].yml")
+	SSassets.transport.register_asset(item_filename, file("html/changelogs/archive/" + item_filename))
+
+/datum/asset/changelog_item/send(client)
+	if (!item_filename)
+		return
+	. = SSassets.transport.send_assets(client, item_filename)
+
+/datum/asset/changelog_item/get_url_mappings()
+	if (!item_filename)
+		return
+	. = list("[item_filename]" = SSassets.transport.get_asset_url(item_filename))
 
 /datum/asset/spritesheet/simple
 	_abstract = /datum/asset/spritesheet/simple
