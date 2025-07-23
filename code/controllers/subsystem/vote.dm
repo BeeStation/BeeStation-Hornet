@@ -224,13 +224,18 @@ SUBSYSTEM_DEF(vote)
 				for(var/valid_map in maps)
 					choices.Add(valid_map)
 			if("custom")
-				question = stripped_input(usr,"What is the vote for?")
-				if(!question)
+				question = tgui_input_text(usr, "What is the vote for?", "Vote Title")
+				if(!question) // no input so we return
+					to_chat(usr, span_warning("You must enter a title for the vote."))
 					return 0
 				for(var/i in 1 to 10)
-					var/option = capitalize(stripped_input(usr,"Please enter an option or hit cancel to finish"))
+					var/option = capitalize(tgui_input_text(usr, "Please enter an option or hit cancel to finish (only already submitted answers will be shown)", "Question [i]:"))
 					if(!option || mode || !usr.client)
-						break
+						if (i == 1)
+							to_chat(usr, span_warning("You must enter at least one option."))
+							return 0
+						else
+							break
 					choices.Add(option)
 			else
 				return 0
@@ -255,7 +260,7 @@ SUBSYSTEM_DEF(vote)
 			generated_actions += V
 
 			if(popup)
-				C?.mob?.vote() // automatically popup the vote
+				C?.vote() // automatically popup the vote
 
 		return 1
 	return 0
@@ -268,10 +273,11 @@ SUBSYSTEM_DEF(vote)
 			V.Remove(V.owner)
 	generated_actions = list()
 
-/mob/verb/vote()
+AUTH_CLIENT_VERB(vote)
 	set category = "OOC"
 	set name = "Vote"
-	SSvote.ui_interact(src)
+	if(src.mob)
+		SSvote.ui_interact(src.mob)
 
 /datum/controller/subsystem/vote/ui_state()
 	return GLOB.always_state
@@ -359,8 +365,8 @@ SUBSYSTEM_DEF(vote)
 	button_icon_state = "vote"
 
 /datum/action/vote/on_activate()
-	if(owner)
-		owner.vote()
+	if(owner?.client)
+		owner.client.vote()
 		remove_from_client()
 		Remove(owner)
 
@@ -370,7 +376,7 @@ SUBSYSTEM_DEF(vote)
 /datum/action/vote/proc/remove_from_client()
 	if(!owner)
 		return
-	if(owner.client)
+	if(owner.client?.player_details)
 		owner.client.player_details.player_actions -= src
 	else if(owner.ckey)
 		var/datum/player_details/P = GLOB.player_details[owner.ckey]

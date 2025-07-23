@@ -885,7 +885,7 @@
 		log_admin("[key_name(src.owner)] has sent [key_name(M)] back to the Lobby.")
 		message_admins("[key_name(src.owner)] has sent [key_name(M)] back to the Lobby.")
 
-		var/mob/dead/new_player/NP = new()
+		var/mob/dead/new_player/authenticated/NP = new()
 		NP.ckey = M.ckey
 		qdel(M)
 
@@ -1181,7 +1181,7 @@
 		var/Remove = href_list["removejobslot"]
 
 		for(var/datum/job/job in SSjob.occupations)
-			if(job.title == Remove && job.total_positions - job.current_positions > 0)
+			if(job.title == Remove && job.get_spawn_position_count() - job.current_positions > 0)
 				job.total_positions -= 1
 				break
 
@@ -1487,10 +1487,10 @@
 								var/obj/item/I = O
 								L.put_in_hands(I)
 								if(iscyborg(L))
-									var/mob/living/silicon/robot/R = L
-									if(R.module)
-										R.module.add_module(I, TRUE, TRUE)
-										R.activate_module(I)
+									var/mob/living/silicon/robot/robot = L
+									if(robot.model)
+										robot.model.add_module(I, TRUE, TRUE)
+										robot.activate_module(I)
 
 		if(pod)
 			new /obj/effect/pod_landingzone(target, pod)
@@ -1578,7 +1578,7 @@
 	else if(href_list["showrelatedacc"])
 		if(!check_rights(R_ADMIN))
 			return
-		var/client/C = locate(href_list["client"]) in GLOB.clients
+		var/client/C = locate(href_list["client"]) in GLOB.clients_unsafe
 		var/thing_to_check
 		if(href_list["showrelatedacc"] == "cid")
 			thing_to_check = C.related_accounts_cid

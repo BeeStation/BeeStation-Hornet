@@ -4,12 +4,18 @@
 		//BLACK MAGIC THINGS//
 		//////////////////////
 	parent_type = /datum
+#ifdef DISABLE_BYOND_AUTH
+	authenticate = FALSE
+#endif
 		////////////////
 		//ADMIN THINGS//
 		////////////////
 
 	/// If this client has been fully initialized or not
 	var/fully_created = FALSE
+
+	/// If this client has been authenticated as actually being authorized to use the attached CKEY
+	var/logged_in = FALSE
 
 	/// The admin state of the client. If this is null, the client is not an admin.
 	var/datum/admins/holder = null
@@ -141,6 +147,9 @@
 	//Middle-mouse-button clicked object control for aimbot exploit detection. Weakref
 	var/datum/weakref/middle_drag_atom_ref
 
+	///A lazy list of atoms we've examined in the last RECENT_EXAMINE_MAX_WINDOW (default 2) seconds, so that we will call [/atom/proc/examine_more] instead of [/atom/proc/examine] on them when examining
+	var/list/recent_examines
+
 	///used to make a special mouse cursor, this one for mouse up icon
 	var/mouse_up_icon = null
 	///used to make a special mouse cursor, this one for mouse up icon
@@ -153,3 +162,23 @@
 	var/show_screentips = TRUE
 	/// Should extended screentips be shown?
 	var/show_extended_screentips = FALSE
+
+	/// New connection TopicData, cached prior to authentication
+	var/temp_topicdata = null
+
+	/// When FORCE_BYOND_EXTERNAL_AUTH is enabled, this is set to the client's hub-authenticated BYOND key if it is valid
+	var/byond_authenticated_key = null
+
+	/// True if this client's `key` is a not real BYOND CKEY (the cached result of is_external_auth_key(src.key))
+	var/key_is_external = FALSE
+	/// The source of external authentication. Can be set even if the CKEY is a real BYOND CKEY.
+	var/datum/external_login_method/external_method = null
+	/// The UID of this user in the external auth source. Can be set even if the CKEY is a real BYOND CKEY.
+	var/external_uid = null
+	/// The display name from an external auth source. Used instead of the BYOND key in some UIs. Can be set even if the CKEY is a real BYOND CKEY.
+	var/external_display_name = null
+
+	/// Number of attempts this client has made to authenticate with a token
+	var/token_attempts = 0
+	/// Port currently used by this client's Dream Seeker
+	var/seeker_port

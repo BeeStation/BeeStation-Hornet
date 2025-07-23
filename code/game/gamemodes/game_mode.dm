@@ -70,7 +70,7 @@
 ///Checks to see if the game can be setup and ran with the current number of players or whatnot.
 /datum/game_mode/proc/can_start()
 	var/playerC = 0
-	for(var/mob/dead/new_player/player in GLOB.player_list)
+	for(var/mob/dead/new_player/authenticated/player in GLOB.player_list)
 		if(player.client && (player.ready == PLAYER_READY_TO_PLAY) && player.check_preferences())
 			playerC++
 	if(!GLOB.Debug2)
@@ -506,7 +506,7 @@
 	var/datum/mind/applicant = null
 
 	// Ultimate randomizing code right here
-	for(var/mob/dead/new_player/player in GLOB.player_list)
+	for(var/mob/dead/new_player/authenticated/player in GLOB.player_list)
 		if(player.client && player.ready == PLAYER_READY_TO_PLAY)
 			players += player
 
@@ -514,7 +514,7 @@
 	// Goodbye antag dante
 	players = shuffle(players)
 
-	for(var/mob/dead/new_player/player in players)
+	for(var/mob/dead/new_player/authenticated/player in players)
 		if(!QDELETED(player) && player.client && player.ready == PLAYER_READY_TO_PLAY)
 			if(player.client.should_include_for_role(
 				banning_key = banning_key,
@@ -530,7 +530,7 @@
 					candidates -= player
 
 	if(candidates.len < recommended_enemies)
-		for(var/mob/dead/new_player/player in players)
+		for(var/mob/dead/new_player/authenticated/player in players)
 			if(!QDELETED(player) && player.client && player.ready == PLAYER_READY_TO_PLAY)
 				// We don't have enough people who want to be antagonist, make a separate list of people who don't want to be one but are otherwise eligible
 				if(player.client.should_include_for_role(
@@ -603,7 +603,7 @@
 
 /datum/game_mode/proc/num_players()
 	. = 0
-	for(var/mob/dead/new_player/P in GLOB.player_list)
+	for(var/mob/dead/new_player/authenticated/P in GLOB.player_list)
 		if(P.client && P.ready == PLAYER_READY_TO_PLAY)
 			. ++
 
@@ -735,16 +735,16 @@
 			if(D.mind && D.mind.current == L)
 				if(L.stat == DEAD)
 					if(L.suiciding)	//Suicider
-						msg += "<b>[L.name]</b> ([ckey(D.mind.key)]), the [L.job] ([span_boldannounce("Suicide")])\n"
+						msg += "<b>[L.name]</b> ([ckey(D.mind.display_key())]), the [L.job] ([span_boldannounce("Suicide")])\n"
 						continue //Disconnected client
 					else
-						msg += "<b>[L.name]</b> ([ckey(D.mind.key)]), the [L.job] (Dead)\n"
+						msg += "<b>[L.name]</b> ([ckey(D.mind.display_key())]), the [L.job] (Dead)\n"
 						continue //Dead mob, ghost abandoned
 				else
 					if(D.can_reenter_corpse)
 						continue //Adminghost, or cult/wizard ghost
 					else
-						msg += "<b>[L.name]</b> ([ckey(D.mind.key)]), the [L.job] ([span_boldannounce("Ghosted")])\n"
+						msg += "<b>[L.name]</b> ([ckey(D.mind.display_key())]), the [L.job] ([span_boldannounce("Ghosted")])\n"
 						continue //Ghosted while alive
 
 

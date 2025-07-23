@@ -53,7 +53,7 @@
 
 /obj/machinery/vendor/exploration/RedeemVoucher(obj/item/mining_voucher/voucher, mob/redeemer)
 	var/items = list("Engineering Kit", "Medical Kit", "Scientist Kit", "Gunslinger Kit", "Laser Repeater Kit")
-	if(CONFIG_GET(flag/jobs_have_minimal_access) == FALSE)	//If we are in a skeleton crew, it is likely we only have a single explorer
+	if(SSjob.initial_players_to_assign < LOWPOP_JOB_LIMIT)	//If we are in a skeleton crew, it is likely we only have a single explorer
 		items += "Ghost Shift Kit"
 
 	var/selection = input(redeemer, "Pick your equipment", "Mining Voucher Redemption") as null|anything in sort_list(items)

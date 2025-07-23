@@ -872,16 +872,17 @@ update_label("John Doe", "Clowny")
 	hud_state = JOB_HUD_PAPER
 	electric = FALSE
 
-
 /datum/armor/id_paper
 	acid = 50
 
 /obj/item/card/id/paper/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pen))
-		var/target_name = stripped_input(user, "What name would you like to write onto the card?", "Written name:", registered_name || "John Doe", MAX_MESSAGE_LEN)
+		var/target_name = tgui_input_text(user, "What name would you like to write onto the card?", "Written name:", registered_name || "John Doe", MAX_MESSAGE_LEN)
 		registered_name = target_name || registered_name  // in case they hit cancel
-		assignment = "Unknown"
 		to_chat(user, span_notice("You scribble the name [target_name] onto the slip."))
+		var/target_job = tgui_input_text(user, "What job would you like to be displayed on the card?", "Assignment:", assignment || "Assistant", MAX_MESSAGE_LEN)
+		assignment = target_job || assignment
+		to_chat(user, span_notice("You scribble the name [target_job] onto the slip."))
 		update_label()
 
 /obj/item/card/id/paper/alt_click_can_use_id(mob/living/user)
@@ -892,26 +893,6 @@ update_label("John Doe", "Clowny")
 
 /obj/item/card/id/paper/GetAccess()
 	return list()
-
-/obj/item/card/id/paper/update_label(newname, newjob)
-	if(newname || newjob)
-		name = "[(!newname)	? "paper slip identifier": "[newname]'s paper slip"]"
-		return
-
-	name = "[(!registered_name)	? "paper slip identifier": "[registered_name]'s paper slip"]"
-
-/obj/item/card/id/paper/equipped(mob/user, slot, initial = FALSE)
-	. = ..()
-	if(slot == ITEM_SLOT_ID)
-		RegisterSignal(user, COMSIG_HUMAN_GET_VISIBLE_NAME, PROC_REF(return_visible_name))
-
-/obj/item/card/id/paper/dropped(mob/user, silent = FALSE)
-	. = ..()
-	UnregisterSignal(user, COMSIG_HUMAN_GET_VISIBLE_NAME)
-
-/obj/item/card/id/paper/proc/return_visible_name(mob/living/carbon/human/source, list/identity)
-	SIGNAL_HANDLER
-	identity[VISIBLE_NAME_ID] = registered_name
 
 /obj/item/card/id/away
 	name = "\proper a perfectly generic identification card"

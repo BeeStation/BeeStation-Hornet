@@ -212,7 +212,7 @@
 /atom/proc/refresh_screentips()
 	if (hovered_user_count == 0)
 		return
-	for (var/client/client in GLOB.clients)
+	for (var/client/client in GLOB.clients_unsafe)
 		if (client.hovered_atom != src)
 			continue
 		if (client.hover_queued)

@@ -32,6 +32,14 @@
 //#define TRACK_MAX_SHARE	//Allows max share tracking, for use in the atmos debugging ui
 #endif //ifdef TESTING
 
+/// Disables hub authentication. This must be done at compile time due to /client::authenticate being read-only
+/// All connecting users will be forced to use external auth. If external auth is not enabled in the config, the connection is blindly trusted.
+/// DO NOT ENABLE THIS FLAG ON PRODUCTION WITHOUT EXTERNAL AUTH SET UP
+/// Toggle ENABLE_GUEST_EXTERNAL_AUTH to require external auth, otherwise CKEYs are blindly trusted!
+/// This flag also forcibly enables guest connections, because every client has its key reassigned on login.
+/// This flag also disables BYOND account age checks, BYOND Key change verification, and makes the config flag use_account_age_for_jobs useless.
+//#define DISABLE_BYOND_AUTH
+
 /// Enables BYOND TRACY, which allows profiling using Tracy.
 /// The prof.dll/libprof.so must be built and placed in the repo folder.
 /// https://github.com/mafemergency/byond-tracy
