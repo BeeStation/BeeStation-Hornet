@@ -366,6 +366,8 @@
   - tweak: anyone with a detective hat can now use the aura within detective office
       and interrogation room
   - tweak: adjusted grammar on a line involving the detective aura
+  Schoolboy215:
+  - bugfix: issue with fully deconstructing cyborgs
   mrmanlikesbt, timothymtorres, orthography, tralezab, dragomagol:
   - rscadd: added several new lawsets
   - rscadd: infected law upload board. An admin-obtainable item that will make the
