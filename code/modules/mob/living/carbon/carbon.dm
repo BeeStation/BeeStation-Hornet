@@ -162,9 +162,6 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 /mob/living/carbon/proc/throw_mode_on(mode = THROW_MODE_TOGGLE)
 	throw_mode = mode
-	if(GetComponents(/datum/component/tackler))
-		balloon_alert_to_viewers("[src] looks ready to tackle!", ignored_mobs = list(src))
-		changeNext_move(CLICK_CD_THROW) //No instant tackling!
 	if(client && hud_used)
 		hud_used.throw_icon.icon_state = "act_throw_on"
 
