@@ -1234,6 +1234,6 @@
 	var/list/data = list()
 
 	for(var/datum/reagent/reagent as anything in reagent_list)
-		data += "[reagent.type] [reagent.volume]u)"
+		data += "[reagent.name] [reagent.volume]u)"
 
 	return english_list(data)
