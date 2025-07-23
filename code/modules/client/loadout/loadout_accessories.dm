@@ -249,3 +249,37 @@
 	display_name = "black bishop's cloak"
 	path = /obj/item/clothing/neck/cloak/chap/bishop/black
 	allowed_roles = list(JOB_NAME_CHAPLAIN)
+
+//Backpacks
+
+/datum/gear/accessory/backpack
+	subtype_path = /datum/gear/accessory/cloak
+	cost = 2000
+
+/datum/gear/accessory/backpack/engineerborg
+	display_name = "Engineering Cyborg bag"
+	path = /obj/item/storage/backpack/engineerborg
+
+/datum/gear/accessory/backpack/miningborg
+	display_name = "Mining Cyborg bag"
+	path = /obj/item/storage/backpack/miningborg
+
+/datum/gear/accessory/backpack/janitorborg
+	display_name = "Janitor Cyborg bag"
+	path = /obj/item/storage/backpack/janitorborg
+
+/datum/gear/accessory/backpack/peaceborg
+	display_name = "Peace Keeper Cyborg bag"
+	path = /obj/item/storage/backpack/peaceborg
+
+/datum/gear/accessory/backpack/serviceborg
+	display_name = "Service Cyborg bag"
+	path = /obj/item/storage/backpack/serviceborg
+
+/datum/gear/accessory/backpack/securityborg
+	display_name = "Security Cyborg bag"
+	path = /obj/item/storage/backpack/securityborg
+
+/datum/gear/accessory/backpack/medicalborg
+	display_name = "Medical Cyborg bag"
+	path = /obj/item/storage/backpack/medicalborg
