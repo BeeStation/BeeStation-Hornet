@@ -954,10 +954,6 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1500)
 	export_price = 1000
 
-/datum/techweb_node/cyborg_upg_security/New() //Techweb nodes don't have an init,
-	. = ..()
-	hidden = CONFIG_GET(flag/disable_secborg)
-
 /datum/techweb_node/ai
 	id = "ai"
 	tech_tier = 3
