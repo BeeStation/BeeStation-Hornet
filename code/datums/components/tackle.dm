@@ -445,7 +445,7 @@
 			attack_mod += 2
 			human_sacker.adjustStaminaLoss(20)
 
-	var/randomized_tackle_roll = rand(-3, 3) - defense_mod + attack_mod + skill_mod
+	var/randomized_tackle_roll = rand(-6, 6) - defense_mod + attack_mod + skill_mod
 	return randomized_tackle_roll
 
 
