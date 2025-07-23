@@ -357,3 +357,9 @@
   - tweak: PAIs can now be ejected with alt-click.
   PowerfulBacon:
   - balance: Clarke moves slower on station.
+2025-07-23:
+  Rukofamicom:
+  - bugfix: detective aura now properly removes from all mobs
+  - tweak: anyone with a detective hat can now use the aura within detective office
+      and interrogation room
+  - tweak: adjusted grammar on a line involving the detective aura
