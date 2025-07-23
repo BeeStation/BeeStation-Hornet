@@ -2,6 +2,7 @@
 	"words": {
 		"hello": ["'ello", "oi", "'ey up"],
 		"hi": ["oi", "'ello"],
+		"hey": ["'ey"],
 		"goodbye": ["cheers", "laters"],
 		"yes": ["yeah", "yeh"],
 		"no": ["nah", "nope"],
