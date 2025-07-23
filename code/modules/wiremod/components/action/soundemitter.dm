@@ -33,6 +33,9 @@
 
 	var/list/options_map
 
+/obj/item/circuit_component/soundemitter/Initialize(mapload)
+	. = ..()
+
 /obj/item/circuit_component/soundemitter/get_ui_notices()
 	. = ..()
 	. += create_ui_notice("Sound Cooldown: [DisplayTimeText(sound_cooldown)]", "orange", "stopwatch")
@@ -44,7 +47,7 @@
 	backwards = add_input_port("Play Backwards", PORT_TYPE_NUMBER, default = 0)
 
 /obj/item/circuit_component/soundemitter/populate_options()
-	var/static/list/component_options = list(
+	var/static/component_options = list(
 		"Buzz" = 'sound/machines/buzz-sigh.ogg',
 		"Buzz Twice" = 'sound/machines/buzz-two.ogg',
 		"Chime" = 'sound/machines/chime.ogg',
