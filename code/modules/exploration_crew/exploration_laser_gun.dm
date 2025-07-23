@@ -107,3 +107,25 @@
 	desc = "An exploration-fitted laser repeater rifle that uses a built-in bluespace dynamo to recharge its battery, crank it and fire!"
 	pin = /obj/item/firing_pin/off_station
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/anti_creature)
+
+
+/obj/item/gun/energy/e_gun/mini/exploration/cyborg
+	name = "multi-purpose energy gun"
+	desc = "An energy gun that will only fire when off-station. It has two firing modes to swich between destroying living and non-living matter."
+	ammo_type = list(/obj/item/ammo_casing/energy/laser/anti_creature/cyborg, /obj/item/ammo_casing/energy/laser/cutting/cyborg)
+	gun_charge = 600	//12 or 24 shots depending on firing mode
+	fire_rate = 2 		//Two shots per second
+	charge_delay = 5	//Fully charged in 30 seconds
+
+	can_charge = FALSE
+	use_cyborg_cell = TRUE
+	requires_wielding = FALSE
+
+/obj/item/gun/energy/e_gun/mini/exploration/cyborg/add_seclight_point()
+	return
+
+/obj/item/ammo_casing/energy/laser/anti_creature/cyborg
+	e_cost = 50
+
+/obj/item/ammo_casing/energy/laser/cutting/cyborg
+	e_cost = 25
