@@ -171,6 +171,9 @@
 	if(!CONFIG_GET(flag/disable_peaceborg))
 		model_list["Peacekeeper"] = /obj/item/robot_model/peacekeeper
 
+	if(!CONFIG_GET(flag/disable_secborg))
+		model_list["Security"] = /obj/item/robot_model/security
+
 	// Create radial menu for choosing borg model
 	var/list/module_icons = list()
 	for(var/option in model_list)
