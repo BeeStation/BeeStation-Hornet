@@ -912,6 +912,14 @@
 			autoclean_toggle.Remove(src)
 			QDEL_NULL(autoclean_toggle)
 
+	if(model.cyborg_armor)
+		armor_type = /datum/armor/cyborg
+		add_movespeed_modifier(/datum/movespeed_modifier/cyborg_armor)
+
+	else
+		armor_type = /datum/armor/none
+		remove_movespeed_modifier(/datum/movespeed_modifier/cyborg_armor)
+
 	hat_offset = model.hat_offset
 
 	magpulse = model.magpulsing

@@ -45,6 +45,8 @@
 	var/magpulsing = FALSE
 	/// Clean trash under the borg
 	var/clean_on_move = FALSE
+	/// Whether the cyborg has extra armor slowing it down and reducing incoming damage
+	var/cyborg_armor = FALSE
 	/// Whether the borg loses tool slots with damage.
 	var/breakable_modules = TRUE
 	/// Whether swapping to this configuration should lockcharge the borg

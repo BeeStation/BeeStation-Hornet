@@ -586,6 +586,16 @@
 	model_select_icon = "security"
 	can_be_pushed = FALSE
 	hat_offset = 3
+	cyborg_armor = TRUE
+
+//Aside from bomb and acid, not actually a lot of armor
+/datum/armor/cyborg
+	melee = 15
+	bullet = 15
+	laser = 10
+	energy = 10
+	bomb = 50
+	acid = 100
 
 // --------------------- Borgi
 /obj/item/robot_model/borgi

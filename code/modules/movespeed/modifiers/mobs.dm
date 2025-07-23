@@ -145,3 +145,6 @@
 
 /datum/movespeed_modifier/visible_hunger/hungry
 	multiplicative_slowdown = 0.2
+
+/datum/movespeed_modifier/cyborg_armor
+	multiplicative_slowdown = 0.15
