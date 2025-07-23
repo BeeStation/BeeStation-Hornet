@@ -574,8 +574,10 @@
 		/obj/item/borg/charger,
 		/obj/item/weldingtool/cyborg/mini,
 		/obj/item/gun/energy/disabler/cyborg,
+		/obj/item/reagent_containers/peppercloud_deployer,
 		/obj/item/clothing/mask/gas/sechailer/cyborg,
-		/obj/item/extinguisher/mini)
+		/obj/item/extinguisher/mini,
+		/obj/item/crowbar/cyborg)
 	emag_modules = list(/obj/item/gun/energy/laser/cyborg)
 	ratvar_modules = list(
 		/obj/item/clock_module/abscond,
