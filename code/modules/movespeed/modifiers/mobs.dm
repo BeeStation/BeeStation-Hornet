@@ -147,4 +147,4 @@
 	multiplicative_slowdown = 0.2
 
 /datum/movespeed_modifier/cyborg_armor
-	multiplicative_slowdown = 0.15
+	multiplicative_slowdown = 0.75 //holy cow cyborgs are fast
