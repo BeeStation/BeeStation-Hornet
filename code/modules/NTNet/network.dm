@@ -66,7 +66,7 @@
 
 	SSnetworks.networks[network_id] = src
 
-	SSnetworks.add_log("Network was created: [network_id]")
+	SSnetworks.add_log("Network was created: [network_id]")	// Lets not make this green by using DIAGNOSTIC makes for a lot of visual polution
 
 	return ..()
 
@@ -88,7 +88,7 @@
 	root_devices = null
 	networks = null
 	network_node_id = null
-	SSnetworks.add_log("Network was destroyed: [network_id]")
+	SSnetworks.add_log("DIAGNOSTICS // Network was destroyed: [network_id]")
 	network_id = null
 
 	return ..()
@@ -312,12 +312,12 @@
 #endif
 
 // Checks whether NTNet operates. If parameter is passed checks whether specific function is enabled.
-/datum/ntnet/station_root/proc/check_function(specific_action = 0, zlevel, ignore_relay = FALSE)
+/datum/ntnet/station_root/proc/check_function(specific_action = 0, zlevel, signal_level)
 	if(!SSnetworks.relays || !SSnetworks.relays.len) // No relays found. NTNet is down
 		return FALSE
 
 	// Check all relays. If we have at least one working relay, network is up.
-	if(!ignore_relay && !SSnetworks.check_relay_operation(zlevel))
+	if(signal_level != (SIGNAL_NO_RELAY || SIGNAL_HACKED) && !SSnetworks.check_relay_operation(zlevel))
 		return FALSE
 
 	if(setting_disabled)
@@ -374,23 +374,26 @@
 	intrusion_detection_enabled = !intrusion_detection_enabled
 
 
-/datum/ntnet/station_root/proc/toggle_function(function)
+/datum/ntnet/station_root/proc/toggle_function(function, obj/item/modular_computer/computer)
 	if(!function)
 		return
 	function = text2num(function)
+	var/obj/item/computer_hardware/network_card/card
+	if(computer)	//boilerplate
+		card = computer.all_components[MC_NET]
 	switch(function)
 		if(NTNET_SOFTWAREDOWNLOAD)
 			setting_softwaredownload = !setting_softwaredownload
-			SSnetworks.add_log("Configuration Updated. Wireless network firewall now [setting_softwaredownload ? "allows" : "disallows"] connection to software repositories.")
+			SSnetworks.add_log("DIAGNOSTICS // Wireless network now [setting_softwaredownload ? "allows" : "disallows"] connection to software repositories. AUTHKEY :", null, null, TRUE, card)
 		if(NTNET_PEERTOPEER)
 			setting_peertopeer = !setting_peertopeer
-			SSnetworks.add_log("Configuration Updated. Wireless network firewall now [setting_peertopeer ? "allows" : "disallows"] peer to peer network traffic.")
+			SSnetworks.add_log("DIAGNOSTICS // Wireless network now [setting_peertopeer ? "allows" : "disallows"] peer to peer network traffic. AUTHKEY :", null, null, TRUE, card)
 		if(NTNET_COMMUNICATION)
 			setting_communication = !setting_communication
-			SSnetworks.add_log("Configuration Updated. Wireless network firewall now [setting_communication ? "allows" : "disallows"] instant messaging and similar communication services.")
+			SSnetworks.add_log("DIAGNOSTICS // Wireless network now [setting_communication ? "allows" : "disallows"] instant messaging and communication services. AUTHKEY :", null, null, TRUE, card)
 		if(NTNET_SYSTEMCONTROL)
 			setting_systemcontrol = !setting_systemcontrol
-			SSnetworks.add_log("Configuration Updated. Wireless network firewall now [setting_systemcontrol ? "allows" : "disallows"] remote control of station's systems.")
+			SSnetworks.add_log("DIAGNOSTICS // Wireless network now [setting_systemcontrol ? "allows" : "disallows"] remote control of station's systems. AUTHKEY :", null, null, TRUE, card)
 
 
 
