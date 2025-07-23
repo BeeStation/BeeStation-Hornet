@@ -89,7 +89,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 	icon_state = "cell_mini"
 	w_class = WEIGHT_CLASS_SMALL
 	maxcharge = 1000
-	/// Size affects the size of the explosion created by the detonation of the battery (trough Power Cell Controler hacking)
+	chargerate_divide = 8
+	/// rating affects the size of the explosion created by the detonation of the battery (trough Power Cell Controler hacking)
 	rating = PART_TIER_3
 	custom_price = PAYCHECK_MEDIUM
 
@@ -108,6 +109,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 	icon_state = "cell"
 	w_class = WEIGHT_CLASS_NORMAL	// Fits only laptops
 	maxcharge = 2000
+	chargerate_divide = 10
 	custom_price = PAYCHECK_MEDIUM * 3
 	rating = PART_TIER_5
 
@@ -116,6 +118,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 	desc = "A small power cell, commonly seen in most portable microcomputers."
 	icon_state = "cell_micro"
 	maxcharge = 750
+
 	w_class = WEIGHT_CLASS_TINY
 	custom_price = PAYCHECK_EASY * 2
 	rating = PART_TIER_2
@@ -126,5 +129,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 	icon_state = "cell_micro"
 	w_class = WEIGHT_CLASS_TINY
 	maxcharge = 500
+	chargerate_divide = 10
 	custom_price = PAYCHECK_EASY
 	rating = PART_TIER_1
