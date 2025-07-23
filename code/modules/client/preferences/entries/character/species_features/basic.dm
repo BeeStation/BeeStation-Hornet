@@ -104,6 +104,8 @@
 	relevant_head_flag = HEAD_FACIAL_HAIR
 	can_randomize = FALSE
 	should_generate_icons = TRUE
+	//temporary fix
+	disable_serialization = TRUE
 
 /datum/preference/choiced/facial_hair_gradient/init_possible_values()
 	return assoc_to_keys_features(SSaccessories.facial_hair_gradients_list)
@@ -156,6 +158,8 @@
 	preference_type = PREFERENCE_CHARACTER
 	db_key = "facial_hair_gradient_color"
 	relevant_head_flag = HEAD_FACIAL_HAIR
+	//temporary fix
+	disable_serialization = TRUE
 
 /datum/preference/color/facial_hair_gradient/apply_to_human(mob/living/carbon/human/target, value)
 	target.set_facial_hair_gradient_color(new_color = value, update = FALSE)
