@@ -403,9 +403,9 @@
 		if(tackle_target.is_shove_knockdown_blocked()) // riot armor and such
 			defense_mod += 5
 		if(tackle_target.combat_mode) // they're ready for you
-			defense_mod += 4
+			defense_mod += 5
 		if(tackle_target.throw_mode) //they're REALLY ready for you
-			defense_mod += 4
+			defense_mod += 5
 
 		var/obj/item/organ/tail/lizard/el_tail = tackle_target.get_organ_slot(ORGAN_SLOT_TAIL)
 		if(HAS_TRAIT(tackle_target, TRAIT_TACKLING_TAILED_DEFENDER) && !el_tail)
