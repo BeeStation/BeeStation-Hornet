@@ -1723,6 +1723,7 @@
 
 /datum/sprite_accessory/tails/human/cat
 	name = "Cat"
+	icon = 'icons/mob/cat_features.dmi'
 	icon_state = "default"
 	color_src = HAIR_COLOR
 
