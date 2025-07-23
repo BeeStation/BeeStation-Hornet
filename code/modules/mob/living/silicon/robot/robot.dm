@@ -727,6 +727,8 @@
 	if (cell) //Sanity check.
 		cell.forceMove(T)
 		cell = null
+	// Call destroy() before deleting to ensure that the borg's brain stays connected
+	Destroy()
 	qdel(src)
 
 /mob/living/silicon/robot/proc/notify_ai(notifytype, oldname, newname)
