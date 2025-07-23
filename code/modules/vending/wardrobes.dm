@@ -376,8 +376,8 @@
 					/obj/item/clothing/under/rank/civilian/altchef = 1,
 					/obj/item/clothing/head/utility/chefhat = 3,
 					/obj/item/reagent_containers/cup/rag = 1,
-					/obj/item/clothing/suit/hooded/wintercoat = 2
-					/obj/item/storage/backpack/serviceborg = 3,)
+					/obj/item/clothing/suit/hooded/wintercoat = 2,
+					/obj/item/storage/backpack/serviceborg = 3)
 	refill_canister = /obj/item/vending_refill/wardrobe/chef_wardrobe
 	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 
@@ -409,7 +409,7 @@
 					/obj/item/storage/bag/trash = 2,
 					/obj/item/clothing/shoes/galoshes = 2,
 					/obj/item/watertank/janitor = 1,
-					/obj/item/storage/belt/janitor = 2
+					/obj/item/storage/belt/janitor = 2,
 					/obj/item/storage/backpack/janitorborg = 2)
 	contraband = list(
 					/obj/item/holosign_creator/janibarrier = 1,
