@@ -587,17 +587,6 @@
 	can_be_pushed = FALSE
 	hat_offset = 3
 
-/obj/item/robot_model/security/respawn_consumable(mob/living/silicon/robot/robot, coeff = 1)
-	. = ..()
-	var/obj/item/gun/energy/e_gun/advtaser/cyborg/taser = locate(/obj/item/gun/energy/e_gun/advtaser/cyborg) in basic_modules
-	if(taser)
-		if(taser.cell.charge < taser.cell.maxcharge)
-			var/obj/item/ammo_casing/energy/ammo = taser.ammo_type[taser.select]
-			taser.cell.give(ammo.e_cost * coeff)
-			taser.update_icon()
-		else
-			taser.charge_timer = 0
-
 // --------------------- Borgi
 /obj/item/robot_model/borgi
 	name = "Borgi"
