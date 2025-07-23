@@ -1841,6 +1841,8 @@
 			to_chat(affected_mob, span_warning("You feel your scalp mutate, but you are still hopelessly bald."))
 		else
 			to_chat(affected_mob, span_notice("Your scalp mutates, a full head of hair sprouting from it."))
+			var/random_style = pick(SSaccessories.hairstyles_list - "Bald")
+			human_mob.set_hairstyle(random_style)
 			human_mob.update_body_parts()
 
 /datum/reagent/barbers_afro_mania
