@@ -9,7 +9,7 @@
 	ranged_mousepointer = 'icons/effects/mouse_pointers/cult_target.dmi'
 
 /datum/action/innate/cult/is_available()
-	if(!iscultist(owner))
+	if(!IS_CULTIST(owner))
 		return FALSE
 	return ..()
 
@@ -48,7 +48,7 @@
 	my_message = "<span class='[span]'><b>[title] [findtextEx(user.name, user.real_name) ? user.name : "[user.real_name] (as [user.name])"]:</b> [message]</span>"
 	for(var/i in GLOB.player_list)
 		var/mob/M = i
-		if(iscultist(M))
+		if(IS_CULTIST(M))
 			to_chat(M, my_message, type = MESSAGE_TYPE_RADIO, avoid_highlighting = M == user)
 		else if(M in GLOB.dead_mob_list)
 			var/link = FOLLOW_LINK(M, user)
@@ -61,7 +61,7 @@
 	desc = "Conveys a message from the spirit realm that all cultists can hear."
 
 /datum/action/innate/cult/comm/spirit/is_available()
-	if(iscultist(owner.mind.current))
+	if(IS_CULTIST(owner.mind.current))
 		return TRUE
 
 /datum/action/innate/cult/comm/spirit/cultist_commune(mob/living/user, message)
@@ -71,7 +71,7 @@
 	my_message = "[span_srtradiocultboldtalic("The [user.name]: [message]")]"
 	for(var/i in GLOB.player_list)
 		var/mob/M = i
-		if(iscultist(M))
+		if(IS_CULTIST(M))
 			to_chat(M, my_message)
 		else if(M in GLOB.dead_mob_list)
 			var/link = FOLLOW_LINK(M, user)
