@@ -151,6 +151,7 @@
 		transform = transform.Turn(180)
 	if(!(basic_mob_flags & REMAIN_DENSE_WHILE_DEAD))
 		set_density(FALSE)
+	SEND_SIGNAL(src, COMSIG_BASICMOB_LOOK_DEAD)
 
 /mob/living/basic/revive(full_heal = FALSE, admin_revive = FALSE)
 	. = ..()
@@ -165,6 +166,7 @@
 		transform = transform.Turn(180)
 	if(!(basic_mob_flags & REMAIN_DENSE_WHILE_DEAD))
 		set_density(initial(density))
+	SEND_SIGNAL(src, COMSIG_BASICMOB_LOOK_ALIVE)
 
 /mob/living/basic/examine(mob/user)
 	. = ..()

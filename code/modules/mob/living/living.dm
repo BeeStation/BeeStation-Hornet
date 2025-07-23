@@ -2115,6 +2115,7 @@
 	target.do_jitter_animation(10)
 	addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living, do_jitter_animation), 10), 5 SECONDS)
 	addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living, revive), TRUE, TRUE), 10 SECONDS)
+
 /// Proc for giving a mob a new 'friend', generally used for AI control and targetting. Returns false if already friends.
 /mob/living/proc/befriend(mob/living/new_friend)
 	SHOULD_CALL_PARENT(TRUE)
@@ -2122,12 +2123,8 @@
 	if (faction.Find(friend_ref))
 		return FALSE
 	faction |= friend_ref
-	if (ai_controller)
-		var/list/friends = ai_controller.blackboard[BB_FRIENDS_LIST]
-		if (!friends)
-			friends = list()
-		friends[WEAKREF(new_friend)] = TRUE
-		ai_controller.blackboard[BB_FRIENDS_LIST] = friends
+	ai_controller?.insert_blackboard_key_lazylist(BB_FRIENDS_LIST, new_friend)
+
 	SEND_SIGNAL(src, COMSIG_LIVING_BEFRIENDED, new_friend)
 	return TRUE
 
@@ -2138,11 +2135,7 @@
 	if (!faction.Find(friend_ref))
 		return FALSE
 	faction -= friend_ref
-	if (ai_controller)
-		var/list/friends = ai_controller.blackboard[BB_FRIENDS_LIST]
-		if (!friends)
-			return
-		friends[WEAKREF(old_friend)] = FALSE
-		ai_controller.blackboard[BB_FRIENDS_LIST] = friends
+	ai_controller?.remove_thing_from_blackboard_key(BB_FRIENDS_LIST, old_friend)
+
 	SEND_SIGNAL(src, COMSIG_LIVING_UNFRIENDED, old_friend)
 	return TRUE

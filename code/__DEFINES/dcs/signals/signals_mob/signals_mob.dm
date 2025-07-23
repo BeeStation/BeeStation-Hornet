@@ -96,3 +96,8 @@
 /// Called before a mob fires a gun (mob/source, obj/item/gun, atom/target, aimed)
 #define COMSIG_MOB_BEFORE_FIRE_GUN "before_fire_gun"
 	#define GUN_HIT_SELF (1 << 0)
+
+/// Sent from /mob/living/basic/proc/look_dead() : ()
+#define COMSIG_BASICMOB_LOOK_DEAD "basicmob_look_dead"
+/// Sent from /mob/living/basic/proc/look_alive() : ()
+#define COMSIG_BASICMOB_LOOK_ALIVE "basicmob_look_alive"

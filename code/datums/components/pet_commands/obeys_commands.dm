@@ -59,7 +59,7 @@
 		return
 	if (!(user in source.ai_controller?.blackboard[BB_FRIENDS_LIST]))
 		return
-	examine_list += span_notice("[source.p_they(capitalized = TRUE)] seem[source.p_s()] happy to see you!")
+	examine_list += span_notice("[source.p_They()] seem[source.p_s()] happy to see you!")
 
 /// Displays a radial menu of commands
 /datum/component/obeys_commands/proc/display_menu(datum/source, mob/living/clicker)
@@ -83,7 +83,7 @@
 			continue
 		radial_options += choice
 
-	var/pick = show_radial_menu(clicker, clicker, radial_options, require_near = TRUE, tooltips = TRUE)
+	var/pick = show_radial_menu(clicker, clicker, radial_options, tooltips = TRUE)
 	if (!pick)
 		return
 	var/datum/pet_command/picked_command = available_commands[pick]

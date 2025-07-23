@@ -8,7 +8,7 @@
  */
 /datum/element/befriend_petting
 	element_flags = ELEMENT_BESPOKE
-	argument_hash_start_idx = 2
+	id_arg_index = 2
 	/// Chance of success per interaction.
 	var/befriend_chance
 	/// Message to print if we gain a friend. String %SOURCE% and %TARGET% are replaced by names if present.
