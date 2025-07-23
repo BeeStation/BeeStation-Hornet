@@ -380,8 +380,15 @@
 
 	if(HAS_TRAIT(target, TRAIT_GIANT))
 		defense_mod += 2
-	if(target.health < 50)
+
+	if(target.health < 80)
 		defense_mod -= 1
+	if(target.health < 60)
+		defense_mod -= 1
+	if(target.health < 40)
+		defense_mod -= 2
+	if(target.health < 20)
+		defense_mod -= 2
 
 	if(ishuman(target))
 		var/mob/living/carbon/human/tackle_target = target
