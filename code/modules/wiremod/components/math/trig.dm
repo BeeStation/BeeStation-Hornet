@@ -9,6 +9,7 @@
 /obj/item/circuit_component/trig
 	display_name = "Generic Trigonometry"
 	desc = "A useless component that all trigonometric based components are built off of."
+	category = "Math"
 
 	/// The input port
 	var/datum/port/input/input

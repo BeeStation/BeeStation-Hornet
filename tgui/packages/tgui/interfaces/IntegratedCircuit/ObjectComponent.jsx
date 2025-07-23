@@ -1,7 +1,7 @@
 import { useBackend } from '../../backend';
-import { Box, Stack, Button } from '../../components';
+import { Box, Stack, Button } from 'tgui/components';
 import { Component } from 'react';
-import { shallowDiffers } from '../../../common/react';
+import { classes, shallowDiffers } from 'common/react';
 import { ABSOLUTE_Y_OFFSET, noop } from './constants';
 import { Port } from './Port';
 
@@ -90,7 +90,7 @@ export class ObjectComponent extends Component {
       x,
       y,
       index,
-      color = 'blue',
+      category = 'Unassigned',
       removable,
       ui_buttons,
       locations,
@@ -128,7 +128,7 @@ export class ObjectComponent extends Component {
         onMouseDown={this.handleStartDrag}
         onMouseUp={this.handleStopDrag}
         onComponentWillUnmount={this.handleDrag}>
-        <Box backgroundColor={color} py={1} px={1} className="ObjectComponent__Titlebar">
+        <Box py={1} px={1} className={classes(['ObjectComponent__Titlebar', `ObjectComponent__Category__${category}`])}>
           <Stack>
             <Stack.Item grow={1} basis="content" unselectable="on">
               {name}
@@ -138,8 +138,8 @@ export class ObjectComponent extends Component {
                 <Stack.Item key={icon}>
                   <Button
                     icon={icon}
-                    color="transparent"
                     compact
+                    color="transparent"
                     onClick={() =>
                       act('perform_action', {
                         component_id: index,
@@ -151,9 +151,9 @@ export class ObjectComponent extends Component {
               ))}
             <Stack.Item>
               <Button
-                color="transparent"
                 icon="info"
                 compact
+                color="transparent"
                 onClick={(e) =>
                   act('set_examined_component', {
                     component_id: index,
@@ -166,9 +166,9 @@ export class ObjectComponent extends Component {
             {!!removable && (
               <Stack.Item>
                 <Button
-                  color="transparent"
                   icon="times"
                   compact
+                  color="transparent"
                   onClick={() => act('detach_component', { component_id: index })}
                 />
               </Stack.Item>
