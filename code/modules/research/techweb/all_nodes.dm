@@ -1150,7 +1150,6 @@
 	export_price = 2000
 	design_ids = list(
 		"antivirus",
-		"bat_control",
 		"bat_nano",
 		"bat_micro",
 		"cardslot",

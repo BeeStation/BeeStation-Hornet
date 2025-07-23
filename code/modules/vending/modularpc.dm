@@ -38,12 +38,11 @@
 			"name" = "Power",
 			"icon" = "battery-half",
 			"products" = list(
-					/obj/item/computer_hardware/battery = 6,
-					/obj/item/stock_parts/cell/computer/nano = 6,
-					/obj/item/stock_parts/cell/computer/micro = 6,
-					/obj/item/stock_parts/cell/computer = 3,
-					/obj/item/stock_parts/cell/computer/advanced = 3,
-					/obj/item/stock_parts/cell/computer/super = 3,
+					/obj/item/computer_hardware/battery/tiny = 6,
+					/obj/item/computer_hardware/battery/small = 6,
+					/obj/item/computer_hardware/battery/standard = 3,
+					/obj/item/computer_hardware/battery/large = 3,
+					/obj/item/computer_hardware/battery/huge = 3,
 			),
 		),
 
