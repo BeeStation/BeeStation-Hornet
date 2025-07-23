@@ -2427,3 +2427,24 @@ Basically, we fill the time between now and 2s from now with hands based off the
 	var/spilled_ants = (round(reac_volume,1) - 5) // To account for ant decals giving 3-5 ants on initialize.
 	pests.reagents.add_reagent(/datum/reagent/ants, spilled_ants)
 	pests.update_ant_damage()
+
+/datum/reagent/consumable/digitigradium
+	name = "Digitigradium"
+	description = "A rare substance that provides a new state of body and mind"
+	color = "#0aa3db"
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN
+	taste_description = "enlightenment"
+
+/datum/reagent/consumable/digitigradium/expose_mob(mob/living/M)
+	if(!ishuman(M))
+		return ..()
+
+	var/mob/living/carbon/human/H = M
+
+	var/obj/item/bodypart/leg/right/digitigrade/new_right_leg = new()
+	var/obj/item/bodypart/leg/left/digitigrade/new_left_leg = new()
+
+	H.del_and_replace_bodypart(new_right_leg)
+	H.del_and_replace_bodypart(new_left_leg)
+
+	return ..()
