@@ -25,6 +25,7 @@
 	. = ..()
 	//AddElement(/datum/element/venomous, /datum/reagent/pax, 5)
 	AddElement(/datum/element/movement_turf_changer, /turf/open/floor/grass/fairy)
+	AddComponent(/datum/component/aggro_emote, emote_list = string_list(list("whinnies")), emote_chance = 20)
 
 /mob/living/basic/cow/moonicorn/udder_component()
 	AddComponent(/datum/component/udder, /obj/item/udder, null, null, /datum/reagent/drug/mushroomhallucinogen)
