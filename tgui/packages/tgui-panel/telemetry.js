@@ -54,7 +54,8 @@ export const telemetryMiddleware = (store) => {
         // Append a connection record
         let telemetryMutated = false;
         const duplicateConnection = telemetry.connections.find((conn) => connectionsMatch(conn, client));
-        if (!duplicateConnection) {
+        // skip guestpreauth ckeys to avoid polluting telemetry
+        if (!duplicateConnection && !client.ckey.startsWith('guestpreauth')) {
           telemetryMutated = true;
           telemetry.connections.unshift(client);
           if (telemetry.connections.length > MAX_CONNECTIONS_STORED) {

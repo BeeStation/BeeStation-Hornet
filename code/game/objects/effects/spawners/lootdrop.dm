@@ -299,7 +299,7 @@
 	name = "10% chance girlfriend spawner"
 	loot = list(
 		/mob/living/basic/pet/dog/corgi = 9,
-		/mob/living/basic/pet/dog/corgi/Lisa = 1)
+		/mob/living/basic/pet/dog/corgi/lisa = 1)
 
 /obj/effect/spawner/lootdrop/sanitarium
 	name = "patient spawner"
@@ -436,8 +436,10 @@
 				/obj/item/circuitboard/machine/nanite_chamber,
 				/obj/item/circuitboard/machine/nanite_programmer,
 				/obj/item/circuitboard/machine/nanite_program_hub,
-				/obj/item/circuitboard/machine/xenoartifact_inbox,
-				/obj/item/circuitboard/computer/xenoartifact_console
+				/obj/item/circuitboard/computer/xenoarchaeology_console,
+				/obj/item/circuitboard/machine/xenoarchaeology_machine/scale,
+				/obj/item/circuitboard/machine/xenoarchaeology_machine/conductor,
+				/obj/item/circuitboard/machine/xenoarchaeology_machine/calibrator
 				)
 
 /obj/effect/spawner/lootdrop/techstorage/security

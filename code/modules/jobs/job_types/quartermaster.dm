@@ -6,11 +6,9 @@
 	supervisors = "the head of personnel"
 	faction = "Station"
 	total_positions = 1
-	spawn_positions = 1
 	selection_color = "#d7b088"
 	exp_requirements = 600
 	exp_type = EXP_TYPE_SUPPLY
-	exp_type_department = EXP_TYPE_SUPPLY
 
 	outfit = /datum/outfit/job/quartermaster
 

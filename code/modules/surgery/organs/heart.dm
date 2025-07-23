@@ -28,8 +28,6 @@
 	///Color of the heart, is set by the species on gain
 	//var/ethereal_color = "#9c3030"
 
-
-
 /obj/item/organ/heart/update_icon()
 	if(beating)
 		icon_state = "[icon_base]-on"
@@ -69,6 +67,7 @@
 
 /obj/item/organ/heart/on_life(delta_time, times_fired)
 	..()
+
 	if(owner.client && beating)
 		failed = FALSE
 		var/sound/slowbeat = sound('sound/health/slowbeat.ogg', repeat = TRUE)
@@ -98,10 +97,8 @@
 		owner.set_heartattack(TRUE)
 		failed = TRUE
 
-/obj/item/organ/heart/get_availability(datum/species/S)
-	if(S.mutantheart)
-		return TRUE //always give heart if mutant is defined
-	return !(NOBLOOD in S.species_traits)
+/obj/item/organ/heart/get_availability(datum/species/owner_species, mob/living/owner_mob)
+	return owner_species.mutantheart
 
 /obj/item/organ/heart/cursed
 	name = "cursed heart"
@@ -130,10 +127,11 @@
 		return ..()
 
 /obj/item/organ/heart/cursed/on_life(delta_time, times_fired)
+	SHOULD_CALL_PARENT(FALSE)
 	if(world.time > (last_pump + pump_delay))
 		if(ishuman(owner) && owner.client) //While this entire item exists to make people suffer, they can't control disconnects.
 			var/mob/living/carbon/human/H = owner
-			if(H.dna && !(NOBLOOD in H.dna.species.species_traits))
+			if(H.dna && !HAS_TRAIT(H, TRAIT_NOBLOOD))
 				H.blood_volume = max(H.blood_volume - blood_loss, 0)
 				to_chat(H, span_userdanger("You have to keep pumping your blood!"))
 				if(add_colour)
@@ -142,10 +140,9 @@
 		else
 			last_pump = world.time //lets be extra fair *sigh*
 
-/obj/item/organ/heart/cursed/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
-	..()
-	if(owner)
-		to_chat(owner, span_userdanger("Your heart has been replaced with a cursed one, you have to pump this one manually otherwise you'll die!"))
+/obj/item/organ/heart/cursed/on_insert(mob/living/carbon/accursed)
+	. = ..()
+	to_chat(accursed, span_userdanger("Your heart has been replaced with a cursed one, you have to pump this one manually otherwise you'll die!"))
 
 /obj/item/organ/heart/cursed/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
@@ -170,7 +167,7 @@
 
 		var/mob/living/carbon/human/H = owner
 		if(istype(H))
-			if(H.dna && !(NOBLOOD in H.dna.species.species_traits))
+			if(H.dna && !HAS_TRAIT(H, TRAIT_NOBLOOD))
 				H.blood_volume = min(H.blood_volume + cursed_heart.blood_loss*0.5, BLOOD_VOLUME_MAXIMUM)
 				H.remove_client_colour(/datum/client_colour/cursed_heart_blood)
 				cursed_heart.add_colour = TRUE

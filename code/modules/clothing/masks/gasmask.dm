@@ -272,6 +272,7 @@
 	return voice_change ? "Unknown" : default_name
 
 /obj/item/clothing/mask/gas/old/modulator/examine()
+	. = ..()
 	. += span_notice("It was modified to make the user's voice sound robotic.")
 	. += "The modulator is currently [voice_change ? "<b>ON</b>" : "<b>OFF</b>"]."
 
@@ -280,5 +281,6 @@
 	to_chat(user, span_notice("The modulator is now [voice_change ? "on" : "off"]!"))
 
 /obj/item/clothing/mask/gas/old/modulator/AltClick(mob/user)
-	voice_change = !voice_change
-	to_chat(user, span_notice("The modulator is now [voice_change ? "on" : "off"]!"))
+	if(user.canUseTopic(src, BE_CLOSE))
+		voice_change = !voice_change
+		to_chat(user, span_notice("The modulator is now [voice_change ? "on" : "off"]!"))

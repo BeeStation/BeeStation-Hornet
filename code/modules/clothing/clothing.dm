@@ -129,7 +129,7 @@
 /obj/item/clothing/attack(mob/living/target, mob/living/user, params)
 	if(user.combat_mode)
 		return //combat mode doesnt eat
-	var/obj/item/organ/tongue/tongue = target.getorganslot(ORGAN_SLOT_TONGUE)
+	var/obj/item/organ/tongue/tongue = target.get_organ_slot(ORGAN_SLOT_TONGUE)
 	if(!istype(tongue, /obj/item/organ/tongue/moth) && !istype(tongue, /obj/item/organ/tongue/psyphoza))
 		return ..() //Not a clotheater tongue? No Clotheating!
 	if((clothing_flags & NOTCONSUMABLE) && (resistance_flags & INDESTRUCTIBLE) && (get_armor_rating(MELEE) != 0))
@@ -286,14 +286,6 @@
 		. += span_warning("<b>[p_theyre(TRUE)] completely shredded and require[p_s()] mending before [p_they()] can be worn again!</b>")
 		return
 
-	switch (max_heat_protection_temperature)
-		if (400 to 1000)
-			. += "[src] offers the wearer limited protection from fire."
-		if (1001 to 1600)
-			. += "[src] offers the wearer some protection from fire."
-		if (1601 to 35000)
-			. += "[src] offers the wearer robust protection from fire."
-
 	for(var/zone in damage_by_parts)
 		var/pct_damage_part = damage_by_parts[zone] / limb_integrity * 100
 		var/zone_name = parse_zone(zone)
@@ -322,8 +314,42 @@
 		how_cool_are_your_threads += "</span>"
 		. += how_cool_are_your_threads.Join()
 
-	if(get_armor().has_any_armor() || (flags_cover & HEADCOVERSMOUTH))
+	if(get_armor().has_any_armor() || (flags_cover & (HEADCOVERSMOUTH)) || (clothing_flags & STOPSPRESSUREDAMAGE) || (visor_flags & STOPSPRESSUREDAMAGE))
 		. += span_notice("It has a <a href='byond://?src=[REF(src)];list_armor=1'>tag</a> listing its protection classes.")
+
+/obj/item/clothing/examine_tags(mob/user)
+	. = ..()
+	if (clothing_flags & THICKMATERIAL)
+		.["thick"] = "Extremely thick, protecting from piercing injections and sprays."
+	else if (get_armor().get_rating(MELEE) >= 10 || get_armor().get_rating(BULLET) >= 10)
+		.["rigid"] = "Protects from some injections and sprays."
+	if (clothing_flags & CASTING_CLOTHES)
+		.["magical"] = "Allows magical beings to cast spells when wearing [src]."
+	if((clothing_flags & STOPSPRESSUREDAMAGE) || (visor_flags & STOPSPRESSUREDAMAGE))
+		.["pressureproof"] = "Protects the wearer from extremely low or high pressure, such as vacuum of space."
+	//if(flags_cover & PEPPERPROOF)
+	//	.["pepperproof"] = "Protects the wearer from the effects of pepperspray."
+	if (heat_protection || cold_protection)
+		var/heat_desc
+		var/cold_desc
+		switch (max_heat_protection_temperature)
+			if (400 to 1000)
+				heat_desc = "high"
+			if (1001 to 1600)
+				heat_desc = "very high"
+			if (1601 to 35000)
+				heat_desc = "extremely high"
+		switch (min_cold_protection_temperature)
+			if (160 to 272)
+				cold_desc = "low"
+			if (72 to 159)
+				cold_desc = "very low"
+			if (0 to 71)
+				cold_desc = "extremely low"
+		.["thermally insulated"] = "Protects the wearer from [jointext(list(heat_desc, cold_desc), " and ")] temperatures."
+
+/obj/item/clothing/examine_descriptor(mob/user)
+	return "clothing"
 
 /obj/item/clothing/Topic(href, href_list)
 	. = ..()
@@ -335,41 +361,69 @@
 			if (istype(thing, /obj/item/clothing))
 				compare_to = thing
 				break
-		to_chat(usr, EXAMINE_BLOCK("[generate_armor_readout(compare_to)]"))
+		to_chat(usr, examine_block("[generate_armor_readout(compare_to)]"))
 
 /obj/item/clothing/proc/generate_armor_readout(obj/item/clothing/compare_to)
 	var/list/readout = list("<span class='notice'><u><b>PROTECTION CLASSES</u></b>")
 
 	var/datum/armor/armor = get_armor()
-	var/datum/armor/comparison_armor = compare_to?.get_armor()
+	var/datum/armor/compare_armor = compare_to ? compare_to.get_armor() : null
+
 	var/added_damage_header = FALSE
 	for(var/damage_key in ARMOR_LIST_DAMAGE)
 		var/rating = armor.get_rating(damage_key)
-		var/second_rating = comparison_armor?.get_rating(damage_key)
-		if(!rating && !second_rating)
+		var/compare_rating = compare_armor ? compare_armor.get_rating(damage_key) : null
+		if(!rating && !compare_rating)
 			continue
 		if(!added_damage_header)
 			readout += "\n<b>ARMOR (I-X)</b>"
 			added_damage_header = TRUE
-		readout += "\n[armor_to_protection_name(damage_key)] [armor_to_protection_class(rating, second_rating)]"
+		readout += "\n[armor_to_protection_name(damage_key)] [armor_to_protection_class(rating, compare_rating)]"
 
 	var/added_durability_header = FALSE
 	for(var/durability_key in ARMOR_LIST_DURABILITY)
 		var/rating = armor.get_rating(durability_key)
-		var/second_rating = comparison_armor?.get_rating(durability_key)
-		if(!rating && !second_rating)
+		var/compare_rating = compare_armor ? compare_armor.get_rating(durability_key) : null
+		if(!rating && !compare_rating)
 			continue
 		if(!added_durability_header)
 			readout += "\n<b>DURABILITY (I-X)</b>"
-			added_damage_header = TRUE
-		readout += "\n[armor_to_protection_name(durability_key)] [armor_to_protection_class(rating, second_rating)]"
+			added_durability_header = TRUE
+		readout += "\n[armor_to_protection_name(durability_key)] [armor_to_protection_class(rating, compare_rating)]"
 
 	if(flags_cover & HEADCOVERSMOUTH)
-		readout += "<br /><b>COVERAGE</b>"
-		readout += "<br />It will block Facehuggers."
-		/* We dont have the tooltips for this
-		readout += "<span class='tooltip'>Because this item is worn on the head and is covering the mouth, it will block facehugger proboscides, killing them</span>."
-		*/
+		var/list/things_blocked = list()
+		if(flags_cover & HEADCOVERSMOUTH)
+			things_blocked += span_tooltip("Because this item is worn on the head and is covering the mouth, it will block facehugger proboscides, killing facehuggers.", "facehuggers")
+		if(length(things_blocked))
+			readout += "<br /><b>COVERAGE</b>"
+			readout += "\nIt will block [english_list(things_blocked)]."
+
+	if((clothing_flags & STOPSPRESSUREDAMAGE) || (visor_flags & STOPSPRESSUREDAMAGE))
+		var/list/parts_covered = list()
+		var/output_string = "It"
+		if(!(clothing_flags & STOPSPRESSUREDAMAGE))
+			output_string = "When sealed, it"
+		if(body_parts_covered & HEAD)
+			parts_covered += "head"
+		if(body_parts_covered & CHEST)
+			parts_covered += "torso"
+		if(length(parts_covered)) // Just in case someone makes spaceproof gloves or something
+			readout += "\n[output_string] will protect the wearer's [english_list(parts_covered)] from [span_tooltip("The extremely low pressure is the biggest danger posed by the vacuum of space.", "low pressure")]."
+
+	var/heat_prot
+	switch (max_heat_protection_temperature)
+		if (400 to 1000)
+			heat_prot = "minor"
+		if (1001 to 1600)
+			heat_prot = "some"
+		if (1601 to 35000)
+			heat_prot = "extreme"
+	if (heat_prot)
+		. += "[src] offers the wearer [heat_protection] protection from heat, up to [max_heat_protection_temperature] kelvin."
+
+	if(min_cold_protection_temperature)
+		readout += "\nIt will insulate the wearer from [min_cold_protection_temperature <= SPACE_SUIT_MIN_TEMP_PROTECT ? span_tooltip("While not as dangerous as the lack of pressure, the extremely low temperature of space is also a hazard.", "the cold of space, down to [min_cold_protection_temperature] kelvin") : "cold, down to [min_cold_protection_temperature] kelvin"]."
 
 	readout += "</span>"
 
@@ -434,7 +488,7 @@ SEE_OBJS  // can see all objs, no matter what
 SEE_TURFS // can see all turfs (and areas), no matter what
 SEE_PIXELS// if an object is located on an unlit area, but some of its pixels are
 		// in a lit area (via pixel_x,y or smooth movement), can see those pixels
-BLIND     // can't see anything
+BLIND	 // can't see anything
 */
 
 /proc/generate_female_clothing(index,t_color,icon,type)

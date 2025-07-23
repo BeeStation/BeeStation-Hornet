@@ -103,100 +103,6 @@
 	name = "Rabid Maintenance Pete"
 	faction = list(FACTION_HOSTILE)
 
-//cow
-/mob/living/simple_animal/cow
-	name = "cow"
-	desc = "Known for their milk, just don't tip them over."
-	icon_state = "cow"
-	icon_living = "cow"
-	icon_dead = "cow_dead"
-	icon_gib = "cow_gib"
-	gender = FEMALE
-	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
-	speak = list("moo?","moo","MOOOOOO")
-	speak_emote = list("moos","moos hauntingly")
-	speak_language = /datum/language/metalanguage
-	emote_hear = list("brays.")
-	emote_see = list("shakes its head.")
-	speak_chance = 1
-	turns_per_move = 5
-	see_in_dark = 6
-	butcher_results = list(/obj/item/food/meat/slab = 6)
-	response_help_continuous = "pets"
-	response_help_simple = "pet"
-	response_disarm_continuous = "gently pushes aside"
-	response_disarm_simple = "gently push aside"
-	response_harm_continuous = "kicks"
-	response_harm_simple = "kick"
-	attack_verb_continuous = "kicks"
-	attack_verb_simple = "kick"
-	attack_sound = 'sound/weapons/punch1.ogg'
-	health = 50
-	maxHealth = 50
-	gold_core_spawnable = FRIENDLY_SPAWN
-	blood_volume = BLOOD_VOLUME_NORMAL
-	chat_color = "#FFFFFF"
-
-	footstep_type = FOOTSTEP_MOB_SHOE
-
-/mob/living/simple_animal/cow/Initialize(mapload)
-	AddComponent(/datum/component/udder)
-	AddComponent(/datum/component/tippable, \
-		tip_time = 0.5 SECONDS, \
-		untip_time = 0.5 SECONDS, \
-		self_right_time = rand(25 SECONDS, 50 SECONDS), \
-		post_tipped_callback = CALLBACK(src, PROC_REF(after_cow_tipped)))
-	AddElement(/datum/element/pet_bonus, "moos happily!")
-	make_tameable()
-	. = ..()
-
-///wrapper for the tameable component addition so you can have non tamable cow subtypes
-/mob/living/simple_animal/cow/proc/make_tameable()
-	AddComponent(/datum/component/tameable, food_types = list(/obj/item/food/grown/wheat), tame_chance = 25, bonus_tame_chance = 15, after_tame = CALLBACK(src, .proc/tamed))
-
-/mob/living/simple_animal/cow/proc/tamed(mob/living/tamer)
-	can_buckle = TRUE
-	buckle_lying = 0
-	AddElement(/datum/element/ridable, /datum/component/riding/creature/cow)
-
-/*
- * Proc called via callback after the cow is tipped by the tippable component.
- * Begins a timer for us pleading for help.
- *
- * tipper - the mob who tipped us
- */
-/mob/living/simple_animal/cow/proc/after_cow_tipped(mob/living/carbon/tipper)
-	addtimer(CALLBACK(src, PROC_REF(look_for_help), tipper), rand(10 SECONDS, 20 SECONDS))
-
-/*
- * Find a mob in a short radius around us (prioritizing the person who originally tipped us)
- * and either look at them for help, or give up. No actual mechanical difference between the two.
- *
- * tipper - the mob who originally tipped us
- */
-/mob/living/simple_animal/cow/proc/look_for_help(mob/living/carbon/tipper)
-	// visible part of the visible message
-	var/seen_message = ""
-	// self part of the visible message
-	var/self_message = ""
-	// the mob we're looking to for aid
-	var/mob/living/carbon/savior
-	// look for someone in a radius around us for help. If our original tipper is in range, prioritize them
-	for(var/mob/living/carbon/potential_aid in oview(3, get_turf(src)))
-		if(potential_aid == tipper)
-			savior = tipper
-			break
-		savior = potential_aid
-
-	if(prob(75) && savior)
-		var/text = pick("imploringly", "pleadingly", "with a resigned expression")
-		seen_message = "[src] looks at [savior] [text]."
-		self_message = "You look at [savior] [text]."
-	else
-		seen_message = "[src] seems resigned to its fate."
-		self_message = "You resign yourself to your fate."
-	visible_message(span_notice("[seen_message]"), span_notice("[self_message]"))
-
 /mob/living/simple_animal/chick
 	name = "\improper chick"
 	desc = "Adorable! They make such a racket though."
@@ -229,6 +135,7 @@
 	health = 3
 	maxHealth = 3
 	ventcrawler = VENTCRAWLER_ALWAYS
+	var/can_grow = TRUE
 	var/amount_grown = 0
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_TINY
@@ -247,6 +154,8 @@
 	. =..()
 	if(!.)
 		return
+	if(!can_grow)
+		return
 	if(!stat && !ckey)
 		amount_grown += rand(0.5 * delta_time, 1 * delta_time)
 		if(amount_grown >= 100)
@@ -262,9 +171,13 @@
 		GLOB.total_chickens--
 	return ..()
 
-/mob/living/simple_animal/chick/holo/Life()
-	..()
-	amount_grown = 0
+/mob/living/simple_animal/chick/holo
+	can_grow = FALSE
+
+/mob/living/simple_animal/chick/dave
+	name = "Dave"
+	desc = "A tiny chick personally rescued from the station's kitchen by the captain, now it's the bridge mascot. Despite his previous high density broiler diet, he seemingly does not grow or age."
+	can_grow = FALSE
 
 /mob/living/simple_animal/chicken
 	name = "\improper chicken"

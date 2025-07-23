@@ -33,7 +33,7 @@
 	///Does the item have a custom premium price override
 	var/custom_premium_price
 	///Whether the product can be recolored by the GAGS system
-	//var/colorable
+	var/colorable
 	///List of items that have been returned to the vending machine.
 	var/list/returned_products
 	/// The category the product was in, if any.
@@ -346,7 +346,7 @@
 		R.max_amount = amount
 		R.custom_price = initial(temp.custom_price)
 		R.custom_premium_price = initial(temp.custom_premium_price)
-		//R.colorable = !!(initial(temp.greyscale_config) && initial(temp.greyscale_colors) && (initial(temp.flags_1) & IS_PLAYER_COLORABLE_1))
+		R.colorable = !!(initial(temp.greyscale_config) && initial(temp.greyscale_colors) && (initial(temp.flags_1) & IS_PLAYER_COLORABLE_1))
 		R.category = product_to_category[typepath]
 		recordlist += R
 
@@ -889,7 +889,7 @@
 		var/list/product_data = list(
 			name = product_record.name,
 			amount = product_record.amount,
-			//colorable = product_record.colorable,
+			colorable = product_record.colorable,
 		)
 
 		.["stock"][product_record.name] = product_data
@@ -1245,7 +1245,7 @@
 				price = item_price,
 				img = base64,
 				amount = vending_machine_input[O],
-				//colorable = FALSE,
+				colorable = FALSE,
 				path = "[replacetext(replacetext("[item_path]", "/obj/item/", ""), "/", "-")]-[O]"
 			)
 			.["stock"]["[replacetext(replacetext("[item_path]", "/obj/item/", ""), "/", "-")]-[O]"] = vending_machine_input[O]
@@ -1338,12 +1338,39 @@
 
 	if(compartmentLoadAccessCheck(user))
 		if(istype(I, /obj/item/pen))
-			name = stripped_input(user,"Set name","Name", name, 20)
-			desc = stripped_input(user,"Set description","Description", desc, 60)
-			slogan_list += stripped_input(user,"Set slogan","Slogan","Epic", 60)
-			last_slogan = world.time + rand(0, slogan_delay)
-			return
-
+			var/penchoice = tgui_input_list(user, "What do you want to edit on [src]?", "", list("Name","Description","Slogan"))
+			switch(penchoice)
+				if("Name")
+					var/newname = tgui_input_text(user,"Set name","Name", name, MAX_NAME_LEN)
+					if(!newname)
+						to_chat(user, span_warning("You need to enter something!"))
+						return
+					if(CHAT_FILTER_CHECK(newname))
+						to_chat(user, span_warning("The name you entered contains forbidden words."))
+						return
+					name = newname
+					return
+				if("Description")
+					var/newdesc = tgui_input_text(user,"Set description","Description", desc, 60)
+					if(!newdesc)
+						to_chat(user, span_warning("You need to enter something!"))
+						return
+					if(CHAT_FILTER_CHECK(newdesc))
+						to_chat(user, span_warning("The description you entered contains forbidden words."))
+						return
+					desc = newdesc
+					return
+				if("Slogan") //I'm going to be real, I don't even know what slogans on vending machines are but it was already a thing so I'm not going to change it
+					var/newslogan = tgui_input_text(user,"Set slogan","Slogan","Cool Slogan", 60)
+					if(!newslogan)
+						to_chat(user, span_warning("You need to enter something!"))
+						return
+					if(CHAT_FILTER_CHECK(newslogan))
+						to_chat(user, span_warning("The slogan you entered contains forbidden words."))
+						return
+					slogan_list = newslogan
+					last_slogan = world.time + rand(0, slogan_delay)
+					return
 	return ..()
 
 /obj/machinery/vending/custom/crowbar_act(mob/living/user, obj/item/I)

@@ -148,7 +148,7 @@
 	msg += "You can find a basic guide at: https://wiki.beestation13.com/view/Heretics"
 	if(locate(/datum/objective/major_sacrifice) in objectives)
 		msg += span_bold("<i>Any</i> head of staff can be sacrificed to complete your objective!")
-	to_chat(owner.current, EXAMINE_BLOCK(span_cult("[msg.Join("\n")]")))
+	to_chat(owner.current, examine_block(span_cult("[msg.Join("\n")]")))
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Heretic",
 		"Collect influences or sacrifice targets to expand your forbidden knowledge.")
 
@@ -669,7 +669,7 @@
  * and returns HERETIC_HAS_LIVING_HEART if they have a living heart
  */
 /datum/antagonist/heretic/proc/has_living_heart()
-	var/obj/item/organ/our_living_heart = owner.current?.getorganslot(ORGAN_SLOT_HEART)
+	var/obj/item/organ/our_living_heart = owner.current?.get_organ_slot(ORGAN_SLOT_HEART)
 	if(!our_living_heart)
 		return HERETIC_NO_HEART_ORGAN
 

@@ -54,9 +54,23 @@
 	visible_message(span_danger("[user] punches [src]!"), \
 					span_userdanger("You're punched by [user]!"), null, COMBAT_MESSAGE_RANGE, user)
 	to_chat(user, span_danger("You punch [src]!"))
-	adjustBruteLoss(15)
+	apply_damage(15, damagetype = BRUTE)
 
 /mob/living/basic/attack_paw(mob/living/carbon/human/user, list/modifiers)
+	if(..()) //successful monkey bite.
+		if(stat != DEAD)
+			var/damage = rand(1, 3)
+			attack_threshold_check(damage)
+			return 1
+	if (!user.combat_mode)
+		if (health > 0)
+			visible_message(span_notice("[user.name] [response_help_continuous] [src]."), \
+							span_notice("[user.name] [response_help_continuous] you."), null, COMBAT_MESSAGE_RANGE, user)
+			to_chat(user, span_notice("You [response_help_simple] [src]."))
+			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
+
+
+/mob/living/basic/attack_alien(mob/living/carbon/alien/humanoid/user, list/modifiers)
 	. = ..()
 	if(!.)
 		return
@@ -65,22 +79,23 @@
 		visible_message(span_danger("[user] [response_disarm_continuous] [name]!"), \
 			span_userdanger("[user] [response_disarm_continuous] you!"), null, COMBAT_MESSAGE_RANGE, user)
 		to_chat(user, span_danger("You [response_disarm_simple] [name]!"))
-		log_combat(user, src, "disarmed")
+		log_combat(user, src, "disarmed", user)
 		return
+
 	visible_message(span_danger("[user] slashes at [src]!"), \
 		span_userdanger("You're slashed at by [user]!"), null, COMBAT_MESSAGE_RANGE, user)
 	to_chat(user, span_danger("You slash at [src]!"))
 	playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
 	attack_threshold_check(user.melee_damage)
-	log_combat(user, src, "attacked")
+	log_combat(user, src, "attacked", user)
 
-/mob/living/basic/attack_larva(mob/living/carbon/alien/larva/L, list/modifiers)
+/mob/living/basic/attack_larva(mob/living/carbon/alien/larva/attacking_larva, list/modifiers)
 	. = ..()
 	if(. && stat != DEAD) //successful larva bite
-		var/damage = rand(5, 10)
+		var/damage = attacking_larva.melee_damage
 		. = attack_threshold_check(damage)
 		if(.)
-			L.amount_grown = min(L.amount_grown + damage, L.max_grown)
+			attacking_larva.amount_grown = min(attacking_larva.amount_grown + damage, attacking_larva.max_grown)
 
 /mob/living/basic/attack_animal(mob/living/simple_animal/user)
 	. = ..()
@@ -134,7 +149,7 @@
 	switch(severity)
 		if (EXPLODE_DEVASTATE)
 			if(prob(bomb_armor))
-				adjustBruteLoss(500)
+				apply_damage(500, damagetype = BRUTE)
 			else
 				investigate_log("has been gibbed by an explosion.", INVESTIGATE_DEATHS)
 				gib()
@@ -143,13 +158,13 @@
 			var/bloss = 60
 			if(prob(bomb_armor))
 				bloss = bloss / 1.5
-			adjustBruteLoss(bloss)
+			apply_damage(bloss, damagetype = BRUTE)
 
 		if (EXPLODE_LIGHT)
 			var/bloss = 30
 			if(prob(bomb_armor))
 				bloss = bloss / 1.5
-			adjustBruteLoss(bloss)
+			apply_damage(bloss, damagetype = BRUTE)
 
 /mob/living/basic/blob_act(obj/structure/blob/attacking_blob)
 	apply_damage(20, damagetype = BRUTE)

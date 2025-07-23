@@ -126,6 +126,15 @@
 	},
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
+"bJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 1
+	},
+/obj/structure/closet/firecloset,
+/turf/open/floor/iron,
+/area/ruin/unpowered/syndicate_lava_base/main)
 "bR" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -1639,6 +1648,13 @@
 /obj/structure/rack,
 /turf/open/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/main)
+"pJ" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/item/xenoarchaeology_labeler,
+/turf/open/floor/engine,
+/area/ruin/unpowered/syndicate_lava_base/science)
 "pK" = (
 /obj/machinery/air_sensor,
 /turf/open/floor/engine/n2,
@@ -1998,13 +2014,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible/layer4,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/science)
-"tV" = (
-/mob/living/simple_animal/rabbit{
-	faction = list("syndicate");
-	desc = "Just a mildly evil rabbit."
-	},
-/turf/open/floor/wood,
-/area/ruin/unpowered/syndicate_lava_base/bar)
 "ub" = (
 /obj/structure/closet/secure_closet/freezer/kitchen/maintenance{
 	req_access = null
@@ -2715,6 +2724,22 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/science)
+"As" = (
+/mob/living/simple_animal/rabbit{
+	faction = list("syndicate");
+	desc = "Just a mildly evil rabbit."
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/mob/living/simple_animal/chicken/rabbit{
+	faction = list("Syndicate");
+	desc = "Just a mildly evil rabbit."
+	},
+/turf/open/floor/wood,
+/area/ruin/unpowered/syndicate_lava_base/bar)
 "Au" = (
 /obj/machinery/washing_machine,
 /obj/effect/decal/cleanable/dirt,
@@ -2918,14 +2943,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
-"Co" = (
-/obj/structure/closet/firecloset/full{
-	anchored = 1
-	},
-/obj/effect/turf_decal/tile/purple/anticorner/contrasted,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/ruin/unpowered/syndicate_lava_base/science)
 "Cp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
@@ -3475,6 +3492,12 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/carpet/grimy,
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
+"HY" = (
+/obj/structure/closet/firecloset,
+/obj/effect/turf_decal/tile/purple/anticorner/contrasted,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron,
+/area/ruin/unpowered/syndicate_lava_base/science)
 "If" = (
 /obj/structure/sign/warning/xeno_mining{
 	pixel_x = -32
@@ -3814,17 +3837,6 @@
 	dir = 4
 	},
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
-/area/ruin/unpowered/syndicate_lava_base/main)
-"Ll" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/red/anticorner/contrasted{
-	dir = 1
-	},
-/obj/structure/closet/firecloset/full{
-	anchored = 1
-	},
-/turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "Lo" = (
 /obj/structure/closet/crate,
@@ -4503,6 +4515,14 @@
 /obj/structure/table_frame,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/science)
+"Rm" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/brown/half/contrasted{
+	dir = 4
+	},
+/obj/structure/closet/firecloset,
+/turf/open/floor/iron,
+/area/ruin/unpowered/syndicate_lava_base/cargo)
 "Ru" = (
 /obj/structure/table/glass,
 /obj/item/stack/sheet/mineral/plasma{
@@ -5201,16 +5221,6 @@
 	dir = 4
 	},
 /area/ruin/unpowered/syndicate_lava_base/medbay)
-"XY" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/brown/half/contrasted{
-	dir = 4
-	},
-/obj/structure/closet/firecloset/full{
-	anchored = 1
-	},
-/turf/open/floor/iron,
-/area/ruin/unpowered/syndicate_lava_base/cargo)
 "Ye" = (
 /obj/machinery/computer/atmos_control{
 	dir = 8;
@@ -5402,13 +5412,6 @@
 	},
 /turf/open/floor/engine/o2,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
-"Zr" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/obj/item/xenoartifact_labeler,
-/turf/open/floor/engine,
-/area/ruin/unpowered/syndicate_lava_base/science)
 "Zw" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -5978,7 +5981,7 @@ ab
 ac
 eh
 Qi
-Zr
+pJ
 xR
 Mr
 ug
@@ -6232,7 +6235,7 @@ aL
 em
 tM
 uk
-Co
+HY
 eh
 Lt
 ab
@@ -6497,7 +6500,7 @@ Yx
 BA
 Jz
 lX
-tV
+As
 Zd
 EL
 jy
@@ -7039,7 +7042,7 @@ hz
 hz
 hz
 hz
-Ll
+bJ
 Bi
 jR
 vK
@@ -7275,7 +7278,7 @@ ab
 ab
 ac
 dy
-XY
+Rm
 DI
 fb
 In

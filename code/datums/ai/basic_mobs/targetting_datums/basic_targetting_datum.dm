@@ -39,8 +39,9 @@
 
 	if(ismecha(the_target)) //Targetting vs mechas
 		var/obj/vehicle/sealed/mecha/M = the_target
-		if(can_attack(living_mob, M.occupants)) //Can we attack any of the occupants?
-			return TRUE
+		for(var/occupant in M.occupants)
+			if(can_attack(living_mob, occupant)) //Can we attack any of the occupants?
+				return TRUE
 
 	if(istype(the_target, /obj/machinery/porta_turret)) //Cringe turret! kill it!
 		var/obj/machinery/porta_turret/P = the_target
@@ -54,6 +55,16 @@
 
 	return FALSE
 
+/// Subtype more forgiving for items.
+/// Careful, this can go wrong and keep a mob hyperfocused on an item it can't lose aggro on
+/datum/targetting_datum/basic/allow_items
+
+/datum/targetting_datum/basic/allow_items/can_attack(mob/living/living_mob, atom/the_target)
+	. = ..()
+	if(isitem(the_target))
+		// trust fall exercise
+		return TRUE
+
 /// Returns true if the mob and target share factions
 /datum/targetting_datum/basic/proc/faction_check(mob/living/living_mob, mob/living/the_target)
 	return living_mob.faction_check_mob(the_target, exact_match = check_factions_exactly)
@@ -64,3 +75,31 @@
 
 /datum/targetting_datum/basic/ignore_faction/faction_check(mob/living/living_mob, mob/living/the_target)
 	return FALSE
+
+/// Subtype which searches for mobs of a size relative to ours
+/datum/targetting_datum/basic/of_size
+	/// If true, we will return mobs which are smaller than us. If false, larger.
+	var/find_smaller = TRUE
+	/// If true, we will return mobs which are the same size as us.
+	var/inclusive = TRUE
+
+/datum/targetting_datum/basic/of_size/can_attack(mob/living/owner, atom/target)
+	if(!isliving(target))
+		return FALSE
+	. = ..()
+	if(!.)
+		return FALSE
+
+	var/mob/living/mob_target = target
+	if(inclusive && owner.mob_size == mob_target.mob_size)
+		return TRUE
+	if(owner.mob_size > mob_target.mob_size)
+		return find_smaller
+	return !find_smaller
+
+// This is just using the default values but the subtype makes it clearer
+/datum/targetting_datum/basic/of_size/ours_or_smaller
+
+/datum/targetting_datum/basic/of_size/larger
+	find_smaller = FALSE
+	inclusive = FALSE

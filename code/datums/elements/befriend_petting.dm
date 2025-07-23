@@ -4,11 +4,11 @@
 /**
  * # Befriend Petting
  *
- * Element which makes a mob befriend you if you pet it enough
+ * Element which makes a mob befriend you if you pet it enough.
  */
 /datum/element/befriend_petting
 	element_flags = ELEMENT_BESPOKE
-	id_arg_index = 2
+	argument_hash_start_idx = 2
 	/// Chance of success per interaction.
 	var/befriend_chance
 	/// Message to print if we gain a friend. String %SOURCE% and %TARGET% are replaced by names if present.
@@ -21,7 +21,6 @@
 
 	src.befriend_chance = befriend_chance
 	src.tamed_reaction = tamed_reaction
-	target.AddElement(/datum/element/ai_retaliate)
 	RegisterSignal(target, COMSIG_ATOM_ATTACK_HAND, PROC_REF(on_click))
 
 /datum/element/befriend_petting/Detach(datum/target)

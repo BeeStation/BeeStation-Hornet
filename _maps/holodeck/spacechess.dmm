@@ -1,221 +1,327 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/turf/open/floor/holofloor/carpet,
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/effect/turf_decal/board_number/four{
+	dir = 4
+	},
+/turf/open/floor/holofloor/wood,
 /area/template_noop)
 "b" = (
-/obj/item/cardboard_cutout/adaptive/chess/black/bishop,
-/turf/open/floor/holofloor/dark,
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/effect/turf_decal/board_number/two{
+	dir = 4
+	},
+/turf/open/floor/holofloor/wood,
+/area/template_noop)
+"d" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/effect/turf_decal/board_number/eight{
+	dir = 4
+	},
+/turf/open/floor/holofloor/wood,
+/area/template_noop)
+"e" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/board_letter/f,
+/turf/open/floor/holofloor/wood,
+/area/template_noop)
+"f" = (
+/obj/structure/chess/blackpawn,
+/turf/open/floor/holofloor/chess_black,
 /area/template_noop)
 "g" = (
-/obj/item/cardboard_cutout/adaptive/chess/pawn,
-/turf/open/floor/holofloor{
-	icon_state = "white"
-	},
+/obj/structure/chess/blackrook,
+/turf/open/floor/holofloor/chess_black,
 /area/template_noop)
-"o" = (
-/obj/item/cardboard_cutout/adaptive/chess/bishop,
-/turf/open/floor/holofloor/dark,
+"i" = (
+/obj/structure/chess/blackknight,
+/turf/open/floor/holofloor/chess_black,
+/area/template_noop)
+"j" = (
+/obj/structure/chess/whitebishop,
+/turf/open/floor/holofloor/chess_white,
+/area/template_noop)
+"k" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/effect/turf_decal/board_number/one{
+	dir = 4
+	},
+/turf/open/floor/holofloor/wood,
+/area/template_noop)
+"l" = (
+/obj/effect/turf_decal/siding/wood/corner,
+/turf/open/floor/holofloor/wood,
+/area/template_noop)
+"m" = (
+/obj/structure/chess/whiteking,
+/turf/open/floor/holofloor/chess_black,
+/area/template_noop)
+"n" = (
+/obj/structure/chess/whitequeen,
+/turf/open/floor/holofloor/chess_white,
+/area/template_noop)
+"p" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/open/floor/holofloor/wood,
 /area/template_noop)
 "q" = (
-/obj/item/cardboard_cutout/adaptive/chess/black/rook,
-/turf/open/floor/holofloor{
-	icon_state = "white"
-	},
+/turf/open/floor/holofloor/chess_white,
 /area/template_noop)
 "r" = (
-/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
-/turf/open/floor/holofloor/dark,
+/obj/structure/chess/blackbishop,
+/turf/open/floor/holofloor/chess_white,
 /area/template_noop)
 "s" = (
-/obj/item/cardboard_cutout/adaptive/chess/rook,
-/turf/open/floor/holofloor/dark,
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/board_letter/a,
+/turf/open/floor/holofloor/wood,
+/area/template_noop)
+"t" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/effect/turf_decal/board_number/three{
+	dir = 4
+	},
+/turf/open/floor/holofloor/wood,
 /area/template_noop)
 "u" = (
-/obj/item/cardboard_cutout/adaptive/chess/knight,
-/turf/open/floor/holofloor{
-	icon_state = "white"
+/obj/structure/chess/blackrook,
+/turf/open/floor/holofloor/chess_white,
+/area/template_noop)
+"x" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
 	},
+/obj/effect/turf_decal/board_number/seven{
+	dir = 4
+	},
+/turf/open/floor/holofloor/wood,
 /area/template_noop)
 "y" = (
-/obj/item/cardboard_cutout/adaptive/chess/black/bishop,
-/turf/open/floor/holofloor{
-	icon_state = "white"
-	},
+/obj/structure/chess/blackbishop,
+/turf/open/floor/holofloor/chess_black,
 /area/template_noop)
 "z" = (
-/obj/item/cardboard_cutout/adaptive/chess/rook,
-/turf/open/floor/holofloor{
-	icon_state = "white"
-	},
+/obj/structure/chess/whiteknight,
+/turf/open/floor/holofloor/chess_white,
 /area/template_noop)
 "A" = (
-/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
-/turf/open/floor/holofloor{
-	icon_state = "white"
-	},
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/board_letter/g,
+/turf/open/floor/holofloor/wood,
 /area/template_noop)
-"G" = (
-/obj/item/cardboard_cutout/adaptive/chess/knight,
-/turf/open/floor/holofloor/dark,
+"C" = (
+/obj/structure/chess/blackking,
+/turf/open/floor/holofloor/chess_white,
+/area/template_noop)
+"E" = (
+/obj/structure/chess/whiterook,
+/turf/open/floor/holofloor/chess_white,
+/area/template_noop)
+"F" = (
+/obj/structure/chess/blackpawn,
+/turf/open/floor/holofloor/chess_white,
 /area/template_noop)
 "H" = (
-/obj/item/cardboard_cutout/adaptive/chess/king,
-/turf/open/floor/holofloor/dark,
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/effect/turf_decal/board_number/six{
+	dir = 4
+	},
+/turf/open/floor/holofloor/wood,
 /area/template_noop)
-"L" = (
-/obj/item/cardboard_cutout/adaptive/chess/black/knight,
-/turf/open/floor/holofloor/dark,
+"I" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/effect/turf_decal/board_number/five{
+	dir = 4
+	},
+/turf/open/floor/holofloor/wood,
+/area/template_noop)
+"J" = (
+/obj/structure/chess/blackknight,
+/turf/open/floor/holofloor/chess_white,
+/area/template_noop)
+"K" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/board_letter/e,
+/turf/open/floor/holofloor/wood,
 /area/template_noop)
 "M" = (
-/obj/item/cardboard_cutout/adaptive/chess/black/king,
-/turf/open/floor/holofloor{
-	icon_state = "white"
-	},
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/board_letter/c,
+/turf/open/floor/holofloor/wood,
 /area/template_noop)
 "N" = (
-/obj/item/cardboard_cutout/adaptive/chess/pawn,
-/turf/open/floor/holofloor/dark,
+/turf/open/floor/holofloor/chess_black,
 /area/template_noop)
 "O" = (
-/obj/item/cardboard_cutout/adaptive/chess/black/knight,
-/turf/open/floor/holofloor{
-	icon_state = "white"
-	},
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/board_letter/h,
+/turf/open/floor/holofloor/wood,
+/area/template_noop)
+"P" = (
+/obj/structure/chess/blackqueen,
+/turf/open/floor/holofloor/chess_black,
 /area/template_noop)
 "Q" = (
-/turf/open/floor/holofloor/dark,
+/obj/structure/chess/whitepawn,
+/turf/open/floor/holofloor/chess_black,
 /area/template_noop)
-"U" = (
-/obj/item/cardboard_cutout/adaptive/chess/bishop,
-/turf/open/floor/holofloor{
-	icon_state = "white"
+"R" = (
+/obj/structure/chess/whitebishop,
+/turf/open/floor/holofloor/chess_black,
+/area/template_noop)
+"S" = (
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 4
 	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 4
+	},
+/turf/open/floor/holofloor/wood,
+/area/template_noop)
+"T" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/board_letter/d,
+/turf/open/floor/holofloor/wood,
 /area/template_noop)
 "V" = (
-/obj/item/cardboard_cutout/adaptive/chess/black/rook,
-/turf/open/floor/holofloor/dark,
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/board_letter/b,
+/turf/open/floor/holofloor/wood,
+/area/template_noop)
+"W" = (
+/obj/structure/chess/whiteknight,
+/turf/open/floor/holofloor/chess_black,
 /area/template_noop)
 "X" = (
-/turf/open/floor/holofloor{
-	icon_state = "white"
-	},
+/obj/structure/chess/whiterook,
+/turf/open/floor/holofloor/chess_black,
 /area/template_noop)
 "Y" = (
-/obj/item/cardboard_cutout/adaptive/chess/black/queen,
-/turf/open/floor/holofloor/dark,
-/area/template_noop)
-"Z" = (
-/obj/item/cardboard_cutout/adaptive/chess/queen,
-/turf/open/floor/holofloor{
-	icon_state = "white"
-	},
+/obj/structure/chess/whitepawn,
+/turf/open/floor/holofloor/chess_white,
 /area/template_noop)
 
 (1,1,1) = {"
+l
+d
+x
+H
+I
 a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+t
+b
+k
+S
 "}
 (2,1,1) = {"
-a
-z
+s
+u
+f
+q
 N
+q
+N
+Y
 X
-Q
-X
-Q
-A
-V
-a
+p
 "}
 (3,1,1) = {"
-a
-G
-g
+V
+i
+F
+N
+q
+N
+q
 Q
-X
-Q
-X
-r
-O
-a
+z
+p
 "}
 (4,1,1) = {"
-a
-U
+M
+r
+f
+q
 N
-X
-Q
-X
-Q
-A
-b
-a
+q
+N
+Y
+R
+p
 "}
 (5,1,1) = {"
-a
-H
-g
+T
+P
+F
+N
+q
+N
+q
 Q
-X
-Q
-X
-r
-M
-a
+n
+p
 "}
 (6,1,1) = {"
-a
-Z
+K
+C
+f
+q
 N
-X
-Q
-X
-Q
-A
+q
+N
 Y
-a
+m
+p
 "}
 (7,1,1) = {"
-a
-o
-g
-Q
-X
-Q
-X
-r
+e
 y
-a
+F
+N
+q
+N
+q
+Q
+j
+p
 "}
 (8,1,1) = {"
-a
-u
-N
-X
-Q
-X
-Q
 A
-L
-a
+J
+f
+q
+N
+q
+N
+Y
+W
+p
 "}
 (9,1,1) = {"
-a
-s
+O
 g
-Q
-X
-Q
-X
-r
+F
+N
 q
-a
+N
+q
+Q
+E
+p
 "}

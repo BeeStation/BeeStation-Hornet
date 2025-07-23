@@ -62,9 +62,11 @@
 
 #define BELOW_MOB_LAYER 3.7
 #define LYING_MOB_LAYER 3.8
+#define MOB_BELOW_PIGGYBACK_LAYER 3.94
 //#define MOB_LAYER 4 //For easy recordkeeping; this is a byond define
 #define MOB_MAX_CLOTHING_LAYER 4.1
 #define MOB_SHIELD_LAYER 4.11
+#define MOB_ABOVE_PIGGYBACK_LAYER 4.16
 #define ABOVE_MOB_LAYER 4.2
 #define WALL_OBJ_LAYER 4.35
 #define EDGED_TURF_LAYER 4.4
@@ -205,6 +207,8 @@
 #define HUD_PLANE 1000
 #define HUD_LAYER 25
 #define HUD_RENDER_TARGET "HUD_PLANE"
+/// Layer for screentips
+#define SCREENTIP_LAYER 26
 
 #define ABOVE_HUD_PLANE 1100
 #define ABOVE_HUD_RENDER_TARGET "ABOVE_HUD_PLANE"

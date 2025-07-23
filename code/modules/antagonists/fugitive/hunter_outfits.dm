@@ -2,9 +2,9 @@
 	name = "Spacepol Nobody (Preview)"
 
 	id = /obj/item/card/id/silver/spacepol
-	uniform = /obj/item/clothing/under/syndicate/combat
+	uniform = /obj/item/clothing/under/rank/security/officer/spacepol
 	ears = /obj/item/radio/headset/headset_spacepol
-	back = /obj/item/storage/backpack/security
+	back = /obj/item/storage/backpack/satchel
 	box = /obj/item/storage/box/survival
 	var/assignment
 
@@ -20,7 +20,7 @@
 	name = "Spacepol Sergeant"
 	assignment = "Spacepol Sergeant"
 	suit = /obj/item/clothing/suit/armor/vest/warden/sergeant
-	belt = /obj/item/storage/belt/military
+	belt = /obj/item/storage/belt/security/full
 	head = /obj/item/clothing/head/beret/sergeant
 	gloves = /obj/item/clothing/gloves/tackler/combat
 	shoes = /obj/item/clothing/shoes/jackboots
@@ -31,8 +31,8 @@
 /datum/outfit/spacepol/officer
 	name = "Spacepol Officer"
 	assignment = "Spacepol Officer"
-	suit = /obj/item/clothing/suit/armor/vest/blueshirt
-	belt = /obj/item/storage/belt/military
+	suit = /obj/item/clothing/suit/armor/vest
+	belt = /obj/item/storage/belt/security/full
 	head = /obj/item/clothing/head/beret/spacepol
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/jackboots
@@ -43,9 +43,9 @@
 	if(visualsOnly)
 		return
 	if(prob(40))
-		head = /obj/item/clothing/head/helmet/alt
+		head = /obj/item/clothing/head/helmet/swat/nanotrasen
 	else if(prob(20))
-		head = /obj/item/clothing/head/helmet/toggleable/riot
+		head = /obj/item/clothing/head/hats/warden
 	if(prob(50))
 		suit = /obj/item/clothing/suit/armor/bulletproof
 

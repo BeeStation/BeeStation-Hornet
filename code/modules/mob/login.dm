@@ -29,6 +29,25 @@
 /mob/Login()
 	if(!client)
 		return FALSE
+	// This can happen in some cases, mainly when a client logs in with the same CKEY as another client
+	// Both clients will get deleted which should ensure nobody uses a mob they don't have access to...
+	if(!istype(src, /mob/dead/new_player/pre_auth) && !client.logged_in)
+		var/msg = "/mob/Login() was called on [key_name(src)] without the assigned client being authenticated! Possible auth bypass! Caller: [key_name(usr)]"
+		var/report_info = "Round ID: [GLOB.round_id] \n\
+		CKEY: [client.ckey] \n\
+		Key: [client.key] \n\
+		BYOND Authenticated Key: [client.byond_authenticated_key] \n\
+		External UID: [client.external_uid] \n\
+		Mob Type: [src.type] \n\
+		Mob Name: [src.name]"
+		log_access("[msg]\n[report_info]")
+		send2tgs("Auth", "[msg]\n[report_info]")
+		message_admins(msg) // just so it's more likely to get reported to maints
+		client << browse(HTML_SKELETON_TITLE("Login Error", "<h2>Danger!</h2><p>You were logged into your mob without fully authenticating. Please report this issue to maintainers.</p><br><br><pre>[report_info]</pre>"))
+		spawn(1)
+			qdel(client)
+		. = FALSE
+		CRASH(msg)
 	// set_eye() is important here, because your eye doesn't know if you're using them as your eye
 	// FALSE when weakref doesn't exist, to prevent using their current eye
 	client.set_eye(client.eye, client.eye_weakref?.resolve() || FALSE)
@@ -112,14 +131,15 @@
 		if(client.tgui_panel)
 			client.tgui_panel.set_verb_infomation(client)
 
-		if(client.player_details.player_actions.len)
-			for(var/datum/action/A in client.player_details.player_actions)
-				A.Grant(src)
+		if(client.player_details)
+			if(client.player_details.player_actions.len)
+				for(var/datum/action/A in client.player_details.player_actions)
+					A.Grant(src)
 
-		for(var/foo in client.player_details.post_login_callbacks)
-			var/datum/callback/CB = foo
-			CB.Invoke()
-		log_played_names(client.ckey,name,real_name)
+			for(var/foo in client.player_details.post_login_callbacks)
+				var/datum/callback/CB = foo
+				CB.Invoke()
+			log_played_names(client.ckey,name,real_name)
 		auto_deadmin_on_login()
 
 	//Sort verbs

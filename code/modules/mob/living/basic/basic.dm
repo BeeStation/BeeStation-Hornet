@@ -5,6 +5,7 @@
 	health = 20
 	maxHealth = 20
 	gender = PLURAL
+	living_flags = MOVES_ON_ITS_OWN
 	status_flags = CANPUSH
 
 	var/basic_mob_flags = NONE
@@ -37,7 +38,7 @@
 	///What kind of objects this mob can smash.
 	var/environment_smash = ENVIRONMENT_SMASH_NONE
 
-	/// 1 for full damage , 0 for none , -1 for 1:1 heal from that source.
+	/// 1 for full damage, 0 for none, -1 for 1:1 heal from that source.
 	var/list/damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
 	///Minimum force required to deal any damage.
 	var/force_threshold = 0
@@ -82,7 +83,19 @@
 	///Sentience type, for slime potions. SHOULD BE AN ELEMENT BUT I DONT CARE ABOUT IT FOR NOW
 	var/sentience_type = SENTIENCE_ORGANIC
 
+	///Leaving something at 0 means it's off - has no maximum.
+	var/list/habitable_atmos = list("min_oxy" = 5, "max_oxy" = 0, "min_plas" = 0, "max_plas" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
+	///This damage is taken when atmos doesn't fit all the requirements above. Set to 0 to avoid adding the atmos_requirements element.
+	var/unsuitable_atmos_damage = 1
 
+	///Minimal body temperature without receiving damage
+	var/minimum_survivable_temperature = 250
+	///Maximal body temperature without receiving damage
+	var/maximum_survivable_temperature = 350
+	///This damage is taken when the body temp is too cold. Set both this and unsuitable_heat_damage to 0 to avoid adding the basic_body_temp_sensitive element.
+	var/unsuitable_cold_damage = 1
+	///This damage is taken when the body temp is too hot. Set both this and unsuitable_cold_damage to 0 to avoid adding the basic_body_temp_sensitive element.
+	var/unsuitable_heat_damage = 1
 
 /mob/living/basic/Initialize(mapload)
 	. = ..()
@@ -101,11 +114,19 @@
 	if(speak_emote)
 		speak_emote = string_list(speak_emote)
 
+	if(unsuitable_atmos_damage != 0)
+		//String assoc list returns a cached list, so this is like a static list to pass into the element below.
+		habitable_atmos = string_assoc_list(habitable_atmos)
+		AddElement(/datum/element/atmos_requirements, habitable_atmos, unsuitable_atmos_damage)
+
+	if(unsuitable_cold_damage != 0 && unsuitable_heat_damage != 0)
+		AddElement(/datum/element/basic_body_temp_sensitive, minimum_survivable_temperature, maximum_survivable_temperature, unsuitable_cold_damage, unsuitable_heat_damage)
+
 /mob/living/basic/Life(delta_time = SSMOBS_DT, times_fired)
 	. = ..()
 	///Automatic stamina re-gain
 	if(staminaloss > 0)
-		adjustStaminaLoss(-stamina_recovery * delta_time, FALSE, TRUE)
+		adjustStaminaLoss(-stamina_recovery * delta_time, updating_health = FALSE, forced = TRUE)
 
 /mob/living/basic/say_mod(input, list/message_mods = list())
 	if(length(speak_emote))
@@ -113,19 +134,12 @@
 	return ..()
 
 /mob/living/basic/death(gibbed)
-	if(!gibbed)
-		if(!(basic_mob_flags & DEL_ON_DEATH))
-			INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "deathgasp")
-
+	. = ..()
 	if(basic_mob_flags & DEL_ON_DEATH)
 		qdel(src)
-		return
-	health = 0
-	icon_state = icon_dead
-	if(basic_mob_flags & FLIP_ON_DEATH)
-		transform = transform.Turn(180)
-	if(!(basic_mob_flags & REMAIN_DENSE_WHILE_DEAD))
-		set_density(FALSE)
+	else
+		health = 0
+		look_dead()
 
 /**
  * Apply the appearance and properties this mob has when it dies
@@ -140,7 +154,7 @@
 
 /mob/living/basic/revive(full_heal = FALSE, admin_revive = FALSE)
 	. = ..()
-	if(!.)
+	if (!.)
 		return
 	look_alive()
 
@@ -160,7 +174,7 @@
 
 /mob/living/basic/proc/melee_attack(atom/target, list/modifiers)
 	face_atom(target)
-	if(SEND_SIGNAL(src, COMSIG_HOSTILE_ATTACKINGTARGET, target) & COMPONENT_HOSTILE_NO_ATTACK)
+	if(SEND_SIGNAL(src, COMSIG_HOSTILE_PRE_ATTACKINGTARGET, target) & COMPONENT_HOSTILE_NO_ATTACK)
 		return FALSE //but more importantly return before attack_animal called
 	var/result = target.attack_basic_mob(src, modifiers)
 	SEND_SIGNAL(src, COMSIG_HOSTILE_POST_ATTACKINGTARGET, target, result)
@@ -184,3 +198,18 @@
 		remove_movespeed_modifier(/datum/movespeed_modifier/simplemob_varspeed)
 	add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/simplemob_varspeed, multiplicative_slowdown = speed)
 	SEND_SIGNAL(src, POST_BASIC_MOB_UPDATE_VARSPEED)
+
+/mob/living/basic/relaymove(mob/living/user, direction)
+	if(user.incapacitated())
+		return
+	return relaydrive(user, direction)
+
+/*
+/mob/living/basic/get_stat_tab_status()
+	var/list/tab_data = ..()
+	tab_data["Health:"] = GENERATE_STAT_TEXT("[round((health / maxHealth) * 100)]%")
+	tab_data["Combat Mode:"] = GENERATE_STAT_TEXT("[combat_mode ? "On" : "Off"]")
+*/
+
+/mob/living/basic/compare_sentience_type(compare_type)
+	return sentience_type == compare_type
