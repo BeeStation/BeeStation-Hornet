@@ -396,6 +396,10 @@
 			defense_mod += 1
 		if(tackle_target.is_shove_knockdown_blocked()) // riot armor and such
 			defense_mod += 5
+		if(tackle_target.combat_mode) // they're ready for you
+			defense_mod += 5
+		if(tackle_target.throw_mode) //they're REALLY ready for you
+			defense_mod += 5
 
 		var/obj/item/organ/tail/lizard/el_tail = tackle_target.get_organ_slot(ORGAN_SLOT_TAIL)
 		if(HAS_TRAIT(tackle_target, TRAIT_TACKLING_TAILED_DEFENDER) && !el_tail)
@@ -435,8 +439,8 @@
 			attack_mod -= 2
 		var/datum/component/mood/human_sacker_sanity = human_sacker.GetComponent(/datum/component/mood)
 		if(human_sacker_sanity.sanity == SANITY_INSANE) //I've gone COMPLETELY INSANE
-			attack_mod += 15
-			human_sacker.adjustStaminaLoss(100) //AHAHAHAHAHAHAHAHA
+			attack_mod += 5
+			human_sacker.adjustStaminaLoss(150) //AHAHAHAHAHAHAHAHA
 
 		if(human_sacker.is_shove_knockdown_blocked()) // tackling with riot specialized armor, like riot armor, is effective but tiring
 			attack_mod += 2
