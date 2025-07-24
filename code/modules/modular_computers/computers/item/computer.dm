@@ -14,8 +14,6 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	light_color = "#FFFFFF"
 	light_on = FALSE
 
-	can_be_unanchored = TRUE
-
 	// Whether the computer is turned on.
 	var/enabled = 0
 	// Whether the computer is active/opened/it's screen is on.
