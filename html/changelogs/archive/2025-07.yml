@@ -385,3 +385,6 @@
   - bugfix: fixed two malf antag info panels opening
   - code_imp: silicon code cleanup and some documentation
   - code_imp: renamed "maintain" lawset to "efficiency"
+2025-07-24:
+  itsmeow:
+  - bugfix: Fixed being unable to look up or locate turfs above you in Multi-Z

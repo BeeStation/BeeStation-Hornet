@@ -1,4 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - bugfix: Fixed being unable to look up or locate turfs above you in Multi-Z
