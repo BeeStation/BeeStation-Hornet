@@ -72,7 +72,7 @@
 	name = "security PDA"
 	default_disk = /obj/item/computer_hardware/hard_drive/role/security
 	icon_state = "pda-security"
-	default_virus_defense = ANTIVIRUS_NONE
+	default_virus_defense = ANTIVIRUS_MEDIUM
 
 /obj/item/modular_computer/tablet/pda/deputy
 	name = "deputy PDA"

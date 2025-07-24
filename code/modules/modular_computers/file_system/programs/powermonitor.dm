@@ -30,8 +30,6 @@
 	search()
 	history["supply"] = list()
 	history["demand"] = list()
-	if(istype(computer, /obj/machinery/modular_computer/console)) // This way the console doesn't require a signaller
-		return
 
 /datum/computer_file/program/power_monitor/process_tick()
 	if(!get_powernet())

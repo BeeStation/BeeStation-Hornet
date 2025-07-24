@@ -6048,7 +6048,7 @@
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
 "bwY" = (
-/obj/machinery/modular_computer/console/preset/curator{
+/obj/item/modular_computer/console/preset/curator{
 	dir = 8
 	},
 /obj/item/radio/intercom{
@@ -23895,7 +23895,7 @@
 /turf/open/floor/iron/dark,
 /area/medical/storage)
 "gfz" = (
-/obj/machinery/modular_computer/console/preset/engineering{
+/obj/item/modular_computer/console/preset/engineering{
 	dir = 1
 	},
 /obj/effect/turf_decal/delivery,
@@ -24665,7 +24665,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/modular_computer/console/preset/command,
+/obj/item/modular_computer/console/preset/command,
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 4
 	},
@@ -24690,7 +24690,7 @@
 /turf/open/floor/iron/dark,
 /area/security/brig)
 "gqb" = (
-/obj/machinery/modular_computer/console/preset/engineering{
+/obj/item/modular_computer/console/preset/engineering{
 	dir = 8
 	},
 /obj/structure/window/reinforced{
@@ -31423,7 +31423,7 @@
 /turf/open/floor/iron/dark,
 /area/quartermaster/miningdock)
 "iaG" = (
-/obj/machinery/modular_computer/console/preset/research{
+/obj/item/modular_computer/console/preset/research{
 	dir = 1
 	},
 /obj/machinery/status_display/evac{
@@ -38758,7 +38758,7 @@
 /turf/open/floor/iron/dark,
 /area/hallway/primary/central)
 "jVv" = (
-/obj/machinery/modular_computer/console/preset/research,
+/obj/item/modular_computer/console/preset/research,
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/heads/hor)
 "jVC" = (
@@ -40667,7 +40667,7 @@
 /turf/open/floor/iron/dark,
 /area/maintenance/department/science)
 "ktM" = (
-/obj/machinery/modular_computer/console/preset/engineering,
+/obj/item/modular_computer/console/preset/engineering,
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 4
 	},
@@ -48186,7 +48186,7 @@
 /area/space/nearstation)
 "mmP" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/modular_computer/console/preset/engineering{
+/obj/item/modular_computer/console/preset/engineering{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners{
@@ -87279,7 +87279,7 @@
 /obj/machinery/airalarm/directional/west{
 	pixel_x = -22
 	},
-/obj/machinery/modular_computer/console/preset/engineering{
+/obj/item/modular_computer/console/preset/engineering{
 	dir = 1
 	},
 /obj/effect/turf_decal/bot,

@@ -8574,7 +8574,7 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Vn" = (
-/obj/machinery/modular_computer/console/preset/engineering{
+/obj/item/modular_computer/console/preset/engineering{
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,

@@ -1,87 +1,82 @@
-/obj/machinery/modular_computer/console/preset
+/obj/item/modular_computer/console/preset
 	// Can be changed to give devices specific hardware
-	var/_has_second_id_slot = FALSE
-	var/_has_printer = FALSE
-	var/_has_battery = FALSE
-	var/_has_ai = FALSE
+	var/spawn_card_slot = FALSE
+	var/spawn_second_id_slot = FALSE
+	var/spawn_printer = FALSE
+	var/spawn_battery = FALSE
+	var/spawn_ai_slot = FALSE
+	var/spawn_network_card = TRUE	// We want this to be a little evil, a little mischevious a little rapscallion.
 
-/obj/machinery/modular_computer/console/preset/Initialize(mapload)
+/obj/item/modular_computer/console/preset/Initialize(mapload)
 	. = ..()
-	if(!cpu)
-		return
-	cpu.install_component(new /obj/item/computer_hardware/processor_unit)
 
-	cpu.install_component(new /obj/item/computer_hardware/card_slot)
-	if(_has_second_id_slot)
-		cpu.install_component(new /obj/item/computer_hardware/card_slot/secondary)
-	if(_has_printer)
-		cpu.install_component(new /obj/item/computer_hardware/printer)
-	if(_has_battery)
-		cpu.install_component(new /obj/item/computer_hardware/battery(cpu, /obj/item/stock_parts/cell/computer/super))
-	if(_has_ai)
-		cpu.install_component(new /obj/item/computer_hardware/ai_slot)
+	install_component(new /obj/item/computer_hardware/recharger/APC)
+	install_component(new /obj/item/computer_hardware/processor_unit)
+	install_component(new /obj/item/computer_hardware/hard_drive/super) // Consoles generally have better HDDs due to lower space limitations
+
+	if(spawn_network_card)
+		var/obj/item/computer_hardware/network_card/wired/network_card = new()
+		install_component(network_card)
+		if(console_department)
+			network_card.identification_string = ("[console_department]_console")
+		else
+			network_card.identification_string = "unknown_console"
+	if(spawn_card_slot)
+		install_component(new /obj/item/computer_hardware/card_slot)
+	if(spawn_second_id_slot)
+		install_component(new /obj/item/computer_hardware/card_slot/secondary)
+	if(spawn_printer)
+		install_component(new /obj/item/computer_hardware/printer)
+	if(spawn_battery)
+		install_component(new /obj/item/computer_hardware/battery(/obj/item/stock_parts/cell/computer/super))
+	if(spawn_ai_slot)
+		install_component(new /obj/item/computer_hardware/ai_slot)
 	install_programs()
+	update_appearance()
 
 // Override in child types to install preset-specific programs.
-/obj/machinery/modular_computer/console/preset/proc/install_programs()
-	return
+/obj/item/modular_computer/console/preset/proc/install_programs()	//Consoles should use disk jobs, they gotta be THIEVERISH-able
+	var/obj/item/computer_hardware/hard_drive/hard_drive = all_components[MC_HDD]
+	if(!hard_drive)
+		return
+	hard_drive.store_file(new/datum/computer_file/program/chatclient())	// We're giving all of them this silly old thing, see if people use it or not
 
 // ===== ENGINEERING CONSOLE =====
-/obj/machinery/modular_computer/console/preset/engineering
-	console_department = "Engineering"
+/obj/item/modular_computer/console/preset/engineering
+	console_department = "eng"
 	name = "engineering console"
-	desc = "A stationary computer. This one comes preloaded with engineering programs."
-
-/obj/machinery/modular_computer/console/preset/engineering/install_programs()
-	var/obj/item/computer_hardware/hard_drive/hard_drive = cpu.all_components[MC_HDD]
-	hard_drive.store_file(new/datum/computer_file/program/power_monitor())
-	hard_drive.store_file(new/datum/computer_file/program/alarm_monitor())
-	hard_drive.store_file(new/datum/computer_file/program/supermatter_monitor())
+	desc = "A stationary computer built to keep tabs on the station's overall integrity"
+	default_disk = /obj/item/computer_hardware/hard_drive/role/engineering
 
 // ===== RESEARCH CONSOLE =====
-/obj/machinery/modular_computer/console/preset/research
-	console_department = "Research"
-	name = "research director's console"
-	desc = "A stationary computer. This one comes preloaded with research programs."
-	_has_ai = TRUE
-
-/obj/machinery/modular_computer/console/preset/research/install_programs()
-	var/obj/item/computer_hardware/hard_drive/hard_drive = cpu.all_components[MC_HDD]
-	hard_drive.store_file(new/datum/computer_file/program/ntnetmonitor())
-	hard_drive.store_file(new/datum/computer_file/program/chatclient())
-	hard_drive.store_file(new/datum/computer_file/program/aidiag())
-
+/obj/item/modular_computer/console/preset/research
+	console_department = "sci"
+	name = "research console"
+	desc = "A stationary computer built for AI restauration and log viewing."
+	spawn_ai_slot = TRUE
+	default_disk = /obj/item/computer_hardware/hard_drive/role/sci_console
 
 // ===== COMMAND CONSOLE =====
-/obj/machinery/modular_computer/console/preset/command
-	console_department = "Command"
+/obj/item/modular_computer/console/preset/command
+	console_department = "com"
 	name = "command console"
 	desc = "A stationary computer. This one comes preloaded with command programs."
-	_has_second_id_slot = TRUE
-	_has_printer = TRUE
-
-/obj/machinery/modular_computer/console/preset/command/install_programs()
-	var/obj/item/computer_hardware/hard_drive/hard_drive = cpu.all_components[MC_HDD]
-	hard_drive.store_file(new/datum/computer_file/program/chatclient())
-	hard_drive.store_file(new/datum/computer_file/program/card_mod())
+	spawn_card_slot = TRUE
+	spawn_second_id_slot = TRUE
+	spawn_printer = TRUE
+	default_disk = /obj/item/computer_hardware/hard_drive/role/hop_console
 
 // ===== CIVILIAN CONSOLE =====
-/obj/machinery/modular_computer/console/preset/civilian
-	console_department = "Civilian"
-	name = "civilian console"
-	desc = "A stationary computer. This one comes preloaded with generic programs."
-
-/obj/machinery/modular_computer/console/preset/civilian/install_programs()
-	var/obj/item/computer_hardware/hard_drive/hard_drive = cpu.all_components[MC_HDD]
-	hard_drive.store_file(new/datum/computer_file/program/chatclient())
+/obj/item/modular_computer/console/preset/civilian
+	console_department = "pub"
+	name = "public console"
+	desc = "A stationary computer for public use."
+	spawn_card_slot = TRUE
 
 // curator
-/obj/machinery/modular_computer/console/preset/curator
-	console_department = "Civilian"
+/obj/item/modular_computer/console/preset/curator
+	console_department = "lib"
 	name = "curator console"
-	desc = "A stationary computer. This one comes preloaded with art programs."
-	_has_printer = TRUE
-
-/obj/machinery/modular_computer/console/preset/curator/install_programs()
-	var/obj/item/computer_hardware/hard_drive/hard_drive = cpu.all_components[MC_HDD]
-	hard_drive.store_file(new/datum/computer_file/program/portrait_printer())
+	desc = "A stationary library computer built to handle curator related affairs."
+	spawn_printer = TRUE
+	default_disk = /obj/item/computer_hardware/hard_drive/role/curator

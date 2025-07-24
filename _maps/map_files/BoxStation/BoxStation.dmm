@@ -1878,7 +1878,7 @@
 /turf/open/floor/plating/dirt/jungle,
 /area/medical/genetics)
 "azc" = (
-/obj/machinery/modular_computer/console/preset/engineering,
+/obj/item/modular_computer/console/preset/engineering,
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted{
 	dir = 1
 	},
@@ -6599,7 +6599,7 @@
 /turf/open/floor/iron/white,
 /area/crew_quarters/heads/hor)
 "bzN" = (
-/obj/machinery/modular_computer/console/preset/research{
+/obj/item/modular_computer/console/preset/research{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -8407,7 +8407,7 @@
 /turf/open/floor/iron,
 /area/crew_quarters/heads/hos)
 "bRn" = (
-/obj/machinery/modular_computer/console/preset/command,
+/obj/item/modular_computer/console/preset/command,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 1
 	},
@@ -28091,7 +28091,7 @@
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
 "hQb" = (
-/obj/machinery/modular_computer/console/preset/engineering,
+/obj/item/modular_computer/console/preset/engineering,
 /obj/effect/turf_decal/bot{
 	dir = 1
 	},
@@ -31084,7 +31084,7 @@
 	},
 /area/hallway/secondary/exit)
 "iXG" = (
-/obj/machinery/modular_computer/console/preset/curator{
+/obj/item/modular_computer/console/preset/curator{
 	dir = 1
 	},
 /turf/open/floor/wood,

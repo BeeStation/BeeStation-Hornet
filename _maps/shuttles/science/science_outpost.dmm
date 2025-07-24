@@ -93,7 +93,7 @@
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/science)
 "A" = (
-/obj/machinery/modular_computer/console/preset/research,
+/obj/item/modular_computer/console/preset/research,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
 "H" = (

@@ -16871,7 +16871,7 @@
 	dir = 8;
 	pixel_x = 28
 	},
-/obj/machinery/modular_computer/console/preset/engineering,
+/obj/item/modular_computer/console/preset/engineering,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
@@ -36221,7 +36221,7 @@
 /turf/open/floor/iron,
 /area/security/main)
 "jJm" = (
-/obj/machinery/modular_computer/console/preset/engineering{
+/obj/item/modular_computer/console/preset/engineering{
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
@@ -42458,7 +42458,7 @@
 /turf/open/floor/iron/showroomfloor,
 /area/science/research)
 "lQB" = (
-/obj/machinery/modular_computer/console/preset/engineering,
+/obj/item/modular_computer/console/preset/engineering,
 /obj/machinery/requests_console{
 	department = "Engineering";
 	departmentType = 4;
@@ -47575,7 +47575,7 @@
 /turf/open/floor/iron,
 /area/security/brig)
 "nyN" = (
-/obj/machinery/modular_computer/console/preset/command,
+/obj/item/modular_computer/console/preset/command,
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 4
 	},
@@ -60510,7 +60510,7 @@
 /turf/open/floor/iron,
 /area/teleporter)
 "rGJ" = (
-/obj/machinery/modular_computer/console/preset/research{
+/obj/item/modular_computer/console/preset/research{
 	dir = 8
 	},
 /obj/machinery/computer/security/telescreen/rd{
@@ -68181,7 +68181,7 @@
 	c_tag = "Library";
 	name = "bar camera"
 	},
-/obj/machinery/modular_computer/console/preset/curator,
+/obj/item/modular_computer/console/preset/curator,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/iron/dark,
 /area/library)
@@ -69223,7 +69223,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/obj/machinery/modular_computer/console/preset/engineering{
+/obj/item/modular_computer/console/preset/engineering{
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
@@ -71372,7 +71372,7 @@
 /turf/open/floor/iron/dark,
 /area/quartermaster/office)
 "vfQ" = (
-/obj/machinery/modular_computer/console/preset/engineering{
+/obj/item/modular_computer/console/preset/engineering{
 	dir = 8
 	},
 /obj/machinery/status_display/evac{

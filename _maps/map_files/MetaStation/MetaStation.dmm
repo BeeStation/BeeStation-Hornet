@@ -17383,7 +17383,7 @@
 	pixel_y = 30;
 	receive_ore_updates = 1
 	},
-/obj/machinery/modular_computer/console/preset/research{
+/obj/item/modular_computer/console/preset/research{
 	dir = 8
 	},
 /turf/open/floor/carpet/purple,
@@ -18707,7 +18707,7 @@
 /turf/open/floor/iron,
 /area/science/robotics/lab)
 "cGe" = (
-/obj/machinery/modular_computer/console/preset/engineering,
+/obj/item/modular_computer/console/preset/engineering,
 /obj/item/storage/secure/safe/caps_spare{
 	pixel_x = 6;
 	pixel_y = 28
@@ -49596,7 +49596,7 @@
 	pixel_x = -23;
 	air_conditioning = 0
 	},
-/obj/machinery/modular_computer/console/preset/command,
+/obj/item/modular_computer/console/preset/command,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 1
 	},
@@ -72777,7 +72777,7 @@
 /turf/open/floor/iron,
 /area/hydroponics)
 "vMK" = (
-/obj/machinery/modular_computer/console/preset/curator{
+/obj/item/modular_computer/console/preset/curator{
 	dir = 4
 	},
 /turf/open/floor/wood,
@@ -74026,7 +74026,7 @@
 /obj/machinery/camera/directional/north{
 	c_tag = "Engineering - Power Monitoring"
 	},
-/obj/machinery/modular_computer/console/preset/engineering,
+/obj/item/modular_computer/console/preset/engineering,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/engine/engineering)

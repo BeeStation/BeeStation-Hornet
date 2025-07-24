@@ -4570,7 +4570,7 @@
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "Sg" = (
-/obj/machinery/modular_computer/console/preset/civilian,
+/obj/item/modular_computer/console/preset/civilian,
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/bridge)
 "Sj" = (

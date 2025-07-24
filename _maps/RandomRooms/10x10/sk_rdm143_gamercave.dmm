@@ -54,7 +54,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "l" = (
-/obj/machinery/modular_computer/console/preset/civilian,
+/obj/item/modular_computer/console/preset/civilian,
 /turf/open/floor/plating,
 /area/template_noop)
 "m" = (

@@ -14,17 +14,6 @@
 		return null
 	return all_components[part_type]
 
-
-/obj/machinery/modular_computer/is_modular_computer()
-	return TRUE
-
-/obj/machinery/modular_computer/get_modular_computer_part(part_type)
-	if(!part_type)
-		stack_trace("get_modular_computer_part() called without a valid part_type")
-		return null
-	return cpu?.all_components[part_type]
-
-
 /obj/proc/get_modular_computer_parts_examine(mob/user)
 	. = list()
 	if(!is_modular_computer())

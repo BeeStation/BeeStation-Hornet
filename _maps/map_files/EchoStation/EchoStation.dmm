@@ -1673,7 +1673,7 @@
 /turf/open/openspace/planetary,
 /area/engineering/hallway)
 "aKw" = (
-/obj/machinery/modular_computer/console/preset/command,
+/obj/item/modular_computer/console/preset/command,
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 4
 	},
@@ -4162,7 +4162,7 @@
 /area/science/xenobiology)
 "bYs" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/modular_computer/console/preset/curator,
+/obj/item/modular_computer/console/preset/curator,
 /obj/structure/light_construct{
 	dir = 1
 	},
@@ -6298,7 +6298,7 @@
 /area/engine/engineering)
 "dgB" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/machinery/modular_computer/console/preset/engineering{
+/obj/item/modular_computer/console/preset/engineering{
 	dir = 8
 	},
 /obj/machinery/camera/directional/east,
@@ -8467,7 +8467,7 @@
 /turf/open/floor/iron/white,
 /area/medical/genetics/cloning)
 "esn" = (
-/obj/machinery/modular_computer/console/preset/engineering{
+/obj/item/modular_computer/console/preset/engineering{
 	dir = 8
 	},
 /obj/structure/cable/yellow{
@@ -11527,7 +11527,7 @@
 /turf/closed/wall,
 /area/hallway/primary/aft)
 "fSZ" = (
-/obj/machinery/modular_computer/console/preset/research{
+/obj/item/modular_computer/console/preset/research{
 	dir = 8
 	},
 /obj/effect/turf_decal/siding/wideplating/dark{
@@ -19271,7 +19271,7 @@
 /turf/open/floor/iron/large,
 /area/engine/engineering)
 "jYk" = (
-/obj/machinery/modular_computer/console/preset/engineering,
+/obj/item/modular_computer/console/preset/engineering,
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 4
 	},
@@ -27694,7 +27694,7 @@
 /area/hydroponics)
 "oCp" = (
 /obj/structure/lattice/catwalk/over,
-/obj/machinery/modular_computer/console/preset/engineering{
+/obj/item/modular_computer/console/preset/engineering{
 	dir = 1
 	},
 /turf/open/openspace/planetary,

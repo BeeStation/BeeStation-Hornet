@@ -9142,7 +9142,7 @@
 /area/crew_quarters/bar)
 "cTs" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/modular_computer/console/preset/engineering,
+/obj/item/modular_computer/console/preset/engineering,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/chief)
 "cTF" = (
@@ -30189,7 +30189,7 @@
 /area/engine/engine_room)
 "jOT" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/modular_computer/console/preset/engineering,
+/obj/item/modular_computer/console/preset/engineering,
 /obj/structure/disposalpipe/segment{
 	dir = 1
 	},
@@ -39361,7 +39361,7 @@
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
 "mZq" = (
-/obj/machinery/modular_computer/console/preset/research{
+/obj/item/modular_computer/console/preset/research{
 	dir = 8
 	},
 /obj/effect/turf_decal/siding/wood{
@@ -43929,7 +43929,7 @@
 /area/engine/atmos)
 "oDk" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/modular_computer/console/preset/engineering,
+/obj/item/modular_computer/console/preset/engineering,
 /obj/effect/turf_decal/stripes/line,
 /obj/item/radio/intercom{
 	pixel_x = 1;
@@ -49839,7 +49839,7 @@
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/fore)
 "qwg" = (
-/obj/machinery/modular_computer/console/preset/command,
+/obj/item/modular_computer/console/preset/command,
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted{
 	alpha = 180
 	},
@@ -59200,7 +59200,7 @@
 /turf/open/floor/carpet,
 /area/library)
 "tzV" = (
-/obj/machinery/modular_computer/console/preset/curator{
+/obj/item/modular_computer/console/preset/curator{
 	dir = 1
 	},
 /obj/effect/turf_decal/bot,
@@ -59463,7 +59463,7 @@
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "tDj" = (
-/obj/machinery/modular_computer/console/preset/engineering,
+/obj/item/modular_computer/console/preset/engineering,
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted{
 	alpha = 180
 	},
@@ -66380,7 +66380,7 @@
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/maintenance/department/security)
 "vQr" = (
-/obj/machinery/modular_computer/console/preset/civilian{
+/obj/item/modular_computer/console/preset/civilian{
 	dir = 4
 	},
 /turf/open/floor/carpet,

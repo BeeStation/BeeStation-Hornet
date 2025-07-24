@@ -317,7 +317,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 	comp_light_luminosity = 2.3
 	max_hardware_size = WEIGHT_CLASS_TINY
 
-	var/default_disk = 0
 	/// If the PDA has been picked up / equipped before. This is used to set the user's preference background color / theme.
 	var/equipped = FALSE
 
@@ -362,9 +361,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 	var/obj/item/computer_hardware/hard_drive/hdd = all_components[MC_HDD]
 	if(hdd)
 		hdd.virus_defense = default_virus_defense
-	if(default_disk)
-		var/obj/item/computer_hardware/hard_drive/portable/disk = new default_disk(src)
-		install_component(disk)
 
 	if(insert_type)
 		inserted_item = new insert_type(src)

@@ -5059,7 +5059,7 @@
 /obj/structure/platform/wood{
 	dir = 10
 	},
-/obj/machinery/modular_computer/console/preset/command{
+/obj/item/modular_computer/console/preset/command{
 	dir = 4;
 	pixel_x = -2
 	},
@@ -15294,7 +15294,7 @@
 /area/storage/primary)
 "cYJ" = (
 /obj/structure/window/reinforced/spawner/north,
-/obj/machinery/modular_computer/console/preset/curator,
+/obj/item/modular_computer/console/preset/curator,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
@@ -71521,7 +71521,7 @@
 	},
 /area/hallway/secondary/entry)
 "oAd" = (
-/obj/machinery/modular_computer/console/preset/engineering{
+/obj/item/modular_computer/console/preset/engineering{
 	dir = 8
 	},
 /obj/effect/turf_decal/trimline/yellow/filled/line{
@@ -76810,7 +76810,7 @@
 	},
 /area/storage/tools)
 "pAE" = (
-/obj/machinery/modular_computer/console/preset/engineering{
+/obj/item/modular_computer/console/preset/engineering{
 	dir = 8
 	},
 /obj/effect/turf_decal/siding/wood{
@@ -79171,7 +79171,7 @@
 /obj/structure/railing/perspective/black{
 	dir = 10
 	},
-/obj/machinery/modular_computer/console/preset/command{
+/obj/item/modular_computer/console/preset/command{
 	dir = 4
 	},
 /obj/effect/turf_decal/trimline/dark_blue/filled/corner{
@@ -81497,7 +81497,7 @@
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat/hallway)
 "qzM" = (
-/obj/machinery/modular_computer/console/preset/engineering,
+/obj/item/modular_computer/console/preset/engineering,
 /obj/effect/turf_decal/edges/techfloor_orange,
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 1
@@ -89756,7 +89756,7 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 4
 	},
-/obj/machinery/modular_computer/console/preset/civilian{
+/obj/item/modular_computer/console/preset/civilian{
 	dir = 8
 	},
 /obj/structure/sign/plaques/kiddie/perfect_man{
@@ -92660,7 +92660,7 @@
 /turf/open/floor/wood/broken,
 /area/vacant_room/office)
 "sQm" = (
-/obj/machinery/modular_computer/console/preset/engineering{
+/obj/item/modular_computer/console/preset/engineering{
 	dir = 4
 	},
 /obj/effect/turf_decal/trimline/yellow/filled/line{
@@ -103034,7 +103034,7 @@
 /area/chapel/office)
 "uTY" = (
 /obj/effect/turf_decal/trimline/yellow/filled/corner,
-/obj/machinery/modular_computer/console/preset/engineering,
+/obj/item/modular_computer/console/preset/engineering,
 /obj/machinery/camera/directional/north,
 /obj/structure/sign/poster/official/random/directional/north,
 /turf/open/floor/iron/grid/steel,
@@ -112121,7 +112121,7 @@
 /turf/open/floor/iron/dark,
 /area/science/xenobiology)
 "wII" = (
-/obj/machinery/modular_computer/console/preset/engineering{
+/obj/item/modular_computer/console/preset/engineering{
 	dir = 1
 	},
 /obj/effect/turf_decal/trimline/yellow/filled/line,
@@ -113548,7 +113548,7 @@
 /turf/open/floor/wood,
 /area/medical/exam_room)
 "wZC" = (
-/obj/machinery/modular_computer/console/preset/research{
+/obj/item/modular_computer/console/preset/research{
 	dir = 8
 	},
 /obj/effect/turf_decal/siding/white{

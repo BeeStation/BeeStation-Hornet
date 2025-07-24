@@ -17,6 +17,8 @@
 #define DISK_SILO_LOG (1<<14)
 #define DISK_HOP (1<<15)
 #define DISK_NETWORK (1<<16)
+#define DISK_AIRESTORE (1<<17)
+#define DISK_PORTRAIT (1<<18)
 
 // Theme defines
 

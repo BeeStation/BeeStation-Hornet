@@ -59,7 +59,7 @@
 	var/list/data = list()
 	var/turf/turf = get_turf(computer)
 	data["atmozphereMode"] = atmozphere_mode
-	data["clickAtmozphereCompatible"] = (!istype(computer, /obj/machinery/modular_computer/console))
+	data["clickAtmozphereCompatible"] = (!istype(computer, /obj/item/modular_computer/console))
 	switch (atmozphere_mode) //Null air wont cause errors, don't worry.
 		if(ATMOZPHERE_SCAN_ENV)
 			var/datum/gas_mixture/air = turf?.return_air()

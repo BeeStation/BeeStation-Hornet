@@ -14,6 +14,8 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	light_color = "#FFFFFF"
 	light_on = FALSE
 
+	can_be_unanchored = TRUE
+
 	// Whether the computer is turned on.
 	var/enabled = 0
 	// Whether the computer is active/opened/it's screen is on.
@@ -98,6 +100,8 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	var/can_store_pai = FALSE
 	/// Level of Virus Defense to be added on initialize to the pre instaled hard drive this happens in tablet/PDA, Normal detomatix halves at 2, fails at 3
 	var/default_virus_defense = ANTIVIRUS_NONE
+	/// Disk that is installed by default on this computer
+	var/default_disk
 
 /datum/armor/item_modular_computer
 	bullet = 20
@@ -117,6 +121,9 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	update_id_display()
 	if(has_light)
 		add_item_action(/datum/action/item_action/toggle_computer_light)
+	if(default_disk)
+		var/obj/item/computer_hardware/hard_drive/portable/disk = new default_disk(src)
+		install_component(disk)
 	update_appearance()
 	add_messenger()
 
@@ -710,6 +717,18 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	tool.play_tool_sound(user, volume = 20)
 	ui_update()
 
+/obj/item/modular_computer/wrench_act(mob/living/user, obj/item/tool)
+	if(length(all_components))
+		balloon_alert(user, "Remove all components before dissassembly.")
+		return
+	tool.play_tool_sound(user, volume=20)
+	if(!do_after(user, 2 SECONDS))
+		return
+	new /obj/item/stack/sheet/iron( get_turf(src.loc), steel_sheet_cost )
+	user.balloon_alert(user, "disassembled")
+	relay_qdel()
+	qdel(src)
+
 /obj/item/modular_computer/pre_attack(atom/A, mob/living/user, params)
 	if(!istype(A, /obj/item/computer_hardware) && !istype(A, /obj/item/stock_parts/cell/computer))
 		return
@@ -776,17 +795,6 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 			inserted_hardware.on_inserted(user)
 			ui_update()
 			return
-
-	if(attacking_item.tool_behaviour == TOOL_WRENCH)
-		if(length(all_components))
-			balloon_alert(user, "remove the other components!")
-			return
-		attacking_item.play_tool_sound(src, user, 20, volume=20)
-		new /obj/item/stack/sheet/iron( get_turf(src.loc), steel_sheet_cost )
-		user.balloon_alert(user, "disassembled")
-		relay_qdel()
-		qdel(src)
-		return
 
 	if(attacking_item.tool_behaviour == TOOL_WELDER)
 		if(atom_integrity == max_integrity)
