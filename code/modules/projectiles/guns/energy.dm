@@ -164,10 +164,8 @@
 		charge_timer = 0
 
 		if(use_cyborg_cell)
-			if(!iscyborg(loc)) //if it isn't in a cyborg, something has gone terribly wrong
-				return
 			var/mob/living/silicon/robot/R = loc
-			if(!R?.cell.use(100)) //if the cyborg is not charged enough, or doesn't have a cell, don't recharge
+			if(!R.cell.use(100)) //if the cyborg is not charged enough, or doesn't have a cell, don't recharge
 				return
 		cell.give(100)
 		if(!chambered) //if empty chamber we try to charge a new shot

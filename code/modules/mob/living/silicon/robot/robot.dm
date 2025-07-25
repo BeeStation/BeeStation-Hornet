@@ -916,12 +916,10 @@
 			QDEL_NULL(autoclean_toggle)
 
 	if(model.cyborg_armor)
-//		set_armor(get_armor().add_other_armor(/datum/armor/cyborg))
 		set_armor(/datum/armor/cyborg)
 		add_movespeed_modifier(/datum/movespeed_modifier/cyborg_armor)
 
 	else
-//		set_armor(get_armor().add_other_armor(/datum/armor/none))
 		set_armor(/datum/armor/none)
 		remove_movespeed_modifier(/datum/movespeed_modifier/cyborg_armor)
 
