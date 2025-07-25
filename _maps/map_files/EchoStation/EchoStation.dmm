@@ -38314,6 +38314,7 @@
 /turf/open/floor/iron/dark,
 /area/hallway/primary/aft)
 "uef" = (
+/obj/machinery/libraryscanner,
 /turf/open/floor/plating,
 /area/library/abandoned)
 "ueQ" = (
