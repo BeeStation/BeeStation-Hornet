@@ -1,4 +1,4 @@
-#define MORPH_COOLDOWN 50
+
 
 /mob/living/simple_animal/hostile/morph
 	name = "morph"
@@ -10,7 +10,7 @@
 	icon_state = "morph"
 	icon_living = "morph"
 	icon_dead = "morph_dead"
-	speed = 2
+	speed = 0
 	combat_mode = TRUE
 	stop_automated_movement = 1
 	status_flags = CANPUSH
@@ -23,6 +23,7 @@
 	healable = 0
 	obj_damage = 50
 	melee_damage = 20
+	melee_damage_type = BURN //Did you know morphs are highly acidic blobs?
 	see_in_dark = NIGHTVISION_FOV_RANGE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	vision_range = 1 // Only attack when target is close
@@ -32,11 +33,9 @@
 	attack_sound = 'sound/effects/blobattack.ogg'
 	butcher_results = list(/obj/item/food/meat/slab = 2)
 
+	COOLDOWN_DECLARE(morph_transformation)
 	var/morphed = FALSE
-	var/melee_damage_disguised = 5
-	var/eat_while_disguised = FALSE
 	var/atom/movable/form = null
-	var/morph_time = 0
 	var/static/list/blacklist_typecache = typecacheof(list(
 	/atom/movable/screen,
 	/obj/anomaly,
@@ -48,10 +47,10 @@
 	var/atom/movable/throwatom = null
 
 	var/playstyle_string = span_bigbold("You are a morph,") + "</b> an abomination of science created primarily with changeling cells. \
-							You may take the form of anything nearby by shift-clicking it. This process will alert any nearby \
-							observers, and can only be performed once every five seconds. While morphed, you move faster, but do \
-							less damage. In addition, anyone within three tiles will note an uncanny wrongness if examining you. \
-							You can attack any item or dead creature to consume it - creatures will restore your health. \
+							You may take the form of anything nearby by shift-clicking it. While morphed, you move and slower inject \
+							potent venom into anyone who tries to pick you up. You may also attack while transformed to surprise \
+							unsuspecting crew, but this will not inject venom. Attacking while transformed will remove your disguise. \
+							You can attack any item or dead creature to consume it. Creatures and food will restore your health. \
 							Finally, you can restore yourself to your original form while morphed by shift-clicking yourself.</b>"
 
 	mobchatspan = "blob"
@@ -116,10 +115,8 @@
 	return !is_type_in_typecache(A, blacklist_typecache) && (isobj(A) || ismob(A))
 
 /mob/living/simple_animal/hostile/morph/proc/eat(atom/movable/A)
-	if(morphed && !eat_while_disguised)
-		to_chat(src, span_warning("You can not eat anything while you are disguised!"))
-		return FALSE
 	if(A && A.loc != src)
+		playsound(src, attack_sound, 50, TRUE)
 		visible_message(span_warning("[src] swallows [A] whole!"))
 		AddContents(A)
 		morph_stomach.ui_update()
@@ -127,9 +124,9 @@
 	return FALSE
 
 /mob/living/simple_animal/hostile/morph/ShiftClickOn(atom/movable/A)
-	if(morph_time <= world.time && !stat)
+	if(COOLDOWN_FINISHED(src, morph_transformation) && !stat)
 		if(A == src)
-			restore(TRUE)
+			restore()
 			return
 		if(allowed(A))
 			assume(A)
@@ -157,19 +154,13 @@
 	else
 		mobchatspan = initial(mobchatspan)
 
-	//Morphed is weaker
-	melee_damage = melee_damage_disguised
-	set_varspeed(0)
-
-	morph_time = world.time + MORPH_COOLDOWN
-	med_hud_set_health()
-	med_hud_set_status() //we're an object honest
+	//Morphed is slower
+	set_varspeed(2)
+	set_cooldown_and_hud(FALSE)
 	return
 
-/mob/living/simple_animal/hostile/morph/proc/restore(var/intentional = FALSE)
+/mob/living/simple_animal/hostile/morph/proc/restore(ambush = FALSE)
 	if(!morphed)
-		if(intentional)
-			to_chat(src, span_warning("You're already in your normal form!"))
 		return
 	morphed = FALSE
 	form = null
@@ -186,13 +177,21 @@
 	icon_state = initial(icon_state)
 	cut_overlays()
 
-	//Baseline stats
-	melee_damage = initial(melee_damage)
+	//Baseline abilities
+	melee_damage_type = BURN
 	set_varspeed(initial(speed))
+	set_cooldown_and_hud(ambush)
 
-	morph_time = world.time + MORPH_COOLDOWN
+/mob/living/simple_animal/hostile/morph/proc/set_cooldown_and_hud(ambush = FALSE)
+	if(ambush)
+		COOLDOWN_START(src, morph_transformation, 20 SECONDS)
+		apply_status_effect(/datum/status_effect/morph_cooldown/ambush)
+	else
+		COOLDOWN_START(src, morph_transformation, 5 SECONDS)
+		apply_status_effect(/datum/status_effect/morph_cooldown)
 	med_hud_set_health()
-	med_hud_set_status() //we are not an object
+	med_hud_set_status()
+
 
 /mob/living/simple_animal/hostile/morph/death(gibbed)
 	if(morphed)
@@ -233,31 +232,38 @@
 	return ..()
 
 /mob/living/simple_animal/hostile/morph/AttackingTarget()
-	if(morphed && !melee_damage_disguised)
-		to_chat(src, span_warning("You can not attack while disguised!"))
-		return
-	if(isliving(target)) //Eat living beings to store them for a snack, or other uses
-		var/mob/living/L = target
-		if(L.stat)
-			if(L.stat == DEAD)
-				eat(L)
-			else if(do_after(src, 30, target = L)) //Don't Return after this, it's important that the morph can attack softcrit targets to bring them into hardcrit
-				eat(L)
-	else if(isitem(target)) //Eat items for later use
+	if(isitem(target)) //Eat items for later use
 		var/obj/item/I = target
 		if(!I.anchored)
 			eat(I)
 			return
+	else if(isliving(target)) //Eat living beings to store them for a snack, or other uses
+		var/mob/living/L = target
+		if(morphed)
+			restore(TRUE)
+			L.Stun(1 SECONDS)
+			L.Knockdown(3 SECONDS)
+			if(issilicon(L))
+				L.flash_act(affect_silicon = TRUE)
+			to_chat(target, span_userdanger("[src] bites you!"))
+			visible_message(span_danger("[src] violently bites [target]!"),\
+				span_userdanger("You surprise [target]!"), null, COMBAT_MESSAGE_RANGE)
+		if(L.stat)
+			if(L.stat >= UNCONSCIOUS)
+				eat(L)
+			else if(do_after(src, 30, target = L)) //Don't Return after this, it's important that the morph can attack targets it is trying to eat
+				eat(L)
 	return ..()
 //Ambush attack
 /mob/living/simple_animal/hostile/morph/attack_hand(mob/living/carbon/human/M)
 	if(morphed)
-		M.Knockdown(40)
+		M.Stun(1 SECONDS)
+		M.Knockdown(6 SECONDS)
 		M.reagents.add_reagent(/datum/reagent/toxin/morphvenom, 7)
 		to_chat(M, span_userdanger("[src] bites you!"))
 		visible_message(span_danger("[src] violently bites [M]!"),\
 				span_userdanger("You ambush [M]!"), null, COMBAT_MESSAGE_RANGE)
-		restore()
+		restore(TRUE)
 	else
 		..()
 
@@ -312,5 +318,3 @@
 	log_game("[key_name(morph)] was spawned as a morph by an event.")
 	spawned_mobs += morph
 	return SUCCESSFUL_SPAWN
-
-#undef MORPH_COOLDOWN
