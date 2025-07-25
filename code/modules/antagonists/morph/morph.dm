@@ -32,6 +32,7 @@
 	attack_verb_simple = "glomp"
 	attack_sound = 'sound/effects/blobattack.ogg'
 	butcher_results = list(/obj/item/food/meat/slab = 2)
+	sight = SEE_SELF|SEE_MOBS
 
 	COOLDOWN_DECLARE(morph_transformation)
 	var/morphed = FALSE

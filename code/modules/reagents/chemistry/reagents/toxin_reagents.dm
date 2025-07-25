@@ -981,14 +981,14 @@
 		if(H.dna.species.reagent_tag & PROCESS_SYNTHETIC)
 			synthetic_process = TRUE //Do the synthetic effects instead of organic ones
 			metabolization_rate = 0.25 //They're not being processed so much as it's making things go haywire internally
-			L.electrocute_act(rand(3,10), "Morphvenom in their body", 1, SHOCK_NOGLOVES)
+			L.electrocute_act(rand(3,10), "Morphvenom short-circuiting them", 1, SHOCK_NOGLOVES)
 			L.apply_status_effect(/datum/status_effect/spanish) //Apply this once on initial so they can't immediately rat us out
 	. = ..()
 
 /datum/reagent/toxin/morphvenom/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(synthetic_process)
 		if(DT_PROB(5, delta_time))
-			M.electrocute_act(rand(3,10), "Morphvenom in their body", 1, SHOCK_NOGLOVES) //SHOCK_NOGLOVES because it's caused from INSIDE of you
+			M.electrocute_act(rand(3,10), "Morphvenom short-circuiting them", 1, SHOCK_NOGLOVES)
 			M.apply_status_effect(/datum/status_effect/spanish)
 	else
 		M.set_drugginess(5)
