@@ -889,7 +889,6 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		if(component.hacked)
 			. += "<span class='cfc_magenta'>WARNING ::</span> [component.device_type] <span class='cfc_magenta'>OPERATING BEYOND RATED PARAMETERS</span>"
 	if(battery_module?.battery)
-		. += "INFO :: <span class='cfc_orange'>[battery_module.battery.name]</span> accounted for."
 		. += "INFO :: Cell Current charge [battery_module.battery.percent()]%."
 	. += "Total Power consumption :: [total_power_usage]"
 	return
