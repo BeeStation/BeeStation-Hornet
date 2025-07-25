@@ -270,15 +270,15 @@
 
 /obj/structure/closet/crate/science/debug/obj/structure/closet/crate/science/debug/PopulateContents()
 	..()
-	new /obj/item/robot_module/standard(src)
-	new /obj/item/robot_module/peacekeeper(src)
-	new /obj/item/robot_module/miner(src)
-	new /obj/item/robot_module/medical(src)
-	new /obj/item/robot_module/janitor(src)
-	new /obj/item/robot_module/engineering(src)
-	new /obj/item/robot_module/clown(src)
-	new /obj/item/robot_module/butler(src)
-	new /obj/item/robot_module/borgi(src)
+	new /obj/item/robot_model/standard(src)
+	new /obj/item/robot_model/peacekeeper(src)
+	new /obj/item/robot_model/miner(src)
+	new /obj/item/robot_model/medical(src)
+	new /obj/item/robot_model/janitor(src)
+	new /obj/item/robot_model/engineering(src)
+	new /obj/item/robot_model/clown(src)
+	new /obj/item/robot_model/service(src)
+	new /obj/item/robot_model/borgi(src)
 
 /obj/structure/closet/crate/solarpanel_small
 	name = "budget solar panel crate"
