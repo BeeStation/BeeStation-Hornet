@@ -569,16 +569,16 @@ em {
   color: rgb(210, 120, 120);
   text-shadow: 0 0 4px rgba(255, 0, 0, 0.5);
   display: inline-block;
-  animation: subtle-shake 1s infinite, pulse-shadow 3s infinite ease-in-out;
+  animation: pain-shake 1s infinite, pain-shadow 3s infinite ease-in-out;
   will-change: transform;
 }
 
 @keyframes pain-shake {
   0% {
-    transform: translate(0.5px, -0.5px) rotate(-0.2deg);
+    transform: translate(0.5px, -0.5px) rotate(-0.1deg);
   }
   20% {
-    transform: translate(-1px, 1px) rotate(0.2deg);
+    transform: translate(-1px, 1px) rotate(0.1deg);
   }
   40% {
     transform: translate(0.5px, 0px) rotate(-0.1deg);

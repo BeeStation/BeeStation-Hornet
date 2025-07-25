@@ -32,7 +32,7 @@ In all, this is a lot like the monkey code. /N
 		AdjustKnockdown(-60)
 		AdjustImmobilized(-60)
 		AdjustParalyzed(-60)
-		AdjustUnconscious(-60)
+		take_consciousness_damage(-60)
 		AdjustSleeping(-100)
 		visible_message("<span class='notice'>[user.name] nuzzles [src] trying to wake [p_them()] up!</span>")
 	else if(health > 1)

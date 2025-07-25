@@ -575,10 +575,10 @@ h2.alert {
 
 @keyframes pain-shake {
   0% {
-    transform: translate(0.5px, -0.5px) rotate(-0.2deg);
+    transform: translate(0.5px, -0.5px) rotate(-0.1deg);
   }
   20% {
-    transform: translate(-1px, 1px) rotate(0.2deg);
+    transform: translate(-1px, 1px) rotate(0.1deg);
   }
   40% {
     transform: translate(0.5px, 0px) rotate(-0.1deg);

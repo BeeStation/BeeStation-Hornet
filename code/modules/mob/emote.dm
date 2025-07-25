@@ -28,6 +28,12 @@
 		to_chat(src, span_notice("Unusable emote '[act]'. Say *help for a list."))
 	return FALSE
 
+/mob/proc/custom_emote(emote_message)
+	var/datum/emote/living/custom/custom = locate() in GLOB.emote_list["me"]
+	if (!custom)
+		return
+	custom.run_emote(src, emote_message, null, FALSE)
+
 /datum/emote/flip
 	key = "flip"
 	key_third_person = "flips"

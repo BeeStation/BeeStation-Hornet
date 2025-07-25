@@ -117,3 +117,5 @@
 
 /// From /mob/living/proc/take_consciousness_damage(amount): (mob/living/source, amount)
 #define COMSIG_MOB_TAKE_CONSCIOUSNESS_DAMAGE "take_consciousness_damage"
+/// From /mob/living/proc/Unconscious(amount): (mob/living/source, amount, override)
+#define COMSIG_MOB_BECOME_UNCONSCIOUS "become_unconscious"

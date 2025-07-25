@@ -27,16 +27,21 @@
 		var/base_blunt_damage = blunt_damage + max(0, (min(penetration, UNPROTECTED_ARMOUR_RATING) - penetration_rating) / UNPROTECTED_ARMOUR_RATING * (UNPROTECTED_BLUNT_DAMAGE_MULTIPLIER - 1) * blunt_damage)
 		// Blunt damage splits into 50% consciousness and 50% actual damage, if brute
 		// stamina and burn damage doesn't result in blunt force trauma
-		// TODO: Concussion if hit in the head
 		if (type == BRUTE)
 			take_direct_damage(base_blunt_damage * BLUNT_DAMAGE_APPLIED_MULTIPLIER, type, flag, zone)
-			take_direct_damage(taken_damage * BLUNT_DAMAGE_CONCIOUSNESS_MULTIPLIER, CONSCIOUSNESS, flag, zone)
+			if (zone == BODY_ZONE_HEAD)
+				take_direct_damage(taken_damage * BLUNT_DAMAGE_CONSCIOUSNESS_HEAD_MULTIPLIER, CONSCIOUSNESS, flag, zone)
+			else
+				take_direct_damage(taken_damage * BLUNT_DAMAGE_CONSCIOUSNESS_MULTIPLIER, CONSCIOUSNESS, flag, zone)
 		else
 			take_direct_damage(taken_damage, type, flag, zone)
 		return
 	..()
 
 /mob/living/carbon/take_direct_damage(amount, type = BRUTE, flag = DAMAGE_STANDARD, zone = null)
+	if (type == CONSCIOUSNESS)
+		take_consciousness_damage(amount)
+		return
 	// Handle with adjust loss procs
 	if (!zone)
 		..()
@@ -69,6 +74,7 @@
 			..()
 
 /mob/living/carbon/take_sharpness_damage(amount, type, flag = DAMAGE_STANDARD, zone = null, sharpness = 0)
+	// Healed damage should always be direct
 	if (amount <= 0)
 		return
 	// Start bleeding
@@ -460,7 +466,7 @@
 		to_chat(M, span_warning("ERP is not allowed on this server!"))
 	AdjustStun(-60)
 	AdjustKnockdown(-60)
-	AdjustUnconscious(-60)
+	take_consciousness_damage(-5)
 	AdjustSleeping(-100)
 	AdjustParalyzed(-60)
 	AdjustImmobilized(-60)

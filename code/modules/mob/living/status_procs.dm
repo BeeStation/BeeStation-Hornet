@@ -243,12 +243,15 @@
 
 //////////////////UNCONSCIOUS
 /mob/living/proc/IsUnconscious()
-	return has_status_effect(/datum/status_effect/incapacitating/unconscious)
+	var/datum/component/conscious/consciousness = GetComponent(/datum/component/conscious)
+	if(consciousness)
+		return consciousness.is_unconscious
+	return FALSE
 
-/mob/living/proc/AmountUnconscious() //How many deciseconds remain in our unconsciousness
-	var/datum/status_effect/incapacitating/unconscious/U = IsUnconscious()
-	if(U)
-		return U.duration - world.time
+/mob/living/proc/AmountUnconscious()
+	var/datum/component/conscious/consciousness = GetComponent(/datum/component/conscious)
+	if(consciousness)
+		return max(0, consciousness.unconscious_time - world.time)
 	return 0
 
 /// Take consciousness damage. When we reach 100 then we will be knocked out
@@ -259,38 +262,12 @@
 /mob/living/proc/Unconscious(amount, ignore_canstun = FALSE) //Can't go below remaining duration
 	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_UNCONSCIOUS, amount, ignore_canstun) & COMPONENT_NO_STUN)
 		return
-	if(((status_flags & CANUNCONSCIOUS) && !HAS_TRAIT(src, TRAIT_STUNIMMUNE))  || ignore_canstun)
-		var/datum/status_effect/incapacitating/unconscious/U = IsUnconscious()
-		if(U)
-			U.duration = max(world.time + amount, U.duration)
-		else if(amount > 0)
-			U = apply_status_effect(/datum/status_effect/incapacitating/unconscious, amount)
-		return U
+	SEND_SIGNAL(src, COMSIG_MOB_BECOME_UNCONSCIOUS, amount, FALSE)
 
 /mob/living/proc/SetUnconscious(amount, ignore_canstun = FALSE) //Sets remaining duration
 	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_UNCONSCIOUS, amount, ignore_canstun) & COMPONENT_NO_STUN)
 		return
-	if(((status_flags & CANUNCONSCIOUS) && !HAS_TRAIT(src, TRAIT_STUNIMMUNE)) || ignore_canstun)
-		var/datum/status_effect/incapacitating/unconscious/U = IsUnconscious()
-		if(amount <= 0)
-			if(U)
-				qdel(U)
-		else if(U)
-			U.duration = world.time + amount
-		else
-			U = apply_status_effect(/datum/status_effect/incapacitating/unconscious, amount)
-		return U
-
-/mob/living/proc/AdjustUnconscious(amount, ignore_canstun = FALSE) //Adds to remaining duration
-	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_UNCONSCIOUS, amount, ignore_canstun) & COMPONENT_NO_STUN)
-		return
-	if(((status_flags & CANUNCONSCIOUS) && !HAS_TRAIT(src, TRAIT_STUNIMMUNE)) || ignore_canstun)
-		var/datum/status_effect/incapacitating/unconscious/U = IsUnconscious()
-		if(U)
-			U.duration += amount
-		else if(amount > 0)
-			U = apply_status_effect(/datum/status_effect/incapacitating/unconscious, amount)
-		return U
+	SEND_SIGNAL(src, COMSIG_MOB_BECOME_UNCONSCIOUS, amount, TRUE)
 
 /////////////////////////////////// SLEEPING ////////////////////////////////////
 

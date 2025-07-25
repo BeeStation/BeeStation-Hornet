@@ -109,7 +109,7 @@
 	M.drowsyness = max(M.drowsyness - (5 * REM * delta_time), 0)
 	M.AdjustStun(-20 * REM * delta_time)
 	M.AdjustKnockdown(-20 * REM * delta_time)
-	M.AdjustUnconscious(-20 * REM * delta_time)
+	M.take_consciousness_damage(-20 * REM * delta_time)
 	M.AdjustImmobilized(-20 * REM * delta_time)
 	M.AdjustParalyzed(-20 * REM * delta_time)
 	if(holder.has_reagent(/datum/reagent/toxin/mindbreaker))
