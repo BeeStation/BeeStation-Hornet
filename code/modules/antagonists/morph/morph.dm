@@ -272,6 +272,11 @@
 	else
 		..()
 
+/mob/living/simple_animal/hostile/morph/attacked_by(obj/item/I, mob/living/user)
+	. = ..()
+	if(morphed)
+		restore(TRUE) //It is us who was ambushed!
+
 /mob/living/simple_animal/hostile/morph/mind_initialize()
 	. = ..()
 	to_chat(src, playstyle_string)
