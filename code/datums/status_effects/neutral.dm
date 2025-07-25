@@ -282,8 +282,5 @@
 
 /datum/status_effect/morph_cooldown
 	id = "morph_cooldown"
-	duration = 5 SECONDS
-	alert_type = /atom/movable/screen/alert/status_effect/morph_cooldown
-
-/datum/status_effect/morph_cooldown/ambush
 	duration = 20 SECONDS
+	alert_type = /atom/movable/screen/alert/status_effect/morph_cooldown

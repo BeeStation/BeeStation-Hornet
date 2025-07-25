@@ -114,6 +114,10 @@
 	return !is_type_in_typecache(A, blacklist_typecache) && (isobj(A) || ismob(A))
 
 /mob/living/simple_animal/hostile/morph/proc/eat(atom/movable/A)
+	if(ishuman(A))
+		//We don't store human mobs, we eat them now where they are
+		return digest_mob(A)
+
 	if(A && A.loc != src)
 		playsound(src, attack_sound, 50, TRUE)
 		visible_message(span_warning("[src] swallows [A] whole!"))
@@ -121,6 +125,32 @@
 		morph_stomach.ui_update()
 		return TRUE
 	return FALSE
+
+/mob/living/simple_animal/hostile/morph/proc/digest_mob(mob/living/living_target)
+	if(HAS_TRAIT(living_target, TRAIT_HUSK))
+		to_chat(src, span_warning("[span_name("[living_target]")] has already been stripped of all nutritional value!"))
+		return FALSE
+	if(throwatom == living_target)
+		throwatom = null
+	to_chat(src, span_danger("You begin digesting [span_name("[living_target]")]"))
+	if(do_after(src, 3 SECONDS, living_target))
+		if(ishuman(living_target) || ismonkey(living_target) || isalienadult(living_target) || istype(living_target, /mob/living/basic/pet/dog) || istype(living_target, /mob/living/simple_animal/parrot))
+			var/list/turfs_to_throw = view(2, src)
+			for(var/obj/item/item in living_target.contents)
+				living_target.dropItemToGround(item, TRUE)
+				if(QDELING(item))
+					continue //skip it
+				item.throw_at(pick(turfs_to_throw), 3, 1, spin = FALSE)
+				item.pixel_x = rand(-10, 10)
+				item.pixel_y = rand(-10, 10)
+		RemoveContents(living_target)
+		living_target.death(FALSE)
+		living_target.take_overall_damage(burn = 50)
+		living_target.become_husk("burn") // Digested bodies can be fixed with synthflesh.
+		adjustHealth(-(living_target.maxHealth * 0.5))
+		to_chat(src, span_danger("You digest [span_name("[living_target]")], restoring some health"))
+		playsound(src, 'sound/effects/splat.ogg', vol = 50, vary = TRUE)
+		return TRUE
 
 /mob/living/simple_animal/hostile/morph/ShiftClickOn(atom/movable/A)
 	if(COOLDOWN_FINISHED(src, morph_transformation) && !stat)
@@ -184,9 +214,6 @@
 /mob/living/simple_animal/hostile/morph/proc/set_cooldown_and_hud(ambush = FALSE)
 	if(ambush)
 		COOLDOWN_START(src, morph_transformation, 20 SECONDS)
-		apply_status_effect(/datum/status_effect/morph_cooldown/ambush)
-	else
-		COOLDOWN_START(src, morph_transformation, 5 SECONDS)
 		apply_status_effect(/datum/status_effect/morph_cooldown)
 	med_hud_set_health()
 	med_hud_set_status()
@@ -259,11 +286,8 @@
 		if(morphed)
 			morph_ambush(L, FALSE)
 			return //The ambush is our attack
-		if(L.stat)
-			if(L.stat >= UNCONSCIOUS)
-				eat(L)
-			else if(do_after(src, 30, target = L)) //Don't Return after this, it's important that the morph can attack targets it is trying to eat
-				eat(L)
+		if(L?.stat >= SOFT_CRIT && eat(L))
+			return //attack continues if eat() fails, but we don't want to finish attacking if it doesn't.
 	return ..()
 //Ambush attack
 /mob/living/simple_animal/hostile/morph/attack_hand(mob/living/carbon/human/M)
