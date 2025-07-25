@@ -850,7 +850,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 /obj/item/modular_computer/multitool_act(mob/living/user, obj/item/I)
 	var/time_to_diagnose = 3 SECONDS
 	var/will_pass = FALSE
-	if(user.mind?.assigned_role == (JOB_NAME_SCIENTIST || JOB_NAME_RESEARCHDIRECTOR || JOB_NAME_DETECTIVE))	// Scientist and Detective buff
+	if(user.mind?.assigned_role in list(JOB_NAME_SCIENTIST, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_DETECTIVE))	// Scientist and Detective buff
 		will_pass = TRUE
 	if(HAS_TRAIT(user, TRAIT_COMPUTER_WHIZ))	// Trait buff
 		time_to_diagnose = 1 SECONDS

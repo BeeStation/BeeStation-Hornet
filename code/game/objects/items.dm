@@ -971,8 +971,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		var/obj/item/modular_computer/comp
 		var/obj/item/computer_hardware/processor_unit/cpu
 		for(var/obj/item/modular_computer/M in contents)
-			cpu = comp.all_components[MC_CPU]
-			if(!cpu?.hacked)
+			cpu = M.all_components[MC_CPU]
+			if(cpu?.hacked)
 				comp = M
 			break
 		if(comp)
