@@ -381,8 +381,8 @@
 	if(HAS_TRAIT(target, TRAIT_GIANT))
 		defense_mod += 2
 
-	if(target.health < 80)
-		defense_mod -= 1
+	if(target.health >= 80)
+		defense_mod += 2
 	if(target.health < 60)
 		defense_mod -= 1
 	if(target.health < 40)
