@@ -676,7 +676,7 @@
 			jobtext = " the <b>[jobtext]</b>"
 	var/jobtext_custom = get_custom_title_from_id(ply) // support the custom job title to the roundend report
 
-	var/text = "<b>[ply.name]</b>[jobtext][jobtext_custom] and they"
+	var/text = "<b>[ply.name]</b>[jobtext][jobtext_custom] and [ply.current?.p_they() || "they"]"
 	if(ply.cryoed)
 		text += " [span_bluetext("entered cryosleep")]"
 	else if(ply.current)
