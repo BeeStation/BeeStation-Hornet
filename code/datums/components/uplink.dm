@@ -117,6 +117,8 @@
 			//Check that the uplink item is refundable
 			//Check that the uplink is valid
 			//Check that the uplink has purchased this item (Sales can be refunded as the path relates to the old one)
+			if(!purchase_log)	// This fixes a silly runtime when right clicking PDAs with uplinks that are disabled
+				return
 			var/hash = purchase_log.hash_purchase(UI, UI.cost)
 			var/datum/uplink_purchase_entry/UPE = purchase_log.purchase_log[hash]
 			if(I.type == path && UI.can_be_refunded(I, src) && I.check_uplink_validity() && UPE?.amount_purchased > 0 && UPE.allow_refund)

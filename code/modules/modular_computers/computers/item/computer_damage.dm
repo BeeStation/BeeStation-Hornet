@@ -29,5 +29,10 @@
 			H.forceMove(newloc)
 			if(prob(25))
 				H.take_damage(rand(10,30), BRUTE, 0, 0)
+	var/datum/component/uplink/hidden_uplink = GetComponent(/datum/component/uplink)
+	if(hidden_uplink)
+		var/obj/item/computer_hardware/hard_drive/role/uplink/for_copy/uplink = new(get_turf(src))
+		uplink.stored_telecrystals = hidden_uplink.telecrystals
+		uplink.lock_code = hidden_uplink.unlock_code
 	relay_qdel()
 	qdel(src)
