@@ -57,7 +57,7 @@ const ObjectivePrintout = (props) => {
 };
 
 const IntroductionSection = (props) => {
-  const { act, data } = useBackend<Info>();
+  const { data } = useBackend<Info>();
   const { intro } = data;
   return (
     <Section fill title="Intro" scrollable>
@@ -169,46 +169,23 @@ const CodewordsSection = (props) => {
 };
 
 export const AntagInfoMalf = (props) => {
-  const { data } = useBackend<Info>();
-  const { processingTime } = data;
-  const [antagInfoTab, setAntagInfoTab] = useLocalState('antagInfoTab', 0);
   return (
-    <Window width={660} height={530} theme={(antagInfoTab === 0 && 'hackerman') || 'malfunction'}>
+    <Window width={660} height={530} theme="hackerman">
       <Window.Content style={{ 'font-family': 'Consolas, monospace' }}>
         <Stack vertical fill>
-          <Stack.Item>
-            <Tabs fluid>
-              <Tabs.Tab icon="info" selected={antagInfoTab === 0} onClick={() => setAntagInfoTab(0)}>
-                Information
-              </Tabs.Tab>
-              <Tabs.Tab icon="code" selected={antagInfoTab === 1} onClick={() => setAntagInfoTab(1)}>
-                Malfunction Modules
-              </Tabs.Tab>
-            </Tabs>
+          <Stack.Item grow>
+            <Stack fill>
+              <Stack.Item width="70%">
+                <IntroductionSection />
+              </Stack.Item>
+              <Stack.Item width="30%">
+                <FlavorSection />
+              </Stack.Item>
+            </Stack>
           </Stack.Item>
-          {(antagInfoTab === 0 && (
-            <>
-              <Stack.Item grow>
-                <Stack fill>
-                  <Stack.Item width="70%">
-                    <IntroductionSection />
-                  </Stack.Item>
-                  <Stack.Item width="30%">
-                    <FlavorSection />
-                  </Stack.Item>
-                </Stack>
-              </Stack.Item>
-              <Stack.Item>
-                <CodewordsSection />
-              </Stack.Item>
-            </>
-          )) || (
-            <Stack.Item>
-              <Section>
-                <GenericUplink currencyAmount={processingTime} currencySymbol="PT" />
-              </Section>
-            </Stack.Item>
-          )}
+          <Stack.Item>
+            <CodewordsSection />
+          </Stack.Item>
         </Stack>
       </Window.Content>
     </Window>
