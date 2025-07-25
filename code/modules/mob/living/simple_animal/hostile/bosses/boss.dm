@@ -2,7 +2,6 @@
 	name = "\improper A Perfectly Generic Boss Placeholder"
 	desc = ""
 	robust_searching = 1
-	stat_attack = HARD_CRIT
 	status_flags = 0
 	combat_mode = TRUE
 	gender = NEUTER

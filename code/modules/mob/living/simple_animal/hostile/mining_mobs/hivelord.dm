@@ -112,7 +112,6 @@
 	loot = list(/obj/item/organ/regenerative_core/legion)
 	brood_type = /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion
 	del_on_death = TRUE
-	stat_attack = HARD_CRIT
 	robust_searching = 1
 	var/dwarf_mob = FALSE
 	var/mob/living/carbon/human/stored_mob
@@ -177,7 +176,6 @@
 	throw_message = "is shrugged off by"
 	pass_flags = PASSTABLE
 	del_on_death = TRUE
-	stat_attack = HARD_CRIT
 	robust_searching = 1
 	var/can_infest_dead = FALSE
 
@@ -213,7 +211,6 @@
 
 //Advanced Legion is slightly tougher to kill and can raise corpses (revive other legions)
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion/advanced
-	stat_attack = DEAD
 	maxHealth = 60
 	health = 60
 	brood_type = /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/advanced
@@ -223,7 +220,6 @@
 	icon_dead = "dwarf_legion"
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/advanced
-	stat_attack = DEAD
 	can_infest_dead = TRUE
 
 //Legion that spawns Legions
