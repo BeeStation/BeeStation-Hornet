@@ -93,8 +93,6 @@
 /mob/living/simple_animal/hostile/morph/examine(mob/user)
 	if(morphed)
 		. = form.examine(user)
-		if(get_dist(user,src)<=3)
-			. += span_warning("It doesn't look quite right...")
 	else
 		. = ..()
 
@@ -193,6 +191,24 @@
 	med_hud_set_health()
 	med_hud_set_status()
 
+/mob/living/simple_animal/hostile/morph/proc/morph_ambush(mob/living/L, touched_morph = FALSE)
+	changeNext_move(CLICK_CD_MELEE)
+	L.Stun(1 SECONDS)
+	to_chat(L, span_userdanger("[src] bites you!"))
+	visible_message(span_danger("[src] violently bites [L]!"),\
+			span_userdanger("You ambush [L]!"), null, COMBAT_MESSAGE_RANGE)
+
+	//After the ambush we show our true form, the attack will register as coming from whatever we were disguised as
+	restore(ambush = TRUE)
+
+	if(touched_morph)
+		L.Knockdown(6 SECONDS)
+		L.reagents.add_reagent(/datum/reagent/toxin/morphvenom, 7)
+	else
+		L.Knockdown(3 SECONDS)
+
+	if(issilicon(L))
+		L.flash_act(affect_silicon = TRUE)
 
 /mob/living/simple_animal/hostile/morph/death(gibbed)
 	if(morphed)
@@ -241,14 +257,8 @@
 	else if(isliving(target)) //Eat living beings to store them for a snack, or other uses
 		var/mob/living/L = target
 		if(morphed)
-			restore(TRUE)
-			L.Stun(1 SECONDS)
-			L.Knockdown(3 SECONDS)
-			if(issilicon(L))
-				L.flash_act(affect_silicon = TRUE)
-			to_chat(target, span_userdanger("[src] bites you!"))
-			visible_message(span_danger("[src] violently bites [target]!"),\
-				span_userdanger("You surprise [target]!"), null, COMBAT_MESSAGE_RANGE)
+			morph_ambush(L, FALSE)
+			return //The ambush is our attack
 		if(L.stat)
 			if(L.stat >= UNCONSCIOUS)
 				eat(L)
@@ -258,13 +268,7 @@
 //Ambush attack
 /mob/living/simple_animal/hostile/morph/attack_hand(mob/living/carbon/human/M)
 	if(morphed)
-		M.Stun(1 SECONDS)
-		M.Knockdown(6 SECONDS)
-		M.reagents.add_reagent(/datum/reagent/toxin/morphvenom, 7)
-		to_chat(M, span_userdanger("[src] bites you!"))
-		visible_message(span_danger("[src] violently bites [M]!"),\
-				span_userdanger("You ambush [M]!"), null, COMBAT_MESSAGE_RANGE)
-		restore(TRUE)
+		morph_ambush(M, TRUE)
 	else
 		..()
 
