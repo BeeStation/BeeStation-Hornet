@@ -55,7 +55,7 @@
 	jobtype = /datum/job/research_director
 
 	id = /obj/item/card/id/job/research_director
-	belt = /obj/item/modular_computer/tablet/pda/heads/research_director
+	belt = /obj/item/modular_computer/tablet/pda/preset/heads/research_director
 	ears = /obj/item/radio/headset/heads/research_director
 	uniform = /obj/item/clothing/under/rank/rnd/research_director
 	shoes = /obj/item/clothing/shoes/sneakers/brown

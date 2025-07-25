@@ -36,7 +36,7 @@
 	shoes = /obj/item/clothing/shoes/sneakers/black
 	glasses = /obj/item/clothing/glasses/hud/security/deputy
 	head = /obj/item/clothing/head/soft/sec
-	l_pocket = /obj/item/modular_computer/tablet/pda/deputy
+	l_pocket = /obj/item/modular_computer/tablet/pda/preset/deputy
 
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel/sec
