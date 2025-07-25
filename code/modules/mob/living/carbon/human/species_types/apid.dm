@@ -119,6 +119,12 @@
 			SPECIES_PERK_DESC = "Apids can use their wings to quickly dash forward in a flurry of buzzing!",
 		),
 		list(
+			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+			SPECIES_PERK_ICON = "skull-crossbones",
+			SPECIES_PERK_NAME = "Stinger",
+			SPECIES_PERK_DESC = "Apids have stingers loaded with anti-coagulant venom, don't kick the hive!",
+		),
+		list(
 			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
 			SPECIES_PERK_ICON = "icicles",
 			SPECIES_PERK_NAME = "Cold-Sensitive Biology",
