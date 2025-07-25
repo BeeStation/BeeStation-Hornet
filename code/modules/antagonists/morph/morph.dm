@@ -202,7 +202,7 @@
 	restore(ambush = TRUE)
 
 	if(touched_morph)
-		L.Knockdown(6 SECONDS)
+		L.Knockdown(5 SECONDS)
 		L.reagents.add_reagent(/datum/reagent/toxin/morphvenom, 7)
 	else
 		L.Knockdown(3 SECONDS)
