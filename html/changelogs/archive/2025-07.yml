@@ -288,3 +288,103 @@
   - bugfix: Fixed species icons, antagonist icons, paper stamps, and CondiMaster icons
       being invisible.
   - tweak: Capitalized 'prisoner' in the antagonist preferences menu.
+2025-07-20:
+  ClownMoff:
+  - rscadd: Added to the detective fedoras the ability to turn your screen black and
+      white while you are inside their room or the interrogation room.
+  - rscadd: Added the ability to the detective fedoras to adjust it to cast a shadow
+      over their eyes
+  - rscadd: Added a new area for the interrogation room with the proper APCs
+  - rscadd: Added lightswitches in interrogation rooms that were missing them
+  Gboster-0:
+  - code_imp: code for slime pylons has been slightly changed making them extremelly
+      lightly more performant
+  Gilgax:
+  - tweak: 'Modernized the UI on (TGUIfied) a bunch of inputs (most things that had
+      a white box and looked old should be cooler looking now). Notable examples include:
+      the hand teleporter list, the spawn command, a lot of admin secret buttons,
+      brain washing, some security consoles, blood cultist teleport runes, law consoles,
+      pen rotation, slime feeding target list, comms console announcement, some ghost
+      role alerts, fulton packs, choice beacon pet naming and many more!'
+  - bugfix: Ventriloquist forced speech fixed for special characthers
+  - bugfix: Fixed the apply damage smite
+  PinkSuzuki, TsunamiAnt & The Hellraisers:
+  - rscadd: PC Components can now be manually hacked via tools
+  - rscadd: Added an Antivirus
+  - rscadd: Reworked Viruses. Included logging. visual and sound effects, on send
+      and receive.
+  - rscadd: Added 3 new viruses with TGUI windows.
+  - balance: Super Portable disks now cost 30 credits instead of 10
+  - rscadd: You can now fit components inside Modular PC's by attacking them with
+      the PC.
+  - rscadd: Screw driver secondary action now uninstalls all components form a Modular
+      PC at once.
+  - tweak: Tweaked some values related to programs
+  - code_imp: Added vars and a proc to be able to start and stop music and sounds
+      played by programs
+  - code_imp: Removed some duplicated vars from programs
+  - code_imp: Reworked and simplified Program hardware requirements
+  - tweak: Paper ID now accepts "Assignment" input and respects it
+  - code_imp: Refactored Network and Virus code a little bit
+  - imageadd: Add gifs for various UI elements on Computers such as the Virus Buster
+  - imageadd: Added a white version of sparks (to be dyed with lights)
+  - imageadd: Changed sprites for Antivirus and added overlays for when components
+      are "open"
+  - rscadd: Added a blue and red light spark effects
+  - tweak: Antivirus disks are now a subtype of portable disk
+  - tweak: Lightly Reworked Netmonitor (and network logging) and gave it to Science
+      jobdisks
+  - rscadd: Created a new trait, computer whiz
+  - code_imp: changed add_log procs to make them accept Network Cards to extract information
+      from
+  - code_imp: slightly changed network procs to accept the difference between no_relay
+      and hacker network cards
+  - balance: Reworked special Detomatix protection. Sec and head PDAs had their protection
+      substituted by an Antivirus
+  - tweak: Detomatix now uses a battery_explosion proc, explosion based on the size
+      of the battery installed
+  - tweak: Raised the size of the largest battery (and others) and raised the max
+      hardware size on laptops
+  - tweak: components are now repairable with a welder instead of cable coil
+  - code_imp: moved 4 files, portable disk, job disk, antivirus disk and virus disk
+      into a portable disks folder
+  - tweak: antivirus are now a part of the computer hardware techtree
+  - bugfix: Fixed apostrophes not being correctly logged
+  - bugfix: Component parts not drawing power from the battery
+  - tweak: added baloon alerts and QOL things for effect when handling Modular computers
+  - bugfix: PAIs can now be inserted inside Tablets.
+  - tweak: Laptops can now imprint IDs
+  - tweak: PAIs can now be ejected with alt-click.
+  PowerfulBacon:
+  - balance: Clarke moves slower on station.
+2025-07-23:
+  Gboster-0:
+  - rscdel: Deleted xenobiology's warping crossbreeds saying they have infinite uses
+      to their examiners
+  Rukofamicom:
+  - bugfix: detective aura now properly removes from all mobs
+  - tweak: anyone with a detective hat can now use the aura within detective office
+      and interrogation room
+  - tweak: adjusted grammar on a line involving the detective aura
+  Schoolboy215:
+  - bugfix: issue with fully deconstructing cyborgs
+  mrmanlikesbt, timothymtorres, orthography, tralezab, dragomagol:
+  - rscadd: added several new lawsets
+  - rscadd: infected law upload board. An admin-obtainable item that will make the
+      targeted AI malf
+  - rscadd: added "Unique AI" station trait. when this rolls a non-standard lawset
+      will be chosen for the AI to have
+  - balance: malf AIs can eject from mechs now
+  - balance: silicons are alerted when an upload key is extracted
+  - balance: the robotics control console can only be used on station now
+  - tweak: malf and combat upgraded AIs use the same module picker now
+  - tweak: slightly adjusted malf AI greeting text
+  - tweak: adjusted electrocuted door icon
+  - bugfix: fixed the "law changes" alert not appearing for silicons
+  - bugfix: fixed some AI module picker bugs
+  - bugfix: fixed two malf antag info panels opening
+  - code_imp: silicon code cleanup and some documentation
+  - code_imp: renamed "maintain" lawset to "efficiency"
+2025-07-24:
+  itsmeow:
+  - bugfix: Fixed being unable to look up or locate turfs above you in Multi-Z

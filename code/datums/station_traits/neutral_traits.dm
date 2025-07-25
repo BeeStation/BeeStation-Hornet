@@ -57,9 +57,7 @@
 	weight = 5
 	show_in_report = TRUE
 	report_message = "We lost the primary datatape that holds the announcement system's voice responses. We did however find an older backup."
-	blacklist = list(/datum/station_trait/announcement_intern,
-	/datum/station_trait/announcement_medbot
-	)
+	blacklist = list(/datum/station_trait/announcement_intern, /datum/station_trait/announcement_medbot)
 
 /datum/station_trait/announcement_baystation/New()
 	. = ..()
@@ -170,3 +168,12 @@
 		var/obj/item/birthday_invite/birthday_invite = new(living_mob)
 		birthday_invite.setup_card(birthday_person.name)
 		living_mob.equip_to_slot_or_del(birthday_invite, ITEM_SLOT_HANDS)
+    
+/datum/station_trait/unique_ai
+	name = "Unique AI"
+	trait_type = STATION_TRAIT_NEUTRAL
+	weight = 5
+	show_in_report = TRUE
+	report_message = "For experimental purposes, this station AI might show divergence from default lawset. Do not meddle with this experiment, we've removed \
+		access to your set of alternative upload modules because we know you're already thinking about meddling with this experiment."
+	trait_to_give = STATION_TRAIT_UNIQUE_AI
