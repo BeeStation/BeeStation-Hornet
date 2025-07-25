@@ -64,8 +64,8 @@
 		diff = min(diff, 4)
 		take_consciousness_damage(parent, diff, FALSE)
 	if (living_parent.stat >= SOFT_CRIT)
-		var/probability_bonus = max(0, (current_damage - living_parent.maxHealth) / living_parent.maxHealth) * 10
-		if (DT_PROB(10 + probability_bonus, delta_time))
+		var/probability_bonus = max(0, (current_damage - living_parent.maxHealth) / living_parent.maxHealth) * 20
+		if (DT_PROB(20 + probability_bonus, delta_time))
 			fall_unconscious(parent, rand(3 SECONDS, 6 SECONDS))
 	// Stop being deaf
 	if (damage < unconscious_threshold + 20 && is_deaf)
@@ -74,7 +74,7 @@
 		is_deaf = FALSE
 	// While our consciousness value is above 0, we will wince from pain occassionally
 	if (damage < unconscious_threshold && world.time > unconscious_time)
-		if (DT_PROB(damage * 0.1, delta_time))
+		if (DT_PROB(damage * 0.3, delta_time))
 			wince_from_pain(parent)
 		if (is_unconscious)
 			regain_consciousness(parent)
