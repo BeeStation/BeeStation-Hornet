@@ -137,6 +137,8 @@
 		if(ishuman(living_target) || ismonkey(living_target) || isalienadult(living_target) || istype(living_target, /mob/living/basic/pet/dog) || istype(living_target, /mob/living/simple_animal/parrot))
 			var/list/turfs_to_throw = view(2, src)
 			for(var/obj/item/item in living_target.contents)
+				if(isclothing(item))
+					continue //no reason to strip them of sensors
 				living_target.dropItemToGround(item, TRUE)
 				if(QDELING(item))
 					continue //skip it
