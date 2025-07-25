@@ -9,9 +9,6 @@
 	var/helping_station = FALSE
 	var/give_equipment = TRUE
 
-/datum/antagonist/ninja/get_dynamic_midround_points()
-	return -2
-
 /datum/antagonist/ninja/New()
 	if(helping_station)
 		can_elimination_hijack = ELIMINATION_PREVENT

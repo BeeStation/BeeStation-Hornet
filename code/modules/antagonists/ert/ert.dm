@@ -25,9 +25,6 @@
 	banning_key = ROLE_ERT
 	required_living_playtime = 2
 
-/datum/antagonist/ert/get_dynamic_midround_points()
-	return 0.2
-
 /datum/antagonist/ert/on_gain()
 	if(random_names)
 		update_name()

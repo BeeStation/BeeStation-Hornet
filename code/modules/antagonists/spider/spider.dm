@@ -52,9 +52,6 @@
 	required_living_playtime = 2
 	var/datum/team/spiders/spider_team
 
-/datum/antagonist/spider/get_dynamic_midround_points()
-	return -0.1
-
 /datum/antagonist/spider/create_team(datum/team/spiders/new_team)
 	if(!new_team)
 		for(var/datum/antagonist/spider/spooder in GLOB.antagonists)
