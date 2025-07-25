@@ -145,17 +145,18 @@
 	. = ..()
 	if(!.)
 		return
-	log_bomber(user, "triggered a PDA explosion on", target, "[!is_special_character(user) ? "(TRIGGED BY NON-ANTAG)" : ""]")
 	var/obj/item/computer_hardware/battery/controler = target.all_components[MC_CELL]
+	if(!controler)
+		return
 	var/obj/item/stock_parts/cell/computer/cell = controler.battery
-	if(controler)
-		if(!controler.hacked)
-			if(ismob(loc))
-				var/mob/victim = loc
-				controler.overclock(victim)
-			else
-				controler.hacked = TRUE
-		cell.use(cell.charge - 1)	// We want to delay the explosion a bit so the target receives the overclocking notification and gets spooked
+	if(!controler.hacked)
+		if(ismob(loc))
+			var/mob/victim = loc
+			controler.overclock(victim)
+		else
+			controler.hacked = TRUE
+	log_bomber(user, "triggered a PDA explosion on", target, "[!is_special_character(user) ? "(TRIGGED BY NON-ANTAG)" : ""]")
+	cell.use(cell.charge - 1)	// We want to delay the explosion a bit so the target receives the overclocking notification and gets spooked
 
 /obj/item/computer_hardware/hard_drive/role/virus/syndicate/military
 	name = "\improper D.E.T.O.M.A.T.I.X. Deluxe disk"
