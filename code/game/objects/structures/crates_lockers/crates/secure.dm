@@ -62,11 +62,11 @@
 
 /obj/structure/closet/crate/secure/gear/debug/PopulateContents()
 	. = ..()
-	new /obj/item/robot_module/syndicate_medical(src)
-	new /obj/item/robot_module/syndicate(src)
-	new /obj/item/robot_module/security(src)
-	new /obj/item/robot_module/saboteur(src)
-	new /obj/item/robot_module/deathsquad(src)
+	new /obj/item/robot_model/syndicate_medical(src)
+	new /obj/item/robot_model/syndicate(src)
+	new /obj/item/robot_model/security(src)
+	new /obj/item/robot_model/saboteur(src)
+	new /obj/item/robot_model/deathsquad(src)
 
 /obj/structure/closet/crate/secure/gear/debug/mech
 	name = "debug mech equipment"
@@ -86,11 +86,11 @@
 
 /obj/structure/closet/crate/secure/gear/debug/PopulateContents()
 	. = ..()
-	new /obj/item/robot_module/syndicate_medical(src)
-	new /obj/item/robot_module/syndicate(src)
-	new /obj/item/robot_module/security(src)
-	new /obj/item/robot_module/saboteur(src)
-	new /obj/item/robot_module/deathsquad(src)
+	new /obj/item/robot_model/syndicate_medical(src)
+	new /obj/item/robot_model/syndicate(src)
+	new /obj/item/robot_model/security(src)
+	new /obj/item/robot_model/saboteur(src)
+	new /obj/item/robot_model/deathsquad(src)
 
 /obj/structure/closet/crate/secure/gear/debug/mech
 	name = "debug mech equipment"

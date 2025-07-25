@@ -5,7 +5,7 @@
 "e" = (
 /obj/structure/table/reinforced,
 /obj/item/aicard,
-/obj/item/aiModule/core/freeformcore,
+/obj/item/ai_module/core/freeformcore,
 /obj/machinery/door/window/brigdoor/southright,
 /turf/open/floor/iron/techmaint,
 /area/space)
@@ -18,9 +18,9 @@
 /area/space)
 "i" = (
 /obj/structure/table/reinforced,
-/obj/item/aiModule/core/full/antimov,
-/obj/item/aiModule/core/full/hulkamania,
-/obj/item/aiModule/core/full/tyrant,
+/obj/item/ai_module/core/full/antimov,
+/obj/item/ai_module/core/full/hulkamania,
+/obj/item/ai_module/core/full/tyrant,
 /obj/effect/temp_visual/ratvar/window/single,
 /obj/effect/temp_visual/ratvar/window/single,
 /obj/effect/temp_visual/ratvar/window/single,
@@ -74,9 +74,9 @@
 /area/space)
 "B" = (
 /obj/structure/table/reinforced,
-/obj/item/aiModule/core/full/asimovpp,
-/obj/item/aiModule/core/full/custom,
-/obj/item/aiModule/reset/purge,
+/obj/item/ai_module/core/full/asimovpp,
+/obj/item/ai_module/core/full/custom,
+/obj/item/ai_module/reset/purge,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -104,10 +104,10 @@
 /area/space)
 "R" = (
 /obj/structure/table/reinforced,
-/obj/item/aiModule/ion,
-/obj/item/aiModule/core/full/damaged,
-/obj/item/aiModule/core/full/overthrow,
-/obj/item/aiModule/core/full/peacekeeper,
+/obj/item/ai_module/ion,
+/obj/item/ai_module/core/full/damaged,
+/obj/item/ai_module/core/full/overthrow,
+/obj/item/ai_module/core/full/peacekeeper,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -122,10 +122,10 @@
 /area/space)
 "W" = (
 /obj/structure/table/reinforced,
-/obj/item/aiModule/core/full/asimov,
-/obj/item/aiModule/core/full/balance,
-/obj/item/aiModule/reset,
-/obj/item/aiModule/supplied/protectStation,
+/obj/item/ai_module/core/full/asimov,
+/obj/item/ai_module/core/full/balance,
+/obj/item/ai_module/reset,
+/obj/item/ai_module/supplied/protect_station,
 /obj/structure/window/reinforced{
 	dir = 8
 	},

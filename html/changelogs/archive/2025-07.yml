@@ -357,3 +357,34 @@
   - tweak: PAIs can now be ejected with alt-click.
   PowerfulBacon:
   - balance: Clarke moves slower on station.
+2025-07-23:
+  Gboster-0:
+  - rscdel: Deleted xenobiology's warping crossbreeds saying they have infinite uses
+      to their examiners
+  Rukofamicom:
+  - bugfix: detective aura now properly removes from all mobs
+  - tweak: anyone with a detective hat can now use the aura within detective office
+      and interrogation room
+  - tweak: adjusted grammar on a line involving the detective aura
+  Schoolboy215:
+  - bugfix: issue with fully deconstructing cyborgs
+  mrmanlikesbt, timothymtorres, orthography, tralezab, dragomagol:
+  - rscadd: added several new lawsets
+  - rscadd: infected law upload board. An admin-obtainable item that will make the
+      targeted AI malf
+  - rscadd: added "Unique AI" station trait. when this rolls a non-standard lawset
+      will be chosen for the AI to have
+  - balance: malf AIs can eject from mechs now
+  - balance: silicons are alerted when an upload key is extracted
+  - balance: the robotics control console can only be used on station now
+  - tweak: malf and combat upgraded AIs use the same module picker now
+  - tweak: slightly adjusted malf AI greeting text
+  - tweak: adjusted electrocuted door icon
+  - bugfix: fixed the "law changes" alert not appearing for silicons
+  - bugfix: fixed some AI module picker bugs
+  - bugfix: fixed two malf antag info panels opening
+  - code_imp: silicon code cleanup and some documentation
+  - code_imp: renamed "maintain" lawset to "efficiency"
+2025-07-24:
+  itsmeow:
+  - bugfix: Fixed being unable to look up or locate turfs above you in Multi-Z
