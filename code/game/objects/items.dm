@@ -976,6 +976,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 				comp = M
 			break
 		if(comp)
+			if(!cpu)
+				return
 			var/turf/target = comp.get_blink_destination(get_turf(src), dir, (cpu.max_idle_programs * 2))
 			var/turf/start = get_turf(src)
 			if(!comp.enabled)

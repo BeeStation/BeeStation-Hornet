@@ -299,6 +299,8 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 
 /obj/item/modular_computer/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum) // Teleporting for hacked CPU's
 	var/obj/item/computer_hardware/processor_unit/cpu = all_components[MC_CPU]
+	if(!cpu)
+		return
 	var/turf/target = get_blink_destination(get_turf(src), dir, (cpu.max_idle_programs * 2))
 	var/turf/start = get_turf(src)
 	if(!target)

@@ -96,6 +96,8 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 			if(cpu?.hacked)
 				comp = M
 	if(comp)
+		if(!cpu)
+			return
 		var/turf/target = comp.get_blink_destination(get_turf(src), dir, (cpu.max_idle_programs * 2))
 		var/turf/start = get_turf(src)
 		if(!comp.enabled)
