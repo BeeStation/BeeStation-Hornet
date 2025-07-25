@@ -243,14 +243,12 @@
 	desc = "This broken job disk has been carefully modified by a vilaneous organization in order to hide serve as an uplink."
 	icon_state = "comp_open"
 	can_hack = FALSE
-	var/spawn_uplink = TRUE
 	var/stored_telecrystals = 20
 	var/lock_code
 
 /obj/item/computer_hardware/hard_drive/role/uplink/Initialize(mapload)
 	. = ..()
-	if(spawn_uplink)
-		lock_code = "[random_code(3)] [pick(GLOB.phonetic_alphabet)]"
+	lock_code = "[random_code(3)] [pick(GLOB.phonetic_alphabet)]"
 
 /obj/item/computer_hardware/hard_drive/role/uplink/on_install(obj/item/modular_computer/install_into, mob/living/user)
 	..()
@@ -269,7 +267,6 @@
 		playsound(install_into, 'sound/machines/twobeep_high.ogg', 50, TRUE)
 		qdel(src)
 
-/obj/item/computer_hardware/hard_drive/role/uplink/for_copy
+/obj/item/computer_hardware/hard_drive/role/uplink/for_copy	// This is here just to not be too much on the nose
 	name = "broken job disk"
 	desc = "It may still be returned to it's former glory."
-	spawn_uplink = FALSE
