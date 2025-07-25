@@ -241,7 +241,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/throw_verb
 
 /obj/item/Initialize(mapload)
-
 	if(attack_verb_continuous)
 		attack_verb_continuous = typelist("attack_verb_continuous", attack_verb_continuous)
 	if(attack_verb_simple)
@@ -261,8 +260,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(istype(loc, /obj/item/storage))
 		item_flags |= IN_STORAGE
 
-	if(istype(loc, /obj/item/robot_module))
-		var/obj/item/robot_module/parent_module = loc
+	if(istype(loc, /obj/item/robot_model))
+		var/obj/item/robot_model/parent_module = loc
 		var/mob/living/silicon/parent_robot = parent_module.loc
 		if (istype(parent_robot))
 			pickup(parent_robot)
@@ -605,7 +604,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	. = ..()
 	if(.)
 		return
-	if(istype(src.loc, /obj/item/robot_module))
+	if(istype(src.loc, /obj/item/robot_model))
 		//If the item is part of a cyborg module, equip it
 		var/mob/living/silicon/robot/R = user
 		if(!R.low_power_mode) //can't equip modules with an empty cell.
@@ -970,6 +969,28 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 		else
 			playsound(src, drop_sound, YEET_SOUND_VOLUME, ignore_walls = FALSE)
+		var/obj/item/modular_computer/comp
+		var/obj/item/computer_hardware/processor_unit/cpu
+		for(var/obj/item/modular_computer/M in contents)
+			cpu = comp.all_components[MC_CPU]
+			if(!cpu?.hacked)
+				comp = M
+			break
+		if(comp)
+			var/turf/target = comp.get_blink_destination(get_turf(src), dir, (cpu.max_idle_programs * 2))
+			var/turf/start = get_turf(src)
+			if(!comp.enabled)
+				new /obj/effect/particle_effect/sparks(start)
+				playsound(start, "sparks", 50, 1)
+				return
+			if(!target)
+				return
+			// The better the CPU the farther it goes, and the more battery it needs
+			playsound(target, 'sound/effects/phasein.ogg', 25, 1)
+			playsound(start, "sparks", 50, 1)
+			playsound(target, "sparks", 50, 1)
+			do_dash(src, start, target, 0, TRUE)
+			comp.use_power((250 * cpu.max_idle_programs) / GLOB.CELLRATE)
 		return hit_atom.hitby(src, 0, itempush, throwingdatum=throwingdatum)
 
 

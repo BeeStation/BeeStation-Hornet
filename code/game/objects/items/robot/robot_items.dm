@@ -700,7 +700,7 @@
 		QDEL_NULL(dampening_field)
 	var/mob/living/silicon/robot/owner = get_host()
 	dampening_field = new(owner, field_radius, TRUE, src)
-	owner?.module.allow_riding = FALSE
+	owner?.model.allow_riding = FALSE
 	active = TRUE
 
 /obj/item/borg/projectile_dampen/proc/deactivate_field()
@@ -713,7 +713,7 @@
 
 	var/mob/living/silicon/robot/owner = get_host()
 	if(owner)
-		owner.module.allow_riding = TRUE
+		owner.model.allow_riding = TRUE
 
 /obj/item/borg/projectile_dampen/proc/get_host()
 	if(istype(host))
@@ -1031,7 +1031,7 @@
 
 /obj/item/borg/apparatus/circuit/pre_attack(atom/A, mob/living/user, params)
 	. = ..()
-	if(istype(A, /obj/item/aiModule) && !stored) //If an admin wants a borg to upload laws, who am I to stop them? Otherwise, we can hint that it fails
+	if(istype(A, /obj/item/ai_module) && !stored) //If an admin wants a borg to upload laws, who am I to stop them? Otherwise, we can hint that it fails
 		to_chat(user, span_warning("This circuit board doesn't seem to have standard robot apparatus pin holes. You're unable to pick it up."))
 
 ////////////////////

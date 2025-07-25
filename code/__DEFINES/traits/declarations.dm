@@ -329,6 +329,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_BRAIN_TUMOR		"brain_tumor"
 #define TRAIT_PROSKATER			"pro_skater"
 #define TRAIT_PLUSHIELOVER		"plushie lover"
+#define TRAIT_COMPUTER_WHIZ		"computer_whiz"
 
 ///Trait for dryable items
 #define TRAIT_DRYABLE "trait_dryable"
@@ -375,6 +376,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define STATION_TRAIT_DISTANT_SUPPLY_LINES "distant_supply_lines"
 #define STATION_TRAIT_STRONG_SUPPLY_LINES "strong_supply_lines"
 #define STATION_TRAIT_UNITED_BUDGET "united_budget"
+#define STATION_TRAIT_UNIQUE_AI "station_trait_unique_ai"
 
 /// Trait applied when the MMI component is added to an [/obj/item/integrated_circuit]
 #define TRAIT_COMPONENT_MMI "component_mmi"
@@ -413,5 +415,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NO_ORGAN_PENETRATION "no_organ_penetration"
 
 #define TRAIT_VALUE_SOUND_SCAPE "sound_scape"
+
+//for the detective aurafarming ability
+#define TRAIT_NOIR "noir" //people who are in the noir state,
 
 // END TRAIT DEFINES

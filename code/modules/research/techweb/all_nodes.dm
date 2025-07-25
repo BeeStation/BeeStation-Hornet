@@ -10,7 +10,6 @@
 	description = "NT default research technologies."
 	// Default research tech, prevents bricking
 	design_ids = list(
-		"antivirus",
 		"basic_capacitor",
 		"basic_cell",
 		"basic_matter_bin",
@@ -193,6 +192,7 @@
 		"comp_hear",
 		"comp_index_table",
 		"comp_index",
+		"comp_install_detector",
 		"comp_length",
 		"comp_light",
 		"comp_list_literal",
@@ -207,6 +207,7 @@
 		"comp_pressuresensor",
 		"comp_radio",
 		"comp_random",
+		"comp_reagent_injector",
 		"comp_round",
 		"comp_router",
 		"comp_select_query",
@@ -398,7 +399,6 @@
 		"adv_scanning",
 		"airalarm_electronics",
 		"airlock_board",
-		"antivirus2",
 		"apc_control",
 		"atmos_control",
 		"atmosalerts",
@@ -568,7 +568,6 @@
 		"practical_bluespace",
 	)
 	design_ids = list(
-		"antivirus4",
 		"bluespace_matter_bin",
 		"femto_mani",
 		"quantum_keycard",
@@ -632,7 +631,6 @@
 		"engineering",
 	)
 	design_ids = list(
-		"antivirus3",
 		"bluespacebeaker",
 		"bluespacesyringe",
 	"bluespace_capsule",
@@ -995,25 +993,57 @@
 		"asimov_module",
 		"borg_ai_control",
 		"corporate_module",
-		"maintain_module",
 		"default_module",
+		"drone_module",
 		"freeform_module",
-		"freeformcore_module",
 		"intellicard",
 		"mecha_tracking_ai_control",
-		"onehuman_module",
-		"overlord_module",
+		"nutimov_module",
 		"oxygen_module",
 		"paladin_module",
 		"protectstation_module",
-		"purge_module",
 		"quarantine_module",
 		"remove_module",
 		"reset_module",
+		"robocop_module",
 		"safeguard_module",
-		"tyrant_module",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	export_price = 5000
+
+/datum/techweb_node/ai_laws
+	id = "ai_laws"
+	tech_tier = 4
+	display_name = "Advanced AI Laws"
+	description = "Delving into sophisticated AI directives, with hopes that they won't lead to humanity's extinction."
+	prereq_ids = list("ai")
+	design_ids = list(
+		"antimov_module",
+		"asimovpp_module",
+		"crewsimov_module",
+		"balance_module",
+		"damaged_module",
+		"dadbot_module",
+		"dungeon_master_module",
+		"freeformcore_module",
+		"hippocratic_module",
+		"hulkamania_module",
+		"liveandletlive_module",
+		"efficiency_module",
+		"onehuman_module",
+		"overlord_module",
+		"painter_module",
+		"paladin_devotion_module",
+		"peacekeeper_module",
+		"purge_module",
+		"reporter_module",
+		"ten_commandments_module",
+		"thermodynamic_module",
+		"thinkermov_module",
+		"tyrant_module",
+		"yesman_module",
+	)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
 
 /////////////////////////EMP tech/////////////////////////
@@ -1119,6 +1149,7 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)  //Very basic hardware, very basic cost
 	export_price = 2000
 	design_ids = list(
+		"antivirus",
 		"bat_control",
 		"bat_nano",
 		"bat_micro",
@@ -1141,6 +1172,7 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 3000
 	design_ids = list(
+		"antivirus2",
 		"bat_normal",
 		"bat_advanced",
 		"hdd_basic",
@@ -1166,6 +1198,7 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3500)
 	export_price = 4000
 	design_ids = list(
+		"antivirus3",
 		"aislot",
 		"APClink",
 		"portadrive_super",
@@ -1183,6 +1216,7 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 4000)
 	export_price = 5000
 	design_ids = list(
+		"antivirus4",
 		"XNetCard"
 	)
 
