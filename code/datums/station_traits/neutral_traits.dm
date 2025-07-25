@@ -168,7 +168,7 @@
 		var/obj/item/birthday_invite/birthday_invite = new(living_mob)
 		birthday_invite.setup_card(birthday_person.name)
 		living_mob.equip_to_slot_or_del(birthday_invite, ITEM_SLOT_HANDS)
-    
+
 /datum/station_trait/unique_ai
 	name = "Unique AI"
 	trait_type = STATION_TRAIT_NEUTRAL
