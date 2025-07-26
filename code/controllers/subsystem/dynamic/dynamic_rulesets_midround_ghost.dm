@@ -90,8 +90,7 @@
 	message_admins("DYNAMIC: Polling [length(candidates)] player\s to apply for the [src] ruleset.")
 	log_dynamic("MIDROUND: Polling [length(candidates)] player\s to apply for the [src] ruleset.")
 
-	candidates = SSpolling.poll_candidates(
-		group = candidates,
+	candidates = SSpolling.poll_ghost_candidates(
 		poll_time = 30 SECONDS,
 		role_name_text = initial(antag_datum.name),
 		alert_pic = get_poll_icon(),
