@@ -51,7 +51,6 @@ SUBSYSTEM_DEF(dynamic)
 	/// The point delta per living antagonist
 	var/list/midround_points_per_antag = list(
 		/datum/antagonist/ert = 0.2,
-		/datum/antagonist/valentine = 0.1,
 		/datum/antagonist/spider = -0.1,
 		/datum/antagonist/swarmer = -0.1,
 		/datum/antagonist/xeno = -0.2,
@@ -475,7 +474,7 @@ SUBSYSTEM_DEF(dynamic)
 
 	var/previous_midround_points = midround_points
 
-	var/living_delta = length(current_players[CURRENT_LIVING_PLAYERS]) * midround_living_delta
+	var/living_delta = (length(current_players[CURRENT_LIVING_PLAYERS]) + length(current_players[CURRENT_LIVING_ANTAGS])) * midround_living_delta
 	var/observing_delta = length(current_players[CURRENT_OBSERVERS]) * midround_observer_delta
 	var/dead_delta = length(current_players[CURRENT_DEAD_PLAYERS]) * midround_dead_delta
 
