@@ -1572,6 +1572,9 @@
 	. = ..()
 	if(isnull(.))
 		return
+	// As soon as we fall unconscious, we instantly take the maximum amount of consciousness damage
+	if (. == CONSCIOUS && stat == SOFT_CRIT)
+		take_consciousness_damage(INFINITY)
 	// If we are dead, we are not critical condition
 	if (stat != DEAD)
 		REMOVE_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
