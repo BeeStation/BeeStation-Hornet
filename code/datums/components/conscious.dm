@@ -99,8 +99,6 @@
 		"You feel a surge of pain.",
 		"Your feel a pain from inside your body.",
 		"Your head hurts.",
-		"Your head hurts.",
-		"You feel a tiny prick!",
 	)))
 
 /// Called when consciousness damage should be applied to the owner
