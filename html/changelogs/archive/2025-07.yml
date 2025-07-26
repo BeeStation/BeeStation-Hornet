@@ -389,5 +389,10 @@
   itsmeow:
   - bugfix: Fixed being unable to look up or locate turfs above you in Multi-Z
 2025-07-26:
+  Nakalon:
+  - bugfix: Modular computers can teleport bags and other stuff again.
+  - bugfix: Detectives can now actually diagnose computers as they should as the epic
+      cyber sleuths they are.
+  - bugfix: Solves a runtime when throwing a computer without a CPU.
   mrmanlikesbt:
   - bugfix: fixed an exploit with the bookbinder (sorry that one curator)
