@@ -29,7 +29,6 @@
 /mob/living/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/movetype_handler)
-	AddComponent(/datum/component/conscious)
 
 /mob/living/prepare_huds()
 	..()

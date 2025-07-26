@@ -130,12 +130,13 @@
 		victim.custom_emote("passes out")
 		to_chat(victim, span_userdanger("You fall unconscious!"))
 
-/datum/component/conscious/proc/regain_consciousness(atom/victim)
+/datum/component/conscious/proc/regain_consciousness(mob/living/victim)
 	REMOVE_TRAIT(victim, TRAIT_KNOCKEDOUT, FROM_UNCONSCIOUS)
 	REMOVE_TRAIT(victim, TRAIT_DEAF, FROM_UNCONSCIOUS)
 	REMOVE_TRAIT(victim, TRAIT_VALUE_SOUND_SCAPE, FROM_UNCONSCIOUS)
 	is_unconscious = FALSE
 	is_deaf = FALSE
+	victim.Knockdown(5 SECONDS)
 
 /datum/component/conscious/proc/fall_unconscious(atom/victim, duration)
 	unconscious_time = max(unconscious_time, world.time + duration)
