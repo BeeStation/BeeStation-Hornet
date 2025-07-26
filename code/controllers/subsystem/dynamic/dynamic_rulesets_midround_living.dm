@@ -57,7 +57,7 @@
 	if(!length(chosen_candidates))
 		message_admins("DYNAMIC: [previous_chosen_candidates] players were selected for [src], but none of them wanted to play it.")
 		log_dynamic("NOT ALLOWED: [previous_chosen_candidates] players were selected for [src], but none of them wanted to play it.")
-		return DYNAMIC_EXECUTE_NOT_ENOUGH_PLAYERS
+		return DYNAMIC_EXECUTE_FAILURE
 
 	for(var/mob/chosen_candidate in chosen_candidates)
 		chosen_candidate.mind.special_role = antag_datum.banning_key

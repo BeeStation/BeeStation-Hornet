@@ -3,7 +3,12 @@
 		"roundstart_divergence_percent_lower": 1,
 		"roundstart_divergence_percent_upper": 1,
 		"roundstart_points_per_ready": 1,
-		"roundstart_points_per_unready": 0.5
+		"roundstart_points_per_unready": 0.5,
+		"midround_living_delta": 0.1,
+		"midround_observer_delta": 0,
+		"midround_dead_delta": -0.3,
+		"midround_linear_delta": 1,
+		"midround_linear_delta_forced": 0.5
 	},
 	"Roundstart": {
 		"Traitor": {

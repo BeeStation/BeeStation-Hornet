@@ -103,6 +103,7 @@
 	data["dead_delta"] = SSdynamic.midround_dead_delta
 	data["observer_delta"] = SSdynamic.midround_observer_delta
 	data["linear_delta"] = SSdynamic.midround_linear_delta
+	data["linear_delta_forced"] = SSdynamic.midround_linear_delta_forced
 
 	data["logged_points"] = SSdynamic.logged_points["logged_points"]
 	data["logged_points_living"] = SSdynamic.logged_points["logged_points_living"]
@@ -110,6 +111,7 @@
 	data["logged_points_dead"] = SSdynamic.logged_points["logged_points_dead"]
 	data["logged_points_antag"] = SSdynamic.logged_points["logged_points_antag"]
 	data["logged_points_linear"] = SSdynamic.logged_points["logged_points_linear"]
+	data["logged_points_linear_forced"] = SSdynamic.logged_points["logged_points_linear_forced"]
 
 	data["logged_light_chance"] = SSdynamic.logged_chances["light"]
 	data["logged_medium_chance"] = SSdynamic.logged_chances["medium"]
@@ -334,6 +336,12 @@
 			SSdynamic.midround_linear_delta = new_linear_delta
 			message_admins("[key_name(usr)] set the midround linear delta to [new_linear_delta]")
 			log_dynamic("[key_name(usr)] set the midround linear delta to [new_linear_delta]")
+			return TRUE
+		if("set_midround_linear_delta_forced")
+			var/new_linear_delta_forced = params["new_linear_delta_forced"]
+			SSdynamic.midround_linear_delta_forced = new_linear_delta_forced
+			message_admins("[key_name(usr)] set the forced midround linear delta to [new_linear_delta_forced]")
+			log_dynamic("[key_name(usr)] set the forced midround linear delta to [new_linear_delta_forced]")
 			return TRUE
 
 		// Latejoin

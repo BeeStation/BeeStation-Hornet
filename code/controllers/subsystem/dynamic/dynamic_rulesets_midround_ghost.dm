@@ -605,7 +605,7 @@
 	if(spawn_prisoners(landing_turf, candidates, list()) == NOT_ENOUGH_PLAYERS)
 		message_admins("DYNAMIC: Not enough players volunteered for the [src] rulset - [length(candidates)] out of [drafted_players_amount].")
 		log_dynamic("NOT ALLOWED: Not enough players volunteered for the [src] ruleset - [length(candidates)] out of [drafted_players_amount].")
-		return DYNAMIC_EXECUTE_NOT_ENOUGH_PLAYERS
+		return DYNAMIC_EXECUTE_FAILURE
 
 	return DYNAMIC_EXECUTE_SUCCESS
 
@@ -659,6 +659,6 @@
 	if(spawn_fugitives(landing_turf, candidates, list()) == NOT_ENOUGH_PLAYERS)
 		message_admins("DYNAMIC: Not enough players volunteered for the [src] rulset - [length(candidates)] out of [drafted_players_amount].")
 		log_dynamic("NOT ALLOWED: Not enough players volunteered for the [src] ruleset - [length(candidates)] out of [drafted_players_amount].")
-		return DYNAMIC_EXECUTE_NOT_ENOUGH_PLAYERS
+		return DYNAMIC_EXECUTE_FAILURE
 
 	return DYNAMIC_EXECUTE_SUCCESS

@@ -72,6 +72,7 @@ SUBSYSTEM_DEF(dynamic)
 		"logged_points_observer" = list(0),
 		"logged_points_antag" = list(0),
 		"logged_points_linear" = list(0),
+		"logged_points_linear_forced" = list(0),
 	)
 	/// Logged chances, should be from 0 to 10, not 0 to 100
 	var/list/logged_chances = list(
@@ -172,8 +173,9 @@ SUBSYSTEM_DEF(dynamic)
 	var/midround_living_delta = 0.1
 	var/midround_observer_delta = 0
 	var/midround_dead_delta = -0.3
-	/// This ignores the previous rule about the delta not going lower than 0
 	var/midround_linear_delta = 1
+	/// This delta is applied no matter what
+	var/midround_linear_delta_forced = 0.5
 
 	/**
 	 * Latejoin
@@ -206,7 +208,7 @@ SUBSYSTEM_DEF(dynamic)
 
 			if(dynamic_configuration?["Dynamic"])
 				for(var/variable in dynamic_configuration["Dynamic"])
-					if(!vars[variable])
+					if(isnull(vars[variable]))
 						stack_trace("Invalid dynamic configuration variable: [variable]")
 						continue
 					vars[variable] = dynamic_configuration["Dynamic"][variable]
@@ -483,8 +485,8 @@ SUBSYSTEM_DEF(dynamic)
 			antag_delta += midround_points_per_antag[antag_datum.type]
 
 	// Add points
-	midround_points += max(living_delta + observing_delta + dead_delta + antag_delta, 0)
-	midround_points += midround_linear_delta
+	midround_points += max(living_delta + observing_delta + dead_delta + antag_delta + midround_linear_delta, 0)
+	midround_points += midround_linear_delta_forced
 
 	// Log point sources
 	logged_points["logged_points"] += midround_points
@@ -493,6 +495,7 @@ SUBSYSTEM_DEF(dynamic)
 	logged_points["logged_points_dead"] += dead_delta
 	logged_points["logged_points_antag"] += antag_delta
 	logged_points["logged_points_linear"] += midround_linear_delta
+	logged_points["logged_points_linear_forced"] += midround_linear_delta_forced
 
 	log_dynamic("MIDROUND: Updated points. From [previous_midround_points] to [midround_points]")
 

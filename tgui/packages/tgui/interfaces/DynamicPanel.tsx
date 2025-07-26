@@ -40,12 +40,14 @@ type MidroundData = {
   dead_delta: number;
   observer_delta: number;
   linear_delta: number;
+  linear_delta_forced: number;
   logged_points: number[][];
   logged_points_living: number[][];
   logged_points_dead: number[][];
   logged_points_observer: number[][];
   logged_points_antag: number[][];
   logged_points_linear: number[][];
+  logged_points_linear_forced: number[][];
   logged_light_chance: number[][];
   logged_medium_chance: number[][];
   logged_heavy_chance: number[][];
@@ -359,6 +361,7 @@ const MidroundPage = () => {
     logged_points_observer,
     logged_points_antag,
     logged_points_linear,
+    logged_points_linear_forced,
     valid_midround_rulesets,
     executed_midround_rulesets,
     current_midround_ruleset,
@@ -368,6 +371,7 @@ const MidroundPage = () => {
     dead_delta,
     observer_delta,
     linear_delta,
+    linear_delta_forced,
   } = data;
 
   // Convert our logged data into a useable format
@@ -381,6 +385,7 @@ const MidroundPage = () => {
   const observer_data = logged_points_observer.map((value, i) => [i, Array.isArray(value) ? value[0] : value]);
   const antag_data = logged_points_antag.map((value, i) => [i, Array.isArray(value) ? value[0] : value]);
   const linear_data = logged_points_linear.map((value, i) => [i, Array.isArray(value) ? value[0] : value]);
+  const linear_forced_data = logged_points_linear_forced.map((value, i) => [i, Array.isArray(value) ? value[0] : value]);
 
   const midround_rulesets_by_name = Object.fromEntries(
     valid_midround_rulesets.map((ruleset) => {
@@ -400,6 +405,7 @@ const MidroundPage = () => {
   const [show_observer_delta, toggle_observer_graph] = useLocalState('show_observer_delta', true);
   const [show_antag_delta, toggle_antag_graph] = useLocalState('show_antag_delta', true);
   const [show_linear_delta, toggle_linear_graph] = useLocalState('show_linear_delta', true);
+  const [show_linear_delta_forced, toggle_linear_graph_forced] = useLocalState('show_linear_delta_forced', true);
 
   return (
     <Flex direction="column">
@@ -489,6 +495,17 @@ const MidroundPage = () => {
                   maxValue={10}
                   step={0.5}
                   onChange={(value) => act('set_midround_linear_delta', { new_linear_delta: value })}
+                  width="25%"
+                />
+              </LabeledList.Item>
+              <LabeledList.Item label="Forced Linear Delta" verticalAlign="middle">
+                <NumberInput
+                  value={linear_delta_forced ?? 0}
+                  animated
+                  minValue={-10}
+                  maxValue={10}
+                  step={0.5}
+                  onChange={(value) => act('set_midround_linear_delta_forced', { new_linear_delta_forced: value })}
                   width="25%"
                 />
               </LabeledList.Item>
@@ -593,17 +610,17 @@ const MidroundPage = () => {
       <Flex.Item align="center" p={0.5}>
         <Button icon={show_light ? 'check-square-o' : 'square-o'} onClick={() => toggle_light_graph(!show_light)}>
           <Box inline textColor="green">
-            Light Ruleset Chance
+            Light
           </Box>
         </Button>
         <Button icon={show_medium ? 'check-square-o' : 'square-o'} onClick={() => toggle_medium_graph(!show_medium)}>
           <Box inline textColor="blue">
-            Medium Ruleset Chance
+            Medium
           </Box>
         </Button>
         <Button icon={show_heavy ? 'check-square-o' : 'square-o'} onClick={() => toggle_heavy_graph(!show_heavy)}>
           <Box inline textColor="red">
-            Heavy Ruleset Chance
+            Heavy
           </Box>
         </Button>
       </Flex.Item>
@@ -706,6 +723,15 @@ const MidroundPage = () => {
                 strokeColor="rgb(255, 255, 255)"
               />
             )}
+            {show_linear_delta_forced && (
+              <Chart.Line
+                fillPositionedParent
+                data={linear_forced_data}
+                rangeX={[0, linear_forced_data.length - 1]}
+                rangeY={[-10, 10]}
+                strokeColor="rgb(255, 255, 0)"
+              />
+            )}
           </Section>
         </Flex.Item>
       </Flex>
@@ -714,31 +740,38 @@ const MidroundPage = () => {
           icon={show_living_delta ? 'check-square-o' : 'square-o'}
           onClick={() => toggle_living_graph(!show_living_delta)}>
           <Box inline textColor="green">
-            Living Delta
+            Living
           </Box>
         </Button>
         <Button icon={show_dead_delta ? 'check-square-o' : 'square-o'} onClick={() => toggle_dead_graph(!show_dead_delta)}>
           <Box inline textColor="blue">
-            Dead Delta
+            Dead
           </Box>
         </Button>
         <Button
           icon={show_observer_delta ? 'check-square-o' : 'square-o'}
           onClick={() => toggle_observer_graph(!show_observer_delta)}>
           <Box inline textColor="grey">
-            Observer Delta
+            Observer
           </Box>
         </Button>
         <Button icon={show_antag_delta ? 'check-square-o' : 'square-o'} onClick={() => toggle_antag_graph(!show_antag_delta)}>
           <Box inline textColor="red">
-            Antag Delta
+            Antag
           </Box>
         </Button>
         <Button
           icon={show_linear_delta ? 'check-square-o' : 'square-o'}
           onClick={() => toggle_linear_graph(!show_linear_delta)}>
           <Box inline textColor="white">
-            Linear Delta
+            Linear
+          </Box>
+        </Button>
+        <Button
+          icon={show_linear_delta_forced ? 'check-square-o' : 'square-o'}
+          onClick={() => toggle_linear_graph_forced(!show_linear_delta_forced)}>
+          <Box inline textColor="yellow">
+            Forced Linear
           </Box>
         </Button>
       </Flex.Item>
