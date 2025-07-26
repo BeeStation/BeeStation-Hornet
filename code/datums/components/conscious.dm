@@ -30,6 +30,7 @@
 	START_PROCESSING(SSinjuries, src)
 
 /datum/component/conscious/process(delta_time)
+	var/mob/living/living_parent = parent
 	// Unconsciousness hud blur
 	if(damage + recent_damage)
 		var/severity = 0
@@ -53,8 +54,9 @@
 		client?.mob.clear_fullscreen("pain")
 	if (consciousness_heal_time > world.time || stat == DEAD)
 		return
+	if (IS_IN_STASIS(living_parent))
+		return
 	// Heal consciousness damage
-	var/mob/living/living_parent = parent
 	damage = clamp(damage - consciousness_heal_rate * delta_time, 0, max_damage)
 	recent_damage = max(recent_damage - consciousness_heal_rate * delta_time * 2, 0)
 	// Take consciousness damage to match our health
@@ -82,7 +84,9 @@
 /datum/component/conscious/proc/logout()
 	client = null
 
-/datum/component/conscious/proc/wince_from_pain(atom/victim)
+/datum/component/conscious/proc/wince_from_pain(mob/living/victim)
+	if (damage > 70 && prob(15))
+		victim.emote("scream")
 	to_chat(client, span_pain(pick(
 		"You wince in pain.",
 		"You flinch as pain shoots through your body.",
