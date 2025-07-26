@@ -58,7 +58,7 @@
 	damage = clamp(damage - consciousness_heal_rate * delta_time, 0, max_damage)
 	recent_damage = max(recent_damage - consciousness_heal_rate * delta_time * 2, 0)
 	// Take consciousness damage to match our health
-	var/current_damage = min(living_parent.maxHealth - living_parent.health, unconscious_threshold * 0.8)
+	var/current_damage = min(max(living_parent.maxHealth - living_parent.health - 40, 0) * (living_parent.maxHealth / (living_parent.maxHealth - 40)), unconscious_threshold * 0.8)
 	if (damage < current_damage)
 		var/diff = current_damage - damage
 		diff = min(diff, 4)
