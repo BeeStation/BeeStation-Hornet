@@ -1,0 +1,4 @@
+author: mrmanlikesbt
+delete-after: true
+changes:
+  - bugfix: fixed an exploit with the bookbinder (sorry that one curator)
