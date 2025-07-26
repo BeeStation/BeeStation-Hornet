@@ -27,6 +27,8 @@
 	var/decoy_override = FALSE
 	/// Two variables necessary for calculating whether we get a brain trauma or not
 	var/damage_delta = 0
+	/// Is this brain capable of feeling pain
+	var/feels_pain = TRUE
 
 	var/list/datum/brain_trauma/traumas = list()
 	juice_typepath = null	//the moment the brains become juicable, people will find a way to cheese round removal. So NO.
@@ -83,6 +85,9 @@
 		trauma.owner = brain_owner
 		trauma.on_gain()
 
+	if (feels_pain)
+		brain_owner.AddComponent(/datum/component/conscious)
+
 	//Update the body's icon so it doesnt appear debrained anymore
 	brain_owner.update_hair()
 
@@ -121,6 +126,9 @@
 				brain_owner.mind.transfer_to(brainmob)
 		to_chat(brainmob, span_notice("You feel slightly disoriented. That's normal when you're just a brain."))
 	brain_owner.update_hair()
+	var/datum/component/conscious/consciousness = brain_owner.GetComponent(/datum/component/conscious)
+	if (consciousness)
+		qdel(consciousness)
 	SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "brain_damage")
 
 /obj/item/organ/brain/set_organ_damage(d)
@@ -302,6 +310,7 @@
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "posibrain-ipc"
 	organ_flags = ORGAN_SYNTHETIC
+	feels_pain = FALSE
 
 /obj/item/organ/brain/positron/on_insert(mob/living/carbon/human/brain_owner)
 	. = ..()

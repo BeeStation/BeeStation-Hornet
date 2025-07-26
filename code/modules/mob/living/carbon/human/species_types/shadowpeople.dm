@@ -162,6 +162,7 @@
 	name = "tumorous mass"
 	desc = "A fleshy growth that was dug out of the skull of a Nightmare."
 	icon_state = "brain-x-d"
+	feels_pain = FALSE
 	var/datum/action/spell/jaunt/shadow_walk/our_jaunt
 
 /obj/item/organ/brain/nightmare/on_insert(mob/living/carbon/brain_owner)
