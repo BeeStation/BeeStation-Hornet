@@ -51,7 +51,7 @@
 		client?.mob.overlay_fullscreen("pain", /atom/movable/screen/fullscreen/oxy, severity)
 	else
 		client?.mob.clear_fullscreen("pain")
-	if (consciousness_heal_time > world.time)
+	if (consciousness_heal_time > world.time || stat == DEAD)
 		return
 	// Heal consciousness damage
 	var/mob/living/living_parent = parent
@@ -63,12 +63,8 @@
 		var/diff = current_damage - damage
 		diff = min(diff, 4)
 		take_consciousness_damage(parent, diff, FALSE)
-	if (living_parent.stat >= SOFT_CRIT)
-		var/probability_bonus = max(0, (current_damage - living_parent.maxHealth) / living_parent.maxHealth) * 20
-		if (DT_PROB(20 + probability_bonus, delta_time))
-			fall_unconscious(parent, rand(3 SECONDS, 6 SECONDS))
 	// Stop being deaf
-	if (damage < unconscious_threshold + 20 && is_deaf)
+	if (damage < unconscious_threshold + 10 && is_deaf)
 		REMOVE_TRAIT(parent, TRAIT_DEAF, FROM_UNCONSCIOUS)
 		living_parent.custom_emote("twitches")
 		is_deaf = FALSE
@@ -107,7 +103,9 @@
 	)))
 
 /// Called when consciousness damage should be applied to the owner
-/datum/component/conscious/proc/take_consciousness_damage(atom/victim, amount, pause_healing = FALSE)
+/datum/component/conscious/proc/take_consciousness_damage(mob/living/victim, amount, pause_healing = FALSE)
+	if (victim.stat >= SOFT_CRIT)
+		amount *= 4
 	damage = clamp(amount + damage, 0, max_damage)
 	if (pause_healing)
 		recent_damage = clamp(recent_damage + amount, 0, 100)
