@@ -66,8 +66,9 @@
 	// Stop being deaf
 	if (damage < unconscious_threshold + 10 && is_deaf)
 		REMOVE_TRAIT(parent, TRAIT_DEAF, FROM_UNCONSCIOUS)
-		living_parent.custom_emote("twitches")
 		is_deaf = FALSE
+		if (victim.stat <= SOFT_CRIT)
+			living_parent.custom_emote("twitches")
 	// While our consciousness value is above 0, we will wince from pain occassionally
 	if (damage < unconscious_threshold && world.time > unconscious_time)
 		if (DT_PROB(damage * 0.3, delta_time))
@@ -121,14 +122,15 @@
 	is_unconscious = TRUE
 	is_deaf = TRUE
 	consciousness_heal_time = max(world.time + 5 SECONDS, consciousness_heal_time)
-	victim.custom_emote("passes out")
 	damage = min(unconscious_threshold + 20, damage)
 	ADD_TRAIT(victim, TRAIT_KNOCKEDOUT, FROM_UNCONSCIOUS)
 	ADD_TRAIT(victim, TRAIT_DEAF, FROM_UNCONSCIOUS)
 	ADD_VALUE_TRAIT(victim, TRAIT_VALUE_SOUND_SCAPE, FROM_UNCONSCIOUS, SOUND_ENVIRONMENT_DIZZY, SOUND_PRIORITY_UNCONSCIOUS)
-	// Stop all playing sounds
-	SEND_SOUND(client, sound(null))
-	to_chat(victim, span_userdanger("You fall unconscious!"))
+	if (victim.stat <= SOFT_CRIT)
+		// Stop all playing sounds
+		SEND_SOUND(client, sound(null))
+		victim.custom_emote("passes out")
+		to_chat(victim, span_userdanger("You fall unconscious!"))
 
 /datum/component/conscious/proc/regain_consciousness(atom/victim)
 	REMOVE_TRAIT(victim, TRAIT_KNOCKEDOUT, FROM_UNCONSCIOUS)
