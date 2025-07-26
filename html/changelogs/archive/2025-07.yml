@@ -388,3 +388,6 @@
 2025-07-24:
   itsmeow:
   - bugfix: Fixed being unable to look up or locate turfs above you in Multi-Z
+2025-07-26:
+  mrmanlikesbt:
+  - bugfix: fixed an exploit with the bookbinder (sorry that one curator)
