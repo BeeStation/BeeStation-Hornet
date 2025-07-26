@@ -52,7 +52,7 @@
 		client?.mob.overlay_fullscreen("pain", /atom/movable/screen/fullscreen/oxy, severity)
 	else
 		client?.mob.clear_fullscreen("pain")
-	if (consciousness_heal_time > world.time || stat == DEAD)
+	if (consciousness_heal_time > world.time || living_parent.stat == DEAD)
 		return
 	if (IS_IN_STASIS(living_parent))
 		return
@@ -69,7 +69,7 @@
 	if (damage < unconscious_threshold + 10 && is_deaf)
 		REMOVE_TRAIT(parent, TRAIT_DEAF, FROM_UNCONSCIOUS)
 		is_deaf = FALSE
-		if (victim.stat <= SOFT_CRIT)
+		if (living_parent.stat <= SOFT_CRIT)
 			living_parent.custom_emote("twitches")
 	// While our consciousness value is above 0, we will wince from pain occassionally
 	if (damage < unconscious_threshold && world.time > unconscious_time)
