@@ -1,0 +1,7 @@
+author: Nakalon
+delete-after: true
+changes:
+  - bugfix: Modular computers can teleport bags and other stuff again.
+  - bugfix: Detectives can now actually diagnose computers as they should as the epic
+      cyber sleuths they are.
+  - bugfix: Solves a runtime when throwing a computer without a CPU.
