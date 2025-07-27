@@ -165,15 +165,15 @@ SUBSYSTEM_DEF(dynamic)
 
 	/// The point delta per living antagonist
 	var/list/midround_points_per_antag = list(
-		/datum/antagonist/ert = 0.2,
-		/datum/antagonist/spider = -0.1,
-		/datum/antagonist/swarmer = -0.1,
-		/datum/antagonist/xeno = -0.2,
-		/datum/antagonist/revenant = -0.6,
-		/datum/antagonist/ninja = -2,
-		/datum/antagonist/space_dragon = -2.5,
-		/datum/antagonist/wizard = -2.5,
-		/datum/antagonist/slaughter = -4,
+		"/datum/antagonist/ert" = 0.2,
+		"/datum/antagonist/spider" = -0.1,
+		"/datum/antagonist/swarmer" = -0.1,
+		"/datum/antagonist/xeno" = -0.2,
+		"/datum/antagonist/revenant" = -0.6,
+		"/datum/antagonist/ninja" = -2,
+		"/datum/antagonist/space_dragon" = -2.5,
+		"/datum/antagonist/wizard" = -2.5,
+		"/datum/antagonist/slaughter" = -4,
 	)
 
 	/**
@@ -485,7 +485,7 @@ SUBSYSTEM_DEF(dynamic)
 	var/antag_delta = 0
 	for(var/mob/antag in current_players[CURRENT_LIVING_ANTAGS])
 		for(var/datum/antagonist/antag_datum in antag.mind?.antag_datums)
-			antag_delta += midround_points_per_antag[antag_datum.type]
+			antag_delta += midround_points_per_antag[antag_datum.type] || midround_points_per_antag["[antag_datum.type]"]
 
 	// Add points
 	midround_points += max(living_delta + observing_delta + dead_delta + antag_delta + midround_linear_delta, 0)
