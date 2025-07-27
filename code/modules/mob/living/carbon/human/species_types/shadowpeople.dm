@@ -21,7 +21,7 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC
 
 	mutantbrain = /obj/item/organ/brain/shadow
-	mutanteyes = /obj/item/organ/eyes/shadow
+	mutanteyes = /obj/item/organ/eyes/night_vision/shadow
 	mutantheart = null
 	mutantlungs = null
 
@@ -109,7 +109,7 @@
 	else if (light_amount < SHADOW_SPECIES_LIGHT_THRESHOLD) //heal in the dark
 		owner.heal_overall_damage(brute = 0.5 * delta_time, burn = 0.5 * delta_time, required_bodytype = BODYTYPE_ORGANIC)
 
-/obj/item/organ/eyes/shadow
+/obj/item/organ/eyes/night_vision/shadow
 	name = "burning red eyes"
 	desc = "Even without their shadowy owner, looking at these eyes gives you a sense of dread."
 	icon = 'icons/obj/medical/organs/shadow_organs.dmi'
