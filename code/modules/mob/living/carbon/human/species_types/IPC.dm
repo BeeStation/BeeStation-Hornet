@@ -284,11 +284,23 @@
 
 	to_add += list(
 		list(
+			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+			SPECIES_PERK_ICON = "x-ray",
+			SPECIES_PERK_NAME = "Synthetic Limbs",
+			SPECIES_PERK_DESC = "IPCs have no skin or bones to break, so do not suffer from injuries.",
+		),
+		list(
 			SPECIES_PERK_TYPE = SPECIES_NEUTRAL_PERK,
 			SPECIES_PERK_ICON = "robot",
-			SPECIES_PERK_NAME = "Robotic",
+			SPECIES_PERK_NAME = "Right To Repair",
 			SPECIES_PERK_DESC = "IPCs have an entirely robotic body, meaning medical care is typically done through Robotics or Engineering. \
 			Whether this is helpful or not is heavily dependent on your coworkers. It does, however, mean you are usually able to perform self-repairs easily.",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_NEUTRAL_PERK,
+			SPECIES_PERK_ICON = "microchip",
+			SPECIES_PERK_NAME = "Central Processing Unit",
+			SPECIES_PERK_DESC = "IPCs do not take consciousness damage from head trauma, but cannot stand to perform actions while in critical condition.",
 		),
 		list(
 			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,

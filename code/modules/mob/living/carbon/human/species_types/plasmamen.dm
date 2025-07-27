@@ -219,6 +219,12 @@
 			SPECIES_PERK_DESC = "Plasmamen's helmets provide them shielding from the flashes of welding, as well as an inbuilt flashlight.",
 		),
 		list(
+			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+			SPECIES_PERK_ICON = "droplet",
+			SPECIES_PERK_NAME = "Skeletal",
+			SPECIES_PERK_DESC = "Plasmamen have no skin which can be burnt or cut, but their bones can still be broken.",
+		),
+		list(
 			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
 			SPECIES_PERK_ICON = "fire",
 			SPECIES_PERK_NAME = "Living Torch",
