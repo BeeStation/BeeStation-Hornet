@@ -340,7 +340,7 @@
 			if(show_message)
 				to_chat(M, span_warning("You don't feel so good..."))
 		else if(M.getBruteLoss() && method == PATCH)
-			if(affecting.heal_damage(reac_volume))
+			if(affecting.heal_damage(brute = reac_volume))
 				M.update_damage_overlays()
 			M.adjustStaminaLoss(reac_volume*2)
 			if(show_message)

@@ -50,7 +50,7 @@
 		return TRUE
 
 	//charge(?) and go
-	if(bodypart.heal_damage(5,5,null,BODYTYPE_ROBOTIC))
+	if(bodypart.heal_damage(brute = 5, burn = 5, required_bodytype = BODYTYPE_ROBOTIC))
 		blessed.update_damage_overlays()
 
 	blessed.visible_message(span_notice("[chap] [did_we_charge ? "repairs" : "repairs and charges"] [blessed] with the power of [GLOB.deity]!"))

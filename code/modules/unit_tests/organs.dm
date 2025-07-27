@@ -8,7 +8,7 @@
 	// List of organ typepaths which cause species change.
 	// Species change swaps out all the organs, making test_organ un-usable after insertion.
 	var/static/list/species_changing_organs = typecacheof(list(
-		/obj/item/organ/brain/nightmare,
+		/obj/item/organ/brain/shadow/nightmare,
 	))
 
 /datum/unit_test/organ_sanity/Run()
