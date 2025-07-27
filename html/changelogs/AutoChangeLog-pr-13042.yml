@@ -1,0 +1,5 @@
+author: Nakalon
+delete-after: true
+changes:
+  - bugfix: You can now queue strip actions again without interruption
+  - refactor: Removed old asshole code for stripping
