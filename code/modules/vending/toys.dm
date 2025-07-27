@@ -45,3 +45,4 @@
 /obj/item/vending_refill/donksoft
 	machine_name = "Donksoft Toy Vendor"
 	icon_state = "refill_donksoft"
+
