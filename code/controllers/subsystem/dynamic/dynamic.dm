@@ -481,7 +481,7 @@ SUBSYSTEM_DEF(dynamic)
 	var/antag_delta = 0
 	for(var/mob/antag in current_players[CURRENT_LIVING_ANTAGS])
 		for(var/datum/antagonist/antag_datum in antag.mind?.antag_datums)
-			antag_delta += midround_points_per_antag[antag_datum.type]
+			antag_delta += midround_points_per_antag[antag_datum.type] || midround_points_per_antag["[antag_datum.type]"]
 
 	// Add points
 	midround_points += max(living_delta + observing_delta + dead_delta + antag_delta + midround_linear_delta, 0)
