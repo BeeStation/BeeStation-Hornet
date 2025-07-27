@@ -1,3 +1,8 @@
+/// Take consciousness damage. When we reach 100 then we will be knocked out
+/// for 5 seconds + 1 second for every 5 damage over 100.
+/mob/living/proc/take_consciousness_damage(amount)
+	SEND_SIGNAL(src, COMSIG_MOB_TAKE_CONSCIOUSNESS_DAMAGE, amount)
+
 /// Convert a damage flag into an armour rating.
 /// Does not work for DAMAGE_STANDARD, as the logic is more complex.
 /// Output value is between 0 and 100.
