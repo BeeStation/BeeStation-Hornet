@@ -336,9 +336,11 @@
 	var/total = 0
 	var/item
 	for(item in list_to_pick)
-		if(!list_to_pick[item])
-			list_to_pick[item] = 1
 		total += list_to_pick[item]
+
+	// If everything has no weight set, then perform a standard pick
+	if (!total)
+		return pick(list_to_pick)
 
 	total *= rand()
 	for(item in list_to_pick)
