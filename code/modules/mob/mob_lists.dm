@@ -102,7 +102,7 @@
 ///Adds the cliented mob reference to the list of living player-mobs. If the mob is an antag, it adds it to the list of living antag player-mobs.
 /mob/proc/add_to_current_living_players()
 	SSdynamic.current_players[CURRENT_LIVING_PLAYERS] |= src
-	if(mind && (mind.special_role || length(mind.antag_datums)))
+	if(length(mind?.antag_datums))
 		add_to_current_living_antags()
 
 ///Removes the mob reference from the list of living player-mobs. If the mob is an antag, it removes it from the list of living antag player-mobs.
@@ -116,11 +116,7 @@
 /mob/proc/add_to_current_living_antags()
 	if (!length(mind.antag_datums))
 		return
-
-	for (var/datum/antagonist/antagonist in mind.antag_datums)
-		if (antagonist.count_against_dynamic_roll_chance)
-			SSdynamic.current_players[CURRENT_LIVING_ANTAGS] |= src
-			return
+	SSdynamic.current_players[CURRENT_LIVING_ANTAGS] |= src
 
 ///Removes the mob reference from the list of living antag player-mobs.
 /mob/proc/remove_from_current_living_antags()
