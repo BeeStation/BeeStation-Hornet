@@ -165,15 +165,15 @@ SUBSYSTEM_DEF(dynamic)
 
 	/// The point delta per living antagonist
 	var/list/midround_points_per_antag = list(
-		/datum/antagonist/ert = 0.2,
-		/datum/antagonist/spider = -0.1,
-		/datum/antagonist/swarmer = -0.1,
-		/datum/antagonist/xeno = -0.2,
-		/datum/antagonist/revenant = -0.6,
-		/datum/antagonist/ninja = -2,
-		/datum/antagonist/space_dragon = -2.5,
-		/datum/antagonist/wizard = -2.5,
-		/datum/antagonist/slaughter = -4,
+		"/datum/antagonist/ert" = 0.2,
+		"/datum/antagonist/spider" = -0.1,
+		"/datum/antagonist/swarmer" = -0.1,
+		"/datum/antagonist/xeno" = -0.2,
+		"/datum/antagonist/revenant" = -0.6,
+		"/datum/antagonist/ninja" = -2,
+		"/datum/antagonist/space_dragon" = -2.5,
+		"/datum/antagonist/wizard" = -2.5,
+		"/datum/antagonist/slaughter" = -4,
 	)
 
 	/**
