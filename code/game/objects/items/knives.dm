@@ -86,21 +86,23 @@
 	icon = 'icons/obj/knives.dmi'
 	force = 12
 
-/obj/item/knife/poison
-	name = "poisoned knife"
+/obj/item/knife/venom
+	name = "venom knife"
 	icon_state = "poisonknife"
 	icon = 'icons/obj/knives.dmi'
 	force = 20
 	throwforce = 20
 	throw_speed = 5
 	throw_range = 7
+	attack_verb_continuous = list("slashes", "stabs", "slices", "tears", "lacerates", "rips", "cuts")
+	attack_verb_simple = list("slash", "stab", "slice", "tear", "lacerate", "rip", "cut")
 	embedding = list("pain_mult" = 4, "embed_chance" = 65, "fall_chance" = 10, "ignore_throwspeed_threshold" = TRUE, "armour_block" = 60)
 	var/amount_per_transfer_from_this = 10
 	var/list/possible_transfer_amounts
 	desc = "An infamous knife of syndicate design, it has a tiny hole going through the blade to the handle which stores toxins."
 	custom_materials = null
 
-/obj/item/knife/poison/embedded(atom/target)
+/obj/item/knife/venom/embedded(atom/target)
 	. = ..()
 	if(!reagents.total_volume)
 		return
@@ -114,7 +116,7 @@
 		reagents.expose(M, INJECT, reagents.total_volume)
 		reagents.trans_to(M, reagents.total_volume)
 
-/obj/item/knife/poison/attack(mob/living/M, mob/user)
+/obj/item/knife/venom/attack(mob/living/M, mob/user)
 	if (!istype(M))
 		return
 	. = ..()
@@ -132,12 +134,12 @@
 	reagents.expose(M, INJECT, amount_to_inject)
 	reagents.trans_to(M, amount_to_inject)
 
-/obj/item/knife/poison/Initialize(mapload)
+/obj/item/knife/venom/Initialize(mapload)
 	. = ..()
 	create_reagents(40,OPENCONTAINER)
 	possible_transfer_amounts = list(5, 10)
 
-/obj/item/knife/poison/attack_self(mob/user)
+/obj/item/knife/venom/attack_self(mob/user)
 	if(possible_transfer_amounts.len)
 		var/i=0
 		for(var/A in possible_transfer_amounts)

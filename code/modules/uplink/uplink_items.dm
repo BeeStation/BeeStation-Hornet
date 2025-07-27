@@ -425,10 +425,10 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 /datum/uplink_item/dangerous
 	category = "Conspicuous Weapons"
 
-/datum/uplink_item/dangerous/poisonknife
-	name = "Poisoned Knife"
+/datum/uplink_item/dangerous/venomknife
+	name = "Venom Knife"
 	desc = "A knife that is made of two razor sharp blades, it has a secret compartment in the handle to store liquids which are injected when stabbing something. Can hold up to forty units of reagents but comes empty."
-	item = /obj/item/knife/poison
+	item = /obj/item/knife/venom
 	cost = 4
 
 /datum/uplink_item/dangerous/rawketlawnchair
