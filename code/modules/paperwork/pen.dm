@@ -201,9 +201,9 @@
  * Sleepypens
  */
 
-/obj/item/pen/sleepy
+/obj/item/pen/paralytic
 
-/obj/item/pen/sleepy/attack(mob/living/M, mob/user)
+/obj/item/pen/paralytic/attack(mob/living/M, mob/user)
 	if(!istype(M))
 		return
 
@@ -219,7 +219,7 @@
 	else
 		return ..()
 
-/obj/item/pen/sleepy/Initialize(mapload)
+/obj/item/pen/paralytic/Initialize(mapload)
 	. = ..()
 	create_reagents(45, OPENCONTAINER)
 	reagents.add_reagent(/datum/reagent/toxin/curare, 20)

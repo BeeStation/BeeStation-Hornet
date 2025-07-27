@@ -834,14 +834,15 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	murderbone_type = TRUE
 	surplus = 0
 
-/datum/uplink_item/stealthy_weapons/sleepy_pen
-	name = "Sleepy Pen"
-	desc = "A spring loaded, single-use syringe disguised as a functional pen, filled with a potent mix of drugs, including a \
-			strong anesthetic and a chemical that prevents the target from speaking. \
-			The mixture that the pen comes with can be replaced as long as the pen hasn't been used already. Note that the mechanism takes time to \
-			trigger, is obvious to anyone nearby (excluding the target) and the victim may still be able to move and act for a brief period of time before falling unconcious."
-	item = /obj/item/pen/sleepy
-	cost = 5
+/datum/uplink_item/stealthy_weapons/paralytic_pen
+	name = "Paralytic Pen"
+	desc = "A spring loaded, syringe disguised as a functional pen. It comes filled with a potent mix of toxins that \
+		slows a victim, prevents them from calling for help, and eventually leads to paralysis. \
+		It can be refilled with alternative drugs so that it continues to be useful even after its first activation. \
+		The activation takes time and the target  will feel a tiny prick, but it is highly effective if the victim is \
+		first lured into a secluded area."
+	item = /obj/item/pen/paralytic
+	cost = 6
 	purchasable_from = ~UPLINK_NUKE_OPS
 
 /datum/uplink_item/stealthy_weapons/suppressor
