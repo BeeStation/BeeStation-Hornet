@@ -366,6 +366,8 @@
   - tweak: anyone with a detective hat can now use the aura within detective office
       and interrogation room
   - tweak: adjusted grammar on a line involving the detective aura
+  Schoolboy215:
+  - bugfix: issue with fully deconstructing cyborgs
   mrmanlikesbt, timothymtorres, orthography, tralezab, dragomagol:
   - rscadd: added several new lawsets
   - rscadd: infected law upload board. An admin-obtainable item that will make the
@@ -383,3 +385,18 @@
   - bugfix: fixed two malf antag info panels opening
   - code_imp: silicon code cleanup and some documentation
   - code_imp: renamed "maintain" lawset to "efficiency"
+2025-07-24:
+  itsmeow:
+  - bugfix: Fixed being unable to look up or locate turfs above you in Multi-Z
+2025-07-26:
+  Nakalon:
+  - bugfix: Modular computers can teleport bags and other stuff again.
+  - bugfix: Detectives can now actually diagnose computers as they should as the epic
+      cyber sleuths they are.
+  - bugfix: Solves a runtime when throwing a computer without a CPU.
+  mrmanlikesbt:
+  - bugfix: fixed an exploit with the bookbinder (sorry that one curator)
+2025-07-27:
+  Nakalon:
+  - bugfix: You can now queue strip actions again without interruption
+  - refactor: Removed old asshole code for stripping
