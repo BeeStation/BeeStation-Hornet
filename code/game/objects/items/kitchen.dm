@@ -70,12 +70,17 @@
 	. = ..()
 	if (!reagents.total_volume || !M.reagents)
 		return
-	var/amount_inject = amount_per_transfer_from_this
+	//Get our preferred transfer amount
+	var/amount_to_inject = amount_per_transfer_from_this
+
+	//If the target is protected from injections, we will still inject anyway because it's a knife not a syringe, but a reduced amount.
 	if(!M.can_inject(user, user.get_combat_bodyzone(), INJECT_CHECK_PENETRATE_THICK))
-		amount_inject = 1
-	var/amount = min(amount_inject/reagents.total_volume,1)
-	reagents.expose(M,INJECT,amount)
-	reagents.trans_to(M,amount_inject)
+		amount_to_inject = amount_to_inject / 3
+
+	//Finally we need to make sure we actually have whatever our injection amount is left in the knife, and if not we use whatever is left
+	amount_to_inject = min(reagents.total_volume, amount_to_inject)
+	reagents.expose(M,INJECT,amount_to_inject)
+	reagents.trans_to(M,amount_to_inject)
 
 /obj/item/knife/kitchen
 	name = "kitchen knife"

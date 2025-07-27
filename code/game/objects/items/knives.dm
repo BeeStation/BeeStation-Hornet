@@ -89,9 +89,8 @@
 /obj/item/knife/poison
 	name = "venom knife"
 	icon_state = "poisonknife"
-	icon = 'icons/obj/knives.dmi'
-	force = 12
-	throwforce = 15
+	force = 20
+	throwforce = 20
 	throw_speed = 5
 	throw_range = 7
 	var/amount_per_transfer_from_this = 10
