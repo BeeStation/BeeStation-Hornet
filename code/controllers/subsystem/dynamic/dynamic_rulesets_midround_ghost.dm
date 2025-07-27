@@ -156,6 +156,7 @@
 	antag_datum = /datum/antagonist/nukeop
 	drafted_players_amount = 3
 	points_cost = 50
+	minimum_players_required = 20
 	weight = 1
 	use_spawn_locations = FALSE
 	flags = CANNOT_REPEAT
@@ -190,6 +191,7 @@
 	severity = DYNAMIC_MIDROUND_HEAVY
 	antag_datum = /datum/antagonist/blob
 	points_cost = 50
+	minimum_players_required = 20
 	weight = 6
 	use_spawn_locations = FALSE
 	flags = CANNOT_REPEAT
@@ -215,6 +217,7 @@
 	severity = DYNAMIC_MIDROUND_HEAVY
 	antag_datum = /datum/antagonist/xeno
 	points_cost = 50
+	minimum_players_required = 20
 	weight = 4
 	flags = CANNOT_REPEAT
 

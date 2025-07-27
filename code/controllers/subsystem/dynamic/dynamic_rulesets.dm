@@ -11,6 +11,8 @@
 	var/weight = 5
 	/// How many points this ruleset costs to run.
 	var/points_cost = 7
+	/// The minimum amount of players that have to be connected for this ruleset to run
+	var/minimum_players_required = 0
 	/// How many players are drafted by this ruleset. This should usually be 1 but should be increased for team antagonists (cult, incursion)
 	var/drafted_players_amount = 1
 	/// The role preference used for this ruleset
@@ -81,7 +83,15 @@
 **/
 /datum/dynamic_ruleset/proc/allowed()
 	if(length(candidates) < drafted_players_amount)
-		log_dynamic("NOT ALLOWED: [name] The minimum candidate requirement (drafted players: [drafted_players_amount]) was not met! (candidates: [length(candidates)])")
+		log_dynamic("NOT ALLOWED: [src], The minimum candidate requirement (drafted players: [drafted_players_amount]) was not met! (candidates: [length(candidates)])")
+		return FALSE
+
+	var/players = length(SSdynamic.current_players[CURRENT_LIVING_PLAYERS])
+	if(istype(src, /datum/dynamic_ruleset/roundstart))
+		players = length(GLOB.player_list)
+
+	if(players < minimum_players_required)
+		log_dynamic("NOT ALLOWED: [src], The minimum player requirement (minimum players: [minimum_players_required]) was not met! (players: [players])")
 		return FALSE
 
 	return TRUE

@@ -156,10 +156,10 @@ SUBSYSTEM_DEF(dynamic)
 	var/midround_grace_period = 25 MINUTES
 	/// The amount of midround points given per minute for every type of player
 	/// The total midround points delta cannot be lower than 0, it always increases or stays the same
-	var/midround_living_delta = 0.1
+	var/midround_living_delta = 0.05
 	var/midround_observer_delta = 0
 	var/midround_dead_delta = -0.3
-	var/midround_linear_delta = 1
+	var/midround_linear_delta = 0.5
 	/// This delta is applied no matter what
 	var/midround_linear_delta_forced = 0.5
 
@@ -287,7 +287,7 @@ SUBSYSTEM_DEF(dynamic)
 			forced_ruleset.set_drafted_players_amount()
 			forced_ruleset.get_candidates()
 			forced_ruleset.trim_candidates()
-			forced_ruleset.minimum_points_required = -1 // lel
+			forced_ruleset.minimum_players_required = 0 // lel
 
 			if(!forced_ruleset.allowed())
 				log_dynamic("ROUNDSTART: Could not force [forced_ruleset]")
@@ -697,7 +697,7 @@ SUBSYSTEM_DEF(dynamic)
  *  The role_preference argument is optional, but candidates will not use their PERSONAL antag rep if the preference is disabled, rather only using the "base" antag rep.
  *  This is mainly used in the situation where someone is drafted for a ruleset despite having the preference disabled (a feature of gamemodes) - we don't want to spend their rep.
 **/
-/datum/controller/subsystem/dynamic/proc/antag_pick(list/datum/candidates, role_preference)
+/datum/controller/subsystem/dynamic/proc/antag_pick(list/candidates, role_preference)
 	if(!CONFIG_GET(flag/use_antag_rep))
 		return pick(candidates)
 
@@ -759,5 +759,5 @@ SUBSYSTEM_DEF(dynamic)
 			SSpersistence.antag_rep_change[p_ckey] = -(spend - DEFAULT_ANTAG_TICKETS)
 			return candidate
 
-	WARNING("Something has gone terribly wrong. /datum/game_mode/proc/antag_pick failed to select a candidate. Falling back to pick()")
+	WARNING("Something has gone terribly wrong. /datum/controller/subsystem/dynamic/antag_pick() failed to select a candidate. Falling back to pick()")
 	return pick(candidates)

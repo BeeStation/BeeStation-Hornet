@@ -3,9 +3,6 @@
 	flags = SHOULD_USE_ANTAG_REP
 	abstract_type = /datum/dynamic_ruleset/roundstart
 
-	/// The minimum number of points that dynamic has to initially generate for this to be drafted
-	var/minimum_points_required = 0
-
 /datum/dynamic_ruleset/roundstart/get_candidates()
 	candidates = SSdynamic.roundstart_candidates.Copy()
 
@@ -21,15 +18,6 @@
 		if(candidate.mind.special_role)
 			candidates -= candidate
 			continue
-
-/datum/dynamic_ruleset/roundstart/allowed()
-	. = ..()
-	if(!.)
-		return FALSE
-
-	if(SSdynamic.roundstart_points < minimum_points_required)
-		log_dynamic("NOT ALLOWED: [src] did not meet the minimum point requirement (minimum: [minimum_points_required]) (points: [SSdynamic.roundstart_points])")
-		return FALSE
 
 /datum/dynamic_ruleset/roundstart/select_player()
 	if(!length(candidates))
@@ -105,7 +93,7 @@
 	name = "Malfunctioning AI"
 	role_preference = /datum/role_preference/roundstart/malfunctioning_ai
 	antag_datum = /datum/antagonist/malf_ai
-	minimum_points_required = 24
+	minimum_players_required = 24
 	weight = 6
 	points_cost = 13
 	restricted_roles = list(JOB_NAME_CYBORG)
@@ -128,7 +116,7 @@
 	antag_datum = /datum/antagonist/wizard
 	weight = 1
 	points_cost = 15
-	minimum_points_required = 26
+	minimum_players_required = 20
 	flags = HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
 
 /datum/dynamic_ruleset/roundstart/wizard/allowed()
@@ -170,10 +158,8 @@
 /datum/dynamic_ruleset/roundstart/brothers/choose_candidates()
 	. = ..()
 	team = new
-
 	for(var/datum/mind/chosen_mind in chosen_candidates)
 		team.add_member(chosen_mind)
-		GLOB.pre_setup_antags += chosen_mind
 
 /datum/dynamic_ruleset/roundstart/brothers/execute()
 	team.pick_meeting_area()
@@ -199,7 +185,7 @@
 	drafted_players_amount = 2
 	weight = 5
 	points_cost = 20
-	minimum_points_required = 30
+	minimum_players_required = 30
 	flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
 	blocking_rulesets = list(
 		/datum/dynamic_ruleset/roundstart/clockcult,
@@ -246,7 +232,7 @@
 	drafted_players_amount = 4
 	weight = 5
 	points_cost = 35
-	minimum_points_required = 35
+	minimum_players_required = 35
 	flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
 	blocking_rulesets = list(
 		/datum/dynamic_ruleset/roundstart/bloodcult,
@@ -304,7 +290,7 @@
 	drafted_players_amount = 3
 	weight = 3
 	points_cost = 20
-	minimum_points_required = 28
+	minimum_players_required = 28
 	flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
 
 	var/datum/antagonist/antag_leader_datum = /datum/antagonist/nukeop/leader
@@ -401,7 +387,7 @@
 	drafted_players_amount = 3
 	weight = 4
 	points_cost = 20
-	minimum_points_required = 35
+	minimum_players_required = 35
 	flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
 
 	var/datum/team/revolution/team
