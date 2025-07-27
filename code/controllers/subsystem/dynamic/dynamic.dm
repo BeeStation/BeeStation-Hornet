@@ -431,7 +431,11 @@ SUBSYSTEM_DEF(dynamic)
 	if(CHECK_BITFIELD(ruleset.flags, SHOULD_PROCESS_RULESET))
 		rulesets_to_process += ruleset
 
-	return ruleset.execute()
+	var/result = ruleset.execute()
+
+	// Since we reuse rulesets we need to empty chosen_candidates
+	ruleset.chosen_candidates = list()
+	return result
 
 /**
  * Update our midround points and chances
@@ -613,14 +617,10 @@ SUBSYSTEM_DEF(dynamic)
 
 		latejoin_forced_ruleset = pick_weight_allow_zero(possible_rulesets)
 
-	// Check if the ruleset is allowed
-	latejoin_forced_ruleset.candidates = list(character)
-	latejoin_forced_ruleset.trim_candidates()
-	if(!latejoin_forced_ruleset.allowed())
-		return
-
 	// Execute our latejoin ruleset
+	latejoin_forced_ruleset.candidates = list(character)
 	var/result = execute_ruleset(latejoin_forced_ruleset)
+
 	message_admins("DYNAMIC: Executing [latejoin_forced_ruleset] - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
 	log_dynamic("LATEJOIN: Executing [latejoin_forced_ruleset] - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
 

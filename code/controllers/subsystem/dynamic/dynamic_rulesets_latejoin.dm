@@ -10,6 +10,10 @@
 			candidates -= candidate
 
 /datum/dynamic_ruleset/latejoin/execute()
+	trim_candidates()
+	if(!allowed())
+		return DYNAMIC_EXECUTE_FAILURE
+
 	chosen_candidates += select_player()
 	for(var/mob/chosen_candidate in chosen_candidates)
 		chosen_candidate.mind.special_role = antag_datum.banning_key
