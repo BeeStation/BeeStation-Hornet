@@ -79,8 +79,8 @@
 
 	//Finally we need to make sure we actually have whatever our injection amount is left in the knife, and if not we use whatever is left
 	amount_to_inject = min(reagents.total_volume, amount_to_inject)
-	reagents.expose(M,INJECT,amount_to_inject)
-	reagents.trans_to(M,amount_to_inject)
+	reagents.expose(M, INJECT, amount_to_inject)
+	reagents.trans_to(M, amount_to_inject)
 
 /obj/item/knife/kitchen
 	name = "kitchen knife"
