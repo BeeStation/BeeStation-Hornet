@@ -106,6 +106,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 	if (HAS_TRAIT(src, TRAIT_WHISPER_ONLY))
 		message_mods[WHISPER_MODE] = MODE_WHISPER
+		message_mods[MODE_HEADSET] = FALSE
 
 	switch(stat)
 		if(SOFT_CRIT)
