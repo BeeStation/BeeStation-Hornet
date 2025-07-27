@@ -396,3 +396,7 @@
   - bugfix: Solves a runtime when throwing a computer without a CPU.
   mrmanlikesbt:
   - bugfix: fixed an exploit with the bookbinder (sorry that one curator)
+2025-07-27:
+  Nakalon:
+  - bugfix: You can now queue strip actions again without interruption
+  - refactor: Removed old asshole code for stripping
