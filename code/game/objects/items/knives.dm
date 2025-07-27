@@ -100,6 +100,38 @@
 	desc = "An infamous knife of syndicate design, it has a tiny hole going through the blade to the handle which stores toxins."
 	custom_materials = null
 
+/obj/item/knife/poison/embedded(atom/target)
+	. = ..()
+	if(!reagents.total_volume)
+		return
+
+	if(isliving(target))
+		var/mob/living/M = target
+		if(!M.reagents)
+			return
+
+		//If they were willing to throw the knife on a base 65% embed chance, give their target the entire payload
+		reagents.expose(M, INJECT, reagents.total_volume)
+		reagents.trans_to(M, reagents.total_volume)
+
+/obj/item/knife/poison/attack(mob/living/M, mob/user)
+	if (!istype(M))
+		return
+	. = ..()
+	if (!reagents.total_volume || !M.reagents)
+		return
+	//Get our preferred transfer amount
+	var/amount_to_inject = amount_per_transfer_from_this
+
+	//If the target is protected from injections, we will still inject anyway because it's a knife not a syringe, but a reduced amount.
+	if(!M.can_inject(user, user.get_combat_bodyzone(), INJECT_CHECK_PENETRATE_THICK))
+		amount_to_inject = amount_to_inject / 3
+
+	//Finally we need to make sure we actually have whatever our injection amount is left in the knife, and if not we use whatever is left
+	amount_to_inject = min(reagents.total_volume, amount_to_inject)
+	reagents.expose(M, INJECT, amount_to_inject)
+	reagents.trans_to(M, amount_to_inject)
+
 /obj/item/knife/poison/Initialize(mapload)
 	. = ..()
 	create_reagents(40,OPENCONTAINER)
