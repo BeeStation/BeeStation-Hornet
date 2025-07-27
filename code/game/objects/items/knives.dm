@@ -94,6 +94,7 @@
 	throwforce = 20
 	throw_speed = 5
 	throw_range = 7
+	embedding = list("pain_mult" = 4, "embed_chance" = 65, "fall_chance" = 10, "ignore_throwspeed_threshold" = TRUE, "armour_block" = 60)
 	var/amount_per_transfer_from_this = 10
 	var/list/possible_transfer_amounts
 	desc = "An infamous knife of syndicate design, it has a tiny hole going through the blade to the handle which stores toxins."
