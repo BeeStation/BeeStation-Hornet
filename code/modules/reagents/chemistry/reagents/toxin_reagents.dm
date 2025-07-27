@@ -385,7 +385,7 @@
 	silent_toxin = TRUE
 	color = "#6E2828"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	data = 15
+	data = 30
 	toxpwr = 0
 
 /datum/reagent/toxin/staminatoxin/on_mob_metabolize(mob/living/L)
