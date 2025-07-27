@@ -51,6 +51,11 @@
 	set_drafted_players_amount()
 	get_candidates()
 	trim_candidates()
+
+	// Don't even send applications out if we don't have enough candidates
+	if(!allowed())
+		return DYNAMIC_EXECUTE_FAILURE
+
 	send_applications()
 	trim_candidates()
 
