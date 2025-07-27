@@ -254,7 +254,7 @@
 	var/datum/status_effect/incapacitating/unconscious/U = IsUnconscious()
 	. = 0
 	if(U)
-		. = max(.  U.duration - world.time)
+		. = max(., U.duration - world.time)
 	if(consciousness)
 		. = max(., max(0, consciousness.unconscious_time - world.time))
 	return .
