@@ -107,7 +107,7 @@ SUBSYSTEM_DEF(traumas)
 		"clowns"    = typecacheof(list(
 			/obj/item/clothing/under/rank/civilian/clown, /obj/item/clothing/shoes/clown_shoes,
 			/obj/item/clothing/mask/gas/clown_hat, /obj/item/instrument/bikehorn,
-			/obj/item/modular_computer/tablet/pda/clown, /obj/item/grown/bananapeel)),
+			/obj/item/modular_computer/tablet/pda/preset/clown, /obj/item/grown/bananapeel)),
 
 		"greytide"  = typecacheof(list(
 			/obj/item/clothing/under/color/grey, /obj/item/melee/baton/cattleprod,

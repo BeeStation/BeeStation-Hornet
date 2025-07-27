@@ -36,7 +36,7 @@
 	jobtype = /datum/job/brig_physician
 
 	id = /obj/item/card/id/job/brig_physician
-	belt = /obj/item/modular_computer/tablet/pda/brig_physician
+	belt = /obj/item/modular_computer/tablet/pda/preset/brig_physician
 	ears = /obj/item/radio/headset/headset_medsec
 	uniform = /obj/item/clothing/under/rank/brig_physician
 	shoes = /obj/item/clothing/shoes/sneakers/white
