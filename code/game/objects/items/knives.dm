@@ -87,7 +87,7 @@
 	force = 12
 
 /obj/item/knife/poison
-	name = "venom knife"
+	name = "poisoned knife"
 	icon_state = "poisonknife"
 	icon = 'icons/obj/knives.dmi'
 	force = 20
