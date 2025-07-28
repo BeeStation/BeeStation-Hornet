@@ -15959,7 +15959,7 @@
 /obj/item/clothing/mask/gas/old{
 	name = "John the Grey gas mask"
 	},
-/obj/item/modular_computer/tablet/pda/assistant{
+/obj/item/modular_computer/tablet/pda/preset/assistant{
 	name = "PDA (John the Grey)"
 	},
 /obj/item/paper{
