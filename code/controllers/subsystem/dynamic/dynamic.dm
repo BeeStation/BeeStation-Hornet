@@ -322,7 +322,7 @@ SUBSYSTEM_DEF(dynamic)
 	var/roundstart_points_left = roundstart_points
 	var/no_other_rulesets = FALSE
 	while(roundstart_points_left > 0)
-		var/datum/dynamic_ruleset/roundstart/ruleset = pick_weight_allow_zero(possible_rulesets)
+		var/datum/dynamic_ruleset/roundstart/ruleset = pick_weight(possible_rulesets)
 
 		// Ran out of rulesets
 		if(isnull(ruleset))
@@ -583,7 +583,7 @@ SUBSYSTEM_DEF(dynamic)
 		return
 
 	// Pick ruleset and log
-	midround_chosen_ruleset = pick_weight_allow_zero(possible_rulesets)
+	midround_chosen_ruleset = pick_weight(possible_rulesets)
 	log_dynamic("MIDROUND: A new midround has been chosen to save up for: [midround_chosen_ruleset]. (COST: [midround_chosen_ruleset.points_cost])")
 	message_admins("DYNAMIC: A new midround ruleset has been chosen to save up for: [midround_chosen_ruleset] (COST: [midround_chosen_ruleset.points_cost])")
 
@@ -615,7 +615,7 @@ SUBSYSTEM_DEF(dynamic)
 		if(!length(possible_rulesets))
 			return
 
-		latejoin_forced_ruleset = pick_weight_allow_zero(possible_rulesets)
+		latejoin_forced_ruleset = pick_weight(possible_rulesets)
 
 	// Execute our latejoin ruleset
 	latejoin_forced_ruleset.candidates = list(character)
