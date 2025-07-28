@@ -13,9 +13,6 @@
 	var/obj/item/computer_hardware/hard_drive/hdd = all_components[MC_HDD]
 	if(hdd)
 		hdd.virus_defense = default_virus_defense
-	if(default_disk)
-		var/obj/item/computer_hardware/hard_drive/portable/disk = new default_disk(src)
-		install_component(disk)
 
 	if(insert_type)
 		inserted_item = new insert_type(src)
