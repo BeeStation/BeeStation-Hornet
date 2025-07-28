@@ -563,7 +563,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	var/round_start_budget_left = round_start_budget
 
 	while (round_start_budget_left > 0)
-		var/datum/dynamic_ruleset/roundstart/ruleset = pick_weight_allow_zero(drafted_rules)
+		var/datum/dynamic_ruleset/roundstart/ruleset = pick_weight(drafted_rules)
 		if (isnull(ruleset))
 			log_game("DYNAMIC: No more rules can be applied, stopping with [round_start_budget] left.")
 			break
