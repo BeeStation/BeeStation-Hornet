@@ -241,7 +241,7 @@
 	var/datum/team/clock_cult/main_cult
 
 /datum/dynamic_ruleset/roundstart/clockcult/set_drafted_players_amount()
-	drafted_players_amount = ROUND_UP(length(SSdynamic.roundstart_candidates) / 10)
+	drafted_players_amount = ROUND_UP(length(SSdynamic.roundstart_candidates) / 7)
 
 /datum/dynamic_ruleset/roundstart/clockcult/choose_candidates()
 	. = ..()
@@ -297,7 +297,7 @@
 	var/datum/team/nuclear/nuke_team
 
 /datum/dynamic_ruleset/roundstart/nuclear/set_drafted_players_amount()
-	drafted_players_amount = ROUND_UP(length(SSdynamic.roundstart_candidates) / 10)
+	drafted_players_amount = ROUND_UP(length(SSdynamic.roundstart_candidates) / 7)
 
 /datum/dynamic_ruleset/roundstart/nuclear/choose_candidates()
 	. = ..()
