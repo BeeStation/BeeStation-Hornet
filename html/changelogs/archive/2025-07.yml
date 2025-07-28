@@ -400,3 +400,9 @@
   Nakalon:
   - bugfix: You can now queue strip actions again without interruption
   - refactor: Removed old asshole code for stripping
+2025-07-28:
+  Solene:
+  - rscadd: You can now research and print PDA, Tablet and Laptop shells.
+  - code_imp: PDAs that should start operable are now a child of /preset
+  - tweak: The basic transparent colorizer can now be applied to the clown and syndicate
+      PDA like the other colorizers.
