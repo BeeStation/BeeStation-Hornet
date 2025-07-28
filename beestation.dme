@@ -2007,7 +2007,7 @@
 #include "code\modules\admin\verbs\mentorhelp.dm"
 #include "code\modules\admin\verbs\mentors_edit.dm"
 #include "code\modules\admin\verbs\modify_antag_tokens.dm"
-#include "code\modules\admin\verbs\one_click_antag.dm"
+#include "code\modules\admin\verbs\create_ert.dm"
 #include "code\modules\admin\verbs\onlyone.dm"
 #include "code\modules\admin\verbs\panicbunker.dm"
 #include "code\modules\admin\verbs\playsound.dm"
