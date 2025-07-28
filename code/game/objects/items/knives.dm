@@ -117,9 +117,9 @@
 		reagents.trans_to(M, reagents.total_volume)
 
 /obj/item/knife/venom/attack(mob/living/M, mob/user)
+	. = ..()
 	if (!istype(M))
 		return
-	. = ..()
 	if (!reagents.total_volume || !M.reagents)
 		return
 	//Get our preferred transfer amount
