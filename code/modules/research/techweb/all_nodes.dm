@@ -1163,6 +1163,20 @@
 		"ssd_small"
 	)
 
+/datum/techweb_node/computer_shells
+	id = "computer_shells"
+	tech_tier = 1
+	display_name = "Computer Shells"
+	description = "Production of modular computer shells for assembly."
+	prereq_ids = list("datatheory")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2000)
+	export_price = 2000
+	design_ids = list(
+		"shell_pda",
+		"shell_tablet",
+		"shell_laptop"
+	)
+
 /datum/techweb_node/computer_hardware_advanced
 	id = "computer_hardware_advanced"
 	tech_tier = 2

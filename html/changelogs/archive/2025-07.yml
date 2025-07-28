@@ -388,3 +388,21 @@
 2025-07-24:
   itsmeow:
   - bugfix: Fixed being unable to look up or locate turfs above you in Multi-Z
+2025-07-26:
+  Nakalon:
+  - bugfix: Modular computers can teleport bags and other stuff again.
+  - bugfix: Detectives can now actually diagnose computers as they should as the epic
+      cyber sleuths they are.
+  - bugfix: Solves a runtime when throwing a computer without a CPU.
+  mrmanlikesbt:
+  - bugfix: fixed an exploit with the bookbinder (sorry that one curator)
+2025-07-27:
+  Nakalon:
+  - bugfix: You can now queue strip actions again without interruption
+  - refactor: Removed old asshole code for stripping
+2025-07-28:
+  Solene:
+  - rscadd: You can now research and print PDA, Tablet and Laptop shells.
+  - code_imp: PDAs that should start operable are now a child of /preset
+  - tweak: The basic transparent colorizer can now be applied to the clown and syndicate
+      PDA like the other colorizers.
