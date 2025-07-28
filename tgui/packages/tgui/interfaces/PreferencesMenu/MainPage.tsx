@@ -1,4 +1,5 @@
 import { classes } from 'common/react';
+import { useState } from 'react';
 import { sendAct, useBackend, useLocalState } from '../../backend';
 import { Box, Button, Flex, LabeledList, Popper, Stack, TrackOutsideClicks, Input, Icon, FitText } from '../../components';
 import { createSetPreference, PreferencesMenuData, RandomSetting } from './data';
@@ -227,7 +228,7 @@ const ChoicedSelection = (props: {
 };
 
 const GenderButton = (props: { handleSetGender: (gender: Gender) => void; gender: Gender }) => {
-  const [genderMenuOpen, setGenderMenuOpen] = useLocalState('genderMenuOpen', false);
+  const [genderMenuOpen, setGenderMenuOpen] = useState(false);
 
   return (
     <Popper
@@ -441,8 +442,8 @@ const PreferenceList = (props: {
 
 export const MainPage = (props: { openSpecies: () => void }) => {
   const { act, data } = useBackend<PreferencesMenuData>();
-  const [currentClothingMenu, setCurrentClothingMenu] = useLocalState<string | null>('currentClothingMenu', null);
-  const [multiNameInputOpen, setMultiNameInputOpen] = useLocalState('multiNameInputOpen', false);
+  const [currentClothingMenu, setCurrentClothingMenu] = useState<string | null>(null);
+  const [multiNameInputOpen, setMultiNameInputOpen] = useState(false);
   const [randomToggleEnabled] = useRandomToggleState();
 
   return (
@@ -450,11 +451,11 @@ export const MainPage = (props: { openSpecies: () => void }) => {
       render={(serverData) => {
         const currentSpeciesData = serverData && serverData.species[data.character_preferences.misc.species];
 
-        const contextualPreferences = data.character_preferences.secondary_features || [];
+        const contextualPreferences = data.character_preferences.secondary_features || {};
 
         const mainFeatures = [
-          ...Object.entries(data.character_preferences.clothing),
-          ...Object.entries(data.character_preferences.features),
+          ...Object.entries(data.character_preferences.clothing || {}),
+          ...Object.entries(data.character_preferences.features || {}),
         ];
 
         const randomBodyEnabled =
