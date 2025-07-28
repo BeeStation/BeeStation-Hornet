@@ -2,7 +2,7 @@
 	name = "\improper Pumpkinperson"
 	plural_form = "Pumpkinpeople"
 	id = SPECIES_PUMPKINPERSON
-	sexes = 0
+	sexes = FALSE
 	meat = /obj/item/food/pieslice/pumpkin
 	inherent_traits = list(
 		TRAIT_BEEFRIEND,

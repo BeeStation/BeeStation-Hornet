@@ -2,7 +2,7 @@
 	name = "\improper Diona"
 	plural_form = "Dionae"
 	id = SPECIES_DIONA
-	sexes = 0 //no sex for bug/plant people!
+	sexes = FALSE //no sex for bug/plant people!
 	inherent_traits = list(
 		TRAIT_AGENDER,
 		TRAIT_BEEFRIEND,

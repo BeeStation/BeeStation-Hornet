@@ -3,7 +3,7 @@
 	name = "Spooky Scary Skeleton"
 	plural_form = "Skeletons"
 	id = SPECIES_SKELETON
-	sexes = 0
+	sexes = FALSE
 	meat = /obj/item/food/meat/slab/human/mutant/skeleton
 	inherent_traits = list(
 		TRAIT_NO_UNDERWEAR,
