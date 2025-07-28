@@ -15959,7 +15959,7 @@
 /obj/item/clothing/mask/gas/old{
 	name = "John the Grey gas mask"
 	},
-/obj/item/modular_computer/tablet/pda/assistant{
+/obj/item/modular_computer/tablet/pda/preset/assistant{
 	name = "PDA (John the Grey)"
 	},
 /obj/item/paper{
@@ -64435,12 +64435,12 @@
 	pixel_x = 30
 	},
 /obj/structure/table/wood,
-/obj/item/modular_computer/tablet/pda,
-/obj/item/modular_computer/tablet/pda{
+/obj/item/modular_computer/tablet/pda/preset,
+/obj/item/modular_computer/tablet/pda/preset{
 	pixel_x = 2;
 	pixel_y = 2
 	},
-/obj/item/modular_computer/tablet/pda{
+/obj/item/modular_computer/tablet/pda/preset{
 	pixel_x = 4;
 	pixel_y = 4
 	},

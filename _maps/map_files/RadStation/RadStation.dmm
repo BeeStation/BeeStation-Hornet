@@ -44748,11 +44748,11 @@
 	pixel_y = 32
 	},
 /obj/structure/closet/secure_closet/hop,
-/obj/item/modular_computer/tablet/pda,
-/obj/item/modular_computer/tablet/pda,
-/obj/item/modular_computer/tablet/pda,
-/obj/item/modular_computer/tablet/pda,
-/obj/item/modular_computer/tablet/pda,
+/obj/item/modular_computer/tablet/pda/preset,
+/obj/item/modular_computer/tablet/pda/preset,
+/obj/item/modular_computer/tablet/pda/preset,
+/obj/item/modular_computer/tablet/pda/preset,
+/obj/item/modular_computer/tablet/pda/preset,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
 "oQJ" = (

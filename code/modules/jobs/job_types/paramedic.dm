@@ -40,7 +40,7 @@
 	jobtype = /datum/job/paramedic
 
 	id = /obj/item/card/id/job/paramedic
-	belt = /obj/item/modular_computer/tablet/pda/paramedic
+	belt = /obj/item/modular_computer/tablet/pda/preset/paramedic
 	ears = /obj/item/radio/headset/headset_med
 	glasses = /obj/item/clothing/glasses/hud/health/sunglasses/degraded
 	gloves = /obj/item/clothing/gloves/color/latex/nitrile

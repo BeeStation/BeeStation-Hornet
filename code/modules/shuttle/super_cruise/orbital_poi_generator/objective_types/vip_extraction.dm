@@ -113,7 +113,7 @@
 	belt = /obj/item/gun/energy/e_gun
 	l_pocket = /obj/item/pen
 	back = /obj/item/storage/backpack/satchel
-	r_pocket = /obj/item/modular_computer/tablet/pda/heads
+	r_pocket = /obj/item/modular_computer/tablet/pda/preset/heads
 	l_hand = /obj/item/clothing/head/helmet/space/fragile
 	id = /obj/item/card/id/away/old
 
