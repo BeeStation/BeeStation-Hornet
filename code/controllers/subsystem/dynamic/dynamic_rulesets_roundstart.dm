@@ -125,7 +125,7 @@
 		return FALSE
 
 	if(!length(GLOB.wizardstart))
-		log_dynamic("NOT ALLOWED: [src] ruleset couldn't find any spawn points.")
+		log_dynamic("NOT ALLOWED: [src] couldn't find any spawn points.")
 		return FALSE
 
 /datum/dynamic_ruleset/roundstart/wizard/choose_candidates()

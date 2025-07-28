@@ -81,7 +81,5 @@ SUBSYSTEM_DEF(communications)
 			color_override = SSsecurity_level.current_security_level.announcement_color,
 		)
 
-	return
-
 #undef COMMUNICATION_COOLDOWN
 #undef COMMUNICATION_COOLDOWN_AI

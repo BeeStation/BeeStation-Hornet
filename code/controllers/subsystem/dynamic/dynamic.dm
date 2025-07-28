@@ -318,6 +318,10 @@ SUBSYSTEM_DEF(dynamic)
 
 		possible_rulesets[potential_ruleset] = potential_ruleset.weight
 
+	// Shucks!
+	if(!length(possible_rulesets))
+		return
+
 	// Pick rulesets
 	var/roundstart_points_left = roundstart_points
 	var/no_other_rulesets = FALSE
@@ -385,7 +389,7 @@ SUBSYSTEM_DEF(dynamic)
 	for(var/datum/dynamic_ruleset/blocked_ruleset in ruleset.blocking_rulesets)
 		for(var/datum/dynamic_ruleset/executed_ruleset in applied_rulesets)
 			if(blocked_ruleset.type == executed_ruleset.type)
-				log_dynamic("NOT ALLOWED: [ruleset] blocked by [blocked_ruleset]")
+				log_dynamic("NOT ALLOWED: [ruleset] was blocked by [blocked_ruleset]")
 				return TRUE
 
 	// Check for bitflags

@@ -83,7 +83,7 @@
 **/
 /datum/dynamic_ruleset/proc/allowed()
 	if(length(candidates) < drafted_players_amount)
-		log_dynamic("NOT ALLOWED: [src], The minimum candidate requirement (drafted players: [drafted_players_amount]) was not met! (candidates: [length(candidates)])")
+		log_dynamic("NOT ALLOWED: [src] did not meet the minimum candidate requirement! (required candidates: [drafted_players_amount]) (candidates: [length(candidates)])")
 		return FALSE
 
 	var/players = length(SSdynamic.current_players[CURRENT_LIVING_PLAYERS])
@@ -91,7 +91,7 @@
 		players = length(GLOB.player_list)
 
 	if(players < minimum_players_required)
-		log_dynamic("NOT ALLOWED: [src], The minimum player requirement (minimum players: [minimum_players_required]) was not met! (players: [players])")
+		log_dynamic("NOT ALLOWED: [src] did not meet the minimum player requirement! (minimum players: [minimum_players_required]) (players: [players])")
 		return FALSE
 
 	return TRUE
