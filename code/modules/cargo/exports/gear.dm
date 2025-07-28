@@ -85,7 +85,7 @@
 /datum/export/gear/goldpda
 	cost = 500
 	unit_name = "gilded PDA"
-	export_types = list(/obj/item/modular_computer/tablet/pda/vip)
+	export_types = list(/obj/item/modular_computer/tablet/pda/preset/vip)
 
 /datum/export/gear/envirosuitvip
 	cost = 4500

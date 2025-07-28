@@ -2,6 +2,35 @@
 ///////////Computer Parts///////////////
 ////////////////////////////////////////
 
+/// Shells
+/datum/design/computer_shell/pda
+	name = "PDA shell"
+	id = "shell_pda"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 1000, /datum/material/glass = 500, /datum/material/copper = 150)
+	build_path = /obj/item/modular_computer/tablet/pda
+	category = list("Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/computer_shell/tablet
+	name = "Tablet Shell"
+	id = "shell_tablet"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 1500, /datum/material/glass = 1000, /datum/material/copper = 150)
+	build_path = /obj/item/modular_computer/tablet
+	category = list("Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/computer_shell/laptop
+	name = "Laptop Shell"
+	id = "shell_laptop"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 2000, /datum/material/glass = 1000, /datum/material/copper = 150)
+	build_path = /obj/item/modular_computer/laptop
+	category = list("Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
+/// HDDs
 /datum/design/disk/normal
 	name = "Hard Disk Drive"
 	id = "hdd_basic"
