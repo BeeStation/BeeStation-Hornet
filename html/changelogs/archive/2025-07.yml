@@ -401,6 +401,9 @@
   - bugfix: You can now queue strip actions again without interruption
   - refactor: Removed old asshole code for stripping
 2025-07-28:
+  PowerfulBacon:
+  - bugfix: Fixes a bug in the pickweight algorithm which caused maps to be selected
+      that had 0 votes.
   Solene:
   - rscadd: You can now research and print PDA, Tablet and Laptop shells.
   - code_imp: PDAs that should start operable are now a child of /preset
