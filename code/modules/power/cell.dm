@@ -21,7 +21,9 @@
 	/// If the power cell was damaged by an explosion, chance for it to become corrupted and function the same as rigged.
 	var/corrupted = FALSE
 	///how much power is given every tick in a recharger
-	var/chargerate = 100
+	var/chargerate
+	/// How many recharge cycles untill 100%? Default is 10. Calculation goes - (maxcharge / chargerate_divide)
+	var/chargerate_divide = 10
 	///does it self recharge, over time, or not?
 	var/self_recharge = FALSE
 	///stores the chargerate to restore when hit with EMP, for slime cores
@@ -44,6 +46,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 	charge = maxcharge
 	if(ratingdesc)
 		desc += " This one has a rating of [display_energy(maxcharge)], and you should not swallow it."
+	chargerate = (maxcharge / chargerate_divide)
 	update_appearance()
 
 /obj/item/stock_parts/cell/Destroy()
@@ -242,7 +245,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 	desc = "A power cell with a slightly higher capacity than normal!"
 	maxcharge = 2500
 	custom_materials = list(/datum/material/glass=50)
-	chargerate = 1000
+	chargerate_divide = 5
 
 /obj/item/stock_parts/cell/upgraded/plus
 	name = "upgraded power cell+"
@@ -262,7 +265,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 /obj/item/stock_parts/cell/pulse //200 pulse shots
 	name = "pulse rifle power cell"
 	maxcharge = 40000
-	chargerate = 1500
 
 /obj/item/stock_parts/cell/pulse/carbine //25 pulse shots
 	name = "pulse carbine power cell"
@@ -277,7 +279,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 	icon_state = "hcell"
 	maxcharge = 10000
 	custom_materials = list(/datum/material/glass=60)
-	chargerate = 1500
+	chargerate_divide = 6
 	rating = 1
 
 /obj/item/stock_parts/cell/high/plus
@@ -285,7 +287,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 	desc = "Where did these come from?"
 	icon_state = "h+cell"
 	maxcharge = 15000
-	chargerate = 2250
+	chargerate_divide = 6
 
 /obj/item/stock_parts/cell/high/empty/Initialize(mapload)
 	. = ..()
@@ -297,7 +299,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 	icon_state = "scell"
 	maxcharge = 20000
 	custom_materials = list(/datum/material/glass=300)
-	chargerate = 2000
 	rating = 2
 
 /obj/item/stock_parts/cell/super/empty/Initialize(mapload)
@@ -310,7 +311,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 	icon_state = "hpcell"
 	maxcharge = 30000
 	custom_materials = list(/datum/material/glass=400)
-	chargerate = 3000
 	rating = 3
 
 /obj/item/stock_parts/cell/hyper/empty/Initialize(mapload)
@@ -324,7 +324,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 	icon_state = "bscell"
 	maxcharge = 40000
 	custom_materials = list(/datum/material/glass=600)
-	chargerate = 4000
 	rating = 4
 
 /obj/item/stock_parts/cell/bluespace/empty/Initialize(mapload)
@@ -338,7 +337,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 	maxcharge = 30000
 	custom_materials = list(/datum/material/glass=1000)
 	rating = 100
-	chargerate = 30000
+	chargerate_divide = 1
 
 /obj/item/stock_parts/cell/infinite/use()
 	return 1
@@ -374,7 +373,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 	custom_materials = null
 	rating = 5 //self-recharge makes these desirable
 	self_recharge = TRUE // Infused slime cores self-recharge, over time
-	chargerate = 100
+	chargerate_divide = 20
 	maxcharge = 2000
 
 /obj/item/stock_parts/cell/emproof
@@ -399,7 +398,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 	name = "beam rifle capacitor"
 	desc = "A high powered capacitor that can provide huge amounts of energy in an instant."
 	maxcharge = 50000
-	chargerate = 5000	//Extremely energy intensive
 
 /obj/item/stock_parts/cell/beam_rifle/corrupt()
 	return
