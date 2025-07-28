@@ -374,7 +374,7 @@
 
 	//Borgs aren't allowed to be antags. Will need to be tweaked if we get true latejoin ais.
 	if(CONFIG_GET(flag/allow_latejoin_antagonists) && humanc)
-		SSdynamic.make_antag_chance(humanc)
+		SSdynamic.on_player_latejoin(humanc)
 
 	if(CONFIG_GET(flag/roundstart_traits))
 		SSquirks.AssignQuirks(character.mind, character.client, TRUE)

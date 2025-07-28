@@ -444,7 +444,9 @@ SUBSYSTEM_DEF(dynamic)
 /datum/controller/subsystem/dynamic/fire(resumed)
 	if(forced_extended)
 		return
-	if(SSticker.check_finished() || EMERGENCY_ESCAPED_OR_ENDGAMED)
+
+	// Antags have done their jobs, good job guys
+	if(SSticker.check_finished() || EMERGENCY_ESCAPED_OR_ENDGAMED || EMERGENCY_CALLED)
 		return
 
 	update_midround_chances()
@@ -593,8 +595,8 @@ SUBSYSTEM_DEF(dynamic)
  * A maximum of 3 people can be chosen for a latejoin ruleset.
  * There is a 10% chance for someone to be picked
 **/
-/datum/controller/subsystem/dynamic/proc/make_antag_chance(mob/living/carbon/human/character)
-	if(forced_extended || SSticker.check_finished() || EMERGENCY_ESCAPED_OR_ENDGAMED)
+/datum/controller/subsystem/dynamic/proc/on_player_latejoin(mob/living/carbon/human/character)
+	if(forced_extended || SSticker.check_finished() || EMERGENCY_ESCAPED_OR_ENDGAMED || EMERGENCY_CALLED)
 		return
 
 	if(!length(latejoin_configured_rulesets))
