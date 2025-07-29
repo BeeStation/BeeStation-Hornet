@@ -201,31 +201,29 @@
  * Sleepypens
  */
 
-/obj/item/pen/sleepy
+/obj/item/pen/paralytic
 
-/obj/item/pen/sleepy/attack(mob/living/M, mob/user)
+/obj/item/pen/paralytic/attack(mob/living/M, mob/user)
 	if(!istype(M))
 		return
 
 	if(reagents?.total_volume && M.reagents)
 		// Obvious message to other people, so that they can call out suspicious activity.
 		to_chat(user, span_notice("You prepare to engage the sleepy pen's internal mechanism!"))
-		if (!do_after(user, 0.5 SECONDS, M) || !..())
+		if (!do_after(user, 1 SECONDS, M) || !..())
 			to_chat(user, span_warning("You fail to engage the sleepy pen mechanism!"))
 			return
 		reagents.trans_to(M, reagents.total_volume, transfered_by = user, method = INJECT)
 		user.visible_message(span_warning("[user] stabs [M] with [src]!"), span_notice("You successfully inject [M] with the pen's contents!"), vision_distance = COMBAT_MESSAGE_RANGE, ignored_mobs = list(M))
-		// Looks like a normal pen once it has been used
-		qdel(reagents)
-		reagents = null
+		to_chat(M, span_danger("You feel a tiny prick!"))
 	else
 		return ..()
 
-/obj/item/pen/sleepy/Initialize(mapload)
+/obj/item/pen/paralytic/Initialize(mapload)
 	. = ..()
 	create_reagents(45, OPENCONTAINER)
-	reagents.add_reagent(/datum/reagent/toxin/chloralhydrate, 20)
-	reagents.add_reagent(/datum/reagent/toxin/mutetoxin, 15)
+	reagents.add_reagent(/datum/reagent/toxin/curare, 20)
+	reagents.add_reagent(/datum/reagent/toxin/whispertoxin, 15)
 	reagents.add_reagent(/datum/reagent/toxin/staminatoxin, 10)
 
 /*
