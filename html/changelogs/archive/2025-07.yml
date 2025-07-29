@@ -409,3 +409,16 @@
   - code_imp: PDAs that should start operable are now a child of /preset
   - tweak: The basic transparent colorizer can now be applied to the clown and syndicate
       PDA like the other colorizers.
+2025-07-29:
+  PowerfulBacon:
+  - balance: The sleepy pen is now refillable, renamed to the paralytic pen.
+  - balance: The default mix of the sleepy pen now paralyses a victim and allows them
+      to whisper, but keeps them conscious during their bad time ahead.
+  - balance: Adds whisper toxin as a precursor to mute toxin, it allows a victim to
+      whisper but prevents radio use.
+  - balance: Buffs stamina toxin, it now causes instant slowdown and deals double
+      the stamina damage per tick.
+  Rukofamicom:
+  - tweak: Byond account (ckey) is no longer appended to antagonists and their IC
+      names in the round-end report. If you wish to keep your characters private you
+      can now do so safely even when opting into an antagonist role.
