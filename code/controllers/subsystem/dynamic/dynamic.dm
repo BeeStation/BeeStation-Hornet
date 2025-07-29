@@ -147,33 +147,42 @@ SUBSYSTEM_DEF(dynamic)
 	/// At this time the Light/Medium Ruleset Chance will reach 0%
 	/// When configuring these in `dynamic.json` be sure to have them set in deciseconds (minutes * 600)
 	var/midround_light_end_time = 1 HOURS
-	var/midround_medium_end_time = 2.5 HOURS
+	var/midround_medium_end_time = 2 HOURS
 	/// The ratio of the Light Ruleset Chance decrease rate that is given to the Medium Ruleset Chance
 	/// The Heavy Ratio is the remainder of the Medium Increase Ratio
 	/// These should always be on a range of 0 - 1. i.e: 0.25, 0.75, 1.0
-	var/midround_medium_increase_ratio = 0.75
+	var/midround_medium_increase_ratio = 1
 	/// The time at which midrounds can start rolling
-	var/midround_grace_period = 25 MINUTES
+	var/midround_grace_period = 20 MINUTES
 	/// The amount of midround points given per minute for every type of player
 	/// The total midround points delta cannot be lower than 0, it always increases or stays the same
 	var/midround_living_delta = 0.05
 	var/midround_observer_delta = 0
-	var/midround_dead_delta = -0.3
-	var/midround_linear_delta = 0.5
+	var/midround_dead_delta = -0.4
+	var/midround_linear_delta = 0.9
 	/// This delta is applied no matter what
-	var/midround_linear_delta_forced = 0.5
+	var/midround_linear_delta_forced = 0.25
 
 	/// The point delta per living antagonist
 	var/list/midround_points_per_antag = list(
 		"/datum/antagonist/ert" = 0.2,
-		"/datum/antagonist/spider" = -0.1,
-		"/datum/antagonist/swarmer" = -0.1,
+		"/datum/antagonist/spider" = -0.15,
+		"/datum/antagonist/swarmer" = -0.15,
 		"/datum/antagonist/xeno" = -0.2,
 		"/datum/antagonist/revenant" = -0.6,
-		"/datum/antagonist/ninja" = -2,
+		"/datum/antagonist/ninja" = -1.1,
 		"/datum/antagonist/space_dragon" = -2.5,
 		"/datum/antagonist/wizard" = -2.5,
 		"/datum/antagonist/slaughter" = -4,
+		"/datum/antagonist/blob" = -4,
+		"/datum/antagonist/morph" = -0.3,
+		"/datum/antagonist/pirate" = -0.5,
+		"/datum/antagonist/pirate/captain" = -0.5,
+		"/datum/antagonist/malf_ai" = -0.6,
+		"/datum/antagonist/traitor" = -0.2,
+		"/datum/antagonist/heretic" = -0.2,
+		"/datum/antagonist/brother" = -0.1,
+		"/datum/antagonist/changeling" = -0.2,
 	)
 
 	/**
@@ -181,9 +190,9 @@ SUBSYSTEM_DEF(dynamic)
 	**/
 
 	/// The max amount of latejoin rulesets that can be picked
-	var/latejoin_max_rulesets = 3
+	var/latejoin_max_rulesets = 1
 	/// The probability for a latejoin ruleset to be picked
-	var/latejoin_ruleset_probability = 20
+	var/latejoin_ruleset_probability = 10
 
 /datum/controller/subsystem/dynamic/Initialize()
 	configure_variables()
