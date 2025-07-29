@@ -256,30 +256,30 @@
 	subtype_path = /datum/gear/accessory/cloak
 	cost = 2000
 
-/datum/gear/accessory/backpack/engineerborg
-	display_name = "Engineering Cyborg bag"
-	path = /obj/item/storage/backpack/engineerborg
+/datum/gear/accessory/backpack/engineer_borg_bag
+	display_name = "engineering cyborg bag"
+	path = /obj/item/storage/backpack/engineer_borg_bag
 
-/datum/gear/accessory/backpack/miningborg
-	display_name = "Mining Cyborg bag"
-	path = /obj/item/storage/backpack/miningborg
+/datum/gear/accessory/backpack/mining_borg_bag
+	display_name = "mining cyborg bag"
+	path = /obj/item/storage/backpack/mining_borg_bag
 
-/datum/gear/accessory/backpack/janitorborg
-	display_name = "Janitor Cyborg bag"
-	path = /obj/item/storage/backpack/janitorborg
+/datum/gear/accessory/backpack/janitor_borg_bag
+	display_name = "janitor cyborg bag"
+	path = /obj/item/storage/backpack/janitor_borg_bag
 
-/datum/gear/accessory/backpack/peaceborg
-	display_name = "Peace Keeper Cyborg bag"
-	path = /obj/item/storage/backpack/peaceborg
+/datum/gear/accessory/backpack/peace_borg_bag
+	display_name = "peace Keeper cyborg bag"
+	path = /obj/item/storage/backpack/peace_borg_bag
 
-/datum/gear/accessory/backpack/serviceborg
-	display_name = "Service Cyborg bag"
-	path = /obj/item/storage/backpack/serviceborg
+/datum/gear/accessory/backpack/service_borg_bag
+	display_name = "service cyborg bag"
+	path = /obj/item/storage/backpack/service_borg_bag
 
-/datum/gear/accessory/backpack/securityborg
-	display_name = "Security Cyborg bag"
-	path = /obj/item/storage/backpack/securityborg
+/datum/gear/accessory/backpack/security_borg_bag
+	display_name = "security cyborg bag"
+	path = /obj/item/storage/backpack/security_borg_bag
 
-/datum/gear/accessory/backpack/medicalborg
-	display_name = "Medical Cyborg bag"
-	path = /obj/item/storage/backpack/medicalborg
+/datum/gear/accessory/backpack/medical_borg_bag
+	display_name = "medical cyborg bag"
+	path = /obj/item/storage/backpack/medical_borg_bag

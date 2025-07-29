@@ -241,54 +241,55 @@
 	desc = "A spacious backpack with lots of pockets, worn by Engineers of an Emergency Response Team."
 	icon_state = "ert_engineering"
 
-/obj/item/storage/backpack/engineerborg
-	name = "Engineering Cyborg bag"
+/obj/item/storage/backpack/engineer_borg_bag
+	name = "engineering cyborg bag"
 	desc = "Store the tools to repair that breach in this cute borgiebag!"
 	icon_state = "engiborgpack"
 	resistance_flags = FIRE_PROOF
 
-/obj/item/storage/backpack/miningborg
-	name = "Mining Cyborg bag"
+/obj/item/storage/backpack/mining_borg_bag
+	name = "mining cyborg bag"
 	desc = "Store the parts to repair your mechanical mining friends in this tough bag! Ash dust emanates from it constantly"
 	icon_state = "mineborgpack"
 
-/obj/item/storage/backpack/janitorborg
-	name = "Janitor Cyborg bag"
+/obj/item/storage/backpack/janitor_borg_bag
+	name = "janitor cyborg bag"
 	desc = "Clean the halls in style with this adorable borgbag! It smells strongly of cleaning products."
 	icon_state = "janiborgpack"
 
-/obj/item/storage/backpack/syndiassaultborg
-	name = "Suspicious Assault Cyborg bag"
-	desc = "Store the bullet to bring down the entirety of Nanotrasen with the comfort of a king in this adorable backpack! It gives off an odor of fresh blood and brass."
+/obj/item/storage/backpack/syndiassault_borg_bag
+	name = "suspicious assault cyborg bag"
+	desc = "Store the bullet to bring down the entirety of Nanotrasen with the comfort of a king in an adorable backpack! It gives off an odor of fresh blood and brass."
 	icon_state = "syndiassaultborgpack"
 
-/obj/item/storage/backpack/syndimedborg
-	name = "Suspicious Medical Cyborg bag"
-	desc = "Heal our brave operatives with medicines stored in this adorable bag! It gives off a scent of Omnizine."
+/obj/item/storage/backpack/syndimed_borg_bag
+	name = "suspicious medical cyborg bag"
+	desc = "Heal our brave operatives with medicines stored in an adorable bag! It gives off a scent of Omnizine."
 	icon_state = "syndimediborgpack"
 
-/obj/item/storage/backpack/syndiengborg
-	name = "Suspicious Engineering Cyborg bag"
+/obj/item/storage/backpack/syndieng_borg_bag
+	name = "suspicious engineering cyborg bag"
 	desc = "Store the tools that will lead to the demise of Nanotrasen in an adorable bag! A smell of omnizine infuzed oil emanates from it."
 	icon_state = "syndiengiborgpack"
+	resistance_flags = FIRE_PROOF
 
-/obj/item/storage/backpack/peaceborg
-	name = "Peace Keeper Cyborg bag"
+/obj/item/storage/backpack/peace_borg_bag
+	name = "peace keeper cyborg bag"
 	desc = "Prevent !HUMAN HARM! in an adorable bag! It smells like pepper spray."
 	icon_state = "peaceborgpack"
 
-/obj/item/storage/backpack/serviceborg
-	name = "Service Cyborg bag"
+/obj/item/storage/backpack/service_borg_bag
+	name = "service cyborg bag"
 	desc = "Serve the station in style with an adorable bag! It smells strongly of alcohol."
 	icon_state = "servborgpack"
 
-/obj/item/storage/backpack/securityborg
-	name = "Security Cyborg bag"
+/obj/item/storage/backpack/security_borg_bag
+	name = "security cyborg bag"
 	desc = "Keep the stations halls safe with a cute bag that scares the criminals away! It gives off a crackle of static occasionally"
 	icon_state = "secborgpack"
 
-/obj/item/storage/backpack/medicalborg
-	name = "Medical Cyborg bag"
+/obj/item/storage/backpack/medical_borg_bag
+	name = "medical cyborg bag"
 	desc = "Store the scalpel to safe the captains life in this sterile bag! It gives off a strong smell of antiseptic spray."
 	icon_state = "mediborgpack"
 

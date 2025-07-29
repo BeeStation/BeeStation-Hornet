@@ -18,7 +18,7 @@
 		/obj/item/storage/backpack/security = 3,
 		/obj/item/storage/backpack/satchel/sec = 3,
 		/obj/item/storage/backpack/duffelbag/sec = 3,
-		/obj/item/storage/backpack/peaceborg = 3,
+		/obj/item/storage/backpack/peace_borg_bag = 3,
 		/obj/item/clothing/under/rank/security/officer = 3,
 		/obj/item/clothing/under/plasmaman/security = 3,
 		/obj/item/clothing/head/helmet/space/plasmaman/security = 3,
@@ -39,7 +39,7 @@
 		)
 	contraband = list(
 		/obj/item/clothing/suit/hooded/wintercoat/security/old = 3,
-		/obj/item/storage/backpack/securityborg = 3,
+		/obj/item/storage/backpack/security_borg_bag = 3,
 		)
 	premium = list(
 		/obj/item/clothing/under/rank/security/officer/formal = 3,
@@ -64,7 +64,7 @@
 		/obj/item/storage/backpack/duffelbag/med = 4,
 		/obj/item/storage/backpack/medic = 4,
 		/obj/item/storage/backpack/satchel/med = 4,
-		/obj/item/storage/backpack/medicalborg = 2,
+		/obj/item/storage/backpack/medical_borg_bag = 2,
 		/obj/item/clothing/suit/hooded/wintercoat/medical = 4,
 		/obj/item/clothing/under/rank/medical/paramedic = 4,
 		/obj/item/clothing/under/rank/medical/paramedic/skirt = 4,
@@ -104,7 +104,7 @@
 					/obj/item/storage/backpack/duffelbag/engineering = 3,
 					/obj/item/storage/backpack/industrial = 3,
 					/obj/item/storage/backpack/satchel/eng = 3,
-					/obj/item/storage/backpack/engineerborg = 3,
+					/obj/item/storage/backpack/engineer_borg_bag = 3,
 					/obj/item/clothing/under/plasmaman/engineering = 3,
 					/obj/item/clothing/head/helmet/space/plasmaman/engineering = 3,
 					/obj/item/clothing/suit/hooded/wintercoat/engineering = 3,
@@ -170,7 +170,7 @@
 		/obj/item/clothing/head/soft/cargo = 3,
 		/obj/item/clothing/head/beret/cargo = 3,
 		/obj/item/radio/headset/headset_cargo = 3,
-		/obj/item/storage/backpack/miningborg = 3,
+		/obj/item/storage/backpack/mining_borg_bag = 3,
 		)
 
 	premium = list(
@@ -217,13 +217,13 @@
 					/obj/item/clothing/under/costume/mech_suit = 2,
 					/obj/item/clothing/under/costume/mech_suit/white = 2,
 					/obj/item/clothing/under/costume/mech_suit/blue = 2,
-					/obj/item/storage/backpack/engineerborg = 2,
-					/obj/item/storage/backpack/miningborg = 2,
-					/obj/item/storage/backpack/janitorborg = 2,
-					/obj/item/storage/backpack/peaceborg = 2,
-					/obj/item/storage/backpack/serviceborg = 2,
-					/obj/item/storage/backpack/securityborg = 2,
-					/obj/item/storage/backpack/medicalborg = 2)
+					/obj/item/storage/backpack/engineer_borg_bag = 2,
+					/obj/item/storage/backpack/mining_borg_bag = 2,
+					/obj/item/storage/backpack/janitor_borg_bag = 2,
+					/obj/item/storage/backpack/peace_borg_bag = 2,
+					/obj/item/storage/backpack/service_borg_bag = 2,
+					/obj/item/storage/backpack/security_borg_bag = 2,
+					/obj/item/storage/backpack/medical_borg_bag = 2)
 	refill_canister = /obj/item/vending_refill/wardrobe/robo_wardrobe
 	extra_price = 300
 	dept_req_for_free = ACCOUNT_SCI_BITFLAG
@@ -270,7 +270,7 @@
 	vend_reply = "Thank you for using the Hydrobe!"
 	products = list(/obj/item/storage/backpack/botany = 2,
 					/obj/item/storage/backpack/satchel/hyd = 2,
-					/obj/item/storage/backpack/serviceborg = 2,
+					/obj/item/storage/backpack/service_borg_bag = 2,
 					/obj/item/clothing/suit/hooded/wintercoat/hydro = 2,
 					/obj/item/clothing/suit/apron = 2,
 					/obj/item/clothing/suit/apron/overalls = 3,
@@ -343,7 +343,7 @@
 		/obj/item/clothing/glasses/sunglasses/advanced/reagent = 1,
 		/obj/item/clothing/neck/petcollar = 1,
 		/obj/item/storage/belt/bandolier = 1,
-		/obj/item/storage/backpack/serviceborg = 2,
+		/obj/item/storage/backpack/service_borg_bag = 2,
 		/obj/item/clothing/neck/tie/black = 2,
 		/obj/item/clothing/neck/tie/blue = 2
 	)
@@ -377,7 +377,7 @@
 					/obj/item/clothing/head/utility/chefhat = 3,
 					/obj/item/reagent_containers/cup/rag = 1,
 					/obj/item/clothing/suit/hooded/wintercoat = 2,
-					/obj/item/storage/backpack/serviceborg = 3)
+					/obj/item/storage/backpack/service_borg_bag = 3)
 	refill_canister = /obj/item/vending_refill/wardrobe/chef_wardrobe
 	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 
@@ -410,7 +410,7 @@
 					/obj/item/clothing/shoes/galoshes = 2,
 					/obj/item/watertank/janitor = 1,
 					/obj/item/storage/belt/janitor = 2,
-					/obj/item/storage/backpack/janitorborg = 2)
+					/obj/item/storage/backpack/janitor_borg_bag = 2)
 	contraband = list(
 					/obj/item/holosign_creator/janibarrier = 1,
 					/obj/item/caution = 3, //The really old crusty ones

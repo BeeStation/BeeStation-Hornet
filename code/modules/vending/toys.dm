@@ -17,9 +17,9 @@
 		/obj/item/toy/syndicateballoon = 10,
 		/obj/item/clothing/suit/syndicatefake = 5,
 		/obj/item/clothing/head/syndicatefake = 5,
-		/obj/item/storage/backpack/syndiassaultborg = 2,
-		/obj/item/storage/backpack/syndimedborg = 2,
-		/obj/item/storage/backpack/syndiengborg = 2)
+		/obj/item/storage/backpack/syndiassault_borg_bag = 2,
+		/obj/item/storage/backpack/syndimed_borg_bag = 2,
+		/obj/item/storage/backpack/syndieng_borg_bag = 2)
 	contraband = list(
 		/obj/item/gun/ballistic/shotgun/toy/crossbow = 10,
 		/obj/item/gun/ballistic/automatic/c20r/toy/unrestricted = 10,
