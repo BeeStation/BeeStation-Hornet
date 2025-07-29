@@ -36,12 +36,14 @@
 			to_chat(user, "<span class='warning'>You don't want to hurt [src]!</span>")
 			return
 		user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
-		visible_message("<span class='danger'>[user] [response_harm_continuous] [src]!</span>",\
-						"<span class='userdanger'>[user] [response_harm_continuous] you!</span>", null, COMBAT_MESSAGE_RANGE, list(user))
-		to_chat(user, "<span class='danger'>You [response_harm_simple] [src]!</span>")
+		visible_message(span_danger("[user] [response_harm_continuous] [src]!"),\
+						span_userdanger("[user] [response_harm_continuous] you!"), null, COMBAT_MESSAGE_RANGE, user)
+		to_chat(user, span_danger("You [response_harm_simple] [src]!"))
 		playsound(loc, attacked_sound, 25, TRUE, -1)
+		var/obj/item/bodypart/arm/active_arm = user.get_active_hand()
+		var/damage = active_arm.unarmed_damage
 
-		attack_threshold_check(user.dna.species.punchdamage)
+		attack_threshold_check(damage)
 		log_combat(user, src, "attacked", user)
 		updatehealth()
 		return TRUE

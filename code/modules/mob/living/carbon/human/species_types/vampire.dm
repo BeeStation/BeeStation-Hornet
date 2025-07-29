@@ -1,13 +1,18 @@
 /datum/species/vampire
-	name = "\improper Vampire"
+	name = "Vampire"
 	id = SPECIES_VAMPIRE
-	species_traits = list(EYECOLOR,HAIR,FACEHAIR,LIPS)
-	inherent_traits = list(TRAIT_NOHUNGER,TRAIT_NOBREATH,TRAIT_DRINKSBLOOD)
+	inherent_traits = list(
+		TRAIT_NOHUNGER,
+		TRAIT_NOBREATH,
+		TRAIT_DRINKS_BLOOD,
+		TRAIT_USES_SKINTONES
+	)
 	inherent_biotypes = list(MOB_UNDEAD, MOB_HUMANOID)
-	mutant_bodyparts = list("tail_human" = "None", "ears" = "None", "wings" = "None", "body_size" = "Normal")
+	mutant_bodyparts = list(
+		"body_size" = "Normal"
+	)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | ERT_SPAWN
 	exotic_bloodtype = "U"
-	use_skintones = TRUE
 	mutantheart = /obj/item/organ/heart/vampire
 	mutanttongue = /obj/item/organ/tongue/vampire
 	mutantstomach = null
@@ -22,15 +27,15 @@
 		return TRUE
 	return ..()
 
-/datum/species/vampire/on_species_gain(mob/living/carbon/human/C, datum/species/old_species)
+/datum/species/vampire/on_species_gain(mob/living/carbon/human/new_vampire, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()
-	to_chat(C, "[info_text]")
-	C.skin_tone = "albino"
-	C.update_body(0)
+	to_chat(new_vampire, "[info_text]")
+	new_vampire.skin_tone = "albino"
+	new_vampire.update_body(0)
 	if(isnull(batform))
 		batform = new
-		batform.Grant(C)
-	C.set_safe_hunger_level()
+		batform.Grant(new_vampire)
+	new_vampire.set_safe_hunger_level()
 
 /datum/species/vampire/on_species_loss(mob/living/carbon/C)
 	. = ..()

@@ -39,12 +39,20 @@
 #define NO_WORN_SLOWDOWN		(1<<18)	//! Doesn't slow you down while worn, which is only useful in combination with SLOWS_WHILE_IN_HAND
 #define HAND_ITEM (1<<19) // If an item is just your hand (circled hand, slapper) and shouldn't block things like riding
 #define SURGICAL_TOOL (1<<20)
+///Can be equipped on digitigrade legs.
+#define IGNORE_DIGITIGRADE (1<<21)
+/// No blood overlay is allowed to appear on this item, and it cannot gain blood DNA forensics
+#define NO_BLOOD_ON_ITEM (1 << 22)
 
 // Flags for the clothing_flags var on /obj/item/clothing
 
-#define LAVAPROTECT             (1<<0)
-#define STOPSPRESSUREDAMAGE		(1<<1)	//! SUIT and HEAD items which stop pressure damage. To stop you taking all pressure damage you must have both a suit and head item with this flag.
-#define BLOCK_GAS_SMOKE_EFFECT	(1<<2)	//! blocks the effect that chemical clouds would have on a mob --glasses, mask and helmets ONLY!
+/// SUIT and HEAD items which stop lava from hurting the wearer
+#define LAVAPROTECT (1<<0)
+/// SUIT and HEAD items which stop pressure damage.
+/// To stop you taking all pressure damage you must have both a suit and head item with this flag.
+#define STOPSPRESSUREDAMAGE (1<<1)
+/// blocks the effect that chemical clouds would have on a mob --glasses, mask and helmets ONLY!
+#define BLOCK_GAS_SMOKE_EFFECT (1<<2)
 #define MASKINTERNALS		    (1<<3)	//! mask allows internals
 #define NOSLIP                  (1<<4)  //! prevents from slipping on wet floors, in space etc
 #define THICKMATERIAL			(1<<5)	//! prevent piercing syringes from penetrating them.
@@ -56,8 +64,10 @@
 #define SCAN_BOOZEPOWER         (1<<12) //! Allows helmets and glasses to scan reagents.
 #define MASKEXTENDRANGE			(1<<13) //! For masks, allows you to breathe from internals on adjecent tiles
 #define NOTCONSUMABLE			(1<<14) //! Moths cannot eat clothing with that flag
+/// prevents from placing on plasmaman helmet or modsuit hat holder
+#define STACKABLE_HELMET_EXEMPT (1<<15)
 /// Usable as casting clothes by wizards (matters for suits, glasses and headwear)
-#define CASTING_CLOTHES (1<<15)
+#define CASTING_CLOTHES (1<<16)
 /// Headgear/helmet allows internals
 #define HEADINTERNALS (1<<18)
 /// noslip with only works if wearer is walking
@@ -69,16 +79,6 @@
 #define CLOTHING_PRISTINE 0 // We have no damage on the clothing
 #define CLOTHING_DAMAGED 1 // There's some damage on the clothing but it still has at least one functioning bodypart and can be equipped
 #define CLOTHING_SHREDDED 2 // The clothing is useless and cannot be equipped unless repaired first
-
-/// Flags for the organ_flags var on /obj/item/organ
-
-#define ORGAN_SYNTHETIC			(1<<0)	//Synthetic organs, or cybernetic organs. Reacts to EMPs and don't deteriorate or heal
-#define ORGAN_FROZEN			(1<<1)	//Frozen organs, don't deteriorate
-#define ORGAN_FAILING			(1<<2)	//Failing organs perform damaging effects until replaced or fixed
-#define ORGAN_EXTERNAL			(1<<3)	//Was this organ implanted/inserted/etc, if true will not be removed during species change.
-#define ORGAN_VITAL				(1<<4)	//Currently only the brain
-#define ORGAN_EDIBLE			(1<<5)	//is a snack? :D
-#define ORGAN_UNREMOVABLE 		(1<<6)	//Can't be removed using surgery
 
 /// Flags for the pod_flags var on /obj/structure/closet/supplypod
 

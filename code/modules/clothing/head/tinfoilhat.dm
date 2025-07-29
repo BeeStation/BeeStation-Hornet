@@ -74,8 +74,6 @@
 	light_power = 1
 	light_on = TRUE
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
-	dynamic_hair_suffix = ""
-	dynamic_fhair_suffix = ""
 	flash_protect = 2
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	bang_protect = 1 //make this consistent with other plasmaman helmets
@@ -95,7 +93,7 @@
 	on = !on
 	icon_state = "[initial(icon_state)][on ? "-light":""]"
 	item_state = icon_state
-	user.update_inv_head() //So the mob overlay updates
+	user.update_worn_head() //So the mob overlay updates
 
 	if(on)
 		set_light(TRUE)

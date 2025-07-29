@@ -83,7 +83,7 @@
 
 	//re-add organs to new mob. this order prevents moving the mind to a brain at any point
 	if(tr_flags & TR_KEEPORGANS)
-		for(var/X in O.internal_organs)
+		for(var/X in O.organs)
 			var/obj/item/organ/I = X
 			I.Remove(O, 1)
 
@@ -95,7 +95,7 @@
 				changeling.purchasedpowers += hf
 				changeling.regain_powers()
 
-		for(var/X in internal_organs)
+		for(var/X in organs)
 			var/obj/item/organ/I = X
 			int_organs += I
 			I.Remove(src, 1)
@@ -113,7 +113,7 @@
 		var/obj/item/bodypart/BP = O.get_bodypart(missing_zone)
 		BP.drop_limb(1)
 		if(!(tr_flags & TR_KEEPORGANS)) //we didn't already get rid of the organs of the newly spawned mob
-			for(var/X in O.internal_organs)
+			for(var/X in O.organs)
 				var/obj/item/organ/G = X
 				if(BP.body_zone == check_zone(G.zone))
 					if(mind && mind.has_antag_datum(/datum/antagonist/changeling) && istype(G, /obj/item/organ/brain))
@@ -196,7 +196,7 @@
 
 	//handle DNA and other attributes
 	dna.transfer_identity(O)
-	O.dna.species.species_traits += NOTRANSSTING
+	O.add_traits(list(TRAIT_NO_TRANSFORMATION_STING), type)
 	O.updateappearance(icon_update=0)
 
 	if(tr_flags & TR_KEEPSE)
@@ -233,7 +233,7 @@
 
 	//re-add organs to new mob. this order prevents moving the mind to a brain at any point
 	if(tr_flags & TR_KEEPORGANS)
-		for(var/X in O.internal_organs)
+		for(var/X in O.organs)
 			var/obj/item/organ/I = X
 			I.Remove(O, 1)
 
@@ -245,7 +245,7 @@
 				changeling.purchasedpowers += hf
 				changeling.regain_powers()
 
-		for(var/X in internal_organs)
+		for(var/X in organs)
 			var/obj/item/organ/I = X
 			int_organs += I
 			I.Remove(src, 1)
@@ -263,7 +263,7 @@
 		var/obj/item/bodypart/BP = O.get_bodypart(missing_zone)
 		BP.drop_limb(1)
 		if(!(tr_flags & TR_KEEPORGANS)) //we didn't already get rid of the organs of the newly spawned mob
-			for(var/X in O.internal_organs)
+			for(var/X in O.organs)
 				var/obj/item/organ/G = X
 				if(BP.body_zone == check_zone(G.zone))
 					if(mind && mind.has_antag_datum(/datum/antagonist/changeling) && istype(G, /obj/item/organ/brain))
@@ -339,8 +339,6 @@
 
 	dna.transfer_identity(O, tr_flags & TR_KEEPSE)
 	O.dna.set_se(FALSE, GET_INITIALIZED_MUTATION(/datum/mutation/race))
-	//Reset offsets to match human settings, in-case they have been changed
-	O.dna.species.offset_features = list(OFFSET_UNIFORM = list(0,0), OFFSET_ID = list(0,0), OFFSET_GLOVES = list(0,0), OFFSET_GLASSES = list(0,0), OFFSET_EARS = list(0,0), OFFSET_SHOES = list(0,0), OFFSET_S_STORE = list(0,0), OFFSET_FACEMASK = list(0,0), OFFSET_HEAD = list(0,0), OFFSET_FACE = list(0,0), OFFSET_BELT = list(0,0), OFFSET_BACK = list(0,0), OFFSET_SUIT = list(0,0), OFFSET_NECK = list(0,0), OFFSET_RIGHT_HAND = list(0,0), OFFSET_LEFT_HAND = list(0,0))
 	O.updateappearance(mutcolor_update=1)
 
 	if(findtext(O.dna.real_name, "monkey", 1, 7)) //7 == length("monkey") + 1
@@ -379,7 +377,7 @@
 			IMP.transfer_implant(src, O)
 
 	if(tr_flags & TR_KEEPORGANS)
-		for(var/X in O.internal_organs)
+		for(var/X in O.organs)
 			var/obj/item/organ/I = X
 			I.Remove(O, 1)
 
@@ -391,7 +389,7 @@
 					changeling.purchasedpowers -= HF
 					changeling.regain_powers()
 
-		for(var/X in internal_organs)
+		for(var/X in organs)
 			var/obj/item/organ/I = X
 			int_organs += I
 			I.Remove(src, 1)
@@ -410,7 +408,7 @@
 		var/obj/item/bodypart/BP = O.get_bodypart(missing_zone)
 		BP.drop_limb(1)
 		if(!(tr_flags & TR_KEEPORGANS)) //we didn't already get rid of the organs of the newly spawned mob
-			for(var/X in O.internal_organs)
+			for(var/X in O.organs)
 				var/obj/item/organ/G = X
 				if(BP.body_zone == check_zone(G.zone))
 					if(mind && mind.has_antag_datum(/datum/antagonist/changeling) && istype(G, /obj/item/organ/brain))

@@ -75,10 +75,6 @@
 #define MOB_REPTILE		"reptile"
 #define MOB_SPIRIT		"spirit"
 
-//Organ defines for carbon mobs
-#define ORGAN_ORGANIC 1
-#define ORGAN_ROBOTIC 2
-
 #define DEFAULT_BODYPART_ICON_ORGANIC 'icons/mob/species/human/bodyparts_greyscale.dmi'
 #define DEFAULT_BODYPART_ICON_ROBOTIC 'icons/mob/augmentation/augments.dmi'
 
@@ -87,34 +83,64 @@
 #define ALIEN_BODYPART "alien"
 #define LARVA_BODYPART "larva"
 
-//Bodypart change blocking flags
-#define BP_BLOCK_CHANGE_SPECIES	(1<<0)
+// Flags for the head_flags var on /obj/item/bodypart/head
+/// Head can have hair
+#define HEAD_HAIR (1<<0)
+/// Head can have facial hair
+#define HEAD_FACIAL_HAIR (1<<1)
+/// Head can have lips
+#define HEAD_LIPS (1<<2)
+/// Head can have eye sprites
+#define HEAD_EYESPRITES (1<<3)
+/// Head will have colored eye sprites
+#define HEAD_EYECOLOR (1<<4)
+/// Head can have eyeholes when missing eyes
+#define HEAD_EYEHOLES (1<<5)
+/// Head can have debrain overlay
+#define HEAD_DEBRAIN (1<<6)
+/// All head flags, default for most heads
+#define HEAD_ALL_FEATURES (HEAD_HAIR|HEAD_FACIAL_HAIR|HEAD_LIPS|HEAD_EYESPRITES|HEAD_EYECOLOR|HEAD_EYEHOLES|HEAD_DEBRAIN)
 
-//Bodytype defines for how things can be worn, surgery, and other misc things.
+//Bodytype defines for surgery, and other misc things.
 ///The limb is organic.
 #define BODYTYPE_ORGANIC (1<<0)
 ///The limb is robotic.
 #define BODYTYPE_ROBOTIC (1<<1)
-///The limb fits the human mold. This is not meant to be literal, if the sprite "fits" on a human, it is "humanoid", regardless of origin.
-#define BODYTYPE_HUMANOID (1<<2)
-///The limb is digitigrade.
-#define BODYTYPE_DIGITIGRADE (1<<3)
-///The limb fits the monkey mold.
-#define BODYTYPE_MONKEY (1<<4)
-///The limb is snouted.
-//#define BODYTYPE_SNOUTED (1<<5)
 ///A placeholder bodytype for xeno larva, so their limbs cannot be attached to anything.
-#define BODYTYPE_LARVA_PLACEHOLDER (1<<6)
+#define BODYTYPE_LARVA_PLACEHOLDER (1<<2)
 ///The limb is from a xenomorph.
-#define BODYTYPE_ALIEN (1<<7)
+#define BODYTYPE_ALIEN (1<<3)
+
+// Bodyshape defines for how things can be worn, i.e., what "shape" the mob sprite is
+///The limb fits the human mold. This is not meant to be literal, if the sprite "fits" on a human, it is "humanoid", regardless of origin.
+#define BODYSHAPE_HUMANOID (1<<0)
+///The limb fits the monkey mold.
+#define BODYSHAPE_MONKEY (1<<1)
+///The limb is digitigrade.
+#define BODYSHAPE_DIGITIGRADE (1<<2)
+///The limb is snouted.
+#define BODYSHAPE_SNOUTED (1<<3)
+
+#define BODYTYPE_BIOSCRAMBLE_INCOMPATIBLE (BODYTYPE_ROBOTIC | BODYTYPE_LARVA_PLACEHOLDER | BODYTYPE_GOLEM)
+#define BODYTYPE_CAN_BE_BIOSCRAMBLED(bodytype) (!(bodytype & BODYTYPE_BIOSCRAMBLE_INCOMPATIBLE))
 
 //Species gib types
 #define GIB_TYPE_HUMAN "human"
 #define GIB_TYPE_ROBOTIC "robotic"
 
+//See: datum/species/var/digitigrade_customization
+///The species does not have digitigrade legs in generation.
 #define DIGITIGRADE_NEVER 0
+///The species can have digitigrade legs in generation
 #define DIGITIGRADE_OPTIONAL 1
+///The species is forced to have digitigrade legs in generation.
 #define DIGITIGRADE_FORCED 2
+
+// Preferences for leg types
+/// Legs that are normal
+#define NORMAL_LEGS "Normal Legs"
+/// Digitgrade legs that are like bended and uhhh no shoes
+#define DIGITIGRADE_LEGS "Digitigrade Legs"
 
 // Health/damage defines
 #define MAX_LIVING_HEALTH 100
@@ -214,12 +240,6 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define TRAUMA_LIMIT_ABSOLUTE INFINITY
 
 #define BRAIN_DAMAGE_INTEGRITY_MULTIPLIER 0.5
-
-//wing defines
-#define WINGS_COSMETIC 0 //Absolutely fucking useless
-#define WINGS_FLIGHTLESS 1 //can't generate lift, will only fly in 0-G, while atmos is present
-#define WINGS_FLYING 2 //can generate lift and fly if atmos is present
-#define WINGS_MAGIC 3 //can fly regardless of atmos
 
 //Surgery Defines
 #define BIOWARE_GENERIC "generic"
@@ -391,16 +411,15 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define OFFSET_BACK "back"
 #define OFFSET_SUIT "suit"
 #define OFFSET_NECK "neck"
-#define OFFSET_LEFT_HAND "l_hand"
-#define OFFSET_RIGHT_HAND "r_hand"
+#define OFFSET_HELD "held"
 
 //MINOR TWEAKS/MISC
-#define AGE_MIN				18	//! youngest a character can be
-#define AGE_MAX				85	//! oldest a character can be
-#define WIZARD_AGE_MIN		30	//! youngest a wizard can be
-#define APPRENTICE_AGE_MIN	29	//! youngest an apprentice can be
-#define SHOES_SLOWDOWN		0	//! How much shoes slow you down by default. Negative values speed you up
-#define POCKET_STRIP_DELAY	(4 SECONDS)	//! time taken to search somebody's pockets
+#define AGE_MIN 18	//! youngest a character can be
+#define AGE_MAX 85	//! oldest a character can be
+#define WIZARD_AGE_MIN 30	//! youngest a wizard can be
+#define APPRENTICE_AGE_MIN 29	//! youngest an apprentice can be
+#define SHOES_SLOWDOWN 0	//! How much shoes slow you down by default. Negative values speed you up
+#define POCKET_STRIP_DELAY (4 SECONDS)	//! time taken to search somebody's pockets
 #define DOOR_CRUSH_DAMAGE	15	//! the amount of damage that airlocks deal when they crush you
 
 #define HUNGER_FACTOR 0.05 //factor at which mob nutrition decreases
@@ -461,6 +480,14 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 //Saves a proc call, life is suffering. If who has no targets_from var, we assume it's just who
 #define GET_TARGETS_FROM(who) (who.targets_from ? who.get_targets_from() : who)
 
+//defines for grad_color and grad_styles list access keys
+#define GRADIENT_HAIR_KEY 1
+#define GRADIENT_FACIAL_HAIR_KEY 2
+
+// /datum/sprite_accessory/gradient defines
+#define GRADIENT_APPLIES_TO_HAIR (1<<0)
+#define GRADIENT_APPLIES_TO_FACIAL_HAIR (1<<1)
+
 ///Define for spawning megafauna instead of a mob for cave gen
 #define SPAWN_MEGAFAUNA "bluh bluh huge boss"
 
@@ -515,65 +542,89 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 
 // Mob Overlays Indexes
 /// KEEP THIS UP-TO-DATE OR SHIT WILL BREAK ;_;
-#define TOTAL_LAYERS 29
+#define TOTAL_LAYERS 34
 /// Mutations layer - Tk headglows, cold resistance glow, etc
-#define MUTATIONS_LAYER 29
-/// Certain mutantrace features (tail when looking south) that must appear behind the body parts
-#define BODY_BEHIND_LAYER 28
-/// Initially "AUGMENTS", this was repurposed to be a catch-all bodyparts flag
-#define BODYPARTS_LAYER 27
-/// certain mutantrace features (snout, body markings) that must appear above the body parts
-#define BODY_ADJ_LAYER 26
-/// underwear, undershirts, socks, eyes, lips(makeup)
-#define BODY_LAYER 25
-/// mutations that should appear above body, body_adj and bodyparts layer (e.g. laser eyes)
-#define FRONT_MUTATIONS_LAYER 24
-/// damage indicators (cuts and burns)
-#define DAMAGE_LAYER 23
+#define MUTATIONS_LAYER 34
+/// Mutantrace features (tail when looking south) that must appear behind the body parts
+#define BODY_BEHIND_LAYER 33
+/// Layer for bodyparts that should appear behind every other bodypart - Mostly, legs when facing WEST or EAST
+#define BODYPARTS_LOW_LAYER 32
+/// Layer for most bodyparts, appears above BODYPARTS_LOW_LAYER and below BODYPARTS_HIGH_LAYER
+#define BODYPARTS_LAYER 31
+/// Mutantrace features (snout, body markings) that must appear above the body parts
+#define BODY_ADJ_LAYER 30
+/// Underwear, undershirts, socks, eyes, lips(makeup)
+#define BODY_LAYER 29
+/// Mutations that should appear above body, body_adj and bodyparts layer (e.g. laser eyes)
+#define FRONT_MUTATIONS_LAYER 28
+/// Damage indicators (cuts and burns)
+#define DAMAGE_LAYER 27
 /// Jumpsuit clothing layer
-#define UNIFORM_LAYER 22
-/// lmao at the idiot who put both ids and hands on the same layer
-#define ID_LAYER 21
-/// Hands body part layer (or is this for the arm? not sure...)
-#define HANDS_PART_LAYER 20
+#define UNIFORM_LAYER 26
+/// ID card layer
+#define ID_LAYER 25
+/// Layer for bodyparts that should appear above every other bodypart - Currently only used for hands
+#define BODYPARTS_HIGH_LAYER 23
 /// Gloves layer
-#define GLOVES_LAYER 19
+#define GLOVES_LAYER 22
 /// Shoes layer
-#define SHOES_LAYER 18
+#define SHOES_LAYER 21
+/// Layer for masks that are worn below ears and eyes (like Balaclavas) (layers below hair, use flagsinv=HIDEHAIR as needed)
+#define LOW_FACEMASK_LAYER 20
 /// Ears layer (Spessmen have ears? Wow)
-#define EARS_LAYER 17
-/// Suit layer (armor, hardsuits, etc.)
-#define SUIT_LAYER 16
+#define EARS_LAYER 19
+/// Suit layer (armor, coats, etc.)
+#define SUIT_LAYER 18
 /// Glasses layer
-#define GLASSES_LAYER 15
+#define GLASSES_LAYER 17
 /// Belt layer
-#define BELT_LAYER 14 //Possible make this an overlay of somethign required to wear a belt?
+#define BELT_LAYER 16 //Possible make this an overlay of somethign required to wear a belt?
 /// Suit storage layer (tucking a gun or baton underneath your armor)
-#define SUIT_STORE_LAYER 13
-///  Neck layer (for wearing ties and bedsheets)
-#define NECK_LAYER 12
+#define SUIT_STORE_LAYER 15
+/// Neck layer (for wearing ties and bedsheets)
+#define NECK_LAYER 14
 /// Back layer (for backpacks and equipment on your back)
-#define BACK_LAYER 11
+#define BACK_LAYER 13
 /// Hair layer (mess with the fro and you got to go!)
-#define HAIR_LAYER 10		//! TODO: make part of head layer?
+#define HAIR_LAYER 12 //TODO: make part of head layer?
 /// Facemask layer (gas masks, breath masks, etc.)
-#define FACEMASK_LAYER 9
+#define FACEMASK_LAYER 11
 /// Head layer (hats, helmets, etc.)
-#define HEAD_LAYER 8
+#define HEAD_LAYER 10
 /// Handcuff layer (when your hands are cuffed)
-#define HANDCUFF_LAYER 7
+#define HANDCUFF_LAYER 9
 /// Legcuff layer (when your feet are cuffed)
-#define LEGCUFF_LAYER 6
+#define LEGCUFF_LAYER 8
 /// Hands layer (for the actual hand, not the arm... I think?)
-#define HANDS_LAYER 5
+#define HANDS_LAYER 7
 /// Body front layer. Usually used for mutant bodyparts that need to be in front of stuff (e.g. cat ears)
-#define BODY_FRONT_LAYER 4
+#define BODY_FRONT_LAYER 6
+/// Special body layer for the rare cases where something on the head needs to be above everything else (e.g. flowers)
+#define ABOVE_BODY_FRONT_HEAD_LAYER 4
 /// Blood cult ascended halo layer, because there's currently no better solution for adding/removing
 #define HALO_LAYER 3
 /// Typing layer for the typing indicator
 #define TYPING_LAYER 2
 /// Fire layer when you're on fire
 #define FIRE_LAYER 1
+
+//Bitflags for the layers a bodypart overlay can draw on (can be drawn on multiple layers)
+/// Draws overlay on the BODY_FRONT_LAYER
+#define EXTERNAL_FRONT (1 << 0)
+/// Draws overlay on the BODY_ADJ_LAYER
+#define EXTERNAL_ADJACENT (1 << 1)
+/// Draws overlay on the BODY_BEHIND_LAYER
+#define EXTERNAL_BEHIND (1 << 2)
+/// Draws organ on all EXTERNAL layers
+#define ALL_EXTERNAL_OVERLAYS EXTERNAL_FRONT | EXTERNAL_ADJACENT | EXTERNAL_BEHIND
+
+// Bitflags for external organs restylability
+/// This organ allows restyle through plant restyling (like secateurs)
+#define EXTERNAL_RESTYLE_PLANT (1 << 1)
+/// This organ allows restyling with flesh restyling stuff (surgery or something idk)
+#define EXTERNAL_RESTYLE_FLESH (1 << 2)
+/// This organ allows restyling with enamel restyling (like a fucking file or something?). It's for horns and shit
+#define EXTERNAL_RESTYLE_ENAMEL (1 << 3)
 
 //Mob Overlay Index Shortcuts for alternate_worn_layer, layers
 //Because I *KNOW* somebody will think layer+1 means "above"

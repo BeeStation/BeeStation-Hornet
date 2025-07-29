@@ -512,10 +512,6 @@
 "lW" = (
 /turf/open/floor/iron/textured_corner,
 /area/space)
-"lX" = (
-/obj/machinery/aug_manipulator,
-/turf/open/floor/iron/white,
-/area/science/robotics)
 "mo" = (
 /obj/item/toy/plush/moth/lovers,
 /turf/open/floor/iron/tech/grid,
@@ -2477,7 +2473,7 @@ Tj
 Vy
 or
 TE
-lX
+ei
 BQ
 OT
 Rd

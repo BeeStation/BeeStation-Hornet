@@ -69,7 +69,7 @@
 	else
 		on = !on
 	icon_state = "[basestate][on]-[hardsuit_type]"
-	user?.update_inv_head()	//so our mob-overlays update
+	user?.update_worn_head()	//so our mob-overlays update
 
 	set_light_on(on)
 
@@ -496,7 +496,7 @@
 	item_state = "mining_hardsuit"
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF
-	supports_variations = DIGITIGRADE_VARIATION
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION
 	armor_type = /datum/armor/hardsuit_mining
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/storage/bag/ore, /obj/item/pickaxe)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/mining
@@ -707,7 +707,7 @@
 	update_icon()
 	playsound(src.loc, 'sound/mecha/mechmove03.ogg', 50, 1)
 	toggle_hardsuit_mode(user)
-	user.update_inv_head()
+	user.update_worn_head()
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		C.head_update(src, forced = 1)
@@ -751,7 +751,7 @@
 	hardsuit_type = "syndi"
 	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = ACID_PROOF
-	supports_variations = DIGITIGRADE_VARIATION
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION
 	armor_type = /datum/armor/hardsuit_syndi
 	allowed = list(/obj/item/gun, /obj/item/ammo_box,/obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi
@@ -796,8 +796,8 @@
 	if(ishuman(loc))
 		var/mob/living/carbon/H = loc
 		H.update_equipment_speed_mods()
-		H.update_inv_wear_suit()
-		H.update_inv_w_uniform()
+		H.update_worn_oversuit()
+		H.update_worn_undersuit()
 
 /obj/item/clothing/suit/space/hardsuit/syndi/proc/activate_combat_mode()
 	name = "[initial(name)] (combat)"
@@ -808,8 +808,8 @@
 	if(ishuman(loc))
 		var/mob/living/carbon/H = loc
 		H.update_equipment_speed_mods()
-		H.update_inv_wear_suit()
-		H.update_inv_w_uniform()
+		H.update_worn_oversuit()
+		H.update_worn_undersuit()
 
 //Stupid snowflake type so we dont freak out the spritesheets. Its not actually used ingame
 /obj/item/clothing/suit/space/hardsuit/syndipreview
@@ -996,7 +996,7 @@
 	name = "medical hardsuit"
 	desc = "A special suit that protects against hazardous, low pressure environments. Built with lightweight materials for easier movement."
 	item_state = "medical_hardsuit"
-	supports_variations = DIGITIGRADE_VARIATION
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION
 	allowed = list(
 		/obj/item/flashlight,
 		/obj/item/tank/internals,
@@ -1082,7 +1082,7 @@
 	name = "prototype hardsuit"
 	desc = "A prototype suit that protects against hazardous, low pressure environments. Fitted with extensive plating for handling explosives and dangerous research materials."
 	item_state = "hardsuit-rd"
-	supports_variations = DIGITIGRADE_VARIATION
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION
 	resistance_flags = ACID_PROOF | FIRE_PROOF
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT //Same as an emergency firesuit. Not ideal for extended exposure.
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/gun/energy/wormhole_projector, /obj/item/hand_tele, /obj/item/aicard)
@@ -1136,7 +1136,7 @@
 	name = "security hardsuit"
 	desc = "A bulky, armored suit designed to protect security personnel in low pressure environments."
 	item_state = "sec_hardsuit"
-	supports_variations = DIGITIGRADE_VARIATION
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION
 	armor_type = /datum/armor/hardsuit_security
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/security
 
@@ -1184,7 +1184,7 @@
 /obj/item/clothing/suit/space/hardsuit/security/head_of_security
 	icon_state = "hardsuit-hos"
 	name = "head of security's hardsuit"
-	supports_variations = DIGITIGRADE_VARIATION
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION
 	desc = "A bulky, armored suit designed to protect security personnel in low pressure environments. This one has markings for the head of security."
 	armor_type = /datum/armor/security_head_of_security
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/security/hos
@@ -1326,7 +1326,7 @@
 	stamina = 20
 	bleed = 70
 
-/obj/item/clothing/suit/space/hardsuit/clown/mob_can_equip(mob/M, mob/living/equipper, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE)
+/obj/item/clothing/suit/space/hardsuit/clown/mob_can_equip(mob/living/M, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, ignore_equipped = FALSE)
 	if(!..() || !ishuman(M))
 		return FALSE
 	var/mob/living/carbon/human/H = M
@@ -1396,7 +1396,7 @@
 	icon_state = "hardsuit-hos"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/security/hos
 	allowed = null
-	supports_variations = DIGITIGRADE_VARIATION
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION
 	armor_type = /datum/armor/hardsuit_shielded
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	/// How many charges total the shielding has

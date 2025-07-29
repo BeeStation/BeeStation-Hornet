@@ -54,7 +54,7 @@
 	greyscale_config_inhand_left = /datum/greyscale_config/plasmaman_helmet_default_inhand_left
 	greyscale_config_inhand_right = /datum/greyscale_config/plasmaman_helmet_default_inhand_right
 	greyscale_config_worn = /datum/greyscale_config/plasmaman_helmet_default_worn
-	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS
+	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT | STACKABLE_HELMET_EXEMPT | HEADINTERNALS
 	strip_delay = 80
 	flash_protect = 2
 	tint = 2
@@ -111,7 +111,7 @@
 	update_overlays()
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
-		H.update_inv_head()
+		H.update_worn_head()
 
 /obj/item/clothing/head/helmet/space/plasmaman/attackby(obj/item/item, mob/living/user)
 	. = ..()
@@ -187,7 +187,7 @@
 		set_light_on(FALSE)
 
 	update_icon()
-	user.update_inv_head() //So the mob overlay updates
+	user.update_worn_head() //So the mob overlay updates
 	update_button_icons(user)
 
 /obj/item/clothing/head/helmet/space/plasmaman/proc/smash_headlamp()
@@ -201,7 +201,7 @@
 	to_chat(usr, span_danger("The [src]'s headlamp is smashed to pieces!"))
 	lamp_functional = FALSE
 	update_icon()
-	usr.update_inv_head() //So the mob overlay updates
+	usr.update_worn_head() //So the mob overlay updates
 	update_button_icons(usr)
 
 /obj/item/clothing/head/helmet/space/plasmaman/update_overlays()

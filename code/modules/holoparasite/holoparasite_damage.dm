@@ -61,7 +61,7 @@
 /**
  * Negates stamina damage for the holoparasite - it's a bluespace crystallization, it has no stamina.
  */
-/mob/living/simple_animal/hostile/holoparasite/adjustStaminaLoss(amount, updating_health, forced)
+/mob/living/simple_animal/hostile/holoparasite/adjustStaminaLoss(amount, updating_stamina, forced, required_biotype)
 	return FALSE
 
 /**

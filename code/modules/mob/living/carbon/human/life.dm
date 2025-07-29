@@ -27,7 +27,7 @@
 	if(QDELETED(src))
 		return FALSE
 
-	if(!IS_IN_STASIS(src))
+	if(!HAS_TRAIT(src, TRAIT_NOCRITDAMAGE))
 		if(stat != DEAD)
 			if(undergoing_cardiac_arrest())
 				//heart attack stuff

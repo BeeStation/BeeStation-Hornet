@@ -84,7 +84,7 @@
 		M.blood_volume = BLOOD_VOLUME_NORMAL
 
 	M.cure_all_traumas(TRAUMA_RESILIENCE_MAGIC)
-	for(var/obj/item/organ/organ as anything in M.internal_organs)
+	for(var/obj/item/organ/organ as anything in M.organs)
 		organ.set_organ_damage(0)
 	for(var/thing in M.diseases)
 		var/datum/disease/D = thing
@@ -340,7 +340,7 @@
 			if(show_message)
 				to_chat(M, span_warning("You don't feel so good..."))
 		else if(M.getBruteLoss() && method == PATCH)
-			if(affecting.heal_damage(reac_volume))
+			if(affecting.heal_damage(brute = reac_volume))
 				M.update_damage_overlays()
 			M.adjustStaminaLoss(reac_volume*2)
 			if(show_message)
@@ -1691,9 +1691,8 @@
 	if(method == TOUCH || method == VAPOR)
 		if(M && ishuman(M) && reac_volume >= 0.5)
 			var/mob/living/carbon/human/H = M
-			H.hair_color = "92f"
-			H.facial_hair_color = "92f"
-			H.update_hair()
+			H.set_facial_haircolor("#9922ff", update = FALSE)
+			H.set_haircolor(color) //this will call update_body_parts()
 
 /datum/reagent/medicine/polypyr/overdose_process(mob/living/M, delta_time, times_fired)
 	M.adjustOrganLoss(ORGAN_SLOT_LUNGS, 0.5 * REM * delta_time)

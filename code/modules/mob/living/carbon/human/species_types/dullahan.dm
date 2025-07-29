@@ -1,21 +1,15 @@
 /datum/species/dullahan
-	name = "\improper Dullahan"
+	name = "Dullahan"
 	id = SPECIES_DULLAHAN
 	max_bodypart_count = 5 //No head
-	species_traits = list(
-		EYECOLOR,
-		HAIR,
-		FACEHAIR,
-		LIPS
-	)
 	inherent_traits = list(
 		TRAIT_NOHUNGER,
 		TRAIT_NOBREATH,
 		TRAIT_NONECRODISEASE,
+		TRAIT_USES_SKINTONES,
 	)
 	inherent_biotypes = list(MOB_UNDEAD, MOB_HUMANOID)
-	mutant_bodyparts = list("wings" = "None", "body_size" = "Normal")
-	use_skintones = TRUE
+	mutant_bodyparts = list("body_size" = "Normal")
 	mutantbrain = /obj/item/organ/brain/dullahan
 	mutanteyes = /obj/item/organ/eyes/dullahan
 	mutanttongue = /obj/item/organ/tongue/dullahan
@@ -38,7 +32,7 @@
 		return TRUE
 	return ..()
 
-/datum/species/dullahan/on_species_gain(mob/living/carbon/human/human, datum/species/old_species)
+/datum/species/dullahan/on_species_gain(mob/living/carbon/human/human, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()
 	human.lose_hearing_sensitivity(TRAIT_GENERIC)
 	var/obj/item/bodypart/head/head = human.get_bodypart(BODY_ZONE_HEAD)
@@ -54,10 +48,12 @@
 			head.speech_span = null
 
 			// We want to give the head some boring old eyes just so it doesn't look too jank on the head sprite.
-			head.eyes = new /obj/item/organ/eyes(head)
-			head.eyes.eye_color = human.eye_color
+			var/obj/item/organ/eyes/eyes = new /obj/item/organ/eyes(head)
+			eyes.eye_color = human.eye_color
+			eyes.bodypart_insert(my_head)
 			human.update_body()
 			head.update_icon_dropped()
+			human.set_safe_hunger_level()
 
 /datum/species/dullahan/on_species_loss(mob/living/carbon/human/human)
 	. = ..()
@@ -75,6 +71,7 @@
 	human.reset_perspective(human)
 
 /datum/species/dullahan/spec_life(mob/living/carbon/human/human, delta_time, times_fired)
+	. = ..()
 	if(QDELETED(my_head))
 		my_head = null
 		human.investigate_log("has been gibbed by the loss of [human.p_their()] head.", INVESTIGATE_DEATHS)
@@ -85,7 +82,8 @@
 		var/obj/item/bodypart/head/detached_head = my_head.loc
 		detached_head.real_name = human.real_name
 		detached_head.name = human.real_name
-		detached_head.brain.name = "[human.name]'s brain"
+		var/obj/item/organ/brain/brain = locate(/obj/item/organ/brain) in detached_head
+		brain.name = "[human.name]'s brain"
 
 	var/obj/item/bodypart/head/illegal_head = human.get_bodypart(BODY_ZONE_HEAD)
 	if(illegal_head)
@@ -163,7 +161,7 @@
 
 /obj/item/organ/brain/dullahan
 	decoy_override = TRUE
-	organ_flags = NONE
+	organ_flags = ORGAN_ORGANIC //not vital
 
 /obj/item/organ/tongue/dullahan
 	zone = "abstract"
