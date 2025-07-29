@@ -318,14 +318,13 @@ SUBSYSTEM_DEF(dynamic)
 
 		possible_rulesets[potential_ruleset] = potential_ruleset.weight
 
-	// Shucks!
-	if(!length(possible_rulesets))
-		return
-
 	// Pick rulesets
 	var/roundstart_points_left = roundstart_points
 	var/no_other_rulesets = FALSE
 	while(roundstart_points_left > 0)
+		if(!length(possible_rulesets))
+			break
+
 		var/datum/dynamic_ruleset/roundstart/ruleset = pick_weight(possible_rulesets)
 
 		// Ran out of rulesets

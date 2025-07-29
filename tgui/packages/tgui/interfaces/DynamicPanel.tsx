@@ -413,7 +413,17 @@ const MidroundPage = () => {
       <Flex.Item>
         <Flex direction="row">
           <Flex.Item grow>
-            <Section fill title="Misc">
+            <Section
+              fill
+              title="Misc"
+              buttons={
+                <Button
+                  disabled={!current_midround_ruleset}
+                  tooltip="Does not affect midround points"
+                  onClick={() => act('execute_midround_ruleset')}>
+                  Execute Chosen Ruleset
+                </Button>
+              }>
               <LabeledList.Item label="Set Midround Ruleset" verticalAlign="middle">
                 <Dropdown
                   options={midround_ruleset_names}

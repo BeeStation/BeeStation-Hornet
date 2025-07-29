@@ -298,6 +298,15 @@
 			message_admins("[key_name(usr)] set the midround ruleset to [ruleset_path::name]")
 			log_dynamic("[key_name(usr)] set the midround ruleset to [ruleset_path::name]")
 			return TRUE
+		if("execute_midround_ruleset")
+			var/datum/dynamic_ruleset/midround/midround_ruleset = SSdynamic.midround_chosen_ruleset
+			if(!midround_ruleset)
+				return
+
+			var/result = SSdynamic.execute_ruleset(midround_ruleset)
+			message_admins("[key_name(usr)] forced the midround ruleset ([midround_ruleset]) to execute - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
+			log_dynamic("[key_name(usr)] forced the midround ruleset ([midround_ruleset]) to execute - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
+			SSdynamic.midround_chosen_ruleset = null
 
 		if("set_midround_points")
 			var/new_points = params["new_points"]
