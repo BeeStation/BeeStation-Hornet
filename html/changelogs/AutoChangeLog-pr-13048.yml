@@ -1,0 +1,12 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - tweak: Poisoned knife costs 4 TC in uplinks now, down from 6.
+  - balance: Poisoned knife now has the same damage and embedding chance as a combat
+      knife (20 damage and 65% respectively)
+  - rscadd: Poisoned knives inject their entire remaining payload if they embed successfully,
+      up to 40u. High reward rule of cool payoff for those that want to gamble on
+      a 65% chance.
+  - tweak: Poisoned knife now delivers 1/3 of its intended payload to targets that
+      are protected from injection (Previously this was 1u regardless of intended
+      injection amount)
