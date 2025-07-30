@@ -24,7 +24,6 @@
 		return MAP_ERROR
 
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
-		role = /datum/role_preference/midround_ghost/nuclear_operative,
 		check_jobban = ROLE_OPERATIVE,
 		poll_time = 30 SECONDS,
 		role_name_text = "lone operative",

@@ -33,7 +33,7 @@
 
 		if("stealth")
 			new /obj/item/gun/energy/recharge/ebow(src)
-			new /obj/item/pen/sleepy(src)
+			new /obj/item/pen/paralytic(src)
 			new /obj/item/healthanalyzer/rad_laser(src)
 			new /obj/item/chameleon(src)
 			new /obj/item/soap/syndie(src)
@@ -279,7 +279,7 @@
 	var/list/item_list = list(
 		/obj/item/storage/backpack/duffelbag/syndie/x4,
 		/obj/item/storage/box/syndie_kit/throwing_weapons,
-		/obj/item/pen/sleepy,
+		/obj/item/pen/paralytic,
 		/obj/item/storage/box/syndie_kit/emp,
 		/obj/item/clothing/shoes/chameleon/noslip,
 		/obj/item/storage/firstaid/tactical,
@@ -462,7 +462,7 @@
 	new /obj/item/storage/backpack/chameleon(src)
 	new /obj/item/radio/headset/chameleon(src)
 	new /obj/item/stamp/chameleon(src)
-	new /obj/item/modular_computer/tablet/pda/chameleon(src)
+	new /obj/item/modular_computer/tablet/pda/preset/chameleon(src)
 	new /obj/item/razor(src)
 	new /obj/item/handmirror(src)
 	new /obj/item/clothing/head/wig(src)
@@ -482,7 +482,7 @@
 	new /obj/item/storage/backpack/chameleon(src)
 	new /obj/item/radio/headset/chameleon(src)
 	new /obj/item/stamp/chameleon(src)
-	new /obj/item/modular_computer/tablet/pda/chameleon(src)
+	new /obj/item/modular_computer/tablet/pda/preset/chameleon(src)
 
 //5*(2*4) = 5*8 = 45, 45 damage if you hit one person with all 5 stars.
 //Not counting the damage it will do while embedded (2*4 = 8, at 15% chance)
@@ -522,7 +522,7 @@
 	new /obj/item/radio/headset/headset_cent/empty(src)
 	new /obj/item/clothing/glasses/sunglasses/advanced(src)
 	new /obj/item/storage/backpack/satchel(src)
-	new /obj/item/modular_computer/tablet/pda/heads(src)
+	new /obj/item/modular_computer/tablet/pda/preset/heads(src)
 	new /obj/item/clipboard(src)
 
 /obj/item/storage/box/syndie_kit/chameleon/broken/PopulateContents()
@@ -536,7 +536,7 @@
 	new /obj/item/storage/backpack/chameleon/broken(src)
 	new /obj/item/radio/headset/chameleon/broken(src)
 	new /obj/item/stamp/chameleon/broken(src)
-	new /obj/item/modular_computer/tablet/pda/chameleon/broken(src)
+	new /obj/item/modular_computer/tablet/pda/preset/chameleon/broken(src)
 	new /obj/item/card/id/syndicate/broken(src)
 	// No chameleon laser, they can't randomise for //REASONS//
 

@@ -316,7 +316,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table/wood/bar)
 
 /mob/living/simple_animal/hostile/bear/fightpit/Initialize(mapload)
 	. = ..()
-	var/multiplier = max(round(length(SSticker.mode.current_players[CURRENT_LIVING_PLAYERS]) / BASE_BEAR_DIVISOR, 0.1), 1)
+	var/multiplier = max(round(length(SSdynamic.current_players[CURRENT_LIVING_PLAYERS]) / BASE_BEAR_DIVISOR, 0.1), 1)
 	maxHealth *= multiplier
 	health *= multiplier
 	melee_damage *= multiplier
