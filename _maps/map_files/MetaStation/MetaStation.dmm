@@ -35252,7 +35252,6 @@
 /area/medical/genetics)
 "ikT" = (
 /obj/structure/table,
-/obj/item/clothing/head/utility/hardhat/cakehat,
 /obj/machinery/newscaster{
 	pixel_x = -30
 	},
@@ -35260,6 +35259,7 @@
 	pixel_y = -22
 	},
 /obj/machinery/light,
+/obj/machinery/cell_charger,
 /turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/bar)
 "ilc" = (
@@ -53547,6 +53547,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
+/obj/machinery/cell_charger,
 /turf/open/floor/wood,
 /area/library)
 "oPJ" = (
