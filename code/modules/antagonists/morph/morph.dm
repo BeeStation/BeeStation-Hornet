@@ -47,13 +47,6 @@
 	))
 	var/atom/movable/throwatom = null
 
-	var/playstyle_string = span_bigbold("You are a morph,") + "</b> an abomination of science created primarily with changeling cells. \
-							You may take the form of anything nearby by shift-clicking it. While morphed, you move and slower inject \
-							potent venom into anyone who tries to pick you up. You may also attack while transformed to surprise \
-							unsuspecting crew, but this will not inject venom. Attacking while transformed will remove your disguise. \
-							You can attack any item or dead creature to consume it. Creatures and food will restore your health. \
-							Finally, you can restore yourself to your original form while morphed by shift-clicking yourself.</b>"
-
 	mobchatspan = "blob"
 	discovery_points = 2000
 	var/datum/morph_stomach/morph_stomach
@@ -305,8 +298,6 @@
 
 /mob/living/simple_animal/hostile/morph/mind_initialize()
 	. = ..()
-	to_chat(src, playstyle_string)
-	// sometimes the datum is not added for a bit
 	addtimer(CALLBACK(src, PROC_REF(notify_non_antag)), 3 SECONDS)
 
 /mob/living/simple_animal/hostile/morph/proc/notify_non_antag()
