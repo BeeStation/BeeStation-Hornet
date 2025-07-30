@@ -30,7 +30,7 @@ export const AntagInfoMorph = (_props) => {
 
               You move slower while morphed, but can surprise creatures with an <span style={goodstyle}>ambush attack </span>
               by clicking on them or by fooling them with a tempting disguise that convinces them to willingly interact with you
-              using an open hand. Ambushes will cause your victim to drop anything they are holding and knock them down and if
+              using an open hand. Ambushes will cause your victim to drop anything they are holding and knock them down. If
               they attempted to interact with you using an open hand it will also <span style={goodstyle}>inject a debilitating venom </span>
               making them easy prey for consumption. <br /><br />
 
