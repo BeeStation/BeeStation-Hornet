@@ -33,7 +33,7 @@
 
 		if("stealth")
 			new /obj/item/gun/energy/recharge/ebow(src)
-			new /obj/item/pen/sleepy(src)
+			new /obj/item/pen/paralytic(src)
 			new /obj/item/healthanalyzer/rad_laser(src)
 			new /obj/item/chameleon(src)
 			new /obj/item/soap/syndie(src)
@@ -279,7 +279,7 @@
 	var/list/item_list = list(
 		/obj/item/storage/backpack/duffelbag/syndie/x4,
 		/obj/item/storage/box/syndie_kit/throwing_weapons,
-		/obj/item/pen/sleepy,
+		/obj/item/pen/paralytic,
 		/obj/item/storage/box/syndie_kit/emp,
 		/obj/item/clothing/shoes/chameleon/noslip,
 		/obj/item/storage/firstaid/tactical,

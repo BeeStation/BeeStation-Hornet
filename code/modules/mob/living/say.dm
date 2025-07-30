@@ -104,6 +104,10 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	if(!forced && !saymode)
 		message = check_for_custom_say_emote(message, message_mods)
 
+	if (HAS_TRAIT(src, TRAIT_WHISPER_ONLY))
+		message_mods[WHISPER_MODE] = MODE_WHISPER
+		message_mods[MODE_HEADSET] = FALSE
+
 	switch(stat)
 		if(SOFT_CRIT)
 			message_mods[WHISPER_MODE] = MODE_WHISPER
