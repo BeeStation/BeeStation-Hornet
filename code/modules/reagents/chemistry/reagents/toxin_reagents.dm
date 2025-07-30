@@ -1005,10 +1005,6 @@
 	taste_description = "salt"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 
-/datum/reagent/toxin/morphvenom/on_mob_metabolize(mob/living/L)
-	if(ishuman(L))
-		var/mob/living/carbon/human/H = L
-	. = ..()
 
 /datum/reagent/toxin/morphvenom/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	M.set_drugginess(5)
