@@ -365,6 +365,26 @@
 			added_durability_header = TRUE
 		readout += "\n[armor_to_protection_name(durability_key)] [armor_to_protection_class(rating, compare_rating)]"
 
+	var/added_environmental_header = FALSE
+	if (rad_flags & RAD_PROTECT_CONTENTS)
+		if (!added_environmental_header)
+			readout += "\n<b>ENVIRONMENT</b>"
+			added_environmental_header = TRUE
+		readout += "\nRADIATION"
+
+	var/heat_prot
+	if (max_heat_protection_temperature > 400)
+		if (!added_environmental_header)
+			readout += "\n<b>ENVIRONMENT</b>"
+			added_environmental_header = TRUE
+		readout += "\nHEAT [max_heat_protection_temperature]k or less"
+
+	if(min_cold_protection_temperature)
+		if (!added_environmental_header)
+			readout += "\n<b>ENVIRONMENT</b>"
+			added_environmental_header = TRUE
+		readout += "\nCOLD [max_heat_protection_temperature]k or greater"
+
 	if(flags_cover & HEADCOVERSMOUTH)
 		var/list/things_blocked = list()
 		if(flags_cover & HEADCOVERSMOUTH)
@@ -384,20 +404,6 @@
 			parts_covered += "torso"
 		if(length(parts_covered)) // Just in case someone makes spaceproof gloves or something
 			readout += "\n[output_string] will protect the wearer's [english_list(parts_covered)] from [span_tooltip("The extremely low pressure is the biggest danger posed by the vacuum of space.", "low pressure")]."
-
-	var/heat_prot
-	switch (max_heat_protection_temperature)
-		if (400 to 1000)
-			heat_prot = "minor"
-		if (1001 to 1600)
-			heat_prot = "some"
-		if (1601 to 35000)
-			heat_prot = "extreme"
-	if (heat_prot)
-		. += "[src] offers the wearer [heat_protection] protection from heat, up to [max_heat_protection_temperature] kelvin."
-
-	if(min_cold_protection_temperature)
-		readout += "\nIt will insulate the wearer from [min_cold_protection_temperature <= SPACE_SUIT_MIN_TEMP_PROTECT ? span_tooltip("While not as dangerous as the lack of pressure, the extremely low temperature of space is also a hazard.", "the cold of space, down to [min_cold_protection_temperature] kelvin") : "cold, down to [min_cold_protection_temperature] kelvin"]."
 
 	readout += "</span>"
 
