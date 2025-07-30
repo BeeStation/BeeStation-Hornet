@@ -1575,22 +1575,26 @@
 	if (. == CONSCIOUS && stat == SOFT_CRIT)
 		take_consciousness_damage(INFINITY)
 	// If we are dead, we are not critical condition
-	if (stat != DEAD)
+	if (stat == DEAD)
 		REMOVE_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
 	// Consciousness
 	if (stat <= CONSCIOUS || (stat == SOFT_CRIT && HAS_TRAIT(src, TRAIT_NOSOFTCRIT)))
 		REMOVE_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
 		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, PULLED_WHILE_SOFTCRIT_TRAIT)
+		remove_status_effect(/datum/status_effect/critical_condition)
 	// Soft-crit or higher
 	else
 		if (stat != DEAD)
-			ADD_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
+			apply_status_effect(/datum/status_effect/critical_condition)
+		else
+			remove_status_effect(/datum/status_effect/critical_condition)
 		if(pulledby)
 			ADD_TRAIT(src, TRAIT_IMMOBILIZED, PULLED_WHILE_SOFTCRIT_TRAIT)
 		else
 			REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, PULLED_WHILE_SOFTCRIT_TRAIT)
 	// Soft-crit or lower
 	if (stat <= SOFT_CRIT)
+		REMOVE_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
 		REMOVE_TRAIT(src, TRAIT_HANDS_BLOCKED, STAT_TRAIT)
 		cure_blind(UNCONSCIOUS_TRAIT)
 		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_KNOCKEDOUT)
@@ -1598,6 +1602,10 @@
 		REMOVE_TRAIT(src, TRAIT_INCAPACITATED, STAT_TRAIT)
 	// Hard-crit
 	else
+		if (stat != DEAD)
+			ADD_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
+		else
+			REMOVE_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
 		ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, STAT_TRAIT)
 		ADD_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_KNOCKEDOUT)
 		ADD_TRAIT(src, TRAIT_FLOORED, STAT_TRAIT)

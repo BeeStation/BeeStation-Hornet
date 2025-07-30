@@ -2316,6 +2316,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		return FALSE
 
 /datum/species/proc/CanFly(mob/living/carbon/human/H)
+	if (H.has_status_effect(/datum/status_effect/critical_condition))
+		return FALSE
 	var/obj/item/organ/wings/wings = H.get_organ_slot(ORGAN_SLOT_WINGS)
 	if(!H.get_organ_by_type(/obj/item/organ/wings))
 		return FALSE

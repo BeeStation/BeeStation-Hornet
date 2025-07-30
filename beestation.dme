@@ -1111,6 +1111,7 @@
 #include "code\datums\status_effects\food\grant_trait.dm"
 #include "code\datums\status_effects\food\haste.dm"
 #include "code\datums\status_effects\food\speech.dm"
+#include "code\datums\status_effects\health\critical_condition.dm"
 #include "code\datums\storage\storage.dm"
 #include "code\datums\storage\subtypes\bag_of_holding.dm"
 #include "code\datums\storage\subtypes\extract_inventory.dm"
