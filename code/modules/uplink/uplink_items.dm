@@ -112,7 +112,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 /**
  * Uplink Items
  *
- * Items that can be spawned from an uplink. Can be limited by gamemode.
+ * Items that can be spawned from an uplink.
 **/
 /datum/uplink_item
 	var/name = "item name"
@@ -1600,7 +1600,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	var/datum/component/tracking_beacon/beacon = suit.GetComponent(/datum/component/tracking_beacon)
 	var/datum/component/team_monitor/worn/hud = suit.helmet.GetComponent(/datum/component/team_monitor/worn)
 
-	var/datum/antagonist/nukeop/nukie = is_nuclear_operative(user)
+	var/datum/antagonist/nukeop/nukie = IS_NUCLEAR_OPERATIVE(user)
 	if(nukie?.nuke_team?.team_frequency)
 		if(hud)
 			hud.set_frequency(nukie.nuke_team.team_frequency)

@@ -289,7 +289,7 @@
 	can_be_scribed = FALSE
 
 /obj/effect/rune/cluwne/attackby(obj/I, mob/user, params)
-	if(istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user))
+	if(istype(I, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user))
 		SEND_SOUND(user,'sound/items/sheath.ogg')
 		if(do_after(user, 15, target = src))
 			to_chat(user, span_clowntext("It's not within your power to erase the [LOWER_TEXT(cultist_name)]."))
@@ -303,7 +303,7 @@
 		return
 	if(locate(/mob/living/simple_animal/hostile/floor_cluwne) in range(5, src))
 		cluwne = TRUE
-	if(!cluwne && !iscultist(user))
+	if(!cluwne && !IS_CULTIST(user))
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			if(HAS_TRAIT(H, TRAIT_CLUMSY) || H.job == JOB_NAME_CLOWN || H.dna.check_mutation(/datum/mutation/cluwne))
@@ -327,7 +327,7 @@
 			else
 				to_chat(user, span_warning("This would be no fun without at least five people on the rune!"))
 			return
-		if(iscultist(H)) //cultists are good at this kind of magic, so they can use it too
+		if(IS_CULTIST(H)) //cultists are good at this kind of magic, so they can use it too
 			var/list/invokers = can_invoke(user)
 			if(invokers.len >= req_cultists)
 				invoke(invokers)
