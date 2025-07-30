@@ -1004,28 +1004,16 @@
 	toxpwr = 2
 	taste_description = "salt"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
-	process_flags = (ORGANIC | SYNTHETIC) //Synthetics aren't getting away from this one
-	var/synthetic_process = FALSE //To store what kind of mob we're in and save some overhead
 
 /datum/reagent/toxin/morphvenom/on_mob_metabolize(mob/living/L)
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
-		if(H.dna.species.reagent_tag & PROCESS_SYNTHETIC)
-			synthetic_process = TRUE //Do the synthetic effects instead of organic ones
-			metabolization_rate = 0.25 //They're not being processed so much as it's making things go haywire internally
-			L.electrocute_act(rand(3,10), "Morphvenom short-circuiting them", 1, SHOCK_NOGLOVES)
-			L.apply_status_effect(/datum/status_effect/spanish) //Apply this once on initial so they can't immediately rat us out
 	. = ..()
 
 /datum/reagent/toxin/morphvenom/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	if(synthetic_process)
-		if(DT_PROB(5, delta_time))
-			M.electrocute_act(rand(3,10), "Morphvenom short-circuiting them", 1, SHOCK_NOGLOVES)
-			M.apply_status_effect(/datum/status_effect/spanish)
-	else
-		M.set_drugginess(5)
-		M.adjustStaminaLoss(30 * REM * delta_time)
-		M.silent = max(M.silent, 3 * REM * delta_time)
+	M.set_drugginess(5)
+	M.adjustStaminaLoss(30 * REM * delta_time)
+	M.silent = max(M.silent, 3 * REM * delta_time)
 	M.confused = max(M.confused, 10 * REM * delta_time)
 	..()
 
