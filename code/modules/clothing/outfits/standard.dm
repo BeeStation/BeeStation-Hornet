@@ -11,7 +11,7 @@
 		/obj/item/storage/part_replacer/bluespace/tier4=1,
 		/obj/item/debug/human_spawner=1,
 		/obj/item/debug/omnitool=1,
-		/obj/item/xenoartifact_labeler/debug=1,
+		/obj/item/xenoarchaeology_labeler/debug=1,
 		/obj/item/map_template_diver=1,
 		/obj/item/debug/orb_of_power=1
 	)
@@ -236,7 +236,7 @@
 	l_pocket = /obj/item/melee/energy/sword/saber
 	l_hand = /obj/item/storage/secure/briefcase
 	id = /obj/item/card/id/syndicate
-	belt = /obj/item/modular_computer/tablet/pda/heads
+	belt = /obj/item/modular_computer/tablet/pda/preset/heads
 
 /datum/outfit/assassin/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	var/obj/item/clothing/under/U = H.w_uniform
@@ -256,7 +256,7 @@
 	sec_briefcase.contents += new /obj/item/ammo_box/a357
 	sec_briefcase.contents += new /obj/item/grenade/plastic/x4
 
-	var/obj/item/modular_computer/tablet/pda/heads/pda = H.belt
+	var/obj/item/modular_computer/tablet/pda/preset/heads/pda = H.belt
 	pda.saved_identification = H.real_name
 	pda.saved_job = "Reaper"
 

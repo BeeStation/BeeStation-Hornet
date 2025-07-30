@@ -170,7 +170,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 		if(ismob(A))
 			to_chat(A, span_warning("There is no way out of this place..."))
 		return
-	var/atom/return_thing = pick(GLOB.destabliization_exits)
+	var/atom/return_thing = pick(GLOB.destabliization_exits) || pick(get_safe_random_station_turfs())
 	var/turf/T = get_turf(return_thing)
 	if(!T)
 		return
@@ -383,8 +383,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	if(target && cooldown < world.time)
 		switch(zone_selected)
 			if(BODY_ZONE_PRECISE_MOUTH)
-				var/wgw =  stripped_input(user, "What would you like the victim to say", "Voodoo")
-				target.say(wgw, forced = "voodoo doll")
+				var/wgw =  tgui_input_text(user, "What would you like your victim to say?", "Voodoo")
+				if(!wgw) // no input so we return
+					to_chat(user, span_warning("You need to enter something!"))
+					return
+				if(CHAT_FILTER_CHECK(wgw)) // check for forbidden words
+					to_chat(user, span_warning("Your message contains forbidden words."))
+					log_game("[key_name(user)] tried to make [key_name(target)] say [wgw] with a voodoo doll but didn't pass the filter.")
+					return
+				target.say(wgw, sanitize = FALSE, forced = "voodoo doll") // Note: tgui_input_text sanitizes for us, so we pass sanitize = FALSE (atleast that's what the holoparasite comments tell me)
 				log_game("[key_name(user)] made [key_name(target)] say [wgw] with a voodoo doll.")
 			if(BODY_ZONE_PRECISE_EYES)
 				user.set_machine(src)
@@ -414,7 +421,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	if(!length(prints))
 		return FALSE
 	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
-		if(prints[rustg_hash_string(RUSTG_HASH_MD5, H.dna.uni_identity)])
+		if(prints[rustg_hash_string(RUSTG_HASH_MD5, H.dna.unique_identity)])
 			possible |= H
 
 /obj/item/voodoo/proc/GiveHint(mob/victim,force=0)

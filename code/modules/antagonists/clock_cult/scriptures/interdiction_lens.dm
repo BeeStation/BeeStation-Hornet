@@ -38,7 +38,7 @@
 	. = ..()
 
 /obj/structure/destructible/clockwork/gear_base/interdiction_lens/attack_hand(mob/user, list/modifiers)
-	if(is_servant_of_ratvar(user))
+	if(IS_SERVANT_OF_RATVAR(user))
 		if(!anchored)
 			to_chat(user, span_warning("[src] needs to be fastened to the floor!"))
 			return
@@ -64,7 +64,7 @@
 	if(DT_PROB(5, delta_time))
 		new /obj/effect/temp_visual/steam_release(get_turf(src))
 	for(var/mob/living/L in viewers(INTERDICTION_LENS_RANGE, src))
-		if(!is_servant_of_ratvar(L) && use_power(5))
+		if(!IS_SERVANT_OF_RATVAR(L) && use_power(5))
 			L.apply_status_effect(/datum/status_effect/interdiction)
 	for(var/obj/vehicle/sealed/mecha/M in dview(INTERDICTION_LENS_RANGE, src, SEE_INVISIBLE_MINIMUM))
 		if(use_power(5))
@@ -107,7 +107,8 @@
 	if(projectile in tracked)
 		return
 	if(isliving(projectile.firer))
-		if(is_servant_of_ratvar(projectile.firer))
+		var/mob/living/living_target = projectile.firer
+		if(IS_SERVANT_OF_RATVAR(living_target))
 			return
 	SEND_SIGNAL(src, COMSIG_DAMPENER_CAPTURE, projectile)
 	tracked += projectile

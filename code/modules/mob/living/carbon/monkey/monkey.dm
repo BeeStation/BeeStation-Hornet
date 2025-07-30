@@ -3,7 +3,7 @@
 	verb_say = "chimpers"
 	initial_language_holder = /datum/language_holder/monkey
 	icon = 'icons/mob/monkey.dmi'
-	icon_state = null
+	icon_state = "monkey1"
 	gender = NEUTER
 	pass_flags = PASSTABLE
 	ventcrawler = VENTCRAWLER_NUDE
@@ -185,7 +185,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	return threatcount
 
 /mob/living/carbon/monkey/IsVocal()
-	if(!getorganslot(ORGAN_SLOT_LUNGS))
+	if(!get_organ_slot(ORGAN_SLOT_LUNGS))
 		return 0
 	return 1
 
@@ -265,12 +265,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	mutantbrain = /obj/item/organ/brain/tumor
 	mutanttongue = /obj/item/organ/tongue/teratoma
 
-	species_chest = /obj/item/bodypart/chest/monkey/teratoma
-	species_head = /obj/item/bodypart/head/monkey/teratoma
-	species_l_arm = /obj/item/bodypart/l_arm/monkey/teratoma
-	species_r_arm = /obj/item/bodypart/r_arm/monkey/teratoma
-	species_l_leg = /obj/item/bodypart/l_leg/monkey/teratoma
-	species_r_leg = /obj/item/bodypart/r_leg/monkey/teratoma
+	bodypart_overrides = list(
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/monkey/teratoma,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/monkey/teratoma,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/monkey/teratoma,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/monkey/teratoma,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/monkey/teratoma,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/monkey/teratoma
+	)
 
 /obj/item/organ/brain/tumor
 	name = "teratoma brain"

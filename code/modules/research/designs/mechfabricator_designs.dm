@@ -696,7 +696,7 @@
 	category = list("Cyborg Upgrade Modules")
 
 /datum/design/borg_transform_clown
-	name = "Cyborg Upgrade (Clown Module)"
+	name = "Cyborg Upgrade (Clown Model)"
 	id = "borg_transform_clown"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/transform/clown
@@ -705,7 +705,7 @@
 	category = list("Cyborg Upgrade Modules")
 
 /datum/design/borg_transform_security
-	name = "Cyborg Upgrade (Security Module)"
+	name = "Cyborg Upgrade (Security Model)"
 	id = "borg_transform_security"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/transform/security

@@ -40,7 +40,7 @@
 	l_hand = /obj/item/gun/energy/e_gun
 	backpack_contents = list(
 		/obj/item/storage/box/survival/engineer=1,
-		/obj/item/aiModule/core/full/ert=1
+		/obj/item/ai_module/core/full/ert=1
 		)
 	belt = /obj/item/storage/belt/security/full
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
@@ -192,14 +192,14 @@
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/sneakers/black
 	l_pocket = /obj/item/pen
-	r_pocket = /obj/item/modular_computer/tablet/pda/heads
+	r_pocket = /obj/item/modular_computer/tablet/pda/preset/heads
 	l_hand = /obj/item/clipboard
 
 /datum/outfit/centcom/centcom_official/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
 		return
 
-	var/obj/item/modular_computer/tablet/pda/heads/pda = H.r_store
+	var/obj/item/modular_computer/tablet/pda/preset/heads/pda = H.r_store
 	pda.saved_identification = H.real_name
 	pda.saved_job = JOB_CENTCOM_OFFICIAL
 
@@ -219,7 +219,7 @@
 	r_hand = /obj/item/nullrod/scythe/talking/chainsword
 	backpack_contents = list(
 		/obj/item/storage/box/survival/engineer=1,
-		/obj/item/aiModule/core/full/ert=1,
+		/obj/item/ai_module/core/full/ert=1,
 		/obj/item/door_remote/omni=1
 		)
 
@@ -344,7 +344,7 @@
 	shoes = /obj/item/clothing/shoes/laceup
 	ears = /obj/item/radio/headset/headset_cent
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced
-	belt = /obj/item/modular_computer/tablet/pda/lawyer
+	belt = /obj/item/modular_computer/tablet/pda/preset/lawyer
 	back = /obj/item/storage/backpack/satchel
 	l_hand = /obj/item/storage/briefcase/lawyer
 	l_pocket = /obj/item/laser_pointer
@@ -405,7 +405,7 @@
 /datum/outfit/centcom/centcom_clown
 	name = "Code Banana ERT"
 	id = /obj/item/card/id/centcom
-	belt = /obj/item/modular_computer/tablet/pda/clown
+	belt = /obj/item/modular_computer/tablet/pda/preset/clown
 	ears = /obj/item/radio/headset/headset_cent
 	uniform = /obj/item/clothing/under/rank/civilian/clown
 	back = /obj/item/storage/backpack/clown
@@ -503,7 +503,7 @@
 	name = "Death Commando Officer"
 	back = /obj/item/mod/control/pre_equipped/apocryphal/officer
 	backpack_contents = list(
-		/obj/item/aiModule/core/full/deathsquad=1,\
+		/obj/item/ai_module/core/full/deathsquad=1,\
 		/obj/item/ammo_box/a357=1,\
 		/obj/item/storage/firstaid/compact=1,\
 		/obj/item/storage/box/flashbangs=1,\

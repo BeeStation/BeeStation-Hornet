@@ -154,12 +154,17 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	switch(action)
 		if("rename")
 			var/atom/parentasatom = parent
-			var/a = stripped_input(usr, "Please enter desired tag.", parentasatom.name, gpstag, 20)
+			var/input = tgui_input_text(usr, "Please enter desired tag.", parentasatom.name, gpstag, 20)
 
-			if (!a)
+			if (!input) // no input so we return
+				to_chat(usr, span_warning("You need to enter something!"))
 				return
 
-			gpstag = a
+			if(OOC_FILTER_CHECK(input)) // check for forbidden words (OOC only)
+				to_chat(usr, span_warning("Your message contains forbidden words."))
+				return
+
+			gpstag = input
 			. = TRUE
 			usr.log_message("renamed [parentasatom] to \"[initial(parentasatom.name)] ([gpstag])\".", LOG_GAME)
 			parentasatom.name = "[initial(parentasatom.name)] ([gpstag])"

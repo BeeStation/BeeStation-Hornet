@@ -331,6 +331,27 @@
 		return
 	user.movement_locked = FALSE
 
+/datum/keybinding/mob/show_extended_screentips
+	keys = list("Shift")
+	name = "show_extended_screentips"
+	full_name = "Show Extended Screentips"
+	description = "While held, screentip information about construction and deconstruction will be shown on the screen."
+	keybind_signal = COMSIG_KB_MOB_EXTENDEDSCREENTIPS_DOWN
+
+/datum/keybinding/mob/show_extended_screentips/down(client/user)
+	. = ..()
+	if (.)
+		return
+	user.show_extended_screentips = TRUE
+	user.mob.refresh_self_screentips()
+
+/datum/keybinding/mob/show_extended_screentips/up(client/user)
+	. = ..()
+	if (.)
+		return
+	user.show_extended_screentips = FALSE
+	user.mob.refresh_self_screentips()
+
 /**
  * ===========================
  * Bodyzone targeting section

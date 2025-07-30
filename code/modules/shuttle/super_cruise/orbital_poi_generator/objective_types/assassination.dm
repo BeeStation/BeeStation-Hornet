@@ -143,7 +143,7 @@
 	glasses = /obj/item/clothing/glasses/chameleon
 	belt = /obj/item/storage/belt/chameleon
 	l_pocket = /obj/item/stamp/chameleon
-	r_pocket = /obj/item/modular_computer/tablet/pda/chameleon
+	r_pocket = /obj/item/modular_computer/tablet/pda/preset/chameleon
 	id = /obj/item/card/id/syndicate/anyone
 	neck = /obj/item/clothing/neck/chameleon
 	head = /obj/item/clothing/head/chameleon

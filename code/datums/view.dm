@@ -46,12 +46,12 @@
 	zoom = 0
 
 /datum/view_data/proc/resetFormat()
-	zoom = chief?.prefs.read_preference(/datum/preference/numeric/pixel_size)
+	zoom = chief?.prefs?.read_preference(/datum/preference/numeric/pixel_size)
 	winset(chief, "mapwindow.map", "zoom=[zoom]")
 	chief?.attempt_auto_fit_viewport() // If you change zoom mode, fit the viewport
 
 /datum/view_data/proc/setZoomMode()
-	winset(chief, "mapwindow.map", "zoom-mode=[chief?.prefs.read_preference(/datum/preference/choiced/scaling_method)]")
+	winset(chief, "mapwindow.map", "zoom-mode=[chief?.prefs?.read_preference(/datum/preference/choiced/scaling_method) || SCALING_METHOD_DISTORT]")
 
 /datum/view_data/proc/isZooming()
 	return (width || height)

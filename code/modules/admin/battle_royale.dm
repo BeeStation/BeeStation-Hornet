@@ -3,7 +3,7 @@ GLOBAL_LIST_INIT(battle_royale_basic_loot, list(
 		/obj/item/soap,
 		/obj/item/knife/kitchen,
 		/obj/item/knife/combat,
-		/obj/item/knife/poison,
+		/obj/item/knife/venom,
 		/obj/item/throwing_star,
 		/obj/item/syndie_glue,
 		/obj/item/book_of_babel,
@@ -283,7 +283,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	//Delay pre-game if we are in it.
 	if(SSticker.current_state == GAME_STATE_PREGAME)
 		//Force people to be not ready and start the game
-		for(var/mob/dead/new_player/player in GLOB.player_list)
+		for(var/mob/dead/new_player/authenticated/player in GLOB.player_list)
 			to_chat(player, span_greenannounce("You have been forced as an observer. When the prompt to join battle royale comes up, press yes. This is normal and you are still in queue to play."))
 			player.ready = FALSE
 			player.make_me_an_observer(TRUE)
@@ -323,7 +323,12 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	START_PROCESSING(SSprocessing, src)
 
 /datum/battle_royale_controller/proc/titanfall()
-	var/list/participants = poll_ghost_candidates("Would you like to partake in BATTLE ROYALE?")
+	var/list/participants = SSpolling.poll_ghost_candidates(
+		question = "Would you like to partake in BATTLE ROYALE?",
+		poll_time = 30 SECONDS,
+		role_name_text = "battle royale player",
+		alert_pic = /obj/item/claymore,
+	)
 	var/turf/spawn_turf = get_safe_random_station_turfs()
 	var/obj/structure/closet/supplypod/centcompod/pod = new()
 	pod.setStyle()

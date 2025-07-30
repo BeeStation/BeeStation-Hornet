@@ -29,7 +29,7 @@
 /datum/saymode/vocalcords/handle_message(mob/living/user, message, datum/language/language)
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
-		var/obj/item/organ/vocal_cords/V = C.getorganslot(ORGAN_SLOT_VOICE)
+		var/obj/item/organ/vocal_cords/V = C.get_organ_slot(ORGAN_SLOT_VOICE)
 		if(V && V.can_speak_with())
 			V.handle_speech(message) //message
 			V.speak_with(message) //action
@@ -64,29 +64,6 @@
 		var/mob/living/silicon/ai/AI = user
 		AI.holopad_talk(message, language)
 	return TRUE
-
-/datum/saymode/slime_link
-	key = MODE_KEY_SLIMELINK
-	mode = MODE_SLIMELINK
-	early = TRUE
-
-/datum/saymode/slime_link/handle_message(mob/living/user, message, datum/language/_language)
-	. = FALSE
-	if(!istype(user) || !user?.mind || !message || !length(message))
-		return TRUE
-	if(isstargazer(user))
-		// They're a stargazer, and therefore they'll talk on their own slime link.
-		var/mob/living/carbon/human/h_user = user
-		var/datum/species/oozeling/stargazer/stargazer = h_user.dna.species
-		stargazer.slime_chat(h_user, message)
-		return
-	// Alright, the user is not a stargazer, so instead we're gonna make sure they're a part of a slime link.
-	var/datum/weakref/link_owner_ref = GLOB.slime_links_by_mind[user.mind]
-	var/datum/species/oozeling/stargazer/owning_stargazer = link_owner_ref?.resolve()
-	if(!owning_stargazer || !istype(owning_stargazer))
-		// Nope, no slime link here. Continue normal say() behavior.
-		return TRUE
-	owning_stargazer.slime_chat(user, message)
 
 /datum/saymode/holoparasite
 	key = MODE_KEY_HOLOPARASITE

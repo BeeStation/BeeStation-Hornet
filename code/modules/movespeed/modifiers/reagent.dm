@@ -26,7 +26,7 @@
 /datum/movespeed_modifier/reagent/methamphetamine
 	multiplicative_slowdown = -0.5
 
-/datum/movespeed_modifier/reagent/nitryl
+/datum/movespeed_modifier/reagent/nitrium
 	multiplicative_slowdown = -1
 	blacklisted_movetypes=(FLYING|FLOATING)
 
@@ -36,3 +36,6 @@
 
 /datum/movespeed_modifier/reagent/nuka_cola
 	multiplicative_slowdown = -0.25
+
+/datum/movespeed_modifier/reagent/staminatoxin
+	multiplicative_slowdown = 1

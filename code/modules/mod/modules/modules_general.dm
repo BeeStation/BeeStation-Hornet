@@ -233,7 +233,7 @@
 		.["body_temperature"] = mod.wearer?.bodytemperature || 0
 		.["nutrition"] = mod.wearer?.nutrition || 0
 	if(display_dna)
-		.["dna_unique_identity"] = mod.wearer ? md5(mod.wearer.dna.uni_identity) : null
+		.["dna_unique_identity"] = mod.wearer ? md5(mod.wearer.dna.unique_identity) : null
 		.["dna_unique_enzymes"] = mod.wearer?.dna.unique_enzymes
 	.["viruses"] = null
 	if(!length(mod.wearer?.diseases))
