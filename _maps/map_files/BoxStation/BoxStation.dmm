@@ -1801,10 +1801,10 @@
 /turf/open/floor/prison/dark,
 /area/security/execution/transfer)
 "axD" = (
-/obj/machinery/light,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/machinery/light/directional/south,
 /turf/open/floor/iron/tech,
 /area/quartermaster/office)
 "axL" = (
@@ -33744,6 +33744,9 @@
 	icon_state = "0-2"
 	},
 /obj/item/kirbyplants/random,
+/obj/machinery/power/apc/auto_name/directional/north{
+	pixel_y = 24
+	},
 /turf/open/floor/iron/tech,
 /area/quartermaster/storage)
 "jZE" = (
@@ -50884,11 +50887,9 @@
 	pixel_x = 5;
 	pixel_y = 30
 	},
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/item/hand_labeler,
 /obj/item/hand_labeler,
+/obj/machinery/light/directional/north,
 /turf/open/floor/iron/tech,
 /area/quartermaster/storage)
 "qZW" = (
@@ -56855,9 +56856,7 @@
 /obj/machinery/light_switch{
 	pixel_y = 28
 	},
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/light/directional/north,
 /turf/open/floor/iron/tech,
 /area/quartermaster/miningdock)
 "tkF" = (
@@ -58444,13 +58443,13 @@
 	dir = 8;
 	id = "QMLoad"
 	},
-/obj/machinery/light,
 /obj/machinery/status_display/supply{
 	pixel_y = -30
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/light/directional/south,
 /turf/open/floor/iron/techmaint,
 /area/quartermaster/storage)
 "tMw" = (
