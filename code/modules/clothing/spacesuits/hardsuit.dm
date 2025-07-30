@@ -289,6 +289,7 @@
 	armor_type = /datum/armor/civilian_metal
 	hardsuit_type = "engineering"
 	resistance_flags = FIRE_PROOF
+	rad_flags = RAD_PROTECT_CONTENTS
 
 /obj/item/clothing/suit/space/hardsuit/engine
 	name = "engineering hardsuit"
@@ -298,6 +299,7 @@
 	armor_type = /datum/armor/civilian_metal
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/engine
 	resistance_flags = FIRE_PROOF
+	rad_flags = RAD_PROTECT_CONTENTS
 
 	//Atmospherics
 
@@ -464,6 +466,7 @@
 	)
 	visor_flags_inv = HIDEMASK|HIDEEYES|HIDEFACE|HIDEFACIALHAIR|HIDEEARS|HIDESNOUT
 	visor_flags = STOPSPRESSUREDAMAGE | HEADINTERNALS
+	rad_flags = RAD_PROTECT_CONTENTS
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/update_icon()
 	icon_state = "hardsuit[on]-[hardsuit_type]"
@@ -560,6 +563,7 @@
 		/datum/action/item_action/toggle_beacon,
 		/datum/action/item_action/toggle_beacon_frequency
 	)
+	rad_flags = RAD_PROTECT_CONTENTS
 
 /obj/item/clothing/suit/space/hardsuit/syndi/ComponentInitialize()
 	. = ..()
@@ -1052,6 +1056,7 @@
 		/datum/action/item_action/toggle_beacon_frequency
 	)
 	jetpack = /obj/item/tank/jetpack/suit
+	rad_flags = RAD_PROTECT_CONTENTS
 
 /obj/item/clothing/suit/space/hardsuit/shielded/syndi/setup_shielding()
 	AddComponent(/datum/component/shielded, max_integrity = 60, charge_recovery = 20, recharge_start_delay = 20 SECONDS, charge_increment_delay = 1 SECONDS, shield_icon = "shield-red")
@@ -1074,6 +1079,7 @@
 		/datum/action/item_action/toggle_helmet_light,
 		/datum/action/item_action/toggle_beacon_hud
 	)
+	rad_flags = RAD_PROTECT_CONTENTS
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/syndi/Initialize(mapload)
 	. = ..()
