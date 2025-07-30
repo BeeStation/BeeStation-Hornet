@@ -24,7 +24,7 @@
 		absorb_damage_amount(absorbed_damage, type)
 		// Blunt multiplier for low protection
 		// If we have low protection, then we take full damage from attacks +50% conciousness damage.
-		var/base_blunt_damage = blunt_damage + max(0, (min(penetration, UNPROTECTED_ARMOUR_RATING) - penetration_rating) / UNPROTECTED_ARMOUR_RATING * (UNPROTECTED_BLUNT_DAMAGE_MULTIPLIER - 1) * blunt_damage)
+		var/base_blunt_damage = taken_damage + max(0, (min(penetration, UNPROTECTED_ARMOUR_RATING) - penetration_rating) / UNPROTECTED_ARMOUR_RATING * (UNPROTECTED_BLUNT_DAMAGE_MULTIPLIER - 1) * taken_damage)
 		// Blunt damage splits into 50% consciousness and 50% actual damage, if brute
 		// stamina and burn damage doesn't result in blunt force trauma
 		if (type == BRUTE)

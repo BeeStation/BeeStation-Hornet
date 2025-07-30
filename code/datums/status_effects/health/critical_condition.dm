@@ -48,7 +48,6 @@
 	crawling = TRUE
 	ADD_TRAIT(owner, TRAIT_FLOORED, FROM_CRITICAL_CONDITION)
 	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, FROM_CRITICAL_CONDITION)
-	ADD_TRAIT(owner, TRAIT_INCAPACITATED, FROM_CRITICAL_CONDITION)
 	owner.custom_emote("collapses to the ground")
 	to_chat(owner, span_pain(pick(\
 		"You tremble and fall to the ground, your legs giving way to the crushing weight of your body!",\
@@ -64,6 +63,5 @@
 		return
 	crawling = FALSE
 	REMOVE_TRAIT(owner, TRAIT_FLOORED, FROM_CRITICAL_CONDITION)
-	REMOVE_TRAIT(owner, TRAIT_INCAPACITATED, FROM_CRITICAL_CONDITION)
 	owner.get_up(TRUE)
 	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, FROM_CRITICAL_CONDITION)

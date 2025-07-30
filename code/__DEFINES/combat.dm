@@ -125,11 +125,11 @@
 // full damage to unprotected targets
 #define UNPROTECTED_BLUNT_DAMAGE_MULTIPLIER 2
 // How much conciousness damage we take from blunt damage
-#define BLUNT_DAMAGE_CONSCIOUSNESS_MULTIPLIER 0.8
+#define BLUNT_DAMAGE_CONSCIOUSNESS_MULTIPLIER 0.85
 // How much consciousness damage is applied for head attacks
 #define BLUNT_DAMAGE_CONSCIOUSNESS_HEAD_MULTIPLIER 1.4
 // How much actual damage we take from blunt damage
-#define BLUNT_DAMAGE_APPLIED_MULTIPLIER 0.5
+#define BLUNT_DAMAGE_APPLIED_MULTIPLIER 0.65
 
 //Actual combat defines
 
