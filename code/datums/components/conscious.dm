@@ -52,7 +52,7 @@
 		client?.mob.overlay_fullscreen("pain", /atom/movable/screen/fullscreen/oxy, severity)
 	else
 		client?.mob.clear_fullscreen("pain")
-	if (consciousness_heal_time > world.time || living_parent.stat == DEAD)
+	if (consciousness_heal_time > world.time || living_parent.stat >= HARD_CRIT)
 		return
 	if (IS_IN_STASIS(living_parent))
 		return
@@ -73,7 +73,7 @@
 			living_parent.custom_emote("twitches")
 	// While our consciousness value is above 0, we will wince from pain occassionally
 	if (damage < unconscious_threshold && world.time > unconscious_time)
-		if (DT_PROB(damage * 0.3, delta_time))
+		if (DT_PROB(damage * 0.15, delta_time))
 			wince_from_pain(parent)
 		if (is_unconscious)
 			regain_consciousness(parent)

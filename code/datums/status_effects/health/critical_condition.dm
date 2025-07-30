@@ -49,13 +49,13 @@
 	ADD_TRAIT(owner, TRAIT_FLOORED, FROM_CRITICAL_CONDITION)
 	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, FROM_CRITICAL_CONDITION)
 	owner.custom_emote("collapses to the ground")
-	to_chat(owner, span_pain(pick(
-		"You tremble and fall to the ground, your legs giving way to the crushing weight of your body!",
-		"Agony grips your limbs like chains, and with a gasp, you crumble to the earth, powerless to resist the pain.",
-		"Your vision blurs as searing pain pulses through your body - your knees buckle, and the world rushes up to meet you.",
-		"You stagger back, clutching at the air - then collapse, pain knocking you from your feet like a hammer blow.",
-		"Pain blindsides you, cold and absolute. Your legs go slack, and you hit the ground with a sickening thud.",
-		"Every nerve screams in protest. You sink to your knees, then to your side, unable to rise."
+	to_chat(owner, span_pain(pick(\
+		"You tremble and fall to the ground, your legs giving way to the crushing weight of your body!",\
+		"Agony grips your limbs like chains, and with a gasp, you crumble to the earth, powerless to resist the pain.",\
+		"Your vision blurs as searing pain pulses through your body - your knees buckle, and the world rushes up to meet you.",\
+		"You stagger back, clutching at the air - then collapse, pain knocking you from your feet like a hammer blow.",\
+		"Pain blindsides you, cold and absolute. Your legs go slack, and you hit the ground with a sickening thud.",\
+		"Every nerve screams in protest. You sink to your knees, then to your side, unable to rise."\
 	)))
 
 /datum/status_effect/critical_condition/proc/start_standing()
@@ -63,5 +63,5 @@
 		return
 	crawling = FALSE
 	REMOVE_TRAIT(owner, TRAIT_FLOORED, FROM_CRITICAL_CONDITION)
-	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, FROM_CRITICAL_CONDITION)
 	owner.get_up(TRUE)
+	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, FROM_CRITICAL_CONDITION)
