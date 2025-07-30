@@ -1,3 +1,5 @@
+GLOBAL_DATUM(narsie, /obj/eldritch/narsie)
+
 #define NARSIE_CHANCE_TO_PICK_NEW_TARGET 5
 #define NARSIE_CONSUME_RANGE 12
 #define NARSIE_GRAV_PULL 10
@@ -34,7 +36,7 @@
 		singularity_size = NARSIE_SINGULARITY_SIZE, \
 	))
 	greeting_message()
-	GLOB.cult_narsie = src
+	GLOB.narsie = src
 	var/list/all_cults = list()
 
 	for(var/datum/antagonist/cult/cultist in GLOB.antagonists)
@@ -48,13 +50,12 @@
 		var/datum/objective/eldergod/summon_objective = locate() in cult_team.objectives
 		if(summon_objective)
 			summon_objective.summoned = TRUE
-	for(var/_cult_mind in SSticker.mode.cult)
-		var/datum/mind/cult_mind = _cult_mind
-		if(isliving(cult_mind.current))
-			var/mob/living/L = cult_mind.current
+	for(var/datum/antagonist/cult/cultist in GLOB.antagonists)
+		if(isliving(cultist.owner.current))
+			var/mob/living/L = cultist.owner.current
 			L.narsie_act()
 	for(var/mob/living/carbon/player in GLOB.player_list)
-		if(player.stat != DEAD && is_station_level(player.loc?.z) && !iscultist(player))
+		if(player.stat != DEAD && is_station_level(player.loc?.z) && !IS_CULTIST(player))
 			souls_needed[player] = TRUE
 	soul_goal = round(1 + LAZYLEN(souls_needed) * 0.75)
 	INVOKE_ASYNC(src, PROC_REF(begin_the_end))
@@ -113,12 +114,12 @@
 				for(var/mob/living/M in GLOB.player_list)
 					shake_camera(M, 25, 6)
 					M.Knockdown(10)
-				if(DT_PROB(max(SSticker.mode?.cult.len/2, 15), delta_time))
+				if(DT_PROB(15, delta_time))
 					SEND_SOUND(world, 'sound/magic/clockwork/anima_fragment_death.ogg')
 					SEND_SOUND(world, 'sound/effects/explosionfar.ogg')
 					to_chat(world, span_narsie("You really thought you could best me twice?"))
 					QDEL_NULL(clashing)
-					for(var/datum/mind/M as() in GLOB.servants_of_ratvar)
+					for(var/datum/mind/M as anything in GLOB.servants_of_ratvar)
 						to_chat(M, span_userdanger("You feel a stabbing pain in your chest... This can't be happening!"))
 						M.current?.dust()
 
@@ -132,7 +133,7 @@
 /obj/eldritch/narsie/proc/mesmerize()
 	for (var/mob/living/carbon/victim in viewers(NARSIE_CONSUME_RANGE, src))
 		if (victim.stat == CONSCIOUS)
-			if (!iscultist(victim))
+			if (!IS_CULTIST(victim))
 				to_chat(victim, span_cultsmall("You feel conscious thought crumble away in an instant as you gaze upon [src]..."))
 				victim.apply_effect(NARSIE_MESMERIZE_EFFECT, EFFECT_STUN)
 
@@ -146,7 +147,7 @@
 		if (!pos || (pos.z != z))
 			continue
 
-		if(iscultist(food))
+		if(IS_CULTIST(food))
 			cultists += food
 		else
 			noncultists += food

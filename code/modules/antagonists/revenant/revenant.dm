@@ -510,7 +510,6 @@
 		message_admins("The new revenant's old client either could not be found or is in a new, living mob - grabbing a random candidate instead...")
 		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
 			question = "Do you want to be [revenant.name] (reforming)?",
-			role = /datum/role_preference/midround_ghost/revenant,
 			check_jobban = ROLE_REVENANT,
 			poll_time = 10 SECONDS,
 			jump_target = revenant,

@@ -435,6 +435,16 @@
 	id = "comp_thought_listener"
 	build_path = /obj/item/circuit_component/thought_listener
 
+/datum/design/component/bci/install_detector
+	name = "Install Detector Component"
+	id = "comp_install_detector"
+	build_path = /obj/item/circuit_component/install_detector
+
+/datum/design/component/bci/reagent_injector
+	name = "Reagent Injector Component"
+	id = "comp_reagent_injector"
+	build_path = /obj/item/circuit_component/reagent_injector
+
 /datum/design/compact_remote_shell
 	name = "Compact Remote Shell"
 	desc = "A handheld shell with one big button."

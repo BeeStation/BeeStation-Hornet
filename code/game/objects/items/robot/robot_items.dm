@@ -70,7 +70,7 @@
 	switch(mode)
 		if(0)
 			if(M.health >= 0)
-				if(isanimal(M))
+				if(isanimal_or_basicmob(M))
 					var/list/modifiers = params2list(params)
 					if (!user.combat_mode && !LAZYACCESS(modifiers, RIGHT_CLICK))
 						M.attack_hand(user, modifiers) //This enables borgs to get the floating heart icon and mob emote from simple_animal's that have petbonus == true.
@@ -703,7 +703,7 @@
 		QDEL_NULL(dampening_field)
 	var/mob/living/silicon/robot/owner = get_host()
 	dampening_field = new(owner, field_radius, TRUE, src)
-	owner?.module.allow_riding = FALSE
+	owner?.model.allow_riding = FALSE
 	active = TRUE
 
 /obj/item/borg/projectile_dampen/proc/deactivate_field()
@@ -716,7 +716,7 @@
 
 	var/mob/living/silicon/robot/owner = get_host()
 	if(owner)
-		owner.module.allow_riding = TRUE
+		owner.model.allow_riding = TRUE
 
 /obj/item/borg/projectile_dampen/proc/get_host()
 	if(istype(host))
@@ -1034,7 +1034,7 @@
 
 /obj/item/borg/apparatus/circuit/pre_attack(atom/A, mob/living/user, params)
 	. = ..()
-	if(istype(A, /obj/item/aiModule) && !stored) //If an admin wants a borg to upload laws, who am I to stop them? Otherwise, we can hint that it fails
+	if(istype(A, /obj/item/ai_module) && !stored) //If an admin wants a borg to upload laws, who am I to stop them? Otherwise, we can hint that it fails
 		to_chat(user, span_warning("This circuit board doesn't seem to have standard robot apparatus pin holes. You're unable to pick it up."))
 
 ////////////////////

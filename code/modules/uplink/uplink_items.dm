@@ -112,7 +112,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 /**
  * Uplink Items
  *
- * Items that can be spawned from an uplink. Can be limited by gamemode.
+ * Items that can be spawned from an uplink.
 **/
 /datum/uplink_item
 	var/name = "item name"
@@ -425,11 +425,11 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 /datum/uplink_item/dangerous
 	category = "Conspicuous Weapons"
 
-/datum/uplink_item/dangerous/poisonknife
-	name = "Poisoned Knife"
+/datum/uplink_item/dangerous/venomknife
+	name = "Venom Knife"
 	desc = "A knife that is made of two razor sharp blades, it has a secret compartment in the handle to store liquids which are injected when stabbing something. Can hold up to forty units of reagents but comes empty."
-	item = /obj/item/knife/poison
-	cost = 6 // all in all it's not super stealthy and you have to get some chemicals yourself
+	item = /obj/item/knife/venom
+	cost = 4
 
 /datum/uplink_item/dangerous/rawketlawnchair
 	name = "84mm Rocket Propelled Grenade Launcher"
@@ -834,14 +834,15 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	murderbone_type = TRUE
 	surplus = 0
 
-/datum/uplink_item/stealthy_weapons/sleepy_pen
-	name = "Sleepy Pen"
-	desc = "A spring loaded, single-use syringe disguised as a functional pen, filled with a potent mix of drugs, including a \
-			strong anesthetic and a chemical that prevents the target from speaking. \
-			The mixture that the pen comes with can be replaced as long as the pen hasn't been used already. Note that the mechanism takes time to \
-			trigger, is obvious to anyone nearby (excluding the target) and the victim may still be able to move and act for a brief period of time before falling unconcious."
-	item = /obj/item/pen/sleepy
-	cost = 5
+/datum/uplink_item/stealthy_weapons/paralytic_pen
+	name = "Paralytic Pen"
+	desc = "A spring loaded, syringe disguised as a functional pen. It comes filled with a potent mix of toxins that \
+		slows a victim, prevents them from calling for help, and eventually leads to paralysis. \
+		It can be refilled with alternative drugs so that it continues to be useful even after its first activation. \
+		The activation takes time and the target  will feel a tiny prick, but it is highly effective if the victim is \
+		first lured into a secluded area."
+	item = /obj/item/pen/paralytic
+	cost = 6
 	purchasable_from = ~UPLINK_NUKE_OPS
 
 /datum/uplink_item/stealthy_weapons/suppressor
@@ -1592,7 +1593,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	var/datum/component/tracking_beacon/beacon = suit.GetComponent(/datum/component/tracking_beacon)
 	var/datum/component/team_monitor/worn/hud = suit.helmet.GetComponent(/datum/component/team_monitor/worn)
 
-	var/datum/antagonist/nukeop/nukie = is_nuclear_operative(user)
+	var/datum/antagonist/nukeop/nukie = IS_NUCLEAR_OPERATIVE(user)
 	if(nukie?.nuke_team?.team_frequency)
 		if(hud)
 			hud.set_frequency(nukie.nuke_team.team_frequency)
@@ -1776,7 +1777,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	name = "Hacked AI Law Upload Module"
 	desc = "When used with an upload console, this module allows you to upload priority laws to an artificial intelligence. \
 			Be careful with wording, as artificial intelligences may look for loopholes to exploit."
-	item = /obj/item/aiModule/syndicate
+	item = /obj/item/ai_module/syndicate
 	cost = 3
 
 /datum/uplink_item/device_tools/hypnotic_flash
@@ -2432,16 +2433,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 12
 	item = /obj/item/autosurgeon/syndicate/laser_arm
 	restricted_roles = list(JOB_NAME_ROBOTICIST, JOB_NAME_RESEARCHDIRECTOR)
-
-/datum/uplink_item/role_restricted/tc_rod
-	name = "Telecrystal Fuel Rod"
-	desc = "This special fuel rod has eight material slots that can be inserted with telecrystals, \
-			once the rod has been fully depleted, you will be able to harvest the extra telecrystals. \
-			Please note: This Rod fissiles much faster than it's nanotrasen counterpart, it doesn't take \
-			much to overload the reactor with these..."
-	item = /obj/item/fuel_rod/material/telecrystal
-	cost = 7
-	restricted_roles = list(JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN, JOB_NAME_CHIEFENGINEER)
 
 // Pointless
 /datum/uplink_item/badass

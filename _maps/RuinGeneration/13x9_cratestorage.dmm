@@ -35,7 +35,7 @@
 "o" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/closet/crate,
-/obj/item/modular_computer/tablet/pda/clear,
+/obj/item/modular_computer/tablet/pda/preset/clear,
 /obj/effect/spawner/lootdrop/ruinloot/important,
 /turf/open/floor/iron,
 /area/ruin/unpowered)

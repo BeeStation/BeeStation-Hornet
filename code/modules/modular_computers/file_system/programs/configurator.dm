@@ -10,7 +10,6 @@
 	undeletable = TRUE
 	size = 4
 	available_on_ntnet = TRUE
-	requires_ntnet = 0
 	tgui_id = "NtosConfiguration"
 	program_icon = "cog"
 

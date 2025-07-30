@@ -329,64 +329,6 @@
 				beaker.reagents.remove_all(amount)
 				work_animation()
 				. = TRUE
-		if("dispense_recipe")
-			if(QDELETED(cell))
-				return
-			var/list/chemicals_to_dispense = saved_recipes[params["recipe"]]
-			if(!LAZYLEN(chemicals_to_dispense))
-				return
-			for(var/key in chemicals_to_dispense)
-				var/reagent = GLOB.name2reagent[translate_legacy_chem_id(key)]
-				var/dispense_amount = chemicals_to_dispense[key]
-				if(!dispensable_reagents.Find(reagent))
-					return
-				if(!recording_recipe)
-					if(!beaker)
-						return
-					var/datum/reagents/R = beaker.reagents
-					var/free = R.maximum_volume - R.total_volume
-					var/actual = min(dispense_amount, (cell.charge * powerefficiency)*10, free)
-					if(actual)
-						if(!cell.use(actual / powerefficiency))
-							say("Not enough energy to complete operation!")
-							return
-						R.add_reagent(reagent, actual)
-						work_animation()
-				else
-					recording_recipe[key] += dispense_amount
-			. = TRUE
-		if("delete_recipe")
-			var/recipe_name = params["recipe"]
-			if(!recipe_name || !saved_recipes[recipe_name])
-				return
-			saved_recipes -= recipe_name
-			. = TRUE
-		if("clear_all_recipes")
-			saved_recipes.Cut()
-			. = TRUE
-		if("record_recipe")
-			recording_recipe = list()
-			. = TRUE
-		if("save_recording")
-			var/name = stripped_input(usr,"Name","What do you want to name this recipe?", "Recipe", MAX_NAME_LEN)
-			if(!usr.canUseTopic(src, !issilicon(usr)))
-				return
-			if(saved_recipes[name] && alert("\"[name]\" already exists, do you want to overwrite it?",, "Yes", "No") != "Yes")
-				return
-			if(name && recording_recipe)
-				for(var/reagent in recording_recipe)
-					var/reagent_id = GLOB.name2reagent[translate_legacy_chem_id(reagent)]
-					if(!dispensable_reagents.Find(reagent_id))
-						visible_message(span_warning("[src] buzzes."), span_italics("You hear a faint buzz."))
-						to_chat(usr, span_danger("[src] cannot find <b>[reagent]</b>!"))
-						playsound(src, 'sound/machines/buzz-two.ogg', 50, 1)
-						return
-				saved_recipes[name] = recording_recipe
-				recording_recipe = null
-				. = TRUE
-		if("cancel_recording")
-			recording_recipe = null
-			. = TRUE
 
 /obj/machinery/chem_dispenser/wrench_act(mob/living/user, obj/item/tool)
 	. = ..()

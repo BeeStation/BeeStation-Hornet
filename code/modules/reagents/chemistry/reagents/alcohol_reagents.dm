@@ -581,7 +581,7 @@
 	icon_state = "cubalibreglass"
 
 /datum/reagent/consumable/ethanol/cuba_libre/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	if(M?.mind?.has_antag_datum(/datum/antagonist/rev)) //Cuba Libre, the traditional drink of revolutions! Heals revolutionaries.
+	if(IS_REVOLUTIONARY(M)) //Cuba Libre, the traditional drink of revolutions! Heals revolutionaries.
 		M.adjustBruteLoss(-1 * REM * delta_time, 0)
 		M.adjustFireLoss(-1 * REM * delta_time, 0)
 		M.adjustToxLoss(-1 * REM * delta_time, 0)

@@ -308,7 +308,7 @@
 					/obj/item/grenade/smokebomb,
 					/obj/item/grenade/smokebomb,
 					/obj/item/grenade/smokebomb,
-					/obj/item/pen/sleepy,
+					/obj/item/pen/paralytic,
 					/obj/item/grenade/chem_grenade/incendiary)
 	crate_name = "emergency crate"
 	crate_type = /obj/structure/closet/crate/internals
@@ -2075,7 +2075,7 @@
 /datum/supply_pack/science/modularpc
 	name = "Deluxe Silicate Selections restocking unit"
 	desc = "What's a computer? Contains Deluxe Silicate Selections restocking unit."
-	cost = 1200
+	cost = 5500
 	max_supply = 4
 	contains = list(/obj/item/vending_refill/modularpc)
 	crate_name = "computer supply crate"
