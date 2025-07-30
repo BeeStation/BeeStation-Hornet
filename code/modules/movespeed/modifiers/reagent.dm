@@ -37,3 +37,5 @@
 /datum/movespeed_modifier/reagent/nuka_cola
 	multiplicative_slowdown = -0.25
 
+/datum/movespeed_modifier/reagent/staminatoxin
+	multiplicative_slowdown = 1

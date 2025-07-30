@@ -790,43 +790,6 @@
 	set hidden = TRUE
 	set category = null
 	return
-/**
-  * Topic call back for any mob
-  *
-  * * Unset machines if "mach_close" sent
-  * * refresh the inventory of machines in range if "refresh" sent
-  * * handles the strip panel equip and unequip as well if "item" sent
-  */
-/mob/Topic(href, href_list)
-	if(href_list["mach_close"])
-		var/t1 = "window=[href_list["mach_close"]]"
-		unset_machine()
-		src << browse(null, t1)
-
-	if(href_list["item"] && usr.canUseTopic(src, BE_CLOSE, NO_DEXTERITY))
-		var/slot = text2num(href_list["item"])
-		var/hand_index = text2num(href_list["hand_index"])
-		var/obj/item/what
-		if(hand_index)
-			what = get_item_for_held_index(hand_index)
-			slot = list(slot,hand_index)
-		else
-			what = get_item_by_slot(slot)
-		if(what)
-			if(!(what.item_flags & ABSTRACT))
-				usr.stripPanelUnequip(what,src,slot)
-		else
-			usr.stripPanelEquip(what,src,slot)
-
-// The src mob is trying to strip an item from someone
-// Defined in living.dm
-/mob/proc/stripPanelUnequip(obj/item/what, mob/who)
-	return
-
-// The src mob is trying to place an item on someone
-// Defined in living.dm
-/mob/proc/stripPanelEquip(obj/item/what, mob/who)
-	return
 
 /**
   * Controls if a mouse drop succeeds (return null if it doesnt)
