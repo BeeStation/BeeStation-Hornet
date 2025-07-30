@@ -432,6 +432,8 @@
       are protected from injection (Previously this was 1u regardless of intended
       injection amount)
 2025-07-30:
+  Nakalon:
+  - rscadd: Adds cell chargers to public areas so people can charge they phone.
   PowerfulBacon:
   - tweak: Adds a low graphics quality setting
   TsunamiAnt:
@@ -447,3 +449,5 @@
       the R_FUN permission
   - server: Dynamic is logged in dynamic.log now. You can use the LOG_DYNAMIC config
       flag to toggle this.
+  - bugfix: fixed hacked AI modules
+  - bugfix: fixed the reset model wire on borgs

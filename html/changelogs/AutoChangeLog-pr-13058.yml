@@ -1,5 +1,0 @@
-author: mrmanlikesbt
-delete-after: true
-changes:
-  - bugfix: fixed hacked AI modules
-  - bugfix: fixed the reset model wire on borgs
