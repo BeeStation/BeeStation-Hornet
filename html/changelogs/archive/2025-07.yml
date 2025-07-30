@@ -432,5 +432,7 @@
       are protected from injection (Previously this was 1u regardless of intended
       injection amount)
 2025-07-30:
+  PowerfulBacon:
+  - tweak: Adds a low graphics quality setting
   TsunamiAnt:
   - rscdel: Pirates no longer call black alert by default.
