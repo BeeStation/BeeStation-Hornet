@@ -50,6 +50,13 @@
 		"smmon_4.gif" = 'icons/program_icons/smmon_4.gif',
 		"smmon_5.gif" = 'icons/program_icons/smmon_5.gif',
 		"smmon_6.gif" = 'icons/program_icons/smmon_6.gif',
+		"antivirus_0.gif" = 'icons/program_icons/antivirus_0.gif',
+		"antivirus_1.gif" = 'icons/program_icons/antivirus_1.gif',
+		"antivirus_2.gif" = 'icons/program_icons/antivirus_2.gif',
+		"antivirus_3.gif" = 'icons/program_icons/antivirus_3.gif',
+		"antivirus_4.gif" = 'icons/program_icons/antivirus_4.gif',
+		"power_drain.gif" = 'icons/program_icons/power_drain.gif',
+		"no_relay.gif" = 'icons/program_icons/no_relay.gif',
 		"borg_self_monitor.gif" = 'icons/program_icons/borg_self_monitor.gif'
 	)
 
@@ -353,7 +360,7 @@
 				continue
 			if(ispath(item, /obj/item/bodypart)) // mmm snowflake limbcode as usual
 				var/obj/item/bodypart/body_part = item
-				icon_file = initial(body_part.static_icon)
+				icon_file = initial(body_part.icon_static)
 			else
 				icon_file = initial(item.icon)
 

@@ -658,7 +658,7 @@
  *   Check __DEFINES/injection.dm for more details. Unlike can_inject, the INJECT_TRY_* defines will behave differently.
  */
 /mob/living/proc/try_inject(mob/user, target_zone, injection_flags)
-	return can_inject(user, target_zone, injection_flags)
+	return can_inject(user, target_zone, injection_flags & ~(INJECT_TRY_SHOW_ERROR_MESSAGE))
 
 /mob/living/is_injectable(mob/user, allowmobs = TRUE)
 	return (allowmobs && reagents && can_inject(user))
@@ -680,7 +680,7 @@
 	med_hud_set_health()
 	med_hud_set_status()
 	update_health_hud()
-	SEND_SIGNAL(src, COMSIG_LIVING_UPDATE_HEALTH)
+	SEND_SIGNAL(src, COMSIG_LIVING_HEALTH_UPDATE)
 
 /mob/living/update_health_hud()
 	var/severity = 0
@@ -959,6 +959,9 @@
 	set name = "Resist"
 	set category = "IC"
 
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/mob/living, execute_resist))
+
+/mob/living/proc/execute_resist()
 	if(!can_resist())
 		return
 	changeNext_move(CLICK_CD_RESIST)
@@ -1071,60 +1074,6 @@
 		flipped_matrix.e = -flipped_matrix.e
 		animate(src, transform = flipped_matrix, pixel_y = pixel_y-4, time = 0.5 SECONDS, easing = EASE_OUT, flags = ANIMATION_PARALLEL)
 		base_pixel_y -= 4
-
-// The src mob is trying to strip an item from someone
-// Override if a certain type of mob should be behave differently when stripping items (can't, for example)
-/mob/living/stripPanelUnequip(obj/item/what, mob/who, where)
-	if(!what.canStrip(who))
-		to_chat(src, span_warning("You can't remove [what.name], it appears to be stuck!"))
-		return
-	who.visible_message(span_warning("[src] tries to remove [who]'s [what.name]."), \
-					span_userdanger("[src] tries to remove your [what.name]."), null, null, src)
-	to_chat(src, span_danger("You try to remove [who]'s [what.name]..."))
-	what.add_fingerprint(src)
-	if(do_after(src, what.strip_delay, who, interaction_key = what))
-		if(what && Adjacent(who))
-			if(islist(where))
-				var/list/L = where
-				if(what == who.get_item_for_held_index(L[2]))
-					if(what.doStrip(src, who))
-						log_combat(src, who, "stripped [what] off")
-			if(what == who.get_item_by_slot(where))
-				if(what.doStrip(src, who))
-					log_combat(src, who, "stripped [what] off")
-
-// The src mob is trying to place an item on someone
-// Override if a certain mob should be behave differently when placing items (can't, for example)
-/mob/living/stripPanelEquip(obj/item/what, mob/who, where)
-	what = src.get_active_held_item()
-	if(what && (HAS_TRAIT(what, TRAIT_NODROP)))
-		to_chat(src, span_warning("You can't put \the [what.name] on [who], it's stuck to your hand!"))
-		return
-	if(what)
-		var/list/where_list
-		var/final_where
-
-		if(islist(where))
-			where_list = where
-			final_where = where[1]
-		else
-			final_where = where
-
-		if(!what.mob_can_equip(who, src, final_where, TRUE, TRUE))
-			to_chat(src, span_warning("\The [what.name] doesn't fit in that place!"))
-			return
-
-		who.visible_message(span_notice("[src] tries to put [what] on [who]."), \
-						span_notice("[src] tries to put [what] on you."), null, null, src)
-		to_chat(src, span_notice("You try to put [what] on [who]..."))
-		if(do_after(src, what.equip_delay_other, who))
-			if(what && Adjacent(who) && what.mob_can_equip(who, src, final_where, TRUE, TRUE))
-				if(temporarilyRemoveItemFromInventory(what))
-					if(where_list)
-						if(!who.put_in_hand(what, where_list[2]))
-							what.forceMove(get_turf(who))
-					else
-						who.equip_to_slot(what, where, TRUE)
 
 /mob/living/singularity_pull(S, current_size)
 	..()
@@ -1305,8 +1254,8 @@
 				/mob/living/silicon/robot = 200,
 				/mob/living/simple_animal/drone/polymorphed = 200,
 				/mob/living/silicon/robot/model/syndicate = 1,
-				/mob/living/silicon/robot/modules/syndicate/medical = 1,
-				/mob/living/silicon/robot/modules/syndicate/saboteur = 1,
+				/mob/living/silicon/robot/model/syndicate/medical = 1,
+				/mob/living/silicon/robot/model/syndicate/saboteur = 1,
 			)
 
 			var/picked_robot = pick(robot_options)
@@ -1789,7 +1738,7 @@
 	"}
 
 /mob/living/eminence_act(mob/living/simple_animal/eminence/eminence)
-	if(is_servant_of_ratvar(src) && !iseminence(src))
+	if(IS_SERVANT_OF_RATVAR(src) && !iseminence(src))
 		eminence.selected_mob = src
 		to_chat(eminence, span_brass("You select [src]."))
 
@@ -1935,6 +1884,25 @@
 	else if(!(movement_type & (FLYING | FLOATING)) && !usable_hands && !usable_legs) //Lost a hand, not flying, no hands left, no legs.
 		ADD_TRAIT(src, TRAIT_IMMOBILIZED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
 
+/// Sets the mob's hunger levels to a safe overall level. Useful for TRAIT_NOHUNGER species changes.
+/mob/living/proc/set_safe_hunger_level()
+	// Nutrition reset and alert clearing.
+	nutrition = NUTRITION_LEVEL_FED
+	clear_alert("nutrition")
+	satiety = 0
+
+	// Trait removal if obese
+	if(HAS_TRAIT_FROM(src, TRAIT_FAT, OBESITY))
+		if(overeatduration >= (200 SECONDS))
+			to_chat(src, span_notice("Your transformation restores your body's natural fitness!"))
+
+		REMOVE_TRAIT(src, TRAIT_FAT, OBESITY)
+		remove_movespeed_modifier(/datum/movespeed_modifier/obesity)
+		update_inv_w_uniform()
+		update_inv_wear_suit()
+
+	// Reset overeat duration.
+	overeatduration = 0
 
 /// Changes the value of the [living/body_position] variable.
 /mob/living/proc/set_body_position(new_value)
@@ -2040,3 +2008,56 @@
 	var/mob/living/unshapeshifted_mob = shapechange.caster_mob
 	remove_status_effect(/datum/status_effect/shapechange_mob)
 	return unshapeshifted_mob
+/**
+ * Helper proc for basic and simple animals to return true if the passed sentience type matches theirs
+ * Living doesn't have a sentience type though so it always returns false if not a basic or simple mob
+ */
+/mob/living/proc/compare_sentience_type(compare_type)
+	return FALSE
+
+/// Proc called when targetted by a lazarus injector
+/mob/living/proc/lazarus_revive(mob/living/reviver, malfunctioning)
+	if(mind)
+		if(suiciding || ishellbound())
+			reviver.visible_message(span_notice("[reviver] injects [src], but nothing happened."))
+			return
+		process_revival(src)
+		//befriend(reviver)
+		//Try to notify the ghost that they are being revived, but also that they are not loyal to the reviver
+		var/mob/ghostmob = notify_ghost_cloning("Your body is revived by [reviver] with a lazarus injector!", source=src)
+		if(ghostmob)
+			to_chat(ghostmob, span_userdanger("Lazarus does not change your loyalties or force obedience to [reviver] if you weren't already under their control."))
+		log_game("[key_name(reviver)] has revived a player mob [key_name(src)] with a lazarus injector")
+
+	else // only do this to mindless mobs
+		process_revival(src)
+		//befriend(reviver)
+		faction = (malfunctioning) ? list("[REF(reviver)]") : list(FACTION_NEUTRAL) //Neutral includes crew and entirely passive mobs
+		if(!ishostile(src))
+			return
+		var/mob/living/simple_animal/hostile/target_hostile = src
+		target_hostile.robust_searching = TRUE
+		target_hostile.friends += reviver
+		if(malfunctioning)
+			target_hostile.attack_same = TRUE //Will attack all other mobs and crew, but not the person who revived
+			reviver.log_message("has revived mob [key_name(src)] with a malfunctioning lazarus injector.", LOG_GAME)
+		else
+			target_hostile.attack_same = FALSE //Will only attack non-passive mobs
+			if(prob(10)) //chance of sentience without loyaltyAdd commentMore actions
+				var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
+					question = "Do you want to play as \a [src] being revived by [reviver]?",
+					check_jobban = ROLE_SENTIENCE,
+					poll_time = 15 SECONDS,
+					jump_target = src,
+					role_name_text = "lazarus revived mob",
+					alert_pic = src,
+					)
+				if(candidate)
+					src.key = candidate.key
+					target_hostile.sentience_act()
+					to_chat(target_hostile, span_userdanger("In a striking moment of clarity you have gained greater intellect. You feel no strong sense of loyalty to anyone or anything, you simply feel... free"))
+
+/mob/living/proc/process_revival(mob/living/simple_animal/target)
+	target.do_jitter_animation(10)
+	addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living, do_jitter_animation), 10), 5 SECONDS)
+	addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living, revive), TRUE, TRUE), 10 SECONDS)

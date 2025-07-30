@@ -84,9 +84,21 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			to_chat(src, span_danger("Your previous action was ignored because you've done too many in a second"))
 			return
 
-	//Logs all hrefs, except chat pings
-	if(!(href_list["window_id"] == "browseroutput" && href_list["type"] == "ping" && LAZYLEN(href_list) == 4))
-		log_href("[src] (usr:[usr]\[[COORD(usr)]\]) : [hsrc ? "[hsrc] " : ""][href]")
+	//Logs all hrefs, except chat pings and session tokens
+	var/is_chat_ping = href_list["window_id"] == "browseroutput" && href_list["type"] == "ping" && LAZYLEN(href_list) == 4
+	if(!is_chat_ping)
+		var/logged_href = href
+		if(href_list["session_token"])
+			logged_href = replacetextEx(logged_href, href_list["session_token"], "TOKEN_REDACTED")
+		log_href("[src] (usr:[usr]\[[COORD(usr)]\]) : [hsrc ? "[hsrc] " : ""][logged_href]")
+
+	// Run this EARLY so it can't be hijacked by any other topics later on
+	if(href_list["session_token"])
+		var/token = href_list["session_token"]
+		href_list["session_token"] = ""
+		href = replacetextEx(href, href_list["session_token"], "")
+		login_with_token(token, text2num(href_list["from_ui"]))
+		return
 
 	//byond bug ID:2256651
 	if (asset_cache_job && (asset_cache_job in completed_asset_jobs))
@@ -116,9 +128,6 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 	if(href_list["commandbar_typing"])
 		handle_commandbar_typing(href_list)
-
-	if(href_list["session_token"])
-		login_with_token(href_list["session_token"], text2num(href_list["from_ui"]))
 
 	if(href_list["seeker_port"])
 		winshow(src, "login", FALSE) // make sure this thing is hidden
@@ -264,8 +273,19 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 //////////////
 
 /client/Del()
+	// We have a mob worth keeping and are authenticated
+	var/mob_logout = FALSE
+	var/mob/my_mob = src.mob
+	if(src.logged_in && ismob(my_mob) && !istype(my_mob, /mob/dead/new_player/pre_auth))
+		// Don't let the game reassociate with the mob without authenticating again.
+		mob_logout = TRUE
+		GLOB.disconnected_mobs[src.ckey] = my_mob // now we know on login that we've signed out from this mob and can reassociate.
 	if(!gc_destroyed)
 		Destroy() //Clean up signals and timers.
+	if(mob_logout)
+		// Destroy() has to run first because it cleans up our references on the mob
+		// Changing the key calls /mob/Logout() which is supposed to run AFTER Destroy.
+		my_mob.key = "@DC@[my_mob.key]" // make sure this mob keeps a key that doesn't exist. Very similiar to the adminghost @
 	return ..()
 
 /client/Destroy()
@@ -304,6 +324,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		var/atom/eye_thing = eye
 		LAZYREMOVE(eye_thing.eye_users, src)
 	GLOB.requests.client_logout(src)
+
 
 	SSambience.remove_ambience_client(src)
 	Master.UpdateTickRate()

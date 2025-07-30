@@ -14,7 +14,7 @@
 
 	bioware_target = BIOWARE_CORTEX
 
-/datum/surgery/advanced/bioware/cortex_folding/can_start(mob/user, mob/living/carbon/target, target_zone)
+/datum/surgery/advanced/bioware/cortex_folding/can_start(mob/user, mob/living/carbon/target)
 	var/obj/item/organ/brain/target_brain = target.get_organ_slot(ORGAN_SLOT_BRAIN)
 	if(!target_brain)
 		return FALSE
@@ -25,7 +25,7 @@
 	accept_hand = TRUE
 	time = 125
 
-/datum/surgery_step/fold_cortex/preop(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/fold_cortex/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	display_results(
 		user,
 		target,
@@ -34,7 +34,7 @@
 		span_notice("[user] begins to perform surgery on [target]'s brain."),
 	)
 
-/datum/surgery_step/fold_cortex/success(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
+/datum/surgery_step/fold_cortex/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
 	display_results(
 		user,
 		target,
@@ -45,7 +45,7 @@
 	new /datum/bioware/cortex_fold(target)
 	return ..()
 
-/datum/surgery_step/fold_cortex/failure(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/fold_cortex/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(target.get_organ_slot(ORGAN_SLOT_BRAIN))
 		display_results(
 			user,

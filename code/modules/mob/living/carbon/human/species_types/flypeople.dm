@@ -1,28 +1,36 @@
 /datum/species/fly
-	name = "\improper Flyperson"
+	name = "Flyperson"
 	plural_form = "Flypeople"
 	id = SPECIES_FLY
 	bodyflag = FLAG_FLY
-	species_traits = list(NOEYESPRITES, NO_UNDERWEAR, TRAIT_BEEFRIEND)
-	inherent_traits = list(TRAIT_TACKLING_FRAIL_ATTACKER)
+	species_traits = list(
+		NOEYESPRITES,
+		NO_UNDERWEAR,
+		TRAIT_BEEFRIEND
+	)
+	inherent_traits = list(
+		TRAIT_TACKLING_FRAIL_ATTACKER
+	)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_BUG)
+	meat = /obj/item/food/meat/slab/human/mutant/fly
+	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
+	species_language_holder = /datum/language_holder/fly
 	mutanttongue = /obj/item/organ/tongue/fly
 	mutantliver = /obj/item/organ/liver/fly
 	mutantstomach = /obj/item/organ/stomach/fly
-	meat = /obj/item/food/meat/slab/human/mutant/fly
 	mutant_bodyparts = list("insect_type" = "fly", "body_size" = "Normal")
 	burnmod = 1.4
 	brutemod = 1.4
 	speedmod = 0.7
-	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
-	species_language_holder = /datum/language_holder/fly
 
-	species_chest = /obj/item/bodypart/chest/fly
-	species_head = /obj/item/bodypart/head/fly
-	species_l_arm = /obj/item/bodypart/l_arm/fly
-	species_r_arm = /obj/item/bodypart/r_arm/fly
-	species_l_leg = /obj/item/bodypart/l_leg/fly
-	species_r_leg = /obj/item/bodypart/r_leg/fly
+	bodypart_overrides = list(
+		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/fly,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/fly,
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/fly,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/fly,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/fly,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/fly,
+	)
 
 	species_height = SPECIES_HEIGHTS(2, 1, 0)
 

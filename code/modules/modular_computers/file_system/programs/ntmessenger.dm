@@ -2,15 +2,12 @@
 /datum/computer_file/program/messenger
 	filename = "nt_messenger"
 	filedesc = "Direct Messenger"
-	category = PROGRAM_CATEGORY_MISC
-	program_icon_state = "command"
+	category = PROGRAM_CATEGORY_CREW
+	program_icon_state = "pda-r_off"
 	// This should be running when the tablet is created, so it's minimized by default
 	program_state = PROGRAM_STATE_BACKGROUND
 	extended_desc = "This program allows old-school communication with other modular devices."
-	size = 0
-	undeletable = TRUE // It comes by default in tablets, can't be downloaded, takes no space and should obviously not be able to be deleted.
-	available_on_ntnet = FALSE
-	usage_flags = PROGRAM_PDA
+	size = 4
 	ui_header = "ntnrc_idle.gif"
 	tgui_id = "NtosMessenger"
 	program_icon = "comment-alt"
@@ -106,7 +103,7 @@
 	. = ..()
 	if(.)
 		return
-
+	var/obj/item/computer_hardware/hard_drive/hdd = computer.all_components[MC_HDD]
 	switch(action)
 		if("PDA_ringSet")
 			var/mob/living/usr_mob = usr
@@ -124,8 +121,13 @@
 			ringer_status = !ringer_status
 			return TRUE
 		if("PDA_sAndR")
-			sending_and_receiving = !sending_and_receiving
-			return TRUE
+			if(hdd.trojan == BREACHER)	// Button does nothing if trojan is present
+				computer.balloon_alert(usr, "<font color='#c70000'>ERROR:</font> UNKNOWN ERROR. CONTACT I.T.")
+				to_chat(usr, span_notice("<span class='cfc_red'>ERROR:</span> UNKNOWN ERROR. CONTACT I.T."))
+				return TRUE
+			else
+				sending_and_receiving = !sending_and_receiving
+				return TRUE
 		if("PDA_viewMessages")
 			viewing_messages = !viewing_messages
 			return TRUE
@@ -137,13 +139,19 @@
 			return TRUE
 		if("PDA_sendEveryone")
 			if(!sending_and_receiving)
-				to_chat(usr, span_notice("ERROR: Device has sending disabled."))
+				computer.balloon_alert(usr, "<font color='#c70000'>ERROR:</font> Device has sending disabled.")
+				to_chat(usr, span_notice("<span class='cfc_red'>ERROR:</span> Device has sending disabled."))
 				return
-			var/obj/item/computer_hardware/hard_drive/role/disk = computer.all_components[MC_HDD_JOB]
-			if(!disk?.spam_delay)
-				if(!disk)
+			var/obj/item/computer_hardware/hard_drive/drive
+			var/obj/item/computer_hardware/hard_drive/role/role = computer.all_components[MC_HDD_JOB]
+			if(role && role.spam_delay)
+				drive = role
+			else if(hdd && hdd.spam_delay)
+				drive = hdd
+			if(!drive?.spam_delay) // We're checking for a hard drive (drive) capable of mass messages
+				if(!drive)
 					return
-				log_href_exploit(usr, " Attempted sending PDA message to all without a disk capable of doing so: [disk].")
+				log_href_exploit(usr, " Attempted sending PDA message to all without a disk capable of doing so: [drive].")
 				return
 
 			var/list/targets = list()
@@ -152,10 +160,11 @@
 				targets += mc
 
 			if(targets.len > 0)
-				if(last_text_everyone && world.time < (last_text_everyone + PDA_SPAM_DELAY * disk.spam_delay))
-					to_chat(usr, span_warning("Send To All function is still on cooldown. Enabled in [(last_text_everyone + PDA_SPAM_DELAY * disk.spam_delay - world.time)/10] seconds."))
+				if(last_text_everyone && world.time < (last_text_everyone + PDA_SPAM_DELAY * drive.spam_delay))
+					computer.balloon_alert_to_viewers("Send To All function is still on cooldown. Enabled in [(last_text_everyone + PDA_SPAM_DELAY * drive.spam_delay - world.time)/10] seconds.")
+					to_chat(usr, span_warning("Send To All function is still on cooldown. Enabled in [(last_text_everyone + PDA_SPAM_DELAY * drive.spam_delay - world.time)/10] seconds."))
 					return
-				send_message(usr, targets, TRUE, multi_delay = disk.spam_delay)
+				send_message(usr, targets, TRUE, multi_delay = drive.spam_delay)
 
 			return TRUE
 		if("PDA_sendMessage")
@@ -179,6 +188,8 @@
 					var/obj/item/computer_hardware/hard_drive/role/virus/disk = computer.all_components[MC_HDD_JOB]
 					if(istype(disk))
 						disk.send_virus(target, usr)
+						if(!disk || !istype(disk, /obj/item/computer_hardware/hard_drive/role/virus))
+							sending_virus = FALSE
 						return TRUE
 				send_message(usr, list(target))
 				return TRUE
@@ -218,6 +229,7 @@
 /datum/computer_file/program/messenger/ui_data(mob/user)
 	var/list/data = list()
 
+	var/obj/item/computer_hardware/hard_drive/drive = computer.all_components[MC_HDD]
 	var/obj/item/computer_hardware/hard_drive/role/disk = computer.all_components[MC_HDD_JOB]
 
 	data["owner"] = computer.saved_identification
@@ -236,11 +248,17 @@
 	data["sortByJob"] = sort_by_job
 	data["isSilicon"] = is_silicon
 	data["photo"] = photo_path
-
 	if(disk)
-		data["canSpam"] = disk.spam_delay > 0
 		data["virus_attach"] = istype(disk, /obj/item/computer_hardware/hard_drive/role/virus)
 		data["sending_virus"] = sending_virus
+
+	var/can_spam = FALSE	// Checks for all possible sources of spam_delay
+
+	if(disk && disk.spam_delay > 0)
+		can_spam = TRUE
+	if(drive && drive.spam_delay > 0)
+		can_spam = TRUE
+	data["canSpam"] = can_spam
 
 	return data
 
@@ -339,6 +357,20 @@
 	message_data["ref"] = signal.data["ref"]
 	message_data["photo_obj"] = signal.data["photo"]
 	message_data["emojis"] = signal.data["emojis"]
+
+	// ---------- NT-Monitor network log ----------
+	// (trim long bodies so logs stay readable)
+	if(length(message) > 120)
+		message = copytext(message, 1, 121) + "…"
+
+	var/obj/item/computer_hardware/network_card/card = computer.all_components[MC_NET]
+	if(everyone)
+		computer.add_log("MSG log : [card.get_network_tag()] to (all): [message]", log_id = FALSE)
+	else if(targets.len == 1)
+		var/obj/item/modular_computer/target_comp = targets[1]
+		var/obj/item/computer_hardware/network_card/t_card = target_comp.all_components[MC_NET]
+		computer.add_log("MSG Log : [card.get_network_tag()] to [t_card.get_network_tag()]: [message]", log_id = FALSE)
+	// --------------------------------------------
 
 	// Parse emojis before to_chat
 	if(allow_emojis)

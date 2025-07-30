@@ -6,7 +6,6 @@
 	supervisors = "the head of personnel"
 	faction = "Station"
 	total_positions = 1
-	spawn_positions = 1
 	selection_color = "#dddddd"
 
 	outfit = /datum/outfit/job/mime
@@ -41,7 +40,7 @@
 	jobtype = /datum/job/mime
 
 	id = /obj/item/card/id/job/mime
-	belt = /obj/item/modular_computer/tablet/pda/mime
+	belt = /obj/item/modular_computer/tablet/pda/preset/mime
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/mime
 	mask = /obj/item/clothing/mask/gas/mime
