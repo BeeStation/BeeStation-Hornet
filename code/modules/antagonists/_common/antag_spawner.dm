@@ -69,7 +69,6 @@
 			currently_polling_ghosts = TRUE
 			var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
 				question = "Do you want to play as a wizard's [href_list["school"]] apprentice?",
-				role = /datum/role_preference/midround_ghost/wizard,
 				check_jobban = ROLE_WIZARD,
 				poll_time = 15 SECONDS,
 				ignore_category = POLL_IGNORE_WIZARD_HELPER,
@@ -136,7 +135,6 @@
 
 	to_chat(user, span_notice("You activate [src] and wait for confirmation."))
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
-		role = /datum/role_preference/midround_ghost/nuclear_operative,
 		check_jobban = ROLE_OPERATIVE,
 		poll_time = 15 SECONDS,
 		jump_target = user,

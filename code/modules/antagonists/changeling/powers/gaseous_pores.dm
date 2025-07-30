@@ -13,7 +13,7 @@
 	lifetime = 10
 
 /obj/effect/particle_effect/smoke/confusing/changeling/smoke_mob(mob/living/carbon/M,datum/antagonist)
-	if(is_changeling(M))
+	if(IS_CHANGELING(M))
 		return FALSE
 	if(..())
 		M.confused = max(M.confused, 12)

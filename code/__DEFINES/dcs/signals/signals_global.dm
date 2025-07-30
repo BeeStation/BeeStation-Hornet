@@ -43,3 +43,7 @@
 #define COMSIG_GLOB_CREW_MANIFEST_UPDATE "!crew_manifest_update"
 /// Called whenever something is sold through exports
 #define COMSIG_GLOB_ATOM_SOLD "!atom_sold"
+/// Call this to update the dynamic panel's data
+#define COMSIG_GLOB_UPDATE_DYNAMICPANEL_DATA "!update_dynamicpanel_data"
+/// Call this to update the dynamic panel's static data
+#define COMSIG_GLOB_UPDATE_DYNAMICPANEL_DATA_STATIC "!update_dynamicpanel_data_static"

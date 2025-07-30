@@ -126,7 +126,7 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 
 /obj/structure/destructible/clockwork/abstraction_crystal/attack_hand(mob/user, list/modifiers)
 	. = ..()
-	if(!is_servant_of_ratvar(user))
+	if(!IS_SERVANT_OF_RATVAR(user))
 		return
 	if(!iscarbon(user))
 		return
@@ -148,7 +148,7 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 	manifest(eminence)
 
 /obj/structure/destructible/clockwork/abstraction_crystal/proc/manifest(mob/living/user)
-	if(!is_servant_of_ratvar(user))
+	if(!IS_SERVANT_OF_RATVAR(user))
 		return
 	if(!(iscarbon(user) || iseminence(user)))
 		return

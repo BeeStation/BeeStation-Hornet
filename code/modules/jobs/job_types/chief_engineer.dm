@@ -45,7 +45,7 @@
 
 	id = /obj/item/card/id/job/chief_engineer
 	belt = /obj/item/storage/belt/utility/chief/full
-	l_pocket = /obj/item/modular_computer/tablet/pda/heads/chief_engineer
+	l_pocket = /obj/item/modular_computer/tablet/pda/preset/heads/chief_engineer
 	ears = /obj/item/radio/headset/heads/chief_engineer
 	uniform = /obj/item/clothing/under/rank/engineering/chief_engineer
 	shoes = /obj/item/clothing/shoes/sneakers/brown

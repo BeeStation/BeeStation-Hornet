@@ -106,7 +106,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/anchored_mjolnir)
 			M.playsound_local(get_turf(src), 'sound/effects/bamf.ogg', 50, 1, random_frequency, 10)
 	//Any lying mobs on the turf (apart from wizards) get crushed
 	for (var/mob/living/mob_on_tile in loc)
-		if (mob_on_tile.mobility_flags & MOBILITY_STAND || iswizard(mob_on_tile))
+		if (mob_on_tile.mobility_flags & MOBILITY_STAND || IS_WIZARD(mob_on_tile))
 			continue
 		mob_on_tile.emote("scream")
 		mob_on_tile.take_bodypart_damage(40, 0, 0, check_armor = TRUE)
@@ -120,7 +120,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/anchored_mjolnir)
 
 /obj/structure/anchored_mjolnir/attack_hand(mob/user, list/modifiers)
 	. = ..()
-	if (iswizard(user))
+	if (IS_WIZARD(user))
 		var/hammer = contained
 		if (user.put_in_active_hand(contained))
 			user.visible_message(span_danger("[user] effortlessly lifts [hammer]."))
@@ -164,7 +164,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/projectile/mjolnir)
 	if (isliving(target))
 		var/mob/living/hit_mob = target
 		if (contained)
-			if (iswizard(hit_mob))
+			if (IS_WIZARD(hit_mob))
 				//Pickup the hammer
 				if (hit_mob.put_in_active_hand(contained))
 					contained = null

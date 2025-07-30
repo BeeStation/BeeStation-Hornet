@@ -31,6 +31,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_CRITICAL_CONDITION "critical-condition"
 // Grants them the ability to move even when without any limbs.
 #define TRAIT_MOBILE "mobile"
+// Only perimts the ability to whisper
+#define TRAIT_WHISPER_ONLY "whisper_only"
 
 //mob traits
 #define TRAIT_BLIND "blind"

@@ -91,7 +91,7 @@
 		for(var/obj/item/emag_module in emag_modules)
 			add_module(emag_module, FALSE, FALSE)
 	// Ratvar
-	if(is_servant_of_ratvar(robot) && !robot.ratvar)	//It just works :^)
+	if(IS_SERVANT_OF_RATVAR(robot) && !robot.ratvar)	//It just works :^)
 		robot.SetRatvar(TRUE, FALSE)
 	if(robot.ratvar)
 		for(var/obj/item/ratvar_module in ratvar_modules)
