@@ -1545,9 +1545,18 @@
 		if (CONSCIOUS)
 			brain.stat_conscious(.)
 		if (SOFT_CRIT)
-			brain.stat_crit(.)
+			if (HAS_TRAIT(src, TRAIT_NOSOFTCRIT))
+				brain.stat_conscious(.)
+			else
+				brain.stat_crit(.)
 		if (UNCONSCIOUS, HARD_CRIT)
-			brain.stat_hard_crit(.)
+			if (HAS_TRAIT(src, TRAIT_NOHARDCRIT))
+				if (HAS_TRAIT(src, TRAIT_NOSOFTCRIT))
+					brain.stat_conscious(.)
+				else
+					brain.stat_crit(.)
+			else
+				brain.stat_hard_crit(.)
 		if (DEAD)
 			brain.stat_dead(.)
 

@@ -393,6 +393,8 @@
 			readout += "<br /><b>COVERAGE</b>"
 			readout += "\nIt will block [english_list(things_blocked)]."
 
+	readout += "\n"
+
 	if((clothing_flags & STOPSPRESSUREDAMAGE) || (visor_flags & STOPSPRESSUREDAMAGE))
 		var/list/parts_covered = list()
 		var/output_string = "It"
