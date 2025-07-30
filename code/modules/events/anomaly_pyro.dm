@@ -4,6 +4,7 @@
 
 	max_occurrences = 5
 	weight = 20
+	map_blacklist = list("Echo Station")
 
 /datum/round_event/anomaly/anomaly_pyro
 	startWhen = 3
