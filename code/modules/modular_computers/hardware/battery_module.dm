@@ -44,9 +44,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 	name = "tiny battery"
 	desc = "The smallest battery available. Commonly seen in low-end portable microcomputers"
 	battery_type = /obj/item/stock_parts/cell/computer/nano
-	custom_price = PAYCHECK_EASY
-	/// Size affects the size of the explosion created by the detonation of the battery through hacking
+	/// Rating affects the size of the explosion created by the detonation of the battery through hacking
 	rating = PART_TIER_1
+	custom_price = PAYCHECK_EASY
 
 /obj/item/computer_hardware/battery/small
 	name = "small battery"
@@ -54,6 +54,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 	icon_state = "cell_micro"
 	battery_type = /obj/item/stock_parts/cell/computer/micro
 	rating = PART_TIER_2
+	custom_price = PAYCHECK_EASY * 2
 
 /obj/item/computer_hardware/battery/standard
 	name = "standard battery"
@@ -62,6 +63,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 	battery_type = /obj/item/stock_parts/cell/computer
 	w_class = WEIGHT_CLASS_SMALL	// Fits tablets and up
 	rating = PART_TIER_3
+	custom_price = PAYCHECK_MEDIUM
 
 /obj/item/computer_hardware/battery/large
 	name = "large battery"
@@ -70,6 +72,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 	battery_type = /obj/item/stock_parts/cell/computer/advanced
 	w_class = WEIGHT_CLASS_SMALL	// Fits tablets and up
 	rating = PART_TIER_4
+	custom_price = PAYCHECK_MEDIUM * 2
 
 /obj/item/computer_hardware/battery/huge
 	name = "extra large battery"
@@ -78,6 +81,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 	battery_type = /obj/item/stock_parts/cell/computer/super
 	w_class = WEIGHT_CLASS_NORMAL	// Fits only laptops
 	rating = PART_TIER_5
+	custom_price = PAYCHECK_MEDIUM * 3
 
 /obj/item/stock_parts/cell/computer
 	name = "standard battery"
