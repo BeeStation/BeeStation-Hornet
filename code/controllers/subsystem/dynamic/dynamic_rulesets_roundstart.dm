@@ -85,6 +85,18 @@
 
 //////////////////////////////////////////////
 //                                          //
+//                  VAMPIRE                 //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/roundstart/vampire
+	name = "Vampire"
+	role_preference = /datum/role_preference/roundstart/vampire
+	antag_datum = /datum/antagonist/vampire
+	weight = 8
+
+//////////////////////////////////////////////
+//                                          //
 //             MALFUNCTIONING AI            //
 //                                          //
 //////////////////////////////////////////////
