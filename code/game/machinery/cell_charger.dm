@@ -16,7 +16,7 @@
 		/obj/item/stock_parts/cell,
 		/obj/item/modular_computer)
 
-/obj/machinery/recharger/RefreshParts()
+/obj/machinery/cell_charger/RefreshParts()
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)
 		recharge_coeff = C.rating
 
