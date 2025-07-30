@@ -125,7 +125,9 @@
 	is_deaf = TRUE
 	consciousness_heal_time = max(world.time + 5 SECONDS, consciousness_heal_time)
 	damage = min(unconscious_threshold + 20, damage)
+	ADD_TRAIT(victim, TRAIT_IMMOBILIZED, FROM_UNCONSCIOUS)
 	ADD_TRAIT(victim, TRAIT_KNOCKEDOUT, FROM_UNCONSCIOUS)
+	ADD_TRAIT(victim, TRAIT_INCAPACITATED, FROM_UNCONSCIOUS)
 	ADD_TRAIT(victim, TRAIT_DEAF, FROM_UNCONSCIOUS)
 	ADD_VALUE_TRAIT(victim, TRAIT_VALUE_SOUND_SCAPE, FROM_UNCONSCIOUS, SOUND_ENVIRONMENT_DIZZY, SOUND_PRIORITY_UNCONSCIOUS)
 	if (victim.stat <= SOFT_CRIT)
@@ -135,7 +137,9 @@
 		to_chat(victim, span_userdanger("You fall unconscious!"))
 
 /datum/component/conscious/proc/regain_consciousness(mob/living/victim)
+	REMOVE_TRAIT(victim, TRAIT_INCAPACITATED, FROM_UNCONSCIOUS)
 	REMOVE_TRAIT(victim, TRAIT_KNOCKEDOUT, FROM_UNCONSCIOUS)
+	REMOVE_TRAIT(victim, TRAIT_IMMOBILIZED, FROM_UNCONSCIOUS)
 	REMOVE_TRAIT(victim, TRAIT_DEAF, FROM_UNCONSCIOUS)
 	REMOVE_TRAIT(victim, TRAIT_VALUE_SOUND_SCAPE, FROM_UNCONSCIOUS)
 	is_unconscious = FALSE

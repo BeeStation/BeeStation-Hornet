@@ -1571,46 +1571,39 @@
 	. = ..()
 	if(isnull(.))
 		return
-	// As soon as we fall unconscious, we instantly take the maximum amount of consciousness damage
-	if (. == CONSCIOUS && stat == SOFT_CRIT)
-		take_consciousness_damage(INFINITY)
-	// If we are dead, we are not critical condition
-	if (stat == DEAD)
-		REMOVE_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
-	// Consciousness
-	if (stat <= CONSCIOUS || (stat == SOFT_CRIT && HAS_TRAIT(src, TRAIT_NOSOFTCRIT)))
-		REMOVE_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
+	if (stat >= SOFT_CRIT && pulledby)
+		ADD_TRAIT(src, TRAIT_IMMOBILIZED, PULLED_WHILE_SOFTCRIT_TRAIT)
+	else
 		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, PULLED_WHILE_SOFTCRIT_TRAIT)
-		remove_status_effect(/datum/status_effect/critical_condition)
-	// Soft-crit or higher
-	else
-		if (stat != DEAD)
-			apply_status_effect(/datum/status_effect/critical_condition)
-		else
-			remove_status_effect(/datum/status_effect/critical_condition)
-		if(pulledby)
-			ADD_TRAIT(src, TRAIT_IMMOBILIZED, PULLED_WHILE_SOFTCRIT_TRAIT)
-		else
-			REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, PULLED_WHILE_SOFTCRIT_TRAIT)
-	// Soft-crit or lower
-	if (stat <= SOFT_CRIT)
-		REMOVE_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
-		REMOVE_TRAIT(src, TRAIT_HANDS_BLOCKED, STAT_TRAIT)
-		cure_blind(UNCONSCIOUS_TRAIT)
-		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_KNOCKEDOUT)
-		REMOVE_TRAIT(src, TRAIT_FLOORED, STAT_TRAIT)
-		REMOVE_TRAIT(src, TRAIT_INCAPACITATED, STAT_TRAIT)
-	// Hard-crit
-	else
-		if (stat != DEAD)
+	if (. == stat)
+		return
+	var/obj/item/organ/brain/brain = get_organ_slot(ORGAN_SLOT_BRAIN)
+	// Default crit behaviour, just enter hard-crit
+	if (!brain)
+		if (stat >= SOFT_CRIT)
 			ADD_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
+			ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, STAT_TRAIT)
+			ADD_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_KNOCKEDOUT)
+			ADD_TRAIT(src, TRAIT_FLOORED, STAT_TRAIT)
+			ADD_TRAIT(src, TRAIT_INCAPACITATED, STAT_TRAIT)
+			become_blind(UNCONSCIOUS_TRAIT)
 		else
 			REMOVE_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
-		ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, STAT_TRAIT)
-		ADD_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_KNOCKEDOUT)
-		ADD_TRAIT(src, TRAIT_FLOORED, STAT_TRAIT)
-		ADD_TRAIT(src, TRAIT_INCAPACITATED, STAT_TRAIT)
-		become_blind(UNCONSCIOUS_TRAIT)
+			REMOVE_TRAIT(src, TRAIT_HANDS_BLOCKED, STAT_TRAIT)
+			REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_KNOCKEDOUT)
+			REMOVE_TRAIT(src, TRAIT_FLOORED, STAT_TRAIT)
+			REMOVE_TRAIT(src, TRAIT_INCAPACITATED, STAT_TRAIT)
+			cure_blind(UNCONSCIOUS_TRAIT)
+		return
+	switch (stat)
+		if (CONSCIOUS)
+			brain.stat_conscious(.)
+		if (SOFT_CRIT)
+			brain.stat_crit(.)
+		if (UNCONSCIOUS, HARD_CRIT)
+			brain.stat_hard_crit(.)
+		if (DEAD)
+			brain.stat_dead(.)
 
 ///Reports the event of the change in value of the buckled variable.
 /mob/living/proc/set_buckled(new_buckled)
