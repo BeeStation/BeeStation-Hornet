@@ -349,28 +349,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 	to_chat(user, span_notice("It doesn't feel right to snoop around like that..."))
 	return // we don't want ais or cyborgs using a private role tablet
 
-/obj/item/modular_computer/tablet/pda/Initialize(mapload)
-	. = ..()
-	install_component(new /obj/item/computer_hardware/hard_drive/micro)
-	install_component(new /obj/item/computer_hardware/processor_unit/small)
-	install_component(new /obj/item/computer_hardware/battery(src, /obj/item/stock_parts/cell/computer/nano))
-	install_component(new /obj/item/computer_hardware/network_card)
-	install_component(new /obj/item/computer_hardware/card_slot)
-	install_component(new /obj/item/computer_hardware/identifier)
-	install_component(new /obj/item/computer_hardware/sensorpackage)
-
-	var/obj/item/computer_hardware/hard_drive/hdd = all_components[MC_HDD]
-	if(hdd)
-		hdd.virus_defense = default_virus_defense
-	if(default_disk)
-		var/obj/item/computer_hardware/hard_drive/portable/disk = new default_disk(src)
-		install_component(disk)
-
-	if(insert_type)
-		inserted_item = new insert_type(src)
-		// show the inserted item
-		update_appearance()
-
 /// Return a list of types you want to pregenerate and use later
 /// Do not pass in things that care about their init location, or expect extra input
 /// Also as a courtesy to me, don't pass in any bombs

@@ -17,12 +17,12 @@
 		var/mob/living/L = user
 		var/mob/living/puller = L.pulledby
 		if(puller)
-			var/datum/antagonist/changeling/other_ling = is_changeling(puller)
+			var/datum/antagonist/changeling/other_ling = IS_CHANGELING(puller)
 			if(other_ling?.isabsorbing)
 				to_chat(user, span_warning("Our last resort is being disrupted by another changeling!"))
 				return
 	var/turf/T = user.loc
-	if(!T || !isopenturf(T) || !is_changeling(user))
+	if(!T || !isopenturf(T) || !IS_CHANGELING(user))
 		to_chat(user, span_warning("You can't become a headslug right now!"))
 		return FALSE
 	var/datum/mind/M = user.mind

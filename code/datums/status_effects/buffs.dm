@@ -141,14 +141,14 @@
 	var/alive = TRUE
 
 /datum/status_effect/cult_master/proc/deathrattle()
-	if(!QDELETED(GLOB.cult_narsie))
+	if(!QDELETED(GLOB.narsie))
 		return //if Nar'Sie is alive, don't even worry about it
-	var/area/A = get_area(owner)
-	for(var/datum/mind/B in SSticker.mode.cult)
-		if(isliving(B.current))
-			var/mob/living/M = B.current
-			SEND_SOUND(M, sound('sound/hallucinations/veryfar_noise.ogg'))
-			to_chat(M, span_cultlarge("The Cult's Master, [owner], has fallen in \the [A]!"))
+	var/area/area = get_area(owner)
+	for(var/datum/antagonist/cult/cultist in GLOB.antagonists)
+		if(isliving(cultist.owner))
+			var/mob/living/cultist_body = cultist.owner.current
+			SEND_SOUND(cultist_body, sound('sound/hallucinations/veryfar_noise.ogg'))
+			to_chat(cultist_body, span_cultlarge("The Cult's Master, [owner], has fallen in \the [area]!"))
 
 /datum/status_effect/cult_master/tick()
 	if(owner.stat != DEAD && !alive)
@@ -356,7 +356,7 @@
 	var/chem_per_tick = 1
 
 /datum/status_effect/changeling/on_apply()
-	ling = is_changeling(owner)
+	ling = IS_CHANGELING(owner)
 	if(!ling)
 		return FALSE
 	return TRUE

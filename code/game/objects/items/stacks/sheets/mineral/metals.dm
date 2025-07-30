@@ -124,7 +124,7 @@ Metals Sheets
 	qdel(src)
 
 /obj/item/stack/sheet/brass/attack_self(mob/living/user)
-	if(!is_servant_of_ratvar(user))
+	if(!IS_SERVANT_OF_RATVAR(user))
 		to_chat(user, span_danger("[src] seems far too brittle to build with.")) //haha that's because it's actually replicant alloy you DUMMY << WOAH TOOO FAR! << :^)
 	else
 		return ..()
@@ -158,7 +158,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/sheet/brass)
 	tableVariant = /obj/structure/table/bronze
 
 /obj/item/stack/sheet/bronze/attack_self(mob/living/user)
-	if(is_servant_of_ratvar(user))
+	if(IS_SERVANT_OF_RATVAR(user))
 		to_chat(user, span_danger("Wha... what is this cheap imitation crap? This isn't brass at all!"))
 	else
 		return ..()

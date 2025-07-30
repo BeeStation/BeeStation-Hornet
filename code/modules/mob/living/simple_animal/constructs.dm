@@ -234,9 +234,10 @@
 
 /mob/living/simple_animal/hostile/construct/wraith/AttackingTarget() //refund jaunt cooldown when attacking living targets
 	var/prev_stat
-	if(isliving(target) && !iscultist(target))
+	if(isliving(target))
 		var/mob/living/L = target
-		prev_stat = L.stat
+		if(!IS_CULTIST(L))
+			prev_stat = L.stat
 
 	. = ..()
 
@@ -531,7 +532,7 @@
 	button_icon_state = "cult_mark"
 
 /datum/action/innate/seek_prey/on_activate()
-	if(GLOB.cult_narsie == null)
+	if(GLOB.narsie == null)
 		return
 	var/mob/living/simple_animal/hostile/construct/harvester/the_construct = owner
 	if(the_construct.seeking)
@@ -541,8 +542,8 @@
 		to_chat(the_construct, span_cultitalic("You are now tracking Nar'Sie, return to reap the harvest!"))
 		return
 	else
-		if(LAZYLEN(GLOB.cult_narsie.souls_needed))
-			the_construct.master = pick(GLOB.cult_narsie.souls_needed)
+		if(LAZYLEN(GLOB.narsie.souls_needed))
+			the_construct.master = pick(GLOB.narsie.souls_needed)
 			var/mob/living/real_target = the_construct.master //We can typecast this way because Narsie only allows /mob/living into the souls list
 			to_chat(the_construct, span_cultitalic("You are now tracking your prey, [real_target.real_name] - harvest [real_target.p_them()]!"))
 		else

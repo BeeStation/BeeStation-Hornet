@@ -342,6 +342,26 @@
 	toxpwr = 0.1
 	taste_description = "green tea"
 
+/datum/reagent/toxin/whispertoxin
+	name = "Whisper Toxin"
+	description = "A less potent version of mute toxin which prevents a victim from speaking loudly."
+	silent_toxin = TRUE
+	color = "#F0F8FF" // rgb: 240, 248, 255
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST | CHEMICAL_GOAL_BARTENDER_SERVING
+	toxpwr = 0
+	taste_description = "alcohol"
+
+/datum/reagent/toxin/whispertoxin/on_mob_metabolize(mob/living/L)
+	. = ..()
+	ADD_TRAIT(L, TRAIT_WHISPER_ONLY, type)
+	// Prevent people from spamming *scream
+	ADD_TRAIT(L, TRAIT_EMOTEMUTE, type)
+
+/datum/reagent/toxin/whispertoxin/on_mob_end_metabolize(mob/living/L)
+	. = ..()
+	REMOVE_TRAIT(L, TRAIT_WHISPER_ONLY, type)
+	REMOVE_TRAIT(L, TRAIT_EMOTEMUTE, type)
+
 /datum/reagent/toxin/mutetoxin //the new zombie powder.
 	name = "Mute Toxin"
 	description = "A nonlethal poison that inhibits speech in its victim."
@@ -351,9 +371,13 @@
 	toxpwr = 0
 	taste_description = "silence"
 
-/datum/reagent/toxin/mutetoxin/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.silent = max(M.silent, 3 * REM * delta_time)
-	..()
+/datum/reagent/toxin/mutetoxin/on_mob_metabolize(mob/living/L)
+	. = ..()
+	ADD_TRAIT(L, TRAIT_MUTE, type)
+
+/datum/reagent/toxin/mutetoxin/on_mob_end_metabolize(mob/living/L)
+	. = ..()
+	REMOVE_TRAIT(L, TRAIT_MUTE, type)
 
 /datum/reagent/toxin/staminatoxin
 	name = "Tirizene"
@@ -361,14 +385,22 @@
 	silent_toxin = TRUE
 	color = "#6E2828"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	data = 15
+	data = 30
 	toxpwr = 0
+
+/datum/reagent/toxin/staminatoxin/on_mob_metabolize(mob/living/L)
+	..()
+	L.add_movespeed_modifier(/datum/movespeed_modifier/reagent/staminatoxin)
 
 /datum/reagent/toxin/staminatoxin/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	M.adjustStaminaLoss(data * REM * delta_time, 0)
 	data = max(data - 1, 3)
 	..()
 	. = TRUE
+
+/datum/reagent/toxin/staminatoxin/on_mob_end_metabolize(mob/living/L)
+	..()
+	L.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/staminatoxin)
 
 /datum/reagent/toxin/polonium
 	name = "Polonium"

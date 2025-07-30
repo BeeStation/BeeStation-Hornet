@@ -91,154 +91,17 @@ ALERT_GAMMA Central Command has ordered "GAMMA" security level on the station. T
 ALERT_LAMBDA Central Command has ordered "LAMBDA" security level on the station. Any violations of orders from Heads of Staff or security are punishable by death. All hands, prepare for evacuation.
 ALERT_EPSILON Central Command has ordered "EPSILON" security level on the station. Your station is designated as a lost asset. Consider your contracts with Nanotrasen terminated.
 
-## GAME MODES ###
-
-#Set the Master (Default) Game Mode.
-MASTER_MODE secret_extended
-
-## Uncomment to not send a roundstart intercept report. Gamemodes may override this.
+## Uncomment to not send a roundstart intercept report
 NO_INTERCEPT_REPORT
 
-## Probablities for game modes chosen in 'secret' and 'random' modes.
-## Default probablity is 1, increase to make that mode more likely to be picked.
-## Set to 0 to disable that mode.
+## The total weight of station goals possible for a round (allows multiple goals)
+STATION_GOAL_BUDGET 1
 
-PROBABILITY DYNAMIC 1
-PROBABILITY TRAITOR 0
-PROBABILITY CULT 0
-PROBABILITY TRAITORCHAN 0
-PROBABILITY CHANGELING 0
-PROBABILITY ASSIMILATION 0
-PROBABILITY NUCLEAR 0
-PROBABILITY CLOCKCULT 0
-PROBABILITY SECRET_EXTENDED 0
-PROBABILITY CLOWNOPS 0
-PROBABILITY DEVIL 0
-PROBABILITY DEVIL_AGENTS 0
-PROBABILITY GANG 0
-PROBABILITY HERESY 0
-PROBABILITY INTERNAL_AFFAIRS 0
-PROBABILITY METEOR 0
-PROBABILITY TRAITORBRO 0
-PROBABILITY WIZARD 0
-PROBABILITY REVOLUTION 0
-
-## Creates issues when NO_INTERCEPT_REPORT is enabled
-PROBABILITY EXTENDED 0
-
-## You probably want to keep sandbox off by default for secret and random.
-PROBABILITY SANDBOX 0
-
-## Percent weight reductions for three of the most recent modes
-
-REPEATED_MODE_ADJUST 45 30 10
-
-## Toggles for continuous modes.
-## Modes that aren't continuous will end the instant all antagonists are dead.
-
-CONTINUOUS TRAITOR
-CONTINUOUS TRAITORBRO
-CONTINUOUS TRAITORCHAN
-CONTINUOUS INTERNAL_AFFAIRS
-#CONTINUOUS NUCLEAR
-#CONTINUOUS REVOLUTION
-CONTINUOUS CULT
-CONTINUOUS CHANGELING
-CONTINUOUS WIZARD
-CONTINUOUS HIVEMIND
-CONTINUOUS CLOCKCULT
-CONTINUOUS HERESY
-CONTINUOUS ASSIMILATION
-
-#Prevents the death of round-ending antagonist rulesets ending the round immediately.
-
-CONTINUOUS DYNAMIC
-
-##Note: do not toggle continuous off for these modes, as they have no antagonists and would thus end immediately!
-
-CONTINUOUS METEOR
-CONTINUOUS EXTENDED
-CONTINUOUS SECRET_EXTENDED
-
-
-## Toggles for allowing midround antagonists (aka mulligan antagonists).
-## In modes that are continuous, if all antagonists should die then a new set of antagonists will be created.
-
-MIDROUND_ANTAG TRAITOR
-#MIDROUND_ANTAG TRAITORBRO
-MIDROUND_ANTAG TRAITORCHAN
-MIDROUND_ANTAG INTERNAL_AFFAIRS
-#MIDROUND_ANTAG  NUCLEAR
-#MIDROUND_ANTAG  REVOLUTION
-MIDROUND_ANTAG CULT
-MIDROUND_ANTAG CHANGELING
-MIDROUND_ANTAG WIZARD
-
-## Uncomment these for overrides of the minimum / maximum number of players in a round type.
-## If you set any of these occasionally check to see if you still need them as the modes
-## will still be actively rebalanced around the SUGGESTED populations, not your overrides.
-## Notes: For maximum number of players a value of -1 means no maximum. Setting minimums to
-## VERY low numbers (< 5) can lead to errors if the roundtypes were not designed for that.
-
-MIN_POP TRAITOR 0
-MAX_POP TRAITOR -1
-
-MIN_POP TRAITORBRO 10
-MAX_POP TRAITORBRO -1
-
-MIN_POP TRAITORCHAN 15
-MAX_POP TRAITORCHAN -1
-
-MIN_POP DOUBLE_AGENTS 25
-MAX_POP DOUBLE_AGENTS -1
-
-MIN_POP NUCLEAR 0
-MAX_POP NUCLEAR -1
-
-MIN_POP REVOLUTION 20
-MAX_POP REVOLUTION -1
-
-MIN_POP CULT 24
-MAX_POP CULT -1
-
-MIN_POP CHANGELING 15
-MAX_POP CHANGELING -1
-
-MIN_POP WIZARD 20
-MAX_POP WIZARD -1
-
-MIN_POP METEOR 0
-MAX_POP METEOR -1
-
-MIN_POP DEVIL 20
-MAX_POP DEVIL -1
-
-MIN_POP DEVIL_AGENTS 25
-MAX_POP DEVIL_AGENTS -1
-
-## Setting at least one mode to be playable at 0/1 players is required.
-#MIN_POP EXTENDED 0
-#MAX_POP EXTENDED -1
-
-MIN_POP CLOCKCULT 32
-MAX_POP CLOCKCULT -1
-
-MIN_POP HERESY 25
-MAX_POP HERESY -1
-
-MIN_POP ASSIMILATION 0
-MAX_POP ASSIMILATION -1
+## Uncomment to use station traits (faster cargo shuttle, more maintenance loot)
+STATION_TRAITS
 
 ## The amount of time it takes for the emergency shuttle to be called, from round start.
 SHUTTLE_REFUEL_DELAY 12000
-
-## Variables calculate how number of antagonists will scale to population.
-## Used as (Antagonists = Population / Coeff)
-## Set to 0 to disable scaling and use default numbers instead.
-TRAITOR_SCALING_COEFF 6
-BROTHER_SCALING_COEFF 6
-CHANGELING_SCALING_COEFF 6
-ECULT_SCALING_COEFF 6
 
 ## The number of objectives traitors get.
 ## Not including escaping/hijacking.
