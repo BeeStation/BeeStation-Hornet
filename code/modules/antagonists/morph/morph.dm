@@ -312,5 +312,3 @@
 /mob/living/simple_animal/hostile/morph/proc/notify_non_antag()
 	if(!mind.has_antag_datum(/datum/antagonist/morph))
 		to_chat(src, span_boldwarning("If you were not an antagonist before you did not become one now. You still retain your retain your original loyalties and mind!"))
-
-#undef MORPH_COOLDOWN
