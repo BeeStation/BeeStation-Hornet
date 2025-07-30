@@ -16,6 +16,7 @@
 	cost = 8	// Avoid raising traitor threat above this, as it is the default low cost ruleset.
 	scaling_cost = 9
 	requirements = list(8,8,8,8,8,8,8,8,8,8)
+	minimum_players = 10
 	antag_cap = list("denominator" = 38)
 	var/autotraitor_cooldown = (15 MINUTES)
 
@@ -32,6 +33,36 @@
 		GLOB.pre_setup_antags += M.mind
 	return TRUE
 
+//////////////////////////////////////////////
+//                                          //
+//               SCAMPS                     //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/roundstart/scamp
+	name = "Scamp"
+	role_preference = /datum/role_preference/antagonist/scamp
+	antag_datum = /datum/antagonist/scamp
+	protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
+	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG)
+	required_candidates = 1
+	weight = 6
+	cost = 3
+	scaling_cost = 2
+	minimum_players = 5
+
+/datum/dynamic_ruleset/roundstart/scamp/pre_execute(population)
+	. = ..()
+	var/num_scamps = get_antag_cap(population) * (scaled_times + 1)
+	for (var/i = 1 to num_scamps)
+		if(!length(candidates))
+			break
+		var/mob/M = antag_pick_n_take(candidates)
+		assigned += M.mind
+		M.mind.restricted_roles = restricted_roles
+		M.mind.special_role = ROLE_SCAMP
+		GLOB.pre_setup_antags += M.mind
+	return TRUE
 
 //////////////////////////////////////////
 //                                      //
@@ -50,6 +81,7 @@
 	cost = 12
 	scaling_cost = 15
 	requirements = list(40,30,30,20,20,15,15,15,10,10)
+	minimum_players = 10
 	antag_cap = 2	// Can pick 3 per team, but rare enough it doesn't matter.
 	var/list/datum/team/brother_team/pre_brother_teams = list()
 	var/const/min_team_size = 2
@@ -126,6 +158,7 @@
 	cost = 16
 	scaling_cost = 10
 	requirements = list(70,70,60,50,40,20,20,10,10,10)
+	minimum_players = 10
 	antag_cap = list("denominator" = 29)
 
 /datum/dynamic_ruleset/roundstart/changeling/pre_execute(population)
@@ -158,6 +191,7 @@
 	cost = 15
 	scaling_cost = 9
 	requirements = list(101,101,101,40,35,20,20,15,10,10)
+	minimum_players = 10
 	antag_cap = list("denominator" = 24)
 
 
