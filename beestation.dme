@@ -2585,6 +2585,7 @@
 #include "code\modules\client\preferences\entries\player\glasses.dm"
 #include "code\modules\client\preferences\entries\player\hotkeys.dm"
 #include "code\modules\client\preferences\entries\player\item_outlines.dm"
+#include "code\modules\client\preferences\entries\player\low_graphics_quality.dm"
 #include "code\modules\client\preferences\entries\player\ooc.dm"
 #include "code\modules\client\preferences\entries\player\parallax.dm"
 #include "code\modules\client\preferences\entries\player\pixel_size.dm"
