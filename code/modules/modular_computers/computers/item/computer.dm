@@ -786,11 +786,6 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		attacking_item.play_tool_sound(src, user, 20, volume=20)
 		new /obj/item/stack/sheet/iron( get_turf(src.loc), steel_sheet_cost )
 		user.balloon_alert(user, "disassembled")
-		var/datum/component/uplink/hidden_uplink = GetComponent(/datum/component/uplink)
-		if(hidden_uplink)
-			var/obj/item/computer_hardware/hard_drive/role/uplink/for_copy/uplink = new(get_turf(src))
-			uplink.stored_telecrystals = hidden_uplink.telecrystals
-			uplink.lock_code = hidden_uplink.unlock_code
 		relay_qdel()
 		qdel(src)
 		return

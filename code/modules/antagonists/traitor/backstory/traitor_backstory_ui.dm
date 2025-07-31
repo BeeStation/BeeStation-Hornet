@@ -38,6 +38,10 @@
 		data["employer"] = employer
 
 	var/datum/component/uplink/uplink = uplink_ref?.resolve()
+	// Store unlock info if uplink is present
+	// Without this, when the uplink was taken from the PDA the message would also dissapear.
+	if(uplink && uplink.unlock_text)
+		permanent_unlock_text = uplink.unlock_text
 	data["antag_name"] = name
 	data["has_codewords"] = has_codewords
 	if(has_codewords)
@@ -47,7 +51,7 @@
 	data["failsafe_code"] = islist(uplink?.failsafe_code) ? english_list(uplink?.failsafe_code) : uplink?.failsafe_code
 	data["has_uplink"] = uplink ? TRUE : FALSE
 	if(uplink)
-		data["uplink_unlock_info"] = uplink.unlock_text
+		data["uplink_unlock_info"] = uplink.permanent_unlock_text
 	data["objectives"] = get_objectives()
 
 	return data

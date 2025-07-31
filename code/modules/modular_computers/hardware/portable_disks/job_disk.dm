@@ -237,36 +237,3 @@
 	name = "\improper FACEBUCKS disk"
 	icon_state = "cart-signal" // might need a new sprite
 	spam_delay = 5
-
-/obj/item/computer_hardware/hard_drive/role/uplink
-	name = "uplink component"
-	desc = "This broken job disk has been carefully modified by a vilaneous organization in order to hide serve as an uplink."
-	icon_state = "comp_open"
-	can_hack = FALSE
-	var/stored_telecrystals = 20
-	var/lock_code
-
-/obj/item/computer_hardware/hard_drive/role/uplink/Initialize(mapload)
-	. = ..()
-	lock_code = "[random_code(3)] [pick(GLOB.phonetic_alphabet)]"
-
-/obj/item/computer_hardware/hard_drive/role/uplink/on_install(obj/item/modular_computer/install_into, mob/living/user)
-	..()
-	var/datum/component/uplink/hidden_uplink = install_into.GetComponent(/datum/component/uplink)
-	if(hidden_uplink)
-		playsound(install_into, 'sound/machines/terminal_error.ogg', 50, TRUE)
-		balloon_alert(user, "There is already an <font color='#d40808'>Uplink</font> on this device.")
-		to_chat(user, span_notice("There is already an <span class='cfc_red'>Uplink</span> on this device."))
-		return
-	else
-		hidden_uplink = install_into.AddComponent(/datum/component/uplink)
-		hidden_uplink.telecrystals = stored_telecrystals
-		hidden_uplink.unlock_code = lock_code
-		balloon_alert(user, "Welcome <font color='#d40808'>agent!</font> Your access code is <font color='#66f811'>[lock_code]</font>.")
-		to_chat(user, span_notice("Welcome <span class='cfc_red'>agent!</span> Your access code is <span class='cfc_bluegreen'>[lock_code]</span>."))
-		playsound(install_into, 'sound/machines/twobeep_high.ogg', 50, TRUE)
-		qdel(src)
-
-/obj/item/computer_hardware/hard_drive/role/uplink/for_copy	// This is here just to not be too much on the nose
-	name = "broken job disk"
-	desc = "It may still be returned to it's former glory."

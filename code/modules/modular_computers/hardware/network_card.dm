@@ -11,6 +11,10 @@
 	malfunction_probability = 1
 	device_type = MC_NET
 	custom_price = PAYCHECK_EASY * 2
+	var/uplink = FALSE
+	var/stored_telecrystals
+	var/give_code = FALSE
+	var/code
 
 /obj/item/computer_hardware/network_card/Initialize(mapload)
 	. = ..()
@@ -20,8 +24,33 @@
 
 /obj/item/computer_hardware/network_card/on_install(obj/item/modular_computer/install_into, mob/living/user)
 	. = ..()
+	//var/datum/component/uplink/hidden_uplink = install_into.GetComponent(/datum/component/uplink)
 	if(!user && install_into && identification_string == initial(identification_string))	//Only overide default string IF its being installed trough code
 		identification_string = "[install_into.icon_state]"
+	if(uplink)
+		var/datum/component/uplink/hidden_uplink = install_into.AddComponent(/datum/component/uplink)
+		hidden_uplink.telecrystals = stored_telecrystals
+		if(!code)
+			hidden_uplink.unlock_code = hidden_uplink.generate_code()
+		else
+			hidden_uplink.unlock_code = code
+		if((is_special_character(user) || give_code))	// We only let ourselves be known if the player is an antag or it has been specified
+			balloon_alert(user, "Welcome <font color='#d40808'>agent!</font> Your access code is <font color='#66f811'>[hidden_uplink.unlock_code]</font>.")
+			to_chat(user, span_notice("Welcome <span class='cfc_red'>agent!</span> Your access code is <span class='cfc_bluegreen'>[hidden_uplink.unlock_code]</span>."))
+
+/obj/item/computer_hardware/network_card/on_remove(obj/item/modular_computer/remove_from, mob/living/user)
+	. = ..()
+	var/datum/component/uplink/old_link = remove_from.GetComponent(/datum/component/uplink)
+	if(old_link)
+		stored_telecrystals = old_link.telecrystals
+		code = old_link.unlock_code
+		qdel(old_link)
+		uplink = TRUE
+		if((is_special_character(user) || give_code))	// We only let ourselves be known if the player is an antag or it has been specified
+			balloon_alert(user, "You have removed your uplink <font color='#d40808'>agent</font>. It is currently stored inside your network card.")
+			to_chat(user, span_notice("You have removed your uplink <span class='cfc_red'>agent</span>. It is currently stored inside your network card."))
+		// Ok so, if this will always copy the uplink that's inside the PDA. Wich can only be granted by network cards with uplinks.
+		// This is to avoid having two components and having to retouch a lot of code!
 
 /obj/item/computer_hardware/network_card/diagnostics()
 	. = ..()
@@ -129,3 +158,10 @@
 		if(!robo.cell || robo.cell.charge == 0)
 			return FALSE //borg cell dying restricts borg networking
 	return ..()
+
+/obj/item/computer_hardware/network_card/uplink
+	name = "foreign network card"
+	desc = "A totally innocuous network card from unfamiliar parts."
+	uplink = TRUE
+	stored_telecrystals = 20
+	give_code = TRUE

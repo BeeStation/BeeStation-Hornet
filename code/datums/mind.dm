@@ -306,8 +306,6 @@
 					uplink_loc = P
 		if(UPLINK_PEN)
 			uplink_loc = P
-		if(UPLINK_PEN)
-			uplink_loc = P
 		if(UPLINK_IMPLANT)
 			implant = TRUE
 
