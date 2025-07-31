@@ -16,8 +16,6 @@
 	flags_cover = HEADCOVERSEYES
 	flags_inv = HIDEHAIR
 	bang_protect = 1
-	// Much thicker and more rigid than body armour, able to block even piercing syringes
-	clothing_flags = THICKMATERIAL
 
 /obj/item/clothing/head/helmet/Initialize(mapload)
 	. = ..()

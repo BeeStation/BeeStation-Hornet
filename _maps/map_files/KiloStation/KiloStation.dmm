@@ -63115,9 +63115,6 @@
 /area/maintenance/fore)
 "sxN" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/libraryconsole{
-	pixel_y = 5
-	},
 /obj/effect/decal/cleanable/cobweb,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -26
@@ -63126,6 +63123,7 @@
 	pixel_y = 22
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
+/obj/machinery/cell_charger,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
 "sxV" = (
@@ -63682,6 +63680,7 @@
 	name = "old radio"
 	},
 /obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/machinery/cell_charger,
 /turf/open/floor/iron/showroomfloor,
 /area/crew_quarters/bar/atrium)
 "sGC" = (

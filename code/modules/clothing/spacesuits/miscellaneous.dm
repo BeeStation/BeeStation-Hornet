@@ -57,7 +57,7 @@ Contains:
 	greyscale_colors = "#397F3F#FFCE5B"
 	dynamic_hair_suffix = "+generic"
 	dynamic_fhair_suffix = "+generic"
-	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT
+	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT
 	flags_inv = 0
 	armor_type = /datum/armor/military_heavy_armor
 	strip_delay = 130
