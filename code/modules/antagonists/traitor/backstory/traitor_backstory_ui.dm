@@ -40,7 +40,8 @@
 	var/datum/component/uplink/uplink = uplink_ref?.resolve()
 	// Store unlock info if uplink is present
 	// Without this, when the uplink was taken from the PDA the message would also dissapear.
-	if(uplink && uplink.unlock_text)
+	var/permanent_unlock_text
+	if(!permanent_unlock_text)
 		permanent_unlock_text = uplink.unlock_text
 	data["antag_name"] = name
 	data["has_codewords"] = has_codewords

@@ -262,7 +262,7 @@
 		return
 
 	var/list/all_contents = traitor_mob.GetAllContents()
-	var/obj/item/modular_computer/tablet/pda/PDA = locate() in all_contents
+	var/obj/item/modular_computer/PDA = locate() in all_contents	//Changing this so we don't have problems in the future if we decide to give people the choice to spawn with tablet or PDA
 	var/obj/item/radio/R = locate() in all_contents
 	var/obj/item/pen/P
 
