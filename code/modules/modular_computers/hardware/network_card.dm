@@ -47,8 +47,8 @@
 		qdel(old_link)
 		uplink = TRUE
 		if((is_special_character(user) || give_code))	// We only let ourselves be known if the player is an antag or it has been specified
-			balloon_alert(user, "You have removed your uplink <font color='#d40808'>agent</font>. It is currently stored inside your network card.")
-			to_chat(user, span_notice("You have removed your uplink <span class='cfc_red'>agent</span>. It is currently stored inside your network card."))
+			balloon_alert(user, "You have removed your uplink, <font color='#d40808'>agent</font>. It is currently stored inside your network card.")
+			to_chat(user, span_notice("You have removed your uplink, <span class='cfc_red'>agent</span>. It is currently stored inside your network card."))
 		// Ok so, if this will always copy the uplink that's inside the PDA. Wich can only be granted by network cards with uplinks.
 		// This is to avoid having two components and having to retouch a lot of code!
 
