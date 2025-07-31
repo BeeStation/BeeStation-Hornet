@@ -166,7 +166,7 @@ const RoundstartPage = () => {
         <Flex direction="row">
           <Flex.Item grow>
             <Section fill title="Variables">
-              <LabeledList.Item label="Set Upper Divergence Range" verticalAlign="middle">
+              <LabeledList.Item label="Upper Divergence Range" verticalAlign="middle">
                 <NumberInput
                   value={roundstart_divergence_upper ?? 0}
                   disabled={has_round_started}
@@ -178,7 +178,7 @@ const RoundstartPage = () => {
                   width="50%"
                 />
               </LabeledList.Item>
-              <LabeledList.Item label="Set Lower Divergence Range" verticalAlign="middle">
+              <LabeledList.Item label="Lower Divergence Range" verticalAlign="middle">
                 <NumberInput
                   value={roundstart_divergence_lower ?? 0}
                   disabled={has_round_started}
@@ -190,7 +190,7 @@ const RoundstartPage = () => {
                   width="50%"
                 />
               </LabeledList.Item>
-              <LabeledList.Item label="Set Points per Ready" verticalAlign="middle">
+              <LabeledList.Item label="Points per Ready" verticalAlign="middle">
                 <NumberInput
                   value={roundstart_points_per_ready ?? 0}
                   disabled={has_round_started}
@@ -202,7 +202,7 @@ const RoundstartPage = () => {
                   width="50%"
                 />
               </LabeledList.Item>
-              <LabeledList.Item label="Set Points per Unready" verticalAlign="middle">
+              <LabeledList.Item label="Points per Unready" verticalAlign="middle">
                 <NumberInput
                   value={roundstart_points_per_unready ?? 0}
                   disabled={has_round_started}
@@ -214,7 +214,7 @@ const RoundstartPage = () => {
                   width="50%"
                 />
               </LabeledList.Item>
-              <LabeledList.Item label="Set Points per Observer" verticalAlign="middle">
+              <LabeledList.Item label="Points per Observer" verticalAlign="middle">
                 <NumberInput
                   value={roundstart_points_per_observer ?? 0}
                   disabled={has_round_started}
@@ -295,7 +295,7 @@ const RoundstartPage = () => {
               disabled={has_round_started}
               checked={forced_roundstart_rulesets.find((forced_ruleset) => forced_ruleset.name === ruleset)}
               key={ruleset + idx}
-              tooltip="Pick this ruleset regarless of weight or cost"
+              tooltip="Pick this ruleset regardless of weight or cost"
               onClick={() => {
                 const selectedRuleset = valid_roundstart_rulesets.find((valid_ruleset) => valid_ruleset.name === ruleset);
                 act('force_roundstart_ruleset', {
