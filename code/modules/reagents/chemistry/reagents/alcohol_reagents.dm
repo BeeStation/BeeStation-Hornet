@@ -753,16 +753,21 @@
 	icon_state = "tequilasunriseglass"
 
 /datum/reagent/consumable/ethanol/tequila_sunrise/on_mob_metabolize(mob/living/M)
+	. = ..()
+	if(isshadow(M)) //This is an uncounterable light for shadowpeople
+		return
 	to_chat(M, span_notice("You feel gentle warmth spread through your body!"))
 	light_holder = new(M)
 	light_holder.set_light(3, 0.7, "#FFCC00") //Tequila Sunrise makes you radiate dim light, like a sunrise!
 
 /datum/reagent/consumable/ethanol/tequila_sunrise/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	. = ..()
+	if(isshadow(M))
+		return
 	if(QDELETED(light_holder))
 		M.reagents.del_reagent(/datum/reagent/consumable/ethanol/tequila_sunrise) //If we lost our light object somehow, remove the reagent
 	else if(light_holder.loc != M)
 		light_holder.forceMove(M)
-	return ..()
 
 /datum/reagent/consumable/ethanol/tequila_sunrise/on_mob_end_metabolize(mob/living/M)
 	to_chat(M, span_notice("The warmth in your body fades."))
