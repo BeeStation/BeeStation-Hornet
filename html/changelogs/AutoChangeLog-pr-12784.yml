@@ -1,0 +1,7 @@
+author: rkz, jlsnow301, Arthri
+delete-after: true
+changes:
+  - server: faster TGUI build times with swc
+  - code_imp: converts collection.js functions to ES5
+  - code_imp: bumps TGUI packages
+  - code_imp: converts rgb/hexcolors to use RSL, as is required by new sass package
