@@ -34,8 +34,8 @@ SUBSYSTEM_DEF(autotransfer)
 		if(isnewplayer(c.mob))
 			continue
 
-		//Only players that are still alive count as "active", reducing the amount of votes needed to leave
-		if(isliving(c.mob))
+		//Only non-antagonist players count as "active" for the sake of determining how many votes are necessary to leave
+		if(isliving(c.mob) && !c.mob?.mind?.special_role)
 			active_playercount ++
 
 		//All players not in the lobby can vote to leave, living and dead
