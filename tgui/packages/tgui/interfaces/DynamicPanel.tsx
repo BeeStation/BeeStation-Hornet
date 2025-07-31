@@ -36,6 +36,7 @@ type Ruleset = {
 type MidroundData = {
   current_midround_points: number;
   midround_grace_period: number;
+  midround_failure_stallout: number;
   living_delta: number;
   dead_delta: number;
   observer_delta: number;
@@ -367,6 +368,7 @@ const MidroundPage = () => {
     current_midround_ruleset,
     current_midround_points,
     midround_grace_period,
+    midround_failure_stallout,
     living_delta,
     dead_delta,
     observer_delta,
@@ -448,7 +450,7 @@ const MidroundPage = () => {
                   width="50%"
                 />
               </LabeledList.Item>
-              <LabeledList.Item label="Grace Period (in minutes)" verticalAlign="middle">
+              <LabeledList.Item label="Grace Period" verticalAlign="middle">
                 <NumberInput
                   value={midround_grace_period ?? 0}
                   animated
@@ -456,6 +458,17 @@ const MidroundPage = () => {
                   maxValue={120}
                   step={5}
                   onChange={(value) => act('set_midround_grace_period', { new_grace_period: value })}
+                  width="50%"
+                />
+              </LabeledList.Item>
+              <LabeledList.Item label="Midround Failure Stallout" verticalAlign="middle">
+                <NumberInput
+                  value={midround_failure_stallout ?? 0}
+                  animated
+                  minValue={0}
+                  maxValue={60}
+                  step={1}
+                  onChange={(value) => act('set_midround_failure_stallout', { new_midround_stallout: value })}
                   width="50%"
                 />
               </LabeledList.Item>

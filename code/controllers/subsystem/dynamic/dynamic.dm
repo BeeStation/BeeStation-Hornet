@@ -168,7 +168,7 @@ SUBSYSTEM_DEF(dynamic)
 
 	/// How long dynamic will wait to execute another ruleset if it fails to execute the previous one
 	/// Used to mitigate spam and antag rolling
-	var/midround_execution_fail_cooldown = 5 MINUTES
+	var/midround_failure_stallout = 5 MINUTES
 
 	/// The point delta per living antagonist
 	var/list/midround_points_per_antag = list(
@@ -473,8 +473,6 @@ SUBSYSTEM_DEF(dynamic)
 
 	// Try to choose/execute a ruleset
 	if(world.time - SSticker.round_start_time > midround_grace_period && COOLDOWN_FINISHED(src, midround_ruleset_cooldown))
-		COOLDOWN_START(src, midround_ruleset_cooldown, midround_execution_fail_cooldown)
-
 		if(!midround_chosen_ruleset)
 			choose_midround_ruleset()
 		else if(midround_points >= midround_chosen_ruleset.points_cost)
@@ -487,6 +485,8 @@ SUBSYSTEM_DEF(dynamic)
 				midround_executed_rulesets += midround_chosen_ruleset
 				midround_points -= midround_chosen_ruleset.points_cost
 				logged_points["logged_points"] += midround_points
+			else
+				COOLDOWN_START(src, midround_ruleset_cooldown, midround_failure_stallout)
 
 			midround_chosen_ruleset = null
 
@@ -607,8 +607,8 @@ SUBSYSTEM_DEF(dynamic)
 
 	// Pick ruleset and log
 	midround_chosen_ruleset = pick_weight(possible_rulesets)
-	log_dynamic("MIDROUND: A new midround has been chosen to save up for: [midround_chosen_ruleset]. (COST: [midround_chosen_ruleset.points_cost])")
-	message_admins("DYNAMIC: A new midround ruleset has been chosen to save up for: [midround_chosen_ruleset] (COST: [midround_chosen_ruleset.points_cost])")
+	log_dynamic("MIDROUND: Saving up for a new midround: [midround_chosen_ruleset] (COST: [midround_chosen_ruleset.points_cost])")
+	message_admins("DYNAMIC: Saving up for a new midround: [midround_chosen_ruleset] (COST: [midround_chosen_ruleset.points_cost])")
 
 /**
  * Latejoin functionality
