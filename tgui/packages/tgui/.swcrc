@@ -1,0 +1,16 @@
+{
+  "$schema": "https://swc.rs/schema.json",
+  "jsc": {
+    "loose": true,
+    "parser": {
+      "syntax": "typescript",
+      "tsx": true,
+      "jsx": true
+    },
+    "transform": {
+      "react": {
+        "runtime": "automatic"
+      }
+    }
+  }
+}

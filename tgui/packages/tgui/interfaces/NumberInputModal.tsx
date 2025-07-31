@@ -1,11 +1,11 @@
 import { Loader } from './common/Loader';
 import { InputButtons } from './common/InputButtons';
 import { isEscape, KEY } from 'common/keys';
-import { useBackend, useLocalState } from '../backend';
-import { Box, Button, RestrictedInput, Section, Stack } from '../components';
-import { Window } from '../layouts';
 import { useState, useEffect } from 'react';
 import { clamp } from 'common/math';
+import { useBackend } from '../backend';
+import { Box, Button, RestrictedInput, Section, Stack } from '../components';
+import { Window } from '../layouts';
 
 type NumberInputData = {
   init_value: number;
@@ -21,15 +21,10 @@ type NumberInputData = {
 export const NumberInputModal = (_) => {
   const { act, data } = useBackend<NumberInputData>();
   const { init_value, large_buttons, message = '', timeout, title, min_value, max_value } = data;
-  const [input, setInput] = useLocalState('input', init_value);
+  const [input, setInput] = useState(init_value);
+
   const [clampedInput, setClampedInput] = useState(clamp(input, min_value, max_value));
-  const onChange = (value: number) => {
-    if (value === input) {
-      return;
-    }
-    setInput(value);
-  };
-  const onClick = (value: number) => {
+  const setValue = (value: number) => {
     if (value === input) {
       return;
     }
@@ -62,7 +57,7 @@ export const NumberInputModal = (_) => {
               <Box color="label">{message}</Box>
             </Stack.Item>
             <Stack.Item>
-              <InputArea input={input} onClick={onClick} onChange={onChange} />
+              <InputArea input={input} onClick={setValue} onChange={setValue} />
             </Stack.Item>
             <Stack.Item>
               <InputButtons input={clampedInput} />

@@ -14,7 +14,7 @@ export const NtosCrewManifest = (props) => {
         <Section
           title="Crew Manifest"
           buttons={<Button icon="print" content="Print" disabled={!have_printer} onClick={() => act('PRG_print')} />}>
-          {map((entries, department) => (
+          {map(manifest, (entries, department) => (
             <Section key={department} level={2} title={department}>
               <Table>
                 {entries.map((entry) => (
@@ -25,7 +25,7 @@ export const NtosCrewManifest = (props) => {
                 ))}
               </Table>
             </Section>
-          ))(manifest)}
+          ))}
         </Section>
       </NtosWindow.Content>
     </NtosWindow>
