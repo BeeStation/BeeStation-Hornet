@@ -1029,7 +1029,7 @@ GLOBAL_VAR_INIT(engine_emergency, FALSE)
 /proc/engineering_emergency_revoke(delamed = FALSE)
 	var/time_to_revoke = 30 // I like to make modular code, if anyone wants to alter this they can easily
 	if(!delamed)
-		minor_announce("Congratulations crew. Engineering wing emergency access will be revoked in [time_to_revoke] seconds.", "Engine calamity averted.", 1, color_override = "yellow")
+		minor_announce("Engine integrity restored. Engineering wing emergency access will be revoked in [time_to_revoke] seconds.", "Engine calamity averted.", 1, color_override = "yellow")
 	else
 		minor_announce("Engineering wing emergency access will be revoked in [time_to_revoke] seconds. Qualified personnel are to assess damages and conduct repairs where possible. Station-wide chaos and potential hallucinatory events are to be expected. ", "Engine detonation confirmed.", 1, color_override = "yellow")
 	GLOB.engine_emergency = FALSE
