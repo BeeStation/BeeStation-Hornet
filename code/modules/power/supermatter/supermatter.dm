@@ -1034,7 +1034,7 @@ GLOBAL_VAR_INIT(engine_emergency, FALSE)
 		minor_announce("Engineering wing emergency access will be revoked in [time_to_revoke] seconds. Qualified personnel are to assess damages and conduct repairs where possible. Station-wide chaos and potential hallucinatory events are to be expected. ", "Engine detonation confirmed.", 1, color_override = "yellow")
 	GLOB.engine_emergency = FALSE
 	// Schedule the revocation for 10 seconds from now
-	addtimer(CALLBACK(GLOBAL_PROC, .proc/engineering_emergency_revoke_final), time_to_revoke SECONDS, FALSE)
+	addtimer(CALLBACK(GLOBAL_PROC, engineering_emergency_revoke_final), time_to_revoke SECONDS, FALSE)
 
 /proc/engineering_emergency_revoke_final()
 	for(var/area/engine/E as anything in get_areas(/area/engine, SSmapping.levels_by_trait(ZTRAIT_STATION)[1]))
