@@ -19467,10 +19467,7 @@
 	dir = 1;
 	light_color = "#7AC3FF"
 	},
-/obj/item/storage/crayons{
-	pixel_x = 3;
-	pixel_y = 4
-	},
+/obj/machinery/cell_charger,
 /turf/open/floor/carpet/green,
 /area/crew_quarters/cafeteria)
 "kcF" = (
@@ -27993,11 +27990,11 @@
 /area/library/abandoned)
 "oKf" = (
 /obj/structure/closet/secure_closet/hop,
-/obj/item/modular_computer/tablet/pda,
-/obj/item/modular_computer/tablet/pda,
-/obj/item/modular_computer/tablet/pda,
-/obj/item/modular_computer/tablet/pda,
-/obj/item/modular_computer/tablet/pda,
+/obj/item/modular_computer/tablet/pda/preset,
+/obj/item/modular_computer/tablet/pda/preset,
+/obj/item/modular_computer/tablet/pda/preset,
+/obj/item/modular_computer/tablet/pda/preset,
+/obj/item/modular_computer/tablet/pda/preset,
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
@@ -38265,6 +38262,7 @@
 /turf/open/floor/iron/dark,
 /area/hallway/primary/aft)
 "uef" = (
+/obj/machinery/libraryscanner,
 /turf/open/floor/plating,
 /area/library/abandoned)
 "ueQ" = (
@@ -43632,12 +43630,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/wood,
 /obj/effect/turf_decal/siding/wood,
-/obj/item/reagent_containers/condiment/peppermill{
-	pixel_y = 28
-	},
-/obj/item/reagent_containers/condiment/saltshaker{
-	pixel_y = 23
-	},
 /obj/item/paicard,
 /turf/open/floor/carpet/green,
 /area/crew_quarters/cafeteria)

@@ -55,7 +55,7 @@
 	gloves = /obj/item/clothing/gloves/color/black
 	head = /obj/item/clothing/head/hats/hos/beret
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
-	r_pocket = /obj/item/modular_computer/tablet/pda/heads/head_of_security
+	r_pocket = /obj/item/modular_computer/tablet/pda/preset/heads/head_of_security
 	l_pocket = /obj/item/clothing/accessory/badge/officer/hos
 
 	backpack = /obj/item/storage/backpack/security

@@ -43,7 +43,7 @@
 	jobtype = /datum/job/cargo_technician
 
 	id = /obj/item/card/id/job/cargo_technician
-	belt = /obj/item/modular_computer/tablet/pda/cargo_technician
+	belt = /obj/item/modular_computer/tablet/pda/preset/cargo_technician
 	ears = /obj/item/radio/headset/headset_cargo
 	uniform = /obj/item/clothing/under/rank/cargo/tech
 	l_hand = /obj/item/export_scanner

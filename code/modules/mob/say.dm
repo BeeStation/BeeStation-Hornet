@@ -157,7 +157,7 @@
 	for(var/I in 1 to MESSAGE_MODS_LENGTH)
 		var/key = message[1]
 		var/chop_to = 2 //By default we just take off the first char
-		if(key == "#" && !mods[WHISPER_MODE])
+		if((key == "#" && !mods[WHISPER_MODE]))
 			mods[WHISPER_MODE] = MODE_WHISPER
 		else if(key == "%" && !mods[MODE_SING])
 			mods[MODE_SING] = TRUE

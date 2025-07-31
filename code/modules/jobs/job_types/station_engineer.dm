@@ -40,7 +40,7 @@
 
 	id =  /obj/item/card/id/job/station_engineer
 	belt = /obj/item/storage/belt/utility/full/engi
-	l_pocket = /obj/item/modular_computer/tablet/pda/station_engineer
+	l_pocket = /obj/item/modular_computer/tablet/pda/preset/station_engineer
 	ears = /obj/item/radio/headset/headset_eng
 	uniform = /obj/item/clothing/under/rank/engineering/engineer
 	shoes = /obj/item/clothing/shoes/workboots
