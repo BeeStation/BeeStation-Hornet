@@ -43,10 +43,13 @@ SUBSYSTEM_DEF(dynamic)
 	var/list/datum/dynamic_ruleset/midround/midround_configured_rulesets
 
 	/// The chances for each type of midround ruleset to be picked
-	/// Set in `configure_variables`
+	/// Set in `configure_variables()`
 	var/midround_light_chance
 	var/midround_medium_chance
 	var/midround_heavy_chance
+
+	/// The cooldown until the chosen midround can execute
+	COOLDOWN_DECLARE(midround_ruleset_cooldown)
 
 	/// Dynamic Panel variables
 
@@ -162,6 +165,10 @@ SUBSYSTEM_DEF(dynamic)
 	var/midround_linear_delta = 0.9
 	/// This delta is applied no matter what
 	var/midround_linear_delta_forced = 0.25
+
+	/// How long dynamic will wait to execute another ruleset if it fails to execute the previous one
+	/// Used to mitigate spam and antag rolling
+	var/midround_execution_fail_cooldown = 5 MINUTES
 
 	/// The point delta per living antagonist
 	var/list/midround_points_per_antag = list(
@@ -465,7 +472,9 @@ SUBSYSTEM_DEF(dynamic)
 	update_midround_points()
 
 	// Try to choose/execute a ruleset
-	if(world.time - SSticker.round_start_time > midround_grace_period)
+	if(world.time - SSticker.round_start_time > midround_grace_period && COOLDOWN_FINISHED(src, midround_ruleset_cooldown))
+		COOLDOWN_START(src, midround_ruleset_cooldown, midround_execution_fail_cooldown)
+
 		if(!midround_chosen_ruleset)
 			choose_midround_ruleset()
 		else if(midround_points >= midround_chosen_ruleset.points_cost)
@@ -499,7 +508,7 @@ SUBSYSTEM_DEF(dynamic)
 	var/antag_delta = 0
 	for(var/mob/antag in current_players[CURRENT_LIVING_ANTAGS])
 		for(var/datum/antagonist/antag_datum in antag.mind?.antag_datums)
-			antag_delta += midround_points_per_antag[antag_datum.type] || midround_points_per_antag["[antag_datum.type]"]
+			antag_delta += midround_points_per_antag["[antag_datum.type]"]
 
 	// Add points
 	midround_points += max(living_delta + observing_delta + dead_delta + antag_delta + midround_linear_delta, 0)
