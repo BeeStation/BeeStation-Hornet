@@ -69,11 +69,11 @@
 		if(!lit)
 			set_lit(TRUE)
 			user.visible_message("In a split second, [user] ignites the [src] in one smooth movement.", span_notice("In a split second, you ignite the [src] in one smooth movement."))
-			playsound(src.loc, 'sound/magic/fireball.ogg', 50, 1)
+			playsound(src, 'sound/weapons/emitter.ogg', 30, 1, -1)
 		else
 			set_lit(FALSE)
 			user.visible_message("You see the blue flame vanish, as [user] extinguishes the [src] without even looking at what [user.p_theyre()] doing. Wow.", span_notice("You extinguish the [src] without even looking at what you're doing. Wow."))
-			playsound(src.loc, 'sound/magic/smoke.ogg', 50, 1)
+			playsound(src, 'sound/weapons/emitter.ogg', 10, 1, -1, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 1)
 	else
 		. = ..()
 

@@ -187,6 +187,24 @@
 					to_chat(owner, span_warning("You can't focus without your hat!"))
 				return FALSE
 
+	else
+		// If the spell requires wizard equipment and we're not a human (can't wear robes or hats), that's just a given
+		if(spell_requirements & (SPELL_REQUIRES_MAGICIAN_FOCUS|SPELL_REQUIRES_HUMAN))
+			if(feedback)
+				to_chat(owner, ("<span class='warning'>[src] can only be cast by humans!</span>"))
+			return FALSE
+
+		if(!(spell_requirements & SPELL_CASTABLE_AS_BRAIN) && isbrain(owner))
+			if(feedback)
+				to_chat(owner, ("<span class='warning'>[src] can't be cast in this state!</span>"))
+			return FALSE
+
+		// Being put into a card form breaks a lot of spells, so we'll just forbid them in these states
+		if(ispAI(owner) || (isAI(owner) && istype(owner.loc, /obj/item/aicard)))
+			return FALSE
+
+	return TRUE
+
 	if(ishuman(owner))
 		if(spell_requirements & SPELL_REQUIRES_WIZARD_GARB)
 			var/mob/living/carbon/human/human_owner = owner
