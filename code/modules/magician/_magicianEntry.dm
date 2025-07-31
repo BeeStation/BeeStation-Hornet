@@ -60,16 +60,15 @@
  * Return FALSE to prevent the entry from being added to magician books, TRUE otherwise
  */
 /datum/magician_entry/proc/can_be_purchased(obj/item/magician/book)
-    if(!name || !desc || !category || locked)
-        return FALSE
+	if(!name || !desc || !category || locked)
+		return FALSE
 
-    var/book_level_index = MAGICIAN_LEVELS.Find(magician_level)
-    var/required_level_index = MAGICIAN_LEVELS.Find(magician_level)
+	var/book_level_index = MAGICIAN_LEVELS.Find(magician_level)
+	var/required_level_index = MAGICIAN_LEVELS.Find(magician_level)
+	if(book_level_index < required_level_index)
+		return FALSE
 
-    if(book_level_index < required_level_index)
-        return FALSE
-
-    return TRUE
+	return TRUE
 
 
 /**
