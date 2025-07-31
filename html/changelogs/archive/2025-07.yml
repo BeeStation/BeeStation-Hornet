@@ -452,6 +452,8 @@
   - bugfix: fixed hacked AI modules
   - bugfix: fixed the reset model wire on borgs
 2025-07-31:
+  DStarsthy:
+  - rscadd: Added library scanner to echostation
   PowerfulBacon:
   - balance: Piercing syringes can now pierce most station armours, and the threshold
       for armour being protected from piercing (and healing) has been raised to MELEE
