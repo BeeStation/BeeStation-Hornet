@@ -887,7 +887,7 @@
 	return
 
 /mob/living/silicon/robot/proc/has_model()
-	if(!model || istype(model, /obj/item/robot_model))
+	if(!model || model.type == /obj/item/robot_model)
 		return FALSE
 	else
 		return TRUE

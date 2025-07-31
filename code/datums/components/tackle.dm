@@ -286,7 +286,7 @@
 	user.SetKnockdown(0, ignore_canstun = TRUE)
 	user.get_up(TRUE)
 	adjust_staggered_up_to(user, STAGGERED_SLOWDOWN_LENGTH, 10 SECONDS)
-	adjust_staggered_up_to(target, STAGGERED_SLOWDOWN_LENGTH * 2, 10 SECONDS) //okay maybe slightly good for the sacker, it's a mild benefit okay?
+	adjust_staggered_up_to(target, STAGGERED_SLOWDOWN_LENGTH, 10 SECONDS)
 
 /**
  * Our negative tackling outcomes.
@@ -346,7 +346,6 @@
 			user.Paralyze(3 SECONDS)
 			user.apply_damage(80, STAMINA)
 			user.apply_damage(20, BRUTE, BODY_ZONE_HEAD)
-			user.gain_trauma(/datum/brain_trauma/mild/concussion)
 			adjust_staggered_up_to(user, STAGGERED_SLOWDOWN_LENGTH * 3, 10 SECONDS)
 
 /**
@@ -381,8 +380,15 @@
 
 	if(HAS_TRAIT(target, TRAIT_GIANT))
 		defense_mod += 2
-	if(target.health < 50)
+
+	if(target.health >= 80)
+		defense_mod += 2
+	if(target.health < 60)
 		defense_mod -= 1
+	if(target.health < 40)
+		defense_mod -= 2
+	if(target.health < 20)
+		defense_mod -= 2
 
 	if(ishuman(target))
 		var/mob/living/carbon/human/tackle_target = target
@@ -395,6 +401,10 @@
 		if(tackle_target.mob_negates_gravity())
 			defense_mod += 1
 		if(tackle_target.is_shove_knockdown_blocked()) // riot armor and such
+			defense_mod += 5
+		if(tackle_target.combat_mode) // they're ready for you
+			defense_mod += 5
+		if(tackle_target.throw_mode) //they're REALLY ready for you
 			defense_mod += 5
 
 		var/obj/item/organ/tail/lizard/el_tail = tackle_target.get_organ_slot(ORGAN_SLOT_TAIL)
@@ -435,14 +445,14 @@
 			attack_mod -= 2
 		var/datum/component/mood/human_sacker_sanity = human_sacker.GetComponent(/datum/component/mood)
 		if(human_sacker_sanity.sanity == SANITY_INSANE) //I've gone COMPLETELY INSANE
-			attack_mod += 15
-			human_sacker.adjustStaminaLoss(100) //AHAHAHAHAHAHAHAHA
+			attack_mod += 5
+			human_sacker.adjustStaminaLoss(150) //AHAHAHAHAHAHAHAHA
 
 		if(human_sacker.is_shove_knockdown_blocked()) // tackling with riot specialized armor, like riot armor, is effective but tiring
 			attack_mod += 2
 			human_sacker.adjustStaminaLoss(20)
 
-	var/randomized_tackle_roll = rand(-3, 3) - defense_mod + attack_mod + skill_mod
+	var/randomized_tackle_roll = rand(-6, 6) - defense_mod + attack_mod + skill_mod
 	return randomized_tackle_roll
 
 

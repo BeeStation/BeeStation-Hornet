@@ -148,15 +148,18 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	data["signals"] = signals
 	return data
 
-/datum/component/gps/item/ui_act(action, params)
-	if(..())
+/datum/component/gps/item/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	. = ..()
+	if(.)
 		return
+
 	switch(action)
 		if("rename")
 			var/atom/parentasatom = parent
-			var/input = tgui_input_text(usr, "Please enter desired tag.", parentasatom.name, gpstag, 20)
-
-			if (!input) // no input so we return
+			var/input = tgui_input_text(usr, "Enter the desired tag", "GPS Tag", gpstag, max_length = 20)
+			if (QDELETED(ui) || ui.status != UI_INTERACTIVE)
+				return
+			if (!input)
 				to_chat(usr, span_warning("You need to enter something!"))
 				return
 

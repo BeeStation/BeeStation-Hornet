@@ -323,7 +323,7 @@
 	. = ..()
 	if (clothing_flags & THICKMATERIAL)
 		.["thick"] = "Extremely thick, protecting from piercing injections and sprays."
-	else if (get_armor().get_rating(MELEE) >= 10 || get_armor().get_rating(BULLET) >= 10)
+	else if (get_armor().get_rating(MELEE) >= 20 || get_armor().get_rating(BULLET) >= 20)
 		.["rigid"] = "Protects from some injections and sprays."
 	if (clothing_flags & CASTING_CLOTHES)
 		.["magical"] = "Allows magical beings to cast spells when wearing [src]."
