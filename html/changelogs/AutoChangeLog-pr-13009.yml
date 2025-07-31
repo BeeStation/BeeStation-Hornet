@@ -1,0 +1,6 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - balance: Piercing syringes can now pierce most station armours, and the threshold
+      for armour being protected from piercing (and healing) has been raised to MELEE
+      II or BULLET II, from MELEE I or BULLET I.
