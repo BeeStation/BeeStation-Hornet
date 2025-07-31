@@ -1,4 +1,4 @@
-//#define TESTING_DYNAMIC
+#define TESTING_DYNAMIC
 
 #if defined(TESTING_DYNAMIC) && defined(CIBUILDING)
 	#error TESTING_DYNAMIC is enabled, disable this!
