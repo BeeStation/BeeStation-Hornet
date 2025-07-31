@@ -325,6 +325,8 @@
 		.["rigid"] = "Protects from some injections and sprays."
 	if (clothing_flags & CASTING_CLOTHES)
 		.["magical"] = "Allows magical beings to cast spells when wearing [src]."
+	if (clothing_flags & MAGICIAN_FOCUSES)
+		.["magical"] = "Allows magicians to perform miracles when wearing [src]."
 	if((clothing_flags & STOPSPRESSUREDAMAGE) || (visor_flags & STOPSPRESSUREDAMAGE))
 		.["pressureproof"] = "Protects the wearer from extremely low or high pressure, such as vacuum of space."
 	//if(flags_cover & PEPPERPROOF)

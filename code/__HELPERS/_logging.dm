@@ -224,6 +224,9 @@
 /proc/log_spellbook(text)
 	WRITE_LOG(world.log, text)
 
+/// Logging for magician powers learned
+/proc/log_magician_book(text)
+	WRITE_LOG(world.log, text)
 
 /* Log to both DD and the logfile. */
 /proc/log_world(text)
