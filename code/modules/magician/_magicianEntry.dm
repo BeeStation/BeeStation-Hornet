@@ -51,8 +51,7 @@
 		var/datum/action/spell/tmp = new spell_type()
 		if(tmp.spell_requirements & SPELL_REQUIRES_MAGICIAN_FOCUS)
 			requires_magician_focus = TRUE
-		qdel(tmp)  // Clean it up immediately
-
+		qdel(tmp)
 
 /**
  * Determines if this entry can be purchased from a magician book

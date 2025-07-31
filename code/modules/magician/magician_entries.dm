@@ -31,6 +31,6 @@
 	spell_type = /datum/action/spell/shapeshift/magician
 	category = "Transformation"
 	cost = 10
-	limit = 6
+	limit = 5
 	cooldown = 60 SECONDS
 	no_coexistance_typecache = list(/datum/action/spell/shapeshift/wizard)

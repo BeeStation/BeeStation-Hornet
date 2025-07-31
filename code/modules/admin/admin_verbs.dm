@@ -946,6 +946,8 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 			real_reqs += "Must be off central command z-level"
 		if(reqs & SPELL_REQUIRES_WIZARD_GARB)
 			real_reqs += "Must have wizard clothes"
+		if(reqs & SPELL_REQUIRES_MAGICIAN_FOCUS)
+			real_reqs += "Must have magician focus"
 
 		all_requirements += "<tr><td>[initial(spell.name)]</td> <td>[english_list(real_reqs, "No requirements")]</td></tr>"
 

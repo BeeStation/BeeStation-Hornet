@@ -24,7 +24,7 @@
 	desc = "Transform into a different creature, gaining its abilities and appearance. \
 		Once you have made your choice, it cannot be changed."
 
-	cooldown_time = 60 SECONDS
+	cooldown_time = 50 SECONDS
 	cooldown_reduction_per_rank = 9.5 SECONDS
 
 	invocation = "Hocus Pocus!"
@@ -32,7 +32,7 @@
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_MAGICIAN_FOCUS
 
 	possible_shapes = list(
-		/mob/living/simple_animal/mouse,
+		/mob/living/simple_animal/chick,
 		/mob/living/basic/pet/dog/corgi/capybara,
 		/mob/living/basic/mothroach,
 		/mob/living/simple_animal/pet/cat,

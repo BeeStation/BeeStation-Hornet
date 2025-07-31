@@ -20,6 +20,9 @@
 	if(make_robeless && (spell_to_give.spell_requirements & SPELL_REQUIRES_WIZARD_GARB))
 		spell_to_give.spell_requirements &= ~SPELL_REQUIRES_WIZARD_GARB
 
+	if(make_robeless && (spell_to_give.spell_requirements & SPELL_REQUIRES_MAGICIAN_FOCUS))
+		spell_to_give.spell_requirements &= ~SPELL_REQUIRES_MAGICIAN_FOCUS
+
 /obj/item/implant/spell/Destroy()
 	QDEL_NULL(spell_to_give)
 	return ..()

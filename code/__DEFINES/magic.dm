@@ -42,8 +42,6 @@
 // Bitflags for spell requirements
 /// Whether the spell requires wizard clothes to cast.
 #define SPELL_REQUIRES_WIZARD_GARB (1 << 0)
-/// Whether the spell requires magician clothes to cast.
-#define SPELL_REQUIRES_MAGICIAN_FOCUS (1 << 8)
 /// Whether the spell can only be cast by humans (mob type, not species).
 /// SPELL_REQUIRES_WIZARD_GARB comes with this flag implied, as carbons and below can't wear clothes.
 #define SPELL_REQUIRES_HUMAN (1 << 1)
@@ -60,6 +58,8 @@
 #define SPELL_REQUIRES_MIND (1 << 6)
 /// Whether the spell requires the caster have a mime vow (mindless mobs will succeed this check regardless).
 #define SPELL_REQUIRES_MIME_VOW (1 << 7)
+/// Whether the spell requires magician clothes to cast.
+#define SPELL_REQUIRES_MAGICIAN_FOCUS (1 << 8)
 /// Whether the spell can be cast, even if the caster is unable to speak the invocation
 /// (effectively making the invocation flavor, instead of required).
 #define SPELL_CASTABLE_WITHOUT_INVOCATION (1 << 9)
