@@ -278,6 +278,8 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			playsound(src, 'sound/machines/engine_alert2.ogg', 100, FALSE, 30, 30, falloff_distance = 10)
 		if(SUPERMATTER_WARNING)
 			playsound(src, 'sound/machines/terminal_alert.ogg', 75)
+	if(!GLOB.engine_emergency)
+		engineering_emergency_access()
 
 /obj/machinery/power/supermatter_crystal/proc/get_integrity_percent()
 	var/integrity = damage / explosion_point
@@ -374,6 +376,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		investigate_log("has collapsed into a singularity.", INVESTIGATE_ENGINES)
 	else if(power > POWER_PENALTY_THRESHOLD)
 		investigate_log("has spawned additional energy balls.", INVESTIGATE_ENGINES)
+	engineering_emergency_revoke(delamed = TRUE)
 
 	qdel(src)
 
@@ -585,7 +588,8 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			supermatter_anomaly_gen(src, ANOMALY_GRAVITATIONAL, rand(5, 10))
 		if(power > SEVERE_POWER_PENALTY_THRESHOLD && prob(2) || prob(0.3) && power > POWER_PENALTY_THRESHOLD)
 			supermatter_anomaly_gen(src, ANOMALY_PYRO, rand(5, 10))
-
+	if(damage < warning_point && GLOB.engine_emergency)
+		engineering_emergency_revoke()
 	if(damage > warning_point) // while the core is still damaged and it's still worth noting its status
 		if(damage_archived < warning_point) //If damage_archive is under the warning point, this is the very first cycle that we've reached said point.
 			SEND_SIGNAL(src, COMSIG_SUPERMATTER_DELAM_START_ALARM)
@@ -1009,6 +1013,36 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		return FALSE
 	else //Atmos is either operational, or hasn't been stumbling enough for it to matter yet
 		return TRUE
+
+/// Global procs for emercency access, this can be used in other engines if needed
+GLOBAL_VAR_INIT(engine_emergency, FALSE)
+/proc/engineering_emergency_access()
+	for(var/area/maintenance/E as anything in get_areas(/area/engine, SSmapping.levels_by_trait(ZTRAIT_STATION)[1]))
+		for(var/turf/in_area as anything in E.get_contained_turfs())
+			for(var/obj/machinery/door/airlock/A in in_area)
+				A.emergency = TRUE
+				A.update_icon()
+				A.wires.ui_update()
+	minor_announce("Engineering wing under emergency access! All qualified personnel are to respond immediately and stabilize the engine. Non-essential crew are advised to evacuate the area at once.", "Attention! Engine unstable!", 1, color_override = "yellow")
+	GLOB.engine_emergency = TRUE
+
+/proc/engineering_emergency_revoke(delamed = FALSE)
+	var/time_to_revoke = 30 // I like to make modular code, if anyone wants to alter this they can easily
+	if(!delamed)
+		minor_announce("Congratulations crew. Engineering wing emergency access will be revoked in [time_to_revoke] seconds.", "Engine calamity averted.", 1, color_override = "yellow")
+	else
+		minor_announce("Engineering wing emergency access will be revoked in [time_to_revoke] seconds. Qualified personnel are to assess damages and conduct repairs where possible. Station-wide chaos and potential hallucinatory events are to be expected. ", "Engine detonation confirmed.", 1, color_override = "yellow")
+	GLOB.engine_emergency = FALSE
+	// Schedule the revocation for 10 seconds from now
+	addtimer(CALLBACK(GLOBAL_PROC, .proc/engineering_emergency_revoke_final), time_to_revoke SECONDS, FALSE)
+
+/proc/engineering_emergency_revoke_final()
+	for(var/area/engine/E as anything in get_areas(/area/engine, SSmapping.levels_by_trait(ZTRAIT_STATION)[1]))
+		for(var/turf/in_area as anything in E.get_contained_turfs())
+			for(var/obj/machinery/door/airlock/A in in_area)
+				A.emergency = FALSE
+				A.update_icon()
+				A.wires.ui_update()
 
 #undef HALLUCINATION_RANGE
 
