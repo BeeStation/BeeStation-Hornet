@@ -1,0 +1,4 @@
+author: DStarsthy
+delete-after: true
+changes:
+  - rscadd: Added library scanner to echostation
