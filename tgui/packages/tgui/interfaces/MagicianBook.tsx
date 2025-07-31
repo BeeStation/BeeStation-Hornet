@@ -1,11 +1,8 @@
 import { BooleanLike } from 'common/react';
-import { multiline } from 'common/string';
-import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Dimmer, Divider, Icon, Input, NoticeBox, ProgressBar, Section, Stack, Tabs, LabeledList } from '../components';
+import { useBackend } from '../backend';
+import { Box, Button, Divider, NoticeBox, ProgressBar, Section, Stack, Tabs, LabeledList } from '../components';
 import { Window } from '../layouts';
-import { ReactNode } from 'react';
-
-import React, { useState } from 'react';
+import { ReactNode, useState, useEffect } from 'react';
 
 type MagicianBookData = {
   owner?: string;
@@ -18,7 +15,7 @@ type MagicianBookData = {
     description: string;
     category: string;
     cost: number;
-    ref: byondRef;
+    ref: string; // Changed from byondRef to string
     times: number;
     cooldown: number;
     requires_magician_focus: BooleanLike;
@@ -27,30 +24,15 @@ type MagicianBookData = {
   }>;
 };
 
-type byondRef = string;
-
 type SpellEntry = {
-  // Name of the spell
   name: string;
-  // Description of what the spell does
   desc: string;
-  // Byond REF of the spell entry datum
-  ref: byondRef;
-  // Whether the spell requires wizard clothing to cast
+  ref: string;
   requires_magician_focus: BooleanLike;
-  // Spell points required to buy the spell
   cost: number;
-  // How many times the spell has been bought
   times: number;
-  // Cooldown length of the spell once cast once
   cooldown: number;
-  // Whether the spell is refundable
   limit: number;
-};
-
-type Data = {
-  owner: string;
-  entries: SpellEntry[];
 };
 
 const categoryTabs = [
@@ -67,6 +49,8 @@ const categoryTabs = [
 export const MagicianBook = (props) => {
   const { act, data } = useBackend<MagicianBookData>();
   const [tab, setTab] = useState('Core');
+  const [tick, setTick] = useState(0); // Added tick state
+
   const introText = [
     'As a stage magician, you must never reveal the secrets behind your tricks.',
     'The art of magic relies on mystery and wonder.',
@@ -76,25 +60,19 @@ export const MagicianBook = (props) => {
   ];
 
   const magicianLevels = ['NOVICE', 'APPRENTICE', 'JOURNEYMAN', 'EXPERT', 'MASTER'];
-
   const currentLevelIndex = magicianLevels.indexOf(data.magician_level || 'NOVICE');
-
   const nextLevelXP = data.magician_xp_to_next || 10;
   const currentXP = data.magician_xp || 0;
   const progressPercent = Math.min((currentXP / nextLevelXP) * 100, 100);
 
-  // Helper to get rainbow color based on time and index
-  const getRainbowColor = (idx) => {
+  const getRainbowColor = (idx: number) => {
     const now = Date.now();
-    // Each line offset by idx*0.2
     const hue = (now / 20 + idx * 40) % 360;
     return `hsl(${hue}, 80%, 60%)`;
   };
 
-  // Force re-render every 50ms for animation
-  const [, setTick] = useState(0);
-  React.useEffect(() => {
-    const interval = setInterval(() => setTick((tick) => tick + 1), 50);
+  useEffect(() => {
+    const interval = setInterval(() => setTick((t) => t + 1), 50);
     return () => clearInterval(interval);
   }, []);
 
@@ -145,50 +123,18 @@ export const MagicianBook = (props) => {
           </Stack.Item>
           <Stack.Item>
             <Tabs fluid>
-              <Tabs.Tab icon="book" selected={tab === 'Core'} onClick={() => setTab('Core')}>
-                Core
-              </Tabs.Tab>
-              <Tabs.Tab icon="ghost" selected={tab === 'Vanish'} onClick={() => setTab('Vanish')}>
-                Vanish
-              </Tabs.Tab>
-              <Tabs.Tab icon="mortar-board" selected={tab === 'Production'} onClick={() => setTab('Production')}>
-                Production
-              </Tabs.Tab>
-              <Tabs.Tab icon="fish" selected={tab === 'Transformation'} onClick={() => setTab('Transformation')}>
-                Transformation
-              </Tabs.Tab>
-              <Tabs.Tab icon="hand" selected={tab === 'Restoration'} onClick={() => setTab('Restoration')}>
-                Restoration
-              </Tabs.Tab>
-              <Tabs.Tab icon="chess-king" selected={tab === 'Prestidigitation'} onClick={() => setTab('Prestidigitation')}>
-                Prestidigitation
-              </Tabs.Tab>
-              <Tabs.Tab icon="magic" selected={tab === 'Illusion'} onClick={() => setTab('Illusion')}>
-                Illusion
-              </Tabs.Tab>
-              <Tabs.Tab icon="hat-wizard" selected={tab === 'Conjuration'} onClick={() => setTab('Conjuration')}>
-                Conjuration
-              </Tabs.Tab>
+              {categoryTabs.map((tabInfo) => (
+                <Tabs.Tab
+                  key={tabInfo.key}
+                  icon={tabInfo.icon}
+                  selected={tab === tabInfo.key}
+                  onClick={() => setTab(tabInfo.key)}>
+                  {tabInfo.title}
+                </Tabs.Tab>
+              ))}
             </Tabs>
           </Stack.Item>
           <Stack.Item grow>
-            {tab === 'Placeholder' && (
-              <Section title="Placeholder">
-                <p>You should not be seeing this.</p>
-                {Array.isArray(data.magician_entry) && (
-                  <LabeledList>
-                    {data.magician_entry
-                      .filter((entry) => entry.category?.toLowerCase() === 'core')
-                      .map((entry, idx) => (
-                        <LabeledList.Item key={idx} label={entry.title || 'Untitled'}>
-                          {entry.description || 'No description.'}
-                        </LabeledList.Item>
-                      ))}
-                  </LabeledList>
-                )}
-              </Section>
-            )}
-
             {categoryTabs.map(
               (tabInfo) =>
                 tab === tabInfo.key && (
@@ -216,20 +162,14 @@ export const MagicianBook = (props) => {
   );
 };
 
-/**
- * Helper to render magician entries by category, with purchase buttons.
- */
-const CategorySection = ({
-  category,
-  data,
-  act,
-  magicknowledge,
-}: {
+type CategorySectionProps = {
   category: string;
   data: MagicianBookData;
   act: Function;
   magicknowledge: number;
-}) => {
+};
+
+const CategorySection = ({ category, data, act, magicknowledge }: CategorySectionProps) => {
   const entries = Array.isArray(data.magician_entry)
     ? data.magician_entry.filter((entry) => entry.category?.toLowerCase() === category.toLowerCase())
     : [];
@@ -241,7 +181,9 @@ const CategorySection = ({
   return (
     <LabeledList>
       {entries.map((entry, idx) => {
+        const isSpell = entry.is_spell === true;
         const isLocked = entry.times >= entry.limit;
+        const cost = entry.cost ?? 1;
 
         return (
           <LabeledList.Item
@@ -249,22 +191,27 @@ const CategorySection = ({
             label={<span style={{ color: isLocked ? '#999' : undefined }}>{entry.title || 'Untitled'}</span>}
             buttons={
               <Button
-                icon={isLocked ? 'lock' : 'brain'}
-                disabled={isLocked || magicknowledge < entry.cost}
+                icon={isLocked ? 'lock' : isSpell ? 'brain' : 'brain'}
+                disabled={isLocked || magicknowledge < cost}
                 tooltip={
                   isLocked
                     ? 'You have reached the purchase limit for this trick.'
-                    : magicknowledge < entry.cost
+                    : magicknowledge < cost
                       ? 'Not enough Magic Knowledge'
-                      : entry.is_spell
-                        ? `Learn for ${entry.cost} Magic Knowledge`
-                        : `Conjure for ${entry.cost} Magic Knowledge`
+                      : isSpell
+                        ? `Upgrade for ${cost} Magic Knowledge`
+                        : `Conjure for ${cost} Magic Knowledge`
                 }
                 onClick={() => act('purchase', { spellref: entry.ref })}>
-                {isLocked ? 'Locked' : `${entry.is_spell ? 'Learn' : 'Conjure'} (${entry.cost ?? 1})`}
+                {isLocked ? 'Locked' : isSpell ? `Learn (${cost})` : `Conjure (${cost})`}
               </Button>
             }>
-            <span style={{ opacity: isLocked ? 0.5 : 1 }}>{entry.description || 'No description.'}</span>
+            <span style={{ opacity: isLocked ? 0.5 : 1 }}>
+              {entry.description || 'No description.'}
+              {isSpell && entry.times > 0 && (
+                <span style={{ display: 'block', fontSize: '0.8em', color: '#aaa' }}>Level: {entry.times}</span>
+              )}
+            </span>
           </LabeledList.Item>
         );
       })}

@@ -58,11 +58,9 @@
 #define SPELL_REQUIRES_MIND (1 << 6)
 /// Whether the spell requires the caster have a mime vow (mindless mobs will succeed this check regardless).
 #define SPELL_REQUIRES_MIME_VOW (1 << 7)
-/// Whether the spell requires magician clothes to cast.
-#define SPELL_REQUIRES_MAGICIAN_FOCUS (1 << 8)
 /// Whether the spell can be cast, even if the caster is unable to speak the invocation
 /// (effectively making the invocation flavor, instead of required).
-#define SPELL_CASTABLE_WITHOUT_INVOCATION (1 << 9)
+#define SPELL_CASTABLE_WITHOUT_INVOCATION (1 << 8)
 
 DEFINE_BITFIELD(spell_requirements, list(
 	"SPELL_CASTABLE_AS_BRAIN" = SPELL_CASTABLE_AS_BRAIN,
@@ -74,7 +72,6 @@ DEFINE_BITFIELD(spell_requirements, list(
 	"SPELL_REQUIRES_NO_ANTIMAGIC" = SPELL_REQUIRES_NO_ANTIMAGIC,
 	"SPELL_REQUIRES_OFF_CENTCOM" = SPELL_REQUIRES_OFF_CENTCOM,
 	"SPELL_REQUIRES_WIZARD_GARB" = SPELL_REQUIRES_WIZARD_GARB,
-	"SPELL_REQUIRES_MAGICIAN_FOCUS" = SPELL_REQUIRES_MAGICIAN_FOCUS,
 ))
 
 // Bitflags for teleport spells

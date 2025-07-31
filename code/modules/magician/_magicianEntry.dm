@@ -47,12 +47,6 @@
 /datum/magician_entry/New()
 	no_coexistance_typecache = typecacheof(no_coexistance_typecache)
 
-	if(ispath(spell_type))
-		var/datum/action/spell/tmp = new spell_type()
-		if(tmp.spell_requirements & SPELL_REQUIRES_MAGICIAN_FOCUS)
-			requires_magician_focus = TRUE
-		qdel(tmp)
-
 /**
  * Determines if this entry can be purchased from a magician book
  * Used for configs / round related restrictions and levels.
@@ -100,36 +94,28 @@
  * Return TRUE if the purchase was successful, FALSE otherwise
  */
 /datum/magician_entry/proc/buy_spell(mob/living/carbon/human/user, obj/item/magician/book/book)
-	var/datum/action/spell/existing = locate(spell_type) in user.actions
-	if(existing)
-		var/before_name = existing.name
-		if(!existing.level_spell())
-			to_chat(user, ("<span class='warning'>This spell cannot be improved further!</span>"))
-			return FALSE
+	var/cost_to_use = current_scaled_cost()
 
-		to_chat(user, ("<span class='notice'>You have improved [before_name] into [existing.name].</span>"))
-		name = existing.name
+	if(book.magic_knowledge < cost_to_use)
+		return FALSE
 
-		set_spell_info()
-		log_magician_book("[key_name(user)] improved their knowledge of [initial(existing.name)] to level [existing.spell_level] for [cost] knowledge")
-		SSblackbox.record_feedback("nested tally", "magician_spell_improved", 1, list("[name]", "[existing.spell_level]"))
-		log_purchase(user.key)
-
-		book.magician_xp += xp_reward
-		return TRUE
-
-	// New spell
 	var/datum/action/spell/new_spell = new spell_type(user.mind || user)
 	new_spell.Grant(user)
-	to_chat(user, ("<span class='notice'>You have learned [new_spell.name].</span>"))
+	times += 1
 
-	log_magician_book("[key_name(user)] learned [new_spell] for [cost] knowledge")
+	to_chat(user, "<span class='notice'>You have learned [new_spell.name].</span>")
+	log_magician_book("[key_name(user)] learned [new_spell.name] for [cost_to_use] knowledge ([times] times total)")
 	SSblackbox.record_feedback("tally", "magician_spell_learned", 1, name)
 	log_purchase(user.key)
 
 	book.magician_xp += xp_reward
+	book.magic_knowledge -= cost_to_use
+	set_spell_info()
 
 	return TRUE
+
+/datum/magician_entry/proc/current_scaled_cost()
+	return ceil(cost * (1 + 0.25 * times))
 
 
 /datum/magician_entry/proc/log_purchase(key)

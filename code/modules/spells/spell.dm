@@ -63,7 +63,7 @@
 	/// Can be "none", "whisper", "shout", "emote"
 	var/invocation_type = INVOCATION_NONE
 	/// Flag for certain states that the spell requires the user be in to cast.
-	var/spell_requirements = SPELL_REQUIRES_WIZARD_GARB|SPELL_REQUIRES_NO_ANTIMAGIC|SPELL_REQUIRES_MAGICIAN_FOCUS
+	var/spell_requirements = SPELL_REQUIRES_WIZARD_GARB|SPELL_REQUIRES_NO_ANTIMAGIC
 	/// This determines what type of antimagic is needed to block the spell.
 	/// (MAGIC_RESISTANCE, MAGIC_RESISTANCE_MIND, MAGIC_RESISTANCE_HOLY)
 	/// If SPELL_REQUIRES_NO_ANTIMAGIC is set in Spell requirements,
@@ -96,7 +96,7 @@
 	// Register some signals so our button's icon stays up to date
 	if(spell_requirements & SPELL_REQUIRES_OFF_CENTCOM)
 		RegisterSignal(owner, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(update_icon_on_signal))
-	if(spell_requirements & (SPELL_REQUIRES_NO_ANTIMAGIC|SPELL_REQUIRES_WIZARD_GARB|SPELL_REQUIRES_MAGICIAN_FOCUS))
+	if(spell_requirements & (SPELL_REQUIRES_NO_ANTIMAGIC|SPELL_REQUIRES_WIZARD_GARB))
 		RegisterSignal(owner, COMSIG_MOB_EQUIPPED_ITEM, PROC_REF(update_icon_on_signal))
 	RegisterSignals(owner, list(COMSIG_MOB_ENTER_JAUNT, COMSIG_MOB_AFTER_EXIT_JAUNT), PROC_REF(update_icon_on_signal))
 
@@ -187,26 +187,9 @@
 					to_chat(owner, span_warning("You don't feel strong enough without your hat!"))
 				return FALSE
 
-		if(spell_requirements & SPELL_REQUIRES_MAGICIAN_FOCUS)
-			var/mob/living/carbon/human/human_owner = owner
-			if(!(human_owner.wear_suit?.clothing_flags & MAGICIAN_FOCUSES))
-				if(feedback)
-					to_chat(owner, span_warning("You can't focus without your robe!"))
-				return FALSE
-			if(!(human_owner.head?.clothing_flags & MAGICIAN_FOCUSES))
-				if(feedback)
-					to_chat(owner, span_warning("You can't focus without your hat!"))
-				return FALSE
-
-
 	else
 		// If the spell requires wizard equipment and we're not a human (can't wear robes or hats), that's just a given
 		if(spell_requirements & (SPELL_REQUIRES_WIZARD_GARB|SPELL_REQUIRES_HUMAN))
-			if(feedback)
-				to_chat(owner, ("<span class='warning'>[src] can only be cast by humans!</span>"))
-			return FALSE
-
-		if(spell_requirements & (SPELL_REQUIRES_MAGICIAN_FOCUS|SPELL_REQUIRES_HUMAN))
 			if(feedback)
 				to_chat(owner, ("<span class='warning'>[src] can only be cast by humans!</span>"))
 			return FALSE

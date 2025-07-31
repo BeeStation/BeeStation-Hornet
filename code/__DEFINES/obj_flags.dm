@@ -58,8 +58,6 @@
 #define NOTCONSUMABLE			(1<<14) //! Moths cannot eat clothing with that flag
 /// Usable as casting clothes by wizards (matters for suits, glasses and headwear)
 #define CASTING_CLOTHES (1<<15)
-/// Usable as casting clothes by magician (matters for suits, glasses and headwear)
-#define MAGICIAN_FOCUSES (1<<15)
 /// Headgear/helmet allows internals
 #define HEADINTERNALS (1<<18)
 /// noslip with only works if wearer is walking

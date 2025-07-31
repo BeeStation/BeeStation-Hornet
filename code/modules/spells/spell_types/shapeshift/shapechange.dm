@@ -22,14 +22,12 @@
 /datum/action/spell/shapeshift/magician
 	name = "Magician's Shapechange"
 	desc = "Transform into a different creature, gaining its abilities and appearance. \
-		Once you have made your choice, it cannot be changed."
+Once you have made your choice, it cannot be changed."
 
-	cooldown_time = 50 SECONDS
-	cooldown_reduction_per_rank = 9.5 SECONDS
-
+	cooldown_time = 5
 	invocation = "Hocus Pocus!"
 	invocation_type = INVOCATION_SHOUT
-	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_MAGICIAN_FOCUS
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
 	possible_shapes = list(
 		/mob/living/simple_animal/chick,
