@@ -295,7 +295,6 @@ const RoundstartPage = () => {
               disabled={has_round_started}
               checked={forced_roundstart_rulesets.find((forced_ruleset) => forced_ruleset.name === ruleset)}
               key={ruleset + idx}
-              tooltip="Pick this ruleset regardless of weight or cost"
               onClick={() => {
                 const selectedRuleset = valid_roundstart_rulesets.find((valid_ruleset) => valid_ruleset.name === ruleset);
                 act('force_roundstart_ruleset', {
