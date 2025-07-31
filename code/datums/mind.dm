@@ -322,7 +322,7 @@
 			if(uplink_loc == R)
 				U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly disguised a Syndicate Uplink as your [R.name]. Simply speak [U.unlock_code] into the :d channel to unlock its hidden features."
 			else if(uplink_loc == PDA)
-				U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly disguised a Syndicate Uplink as your [PDA.name]. Simply enter the code \"[U.unlock_code]\" into the ring tone selection to unlock its hidden features."
+				U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly disguised a Syndicate Uplink as your PDA's network card. Simply enter the code \"[U.unlock_code]\" into the ring tone selection to unlock its hidden features."
 			else if(uplink_loc == P)
 				U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly disguised a Syndicate Uplink as your [P.name]. Simply twist the top of the pen [english_list(U.unlock_code)] from its starting position to unlock its hidden features."
 			to_chat(traitor_mob, span_boldnotice("[U.unlock_text]"))
