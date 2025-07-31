@@ -5,7 +5,6 @@
 	icon = 'icons/obj/atmos.dmi'
 	use_power = NO_POWER_USE
 	max_integrity = 250
-	armor_type = /datum/armor/machinery_portable_atmospherics
 	anchored = FALSE
 	interacts_with_air = TRUE
 
@@ -26,13 +25,6 @@
 	var/temp_limit = 100000
 	/// Max amount of pressure allowed inside of the canister before it starts to break. [PORTABLE_ATMOS_IGNORE_ATMOS_LIMIT] is special value meaning we are immune.
 	var/pressure_limit = 500000
-
-
-/datum/armor/machinery_portable_atmospherics
-	energy = 100
-	rad = 100
-	fire = 60
-	acid = 30
 
 /obj/machinery/portable_atmospherics/Initialize(mapload)
 	. = ..()
@@ -85,7 +77,7 @@
 	if(!taking_damage)
 		return FALSE
 
-	take_damage(clamp(temp_damage * pressure_damage, 5, 50), BURN, 0)
+	deal_damage(clamp(temp_damage * pressure_damage, 5, 50), 0, BURN, DAMAGE_FIRE, sound = FALSE)
 	return TRUE
 
 /obj/machinery/portable_atmospherics/return_air()
@@ -237,11 +229,10 @@
 
 /obj/machinery/portable_atmospherics/attacked_by(obj/item/I, mob/user)
 	if(I.force < 10 && !(machine_stat & BROKEN))
-		take_damage(0)
-	else
-		investigate_log("was smacked with \a [I] by [key_name(user)].", INVESTIGATE_ATMOS)
-		add_fingerprint(user)
-		..()
+		return
+	investigate_log("was smacked with \a [I] by [key_name(user)].", INVESTIGATE_ATMOS)
+	add_fingerprint(user)
+	..()
 
 /// Holding tanks can get to zero integrity and be destroyed without other warnings due to pressure change.
 /// This checks for that case and removes our reference to it.

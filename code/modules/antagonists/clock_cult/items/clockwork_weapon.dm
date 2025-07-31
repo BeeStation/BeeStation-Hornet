@@ -14,13 +14,12 @@
 	item_flags = ISWEAPON
 	throwforce = 20
 	throw_speed = 4
-	armour_penetration = 10
+	sharpness = SHARP_V
 	custom_materials = list(/datum/material/iron=1150, /datum/material/gold=2750)
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb_continuous = list("attacks", "pokes", "jabs", "tears", "lacerates", "gores")
 	attack_verb_simple = list("attack", "poke", "jab", "tear", "lacerate", "gore")
-	sharpness = SHARP
-	bleed_force = BLEED_CUT
+	sharpness = SHARP_VI
 	max_integrity = 200
 	var/clockwork_hint = ""
 	var/datum/action/spell/summon_spear/SS
@@ -92,7 +91,6 @@
 	embedding = list("max_damage_mult" = 7.5, "armour_block" = 80)
 	throwforce = 36
 	force = 25
-	armour_penetration = 24
 	clockwork_hint = "Throwing the spear will deal bonus damage while on Reebe."
 
 /obj/item/clockwork/weapon/brass_battlehammer
@@ -103,8 +101,7 @@
 	worn_icon = 'icons/mob/clothing/back.dmi'
 	worn_icon_state = "mining_hammer1"
 	throwforce = 25
-	armour_penetration = 6
-	sharpness = BLUNT
+	sharpness = SHARP_I
 	attack_verb_continuous = list("bashes", "bludgeons", "thrashes", "whacks")
 	attack_verb_simple = list("bash", "bludgeon", "thrash", "whack")
 	clockwork_hint = "Enemies hit by this will be flung back while on Reebe."
@@ -128,7 +125,7 @@
 	worn_icon_state = "claymore"
 	force = 26
 	throwforce = 20
-	armour_penetration = 12
+	sharpness = SHARP_VI
 	attack_verb_continuous = list("attacks", "pokes", "jabs", "tears", "lacerates", "gores")
 	attack_verb_simple = list("attack", "poke", "jab", "tear", "lacerate", "gore")
 	clockwork_hint = "Targets will be struck with a powerful electromagnetic pulse while on Reebe."

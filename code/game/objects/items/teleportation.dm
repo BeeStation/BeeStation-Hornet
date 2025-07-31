@@ -110,18 +110,11 @@
 	throw_speed = 3
 	throw_range = 5
 	custom_materials = list(/datum/material/iron=10000)
-	armor_type = /datum/armor/item_hand_tele
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/list/active_portal_pairs
 	var/max_portal_pairs = 3
 	var/atmos_link_override
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
-
-
-/datum/armor/item_hand_tele
-	bomb = 30
-	fire = 100
-	acid = 100
 
 /obj/item/hand_tele/Initialize(mapload)
 	. = ..()
@@ -351,7 +344,7 @@
 	var/direction = (EMP_D || length(bagholding)) ? pick(GLOB.cardinals) : user.dir
 	var/turf/destination = get_ranged_target_turf(user, direction, teleport_distance)
 
-	var/turf/new_location = do_dash(user, original_location, destination, obj_damage=150, phase=FALSE, on_turf_cross=CALLBACK(src, PROC_REF(telefrag), user))
+	var/turf/new_location = do_dash(user, original_location, destination, obj_damage=150, obj_penetration=0, phase=FALSE, on_turf_cross=CALLBACK(src, PROC_REF(telefrag), user))
 	if(isnull(new_location))
 		to_chat(user, span_notice("\The [src] is malfunctioning."))
 		return
@@ -369,10 +362,10 @@
 		if ((target.body_position == LYING_DOWN) || !target.density || user == target)
 			continue
 		// Run armour checks and apply damage
-		var/armor_block = target.run_armor_check(BODY_ZONE_CHEST, MELEE)
-		target.apply_damage(25, BRUTE, blocked = armor_block)
-		target.Paralyze(10 * (100 - armor_block) / 100)
-		target.Knockdown(40 * (100 - armor_block) / 100)
+		target.deal_damage(25, 0, BRUTE, zone = BODY_ZONE_CHEST)
+		var/armour_block = target.get_bodyzone_armor_flag(BODY_ZONE_CHEST, ARMOUR_BLUNT)
+		target.Paralyze(10 * (100 - armour_block) / 100)
+		target.Knockdown(40 * (100 - armour_block) / 100)
 		// Check if we successfully knocked them down
 		if (target.body_position == LYING_DOWN)
 			to_chat(target, span_userdanger("[user] teleports into you, knocking you to the floor with the bluespace wave!"))

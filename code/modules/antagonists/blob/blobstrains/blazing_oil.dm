@@ -15,15 +15,15 @@
 	fire_based = TRUE
 
 /datum/blobstrain/reagent/blazing_oil/extinguish_reaction(obj/structure/blob/B)
-	B.take_damage(1.5, BURN, ENERGY)
+	B.deal_damage(1.5, 0, BURN, DAMAGE_ENERGY)
 
 /datum/blobstrain/reagent/blazing_oil/damage_reaction(obj/structure/blob/B, damage, damage_type, damage_flag)
-	if(damage_type == BURN && damage_flag != ENERGY)
+	if(damage_type == BURN && damage_flag != DAMAGE_ENERGY)
 		for(var/turf/open/T in RANGE_TURFS(1, B))
 			var/obj/structure/blob/C = locate() in T
 			if(!(C?.overmind && C.overmind.blobstrain.type == B.overmind.blobstrain.type) && prob(80))
 				new /obj/effect/hotspot(T)
-	if(damage_flag == FIRE)
+	if(damage_flag == DAMAGE_FIRE)
 		return 0
 	return ..()
 
@@ -38,6 +38,6 @@
 	M.adjust_fire_stacks(round(reac_volume/10))
 	M.IgniteMob()
 	if(M)
-		M.apply_damage(0.8*reac_volume, BURN)
+		M.take_direct_damage(0.8*reac_volume, BURN)
 	if(iscarbon(M))
 		M.emote("scream")

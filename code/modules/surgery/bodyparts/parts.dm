@@ -11,6 +11,26 @@
 	px_y = 0
 	stam_damage_coeff = 1
 	max_stamina_damage = 120
+	organ_slots = list(
+		ORGAN_SLOT_APPENDIX,
+		ORGAN_SLOT_WINGS,
+		ORGAN_SLOT_STOMACH,
+		ORGAN_SLOT_STOMACH_AID,
+		ORGAN_SLOT_LUNGS,
+		ORGAN_SLOT_HEART,
+		ORGAN_SLOT_ZOMBIE,
+		ORGAN_SLOT_THRUSTERS,
+		ORGAN_SLOT_LIVER,
+		ORGAN_SLOT_HEART_AID,
+		ORGAN_SLOT_TAIL,
+		ORGAN_SLOT_PARASITE_EGG,
+		ORGAN_SLOT_PLASMA_VESSEL,
+		ORGAN_SLOT_EGGSAC,
+		ORGAN_SLOT_NEUROTOXIN_GLAND,
+		ORGAN_SLOT_HIVE_NODE,
+		ORGAN_SLOT_RESIN_SPINNER,
+		ORGAN_SLOT_ACID_GLAND
+	)
 	///The bodytype(s) allowed to attach to this chest.
 	var/acceptable_bodytype = BODYTYPE_HUMANOID
 
@@ -91,6 +111,9 @@
 	px_x = -6
 	px_y = 0
 	can_be_disabled = TRUE
+	organ_slots = list(
+		ORGAN_SLOT_LEFT_ARM_AUG
+	)
 
 
 /obj/item/bodypart/l_arm/set_owner(new_owner)
@@ -195,6 +218,9 @@
 	px_x = 6
 	px_y = 0
 	can_be_disabled = TRUE
+	organ_slots = list(
+		ORGAN_SLOT_RIGHT_ARM_AUG
+	)
 
 
 /obj/item/bodypart/r_arm/set_owner(new_owner)

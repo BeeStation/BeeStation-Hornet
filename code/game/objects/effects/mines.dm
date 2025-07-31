@@ -158,7 +158,7 @@
 	SEND_SIGNAL(src, COMSIG_MINE_TRIGGERED, victim)
 	qdel(src)
 
-/obj/effect/mine/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
+/obj/effect/mine/take_direct_damage(amount, type, flag, zone)
 	. = ..()
 	triggermine()
 

@@ -19,10 +19,12 @@
 /obj/item/shield/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, damage, attack_type)
 	if(durability)
 		var/attackforce = 0
+		var/sharpness = 0
 		if(isprojectile(hitby))
 			var/obj/projectile/P = hitby
 			if(P.damage_type != STAMINA)// disablers dont do shit to shields
 				attackforce = (P.damage / 2)
+			sharpness = P.sharpness
 		else if(isitem(hitby))
 			var/obj/item/I = hitby
 			attackforce = damage
@@ -31,6 +33,7 @@
 			attackforce = (attackforce * I.attack_weight)
 			if(I.damtype == STAMINA)//pure stamina damage wont affect blocks
 				attackforce = 0
+			sharpness = I.sharpness
 		else if(isliving(hitby)) //not putting an anti stamina clause in here. only stamina damage simplemobs i know of are swarmers, and them eating shields makes sense
 			var/mob/living/L = hitby
 			if(block_flags & BLOCKING_HUNTER)
@@ -48,7 +51,7 @@
 			atom_integrity = 1
 			shatter(owner)
 			return FALSE
-		take_damage(attackforce * ((100-(block_power))/100))
+		deal_damage(attackforce * ((100-(block_power))/100), sharpness)
 		return TRUE
 	else
 		return ..()
@@ -104,7 +107,7 @@
 	transparent = TRUE
 
 /obj/item/shield/riot/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/melee) && W.sharpness == BLUNT)
+	if(istype(W, /obj/item/melee) && W.sharpness <= 0)
 		if(cooldown < world.time - 25)
 			user.visible_message(span_warning("[user] bashes [src] with [W]!"))
 			playsound(user.loc, 'sound/effects/shieldbash.ogg', 50, 1)

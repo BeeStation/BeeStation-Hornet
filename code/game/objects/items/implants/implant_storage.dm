@@ -21,7 +21,7 @@
 			I.add_mob_blood(implantee)
 		atom_storage.remove_all(implantee)
 		implantee.visible_message(span_warning("A bluespace pocket opens around [src] as it exits [implantee], spewing out its contents and rupturing the surrounding tissue!"))
-		implantee.apply_damage(20, BRUTE, BODY_ZONE_CHEST)
+		implantee.take_direct_damage(20, BRUTE, zone = BODY_ZONE_CHEST)
 		qdel(atom_storage)
 	return ..()
 

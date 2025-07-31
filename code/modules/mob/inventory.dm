@@ -349,6 +349,31 @@
 		I.dropped(src, was_thrown, silent)
 	return TRUE
 
+/// Are we completely biologically sealed in protective suits?
+/mob/living/proc/is_biologically_sealed(zones = FULL_BODY)
+	var/zones_remaining = zones
+	for (var/obj/item/clothing/clothing in get_equipped_items())
+		if ((clothing.clothing_flags & THICKMATERIAL))
+			continue
+		zones_remaining &= ~clothing.body_parts_covered
+	return zones_remaining == 0
+
+/// Are we completely biologically sealed in protective suits?
+/mob/living/proc/get_biological_seal_rating(zones = FULL_BODY)
+	var/zones_remaining = zones
+	for (var/obj/item/clothing/clothing in get_equipped_items())
+		if ((clothing.clothing_flags & THICKMATERIAL))
+			continue
+		zones_remaining &= ~clothing.body_parts_covered
+	var/bad = 0
+	var/count = 0
+	for (var/i in 1 to 24)
+		if (zones & (1 << i))
+			count ++
+		if (zones_remaining & (1 << i))
+			bad ++
+	return 1 - (bad / count)
+
 //Outdated but still in use apparently. This should at least be a human proc.
 //Daily reminder to murder this - Remie.
 /mob/living/proc/get_equipped_items(include_pockets = FALSE)

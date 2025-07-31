@@ -112,7 +112,6 @@
 	attack_verb_continuous = list("attacks", "slashes", "cuts", "slices")
 	attack_verb_simple = list("attack", "slash", "cut", "slice")
 	force = 12
-	sharpness = SHARP
 	can_charge = FALSE
 	dead_cell = TRUE
 	usesound = list('sound/items/welder.ogg', 'sound/items/welder2.ogg')

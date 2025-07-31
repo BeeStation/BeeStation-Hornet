@@ -19,7 +19,6 @@
 	throw_range = 4
 	custom_materials = list(/datum/material/iron = 500)
 	actions_types = list(/datum/action/item_action/set_internals)
-	armor_type = /datum/armor/item_tank
 	integrity_failure = 0.5
 	/// The gases this tank contains.
 	var/datum/gas_mixture/air_contents = null
@@ -33,12 +32,6 @@
 	var/excited = TRUE
 	/// Mob that is currently breathing from the tank.
 	var/mob/living/carbon/breathing_mob = null
-
-
-/datum/armor/item_tank
-	bomb = 10
-	fire = 80
-	acid = 30
 
 /obj/item/tank/dropped(mob/living/user, silent)
 	. = ..()
@@ -284,13 +277,13 @@
 	var/temperature = air_contents.return_temperature()
 	if(temperature >= TANK_MELT_TEMPERATURE)
 		var/temperature_damage_ratio = (temperature - TANK_MELT_TEMPERATURE) / temperature
-		take_damage(max_integrity * temperature_damage_ratio * delta_time, BURN, FIRE, FALSE, NONE)
+		deal_damage(max_integrity * temperature_damage_ratio * delta_time, 0, BURN, DAMAGE_FIRE, sound = FALSE)
 		if(QDELETED(src))
 			return TRUE
 
 	if(pressure >= TANK_LEAK_PRESSURE)
 		var/pressure_damage_ratio = (pressure - TANK_LEAK_PRESSURE) / (TANK_RUPTURE_PRESSURE - TANK_LEAK_PRESSURE)
-		take_damage(max_integrity * pressure_damage_ratio * delta_time, BRUTE, BOMB, FALSE, NONE)
+		deal_damage(max_integrity * pressure_damage_ratio * delta_time, BRUTE, DAMAGE_BOMB, FALSE, NONE)
 		return TRUE
 	return FALSE
 

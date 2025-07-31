@@ -1182,7 +1182,7 @@
 	. = COMPONENT_STOP_CONSUMPTION
 
 	to_chat(jaunter, ("<span class='boldwarning'>AAH! THEIR FLESH! IT BURNS!</span>"))
-	jaunter.apply_damage(25, BRUTE)
+	jaunter.take_direct_damage(25, BRUTE)
 
 	for(var/obj/effect/decal/cleanable/nearby_blood in range(1, get_turf(source)))
 		if(!nearby_blood.can_bloodcrawl_in())

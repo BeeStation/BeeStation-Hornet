@@ -16,7 +16,6 @@
 	w_class = WEIGHT_CLASS_LARGE
 	slot_flags = ITEM_SLOT_BELT
 	item_flags = ISWEAPON
-	armor_type = /datum/armor/melee_baton
 
 	throwforce = 7
 	var/throw_stun_chance = 35
@@ -34,11 +33,6 @@
 	var/stutter_amt = 20
 	var/stamina_loss_amt = 60
 	var/stun_time = 4 SECONDS
-
-/datum/armor/melee_baton
-	bomb = 50
-	fire = 80
-	acid = 80
 
 /obj/item/melee/baton/get_cell()
 	return cell
@@ -214,10 +208,9 @@
 		if(!deductcharge(cell_hit_cost))
 			return FALSE
 
-	var/obj/item/bodypart/affecting = target.get_bodypart(ran_zone(user.get_combat_bodyzone(target)))
-	var/armor_block = target.run_armor_check(affecting, STAMINA)
+	var/zone = ran_zone(user.get_combat_bodyzone(target))
 	// L.adjustStaminaLoss(stun_time)
-	target.apply_damage(stun_time, STAMINA, affecting, armor_block)
+	target.deal_damage(stun_time, 0, STAMINA, DAMAGE_SHOCK, zone = zone)
 	target.apply_effect(EFFECT_STUTTER, stun_time)
 	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK)
 	target.stuttering = 20

@@ -7,8 +7,7 @@
 		visible_message(span_danger("[M] kicks [src]!"), \
 				span_userdanger("[M] kicks you!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, M)
 		to_chat(M, span_danger("You kick [src]!"))
-		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(M.get_combat_bodyzone(src)))
-		apply_damage(M.dna.species.punchdamage, BRUTE, affecting)
+		deal_damage(M.dna.species.punchdamage, M.dna.species.attack_sharpness, BRUTE, zone = ran_zone(M.get_combat_bodyzone(src)))
 
 /mob/living/carbon/alien/larva/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
 	if(user.combat_mode)

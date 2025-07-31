@@ -69,7 +69,7 @@
 	owner.resting = FALSE
 	owner.setStaminaLoss(0)
 	owner.SetSleeping(0)
-	owner.SetUnconscious(0)
+	owner.take_consciousness_damage(-INFINITY)
 	owner.SetAllImmobility(0, TRUE)
 
 /*
@@ -84,6 +84,7 @@
 	owner.adjustOxyLoss(-amount, FALSE)
 	owner.adjustBruteLoss(-amount, FALSE)
 	owner.adjustFireLoss(-amount)
+	owner.take_consciousness_damage(-amount)
 
 /*
  * Adjust the owner's temperature up or down to standard body temperatures.

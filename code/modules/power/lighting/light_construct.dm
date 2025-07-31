@@ -5,8 +5,7 @@
 	icon_state = "tube-construct-stage1"
 	anchored = TRUE
 	layer = WALL_OBJ_LAYER
-	max_integrity = 200
-	armor_type = /datum/armor/structure_light_construct
+	max_integrity = 80
 
 	var/stage = 1
 	var/fixture_type = "tube"
@@ -17,14 +16,6 @@
 	var/cell_connectors = TRUE
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_construct)
-
-
-/datum/armor/structure_light_construct
-	melee = 50
-	bullet = 10
-	laser = 10
-	fire = 80
-	acid = 50
 
 /obj/structure/light_construct/Initialize(mapload, ndir, building)
 	. = ..()

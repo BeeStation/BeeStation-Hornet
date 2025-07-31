@@ -21,7 +21,10 @@
 					/obj/item/reagent_containers/cup/bottle/spaceacillin = 1,
 					/obj/item/reagent_containers/cup/bottle/morphine = 2,
 					/obj/item/reagent_containers/cup/bottle/toxin = 4,
-					/obj/item/reagent_containers/medspray/sterilizine = 4)
+					/obj/item/reagent_containers/medspray/sterilizine = 4,
+					/obj/item/stack/medical/suture = 4,
+					/obj/item/stack/medical/tourniquet = 4
+					)
 	contraband = list(/obj/item/reagent_containers/cup/bottle/chloralhydrate = 1,
 						/obj/item/storage/box/hug/medical = 1,
 						/obj/item/reagent_containers/cup/bottle/random_virus = 1)
@@ -33,21 +36,12 @@
 		/obj/item/healthanalyzer = 2,
 		/obj/item/wrench/medical = 1
 		)
-	armor_type = /datum/armor/vending_medical
 	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/medical
 	default_price = 25
 	extra_price = 100
 	dept_req_for_free = ACCOUNT_MED_BITFLAG
 	light_mask = "med-light-mask"
-
-/datum/armor/vending_medical
-	melee = 100
-	bullet = 100
-	laser = 100
-	energy = 100
-	fire = 100
-	acid = 50
 
 /obj/item/vending_refill/medical
 	machine_name = "NanoMed Plus"

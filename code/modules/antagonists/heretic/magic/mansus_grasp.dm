@@ -36,7 +36,7 @@
 		return FALSE
 
 	var/mob/living/living_hit = victim
-	living_hit.apply_damage(10, BRUTE)
+	living_hit.take_direct_damage(10, BRUTE)
 	if(iscarbon(victim))
 		var/mob/living/carbon/carbon_hit = victim
 		carbon_hit.silent = 3 SECONDS

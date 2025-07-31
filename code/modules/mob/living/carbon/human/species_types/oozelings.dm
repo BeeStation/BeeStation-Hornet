@@ -252,6 +252,12 @@
 			SPECIES_PERK_DESC = "[plural_form] can regrow their limbs at will, provided they have enough Jelly.",
 		),
 		list(
+			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+			SPECIES_PERK_ICON = "bone",
+			SPECIES_PERK_NAME = "No Bones",
+			SPECIES_PERK_DESC = "[plural_form] do not have bones which can be broken from blunt trauma.",
+		),
+		list(
 			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
 			SPECIES_PERK_ICON = "tint-slash",
 			SPECIES_PERK_NAME = "Hydrophobic",

@@ -225,14 +225,11 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/item/storage/secure/safe/caps_spare, 32)
 
 
 /datum/armor/safe_caps_spare
-	melee = 100
-	bullet = 100
-	laser = 100
-	energy = 100
-	bomb = 70
-	rad = 100
-	fire = 80
-	acid = 70
+	penetration = 200
+	blunt = 100
+	absorption = 50
+	reflectivity = 100
+	heat = 50
 
 /obj/item/storage/secure/safe/caps_spare/Initialize(mapload)
 	. = ..()
@@ -248,5 +245,5 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/item/storage/secure/safe/caps_spare, 32)
 	new /obj/item/card/id/captains_spare(src)
 
 /obj/item/storage/secure/safe/caps_spare/rust_heretic_act()
-	take_damage(damage_amount = 100, damage_type = BRUTE, damage_flag = MELEE, armour_penetration = 100)
+	take_direct_damage(100, BRUTE, DAMAGE_ACID)
 	return TRUE

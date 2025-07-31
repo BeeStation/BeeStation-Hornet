@@ -15,12 +15,12 @@
 	name = "Bone arrow"
 	desc = "An arrow made from bone and sinew."
 	damage = 25
-	armour_penetration = 40
+	sharpness = SHARP_V
 	ammo_type = /obj/item/ammo_casing/caseless/arrow/bone
 
 /obj/projectile/bullet/reusable/arrow/bronze
 	name = "Bronze arrow"
 	desc = "Bronze tipped arrow"
 	damage = 20
-	armour_penetration = 10
+	sharpness = SHARP_VII
 	ammo_type = /obj/item/ammo_casing/caseless/arrow/bronze

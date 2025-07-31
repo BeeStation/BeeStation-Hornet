@@ -10,17 +10,13 @@
 		/obj/item/tank/internals/emergency_oxygen,
 		/obj/item/tank/internals/plasmaman
 	)
-	armor_type = /datum/armor/clothing_suit
+	armor_type = /datum/armor/suit
 	slot_flags = ITEM_SLOT_OCLOTHING
 	var/blood_overlay_type = "suit"
 	var/move_sound = null
 	var/footstep = 0
 	var/mob/listeningTo
 	var/pockets = TRUE
-
-
-/datum/armor/clothing_suit
-	bleed = 5
 
 /obj/item/clothing/suit/Initialize(mapload)
 	. = ..()

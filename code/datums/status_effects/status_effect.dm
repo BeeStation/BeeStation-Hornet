@@ -55,7 +55,7 @@
 	update_icon()
 	if(duration > 0 || initial(tick_interval) > 0) //don't process if we don't care
 		START_PROCESSING(SSfastprocess, src)
-
+	SEND_SIGNAL(new_owner, SIGNAL_ADD_STATUS_EFFECT(type))
 	return TRUE
 
 /datum/status_effect/Destroy()
@@ -65,6 +65,7 @@
 		owner.clear_alert(id)
 		LAZYREMOVE(owner.status_effects, src)
 		on_remove()
+		SEND_SIGNAL(owner, SIGNAL_REMOVE_STATUS_EFFECT(type))
 		owner = null
 	return ..()
 
@@ -77,6 +78,8 @@
 		tick()
 		tick_interval = world.time + initial(tick_interval)
 		needs_update = TRUE
+	if (QDELETED(src))
+		return
 	if (needs_update)
 		update_icon()
 	if(duration != -1 && duration < world.time)
@@ -103,6 +106,7 @@
 	linked_alert = null
 	owner.clear_alert(id)
 	LAZYREMOVE(owner.status_effects, src)
+	SEND_SIGNAL(owner, SIGNAL_REMOVE_STATUS_EFFECT(type))
 	owner = null
 	qdel(src)
 

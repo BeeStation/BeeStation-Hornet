@@ -34,11 +34,10 @@
 	icon = 'icons/obj/money_machine.dmi'
 	icon_state = "bogdanoff"
 	layer = TABLE_LAYER //So that the crate inside doesn't appear underneath
-	armor_type = /datum/armor/structure_checkoutmachine
 	density = TRUE
 	pixel_z = -8
 	layer = LARGE_MOB_LAYER
-	max_integrity = 600
+	max_integrity = 800
 	max_hit_damage = 30
 	/// when this gets at this hp, it will run away! oh no!
 	var/next_health_to_teleport
@@ -52,16 +51,6 @@
 
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/checkoutmachine)
-
-
-/datum/armor/structure_checkoutmachine
-	melee = 30
-	bullet = 50
-	laser = 50
-	energy = 100
-	bomb = 100
-	fire = 100
-	acid = 80
 
 /obj/structure/checkoutmachine/Initialize(mapload, mob/living/user)
 	bogdanoff = user
@@ -228,7 +217,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/checkoutmachine)
 
 	if(atom_integrity>25)
 		next_health_to_teleport -= round(max_integrity/60)
-		take_damage(round(max_integrity/60)) // self-damage for self-destruction
+		take_direct_damage(round(max_integrity/60)) // self-damage for self-destruction
 
 	addtimer(CALLBACK(src, PROC_REF(dump)), 150) //Drain every 15 seconds
 

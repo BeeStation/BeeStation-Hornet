@@ -90,6 +90,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 		to_chat(user, span_danger("You don't know how to apply \the [src] to [M]!"))
 		M.balloon_alert(user, "You cannot use that.")
 		return
+	if (user.is_blind())
+		to_chat(user, span_danger("You can't use \the [src] if you cannot see!"))
+		user.balloon_alert(user, "Cannot use while blind.")
+		return
 	var/obj/item/bodypart/affecting
 	var/mob/living/carbon/C = M
 	affecting = C.get_bodypart(check_zone(zone_selected))
@@ -102,7 +106,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 		C.balloon_alert(user, "[C] has no [parse_zone(zone_selected)]!")
 		return
 
-	var/valid = FALSE
+	var/valid = can_be_applied(M, user, zone_selected)
 	var/message = null
 
 	if(stop_bleeding)
@@ -125,12 +129,24 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 	else
 		valid = TRUE
 
+	/// Was our healing intercepted?
+	var/intercepted = FALSE
+	for (var/datum/injury/injury in affecting.injuries)
+		var/intercept_result = injury.intercept_medical_application(src, C, user)
+		if (intercept_result == MEDICAL_ITEM_FAILED)
+			return
+		if (intercept_result == MEDICAL_ITEM_APPLIED)
+			intercepted = TRUE
+			valid = TRUE
+		if (intercept_result == MEDICAL_ITEM_VALID)
+			valid = TRUE
+
 	if (!valid)
 		to_chat(user, span_warning("[message]"))
 		C.balloon_alert(user, message)
 		return
 
-	if(C == user)
+	if(C == user && !intercepted)
 		user.visible_message(span_notice("[user] starts to apply [src] on [user.p_them()]self..."), span_notice("You begin applying [src] on yourself..."))
 		if(!do_after(user, self_delay, M))
 			return
@@ -144,12 +160,20 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 	else
 		C.balloon_alert(user, "You apply [src] to [M == user ? "yourself" : M].")
 
+	after_apply(M, user, zone_selected)
+
 	user.visible_message(span_green("[user] applies [src] to [M]."), span_green("You apply [src] to [M]."))
 	if(reagent)
 		reagents.expose(M, PATCH, affecting = affecting)
 		M.reagents.add_reagent_list(reagent) //Stack size is reduced by one instead of actually removing reagents from the stack.
 		C.update_damage_overlays()
 	use(1)
+
+/obj/item/stack/medical/proc/can_be_applied(mob/living/M, mob/user, zone_selected)
+	return FALSE
+
+/obj/item/stack/medical/proc/after_apply(mob/living/M, mob/user, zone_selected)
+	return
 
 /obj/item/stack/medical/on_grind()
 	reagents.clear_reagents() //By default grinding returns all contained reagents + grind_results, and for stackable items we only want grind_results
@@ -174,6 +198,21 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 /obj/item/stack/medical/bruise_pack/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] is bludgeoning [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS
+
+/obj/item/stack/medical/suture
+	name = "suture kit"
+	singular_name = "suture kit"
+	desc = "An emergency suture kit used to stitch up lacerations, muscle tears, and to stop bleeding."
+	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
+	icon_state = "suture"
+	item_state = "brutepack"
+	merge_type = /obj/item/stack/medical/suture
+	amount = 5
+	max_amount = 5
+	self_delay = 10 SECONDS
+	stop_bleeding = BLEED_CRITICAL
+	heal_creatures = TRUE
 
 /obj/item/stack/medical/ointment
 	name = "ointment"
@@ -235,6 +274,35 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 	merge_type = /obj/item/stack/medical/gauze/adv
 
 /obj/item/stack/medical/gauze/adv/one
+	amount = 1
+
+/obj/item/stack/medical/tourniquet
+	name = "tourniquet"
+	singular_name = "tourniquet"
+	desc = "A tourniquet used for completely stopping the bloodflow in a certain area of the body. Causes a build up of toxins in the affected limb over extended periods of time, which may result in cardiacular issues."
+	icon_state = "tourniquet"
+	merge_type = /obj/item/stack/medical/tourniquet
+	amount = 1
+	max_amount = 1
+	self_delay = 15 SECONDS
+
+/obj/item/stack/medical/tourniquet/can_be_applied(mob/living/carbon/M, mob/user, zone_selected)
+	return M.is_bleeding() || M.is_bandaged()
+
+/obj/item/stack/medical/tourniquet/after_apply(mob/living/carbon/M, mob/user, zone_selected)
+	M.apply_status_effect(/datum/status_effect/tourniquet, zone_selected)
+
+/obj/item/stack/medical/splint
+	name = "splints"
+	singular_name = "splint"
+	desc = "A rigid bandage-like support structure to assist with the restoration of broken or fractured bones."
+	icon_state = "splint"
+	merge_type = /obj/item/stack/medical/splint
+	amount = 3
+	max_amount = 3
+	self_delay = 10 SECONDS
+
+/obj/item/stack/medical/splint/one
 	amount = 1
 
 #undef REAGENT_AMOUNT_PER_ITEM

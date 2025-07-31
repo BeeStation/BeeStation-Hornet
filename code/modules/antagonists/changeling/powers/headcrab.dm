@@ -26,7 +26,7 @@
 		to_chat(user, span_warning("You can't become a headslug right now!"))
 		return FALSE
 	var/datum/mind/M = user.mind
-	var/list/organs = user.get_organs_for_zone(BODY_ZONE_HEAD, TRUE)
+	var/list/organs = user.get_organs_for_zone(BODY_ZONE_HEAD)
 	..()
 
 	for(var/obj/item/organ/I in organs)

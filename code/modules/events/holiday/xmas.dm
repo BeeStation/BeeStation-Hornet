@@ -49,24 +49,12 @@
 	return ..()
 
 /datum/armor/festivehat_christmas
-	melee = 30
-	bullet = 30
-	laser = 30
-	energy = 30
-	bomb = 30
-	rad = 30
-	fire = 30
-	acid = 30
+	penetration = 25
+	blunt = 25
 
 /datum/armor/festivehat_december
-	melee = 20
-	bullet = 20
-	laser = 20
-	energy = 20
-	bomb = 20
-	rad = 20
-	fire = 20
-	acid = 20
+	penetration = 10
+	blunt = 10
 
 
 /obj/effect/spawner/xmastree

@@ -68,7 +68,7 @@
 		if(prob(10))
 			playsound(get_turf(src), "punch", 25, 1, -1)
 			visible_message(span_warning("[src] [pick("ran", "slammed")] into \the [A]!"))
-			apply_damage(5, BRUTE)
+			take_direct_damage(5, BRUTE)
 			Paralyze(40)
 			addtimer(CALLBACK(src, PROC_REF(can_bumpslam)), 200)
 		else
@@ -1401,10 +1401,10 @@
 
 	amount -= RAD_BACKGROUND_RADIATION // This will always be at least 1 because of how skin protection is calculated
 
-	var/blocked = getarmor(null, RAD)
+	var/blocked = get_radiation_protection() * 100
 
 	if(amount > RAD_BURN_THRESHOLD)
-		apply_damage((amount-RAD_BURN_THRESHOLD)/RAD_BURN_THRESHOLD, BURN, null, blocked)
+		take_overall_damage(0, (amount-RAD_BURN_THRESHOLD)/RAD_BURN_THRESHOLD * (blocked / 100))
 
 	apply_effect((amount*RAD_MOB_COEFFICIENT)/max(1, (radiation**2)*RAD_OVERDOSE_REDUCTION), EFFECT_IRRADIATE, blocked)
 
@@ -1517,51 +1517,48 @@
 	. = ..()
 	if(isnull(.))
 		return
-	switch(.) //Previous stat.
-		if(CONSCIOUS)
-			if(stat >= UNCONSCIOUS)
-				ADD_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_KNOCKEDOUT)
+	if (stat >= SOFT_CRIT && pulledby)
+		ADD_TRAIT(src, TRAIT_IMMOBILIZED, PULLED_WHILE_SOFTCRIT_TRAIT)
+	else
+		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, PULLED_WHILE_SOFTCRIT_TRAIT)
+	if (. == stat)
+		return
+	var/obj/item/organ/brain/brain = get_organ_slot(ORGAN_SLOT_BRAIN)
+	// Default crit behaviour, just enter hard-crit
+	if (!brain)
+		if (stat >= SOFT_CRIT)
+			ADD_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
 			ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, STAT_TRAIT)
-			ADD_TRAIT(src, TRAIT_INCAPACITATED, STAT_TRAIT)
+			ADD_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_KNOCKEDOUT)
 			ADD_TRAIT(src, TRAIT_FLOORED, STAT_TRAIT)
-		if(SOFT_CRIT)
-			if(stat >= UNCONSCIOUS)
-				ADD_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_KNOCKEDOUT) //adding trait sources should come before removing to avoid unnecessary updates
-			if(pulledby)
-				REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, PULLED_WHILE_SOFTCRIT_TRAIT)
-		if(UNCONSCIOUS)
-			if(stat != HARD_CRIT)
-				cure_blind(UNCONSCIOUS_TRAIT)
-		if(HARD_CRIT)
-			if(stat != UNCONSCIOUS)
-				cure_blind(UNCONSCIOUS_TRAIT)
-	switch(stat) //Current stat.
-		if(CONSCIOUS)
-			if(. >= UNCONSCIOUS)
-				REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_KNOCKEDOUT)
+			ADD_TRAIT(src, TRAIT_INCAPACITATED, STAT_TRAIT)
+			become_blind(UNCONSCIOUS_TRAIT)
+		else
+			REMOVE_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
 			REMOVE_TRAIT(src, TRAIT_HANDS_BLOCKED, STAT_TRAIT)
-			REMOVE_TRAIT(src, TRAIT_INCAPACITATED, STAT_TRAIT)
+			REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_KNOCKEDOUT)
 			REMOVE_TRAIT(src, TRAIT_FLOORED, STAT_TRAIT)
-			REMOVE_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
-		if(SOFT_CRIT)
-			if(pulledby)
-				ADD_TRAIT(src, TRAIT_IMMOBILIZED, PULLED_WHILE_SOFTCRIT_TRAIT) //adding trait sources should come before removing to avoid unnecessary updates
-			if(. >= UNCONSCIOUS)
-				REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_KNOCKEDOUT)
-			ADD_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
-		if(UNCONSCIOUS)
-			if(. != HARD_CRIT)
-				become_blind(UNCONSCIOUS_TRAIT)
-			if(health <= crit_threshold && !HAS_TRAIT(src, TRAIT_NOSOFTCRIT))
-				ADD_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
+			REMOVE_TRAIT(src, TRAIT_INCAPACITATED, STAT_TRAIT)
+			cure_blind(UNCONSCIOUS_TRAIT)
+		return
+	switch (stat)
+		if (CONSCIOUS)
+			brain.stat_conscious(.)
+		if (SOFT_CRIT)
+			if (HAS_TRAIT(src, TRAIT_NOSOFTCRIT))
+				brain.stat_conscious(.)
 			else
-				REMOVE_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
-		if(HARD_CRIT)
-			if(. != UNCONSCIOUS)
-				become_blind(UNCONSCIOUS_TRAIT)
-			ADD_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
-		if(DEAD)
-			REMOVE_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
+				brain.stat_crit(.)
+		if (UNCONSCIOUS, HARD_CRIT)
+			if (HAS_TRAIT(src, TRAIT_NOHARDCRIT))
+				if (HAS_TRAIT(src, TRAIT_NOSOFTCRIT))
+					brain.stat_conscious(.)
+				else
+					brain.stat_crit(.)
+			else
+				brain.stat_hard_crit(.)
+		if (DEAD)
+			brain.stat_dead(.)
 
 ///Reports the event of the change in value of the buckled variable.
 /mob/living/proc/set_buckled(new_buckled)
@@ -1855,14 +1852,6 @@
 			if(!usable_hands)
 				ADD_TRAIT(src, TRAIT_IMMOBILIZED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
 
-	if(usable_legs < default_num_legs)
-		var/limbless_slowdown = (default_num_legs - usable_legs) * 3
-		if(!usable_legs && usable_hands < default_num_hands)
-			limbless_slowdown += (default_num_hands - usable_hands) * 3
-		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/limbless, multiplicative_slowdown = limbless_slowdown)
-	else
-		remove_movespeed_modifier(/datum/movespeed_modifier/limbless)
-
 
 ///Proc to modify the value of num_hands and hook behavior associated to this event.
 /mob/living/proc/set_num_hands(new_value)
@@ -1947,6 +1936,8 @@
 /mob/living/proc/get_attack_type()
 	return BRUTE
 
+/mob/living/proc/get_attack_sharpness()
+	return SHARP_NONE
 
 /**
  * Apply a martial art move from src to target.

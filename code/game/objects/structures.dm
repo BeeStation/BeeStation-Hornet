@@ -12,8 +12,7 @@
 	armor_type = /datum/armor/obj_structure
 
 /datum/armor/obj_structure
-	fire = 50
-	acid = 50
+	absorption = 50
 
 /obj/structure/Initialize(mapload)
 	. = ..()
@@ -65,5 +64,5 @@
 	return "structure"
 
 /obj/structure/rust_heretic_act()
-	take_damage(500, BRUTE, MELEE, 1)
+	deal_damage(500, 0, BRUTE, DAMAGE_ACID)
 	return TRUE

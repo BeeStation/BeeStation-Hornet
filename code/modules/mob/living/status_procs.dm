@@ -242,14 +242,22 @@
 
 
 //////////////////UNCONSCIOUS
-/mob/living/proc/IsUnconscious() //If we're unconscious
+
+/mob/living/proc/IsUnconscious()
+	var/datum/component/conscious/consciousness = GetComponent(/datum/component/conscious)
+	if(consciousness)
+		return consciousness.is_unconscious
 	return has_status_effect(/datum/status_effect/incapacitating/unconscious)
 
-/mob/living/proc/AmountUnconscious() //How many deciseconds remain in our unconsciousness
+/mob/living/proc/AmountUnconscious()
+	var/datum/component/conscious/consciousness = GetComponent(/datum/component/conscious)
 	var/datum/status_effect/incapacitating/unconscious/U = IsUnconscious()
+	. = 0
 	if(U)
-		return U.duration - world.time
-	return 0
+		. = max(., U.duration - world.time)
+	if(consciousness)
+		. = max(., max(0, consciousness.unconscious_time - world.time))
+	return .
 
 /mob/living/proc/Unconscious(amount, ignore_canstun = FALSE) //Can't go below remaining duration
 	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_UNCONSCIOUS, amount, ignore_canstun) & COMPONENT_NO_STUN)

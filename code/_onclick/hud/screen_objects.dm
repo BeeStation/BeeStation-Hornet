@@ -149,7 +149,7 @@
 	if(hud?.mymob && slot_id)
 		var/obj/item/inv_item = hud.mymob.get_item_by_slot(slot_id)
 		if(inv_item)
-			if(hud?.mymob.incapacitated())
+			if(hud?.mymob.incapacitated() || HAS_TRAIT(hud?.mymob, TRAIT_HANDS_BLOCKED))
 				inv_item.apply_outline(COLOR_RED_GRAY)
 			else
 				inv_item.apply_outline()

@@ -4,18 +4,8 @@
 	desc = "A brave security cyborg gave its life to help you look like a complete tool."
 	icon_state = "secway"
 	max_integrity = 100
-	armor_type = /datum/armor/ridden_secway
 	key_type = /obj/item/key/security
 	integrity_failure = 0.5
-
-
-/datum/armor/ridden_secway
-	melee = 20
-	bullet = 15
-	laser = 10
-	bomb = 30
-	fire = 60
-	acid = 60
 
 /obj/vehicle/ridden/secway/Initialize(mapload)
 	. = ..()

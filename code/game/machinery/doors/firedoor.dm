@@ -20,7 +20,6 @@
 	safe = FALSE
 	layer = BELOW_OPEN_DOOR_LAYER
 	closingLayer = CLOSED_FIREDOOR_LAYER
-	armor_type = /datum/armor/door_firedoor
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_REQUIRES_SILICON | INTERACT_MACHINE_OPEN
 	air_tight = TRUE
 	open_speed = 2
@@ -64,16 +63,6 @@
 	var/is_playing_alarm = FALSE
 	///Delay before we deactivate the firelock after detecting the air is fine.
 	var/activation_delay
-
-/datum/armor/door_firedoor
-	melee = 30
-	bullet = 30
-	laser = 20
-	energy = 20
-	bomb = 10
-	rad = 100
-	fire = 95
-	acid = 70
 
 /obj/machinery/door/firedoor/Initialize(mapload)
 	. = ..()

@@ -22,7 +22,7 @@
 	. = ..()
 	owner.ranged = FALSE
 	owner.melee_damage = master_stats.damage * 3
-	owner.armour_penetration = max(master_stats.potential - 1, 0) * 15
+	owner.sharpness = max(master_stats.potential - 1, 0) * 15
 	if(isnull(owner.theme.mob_info[HOLOPARA_THEME_ATTACK_SOUND]))
 		owner.attack_sound = 'sound/weapons/bladeslice.ogg'
 	owner.response_harm_continuous = "stabs"
@@ -35,7 +35,7 @@
 	. = ..()
 	owner.ranged = initial(owner.ranged)
 	owner.melee_damage = initial(owner.melee_damage)
-	owner.armour_penetration = initial(owner.armour_penetration)
+	owner.sharpness = initial(owner.sharpness)
 	if(isnull(owner.theme.mob_info[HOLOPARA_THEME_ATTACK_SOUND]))
 		owner.attack_sound = initial(owner.attack_sound)
 	owner.response_harm_continuous = initial(owner.response_harm_continuous)

@@ -10,20 +10,9 @@
 	active_power_usage = 4
 	max_integrity = 300
 	circuit = /obj/item/circuitboard/machine/igniter
-	armor_type = /datum/armor/machinery_igniter
 	resistance_flags = FIRE_PROOF
 	var/id = null
 	var/on = FALSE
-
-
-/datum/armor/machinery_igniter
-	melee = 50
-	bullet = 30
-	laser = 70
-	energy = 50
-	bomb = 20
-	fire = 100
-	acid = 70
 
 /obj/machinery/igniter/incinerator_toxmix
 	id = INCINERATOR_TOXMIX_IGNITER

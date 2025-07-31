@@ -126,9 +126,7 @@
 	var/damage = 10
 	var/damage_type = BRUTE //BRUTE, BURN, TOX, OXY, CLONE are the only things that should be in here
 	var/nodamage = FALSE //Determines if the projectile will skip any damage inflictions
-	var/armor_flag = BULLET //Defines what armor to use when it hits things.  Must be set to bullet, laser, energy,or bomb
-	///How much armor this projectile pierces.
-	var/armour_penetration = 0
+	var/damage_flag = null //Defines what armor to use when it hits things.  Must be set to bullet, laser, energy,or bomb
 	var/projectile_type = /obj/projectile
 	var/range = 50 //This will de-increment every step. When 0, it will deletze the projectile.
 	var/decayedRange //stores original range
@@ -156,6 +154,7 @@
 	var/shrapnel_type
 	///If TRUE, hit mobs even if they're on the floor and not our target
 	var/hit_stunned_targets = FALSE
+	var/sharpness = 0
 
 /obj/projectile/Initialize(mapload)
 	. = ..()
@@ -600,10 +599,10 @@
 	return FALSE
 
 /obj/projectile/proc/check_ricochet_flag(atom/A)
-	if((armor_flag in list(ENERGY, LASER)) && (A.flags_ricochet & RICOCHET_SHINY))
+	if((damage_flag in list(DAMAGE_ENERGY, DAMAGE_LASER)) && (A.flags_ricochet & RICOCHET_SHINY))
 		return TRUE
 
-	if((armor_flag in list(BOMB, BULLET)) && (A.flags_ricochet & RICOCHET_HARD))
+	if((damage_flag in list(DAMAGE_BOMB, DAMAGE_STANDARD)) && (A.flags_ricochet & RICOCHET_HARD))
 		return TRUE
 
 	return FALSE

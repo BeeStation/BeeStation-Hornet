@@ -126,6 +126,7 @@
 		TRAIT_NODISMEMBER,
 		TRAIT_NOHUNGER,
 		TRAIT_NOBLOOD,
+		TRAIT_NO_ORGAN_PENETRATION
 	)
 	mutanteyes = /obj/item/organ/eyes/night_vision/nightmare
 	mutantheart = /obj/item/organ/heart/nightmare
@@ -161,6 +162,7 @@
 	name = "tumorous mass"
 	desc = "A fleshy growth that was dug out of the skull of a Nightmare."
 	icon_state = "brain-x-d"
+	feels_pain = FALSE
 	var/datum/action/spell/jaunt/shadow_walk/our_jaunt
 
 /obj/item/organ/brain/nightmare/on_insert(mob/living/carbon/brain_owner)
@@ -252,13 +254,11 @@
 	item_state = "arm_blade"
 	force = 25
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
-	armour_penetration = 35
+	sharpness = SHARP_VI
 	lefthand_file = 'icons/mob/inhands/antag/changeling_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/antag/changeling_righthand.dmi'
 	item_flags = ABSTRACT | DROPDEL | ISWEAPON
 	w_class = WEIGHT_CLASS_HUGE
-	sharpness = SHARP_DISMEMBER_EASY
-	bleed_force = BLEED_DEEP_WOUND
 	//Fuck you, *crowbars your evil thing
 	tool_behaviour = TOOL_CROWBAR
 

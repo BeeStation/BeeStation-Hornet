@@ -36,10 +36,10 @@
 	var/obj/item/bodypart/right_leg = get_bodypart(BODY_ZONE_R_LEG)
 	if(left_leg && !left_leg.bodypart_disabled)
 		total_damage_percent_left -= 0.45
-		apply_damage(amount_total * 0.45, BRUTE, BODY_ZONE_L_LEG)
+		deal_damage(amount_total * 0.45, 0, BRUTE, zone = BODY_ZONE_L_LEG)
 	if(right_leg && !right_leg.bodypart_disabled)
 		total_damage_percent_left -= 0.45
-		apply_damage(amount_total * 0.45, BRUTE, BODY_ZONE_R_LEG)
+		deal_damage(amount_total * 0.45, 0, BRUTE, zone = BODY_ZONE_R_LEG)
 	adjustBruteLoss(amount_total * total_damage_percent_left)
 	Knockdown(levels * 50)
 

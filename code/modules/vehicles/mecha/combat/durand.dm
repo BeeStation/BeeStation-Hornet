@@ -16,14 +16,7 @@
 
 
 /datum/armor/combat_durand
-	melee = 40
-	bullet = 35
-	laser = 15
-	energy = 10
-	bomb = 20
-	rad = 50
-	fire = 100
-	acid = 100
+	penetration = 150
 
 /obj/vehicle/sealed/mecha/combat/durand/Initialize(mapload)
 	. = ..()
@@ -232,7 +225,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/durand_shield)
 
 	setDir(newdir)
 
-/obj/durand_shield/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
+/obj/durand_shield/take_direct_damage(amount, type, flag, zone)
 	if(!chassis)
 		qdel(src)
 		return

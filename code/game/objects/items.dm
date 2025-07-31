@@ -124,8 +124,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/siemens_coefficient = 1
 	/// How much clothing is slowing you down. Negative values speeds you up
 	var/slowdown = 0
-	/// Percentage of armour effectiveness to remove
-	var/armour_penetration = 0
 	/// The click cooldown given after attacking. Lower numbers means faster attacks
 	var/attack_speed = CLICK_CD_MELEE
 	/// The click cooldown on secondary attacks. Lower numbers mean faster attacks. Will use attack_speed if undefined.
@@ -162,8 +160,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/flags_cover = 0
 	/// Used to define how hot it's flame will be when lit. Used it igniters, lighters, flares, candles, etc.
 	var/heat = 0
-	/// BLUNT | SHARP | SHARP_DISMEMBER | SHARP_DISMEMBER_EASY Used to define whether the item is sharp or blunt. SHARP is used if the item is supposed to be able to cut open things. See _DEFINES/combat.dm
-	var/sharpness = BLUNT
+	/// SHARP_NONE, SHARP_I, etc. SHARP_X
+	var/sharpness = SHARP_NONE
 	//this multiplies an attacks force for secondary effects like attacking blocking implements, dismemberment, and knocking a target silly
 	var/attack_weight = 1
 
@@ -345,7 +343,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 /obj/item/blob_act(obj/structure/blob/B)
 	if(B.loc == loc && !(resistance_flags & INDESTRUCTIBLE))
-		atom_destruction(MELEE)
+		atom_destruction(DAMAGE_STANDARD)
 
 /obj/item/ComponentInitialize()
 	. = ..()
@@ -516,6 +514,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			to_chat(user, span_warning("You burn your hand on [src]!"))
 			var/obj/item/bodypart/affecting = C.get_bodypart("[(user.active_hand_index % 2 == 0) ? "r" : "l" ]_arm")
 			if(affecting && affecting.receive_damage( 0, 5 ))		// 5 burn damage
+				affecting.run_limb_injuries(5, BURN, DAMAGE_FIRE, 0)
 				C.update_damage_overlays()
 			return
 
@@ -526,6 +525,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 				to_chat(user, span_warning("The acid on [src] burns your hand!"))
 				var/obj/item/bodypart/affecting = C.get_bodypart("[(user.active_hand_index % 2 == 0) ? "r" : "l" ]_arm")
 				if(affecting && affecting.receive_damage( 0, 5 ))		// 5 burn damage
+					affecting.run_limb_injuries(5, BURN, DAMAGE_FIRE, 0)
 					C.update_damage_overlays()
 
 	if(!(interaction_flags_item & INTERACT_ITEM_ATTACK_HAND_PICKUP))		//See if we're supposed to auto pickup.
@@ -685,6 +685,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	var/blockhand = 0
 	var/attackforce = 0
+	var/attackflag = DAMAGE_STANDARD
 	if(owner.get_active_held_item() == src) //this feels so hacky...
 		if(owner.active_hand_index == 1)
 			blockhand = BODY_ZONE_L_ARM
@@ -699,9 +700,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		var/obj/projectile/P = hitby
 		if(P.damage_type != STAMINA)// disablers dont do shit to shields
 			attackforce = (P.damage)
+		attackflag = P.damage_flag
+		sharpness = P.sharpness
 	else if(isitem(hitby))
 		var/obj/item/I = hitby
 		attackforce = damage
+		sharpness = I.sharpness
 		if(I.is_sharp())
 			attackforce = (attackforce / 2)//sharp weapons get much of their force by virtue of being sharp, not physical power
 		if(!I.damtype == BRUTE)
@@ -726,7 +730,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			else
 				INVOKE_ASYNC(L, TYPE_PROC_REF(/atom, attackby), src, owner)
 				owner.visible_message(span_danger("[L] injures themselves on [owner]'s [src]!"))
-	owner.apply_damage(attackforce, STAMINA, blockhand, block_power)
+	owner.take_direct_damage(attackforce * (100 - block_power) * 0.01, STAMINA, attackflag, blockhand)
 	if((owner.getStaminaLoss() >= 35 && HAS_TRAIT(src, TRAIT_NODROP)) || (HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE) && owner.getStaminaLoss() >= 30))//if you don't drop the item, you can't block for a few seconds
 		INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob/living/carbon/human, blockbreak))
 	if(attackforce)
@@ -873,10 +877,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/eyestab(mob/living/carbon/M, mob/living/carbon/user)
 
 	var/is_human_victim
-	var/obj/item/bodypart/affecting = M.get_bodypart(BODY_ZONE_HEAD)
 	if(ishuman(M))
-		if(!affecting) //no head!
-			return
 		is_human_victim = TRUE
 
 	if(M.is_eyes_covered())
@@ -908,7 +909,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		)
 	if(is_human_victim)
 		var/mob/living/carbon/human/U = M
-		U.apply_damage(7, BRUTE, affecting)
+		U.deal_damage(7, sharpness, BRUTE, sound = FALSE, zone = BODY_ZONE_HEAD)
 
 	else
 		M.take_bodypart_damage(7)
@@ -1210,7 +1211,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			var/timedelay = usr.client.prefs.read_player_preference(/datum/preference/numeric/tooltip_delay)/100
 			tip_timer = addtimer(CALLBACK(src, PROC_REF(openTip), location, control, params, usr), timedelay, TIMER_STOPPABLE)//timer takes delay in deciseconds, but the pref is in milliseconds. dividing by 100 converts it.
 		if(usr.client.prefs.read_preference(/datum/preference/toggle/item_outlines))
-			if(istype(L) && L.incapacitated())
+			if(istype(L) && (L.incapacitated() || HAS_TRAIT(L, TRAIT_HANDS_BLOCKED)))
 				apply_outline(COLOR_RED_GRAY)
 			else
 				apply_outline()
@@ -1347,15 +1348,15 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(QDELETED(src))
 		return
 	if(target == src)
-		take_damage(INFINITY, BRUTE, BOMB, 0)
+		deal_damage(INFINITY, 0, BRUTE, DAMAGE_BOMB, sound = FALSE)
 		return
 	switch(severity)
 		if(1)
-			take_damage(250, BRUTE, BOMB, 0)
+			deal_damage(250, 0, BRUTE, DAMAGE_BOMB, sound = FALSE)
 		if(2)
-			take_damage(75, BRUTE, BOMB, 0)
+			deal_damage(75, 0, BRUTE, DAMAGE_BOMB, sound = FALSE)
 		if(3)
-			take_damage(20, BRUTE, BOMB, 0)
+			deal_damage(20, 0, BRUTE, DAMAGE_BOMB, sound = FALSE)
 
 ///Does the current embedding var meet the criteria for being harmless? Namely, does it have a pain multiplier and jostle pain mult of 0? If so, return true.
 /obj/item/proc/isEmbedHarmless()
@@ -1450,10 +1451,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		victim.visible_message(span_warning("[victim] looks like [victim.p_theyve()] just bit something they shouldn't have!"), \
 							span_boldwarning("OH GOD! Was that a crunch? That didn't feel good at all!!"))
 
-		victim.apply_damage(max(15, force), BRUTE, BODY_ZONE_HEAD)
+		victim.deal_damage(max(15, force), sharpness, BRUTE, sound = FALSE, zone = BODY_ZONE_HEAD)
 		victim.losebreath += 2
 		if(tryEmbed(victim.get_bodypart(BODY_ZONE_CHEST), forced = TRUE)) //and if it embeds successfully in their chest, cause a lot of pain
-			victim.apply_damage(max(25, force*1.5), BRUTE, BODY_ZONE_CHEST)
+			victim.deal_damage(max(25, force*1.5), sharpness, BRUTE, sound = FALSE, zone = BODY_ZONE_CHEST)
 			victim.losebreath += 6
 			discover_after = FALSE
 		if(QDELETED(src)) // in case trying to embed it caused its deletion (say, if it's DROPDEL)
