@@ -6,8 +6,6 @@ Contents:
 
 */
 
-/// Whether the spell requires wizard clothes to cast.
-#define SPELL_REQUIRES_MAGICIAN_FOCUS (1 << 0)
 
 // Major part of progression magician, used to define the level of spells they can get.
 #define MAGICIAN_LEVEL_NOVICE 0

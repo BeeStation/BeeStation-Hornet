@@ -10,7 +10,7 @@
 // limit = how many times this spell can be bought from a book
 // times = how many times this spell has been bought from a book
 // cooldown = how long it takes to use this spell/item again
-// requires_magician_focus = whether the spell requires a magician focus to use (this is just visual, you need to put magician focus on spell requirements)
+// requires_magician_focus = THIS IS DONE AUTOMATICALLY!!
 // no_coexistance_typecache = list of spell types that cannot be bought together with this spell/item
 // locked = whether the spell/item is locked and cannot be bought
 // magician_level = the level of magician required to buy this spell/item
@@ -31,5 +31,6 @@
 	spell_type = /datum/action/spell/shapeshift/magician
 	category = "Transformation"
 	cost = 10
+	limit = 6
 	cooldown = 60 SECONDS
 	no_coexistance_typecache = list(/datum/action/spell/shapeshift/wizard)

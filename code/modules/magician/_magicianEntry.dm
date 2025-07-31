@@ -48,10 +48,11 @@
 	no_coexistance_typecache = typecacheof(no_coexistance_typecache)
 
 	if(ispath(spell_type))
-		if(isnull(limit))
-			limit = initial(spell_type.spell_max_level)
-		if(initial(spell_type.spell_requirements) & SPELL_REQUIRES_MAGICIAN_FOCUS)
+		var/datum/action/spell/tmp = new spell_type()
+		if(tmp.spell_requirements & SPELL_REQUIRES_MAGICIAN_FOCUS)
 			requires_magician_focus = TRUE
+		qdel(tmp)  // Clean it up immediately
+
 
 /**
  * Determines if this entry can be purchased from a magician book
