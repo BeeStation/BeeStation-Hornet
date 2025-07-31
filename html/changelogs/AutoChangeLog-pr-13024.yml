@@ -1,0 +1,17 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - balance: Tackling gloves are less effective against targets in combat mode and/or
+      targets with throw enabled and have a higher variance when it comes to the RNG
+      roll that determines the outcome of an attempted tackle.
+  - balance: Tackling gloves are less effective at targets with no damage (real or
+      stamina) and more effective as their health goes down.
+  - tweak: Rocket gloves no longer give a positive modifier during the outcome roll.
+      These gloves were said to be high-risk and high-reward but offered such a high
+      positive bonus they nearly guaranteed a positive outcome.
+  - tweak: improvised gripper gloves no longer have a negative modifier
+  - tweak: Being insane no longer guarantees a successful tackle, but still provides
+      a high modifier. It also sends you deeper into crit instead of barely into crit
+      now.
+  - tweak: Neutral outcome roll is actually neutral instead of giving the person who
+      tackled a major advantage on knockdown time.
