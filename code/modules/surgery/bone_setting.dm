@@ -16,12 +16,12 @@
 /datum/surgery_step/clamp_bleeders/bone_setting
 	name = "set bone"
 
-/datum/surgery_step/clamp_bleeders/bone_setting/preop(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/clamp_bleeders/bone_setting/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, span_notice("You begin to set the bone in [target]'s [parse_zone(surgery.location)]..."),
 		"[user] starts setting the bone in [target]'s [parse_zone(surgery.location)].",
 		"[user] starts setting the bone in [target]'s [parse_zone(surgery.location)].")
 
-/datum/surgery_step/clamp_bleeders/bone_setting/success(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/bone_setting/surgery)
+/datum/surgery_step/clamp_bleeders/bone_setting/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/bone_setting/surgery)
 	var/datum/injury/injury = surgery.operated_bodypart.get_injury_by_base(surgery.target_injury)
 	injury.heal()
 	return TRUE
