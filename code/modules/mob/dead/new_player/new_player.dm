@@ -306,8 +306,20 @@
 /mob/dead/new_player/authenticated/proc/AttemptLateSpawn(rank)
 	// Check that they're picking someone new for new character respawning
 	if(CONFIG_GET(flag/allow_respawn) == RESPAWN_FLAG_NEW_CHARACTER)
+
+		//Adding more checks should be somewhat simple. Starting with the character slot itself:
 		if("[client.prefs.default_slot]" in client.player_details.joined_as_slots)
+			//We do not EVER specify what exactly is preventing them from joining. Security through obscurity! Yay!
 			tgui_alert(usr, "You already have played this character in this round!")
+			log_game("[key_name(usr)] has attempted to respawn as a previously played character and was denied based on character slot vetting.")
+			message_admins("[key_name(usr)] has attempted to respawn as a previously played character. This is not necessarily evidence of foul play.")
+			return FALSE
+
+		//Names played
+		if("[client.prefs.read_character_preference(/datum/preference/name/real_name)]" in client.player_details.played_names)
+			tgui_alert(usr, "You already have played this character in this round!")
+			log_game("[key_name(usr)] has attempted to respawn with a previously played character name in a NEW slot. and was denied based on character name vetting.")
+			message_admins("ATTENTION! [key_name(usr)] has attempted to respawn with a previously played character name in a NEW slot. Likely attempting to bypass respawn restrictions.")
 			return FALSE
 
 	var/error = IsJobUnavailable(rank)

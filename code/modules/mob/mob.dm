@@ -775,7 +775,6 @@
 	if(alert_yes)
 		log_admin("[key_name(usr)] has used admin privilege to respawn themselves back to the Lobby.")
 		message_admins("[key_name(usr)] has used admin privilege to respawn themselves back to the Lobby.")
-
 	NP.ckey = usr.ckey
 	qdel(M)
 	return
