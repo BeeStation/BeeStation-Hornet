@@ -213,11 +213,8 @@ const Multipliers = (props: MultiplierProps) => {
 
 const RecipeBox = (props: RecipeBoxProps) => {
   const { act, data } = useBackend<StackCraftingProps>();
-
   const { amount } = data;
-
   const { recipe, title } = props;
-
   const { res_amount, max_res_amount, req_amount, ref } = recipe;
 
   const resAmountLabel = res_amount > 1 ? `${res_amount}x ` : '';

@@ -1,10 +1,4 @@
-import {
-  Button,
-  Dropdown,
-  Input,
-  NumberInput,
-  Stack,
-} from '../../components';
+import { Button, Dropdown, Input, NumberInput, Stack } from '../../components';
 import { BasicInput } from './BasicInput';
 
 export const FUNDAMENTAL_DATA_TYPES = {

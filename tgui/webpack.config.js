@@ -31,12 +31,14 @@ module.exports = (env = {}, argv) => {
     context: path.resolve(__dirname),
     target: ['web', 'es5', 'browserslist:ie 11'],
     entry: {
-      'tgui': ['./packages/tgui-polyfill', './packages/tgui'],
+      tgui: ['./packages/tgui-polyfill', './packages/tgui'],
       'tgui-panel': ['./packages/tgui-polyfill', './packages/tgui-panel'],
       'tgui-say': ['./packages/tgui-polyfill', './packages/tgui-say'],
     },
     output: {
-      path: argv.useTmpFolder ? path.resolve(__dirname, './public/.tmp') : path.resolve(__dirname, './public'),
+      path: argv.useTmpFolder
+        ? path.resolve(__dirname, './public/.tmp')
+        : path.resolve(__dirname, './public'),
       filename: '[name].bundle.js',
       chunkFilename: '[name].bundle.js',
       chunkLoadTimeout: 15000,
@@ -134,7 +136,10 @@ module.exports = (env = {}, argv) => {
 
   if (bench) {
     config.entry = {
-      'tgui-bench': ['./packages/tgui-polyfill', './packages/tgui-bench/entrypoint'],
+      'tgui-bench': [
+        './packages/tgui-polyfill',
+        './packages/tgui-bench/entrypoint',
+      ],
     };
   }
 

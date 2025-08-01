@@ -2,13 +2,7 @@ import { Component } from 'react';
 
 import { resolveAsset } from '../../assets';
 import { useBackend } from '../../backend';
-import {
-  Box,
-  Button,
-  InfinitePlane,
-  Input,
-  Stack,
-} from '../../components';
+import { Box, Button, InfinitePlane, Input, Stack } from '../../components';
 import { Window } from '../../layouts';
 import { CircuitInfo } from './CircuitInfo';
 import { Connections } from './Connections';
