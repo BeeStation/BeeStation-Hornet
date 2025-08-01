@@ -80,6 +80,7 @@
 	role_preference = /datum/role_preference/latejoin/vampire
 	antag_datum = /datum/antagonist/vampire
 	weight = 4
+	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_CURATOR)
 
 /datum/dynamic_ruleset/latejoin/vampire/execute()
 	. = ..()
