@@ -141,11 +141,30 @@
 	var/obj/item/stock_parts/cell/cell_charging = charging.get_cell()
 	if(cell_charging.percent() >= 100)
 		return
-	var/main_draw = use_power_from_net(cell_charging.chargerate * recharge_coeff * delta_time / 2, take_any = TRUE) //Pulls directly from the Powernet to dump into the cell or holder
-	if(!main_draw)
+
+	var/area/home = get_area(src)
+	if(!home)
 		return
-	cell_charging.give(main_draw)
-	use_power(125 * recharge_coeff * delta_time)
+
+	var/obj/machinery/power/apc/local_apc = home.apc
+	if(!local_apc)
+		return
+
+	var/power_needed = cell_charging.chargerate * recharge_coeff * delta_time
+	var/surplus = local_apc.surplus()
+	if(surplus <= 0)
+		return
+
+	// Clamp power to available surplus to avoid duping
+	var/power_to_use = power_needed
+	if(surplus < power_needed)
+		power_to_use = surplus
+
+	// Register power usage on the APC
+	use_power(power_to_use)
+
+	// Charge cell only by power actually used
+	cell_charging.give(power_to_use)
 
 	update_appearance()
 

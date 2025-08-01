@@ -2,11 +2,11 @@
 	projectile_type = /obj/projectile/ion
 	select_name = "ion"
 	fire_sound = 'sound/weapons/ionrifle.ogg'
-	e_cost = 80
+	e_cost = 0.8 KILOWATT
 
 /obj/item/ammo_casing/energy/ion/weak
 	projectile_type = /obj/projectile/ion/weak
-	e_cost = 60
+	e_cost = 0.6 KILOWATT
 
 /obj/item/ammo_casing/energy/declone
 	projectile_type = /obj/projectile/energy/declone
@@ -31,7 +31,7 @@
 /obj/item/ammo_casing/energy/temp
 	projectile_type = /obj/projectile/temp
 	select_name = "freeze"
-	e_cost = 100
+	e_cost = 0.1 KILOWATT
 	fire_sound = 'sound/weapons/pulse3.ogg'
 
 /obj/item/ammo_casing/energy/temp/hot
@@ -46,7 +46,7 @@
 	projectile_type = /obj/projectile/energy/net
 	select_name = "netting"
 	pellets = 6
-	variance = 40
+	variance = 0.4 KILOWATT
 	harmful = FALSE
 
 /obj/item/ammo_casing/energy/trap
@@ -67,6 +67,6 @@
 
 /obj/item/ammo_casing/energy/tesla_revolver
 	fire_sound = 'sound/magic/lightningbolt.ogg'
-	e_cost = 200
+	e_cost = 0.2 KILOWATT
 	select_name = "stun"
 	projectile_type = /obj/projectile/energy/tesla/revolver

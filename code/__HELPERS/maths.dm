@@ -106,24 +106,6 @@
 		return "[round((powerused * 0.000001),0.001)] MW"
 	return "[round((powerused * 0.000000001),0.0001)] GW"
 
-/// Format an energy value in J, kJ, MJ, or GJ. 1W = 1J/s.
-/proc/display_joules(units)
-	if (units < 1000) // Less than a kJ
-		return "[round(units, 0.1)] J"
-	else if (units < 1000000) // Less than a MJ
-		return "[round(units * 0.001, 0.01)] kJ"
-	else if (units < 1000000000) // Less than a GJ
-		return "[round(units * 0.000001, 0.001)] MJ"
-	return "[round(units * 0.000000001, 0.0001)] GJ"
-
-/// Format an energy value measured in Power Cell units.
-/proc/display_energy(units)
-	// APCs process every (SSmachines.wait * 0.1) seconds, and turn 1 W of
-	// excess power into GLOB.CELLRATE energy units when charging cells.
-	// With the current configuration of wait=20 and CELLRATE=0.002, this
-	// means that one unit is 1 kJ.
-	return display_joules(units * SSmachines.wait * 0.1 / GLOB.CELLRATE)
-
 ///counts the number of bits in Byond's 16-bit width field, in constant time and memory!
 /proc/bit_count(bit_field)
 	var/temp = bit_field - ((bit_field >> 1) & 46811) - ((bit_field >> 2) & 37449) //0133333 and 0111111 respectively

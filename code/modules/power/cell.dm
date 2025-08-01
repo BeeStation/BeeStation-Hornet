@@ -13,7 +13,8 @@
 	w_class = WEIGHT_CLASS_SMALL
 	/// note %age converted to actual charge in New
 	var/charge = 0
-	var/maxcharge = 1000
+	/// Maximum charge possible in KJs. 100kjs is the default.
+	var/maxcharge = 1 KILOWATT
 	custom_materials = list(/datum/material/iron=700, /datum/material/glass=50)
 	grind_results = list(/datum/reagent/lithium = 15, /datum/reagent/iron = 5, /datum/reagent/silicon = 5)
 	/// If the cell has been booby-trapped by injecting it with plasma. Chance on use() to explode.
@@ -22,8 +23,8 @@
 	var/corrupted = FALSE
 	///how much power is given every tick in a recharger
 	var/chargerate
-	/// How many recharge cycles untill 100%? Default is 10. Calculation goes - (maxcharge / chargerate_divide)
-	var/chargerate_divide = 10
+	/// How many recharge cycles untill 100%? Default is 20. Calculation goes - (maxcharge / chargerate_divide)
+	var/chargerate_divide = 20
 	///does it self recharge, over time, or not?
 	var/self_recharge = FALSE
 	///stores the chargerate to restore when hit with EMP, for slime cores
@@ -45,7 +46,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 		maxcharge = override_maxcharge
 	charge = maxcharge
 	if(ratingdesc)
-		desc += " This one has a rating of [display_energy(maxcharge)], and you should not swallow it."
+		desc += " This one has a rating of [display_power(maxcharge)], and you should not swallow it."
 	chargerate = (maxcharge / chargerate_divide)
 	update_appearance()
 
@@ -232,7 +233,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 /obj/item/stock_parts/cell/crap
 	name = "\improper Nanotrasen brand rechargeable AA battery"
 	desc = "You can't top the plasma top." //TOTALLY TRADEMARK INFRINGEMENT
-	maxcharge = 500
+	maxcharge = 0.5 KILOWATT
 	custom_materials = list(/datum/material/glass=40)
 
 /obj/item/stock_parts/cell/crap/empty/Initialize(mapload)
@@ -243,18 +244,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 /obj/item/stock_parts/cell/upgraded
 	name = "upgraded power cell"
 	desc = "A power cell with a slightly higher capacity than normal!"
-	maxcharge = 2500
+	maxcharge = 2.5 KILOWATT
 	custom_materials = list(/datum/material/glass=50)
-	chargerate_divide = 5
 
 /obj/item/stock_parts/cell/upgraded/plus
 	name = "upgraded power cell+"
 	desc = "A power cell with an even higher capacity than the base model!"
-	maxcharge = 5000
+	maxcharge = 5 KILOWATT
 
 /obj/item/stock_parts/cell/secborg
 	name = "security borg rechargeable D battery"
-	maxcharge = 600	//600 max charge / 100 charge per shot = six shots
+	maxcharge = 6 KILOWATT	//600 max charge / 100 charge per shot = six shots
 	custom_materials = list(/datum/material/glass=40)
 
 /obj/item/stock_parts/cell/secborg/empty/Initialize(mapload)
@@ -264,30 +264,28 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 
 /obj/item/stock_parts/cell/pulse //200 pulse shots
 	name = "pulse rifle power cell"
-	maxcharge = 40000
+	maxcharge = 40 KILOWATT
 
 /obj/item/stock_parts/cell/pulse/carbine //25 pulse shots
 	name = "pulse carbine power cell"
-	maxcharge = 5000
+	maxcharge = 5 KILOWATT
 
 /obj/item/stock_parts/cell/pulse/pistol //10 pulse shots
 	name = "pulse pistol power cell"
-	maxcharge = 2000
+	maxcharge = 2 KILOWATT
 
 /obj/item/stock_parts/cell/high
 	name = "high-capacity power cell"
 	icon_state = "hcell"
-	maxcharge = 10000
+	maxcharge = 10 KILOWATT
 	custom_materials = list(/datum/material/glass=60)
-	chargerate_divide = 6
 	rating = 1
 
 /obj/item/stock_parts/cell/high/plus
 	name = "high-capacity power cell+"
 	desc = "Where did these come from?"
 	icon_state = "h+cell"
-	maxcharge = 15000
-	chargerate_divide = 6
+	maxcharge = 15 KILOWATT
 
 /obj/item/stock_parts/cell/high/empty/Initialize(mapload)
 	. = ..()
@@ -297,7 +295,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 /obj/item/stock_parts/cell/super
 	name = "super-capacity power cell"
 	icon_state = "scell"
-	maxcharge = 20000
+	maxcharge = 20 KILOWATT
 	custom_materials = list(/datum/material/glass=300)
 	rating = 2
 
@@ -309,7 +307,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 /obj/item/stock_parts/cell/hyper
 	name = "hyper-capacity power cell"
 	icon_state = "hpcell"
-	maxcharge = 30000
+	maxcharge = 30 KILOWATT
 	custom_materials = list(/datum/material/glass=400)
 	rating = 3
 
@@ -322,7 +320,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 	name = "bluespace power cell"
 	desc = "A rechargeable transdimensional power cell."
 	icon_state = "bscell"
-	maxcharge = 40000
+	maxcharge = 40 KILOWATT
 	custom_materials = list(/datum/material/glass=600)
 	rating = 4
 
@@ -334,7 +332,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 /obj/item/stock_parts/cell/infinite
 	name = "infinite-capacity power cell!"
 	icon_state = "icell"
-	maxcharge = 30000
+	maxcharge = 30 KILOWATT
 	custom_materials = list(/datum/material/glass=1000)
 	rating = 100
 	chargerate_divide = 1
@@ -347,7 +345,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 	desc = "An alien power cell that produces energy seemingly out of nowhere."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "cell"
-	maxcharge = 50000
+	maxcharge = 50 KILOWATT
 	ratingdesc = FALSE
 
 /obj/item/stock_parts/cell/infinite/abductor/ComponentInitialize()
@@ -360,8 +358,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 	desc = "A rechargeable starch based power cell."
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "potato"
-	charge = 100
-	maxcharge = 300
+	charge = 10
+	maxcharge = 0.3 KILOWATT
 	custom_materials = null
 	grown_battery = TRUE //it has the overlays for wires
 
@@ -374,12 +372,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 	rating = 5 //self-recharge makes these desirable
 	self_recharge = TRUE // Infused slime cores self-recharge, over time
 	chargerate_divide = 20
-	maxcharge = 2000
+	maxcharge = 200
 
 /obj/item/stock_parts/cell/emproof
 	name = "\improper EMP-proof cell"
 	desc = "An EMP-proof cell."
-	maxcharge = 500
+	maxcharge = 0.5 KILOWATT
 	rating = 3
 
 /obj/item/stock_parts/cell/emproof/empty/Initialize(mapload)
@@ -397,7 +395,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 /obj/item/stock_parts/cell/beam_rifle
 	name = "beam rifle capacitor"
 	desc = "A high powered capacitor that can provide huge amounts of energy in an instant."
-	maxcharge = 50000
+	maxcharge = 50 KILOWATT
 
 /obj/item/stock_parts/cell/beam_rifle/corrupt()
 	return
@@ -406,12 +404,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 	. = ..()
 	if(. & EMP_PROTECT_SELF)
 		return
-	charge = clamp((charge-(10000/severity)),0,maxcharge)
+	charge = clamp((charge-(1000/severity)),0,maxcharge)
 
 /obj/item/stock_parts/cell/emergency_light
 	name = "miniature power cell"
 	desc = "A tiny power cell with a very low power capacity. Used in light fixtures to power them in the event of an outage."
-	maxcharge = 120 //Emergency lights use 0.2 W per tick, meaning ~10 minutes of emergency power from a cell
+	maxcharge = 0.12 KILOWATT // This comment is wrong and this calculation is incorrect: //Emergency lights use 0.2 kw per tick, meaning ~10 minutes of emergency power from a cell
 	custom_materials = list(/datum/material/glass = 20)
 	w_class = WEIGHT_CLASS_TINY
 

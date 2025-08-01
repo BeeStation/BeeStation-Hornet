@@ -173,7 +173,7 @@
 /obj/item/inducer/examine(mob/living/M)
 	. = ..()
 	if(cell)
-		. += span_notice("Its display shows: [display_energy(cell.charge)].")
+		. += span_notice("Its display shows: [display_power(cell.charge)].")
 	else
 		. += span_notice("Its display is dark.")
 	if(opened)

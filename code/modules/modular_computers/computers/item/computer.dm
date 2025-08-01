@@ -316,7 +316,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	playsound(start, "sparks", 50, 1)
 	playsound(target, "sparks", 50, 1)
 	do_dash(src, start, target, 0, TRUE)
-	use_power((250 * cpu.max_idle_programs) / GLOB.CELLRATE)
+	use_power((250 * cpu.max_idle_programs))
 	return
 
 /obj/item/modular_computer/proc/get_blink_destination(turf/start, direction, range)
