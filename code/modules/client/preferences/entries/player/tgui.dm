@@ -12,6 +12,7 @@
 /datum/preference/choiced/tgui_layout
 	db_key = "tgui_layout"
 	preference_type = PREFERENCE_PLAYER
+	disable_serialization = TRUE //Will break during the TM otherwise
 
 /datum/preference/choiced/tgui_layout/init_possible_values()
 	return list(
