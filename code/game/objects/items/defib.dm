@@ -637,7 +637,7 @@
 					var/obj/item/organ/brain/BR = H.get_organ_by_type(/obj/item/organ/brain)
 					if(BR)
 						if(BR.organ_flags & ORGAN_FAILING || BR.brain_death)
-							failed = span_warning("[req_defib ? "[defib]" : "[src]"] buzzes: Resuscitation failed - Patient's brain has decayed too long. Further attempts futile.")
+							failed = span_warning("[req_defib ? "[defib]" : "[src]"] buzzes: Resuscitation failed - Patient's brain tissue is damaged, making recovery of patient impossible via defibrillator. Further attempts futile.")
 						if(BR.suicided || BR.brainmob?.suiciding)
 							failed = span_warning("[req_defib ? "[defib]" : "[src]"] buzzes: Resuscitation failed - No intelligence pattern can be detected in patient's brain. Further attempts futile.")
 						if(H.get_ghost())
