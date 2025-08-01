@@ -26,7 +26,8 @@
 	var/loading = FALSE // Nice loading text
 	var/autoprocess = FALSE
 
-	var/experimental = FALSE //experimental cloner will have true. TRUE allows you to scan a weird brain.
+	var/experimental = FALSE //experimental cloner will have true. TRUE allows you to scan a weird brain.//length of time spent dead
+	var/tlimit = DEFIB_TIME_LIMIT * 10
 
 	light_color = LIGHT_COLOR_BLUE
 
@@ -533,6 +534,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 		log_cloning("[user ? key_name(user) : "Unknown"] cloned [key_name(mob_occupant)] with [src] at [AREACOORD(src)].")
 
 /obj/machinery/computer/cloning/proc/can_scan(datum/dna/dna, mob/living/mob_occupant, datum/bank_account/account, body_only)
+	var/tplus = world.time - mob_occupant.timeofdeath
 	if(!istype(dna))
 		scantemp = "Unable to locate valid genetic data."
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
@@ -543,6 +545,10 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 		return FALSE
 	if((HAS_TRAIT(mob_occupant, TRAIT_HUSK)) && (src.scanner.scan_level < 2))
 		scantemp = "Subject's body is too damaged to scan properly."
+		playsound(src, 'sound/machines/terminal_alert.ogg', 50, 0)
+		return FALSE
+	if(tplus > tlimit) //they are never coming back
+		scantemp = "Subject's body has decayed too long to scan properly."
 		playsound(src, 'sound/machines/terminal_alert.ogg', 50, 0)
 		return FALSE
 	if(HAS_TRAIT(mob_occupant, TRAIT_BADDNA))
