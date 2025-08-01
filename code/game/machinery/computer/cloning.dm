@@ -26,8 +26,9 @@
 	var/loading = FALSE // Nice loading text
 	var/autoprocess = FALSE
 
-	var/experimental = FALSE //experimental cloner will have true. TRUE allows you to scan a weird brain.//length of time spent dead
-	var/tlimit = DEFIB_TIME_LIMIT * 10
+	var/experimental = FALSE //experimental cloner will have true. TRUE allows you to scan a weird brain.
+	//length of time spent dead, for cloning it's 5 minutes longer.
+	var/tlimit = DEFIB_TIME_LIMIT * 1.5
 
 	light_color = LIGHT_COLOR_BLUE
 

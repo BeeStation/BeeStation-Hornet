@@ -208,7 +208,7 @@
 
 /// Determines how long before a player is allowed to respawn.
 /datum/config_entry/number/respawn_delay
-	default = 10 MINUTES
+	default = 5 MINUTES
 
 /datum/config_entry/flag/guest_jobban
 

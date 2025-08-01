@@ -962,7 +962,7 @@
 
 /datum/reagent/medicine/strange_reagent/expose_mob(mob/living/M, method=TOUCH, reac_volume)
 	var/tplus = world.time - M.timeofdeath	//length of time spent dead
-	var/tlimit = DEFIB_TIME_LIMIT * 10
+	var/tlimit = DEFIB_TIME_LIMIT
 	if(M.stat == DEAD)
 		if(M.suiciding || M.ishellbound() || tplus > tlimit) //they are never coming back
 			M.visible_message(span_warning("[M]'s body does not react..."))
