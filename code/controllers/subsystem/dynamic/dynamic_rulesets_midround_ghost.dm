@@ -266,7 +266,7 @@
 	severity = DYNAMIC_MIDROUND_HEAVY
 	antag_datum = /datum/antagonist/space_dragon
 	points_cost = 40
-	minimum_players_required = 20
+	minimum_players_required = 13
 	weight = 5
 	flags = CANNOT_REPEAT
 
