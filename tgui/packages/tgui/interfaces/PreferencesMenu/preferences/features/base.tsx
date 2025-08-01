@@ -18,7 +18,8 @@ import { ServerPreferencesFetcher } from '../../ServerPreferencesFetcher';
 import features from '.';
 import { DropdownPartialProps } from 'tgui/components/Dropdown';
 
-export const sortChoices = (array: [string, ReactNode][]) => sortBy(array, ([name]) => name);
+export const sortChoices = (array: [string, ReactNode][]) =>
+  sortBy(array, ([name]) => name);
 
 export type Feature<
   TReceiving,

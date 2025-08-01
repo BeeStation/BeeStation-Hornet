@@ -18,7 +18,9 @@ const getClampedNumber = (value, minValue, maxValue, allowFloats) => {
   if (!value || !value.length) {
     return String(minimum);
   }
-  let parsedValue = allowFloats ? parseFloat(value.replace(/[^\-\d.]/g, '')) : parseInt(value.replace(/[^\-\d]/g, ''), 10);
+  let parsedValue = allowFloats
+    ? parseFloat(value.replace(/[^\-\d.]/g, ''))
+    : parseInt(value.replace(/[^\-\d]/g, ''), 10);
   if (isNaN(parsedValue)) {
     return String(minimum);
   } else {
@@ -53,7 +55,12 @@ export const RestrictedInput = (props) => {
     }
     const input = inputRef.current;
     if (input) {
-      input.value = getClampedNumber(value?.toString(), minValue, maxValue, allowFloats);
+      input.value = getClampedNumber(
+        value?.toString(),
+        minValue,
+        maxValue,
+        allowFloats,
+      );
     }
   };
 
@@ -80,7 +87,12 @@ export const RestrictedInput = (props) => {
 
   const handleKeyDown = (e) => {
     if (e.key === KEY.Enter) {
-      const safeNum = getClampedNumber(e.target.value, minValue, maxValue, allowFloats);
+      const safeNum = getClampedNumber(
+        e.target.value,
+        minValue,
+        maxValue,
+        allowFloats,
+      );
       e.target.value = safeNum;
       setEditing(false);
       if (onChange) {
@@ -104,8 +116,20 @@ export const RestrictedInput = (props) => {
     }
 
     let restricted_characters = allowFloats ? /[^\d.-]/g : /[^\d-]/g;
-    let allowed_keys = [KEY.Backspace, KEY.Delete, KEY.ArrowLeft, KEY.ArrowRight, KEY.Tab, KEY.Enter, KEY.Escape];
-    if (!allowed_keys.includes(e.key) && e.key.length === 1 && restricted_characters.test(e.key)) {
+    let allowed_keys = [
+      KEY.Backspace,
+      KEY.Delete,
+      KEY.ArrowLeft,
+      KEY.ArrowRight,
+      KEY.Tab,
+      KEY.Enter,
+      KEY.Escape,
+    ];
+    if (
+      !allowed_keys.includes(e.key) &&
+      e.key.length === 1 &&
+      restricted_characters.test(e.key)
+    ) {
       e.preventDefault();
       return;
     }
@@ -114,7 +138,12 @@ export const RestrictedInput = (props) => {
   useEffect(() => {
     const input = inputRef.current;
     if (input && !editing) {
-      input.value = getClampedNumber(value?.toString(), minValue, maxValue, allowFloats);
+      input.value = getClampedNumber(
+        value?.toString(),
+        minValue,
+        maxValue,
+        allowFloats,
+      );
     }
   }, [value, minValue, maxValue, allowFloats, editing]);
 
@@ -147,7 +176,15 @@ export const RestrictedInput = (props) => {
   }, [autoSelect]);
 
   return (
-    <Box className={classes(['Input', fluid && 'Input--fluid', monospace && 'Input--monospace', className])} {...boxProps}>
+    <Box
+      className={classes([
+        'Input',
+        fluid && 'Input--fluid',
+        monospace && 'Input--monospace',
+        className,
+      ])}
+      {...boxProps}
+    >
       <div className="Input__baseline">.</div>
       <input
         className="Input__input"

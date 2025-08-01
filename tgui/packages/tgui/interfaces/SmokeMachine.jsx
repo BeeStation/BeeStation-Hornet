@@ -29,7 +29,8 @@ export const SmokeMachine = (props) => {
             <Button
               icon={active ? 'power-off' : 'times'}
               selected={active}
-              onClick={() => act('power')}>
+              onClick={() => act('power')}
+            >
               {active ? 'On' : 'Off'}
             </Button>
           }
@@ -52,7 +53,8 @@ export const SmokeMachine = (props) => {
                     icon="plus"
                     key={amount}
                     onClick={() => act('setting', { amount })}
-                    selected={setting === amount}>
+                    selected={setting === amount}
+                  >
                     {amount * 3}
                   </Button>
                 ))}
@@ -66,7 +68,8 @@ export const SmokeMachine = (props) => {
             <Button icon="trash" onClick={() => act('purge')}>
               Purge
             </Button>
-          }>
+          }
+        >
           {TankContents.map((chemical) => (
             <Box key={chemical.name} color="label">
               <AnimatedNumber initial={0} value={chemical.volume} /> units of{' '}

@@ -30,7 +30,8 @@ export const sound_announcements: FeatureToggle = {
 export const sound_ghostpoll: FeatureToggle = {
   name: 'Enable ghost polling sound',
   category: 'SOUND',
-  description: 'When enabled, hear an alert when being polled for a ghost role.',
+  description:
+    'When enabled, hear an alert when being polled for a ghost role.',
   component: CheckboxInput,
 };
 

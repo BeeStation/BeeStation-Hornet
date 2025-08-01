@@ -20,10 +20,20 @@ type NumberInputData = {
 
 export const NumberInputModal = (_) => {
   const { act, data } = useBackend<NumberInputData>();
-  const { init_value, large_buttons, message = '', timeout, title, min_value, max_value } = data;
+  const {
+    init_value,
+    large_buttons,
+    message = '',
+    timeout,
+    title,
+    min_value,
+    max_value,
+  } = data;
   const [input, setInput] = useState(init_value);
 
-  const [clampedInput, setClampedInput] = useState(clamp(input, min_value, max_value));
+  const [clampedInput, setClampedInput] = useState(
+    clamp(input, min_value, max_value),
+  );
   const setValue = (value: number) => {
     if (value === input) {
       return;

@@ -598,7 +598,9 @@ class ChatRenderer {
           message.node = 'pruned';
         }
         // Remove pruned messages from the message array
-        this.messages = this.messages.filter((message) => message.node !== 'pruned');
+        this.messages = this.messages.filter(
+          (message) => message.node !== 'pruned',
+        );
         logger.log(`pruned ${fromIndex} visible messages`);
       }
     }

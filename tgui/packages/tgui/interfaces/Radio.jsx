@@ -20,13 +20,18 @@ export const Radio = (props) => {
     subspace,
     subspaceSwitchable,
   } = data;
-  const tunedChannel = RADIO_CHANNELS.find((channel) => channel.freq === frequency);
+  const tunedChannel = RADIO_CHANNELS.find(
+    (channel) => channel.freq === frequency,
+  );
   const channels = map(data.channels, (value, key) => ({
     name: key,
     status: !!value,
   }));
   return (
-    <Window width={360} height={106 + (channels.len > 0 ? 6 + channels.len * 21 : 24)}>
+    <Window
+      width={360}
+      height={106 + (channels.len > 0 ? 6 + channels.len * 21 : 24)}
+    >
       <Window.Content>
         <Section>
           <LabeledList>
@@ -59,7 +64,13 @@ export const Radio = (props) => {
               )}
             </LabeledList.Item>
             <LabeledList.Item label="Audio">
-              <Button textAlign="center" width="37px" icon={'power-off'} selected={enabled} onClick={() => act('enable')} />
+              <Button
+                textAlign="center"
+                width="37px"
+                icon={'power-off'}
+                selected={enabled}
+                onClick={() => act('enable')}
+              />
               <Button
                 textAlign="center"
                 width="37px"

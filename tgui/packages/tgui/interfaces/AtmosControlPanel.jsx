@@ -12,7 +12,7 @@ export const AtmosControlPanel = (props) => {
       // Generate a unique id
       id: group.area + i,
     })),
-    (group) => group.id
+    (group) => group.id,
   );
   return (
     <Window title="SSAir Control Panel" width={900} height={500} resizable>

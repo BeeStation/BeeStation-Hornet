@@ -134,7 +134,7 @@ document.addEventListener(
       stealFocus(e.target as HTMLElement);
     }
   },
-  true
+  true,
 );
 
 // When we click on any element on the page, untrack the last
@@ -144,7 +144,7 @@ document.addEventListener(
   (e) => {
     lastVisitedNode = null;
   },
-  true
+  true,
 );
 
 // Handle setting the window focus

@@ -19,7 +19,12 @@ $elevator-selected: hsl(0, 0%, 88.6%) !default;
 
 .theme-elevator {
   body {
-    background: linear-gradient(to bottom, hsl(202.5, 13.6%, 76.9%), #eee, hsl(202.5, 13.6%, 76.9%));
+    background: linear-gradient(
+      to bottom,
+      hsl(202.5, 13.6%, 76.9%),
+      #eee,
+      hsl(202.5, 13.6%, 76.9%)
+    );
   }
   // Components
   @include meta.load-css(
@@ -54,7 +59,12 @@ $elevator-selected: hsl(0, 0%, 88.6%) !default;
       height: $button-height;
       width: $button-height;
       border-radius: $button-height;
-      background: linear-gradient(to bottom, hsl(200, 2.4%, 49.4%), hsl(0, 0%, 72.5%), hsl(200, 2.4%, 49.4%));
+      background: linear-gradient(
+        to bottom,
+        hsl(200, 2.4%, 49.4%),
+        hsl(0, 0%, 72.5%),
+        hsl(200, 2.4%, 49.4%)
+      );
       border: 3px solid $elevator-gray;
       &.Button--disabled {
         background-color: $elevator-gray-fg !important;
@@ -74,7 +84,12 @@ $elevator-selected: hsl(0, 0%, 88.6%) !default;
         0.1s ease background,
         0.1s linear box-shadow;
       &:hover {
-        background: linear-gradient(to bottom, hsl(200, 2.4%, 49.4%), hsl(0, 0.6%, 65.7%), hsl(200, 2.4%, 49.4%));
+        background: linear-gradient(
+          to bottom,
+          hsl(200, 2.4%, 49.4%),
+          hsl(0, 0.6%, 65.7%),
+          hsl(200, 2.4%, 49.4%)
+        );
       }
       &:after {
         content: '';

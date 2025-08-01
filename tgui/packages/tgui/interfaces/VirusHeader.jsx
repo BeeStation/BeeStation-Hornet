@@ -8,7 +8,12 @@ import '../styles/VirusReadme.scss';
  * @param text       – main body (string)
  * @param lineDelay  – seconds between each line (number) –‑ default 0.04s
  */
-export const VirusHeader = ({ header = '', preText = '', text = '', lineDelay = 0.04 }) => {
+export const VirusHeader = ({
+  header = '',
+  preText = '',
+  text = '',
+  lineDelay = 0.04,
+}) => {
   const combined = [header, preText, text].join('\n').trimEnd();
   const lines = combined.split('\n');
 
@@ -19,7 +24,8 @@ export const VirusHeader = ({ header = '', preText = '', text = '', lineDelay = 
           // each line fades in after i×lineDelay
           key={i}
           className="readme-line"
-          style={{ animationDelay: `${i * lineDelay}s` }}>
+          style={{ animationDelay: `${i * lineDelay}s` }}
+        >
           {line === '' ? '\u00A0' : line}
         </Box>
       ))}
