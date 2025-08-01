@@ -79,18 +79,31 @@
 	if(recharger)
 		recharger.process(delta_time)
 
-	var/power_usage = screen_on ? base_active_power_usage : base_idle_power_usage
-
-	for(var/h in all_components)
-		var/obj/item/computer_hardware/H = all_components[h]
-		if(H.enabled)
-			power_usage += H.power_usage
+	var/power_usage = calculate_power()
 	if(use_power(power_usage))
 		last_power_usage = power_usage
 		return TRUE
 	else
 		power_failure()
 		return FALSE
+
+/**
+*Calculates current power usage based on if the computer is on of not.
+*
+*Takes into account component power usage, active or idle power usage.
+*
+*When te computer is idle doesn't return component power usage.
+*
+*/
+/obj/item/modular_computer/proc/calculate_power()
+	var/power_usage = enabled ? base_active_power_usage : base_idle_power_usage
+
+	if(enabled)
+		for(var/h in all_components)
+			var/obj/item/computer_hardware/H = all_components[h]
+			if(H.enabled)
+				power_usage += H.power_usage
+	return power_usage
 
 // Used by child types if they have other power source than battery or recharger
 /obj/item/modular_computer/proc/check_power_override()
