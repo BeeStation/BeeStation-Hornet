@@ -58,7 +58,7 @@
 
 // Defib stats
 /// The time (in deciseconds) in which a fresh body can be defibbed. Default pans out to 10 minutes.
-#define DEFIB_TIME_LIMIT 6000
+#define DEFIB_TIME_LIMIT 600
 
 #define VALUE_MODE_NUM 0
 #define VALUE_MODE_TEXT 1

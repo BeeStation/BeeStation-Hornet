@@ -549,7 +549,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 		playsound(src, 'sound/machines/terminal_alert.ogg', 50, 0)
 		return FALSE
 	if(tplus > tlimit) //they are never coming back
-		scantemp = "Subject's body has decayed too long to scan properly."
+		scantemp = "Subject's body does not respond to the scanwave. Revival impossible."
 		playsound(src, 'sound/machines/terminal_alert.ogg', 50, 0)
 		return FALSE
 	if(HAS_TRAIT(mob_occupant, TRAIT_BADDNA))
