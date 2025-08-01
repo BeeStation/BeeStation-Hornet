@@ -441,7 +441,7 @@
 ///////////////////////////////////////////////////////
 
 /atom/movable/screen/alert/status_effect/stabilized
-	name = "Stabililzed"
+	name = "Stabilized"
 	icon_state = "template"
 
 /datum/status_effect/stabilized //The base stabilized extract effect, has no effect of its' own.
@@ -462,7 +462,7 @@
 		linked_alert.add_overlay(linked_extract)
 
 /datum/status_effect/stabilized/on_creation(mob/living/new_owner, obj/item/slimecross/stabilized/linked_extract)
-	src.linked_extract = linked_extract
+	src.link_extract(linked_extract)
 	return ..()
 
 /datum/status_effect/stabilized/tick()
@@ -477,9 +477,9 @@
 	owner.balloon_alert(owner, "[colour] extract faded!")
 	if(!QDELETED(linked_extract))
 		linked_extract.linked_effect = null
-		duration = world.time + 15 SECONDS
-		START_PROCESSING(SSfastprocess, src)
-	qdel(src)
+		START_PROCESSING(SSobj,linked_extract)
+	duration = world.time + 15 SECONDS
+	START_PROCESSING(SSfastprocess, src)
 
 /datum/status_effect/stabilized/null //This shouldn't ever happen, but just in case.
 	id = "stabilizednull"
