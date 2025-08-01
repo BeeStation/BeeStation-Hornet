@@ -159,6 +159,8 @@
 #define TRAIT_MASQUERADE "trait_masquerade"
 /// Your body is literal room temperature. Does not make you immune to the temp
 #define TRAIT_COLDBLOODED "trait_coldblooded"
+/// For people in the middle of being staked
+#define TRAIT_BEINGSTAKED "trait_beingstaked"
 
 /**
  * Sources

@@ -255,7 +255,7 @@ const VampireGuide = (_props) => {
               <Box inline textColor="orange">
                 Frenzy
               </Box>{' '}
-              and return to your previous undead self.
+              and return to your previous self.
               <br /> <br />
               <Box fontSize="20px" textColor="blue" bold>
                 Powers

@@ -1038,10 +1038,14 @@
 	attack_verb_continuous = list("staked", "stabbed", "tore into")
 	attack_verb_simple = list("staked", "stabbed", "tore into")
 	sharpness = SHARP
-	embedding = list("embed_chance" = 20)
 	force = 6
 	throwforce = 10
 	max_integrity = 30
+	embedding = list(
+		"embed_chance" = 100,
+		"fall_chance" = 0,
+		"rip_time" = 5 SECONDS, // this is actually 10 seconds because it gets multiplied by the w_class
+	)
 
 	///Time it takes to embed the stake into someone's chest.
 	var/staketime = 12 SECONDS
@@ -1051,36 +1055,56 @@
 	if(.)
 		return
 
-	// Invalid Target, or not targetting the chest?
-	if(check_zone(user.get_combat_bodyzone()) != BODY_ZONE_CHEST)
-		return
+	// Cannot target yourself, must be in combat mode and targeting the chest
 	if(target == user)
 		return
-	if(!can_be_staked(target)) // Oops! Can't.
-		to_chat(user, span_danger("You can't stake [target] when they are mobile! Incapacitate [target.p_them()]"))
+	if(!user.combat_mode)
 		return
-	if(HAS_TRAIT(target, TRAIT_PIERCEIMMUNE))
-		to_chat(user, span_danger("[target]'s chest resists the stake. It won't go in."))
+	if(check_zone(user.get_combat_bodyzone()) != BODY_ZONE_CHEST)
 		return
 
-	to_chat(user, span_notice("You put all your weight into embedding the stake into [target]'s chest..."))
-	if(!do_after(user, staketime, target, extra_checks = CALLBACK(src, PROC_REF(can_be_staked), target))) // user / target / time / uninterruptable / show progress bar / extra checks
+	if(HAS_TRAIT(target, TRAIT_BEINGSTAKED))
+		to_chat(user, span_notice("[target] is already having a stake driven into [target.p_their()] chest!"))
 		return
-	// Drop & Embed Stake
+
+	// lol, cry about it
+	if(HAS_TRAIT(target, TRAIT_PIERCEIMMUNE))
+		to_chat(user, span_notice("[target]'s chest is too thick! [src] won't go in!"))
+		return
+
+	// Cannot have something in your chest
+	var/obj/item/bodypart/chest = target.get_bodypart(BODY_ZONE_CHEST)
+	if(!chest)
+		return
+	for(var/obj/item/embedded_object in chest.embedded_objects)
+		to_chat(user, span_boldannounce("[target]'s chest already has [embedded_object] inside of it!"))
+		return
+
+	playsound(target, 'sound/magic/Demon_consume.ogg', 50, 1)
+	to_chat(target, span_userdanger("[user] is driving a stake into your chest!"))
+	to_chat(user, span_notice("You put all your weight into embedding [src] into [target]'s chest..."))
+
+	ADD_TRAIT(target, TRAIT_BEINGSTAKED, TRAIT_VAMPIRE)
+	if(!do_after(user, staketime, target))
+		REMOVE_TRAIT(target, TRAIT_BEINGSTAKED, TRAIT_VAMPIRE)
+		return
+
+	REMOVE_TRAIT(target, TRAIT_BEINGSTAKED, TRAIT_VAMPIRE)
+
+	// Actually embed the stake and apply damage
+	if(!tryEmbed(target.get_bodypart(BODY_ZONE_CHEST), TRUE, TRUE))
+		return
+
+	target.apply_damage(force * 5, BRUTE, BODY_ZONE_CHEST)
+
+	playsound(target, 'sound/effects/splat.ogg', 40, 1)
 	user.visible_message(
 		span_danger("[user] drives the [src] into [target]'s chest!"),
 		span_danger("You drive the [src] into [target]'s chest!"),
 	)
-	playsound(target, 'sound/magic/Demon_consume.ogg', 50, 1)
-	if(tryEmbed(target.get_bodypart(BODY_ZONE_CHEST), TRUE, TRUE)) //and if it embeds successfully in their chest, cause a lot of pain
-		target.apply_damage(max(10, force * 1.2), BRUTE, BODY_ZONE_CHEST)
-	if(QDELETED(src)) // in case trying to embed it caused its deletion (say, if it's DROPDEL)
-		return
-	if(!target.mind)
-		return
 
 	if(IS_VAMPIRE(target))
-		to_chat(target, span_userdanger("You have been staked! Your powers are useless while it remains in place."))
+		to_chat(target, span_userdanger("You have been staked! Your powers are useless while it's in your chest!"))
 		target.balloon_alert(target, "you have been staked!")
 
 ///Can this target be staked? If someone stands up before this is complete, it fails. Best used on someone stationary.
@@ -1099,8 +1123,7 @@
 	force = 8
 	throwforce = 12
 	armour_penetration = 10
-	embedding = list("embed_chance" = 35)
-	staketime = 80
+	staketime = 8 SECONDS
 
 /obj/item/stake/hardened/silver
 	name = "silver stake"
@@ -1110,5 +1133,4 @@
 	siemens_coefficient = 1
 	force = 9
 	armour_penetration = 25
-	embedding = list("embed_chance" = 65)
-	staketime = 60
+	staketime = 6 SECONDS
