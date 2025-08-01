@@ -69,7 +69,7 @@ const renderApp = createRenderer(() => {
   return <Component />;
 });
 
-const setupApp = () => {
+function setupApp() {
   // Delay setup
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', setupApp);
@@ -96,6 +96,6 @@ const setupApp = () => {
       },
     );
   }
-};
+}
 
 setupApp();
