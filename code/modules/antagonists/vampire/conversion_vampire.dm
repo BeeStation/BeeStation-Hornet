@@ -34,7 +34,7 @@
 		return FALSE
 
 	var/datum/antagonist/vassal/vassaldatum = IS_VASSAL(conversion_target)
-	if(!vassaldatum?.master.broke_masquerade)
+	if(vassaldatum && !vassaldatum.master.broke_masquerade)
 		user.balloon_alert(user, "someone else's vassal!")
 		return FALSE
 
