@@ -195,6 +195,9 @@ GLOBAL_PROTECT(undatumized_preference_tags_character)
 /// The default priority level
 #define PREFERENCE_PRIORITY_DEFAULT 1
 
+/// The priority at which the hotkey preference is set, required for TGUI say special macros
+#define PREFERENCE_PRIORITY_HOTKEYS 2
+
 /// The priority at which species runs, needed for external organs to apply properly.
 #define PREFERENCE_PRIORITY_SPECIES 2
 

@@ -1,0 +1,260 @@
+2021-12-01:
+  The-Moon-Itself:
+  - bugfix: removed a runtime related to assemblies
+2021-12-02:
+  Archanial:
+  - bugfix: heretics or cult won't fail to equip if you have your backpack already
+      full
+  Ivniinvi:
+  - spellcheck: Preparation is now spelled right
+  - bugfix: Fixed CI Runtime again
+  Kapu1178:
+  - code_imp: Mutation code is 1% less shit.
+  ? nemvar, Skoglol, 81Denton, ninjanomnom, AnturK, Cyberboss, MrStonedOne, Fox McCloud,
+    LemonInTheDark, Arkatos, Timberpoes, Kathy Ryals, ShizCalev, Jordie0608, Dennok,
+    Kylerace, Fikou, JJRcop
+  : - admin: You can now properly apply arguments when adding components/elements
+        via the VV dropdown.
+    - bugfix: Abandoned crates will no longer explode roundstart. Some loot has been
+        fixed.
+    - bugfix: Fixes station alert consoles not properly displaying alerts
+    - rscadd: The sm will no longer gain eer when hugboxed, such as on shuttles.
+    - admin: Added some more hugbox flags, use as desired.
+    - rscadd: Jukebox now uses tgui.
+    - tweak: You can now set a volume of a jukebox songs.
+    - tweak: The Bluespace Locator now uses TGUI.
+    - bugfix: Fixed inducers not working on a couple items with internal powercells.
+    - refactor: Optimized a good chunk of MULEbot code, fixing things such as it rebuilding
+        it's overlays/icons 5 times every second while moving to a destination. Less
+        free lag!
+    - tweak: MULEbots will now flash when they beep / buzz.
+    - rscadd: Added a bit more examine text to MULEbots.
+    - bugfix: A ton of MULEbot fixes, way too many in the original changelog, see
+        https://github.com/tgstation/tgstation/pull/51987 for details
+    - bugfix: Ghost orbit menu can now orbit things with weird metadata in their names
+        like medibots and MULEBOTs.
+    - tweak: Ghost orbit menu search bar looks prettier.
+    - tweak: Ghost orbit menu no longer auto-closes when you select something to orbit.
+        Indirectly buffs voyeurs.
+    - code_imp: Separate BLOCK_Z_FALL flag to BLOCK_Z_OUT_DOWN, BLOCK_Z_OUT_UP, BLOCK_Z_IN_DOWN,
+        BLOCK_Z_IN_UP
+    - rscadd: Now lattice can support spaceman
+    - bugfix: Catwalk block uplifting from below
+    - tweak: Surgeries now only write to your chat if you're next to the surgeon.
+    - bugfix: Added some sanity checking for varedit values.
+    - code_imp: ai upload now doesnt lag you as much
+2021-12-03:
+  Crossedfall:
+  - server: BYOND version bumped to 1571
+  Ivniinvi:
+  - admin: AI VOX shows in live logs.
+  - spellcheck: One Click Wizard has been spell checked.
+2021-12-04:
+  Autisem:
+  - tweak: Clothing req is now a variable of spell instead of hard coded in the proc
+  Pirill:
+  - bugfix: Adds missing bamboo tile icon
+2021-12-05:
+  Ivniinvi:
+  - bugfix: Manuals (and Space Law Books) actually work now
+  - admin: Fryer Slamming is now logged.
+  Phil Smith:
+  - rscadd: There is now a negative moodlet to being in perma
+  TheFakeElon:
+  - code_imp: misc optimizations to quirk code
+  - refactor: refactored quirk processing
+  ike709:
+  - code_imp: Coders will no longer see warnings for using "var/" in proc args. Including
+      it is encouraged.
+  stinky-lizard:
+  - rscadd: You now get a positive moodlet whenever you see a dog playing.
+2021-12-06:
+  Ivniinvi, AMonkeyThatCodes, Qustinnus, Willox, AnturK, SpaceManiac:
+  - server: Achievements are now handled by the DB instead of the BYOND hub
+  - rscadd: The verb check-achievements in the OOC tab can be used to see your achievements
+  PrefabQuasar:
+  - bugfix: Removed the ability for nanite programmers to crash the server.
+  rkvothe14:
+  - balance: Toxins bombs now also grant 10% of the General Research points as Discovery
+      Research Points.
+  - tweak: Toxins Bombs now grant 50% of General Research Points as Discovery Research
+      Points
+2021-12-07:
+  Dejaku51, jack-pie, Rohesie:
+  - rscadd: Smooth movable lighting system implemented. Projectiles, sparks, thrown
+      flashlights or moving mobs with lights should be much smoother and less laggy.
+  - balance: Light sources no longer stack in range, though they still do in intensity.
+  Kapu1178:
+  - rscdel: Engivend no longer stocks RCDs.
+  - rscdel: Cargo can no longer print RCDs (Engineering still can)
+  - rscadd: Chief Engineer starts with an RCD in their locker.
+  KubeRoot, AnturK, Coul, Rohesie, zxaber:
+  - bugfix: Fixed at least two ways of detaching arm augment items from your hand.
+  - code_imp: Added can_use and signals to keybinds.
+  MNarath1:
+  - refactor: refactors isinf macro
+  - bugfix: fixes isinf for windows hosts
+  Vasily2013:
+  - tweak: Changes pipes on a map.
+2021-12-08:
+  Ivniinvi:
+  - rscdel: Medals Verb is gone, use the Check Achievements one in the OOC tab instead
+  - bugfix: HubMigrator script will now migrate your achievements even if you had
+      never killed a lavaland boss.
+  PestoVerde322:
+  - rscadd: Added a new Access code for the Research Servers, separating the server
+      room access and the RD's office access, which on roundstart is available only
+      to the Captain and the Research director.
+  - tweak: Adjusted all the maps to have the right access to the server room, where
+      it's now needed either the RD's office access or the Server room access.
+  - rscdel: Removed the Apothecary access, as it was used nowhere and was conflicting
+      with the Request console's announcement system.
+  PowerfulBacon:
+  - bugfix: Fixes a href + html injection exploit with cards
+  desluOs:
+  - rscadd: Scanning a harvested mutated plant adds discovery points
+  ike709:
+  - bugfix: Check Achievements capitalization is now consistent with other verbs.
+2021-12-09:
+  MNarath1:
+  - bugfix: fixes golden core spawned mimic crate
+  PestoVerde322:
+  - bugfix: Fixed on all maps the access to the server room.
+  PowerfulBacon:
+  - bugfix: Fixes an exploit allowing you to spawn whatever you want.
+2021-12-10:
+  Dejaku51:
+  - bugfix: Fixed Security cameras not working properly with Overlay Lighting
+  - bugfix: Fixed Exosuits having really small light
+2021-12-11:
+  Ivniinvi:
+  - rscadd: Hours played as pAI are now tracked.
+  zeskorion:
+  - bugfix: cyborg stun arms now check stamina armor
+2021-12-12:
+  Crossedfall:
+  - code_imp: Adds trailing newlines to files that were previously missing them
+  Ivniinvi:
+  - bugfix: pAIs now actually work again
+  - bugfix: Achievements will now award beecoins like they're supposed to.
+  - bugfix: Achievements will now only unlock once, like they're supposed to.
+  zxaber, lordScrubling:
+  - rscadd: Adds a camera viewing app, SecurEye, available for download on laptops
+      and modular consoles to those that have security access.
+  - tweak: Camera console UIs (including for SecurEye) now have the search field locked
+      on screen, rather than scrolling up with the camera list.
+2021-12-13:
+  ike709:
+  - bugfix: Arena controller no longer leaks admin auth tokens. As a result the follow
+      button has been removed from the UI.
+  - bugfix: Security records console no longer contains an href exploit
+2021-12-14:
+  Kapu1178:
+  - tweak: Greentexting no longer awards beecoins.
+  - rscadd: IPCs can charge off of ethereals.
+  - tweak: Ethereals no longer call handle_charge() twice per life loop.
+  zeskorion:
+  - bugfix: tones down disease mutation. you'll now only get one strain of a virus
+      if it mutates. Remember, even if cures change, vaccines stay the same!
+2021-12-17:
+  Crossedfall:
+  - server: BYOND bumped to 514.1572
+2021-12-18:
+  Ivniinvi:
+  - bugfix: Fixed a runtime in CI
+2021-12-19:
+  Ivniinvi:
+  - tweak: The Admiral outfit now comes with a megaphone.
+  KubeRoot:
+  - bugfix: Fixed inserting IDs into prisoner management and labor camp teleporter
+      consoles.
+  - bugfix: Disposals will no longer randomly delete their contents when destroyed
+      in a rare case.
+  The-Moon-Itself:
+  - rscadd: Circuit boards for the plasma refiner, mass driver, and igniter.
+  - tweak: Efficiency of the plasma refiner and the range and power usage of the mass
+      driver have been modified to scale with stock parts.
+  - imageadd: Panel open sprites for the plasma refiner, mass driver, and igniter.
+  zeskorion:
+  - balance: cat surgeon is a bit scary again.
+2021-12-20:
+  DatBoiTim:
+  - rscdel: Idle Screeching Behavior from monkeys
+  Hardly:
+  - tweak: Captain Jumpskirt now spawns in captain's locker
+  Ivniinvi:
+  - rscdel: PRs will no longer auto-stale.
+  - tweak: ERTs now require minimum 50 living hours to participate in them.
+  - code_imp: Auto Stale Action no longer marks your PR as stale one day before you
+      make it.
+  - rscadd: Added the admin-only Virology Debug Smartfridge
+  KubeRoot, Arkatos1:
+  - bugfix: Fixed ghosts being able to use remote signallers
+  MNarath1:
+  - bugfix: fixes ai beeing able to see overhead chat trough static
+  Phil Smith:
+  - imageadd: discovery scanners have an in-hand sprite now
+  The-Moon-Itself:
+  - rscadd: Portable pump and scrubber crates available at cargo.
+  Vasily2013:
+  - bugfix: Delta toxins now has a dual port vent in the airlock again after people
+      neglected to mention it was missing for two weeks
+  Zert0X:
+  - config: Discord link for BYOND hub now takes from config
+  ike709:
+  - bugfix: Fixed a bug with taste description generation for fruit wine.
+  lowwy:
+  - tweak: Give EVA and External airlocks access to the CMO
+  nednaZ:
+  - tweak: Spray Tan processing made more efficient
+  zeskorion:
+  - tweak: Extrapolators have been buffed, but you can no longer use multiple at once,
+      and their scans work at range again, though extraction does not
+  - balance: pneumatic cannons now fire one item at a time. They still hold multiple
+      items, but their fire rate is also now limited
+  - bugfix: deep fried foods only drop contents when fully eaten
+  - tweak: buffs random viruses slightly
+  - balance: regenerative extracts now heal about half a human's health, instead of
+      being an aheal
+2021-12-21:
+  Ivniinvi:
+  - rscadd: Janitor ERT now gets a Janicart Beacon
+  - admin: Hypnoflash victims now show up on the Combo HUD
+  MNarath1:
+  - refactor: refactors tesla_zap code to use way less local variables and makes it
+      more readable
+  - rscadd: ability to ignore mobs for JPS (Jump Point Search) pathing
+  - tweak: blob spores will ignore mobs during pathfinding
+  - bugfix: fixes blob spores beeing unable to path trough blob structures
+  - refactor: Refactors Goto for blob spores to use JPS pathing instead of the byond
+      native pathfinding
+  Penwin0:
+  - balance: Reduces the ammount of cash from exploration missions
+2021-12-23:
+  zeskorion:
+  - bugfix: regenerative extracts now have correct descriptions
+  - bugfix: light pink regen core has been nerfed as well
+2021-12-26:
+  Ivniinvi, Sinmero:
+  - rscadd: Colorizers, a way to reskin your items, are now in the BeeCoin shop!
+  MCterra10:
+  - code_imp: remove incorrect lazylen usage
+2021-12-28:
+  Crossedfall:
+  - server: The SQL server name will now be reported alongside SSBlackbox data.
+2021-12-30:
+  DatBoiTim:
+  - tweak: Practice Lasers now don't get deflected
+  TheChaser212:
+  - bugfix: Hats thrown at the head can be caught
+2021-12-31:
+  Dejaku51:
+  - bugfix: Fixed kinetic Crusher Light not working
+  - bugfix: Fixed desword glowing even if not wielded
+  - bugfix: Fixed swarmer lights
+  - bugfix: Fixed pAI lights
+  - code_imp: Fixed Welding tool runtime related to lighting
+  Kapu1178, Rohesie:
+  - code_imp: SSTimer is now the third highest weight subsystem
+  TheChaser212:
+  - bugfix: fixed Ethereal low charge alert spam

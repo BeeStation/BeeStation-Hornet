@@ -64,7 +64,7 @@
 	desc = "These were once used by plague doctors. They're pretty much useless."
 	item_state = "that"
 	icon_state = "plaguedoctor"
-	clothing_flags = THICKMATERIAL | BLOCK_GAS_SMOKE_EFFECT | SNUG_FIT
+	clothing_flags = BLOCK_GAS_SMOKE_EFFECT | SNUG_FIT
 	armor_type = /datum/armor/costume_plague
 	flags_inv = HIDEHAIR
 

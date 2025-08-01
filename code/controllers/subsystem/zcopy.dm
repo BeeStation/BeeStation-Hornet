@@ -239,11 +239,6 @@ SUBSYSTEM_DEF(zcopy)
 			T.opacity = FALSE
 			//T.underlays = underlay_copy
 			T.plane = t_target
-			var/area/A = T.loc
-			if(!IS_DYNAMIC_LIGHTING(A))
-				T.shadower.icon_state = "transparent"
-			else
-				T.shadower.icon_state = "dark"
 		else
 			// Some openturfs have icons, so we can't overwrite their appearance.
 			if (!T.below.mimic_proxy)
@@ -275,11 +270,12 @@ SUBSYSTEM_DEF(zcopy)
 		else if (T.below.mimic_above_copy)
 			QDEL_NULL(T.below.mimic_above_copy)
 
+		T.shadower.copy_lighting(T.below.lighting_object, T.below.loc, T.below)
+
 		// Add everything below us to the update queue.
 		for (var/thing in T.below)
 			var/atom/movable/object = thing
 			if(istype(object, /atom/movable/lighting_object))
-				T.shadower.copy_lighting(T.below.lighting_object, T.below.loc)
 				continue
 
 			if (QDELETED(object) || (object.zmm_flags & ZMM_IGNORE) || object.loc != T.below || object.invisibility == INVISIBILITY_ABSTRACT)

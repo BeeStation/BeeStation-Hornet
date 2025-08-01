@@ -4,4 +4,4 @@
 	preference_type = PREFERENCE_PLAYER
 
 /datum/preference/toggle/auto_fit_viewport/apply_to_client_updated(client/client, value)
-	INVOKE_ASYNC(client, /client/verb/fit_viewport)
+	INVOKE_ASYNC(client, /client/proc/fit_viewport)

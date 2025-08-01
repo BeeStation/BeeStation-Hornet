@@ -6,12 +6,10 @@
 	filename = "compconfig"
 	filedesc = "Settings"
 	extended_desc = "This program allows configuration of computer's hardware and operating system"
-	program_icon_state = "generic"
-	unsendable = 1
-	undeletable = 1
+	program_icon_state = "config"
+	undeletable = TRUE
 	size = 4
-	available_on_ntnet = 0
-	requires_ntnet = 0
+	available_on_ntnet = TRUE
 	tgui_id = "NtosConfiguration"
 	program_icon = "cog"
 

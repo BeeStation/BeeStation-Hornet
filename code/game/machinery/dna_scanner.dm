@@ -4,6 +4,7 @@
 	icon = 'icons/obj/machines/cloning.dmi'
 	icon_state = "scanner"
 	density = TRUE
+	obj_flags = BLOCKS_CONSTRUCTION // Becomes undense when the door is open
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 50
 	active_power_usage = 300
@@ -163,12 +164,12 @@
 
 	var/resist = target.getarmor(null, RAD)
 	if(prob(max(0,100-resist)))
-		target.randmuti()
+		target.random_mutate_unique_identity()
 		if(prob(20))
 			if(prob(90))
-				target.easy_randmut(NEGATIVE+MINOR_NEGATIVE)
+				target.easy_random_mutate(NEGATIVE+MINOR_NEGATIVE)
 			else
-				target.easy_randmut(POSITIVE)
+				target.easy_random_mutate(POSITIVE)
 			target.domutcheck()
 
 /obj/machinery/dna_scannernew/proc/shock(mob/user, prb)

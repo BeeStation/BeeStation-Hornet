@@ -25,5 +25,5 @@ export const handleEnter = function (
     });
   }
   this.events.onReset();
-  windowClose();
+  windowClose(this.fields.dpi);
 };

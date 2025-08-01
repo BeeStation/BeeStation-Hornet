@@ -195,28 +195,6 @@
 		. += span_danger("The sample is [min(depletion/depletion_threshold*100,100)]% fissiled.")
 	. += span_disarm("[initial_amount]/[max_initial_amount] of the slots for [material_name] are full.")
 
-/obj/item/fuel_rod/material/telecrystal
-	name = "telecrystal fuel rod"
-	desc = "A disguised titanium sheathed rod containing several small slots infused with uranium dioxide. Permits the insertion of telecrystals for transmutation. Fissiles much faster than its standard counterpart."
-	icon_state = "inferior"
-	fuel_power = 0.30 // twice as powerful as a normal rod
-	depletion_speed_modifier = 3 // headstart, otherwise it takes two hours
-	rad_strength = 1500
-	max_initial_amount = 8
-	multiplier = 3
-	material_type = /obj/item/stack/sheet/telecrystal
-	material_name = "telecrystals"
-	material_name_singular = "telecrystal"
-
-/obj/item/fuel_rod/material/telecrystal/depletion_final(result_rod)
-	..()
-	if(result_rod)
-		return
-	fuel_power = 0.60 // thrice as powerful as plutonium, you'll want to get this one out quick!
-	name = "exhausted [name]"
-	desc = "A highly energetic, disguised titanium sheathed rod containing a number of slots filled with greatly expanded telecrystals which can be removed by hand. It's extremely efficient as nuclear fuel, but will cause the reaction to get out of control if not properly utilised."
-	icon_state = "tc_used"
-	AddComponent(/datum/component/radioactive, 3000, src)
 
 /obj/item/fuel_rod/material/bananium
 	name = "bananium fuel rod"

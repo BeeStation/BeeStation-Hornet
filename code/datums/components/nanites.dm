@@ -230,7 +230,7 @@
 			host_mob.Paralyze(12 SECONDS)
 			if(iscarbon(host_mob))
 				var/mob/living/carbon/C = host_mob
-				var/obj/item/organ/ears/ears = C.getorganslot(ORGAN_SLOT_EARS)
+				var/obj/item/organ/ears/ears = C.get_organ_slot(ORGAN_SLOT_EARS)
 				if(ears)
 					ears.adjustEarDamage(0, 30) //nanites coming out of your ears
 				C.vomit(0, FALSE, TRUE, 2, FALSE, VOMIT_NANITE, FALSE) //nanites coming out of your mouth

@@ -32,7 +32,7 @@
 /mob/living/proc/give_mind(mob/user)
 	if(key || !playable || stat)
 		return FALSE
-	var/question = alert("Do you want to become [name]?", "[name]", "Yes", "No")
+	var/question = tgui_alert(user, "Do you want to become [name]?", "[name]", list("Yes", "No"))
 	if(question != "Yes" || !src || QDELETED(src))
 		return FALSE
 	if(key)
@@ -58,7 +58,7 @@
 		AddElement(/datum/element/point_of_interest)
 		SSmobs.update_spawners()
 	else // it's spawned but someone occupied already
-		notify_ghosts("[name] has appeared!", source=src, action=NOTIFY_ORBIT, header="Something's Interesting!")
+		notify_ghosts("[name] has appeared!", source=src, action=NOTIFY_ORBIT, header="Something Interesting!")
 
 
 /mob/living/get_spawner_desc()

@@ -647,10 +647,17 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		thing.emp_act(severity)
 
 /// Signal handler for preattack from an object.
-/datum/storage/proc/on_preattack(datum/source, obj/item/thing, mob/user, params)
+/datum/storage/proc/on_preattack(datum/source, atom/thing, mob/user, params)
 	SIGNAL_HANDLER
 
-	if(!istype(thing) || !allow_quick_gather || thing.atom_storage)
+	if(!allow_quick_gather || thing.atom_storage)
+		return
+
+	if(istype(thing, /turf))
+		INVOKE_ASYNC(src, PROC_REF(collect_on_turf), thing, user)
+		return COMPONENT_CANCEL_ATTACK_CHAIN
+
+	if(!istype(thing, /obj/item))
 		return
 
 	if(collection_mode == COLLECT_ONE)
@@ -660,16 +667,52 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	if(!isturf(thing.loc))
 		return COMPONENT_CANCEL_ATTACK_CHAIN
 
-	INVOKE_ASYNC(src, PROC_REF(collect_on_turf), thing, user)
+	INVOKE_ASYNC(src, PROC_REF(collect_same_type), thing, user)
 	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /**
- * Collects every item of a type on a turf.
+ * Collects every item on clicked turf.
+ *
+ * @param turf/target_turf turf to collect items from
+ * @param mob/user the user who is picking up the items
+ */
+/datum/storage/proc/collect_on_turf(turf/target_turf, mob/user)
+	var/obj/item/resolve_parent = parent?.resolve()
+	if(!resolve_parent)
+		return
+
+	if(collection_mode != COLLECT_EVERYTHING)
+		return
+
+	var/list/pick_up = target_turf.contents.Copy()
+
+	pick_up = typecache_filter_list(pick_up, typecacheof(/obj/item))
+
+	var/amount = length(pick_up)
+	if(!amount)
+		resolve_parent.balloon_alert(user, "nothing to pick up!")
+		return
+
+	var/datum/progressbar/progress = new(user, amount, target_turf)
+	var/list/rejections = list()
+
+	while(do_after(user, 1 SECONDS, resolve_parent, NONE, FALSE, CALLBACK(src, PROC_REF(handle_mass_pickup), user, pick_up.Copy(), target_turf, rejections, progress)))
+		stoplag(1)
+
+	progress.end_progress()
+	// If nothing was actually removed, don't send the pickup message
+	var/list/current_contents = target_turf.contents.Copy()
+	if(length(pick_up | current_contents) == length(current_contents))
+		return
+	resolve_parent.balloon_alert(user, "picked up")
+
+/**
+ * Collects every item of the same type as clicked item in items loc.
  *
  * @param obj/item/thing the initial object to pick up
  * @param mob/user the user who is picking up the items
  */
-/datum/storage/proc/collect_on_turf(obj/item/thing, mob/user)
+/datum/storage/proc/collect_same_type(obj/item/thing, mob/user)
 	var/obj/item/resolve_parent = parent?.resolve()
 	if(!resolve_parent)
 		return

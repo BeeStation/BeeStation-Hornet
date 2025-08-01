@@ -301,7 +301,7 @@
 		if(2)
 			owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 25)
 
-/obj/item/organ/brain/clockwork/on_life()
+/obj/item/organ/brain/clockwork/on_life(delta_time, times_fired)
 	. = ..()
 	if(prob(5) && !robust)
 		SEND_SOUND(owner, pick_weight(list('sound/effects/clock_tick.ogg' = 6, 'sound/effects/smoke.ogg' = 2, 'sound/spookoween/chain_rattling.ogg' = 1, 'sound/ambience/ambiruin3.ogg' = 1)))
@@ -342,64 +342,58 @@
 	organ_flags = ORGAN_SYNTHETIC
 	status = ORGAN_ROBOTIC
 
-/obj/item/organ/tail/clockwork/Insert(mob/living/carbon/human/H, special = 0, drop_if_replaced = TRUE, pref_load = FALSE)
-	..()
-	if(pref_load && istype(H))
-		H.update_body()
-		return
-	if(istype(H))
-		if(!(H.dna.species.mutant_bodyparts["tail_human"]))
-			H.dna.features["tail_human"] = tail_type
-			H.dna.species.mutant_bodyparts["tail_human"] = tail_type
-		H.update_body()
+/obj/item/organ/tail/clockwork/on_insert(mob/living/carbon/human/tail_owner)
+	. = ..()
+	if(istype(tail_owner) && tail_owner.dna)
+		if(!(tail_owner.dna.species.mutant_bodyparts["tail_human"]))
+			tail_owner.dna.features["tail_human"] = tail_type
+			tail_owner.dna.species.mutant_bodyparts["tail_human"] = tail_type
+		tail_owner.update_body()
 
-/obj/item/organ/tail/clockwork/Remove(mob/living/carbon/human/H,  special = 0, pref_load = FALSE)
-	..()
-	if(pref_load && istype(H))
-		H.update_body()
-		return
-	if(istype(H))
-		H.dna.species.mutant_bodyparts -= "tail_human"
-		H.update_body()
+/obj/item/organ/tail/clockwork/on_remove(mob/living/carbon/human/tail_owner)
+	. = ..()
+	if(istype(tail_owner) && tail_owner.dna)
+		tail_owner.dna.species.mutant_bodyparts -= "tail_human"
+		tail_owner.update_body()
 
 /obj/item/bodypart/l_arm/robot/clockwork
 	name = "clockwork left arm"
 	desc = "An odd metal arm with fingers driven by blood-based hydraulics."
-	static_icon = 'icons/mob/augmentation/augments_clockwork.dmi'
+	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
 	brute_reduction = 0
 	burn_reduction = 0
 
 /obj/item/bodypart/r_arm/robot/clockwork
 	name = "clockwork right arm"
 	desc = "An odd metal arm with fingers driven by blood-based hydraulics."
-	static_icon = 'icons/mob/augmentation/augments_clockwork.dmi'
+	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
 	brute_reduction = 0
 	burn_reduction = 0
 
 /obj/item/bodypart/l_leg/robot/clockwork
 	name = "clockwork left leg"
 	desc = "An odd metal leg full of intricate mechanisms."
-	static_icon = 'icons/mob/augmentation/augments_clockwork.dmi'
+	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
 	brute_reduction = 0
 	burn_reduction = 0
 
 /obj/item/bodypart/r_leg/robot/clockwork
 	name = "clockwork right leg"
 	desc = "An odd metal leg full of intricate mechanisms."
-	static_icon = 'icons/mob/augmentation/augments_clockwork.dmi'
+	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
 	brute_reduction = 0
 	burn_reduction = 0
 
 /obj/item/bodypart/head/robot/clockwork
 	name = "clockwork head"
 	desc = "An odd metal head that still feels warm to the touch."
-	static_icon = 'icons/mob/augmentation/augments_clockwork.dmi'
+	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
 	brute_reduction = 0
 	burn_reduction = 0
 
 /obj/item/bodypart/chest/robot/clockwork
 	name = "clockwork torso"
 	desc = "An odd metal body full of gears and pipes. It still seems alive."
-	static_icon = 'icons/mob/augmentation/augments_clockwork.dmi'
+	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
 	brute_reduction = 0
 	burn_reduction = 0

@@ -1,0 +1,466 @@
+2021-02-01:
+  Arkatos, Sarchutar:
+  - rscadd: All Abductor machines now use tgui.
+  - tweak: Only the abductor scientist/agent can now interact with the abductor console
+      (not the camera console)
+  PowerfulBacon:
+  - rscadd: Added a lava moat between the security station glass on the gulag.
+  - rscdel: Remove the plasmaglass from the gulag.
+  - rscadd: Added a window to see what you are smelting.
+  Victor239:
+  - tweak: Poppies now spawn in maint loot.
+  - rscadd: Poppy pins can be crafted and give a very small mood buff when worn.
+  - tweak: Shanks are now a subtype of knife, allowing it to be used by heretics to
+      create their sickly blade.
+  - balance: Most window integrity is now halved, which is still double what it was
+      pre-fastmos.
+  eeSPee:
+  - tweak: Heretic' Living Heart no longer has a range limit
+  - rscadd: Mansus grasp now always silences for 3 seconds
+  - balance: Made the recipes for curses a bit easier
+  - rscadd: Rust blade now deals tox damage, the lower the heretic's health, the more
+      damage it deals.
+  - balance: Rust ascension now makes you spaceproof
+  - bugfix: Fixed multiple bugs around adding/deleting citations
+  park66665:
+  - bugfix: rainbow slimes can now exist
+2021-02-02:
+  TheFakeElon, bloons3:
+  - rscadd: Adds an adminbuse species conversion chamber
+  froststahr:
+  - balance: wizard demons have been capped to one each
+2021-02-03:
+  Victor239:
+  - bugfix: Poppies can no longer be freely generated from poppy pin crafting.
+  ivanmixo:
+  - tweak: xenomorphs now break firelock window shutters instead of opening them
+  park66665:
+  - bugfix: Hardened npc subsystems so mobs are less prone to freeze completely and
+      irreversibly
+2021-02-04:
+  Archanial:
+  - tweak: You can take out lighter with alt.
+  Nari Harimoto:
+  - bugfix: fixed thermomachines still working even without power, apc off, in space
+      etc...
+  OceanFish1:
+  - balance: Replaced some things on The Factory away mission.
+  eeSPee:
+  - bugfix: a changeling related fix
+  super12pl:
+  - rscadd: Hot Chocolate now works like chocolate.
+2021-02-05:
+  PowerfulBacon:
+  - tweak: You can now click on things while in throw mode if you aren't actually
+      throwing anything
+  - rscadd: Adds in team tracking beacons for nukies and ERTs
+  - rscadd: Nukies and ERTs can now see the location of their teammates.
+  - rscdel: Ancient sound synth.
+  silicons:
+  - bugfix: modular id consoles are now sanitized
+2021-02-06:
+  Cenrus:
+  - rscadd: Added a turret control panel to the nuclear shuttle
+  PowerfulBacon:
+  - tweak: General Greivsky from nullcrates is now resistant to EMPs.
+  park66665:
+  - bugfix: mob GC is improved
+  - rscdel: slime harddels
+  - bugfix: Wild West away mission runtimes at load have been removed
+2021-02-07:
+  Rukofamicom:
+  - bugfix: Atropine now stops working at 20 HP as intended
+  - bugfix: Hepanephrodaxon now has its correct metabolization rate
+  timothyteakettle:
+  - bugfix: newscaster sanitization go brrr
+  yyzsong:
+  - tweak: Plasma is now spicy
+2021-02-08:
+  Melbert:
+  - rscadd: You can now make beds with blankets.
+  - rscadd: You can now tuck plushes into bed.
+  - rscadd: You can also tuck the nuclear authentication disk into bed.
+  PowerfulBacon:
+  - balance: Love potion now heals when near your date.
+  - balance: Makes /obj/item/slimepotion/speed only reduce speed by 50%
+  githubuser343:
+  - balance: Removed bolt of change from Chaos Carp.
+2021-02-09:
+  Melbert:
+  - bugfix: Fixes railings blocking bullets and immovable rods from a certain direction.
+2021-02-10:
+  Archanial:
+  - tweak: Guns are bigger.
+  - tweak: Energy guns can fire a bit more before depowering.
+  MNarath1:
+  - rscadd: coffin animation
+  - tweak: angle of crate animation
+  - tweak: freezer sprite and animation parameter
+  - bugfix: some crate sprites breaking animation
+  - tweak: use icon_door_override to allow for removal of unnecessary sprites
+  - tweak: changing crate sprite names for consistancy
+  - rscdel: unnecessary sprites after using icon_door_override whenever possible
+  PowerfulBacon:
+  - tweak: Grilles now take damage when a mob bumps into them.
+  bloons3:
+  - tweak: Modified Brig Physician access permissions and roundstart items
+  - balance: Made the Brig Physician a proper civilian, which means eligibility for
+      antags
+  - balance: rebalanced bluespace miner
+  'cacogen, Ryll/Shaps, Moccha-Bee, Dennok, ':
+  - rscdel: Old medbay clean bots
+  - rscadd: Scrubs MD added to Meta, box, donut, pubby, kilo and delta
+  - rscadd: Scrubs MD now give doctors access to it.
+  - tweak: The station's new Orion Trail arcade machines now detect certain antisocial
+      behaviors and can warn security and medical personnel about unhinged gamers.
+  - tweak: Updated material_container.dm
+  carlarctg:
+  - rscadd: Reduced firefight carry delay with latex or nitrile gloves
+  jupyterkat:
+  - bugfix: fixed weird announcement text renderings
+2021-02-11:
+  githubuser343:
+  - balance: Oozelings are no longer part of slime faction.
+  park66665:
+  - bugfix: species-specific attack mechanics now correctly happen based on attacker
+  - bugfix: landmines no longer gets activated by flying objects (e.g. projectiles,
+      throwing things, etc.)
+  - bugfix: pools no longer teleport people in and out
+  - bugfix: monkeys can now retaliate better
+  - bugfix: AI slime attacks no longer transcend borders
+2021-02-12:
+  EdgeLordExe, EOBGames, ShivCalev, Rohesie, Tad Hardesty, ATHATH, and eeSPee:
+  - tweak: Tears in reality no longer inflict brain damage when analyzed, instead
+      just give a bad moodlet
+  - tweak: Revised reality tears generation
+  - tweak: Tears in reality appear after a time, and slowly disappear after 15 minutes
+  - tweak: Coders rule, jannies drool
+  - balance: Heretic effects (runes, tears) are invisible to silicons
+  - spellcheck: Names and descriptions have been revised, thanks to @EOBGames
+  - balance: Heart now offers a pick between 3 targets
+  - balance: Doubled the charges sacrifices offer
+  - balance: Heretics marks area work differently; marks are applied by grasp, and
+      triggered with the blade
+  - balance: Ash grasp blinds instead of knockback
+  - tweak: Rust spread datum is revised/optimized
+  c420-o, TWATICUS, Dawson, Suicidal Maniac, BeloneX:
+  - rscadd: swag outfit available in beecoin shop
+  - rscadd: swag shoes availble in beecoin shop
+  ike709:
+  - bugfix: Null clients are now less likely to completely break roundend.
+  - bugfix: Fixed some internal affairs objective code just... not working.
+  - bugfix: Fixed two ambience runtimes.
+  - bugfix: Radios will no longer runtime when we can't get their turf.
+  kit-katz:
+  - tweak: Oozelings are now fully and properly translucent
+2021-02-13:
+  PowerfulBacon:
+  - bugfix: Fixes valentine cards not working correctly.
+  - bugfix: Fixes only 1 person receiving valentine objectives.
+  Totally Not Bacon:
+  - rscadd: Improves valentines day, gives ai proper valentines laws.
+  - tweak: You can now send a card to someone by writing their name on it with a pen
+  eeSPee:
+  - balance: Heretics no longer require the Codex to lay runes, instead they can lay
+      runes using their Mansus empowered hand.
+2021-02-14:
+  park66665:
+  - bugfix: pool item attack verb
+  - bugfix: a vox-related error related to announcement help verb has been rectified;
+      there might be other bugs that has been fixed by this.
+  - bugfix: leftover gears sometimes failing to spawn
+  - bugfix: reactions at pipelines are less willy nilly
+  - bugfix: advanced surgery tools' examine texts are saner
+2021-02-15:
+  Arkatos and actioninja:
+  - rscadd: RCD Access Control now uses tgui.
+  - tweak: RCDs are now able to set unrestricted directional access for newly built
+      airlocks.
+  Cheesus, ShizCalev, coiax:
+  - rscadd: Cryotube extinguishes a burning occupant when they are ejected by the
+      machine.
+  - code_imp: Comments around cryo cell code
+  - rscadd: Cyrotubes now alerts and stops when the tube has no beaker, reagents or
+      enough moles.
+  - tweak: changed how much is used and how much is magically transferred to the occupant
+  - tweak: Pyroxadone's metabolization rate is now variable, dependant on heat.
+  - bugfix: fixed reagents not being injected into an occupant properly.
+  MCterra10:
+  - bugfix: brig phys locker can be opened again
+  MNarath1:
+  - bugfix: border firelocks holding Pressure after destroy
+  - bugfix: window doors holding Pressure after destroy
+  eeSPee:
+  - rscadd: laughter now has positive mood effects and reduces knockdown on people
+      recently slipped
+  - rscadd: Holobarrier projectors and barrier grenades to SecVendors
+  - rscdel: Holobarrier projectors from various sec lockers
+  ike709:
+  - bugfix: Maybe fixed slimes sporadically no longer eating. Report it on github
+      if this is still an issue.
+  park66665:
+  - bugfix: Prize from Orion Trail is no longer broken
+  - bugfix: Disease from rat is no longer broken
+  - bugfix: Bar emergency shuttle's bar table now properly boots unauthorized people
+2021-02-16:
+  Blueturbo47:
+  - rscadd: Gas Miners, now in every map
+  park66665:
+  - bugfix: fixed a cause of pipe harddels.
+  - bugfix: Engineering PDA catridge's APC monitors power percentage display
+  - bugfix: Crusher trophy's examine text is now sane
+  - bugfix: RCDs with a silo link now work properly
+  - bugfix: Ash walker tendril now applies mood properly
+  - bugfix: Fixed a memory leak related to TGUI Stat panel
+  - code_imp: range, view and their related high-cost procs' usages have been audited
+  - bugfix: above audit should improve performance, but there might be bugs. Please
+      report bugs to GitHub.
+  park66665, Timberpoes:
+  - bugfix: fixed a few bugs around modular computers
+  - bugfix: RnD console sheet ejection now works properly
+  - bugfix: mining point card's examine text is no longer broken
+  - code_imp: removed obsoleted GLOB.materials_list
+2021-02-17:
+  PowerfulBacon:
+  - code_imp: Improves clockie code to allow for scripture generation if spawned on
+      a non-clockie round.
+  TheFakeElon:
+  - rscadd: adds the labor camp monitoring vault door
+  park66665:
+  - bugfix: hotfixed some UIs not opening
+  - bugfix: hotfixed mining scanner not working properly
+  - bugfix: AI's wipe core verb now functions properly and no longer breaks random
+      stuff afterwards
+  - bugfix: Blob overmind's stat tab no longer errors at pre-core-blob-placing
+  - bugfix: Fixed a few more ambience related runtimes
+  - bugfix: Fixed an issue at "no prisoner left behind" crew objective
+  - bugfix: Prevented changelings from losing powers after Last Resort
+  - bugfix: Dead AIs no longer cause living things to be broken code-wise
+  - admin: Fixed a small visual bug that prevented some note severity icon images
+      from showing up at the note browser UI
+2021-02-18:
+  That0nePerson, CommandBlockGal:
+  - rscadd: Re-adds apid dash! Can no longer knock over people or jump tables.
+  - rscadd: Adds honeycomb crafting for apids! Can be turned into 2 wax when empty.
+  - rscdel: Removes ability of apids to fly in low gravity.
+  - balance: for balancing, apids downsides have been changed. 1.5x burn and tox damage,
+      1.25x stam damage, and they pass out in smoke and cold
+  - rscadd: Adds wax and wax floortiles
+  - rscadd: Gives apids an inert mutation that allows them to produce wax
+  francinum:
+  - balance: Slimepeople are only allowed to have 10 total bodies, for performance
+      reasons.
+  - config: This can be configured.
+2021-02-19:
+  Blueturbo47:
+  - bugfix: renames an emoji away from a filtered word
+  Froststahr:
+  - bugfix: Pubby SM won't delam itself
+  MNarath1, JamieD1, Redmoogle:
+  - bugfix: Repainted airlocks sometimes missing the moving parts, or having wrong
+      animation
+  - bugfix: Exploit allowing cult to disguise their airlocks with airlock painter
+  - tweak: Disallowed repaint of large airlock and hatches
+  - refactor: Changes code to use the assoc list for airlock repaint choosing
+2021-02-20:
+  Naevi, Victor239:
+  - rscadd: Adds black bishop suit,mitre and cloak to beecoin shop
+  - rscadd: Adds bishop cloak to hacked chaplain vendor
+  - tweak: Updates bishop suit and mitre
+  PowerfulBacon:
+  - rscdel: Removes :p and :d admin say modes.
+  bloons3:
+  - rscadd: Added an air alarm to the Morgue on Box Station
+  - rscadd: Added vent scrubbers and vent pumps to autopsy rooms
+  githubuser343:
+  - bugfix: Private cargo crate purchases no longer ignore access restrictions.
+  park66665:
+  - bugfix: Fixed weighted picking logic, so various codes utilizing weighted pick
+      is now a bit more safe and correct
+  - bugfix: The most prominent of such cases would be preventing random maint rooms
+      from not spawning once in a while
+2021-02-21:
+  Cenrus:
+  - bugfix: The eminence can no longer nuzzle things
+  - bugfix: The eminence can no longer select itself
+  - bugfix: The eminence can no longer pull other mobs
+  - bugfix: The eminence now teleports to random locations on the station, instead
+      of the core
+  - rscadd: The eminence teleport has a sound effect and a flash of color
+  - tweak: The eminence has a "Master" prefix on the hierophant network
+  - tweak: Tweak ark of the clockwork jusiticiar description
+  MNarath1:
+  - bugfix: Fixes morph becoming invisible and unclickable if it tries to disguise
+      as an airlock
+  - bugfix: Fixes computer screen and apc screen not showing in disguise
+  Naevii:
+  - imageadd: Updates herald sprites and animations
+  - imageadd: Updates Prophet cloak sprite
+  PowerfulBacon:
+  - bugfix: Infinite TC exploit.
+  - rscadd: Clockcult weapons will now automatically wield when you pick them up.
+  - balance: Phazons can no longer phase into areas with the no_jaunt flag.
+  - balance: Clockwork walls are no jaunt proof.
+  - balance: The celestial gateway has had its health buffed from 400 to 1000
+  - balance: Clockcult armour has been significantly buffed, previously it was very
+      weak and made when I poorly understood general armour values.
+  - balance: Marauders no longer automatically repair their shield and require a welder
+      to repair
+  - balance: Linked abscond now has a cooldown of 3 minutes
+  - balance: Abscond now takes 2.5 seconds instead of 3.5 seconds to invoke.
+  - balance: Abstraction crystal health buffed from 100 to 200.
+  - balance: Clockwork armaments cost reduced from 250 to 150
+  - balance: Dimensional breach cost reduced from 10000 to 5000
+  - balance: Interdiction lens range increased from 3 to 5
+  - balance: Interdiction lens now EMP mechs rather than use power.
+  - balance: Ocular warden cost reduced from 500 to 400
+  - balance: Prosperity prism active power used decreased from 4 to 2 per tick.
+  - tweak: Sentinel's compromise now plays a sound on use.
+  - balance: Sigil of vitality power cost reduced from 400 to 300
+  - balance: Sigil of vitalities will now turn people into cogscarabs rather than
+      just husking.
+  - balance: Stargazer power cost reduced from 600 to 300
+  - balance: Marauder cost reduced from 8000 to 2000. Vitality cost increased from
+      80 to 100.
+  - balance: Vanguard no longer stamcrits you after use.
+  - tweak: eminence can break lightbulbs
+  - tweak: Eminence can use APC UI.
+  'Tlaltecuhtli ':
+  - tweak: Lava damages contents of containers
+  eeSPee:
+  - rscadd: Added crucifixes to chaplain's witch hunter set, which wards against curses.
+  - rscadd: Added rosary beads, which work similarly to crucifixes; available at chaplain
+      vendor and religious supply packs in cargo.
+  park66665:
+  - bugfix: atmos machines that operates with external air now no longer try to function
+      in walls and other closed turfs and cause unending errors and ridiculous results
+  - bugfix: closets now properly react to revenant's Malfunction ability
+  - bugfix: changelings no longer experience problems for having suit powers and then
+      transforming to and fro human
+  - bugfix: wire-on-catwalk check for swarmers now works properly
+  - bugfix: Revenants can now use Revenant Transmit ability
+  - bugfix: Dead midwife spiders no longer can communicate
+  - bugfix: AI controlled morphs should no longer disguise as light itself and be
+      un-click-able.
+2021-02-22:
+  Mat05usz:
+  - bugfix: Area mood description is now written in red if it gives you negative mood.
+  - bugfix: Mood changes are now properly updated when walking between areas that
+      alter it.
+  bloons3:
+  - rscadd: Adds a cautery and surgical drill to CentCom
+2021-02-23:
+  Archanial:
+  - tweak: Skinsuits are now a subtype of hardsuits.
+  - rscdel: Skinsuits no longer appear in internals boxes and you cannot fold them.
+  - rscadd: Skinsuits now have integrated helmets.
+  - tweak: Skinsuits are as big as every other space suit now.
+  - tweak: Skinsuits appear in o2 (blue) lockers.
+  Froststahr:
+  - config: Disables "Extended" on Sage (Secret Extended is still enabled)
+  Mat05usz:
+  - bugfix: 'Metastation: Kitchen Coldroom is under Kitchen area and can finally be
+      depowered.'
+  - bugfix: 'Metastation: Cryogenics 4-way manifold is visible again.'
+  bloons3:
+  - tweak: Security is incentivized to wear their uniform
+  - tweak: Assistants are rewarded for obtaining their shinies
+  francinum:
+  - config: Jobs no longer load from the txt file, This should hopefully solve some
+      issues related to insufficient spawners.
+  - tweak: firelocks now actually stay open for a bit when forced.
+  githubuser343:
+  - rscadd: You can now use a shovel directly on stacks of grass tiles.
+  ike709:
+  - server: Added Topic() calls for getting/adjusting metacoins.
+  nemvar, Tlaltecuhtli, Naksu, Skoglol, Dennok, Denton81, FlufflyCthulu, Jessica, kittymaster0, Garen, park66665:
+  - tweak: Slimes now lose internal reagents over time.
+  - code_imp: Replaced most instances where cables referenced their maximum size with
+      a define
+  - bugfix: Turned off energy weapons can no longer do sharpness-requiring actions.
+  - refactor: get_eye_protection and get_ear_protection now looks less ugly.
+  - refactor: Refactored the visibility of reagents for mobs.
+  - code_imp: Health sensor no longer displays a giant window with 1 button on it,
+      instead can change states with alt click and use in hand.
+  - bugfix: fixes Russian helmets not holding both a vodka and a glass.
+  - bugfix: Fixed some examine messages.
+  - bugfix: Fixes even more examine messages.
+  - refactor: Slightly refactored blob examine code
+  - bugfix: Fixed a slime runtime.
+  - bugfix: Cable layer work again.
+  - bugfix: Incomplete and non-teleport reactive armors can no longer be used to complete
+      the traitor objective.
+  - bugfix: Fixes an issue with clown hulk simple mobs
+  - bugfix: added --geo-bypass for youtube-dl command
+  - rscadd: gives scientists a chance to spawn with an awesome tie
+  - bugfix: Stasis lets reagents know processing was stopped, fixing some issues.
+  - tweak: Amanitin's damage only triggers when it is completely removed from your
+      system, not when processing stops.
+  - bugfix: Fixes being able to pull from belt/backpack when you are stunned or cuffed.
+  park66665:
+  - bugfix: fixed pAI OS background image not showing
+2021-02-24:
+  Archanial:
+  - admin: removed ability to ban players from specific gimmick roles; old bans will
+      still be enforced.
+  Evan & Naevi:
+  - rscadd: Dominant Bluespace Extracts
+  PowerfulBacon:
+  - balance: Circuit comms receiver can no longer jam comms.
+  - balance: Circuit comms receiver requires encryption keys.
+  - rscadd: Adds movement sounds to IPCs
+  - rscadd: Adds movement sounds to riot suits and deathsquad armour
+  Sinestia:
+  - balance: Abductors can no longer teleport into the AI satellite.
+2021-02-25:
+  Evankhell561:
+  - rscadd: a real microwave to the bluesbace room.
+  MNarath1:
+  - tweak: Transforms you back on death when you are transformed trough a golden slime
+      pylon
+  - bugfix: Fixes the old body suffocating while inside the content list of the simple
+      mob while being transformed by golden slime pylon
+  - bugfix: Fixes another bug with golden slime pylon that could lead to you not transforming
+      back after leaving its range
+  - refactor: Changes the processing code a bit to remove a redundant loop for golden
+      slime pylon and some redundant checks
+  - bugfix: Gold slime pylon transforming someone into an invisible animal
+  Sarchutar:
+  - rscadd: Camera implant which inserts a camera into you. Admin only at the moment.
+  Timberpoes:
+  - bugfix: The security camera console will now correctly track when viewing moving
+      cyborg cameras.
+2021-02-26:
+  Crossedfall:
+  - config: Heads of Staff can no longer be antags on Golden
+  Naevii:
+  - imageadd: Updated HoS greatcoat.
+  Rukofamicom:
+  - tweak: Warping Gold Crossbreeds have temporarily had their loot table neutered
+  Thebleh, Sarchutar:
+  - bugfix: Cyborgs can cancel surgeries, which are past the first step, with drapes
+      and a cautery again. (They have to be on harm intent to do it)
+  bloons3:
+  - bugfix: You can no longer roll a Die of Fate multiple times before the first roll
+      takes effect
+  park66665:
+  - bugfix: transmutation rune drawing process no longer is incorrectly explained
+      in-game.
+  plapatin:
+  - rscdel: deletes null crates
+2021-02-27:
+  Archanial:
+  - tweak: Input bar is now under chat.
+  - rscadd: Help button is back on paper.
+  bloons3:
+  - rscadd: Adds Brig Physician permission node (ACCESS_BRIGPHYS = 34)
+  - tweak: Gives Brig Physician somewhat exclusive access to their medical supply
+      locker
+  - rscadd: Brig Physician permission is applied to relevant areas on maps
+  - tweak: Other minor access control changes around Brig/Brig medical areas
+2021-02-28:
+  francinum:
+  - balance: Neat moodlet integrated into standard behavior
+  - balance: To go along with that, the relevant moodlets have been adjusted.
+  - tweak: Hygiene visual effect only happens when you can't get any dirtier
+  - code_imp: Hygiene no longer generates miasma

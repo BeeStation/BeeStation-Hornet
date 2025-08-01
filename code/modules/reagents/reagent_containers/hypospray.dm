@@ -202,6 +202,21 @@
 	desc = "A autoinjector containing dexalin, used to heal oxygen damage quickly."
 	list_reagents = list(/datum/reagent/medicine/dexalin = 10)
 
+/obj/item/reagent_containers/hypospray/medipen/vactreat
+	name = "emergency vacuum exposure pen"
+	icon_state = "dexpen"
+	item_state = "dexpen"
+	volume = 60
+	amount_per_transfer_from_this = 30
+	desc = "A autoinjector containing a potent chemical cocktail formulated to treat momentary vacuum exposure. Toxic, and can be used twice."
+	list_reagents = list(
+						/datum/reagent/medicine/perfluorodecalin = 2,
+						/datum/reagent/medicine/atropine = 2,
+						/datum/reagent/medicine/leporazine = 3,
+						/datum/reagent/medicine/kelotane = 5,
+						/datum/reagent/medicine/bicaridine = 5
+						)
+
 /obj/item/reagent_containers/hypospray/medipen/tuberculosiscure
 	name = "BVAK autoinjector"
 	desc = "Bio Virus Antidote Kit autoinjector. Has a two use system for yourself, and someone else. Inject when infected."

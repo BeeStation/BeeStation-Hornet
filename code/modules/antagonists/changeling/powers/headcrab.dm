@@ -17,16 +17,16 @@
 		var/mob/living/L = user
 		var/mob/living/puller = L.pulledby
 		if(puller)
-			var/datum/antagonist/changeling/other_ling = is_changeling(puller)
+			var/datum/antagonist/changeling/other_ling = IS_CHANGELING(puller)
 			if(other_ling?.isabsorbing)
 				to_chat(user, span_warning("Our last resort is being disrupted by another changeling!"))
 				return
 	var/turf/T = user.loc
-	if(!T || !isopenturf(T) || !is_changeling(user))
+	if(!T || !isopenturf(T) || !IS_CHANGELING(user))
 		to_chat(user, span_warning("You can't become a headslug right now!"))
 		return FALSE
 	var/datum/mind/M = user.mind
-	var/list/organs = user.getorganszone(BODY_ZONE_HEAD, 1)
+	var/list/organs = user.get_organs_for_zone(BODY_ZONE_HEAD, TRUE)
 	..()
 
 	for(var/obj/item/organ/I in organs)
@@ -35,7 +35,7 @@
 	for(var/mob/living/A in view(2,user))
 		if(ishuman(A))
 			var/mob/living/carbon/human/H = A
-			var/obj/item/organ/eyes/eyes = H.getorganslot(ORGAN_SLOT_EYES)
+			var/obj/item/organ/eyes/eyes = H.get_organ_slot(ORGAN_SLOT_EYES)
 			to_chat(H, span_userdanger("You are blinded by a shower of blood!"))
 			H.Stun(20)
 			H.blur_eyes(20)

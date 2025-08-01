@@ -77,3 +77,29 @@
 	icon = 'icons/obj/smooth_structures/catwalks/lattice.dmi'
 	icon_state = "lattice-255"
 	density = FALSE
+
+/obj/effect/decal/fakestairs
+	name = "stairs"
+	desc = "A great height, divided into small heights, all for your convenience."
+	icon = 'icons/obj/stairs.dmi'
+	icon_state = "stairs-p"
+	layer = TURF_DECAL_STRIPE_LAYER
+	density = FALSE
+
+/obj/effect/decal/fakestairs/newstairs
+	icon_state = "stairs-n"
+
+/obj/effect/decal/fakestairs/newstairs/middle
+	icon_state = "stairs-m"
+
+/obj/effect/decal/fakestairs/newstairs/right
+	icon_state = "stairs-r"
+
+/obj/effect/decal/fakestairs/newstairs/left
+	icon_state = "stairs-l"
+
+/obj/effect/decal/fakestairs/Initialize(mapload)
+	. = ..()
+	var/turf/open/floor/T = get_turf(src)
+	if(istype(T, /turf/open/floor))
+		T.slowdown = 2

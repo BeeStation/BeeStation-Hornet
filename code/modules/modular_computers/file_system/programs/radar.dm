@@ -8,9 +8,8 @@
 	program_icon_state = "radarntos"
 	requires_ntnet = TRUE
 	available_on_ntnet = FALSE
-	usage_flags = PROGRAM_LAPTOP | PROGRAM_PDA
 	network_destination = "tracking program"
-	size = 5
+	size = 4
 	tgui_id = "NtosRadar"
 	///List of trackable entities. Updated by the scan() proc.
 	var/list/objects

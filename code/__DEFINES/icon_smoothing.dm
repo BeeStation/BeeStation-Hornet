@@ -72,6 +72,7 @@ DEFINE_BITFIELD(smoothing_flags, list(
 #define SMOOTH_GROUP_SURVIVAL_TITANIUM_WALLS S_TURF(30)	///turf/closed/wall/mineral/titanium/survival
 #define SMOOTH_GROUP_ELEVATED_PLASTEEL S_TURF(31)
 #define SMOOTH_GROUP_LOWERED_PLASTEEL S_TURF(32)
+#define SMOOTH_GROUP_FLOOR_BEACH S_TURF(33) 			///turf/open/floor/plating/beach/water
 #define MAX_S_TURF SMOOTH_GROUP_LOWERED_PLASTEEL //Always match this value with the one above it.
 #define S_OBJ(num) (MAX_S_TURF + 1 + num)
 /* /obj included */

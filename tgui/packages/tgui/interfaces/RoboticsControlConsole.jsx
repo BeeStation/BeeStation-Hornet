@@ -142,7 +142,7 @@ const Cyborgs = (props) => {
                 : 'Not Found'}
             </Box>
           </LabeledList.Item>
-          <LabeledList.Item label="Module">{cyborg.module}</LabeledList.Item>
+          <LabeledList.Item label="Model">{cyborg.module}</LabeledList.Item>
           <LabeledList.Item label="Master AI">
             <Box color={cyborg.synchronization ? 'default' : 'average'}>
               {cyborg.synchronization || 'None'}

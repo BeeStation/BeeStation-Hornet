@@ -65,8 +65,9 @@ GLOBAL_LIST_EMPTY(possible_items)
 			return
 		var/obj/item/custom_target = pick_closest_path(custom_path, make_types_fancy(subtypesof(/obj/item)))
 		var/custom_name = initial(custom_target.name)
-		custom_name = stripped_input(admin,"Enter target name:", "Objective target", custom_name)
+		custom_name = tgui_input_text(admin, "Enter target name:", "Objective target", custom_name)
 		if (!custom_name)
+			to_chat(admin, span_warning("You need to enter something!"))
 			return
 		steal_target = custom_target
 		explanation_text = "Steal [custom_name]."

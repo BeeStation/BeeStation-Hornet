@@ -146,7 +146,6 @@
 
 /obj/projectile/magic/change/on_hit(atom/target)
 	. = ..()
-
 	if(isliving(target))
 		var/mob/living/victim = target
 		victim.wabbajack(set_wabbajack_effect, set_wabbajack_changeflags)
@@ -404,19 +403,28 @@
 		if(A)
 			poll_message = "[poll_message] Status:[A.name]."
 			ban_key = A.banning_key
-	var/list/mob/dead/observer/candidates = poll_candidates_for_mob(poll_message, ban_key, null, 10 SECONDS, M, ignore_category = FALSE)
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(
+		question = poll_message,
+		check_jobban = ban_key,
+		poll_time = 10 SECONDS,
+		checked_target = M,
+		jump_target = M,
+		role_name_text = "ghost possession",
+		alert_pic = M,
+	)
 	if(M.stat == DEAD)//boo.
 		return
-	if(LAZYLEN(candidates))
-		var/mob/dead/observer/C = pick(candidates)
-		to_chat(M, "You have been noticed by a ghost, and it has possessed you!")
+	if(candidate)
 		var/oldkey = M.key
 		M.ghostize(FALSE)
-		M.key = C.key
+		M.key = candidate.key
+
 		trauma.friend.key = oldkey
 		trauma.friend.reset_perspective(null)
 		trauma.friend.Show()
 		trauma.friend_initialized = TRUE
+
+		to_chat(M, "You have been noticed by a ghost, and it has possessed you!")
 	else
 		to_chat(M, span_notice("Your mind has managed to go unnoticed in the spirit world."))
 		qdel(trauma)

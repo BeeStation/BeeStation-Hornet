@@ -208,6 +208,15 @@
 	crate_name = "internals crate"
 	crate_type = /obj/structure/closet/crate/internals
 
+/datum/supply_pack/emergency/lawnmower
+	name = "Lawnmower Crate"
+	desc = "Contains an unstable and slow lawnmower. Use with caution!"
+	cost = 3000
+	max_supply = 3
+	contains = list(/obj/vehicle/ridden/lawnmower)
+	crate_name = "lawnmower crate"
+	contraband = TRUE
+
 /datum/supply_pack/emergency/metalfoam
 	name = "Metal Foam Grenade Crate"
 	desc = "Seal up those pesky hull breaches with 7 Metal Foam Grenades."
@@ -299,7 +308,7 @@
 					/obj/item/grenade/smokebomb,
 					/obj/item/grenade/smokebomb,
 					/obj/item/grenade/smokebomb,
-					/obj/item/pen/sleepy,
+					/obj/item/pen/paralytic,
 					/obj/item/grenade/chem_grenade/incendiary)
 	crate_name = "emergency crate"
 	crate_type = /obj/structure/closet/crate/internals
@@ -2066,7 +2075,7 @@
 /datum/supply_pack/science/modularpc
 	name = "Deluxe Silicate Selections restocking unit"
 	desc = "What's a computer? Contains Deluxe Silicate Selections restocking unit."
-	cost = 1200
+	cost = 5500
 	max_supply = 4
 	contains = list(/obj/item/vending_refill/modularpc)
 	crate_name = "computer supply crate"
@@ -2306,13 +2315,13 @@
 	crate_type = /obj/structure/closet/crate
 
 /datum/supply_pack/service/vending/dinnerware
-	name = "Dinnerware Supply Crate"
-	desc = "More knives for the chef."
-	cost = 800
+	name = "Kitchen Supply Crate"
+	desc = "More knives and ingredients for the chef."
+	cost = 500
 	max_supply = 6
 	access_budget = ACCESS_KITCHEN
 	contains = list(/obj/item/vending_refill/dinnerware)
-	crate_name = "dinnerware supply crate"
+	crate_name = "kitchen supply crate"
 
 /datum/supply_pack/service/vending/games
 	name = "Games Supply Crate"

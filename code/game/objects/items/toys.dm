@@ -1358,7 +1358,7 @@
 
 /obj/item/toy/cog/examine(mob/user)
 	. = ..()
-	if(is_servant_of_ratvar(user))
+	if(IS_SERVANT_OF_RATVAR(user))
 		. += span_warning("It's clearly a fake, how could anybody fall for this!")
 
 /*
@@ -1375,7 +1375,7 @@
 
 /obj/item/toy/replica_fabricator/examine(mob/user)
 	. = ..()
-	if(is_servant_of_ratvar(user))
+	if(IS_SERVANT_OF_RATVAR(user))
 		. += span_warning("It's clearly a fake, how could anybody fall for this!")
 
 /*
@@ -1647,7 +1647,7 @@
 
 /obj/item/toy/dummy
 	name = "ventriloquist dummy"
-	desc = "It's a dummy, dummy."
+	desc = "It's a dummy, dummy. Use .l to talk out of it if held in your left hand, or .r if held in your right hand."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "puppet"
 	item_state = "puppet"
@@ -1655,8 +1655,12 @@
 
 //Add changing looks when i feel suicidal about making 20 inhands for these.
 /obj/item/toy/dummy/attack_self(mob/user)
-	var/new_name = stripped_input(usr,"What would you like to name the dummy?","Input a name",doll_name,MAX_NAME_LEN)
-	if(!new_name)
+	var/new_name = tgui_input_text(usr, "What would you like to name the dummy?", "Input a name", doll_name, MAX_NAME_LEN)
+	if(!new_name) // no input so we return
+		to_chat(user, span_warning("You need to enter something!"))
+		return
+	if(CHAT_FILTER_CHECK(new_name)) // check for forbidden words
+		to_chat(user, span_warning("That name contains forbidden words."))
 		return
 	doll_name = new_name
 	to_chat(user, "You name the dummy as \"[doll_name]\"")

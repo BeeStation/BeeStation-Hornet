@@ -22,7 +22,6 @@
 	/// What areas are we allowed to place rifts in?
 	var/list/chosen_rift_areas = list()
 
-
 /datum/antagonist/space_dragon/greet()
 	to_chat(owner, "<b>Endless time and space we have moved through. We do not remember from where we came, we do not know where we will go. All space belongs to us.\n\
 					Space is an empty void, of which our kind is the apex predator, and there was little to rival our claim to this title.\n\

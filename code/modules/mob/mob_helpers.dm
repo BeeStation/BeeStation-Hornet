@@ -304,47 +304,18 @@
 
 
 // moved out of admins.dm because things other than admin procs were calling this.
-/**
-  * Is this mob special to the gamemode?
-  *
-  * returns 1 for special characters and 2 for heroes of gamemode
-  *
-  */
+/// Returns TRUE if the game has started and we're either an AI with a 0th law, or we're someone with a special role/antag datum
 /proc/is_special_character(mob/M)
 	if(!SSticker.HasRoundStarted())
 		return FALSE
 	if(!istype(M))
 		return FALSE
-	if(issilicon(M))
-		if(iscyborg(M)) //For cyborgs, returns 1 if the cyborg has a law 0 and special_role. Returns 0 if the borg is merely slaved to an AI traitor.
-			return FALSE
-		else if(isAI(M))
-			var/mob/living/silicon/ai/A = M
-			if(A.laws && A.laws.zeroth && A.mind && A.mind.special_role)
-				return TRUE
+	if(iscyborg(M)) //as a borg you're now beholden to your laws rather than greentext
 		return FALSE
-	if(M.mind && M.mind.special_role)//If they have a mind and special role, they are some type of traitor or antagonist.
-		switch(SSticker.mode.config_tag)
-			if("revolution")
-				if(is_revolutionary(M))
-					return 2
-			if("cult")
-				if(M.mind in SSticker.mode.cult)
-					return 2
-			if("nuclear")
-				if(M.mind.has_antag_datum(/datum/antagonist/nukeop,TRUE))
-					return 2
-			if("changeling")
-				if(M.mind.has_antag_datum(/datum/antagonist/changeling,TRUE))
-					return 2
-			if("wizard")
-				if(iswizard(M))
-					return 2
-			if("apprentice")
-				if(M.mind in SSticker.mode.apprentices)
-					return 2
-		return TRUE
-	if(M.mind && LAZYLEN(M.mind.antag_datums)) //they have an antag datum!
+	if(isAI(M))
+		var/mob/living/silicon/ai/A = M
+		return (A.laws?.zeroth && (A.mind?.special_role || !isnull(M.mind?.antag_datums)))
+	if(M.mind?.special_role || !isnull(M.mind?.antag_datums)) //they have an antag datum!
 		return TRUE
 	return FALSE
 
@@ -468,14 +439,20 @@
 		if(A)
 			poll_message = "[poll_message] Status:[A.name]."
 			ban_key = A.banning_key
-	var/list/mob/dead/observer/candidates = poll_candidates_for_mob(poll_message, ban_key, null, 10 SECONDS, M, ignore_category = FALSE)
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
+		question = poll_message,
+		check_jobban = ban_key,
+		poll_time = 10 SECONDS,
+		jump_target = M,
+		alert_pic = M,
+	)
 
-	if(LAZYLEN(candidates))
-		var/mob/dead/observer/C = pick(candidates)
-		to_chat(M, "Your mob has been taken over by a ghost!")
-		message_admins("[key_name_admin(C)] has taken control of ([ADMIN_LOOKUPFLW(M)])")
+	if(candidate)
 		M.ghostize(FALSE)
-		M.key = C.key
+		M.key = candidate.key
+
+		to_chat(M, "Your mob has been taken over by a ghost!")
+		message_admins("[key_name_admin(candidate)] has taken control of ([ADMIN_LOOKUPFLW(M)])")
 		return TRUE
 	else
 		to_chat(M, "There were no ghosts willing to take control.")
@@ -503,7 +480,7 @@
 	// Cannot use the list as a map if the key is a number, so we stringify it (thank you BYOND)
 	var/smessage_type = num2text(message_type)
 
-	if(client)
+	if(client?.player_details)
 		if(!islist(client.player_details.logging[smessage_type]))
 			client.player_details.logging[smessage_type] = list()
 
@@ -532,7 +509,7 @@
 
 	logging[smessage_type] += timestamped_message
 
-	if(client)
+	if(client?.player_details)
 		client.player_details.logging[smessage_type] += timestamped_message
 
 	..()

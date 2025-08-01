@@ -91,4 +91,5 @@
 
 	H.update_body()
 	H.update_hair()
+	H.dna.species.spec_updatehealth(H)
 

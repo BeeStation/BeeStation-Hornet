@@ -25,8 +25,10 @@
 	GLOB.zombie_infection_list -= src
 	. = ..()
 
-/obj/item/organ/zombie_infection/Insert(var/mob/living/carbon/M, special = 0, pref_load = FALSE)
+/obj/item/organ/zombie_infection/Insert(mob/living/carbon/M, special = FALSE, drop_if_replaced = TRUE, pref_load = FALSE)
 	. = ..()
+	if(!.)
+		return .
 	START_PROCESSING(SSobj, src)
 
 /obj/item/organ/zombie_infection/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
@@ -55,7 +57,7 @@
 		return
 	if(owner.stat != DEAD && !converts_living)
 		return
-	if(!owner.getorgan(/obj/item/organ/brain))
+	if(!owner.get_organ_by_type(/obj/item/organ/brain))
 		return
 	if(!iszombie(owner))
 		to_chat(owner, span_cultlarge("You can feel your heart stopping, but something isn't right... \

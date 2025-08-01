@@ -5,6 +5,7 @@ sound/ambience/antag/hypnosis.ogg is from "Flashback.wav" https://freesound.org/
 sound/effects/tail_swipe1.ogg is from TGMC https://github.com/tgstation/TerraGov-Marine-Corps (CC-BY-NC-3.0)
 sound/effects/tail_swipe2.ogg is from TGMC https://github.com/tgstation/TerraGov-Marine-Corps (CC-BY-NC-3.0)
 sound/machines/paper_insert.ogg is from "Printer" by dersuperanton https://freesound.org/people/dersuperanton/sounds/166690/ (CC-BY 4.0)
+sound/misc/prompt.ogg by Flleeppyy (https://github.com/Flleeppyy), originally for https://github.com/Monkestation/Monkestation2.0/pull/2621
 
 sound/soundtrack/tearofveil.ogg is from "Tear of veil" https://www.youtube.com/watch?v=NqNHKfTAvcw (CC-BY 3.0)
 

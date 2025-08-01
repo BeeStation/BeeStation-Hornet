@@ -15,6 +15,7 @@ export class TguiSay extends Component<{}, State> {
     innerRef: createRef(),
     lightMode: false,
     showRadioPrefix: false,
+    dpi: 1,
     maxLength: 1024,
     radioPrefix: '',
     tempHistory: '',

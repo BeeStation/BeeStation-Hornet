@@ -148,6 +148,10 @@
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
 	icon_state = "pwindow"
 
+/obj/structure/window/reinforced/survival_pod/corner
+	icon_state = "pwindow_corner"
+	density = FALSE
+
 //Door
 /obj/machinery/door/airlock/survival_pod
 	name = "airlock"

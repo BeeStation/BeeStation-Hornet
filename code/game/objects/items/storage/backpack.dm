@@ -503,6 +503,23 @@
 	new /obj/item/reagent_containers/medspray/sterilizine(src)
 	new /obj/item/blood_filter(src)
 
+/obj/item/storage/backpack/duffelbag/sec/detective
+	name = "detective equipment duffel bag"
+	desc = "The necessary equipment for any detective!"
+
+/obj/item/storage/backpack/duffelbag/sec/detective/PopulateContents()
+	new /obj/item/camera/detective(src)
+	new /obj/item/taperecorder(src)
+	new /obj/item/pinpointer/crew(src)
+	new /obj/item/binoculars(src)
+	new /obj/item/detective_scanner(src)
+	new /obj/item/flashlight/seclite(src)
+	new /obj/item/holosign_creator/security(src)
+	new /obj/item/reagent_containers/peppercloud_deployer(src)
+	new /obj/item/clothing/neck/tie/detective(src)
+	new /obj/item/storage/box/evidence(src)
+	new /obj/item/storage/box/rxglasses/spyglasskit(src)
+
 /obj/item/storage/backpack/duffelbag/sec/deputy
 	name = "deputy gear duffel bag"
 	desc = "A large duffel bag for holding extra supplies - this one has compartments for various clothes and gear."
@@ -739,7 +756,7 @@
 	atom_storage.silent = TRUE
 
 /obj/item/storage/backpack/duffelbag/clown/syndie/PopulateContents()
-	new /obj/item/modular_computer/tablet/pda/clown(src)
+	new /obj/item/modular_computer/tablet/pda/preset/clown(src)
 	new /obj/item/clothing/under/rank/civilian/clown(src)
 	new /obj/item/clothing/shoes/clown_shoes(src)
 	new /obj/item/clothing/mask/gas/clown_hat(src)

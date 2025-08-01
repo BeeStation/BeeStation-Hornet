@@ -29,7 +29,7 @@
 		if(Adjacent(C))
 			choices += C
 
-	var/mob/living/M = input(src,"Who do you wish to feed on?") in null|sort_names(choices)
+	var/mob/living/M = tgui_input_list(src, "Who do you wish to feed on?", "Feed", sort_names(choices))
 	if(!M)
 		return 0
 	if(CanFeedon(M))
@@ -53,27 +53,34 @@
 		Feedstop()
 		return FALSE
 
-	if(issilicon(M))
+	if(issilicon(M) || (MOB_ROBOTIC in M.mob_biotypes))
 		return FALSE
 
 	if(isanimal(M))
-		var/mob/living/simple_animal/S = M
-		if(S.damage_coeff[TOX] <= 0 && S.damage_coeff[CLONE] <= 0) //The creature wouldn't take any damage, it must be too weird even for us.
+		var/mob/living/simple_animal/simple_meal = M
+		if(simple_meal.damage_coeff[TOX] <= 0 && simple_meal.damage_coeff[CLONE] <= 0) //The creature wouldn't take any damage, it must be too weird even for us.
 			if(silent)
 				return FALSE
-			to_chat(src, span_warning(pick("This subject is incompatible", "This subject does not have life energy", "This subject is empty", "I am not satisified", "I can not feed from this subject", "I do not feel nourished", "This subject is not food")))
+			to_chat(src, "<span class='warning'>[pick("This subject is incompatible", \
+				"This subject does not have life energy", "This subject is empty", \
+				"I am not satisified", "I can not feed from this subject", \
+				"I do not feel nourished", "This subject is not food")]!</span>")
+			return FALSE
+	else if(isbasicmob(M))
+		var/mob/living/basic/basic_meal = M
+		if(basic_meal.damage_coeff[TOX] <= 0 && basic_meal.damage_coeff[CLONE] <= 0)
+			if (silent)
+				return FALSE
+			to_chat(src, "<span class='warning'>[pick("This subject is incompatible", \
+				"This subject does not have life energy", "This subject is empty", \
+				"I am not satisified", "I can not feed from this subject", \
+				"I do not feel nourished", "This subject is not food")]!</span>")
 			return FALSE
 
 	if(isslime(M))
 		if(silent)
 			return FALSE
 		to_chat(src, span_warning("<i>I can't latch onto another slime...</i>"))
-		return FALSE
-
-	if(isipc(M))
-		if(silent)
-			return FALSE
-		to_chat(src, span_warning("<i>This subject does not have life energy...</i>"))
 		return FALSE
 
 	if(docile)
@@ -109,9 +116,9 @@
 		layer = M.layer+0.01 //appear above the target mob
 		M.visible_message(span_danger("[name] has latched onto [M]!"), \
 						span_userdanger("[name] has latched onto [M]!"))
-		if(colour == "green" && istype(get_turf(M), /turf/open/floor/grass))
+		if(colour == SLIME_TYPE_GREEN && istype(get_turf(M), /turf/open/floor/grass))
 			special_mutation = TRUE
-			special_mutation_type = "dark green"
+			special_mutation_type = SLIME_TYPE_DARK_GREEN
 			M.visible_message(span_danger("[name] absorbs vitality from the surrounding grass, green membrane darkening at the touch."))
 	else
 		to_chat(src, span_warning("<i>I have failed to latch onto the subject!</i>"))
@@ -227,12 +234,12 @@
 	var/child_colour = colour
 	if(!force_original_colour)
 		if(mutation_chance >= 100)
-			child_colour = "rainbow"
+			child_colour = SLIME_TYPE_RAINBOW
 		else if(special_mutation == TRUE)
 			child_colour = special_mutation_type
 		else if(prob(mutation_chance))
 			if(transformeffects & SLIME_EFFECT_PYRITE)
-				slime_mutation = mutation_table(pick(slime_colours - list("rainbow", "dark green", "cobalt", "dark grey", "crimson")))
+				slime_mutation = mutation_table(pick(slime_colours - SLIME_TYPE_RAINBOW))
 			child_colour = slime_mutation[rand(1,4)]
 		else
 			child_colour = colour
@@ -253,8 +260,7 @@
 	if(transformeffects & SLIME_EFFECT_LIGHT_PINK)
 		GLOB.poi_list |= M
 		M.master = master
-		LAZYADD(GLOB.mob_spawners["[master.real_name]'s slime"], M)
-		SSmobs.update_spawners()
+		M.set_playable_slime(ROLE_SENTIENCE)
 	M.set_friends(Friends)
 	if(step_away)
 		step_away(M,src)

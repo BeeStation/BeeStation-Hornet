@@ -57,7 +57,6 @@
 		chambered.newshot()
 
 /obj/item/gun/magic/on_chamber_fired()
-	..()
 	// Drain the charge and recharge
 	charges--
 	recharge_newshot()

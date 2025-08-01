@@ -56,11 +56,17 @@
 
 /datum/component/simple_rotation/proc/RotateRight(datum/source, mob/user)
 	SIGNAL_HANDLER
-	Rotate(user, ROTATION_CLOCKWISE)
+	if(rotation_flags & ROTATION_DIAGONAL)
+		Rotate(user, ROTATION_CLOCKWISE_DIAGONAL)
+	else
+		Rotate(user, ROTATION_CLOCKWISE)
 
 /datum/component/simple_rotation/proc/RotateLeft(datum/source, mob/user)
 	SIGNAL_HANDLER
-	Rotate(user, ROTATION_COUNTERCLOCKWISE)
+	if(rotation_flags & ROTATION_DIAGONAL)
+		Rotate(user, ROTATION_COUNTERCLOCKWISE_DIAGONAL)
+	else
+		Rotate(user, ROTATION_COUNTERCLOCKWISE)
 
 /datum/component/simple_rotation/proc/Rotate(mob/user, degrees)
 	if(QDELETED(user))
@@ -111,7 +117,7 @@
 		var/target_dir = turn(rotated_obj.dir, degrees)
 		var/obj/structure/window/rotated_window = rotated_obj
 		var/fulltile = istype(rotated_window) ? rotated_window.fulltile : FALSE
-		if(!valid_window_location(rotated_obj.loc, target_dir, is_fulltile = fulltile))
+		if(!valid_build_direction(rotated_obj.loc, target_dir, is_fulltile = fulltile))
 			if(!silent)
 				rotated_obj.balloon_alert(user, "can't rotate in that direction!")
 			return FALSE

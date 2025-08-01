@@ -6,7 +6,6 @@
 	antagpanel_category = "Fugitive Hunters"
 	show_to_ghosts = TRUE
 	prevent_roundtype_conversion = FALSE
-	count_against_dynamic_roll_chance = FALSE
 	required_living_playtime = 4
 	var/datum/team/fugitive_hunters/hunter_team
 	var/datum/fugitive_type/hunter/backstory

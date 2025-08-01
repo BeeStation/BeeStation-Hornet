@@ -6,7 +6,6 @@
 	supervisors = "the head of personnel"
 	faction = "Station"
 	total_positions = 3
-	spawn_positions = 2
 	selection_color = "#bbe291"
 	exp_requirements = 60
 	exp_type = EXP_TYPE_CREW
@@ -33,7 +32,7 @@
 	jobtype = /datum/job/botanist
 
 	id = /obj/item/card/id/job/botanist
-	belt = /obj/item/modular_computer/tablet/pda/service
+	belt = /obj/item/modular_computer/tablet/pda/preset/service
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/hydroponics
 	suit = /obj/item/clothing/suit/apron

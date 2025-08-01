@@ -172,7 +172,7 @@ const ContactsScreen = (props) => {
               <Button
                 icon="bug"
                 color={sending_virus ? 'bad' : null}
-                content={`Send Virus: ${sending_virus ? 'Yes' : 'No'}`}
+                content={`Send Executable: ${sending_virus ? 'Yes' : 'No'}`}
                 onClick={() => act('PDA_toggleVirus')}
               />
             )}

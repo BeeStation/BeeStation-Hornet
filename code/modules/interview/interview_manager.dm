@@ -191,7 +191,7 @@ GLOBAL_DATUM_INIT(interviews, /datum/interview_manager, new)
   * * ckey - The ckey to remove from the cooldown list
   */
 /datum/interview_manager/proc/give_the_boot(ckey)
-	for(var/client/C as() in GLOB.clients)
+	for(var/client/C as() in GLOB.clients_unsafe)
 		if(C?.ckey == ckey)
 			qdel(C)
 			return

@@ -1,0 +1,218 @@
+2022-06-01:
+  Fikou, AnCopper:
+  - balance: xray lasers now have 60 armor penetration
+2022-06-02:
+  DatBoiTim:
+  - bugfix: Fixed a conjugation issue for examining unknowns or plural gendered mobs
+      with special limbs
+  - bugfix: Prosthetic Limbs showing up as right/left arm/leg in examine instead of
+      robotic right/left arm/leg
+  - bugfix: Attack messages now mention the zone affected rather than the name of
+      the limb affected
+  EvilDragonfiend:
+  - bugfix: Adminordrazine no longer causes deafness - again
+  Ivniinvi:
+  - admin: External Affairs Agent creation is now logged.
+  Rukofamicom:
+  - config: Map voting is enabled again
+  - config: Map votes may now have a minimum round length defined before they trigger
+  - bugfix: Map votes will always exclude the current map from the voting pool.
+  h42:
+  - bugfix: Exploration radio is now included when filtering radio channels in tgui
+2022-06-03:
+  PowerfulBacon:
+  - bugfix: Fixes corgstation autorifles not accepting lethal mags
+  ValuedEmployee:
+  - tweak: Changed the positronic brain prompt for players spawning in to allow harm
+      to anything that isn't a crewmember or the AI instead of disallowing harm altogether.
+  ro5490:
+  - admin: Status Message logging is now a thing
+2022-06-04:
+  PowerfulBacon:
+  - bugfix: The lighteater will now break gunlights and flashlights attached to things.
+  - bugfix: The lighteater will no longer break PDAs that do not have their light
+      turned on.
+  ike709, Ruko:
+  - bugfix: fixed a runtime on roundend preventing the mapvote panel from automatically
+      popping up
+2022-06-07:
+  PestoVerde322:
+  - bugfix: fixed some inconsistency related to the word "Centcom"
+  PowerfulBacon:
+  - bugfix: Taking the minimum amount of stamina damage will now properly heal.
+  - bugfix: Fixes a few miscalculations of minimum damage, meaning that 0.1 damage
+      should properly update the health hud and display on examine.
+  - bugfix: Blobs can no longer destroy indestructible items.
+  - bugfix: Fixes brain trauma quirk medicine spawning
+  Rukofamicom:
+  - tweak: disarm intent cooldown has been reverted
+  - tweak: wallshoves immobilize for half the knockdown duration - less crawling around
+  - tweak: There is now a very brief stun when disarming a knocked down person again.
+      The stun can not be chained back to back consistently.
+  - tweak: Tableshoves now produce a stun instead of just a knockdown.
+  - balance: Wallshoves are slightly better again.
+  - balance: Crusher hierophant trophy is now a homing projectile that can hit multiple
+      times instead of a cheesy wall that turns our mob AI into window-licking morons.
+  - tweak: 'Colossus now telegraphs its attacks three seconds in advance by shouting
+      one of five phrases: Judgment (Spiral or Double Spiral), Wrath (Ring), Retribution
+      (Shotgun) and Lament (Alternating 4).'
+  - bugfix: Vampire bat transformation no longer resets blood volume for vampires
+  - balance: Vampire bat form is now faster
+  Spc-Dragonfruits, ported by Hardly:
+  - imageadd: Added Quartermaster's turtleneck and turtleneck skirt, spawnable through
+      QM locker.
+  yyzsong:
+  - bugfix: Fixes mask of madness recipe
+2022-06-08:
+  PowerfulBacon:
+  - bugfix: Fixes clockcult pressure sensors not working
+2022-06-09:
+  PowerfulBacon:
+  - tweak: Removes bluespace polycrystals and replaces anything that produces them
+      with regular bluespace crystals.
+  - balance: Stabilized metal crossbreed will no longer accept bluespace polycrystals
+      crystals as input.
+2022-06-13:
+  Rukofamicom:
+  - tweak: The spider clan has terminated its contracts with Nanotrasen. Ninjas will
+      now work exclusively for the syndicate.
+2022-06-17:
+  ivanmixo:
+  - balance: slowed down hunters while buffing hunter's and sentinels' health
+  - refactor: refactored some xeno code
+  zeskorion:
+  - tweak: remaps viro on delta, pubby, meta, and box
+  - imageadd: changes PANDEMIC and virus food dispenser icons
+2022-06-18:
+  Hardly:
+  - rscadd: Head of Personnel's teal jumpsuit and jumpskirt now spawn in HoP's locker.
+  Penwin0:
+  - rscadd: A code acquired from the robotics management console is now needed for
+      law changes.
+  - rscadd: Silicon Uploads are now trackable by the Robotics Management Console.
+  - tweak: Cyborg uploads are now Capitalized.
+  - balance: RD access is now required for the robotics management console.
+  - balance: Hacked law module cost reduced to 3 TC to account for added difficulty
+2022-06-20:
+  Kryyto:
+  - spellcheck: Corrects some minor typos
+  - bugfix: fixed hydroponics shutters on Fland Station
+  Penwin0:
+  - bugfix: fixed a harddel with light's cells
+  zeskorion:
+  - tweak: maint under viro is now traversable on meta and delta again
+2022-06-21:
+  EvilDragonfiend:
+  - refactor: spam_enabled variable is spam_delay, 1 means 1 minute, 2 means 2 minutes.
+  - refactor: send_message proc in PDA.dm is now send_pda_message to prevent any confusion
+      from TGUI send_message.
+  - rscadd: Spam cartridges have now delay multiplyer based on its type.
+  - rscadd: Value-PAK cartridge (Captain) multiply is *2. (2 minutes)
+  - rscadd: P.R.O.V.E cartridge (Lawyer) multiply is *2.5. (2 min 30 seconds)
+  - rscadd: Lib-Tweet (Curator) now can spam, and its multiply is *3.5
+  - rscadd: TWIT cartridge (VIP) delay multiply is *1.5
+  - rscadd: FACEBUCKS cartridge (generic) is newly added, and its multiply is *5.
+      can be purchased from HoP cartridge vendor with 100 credits.
+  - rscadd: Send all message function tells you how much time you should wait to send
+      another.
+  - rscadd: Unlicensed PDA (Barber, Stage Magician) is now loaded with FACEBUCKS cartridge.
+      Barber and Stage Magician can advertise themselves.
+  Ivniinvi (recouped by PestoVerde322):
+  - admin: Re-added the plasma decontamination admin-only event.
+  MNarath1:
+  - code_imp: removes concept code i forgot about
+  Megaddd:
+  - config: slightly reduced abductor spawn rate
+  PowerfulBacon:
+  - rscdel: Reverts the character based gear loadouts due to a bug breaking the beecoin
+      shop.
+  Rukofamicom:
+  - balance: Door hacking now requires insulation to be performed safely.
+  - tweak: Doors no longer share wiring patterns and must have their wires learned/memorized
+      individually.
+  athena413:
+  - tweak: AI & borgs don't get less beecoins based on escaped/stranded status
+  d0sboots:
+  - bugfix: Supermatter radiation code is fixed, can now vary significantly from power
+      levels
+  - bugfix: Pluoxium functions as the coolant it was meant to be, but nerfs power
+      production
+  - rscdel: No more sneaky extra SM radiation that only targets living mobs, making
+      it undetectable
+2022-06-23:
+  tag along with your own):
+  - code_imp: Updates the contributing guidelines to include a pull-request standards
+      section.
+2022-06-24:
+  Dejaku51:
+  - bugfix: Fixed morph sending everyone near message "X bites you!"
+  PestoVerde322:
+  - rscadd: the e-saw as a traitor item is back
+  - imageadd: added new icons for all the medical tools
+  - imageadd: added new icons for the defibrillator, wall mount and portable version
+2022-06-25:
+  Dejaku51:
+  - admin: Locked getserverlogs behind the +SERVER permission
+  Hardly:
+  - tweak: IPCs can finally wear underwear.
+  Miliviu:
+  - rscdel: Removed Monkey Antagonist, gamemode and Disease
+2022-06-26:
+  Miliviu:
+  - spellcheck: Corrected a typo in the description of the Metal Upa plush
+  Penwin0:
+  - rscadd: Incursionists now have traitor-like uplinks
+  PowerfulBacon:
+  - bugfix: Fixes dwarfism resize affecting both axis by different amounts.
+  covertcorvid:
+  - bugfix: Incorporeal mobs can traverse Z levels through the floor/ceiling
+  - tweak: Warnings about being unable to Z travel in gravity will only appear on
+      space or openspace
+  - tweak: Reverses animation direction for Z travel
+2022-06-28:
+  Absolutely-Steph:
+  - bugfix: fixed a forgotten equip-delay bypass on a hud element.
+  Dejaku51:
+  - bugfix: IPCs and ethereals now can't use the lipid extractor
+  - admin: created a failsafe to avoid admins crashing the server using lipid extractor
+  Dejaku51, Mothblocks, LemonInTheDark:
+  - bugfix: Fixes /mob/dead/new_player harddels
+  DrDuckedGoose:
+  - rscadd: chem_heirloom.dm
+  - tweak: change chemist's heirloom to hard locked bottle
+  - tweak: negative.dm calls chem_heirloom edgecase proc for naming.
+  EvilDragonfiend:
+  - rscadd: silicons no longer can state laws while they're stating laws.
+  - bugfix: stating laws counts to the spam filter less than before. But do not spam
+      stating laws, it still counts, but less.
+  LemonLimeSoda, LodedDiper69:
+  - rscadd: "Adds new varieties of pasta and noodles: k\xE4sesp\xE4tzle, spaghetti\
+      \ napolitan, lasagna, and glass noodles"
+  - imageadd: Adds sprites for the aforementioned new varieties of pasta and noodles
+  Miliviu:
+  - tweak: spraying big decals has delay
+  Penwin0:
+  - bugfix: fixes some harddels
+  - tweak: Wizards and nukies get all their quirks removed
+  PestoVerde322:
+  - rscadd: 4 new emojis added to the joy mask! Check the AutoDrobe
+  PowerfulBacon:
+  - bugfix: Fixes TGUI interfaces being broken and automatically closing.
+  Rukofamicom:
+  - balance: Voice of God stuns have been reduced substantially.
+  - tweak: Due to language proficiency, the curator now gets a bonus when using the
+      voice of God, but it is weaker than the one the chaplain already got.
+  - tweak: Command staff and mimes no longer receive any positive bonus multipliers
+      when utilizing the voice of god.
+  TheFakeElon:
+  - code_imp: renames and clarifies misleading define
+  ivanmixo:
+  - tweak: moved taste behaviour onto tongues instead of species
+  - code_imp: touched up stomach code a little
+  pixelman77:
+  - tweak: ripley drill now causes sparks when dilling IPCs, cyborgs, active AIs,
+      bots or swarmers.
+2022-06-29:
+  The-Moon-Itself:
+  - bugfix: Rapid shuttle designators can be used to link shuttles to flight consoles
+      again.

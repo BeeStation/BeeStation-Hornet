@@ -10,7 +10,7 @@
 	return DEFAULT_TASTE_SENSITIVITY
 
 /mob/living/carbon/get_taste_sensitivity()
-	var/obj/item/organ/tongue/tongue = getorganslot(ORGAN_SLOT_TONGUE)
+	var/obj/item/organ/tongue/tongue = get_organ_slot(ORGAN_SLOT_TONGUE)
 	if(istype(tongue) && !HAS_TRAIT(src, TRAIT_AGEUSIA))
 		. = tongue.taste_sensitivity
 	else

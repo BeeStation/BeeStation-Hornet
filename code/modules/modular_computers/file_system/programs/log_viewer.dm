@@ -1,9 +1,9 @@
 /datum/computer_file/program/log_viewer
-	filename = "log_viewer"
-	filedesc = "Log Viewer"
+	filename = "ore_log_viewer"
+	filedesc = "Ore Silo Log Viewer"
 	category = PROGRAM_CATEGORY_MISC
-	program_icon_state = "generic"
-	extended_desc = "View logs via NTNet or saved to your system."
+	program_icon_state = "comm_logs"
+	extended_desc = "View ore silo logs via NTNet or saved to your system."
 	size = 4
 	tgui_id = "NtosLogViewer"
 	program_icon = "database"
@@ -24,7 +24,7 @@
 			if(!hard_drive)
 				computer.visible_message(span_warning("\The [computer] shows an \"I/O Error - Hard drive connection error\" warning."))
 				return
-			var/datum/computer_file/data/log_file/log
+			var/datum/computer_file/data/text/log_file/log
 			switch(params["name"])
 				if("ore_silo")
 					var/obj/item/computer_hardware/hard_drive/role/job_disk = computer.all_components[MC_HDD_JOB]
@@ -69,17 +69,17 @@
 	var/list/data = list()
 	if(!istype(computer))
 		return data
-	var/list/datum/computer_file/data/log_file/data_files = list()
+	var/list/datum/computer_file/data/text/log_file/data_files = list()
 	var/obj/item/computer_hardware/hard_drive/hard_drive = computer.all_components[MC_HDD]
 	var/obj/item/computer_hardware/hard_drive/ssd = computer.all_components[MC_SDD]
 	if(hard_drive)
-		for(var/datum/computer_file/data/log_file/file in hard_drive.stored_files)
+		for(var/datum/computer_file/data/text/log_file/file in hard_drive.stored_files)
 			data_files += file
 	if(ssd)
-		for(var/datum/computer_file/data/log_file/file in ssd.stored_files)
+		for(var/datum/computer_file/data/text/log_file/file in ssd.stored_files)
 			data_files += file
 	var/files = list()
-	for(var/datum/computer_file/data/log_file/file in data_files)
+	for(var/datum/computer_file/data/text/log_file/file in data_files)
 		files += list(list(
 			name = file.filename,
 			size = file.size,

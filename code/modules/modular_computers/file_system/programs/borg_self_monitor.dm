@@ -8,7 +8,6 @@
 	available_on_ntnet = FALSE
 	unsendable = TRUE
 	undeletable = TRUE
-	usage_flags = PROGRAM_PDA
 	size = 5
 	tgui_id = "NtosCyborgSelfMonitor"
 	///A typed reference to the computer, specifying the borg tablet type
@@ -37,7 +36,7 @@
 	var/mob/living/silicon/robot/borgo = tablet.borgo
 
 	data["name"] = borgo.name
-	data["designation"] = borgo.designation //Borgo module type
+	data["designation"] = borgo.model //Borgo module type
 	data["masterAI"] = borgo.connected_ai //Master AI
 
 	var/charge = 0
@@ -56,14 +55,14 @@
 	data["cameraRadius"] = isnull(borgo.aicamera) ? 1 : borgo.aicamera.picture_size_x // picture_size_x and picture_size_y should always be the same.
 	data["thrustersInstalled"] = borgo.ionpulse //If we have a thruster uprade
 	data["thrustersStatus"] = "[borgo.ionpulse_on?"ACTIVE":"DISABLED"]" //Feedback for thruster status
-	data["selfDestructAble"] = (borgo.emagged || istype(borgo, /mob/living/silicon/robot/modules/syndicate))
+	data["selfDestructAble"] = (borgo.emagged || istype(borgo, /mob/living/silicon/robot/model/syndicate))
 
 	//Cover, TRUE for locked
 	data["cover"] = "[borgo.locked? "LOCKED":"UNLOCKED"]"
 	//Ability to move. FAULT if lockdown wire is cut, DISABLED if borg locked, ENABLED otherwise
 	data["locomotion"] = "[borgo.wires.is_cut(WIRE_LOCKDOWN)?"FAULT":"[borgo.lockcharge?"DISABLED":"ENABLED"]"]"
-	//Module wire. FAULT if cut, NOMINAL otherwise
-	data["wireModule"] = "[borgo.wires.is_cut(WIRE_RESET_MODULE)?"FAULT":"NOMINAL"]"
+	//Model wire. FAULT if cut, NOMINAL otherwise
+	data["wireModule"] = "[borgo.wires.is_cut(WIRE_RESET_MODEL)?"FAULT":"NOMINAL"]"
 	//DEBUG -- Camera(net) wire. FAULT if cut (or no cameranet camera), DISABLED if pulse-disabled, NOMINAL otherwise
 	data["wireCamera"] = "[!borgo.builtInCamera || borgo.wires.is_cut(WIRE_CAMERA)?"FAULT":"[borgo.builtInCamera.can_use()?"NOMINAL":"DISABLED"]"]"
 	//AI wire. FAULT if wire is cut, CONNECTED if connected to AI, READY otherwise
@@ -151,7 +150,7 @@
 		if("selfDestruct")
 			if(borgo.stat || borgo.lockcharge) //No detonation while stunned or locked down
 				return
-			if(borgo.emagged || istype(borgo, /mob/living/silicon/robot/modules/syndicate)) //This option shouldn't even be showing otherwise
+			if(borgo.emagged || istype(borgo, /mob/living/silicon/robot/model/syndicate)) //This option shouldn't even be showing otherwise
 				borgo.self_destruct(borgo)
 
 /**

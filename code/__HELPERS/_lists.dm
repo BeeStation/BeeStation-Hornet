@@ -336,30 +336,16 @@
 	var/total = 0
 	var/item
 	for(item in list_to_pick)
-		if(!list_to_pick[item])
-			list_to_pick[item] = 1
 		total += list_to_pick[item]
+
+	// If everything has no weight set, then perform a standard pick
+	if (!total)
+		return pick(list_to_pick)
 
 	total *= rand()
 	for(item in list_to_pick)
 		total -= list_to_pick[item]
 		if(total <= 0)
-			return item
-
-	return null
-///The original pick_weight proc will sometimes pick entries with zero weight. I'm not sure if changing the original will break anything, so I left it be.
-/proc/pick_weight_allow_zero(list/list_to_pick)
-	var/total = 0
-	var/item
-	for(item in list_to_pick)
-		if(!list_to_pick[item])
-			list_to_pick[item] = 0
-		total += list_to_pick[item]
-
-	total *= rand()
-	for(item in list_to_pick)
-		total -= list_to_pick[item]
-		if(total <= 0 && list_to_pick[item])
 			return item
 
 	return null

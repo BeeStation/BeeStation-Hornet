@@ -98,7 +98,7 @@
 		for(var/obj/O in held_items)
 			if(prob(60))
 				uneq_module(O)
-				activate_module(pick(module.modules))
+				activate_module(pick(model.modules))
 
 		//Randomizes locked state and compounds it with cover potentially swinging open for an overall 25% chance for cover to fly open
 		if(!opened)
@@ -148,7 +148,7 @@
 	addtimer(CALLBACK(src, PROC_REF(after_emag), user), 1)
 
 /mob/living/silicon/robot/proc/after_emag(mob/user)
-	if(connected_ai?.mind && connected_ai.mind.has_antag_datum(/datum/antagonist/traitor))
+	if(connected_ai?.mind && connected_ai.mind.has_antag_datum(/datum/antagonist/malf_ai))
 		to_chat(src, span_danger("ALERT: Foreign software execution prevented."))
 		logevent("ALERT: Foreign software execution prevented.")
 		to_chat(connected_ai, span_danger("ALERT: Cyborg unit \[[src]] successfully defended against subversion."))
@@ -168,7 +168,7 @@
 	message_admins("[ADMIN_LOOKUPFLW(user)] emagged cyborg [ADMIN_LOOKUPFLW(src)].  Laws overridden.")
 	log_game("[key_name(user)] emagged cyborg [key_name(src)].  Laws overridden.")
 	var/time = time2text(world.realtime,"hh:mm:ss")
-	GLOB.lawchanges.Add("[time] <B>:</B> [user.name]([user.key]) emagged [name]([key])")
+	GLOB.lawchanges.Add("[time] <B>:</B> [key_name(user)] emagged [name]([key])")
 	to_chat(src, span_danger("ALERT: Foreign software detected."))
 	logevent("ALERT: Foreign software detected.")
 	sleep(0.5 SECONDS)
@@ -193,7 +193,7 @@
 	create_access_card(get_all_syndicate_access())
 
 /mob/living/silicon/robot/proc/after_emag_shell(mob/user)
-	ResetModule()
+	ResetModel()
 	Stun(12 SECONDS, TRUE)
 
 /mob/living/silicon/robot/blob_act(obj/structure/blob/B)

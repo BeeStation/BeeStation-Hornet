@@ -7,10 +7,30 @@
 /obj/structure/flora/tree
 	name = "tree"
 	desc = "A large tree."
-	density = TRUE
+	density = FALSE
 	pixel_x = -16
 	layer = FLY_LAYER
 	var/log_amount = 10
+
+/obj/structure/flora/tree/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+
+	AddElement(/datum/element/connect_loc, loc_connections)
+	AddElement(/datum/element/connect_loc, list(COMSIG_ATOM_ENTERED = PROC_REF(on_entered)))
+
+/obj/structure/flora/tree/proc/on_entered(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
+	var/mob/living/carbon/L = AM
+
+	// Movespeed logic
+	if (isliving(L) && !L.has_movespeed_modifier(/datum/movespeed_modifier/tree_slowdown))
+		L.add_movespeed_modifier(/datum/movespeed_modifier/tree_slowdown)
+		to_chat(L, span_warning("You push your way through the thick foliage."))
+		addtimer(CALLBACK(L, /mob/proc/remove_movespeed_modifier, /datum/movespeed_modifier/tree_slowdown), 5) // 10 deciseconds = 1 second
+
 
 /obj/structure/flora/tree/attackby(obj/item/W, mob/user, params)
 	if(log_amount && (!(flags_1 & NODECONSTRUCT_1)))
@@ -196,7 +216,7 @@
 	icon = 'icons/obj/flora/bigplant.dmi'
 	icon_state = "bigplant1"
 	anchored = FALSE
-	layer = ABOVE_MOB_LAYER
+	layer = ABOVE_MOB_LAYER+0.1 //because railings
 	pixel_x = -17
 
 /obj/structure/flora/bigplant/Initialize(mapload)

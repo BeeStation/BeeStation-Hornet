@@ -1,0 +1,482 @@
+2025-07-01:
+  PestoVerde322:
+  - rscadd: Reworked the Trasen-Knox hud, aswell added 3 variants of the Trasen knox
+      (Midnight-Knox, Plasma-Knox and Nyan-Knox)
+  - tweak: The default HUD is now Midnight-Knox
+  - rscdel: Removed the plasmafire, slimecore, operative and retro HUDs
+  rkz, Celotajs, MSO, Wayland-Smithy:
+  - server: converted html changelog to TGUI
+2025-07-02:
+  PinkSuzuki & HowToLolu:
+  - rscdel: Retires the Lapvendor
+  - balance: Reduced the Quality of the parts PDAs come pre-installed with.
+  - tweak: Messenger, Crew Manifest, Notepad and Wiki-app are now deletable and copyable.
+  - tweak: Tablets now offer a small bit more light than PDAs
+  - tweak: Tablets can now be fit with parts meant for Laptops.
+  - tweak: Tablets have 1 more expansion bay.
+  - rscadd: Made Modular Computers rechargeable in Cell Chargers.
+  - code_imp: Now Cell Chargers can now accept any type of item that has a cell in
+      it (provided they are in the "List")
+  - rscadd: Added a Camera Component for Modular Computers however it is currently...
+      useless.
+  - rscadd: Added 17 Tablet Colorizers and put them on the ModularPC vendor.
+  - imageadd: Added a ton of skins for PDAs Tablets and the Contractor Tablet.
+  - tweak: Added almost all PC components to the modularpc vendor. (including things
+      accessible by hacking)
+  - balance: Changed the prices of the items on the ModularPC vendor to be more grounded
+      in reality.
+  - rscadd: Added a 'Tablets for Dummies' box that serves as a tutorial for players.
+  - tweak: Pre-installed Messenger, Crew Manifest, Notepad and Wiki-App into Micro
+      Solid State Drives.
+  - tweak: Inserting a component into a Modular Component now plays a sound.
+  - imageadd: Added program sprites for almost all programs, with special attention
+      to the programs which were supposed to have one but didn't.
+  - bugfix: Fixed Contractor Uplink sprites not displaying properly.
+  - code_imp: Colorizers now have a delete_me variable and text to reflect how many
+      charges they have left.
+  - tweak: Renamed the "Super Hard Disk Drive" to "Super-Advanced Hard Disk Drive"
+      for obvious reasons.
+  - imageadd: Added a sprite for the box that holds the new colorizers.
+  - bugfix: Fixed Identifiers not changing the name of Tablets.
+  - imageadd: Added light, ID and pen overlays to the Tablet and Contractor Tablet.
+  - balance: Decreased the program size of the Cargo App.
+  - tweak: Separated Computer Hardware tech into 4 tiers. Including an Experimental
+      Computer Hardware branch.
+  - tweak: Made all components printable in the circuit printer. (Half were on the
+      Protolathe.)
+  - rscadd: Added Components that were missing in the Techweb and were thus unfabricable.
+  - bugfix: Detomatix now properly checks for if the target has messaging disabled
+      or not.
+  - imageadd: Added a sprite for the No-Relay Network Card.
+  itsmeow:
+  - bugfix: Prevent the server from logging session tokens
+  - bugfix: Fixed FORCE_BYOND_EXTERNAL_AUTH breaking logins if ENABLE_GUEST_EXTERNAL_AUTH
+      was disabled
+  - bugfix: Fixed logins always erroneously determining that a user does not exist
+      in the database.
+2025-07-03:
+  ClownMoff:
+  - rscadd: Added a missing fire alarm in RadStation Brig, in the processing room.
+  - rscdel: Removed an extra unnecesary fire alarm in MetaStation, in medbay.
+2025-07-04:
+  Isaacnml, Gilgax:
+  - balance: Replaces the Hardstun of Venus Human Traps with a knockdown ontop of
+      stamina damage
+  - balance: Cyborgs are now slowed down by 50% for 10 seconds upon being hit by  a
+      ranged attack from the vines
+  - balance: Venus Human Traps, Lowers their damage from 25 to 10
+  - balance: Venus Human Traps, Health changed to 100
+  - balance: While a mob is attached to a venus human trap, they receive 10 constant
+      stamina damage until the vine is broken
+  - balance: Lowered the amount of health healed by hitting a mob that is alive to
+      5%
+  - balance: Venus Human Trap ranged attack is only able to hit mobs/objects
+  - balance: Venus Human Traps only heal 5% when inside the vines
+  - balance: Venus Human Trap AI retreats at 50% health back to the vines, regardless
+      if they're in combat or not, provided they have line of sight with them
+  - balance: Venus Human Trap ranged attack can be broken if something pulls the object/mob
+  - balance: Venus Human Traps now prioritize attacking mobs inside vines
+  PowerfulBacon:
+  - balance: Antagonist and heavy armours will now block piercing syringes.
+  - balance: Any clothing that has at least 10 bullet or melee armour will block standard
+      syringes and injections.
+  - bugfix: Fixes multiple incorrect uses of can_inject which would have caused syringe
+      guns not to function
+2025-07-06:
+  Nakalon:
+  - tweak: Cook Vendor is no longer free for cooks and now includes some ingredients
+      and condiments
+  - balance: Reduced Cook Pay
+  - balance: Reduced amount of ingredients available roundstart in freezers
+  - tweak: Changed the name of the cook vendor and restoking unit
+  PinkSuzuki:
+  - bugfix: Fixes Mimes not being able to send emoji messages
+  PowerfulBacon:
+  - bugfix: Localhost now has an admin rank for debugging again.
+2025-07-07:
+  rkz, Mothblocks, JohnFulpWillard, capsaicinz, Kapu1178:
+  - bugfix: fixes prosthetic surgery not removing the old limb
+  - rscadd: adds text output for failing to attach prosthetics
+  - code_imp: unit tests various surgeries to prevent regressions
+  - refactor: refactors surgery procs to pass args to consider a sterile testing environment
+      (we need our code to actually work in a unit test)
+  - bugfix: cleans up 'repeating' surgeries. Surgeries will try to repeat as a default
+      behavior if they fail at first (like using a kitchen knife as a scalpel for
+      tend wounds)
+2025-07-10:
+  itsmeow:
+  - rscadd: You can now relink authenticated BYOND accounts to new Discord accounts
+      at will, and unlink your Discord account from an old CKEY.
+  - bugfix: Fixed unhelpful error message when using a Discord account that is already
+      linked to a different CKEY, or a CKEY already linked to a different Discord
+      than the one you signed in with.
+  - tweak: Adjusted the information given in the login panel to be more useful and
+      easier to understand.
+  - tweak: Improved the look of the login panel's manual token entry input and submit
+      button.
+  - bugfix: When reconnecting, it is no longer possible to be assigned a mob that
+      you aren't authorized to use / logged into.
+  - admin: Disconnected user's mobs will now have their key changed to @DC@Original
+      Key
+2025-07-13:
+  Aramix:
+  - bugfix: Sealed mechs will now use internal tank contents to repressurize cabin
+      during internal air tank usage once again
+  - bugfix: Adjusted the initial air moles count in the cabin for sealed mechs to
+      start with a cabin air pressure of one atmosphere
+  ClownMoff:
+  - rscadd: 'Added 3 new emojis for Mime''s PDA/LOOC/OOC: captain, mistake and true'
+  Gilgax:
+  - code_imp: fixed the quickstart setting for easier debugging
+  Solene:
+  - tweak: tweaked the visual and audio behavior of personal lockers
+  - tweak: Captain, HoP and HoS id's can now wipe a owners registry from a personal
+      locker
+  Solene Yoon:
+  - rscadd: Adds Soy Sauce, BBQ Sauce and Mayonnaise to the Chef Vendor
+  TsunamiAnt:
+  - rscadd: Added oxygen candles. They can make a medium sized room livable without
+      any power or outside help within 5 minutes.
+  - rscadd: Vacuum exposure medpen. A 2 use medipen designed to treat and stabilize
+      people that are or have been exposed to a vacuum. **Broadly toxic. Do not use
+      it unless necessary.**
+  - tweak: tweaked emergency locker contents.
+2025-07-14:
+  '@aramix273 Detective work @DrDuckedGoose Code':
+  - bugfix: Fix artifact trait 'Electrified', no longer runtimes
+  - bugfix: Fix artifact trait 'Exchanging', now properly collects targets
+  - tweak: Adds a better sound indication for 'Exchanging' successfully exchanging
+      damage
+  Asdfagi:
+  - bugfix: ghost-controllable slimes splitting no longer leaves behind a nullspace
+      slime that breaks the spawner menu
+  - bugfix: the transformative light pink extract now actually allows a slime and
+      its descendants to be controlled by ghosts
+  ClownMoff:
+  - rscadd: 'BoxStation: Adds navigation marks to places missing them (science, kitchen,etc.)'
+  - rscadd: 'BoxStation: Adds a straight jacket to medbay'
+  - tweak: 'BoxStation: Modernizes and improves cargo''s department layout'
+  - tweak: 'BoxStation: Rearranged some stuff inside and outside the kitchen to have
+      a better layout to work with ingredients'
+  - tweak: 'BoxStation: Opened a direct entrance from the Cargo lobby into the security
+      outpost'
+  - tweak: 'BoxStation: Small change in the torture room all items for the tortured
+      are not on the same tile and you can see them better'
+  - bugfix: 'BoxStation: Fixed service maintenance access and door access between
+      kitchen-bar-botany'
+  - rscdel: 'BoxStation: Removed a table from the security outpost in cargo to open
+      space for a direct entrance from the lobby'
+  Dejaku51:
+  - rscadd: Ability to collect stuff by directly clicking on turfs
+  EvilDragonfiend (Code), MarkusLarsson421 (Mapping):
+  - rscadd: Debug Holodeck. Also, Runtime station is a bit renovated.
+  Nakalon:
+  - tweak: Wintercoats and Labcoats now fit normal medkits (and their coloured cousins)
+  Solene:
+  - rscadd: Added the Personal Airlock, a claimable type of airlock
+  - tweak: Minor map edits to fit the new airlock and make sure all comissaries are
+      reachable without passing trough maintenance.
+  VmpOS2NHSkhkejA9:
+  - balance: Motorized wheelchair speed has been rebalanced, they can go up to normal
+      run speed at t3 parts without risk of crashing, and can go even faster than
+      regular humans if T4 parts are used and the safeties are overridden with a multitool,
+      at the risk (or bonus, if you see it that way) of crashing violently if they
+      bump into anything.
+  - tweak: Examining motorized wheelchairs gives a more accurate view of their speed,
+      power consumption and shows what tools can be used on them.
+  - tweak: Motorized wheelchairs consume less power with T1 parts, but consume slightly
+      more than before at T4.
+  - bugfix: Motorized wheelchairs consume the correct amount of power when moving,
+      and no longer consume power when dragged, along with no longer causing countless
+      runtimes when dragged around without a cell. They also no longer spam the chat
+      when they are missing a power cell or are simply out of charge.
+  - bugfix: Motorized wheelchairs spawned on maps or by admins are now fully functional,
+      albeit with only T1 parts.
+  XeonMations:
+  - balance: The vault's bank machine now siphons all station budgets, instead of
+      only cargo's.
+  - refactor: Refactored the vault's bank machine code.
+  wikimody:
+  - rscdel: Removed Hive storage protocol
+  - balance: Severely weakened factory, pyramid, kickstart and zip protocols
+  - balance: Halved bio reconstruction cost and healing
+  - tweak: Moved S.L.O.P over to military tech reflecting its lethality
+2025-07-15:
+  itsmeow:
+  - rscadd: TGUI Say now supports system DPI scaling on BYOND 516, and will no longer
+      display at the incorrect size.
+2025-07-16:
+  Asdfagi:
+  - tweak: pyroclastic anomaly slimes now spawn with a transformative light pink extract
+      applied, meaning that their offspring can also become sentient
+  - tweak: some wording for ghostspawn slimes without a master expanded for clarity
+  Rukofamicom:
+  - rscdel: Removed TC fuel rods
+2025-07-17:
+  ClownMoff:
+  - tweak: 'Corgstation: Gave the kitchen and bar a more modern look and added some
+      more doors'
+  - bugfix: fixed monkeys not using their icon on StrongDMM
+  PowerfulBacon:
+  - tweak: The job assignment algorithm has been changed to prioritise statistical
+      randomness for players with many job roles enabled, over ensuring that head
+      and security positions are filled. Selecting all jobs to medium ensures that
+      you have the same probability of rolling any job, while setting all jobs to
+      low means that you will get the jobs which other players did not select.
+  - tweak: If the round starts with less than 7 players online, then all but the captain,
+      shaft miner and basic department jobs will be disabled and these roles will
+      be given access to their entire department.
+  - tweak: If the roundstarts with less than 14 players online, some non-important
+      job roles will be disabled.
+  - tweak: Skeleton crew access is now based on job presence rather than population.
+  - tweak: There are now unlimited job slots for medical doctors, security officers,
+      engineerings, cargo technicians and scientists but for these slots to be open
+      requires there to be at most a difference of 2 between the most and least populated
+      of these jobs.
+  VmpOS2NHSkhkejA9:
+  - tweak: honeycombs are food, they must be ground up to get their reagents now.
+  - bugfix: honeycombs no longer shatter into glass when thrown
+  rkz, Jacquerel, tralezab, seris02, LemonInTheDark, itseasytosee, Capybara Holly, MrMelbert, vinylspiders:
+  - rscadd: Monkeys will play songs if handed instruments
+  - refactor: Refactored monkey AI trees
+  - code_imp: replaced a lot of var usages that were resulting in harddels with weakrefs
+  - bugfix: Monkeys will no longer attack with items worse than their basic bite
+  - refactor: Datum AI can now switch to different movement datums in their behavior
+  - code_imp: added AI support for untamed mobs to run away from humans. Not added
+      to any basic controllers at the moment.
+  - bugfix: fixed erroneous target removal in the middle of AI actions
+  - bugfix: hostile basic mobs cant bite through walls
+  - refactor: refactored most mob ai code to operate off of signals
+  - bugfix: basic mobs can now be scanned for DNA vault
+  - bugfix: basic mobs can now receive bluespace radio
+  - bugfix: adds handling for basic mobs when slime fed on (invincible ian moment)
+2025-07-18:
+  Asdfagi:
+  - bugfix: mindless bodies can once again be body-only scanned in the clone scanner
+      instead of causing a runtime error
+  Nakalon:
+  - tweak: Stripping a mob now puts the item in the strippers hands
+  Rukofamicom:
+  - balance: Hand restraints such as handcuffs are now much simpler to break out of.
+      Each attempt takes only five seconds and gives a miniscule chance of breaking
+      out immediately if you get lucky with a compounding chance after each attempt.
+      Each attempt stacks up to eventually being enough to guarantee the cuffs are
+      removed once your total attempts are equal to the breakout time as well.
+  - balance: Attempts to remove any types of restraint (Bola, cuffs, straight jackets,
+      etc.) no longer require you to be still and motionless, which means you can
+      run around like a headless chicken and still break out of some cuffs. Being
+      dragged in circles by an officer no longer interrupts breakout attempts either.
+  - balance: Because the general process for breaking hand restraints is now much
+      more consistent, the base times for all three hand restraints has been increased
+      dramatically so that handcuffs are still effective at their intended purpose,
+      just without being an indefinite restraint.
+  - tweak: Buckle-cuffed players are able to remove their restraints first now, so
+      buckling a player who is cuffed does nothing to lengthen the effective restraint
+      time further, it only prevents them from running around.
+  - tweak: straight jackets take two minutes to break out of instead of five now,
+      because five is an excessive amount of time to potentially stack on top of cuffs.
+  - tweak: Xenomorphs can no longer instantly break cuffs. They use the same define
+      and code as hulks do, taking five seconds to break the cuffs. In both hulk and
+      xeno cases, the cuffs can now be broken while moving.
+  marshmellow10:
+  - bugfix: fixes resist
+2025-07-19:
+  Solene & Mr.Yoshimoto:
+  - tweak: Mouse diseases are now always dormant, eating one won't infect anyone.
+  - rscadd: Extrapolators now work on dead mice
+  itsmeow:
+  - bugfix: Fixed species icons, antagonist icons, paper stamps, and CondiMaster icons
+      being invisible.
+  - tweak: Capitalized 'prisoner' in the antagonist preferences menu.
+2025-07-20:
+  ClownMoff:
+  - rscadd: Added to the detective fedoras the ability to turn your screen black and
+      white while you are inside their room or the interrogation room.
+  - rscadd: Added the ability to the detective fedoras to adjust it to cast a shadow
+      over their eyes
+  - rscadd: Added a new area for the interrogation room with the proper APCs
+  - rscadd: Added lightswitches in interrogation rooms that were missing them
+  Gboster-0:
+  - code_imp: code for slime pylons has been slightly changed making them extremelly
+      lightly more performant
+  Gilgax:
+  - tweak: 'Modernized the UI on (TGUIfied) a bunch of inputs (most things that had
+      a white box and looked old should be cooler looking now). Notable examples include:
+      the hand teleporter list, the spawn command, a lot of admin secret buttons,
+      brain washing, some security consoles, blood cultist teleport runes, law consoles,
+      pen rotation, slime feeding target list, comms console announcement, some ghost
+      role alerts, fulton packs, choice beacon pet naming and many more!'
+  - bugfix: Ventriloquist forced speech fixed for special characthers
+  - bugfix: Fixed the apply damage smite
+  PinkSuzuki, TsunamiAnt & The Hellraisers:
+  - rscadd: PC Components can now be manually hacked via tools
+  - rscadd: Added an Antivirus
+  - rscadd: Reworked Viruses. Included logging. visual and sound effects, on send
+      and receive.
+  - rscadd: Added 3 new viruses with TGUI windows.
+  - balance: Super Portable disks now cost 30 credits instead of 10
+  - rscadd: You can now fit components inside Modular PC's by attacking them with
+      the PC.
+  - rscadd: Screw driver secondary action now uninstalls all components form a Modular
+      PC at once.
+  - tweak: Tweaked some values related to programs
+  - code_imp: Added vars and a proc to be able to start and stop music and sounds
+      played by programs
+  - code_imp: Removed some duplicated vars from programs
+  - code_imp: Reworked and simplified Program hardware requirements
+  - tweak: Paper ID now accepts "Assignment" input and respects it
+  - code_imp: Refactored Network and Virus code a little bit
+  - imageadd: Add gifs for various UI elements on Computers such as the Virus Buster
+  - imageadd: Added a white version of sparks (to be dyed with lights)
+  - imageadd: Changed sprites for Antivirus and added overlays for when components
+      are "open"
+  - rscadd: Added a blue and red light spark effects
+  - tweak: Antivirus disks are now a subtype of portable disk
+  - tweak: Lightly Reworked Netmonitor (and network logging) and gave it to Science
+      jobdisks
+  - rscadd: Created a new trait, computer whiz
+  - code_imp: changed add_log procs to make them accept Network Cards to extract information
+      from
+  - code_imp: slightly changed network procs to accept the difference between no_relay
+      and hacker network cards
+  - balance: Reworked special Detomatix protection. Sec and head PDAs had their protection
+      substituted by an Antivirus
+  - tweak: Detomatix now uses a battery_explosion proc, explosion based on the size
+      of the battery installed
+  - tweak: Raised the size of the largest battery (and others) and raised the max
+      hardware size on laptops
+  - tweak: components are now repairable with a welder instead of cable coil
+  - code_imp: moved 4 files, portable disk, job disk, antivirus disk and virus disk
+      into a portable disks folder
+  - tweak: antivirus are now a part of the computer hardware techtree
+  - bugfix: Fixed apostrophes not being correctly logged
+  - bugfix: Component parts not drawing power from the battery
+  - tweak: added baloon alerts and QOL things for effect when handling Modular computers
+  - bugfix: PAIs can now be inserted inside Tablets.
+  - tweak: Laptops can now imprint IDs
+  - tweak: PAIs can now be ejected with alt-click.
+  PowerfulBacon:
+  - balance: Clarke moves slower on station.
+2025-07-23:
+  Gboster-0:
+  - rscdel: Deleted xenobiology's warping crossbreeds saying they have infinite uses
+      to their examiners
+  Rukofamicom:
+  - bugfix: detective aura now properly removes from all mobs
+  - tweak: anyone with a detective hat can now use the aura within detective office
+      and interrogation room
+  - tweak: adjusted grammar on a line involving the detective aura
+  Schoolboy215:
+  - bugfix: issue with fully deconstructing cyborgs
+  mrmanlikesbt, timothymtorres, orthography, tralezab, dragomagol:
+  - rscadd: added several new lawsets
+  - rscadd: infected law upload board. An admin-obtainable item that will make the
+      targeted AI malf
+  - rscadd: added "Unique AI" station trait. when this rolls a non-standard lawset
+      will be chosen for the AI to have
+  - balance: malf AIs can eject from mechs now
+  - balance: silicons are alerted when an upload key is extracted
+  - balance: the robotics control console can only be used on station now
+  - tweak: malf and combat upgraded AIs use the same module picker now
+  - tweak: slightly adjusted malf AI greeting text
+  - tweak: adjusted electrocuted door icon
+  - bugfix: fixed the "law changes" alert not appearing for silicons
+  - bugfix: fixed some AI module picker bugs
+  - bugfix: fixed two malf antag info panels opening
+  - code_imp: silicon code cleanup and some documentation
+  - code_imp: renamed "maintain" lawset to "efficiency"
+2025-07-24:
+  itsmeow:
+  - bugfix: Fixed being unable to look up or locate turfs above you in Multi-Z
+2025-07-26:
+  Nakalon:
+  - bugfix: Modular computers can teleport bags and other stuff again.
+  - bugfix: Detectives can now actually diagnose computers as they should as the epic
+      cyber sleuths they are.
+  - bugfix: Solves a runtime when throwing a computer without a CPU.
+  mrmanlikesbt:
+  - bugfix: fixed an exploit with the bookbinder (sorry that one curator)
+2025-07-27:
+  Nakalon:
+  - bugfix: You can now queue strip actions again without interruption
+  - refactor: Removed old asshole code for stripping
+2025-07-28:
+  PowerfulBacon:
+  - bugfix: Fixes a bug in the pickweight algorithm which caused maps to be selected
+      that had 0 votes.
+  Solene:
+  - rscadd: You can now research and print PDA, Tablet and Laptop shells.
+  - code_imp: PDAs that should start operable are now a child of /preset
+  - tweak: The basic transparent colorizer can now be applied to the clown and syndicate
+      PDA like the other colorizers.
+2025-07-29:
+  PowerfulBacon:
+  - balance: The sleepy pen is now refillable, renamed to the paralytic pen.
+  - balance: The default mix of the sleepy pen now paralyses a victim and allows them
+      to whisper, but keeps them conscious during their bad time ahead.
+  - balance: Adds whisper toxin as a precursor to mute toxin, it allows a victim to
+      whisper but prevents radio use.
+  - balance: Buffs stamina toxin, it now causes instant slowdown and deals double
+      the stamina damage per tick.
+  Rukofamicom:
+  - tweak: Byond account (ckey) is no longer appended to antagonists and their IC
+      names in the round-end report. If you wish to keep your characters private you
+      can now do so safely even when opting into an antagonist role.
+  - tweak: Poisoned knife costs 4 TC in uplinks now, down from 6.
+  - balance: Poisoned knife now has the same damage and embedding chance as a combat
+      knife (20 damage and 65% respectively)
+  - rscadd: Poisoned knives inject their entire remaining payload if they embed successfully,
+      up to 40u. High reward rule of cool payoff for those that want to gamble on
+      a 65% chance.
+  - tweak: Poisoned knife now delivers 1/3 of its intended payload to targets that
+      are protected from injection (Previously this was 1u regardless of intended
+      injection amount)
+2025-07-30:
+  Nakalon:
+  - rscadd: Adds cell chargers to public areas so people can charge they phone.
+  PowerfulBacon:
+  - tweak: Adds a low graphics quality setting
+  TsunamiAnt:
+  - rscdel: Pirates no longer call black alert by default.
+  mrmanlikesbt:
+  - refactor: Refactored dynamic
+  - rscadd: Added solo abductor ruleset
+  - rscadd: Added midround heretic ruleset
+  - rscadd: Added changeling latejoin
+  - rscadd: Midround living rulesets now ask if you want to be an antag
+  - tweak: The Wizard ruleset is no longer chosen based on antag rep
+  - admin: Added a tgui dynamic panel, this is in the "Round" category and requires
+      the R_FUN permission
+  - server: Dynamic is logged in dynamic.log now. You can use the LOG_DYNAMIC config
+      flag to toggle this.
+  - bugfix: fixed hacked AI modules
+  - bugfix: fixed the reset model wire on borgs
+2025-07-31:
+  DStarsthy:
+  - rscadd: Added library scanner to echostation
+  PowerfulBacon:
+  - balance: Piercing syringes can now pierce most station armours, and the threshold
+      for armour being protected from piercing (and healing) has been raised to MELEE
+      II or BULLET II, from MELEE I or BULLET I.
+  Rukofamicom:
+  - balance: Tackling gloves are less effective against targets in combat mode and/or
+      targets with throw enabled and have a higher variance when it comes to the RNG
+      roll that determines the outcome of an attempted tackle.
+  - balance: Tackling gloves are less effective at targets with no damage (real or
+      stamina) and more effective as their health goes down.
+  - tweak: Rocket gloves no longer give a positive modifier during the outcome roll.
+      These gloves were said to be high-risk and high-reward but offered such a high
+      positive bonus they nearly guaranteed a positive outcome.
+  - tweak: improvised gripper gloves no longer have a negative modifier
+  - tweak: Being insane no longer guarantees a successful tackle, but still provides
+      a high modifier. It also sends you deeper into crit instead of barely into crit
+      now.
+  - tweak: Neutral outcome roll is actually neutral instead of giving the person who
+      tackled a major advantage on knockdown time.
+  mrmanlkesbt, absolucy:
+  - bugfix: fixed some icons being too big on 516
+  rkz, jlsnow301, Arthri:
+  - server: faster TGUI build times with swc
+  - code_imp: converts collection.js functions to ES5
+  - code_imp: bumps TGUI packages
+  - code_imp: converts rgb/hexcolors to use RSL, as is required by new sass package

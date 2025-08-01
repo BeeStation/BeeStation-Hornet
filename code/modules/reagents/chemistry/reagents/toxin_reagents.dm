@@ -40,11 +40,11 @@
 	if(!M.has_dna())
 		return  //No robots, AIs, aliens, Ians or other mobs should be affected by this.
 	if((method==VAPOR && prob(min(33, reac_volume))) || method==INGEST || method==PATCH || method==INJECT)
-		M.randmuti()
+		M.random_mutate_unique_identity()
 		if(prob(98))
-			M.easy_randmut(NEGATIVE+MINOR_NEGATIVE)
+			M.easy_random_mutate(NEGATIVE+MINOR_NEGATIVE)
 		else
-			M.easy_randmut(POSITIVE)
+			M.easy_random_mutate(POSITIVE)
 		M.updateappearance()
 		M.domutcheck()
 	..()
@@ -303,9 +303,18 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 	taste_description = "piss water"
-	glass_icon_state = "beerglass"
-	glass_name = "glass of beer"
-	glass_desc = "A freezing pint of beer."
+
+/datum/glass_style/drinking_glass/fakebeer
+	required_drink_type = /datum/reagent/toxin/fakebeer
+
+/datum/glass_style/drinking_glass/fakebeer/New()
+	. = ..()
+	// Copy styles from the beer drinking glass datum
+	var/datum/glass_style/copy_from = /datum/glass_style/drinking_glass/beer
+	name = initial(copy_from.name)
+	desc = initial(copy_from.desc)
+	icon = initial(copy_from.icon)
+	icon_state = initial(copy_from.icon_state)
 
 /datum/reagent/toxin/fakebeer/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	switch(current_cycle)
@@ -333,6 +342,26 @@
 	toxpwr = 0.1
 	taste_description = "green tea"
 
+/datum/reagent/toxin/whispertoxin
+	name = "Whisper Toxin"
+	description = "A less potent version of mute toxin which prevents a victim from speaking loudly."
+	silent_toxin = TRUE
+	color = "#F0F8FF" // rgb: 240, 248, 255
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST | CHEMICAL_GOAL_BARTENDER_SERVING
+	toxpwr = 0
+	taste_description = "alcohol"
+
+/datum/reagent/toxin/whispertoxin/on_mob_metabolize(mob/living/L)
+	. = ..()
+	ADD_TRAIT(L, TRAIT_WHISPER_ONLY, type)
+	// Prevent people from spamming *scream
+	ADD_TRAIT(L, TRAIT_EMOTEMUTE, type)
+
+/datum/reagent/toxin/whispertoxin/on_mob_end_metabolize(mob/living/L)
+	. = ..()
+	REMOVE_TRAIT(L, TRAIT_WHISPER_ONLY, type)
+	REMOVE_TRAIT(L, TRAIT_EMOTEMUTE, type)
+
 /datum/reagent/toxin/mutetoxin //the new zombie powder.
 	name = "Mute Toxin"
 	description = "A nonlethal poison that inhibits speech in its victim."
@@ -342,9 +371,13 @@
 	toxpwr = 0
 	taste_description = "silence"
 
-/datum/reagent/toxin/mutetoxin/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.silent = max(M.silent, 3 * REM * delta_time)
-	..()
+/datum/reagent/toxin/mutetoxin/on_mob_metabolize(mob/living/L)
+	. = ..()
+	ADD_TRAIT(L, TRAIT_MUTE, type)
+
+/datum/reagent/toxin/mutetoxin/on_mob_end_metabolize(mob/living/L)
+	. = ..()
+	REMOVE_TRAIT(L, TRAIT_MUTE, type)
 
 /datum/reagent/toxin/staminatoxin
 	name = "Tirizene"
@@ -352,14 +385,22 @@
 	silent_toxin = TRUE
 	color = "#6E2828"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	data = 15
+	data = 30
 	toxpwr = 0
+
+/datum/reagent/toxin/staminatoxin/on_mob_metabolize(mob/living/L)
+	..()
+	L.add_movespeed_modifier(/datum/movespeed_modifier/reagent/staminatoxin)
 
 /datum/reagent/toxin/staminatoxin/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	M.adjustStaminaLoss(data * REM * delta_time, 0)
 	data = max(data - 1, 3)
 	..()
 	. = TRUE
+
+/datum/reagent/toxin/staminatoxin/on_mob_end_metabolize(mob/living/L)
+	..()
+	L.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/staminatoxin)
 
 /datum/reagent/toxin/polonium
 	name = "Polonium"

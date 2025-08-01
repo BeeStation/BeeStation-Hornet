@@ -6,6 +6,7 @@
 /obj/item/circuit_component/setter
 	display_name = "Variable Setter"
 	desc = "A component that sets a variable globally on the circuit."
+	category = "Utility"
 
 	circuit_flags = CIRCUIT_FLAG_OUTPUT_SIGNAL
 

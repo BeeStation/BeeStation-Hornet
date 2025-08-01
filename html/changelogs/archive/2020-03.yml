@@ -1,0 +1,383 @@
+2020-03-01:
+  Victor239:
+  - rscadd: Adds stacks of fluid ducts and two plumbing constructors to chemistry
+      lockers.
+2020-03-03:
+  Victor239:
+  - balance: Super Surplus Crate adjusted from 40 to 30 minimum population required
+  - balance: Surplus Crate adjusted from 25 to 20 min pop req
+  - balance: Adrenal Implant adjusted from 25 to 20 min pop req
+  - balance: Contract Kit adjust from 20 to 15 min pop req
+  - balance: No-Slips adjusted from 20 to 15 min pop req
+  - rscdel: Removes crayon eating colour changes from the crayons in crayon packs.
+      Rainbow/mime crayons and botany crayon powder unaffected.
+  - rscadd: Brig Physician get a defibrillator in locker and blood packs in the Infirmary
+  - rscadd: Warden's locker now has a megaphone
+  - rscadd: HOS' locker now has a box of deputy armbands, spare trenchcoat and bowmans
+  - rscadd: Straightjackets, muzzles, blindfolds, spare sec masks and toolboxes in
+      the Brig on all maps rather than half of them
+  zeskorion:
+  - tweak: simplemobs fooled with fake death
+2020-03-04:
+  AnturK:
+  - bugfix: You can no longer put the SM in a wall to keep it stable.
+  Shroopy:
+  - bugfix: Burn tend wounds surgery heals burn damage instead of brute
+  Victor239:
+  - imageadd: bola inhand sprites
+  - rscadd: Zombie infections are now blocked a % of the time scaling with melee armor
+2020-03-06:
+  4rchibald:
+  - rscadd: Added wires to rad collectors
+  - rscdel: Removed light in emitter room
+  - tweak: Moved camera in emitter room
+  Kerbin-Fiber:
+  - rscadd: Adds the Necropolis Seed symptom. Become stronger, but slower. Drop loot
+      on death, but you get gibbed. You can even become lava-proof.
+  Victor239:
+  - rscadd: PDA can now sort by owner name or job instead of item name.
+  - soundadd: New sound effect for table slams and head slams
+  - balance: table slams knock down for 3 seconds instead of stunning for 4
+  - balance: table slams deal 40 stamina damage.
+  - rscadd: 'Head slamming: neck grab someone then click a table to smash their head
+      against it, dealing 40 brute to the head and 60 generalized stamina, as well
+      as knocking down for 3 seconds. (stamina doesn''t stack with normal damage)'
+  zeskorion:
+  - balance: Nullcrates now have a downside other than an easily-gameable cost, which
+      can also be used against the crew by a creative traitor
+  - rscdel: irradiant cells no longer has a radiation pulse threshold
+  - tweak: polyvit now level 0
+  - tweak: self respiration has a far lower fart chance
+  - tweak: beesease level 14 no longer spawns honeybees, and instead makes bees not
+      attack the host.
+  - balance: beesease level 9 healing reagent amounts buffed to keep it competetive
+      with newer healsymptoms
+  - balance: irradiant cells has numbers raised significantly to make it actually
+      have an effect (it used to need around a half hour at max speed to actually
+      do anything) balance:DNA saboteur now gives both good and neutral, instead of
+      just good, mutations at the speed 14 threshold
+2020-03-07:
+  Bastian0930:
+  - rscadd: The Syndicate has added more tips to their employee handbook, after constant
+      failures by their employees. More round start tips will appear! The abductors
+      have also created 3 new objectives, thanks to space PTSD!
+  St0rmC4st3r:
+  - rscadd: Nanotrasen has been observing the struggles of the crew and added some
+      moldy synthflesh packs as an orderable product to cargo.
+  Victor239:
+  - bugfix: PDA sort by name and job were reversed, this is now working correctly.
+  - tweak: PDAs in backpacks etc accept ID cards.
+  - rscadd: The crew manifest on the PDA is now bearable to use (categorised by department).
+  - rscadd: Security PDAs now can view the crew manifest.
+  - rscadd: Freezers and Heaters can now connect on multiple layers. Use a multitool
+      on their boards to change layers.
+  - rscadd: 'New engi/atmos traitor item: Crushing Magboots. Turn them on and walk
+      over people to crush them. Costs 7 TC.'
+  - rscadd: Tanks now show internal mol
+  zeskorion:
+  - bugfix: both esoteric necropolis seed thresholds
+  - tweak: fucks with beepsky numbers a bit
+2020-03-10:
+  CameronWoof:
+  - tweak: lighting is brighter
+  PowerfulBacon:
+  - bugfix: Players who don't want to be antag, won't lose rep for being said antag.
+  St0rmC4st3r:
+  - rscadd: It seems that lavaland Ashwalker tribes discovered a new plant that lets
+      them burn fat rapidly thus making cactus fruit a good healing plant.
+  - bugfix: fixed the last step of revival surgery saying "repair body"
+  TheChaser212:
+  - tweak: You can now alt-click robots to unlock them.
+  - rscadd: Cyborg rechargers now slowly restores liquid electricity to ethereals
+      when upgraded
+  - bugfix: Ethereal blood bag is now properly named
+  - tweak: Cyborg rechargers restore more charge to ethereals
+  - tweak: Amount of liquid electricity in foods increased
+  - bugfix: Potions can be used on pocketed clothes.
+  - bugfix: Spray cans can recolor many more objects.
+  Victor239:
+  - rscadd: Plague doctor costume now available as contraband in the ViroDrobe.
+  - rscadd: You can now hold hands with another player by targeting their left or
+      right arm and pulling them.
+  - rscadd: More steriliser spray in med vendors and one spray in surgical bags also.
+  - rscadd: Plumbing constructors and fluid ducts added into chem lockers missed in
+      the earlier PR.
+  - rscadd: Medbay now has a sleeper and a stasis bed. Everywhere else stasis beds
+      are also replacing sleepers.
+  - rscadd: An extra carton of synthflesh to the CMOs locker for emergencies.
+  - balance: Reduced riot suit slowdown from 20% to 5%.
+  - rscadd: 'New clown traitor item: Taeclowndo shoes. Grants several martial art
+      abilities including conjuring bananas and a touch-range HONKerblast. Costs 14
+      TC for clowns and 12 TC for clown ops.'
+  - tweak: Clown PDA slipstuns for 5 seconds and knocks down for an additional 2.
+  - tweak: ED-209s now instead use a disabler.
+  - bugfix: Fixed a bug that let anyone unlock the ED-209s controls regardless of
+      their access.
+  - rscadd: 'New scientist traitor item: Australian Slime Mutator / Spider Injector,
+      use it on a gold slime extract to create 3 neutral broodmother spiders, make
+      them sentient and start your own hive. Costs 10 TC.'
+  - rscadd: 'New chaplain traitor item: Cult Construct Kit. Contains two beacons with
+      a construct shell each and a belt full of purified soulstones. Costs 20 TC.'
+  - rscadd: The Armory now contains an extra riot shotgun and specialised breaching
+      ammo. Use them to quickly break down airlocks and windows to create entry points,
+      but do note they are nearly useless against people.
+  - rscadd: The Armory now contains a grenade launcher.
+  - rscadd: Nukies can now buy 12g breaching slug drums for their Bulldog shotguns
+      for 2 TC.
+  YakiAttaki:
+  - rscadd: Added a xeno immunity trait
+  - balance: Made IPCs, Androids, Abductors, and Skeletons immune to facehugger attacks.
+  bobbahbrown:
+  - bugfix: Fixed ability to escape any sanitized string in goonchat
+  eLeCtrOssSnake:
+  - rscadd: Added bottle dispenser
+  - rscadd: Added patch dispenser
+2020-03-11:
+  St0rmC4st3r:
+  - tweak: Pestles are now made from regular iron.
+  TheChaser212:
+  - balance: Tourettes stun reduced from 20 seconds to 2
+  Victor239:
+  - bugfix: Fixed ViroDrobe contraband being empty
+  - balance: Tend Wounds is now only 2 steps (Scalpel > healing with Hemostat. Cautery
+      when done)
+  - bugfix: Borgs can now perform Tend Wounds
+  - rscadd: Anti-spam on Tend Wounds (Starting Message only, Result Message untouched)
+  - rscadd: Keep their pants on! Now Tend Wounds can be done through clothing! However
+      it is 60% less efficient this way
+  - tweak: You can upgrade both Tend Wounds Burn/Brute trees via techwebs
+  - rscadd: Advancing far enough into the tree enables Mixed Tend Wounds surgery,
+      which heals less of each but is considerably faster. Get alien tech for the
+      best of the best!
+  - balance: TW fail chance when using improvised tools decreased. Hooray for ghetto
+      surgery!
+  - balance: Medibot no longer works off chems and instead performs a lesser equivalent
+      to Tend wounds
+  - balance: They still heal all 4 base damages and use same clothing restrictions
+      as previously
+  - rscdel: Medibot Beaker Holding / Virus Treating no longer exists
+  - rscadd: Medibots scale with Tend Wound research (1 tend wound surgery researched
+      = 50% more healing)
+  - rscadd: Medibots heal more of a specific damage if the medkit used to make them
+      was oriented around that damage (a tox medkit medibot will heal toxin better)
+  - tweak: Emagged Medibots now pretend to tend your wounds, actually damaging you
+      and applying 5u chloral per step.
+  - rscadd: Surgery steps are now shown in detail only to the surgeon and anyone standing
+      adjacent to them; the patient and people watching from further away get a more
+      vague/ambiguous description.
+  - rscadd: Operating computers can now be built to sync with all nearby stasis beds
+      within it's LoS and provide them with advanced surgeries.
+  - balance: Failing TW now give 80% damage (based off normal healing) instead of
+      flat 5 brute
+  - rscadd: Tend Wounds now scales with missing health!
+  - tweak: All Tend Wound Upgrades (bar Alien Tech Combo Surgery) do same base healing
+      but scale with missing health differently. They should all heal more than they
+      usually do in most cases though.
+  - code_imp: Medibots were NOT changed and will continue to NOT scale with missing
+      HP to make humans more desired.
+  - rscadd: Operation tables and stasis beds now link to operation computer when built
+  zeskorion:
+  - tweak: no more booze(and other lame shit) in your stange seeds/floorpills/whatever
+  - tweak: unrestricted floorpills
+  - balance: restricts several more powerful chems from farmable methods
+2020-03-14:
+  Crossedfall:
+  - admin: Bans will now indicate if they are global or localized to the current server
+  - admin: Admins can view more than one page on the unban panel again
+2020-03-15:
+  zeskorion:
+  - bugfix: necroseed no longer starts at max stats
+2020-03-16:
+  Victor239:
+  - rscadd: RCD can now deconstruct airlock assemblies and firelock frames
+  - rscadd: Some belts and bags can carry more stuff including biobags being able
+      to carry organs, toolbelts can carry RCD/RPD/inducers/plungers
+  - balance: Toolbelt and medical belt can now hold more total weight.
+  - tweak: RCD/RPD/RLD/plumbing constructor can be worn on belt slot
+  - balance: RCD and RPD are now instead made in protolathes
+  - tweak: most organs are now small-size
+  - rscadd: Motorised wheelchairs. Upgrade the power cell, capacitor and manipulators
+      to go even faster for longer.
+2020-03-17:
+  zeskorion:
+  - rscadd: Autoprofiler
+2020-03-20:
+  Cenrus:
+  - bugfix: fixes sleeper upgrading
+  Victor239:
+  - rscadd: The deja vu effect (previously only used by rewind camera) now resets
+      all your limbs and damage to the point it was added after 10 seconds (as well
+      as the original position reset)
+  - rscadd: The deja vu effect cannot resurrect the dead, but will heal their corpse
+  - rscadd: New limbs fall off, old ones re-attach
+  - rscadd: Regenerative sepia cores add a deja vu effect before healing instead of
+      a timestop
+  - rscadd: The rewind camera rewinds 2 times to distinguish it from the regenerative
+      core
+  - rscadd: Androids, skeletons and zombies no longer metabolize reagents. As such
+      they no longer benefit from healing reagents, nor are affected by poisons and
+      toxins.
+  - rscadd: These species are now also immune to any other form of toxin damage.
+  - tweak: Milk now also heals burn damage for skeletons.
+  - rscadd: 'Added a new advanced surgery, Muscled Veins: it makes the patient able
+      to survive without a heart.'
+  - rscadd: Organ Smartfridges! Store your organs safely. Upgrading the matter bin
+      will give it the ability to heal organs held within- though this does not repair
+      organs that are currently failing, however.
+  - rscadd: Lobectomy! Not lobotomy, but cuts out a damaged lung lobe to make its
+      performance passable. Restores a lung to working order if it was too damaged
+      to work before, but can only be done once. The lobectomy step has a 95% chance
+      of success, so use some form of sterilizer to ensure you don't accidentally
+      get blood inside your patient's lungs!
+  - rscadd: Coronary Bypass! Restores a heart to working order if it was too damaged
+      to work before, but can only be done once. Both incising the heart and grafting
+      the bypass have a 90% chance to succeed, and failing them will cause heart damage
+      and massive amounts of bleeding- so be sure to work with ideal conditions, proper
+      tools, and sterilizer!
+  - rscadd: Organs now decay when not in a living host
+  - rscadd: Severe heart damage increases breathing rate, and causes a heart attack
+      on failure
+  - rscadd: Severe lung damage increases breathing rate, and causes suffocation on
+      failure
+  - rscadd: Stomach damage will likely cause the owner to vomit depending on how injured
+      the stomach is, and how much they've eaten
+  - tweak: Brain damage effects now works similarly to the rest of the organ damage
+  - tweak: Appendicitis will do appendix damage when in stages 3 and 4, which can
+      cause it to burst if left untreated
+  - tweak: Organs heal faster the healthier the host is
+  - balance: Defib timer has been extended to 15 minutes! Now cloning has a decent
+      alternative. All you have to do is heal or replace failing organs e.g. mannitol
+      on the brain, coronary bypass for the heart etc.
+  - balance: formaldehyde prevents post mortem organ decay.
+  - balance: epinepherine pens now contain 3u formaldehyde preservative.
+  nichlas0010, actioninja, stylemistake:
+  - bugfix: Fixes crew monitor vitals square
+  - bugfix: Chem buffers can make 0.1u pills
+  - bugfix: Cargo crates now show tooltips
+2020-03-23:
+  4rchibald:
+  - bugfix: Distribution and Waste pipes are no longer connected on Delta
+  Cenrus:
+  - rscadd: adds monkey
+  - bugfix: Health scanners now show organ damage levels
+  - tweak: Nuke op borg/reinforcement spawners now work on the station.
+  St0rmC4st3r:
+  - rscadd: The Syndicate has been studying the new shrinking technology and have
+      managed to turn tiny cats into a horrific disease. But the results were locked
+      away due to uselessness. Right. Right? Right?....
+  Victor239:
+  - bugfix: Delta gear room now can only be opened by security personnel
+  - bugfix: Pubby medbay now can only be opened by medical personnel
+  - balance: Tripled the amount of starting monkeys in Jungle Fever
+  - tweak: CMO hardsuit is now flashproof
+  - bugfix: Stasis beds now have a surgery success probability of 90%, 10% higher
+      than that of an operating table.
+  - tweak: Brig Physicians gets access to Pubby's Prisoner Transfer Centre in order
+      to do surgery
+  - tweak: Brig Physicians can now get free meds from vendors and their paycheck is
+      under the Medical department now
+  - tweak: Pubby's NanoMeds changed to normal NanoMeds
+  - rscadd: The Juggernaut, a one-man ERT with the sole purpose to wipe out every
+      living thing on the station. Coincidentally looks like Doomguy.
+  - rscadd: 'New nukie/juggernaut item: the Super Energy Chainsaw. Does 60 brute,
+      has 75% armor penetration and has 75% melee block. It also deals a brief knockdown
+      and fits in backpacks. Costs 22 TC for nuke ops.'
+  - rscadd: 'New cook/bartender/botanist traitor item: the Energy Chainsaw. Does 40
+      brute, has 50% armour penetration and has 50% melee block. Costs 10 TC. add'
+  - rscadd: Added grenade launcher to nukie uplink. Costs 6 TC.
+  - tweak: Grenade launcher now fits on security exosuit storage slots such as the
+      armor vest.
+  aarontheidiot:
+  - rscadd: Added Hepatectomy surgery, used to heal livers without needing to replace
+      them when they get damaged. Only appears when a liver is damaged to a certain
+      degree, and doesn't work on failed livers.
+  enthethan:
+  - tweak: increased reagent cap on carbon mobs to 5000
+  ro5490:
+  - bugfix: Changeling chem_storage now wont reset to 75 after a Respec if its higher
+      than 75. (I.e. After absorbing another ling)
+  zeskorion:
+  - balance: lower taser confusion to 10 seconds (from 15)
+  - bugfix: no more stacking confusion for being stuck in ai sat or anywhere else
+  - rscadd: new disease symptom
+  - tweak: makes true stuns and knockdowns other than shoves and slips no longer drop
+      items by default
+  - rscadd: junior epidemiology kit
+  - rscadd: virus sample kit
+  - tweak: virus crate split into three
+  - imageadd: virus food carton icon
+  - imageadd: virology action figure change
+  - tweak: normies can buy discounted role restricted items
+2020-03-24:
+  Victor239:
+  - bugfix: Delta gear room access fixed
+  qwertyquerty:
+  - config: Added filter toggle flags
+  zeskorion:
+  - rscadd: teleporting bread is now dangerous
+  - code_imp: adds teleport_act to atoms
+  - imageadd: killer bread sprites
+2020-03-27:
+  Crossedfall, ThatGuyThere03:
+  - rscadd: New pet Frank (Yeeslow) added to the mining outpost
+  TheChaser212:
+  - rscadd: Shock touch now fires lightning bolts on use
+  Victor239:
+  - rscadd: 'Two new craftable weapons: iron and plastitanium switchblades'
+2020-03-29:
+  BeloneX:
+  - config: added more job slots to each department
+  - config: increased ruin budgets
+  Garen:
+  - balance: Caltrop effects such as stepping on broken glass without shoes now require
+      the person to be standing to take effect.
+  PowerfulBacon:
+  - admin: 'Antag hud now shows brainwashed victims sprite: Added brainwashing hud
+      icon (pink traitor icon)'
+  St0rmC4st3r:
+  - rscadd: Added the Luxury bar bluespace capsule.
+  Victor239:
+  - rscadd: You can now heal whilst asleep. This only works if you're above 80% health
+      and works better on beds and tables.
+  - bugfix: Pubby medbay public access and HOS prisoner transfer centre access
+  - balance: Husking now requires more burn damage before it happens.
+  - balance: 100u synthflesh can now cure husking when burn damage is below 50.
+  - balance: 5u rezadone can now cure husking when burn damage is below 50.
+  WhyIsCaeciliusTaken:
+  - rscadd: 'New chemical: Concentrated BZ. Mix 10u liquid N2O and 40u liquid plasma
+      for a chemical that has very obvious negative effects on changelings only.'
+  - rscadd: Careful! A sneaky chemist can add neurine to create a fake, ineffectual
+      version.
+  enthethan:
+  - tweak: X4 can now be planted on people
+  - rscadd: Adds rad bow, the ebows radiation inducing cousin for 8 Tc,it  irradiates
+      and induces debilitating effects like brain damage and toxin damage. Unlike
+      the ebow it doesn't have notable disabling power. Has a recharge rate of 25
+      seconds.
+  - balance: Syndie cards now do 2 extra damage and can embed
+  - balance: polonium now irradiates 2.5x faster than before but also metabolizes
+      2x faster
+2020-03-30:
+  Dennok:
+  - bugfix: CHANGETURF_INHERIT_AIR proreply replace, or not replace air.
+  - bugfix: No more unintended air creation.
+  St0rmC4st3r:
+  - bugfix: The management finally gave the hotel staff means to open the meat and
+      milk fridge.
+  Victor239:
+  - tweak: Two extra medHUDs in medical lockers
+  - bugfix: Supersoldier race can now only be obtained from adminbus
+  fikou, nemvar, tralezab:
+  - rscadd: You can now choose your name and color as a holoparasite/guardian/holocarp!
+  - tweak: Gravitokinetic stand type improved.
+2020-03-31:
+  Victor239:
+  - rscadd: 'New MD/CMO traitor item: Energy Saw Arm Implant. Costs 8 TC.'
+  - rscadd: 'New robo/RD traitor item: Laser Arm Implant. Costs 12 TC.'
+  - rscadd: Syndicate implants now come in a suspicous autosurgeon
+  ike709:
+  - rscadd: Patrons can bypass the popcap.
+  - rscadd: Players can be redirected to another server if the popcap is reached.
+  qwertyquerty:
+  - bugfix: Fixes lingchat always breaking
+  - bugfix: Fixed a typo "donation"

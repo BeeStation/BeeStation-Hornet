@@ -1,0 +1,237 @@
+2022-12-01:
+  dog132:
+  - rscadd: Added seven new random maintenance rooms
+  - tweak: Kilo Station - the Xenoarchaeology Lab has been moved to above the Exploration
+      Docks.
+2022-12-03:
+  EvilDragonfiend:
+  - rscadd: Server reboot delay reason will be notified in Status Tab
+2022-12-04:
+  Archanial:
+  - bugfix: fixed runtime when reentering body from ghost form
+  - bugfix: fixed a turf with "turf" on the golem ship
+  EvilDragonfiend:
+  - bugfix: exploration nuke bomb will no longer be spawned in weird places (i.e.
+      window)
+  - tweak: 'change required access of radiant dance machine mark IV. now it needs
+      one of these: bridge, bar, or theatre access.'
+  - balance: Reduces Tribal Claw martial arts TC cost to 6. previously 14 TC.
+  PowerfulBacon:
+  - rscdel: Reverts server reboot delay reason showing in status tab
+  Rukofamicom:
+  - bugfix: enrage calculations and mechanics work properly for megafauna again
+  - bugfix: Lavaland swarmers now have their HP halved as well
+  itsmeow:
+  - config: Set the gamemode permanently to Dynamic. No other gamemodes in rotation.
+2022-12-05:
+  Crossedfall:
+  - server: Bumps auxmos to 2.2.1
+  - server: Bumps the maximum BYOND version to 514.1589
+  Rukofamicom:
+  - tweak: Xeno win condition has been altered and reworded slightly to better fit
+      expectations and avoid confusion regarding hijacking. The goal of Xenomorphs
+      is now to get a living queen to Central Command so that the colony may continue
+      to spread.
+  - tweak: Xenos no longer force a hostile environment just by existing, instead triggering
+      a delayed shuttle arrival under most circumstances. Aside from a delay on arrival,
+      evacuations may be performed normally, including early launches to escape the
+      threat if the crew held out during the delay.
+  benbot16:
+  - rscadd: Adds an ash drake lasso. This can only be crafted and used by ash walkers,
+      and can be used to tame ash drakes.
+  - balance: Adds more lavaland mobs to the list of mobs that the primal lasso can
+      tame.
+  - code_imp: Makes tamed animal attack code a bit more robust.
+  - code_imp: Refactors lasso code.
+2022-12-07:
+  RKz:
+  - bugfix: removed observer ability to edit syndie shuttle pods names. Agents spending
+      that 8 TC no longer have to worry about the dead's opinions on their unimaginative
+      naming schemes.
+  RussianGenCoke:
+  - tweak: Tweaked a brain damage line
+  Tsar-Salat:
+  - tweak: Rapid Shuttle Designator has had its weight changed to now fit in pockets,
+      toolbelt, and belt slots.
+2022-12-08:
+  EvilDragonfiend:
+  - code_imp: changed weird whitespace indentation into tab indentation in cluwne
+      code
+  - code_imp: renamed quirk file names
+  - code_imp: minor change to cluwne code (mob layer related)
+  - rscadd: added a static list that a camera can see invisible mobs. any object/mob
+      being invisible but in this list will be revealed by camera obscura.
+  - rscadd: camera obscura now can detect Floor Cluwne, Revenant as well.
+  - tweak: Photographer quirk is now Psychic Photographer which gives you a camera
+      obscura.
+  - code_imp: client_alert() proc that alerts players without pausing any code
+  - code_imp: quirk preference will be properly reset if quirks are tweaked in the
+      future.
+  - code_imp: tailSweep code now uses static
+  RKz:
+  - tweak: adds allowed items list to Ancient RIG hardsuit suit storage. List includes
+      combined items from both mining and explo suits.
+  - balance: retro laser weapons can now be stored in the RIG hardsuit suit slot
+  Tsar-Salat:
+  - bugfix: prox sensor works when set to 0
+  itsmeow:
+  - tweak: Dynamic now classifies Abductors as a light midround ruleset, allowing
+      them to spawn earlier in the round instead of right near the end, as well as
+      allowing it to spawn alongside other light rulesets.
+  - bugfix: Fixed a bug with Syndicate Sleeper Agent not properly updating its candidates.
+2022-12-09:
+  PowerfulBacon:
+  - balance: Abductor silencer range reduced to a range of 5
+  - balance: Abductor silencer can no longer block camera's vision.
+  - balance: Abductors can now teleport near other abductors regardless of if there
+      are specimin nearby or not.
+  - balance: Using the emergency teleport will set the combat stimulant injector's
+      cooldown to a minimum of 6 seconds to prevent an exploit where it could be used
+      to bypass the 6 second sleep applied by emergency teleport.
+  The-Moon-Itself:
+  - bugfix: List related WireMod components can no longer store lists inside other
+      lists.
+  - tweak: List related WireMod with an index input now treat a null index as a 0.
+  dwasint, PestoVerde322:
+  - rscadd: DU glass can now smooth instead of being singular windows anywhere
+  - tweak: New table sprites from Sunset station (Credits to Quantum-M for the sprites)
+  - imageadd: Reworked the tables and glass icons and sorted them around properly
+2022-12-10:
+  Crossedfall:
+  - server: Bumps the SQL schema version to 6.1
+  PowerfulBacon:
+  - rscadd: Airlock hack difficulty now depends on the area. Easier to hack areas
+      will have more labelled wires and less shock wires, while higher security areas
+      will have shock and dud wires.
+  - code_imp: Adds the ability to label only specific wires on the hacking UI.
+  itsmeow:
+  - rscadd: 'Added animated emotes: *sweatdrop, *glasses, *annoyed, *sigh'
+  - rscadd: 'Added audible emotes: *cough, *dwoop (IPC), *gasp, *msqueak (moth), *chitter
+      (moth), *sigh, *snap2, *snap3, *sneeze, *sniff'
+  - rscadd: 'Added emotes: *clear, *etwitch (felinid), *eyeroll, *huff'
+  - tweak: Abductors, androids, apids, flypeople, golems, IPCs, moths, skeletons,
+      and non-/mob/living/carbon/humans, and anyone with the NOBREATH trait will not
+      play a sound for *cough, *gasp, *sigh, *sneeze, and *sniff
+  - rscadd: Added a unique moth laugh sound.
+  - rscadd: Added a unique moth deathgasp sound.
+  - tweak: Mothroaches now use insect-type emote messages and can use *click, *chitter,
+      and *msqueak.
+  - code_imp: Clap emote now properly checks if you have arms.
+  - code_imp: Improved how *laugh and *scream determine per-species sounds.
+  - bugfix: Removed a duplicate *chime emoji.
+  - bugfix: Fixed some emotes having an extra period at the end of their messages.
+2022-12-11:
+  Floyd,ActionNinja,BetaCentari:
+  - soundadd: added a TON of new sounds under sound/surgery and sound/items/handling
+  - code_imp: Changed some inventory handling to configure picking up and putting
+      down and dropping items
+2022-12-12:
+  RKz:
+  - code_imp: redundant code ismovableatom(a) has been brought out back and shot
+2022-12-14:
+  PowerfulBacon:
+  - code_imp: Adds enumerable interface.
+  - code_imp: Adds enumerable subsystem for running tick checked enumeration controlled
+      by the MC instead of byond.
+  - code_imp: The singularity should no longer result in time completely freezing
+  PowerfulBacon, TheFinalPotato:
+  - bugfix: Removes a sleep loop from airlocks
+  - bugfix: Makes ruin generation a subsystem process rather than using CHECK_TICK,
+      so that its execution flow can be managed by the MC rather than byond.
+  - code_imp: Adds in a unit test for shuttle files that are just completely broken.
+  benbot16:
+  - bugfix: Tamed and sentience-potioned mobs now properly draw aggro from other mobs
+      of the same type.
+2022-12-15:
+  DoctorSquishy, Ghilker, and RKz:
+  - bugfix: Fixed Space Heaters not having power cells roundstart
+  - balance: Buffed Space Heater's ability to cool/heat rooms, upgrade their batteries
+      and components to gain even more of that benefit. Seriously UPGRADE THEM.
+  - refactor: Refactored construction code to use subtype instead of deleting old
+      cell on construction, changed attackby to use default procs and early returns
+  - code_imp: Added documentation and variables with snake cases
+  EvilDragonfiend:
+  - tweak: language icons will not be displayed if you can't understand that language.
+      only curators or linguist quirk holder will see lang icons. specific languages
+      don't follow this rule.
+  - rscadd: linguist quirk. Having this quirk allows you to recognize the language
+      icon.
+  Harranhall:
+  - tweak: added some text to the "Business proposition" message that appears on the
+      communication console before pirates show up.
+2022-12-17:
+  Harranhall:
+  - tweak: Changed the pirate respose timer from 2 minutes to a random number of minutes
+      chosen between (and including) 4-7.
+  benbot16:
+  - balance: Regular, primal, and drake lassos are now limited use (with 4, 2, and
+      1 uses respectively).
+  - tweak: Tamed mobs will now unfriend their owners if they're hit by their owners
+      too many times.
+  - tweak: Updates the primal lasso's recipe to require sinew.
+2022-12-19:
+  EvilDragonfiend:
+  - rscadd: researching a tech node 2 tier higher than current tech tier will warn
+      you.
+  PowerfulBacon:
+  - rscadd: 'Adds in new config settings for mappers that allow for the creation of
+      planetary based maps on the supercruise map. See PR #8178 for more details.'
+  - rscadd: Planetary meteors will now spawn on the highest z-level and drop down
+      until they hit the bottom or explode.
+  - bugfix: Planetary meteors will no longer only spawn mini rocks
+2022-12-22:
+  Bobbanz1:
+  - rscadd: Added a computer program called "Central Command Databank Uplink" which
+      allows you to view the Wiki from your PDA
+  Dimmadunk, Alterist, RKz:
+  - rscadd: Gastrectomy, a stomach healing surgery!
+  - rscadd: two cybernetic forms of the stomach are now added to the medical lathe
+      and exofab.
+  benbot16:
+  - bugfix: Burn repair on robotic limbs no longer uses cable if the limb is uninjured
+  - bugfix: Adds proper click cooldown handling to mechanical repair
+2022-12-23:
+  Archanial:
+  - bugfix: fixed runtime when getting envelope with rabbit inside of it
+  EvilDragonfiend:
+  - bugfix: Gimmick objective is weirdly no longer changed upon your unlisted target's
+      cryo
+  benbot16:
+  - bugfix: Fixes shuttle thrusters not having icons.
+2022-12-25:
+  CydiaLamiales:
+  - bugfix: Fixed hostile breadloaf dropping invisible bread upon being butchered
+2022-12-28:
+  CydiaLamiales:
+  - tweak: Gave the Debug outfit an ERT medibelt instead of the advanced health analyzer
+  Howluinb:
+  - bugfix: Blob strains now properly reroll a new list of strains after every strain
+      change.
+  imsynthex:
+  - bugfix: fixed some rogue pixels on satchel sprites that made them look bad with
+      jumpskirts and the alternate state of jumpsuits
+2022-12-29:
+  CydiaLamiales:
+  - bugfix: Fixed APCs not showing the BSOD after being hacked by a malf AI
+  - bugfix: Fixed replacing an APC not fixing the power alarm in the area
+  Job-IDev:
+  - bugfix: Fixed a runtime I've found located in the alcohol.dm file
+  RKz:
+  - code_imp: renamed signal subfiles to match proper naming schemes of "[root] _
+      [sub]" , not "[sub] _ [root]"
+  Wayland-Smithy (EvilDragonfiend ports, and a tweak):
+  - rscadd: Revenants can orbit adjacent people and things with Double-Right-Click
+      or Ctrl+Click(pull), unless they are stunned, revealed, blocked by salt etc..
+  - code_imp: Improved Jaunt Move checks a little bit.
+  - tweak: revenant can no longer use phase shift to hide back to ethereal phase on
+      consecrated tiles
+2022-12-30:
+  Dejaku51:
+  - rscadd: Added new TGUI interface for pAIs
+  - rscadd: 'pAIs have now new software: GPS'
+  - rscadd: 'pAIs have now new software: Photo printer'
+  - rscadd: Borgs now can wear drones and pAIs as hats
+  - rscadd: pAIs now can use binary encryption keys
+  - rscadd: pAIs can now select holochassis using radial menu
+  - tweak: pAIs can now select radio channel from encryption keys
+  - code_imp: Cleaned up pAIs and aicard code

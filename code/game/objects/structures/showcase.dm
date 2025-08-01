@@ -89,6 +89,7 @@
 /obj/structure/showcase/perfect_employee
 	name = "'Perfect Man' employee exhibit"
 	desc = "A stand with a model of the perfect Nanotrasen Employee bolted to it. Signs indicate it is robustly genetically engineered, as well as being ruthlessly loyal."
+	layer = ABOVE_MOB_LAYER //needed for a specific mapping scenario but it shouldn't cause any issues in other situations
 
 /obj/structure/showcase/machinery/tv
 	name = "\improper Nanotrasen corporate newsfeed"

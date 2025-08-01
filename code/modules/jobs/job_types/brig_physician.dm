@@ -7,7 +7,6 @@
 	supervisors = "the head of security"
 	faction = "Station"
 	total_positions = 1
-	spawn_positions = 1
 	selection_color = "#ffeeee"
 	minimal_player_age = 7
 	exp_requirements = 60
@@ -37,7 +36,7 @@
 	jobtype = /datum/job/brig_physician
 
 	id = /obj/item/card/id/job/brig_physician
-	belt = /obj/item/modular_computer/tablet/pda/brig_physician
+	belt = /obj/item/modular_computer/tablet/pda/preset/brig_physician
 	ears = /obj/item/radio/headset/headset_medsec
 	uniform = /obj/item/clothing/under/rank/brig_physician
 	shoes = /obj/item/clothing/shoes/sneakers/white

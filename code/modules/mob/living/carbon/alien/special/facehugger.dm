@@ -225,7 +225,7 @@
 		icon_state = "[initial(icon_state)]_impregnated"
 
 		var/obj/item/bodypart/chest/LC = target.get_bodypart(BODY_ZONE_CHEST)
-		if((!LC || IS_ORGANIC_LIMB(LC)) && !target.getorgan(/obj/item/organ/body_egg/alien_embryo))
+		if((!LC || IS_ORGANIC_LIMB(LC)) && !target.get_organ_by_type(/obj/item/organ/body_egg/alien_embryo))
 			new /obj/item/organ/body_egg/alien_embryo(target)
 			var/turf/T = get_turf(target)
 			log_game("[key_name(target)] was impregnated by a facehugger at [loc_name(T)]")
@@ -261,7 +261,7 @@
 	visible_message(span_danger("[src] curls up into a ball!"))
 
 /proc/CanHug(mob/living/M)
-	if(!istype(M) || M.stat == DEAD || M.getorgan(/obj/item/organ/alien/hivenode))
+	if(!istype(M) || M.stat == DEAD || M.get_organ_by_type(/obj/item/organ/alien/hivenode))
 		return FALSE
 
 	if(ismonkey(M))

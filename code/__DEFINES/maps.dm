@@ -139,6 +139,9 @@ require only minor tweaks.
 #define BIOME_HIGHMEDIUM_HUMIDITY "highmedium_humidity"
 #define BIOME_HIGH_HUMIDITY "high_humidity"
 
+//Echo surface pathing define
+#define ECHO_TEMPLATE_PATH(path) ispath(path, /datum/map_template/random_room/echo)
+
 ///Hint for whether a genturf should generate as a closed or open turf. null for default.
 #define GENTURF_HINT_OPEN "open"
 #define GENTURF_HINT_CLOSED "closed"

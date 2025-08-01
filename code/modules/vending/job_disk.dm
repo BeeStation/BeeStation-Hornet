@@ -5,7 +5,7 @@
 	product_slogans = "Disks to go!"
 	icon_state = "cart"
 	icon_deny = "cart-deny"
-	products = list(/obj/item/modular_computer/tablet/pda = 15,
+	products = list(/obj/item/modular_computer/tablet/pda/preset = 15,
 					/obj/item/computer_hardware/hard_drive/role/medical = 5,
 					/obj/item/computer_hardware/hard_drive/role/chemistry = 5,
 					/obj/item/computer_hardware/hard_drive/role/brig_physician = 3,

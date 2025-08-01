@@ -19,7 +19,7 @@ export class Color {
     this.a = a;
   }
 
-  toString() {
+  toString(): string {
     // Alpha component needs to permit fractional values, so cannot use |
     let alpha = this.a;
     if (typeof alpha === 'string') {
@@ -29,6 +29,18 @@ export class Color {
       alpha = 1;
     }
     return `rgba(${this.r | 0}, ${this.g | 0}, ${this.b | 0}, ${alpha})`;
+  }
+
+  /**  Darkens a color by a given percent. Returns a color, which can have toString called to get it's rgba() css value. */
+  darken(percent: number): Color {
+    percent /= 100;
+    return new Color(this.r - this.r * percent, this.g - this.g * percent, this.b - this.b * percent, this.a);
+  }
+
+  /** Brightens a color by a given percent. Returns a color, which can have toString called to get it's rgba() css value. */
+  lighten(percent: number): Color {
+    // No point in rewriting code we already have.
+    return this.darken(-percent);
   }
 
   /**

@@ -31,9 +31,9 @@
 		return
 	handle_mood(delta_time, times_fired)
 	handle_speech(delta_time, times_fired)
-	if(colour == "red" && burn_damage_stored > 80 * delta_time)
+	if(colour == SLIME_TYPE_RED && burn_damage_stored > 80 * delta_time)
 		special_mutation = TRUE
-		special_mutation_type = "crimson"
+		special_mutation_type = SLIME_TYPE_CRIMSON
 		visible_message(span_danger("[src] shudders, their red core deepening into an abyssal crimson."))
 	burn_damage_stored = 0
 

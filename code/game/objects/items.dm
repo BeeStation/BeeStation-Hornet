@@ -234,7 +234,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/override_notes = FALSE
 
 	///Icons used to show the item in vendors instead of the item's actual icon, drawn from the item's icon file (just chemical.dm for now)
-	var/icon_state_preview = null
+	//var/icon_state_preview = null
 
 	// If the item is able to be used as a seed in a hydroponics tray.
 	var/obj/item/seeds/fake_seed
@@ -243,7 +243,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/throw_verb
 
 /obj/item/Initialize(mapload)
-
 	if(attack_verb_continuous)
 		attack_verb_continuous = typelist("attack_verb_continuous", attack_verb_continuous)
 	if(attack_verb_simple)
@@ -263,8 +262,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(istype(loc, /obj/item/storage))
 		item_flags |= IN_STORAGE
 
-	if(istype(loc, /obj/item/robot_module))
-		var/obj/item/robot_module/parent_module = loc
+	if(istype(loc, /obj/item/robot_model))
+		var/obj/item/robot_model/parent_module = loc
 		var/mob/living/silicon/parent_robot = parent_module.loc
 		if (istype(parent_robot))
 			pickup(parent_robot)
@@ -605,7 +604,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	. = ..()
 	if(.)
 		return
-	if(istype(src.loc, /obj/item/robot_module))
+	if(istype(src.loc, /obj/item/robot_model))
 		//If the item is part of a cyborg module, equip it
 		var/mob/living/silicon/robot/R = user
 		if(!R.low_power_mode) //can't equip modules with an empty cell.
@@ -758,6 +757,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(!silent)
 		playsound(src, drop_sound, DROP_SOUND_VOLUME, ignore_walls = FALSE)
 	user.update_equipment_speed_mods()
+	user.refresh_self_screentips()
 
 	if(item_flags & DROPDEL && !QDELETED(src))
 		qdel(src)
@@ -771,6 +771,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		item_flags &= ~WAS_THROWN
 	if(verbs && user.client)
 		user.client.add_verbs(verbs)
+	user.refresh_self_screentips()
 	log_item(user, INVESTIGATE_VERB_PICKEDUP)
 
 // called when "found" in pockets and storage items. Returns 1 if the search should end.
@@ -916,7 +917,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	log_combat(user, M, "attacked", "[src.name]", "(Combat mode: [user.combat_mode ? "On" : "Off"])")
 
-	var/obj/item/organ/eyes/eyes = M.getorganslot(ORGAN_SLOT_EYES)
+	var/obj/item/organ/eyes/eyes = M.get_organ_slot(ORGAN_SLOT_EYES)
 	if (!eyes)
 		return
 	M.adjust_blurriness(3)
@@ -967,6 +968,30 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 		else
 			playsound(src, drop_sound, YEET_SOUND_VOLUME, ignore_walls = FALSE)
+		var/obj/item/modular_computer/comp
+		var/obj/item/computer_hardware/processor_unit/cpu
+		for(var/obj/item/modular_computer/M in contents)
+			cpu = M.all_components[MC_CPU]
+			if(cpu?.hacked)
+				comp = M
+			break
+		if(comp)
+			if(!cpu)
+				return
+			var/turf/target = comp.get_blink_destination(get_turf(src), dir, (cpu.max_idle_programs * 2))
+			var/turf/start = get_turf(src)
+			if(!comp.enabled)
+				new /obj/effect/particle_effect/sparks(start)
+				playsound(start, "sparks", 50, 1)
+				return
+			if(!target)
+				return
+			// The better the CPU the farther it goes, and the more battery it needs
+			playsound(target, 'sound/effects/phasein.ogg', 25, 1)
+			playsound(start, "sparks", 50, 1)
+			playsound(target, "sparks", 50, 1)
+			do_dash(src, start, target, 0, TRUE)
+			comp.use_power((250 * cpu.max_idle_programs) / GLOB.CELLRATE)
 		return hit_atom.hitby(src, 0, itempush, throwingdatum=throwingdatum)
 
 
@@ -1079,11 +1104,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		return ..()
 	return 0
 
-/obj/item/attack_basic_mob(mob/living/basic/user)
-	if (obj_flags & CAN_BE_HIT)
-		return ..()
-	return 0
-
 /obj/item/burn()
 	if(!QDELETED(src))
 		var/turf/T = get_turf(src)
@@ -1183,6 +1203,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		openToolTip(user,src,params,title = name,content = "[desc]<br><b>Force:</b> [force_string]",theme = "")
 
 /obj/item/MouseEntered(location, control, params)
+	..()
 	if(((get(src, /mob) == usr) || src.loc.atom_storage || (src.item_flags & IN_STORAGE)) && !QDELETED(src))
 		var/mob/living/L = usr
 		if(usr.client.prefs.read_player_preference(/datum/preference/toggle/enable_tooltips))
@@ -1316,7 +1337,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	return !HAS_TRAIT(src, TRAIT_NODROP)
 
 /obj/item/proc/doStrip(mob/stripper, mob/owner)
-	return owner.dropItemToGround(src)
+	. = owner.doUnEquip(src, force, drop_location(), FALSE)
+	return stripper.put_in_hands(src)
 
 /obj/item/ex_act(severity, target)
 	if(resistance_flags & INDESTRUCTIBLE)

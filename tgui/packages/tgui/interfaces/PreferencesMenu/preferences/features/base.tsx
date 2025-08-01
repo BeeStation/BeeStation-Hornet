@@ -1,4 +1,4 @@
-import { sortBy, sortStrings } from 'common/collections';
+import { sort, sortBy } from 'common/collections';
 import { BooleanLike, classes } from 'common/react';
 import { ComponentType, createElement, ReactNode } from 'react';
 
@@ -18,7 +18,7 @@ import { ServerPreferencesFetcher } from '../../ServerPreferencesFetcher';
 import features from '.';
 import { DropdownPartialProps } from 'tgui/components/Dropdown';
 
-export const sortChoices = sortBy<[string, ReactNode]>(([name]) => name);
+export const sortChoices = (array: [string, ReactNode][]) => sortBy(array, ([name]) => name);
 
 export type Feature<
   TReceiving,
@@ -247,7 +247,7 @@ export const FeatureDropdownInput = (
 
   return serverData.choices.length > 5 ? (
     <StandardizedDropdown
-      choices={sortStrings(serverData.choices)}
+      choices={sort(serverData.choices)}
       disabled={props.disabled}
       buttons={props.buttons}
       displayNames={displayNames}
@@ -256,7 +256,7 @@ export const FeatureDropdownInput = (
     />
   ) : (
     <StandardizedChoiceButtons
-      choices={sortStrings(serverData.choices)}
+      choices={sort(serverData.choices)}
       disabled={props.disabled}
       displayNames={displayNames}
       onSetValue={props.handleSetValue}
@@ -318,7 +318,7 @@ export const FeatureIconnedDropdownInput = (
   return (
     <StandardizedDropdown
       buttons={props.buttons}
-      choices={sortStrings(serverData.choices)}
+      choices={sort(serverData.choices)}
       displayNames={displayNames}
       onSetValue={props.handleSetValue}
       value={props.value}

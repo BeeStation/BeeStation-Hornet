@@ -1,0 +1,400 @@
+2022-11-01:
+  CydiaLamiales:
+  - bugfix: fixed the capitalization of two research nodes
+  Tyranicranger4:
+  - rscadd: Added biohazard storage closets to xenobio (MetaStation)
+  itsmeow:
+  - bugfix: Fixed abductors ignoring their muteness due to tourette's
+  - bugfix: Reduced the amount that newscaster images error out.
+  - tweak: Added a success sound when a newscaster scans a photo.
+  - bugfix: Fixed emagging a cyborg not unlocking the cover.
+  - bugfix: Fixed selection of 4th character slot resetting every round.
+2022-11-02:
+  Crossedfall:
+  - server: Adds time dilation tracking and harddel counts to the elastic metrics
+      blob
+2022-11-04:
+  itsmeow:
+  - code_imp: Updated development-side TGUI bootstrapping, updated internal TGUI API
+  - bugfix: Fixed some bugs related to TGUI Boxes not computing class names properly.
+  - refactor: Refactored TGUI asset loading.
+2022-11-06:
+  Archanial:
+  - bugfix: fixed null reference when spraying
+  - bugfix: fixed possible null reference when release mob from holder
+  EvilDragonfiend:
+  - bugfix: compression box no longer keeps you slowdown when you remove those in
+      specific situations (put it into safe, fold, etc)
+  - bugfix: Captain's comp box is now properly named
+  - bugfix: encryption keys no longer say "This is nothing special. ask coder!" description
+      even if it is special
+  Pigeonverde322, Dwasint:
+  - rscadd: Added a brand new Particle system, the Particool from Monkestation
+  - rscadd: Added a particle editor and a particle loader system
+  - rscadd: Added the particles to the Bonfire and flares
+  - code_imp: increased the size for the tgui error maximum line length
+  PowerfulBacon:
+  - balance: Fire extinguisher propel speed on secways has been significantly decreased.
+  - balance: Fire extinguisher propel speed on office chairs and other movables has
+      been decreased.
+  - bugfix: Fixes fire extinguisher propel speed not slowing down over time.
+  benbot16:
+  - tweak: Brain surgery is now repeatable.
+  - balance: Brain death can now be repaired with mannitol/surgery without needing
+      revival surgery.
+  itsmeow:
+  - bugfix: Fixed newscasters not updating UI when a channel is created.
+  - bugfix: Fixed pAIs being unable to use their newscaster.
+  - tweak: All silicon picture selections now use a TGUI menu with image previews
+      and descriptions instead of a list of image names.
+  - bugfix: Fixed an exploit allowing you to submit a wanted issue without permission.
+  - bugfix: Fixed submitting a picture to sec records being super broken.
+2022-11-07:
+  Loorey:
+  - bugfix: removed unnecesary text macros in strings without interpolation
+2022-11-08:
+  DrDuckedGoose:
+  - bugfix: Fix flammable trait not activating
+  - bugfix: Fix haunted activation.
+  - bugfix: Fix blacklisting on explosive malfunction
+  - tweak: Add limit to clone & bear malfunction.
+  PestoVerde322:
+  - rscadd: Changed radically flandstation, the whole map is radically different now
+  - rscadd: New area defining drydocks.
+  - imageadd: added holoshutters icons
+2022-11-09:
+  benbot16:
+  - rscadd: Slimes can now use custom emotes.
+  itsmeow:
+  - refactor: All mapping tile decals have been aggregated into single effects instead
+      of using individual corners.
+  - rscadd: Added additional trimlines and tile decals for use in mapping.
+  - bugfix: Fixed CorgStation CMO office using the wrong flooring type.
+  ivanmixo:
+  - rscadd: The notes menu now shows how many living hours the player had at the time
+      the note was applied
+2022-11-11:
+  DrDuckedGoose:
+  - tweak: Resprite floor.dm
+  - tweak: Resprite decals.dm - turf variant
+  - tweak: Changes hazard color in- disposal.dmi, shutters.dmi, catwalk.dmi
+  - rscadd: Add mapping-option tiles- Cafeteria-Dark, Cafeteria-Red, DarkBlueFull,
+      SmartChecker
+  - tweak: Change mapping instances of bar floor with red decals to Cafeteria-Red
+      - BoxStation & MetaStation
+  - tweak: Change regular tiles with decals to light-ish tiles with decals where necessary
+      - MetaStation
+  EvilDragonfiend:
+  - tweak: round end report/credit will show your custom job titles
+  - rscadd: a new reagent container type - Chemical bag (max 200u). printable from
+      ChemMaster. Currently, this does not have many usages - not drinkable, and not
+      insertable into ChemMaster back.(but grindable) only usable for IV drip.
+  - tweak: blood packs are grindable
+  - code_imp: adds a bitflag that allows a grinder can grind a reagent container,
+      and related proc 'is_grindable()'
+  - code_imp: new variable label_name that is used to display specific string without
+      suffix like bottle, pill, patch
+2022-11-12:
+  CydiaLamiales:
+  - bugfix: Fixed staffwho using "a" wrongly in the rank text.
+  - code_imp: Merged Staffwho and Mentorwho's code
+  Penwin0:
+  - bugfix: fixes a small runtime
+  - rscdel: Removes a random empty piece of paper from corg bridge hallway
+  benbot16:
+  - bugfix: Fixes primal lasso crafting and ash drake armor crafting for ashwalkers
+2022-11-13:
+  Tyranicranger4:
+  - rscadd: Added an extension to the Bridge acting as a sort of internal command
+      hallway (BoxStation)
+  - tweak: Remapped the Bridge and general 'command' area (BoxStation)
+  - tweak: Remapped the HoP office/line (BoxStation)
+  - tweak: Remapped the Teleporter room (BoxStation)
+  - tweak: Remapped the Meeting room (BoxStation)
+  - tweak: Remapped the Captain's Quarters (BoxStation)
+  - tweak: Remapped and downsized EVA storage (BoxStation)
+  - tweak: Remapped some parts of maintenance around where the EVA Storage/Engineering
+      construction areas used to be (BoxStation)
+  - tweak: Remapped tech storage (BoxStation)
+  - tweak: Moved the gravity generator to engineering and remapped the surrounding
+      area (BoxStation)
+  - tweak: Moved the engineering SMES batteries and remapped the surrounding area
+      (BoxStation)
+  - tweak: Moved and remapped the AI upload (BoxStation)
+  - tweak: Moved and remapped the gateway room (BoxStation)
+  - tweak: Moved the bottom atmospherics gas storage chambers down and to the left
+      one tile (BoxStation)
+  - tweak: Filled in the small windows in the northern part of the main hall with
+      grass (BoxStation)
+  - tweak: Changed the ID on the detectives office shutters (no more kanyewest shutters)
+      (BoxStation)
+  - tweak: Changed numerous decals around, mostly around the places mentioned in the
+      above changes (BoxStation)
+  - rscdel: Removed the engineering construction room (BoxStation)
+  - rscdel: Removed a generic event spawner inside of a wall in the bar (BoxStation)
+  - bugfix: Fixes random discolored cabling (BoxStation)
+  itsmeow:
+  - refactor: Redesigned the admin player panel completely.
+  - tweak: Re-themed admin TGUIs.
+  - bugfix: Fixed tooltip related popper component lag in TGUI.
+  - bugfix: Fixed TGUIs with buttons in the titlebar having their drag box set incorrectly.
+  - tweak: Tweaked some antag HUD icons to fix a 9x9 pixel form factor.
+  - bugfix: Removed keyword lookups from msay.
+2022-11-14:
+  Penwin0:
+  - code_imp: fixes some harddels
+  itsmeow:
+  - bugfix: Fixed a bluescreen in the admin player panel.
+2022-11-16:
+  DrDuckedGoose:
+  - rscadd: Adds ``pumpkin_man`` species for Halloween
+  - imageadd: Adds ``pumkin_man`` limbs & respective sprites
+  WrillWasTaken:
+  - tweak: Moved the bottom gas chambers on box atmos a little bit.
+  itsmeow:
+  - bugfix: Fixed some CI tooling not detecting issues properly.
+  - bugfix: Fixed a few double firelocks in ruins.
+  - bugfix: Fixed fire alarm and APC overlays poking through Z levels.
+2022-11-17:
+  DragonTrance ported by mystery3525:
+  - refactor: added more species defines
+  EvilDragonfiend:
+  - bugfix: bottles now show its names in vending machines
+  - refactor: the bank account system has been refactored
+  - code_imp: ACCOUNT defines now specifies full department name instead of shortened
+      3 letters.
+  - tweak: your mind remembers your bank account id rather than your body.
+  - bugfix: Cryo'ed people no longer siphons station budget. HoP payment console will
+      be able to track if theirs are closed.
+  - rscadd: non-station budget "Space Nations Welfare"
+  - tweak: NEET quirk no longer siphons station budgets. You'll get welfare from Space
+      Nations directly.
+  - rscadd: You can have multiple department active
+  - rscadd: You can now be paid from multiple departments. For now, geneticist will
+      be paid from medical and R&D at the same time
+  - tweak: when a department failed to pay you, you will get them as bonus instead
+      of losing the chance to be paid permanently.
+  - tweak: Heads console now shows full payment list of people for each corresponding
+      department, and can set their paycheck. HoP console will show the full list,
+      but will not allow you to edit theirs as long as you don't have the appropriate
+      access to set theirs.
+  - tweak: HoP console can edit paycheck & department status when you manipulate their
+      access
+  - rscadd: HoP console will automatically adjust a person's payment as a job's payment
+      that you assign to the one.
+  - tweak: HoP console no longer allows you to adjust cryo'ed people's payment
+  - tweak: minor QoL improvement to HoP console UI.
+  - rscadd: HoP console now can open a new bank account in a cost of 1,000 credits
+      in service budget
+  - tweak: vending machine now tracks your custom title
+  - rscadd: 'new negative station trait - united budget: your station budgets are
+      united and all budget cards will be linked to that one.'
+  - rscadd: 'admin only event - united budget setup: trigger the thing above'
+  - rscadd: 'admin only event - united budget cancel: cancel the thing above'
+  - code_imp: made is_nonstation_account() proc more better
+  - code_imp: refactored the horrible if logic in crate code
+  - bugfix: when a crate is ordered by a department budget, it now needs the corresponding
+      budget card to tab it to be opened.
+  - tweak: cargo mails colour is based on job chat colour instead of department colour
+  - rscdel: bank account department lock feature is removed. It is no longer needed.
+  - rscdel: get_department_by_hud proc is removed. it is no longer needed.
+  - code_imp: Job code is a bit refactored for better readibility
+  - tweak: some events 'max_occurences = 0' which is actually only available to admin
+      are now automatically labled with [Admin only] in admin event panel.
+  - tweak: Heads are now paid with 20 credits from Nanotrasen for each payday, and
+      80 credits for themselves from their own department. Command payment will be
+      always paid regardless their budget is broke or not, but the rest 80 credits
+      will not be so.
+  - bugfix: You no longer get the same bank account ID of someone who's spawned earlier
+      than you at very low chance on your spawning.
+  - code_imp: added a minor failcheck at SSjob.GetJob related procs
+  - code_imp: added a new proc GetJobActiveDepartment(job name) for bank account management
+  - tweak: department assignment for crew manifest is now customisable from access
+      manipulation console
+  - balance: all cartridges in HoP room are now 100 credits, and value PAK(captain's)
+      is now 300 credits.
+  - rscadd: command role vendor free access.
+  - tweak: HoP room cartridge vendor now only accepts command role vendor free access
+      rather than service bank type.
+  KathrinBailey:
+  - imageadd: New milkshake sprites
+  - rscadd: New milkshake flavors! Chocolate, salted caramel, strawberry, banana and
+      vanilla! Made with the flavoring, milk and cream.
+  PestoVerde322:
+  - rscadd: Added functional directional lighting. You can notice them with flashlights,
+      hardsuit lamps, hardhats and the likes.
+  - code_imp: Opacity has been reworked. It's a non-trivial cost for the lighting
+      system with little to no gain.
+  PowerfulBacon:
+  - refactor: Refactored parallax background to use a subsystem for updates.
+  - balance: Telekenisis can now pick up closets with mobs inside them (The reason
+      for this change is due to the code misusing an internal variable that no longer
+      exists).
+  - balance: The flash can now blind (but can't stun) targets with basic flash protection.
+  - balance: The flash will now always apply knockdown, even on targets with no stamina
+      damage. (For half a second minimum)
+  itsmeow:
+  - code_imp: Reverted directional lights.
+2022-11-18:
+  CydiaLamiales:
+  - tweak: Moved some wiring on PubbyStation.
+  - tweak: Connected the tcomms SMES to the main power grid on PubbyStation
+  DoctorSquishy:
+  - tweak: Tweaked Experimentor linking range, so now BoxStation's Experimentor can
+      detect the console.
+  PestoVerde322:
+  - bugfix: fixed the airlock painter/tile painter going invisible when it's empty
+  - bugfix: tweaked the launcher button
+  Tyranicranger4:
+  - bugfix: Fixed disposals not properly sorting packages to the HoP office (BoxStation)
+  - bugfix: Fixed the AI satellites cameras not being on the 'minisat' network. (BoxStation)
+  - bugfix: Fixes discolored flooring in the CMO's office (BoxStation)
+  - bugfix: Fixed AI upload and northern bridge airlock windows not being shocked.
+      (BoxStation)
+  - tweak: Slightly modified the contents of Tech Storage, Gateway, and EVA (BoxStation)
+  - tweak: Moved a single poorly placed light in Gateway and added an additional one
+      to tech storage. (BoxStation)
+  - tweak: Moved the captain's medal box to a slightly less secure location. (BoxStation)
+  - rscadd: Added an intercom to the teleporter room and EVA (BoxStation)
+  - rscdel: Removed a duplicate air alarm outside gravity generator. (BoxStation)
+  - rscdel: Removed the central turret in AI upload (BoxStation)
+  benbot16:
+  - bugfix: You don't hit minebots when trying to repair them at full health anymore.
+  dwasint:
+  - bugfix: computers now glow again
+2022-11-19:
+  itsmeow:
+  - bugfix: 'BoxStation: Moved a fire alarm out from under the atmos sign in atmos
+      storage.'
+2022-11-20:
+  EvilDragonfiend:
+  - code_imp: runtime station (debug station) now has synthflesh prefilled clone pod
+2022-11-21:
+  ArcaneDefence, tmtmtl30, Mothblocks, and RKz:
+  - rscadd: Added Mothperson markings.
+  - rscadd: Mothpeople now have a preference to choose their antennae type from.
+  - bugfix: Mothpeople will no longer have floating antennae when decapitated.
+  - bugfix: The markings on mothpeople will not show over missing or augmented limbs
+      any more.
+  - bugfix: cut initialization time by 0.18s due to unecessary crop size of moth_wing.dmi
+  EvilDragonfiend:
+  - bugfix: normal cloning will not require an experimental pod
+  itsmeow:
+  - tweak: The admin player panel now empties the search bar on open.
+2022-11-23:
+  Ivniinvi:
+  - bugfix: cargo pie joke restored
+  Xkeeper0,RKz:
+  - tweak: atmos analyzers/gas scan now reports volume of a container, even if it
+      is empty
+  - bugfix: made gas analyzer description accurate for its use
+  itsmeow, Ivniinvi, ynot01:
+  - rscadd: You can now request mentor assistance, in the form of an imaginary ghostly
+      rat.
+  nednaZ, Imenvs, RKz:
+  - bugfix: ghosts are now 50% more spooky (they now properly float)
+  - bugfix: ghosts remember they can float after orbiting
+2022-11-24:
+  EvilDragonfiend:
+  - tweak: Demoted job title is now "Demoted" instead of "Unassigned"
+  Rukofamicom:
+  - tweak: Ectoscopic sniffers are now anchored in place and cannot be moved without
+      being deconstructed
+  - admin: Added logging to ectoscopic sniffers
+2022-11-26:
+  EvilDragonfiend:
+  - bugfix: fixed that people couldn't change people's bank and crew manifest status
+      through a HoP console without an inserted proper-access ID card in the logged-in
+      status
+  - bugfix: fixed that heads can't adjust crews payment in their own console
+2022-11-27:
+  CydiaLamiales:
+  - rscdel: Removed the Angel, Burnt Off and Clockwork wings, antennae and markings
+      from the character customization menu
+  - bugfix: Fixes moth neck fluff not showing when their wings are open
+  - bugfix: Fixed wing, antennae and body marking blacklist not working
+  - imageadd: Added back the sprite for clockwork wings
+  - imageadd: Added added the neck fluff to the open wings file
+  - code_imp: Moth character customization and random mob spawning now use moth_wing_roundstart_list,
+      moth_antennae_roundstart_list and moth_markings_roundstart_list for their respective
+      body parts
+  itsmeow:
+  - bugfix: If a keybind entry is missing in the preferences database, it will default
+      to its default value instead of unbound.
+2022-11-28:
+  CydiaLamiales:
+  - rscadd: Added the maximum sigh capacity and current amount of holo signs active
+      to the description of holo projectors.
+  - rscadd: Adds a text saying how many holo signs are left after each successful
+      holo sign placement.
+  - rscadd: Added the ability to pry the Defibrillator Wall Mount off the wall with
+      a crowbar when it's empty
+  - rscadd: Added deconstruction tooltips to the Defibrillator Wall Mount, Fire Extinguisher
+      Cabinet and Anesthetic Tank Holder
+  - rscadd: Added the ability to convert the Anesthetic Tank Holder into an IV drip
+      by using a screwdriver on it
+  - rscadd: Added the attached tank and the gas pressure and volume of the tank to
+      the description of the Anesthetic Tank Holder
+  - tweak: Defibrillator Wall Mount, IV Drip and Anesthetic Tank Holder now drop their
+      respective attached items when destroyed
+  - bugfix: Fixed the defibrillator not updating its icon upon being emagged
+  EvilDragonfiend:
+  - code_imp: moved some HoP card painter feature to global proc
+  - rscdel: Reset feature in agent cards has been removed - it does actually nothing.
+  - tweak: Agent card forging in the user experience aspect is now greatly improved
+      - You'll forge a card flawlessly.
+2022-11-29:
+  EvilDragonfiend:
+  - rscadd: round end report now reports station traits
+  - tweak: Nanites programs 'force speech' and 'skull echo' now share its cooldown
+      with other same programs.
+  - rscadd: ghosts now can read nanites skull echo messages.
+  - code_imp: relocated cartridge.dm to job_disk.dm. repathed cartridge vendor to
+      /job_disk
+  - tweak: HoP disk vendor sells various job disks now. there're contraband inside.
+  - tweak: HoP disk vendor no longer sells PDAs that have weirdly-pre-inserted-head-only-job-disks.
+      It sells normal PDAs now.
+  mystery3525:
+  - config: Disables the revolutionary gamemode and revolutionary dynamic ruleset
+2022-11-30:
+  itsmeow:
+  - rscadd: 'Added a new Scientist crew objective: "Make sure the research for [X
+      design] is available on the R&D server by the end of the shift."'
+  - rscdel: Removed the Chemistry "Have X pills containing X" crew objective.
+  - rscdel: Removed the Chemistry "Have X in your bloodstream" crew objective.
+  - rscadd: Added a new Chemistry crew objective "Have at least X units total of (X
+      chemical) in the chemistry smartfridge(s) or with you when the shift ends."
+      - it requires actually useful chems to be made.
+  - tweak: The Roboticist crew objective "Make X cyborgs" has been changed from 2-10
+      to 1-3, and it now also mentions that AI shells count.
+  - tweak: The janitor "keep X areas clean" objective no longer requires them to be
+      completely spotless, instead requiring that you keep it clean under 12-20 "cleanables"
+      per area.
+  - tweak: The janitor "keep X areas clean" objective no longer makes you clean maintenance.
+  - bugfix: Fixed the Curator newscaster objective not working.
+  - tweak: The Curator newscaster objective now uses word counts and is more reasonable
+      in its expectations.
+  - bugfix: The lawyer's "Ensure there are no members of security in the prison wing
+      when the shift ends." crew objective no longer does the opposite.
+  - bugfix: The virologist "Ensure no crew have harmful diseases" objective now properly
+      checks the harm level of the disease instead of targeting harmless disease,
+      and properly checks that the disease-haver is living before failing.
+  - bugfix: Fixed a runtime with the Mime "Don't break your vow" crew objective.
+  - bugfix: Fixed crew objectives showing as failed if you break the completion conditions
+      and then re-open the roundend report.
+  - bugfix: Fixed some formatting and spacing issues with the janitor area clean objective.
+  - bugfix: The mime's "never break your vow" crew objective now checks if you broke
+      the vow directly instead of if you talked at all (with false positives from
+      dchat).
+  - code_imp: Improved crew objective code.
+  - code_imp: Slightly optimized and improved camera console camera detection code.
+  - rscadd: Added dangerous shuttle warnings to the communications console.
+  - tweak: Tweaked the description on Oh Hi Daniel shuttle to not reference "space
+      roleplay".
+  - tweak: Tweaked the description on STV5 shuttle to include the fact that the crates
+      included are potentially explosive.
+  mystery3525:
+  - balance: halved lavaland mobs health
+  - balance: halved PKA and PKC damage
+  - balance: Removed minimum pressure requirement from PKA and PKC, so they do the
+      same amount of damage in vacuums again.

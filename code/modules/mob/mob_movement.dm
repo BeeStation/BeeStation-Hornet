@@ -389,7 +389,7 @@
   *
   * (bound to 8) - repeated presses toggles through head - eyes - mouth
   */
-/client/verb/body_toggle_head()
+AUTH_CLIENT_VERB(body_toggle_head)
 	set name = "body-toggle-head"
 	set hidden = 1
 
@@ -410,7 +410,7 @@
 	selector.set_selected_zone(next_in_line, mob)
 
 ///Hidden verb to target the right arm, bound to 4
-/client/verb/body_r_arm()
+AUTH_CLIENT_VERB(body_r_arm)
 	set name = "body-r-arm"
 	set hidden = 1
 
@@ -421,7 +421,7 @@
 	selector.set_selected_zone(BODY_ZONE_R_ARM, mob)
 
 ///Hidden verb to target the chest, bound to 5
-/client/verb/body_chest()
+AUTH_CLIENT_VERB(body_chest)
 	set name = "body-chest"
 	set hidden = 1
 
@@ -432,7 +432,7 @@
 	selector.set_selected_zone(BODY_ZONE_CHEST, mob)
 
 ///Hidden verb to target the left arm, bound to 6
-/client/verb/body_l_arm()
+AUTH_CLIENT_VERB(body_l_arm)
 	set name = "body-l-arm"
 	set hidden = 1
 
@@ -443,7 +443,7 @@
 	selector.set_selected_zone(BODY_ZONE_L_ARM, mob)
 
 ///Hidden verb to target the right leg, bound to 1
-/client/verb/body_r_leg()
+AUTH_CLIENT_VERB(body_r_leg)
 	set name = "body-r-leg"
 	set hidden = 1
 
@@ -454,7 +454,7 @@
 	selector.set_selected_zone(BODY_ZONE_R_LEG, mob)
 
 ///Hidden verb to target the groin, bound to 2
-/client/verb/body_groin()
+AUTH_CLIENT_VERB(body_groin)
 	set name = "body-groin"
 	set hidden = 1
 
@@ -465,7 +465,7 @@
 	selector.set_selected_zone(BODY_ZONE_PRECISE_GROIN, mob)
 
 ///Hidden verb to target the left leg, bound to 3
-/client/verb/body_l_leg()
+AUTH_CLIENT_VERB(body_l_leg)
 	set name = "body-l-leg"
 	set hidden = 1
 
@@ -475,7 +475,7 @@
 	var/atom/movable/screen/zone_sel/selector = mob.hud_used.zone_select
 	selector.set_selected_zone(BODY_ZONE_L_LEG, mob)
 
-/client/verb/body_up()
+AUTH_CLIENT_VERB(body_up)
 	set name = "body-up"
 	set hidden = 1
 
@@ -489,7 +489,7 @@
 		if (BODY_GROUP_ARMS, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 			selector.set_selected_zone(BODY_GROUP_CHEST_HEAD, mob)
 
-/client/verb/body_down()
+AUTH_CLIENT_VERB(body_down)
 	set name = "body-down"
 	set hidden = 1
 
@@ -504,7 +504,7 @@
 			selector.set_selected_zone(BODY_GROUP_LEGS, mob)
 
 ///Verb to toggle the walk or run status
-/client/verb/toggle_walk_run()
+AUTH_CLIENT_VERB(toggle_walk_run)
 	set name = "toggle-walk-run"
 	set hidden = TRUE
 	set instant = TRUE
@@ -529,7 +529,8 @@
 /mob/verb/up()
 	set name = "Move Upwards"
 	set category = "IC"
-
+	if(isnewplayer(src))
+		return
 	if(zMove(UP, TRUE))
 		to_chat(src, span_notice("You move upwards."))
 
@@ -537,7 +538,8 @@
 /mob/verb/down()
 	set name = "Move Down"
 	set category = "IC"
-
+	if(isnewplayer(src))
+		return
 	if(zMove(DOWN, TRUE))
 		to_chat(src, span_notice("You move down."))
 

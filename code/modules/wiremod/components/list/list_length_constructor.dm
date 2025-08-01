@@ -8,6 +8,7 @@
 /obj/item/circuit_component/list_length_constructor
 	display_name = "List Length Constructor"
 	desc = "A varient of the list constructor that makes an emtpy list with a specified length"
+	category = "List"
 
 	power_usage_per_input = 10 //B I G cost
 

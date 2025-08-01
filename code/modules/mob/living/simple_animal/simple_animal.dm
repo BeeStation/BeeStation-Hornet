@@ -513,18 +513,6 @@
 		if(target)
 			return new childspawn(target)
 
-/mob/living/simple_animal/stripPanelUnequip(obj/item/what, mob/who, where)
-	if(!canUseTopic(who, BE_CLOSE))
-		return
-	else
-		..()
-
-/mob/living/simple_animal/stripPanelEquip(obj/item/what, mob/who, where)
-	if(!canUseTopic(who, BE_CLOSE))
-		return
-	else
-		..()
-
 /mob/living/simple_animal/update_resting()
 	if(resting)
 		ADD_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
@@ -620,6 +608,7 @@
 		H = hud_used.hand_slots["[oindex]"]
 		if(H)
 			H.update_icon()
+	refresh_self_screentips()
 
 /mob/living/simple_animal/put_in_hands(obj/item/I, del_on_fail = FALSE, merge_stacks = TRUE)
 	. = ..(I, del_on_fail, merge_stacks)
@@ -727,7 +716,11 @@
 		hunted = null
 		COOLDOWN_START(src, emote_cooldown, 1 MINUTES)
 		return
+
 /mob/living/simple_animal/relaymove(mob/living/user, direction)
 	if(user.incapacitated())
 		return
 	return relaydrive(user, direction)
+
+/mob/living/simple_animal/compare_sentience_type(compare_type)
+	return sentience_type == compare_type

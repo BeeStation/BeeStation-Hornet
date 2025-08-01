@@ -1,16 +1,5 @@
 import { useBackend } from '../backend';
-import {
-  Button,
-  Section,
-  Box,
-  Flex,
-  Input,
-  BlockQuote,
-  Icon,
-  Divider,
-  Dropdown,
-  Collapsible,
-} from '../components';
+import { Button, Section, Box, Flex, Input, BlockQuote, Icon, Divider, Dropdown, Collapsible } from '../components';
 import { Window } from '../layouts';
 
 export const XenoartifactLabeler = (props) => {
@@ -23,10 +12,7 @@ export const XenoartifactLabeler = (props) => {
               <XenoartifactlabelerSticker />
             </Flex.Item>
             <Flex.Item ml={'auto'}>
-              <Button
-                icon="question"
-                tooltip="Left-Click to check traits, and Right-Click to exclude traits."
-              />
+              <Button icon="question" tooltip="Left-Click to check traits, and Right-Click to exclude traits." />
             </Flex.Item>
           </Flex>
         </Section>
@@ -50,16 +36,9 @@ export const XenoartifactLabeler = (props) => {
   );
 };
 
-const XenoartifactlabelerTraits = (props, context) => {
-  const { act, data } = useBackend(context);
-  const {
-    activator_traits,
-    minor_traits,
-    major_traits,
-    malfunction_list,
-    enabled_trait_filters,
-    filtered_traits,
-  } = data;
+const XenoartifactlabelerTraits = (props) => {
+  const { act, data } = useBackend();
+  const { activator_traits, minor_traits, major_traits, malfunction_list, enabled_trait_filters, filtered_traits } = data;
 
   let alphasort = function (a, b) {
     return a.localeCompare(b, 'en');
@@ -70,15 +49,9 @@ const XenoartifactlabelerTraits = (props, context) => {
   const sorted_majors = major_traits.sort(alphasort);
   const sorted_malfs = malfunction_list.sort(alphasort);
 
-  let filtered_activators = sorted_activators.filter(
-    (n) => !filtered_traits.includes(n),
-  );
-  let filtered_minors = sorted_minors.filter(
-    (n) => !filtered_traits.includes(n),
-  );
-  let filtered_majors = sorted_majors.filter(
-    (n) => !filtered_traits.includes(n),
-  );
+  let filtered_activators = sorted_activators.filter((n) => !filtered_traits.includes(n));
+  let filtered_minors = sorted_minors.filter((n) => !filtered_traits.includes(n));
+  let filtered_majors = sorted_majors.filter((n) => !filtered_traits.includes(n));
   let filtered_malfs = sorted_malfs.filter((n) => !filtered_traits.includes(n));
 
   return (
@@ -86,11 +59,7 @@ const XenoartifactlabelerTraits = (props, context) => {
       <Section title="Activator Traits">
         <Box>
           {filtered_activators.map((trait) => (
-            <XenoartifactlabelerGenerateEntry
-              specific_trait={trait}
-              key={trait}
-              trait_type="activator"
-            />
+            <XenoartifactlabelerGenerateEntry specific_trait={trait} key={trait} trait_type="activator" />
           ))}
         </Box>
       </Section>
@@ -98,11 +67,7 @@ const XenoartifactlabelerTraits = (props, context) => {
       <Section title="Minor Traits">
         <Box>
           {filtered_minors.map((trait) => (
-            <XenoartifactlabelerGenerateEntry
-              specific_trait={trait}
-              key={trait}
-              trait_type="minor"
-            />
+            <XenoartifactlabelerGenerateEntry specific_trait={trait} key={trait} trait_type="minor" />
           ))}
         </Box>
       </Section>
@@ -110,11 +75,7 @@ const XenoartifactlabelerTraits = (props, context) => {
       <Section title="Major Traits">
         <Box>
           {filtered_majors.map((trait) => (
-            <XenoartifactlabelerGenerateEntry
-              specific_trait={trait}
-              key={trait}
-              trait_type="major"
-            />
+            <XenoartifactlabelerGenerateEntry specific_trait={trait} key={trait} trait_type="major" />
           ))}
         </Box>
       </Section>
@@ -122,11 +83,7 @@ const XenoartifactlabelerTraits = (props, context) => {
       <Section title="Malfunction Traits">
         <Box>
           {filtered_malfs.map((trait) => (
-            <XenoartifactlabelerGenerateEntry
-              key={trait}
-              specific_trait={trait}
-              trait_type="malfunction"
-            />
+            <XenoartifactlabelerGenerateEntry key={trait} specific_trait={trait} trait_type="malfunction" />
           ))}
         </Box>
       </Section>
@@ -134,8 +91,8 @@ const XenoartifactlabelerTraits = (props, context) => {
   );
 };
 
-const XenoartifactlabelerInfo = (props, context) => {
-  const { act, data } = useBackend(context);
+const XenoartifactlabelerInfo = (props) => {
+  const { act, data } = useBackend();
   const { selected_traits, labeler_traits_filter } = data;
   return (
     <Box px={1} overflowY="auto" height="72vh">
@@ -146,8 +103,8 @@ const XenoartifactlabelerInfo = (props, context) => {
   );
 };
 
-const XenoartifactlabelerGenerateEntry = (props, context) => {
-  const { act, data } = useBackend(context);
+const XenoartifactlabelerGenerateEntry = (props) => {
+  const { act, data } = useBackend();
   const { specific_trait, trait_type } = props;
   const { tooltip_stats, selected_traits, deselected_traits } = data;
   return (
@@ -155,12 +112,8 @@ const XenoartifactlabelerGenerateEntry = (props, context) => {
       <Button.Checkbox
         content={specific_trait}
         checked={selected_traits.includes(specific_trait)}
-        color={
-          deselected_traits.includes(specific_trait) ? 'bad' : 'transparent'
-        }
-        onClick={() =>
-          act(`toggle_trait`, { trait_name: specific_trait, select: true })
-        }
+        color={deselected_traits.includes(specific_trait) ? 'bad' : 'transparent'}
+        onClick={() => act(`toggle_trait`, { trait_name: specific_trait, select: true })}
         tooltip={`${tooltip_stats[specific_trait]['alt_name'] ? `${tooltip_stats[specific_trait]['alt_name']},` : ``}
           Weight: ${tooltip_stats[specific_trait]['weight']},
           Conductivity: ${tooltip_stats[specific_trait]['conductivity']}`}
@@ -173,8 +126,8 @@ const XenoartifactlabelerGenerateEntry = (props, context) => {
   );
 };
 
-const XenoartifactlabelerGenerateInfo = (props, context) => {
-  const { act, data } = useBackend(context);
+const XenoartifactlabelerGenerateInfo = (props) => {
+  const { act, data } = useBackend();
   const { info } = props;
   const { tooltip_stats } = data;
   return (
@@ -192,8 +145,8 @@ const XenoartifactlabelerGenerateInfo = (props, context) => {
   );
 };
 
-const XenoartifactlabelerSticker = (props, context) => {
-  const { act } = useBackend(context);
+const XenoartifactlabelerSticker = (props) => {
+  const { act } = useBackend();
   return (
     <Box>
       <Button content="Print" onClick={() => act('print_traits')} />
@@ -202,8 +155,8 @@ const XenoartifactlabelerSticker = (props, context) => {
   );
 };
 
-const XenoartifactlabelerGenerateFilterEntry = (props, context) => {
-  const { act, data } = useBackend(context);
+const XenoartifactlabelerGenerateFilterEntry = (props) => {
+  const { act, data } = useBackend();
   //  const { specific_trait, trait_type } = props;
   const { trait_filters, enabled_trait_filters } = data;
   return (

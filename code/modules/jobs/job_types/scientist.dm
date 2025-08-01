@@ -5,8 +5,7 @@
 	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
 	supervisors = "the research director"
 	faction = "Station"
-	total_positions = 5
-	spawn_positions = 3
+	dynamic_spawn_group = JOB_SPAWN_GROUP_DEPARTMENT
 	selection_color = "#ffeeff"
 	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
@@ -16,7 +15,6 @@
 
 	base_access = list(ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_MECH_SCIENCE,
 						ACCESS_MINERAL_STOREROOM, ACCESS_AUX_BASE, ACCESS_EXPLORATION)
-	extra_access = list(ACCESS_ROBOTICS, ACCESS_TECH_STORAGE)
 
 	departments = DEPT_BITFLAG_SCI
 	bank_account_department = ACCOUNT_SCI_BITFLAG
@@ -40,12 +38,22 @@
 		/area/science/xenobiology
 	)
 
+/datum/job/scientist/get_access()
+	. = ..()
+	LOWPOP_GRANT_ACCESS(JOB_NAME_ROBOTICIST, ACCESS_ROBOTICS)
+	LOWPOP_GRANT_ACCESS(JOB_NAME_EXPLORATIONCREW, ACCESS_EXPLORATION)
+	if (SSjob.initial_players_to_assign < LOWPOP_JOB_LIMIT)
+		. |= ACCESS_TECH_STORAGE
+	if (SSjob.initial_players_to_assign < COMMAND_POPULATION_MINIMUM)
+		. |= ACCESS_RD
+		. |= ACCESS_RD_SERVER
+
 /datum/outfit/job/scientist
 	name = JOB_NAME_SCIENTIST
 	jobtype = /datum/job/scientist
 
 	id = /obj/item/card/id/job/scientist
-	belt = /obj/item/modular_computer/tablet/pda/science
+	belt = /obj/item/modular_computer/tablet/pda/preset/science
 	ears = /obj/item/radio/headset/headset_sci
 	uniform = /obj/item/clothing/under/rank/rnd/scientist
 	shoes = /obj/item/clothing/shoes/sneakers/white

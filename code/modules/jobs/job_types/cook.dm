@@ -6,7 +6,6 @@
 	supervisors = "the head of personnel"
 	faction = "Station"
 	total_positions = 2
-	spawn_positions = 1
 	selection_color = "#bbe291"
 	var/cooks = 0 //Counts cooks amount
 
@@ -17,7 +16,7 @@
 
 	departments = DEPT_BITFLAG_SRV
 	bank_account_department = ACCOUNT_SRV_BITFLAG
-	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_EASY)
+	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_ASSISTANT)
 
 
 	display_order = JOB_DISPLAY_ORDER_COOK
@@ -35,7 +34,7 @@
 	jobtype = /datum/job/cook
 
 	id = /obj/item/card/id/job/cook
-	belt = /obj/item/modular_computer/tablet/pda/cook
+	belt = /obj/item/modular_computer/tablet/pda/preset/cook
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/chef
 	suit = /obj/item/clothing/suit/toggle/chef

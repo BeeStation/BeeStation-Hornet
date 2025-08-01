@@ -181,11 +181,16 @@
 	if (.)
 		to_chat(user, span_notice("The uplink vibrates quietly, connecting to nearby agents..."))
 
-		var/list/mob/dead/observer/candidates = poll_ghost_candidates("Do you want to play as the Contractor Support Unit for [user.real_name]?", ROLE_CONTRACTOR_SUPPORT_UNIT, null, 10 SECONDS)
+		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
+			check_jobban = ROLE_CONTRACTOR_SUPPORT_UNIT,
+			poll_time = 10 SECONDS,
+			jump_target = user,
+			role_name_text = "contractor support unit for [user.real_name]",
+			alert_pic = user,
+		)
 
-		if(LAZYLEN(candidates))
-			var/mob/dead/observer/C = pick(candidates)
-			spawn_contractor_partner(user, C.key)
+		if(candidate)
+			spawn_contractor_partner(user, candidate.key)
 		else
 			to_chat(user, span_notice("No available agents at this time, please try again later."))
 
@@ -200,7 +205,7 @@
 	uniform = /obj/item/clothing/under/chameleon
 	suit = /obj/item/clothing/suit/chameleon
 	back = /obj/item/storage/backpack
-	belt = /obj/item/modular_computer/tablet/pda/chameleon
+	belt = /obj/item/modular_computer/tablet/pda/preset/chameleon
 	mask = /obj/item/clothing/mask/cigarette/syndicate
 	shoes = /obj/item/clothing/shoes/chameleon/noslip
 	ears = /obj/item/radio/headset/chameleon
@@ -240,7 +245,7 @@
 
 	/// We give a reference to the mind that'll be the support unit
 	partner_mind = partner.mind
-	partner_mind.make_Contractor_Support()
+	partner_mind.add_antag_datum(/datum/antagonist/contractor_support)
 
 	to_chat(partner_mind.current, "\n[span_alertwarning("[user.real_name] is your superior. Follow any, and all orders given by them. You're here to support their mission only.")]")
 	to_chat(partner_mind.current, "[span_alertwarning("Should they perish, or be otherwise unavailable, you're to assist other active agents in this mission area to the best of your ability.")]\n\n")

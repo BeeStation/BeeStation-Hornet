@@ -36,7 +36,7 @@
 				if(we_breath)
 					adjustOxyLoss(4 * delta_time)
 					Unconscious(80)
-				
+
 				// Tissues die without blood circulation, machines burn without coolant circulation
 				if (HAS_TRAIT(src, TRAIT_BLOOD_COOLANT))
 					adjustFireLoss(0.5 * delta_time)
@@ -87,7 +87,7 @@
 
 /mob/living/carbon/human/check_breath(datum/gas_mixture/breath)
 
-	var/L = getorganslot(ORGAN_SLOT_LUNGS)
+	var/L = get_organ_slot(ORGAN_SLOT_LUNGS)
 
 	if(!L)
 		if(health >= crit_threshold)
@@ -101,7 +101,7 @@
 
 		if(S.breathid == GAS_O2)
 			throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
-		else if(S.breathid == "tox")
+		else if(S.breathid == GAS_PLASMA)
 			throw_alert("not_enough_tox", /atom/movable/screen/alert/not_enough_tox)
 		else if(S.breathid == "co2")
 			throw_alert("not_enough_co2", /atom/movable/screen/alert/not_enough_co2)
@@ -146,6 +146,12 @@
 	if(!apply_change)
 		return dna.species.bodytemp_normal
 	return dna.species.bodytemp_normal + get_body_temp_normal_change()
+
+/mob/living/carbon/human/get_body_temp_heat_damage_limit()
+	return dna.species.bodytemp_heat_damage_limit
+
+/mob/living/carbon/human/get_body_temp_cold_damage_limit()
+	return dna.species.bodytemp_cold_damage_limit
 
 ///FIRE CODE
 /mob/living/carbon/human/handle_fire(delta_time, times_fired)

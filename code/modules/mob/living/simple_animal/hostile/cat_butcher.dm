@@ -51,16 +51,16 @@
 /mob/living/simple_animal/hostile/cat_butcherer/AttackingTarget()
 	if(ishuman(target))
 		var/mob/living/carbon/human/L = target
-		if(!L.getorgan(/obj/item/organ/ears/cat) && L.stat) //target doesnt have cat ears
+		if(!L.get_organ_by_type(/obj/item/organ/ears/cat) && L.stat) //target doesnt have cat ears
 			visible_message("[src] slices off [L]'s ears, and replaces them with cat ears!", span_notice("You replace [L]'s ears with cat ears'."))
 			var/obj/item/organ/ears/cat/newears = new
 			newears.Insert(L)
-		else if(!L.getorgan(/obj/item/organ/tail/cat) && L.stat)
+		else if(!L.get_organ_by_type(/obj/item/organ/tail/cat) && L.stat)
 			visible_message("[src] attaches a cat tail to [L]!", span_notice("You attach a tail to [L]."))
 			var/obj/item/organ/tail/cat/newtail = new
 			newtail.Insert(L)
 			return
-		else if(!L.has_trauma_type(/datum/brain_trauma/severe/pacifism) && L.getorgan(/obj/item/organ/ears/cat) && L.getorgan(/obj/item/organ/tail/cat) && L.stat) //still does damage.
+		else if(!L.has_trauma_type(/datum/brain_trauma/severe/pacifism) && L.get_organ_by_type(/obj/item/organ/ears/cat) && L.get_organ_by_type(/obj/item/organ/tail/cat) && L.stat) //still does damage.
 			visible_message("[src] drills a hole in [L]'s skull!", span_notice("You pacify [L]. Another successful creation."))
 			if(L.stat)
 				L.emote("scream")
@@ -127,7 +127,7 @@
 /mob/living/simple_animal/hostile/cat_butcherer/CanAttack(atom/the_target)
 	if(iscarbon(target))
 		var/mob/living/carbon/human/C = target
-		if(C.getorgan(/obj/item/organ/ears/cat) && C.getorgan(/obj/item/organ/tail/cat) && C.has_trauma_type(/datum/brain_trauma/severe/pacifism))//he wont attack his creations
+		if(C.get_organ_by_type(/obj/item/organ/ears/cat) && C.get_organ_by_type(/obj/item/organ/tail/cat) && C.has_trauma_type(/datum/brain_trauma/severe/pacifism))//he wont attack his creations
 			if(C.stat && (!HAS_TRAIT(C, TRAIT_NOMETABOLISM) || !isipc(C))) //unless they need healing
 				return ..()
 			return FALSE

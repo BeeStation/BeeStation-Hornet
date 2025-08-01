@@ -7,6 +7,7 @@
 /obj/item/circuit_component/arbitrary_input_amount/bitwise
 	display_name = "Bitwise"
 	desc = "A component that operates on the bits of integers. Any decimal values are ignored."
+	category = "Math"
 
 	var/datum/port/input/first_input_port
 	var/datum/port/input/second_input_port

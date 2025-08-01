@@ -2,7 +2,7 @@
 //Try looking in game/world.dm
 
 /world
-	mob = /mob/dead/new_player
+	mob = /mob/dead/new_player/pre_auth
 	turf = /turf/open/space/basic
 	area = /area/space
 	view = "17x15"

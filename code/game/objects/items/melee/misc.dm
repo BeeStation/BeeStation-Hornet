@@ -384,7 +384,7 @@
 
 /obj/item/melee/classic_baton/telescopic/suicide_act(mob/living/user)
 	var/mob/living/carbon/human/H = user
-	var/obj/item/organ/brain/B = H.getorgan(/obj/item/organ/brain)
+	var/obj/item/organ/brain/B = H.get_organ_by_type(/obj/item/organ/brain)
 
 	user.visible_message(span_suicide("[user] stuffs [src] up [user.p_their()] nose and presses the 'extend' button! It looks like [user.p_theyre()] trying to clear [user.p_their()] mind."))
 	if(!on)
@@ -825,7 +825,7 @@
  */
 /obj/item/melee/roastingstick/proc/on_transform(obj/item/source, mob/user, active)
 	SIGNAL_HANDLER
-
+	icon_state = active ? "roastingstick_1" : "roastingstick_0"
 	item_state = active ? "nullrod" : null
 	if(user)
 		balloon_alert(user, "[active ? "extended" : "collapsed"] [src]")
@@ -834,17 +834,23 @@
 
 /obj/item/melee/roastingstick/attackby(atom/target, mob/user)
 	..()
-	if (istype(target, /obj/item/food/sausage))
-		if (!HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE))
-			to_chat(user, span_warning("You must extend [src] to attach anything to it!"))
-			return
-		if (held_sausage)
-			to_chat(user, span_warning("[held_sausage] is already attached to [src]!"))
-			return
-		if (user.transferItemToLoc(target, src))
-			held_sausage = target
+	if (istype(target, /obj/item/food/meat) || istype(target, /obj/item/food/sausage))
+		var/obj/item/food/target_sausage = target
+		if ( !( target_sausage.foodtypes & RAW ) &&  !( target_sausage.foodtypes & FRIED ) ) // ONLY COOKED MEATS, NO RAW, NO FRIED.
+			if (!HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE))
+				to_chat(user, span_warning("You must extend [src] to attach anything to it!"))
+				return
+			if (held_sausage)
+				to_chat(user, span_warning("[held_sausage] is already attached to [src]!"))
+				return
+			if (user.transferItemToLoc(target, src))
+				held_sausage = target
+			else
+				to_chat(user, span_warning("[target] doesn't seem to want to get on [src]!"))
 		else
-			to_chat(user, span_warning("[target] doesn't seem to want to get on [src]!"))
+			to_chat(user, span_warning("[target] can't be roasted using [src]! Pre-cook the meat!"))
+	else
+		to_chat(user, span_warning("[target] can't be roasted using [src]!"))
 	update_appearance()
 
 /obj/item/melee/roastingstick/attack_hand(mob/user, list/modifiers)

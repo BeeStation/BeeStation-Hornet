@@ -1,0 +1,307 @@
+2025-05-02:
+  DStarsthy:
+  - rscadd: You can now print notes from notepad app
+  - rscadd: You can now save notes from notepad app
+  - bugfix: fixed scanning paper with pda
+  - balance: Log files take less space on computers
+  Gilgax:
+  - bugfix: fixed the screwdriver pen sprite
+  rkz, GoldenAlpharex:
+  - rscadd: made berets greyscale
+  - rscdel: removed unused berets
+  - rscadd: allowed GAGS color customization in vending machines
+2025-05-04:
+  Tsar-Salat:
+  - bugfix: fix silicon shoving. AI's should be able to be pushed into teleporters
+      again
+2025-05-05:
+  Gilgax:
+  - bugfix: fixed energy axe sprite
+  RDS88-beeman:
+  - balance: The Sepia-toned camera can now be reloaded, instead of having to toss
+      it and get another one from somewhere
+2025-05-06:
+  BeeLover66:
+  - bugfix: The bounty consoles now accurately display the bounty values
+  - code_imp: Removes a hardcoded multiplier to the bounty reward amount, and compensates
+      for it by changing the actual modifier
+2025-05-07:
+  DrDuckedGoose:
+  - tweak: Improve artifact code
+  - tweak: Reroute artifacts through cargo, adjusts artifact console
+  - rscadd: Add plethora of artifact traits
+  - rscadd: Add system for custom & player made artifacts
+  - rscadd: Add structures to deduce artifacts
+  - rscadd: Add structure to 'stabilize' artifacts
+  - rscadd: Add item to track artifacts
+  - rscadd: Stickers!
+  - rscadd: Sticker Gambling
+2025-05-08:
+  DrDuckedGoose:
+  - tweak: Disabled Artifact Animal Trait
+  Ivniinvi:
+  - bugfix: Custom Fortune Cookies now drop their paper again
+2025-05-10:
+  BarteG44:
+  - rscadd: Added Card Station and all of it's shuttles
+  - rscadd: Added big potted plants
+  - rscadd: Added sub divided big engines for shuttles
+  - rscadd: Added a Cardinal bird mob
+  - bugfix: fixed decals not working on circuit and grass floor tiles
+  - bugfix: fixed fence gates not working
+  - bugfix: fixed barricades' layer being below the layer of airlocks
+  - tweak: adjusted some decals to be more consistent
+  - tweak: made a bunch of item types not get their random offset applied on map load
+      if their position has been set berfore hand
+  Hardly, optimumtact:
+  - rscadd: Ghosts can now jump
+  - code_imp: Changed jumping animation to use TG's
+  MarkusLarsson421:
+  - bugfix: Fixed cyborg limbs being mirrored.
+  PowerfulBacon:
+  - bugfix: Xenoartifacts no longer cause random unit test failures.
+  - balance: Increased service pistol's stamina damage from 18 to 22.
+  mrmanlikesbt:
+  - balance: applying medicine to yourself no longer gives a debuff
+  - bugfix: fixed the singularity beacon
+2025-05-12:
+  Gilgax:
+  - bugfix: Fixed Deltastation's genpop arcade
+  PowerfulBacon:
+  - bugfix: Fixes TGUI chat autoscrolling on 516
+  - bugfix: TGUI say will now auto-focus when first loading
+  - tweak: The windows build test now caches the byond install
+  - bugfix: Fixes fines not correctly inputting if you do not press the enter key.
+  Rukofamicom:
+  - balance: Cyborgs are no longer stunned by EMP and Flashes at all. They are also
+      no longer immune to chain flashing due to the lack of stun
+  - rscadd: Added a new status effect called "Malfunction" which is applied to cyborgs
+      when they are hit with EMP or Flash. This status effect is now what causes the
+      flashing red error lights, as well as triggering a slowdown for 30 seconds.
+      Additionally the malfunction status makes cyborgs especially weak to emag, enabling
+      the device to work even if the cover is closed.
+  - balance: Successfully emagging an AI shell now stuns the shell for an extended
+      period of time instead of simply resetting the module and signing your own death
+      warrant.
+  - tweak: Emagging a cyborg that is not affected by malfunction is unchanged, but
+      specifically attempting to emag a cyborg with an already unlocked, but still
+      closed cover, now tells the user they need to open the cover instead of simply
+      doing nothing.
+  - tweak: Being hit with an EMP as silicon now does twice as much burn damage now,
+      40 for heavy EMP, 20 for light EMP
+  - tweak: Being hit with an EMP as cyborg also scrambles all of your currently selected
+      modules to random ones, scrambles the lock state of your cover, and has a 25%
+      chance to cause your cover to fly open.
+  - bugfix: Fixed an issilicon() check that needed to be an iscyborg() check, preventing
+      potential runtimes. It's a good thing nobody has ever tried to flash an AI.
+  XeonMations:
+  - refactor: Compiling the codebase now requires 515.1642 minimum.
+  - config: Updated the minimum and maximum byond client versions that a client can
+      use to connect to the server
+2025-05-13:
+  Gilgax:
+  - bugfix: Powertools default tool work properly when spawned in
+  Hardly, 00-Steven:
+  - rscadd: Added ability to dump paper bins into the computer printer
+  - rscadd: Added more balloon alerts for paper inserting interactions
+  - soundadd: Paper inserting sounds
+  mrmanlikesbt:
+  - refactor: slightly refactored chainsaw code
+  - tweak: all chainsaws have the same revving sound now
+  mrmanlikesbt, KathrinBailey, SgtHunk:
+  - tweak: slightly adjusted the chess holodeck
+  - rscadd: chess icons use actual chess pieces instead of recolored cardboard cutouts
+      now
+  rkz, Melbert:
+  - bugfix: Wabbajacking a shapeshifted mob no longer runtimes horribly. When a shapeshifted
+      mob is wabbajacked, they'll now be removed from their shapeshift and stunned.
+  - bugfix: Transforming via a shapeshift should no longer rob you of your hearing
+      / runechat awareness.
+  - bugfix: Shapeshifting plays nicer with holoparasites.
+  - bugfix: Being polymorphed from a xeno to a non-xeno correctly makes you a non-xeno
+  - refactor: Refactored shapeshifting, the shapeshift holder is now a status effect
+      instead of an object.
+  - refactor: Heretic worm form is a shapeshift spell now, this might have some minor
+      behavioral changes but should overall be the same.
+  - refactor: Refactored Wabbajack (+ cursed pool). Overall a bit more clean / consistent
+      behavior.
+  ro5490:
+  - rscadd: Unknown Assistant Smite
+  - rscadd: Unknown Syndicate Smite
+  - rscadd: Unknown Security Smite
+  - rscadd: Sprite for the assistant mob
+  wikimody:
+  - balance: Standard blood filtering now very slowly heals toxin damage if its above
+      100.
+  - balance: Higher levels of blood filtering now heal more toxin damage and purge
+      more chems per step, instead of just shortening steps
+2025-05-14:
+  MarkusLarsson421:
+  - rscadd: Added small potted plants.
+  - tweak: Changed the name of "applebush" to be similar to the other plants.
+  - rscadd: Emergency access specialfunction to buttons.
+  RDS88-beeman:
+  - rscadd: adds four new slimes to xenobiology, that can't be obtained via mutation
+      or blorble. also adds extract effects for these slimes. no luminescent stuff
+      yet, please have mercy.
+  - rscadd: adds four new sidequests a xenobiologist can go on to go get those slimes!
+      Build a grass pen for your green slimes! Take your gold slime on a pilgrimage
+      to see the grav gen! Feed your pink slime an exotic legion core! Shoot your
+      red slime with a truly ungodly amount of lasers! Reap the spoils! You'll know
+      when you've done it right.
+  - tweak: tweaked the effects of warping black and transformative green to no longer
+      qdel corpses. they now enchant weapons and allow slimes to become oozelings
+      respectively.
+  - balance: the clock cult enchantment "conductive" no longer hardstuns, instead
+      causing tesla arcs on hit
+  wikimody:
+  - rscadd: Water wapor and stimulum can now be sold in cargo
+  - balance: Increased selling price of Hypernoblium and stimulum
+2025-05-16:
+  PowerfulBacon:
+  - tweak: We now provide Byond with a description of our agent when downloadnig from
+      the linux pipelines
+  mrmanlikesbt:
+  - code_imp: checks will fail if TESTING or LOWMEMORYMODE is defined
+  wikimody:
+  - code_imp: New clothing trait, NOSLIP_ALL with works like its mob counterpart
+  - code_imp: Added NOSLIP_WALKING, NOSLIP_ALL_WALKING with provide respective slip
+      protection but only when walking
+  - balance: Syndicate noslips now use NOSLIP_ALL_WALKING together with NOSPLIP. In
+      practice it means they don't slip on ice and lube if you are walking.
+  - rscadd: Magboots get NOSLIP_ALL_WALKING  if they are active
+2025-05-17:
+  BarteG44:
+  - rscadd: Added a working chess set
+  - rscadd: Added a working checkers set
+  - rscadd: Adds wired desk bells which send a radio message on the appropriate channel
+      when rang
+  - tweak: added some windoors to Cardinal Station so you can fix broken light bulbs
+      in the gardens
+  - tweak: added a maintenance door to the theater storage room
+  - bugfix: fixed the air mixer on Cardinal Station
+  - bugfix: fixed the defib on Cardinal Station's evac shuttle not having a battery
+  - bugfix: fixed Cardinal Station's ORM ejecting materials into a wall
+  Hardly, Sheits, soapstain22, junkgle01, lutowski:
+  - imageadd: Resprites for Ponytail 6, Pigtails, Pigtails 2, Ponytail (Country),
+      Braided, Long Side Part, Ponytail 7, Tress Shoulder, Dreads, Bedhead, Ponytail,
+      Ponytail 2, Ponytail 5, Kusanagi, Half Bang, Jensen, Very Long, Short Hair 4,
+      Cut Hair, Shoulder Length Hair, Mohawk, Double Buns, Short Bangs 2, Short Bangs
+      6, Modern. Have fun.
+  PowerfulBacon:
+  - tweak: Bans 516.1660 local compilation due to breaking issues with var-edit
+  rkz, jlsnow301, ZephyrTFA:
+  - code_imp: bumps yarn and node
+  - code_imp: node validates itself, redownloads if corrupted by windows, otherwise
+      the user cannot compile
+2025-05-18:
+  rkz, vincentiusvin, Capsandi, Ghilker, Pickle Coding:
+  - rscadd: adds atmos reaction lookup system. Rclick on a analyzer or use the atmos
+      PDA app to search up gases and how to make them.
+  - rscadd: combined stimulum and nitryl into Nitrium.
+  - balance: As the nitryl decomposition reaction exists, Nitryl isnt supposed to
+      have two drawbacks. Nitryl will no longer cause burns to your body, just lung
+      damage.
+  - bugfix: fixed gas colors
+2025-05-19:
+  DrDuckedGoose:
+  - tweak: Reenable artifact animalizing traits
+  RDS88-beeman:
+  - balance: xenobio less strong in the powers of electricity
+2025-05-20:
+  BarteG44:
+  - bugfix: fixed chess boards for 515 clients
+  BeeLover66:
+  - bugfix: coffins are not mistaken for normal crates when sold
+  - bugfix: coffins and ore boxes are now subject to demand elasticity, and don't
+      mention the Crates Recycling Program when sold
+  - tweak: The time to build a coffin is now 5 seconds
+  - balance: The selling prices of ore boxes, coffins and wooden crates have been
+      tweaked to give a reasonable profit when sold
+  Hardly:
+  - bugfix: Ghosts no longer leak into the world of living by jumping
+2025-05-21:
+  BeeLover66:
+  - bugfix: Nettles are now visible when ready to be harvested or dead
+  ClownMoff:
+  - rscdel: Removed mini potted plants
+  - imageadd: Removes the April's Fools clown outfit
+  Rukofamicom:
+  - tweak: swarmers are no longer able to strip items from players
+  h42:
+  - rscdel: Removed science's fancy beret, since they're all fancy now.
+  - tweak: Recolored a handful of and added badges to the department berets
+  - tweak: Reverted the descriptions of the medical berets to fit the recolor
+2025-05-22:
+  BeeLover66:
+  - bugfix: processing special meat (human, corgi, xeno, bear, chicken) into meatballs
+      now outputs the correct meatball type
+2025-05-23:
+  PowerfulBacon:
+  - balance: Reduces the speed increase caused by sepia extracts.
+  - balance: Stabilized sepia extract now provides slowdown as well as speed-up.
+  - balance: All stabilized extracts now provide their effects for 15 seconds after
+      they are dropped.
+2025-05-24:
+  RDS88-beeman:
+  - tweak: You can now properly singe people with fire based weapons, instead of singing
+      them a tune.
+  mrmanlikesbt, Farquaar, ArcaneDefence:
+  - rscadd: plasmamen can scream now
+2025-05-25:
+  Tsar-Salat:
+  - bugfix: fixes xenos unrestricted hand use
+  - bugfix: fixes morph/dragon contents dropping
+  TsunamiAnt:
+  - tweak: Lowered the pray sound admins get when chaplains pray.
+  - soundadd: Added more sounds that play when players IC message admins through various
+      means.
+  - admin: Added the Requests Manager to the bottom of the ticket tab.
+2025-05-26:
+  ? ''
+  : - rscadd: Smokers can now start with vapes
+  PowerfulBacon:
+  - rscadd: Adds contextual screentips
+2025-05-27:
+  PowerfulBacon:
+  - bugfix: Fixes how z-mimic handles tiles with no lighting
+  ? rkz, MTandi, Ghilker, Rohesie, MrMelbert, antropod, FernandoJ8, vinylspiders,
+    GoldenAlpharex, TheSmallBlue, Fikou, SyncIt21, Vishenka0704, Xander3359
+  : - rscadd: Rewrote the crafting/cooking menu UI
+    - rscadd: Split crafting and cooking menus in two different menus
+    - rscadd: Crafting is no longer blocking the entire UI, only the "Make" buttons
+        are disabled
+    - rscadd: Added stack crafting recipes to the crafting menu
+    - rscadd: Added cooking recipes that were absent in the crafting menu before (tool
+        recipes, machine recipes, reactions)
+    - rscadd: Added option to search recipes by title
+    - rscadd: Added option to filter recipes by required materials/ingredients
+    - rscadd: Added food types to the cooking menu, highlighting diet of your species
+        (liked, disliked foods)
+    - rscadd: Added total nutrition value of the result to the cooking menu
+    - rscadd: Added option to filter cooking recipes by the food type of the resulting
+        food
+    - rscadd: Added "Can make" category that lists all currently craftable recipes
+        throughout all categories
+    - refactor: changed categories and reshuffled some items in them
+    - code_imp: Reagents now have default container to get an icon from the reagent
+        datum
+    - code_imp: Objects now have desc_controls var for OOC information about mouse
+        controls that are visible on examine, but not in the description
+    - bugfix: Fixed alignment on many food icons
+    - bugfix: Fixed missing icon for beef stroganoff
+    - code_imp: Adds radial support to stack crafting.
+    - rscadd: Cult buildings are now made via radial, instead of stack window.
+    - rscadd: Stack craftingnow uses balloon alerts.
+2025-05-28:
+  PowerfulBacon:
+  - bugfix: Fixes runtimestation spawning in live rounds.
+  - bugfix: Fixes the pirate shuttle not spawning.
+  Programs-The-Station:
+  - bugfix: Wands can fire all their charges once again.
+2025-05-29:
+  DrDuckedGoose:
+  - rscadd: autowiki support for artifact traits
+  RDS88-beeman:
+  - tweak: The HoP can now hire more brig physicians, as well as closing and prioritizing
+      the existing slot. The Red Tide grows ever stronger.

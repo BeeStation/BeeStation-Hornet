@@ -87,7 +87,7 @@ export const BorgPanel = (props) => {
                 />
               ))}
             </LabeledList.Item>
-            <LabeledList.Item label="Module">
+            <LabeledList.Item label="Model">
               {modules.map((module) => (
                 <Button
                   key={module.type}

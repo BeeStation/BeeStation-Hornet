@@ -133,20 +133,24 @@ While using this makes the system rely on OnFire, it still gives options for tim
 				INVOKE_ASYNC(src, PROC_REF(arena_checks))
 			if(TUMOR_INACTIVE)
 				activity = TUMOR_ACTIVE
-				var/mob/dead/observer/elitemind = null
 				visible_message(span_boldwarning("[src] begins to convulse.  Your instincts tell you to step back."))
 				activator = user
 				if(!boosted)
 					addtimer(CALLBACK(src, PROC_REF(spawn_elite)), 30)
 					return
 				visible_message(span_boldwarning("Something within [src] stirs..."))
-				var/list/candidates = poll_candidates_for_mob("Do you want to play as a lavaland elite?", ROLE_LAVALAND_ELITE, null, 10 SECONDS, src)
-				if(candidates.len)
+				var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
+					check_jobban = ROLE_LAVALAND_ELITE,
+					poll_time = 10 SECONDS,
+					jump_target = src,
+					role_name_text = "lavaland elite",
+					alert_pic = src,
+				)
+				if(candidate)
 					audible_message(span_boldwarning("The stirring sounds increase in volume!"))
-					elitemind = pick(candidates)
-					elitemind.playsound_local(get_turf(elitemind), 'sound/effects/magic.ogg', 40, 0)
-					to_chat(elitemind, "<b>You have been chosen to play as a Lavaland Elite.\nIn a few seconds, you will be summoned on Lavaland as a monster to fight your activator, in a fight to the death.\nYour attacks can be switched using the buttons on the top left of the HUD, and used by clicking on targets or tiles similar to a gun.\nWhile the opponent might have an upper hand with  powerful mining equipment and tools, you have great power normally limited by AI mobs.\nIf you want to win, you'll have to use your powers in creative ways to ensure the kill.  It's suggested you try using them all as soon as possible.\nShould you win, you'll receive extra information regarding what to do after.  Good luck!</b>")
-					addtimer(CALLBACK(src, PROC_REF(spawn_elite), elitemind), 100)
+					candidate.playsound_local(null, 'sound/effects/magic.ogg', 40, 0)
+					to_chat(candidate, "<b>You have been chosen to play as a Lavaland Elite.\nIn a few seconds, you will be summoned on Lavaland as a monster to fight your activator, in a fight to the death.\nYour attacks can be switched using the buttons on the top left of the HUD, and used by clicking on targets or tiles similar to a gun.\nWhile the opponent might have an upper hand with  powerful mining equipment and tools, you have great power normally limited by AI mobs.\nIf you want to win, you'll have to use your powers in creative ways to ensure the kill.  It's suggested you try using them all as soon as possible.\nShould you win, you'll receive extra information regarding what to do after.  Good luck!</b>")
+					addtimer(CALLBACK(src, PROC_REF(spawn_elite), candidate), 10 SECONDS)
 				else
 					visible_message(span_boldwarning("The stirring stops, and nothing emerges.  Perhaps try again later."))
 					activity = TUMOR_INACTIVE
@@ -303,10 +307,15 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		if(!E.key && !using)
 			using = TRUE //No ghost poll spam please.
 			user.visible_message(span_notice("[E] stirs briefly..."))
-			var/list/candidates = poll_candidates_for_mob("Do you want to take over as [E] (Lavaland Elite), silent servant of [user]?", ROLE_SENTIENCE, null, 15 SECONDS, E)
-			if(length(candidates))
-				var/mob/dead/observer/C = pick(candidates)
-				E.key = C.key
+			var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
+				check_jobban = ROLE_SENTIENCE,
+				poll_time = 15 SECONDS,
+				jump_target = E,
+				role_name_text = "enslaved lavaland elite",
+				alert_pic = E,
+			)
+			if(candidate)
+				E.key = candidate.key
 			else
 				user.visible_message(span_notice("It appears [E] is unable to be revived right now.  Perhaps try again later."))
 				using = FALSE

@@ -133,7 +133,7 @@
 
 	if(iscarbon(target))
 		var/mob/living/carbon/carbon_target = target
-		if((!carbon_target.dna?.species || !(NOBLOOD in carbon_target.dna.species.species_traits)) && carbon_target.blood_volume < HOLOPARA_MAX_BLOOD_VOLUME_HEAL)
+		if((!carbon_target.dna?.species || !HAS_TRAIT(src, TRAIT_NOBLOOD)) && carbon_target.blood_volume < HOLOPARA_MAX_BLOOD_VOLUME_HEAL)
 			carbon_target.blood_volume = min(carbon_target.blood_volume + actual_heal_amt, HOLOPARA_MAX_BLOOD_VOLUME_HEAL)
 		if(ishuman(carbon_target))
 			var/mob/living/carbon/human/human_target = carbon_target
@@ -158,7 +158,7 @@
 			SSblackbox.record_feedback("nested tally", "holoparasite_reagents_purged", 1, reagents_purged)
 	if(heal_debuffs)
 		target.restoreEars()
-		var/obj/item/organ/eyes/eyes = target.getorganslot(ORGAN_SLOT_EYES)
+		var/obj/item/organ/eyes/eyes = target.get_organ_slot(ORGAN_SLOT_EYES)
 		if(istype(eyes))
 			eyes.applyOrganDamage(-actual_heal_amt)
 		target.adjust_blindness(-actual_effect_heal_amt)
@@ -202,6 +202,7 @@
 
 /*
 /atom/movable/screen/act_intent/holopara_healer/MouseEntered(location, control, params)
+	..()
 	if(!QDELETED(src))
 		openToolTip(usr, src, params, title = "Healing Intent", content = "<font color='green'><b>HELP</b></font> intent to heal.<br><font color='red'><b>HARM</b></font> intent to attack normally.")
 

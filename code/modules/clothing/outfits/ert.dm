@@ -41,7 +41,7 @@
 	belt = /obj/item/storage/belt/security/full
 	backpack_contents = list(/obj/item/storage/box/survival/engineer=1,
 		/obj/item/melee/baton/loaded=1,
-		/obj/item/aiModule/core/full/ert=1)
+		/obj/item/ai_module/core/full/ert=1)
 	l_pocket = /obj/item/switchblade
 	r_pocket = /obj/item/door_remote/omni
 
@@ -180,7 +180,7 @@
 	belt = /obj/item/gun/energy/e_gun
 	l_pocket = /obj/item/pen
 	back = /obj/item/storage/backpack/satchel
-	r_pocket = /obj/item/modular_computer/tablet/pda/heads
+	r_pocket = /obj/item/modular_computer/tablet/pda/preset/heads
 	l_hand = /obj/item/clipboard
 	id = /obj/item/card/id/centcom
 	backpack_contents = list(/obj/item/stamp/centcom=1)
@@ -189,7 +189,7 @@
 	if(visualsOnly)
 		return
 
-	var/obj/item/modular_computer/tablet/pda/heads/pda = H.r_store
+	var/obj/item/modular_computer/tablet/pda/preset/heads/pda = H.r_store
 	pda.saved_identification = H.real_name
 	pda.saved_job = JOB_CENTCOM_OFFICIAL
 
@@ -207,7 +207,7 @@
 	l_hand = /obj/item/nullrod/scythe/talking/chainsword
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/paranormal
 	backpack_contents = list(/obj/item/storage/box/survival/engineer=1,
-		/obj/item/aiModule/core/full/ert=1,
+		/obj/item/ai_module/core/full/ert=1,
 		/obj/item/door_remote/omni=1)
 
 /datum/outfit/centcom/ert/security/inquisitor
@@ -336,7 +336,7 @@
 	shoes = /obj/item/clothing/shoes/laceup
 	ears = /obj/item/radio/headset/headset_cent
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced
-	belt = /obj/item/modular_computer/tablet/pda/lawyer
+	belt = /obj/item/modular_computer/tablet/pda/preset/lawyer
 	back = /obj/item/storage/backpack/satchel
 	l_hand = /obj/item/storage/briefcase/lawyer
 	l_pocket = /obj/item/laser_pointer
@@ -397,7 +397,7 @@
 /datum/outfit/centcom/centcom_clown
 	name = "Code Banana ERT"
 	id = /obj/item/card/id/centcom
-	belt = /obj/item/modular_computer/tablet/pda/clown
+	belt = /obj/item/modular_computer/tablet/pda/preset/clown
 	ears = /obj/item/radio/headset/headset_cent
 	uniform = /obj/item/clothing/under/rank/civilian/clown
 	back = /obj/item/storage/backpack/clown
@@ -495,7 +495,7 @@
 /datum/outfit/centcom/death_commando/officer
 	name = "Death Commando Officer"
 	head = /obj/item/clothing/head/helmet/space/beret
-	backpack_contents = list(/obj/item/aiModule/core/full/deathsquad=1,\
+	backpack_contents = list(/obj/item/ai_module/core/full/deathsquad=1,\
 		/obj/item/ammo_box/a357=1,\
 		/obj/item/storage/firstaid/compact=1,\
 		/obj/item/storage/box/flashbangs=1,\

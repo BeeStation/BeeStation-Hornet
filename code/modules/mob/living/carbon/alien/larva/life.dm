@@ -15,7 +15,7 @@
 	if(status_flags & GODMODE)
 		return
 	if(stat != DEAD)
-		if(health<= -maxHealth || !getorgan(/obj/item/organ/brain))
+		if(health<= -maxHealth || !get_organ_by_type(/obj/item/organ/brain))
 			death()
 			return
 		if((HAS_TRAIT(src, TRAIT_KNOCKEDOUT)))

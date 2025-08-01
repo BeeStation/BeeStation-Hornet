@@ -138,7 +138,7 @@
 	if(brainmob)
 		QDEL_NULL(brainmob)
 
-	var/obj/item/organ/BR = L.getorgan(/obj/item/organ/brain)
+	var/obj/item/organ/BR = L.get_organ_by_type(/obj/item/organ/brain)
 	if(BR)
 		brain = new BR.type (src)
 	else

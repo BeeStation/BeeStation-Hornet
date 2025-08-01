@@ -1,0 +1,293 @@
+2024-07-03:
+  rkz, GoldenAlpharex:
+  - refactor: refactored undertile element to support layers without casting ambient
+      occlusion
+  - bugfix: no more audio runtime when walking on catwalk tiles
+  spockye:
+  - bugfix: adds lights to the abductor pods
+2024-07-05:
+  XeonMations:
+  - rscadd: Added the ability for admins to remove a language from a mob's blocked
+      language's list innately.
+2024-07-07:
+  DarnTheMarn:
+  - balance: Reduced the med kit count in the brig, total of two first aid kits
+  - rscdel: Removed duplicate medical equipment in the brig, and specialty medkit
+      spawns from the brig physician locker
+  - tweak: Brig surgical duffelbags and defibrillators now spawn in the brig physician
+      locker instead of on the ground
+  - rscadd: Extra gauze to brig infirmary and kelotane/charcoal bottles to the brig
+      physician locker
+2024-07-08:
+  EvilDragonfiend:
+  - bugfix: fixed a runtime that's caused by hallucination making an item to say
+  PowerfulBacon:
+  - bugfix: Items will no longer drift out of your hand when picked up
+  XeonMations:
+  - tweak: All admin votes now automatically popup.
+  - bugfix: Fixed swarmer traps not working correctly.
+  tonty:
+  - bugfix: starting an emote with " 's " or "," won't leave a space anymore. roleplay
+      has been saved
+2024-07-09:
+  Howluinb:
+  - balance: Digitigrade Lizards will no longer get their toe stubbed on tables.
+  TsunamiAnt:
+  - tweak: paper frames now take 10 paper and 2 wood to craft
+  - tweak: paper bundle is now also called that
+  - rscadd: add description text to paper bundle to show people you can just cut it
+      open
+2024-07-10:
+  EvilDragonfiend:
+  - code_imp: 'minor port of set_eye() and reset_perspective() proc from TG, #PR 69115
+      (LemonInTheDark)'
+  - code_imp: improved basic game system to track client's currently used eye
+  - tweak: advanced camera is now visible by anyone even if it's currently used by
+      someone. (This doesn't support the shuttle docking system, because it uses different
+      one.)
+  - bugfix: minor fix that advanced camera was still usable even if you're locker'ed
+  MarkusLarsson421:
+  - code_imp: Changed PopulateItems() to check if it should be empty or not.
+  - tweak: Changed Medkits to not use their empty variable.
+  PowerfulBacon:
+  - rscdel: Removes unconciousness from mech brute attacks
+  XeonMations:
+  - bugfix: NT's mapping department has repaired radstation's security disposals loop.
+      It now works properly.
+  spockye:
+  - bugfix: fixed Rad decals
+  - bugfix: fixed half tiles
+  - rscdel: removes Captain spawner from rdm_captain_quarters.dmm
+  - tweak: replaces item spawner in rdm_captain_quarters.dmm
+  - rscadd: Added glass floors and catwalk floors to corg station
+  - rscadd: small decal additions and changes to corg station
+  - rscadd: fixes to fland station
+  - rscadd: glass tiles to fland station
+2024-07-11:
+  Geatish:
+  - tweak: you can now butt cigarettes on other people if you're on harm intent
+  - tweak: cigarettes will have their smoke time reduced and have a chance to get
+      extinguished if attacking on non harm intent
+  MarkusLarsson421:
+  - balance: Added or moved insuls to Engineering lockers.
+  - rscadd: Gave the RD a departmental console so they can do ID stuff.
+  - bugfix: Fixed Engineering disposals chute.
+  tonty:
+  - bugfix: crewmembers no longer get cold feet when attempting to piggyback eachother
+2024-07-12:
+  JixS4v:
+  - admin: fixes deadminning (again)
+  PestoVerde322:
+  - rscdel: Decomissioned for good the E.X.P.E.R.I-MENTOR in favour of the anomaly
+      system.
+  - rscadd: All of the Anomaly research room has been refurbished properly.
+  h42:
+  - imageadd: adds a worn sprite to the doctor's bag
+2024-07-14:
+  Gilgaxx:
+  - tweak: The HoS and captain's guns now show distinctly if they've been blown up
+      to the point of not working anymore.
+  LemonInTheDark, Timberpoes (Port by EvilDragonfiend):
+  - code_imp: ported 'Fit Viewport' related PRs from TG to fix a runtime
+  - code_imp: added 'VERB_REF' macro
+  - code_imp: repathed '/datum/viewData' into '/datum/view_data' (to match TG code)
+  PowerfulBacon:
+  - balance: Revs no longer block the shuttle
+  - balance: Revs no longer have a deconversion message
+  - balance: Lawyers and HOPs can now deconvert people by using a space law book on
+      them. If the lawyer is a revolutionary, then they will use this to convert people
+      instead.
+  - balance: Revs no longer have objectives to kill all the heads of staff, instead
+      its a soft objective to establish a new command structure which works the same
+      way but doesn't really matter if someone fucks off to space since it won't affect
+      if you win or lose
+  - balance: Revs no longer ends when all the heads of either side are killed
+  - balance: Completely removes the midround rev ruleset cause its just stupid
+  ToasterBan:
+  - tweak: Aiming head with a tonfa will paralyze rather than put the target to sleep
+  - balance: Advanced Mutation Toxin is now cured via below freezing temperatures
+  Tsar-Salat:
+  - tweak: Swapped VIP centcom official's coat for a vest
+  - tweak: Switched Centcom Admiral's red beret for a centcom caphat, per admin request
+  Varo:
+  - tweak: change a big no-no word in a poster
+  rkz:
+  - bugfix: fix tile sprites for white & textured tiles
+  rkz, Ghom, TemporalOroboros:
+  - rscadd: Basematerials alloy support (plasteel, plasmaglass, plastitanium, etc.)
+  - rscadd: plasteel basestructures apply slowdown based on material unit
+  - rscadd: alien alloy basestructures now have self-healing properties
+  rkz, Mothblocks:
+  - code_imp: genericized disarm code for humanoids/monkeys
+  rkz, PositiveEntropy, tf-4:
+  - rscadd: Adds new centcom uniforms, suits, hats & armor. Adds to outfit selector.
+      Now CC can dunk on crew with their superior pajamas.
+  rkz, mothblocks, Tastyfish, MrStonedOne, LemonInTheDark:
+  - server: ss init stages
+  - server: ss init logging
+  - server: ss init time measurement messages now precise to 2 decimals
+  ro5490, kit-katz:
+  - rscadd: New creatures that enjoy fooling people into thinking they're just generic
+      objects, Mimites, Ranged Mimites, and Crate Mimites now exist! Be careful what
+      items you interact with!
+  - rscadd: Added Mimites Midround event
+  - imageadd: added an icon for Mimites, Courtesy of Kit-Katz
+  spockye:
+  - tweak: Remakes Pirate_default.
+2024-07-15:
+  HowToLoLu:
+  - bugfix: Modular Fabricators no longer dump the contents of a connected ore silo
+      onto the ground
+  Programs-The-Station:
+  - bugfix: Printed Positronic Brains will now show the correct locations to ghosts
+      on creation, instead of null.
+  - bugfix: Random Hardcoded pAI jobcode value.
+2024-07-16:
+  PowerfulBacon:
+  - balance: Rebalances bleeding making it significantly more dangerous, it now has
+      a status effect.
+  - balance: You can now hold your bleeding wounds to slow the rate of blood-loss.
+  - balance: Burn weapons can cauterise bleeding wounds.
+  - bugfix: Medical items that heal multiple types of damage will now function if
+      only 1 of those types of damages need healing, rather than all of them.
+  - rscadd: Blood type and volume percentage will now show up on medhuds.
+  - balance: Surgery tables and stasis beds will now temporarilly stop your bleeding
+      while you are lying on them.
+  rkz, MLGTASTICa:
+  - bugfix: fixes ody mechhuds
+2024-07-17:
+  rkz, esainane, fippefi, TastyFish:
+  - rscadd: emissives for air alarms & request consoles
+  - refactor: Wall mounted and directional objects have undergone major internal simplification.
+      Please report anything unusual!
+  - bugfix: You can no longer stack an indefinite amount of Intercoms on the same
+      wall.
+  - bugfix: Wall mounted items on top of the wall now consistently check against other
+      items on top of the wall, and items coming out of the wall now consistently
+      check against other items coming out of the wall.
+  - bugfix: The various directional pixel offsets within an APC, Fire Extinguisher
+      Cabinet, Intercom, or Newscaster have been made consistent with each other.
+  - bugfix: The pixel offsets of Intercoms, Fire Alarms, Fire Extinguisher Cabinets,
+      Flashers, and Newscasters have been made consistent between roundstart and constructed
+      instances.
+2024-07-18:
+  Hardly3D:
+  - rscadd: 'Added new hairstyle: Short Bangs 2'
+  ToasterBan:
+  - tweak: stunbatons only shove on disarm intent
+  Tsar-Salat:
+  - bugfix: placing lightswitch frame uses the correct pixelshift
+  - bugfix: weird camera thing
+  ro5490:
+  - rscadd: If all Mimites are dead, an announcement plays.
+  - rscadd: If the Mimite event hits 60 minutes and mimites still alive, they stop
+      replicating entirely
+  - tweak: tweaked replication rate of the Mimites, and added a replication limit
+  - balance: Nerfed Mimite health and ambush venom. Remember that they can be scanned
+      with Discovery Scanners and examine can reveal them.
+  - bugfix: fixed a few runtimes regarding Mimites
+  - code_imp: Threshold Define, and add destroy for Mimites
+2024-07-19:
+  Aramix:
+  - code_imp: added a new 'divable' var in closets controlling interaction with skittish
+      trait
+  - tweak: supply pods are now not divable
+2024-07-22:
+  ClownMoff:
+  - bugfix: Fixes the bananium sword causing bleed.
+  Spockye:
+  - balance: rebalanced the pirate shuttle
+  - bugfix: some misc decal changes for the pirate shuttle
+2024-07-23:
+  Geatish:
+  - tweak: Removed glass floor from the designated atmos work area and rerouted undertile
+      distro piping around it.
+  - bugfix: Rad station atmos storage shutters now work. Tiles in space next to gas
+      miners have been removed. Plasma windows in gas chambers no longer spawn with
+      N2. Also removed extra APC in xenobio
+  rkz, spockye:
+  - rscadd: Adds some tile variety to MetaStation Security
+  spockye:
+  - bugfix: fixed floating cameras on the exploration shuttle
+2024-07-24:
+  Rukofamicom:
+  - rscdel: Reverted most recent pirate changes so that a proper discussion can take
+      place before rushing a major balance change to pirates.
+2024-07-25:
+  XeonMations:
+  - bugfix: Fixed space heaters making power cells from the void.
+2024-07-26:
+  Markus Larsson:
+  - bugfix: fixed AI having Syndicate and CentCom comms.
+  XeonMations:
+  - balance: Made the space dragon's gust ability no longer hit people through walls.
+  - bugfix: Also fixed a runtime happening with the space dragon's gust ability.
+  - rscadd: Added the ability for people to make different types of lockers
+2024-07-27:
+  'Spockye ':
+  - rscadd: Replaces current warning cone sprite, with a newer one
+  Spockye, TheVekter, INFRARED_BARON, PigeonVerde:
+  - rscadd: Ports the shark plushie
+2024-07-28:
+  Spockye:
+  - bugfix: removed glass floor from corgstation medical
+2024-07-29:
+  spockye:
+  - bugfix: adds missing wall to metastation
+2024-07-30:
+  EvilDragonfiend:
+  - imageadd: lighting object sprites now have 4 dir states.
+  Geatish:
+  - balance: Gave each shell a size, handheld shells are small (expect for the compact
+      remote which is tiny) the rest are normal size or larger.
+  - bugfix: You can now press the third button on the controller shell by CTRL-clicking.
+  - bugfix: The component printer can now be deconstructed and its printing animation
+      now works, it also no longer auto links to the silo.
+  - bugfix: Printing the compact remote, controller and scanner now gives you the
+      unscrewed variant.
+  - bugfix: The drone shell now uses the correct sprite
+  - balance: The server shell now takes only 6 seconds to screw together, rather than
+      10
+  MarkusLarsson421:
+  - bugfix: Removed the skeleton ghost spawn in dorm maintenance.
+  PowerfulBacon:
+  - balance: Made hacking easier across the board by lowering the security areas of
+      some areas and revealing more wires.
+  - balance: Cutting wires on airlocks is no longer guaranteed to shock you.
+  Tsar-Salat:
+  - bugfix: fix boxstation autoname camera directionals
+  Varo:
+  - bugfix: Clown and mimes now appear in the correct department (service) in the
+      job preferences menu
+  XeonMations:
+  - bugfix: Fixed metastation's brig shuttle area not having an exit for prisoners.
+  rkz, Thunder12345:
+  - rscadd: adds CTF vests, replacing CTF Hardsuits. Same damage reduction & stats.
+  - code_imp: Any item of clothing can now be given an energy shield, not only hardsuits
+  rkz, nightred, Couls. RaveRadbury, Timberpoes, WarlockD, ArcaneMusic, MrMelbert:
+  - rscadd: adds temperature regulators to space suits. These are heaters attached
+      to the suit dependent on a battery life. Not significant for humans, but helpful
+      for species that do not do well against the cold.
+  - rscadd: hardsuit headlights are repairable after being hit by a nightmare's blade.
+      Simply use a lightbulb on a hardsuit helmet
+  - bugfix: breath air exhaled from carbons lungs matches the mobs bodytemperature
+  - bugfix: Carbon hugging is now functional. It previously had the giver of the hug
+      GAIN heat when hugging a colder person, instead of the other way around. Hugs
+      were harmful!
+  rkz, ninjanomnom:
+  - code_imp: limits calls or changes to obj_integrity var, all must be made through
+      getters or setters
+  rkz, rohesie, tralezab, dwasint:
+  - rscadd: You can now see if a limb is disabled through checkhealth (HUD, healthanalyzer,
+      ghostscan)
+  - tweak: being limbless while flying will never apply the limbless slowdown (because
+      you are movin just fine, right?)
+  - bugfix: minor stamina fixes in the way it is applied & healed
+  - code_imp: kills a lot of unecessary limb updating
+  - code_imp: makes Limb removal & disabling event-based. Extricate it from update_mobility
+2024-07-31:
+  Tsar-Salat:
+  - bugfix: fix surgery initiation failure
+  - bugfix: fixes martial arts lying state issues
+  - bugfix: fixes plastic flaps being completely dense, you can now move under them
+      again

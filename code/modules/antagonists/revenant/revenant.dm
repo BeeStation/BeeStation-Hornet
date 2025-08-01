@@ -508,15 +508,22 @@
 				break
 	if(!key_of_revenant)
 		message_admins("The new revenant's old client either could not be found or is in a new, living mob - grabbing a random candidate instead...")
-		var/list/candidates = poll_candidates_for_mob("Do you want to be [revenant.name] (reforming)?", ROLE_REVENANT, /datum/role_preference/midround_ghost/revenant, 7.5 SECONDS, revenant)
-		if(!LAZYLEN(candidates))
+		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
+			question = "Do you want to be [revenant.name] (reforming)?",
+			check_jobban = ROLE_REVENANT,
+			poll_time = 10 SECONDS,
+			jump_target = revenant,
+			role_name_text = "revenant",
+			alert_pic = revenant,
+		)
+		if(!candidate)
 			qdel(revenant)
 			message_admins("No candidates were found for the new revenant. Oh well!")
 			inert = TRUE
 			visible_message(span_revenwarning("[src] settles down and seems lifeless."))
 			return
-		var/mob/dead/observer/C = pick(candidates)
-		key_of_revenant = C.key
+
+		key_of_revenant = candidate.key
 		if(!key_of_revenant)
 			qdel(revenant)
 			message_admins("No ckey was found for the new revenant. Oh well!")
