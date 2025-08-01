@@ -1,4 +1,10 @@
 
+/proc/generate_clockcult_scriptures()
+	//Generate scriptures
+	for(var/categorypath in subtypesof(/datum/clockcult/scripture))
+		var/datum/clockcult/scripture/S = new categorypath
+		GLOB.clockcult_all_scriptures[S.name] = S
+
 #define KINDLE 0
 #define MANACLES 1
 #define COMPROMISE 2
@@ -66,7 +72,7 @@
 				continue
 			if(!invokers_left)
 				break
-			if(is_servant_of_ratvar(M))
+			if(IS_SERVANT_OF_RATVAR(M))
 				clockwork_say(M, text2ratvar(invokation_text[text_point]), TRUE)
 				invokers_left--
 	else
@@ -87,7 +93,7 @@
 	for(var/mob/living/M in viewers(invoker))
 		if(M.stat)
 			continue
-		if(is_servant_of_ratvar(M))
+		if(IS_SERVANT_OF_RATVAR(M))
 			invokers++
 	if(invokers < invokers_required)
 		to_chat(invoker, span_brass("You need [invokers_required] servants to channel [name]!"))
@@ -257,7 +263,7 @@
 	..(M)
 
 /datum/action/innate/clockcult/quick_bind/is_available()
-	if(!is_servant_of_ratvar(owner) || owner.incapacitated())
+	if(!IS_SERVANT_OF_RATVAR(owner) || owner.incapacitated())
 		return FALSE
 	return ..()
 
@@ -278,7 +284,7 @@
 	desc = "Transmit a message to your allies through the Hierophant."
 
 /datum/action/innate/clockcult/transmit/is_available()
-	if(!is_servant_of_ratvar(owner))
+	if(!IS_SERVANT_OF_RATVAR(owner))
 		Remove(owner)
 		return FALSE
 	if(owner.incapacitated())

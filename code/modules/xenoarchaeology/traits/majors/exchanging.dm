@@ -19,6 +19,7 @@
 	. = ..()
 	if(!.)
 		return
+//Do filters
 	var/atom/atom_parent = component_parent.parent
 	var/final_time = exchange_window*(component_parent.trait_strength/100)
 	for(var/mob/living/target in focus)
@@ -33,7 +34,7 @@
 		//Timer to undo
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/datum/xenoartifact_trait, un_trigger), target), final_time)
 	clear_focus()
-	//Run targets
+//Swap damage
 	var/mob/living/victim_a
 	var/mob/living/victim_b
 	for(var/mob/living/target in targets)
@@ -45,8 +46,9 @@
 			continue
 		if(!victim_b)
 			victim_b = target
-		//swap damage
-
+		//Coolsound for indication
+		playsound(get_turf(target), 'sound/magic/mandswap.ogg', 50, TRUE)
+	//swap damage
 		var/a_damage = victim_a.get_damage_amount(damage_type)
 		var/b_damage = victim_b.get_damage_amount(damage_type)
 

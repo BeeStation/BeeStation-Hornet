@@ -148,7 +148,7 @@
 	. = ..()
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		var/obj/item/organ/wings/wings = H.getorganslot(ORGAN_SLOT_WINGS)
+		var/obj/item/organ/wings/wings = H.get_organ_slot(ORGAN_SLOT_WINGS)
 		if(H.Togglewings())
 			addtimer(CALLBACK(H,TYPE_PROC_REF(/mob/living/carbon/human, Togglewings)), wing_time)
 		// play moth flutter noise if moth wing
@@ -294,9 +294,9 @@
 	mob_type_blacklist_typecache = list(/mob/living/carbon/human) //Humans get specialized scream.
 	sound_wall_ignore = TRUE
 
-/datum/emote/living/scream/select_message_type(mob/user, intentional)
+/datum/emote/living/scream/select_message_type(mob/user, message, intentional)
 	. = ..()
-	if(!intentional && isanimal(user))
+	if(!intentional && isanimal_or_basicmob(user))
 		return "makes a loud and pained whimper."
 
 /datum/emote/living/scowl
@@ -717,7 +717,7 @@
 		return FALSE
 	if(islizard(user))
 		var/mob/living/carbon/human/H = user
-		return istype(H?.getorganslot(ORGAN_SLOT_TAIL), /obj/item/organ/tail)
+		return istype(H?.get_organ_slot(ORGAN_SLOT_TAIL), /obj/item/organ/tail)
 
 /// Breathing required + audible emotes
 

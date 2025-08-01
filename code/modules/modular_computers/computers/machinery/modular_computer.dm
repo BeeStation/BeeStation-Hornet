@@ -5,8 +5,7 @@
 	desc = "An advanced computer."
 
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 5
-	var/hardware_flag = 0								// A flag that describes this device type
+	idle_power_usage = 5								// A flag that describes this device type
 	var/last_power_usage = 0							// Power usage during last tick
 
 	// Modular computers can run on various devices. Each DEVICE (Laptop, Console, Tablet,..)
@@ -15,8 +14,6 @@
 
 	icon = null
 	icon_state = null
-	var/icon_state_unpowered = null						// Icon state when the computer is turned off.
-	var/icon_state_powered = null						// Icon state when the computer is turned on.
 	var/screen_icon_state_menu = "menu"					// Icon state overlay when the computer is turned on, but no program is loaded that would override the screen.
 	var/screen_icon_screensaver = "standby"				// Icon state overlay when the computer is powered, but not 'switched on'.
 	var/max_hardware_size = 0							// Maximal hardware size. Currently, tablets have 1, laptops 2 and consoles 3. Limits what hardware types can be installed.
@@ -65,13 +62,10 @@
 
 /obj/machinery/modular_computer/update_icon()
 	cut_overlays()
-	icon_state = icon_state_powered
 
 	if(!cpu || !cpu.enabled)
 		if (!(machine_stat & NOPOWER) && (cpu && cpu.use_power()))
 			add_overlay(screen_icon_screensaver)
-		else
-			icon_state = icon_state_unpowered
 	else
 		if(cpu.active_program)
 			add_overlay(cpu.active_program.program_icon_state ? cpu.active_program.program_icon_state : screen_icon_state_menu)

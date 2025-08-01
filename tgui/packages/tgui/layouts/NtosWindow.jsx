@@ -18,6 +18,7 @@ export const NtosWindow = (props) => {
     PC_showbatteryicon,
     PC_batterypercent,
     PC_ntneticon,
+    PC_AntiVirus,
     PC_apclinkicon,
     PC_stationtime,
     PC_stationdate,
@@ -58,11 +59,16 @@ export const NtosWindow = (props) => {
                 <img className="NtosHeader__icon" src={resolveAsset(header.icon)} />
               </Box>
             ))}
+            {PC_AntiVirus && (
+              <Box inline mr={1}>
+                <img className="NtosHeader__icon" src={resolveAsset(PC_AntiVirus)} alt="Antivirus status" />
+              </Box>
+            )}
             <Box inline>{PC_ntneticon && <img className="NtosHeader__icon" src={resolveAsset(PC_ntneticon)} />}</Box>
             {!!PC_showbatteryicon && PC_batteryicon && (
               <Box inline mr={1}>
                 {PC_batteryicon && <img className="NtosHeader__icon" src={resolveAsset(PC_batteryicon)} />}
-                {PC_batterypercent && PC_batterypercent}
+                {PC_batterypercent}
               </Box>
             )}
             {PC_apclinkicon && (

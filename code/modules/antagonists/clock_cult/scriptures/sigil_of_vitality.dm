@@ -28,7 +28,7 @@
 	looping = TRUE
 
 /obj/structure/destructible/clockwork/sigil/vitality/can_affect(mob/living/M)
-	if(is_servant_of_ratvar(M))
+	if(IS_SERVANT_OF_RATVAR(M))
 		return TRUE
 	if(M.stat == DEAD)
 		return FALSE
@@ -44,7 +44,7 @@
 /obj/structure/destructible/clockwork/sigil/vitality/apply_effects(mob/living/M)
 	if(!..())
 		return FALSE
-	if(is_servant_of_ratvar(M))
+	if(IS_SERVANT_OF_RATVAR(M))
 		if(M.stat == DEAD)
 			var/damage_healed = 20 + ((M.maxHealth - M.health) * 0.6)
 			if(GLOB.clockcult_vitality >= damage_healed)
@@ -53,11 +53,19 @@
 				if(M.mind)
 					M.mind.grab_ghost(TRUE)
 				else
-					var/list/mob/dead/observer/candidates = poll_candidates_for_mob("Do you want to play as a [M.name], an inactive clock cultist?", ROLE_SERVANT_OF_RATVAR, /datum/role_preference/antagonist/clock_cultist, 7.5 SECONDS, M)
-					if(LAZYLEN(candidates))
-						var/mob/dead/observer/C = pick(candidates)
-						message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(M)]) to replace an AFK player.")
-						M.key = C.key
+					var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(
+						question = "Do you want to play as a [M.name], an inactive clock cultist?",
+						role = /datum/role_preference/roundstart/clock_cultist,
+						check_jobban = ROLE_SERVANT_OF_RATVAR,
+						poll_time = 10 SECONDS,
+						checked_target = M,
+						jump_target = M,
+						role_name_text = "inactive clock cultist",
+						alert_pic = M,
+					)
+					if(candidate)
+						M.key = candidate.key
+						message_admins("[key_name_admin(candidate)] has taken control of ([key_name_admin(M)]) to replace an AFK player.")
 			else
 				visible_message(span_neovgre("\The [src] fails to revive [M]!"))
 			return

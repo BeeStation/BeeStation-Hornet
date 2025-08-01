@@ -1,32 +1,58 @@
 {
-	"Dynamic": {},
-	"Roundstart": {
-		"Traitors": {
-			"cost": 8,
-			"scaling_cost": 9,
-			"weight": 5,
-			"required_candidates": 1,
-			"requirements": [8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
-			"antag_cap": {
-				"denominator": 38
-			},
-			"protected_roles": [
-				"Security Officer",
-				"Warden",
-				"Detective",
-				"Head of Security",
-				"Captain"
-			],
-			"restricted_roles": ["Cyborg"]
-		},
-		"Revolution": {
-			"cost": 110
+	"Dynamic": {
+		"roundstart_divergence_percent_lower": 1,
+		"roundstart_divergence_percent_upper": 1,
+		"roundstart_points_per_ready": 1,
+		"roundstart_points_per_unready": 0.5,
+		"midround_grace_period": 12000,
+		"midround_linear_delta": 0.9,
+		"midround_linear_delta_forced": 0.25,
+		"midround_living_delta": 0.05,
+		"midround_observer_delta": 0,
+		"midround_dead_delta": -0.4,
+		"latejoin_ruleset_probability": 10,
+		"latejoin_max_rulesets": 1,
+		"midround_light_end_time": 36000,
+		"midround_medium_end_time": 72000,
+		"midround_medium_increase_ratio": 0.9,
+		"midround_points_per_antag": {
+			"/datum/antagonist/ert": 0.2,
+			"/datum/antagonist/spider": -0.15,
+			"/datum/antagonist/swarmer": -0.15,
+			"/datum/antagonist/xeno": -0.2,
+			"/datum/antagonist/revenant": -0.6,
+			"/datum/antagonist/ninja": -1.1,
+			"/datum/antagonist/space_dragon": -2.5,
+			"/datum/antagonist/wizard": -2.5,
+			"/datum/antagonist/slaughter": -4,
+			"/datum/antagonist/blob": -4,
+			"/datum/antagonist/morph": -0.3,
+			"/datum/antagonist/pirate": -0.5,
+			"/datum/antagonist/pirate/captain": -0.5,
+			"/datum/antagonist/malf_ai": -0.6,
+			"/datum/antagonist/traitor": -0.2,
+			"/datum/antagonist/heretic": -0.2,
+			"/datum/antagonist/brother": -0.1,
+			"/datum/antagonist/changeling": -0.2
 		}
 	},
-	"Midround": {},
-	"Latejoin": {
-		"Provocateur": {
-			"cost": 110
+	"Roundstart": {
+		"Traitor": {
+			"points_cost": 7,
+			"weight": 10,
+			"restricted_roles": [
+				"Cyborg",
+				"AI"
+			]
+		},
+		"Revolution": {
+			"points_cost": 100
+		},
+		"Clown Operatives": {
+			"points_cost": 500
 		}
+	},
+	"Midround": {
+
 	}
 }

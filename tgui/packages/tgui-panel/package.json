@@ -1,8 +1,9 @@
 {
   "private": true,
   "name": "tgui-panel",
-  "version": "4.3.0",
+  "version": "5.0.3",
   "dependencies": {
+    "@types/node": "^22.9.0",
     "@types/react": "^18.3.12",
     "common": "workspace:*",
     "dompurify": "^2.5.7",

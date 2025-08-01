@@ -120,7 +120,7 @@
   * description: If an organ exists in the slot requested, and we are capable of taking damage (we don't have GODMODE on), call the damage proc on that organ.
   */
 /mob/living/carbon/adjustOrganLoss(slot, amount, maximum, required_status)
-	var/obj/item/organ/O = getorganslot(slot)
+	var/obj/item/organ/O = get_organ_slot(slot)
 	if(O && !(status_flags & GODMODE))
 		if(required_status && O.status != required_status)
 			return FALSE
@@ -133,9 +133,9 @@
   *				 set or clear the failing variable on that organ, making it either cease or start functions again, unlike adjustOrganLoss.
   */
 /mob/living/carbon/setOrganLoss(slot, amount)
-	var/obj/item/organ/O = getorganslot(slot)
+	var/obj/item/organ/O = get_organ_slot(slot)
 	if(O && !(status_flags & GODMODE))
-		O.setOrganDamage(amount)
+		O.set_organ_damage(amount)
 
 /** getOrganLoss
   * inputs: slot (organ slot, like ORGAN_SLOT_HEART)
@@ -143,7 +143,7 @@
   * description: If an organ exists in the slot requested, return the amount of damage that organ has
   */
 /mob/living/carbon/getOrganLoss(slot)
-	var/obj/item/organ/O = getorganslot(slot)
+	var/obj/item/organ/O = get_organ_slot(slot)
 	if(O)
 		return O.damage
 
@@ -177,8 +177,10 @@
 	if(!parts.len)
 		return
 	var/obj/item/bodypart/picked = pick(parts)
+	var/damage_calculator = picked.get_damage(TRUE) //heal_damage returns update status T/F instead of amount healed so we dance gracefully around this
 	if(picked.heal_damage(brute, burn, stamina, required_status))
 		update_damage_overlays()
+	return max(damage_calculator - picked.get_damage(TRUE), 0)
 
 //Damages ONE bodypart randomly selected from damagable ones.
 //It automatically updates damage overlays if necessary

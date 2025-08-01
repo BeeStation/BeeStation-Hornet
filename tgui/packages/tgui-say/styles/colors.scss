@@ -2,45 +2,45 @@
 @use 'sass:map';
 
 $background: black;
-$button: #161616;
-$lightMode: #ffffff;
-$lightBorder: #616161;
-$lightButton: #bbbbbb;
-$lightHover: #eaeaea;
+$button: hsl(0, 0%, 8.6%);
+$lightMode: hsl(0, 0%, 100%);
+$lightBorder: hsl(0, 0%, 38%);
+$lightButton: hsl(0, 0%, 73.3%);
+$lightHover: hsl(0, 0%, 91.8%);
 
 ////////////////////////////////////////////////
 // Normal chat colors
-$say: #c1fffc;
-$radio: #1ecc43;
-$me: #74a1e4;
-$ooc: #e64100;
-$looc: #fafa3b;
-$asay: #ff0000;
-$msay: #ff00ff;
-$dsay: #8800ff;
+$say: hsl(177.1, 100%, 87.8%);
+$radio: hsl(132.8, 74.4%, 45.9%);
+$me: hsl(215.9, 67.5%, 67.5%);
+$ooc: hsl(17, 100%, 45.1%);
+$looc: hsl(60, 95%, 60.6%);
+$asay: hsl(0, 100%, 50%);
+$msay: hsl(300, 100%, 50%);
+$dsay: hsl(272, 100%, 50%);
 
 ////////////////////////////////////////////////
 // Subchannel chat colors
-$ai: #d65d95;
-$binary: #1eff44;
-$centcom: #2681a5;
-$command: #746bff;
-$engi: #f37746;
-$exploration: #5bd4a6;
-$hive: #855d85;
-$medical: #57b8f0;
-$science: #c68cfa;
-$security: #dd3535;
-$syndicate: #8f4a4b;
-$service: #6ca729;
-$supply: #b88646;
-$uplink: #830a0a;
-$holo: #d61b5a;
-$intercom: #56bd03;
-$left: #4c0675;
-$right: #4c0675;
-$slime: #008ca2;
-$holoparasite: #b76e79;
+$ai: hsl(332.2, 59.6%, 60.2%);
+$binary: hsl(130.1, 100%, 55.9%);
+$centcom: hsl(197, 62.6%, 39.8%);
+$command: hsl(243.6, 100%, 71%);
+$engi: hsl(17, 87.8%, 61.4%);
+$exploration: hsl(157.2, 58.5%, 59.4%);
+$hive: hsl(300, 17.7%, 44.3%);
+$medical: hsl(202, 83.6%, 64.1%);
+$science: hsl(271.6, 91.7%, 76.5%);
+$security: hsl(0, 71.2%, 53.7%);
+$syndicate: hsl(359.1, 31.8%, 42.5%);
+$service: hsl(88.1, 60.6%, 40.8%);
+$supply: hsl(33.7, 44.9%, 49.8%);
+$uplink: hsl(0, 85.8%, 27.6%);
+$holo: hsl(339.8, 77.6%, 47.3%);
+$intercom: hsl(93.2, 96.9%, 37.6%);
+$left: hsl(277.8, 90.2%, 24.1%);
+$right: hsl(277.8, 90.2%, 24.1%);
+$slime: hsl(188.1, 100%, 31.8%);
+$holoparasite: hsl(351, 33.6%, 57.5%);
 
 $_restricted_channel_map: (
   'asay': $asay,

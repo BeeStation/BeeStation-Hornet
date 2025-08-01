@@ -31,11 +31,11 @@
 	icon_state = "rsecurity"
 	item_state = "r_suit"
 	armor_type = /datum/armor/security_officer
-	alt_covers_chest = TRUE
+	alt_covers_chest = FALSE
 
 
 /datum/armor/security_officer
-	melee = 10
+	melee = 5
 	fire = 30
 	acid = 30
 	stamina = 10
@@ -308,6 +308,8 @@
 	name = "prison jumpsuit"
 	desc = "It's standardised Nanotrasen prisoner-wear. Its suit sensors are stuck in the \"Fully On\" position."
 	icon_state = "jumpsuit"
+	icon_preview = 'icons/obj/previews.dmi'
+	icon_state_preview = "prisonsuit"
 	item_state = "jumpsuit"
 	greyscale_colors = "#ff8300"
 	greyscale_config = /datum/greyscale_config/jumpsuit_prison

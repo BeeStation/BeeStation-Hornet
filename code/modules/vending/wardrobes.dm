@@ -241,7 +241,6 @@
 					/obj/item/radio/headset/headset_sci = 3,
 					/obj/item/clothing/mask/gas = 3,
 					/obj/item/clothing/head/beret/science = 3,
-					/obj/item/clothing/head/beret/science/fancy = 3,
 					/obj/item/clothing/head/cowboy/science = 3)
 	contraband = list(/obj/item/clothing/suit/hooded/wintercoat/science/old = 3)
 	refill_canister = /obj/item/vending_refill/wardrobe/science_wardrobe
@@ -565,23 +564,26 @@
 	products = list(
 		/obj/item/clothing/under/rank/security/detective = 2,
 		/obj/item/clothing/under/rank/security/detective/skirt = 2,
-		/obj/item/clothing/shoes/sneakers/brown = 2,
-		/obj/item/clothing/suit/jacket/det_suit = 2,
-		/obj/item/clothing/suit/hooded/wintercoat/detective = 2,
-		/obj/item/clothing/head/fedora/det_hat = 2,
 		/obj/item/clothing/under/rank/security/detective/grey = 2,
 		/obj/item/clothing/under/rank/security/detective/grey/skirt = 2,
-		/obj/item/clothing/accessory/waistcoat = 2,
-		/obj/item/clothing/shoes/laceup = 2,
+		/obj/item/clothing/suit/jacket/det_suit = 2,
+		/obj/item/clothing/suit/hooded/wintercoat/detective = 2,
 		/obj/item/clothing/suit/jacket/det_suit/dark = 1,
 		/obj/item/clothing/suit/jacket/det_suit/noir = 1,
+		/obj/item/clothing/head/fedora/det_hat = 2,
 		/obj/item/clothing/head/fedora/det_hat/noir = 2,
+		/obj/item/clothing/accessory/waistcoat = 2,
+		/obj/item/clothing/neck/tie/blue = 2,
+		/obj/item/clothing/neck/tie/red = 2,
+		/obj/item/clothing/neck/tie/black = 2,
+		/obj/item/clothing/shoes/laceup = 2,
+		/obj/item/clothing/shoes/sneakers/brown = 2,
 		/obj/item/clothing/gloves/color/black = 2,
 		/obj/item/clothing/gloves/color/latex = 2,
 		/obj/item/reagent_containers/cup/glass/flask/det = 2,
 		/obj/item/storage/fancy/cigarettes = 5
 	)
-	premium = list(/obj/item/clothing/head/flatcap = 1, /obj/item/clothing/suit/armor/vest/det_suit = 1)
+	premium = list(/obj/item/clothing/head/flatcap = 1, /obj/item/clothing/suit/armor/vest/det_suit = 1, /obj/item/clothing/neck/tie/detective = 1)
 	refill_canister = /obj/item/vending_refill/wardrobe/det_wardrobe
 	extra_price = 350
 	dept_req_for_free = ACCOUNT_SEC_BITFLAG

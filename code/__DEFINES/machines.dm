@@ -70,6 +70,25 @@
 #define MC_SENSORS "SENSORS"
 #define MC_SIGNALLER "SIGNALER"
 #define MC_IDENTIFY "IDENTIFY"
+#define MC_CAMERA "CAMERA"
+
+//Trojan defines
+#define BREACHER "BREACHER"
+#define SLEDGE "SLEDGE"
+
+// Antivirus Defines
+#define ANTIVIRUS_NONE 0
+#define ANTIVIRUS_BASIC 1
+#define ANTIVIRUS_MEDIUM 2
+#define ANTIVIRUS_GOOD 3
+#define ANTIVIRUS_BEST 4
+
+// Part tier defines (now used for battery sizes)
+#define PART_TIER_1 1
+#define PART_TIER_2 2
+#define PART_TIER_3 3
+#define PART_TIER_4 4
+#define PART_TIER_5 5
 
 //! ## NTNet stuff, for modular computers
 //!  **NTNet module-configuration values. Do not change these. If you need to add another use larger number (5..6..7 etc)**
@@ -77,6 +96,13 @@
 #define NTNET_PEERTOPEER 2			//! P2P transfers of files between devices
 #define NTNET_COMMUNICATION 3		//! Communication (messaging)
 #define NTNET_SYSTEMCONTROL 4		//! Control of various systems, RCon, air alarm control, etc.
+
+// Types of Signal for Network Card Components!
+#define	SIGNAL_NO 0
+#define SIGNAL_LOW 1
+#define SIGNAL_HIGH 2
+#define SIGNAL_NO_RELAY 3
+#define SIGNAL_HACKED 4
 
 //! **NTNet transfer speeds, used when downloading/uploading a file/program.**
 #define NTNETSPEED_LOWSIGNAL 0.5	//! GQ/s transfer speed when the device is wirelessly connected and on Low signal
@@ -87,11 +113,6 @@
 #define MAX_NTNET_LOGS 300
 #define MIN_NTNET_LOGS 10
 
-//Program bitflags
-#define PROGRAM_ALL		(~0)
-#define PROGRAM_CONSOLE	(1<<0)
-#define PROGRAM_LAPTOP	(1<<1)
-#define PROGRAM_TABLET	(1<<2)
 //Program states
 #define PROGRAM_STATE_KILLED 0
 #define PROGRAM_STATE_BACKGROUND 1

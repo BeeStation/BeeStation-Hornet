@@ -2,16 +2,16 @@
 
 //Misc mob defines
 
-//Ready states at roundstart for mob/dead/new_player
+//Ready states at roundstart for /mob/dead/new_player/authenticated
 #define PLAYER_NOT_READY 0
 #define PLAYER_READY_TO_PLAY 1
 #define PLAYER_READY_TO_OBSERVE 2
 
-//Game mode list indexes
-#define CURRENT_LIVING_PLAYERS	"living_players_list"
-#define CURRENT_LIVING_ANTAGS	"living_antags_list"
-#define CURRENT_DEAD_PLAYERS	"dead_players_list"
-#define CURRENT_OBSERVERS		"current_observers_list"
+/// Dynamic list indexes
+#define CURRENT_LIVING_PLAYERS "living_players_list"
+#define CURRENT_LIVING_ANTAGS "living_antags_list"
+#define CURRENT_DEAD_PLAYERS "dead_players_list"
+#define CURRENT_OBSERVERS "current_observers_list"
 
 //movement intent defines for the m_intent var
 #define MOVE_INTENT_WALK "walk"
@@ -76,29 +76,37 @@
 #define MOB_SPIRIT		"spirit"
 
 //Organ defines for carbon mobs
-#define ORGAN_ORGANIC   1
-#define ORGAN_ROBOTIC   2
+#define ORGAN_ORGANIC 1
+#define ORGAN_ROBOTIC 2
 
-
-//Bodytype defines for how things can be worn.
-#define BODYTYPE_ORGANIC		(1<<0)
-#define BODYTYPE_ROBOTIC		(1<<1)
-#define BODYTYPE_HUMANOID		(1<<2) //Everything that isnt Grod
-#define BODYTYPE_BOXHEAD		(1<<3) //TV Head
-#define BODYTYPE_DIGITIGRADE	(1<<4) //Cancer
-#define NUMBER_OF_BODYTYPES	5 //KEEP THIS UPDATED OR SHIT WILL BREAK
-
-#define DEFAULT_BODYPART_ICON_ORGANIC 'icons/mob/human_parts_greyscale.dmi'
+#define DEFAULT_BODYPART_ICON_ORGANIC 'icons/mob/species/human/bodyparts_greyscale.dmi'
 #define DEFAULT_BODYPART_ICON_ROBOTIC 'icons/mob/augmentation/augments.dmi'
 
 #define MONKEY_BODYPART "monkey"
 #define TERATOMA_BODYPART "teratoma"
 #define ALIEN_BODYPART "alien"
 #define LARVA_BODYPART "larva"
-#define DEVIL_BODYPART "devil"
 
 //Bodypart change blocking flags
 #define BP_BLOCK_CHANGE_SPECIES	(1<<0)
+
+//Bodytype defines for how things can be worn, surgery, and other misc things.
+///The limb is organic.
+#define BODYTYPE_ORGANIC (1<<0)
+///The limb is robotic.
+#define BODYTYPE_ROBOTIC (1<<1)
+///The limb fits the human mold. This is not meant to be literal, if the sprite "fits" on a human, it is "humanoid", regardless of origin.
+#define BODYTYPE_HUMANOID (1<<2)
+///The limb is digitigrade.
+#define BODYTYPE_DIGITIGRADE (1<<3)
+///The limb fits the monkey mold.
+#define BODYTYPE_MONKEY (1<<4)
+///The limb is snouted.
+//#define BODYTYPE_SNOUTED (1<<5)
+///A placeholder bodytype for xeno larva, so their limbs cannot be attached to anything.
+#define BODYTYPE_LARVA_PLACEHOLDER (1<<6)
+///The limb is from a xenomorph.
+#define BODYTYPE_ALIEN (1<<7)
 
 //Species gib types
 #define GIB_TYPE_HUMAN "human"
@@ -429,6 +437,12 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define DOING_INTERACTION_LIMIT(user, interaction_key, max_interaction_count) ((LAZYACCESS(user.do_afters, interaction_key) || 0) >= max_interaction_count)
 #define DOING_INTERACTION_WITH_TARGET(user, target) (LAZYACCESS(user.do_afters, target))
 #define DOING_INTERACTION_WITH_TARGET_LIMIT(user, target, max_interaction_count) ((LAZYACCESS(user.do_afters, target) || 0) >= max_interaction_count)
+
+// recent examine defines
+/// How long it takes for an examined atom to be removed from recent_examines. Should be the max of the below time windows
+#define RECENT_EXAMINE_MAX_WINDOW (2 SECONDS)
+/// If you examine the same atom twice in this timeframe, we call examine_more() instead of examine()
+#define EXAMINE_MORE_WINDOW (1 SECONDS)
 
 #define SILENCE_RANGED_MESSAGE (1<<0)
 

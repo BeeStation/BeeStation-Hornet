@@ -2,15 +2,13 @@
 	filename = "aidiag"
 	filedesc = "AI Integrity Restorer"
 	category = PROGRAM_CATEGORY_ROBO
-	program_icon_state = "generic"
+	program_icon_state = "ai_restorer_off"
 	extended_desc = "This program is capable of reconstructing damaged AI systems. Requires direct AI connection via intellicard slot."
 	size = 12
-	requires_ntnet = FALSE
-	usage_flags = PROGRAM_CONSOLE | PROGRAM_LAPTOP
-	transfer_access = list(ACCESS_HEADS)
-	available_on_ntnet = TRUE
+	transfer_access = list(ACCESS_HEADS, ACCESS_ROBOTICS, ACCESS_RESEARCH)
 	tgui_id = "NtosAiRestorer"
 	program_icon = "laptop-code"
+	hardware_requirement = MC_AI
 	/// Variable dictating if we are in the process of restoring the AI in the inserted intellicard
 	var/restoring = FALSE
 
@@ -98,6 +96,9 @@
 	data["ejectable"] = TRUE
 	data["AI_present"] = FALSE
 	data["error"] = null
+	program_icon_state = "ai_restorer_off"
+	update_computer_icon()
+
 	if(!aicard)
 		data["error"] = "Please insert an intelliCard."
 	else
@@ -114,6 +115,9 @@
 				data["health"] = (AI.health + 100) / 2
 				data["isDead"] = AI.stat == DEAD
 				data["laws"] = AI.laws.get_law_list(include_zeroth = 1)
+				program_icon_state = "ai_restorer"
+				update_computer_icon()
+
 
 	return data
 
