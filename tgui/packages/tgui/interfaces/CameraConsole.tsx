@@ -2,8 +2,16 @@ import { filter, sort } from 'common/collections';
 import { BooleanLike, classes } from 'common/react';
 import { createSearch } from 'common/string';
 import { useState } from 'react';
+
 import { useBackend } from '../backend';
-import { Button, ByondUi, Input, NoticeBox, Section, Stack } from '../components';
+import {
+  Button,
+  ByondUi,
+  Input,
+  NoticeBox,
+  Section,
+  Stack,
+} from '../components';
 import { Window } from '../layouts';
 
 type Data = {
@@ -23,7 +31,10 @@ type Camera = {
  * Returns previous and next camera names relative to the currently
  * active camera.
  */
-const prevNextCamera = (cameras: Camera[], activeCamera: Camera & { status: BooleanLike }) => {
+const prevNextCamera = (
+  cameras: Camera[],
+  activeCamera: Camera & { status: BooleanLike },
+) => {
   if (!activeCamera || cameras.length < 2) {
     return [];
   }
@@ -58,7 +69,10 @@ const prevNextCamera = (cameras: Camera[], activeCamera: Camera & { status: Bool
 const selectCameras = (cameras: Camera[], searchText = ''): Camera[] => {
   let queriedCameras = filter(cameras, (camera: Camera) => !!camera.name);
   if (searchText) {
-    const testSearch = createSearch(searchText, (camera: Camera) => camera.name);
+    const testSearch = createSearch(
+      searchText,
+      (camera: Camera) => camera.name,
+    );
     queriedCameras = filter(queriedCameras, testSearch);
   }
   queriedCameras = sort(queriedCameras);
@@ -123,13 +137,16 @@ const CameraSelector = (props) => {
                 'Button--fluid',
                 'Button--color--transparent',
                 'Button--ellipsis',
-                activeCamera?.ref === camera.ref ? 'Button--selected' : 'candystripe',
+                activeCamera?.ref === camera.ref
+                  ? 'Button--selected'
+                  : 'candystripe',
               ])}
               onClick={() =>
                 act('switch_camera', {
                   camera: camera.ref,
                 })
-              }>
+              }
+            >
               {camera.name}
             </div>
           ))}
@@ -162,7 +179,13 @@ const CameraControls = (props: { searchText: string }) => {
             </Stack.Item>
 
             <Stack.Item>
-              {!!can_spy && <Button icon="magnifying-glass" tooltip="Track Person" onClick={() => act('start_tracking')} />}
+              {!!can_spy && (
+                <Button
+                  icon="magnifying-glass"
+                  tooltip="Track Person"
+                  onClick={() => act('start_tracking')}
+                />
+              )}
             </Stack.Item>
 
             <Stack.Item>

@@ -14,7 +14,7 @@ export const scaling_method: Feature<string> = {
     },
     {
       buttons: true,
-    }
+    },
   ),
   important: true,
 };

@@ -57,7 +57,13 @@ function measure(markerNameA: string, markerNameB: string): string | undefined {
 function formatDuration(duration: number): string {
   const durationInFrames = duration / FRAME_DURATION;
 
-  return duration.toFixed(duration < 10 ? 1 : 0) + 'ms ' + '(' + durationInFrames.toFixed(2) + ' frames)';
+  return (
+    duration.toFixed(duration < 10 ? 1 : 0) +
+    'ms ' +
+    '(' +
+    durationInFrames.toFixed(2) +
+    ' frames)'
+  );
 }
 
 export const perf = {

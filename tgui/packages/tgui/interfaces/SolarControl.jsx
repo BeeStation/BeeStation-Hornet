@@ -1,22 +1,53 @@
 import { toFixed } from 'common/math';
+
 import { useBackend } from '../backend';
-import { Box, Button, Grid, LabeledList, NumberInput, ProgressBar, Section } from '../components';
+import {
+  Box,
+  Button,
+  Grid,
+  LabeledList,
+  NumberInput,
+  ProgressBar,
+  Section,
+} from '../components';
 import { Window } from '../layouts';
 
 export const SolarControl = (props) => {
   const { act, data } = useBackend();
-  const { generated, angle, tracking_state, tracking_rate, connected_panels, connected_tracker } = data;
+  const {
+    generated,
+    angle,
+    tracking_state,
+    tracking_rate,
+    connected_panels,
+    connected_tracker,
+  } = data;
   return (
     <Window width={380} height={230}>
       <Window.Content>
-        <Section title="Status" buttons={<Button icon="sync" content="Scan for new hardware" onClick={() => act('refresh')} />}>
+        <Section
+          title="Status"
+          buttons={
+            <Button
+              icon="sync"
+              content="Scan for new hardware"
+              onClick={() => act('refresh')}
+            />
+          }
+        >
           <Grid>
             <Grid.Column>
               <LabeledList>
-                <LabeledList.Item label="Solar tracker" color={connected_tracker ? 'good' : 'bad'}>
+                <LabeledList.Item
+                  label="Solar tracker"
+                  color={connected_tracker ? 'good' : 'bad'}
+                >
                   {connected_tracker ? 'OK' : 'N/A'}
                 </LabeledList.Item>
-                <LabeledList.Item label="Solar panels" color={connected_panels > 0 ? 'good' : 'bad'}>
+                <LabeledList.Item
+                  label="Solar panels"
+                  color={connected_panels > 0 ? 'good' : 'bad'}
+                >
                   {connected_panels}
                 </LabeledList.Item>
               </LabeledList>
@@ -43,7 +74,12 @@ export const SolarControl = (props) => {
         <Section title="Controls">
           <LabeledList>
             <LabeledList.Item label="Tracking">
-              <Button icon="times" content="Off" selected={tracking_state === 0} onClick={() => act('tracking', { mode: 0 })} />
+              <Button
+                icon="times"
+                content="Off"
+                selected={tracking_state === 0}
+                onClick={() => act('tracking', { mode: 0 })}
+              />
               <Button
                 icon="clock-o"
                 content="Timed"

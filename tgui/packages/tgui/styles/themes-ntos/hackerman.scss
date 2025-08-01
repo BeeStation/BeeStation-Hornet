@@ -1,12 +1,13 @@
 @use './ntos-colors.scss' with (
-  $ntos-color: hsl(0.0, 0.0%, 9.8%),
-  $ntos-primary: hsl(120.0, 100.0%, 50.0%),
+  $ntos-color: hsl(0, 0%, 9.8%),
+  $ntos-primary: hsl(120, 100%, 50%),
   $color-bg-grad-spread: 0%
 );
 
 .theme-ntos-hackerman {
   @include ntos-colors.theme-ntos;
   * {
-    font-family: 'Consolas', 'Courier New', monospace, 'Font Awesome 5 Free' !important;
+    font-family:
+      'Consolas', 'Courier New', monospace, 'Font Awesome 5 Free' !important;
   }
 }

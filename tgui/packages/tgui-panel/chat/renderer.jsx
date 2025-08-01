@@ -7,11 +7,24 @@
 import { EventEmitter } from 'common/events';
 import { classes } from 'common/react';
 import { createRoot } from 'react-dom/client';
+import { RadarChart, Tooltip } from 'tgui/components';
 import { createLogger } from 'tgui/logging';
-import { COMBINE_MAX_MESSAGES, COMBINE_MAX_TIME_WINDOW, IMAGE_RETRY_DELAY, IMAGE_RETRY_LIMIT, IMAGE_RETRY_MESSAGE_AGE, MAX_PERSISTED_MESSAGES, MAX_VISIBLE_MESSAGES, MESSAGE_PRUNE_INTERVAL, MESSAGE_TYPES, MESSAGE_TYPE_INTERNAL, MESSAGE_TYPE_UNKNOWN } from './constants';
+
+import {
+  COMBINE_MAX_MESSAGES,
+  COMBINE_MAX_TIME_WINDOW,
+  IMAGE_RETRY_DELAY,
+  IMAGE_RETRY_LIMIT,
+  IMAGE_RETRY_MESSAGE_AGE,
+  MAX_PERSISTED_MESSAGES,
+  MAX_VISIBLE_MESSAGES,
+  MESSAGE_PRUNE_INTERVAL,
+  MESSAGE_TYPE_INTERNAL,
+  MESSAGE_TYPE_UNKNOWN,
+  MESSAGE_TYPES,
+} from './constants';
 import { canPageAcceptType, createMessage, isSameMessage } from './model';
 import { highlightNode, linkifyNode } from './replaceInTextNode';
-import { Tooltip, RadarChart } from 'tgui/components';
 
 const logger = createLogger('chatRenderer');
 
@@ -28,14 +41,14 @@ export const TGUI_CHAT_COMPONENTS = {
 // List of injectable attibute names mapped to their proper prop
 // We need this because attibutes don't support lowercase names
 export const TGUI_CHAT_ATTRIBUTES_TO_PROPS = {
-  'position': 'position',
-  'content': 'content',
-  'width': 'width',
-  'height': 'height',
+  position: 'position',
+  content: 'content',
+  width: 'width',
+  height: 'height',
   'area-color': 'areaColor',
-  'axes': 'axes',
-  'stages': 'stages',
-  'values': 'values',
+  axes: 'axes',
+  stages: 'stages',
+  values: 'values',
 };
 
 const findNearestScrollableParent = (startingNode) => {
@@ -141,7 +154,12 @@ const formatHighContrast = (inputHtml) => {
     'notcentcom',
     'unassigned',
   ];
-  const spanRegex = new RegExp('(<span[\\w| |\t|=]*[\'|"][\\w| ]*)(?:' + replacementNodes.join('|') + ')([\'|"]>)', 'gi');
+  const spanRegex = new RegExp(
+    '(<span[\\w| |\t|=]*[\'|"][\\w| ]*)(?:' +
+      replacementNodes.join('|') +
+      ')([\'|"]>)',
+    'gi',
+  );
   return inputHtml.replace(spanRegex, '$1$2');
 };
 
@@ -202,7 +220,9 @@ class ChatRenderer {
       const node = this.scrollNode;
       const height = node.scrollHeight;
       const bottom = node.scrollTop + node.offsetHeight;
-      const scrollTracking = Math.abs(height - bottom) < SCROLL_TRACKING_TOLERANCE || this.lastScrollHeight === 0;
+      const scrollTracking =
+        Math.abs(height - bottom) < SCROLL_TRACKING_TOLERANCE ||
+        this.lastScrollHeight === 0;
       if (scrollTracking !== this.scrollTracking) {
         this.scrollTracking = scrollTracking;
         this.events.emit('scrollTrackingChanged', scrollTracking);
@@ -433,7 +453,9 @@ class ChatRenderer {
         }
         // Payload is HTML
         else if (message.html) {
-          node.innerHTML = this.highContrast ? formatHighContrast(message.html) : message.html;
+          node.innerHTML = this.highContrast
+            ? formatHighContrast(message.html)
+            : message.html;
         } else {
           logger.error('Error: message is missing text payload', message);
         }
@@ -479,17 +501,23 @@ class ChatRenderer {
             <Element {...outputProps}>
               <span dangerouslySetInnerHTML={oldHtml} />
             </Element>,
-            childNode
+            childNode,
           );
         }
 
         // Highlight text
-        if ((!message.avoidHighlighting || this.highlightSelf) && this.highlightParsers) {
+        if (
+          (!message.avoidHighlighting || this.highlightSelf) &&
+          this.highlightParsers
+        ) {
           this.highlightParsers
             .filter((parser) => parser.enabled)
             .map((parser) => {
-              const highlighted = highlightNode(node, parser.highlightRegex, parser.highlightWords, (text) =>
-                createHighlightNode(text, parser.highlightColor)
+              const highlighted = highlightNode(
+                node,
+                parser.highlightRegex,
+                parser.highlightWords,
+                (text) => createHighlightNode(text, parser.highlightColor),
               );
               if (highlighted && parser.highlightWholeMessage) {
                 node.className += ' ChatMessage--highlighted';
@@ -514,7 +542,9 @@ class ChatRenderer {
       message.node = node;
       // Query all possible selectors to find out the message type
       if (!message.type) {
-        const typeDef = MESSAGE_TYPES.find((typeDef) => typeDef.selector && node.querySelector(typeDef.selector));
+        const typeDef = MESSAGE_TYPES.find(
+          (typeDef) => typeDef.selector && node.querySelector(typeDef.selector),
+        );
         message.type = typeDef?.type || MESSAGE_TYPE_UNKNOWN;
       }
       updateMessageBadge(message);
@@ -569,13 +599,18 @@ class ChatRenderer {
           message.node = 'pruned';
         }
         // Remove pruned messages from the message array
-        this.messages = this.messages.filter((message) => message.node !== 'pruned');
+        this.messages = this.messages.filter(
+          (message) => message.node !== 'pruned',
+        );
         logger.log(`pruned ${fromIndex} visible messages`);
       }
     }
     // All messages
     {
-      const fromIndex = Math.max(0, this.messages.length - MAX_PERSISTED_MESSAGES);
+      const fromIndex = Math.max(
+        0,
+        this.messages.length - MAX_PERSISTED_MESSAGES,
+      );
       if (fromIndex > 0) {
         this.messages = this.messages.slice(fromIndex);
         logger.log(`pruned ${fromIndex} stored messages`);
@@ -588,7 +623,10 @@ class ChatRenderer {
       return;
     }
     // Make a copy of messages
-    const fromIndex = Math.max(0, this.messages.length - MAX_PERSISTED_MESSAGES);
+    const fromIndex = Math.max(
+      0,
+      this.messages.length - MAX_PERSISTED_MESSAGES,
+    );
     const messages = this.messages.slice(fromIndex);
     // Remove existing nodes
     for (let message of messages) {
@@ -621,7 +659,9 @@ class ChatRenderer {
       message.node = 'pruned';
     }
     // Remove pruned messages from the message array
-    this.messages = this.messages.filter((message) => message.node !== 'pruned');
+    this.messages = this.messages.filter(
+      (message) => message.node !== 'pruned',
+    );
     logger.log(`Cleared chat`);
   }
 

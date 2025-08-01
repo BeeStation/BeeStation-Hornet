@@ -1,6 +1,14 @@
 import { toFixed } from 'common/math';
+
 import { useBackend } from '../backend';
-import { AnimatedNumber, Box, Button, LabeledList, NoticeBox, Section } from '../components';
+import {
+  AnimatedNumber,
+  Box,
+  Button,
+  LabeledList,
+  NoticeBox,
+  Section,
+} from '../components';
 import { Window } from '../layouts';
 
 export const ExosuitControlConsole = (props) => {
@@ -38,30 +46,59 @@ export const ExosuitControlConsole = (props) => {
                   }
                 />
               </>
-            }>
+            }
+          >
             <LabeledList>
               <LabeledList.Item label="Integrity">
-                <Box color={(mech.integrity <= 30 && 'bad') || (mech.integrity <= 70 && 'average') || 'good'}>
+                <Box
+                  color={
+                    (mech.integrity <= 30 && 'bad') ||
+                    (mech.integrity <= 70 && 'average') ||
+                    'good'
+                  }
+                >
                   {mech.integrity}%
                 </Box>
               </LabeledList.Item>
               <LabeledList.Item label="Charge">
-                <Box color={(mech.charge <= 30 && 'bad') || (mech.charge <= 70 && 'average') || 'good'}>
-                  {(typeof mech.charge === 'number' && mech.charge + '%') || 'Not Found'}
+                <Box
+                  color={
+                    (mech.charge <= 30 && 'bad') ||
+                    (mech.charge <= 70 && 'average') ||
+                    'good'
+                  }
+                >
+                  {(typeof mech.charge === 'number' && mech.charge + '%') ||
+                    'Not Found'}
                 </Box>
               </LabeledList.Item>
               <LabeledList.Item label="Airtank">
                 {(typeof mech.airtank === 'number' && (
-                  <AnimatedNumber value={mech.airtank} format={(value) => toFixed(value, 2) + ' kPa'} />
+                  <AnimatedNumber
+                    value={mech.airtank}
+                    format={(value) => toFixed(value, 2) + ' kPa'}
+                  />
                 )) ||
                   'Not Equipped'}
               </LabeledList.Item>
-              <LabeledList.Item label="Pilot">{mech.pilot || 'None'}</LabeledList.Item>
-              <LabeledList.Item label="Location">{mech.location || 'Unknown'}</LabeledList.Item>
-              <LabeledList.Item label="Active Equipment">{mech.active_equipment || 'None'}</LabeledList.Item>
+              <LabeledList.Item label="Pilot">
+                {mech.pilot || 'None'}
+              </LabeledList.Item>
+              <LabeledList.Item label="Location">
+                {mech.location || 'Unknown'}
+              </LabeledList.Item>
+              <LabeledList.Item label="Active Equipment">
+                {mech.active_equipment || 'None'}
+              </LabeledList.Item>
               {mech.cargo_space >= 0 && (
                 <LabeledList.Item label="Used Cargo Space">
-                  <Box color={(mech.cargo_space <= 30 && 'good') || (mech.cargo_space <= 70 && 'average') || 'bad'}>
+                  <Box
+                    color={
+                      (mech.cargo_space <= 30 && 'good') ||
+                      (mech.cargo_space <= 70 && 'average') ||
+                      'bad'
+                    }
+                  >
                     {mech.cargo_space}%
                   </Box>
                 </LabeledList.Item>

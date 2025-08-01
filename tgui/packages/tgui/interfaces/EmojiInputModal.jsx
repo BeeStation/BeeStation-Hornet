@@ -1,6 +1,7 @@
 import { KEY_BACKSPACE, KEY_ENTER, KEY_LEFT, KEY_RIGHT } from 'common/keycodes';
+
 import { useBackend, useLocalState } from '../backend';
-import { Box, Section, Button } from '../components';
+import { Box, Button, Section } from '../components';
 import { Window } from '../layouts';
 
 const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
@@ -11,9 +12,17 @@ export const EmojiInputModal = (_) => {
   const [emojis, setEmojis] = useLocalState('emoji_input_text', []);
   const [cursor_pos, setCursorPos] = useLocalState('emoji_input_cursor', 0);
 
-  const insert = (arr, index, newItem) => [...arr.slice(0, index), newItem, ...arr.slice(index)];
-  const remove = (arr, index) => [...arr.slice(0, index - 1), ...arr.slice(index)];
-  const submit = () => act('submit', { entry: emojis.map((emoji) => `:${emoji}:`).join(' ') });
+  const insert = (arr, index, newItem) => [
+    ...arr.slice(0, index),
+    newItem,
+    ...arr.slice(index),
+  ];
+  const remove = (arr, index) => [
+    ...arr.slice(0, index - 1),
+    ...arr.slice(index),
+  ];
+  const submit = () =>
+    act('submit', { entry: emojis.map((emoji) => `:${emoji}:`).join(' ') });
   const backspace = () => {
     if (cursor_pos > 0 && cursor_pos <= emojis.length) {
       setEmojis(remove(emojis, cursor_pos));
@@ -86,16 +95,19 @@ export const EmojiInputModal = (_) => {
               e.preventDefault();
               break;
           }
-        }}>
+        }}
+      >
         <Section title="Entry">
           <Button icon="arrow-left" onClick={left} />
           <Button icon="arrow-right" onClick={right} />
           <Button color="red" content="Backspace" onClick={backspace} />
           <div id="emoji-input">
             {insert(
-              emojis.map((emoji) => <div key={emoji} className={`emoji48x48 ${emoji}`} />),
+              emojis.map((emoji) => (
+                <div key={emoji} className={`emoji48x48 ${emoji}`} />
+              )),
               cursor_pos,
-              <div id="cursor" />
+              <div id="cursor" />,
             )}
           </div>
           <Button color="green" content="Submit" onClick={submit} />

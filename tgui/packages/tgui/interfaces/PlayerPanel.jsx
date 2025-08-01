@@ -1,12 +1,24 @@
 /* eslint-disable react/prefer-stateless-function */
+import { Component } from 'react';
+
 import { useBackend, useLocalState } from '../backend';
-import { Box, ColorBox, Input, Section, Table, Tooltip, Button, Flex, ByondUi, Tabs, NumberInput, Icon, Stack } from '../components';
+import {
+  Box,
+  Button,
+  ColorBox,
+  Flex,
+  Icon,
+  Input,
+  NumberInput,
+  Section,
+  Table,
+  Tabs,
+  Tooltip,
+} from '../components';
+import { ButtonCheckbox } from '../components/Button';
 import { COLORS } from '../constants';
 import { Window } from '../layouts';
 import { sanitizeText } from '../sanitize';
-import { ButtonCheckbox } from '../components/Button';
-import { Component } from 'react';
-import { capitalizeFirst } from 'common/string';
 
 /**
 --------------------
@@ -29,7 +41,7 @@ const TELEMETRY_COLOR_MAP = {
   '?': null,
   '...': null,
   'N/A': null,
-  'DC': '#aaaaaa',
+  DC: '#aaaaaa',
 };
 
 const KEY_REGEX =
@@ -38,11 +50,11 @@ const KEY_REGEX =
 const TIMESTAMP_PARSE_REGEX = /^\[(\d+):(\d+):(\d+)\]/;
 
 const LOG_TYPES_REVERSE = {
-  'Attack': [1],
-  'Say': [2, 4, 16, 1048576],
-  'Comms': [32, 64, 128, 256],
-  'OOC': [512, 1024],
-  'All': [1, 2, 4, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 1048576],
+  Attack: [1],
+  Say: [2, 4, 16, 1048576],
+  Comms: [32, 64, 128, 256],
+  OOC: [512, 1024],
+  All: [1, 2, 4, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 1048576],
 };
 
 const LOG_TYPES_LIST = Object.keys(LOG_TYPES_REVERSE);
@@ -72,7 +84,9 @@ const shallow_diff = (a, b, ignore = []) => {
 
 class PureComponent extends Component {
   shouldComponentUpdate(new_props, new_state) {
-    return shallow_diff(this.props, new_props) || shallow_diff(this.state, new_state);
+    return (
+      shallow_diff(this.props, new_props) || shallow_diff(this.state, new_state)
+    );
   }
 }
 
@@ -118,7 +132,14 @@ const healthToColor = (oxy, tox, burn, brute) => {
   return HEALTH_COLOR_BY_LEVEL[level];
 };
 
-const HEALTH_COLOR_BY_LEVEL = ['#17d568', '#2ecc71', '#e67e22', '#ed5100', '#e74c3c', '#ed2814'];
+const HEALTH_COLOR_BY_LEVEL = [
+  '#17d568',
+  '#2ecc71',
+  '#e67e22',
+  '#ed5100',
+  '#e74c3c',
+  '#ed2814',
+];
 
 /**
 --------------------
@@ -128,7 +149,13 @@ const HEALTH_COLOR_BY_LEVEL = ['#17d568', '#2ecc71', '#e67e22', '#ed5100', '#e74
 
 export const PlayerPanel = (_) => {
   const { data, act } = useBackend();
-  const { players = {}, selected_ckey, search_text, update_interval, metacurrency_name } = data;
+  const {
+    players = {},
+    selected_ckey,
+    search_text,
+    update_interval,
+    metacurrency_name,
+  } = data;
   const selected_player = players[selected_ckey];
   return (
     <Window
@@ -144,9 +171,19 @@ export const PlayerPanel = (_) => {
             value={search_text}
             onInput={(_, value) => act('set_search_text', { text: value })}
           />
-          <Button ml={1} content="Check Antags" onClick={() => act('check_antagonists')} />
-          <Button content="Silicon Laws" onClick={() => act('check_silicon_laws')} />
-          <Tooltip content="Auto-Update Interval (0 to disable)" position="bottom-start">
+          <Button
+            ml={1}
+            content="Check Antags"
+            onClick={() => act('check_antagonists')}
+          />
+          <Button
+            content="Silicon Laws"
+            onClick={() => act('check_silicon_laws')}
+          />
+          <Tooltip
+            content="Auto-Update Interval (0 to disable)"
+            position="bottom-start"
+          >
             <NumberInput
               unit="s"
               width="50px"
@@ -157,9 +194,14 @@ export const PlayerPanel = (_) => {
               step={1}
             />
           </Tooltip>
-          <Button icon="sync-alt" tooltip="Reload player data" onClick={() => act('update')} />
+          <Button
+            icon="sync-alt"
+            tooltip="Reload player data"
+            onClick={() => act('update')}
+          />
         </>
-      }>
+      }
+    >
       <style>
         {`
           .Button--fluid.button-ellipsis {
@@ -180,7 +222,11 @@ export const PlayerPanel = (_) => {
             </Section>
           </Flex.Item>
           {selected_player && (
-            <Flex.Item style={{ resize: 'vertical' }} mt={1} height={`${PANEL_HEIGHT}px`}>
+            <Flex.Item
+              style={{ resize: 'vertical' }}
+              mt={1}
+              height={`${PANEL_HEIGHT}px`}
+            >
               <Box height="100%">
                 <PlayerDetails
                   metacurrency_name={metacurrency_name}
@@ -235,10 +281,19 @@ class PlayerDetails extends Component {
 
   shouldComponentUpdate(new_props, new_state) {
     const { previous_names = [], log_client = {}, log_mob = {} } = this.props;
-    const { previous_names_new = [], log_client_new = {}, log_mob_new = {} } = new_props;
+    const {
+      previous_names_new = [],
+      log_client_new = {},
+      log_mob_new = {},
+    } = new_props;
     return (
-      shallow_diff(this.props, new_props, ['log_client', 'log_mob', 'previous_names']) ||
-      this.countEntries(log_client, log_mob) !== this.countEntries(log_client_new, log_mob_new) ||
+      shallow_diff(this.props, new_props, [
+        'log_client',
+        'log_mob',
+        'previous_names',
+      ]) ||
+      this.countEntries(log_client, log_mob) !==
+        this.countEntries(log_client_new, log_mob_new) ||
       previous_names.join('') !== previous_names_new.join('') ||
       shallow_diff(this.state, new_state)
     );
@@ -298,7 +353,11 @@ class PlayerDetails extends Component {
           />
         </Flex.Item>
         <Flex.Item>
-          <PlayerDetailsActionButtons ckey={ckey} is_cyborg={is_cyborg} has_mind={has_mind} />
+          <PlayerDetailsActionButtons
+            ckey={ckey}
+            is_cyborg={is_cyborg}
+            has_mind={has_mind}
+          />
         </Flex.Item>
         <Flex.Item grow={2} ml={1} minWidth="400px">
           <LogViewer ckey={ckey} log_mob={log_mob} log_client={log_client} />
@@ -310,10 +369,15 @@ class PlayerDetails extends Component {
 
 class PlayerDetailsSection extends Component {
   shouldComponentUpdate(new_props, new_state) {
-    if (this.props.previous_names.join('') !== new_props.previous_names.join('')) {
+    if (
+      this.props.previous_names.join('') !== new_props.previous_names.join('')
+    ) {
       return true;
     }
-    return shallow_diff(this.props, new_props, ['previous_names']) || shallow_diff(this.state, new_state);
+    return (
+      shallow_diff(this.props, new_props, ['previous_names']) ||
+      shallow_diff(this.state, new_state)
+    );
   }
 
   render() {
@@ -354,14 +418,29 @@ class PlayerDetailsSection extends Component {
               color: '#ffbf00',
               width: 'calc(100% - 25px)',
               display: 'inline-block',
-            }}>
+            }}
+          >
             <TooltipWrap text={ckey.charAt(0).toUpperCase() + ckey.slice(1)} />
           </Box>
-        }>
-        <Box style={{ whiteSpace: 'pre-wrap', padding: '5px', overflowWrap: 'anywhere' }}>
+        }
+      >
+        <Box
+          style={{
+            whiteSpace: 'pre-wrap',
+            padding: '5px',
+            overflowWrap: 'anywhere',
+          }}
+        >
           <strong>Mob Type:</strong>
           <br />
-          <Box color="#d8d8d8" style={{ display: 'inline-block', wordBreak: 'break-all', width: '100%' }}>
+          <Box
+            color="#d8d8d8"
+            style={{
+              display: 'inline-block',
+              wordBreak: 'break-all',
+              width: '100%',
+            }}
+          >
             {mob_type}
           </Box>
           <br />
@@ -403,7 +482,9 @@ class PlayerDetailsSection extends Component {
               <br />
             </>
           ) : null}
-          <hr style={{ border: '1px solid #ffbf00', height: 0, opacity: 0.8 }} />
+          <hr
+            style={{ border: '1px solid #ffbf00', height: 0, opacity: 0.8 }}
+          />
           <Box textAlign="center" bold>
             Names
           </Box>
@@ -421,7 +502,15 @@ class PlayerDetailsSection extends Component {
 class PlayerCKEYDetailsSection extends PureComponent {
   render() {
     const { act } = useBackend();
-    const { ckey, first_seen, register_date, ip, cid, related_accounts_ip, related_accounts_cid } = this.props;
+    const {
+      ckey,
+      first_seen,
+      register_date,
+      ip,
+      cid,
+      related_accounts_ip,
+      related_accounts_cid,
+    } = this.props;
     return (
       <Section
         fill
@@ -433,7 +522,8 @@ class PlayerCKEYDetailsSection extends PureComponent {
               minWidth: '115px',
               width: 'calc(100% - 25px)',
               display: 'inline-block',
-            }}>
+            }}
+          >
             CKEY Data
           </Box>
         }
@@ -448,7 +538,8 @@ class PlayerCKEYDetailsSection extends PureComponent {
             onClick={() => act('open_centcom_bans_database', { who: ckey })}
           />
         }
-        style={{ whiteSpace: 'pre-wrap' }}>
+        style={{ whiteSpace: 'pre-wrap' }}
+      >
         <strong>First Join:</strong>
         <br />
         <font color="#d8d8d8">{first_seen}</font>
@@ -465,11 +556,15 @@ class PlayerCKEYDetailsSection extends PureComponent {
         <br />
         <strong>Accounts (IP):</strong>
         <br />
-        <font color="#d8d8d8">{related_accounts_ip.split(', ').join('\n')}</font>
+        <font color="#d8d8d8">
+          {related_accounts_ip.split(', ').join('\n')}
+        </font>
         <br />
         <strong>Accounts (CID):</strong>
         <br />
-        <font color="#d8d8d8">{related_accounts_cid.split(', ').join('\n')}</font>
+        <font color="#d8d8d8">
+          {related_accounts_cid.split(', ').join('\n')}
+        </font>
       </Section>
     );
   }
@@ -479,32 +574,32 @@ class PlayerDetailsActionButtons extends PureComponent {
   render() {
     const { is_cyborg, has_mind, ckey } = this.props;
     let action_button_data = {
-      'Info': {
-        'PP': 'open_player_panel',
-        'Notes': 'open_notes',
-        'Logs': 'open_logs',
-        'Hours': 'open_hours',
-        'Telem': 'open_telemetry',
+      Info: {
+        PP: 'open_player_panel',
+        Notes: 'open_notes',
+        Logs: 'open_logs',
+        Hours: 'open_hours',
+        Telem: 'open_telemetry',
       },
-      'Message': {
-        'PM': 'pm',
-        'SM': 'subtle_message',
-        'HM': 'headset_message',
-        'NRT': 'narrate_to',
+      Message: {
+        PM: 'pm',
+        SM: 'subtle_message',
+        HM: 'headset_message',
+        NRT: 'narrate_to',
       },
-      'Action': {
-        'FLW': 'follow',
-        'VV': 'open_view_variables',
-        'Lang': 'open_language_panel',
-        'Heal': 'revive',
-        'Lobby': 'send_to_lobby',
+      Action: {
+        FLW: 'follow',
+        VV: 'open_view_variables',
+        Lang: 'open_language_panel',
+        Heal: 'revive',
+        Lobby: 'send_to_lobby',
       },
-      'Punish': {
-        'Kick': 'kick',
-        'Ban': 'open_ban',
-        'Smite': 'smite',
-        'Prison': 'jail',
-        'Cryo': 'force_cryo',
+      Punish: {
+        Kick: 'kick',
+        Ban: 'open_ban',
+        Smite: 'smite',
+        Prison: 'jail',
+        Cryo: 'force_cryo',
       },
     };
     if (!has_mind) {
@@ -516,9 +611,20 @@ class PlayerDetailsActionButtons extends PureComponent {
       action_button_data['Info']['Borg'] = 'open_cyborg_panel';
     }
     return (
-      <Flex height={`${PANEL_HEIGHT + 5}px`} wrap="wrap" direction="column" textAlign="center">
+      <Flex
+        height={`${PANEL_HEIGHT + 5}px`}
+        wrap="wrap"
+        direction="column"
+        textAlign="center"
+      >
         {Object.entries(action_button_data).map(([name, actions]) => (
-          <PlayerDetailsActionButtonContainer key={name} name={name} ckey={ckey} is_cyborg={is_cyborg} actions={actions} />
+          <PlayerDetailsActionButtonContainer
+            key={name}
+            name={name}
+            ckey={ckey}
+            is_cyborg={is_cyborg}
+            actions={actions}
+          />
         ))}
       </Flex>
     );
@@ -527,10 +633,16 @@ class PlayerDetailsActionButtons extends PureComponent {
 
 class PlayerDetailsActionButtonContainer extends Component {
   shouldComponentUpdate(new_props, new_state) {
-    if (Object.keys(this.props.actions).join('') !== Object.keys(new_props.actions).join('')) {
+    if (
+      Object.keys(this.props.actions).join('') !==
+      Object.keys(new_props.actions).join('')
+    ) {
       return true;
     }
-    return shallow_diff(this.props, new_props, ['actions']) || shallow_diff(this.state, new_state);
+    return (
+      shallow_diff(this.props, new_props, ['actions']) ||
+      shallow_diff(this.state, new_state)
+    );
   }
 
   render() {
@@ -541,7 +653,12 @@ class PlayerDetailsActionButtonContainer extends Component {
           <strong>{name}</strong>
         </Flex.Item>
         {Object.entries(actions).map(([key, action]) => (
-          <PlayerDetailsActionButton key={key} name={key} action={action} ckey={ckey} />
+          <PlayerDetailsActionButton
+            key={key}
+            name={key}
+            action={action}
+            ckey={ckey}
+          />
         ))}
       </Flex>
     );
@@ -554,7 +671,13 @@ class PlayerDetailsActionButton extends PureComponent {
     const { ckey, name, action } = this.props;
     return (
       <Flex.Item mt={0.35} ml={0.5}>
-        <Button fluid color="yellow" content={name} tooltip={action} onClick={() => act(action, { who: ckey })} />
+        <Button
+          fluid
+          color="yellow"
+          content={name}
+          tooltip={action}
+          onClick={() => act(action, { who: ckey })}
+        />
       </Flex.Item>
     );
   }
@@ -629,9 +752,13 @@ class LogViewer extends Component {
     const log_entries = [];
     for (let key of sorted) {
       if (!hideLogKey) {
-        log_entries.push(<LogEntryKey key={key} key_data={key} clientMode={clientLog} />);
+        log_entries.push(
+          <LogEntryKey key={key} key_data={key} clientMode={clientLog} />,
+        );
       }
-      log_entries.push(<LogEntryValue key={key + log_data[key]} value_data={log_data[key]} />);
+      log_entries.push(
+        <LogEntryValue key={key + log_data[key]} value_data={log_data[key]} />,
+      );
     }
 
     return (
@@ -660,13 +787,19 @@ class LogViewer extends Component {
           <Box inline>
             <Tabs>
               {LOG_TYPES_LIST.map((name) => (
-                <Tabs.Tab textAlign="center" key={name} selected={logMode === name} onClick={() => this.setLogMode(name)}>
+                <Tabs.Tab
+                  textAlign="center"
+                  key={name}
+                  selected={logMode === name}
+                  onClick={() => this.setLogMode(name)}
+                >
                   {name}
                 </Tabs.Tab>
               ))}
             </Tabs>
           </Box>
-        }>
+        }
+      >
         <Table>{log_entries}</Table>
       </Section>
     );
@@ -698,8 +831,13 @@ class LogEntryKey extends PureComponent {
                 clientMode
                   ? key_obj.character_name
                   : `${key_obj.ckey}${key_obj.external_display_name ? ` (${key_obj.external_display_name})` : ''}`
-              }>
-              <span>{clientMode ? key_obj.character_name : key_obj.external_display_name || key_obj.ckey}</span>
+              }
+            >
+              <span>
+                {clientMode
+                  ? key_obj.character_name
+                  : key_obj.external_display_name || key_obj.ckey}
+              </span>
             </Tooltip>
           </Table.Cell>
           <Table.Cell
@@ -710,13 +848,16 @@ class LogEntryKey extends PureComponent {
               whiteSpace: 'nowrap',
               textOverflow: 'ellipsis',
               overflow: 'hidden',
-            }}>
+            }}
+          >
             <Button
               fluid
               className="button-ellipsis"
               content={key_obj.area_name}
               tooltip={`Jump to: ${key_obj.area_name} (${key_obj.coordinates})`}
-              onClick={() => act('jump_to', { coords: key_obj.coordinates.split(', ') })}
+              onClick={() =>
+                act('jump_to', { coords: key_obj.coordinates.split(', ') })
+              }
             />
           </Table.Cell>
         </Table.Row>
@@ -753,8 +894,10 @@ const PlayerTable = (_) => {
       {Object.values(players)
         .sort((a, b) => a.ijob - b.ijob)
         .sort((a, b) => {
-          let aTime = a.living_playtime === undefined ? 999999 : a.living_playtime;
-          let bTime = b.living_playtime === undefined ? 999999 : b.living_playtime;
+          let aTime =
+            a.living_playtime === undefined ? 999999 : a.living_playtime;
+          let bTime =
+            b.living_playtime === undefined ? 999999 : b.living_playtime;
           if (hourSort === 1) {
             return aTime - bTime;
           } else if (hourSort === -1) {
@@ -767,7 +910,9 @@ const PlayerTable = (_) => {
             key={player.ckey}
             selected_ckey={selected_ckey}
             external_method_id={player.external_method_id}
-            formatted_external_display_name={player.formatted_external_display_name}
+            formatted_external_display_name={
+              player.formatted_external_display_name
+            }
             name={player.name}
             real_name={player.real_name}
             job={player.job}
@@ -807,7 +952,8 @@ class PlayerTableHeadings extends PureComponent {
           textAlign="right"
           style={{
             minWidth: '14em',
-          }}>
+          }}
+        >
           (PP) CKEY
         </Table.Cell>
         <Table.Cell
@@ -816,7 +962,8 @@ class PlayerTableHeadings extends PureComponent {
           textAlign="center"
           style={{
             minWidth: '5em',
-          }}>
+          }}
+        >
           <HourSortButton hourSort={hourSort} setHourSort={setHourSort} />
         </Table.Cell>
         <Table.Cell bold collapsing textAlign="center">
@@ -828,7 +975,8 @@ class PlayerTableHeadings extends PureComponent {
           textAlign="center"
           style={{
             minWidth: '9em',
-          }}>
+          }}
+        >
           Job/Role
         </Table.Cell>
         <Table.Cell bold>Name (FLW)</Table.Cell>
@@ -838,7 +986,8 @@ class PlayerTableHeadings extends PureComponent {
           textAlign="center"
           style={{
             minWidth: '12.5em',
-          }}>
+          }}
+        >
           Vitals (VV)
         </Table.Cell>
         <Table.Cell
@@ -846,7 +995,8 @@ class PlayerTableHeadings extends PureComponent {
           collapsing
           style={{
             minWidth: '12em',
-          }}>
+          }}
+        >
           Position (PM)
         </Table.Cell>
       </Table.Row>
@@ -863,7 +1013,13 @@ class HourSortButton extends Component {
     const { hourSort, setHourSort } = this.props;
     return (
       <Button
-        icon={hourSort === 1 ? 'chevron-up' : hourSort === -1 ? 'chevron-down' : null}
+        icon={
+          hourSort === 1
+            ? 'chevron-up'
+            : hourSort === -1
+              ? 'chevron-down'
+              : null
+        }
         fluid
         color="transparent"
         content="Hrs"
@@ -918,7 +1074,10 @@ class PlayerTableEntry extends PureComponent {
     return (
       <Table.Row height={2}>
         <Table.Cell collapsing textAlign="center">
-          <PlayerSelectButton is_selected={selected_ckey === ckey} ckey={ckey} />
+          <PlayerSelectButton
+            is_selected={selected_ckey === ckey}
+            ckey={ckey}
+          />
         </Table.Cell>
         <Table.Cell collapsing textAlign="center">
           <PlayerTelemetryButton telemetry={telemetry} ckey={ckey} />
@@ -937,16 +1096,28 @@ class PlayerTableEntry extends PureComponent {
         </Table.Cell>
         <Table.Cell collapsing textAlign="center">
           <PlayerTraitorPanelButton
-            antag_hud={antag_hud || (is_antagonist ? 'some_antag' : 'none_antag')}
+            antag_hud={
+              antag_hud || (is_antagonist ? 'some_antag' : 'none_antag')
+            }
             has_mind={has_mind}
             ckey={ckey}
           />
         </Table.Cell>
         <Table.Cell collapsing textAlign="center" style={ELLIPSIS_STYLE}>
-          <PlayerJobSelectButton job={job} ijob={ijob} ckey={ckey} is_selected={selected_ckey === ckey} />
+          <PlayerJobSelectButton
+            job={job}
+            ijob={ijob}
+            ckey={ckey}
+            is_selected={selected_ckey === ckey}
+          />
         </Table.Cell>
         <Table.Cell style={ELLIPSIS_STYLE}>
-          <PlayerNameButton name={name} real_name={real_name} ijob={ijob} ckey={ckey} />
+          <PlayerNameButton
+            name={name}
+            real_name={real_name}
+            ijob={ijob}
+            ckey={ckey}
+          />
         </Table.Cell>
         <Table.Cell collapsing textAlign="center">
           <PlayerVitalsButton
@@ -1012,7 +1183,13 @@ class PlayerTelemetryButton extends PureComponent {
 class PlayerCKEYButton extends PureComponent {
   render() {
     const { act } = useBackend();
-    const { telemetry, connected, ckey, external_method_id, formatted_external_display_name } = this.props;
+    const {
+      telemetry,
+      connected,
+      ckey,
+      external_method_id,
+      formatted_external_display_name,
+    } = this.props;
     return (
       <Button
         fluid
@@ -1026,7 +1203,11 @@ class PlayerCKEYButton extends PureComponent {
         content={
           external_method_id ? (
             <>
-              <Icon name={`tg-${external_method_id}`} mr={1} style={{ verticalAlign: 'middle' }} />
+              <Icon
+                name={`tg-${external_method_id}`}
+                mr={1}
+                style={{ verticalAlign: 'middle' }}
+              />
               {formatted_external_display_name}
             </>
           ) : (
@@ -1044,14 +1225,21 @@ class PlayerHoursButton extends PureComponent {
   render() {
     const { act } = useBackend();
     const { living_playtime, ckey } = this.props;
-    const has_playtime = living_playtime !== undefined && living_playtime !== null;
+    const has_playtime =
+      living_playtime !== undefined && living_playtime !== null;
     return (
       <Button
         textAlign={!has_playtime ? 'center' : 'right'}
         fluid
         content={has_playtime ? `${living_playtime}h` : 'N/A'}
         disabled={!has_playtime}
-        color={living_playtime >= 12 ? 'default' : living_playtime >= 1 ? 'orange' : 'danger'}
+        color={
+          living_playtime >= 12
+            ? 'default'
+            : living_playtime >= 1
+              ? 'orange'
+              : 'danger'
+        }
         onClick={() => act('open_hours', { who: ckey })}
       />
     );
@@ -1067,9 +1255,16 @@ class PlayerTraitorPanelButton extends PureComponent {
         style={{
           padding: '0px 2px',
         }}
-        content={<Box style={{ transform: 'translateY(2.5px)' }} className={`antag-hud16x16 antag-hud-${antag_hud}`} />}
+        content={
+          <Box
+            style={{ transform: 'translateY(2.5px)' }}
+            className={`antag-hud16x16 antag-hud-${antag_hud}`}
+          />
+        }
         tooltip={has_mind ? 'Open Traitor Panel' : 'Initialize Mind'}
-        onClick={() => act(has_mind ? 'open_traitor_panel' : 'init_mind', { who: ckey })}
+        onClick={() =>
+          act(has_mind ? 'open_traitor_panel' : 'init_mind', { who: ckey })
+        }
       />
     );
   }
@@ -1120,7 +1315,8 @@ class PlayerNameButton extends PureComponent {
 class PlayerVitalsButton extends PureComponent {
   render() {
     const { act } = useBackend();
-    const { ckey, oxydam, toxdam, burndam, brutedam, health, health_max } = this.props;
+    const { ckey, oxydam, toxdam, burndam, brutedam, health, health_max } =
+      this.props;
     return (
       <Button
         fluid
@@ -1130,7 +1326,12 @@ class PlayerVitalsButton extends PureComponent {
         content={
           <Box inline style={{ width: '100%' }}>
             {oxydam !== undefined ? (
-              <PlayerHumanVitals oxydam={oxydam} toxdam={toxdam} burndam={burndam} brutedam={brutedam} />
+              <PlayerHumanVitals
+                oxydam={oxydam}
+                toxdam={toxdam}
+                burndam={burndam}
+                brutedam={brutedam}
+              />
             ) : health !== undefined ? (
               <PlayerNonHumanVitals health={health} health_max={health_max} />
             ) : (
@@ -1147,7 +1348,10 @@ class PlayerHumanVitals extends PureComponent {
   render() {
     const { oxydam, toxdam, burndam, brutedam } = this.props;
     return (
-      <Box inline style={{ display: 'inline-flex', alignItems: 'center', width: '100%' }}>
+      <Box
+        inline
+        style={{ display: 'inline-flex', alignItems: 'center', width: '100%' }}
+      >
         <ColorBox color={healthToColor(oxydam, toxdam, burndam, brutedam)} />
         <Box inline style={{ flex: '1' }} />
         <Box inline style={{ overflow: 'hidden' }}>
@@ -1179,9 +1383,22 @@ class PlayerNonHumanVitals extends PureComponent {
   render() {
     const { health, health_max } = this.props;
     return (
-      <Box inline style={{ display: 'inline-flex', alignItems: 'center', width: '100%' }}>
+      <Box
+        inline
+        style={{ display: 'inline-flex', alignItems: 'center', width: '100%' }}
+      >
         <ColorBox
-          color={HEALTH_COLOR_BY_LEVEL[Math.min(Math.max(Math.ceil((health_max - health) / (health_max / 5)), 0), 5)]}
+          color={
+            HEALTH_COLOR_BY_LEVEL[
+              Math.min(
+                Math.max(
+                  Math.ceil((health_max - health) / (health_max / 5)),
+                  0,
+                ),
+                5,
+              )
+            ]
+          }
         />
         <Box inline style={{ flex: '1' }} />
         <Box inline style={{ overflow: 'hidden' }}>

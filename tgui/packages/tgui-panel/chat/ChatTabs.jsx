@@ -5,10 +5,11 @@
  */
 
 import { useDispatch, useSelector } from 'tgui/backend';
-import { Box, Tabs, Flex, Button } from 'tgui/components';
-import { changeChatPage, addChatPage } from './actions';
-import { selectChatPages, selectCurrentChatPage } from './selectors';
+import { Box, Button, Flex, Tabs } from 'tgui/components';
+
 import { openChatSettings } from '../settings/actions';
+import { addChatPage, changeChatPage } from './actions';
+import { selectChatPages, selectCurrentChatPage } from './selectors';
 
 const UnreadCountWidget = ({ value }) => (
   <Box
@@ -19,7 +20,8 @@ const UnreadCountWidget = ({ value }) => (
       lineHeight: '1.55em',
       backgroundColor: 'crimson',
       color: '#fff',
-    }}>
+    }}
+  >
     {Math.min(value, 99)}
   </Box>
 );
@@ -36,14 +38,20 @@ export const ChatTabs = (props) => {
             <Tabs.Tab
               key={page.id}
               selected={page === currentPage}
-              rightSlot={!page.hideUnreadCount && page.unreadCount > 0 && <UnreadCountWidget value={page.unreadCount} />}
+              rightSlot={
+                !page.hideUnreadCount &&
+                page.unreadCount > 0 && (
+                  <UnreadCountWidget value={page.unreadCount} />
+                )
+              }
               onClick={() =>
                 dispatch(
                   changeChatPage({
                     pageId: page.id,
-                  })
+                  }),
                 )
-              }>
+              }
+            >
               {page.name}
             </Tabs.Tab>
           ))}

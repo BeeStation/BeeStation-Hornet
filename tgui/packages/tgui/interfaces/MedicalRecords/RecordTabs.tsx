@@ -1,6 +1,15 @@
 import { filter, sortBy } from 'common/collections';
 import { useBackend, useLocalState } from 'tgui/backend';
-import { Stack, Input, Section, Tabs, NoticeBox, Box, Icon, Button } from 'tgui/components';
+import {
+  Box,
+  Icon,
+  Input,
+  NoticeBox,
+  Section,
+  Stack,
+  Tabs,
+} from 'tgui/components';
+
 import { JOB2ICON } from '../common/JobToIcon';
 import { isRecordMatch } from '../SecurityRecords/helpers';
 import { MedicalRecord, MedicalRecordData } from './types';
@@ -10,19 +19,25 @@ export const MedicalRecordTabs = (props) => {
   const { act, data } = useBackend<MedicalRecordData>();
   const { records = [] } = data;
 
-  const errorMessage = !records.length ? 'No records found.' : 'No match. Refine your search.';
+  const errorMessage = !records.length
+    ? 'No records found.'
+    : 'No match. Refine your search.';
 
   const [search, setSearch] = useLocalState('search', '');
 
   const sorted: MedicalRecord[] = sortBy(
     filter(records, (record) => isRecordMatch(record, search)),
-    (record) => record.name?.toLowerCase()
+    (record) => record.name?.toLowerCase(),
   );
 
   return (
     <Stack fill vertical>
       <Stack.Item>
-        <Input fluid onInput={(_, value) => setSearch(value)} placeholder="Name/Job/DNA" />
+        <Input
+          fluid
+          onInput={(_, value) => setSearch(value)}
+          placeholder="Name/Job/DNA"
+        />
       </Stack.Item>
       <Stack.Item grow>
         <Section fill scrollable>
@@ -30,7 +45,9 @@ export const MedicalRecordTabs = (props) => {
             {!sorted.length ? (
               <NoticeBox>{errorMessage}</NoticeBox>
             ) : (
-              sorted.map((record, index) => <CrewTab key={index} record={record} />)
+              sorted.map((record, index) => (
+                <CrewTab key={index} record={record} />
+              ))
             )}
           </Tabs>
         </Section>
@@ -41,7 +58,9 @@ export const MedicalRecordTabs = (props) => {
 
 /** Individual crew tab */
 const CrewTab = (props: { record: MedicalRecord }) => {
-  const [selectedRecord, setSelectedRecord] = useLocalState<MedicalRecord | undefined>('medicalRecord', undefined);
+  const [selectedRecord, setSelectedRecord] = useLocalState<
+    MedicalRecord | undefined
+  >('medicalRecord', undefined);
 
   const { act, data } = useBackend<MedicalRecordData>();
   const { character_preview_view } = data;
@@ -54,7 +73,10 @@ const CrewTab = (props: { record: MedicalRecord }) => {
       setSelectedRecord(undefined);
     } else {
       setSelectedRecord(record);
-      act('view_record', { character_preview_view: character_preview_view, record_ref: record_ref });
+      act('view_record', {
+        character_preview_view: character_preview_view,
+        record_ref: record_ref,
+      });
     }
   };
 
@@ -63,7 +85,8 @@ const CrewTab = (props: { record: MedicalRecord }) => {
       className="candystripe"
       label={name}
       onClick={() => selectRecord(record)}
-      selected={selectedRecord?.record_ref === record_ref}>
+      selected={selectedRecord?.record_ref === record_ref}
+    >
       <Box wrap>
         <Icon name={JOB2ICON[rank] || 'question'} /> {name}
       </Box>

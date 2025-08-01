@@ -1,13 +1,19 @@
 import { useBackend, useLocalState } from 'tgui/backend';
-import { PRINTOUT, SecurityRecordsData, SecurityRecord } from './types';
+
+import { PRINTOUT, SecurityRecord, SecurityRecordsData } from './types';
 
 /** We need an active reference and this a pain to rewrite */
 export const getSecurityRecord = () => {
-  const [selectedRecord] = useLocalState<SecurityRecord | undefined>('securityRecord', undefined);
+  const [selectedRecord] = useLocalState<SecurityRecord | undefined>(
+    'securityRecord',
+    undefined,
+  );
   if (!selectedRecord) return;
   const { data } = useBackend<SecurityRecordsData>();
   const { records = [] } = data;
-  const foundRecord = records.find((record) => record.record_ref === selectedRecord.record_ref);
+  const foundRecord = records.find(
+    (record) => record.record_ref === selectedRecord.record_ref,
+  );
   if (!foundRecord) return;
 
   return foundRecord;
@@ -51,7 +57,10 @@ export const getDefaultPrintHeader = (printType: PRINTOUT) => {
 };
 
 /** Returns a string description based on print type */
-export const getDefaultPrintDescription = (name: string, printType: PRINTOUT) => {
+export const getDefaultPrintDescription = (
+  name: string,
+  printType: PRINTOUT,
+) => {
   switch (printType) {
     case PRINTOUT.Rapsheet:
       return `A standard security record for ${name}.`;

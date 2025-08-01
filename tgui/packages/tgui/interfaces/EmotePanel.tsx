@@ -1,9 +1,9 @@
-import { useBackend, useLocalState } from '../backend';
-import { Window } from '../layouts';
-import { Button, Section, Flex, Icon, Box } from '../components';
 import { BooleanLike } from '../../common/react';
-import { SearchBar } from '../components/SearchBar';
 import { capitalize } from '../../common/string';
+import { useBackend, useLocalState } from '../backend';
+import { Box, Button, Flex, Icon, Section } from '../components';
+import { SearchBar } from '../components/SearchBar';
+import { Window } from '../layouts';
 
 type Emote = {
   key: string;
@@ -23,23 +23,47 @@ export const EmotePanelContent = (props) => {
   const { act, data } = useBackend<EmotePanelData>();
   const { emotes } = data;
 
-  const [filterVisible, toggleVisualFilter] = useLocalState<boolean>('filterVisible', false);
+  const [filterVisible, toggleVisualFilter] = useLocalState<boolean>(
+    'filterVisible',
+    false,
+  );
 
-  const [filterAudible, toggleAudibleFilter] = useLocalState<boolean>('filterAudible', false);
+  const [filterAudible, toggleAudibleFilter] = useLocalState<boolean>(
+    'filterAudible',
+    false,
+  );
 
-  const [filterSound, toggleSoundFilter] = useLocalState<boolean>('filterSound', false);
+  const [filterSound, toggleSoundFilter] = useLocalState<boolean>(
+    'filterSound',
+    false,
+  );
 
-  const [filterHands, toggleHandsFilter] = useLocalState<boolean>('filterHands', false);
+  const [filterHands, toggleHandsFilter] = useLocalState<boolean>(
+    'filterHands',
+    false,
+  );
 
-  const [filterUseParams, toggleUseParamsFilter] = useLocalState<boolean>('filterUseParams', false);
+  const [filterUseParams, toggleUseParamsFilter] = useLocalState<boolean>(
+    'filterUseParams',
+    false,
+  );
 
-  const [useParams, toggleUseParams] = useLocalState<boolean>('useParams', false);
+  const [useParams, toggleUseParams] = useLocalState<boolean>(
+    'useParams',
+    false,
+  );
 
   const [searchText, setSearchText] = useLocalState<string>('search_text', '');
 
-  const [showNames, toggleShowNames] = useLocalState<boolean>('showNames', true);
+  const [showNames, toggleShowNames] = useLocalState<boolean>(
+    'showNames',
+    true,
+  );
 
-  const [showIcons, toggleShowIcons] = useLocalState<boolean>('showIcons', false);
+  const [showIcons, toggleShowIcons] = useLocalState<boolean>(
+    'showIcons',
+    false,
+  );
 
   return (
     <Section>
@@ -93,26 +117,45 @@ export const EmotePanelContent = (props) => {
               onClick={() => toggleUseParamsFilter(!filterUseParams)}
             />
           </Flex>
-        }>
-        <SearchBar query={searchText} onSearch={setSearchText} placeholder="Search all emotes..." />
+        }
+      >
+        <SearchBar
+          query={searchText}
+          onSearch={setSearchText}
+          placeholder="Search all emotes..."
+        />
       </Section>
       <Section
-        title={searchText.length > 0 ? `Search results of "${searchText}"` : `All Emotes`}
+        title={
+          searchText.length > 0
+            ? `Search results of "${searchText}"`
+            : `All Emotes`
+        }
         buttons={
           <Flex>
             <Flex.Item>
-              <Button onClick={() => toggleShowNames(!showNames)}>{showNames ? 'Show Names' : 'Show Keys'}</Button>
-              <Button selected={showIcons} onClick={() => toggleShowIcons(!showIcons)}>
+              <Button onClick={() => toggleShowNames(!showNames)}>
+                {showNames ? 'Show Names' : 'Show Keys'}
+              </Button>
+              <Button
+                selected={showIcons}
+                onClick={() => toggleShowIcons(!showIcons)}
+              >
                 Show Icons
               </Button>
             </Flex.Item>
             <Flex.Item>
-              <Button icon="crosshairs" selected={useParams} onClick={() => toggleUseParams(!useParams)}>
+              <Button
+                icon="crosshairs"
+                selected={useParams}
+                onClick={() => toggleUseParams(!useParams)}
+              >
                 Use Params
               </Button>
             </Flex.Item>
           </Flex>
-        }>
+        }
+      >
         <Flex>
           <Flex.Item>
             {emotes
@@ -120,14 +163,18 @@ export const EmotePanelContent = (props) => {
                 (emote) =>
                   emote.key &&
                   (searchText.length > 0
-                    ? emote.key.toLowerCase().includes(searchText.toLowerCase()) ||
-                    emote.name.toLowerCase().includes(searchText.toLowerCase())
+                    ? emote.key
+                        .toLowerCase()
+                        .includes(searchText.toLowerCase()) ||
+                      emote.name
+                        .toLowerCase()
+                        .includes(searchText.toLowerCase())
                     : true) &&
                   (filterVisible ? emote.visible : true) &&
                   (filterAudible ? emote.audible : true) &&
                   (filterSound ? emote.sound : true) &&
                   (filterHands ? emote.hands : true) &&
-                  (filterUseParams ? emote.use_params : true)
+                  (filterUseParams ? emote.use_params : true),
               )
               .sort((a, b) => (a.name > b.name ? 1 : -1))
               .map((emote) => (
@@ -153,9 +200,12 @@ export const EmotePanelContent = (props) => {
                       emote_key: emote.key,
                       use_params: useParams,
                     })
-                  }>
+                  }
+                >
                   <Box inline width="50%">
-                    {showNames ? capitalize(emote.name.toLowerCase()) : emote.key}
+                    {showNames
+                      ? capitalize(emote.name.toLowerCase())
+                      : emote.key}
                   </Box>
                   {showIcons ? (
                     <EmoteIcons
@@ -183,11 +233,36 @@ const EmoteIcons = (props) => {
 
   return (
     <Box inline align="right">
-      <Icon name="eye" m={margin} color={!visible ? 'red' : ''} opacity={!visible ? 0.5 : 1} />
-      <Icon name="comment" m={margin} color={!audible ? 'red' : ''} opacity={!audible ? 0.5 : 1} />
-      <Icon name="volume-up" m={margin} color={!sound ? 'red' : ''} opacity={!sound ? 0.5 : 1} />
-      <Icon name="hand-paper" m={margin} color={!hands ? 'red' : ''} opacity={!hands ? 0.5 : 1} />
-      <Icon name="crosshairs" m={margin} color={!use_params ? 'red' : ''} opacity={!use_params ? 0.5 : 1} />
+      <Icon
+        name="eye"
+        m={margin}
+        color={!visible ? 'red' : ''}
+        opacity={!visible ? 0.5 : 1}
+      />
+      <Icon
+        name="comment"
+        m={margin}
+        color={!audible ? 'red' : ''}
+        opacity={!audible ? 0.5 : 1}
+      />
+      <Icon
+        name="volume-up"
+        m={margin}
+        color={!sound ? 'red' : ''}
+        opacity={!sound ? 0.5 : 1}
+      />
+      <Icon
+        name="hand-paper"
+        m={margin}
+        color={!hands ? 'red' : ''}
+        opacity={!hands ? 0.5 : 1}
+      />
+      <Icon
+        name="crosshairs"
+        m={margin}
+        color={!use_params ? 'red' : ''}
+        opacity={!use_params ? 0.5 : 1}
+      />
     </Box>
   );
 };

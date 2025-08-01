@@ -1,5 +1,14 @@
 import { useDispatch, useSelector } from 'tgui/backend';
-import { Button, Flex, Tabs, Section, Input, ScrollableBox, Divider } from 'tgui/components';
+import {
+  Button,
+  Divider,
+  Flex,
+  Input,
+  ScrollableBox,
+  Section,
+  Tabs,
+} from 'tgui/components';
+
 import { useSettings } from '../settings';
 import { selectStatPanel } from './selectors';
 import { StatStatus } from './StatStatus';
@@ -25,7 +34,13 @@ export const StatTabs = (props) => {
   return (
     <>
       <Flex.Item shrink={0}>
-        <div className="StatTabBackground">{settings.statTabMode === 'Scroll' ? <StatTabScroll /> : <StatTabWrap />}</div>
+        <div className="StatTabBackground">
+          {settings.statTabMode === 'Scroll' ? (
+            <StatTabScroll />
+          ) : (
+            <StatTabWrap />
+          )}
+        </div>
       </Flex.Item>
       <ScrollableBox overflowY="scroll" height="100%">
         <div className="StatBackground">
@@ -72,7 +87,8 @@ export const StatTabScroll = (props) => {
                     type: 'stat/setTab',
                     payload: tab,
                   })
-                }>
+                }
+              >
                 {tab}
               </Tabs.Tab>
             ))}
@@ -102,7 +118,8 @@ export const StatTabWrap = (props) => {
               type: 'stat/setTab',
               payload: tab,
             })
-          }>
+          }
+        >
           {tab}
         </Button>
       ))}

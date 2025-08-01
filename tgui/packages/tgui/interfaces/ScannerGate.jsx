@@ -1,9 +1,17 @@
 import { useBackend } from '../backend';
-import { Box, Button, LabeledList, Section, NumberInput } from '../components';
-import { InterfaceLockNoticeBox } from './common/InterfaceLockNoticeBox';
+import { Box, Button, LabeledList, NumberInput, Section } from '../components';
 import { Window } from '../layouts';
+import { InterfaceLockNoticeBox } from './common/InterfaceLockNoticeBox';
 
-const DISEASE_THEASHOLD_LIST = ['Positive', 'Harmless', 'Minor', 'Medium', 'Harmful', 'Dangerous', 'BIOHAZARD'];
+const DISEASE_THEASHOLD_LIST = [
+  'Positive',
+  'Harmless',
+  'Minor',
+  'Medium',
+  'Harmful',
+  'Dangerous',
+  'BIOHAZARD',
+];
 
 const TARGET_SPECIES_LIST = [
   {
@@ -64,7 +72,9 @@ export const ScannerGate = (props) => {
   return (
     <Window width={400} height={300}>
       <Window.Content scrollable>
-        <InterfaceLockNoticeBox onLockedStatusChange={() => act('toggle_lock')} />
+        <InterfaceLockNoticeBox
+          onLockedStatusChange={() => act('toggle_lock')}
+        />
         {!data.locked && <ScannerGateControl />}
       </Window.Content>
     </Window>
@@ -115,8 +125,15 @@ const ScannerGateControl = (props) => {
     <Section
       title={route.title}
       buttons={
-        scan_mode !== 'Off' && <Button icon="arrow-left" content="back" onClick={() => act('set_mode', { new_mode: 'Off' })} />
-      }>
+        scan_mode !== 'Off' && (
+          <Button
+            icon="arrow-left"
+            content="back"
+            onClick={() => act('set_mode', { new_mode: 'Off' })}
+          />
+        )
+      }
+    >
       <Component />
     </Section>
   );
@@ -128,13 +145,34 @@ const ScannerGateOff = (props) => {
     <>
       <Box mb={2}>Select a scanning mode below.</Box>
       <Box>
-        <Button content="Wanted" onClick={() => act('set_mode', { new_mode: 'Wanted' })} />
-        <Button content="Guns" onClick={() => act('set_mode', { new_mode: 'Guns' })} />
-        <Button content="Mindshield" onClick={() => act('set_mode', { new_mode: 'Mindshield' })} />
-        <Button content="Disease" onClick={() => act('set_mode', { new_mode: 'Disease' })} />
-        <Button content="Species" onClick={() => act('set_mode', { new_mode: 'Species' })} />
-        <Button content="Nutrition" onClick={() => act('set_mode', { new_mode: 'Nutrition' })} />
-        <Button content="Nanites" onClick={() => act('set_mode', { new_mode: 'Nanites' })} />
+        <Button
+          content="Wanted"
+          onClick={() => act('set_mode', { new_mode: 'Wanted' })}
+        />
+        <Button
+          content="Guns"
+          onClick={() => act('set_mode', { new_mode: 'Guns' })}
+        />
+        <Button
+          content="Mindshield"
+          onClick={() => act('set_mode', { new_mode: 'Mindshield' })}
+        />
+        <Button
+          content="Disease"
+          onClick={() => act('set_mode', { new_mode: 'Disease' })}
+        />
+        <Button
+          content="Species"
+          onClick={() => act('set_mode', { new_mode: 'Species' })}
+        />
+        <Button
+          content="Nutrition"
+          onClick={() => act('set_mode', { new_mode: 'Nutrition' })}
+        />
+        <Button
+          content="Nanites"
+          onClick={() => act('set_mode', { new_mode: 'Nanites' })}
+        />
       </Box>
     </>
   );
@@ -145,7 +183,10 @@ const ScannerGateWanted = (props) => {
   const { reverse } = data;
   return (
     <>
-      <Box mb={2}>Trigger if the person scanned {reverse ? 'does not have' : 'has'} any warrants for their arrest.</Box>
+      <Box mb={2}>
+        Trigger if the person scanned {reverse ? 'does not have' : 'has'} any
+        warrants for their arrest.
+      </Box>
       <ScannerGateMode />
     </>
   );
@@ -156,7 +197,10 @@ const ScannerGateGuns = (props) => {
   const { reverse } = data;
   return (
     <>
-      <Box mb={2}>Trigger if the person scanned {reverse ? 'does not have' : 'has'} any guns.</Box>
+      <Box mb={2}>
+        Trigger if the person scanned {reverse ? 'does not have' : 'has'} any
+        guns.
+      </Box>
       <ScannerGateMode />
     </>
   );
@@ -167,7 +211,10 @@ const ScannerGateMindshield = (props) => {
   const { reverse } = data;
   return (
     <>
-      <Box mb={2}>Trigger if the person scanned {reverse ? 'does not have' : 'has'} a mindshield.</Box>
+      <Box mb={2}>
+        Trigger if the person scanned {reverse ? 'does not have' : 'has'} a
+        mindshield.
+      </Box>
       <ScannerGateMode />
     </>
   );
@@ -179,7 +226,8 @@ const ScannerGateDisease = (props) => {
   return (
     <>
       <Box mb={2}>
-        Trigger if the person scanned {reverse ? 'does not have' : 'has'} a disease equal or worse than {disease_threshold}.
+        Trigger if the person scanned {reverse ? 'does not have' : 'has'} a
+        disease equal or worse than {disease_threshold}.
       </Box>
       <Box mb={2}>
         {DISEASE_THEASHOLD_LIST.map((threshold) => (
@@ -209,8 +257,10 @@ const ScannerGateSpecies = (props) => {
   return (
     <>
       <Box mb={2}>
-        Trigger if the person scanned is {reverse ? 'not' : ''} of the {species.name} species.
-        {target_species === 'zombie' && ' All zombie types will be detected, including dormant zombies.'}
+        Trigger if the person scanned is {reverse ? 'not' : ''} of the{' '}
+        {species.name} species.
+        {target_species === 'zombie' &&
+          ' All zombie types will be detected, including dormant zombies.'}
       </Box>
       <Box mb={2}>
         {TARGET_SPECIES_LIST.map((species) => (
@@ -240,7 +290,8 @@ const ScannerGateNutrition = (props) => {
   return (
     <>
       <Box mb={2}>
-        Trigger if the person scanned {reverse ? 'does not have' : 'has'} the {nutrition.name} nutrition level.
+        Trigger if the person scanned {reverse ? 'does not have' : 'has'} the{' '}
+        {nutrition.name} nutrition level.
       </Box>
       <Box mb={2}>
         {TARGET_NUTRITION_LIST.map((nutrition) => (
@@ -267,7 +318,8 @@ const ScannerGateNanites = (props) => {
   return (
     <>
       <Box mb={2}>
-        Trigger if the person scanned {reverse ? 'does not have' : 'has'} nanite cloud {nanite_cloud}.
+        Trigger if the person scanned {reverse ? 'does not have' : 'has'} nanite
+        cloud {nanite_cloud}.
       </Box>
       <Box mb={2}>
         <LabeledList>

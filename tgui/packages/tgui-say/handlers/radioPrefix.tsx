@@ -1,4 +1,9 @@
-import { RADIO_PREFIXES, CHANNELS, NO_RADIO_CHANNELS, RESTRICTED_CHANNELS } from '../constants';
+import {
+  CHANNELS,
+  NO_RADIO_CHANNELS,
+  RADIO_PREFIXES,
+  RESTRICTED_CHANNELS,
+} from '../constants';
 import { Modal } from '../types';
 
 /**
@@ -11,7 +16,10 @@ import { Modal } from '../types';
 export const handleRadioPrefix = function (this: Modal) {
   const { channel } = this.state;
   const { radioPrefix, showRadioPrefix, value } = this.fields;
-  if (NO_RADIO_CHANNELS.includes(CHANNELS[channel]) || RESTRICTED_CHANNELS.includes(CHANNELS[channel])) {
+  if (
+    NO_RADIO_CHANNELS.includes(CHANNELS[channel]) ||
+    RESTRICTED_CHANNELS.includes(CHANNELS[channel])
+  ) {
     return;
   }
   if (!value || value.length < 1) {
@@ -58,7 +66,10 @@ export const handleRadioPrefix = function (this: Modal) {
     if (showRadioPrefix) {
       this.fields.radioPrefix = '';
       let parsedValue = value.startsWith('.') ? value.replace('.', ':') : value;
-      if (radioPrefix?.length > 0 && parsedValue.startsWith(radioPrefix.slice(0, 2))) {
+      if (
+        radioPrefix?.length > 0 &&
+        parsedValue.startsWith(radioPrefix.slice(0, 2))
+      ) {
         this.fields.value = '';
       }
       this.setState({
@@ -81,7 +92,10 @@ export const handleRadioPrefix = function (this: Modal) {
     }
     this.fields.radioPrefix = '';
     let parsedValue = value.startsWith('.') ? value.replace('.', ':') : value;
-    if (radioPrefix?.length > 0 && parsedValue.startsWith(radioPrefix.slice(0, 2))) {
+    if (
+      radioPrefix?.length > 0 &&
+      parsedValue.startsWith(radioPrefix.slice(0, 2))
+    ) {
       this.fields.value = value.slice(2);
     }
     this.setState({

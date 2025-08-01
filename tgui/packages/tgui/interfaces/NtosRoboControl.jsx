@@ -1,5 +1,11 @@
 import { useBackend } from '../backend';
-import { Button, LabeledList, ProgressBar, Section, Stack } from '../components';
+import {
+  Button,
+  LabeledList,
+  ProgressBar,
+  Section,
+  Stack,
+} from '../components';
 import { NtosWindow } from '../layouts';
 
 const getMuleByRef = (mules, ref) => {
@@ -15,8 +21,12 @@ export const NtosRoboControl = (props) => {
         <Section title="Robot Control Console">
           <LabeledList>
             <LabeledList.Item label="ID Card">{id_owner}</LabeledList.Item>
-            <LabeledList.Item label="Bots In Range">{data.botcount}</LabeledList.Item>
-            <LabeledList.Item label="Bots in range">{data.botcount}</LabeledList.Item>
+            <LabeledList.Item label="Bots In Range">
+              {data.botcount}
+            </LabeledList.Item>
+            <LabeledList.Item label="Bots in range">
+              {data.botcount}
+            </LabeledList.Item>
           </LabeledList>
         </Section>
         {bots?.map((robot) => (
@@ -34,7 +44,8 @@ const RobotInfo = (props) => {
   // Get a mule object
   const mule = !!robot.mule_check && getMuleByRef(mules, robot.bot_ref);
   // Color based on type of a robot
-  const color = robot.mule_check === 1 ? 'rgba(110, 75, 14, 1)' : 'rgba(74, 59, 140, 1)';
+  const color =
+    robot.mule_check === 1 ? 'rgba(110, 75, 14, 1)' : 'rgba(74, 59, 140, 1)';
   return (
     <Section
       title={robot.name}
@@ -74,7 +85,8 @@ const RobotInfo = (props) => {
             />
           </>
         )
-      }>
+      }
+    >
       <Stack>
         <Stack.Item grow={1} basis={0}>
           <LabeledList>
@@ -83,9 +95,13 @@ const RobotInfo = (props) => {
             <LabeledList.Item label="Status">{robot.mode}</LabeledList.Item>
             {mule && (
               <>
-                <LabeledList.Item label="Loaded Cargo">{data.load || 'N/A'}</LabeledList.Item>
+                <LabeledList.Item label="Loaded Cargo">
+                  {data.load || 'N/A'}
+                </LabeledList.Item>
                 <LabeledList.Item label="Home">{mule.home}</LabeledList.Item>
-                <LabeledList.Item label="Destination">{mule.dest || 'N/A'}</LabeledList.Item>
+                <LabeledList.Item label="Destination">
+                  {mule.dest || 'N/A'}
+                </LabeledList.Item>
                 <LabeledList.Item label="Power">
                   <ProgressBar
                     value={mule.power}
