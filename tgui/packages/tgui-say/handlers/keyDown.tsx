@@ -5,8 +5,7 @@ import {
   KEY_TAB,
   KEY_UP,
 } from 'common/keycodes';
-
-import { getHistoryLength, isAlphanumeric } from '../helpers';
+import { isAlphanumeric, getHistoryLength } from '../helpers';
 import { Modal } from '../types';
 
 /**

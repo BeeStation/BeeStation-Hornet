@@ -1,5 +1,4 @@
 import { sortBy } from 'common/collections';
-
 import { useLocalState } from '../../backend';
 import { Button, Flex, Grid, Section, Tabs } from '../../components';
 

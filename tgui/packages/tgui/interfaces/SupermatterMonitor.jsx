@@ -1,7 +1,6 @@
 import { sortBy } from 'common/collections';
 import { flow } from 'common/fp';
 import { toFixed } from 'common/math';
-
 import { useBackend } from '../backend';
 import {
   Button,
@@ -11,7 +10,7 @@ import {
   Stack,
   Table,
 } from '../components';
-import { getGasColor } from '../constants';
+import { getGasColor, getGasLabel } from '../constants';
 import { Window } from '../layouts';
 
 const logScale = (value) => Math.log2(16 + Math.max(0, value)) - 4;

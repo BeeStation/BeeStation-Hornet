@@ -1,4 +1,4 @@
-import { CheckboxInput, FeatureToggle } from '../base';
+import { FeatureToggle, CheckboxInput } from '../base';
 
 export const crew_objectives: FeatureToggle = {
   name: 'Crew Objectives',

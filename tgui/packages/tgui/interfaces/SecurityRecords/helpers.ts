@@ -1,6 +1,5 @@
 import { useBackend, useLocalState } from 'tgui/backend';
-
-import { PRINTOUT, SecurityRecord, SecurityRecordsData } from './types';
+import { PRINTOUT, SecurityRecordsData, SecurityRecord } from './types';
 
 /** We need an active reference and this a pain to rewrite */
 export const getSecurityRecord = () => {

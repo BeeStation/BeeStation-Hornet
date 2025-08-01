@@ -1,5 +1,4 @@
 import { BooleanLike } from 'common/react';
-
 import { Button } from '../../../../../components';
 import { Feature, FeatureValueProps } from '../base';
 

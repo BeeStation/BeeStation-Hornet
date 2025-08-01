@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Box, Button, LabeledList, NumberInput, Section } from '../components';
+import { Button, Box, NumberInput, Section, LabeledList } from '../components';
 import { Window } from '../layouts';
 
 export const RadioactiveMicrolaser = (props) => {

@@ -9,13 +9,12 @@ import {
   Stack,
   Table,
 } from 'tgui/components';
-
 import { CharacterPreview } from '../common/CharacterPreview';
 import { EditableText } from '../common/EditableText';
-import { CRIMESTATUS2COLOR, CRIMESTATUS2DESC } from './constants';
 import { CrimeWatcher } from './CrimeWatcher';
-import { getSecurityRecord } from './helpers';
 import { RecordPrint } from './RecordPrint';
+import { CRIMESTATUS2COLOR, CRIMESTATUS2DESC } from './constants';
+import { getSecurityRecord } from './helpers';
 import { SecurityRecordsData } from './types';
 
 /** Views a selected record. */

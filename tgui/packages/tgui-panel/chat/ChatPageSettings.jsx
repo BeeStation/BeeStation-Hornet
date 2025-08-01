@@ -13,7 +13,6 @@ import {
   Section,
   Stack,
 } from 'tgui/components';
-
 import {
   moveChatPageLeft,
   moveChatPageRight,

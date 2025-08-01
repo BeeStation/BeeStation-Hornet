@@ -4,21 +4,20 @@
  * @license MIT
  */
 
-import { useDispatch, useLocalState } from 'tgui/backend';
-import { Button, Section, Stack } from 'tgui/components';
-import { Box, Divider, DraggableControl } from 'tgui/components';
+import { Button, Stack, Section } from 'tgui/components';
 import { Pane } from 'tgui/layouts';
-import { logger } from 'tgui/logging';
-
 import { NowPlayingWidget, useAudio } from './audio';
+import { StatTabs } from './stat';
 import { ChatPanel, ChatTabs } from './chat';
 import { useGame } from './game';
 import { Notifications } from './Notifications';
 import { PingIndicator } from './ping';
 import { ReconnectButtons } from './reconnect';
 import { SettingsPanel, useSettings } from './settings';
+import { useLocalState, useDispatch } from 'tgui/backend';
+import { Box, Divider, DraggableControl } from 'tgui/components';
 import { updateSettings } from './settings/actions';
-import { StatTabs } from './stat';
+import { logger } from 'tgui/logging';
 
 export const Panel = (props) => {
   const audio = useAudio();

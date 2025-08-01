@@ -1,7 +1,7 @@
 // NSV13
 
 import { useBackend } from '../backend';
-import { ProgressBar, Section, Slider } from '../components';
+import { Section, ProgressBar, Slider } from '../components';
 import { Window } from '../layouts';
 
 export const RbmkControlRods = (props) => {

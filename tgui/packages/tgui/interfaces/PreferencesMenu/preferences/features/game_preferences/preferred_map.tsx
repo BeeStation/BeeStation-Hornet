@@ -1,6 +1,5 @@
 import { multiline } from 'common/string';
-
-import { FeatureButtonedDropdownInput, FeatureChoiced } from '../base';
+import { FeatureChoiced, FeatureButtonedDropdownInput } from '../base';
 
 export const preferred_map: FeatureChoiced = {
   name: 'Preferred map',

@@ -10,14 +10,13 @@ import {
   Stack,
   TrackOutsideClicks,
 } from 'tgui/components';
-
 import {
   CheckboxInput,
-  Feature,
-  FeatureChoicedServerData,
   FeatureColorInput,
-  FeatureToggle,
+  Feature,
   FeatureValueProps,
+  FeatureChoicedServerData,
+  FeatureToggle,
 } from '../base';
 
 export const asaycolor: Feature<string> = {

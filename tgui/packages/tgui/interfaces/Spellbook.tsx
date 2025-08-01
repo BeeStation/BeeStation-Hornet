@@ -1,7 +1,5 @@
 import { BooleanLike } from 'common/react';
 import { multiline } from 'common/string';
-import { ReactNode } from 'react';
-
 import { useBackend, useLocalState } from '../backend';
 import {
   Box,
@@ -16,6 +14,7 @@ import {
   Stack,
 } from '../components';
 import { Window } from '../layouts';
+import { ReactNode } from 'react';
 
 enum SpellCategory {
   Offensive = 'Offensive',

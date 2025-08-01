@@ -6,7 +6,7 @@
 
 import { toFixed } from 'common/math';
 import { capitalize } from 'common/string';
-import { useDispatch, useLocalState, useSelector } from 'tgui/backend';
+import { useLocalState, useDispatch, useSelector } from 'tgui/backend';
 import {
   Box,
   Button,
@@ -21,23 +21,22 @@ import {
   Tabs,
   TextArea,
 } from 'tgui/components';
-
 import { ChatPageSettings } from '../chat';
 import { clearChat, rebuildChat, saveChatToDisk } from '../chat/actions';
 import { THEMES } from '../themes';
 import {
-  addHighlightSetting,
   changeSettingsTab,
+  updateSettings,
+  addHighlightSetting,
   removeHighlightSetting,
   updateHighlightSetting,
-  updateSettings,
 } from './actions';
-import { FONTS, MAX_HIGHLIGHT_SETTINGS, SETTINGS_TABS } from './constants';
+import { SETTINGS_TABS, FONTS, MAX_HIGHLIGHT_SETTINGS } from './constants';
 import {
   selectActiveTab,
-  selectHighlightSettingById,
-  selectHighlightSettings,
   selectSettings,
+  selectHighlightSettings,
+  selectHighlightSettingById,
 } from './selectors';
 
 export const SettingsPanel = (props) => {

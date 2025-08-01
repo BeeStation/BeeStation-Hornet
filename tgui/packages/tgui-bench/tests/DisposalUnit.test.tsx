@@ -1,7 +1,8 @@
-import { backendUpdate, setGlobalStore } from 'tgui/backend';
-import { DisposalUnit } from 'tgui/interfaces/DisposalUnit';
-import { createRenderer } from 'tgui/renderer';
 import { configureStore } from 'tgui/store';
+
+import { DisposalUnit } from 'tgui/interfaces/DisposalUnit';
+import { backendUpdate, setGlobalStore } from 'tgui/backend';
+import { createRenderer } from 'tgui/renderer';
 
 const store = configureStore({ sideEffects: false });
 

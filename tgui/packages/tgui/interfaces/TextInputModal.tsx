@@ -1,11 +1,10 @@
-import { isEscape, KEY } from 'common/keys';
-
-import { decodeHtmlEntities } from '../../common/string';
+import { Loader } from './common/Loader';
+import { InputButtons } from './common/InputButtons';
 import { useBackend, useLocalState } from '../backend';
+import { decodeHtmlEntities } from '../../common/string';
+import { isEscape, KEY } from 'common/keys';
 import { Box, Section, Stack, TextArea } from '../components';
 import { Window } from '../layouts';
-import { InputButtons } from './common/InputButtons';
-import { Loader } from './common/Loader';
 
 type TextInputData = {
   large_buttons: boolean;

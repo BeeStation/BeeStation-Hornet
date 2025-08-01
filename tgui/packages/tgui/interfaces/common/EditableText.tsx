@@ -1,5 +1,5 @@
 import { useBackend, useLocalState } from 'tgui/backend';
-import { Box, Button, Input, Stack } from 'tgui/components';
+import { Input, Stack, Box, Button } from 'tgui/components';
 
 type Props = {
   color?: string;

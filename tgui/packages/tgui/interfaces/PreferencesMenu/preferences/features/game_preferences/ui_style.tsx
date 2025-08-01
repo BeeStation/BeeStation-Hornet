@@ -1,14 +1,13 @@
 import { classes } from 'common/react';
-
-import { Box, Dropdown, Stack } from '../../../../../components';
 import {
-  CheckboxInput,
   FeatureChoiced,
   FeatureChoicedServerData,
-  FeatureToggle,
   FeatureValueProps,
   sortChoices,
+  FeatureToggle,
+  CheckboxInput,
 } from '../base';
+import { Box, Dropdown, Stack } from '../../../../../components';
 
 const UIStyleInput = (
   props: FeatureValueProps<string, string, FeatureChoicedServerData>,
