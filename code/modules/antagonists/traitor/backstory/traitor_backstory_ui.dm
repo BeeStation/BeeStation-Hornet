@@ -49,7 +49,7 @@
 	data["code"] = islist(uplink?.unlock_code) ? english_list(uplink?.unlock_code) : uplink?.unlock_code
 	data["failsafe_code"] = islist(uplink?.failsafe_code) ? english_list(uplink?.failsafe_code) : uplink?.failsafe_code
 	data["has_uplink"] = uplink ? TRUE : FALSE
-    // Sets permanent unlock text ONCE
+	// Sets permanent unlock text ONCE
 	// Without this, when the uplink was taken from the PDA the message would also dissapear.
 	if(!permanent_unlock_text && uplink && uplink.unlock_text)
 		permanent_unlock_text = uplink.unlock_text
