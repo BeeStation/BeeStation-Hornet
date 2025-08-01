@@ -163,8 +163,8 @@
 	// Register power usage on the APC
 	use_power(power_to_use)
 
-	// Charge cell only by power actually used
-	cell_charging.give(power_to_use)
+	// Charge cell only by power used minus 15% (power transfer loss)
+	cell_charging.give(power_to_use POWER_TRANSFER_LOSS)
 
 	update_appearance()
 
