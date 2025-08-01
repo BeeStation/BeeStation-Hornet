@@ -3,26 +3,26 @@
 	select_name = "kill"
 
 /obj/item/ammo_casing/energy/laser/gatlinggun
-	e_cost = 0.1 KILOWATT
+	shots_per_kw = 100
 
 /obj/item/ammo_casing/energy/lasergun
 	projectile_type = /obj/projectile/beam/laser
-	e_cost = 0.7 KILOWATT
+	shots_per_kw = 10
 	select_name = "kill"
 
 /obj/item/ammo_casing/energy/lasergun/repeater
-	e_cost = 0.5 KILOWATT
+	shots_per_kw = 2
 
 /obj/item/ammo_casing/energy/lasergun/captain
-	e_cost = 0.1 KILOWATT // Older technology is less efficient
+	shots_per_kw = 8
 
 /obj/item/ammo_casing/energy/lasergun/old
 	projectile_type = /obj/projectile/beam/laser
-	e_cost = 0.2 KILOWATT
+	shots_per_kw = 8
 	select_name = "kill"
 
 /obj/item/ammo_casing/energy/laser/hos
-	e_cost = 0.12 KILOWATT
+	shots_per_kw = 8
 
 /obj/item/ammo_casing/energy/laser/practice
 	projectile_type = /obj/projectile/beam/practice
@@ -48,7 +48,7 @@
 
 /obj/item/ammo_casing/energy/laser/pulse
 	projectile_type = /obj/projectile/beam/pulse
-	e_cost = 0.2 KILOWATT
+	shots_per_kw = 5
 	select_name = "DESTROY"
 	fire_sound = 'sound/weapons/pulse.ogg'
 
@@ -78,7 +78,7 @@
 
 /obj/item/ammo_casing/energy/xray
 	projectile_type = /obj/projectile/beam/xray
-	e_cost = 0.5 KILOWATT
+	shots_per_kw = 5
 	fire_sound = 'sound/weapons/laser3.ogg'
 
 /obj/item/ammo_casing/energy/mindflayer

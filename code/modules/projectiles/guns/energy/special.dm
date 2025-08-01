@@ -78,7 +78,7 @@
 	item_state = "c20r"
 	w_class = WEIGHT_CLASS_BULKY
 	ammo_type = list(/obj/item/ammo_casing/energy/meteor)
-	cell_type = "/obj/item/stock_parts/cell/potato"
+	cell_type = /obj/item/stock_parts/cell/potato
 	clumsy_check = 0 //Admin spawn only, might as well let clowns use it.
 	selfcharge = 1
 	automatic_charge_overlays = FALSE

@@ -56,6 +56,13 @@
 /obj/item/gun/energy/get_cell()
 	return cell
 
+/obj/item/gun/energy/examine(mob/user)
+	. = ..()
+	if(get_cell())
+		var/obj/item/ammo_casing/energy/shot = ammo_type[select]	//Finds cost of selected shot
+		if(shot)
+			. += "Shots to battery depletion: <b><span class='cfc_orange'>[floor(cell.charge / shot.e_cost)]</span></b>"
+
 /obj/item/gun/energy/add_weapon_description()
 	AddElement(/datum/element/weapon_description, attached_proc = PROC_REF(add_notes_energy))
 

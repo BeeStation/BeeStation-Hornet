@@ -1,7 +1,7 @@
 /obj/item/ammo_casing/energy/bolt
 	projectile_type = /obj/projectile/energy/bolt
 	select_name = "bolt"
-	e_cost = 0.05 KILOWATT
+	shots_per_kw = 5
 	fire_sound = 'sound/weapons/genhit.ogg'
 
 /obj/item/ammo_casing/energy/bolt/radbolt
