@@ -414,16 +414,16 @@
 			continue
 		#ifdef UNIT_TESTS
 		if (!has_gags && !icon_exists(initial(item.icon), icon_state))
-				var/icon_file = initial(item.icon)
-				var/icon_states_string
-				for (var/an_icon_state in icon_states(icon_file))
-					if (!icon_states_string)
-						icon_states_string = "[json_encode(an_icon_state)]([text_ref(an_icon_state)])"
-					else
-						icon_states_string += ", [json_encode(an_icon_state)]([text_ref(an_icon_state)])"
+			var/icon_file = initial(item.icon)
+			var/icon_states_string
+			for (var/an_icon_state in icon_states(icon_file))
+				if (!icon_states_string)
+					icon_states_string = "[json_encode(an_icon_state)]([text_ref(an_icon_state)])"
+				else
+					icon_states_string += ", [json_encode(an_icon_state)]([text_ref(an_icon_state)])"
 
-				stack_trace("[item] does not have a valid icon state, icon=[icon_file], icon_state=[json_encode(icon_state)]([text_ref(icon_state)]), icon_states=[icon_states_string]")
-				continue
+			stack_trace("[item] does not have a valid icon state, icon=[icon_file], icon_state=[json_encode(icon_state)]([text_ref(icon_state)]), icon_states=[icon_states_string]")
+			continue
 		#endif
 
 		var/imgid = replacetext(replacetext("[item]", "/obj/item/", ""), "/", "-")
