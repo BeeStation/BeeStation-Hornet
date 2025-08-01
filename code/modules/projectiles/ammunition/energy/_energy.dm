@@ -3,7 +3,7 @@
 	desc = "The part of the gun that makes the laser go pew."
 	caliber = "energy"
 	projectile_type = /obj/projectile/energy
-	var/e_cost = 0	//The amount of energy a cell needs to expend to create this shot. This is calculated automatically based on shots per kw
+	var/e_cost = 0	//The amount of energy a cell needs to expend to create this shot. This is calculated automatically based on shots per 10 kW
 	var/shots_per_kw = 10
 	var/select_name = "energy"
 	fire_sound = 'sound/weapons/laser.ogg'
@@ -13,4 +13,4 @@
 /obj/item/ammo_casing/energy/Initialize(mapload)
 	. = ..()
 	if(shots_per_kw)
-		e_cost = 1 KILOWATT / shots_per_kw
+		e_cost = 10 KILOWATT / shots_per_kw
