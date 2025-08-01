@@ -6,7 +6,6 @@
 
 import { classes } from 'common/react';
 import { ReactNode } from 'react';
-
 import { BoxProps, computeBoxClassName, computeBoxProps } from './Box';
 
 const FA_OUTLINE_REGEX = /-o$/;

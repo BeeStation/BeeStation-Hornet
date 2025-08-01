@@ -1,9 +1,8 @@
-import { isEscape, KEY } from 'common/keys';
-
+import { Loader } from './common/Loader';
 import { useBackend, useLocalState } from '../backend';
+import { isEscape, KEY } from 'common/keys';
 import { Autofocus, Box, Button, Flex, Section, Stack } from '../components';
 import { Window } from '../layouts';
-import { Loader } from './common/Loader';
 
 type AlertModalData = {
   autofocus: boolean;

@@ -1,8 +1,7 @@
-import { BooleanLike } from 'common/react';
-
 import { useBackend, useLocalState } from '../backend';
-import { BlockQuote, Box, Button, Section, Stack, Tabs } from '../components';
+import { Section, Stack, Box, Tabs, Button, BlockQuote } from '../components';
 import { Window } from '../layouts';
+import { BooleanLike } from 'common/react';
 
 const hereticRed = {
   color: '#e03c3c',

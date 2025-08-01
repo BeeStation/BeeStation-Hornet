@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Box, Button, Divider, Section } from '../components';
+import { Button, Divider, Box, Section } from '../components';
 import { Window } from '../layouts';
 
 export const Objective = (props) => {

@@ -1,5 +1,4 @@
 import { decodeHtmlEntities } from 'common/string';
-
 import { resolveAsset } from '../assets';
 import { useBackend, useLocalState } from '../backend';
 import { Box, Button, LabeledList, Section, Table } from '../components';

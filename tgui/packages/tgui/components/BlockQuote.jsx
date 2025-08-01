@@ -5,7 +5,6 @@
  */
 
 import { classes } from 'common/react';
-
 import { Box } from './Box';
 
 export const BlockQuote = (props) => {

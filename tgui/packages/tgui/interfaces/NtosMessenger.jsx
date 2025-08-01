@@ -1,14 +1,13 @@
-import { createSearch } from 'common/string';
-
 import { useBackend, useLocalState } from '../backend';
+import { createSearch } from 'common/string';
 import {
   Box,
   Button,
   Dimmer,
   Icon,
-  Input,
   Section,
   Stack,
+  Input,
 } from '../components';
 import { NtosWindow } from '../layouts';
 

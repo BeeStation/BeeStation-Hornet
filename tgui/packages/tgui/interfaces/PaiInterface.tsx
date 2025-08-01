@@ -1,12 +1,11 @@
 import { BooleanLike } from 'common/react';
 import { capitalizeAll } from 'common/string';
-
 import { useBackend, useSharedState } from '../backend';
 import {
   Box,
   Button,
-  Icon,
   LabeledList,
+  Icon,
   NoticeBox,
   ProgressBar,
   Section,

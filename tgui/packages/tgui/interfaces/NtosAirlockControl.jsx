@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Button, Icon, LabeledList, Section } from '../components';
+import { Section, LabeledList, Button, Icon } from '../components';
 import { NtosWindow } from '../layouts';
 
 export const NtosAirlockControl = (_) => {

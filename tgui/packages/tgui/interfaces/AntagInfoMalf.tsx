@@ -1,10 +1,9 @@
-import { BooleanLike } from 'common/react';
-import { multiline } from 'common/string';
-
 import { useBackend, useLocalState } from '../backend';
-import { BlockQuote, Button, Section, Stack, Tabs } from '../components';
-import { Window } from '../layouts';
+import { multiline } from 'common/string';
 import { GenericUplink } from './Uplink';
+import { BlockQuote, Button, Section, Stack, Tabs } from '../components';
+import { BooleanLike } from 'common/react';
+import { Window } from '../layouts';
 
 const allystyle = {
   fontWeight: 'bold',

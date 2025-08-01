@@ -1,9 +1,8 @@
 import { sortBy } from 'common/collections';
 import { classes } from 'common/react';
 import { PropsWithChildren, ReactNode } from 'react';
-
 import { useBackend } from '../../backend';
-import { Box, Button, Dropdown, Flex, Stack, Tooltip } from '../../components';
+import { Box, Button, Dropdown, Stack, Flex, Tooltip } from '../../components';
 import {
   createSetPreference,
   Job,

@@ -1,9 +1,8 @@
-import { isEscape, KEY } from 'common/keys';
-import { clamp } from 'common/math';
 import { classes } from 'common/react';
+import { clamp } from 'common/math';
 import { Component, createRef } from 'react';
-
 import { Box } from './Box';
+import { isEscape, KEY } from 'common/keys';
 
 const DEFAULT_MIN = 0;
 const DEFAULT_MAX = 10000;

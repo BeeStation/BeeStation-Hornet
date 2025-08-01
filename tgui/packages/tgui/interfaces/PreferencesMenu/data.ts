@@ -1,5 +1,4 @@
 import { BooleanLike } from 'common/react';
-
 import { sendAct } from '../../backend';
 import { Gender } from './preferences/gender';
 

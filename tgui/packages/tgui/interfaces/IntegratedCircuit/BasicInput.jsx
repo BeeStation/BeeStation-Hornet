@@ -1,4 +1,4 @@
-import { Button, Stack } from '../../components';
+import { Stack, Button } from '../../components';
 
 export const BasicInput = (props) => {
   const { children, name, setValue, defaultValue, value } = props;

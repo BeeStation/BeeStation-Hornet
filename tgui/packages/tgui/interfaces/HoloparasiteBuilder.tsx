@@ -1,45 +1,44 @@
-import {
-  contrast,
-  hexToHsva,
-  hexToRgba,
-  HsvaColor,
-  hsvaToHex,
-  RgbColor,
-} from 'common/color';
-import { BooleanLike } from 'common/react';
-
+import { Window } from '../layouts';
 import { useBackend, useLocalState } from '../backend';
 import {
-  Autofocus,
-  Box,
-  BufferedTextArea,
   Button,
-  Collapsible,
-  ColorBox,
-  Dimmer,
-  Flex,
-  Icon,
-  Input,
   LabeledList,
-  ProgressBar,
   Section,
   Slider,
   Stack,
+  Input,
+  ProgressBar,
+  ColorBox,
+  Dimmer,
+  Icon,
+  Box,
   Tabs,
   Tooltip,
+  Flex,
+  BufferedTextArea,
+  Collapsible,
+  Autofocus,
 } from '../components';
-import { Window } from '../layouts';
 import { ColorSelector } from './ColorPickerModal';
+import { BooleanLike } from 'common/react';
 import {
-  Ability,
   AbilityThreshold,
+  Ability,
   AvailableAbilities,
-  is_actually_a_threshold,
-  sort_abilities,
-  sort_thresholds,
   StatThreshold,
+  is_actually_a_threshold,
   threshold_title,
+  sort_thresholds,
+  sort_abilities,
 } from './common/Holoparasite';
+import {
+  hexToHsva,
+  HsvaColor,
+  hsvaToHex,
+  hexToRgba,
+  RgbColor,
+  contrast,
+} from 'common/color';
 
 /**
  * The validity of an input field.

@@ -1,22 +1,21 @@
-import { range, sortBy } from 'common/collections';
-import { isEscape, KEY } from 'common/keys';
 import { Component } from 'react';
-
-import { resolveAsset } from '../../assets';
-import { useBackend } from '../../backend';
 import {
   Box,
   Button,
-  Dimmer,
   KeyListener,
   Stack,
   Tooltip,
   TrackOutsideClicks,
+  Dimmer,
 } from '../../components';
-import { KeyEvent } from '../../events';
-import { fetchRetry } from '../../http';
+import { resolveAsset } from '../../assets';
 import { PreferencesMenuData } from './data';
+import { useBackend } from '../../backend';
+import { range, sortBy } from 'common/collections';
+import { KeyEvent } from '../../events';
 import { TabbedMenu } from './TabbedMenu';
+import { fetchRetry } from '../../http';
+import { isEscape, KEY } from 'common/keys';
 
 const CATEGORY_SCALES = {
   AI: '100%',

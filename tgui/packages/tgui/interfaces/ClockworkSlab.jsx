@@ -1,19 +1,18 @@
 import { Fragment } from 'react';
-
 import { useBackend, useLocalState } from '../backend';
 import {
+  Icon,
   Box,
   Button,
-  Collapsible,
-  Divider,
-  Grid,
-  Icon,
-  ProgressBar,
   Section,
   Table,
+  Divider,
+  Grid,
+  ProgressBar,
+  Collapsible,
 } from '../components';
-import { TableRow } from '../components/Table';
 import { Window } from '../layouts';
+import { TableRow } from '../components/Table';
 
 export const convertPower = (power_in) => {
   const units = ['W', 'kW', 'MW', 'GW'];

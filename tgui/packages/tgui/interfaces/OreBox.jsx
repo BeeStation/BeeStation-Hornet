@@ -1,7 +1,6 @@
 import { toTitleCase } from 'common/string';
-
-import { useBackend } from '../backend';
 import { Box, Button, Section, Table } from '../components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 export const OreBox = (props) => {

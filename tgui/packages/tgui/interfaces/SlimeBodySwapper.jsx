@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Box, Button, LabeledList, Section } from '../components';
+import { Section, LabeledList, Button, Box } from '../components';
 import { Window } from '../layouts';
 
 export const BodyEntry = (props) => {

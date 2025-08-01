@@ -1,6 +1,5 @@
-import { classes } from 'common/react';
-
 import { useBackend, useLocalState } from '../backend';
+import { classes } from 'common/react';
 import {
   Button,
   Dimmer,
@@ -9,6 +8,7 @@ import {
   LabeledList,
   Section,
   Tabs,
+  Box,
 } from '../components';
 import { Window } from '../layouts';
 

@@ -1,5 +1,6 @@
-import { useBackend } from '../backend';
 import { Box, Button, Icon, LabeledList, Section } from '../components';
+
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type AirlockControllerData = {

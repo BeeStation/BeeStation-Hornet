@@ -1,9 +1,8 @@
-import { Component } from 'react';
-
 import { computeBoxProps } from './Box';
-import { Button } from './Button';
-import { ProgressBar } from './ProgressBar';
 import { Stack } from './Stack';
+import { ProgressBar } from './ProgressBar';
+import { Button } from './Button';
+import { Component } from 'react';
 
 const ZOOM_MIN_VAL = 0.5;
 const ZOOM_MAX_VAL = 1.5;

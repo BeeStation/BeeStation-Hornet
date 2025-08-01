@@ -1,15 +1,14 @@
 import { sortBy } from 'common/collections';
 import { flow } from 'common/fp';
-
 import { useBackend } from '../backend';
 import {
   Box,
   Button,
   Dropdown,
+  Section,
   Knob,
   LabeledControls,
   LabeledList,
-  Section,
 } from '../components';
 import { Window } from '../layouts';
 

@@ -1,7 +1,6 @@
-import { classes } from 'common/react';
-
 import { useBackend } from '../backend';
-import { Box, Button, LabeledList, Section, Stack } from '../components';
+import { classes } from 'common/react';
+import { Button, Box, LabeledList, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
 export const LanguageMenu = (props) => {

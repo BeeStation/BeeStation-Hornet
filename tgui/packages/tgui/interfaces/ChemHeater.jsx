@@ -1,5 +1,4 @@
 import { round, toFixed } from 'common/math';
-
 import { useBackend } from '../backend';
 import {
   AnimatedNumber,

@@ -1,10 +1,9 @@
-import { BooleanLike } from 'common/react';
-
 import { useBackend } from '../backend';
 import { BlockQuote, Section, Stack } from '../components';
+import { BooleanLike } from 'common/react';
 import { Window } from '../layouts';
+import { ObjectivesSection, Objective } from './common/ObjectiveSection';
 import { AntagInfoHeader } from './common/AntagInfoHeader';
-import { Objective, ObjectivesSection } from './common/ObjectiveSection';
 
 const badstyle = {
   color: 'red',

@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Button, Dropdown, Input, Section, Stack } from '../components';
+import { Stack, Section, Input, Button, Dropdown } from '../components';
 import { Window } from '../layouts';
 
 export const CircuitModule = (props) => {

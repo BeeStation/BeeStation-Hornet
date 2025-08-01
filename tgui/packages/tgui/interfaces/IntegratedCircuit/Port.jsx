@@ -1,6 +1,5 @@
+import { Stack, Icon } from '../../components';
 import { Component, createRef } from 'react';
-
-import { Icon, Stack } from '../../components';
 import { DisplayName } from './DisplayName';
 
 export class Port extends Component {

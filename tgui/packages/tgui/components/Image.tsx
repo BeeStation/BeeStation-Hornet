@@ -1,5 +1,4 @@
 import { Component } from 'react';
-
 import { BoxProps, computeBoxProps } from './Box';
 
 type Props = Partial<{

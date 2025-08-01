@@ -1,5 +1,4 @@
 import { toFixed } from 'common/math';
-
 import { useBackend } from '../backend';
 import { Box, Button, Section } from '../components';
 import { Window } from '../layouts';

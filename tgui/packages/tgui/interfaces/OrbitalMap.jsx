@@ -2,24 +2,23 @@
 
 // Made by powerfulbacon
 
-import { useRef } from 'react';
-
-import { useBackend, useLocalState } from '../backend';
 import {
   Box,
   Button,
-  Divider,
-  DraggableClickableControl,
-  Dropdown,
-  Flex,
-  NoticeBox,
-  OrbitalMapComponent,
-  OrbitalMapSvg,
-  ProgressBar,
   Section,
   Table,
+  DraggableClickableControl,
+  Dropdown,
+  Divider,
+  NoticeBox,
+  ProgressBar,
+  Flex,
+  OrbitalMapComponent,
+  OrbitalMapSvg,
 } from '../components';
+import { useBackend, useLocalState } from '../backend';
 import { Window } from '../layouts';
+import { useRef } from 'react';
 
 export const OrbitalMap = (props) => {
   const { act, data } = useBackend();

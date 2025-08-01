@@ -1,7 +1,6 @@
 import { KEY_BACKSPACE, KEY_ENTER, KEY_LEFT, KEY_RIGHT } from 'common/keycodes';
-
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Section } from '../components';
+import { Box, Section, Button } from '../components';
 import { Window } from '../layouts';
 
 const clamp = (num, min, max) => Math.min(Math.max(num, min), max);

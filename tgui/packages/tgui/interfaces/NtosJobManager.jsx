@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Box, Button, Dimmer, NoticeBox, Section, Table } from '../components';
+import { Button, Section, Table, NoticeBox, Dimmer, Box } from '../components';
 import { NtosWindow } from '../layouts';
 
 export const NtosJobManager = (props) => {

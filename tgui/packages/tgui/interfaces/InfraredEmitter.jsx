@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Button, LabeledList, Section } from '../components';
+import { Button, Section, LabeledList } from '../components';
 import { Window } from '../layouts';
 
 export const InfraredEmitter = (props) => {

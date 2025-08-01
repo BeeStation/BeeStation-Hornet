@@ -1,7 +1,6 @@
 import { map, sortBy } from 'common/collections';
 import { flow } from 'common/fp';
 import { toFixed } from 'common/math';
-
 import { useBackend, useLocalState } from '../backend';
 import {
   Box,
@@ -14,6 +13,8 @@ import {
   ProgressBar,
   Section,
   Table,
+  Dimmer,
+  Stack,
 } from '../components';
 import { Window } from '../layouts';
 

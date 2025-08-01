@@ -4,11 +4,10 @@
  * @license MIT
  */
 
-import { isEscape, KEY } from 'common/keys';
 import { classes } from 'common/react';
 import { Component, createRef } from 'react';
-
 import { Box } from './Box';
+import { isEscape, KEY } from 'common/keys';
 
 export const toInputValue = (value) =>
   typeof value !== 'number' && typeof value !== 'string' ? '' : String(value);

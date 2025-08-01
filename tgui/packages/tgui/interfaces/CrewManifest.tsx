@@ -1,14 +1,13 @@
-import { classes } from 'common/react';
-
 import { sortBy } from '../../common/collections';
+import { classes } from 'common/react';
 import { useBackend } from '../backend';
 import {
   Box,
-  CollapsibleSection,
-  Flex,
   Icon,
+  CollapsibleSection,
   Table,
   Tooltip,
+  Flex,
 } from '../components';
 import { Window } from '../layouts';
 

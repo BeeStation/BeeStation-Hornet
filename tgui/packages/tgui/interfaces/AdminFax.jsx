@@ -1,15 +1,15 @@
 import { useBackend, useLocalState } from '../backend';
 import {
-  Box,
-  Button,
-  Divider,
-  Dropdown,
-  Input,
-  Knob,
-  NumberInput,
   Section,
+  Box,
+  Dropdown,
+  Button,
+  Input,
   TextArea,
+  Divider,
+  NumberInput,
   Tooltip,
+  Knob,
 } from '../components';
 import { Window } from '../layouts';
 

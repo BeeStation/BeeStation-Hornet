@@ -1,5 +1,5 @@
-import { NtosWindow } from '../layouts';
 import { SignalerContent } from './Signaler';
+import { NtosWindow } from '../layouts';
 
 export const NtosSignaller = (props) => {
   return (

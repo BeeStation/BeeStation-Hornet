@@ -1,6 +1,6 @@
-import { useBackend } from '../backend';
-import { Section, Stack } from '../components';
 import { NtosWindow } from '../layouts';
+import { useBackend } from '../backend';
+import { Stack, Section } from '../components';
 
 type Data = {
   src?: string;

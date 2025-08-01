@@ -1,22 +1,21 @@
 import { round } from 'common/math';
 import { classes } from 'common/react';
-import { createSearch } from 'common/string';
-
 import { useBackend, useLocalState } from '../../backend';
 import {
   Box,
   Button,
-  Divider,
   Flex,
-  Icon,
-  Input,
   Section,
   Stack,
   Tooltip,
+  Divider,
+  Input,
+  Icon,
 } from '../../components';
 import { PreferencesMenuData } from './data';
-import { AntagonistData } from './data';
 import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
+import { AntagonistData } from './data';
+import { createSearch } from 'common/string';
 
 const AntagSelection = (props: {
   antagonists: AntagonistData[];
