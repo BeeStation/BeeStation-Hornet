@@ -1,7 +1,8 @@
-import { NtosWindow } from '../layouts';
-import { useBackend, useLocalState } from '../backend';
-import { Section, Table, Button } from '../components';
 import { Component, createRef } from 'react';
+
+import { useBackend, useLocalState } from '../backend';
+import { Button, Section, Table } from '../components';
+import { NtosWindow } from '../layouts';
 
 export const NtosLogViewer = (props) => {
   const { act, data } = useBackend();

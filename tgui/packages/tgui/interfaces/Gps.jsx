@@ -1,7 +1,7 @@
 import { map, sortBy } from 'common/collections';
-import { vecLength, vecSubtract } from 'common/vector';
 import { flow } from 'common/fp';
 import { clamp } from 'common/math';
+import { vecLength, vecSubtract } from 'common/vector';
 
 import { useBackend } from '../backend';
 import { Box, Button, Icon, LabeledList, Section, Table } from '../components';

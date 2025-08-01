@@ -1,9 +1,10 @@
 import { sortBy } from 'common/collections';
 import { classes } from 'common/react';
+import { capitalize } from 'common/string';
+
 import { useBackend, useLocalState } from '../backend';
 import { Box, Button, LabeledList, Section, Stack } from '../components';
 import { Window } from '../layouts';
-import { capitalize } from 'common/string';
 
 export const FishCatalog = (props) => {
   const { act, data } = useBackend();

@@ -1,7 +1,7 @@
-import { Button, LabeledList, NumberInput, Section } from '../components';
 import { BooleanLike } from 'common/react';
 
 import { useBackend } from '../backend';
+import { Button, LabeledList, NumberInput, Section } from '../components';
 import { getGasLabel } from '../constants';
 import { Window } from '../layouts';
 

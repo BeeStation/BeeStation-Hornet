@@ -1,8 +1,8 @@
 // NSV13
 
+import { useBackend } from '../backend';
 import { Button, ProgressBar, Section } from '../components';
 import { NtosWindow } from '../layouts';
-import { useBackend } from '../backend';
 
 export const NtosGhostRbmkStats = (props) => {
   const { act, data } = useBackend();

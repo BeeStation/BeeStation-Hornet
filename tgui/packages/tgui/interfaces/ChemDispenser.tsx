@@ -1,13 +1,14 @@
 import { toFixed } from 'common/math';
-import { toTitleCase } from 'common/string';
+import { classes } from 'common/react';
+import { storage } from 'common/storage';
+import { createLogger } from 'tgui/logging';
+
 import { useBackend, useLocalState, useSharedState } from '../backend';
 import {
   AnimatedNumber,
   Box,
   Button,
-  Dimmer,
   Divider,
-  Flex,
   Icon,
   Input,
   LabeledList,
@@ -16,14 +17,9 @@ import {
   Section,
   Stack,
   Table,
-  TextArea,
   Tooltip,
 } from '../components';
 import { Window } from '../layouts';
-import { classes } from 'common/react';
-import { require } from 'tgui-dev-server/require';
-import { createLogger } from 'tgui/logging';
-import { storage } from 'common/storage';
 
 type Reagent = {
   name: string;

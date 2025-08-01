@@ -2,11 +2,10 @@ import { useBackend } from '../backend';
 import {
   Box,
   Button,
+  Dropdown,
   LabeledList,
   ProgressBar,
   Section,
-  ColorBox,
-  Dropdown,
 } from '../components';
 import { NtosWindow } from '../layouts';
 

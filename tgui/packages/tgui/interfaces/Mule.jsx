@@ -2,12 +2,11 @@ import { useBackend } from '../backend';
 import {
   Button,
   Dropdown,
-  Grid,
+  Flex,
   Input,
   LabeledList,
   ProgressBar,
   Section,
-  Flex,
 } from '../components';
 import { Window } from '../layouts';
 import { InterfaceLockNoticeBox } from './common/InterfaceLockNoticeBox';

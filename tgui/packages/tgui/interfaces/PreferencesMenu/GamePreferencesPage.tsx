@@ -1,13 +1,14 @@
 import { binaryInsertWith, sortBy } from 'common/collections';
+import { createSearch } from 'common/string';
 import { ReactNode } from 'react';
+import { ButtonCheckbox } from 'tgui/components/Button';
+
 import { useBackend, useLocalState } from '../../backend';
-import { Box, Flex, Tooltip, Section, Input, Icon } from '../../components';
+import { Box, Flex, Icon, Input, Section, Tooltip } from '../../components';
 import { PreferencesMenuData } from './data';
 import features from './preferences/features';
 import { FeatureValueInput } from './preferences/features/base';
-import { createSearch } from 'common/string';
 import { TabbedMenu } from './TabbedMenu';
-import { ButtonCheckbox } from 'tgui/components/Button';
 
 const CATEGORY_SCALES = {};
 

@@ -1,13 +1,14 @@
 import { sortBy } from 'common/collections';
+
 import { useBackend } from '../backend';
 import {
   Box,
   Button,
   Dropdown,
-  Section,
   Knob,
   LabeledControls,
   LabeledList,
+  Section,
 } from '../components';
 import { Window } from '../layouts';
 

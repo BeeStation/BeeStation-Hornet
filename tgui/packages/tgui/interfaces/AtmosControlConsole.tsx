@@ -1,3 +1,6 @@
+import { useState } from 'react';
+
+import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -7,9 +10,6 @@ import {
   Section,
   Stack,
 } from '../components';
-
-import { useState } from 'react';
-import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import {
   AtmosHandbookContent,

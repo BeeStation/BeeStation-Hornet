@@ -1,22 +1,22 @@
 import { sort, sortBy } from 'common/collections';
 import { BooleanLike, classes } from 'common/react';
 import { ComponentType, createElement, ReactNode } from 'react';
+import { DropdownPartialProps } from 'tgui/components/Dropdown';
 
 import { sendAct, useBackend, useLocalState } from '../../../../backend';
 import {
   Box,
   Button,
   Dropdown,
+  Flex,
   Input,
   NumberInput,
   Stack,
-  Flex,
   Tooltip,
 } from '../../../../components';
 import { createSetPreference, PreferencesMenuData } from '../../data';
 import { ServerPreferencesFetcher } from '../../ServerPreferencesFetcher';
 import features from '.';
-import { DropdownPartialProps } from 'tgui/components/Dropdown';
 
 export const sortChoices = (array: [string, ReactNode][]) =>
   sortBy(array, ([name]) => name);
@@ -53,14 +53,14 @@ export type FeatureValueProps<
   TReceiving,
   TSending = TReceiving,
   TServerData = undefined,
-> = {
+> = Readonly<{
   act: typeof sendAct;
   featureId: string;
   handleSetValue: (newValue: TSending) => void;
   serverData: TServerData | undefined;
   shrink?: boolean;
   value?: TReceiving;
-};
+}>;
 
 export const FeatureColorInput = (props: FeatureValueProps<string>) => {
   return (

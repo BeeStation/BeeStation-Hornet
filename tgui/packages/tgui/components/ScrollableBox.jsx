@@ -1,6 +1,7 @@
-import { Box } from './Box';
 import { useEffect, useRef } from 'react';
 import { addScrollableNode, removeScrollableNode } from 'tgui/events';
+
+import { Box } from './Box';
 
 export const ScrollableBox = (props) => {
   const { children, ...rest } = props;

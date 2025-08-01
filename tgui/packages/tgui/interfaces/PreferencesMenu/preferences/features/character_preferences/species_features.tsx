@@ -1,9 +1,9 @@
 import {
-  FeatureColorInput,
   Feature,
-  FeatureChoiced,
-  FeatureValueProps,
   FeatureButtonedDropdownInput,
+  FeatureChoiced,
+  FeatureColorInput,
+  FeatureValueProps,
   StandardizedPalette,
 } from '../base';
 

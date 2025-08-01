@@ -1,13 +1,13 @@
 import { useBackend, useLocalState } from '../backend';
 import {
+  Box,
   Button,
   Dimmer,
-  Stack,
-  Box,
-  Section,
-  Tabs,
   Flex,
   Icon,
+  Section,
+  Stack,
+  Tabs,
   Tooltip,
 } from '../components';
 import { Window } from '../layouts';

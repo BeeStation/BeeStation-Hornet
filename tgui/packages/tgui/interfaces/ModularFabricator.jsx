@@ -1,21 +1,22 @@
+import { round } from 'common/math';
+import { capitalize, createSearch } from 'common/string';
+import { Fragment } from 'react';
+
 import { useBackend, useLocalState } from '../backend';
 import {
   Box,
   Button,
-  Input,
-  NoticeBox,
-  ProgressBar,
-  Section,
   Divider,
   Flex,
-  Table,
   Grid,
+  Input,
+  NoticeBox,
   NumberInput,
+  ProgressBar,
+  Section,
+  Table,
 } from '../components';
 import { Window } from '../layouts';
-import { Fragment } from 'react';
-import { capitalize, createSearch } from 'common/string';
-import { round } from 'common/math';
 
 const MAX_SEARCH_RESULTS = 25;
 

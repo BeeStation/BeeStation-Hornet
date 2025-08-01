@@ -1,7 +1,8 @@
-import { CHANNELS, RADIO_PREFIXES, WINDOW_SIZES } from '../constants';
 import { KEY_0, KEY_Z } from 'common/keycodes';
 import { classes } from 'common/react';
 import { debounce, throttle } from 'common/timer';
+
+import { CHANNELS, RADIO_PREFIXES, WINDOW_SIZES } from '../constants';
 
 /**
  * Window functions

@@ -7,6 +7,7 @@
 import { isEscape, KEY } from 'common/keys';
 import { clamp } from 'common/math';
 import { Component, createRef } from 'react';
+
 import { AnimatedNumber } from './AnimatedNumber';
 
 const DEFAULT_UPDATE_RATE = 400;

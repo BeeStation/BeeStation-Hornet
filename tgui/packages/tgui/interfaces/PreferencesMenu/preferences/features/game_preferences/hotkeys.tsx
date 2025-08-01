@@ -1,8 +1,8 @@
 import {
   CheckboxInputInverse,
+  Feature,
   FeatureButtonedDropdownInput,
   FeatureToggle,
-  Feature,
 } from '../base';
 
 export const hotkeys: FeatureToggle = {

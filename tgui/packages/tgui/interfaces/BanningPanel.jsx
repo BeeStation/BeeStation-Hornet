@@ -1,17 +1,17 @@
 /* eslint-disable react/prefer-stateless-function */
 import { useBackend } from '../backend';
 import {
-  Button,
-  Input,
-  TextArea,
-  LabeledList,
-  Section,
   Box,
-  Dropdown,
-  Stack,
+  Button,
   Collapsible,
+  Dropdown,
   Flex,
+  Input,
+  LabeledList,
   NumberInput,
+  Section,
+  Stack,
+  TextArea,
 } from '../components';
 import { Window } from '../layouts';
 

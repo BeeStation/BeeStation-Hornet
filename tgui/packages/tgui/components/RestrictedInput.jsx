@@ -1,8 +1,9 @@
-import { React, useState, useRef, useEffect } from 'react';
-import { classes } from 'common/react';
-import { clamp } from 'common/math';
-import { Box } from './Box';
 import { isEscape, KEY } from 'common/keys';
+import { clamp } from 'common/math';
+import { classes } from 'common/react';
+import { React, useEffect, useRef, useState } from 'react';
+
+import { Box } from './Box';
 
 const DEFAULT_MIN = 0;
 const DEFAULT_MAX = 10000;

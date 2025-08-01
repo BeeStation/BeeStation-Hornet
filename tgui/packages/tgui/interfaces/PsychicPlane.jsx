@@ -1,11 +1,8 @@
 import { useBackend } from '../backend';
 import {
-  Box,
   Button,
   LabeledList,
-  NoticeBox,
   Section,
-  Tabs,
 } from '../components';
 import { Window } from '../layouts';
 
