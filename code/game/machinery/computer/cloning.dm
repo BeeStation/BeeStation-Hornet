@@ -27,7 +27,7 @@
 	var/autoprocess = FALSE
 
 	var/experimental = FALSE //experimental cloner will have true. TRUE allows you to scan a weird brain.
-	//length of time spent dead, for cloning it's 5 minutes longer.
+	//length of time spent dead, for cloning it's 50% longer, cloning is the only option once the ECG icon becomes a skull.
 	var/tlimit = DEFIB_TIME_LIMIT * 1.5
 
 	light_color = LIGHT_COLOR_BLUE
