@@ -248,6 +248,7 @@
 	if(observer.client && observer.client.prefs)
 		observer.real_name = observer.client.prefs.read_character_preference(/datum/preference/name/real_name)
 		observer.name = observer.real_name
+		observer.client.player_details.time_of_death = world.time
 	observer.update_icon()
 	observer.stop_sound_channel(CHANNEL_LOBBYMUSIC)
 	QDEL_NULL(mind)
@@ -303,6 +304,12 @@
 	return JOB_AVAILABLE
 
 /mob/dead/new_player/authenticated/proc/AttemptLateSpawn(rank)
+	// Check that they're picking someone new for new character respawning
+	if(CONFIG_GET(flag/allow_respawn) == RESPAWN_FLAG_NEW_CHARACTER)
+		if("[client.prefs.default_slot]" in client.player_details.joined_as_slots)
+			tgui_alert(usr, "You already have played this character in this round!")
+			return FALSE
+
 	var/error = IsJobUnavailable(rank)
 	if(error != JOB_AVAILABLE)
 		tgui_alert(src, get_job_unavailable_error_message(error, rank))
@@ -458,6 +465,7 @@
 
 	H.name = real_name
 
+	LAZYADD(client.player_details.joined_as_slots, "[client.prefs.default_slot]")
 	. = H
 	new_character = .
 	if(transfer_after)
