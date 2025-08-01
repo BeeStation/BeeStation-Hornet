@@ -19,20 +19,22 @@
 /datum/antagonist/vampire/proc/can_make_vassal(mob/living/conversion_target)
 	var/mob/living/carbon/human/user = owner.current
 
-#ifdef VAMPIRE_TESTING
-	return TRUE
-#endif
-
 	if(!my_clan)
 		user.balloon_alert(user, "enter a clan first.")
 		return FALSE
 
-	if(is_blacklisted_antag(conversion_target) || !ishuman(conversion_target) || !conversion_target.mind || conversion_target.mind?.unconvertable)
+#ifndef VAMPIRE_TESTING
+	if(!conversion_target.client)
+		user.balloon_alert(user, "can't be vassalized!")
+		return FALSE
+#endif
+
+	if(is_blacklisted_antag(conversion_target) || !ishuman(conversion_target) || conversion_target.mind?.unconvertable)
 		user.balloon_alert(user, "can't be vassalized!")
 		return FALSE
 
 	var/datum/antagonist/vassal/vassaldatum = IS_VASSAL(conversion_target)
-	if(vassaldatum && !vassaldatum?.master.broke_masquerade)
+	if(!vassaldatum?.master.broke_masquerade)
 		user.balloon_alert(user, "someone else's vassal!")
 		return FALSE
 
@@ -40,8 +42,7 @@
 		user.balloon_alert(user, "must be awake!")
 		return FALSE
 
-	var/mob/living/master = conversion_target.mind.enslaved_to
-	if(master && master != owner.current)
+	if(conversion_target.mind.enslaved_to != owner.current)
 		user.balloon_alert(user, "enslaved to someone else!")
 		return FALSE
 

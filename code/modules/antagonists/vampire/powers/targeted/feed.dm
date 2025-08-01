@@ -22,13 +22,13 @@
 	target_range = 1
 	prefire_message = "Select a target."
 	power_activates_immediately = FALSE
-	///Amount of blood taken, reset after each Feed. Used for logging.
+	/// Amount of blood taken, reset after each Feed. Used for logging.
 	var/blood_taken = 0
-	///The amount of Blood a target has since our last feed, this loops and lets us not spam alerts of low blood.
+	/// The amount of Blood a target has since our last feed, this loops and lets us not spam alerts of low blood.
 	var/warning_target_bloodvol = BLOOD_VOLUME_MAXIMUM
-	///Reference to the target we've fed off of
+	/// Reference to the target we've fed off of
 	var/datum/weakref/target_ref
-	///Are we feeding with passive grab or not?
+	/// Are we feeding with passive grab or not?
 	var/silent_feed = TRUE
 
 /datum/action/vampire/targeted/feed/can_use()
@@ -83,7 +83,7 @@
 		return FALSE
 	// Cannot be a curator or vampire
 	if(IS_VAMPIRE(target) || IS_CURATOR(target))
-		owner.balloon_alert(owner, "too powerful!")
+		owner.balloon_alert(owner, "[target] is too powerful!")
 		return FALSE
 
 	// Human checks
@@ -143,7 +143,7 @@
 			continue
 		if(watcher.has_unlimited_silicon_privilege)
 			continue
-		if(watcher.stat >= DEAD)
+		if(watcher.stat != CONSCIOUS)
 			continue
 		if(watcher.is_blind() || HAS_TRAIT(watcher, TRAIT_NEARSIGHT))
 			continue
@@ -154,8 +154,8 @@
 		vampiredatum_power.give_masquerade_infraction()
 		break
 
-	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_FEED)
-	ADD_TRAIT(owner, TRAIT_MUTE, TRAIT_FEED)
+	owner.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_MUTE), TRAIT_FEED)
+	feed_target.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_MUTE), TRAIT_FEED)
 
 /datum/action/vampire/targeted/feed/UsePower()
 	var/mob/living/user = owner
@@ -165,6 +165,9 @@
 		return
 
 	var/mob/living/feed_target = target_ref.resolve()
+
+	if(!silent_feed)
+		feed_target.SetUnconscious(10 SECONDS)
 
 	if(!ContinueActive())
 		if(!silent_feed)
@@ -239,17 +242,18 @@
 
 /datum/action/vampire/targeted/feed/deactivate_power()
 	. = ..()
-	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_FEED)
-	REMOVE_TRAIT(owner, TRAIT_MUTE, TRAIT_FEED)
+	REMOVE_TRAITS_IN(owner, TRAIT_FEED)
 
 	if(target_ref)
 		var/mob/living/feed_target = target_ref.resolve()
+		REMOVE_TRAITS_IN(feed_target, TRAIT_FEED)
+
 		log_combat(owner, feed_target, "fed on blood", addition = "(and took [blood_taken] blood)")
 		to_chat(owner, span_notice("You slowly release [feed_target]."))
 
 		if(feed_target.stat != DEAD && silent_feed)
-			to_chat(owner, span_notice("<i>[feed_target.p_they(TRUE)] looks dazed, and will not remember this.</i>"))
-			to_chat(feed_target, span_deconversionmessage("You don't remember how you got here..."))
+			to_chat(owner, span_notice("<i>[feed_target.p_they(TRUE)] look[feed_target.p_s()] dazed, and will not remember this.</i>"))
+			to_chat(feed_target, span_bighypnophrase("You don't remember how you got here..."))
 
 		if(feed_target.stat == DEAD)
 			SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "drankkilled", /datum/mood_event/drankkilled)

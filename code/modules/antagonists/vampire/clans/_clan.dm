@@ -216,9 +216,8 @@
 		var/datum/objective/brujah_clan_objective/brujah_objective = clan_objective
 
 		// Find Mind Implant & Destroy
-		for(var/obj/item/implant/implant as anything in vassaldatum.owner.current.implants)
-			if(istype(implant, /obj/item/implant/mindshield))
-				implant.Destroy()
+		for(var/obj/item/implant/mindshield/mindshield in vassaldatum.owner.current.implants)
+			mindshield.Destroy()
 
 		vassaldatum.make_special(/datum/antagonist/vassal/discordant)
 		brujah_objective.target_subverted = TRUE
@@ -229,17 +228,17 @@
 
 	var/list/options = list()
 	var/list/radial_display = list()
-	for(var/datum/antagonist/vassal/vassaldatums as anything in subtypesof(/datum/antagonist/vassal))
-		if(vampiredatum.special_vassals[initial(vassaldatums.special_type)])
+	for(var/datum/antagonist/vassal/vassal_path as anything in subtypesof(/datum/antagonist/vassal))
+		if(vampiredatum.special_vassals[initial(vassal_path.special_type)])
 			continue
-		if(vassaldatums.special_type == DISCORDANT_VASSAL && (!source.my_clan.clan_objective || vassaldatum.owner != source.my_clan.clan_objective.target))
+		if(initial(vassal_path.special_type) == DISCORDANT_VASSAL && (!source.my_clan.clan_objective || vassaldatum.owner != source.my_clan.clan_objective.target))
 			continue
-		options[initial(vassaldatums.name)] = vassaldatums
+		options[initial(vassal_path.name)] = vassal_path
 
 		var/datum/radial_menu_choice/option = new
-		option.image = image(icon = 'icons/mob/hud.dmi', icon_state = initial(vassaldatums.vassal_hud_name))
-		option.info = "[span_boldnotice(initial(vassaldatums.name))]\n[span_cult(initial(vassaldatums.vassal_description))]"
-		radial_display[initial(vassaldatums.name)] = option
+		option.image = image(icon = 'icons/mob/hud.dmi', icon_state = initial(vassal_path.vassal_hud_name))
+		option.info = "[span_boldnotice(initial(vassal_path.name))]\n[span_cult(initial(vassal_path.vassal_description))]"
+		radial_display[initial(vassal_path.name)] = option
 
 	if(!length(options))
 		return

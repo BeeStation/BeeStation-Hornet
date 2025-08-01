@@ -286,9 +286,8 @@
 
 		vampiredatum.make_vassal(target)
 		// Find Mind Implant & Destroy
-		for(var/obj/item/implant/implant as anything in target.implants)
-			if(istype(implant, /obj/item/implant/mindshield))
-				implant.Destroy()
+		for(var/obj/item/implant/mindshield/mindshield in target.implants)
+			mindshield.Destroy()
 		SEND_SIGNAL(vampiredatum, VAMPIRE_MADE_VASSAL, user, target)
 
 /obj/structure/vampire/vassalrack/proc/do_torture(mob/living/user, mob/living/carbon/target, var/obj/item/held_item)
