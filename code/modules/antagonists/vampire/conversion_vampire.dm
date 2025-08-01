@@ -42,9 +42,6 @@
 		user.balloon_alert(user, "must be awake!")
 		return FALSE
 
-	if(conversion_target.mind.enslaved_to != owner.current)
-		user.balloon_alert(user, "enslaved to someone else!")
-		return FALSE
 
 	return TRUE
 
