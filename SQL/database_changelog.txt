@@ -9,6 +9,15 @@ INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES (7, 5);
 In any query remember to add a prefix to the table names if you use one.
 
 -----------------------------------------------------
+Version 7.6, 29 June 2025, by Pinksuzuki
+Adds Quirk Accent options
+
+ALTER TABLE `SS13_player`
+	ADD COLUMN IF NOT EXISTS `quirk_accent` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+
+-----------------------------------------------------
+
+-----------------------------------------------------
 Version 7.5, 29 June 2025, by itsmeow
 Adds External Session Creation Nonces
 
