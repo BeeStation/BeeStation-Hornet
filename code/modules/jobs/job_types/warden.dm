@@ -56,6 +56,9 @@
 	suit_store = /obj/item/gun/energy/disabler
 
 	backpack = /obj/item/storage/backpack/security
+	backpack_contents = list(
+		/obj/item/dog_bone = 1,
+	)
 	satchel = /obj/item/storage/backpack/satchel/sec
 	duffelbag = /obj/item/storage/backpack/duffelbag/sec
 	box = /obj/item/storage/box/survival/security
