@@ -393,12 +393,20 @@ export const ChemDispenser = (_props) => {
                       }
                     }}
                   />
-                  <Popper
-                    options={{
-                      placement: 'left-start',
+                  <Button
+                    icon="arrow-down-short-wide"
+                    color={filters !== 0 && 'green'}
+                    ml={0.5}
+                    onClick={() => {
+                      setShowFilters(!showFilters);
                     }}
-                    popperContent={
-                      (showFilters && (
+                  />
+                  {showFilters && (
+                    <Popper
+                      isOpen={showFilters}
+                      onClickOutside={() => setShowFilters(false)}
+                      placement="bottom-start"
+                      content={
                         <div className="chem_dispenser_filter_modal">
                           <Stack vertical>
                             <Button
@@ -557,17 +565,9 @@ export const ChemDispenser = (_props) => {
                             />
                           </Stack>
                         </div>
-                      )) as any
-                    }>
-                    <Button
-                      icon="arrow-down-short-wide"
-                      color={filters !== 0 && 'green'}
-                      ml={0.5}
-                      onClick={() => {
-                        setShowFilters(!showFilters);
-                      }}
+                      }
                     />
-                  </Popper>
+                  )}
                 </>
               )
             }>
