@@ -95,14 +95,14 @@ export function Dropdown(props: Props) {
       let selectedIndex = options.findIndex((option) => getOptionValue(option) === selected);
 
       if (selectedIndex < 0) {
-        selectedIndex = direction === 'next' ? endIndex : startIndex;
+        selectedIndex = direction === 'next' ? startIndex : endIndex;
       }
 
       let newIndex = selectedIndex;
       if (direction === 'next') {
-        newIndex = selectedIndex === endIndex ? startIndex : selectedIndex++;
+        newIndex = selectedIndex === endIndex ? startIndex : selectedIndex + 1;
       } else {
-        newIndex = selectedIndex === startIndex ? endIndex : selectedIndex--;
+        newIndex = selectedIndex === startIndex ? endIndex : selectedIndex - 1;
       }
 
       onSelected?.(getOptionValue(options[newIndex]));
