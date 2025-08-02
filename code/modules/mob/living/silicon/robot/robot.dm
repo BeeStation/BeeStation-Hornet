@@ -171,6 +171,9 @@
 	if(!CONFIG_GET(flag/disable_peaceborg))
 		model_list["Peacekeeper"] = /obj/item/robot_model/peacekeeper
 
+	if(!CONFIG_GET(flag/disable_secborg))
+		model_list["Security"] = /obj/item/robot_model/security
+
 	// Create radial menu for choosing borg model
 	var/list/module_icons = list()
 	for(var/option in model_list)
@@ -913,6 +916,14 @@
 		if(autoclean_toggle)
 			autoclean_toggle.Remove(src)
 			QDEL_NULL(autoclean_toggle)
+
+	if(model.cyborg_armor)
+		set_armor(/datum/armor/cyborg)
+		add_movespeed_modifier(/datum/movespeed_modifier/cyborg_armor)
+
+	else
+		set_armor(/datum/armor/none)
+		remove_movespeed_modifier(/datum/movespeed_modifier/cyborg_armor)
 
 	hat_offset = model.hat_offset
 

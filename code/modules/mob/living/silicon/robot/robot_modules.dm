@@ -571,12 +571,16 @@
 	basic_modules = list(
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/restraints/handcuffs/cable/zipties,
-		/obj/item/melee/baton/loaded,
 		/obj/item/borg/charger,
 		/obj/item/weldingtool/cyborg/mini,
 		/obj/item/gun/energy/disabler/cyborg,
+		/obj/item/gun/energy/e_gun/mini/exploration/cyborg,
+		/obj/item/reagent_containers/peppercloud_deployer,
 		/obj/item/clothing/mask/gas/sechailer/cyborg,
-		/obj/item/extinguisher/mini)
+		/obj/item/holosign_creator/security,
+		/obj/item/storage/bag/ore/cyborg,
+		/obj/item/extinguisher/mini,
+		/obj/item/crowbar/cyborg)
 	emag_modules = list(/obj/item/gun/energy/laser/cyborg)
 	ratvar_modules = list(
 		/obj/item/clock_module/abscond,
@@ -587,17 +591,16 @@
 	model_select_icon = "security"
 	can_be_pushed = FALSE
 	hat_offset = 3
+	cyborg_armor = TRUE
 
-/obj/item/robot_model/security/respawn_consumable(mob/living/silicon/robot/robot, coeff = 1)
-	. = ..()
-	var/obj/item/gun/energy/e_gun/advtaser/cyborg/taser = locate(/obj/item/gun/energy/e_gun/advtaser/cyborg) in basic_modules
-	if(taser)
-		if(taser.cell.charge < taser.cell.maxcharge)
-			var/obj/item/ammo_casing/energy/ammo = taser.ammo_type[taser.select]
-			taser.cell.give(ammo.e_cost * coeff)
-			taser.update_icon()
-		else
-			taser.charge_timer = 0
+//Aside from bomb and acid, not actually a lot of armor
+/datum/armor/cyborg
+	melee = 15
+	bullet = 15
+	laser = 10
+	energy = 10
+	bomb = 50
+	acid = 100
 
 // --------------------- Borgi
 /obj/item/robot_model/borgi
