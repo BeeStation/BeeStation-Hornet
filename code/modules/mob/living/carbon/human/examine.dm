@@ -131,6 +131,9 @@
 				. += span_deadsay("[t_He] [t_is] limp and unresponsive; there are no signs of life and [t_his] soul seems distant, it may return soon...")
 			else
 				. += span_deadsay("[t_He] [t_is] limp and unresponsive; there are no signs of life...")
+			var/tdelta = round(world.time - src.timeofdeath)
+			if(tdelta >= (DEFIB_TIME_LIMIT * 1.5))
+				. += span_deadsay("[t_He] seems cold and distant, likely completely beyond saving.")
 
 	if(get_bodypart(BODY_ZONE_HEAD) && !get_organ_by_type(/obj/item/organ/brain))
 		. += span_deadsay("It appears that [t_his] brain is missing.")

@@ -352,7 +352,6 @@
 		"surgery_nerve_ground",
 		"surgery_nerve_splice",
 		"surgery_pacify",
-		"surgery_revival",
 		"surgery_vein_thread",
 		"surgery_viral_bond",
 	)
@@ -363,7 +362,7 @@
 	id = "alien_surgery"
 	tech_tier = 5
 	display_name = "Alien Surgery"
-	description = "Abductors did nothing wrong."
+	description = "Anything from brainwashing to reviving the dead. Alien technology."
 	prereq_ids = list(
 		"alientech",
 		"exp_surgery",
@@ -372,6 +371,7 @@
 		"surgery_brainwashing",
 		"surgery_heal_combo_upgrade_femto",
 		"surgery_zombie",
+		"surgery_revival",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
 	export_price = 5000

@@ -248,6 +248,7 @@
 	if(observer.client && observer.client.prefs)
 		observer.real_name = observer.client.prefs.read_character_preference(/datum/preference/name/real_name)
 		observer.name = observer.real_name
+		observer.client.player_details.time_of_death = world.time
 	observer.update_icon()
 	observer.stop_sound_channel(CHANNEL_LOBBYMUSIC)
 	QDEL_NULL(mind)
@@ -303,6 +304,30 @@
 	return JOB_AVAILABLE
 
 /mob/dead/new_player/authenticated/proc/AttemptLateSpawn(rank)
+	// Check that they're picking someone new for new character respawning
+	if(CONFIG_GET(flag/allow_respawn) == RESPAWN_FLAG_NEW_CHARACTER)
+
+		//Adding more checks should be somewhat simple. Starting with the character slot itself:
+		if("[client.prefs.default_slot]" in client.player_details.joined_as_slots)
+			//We do not EVER specify what exactly is preventing them from joining. Security through obscurity! Yay!
+			tgui_alert(usr, "You already have played this character in this round!")
+			log_game("[key_name(usr)] has attempted to respawn as a previously played character and was denied based on character slot vetting.")
+			message_admins("[key_name(usr)] has attempted to respawn as a previously played character. This is not necessarily evidence of foul play.")
+			return FALSE
+
+		//Names played
+		if("[client.prefs.read_character_preference(/datum/preference/name/real_name)]" in client.player_details.played_names)
+			tgui_alert(usr, "You already have played this character in this round!")
+			log_game("[key_name(usr)] has attempted to respawn with a previously played character name in a NEW slot. and was denied based on character name vetting.")
+			message_admins("ATTENTION! [key_name(usr)] has attempted to respawn with a previously played character name in a NEW slot. Likely attempting to bypass respawn restrictions.")
+			return FALSE
+
+		//Jobs played, in case we want to use it later.
+//		if("[SSjob.GetJob(rank)]" in client.player_details.joined_as_jobs)
+//			tgui_alert(usr, "You have already played as [rank] this round!")
+//			log_game("[key_name(usr)] has attempted to respawn as a previously played job and was denied.")
+//			return FALSE
+
 	var/error = IsJobUnavailable(rank)
 	if(error != JOB_AVAILABLE)
 		tgui_alert(src, get_job_unavailable_error_message(error, rank))
@@ -448,6 +473,7 @@
 	var/mob/living/carbon/human/H = new(loc)
 
 	H.apply_prefs_job(client, SSjob.GetJob(mind.assigned_role))
+	LAZYADD(client.player_details.joined_as_jobs, "[SSjob.GetJob(mind.assigned_role)]")
 	if(QDELETED(src) || !client)
 		return // Disconnected while checking for the appearance ban.
 	if(mind)
@@ -458,6 +484,7 @@
 
 	H.name = real_name
 
+	LAZYADD(client.player_details.joined_as_slots, "[client.prefs.default_slot]")
 	. = H
 	new_character = .
 	if(transfer_after)
