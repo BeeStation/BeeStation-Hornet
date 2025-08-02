@@ -1,0 +1,14 @@
+{
+	"map_name": "MultiMeta",
+	"map_link": "multimeta",
+	"map_path": "map_files/MultiMeta",
+	"map_file": "MultiMeta.dmm",
+	"shuttles": {
+		"cargo": "cargo_box",
+		"ferry": "ferry_standard",
+		"whiteship": "whiteship_meta",
+		"emergency": "emergency_meta"
+	},
+	"traits": [{"Up" : true, "Baseturf" : "/turf/open/openspace", "Linkage" : "Cross", "Gravity": true},
+		{"Down" : true, "Baseturf" : "/turf/open/openspace", "Linkage" : "Cross", "Gravity": true}]
+}
