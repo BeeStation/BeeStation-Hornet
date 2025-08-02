@@ -42,6 +42,10 @@
 		user.balloon_alert(user, "must be awake!")
 		return FALSE
 
+	var/mob/living/vassal_master = conversion_target.mind.enslaved_to
+	if(vassal_master && vassal_master != owner.current)
+		user.balloon_alert(user, "enslaved to someone else!")
+		return FALSE
 
 	return TRUE
 
