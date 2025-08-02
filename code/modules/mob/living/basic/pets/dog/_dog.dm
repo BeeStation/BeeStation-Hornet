@@ -18,7 +18,7 @@
 /datum/pet_command/point_targetting/fetch/dog
 	speech_commands = list("fetch", "apport", "bring")
 
-/datum/pet_command/play_dead
+/datum/pet_command/play_dead/dog
 	speech_commands = list("play dead", "tot stellen")
 
 /mob/living/basic/pet/dog
