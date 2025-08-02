@@ -569,7 +569,6 @@
 	var/mob/living/simple_animal/hostile/morph/morph_body = new(pick(spawn_locations))
 	player_mind.transfer_to(morph_body)
 
-	to_chat(morph_body, morph_body.playstyle_string)
 	SEND_SOUND(morph_body, sound('sound/magic/mutate.ogg'))
 
 	return morph_body

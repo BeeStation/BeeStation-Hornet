@@ -1,5 +1,5 @@
 /// The max amount of health a morph can heal from food, as a percentage of the morph's maximum health.
-#define MORPH_MAX_HEALING_FROM_FOOD		0.2
+#define MORPH_MAX_HEALING_FROM_FOOD		0.5
 /// How long it takes for "food healed amt" to decay.
 #define MORPH_FOOD_HEALING_DECAY_TIME	2.5 MINUTES
 
@@ -106,33 +106,9 @@
 				favorites += ref
 			return TRUE
 	if(isliving(target))
-		var/mob/living/living_target = target
 		switch(action)
 			if("digest")
-				if(HAS_TRAIT(living_target, TRAIT_HUSK))
-					to_chat(morph, span_warning("[span_name("[living_target]")] has already been stripped of all nutritional value!"))
-					return FALSE
-				if(morph.throwatom == living_target)
-					morph.throwatom = null
-				to_chat(morph, span_danger("You begin digesting [span_name("[living_target]")]"))
-				if(do_after(morph, living_target.maxHealth))
-					if(ishuman(living_target) || ismonkey(living_target) || isalienadult(living_target) || istype(living_target, /mob/living/basic/pet/dog) || istype(living_target, /mob/living/simple_animal/parrot))
-						var/list/turfs_to_throw = view(2, morph)
-						for(var/obj/item/item in living_target.contents)
-							living_target.dropItemToGround(item, TRUE)
-							if(QDELING(item))
-								continue //skip it
-							item.throw_at(pick(turfs_to_throw), 3, 1, spin = FALSE)
-							item.pixel_x = rand(-10, 10)
-							item.pixel_y = rand(-10, 10)
-					morph.RemoveContents(living_target)
-					living_target.death(FALSE)
-					living_target.take_overall_damage(burn = 50)
-					living_target.become_husk("burn") // Digested bodies can be fixed with synthflesh.
-					morph.adjustHealth(-(living_target.maxHealth * 0.5))
-					to_chat(morph, span_danger("You digest [span_name("[living_target]")], restoring some health"))
-					playsound(morph, 'sound/effects/splat.ogg', vol = 50, vary = TRUE)
-					return TRUE
+				return morph.digest_mob(target)
 	else if(isitem(target))
 		var/obj/item/item = target
 		switch(action)
@@ -172,6 +148,8 @@
 					playsound(morph, 'sound/items/welder.ogg', vol = 150, vary = TRUE)
 					qdel(item)
 					to_chat(morph, span_danger("You digest [item]."))
+					morph.adjustHealth(-4)
+					addtimer(CALLBACK(src, PROC_REF(food_healing_decay_timer), 4), MORPH_FOOD_HEALING_DECAY_TIME)
 					return TRUE
 
 /datum/morph_stomach/proc/food_healing_decay_timer(amt)

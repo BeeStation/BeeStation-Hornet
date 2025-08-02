@@ -274,3 +274,13 @@
 	if(!.)
 		return
 	new_owner.start_leaning(object, leaning_offset)
+
+/atom/movable/screen/alert/status_effect/morph_cooldown
+	name = "Chameleon Recharge"
+	desc = "Your ability to transform is recovering!"
+	icon_state = "dna_melt"
+
+/datum/status_effect/morph_cooldown
+	id = "morph_cooldown"
+	duration = 20 SECONDS
+	alert_type = /atom/movable/screen/alert/status_effect/morph_cooldown

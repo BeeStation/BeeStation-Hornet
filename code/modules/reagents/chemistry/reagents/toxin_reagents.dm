@@ -1023,7 +1023,7 @@
 	M.set_drugginess(5)
 	M.adjustStaminaLoss(30 * REM * delta_time)
 	M.silent = max(M.silent, 3 * REM * delta_time)
-	M.confused = max(M.confused, 3 * REM * delta_time)
+	M.confused = max(M.confused, 10 * REM * delta_time)
 	..()
 
 /datum/reagent/toxin/morphvenom/mimite
