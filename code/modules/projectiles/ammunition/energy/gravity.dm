@@ -1,5 +1,5 @@
 /obj/item/ammo_casing/energy/gravity
-	e_cost = 0
+	shots_per_kw = 0
 	fire_sound = 'sound/weapons/wave.ogg'
 	select_name = "gravity"
 	delay = 50

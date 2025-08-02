@@ -1,7 +1,6 @@
 /obj/item/computer_hardware/hard_drive/role
 	name = "job data disk"
 	desc = "A disk meant to give a worker the needed programs to work."
-	power_usage = 0
 	icon = 'icons/obj/pda.dmi'
 	icon_state = "cart"
 	w_class = WEIGHT_CLASS_TINY

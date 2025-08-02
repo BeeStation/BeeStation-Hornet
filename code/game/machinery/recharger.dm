@@ -36,7 +36,7 @@
 
 	if(!(machine_stat & (NOPOWER|BROKEN)))
 		. += span_notice("The status display reads:")
-		. += span_notice("- Recharging <b>[recharge_coeff*10]%</b> cell charge per cycle.")
+		. += span_notice("- Current recharge coefficient: <b>[recharge_coeff]</b>.")
 		if(charging)
 			var/obj/item/stock_parts/cell/C = charging.get_cell()
 			if (istype(charging, /obj/item/ammo_box/magazine/recharge))

@@ -42,7 +42,7 @@
 	addtimer(CALLBACK(src, PROC_REF(ninitialize_six), delay, U), delay)
 
 /obj/item/clothing/suit/space/space_ninja/proc/ninitialize_six(delay, mob/living/carbon/human/U)
-	to_chat(U, span_notice("Primary system status: <B>ONLINE</B>.\nBackup system status: <B>ONLINE</B>.\nCurrent energy capacity: <B>[display_energy(cell.charge)]</B>."))
+	to_chat(U, span_notice("Primary system status: <B>ONLINE</B>.\nBackup system status: <B>ONLINE</B>.\nCurrent energy capacity: <B>[display_power(cell.charge)]</B>."))
 	addtimer(CALLBACK(src, PROC_REF(ninitialize_seven), delay, U), delay)
 
 /obj/item/clothing/suit/space/space_ninja/proc/ninitialize_seven(delay, mob/living/carbon/human/U)
