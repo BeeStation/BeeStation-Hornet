@@ -99,9 +99,9 @@
 		return
 	return ..()
 
-/obj/item/sticker/Moved(atom/OldLoc, Dir)
+/obj/item/sticker/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	if(sticker_state == STICKER_STATE_STUCK)
-		unstick(OldLoc)
+		unstick(old_loc)
 	return ..()
 
 /obj/item/sticker/examine(mob/user)
