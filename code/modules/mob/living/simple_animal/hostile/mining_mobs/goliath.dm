@@ -111,7 +111,10 @@
 	AddComponent(/datum/component/tameable, food_types = list(/obj/item/food/grown/ash_flora), tame_chance = 10, bonus_tame_chance = 5, after_tame = CALLBACK(src, PROC_REF(tamed)))
 
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/attackby(obj/item/O, mob/user, params)
-	if(!istype(O, /obj/item/saddle) || saddled)
+	if(!istype(O, /obj/item/goliath_saddle))
+		return ..()
+	if (saddled)
+		balloon_alert(user, "already saddled!")
 		return ..()
 
 	if(can_saddle && do_after(user,55,target=src))
@@ -237,8 +240,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/goliath_tentacle/original)
 	deltimer(timerid)
 	timerid = QDEL_IN_STOPPABLE(src, 7)
 
-/obj/item/saddle
-	name = "saddle"
-	desc = "This saddle will solve all your problems with being killed by lava beasts!"
-	icon = 'icons/obj/items_and_weapons.dmi'
-	icon_state = "saddle"
+/obj/item/goliath_saddle
+	name = "goliath saddle"
+	desc = "This rough saddle will give you a serviceable seat upon a goliath! Provided you can get one to stand still."
+	icon = 'icons/obj/mining.dmi'
+	icon_state = "goliath_saddle"
