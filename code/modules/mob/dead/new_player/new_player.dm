@@ -322,7 +322,7 @@
 			message_admins("ATTENTION! [key_name(usr)] has attempted to respawn with a previously played character name in a NEW slot. Likely attempting to bypass respawn restrictions.")
 			return FALSE
 
-		//Jobs played, in case we want to use it anytime.
+		//Jobs played, in case we want to use it later.
 //		if("[SSjob.GetJob(rank)]" in client.player_details.joined_as_jobs)
 //			tgui_alert(usr, "You have already played as [rank] this round!")
 //			log_game("[key_name(usr)] has attempted to respawn as a previously played job and was denied.")
