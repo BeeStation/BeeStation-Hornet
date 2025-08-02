@@ -106,23 +106,23 @@
 	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /obj/machinery/rnd/server/proc/ninjadrain_charge(mob/living/carbon/human/ninja, obj/item/mod/module/hacker/hacking_module)
-    if(!do_after(ninja, 10 SECONDS, target = src, hidden = TRUE))
-        return
+	if(!do_after(ninja, 10 SECONDS, target = src, hidden = TRUE))
+		return
 
-    // Copy research data to ninja's internal tech disk
-    var/obj/item/mod/control/pre_equipped/ninja/ninja_suit = ninja.back
-    if(istype(ninja_suit) && ninja_suit.internal_techdisk)
-        stored_research.copy_research_to(ninja_suit.internal_techdisk.stored_research)
-        to_chat(ninja, span_notice("Research data downloaded to MODsuit storage."))
+	// Copy research data to ninja's internal tech disk
+	var/obj/item/mod/control/pre_equipped/ninja/ninja_suit = ninja.back
+	if(istype(ninja_suit) && ninja_suit.internal_techdisk)
+		stored_research.copy_research_to(ninja_suit.internal_techdisk.stored_research)
+		to_chat(ninja, span_notice("Research data downloaded to MODsuit storage."))
 
-    to_chat(ninja, span_notice("Download complete. Research notes installed."))
-    var/datum/antagonist/ninja/ninja_antag = ninja.mind.has_antag_datum(/datum/antagonist/ninja)
-    if(!ninja_antag)
-        return
+	to_chat(ninja, span_notice("Download complete. Research notes installed."))
+	var/datum/antagonist/ninja/ninja_antag = ninja.mind.has_antag_datum(/datum/antagonist/ninja)
+	if(!ninja_antag)
+		return
 
-    var/datum/objective/download/objective = locate() in ninja_antag.objectives
-    if(objective)
-        to_chat(ninja, span_notice("Research objective progress updated."))
+	var/datum/objective/download/objective = locate() in ninja_antag.objectives
+	if(objective)
+		to_chat(ninja, span_notice("Research objective progress updated."))
 
 //SECURITY CONSOLE//
 /obj/machinery/computer/records/security/ninjadrain_act(mob/living/carbon/human/ninja, obj/item/mod/module/hacker/hacking_module)
