@@ -1,6 +1,5 @@
-author: rkz, MTandi, MrMelbert, JohnFulpWillard, VinylSpiders, Aylong
-delete-after: true
-changes:
+2025-08-02:
+  rkz, MTandi, MrMelbert, JohnFulpWillard, VinylSpiders, Aylong:
   - rscadd: Adds new 3/4ths sprites for Smartfridges
   - rscadd: Smartfridges and Vendors have a new grid UI. The player can swap between
       grid and list UIs in the interface, and in their preferences.
