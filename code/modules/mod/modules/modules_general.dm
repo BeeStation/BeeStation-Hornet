@@ -560,7 +560,6 @@
 	dna = null
 
 /obj/item/mod/module/dna_lock/on_emag(datum/source, mob/user, obj/item/card/emag/emag_card)
-	SIGNAL_HANDLER
 	..()
 
 	dna = null
