@@ -3674,6 +3674,7 @@
 #include "code\modules\power\cable.dm"
 #include "code\modules\power\cell.dm"
 #include "code\modules\power\floodlight.dm"
+#include "code\modules\power\gasrig.dm"
 #include "code\modules\power\generator.dm"
 #include "code\modules\power\gravitygenerator.dm"
 #include "code\modules\power\monitor.dm"
