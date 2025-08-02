@@ -898,10 +898,10 @@
 	if(hands)
 		hands.icon_state = model.model_select_icon
 
-	if(model.can_be_pushed)
-		status_flags |= CANPUSH
-	else
-		status_flags &= ~CANPUSH
+	REMOVE_TRAITS_IN(src, MODULE_TRAIT)
+	if(model.module_traits)
+		for(var/trait in model.module_traits)
+			ADD_TRAIT(src, trait, MODULE_TRAIT)
 
 	if(model.clean_on_move)
 		AddElement(/datum/element/cleaning)
@@ -916,7 +916,6 @@
 
 	hat_offset = model.hat_offset
 
-	magpulse = model.magpulsing
 	updatename()
 
 /mob/living/silicon/robot/proc/place_on_head(obj/item/new_hat)

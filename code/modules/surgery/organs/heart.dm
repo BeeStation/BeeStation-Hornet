@@ -2,12 +2,13 @@
 	name = "heart"
 	desc = "I feel bad for the heartless bastard who lost this."
 	icon_state = "heart-on"
+	base_icon_state = "heart"
 	visual = FALSE
 	zone = BODY_ZONE_CHEST
 	slot = ORGAN_SLOT_HEART
 
 	healing_factor = STANDARD_ORGAN_HEALING
-	decay_factor = 5 * STANDARD_ORGAN_DECAY		//designed to fail about 5 minutes after death
+	decay_factor = 5 * STANDARD_ORGAN_DECAY //designed to fail about 5 minutes after death
 
 	low_threshold_passed = span_info("Prickles of pain appear then die out from within your chest...")
 	high_threshold_passed = span_warning("Something inside your chest hurts, and the pain isn't subsiding. You notice yourself breathing far faster than before.")
@@ -15,8 +16,7 @@
 	high_threshold_cleared = span_info("The pain in your chest has died down, and your breathing becomes more relaxed.")
 
 	// Heart attack code is in code/modules/mob/living/carbon/human/life.dm
-	var/beating = 1
-	var/icon_base = "heart"
+	var/beating = TRUE
 	attack_verb_continuous = list("beats", "thumps")
 	attack_verb_simple = list("beat", "thump")
 	//is this mob having a heatbeat sound played? if so, which?
@@ -25,14 +25,10 @@
 	var/failed = FALSE
 	//whether the heart's been operated on to fix some of its damages
 	var/operated = FALSE
-	///Color of the heart, is set by the species on gain
-	//var/ethereal_color = "#9c3030"
 
-/obj/item/organ/heart/update_icon()
-	if(beating)
-		icon_state = "[icon_base]-on"
-	else
-		icon_state = "[icon_base]-off"
+/obj/item/organ/heart/update_icon_state()
+	icon_state = "[base_icon_state]-[beating ? "on" : "off"]"
+	return ..()
 
 /obj/item/organ/heart/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
@@ -51,29 +47,31 @@
 		addtimer(CALLBACK(src, PROC_REF(stop_if_unowned)), 80)
 
 /obj/item/organ/heart/proc/Stop()
-	beating = 0
-	update_icon()
-	return 1
+	beating = FALSE
+	update_appearance()
+	return TRUE
 
 /obj/item/organ/heart/proc/Restart()
-	beating = 1
-	update_icon()
-	return 1
+	beating = TRUE
+	update_appearance()
+	return TRUE
 
 /obj/item/organ/heart/on_eat_from(eater, feeder)
 	. = ..()
 	beating = FALSE
-	update_icon()
+	update_appearance()
 
 /obj/item/organ/heart/on_life(delta_time, times_fired)
 	..()
+
+	if(!owner.needs_heart())
+		return
 
 	if(owner.client && beating)
 		failed = FALSE
 		var/sound/slowbeat = sound('sound/health/slowbeat.ogg', repeat = TRUE)
 		var/sound/fastbeat = sound('sound/health/fastbeat.ogg', repeat = TRUE)
 		var/mob/living/carbon/H = owner
-
 
 		if(H.health <= H.crit_threshold && beat != BEAT_SLOW)
 			beat = BEAT_SLOW
@@ -104,7 +102,7 @@
 	name = "cursed heart"
 	desc = "A heart that, when inserted, will force you to pump it manually."
 	icon_state = "cursedheart-off"
-	icon_base = "cursedheart"
+	base_icon_state = "cursedheart"
 	decay_factor = 0
 	actions_types = list(/datum/action/item_action/organ_action/cursed_heart)
 	var/last_pump = 0
@@ -184,7 +182,7 @@
 	name = "cybernetic heart"
 	desc = "An electronic device designed to mimic the functions of an organic human heart. Also holds an emergency dose of epinephrine, used automatically after facing severe trauma."
 	icon_state = "heart-c-on"
-	icon_base = "heart-c"
+	base_icon_state = "heart-c"
 	organ_flags = ORGAN_SYNTHETIC
 	status = ORGAN_ROBOTIC
 	var/dose_available = TRUE
@@ -212,7 +210,7 @@
 	name = "upgraded cybernetic heart"
 	desc = "An electronic device designed to mimic the functions of an organic human heart. Also holds an emergency dose of epinephrine, used automatically after facing severe trauma. This upgraded model can regenerate its dose after use."
 	icon_state = "heart-c-u-on"
-	icon_base = "heart-c-u"
+	base_icon_state = "heart-c-u"
 
 /obj/item/organ/heart/cybernetic/upgraded/used_dose()
 	. = ..()
@@ -237,6 +235,27 @@
 		owner.heal_overall_damage(15, 15, 0, BODYTYPE_ORGANIC)
 		if(owner.reagents.get_reagent_amount(/datum/reagent/medicine/ephedrine) < 20)
 			owner.reagents.add_reagent(/datum/reagent/medicine/ephedrine, 10)
+
+/obj/item/organ/heart/ethereal
+	name = "crystal core"
+	icon_state = "ethereal_heart-on"
+	base_icon_state = "ethereal_heart"
+	visual = TRUE //This is used by the ethereal species for color
+	desc = "A crystal-like organ that functions similarly to a heart for Ethereals."
+
+	///Color of the heart, is set by the species on gain
+	var/ethereal_color = "#9c3030"
+
+/obj/item/organ/heart/ethereal/Initialize(mapload)
+	. = ..()
+	add_atom_colour(ethereal_color, FIXED_COLOUR_PRIORITY)
+	update_appearance()
+
+/obj/item/organ/heart/ethereal/update_overlays()
+	. = ..()
+	var/mutable_appearance/shine = mutable_appearance(icon, icon_state = "[base_icon_state]_overlay-[beating ? "on" : "off"]")
+	shine.appearance_flags = RESET_COLOR //No color on this, just pure white
+	. += shine
 
 /obj/item/organ/heart/diona
 	name = "polypment segment"

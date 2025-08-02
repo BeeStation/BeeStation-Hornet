@@ -165,7 +165,8 @@
 		return //How did we even get here
 	if(hand != host.hand_bodyparts[host.active_hand_index])
 		return //wrong hand
-	Retract()
+	if(Retract())
+		return COMSIG_KB_ACTIVATED
 
 /obj/item/organ/cyberimp/arm/emp_act(severity)
 	. = ..()
@@ -180,7 +181,7 @@
 
 /obj/item/organ/cyberimp/arm/proc/Retract()
 	if(!active_item || (active_item in src))
-		return
+		return FALSE
 
 	owner.visible_message(span_notice("[owner] retracts [active_item] back into [owner.p_their()] [zone == BODY_ZONE_R_ARM ? "right" : "left"] arm."),
 		span_notice("[active_item] snaps back into your [zone == BODY_ZONE_R_ARM ? "right" : "left"] arm."),
@@ -189,7 +190,8 @@
 	owner.transferItemToLoc(active_item, src, TRUE)
 	REMOVE_TRAIT(active_item, TRAIT_NODROP, HAND_REPLACEMENT_TRAIT)
 	active_item = null
-	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, 1)
+	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, TRUE)
+	return TRUE
 
 /obj/item/organ/cyberimp/arm/proc/Extend(var/obj/item/item)
 	if(!(item in src))

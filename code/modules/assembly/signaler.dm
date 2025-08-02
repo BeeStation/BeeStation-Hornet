@@ -263,5 +263,11 @@
 	icon_state = "hallucination_core"
 	anomaly_type = /obj/effect/anomaly/blood
 
+/obj/item/assembly/signaler/anomaly/insanity
+	name = "\improper insanity pulse anomaly core"
+	desc = "The neutralized core of a insanity pulse anomaly. Ah."
+	icon_state = "hallucination_core"
+	anomaly_type = /obj/effect/anomaly/insanity_pulse
+
 /obj/item/assembly/signaler/anomaly/attack_self()
 	return

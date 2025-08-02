@@ -358,6 +358,7 @@
 		visible_message(span_danger("\The [src] ensnares [C]!"))
 		C.legcuffed = src
 		forceMove(C)
+		C.update_equipment_speed_mods()
 		C.update_inv_legcuffed()
 		SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 		to_chat(C, span_userdanger("\The [src] ensnares you!"))

@@ -40,7 +40,7 @@
 		if(t)
 			name = "body bag - [t]"
 			tagged = 1
-			update_icon()
+			update_appearance()
 		else
 			name = "body bag"
 		return
@@ -48,19 +48,19 @@
 		to_chat(user, span_notice("You cut the tag off [src]."))
 		name = "body bag"
 		tagged = 0
-		update_icon()
+		update_appearance()
 
-/obj/structure/closet/body_bag/update_icon()
-	..()
-	if (tagged)
-		add_overlay("bodybag_label")
+/obj/structure/closet/body_bag/update_overlays()
+	. = ..()
+	if(tagged)
+		. += "bodybag_label"
 
 /obj/structure/closet/body_bag/open(mob/living/user)
 	. = ..()
 	if(.)
 		mouse_drag_pointer = MOUSE_INACTIVE_POINTER
 
-/obj/structure/closet/body_bag/close()
+/obj/structure/closet/body_bag/close(mob/living/user)
 	. = ..()
 	if(.)
 		set_density(FALSE)
@@ -114,3 +114,29 @@
 			if(isliving(A))
 				to_chat(A, span_userdanger("You're suddenly forced into a tiny, compressed space!"))
 		qdel(src)
+
+/*
+/obj/structure/closet/body_bag/environmental/hardlight
+	name = "hardlight bodybag"
+	desc = "A hardlight bag for storing bodies. Resistant to space."
+	icon_state = "holobag_med"
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	foldedbag_path = null
+	weather_protection = list(TRAIT_VOIDSTORM_IMMUNE, TRAIT_SNOWSTORM_IMMUNE)
+
+/obj/structure/closet/body_bag/environmental/hardlight/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
+	if(damage_type in list(BRUTE, BURN))
+		playsound(src, 'sound/weapons/egloves.ogg', 80, TRUE)
+
+/obj/structure/closet/body_bag/environmental/prisoner/hardlight
+	name = "hardlight prisoner bodybag"
+	desc = "A hardlight bag for storing bodies. Resistant to space, can be sinched to prevent escape."
+	icon_state = "holobag_sec"
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	foldedbag_path = null
+	weather_protection = list(TRAIT_VOIDSTORM_IMMUNE, TRAIT_SNOWSTORM_IMMUNE)
+
+/obj/structure/closet/body_bag/environmental/prisoner/hardlight/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
+	if(damage_type in list(BRUTE, BURN))
+		playsound(src, 'sound/weapons/egloves.ogg', 80, TRUE)
+*/

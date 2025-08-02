@@ -448,8 +448,7 @@
 		return
 	if(ishuman(user)) //other carbons like monkeys can unwrench but cant wear magboots
 		if(istype(user.shoes, /obj/item/clothing/shoes/magboots))
-			var/obj/item/clothing/shoes/magboots/M = user.shoes
-			if(M.negates_gravity())
+			if(user.has_gravity())
 				return
 	if(!pressures)
 		var/datum/gas_mixture/int_air = return_air()

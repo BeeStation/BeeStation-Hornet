@@ -125,7 +125,8 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	var/charge_count = 100
 	var/current_overlay = null
 	var/broken_state = 0
-	var/setting = 1	//Gravity value when on
+	//Gravity value when on
+	var/setting = 1
 
 /obj/machinery/gravity_generator/main/Initialize(mapload)
 	. = ..()

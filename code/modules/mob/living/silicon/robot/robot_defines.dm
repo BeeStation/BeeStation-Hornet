@@ -109,8 +109,6 @@
 
 	/// VTEC speed boost.
 	var/speed = 0
-	/// Magboot-like effect.
-	var/magpulse = FALSE
 	/// Jetpack-like effect.
 	var/ionpulse = FALSE
 	/// Jetpack-like effect.
