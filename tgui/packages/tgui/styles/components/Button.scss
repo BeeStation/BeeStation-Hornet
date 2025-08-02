@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
+@use 'sass:color';
 @use '../base.scss';
 @use '../colors.scss';
 @use '../functions.scss' as *;
@@ -34,7 +35,7 @@ $bg-map: colors.$bg-map !default;
   }
 
   &:hover {
-    background-color: if($luminance > 0.6, darken($color, 15%), lighten($color, 30%));
+    background-color: if($luminance > 0.6, color.adjust($color, $lightness: -15%), color.adjust($color, $lightness: 30%));
     color: $text-color;
   }
 }

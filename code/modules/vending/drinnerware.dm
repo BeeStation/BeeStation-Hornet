@@ -71,7 +71,7 @@
 		/obj/item/storage/box/ingredients = 3
 	)
 	refill_canister = /obj/item/vending_refill/dinnerware
-	default_price = 20
+	default_price = PAYCHECK_ASSISTANT * 1.2
 	extra_price = 200
 	dept_req_for_free = NO_FREEBIES
 	seller_department = ACCOUNT_SRV_BITFLAG
