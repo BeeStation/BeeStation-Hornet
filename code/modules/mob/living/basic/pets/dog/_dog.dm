@@ -1,18 +1,25 @@
 // Add 'walkies' as valid input
 /datum/pet_command/follow/dog
-	speech_commands = list("heel", "follow", "walkies")
+	speech_commands = list("heel", "follow", "walkies", "come", "komm", "fuss")
 
 // Add 'good dog' as valid input
 /datum/pet_command/good_boy/dog
-	speech_commands = list("good dog")
+	speech_commands = list("good dog", "good boy", "brav")
 
 // Set correct attack behaviour
 /datum/pet_command/point_targetting/attack/dog
 	attack_behaviour = /datum/ai_behavior/basic_melee_attack/dog
+	speech_commands = list("attack", "sic", "kill", "fass")
 
 /datum/pet_command/point_targetting/attack/dog/set_command_active(mob/living/parent, mob/living/commander)
 	. = ..()
 	parent.ai_controller.set_blackboard_key(BB_DOG_HARASS_HARM, TRUE)
+
+/datum/pet_command/point_targetting/fetch/dog
+	speech_commands = list("fetch", "apport", "bring")
+
+/datum/pet_command/play_dead
+	speech_commands = list("play dead", "tot stellen")
 
 /mob/living/basic/pet/dog
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
@@ -38,8 +45,8 @@
 		/datum/pet_command/good_boy/dog,
 		/datum/pet_command/follow/dog,
 		/datum/pet_command/point_targetting/attack/dog,
-		/datum/pet_command/point_targetting/fetch,
-		/datum/pet_command/play_dead,
+		/datum/pet_command/point_targetting/fetch/dog,
+		/datum/pet_command/play_dead/dog,
 	)
 
 /mob/living/basic/pet/dog/Initialize(mapload)

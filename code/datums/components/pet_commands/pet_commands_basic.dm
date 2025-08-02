@@ -9,7 +9,7 @@
 	command_desc = "Command your pet to stay idle in this location."
 	radial_icon = 'icons/obj/objects.dmi'
 	radial_icon_state = "dogbed"
-	speech_commands = list("sit", "stay", "stop")
+	speech_commands = list("sit", "stay", "stop", "halt")
 	command_feedback = "sits"
 
 /datum/pet_command/idle/execute_action(datum/ai_controller/controller)
