@@ -46,7 +46,7 @@
 	if(disk_flags & DISK_JANI)
 		progs_to_store += new /datum/computer_file/program/radar/custodial_locator(src)
 
-	if((disk_flags & DISK_CHEM) || (disk_flags & DISK_MED) || (disk_flags & DISK_POWER) || (disk_flags & DISK_ATMOS))
+	if((disk_flags & DISK_CHEM) || (disk_flags & DISK_MED) || (disk_flags & DISK_ATMOS))
 		var/datum/computer_file/program/phys_scanner/scanner = new(src)
 
 		progs_to_store += scanner
@@ -79,6 +79,12 @@
 	if(disk_flags & DISK_HOP)
 		progs_to_store += new /datum/computer_file/program/card_mod(src)
 		progs_to_store += new /datum/computer_file/program/job_management(src)
+
+	if(disk_flags & DISK_AIRESTORE)
+		progs_to_store += new /datum/computer_file/program/aidiag(src)
+
+	if(disk_flags & DISK_PORTRAIT)
+		progs_to_store += new /datum/computer_file/program/portrait_printer(src)
 
 	for (var/datum/computer_file/program/prog in progs_to_store)
 		prog.required_access = list()
@@ -157,7 +163,7 @@
 /obj/item/computer_hardware/hard_drive/role/curator
 	name = "\improper Lib-Tweet disk"
 	icon_state = "cart-cur"
-	disk_flags = DISK_NEWSCASTER
+	disk_flags = DISK_NEWSCASTER | DISK_PORTRAIT
 	spam_delay = 3.5
 
 /obj/item/computer_hardware/hard_drive/role/roboticist
@@ -177,6 +183,12 @@
 	icon_state = "cart-tox"
 	desc = "Complete with integrated radio signaler!"
 	disk_flags = DISK_NETWORK | DISK_ATMOS | DISK_SIGNAL | DISK_CHEM
+
+/obj/item/computer_hardware/hard_drive/role/sci_console
+	name = "\improper I.T. Basics disk"
+	icon_state = "cart-tox"
+	desc = "A disk tailor made for the consoles of the research department."
+	disk_flags = DISK_NETWORK | DISK_AIRESTORE
 
 /obj/item/computer_hardware/hard_drive/role/quartermaster
 	name = "space parts DELUXE disk"
@@ -199,6 +211,12 @@
 	name = "\improper HumanResources9001 disk"
 	icon_state = "cart-hop"
 	disk_flags = DISK_MANIFEST | DISK_STATUS | DISK_JANI | DISK_SEC | DISK_NEWSCASTER | DISK_CARGO | DISK_SILO_LOG | DISK_ROBOS | DISK_BUDGET | DISK_HOP
+
+/obj/item/computer_hardware/hard_drive/role/hop_console
+	name = "\improper H.R basics disk"
+	icon_state = "cart-hop"
+	desc = "A disk tailor made for human resource consoles."
+	disk_flags = DISK_MANIFEST | DISK_HOP
 
 /obj/item/computer_hardware/hard_drive/role/hos
 	name = "\improper R.O.B.U.S.T. DELUXE disk"

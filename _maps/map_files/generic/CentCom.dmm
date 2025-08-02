@@ -1414,7 +1414,7 @@
 /turf/open/floor/iron/dark,
 /area/syndicate_mothership/control)
 "adc" = (
-/obj/machinery/modular_computer/console/preset/command{
+/obj/item/modular_computer/console/preset/command{
 	dir = 8
 	},
 /turf/open/floor/wood,
@@ -15776,7 +15776,7 @@
 /turf/open/floor/plating/rust,
 /area/syndicate_mothership/control)
 "aNy" = (
-/obj/machinery/modular_computer/console/preset/research,
+/obj/item/modular_computer/console/preset/research,
 /obj/machinery/light{
 	dir = 1
 	},

@@ -11697,7 +11697,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/obj/machinery/modular_computer/console/preset/engineering{
+/obj/item/modular_computer/console/preset/engineering{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/yellow{
@@ -42973,7 +42973,7 @@
 	pixel_y = -8;
 	req_access_txt = "19"
 	},
-/obj/machinery/modular_computer/console/preset/engineering{
+/obj/item/modular_computer/console/preset/engineering{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -60295,7 +60295,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/modular_computer/console/preset/command,
+/obj/item/modular_computer/console/preset/command,
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 4
 	},
@@ -62636,7 +62636,7 @@
 	c_tag = "Science - Research Director's Quarters";
 	name = "science camera"
 	},
-/obj/machinery/modular_computer/console/preset/research{
+/obj/item/modular_computer/console/preset/research{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/purple,
@@ -77891,7 +77891,7 @@
 	c_tag = "Engineering - Power Monitoring";
 	name = "engineering camera"
 	},
-/obj/machinery/modular_computer/console/preset/engineering{
+/obj/item/modular_computer/console/preset/engineering{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -78961,7 +78961,7 @@
 /obj/machinery/status_display/evac{
 	pixel_y = -32
 	},
-/obj/machinery/modular_computer/console/preset/engineering{
+/obj/item/modular_computer/console/preset/engineering{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -79155,7 +79155,7 @@
 /turf/open/floor/iron,
 /area/quartermaster/qm)
 "toj" = (
-/obj/machinery/modular_computer/console/preset/engineering,
+/obj/item/modular_computer/console/preset/engineering,
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 4
 	},
@@ -90679,7 +90679,7 @@
 /turf/open/floor/iron,
 /area/ai_monitored/storage/eva)
 "wTc" = (
-/obj/machinery/modular_computer/console/preset/curator,
+/obj/item/modular_computer/console/preset/curator,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /turf/open/floor/carpet/grimy,
