@@ -1869,7 +1869,6 @@
 	prereq_ids = list("adv_weaponry")
 	design_ids = list(
 		"adv_Grenade",
-		"large_Grenade",
 		"pyro_Grenade",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
