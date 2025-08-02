@@ -322,6 +322,12 @@
 			message_admins("ATTENTION! [key_name(usr)] has attempted to respawn with a previously played character name in a NEW slot. Likely attempting to bypass respawn restrictions.")
 			return FALSE
 
+		//Jobs played, in case we want to use it anytime.
+//		if("[SSjob.GetJob(rank)]" in client.player_details.joined_as_jobs)
+//			tgui_alert(usr, "You have already played as [rank] this round!")
+//			log_game("[key_name(usr)] has attempted to respawn as a previously played job and was denied.")
+//			return FALSE
+
 	var/error = IsJobUnavailable(rank)
 	if(error != JOB_AVAILABLE)
 		tgui_alert(src, get_job_unavailable_error_message(error, rank))
@@ -467,6 +473,7 @@
 	var/mob/living/carbon/human/H = new(loc)
 
 	H.apply_prefs_job(client, SSjob.GetJob(mind.assigned_role))
+	LAZYADD(client.player_details.joined_as_jobs, "[SSjob.GetJob(mind.assigned_role)]")
 	if(QDELETED(src) || !client)
 		return // Disconnected while checking for the appearance ban.
 	if(mind)

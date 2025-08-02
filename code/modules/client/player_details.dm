@@ -10,9 +10,10 @@
 	var/list/post_logout_callbacks = list()
 	/// List of names this key played under this round
 	var/list/played_names = list()
-	/// Lazylist of preference slots this client has joined the round under
+	/// Lazylists of preference slots and jobs this client has joined the round under
 	/// Numbers are stored as strings
 	var/list/joined_as_slots
+	var/list/joined_as_jobs
 	/// Version of byond this client is using
 	var/byond_version = "Unknown"
 	/// Tracks achievements they have earned
@@ -36,7 +37,3 @@
 		for(var/name in names)
 			if(name)
 				P.played_names |= name
-
-
-
-
