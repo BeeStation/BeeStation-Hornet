@@ -108227,13 +108227,13 @@
 "vTl" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark,
 /obj/effect/turf_decal/trimline/red/filled/mid_joiner,
-/obj/structure/bed/dogbed/walter,
+/obj/structure/bed/dogbed/tyson,
 /obj/effect/turf_decal/tile/techfloor/diagonal,
 /obj/structure/extinguisher_cabinet/directional/south,
-/mob/living/basic/pet/dog/bullterrier/walter,
+/mob/living/basic/pet/dog/bullterrier/tyson,
 /obj/item/clothing/mask/gas/old{
 	name = "chewed up gas mask";
-	desc = "A face-covering mask that can be connected to an air supply. This one appears to be one of Walter's favorite chew toys."
+	desc = "A face-covering mask that can be connected to an air supply. This one appears to be one of Tyson's favorite chew toys."
 	},
 /turf/open/floor/iron/techmaint,
 /area/security/warden)

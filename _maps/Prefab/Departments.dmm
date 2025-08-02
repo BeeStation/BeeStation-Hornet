@@ -494,7 +494,7 @@
 	alpha = 180;
 	color = "#DE3A3A"
 	},
-/mob/living/basic/pet/dog/bullterrier/walter{
+/mob/living/basic/pet/dog/bullterrier/tyson{
 	density = 0
 	},
 /mob/living/simple_animal/kalo{

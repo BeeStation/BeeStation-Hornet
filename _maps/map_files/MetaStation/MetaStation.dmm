@@ -36273,8 +36273,8 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/maintenance/disposal/incinerator)
 "iCR" = (
-/mob/living/basic/pet/dog/bullterrier/walter,
-/obj/structure/bed/dogbed/walter,
+/mob/living/basic/pet/dog/bullterrier/tyson,
+/obj/structure/bed/dogbed/tyson,
 /obj/machinery/newscaster{
 	pixel_y = -30
 	},

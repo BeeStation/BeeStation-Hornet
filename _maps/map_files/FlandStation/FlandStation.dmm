@@ -13737,12 +13737,12 @@
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 1
 	},
-/obj/structure/bed/dogbed/walter,
+/obj/structure/bed/dogbed/tyson,
 /obj/item/stack/sheet/bone{
 	pixel_x = 6;
 	pixel_y = -6
 	},
-/mob/living/basic/pet/dog/bullterrier/walter{
+/mob/living/basic/pet/dog/bullterrier/tyson{
 	density = 0;
 	dir = 1
 	},

@@ -3416,8 +3416,8 @@
 	pixel_y = 1;
 	req_access_txt = "3"
 	},
-/obj/structure/bed/dogbed/walter,
-/mob/living/basic/pet/dog/bullterrier/walter{
+/obj/structure/bed/dogbed/tyson,
+/mob/living/basic/pet/dog/bullterrier/tyson{
 	density = 0;
 	dir = 1
 	},
