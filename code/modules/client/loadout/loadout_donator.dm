@@ -134,3 +134,20 @@
 	display_name = "metal opa plushie"
 	path = /obj/item/toy/plush/opa
 
+//SYNDIE CYBORG BAGS//
+
+/datum/gear/donator_borg_bags
+	subtype_path = /datum/gear/accessory/backpack
+	cost = 0
+
+/datum/gear/donator_borg_bags/syndiassault_borg_bag
+	display_name = "suspiscious assault cyborg bag"
+	path = /obj/item/storage/backpack/syndiassault_borg_bag
+
+/datum/gear/donator_borg_bags/syndimed_borg_bag
+	display_name = "suspiscious medical cyborg bag"
+	path = /obj/item/storage/backpack/syndimed_borg_bag
+
+/datum/gear/donator_borg_bags/syndieng_borg_bag
+	display_name = "suspiscious engineering cyborg bag"
+	path = /obj/item/storage/backpack/syndieng_borg_bag

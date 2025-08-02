@@ -249,3 +249,55 @@
 	display_name = "black bishop's cloak"
 	path = /obj/item/clothing/neck/cloak/chap/bishop/black
 	allowed_roles = list(JOB_NAME_CHAPLAIN)
+
+//BACKPACKS//
+
+/datum/gear/accessory/backpack
+	subtype_path = /datum/gear/accessory/backpack
+	cost = 2000
+
+/datum/gear/accessory/backpack/engineer_borg_bag
+	display_name = "engineering cyborg bag"
+	path = /obj/item/storage/backpack/engineer_borg_bag
+
+/datum/gear/accessory/backpack/mining_borg_bag
+	display_name = "mining cyborg bag"
+	path = /obj/item/storage/backpack/mining_borg_bag
+
+/datum/gear/accessory/backpack/janitor_borg_bag
+	display_name = "janitor cyborg bag"
+	path = /obj/item/storage/backpack/janitor_borg_bag
+
+/datum/gear/accessory/backpack/peace_borg_bag
+	display_name = "peace Keeper cyborg bag"
+	path = /obj/item/storage/backpack/peace_borg_bag
+
+/datum/gear/accessory/backpack/service_borg_bag
+	display_name = "service cyborg bag"
+	path = /obj/item/storage/backpack/service_borg_bag
+
+/datum/gear/accessory/backpack/security_borg_bag
+	display_name = "security cyborg bag"
+	path = /obj/item/storage/backpack/security_borg_bag
+
+/datum/gear/accessory/backpack/medical_borg_bag
+	display_name = "medical cyborg bag"
+	path = /obj/item/storage/backpack/medical_borg_bag
+
+//Syndi borg bags//
+
+/datum/gear/accessory/backpack/syndi
+	subtype_path = /datum/gear/accessory/backpack
+	cost = 5000
+
+/datum/gear/accessory/backpack/syndi/syndiassault_borg_bag
+	display_name = "suspiscious assault cyborg bag"
+	path = /obj/item/storage/backpack/syndiassault_borg_bag
+
+/datum/gear/accessory/backpack/syndi/syndimed_borg_bag
+	display_name = "suspiscious medical cyborg bag"
+	path = /obj/item/storage/backpack/syndimed_borg_bag
+
+/datum/gear/accessory/backpack/syndi/syndieng_borg_bag
+	display_name = "suspiscious engineering cyborg bag"
+	path = /obj/item/storage/backpack/syndieng_borg_bag
