@@ -836,6 +836,20 @@
 		return FALSE
 	return ..()
 
+/**
+ * This should be called before mass qdeling components to make space for replacements.
+ * If not done, things will go awry as Exited() destroys the machine when it detects
+ * even a single component exiting the atom.
+ */
+/obj/machinery/proc/clear_components()
+	if(!component_parts)
+		return
+	var/list/old_components = component_parts
+	circuit = null
+	component_parts = null
+	for(var/atom/atom_part in old_components)
+		qdel(atom_part)
+
 /obj/machinery/proc/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/I)
 	if(!(flags_1 & NODECONSTRUCT_1) && I.tool_behaviour == TOOL_SCREWDRIVER)
 		I.play_tool_sound(src, 50)
