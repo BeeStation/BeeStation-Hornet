@@ -146,7 +146,6 @@
 
 /obj/projectile/magic/change/on_hit(atom/target)
 	. = ..()
-
 	if(isliving(target))
 		var/mob/living/victim = target
 		victim.wabbajack(set_wabbajack_effect, set_wabbajack_changeflags)

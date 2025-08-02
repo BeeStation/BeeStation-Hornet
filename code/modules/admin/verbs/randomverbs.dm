@@ -299,7 +299,7 @@
 		for(var/mob/M in GLOB.player_list)
 			if(M.stat != DEAD)
 				continue	//we are not dead!
-			if(!M.client?.should_include_for_role(ROLE_ALIEN, /datum/role_preference/midround_ghost/xenomorph))
+			if(!M.client?.should_include_for_role(ROLE_ALIEN))
 				continue	//we don't want to be an alium
 			if(M.client.is_afk())
 				continue	//we are afk
@@ -529,8 +529,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	var/datum/round_event/ion_storm/add_law_only/ion = new()
 	ion.announceChance = announce_ion_laws
-	ion.ionMessage = input
-	ion.lawsource = "Admin fuckery by [key_name(usr)]"
+	ion.ion_message = input
+	ion.law_source = "Admin fuckery by [key_name(usr)]"
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Add Custom AI Law") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -1043,8 +1043,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 /datum/admins/proc/modify_goals()
 	var/dat = ""
-	for(var/datum/station_goal/S in SSticker.mode.station_goals)
-		dat += "[S.name] - <a href='byond://?src=[REF(S)];[HrefToken()];announce=1'>Announce</a> | <a href='byond://?src=[REF(S)];[HrefToken()];remove=1'>Remove</a><br>"
+	for(var/datum/station_goal/goal as anything in SSstation.get_station_goals())
+		dat += "[goal.name] - <a href='byond://?src=[REF(goal)];[HrefToken()];announce=1'>Announce</a> | <a href='byond://?src=[REF(goal)];[HrefToken()];remove=1'>Remove</a><br>"
 	dat += "<br><a href='byond://?src=[REF(src)];[HrefToken()];add_station_goal=1'>Add New Goal</a>"
 	var/datum/browser/browser = new(usr, "goals", "Modify Goals", 400, 400)
 	browser.set_content(dat)

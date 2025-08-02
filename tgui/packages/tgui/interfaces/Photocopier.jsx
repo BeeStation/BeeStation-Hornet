@@ -140,7 +140,7 @@ const Blanks = (props) => {
   const { act, data } = useBackend();
   const { blanks, category, has_toner } = data;
 
-  const sortedBlanks = sortBy((blank) => blanks.category)(blanks || []);
+  const sortedBlanks = sortBy(blanks || [], (blank) => blank.name);
 
   const categories = [];
   for (let blank of sortedBlanks) {

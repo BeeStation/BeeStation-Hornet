@@ -3403,31 +3403,6 @@
 	dir = 1
 	},
 /area/crew_quarters/fitness/recreation)
-"bCc" = (
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	alpha = 180;
-	dir = 1
-	},
-/obj/machinery/camera/directional/west,
-/obj/machinery/button/door{
-	id = "armory";
-	name = "Armory Shutter Toggle";
-	pixel_x = -32;
-	pixel_y = 1;
-	req_access_txt = "3"
-	},
-/obj/structure/bed/dogbed/tyson,
-/mob/living/basic/pet/dog/bullterrier/tyson{
-	density = 0;
-	dir = 1
-	},
-/obj/item/stack/sheet/bone{
-	pixel_x = 6;
-	pixel_y = -6
-	},
-/obj/structure/disposalpipe/segment,
-/turf/open/floor/iron/dark,
-/area/security/warden)
 "bCu" = (
 /obj/effect/spawner/room/fivexthree,
 /turf/open/floor/plating,
@@ -5622,28 +5597,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron,
 /area/maintenance/department/crew_quarters/dorms)
-"cKi" = (
-/obj/structure/table/reinforced,
-/obj/item/aiModule/supplied/freeform,
-/obj/item/aiModule/supplied/freeform,
-/obj/item/aiModule/supplied/freeform,
-/obj/item/aiModule/supplied/freeform,
-/obj/structure/window/reinforced/spawner/west{
-	dir = 1
-	},
-/obj/structure/window/reinforced/spawner/east{
-	dir = 2
-	},
-/obj/machinery/door/window/brigdoor/northright{
-	dir = 8;
-	name = "Security Boards";
-	req_access_txt = "16"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/circuit,
-/area/ai_monitored/turret_protected/ai_upload)
 "cKB" = (
 /obj/machinery/camera/directional/east,
 /turf/open/floor/iron/dark/side{
@@ -7752,22 +7705,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/hallway/primary/central)
-"dUG" = (
-/obj/item/aicard,
-/obj/item/aiModule/reset,
-/obj/item/paicard{
-	pixel_x = 4
-	},
-/obj/item/assembly/flash/handheld,
-/obj/item/assembly/flash/handheld,
-/obj/structure/rack,
-/obj/effect/turf_decal/delivery,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -5;
-	pixel_y = -32
-	},
-/turf/open/floor/iron/dark,
-/area/storage/tech)
 "dVd" = (
 /obj/machinery/atmospherics/pipe/layer_manifold/supply/visible,
 /obj/effect/turf_decal/tile/neutral/half{
@@ -19505,25 +19442,6 @@
 /obj/structure/disposalpipe/trunk,
 /turf/open/floor/iron,
 /area/hydroponics)
-"kcD" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/obj/structure/table/wood,
-/obj/machinery/computer/security/telescreen/entertainment{
-	pixel_x = -1;
-	pixel_y = 31
-	},
-/obj/machinery/light{
-	dir = 1;
-	light_color = "#7AC3FF"
-	},
-/obj/item/storage/crayons{
-	pixel_x = 3;
-	pixel_y = 4
-	},
-/turf/open/floor/carpet/green,
-/area/crew_quarters/cafeteria)
 "kcF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -19882,22 +19800,6 @@
 	},
 /turf/open/floor/iron,
 /area/security/brig)
-"knd" = (
-/obj/structure/table/reinforced,
-/obj/item/aiModule/reset,
-/obj/item/aiModule/reset/purge,
-/obj/item/aiModule/core/full/asimov,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/flasher{
-	id = "AI";
-	pixel_x = -1;
-	pixel_y = -32
-	},
-/obj/machinery/airalarm/directional/east,
-/turf/open/floor/circuit,
-/area/ai_monitored/turret_protected/ai_upload)
 "kno" = (
 /obj/effect/turf_decal/tile/neutral/anticorner{
 	dir = 4
@@ -21728,6 +21630,22 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/openspace/planetary,
 /area/engine/atmos)
+"lkh" = (
+/obj/structure/table/reinforced,
+/obj/item/ai_module/reset,
+/obj/item/ai_module/reset/purge,
+/obj/item/ai_module/core/full/asimov,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/flasher{
+	id = "AI";
+	pixel_x = -1;
+	pixel_y = -32
+	},
+/obj/machinery/airalarm/directional/east,
+/turf/open/floor/circuit,
+/area/ai_monitored/turret_protected/ai_upload)
 "lkr" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
@@ -22250,6 +22168,13 @@
 "lzI" = (
 /turf/open/openspace/planetary,
 /area/science/lab)
+"lzN" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table/wood,
+/obj/effect/turf_decal/siding/wood,
+/obj/item/paicard,
+/turf/open/floor/carpet/green,
+/area/crew_quarters/cafeteria)
 "lAt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -26829,6 +26754,22 @@
 "oeq" = (
 /turf/open/floor/plating,
 /area/paradise/surface/grass)
+"oeJ" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/structure/table/wood,
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_x = -1;
+	pixel_y = 31
+	},
+/obj/machinery/light{
+	dir = 1;
+	light_color = "#7AC3FF"
+	},
+/obj/machinery/cell_charger,
+/turf/open/floor/carpet/green,
+/area/crew_quarters/cafeteria)
 "oeP" = (
 /obj/machinery/door/airlock/research/glass{
 	name = "Xenobiology Lab";
@@ -28034,21 +27975,6 @@
 	},
 /turf/open/floor/carpet/royalblack,
 /area/library/abandoned)
-"oKf" = (
-/obj/structure/closet/secure_closet/hop,
-/obj/item/modular_computer/tablet/pda,
-/obj/item/modular_computer/tablet/pda,
-/obj/item/modular_computer/tablet/pda,
-/obj/item/modular_computer/tablet/pda,
-/obj/item/modular_computer/tablet/pda,
-/obj/effect/turf_decal/siding/wood{
-	dir = 4
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/open/floor/carpet/blue,
-/area/crew_quarters/heads/hop)
 "oKg" = (
 /obj/machinery/atmospherics/miner/station/plasma,
 /obj/machinery/light/small{
@@ -29454,6 +29380,31 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/iron/white,
 /area/medical/apothecary)
+"ptK" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	alpha = 180;
+	dir = 1
+	},
+/obj/machinery/camera/directional/west,
+/obj/machinery/button/door{
+	id = "armory";
+	name = "Armory Shutter Toggle";
+	pixel_x = -32;
+	pixel_y = 1;
+	req_access_txt = "3"
+	},
+/obj/structure/bed/dogbed/tyson,
+/mob/living/basic/pet/dog/bullterrier/tyson{
+	density = 0;
+	dir = 1
+	},
+/obj/item/stack/sheet/bone{
+	pixel_x = 6;
+	pixel_y = -6
+	},
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/iron/dark,
+/area/security/warden)
 "ptP" = (
 /obj/machinery/nanite_programmer,
 /obj/effect/turf_decal/stripes/line,
@@ -30879,6 +30830,10 @@
 	},
 /turf/open/floor/iron/dark,
 /area/gateway)
+"qim" = (
+/obj/machinery/libraryscanner,
+/turf/open/floor/plating,
+/area/library/abandoned)
 "qiy" = (
 /obj/structure/railing/corner{
 	dir = 8
@@ -35884,6 +35839,21 @@
 	},
 /turf/open/floor/engine/vacuum,
 /area/engine/atmos)
+"sWB" = (
+/obj/structure/closet/secure_closet/hop,
+/obj/item/modular_computer/tablet/pda/preset,
+/obj/item/modular_computer/tablet/pda/preset,
+/obj/item/modular_computer/tablet/pda/preset,
+/obj/item/modular_computer/tablet/pda/preset,
+/obj/item/modular_computer/tablet/pda/preset,
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/carpet/blue,
+/area/crew_quarters/heads/hop)
 "sWT" = (
 /turf/closed/wall,
 /area/quartermaster/sorting)
@@ -36916,6 +36886,28 @@
 	},
 /turf/open/openspace/planetary,
 /area/hallway/primary/central)
+"tvy" = (
+/obj/structure/table/reinforced,
+/obj/item/ai_module/supplied/freeform,
+/obj/item/ai_module/supplied/freeform,
+/obj/item/ai_module/supplied/freeform,
+/obj/item/ai_module/supplied/freeform,
+/obj/structure/window/reinforced/spawner/west{
+	dir = 1
+	},
+/obj/structure/window/reinforced/spawner/east{
+	dir = 2
+	},
+/obj/machinery/door/window/brigdoor/northright{
+	dir = 8;
+	name = "Security Boards";
+	req_access_txt = "16"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/circuit,
+/area/ai_monitored/turret_protected/ai_upload)
 "tvL" = (
 /obj/structure/lattice,
 /obj/structure/railing{
@@ -38313,9 +38305,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark,
 /area/hallway/primary/aft)
-"uef" = (
-/turf/open/floor/plating,
-/area/library/abandoned)
 "ueQ" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron/white,
@@ -40913,6 +40902,19 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
+"vrv" = (
+/mob/living/basic/pet/dog/corgi/ian{
+	density = 0;
+	dir = 1;
+	pixel_y = 4
+	},
+/obj/item/toy/plush/ian,
+/obj/structure/bed/dogbed/ian,
+/obj/item/storage/secure/safe{
+	pixel_x = 38
+	},
+/turf/open/floor/carpet/blue,
+/area/crew_quarters/heads/hop)
 "vry" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -42812,19 +42814,6 @@
 /obj/structure/flora/ash/tall_shroom,
 /turf/open/floor/plating/asteroid/planetary,
 /area/engine/atmos)
-"wBs" = (
-/mob/living/basic/pet/dog/corgi/ian{
-	density = 0;
-	dir = 1;
-	pixel_y = 4
-	},
-/obj/item/toy/plush/ian,
-/obj/structure/bed/dogbed/ian,
-/obj/item/storage/secure/safe{
-	pixel_x = 38
-	},
-/turf/open/floor/carpet/blue,
-/area/crew_quarters/heads/hop)
 "wBT" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance/two,
@@ -43636,19 +43625,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/science/central)
-"wVz" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table/wood,
-/obj/effect/turf_decal/siding/wood,
-/obj/item/reagent_containers/condiment/peppermill{
-	pixel_y = 28
-	},
-/obj/item/reagent_containers/condiment/saltshaker{
-	pixel_y = 23
-	},
-/obj/item/paicard,
-/turf/open/floor/carpet/green,
-/area/crew_quarters/cafeteria)
 "wVF" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
@@ -45879,6 +45855,22 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron,
 /area/maintenance/department/crew_quarters/dorms)
+"ygA" = (
+/obj/item/aicard,
+/obj/item/ai_module/reset,
+/obj/item/paicard{
+	pixel_x = 4
+	},
+/obj/item/assembly/flash/handheld,
+/obj/item/assembly/flash/handheld,
+/obj/structure/rack,
+/obj/effect/turf_decal/delivery,
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -5;
+	pixel_y = -32
+	},
+/turf/open/floor/iron/dark,
+/area/storage/tech)
 "ygK" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -28
@@ -59016,7 +59008,7 @@ xyh
 ueV
 uYV
 gjC
-dUG
+ygA
 vLP
 xZu
 qdG
@@ -62592,7 +62584,7 @@ bbB
 iHW
 tBs
 qjT
-uef
+qim
 xeG
 ovZ
 pEv
@@ -125543,8 +125535,8 @@ kAk
 vdv
 gMh
 hhu
-kcD
-wVz
+oeJ
+lzN
 fsb
 jeo
 oLK
@@ -190088,7 +190080,7 @@ vLu
 dCK
 uGq
 xQY
-bCc
+ptK
 yjC
 omk
 wHN
@@ -191093,9 +191085,9 @@ soL
 gim
 cpR
 lOG
-cKi
+tvy
 ajZ
-knd
+lkh
 gim
 nOc
 gzy
@@ -194204,7 +194196,7 @@ vmR
 cOr
 ctk
 dur
-oKf
+sWB
 vnz
 oLn
 xKs
@@ -194978,7 +194970,7 @@ dur
 qDp
 uQG
 rXP
-wBs
+vrv
 qah
 qYU
 srJ

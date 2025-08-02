@@ -4712,39 +4712,6 @@
 	},
 /turf/open/floor/carpet/green,
 /area/lawoffice)
-"aXC" = (
-/obj/structure/table/reinforced,
-/obj/structure/window/reinforced/spawner,
-/obj/machinery/door/window/brigdoor{
-	dir = 1;
-	name = "Core Modules";
-	req_access_txt = "20"
-	},
-/obj/item/aiModule/supplied/freeform{
-	pixel_y = -3;
-	pixel_x = -8
-	},
-/obj/item/aiModule/supplied/freeform{
-	pixel_y = -3;
-	pixel_x = 8
-	},
-/obj/item/aiModule/supplied/freeform{
-	pixel_y = 5;
-	pixel_x = 8
-	},
-/obj/item/aiModule/supplied/freeform{
-	pixel_y = 5;
-	pixel_x = -8
-	},
-/obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 9
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 5
-	},
-/turf/open/floor/circuit,
-/area/ai_monitored/turret_protected/ai_upload)
 "aXI" = (
 /obj/effect/turf_decal/trimline/green/filled/warning{
 	dir = 4
@@ -7238,6 +7205,32 @@
 	},
 /turf/open/floor/vault/rock,
 /area/science/nanite)
+"buY" = (
+/obj/effect/landmark/start/ai/secondary,
+/obj/item/radio/intercom{
+	freerange = 1;
+	listening = 0;
+	name = "Custom Channel";
+	pixel_y = 28
+	},
+/obj/item/radio/intercom{
+	freerange = 1;
+	name = "Common Channel";
+	pixel_x = -27;
+	pixel_y = 5
+	},
+/obj/item/radio/intercom{
+	freerange = 1;
+	frequency = 1447;
+	name = "Private Channel";
+	pixel_y = -25
+	},
+/obj/effect/turf_decal/siding/green/end{
+	dir = 4
+	},
+/obj/item/ai_module/core/full/hippocratic,
+/turf/open/floor/circuit/green,
+/area/ai_monitored/turret_protected/ai)
 "bvq" = (
 /obj/machinery/light/directional/west,
 /obj/effect/turf_decal/tile/blue{
@@ -16210,28 +16203,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/crew_quarters/heads/hos)
-"diK" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/brigdoor/westright{
-	name = "Core Modules";
-	req_access_txt = "20"
-	},
-/obj/effect/spawner/lootdrop/aimodule_harmful,
-/obj/item/aiModule/supplied/protectStation{
-	pixel_y = 8
-	},
-/obj/item/aiModule/zeroth/oneHuman{
-	pixel_y = -17
-	},
-/obj/effect/spawner/lootdrop/aimodule_harmful{
-	pixel_y = 2
-	},
-/obj/structure/window/reinforced/spawner/north,
-/obj/structure/cable/cyan{
-	icon_state = "4-8"
-	},
-/turf/open/floor/circuit,
-/area/ai_monitored/turret_protected/ai_upload)
 "diR" = (
 /obj/structure/bookcase/random/adult,
 /turf/open/floor/wood,
@@ -19683,6 +19654,28 @@
 /obj/item/c_tube,
 /turf/open/floor/plating/rust,
 /area/maintenance/department/science/xenobiology)
+"dXT" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/brigdoor/westright{
+	name = "Core Modules";
+	req_access_txt = "20"
+	},
+/obj/effect/spawner/lootdrop/aimodule_harmful,
+/obj/item/ai_module/supplied/protect_station{
+	pixel_y = 8
+	},
+/obj/item/ai_module/zeroth/onehuman{
+	pixel_y = -17
+	},
+/obj/effect/spawner/lootdrop/aimodule_harmful{
+	pixel_y = 2
+	},
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/cable/cyan{
+	icon_state = "4-8"
+	},
+/turf/open/floor/circuit,
+/area/ai_monitored/turret_protected/ai_upload)
 "dYd" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/rust,
@@ -29147,6 +29140,18 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/main)
+"fYm" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "kitchencounter";
+	name = "Kitchen Counter Shutters"
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/cell_charger{
+	desc = "It charges power cells. There is a small tag on it: Public tools charger. Please do no remove"
+	},
+/turf/open/floor/plating,
+/area/crew_quarters/kitchen)
 "fYB" = (
 /obj/effect/spawner/lootdrop/grille_or_trash{
 	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
@@ -35641,32 +35646,6 @@
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
-"hiJ" = (
-/obj/effect/landmark/start/ai/secondary,
-/obj/item/radio/intercom{
-	freerange = 1;
-	listening = 0;
-	name = "Custom Channel";
-	pixel_y = 28
-	},
-/obj/item/radio/intercom{
-	freerange = 1;
-	name = "Common Channel";
-	pixel_x = 27;
-	pixel_y = 5
-	},
-/obj/item/radio/intercom{
-	freerange = 1;
-	frequency = 1447;
-	name = "Private Channel";
-	pixel_y = -25
-	},
-/obj/effect/turf_decal/siding/red/end{
-	dir = 8
-	},
-/obj/item/aiModule/core/full/tyrant,
-/turf/open/floor/circuit/red,
-/area/ai_monitored/turret_protected/ai)
 "hiX" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /obj/effect/landmark/start/exploration,
@@ -38208,32 +38187,6 @@
 	},
 /turf/open/water/air/station,
 /area/hydroponics/garden)
-"hKx" = (
-/obj/effect/landmark/start/ai/secondary,
-/obj/item/radio/intercom{
-	freerange = 1;
-	listening = 0;
-	name = "Custom Channel";
-	pixel_y = 28
-	},
-/obj/item/radio/intercom{
-	freerange = 1;
-	name = "Common Channel";
-	pixel_x = -27;
-	pixel_y = 5
-	},
-/obj/item/radio/intercom{
-	freerange = 1;
-	frequency = 1447;
-	name = "Private Channel";
-	pixel_y = -25
-	},
-/obj/effect/turf_decal/siding/green/end{
-	dir = 4
-	},
-/obj/item/aiModule/core/full/hippocratic,
-/turf/open/floor/circuit/green,
-/area/ai_monitored/turret_protected/ai)
 "hKF" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
@@ -45071,26 +45024,6 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/engine/atmos)
-"jdF" = (
-/obj/structure/table/reinforced,
-/obj/effect/spawner/lootdrop/aimodule_neutral,
-/obj/item/aiModule/core/full/corp{
-	pixel_y = -28
-	},
-/obj/item/aiModule/core/full/reporter{
-	pixel_y = 7
-	},
-/obj/machinery/door/window/brigdoor{
-	dir = 4;
-	name = "Core Modules";
-	req_access_txt = "20"
-	},
-/obj/structure/window/reinforced/spawner/north,
-/obj/structure/cable/cyan{
-	icon_state = "4-8"
-	},
-/turf/open/floor/circuit,
-/area/ai_monitored/turret_protected/ai_upload)
 "jdN" = (
 /obj/structure/closet/firecloset,
 /turf/open/floor/plating,
@@ -45865,6 +45798,20 @@
 	},
 /turf/open/water/air/station,
 /area/hydroponics/garden)
+"jmF" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/brigdoor{
+	dir = 8;
+	name = "Core Modules";
+	req_access_txt = "20"
+	},
+/obj/effect/spawner/lootdrop/aimodule_harmful,
+/obj/item/ai_module/supplied/protect_station{
+	pixel_y = 7
+	},
+/obj/machinery/status_display/ai/directional/east,
+/turf/open/floor/circuit,
+/area/ai_monitored/turret_protected/ai_upload)
 "jmM" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 10
@@ -46411,6 +46358,32 @@
 	},
 /turf/open/floor/wood/big,
 /area/crew_quarters/heads/chief)
+"jub" = (
+/obj/effect/landmark/start/ai/secondary,
+/obj/item/radio/intercom{
+	freerange = 1;
+	listening = 0;
+	name = "Custom Channel";
+	pixel_y = 28
+	},
+/obj/item/radio/intercom{
+	freerange = 1;
+	name = "Common Channel";
+	pixel_x = 27;
+	pixel_y = 5
+	},
+/obj/item/radio/intercom{
+	freerange = 1;
+	frequency = 1447;
+	name = "Private Channel";
+	pixel_y = -25
+	},
+/obj/effect/turf_decal/siding/red/end{
+	dir = 8
+	},
+/obj/item/ai_module/core/full/tyrant,
+/turf/open/floor/circuit/red,
+/area/ai_monitored/turret_protected/ai)
 "juf" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment{
@@ -59334,6 +59307,26 @@
 	},
 /turf/open/floor/iron/checker/other,
 /area/crew_quarters/bar)
+"mbk" = (
+/obj/structure/table/reinforced,
+/obj/effect/spawner/lootdrop/aimodule_neutral,
+/obj/item/ai_module/core/full/corp{
+	pixel_y = -28
+	},
+/obj/item/ai_module/core/full/reporter{
+	pixel_y = 7
+	},
+/obj/machinery/door/window/brigdoor{
+	dir = 4;
+	name = "Core Modules";
+	req_access_txt = "20"
+	},
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/cable/cyan{
+	icon_state = "4-8"
+	},
+/turf/open/floor/circuit,
+/area/ai_monitored/turret_protected/ai_upload)
 "mbl" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 9
@@ -65422,15 +65415,6 @@
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
 /area/science/server)
-"nmY" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "kitchencounter";
-	name = "Kitchen Counter Shutters"
-	},
-/obj/machinery/door/firedoor,
-/turf/open/floor/plating,
-/area/crew_quarters/kitchen)
 "nna" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -73834,6 +73818,19 @@
 	},
 /turf/open/water/air/station,
 /area/hydroponics/garden)
+"oWt" = (
+/obj/effect/turf_decal/siding/wideplating_new/dark,
+/obj/effect/turf_decal/trimline/red/filled/mid_joiner,
+/obj/structure/bed/dogbed/tyson,
+/obj/effect/turf_decal/tile/techfloor/diagonal,
+/obj/structure/extinguisher_cabinet/directional/south,
+/mob/living/basic/pet/dog/bullterrier/tyson,
+/obj/item/clothing/mask/gas/old{
+	name = "chewed up gas mask";
+	desc = "A face-covering mask that can be connected to an air supply. This one appears to be one of Tyson's favorite chew toys."
+	},
+/turf/open/floor/iron/techmaint,
+/area/security/warden)
 "oWv" = (
 /obj/effect/turf_decal/edges/borderfloor{
 	dir = 1
@@ -77454,6 +77451,24 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
+"pHv" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/dark_blue{
+	dir = 1
+	},
+/obj/structure/bed/dogbed/ian{
+	pixel_y = -1;
+	pixel_x = -3
+	},
+/obj/item/stack/sheet/bone{
+	desc = "A bone for a good boy.";
+	name = "Dog bone"
+	},
+/mob/living/basic/pet/dog/corgi/ian,
+/obj/machinery/airalarm/directional/south,
+/obj/machinery/light/directional/south,
+/turf/open/floor/wood/big,
+/area/crew_quarters/heads/hop)
 "pHC" = (
 /obj/structure/disposalpipe/segment{
 	dir = 1
@@ -83806,30 +83821,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
-"qWT" = (
-/obj/structure/rack,
-/obj/effect/spawner/lootdrop/aimodule_harmless{
-	pixel_y = -2
-	},
-/obj/effect/spawner/lootdrop/aimodule_harmless{
-	pixel_y = 2
-	},
-/obj/effect/spawner/lootdrop/aimodule_harmless{
-	pixel_y = 6
-	},
-/obj/item/aiModule/core/full/asimov,
-/obj/item/aiModule/reset/purge,
-/obj/item/aiModule/reset,
-/obj/structure/cable/cyan{
-	icon_state = "1-2"
-	},
-/obj/machinery/door/window/brigdoor{
-	dir = 1;
-	name = "Core Modules";
-	req_access_txt = "20"
-	},
-/turf/open/floor/circuit,
-/area/ai_monitored/turret_protected/ai_upload)
 "qWX" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/curtain/directional{
@@ -84973,6 +84964,30 @@
 /obj/machinery/light/small/directional/south,
 /turf/open/floor/plating,
 /area/maintenance/central)
+"riP" = (
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/aimodule_harmless{
+	pixel_y = -2
+	},
+/obj/effect/spawner/lootdrop/aimodule_harmless{
+	pixel_y = 2
+	},
+/obj/effect/spawner/lootdrop/aimodule_harmless{
+	pixel_y = 6
+	},
+/obj/item/ai_module/core/full/asimov,
+/obj/item/ai_module/reset/purge,
+/obj/item/ai_module/reset,
+/obj/structure/cable/cyan{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/window/brigdoor{
+	dir = 1;
+	name = "Core Modules";
+	req_access_txt = "20"
+	},
+/turf/open/floor/circuit,
+/area/ai_monitored/turret_protected/ai_upload)
 "rje" = (
 /obj/effect/turf_decal/trimline/purple/filled/warning{
 	dir = 8
@@ -88924,6 +88939,39 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/virology)
+"rZZ" = (
+/obj/structure/table/reinforced,
+/obj/structure/window/reinforced/spawner,
+/obj/machinery/door/window/brigdoor{
+	dir = 1;
+	name = "Core Modules";
+	req_access_txt = "20"
+	},
+/obj/item/ai_module/supplied/freeform{
+	pixel_y = -3;
+	pixel_x = -8
+	},
+/obj/item/ai_module/supplied/freeform{
+	pixel_y = -3;
+	pixel_x = 8
+	},
+/obj/item/ai_module/supplied/freeform{
+	pixel_y = 5;
+	pixel_x = 8
+	},
+/obj/item/ai_module/supplied/freeform{
+	pixel_y = 5;
+	pixel_x = -8
+	},
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 5
+	},
+/turf/open/floor/circuit,
+/area/ai_monitored/turret_protected/ai_upload)
 "sae" = (
 /obj/effect/spawner/room/fivexthree,
 /turf/open/floor/plating,
@@ -98441,24 +98489,6 @@
 /obj/machinery/light/directional/south,
 /turf/open/floor/iron/textured_large,
 /area/hallway/primary/fore)
-"tXR" = (
-/obj/effect/turf_decal/siding/wood,
-/obj/effect/turf_decal/siding/dark_blue{
-	dir = 1
-	},
-/obj/structure/bed/dogbed/ian{
-	pixel_y = -1;
-	pixel_x = -3
-	},
-/obj/item/stack/sheet/bone{
-	desc = "A bone for a good boy.";
-	name = "Dog bone"
-	},
-/mob/living/basic/pet/dog/corgi/ian,
-/obj/machinery/airalarm/directional/south,
-/obj/machinery/light/directional/south,
-/turf/open/floor/wood/big,
-/area/crew_quarters/heads/hop)
 "tXS" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line,
 /obj/effect/turf_decal/trimline/neutral/line,
@@ -107188,20 +107218,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/maintenance/department/medical)
-"vIy" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/brigdoor{
-	dir = 8;
-	name = "Core Modules";
-	req_access_txt = "20"
-	},
-/obj/effect/spawner/lootdrop/aimodule_harmful,
-/obj/item/aiModule/supplied/protectStation{
-	pixel_y = 7
-	},
-/obj/machinery/status_display/ai/directional/east,
-/turf/open/floor/circuit,
-/area/ai_monitored/turret_protected/ai_upload)
 "vIA" = (
 /obj/effect/turf_decal/trimline/white/line{
 	dir = 5
@@ -108224,19 +108240,6 @@
 /obj/machinery/airalarm/directional/north,
 /turf/open/floor/noslip/blue,
 /area/crew_quarters/fitness/recreation)
-"vTl" = (
-/obj/effect/turf_decal/siding/wideplating_new/dark,
-/obj/effect/turf_decal/trimline/red/filled/mid_joiner,
-/obj/structure/bed/dogbed/tyson,
-/obj/effect/turf_decal/tile/techfloor/diagonal,
-/obj/structure/extinguisher_cabinet/directional/south,
-/mob/living/basic/pet/dog/bullterrier/tyson,
-/obj/item/clothing/mask/gas/old{
-	name = "chewed up gas mask";
-	desc = "A face-covering mask that can be connected to an air supply. This one appears to be one of Tyson's favorite chew toys."
-	},
-/turf/open/floor/iron/techmaint,
-/area/security/warden)
 "vTn" = (
 /obj/effect/turf_decal/siding/blue{
 	dir = 9
@@ -112209,6 +112212,20 @@
 /obj/machinery/light/very_dim/directional/west,
 /turf/open/floor/iron/tech/grid,
 /area/medical/morgue)
+"wJY" = (
+/obj/structure/table/wood,
+/obj/effect/turf_decal/siding/white{
+	dir = 1
+	},
+/obj/item/flashlight/lamp{
+	pixel_x = 17;
+	pixel_y = -1
+	},
+/obj/machinery/cell_charger{
+	desc = "It charges power cells. There is a small tag on it: Public tools charger. Please do no remove"
+	},
+/turf/open/floor/carpet/red,
+/area/library/lounge)
 "wKd" = (
 /obj/effect/landmark/start/assistant,
 /obj/structure/chair/fancy/sofa/old/left{
@@ -118586,21 +118603,6 @@
 	},
 /turf/open/floor/iron/edge,
 /area/maintenance/disposal/incinerator)
-"yci" = (
-/obj/structure/table/wood,
-/obj/effect/turf_decal/siding/white{
-	dir = 1
-	},
-/obj/item/flashlight/lamp{
-	pixel_x = 17;
-	pixel_y = -1
-	},
-/obj/item/paper/pamphlet/violent_video_games{
-	pixel_y = 5;
-	pixel_x = -3
-	},
-/turf/open/floor/carpet/red,
-/area/library/lounge)
 "ycm" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
@@ -129397,7 +129399,7 @@ mwp
 mwp
 mwp
 mwp
-hKx
+buY
 mwp
 mwp
 mwp
@@ -131224,7 +131226,7 @@ qov
 ohK
 tiv
 pgo
-jdF
+mbk
 uCT
 nqR
 tiv
@@ -131453,7 +131455,7 @@ mwp
 mwp
 mwp
 mwp
-hiJ
+jub
 mwp
 mwp
 mwp
@@ -131995,10 +131997,10 @@ hgZ
 ssQ
 bLZ
 mbZ
-aXC
+rZZ
 aFc
 crq
-qWT
+riP
 cHA
 hyT
 nzj
@@ -132766,8 +132768,8 @@ aWa
 pGI
 tiv
 rQJ
-diK
-vIy
+dXT
+jmF
 nqR
 tiv
 jHV
@@ -138894,7 +138896,7 @@ uOP
 otx
 cko
 vDU
-tXR
+pHv
 eYi
 eYi
 eYi
@@ -153029,7 +153031,7 @@ gju
 gHY
 gBL
 fAB
-yci
+wJY
 pFD
 wKd
 boY
@@ -153522,7 +153524,7 @@ xFy
 xjN
 hZL
 xcI
-nmY
+fYm
 kOT
 hgy
 qRB
@@ -154515,7 +154517,7 @@ kdI
 vDe
 fyS
 hSK
-vTl
+oWt
 kdI
 qTU
 kTJ

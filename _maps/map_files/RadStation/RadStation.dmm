@@ -8062,6 +8062,24 @@
 	dir = 6
 	},
 /area/hallway/secondary/exit/departure_lounge)
+"czX" = (
+/obj/machinery/status_display/ai{
+	pixel_x = -32
+	},
+/obj/item/aicard,
+/obj/item/ai_module/reset,
+/obj/item/paicard{
+	pixel_x = 4
+	},
+/obj/item/assembly/flash/handheld,
+/obj/item/assembly/flash/handheld,
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -5;
+	pixel_y = -32
+	},
+/obj/structure/table,
+/turf/open/floor/iron/dark,
+/area/storage/tech)
 "cAn" = (
 /obj/machinery/computer/apc_control,
 /obj/effect/turf_decal/bot,
@@ -12243,6 +12261,25 @@
 	},
 /turf/open/floor/iron,
 /area/security/checkpoint/escape)
+"dSL" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 9
+	},
+/obj/structure/bed/dogbed/ian,
+/mob/living/basic/pet/dog/corgi/ian{
+	density = 0;
+	dir = 1;
+	pixel_y = 4
+	},
+/obj/item/toy/beach_ball/holoball/dodgeball{
+	name = "dodgeball 3 of 5"
+	},
+/obj/machinery/newscaster{
+	pixel_x = 1;
+	pixel_y = 33
+	},
+/turf/open/floor/carpet/blue,
+/area/crew_quarters/heads/hop)
 "dSM" = (
 /turf/open/floor/plating{
 	broken = 1
@@ -23311,6 +23348,16 @@
 	},
 /turf/open/floor/iron/white/side,
 /area/medical/medbay/central)
+"hzY" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/siding/wideplating/dark{
+	dir = 10
+	},
+/obj/machinery/cell_charger{
+	desc = "It charges power cells. There is a small tag on it: Public tools charger. Please do no remove"
+	},
+/turf/open/floor/iron/cafeteria,
+/area/crew_quarters/kitchen)
 "hAk" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -26834,6 +26881,26 @@
 	},
 /turf/open/floor/iron,
 /area/security/brig/medbay)
+"iOd" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/bed/dogbed/tyson,
+/obj/item/stack/sheet/bone{
+	pixel_x = 6;
+	pixel_y = -6
+	},
+/mob/living/basic/pet/dog/bullterrier/tyson{
+	density = 0
+	},
+/obj/machinery/status_display/evac{
+	pixel_y = 32
+	},
+/turf/open/floor/iron/dark,
+/area/security/warden)
 "iOn" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -28036,13 +28103,6 @@
 /obj/machinery/door/airlock/public/glass/incinerator/atmos_interior,
 /turf/open/floor/engine,
 /area/engine/atmospherics_engine)
-"jfn" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/siding/wideplating/dark{
-	dir = 10
-	},
-/turf/open/floor/iron/cafeteria,
-/area/crew_quarters/kitchen)
 "jfJ" = (
 /obj/machinery/suit_storage_unit/rd,
 /turf/open/floor/iron,
@@ -28088,24 +28148,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/grass,
 /area/hallway/primary/central)
-"jgF" = (
-/obj/machinery/status_display/ai{
-	pixel_x = -32
-	},
-/obj/item/aicard,
-/obj/item/aiModule/reset,
-/obj/item/paicard{
-	pixel_x = 4
-	},
-/obj/item/assembly/flash/handheld,
-/obj/item/assembly/flash/handheld,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -5;
-	pixel_y = -32
-	},
-/obj/structure/table,
-/turf/open/floor/iron/dark,
-/area/storage/tech)
 "jgI" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
@@ -34388,31 +34430,6 @@
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/dorms)
-"lsN" = (
-/obj/structure/table/reinforced,
-/obj/item/aiModule/supplied/freeform,
-/obj/item/aiModule/supplied/freeform,
-/obj/item/aiModule/supplied/freeform,
-/obj/item/aiModule/supplied/freeform,
-/obj/structure/window/reinforced/spawner/west{
-	dir = 4
-	},
-/obj/structure/window/reinforced/spawner/east{
-	dir = 8
-	},
-/obj/machinery/door/window/brigdoor/northright{
-	name = "Security Boards";
-	req_access_txt = "16"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/airalarm/directional/south,
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/turf/open/floor/circuit,
-/area/ai_monitored/turret_protected/ai_upload)
 "lsT" = (
 /obj/item/reagent_containers/syringe/antiviral{
 	pixel_x = 7;
@@ -36734,20 +36751,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/wall,
 /area/quartermaster/qm)
-"mja" = (
-/obj/structure/table/reinforced,
-/obj/item/aiModule/reset,
-/obj/item/aiModule/reset/purge,
-/obj/item/aiModule/core/full/asimov,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/power/apc/auto_name/directional/south,
-/obj/structure/cable/orange{
-	dir = 1
-	},
-/turf/open/floor/circuit,
-/area/ai_monitored/turret_protected/ai_upload)
 "mjg" = (
 /obj/item/ammo_casing/shotgun/improvised{
 	pixel_x = 2;
@@ -39813,25 +39816,6 @@
 /obj/item/trash/popcorn,
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
-"nhB" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 9
-	},
-/obj/structure/bed/dogbed/ian,
-/mob/living/basic/pet/dog/corgi/ian{
-	density = 0;
-	dir = 1;
-	pixel_y = 4
-	},
-/obj/item/toy/beach_ball/holoball/dodgeball{
-	name = "dodgeball 3 of 5"
-	},
-/obj/machinery/newscaster{
-	pixel_x = 1;
-	pixel_y = 33
-	},
-/turf/open/floor/carpet/blue,
-/area/crew_quarters/heads/hop)
 "nhQ" = (
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /obj/structure/cable/yellow{
@@ -44759,21 +44743,6 @@
 /obj/structure/sign/poster/official/moth1,
 /turf/closed/wall,
 /area/crew_quarters/kitchen)
-"oQI" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/obj/structure/sign/poster/official/love_ian{
-	pixel_y = 32
-	},
-/obj/structure/closet/secure_closet/hop,
-/obj/item/modular_computer/tablet/pda,
-/obj/item/modular_computer/tablet/pda,
-/obj/item/modular_computer/tablet/pda,
-/obj/item/modular_computer/tablet/pda,
-/obj/item/modular_computer/tablet/pda,
-/turf/open/floor/carpet/blue,
-/area/crew_quarters/heads/hop)
 "oQJ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -47835,6 +47804,31 @@
 	dir = 8
 	},
 /area/medical/sleeper)
+"pNv" = (
+/obj/structure/table/reinforced,
+/obj/item/ai_module/supplied/freeform,
+/obj/item/ai_module/supplied/freeform,
+/obj/item/ai_module/supplied/freeform,
+/obj/item/ai_module/supplied/freeform,
+/obj/structure/window/reinforced/spawner/west{
+	dir = 4
+	},
+/obj/structure/window/reinforced/spawner/east{
+	dir = 8
+	},
+/obj/machinery/door/window/brigdoor/northright{
+	name = "Security Boards";
+	req_access_txt = "16"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/airalarm/directional/south,
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/open/floor/circuit,
+/area/ai_monitored/turret_protected/ai_upload)
 "pNy" = (
 /obj/item/wrench,
 /obj/effect/turf_decal/delivery,
@@ -52840,6 +52834,20 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/iron/dark,
+/area/ai_monitored/turret_protected/ai_upload)
+"rwm" = (
+/obj/structure/table/reinforced,
+/obj/item/ai_module/reset,
+/obj/item/ai_module/reset/purge,
+/obj/item/ai_module/core/full/asimov,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/power/apc/auto_name/directional/south,
+/obj/structure/cable/orange{
+	dir = 1
+	},
+/turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai_upload)
 "rws" = (
 /obj/structure/table/wood,
@@ -62836,26 +62844,6 @@
 /obj/machinery/camera/directional/east,
 /turf/open/space/basic,
 /area/engine/engine_room)
-"uGk" = (
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/bed/dogbed/tyson,
-/obj/item/stack/sheet/bone{
-	pixel_x = 6;
-	pixel_y = -6
-	},
-/mob/living/basic/pet/dog/bullterrier/tyson{
-	density = 0
-	},
-/obj/machinery/status_display/evac{
-	pixel_y = 32
-	},
-/turf/open/floor/iron/dark,
-/area/security/warden)
 "uGm" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
@@ -73228,6 +73216,21 @@
 	},
 /turf/open/floor/engine/o2,
 /area/ai_monitored/turret_protected/ai)
+"ydm" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/structure/sign/poster/official/love_ian{
+	pixel_y = 32
+	},
+/obj/structure/closet/secure_closet/hop,
+/obj/item/modular_computer/tablet/pda/preset,
+/obj/item/modular_computer/tablet/pda/preset,
+/obj/item/modular_computer/tablet/pda/preset,
+/obj/item/modular_computer/tablet/pda/preset,
+/obj/item/modular_computer/tablet/pda/preset,
+/turf/open/floor/carpet/blue,
+/area/crew_quarters/heads/hop)
 "ydA" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -102290,7 +102293,7 @@ uYx
 uYx
 uYx
 uYx
-uGk
+iOd
 wrh
 uaZ
 bKr
@@ -104944,7 +104947,7 @@ gHf
 scb
 rqH
 ttJ
-jgF
+czX
 mLd
 axO
 nqQ
@@ -105856,7 +105859,7 @@ vWZ
 kDW
 xsD
 uVc
-mja
+rwm
 dFs
 yeA
 gsA
@@ -106370,7 +106373,7 @@ ftd
 kDW
 bSe
 imW
-lsN
+pNv
 dFs
 yeA
 gsA
@@ -108713,7 +108716,7 @@ fnT
 oif
 bwr
 nJK
-nhB
+dSL
 sww
 sNM
 bQs
@@ -108970,7 +108973,7 @@ bJV
 uMf
 iSK
 nJK
-oQI
+ydm
 xKW
 rzO
 sAc
@@ -111837,7 +111840,7 @@ cbV
 pyP
 omR
 cqL
-jfn
+hzY
 kok
 bZA
 mWi

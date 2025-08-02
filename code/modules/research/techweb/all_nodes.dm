@@ -192,6 +192,7 @@
 		"comp_hear",
 		"comp_index_table",
 		"comp_index",
+		"comp_install_detector",
 		"comp_length",
 		"comp_light",
 		"comp_list_literal",
@@ -206,6 +207,7 @@
 		"comp_pressuresensor",
 		"comp_radio",
 		"comp_random",
+		"comp_reagent_injector",
 		"comp_round",
 		"comp_router",
 		"comp_select_query",
@@ -991,25 +993,57 @@
 		"asimov_module",
 		"borg_ai_control",
 		"corporate_module",
-		"maintain_module",
 		"default_module",
+		"drone_module",
 		"freeform_module",
-		"freeformcore_module",
 		"intellicard",
 		"mecha_tracking_ai_control",
-		"onehuman_module",
-		"overlord_module",
+		"nutimov_module",
 		"oxygen_module",
 		"paladin_module",
 		"protectstation_module",
-		"purge_module",
 		"quarantine_module",
 		"remove_module",
 		"reset_module",
+		"robocop_module",
 		"safeguard_module",
-		"tyrant_module",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	export_price = 5000
+
+/datum/techweb_node/ai_laws
+	id = "ai_laws"
+	tech_tier = 4
+	display_name = "Advanced AI Laws"
+	description = "Delving into sophisticated AI directives, with hopes that they won't lead to humanity's extinction."
+	prereq_ids = list("ai")
+	design_ids = list(
+		"antimov_module",
+		"asimovpp_module",
+		"crewsimov_module",
+		"balance_module",
+		"damaged_module",
+		"dadbot_module",
+		"dungeon_master_module",
+		"freeformcore_module",
+		"hippocratic_module",
+		"hulkamania_module",
+		"liveandletlive_module",
+		"efficiency_module",
+		"onehuman_module",
+		"overlord_module",
+		"painter_module",
+		"paladin_devotion_module",
+		"peacekeeper_module",
+		"purge_module",
+		"reporter_module",
+		"ten_commandments_module",
+		"thermodynamic_module",
+		"thinkermov_module",
+		"tyrant_module",
+		"yesman_module",
+	)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
 
 /////////////////////////EMP tech/////////////////////////
@@ -1127,6 +1161,20 @@
 		"portadrive_basic",
 		"ssd_micro",
 		"ssd_small"
+	)
+
+/datum/techweb_node/computer_shells
+	id = "computer_shells"
+	tech_tier = 1
+	display_name = "Computer Shells"
+	description = "Production of modular computer shells for assembly."
+	prereq_ids = list("datatheory")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2000)
+	export_price = 2000
+	design_ids = list(
+		"shell_pda",
+		"shell_tablet",
+		"shell_laptop"
 	)
 
 /datum/techweb_node/computer_hardware_advanced

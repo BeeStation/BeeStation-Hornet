@@ -74,7 +74,6 @@
 	show_in_antagpanel = TRUE
 	antagpanel_category = "Other"
 	show_name_in_check_antagonists = TRUE
-	count_against_dynamic_roll_chance = FALSE
 	ui_name = "AntagInfoBrainwashed"
 	required_living_playtime = 0
 

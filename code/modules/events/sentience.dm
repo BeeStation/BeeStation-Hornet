@@ -41,7 +41,6 @@ GLOBAL_LIST_INIT(high_priority_sentience, typecacheof(list(
 
 /datum/round_event/ghost_role/sentience/spawn_role()
 	var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates(
-		role = /datum/role_preference/midround_ghost/abductor,
 		check_jobban = ROLE_SENTIENT_ANIMAL,
 		poll_time = 30 SECONDS,
 		role_name_text = "sentient animal",

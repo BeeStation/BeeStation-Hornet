@@ -17,6 +17,9 @@
 	/// The name of the component shown on the UI
 	var/display_name = "Generic"
 
+/// The category of the component in the UI
+	var/category = COMPONENT_DEFAULT_CATEGORY
+
 	/// The colour this circuit component appears in the UI
 	var/ui_color = "blue"
 
@@ -254,6 +257,10 @@
 		return FALSE
 
 	return TRUE
+
+/// Called when trying to get the physical location of this object
+/obj/item/circuit_component/proc/get_location()
+	return get_turf(src) || get_turf(parent?.shell)
 
 /// Called before input_received and should_receive_input. Used to perform behaviour that shouldn't care whether the input should be received or not.
 /obj/item/circuit_component/proc/pre_input_received(datum/port/input/port)
