@@ -92,9 +92,7 @@ export function Dropdown(props: Props) {
       const startIndex = 0;
       const endIndex = options.length - 1;
 
-      let selectedIndex = options.findIndex(
-        (option) => getOptionValue(option) === selected,
-      );
+      let selectedIndex = options.findIndex((option) => getOptionValue(option) === selected);
 
       if (selectedIndex < 0) {
         selectedIndex = direction === 'next' ? endIndex : startIndex;
@@ -109,7 +107,7 @@ export function Dropdown(props: Props) {
 
       onSelected?.(getOptionValue(options[newIndex]));
     },
-    [disabled, onSelected, options, selected],
+    [disabled, onSelected, options, selected]
   );
 
   /** Allows the menu to be scrollable on open */
@@ -125,37 +123,26 @@ export function Dropdown(props: Props) {
       onClickOutside={() => setOpen(false)}
       placement={over ? 'top-start' : 'bottom-start'}
       content={
-        <div
-          className="Layout Dropdown__menu"
-          style={{ minWidth: menuWidth, height: displayHeight }}
-          ref={innerRef}
-          >
-          {options.length === 0 && (
-            <div className="Dropdown__menuentry">No options</div>
-          )}
+        <div className="Layout Dropdown__menu" style={{ minWidth: menuWidth, height: displayHeight }} ref={innerRef}>
+          {options.length === 0 && <div className="Dropdown__menuentry">No options</div>}
 
           {options.map((option, index) => {
             const value = getOptionValue(option);
 
             return (
               <div
-                className={classes([
-                  'Dropdown__menuentry',
-                  selected === value && 'selected',
-                ])}
+                className={classes(['Dropdown__menuentry', selected === value && 'selected'])}
                 key={index}
                 onClick={() => {
                   setOpen(false);
                   onSelected?.(value);
-                }}
-              >
+                }}>
                 {typeof option === 'string' ? option : option.displayText}
               </div>
             );
           })}
         </div>
-      }
-    >
+      }>
       <div>
         <div className="Dropdown" style={{ width: unit(width) }}>
           <div
@@ -173,22 +160,13 @@ export function Dropdown(props: Props) {
               }
               setOpen(!open);
               onClick?.(event);
-            }}
-          >
-            {icon && (
-              <Icon
-                mr={1}
-                name={icon}
-                rotation={iconRotation}
-                spin={iconSpin}
-              />
-            )}
+            }}>
+            {icon && <Icon mr={1} name={icon} rotation={iconRotation} spin={iconSpin} />}
             <span
               className="Dropdown__selected-text"
               style={{
                 overflow: clipSelectedText ? 'hidden' : 'visible',
-              }}
-            >
+              }}>
               {displayTextFirst ? displayText || selected : selected || displayText}
             </span>
             {!noChevron && (
