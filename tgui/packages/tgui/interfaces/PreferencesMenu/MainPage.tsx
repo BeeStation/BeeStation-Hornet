@@ -232,8 +232,9 @@ const GenderButton = (props: { handleSetGender: (gender: Gender) => void; gender
   return (
     <Popper
       isOpen={genderMenuOpen}
-      placement="right"
-      popperContent={
+      onClickOutside={() => setGenderMenuOpen(false)}
+      placement="right-end"
+      content={
         <Box className="theme-generic-yellow">
           <Stack className="PopupWindow" ml={0.5} p={0.5}>
             {[Gender.Male, Gender.Female, Gender.Other].map((gender) => {
@@ -297,9 +298,9 @@ const MainFeature = (props: {
   return (
     <Popper
       placement="bottom-start"
-      onClickOutside={() => handleCloseInternal()}
       isOpen={isOpen}
-      popperContent={
+      onClickOutside={() => handleCloseInternal()}
+      content={
         <ChoicedSelection
           name={catalog.name}
           catalog={catalog}

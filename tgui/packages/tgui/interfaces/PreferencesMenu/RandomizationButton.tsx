@@ -1,6 +1,23 @@
 import { Dropdown, Icon } from '../../components';
 import { RandomSetting } from './data';
 
+const options = [
+  {
+    displayText: 'Do not randomize',
+    value: RandomSetting.Disabled,
+  },
+
+  {
+    displayText: 'Always randomize',
+    value: RandomSetting.Enabled,
+  },
+
+  {
+    displayText: 'Randomize when antagonist',
+    value: RandomSetting.AntagOnly,
+  },
+];
+
 export const RandomizationButton = (props: {
   dropdownProps?: Record<string, unknown>;
   setValue: (newValue: RandomSetting) => void;
@@ -24,31 +41,16 @@ export const RandomizationButton = (props: {
 
   return (
     <Dropdown
-      backgroundColor={color}
+      color={color}
       {...dropdownProps}
       clipSelectedText={false}
       displayText={<Icon name="dice-d20" mr="-0.25em" />}
       displayTextFirst
-      options={[
-        {
-          displayText: 'Do not randomize',
-          value: RandomSetting.Disabled,
-        },
-
-        {
-          displayText: 'Always randomize',
-          value: RandomSetting.Enabled,
-        },
-
-        {
-          displayText: 'Randomize when antagonist',
-          value: RandomSetting.AntagOnly,
-        },
-      ]}
+      options={options}
       noChevron
       onSelected={setValue}
       menuWidth="120px"
-      width="auto"
+      width={1.85}
     />
   );
 };

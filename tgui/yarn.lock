@@ -8185,6 +8185,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-tiny-popover@npm:^8.0.4":
+  version: 8.1.6
+  resolution: "react-tiny-popover@npm:8.1.6"
+  peerDependencies:
+    react: ">=16.8.0"
+    react-dom: ">=16.8.0"
+  checksum: 10c0/5550b9a3b339ab390fc4228ae4b4d85d36a3e9d9f26018ff74ebd594dd22bfe856e0452d6f7e50f992cdf70cb2028417455e99f387ad08ea49b8ea41138d4078
+  languageName: node
+  linkType: hard
+
 "react@npm:^18.3.1":
   version: 18.3.1
   resolution: "react@npm:18.3.1"
@@ -9562,6 +9572,7 @@ __metadata:
     marked: "npm:^4.3.0"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
+    react-tiny-popover: "npm:^8.0.4"
     tgui-dev-server: "workspace:*"
     tgui-polyfill: "workspace:*"
   languageName: unknown
