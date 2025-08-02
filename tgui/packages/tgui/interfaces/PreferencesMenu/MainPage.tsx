@@ -1,6 +1,6 @@
 import { classes } from 'common/react';
 import { sendAct, useBackend, useLocalState } from '../../backend';
-import { Box, Button, Flex, LabeledList, Popper, Stack, TrackOutsideClicks, Input, Icon, FitText } from '../../components';
+import { Box, Button, Flex, LabeledList, Popper, Stack, Input, Icon, FitText } from '../../components';
 import { createSetPreference, PreferencesMenuData, RandomSetting } from './data';
 import { CharacterPreview } from '../common/CharacterPreview';
 import { RandomizationButton } from './RandomizationButton';
@@ -231,37 +231,30 @@ const GenderButton = (props: { handleSetGender: (gender: Gender) => void; gender
 
   return (
     <Popper
-      options={{
-        placement: 'right',
-      }}
+      isOpen={genderMenuOpen}
+      placement="right"
       popperContent={
-        genderMenuOpen ? (
-          <TrackOutsideClicks onOutsideClick={() => setGenderMenuOpen(false)} removeOnOutsideClick>
-            <Box className="theme-generic-yellow">
-              <Stack className="PopupWindow" ml={0.5} p={0.5}>
-                {[Gender.Male, Gender.Female, Gender.Other].map((gender) => {
-                  return (
-                    <Stack.Item key={gender}>
-                      <Button
-                        selected={gender === props.gender}
-                        onClick={() => {
-                          props.handleSetGender(gender);
-                          setGenderMenuOpen(false);
-                        }}
-                        fontSize="22px"
-                        icon={GENDERS[gender].icon}
-                        tooltip={GENDERS[gender].text}
-                        tooltipPosition="top"
-                      />
-                    </Stack.Item>
-                  );
-                })}
-              </Stack>
-            </Box>
-          </TrackOutsideClicks>
-        ) : (
-          <> </>
-        )
+        <Box className="theme-generic-yellow">
+          <Stack className="PopupWindow" ml={0.5} p={0.5}>
+            {[Gender.Male, Gender.Female, Gender.Other].map((gender) => {
+              return (
+                <Stack.Item key={gender}>
+                  <Button
+                    selected={gender === props.gender}
+                    onClick={() => {
+                      props.handleSetGender(gender);
+                      setGenderMenuOpen(false);
+                    }}
+                    fontSize="22px"
+                    icon={GENDERS[gender].icon}
+                    tooltip={GENDERS[gender].text}
+                    tooltipPosition="top"
+                  />
+                </Stack.Item>
+              );
+            })}
+          </Stack>
+        </Box>
       }>
       <Button
         onClick={(event) => {
@@ -303,27 +296,21 @@ const MainFeature = (props: {
 
   return (
     <Popper
-      options={{
-        placement: 'bottom-start',
-      }}
+      placement="bottom-start"
+      onClickOutside={() => handleCloseInternal()}
+      isOpen={isOpen}
       popperContent={
-        isOpen ? (
-          <TrackOutsideClicks onOutsideClick={props.handleClose} removeOnOutsideClick>
-            <ChoicedSelection
-              name={catalog.name}
-              catalog={catalog}
-              selected={currentValue}
-              supplementalFeature={supplementalFeature}
-              supplementalValue={supplementalFeature && data.character_preferences.supplemental_features[supplementalFeature]}
-              onClose={handleCloseInternal}
-              onSelect={handleSelect}
-              searchText={searchText}
-              setSearchText={setSearchText}
-            />
-          </TrackOutsideClicks>
-        ) : (
-          <> </>
-        )
+        <ChoicedSelection
+          name={catalog.name}
+          catalog={catalog}
+          selected={currentValue}
+          supplementalFeature={supplementalFeature}
+          supplementalValue={supplementalFeature && data.character_preferences.supplemental_features[supplementalFeature]}
+          onClose={handleCloseInternal}
+          onSelect={handleSelect}
+          searchText={searchText}
+          setSearchText={setSearchText}
+        />
       }>
       <Button
         onClick={(event) => {
