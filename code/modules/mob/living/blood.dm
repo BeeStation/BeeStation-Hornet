@@ -263,6 +263,8 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 
 // Takes care blood loss and regeneration
 /mob/living/carbon/human/handle_blood(delta_time, times_fired)
+	if(mind && IS_VAMPIRE(src)) // vampires should not be affected by blood
+		return FALSE
 
 	if(HAS_TRAIT(src, TRAIT_NOBLOOD) || HAS_TRAIT(src, TRAIT_NOBLOOD))
 		cauterise_wounds()
