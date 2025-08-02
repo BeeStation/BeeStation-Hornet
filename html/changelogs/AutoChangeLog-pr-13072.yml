@@ -1,0 +1,10 @@
+author: rkz, MTandi, MrMelbert, JohnFulpWillard, VinylSpiders, Aylong
+delete-after: true
+changes:
+  - rscadd: Adds new 3/4ths sprites for Smartfridges
+  - rscadd: Smartfridges and Vendors have a new grid UI. The player can swap between
+      grid and list UIs in the interface, and in their preferences.
+  - rscadd: Smartfridge/Vendors now have a searchbar
+  - code_imp: lowers init by generating vending spritesheets with DMIcon where possible
+  - bugfix: fixes non-freebie vendors showing costed items as free, while still forcing
+      you to pay
