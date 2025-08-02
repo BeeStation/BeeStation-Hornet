@@ -2831,7 +2831,7 @@
 		var/mob/living/basic/pet/dog/corgi/D = locate() in .
 		if(D.gender == FEMALE)
 			qdel(D)
-			new /mob/living/basic/pet/dog/corgi/Lisa(.)
+			new /mob/living/basic/pet/dog/corgi/lisa(.)
 
 /datum/supply_pack/critter/cow
 	name = "Cow Crate"
