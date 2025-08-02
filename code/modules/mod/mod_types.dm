@@ -351,6 +351,12 @@
 		/obj/item/mod/module/adrenaline_boost,
 		/obj/item/mod/module/energy_net,
 	)
+	//We store research on this
+	var/obj/item/disk/tech_disk/internal_techdisk
+
+/obj/item/mod/control/pre_equipped/ninja/Initialize(mapload, new_theme, new_skin, new_core)
+	. = ..()
+	internal_techdisk = new(src)
 
 /obj/item/mod/control/pre_equipped/prototype
 	theme = /datum/mod_theme/prototype

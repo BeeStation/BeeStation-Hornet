@@ -1,3 +1,14 @@
+/**
+ * # Energy Katana
+ *
+ * The space ninja's katana.
+ *
+ * The katana that only space ninja spawns with.  Comes with 30 force and throwforce, along with a signature special jaunting system.
+ * Upon clicking on a tile when right clicking, the user will teleport to that tile, assuming their target was not dense.
+ * The katana has 3 dashes stored at maximum, and upon using the dash, it will return 20 seconds after it was used.
+ * It also has a special feature where if it is tossed at a space ninja who owns it (determined by the ninja suit), the ninja will catch the katana instead of being hit by it.
+ *
+ */
 /obj/item/energy_katana
 	name = "energy katana"
 	desc = "A katana infused with strong energy."
@@ -8,7 +19,7 @@
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	force = 25
-	throwforce = 20
+	throwforce = 30
 	block_power = 50
 	block_level = 1
 	block_upgrade_walk = TRUE
@@ -16,6 +27,9 @@
 	armour_penetration = 50
 	w_class = WEIGHT_CLASS_LARGE
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	pickup_sound = 'sound/items/unsheath.ogg'
+	drop_sound = 'sound/items/sheath.ogg'
+	block_sound = 'sound/items/block_blade.ogg'
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	slot_flags = ITEM_SLOT_BACK|ITEM_SLOT_BELT
@@ -39,26 +53,22 @@
 	var/list/modifiers = params2list(click_parameters)
 
 	if(LAZYACCESS(modifiers, RIGHT_CLICK) && !target.density)
-		jaunt.Teleport(user, target)
+		jaunt?.Teleport(user, target)
 	if(proximity_flag && (isobj(target) || issilicon(target)))
 		spark_system.start()
 		playsound(user, "sparks", 50, 1)
 		playsound(user, 'sound/weapons/blade1.ogg', 50, 1)
 		target.use_emag(user)
 
-/obj/item/energy_katana/pickup(mob/living/user)
-	..()
-	if(jaunt)
+/obj/item/energy_katana/equipped(mob/user, slot, initial)
+	. = ..()
+	if(!QDELETED(jaunt))
 		jaunt.Grant(user, src)
-	if(user.client)
-		playsound(src, 'sound/items/unsheath.ogg', 25, 1)
-	user.update_icons()
 
 /obj/item/energy_katana/dropped(mob/user)
-	..()
-	if(jaunt)
+	. = ..()
+	if(!QDELETED(jaunt))
 		jaunt.Remove(user)
-	user.update_icons()
 
 //If we hit the Ninja who owns this Katana, they catch it.
 //Works for if the Ninja throws it or it throws itself or someone tries
@@ -66,11 +76,9 @@
 /obj/item/energy_katana/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(ishuman(hit_atom))
 		var/mob/living/carbon/human/H = hit_atom
-		if(istype(H.wear_suit, /obj/item/clothing/suit/space/space_ninja))
-			var/obj/item/clothing/suit/space/space_ninja/SN = H.wear_suit
-			if(SN.energyKatana == src)
-				returnToOwner(H, 0, 1)
-				return
+		if(IS_SPACE_NINJA(H))
+			returnToOwner(H, 0, 1)
+			return
 
 	..()
 
@@ -104,6 +112,7 @@
 
 /obj/item/energy_katana/Destroy()
 	QDEL_NULL(spark_system)
+	QDEL_NULL(jaunt)
 	return ..()
 
 /datum/action/innate/dash/ninja
