@@ -372,7 +372,6 @@
 			added_environmental_header = TRUE
 		readout += "\nRADIATION"
 
-	var/heat_prot
 	if (max_heat_protection_temperature > 400)
 		if (!added_environmental_header)
 			readout += "\n<b>ENVIRONMENT</b>"

@@ -1,6 +1,12 @@
+/// How much pain moves towards the damage amount per second by
+#define PAIN_DELTA 2
+
 /datum/component/conscious
 	/// How much consciousness damage we heal per second
 	var/consciousness_heal_rate = 3
+	/// The current amount of pain that we are feeling, slowly
+	/// moves towards the amount of damage that we have.
+	var/pain = 0
 	/// Current amount of consciousness damage that we have sustained
 	var/damage = 0
 	/// Maximum amount of consciousness damage that we can sustain
@@ -32,7 +38,7 @@
 /datum/component/conscious/process(delta_time)
 	var/mob/living/living_parent = parent
 	// Unconsciousness hud blur
-	if(damage + recent_damage)
+	if(pain)
 		var/severity = 0
 		switch(damage)
 			if(30 to 40)
@@ -58,7 +64,7 @@
 		return
 	// Heal consciousness damage
 	damage = clamp(damage - consciousness_heal_rate * delta_time, 0, max_damage)
-	recent_damage = max(recent_damage - consciousness_heal_rate * delta_time * 2, 0)
+	pain = clamp(pain + clamp(damage - pain, -PAIN_DELTA * delta_time, PAIN_DELTA * delta_time), 0, 100)
 	// Take consciousness damage to match our health
 	var/current_damage = min(max(living_parent.maxHealth - living_parent.health - 40, 0) * (living_parent.maxHealth / (living_parent.maxHealth - 40)), unconscious_threshold * 0.8)
 	if (damage < current_damage)
@@ -73,7 +79,7 @@
 			living_parent.custom_emote("twitches")
 	// While our consciousness value is above 0, we will wince from pain occassionally
 	if (damage < unconscious_threshold && world.time > unconscious_time)
-		if (DT_PROB(damage * 0.15, delta_time))
+		if (DT_PROB(pain * 0.15, delta_time))
 			wince_from_pain(parent)
 		if (is_unconscious)
 			regain_consciousness(parent)
@@ -110,13 +116,14 @@
 	if (victim.stat >= SOFT_CRIT)
 		amount *= 4
 	damage = clamp(amount + damage, 0, max_damage)
-	if (pause_healing)
-		recent_damage = clamp(recent_damage + amount, 0, 100)
+	// Feel pain from this injury
+	if (amount > 0)
+		pain += damage * 2
 	// Become unconscious
 	if (damage >= unconscious_threshold)
 		become_unconscious(victim, client)
-	if (damage < 0)
-		unconscious_time += damage
+	if (amount < 0)
+		unconscious_time += amount
 	if (!is_unconscious && pause_healing)
 		consciousness_heal_time = max(world.time + 3 SECONDS, consciousness_heal_time)
 
