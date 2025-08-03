@@ -15520,11 +15520,11 @@
 /turf/open/floor/plating,
 /area/science/mixing)
 "hXM" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
 	},
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
@@ -16125,6 +16125,9 @@
 	dir = 6
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "iry" = (
@@ -19221,6 +19224,9 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "jWU" = (
@@ -35030,7 +35036,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/portable_atmospherics/canister/plasma,
+/obj/machinery/portable_atmospherics/canister/plasma{
+	anchored = 1
+	},
 /obj/machinery/atmospherics/components/unary/portables_connector,
 /turf/open/floor/iron/dark,
 /area/science/server)
@@ -45474,9 +45482,6 @@
 /obj/effect/decal/cleanable/food/flour,
 /obj/structure/disposalpipe/segment{
 	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
 	},
 /obj/structure/rack,
 /obj/item/stack/package_wrap,
