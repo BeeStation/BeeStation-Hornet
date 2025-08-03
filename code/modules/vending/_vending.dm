@@ -658,7 +658,7 @@
 				switch(crit_case) // only carbons can have the fun crits
 					if(1) // shatter their legs and bleed 'em
 						crit_rebate = 60
-						C.bleed(150)
+						C.blood.bleed(150)
 						var/obj/item/bodypart/l_leg/l = C.get_bodypart(BODY_ZONE_L_LEG)
 						if(l)
 							l.receive_damage(brute=200, updating_health=TRUE)

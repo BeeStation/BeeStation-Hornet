@@ -1,5 +1,3 @@
-#define BLOOD_DRIP_RATE_MOD 90 //Greater number means creating blood drips more often while bleeding
-
 /****************************************************
 				BLOOD SYSTEM
 
@@ -81,7 +79,7 @@ This file represents bleeding only as bleeding has special mechanics for being h
 	if (final_bleed_rate <= 0)
 		return
 	// Actually do the bleeding
-	owner.bleed(min(MAX_BLEED_RATE, final_bleed_rate))
+	owner.blood.bleed(min(MAX_BLEED_RATE, final_bleed_rate))
 
 /datum/status_effect/bleeding/update_icon()
 	// The actual rate of bleeding, can be reduced by holding wounds
@@ -257,31 +255,6 @@ This file represents bleeding only as bleeding has special mechanics for being h
 	bleed.update_icon()
 	if (bleed.bleed_rate <= 0)
 		stop_holding_wounds()
-
-/mob/living/proc/bleed(amt)
-	add_splatter_floor(src.loc, 1)
-
-//Makes a blood drop, leaking amt units of blood from the mob
-/mob/living/carbon/bleed(amt)
-	if(blood.volume && !HAS_TRAIT(src, TRAIT_NO_BLOOD) && !HAS_TRAIT(src, TRAIT_NO_BLEEDING) && !IS_IN_STASIS(src))
-		// As you get less bloodloss, you bleed slower
-		// See the top of this file for desmos lines
-		var/decrease_multiplier = BLEED_RATE_MULTIPLIER
-		var/obj/item/organ/heart/heart = get_organ_slot(ORGAN_SLOT_HEART)
-		if (!heart || !heart.beating)
-			decrease_multiplier = BLEED_RATE_MULTIPLIER_NO_HEART
-		var/blood_loss_amount = blood.volume - blood.volume * NUM_E ** (-(amt * decrease_multiplier)/BLOOD_VOLUME_NORMAL)
-		blood.volume = max(blood.volume - blood_loss_amount, 0)
-		if(isturf(src.loc) && prob(sqrt(blood_loss_amount)*BLOOD_DRIP_RATE_MOD)) //Blood loss still happens in locker, floor stays clean
-			if(blood_loss_amount >= 2)
-				add_splatter_floor(src.loc)
-			else
-				add_splatter_floor(src.loc, 1)
-
-/mob/living/carbon/human/bleed(amt)
-	amt *= physiology.bleed_mod
-	if(!HAS_TRAIT(src, TRAIT_NO_BLOOD))
-		..()
 
 /****************************************************
 				BLOOD TRANSFERS
@@ -462,4 +435,3 @@ This file represents bleeding only as bleeding has special mechanics for being h
 		REMOVE_TRAIT(user, TRAIT_BLEED_HELD, ACTION_TRAIT)
 	return ..()
 
-#undef BLOOD_DRIP_RATE_MOD

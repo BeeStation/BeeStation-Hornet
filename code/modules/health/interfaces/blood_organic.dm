@@ -1,3 +1,5 @@
+#define BLOOD_DRIP_RATE_MOD 90 //Greater number means creating blood drips more often while bleeding
+
 /datum/blood_source/organic
 	/// Type of the mob's blood
 	var/datum/reagent/blood_type
@@ -81,3 +83,26 @@
 				source.adjustOxyLoss(clamp(source.getMaxHealth() * 2.0 - source.getOxyLoss(), 0, 10))
 		var/health_difference = clamp(desired_damage - source.getOxyLoss(), 0, 5)
 		source.adjustOxyLoss(health_difference)
+
+
+/datum/blood_source/organic/bleed(amount)
+	if(!volume || HAS_TRAIT(owner, TRAIT_NO_BLEEDING) || IS_IN_STASIS(owner))
+		return
+	if (ishuman(owner))
+		var/mob/living/carbon/human/human = owner
+		amount *= human.physiology.bleed_mod
+	// As you get less bloodloss, you bleed slower
+	// See the top of this file for desmos lines
+	var/decrease_multiplier = BLEED_RATE_MULTIPLIER
+	var/obj/item/organ/heart/heart = owner.get_organ_slot(ORGAN_SLOT_HEART)
+	if (!heart || !heart.beating)
+		decrease_multiplier = BLEED_RATE_MULTIPLIER_NO_HEART
+	var/blood_loss_amount = volume - volume * NUM_E ** (-(amount * decrease_multiplier)/BLOOD_VOLUME_NORMAL)
+	volume = max(volume - blood_loss_amount, 0)
+	if(isturf(owner.loc) && prob(sqrt(blood_loss_amount)*BLOOD_DRIP_RATE_MOD)) //Blood loss still happens in locker, floor stays clean
+		if(blood_loss_amount >= 2)
+			owner.add_splatter_floor(owner.loc)
+		else
+			owner.add_splatter_floor(owner.loc, 1)
+
+#undef BLOOD_DRIP_RATE_MOD
