@@ -1,7 +1,7 @@
 /datum/preference/choiced/quirk/accent
 	db_key = "quirk_accent"
 	required_quirk = /datum/quirk/accent
-      disable_serialization = TRUE
+	disable_serialization = TRUE
 /datum/preference/choiced/quirk/accent/init_possible_values()
 	return ..() + assoc_to_keys(GLOB.accents)
 
