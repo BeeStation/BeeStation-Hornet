@@ -36,6 +36,7 @@ type Ruleset = {
 type MidroundData = {
   current_midround_points: number;
   midround_grace_period: number;
+  midround_failure_stallout: number;
   living_delta: number;
   dead_delta: number;
   observer_delta: number;
@@ -165,7 +166,7 @@ const RoundstartPage = () => {
         <Flex direction="row">
           <Flex.Item grow>
             <Section fill title="Variables">
-              <LabeledList.Item label="Set Upper Divergence Range" verticalAlign="middle">
+              <LabeledList.Item label="Upper Divergence Range" verticalAlign="middle">
                 <NumberInput
                   value={roundstart_divergence_upper ?? 0}
                   disabled={has_round_started}
@@ -177,7 +178,7 @@ const RoundstartPage = () => {
                   width="50%"
                 />
               </LabeledList.Item>
-              <LabeledList.Item label="Set Lower Divergence Range" verticalAlign="middle">
+              <LabeledList.Item label="Lower Divergence Range" verticalAlign="middle">
                 <NumberInput
                   value={roundstart_divergence_lower ?? 0}
                   disabled={has_round_started}
@@ -189,7 +190,7 @@ const RoundstartPage = () => {
                   width="50%"
                 />
               </LabeledList.Item>
-              <LabeledList.Item label="Set Points per Ready" verticalAlign="middle">
+              <LabeledList.Item label="Points per Ready" verticalAlign="middle">
                 <NumberInput
                   value={roundstart_points_per_ready ?? 0}
                   disabled={has_round_started}
@@ -201,7 +202,7 @@ const RoundstartPage = () => {
                   width="50%"
                 />
               </LabeledList.Item>
-              <LabeledList.Item label="Set Points per Unready" verticalAlign="middle">
+              <LabeledList.Item label="Points per Unready" verticalAlign="middle">
                 <NumberInput
                   value={roundstart_points_per_unready ?? 0}
                   disabled={has_round_started}
@@ -213,7 +214,7 @@ const RoundstartPage = () => {
                   width="50%"
                 />
               </LabeledList.Item>
-              <LabeledList.Item label="Set Points per Observer" verticalAlign="middle">
+              <LabeledList.Item label="Points per Observer" verticalAlign="middle">
                 <NumberInput
                   value={roundstart_points_per_observer ?? 0}
                   disabled={has_round_started}
@@ -294,7 +295,6 @@ const RoundstartPage = () => {
               disabled={has_round_started}
               checked={forced_roundstart_rulesets.find((forced_ruleset) => forced_ruleset.name === ruleset)}
               key={ruleset + idx}
-              tooltip="Pick this ruleset regarless of weight or cost"
               onClick={() => {
                 const selectedRuleset = valid_roundstart_rulesets.find((valid_ruleset) => valid_ruleset.name === ruleset);
                 act('force_roundstart_ruleset', {
@@ -367,6 +367,7 @@ const MidroundPage = () => {
     current_midround_ruleset,
     current_midround_points,
     midround_grace_period,
+    midround_failure_stallout,
     living_delta,
     dead_delta,
     observer_delta,
@@ -424,7 +425,7 @@ const MidroundPage = () => {
                   Execute Chosen Ruleset
                 </Button>
               }>
-              <LabeledList.Item label="Set Midround Ruleset" verticalAlign="middle">
+              <LabeledList.Item label="Midround Ruleset" verticalAlign="middle">
                 <Dropdown
                   options={midround_ruleset_names}
                   selected={current_midround_ruleset?.name ?? 'None'}
@@ -437,7 +438,7 @@ const MidroundPage = () => {
                   }}
                 />
               </LabeledList.Item>
-              <LabeledList.Item label="Set Midround Points" verticalAlign="middle">
+              <LabeledList.Item label="Midround Points" verticalAlign="middle">
                 <NumberInput
                   value={current_midround_points ?? 0}
                   animated
@@ -448,7 +449,7 @@ const MidroundPage = () => {
                   width="50%"
                 />
               </LabeledList.Item>
-              <LabeledList.Item label="Grace Period (in minutes)" verticalAlign="middle">
+              <LabeledList.Item label="Grace Period" verticalAlign="middle">
                 <NumberInput
                   value={midround_grace_period ?? 0}
                   animated
@@ -456,6 +457,17 @@ const MidroundPage = () => {
                   maxValue={120}
                   step={5}
                   onChange={(value) => act('set_midround_grace_period', { new_grace_period: value })}
+                  width="50%"
+                />
+              </LabeledList.Item>
+              <LabeledList.Item label="Midround Failure Stallout" verticalAlign="middle">
+                <NumberInput
+                  value={midround_failure_stallout ?? 0}
+                  animated
+                  minValue={0}
+                  maxValue={60}
+                  step={1}
+                  onChange={(value) => act('set_midround_failure_stallout', { new_midround_stallout: value })}
                   width="50%"
                 />
               </LabeledList.Item>
