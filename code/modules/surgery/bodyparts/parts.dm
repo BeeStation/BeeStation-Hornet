@@ -400,7 +400,7 @@
 	owner.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/l_leg, TRUE, modifier)
 
 /obj/item/bodypart/l_leg/clear_effectiveness_modifiers()
-	owner.remove_movespeed_modifier(/datum/actionspeed_modifier/l_leg)
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/l_leg)
 
 /datum/movespeed_modifier/l_leg
 	variable = TRUE
