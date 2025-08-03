@@ -114,7 +114,7 @@
 		"Your feel a pain from inside your body.",
 		"Your head hurts.",
 	)))
-	pain += 10
+	pain += 30
 	update_pain_overlay()
 
 /// Called when consciousness damage should be applied to the owner
