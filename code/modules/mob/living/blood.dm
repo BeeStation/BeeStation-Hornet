@@ -145,10 +145,10 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		return FALSE
 	return bleed.bleed_rate > 0
 
-/mob/living/carbon/proc/add_bleeding(bleed_level, silent = FALSE)
+/mob/living/carbon/proc/add_bleeding(bleed_level, sound_effect = TRUE)
 	if (HAS_TRAIT(src, TRAIT_NO_BLOOD))
 		return
-	if (!silent)
+	if(sound_effect)
 		playsound(src, 'sound/surgery/blood_wound.ogg', 80, vary = TRUE)
 	apply_status_effect(dna?.species?.bleed_effect || /datum/status_effect/bleeding, bleed_level)
 	if (bleed_level >= BLEED_DEEP_WOUND)
@@ -159,7 +159,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	else
 		add_splatter_floor(src.loc, 1)
 
-/mob/living/carbon/human/add_bleeding(bleed_level, silent = FALSE)
+/mob/living/carbon/human/add_bleeding(bleed_level, sound_effect = TRUE)
 	if(HAS_TRAIT(src, TRAIT_NOBLOOD))
 		return
 	..()

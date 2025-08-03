@@ -2696,6 +2696,23 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			SPECIES_PERK_DESC = "[plural_form] are resilient to flames, and burn damage.",
 		))
 
+	//Toxin related
+	if(toxmod > 1)
+		to_add += list(list(
+			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
+			SPECIES_PERK_ICON = "biohazard",
+			SPECIES_PERK_NAME = "Toxin Weakness",
+			SPECIES_PERK_DESC = "[plural_form] are weak to toxins and toxin damage.",
+		))
+
+	else if(toxmod < 1)
+		to_add += list(list(
+			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+			SPECIES_PERK_ICON = "biohazard",
+			SPECIES_PERK_NAME = "Toxin Resistance",
+			SPECIES_PERK_DESC = "[plural_form] are resistant to toxins, and toxin damage.",
+		))
+
 	if(TRAIT_SHOCKIMMUNE in inherent_traits)
 		to_add += list(list(
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
