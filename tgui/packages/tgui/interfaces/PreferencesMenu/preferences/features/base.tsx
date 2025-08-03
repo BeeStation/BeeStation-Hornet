@@ -3,12 +3,11 @@ import { BooleanLike } from 'common/react';
 import { ComponentType, createElement, ReactNode } from 'react';
 
 import { sendAct, useBackend, useLocalState } from '../../../../backend';
-import { Box, Button, Input, NumberInput, Stack } from '../../../../components'
-import { Dropdown } from 'tgui-core/components';;
+import { Box, Button, Input, NumberInput, Stack } from '../../../../components';
+import { Dropdown } from 'tgui-core/components';
 import { createSetPreference, PreferencesMenuData } from '../../data';
 import { ServerPreferencesFetcher } from '../../ServerPreferencesFetcher';
 import features from '.';
-import { DropdownPartialProps } from 'tgui/components/Dropdown';
 
 export const sortChoices = (array: [string, ReactNode][]) => sortBy(array, ([name]) => name);
 
@@ -107,7 +106,7 @@ export const CheckboxInputInverse = (props: FeatureValueProps<BooleanLike, boole
 export function createDropdownInput<T extends string | number = string>(
   // Map of value to display texts
   choices: Record<T, ReactNode>,
-  dropdownProps?: DropdownPartialProps
+  dropdownProps?: Record<T, unknown>
 ): FeatureValue<T> {
   return (props: FeatureValueProps<T>) => {
     return (

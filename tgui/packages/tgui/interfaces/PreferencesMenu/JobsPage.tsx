@@ -256,18 +256,11 @@ const JoblessRoleDropdown = (props) => {
     },
   ];
 
-  const selection = options?.find(
-    (option) => option.value === selected,
-  )!.displayText;
+  const selection = options?.find((option) => option.value === selected)!.displayText;
 
   return (
     <Box width="30%" style={{ margin: '5px auto' }}>
-      <Dropdown
-        width="100%"
-        selected={selection}
-        onSelected={createSetPreference(act, 'joblessrole')}
-        options={options}
-      />
+      <Dropdown width="100%" selected={selection} onSelected={createSetPreference(act, 'joblessrole')} options={options} />
     </Box>
   );
 };

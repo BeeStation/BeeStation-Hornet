@@ -38,20 +38,21 @@ const UIStyleInput = (props: FeatureValueProps<string, string, FeatureChoicedSer
     })
   );
 
+  const options = sortChoices(Object.entries(choices)).map(([dataValue, label]) => {
+    return {
+      displayText: label,
+      value: dataValue,
+    };
+  });
+
   return (
     <Dropdown
       buttons
-      selected={value}
+      selected={props.value}
       clipSelectedText={false}
       onSelected={props.handleSetValue}
       width="100%"
-      displayHeight="32px"
-      options={sortChoices(Object.entries(choices)).map(([dataValue, label]) => {
-        return {
-          displayText: label,
-          value: dataValue,
-        };
-      })}
+      options={options}
     />
   );
 };

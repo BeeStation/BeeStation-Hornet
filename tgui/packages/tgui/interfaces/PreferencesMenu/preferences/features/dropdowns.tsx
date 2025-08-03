@@ -7,21 +7,13 @@ import { Dropdown } from 'tgui-core/components';
 import { Box, Button, Stack, Flex, Tooltip } from '../../../../components';
 import { Feature, FeatureChoicedServerData, FeatureValueProps } from './base';
 
-type DropdownInputProps = FeatureValueProps<
-  string,
-  string,
-  FeatureChoicedServerData
-> &
+type DropdownInputProps = FeatureValueProps<string, string, FeatureChoicedServerData> &
   Partial<{
     disabled: boolean;
     buttons: boolean;
   }>;
 
-type IconnedDropdownInputProps = FeatureValueProps<
-  string,
-  string,
-  FeatureChoicedServerData
->;
+type IconnedDropdownInputProps = FeatureValueProps<string, string, FeatureChoicedServerData>;
 
 export type FeatureWithIcons<T> = Feature<string, T, FeatureChoicedServerData>;
 
@@ -35,9 +27,7 @@ export function FeatureDropdownInput(props: DropdownInputProps) {
   const { choices, display_names } = serverData;
 
   const dropdownOptions = choices.map((choice) => {
-    let displayText: ReactNode = display_names
-      ? display_names[choice]
-      : capitalizeFirst(choice);
+    let displayText: ReactNode = display_names ? display_names[choice] : capitalizeFirst(choice);
 
     return {
       displayText,
@@ -45,8 +35,8 @@ export function FeatureDropdownInput(props: DropdownInputProps) {
     };
   });
 
-  let display_text = value;
-  if (display_names) {
+  let display_text = value || '';
+  if (display_names && value) {
     display_text = display_names[value];
   }
 
@@ -57,7 +47,7 @@ export function FeatureDropdownInput(props: DropdownInputProps) {
       onSelected={handleSetValue}
       displayText={capitalizeFirst(display_text)}
       options={dropdownOptions}
-      selected={value}
+      selected={value || ''}
       width="100%"
     />
   ) : (
@@ -89,18 +79,13 @@ export function FeatureIconnedDropdownInput(props: IconnedDropdownInputProps) {
   const { choices, display_names, icons } = serverData;
 
   const dropdownOptions = choices.map((choice) => {
-    let displayText: ReactNode = display_names
-      ? display_names[choice]
-      : capitalizeFirst(choice);
+    let displayText: ReactNode = display_names ? display_names[choice] : capitalizeFirst(choice);
 
     if (icons?.[choice]) {
       displayText = (
         <Stack>
           <Stack.Item>
-            <Box
-              className={classes(['preferences32x32', icons[choice]])}
-              style={{ transform: 'scale(0.8)' }}
-            />
+            <Box className={classes(['preferences32x32', icons[choice]])} style={{ transform: 'scale(0.8)' }} />
           </Stack.Item>
           <Stack.Item grow>{displayText}</Stack.Item>
         </Stack>
@@ -113,8 +98,8 @@ export function FeatureIconnedDropdownInput(props: IconnedDropdownInputProps) {
     };
   });
 
-  let display_text = value;
-  if (display_names) {
+  let display_text = value || '';
+  if (display_names && value) {
     display_text = display_names[value];
   }
 
@@ -124,7 +109,7 @@ export function FeatureIconnedDropdownInput(props: IconnedDropdownInputProps) {
       displayText={capitalizeFirst(display_text)}
       onSelected={handleSetValue}
       options={dropdownOptions}
-      selected={value}
+      selected={value || ''}
       width="100%"
     />
   );

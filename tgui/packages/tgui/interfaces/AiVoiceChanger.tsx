@@ -1,6 +1,5 @@
-import { Button, Input, LabeledList, Section } from '../components';
-import { Dropdown } from 'tgui-core/components';
-import { BooleanLike } from 'common/react';
+import { Button, Dropdown, Input, LabeledList, Section } from 'tgui-core/components';
+import { BooleanLike } from 'tgui-core/react';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
@@ -22,10 +21,7 @@ export function AiVoiceChanger(props) {
       <Section fill>
         <LabeledList>
           <LabeledList.Item label="Power">
-            <Button
-              icon={on ? 'power-off' : 'times'}
-              selected={!!on}
-              onClick={() => act('power')}>
+            <Button icon={on ? 'power-off' : 'times'} selected={!!on} onClick={() => act('power')}>
               {on ? 'On' : 'Off'}
             </Button>
           </LabeledList.Item>

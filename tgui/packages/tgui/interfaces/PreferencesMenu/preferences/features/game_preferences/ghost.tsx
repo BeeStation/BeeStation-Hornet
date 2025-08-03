@@ -26,9 +26,7 @@ type GhostForm = {
 const insertGhostForm = (collection: GhostForm[], value: GhostForm) =>
   binaryInsertWith(collection, value, ({ value }) => value);
 
-const GhostFormInput = (
-  props: FeatureValueProps<string, string, FeatureChoicedServerData>,
-) => {
+const GhostFormInput = (props: FeatureValueProps<string, string, FeatureChoicedServerData>) => {
   const { data } = useBackend<PreferencesMenuData>();
 
   const serverData = props.serverData;
@@ -87,7 +85,6 @@ const GhostFormInput = (
       clipSelectedText={false}
       onSelected={props.handleSetValue}
       width="100%"
-      displayHeight="32px"
       options={options}
       buttons
     />
@@ -117,14 +114,10 @@ export const ghost_orbit: FeatureChoiced = {
     The shape in which your ghost will orbit.
     Requires BYOND membership.
   `,
-  component: (
-    props: FeatureValueProps<string, string, FeatureChoicedServerData>,
-  ) => {
+  component: (props: FeatureValueProps<string, string, FeatureChoicedServerData>) => {
     const { data } = useBackend<PreferencesMenuData>();
 
-    return (
-      <FeatureDropdownInput buttons {...props} disabled={!data.content_unlocked} />
-    );
+    return <FeatureDropdownInput buttons {...props} disabled={!data.content_unlocked} />;
   },
   important: true,
 };

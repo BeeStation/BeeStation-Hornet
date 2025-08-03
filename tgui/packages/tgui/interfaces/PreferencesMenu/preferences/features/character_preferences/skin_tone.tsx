@@ -67,13 +67,15 @@ export const skin_tone: Feature<string, string, SkinToneServerData> = {
       return null;
     }
 
+    const sortedChoices = sortHexValues(Object.entries(serverData.to_hex)).map(([key]) => key);
+
     return (
       <StandardizedPalette
-        choices={sortHexValues(Object.entries(serverData.to_hex)).map(([key]) => key)}
+        choices={sortedChoices}
         choices_to_hex={Object.fromEntries(Object.entries(serverData.to_hex).map(([key, hex]) => [key, hex.value]))}
         displayNames={serverData.display_names}
         onSetValue={handleSetValue}
-        value={value}
+        value={value || sortedChoices[0] || ''}
       />
     );
   },

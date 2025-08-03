@@ -52,9 +52,7 @@ export const brief_outfit: Feature<string> = {
 
     return (
       <Popper
-        options={{
-          placement: 'bottom-start',
-        }}
+        placement="bottom-start"
         popperContent={
           isOpen ? (
             <TrackOutsideClicks onOutsideClick={handleCloseInternal} removeOnOutsideClick>
