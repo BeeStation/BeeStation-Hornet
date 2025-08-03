@@ -1,9 +1,9 @@
 /datum/injury/cut_healthy
 	max_absorption = 0
 
-/datum/injury/cut_healthy/apply_to_human(mob/living/carbon/human/target)
-	. = ..()
-	RegisterSignal(target, SIGNAL_ADD_STATUS_EFFECT(/datum/status_effect/bleeding), PROC_REF(on_bleeding_start))
-
-/datum/injury/cut_healthy/proc/on_bleeding_start(datum/status_effect/bleeding/bleeding)
-	transition_to(/datum/injury/cut_minor)
+/datum/injury/cut_healthy/on_damage_taken(total_damage, delta_damage, damage_type, damage_flag, is_sharp)
+	if (!is_sharp)
+		return FALSE
+	if (total_damage >= 10)
+		transition_to(/datum/injury/cut_laceration)
+	return TRUE

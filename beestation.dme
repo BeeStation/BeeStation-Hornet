@@ -4298,7 +4298,6 @@
 #include "code\modules\surgery\injuries\cut_tree\cut_bandaged_muscle_tear.dm"
 #include "code\modules\surgery\injuries\cut_tree\cut_healthy.dm"
 #include "code\modules\surgery\injuries\cut_tree\cut_laceration.dm"
-#include "code\modules\surgery\injuries\cut_tree\cut_minor.dm"
 #include "code\modules\surgery\injuries\cut_tree\cut_muscle_tear.dm"
 #include "code\modules\surgery\injuries\cut_tree\cut_stitched_muscle.dm"
 #include "code\modules\surgery\injuries\cut_tree\cut_sutured.dm"
