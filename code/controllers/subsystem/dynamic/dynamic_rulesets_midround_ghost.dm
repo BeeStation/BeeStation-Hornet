@@ -292,7 +292,7 @@
 
 /datum/dynamic_ruleset/midround/ghost/ninja
 	name = "Space Ninja"
-	severity = DYNAMIC_MIDROUND_MEDIUM
+	severity = DYNAMIC_MIDROUND_MEDIUM | DYNAMIC_MIDROUND_HEAVY
 	antag_datum = /datum/antagonist/ninja
 	points_cost = 40
 	weight = 6
@@ -321,7 +321,7 @@
 
 /datum/dynamic_ruleset/midround/ghost/nightmare
 	name = "Nightmare"
-	severity = DYNAMIC_MIDROUND_MEDIUM
+	severity = DYNAMIC_MIDROUND_LIGHT | DYNAMIC_MIDROUND_MEDIUM
 	antag_datum = /datum/antagonist/nightmare
 	points_cost = 30
 	weight = 6
@@ -413,7 +413,7 @@
 
 /datum/dynamic_ruleset/midround/ghost/revenant
 	name = "Revenant"
-	severity = DYNAMIC_MIDROUND_MEDIUM
+	severity = DYNAMIC_MIDROUND_LIGHT | DYNAMIC_MIDROUND_MEDIUM
 	antag_datum = /datum/antagonist/revenant
 	points_cost = 30
 	weight = 6
@@ -458,7 +458,7 @@
 
 /datum/dynamic_ruleset/midround/ghost/spiders
 	name = "Spider Infestation"
-	severity = DYNAMIC_MIDROUND_MEDIUM
+	severity = DYNAMIC_MIDROUND_MEDIUM | DYNAMIC_MIDROUND_HEAVY
 	antag_datum = /datum/antagonist/spider
 	drafted_players_amount = 3
 	points_cost = 40
@@ -516,7 +516,7 @@
 
 /datum/dynamic_ruleset/midround/ghost/swarmer
 	name = "Swarmer"
-	severity = DYNAMIC_MIDROUND_MEDIUM
+	severity = DYNAMIC_MIDROUND_MEDIUM | DYNAMIC_MIDROUND_HEAVY
 	antag_datum = /datum/antagonist/swarmer
 	points_cost = 40
 	weight = 4
