@@ -134,7 +134,7 @@
 	severity = DYNAMIC_MIDROUND_HEAVY
 	antag_datum = /datum/antagonist/wizard
 	points_cost = 50
-	weight = 2
+	weight = 4
 
 /datum/dynamic_ruleset/midround/ghost/wizard/get_poll_icon()
 	return /obj/item/clothing/head/wizard
@@ -162,7 +162,7 @@
 	drafted_players_amount = 3
 	points_cost = 50
 	minimum_players_required = 20
-	weight = 1
+	weight = 4
 	use_spawn_locations = FALSE
 	flags = CANNOT_REPEAT
 
@@ -197,7 +197,7 @@
 	antag_datum = /datum/antagonist/blob
 	points_cost = 50
 	minimum_players_required = 20
-	weight = 6
+	weight = 4
 	use_spawn_locations = FALSE
 	flags = CANNOT_REPEAT
 
@@ -266,7 +266,7 @@
 	severity = DYNAMIC_MIDROUND_HEAVY
 	antag_datum = /datum/antagonist/space_dragon
 	points_cost = 40
-	weight = 5
+	weight = 4
 	flags = CANNOT_REPEAT
 
 /datum/dynamic_ruleset/midround/ghost/space_dragon/get_poll_icon()
