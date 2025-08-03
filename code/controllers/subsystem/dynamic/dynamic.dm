@@ -612,7 +612,7 @@ SUBSYSTEM_DEF(dynamic)
 			if(DYNAMIC_MIDROUND_MEDIUM)
 				new_severity = DYNAMIC_MIDROUND_LIGHT
 
-		log_dynamic("MIDROUND: FAIL: Tried to roll a [severity_flag_to_text(severity)] midround but there are no possible rulesets.")
+		log_dynamic("MIDROUND: FAIL: Tried to roll a [severity_flag_to_text(forced_severity)] midround but there are no possible rulesets.")
 
 		if(!isnull(new_severity))
 			choose_midround_ruleset(new_severity)

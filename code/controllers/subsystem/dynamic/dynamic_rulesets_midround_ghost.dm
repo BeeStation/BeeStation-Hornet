@@ -296,7 +296,7 @@
 	severity = DYNAMIC_MIDROUND_MEDIUM | DYNAMIC_MIDROUND_HEAVY
 	antag_datum = /datum/antagonist/ninja
 	points_cost = 40
-	weight = 6
+	weight = 4
 	flags = CANNOT_REPEAT
 
 /datum/dynamic_ruleset/midround/ghost/ninja/get_poll_icon()
@@ -325,7 +325,7 @@
 	severity = DYNAMIC_MIDROUND_LIGHT | DYNAMIC_MIDROUND_MEDIUM
 	antag_datum = /datum/antagonist/nightmare
 	points_cost = 40
-	weight = 6
+	weight = 4
 
 /datum/dynamic_ruleset/midround/ghost/nightmare/get_poll_icon()
 	return /obj/item/light_eater
@@ -359,7 +359,7 @@
 	antag_datum = /datum/antagonist/abductor/agent
 	drafted_players_amount = 2
 	points_cost = 30
-	weight = 6
+	weight = 4
 	use_spawn_locations = FALSE
 
 	var/has_made_leader = FALSE
@@ -391,7 +391,7 @@
 	severity = DYNAMIC_MIDROUND_MEDIUM
 	antag_datum = /datum/antagonist/abductor/scientist/solo
 	points_cost = 30
-	weight = 6
+	weight = 4
 	use_spawn_locations = FALSE
 
 	var/datum/team/abductor_team/team
@@ -417,7 +417,7 @@
 	severity = DYNAMIC_MIDROUND_LIGHT | DYNAMIC_MIDROUND_MEDIUM
 	antag_datum = /datum/antagonist/revenant
 	points_cost = 30
-	weight = 6
+	weight = 4
 
 /datum/dynamic_ruleset/midround/ghost/revenant/get_poll_icon()
 	return /mob/living/simple_animal/revenant
