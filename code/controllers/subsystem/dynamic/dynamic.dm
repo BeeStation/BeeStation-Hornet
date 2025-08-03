@@ -571,22 +571,22 @@ SUBSYSTEM_DEF(dynamic)
  * * First we choose the severity based off the Light/Medium/Heavy Ruleset Chances
  * * We then pick a midround ruleset of the same severity based of weight
 **/
-/datum/controller/subsystem/dynamic/proc/choose_midround_ruleset()
+/datum/controller/subsystem/dynamic/proc/choose_midround_ruleset(forced_severity)
 	// Pick severity
-	var/severity = DYNAMIC_MIDROUND_LIGHT
 
-	var/random_value = rand(1, 100)
-	if(random_value <= midround_light_chance)
-		severity = DYNAMIC_MIDROUND_LIGHT
-	else if(random_value <= midround_light_chance + midround_medium_chance)
-		severity = DYNAMIC_MIDROUND_MEDIUM
-	else
-		severity = DYNAMIC_MIDROUND_HEAVY
+	if(isnull(forced_severity))
+		var/random_value = rand(1, 100)
+		if(random_value <= midround_light_chance)
+			forced_severity = DYNAMIC_MIDROUND_LIGHT
+		else if(random_value <= midround_light_chance + midround_medium_chance)
+			forced_severity = DYNAMIC_MIDROUND_MEDIUM
+		else
+			forced_severity = DYNAMIC_MIDROUND_HEAVY
 
 	// Get possible rulesets
 	var/list/possible_rulesets = list()
 	for(var/datum/dynamic_ruleset/midround/ruleset in midround_configured_rulesets)
-		if(ruleset.severity != severity)
+		if(ruleset.severity != forced_severity)
 			continue
 
 		if(check_is_ruleset_blocked(ruleset, midround_executed_rulesets))
@@ -601,8 +601,22 @@ SUBSYSTEM_DEF(dynamic)
 
 		possible_rulesets[ruleset] = ruleset.weight
 
+	// Tick down to a lower severity ruleset if there are none of the chosen severity
 	if(!length(possible_rulesets))
-		log_dynamic("MIDROUND: FAIL: Tried to roll a [severity] midround but there are no possible rulesets.")
+		var/new_severity
+
+		// Don't love this solution, but whatever
+		switch(forced_severity)
+			if(DYNAMIC_MIDROUND_HEAVY)
+				new_severity = DYNAMIC_MIDROUND_MEDIUM
+			if(DYNAMIC_MIDROUND_MEDIUM)
+				new_severity = DYNAMIC_MIDROUND_LIGHT
+
+		log_dynamic("MIDROUND: FAIL: Tried to roll a [forced_severity] midround, but there are no possible rulesets.")
+
+		if(!isnull(new_severity))
+			return choose_midround_ruleset(new_severity)
+
 		return
 
 	// Pick ruleset and log

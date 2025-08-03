@@ -425,7 +425,7 @@ const MidroundPage = () => {
                   Execute Chosen Ruleset
                 </Button>
               }>
-              <LabeledList.Item label="Set Midround Ruleset" verticalAlign="middle">
+              <LabeledList.Item label="Midround Ruleset" verticalAlign="middle">
                 <Dropdown
                   options={midround_ruleset_names}
                   selected={current_midround_ruleset?.name ?? 'None'}
@@ -438,7 +438,7 @@ const MidroundPage = () => {
                   }}
                 />
               </LabeledList.Item>
-              <LabeledList.Item label="Set Midround Points" verticalAlign="middle">
+              <LabeledList.Item label="Midround Points" verticalAlign="middle">
                 <NumberInput
                   value={current_midround_points ?? 0}
                   animated
