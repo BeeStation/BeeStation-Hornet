@@ -1,5 +1,8 @@
-import { useBackend, useLocalState } from '../backend';
-import { Section, Box, Dropdown, Button, Input, TextArea, Divider, NumberInput, Tooltip, Knob } from '../components';
+import { useState } from 'react';
+
+import { useBackend } from '../backend';
+import { Section, Box, Button, Input, TextArea, Divider, NumberInput, Tooltip, Knob } from '../components';
+import { Dropdown } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 export const AdminFax = (props) => {
@@ -15,15 +18,15 @@ export const AdminFax = (props) => {
 export const FaxMainPanel = (props) => {
   const { act, data } = useBackend();
 
-  const [fax, setFax] = useLocalState('fax', '');
-  const [saved, setSaved] = useLocalState('saved', false);
-  const [paperName, setPaperName] = useLocalState('paperName', '');
-  const [fromWho, setFromWho] = useLocalState('fromWho', '');
-  const [rawText, setRawText] = useLocalState('rawText', '');
-  const [stamp, setStamp] = useLocalState('stampType', '');
-  const [stampCoordX, setStampCoordX] = useLocalState('stampCoordX', 0);
-  const [stampCoordY, setStampCoordY] = useLocalState('stampCoordY', 0);
-  const [stampAngle, setStampAngle] = useLocalState('stampAngle', 0);
+  const [fax, setFax] = useState('');
+  const [saved, setSaved] = useState(false);
+  const [paperName, setPaperName] = useState('');
+  const [fromWho, setFromWho] = useState('');
+  const [rawText, setRawText] = useState('');
+  const [stamp, setStamp] = useState('');
+  const [stampCoordX, setStampCoordX] = useState(0);
+  const [stampCoordY, setStampCoordY] = useState(0);
+  const [stampAngle, setStampAngle] = useState(0);
   if (stamp && data.stamps[0] !== 'None') {
     data.stamps.unshift('None');
   }
@@ -48,10 +51,9 @@ export const FaxMainPanel = (props) => {
         <Box fontSize="13px">
           <Dropdown
             textAlign="center"
-            selected="Choose fax machine..."
+            placeholder="Choose fax machine..."
             width="100%"
-            noChevron
-            nowrap
+            selected={fax}
             options={data.faxes}
             onSelected={(value) => setFax(value)}
           />

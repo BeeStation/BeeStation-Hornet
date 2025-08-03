@@ -1,4 +1,5 @@
-import { Button, Dropdown, Input, LabeledList, Section } from '../components';
+import { Button, Input, LabeledList, Section } from '../components';
+import { Dropdown } from 'tgui-core/components';
 import { BooleanLike } from 'common/react';
 
 import { useBackend } from '../backend';
@@ -12,7 +13,7 @@ type Data = {
   voices: string[];
 };
 
-export const AiVoiceChanger = (props) => {
+export function AiVoiceChanger(props) {
   const { act, data } = useBackend<Data>();
   const { name, on, say_verb, voices, selected } = data;
 
@@ -21,7 +22,10 @@ export const AiVoiceChanger = (props) => {
       <Section fill>
         <LabeledList>
           <LabeledList.Item label="Power">
-            <Button icon={on ? 'power-off' : 'times'} onClick={() => act('power')}>
+            <Button
+              icon={on ? 'power-off' : 'times'}
+              selected={!!on}
+              onClick={() => act('power')}>
               {on ? 'On' : 'Off'}
             </Button>
           </LabeledList.Item>
@@ -60,4 +64,4 @@ export const AiVoiceChanger = (props) => {
       </Section>
     </Window>
   );
-};
+}

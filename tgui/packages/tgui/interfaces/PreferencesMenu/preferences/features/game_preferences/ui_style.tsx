@@ -1,6 +1,7 @@
 import { classes } from 'common/react';
 import { FeatureChoiced, FeatureChoicedServerData, FeatureValueProps, sortChoices, FeatureToggle, CheckboxInput } from '../base';
-import { Box, Dropdown, Stack } from '../../../../../components';
+import { Box, Stack } from '../../../../../components';
+import { Dropdown } from 'tgui-core/components';
 
 const UIStyleInput = (props: FeatureValueProps<string, string, FeatureChoicedServerData>) => {
   const { serverData, value } = props;
@@ -42,8 +43,6 @@ const UIStyleInput = (props: FeatureValueProps<string, string, FeatureChoicedSer
       buttons
       selected={value}
       clipSelectedText={false}
-      displayText={value ? choices[value] : null}
-      displayTextFirst
       onSelected={props.handleSetValue}
       width="100%"
       displayHeight="32px"

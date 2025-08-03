@@ -1,4 +1,4 @@
-import { Dropdown, Icon } from '../../components';
+import { Dropdown } from 'tgui-core/components';
 import { RandomSetting } from './data';
 
 const options = [
@@ -44,13 +44,13 @@ export const RandomizationButton = (props: {
       color={color}
       {...dropdownProps}
       clipSelectedText={false}
-      displayText={<Icon name="dice-d20" mr="-0.25em" />}
-      displayTextFirst
+      icon="dice-d20"
       options={options}
       noChevron
       onSelected={setValue}
       menuWidth="120px"
       width={1.85}
+      selected="None"
     />
   );
 };
