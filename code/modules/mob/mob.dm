@@ -728,11 +728,10 @@
 	set category = "OOC"
 	if(isnewplayer(src))
 		return
-	var/alert_yes
 
 	switch(CONFIG_GET(flag/allow_respawn))
 		if(RESPAWN_FLAG_NEW_CHARACTER)
-			if(tgui_alert(usr, "Note, respawning is only allowed as another character. If you don't have another free slot you may not be able to respawn.", "Respawn", list("Ok", "Nevermind")) != "Ok")
+			if(tgui_alert(usr, "Note, respawning is only allowed as another character. You have been dead for [DisplayTimeText(usr.get_respawn_time(), 1)] out of a required [DisplayTimeText(CONFIG_GET(number/respawn_delay), 1)].", "Respawn", list("Respawn"), timeout = 80) != "Respawn")
 				return
 
 		if(RESPAWN_FLAG_FREE)
@@ -742,12 +741,10 @@
 			if (!check_rights_for(usr.client, R_ADMIN))
 				to_chat(usr, span_boldnotice("Respawning is not enabled!"))
 				return
-			if (tgui_alert(usr, "Respawning is currently disabled, do you want to use your permissions to circumvent it?", "Respawn", list("Yes", "No")) != "Yes")
-				return
 
 	var/mob/M = usr
 	if ((stat != DEAD || !( SSticker )))
-		to_chat(usr, span_boldnotice("You must be dead to use this!"))
+		to_chat(usr, span_boldnotice("You must be a ghost to use this!"))
 		return
 
 	if(!check_respawn_delay())
@@ -756,6 +753,9 @@
 	log_game("[key_name(usr)] used respawn mob.")
 
 	to_chat(usr, span_boldnotice("Please roleplay correctly!"))
+
+	log_game("[key_name(usr)] has used the respawn button to return to the lobby.")
+	message_admins("[key_name(usr)] has used the respawn button to return to the lobby.")
 
 	if(!client)
 		log_game("[key_name(usr)] AM failed due to disconnect.")
@@ -772,29 +772,27 @@
 		qdel(M)
 		return
 
-	if(alert_yes)
-		log_admin("[key_name(usr)] has used admin privilege to respawn themselves back to the Lobby.")
-		message_admins("[key_name(usr)] has used admin privilege to respawn themselves back to the Lobby.")
 	NP.ckey = usr.ckey
 	qdel(M)
 	return
 
 /// Checks if the mob can respawn yet according to the respawn delay
-/mob/proc/check_respawn_delay(override_delay = 0)
-	if(!override_delay && !CONFIG_GET(number/respawn_delay))
+/mob/proc/check_respawn_delay()
+	if(!CONFIG_GET(number/respawn_delay))
 		return TRUE
 
-	var/death_time = world.time - client.player_details.time_of_death
+	var/death_delta = world.time - client.player_details.time_of_death
 
-	var/required_delay = override_delay || CONFIG_GET(number/respawn_delay)
+	var/required_delay = CONFIG_GET(number/respawn_delay)
 
-	if(death_time < required_delay)
-		if(!check_rights_for(usr.client, R_ADMIN))
-			tgui_alert(usr, "Error. You have been dead for [DisplayTimeText(death_time, 1)] out of a required [DisplayTimeText(required_delay, 1)].", "Respawn", timeout = 50)
-			return FALSE
-		if(tgui_alert(usr, "You have been dead for [DisplayTimeText(death_time, 1)] out of a required [DisplayTimeText(required_delay, 1)]. Do you want to use your permissions to circumvent it?", "Respawn", list("Yes", "No")) != "Yes")
-			return FALSE
+	if(death_delta < required_delay)
+		return FALSE
 	return TRUE
+
+/// Returns how long they've been dead
+/mob/proc/get_respawn_time()
+	var/death_time = world.time - client.player_details.time_of_death
+	return death_time
 
 /**
   * Sometimes helps if the user is stuck in another perspective or camera

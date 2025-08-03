@@ -312,14 +312,14 @@
 			//We do not EVER specify what exactly is preventing them from joining. Security through obscurity! Yay!
 			tgui_alert(usr, "You already have played this character in this round!")
 			log_game("[key_name(usr)] has attempted to respawn as a previously played character and was denied based on character slot vetting.")
-			message_admins("[key_name(usr)] has attempted to respawn as a previously played character. This is not necessarily evidence of foul play.")
+			message_admins("[key_name(usr)] has attempted to respawn as a previously played character slot. This is not necessarily evidence of foul play.")
 			return FALSE
 
 		//Names played
 		if("[client.prefs.read_character_preference(/datum/preference/name/real_name)]" in client.player_details.played_names)
 			tgui_alert(usr, "You already have played this character in this round!")
 			log_game("[key_name(usr)] has attempted to respawn with a previously played character name in a NEW slot. and was denied based on character name vetting.")
-			message_admins("ATTENTION! [key_name(usr)] has attempted to respawn with a previously played character name in a NEW slot. Likely attempting to bypass respawn restrictions.")
+			message_admins("ATTENTION! [key_name(usr)] has attempted to respawn with a previously played character name in a new slot. Likely attempting to bypass respawn restrictions.")
 			return FALSE
 
 		//Jobs played, in case we want to use it later.

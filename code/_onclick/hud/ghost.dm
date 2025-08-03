@@ -65,6 +65,14 @@
 	var/mob/dead/observer/G = usr
 	G.abandon_mob()
 
+/atom/movable/screen/ghost/respawn/update_icon_state(var/mob/dead/observer/mymob)
+	if(mymob)
+		if(mymob.respawn_available)
+			icon_state = "respawn_available"
+		else
+			icon_state = "respawn"
+	return ..()
+
 /atom/movable/screen/ghost/spawners_menu/Click()
 	var/mob/dead/observer/G = usr
 	G.open_spawners_menu()
