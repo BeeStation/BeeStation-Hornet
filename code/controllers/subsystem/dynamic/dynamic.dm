@@ -615,7 +615,7 @@ SUBSYSTEM_DEF(dynamic)
 		log_dynamic("MIDROUND: FAIL: Tried to roll a [forced_severity] midround, but there are no possible rulesets.")
 
 		if(!isnull(new_severity))
-			return choose_midround_ruleset(new_severity)
+			choose_midround_ruleset(new_severity)
 
 		return
 
