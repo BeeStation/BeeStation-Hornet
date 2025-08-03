@@ -266,6 +266,7 @@
 	severity = DYNAMIC_MIDROUND_HEAVY
 	antag_datum = /datum/antagonist/space_dragon
 	points_cost = 40
+	minimum_players_required = 13
 	weight = 5
 	flags = CANNOT_REPEAT
 
@@ -323,7 +324,7 @@
 	name = "Nightmare"
 	severity = DYNAMIC_MIDROUND_MEDIUM
 	antag_datum = /datum/antagonist/nightmare
-	points_cost = 30
+	points_cost = 40
 	weight = 6
 
 /datum/dynamic_ruleset/midround/ghost/nightmare/get_poll_icon()
