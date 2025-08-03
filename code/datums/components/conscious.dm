@@ -37,6 +37,34 @@
 
 /datum/component/conscious/process(delta_time)
 	var/mob/living/living_parent = parent
+	if (consciousness_heal_time > world.time || living_parent.stat >= HARD_CRIT)
+		return
+	if (IS_IN_STASIS(living_parent))
+		return
+	// Heal consciousness damage
+	damage = clamp(damage - consciousness_heal_rate * delta_time, 0, max_damage)
+	pain = clamp(pain + clamp(damage - pain, -PAIN_DELTA * delta_time, PAIN_DELTA * delta_time), 0, 100)
+	update_pain_overlay()
+	// Take consciousness damage to match our health
+	var/current_damage = min(max(living_parent.maxHealth - living_parent.health - 40, 0) * (living_parent.maxHealth / (living_parent.maxHealth - 40)), unconscious_threshold * 0.8)
+	if (damage < current_damage)
+		var/diff = current_damage - damage
+		diff = min(diff, 4)
+		take_consciousness_damage(parent, diff, FALSE)
+	// Stop being deaf
+	if (damage < unconscious_threshold + 10 && is_deaf)
+		REMOVE_TRAIT(parent, TRAIT_DEAF, FROM_UNCONSCIOUS)
+		is_deaf = FALSE
+		if (living_parent.stat <= SOFT_CRIT)
+			living_parent.custom_emote("twitches")
+	// While our consciousness value is above 0, we will wince from pain occassionally
+	if (damage < unconscious_threshold && world.time > unconscious_time)
+		if (DT_PROB(pain * 0.15, delta_time))
+			wince_from_pain(parent)
+		if (is_unconscious)
+			regain_consciousness(parent)
+
+/datum/component/conscious/proc/update_pain_overlay()
 	// Unconsciousness hud blur
 	if(pain)
 		var/severity = 0
@@ -58,31 +86,6 @@
 		client?.mob.overlay_fullscreen("pain", /atom/movable/screen/fullscreen/oxy, severity)
 	else
 		client?.mob.clear_fullscreen("pain")
-	if (consciousness_heal_time > world.time || living_parent.stat >= HARD_CRIT)
-		return
-	if (IS_IN_STASIS(living_parent))
-		return
-	// Heal consciousness damage
-	damage = clamp(damage - consciousness_heal_rate * delta_time, 0, max_damage)
-	pain = clamp(pain + clamp(damage - pain, -PAIN_DELTA * delta_time, PAIN_DELTA * delta_time), 0, 100)
-	// Take consciousness damage to match our health
-	var/current_damage = min(max(living_parent.maxHealth - living_parent.health - 40, 0) * (living_parent.maxHealth / (living_parent.maxHealth - 40)), unconscious_threshold * 0.8)
-	if (damage < current_damage)
-		var/diff = current_damage - damage
-		diff = min(diff, 4)
-		take_consciousness_damage(parent, diff, FALSE)
-	// Stop being deaf
-	if (damage < unconscious_threshold + 10 && is_deaf)
-		REMOVE_TRAIT(parent, TRAIT_DEAF, FROM_UNCONSCIOUS)
-		is_deaf = FALSE
-		if (living_parent.stat <= SOFT_CRIT)
-			living_parent.custom_emote("twitches")
-	// While our consciousness value is above 0, we will wince from pain occassionally
-	if (damage < unconscious_threshold && world.time > unconscious_time)
-		if (DT_PROB(pain * 0.15, delta_time))
-			wince_from_pain(parent)
-		if (is_unconscious)
-			regain_consciousness(parent)
 
 /datum/component/conscious/proc/associate_with_client(datum/source, client/target)
 	client = target
@@ -93,6 +96,7 @@
 /datum/component/conscious/proc/wince_from_pain(mob/living/victim)
 	if (damage > 70 && prob(15))
 		victim.emote("scream")
+		pain += 20
 	to_chat(client, span_pain(pick(
 		"You wince in pain.",
 		"You flinch as pain shoots through your body.",
@@ -110,6 +114,8 @@
 		"Your feel a pain from inside your body.",
 		"Your head hurts.",
 	)))
+	pain += 10
+	update_pain_overlay()
 
 /// Called when consciousness damage should be applied to the owner
 /datum/component/conscious/proc/take_consciousness_damage(mob/living/victim, amount, pause_healing = FALSE)
@@ -119,6 +125,7 @@
 	// Feel pain from this injury
 	if (amount > 0)
 		pain += damage * 2
+		update_pain_overlay()
 	// Become unconscious
 	if (damage >= unconscious_threshold)
 		become_unconscious(victim, client)

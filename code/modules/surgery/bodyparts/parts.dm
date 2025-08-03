@@ -115,6 +115,17 @@
 		ORGAN_SLOT_LEFT_ARM_AUG
 	)
 
+/obj/item/bodypart/l_arm/update_effectiveness()
+	// If greater than 50, becomes negative
+	// If less than 50, becomes positive
+	var/modifier = (50 - effectiveness) / 50
+	owner.add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/l_arm, TRUE, modifier)
+
+/obj/item/bodypart/l_arm/clear_effectiveness_modifiers()
+	owner.remove_actionspeed_modifier(/datum/actionspeed_modifier/l_arm)
+
+/datum/actionspeed_modifier/l_arm
+	variable = TRUE
 
 /obj/item/bodypart/l_arm/set_owner(new_owner)
 	. = ..()
@@ -222,6 +233,17 @@
 		ORGAN_SLOT_RIGHT_ARM_AUG
 	)
 
+/obj/item/bodypart/r_arm/update_effectiveness()
+	// If greater than 50, becomes negative
+	// If less than 50, becomes positive
+	var/modifier = (50 - effectiveness) / 50
+	owner.add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/r_arm, TRUE, modifier)
+
+/obj/item/bodypart/r_arm/clear_effectiveness_modifiers()
+	owner.remove_actionspeed_modifier(/datum/actionspeed_modifier/r_arm)
+
+/datum/actionspeed_modifier/r_arm
+	variable = TRUE
 
 /obj/item/bodypart/r_arm/set_owner(new_owner)
 	. = ..()
@@ -324,7 +346,6 @@
 	max_stamina_damage = 50
 	can_be_disabled = TRUE
 
-
 /obj/item/bodypart/l_leg/set_owner(new_owner)
 	. = ..()
 	if(. == FALSE)
@@ -345,7 +366,6 @@
 		else
 			UnregisterSignal(old_owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_L_LEG))
 
-
 ///Proc to react to the owner gaining the TRAIT_PARALYSIS_L_LEG trait.
 /obj/item/bodypart/l_leg/proc/on_owner_paralysis_gain(mob/living/carbon/source)
 	SIGNAL_HANDLER
@@ -353,14 +373,12 @@
 	UnregisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_L_LEG))
 	RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_L_LEG), PROC_REF(on_owner_paralysis_loss))
 
-
 ///Proc to react to the owner losing the TRAIT_PARALYSIS_L_LEG trait.
 /obj/item/bodypart/l_leg/proc/on_owner_paralysis_loss(mob/living/carbon/source)
 	SIGNAL_HANDLER
 	REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_L_LEG)
 	UnregisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_L_LEG))
 	RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_L_LEG), PROC_REF(on_owner_paralysis_gain))
-
 
 /obj/item/bodypart/l_leg/set_disabled(new_disabled)
 	. = ..()
@@ -375,6 +393,20 @@
 	else if(!bodypart_disabled)
 		owner.set_usable_legs(owner.usable_legs + 1)
 
+/obj/item/bodypart/l_leg/update_effectiveness()
+	// If greater than 50, becomes negative
+	// If less than 50, becomes positive
+	var/modifier = (50 - effectiveness) / 50
+	owner.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/l_leg, TRUE, modifier)
+
+/obj/item/bodypart/l_leg/clear_effectiveness_modifiers()
+	owner.remove_movespeed_modifier(/datum/actionspeed_modifier/l_leg)
+
+/datum/movespeed_modifier/l_leg
+	variable = TRUE
+	movetypes = GROUND
+	blacklisted_movetypes = FLOATING|FLYING
+	flags = IGNORE_NOSLOW
 
 /obj/item/bodypart/l_leg/monkey
 	icon = 'icons/mob/animal_parts.dmi'
@@ -422,7 +454,6 @@
 	max_stamina_damage = 50
 	can_be_disabled = TRUE
 
-
 /obj/item/bodypart/r_leg/set_owner(new_owner)
 	. = ..()
 	if(. == FALSE)
@@ -443,7 +474,6 @@
 		else
 			UnregisterSignal(old_owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_R_LEG))
 
-
 ///Proc to react to the owner gaining the TRAIT_PARALYSIS_R_LEG trait.
 /obj/item/bodypart/r_leg/proc/on_owner_paralysis_gain(mob/living/carbon/source)
 	SIGNAL_HANDLER
@@ -451,14 +481,12 @@
 	UnregisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_R_LEG))
 	RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_R_LEG), PROC_REF(on_owner_paralysis_loss))
 
-
 ///Proc to react to the owner losing the TRAIT_PARALYSIS_R_LEG trait.
 /obj/item/bodypart/r_leg/proc/on_owner_paralysis_loss(mob/living/carbon/source)
 	SIGNAL_HANDLER
 	REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_R_LEG)
 	UnregisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_R_LEG))
 	RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_R_LEG), PROC_REF(on_owner_paralysis_gain))
-
 
 /obj/item/bodypart/r_leg/set_disabled(new_disabled)
 	. = ..()
@@ -473,6 +501,20 @@
 	else if(!bodypart_disabled)
 		owner.set_usable_legs(owner.usable_legs + 1)
 
+/obj/item/bodypart/r_leg/update_effectiveness()
+	// If greater than 50, becomes negative
+	// If less than 50, becomes positive
+	var/modifier = (50 - effectiveness) / 50
+	owner.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/r_leg, TRUE, modifier)
+
+/obj/item/bodypart/r_leg/clear_effectiveness_modifiers()
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/r_leg)
+
+/datum/movespeed_modifier/r_leg
+	variable = TRUE
+	movetypes = GROUND
+	blacklisted_movetypes = FLOATING|FLYING
+	flags = IGNORE_NOSLOW
 
 /obj/item/bodypart/r_leg/monkey
 	icon = 'icons/mob/animal_parts.dmi'
