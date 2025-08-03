@@ -26,3 +26,9 @@
   - code_imp: lowers init by generating vending spritesheets with DMIcon where possible
   - bugfix: fixes non-freebie vendors showing costed items as free, while still forcing
       you to pay
+2025-08-03:
+  mrmanlikesbt:
+  - rscadd: Added a stallout to dynamic midrounds. If dynamic fails to execute a midround
+      ruleset it will wait before choosing and then executing another one.
+  - tweak: Set the Space Dragon ruleset min player amount to 13
+  - bugfix: Admin forced rulesets are properly logged now
