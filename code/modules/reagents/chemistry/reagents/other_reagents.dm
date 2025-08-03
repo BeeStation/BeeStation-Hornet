@@ -33,11 +33,11 @@
 
 	if(iscarbon(L))
 		var/mob/living/carbon/C = L
-		if(C.get_blood_id() == /datum/reagent/blood && (method == INJECT || (method == INGEST && HAS_TRAIT(C, TRAIT_DRINKSBLOOD))))
+		if(C.blood.get_blood_id() == /datum/reagent/blood && (method == INJECT || (method == INGEST && HAS_TRAIT(C, TRAIT_DRINKSBLOOD))))
 			if(!data || !(data["blood_type"] in get_safe_blood(C.dna.blood_type)))
 				C.reagents.add_reagent(/datum/reagent/toxin, reac_volume * 0.5)
 			else
-				C.blood_volume = min(C.blood_volume + round(reac_volume, 0.1), BLOOD_VOLUME_MAXIMUM)
+				C.blood.volume = min(C.blood.volume + round(reac_volume, 0.1), BLOOD_VOLUME_MAXIMUM)
 
 
 /datum/reagent/blood/on_new(list/data)
@@ -227,7 +227,7 @@
 		var/touch_mod = 0
 		if(method in list(TOUCH, VAPOR)) // No melting if you have skin protection
 			touch_mod = M.get_biological_seal_rating()
-		M.blood_volume = max(M.blood_volume - 30 * (1 - touch_mod), 0)
+		M.blood.volume = max(M.blood.volume - 30 * (1 - touch_mod), 0)
 		if(touch_mod < 0.9)
 			to_chat(M, span_warning("The water causes you to melt away!"))
 	if(method == TOUCH)
@@ -339,8 +339,8 @@
 		M.adjustOxyLoss(-2 * REM * delta_time, 0)
 		M.adjustBruteLoss(-2 * REM * delta_time, 0)
 		M.adjustFireLoss(-2 * REM * delta_time, 0)
-		if(ishuman(M) && M.blood_volume < BLOOD_VOLUME_NORMAL)
-			M.blood_volume += 3 * REM * delta_time
+		if(ishuman(M) && M.blood.volume < BLOOD_VOLUME_NORMAL)
+			M.blood.volume += 3 * REM * delta_time
 	else  // Will deal about 90 damage when 50 units are thrown
 		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3 * REM * delta_time, 150)
 		M.adjustToxLoss(1 * REM * delta_time, 0)
@@ -1002,8 +1002,8 @@
 
 
 /datum/reagent/iron/on_mob_life(mob/living/carbon/C, delta_time, times_fired)
-	if(C.blood_volume < BLOOD_VOLUME_NORMAL)
-		C.blood_volume += 0.25 * delta_time
+	if(C.blood.volume < BLOOD_VOLUME_NORMAL)
+		C.blood.volume += 0.25 * delta_time
 	..()
 
 /datum/reagent/gold
@@ -1346,7 +1346,7 @@
 	M.drowsyness += 2 * REM * delta_time
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		H.blood_volume = max(H.blood_volume - (10 * REM * delta_time), 0)
+		H.blood.volume = max(H.blood.volume - (10 * REM * delta_time), 0)
 	if(DT_PROB(10, delta_time))
 		M.losebreath += 2
 		M.confused = min(M.confused + 2, 5)
@@ -2190,8 +2190,8 @@
 		M.adjustOxyLoss(-2 * REM * delta_time, FALSE)
 		M.adjustBruteLoss(-2 * REM * delta_time, FALSE)
 		M.adjustFireLoss(-2 * REM * delta_time, FALSE)
-		if(ishuman(M) && M.blood_volume < BLOOD_VOLUME_NORMAL)
-			M.blood_volume += 3 * REM * delta_time
+		if(ishuman(M) && M.blood.volume < BLOOD_VOLUME_NORMAL)
+			M.blood.volume += 3 * REM * delta_time
 	else
 		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3 * REM * delta_time, 150)
 		M.adjustToxLoss(2 * REM * delta_time, FALSE)

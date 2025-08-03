@@ -27,7 +27,7 @@
 			return
 
 		if(.) //not dead
-			handle_blood(delta_time, times_fired)
+			blood.blood_tick(src, delta_time)
 
 		if(stat != DEAD) //Handle brain damage
 			for(var/T in get_traumas())
@@ -290,9 +290,6 @@
 		return
 	// To differentiate between no internals and active, but empty internals.
 	return . || FALSE
-
-/mob/living/carbon/proc/handle_blood(delta_time, times_fired)
-	return
 
 /mob/living/carbon/proc/handle_bodyparts(delta_time, times_fired)
 	var/stam_regen = FALSE
@@ -718,7 +715,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 /mob/living/carbon/proc/needs_heart()
 	if(HAS_TRAIT(src, TRAIT_STABLEHEART))
 		return FALSE
-	if(dna && dna.species && (HAS_TRAIT(src, TRAIT_NOBLOOD) || isnull(dna.species.mutantheart))) //not all carbons have species!
+	if(dna && dna.species && (HAS_TRAIT(src, TRAIT_NO_BLOOD) || isnull(dna.species.mutantheart))) //not all carbons have species!
 		return FALSE
 	return TRUE
 

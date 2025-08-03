@@ -430,12 +430,12 @@
 		return FALSE
 	if(!iscarbon(host_mob))
 		return FALSE
-	if(host_mob.blood_volume <= 0)
+	if(host_mob.blood.volume <= 0)
 		return FALSE
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/host_human = host_mob
-		if(HAS_TRAIT(host_human, TRAIT_NOBLOOD))
+		if(HAS_TRAIT(host_human, TRAIT_NO_BLOOD))
 			return FALSE
 
 /datum/nanite_program/vampire/active_effect()
-	host_mob.blood_volume = max(host_mob.blood_volume - 1.5, 0)
+	host_mob.blood.volume = max(host_mob.blood.volume - 1.5, 0)

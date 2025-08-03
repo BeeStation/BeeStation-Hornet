@@ -79,8 +79,8 @@
 	L.SetUnconscious(0, FALSE)
 	L.adjustOxyLoss(-50)// do CPR first
 	L.reagents.remove_reagent(/datum/reagent/toxin/chloralhydrate, 100)
-	if(L.blood_volume <= 500) //bandage them up and give em some blood if they're bleeding
-		L.blood_volume += 30
+	if(L.blood.volume <= 500) //bandage them up and give em some blood if they're bleeding
+		L.blood.volume += 30
 		L.suppress_bloodloss(BLEED_DEEP_WOUND)
 	if(L.getBruteLoss() >= 50)
 		var/healing = min(L.getBruteLoss(), 120)

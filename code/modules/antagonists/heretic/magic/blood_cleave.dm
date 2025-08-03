@@ -35,7 +35,7 @@
 				span_danger("Your body begins to flash in a fiery glow, but you are protected!")
 			)
 			continue
-		if(!victim.blood_volume)
+		if(!victim.blood.volume)
 			continue
 		victim.visible_message(
 			span_danger("[victim]'s veins are shredded from within as an unholy blaze erupts from [victim.p_their()] blood!"),

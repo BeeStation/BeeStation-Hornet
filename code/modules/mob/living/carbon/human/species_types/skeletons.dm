@@ -24,7 +24,7 @@
 		TRAIT_FAKEDEATH,
 		TRAIT_XENO_IMMUNE,
 		TRAIT_NOCLONELOSS,
-		TRAIT_NOBLOOD,
+		TRAIT_NO_BLOOD,
 	)
 	inherent_biotypes = list(MOB_UNDEAD, MOB_HUMANOID)
 	mutanttongue = /obj/item/organ/tongue/bone

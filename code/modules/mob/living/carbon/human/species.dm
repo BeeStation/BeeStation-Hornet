@@ -460,6 +460,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	regenerate_organs(C, old_species, visual_only = C.visual_only_organs)
 
+	if (TRAIT_NO_BLOOD in inherent_traits)
+		C.blood = new /datum/blood_source/none(C)
+	else
+		C.blood = new /datum/blood_source/organic(C)
+
 	if(exotic_bloodtype && C.dna.blood_type != exotic_bloodtype)
 		C.dna.blood_type = exotic_bloodtype
 
@@ -671,7 +676,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(!hair_hidden || dynamic_hair_suffix || worn_wig)
 		var/mutable_appearance/hair_overlay = mutable_appearance(layer = CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER))
 		var/mutable_appearance/gradient_overlay = mutable_appearance(layer = CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER))
-		if(!hair_hidden && !H.get_organ_slot(ORGAN_SLOT_BRAIN) && !HAS_TRAIT(H, TRAIT_NOBLOOD))
+		if(!hair_hidden && !H.get_organ_slot(ORGAN_SLOT_BRAIN) && !HAS_TRAIT(H, TRAIT_NO_BLOOD))
 			hair_overlay.icon = 'icons/mob/species/human/human_face.dmi'
 			hair_overlay.icon_state = "debrained"
 
@@ -1427,7 +1432,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 /datum/species/proc/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
 	if(chem.type == exotic_blood)
-		H.blood_volume = min(H.blood_volume + round(chem.volume, 0.1), BLOOD_VOLUME_MAXIMUM)
+		H.blood.volume = min(H.blood.volume + round(chem.volume, 0.1), BLOOD_VOLUME_MAXIMUM)
 		H.reagents.del_reagent(chem.type)
 		return TRUE
 	//This handles dumping unprocessable reagents.
@@ -1615,10 +1620,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		if(!(source.hair_style == "Bald") && (HAIR in species_traits) && !HAS_TRAIT(source, TRAIT_NOHAIRLOSS))
 			to_chat(source, "<span class='danger'>Your hair starts to fall out in clumps.</span>")
 			addtimer(CALLBACK(src, PROC_REF(go_bald), source), 5 SECONDS)
-
-
-/datum/species/proc/handle_blood(mob/living/carbon/human/H)
-	return FALSE
 
 /**
  * Makes the target human bald.
@@ -2798,8 +2799,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/create_pref_blood_perks()
 	var/list/to_add = list()
 
-	// TRAIT_NOBLOOD takes priority by default
-	if(TRAIT_NOBLOOD in inherent_traits)
+	// TRAIT_NO_BLOOD takes priority by default
+	if(TRAIT_NO_BLOOD in inherent_traits)
 		to_add += list(list(
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
 			SPECIES_PERK_ICON = "tint-slash",

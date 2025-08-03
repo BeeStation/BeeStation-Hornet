@@ -398,11 +398,11 @@
 		return FALSE
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/host_human = host_mob
-		if(HAS_TRAIT(host_human, TRAIT_NOBLOOD))
+		if(HAS_TRAIT(host_human, TRAIT_NO_BLOOD))
 			return FALSE
 
 /datum/nanite_program/sensor/blood/check_event()
-	var/blood_percent =  round((host_mob.blood_volume / BLOOD_VOLUME_NORMAL) * 100)
+	var/blood_percent =  round((host_mob.blood.volume / BLOOD_VOLUME_NORMAL) * 100)
 	var/datum/nanite_extra_setting/percent = extra_settings[NES_HEALTH_PERCENT]
 	var/datum/nanite_extra_setting/direction = extra_settings[NES_DIRECTION]
 	var/detected = FALSE

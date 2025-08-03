@@ -100,8 +100,8 @@
  * Slow and stop any blood loss the owner's experiencing.
  */
 /datum/status_effect/unholy_determination/proc/adjust_bleed_wounds()
-	if(!iscarbon(owner) || !owner.blood_volume)
+	if(!iscarbon(owner) || !owner.blood.volume)
 		return
 
-	if(owner.blood_volume < BLOOD_VOLUME_NORMAL)
-		owner.blood_volume = owner.blood_volume + 2
+	if(owner.blood.volume < BLOOD_VOLUME_NORMAL)
+		owner.blood.volume = owner.blood.volume + 2

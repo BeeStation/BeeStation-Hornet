@@ -269,7 +269,7 @@
 			var/missing_organs = list()
 			if(!humantarget.get_organ_slot(ORGAN_SLOT_BRAIN))
 				missing_organs += "brain"
-			if(!HAS_TRAIT_FROM(humantarget, TRAIT_NOBLOOD, SPECIES_TRAIT) && !humantarget.get_organ_slot(ORGAN_SLOT_HEART))
+			if(!HAS_TRAIT_FROM(humantarget, TRAIT_NO_BLOOD, SPECIES_TRAIT) && !humantarget.get_organ_slot(ORGAN_SLOT_HEART))
 				missing_organs += "heart"
 			if(!HAS_TRAIT_FROM(humantarget, TRAIT_NOBREATH, SPECIES_TRAIT) && !humantarget.get_organ_slot(ORGAN_SLOT_LUNGS))
 				missing_organs += "lungs"
@@ -362,24 +362,24 @@
 	// Blood Level
 	if(target.has_dna())
 		var/mob/living/carbon/carbontarget = target
-		var/blood_id = carbontarget.get_blood_id()
+		var/blood_id = carbontarget.blood.get_blood_id()
 		if(blood_id)
 			if(carbontarget.is_bleeding())
 				render_list += "<span class='alert ml-1'><b>Subject is bleeding at a rate of [round(carbontarget.get_bleed_rate(), 0.1)]/s!</b></span>\n"
 			else if (carbontarget.is_bandaged())
 				render_list += "<span class='alert ml-1'><b>Subject is bleeding (Bandaged)!</b></span>\n"
-			var/blood_percent = round((carbontarget.blood_volume / BLOOD_VOLUME_NORMAL) * 100)
+			var/blood_percent = round((carbontarget.blood.volume / BLOOD_VOLUME_NORMAL) * 100)
 			var/blood_type = carbontarget.dna.blood_type
 			if(blood_id != /datum/reagent/blood) // special blood substance
 				var/datum/reagent/R = GLOB.chemical_reagents_list[blood_id]
 				blood_type = R ? R.name : blood_id
 			var/blood_info = "[blood_type] (Compatible: [jointext(get_safe_blood(blood_type), ", ")])"
-			if(carbontarget.blood_volume <= BLOOD_VOLUME_SAFE && carbontarget.blood_volume > BLOOD_VOLUME_OKAY)
-				render_list += "<span class='alert ml-1'>Blood level: LOW [blood_percent] %, [carbontarget.blood_volume] cl,</span> [span_info("type: [blood_info]")]\n"
-			else if(carbontarget.blood_volume <= BLOOD_VOLUME_OKAY)
-				render_list += "<span class='alert ml-1'>Blood level: <b>CRITICAL [blood_percent] %</b>, [carbontarget.blood_volume] cl,</span> [span_info("type: [blood_type]")]\n"
+			if(carbontarget.blood.volume <= BLOOD_VOLUME_SAFE && carbontarget.blood.volume > BLOOD_VOLUME_OKAY)
+				render_list += "<span class='alert ml-1'>Blood level: LOW [blood_percent] %, [carbontarget.blood.volume] cl,</span> [span_info("type: [blood_info]")]\n"
+			else if(carbontarget.blood.volume <= BLOOD_VOLUME_OKAY)
+				render_list += "<span class='alert ml-1'>Blood level: <b>CRITICAL [blood_percent] %</b>, [carbontarget.blood.volume] cl,</span> [span_info("type: [blood_type]")]\n"
 			else
-				render_list += "<span class='info ml-1'>Blood level: [blood_percent] %, [carbontarget.blood_volume] cl, type: [blood_type]</span>\n"
+				render_list += "<span class='info ml-1'>Blood level: [blood_percent] %, [carbontarget.blood.volume] cl, type: [blood_type]</span>\n"
 
 	// Cybernetics
 	if(iscarbon(target))

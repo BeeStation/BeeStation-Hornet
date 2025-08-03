@@ -66,24 +66,24 @@
 	if(H.stat == DEAD) //can't farm slime jelly from a dead slime/jelly person indefinitely
 		return
 
-	if(!H.blood_volume)
-		H.blood_volume += 2.5 * delta_time
+	if(!H.blood.volume)
+		H.blood.volume += 2.5 * delta_time
 		H.adjustBruteLoss(2.5 * delta_time)
 		to_chat(H, span_danger("You feel empty!"))
-	if(H.nutrition >= NUTRITION_LEVEL_WELL_FED && H.blood_volume <= 672)
+	if(H.nutrition >= NUTRITION_LEVEL_WELL_FED && H.blood.volume <= 672)
 		if(H.nutrition >= NUTRITION_LEVEL_ALMOST_FULL)
-			H.blood_volume += 5 * delta_time
+			H.blood.volume += 5 * delta_time
 			H.adjust_nutrition(-2.5 * delta_time)
 		else
-			H.blood_volume += 4 * delta_time
+			H.blood.volume += 4 * delta_time
 	if(H.nutrition <= NUTRITION_LEVEL_HUNGRY)
 		if(H.nutrition <= NUTRITION_LEVEL_STARVING)
-			H.blood_volume -= 4 * delta_time
+			H.blood.volume -= 4 * delta_time
 			if(DT_PROB(2.5, delta_time))
 				to_chat(H, span_info("You're starving! Get some food!"))
 		else
 			if(DT_PROB(17.5, delta_time))
-				H.blood_volume -= 1 * delta_time
+				H.blood.volume -= 1 * delta_time
 				if(prob(5))
 					to_chat(H, span_danger("You're feeling pretty hungry..."))
 	var/atmos_sealed = FALSE
@@ -101,14 +101,14 @@
 		var/datum/gas_mixture/environment = H.loc.return_air()
 		if(environment?.total_moles())
 			if(GET_MOLES(/datum/gas/water_vapor, environment) >= 1)
-				H.blood_volume -= 15
+				H.blood.volume -= 15
 				if(prob(50))
 					to_chat(H, span_danger("Your ooze melts away rapidly in the water vapor!"))
-			if(H.blood_volume <= 672 && GET_MOLES(/datum/gas/plasma, environment) >= 1)
-				H.blood_volume += 15
-	if(H.blood_volume < BLOOD_VOLUME_OKAY && prob(5))
+			if(H.blood.volume <= 672 && GET_MOLES(/datum/gas/plasma, environment) >= 1)
+				H.blood.volume += 15
+	if(H.blood.volume < BLOOD_VOLUME_OKAY && prob(5))
 		to_chat(H, span_danger("You feel drained!"))
-	if(H.blood_volume < BLOOD_VOLUME_OKAY)
+	if(H.blood.volume < BLOOD_VOLUME_OKAY)
 		Cannibalize_Body(H)
 	if(regenerate_limbs)
 		regenerate_limbs.update_buttons()
@@ -128,7 +128,7 @@
 	consumed_limb.drop_limb()
 	to_chat(H, span_userdanger("Your [consumed_limb] is drawn back into your body, unable to maintain its shape!"))
 	qdel(consumed_limb)
-	H.blood_volume += 80
+	H.blood.volume += 80
 	H.nutrition += 20
 
 /datum/action/innate/regenerate_limbs
@@ -142,7 +142,7 @@
 	if(..())
 		var/mob/living/carbon/human/H = owner
 		var/list/limbs_to_heal = H.get_missing_limbs()
-		if(limbs_to_heal.len && H.blood_volume >= BLOOD_VOLUME_OKAY+80)
+		if(limbs_to_heal.len && H.blood.volume >= BLOOD_VOLUME_OKAY+80)
 			return TRUE
 		return FALSE
 
@@ -153,20 +153,20 @@
 		to_chat(H, span_notice("You feel intact enough as it is."))
 		return
 	to_chat(H, span_notice("You focus intently on your missing [limbs_to_heal.len >= 2 ? "limbs" : "limb"]..."))
-	if(H.blood_volume >= 80*limbs_to_heal.len+BLOOD_VOLUME_OKAY)
+	if(H.blood.volume >= 80*limbs_to_heal.len+BLOOD_VOLUME_OKAY)
 		if(do_after(H, 60, target = H))
 			H.regenerate_limbs()
-			H.blood_volume -= 80*limbs_to_heal.len
+			H.blood.volume -= 80*limbs_to_heal.len
 			H.nutrition -= 20*limbs_to_heal.len
 			to_chat(H, span_notice("...and after a moment you finish reforming!"))
 		return
-	if(H.blood_volume >= 80)//We can partially heal some limbs
-		while(H.blood_volume >= BLOOD_VOLUME_OKAY+80 && LAZYLEN(limbs_to_heal))
+	if(H.blood.volume >= 80)//We can partially heal some limbs
+		while(H.blood.volume >= BLOOD_VOLUME_OKAY+80 && LAZYLEN(limbs_to_heal))
 			if(do_after(H, 30, target = H))
 				var/healed_limb = pick(limbs_to_heal)
 				H.regenerate_limb(healed_limb)
 				limbs_to_heal -= healed_limb
-				H.blood_volume -= 80
+				H.blood.volume -= 80
 				H.nutrition -= 20
 			to_chat(H, span_warning("...but there is not enough of you to fix everything! You must attain more blood volume to heal completely!"))
 		return
@@ -177,7 +177,7 @@
 		if(chem.volume > 10)
 			H.reagents.remove_reagent(chem.type, chem.volume - 10)
 			to_chat(H, span_warning("The water you consumed is melting away your insides!"))
-		H.blood_volume -= 25
+		H.blood.volume -= 25
 		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
 		return TRUE
 	return ..()

@@ -33,7 +33,11 @@
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_NIGHT_VISION), PROC_REF(on_night_vision_trait_gain))
 	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_NIGHT_VISION), PROC_REF(on_night_vision_trait_loss))
 
+	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_HUSK), PROC_REF(on_husk_gained))
+	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_HUSK), PROC_REF(on_husk_lost))
 
+	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_NO_BLOOD), PROC_REF(on_no_blood_gain))
+	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_NO_BLOOD), PROC_REF(on_no_blood_loss))
 
 	RegisterSignals(src, list(
 		SIGNAL_ADDTRAIT(TRAIT_CRITICAL_CONDITION),
@@ -241,3 +245,24 @@
 /mob/living/proc/on_movement_type_flag_disabled(datum/source, trait, flag, old_movement_type)
 	SIGNAL_HANDLER
 	update_movespeed(FALSE)
+
+/// Called when a mob gains the husk trait
+/mob/living/proc/on_husk_gained()
+	SIGNAL_HANDLER
+	ADD_TRAIT(src, TRAIT_NO_BLOOD, TRAIT_HUSK)
+
+/// Called when a mob gains the husk trait
+/mob/living/proc/on_husk_lost()
+	SIGNAL_HANDLER
+	REMOVE_TRAIT(src, TRAIT_NO_BLOOD, TRAIT_HUSK)
+
+/// Called when a mob gains the no blood trait
+/mob/living/proc/on_no_blood_gain()
+	SIGNAL_HANDLER
+	blood = new /datum/blood_source/none(src)
+
+/// Called when a mob gains the no blood trait
+/mob/living/proc/on_no_blood_loss()
+	SIGNAL_HANDLER
+	var/blood_source_type = initial(blood)
+	blood = new blood_source_type(C)

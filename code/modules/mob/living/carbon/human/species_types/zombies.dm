@@ -30,7 +30,7 @@
 		TRAIT_TOXIMMUNE,
 		TRAIT_NOSTASIS,
 		// HIGH FUNCTIONING UNIQUE
-		TRAIT_NOBLOOD,
+		TRAIT_NO_BLOOD,
 	)
 	mutantstomach = null
 	mutantheart = null

@@ -32,7 +32,7 @@
 	melee_damage = 5
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	stop_automated_movement_when_pulled = 1
-	blood_volume = BLOOD_VOLUME_NORMAL
+	blood = /datum/blood_source/organic
 	chat_color = "#B2CEB3"
 
 	footstep_type = FOOTSTEP_MOB_SHOE

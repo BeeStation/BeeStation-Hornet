@@ -46,8 +46,8 @@
 		C.adjustOxyLoss(-2 * delta_time)
 		C.adjustCloneLoss(-2 * delta_time)
 		return
-	C.blood_volume -= 0.125 * delta_time
-	if(C.blood_volume <= BLOOD_VOLUME_SURVIVE)
+	C.blood.volume -= 0.125 * delta_time
+	if(C.blood.volume <= BLOOD_VOLUME_SURVIVE)
 		to_chat(C, span_danger("You ran out of blood!"))
 		C.investigate_log("has been dusted by a lack of blood (vampire).", INVESTIGATE_DEATHS)
 		C.dust()
@@ -147,13 +147,13 @@
 			return
 		if(H.pulling && iscarbon(H.pulling))
 			var/mob/living/carbon/victim = H.pulling
-			if(H.blood_volume >= BLOOD_VOLUME_MAXIMUM)
+			if(H.blood.volume >= BLOOD_VOLUME_MAXIMUM)
 				to_chat(H, span_notice("You're already full!"))
 				return
 			if(victim.stat == DEAD)
 				to_chat(H, span_notice("You need a living victim!"))
 				return
-			if(!victim.blood_volume || (victim.dna && (HAS_TRAIT(victim, TRAIT_NOBLOOD) || victim.dna.species.exotic_blood)))
+			if(!victim.blood.volume || (victim.dna && (HAS_TRAIT(victim, TRAIT_NO_BLOOD) || victim.dna.species.exotic_blood)))
 				to_chat(H, span_notice("[victim] doesn't have blood!"))
 				return
 			V.drain_cooldown = world.time + 30
@@ -167,14 +167,14 @@
 				return
 			if(!do_after(H, 3 SECONDS, target = victim, hidden = TRUE))
 				return
-			var/blood_volume_difference = BLOOD_VOLUME_MAXIMUM - H.blood_volume //How much capacity we have left to absorb blood
-			var/drained_blood = min(victim.blood_volume, VAMP_DRAIN_AMOUNT, blood_volume_difference)
+			var/blood_volume_difference = BLOOD_VOLUME_MAXIMUM - H.blood.volume //How much capacity we have left to absorb blood
+			var/drained_blood = min(victim.blood.volume, VAMP_DRAIN_AMOUNT, blood_volume_difference)
 			to_chat(victim, span_danger("[H] is draining your blood!"))
 			to_chat(H, span_notice("You drain some blood!"))
 			playsound(H, 'sound/items/drink.ogg', 30, 1, -2)
-			victim.blood_volume = clamp(victim.blood_volume - drained_blood, 0, BLOOD_VOLUME_MAXIMUM)
-			H.blood_volume = clamp(H.blood_volume + drained_blood, 0, BLOOD_VOLUME_MAXIMUM)
-			if(!victim.blood_volume)
+			victim.blood.volume = clamp(victim.blood.volume - drained_blood, 0, BLOOD_VOLUME_MAXIMUM)
+			H.blood.volume = clamp(H.blood.volume + drained_blood, 0, BLOOD_VOLUME_MAXIMUM)
+			if(!victim.blood.volume)
 				to_chat(H, span_warning("You finish off [victim]'s blood supply!"))
 
 #undef VAMP_DRAIN_AMOUNT
@@ -191,7 +191,7 @@
 /datum/action/item_action/organ_action/vampire_heart/on_activate(mob/user, atom/target)
 	if(iscarbon(owner))
 		var/mob/living/carbon/H = owner
-		to_chat(H, span_notice("Current blood level: [H.blood_volume]/[BLOOD_VOLUME_MAXIMUM]."))
+		to_chat(H, span_notice("Current blood level: [H.blood.volume]/[BLOOD_VOLUME_MAXIMUM]."))
 
 /datum/action/spell/shapeshift/bat
 	name = "Bat Form"

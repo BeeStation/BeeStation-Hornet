@@ -113,7 +113,8 @@
 
 	var/stun_absorption = null //converted to a list of stun absorption sources this mob has when one is added
 
-	var/blood_volume = 0 //how much blood the mob has
+	/// If the mob uses blood, then the information about that blood is stored here.
+	var/datum/blood_source/blood = /datum/blood_source/none
 
 	var/see_override = 0 //0 for no override, sets see_invisible = see_override in silicon & carbon life process via update_sight()
 

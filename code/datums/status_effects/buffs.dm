@@ -554,7 +554,8 @@
 	owner.fire_stacks = 0
 	owner.set_blindness(0)
 	owner.set_blurriness(0)
-	owner.restore_blood()
+	owner.blood.restore_blood()
+	owner.cauterise_wounds()
 	owner.bodytemperature = owner.get_body_temp_normal()
 	if(istype(owner, /mob/living/carbon/human))
 		var/mob/living/carbon/human/humi = owner

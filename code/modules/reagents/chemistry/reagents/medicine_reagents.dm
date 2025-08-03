@@ -80,8 +80,8 @@
 	M.radiation = 0
 	REMOVE_TRAITS_NOT_IN(M, list(SPECIES_TRAIT, ROUNDSTART_TRAIT, ORGAN_TRAIT))
 	M.reagents.remove_all_type(/datum/reagent/toxin, 5 * REM * delta_time, FALSE, TRUE)
-	if(M.blood_volume < BLOOD_VOLUME_NORMAL)
-		M.blood_volume = BLOOD_VOLUME_NORMAL
+	if(M.blood.volume < BLOOD_VOLUME_NORMAL)
+		M.blood.volume = BLOOD_VOLUME_NORMAL
 
 	M.cure_all_traumas(TRAUMA_RESILIENCE_MAGIC)
 	for(var/obj/item/organ/organ as anything in M.internal_organs)
@@ -400,13 +400,13 @@
 
 /datum/reagent/medicine/salglu_solution/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(last_added)
-		M.blood_volume -= last_added
+		M.blood.volume -= last_added
 		last_added = 0
-	if(M.blood_volume < maximum_reachable)	//Can only up to double your effective blood level.
-		var/amount_to_add = min(M.blood_volume, 5*volume)
-		var/new_blood_level = min(M.blood_volume + amount_to_add, maximum_reachable)
-		last_added = new_blood_level - M.blood_volume
-		M.blood_volume = new_blood_level
+	if(M.blood.volume < maximum_reachable)	//Can only up to double your effective blood level.
+		var/amount_to_add = min(M.blood.volume, 5*volume)
+		var/new_blood_level = min(M.blood.volume + amount_to_add, maximum_reachable)
+		last_added = new_blood_level - M.blood.volume
+		M.blood.volume = new_blood_level
 	if(DT_PROB(18, delta_time))
 		M.adjustBruteLoss(-0.5, 0)
 		M.adjustFireLoss(-0.5, 0)
@@ -1426,8 +1426,8 @@
 	M.adjustToxLoss(-5 * REM * delta_time, 0)
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, -15 * REM * delta_time)
 	M.adjustCloneLoss(-3 * REM * delta_time, 0)
-	if (M.blood_volume < BLOOD_VOLUME_NORMAL)
-		M.blood_volume = max(M.blood_volume, min(M.blood_volume + 4, BLOOD_VOLUME_NORMAL))
+	if (M.blood.volume < BLOOD_VOLUME_NORMAL)
+		M.blood.volume = max(M.blood.volume, min(M.blood.volume + 4, BLOOD_VOLUME_NORMAL))
 	..()
 	. = TRUE
 
@@ -1758,8 +1758,8 @@
 	if(DT_PROB(10, delta_time))
 		M.Jitter(5)
 	M.losebreath = 0
-	if (M.blood_volume < BLOOD_VOLUME_SAFE)
-		M.blood_volume = max(M.blood_volume, (min(M.blood_volume + 4, BLOOD_VOLUME_SAFE) * REM * delta_time))
+	if (M.blood.volume < BLOOD_VOLUME_SAFE)
+		M.blood.volume = max(M.blood.volume, (min(M.blood.volume + 4, BLOOD_VOLUME_SAFE) * REM * delta_time))
 	..()
 
 /datum/reagent/medicine/stabilizing_nanites/on_mob_metabolize(mob/living/L)

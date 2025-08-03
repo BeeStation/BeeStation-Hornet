@@ -779,7 +779,7 @@
 	return TRUE
 
 /mob/living/carbon/human/vomit(lost_nutrition = 10, blood = 0, stun = 1, distance = 0, message = 1, toxic = 0)
-	if(blood && HAS_TRAIT(src, TRAIT_NOBLOOD))
+	if(blood && HAS_TRAIT(src, TRAIT_NO_BLOOD))
 		if(message)
 			visible_message(span_warning("[src] dry heaves!"), \
 							span_userdanger("You try to throw up, but there's nothing in your stomach!"))

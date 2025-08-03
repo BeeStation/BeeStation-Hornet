@@ -11,7 +11,7 @@
 		TRAIT_CHUNKYFINGERS,
 		TRAIT_NOHUNGER,
 		TRAIT_NOBREATH,
-		TRAIT_NOBLOOD,
+		TRAIT_NO_BLOOD,
 	)
 	mutanttongue = /obj/item/organ/tongue/abductor
 	mutantstomach = null

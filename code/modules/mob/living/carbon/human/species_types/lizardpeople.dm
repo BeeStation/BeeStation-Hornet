@@ -133,5 +133,5 @@
 /datum/species/lizard/ashwalker/spec_life(mob/living/carbon/human/H)
 	. = ..()
 	H.cauterise_wounds(0.1)
-	if (H.blood_volume < BLOOD_VOLUME_NORMAL && !H.is_bleeding())
-		H.blood_volume += 0.5
+	if (H.blood.volume < BLOOD_VOLUME_NORMAL && !H.is_bleeding())
+		H.blood.volume += 0.5

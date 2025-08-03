@@ -18,7 +18,7 @@
 	pass_flags = PASSMOB
 	path_image_color = "#993299"
 
-	var/blood = 1
+	var/clean_blood = 1
 	var/trash = 0
 	var/pests = 0
 	var/drawn = 0
@@ -192,7 +192,7 @@
 		/obj/effect/decal/remains
 		)
 
-	if(blood)
+	if(clean_blood)
 		target_types += /obj/effect/decal/cleanable/xenoblood
 		target_types += /obj/effect/decal/cleanable/blood
 		target_types += /obj/effect/decal/cleanable/trail_holder
@@ -437,7 +437,7 @@
 /mob/living/simple_animal/bot/cleanbot/ui_data(mob/user)
 	var/list/data = ..()
 	if(!locked || issilicon(user)|| IsAdminGhost(user))
-		data["custom_controls"]["clean_blood"] = blood
+		data["custom_controls"]["clean_blood"] = clean_blood
 		data["custom_controls"]["clean_trash"] = trash
 		data["custom_controls"]["clean_graffiti"] = drawn
 		data["custom_controls"]["pest_control"] = pests
@@ -448,7 +448,7 @@
 		return TRUE
 	switch(action)
 		if("clean_blood")
-			blood = !blood
+			clean_blood = !clean_blood
 		if("clean_trash")
 			trash = !trash
 		if("clean_graffiti")

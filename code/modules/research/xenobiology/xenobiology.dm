@@ -191,7 +191,7 @@
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			user.adjust_nutrition(50)
-			user.blood_volume += 50
+			user.blood.volume += 50
 			to_chat(user, span_notice("You activate [src], and your body is refilled with fresh slime jelly!"))
 			return 15 SECONDS
 

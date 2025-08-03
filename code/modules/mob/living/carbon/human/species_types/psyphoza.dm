@@ -55,8 +55,8 @@
 		return .(gender, TRUE, null, ++attempts)
 
 /datum/species/psyphoza/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
-	if(istype(chem, /datum/reagent/drug) && H.blood_volume < BLOOD_VOLUME_NORMAL)
-		H.blood_volume += chem.volume * 15
+	if(istype(chem, /datum/reagent/drug) && H.blood.volume < BLOOD_VOLUME_NORMAL)
+		H.blood.volume += chem.volume * 15
 		H.reagents.remove_reagent(chem.type, chem.volume)
 		return FALSE
 	return ..()

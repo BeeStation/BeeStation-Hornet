@@ -46,8 +46,8 @@ Bonus
 		if(4, 5)
 			M.adjustOxyLoss(-7, 0)
 			M.losebreath = max(0, M.losebreath - 4)
-			if(regenerate_blood && M.blood_volume < BLOOD_VOLUME_NORMAL)
-				M.blood_volume += 1
+			if(regenerate_blood && M.blood.volume < BLOOD_VOLUME_NORMAL)
+				M.blood.volume += 1
 		else
 			if(prob(base_message_chance) && M.stat != DEAD)
 				to_chat(M, span_notice("[pick("Your lungs feel great.", "You realize you haven't been breathing.", "You don't feel the need to breathe.", "Something smells rotten.", "You feel peckish.")]"))
