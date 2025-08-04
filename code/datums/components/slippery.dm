@@ -121,7 +121,7 @@
 /datum/component/slippery/proc/on_drop(datum/source, mob/user)
 	SIGNAL_HANDLER
 
-	UnregisterSignal(user, COMSIG_PARENT_PREQDELETED)
+	UnregisterSignal(user, COMSIG_PREQDELETED)
 
 	qdel(GetComponent(/datum/component/connect_loc_behalf))
 	add_connect_loc_behalf_to_parent()
