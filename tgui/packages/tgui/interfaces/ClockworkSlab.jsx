@@ -5,7 +5,7 @@ import { Window } from '../layouts';
 import { TableRow } from '../components/Table';
 
 export const convertPower = (power_in) => {
-  const units = ['W', 'kW', 'MW', 'GW'];
+  const units = ['A', 'kA', 'mA', 'gA'];
   let power = 0;
   let value = power_in;
   while (value >= 1000 && power < units.length) {

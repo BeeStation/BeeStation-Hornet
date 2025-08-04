@@ -3,26 +3,26 @@
 	select_name = "kill"
 
 /obj/item/ammo_casing/energy/laser/gatlinggun
-	shots_per_kw = 100
+	shots_per_ka = 100
 
 /obj/item/ammo_casing/energy/lasergun
 	projectile_type = /obj/projectile/beam/laser
-	shots_per_kw = 10
+	shots_per_ka = 10
 	select_name = "kill"
 
 /obj/item/ammo_casing/energy/lasergun/repeater
-	shots_per_kw = 2
+	shots_per_ka = 2
 
 /obj/item/ammo_casing/energy/lasergun/captain
-	shots_per_kw = 8
+	shots_per_ka = 8
 
 /obj/item/ammo_casing/energy/lasergun/old
 	projectile_type = /obj/projectile/beam/laser
-	shots_per_kw = 8
+	shots_per_ka = 8
 	select_name = "kill"
 
 /obj/item/ammo_casing/energy/laser/hos
-	shots_per_kw = 8
+	shots_per_ka = 8
 
 /obj/item/ammo_casing/energy/laser/practice
 	projectile_type = /obj/projectile/beam/practice
@@ -48,7 +48,7 @@
 
 /obj/item/ammo_casing/energy/laser/pulse
 	projectile_type = /obj/projectile/beam/pulse
-	shots_per_kw = 5
+	shots_per_ka = 5
 	select_name = "DESTROY"
 	fire_sound = 'sound/weapons/pulse.ogg'
 
@@ -78,7 +78,7 @@
 
 /obj/item/ammo_casing/energy/xray
 	projectile_type = /obj/projectile/beam/xray
-	shots_per_kw = 5
+	shots_per_ka = 5
 	fire_sound = 'sound/weapons/laser3.ogg'
 
 /obj/item/ammo_casing/energy/mindflayer

@@ -1,7 +1,7 @@
 /obj/item/ammo_casing/energy/bolt
 	projectile_type = /obj/projectile/energy/bolt
 	select_name = "bolt"
-	shots_per_kw = 5
+	shots_per_ka = 5
 	fire_sound = 'sound/weapons/genhit.ogg'
 
 /obj/item/ammo_casing/energy/bolt/radbolt

@@ -1,6 +1,6 @@
 /obj/item/ammo_casing/energy/wormhole
 	projectile_type = /obj/projectile/beam/wormhole
-	shots_per_kw = 0
+	shots_per_ka = 0
 	harmful = FALSE
 	fire_sound = 'sound/weapons/pulse3.ogg'
 	select_name = "blue"

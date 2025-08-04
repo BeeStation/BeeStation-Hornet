@@ -1,6 +1,6 @@
-#define KILOWATT *1000
-#define MEGAWATT KILOWATT *1000
-#define GIGAWATT MEGAWATT *1000
+#define KILOAUR *1000
+#define MEGAAUR KILOAUR *1000
+#define GIGAAUR MEGAAUR *1000
 
 /// This define is used to create some loss of power so that some power transfers aren't exactly 1:1. At 15% loss currently
 #define POWER_TRANSFER_LOSS * 0.85

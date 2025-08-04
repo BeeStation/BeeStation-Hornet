@@ -246,9 +246,9 @@
 	data["anchored"] = anchored
 	data["connected"] = (powernet == null ? 0 : 1)
 	data["ready_to_boot"] = anchored && HasFuel()
-	data["power_generated"] = display_power(power_gen)
-	data["power_output"] = display_power(power_gen * power_output)
-	data["power_available"] = (powernet == null ? 0 : display_power(avail()))
+	data["power_generated"] = display_power_persec(power_gen)
+	data["power_output"] = display_power_persec(power_gen * power_output)
+	data["power_available"] = (powernet == null ? 0 : display_power_persec(avail()))
 	data["current_heat"] = current_heat
 	. =  data
 

@@ -403,7 +403,7 @@
 /obj/item/ammo_casing/energy/beam_rifle/hitscan
 	projectile_type = /obj/projectile/beam/beam_rifle/hitscan
 	select_name = "beam"
-	shots_per_kw = 10
+	shots_per_ka = 10
 	fire_sound = 'sound/weapons/beam_sniper.ogg'
 
 /obj/projectile/beam/beam_rifle

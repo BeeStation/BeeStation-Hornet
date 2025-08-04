@@ -897,7 +897,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	if(battery_module?.battery)
 		. += "INFO :: <span class='cfc_orange'>[battery_module.battery.name]</span> accounted for."
 		. += "INFO :: Cell Current charge [battery_module.battery.percent()]%."
-	. += "Current Power consumption :: [display_power(total_power_usage)]"
+	. += "Current Power consumption :: [display_power_persec(total_power_usage)]"
 	return
 
 /obj/item/modular_computer/proc/virus_blocked_info(gift_card = FALSE)	// If we caught a Virus, tell the player

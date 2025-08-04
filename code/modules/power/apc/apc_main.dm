@@ -354,7 +354,7 @@
 		"powerCellStatus" = cell ? cell.percent() : null,
 		"chargeMode" = chargemode,
 		"chargingStatus" = charging,
-		"totalLoad" = display_power(lastused_total),
+		"totalLoad" = display_power_persec(lastused_total),
 		"coverLocked" = coverlocked,
 		"siliconUser" = user.has_unlimited_silicon_privilege || user.using_power_flow_console(),
 		"malfStatus" = get_malf_status(user),
@@ -364,7 +364,7 @@
 		"powerChannels" = list(
 			list(
 				"title" = "Equipment",
-				"powerLoad" = display_power(lastused_equip),
+				"powerLoad" = display_power_persec(lastused_equip),
 				"status" = equipment,
 				"topicParams" = list(
 					"auto" = list("eqp" = 3),
@@ -374,7 +374,7 @@
 			),
 			list(
 				"title" = "Lighting",
-				"powerLoad" = display_power(lastused_light),
+				"powerLoad" = display_power_persec(lastused_light),
 				"status" = lighting,
 				"topicParams" = list(
 					"auto" = list("lgt" = 3),
@@ -384,7 +384,7 @@
 			),
 			list(
 				"title" = "Environment",
-				"powerLoad" = display_power(lastused_environ),
+				"powerLoad" = display_power_persec(lastused_environ),
 				"status" = environ,
 				"topicParams" = list(
 					"auto" = list("env" = 3),

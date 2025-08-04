@@ -192,7 +192,7 @@
 			message += span_notice("Volume: [volume] L")
 			message += span_notice("Pressure: [round(pressure, 0.01)] kPa")
 			message += span_notice("Heat Capacity: [display_power(heat_capacity)] / K")
-			message += span_notice("Thermal Energy: [display_power(thermal_energy)]")
+			message += span_notice("Thermal Energy: [display_power_persec(thermal_energy)]")
 		else
 			message += airs.len > 1 ? span_notice("This node is empty!") : span_notice("[target] is empty!")
 			message += span_notice("Volume: [volume] L") // don't want to change the order volume appears in, suck it

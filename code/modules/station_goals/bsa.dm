@@ -139,7 +139,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 	var/ex_power = 3
 	var/ready
 
-	var/power_used_per_shot = 20 MEGAWATT
+	var/power_used_per_shot = 20 MEGAAUR
 	var/obj/item/stock_parts/cell/cell
 	var/obj/machinery/power/terminal/invisible/terminal
 	use_power = NO_POWER_USE
@@ -209,7 +209,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 
 /obj/machinery/power/bsa/full/Initialize(mapload, cannon_direction = WEST)
 	. = ..()
-	cell = new /obj/item/stock_parts/cell(src, 20 MEGAWATT)
+	cell = new /obj/item/stock_parts/cell(src, 20 MEGAAUR)
 	cell.charge = 0
 	top_layer = top_layer || mutable_appearance(icon, layer = ABOVE_MOB_LAYER)
 	switch(cannon_direction)
@@ -376,7 +376,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 	data["unlocked"] = GLOB.bsa_unlock
 	data["charge"] = cannon ? cannon.cell.charge : 0
 	data["max_charge"] = cannon ? cannon.cell.maxcharge : 0
-	data["formatted_charge"] = cannon ? display_power(cannon.cell.charge) : "0 W"
+	data["formatted_charge"] = cannon ? display_power(cannon.cell.charge) : "0 A"
 	data["targets"] = get_available_targets()
 	if(target_ref?.resolve())
 		data["target_ref"] = FAST_REF(target)
