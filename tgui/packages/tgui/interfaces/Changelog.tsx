@@ -363,7 +363,7 @@ export class Changelog extends Component {
         ));
 
     return (
-      <Window title="Changelog" width={testmerges?.length ? 1000 : 675} height={650}>
+      <Window title="Changelog" theme="admin" width={testmerges?.length ? 1000 : 675} height={650}>
         <Window.Content scrollable>
           <Header dropdown={dateDropdown} />
           <Stack>
