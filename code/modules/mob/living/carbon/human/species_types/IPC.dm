@@ -52,7 +52,7 @@
 	brutemod = 2
 	clonemod = 0
 	staminamod = 0 //IPCs don't get tired
-	siemens_coeff = 2.5 //IPCs are extxremly vunlerable to shocks
+	siemens_coeff = 1.5
 	reagent_tag = PROCESS_SYNTHETIC
 	species_gibs = GIB_TYPE_ROBOTIC
 	attack_sound = 'sound/items/trayhit1.ogg'
