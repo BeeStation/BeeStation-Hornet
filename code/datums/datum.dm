@@ -35,7 +35,7 @@
 	  */
 	var/list/_listen_lookup
 	/// Lazy associated list in the structure of `signals:proctype` that are run when the datum receives that signal
-	var/list/list/datum/callback/signal_procs
+	var/list/list/datum/callback/_signal_procs
 
 	/// Datum level flags
 	var/datum_flags = NONE
@@ -151,8 +151,8 @@
 				comp.UnregisterSignal(src, sig)
 		_listen_lookup = lookup = null
 
-	for(var/target in signal_procs)
-		UnregisterSignal(target, signal_procs[target])
+	for(var/target in _signal_procs)
+		UnregisterSignal(target, _signal_procs[target])
 
 #ifdef DATUMVAR_DEBUGGING_MODE
 /datum/proc/save_vars()
