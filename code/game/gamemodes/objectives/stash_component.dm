@@ -17,7 +17,7 @@
 	RegisterSignal(stash_owner, COMSIG_QDELETING, PROC_REF(owner_deleted))
 	RegisterSignal(stash_owner, COMSIG_MIND_TRANSFER_TO, PROC_REF(transfer_mind))
 	RegisterSignal(parent, COMSIG_CLICK_ALT, PROC_REF(access_stash))
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 
 	create_owner_icon(parent)
 
