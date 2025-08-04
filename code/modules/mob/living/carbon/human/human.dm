@@ -370,7 +370,7 @@
 	var/require_thickness = (injection_flags & INJECT_CHECK_PENETRATE_THICK)
 	for(var/obj/item/clothing/iter_clothing in clothingonpart(the_part))
 		// If it has armour, it has enough thickness to block basic things
-		if(!require_thickness && (iter_clothing.get_armor().get_rating(MELEE) >= 10 || iter_clothing.get_armor().get_rating(BULLET) >= 10))
+		if(!require_thickness && (iter_clothing.get_armor().get_rating(MELEE) >= 20 || iter_clothing.get_armor().get_rating(BULLET) >= 20))
 			if (user && (injection_flags & INJECT_TRY_SHOW_ERROR_MESSAGE))
 				to_chat(user, span_alert("The clothing on [p_their()] [the_part.name] is too thick!"))
 			return FALSE

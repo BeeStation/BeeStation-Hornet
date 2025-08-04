@@ -12678,6 +12678,13 @@
 	},
 /turf/open/floor/iron/dark,
 /area/medical/morgue)
+"gxr" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table/wood,
+/obj/effect/turf_decal/siding/wood,
+/obj/item/paicard,
+/turf/open/floor/carpet/green,
+/area/crew_quarters/cafeteria)
 "gxG" = (
 /obj/structure/frame/computer{
 	anchored = 1;
@@ -19454,25 +19461,6 @@
 /obj/structure/disposalpipe/trunk,
 /turf/open/floor/iron,
 /area/hydroponics)
-"kcD" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/obj/structure/table/wood,
-/obj/machinery/computer/security/telescreen/entertainment{
-	pixel_x = -1;
-	pixel_y = 31
-	},
-/obj/machinery/light{
-	dir = 1;
-	light_color = "#7AC3FF"
-	},
-/obj/item/storage/crayons{
-	pixel_x = 3;
-	pixel_y = 4
-	},
-/turf/open/floor/carpet/green,
-/area/crew_quarters/cafeteria)
 "kcF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -20685,6 +20673,22 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/wood,
+/area/crew_quarters/cafeteria)
+"kKf" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/structure/table/wood,
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_x = -1;
+	pixel_y = 31
+	},
+/obj/machinery/light{
+	dir = 1;
+	light_color = "#7AC3FF"
+	},
+/obj/machinery/cell_charger,
+/turf/open/floor/carpet/green,
 /area/crew_quarters/cafeteria)
 "kKq" = (
 /obj/structure/cable/yellow{
@@ -23107,6 +23111,10 @@
 	},
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen/coldroom)
+"mbq" = (
+/obj/machinery/libraryscanner,
+/turf/open/floor/plating,
+/area/library/abandoned)
 "mbu" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -27991,6 +27999,21 @@
 	},
 /turf/open/floor/carpet/royalblack,
 /area/library/abandoned)
+"oKf" = (
+/obj/structure/closet/secure_closet/hop,
+/obj/item/modular_computer/tablet/pda/preset,
+/obj/item/modular_computer/tablet/pda/preset,
+/obj/item/modular_computer/tablet/pda/preset,
+/obj/item/modular_computer/tablet/pda/preset,
+/obj/item/modular_computer/tablet/pda/preset,
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/carpet/blue,
+/area/crew_quarters/heads/hop)
 "oKg" = (
 /obj/machinery/atmospherics/miner/station/plasma,
 /obj/machinery/light/small{
@@ -31800,21 +31823,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
-"qPQ" = (
-/obj/structure/closet/secure_closet/hop,
-/obj/item/modular_computer/tablet/pda/preset,
-/obj/item/modular_computer/tablet/pda/preset,
-/obj/item/modular_computer/tablet/pda/preset,
-/obj/item/modular_computer/tablet/pda/preset,
-/obj/item/modular_computer/tablet/pda/preset,
-/obj/effect/turf_decal/siding/wood{
-	dir = 4
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/open/floor/carpet/blue,
-/area/crew_quarters/heads/hop)
 "qQv" = (
 /obj/structure/window/reinforced,
 /obj/effect/turf_decal/stripes/line,
@@ -38264,9 +38272,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark,
 /area/hallway/primary/aft)
-"uef" = (
-/turf/open/floor/plating,
-/area/library/abandoned)
 "ueQ" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron/white,
@@ -43628,19 +43633,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/science/central)
-"wVz" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table/wood,
-/obj/effect/turf_decal/siding/wood,
-/obj/item/reagent_containers/condiment/peppermill{
-	pixel_y = 28
-	},
-/obj/item/reagent_containers/condiment/saltshaker{
-	pixel_y = 23
-	},
-/obj/item/paicard,
-/turf/open/floor/carpet/green,
-/area/crew_quarters/cafeteria)
 "wVF" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
@@ -62587,7 +62579,7 @@ bbB
 iHW
 tBs
 qjT
-uef
+mbq
 xeG
 ovZ
 pEv
@@ -125538,8 +125530,8 @@ kAk
 vdv
 gMh
 hhu
-kcD
-wVz
+kKf
+gxr
 fsb
 jeo
 oLK
@@ -194199,7 +194191,7 @@ vmR
 cOr
 ctk
 dur
-qPQ
+oKf
 vnz
 oLn
 xKs

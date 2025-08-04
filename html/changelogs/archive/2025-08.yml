@@ -1,0 +1,34 @@
+2025-08-02:
+  Rukofamicom:
+  - balance: Apids are now much stronger, but not without weaknesses
+  - tweak: Apids no longer take extra burn, toxin or stamina damage. They are now
+      take halved toxin damage in fact!
+  - tweak: Apids are now 20% resistant to brute damage, their hardened exoskeleton
+      providing them some natural defense!
+  - tweak: Apid lungs are now much better. If the environment has Oxygen, they can
+      probably breathe in it. The lungs offer a modest resistance to plasma and bz
+      as well, though these substances are still toxic in large enough quantities.
+  - tweak: Apids now have stingers which they can use to inject 10u of apid venom
+      once every two minutes. Apid stingers use the same logic as piercing syringes
+      meaning they can bypass simple armor, but not thicker materials.
+  - rscadd: Apid Venom, which metabolizes very slowly and prevents the wound which
+      injected it from closing properly. You can hold the wound with your hands, but
+      you will find gauze ineffective at stopping an apid sting from bleeding until
+      the venom has been dealt with!
+  - tweak: Heparin's bleeding has been increased and it no longer does brute damage.
+  - code_imp: add_bleeding() can now be passed a boolean argument so that it can change
+      bleeding values without a sound effect
+  rkz, MTandi, MrMelbert, JohnFulpWillard, VinylSpiders, Aylong:
+  - rscadd: Adds new 3/4ths sprites for Smartfridges
+  - rscadd: Smartfridges and Vendors have a new grid UI. The player can swap between
+      grid and list UIs in the interface, and in their preferences.
+  - rscadd: Smartfridge/Vendors now have a searchbar
+  - code_imp: lowers init by generating vending spritesheets with DMIcon where possible
+  - bugfix: fixes non-freebie vendors showing costed items as free, while still forcing
+      you to pay
+2025-08-03:
+  mrmanlikesbt:
+  - rscadd: Added a stallout to dynamic midrounds. If dynamic fails to execute a midround
+      ruleset it will wait before choosing and then executing another one.
+  - tweak: Set the Space Dragon ruleset min player amount to 13
+  - bugfix: Admin forced rulesets are properly logged now

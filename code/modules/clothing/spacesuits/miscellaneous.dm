@@ -83,7 +83,7 @@ Contains:
 	icon_state = "beret_badge"
 	item_state = null
 	greyscale_colors = "#397F3F#FFCE5B"
-	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT
+	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT
 	flags_inv = 0
 	armor_type = /datum/armor/space_beret
 	strip_delay = 130

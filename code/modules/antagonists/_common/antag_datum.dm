@@ -26,7 +26,6 @@ GLOBAL_LIST(admin_antag_list)
 	var/can_elimination_hijack = ELIMINATION_NEUTRAL //If these antags are alone when a shuttle elimination happens.
 	/// If above 0, this is the multiplier for the speed at which we hijack the shuttle. Do not directly read, use hijack_speed().
 	var/hijack_speed = 0
-	var/count_against_dynamic_roll_chance = TRUE
 	//Antag panel properties
 	var/show_in_antagpanel = TRUE	//This will hide adding this antag type in antag panel, use only for internal subtypes that shouldn't be added directly but still show if possessed by mind
 	var/antagpanel_category = "Uncategorized"	//Antagpanel will display these together, REQUIRED
@@ -88,7 +87,7 @@ GLOBAL_LIST(admin_antag_list)
 		info_button.Grant(new_body)
 	apply_innate_effects(new_body)
 	give_antag_moodies()
-	if(count_against_dynamic_roll_chance && new_body.stat != DEAD)
+	if(new_body.stat != DEAD)
 		new_body.add_to_current_living_antags()
 	new_body.update_action_buttons()
 
@@ -126,7 +125,7 @@ GLOBAL_LIST(admin_antag_list)
 		replace_banned_player()
 	else if(owner.current.client?.holder && (CONFIG_GET(flag/auto_deadmin_antagonists) || owner.current.client.prefs?.read_player_preference(/datum/preference/toggle/deadmin_antagonist)))
 		owner.current.client.holder.auto_deadmin()
-	if(count_against_dynamic_roll_chance && owner.current.stat != DEAD && owner.current.client)
+	if(owner.current.stat != DEAD && owner.current.client)
 		owner.current.add_to_current_living_antags()
 	owner.current.update_action_buttons()
 
@@ -299,8 +298,6 @@ GLOBAL_LIST(admin_antag_list)
 	message_admins("[key_name_admin(user)] has removed [name] antagonist status from [key_name_admin(owner)].")
 	log_admin("[key_name(user)] has removed [name] antagonist status from [key_name(owner)].")
 	on_removal()
-
-//gamemode/proc/is_mode_antag(antagonist/A) => TRUE/FALSE
 
 //Additional data to display in antagonist panel section
 //nuke disk code, genome count, etc

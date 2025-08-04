@@ -1658,6 +1658,26 @@
 	},
 /turf/open/floor/iron/dark,
 /area/engine/engine_smes)
+"aug" = (
+/obj/structure/table,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/bodypart/arm/right/robot,
+/obj/item/bodypart/arm/right/robot,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/item/assembly/prox_sensor,
+/obj/item/assembly/prox_sensor,
+/obj/item/assembly/prox_sensor,
+/obj/item/assembly/prox_sensor,
+/obj/item/assembly/prox_sensor,
+/obj/item/assembly/prox_sensor,
+/obj/machinery/cell_charger,
+/obj/structure/extinguisher_cabinet/directional/west,
+/turf/open/floor/iron/dark,
+/area/science/robotics/lab)
 "auk" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -1776,29 +1796,6 @@
 	luminosity = 2
 	},
 /area/science/test_area)
-"avU" = (
-/obj/structure/closet{
-	name = "John the Grey locker";
-	color = "#FFFF00"
-	},
-/obj/item/clothing/gloves/color/yellow{
-	name = "John the Grey insulated gloves"
-	},
-/obj/structure/sign/poster/contraband/missing_gloves{
-	pixel_x = 32
-	},
-/obj/item/clothing/mask/gas/old{
-	name = "John the Grey gas mask"
-	},
-/obj/item/modular_computer/tablet/pda/preset/assistant{
-	name = "PDA (John the Grey)"
-	},
-/obj/item/paper{
-	name = "Note from John the Grey";
-	default_raw_text = "They got me. Shitsec has finally found me. It's time to go undercover. I leave everything behind for my succesor, hopefully you, reading this note. Keep your head up. Greytide Worldwide Forever."
-	},
-/turf/open/floor/plating,
-/area/maintenance/starboard/fore)
 "avW" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
@@ -7721,16 +7718,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/brig)
-"cgw" = (
-/obj/structure/table/wood,
-/obj/machinery/computer/libraryconsole{
-	pixel_y = 2
-	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 8
-	},
-/turf/open/floor/wood,
-/area/library)
 "cgE" = (
 /obj/machinery/mass_driver{
 	dir = 4;
@@ -15968,6 +15955,29 @@
 /obj/structure/table/wood,
 /turf/open/floor/wood,
 /area/maintenance/port)
+"feR" = (
+/obj/structure/closet{
+	name = "John the Grey locker";
+	color = "#FFFF00"
+	},
+/obj/item/clothing/gloves/color/yellow{
+	name = "John the Grey insulated gloves"
+	},
+/obj/structure/sign/poster/contraband/missing_gloves{
+	pixel_x = 32
+	},
+/obj/item/clothing/mask/gas/old{
+	name = "John the Grey gas mask"
+	},
+/obj/item/modular_computer/tablet/pda/preset/assistant{
+	name = "PDA (John the Grey)"
+	},
+/obj/item/paper{
+	name = "Note from John the Grey";
+	default_raw_text = "They got me. Shitsec has finally found me. It's time to go undercover. I leave everything behind for my succesor, hopefully you, reading this note. Keep your head up. Greytide Worldwide Forever."
+	},
+/turf/open/floor/plating,
+/area/maintenance/starboard/fore)
 "feU" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
@@ -26925,23 +26935,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
-"iDY" = (
-/obj/machinery/newscaster{
-	pixel_x = 30
-	},
-/obj/structure/table/wood,
-/obj/item/modular_computer/tablet/pda/preset,
-/obj/item/modular_computer/tablet/pda/preset{
-	pixel_x = 2;
-	pixel_y = 2
-	},
-/obj/item/modular_computer/tablet/pda/preset{
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/item/book/manual/wiki/sopservice,
-/turf/open/floor/carpet/blue,
-/area/crew_quarters/heads/hop)
 "iEf" = (
 /obj/structure/barricade/sandbags,
 /turf/open/floor/plating,
@@ -27196,15 +27189,6 @@
 	},
 /turf/open/floor/carpet/orange,
 /area/crew_quarters/heads/chief)
-"iHD" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/obj/machinery/newscaster{
-	pixel_x = -30
-	},
-/turf/open/floor/iron/dark,
-/area/science/robotics/lab)
 "iHM" = (
 /obj/structure/closet/secure_closet/captains,
 /obj/machinery/airalarm/directional/north,
@@ -28698,18 +28682,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/engine/engine_smes)
-"jgg" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/condiment/peppermill{
-	pixel_x = -8;
-	pixel_y = 14
-	},
-/obj/item/reagent_containers/condiment/saltshaker{
-	pixel_x = -3;
-	pixel_y = 14
-	},
-/turf/open/floor/carpet/red,
-/area/crew_quarters/bar)
 "jgj" = (
 /obj/effect/turf_decal/tile/brown/fourcorners/contrasted,
 /obj/effect/turf_decal/delivery,
@@ -29390,26 +29362,6 @@
 	},
 /turf/open/floor/iron,
 /area/construction/mining/aux_base)
-"juu" = (
-/obj/structure/table,
-/obj/item/stack/sheet/iron/fifty,
-/obj/item/stack/sheet/iron/fifty,
-/obj/item/stack/sheet/iron/fifty,
-/obj/item/bodypart/arm/right/robot,
-/obj/item/bodypart/arm/right/robot,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/item/assembly/prox_sensor,
-/obj/item/assembly/prox_sensor,
-/obj/item/assembly/prox_sensor,
-/obj/item/assembly/prox_sensor,
-/obj/item/assembly/prox_sensor,
-/obj/item/assembly/prox_sensor,
-/obj/machinery/cell_charger,
-/obj/structure/extinguisher_cabinet/directional/west,
-/turf/open/floor/iron/dark,
-/area/science/robotics/lab)
 "juD" = (
 /obj/structure/cable/white{
 	icon_state = "4-8"
@@ -40185,6 +40137,18 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/security/courtroom)
+"mOI" = (
+/obj/item/reagent_containers/cup/bucket,
+/obj/item/assembly/prox_sensor,
+/obj/item/mop,
+/obj/item/bodypart/arm/right/robot,
+/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/robot_debris,
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/turf/open/floor/plating,
+/area/maintenance/starboard/aft)
 "mOK" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -49888,6 +49852,15 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
+"qhc" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/machinery/newscaster{
+	pixel_x = -30
+	},
+/turf/open/floor/iron/dark,
+/area/science/robotics/lab)
 "qhl" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/effect/turf_decal/siding/dark{
@@ -64444,6 +64417,23 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/engine/engine_room)
+"vbD" = (
+/obj/machinery/newscaster{
+	pixel_x = 30
+	},
+/obj/structure/table/wood,
+/obj/item/modular_computer/tablet/pda/preset,
+/obj/item/modular_computer/tablet/pda/preset{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/item/modular_computer/tablet/pda/preset{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/book/manual/wiki/sopservice,
+/turf/open/floor/carpet/blue,
+/area/crew_quarters/heads/hop)
 "vbN" = (
 /obj/structure/chair/fancy/comfy{
 	color = "#666666"
@@ -66609,6 +66599,16 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /turf/open/floor/iron/dark,
 /area/maintenance/department/chapel/monastery)
+"vIJ" = (
+/obj/structure/table/wood,
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/machinery/cell_charger{
+	desc = "It charges power cells. There is a small tag on it: Public tools charger. Please do no remove"
+	},
+/turf/open/floor/wood,
+/area/library)
 "vJi" = (
 /turf/closed/wall,
 /area/hallway/secondary/entry)
@@ -69404,18 +69404,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
-"wKd" = (
-/obj/item/reagent_containers/cup/bucket,
-/obj/item/assembly/prox_sensor,
-/obj/item/mop,
-/obj/item/bodypart/arm/right/robot,
-/obj/effect/decal/cleanable/oil,
-/obj/effect/decal/cleanable/robot_debris,
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/turf/open/floor/plating,
-/area/maintenance/starboard/aft)
 "wKh" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -71503,6 +71491,21 @@
 	},
 /turf/open/floor/iron,
 /area/science/robotics)
+"xul" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/condiment/peppermill{
+	pixel_x = -8;
+	pixel_y = 14
+	},
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = -3;
+	pixel_y = 14
+	},
+/obj/machinery/cell_charger{
+	desc = "It charges power cells. There is a small tag on it: Public tools charger. Please do no remove"
+	},
+/turf/open/floor/carpet/red,
+/area/crew_quarters/bar)
 "xun" = (
 /obj/structure/sign/warning/vacuum/external,
 /turf/closed/wall,
@@ -105435,8 +105438,8 @@ jzs
 pkM
 kMq
 orb
-iHD
-juu
+qhc
+aug
 qlH
 bwg
 uXG
@@ -107057,7 +107060,7 @@ xXa
 iQQ
 whv
 wct
-cgw
+vIJ
 rzN
 xXa
 xXa
@@ -109098,7 +109101,7 @@ jsX
 gaj
 tZO
 gxN
-jgg
+xul
 fhO
 jzC
 fhO
@@ -109793,7 +109796,7 @@ uGg
 clP
 oZf
 lQC
-iDY
+vbD
 sAT
 uGg
 shJ
@@ -114228,7 +114231,7 @@ tBk
 xxj
 tBk
 tBk
-wKd
+mOI
 tBk
 tBk
 lVo
@@ -118023,7 +118026,7 @@ jdN
 mUI
 jdN
 mBF
-avU
+feR
 jdN
 lvN
 ivK

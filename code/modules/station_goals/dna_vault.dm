@@ -169,12 +169,11 @@
 		F.parent = src
 		fillers += F
 
-	if(SSticker.mode)
-		for(var/datum/station_goal/dna_vault/G in SSticker.mode.station_goals)
-			animals_max = G.animal_count
-			plants_max = G.plant_count
-			dna_max = G.human_count
-			break
+	var/datum/station_goal/dna_vault/dna_vault_goal = SSstation.get_station_goal(/datum/station_goal/dna_vault)
+	if(dna_vault_goal)
+		animals_max = dna_vault_goal.animal_count
+		plants_max = dna_vault_goal.plant_count
+		dna_max = dna_vault_goal.human_count
 	. = ..()
 
 /obj/machinery/dna_vault/Destroy()

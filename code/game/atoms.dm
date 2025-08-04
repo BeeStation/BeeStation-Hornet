@@ -445,7 +445,7 @@
   *
   * You can also be in a shuttleshuttle during endgame transit
   *
-  * Used in gamemode to identify mobs who have escaped and for some other areas of the code
+  * Used in objectives to identify mobs who have escaped and for some other areas of the code
   * who don't want atoms where they shouldn't be
   */
 /atom/proc/onCentCom()
@@ -491,7 +491,7 @@
   *
   * Either in the syndie base on centcom, or any of their shuttles
   *
-  * Also used in gamemode code for win conditions
+  * Also used in objective code for win conditions
   */
 /atom/proc/onSyndieBase()
 	var/turf/T = get_turf(src)

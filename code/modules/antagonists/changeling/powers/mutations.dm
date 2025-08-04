@@ -504,7 +504,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 	slowdown = 0
 	clothing_flags = THICKMATERIAL
 
-
 /datum/armor/armor_changeling
 	melee = 40
 	bullet = 40
