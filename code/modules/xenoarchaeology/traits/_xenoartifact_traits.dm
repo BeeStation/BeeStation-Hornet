@@ -180,7 +180,7 @@
 	return
 
 /datum/xenoartifact_trait/proc/setup_generic_item_hint()
-	RegisterSignal(component_parent.parent, COMSIG_PARENT_ATTACKBY, PROC_REF(hint_translation_type_a))
+	RegisterSignal(component_parent.parent, COMSIG_ATOM_ATTACKBY, PROC_REF(hint_translation_type_a))
 
 /datum/xenoartifact_trait/proc/setup_generic_touch_hint()
 	RegisterSignal(component_parent.parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(hint_translation_type_b))
@@ -189,7 +189,7 @@
 /datum/xenoartifact_trait/proc/remove_hints()
 	UnregisterSignal(component_parent.parent, COMSIG_ITEM_ATTACK_SELF)
 	UnregisterSignal(component_parent.parent, COMSIG_ATOM_ATTACK_HAND)
-	UnregisterSignal(component_parent.parent, COMSIG_PARENT_ATTACKBY)
+	UnregisterSignal(component_parent.parent, COMSIG_ATOM_ATTACKBY)
 
 /datum/xenoartifact_trait/proc/hint_translation_type_a(datum/source, obj/item, mob/living, params)
 	SIGNAL_HANDLER

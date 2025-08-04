@@ -95,12 +95,12 @@
 	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(on_equipped))
 	RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(lost_wearer))
 	RegisterSignal(parent, COMSIG_ITEM_HIT_REACT, PROC_REF(on_hit_react))
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(check_recharge_rune))
+	RegisterSignal(parent, COMSIG_ATOM_ATTACKBY, PROC_REF(check_recharge_rune))
 	if (shield_flags & ENERGY_SHIELD_EMP_VULNERABLE)
 		RegisterSignal(parent, COMSIG_ATOM_EMP_ACT, PROC_REF(emp_destruction))
 
 /datum/component/shielded/UnregisterFromParent()
-	UnregisterSignal(parent, list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED, COMSIG_ITEM_HIT_REACT, COMSIG_PARENT_ATTACKBY, COMSIG_ATOM_EMP_ACT))
+	UnregisterSignal(parent, list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED, COMSIG_ITEM_HIT_REACT, COMSIG_ATOM_ATTACKBY, COMSIG_ATOM_EMP_ACT))
 
 // Handle recharging, if we want to
 /datum/component/shielded/process(delta_time)

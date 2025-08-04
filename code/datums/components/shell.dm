@@ -26,7 +26,7 @@
 	set_unremovable_circuit_components(unremovable_circuit_components)
 
 /datum/component/shell/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(on_attack_by))
+	RegisterSignal(parent, COMSIG_ATOM_ATTACKBY, PROC_REF(on_attack_by))
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(parent, COMSIG_ATOM_ATTACK_GHOST, PROC_REF(on_attack_ghost))
 	if(!(shell_flags & SHELL_FLAG_CIRCUIT_FIXED))
@@ -73,7 +73,7 @@
 
 /datum/component/shell/UnregisterFromParent()
 	UnregisterSignal(parent, list(
-		COMSIG_PARENT_ATTACKBY,
+		COMSIG_ATOM_ATTACKBY,
 		COMSIG_ATOM_TOOL_ACT(TOOL_SCREWDRIVER),
 		COMSIG_ATOM_TOOL_ACT(TOOL_MULTITOOL),
 		COMSIG_OBJ_DECONSTRUCT,
