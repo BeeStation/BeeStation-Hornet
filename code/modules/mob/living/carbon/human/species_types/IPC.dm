@@ -28,7 +28,8 @@
 		TRAIT_POWERHUNGRY,
 		TRAIT_XENO_IMMUNE,
 		TRAIT_TOXIMMUNE,
-		TRAIT_NOSOFTCRIT
+		TRAIT_NOSOFTCRIT,
+		TRAIT_NOHARDCRIT
 	)
 
 	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
@@ -46,7 +47,7 @@
 	meat = /obj/item/stack/sheet/plasteel{amount = 5}
 	skinned_type = /obj/item/stack/sheet/iron{amount = 10}
 
-	//IPCs are very fragile, but do not go into softcrit and are resistant or outright immune to many hazards.
+	//IPCs are extremely fragile, but do not go into softcrit and can be repaired with relative ease
 	burnmod = 2
 	brutemod = 2
 	clonemod = 0
