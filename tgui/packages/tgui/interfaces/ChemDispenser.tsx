@@ -407,7 +407,7 @@ export const ChemDispenser = (_props) => {
                       onClickOutside={() => setShowFilters(false)}
                       placement="bottom-start"
                       content={
-                        <div className="chem_dispenser_filter_modal">
+                        <div className="chem_dispenser_filter_modal" style={{ maxHeight: '400px', overflowY: 'auto' }}>
                           <Stack vertical>
                             <Button
                               content={'Clear Filters'}
