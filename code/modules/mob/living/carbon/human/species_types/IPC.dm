@@ -12,21 +12,25 @@
 		MUTCOLORS,
 		REVIVESBYHEALING,
 		NOHUSK,
-		NOMOUTH, 
+		NOMOUTH,
 		MUTCOLORS
 	)
 	inherent_traits = list(
 		TRAIT_BLOOD_COOLANT,
 		TRAIT_RESISTCOLD,
+		TRAIT_RESISTHIGHPRESSURE,
+		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_NOBREATH,
 		TRAIT_RADIMMUNE,
 		TRAIT_GENELESS,
 		TRAIT_LIMBATTACHMENT,
 		TRAIT_EASYDISMEMBER,
 		TRAIT_POWERHUNGRY,
-		TRAIT_XENO_IMMUNE, 
-		TRAIT_TOXIMMUNE
+		TRAIT_XENO_IMMUNE,
+		TRAIT_TOXIMMUNE,
+		TRAIT_NOSOFTCRIT
 	)
+
 	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
 	mutantbrain = /obj/item/organ/brain/positron
 	mutanteyes = /obj/item/organ/eyes/robotic
@@ -42,12 +46,12 @@
 	meat = /obj/item/stack/sheet/plasteel{amount = 5}
 	skinned_type = /obj/item/stack/sheet/iron{amount = 10}
 
+	//IPCs are very fragile, but do not go into softcrit and are resistant or outright immune to many hazards.
 	burnmod = 2
-	heatmod = 1.5
-	brutemod = 1
+	brutemod = 2
 	clonemod = 0
-	staminamod = 0.8
-	siemens_coeff = 1.5
+	staminamod = 0 //IPCs don't get tired
+	siemens_coeff = 2.5 //IPCs are extxremly vunlerable to shocks
 	reagent_tag = PROCESS_SYNTHETIC
 	species_gibs = GIB_TYPE_ROBOTIC
 	attack_sound = 'sound/items/trayhit1.ogg'
