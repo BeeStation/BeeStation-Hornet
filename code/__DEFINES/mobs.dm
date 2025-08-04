@@ -108,6 +108,12 @@
 ///The limb is from a xenomorph.
 #define BODYTYPE_ALIEN (1<<7)
 
+// Circulation types
+/// The limb circulates coolant
+#define CIRCULATION_COOLANT (1 << 0)
+/// The limb circulates blood
+#define CIRCULATION_BLOOD (1 << 1)
+
 //Species gib types
 #define GIB_TYPE_HUMAN "human"
 #define GIB_TYPE_ROBOTIC "robotic"

@@ -150,9 +150,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	///List of possible heights
 	var/list/species_height = SPECIES_HEIGHTS(BODY_SIZE_SHORT, BODY_SIZE_NORMAL, BODY_SIZE_TALL)
 
-	/// What bleed status effect should we apply?
-	var/bleed_effect = /datum/status_effect/bleeding
-
 	// Species specific bitflags. Used for things like if the race is unable to become a changeling.
 	var/species_bitflags = NONE
 
@@ -161,6 +158,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	//Should we preload this species's organs?
 	var/preload = TRUE
+
+	/// The handler for our species' blood
+	var/blood_type = /datum/blood_source/organic
 
 ///////////
 // PROCS //

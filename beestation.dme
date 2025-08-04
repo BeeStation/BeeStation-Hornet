@@ -2867,6 +2867,7 @@
 #include "code\modules\hallucination\stray_bullet.dm"
 #include "code\modules\health\components\conscious.dm"
 #include "code\modules\health\interfaces\blood_organic.dm"
+#include "code\modules\health\interfaces\blood_silicon.dm"
 #include "code\modules\health\interfaces\blood_source.dm"
 #include "code\modules\health\interfaces\no_blood.dm"
 #include "code\modules\holiday\easter.dm"

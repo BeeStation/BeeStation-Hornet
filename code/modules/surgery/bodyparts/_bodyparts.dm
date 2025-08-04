@@ -23,9 +23,10 @@
 	var/needs_processing = FALSE
 	///A bitfield of bodytypes for clothing, surgery, and misc information
 	var/bodytype = BODYTYPE_HUMANOID | BODYTYPE_ORGANIC
+	/// Flags that represent how this bodypart cirulates blood
+	var/circulation_flags = CIRCULATION_BLOOD
 	///Defines when a bodypart should not be changed. Example: BP_BLOCK_CHANGE_SPECIES prevents the limb from being overwritten on species gain
 	var/change_exempt_flags
-
 	///Whether the bodypart (and the owner) is husked.
 	var/is_husked = FALSE
 	///The ID of a species used to generate the icon. Needs to match the icon_state portion in the limbs file!
@@ -245,6 +246,19 @@
 	if(stamina_dam >= DAMAGE_PRECISION && stam_regen)
 		heal_damage(0, 0, stam_regen, null, FALSE)
 		. |= BODYPART_LIFE_UPDATE_HEALTH
+	var/circulation_disruption = 1
+	if (!(owner.blood.circulation_type_provided & circulation_flags))
+		circulation_disruption = 0
+	else
+		circulation_disruption = owner.blood.get_circulation_proportion()
+	// Organ damage due to lack of blood circulation
+	if (circulation_disruption)
+		var/damage_applied = 5 * (1 - circulation_disruption) * delta_time
+		for (var/obj/item/organ/organ in get_organs())
+			organ.applyOrganDamage(damage_applied)
+		// Organic bodyparts that need blood and nothing else die without it
+		if (circulation_flags == CIRCULATION_BLOOD)
+			receive_damage(damage_applied * 0.1, 0, damage_applied * 0.5)
 
 //Applies brute and burn damage to the organ. Returns 1 if the damage-icon states changed at all.
 //Damage will not exceed max_damage using this proc

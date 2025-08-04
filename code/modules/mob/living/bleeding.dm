@@ -152,7 +152,7 @@ This file represents bleeding only as bleeding has special mechanics for being h
 		return
 	if(sound_effect)
 		playsound(src, 'sound/surgery/blood_wound.ogg', 80, vary = TRUE)
-	apply_status_effect(dna?.species?.bleed_effect || /datum/status_effect/bleeding, bleed_level)
+	apply_status_effect(blood?.bleed_effect_type || /datum/status_effect/bleeding, bleed_level)
 	if (bleed_level >= BLEED_DEEP_WOUND)
 		blur_eyes(1)
 		to_chat(src, "[span_userdanger("Blood starts rushing out of the open wound!")]")
@@ -276,7 +276,7 @@ This file represents bleeding only as bleeding has special mechanics for being h
 
 	blood.volume -= amount
 
-	var/list/blood_data = get_blood_data(blood_id)
+	var/list/blood_data = blood.get_blood_data()
 
 	if(iscarbon(AM))
 		var/mob/living/carbon/C = AM
@@ -297,45 +297,6 @@ This file represents bleeding only as bleeding has special mechanics for being h
 
 	AM.reagents.add_reagent(blood_id, amount, blood_data, bodytemperature)
 	return 1
-
-
-/mob/living/proc/get_blood_data(blood_id)
-	return
-
-/mob/living/carbon/get_blood_data(blood_id)
-	if(blood_id == /datum/reagent/blood) //actual blood reagent
-		var/blood_data = list()
-		//set the blood data
-		blood_data["viruses"] = list()
-
-		for(var/thing in diseases)
-			var/datum/disease/D = thing
-			blood_data["viruses"] += D.Copy()
-
-		blood_data["blood_DNA"] = dna.unique_enzymes
-		if(disease_resistances?.len)
-			blood_data["resistances"] = disease_resistances.Copy()
-		var/list/temp_chem = list()
-		for(var/datum/reagent/R in reagents.reagent_list)
-			temp_chem[R.type] = R.volume
-		blood_data["trace_chem"] = list2params(temp_chem)
-		if(mind)
-			blood_data["mind"] = mind
-		else if(last_mind)
-			blood_data["mind"] = last_mind
-		if(ckey)
-			blood_data["ckey"] = ckey
-		else if(last_mind)
-			blood_data["ckey"] = ckey(last_mind.key)
-
-		if(!suiciding)
-			blood_data["cloneable"] = 1
-		blood_data["blood_type"] = dna.blood_type
-		blood_data["gender"] = gender
-		blood_data["real_name"] = real_name
-		blood_data["features"] = dna.features
-		blood_data["factions"] = faction
-		return blood_data
 
 // This is has more potential uses, and is probably faster than the old proc.
 /proc/get_safe_blood(bloodtype)

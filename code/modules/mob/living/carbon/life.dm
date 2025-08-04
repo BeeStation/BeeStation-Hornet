@@ -704,7 +704,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 //MONKEYS WITH TOO MUCH CHOLOESTROL//
 /////////////////////////////////////
 
-/mob/living/carbon/proc/can_heartattack()
+/mob/living/proc/can_heartattack()
 	if(!needs_heart())
 		return FALSE
 	var/obj/item/organ/heart/heart = get_organ_slot(ORGAN_SLOT_HEART)
@@ -712,7 +712,10 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 		return FALSE
 	return TRUE
 
-/mob/living/carbon/proc/needs_heart()
+/mob/living/proc/needs_heart()
+	return FALSE
+
+/mob/living/carbon/needs_heart()
 	if(HAS_TRAIT(src, TRAIT_STABLEHEART))
 		return FALSE
 	if(dna && dna.species && (HAS_TRAIT(src, TRAIT_NO_BLOOD) || isnull(dna.species.mutantheart))) //not all carbons have species!
@@ -726,7 +729,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
  * you are meant to use it in combination with can_heartattack for heart attack
  * related situations (i.e not just cardiac arrest)
  */
-/mob/living/carbon/proc/undergoing_cardiac_arrest()
+/mob/living/proc/undergoing_cardiac_arrest()
 	var/obj/item/organ/heart/heart = get_organ_slot(ORGAN_SLOT_HEART)
 	if(istype(heart) && heart.beating)
 		return FALSE
@@ -734,7 +737,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 		return FALSE
 	return TRUE
 
-/mob/living/carbon/proc/set_heartattack(status)
+/mob/living/proc/set_heartattack(status)
 	if(!can_heartattack())
 		return FALSE
 

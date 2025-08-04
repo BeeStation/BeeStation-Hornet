@@ -1,6 +1,8 @@
 #define BLOOD_DRIP_RATE_MOD 90 //Greater number means creating blood drips more often while bleeding
 
 /datum/blood_source/organic
+	bleed_effect_type = /datum/status_effect/bleeding
+	circulation_type_provided = CIRCULATION_BLOOD
 	/// Type of the mob's blood
 	var/datum/reagent/blood_type
 
@@ -19,6 +21,7 @@
 /datum/blood_source/organic/restore_blood()
 	volume = BLOOD_VOLUME_NORMAL
 
+/// Every tick update ourselves
 /datum/blood_source/organic/blood_tick(mob/living/source, delta_time)
 	if(source.bodytemperature >= TCRYO && !(HAS_TRAIT(src, TRAIT_HUSK))) //cryosleep or husked people do not pump the blood.
 		//Blood regeneration if there is some space
@@ -49,18 +52,6 @@
 		desired_damage = max(0, (source.getMaxHealth() * 1.2) - ((desired_damage ** 0.3) / ((source.getMaxHealth() * 1.2) ** (-0.7))))
 		if (desired_damage >= source.getMaxHealth() * 1.2)
 			desired_damage = source.getMaxHealth() * 2.0
-		if (HAS_TRAIT(src, TRAIT_BLOOD_COOLANT))
-			switch(volume)
-				if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_SAFE)
-					if(prob(3))
-						to_chat(src, span_warning("Your sensors indicate [pick("overheating", "thermal throttling", "coolant issues")]."))
-				if(-INFINITY to BLOOD_VOLUME_SURVIVE)
-					desired_damage = source.getMaxHealth() * 2.0
-					// Rapidly die with no saving you
-					source.adjustFireLoss(clamp(source.getMaxHealth() * 2.0 - source.getFireLoss(), 0, 10))
-			var/health_difference = clamp(desired_damage - source.getFireLoss(), 0, 5)
-			source.adjustFireLoss(health_difference)
-			return
 		switch(volume)
 			if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)
 				if(DT_PROB(2.5, delta_time))
@@ -84,7 +75,7 @@
 		var/health_difference = clamp(desired_damage - source.getOxyLoss(), 0, 5)
 		source.adjustOxyLoss(health_difference)
 
-
+/// Bleed out of the mob
 /datum/blood_source/organic/bleed(amount)
 	if(!volume || HAS_TRAIT(owner, TRAIT_NO_BLEEDING) || IS_IN_STASIS(owner))
 		return
@@ -104,5 +95,55 @@
 			owner.add_splatter_floor(owner.loc)
 		else
 			owner.add_splatter_floor(owner.loc, 1)
+
+/// Get the data to be associated with the blood that we bleed
+/datum/blood_source/organic/get_blood_data()
+	// DNA not supported
+	if(blood_type != /datum/reagent/blood)
+		return
+	var/mob/living/carbon/carbon_owner = null
+	if (istype(owner, /mob/living/carbon))
+		carbon_owner = owner
+	var/blood_data = list()
+	//set the blood data
+	blood_data["viruses"] = list()
+
+	for(var/thing in owner.diseases)
+		var/datum/disease/D = thing
+		blood_data["viruses"] += D.Copy()
+
+	blood_data["blood_DNA"] = carbon_owner?.dna.unique_enzymes
+	if(owner.disease_resistances?.len)
+		blood_data["resistances"] = owner.disease_resistances.Copy()
+	var/list/temp_chem = list()
+	for(var/datum/reagent/R in owner.reagents.reagent_list)
+		temp_chem[R.type] = R.volume
+	blood_data["trace_chem"] = list2params(temp_chem)
+	if(owner.mind)
+		blood_data["mind"] = owner.mind
+	else if(carbon_owner?.last_mind)
+		blood_data["mind"] = carbon_owner.last_mind
+	if(owner.ckey)
+		blood_data["ckey"] = owner.ckey
+	else if(carbon_owner?.last_mind)
+		blood_data["ckey"] = ckey(carbon_owner.last_mind.key)
+
+	if(!owner.suiciding)
+		blood_data["cloneable"] = 1
+	blood_data["blood_type"] = carbon_owner?.dna.blood_type
+	blood_data["gender"] = owner.gender
+	blood_data["real_name"] = owner.real_name
+	blood_data["features"] = carbon_owner?.dna.features || list()
+	blood_data["factions"] = owner.faction
+
+	return blood_data
+
+/// Calculate the circulation rating of the mob, cardiac arrest can limit it and cause damage
+/datum/blood_source/organic/get_circulation_proportion()
+	if (!owner.needs_heart())
+		return 1
+	if (owner.undergoing_cardiac_arrest())
+		return 0
+	return 1
 
 #undef BLOOD_DRIP_RATE_MOD

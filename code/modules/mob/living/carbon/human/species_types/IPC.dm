@@ -16,7 +16,6 @@
 		MUTCOLORS
 	)
 	inherent_traits = list(
-		TRAIT_BLOOD_COOLANT,
 		TRAIT_RESISTCOLD,
 		TRAIT_NOBREATH,
 		TRAIT_RADIMMUNE,
@@ -69,12 +68,12 @@
 
 	exotic_blood = /datum/reagent/oil
 	blood_color = "#000000"
-	bleed_effect = /datum/status_effect/bleeding/robotic
 
 	var/saved_screen //for saving the screen when they die
 	var/datum/action/innate/change_screen/change_screen
 
 	speak_no_tongue = FALSE  // who stole my soundblaster?! (-candy/etherware)
+	blood_type = /datum/blood_source/silicon
 
 /datum/species/ipc/random_name(gender, unique, lastname, attempts)
 	. = "[pick(GLOB.posibrain_names)]-[rand(100, 999)]"

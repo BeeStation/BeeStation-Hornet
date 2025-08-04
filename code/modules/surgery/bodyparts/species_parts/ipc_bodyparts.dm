@@ -9,6 +9,7 @@
 	light_brute_msg = "scratched"
 	medium_brute_msg = "dented"
 	heavy_brute_msg = "sheared"
+	circulation_flags = CIRCULATION_COOLANT
 
 	light_burn_msg = "burned"
 	medium_burn_msg = "scorched"
@@ -33,6 +34,7 @@
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+	circulation_flags = CIRCULATION_COOLANT
 
 	light_brute_msg = "scratched"
 	medium_brute_msg = "dented"
@@ -67,6 +69,7 @@
 	limb_id = "synth"
 	should_draw_greyscale = FALSE
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+	circulation_flags = CIRCULATION_COOLANT
 
 	light_brute_msg = "scratched"
 	medium_brute_msg = "dented"
@@ -86,6 +89,7 @@
 	limb_id = "synth"
 	should_draw_greyscale = FALSE
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+	circulation_flags = CIRCULATION_COOLANT
 
 	light_brute_msg = "scratched"
 	medium_brute_msg = "dented"
@@ -105,6 +109,7 @@
 	limb_id = "synth"
 	should_draw_greyscale = FALSE
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+	circulation_flags = CIRCULATION_COOLANT
 
 	light_brute_msg = "scratched"
 	medium_brute_msg = "dented"
@@ -124,6 +129,7 @@
 	limb_id = "synth"
 	should_draw_greyscale = FALSE
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+	circulation_flags = CIRCULATION_COOLANT
 
 	light_brute_msg = "scratched"
 	medium_brute_msg = "dented"
