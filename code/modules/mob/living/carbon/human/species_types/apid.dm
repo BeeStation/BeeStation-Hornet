@@ -13,14 +13,14 @@
 		"apid_antenna" = "curled"
 	)
 	mutant_organs = list(
-		/obj/item/organ/wings/bee = "Bee"
+		/obj/item/organ/wings/bee = "Bee",
+		/obj/item/organ/apid_stinger = ""
 	)
 	hair_color_mode = USE_FIXED_MUTANT_COLOR
 	meat = /obj/item/food/meat/slab/human/mutant/apid
 	mutanteyes = /obj/item/organ/eyes/apid
 	mutantlungs = /obj/item/organ/lungs/apid
 	mutanttongue = /obj/item/organ/tongue/bee
-	mutant_organs = list(/obj/item/organ/apid_stinger)
 	toxmod = 0.5
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/apid
