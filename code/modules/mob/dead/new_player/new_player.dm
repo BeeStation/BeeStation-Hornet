@@ -325,7 +325,7 @@
 		var/datum/job/joining_job = SSjob.GetJob(rank)
 
 		//If it's a job we have played previously:
-		if("[joining_job]" in client.player_details.joined_as_jobs)
+		if(joining_job in client.player_details.joined_as_jobs)
 			tgui_alert(usr, "You have already played as [rank] this round!")
 			log_game("[key_name(usr)] has attempted to respawn as a previously played job and was denied.")
 			return FALSE
