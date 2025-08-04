@@ -304,9 +304,16 @@ Works together with spawning an observer, noted above.
 			stop_sound_channel(CHANNEL_HEARTBEAT) //Stop heartbeat sounds because You Are A Ghost Now
 			var/mob/dead/observer/ghost = new(src)	// Transfer safety to observer spawning proc.
 			SStgui.on_transfer(src, ghost) // Transfer NanoUIs.
-			ghost.client?.player_details.time_of_death = ghost.mind?.current ? mind.current.timeofdeath : world.time
+
 			ghost.can_reenter_corpse = can_reenter_corpse
 			ghost.key = key
+
+			//If we cannot re-enter we note the time of conceptual death in player details.
+			if(can_reenter_corpse)
+				ghost.client?.player_details.time_of_death = ghost.mind?.current ? mind.current.timeofdeath : world.time
+			else
+				ghost.client.player_details.time_of_death = world.time
+
 			return ghost
 
 /*
