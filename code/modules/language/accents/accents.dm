@@ -21,11 +21,11 @@
 		message = treat_message_accent(message, speech_data["end"], REGEX_ENDWORD)
 	if(speech_data["syllables"])
 		message = treat_message_accent(message, speech_data["syllables"], REGEX_ANY)
-	if(speech_data["appends"] && prob(20))
+	if(speech_data["appends"] && prob(1))	// If chance too high it becomes memey. Like this is hopefully more immersive. Appends are just meant to add some flavour.
 		var/regex/punct_regex = regex(@"[.!?]$", "")
 		message = replacetextEx(message, punct_regex, "")  // Remove final punctuation
 
-		message = "[trim(message)], [pick(speech_data["appends"])]"
+		message = "[trim(message)], [pick(speech_data["appends"])]"	// Reconsidering if appends should be removed from real accents and kept in meme ones
 
 	speech_args[SPEECH_MESSAGE] = trim(message)
 

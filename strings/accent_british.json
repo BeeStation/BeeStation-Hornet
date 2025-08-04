@@ -26,14 +26,15 @@
 		"have not": "ain't",
 		"going to": "gonna",
 		"want to": "wanna"
-
 },
+
 	"start": {
 		"h": "'",
 		"thi": "fi",
 		"tho": "fo",
 		"tha": "fa"
 },
+
 	"end": {
 		"ing": "in'",
 		"er": "ah",
@@ -46,6 +47,7 @@
 		"t": "'",
 		"'t": "'"
 },
+
 	"syllables": {
 		"tt": "'",
 		"oo": "u",
@@ -55,8 +57,5 @@
 		"ck": "k",
 		"igh": "oi",
 		"all": "awl"
-},
-	"appends": [
-		"gov'."
-	]
+}
 }
