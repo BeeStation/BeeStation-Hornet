@@ -2,7 +2,7 @@
 	projectile_type = /obj/projectile/beam/laser
 	select_name = "kill"
 
-/obj/item/ammo_casing/energy/laser/gatlinggun~
+/obj/item/ammo_casing/energy/laser/gatlinggun
 	e_cost = 10 AUR
 
 /obj/item/ammo_casing/energy/lasergun
