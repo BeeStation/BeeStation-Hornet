@@ -232,7 +232,7 @@ NEAR_DEATH_EXPERIENCE
 ## Set to 2 for "random", silicons will start with a random lawset picked from random laws specified below.
 ## Set to 3 for "weighted random", using values in "silicon_weights.txt", a law will be selected, with weights specified in that file.
 ## Set to 4 for "specified", silicons will start with an existing lawset. (If no specified lawset is identified, the AI will spawn with asimov.)
-DEFAULT_LAWS 2
+DEFAULT_LAWS 0
 
 ## RANDOM LAWS ##
 ## ------------------------------------------------------------------------------------------
