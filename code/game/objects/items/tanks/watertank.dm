@@ -543,7 +543,7 @@
 		playsound(src,'sound/items/syringeproj.ogg',40,1)
 		var/datum/move_loop/loop = SSmove_manager.move_towards(resin_projectile, target, delay, timeout = timeout, priority = MOVEMENT_ABOVE_SPACE_PRIORITY, extra_info = target)
 		RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(resin_stop_check))
-		RegisterSignal(loop, COMSIG_PARENT_QDELETING, PROC_REF(resin_landed))
+		RegisterSignal(loop, COMSIG_QDELETING, PROC_REF(resin_landed))
 		if(tank?.upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM)
 			RegisterSignal(loop, COMSIG_MOVELOOP_REACHED_TARGET, PROC_REF(resin_landed))
 

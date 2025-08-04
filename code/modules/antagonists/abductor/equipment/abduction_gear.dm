@@ -650,13 +650,13 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		unregister_target()
 	current_target = new_target
 	if (current_target)
-		RegisterSignal(current_target, COMSIG_PARENT_QDELETING, PROC_REF(unregister_target))
+		RegisterSignal(current_target, COMSIG_QDELETING, PROC_REF(unregister_target))
 		START_PROCESSING(SSprocessing, src)
 
 /// Called when a target is deleted
 /obj/item/melee/baton/abductor/proc/unregister_target()
 	SIGNAL_HANDLER
-	UnregisterSignal(current_target, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(current_target, COMSIG_QDELETING)
 	current_target = null
 	STOP_PROCESSING(SSprocessing, src)
 

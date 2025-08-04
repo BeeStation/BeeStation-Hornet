@@ -78,7 +78,7 @@
 
 /obj/item/tank/jetpack/proc/on_user_add()
 	RegisterSignal(known_user, COMSIG_MOVABLE_MOVED, PROC_REF(move_react))
-	RegisterSignal(known_user, COMSIG_PARENT_QDELETING, PROC_REF(lose_known_user))
+	RegisterSignal(known_user, COMSIG_QDELETING, PROC_REF(lose_known_user))
 
 /// Resets our current user, preventing them from using the jetpack.
 /obj/item/tank/jetpack/proc/lose_known_user()
@@ -90,7 +90,7 @@
 /obj/item/tank/jetpack/proc/on_user_loss()
 	known_user.remove_movespeed_modifier(/datum/movespeed_modifier/jetpack/fullspeed)
 	UnregisterSignal(known_user, COMSIG_MOVABLE_MOVED)
-	UnregisterSignal(known_user, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(known_user, COMSIG_QDELETING)
 
 /obj/item/tank/jetpack/proc/turn_on(mob/user)
 	if(!known_user)
@@ -433,14 +433,14 @@
 	var/mob/living/carbon/human/H = user
 	tank = H.s_store
 	air_contents = tank.return_air()
-	RegisterSignals(tank, list(COMSIG_ITEM_DROPPED, COMSIG_PARENT_QDELETING), PROC_REF(on_tank_drop))
+	RegisterSignals(tank, list(COMSIG_ITEM_DROPPED, COMSIG_QDELETING), PROC_REF(on_tank_drop))
 	START_PROCESSING(SSobj, src)
 	..()
 
 // This override kills our tank reference before shutting off and resets our tank contents.
 /obj/item/tank/jetpack/suit/turn_off(mob/user)
 	if(!isnull(tank))
-		UnregisterSignal(tank, list(COMSIG_ITEM_DROPPED, COMSIG_PARENT_QDELETING))
+		UnregisterSignal(tank, list(COMSIG_ITEM_DROPPED, COMSIG_QDELETING))
 		tank = null
 	STOP_PROCESSING(SSobj, src)
 	..()

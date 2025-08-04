@@ -364,7 +364,7 @@ SUBSYSTEM_DEF(garbage)
 	to_delete.gc_destroyed = GC_CURRENTLY_BEING_QDELETED
 	var/start_time = world.time
 	var/start_tick = world.tick_usage
-	SEND_SIGNAL(to_delete, COMSIG_PARENT_QDELETING, force) // Let the (remaining) components know about the result of Destroy
+	SEND_SIGNAL(to_delete, COMSIG_QDELETING, force) // Let the (remaining) components know about the result of Destroy
 	var/hint = to_delete.Destroy(force) // Let our friend know they're about to get fucked up.
 
 	if(world.time != start_time)

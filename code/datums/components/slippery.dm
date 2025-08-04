@@ -96,7 +96,7 @@
 		holder = equipper
 		qdel(GetComponent(/datum/component/connect_loc_behalf))
 		AddComponent(/datum/component/connect_loc_behalf, holder, holder_connections)
-		RegisterSignal(holder, COMSIG_PARENT_QDELETING, PROC_REF(holder_deleted))
+		RegisterSignal(holder, COMSIG_QDELETING, PROC_REF(holder_deleted))
 
 /*
  * Detects if the holder mob is deleted.

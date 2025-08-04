@@ -164,7 +164,7 @@
 		on_active_effects?.Invoke(user, current_integrity)
 		_effects_activated = TRUE
 	RegisterSignal(wearer, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(on_update_overlays))
-	RegisterSignal(wearer, COMSIG_PARENT_QDELETING, PROC_REF(lost_wearer))
+	RegisterSignal(wearer, COMSIG_QDELETING, PROC_REF(lost_wearer))
 	if(current_integrity)
 		wearer.update_appearance(UPDATE_ICON)
 
@@ -176,7 +176,7 @@
 		if (_effects_activated)
 			on_deactive_effects?.Invoke(user, current_integrity)
 			_effects_activated = FALSE
-		UnregisterSignal(wearer, list(COMSIG_ATOM_UPDATE_OVERLAYS, COMSIG_PARENT_QDELETING))
+		UnregisterSignal(wearer, list(COMSIG_ATOM_UPDATE_OVERLAYS, COMSIG_QDELETING))
 		wearer.update_appearance(UPDATE_ICON)
 		wearer = null
 

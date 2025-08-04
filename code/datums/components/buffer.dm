@@ -47,10 +47,10 @@
 /datum/component/buffer/proc/populate_buffer(datum/source, datum/buffer_entity)
 	SIGNAL_HANDLER
 	if (target)
-		UnregisterSignal(target, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(target, COMSIG_QDELETING)
 	target = buffer_entity
 	if (target)
-		RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(flush_buffer))
+		RegisterSignal(target, COMSIG_QDELETING, PROC_REF(flush_buffer))
 		return COMPONENT_BUFFER_STORE_SUCCESS
 	return NONE
 
@@ -58,5 +58,5 @@
 	SIGNAL_HANDLER
 	if (!target)
 		return
-	UnregisterSignal(target, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(target, COMSIG_QDELETING)
 	target = null
