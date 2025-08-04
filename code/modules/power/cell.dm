@@ -252,28 +252,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 	desc = "A power cell with an even higher capacity than the base model!"
 	maxcharge = 50 KILOAUR
 
-/obj/item/stock_parts/cell/secborg
-	name = "security borg rechargeable D battery"
-	maxcharge = 60 KILOAUR	//600 max charge / 100 charge per shot = six shots
-	custom_materials = list(/datum/material/glass=40)
-
-/obj/item/stock_parts/cell/secborg/empty/Initialize(mapload)
-	. = ..()
-	charge = 0
-	update_appearance()
-
-/obj/item/stock_parts/cell/pulse //200 pulse shots
-	name = "pulse rifle power cell"
-	maxcharge = 40 KILOAUR
-
-/obj/item/stock_parts/cell/pulse/carbine //25 pulse shots
-	name = "pulse carbine power cell"
-	maxcharge = 5 KILOAUR
-
-/obj/item/stock_parts/cell/pulse/pistol //10 pulse shots
-	name = "pulse pistol power cell"
-	maxcharge = 2 KILOAUR
-
 /obj/item/stock_parts/cell/high
 	name = "high-capacity power cell"
 	icon_state = "hcell"

@@ -2,21 +2,21 @@
 	projectile_type = /obj/projectile/energy/electrode
 	select_name = "stun"
 	fire_sound = 'sound/weapons/taser.ogg'
-	shots_per_ka = 8
+	e_cost = 2000 AUR
 	harmful = FALSE
 
 /obj/item/ammo_casing/energy/electrode/spec
-	shots_per_ka = 10
+	e_cost = 1000 AUR
 
 /obj/item/ammo_casing/energy/electrode/gun
 	fire_sound = 'sound/weapons/gunshot.ogg'
-	shots_per_ka = 10
+	e_cost = 1000 AUR
 
 /obj/item/ammo_casing/energy/electrode/hos
-	shots_per_ka = 6
+	e_cost = 4000 AUR
 
 /obj/item/ammo_casing/energy/electrode/old
-	shots_per_ka = 1
+	e_cost = 10000 AUR
 
 /obj/item/ammo_casing/energy/electrode/broken
 	projectile_type = /obj/projectile/energy/electrode/broken
@@ -25,10 +25,10 @@
 /obj/item/ammo_casing/energy/disabler
 	projectile_type = /obj/projectile/beam/disabler
 	select_name = "disable"
-	shots_per_ka = 12
+	e_cost = 400 AUR
 	fire_sound = 'sound/weapons/taser2.ogg'
 	harmful = FALSE
 
 /obj/item/ammo_casing/energy/disabler/hos
 	projectile_type = /obj/projectile/beam/disabler
-	shots_per_ka = 5
+	e_cost = 500 AUR

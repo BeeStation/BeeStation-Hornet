@@ -2,27 +2,27 @@
 	projectile_type = /obj/projectile/beam/laser
 	select_name = "kill"
 
-/obj/item/ammo_casing/energy/laser/gatlinggun
-	shots_per_ka = 100
+/obj/item/ammo_casing/energy/laser/gatlinggun~
+	e_cost = 10 AUR
 
 /obj/item/ammo_casing/energy/lasergun
 	projectile_type = /obj/projectile/beam/laser
-	shots_per_ka = 10
+	e_cost = 710 AUR
 	select_name = "kill"
 
 /obj/item/ammo_casing/energy/lasergun/repeater
-	shots_per_ka = 2
+	e_cost = 500 AUR
 
 /obj/item/ammo_casing/energy/lasergun/captain
-	shots_per_ka = 8
+	e_cost = 1000 AUR
 
 /obj/item/ammo_casing/energy/lasergun/old
 	projectile_type = /obj/projectile/beam/laser
-	shots_per_ka = 8
+	e_cost = 2000 AUR
 	select_name = "kill"
 
 /obj/item/ammo_casing/energy/laser/hos
-	shots_per_ka = 8
+	e_cost = 1200 AUR
 
 /obj/item/ammo_casing/energy/laser/practice
 	projectile_type = /obj/projectile/beam/practice
@@ -48,7 +48,7 @@
 
 /obj/item/ammo_casing/energy/laser/pulse
 	projectile_type = /obj/projectile/beam/pulse
-	shots_per_ka = 5
+	e_cost = 2000 AUR
 	select_name = "DESTROY"
 	fire_sound = 'sound/weapons/pulse.ogg'
 
@@ -78,7 +78,7 @@
 
 /obj/item/ammo_casing/energy/xray
 	projectile_type = /obj/projectile/beam/xray
-	shots_per_ka = 5
+	e_cost = 500 AUR
 	fire_sound = 'sound/weapons/laser3.ogg'
 
 /obj/item/ammo_casing/energy/mindflayer

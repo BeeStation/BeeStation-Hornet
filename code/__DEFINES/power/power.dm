@@ -1,3 +1,4 @@
+#define AUR *1
 #define KILOAUR *1000
 #define MEGAAUR KILOAUR *1000
 #define GIGAAUR MEGAAUR *1000

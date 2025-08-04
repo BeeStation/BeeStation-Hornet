@@ -2,11 +2,11 @@
 	projectile_type = /obj/projectile/ion
 	select_name = "ion"
 	fire_sound = 'sound/weapons/ionrifle.ogg'
-	shots_per_ka = 3
+	e_cost = 800 AUR
 
 /obj/item/ammo_casing/energy/ion/weak
 	projectile_type = /obj/projectile/ion/weak
-	shots_per_ka = 5
+	e_cost = 600 AUR
 
 /obj/item/ammo_casing/energy/declone
 	projectile_type = /obj/projectile/energy/declone
@@ -31,7 +31,7 @@
 /obj/item/ammo_casing/energy/temp
 	projectile_type = /obj/projectile/temp
 	select_name = "freeze"
-	shots_per_ka = 10
+	e_cost = 1000 AUR
 	fire_sound = 'sound/weapons/pulse3.ogg'
 
 /obj/item/ammo_casing/energy/temp/hot
@@ -56,7 +56,7 @@
 
 /obj/item/ammo_casing/energy/instakill
 	projectile_type = /obj/projectile/beam/instakill
-	shots_per_ka = 0
+	e_cost = 0
 	select_name = "DESTROY"
 
 /obj/item/ammo_casing/energy/instakill/blue
@@ -67,6 +67,6 @@
 
 /obj/item/ammo_casing/energy/tesla_revolver
 	fire_sound = 'sound/magic/lightningbolt.ogg'
-	shots_per_ka = 8
+	e_cost = 2000 AUR
 	select_name = "stun"
 	projectile_type = /obj/projectile/energy/tesla/revolver

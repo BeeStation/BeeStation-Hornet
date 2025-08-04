@@ -87,11 +87,6 @@
 	update_icon()
 	user.update_inv_back()
 
-/obj/item/stock_parts/cell/minigun
-	name = "Minigun gun fusion core"
-	maxcharge = 500000
-	self_recharge = 0
-
 /obj/item/gun/energy/minigun
 	name = "laser gatling gun"
 	desc = "An advanced laser cannon with an incredible rate of fire. Requires a bulky backpack power source to use."
@@ -107,7 +102,7 @@
 	fire_rate = 10
 	weapon_weight = WEAPON_HEAVY
 	ammo_type = list(/obj/item/ammo_casing/energy/laser)
-	cell_type = /obj/item/stock_parts/cell/minigun
+	gun_charge = 500000 AUR
 	can_charge = FALSE
 	fire_sound = 'sound/weapons/laser.ogg'
 	item_flags = NEEDS_PERMIT | SLOWS_WHILE_IN_HAND
