@@ -38,7 +38,7 @@
 	icon_state = "pulse_carbine"
 	worn_icon_state = "gun"
 	item_state = null
-	gun_carge = 5 KILOAUR
+	gun_charge = 5 KILOAUR
 
 /obj/item/gun/energy/pulse/carbine/add_seclight_point()
 	AddComponent(/datum/component/seclite_attachable, \
@@ -57,7 +57,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	icon_state = "pulse_carbine"
 	item_state = null
-	gun_carge = 5 KILOAUR
+	gun_charge = 5 KILOAUR
 
 //Handling seclights would be weird/why would borgs need seclights.
 /obj/item/gun/energy/pulse/carbine/cyborg/add_seclight_point()
@@ -72,7 +72,7 @@
 	icon_state = "pulse_pistol"
 	worn_icon_state = "gun"
 	item_state = "gun"
-	gun_carge = 2 KILOAUR
+	gun_charge = 2 KILOAUR
 	automatic = 0
 	fire_rate = 1.5
 	weapon_weight = WEAPON_LIGHT
