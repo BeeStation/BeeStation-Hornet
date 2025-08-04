@@ -10,7 +10,7 @@
 	flags_1 =  CONDUCT_1
 	slot_flags = ITEM_SLOT_BACK
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/pulse, /obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser)
-	gun_carge = 40 KILOAUR
+	gun_charge = 40 KILOAUR
 	fire_rate = 3
 	automatic = 1
 
