@@ -12,7 +12,7 @@
 	src.blood_type = /datum/reagent/blood
 	if (iscarbon(owner))
 		var/mob/living/carbon/carbon = owner
-		if (carbon.dna.species.exotic_blood)
+		if (carbon.dna?.species?.exotic_blood)
 			src.blood_type = carbon.dna.species.exotic_blood
 
 /datum/blood_source/organic/get_blood_id()

@@ -38,6 +38,9 @@
 	var/list/organ_traits
 	/// Status Effects that are given to the holder of the organ.
 	var/list/organ_effects
+	/// How much damage does this organ take from lack of blood flow?
+	/// Damage per second
+	var/hypoxia_damage = 0
 
 // Players can look at prefs before atoms SS init, and without this
 // they would not be able to see external organs, such as moth wings.
@@ -73,6 +76,21 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 	if(!iscarbon(receiver) || owner == receiver)
 		return FALSE
 
+	var/obj/item/bodypart/location
+
+	var/slots = 0
+
+	for (var/obj/item/bodypart/part in receiver.bodyparts)
+		if (slot in part.organ_slots)
+			location = part
+			slots ++
+
+	if (!(organ_flags & ORGAN_ALLOW_DUPLICATES) && (length(receiver.get_organs_for_zone(slot)) >= slots))
+		return FALSE
+
+	if (!location)
+		return FALSE
+
 	var/obj/item/organ/replaced = receiver.get_organ_slot(slot)
 	if(replaced)
 		replaced.Remove(receiver, special = TRUE, pref_load = pref_load)
@@ -81,10 +99,10 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		else
 			qdel(replaced)
 
+	forceMove(location)
 	receiver.internal_organs |= src
 	receiver.internal_organs_slot[slot] = src
 	owner = receiver
-
 
 	// Apply unique side-effects. Return value does not matter.
 	on_insert(receiver, special)
@@ -98,8 +116,6 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 /// Override this proc to create unique side-effects for inserting your organ. Must be called by overrides.
 /obj/item/organ/proc/on_insert(mob/living/carbon/organ_owner, special)
 	SHOULD_CALL_PARENT(TRUE)
-
-	moveToNullspace()
 
 	for(var/trait in organ_traits)
 		ADD_TRAIT(organ_owner, trait, REF(src))

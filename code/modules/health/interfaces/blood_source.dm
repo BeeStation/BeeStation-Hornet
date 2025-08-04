@@ -20,6 +20,7 @@
 	// Stop bleeding if we change the source of our blood
 	src.owner = owner
 	owner.remove_status_effect(/datum/status_effect/bleeding)
+	restore_blood()
 
 /// Get the type path of the reagent used by the mob's blood
 /datum/blood_source/proc/get_blood_id()

@@ -9,7 +9,7 @@
 /datum/blood_source/silicon/New(mob/living/owner)
 	. = ..()
 	// Determine the blood type
-	src.blood_type = /datum/reagent/blood
+	src.blood_type = /datum/reagent/oil
 	if (iscarbon(owner))
 		var/mob/living/carbon/carbon = owner
 		if (carbon.dna.species.exotic_blood)

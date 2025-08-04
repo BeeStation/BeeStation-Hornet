@@ -20,7 +20,7 @@
 	/// DO NOT MODIFY DIRECTLY. Use set_owner()
 	var/mob/living/carbon/owner
 	var/datum/weakref/original_owner
-	var/needs_processing = FALSE
+	var/needs_processing = TRUE
 	///A bitfield of bodytypes for clothing, surgery, and misc information
 	var/bodytype = BODYTYPE_HUMANOID | BODYTYPE_ORGANIC
 	/// Flags that represent how this bodypart cirulates blood
@@ -252,13 +252,13 @@
 	else
 		circulation_disruption = owner.blood.get_circulation_proportion()
 	// Organ damage due to lack of blood circulation
-	if (circulation_disruption)
-		var/damage_applied = 5 * (1 - circulation_disruption) * delta_time
+	if (circulation_disruption < 1)
+		var/damage_applied = (1 - circulation_disruption) * delta_time
 		for (var/obj/item/organ/organ in get_organs())
-			organ.applyOrganDamage(damage_applied)
+			organ.applyOrganDamage(damage_applied * organ.hypoxia_damage)
 		// Organic bodyparts that need blood and nothing else die without it
 		if (circulation_flags == CIRCULATION_BLOOD)
-			receive_damage(damage_applied * 0.1, 0, damage_applied * 0.5)
+			receive_damage(damage_applied * 0.1, 0, damage_applied * 0.3)
 
 //Applies brute and burn damage to the organ. Returns 1 if the damage-icon states changed at all.
 //Damage will not exceed max_damage using this proc
@@ -367,10 +367,6 @@
 		return
 	. = stamina_dam
 	stamina_dam = new_value
-	if(stamina_dam > DAMAGE_PRECISION)
-		needs_processing = TRUE
-	else
-		needs_processing = FALSE
 
 //Returns total damage.
 /obj/item/bodypart/proc/get_damage(include_stamina = FALSE)

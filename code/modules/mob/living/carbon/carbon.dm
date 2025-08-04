@@ -762,6 +762,8 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 			. = 1
 			if(shown_health_amount == null)
 				shown_health_amount = health
+			if (undergoing_cardiac_arrest())
+				shown_health_amount = 0
 			if(shown_health_amount >= maxHealth)
 				hud_used.healths.icon_state = "health0"
 			else if(shown_health_amount > maxHealth*0.8)
