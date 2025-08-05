@@ -128,7 +128,7 @@
 		return
 
 	var/mob/living/carbon/carbon_mob = mob_to_tweak
-	RegisterSignals(carbon_mob, list(COMSIG_MOB_MIDDLECLICKON, COMSIG_MOB_ALTCLICKON), .proc/on_click_sting)
+	RegisterSignals(carbon_mob, list(COMSIG_MOB_MIDDLECLICKON, COMSIG_MOB_ALTCLICKON), PROC_REF(on_click_sting))
 
 	// Brains are optional for lings.
 	var/obj/item/organ/brain/our_ling_brain = carbon_mob.get_organ_slot(ORGAN_SLOT_BRAIN)
@@ -224,14 +224,22 @@
 	else
 		adjust_chemicals((chem_recharge_rate - chem_recharge_slowdown) * delta_time)
 
-/*
+/**
  * Signal proc for [COMSIG_MOB_MIDDLECLICKON] and [COMSIG_MOB_ALTCLICKON].
  * Allows the changeling to sting people with a click.
  */
 /datum/antagonist/changeling/proc/on_click_sting(mob/living/carbon/ling, atom/clicked)
 	SIGNAL_HANDLER
 
-	if(!chosen_sting || clicked == ling || !istype(ling) || ling.stat != CONSCIOUS)
+	// nothing to handle
+	if(!chosen_sting)
+		return
+	if(!isliving(ling) || clicked == ling || ling.stat != CONSCIOUS)
+		return
+	// sort-of hack done here: we use in_given_range here because it's quicker.
+	// actual ling stings do pathfinding to determine whether the target's "in range".
+	// however, this is "close enough" preliminary checks to not block click
+	if(!isliving(clicked) || !IN_GIVEN_RANGE(ling, clicked, sting_range))
 		return
 
 	INVOKE_ASYNC(chosen_sting, /datum/action/changeling/sting.proc/try_to_sting, ling, clicked)
@@ -865,3 +873,5 @@
 /datum/mood_event/fallen_changeling
 	description = "My powers! Where are my powers?!"
 	mood_change = -4
+
+#undef FORMAT_CHEM_CHARGES_TEXT
