@@ -579,7 +579,7 @@
 
 /datum/reagent/consumable/ethanol/cuba_libre/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(affected_mob?.mind?.has_antag_datum(/datum/antagonist/rev)) //Cuba Libre, the traditional drink of revolutions! Heals revolutionaries.
+	if(IS_REVOLUTIONARY(affected_mob)) //Cuba Libre, the traditional drink of revolutions! Heals revolutionaries.
 		affected_mob.adjustBruteLoss(-1 * REM * delta_time, updating_health = FALSE)
 		affected_mob.adjustFireLoss(-1 * REM * delta_time, updating_health = FALSE)
 		affected_mob.adjustToxLoss(-1 * REM * delta_time, updating_health = FALSE)

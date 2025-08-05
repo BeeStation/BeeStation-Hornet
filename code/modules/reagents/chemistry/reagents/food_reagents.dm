@@ -586,24 +586,19 @@
 	description = "Sweet, sweet honey that decays into sugar. Has antibacterial and natural healing properties."
 	color = "#d3a308"
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	nutriment_factor = 15 * REAGENTS_METABOLISM
+	nutriment_factor = 0 * REAGENTS_METABOLISM //Honey converts 2:5 into sugar, so this may as well be 15
 	metabolization_rate = 1 * REAGENTS_METABOLISM
 	taste_description = "sweetness"
 	default_container = /obj/item/reagent_containers/condiment/honey
 
-	var/power = 0
-
 /datum/reagent/consumable/honey/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(power == 0)
-		holder.add_reagent(/datum/reagent/consumable/sugar, 3 * REM * delta_time)
-
-	if(DT_PROB(33, delta_time))
-		affected_mob.adjustBruteLoss(-1, updating_health = FALSE)
-		affected_mob.adjustFireLoss(-1, updating_health = FALSE)
-		affected_mob.adjustOxyLoss(-1, updating_health = FALSE)
-		affected_mob.adjustToxLoss(-1, updating_health = FALSE)
-		return UPDATE_MOB_HEALTH
+	holder.add_reagent(/datum/reagent/consumable/sugar, 1 * REM * delta_time)
+	affected_mob.adjustBruteLoss(-1, updating_health = FALSE)
+	affected_mob.adjustFireLoss(-1, updating_health = FALSE)
+	affected_mob.adjustOxyLoss(-1, updating_health = FALSE)
+	affected_mob.adjustToxLoss(-1, updating_health = FALSE)
+	return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/honey/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
 	. = ..()
@@ -611,11 +606,6 @@
 		var/mob/living/carbon/exposed_carbon = exposed_mob
 		for(var/datum/surgery/surgery in exposed_carbon.surgeries)
 			surgery.speed_modifier = max(0.6, surgery.speed_modifier) // +60% surgery speed on each step, compared to bacchus' blessing's ~46%
-
-/datum/reagent/consumable/honey/special
-	name = "Royal Honey"
-	description = "A special honey which heals the imbiber far faster than normal honey"
-	power = 1
 
 /datum/reagent/consumable/mayonnaise
 	name = "Mayonnaise"

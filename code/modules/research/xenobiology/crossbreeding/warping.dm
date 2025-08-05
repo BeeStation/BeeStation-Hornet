@@ -10,14 +10,12 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 	effect = "warping"
 	///what runes will be drawn depending on the crossbreed color
 	var/obj/effect/warped_rune/runepath
-	/// the number of "charge" a bluespace crossbreed start with
-	var/warp_charge = INFINITY
 	///time it takes to store the rune back into the crossbreed
 	var/storing_time = 5 SECONDS
 	///time it takes to draw the rune
 	var/drawing_time = 5 SECONDS
 	var/max_cooldown = 30 SECONDS
-	var/cooldown = 0
+	COOLDOWN_DECLARE(drawing_cooldown)
 
 /obj/effect/warped_rune
 	name = "warped rune"
@@ -46,10 +44,6 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 /obj/effect/warped_rune/Moved(atom/OldLoc, Dir)
 	. = ..()
 	rune_turf = get_turf(src)
-
-/obj/item/slimecross/warping/examine()
-	. = ..()
-	. += "It has [warp_charge] charge left"
 
 ///runes can also be deleted by bluespace crystals relatively fast as an alternative to cleaning them.
 /obj/effect/warped_rune/attackby(obj/item/used_item, mob/user)
@@ -90,8 +84,8 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 		return
 
 	if(istype(target, runepath)) //checks if the target is a rune and then if you can store it
-		if(do_after(user, storing_time,target = target))
-			warping_crossbreed_absorb(target, user)
+		if(do_after(user, storing_time, target = target))
+			qdel(target)
 		return
 
 	if(isturf(target) && locate(/obj/effect/warped_rune) in target) //check if the target is a floor and if there's a rune on said floor
@@ -102,42 +96,26 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 		to_chat(user, span_warning("you cannot draw a rune here!"))
 		return
 
-	if(warp_charge < 1) //check if we have at least 1 charge left.
-		to_chat(user, span_warning("[src] is empty!"))
-		return
-
 	if(!check_cd(user))
 		return
 
 	if(do_after(user, drawing_time,target = target))
-		if(warp_charge >= 1 && (!locate(/obj/effect/warped_rune) in target) && check_cd(user)) //check one last time if a rune has been drawn during the do_after and if there's enough charges left
+		if((!locate(/obj/effect/warped_rune) in target) && check_cd(user))  //check one last time if a rune has been drawn during the do_after and if there's enough charges left
 			warping_crossbreed_spawn(target,user)
-			make_cd()
+			COOLDOWN_START(src, drawing_cooldown, max_cooldown)
 
-
-///spawns the rune, taking away one rune charge
+///spawns the rune
 /obj/item/slimecross/warping/proc/warping_crossbreed_spawn(atom/target, mob/user)
 	playsound(target, 'sound/effects/slosh.ogg', 20, TRUE)
-	warp_charge--
 	new runepath(target)
 	to_chat(user, span_notice("You carefully draw the rune with [src]."))
 
-
-///absorb the rune into the crossbreed adding one more charge to the crossbreed.
-/obj/item/slimecross/warping/proc/warping_crossbreed_absorb(atom/target, mob/user)
-	//to_chat(user, span_notice("You store the rune in [src]."))
-	qdel(target)
-	warp_charge++
-
 /obj/item/slimecross/warping/proc/check_cd(user)
-	if(world.time < cooldown)
+	if(!COOLDOWN_FINISHED(src, drawing_cooldown))
 		if(user)
 			to_chat(user, span_warning("[src] is recharging energy."))
 		return FALSE
 	return TRUE
-
-/obj/item/slimecross/warping/proc/make_cd()
-	cooldown = world.time + max_cooldown
 
 /obj/effect/warped_rune/attack_hand(mob/living/user)
 	. = ..()

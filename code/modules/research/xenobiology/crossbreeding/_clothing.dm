@@ -143,6 +143,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_prism)
 	item_state = "adamsuit"
 	flags_inv = NONE
 	slowdown = 0 //slowdown is handled in the equipped proc
+	clothing_flags = THICKMATERIAL
 	var/hit_reflect_chance = 40
 
 /obj/item/clothing/suit/armor/heavy/adamantine/equipped(mob/user, slot)

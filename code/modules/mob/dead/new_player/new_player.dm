@@ -8,7 +8,7 @@
 	shift_to_open_context_menu = FALSE
 
 /mob/dead/new_player/authenticated
-	var/ready = 0
+	var/ready = PLAYER_NOT_READY
 	var/spawning = 0//Referenced when you want to delete the new_player later on in the code.
 	var/mob/living/new_character	//for instant transfer once the round is set up
 	///Used to make sure someone doesn't get spammed with messages if they're ineligible for roles.
@@ -278,12 +278,15 @@
 		return JOB_UNAVAILABLE_GENERIC
 	if(job.lock_flags)
 		return JOB_UNAVAILABLE_LOCKED
-	if((job.current_positions >= job.total_positions) && job.total_positions != -1)
+	if(!job.has_space())
 		if(job.title == JOB_NAME_ASSISTANT)
-			if(isnum_safe(client.player_age) && client.player_age <= 14) //Newbies can always be assistants
+			//Newbies can always be assistants
+			if(isnum_safe(client.player_age) && client.player_age <= 14)
 				return JOB_AVAILABLE
+			// If there are other jobs that this user can select, then the assistant is unavailable
+			// If the user has no other choices, then we will display the assistant
 			for(var/datum/job/J in SSjob.occupations)
-				if(J && J.current_positions < J.total_positions && J.title != job.title)
+				if(J && J.title != job.title && IsJobUnavailable(J.title, latejoin) == JOB_AVAILABLE)
 					return JOB_UNAVAILABLE_SLOTFULL
 		else
 			return JOB_UNAVAILABLE_SLOTFULL
@@ -369,16 +372,9 @@
 
 	GLOB.joined_player_list += character.ckey
 
-	if(CONFIG_GET(flag/allow_latejoin_antagonists) && humanc)	//Borgs aren't allowed to be antags. Will need to be tweaked if we get true latejoin ais.
-		if(SSshuttle.emergency)
-			switch(SSshuttle.emergency.mode)
-				if(SHUTTLE_RECALL, SHUTTLE_IDLE)
-					SSticker.mode.make_antag_chance(humanc)
-					SSticker.mode.make_special_antag_chance(humanc)
-				if(SHUTTLE_CALL)
-					if(SSshuttle.emergency.timeLeft(1) > initial(SSshuttle.emergencyCallTime)*0.5)
-						SSticker.mode.make_antag_chance(humanc)
-						SSticker.mode.make_special_antag_chance(humanc)
+	//Borgs aren't allowed to be antags. Will need to be tweaked if we get true latejoin ais.
+	if(CONFIG_GET(flag/allow_latejoin_antagonists) && humanc)
+		SSdynamic.on_player_latejoin(humanc)
 
 	if(CONFIG_GET(flag/roundstart_traits))
 		SSquirks.AssignQuirks(character.mind, character.client, TRUE)
@@ -410,7 +406,7 @@
 				if(!SSshuttle.canRecall())
 					dat += "<div class='notice red'>The station is currently undergoing evacuation procedures.</div><br>"
 	for(var/datum/job/prioritized_job in SSjob.prioritized_jobs)
-		if(prioritized_job.current_positions >= prioritized_job.total_positions)
+		if(!prioritized_job.has_space())
 			SSjob.prioritized_jobs -= prioritized_job
 	dat += "<table><tr><td valign='top'>"
 	var/column_counter = 0

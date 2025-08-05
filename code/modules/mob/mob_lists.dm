@@ -30,6 +30,16 @@
 /mob/proc/remove_from_mob_suicide_list()
 	GLOB.suicided_mob_list -= src
 
+///Removes a mob references from the list of external logout mobs
+/mob/proc/remove_from_disconnected_mob_list()
+	var/saved_key = null
+	for(var/ckey in GLOB.disconnected_mobs)
+		if(GLOB.disconnected_mobs[ckey] == src)
+			saved_key = ckey
+			break
+	if(!isnull(saved_key))
+		GLOB.disconnected_mobs -= saved_key
+
 ///Adds the mob reference to the list of all the dead mobs. If mob is cliented, it adds it to the list of all dead player-mobs.
 /mob/proc/add_to_dead_mob_list()
 	if(QDELETED(src))
@@ -44,13 +54,11 @@
 	if(client)
 		remove_from_current_dead_players()
 
-
 ///Adds the cliented mob reference to the list of all player-mobs, besides to either the of dead or alive player-mob lists, as appropriate. Called on Login().
 /mob/proc/add_to_player_list()
 	SHOULD_CALL_PARENT(TRUE)
 	GLOB.player_list |= src
-	if(!SSticker?.mode)
-		return
+
 	if(stat == DEAD)
 		add_to_current_dead_players()
 	else
@@ -60,8 +68,7 @@
 /mob/proc/remove_from_player_list()
 	SHOULD_CALL_PARENT(TRUE)
 	GLOB.player_list -= src
-	if(!SSticker?.mode)
-		return
+
 	if(stat == DEAD)
 		remove_from_current_dead_players()
 	else
@@ -70,15 +77,11 @@
 
 ///Adds the cliented mob reference to either the list of dead player-mobs or to the list of observers, depending on how they joined the game.
 /mob/proc/add_to_current_dead_players()
-	if(!SSticker?.mode)
-		return
-	SSticker.mode.current_players[CURRENT_DEAD_PLAYERS] |= src
+	SSdynamic.current_players[CURRENT_DEAD_PLAYERS] |= src
 
 /mob/dead/observer/add_to_current_dead_players()
-	if(!SSticker?.mode)
-		return
 	if(started_as_observer)
-		SSticker.mode.current_players[CURRENT_OBSERVERS] |= src
+		SSdynamic.current_players[CURRENT_OBSERVERS] |= src
 		return
 	return ..()
 
@@ -87,51 +90,36 @@
 
 ///Removes the mob reference from either the list of dead player-mobs or from the list of observers, depending on how they joined the game.
 /mob/proc/remove_from_current_dead_players()
-	if(!SSticker?.mode)
-		return
-	SSticker.mode.current_players[CURRENT_DEAD_PLAYERS] -= src
+	SSdynamic.current_players[CURRENT_DEAD_PLAYERS] -= src
 
 /mob/dead/observer/remove_from_current_dead_players()
-	if(!SSticker?.mode)
-		return
 	if(started_as_observer)
-		SSticker.mode.current_players[CURRENT_OBSERVERS] -= src
+		SSdynamic.current_players[CURRENT_OBSERVERS] -= src
 		return
 	return ..()
 
 
 ///Adds the cliented mob reference to the list of living player-mobs. If the mob is an antag, it adds it to the list of living antag player-mobs.
 /mob/proc/add_to_current_living_players()
-	if(!SSticker?.mode)
-		return
-	SSticker.mode.current_players[CURRENT_LIVING_PLAYERS] |= src
-	if(mind && (mind.special_role || length(mind.antag_datums)))
+	SSdynamic.current_players[CURRENT_LIVING_PLAYERS] |= src
+	if(length(mind?.antag_datums))
 		add_to_current_living_antags()
 
 ///Removes the mob reference from the list of living player-mobs. If the mob is an antag, it removes it from the list of living antag player-mobs.
 /mob/proc/remove_from_current_living_players()
-	if(!SSticker?.mode)
-		return
-	SSticker.mode.current_players[CURRENT_LIVING_PLAYERS] -= src
+	SSdynamic.current_players[CURRENT_LIVING_PLAYERS] -= src
 	if(LAZYLEN(mind?.antag_datums))
 		remove_from_current_living_antags()
 
 
 ///Adds the cliented mob reference to the list of living antag player-mobs.
 /mob/proc/add_to_current_living_antags()
-	if(!SSticker?.mode)
+	if (!length(mind.antag_datums))
 		return
-
-	if (length(mind.antag_datums) == 0)
-		return
-
-	for (var/datum/antagonist/antagonist in mind.antag_datums)
-		if (antagonist.count_against_dynamic_roll_chance)
-			SSticker.mode.current_players[CURRENT_LIVING_ANTAGS] |= src
-			return
+	SSdynamic.current_players[CURRENT_LIVING_ANTAGS] |= src
 
 ///Removes the mob reference from the list of living antag player-mobs.
 /mob/proc/remove_from_current_living_antags()
-	if(!SSticker?.mode)
+	if(!SSticker.HasRoundStarted())
 		return
-	SSticker.mode.current_players[CURRENT_LIVING_ANTAGS] -= src
+	SSdynamic.current_players[CURRENT_LIVING_ANTAGS] -= src

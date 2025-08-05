@@ -8,27 +8,27 @@
 @use 'sass:meta';
 
 // Base colors
-$black: #000000 !default;
-$white: #ffffff !default;
-$red: #db2828 !default;
-$orange: #f2711c !default;
-$yellow: #fbd608 !default;
-$olive: #b5cc18 !default;
-$green: #20b142 !default;
-$teal: #00b5ad !default;
-$blue: #2185d0 !default;
-$violet: #6435c9 !default;
-$purple: #a333c8 !default;
-$pink: #e03997 !default;
-$brown: #a5673f !default;
-$grey: #767676 !default;
+$black: hsl(0, 0%, 0%) !default;
+$white: hsl(0, 0%, 100%) !default;
+$red: hsl(0, 71.3%, 50.8%) !default;
+$orange: hsl(23.8, 89.2%, 52.9%) !default;
+$yellow: hsl(50.9, 96.8%, 50.8%) !default;
+$olive: hsl(67.7, 78.9%, 44.7%) !default;
+$green: hsl(134.1, 69.4%, 41%) !default;
+$teal: hsl(177.3, 100%, 35.5%) !default;
+$blue: hsl(205.7, 72.6%, 47.3%) !default;
+$violet: hsl(259.1, 58.3%, 49.8%) !default;
+$purple: hsl(285.1, 59.4%, 49.2%) !default;
+$pink: hsl(326.2, 72.9%, 55.1%) !default;
+$brown: hsl(23.5, 44.7%, 44.7%) !default;
+$grey: hsl(0, 0%, 46.3%) !default;
 $light-grey: #aaa !default;
 
-$primary: #4972a1 !default;
-$good: #5baa27 !default;
-$average: #f08f11 !default;
-$bad: #db2828 !default;
-$label: #7e90a7 !default;
+$primary: hsl(212, 37.6%, 45.9%) !default;
+$good: hsl(96.2, 62.7%, 41%) !default;
+$average: hsl(33.9, 88.1%, 50.4%) !default;
+$bad: hsl(0, 71.3%, 50.8%) !default;
+$label: hsl(213.7, 18.9%, 57.5%) !default;
 
 // Background and foreground color lightness ratios
 $bg-lightness: -15% !default;
@@ -73,22 +73,18 @@ $bg-map-keys: map.keys($_gen_map) !default;
 
 $fg-map: ();
 @each $color-name in $fg-map-keys {
-  $fg-map: map-merge(
-    $fg-map,
-    (
-      $color-name: fg(map.get($_gen_map, $color-name)),
-    )
-  );
+  // prettier-ignore
+  $fg-map: map.merge($fg-map, (
+    $color-name: fg(map.get($_gen_map, $color-name)),
+  ));
 }
 
 $bg-map: ();
 @each $color-name in $bg-map-keys {
-  $bg-map: map-merge(
-    $bg-map,
-    (
-      $color-name: bg(map.get($_gen_map, $color-name)),
-    )
-  );
+  // prettier-ignore
+  $bg-map: map.merge($bg-map, (
+    $color-name: bg(map.get($_gen_map, $color-name)),
+  ));
 }
 
 $departments: (
@@ -99,7 +95,7 @@ $departments: (
   'Civilian': $grey,
   'Command': $yellow,
   'Security': $red,
-  'Engineering': #f1a839,
+  'Engineering': hsl(36.2, 86.8%, 58.4%),
   'Medical': $teal,
   'Science': fg($purple),
   'Service': $green,

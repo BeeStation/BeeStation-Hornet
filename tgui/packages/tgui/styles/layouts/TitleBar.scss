@@ -4,13 +4,13 @@
  */
 
 @use 'sass:color';
-@use '../base.scss';
-@use '../colors.scss';
+@use '../base';
+@use '../colors';
 
-$text-color: rgba(255, 255, 255, 0.75) !default;
-$background-color: #363636 !default;
-$shadow-color-core: #161616 !default;
-$shadow-color: rgba(0, 0, 0, 0.1) !default;
+$text-color: hsla(0, 0%, 100%, 0.75) !default;
+$background-color: hsl(0, 0%, 21.2%) !default;
+$shadow-color-core: hsl(0, 0%, 8.6%) !default;
+$shadow-color: hsla(0, 0%, 0%, 0.1) !default;
 $shadow-core-height: 1px !default;
 $shadow-height: 2px !default;
 $title-bar-height: 32px !default;
@@ -32,7 +32,7 @@ $title-bar-height: 32px !default;
 
   &:hover {
     color: rgba(255, 255, 255, 1);
-    background-color: #cc0000;
+    background-color: hsl(0, 100%, 40%);
     transition: color 0ms, background-color 0ms;
   }
 }

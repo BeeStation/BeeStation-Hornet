@@ -127,9 +127,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/spear/explosive)
 	if(user.canUseTopic(src, BE_CLOSE))
 		..()
 		if(istype(user) && loc == user)
-			var/input = stripped_input(user,"What do you want your war cry to be? You will shout it when you hit someone in melee.", ,"", 50)
-			if(input)
-				src.war_cry = input
+			var/input = tgui_input_text(user,"What do you want your war cry to be? You will shout it when you hit someone in melee. Maximum 50 characters.","Select war cry","",50) // Kept the 50 characther limit since we don't want huge war cries
+			if(!input) // no input so we return
+				to_chat(user, span_warning("You need to enter something!"))
+				return
+			if(CHAT_FILTER_CHECK(input)) // check for forbidden words
+				to_chat(user, span_warning("Your war cry contains forbidden words."))
+				return
+			src.war_cry = input
 
 /obj/item/spear/explosive/afterattack(atom/movable/AM, mob/user, proximity)
 	. = ..()

@@ -10,7 +10,7 @@
 #define SPECIES_HUMAN "human"
 #define SPECIES_IPC "ipc"
 #define SPECIES_LIZARD "lizard"
-#define SPECIES_ASHWALKER "ashlizard"
+#define SPECIES_LIZARD_ASH "ashwalker"
 #define SPECIES_NIGHTMARE "nightmare"
 #define SPECIES_MONKEY "monkey"
 #define SPECIES_MOTH "moth"
@@ -27,8 +27,18 @@
 #define SPECIES_SUPERSOLDIER "supersoldier"
 #define SPECIES_VAMPIRE "vampire"
 #define SPECIES_PSYPHOZA "psyphoza"
+#define SPECIES_ZOMBIE "zombie"
+#define SPECIES_ZOMBIE_INFECTIOUS "memezombie"
+#define SPECIES_ZOMBIE_KROKODIL "krokodil_zombie"
+
+// Like species IDs, but not specifically attached a species.
+#define BODYPART_ID_ALIEN "alien"
+#define BODYPART_ID_ROBOTIC "robotic"
+#define BODYPART_ID_DIGITIGRADE "digitigrade"
+#define BODYPART_ID_LARVA "larva"
 
 //Defines for Golem Species IDs
+#define SPECIES_GOLEM "golem"
 #define SPECIES_GOLEM_ADAMANTINE "adamantine_golem"
 #define SPECIES_GOLEM_ALLOY "alloy_golem"
 #define SPECIES_GOLEM_BANANIUM "bananium_golem"
@@ -45,7 +55,6 @@
 #define SPECIES_GOLEM_DURATHREAD "durathread_golem"
 #define SPECIES_GOLEM_GLASS "glass_golem"
 #define SPECIES_GOLEM_GOLD "gold_golem"
-#define SPECIES_GOLEM_IRON "iron_golem"
 #define SPECIES_GOLEM_LEATHER "leather_golem"
 #define SPECIES_GOLEM_PLASMA "plasma_golem"
 #define SPECIES_GOLEM_PLASTEEL "plasteel_golem"

@@ -107,7 +107,7 @@ SUBSYSTEM_DEF(traumas)
 		"clowns"    = typecacheof(list(
 			/obj/item/clothing/under/rank/civilian/clown, /obj/item/clothing/shoes/clown_shoes,
 			/obj/item/clothing/mask/gas/clown_hat, /obj/item/instrument/bikehorn,
-			/obj/item/modular_computer/tablet/pda/clown, /obj/item/grown/bananapeel)),
+			/obj/item/modular_computer/tablet/pda/preset/clown, /obj/item/grown/bananapeel)),
 
 		"greytide"  = typecacheof(list(
 			/obj/item/clothing/under/color/grey, /obj/item/melee/baton/cattleprod,
@@ -138,7 +138,7 @@ SUBSYSTEM_DEF(traumas)
 			/obj/machinery/door/airlock/centcom)),
 
 		"robots"   = typecacheof(list(
-			/obj/machinery/computer/upload, /obj/item/aiModule/, /obj/machinery/recharge_station,
+			/obj/machinery/computer/upload, /obj/item/ai_module/, /obj/machinery/recharge_station,
 			/obj/item/aicard, /obj/item/deactivated_swarmer, /obj/effect/mob_spawn/swarmer)),
 
 		"doctors"   = typecacheof(list(

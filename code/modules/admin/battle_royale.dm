@@ -3,7 +3,7 @@ GLOBAL_LIST_INIT(battle_royale_basic_loot, list(
 		/obj/item/soap,
 		/obj/item/knife/kitchen,
 		/obj/item/knife/combat,
-		/obj/item/knife/poison,
+		/obj/item/knife/venom,
 		/obj/item/throwing_star,
 		/obj/item/syndie_glue,
 		/obj/item/book_of_babel,

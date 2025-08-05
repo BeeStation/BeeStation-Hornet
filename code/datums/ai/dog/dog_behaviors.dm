@@ -62,7 +62,7 @@
 	var/atom/pawn = controller.pawn
 	pawn.visible_message(span_notice("[pawn] drops [carried_item]."))
 	carried_item.forceMove(get_turf(pawn))
-	controller.blackboard -= BB_SIMPLE_CARRY_ITEM
+	controller.clear_blackboard_key(BB_SIMPLE_CARRY_ITEM)
 	return TRUE
 
 
@@ -98,7 +98,7 @@
 		controller.pawn.visible_message(span_notice("[controller.pawn] delivers [carried_item] to [return_target]."))
 
 	carried_item.forceMove(get_turf(return_target))
-	controller.blackboard -= BB_SIMPLE_CARRY_ITEM
+	controller.clear_blackboard_key(BB_SIMPLE_CARRY_ITEM)
 	return TRUE
 
 /// This behavior involves either eating a snack we can reach, or begging someone holding a snack
@@ -130,7 +130,7 @@
 
 /datum/ai_behavior/play_dead/perform(delta_time, datum/ai_controller/controller)
 	. = ..()
-	var/mob/living/simple_animal/simple_pawn = controller.pawn
+	var/mob/living/basic/simple_pawn = controller.pawn
 	if(!istype(simple_pawn))
 		return
 
@@ -138,7 +138,7 @@
 		controller.blackboard[BB_DOG_PLAYING_DEAD] = TRUE
 		simple_pawn.emote("deathgasp", intentional=FALSE)
 		simple_pawn.icon_state = simple_pawn.icon_dead
-		if(simple_pawn.flip_on_death)
+		if(simple_pawn.basic_mob_flags & FLIP_ON_DEATH)
 			simple_pawn.transform = simple_pawn.transform.Turn(180)
 		simple_pawn.set_density(FALSE)
 
@@ -147,13 +147,13 @@
 
 /datum/ai_behavior/play_dead/finish_action(datum/ai_controller/controller, succeeded)
 	. = ..()
-	var/mob/living/simple_animal/simple_pawn = controller.pawn
+	var/mob/living/basic/simple_pawn = controller.pawn
 	if(!istype(simple_pawn) || simple_pawn.stat) // imagine actually dying while playing dead. hell, imagine being the kid waiting for your pup to get back up :(
 		return
 	controller.blackboard[BB_DOG_PLAYING_DEAD] = FALSE
 	simple_pawn.visible_message(span_notice("[simple_pawn] springs to [simple_pawn.p_their()] feet, panting excitedly!"))
 	simple_pawn.icon_state = simple_pawn.icon_living
-	if(simple_pawn.flip_on_death)
+	if(simple_pawn.basic_mob_flags & FLIP_ON_DEATH)
 		simple_pawn.transform = simple_pawn.transform.Turn(180)
 	simple_pawn.set_density(initial(simple_pawn.density))
 

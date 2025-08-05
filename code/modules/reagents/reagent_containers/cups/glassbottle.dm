@@ -466,22 +466,6 @@
 	icon_state = "moonshinebottle"
 	list_reagents = list(/datum/reagent/consumable/ethanol/moonshine = 100)
 
-/obj/item/reagent_containers/cup/glass/bottle/blank //Don't let players print these from a lathe, bottles should be obtained in mass from the bar only.
-	name = "glass bottle"
-	desc = "This blank bottle is unyieldingly anonymous, offering no clues to it's contents."
-	icon_state = "glassbottle"
-	fill_icon_thresholds = list(0, 10, 20, 30, 40, 50, 60, 70, 80, 90)
-
-/obj/item/reagent_containers/cup/glass/bottle/blank/update_icon()
-	..()
-	add_overlay("[initial(icon_state)]shine")
-
-/obj/item/reagent_containers/cup/glass/bottle/blank/small
-	name = "small glass bottle"
-	desc = "This small bottle is unyieldingly anonymous, offering no clues to it's contents."
-	icon_state = "glassbottlesmall"
-	volume = 50
-
 ////////////////////////// MOLOTOV ///////////////////////
 /obj/item/reagent_containers/cup/glass/bottle/molotov
 	name = "molotov cocktail"

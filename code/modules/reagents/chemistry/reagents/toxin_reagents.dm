@@ -369,6 +369,16 @@
 	toxpwr = 0.1
 	taste_description = "green tea"
 
+/datum/reagent/toxin/whispertoxin
+	name = "Whisper Toxin"
+	description = "A less potent version of mute toxin which prevents a victim from speaking loudly."
+	silent_toxin = TRUE
+	color = "#F0F8FF" // rgb: 240, 248, 255
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST | CHEMICAL_GOAL_BARTENDER_SERVING
+	toxpwr = 0
+	taste_description = "alcohol"
+	metabolized_traits = list(TRAIT_WHISPER_ONLY, TRAIT_EMOTEMUTE)
+
 /datum/reagent/toxin/mutetoxin //the new zombie powder.
 	name = "Mute Toxin"
 	description = "A nonlethal poison that inhibits speech in its victim."
@@ -377,22 +387,26 @@
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST | CHEMICAL_GOAL_BARTENDER_SERVING
 	toxpwr = 0
 	taste_description = "silence"
-
-/datum/reagent/toxin/mutetoxin/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
-	. = ..()
-	affected_mob.silent = max(affected_mob.silent, 3 * REM * delta_time)
+	metabolized_traits = list(TRAIT_MUTE)
 
 /datum/reagent/toxin/staminatoxin
 	name = "Tirizene"
 	description = "A nonlethal poison that causes extreme fatigue and weakness in its victim."
 	silent_toxin = TRUE
 	color = "#6E2828"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	data = 15
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	data = 30
 	toxpwr = 0
 
-/datum/reagent/toxin/staminatoxin/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+/datum/reagent/toxin/staminatoxin/on_mob_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
+	affected_mob.add_movespeed_modifier(/datum/movespeed_modifier/reagent/staminatoxin)
+
+/datum/reagent/toxin/staminatoxin/on_mob_end_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	affected_mob.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/staminatoxin)
+
+/datum/reagent/toxin/staminatoxin/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	data = max(data - 1, 3)
 	affected_mob.adjustStaminaLoss(data * REM * delta_time, updating_health = FALSE)
 	return UPDATE_MOB_HEALTH
@@ -489,6 +503,22 @@
 		holder.remove_reagent(/datum/reagent/toxin/venom, 1.1)
 
 	return UPDATE_MOB_HEALTH
+
+//Very similar to heparin, but causes toxin damage instead of brute
+/datum/reagent/toxin/apidvenom
+	name = "Apid Venom"
+	description = "Venom extracted from Apids. Destroys blood cells and prevents it from clotting properly."
+	metabolization_rate = 0.2 * REAGENTS_METABOLISM
+	reagent_state = LIQUID
+	color = "#6c9919"
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	toxpwr = 0.25
+
+/datum/reagent/toxin/apidvenom/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	. = ..()
+	var/bleed_rate = M.get_bleed_rate()
+	if (bleed_rate < BLEED_SURFACE)
+		M.add_bleeding(BLEED_SURFACE - bleed_rate, FALSE) //Bleeding can never go lower than this while reagent is in system
 
 /datum/reagent/toxin/spidervenom
 	name = "Spider Venom"
@@ -781,14 +811,9 @@
 
 /datum/reagent/toxin/heparin/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(!ishuman(affected_mob))
-		return
-
-	var/mob/living/carbon/human/affected_human = affected_mob
-	if(!affected_human.is_bleeding())
-		affected_human.add_bleeding(BLEED_SURFACE)
-	affected_human.adjustBruteLoss(1 * REAGENTS_EFFECT_MULTIPLIER * delta_time, updating_health = FALSE) //Brute damage increases with the amount they're bleeding
-	return UPDATE_MOB_HEALTH
+	var/bleed_rate = affected_mob.get_bleed_rate()
+	if (bleed_rate < BLEED_CUT)
+		affected_mob.add_bleeding(BLEED_CUT - bleed_rate, FALSE)//Brute damage increases with the amount they're bleeding
 
 /datum/reagent/toxin/rotatium //Rotatium. Fucks up your rotation and is hilarious
 	name = "Rotatium"

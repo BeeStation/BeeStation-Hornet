@@ -40,7 +40,6 @@
 #endif
 
 #include "food_edibility_check.dm"
-#include "gamemode_sanity.dm"
 #include "gas_transfer.dm"
 #include "greyscale_config.dm"
 #include "handcuff_tests.dm"
@@ -51,6 +50,7 @@
 #include "janky_actions.dm"
 #include "keybinding_init.dm"
 #include "language_transfer.dm"
+#include "limbsanity.dm"
 #include "merge_type.dm"
 #include "metabolizing.dm"
 #include "mindbound_actions.dm"
@@ -77,6 +77,7 @@
 #include "siunit.dm"
 #include "spawn_humans.dm"
 #include "species_change_organs.dm"
+#include "species_unique_id.dm"
 #include "species_whitelists.dm"
 #include "spell_invocations.dm"
 #include "spell_mindswap.dm"
@@ -85,6 +86,7 @@
 #include "stat_mc.dm"
 #include "subsystem_init.dm"
 #include "subsystem_metric_sanity.dm"
+#include "surgeries.dm"
 #include "surgery_linking.dm"
 #include "techweb_sanity.dm"
 #include "teleporters.dm"

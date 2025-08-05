@@ -366,7 +366,8 @@
 
 /datum/antagonist/changeling/proc/create_initial_profile()
 	var/mob/living/carbon/C = owner.current	//only carbons have dna now, so we have to typecaste
-	if(C.dna.species.species_bitflags & NOT_TRANSMORPHIC)
+	//If you can't be turned into that creature, you shouldnt start as that creature
+	if(NOTRANSSTING in C.dna.species.species_traits)
 		C.set_species(/datum/species/human)
 		C.fully_replace_character_name(C.real_name, C.client.prefs.read_character_preference(/datum/preference/name/backup_human))
 		for(var/datum/record/crew/E in GLOB.manifest.general)
@@ -584,6 +585,82 @@
 	newprofile.id_job_name = id_job_name
 	newprofile.id_hud_state = id_hud_state
 
+/datum/antagonist/changeling/proc/transform(mob/living/carbon/human/user, datum/changelingprofile/chosen_prof)
+	var/static/list/slot2slot = list(
+		"head" = ITEM_SLOT_HEAD,
+		"wear_mask" = ITEM_SLOT_MASK,
+		"neck" = ITEM_SLOT_NECK,
+		"back" = ITEM_SLOT_BACK,
+		"wear_suit" = ITEM_SLOT_OCLOTHING,
+		"w_uniform" = ITEM_SLOT_ICLOTHING,
+		"shoes" = ITEM_SLOT_FEET,
+		"belt" = ITEM_SLOT_BELT,
+		"gloves" = ITEM_SLOT_GLOVES,
+		"glasses" = ITEM_SLOT_EYES,
+		"ears" = ITEM_SLOT_EARS,
+		"wear_id" = ITEM_SLOT_ID,
+		"s_store" = ITEM_SLOT_SUITSTORE,
+	)
+
+	var/datum/dna/chosen_dna = chosen_prof.dna
+	user.real_name = chosen_prof.name
+	user.underwear = chosen_prof.underwear
+	user.undershirt = chosen_prof.undershirt
+	user.socks = chosen_prof.socks
+
+	chosen_dna.transfer_identity(user, 1)
+
+	///Bodypart data hack. Will rewrite when I rewrite changelings soon-ish
+	for(var/obj/item/bodypart/BP as() in user.bodyparts)
+		if(IS_ORGANIC_LIMB(BP))
+			BP.update_limb(is_creating = TRUE)
+
+	user.updateappearance(mutcolor_update=1)
+	user.domutcheck()
+
+	//vars hackery. not pretty, but better than the alternative.
+	for(var/slot in slot2type)
+		if(istype(user.vars[slot], slot2type[slot]) && !(chosen_prof.exists_list[slot])) //remove unnecessary flesh items
+			qdel(user.vars[slot])
+			continue
+
+		if((user.vars[slot] && !istype(user.vars[slot], slot2type[slot])) || !(chosen_prof.exists_list[slot]))
+			continue
+
+		if(istype(user.vars[slot], slot2type[slot]) && slot == "wear_id") //always remove old flesh IDs, so they get properly updated
+			qdel(user.vars[slot])
+
+		var/obj/item/C
+		var/equip = 0
+		if(!user.vars[slot])
+			var/thetype = slot2type[slot]
+			equip = 1
+			C = new thetype(user)
+
+		else if(istype(user.vars[slot], slot2type[slot]))
+			C = user.vars[slot]
+
+		C.appearance = chosen_prof.appearance_list[slot]
+		C.name = chosen_prof.name_list[slot]
+		C.flags_cover = chosen_prof.flags_cover_list[slot]
+		C.lefthand_file = chosen_prof.lefthand_file_list[slot]
+		C.righthand_file = chosen_prof.righthand_file_list[slot]
+		C.item_state = chosen_prof.item_state_list[slot]
+		C.worn_icon = chosen_prof.worn_icon_list[slot]
+		C.worn_icon_state = chosen_prof.worn_icon_state_list[slot]
+
+		if(istype(C, /obj/item/card/id/changeling) && chosen_prof.id_job_name)
+			var/obj/item/card/id/changeling/flesh_id = C
+			flesh_id.assignment = chosen_prof.id_job_name
+			flesh_id.hud_state = chosen_prof.id_hud_state
+
+		if(equip)
+			user.equip_to_slot_or_del(C, slot2slot[slot])
+			if(!QDELETED(C))
+				ADD_TRAIT(C, TRAIT_NODROP, CHANGELING_TRAIT)
+
+	user.regenerate_icons()
+
 /datum/antagonist/changeling/xenobio
 	name = "Xenobio Changeling"
 	give_objectives = FALSE
@@ -625,3 +702,4 @@
 
 /datum/antagonist/changeling/xenobio/antag_listing_name()
 	return ..() + "(Xenobio)"
+

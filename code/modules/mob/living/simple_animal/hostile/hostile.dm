@@ -617,3 +617,9 @@
 	return TRUE
 
 
+/mob/living/simple_animal/hostile/lazarus_revive(mob/living/reviver, malfunctioning)
+	. = ..()
+	if (malfunctioning)
+		robust_searching = TRUE // enables friends list check
+		return
+	robust_searching = initial(robust_searching)

@@ -273,7 +273,7 @@
 
 	data["misc"] += delta_time SECONDS * REM
 	affected_mob.jitteriness = min(affected_mob.jitteriness + (2 * delta_time), 10)
-	if(iscultist(affected_mob))
+	if(IS_CULTIST(affected_mob))
 		for(var/datum/action/innate/cult/blood_magic/BM in affected_mob.actions)
 			to_chat(affected_mob, span_cultlarge("Your blood rites falter as holy water scours your body!"))
 			for(var/datum/action/innate/cult/blood_spell/BS in BM.spells)
@@ -283,13 +283,13 @@
 			affected_mob.stuttering = 1
 		affected_mob.stuttering = min(affected_mob.stuttering + (2 * delta_time), 10)
 		affected_mob.Dizzy(5)
-		if(is_servant_of_ratvar(affected_mob) && DT_PROB(10, delta_time))
+		if(IS_SERVANT_OF_RATVAR(affected_mob) && DT_PROB(10, delta_time))
 			affected_mob.say(text2ratvar(pick("Please don't leave me...", "Rat'var what happened?", "My friends, where are you?", "The hierophant network just went dark, is anyone there?", "The light is fading...", "No... It can't be...")), forced = "holy water")
 			if(prob(40))
 				if(!HAS_TRAIT_FROM(affected_mob, TRAIT_DEPRESSION, HOLYWATER_TRAIT))
 					to_chat(affected_mob, span_largebrass("You feel the light fading and the world collapsing around you..."))
 					ADD_TRAIT(affected_mob, TRAIT_DEPRESSION, HOLYWATER_TRAIT)
-		if(iscultist(affected_mob) && DT_PROB(10, delta_time))
+		if(IS_CULTIST(affected_mob) && DT_PROB(10, delta_time))
 			affected_mob.say(pick("Av'te Nar'Sie","Pa'lid Mors","INO INO ORA ANA","SAT ANA!","Daim'niodeis Arc'iai Le'eones","R'ge Na'sie","Diabo us Vo'iscum","Eld' Mon Nobis"), forced = "holy water")
 			if(prob(10))
 				affected_mob.visible_message(span_danger("[affected_mob] starts having a seizure!"), span_userdanger("You have a seizure!"))
@@ -297,10 +297,10 @@
 				to_chat(affected_mob, span_cultlarge(pick("Your blood is your bond - you are nothing without it", "Do not forget your place", \
 				"All that power, and you still fail?", "If you cannot scour this poison, I shall scour your meager life!")))
 	if(data["misc"] >= (1 MINUTES)) // 24 units
-		if(iscultist(affected_mob) || is_servant_of_ratvar(affected_mob))
-			if(iscultist(affected_mob))
+		if(IS_CULTIST(affected_mob) || IS_SERVANT_OF_RATVAR(affected_mob))
+			if(IS_CULTIST(affected_mob))
 				SSticker.mode.remove_cultist(affected_mob.mind, FALSE, TRUE)
-			if(is_servant_of_ratvar(affected_mob))
+			if(IS_SERVANT_OF_RATVAR(affected_mob))
 				remove_servant_of_ratvar(affected_mob.mind)
 			affected_mob.jitteriness = 0
 			affected_mob.stuttering = 0
@@ -332,7 +332,7 @@
 
 /datum/reagent/fuel/unholywater/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(iscultist(affected_mob))
+	if(IS_CULTIST(affected_mob))
 		affected_mob.drowsyness = max(affected_mob.drowsyness - 5 * REM * delta_time, 0)
 		affected_mob.AdjustAllImmobility(-40 * REM* REM * delta_time)
 		affected_mob.adjustStaminaLoss(-10 * REM * delta_time, updating_health = FALSE)
@@ -638,8 +638,17 @@
 	description = "A crystal toxin."
 	color = "#5EFF3B" //RGB: 94, 255, 59
 	chemical_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	race = /datum/species/golem/random
+	race = /datum/species/golem
 	taste_description = "rocks"
+
+/datum/reagent/mutationtoxin/golem/on_mob_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	var/static/list/random_golem_types = subtypesof(/datum/species/golem) - type
+	for(var/datum/species/golem/golem as anything in random_golem_types)
+		if(!initial(golem.random_eligible))
+			random_golem_types -= golem
+
+	race = pick(random_golem_types)
 
 /datum/reagent/mutationtoxin/abductor
 	name = "Abductor Mutation Toxin"

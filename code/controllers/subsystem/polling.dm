@@ -21,7 +21,7 @@ SUBSYSTEM_DEF(polling)
  *
  * Arguments
  * * question: Optional, The question to ask the candidates. If null, a default question will be used. ("Do you want to play as role?")
- * * role: Optional, A role preference (/datum/role_preference/antagonist/traitor) to pass, it won't show to any candidates who don't have it in their preferences.
+ * * role: Optional, A role preference (/datum/role_preference/roundstart/traitor) to pass, it won't show to any candidates who don't have it in their preferences.
  * * check_jobban: Optional, What jobban role / flag to check, it won't show to any candidates who have this jobban.
  * * poll_time: How long the poll will last.
  * * ignore_category: Optional, A poll category. If a candidate has this category in their ignore list, they won't be polled.

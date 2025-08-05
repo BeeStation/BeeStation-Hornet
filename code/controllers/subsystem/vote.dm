@@ -61,11 +61,6 @@ SUBSYSTEM_DEF(vote)
 					choices["Continue Playing"] += non_voters.len
 					if(choices["Continue Playing"] >= greatest_votes)
 						greatest_votes = choices["Continue Playing"]
-				if("gamemode")
-					if(GLOB.master_mode in choices)
-						choices[GLOB.master_mode] += non_voters.len
-						if(choices[GLOB.master_mode] >= greatest_votes)
-							greatest_votes = choices[GLOB.master_mode]
 				if("map")
 					for (var/non_voter_ckey in non_voters)
 						var/client/C = non_voters[non_voter_ckey]
@@ -147,10 +142,6 @@ SUBSYSTEM_DEF(vote)
 			if("restart")
 				if(. == "Restart Round")
 					restart = TRUE
-			if("gamemode")
-				if(GLOB.master_mode != .)
-					if(!SSticker.HasRoundStarted())
-						GLOB.master_mode = .
 			if("map")
 				SSmapping.changemap(global.config.maplist[.])
 				SSmapping.map_voted = TRUE
@@ -210,8 +201,6 @@ SUBSYSTEM_DEF(vote)
 		switch(vote_type)
 			if("restart")
 				choices.Add("Restart Round","Continue Playing")
-			if("gamemode")
-				choices.Add(config.votable_modes)
 			if("map")
 				// Randomizes the list so it isn't always METASTATION
 				var/list/maps = list()
@@ -224,13 +213,18 @@ SUBSYSTEM_DEF(vote)
 				for(var/valid_map in maps)
 					choices.Add(valid_map)
 			if("custom")
-				question = stripped_input(usr,"What is the vote for?")
-				if(!question)
+				question = tgui_input_text(usr, "What is the vote for?", "Vote Title")
+				if(!question) // no input so we return
+					to_chat(usr, span_warning("You must enter a title for the vote."))
 					return 0
 				for(var/i in 1 to 10)
-					var/option = capitalize(stripped_input(usr,"Please enter an option or hit cancel to finish"))
+					var/option = capitalize(tgui_input_text(usr, "Please enter an option or hit cancel to finish (only already submitted answers will be shown)", "Question [i]:"))
 					if(!option || mode || !usr.client)
-						break
+						if (i == 1)
+							to_chat(usr, span_warning("You must enter at least one option."))
+							return 0
+						else
+							break
 					choices.Add(option)
 			else
 				return 0
@@ -298,7 +292,6 @@ AUTH_CLIENT_VERB(vote)
 		"time_remaining" = time_remaining,
 		"lower_admin" = !!user.client?.holder,
 		"generated_actions" = generated_actions,
-		"avm" = CONFIG_GET(flag/allow_vote_mode),
 		"avmap" = CONFIG_GET(flag/allow_vote_map),
 		"avr" = CONFIG_GET(flag/allow_vote_restart),
 		"selectedChoice" = choice_by_ckey[user.client?.ckey],
@@ -330,18 +323,12 @@ AUTH_CLIENT_VERB(vote)
 		if("toggle_restart")
 			if(usr.client.holder && upper_admin)
 				CONFIG_SET(flag/allow_vote_restart, !CONFIG_GET(flag/allow_vote_restart))
-		if("toggle_gamemode")
-			if(usr.client.holder && upper_admin)
-				CONFIG_SET(flag/allow_vote_mode, !CONFIG_GET(flag/allow_vote_mode))
 		if("toggle_map")
 			if(usr.client.holder && upper_admin)
 				CONFIG_SET(flag/allow_vote_map, !CONFIG_GET(flag/allow_vote_map))
 		if("restart")
 			if(CONFIG_GET(flag/allow_vote_restart) || usr.client.holder)
 				initiate_vote("restart", usr.key, forced=TRUE, popup=TRUE)
-		if("gamemode")
-			if(CONFIG_GET(flag/allow_vote_mode) || usr.client.holder)
-				initiate_vote("gamemode", usr.key, forced=TRUE, popup=TRUE)
 		if("map")
 			if(CONFIG_GET(flag/allow_vote_map) || usr.client.holder)
 				initiate_vote("map", usr.key, forced=TRUE, popup=TRUE)

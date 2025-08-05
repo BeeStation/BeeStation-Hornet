@@ -31,6 +31,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_CRITICAL_CONDITION "critical-condition"
 // Grants them the ability to move even when without any limbs.
 #define TRAIT_MOBILE "mobile"
+// Only perimts the ability to whisper
+#define TRAIT_WHISPER_ONLY "whisper_only"
 
 //mob traits
 #define TRAIT_BLIND "blind"
@@ -314,16 +316,16 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 //quirk traits
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"
 #define TRAIT_AGEUSIA "ageusia"
-#define TRAIT_HEAVY_SLEEPER	"heavy_sleeper"
-#define TRAIT_NIGHT_VISION_WEAK	"night_vision_trait"
+#define TRAIT_HEAVY_SLEEPER "heavy_sleeper"
+#define TRAIT_NIGHT_VISION_WEAK "night_vision_trait"
 #define TRAIT_LIGHT_STEP "light_step"
-#define TRAIT_SPIRITUAL	"spiritual"
-#define TRAIT_VORACIOUS	"voracious"
+#define TRAIT_SPIRITUAL "spiritual"
+#define TRAIT_VORACIOUS "voracious"
 #define TRAIT_SELF_AWARE "self_aware"
 #define TRAIT_FREERUNNING "freerunning"
 #define TRAIT_SKITTISH "skittish"
 #define TRAIT_POOR_AIM "poor_aim"
-#define TRAIT_PROSOPAGNOSIA	"prosopagnosia"
+#define TRAIT_PROSOPAGNOSIA "prosopagnosia"
 #define	TRAIT_NEET "NEET"
 #define TRAIT_DRUNK_HEALING "drunk_healing"
 #define TRAIT_TAGGER "tagger"
@@ -336,6 +338,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_BRAIN_TUMOR "brain_tumor"
 #define TRAIT_PROSKATER "pro_skater"
 #define TRAIT_PLUSHIELOVER "plushie lover"
+#define TRAIT_COMPUTER_WHIZ "computer_whiz"
 
 ///Trait for dryable items
 #define TRAIT_DRYABLE "trait_dryable"
@@ -382,6 +385,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define STATION_TRAIT_DISTANT_SUPPLY_LINES "distant_supply_lines"
 #define STATION_TRAIT_STRONG_SUPPLY_LINES "strong_supply_lines"
 #define STATION_TRAIT_UNITED_BUDGET "united_budget"
+#define STATION_TRAIT_UNIQUE_AI "station_trait_unique_ai"
 
 /// Trait applied when the MMI component is added to an [/obj/item/integrated_circuit]
 #define TRAIT_COMPONENT_MMI "component_mmi"
@@ -430,5 +434,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Basically, without this, COMSIG_IN_RANGE_OF_IRRADIATION won't fire once the object is irradiated.
 #define TRAIT_BYPASS_EARLY_IRRADIATED_CHECK "radiation_bypass_early_irradiated_check"
 
+//for the detective aurafarming ability
+#define TRAIT_NOIR "noir" //people who are in the noir state,
 
 // END TRAIT DEFINES

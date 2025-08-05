@@ -3,14 +3,15 @@ import { classes } from 'common/react';
 import { PropsWithChildren, ReactNode } from 'react';
 import { useBackend } from '../../backend';
 import { Box, Button, Dropdown, Stack, Flex, Tooltip } from '../../components';
-import { createSetPreference, Job, JoblessRole, JobPriority, PreferencesMenuData } from './data';
+import { createSetPreference, Job, JoblessRole, JobPriority, PreferencesMenuData, ServerData } from './data';
 import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
 
 const sortJobs = (entries: [string, Job][], head?: string) =>
-  sortBy<[string, Job]>(
+  sortBy(
+    entries,
     ([key, _]) => (key === head ? -1 : 1),
     ([key, _]) => key
-  )(entries);
+  );
 
 const PriorityButton = (props: { name: string; modifier?: string; enabled: boolean; onClick: () => void }) => {
   const className = `PreferencesMenu__Jobs__departments__priority`;
@@ -69,8 +70,8 @@ const createCreateSetPriorityFromName = (jobName: string): CreateSetPriority => 
   return createSetPriority;
 };
 
-const PriorityButtons = (props: { createSetPriority: CreateSetPriority; isOverflow: boolean; priority: JobPriority }) => {
-  const { createSetPriority, isOverflow, priority } = props;
+const PriorityButtons = (props: { createSetPriority: CreateSetPriority; priority: JobPriority }) => {
+  const { createSetPriority, priority } = props;
 
   return (
     <Flex
@@ -80,38 +81,30 @@ const PriorityButtons = (props: { createSetPriority: CreateSetPriority; isOverfl
         height: '100%',
         border: '1px solid rgba(0, 0, 0, 0.4)',
       }}>
-      {isOverflow ? (
-        <>
-          <PriorityButton name="Off" modifier="off" enabled={!priority} onClick={createSetPriority(null)} />
+      <>
+        <PriorityButton name="Off" modifier="off" enabled={!priority} onClick={createSetPriority(null)} />
 
-          <PriorityButton name="On" modifier="high" enabled={!!priority} onClick={createSetPriority(JobPriority.High)} />
-        </>
-      ) : (
-        <>
-          <PriorityButton name="Off" modifier="off" enabled={!priority} onClick={createSetPriority(null)} />
+        <PriorityButton
+          name="Low"
+          modifier="low"
+          enabled={priority === JobPriority.Low}
+          onClick={createSetPriority(JobPriority.Low)}
+        />
 
-          <PriorityButton
-            name="Low"
-            modifier="low"
-            enabled={priority === JobPriority.Low}
-            onClick={createSetPriority(JobPriority.Low)}
-          />
+        <PriorityButton
+          name="Med"
+          modifier="medium"
+          enabled={priority === JobPriority.Medium}
+          onClick={createSetPriority(JobPriority.Medium)}
+        />
 
-          <PriorityButton
-            name="Med"
-            modifier="medium"
-            enabled={priority === JobPriority.Medium}
-            onClick={createSetPriority(JobPriority.Medium)}
-          />
-
-          <PriorityButton
-            name="High"
-            modifier="high"
-            enabled={priority === JobPriority.High}
-            onClick={createSetPriority(JobPriority.High)}
-          />
-        </>
-      )}
+        <PriorityButton
+          name="High"
+          modifier="high"
+          enabled={priority === JobPriority.High}
+          onClick={createSetPriority(JobPriority.High)}
+        />
+      </>
     </Flex>
   );
 };
@@ -120,7 +113,6 @@ const JobRow = (props: { className?: string; job: Job; name: string }) => {
   const { data } = useBackend<PreferencesMenuData>();
   const { className, job, name } = props;
 
-  const isOverflow = data.overflow_role === name;
   const priority = data.job_preferences[name];
 
   const createSetPriority = createCreateSetPriorityFromName(name);
@@ -167,7 +159,7 @@ const JobRow = (props: { className?: string; job: Job; name: string }) => {
       </Stack>
     );
   } else {
-    rightSide = <PriorityButtons createSetPriority={createSetPriority} isOverflow={isOverflow} priority={priority} />;
+    rightSide = <PriorityButtons createSetPriority={createSetPriority} priority={priority} />;
   }
 
   return (
@@ -198,7 +190,7 @@ const Department = (props: { department: string } & PropsWithChildren) => {
 
   return (
     <ServerPreferencesFetcher
-      render={(data) => {
+      render={(data: ServerData) => {
         if (!data) {
           return null;
         }
@@ -222,16 +214,9 @@ const Department = (props: { department: string } & PropsWithChildren) => {
         return (
           <Box>
             <Stack vertical fill>
-              {jobsForDepartment.map(([name, job]) => {
-                return (
-                  <JobRow
-                    className={classes([className, name === department.head && 'head'])}
-                    key={name}
-                    job={job}
-                    name={name}
-                  />
-                );
-              })}
+              {jobsForDepartment.map(([name, job]) => (
+                <JobRow className={classes([className, name === department.head && 'head'])} key={name} job={job} name={name} />
+              ))}
             </Stack>
 
             {children}

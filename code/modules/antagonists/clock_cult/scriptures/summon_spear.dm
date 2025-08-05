@@ -17,7 +17,7 @@
 	if(QDELETED(marked_item))
 		qdel(src)
 
-	if(!is_servant_of_ratvar(user))
+	if(!IS_SERVANT_OF_RATVAR(user))
 		return
 
 	var/obj/item_to_retrieve = marked_item

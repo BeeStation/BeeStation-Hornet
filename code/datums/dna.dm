@@ -73,7 +73,10 @@
 	new_dna.species = new species.type
 	new_dna.real_name = real_name
 	new_dna.update_body_size() //Must come after features.Copy()
-	new_dna.mutations = mutations.Copy()
+	// Mutations aren't gc managed, but they still aren't templates
+	// Let's do a proper copy
+	for(var/datum/mutation/human/mutation in mutations)
+		new_dna.add_mutation(mutation, mutation.class, mutation.timeout)
 
 /datum/dna/proc/compare_dna(datum/dna/other)
 	if (!other)
@@ -511,7 +514,7 @@
 	return FALSE
 
 /mob/living/carbon/can_mutate()
-	if(!(mob_biotypes & MOB_ORGANIC))
+	if(!(MOB_ORGANIC in mob_biotypes))
 		return FALSE
 	if(has_dna() && !HAS_TRAIT(src, TRAIT_GENELESS) && !HAS_TRAIT(src, TRAIT_BADDNA))
 		return TRUE
@@ -652,19 +655,19 @@
 		dna.features["diona_pbody"] = GLOB.diona_pbody_list[deconstruct_block(getblock(features, DNA_DIONA_PBODY_BLOCK), GLOB.diona_pbody_list.len)]
 
 	// Ensure we update the skin tone of all non-foreign bodyparts
-	for(var/obj/item/bodypart/part in bodyparts)
-		if(part.no_update)
-			continue
-		part.update_limb(dropping_limb = FALSE, source = src, is_creating = TRUE)
+	//for(var/obj/item/bodypart/part in bodyparts)
+	//	part.update_limb(dropping_limb = FALSE, is_creating = TRUE)
 	var/obj/item/organ/eyes/organ_eyes = get_organ_by_type(/obj/item/organ/eyes)
 	if(organ_eyes)
 		organ_eyes.eye_color = eye_color
 		organ_eyes.old_eye_color = eye_color
+
 	if(icon_update)
+		dna.species.handle_body(src)
 		update_body()
 		update_hair()
 		if(mutcolor_update)
-			update_body_parts()
+			update_body_parts(update_limb_data = TRUE)
 		if(mutations_overlay_update)
 			update_mutations_overlay()
 
