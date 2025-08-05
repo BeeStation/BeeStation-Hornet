@@ -278,7 +278,7 @@
 		//Genetic stability
 		if(advanced && humantarget.has_dna())
 			render_list += "<span class='info ml-1'>Genetic Stability: [humantarget.dna.stability]%.</span>\n"
-			if(humantarget.has_status_effect(/datum/status_effect/ling_transformation))
+			if(humantarget.has_status_effect(/datum/status_effect/temporary_transformation))
 				render_list += "<span class='info ml-1'>Subject's DNA appears to be in an unstable state.</span>\n"
 
 		// Species and body temperature

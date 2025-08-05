@@ -287,6 +287,7 @@
 	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves. It has an IPC serial number engraved on the top. In order for this Posibrain to be used as a newly built Positronic Brain, it must be coupled with an MMI."
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "posibrain-ipc"
+	base_icon_state = "posibrain"
 
 /obj/item/organ/brain/positron/on_mob_insert(mob/living/carbon/human/brain_owner)
 	. = ..()

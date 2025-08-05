@@ -15,7 +15,6 @@
 		TRAIT_NONECRODISEASE,
 		TRAIT_NOBLOOD,
 		TRAIT_NO_DNA_COPY,
-		TRAIT_NO_TRANSFORMATION_STING,
 		TRAIT_MUTANT_COLORS,
 		TRAIT_NO_UNDERWEAR,
 	)
@@ -352,7 +351,6 @@
 	id = SPECIES_GOLEM_ALLOY
 	inherent_traits = list(
 		TRAIT_NO_UNDERWEAR,
-		TRAIT_NO_TRANSFORMATION_STING
 	)
 	meat = /obj/item/stack/sheet/mineral/abductor
 	mutanttongue = /obj/item/organ/tongue/abductor
@@ -646,8 +644,7 @@
 	id = SPECIES_GOLEM_BANANIUM
 	fixed_mut_color = "#ffff00"
 	inherent_traits = list(
-		TRAIT_NO_UNDERWEAR,
-		TRAIT_NO_TRANSFORMATION_STING
+		TRAIT_NO_UNDERWEAR
 	)
 	meat = /obj/item/stack/ore/bananium
 	mutanttongue = /obj/item/organ/tongue/golem/bananium
@@ -741,7 +738,6 @@
 	inherent_traits = list(
 		TRAIT_NO_UNDERWEAR,
 		TRAIT_NOFLASH,
-		TRAIT_NO_TRANSFORMATION_STING
 	) //no mutcolors
 	prefix = "Runic"
 	special_names = null
@@ -815,7 +811,6 @@
 	inherent_traits = list(
 		TRAIT_NO_UNDERWEAR,
 		TRAIT_NOFLASH,
-		TRAIT_NO_TRANSFORMATION_STING
 	)
 	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
 	damage_modifier = 20 //Reinforced, but much less so to allow for fast movement
@@ -883,7 +878,6 @@
 		TRAIT_NODISMEMBER,
 		TRAIT_NOBLOOD,
 		TRAIT_NO_UNDERWEAR,
-		TRAIT_NO_TRANSFORMATION_STING
 	)
 	inherent_biotypes = list(MOB_UNDEAD, MOB_HUMANOID)
 	damage_modifier = 15 //feels no pain, but not too resistant
@@ -1153,7 +1147,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		TRAIT_NODISMEMBER,
 		TRAIT_NOBLOOD,
 		TRAIT_NO_UNDERWEAR,
-		TRAIT_NO_TRANSFORMATION_STING,
 		TRAIT_NOFLASH,
 	)
 	fixed_mut_color = null
@@ -1232,7 +1225,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		TRAIT_NODISMEMBER,
 		TRAIT_NOBLOOD,
 		TRAIT_NO_UNDERWEAR,
-		TRAIT_NO_TRANSFORMATION_STING,
 		TRAIT_NOFLASH,
 	)
 	info_text = "As a " + span_danger("Durathread Golem") + ", your strikes will cause those your targets to start choking, but your woven body won't withstand fire as well."
@@ -1366,7 +1358,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		TRAIT_NODISMEMBER,
 		TRAIT_NOBLOOD,
 		TRAIT_NO_UNDERWEAR,
-		TRAIT_NO_TRANSFORMATION_STING,
 	)
 
 	/// A ref to our "throw snowball" spell we get on species gain.
