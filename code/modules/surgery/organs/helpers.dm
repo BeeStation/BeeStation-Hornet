@@ -29,13 +29,14 @@
 /mob/living/carbon/get_organ_by_type(typepath)
 	return (locate(typepath) in internal_organs/* + external_organs*/)
 
-/mob/living/carbon/get_organs_for_zone(zone, include_children = FALSE)
+/mob/living/carbon/get_organs_for_zone(zone)
 	var/valid_organs = list()
+	var/obj/item/bodypart/part = get_bodypart(zone)
+	if (!part)
+		return valid_organs
 
 	for(var/obj/item/organ/organ as anything in internal_organs/* + external_organs*/)
-		if(zone == organ.zone)
-			valid_organs += organ
-		else if(include_children && zone == deprecise_zone(organ.zone))
+		if(organ.slot in part.organ_slots)
 			valid_organs += organ
 	return valid_organs
 

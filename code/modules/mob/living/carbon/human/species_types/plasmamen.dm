@@ -14,7 +14,7 @@
 		TRAIT_RESISTCOLD,
 		TRAIT_RADIMMUNE,
 		TRAIT_NOHUNGER,
-		TRAIT_NOBLOOD,
+		TRAIT_NO_BLOOD,
 	)
 	inherent_biotypes = list(MOB_INORGANIC, MOB_HUMANOID)
 	mutantlungs = /obj/item/organ/lungs/plasmaman
@@ -51,7 +51,7 @@
 
 	var/internal_fire = FALSE //If the bones themselves are burning clothes won't help you much
 
-/datum/species/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
+/datum/species/plasmaman/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
 	. = ..()
 	C.set_safe_hunger_level()
 
@@ -217,6 +217,12 @@
 			SPECIES_PERK_ICON = "hard-hat",
 			SPECIES_PERK_NAME = "Protective Helmet",
 			SPECIES_PERK_DESC = "Plasmamen's helmets provide them shielding from the flashes of welding, as well as an inbuilt flashlight.",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+			SPECIES_PERK_ICON = "droplet",
+			SPECIES_PERK_NAME = "Skeletal",
+			SPECIES_PERK_DESC = "Plasmamen have no skin which can be burnt or cut, but their bones can still be broken.",
 		),
 		list(
 			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,

@@ -50,7 +50,7 @@
 				to_chat(affected_mob, span_danger("You lose consciousness..."))
 				affected_mob.visible_message(span_warning("[affected_mob] suddenly collapses!"), \
 											span_userdanger("You suddenly collapse!"))
-				affected_mob.Unconscious(rand(100, 200))
+				affected_mob.take_consciousness_damage(rand(100, 150))
 				if(prob(1))
 					affected_mob.emote("snore")
 			if(DT_PROB(7.5, delta_time))

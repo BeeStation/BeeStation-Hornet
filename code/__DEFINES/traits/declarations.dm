@@ -95,8 +95,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NOGUNS			"no_guns"
 ///This carbon doesn't get hungry
 #define TRAIT_NOHUNGER "no_hunger"
-///This carbon doesn't bleed
-#define TRAIT_NOBLOOD "noblood"
 #define TRAIT_NOMETABOLISM		"no_metabolism"
 #define TRAIT_POWERHUNGRY		"power_hungry" //uses electricity instead of food
 #define TRAIT_NOCLONELOSS		"no_cloneloss"
@@ -194,11 +192,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_BLEED_HELD		"bleed_held" // For when a mob is holding their wounds, preventing them from bleeding further
 #define TRAIT_NO_BLOOD			"no_blood" // Bleeding heals itself and bleeding is impossible
 #define TRAIT_NO_BLEEDING		"no_bleed" // The user can acquire the bleeding status effect, but will no lose blood
-#define TRAIT_BLOOD_COOLANT		"blood_coolant" // Replaces blood with coolant, meaning we overheat instead of losing air
 #define TRAIT_NO_BUMP_SLAM		"no_bump_slam"	// Disables the ability to slam into walls
 /// Trait given by being a hulk
 #define TRAIT_HULK "hulk"
-/// Trait that stores the skin colour of a mob
+/// Trait that stores the skin colour of a bodypart. Must be applied to a bodypart and not the mob as a whole.
 #define TRAIT_OVERRIDE_SKIN_COLOUR "skin_colour"
 #define TRAIT_STEALTH_PICKPOCKET "stealth_pickpocket" // The user can take something off of someone via the strip menu without sending a message.
 /// Trait that prevents you from being moved when pulled.
@@ -409,6 +406,14 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_MOVE_UPSIDE_DOWN "move_upside_down"
 #define TRAIT_NEGATES_GRAVITY "negates_gravity"
 #define TRAIT_NIGHT_VISION "night_vision"
+
+/// When applied to a bodypart, it will not regenerate stamina damage
+#define TRAIT_BODYPART_NO_STAMINA_REGENERATION "no_stamina_regen"
+
+/// The mob will not be able to take organ damage from penetration attacks
+#define TRAIT_NO_ORGAN_PENETRATION "no_organ_penetration"
+
+#define TRAIT_VALUE_SOUND_SCAPE "sound_scape"
 
 //for the detective aurafarming ability
 #define TRAIT_NOIR "noir" //people who are in the noir state,

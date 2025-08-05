@@ -213,7 +213,7 @@
 	var/above = TRUE
 
 /datum/nanite_rule/blood/check_rule()
-	var/blood_percent =  round((program.host_mob.blood_volume / BLOOD_VOLUME_NORMAL) * 100)
+	var/blood_percent =  round((program.host_mob.blood.volume / BLOOD_VOLUME_NORMAL) * 100)
 	if(above)
 		if(blood_percent >= threshold)
 			return TRUE

@@ -8,7 +8,6 @@
 	name = "lungs"
 	icon_state = "lungs"
 	visual = FALSE
-	zone = BODY_ZONE_CHEST
 	slot = ORGAN_SLOT_LUNGS
 	gender = PLURAL
 	w_class = WEIGHT_CLASS_SMALL
@@ -239,7 +238,7 @@
 				H.reagents.add_reagent(danger_reagent,1)
 			var/list/damage_info = (entry in gas_damage) ? gas_damage[entry] : gas_damage["default"]
 			var/dam = found_pp / gas_max[entry] * 10
-			H.apply_damage_type(clamp(dam, damage_info["min"], damage_info["max"]), damage_info["damage_type"])
+			H.take_direct_damage(clamp(dam, damage_info["min"], damage_info["max"]), damage_info["damage_type"])
 			throw_alert_for(H, alert_category, alert_type)
 		else
 			clear_alert_for(H, alert_category)
@@ -323,11 +322,11 @@
 	if(!HAS_TRAIT(H, TRAIT_RESISTCOLD)) // COLD DAMAGE
 		var/cold_modifier = H.dna.species.coldmod
 		if(breath_temperature < cold_level_3_threshold)
-			H.apply_damage_type(cold_level_3_damage*cold_modifier, cold_damage_type)
+			H.take_direct_damage(cold_level_3_damage*cold_modifier, cold_damage_type)
 		if(breath_temperature > cold_level_3_threshold && breath_temperature < cold_level_2_threshold)
-			H.apply_damage_type(cold_level_2_damage*cold_modifier, cold_damage_type)
+			H.take_direct_damage(cold_level_2_damage*cold_modifier, cold_damage_type)
 		if(breath_temperature > cold_level_2_threshold && breath_temperature < cold_level_1_threshold)
-			H.apply_damage_type(cold_level_1_damage*cold_modifier, cold_damage_type)
+			H.take_direct_damage(cold_level_1_damage*cold_modifier, cold_damage_type)
 		if(breath_temperature < cold_level_1_threshold)
 			if(prob(20))
 				to_chat(H, span_warning("You feel [cold_message] in your [name]!"))
@@ -335,11 +334,11 @@
 	if(!HAS_TRAIT(H, TRAIT_RESISTHEAT)) // HEAT DAMAGE
 		var/heat_modifier = H.dna.species.heatmod
 		if(breath_temperature > heat_level_1_threshold && breath_temperature < heat_level_2_threshold)
-			H.apply_damage_type(heat_level_1_damage*heat_modifier, heat_damage_type)
+			H.take_direct_damage(heat_level_1_damage*heat_modifier, heat_damage_type)
 		if(breath_temperature > heat_level_2_threshold && breath_temperature < heat_level_3_threshold)
-			H.apply_damage_type(heat_level_2_damage*heat_modifier, heat_damage_type)
+			H.take_direct_damage(heat_level_2_damage*heat_modifier, heat_damage_type)
 		if(breath_temperature > heat_level_3_threshold)
-			H.apply_damage_type(heat_level_3_damage*heat_modifier, heat_damage_type)
+			H.take_direct_damage(heat_level_3_damage*heat_modifier, heat_damage_type)
 		if(breath_temperature > heat_level_1_threshold)
 			if(prob(20))
 				to_chat(H, span_warning("You feel [hot_message] in your [name]!"))
@@ -358,7 +357,7 @@
 	return
 
 /obj/item/organ/lungs/get_availability(datum/species/owner_species, mob/living/owner_mob)
-	return owner_species.mutantlungs
+	return owner_species.mutantlungs && ..()
 
 /obj/item/organ/lungs/plasmaman
 	name = "plasma filter"

@@ -239,8 +239,7 @@
 		var/area/location = get_area(src)
 		speak("[arrest_type ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
 
-	var/armor_block = C.run_armor_check(BODY_ZONE_CHEST, "stamina")
-	C.apply_damage(60, STAMINA, BODY_ZONE_CHEST, armor_block)
+	C.deal_damage(60, 0, STAMINA, DAMAGE_SHOCK, zone = BODY_ZONE_CHEST)
 	C.apply_effect(EFFECT_STUTTER, 50)
 	C.visible_message(
 		span_danger("[src] has stunned [C]!"),\

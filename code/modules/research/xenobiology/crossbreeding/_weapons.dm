@@ -9,7 +9,7 @@ Slimecrossing Weapons
 	name = "slimy boneblade"
 	desc = "What remains of the bones in your arm. Incredibly sharp, and painful for both you and your opponents."
 	force = 20
-	sharpness = SHARP_DISMEMBER
+	sharpness = SHARP_V
 	force_string = "painful"
 
 /obj/item/melee/arm_blade/slime/attack(mob/living/L, mob/user)
@@ -83,13 +83,11 @@ Slimecrossing Weapons
 
 
 /datum/armor/shield_adamantineshield
-	melee = 50
-	bullet = 50
-	laser = 50
-	bomb = 30
-	fire = 80
-	acid = 70
-	stamina = 70
+	blunt = 50
+	penetration = 80
+	absorption = 40
+	heat = 50
+	reflectivity = 50
 
 /obj/item/shield/adamantineshield/ComponentInitialize()
 	. = ..()
@@ -123,9 +121,9 @@ Slimecrossing Weapons
 		return FALSE
 	charge_timer = 0
 	var/mob/living/M = loc
-	if(istype(M) && M.blood_volume >= 20)
+	if(istype(M) && M.blood.volume >= 20)
 		charges++
-		M.blood_volume -= 20
+		M.blood.volume -= 20
 	if(charges == 1)
 		recharge_newshot()
 	return 1

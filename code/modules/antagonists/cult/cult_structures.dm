@@ -192,8 +192,8 @@
 				L.adjustBruteLoss(-5*delta_time, 0)
 				L.adjustFireLoss(-5*delta_time, 0)
 				L.updatehealth()
-				if(L.blood_volume < BLOOD_VOLUME_NORMAL)
-					L.blood_volume += 20
+				if(L.blood.volume < BLOOD_VOLUME_NORMAL)
+					L.blood.volume += 20
 				C.cauterise_wounds(1.4)
 			else if(isshade(L) || isconstruct(L))
 				var/mob/living/simple_animal/M = L

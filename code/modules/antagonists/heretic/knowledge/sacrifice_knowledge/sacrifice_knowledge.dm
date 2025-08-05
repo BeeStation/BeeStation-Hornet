@@ -229,7 +229,7 @@
 	if(!sac_target.heal_and_revive(50, span_danger("[sac_target]'s heart begins to beat with an unholy force as they return from death!")))
 		return
 
-	if(sac_target.AdjustUnconscious(SACRIFICE_SLEEP_DURATION))
+	if(sac_target.Unconscious(SACRIFICE_SLEEP_DURATION))
 		to_chat(sac_target, span_hypnophrase("Your mind feels torn apart as you fall into a shallow slumber..."))
 	else
 		to_chat(sac_target, span_hypnophrase("Your mind begins to tear apart as you watch dark tendrils envelop you."))
@@ -463,7 +463,7 @@
 	if(heretic_mind)
 		log_combat(heretic_mind.current, sac_target, "disemboweled via sacrifice")
 	sac_target.spill_organs()
-	sac_target.apply_damage(250, BRUTE)
+	sac_target.take_direct_damage(250, BRUTE)
 	if(sac_target.stat != DEAD)
 		sac_target.death()
 	sac_target.visible_message(

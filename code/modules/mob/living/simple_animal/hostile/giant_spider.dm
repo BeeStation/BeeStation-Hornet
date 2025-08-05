@@ -200,8 +200,8 @@
 					if(L.stat != DEAD)
 						L.investigate_log("has been killed by being wrapped in a cocoon.", INVESTIGATE_DEATHS)
 						L.death() //If it's not already dead, we want it dead regardless of nourishment
-					if(L.blood_volume >= BLOOD_VOLUME_BAD && !isipc(L)) //IPCs and drained mobs are not nourishing.
-						L.blood_volume = 0 //Remove all fluids from this mob so they are no longer nourishing.
+					if(L.blood.volume >= BLOOD_VOLUME_BAD && !isipc(L)) //IPCs and drained mobs are not nourishing.
+						L.blood.volume = 0 //Remove all fluids from this mob so they are no longer nourishing.
 						health = maxHealth //heal up from feeding.
 						if(istype(L,/mob/living/carbon/human))
 							enriched_fed++ //it is a humanoid, and is very nourishing

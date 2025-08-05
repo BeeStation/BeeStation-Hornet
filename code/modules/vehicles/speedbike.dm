@@ -66,7 +66,7 @@
 			H.Paralyze(multiplier * 100)
 			H.adjustStaminaLoss(multiplier * 30)
 			if(prob(multiplier * 100))
-				H.apply_damage(rand(20,35), BRUTE)
+				H.take_direct_damage(rand(20,35), BRUTE)
 			if(!crash_all)
 				H.throw_at(throw_target, 4, 3)
 				visible_message(span_danger("[src] crashes into [H]!"))

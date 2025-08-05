@@ -79,6 +79,7 @@
 #define ORGAN_VITAL				(1<<4)	//Currently only the brain
 #define ORGAN_EDIBLE			(1<<5)	//is a snack? :D
 #define ORGAN_UNREMOVABLE 		(1<<6)	//Can't be removed using surgery
+#define ORGAN_ALLOW_DUPLICATES 	(1<<7)	//Allow multiple sets of this organ if the owner has multiple slots
 
 /// Flags for the pod_flags var on /obj/structure/closet/supplypod
 

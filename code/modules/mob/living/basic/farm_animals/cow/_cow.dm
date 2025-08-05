@@ -26,7 +26,7 @@
 	health = 50
 	maxHealth = 50
 	gold_core_spawnable = FRIENDLY_SPAWN
-	blood_volume = BLOOD_VOLUME_NORMAL
+	blood = /datum/blood_source/organic
 	ai_controller = /datum/ai_controller/basic_controller/cow
 	/// what this cow munches on, and what can be used to tame it.
 	var/list/food_types = list(/obj/item/food/grown/wheat)

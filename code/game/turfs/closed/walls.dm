@@ -79,7 +79,7 @@
 		return
 	// Cascade turf damage downwards on destruction
 	if (additional_damage > 0)
-		take_damage(additional_damage, BRUTE, damage_flag, FALSE)
+		deal_damage(additional_damage, 0, BRUTE, damage_flag, sound = FALSE)
 
 /turf/closed/wall/proc/dismantle_wall(devastated=0, explode=0)
 	if(devastated)
@@ -107,8 +107,9 @@
 	if(girder_type)
 		new /obj/item/stack/sheet/iron(src)
 
-/turf/closed/wall/after_damage(damage_amount, damage_type, damage_flag)
-	if (damage_flag == MELEE)
+/turf/closed/wall/take_direct_damage(amount, type, flag)
+	..()
+	if (type == DAMAGE_STANDARD)
 		add_dent(WALL_DENT_HIT)
 
 /turf/closed/wall/attack_paw(mob/living/user)

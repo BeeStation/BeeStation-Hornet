@@ -1,7 +1,7 @@
 /obj/item/melee/energy
 	icon = 'icons/obj/transforming_energy.dmi'
 	max_integrity = 200
-	armor_type = /datum/armor/transforming_energy
+	armor_type = /datum/armor/military_metal
 	attack_verb_continuous = list("hits", "taps", "pokes")
 	attack_verb_simple = list("hit", "tap", "poke")
 	resistance_flags = FIRE_PROOF
@@ -22,18 +22,13 @@
 	/// Force while active.
 	var/active_bleedforce = 0
 	/// Sharpness while active.
-	var/active_sharpness = SHARP
+	var/active_sharpness = SHARP_VII
 	/// Hitsound played attacking while active.
 	var/active_hitsound = 'sound/weapons/blade1.ogg'
 	/// Weight class while active.
 	var/active_w_class = WEIGHT_CLASS_BULKY
 	/// The heat given off when active.
 	var/active_heat = 3500
-
-
-/datum/armor/transforming_energy
-	fire = 100
-	acid = 30
 
 /obj/item/melee/energy/Initialize(mapload)
 	. = ..()
@@ -144,8 +139,6 @@
 	throwforce = 25
 	throw_speed = 3
 	throw_range = 5
-	armour_penetration = 100
-	sharpness = SHARP
 	w_class = WEIGHT_CLASS_NORMAL
 	flags_1 = CONDUCT_1
 	light_color = LIGHT_COLOR_LIGHT_CYAN
@@ -181,7 +174,7 @@
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
-	armour_penetration = 35
+	embedding = list("embed_chance" = 200, "armour_block" = 60, "max_pain_mult" = 15)
 	block_level = 1
 	block_upgrade_walk = TRUE
 	block_power = 35
@@ -207,7 +200,6 @@
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	force = 18
 	w_class = WEIGHT_CLASS_NORMAL
-	sharpness = SHARP
 	light_color = LIGHT_COLOR_LIGHT_CYAN
 	tool_behaviour = TOOL_SAW
 	toolspeed = 0.7 // Faster than a normal saw.
@@ -242,7 +234,6 @@
 	force = 18
 	hitcost = 75 // Costs more than a standard cyborg esword.
 	w_class = WEIGHT_CLASS_NORMAL
-	sharpness = SHARP
 	light_color = LIGHT_COLOR_LIGHT_CYAN
 	tool_behaviour = TOOL_SAW
 	toolspeed = 0.7 // Faster than a normal saw.
@@ -352,8 +343,7 @@
 	hitsound = 'sound/weapons/blade1.ogg'
 	throw_speed = 3
 	throw_range = 1
-	sharpness = SHARP
-	bleed_force = BLEED_DEEP_WOUND //it doesnt transform, bacon. Why would it be bleedforce_on?
+	active_sharpness = SHARP_V
 	heat = 3500
 	w_class = WEIGHT_CLASS_BULKY
 	/// Our linked spark system that emits from our sword.

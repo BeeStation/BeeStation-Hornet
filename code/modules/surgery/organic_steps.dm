@@ -31,7 +31,7 @@
 /datum/surgery_step/incise/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
 	if ishuman(target)
 		var/mob/living/carbon/human/human_target = target
-		if (!HAS_TRAIT(human_target, TRAIT_NOBLOOD))
+		if (!HAS_TRAIT(human_target, TRAIT_NO_BLOOD))
 			display_results(
 				user,
 				target,
@@ -176,7 +176,7 @@
 	return TRUE
 
 /datum/surgery_step/saw/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
-	target.apply_damage(50, BRUTE, "[target_zone]")
+	target.take_direct_damage(50, BRUTE, zone = target_zone)
 	display_results(
 		user,
 		target,

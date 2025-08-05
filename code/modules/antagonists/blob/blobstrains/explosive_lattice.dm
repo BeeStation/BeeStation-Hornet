@@ -12,9 +12,9 @@
 	reagent = /datum/reagent/blob/explosive_lattice
 
 /datum/blobstrain/reagent/explosive_lattice/damage_reaction(obj/structure/blob/B, damage, damage_type, damage_flag)
-	if(damage_flag == BOMB)
+	if(damage_flag == DAMAGE_BOMB)
 		return 0
-	else if(damage_flag != MELEE && damage_flag != BULLET && damage_flag != LASER)
+	else if(damage_flag != DAMAGE_STANDARD && damage_flag != DAMAGE_LASER)
 		return damage * 1.5
 	return ..()
 
@@ -33,9 +33,9 @@
 		for(var/mob/living/L in ohearers(1, get_turf(M)))
 			if(FACTION_BLOB in L.faction) //no friendly fire
 				continue
-			var/aoe_volume = ..(L, TOUCH, initial_volume, 0, L.getarmor(null, BIO) * 0.01, O)
-			L.apply_damage(0.4*aoe_volume, BRUTE)
+			var/aoe_volume = ..(L, TOUCH, initial_volume, 0, L.get_average_armor_flag(ARMOUR_ABSORPTION) * 0.01, O)
+			L.take_direct_damage(0.4*aoe_volume, BRUTE)
 		if(M)
-			M.apply_damage(0.6*reac_volume, BRUTE)
+			M.take_direct_damage(0.6*reac_volume, BRUTE)
 	else
-		M.apply_damage(0.6*reac_volume, BRUTE)
+		M.take_direct_damage(0.6*reac_volume, BRUTE)

@@ -6,14 +6,13 @@
 	throw_speed = 3
 	throw_range = 5
 	layer = ABOVE_MOB_LAYER
-	zone = BODY_ZONE_HEAD
 	slot = ORGAN_SLOT_BRAIN
 	organ_flags = ORGAN_VITAL|ORGAN_EDIBLE
 	attack_verb_continuous = list("attacks", "slaps", "whacks")
 	attack_verb_simple = list("attack", "slap", "whack")
 
-	///The brain's organ variables are significantly more different than the other organs, with half the decay rate for balance reasons, and twice the maxHealth
-	decay_factor = STANDARD_ORGAN_DECAY	/ 2		//30 minutes of decaying to result in a fully damaged brain, since a fast decay rate would be unfun gameplay-wise
+	// 10 minutes of survival time before total brain death
+	decay_factor = STANDARD_ORGAN_DECAY
 
 	maxHealth	= BRAIN_DAMAGE_DEATH
 	low_threshold = 45
@@ -28,6 +27,8 @@
 	var/decoy_override = FALSE
 	/// Two variables necessary for calculating whether we get a brain trauma or not
 	var/damage_delta = 0
+	/// Is this brain capable of feeling pain
+	var/feels_pain = TRUE
 
 	var/list/datum/brain_trauma/traumas = list()
 	juice_typepath = null	//the moment the brains become juicable, people will find a way to cheese round removal. So NO.
@@ -84,6 +85,9 @@
 		trauma.owner = brain_owner
 		trauma.on_gain()
 
+	if (feels_pain)
+		brain_owner.AddComponent(/datum/component/conscious)
+
 	//Update the body's icon so it doesnt appear debrained anymore
 	brain_owner.update_hair()
 
@@ -122,6 +126,9 @@
 				brain_owner.mind.transfer_to(brainmob)
 		to_chat(brainmob, span_notice("You feel slightly disoriented. That's normal when you're just a brain."))
 	brain_owner.update_hair()
+	var/datum/component/conscious/consciousness = brain_owner.GetComponent(/datum/component/conscious)
+	if (consciousness)
+		qdel(consciousness)
 	SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "brain_damage")
 
 /obj/item/organ/brain/set_organ_damage(d)
@@ -276,6 +283,45 @@
 		remove_trauma_from_traumas(trauma)
 		replacement_brain.add_trauma_to_traumas(trauma)
 
+/obj/item/organ/brain/proc/stat_conscious(previous_stat)
+	REMOVE_TRAIT(owner, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, STAT_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, STAT_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_FLOORED, STAT_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_INCAPACITATED, STAT_TRAIT)
+	owner.cure_blind(UNCONSCIOUS_TRAIT)
+	owner.remove_status_effect(/datum/status_effect/critical_condition)
+
+/obj/item/organ/brain/proc/stat_crit(previous_stat)
+	// As soon as we fall unconscious, we instantly take the maximum amount of consciousness damage
+	if (previous_stat == CONSCIOUS)
+		owner.take_consciousness_damage(INFINITY)
+	REMOVE_TRAIT(owner, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, STAT_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, STAT_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_FLOORED, STAT_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_INCAPACITATED, STAT_TRAIT)
+	owner.cure_blind(UNCONSCIOUS_TRAIT)
+	owner.apply_status_effect(/datum/status_effect/critical_condition)
+
+/obj/item/organ/brain/proc/stat_hard_crit(previous_stat)
+	owner.remove_status_effect(/datum/status_effect/critical_condition)
+	ADD_TRAIT(owner, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, STAT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, STAT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_FLOORED, STAT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_INCAPACITATED, STAT_TRAIT)
+	owner.become_blind(UNCONSCIOUS_TRAIT)
+
+/obj/item/organ/brain/proc/stat_dead(previous_stat)
+	owner.remove_status_effect(/datum/status_effect/critical_condition)
+	REMOVE_TRAIT(owner, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, STAT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, STAT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_FLOORED, STAT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_INCAPACITATED, STAT_TRAIT)
+	owner.become_blind(UNCONSCIOUS_TRAIT)
+
 /obj/item/organ/brain/alien
 	name = "alien brain"
 	desc = "We barely understand the brains of terrestial animals. Who knows what we may find in the brain of such an advanced species?"
@@ -298,12 +344,12 @@
 /obj/item/organ/brain/positron
 	name = "positronic brain"
 	slot = ORGAN_SLOT_BRAIN
-	zone = BODY_ZONE_CHEST
 	status = ORGAN_ROBOTIC
 	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves. It has an IPC serial number engraved on the top. In order for this Posibrain to be used as a newly built Positronic Brain, it must be coupled with an MMI."
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "posibrain-ipc"
 	organ_flags = ORGAN_SYNTHETIC
+	feels_pain = FALSE
 
 /obj/item/organ/brain/positron/on_insert(mob/living/carbon/human/brain_owner)
 	. = ..()
@@ -317,6 +363,38 @@
 /obj/item/organ/brain/positron/emp_act(severity)
 	owner.apply_status_effect(/datum/status_effect/ipc/emp)
 	to_chat(owner, span_warning("Alert: Posibrain function disrupted."))
+
+/obj/item/organ/brain/positron/stat_conscious(previous_stat)
+	REMOVE_TRAIT(owner, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, STAT_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, STAT_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_FLOORED, STAT_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_INCAPACITATED, STAT_TRAIT)
+	owner.cure_blind(UNCONSCIOUS_TRAIT)
+
+/obj/item/organ/brain/positron/stat_crit(previous_stat)
+	ADD_TRAIT(owner, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, STAT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_FLOORED, STAT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_INCAPACITATED, STAT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, STAT_TRAIT)
+	owner.cure_blind(UNCONSCIOUS_TRAIT)
+
+/obj/item/organ/brain/positron/stat_hard_crit(previous_stat)
+	ADD_TRAIT(owner, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, STAT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, STAT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_FLOORED, STAT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_INCAPACITATED, STAT_TRAIT)
+	owner.become_blind(UNCONSCIOUS_TRAIT)
+
+/obj/item/organ/brain/positron/stat_dead(previous_stat)
+	REMOVE_TRAIT(owner, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, STAT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, STAT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_FLOORED, STAT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_INCAPACITATED, STAT_TRAIT)
+	owner.become_blind(UNCONSCIOUS_TRAIT)
 
 ////////////////////////////////////TRAUMAS////////////////////////////////////////
 

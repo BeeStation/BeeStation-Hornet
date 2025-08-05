@@ -164,7 +164,6 @@
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 	slot_flags = ITEM_SLOT_ID
-	armor_type = /datum/armor/card_id
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/list/access = list()
 	var/registered_name// The name registered_name on the card
@@ -175,11 +174,6 @@
 	var/obj/machinery/paystand/my_store
 	/// controls various things, disable to make it have no bank account, ineditable in id machines, etc
 	var/electric = TRUE  // removes account info from examine
-
-
-/datum/armor/card_id
-	fire = 100
-	acid = 100
 
 /obj/item/card/id/Initialize(mapload)
 	. = ..()
@@ -865,15 +859,11 @@ update_label("John Doe", "Clowny")
 	name = "paper nametag"
 	desc = "Some spare papers taped into a vague card shape, with a name scribbled on it. Seems trustworthy."
 	icon_state = "paper"
-	armor_type = /datum/armor/id_paper
 	resistance_flags = null  // removes all resistance because its a piece of paper
 	access = list()
 	assignment = "Unknown"
 	hud_state = JOB_HUD_PAPER
 	electric = FALSE
-
-/datum/armor/id_paper
-	acid = 50
 
 /obj/item/card/id/paper/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pen))

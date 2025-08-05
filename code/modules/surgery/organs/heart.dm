@@ -3,11 +3,10 @@
 	desc = "I feel bad for the heartless bastard who lost this."
 	icon_state = "heart-on"
 	visual = FALSE
-	zone = BODY_ZONE_CHEST
 	slot = ORGAN_SLOT_HEART
 
 	healing_factor = STANDARD_ORGAN_HEALING
-	decay_factor = 5 * STANDARD_ORGAN_DECAY		//designed to fail about 5 minutes after death
+	decay_factor = 2 * STANDARD_ORGAN_DECAY
 
 	low_threshold_passed = span_info("Prickles of pain appear then die out from within your chest...")
 	high_threshold_passed = span_warning("Something inside your chest hurts, and the pain isn't subsiding. You notice yourself breathing far faster than before.")
@@ -91,14 +90,14 @@
 			H.stop_sound_channel(CHANNEL_HEARTBEAT)
 			beat = BEAT_NONE
 
-	if(organ_flags & ORGAN_FAILING)	//heart broke, stopped beating, death imminent
+	if(organ_flags & ORGAN_FAILING && !failed)	//heart broke, stopped beating, death imminent
 		if(owner.stat == CONSCIOUS)
 			owner.visible_message(span_userdanger("[owner] clutches at [owner.p_their()] chest as if [owner.p_their()] heart is stopping!"))
 		owner.set_heartattack(TRUE)
 		failed = TRUE
 
 /obj/item/organ/heart/get_availability(datum/species/owner_species, mob/living/owner_mob)
-	return owner_species.mutantheart
+	return owner_species.mutantheart && ..()
 
 /obj/item/organ/heart/cursed
 	name = "cursed heart"
@@ -131,8 +130,8 @@
 	if(world.time > (last_pump + pump_delay))
 		if(ishuman(owner) && owner.client) //While this entire item exists to make people suffer, they can't control disconnects.
 			var/mob/living/carbon/human/H = owner
-			if(H.dna && !HAS_TRAIT(H, TRAIT_NOBLOOD))
-				H.blood_volume = max(H.blood_volume - blood_loss, 0)
+			if(H.dna && !HAS_TRAIT(H, TRAIT_NO_BLOOD))
+				H.blood.volume = max(H.blood.volume - blood_loss, 0)
 				to_chat(H, span_userdanger("You have to keep pumping your blood!"))
 				if(add_colour)
 					H.add_client_colour(/datum/client_colour/cursed_heart_blood) //bloody screen so real
@@ -167,8 +166,8 @@
 
 		var/mob/living/carbon/human/H = owner
 		if(istype(H))
-			if(H.dna && !HAS_TRAIT(H, TRAIT_NOBLOOD))
-				H.blood_volume = min(H.blood_volume + cursed_heart.blood_loss*0.5, BLOOD_VOLUME_MAXIMUM)
+			if(H.dna && !HAS_TRAIT(H, TRAIT_NO_BLOOD))
+				H.blood.volume = min(H.blood.volume + cursed_heart.blood_loss*0.5, BLOOD_VOLUME_MAXIMUM)
 				H.remove_client_colour(/datum/client_colour/cursed_heart_blood)
 				cursed_heart.add_colour = TRUE
 				H.adjustBruteLoss(-cursed_heart.heal_brute)

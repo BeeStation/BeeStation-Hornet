@@ -85,9 +85,6 @@
 	font = CHARCOAL_FONT
 	custom_materials = null
 
-
-
-
 /obj/item/pen/fountain/captain
 	name = "captain's fountain pen"
 	desc = "It's an expensive Oak fountain pen. The nib is quite sharp."
@@ -97,8 +94,7 @@
 	throw_speed = 4
 	colour = "crimson"
 	custom_materials = list(/datum/material/gold = 750)
-	sharpness = SHARP
-	bleed_force = BLEED_SURFACE
+	sharpness = SHARP_II
 	resistance_flags = FIRE_PROOF
 	unique_reskin_icon = list("Oak" = "pen-fountain-o",
 						"Gold" = "pen-fountain-g",
@@ -232,7 +228,7 @@
 /obj/item/pen/edagger
 	attack_verb_continuous = list("slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts") //these won't show up if the pen is off
 	attack_verb_simple = list("slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
-	sharpness = SHARP
+	sharpness = SHARP_NONE
 	/// The real name of our item when extended.
 	var/hidden_name = "energy dagger"
 
@@ -244,7 +240,7 @@
 		throwforce_on = 35, \
 		throw_speed_on = 4, \
 		bleedforce_on = BLEED_CUT, \
-		sharpness_on = SHARP, \
+		sharpness_on = SHARP_V, \
 		w_class_on = WEIGHT_CLASS_NORMAL, \
 		inhand_icon_change = FALSE, \
 	)

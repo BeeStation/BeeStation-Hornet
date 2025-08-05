@@ -703,8 +703,8 @@
 	icon_state = "bloodymaryglass"
 
 /datum/reagent/consumable/ethanol/bloody_mary/on_mob_life(mob/living/carbon/C, delta_time, times_fired)
-	if(C.blood_volume < BLOOD_VOLUME_NORMAL)
-		C.blood_volume = min(C.blood_volume + (3 * REM * delta_time), BLOOD_VOLUME_NORMAL) //Bloody Mary quickly restores blood loss.
+	if(C.blood.volume < BLOOD_VOLUME_NORMAL)
+		C.blood.volume = min(C.blood.volume + (3 * REM * delta_time), BLOOD_VOLUME_NORMAL) //Bloody Mary quickly restores blood loss.
 	..()
 
 /datum/reagent/consumable/ethanol/brave_bull
@@ -1182,7 +1182,7 @@
 	. = COMPONENT_STOP_CONSUMPTION
 
 	to_chat(jaunter, ("<span class='boldwarning'>AAH! THEIR FLESH! IT BURNS!</span>"))
-	jaunter.apply_damage(25, BRUTE)
+	jaunter.take_direct_damage(25, BRUTE)
 
 	for(var/obj/effect/decal/cleanable/nearby_blood in range(1, get_turf(source)))
 		if(!nearby_blood.can_bloodcrawl_in())

@@ -13,13 +13,11 @@
 	slot_flags = ITEM_SLOT_BACK
 	throwforce = 5
 	throw_speed = 4
-	armour_penetration = 10
 	custom_materials = list(/datum/material/iron=1150, /datum/material/glass=2075)
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb_continuous = list("smashes", "crushes", "cleaves", "chops", "pulps")
 	attack_verb_simple = list("smash", "crush", "cleave", "chop", "pulp")
-	sharpness = SHARP
-	bleed_force = BLEED_CUT
+	sharpness = SHARP_IV
 	actions_types = list(/datum/action/item_action/toggle_light)
 	light_system = MOVABLE_LIGHT
 	light_range = 5
@@ -99,16 +97,15 @@
 				C.total_damage += target_health - L.health //we did some damage, but let's not assume how much we did
 			new /obj/effect/temp_visual/kinetic_blast(get_turf(L))
 			var/backstab_dir = get_dir(user, L)
-			var/def_check = L.getarmor(type = BOMB)
 			if((user.dir & backstab_dir) && (L.dir & backstab_dir))
 				if(!QDELETED(C))
 					C.total_damage += detonation_damage + backstab_bonus //cheat a little and add the total before killing it, so certain mobs don't have much lower chances of giving an item
-				L.apply_damage(detonation_damage + backstab_bonus, BRUTE, blocked = def_check)
+				L.deal_damage(detonation_damage + backstab_bonus, sharpness, BRUTE, DAMAGE_BOMB)
 				playsound(user, 'sound/weapons/kenetic_accel.ogg', 100, 1) //Seriously who spelled it wrong
 			else
 				if(!QDELETED(C))
 					C.total_damage += detonation_damage
-				L.apply_damage(detonation_damage, BRUTE, blocked = def_check)
+				L.deal_damage(detonation_damage, sharpness, BRUTE, DAMAGE_BOMB)
 
 /obj/item/kinetic_crusher/attack_secondary(atom/target, mob/living/user, clickparams)
 	return SECONDARY_ATTACK_CONTINUE_CHAIN
@@ -172,7 +169,7 @@
 	nodamage = TRUE
 	damage = 0 //We're just here to mark people. This is still a melee weapon.
 	damage_type = BRUTE
-	armor_flag = BOMB
+	damage_flag = DAMAGE_BOMB
 	range = 6
 	log_override = TRUE
 	var/obj/item/kinetic_crusher/hammer_synced

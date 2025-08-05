@@ -275,7 +275,7 @@
 
 /obj/item/food/cake/birthday/energy/proc/energy_bite(mob/living/user)
 	to_chat(user, "<font color='red' size='5'>As you eat the cake, you accidentally hurt yourself on the embedded energy sword!</font>")
-	user.apply_damage(30, BURN, BODY_ZONE_HEAD) // ITs an ENERGY sword, so it burns, duh
+	user.take_direct_damage(30, BURN, zone = BODY_ZONE_HEAD) // ITs an ENERGY sword, so it burns, duh
 	playsound(user, 'sound/weapons/blade1.ogg', 5, TRUE)
 
 /obj/item/food/cake/birthday/energy/attack(mob/living/target_mob, mob/living/user)
@@ -302,7 +302,7 @@
 
 /obj/item/food/cakeslice/birthday/energy/proc/energy_bite(mob/living/user)
 	to_chat(user, "<font color='red' size='5'>As you eat the cake slice, you accidentally hurt yourself on the embedded energy dagger!</font>")
-	user.apply_damage(18, BURN, BODY_ZONE_HEAD)
+	user.take_direct_damage(18, BURN, zone = BODY_ZONE_HEAD)
 	playsound(user, 'sound/weapons/blade1.ogg', 5, TRUE)
 
 /obj/item/food/cakeslice/birthday/energy/attack(mob/living/target_mob, mob/living/user)

@@ -5,9 +5,7 @@
 	var/status = ORGAN_ORGANIC
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 0
-	var/zone = BODY_ZONE_CHEST
 	var/slot
-	// DO NOT add slots with matching names to different zones - it will break internal_organs_slot list!
 	var/organ_flags = ORGAN_EDIBLE
 	var/maxHealth = STANDARD_ORGAN_THRESHOLD
 	var/damage = 0		//total damage this organ has sustained
@@ -33,6 +31,8 @@
 
 	///Do we effect the appearance of our mob. Used to save time in preference code
 	var/visual = TRUE
+	/// Size between 0-100, determines probability of being hit by penetrating attacks
+	var/organ_size = 25
 	/// Traits that are given to the holder of the organ.
 	var/list/organ_traits
 	/// Status Effects that are given to the holder of the organ.
@@ -72,6 +72,21 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 	if(!iscarbon(receiver) || owner == receiver)
 		return FALSE
 
+	var/obj/item/bodypart/location
+
+	var/slots = 0
+
+	for (var/obj/item/bodypart/part in receiver.bodyparts)
+		if (slot in part.organ_slots)
+			location = part
+			slots ++
+
+	if (!(organ_flags & ORGAN_ALLOW_DUPLICATES) && (length(receiver.get_organs_for_zone(slot)) >= slots))
+		return FALSE
+
+	if (!location)
+		return FALSE
+
 	var/obj/item/organ/replaced = receiver.get_organ_slot(slot)
 	if(replaced)
 		replaced.Remove(receiver, special = TRUE, pref_load = pref_load)
@@ -80,10 +95,10 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		else
 			qdel(replaced)
 
+	forceMove(location)
 	receiver.internal_organs |= src
 	receiver.internal_organs_slot[slot] = src
 	owner = receiver
-
 
 	// Apply unique side-effects. Return value does not matter.
 	on_insert(receiver, special)
@@ -97,8 +112,6 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 /// Override this proc to create unique side-effects for inserting your organ. Must be called by overrides.
 /obj/item/organ/proc/on_insert(mob/living/carbon/organ_owner, special)
 	SHOULD_CALL_PARENT(TRUE)
-
-	moveToNullspace()
 
 	for(var/trait in organ_traits)
 		ADD_TRAIT(organ_owner, trait, REF(src))
@@ -182,7 +195,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		return
 	owner.remove_status_effect(status, type)
 
-/obj/item/organ/proc/on_find(mob/living/finder)
+/obj/item/organ/proc/on_find(mob/living/finder, zone_found)
 	return
 
 /obj/item/organ/process(delta_time, times_fired)
@@ -215,7 +228,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		return
 	if(damage > high_threshold)
 		. += span_warning("[src] is starting to look discolored.")
-	. += span_info("[src] fit[name[length(name)] == "s" ? "" : "s"] in the <b>[parse_zone(zone)]</b>.")
+	. += span_info("[src] fit[name[length(name)] == "s" ? "" : "s"] in the <b>[replacetext(slot, "_", " ")] slot</b>.")
 
 ///Used as callbacks by object pooling
 /obj/item/organ/proc/exit_wardrobe()
@@ -240,7 +253,10 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		var/mob/living/carbon/target = eater
 		for(var/S in target.surgeries)
 			var/datum/surgery/surgery = S
-			if(surgery.location == zone)
+			var/obj/item/bodypart/part = surgery.target.get_bodypart(surgery.location)
+			if (!part)
+				continue
+			if(slot in part.organ_slots)
 				return FALSE
 	return TRUE
 
@@ -344,16 +360,24 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		ears.set_organ_damage(0)
 
 /** get_availability
-  * returns whether the species should innately have this organ.
+  * returns whether the species should innately have this organ, and the mob can support this organ.
+  * If the species cannot have the organ (For example, heart in a skeleton) then it returns false.
+  * If the mob does not have the bodypart that contains this organ (eyes in the head), then it also returns false.
+  * Returns true in all other cases.
   *
   * regenerate organs works with generic organs, so we need to get whether it can accept certain organs just by what this returns.
   * This is set to return true or false, depending on if a species has a specific organless trait. stomach for example checks if the species has NOSTOMACH and return based on that.
   * Arguments:
   * owner_species - species, needed to return the mutant slot as true or false. stomach set to null means it shouldn't have one.
   * owner_mob - for more specific checks, like nightmares.
- */
-/obj/item/organ/proc/get_availability(datum/species/owner_species, mob/living/owner_mob)
-	return TRUE
+  */
+/obj/item/organ/proc/get_availability(datum/species/owner_species, mob/living/carbon/owner_mob)
+	SHOULD_CALL_PARENT(TRUE)
+	. = FALSE
+	for (var/obj/item/bodypart/part in owner_mob.bodyparts)
+		// If we have a bodypart that can hold this, then we should have this organ
+		if (slot in part.organ_slots)
+			. = TRUE
 
 /// Called before organs are replaced in regenerate_organs with new ones
 /obj/item/organ/proc/before_organ_replacement(obj/item/organ/replacement)

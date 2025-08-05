@@ -160,8 +160,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
-	sharpness = SHARP_DISMEMBER_EASY
-	bleed_force = BLEED_DEEP_WOUND
+	sharpness = SHARP_VII
 	var/can_drop = FALSE
 	var/fake = FALSE
 
@@ -175,7 +174,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/arm_blade)
 		loc.visible_message(span_warning("A grotesque blade forms around [loc.name]\'s arm!"), span_warning("Our arm twists and mutates, transforming it into a deadly blade."), span_italics("You hear organic matter ripping and tearing!"))
 	if(synthetic)
 		can_drop = TRUE
-		sharpness = SHARP_DISMEMBER
+		sharpness = SHARP_IV
 	AddComponent(/datum/component/butchering, 60, 80)
 
 /obj/item/melee/arm_blade/afterattack(atom/target, mob/user, proximity)
@@ -316,7 +315,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 		for(var/obj/item/I in H.held_items)
 			if(I.is_sharp())
 				C.visible_message(span_danger("[H] impales [C] with [H.p_their()] [I.name]!"), span_userdanger("[H] impales you with [H.p_their()] [I.name]!"))
-				C.apply_damage(I.force, BRUTE, BODY_ZONE_CHEST)
+				C.take_direct_damage(I.force, BRUTE, BODY_ZONE_CHEST)
 				H.do_item_attack_animation(C, used_item = I)
 				H.add_mob_blood(C)
 				playsound(get_turf(H),I.hitsound,75,1)
@@ -403,26 +402,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 	item_flags = DROPDEL
 	clothing_flags = STOPSPRESSUREDAMAGE | HEADINTERNALS //Not THICKMATERIAL because it's organic tissue, so if somebody tries to inject something into it, it still ends up in your blood. (also balance but muh fluff)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/oxygen)
-	armor_type = /datum/armor/space_changeling
+	armor_type = /datum/armor/civilian_chitin
 	slowdown = 0.1
 	var/datum/reagent/salbutamol = /datum/reagent/medicine/salbutamol
 	actions_types = list()
 	cell = null
 	show_hud = FALSE
-
-
-/datum/armor/space_changeling
-	melee = 35
-	bullet = 25
-	laser = 25
-	energy = 30
-	bomb = 30
-	bio = 100
-	rad = 20
-	fire = 90
-	acid = 90
-	stamina = 10
-	bleed = 80
 
 /obj/item/clothing/suit/space/changeling/Initialize(mapload)
 	. = ..()
@@ -450,22 +435,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 	desc = "A covering of armored pressure and temperature-resistant organic tissue with a glass-like chitin front."
 	item_flags = DROPDEL
 	clothing_flags = STOPSPRESSUREDAMAGE
-	armor_type = /datum/armor/space_changeling
+	armor_type = /datum/armor/security_chitin
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-
-
-/datum/armor/space_changeling
-	melee = 35
-	bullet = 25
-	laser = 25
-	energy = 30
-	bomb = 30
-	bio = 100
-	rad = 20
-	fire = 90
-	acid = 90
-	stamina = 10
-	bleed = 80
 
 /obj/item/clothing/head/helmet/space/changeling/Initialize(mapload)
 	. = ..()
@@ -496,25 +467,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 	item_state = null
 	item_flags = DROPDEL
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
-	armor_type = /datum/armor/armor_changeling
+	armor_type = /datum/armor/military_chitin
 	flags_inv = HIDEJUMPSUIT
 	cold_protection = 0
 	heat_protection = 0
 	blocks_shove_knockdown = TRUE
 	slowdown = 0
 	clothing_flags = THICKMATERIAL
-
-/datum/armor/armor_changeling
-	melee = 40
-	bullet = 40
-	laser = 50
-	energy = 50
-	bomb = 25
-	bio = 10
-	fire = 25
-	acid = 25
-	stamina = 30
-	bleed = 90
 
 /obj/item/clothing/suit/armor/changeling/Initialize(mapload)
 	. = ..()
@@ -528,21 +487,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 	icon_state = "lingarmorhelmet"
 	item_state = null
 	item_flags = DROPDEL
-	armor_type = /datum/armor/helmet_changeling
+	armor_type = /datum/armor/civilian_chitin
 	flags_inv = HIDEEARS|HIDEHAIR|HIDEEYES|HIDEFACIALHAIR|HIDEFACE|HIDESNOUT
-
-
-/datum/armor/helmet_changeling
-	melee = 40
-	bullet = 40
-	laser = 50
-	energy = 50
-	bomb = 25
-	bio = 10
-	fire = 25
-	acid = 25
-	stamina = 30
-	bleed = 90
 
 /obj/item/clothing/head/helmet/changeling/Initialize(mapload)
 	. = ..()

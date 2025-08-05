@@ -1,14 +1,13 @@
 /obj/projectile/bullet/shotgun_slug
 	name = "12g shotgun slug"
 	damage = 41
-	armour_penetration = 0
+	sharpness = SHARP_VI
 
 /obj/projectile/bullet/shotgun_beanbag
 	name = "beanbag slug"
 	damage = 10
 	stamina = 50
-	armour_penetration = -20
-	bleed_force = BLEED_TINY
+	sharpness = SHARP_III
 
 /obj/projectile/bullet/incendiary/shotgun
 	name = "incendiary slug"
@@ -63,13 +62,12 @@
 	ricochets_max = 1
 	ricochet_chance = 50
 	ricochet_decay_chance = 0.9
-	bleed_force = BLEED_SCRATCH
+	sharpness = SHARP_III
 
 /obj/projectile/bullet/pellet/shotgun_buckshot
 	name = "buckshot pellet"
 	damage = 8
 	tile_dropoff = 0.5
-	armour_penetration = 20
 
 /obj/projectile/bullet/pellet/shotgun_rubbershot
 	name = "rubbershot pellet"
@@ -81,8 +79,7 @@
 	ricochet_chance = 80
 	ricochet_incidence_leeway = 60
 	ricochet_decay_chance = 0.75
-	armour_penetration = -20
-	bleed_force = BLEED_TINY
+	sharpness = SHARP_NONE
 
 /obj/projectile/bullet/pellet/shotgun_rubbershot/Range()
 	if(damage <= 0 && tile_dropoff_s == 0)
@@ -111,6 +108,7 @@
 	range = 8
 	ricochets_max = 0
 	shrapnel_type = /obj/item/shrapnel/bullet/shotgun/glass
+	sharpness = SHARP_VII
 
 /obj/projectile/bullet/pellet/shotgun_glass/Initialize(mapload)
 	. = ..()
@@ -122,7 +120,7 @@
 
 /obj/projectile/bullet/scattershot
 	damage = 18
-	bleed_force = BLEED_SURFACE
+	sharpness = SHARP_IV
 
 //Breaching Ammo
 
@@ -131,7 +129,7 @@
 	desc = "A breaching round designed to destroy airlocks and windows with only a few shots, but is ineffective against other targets."
 	hitsound = 'sound/weapons/sonic_jackhammer.ogg'
 	damage = 10 //does shit damage to everything except doors and windows
-	bleed_force = BLEED_SURFACE
+	sharpness = SHARP_X
 
 /obj/projectile/bullet/shotgun_breaching/on_hit(atom/target)
 	if(isstructure(target) || ismachinery(target))

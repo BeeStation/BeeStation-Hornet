@@ -55,7 +55,6 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 
 	integrity_failure = 0.5
 	max_integrity = 100
-	armor_type = /datum/armor/item_modular_computer
 
 	/// List of "connection ports" in this computer and the components with which they are plugged
 	var/list/all_components = list()
@@ -98,12 +97,6 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	var/can_store_pai = FALSE
 	/// Level of Virus Defense to be added on initialize to the pre instaled hard drive this happens in tablet/PDA, Normal detomatix halves at 2, fails at 3
 	var/default_virus_defense = ANTIVIRUS_NONE
-
-/datum/armor/item_modular_computer
-	bullet = 20
-	laser = 20
-	energy = 100
-	rad = 100
 
 /obj/item/modular_computer/Initialize(mapload)
 	allowed_themes = GLOB.ntos_device_themes_default

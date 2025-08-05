@@ -42,7 +42,7 @@
 	if(CAN_SUCCUMB(victim))
 		victim.investigate_log("has been executed by fiery rebirth.", INVESTIGATE_DEATHS)
 		victim.death()
-	victim.apply_damage(20, BURN)
+	victim.take_direct_damage(20, BURN)
 
 	// Heal the caster for every victim damaged
 	caster.adjustBruteLoss(-10, FALSE)

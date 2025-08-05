@@ -60,7 +60,6 @@
 /obj/structure/carp_rift
 	name = "carp rift"
 	desc = "A rift akin to the ones space carp use to travel long distances."
-	armor_type = /datum/armor/structure_carp_rift
 	max_integrity = 300
 	max_hit_damage = 50
 	icon = 'icons/obj/carp_rift.dmi'
@@ -70,6 +69,7 @@
 	anchored = TRUE
 	density = TRUE
 	plane = MASSIVE_OBJ_PLANE
+	resistance_flags = ACID_PROOF | FIRE_PROOF
 	/// The amount of time the rift has charged for.
 	var/time_charged = 0
 	/// The maximum charge the rift can have.
@@ -86,14 +86,6 @@
 	var/last_carp_inc = 0
 	/// A list of all the ckeys which have used this carp rift to spawn in as carps.
 	var/list/ckey_list = list()
-
-
-/datum/armor/structure_carp_rift
-	energy = 100
-	bomb = 50
-	rad = 100
-	fire = 100
-	acid = 100
 
 /obj/structure/carp_rift/Initialize(mapload)
 	. = ..()

@@ -26,16 +26,12 @@
 	throw_range = 5
 	custom_materials = list(/datum/material/iron=500)
 	breakouttime = 3 MINUTES
-	armor_type = /datum/armor/restraints_handcuffs
+	armor_type = /datum/armor/civilian_metal
 	var/cuffsound = 'sound/weapons/handcuffs.ogg'
 	var/trashtype = null //for disposable cuffs
 
 /obj/item/restraints/handcuffs/get_belt_overlay()
 	return mutable_appearance('icons/obj/clothing/belt_overlays.dmi', "handcuffs")
-
-/datum/armor/restraints_handcuffs
-	fire = 50
-	acid = 50
 
 /obj/item/restraints/handcuffs/attack(mob/living/carbon/C, mob/living/user)
 	if(!istype(C))
@@ -294,7 +290,7 @@
 			INVOKE_ASYNC(carbon_victim, TYPE_PROC_REF(/mob/living/carbon, equip_to_slot), src, ITEM_SLOT_LEGCUFFED)
 			SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 
-	victim.apply_damage(trap_damage, BRUTE, def_zone)
+	victim.take_direct_damage(trap_damage, BRUTE, def_zone)
 
 /obj/item/restraints/legcuffs/beartrap/energy
 	name = "energy snare"

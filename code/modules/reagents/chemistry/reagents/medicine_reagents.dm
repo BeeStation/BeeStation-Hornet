@@ -80,8 +80,8 @@
 	M.radiation = 0
 	REMOVE_TRAITS_NOT_IN(M, list(SPECIES_TRAIT, ROUNDSTART_TRAIT, ORGAN_TRAIT))
 	M.reagents.remove_all_type(/datum/reagent/toxin, 5 * REM * delta_time, FALSE, TRUE)
-	if(M.blood_volume < BLOOD_VOLUME_NORMAL)
-		M.blood_volume = BLOOD_VOLUME_NORMAL
+	if(M.blood.volume < BLOOD_VOLUME_NORMAL)
+		M.blood.volume = BLOOD_VOLUME_NORMAL
 
 	M.cure_all_traumas(TRAUMA_RESILIENCE_MAGIC)
 	for(var/obj/item/organ/organ as anything in M.internal_organs)
@@ -109,7 +109,7 @@
 	M.drowsyness = max(M.drowsyness - (5 * REM * delta_time), 0)
 	M.AdjustStun(-20 * REM * delta_time)
 	M.AdjustKnockdown(-20 * REM * delta_time)
-	M.AdjustUnconscious(-20 * REM * delta_time)
+	M.take_consciousness_damage(-20 * REM * delta_time)
 	M.AdjustImmobilized(-20 * REM * delta_time)
 	M.AdjustParalyzed(-20 * REM * delta_time)
 	if(holder.has_reagent(/datum/reagent/toxin/mindbreaker))
@@ -301,6 +301,32 @@
 	..()
 	. = TRUE
 
+/datum/reagent/medicine/advanced_burn_gel
+	name = "Advanced Burn Gel"
+	description = "A high-tier burn medicine made from the sap of Ambrosia Vulgaris plants. Capable of treating second-degree burns when applied to the skin, but causes liver damage if ingested."
+	reagent_state = LIQUID
+	color = "#f78400"
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
+	metabolization_rate = 2.5 * REAGENTS_METABOLISM
+
+/datum/reagent/medicine/advanced_burn_gel/on_mob_life(mob/living/carbon/M)
+	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 1 * REM)
+	. = ..()
+	. = 1
+
+/datum/reagent/medicine/coagen
+	name = "Coagen"
+	description = "A high-tier medicine which causes rapid coagulation of open wounds. Produced from the sap of Amborsia Vulgaris plants."
+	reagent_state = LIQUID
+	color = "#a61010"
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
+	metabolization_rate = 2.5 * REAGENTS_METABOLISM
+
+/datum/reagent/medicine/coagen/on_mob_life(mob/living/carbon/M)
+	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 1 * REM)
+	. = ..()
+	. = 1
+
 /datum/reagent/medicine/oxandrolone
 	name = "Oxandrolone"
 	description = "Stimulates the healing of severe burns. Overdosing will double the effectiveness of healing the burns while also dealing toxin and liver damage"
@@ -374,13 +400,13 @@
 
 /datum/reagent/medicine/salglu_solution/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(last_added)
-		M.blood_volume -= last_added
+		M.blood.volume -= last_added
 		last_added = 0
-	if(M.blood_volume < maximum_reachable)	//Can only up to double your effective blood level.
-		var/amount_to_add = min(M.blood_volume, 5*volume)
-		var/new_blood_level = min(M.blood_volume + amount_to_add, maximum_reachable)
-		last_added = new_blood_level - M.blood_volume
-		M.blood_volume = new_blood_level
+	if(M.blood.volume < maximum_reachable)	//Can only up to double your effective blood level.
+		var/amount_to_add = min(M.blood.volume, 5*volume)
+		var/new_blood_level = min(M.blood.volume + amount_to_add, maximum_reachable)
+		last_added = new_blood_level - M.blood.volume
+		M.blood.volume = new_blood_level
 	if(DT_PROB(18, delta_time))
 		M.adjustBruteLoss(-0.5, 0)
 		M.adjustFireLoss(-0.5, 0)
@@ -1400,8 +1426,8 @@
 	M.adjustToxLoss(-5 * REM * delta_time, 0)
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, -15 * REM * delta_time)
 	M.adjustCloneLoss(-3 * REM * delta_time, 0)
-	if (M.blood_volume < BLOOD_VOLUME_NORMAL)
-		M.blood_volume = max(M.blood_volume, min(M.blood_volume + 4, BLOOD_VOLUME_NORMAL))
+	if (M.blood.volume < BLOOD_VOLUME_NORMAL)
+		M.blood.volume = max(M.blood.volume, min(M.blood.volume + 4, BLOOD_VOLUME_NORMAL))
 	..()
 	. = TRUE
 
@@ -1411,6 +1437,18 @@
 		M.vomit(20) // nanite safety protocols make your body expel them to prevent harmies
 	..()
 	. = TRUE
+
+/datum/reagent/medicine/terranol
+	name = "Terranol"
+	description = "A potent base chemical used in the production of high-tier medicine. Causes liver damage if ingested without further processing."
+	color = "#82cdb0"
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
+
+/datum/reagent/medicine/terranol/on_mob_life(mob/living/carbon/M)
+	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 2 * REM)
+	M.jitteriness = min(max(0, M.jitteriness + 3), 30)
+	..()
+	return TRUE
 
 /datum/reagent/medicine/earthsblood //Created by ambrosia gaia plants
 	name = "Earthsblood"
@@ -1720,8 +1758,8 @@
 	if(DT_PROB(10, delta_time))
 		M.Jitter(5)
 	M.losebreath = 0
-	if (M.blood_volume < BLOOD_VOLUME_SAFE)
-		M.blood_volume = max(M.blood_volume, (min(M.blood_volume + 4, BLOOD_VOLUME_SAFE) * REM * delta_time))
+	if (M.blood.volume < BLOOD_VOLUME_SAFE)
+		M.blood.volume = max(M.blood.volume, (min(M.blood.volume + 4, BLOOD_VOLUME_SAFE) * REM * delta_time))
 	..()
 
 /datum/reagent/medicine/stabilizing_nanites/on_mob_metabolize(mob/living/L)

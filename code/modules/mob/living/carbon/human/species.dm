@@ -72,6 +72,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/staminamod = 1		// multiplier for stun duration
 	var/attack_type = BRUTE //Type of damage attack does
 	var/punchdamage = 7      //highest possible punch damage
+	var/attack_sharpness = SHARP_NONE
 	var/siemens_coeff = 1 //base electrocution coefficient
 	var/fixed_mut_color = "" //to use MUTCOLOR with a fixed color that's independent of dna.feature["mcolor"]
 	var/inert_mutation 	= /datum/mutation/dwarfism //special mutation that can be found in the genepool. Dont leave empty or changing species will be a headache
@@ -149,9 +150,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	///List of possible heights
 	var/list/species_height = SPECIES_HEIGHTS(BODY_SIZE_SHORT, BODY_SIZE_NORMAL, BODY_SIZE_TALL)
 
-	/// What bleed status effect should we apply?
-	var/bleed_effect = /datum/status_effect/bleeding
-
 	// Species specific bitflags. Used for things like if the race is unable to become a changeling.
 	var/species_bitflags = NONE
 
@@ -160,6 +158,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	//Should we preload this species's organs?
 	var/preload = TRUE
+
+	/// The handler for our species' blood
+	var/blood_type = /datum/blood_source/organic
 
 ///////////
 // PROCS //
@@ -303,11 +304,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
  * * organ_holder - carbon, the owner of the species datum AKA whoever we're regenerating organs in
  * * old_species - datum, used when regenerate organs is called in a switching species to remove old mutant organs.
  * * replace_current - boolean, forces all old organs to get deleted whether or not they pass the species' ability to keep that organ
- * * excluded_zones - list, add zone defines to block organs inside of the zones from getting handled. see headless mutation for an example
  * * visual_only - boolean, only load organs that change how the species looks. Do not use for normal gameplay stuff
  */
-/datum/species/proc/regenerate_organs(mob/living/carbon/organ_holder, datum/species/old_species, replace_current = TRUE, list/excluded_zones, visual_only = FALSE)
-	//what should be put in if there is no mutantorgan (brains handled separately)
+/datum/species/proc/regenerate_organs(mob/living/carbon/organ_holder, datum/species/old_species, replace_current = TRUE, visual_only = FALSE)
 	var/list/organ_slots = list(
 		ORGAN_SLOT_BRAIN,
 		ORGAN_SLOT_HEART,
@@ -355,7 +354,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 		// Check for an existing organ, and if there is one check to see if we should remove it
 		var/health_pct = 1
-		var/remove_existing = !isnull(existing_organ) && !(existing_organ.zone in excluded_zones) && !(existing_organ.organ_flags & ORGAN_UNREMOVABLE)
+		var/remove_existing = !isnull(existing_organ) && !(existing_organ.organ_flags & ORGAN_UNREMOVABLE)
 		if(remove_existing)
 			health_pct = (existing_organ.maxHealth - existing_organ.damage) / existing_organ.maxHealth
 			if(slot == ORGAN_SLOT_BRAIN)
@@ -369,7 +368,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				existing_organ.Remove(organ_holder, special = TRUE)
 				QDEL_NULL(existing_organ)
 
-		if(isnull(existing_organ) && should_have && !(new_organ.zone in excluded_zones))
+		if(isnull(existing_organ) && should_have)
 			used_neworgan = TRUE
 			new_organ.set_organ_damage(new_organ.maxHealth * (1 - health_pct))
 			new_organ.Insert(organ_holder, special = TRUE, drop_if_replaced = FALSE)
@@ -460,6 +459,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		replace_body(C, src)
 
 	regenerate_organs(C, old_species, visual_only = C.visual_only_organs)
+
+	if (TRAIT_NO_BLOOD in inherent_traits)
+		C.blood = new /datum/blood_source/none(C)
+	else
+		C.blood = new /datum/blood_source/organic(C)
 
 	if(exotic_bloodtype && C.dna.blood_type != exotic_bloodtype)
 		C.dna.blood_type = exotic_bloodtype
@@ -672,7 +676,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(!hair_hidden || dynamic_hair_suffix || worn_wig)
 		var/mutable_appearance/hair_overlay = mutable_appearance(layer = CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER))
 		var/mutable_appearance/gradient_overlay = mutable_appearance(layer = CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER))
-		if(!hair_hidden && !H.get_organ_slot(ORGAN_SLOT_BRAIN) && !HAS_TRAIT(H, TRAIT_NOBLOOD))
+		if(!hair_hidden && !H.get_organ_slot(ORGAN_SLOT_BRAIN) && !HAS_TRAIT(H, TRAIT_NO_BLOOD))
 			hair_overlay.icon = 'icons/mob/species/human/human_face.dmi'
 			hair_overlay.icon_state = "debrained"
 
@@ -1428,7 +1432,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 /datum/species/proc/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
 	if(chem.type == exotic_blood)
-		H.blood_volume = min(H.blood_volume + round(chem.volume, 0.1), BLOOD_VOLUME_MAXIMUM)
+		H.blood.volume = min(H.blood.volume + round(chem.volume, 0.1), BLOOD_VOLUME_MAXIMUM)
 		H.reagents.del_reagent(chem.type)
 		return TRUE
 	//This handles dumping unprocessable reagents.
@@ -1617,10 +1621,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			to_chat(source, "<span class='danger'>Your hair starts to fall out in clumps.</span>")
 			addtimer(CALLBACK(src, PROC_REF(go_bald), source), 5 SECONDS)
 
-
-/datum/species/proc/handle_blood(mob/living/carbon/human/H)
-	return FALSE
-
 /**
  * Makes the target human bald.
  *
@@ -1715,17 +1715,15 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 		var/damage = user.dna.species.punchdamage
 
-		var/obj/item/bodypart/affecting = target.get_bodypart(ran_zone(user.get_combat_bodyzone(target)))
+		var/zone = ran_zone(user.get_combat_bodyzone(target))
 
-		if(!damage || !affecting)//future-proofing for species that have 0 damage/weird cases where no zone is targeted
+		if(!damage)//future-proofing for species that have 0 damage/weird cases where no zone is targeted
 			playsound(target.loc, user.dna.species.miss_sound, 25, 1, -1)
 			target.visible_message(span_danger("[user]'s [atk_verb] misses [target]!"), \
 							span_danger("You avoid [user]'s [atk_verb]!"), span_hear("You hear a swoosh!"), COMBAT_MESSAGE_RANGE, user)
 			to_chat(user, span_warning("Your [atk_verb] misses [target]!"))
 			log_combat(user, target, "attempted to punch")
 			return FALSE
-
-		var/armor_block = target.run_armor_check(affecting, MELEE)
 
 		playsound(target.loc, user.dna.species.attack_sound, 25, 1, -1)
 
@@ -1738,16 +1736,16 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		user.dna.species.spec_unarmedattack(user, target)
 
 		if(user.limb_destroyer)
-			target.dismembering_strike(user, affecting.body_zone)
+			target.dismembering_strike(user, zone)
 
 		if(atk_verb == ATTACK_EFFECT_KICK)//kicks deal 1.5x raw damage
-			target.apply_damage(damage*1.5, attack_type, affecting, armor_block)
+			target.deal_damage(damage*1, user.dna.species.attack_sharpness, attack_type, zone = zone)
 			if((damage * 1.5) >= 9)
 				target.force_say()
 			log_combat(user, target, "kicked", "punch")
 		else//other attacks deal full raw damage + 1.5x in stamina damage
-			target.apply_damage(damage, attack_type, affecting, armor_block)
-			target.apply_damage(damage*1.5, STAMINA, affecting, armor_block)
+			target.deal_damage(damage, user.dna.species.attack_sharpness, attack_type, zone = zone)
+			target.deal_damage(damage*1.5, 0, STAMINA, zone = zone)
 			if(damage >= 9)
 				target.force_say()
 			log_combat(user, target, "punched", "punch")
@@ -1806,7 +1804,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/spec_attacked_by(obj/item/I, mob/living/user, obj/item/bodypart/affecting, mob/living/carbon/human/H)
 	// Allows you to put in item-specific reactions based on species
 	if(user != H)
-		if(H.check_shields(I, I.force, "the [I.name]", MELEE_ATTACK, I.armour_penetration))
+		if(H.check_shields(I, I.force, "the [I.name]", MELEE_ATTACK, I.sharpness))
 			return 0
 	if(H.check_block())
 		H.visible_message(span_warning("[H] blocks [I]!"), \
@@ -1820,15 +1818,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	hit_area = parse_zone(affecting.body_zone)
 	var/def_zone = affecting.body_zone
 
-	var/armor_block = H.run_armor_check(affecting, MELEE, span_notice("Your armor has protected your [hit_area]!"), span_warning("Your armor has softened a hit to your [hit_area]!"),I.armour_penetration)
-	var/Iforce = I.force //to avoid runtimes on the forcesay checks at the bottom. Some items might delete themselves if you drop them. (stunning yourself, ninja swords)
-	var/limb_damage = affecting.get_damage() //We need to save this for later to simplify dismemberment
-	apply_damage(I.force, I.damtype, def_zone, armor_block, H)
+	H.deal_damage(I.force, I.sharpness, I.damtype, DAMAGE_STANDARD, get_dir(user, H), TRUE, def_zone)
 
-	if (I.bleed_force)
-		var/armour_block = user.run_armor_check(affecting, BLEED, armour_penetration = I.armour_penetration, silent = (I.force > 0))
-		var/hit_amount = (100 - armour_block) / 100
-		H.add_bleeding(I.bleed_force * hit_amount)
+	var/Iforce = I.force //to avoid runtimes on the forcesay checks at the bottom. Some items might delete themselves if you drop them. (stunning yourself, ninja swords)
+
+	if (I.sharpness)
 		if(IS_ORGANIC_LIMB(affecting))
 			I.add_mob_blood(H)	//Make the weapon bloody, not the person.
 			if(get_dist(user, H) <= 1)	//people with TK won't get smeared with blood
@@ -1858,27 +1852,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(!I.force)
 		return 0 //item force is zero
 
-	var/dismember_limb = FALSE
-	var/weapon_sharpness = I.is_sharp()
-
-	if(((HAS_TRAIT(H, TRAIT_EASYDISMEMBER) && limb_damage) || (weapon_sharpness == SHARP_DISMEMBER_EASY)) && prob(I.force))
-		dismember_limb = TRUE
-		//Easy dismemberment on the mob allows even blunt weapons to potentially delimb, but only if the limb is already damaged
-		//Certain weapons are so sharp/strong they have a chance to cleave right through a limb without following the normal restrictions
-
-	else if(weapon_sharpness > SHARP || (weapon_sharpness == SHARP && H.stat == DEAD))
-		//Delimbing cannot normally occur with blunt weapons
-		//You also aren't cutting someone's arm off with a scalpel unless they're already dead
-
-		if(limb_damage >= affecting.max_damage)
-			dismember_limb = TRUE
-			//You can only cut a limb off if it is already damaged enough to be fully disabled
-
-	if(dismember_limb && ((affecting.body_zone != BODY_ZONE_HEAD && affecting.body_zone != BODY_ZONE_CHEST) || H.stat != CONSCIOUS) && affecting.dismember(I.damtype))
-		I.add_mob_blood(H)
-		playsound(get_turf(H), I.get_dismember_sound(), 80, 1)
-
-	if(I.damtype == BRUTE && (I.force >= max(10, armor_block) && hit_area == BODY_ZONE_HEAD))
+	if(I.damtype == BRUTE && (I.force >= max(10, H.get_bodyzone_armor_flag(BODY_ZONE_HEAD, ARMOUR_BLUNT)) && hit_area == BODY_ZONE_HEAD))
 		if(!I.is_sharp() && H.mind && H.stat == CONSCIOUS && H != user && (H.health - (I.force * I.attack_weight)) <= 0) // rev deconversion through blunt trauma.
 			var/datum/antagonist/rev/rev = IS_REVOLUTIONARY(H)
 			if(rev)
@@ -1891,61 +1865,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		playsound(src, 'sound/surgery/cautery2.ogg', 70)
 	return TRUE
 
-/datum/species/proc/apply_damage(damage, damagetype = BRUTE, def_zone = null, blocked, mob/living/carbon/human/H, forced = FALSE, spread_damage = FALSE)
-	SEND_SIGNAL(H, COMSIG_MOB_APPLY_DAMGE, damage, damagetype, def_zone)
-	var/hit_percent = (100-(blocked+armor))/100
-	hit_percent = (hit_percent * (100-H?.physiology?.damage_resistance))/100
-	if(!damage || (!forced && hit_percent <= 0))
-		return 0
-
-	var/obj/item/bodypart/BP = null
-	if(!spread_damage)
-		if(isbodypart(def_zone))
-			BP = def_zone
-		else
-			if(!def_zone)
-				def_zone = check_zone(def_zone)
-			BP = H.get_bodypart(check_zone(def_zone))
-			if(!BP)
-				BP = H.bodyparts[1]
-
-	switch(damagetype)
-		if(BRUTE)
-			H.damageoverlaytemp = 20
-			var/damage_amount = forced ? damage : damage * hit_percent * brutemod * H.physiology.brute_mod
-			if(BP)
-				if(BP.receive_damage(damage_amount, 0))
-					H.update_damage_overlays()
-			else//no bodypart, we deal damage with a more general method.
-				H.adjustBruteLoss(damage_amount, forced = forced)
-		if(BURN)
-			H.damageoverlaytemp = 20
-			var/damage_amount = forced ? damage : damage * hit_percent * burnmod * H.physiology.burn_mod
-			if(BP)
-				if(BP.receive_damage(0, damage_amount))
-					H.update_damage_overlays()
-			else
-				H.adjustFireLoss(damage_amount, forced = forced)
-		if(TOX)
-			var/damage_amount = forced ? damage : damage * hit_percent * toxmod * H.physiology.tox_mod
-			H.adjustToxLoss(damage_amount, forced = forced)
-		if(OXY)
-			var/damage_amount = forced ? damage : damage * oxymod * hit_percent * H.physiology.oxy_mod
-			H.adjustOxyLoss(damage_amount, forced = forced)
-		if(CLONE)
-			var/damage_amount = forced ? damage : damage * hit_percent * clonemod * H.physiology.clone_mod
-			H.adjustCloneLoss(damage_amount, forced = forced)
-		if(STAMINA)
-			var/damage_amount = forced ? damage : damage * hit_percent * staminamod * H.physiology.stamina_mod
-			if(BP)
-				if(BP.receive_damage(0, 0, damage_amount))
-					H.update_stamina(TRUE)
-			else
-				H.adjustStaminaLoss(damage_amount, forced = forced)
-		if(BRAIN)
-			var/damage_amount = forced ? damage : damage * hit_percent * H.physiology.brain_mod
-			H.adjustOrganLoss(ORGAN_SLOT_BRAIN, damage_amount)
-	return 1
+/datum/species/proc/after_damage_taken(mob/living/carbon/human/owner, amount, type = BRUTE, flag = DAMAGE_STANDARD, zone = null)
+	SEND_SIGNAL(owner, COMSIG_MOB_APPLY_DAMGE, amount, type, zone)
 
 /datum/species/proc/on_hit(obj/projectile/P, mob/living/carbon/human/H)
 	// called when hit by a projectile
@@ -2170,17 +2091,17 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			humi.emote("scream")
 
 		// Apply the damage to all body parts
-		humi.apply_damage(burn_damage, BURN, spread_damage = TRUE)
+		humi.take_direct_damage(burn_damage, BURN)
 
 	if(humi.coretemperature < bodytemp_cold_damage_limit && !HAS_TRAIT(humi, TRAIT_RESISTCOLD))
 		var/damage_type = BURN
 		var/damage_mod = coldmod * humi.physiology.cold_mod
 		if(humi.coretemperature in 201 to bodytemp_cold_damage_limit)
-			humi.apply_damage(COLD_DAMAGE_LEVEL_1 * damage_mod * delta_time, damage_type)
+			humi.take_direct_damage(COLD_DAMAGE_LEVEL_1 * damage_mod * delta_time, damage_type, DAMAGE_EXISTENTIAL)
 		else if(humi.coretemperature in 120 to 200)
-			humi.apply_damage(COLD_DAMAGE_LEVEL_2 * damage_mod * delta_time, damage_type)
+			humi.take_direct_damage(COLD_DAMAGE_LEVEL_2 * damage_mod * delta_time, damage_type, DAMAGE_EXISTENTIAL)
 		else
-			humi.apply_damage(COLD_DAMAGE_LEVEL_3 * damage_mod * delta_time, damage_type)
+			humi.take_direct_damage(COLD_DAMAGE_LEVEL_3 * damage_mod * delta_time, damage_type, DAMAGE_EXISTENTIAL)
 
 /**
  * Used to apply burn wounds on random limbs
@@ -2224,7 +2145,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(humi.bodytemperature > BODYTEMP_HEAT_WOUND_LIMIT + 2800)
 		burn_damage = HEAT_DAMAGE_LEVEL_3
 
-	humi.apply_damage(burn_damage * delta_time, BURN, bodypart)
+	humi.take_direct_damage(burn_damage * delta_time, BURN, zone = bodypart.body_zone)
 
 /// Handle the air pressure of the environment
 /datum/species/proc/handle_environment_pressure(mob/living/carbon/human/H, datum/gas_mixture/environment, delta_time, times_fired)
@@ -2396,6 +2317,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		return FALSE
 
 /datum/species/proc/CanFly(mob/living/carbon/human/H)
+	if (H.has_status_effect(/datum/status_effect/critical_condition))
+		return FALSE
 	var/obj/item/organ/wings/wings = H.get_organ_slot(ORGAN_SLOT_WINGS)
 	if(!H.get_organ_by_type(/obj/item/organ/wings))
 		return FALSE
@@ -2876,8 +2799,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/create_pref_blood_perks()
 	var/list/to_add = list()
 
-	// TRAIT_NOBLOOD takes priority by default
-	if(TRAIT_NOBLOOD in inherent_traits)
+	// TRAIT_NO_BLOOD takes priority by default
+	if(TRAIT_NO_BLOOD in inherent_traits)
 		to_add += list(list(
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
 			SPECIES_PERK_ICON = "tint-slash",

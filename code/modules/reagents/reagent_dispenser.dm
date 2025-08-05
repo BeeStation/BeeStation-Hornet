@@ -47,10 +47,10 @@
 			var/obj/item/assembly/timer/timer = assembly
 			. += span_notice("There is a timer [timer.timing ? "counting down from [timer.time]":"set for [timer.time] seconds"].")
 
-/obj/structure/reagent_dispensers/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
+/obj/structure/reagent_dispensers/deal_damage(amount, penetration, type, flag, dir, sound, zone)
 	. = ..()
-	if(. && atom_integrity > 0)
-		if(tank_volume && (damage_flag == BULLET || damage_flag == LASER))
+	if(atom_integrity > 0)
+		if(tank_volume && ((flag == DAMAGE_STANDARD && prob(penetration)) || flag == DAMAGE_LASER))
 			boom()
 
 /obj/structure/reagent_dispensers/attackby(obj/item/W, mob/user, params)

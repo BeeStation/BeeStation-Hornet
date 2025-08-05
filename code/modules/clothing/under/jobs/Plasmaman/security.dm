@@ -3,18 +3,9 @@
 	desc = "A plasmaman containment suit designed for security officers, offering a limited amount of extra protection."
 	icon_state = "security_envirosuit"
 	item_state = "security_envirosuit"
-	armor_type = /datum/armor/plasmaman_security
+	armor_type = /datum/armor/civilian_padded
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
-
-
-/datum/armor/plasmaman_security
-	melee = 10
-	bio = 100
-	fire = 95
-	acid = 95
-	stamina = 10
-	bleed = 10
 
 /obj/item/clothing/under/plasmaman/security/warden
 	name = "warden plasma envirosuit"
@@ -33,13 +24,4 @@
 	desc = "A plasmaman containment suit designed for brig physicians. It has a red cross emblasoned on the chest."
 	icon_state = "secmed_envirosuit"
 	item_state = "secmed_envirosuit"
-	armor_type = /datum/armor/security_secmed
-
-
-/datum/armor/security_secmed
-	melee = 5
-	bio = 100
-	fire = 95
-	acid = 95
-	stamina = 10
-	bleed = 10
+	armor_type = /datum/armor/civilian_padded

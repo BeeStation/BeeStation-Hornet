@@ -80,12 +80,6 @@
 /datum/movespeed_modifier/human_carry
 	multiplicative_slowdown = HUMAN_CARRY_SLOWDOWN
 
-/datum/movespeed_modifier/limbless
-	variable = TRUE
-	movetypes = GROUND
-	blacklisted_movetypes = FLOATING|FLYING
-	flags = IGNORE_NOSLOW
-
 /datum/movespeed_modifier/simplemob_varspeed
 	variable = TRUE
 	flags = IGNORE_NOSLOW

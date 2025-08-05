@@ -1,8 +1,8 @@
 /obj/projectile/bullet/dart
 	name = "dart"
 	icon_state = "cbbolt"
-	damage = 5
-	bleed_force = BLEED_SCRATCH
+	damage = 6
+	sharpness = 80
 	var/piercing = FALSE
 	var/obj/item/reagent_containers/syringe/syringe = null
 
@@ -59,7 +59,7 @@
 	name = "bee"
 	icon_state = "bee"
 	damage = 1
-	armor_flag = MELEE
+	damage_flag = DAMAGE_STANDARD
 	piercing = TRUE
 
 /obj/projectile/bullet/dart/bee/on_hit(atom/target, blocked)

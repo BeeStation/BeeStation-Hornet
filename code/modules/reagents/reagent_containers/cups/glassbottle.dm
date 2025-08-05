@@ -59,7 +59,6 @@
 
 	var/mob/living/living_target = target
 
-	var/armor_block = 0 //Get the target's armor values for normal attack damage.
 	var/armor_duration = 0 //The more force the bottle has, the longer the duration.
 
 	// Preference for smashing on the head with this item due to it dealing a stun effect on top
@@ -70,22 +69,18 @@
 
 		var/mob/living/carbon/human/H = target
 		var/headarmor = 0 // Target's head armor
-		armor_block = H.run_armor_check(target_zone, MELEE, "", "", armour_penetration) // For normal attack damage
 
 		//If they have a hat/helmet and the user is targeting their head.
 		if(istype(H.head, /obj/item/clothing/head) && target_zone == BODY_ZONE_HEAD)
-			headarmor = H.head.get_armor_rating(MELEE)
+			headarmor = H.head.get_armor_rating(ARMOUR_BLUNT)
 		//Calculate the knockdown duration for the target.
 		armor_duration = (bottle_knockdown_duration - headarmor) + force
 
 	else
-		//Only humans can have armor, right?
-		armor_block = living_target.run_armor_check(target_zone, MELEE)
 		if(target_zone == BODY_ZONE_HEAD)
 			armor_duration = bottle_knockdown_duration + force
 	//Apply the damage!
-	armor_block = min(90,armor_block)
-	living_target.apply_damage(force, BRUTE, target_zone, armor_block)
+	living_target.deal_damage(force, 0, BRUTE, DAMAGE_STANDARD, zone = target_zone)
 
 	// You are going to knock someone down for longer if they are not wearing a helmet.
 	var/head_attack_message = ""
@@ -127,8 +122,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb_continuous = list("stabs", "slashes", "attacks")
 	attack_verb_simple = list("stab", "slash", "attack")
-	sharpness = SHARP
-	bleed_force = BLEED_SURFACE
+	sharpness = SHARP_III
 	var/static/icon/broken_outline = icon('icons/obj/drinks/drink_effects.dmi', "broken")
 
 /obj/item/broken_bottle/Initialize(mapload)

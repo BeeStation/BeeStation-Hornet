@@ -12,11 +12,10 @@
 		MUTCOLORS,
 		REVIVESBYHEALING,
 		NOHUSK,
-		NOMOUTH, 
+		NOMOUTH,
 		MUTCOLORS
 	)
 	inherent_traits = list(
-		TRAIT_BLOOD_COOLANT,
 		TRAIT_RESISTCOLD,
 		TRAIT_NOBREATH,
 		TRAIT_RADIMMUNE,
@@ -24,7 +23,7 @@
 		TRAIT_LIMBATTACHMENT,
 		TRAIT_EASYDISMEMBER,
 		TRAIT_POWERHUNGRY,
-		TRAIT_XENO_IMMUNE, 
+		TRAIT_XENO_IMMUNE,
 		TRAIT_TOXIMMUNE
 	)
 	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
@@ -69,12 +68,12 @@
 
 	exotic_blood = /datum/reagent/oil
 	blood_color = "#000000"
-	bleed_effect = /datum/status_effect/bleeding/robotic
 
 	var/saved_screen //for saving the screen when they die
 	var/datum/action/innate/change_screen/change_screen
 
 	speak_no_tongue = FALSE  // who stole my soundblaster?! (-candy/etherware)
+	blood_type = /datum/blood_source/silicon
 
 /datum/species/ipc/random_name(gender, unique, lastname, attempts)
 	. = "[pick(GLOB.posibrain_names)]-[rand(100, 999)]"
@@ -85,14 +84,6 @@
 
 /datum/species/ipc/on_species_gain(mob/living/carbon/C)
 	. = ..()
-	var/obj/item/organ/appendix/A = C.get_organ_slot("appendix") //See below.
-	if(A)
-		A.Remove(C)
-		QDEL_NULL(A)
-	var/obj/item/organ/lungs/L = C.get_organ_slot("lungs") //Hacky and bad. Will be rewritten entirely in KapuCarbons anyway.
-	if(L)
-		L.Remove(C)
-		QDEL_NULL(L)
 	if(ishuman(C) && !change_screen)
 		change_screen = new
 		change_screen.Grant(C)
@@ -292,11 +283,23 @@
 
 	to_add += list(
 		list(
+			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+			SPECIES_PERK_ICON = "x-ray",
+			SPECIES_PERK_NAME = "Synthetic Limbs",
+			SPECIES_PERK_DESC = "IPCs have no skin or bones to break, so do not suffer from injuries.",
+		),
+		list(
 			SPECIES_PERK_TYPE = SPECIES_NEUTRAL_PERK,
 			SPECIES_PERK_ICON = "robot",
-			SPECIES_PERK_NAME = "Robotic",
+			SPECIES_PERK_NAME = "Right To Repair",
 			SPECIES_PERK_DESC = "IPCs have an entirely robotic body, meaning medical care is typically done through Robotics or Engineering. \
 			Whether this is helpful or not is heavily dependent on your coworkers. It does, however, mean you are usually able to perform self-repairs easily.",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_NEUTRAL_PERK,
+			SPECIES_PERK_ICON = "microchip",
+			SPECIES_PERK_NAME = "Central Processing Unit",
+			SPECIES_PERK_DESC = "IPCs do not take consciousness damage from head trauma, but cannot stand to perform actions while in critical condition.",
 		),
 		list(
 			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,

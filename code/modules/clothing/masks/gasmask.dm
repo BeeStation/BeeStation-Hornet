@@ -7,13 +7,8 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "gas_alt"
 	gas_transfer_coefficient = 0.01
-	armor_type = /datum/armor/mask_gas
 	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
 	resistance_flags = NONE
-
-
-/datum/armor/mask_gas
-	bio = 100
 
 /obj/item/clothing/mask/gas/atmos/centcom
 	name = "\improper CentCom gas mask"
@@ -32,22 +27,13 @@
 	custom_materials = list(/datum/material/iron=4000, /datum/material/glass=2000)
 	flash_protect = 2
 	tint = 2
-	armor_type = /datum/armor/gas_welding
+	armor_type = /datum/armor/hardhat
 	actions_types = list(/datum/action/item_action/toggle)
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE|HIDESNOUT
 	flags_cover = MASKCOVERSEYES
 	visor_flags_inv = HIDEEYES
 	visor_flags_cover = MASKCOVERSEYES
 	resistance_flags = FIRE_PROOF
-
-
-/datum/armor/gas_welding
-	melee = 10
-	bio = 100
-	fire = 100
-	acid = 55
-	stamina = 15
-	bleed = 5
 
 /obj/item/clothing/mask/gas/welding/attack_self(mob/user)
 	weldingvisortoggle(user)

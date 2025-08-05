@@ -1,8 +1,5 @@
 CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
-/mob/living/carbon
-	blood_volume = BLOOD_VOLUME_NORMAL
-
 /mob/living/carbon/Initialize(mapload)
 	. = ..()
 	create_reagents(1000)
@@ -123,8 +120,8 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 				log_combat(victim, src, "caught [src]")
 				return
 			if(hurt)
-				victim.take_bodypart_damage(10,check_armor = TRUE)
-				take_bodypart_damage(10,check_armor = TRUE)
+				victim.deal_damage(10, SHARP_NONE, zone = ran_zone())
+				deal_damage(10, SHARP_NONE, zone = ran_zone())
 				victim.Paralyze(20)
 				Paralyze(20)
 				visible_message(span_danger("[src] crashes into [victim], knocking them both over!"),\
@@ -142,7 +139,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	if(hit_atom.density && isturf(hit_atom))
 		if(hurt)
 			Paralyze(20)
-			take_bodypart_damage(10,check_armor = TRUE)
+			deal_damage(10, SHARP_NONE, zone = ran_zone())
 
 //Throwing stuff
 /mob/living/carbon/proc/toggle_throw_mode()
@@ -765,6 +762,8 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 			. = 1
 			if(shown_health_amount == null)
 				shown_health_amount = health
+			if (undergoing_cardiac_arrest())
+				shown_health_amount = 0
 			if(shown_health_amount >= maxHealth)
 				hud_used.healths.icon_state = "health0"
 			else if(shown_health_amount > maxHealth*0.8)

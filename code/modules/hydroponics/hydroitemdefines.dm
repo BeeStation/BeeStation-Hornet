@@ -87,8 +87,7 @@
 	attack_verb_continuous = list("chops", "tears", "lacerates", "cuts")
 	attack_verb_simple = list("chop", "tear", "lacerate", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	sharpness = SHARP_DISMEMBER
-	bleed_force = BLEED_CUT
+	sharpness = SHARP_III
 
 /obj/item/hatchet/Initialize(mapload)
 	. = ..()
@@ -112,7 +111,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	item_flags = ISWEAPON
 	flags_1 = CONDUCT_1
-	armour_penetration = 20
+	sharpness = SHARP_IV
 	slot_flags = ITEM_SLOT_BACK
 	attack_verb_continuous = list("chops", "slices", "cuts", "reaps")
 	attack_verb_simple = list("chop", "slice", "cut", "reap")
