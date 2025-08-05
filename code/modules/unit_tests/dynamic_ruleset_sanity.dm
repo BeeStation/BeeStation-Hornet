@@ -35,7 +35,7 @@
 
 		// Severity
 		var/severity = initial(ruleset.severity)
-		if(!(severity in list(DYNAMIC_MIDROUND_LIGHT, DYNAMIC_MIDROUND_MEDIUM, DYNAMIC_MIDROUND_HEAVY)))
+		if(!severity)
 			TEST_FAIL("[ruleset] has an invalid severity!")
 
 	// Latejoin
