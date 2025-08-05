@@ -349,8 +349,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 	custom_materials = null
 	rating = 5 //self-recharge makes these desirable
 	self_recharge = TRUE // Infused slime cores self-recharge, over time
-	chargerate_divide = 20
-	maxcharge = 200
+	chargerate_divide = 100
+	maxcharge = 20 KILOAUR
 
 /obj/item/stock_parts/cell/emproof
 	name = "\improper EMP-proof cell"
