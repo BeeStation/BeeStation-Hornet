@@ -128,21 +128,23 @@
 	name = "[L.name]'s brain"
 	if(brainmob || decoy_override)
 		return
+
 	brainmob = new(src)
 	brainmob.name = L.real_name
 	brainmob.real_name = L.real_name
 	brainmob.timeofhostdeath = L.timeofdeath
 	brainmob.suiciding = suicided
+
 	if(L.has_dna())
 		var/mob/living/carbon/C = L
 		if(!brainmob.stored_dna)
 			brainmob.stored_dna = new /datum/dna/stored(brainmob)
 		C.dna.copy_dna(brainmob.stored_dna)
-		if(HAS_TRAIT(L, TRAIT_BADDNA))
-			LAZYSET(brainmob.status_traits, TRAIT_BADDNA, L.status_traits[TRAIT_BADDNA])
+		for(var/source in GET_TRAIT_SOURCES(L, TRAIT_BADDNA))
+			ADD_TRAIT(brainmob, TRAIT_BADDNA, source)
 		var/obj/item/organ/zombie_infection/ZI = L.get_organ_slot(ORGAN_SLOT_ZOMBIE)
 		if(ZI)
-			brainmob.set_species(ZI.old_species)	//For if the brain is cloned
+			brainmob.set_species(ZI.old_species) //For if the brain is cloned
 
 /obj/item/organ/brain/attackby(obj/item/O, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)

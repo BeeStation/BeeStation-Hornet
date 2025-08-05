@@ -299,6 +299,9 @@
 /// Slightly slower than HAS_TRAIT and should be avoided when proc-overhead matters (roughly >1000 calls per second)
 #define HAS_TRAIT_NOT_FROM(target, trait, source) (target.status_traits && ____has_trait_not_from(target, trait, source))
 
+/// Returns a list of trait sources for this trait. Only useful for wacko cases and internal futzing
+#define GET_TRAIT_SOURCES(target, trait) (target.status_traits?[trait] || list())
+
 GLOBAL_DATUM_INIT(_trait_located, /datum/trait, null)
 
 // Note: a?:b is used because : alone breaks the terniary operator
