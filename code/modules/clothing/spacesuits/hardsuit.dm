@@ -440,7 +440,7 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/engine/elite
 	jetpack = /obj/item/tank/jetpack/suit
-	cell = /obj/item/stock_parts/cell/super
+	cell = /obj/item/stock_parts/cell/plus
 
 	//Mining hardsuit
 
@@ -756,7 +756,7 @@
 	allowed = list(/obj/item/gun, /obj/item/ammo_box,/obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi
 	jetpack = /obj/item/tank/jetpack/suit
-	cell = /obj/item/stock_parts/cell/hyper
+	cell = /obj/item/stock_parts/cell/super
 	item_flags = ILLEGAL	//Syndicate only and difficult to obtain outside of uplink anyway. Nukie hardsuits on the ship are illegal.
 	slowdown = 0.5
 	actions_types = list(
@@ -1088,7 +1088,7 @@
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/gun/energy/wormhole_projector, /obj/item/hand_tele, /obj/item/aicard)
 	armor_type = /datum/armor/hardsuit_research_director
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/rd
-	cell = /obj/item/stock_parts/cell/super
+	cell = /obj/item/stock_parts/cell/plus
 
 /datum/armor/hardsuit_research_director
 	melee = 30
@@ -1189,7 +1189,7 @@
 	armor_type = /datum/armor/security_head_of_security
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/security/hos
 	jetpack = /obj/item/tank/jetpack/suit
-	cell = /obj/item/stock_parts/cell/super
+	cell = /obj/item/stock_parts/cell/plus
 
 	//SWAT MKII
 
@@ -1279,7 +1279,7 @@
 	icon_state = "caparmor"
 	item_state = "capspacesuit"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/swat/captain
-	cell = /obj/item/stock_parts/cell/super
+	cell = /obj/item/stock_parts/cell/plus
 
 	//Clown
 /obj/item/clothing/head/helmet/space/hardsuit/clown
