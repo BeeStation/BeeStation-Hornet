@@ -20,7 +20,7 @@
 		TRAIT_NONECRODISEASE,
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_RESISTCOLD,
-		TRAIT_NORADDAMAGE
+		TRAIT_RADIMMUNE,
 	)
 	inherent_biotypes = list(MOB_HUMANOID, MOB_ORGANIC, MOB_BUG)
 	mutant_bodyparts = list("diona_leaves", "diona_thorns", "diona_flowers", "diona_moss", "diona_mushroom", "diona_antennae", "diona_eyes", "diona_pbody")

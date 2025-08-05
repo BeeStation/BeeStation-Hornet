@@ -299,7 +299,7 @@
 	if(data["misc"] >= (1 MINUTES)) // 24 units
 		if(IS_CULTIST(affected_mob) || IS_SERVANT_OF_RATVAR(affected_mob))
 			if(IS_CULTIST(affected_mob))
-				SSticker.mode.remove_cultist(affected_mob.mind, FALSE, TRUE)
+				affected_mob.mind.remove_antag_datum(/datum/antagonist/cult)
 			if(IS_SERVANT_OF_RATVAR(affected_mob))
 				remove_servant_of_ratvar(affected_mob.mind)
 			affected_mob.jitteriness = 0

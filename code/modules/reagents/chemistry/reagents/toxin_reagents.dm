@@ -374,7 +374,7 @@
 	description = "A less potent version of mute toxin which prevents a victim from speaking loudly."
 	silent_toxin = TRUE
 	color = "#F0F8FF" // rgb: 240, 248, 255
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST | CHEMICAL_GOAL_BARTENDER_SERVING
 	toxpwr = 0
 	taste_description = "alcohol"
 	metabolized_traits = list(TRAIT_WHISPER_ONLY, TRAIT_EMOTEMUTE)
@@ -394,7 +394,7 @@
 	description = "A nonlethal poison that causes extreme fatigue and weakness in its victim."
 	silent_toxin = TRUE
 	color = "#6E2828"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	data = 30
 	toxpwr = 0
 
@@ -407,6 +407,7 @@
 	affected_mob.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/staminatoxin)
 
 /datum/reagent/toxin/staminatoxin/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
 	data = max(data - 1, 3)
 	affected_mob.adjustStaminaLoss(data * REM * delta_time, updating_health = FALSE)
 	return UPDATE_MOB_HEALTH
@@ -511,7 +512,7 @@
 	metabolization_rate = 0.2 * REAGENTS_METABOLISM
 	reagent_state = LIQUID
 	color = "#6c9919"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	toxpwr = 0.25
 
 /datum/reagent/toxin/apidvenom/on_mob_life(mob/living/carbon/M, delta_time, times_fired)

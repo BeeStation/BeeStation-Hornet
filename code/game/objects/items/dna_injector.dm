@@ -513,7 +513,7 @@
 		return FALSE
 	if(!M.can_mutate())
 		return FALSE
-	M.radiation += rand(20/(damage_coeff  ** 2),50/(damage_coeff  ** 2))
+
 	var/log_msg = "[key_name(user)] injected [key_name(M)] with the [name]"
 	var/endtime = world.time+duration
 	for(var/mutation in remove_mutations)
@@ -552,53 +552,6 @@
 		if(fields["UF"] || fields["UI"])
 			M.updateappearance(mutcolor_update = TRUE, mutations_overlay_update = TRUE)
 		log_attack("[log_msg] [loc_name(user)]")
-	return TRUE
-
-	var/log_msg = "[key_name(user)] injected [key_name(M)] with the [name]"
-	var/endtime = world.time+duration
-	for(var/mutation in remove_mutations)
-		if(mutation == /datum/mutation/race)
-			if(ishuman(M))
-				continue
-			M = M.dna.remove_mutation(mutation)
-		else
-			M.dna.remove_mutation(mutation)
-	for(var/mutation in add_mutations)
-		if(M.dna.get_mutation(mutation))
-			continue //Skip permanent mutations we already have.
-		if(mutation == /datum/mutation/race && ishuman(M))
-			message_admins("[ADMIN_LOOKUPFLW(user)] injected [key_name_admin(M)] with the [name] [span_danger("(MONKEY)")]")
-			log_msg += " (MONKEY)"
-			M = M.dna.add_mutation(mutation, MUT_OTHER, endtime)
-		else
-			M.dna.add_mutation(mutation, MUT_OTHER, endtime)
-	if(fields)
-		if(fields["name"] && fields["UE"] && fields["blood_type"])
-			if(!M.dna.previous["name"])
-				M.dna.previous["name"] = M.real_name
-			if(!M.dna.previous["UE"])
-				M.dna.previous["UE"] = M.dna.unique_enzymes
-			if(!M.dna.previous["blood_type"])
-				M.dna.previous["blood_type"] = M.dna.blood_type
-			M.real_name = fields["name"]
-			M.dna.unique_enzymes = fields["UE"]
-			M.name = M.real_name
-			M.dna.blood_type = fields["blood_type"]
-			M.dna.temporary_mutations[UE_CHANGED] = endtime
-		if(fields["UI"])
-			if(!M.dna.previous["UI"])
-				M.dna.previous["UI"] = M.dna.unique_identity
-			M.dna.unique_identity = merge_text(M.dna.unique_identity, fields["UI"])
-			M.dna.temporary_mutations[UI_CHANGED] = endtime
-		if(fields["UF"])
-			if(!M.dna.previous["UF"])
-				M.dna.previous["UF"] = M.dna.unique_features
-			M.dna.unique_features = merge_text(M.dna.unique_features, fields["UF"])
-			M.dna.temporary_mutations[UF_CHANGED] = endtime
-		if(fields["UF"] || fields["UI"])
-			M.updateappearance(mutcolor_update = TRUE, mutations_overlay_update = TRUE)
-	log_attack("[log_msg] [loc_name(user)]")
-
 	return TRUE
 
 /obj/item/dnainjector/timed/hulk
