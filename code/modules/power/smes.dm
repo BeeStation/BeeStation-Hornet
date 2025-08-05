@@ -47,28 +47,17 @@
 	if(!terminal)
 		atom_break()
 		return
+	if(mapload)
+		charge = capacity
 	terminal.master = src
-	RefreshParts()
 	update_icon()
 
 /obj/machinery/power/smes/RefreshParts()
-	var/capacitor_ratings = 0
-	var/total_maxcharge = 0
-	var/curent_charge
 	for(var/obj/item/stock_parts/capacitor/capacitor in component_parts)
-		capacitor_ratings += capacitor.rating
-	input_level_max = initial(input_level_max) * capacitor_ratings
-	output_level_max = initial(output_level_max) * capacitor_ratings
-	var/recharging_cells = FALSE
-	for(var/obj/item/stock_parts/cell/cell in component_parts)
-		total_maxcharge += cell.maxcharge
-		curent_charge += cell.charge
-		if(cell.self_recharge)
-			recharging_cells = TRUE
-	process_cells = recharging_cells
-	capacity = total_maxcharge * 10	// This multiplies the cells capacity by 10, so standard cell would be worth 100 KILOAUR
-	if(!initial(charge) && !charge)
-		charge = curent_charge * 10
+		input_level_max = initial(input_level_max) * capacitor.rating
+		output_level_max = initial(output_level_max) * capacitor.rating
+	for(var/obj/item/stock_parts/matter_bin/bin in component_parts)
+		capacity += 10 + (10 * bin.rating) MEGAAUR	// 100, 150, 200, 250 depending on tier of matter bins
 
 /obj/machinery/power/smes/attackby(obj/item/I, mob/user, params)
 	//opening using screwdriver
@@ -167,10 +156,6 @@
 
 	return ..()
 
-/obj/machinery/power/smes/on_deconstruction()
-	for(var/obj/item/stock_parts/cell/cell in component_parts)
-		cell.charge = charge / 10
-
 /obj/machinery/power/smes/Destroy()
 	if(SSticker.IsRoundInProgress())
 		var/turf/T = get_turf(src)
@@ -235,13 +220,6 @@
 	//inputting
 	if(terminal && input_attempt)
 		input_available = terminal.surplus()
-
-		if(process_cells) //We have self-charging cells
-			for(var/obj/item/stock_parts/cell/cell in component_parts)
-				if(cell.self_recharge)
-					cell.process()
-					charge += min((capacity - charge), ((cell.charge * 10)))
-					cell.charge = 0 //SMES power math is weird so let's just zero it to simplify things
 
 		if(inputting)
 
