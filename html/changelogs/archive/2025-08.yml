@@ -33,6 +33,9 @@
   - tweak: Set the Space Dragon ruleset min player amount to 13
   - bugfix: Admin forced rulesets are properly logged now
 2025-08-05:
+  Isaac:
+  - bugfix: Echo Server Room Overheating due to faulty plasma canister
+  - bugfix: Echo Station Kitchen APC not being connected to the station
   PowerfulBacon:
   - tweak: Dynamic midround rulesets can now have multiple severities, meaning that
       it is not limited to only wizards during round ends at low-pops.

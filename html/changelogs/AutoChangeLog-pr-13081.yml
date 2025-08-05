@@ -1,5 +1,0 @@
-author: Isaac
-delete-after: true
-changes:
-  - bugfix: Echo Server Room Overheating due to faulty plasma canister
-  - bugfix: Echo Station Kitchen APC not being connected to the station
