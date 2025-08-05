@@ -17,7 +17,6 @@
 	always_area_sensitive = TRUE
 	var/on = FALSE					// 1 if on, 0 if off
 	var/on_gs = FALSE
-	var/static_power_used = 0
 	var/brightness = 10			// luminosity when on, also used in power calculation
 	var/bulb_power = 1			// basically the alpha of the emitted light source
 	var/bulb_colour = "#FFF6ED"	// default colour of the light.
@@ -220,22 +219,17 @@
 			turning_on = TRUE
 			addtimer(CALLBACK(src, PROC_REF(turn_on), trigger, quiet), rand(LIGHT_ON_DELAY_LOWER, LIGHT_ON_DELAY_UPPER))
 	else if(use_emergency_power(LIGHT_EMERGENCY_POWER_USE) && !turned_off())
-		use_power = IDLE_POWER_USE
+		update_use_power(IDLE_POWER_USE)
 		emergency_mode = TRUE
 		START_PROCESSING(SSmachines, src)
 	else
-		use_power = IDLE_POWER_USE
+		update_use_power(IDLE_POWER_USE)
 		set_light(0)
 	update_icon()
-
-	active_power_usage = (brightness * 7.2)
+	if(brightness != initial(brightness))	// If the brightness isn't 10 we're changing power usage based on the new brightness
+		active_power_usage = initial(active_power_usage) * (brightness / 10)
 	if(on != on_gs)
 		on_gs = on
-		if(on)
-			static_power_used = brightness * 20 //20W per unit luminosity
-			addStaticPower(static_power_used, AREA_USAGE_STATIC_LIGHT)
-		else
-			removeStaticPower(static_power_used, AREA_USAGE_STATIC_LIGHT)
 
 	broken_sparks(start_only=TRUE)
 
@@ -271,7 +265,7 @@
 			if(trigger)
 				burn_out()
 		else
-			use_power = ACTIVE_POWER_USE
+			update_use_power(ACTIVE_POWER_USE)
 			set_light(BR, PO, CO)
 			if(!quiet)
 				playsound(src.loc, 'sound/effects/light_on.ogg', 50)
