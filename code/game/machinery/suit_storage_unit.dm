@@ -6,7 +6,8 @@
 	icon_state = "close"
 	obj_flags = CAN_BE_HIT | USES_TGUI
 	use_power = ACTIVE_POWER_USE
-	active_power_usage = 60
+	active_power_usage = 100 AUR
+	idle_power_usage = 50 AUR
 	power_channel = AREA_USAGE_EQUIP
 	density = TRUE
 	obj_flags = BLOCKS_CONSTRUCTION // Becomes undense when the unit is open
@@ -477,7 +478,7 @@
 
 	var/obj/item/stock_parts/cell/C = suit.cell
 	use_power(charge_rate)
-	C.give(charge_rate)
+	C.give(charge_rate POWER_TRANSFER_LOSS)
 
 /obj/machinery/suit_storage_unit/proc/shock(mob/user, prb)
 	if(!prob(prb))
