@@ -7,14 +7,12 @@
 
 #define GASRIG_MAX_DEPTH 1000
 #define GASRIG_DEPTH_CHANGE_SPEED 10
-#define GASRIG_DEPTH_SHIELD_DAMAGE_MULTIPLIER 10
+#define GASRIG_DEPTH_SHIELD_DAMAGE_MULTIPLIER 3
 #define GASRIG_SHIELD_MOL_LOG_MULTIPLER 1
 
-#define GASRIG_MODE_OFF 0
 #define GASRIG_MODE_NORMAL 1
 #define GASRIG_MODE_REPAIR 2
-#define GASRIG_MODE_AUTO 3
-#define GASRIG_MODE_OVERPRESSURE 4
+#define GASRIG_MODE_OVERPRESSURE 3
 
 #define GASRIG_DEPTH_TEMP_MULTIPLER 1
 #define GASRIG_FRACKING_PRESSURE_MULTIPLER 1
@@ -47,6 +45,7 @@
 	var/set_depth = 0
 
 	var/shield_strength = GASRIG_MAX_SHIELD_STRENGTH
+	var/shield_strength_change = 0
 
 	var/mode = GASRIG_MODE_NORMAL
 	var/active = TRUE
@@ -98,17 +97,17 @@
 
 /obj/machinery/atmospherics/gasrig/core/process(delta_time)
 	if(!needs_repairs && active)
-		get_shield_damage(shielding_input.airs[1])
 		produce_gases(gas_output.airs[1])
-		update_pipenets()
+	get_shield_damage(shielding_input.airs[1])
 	get_damage()
 	approach_set_depth()
+	update_pipenets()
 
 
 /obj/machinery/atmospherics/gasrig/core/proc/get_shield_damage(datum/gas_mixture/air)
 	var/datum/gas_mixture/temp_air = new
 	air.pump_gas_to(temp_air, 4500)
-	var/gas_power = 0 //Gases with no gas power dont provide for shielding
+	var/gas_power = 0 //Gases with no gas power dont provide much for shielding
 	var/specific_heat = 0 //To encourage balancing a mix rather then just getting the gas with the most gas power
 	var/total_moles = 1 //so the log doesnt start negative
 	for (var/datum/gas/gas_id as anything in temp_air.gases)
@@ -126,15 +125,14 @@
 	display_gas_power = aver_gas_power
 	display_gas_specific_heat = aver_specific_heat
 
-	var/temp_shield = ((aver_gas_power * aver_specific_heat) * log(10, total_moles * GASRIG_SHIELD_MOL_LOG_MULTIPLER)) + GASRIG_NATURAL_SHIELD_RECOVERY
+	var/temp_shield = (((aver_gas_power + 1) * aver_specific_heat) * log(10, total_moles * GASRIG_SHIELD_MOL_LOG_MULTIPLER)) + GASRIG_NATURAL_SHIELD_RECOVERY
 	display_shield_efficiency = temp_shield
-	shield_strength = max(min((shield_strength - (depth * GASRIG_DEPTH_SHIELD_DAMAGE_MULTIPLIER)) + temp_shield, GASRIG_MAX_SHIELD_STRENGTH), 0)
+	shield_strength_change = (shield_strength - (depth * GASRIG_DEPTH_SHIELD_DAMAGE_MULTIPLIER)) + temp_shield
+	shield_strength = max(min(shield_strength_change, GASRIG_MAX_SHIELD_STRENGTH), 0)
 
 /obj/machinery/atmospherics/gasrig/core/proc/produce_gases(datum/gas_mixture/air)
-	var/efficiency = get_fracking_efficiency(air)
-	//this is the most horrible disgusting thing but I think attempting to do it dynamically would just be much worse.
+	var/efficiency = get_fracking_efficiency(fracking_input.airs[1])
 
-	//too tired but this still works i guess
 	if (air.return_pressure() > get_output_pressure(efficiency))
 		update_mode(GASRIG_MODE_OVERPRESSURE)
 		return
@@ -165,15 +163,19 @@
 /obj/machinery/atmospherics/gasrig/core/proc/get_fracking_efficiency(datum/gas_mixture/air)
 	var/datum/gas_mixture/temp_air = new
 	air.release_gas_to(temp_air, air.return_pressure() / 2, 1)
-	var/temp_eff = log((temp_air.return_pressure() * air.total_moles()) + 10/* to prevent efficiency ever being below 1 */)
+	var/temp_eff = log(10, (temp_air.return_pressure() * temp_air.total_moles()) + 10/* to prevent efficiency ever being below 1 */)
 	display_efficiency = temp_eff
 	return temp_eff
+
+/obj/machinery/atmospherics/gasrig/core/proc/change_health(amount)
+	health = max(min(health + amount, GASRIG_MAX_HEALTH), 0)
+
 
 /obj/machinery/atmospherics/gasrig/core/proc/get_damage()
 	if(shield_strength > 0)
 		return
 
-	health = max(health - min(1 * get_depth(), 5), 0)
+	change_health(-5)
 	if (health <= 0)
 		update_mode(GASRIG_MODE_REPAIR)
 
@@ -184,7 +186,7 @@
 /obj/machinery/atmospherics/gasrig/core/proc/approach_set_depth()
 	var/temp_depth = get_depth()
 	if (temp_depth != set_depth)
-		if (temp_depth < set_depth)
+		if ((temp_depth < set_depth) && !needs_repairs)
 			depth += min(GASRIG_DEPTH_CHANGE_SPEED, set_depth - temp_depth)
 		if (temp_depth > set_depth)
 			depth += max(-GASRIG_DEPTH_CHANGE_SPEED, set_depth - temp_depth)
@@ -200,18 +202,40 @@
 
 	mode = new_mode
 	switch(new_mode)
-		if(GASRIG_MODE_OFF)
-			active = FALSE
 		if(GASRIG_MODE_NORMAL)
 			functional = TRUE
 			active = TRUE
 		if(GASRIG_MODE_OVERPRESSURE)
 			functional = FALSE
-			active = TRUE
 		if(GASRIG_MODE_REPAIR)
 			needs_repairs = TRUE
 			functional = FALSE
-			active = TRUE
+			active = FALSE
+
+/obj/machinery/atmospherics/gasrig/core/welder_act(mob/living/user, obj/item/tool)
+	if(health >= GASRIG_MAX_HEALTH)
+		to_chat(user, span_notice("No repairs needed!"))
+		return
+	if(tool.use_tool(src, user, 0, volume=50, amount=2))
+		change_health(10)
+
+/obj/machinery/atmospherics/gasrig/core/attackby(obj/item/I, mob/user, params)
+	if(!needs_repairs)
+		to_chat(user, span_notice("No repairs needed!"))
+		return
+	if(istype(I, /obj/item/stack/sheet/plasteel))
+		var/obj/item/stack/sheet/plasteel/PS = I
+		if(PS.get_amount() >= 10)
+			PS.use(10)
+			to_chat(user, span_notice("You replace damaged plating."))
+			playsound(src.loc, 'sound/machines/click.ogg', 75, 1)
+			needs_repairs = FALSE
+			update_mode(GASRIG_MODE_NORMAL)
+			change_health(10)
+			update_appearance()
+		else
+			to_chat(user, span_warning("You need 10 sheets of plasteel!"))
+		return
 
 /obj/machinery/atmospherics/gasrig/core/ui_state(mob/user)
 	return GLOB.default_state
@@ -229,11 +253,15 @@
 	data["set_depth"] = set_depth
 	data["max_depth"] = GASRIG_MAX_DEPTH
 	data["shield_strength"] = shield_strength
+	data["shield_strength_change"] = shield_strength_change
 	data["max_shield"] = GASRIG_MAX_SHIELD_STRENGTH
 	data["fracking_eff"] = display_efficiency
 	data["shield_eff"] = display_shield_efficiency
 	data["gas_power"] = display_gas_power
 	data["specific_heat"] = display_gas_specific_heat
+	data["max_health"] = GASRIG_MAX_HEALTH
+	data["health"] = health
+	data["needs_repairs"] = needs_repairs
 	data["o2_constants"] = GASRIG_O2
 	data["n2_constants"] = GASRIG_N2
 	data["plas_constants"] = GASRIG_PLAS
