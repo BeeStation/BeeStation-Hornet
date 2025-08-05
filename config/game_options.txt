@@ -284,7 +284,7 @@ LAW_WEIGHT hippocratic,5
 LAW_WEIGHT liveandletlive,5
 LAW_WEIGHT peacekeeper,5
 LAW_WEIGHT ten_commandments,5
-LAW_WEIGHT nutimov,5^^
+LAW_WEIGHT nutimov,5
 
 ## Quirky laws. Shouldn't cause too much harm
 LAW_WEIGHT reporter,3
