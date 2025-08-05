@@ -7,7 +7,7 @@
 	gender = PLURAL
 
 	healing_factor = STANDARD_ORGAN_HEALING
-	decay_factor = STANDARD_ORGAN_DECAY
+	decay_factor = STANDARD_ORGAN_DECAY * 0.5
 
 	low_threshold_passed = span_info("Your ears begin to resonate with an internal ring sometimes.")
 	now_failing = span_warning("You are unable to hear at all!")

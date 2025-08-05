@@ -7,7 +7,6 @@
 	attack_verb_continuous = list("gores", "squishes", "slaps", "digests")
 	attack_verb_simple = list("gore", "squish", "slap", "digest")
 	desc = "Onaka ga suite imasu."
-	hypoxia_damage = 0.1
 
 	healing_factor = STANDARD_ORGAN_HEALING
 	decay_factor = STANDARD_ORGAN_DECAY

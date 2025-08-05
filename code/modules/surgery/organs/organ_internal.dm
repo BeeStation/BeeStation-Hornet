@@ -6,7 +6,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 0
 	var/slot
-	// DO NOT add slots with matching names to different zones - it will break internal_organs_slot list!
 	var/organ_flags = ORGAN_EDIBLE
 	var/maxHealth = STANDARD_ORGAN_THRESHOLD
 	var/damage = 0		//total damage this organ has sustained
@@ -38,9 +37,6 @@
 	var/list/organ_traits
 	/// Status Effects that are given to the holder of the organ.
 	var/list/organ_effects
-	/// How much damage does this organ take from lack of blood flow?
-	/// Damage per second
-	var/hypoxia_damage = 0
 
 // Players can look at prefs before atoms SS init, and without this
 // they would not be able to see external organs, such as moth wings.

@@ -255,7 +255,7 @@
 	if (circulation_disruption < 1)
 		var/damage_applied = (1 - circulation_disruption) * delta_time
 		for (var/obj/item/organ/organ in get_organs())
-			organ.applyOrganDamage(damage_applied * organ.hypoxia_damage)
+			organ.applyOrganDamage(damage_applied * organ.decay_factor)
 		// Organic bodyparts that need blood and nothing else die without it
 		if (circulation_flags == CIRCULATION_BLOOD)
 			receive_damage(damage_applied * 0.1, 0, damage_applied * 0.3)

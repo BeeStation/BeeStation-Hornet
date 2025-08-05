@@ -4,10 +4,9 @@
 	icon_state = "heart-on"
 	visual = FALSE
 	slot = ORGAN_SLOT_HEART
-	hypoxia_damage = 0.2
 
 	healing_factor = STANDARD_ORGAN_HEALING
-	decay_factor = 5 * STANDARD_ORGAN_DECAY		//designed to fail about 5 minutes after death
+	decay_factor = 2 * STANDARD_ORGAN_DECAY
 
 	low_threshold_passed = span_info("Prickles of pain appear then die out from within your chest...")
 	high_threshold_passed = span_warning("Something inside your chest hurts, and the pain isn't subsiding. You notice yourself breathing far faster than before.")

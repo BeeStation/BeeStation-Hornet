@@ -11,7 +11,6 @@
 	slot = ORGAN_SLOT_LUNGS
 	gender = PLURAL
 	w_class = WEIGHT_CLASS_SMALL
-	hypoxia_damage = 0.1
 
 	healing_factor = STANDARD_ORGAN_HEALING
 	decay_factor = STANDARD_ORGAN_DECAY

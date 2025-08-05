@@ -6,7 +6,6 @@
 
 	healing_factor = STANDARD_ORGAN_HEALING
 	decay_factor = STANDARD_ORGAN_DECAY
-	hypoxia_damage = 0.1
 
 	now_failing = span_warning("An explosion of pain erupts in your lower right abdomen!")
 	now_fixed = span_info("The pain in your abdomen has subsided.")

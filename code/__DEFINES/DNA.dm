@@ -170,7 +170,8 @@
 //organ defines
 #define STANDARD_ORGAN_THRESHOLD 100
 #define STANDARD_ORGAN_HEALING 0.0005
-#define STANDARD_ORGAN_DECAY 0.00037 //designed to fail organs when left to decay for ~45 minutes
+// Organs decay by this amount, by default they will fail after 10 minutes
+#define STANDARD_ORGAN_DECAY (STANDARD_ORGAN_THRESHOLD * 1 SECONDS / 10 MINUTES)
 
 // used for the can_chromosome var on mutations
 #define CHROMOSOME_NEVER 0
