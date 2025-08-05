@@ -1,19 +1,6 @@
 // the SMES
 // stores power
 
-#define SMESRATE 0.05			// rate of internal charge to external power
-
-//Cache defines
-#define SMES_CLEVEL_1		1
-#define SMES_CLEVEL_2		2
-#define SMES_CLEVEL_3		3
-#define SMES_CLEVEL_4		4
-#define SMES_CLEVEL_5		5
-#define SMES_OUTPUTTING		6
-#define SMES_NOT_OUTPUTTING 7
-#define SMES_INPUTTING		8
-#define SMES_INPUT_ATTEMPT	9
-
 /obj/machinery/power/smes
 	name = "power storage unit"
 	desc = "A high-capacity superconducting magnetic energy storage (SMES) unit."
@@ -24,19 +11,19 @@
 
 
 
-	var/capacity = 5e6 // maximum charge
-	var/charge = 0 // actual charge
+	var/capacity = 0 AUR // maximum charge
+	var/charge = 0 AUR // actual charge
 
 	var/input_attempt = TRUE // TRUE = attempting to charge, FALSE = not attempting to charge
 	var/inputting = TRUE // TRUE = actually inputting, FALSE = not inputting
-	var/input_level = 50000 // amount of power the SMES attempts to charge by
-	var/input_level_max = 200000 // cap on input_level
+	var/input_level = 50 KILOAUR // amount of power the SMES attempts to charge by
+	var/input_level_max = 200 KILOAUR // cap on input_level
 	var/input_available = 0 // amount of charge available from input last tick
 
 	var/output_attempt = TRUE // TRUE = attempting to output, FALSE = not attempting to output
 	var/outputting = TRUE // TRUE = actually outputting, FALSE = not outputting
-	var/output_level = 50000 // amount of power the SMES attempts to output
-	var/output_level_max = 200000 // cap on output_level
+	var/output_level = 50 KILOAUR // amount of power the SMES attempts to output
+	var/output_level_max = 200 KILOAUR // cap on output_level
 	var/output_used = 0 // amount of power actually outputted. may be less than output_level if the powernet returns excess power
 	var/process_cells = FALSE //We have self-recharging cells
 
@@ -61,26 +48,27 @@
 		atom_break()
 		return
 	terminal.master = src
+	RefreshParts()
 	update_icon()
 
 /obj/machinery/power/smes/RefreshParts()
-	var/IO = 0
-	var/MC = 0
-	var/C
-	for(var/obj/item/stock_parts/capacitor/CP in component_parts)
-		IO += CP.rating
-	input_level_max = initial(input_level_max) * IO
-	output_level_max = initial(output_level_max) * IO
+	var/capacitor_ratings = 0
+	var/total_maxcharge = 0
+	var/curent_charge
+	for(var/obj/item/stock_parts/capacitor/capacitor in component_parts)
+		capacitor_ratings += capacitor.rating
+	input_level_max = initial(input_level_max) * capacitor_ratings
+	output_level_max = initial(output_level_max) * capacitor_ratings
 	var/recharging_cells = FALSE
-	for(var/obj/item/stock_parts/cell/PC in component_parts)
-		MC += PC.maxcharge
-		C += PC.charge
-		if(PC.self_recharge)
+	for(var/obj/item/stock_parts/cell/cell in component_parts)
+		total_maxcharge += cell.maxcharge
+		curent_charge += cell.charge
+		if(cell.self_recharge)
 			recharging_cells = TRUE
 	process_cells = recharging_cells
-	capacity = MC / (15000) * 1e6
+	capacity = total_maxcharge * 10	// This multiplies the cells capacity by 10, so standard cell would be worth 100 KILOAUR
 	if(!initial(charge) && !charge)
-		charge = C / 15000 * 1e6
+		charge = curent_charge * 10
 
 /obj/machinery/power/smes/attackby(obj/item/I, mob/user, params)
 	//opening using screwdriver
@@ -181,7 +169,7 @@
 
 /obj/machinery/power/smes/on_deconstruction()
 	for(var/obj/item/stock_parts/cell/cell in component_parts)
-		cell.charge = (charge / capacity) * cell.maxcharge
+		cell.charge = charge / 10
 
 /obj/machinery/power/smes/Destroy()
 	if(SSticker.IsRoundInProgress())
@@ -252,16 +240,16 @@
 			for(var/obj/item/stock_parts/cell/cell in component_parts)
 				if(cell.self_recharge)
 					cell.process()
-					charge += min((capacity-charge)/SMESRATE, ((cell.charge / 15000 * 1e6) * SMESRATE))
+					charge += min((capacity - charge), ((cell.charge * 10)))
 					cell.charge = 0 //SMES power math is weird so let's just zero it to simplify things
 
 		if(inputting)
 
 			if(input_available > 0)		// if there's power available, try to charge
 
-				var/load = min(min((capacity-charge)/SMESRATE, input_level), input_available)		// charge at set rate, limited to spare capacity
+				var/load = min(min((capacity - charge), input_level), input_available)		// charge at set rate, limited to spare capacity
 
-				charge += load * SMESRATE	// increase the charge
+				charge += load	// increase the charge
 
 				terminal.add_load(load) // add the load to the terminal side network
 
@@ -277,10 +265,10 @@
 	//outputting
 	if(output_attempt)
 		if(outputting)
-			output_used = min( charge/SMESRATE, output_level)		//limit output to that stored
+			output_used = min( charge, output_level)		//limit output to that stored
 
 			if (add_avail(output_used))				// add output to powernet if it exists (smes side)
-				charge -= output_used*SMESRATE		// reduce the storage (may be recovered in /restore() if excessive)
+				charge -= output_used		// reduce the storage (may be recovered in /restore() if excessive)
 			else
 				outputting = FALSE
 
@@ -314,13 +302,13 @@
 
 	excess = min(output_used, excess)				// clamp it to how much was actually output by this SMES last ptick
 
-	excess = min((capacity-charge)/SMESRATE, excess)	// for safety, also limit recharge by space capacity of SMES (shouldn't happen)
+	excess = min((capacity-charge), excess)	// for safety, also limit recharge by space capacity of SMES (shouldn't happen)
 
 	// now recharge this amount
 
 	var/clev = chargedisplay()
 
-	charge += excess * SMESRATE			// restore unused power
+	charge += excess			// restore unused power
 	powernet.netexcess -= excess		// remove the excess from the powernet, so later SMESes don't try to use it
 
 	output_used -= excess
@@ -345,7 +333,7 @@
 	var/list/data = list(
 		"capacity" = capacity,
 		"capacityPercent" = round(100*charge/capacity, 0.1),
-		"charge" = charge,
+		"charge" = display_power(charge),
 		"inputAttempt" = input_attempt,
 		"inputting" = inputting,
 		"inputLevel" = input_level,
@@ -445,16 +433,3 @@
 //don't divide by infinity or zero, just display max
 /obj/machinery/power/smes/magical/chargedisplay()
 	return 5
-
-
-#undef SMESRATE
-
-#undef SMES_CLEVEL_1
-#undef SMES_CLEVEL_2
-#undef SMES_CLEVEL_3
-#undef SMES_CLEVEL_4
-#undef SMES_CLEVEL_5
-#undef SMES_OUTPUTTING
-#undef SMES_NOT_OUTPUTTING
-#undef SMES_INPUTTING
-#undef SMES_INPUT_ATTEMPT
