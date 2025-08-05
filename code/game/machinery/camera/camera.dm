@@ -4,8 +4,8 @@
 	icon = 'icons/obj/machines/camera.dmi'
 	icon_state = "camera" //mapping icon to represent upgrade states. if you want a different base icon, update default_camera_icon as well as this.
 	use_power = ACTIVE_POWER_USE
-	idle_power_usage = 5
-	active_power_usage = 10
+	idle_power_usage = 50 AUR
+	active_power_usage = 200 AUR
 	layer = WALL_OBJ_LAYER
 	resistance_flags = FIRE_PROOF
 	damage_deflection = 12
@@ -443,6 +443,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 
 /obj/machinery/camera/proc/toggle_cam(mob/user, displaymessage = TRUE)
 	status = !status
+	if(status)
+		update_use_power(IDLE_POWER_USE)
+	else
+		update_use_power(ACTIVE_POWER_USE)
 	update_camera(user, displaymessage)
 
 /obj/machinery/camera/proc/update_camera(mob/user, displaymessage = TRUE)
