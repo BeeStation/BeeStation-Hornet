@@ -37,6 +37,8 @@
 	var/chem_recharge_slowdown = 0
 	/// The range this ling can sting things.
 	var/sting_range = 2
+	/// Changeling name, what other lings see over the hivemind when talking.
+	var/changelingID = "Changeling"
 	/// The number of genetics points (to buy powers) this ling currently has.
 	var/genetic_points = 10
 	/// The max number of genetics points (to buy powers) this ling can have..
@@ -60,6 +62,9 @@
 
 	/// Static typecache of all changeling powers that are usable.
 	var/static/list/all_powers = typecacheof(/datum/action/changeling, TRUE)
+
+	/// Static list of possible ids. Initialized into the greek alphabet the first time it is used
+	var/static/list/possible_changeling_IDs
 
 	/// Satic list of what each slot associated with (in regard to changeling flesh items).
 	var/static/list/slot2type = list(
@@ -96,6 +101,7 @@
 	return ..()
 
 /datum/antagonist/changeling/on_gain()
+	generate_name()
 	create_emporium()
 	create_innate_actions()
 	create_initial_profile()
@@ -113,8 +119,8 @@
 
 	var/mob/living/living_mob = mob_to_tweak
 	handle_clown_mutation(living_mob, "You have evolved beyond your clownish nature, allowing you to wield weapons without harming yourself.")
-	RegisterSignal(living_mob, COMSIG_MOB_LOGIN, .proc/on_login)
-	RegisterSignal(living_mob, COMSIG_LIVING_LIFE, .proc/on_life)
+	RegisterSignal(living_mob, COMSIG_MOB_LOGIN, PROC_REF(on_login))
+	RegisterSignal(living_mob, COMSIG_LIVING_LIFE, PROC_REF(on_life))
 	living_mob.hud_used?.lingchemdisplay.invisibility = 0
 	living_mob.hud_used?.lingchemdisplay.maptext = FORMAT_CHEM_CHARGES_TEXT(chem_charges)
 
@@ -129,6 +135,20 @@
 	if(our_ling_brain)
 		our_ling_brain.organ_flags &= ~ORGAN_VITAL
 		our_ling_brain.decoy_override = TRUE
+
+/datum/antagonist/changeling/proc/generate_name()
+	var/static/list/left_changling_names = GLOB.greek_letters.Copy()
+
+	var/honorific
+	if(owner.current.gender == FEMALE)
+		honorific = "Ms."
+	else
+		honorific = "Mr."
+	if(length(left_changling_names))
+		changelingID = pick_n_take(left_changling_names)
+		changelingID = "[honorific] [changelingID]"
+	else
+		changelingID = "[honorific] [pick(GLOB.greek_letters)] No.[rand(1,9)]"
 
 /datum/antagonist/changeling/remove_innate_effects(mob/living/mob_override)
 	var/mob/living/living_mob = mob_override || owner.current
