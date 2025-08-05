@@ -6,8 +6,8 @@
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "alarmp"
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 4
-	active_power_usage = 8
+	idle_power_usage = 0.2 KILOAUR
+	active_power_usage = 0.5 KILOAUR
 	power_channel = AREA_USAGE_ENVIRON
 	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE)
 	max_integrity = 250
@@ -622,6 +622,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/airalarm)
 		var/is_low_pressure = tlv_collection["pressure"].hazard_min != TLV_VALUE_IGNORE && pressure <= tlv_collection["pressure"].hazard_min
 		var/is_low_temp = tlv_collection["temperature"].hazard_min != TLV_VALUE_IGNORE && temp <= tlv_collection["temperature"].hazard_min
 
+		update_use_power(ACTIVE_POWER_USE)
+
 		if(is_low_pressure && is_low_temp)
 			warning_message = "Danger! Low pressure and temperature detected."
 			return
@@ -647,6 +649,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/airalarm)
 			warning_message = "Danger! High temperature detected."
 			return
 		else
+			update_use_power(IDLE_POWER_USE)
 			warning_message = null
 
 	else if(!(my_area.fault_status & AREA_FAULT_MANUAL)) //Only clear ourselves automatically if it was not a manual trigger.
