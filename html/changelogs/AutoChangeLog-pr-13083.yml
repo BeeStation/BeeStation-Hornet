@@ -1,7 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - tweak: Dynamic midround rulesets can now have multiple severities, meaning that
-      it is not limited to only wizards during round ends at low-pops.
-  - tweak: Lowers the min pop required for dragon and blob to spawn.
-  - tweak: All dynamic midround rulesets are equally weighted.
