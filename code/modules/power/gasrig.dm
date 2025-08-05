@@ -10,13 +10,14 @@
 #define GASRIG_DEPTH_SHIELD_DAMAGE_MULTIPLIER 10
 #define GASRIG_SHIELD_MOL_LOG_MULTIPLER 1
 
+#define GASRIG_MODE_OFF 0
 #define GASRIG_MODE_NORMAL 1
 #define GASRIG_MODE_REPAIR 2
 #define GASRIG_MODE_AUTO 3
 #define GASRIG_MODE_OVERPRESSURE 4
 
 #define GASRIG_DEPTH_TEMP_MULTIPLER 1
-#define GASRIG_FRACKING_PRESSURE_MULTIPLER 2.5
+#define GASRIG_FRACKING_PRESSURE_MULTIPLER 1
 #define GASRIG_DEFAULT_OUTPUT_PRESSURE 4500
 
 #define GASRIG_MAX_HEALTH 100
@@ -25,9 +26,12 @@
 
 /// Gas depths
 /// Defines are ordered as (gas starting depth, gas ending depth, maximium production multipler)
-#define GASRIG_O2 list(10, 500, 50)
-#define GASRIG_N2 list(450, 750, 25)
-#define GASRIG_PLAS list(625, 1000, 100)
+#define GASRIG_O2 list(10, 250, 50)
+#define GASRIG_N2 list(115, 400, 25)
+#define GASRIG_PLAS list(300, 1000, 100)
+#define GASRIG_CO2 list(330, 500, 15)
+#define GASRIG_N2O list(700, 1000, 5)
+#define GASRIG_NOB list(925, 1000, 100)
 
 /obj/machinery/atmospherics/gasrig/core
 	name = "\improper Advanced Gas Rig"
@@ -93,7 +97,7 @@
 	return ..()
 
 /obj/machinery/atmospherics/gasrig/core/process(delta_time)
-	if(!needs_repairs)
+	if(!needs_repairs && active)
 		get_shield_damage(shielding_input.airs[1])
 		produce_gases(gas_output.airs[1])
 		update_pipenets()
@@ -129,23 +133,41 @@
 /obj/machinery/atmospherics/gasrig/core/proc/produce_gases(datum/gas_mixture/air)
 	var/efficiency = get_fracking_efficiency(air)
 	//this is the most horrible disgusting thing but I think attempting to do it dynamically would just be much worse.
+
+	//too tired but this still works i guess
+	if (air.return_pressure() > get_output_pressure(efficiency))
+		update_mode(GASRIG_MODE_OVERPRESSURE)
+		return
+
+	//produce_gases will never be called if repairs are needed
+	update_mode(GASRIG_MODE_NORMAL)
+
 	if(!functional)
 		return
 	if((depth >= GASRIG_O2[1]) && (depth <= GASRIG_O2[2]))
 		calculate_gas_to_output(GASRIG_O2, /datum/gas/oxygen, air, efficiency)
 
 	if((depth >= GASRIG_N2[1]) && (depth <= GASRIG_N2[2]))
-		calculate_gas_to_output(GASRIG_O2, /datum/gas/nitrogen, air)
+		calculate_gas_to_output(GASRIG_N2, /datum/gas/nitrogen, air, efficiency)
 
 	if((depth >= GASRIG_PLAS[1]) && (depth <= GASRIG_PLAS[2]))
-		calculate_gas_to_output(GASRIG_O2, /datum/gas/plasma, air)
+		calculate_gas_to_output(GASRIG_PLAS, /datum/gas/plasma, air, efficiency)
 
-		//if((depth >= GASRIG_NOB[1]) && (depth <= GASRIG_NOB[2]))
+	if((depth >= GASRIG_CO2[1]) && (depth <= GASRIG_CO2[2]))
+		calculate_gas_to_output(GASRIG_CO2, /datum/gas/carbon_dioxide, air, efficiency)
+
+	if((depth >= GASRIG_N2O[1]) && (depth <= GASRIG_N2O[2]))
+		calculate_gas_to_output(GASRIG_N2O, /datum/gas/nitrous_oxide, air, efficiency)
+
+	if((depth >= GASRIG_NOB[1]) && (depth <= GASRIG_NOB[2]))
+		calculate_gas_to_output(GASRIG_NOB, /datum/gas/hypernoblium, air, efficiency)
 
 /obj/machinery/atmospherics/gasrig/core/proc/get_fracking_efficiency(datum/gas_mixture/air)
-	//var/datum/gas_mixture/temp_air = new
-	//air.share(temp_air, 0.8, 0.8)
-	return 1
+	var/datum/gas_mixture/temp_air = new
+	air.release_gas_to(temp_air, air.return_pressure() / 2, 1)
+	var/temp_eff = log((temp_air.return_pressure() * air.total_moles()) + 10/* to prevent efficiency ever being below 1 */)
+	display_efficiency = temp_eff
+	return temp_eff
 
 /obj/machinery/atmospherics/gasrig/core/proc/get_damage()
 	if(shield_strength > 0)
@@ -178,13 +200,18 @@
 
 	mode = new_mode
 	switch(new_mode)
+		if(GASRIG_MODE_OFF)
+			active = FALSE
 		if(GASRIG_MODE_NORMAL)
 			functional = TRUE
+			active = TRUE
 		if(GASRIG_MODE_OVERPRESSURE)
 			functional = FALSE
+			active = TRUE
 		if(GASRIG_MODE_REPAIR)
 			needs_repairs = TRUE
 			functional = FALSE
+			active = TRUE
 
 /obj/machinery/atmospherics/gasrig/core/ui_state(mob/user)
 	return GLOB.default_state
@@ -207,6 +234,12 @@
 	data["shield_eff"] = display_shield_efficiency
 	data["gas_power"] = display_gas_power
 	data["specific_heat"] = display_gas_specific_heat
+	data["o2_constants"] = GASRIG_O2
+	data["n2_constants"] = GASRIG_N2
+	data["plas_constants"] = GASRIG_PLAS
+	data["co2_constants"] = GASRIG_CO2
+	data["n2o_constants"] = GASRIG_N2O
+	data["nob_constants"] = GASRIG_NOB
 	. =  data
 
 /obj/machinery/atmospherics/gasrig/core/ui_act(action, params)
