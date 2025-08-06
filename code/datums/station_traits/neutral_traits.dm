@@ -168,7 +168,8 @@
 		if(birthday_person_name) //Anyone who joins after the annoucement gets one of these.
 			var/obj/item/birthday_invite/birthday_invite = new(spawned_human)
 			birthday_invite.setup_card(birthday_person_name)
-			spawned_human.equip_or_collect(birthday_invite, ITEM_SLOT_HANDS)
+
+			INVOKE_ASYNC(spawned_human, TYPE_PROC_REF(/mob/living/carbon/human, equip_or_collect), birthday_invite, ITEM_SLOT_HANDS)
 
 /datum/station_trait/unique_ai
 	name = "Unique AI"
