@@ -163,10 +163,12 @@
 	else
 		living_mob.equip_to_slot_or_del(toy, ITEM_SLOT_BACKPACK)
 
-	if(birthday_person) //Anyone who joins after the annoucement gets one of these.
-		var/obj/item/birthday_invite/birthday_invite = new(living_mob)
-		birthday_invite.setup_card(birthday_person.name)
-		living_mob.equip_to_slot_or_del(birthday_invite, ITEM_SLOT_HANDS)
+	if(ishuman(spawned_mob))
+		var/mob/living/carbon/human/spawned_human = spawned_mob
+		if(birthday_person_name) //Anyone who joins after the annoucement gets one of these.
+			var/obj/item/birthday_invite/birthday_invite = new(spawned_human)
+			birthday_invite.setup_card(birthday_person_name)
+			spawned_human.equip_or_collect(birthday_invite, ITEM_SLOT_HANDS)
 
 /datum/station_trait/unique_ai
 	name = "Unique AI"
