@@ -190,7 +190,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	. = ..()
 	if(!user?.mind) // ghosts don't have mind
 		return .
-	var/immune = HAS_TRAIT(user, TRAIT_MADNESS_IMMUNE) || HAS_TRAIT(user.mind, TRAIT_MADNESS_IMMUNE)
+	var/immune = HAS_MIND_TRAIT(user, TRAIT_MADNESS_IMMUNE)
 	if (!isliving(user) && !immune && (get_dist(user, src) < HALLUCINATION_RANGE(power)))
 		. += span_danger("You get headaches just from looking at it.")
 

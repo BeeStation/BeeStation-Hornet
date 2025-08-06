@@ -1,0 +1,5 @@
+author: mrmanlikesbt, Mothblocks, Bomberman66Dev, san7890
+delete-after: true
+changes:
+  - code_imp: modifies the ASSERT() macro
+  - code_imp: adds trait helpers for easily adding a list of traits to something
