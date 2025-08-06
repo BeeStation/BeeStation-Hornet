@@ -60,8 +60,6 @@
 	var/charging = APC_NOT_CHARGING
 	///Can the APC charge?
 	var/chargemode = TRUE
-	///Number of ticks where the apc is trying to recharge
-	var/chargecount = 0
 	///Is the apc interface locked?
 	var/locked = TRUE
 	///Is the apc cover locked?
@@ -520,11 +518,9 @@
 	var/last_en = environ
 	var/last_ch = charging
 
-	var/excess = surplus()
-
 	if(!src.avail())
 		main_status = APC_NO_POWER
-	else if(excess < 0)
+	else if(surplus() < 0)
 		main_status = APC_LOW_POWER
 	else
 		main_status = APC_HAS_POWER
@@ -536,22 +532,19 @@
 		cell.use(cellused)
 
 	if(cell && !shorted) //need to check to make sure the cell is still there since rigged cells can randomly explode after use().
-		if(excess > lastused_total)	// if power excess recharge the cell
-										// by the same amount just used
+		if(surplus() > lastused_total)	// if power excess recharge the cell by the same amount just used
 			cell.give(cellused)
 			if(cell) //make sure the cell didn't expode and actually used power.
 				add_load(cellused) // add the load used to recharge the cell
 
 
 		else // no excess, and not enough per-apc
-			if((cell.charge + excess) >= lastused_total) // can we draw enough from cell+grid to cover last usage?
-				cell.charge = min(cell.maxcharge, cell.charge + excess) //recharge with what we can
-				add_load(excess) // so draw what we can from the grid
+			if((cell.charge + surplus()) >= lastused_total) // can we draw enough from cell+grid to cover last usage?
+				cell.charge = min(cell.maxcharge, cell.charge + surplus()) //recharge with what we can
+				add_load(surplus()) // so draw what we can from the grid
 				charging = APC_NOT_CHARGING
-
 			else // not enough power available to run the last tick!
 				charging = APC_NOT_CHARGING
-				chargecount = 0
 				// This turns everything off in the case that there is still a charge left on the battery, just not enough to run the room.
 				equipment = autoset(equipment, AUTOSET_FORCE_OFF)
 				lighting = autoset(lighting, AUTOSET_FORCE_OFF)
@@ -597,15 +590,14 @@
 
 		// now trickle-charge the cell
 		if(chargemode && charging == APC_CHARGING && operating)
-			if(excess > 0) // check to make sure we have enough to charge
+			if(surplus() > 0) // check to make sure we have enough to charge
 				// Max charge is capped to % per second constant
-				var/ch = min(excess, cell.chargerate)
+				var/ch = min(surplus(), cell.chargerate)
 				add_load(ch) // Removes the power we're taking from the grid
 				cell.give(ch) // actually recharge the cell
 
 			else
 				charging = APC_NOT_CHARGING // stop charging
-				chargecount = 0
 
 		// show cell as fully charged if so
 		if(cell.charge >= cell.maxcharge)
@@ -614,17 +606,11 @@
 
 		if(chargemode)
 			if(!charging)
-				if(excess > cell.maxcharge)
-					chargecount++
-				else
-					chargecount = 0
-				if(chargecount == 10)
-					chargecount = 0
+				if(surplus() > 0)
 					charging = APC_CHARGING
 
 		else // chargemode off
 			charging = APC_NOT_CHARGING
-			chargecount = 0
 
 		//=====Clock Cult=====
 		if(integration_cog && cell.charge >= cell.maxcharge/2)
@@ -649,7 +635,6 @@
 	else // no cell, switch everything off
 
 		charging = APC_NOT_CHARGING
-		chargecount = 0
 
 		equipment = autoset(equipment, AUTOSET_FORCE_OFF)
 		lighting = autoset(lighting, AUTOSET_FORCE_OFF)

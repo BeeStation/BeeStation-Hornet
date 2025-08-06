@@ -41,10 +41,9 @@
 		powernet.load += amount
 
 /obj/machinery/power/proc/surplus()
-	if(powernet)
-		return powernet.avail - powernet.load // allow negatives!
-	else
+	if(!powernet)
 		return 0
+	return powernet.avail - powernet.load
 
 /obj/machinery/power/proc/avail(amount)
 	if(powernet)
