@@ -163,7 +163,6 @@
 /datum/config_entry/number/station_goal_budget
 	default = 1
 	min_val = 0
-	integer = FALSE
 
 /datum/config_entry/flag/diona_ghost_spawn
 
