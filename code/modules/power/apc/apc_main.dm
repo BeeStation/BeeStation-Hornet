@@ -43,7 +43,7 @@
 	///Initial cell charge %
 	var/start_charge = 90
 	///Type of cell we start with
-	var/cell_type = /obj/item/stock_parts/cell/high	//Base cell has 100 kA. Enter the path of a different cell you want to use. cell determines charge rates, max capacity, ect. These can also be changed with other APC vars, but isn't recommended to minimize the risk of accidental usage of dirty editted APCs
+	var/cell_type = /obj/item/stock_parts/cell/high	//Base cell has 100 kW. Enter the path of a different cell you want to use. cell determines charge rates, max capacity, ect. These can also be changed with other APC vars, but isn't recommended to minimize the risk of accidental usage of dirty editted APCs
 	///State of the cover (closed, opened, removed)
 	var/opened = APC_COVER_CLOSED
 	///Is the APC shorted and not working?

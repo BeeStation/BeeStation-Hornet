@@ -10,7 +10,7 @@
 
 #define RBMK_MAX_CRITICALITY 3 //No more criticality than N for now.
 
-#define RBMK_POWER_FLAVOURISER_LOW 0.6 // To turn into something usable (kA), used at lower powers as a square law, transitions to high power linear relationship
+#define RBMK_POWER_FLAVOURISER_LOW 0.6 // To turn into something usable (kW), used at lower powers as a square law, transitions to high power linear relationship
 #define RBMK_POWER_FLAVOURISER_HIGH 800 // used at high powers, linear relationship
 
 

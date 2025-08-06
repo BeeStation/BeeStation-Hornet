@@ -9,7 +9,7 @@ const PEAK_DRAW = 500000;
 
 const powerRank = (str) => {
   const unit = String(str.split(' ')[1]).toLowerCase();
-  return ['A', 'kA', 'mA', 'gA'].indexOf(unit);
+  return ['W', 'kW', 'MW', 'GW'].indexOf(unit);
 };
 
 export const PowerMonitor = () => {

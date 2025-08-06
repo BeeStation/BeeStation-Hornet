@@ -111,8 +111,8 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 
 /obj/machinery/gravity_generator/main
 	icon_state = "on_8"
-	idle_power_usage = 5 KILOAUR
-	active_power_usage = 50 KILOAUR
+	idle_power_usage = 5 KILOPOWER
+	active_power_usage = 50 KILOPOWER
 	power_channel = AREA_USAGE_ENVIRON
 	sprite_number = 8
 	use_power = IDLE_POWER_USE

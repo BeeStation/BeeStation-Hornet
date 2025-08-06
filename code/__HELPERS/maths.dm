@@ -96,25 +96,25 @@
 /proc/anyprob(value)
 	return (rand(1,value)==value)
 
-/// Format a power value in Aur, kA, MA, GA.
+/// Format a power value in W, kW, MW, GW.
 /proc/display_power(powerused)
 	if(powerused < 1000)
-		return "[powerused] A"	//Watt equivalent
+		return "[powerused] W"	//Watt equivalent
 	else if(powerused < 1000000)
-		return "[round((powerused * 0.001), 0.1)] kA"	//KiloWatt equivalent
+		return "[round((powerused * 0.001), 0.1)] kW"	//KiloWatt equivalent
 	else if(powerused < 1000000000)
-		return "[round((powerused * 0.000001), 0.1)] MA"	//MegaWatt equivalent
-	return "[round((powerused * 0.000000001), 0.1)] GA"	//Gigawatt equivalent
+		return "[round((powerused * 0.000001), 0.1)] MW"	//MegaWatt equivalent
+	return "[round((powerused * 0.000000001), 0.1)] GW"	//Gigawatt equivalent
 
 /// Format power value per second
 /proc/display_power_persec(powerused)
 	if(powerused < 1000)
-		return "[powerused] A/s"	//Watt/s equivalent
+		return "[powerused] W/s"	//Watt/s equivalent
 	else if(powerused < 1000000)
-		return "[round((powerused * 0.001), 0.1)] kA/s"	//KiloWatt/s equivalent
+		return "[round((powerused * 0.001), 0.1)] kW/s"	//KiloWatt/s equivalent
 	else if(powerused < 1000000000)
-		return "[round((powerused * 0.000001), 0.1)] MA/s"	//MegaWatt/s equivalent
-	return "[round((powerused * 0.000000001), 0.1)] GA/s"	//GigaWatt/s equivalent
+		return "[round((powerused * 0.000001), 0.1)] MW/s"	//MegaWatt/s equivalent
+	return "[round((powerused * 0.000000001), 0.1)] GW/s"	//GigaWatt/s equivalent
 
 ///counts the number of bits in Byond's 16-bit width field, in constant time and memory!
 /proc/bit_count(bit_field)
