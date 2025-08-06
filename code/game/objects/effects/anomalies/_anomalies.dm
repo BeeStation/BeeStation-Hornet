@@ -3,6 +3,7 @@
 /obj/effect/anomaly
 	name = "anomaly"
 	desc = "A mysterious anomaly, seen commonly only in the region of space that the station orbits..."
+	icon = 'icons/effects/anomalies.dmi'
 	icon_state = "bhole3"
 	density = FALSE
 	anchored = TRUE

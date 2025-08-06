@@ -133,8 +133,8 @@
 	delusion_name = "???"
 
 /datum/hallucination/delusion/preset/monkey
-	delusion_icon_file = 'icons/mob/human.dmi'
-	delusion_icon_state = "monkey"
+	delusion_icon_file = 'icons/mob/monkey.dmi'
+	delusion_icon_state = "monkey1"
 	delusion_name = "monkey"
 
 /datum/hallucination/delusion/preset/monkey/start()

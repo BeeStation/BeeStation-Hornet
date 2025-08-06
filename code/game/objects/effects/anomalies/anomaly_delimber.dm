@@ -9,7 +9,7 @@
 
 /obj/effect/anomaly/bioscrambler
 	name = "bioscrambler anomaly"
-	icon_state = "bioscrambler_anomaly"
+	icon_state = "bioscrambler"
 	anomaly_core = /obj/item/assembly/signaler/anomaly/bioscrambler
 
 	COOLDOWN_DECLARE(pulse_cooldown)

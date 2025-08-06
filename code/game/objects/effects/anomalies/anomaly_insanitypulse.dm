@@ -1,6 +1,6 @@
 /obj/effect/anomaly/insanity_pulse
 	name = "sanity disruption pulse anomaly"
-	icon_state = "purplecrack"
+	icon_state = "insanity"
 
 	COOLDOWN_DECLARE(pulse_cooldown)
 	var/pulse_interval = 7 SECONDS

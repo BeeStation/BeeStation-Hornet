@@ -1,6 +1,6 @@
 /obj/effect/anomaly/pyro
 	name = "pyroclastic anomaly"
-	icon_state = "mustard"
+	icon_state = "pyroclastic"
 	anomaly_core = /obj/item/assembly/signaler/anomaly/pyro
 
 	COOLDOWN_DECLARE(pulse_cooldown)

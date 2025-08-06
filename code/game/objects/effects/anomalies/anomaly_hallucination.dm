@@ -1,6 +1,6 @@
 /obj/effect/anomaly/hallucination
 	name = "hallucination anomaly"
-	icon_state = "hallucination_anomaly"
+	icon_state = "hallucination"
 	anomaly_core = /obj/item/assembly/signaler/anomaly/hallucination
 
 	COOLDOWN_DECLARE(pulse_cooldown)
