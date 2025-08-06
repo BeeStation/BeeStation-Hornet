@@ -1880,7 +1880,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	if(I.damtype == BRUTE && (I.force >= max(10, armor_block) && hit_area == BODY_ZONE_HEAD))
 		if(!I.is_sharp() && H.mind && H.stat == CONSCIOUS && H != user && (H.health - (I.force * I.attack_weight)) <= 0) // rev deconversion through blunt trauma.
-			var/datum/antagonist/rev/rev = H.mind.has_antag_datum(/datum/antagonist/rev)
+			var/datum/antagonist/rev/rev = IS_REVOLUTIONARY(H)
 			if(rev)
 				rev.remove_revolutionary(FALSE, user)
 		if(Iforce > 10 || Iforce >= 5 && prob(33))
@@ -2772,6 +2772,23 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			SPECIES_PERK_ICON = "shield-alt",
 			SPECIES_PERK_NAME = "Fire Resilience",
 			SPECIES_PERK_DESC = "[plural_form] are resilient to flames, and burn damage.",
+		))
+
+	//Toxin related
+	if(toxmod > 1)
+		to_add += list(list(
+			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
+			SPECIES_PERK_ICON = "biohazard",
+			SPECIES_PERK_NAME = "Toxin Weakness",
+			SPECIES_PERK_DESC = "[plural_form] are weak to toxins and toxin damage.",
+		))
+
+	else if(toxmod < 1)
+		to_add += list(list(
+			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+			SPECIES_PERK_ICON = "biohazard",
+			SPECIES_PERK_NAME = "Toxin Resistance",
+			SPECIES_PERK_DESC = "[plural_form] are resistant to toxins, and toxin damage.",
 		))
 
 	if(TRAIT_SHOCKIMMUNE in inherent_traits)
