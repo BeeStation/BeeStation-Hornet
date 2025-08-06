@@ -856,6 +856,15 @@
 	for(var/i in 1 to 7)
 		new/obj/item/grenade/chem_grenade/smart_metal_foam(src)
 
+/obj/item/storage/box/oxycandle
+	name = "box of oxygen candles"
+	desc = "Used to repressurize areas during power emergencies."
+	illustration = "grenade"
+
+/obj/item/storage/box/oxycandle/PopulateContents()
+	for(var/i in 1 to 7)
+		new/obj/item/flashlight/oxycandle(src)
+
 /obj/item/storage/box/hug
 	name = "box of hugs"
 	desc = "A special box for sensitive people."
