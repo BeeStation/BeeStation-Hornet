@@ -58,20 +58,13 @@
 	if(status_flags & GODMODE)
 		return
 	set_health(maxHealth - getOxyLoss() - getToxLoss() - getBruteLoss() - getFireLoss())
-	update_stat()
+	consciousness.update_stat()
 	diag_hud_set_health()
 	disconnect_shell()
 	SEND_SIGNAL(src, COMSIG_LIVING_HEALTH_UPDATE)
 
-/mob/living/silicon/ai/update_stat()
-	if(status_flags & GODMODE)
-		return
-	if(stat != DEAD)
-		if(health <= HEALTH_THRESHOLD_DEAD)
-			death()
-			return
-		else if(stat >= UNCONSCIOUS)
-			set_stat(CONSCIOUS)
+/mob/living/silicon/ai/set_stat(new_stat)
+	. = ..()
 	diag_hud_set_status()
 
 /mob/living/silicon/ai/update_sight()

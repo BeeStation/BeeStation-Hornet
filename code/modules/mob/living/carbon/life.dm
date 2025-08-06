@@ -26,9 +26,6 @@
 		if(QDELETED(src))
 			return
 
-		if(.) //not dead
-			blood.blood_tick(src, delta_time)
-
 		if(stat != DEAD) //Handle brain damage
 			for(var/T in get_traumas())
 				var/datum/brain_trauma/BT = T

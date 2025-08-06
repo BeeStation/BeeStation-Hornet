@@ -79,9 +79,8 @@
 
 	update_icon(UPDATE_OVERLAYS)
 
-/mob/living/basic/pet/update_stat()
+/mob/living/basic/pet/set_stat(new_stat)
 	. = ..()
-
 	update_icon(UPDATE_OVERLAYS)
 
 /mob/living/basic/pet/set_resting(new_resting, silent, instant)

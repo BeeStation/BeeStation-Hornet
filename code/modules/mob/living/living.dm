@@ -27,6 +27,8 @@
 	gravity_setup()
 	if (!istype(blood))
 		blood = new blood(src)
+	if (!istype(consciousness))
+		consciousness = new consciousness(src)
 
 /mob/living/ComponentInitialize()
 	. = ..()
@@ -678,7 +680,7 @@
 		return
 	set_health(maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss())
 	staminaloss = getStaminaLoss()
-	update_stat()
+	consciousness.update_stat()
 	med_hud_set_health()
 	med_hud_set_status()
 	update_health_hud()
@@ -1562,6 +1564,8 @@
 				brain.stat_hard_crit(.)
 		if (DEAD)
 			brain.stat_dead(.)
+	// Update the status when stat changes
+	med_hud_set_status()
 
 ///Reports the event of the change in value of the buckled variable.
 /mob/living/proc/set_buckled(new_buckled)

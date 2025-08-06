@@ -16,6 +16,7 @@
 	designation = "Default" //used for displaying the prefix & getting the current model of cyborg
 	has_limbs = TRUE
 	hud_type = /datum/hud/robot
+	consciousness = /datum/consciousness/point/robot
 
 	/// The cyborg's model (engineering, medical, etc.)
 	var/obj/item/robot_model/model = null

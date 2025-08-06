@@ -821,18 +821,12 @@
 		see_invisible = see_override
 	sync_lighting_plane_alpha()
 
-/mob/living/silicon/robot/update_stat()
-	if(status_flags & GODMODE)
-		return
-	if(stat != DEAD)
-		if(health <= 0) //die only once
-			death()
-			toggle_headlamp(1)
-			return
-		if(HAS_TRAIT(src, TRAIT_KNOCKEDOUT) || IsStun() || IsKnockdown() || IsParalyzed())
-			set_stat(UNCONSCIOUS)
-		else
-			set_stat(CONSCIOUS)
+/mob/living/silicon/robot/death(gibbed)
+	. = ..()
+	toggle_headlamp(1)
+
+/mob/living/silicon/robot/set_stat(new_stat)
+	. = ..()
 	diag_hud_set_status()
 	diag_hud_set_health()
 	diag_hud_set_aishell()

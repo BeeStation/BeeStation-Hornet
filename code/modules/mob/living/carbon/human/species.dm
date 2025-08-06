@@ -162,6 +162,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	/// The handler for our species' blood
 	var/blood_type = /datum/blood_source/organic
 
+	/// The type of consciousness used by this mob
+	var/consciousness_type = /datum/consciousness/organic
+
 ///////////
 // PROCS //
 ///////////
@@ -464,6 +467,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		C.blood = new /datum/blood_source/none(C)
 	else
 		C.blood = new /datum/blood_source/organic(C)
+
+	C.consciousness = new consciousness_type(C)
 
 	if(exotic_bloodtype && C.dna.blood_type != exotic_bloodtype)
 		C.dna.blood_type = exotic_bloodtype

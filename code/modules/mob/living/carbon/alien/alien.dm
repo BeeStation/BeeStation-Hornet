@@ -31,6 +31,7 @@
 	return ..()
 
 /mob/living/carbon/alien/create_internal_organs()
+	// Will replace the consciousness variable upon insertion
 	internal_organs += new /obj/item/organ/brain/alien
 	internal_organs += new /obj/item/organ/alien/hivenode
 	internal_organs += new /obj/item/organ/tongue/alien

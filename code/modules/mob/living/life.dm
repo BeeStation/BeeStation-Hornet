@@ -20,6 +20,10 @@
 	if(!loc)
 		return
 
+	if (stat != DEAD)
+		blood.blood_tick(src, delta_time)
+		consciousness.consciousness_tick(delta_time)
+
 	if(!has_status_effect(/datum/status_effect/grouped/stasis))
 
 		if(stat != DEAD)

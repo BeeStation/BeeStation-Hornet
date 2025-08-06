@@ -1,0 +1,2 @@
+
+/datum/consciousness/organic

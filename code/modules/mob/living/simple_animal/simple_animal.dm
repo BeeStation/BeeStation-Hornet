@@ -215,17 +215,6 @@
 /mob/living/simple_animal/get_attack_sharpness()
 	return sharpness
 
-/mob/living/simple_animal/update_stat()
-	if(status_flags & GODMODE)
-		return
-	if(stat != DEAD)
-		if(health <= 0)
-			death()
-		else
-			set_stat(CONSCIOUS)
-	med_hud_set_status()
-
-
 /mob/living/simple_animal/handle_status_effects(delta_time, times_fired)
 	..()
 	if(stuttering)

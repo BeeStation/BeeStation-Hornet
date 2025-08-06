@@ -26,7 +26,7 @@
 /datum/blood_source/proc/get_blood_id()
 
 /// Executed every life tick
-/datum/blood_source/proc/blood_tick(mob/living/source)
+/datum/blood_source/proc/blood_tick(mob/living/source, delta_time)
 
 /// Restore the blood to a safe status
 /datum/blood_source/proc/restore_blood()

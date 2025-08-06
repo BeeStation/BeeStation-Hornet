@@ -49,6 +49,12 @@
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/plasmaman,
 	)
 
+	// Plasmamen do not have blood, and thus cannot die from brain asphyxiation
+	// so for the sake of balance (and following the lore) their brain is a distributed
+	// mesh across their entire body, so receives damage exactly proportional to the
+	// amount of damage received.
+	consciousness_type = /datum/consciousness/point
+
 	var/internal_fire = FALSE //If the bones themselves are burning clothes won't help you much
 
 /datum/species/plasmaman/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
