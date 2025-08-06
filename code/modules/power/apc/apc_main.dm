@@ -543,19 +543,22 @@
 				add_load(cellused) // add the load used to recharge the cell
 
 
-		else // no excess, and not enough per-apc
-			if((cell.charge + excess) >= lastused_total) // can we draw enough from cell+grid to cover last usage?
-				cell.charge = min(cell.maxcharge, cell.charge + excess) //recharge with what we can
-				add_load(excess) // so draw what we can from the grid
-				charging = APC_NOT_CHARGING
+	else // no excess, and not enough per-apc
+		if((cell.charge + excess) >= lastused_total)
+			cell.charge = min(cell.maxcharge, cell.charge + excess)
+			add_load(excess)
+			charging = APC_NOT_CHARGING
+		else
+			// Instead of shutting down outright, give it what little excess exists (if positive)
+			if(excess > 0)
+				cell.charge = min(cell.maxcharge, cell.charge + excess)
+				add_load(excess)
 
-			else // not enough power available to run the last tick!
-				charging = APC_NOT_CHARGING
-				chargecount = 0
-				// This turns everything off in the case that there is still a charge left on the battery, just not enough to run the room.
-				equipment = autoset(equipment, AUTOSET_FORCE_OFF)
-				lighting = autoset(lighting, AUTOSET_FORCE_OFF)
-				environ = autoset(environ, AUTOSET_FORCE_OFF)
+			charging = APC_NOT_CHARGING
+			chargecount = 0
+			equipment = autoset(equipment, AUTOSET_FORCE_OFF)
+			lighting = autoset(lighting, AUTOSET_FORCE_OFF)
+			environ = autoset(environ, AUTOSET_FORCE_OFF)
 
 	if(cell && !shorted) //need to check to make sure the cell is still there since rigged cells can randomly explode after give().
 
