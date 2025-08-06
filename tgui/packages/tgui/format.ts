@@ -56,16 +56,8 @@ export const formatSiUnit = (value: number, minBase1000 = -SI_BASE_INDEX, unit =
 };
 
 // Formats a number to a human readable form, with power (W) as the unit
-export const formatPower = (value: number) => {
-  if (value < 1_000) {
-    return `${value} A/s`;
-  } else if (value < 1_000_000) {
-    return `${(value / 1_000).toFixed(1)} kA/s`;
-  } else if (value < 1_000_000_000) {
-    return `${(value / 1_000_000).toFixed(1)} MA/s`;
-  } else {
-    return `${(value / 1_000_000_000).toFixed(1)} GA/s`;
-  }
+export const formatPower = (value: number, minBase1000 = 0) => {
+  return formatSiUnit(value, minBase1000, 'W');
 };
 
 // Formats a number as a currency string
