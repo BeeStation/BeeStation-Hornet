@@ -17125,7 +17125,9 @@
 "eCd" = (
 /obj/structure/table/wood,
 /obj/effect/landmark/event_spawn,
-/obj/item/folder,
+/obj/machinery/cell_charger{
+	desc = "It charges power cells. There is a small tag on it: Public tools charger. Please do no remove"
+	},
 /turf/open/floor/carpet/grimy,
 /area/library)
 "eCe" = (
@@ -17378,6 +17380,13 @@
 /obj/machinery/firealarm/directional/west,
 /turf/open/floor/iron/tiled,
 /area/medical/virology)
+"eFA" = (
+/obj/structure/table/wood,
+/obj/machinery/cell_charger{
+	desc = "It charges power cells. There is a small tag on it: Public tools charger. Please do no remove"
+	},
+/turf/open/floor/carpet,
+/area/crew_quarters/bar/atrium)
 "eFD" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 6
@@ -118298,7 +118307,7 @@ pFH
 syY
 mRd
 tvr
-rkv
+eFA
 mRd
 mRd
 mRd

@@ -389,29 +389,42 @@
 /datum/asset/spritesheet_batched/vending/create_spritesheets()
 	// initialising the list of items we need
 	var/target_items = list()
-	var/prize_dummy = list()
-	for(var/obj/machinery/vendor/V as() in subtypesof(/obj/machinery/vendor))
-		V = new V()
-		prize_dummy |= V.prize_list // prize_list is added by Init()
-		qdel(V)
-	for(var/datum/data/vendor_equipment/V as() in prize_dummy)
-		target_items |= V.equipment_path
-	for(var/obj/machinery/vending/V as() in subtypesof(/obj/machinery/vending))
-		V = new V() // It seems `initial(list var)` has nothing. need to make a type.
-		for(var/O in list(V.products, V.premium, V.contraband))
-			target_items |= O
-		qdel(V)
-	for(var/atom/item as() in target_items)
-		if (!ispath(item, /atom))
-			return FALSE
+	for(var/obj/machinery/vending/vendor as anything in subtypesof(/obj/machinery/vending))
+		vendor = new vendor() // It seems `initial(list var)` has nothing. need to make a type.
+		target_items |= vendor.products
+		target_items |= vendor.premium
+		target_items |= vendor.contraband
+		qdel(vendor)
 
-		var/overlay = initial(item.icon_state)
-		var/icon_init = initial(item.icon)
-		var/list/icon_states_available = icon_states(icon_init)
-		if(!(overlay in icon_states_available))
-			var/icon_file = "[icon_init]" || "Unknown Generated Icon"
-			stack_trace("Invalid overlay: Icon object '[icon_file]' [REF(src)] used in '[src]' [type] is missing icon state [overlay].")
+	// building icons for each item
+	for (var/atom/item as anything in target_items)
+		if (!ispath(item, /atom))
 			continue
+
+		var/icon_state = initial(item.icon_state)
+		if(ispath(item, /obj))
+			var/obj/obj_atom = item
+			if(initial(obj_atom.icon_state_preview))
+				icon_state = initial(obj_atom.icon_state_preview)
+		var/has_gags = initial(item.greyscale_config) && initial(item.greyscale_colors)
+		var/has_color = initial(item.color) && icon_state
+		// GAGS and colored icons must be pregenerated
+		// Otherwise we can rely on DMIcon, so skip it to save init time
+		if(!has_gags && !has_color)
+			continue
+		#ifdef UNIT_TESTS
+		if (!has_gags && !icon_exists(initial(item.icon), icon_state))
+			var/icon_file = initial(item.icon)
+			var/icon_states_string
+			for (var/an_icon_state in icon_states(icon_file))
+				if (!icon_states_string)
+					icon_states_string = "[json_encode(an_icon_state)]([text_ref(an_icon_state)])"
+				else
+					icon_states_string += ", [json_encode(an_icon_state)]([text_ref(an_icon_state)])"
+
+			stack_trace("[item] does not have a valid icon state, icon=[icon_file], icon_state=[json_encode(icon_state)]([text_ref(icon_state)]), icon_states=[icon_states_string]")
+			continue
+		#endif
 
 		var/imgid = replacetext(replacetext("[item]", "/obj/item/", ""), "/", "-")
 		insert_icon(imgid, get_display_icon_for(item))

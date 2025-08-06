@@ -1,3 +1,4 @@
+@use 'sass:color';
 @use '../base.scss';
 @use '../colors.scss';
 @use '../functions.scss' as *;
@@ -31,7 +32,7 @@ $thickness: base.em(2px) !default;
     margin-right: 5px;
     height: 100%;
     overflow-y: scroll;
-    background-color: darken(base.$color-bg, 5%);
+    background-color: color.adjust(base.$color-bg, $lightness: -5%);
     padding: 8px;
   }
 
@@ -103,7 +104,7 @@ $thickness: base.em(2px) !default;
   }
 
   .item_desc {
-    color: mix(base.$color-bg, base.$color-fg, $weight: 50%);
+    color: color.mix(base.$color-bg, base.$color-fg, $weight: 50%);
     font-size: calc(base.$font-size - 1px);
   }
 

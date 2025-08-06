@@ -36,8 +36,8 @@ export const XenoartifactLabeler = (props) => {
   );
 };
 
-const XenoartifactlabelerTraits = (props, context) => {
-  const { act, data } = useBackend(context);
+const XenoartifactlabelerTraits = (props) => {
+  const { act, data } = useBackend();
   const { activator_traits, minor_traits, major_traits, malfunction_list, enabled_trait_filters, filtered_traits } = data;
 
   let alphasort = function (a, b) {
@@ -91,8 +91,8 @@ const XenoartifactlabelerTraits = (props, context) => {
   );
 };
 
-const XenoartifactlabelerInfo = (props, context) => {
-  const { act, data } = useBackend(context);
+const XenoartifactlabelerInfo = (props) => {
+  const { act, data } = useBackend();
   const { selected_traits, labeler_traits_filter } = data;
   return (
     <Box px={1} overflowY="auto" height="72vh">
@@ -103,8 +103,8 @@ const XenoartifactlabelerInfo = (props, context) => {
   );
 };
 
-const XenoartifactlabelerGenerateEntry = (props, context) => {
-  const { act, data } = useBackend(context);
+const XenoartifactlabelerGenerateEntry = (props) => {
+  const { act, data } = useBackend();
   const { specific_trait, trait_type } = props;
   const { tooltip_stats, selected_traits, deselected_traits } = data;
   return (
@@ -126,8 +126,8 @@ const XenoartifactlabelerGenerateEntry = (props, context) => {
   );
 };
 
-const XenoartifactlabelerGenerateInfo = (props, context) => {
-  const { act, data } = useBackend(context);
+const XenoartifactlabelerGenerateInfo = (props) => {
+  const { act, data } = useBackend();
   const { info } = props;
   const { tooltip_stats } = data;
   return (
@@ -145,8 +145,8 @@ const XenoartifactlabelerGenerateInfo = (props, context) => {
   );
 };
 
-const XenoartifactlabelerSticker = (props, context) => {
-  const { act } = useBackend(context);
+const XenoartifactlabelerSticker = (props) => {
+  const { act } = useBackend();
   return (
     <Box>
       <Button content="Print" onClick={() => act('print_traits')} />
@@ -155,8 +155,8 @@ const XenoartifactlabelerSticker = (props, context) => {
   );
 };
 
-const XenoartifactlabelerGenerateFilterEntry = (props, context) => {
-  const { act, data } = useBackend(context);
+const XenoartifactlabelerGenerateFilterEntry = (props) => {
+  const { act, data } = useBackend();
   //  const { specific_trait, trait_type } = props;
   const { trait_filters, enabled_trait_filters } = data;
   return (

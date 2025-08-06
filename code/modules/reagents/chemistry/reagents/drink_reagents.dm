@@ -876,7 +876,7 @@
 	M.adjustToxLoss(-0.5 * REM * delta_time, 0)
 	M.adjustOxyLoss(-0.5 * REM * delta_time, 0)
 	if(M.nutrition && (M.nutrition - 2 > 0))
-		if(M.mind && !HAS_TRAIT(M.mind, TRAIT_MEDICAL_METABOLISM)) //Drains the nutrition of the holder. Not medical staff though, since it's the Doctor's Delight!
+		if(!HAS_MIND_TRAIT(M, TRAIT_MEDICAL_METABOLISM)) //Drains the nutrition of the holder. Not medical staff though, since it's the Doctor's Delight!
 			M.adjust_nutrition(-2 * REM * delta_time)
 	..()
 	. = TRUE
