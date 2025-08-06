@@ -176,6 +176,28 @@
 	if(spamchecking)
 		qdel(src)
 
+/obj/item/food/gumball/syndicate
+	name = "blood-red gumball"
+	desc = "A strangely sinister, sugary gumball."
+	foodtypes = GROSS | TOXIC | BUGS
+	food_flags = FOOD_FINGER_FOOD
+	food_reagents = list(
+		/datum/reagent/consumable/sugar = 2,
+		/datum/reagent/impedrezene = 2,
+		/datum/reagent/toxin/spewium = 2,
+		/datum/reagent/cryptobiolin = 2
+	)	//Kek
+	tastes = list("gummy death")
+
+
+/obj/item/food/gumball/Initialize(mapload)
+	. = ..()
+	color = rgb(120, 0, 0)
+
+/obj/item/food/gumball/syndicate/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/slippery, 0.5 SECONDS, NO_SLIP_WHEN_WALKING)
+
 // Lollipop
 /obj/item/food/lollipop
 	name = "lollipop"

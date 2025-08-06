@@ -12,8 +12,8 @@
 	var/variant = "gumball"
 
 	//Its a cheaply made sheetmetal, glass and plastic thingy. Hefty and unwieldy.
-	force = 10
-	throwforce = 15
+	force = 7
+	throwforce = 10
 	throw_speed = 3
 	throw_range = 4
 	//File down the edges? No. What do you think this is? You're in a sweatshop!
@@ -99,18 +99,18 @@
 	switch(total_candies)
 		if(37 to 50)
 			add_overlay("[icon_state]_100")
-			desc = "A colorful [candy_type.name] machine. It is full!"
+			desc = "A [candy_type.name] machine. It is full!"
 		if(25 to 36)
 			add_overlay("[icon_state]_75")
-			desc = "A colorful [candy_type.name] machine. Some candy is missing."
+			desc = "A [candy_type.name] machine. Some candy is missing."
 		if(12 to 24)
 			add_overlay("[icon_state]_50")
-			desc = "A colorful [candy_type.name] machine. It's half full!"
+			desc = "A [candy_type.name] machine. It's half full!"
 		if(1 to 12)
 			add_overlay("[icon_state]_25")
-			desc = "A colorful [candy_type.name] machine. There are a few candies left."
+			desc = "A [candy_type.name] machine. There are a few candies left."
 		if(0)
-			desc = "A colorful [candy_type.name] machine. It's empty!"
+			desc = "A [candy_type.name] machine. It's empty!"
 
 
 /obj/item/candydispenser/attack_self(mob/user)
@@ -137,3 +137,12 @@
 	name = "lollipop dispenser"
 	variant = "lollipop"
 	candy_type = /obj/item/food/lollipop
+
+/obj/item/candydispenser/syndie
+	name = "blood-red gumball dispenser"
+	desc = "A whimsical device with a glass globe on top, which can be operated to dispense various candies. This one looks rather... sinister. All the corners appear sharpened."
+	variant = "syndie"
+	candy_type = /obj/item/food/gumball/syndicate
+	force = 15
+	throwforce = 17
+	bleed_force = BLEED_SCRATCH
