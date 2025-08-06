@@ -894,7 +894,6 @@
 /datum/status_effect/stabilized/oil
 	id = "stabilizedoil"
 	colour = SLIME_TYPE_OIL
-	examine_text = span_warning("SUBJECTPRONOUN smells of sulfer and oil!")
 
 /datum/status_effect/stabilized/oil/tick()
 	if(owner.stat == DEAD)
@@ -1000,7 +999,6 @@
 /datum/status_effect/stabilized/adamantine
 	id = "stabilizedadamantine"
 	colour = SLIME_TYPE_ADAMANTINE
-	examine_text = span_warning("SUBJECTPRONOUN has a strange metallic coating on their skin.")
 
 /datum/status_effect/stabilized/adamantine/get_examine_text()
 	return span_warning("[owner.p_they(TRUE)] [owner.p_have()] strange metallic coating on [owner.p_their()] skin.")

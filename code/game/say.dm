@@ -33,11 +33,20 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	SEND_SIGNAL(src, COMSIG_MOVABLE_HEAR, args)
 
 /**
- * Attempts to / checks if our movable can speak the passed message.
- * CAN include feedback messages about why someone can or can't speak
+ * Checks if our movable can speak the provided message, passing it through filters
+ * and spam detection. Does not call can_speak. CAN include feedback messages about
+ * why someone can or can't speak
  *
  * Used in [proc/say] and other methods of speech (radios) after a movable has inputted some message.
  * If you just want to check if the movable is able to speak in character, use [proc/can_speak] instead.
+ *
+ * Parameters:
+ * - message (string): the original message
+ * - ignore_spam (bool): should we ignore spam?
+ * - forced (null|string): what was it forced by? null if voluntary
+ *
+ * Returns:
+ * 	TRUE of FALSE depending on if our movable can speak
  */
 /atom/movable/proc/try_speak(message, ignore_spam = FALSE, forced = FALSE)
 	return TRUE
@@ -56,6 +65,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
  * if TRUE, we will check if the movable can speak REGARDLESS of if they have an active mime vow.
  */
 /atom/movable/proc/can_speak(allow_mimes = FALSE)
+	SHOULD_BE_PURE(TRUE)
 	return TRUE
 
 /atom/movable/proc/send_speech(message, range = 7, obj/source = src, bubble_type, list/spans, datum/language/message_language, list/message_mods = list())

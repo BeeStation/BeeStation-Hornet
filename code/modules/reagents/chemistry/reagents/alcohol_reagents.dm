@@ -48,7 +48,7 @@
 		drinker.adjust_drunk_effect(sqrt(volume) * booze_power * ALCOHOL_RATE * REM * delta_time)
 		if(drinker.get_drunk_amount() >= 250)
 			drinker.client?.give_award(/datum/award/achievement/misc/drunk, drinker)
-		var/obj/item/organ/liver/L = drinker.getorganslot(ORGAN_SLOT_LIVER)
+		var/obj/item/organ/liver/L = drinker.get_organ_slot(ORGAN_SLOT_LIVER)
 		if (istype(L))
 			L.applyOrganDamage(((max(sqrt(volume) * (boozepwr ** ALCOHOL_EXPONENT) * L.alcohol_tolerance * delta_time, 0))/150))
 	return ..()

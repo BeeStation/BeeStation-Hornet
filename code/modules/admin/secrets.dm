@@ -2,7 +2,6 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 
 /datum/admin_secrets
 
-
 /datum/admin_secrets/ui_state(mob/user)
 	return GLOB.admin_state
 
@@ -519,13 +518,14 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Virus Outbreak"))
 			switch(tgui_alert(usr,"Do you want this to be a random disease or do you have something in mind?",,list("Make Your Own","Random","Choose")))
 				if("Make Your Own")
-					AdminCreateVirus(holder)
+					AdminCreateVirus(usr.client)
 				if("Random")
-					force_event(/datum/round_event_control/disease_outbreak)
-				if("Choose")
-					var/virus = tgui_input_list(holder, "Choose the virus to spread", "BIOHAZARD", sort_list(typesof(/datum/disease), GLOBAL_PROC_REF(cmp_typepaths_asc)))
 					var/datum/round_event_control/disease_outbreak/DC = locate(/datum/round_event_control/disease_outbreak) in SSevents.control
-					var/datum/round_event/disease_outbreak/DO = DC.run_event()
+					E = DC.runEvent()
+				if("Choose")
+					var/virus = tgui_input_list(usr, "Choose the virus to spread", "BIOHAZARD", sort_list(typesof(/datum/disease), GLOBAL_PROC_REF(cmp_typepaths_asc)))
+					var/datum/round_event_control/disease_outbreak/DC = locate(/datum/round_event_control/disease_outbreak) in SSevents.control
+					var/datum/round_event/disease_outbreak/DO = DC.runEvent()
 					DO.virus_type = virus
 					E = DO
 
@@ -839,7 +839,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 	if(E)
 		E.processing = FALSE
 		if(E.announceWhen>0)
-			switch(tgui_alert(holder, "Would you like to alert the crew?", "Alert", list("Yes", "No", "Cancel")))
+			switch(tgui_alert(usr, "Would you like to alert the crew?", "Alert", list("Yes", "No", "Cancel")))
 				if("Yes")
 					E.announceChance = 100
 				if("Cancel")

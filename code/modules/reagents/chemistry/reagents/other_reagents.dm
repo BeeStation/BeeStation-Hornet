@@ -276,7 +276,7 @@
 	if(data["misc"] >= (25 SECONDS)) // 10 units
 		M.adjust_jitter_up_to(4 SECONDS * delta_time, 20 SECONDS)
 		M.set_dizzy_if_lower(10 SECONDS)
-		if(is_servant_of_ratvar(M) && DT_PROB(10, delta_time))
+		if(IS_SERVANT_OF_RATVAR(M) && DT_PROB(10, delta_time))
 			M.say(text2ratvar(pick("Please don't leave me...", "Rat'var what happened?", "My friends, where are you?", "The hierophant network just went dark, is anyone there?", "The light is fading...", "No... It can't be...")), forced = "holy water")
 			if(prob(40))
 				if(!HAS_TRAIT_FROM(M, TRAIT_DEPRESSION, HOLYWATER_TRAIT))

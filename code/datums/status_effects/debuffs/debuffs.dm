@@ -1006,10 +1006,12 @@
 
 /datum/status_effect/cyborg_malfunction
 	id = "cyborg_malfunction"
-	examine_text = span_warning("SUBJECTPRONOUN is flashing red error lights!")
 	duration = MALFUNCTION_DURATION
 	alert_type = /atom/movable/screen/alert/status_effect/generic_malfunction
 	status_type = STATUS_EFFECT_REFRESH
+
+/datum/status_effect/cyborg_malfunction/get_examine_text()
+    return span_warning("[owner.p_they(TRUE)] [owner.p_are()] flashing red error lights!")
 
 /atom/movable/screen/alert/status_effect/generic_malfunction
 	name = "Malfunctioning Electronics"
