@@ -41,3 +41,7 @@
       it is not limited to only wizards during round ends at low-pops.
   - tweak: Lowers the min pop required for dragon and blob to spawn.
   - tweak: All dynamic midround rulesets are equally weighted.
+2025-08-06:
+  mrmanlikesbt, Mothblocks, Bomberman66Dev, san7890:
+  - code_imp: modifies the ASSERT() macro
+  - code_imp: adds trait helpers for easily adding a list of traits to something
