@@ -16,10 +16,6 @@ PROCESSING_SUBSYSTEM_DEF(station)
 	)
 	/// Currently active announcer. Starts as a type but gets initialized after traits are selected
 	var/datum/centcom_announcer/announcer = /datum/centcom_announcer/default
-	/// A list of trait roles that should be protected from antag
-	var/list/antag_protected_roles = list()
-	/// A list of trait roles that should never be able to roll antag
-	var/list/antag_restricted_roles = list()
 
 	/// Assosciative list of station goal type -> goal instance
 	var/list/datum/station_goal/goals_by_type = list()
@@ -34,6 +30,12 @@ PROCESSING_SUBSYSTEM_DEF(station)
 	announcer = new announcer() //Initialize the station's announcer datum
 
 	return SS_INIT_SUCCESS
+
+/datum/controller/subsystem/processing/station/Recover()
+	station_traits = SSstation.station_traits
+	selectable_traits_by_types = SSstation.selectable_traits_by_types
+	announcer = SSstation.announcer
+	goals_by_type = SSstation.goals_by_type
 
 /**
  * This gets called by SSdynamic during initial gamemode setup.
