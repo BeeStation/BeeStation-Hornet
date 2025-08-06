@@ -453,9 +453,9 @@
 	desc = "It's as strong as it smells."
 	icon_state = "absinthe"
 
-/datum/reagent/consumable/ethanol/absinthe/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	if(DT_PROB(5, delta_time) && !HAS_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE))
-		M.hallucination += 4 //Reference to the urban myth
+/datum/reagent/consumable/ethanol/absinthe/on_mob_life(mob/living/carbon/drinker, delta_time, times_fired)
+	if(DT_PROB(5, delta_time) && !HAS_TRAIT(drinker, TRAIT_ALCOHOL_TOLERANCE))
+		drinker.adjust_hallucinations(8 SECONDS) //Reference to the urban myth
 	..()
 
 /datum/reagent/consumable/ethanol/hooch
@@ -822,16 +822,17 @@
 	ADD_TRAIT(M, TRAIT_NOBLOCK, type) //sorry sec, but you dont get a special stam heal to help with blocking
 	..()
 
-/datum/reagent/consumable/ethanol/beepsky_smash/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.Jitter(2)
-	if(M.mind != null && HAS_TRAIT(M.mind, TRAIT_LAW_ENFORCEMENT_METABOLISM))
-		M.adjustStaminaLoss(-10 * REM * delta_time, 0)
+/datum/reagent/consumable/ethanol/beepsky_smash/on_mob_life(mob/living/carbon/drinker, delta_time, times_fired)
+	drinker.Jitter(2)
+	if(drinker.mind != null && HAS_TRAIT(drinker.mind, TRAIT_LAW_ENFORCEMENT_METABOLISM))
+		. = TRUE
+		drinker.adjustStaminaLoss(-10 * REM * delta_time, 0)
 		if(DT_PROB(10, delta_time))
-			new /datum/hallucination/items_other(M)
+			drinker.cause_hallucination(get_random_valid_hallucination_subtype(/datum/hallucination/nearby_fake_item), name)
 		if(DT_PROB(5, delta_time))
-			new /datum/hallucination/stray_bullet(M)
+			drinker.cause_hallucination(/datum/hallucination/stray_bullet, name)
+
 	..()
-	. = TRUE
 
 /datum/reagent/consumable/ethanol/beepsky_smash/on_mob_end_metabolize(mob/living/carbon/M)
 	if(B)

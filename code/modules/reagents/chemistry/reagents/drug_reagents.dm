@@ -29,8 +29,9 @@
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "[type]_overdose", /datum/mood_event/overdose, name)
 
 /datum/reagent/drug/space_drugs/overdose_process(mob/living/M, delta_time, times_fired)
-	if(M.hallucination < volume && DT_PROB(10, delta_time))
-		M.hallucination += 5
+	var/hallucination_duration_in_seconds = (M.get_timed_status_effect_duration(/datum/status_effect/hallucination) / 10)
+	if(hallucination_duration_in_seconds < volume && DT_PROB(10, delta_time))
+		M.adjust_hallucinations(10 SECONDS)
 	..()
 
 /datum/reagent/drug/nicotine
@@ -316,7 +317,7 @@
 		to_chat(M, span_notice("[high_message]"))
 	M.adjustStaminaLoss(-5 * REM * delta_time, 0)
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 4 * REM * delta_time)
-	M.hallucination += 5 * REM * delta_time
+	M.adjust_hallucinations(10 SECONDS * REM * delta_time)
 	if(!HAS_TRAIT(M, TRAIT_IMMOBILIZED) && !ismovable(M.loc))
 		step(M, pick(GLOB.cardinals))
 		step(M, pick(GLOB.cardinals))
@@ -324,7 +325,7 @@
 	. = TRUE
 
 /datum/reagent/drug/bath_salts/overdose_process(mob/living/M, delta_time, times_fired)
-	M.hallucination += 5 * REM * delta_time
+	M.adjust_hallucinations(10 SECONDS * REM * delta_time)
 	if(!HAS_TRAIT(M, TRAIT_IMMOBILIZED) && !ismovable(M.loc))
 		for(var/i in 1 to round(8 * REM * delta_time, 1))
 			step(M, pick(GLOB.cardinals))
@@ -335,7 +336,7 @@
 	..()
 
 /datum/reagent/drug/bath_salts/addiction_act_stage1(mob/living/M)
-	M.hallucination += 10
+	M.adjust_hallucinations(20 SECONDS)
 	if(!HAS_TRAIT(M, TRAIT_IMMOBILIZED) && !ismovable(M.loc))
 		for(var/i = 0, i < 8, i++)
 			step(M, pick(GLOB.cardinals))
@@ -346,7 +347,7 @@
 	..()
 
 /datum/reagent/drug/bath_salts/addiction_act_stage2(mob/living/M)
-	M.hallucination += 20
+	M.adjust_hallucinations(40 SECONDS)
 	if(!HAS_TRAIT(M, TRAIT_IMMOBILIZED) && !ismovable(M.loc))
 		for(var/i = 0, i < 8, i++)
 			step(M, pick(GLOB.cardinals))
@@ -358,7 +359,7 @@
 	..()
 
 /datum/reagent/drug/bath_salts/addiction_act_stage3(mob/living/M)
-	M.hallucination += 30
+	M.adjust_hallucinations(60 SECONDS)
 	if(!HAS_TRAIT(M, TRAIT_IMMOBILIZED) && !ismovable(M.loc))
 		for(var/i = 0, i < 12, i++)
 			step(M, pick(GLOB.cardinals))
@@ -370,7 +371,7 @@
 	..()
 
 /datum/reagent/drug/bath_salts/addiction_act_stage4(mob/living/carbon/human/M)
-	M.hallucination += 30
+	M.adjust_hallucinations(60 SECONDS)
 	if(!HAS_TRAIT(M, TRAIT_IMMOBILIZED) && !ismovable(M.loc))
 		for(var/i = 0, i < 16, i++)
 			step(M, pick(GLOB.cardinals))
@@ -521,7 +522,7 @@
 	M.jitteriness -= 5 * REM * delta_time
 	M.disgust -= 3 * REM * delta_time
 	//Ketamine is also a dissociative anasthetic which means Hallucinations!
-	M.hallucination += 5 * REM * delta_time
+	M.adjust_hallucinations(10 SECONDS * REM * delta_time)
 	..()
 
 /datum/reagent/drug/ketamine/overdose_process(mob/living/M)
@@ -530,7 +531,7 @@
 	if(!gained_trauma)
 		B.gain_trauma_type(BRAIN_TRAUMA_SEVERE, TRAUMA_RESILIENCE_SURGERY)
 		gained_trauma = TRUE
-	M.hallucination += 10
+	M.adjust_hallucinations(20 SECONDS)
 	//Uh Oh Someone is tired
 	if(prob(40))
 		if(HAS_TRAIT(M, TRAIT_IGNOREDAMAGESLOWDOWN))

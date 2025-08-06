@@ -147,12 +147,12 @@
 	desc = "There's too much carbon dioxide in the air, and you're breathing it in! Find some good air before you pass out!"
 	icon_state = "too_much_co2"
 
-/atom/movable/screen/alert/not_enough_tox
+/atom/movable/screen/alert/not_enough_plas
 	name = "Choking (No Plasma)"
 	desc = "You're not getting enough plasma. Find some good air before you pass out!"
 	icon_state = "not_enough_tox"
 
-/atom/movable/screen/alert/too_much_tox
+/atom/movable/screen/alert/too_much_plas
 	name = "Choking (Plasma)"
 	desc = "There's highly flammable, toxic plasma in the air and you're breathing it in. Find some fresh air. The box in your backpack has an oxygen tank and gas mask in it."
 	icon_state = "too_much_tox"

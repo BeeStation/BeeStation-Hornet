@@ -540,7 +540,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	sac_target.blur_eyes(15)
 	sac_target.Jitter(10)
 	sac_target.Dizzy(10)
-	sac_target.hallucination += 12
+	sac_target.adjust_hallucinations(24 SECONDS)
 	sac_target.emote("scream")
 
 	to_chat(sac_target, span_reallybig("[span_hypnophrase("The grasping hands reveal themselves to you!")]"))

@@ -10,7 +10,7 @@
 /obj/effect/anomaly/bioscrambler
 	name = "bioscrambler anomaly"
 	icon_state = "bioscrambler_anomaly"
-	aSignal = /obj/item/assembly/signaler/anomaly/bioscrambler
+	anomaly_core = /obj/item/assembly/signaler/anomaly/bioscrambler
 
 	COOLDOWN_DECLARE(pulse_cooldown)
 	var/pulse_interval = 15 SECONDS

@@ -61,4 +61,4 @@
 		each_mob.Knockdown(10)
 		each_mob.emote("scream")
 		each_mob.Jitter(50)
-		each_mob.hallucination = each_mob.hallucination + 20
+		each_mob.adjust_hallucinations(40 SECONDS)

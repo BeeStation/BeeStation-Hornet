@@ -234,7 +234,7 @@
 	if(hal_details == "random")
 		hal_details = null
 	if(hal_type == "Random")
-		C.hallucination += 15
+		C.adjust_hallucinations(30 SECONDS)
 	else
 		switch(hal_type)
 			if("Message")
@@ -242,11 +242,11 @@
 			if("Battle")
 				new /datum/hallucination/battle(C, TRUE, hal_details)
 			if("Sound")
-				new /datum/hallucination/sounds(C, TRUE, hal_details)
+				new /datum/hallucination/fake_sound/normal(C, TRUE, hal_details)
 			if("Weird Sound")
-				new /datum/hallucination/weird_sounds(C, TRUE, hal_details)
+				new /datum/hallucination/fake_sound/weird(C, TRUE, hal_details)
 			if("Station Message")
-				new /datum/hallucination/stationmessage(C, TRUE, hal_details)
+				new /datum/hallucination/station_message(C, TRUE, hal_details)
 			if("Health")
 				switch(hal_details)
 					if("critical")
@@ -255,7 +255,7 @@
 						hal_details = SCREWYHUD_DEAD
 					if("healthy")
 						hal_details = SCREWYHUD_HEALTHY
-				new /datum/hallucination/hudscrew(C, TRUE, hal_details)
+				new /datum/hallucination/screwy_hud(C, TRUE, hal_details)
 			if("Alert")
 				new /datum/hallucination/fake_alert(C, TRUE, hal_details)
 			if("Fire")

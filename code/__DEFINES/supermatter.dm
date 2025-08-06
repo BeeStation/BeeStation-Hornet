@@ -51,7 +51,7 @@
 
 //These would be what you would get at point blank, decreases with distance
 #define DETONATION_RADS 200
-#define DETONATION_HALLUCINATION 600
+#define DETONATION_HALLUCINATION 20 MINUTES
 
 
 #define WARNING_DELAY 60
