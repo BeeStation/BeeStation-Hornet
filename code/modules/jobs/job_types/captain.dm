@@ -8,13 +8,11 @@
 	supervisors = "Nanotrasen officials and Space law"
 	faction = "Station"
 	total_positions = 1
-	spawn_positions = 1
 	selection_color = "#ccccff"
 	req_admin_notify = 1
 	minimal_player_age = 14
-	exp_requirements = 1200
+	exp_requirements = 900
 	exp_type = EXP_TYPE_COMMAND
-	exp_type_department = EXP_TYPE_COMMAND
 
 	outfit = /datum/outfit/job/captain
 
@@ -53,7 +51,7 @@
 	jobtype = /datum/job/captain
 
 	id = /obj/item/card/id/job/captain
-	belt = /obj/item/modular_computer/tablet/pda/heads/captain
+	belt = /obj/item/modular_computer/tablet/pda/preset/heads/captain
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced
 	ears = /obj/item/radio/headset/heads/captain/alt
 	gloves = /obj/item/clothing/gloves/color/captain

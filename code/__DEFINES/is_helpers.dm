@@ -24,7 +24,11 @@ GLOBAL_DATUM_INIT(regex_rgb_text, /regex, regex(@"^#?(([0-9a-fA-F]{8})|([0-9a-fA
 #define iscolortext(thing) (istext(thing) && GLOB.regex_rgb_text.Find(thing))
 
 // simple check whether or not a player is a guest using their key
-#define IS_GUEST_KEY(key)	(findtextEx(key, "Guest-", 1, 7))
+#define IS_GUEST_KEY(key) (findtextEx(key, "Guest-", 1, 7))
+/// use client.logged_in where possible
+#define IS_PREAUTH_KEY(key) (findtextEx(key, "Guest-preauth", 1, 14))
+/// use client.logged_in where possible
+#define IS_PREAUTH_CKEY(key) (findtextEx(key, "guestpreauth", 1, 13))
 
 //Turfs
 //#define isturf(A) (istype(A, /turf)) This is actually a byond built-in. Added here for completeness sake.
@@ -94,6 +98,8 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define iszombie(A) (is_species(A, /datum/species/zombie))
 #define isskeleton(A) (is_species(A, /datum/species/skeleton))
 #define isshadow(A) (is_species(A, /datum/species/shadow))
+#define isblessedshadow(A) (is_species(A, /datum/species/shadow/blessed))
+#define isnightmare(A) (is_species(A, /datum/species/shadow/nightmare))
 #define ismoth(A) (is_species(A, /datum/species/moth))
 #define ishumanbasic(A) (is_species(A, /datum/species/human) && !is_species(A, /datum/species/human/krokodil_addict))
 #define iscatperson(A) (is_species(A, /datum/species/human/felinid) )
@@ -247,6 +253,8 @@ GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 
 #define isgun(A) (istype(A, /obj/item/gun))
 
+#define isammobox(A) (istype(A, /obj/item/ammo_box))
+
 #define is_reagent_container(O) (istype(O, /obj/item/reagent_containers))
 
 //Assemblies
@@ -294,3 +302,6 @@ GLOBAL_LIST_INIT(book_types, typecacheof(list(
 #define isnum_safe(x) ( isnum((x)) && !isnan((x)) && !isinf((x)) )
 
 #define iscash(A) (istype(A, /obj/item/coin) || istype(A, /obj/item/stack/spacecash) || istype(A, /obj/item/holochip))
+
+/// Helper for checking of someone's shapeshifted currently.
+#define is_shifted(mob) mob.has_status_effect(/datum/status_effect/shapechange_mob/from_spell)

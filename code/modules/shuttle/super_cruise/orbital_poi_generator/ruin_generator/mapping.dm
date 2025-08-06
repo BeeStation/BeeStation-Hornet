@@ -108,8 +108,8 @@
 		/obj/item/gps/science = 3,
 		/obj/item/inducer/sci = 3,
 		/obj/item/megaphone = 1,
-		/obj/item/modular_computer/tablet/pda/roboticist = 3,
-		/obj/item/modular_computer/tablet/pda/science = 3,
+		/obj/item/modular_computer/tablet/pda/preset/roboticist = 3,
+		/obj/item/modular_computer/tablet/pda/preset/science = 3,
 		/obj/item/pinpointer/crew = 4,
 		/obj/item/reactive_armour_shell = 1,
 		/obj/item/anomaly_neutralizer = 1,
@@ -187,7 +187,7 @@
 	loot = list(
 		"" = 4,
 		/obj/item/disk/tech_disk/research/random = 24,
-		/obj/item/xenoartifact = 6,
+		/obj/item/xenoartifact/pre_labeled = 6,
 		/obj/item/gun/energy/vortex = 3,
 		/obj/item/gun/energy/alien = 1
 	)

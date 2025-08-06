@@ -56,6 +56,8 @@
 
 /datum/config_entry/flag/log_game	// log game events
 
+/datum/config_entry/flag/log_dynamic	// log what dynamic is doing
+
 /datum/config_entry/flag/log_objective	// log antag objectives
 
 /datum/config_entry/flag/log_mecha	// log mech data
@@ -103,8 +105,6 @@
 /datum/config_entry/flag/allow_admin_asaycolor //Allows admins with relevant permissions to have a personalized asay color
 
 /datum/config_entry/flag/allow_vote_restart	// allow votes to restart
-
-/datum/config_entry/flag/allow_vote_mode	// allow votes to change mode
 
 /datum/config_entry/flag/allow_vote_map	// allow votes to change map
 
@@ -182,6 +182,9 @@
 /datum/config_entry/flag/enable_localhost_rank	//Gives the !localhost! rank to any client connecting from 127.0.0.1 or ::1
 	protection = CONFIG_ENTRY_LOCKED
 
+/datum/config_entry/flag/localhost_auth_bypass	//Allows any client connecting from 127.0.0.1 or ::1 to skip CKEY authentication
+	protection = CONFIG_ENTRY_LOCKED
+
 /datum/config_entry/flag/load_legacy_ranks_only	//Loads admin ranks only from legacy admin_ranks.txt, while enabled ranks are mirrored to the database
 	protection = CONFIG_ENTRY_LOCKED
 
@@ -251,6 +254,22 @@
 	min_val = 0
 
 /datum/config_entry/flag/guest_ban
+
+/datum/config_entry/flag/enable_guest_external_auth
+	protection = CONFIG_ENTRY_LOCKED
+
+/datum/config_entry/flag/force_byond_external_auth
+	protection = CONFIG_ENTRY_LOCKED
+
+/datum/config_entry/keyed_list/external_auth_method
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_TEXT
+	protection = CONFIG_ENTRY_LOCKED
+
+/datum/config_entry/keyed_list/external_auth_method/ValidateListEntry(key_name, key_value)
+	if(key_name != "discord" || (!findtext(key_value, "https://", 1, 9) && !findtext(key_value, "http://localhost", 1, 17)))
+		return FALSE
+	return ..()
 
 /datum/config_entry/number/id_console_jobslot_delay
 	config_entry_value = 30

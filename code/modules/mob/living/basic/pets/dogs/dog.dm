@@ -409,7 +409,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 		icon_dead = "old_corgi_dead"
 		desc = "At a ripe old age of [record_age], Ian's not as spry as he used to be, but he'll always be the HoP's beloved corgi." //RIP
 		held_state = "old_corgi"
-		ai_controller?.blackboard[BB_DOG_IS_SLOW] = TRUE
+		ai_controller?.set_blackboard_key(BB_DOG_IS_SLOW, TRUE)
 		is_slow = TRUE
 
 /mob/living/basic/pet/dog/corgi/Ian/Life(delta_time = SSMOBS_DT, times_fired)
@@ -597,6 +597,9 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	icon_dead = "void_puppy_dead"
 	nofur = TRUE
 	held_state = "void_puppy"
+	unsuitable_atmos_damage = 0
+	minimum_survivable_temperature = TCMB
+	maximum_survivable_temperature = T0C + 40
 
 /mob/living/basic/pet/dog/corgi/puppy/void/Initialize(mapload)
 	. = ..()

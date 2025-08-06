@@ -55,10 +55,10 @@
 
 	return UI_INTERACTIVE
 
-/// Returns a UI status such that advanced tool users will be able to update,
+/// Returns a UI status such that advanced tool users will be able to interact,
 /// but everyone else can only watch.
-/proc/ui_status_user_is_advanced_tool_user(mob/user, atom/source)
-	return (user.canUseTopic(source, BE_CLOSE) && !HAS_TRAIT(user, TRAIT_DISCOORDINATED)) ? UI_INTERACTIVE : UI_UPDATE
+/proc/ui_status_user_is_advanced_tool_user(mob/user)
+	return ISADVANCEDTOOLUSER(user) ? UI_INTERACTIVE : UI_UPDATE
 
 /// Returns a UI status such that silicons will be able to interact with whatever
 /// they would have access to if this was a machine. For example, AIs can

@@ -60,7 +60,7 @@
 			if(prob(25))
 				if(honey)
 					to_chat(M, span_notice("You can't get the taste of honey out of your mouth!."))
-					M.reagents.add_reagent_list(list(/datum/reagent/consumable/honey = 10, /datum/reagent/consumable/honey/special = 5, /datum/reagent/medicine/insulin = 5)) //insulin prevents hyperglycemic shock
+					M.reagents.add_reagent_list(list(/datum/reagent/consumable/honey = 10, /datum/reagent/consumable/honey = 5, /datum/reagent/medicine/insulin = 5)) //insulin prevents hyperglycemic shock
 				else
 					to_chat(M, span_danger("Your stomach stings painfully."))
 					M.adjustToxLoss(5)

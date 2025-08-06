@@ -7,6 +7,7 @@
 /obj/item/reagent_containers/cup/glass/bottle
 	name = "glass bottle"
 	desc = "This blank bottle is unyieldingly anonymous, offering no clues to its contents."
+	icon = 'icons/obj/drinks/bottles.dmi'
 	icon_state = "glassbottle"
 	worn_icon_state = "bottle"
 	fill_icon_thresholds = list(0, 10, 20, 30, 40, 50, 60, 70, 80, 90)
@@ -113,7 +114,7 @@
 /obj/item/broken_bottle
 	name = "broken bottle"
 	desc = "A bottle with a sharp broken bottom."
-	icon = 'icons/obj/drinks.dmi'
+	icon = 'icons/obj/drinks/drink_effects.dmi'
 	icon_state = "broken_bottle"
 	force = 9
 	throwforce = 5
@@ -128,7 +129,7 @@
 	attack_verb_simple = list("stab", "slash", "attack")
 	sharpness = SHARP
 	bleed_force = BLEED_SURFACE
-	var/static/icon/broken_outline = icon('icons/obj/drinks.dmi', "broken")
+	var/static/icon/broken_outline = icon('icons/obj/drinks/drink_effects.dmi', "broken")
 
 /obj/item/broken_bottle/Initialize(mapload)
 	. = ..()
@@ -139,7 +140,7 @@
 /// Takes the broken bottle to mimic, and the thing the bottle was broken agaisnt as args
 /obj/item/broken_bottle/proc/mimic_broken(obj/item/reagent_containers/cup/glass/to_mimic, atom/target)
 	icon_state = to_mimic.icon_state
-	var/icon/drink_icon = new('icons/obj/drinks.dmi', icon_state)
+	var/icon/drink_icon = new(to_mimic.icon, icon_state)
 	drink_icon.Blend(broken_outline, ICON_OVERLAY, rand(5), 1)
 	drink_icon.SwapColor(rgb(255, 0, 220, 255), rgb(0, 0, 0, 0))
 	icon = drink_icon
@@ -171,7 +172,7 @@
 /obj/item/reagent_containers/cup/glass/bottle/beer/syndicate
 	name = "syndicate beer"
 	desc = "Consumed only by the finest syndicate agents. There is a round warning label stating 'Don't drink more than one in quick succession!'"
-	icon_state = "syndicatebeer"
+	icon_state = "beer"
 	list_reagents = list(/datum/reagent/consumable/ethanol/beer = 10, /datum/reagent/medicine/antitoxin = 20)
 
 /obj/item/reagent_containers/cup/glass/bottle/beer/light
@@ -240,6 +241,7 @@
 /obj/item/reagent_containers/cup/glass/bottle/holywater
 	name = "flask of holy water"
 	desc = "A flask of the chaplain's holy water."
+	icon = 'icons/obj/drinks/bottles.dmi'
 	icon_state = "holyflask"
 	list_reagents = list(/datum/reagent/water/holywater = 100)
 	drink_type = NONE
@@ -247,6 +249,7 @@
 /obj/item/reagent_containers/cup/glass/bottle/unholywater
 	name = "flask of unholy water"
 	desc = "Toxic to nonbelievers, reinvigorating to the faithful."
+	icon = 'icons/obj/drinks/bottles.dmi'
 	icon_state = "holyflask"
 	list_reagents = list(/datum/reagent/fuel/unholywater = 100)
 	drink_type = NONE
@@ -463,22 +466,6 @@
 	icon_state = "moonshinebottle"
 	list_reagents = list(/datum/reagent/consumable/ethanol/moonshine = 100)
 
-/obj/item/reagent_containers/cup/glass/bottle/blank //Don't let players print these from a lathe, bottles should be obtained in mass from the bar only.
-	name = "glass bottle"
-	desc = "This blank bottle is unyieldingly anonymous, offering no clues to it's contents."
-	icon_state = "glassbottle"
-	fill_icon_thresholds = list(0, 10, 20, 30, 40, 50, 60, 70, 80, 90)
-
-/obj/item/reagent_containers/cup/glass/bottle/blank/update_icon()
-	..()
-	add_overlay("[initial(icon_state)]shine")
-
-/obj/item/reagent_containers/cup/glass/bottle/blank/small
-	name = "small glass bottle"
-	desc = "This small bottle is unyieldingly anonymous, offering no clues to it's contents."
-	icon_state = "glassbottlesmall"
-	volume = 50
-
 ////////////////////////// MOLOTOV ///////////////////////
 /obj/item/reagent_containers/cup/glass/bottle/molotov
 	name = "molotov cocktail"
@@ -566,6 +553,7 @@
 /obj/item/reagent_containers/cup/glass/bottle/juice/orangejuice
 	name = "orange juice"
 	desc = "Full of vitamins and deliciousness!"
+	icon = 'icons/obj/drinks/boxes.dmi'
 	icon_state = "orangejuice"
 	list_reagents = list(/datum/reagent/consumable/orangejuice = 100)
 	drink_type = FRUIT | BREAKFAST
@@ -573,6 +561,7 @@
 /obj/item/reagent_containers/cup/glass/bottle/juice/cream
 	name = "milk cream"
 	desc = "It's cream. Made from milk. What else did you think you'd find in there?"
+	icon = 'icons/obj/drinks/boxes.dmi'
 	icon_state = "cream"
 	list_reagents = list(/datum/reagent/consumable/cream = 100)
 	drink_type = DAIRY
@@ -580,6 +569,7 @@
 /obj/item/reagent_containers/cup/glass/bottle/juice/tomatojuice
 	name = "tomato juice"
 	desc = "Well, at least it LOOKS like tomato juice. You can't tell with all that redness."
+	icon = 'icons/obj/drinks/boxes.dmi'
 	icon_state = "tomatojuice"
 	list_reagents = list(/datum/reagent/consumable/tomatojuice = 100)
 	drink_type = VEGETABLES
@@ -587,6 +577,7 @@
 /obj/item/reagent_containers/cup/glass/bottle/juice/limejuice
 	name = "lime juice"
 	desc = "Sweet-sour goodness."
+	icon = 'icons/obj/drinks/boxes.dmi'
 	icon_state = "limejuice"
 	list_reagents = list(/datum/reagent/consumable/limejuice = 100)
 	drink_type = FRUIT
@@ -594,6 +585,7 @@
 /obj/item/reagent_containers/cup/glass/bottle/juice/pineapplejuice
 	name = "pineapple juice"
 	desc = "Extremely tart, yellow juice."
+	icon = 'icons/obj/drinks/boxes.dmi'
 	icon_state = "pineapplejuice"
 	list_reagents = list(/datum/reagent/consumable/pineapplejuice = 100)
 	drink_type = FRUIT | PINEAPPLE

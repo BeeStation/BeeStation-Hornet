@@ -10,7 +10,6 @@
 				subject.attack_ai(M)
 	return is_in_use
 
-
 /mob/living/silicon/ai
 	name = JOB_NAME_AI
 	real_name = JOB_NAME_AI
@@ -168,7 +167,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 
 	if(isturf(loc))
 		add_verb(list(
-			/mob/living/silicon/ai/proc/ai_network_change,
 			/mob/living/silicon/ai/proc/ai_hologram_change,
 			/mob/living/silicon/ai/proc/botcall,
 			/mob/living/silicon/ai/proc/control_integrated_radio,
@@ -179,7 +177,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	GLOB.shuttle_caller_list += src
 
 	builtInCamera = new (src)
-	builtInCamera.network = list(CAMERA_NETWORK_STATION)
+	builtInCamera.network = list()
 
 	ADD_TRAIT(src, TRAIT_PULL_BLOCKED, ROUNDSTART_TRAIT)
 	ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, ROUNDSTART_TRAIT)
@@ -293,12 +291,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 				robot_status = "OFFLINE"
 			else if(!R.cell || R.cell.charge <= 0)
 				robot_status = "DEPOWERED"
-			//Name, Health, Battery, Module, Area, and Status! Everything an AI wants to know about its borgies!
+			//Name, Health, Battery, Model, Area, and Status! Everything an AI wants to know about its borgies!
 			index++
 			tab_data["[R.name] (Connection [index])"] = list(
 				text="S.Integrity: [R.health]% | Cell: [R.cell ? "[R.cell.charge]/[R.cell.maxcharge]" : "Empty"] | \
-					Module: [R.designation] | Loc: [get_area_name(R, TRUE)] | Status: [robot_status]",
-				type=STAT_TEXT)
+					Model: [R.designation] | Loc: [get_area_name(R, TRUE)] | Status: [robot_status]", type = STAT_TEXT)
 		tab_data["AI shell beacons detected"] = GENERATE_STAT_TEXT("[LAZYLEN(GLOB.available_ai_shells)]") //Count of total AI shells
 	else
 		tab_data["Systems"] = GENERATE_STAT_TEXT("nonfunctional")
@@ -580,50 +577,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 /mob/living/silicon/ai/proc/alarm_cleared(datum/source, alarm_type, area/source_area)
 	SIGNAL_HANDLER
 	queueAlarm("--- [alarm_type] alarm in [source_area.name] has been cleared.", alarm_type, 0)
-
-//Replaces /mob/living/silicon/ai/verb/change_network() in ai.dm & camera.dm
-//Adds in /mob/living/silicon/ai/proc/ai_network_change() instead
-//Addition by Mord_Sith to define AI's network change ability
-/mob/living/silicon/ai/proc/ai_network_change()
-	set category = "AI Commands"
-	set name = "Jump To Network"
-	unset_machine()
-	var/cameralist[0]
-
-	if(incapacitated())
-		return
-
-	var/mob/living/silicon/ai/U = usr
-
-	for (var/obj/machinery/camera/C in GLOB.cameranet.cameras)
-		if(!(is_station_level(C.z) || is_mining_level(C.z)))
-			continue
-		if(!C.can_use())
-			continue
-
-		for(var/i in C.network)
-			if (i == CAMERA_NETWORK_RESEARCH || i == CAMERA_NETWORK_TOXINS_TEST || i == CAMERA_NETWORK_PRISON)
-				continue
-			cameralist[i] = i
-	var/old_network = network
-	network = input(U, "Which network would you like to view?") as null|anything in sort_list(cameralist)
-	if(ai_tracking_target)
-		ai_stop_tracking()
-	if(!U.eyeobj)
-		U.view_core()
-		return
-
-	if(isnull(network))
-		network = old_network // If nothing is selected
-	else
-		for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
-			if(!C.can_use())
-				continue
-			if(network in C.network)
-				U.eyeobj.setLoc(get_turf(C))
-				break
-	to_chat(src, span_notice("Switched to the \"[uppertext(network)]\" camera network."))
-//End of code by Mord_Sith
 
 //I am the icon meister. Bow fefore me.	//>fefore
 /mob/living/silicon/ai/proc/ai_hologram_change()
@@ -910,10 +863,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	if(malf_picker)
 		stack_trace("Attempted to give malf AI malf picker to \[[src]\], who already has a malf picker.")
 		return
+
 	malf_picker = new /datum/module_picker
-	if(!IS_MALF_AI(src)) //antagonists have their modules built into their antag info panel. this is for adminbus and the combat upgrade
-		modules_action = new(malf_picker)
-		modules_action.Grant(src)
+	modules_action = new(malf_picker)
+	modules_action.Grant(src)
 
 /mob/living/silicon/ai/reset_perspective(atom/new_eye)
 	SHOULD_CALL_PARENT(FALSE) // AI needs to work as their own...
@@ -1049,7 +1002,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 
 	for(var/borgie in GLOB.available_ai_shells)
 		var/mob/living/silicon/robot/R = borgie
-		if(R.shell && !R.deployed && (R.stat != DEAD) && (!R.connected_ai ||(R.connected_ai == src)) || (R.ratvar && !is_servant_of_ratvar(src)))
+		if(R.shell && !R.deployed && (R.stat != DEAD) && (!R.connected_ai ||(R.connected_ai == src)) || (R.ratvar && !IS_SERVANT_OF_RATVAR(src)))
 			possible += R
 
 	if(!LAZYLEN(possible))
@@ -1058,7 +1011,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	if(!target || !(target in possible)) //If the AI is looking for a new shell, or its pre-selected shell is no longer valid
 		target = input(src, "Which body to control?") as null|anything in sort_names(possible)
 
-	if (!target || target.stat || target.deployed || !(!target.connected_ai ||(target.connected_ai == src)) || (target.ratvar && !is_servant_of_ratvar(src)))
+	if (!target || target.stat || target.deployed || !(!target.connected_ai ||(target.connected_ai == src)) || (target.ratvar && !IS_SERVANT_OF_RATVAR(src)))
 		return
 
 	if(target.is_jammed(JAMMER_PROTECTION_AI_SHELL))
@@ -1070,7 +1023,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 		deployed_shell = target
 		transfer_observers_to(deployed_shell) // ai core to borg shell
 		eyeobj.transfer_observers_to(deployed_shell) // eyemob to borg
-		if(is_servant_of_ratvar(src) && !deployed_shell.ratvar)
+		if(IS_SERVANT_OF_RATVAR(src) && !deployed_shell.ratvar)
 			deployed_shell.SetRatvar(TRUE)
 		target.deploy_init(src)
 		mind.transfer_to(target)

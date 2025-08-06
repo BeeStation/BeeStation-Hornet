@@ -3,7 +3,7 @@
 	k_elasticity = 0
 	unit_name = "crate"
 	export_types = list(/obj/structure/closet/crate)
-	exclude_types = list(/obj/structure/closet/crate/large, /obj/structure/closet/crate/wooden, /obj/structure/closet/crate/mail)
+	exclude_types = list(/obj/structure/closet/crate/large, /obj/structure/closet/crate/wooden, /obj/structure/closet/crate/coffin, /obj/structure/closet/crate/mail)
 
 /datum/export/large/crate/total_printout(datum/export_report/ex, notes = TRUE) // That's why a goddamn metal crate costs that much.
 	. = ..()
@@ -16,18 +16,28 @@
 	export_types = list(/obj/structure/closet/crate/large)
 	exclude_types = list()
 
-/datum/export/large/crate/wooden/ore
+/datum/export/large/ore_box
+	// Assuming you send back the crate and stamped manifest, wood can be ordered for 20cr/plank
+	// one ore box costs 4 planks = 80cr
+	// profit is 80cr per ore box, or 20cr/plank
+	cost = 160
 	unit_name = "ore box"
 	export_types = list(/obj/structure/ore_box)
 
 /datum/export/large/crate/wood
-	cost = 240
+	// Assuming you send back the crate and stamped manifest, wood can be ordered for 20cr/plank
+	// one wooden crate costs 6 planks = 120cr
+	// profit is 100cr per wooden crate, or ~17cr/plank
+	cost = 220
 	unit_name = "wooden crate"
 	export_types = list(/obj/structure/closet/crate/wooden)
 	exclude_types = list()
 
-/datum/export/large/crate/coffin
-	cost = 140 //50 wood costs 1700, makes 10 coffins, makes 1400 back. No free money allowed, considering they can be easlily stacked with disposal loops. Additionally you still get 600 credits from the box + manifest either way, for a total of 2000 back. Total of 300 profit for wasting your time building coffins.
+/datum/export/large/coffin
+	// Assuming you send back the crate and stamped manifest, wood can be ordered for 20cr/plank
+	// one coffin costs 5 planks = 100cr
+	// profit is 90cr per coffin, or 18cr/plank
+	cost = 190
 	unit_name = "coffin"
 	export_types = list(/obj/structure/closet/crate/coffin)
 
@@ -148,12 +158,13 @@
 	var/datum/gas_mixture/canister_mix = C.return_air()
 	var/canister_gas = canister_mix.gases
 	var/list/gases_to_check = list(
-								/datum/gas/bz,
-								/datum/gas/nitryl,
-								/datum/gas/hypernoblium,
-								/datum/gas/tritium,
-								/datum/gas/pluoxium,
-								)
+		/datum/gas/bz,
+		/datum/gas/nitrium,
+		/datum/gas/hypernoblium,
+		/datum/gas/tritium,
+		/datum/gas/pluoxium,
+		/datum/gas/water_vapor,
+	)
 
 	for(var/gasID in gases_to_check)
 		canister_mix.assert_gas(gasID)

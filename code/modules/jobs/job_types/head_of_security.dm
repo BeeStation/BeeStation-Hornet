@@ -8,13 +8,12 @@
 	head_announce = list(RADIO_CHANNEL_SECURITY)
 	faction = "Station"
 	total_positions = 1
-	spawn_positions = 1
 	selection_color = "#ffdddd"
 	req_admin_notify = 1
 	minimal_player_age = 14
 	exp_requirements = 1200
 	exp_type = EXP_TYPE_SECURITY
-	exp_type_department = EXP_TYPE_SECURITY
+	min_pop = COMMAND_POPULATION_MINIMUM
 
 	outfit = /datum/outfit/job/head_of_security
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
@@ -56,7 +55,7 @@
 	gloves = /obj/item/clothing/gloves/color/black
 	head = /obj/item/clothing/head/hats/hos/beret
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
-	r_pocket = /obj/item/modular_computer/tablet/pda/heads/head_of_security
+	r_pocket = /obj/item/modular_computer/tablet/pda/preset/heads/head_of_security
 	l_pocket = /obj/item/clothing/accessory/badge/officer/hos
 
 	backpack = /obj/item/storage/backpack/security

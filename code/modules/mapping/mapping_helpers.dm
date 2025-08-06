@@ -765,3 +765,18 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	CRASH("Failed to find a crate shelf at [AREACOORD(src)] or the crate_type is undefined")
 
 
+//it must be done before decomposition component is added.
+INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/foodpreserver)
+
+/obj/effect/mapping_helpers/foodpreserver
+	name = "food preserving helper"
+	icon_state = "preserved"
+
+/obj/effect/mapping_helpers/foodpreserver/Initialize(mapload)
+	. = ..()
+	var/turf/T = get_turf(src)
+	for(var/obj/item/food/preservee in T.contents)
+		preservee.preserved_food = TRUE
+	for(var/obj/structure/closet/closet in T.contents)
+		for(var/obj/item/food/preservee in closet.contents)
+			preservee.preserved_food = TRUE

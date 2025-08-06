@@ -77,14 +77,44 @@
 	var/static/regex/slime_name_regex = new("\\w+ (baby|adult) slime \\(\\d+\\)")
 	///////////TIME FOR SUBSPECIES
 
-	var/colour = "grey"
+	var/colour = SLIME_TYPE_GREY
 	var/coretype = /obj/item/slime_extract/grey
 	var/list/slime_mutation[4]
 
-	var/static/list/slime_colours = list("rainbow", "grey", "purple", "metal", "orange",
-	"blue", "dark blue", "dark purple", "yellow", "silver", "pink", "red",
-	"gold", "green", "adamantine", "oil", "light pink", "bluespace",
-	"cerulean", "sepia", "black", "pyrite")
+	var/static/list/slime_colours = list(
+		SLIME_TYPE_RAINBOW,
+		SLIME_TYPE_GREY,
+		SLIME_TYPE_PURPLE,
+		SLIME_TYPE_METAL,
+		SLIME_TYPE_ORANGE,
+		SLIME_TYPE_BLUE,
+		SLIME_TYPE_DARK_BLUE,
+		SLIME_TYPE_DARK_PURPLE,
+		SLIME_TYPE_YELLOW,
+		SLIME_TYPE_SILVER,
+		SLIME_TYPE_PINK,
+		SLIME_TYPE_RED,
+		SLIME_TYPE_GOLD,
+		SLIME_TYPE_GREEN,
+		SLIME_TYPE_ADAMANTINE,
+		SLIME_TYPE_OIL,
+		SLIME_TYPE_LIGHT_PINK,
+		SLIME_TYPE_BLUESPACE,
+		SLIME_TYPE_CERULEAN,
+		SLIME_TYPE_SEPIA,
+		SLIME_TYPE_BLACK,
+		SLIME_TYPE_PYRITE,
+/* While these are technically colors, they are only obtained under special circumstances
+		SLIME_TYPE_DARK_GREEN,
+		SLIME_TYPE_COBALT,
+		SLIME_TYPE_DARK_GREY,
+		SLIME_TYPE_CRIMSON,
+*/
+	)
+
+	var/special_mutation = FALSE
+	var/special_mutation_type = null
+	var/burn_damage_stored
 
 	///////////CORE-CROSSING CODE
 
@@ -97,7 +127,7 @@
 
 CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 
-/mob/living/simple_animal/slime/Initialize(mapload, new_colour="grey", new_is_adult=FALSE)
+/mob/living/simple_animal/slime/Initialize(mapload, new_colour = SLIME_TYPE_GREY, new_is_adult=FALSE)
 	GLOB.total_slimes++
 	var/datum/action/innate/slime/feed/F = new
 	F.Grant(src)
@@ -123,6 +153,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 	set_target(null)
 	set_leader(null)
 	clear_friends()
+	remove_from_spawner_menu()
 	return ..()
 
 /mob/living/simple_animal/slime/proc/set_colour(new_colour)
@@ -188,6 +219,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 	if(mod)
 		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/slime_tempmod, multiplicative_slowdown = mod)
 
+/mob/living/simple_animal/slime/refresh_gravity()
+	. = ..()
+	var/grav = has_gravity()
+	if(colour == SLIME_TYPE_GOLD && grav > STANDARD_GRAVITY)
+		special_mutation = TRUE
+		special_mutation_type = SLIME_TYPE_COBALT
+		visible_message(span_danger("[src] shudders under the intense gravity, flecks of blue swirling in their membrane."))
+
 /mob/living/simple_animal/slime/ObjBump(obj/O)
 	if(!client && powerlevel > 0)
 		var/probab = 10
@@ -233,12 +272,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 
 /mob/living/simple_animal/slime/adjustFireLoss(amount, updating_health = TRUE, forced = FALSE)
 	if(!forced)
+		burn_damage_stored += abs(amount)
 		amount = -abs(amount)
 	return ..() //Heals them
 
 /mob/living/simple_animal/slime/bullet_act(obj/projectile/Proj, def_zone, piercing_hit = FALSE)
 	attacked += 10
 	if((Proj.damage_type == BURN))
+		burn_damage_stored += abs(Proj.damage)
 		adjustBruteLoss(-abs(Proj.damage)) //fire projectiles heals slimes.
 		Proj.on_hit(src, 0, piercing_hit)
 	else
@@ -345,6 +386,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 		to_chat(user, span_notice("You feed the slime the plasma. It chirps happily."))
 		var/obj/item/stack/sheet/mineral/plasma/S = W
 		S.use(1)
+		return
+	if(istype(W, /obj/item/organ/regenerative_core) && !stat && colour == SLIME_TYPE_PINK)
+		to_chat(user, span_warning("The slime absorbs the regenerative core, pink darkening to an ominous grey"))
+		special_mutation = TRUE
+		special_mutation_type = SLIME_TYPE_DARK_GREY
+		var/obj/item/organ/regenerative_core/R = W
+		qdel(R)
 		return
 	if(W.force > 0)
 		attacked += 10
@@ -497,10 +545,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime/random)
 /mob/living/simple_animal/slime/random/Initialize(mapload, new_colour, new_is_adult)
 	. = ..(mapload, pick(slime_colours), prob(50))
 
-/mob/living/simple_animal/slime/apply_damage(damage = 0,damagetype = BRUTE, def_zone = null, blocked = FALSE, forced = FALSE)
+/mob/living/simple_animal/slime/apply_damage(damage = 0,damagetype = BRUTE, def_zone = null, blocked = FALSE, forced = FALSE, spread_damage = FALSE)
 	if(damage && damagetype == BRUTE && !forced && (transformeffects & SLIME_EFFECT_ADAMANTINE))
 		blocked += 50
-	. = ..(damage, damagetype, def_zone, blocked, forced)
+	. = ..(damage, damagetype, def_zone, blocked, forced, spread_damage)
 
 /mob/living/simple_animal/slime/get_discovery_id()
 	return "[colour] slime"
@@ -513,18 +561,28 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime/random)
 	return .
 
 /mob/living/simple_animal/slime/get_spawner_desc()
-	return "be a slime[master ? " under the command of [master.real_name]" : ""]."
+	return "be a slime[master ? " under the command of [master.real_name]" : " with free will"]."
 
 /mob/living/simple_animal/slime/get_spawner_flavour_text()
-	return "You are a slime born and raised in a laboratory.[master ? " Your duty is to follow the orders of [master.real_name].": ""]"
+	return "You are a slime born and raised in a laboratory.[master ? " Your duty is to follow the orders of [master.real_name].": " You are not subject to anyone's commands, but the crew may not take kindly to a murderous slime!"]"
 
 /mob/living/simple_animal/slime/proc/make_master(mob/user)
 	Friends[user] += SLIME_FRIENDSHIP_ATTACK * 2
 	master = user
 
+// edited version of set_playable to prevent spawner menu flooding
+/mob/living/simple_animal/slime/proc/set_playable_slime(ban_type = null, poll_ignore_key = null)
+	playable = TRUE
+	playable_bantype = ban_type
+	LAZYADD(GLOB.mob_spawners["[master ? "[src.master.real_name]'s slime" : "free [src.colour] slime"]"], src)
+	SSmobs.update_spawners()
+	if (!key)	//ping only if there is no one inhabiting this mob
+		notify_ghosts("[name] can be controlled", null, enter_link="<a href='byond://?src=[REF(src)];activate=1'>(Click to play)</a>", source=src, action=NOTIFY_ATTACK, ignore_key = poll_ignore_key)
+		AddElement(/datum/element/point_of_interest)
+
 CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime/rainbow)
 
-/mob/living/simple_animal/slime/rainbow/Initialize(mapload, new_colour="rainbow", new_is_adult)
+/mob/living/simple_animal/slime/rainbow/Initialize(mapload, new_colour = SLIME_TYPE_RAINBOW, new_is_adult)
 	. = ..(mapload, new_colour, new_is_adult)
 
 /mob/living/simple_animal/slime/proc/set_target(new_target)

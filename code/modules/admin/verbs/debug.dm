@@ -590,7 +590,7 @@ Updated by Tsar-salat -- Not anymore, champ
 		if("Dead Mobs")
 			to_chat(usr, jointext(GLOB.dead_mob_list,","))
 		if("Clients")
-			to_chat(usr, jointext(GLOB.clients,","))
+			to_chat(usr, jointext(GLOB.clients_unsafe,","))
 		if("Joined Clients")
 			to_chat(usr, jointext(GLOB.joined_player_list,","))
 

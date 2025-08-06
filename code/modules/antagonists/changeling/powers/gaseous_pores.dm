@@ -13,7 +13,7 @@
 	lifetime = 10
 
 /obj/effect/particle_effect/smoke/confusing/changeling/smoke_mob(mob/living/carbon/M,datum/antagonist)
-	if(is_changeling(M))
+	if(IS_CHANGELING(M))
 		return FALSE
 	if(..())
 		M.set_timed_status_effect(12 SECONDS, /datum/status_effect/confusion, only_if_higher = TRUE)

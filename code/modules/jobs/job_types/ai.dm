@@ -6,14 +6,12 @@
 	auto_deadmin_role_flags = DEADMIN_POSITION_SILICON
 	faction = "Station"
 	total_positions = 1
-	spawn_positions = 1
 	selection_color = "#ccffcc"
 	supervisors = "your laws"
 	req_admin_notify = TRUE
 	minimal_player_age = 30
 	exp_requirements = 600
-	exp_type = EXP_TYPE_CREW
-	exp_type_department = EXP_TYPE_SILICON
+	exp_type = EXP_TYPE_SILICON
 	display_order = JOB_DISPLAY_ORDER_AI
 	departments = DEPT_BITFLAG_SILICON
 	random_spawns_possible = FALSE

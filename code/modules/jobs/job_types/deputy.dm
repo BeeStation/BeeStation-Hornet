@@ -7,7 +7,6 @@
 	supervisors = "the head of security"
 	faction = "Station"
 	total_positions = 0
-	spawn_positions = 0
 	selection_color = "#ffeeee"
 	minimal_player_age = 7
 	exp_requirements = 180
@@ -32,12 +31,12 @@
 	id = /obj/item/card/id/job/deputy
 	belt = /obj/item/storage/belt/security/deputy
 	ears = /obj/item/radio/headset/headset_sec
-	uniform = /obj/item/clothing/under/rank/security/officer/mallcop/deputy
+	uniform = /obj/item/clothing/under/rank/security/officer/blueshirt
 	accessory = /obj/item/clothing/accessory/armband/deputy
 	shoes = /obj/item/clothing/shoes/sneakers/black
 	glasses = /obj/item/clothing/glasses/hud/security/deputy
 	head = /obj/item/clothing/head/soft/sec
-	l_pocket = /obj/item/modular_computer/tablet/pda/deputy
+	l_pocket = /obj/item/modular_computer/tablet/pda/preset/deputy
 
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel/sec

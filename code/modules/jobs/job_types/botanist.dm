@@ -6,11 +6,9 @@
 	supervisors = "the head of personnel"
 	faction = "Station"
 	total_positions = 3
-	spawn_positions = 2
 	selection_color = "#bbe291"
-	exp_requirements = 120 //High grief percentage
-	exp_type = EXP_TYPE_SERVICE
-	exp_type_department = EXP_TYPE_SERVICE
+	exp_requirements = 60
+	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/botanist
 
 	base_access = list(ACCESS_HYDROPONICS, ACCESS_MORGUE, ACCESS_MINERAL_STOREROOM)
@@ -34,7 +32,7 @@
 	jobtype = /datum/job/botanist
 
 	id = /obj/item/card/id/job/botanist
-	belt = /obj/item/modular_computer/tablet/pda/service
+	belt = /obj/item/modular_computer/tablet/pda/preset/service
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/hydroponics
 	suit = /obj/item/clothing/suit/apron

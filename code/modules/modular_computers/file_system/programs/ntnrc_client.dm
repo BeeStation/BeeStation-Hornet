@@ -5,7 +5,7 @@
 	category = PROGRAM_CATEGORY_MISC
 	program_icon_state = "command"
 	extended_desc = "This program allows communication over NTNRC network"
-	size = 8
+	size = 4
 	requires_ntnet = TRUE
 	requires_ntnet_feature = NTNET_COMMUNICATION
 	network_destination = "NTNRC server"
@@ -130,9 +130,9 @@
 			var/logname = check_filename(params["log_name"])
 			if(!logname)
 				return
-			var/datum/computer_file/data/log_file/logfile = new()
+			var/datum/computer_file/data/text/log_file/logfile = new()
 			// Now we will generate HTML-compliant file that can actually be viewed/printed.
-			logfile.filename = logname
+			logfile.filename = "[logname].log"
 			var/log_data = "Logfile dump from NTNRC channel [channel.title]\n"
 			for(var/logstring in channel.messages)
 				log_data += "[logstring]\n"

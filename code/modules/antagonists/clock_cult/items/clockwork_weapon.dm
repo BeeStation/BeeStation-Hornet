@@ -8,7 +8,7 @@
 	item_flags = ABSTRACT
 	block_flags = BLOCKING_NASTY | BLOCKING_ACTIVE
 	block_level = 1	//God blocking is actual aids to deal with, I am sorry for putting this here
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
 	item_flags = ISWEAPON
@@ -35,14 +35,14 @@
 	..()
 	if(!user.mind)
 		return
-	if(is_servant_of_ratvar(user) && !SS)
+	if(IS_SERVANT_OF_RATVAR(user) && !SS)
 		SS = new
 		SS.marked_item = src
 		SS.Grant(user)
 
 /obj/item/clockwork/weapon/examine(mob/user)
 	. = ..()
-	if(is_servant_of_ratvar(user) && clockwork_hint)
+	if(IS_SERVANT_OF_RATVAR(user) && clockwork_hint)
 		. += clockwork_hint
 
 /obj/item/clockwork/weapon/attack(mob/living/target, mob/living/user)
@@ -68,7 +68,7 @@
 	force += force_buff
 	. = ..()
 	force -= force_buff
-	if(!QDELETED(target) && target.stat != DEAD && !is_servant_of_ratvar(target) && !target.can_block_magic(MAGIC_RESISTANCE_HOLY))
+	if(!QDELETED(target) && target.stat != DEAD && !IS_SERVANT_OF_RATVAR(target) && !target.can_block_magic(MAGIC_RESISTANCE_HOLY))
 		hit_effect(target, user)
 
 /obj/item/clockwork/weapon/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
@@ -78,7 +78,7 @@
 	if(isliving(hit_atom))
 		var/mob/living/target = hit_atom
 		if(!.)
-			if(!target.can_block_magic(MAGIC_RESISTANCE_HOLY) && !is_servant_of_ratvar(target))
+			if(!target.can_block_magic(MAGIC_RESISTANCE_HOLY) && !IS_SERVANT_OF_RATVAR(target))
 				hit_effect(target, throwingdatum?.thrower, TRUE)
 
 /obj/item/clockwork/weapon/proc/hit_effect(mob/living/target, mob/living/user, thrown=FALSE)
@@ -173,7 +173,7 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/bow/clockcult
 	var/recharge_time = 15
 
-/obj/item/gun/ballistic/bow/clockwork/shoot_live_shot(mob/living/user, pointblank, atom/pbtarget, message)
+/obj/item/gun/ballistic/bow/clockwork/after_live_shot_fired(mob/living/user, pointblank, atom/pbtarget, message)
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(recharge_bolt)), recharge_time)
 

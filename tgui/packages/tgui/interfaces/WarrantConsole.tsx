@@ -53,7 +53,7 @@ export const WarrantConsole = (props) => {
 const RecordList = (props) => {
   const { act, data } = useBackend<Data>();
   const { records = [] } = data;
-  const sorted = sortBy((record: WarrantRecord) => record.name)(records);
+  const sorted = sortBy(records, (record) => record.crew_name);
 
   const [selectedRecord, setSelectedRecord] = useLocalState<WarrantRecord | undefined>('warrantRecord', undefined);
 
@@ -145,7 +145,7 @@ const CitationManager = (props) => {
         <LabeledList.Item label="Paid">{paid}</LabeledList.Item>
         {fine > 0 && (
           <LabeledList.Item label="Pay">
-            <RestrictedInput maxValue={fine} minValue={5} onChange={(event, value) => setPaying(value)} value={paying} />
+            <RestrictedInput maxValue={fine} minValue={5} onEnter={(event, value) => setPaying(value)} value={paying} />
             <Button.Confirm
               content="Pay"
               onClick={() =>

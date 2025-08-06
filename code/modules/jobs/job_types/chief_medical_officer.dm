@@ -10,13 +10,12 @@
 	head_announce = list(RADIO_CHANNEL_MEDICAL)
 	faction = "Station"
 	total_positions = 1
-	spawn_positions = 1
 	selection_color = "#c1e1ec"
 	req_admin_notify = 1
 	minimal_player_age = 7
 	exp_requirements = 1200
 	exp_type = EXP_TYPE_MEDICAL
-	exp_type_department = EXP_TYPE_MEDICAL
+	min_pop = COMMAND_POPULATION_MINIMUM
 
 	outfit = /datum/outfit/job/chief_medical_officer
 
@@ -55,7 +54,7 @@
 	jobtype = /datum/job/chief_medical_officer
 
 	id = /obj/item/card/id/job/chief_medical_officer
-	belt = /obj/item/modular_computer/tablet/pda/heads/chief_medical_officer
+	belt = /obj/item/modular_computer/tablet/pda/preset/heads/chief_medical_officer
 	l_pocket = /obj/item/pinpointer/crew
 	r_pocket = /obj/item/flashlight/pen
 	ears = /obj/item/radio/headset/heads/cmo

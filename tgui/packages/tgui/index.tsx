@@ -12,6 +12,7 @@ import './styles/themes/cardtable.scss';
 import './styles/themes/clockwork.scss';
 import './styles/themes/elevator.scss';
 import './styles/themes/hackerman.scss';
+import './styles/themes/login.scss';
 import './styles/themes/malfunction.scss';
 import './styles/themes/narsie.scss';
 import './styles/themes/neutral.scss';
@@ -52,6 +53,7 @@ import { setupGlobalEvents } from './events';
 import { setupHotKeys } from './hotkeys';
 import { setupHotReloading } from 'tgui-dev-server/link/client.cjs';
 import { setGlobalStore } from './backend';
+import { loadIconRefMap } from './icons';
 
 perf.mark('inception', window.performance?.timing?.navigationStart);
 perf.mark('init');
@@ -60,13 +62,14 @@ const store = configureStore();
 
 const renderApp = createRenderer(() => {
   setGlobalStore(store);
+  loadIconRefMap();
 
   const { getRoutedComponent } = require('./routes');
   const Component = getRoutedComponent(store);
   return <Component />;
 });
 
-const setupApp = () => {
+function setupApp() {
   // Delay setup
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', setupApp);
@@ -90,6 +93,6 @@ const setupApp = () => {
       renderApp();
     });
   }
-};
+}
 
 setupApp();

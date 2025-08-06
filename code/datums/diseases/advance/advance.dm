@@ -545,7 +545,7 @@
 	symptoms += SSdisease.list_symptoms.Copy()
 	do
 		if(user)
-			var/symptom = tgui_input_list(user, "Choose a symptom to add ([i] remaining)", "Choose a Symptom", sort_list(symptoms, /proc/cmp_typepaths_asc))
+			var/symptom = tgui_input_list(user, "Choose a symptom to add, [i] remaining (Select \"Done\" at the end of the list to finalize early):", "Choose a Symptom", sort_list(symptoms, GLOBAL_PROC_REF(cmp_typepaths_asc)))
 			if(isnull(symptom))
 				return
 			else if(istext(symptom))
@@ -561,6 +561,9 @@
 
 		var/new_name = tgui_input_text(user, "Name your new disease", "New Name", max_length = MAX_NAME_LEN)
 		if(!new_name)
+			to_chat(user, span_warning("No name was given, using random name instead."))
+			new_name = D.random_disease_name()
+		if(tgui_alert(user, "Create Virus ([new_name]) as is?", "Confirmation", list("Yes", "No")) != "Yes")
 			return
 		D.Refresh()
 		D.AssignName(new_name)	//Updates the master copy

@@ -31,6 +31,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_CRITICAL_CONDITION "critical-condition"
 // Grants them the ability to move even when without any limbs.
 #define TRAIT_MOBILE "mobile"
+// Only perimts the ability to whisper
+#define TRAIT_WHISPER_ONLY "whisper_only"
 
 //mob traits
 #define TRAIT_BLIND "blind"
@@ -38,25 +40,25 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_MUTE "mute"
 /// Emotemute. Can't... emote.
 #define TRAIT_EMOTEMUTE "emotemute"
-#define TRAIT_DEAF				"deaf"
-#define TRAIT_NEARSIGHT			"nearsighted"
-#define TRAIT_FAT				"fat"
-#define TRAIT_HUSK				"husk"
-#define TRAIT_BADDNA			"baddna"
-#define TRAIT_CLUMSY			"clumsy"
+#define TRAIT_DEAF "deaf"
+#define TRAIT_NEARSIGHT "nearsighted"
+#define TRAIT_FAT "fat"
+#define TRAIT_HUSK "husk"
+#define TRAIT_BADDNA "baddna"
+#define TRAIT_CLUMSY "clumsy"
 //means that you can't use weapons with normal trigger guards.
 #define TRAIT_CHUNKYFINGERS "chunkyfingers"
-#define TRAIT_DUMB				"dumb"
-//Whether a mob is dexterous enough to use machines and certain items or not.
+#define TRAIT_DUMB "dumb"
+/// Whether a mob is dexterous enough to use machines and certain items or not.
 #define TRAIT_ADVANCEDTOOLUSER "advancedtooluser"
-//Antagonizes the above.
-#define TRAIT_DISCOORDINATED	"discoordinated"
-#define TRAIT_PACIFISM			"pacifism"
-#define TRAIT_IGNORESLOWDOWN	"ignoreslow"
+// Antagonizes the above.
+#define TRAIT_DISCOORDINATED_TOOL_USER "discoordinated_tool_user"
+#define TRAIT_PACIFISM "pacifism"
+#define TRAIT_IGNORESLOWDOWN "ignoreslow"
 #define TRAIT_IGNOREDAMAGESLOWDOWN "ignoredamageslowdown"
-#define TRAIT_DEATHCOMA			"deathcoma" //Causes death-like unconsciousness
-#define TRAIT_REGEN_COMA		"regencoma"
-#define TRAIT_FAKEDEATH			"fakedeath" //Makes the owner appear as dead to most forms of medical examination
+#define TRAIT_DEATHCOMA "deathcoma" //Causes death-like unconsciousness
+#define TRAIT_REGEN_COMA "regencoma"
+#define TRAIT_FAKEDEATH "fakedeath" //Makes the owner appear as dead to most forms of medical examination
 #define TRAIT_DISFIGURED		"disfigured"
 #define TRAIT_XENO_HOST			"xeno_host"	//Tracks whether we're gonna be a baby alien's mummy.
 #define TRAIT_STUNIMMUNE		"stun_immunity"
@@ -83,14 +85,18 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_RESISTHIGHPRESSURE	"resist_high_pressure"
 #define TRAIT_RESISTLOWPRESSURE	"resist_low_pressure"
 #define TRAIT_BOMBIMMUNE "bomb_immunity"
-#define TRAIT_RADIMMUNE			"rad_immunity"
+#define TRAIT_RADIMMUNE "rad_immunity"
+#define TRAIT_GENELESS "geneless"
 #define TRAIT_NORADDAMAGE		"no_rad_damage"
 #define TRAIT_VIRUSIMMUNE		"virus_immunity"
 #define TRAIT_PIERCEIMMUNE		"pierce_immunity"
 #define TRAIT_NODISMEMBER		"dismember_immunity"
 #define TRAIT_NOFIRE			"nonflammable"
 #define TRAIT_NOGUNS			"no_guns"
-#define TRAIT_NOHUNGER			"no_hunger"
+///This carbon doesn't get hungry
+#define TRAIT_NOHUNGER "no_hunger"
+///This carbon doesn't bleed
+#define TRAIT_NOBLOOD "noblood"
 #define TRAIT_NOMETABOLISM		"no_metabolism"
 #define TRAIT_POWERHUNGRY		"power_hungry" //uses electricity instead of food
 #define TRAIT_NOCLONELOSS		"no_cloneloss"
@@ -112,6 +118,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 //Inherent trait preventing effects of stasis on a mob
 #define TRAIT_NOSTASIS "no_stasis"
 #define TRAIT_MARTIAL_ARTS_IMMUNE "martial_arts_immune" // nobody can use martial arts on this mob
+/// this mob takes reduced damage from falling
+#define TRAIT_LIGHT_LANDING "lightlanding"
 
 /// Unlinks gliding from movement speed, meaning that there will be a delay between movements rather than a single move movement between tiles
 #define TRAIT_NO_GLIDE "no_glide"
@@ -147,7 +155,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_SOOTHED_THROAT    "soothed-throat"
 #define TRAIT_LAW_ENFORCEMENT_METABOLISM "law-enforcement-metabolism"
 #define TRAIT_MEDICAL_METABOLISM "medical-metabolism"
-#define TRAIT_ALWAYS_CLEAN      "always-clean"
 #define TRAIT_BOOZE_SLIDER      "booze-slider"
 #define TRAIT_QUICK_CARRY		"quick-carry"
 #define TRAIT_QUICKER_CARRY		"quicker-carry"
@@ -255,6 +262,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_WIELDED "wielded"
 /// Buckling yourself to objects with this trait won't immobilize you
 #define TRAIT_NO_IMMOBILIZE "no_immobilize"
+/// A transforming item that is actively extended / transformed
+#define TRAIT_TRANSFORM_ACTIVE "active_transform"
 
 //important_recursive_contents traits
 /*
@@ -284,8 +293,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_FISH_SAFE_STORAGE "fish_case" //Fish in this won't die
 #define TRAIT_FISH_CASE_COMPATIBILE "fish_case_compatibile" //Stuff that can go inside fish cases
 #define TRAIT_NEEDS_TWO_HANDS "needstwohands" // The items needs two hands to be carried
-
 #define TRAIT_AI_BAGATTACK "bagattack" // This atom can ignore the "is on a turf" check for simple AI datum attacks, allowing them to attack from bags or lockers as long as any other conditions are met
+#define TRAIT_ARTIFACT_IGNORE "artifact_ignore" //This item is compltely ignored by artifacts, this is different to anti-artifact
+#define TRAIT_IGNORE_EXPORT_SCAN "ignore_export_scan" //The export scanner can't scan this item
 
 /// Climbable trait, given and taken by the climbable element when added or removed. Exists to be easily checked via HAS_TRAIT().
 #define TRAIT_CLIMBABLE "trait_climbable"
@@ -322,6 +332,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_BRAIN_TUMOR		"brain_tumor"
 #define TRAIT_PROSKATER			"pro_skater"
 #define TRAIT_PLUSHIELOVER		"plushie lover"
+#define TRAIT_COMPUTER_WHIZ		"computer_whiz"
 
 ///Trait for dryable items
 #define TRAIT_DRYABLE "trait_dryable"
@@ -368,6 +379,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define STATION_TRAIT_DISTANT_SUPPLY_LINES "distant_supply_lines"
 #define STATION_TRAIT_STRONG_SUPPLY_LINES "strong_supply_lines"
 #define STATION_TRAIT_UNITED_BUDGET "united_budget"
+#define STATION_TRAIT_UNIQUE_AI "station_trait_unique_ai"
 
 /// Trait applied when the MMI component is added to an [/obj/item/integrated_circuit]
 #define TRAIT_COMPONENT_MMI "component_mmi"
@@ -398,4 +410,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_MOVE_UPSIDE_DOWN "move_upside_down"
 #define TRAIT_NEGATES_GRAVITY "negates_gravity"
 #define TRAIT_NIGHT_VISION "night_vision"
+
+//for the detective aurafarming ability
+#define TRAIT_NOIR "noir" //people who are in the noir state,
+
 // END TRAIT DEFINES

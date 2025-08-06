@@ -104,7 +104,7 @@
 
 /datum/design/piercesyringe
 	name = "Piercing Syringe"
-	desc = "A diamond-tipped syringe that pierces armor when launched at high velocity. It can hold up to 10 units."
+	desc = "A diamond-tipped syringe that pierces clothing, but not heavy armor, when launched at high velocity. It can hold up to 10 units."
 	id = "piercesyringe"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/glass = 2000, /datum/material/diamond = 1000)
@@ -268,7 +268,7 @@
 	name = "Searing Tool"
 	desc = "Used to mend tissue togheter."
 	id = "searingtool"
-	build_path = /obj/item/surgicaldrill/advanced
+	build_path = /obj/item/cautery/advanced
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 4000, /datum/material/glass = 2000, /datum/material/plasma = 2000, /datum/material/uranium = 3000, /datum/material/titanium = 3000)
 	category = list("Tool Designs")

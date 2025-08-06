@@ -77,7 +77,7 @@
 	var/static/list/mail_advmedtool= pick(
 		/obj/item/scalpel/advanced,
 		/obj/item/retractor/advanced,
-		/obj/item/surgicaldrill/advanced,)
+		/obj/item/cautery/advanced,)
 	new mail_advmedtool(loc)
 	return INITIALIZE_HINT_QDEL
 
@@ -167,8 +167,8 @@
 		/obj/item/gps/science,
 		/obj/item/inducer/sci,
 		/obj/item/megaphone,
-		/obj/item/modular_computer/tablet/pda/roboticist,
-		/obj/item/modular_computer/tablet/pda/science,
+		/obj/item/modular_computer/tablet/pda/preset/roboticist,
+		/obj/item/modular_computer/tablet/pda/preset/science,
 		/obj/item/anomaly_neutralizer,
 		/obj/item/shuttle_creator,
 		/obj/item/soap,

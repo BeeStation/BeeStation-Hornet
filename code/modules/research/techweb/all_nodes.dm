@@ -10,7 +10,6 @@
 	description = "NT default research technologies."
 	// Default research tech, prevents bricking
 	design_ids = list(
-		"antivirus",
 		"basic_capacitor",
 		"basic_cell",
 		"basic_matter_bin",
@@ -193,6 +192,7 @@
 		"comp_hear",
 		"comp_index_table",
 		"comp_index",
+		"comp_install_detector",
 		"comp_length",
 		"comp_light",
 		"comp_list_literal",
@@ -207,6 +207,7 @@
 		"comp_pressuresensor",
 		"comp_radio",
 		"comp_random",
+		"comp_reagent_injector",
 		"comp_round",
 		"comp_router",
 		"comp_select_query",
@@ -217,10 +218,12 @@
 		"comp_speech",
 		"comp_split",
 		"comp_string_contains",
+		"comp_switch_case",
 		"comp_tempsensor",
 		"comp_textcase",
 		"comp_tonumber",
 		"comp_tostring",
+		"comp_trim",
 		"comp_typecast",
 		"compact_remote_shell",
 		"component_printer",
@@ -396,7 +399,6 @@
 		"adv_scanning",
 		"airalarm_electronics",
 		"airlock_board",
-		"antivirus2",
 		"apc_control",
 		"atmos_control",
 		"atmosalerts",
@@ -474,7 +476,10 @@
 		"reactive_armour",
 		"xenoa_gloves",
 		"xenoa_list_console",
-		"xenoa_list_pad",
+		"xenoa_scale",
+		"xenoa_conductor",
+		"xenoa_calibrator",
+		"xenoa_tracker",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
@@ -563,7 +568,6 @@
 		"practical_bluespace",
 	)
 	design_ids = list(
-		"antivirus4",
 		"bluespace_matter_bin",
 		"femto_mani",
 		"quantum_keycard",
@@ -627,7 +631,6 @@
 		"engineering",
 	)
 	design_ids = list(
-		"antivirus3",
 		"bluespacebeaker",
 		"bluespacesyringe",
 	"bluespace_capsule",
@@ -990,25 +993,57 @@
 		"asimov_module",
 		"borg_ai_control",
 		"corporate_module",
-		"maintain_module",
 		"default_module",
+		"drone_module",
 		"freeform_module",
-		"freeformcore_module",
 		"intellicard",
 		"mecha_tracking_ai_control",
-		"onehuman_module",
-		"overlord_module",
+		"nutimov_module",
 		"oxygen_module",
 		"paladin_module",
 		"protectstation_module",
-		"purge_module",
 		"quarantine_module",
 		"remove_module",
 		"reset_module",
+		"robocop_module",
 		"safeguard_module",
-		"tyrant_module",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	export_price = 5000
+
+/datum/techweb_node/ai_laws
+	id = "ai_laws"
+	tech_tier = 4
+	display_name = "Advanced AI Laws"
+	description = "Delving into sophisticated AI directives, with hopes that they won't lead to humanity's extinction."
+	prereq_ids = list("ai")
+	design_ids = list(
+		"antimov_module",
+		"asimovpp_module",
+		"crewsimov_module",
+		"balance_module",
+		"damaged_module",
+		"dadbot_module",
+		"dungeon_master_module",
+		"freeformcore_module",
+		"hippocratic_module",
+		"hulkamania_module",
+		"liveandletlive_module",
+		"efficiency_module",
+		"onehuman_module",
+		"overlord_module",
+		"painter_module",
+		"paladin_devotion_module",
+		"peacekeeper_module",
+		"purge_module",
+		"reporter_module",
+		"ten_commandments_module",
+		"thermodynamic_module",
+		"thinkermov_module",
+		"tyrant_module",
+		"yesman_module",
+	)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
 
 /////////////////////////EMP tech/////////////////////////
@@ -1100,47 +1135,103 @@
 		"objective",
 		"rdcamera",
 		"seccamera",
-		"security_photobooth",
+		"security_photobooth"
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2000)
 	export_price = 5000
 
-/datum/techweb_node/computer_hardware_basic				//Modular computers are shitty and nearly useless so until someone makes them actually useful this can be easy to get.
+/datum/techweb_node/computer_hardware_basic				//Previous comment refered to Modular Components as shitty. They wont be anymore.
 	id = "computer_hardware_basic"
 	tech_tier = 1
-	display_name = "Computer Hardware"
-	description = "How computer hardware are made."
-	prereq_ids = list("comptech")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)  //they are really shitty
+	display_name = "Basic Computer Hardware"
+	description = "Necessary basic components for Modular Computer assembly."
+	prereq_ids = list("datatheory") //Since Modular Computers are becoming more distinct, Computer Consoles will no longer be required to research this
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)  //Very basic hardware, very basic cost
 	export_price = 2000
 	design_ids = list(
-		"aislot",
-		"APClink",
-		"bat_advanced",
+		"antivirus",
 		"bat_control",
-		"bat_micro",
 		"bat_nano",
-		"bat_normal",
-		"bat_super",
+		"bat_micro",
 		"cardslot",
-		"cpu_normal",
 		"cpu_small",
-		"hdd_advanced",
-		"hdd_basic",
-		"hdd_cluster",
-		"hdd_super",
-		"miniprinter",
-		"netcard_advanced",
+		"pcpu_small",
 		"netcard_basic",
 		"netcard_wired",
-		"pcpu_normal",
-		"pcpu_small",
-		"portadrive_advanced",
 		"portadrive_basic",
-		"portadrive_super",
-		"sensorpackage",
 		"ssd_micro",
-		"ssd_small",
+		"ssd_small"
+	)
+
+/datum/techweb_node/computer_shells
+	id = "computer_shells"
+	tech_tier = 1
+	display_name = "Computer Shells"
+	description = "Production of modular computer shells for assembly."
+	prereq_ids = list("datatheory")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2000)
+	export_price = 2000
+	design_ids = list(
+		"shell_pda",
+		"shell_tablet",
+		"shell_laptop"
+	)
+
+/datum/techweb_node/computer_hardware_advanced
+	id = "computer_hardware_advanced"
+	tech_tier = 2
+	display_name = "Advanced Computer Hardware"
+	description = "Standard quality components and functional parts."
+	prereq_ids = list("computer_hardware_basic")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	export_price = 3000
+	design_ids = list(
+		"antivirus2",
+		"bat_normal",
+		"bat_advanced",
+		"hdd_basic",
+		"hdd_advanced",
+		"hdd_cluster",
+		"netcard_advanced",
+		"cpu_normal",
+		"pcpu_normal",
+		"portadrive_advanced",
+		"miniprinter",
+		"printer",
+		"sensorpackage",
+		"comp_camera",
+		"signalpart"
+	)
+
+/datum/techweb_node/computer_hardware_super
+	id = "computer_hardware_super"
+	tech_tier = 3
+	display_name = "Superior Computer Hardware"
+	description = "Superior quality components and useful parts."
+	prereq_ids = list("computer_hardware_advanced")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3500)
+	export_price = 4000
+	design_ids = list(
+		"antivirus3",
+		"aislot",
+		"APClink",
+		"portadrive_super",
+		"bat_super",
+		"hdd_super",
+		"cardslot2"
+	)
+
+/datum/techweb_node/computer_hardware_experimental
+	id = "computer_hardware_experimental"
+	tech_tier = 4
+	display_name = "Experimental Computer Hardware"
+	description = "Experimental parts currently in development. Test cautiously."
+	prereq_ids = list("computer_hardware_super", "telecomms")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 4000)
+	export_price = 5000
+	design_ids = list(
+		"antivirus4",
+		"XNetCard"
 	)
 
 /datum/techweb_node/computer_board_gaming
@@ -2348,8 +2439,6 @@
 	prereq_ids = list("nanite_smart")
 	design_ids = list(
 		"free_range_nanites",
-		"hive_nanites",
-		"unsafe_storage_nanites",
 		"zip_nanites",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000, TECHWEB_POINT_TYPE_NANITES = 2500)
@@ -2371,6 +2460,7 @@
 		"pyro_nanites",
 		"viral_nanites",
 		"armblade_nanites",
+		"unsafe_storage_nanites",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500, TECHWEB_POINT_TYPE_NANITES = 2500)
 	export_price = 12500

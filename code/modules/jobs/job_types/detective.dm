@@ -7,12 +7,10 @@
 	supervisors = "the head of security"
 	faction = "Station"
 	total_positions = 1
-	spawn_positions = 1
 	selection_color = "#ffeeee"
 	minimal_player_age = 7
 	exp_requirements = 180
-	exp_type = EXP_TYPE_CREW
-	exp_type_department = EXP_TYPE_SECURITY
+	exp_type = EXP_TYPE_SECURITY
 
 	outfit = /datum/outfit/job/detective
 
@@ -39,7 +37,7 @@
 	jobtype = /datum/job/detective
 
 	id = /obj/item/card/id/job/detective
-	belt = /obj/item/storage/belt/fannypack/detective
+	belt = /obj/item/storage/belt/fannypack/worn/detective
 	ears = /obj/item/radio/headset/headset_sec/alt
 	uniform = /obj/item/clothing/under/rank/security/detective
 	neck = /obj/item/clothing/neck/tie/detective
@@ -48,7 +46,7 @@
 	suit_store = /obj/item/melee/classic_baton/police
 	gloves = /obj/item/clothing/gloves/color/black
 	head = /obj/item/clothing/head/fedora/det_hat
-	l_pocket = /obj/item/modular_computer/tablet/pda/detective
+	l_pocket = /obj/item/modular_computer/tablet/pda/preset/detective
 	r_pocket = /obj/item/clothing/accessory/badge/officer/det
 
 	mask = /obj/item/clothing/mask/cigarette
@@ -66,7 +64,7 @@
 	if(visualsOnly)
 		return
 
-/obj/item/storage/belt/fannypack/detective/PopulateContents()
+/obj/item/storage/belt/fannypack/worn/detective/PopulateContents()
 	new /obj/item/storage/box/evidence(src)
 	new /obj/item/detective_scanner(src)
 	new /obj/item/toy/crayon/white(src)

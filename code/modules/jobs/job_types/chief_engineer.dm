@@ -8,13 +8,12 @@
 	head_announce = list("Engineering")
 	faction = "Station"
 	total_positions = 1
-	spawn_positions = 1
 	selection_color = "#ffeeaa"
 	req_admin_notify = 1
 	minimal_player_age = 7
 	exp_requirements = 1200
 	exp_type = EXP_TYPE_ENGINEERING
-	exp_type_department = EXP_TYPE_ENGINEERING
+	min_pop = COMMAND_POPULATION_MINIMUM
 
 	outfit = /datum/outfit/job/chief_engineer
 
@@ -46,7 +45,7 @@
 
 	id = /obj/item/card/id/job/chief_engineer
 	belt = /obj/item/storage/belt/utility/chief/full
-	l_pocket = /obj/item/modular_computer/tablet/pda/heads/chief_engineer
+	l_pocket = /obj/item/modular_computer/tablet/pda/preset/heads/chief_engineer
 	ears = /obj/item/radio/headset/heads/chief_engineer
 	uniform = /obj/item/clothing/under/rank/engineering/chief_engineer
 	shoes = /obj/item/clothing/shoes/sneakers/brown
