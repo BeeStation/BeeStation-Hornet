@@ -22,7 +22,7 @@
 
 	var/obj/candy_type = /obj/item/food/gumball
 	var/total_candies = 50
-	var/max_candies = 50
+	var/const/max_candies = 50
 
 /obj/item/candydispenser/Initialize(mapload)
 	. = ..()
@@ -97,16 +97,16 @@
 	if(variant)
 		add_overlay("[icon_state]_[variant]")
 	switch(total_candies)
-		if(37 to 50)
+		if(max_candies * 0.75 to max_candies)
 			add_overlay("[icon_state]_100")
 			desc = "A [candy_type.name] machine. It is full!"
-		if(25 to 36)
+		if(max_candies * 0.50 to max_candies * 0.75)
 			add_overlay("[icon_state]_75")
 			desc = "A [candy_type.name] machine. Some candy is missing."
-		if(12 to 24)
+		if(max_candies * 0.25 to max_candies * 0.50)
 			add_overlay("[icon_state]_50")
 			desc = "A [candy_type.name] machine. It's half full!"
-		if(1 to 12)
+		if(1 to max_candies * 0.25)
 			add_overlay("[icon_state]_25")
 			desc = "A [candy_type.name] machine. There are a few candies left."
 		if(0)
@@ -143,6 +143,6 @@
 	desc = "A whimsical device with a glass globe on top, which can be operated to dispense various candies. This one looks rather... sinister. All the corners appear sharpened."
 	variant = "syndie"
 	candy_type = /obj/item/food/gumball/syndicate
-	force = 15
-	throwforce = 17
+	force = 18
+	throwforce = 23
 	bleed_force = BLEED_SCRATCH

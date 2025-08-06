@@ -179,7 +179,7 @@
 /obj/item/food/gumball/syndicate
 	name = "blood-red gumball"
 	desc = "A strangely sinister, sugary gumball."
-	foodtypes = GROSS | TOXIC | BUGS
+	foodtypes = GROSS | TOXIC
 	food_flags = FOOD_FINGER_FOOD
 	food_reagents = list(
 		/datum/reagent/consumable/sugar = 2,
@@ -190,7 +190,7 @@
 	tastes = list("gummy death")
 
 
-/obj/item/food/gumball/Initialize(mapload)
+/obj/item/food/gumball/syndicate/Initialize(mapload)
 	. = ..()
 	color = rgb(120, 0, 0)
 
