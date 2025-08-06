@@ -599,7 +599,7 @@
 		if(chargemode && charging == APC_CHARGING && operating)
 			if(excess > 0) // check to make sure we have enough to charge
 				// Max charge is capped to % per second constant
-				var/ch = min(excess, cell.chargerate)
+				var/ch = min(excess, cell.maxcharge)
 				add_load(ch) // Removes the power we're taking from the grid
 				cell.give(ch) // actually recharge the cell
 
