@@ -29553,6 +29553,7 @@
 /obj/item/stack/medical/ointment,
 /obj/effect/turf_decal/tile/blue,
 /obj/structure/table,
+/obj/item/storage/firstaid/regular,
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
 "ips" = (
@@ -55277,9 +55278,11 @@
 /turf/open/floor/iron/dark,
 /area/medical/cryo)
 "sHB" = (
-/obj/item/storage/firstaid/regular,
 /obj/machinery/camera/directional/north,
 /obj/structure/table,
+/obj/item/candydispenser/lollipop{
+	pixel_y = 10
+	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
 "sHM" = (
@@ -66212,6 +66215,18 @@
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
+"wOz" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/poddoor/shutters{
+	id = "barcounter";
+	name = "Bar Counter Shutters"
+	},
+/obj/machinery/door/firedoor,
+/obj/item/candydispenser{
+	pixel_y = 11
+	},
+/turf/open/floor/iron/cafeteria_red,
+/area/crew_quarters/bar)
 "wOB" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/smart/simple/yellow/visible,
@@ -105778,7 +105793,7 @@ aJC
 cOn
 fRF
 pEE
-pLg
+wOz
 nez
 fkY
 fyT

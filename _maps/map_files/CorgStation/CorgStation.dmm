@@ -51429,13 +51429,13 @@
 /turf/open/floor/iron,
 /area/science/shuttle)
 "qHD" = (
-/obj/structure/chair/fancy/comfy{
-	buildstackamount = 0;
-	color = "#742925"
-	},
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 1
 	},
+/obj/item/candydispenser/lollipop{
+	pixel_y = 10
+	},
+/obj/structure/table/glass,
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
 "qHP" = (
@@ -56358,6 +56358,9 @@
 	},
 /obj/structure/table/wood/poker,
 /obj/item/toy/cards/deck,
+/obj/item/candydispenser{
+	pixel_y = 11
+	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/bar)
 "sqo" = (

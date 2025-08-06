@@ -30785,6 +30785,14 @@
 	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
+"hWS" = (
+/obj/structure/table/wood,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/item/candydispenser{
+	pixel_y = 11
+	},
+/turf/open/floor/iron/dark,
+/area/crew_quarters/bar)
 "hWT" = (
 /obj/structure/table,
 /obj/item/paper_bin{
@@ -63079,13 +63087,13 @@
 "sxr" = (
 /obj/machinery/light,
 /obj/structure/table,
-/obj/item/storage/box/bodybags{
-	pixel_y = 5
-	},
 /obj/structure/sign/departments/chemistry{
 	pixel_y = -32
 	},
 /obj/effect/turf_decal/tile/dark/opposingcorners,
+/obj/item/candydispenser/lollipop{
+	pixel_y = 10
+	},
 /turf/open/floor/iron/dark,
 /area/medical/medbay/lobby)
 "sxD" = (
@@ -108031,7 +108039,7 @@ uRI
 iEg
 btE
 lLG
-geQ
+hWS
 geQ
 tdJ
 geQ

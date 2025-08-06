@@ -13754,12 +13754,8 @@
 	},
 /obj/structure/table/wood,
 /obj/effect/turf_decal/siding/wood,
-/obj/item/plate{
-	pixel_y = 3
-	},
-/obj/item/food/donkpocket/pizza{
-	pixel_x = -1;
-	pixel_y = 4
+/obj/item/candydispenser{
+	pixel_y = 11
 	},
 /turf/open/floor/carpet/green,
 /area/crew_quarters/cafeteria)
@@ -21386,6 +21382,9 @@
 	dir = 8
 	},
 /obj/machinery/chem_master,
+/obj/item/candydispenser/lollipop{
+	pixel_y = 21
+	},
 /turf/open/floor/iron,
 /area/medical/apothecary)
 "leF" = (

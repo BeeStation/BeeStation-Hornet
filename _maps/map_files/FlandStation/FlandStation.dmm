@@ -47802,8 +47802,11 @@
 /turf/open/floor/iron/dark/side,
 /area/hallway/primary/central)
 "mhb" = (
-/obj/item/kirbyplants/random,
 /obj/effect/turf_decal/tile/blue,
+/obj/item/candydispenser/lollipop{
+	pixel_y = 10
+	},
+/obj/structure/table,
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
 "mhe" = (
@@ -86940,9 +86943,11 @@
 /area/science/mixing)
 "waG" = (
 /obj/structure/table/wood,
-/obj/item/storage/photo_album,
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/item/candydispenser{
+	pixel_y = 11
 	},
 /turf/open/floor/carpet/green,
 /area/crew_quarters/dorms)
