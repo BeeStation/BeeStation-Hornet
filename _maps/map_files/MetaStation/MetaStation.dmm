@@ -402,6 +402,15 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
+"acF" = (
+/obj/effect/turf_decal/tile/red/half{
+	dir = 1
+	},
+/obj/machinery/light_switch/directional/west,
+/turf/open/floor/iron/dark/smooth_half{
+	dir = 1
+	},
+/area/security/main)
 "acN" = (
 /obj/machinery/camera/directional/east{
 	c_tag = "Atmospherics Tank - Mix"
@@ -1008,10 +1017,17 @@
 /turf/closed/wall/r_wall,
 /area/security/brig)
 "ajo" = (
-/obj/structure/falsewall,
-/obj/structure/falsewall,
-/turf/open/space/basic,
-/area/crew_quarters/fitness/recreation)
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/tile/brown{
+	dir = 4
+	},
+/obj/machinery/airalarm/directional/south{
+	pixel_y = -22
+	},
+/turf/open/floor/iron,
+/area/construction/storage_wing)
 "ajx" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
@@ -1450,18 +1466,8 @@
 /turf/open/floor/iron/dark,
 /area/aisat)
 "anQ" = (
-/obj/effect/turf_decal/tile/red/half{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red/half{
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/computer/shuttle_flight/labor,
-/turf/open/floor/iron/dark/smooth_half,
-/area/security/main)
+/turf/closed/wall/r_wall,
+/area/construction/storage_wing)
 "anS" = (
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
@@ -10484,16 +10490,14 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
 "bvE" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/public/glass{
-	name = "Primary Tool Storage"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/tile/brown/half/contrasted{
-	dir = 8
+	dir = 4
+	},
+/obj/structure/table,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high{
+	charge = 100;
+	maxcharge = 15000
 	},
 /turf/open/floor/iron,
 /area/storage/primary)
@@ -25501,8 +25505,18 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/command)
 "eEw" = (
-/turf/closed/wall/r_wall,
-/area/construction/storage_wing)
+/obj/structure/disposalpipe/segment,
+/obj/machinery/door/airlock/maintenance{
+	name = "Security Maintenance";
+	req_one_access_txt = "1;4"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plating,
+/area/maintenance/fore)
 "eES" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -34723,20 +34737,6 @@
 /obj/effect/turf_decal/stripes/white/line,
 /turf/open/floor/engine,
 /area/engine/engineering)
-"ibR" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/door/airlock/public/glass{
-	name = "Primary Tool Storage"
-	},
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/tile/brown/half/contrasted{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/storage/primary)
 "ica" = (
 /obj/machinery/conveyor_switch/oneway{
 	dir = 8;
@@ -42697,12 +42697,6 @@
 /obj/structure/closet,
 /turf/open/floor/plating,
 /area/maintenance/starboard/secondary)
-"laG" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/iron,
-/area/construction/storage_wing)
 "laO" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -42780,14 +42774,19 @@
 /turf/open/floor/cult,
 /area/library)
 "ley" = (
-/obj/effect/turf_decal/tile/red/half{
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/public/glass{
+	name = "Primary Tool Storage"
+	},
+/obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/light_switch/directional/west,
-/turf/open/floor/iron/dark/smooth_half{
-	dir = 1
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/tile/brown/half/contrasted{
+	dir = 8
 	},
-/area/security/main)
+/turf/open/floor/iron,
+/area/storage/primary)
 "leI" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	name = "Port to Filter"
@@ -48238,11 +48237,24 @@
 /obj/effect/turf_decal/tile/brown/half/contrasted{
 	dir = 4
 	},
+/obj/machinery/light_switch{
+	pixel_y = 28
+	},
 /obj/structure/table,
-/obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high{
 	charge = 100;
 	maxcharge = 15000
+	},
+/obj/item/screwdriver{
+	pixel_y = 16
+	},
+/obj/item/stack/cable_coil{
+	pixel_x = 2;
+	pixel_y = -2
+	},
+/obj/item/stack/cable_coil{
+	pixel_x = 3;
+	pixel_y = 5
 	},
 /turf/open/floor/iron,
 /area/storage/primary)
@@ -50847,9 +50859,11 @@
 /turf/open/space/basic,
 /area/space)
 "nWC" = (
-/obj/structure/falsewall,
-/turf/open/space/basic,
-/area/crew_quarters/fitness/recreation)
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron,
+/area/construction/storage_wing)
 "nWN" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -60838,18 +60852,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/virology)
-"rEm" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 4
-	},
-/obj/machinery/airalarm/directional/south{
-	pixel_y = -22
-	},
-/turf/open/floor/iron,
-/area/construction/storage_wing)
 "rEv" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
@@ -66889,27 +66891,16 @@
 /turf/open/floor/wood,
 /area/crew_quarters/dorms)
 "tJU" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/door/airlock/public/glass{
+	name = "Primary Tool Storage"
+	},
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/tile/brown/half/contrasted{
-	dir = 4
-	},
-/obj/machinery/light_switch{
-	pixel_y = 28
-	},
-/obj/structure/table,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
-/obj/item/screwdriver{
-	pixel_y = 16
-	},
-/obj/item/stack/cable_coil{
-	pixel_x = 2;
-	pixel_y = -2
-	},
-/obj/item/stack/cable_coil{
-	pixel_x = 3;
-	pixel_y = 5
+	dir = 8
 	},
 /turf/open/floor/iron,
 /area/storage/primary)
@@ -70551,20 +70542,18 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
 "vaz" = (
+/obj/effect/turf_decal/tile/red/half{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red/half{
+	dir = 8
+	},
 /obj/structure/cable/yellow{
-	icon_state = "4-8"
+	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/maintenance/fore)
+/obj/machinery/computer/shuttle_flight/labor,
+/turf/open/floor/iron/dark/smooth_half,
+/area/security/main)
 "vaC" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -76869,19 +76858,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/maintenance/central)
-"xmS" = (
-/obj/structure/disposalpipe/segment,
-/obj/machinery/door/airlock/maintenance{
-	name = "Security Maintenance";
-	req_one_access_txt = "1;4"
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/floor/plating,
-/area/maintenance/fore)
 "xmU" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -101756,7 +101732,7 @@ aDs
 aEH
 aFS
 ksG
-rEm
+ajo
 aJN
 whR
 vuD
@@ -102015,7 +101991,7 @@ aFT
 vny
 aIz
 aJN
-tJU
+mYL
 aMB
 aMB
 aMB
@@ -102272,7 +102248,7 @@ aFU
 tLg
 aIy
 aJO
-mYL
+bvE
 aMB
 aMB
 dCt
@@ -102781,7 +102757,7 @@ aax
 aax
 aax
 aax
-eEw
+anQ
 aFN
 aDu
 aIy
@@ -103298,8 +103274,8 @@ kOh
 kcV
 jVk
 cYA
-laG
-ibR
+nWC
+tJU
 gEr
 aMB
 gtN
@@ -103555,8 +103531,8 @@ aax
 kcV
 oKU
 cYA
-laG
-bvE
+nWC
+ley
 vDL
 oho
 kmY
@@ -103811,7 +103787,7 @@ aax
 aax
 lwp
 pZO
-eEw
+anQ
 aFU
 aJR
 aJR
@@ -109191,7 +109167,7 @@ aaf
 aiD
 cHd
 iDw
-ley
+acF
 qSK
 jNC
 hkU
@@ -113039,7 +113015,7 @@ aaa
 lMJ
 aaa
 aiD
-anQ
+vaz
 xtg
 jkx
 fhS
@@ -113561,7 +113537,7 @@ qFX
 vgT
 fjg
 pmt
-xmS
+eEw
 fFI
 cPz
 sEC
@@ -114333,7 +114309,7 @@ koh
 adE
 adE
 nDs
-vaz
+wdT
 agq
 aje
 aje
@@ -114587,7 +114563,7 @@ ieV
 acP
 acP
 nDs
-ajo
+acP
 wrp
 nDs
 dbu
@@ -114844,7 +114820,7 @@ acQ
 acP
 afs
 lTL
-nWC
+acP
 loH
 nDs
 vtN
