@@ -2384,12 +2384,12 @@
 /area/maintenance/department/science/xenobiology)
 "avd" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "quarantineshutters";
-	name = "Isolation Shutters"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "geneticslab";
+	name = "Genetics Lab Shutters"
 	},
 /turf/open/floor/plating,
 /area/medical/genetics)
@@ -21654,6 +21654,16 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /obj/effect/turf_decal/tile/red/fourcorners,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "quarantineshutters";
+	name = "Isolation Shutters"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/aft)
 "djk" = (
@@ -21785,15 +21795,15 @@
 	},
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /obj/item/pen,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "geneticslab";
-	name = "Genetics Lab Shutters"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "quarantineshutters";
+	name = "Isolation Shutters"
 	},
 /turf/open/floor/iron,
 /area/medical/genetics)
@@ -24901,10 +24911,6 @@
 /area/engine/atmos)
 "erP" = (
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "geneticslab";
-	name = "Genetics Lab Shutters"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -24913,6 +24919,10 @@
 	},
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 4
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "quarantineshutters";
+	name = "Isolation Shutters"
 	},
 /turf/open/floor/iron,
 /area/medical/genetics)
@@ -26601,8 +26611,8 @@
 	pixel_x = -8
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
-	id = "quarantineshutters";
-	name = "Isolation Shutters"
+	id = "geneticslab";
+	name = "Genetics Lab Shutters"
 	},
 /turf/open/floor/plating,
 /area/medical/genetics)
@@ -27043,15 +27053,15 @@
 "fla" = (
 /obj/item/kirbyplants/random,
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "chemistry_shutters_2";
-	name = "chemistry Shutters"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "quarantineshutters";
+	name = "Isolation Shutters"
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
@@ -28174,7 +28184,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
 	name = "Chemistry Lab";
-	req_one_access_txt = "33;69"
+	req_one_access_txt = "33"
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
@@ -39224,8 +39234,8 @@
 "jMU" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
-	id = "quarantineshutters";
-	name = "Isolation Shutters"
+	id = "chemistry_shutters_2";
+	name = "chemistry Shutters"
 	},
 /turf/open/floor/plating,
 /area/medical/chemistry)
@@ -46759,15 +46769,15 @@
 	pixel_x = -2;
 	pixel_y = 6
 	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "chemistry_shutters_2";
-	name = "chemistry Shutters"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "quarantineshutters";
+	name = "Isolation Shutters"
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
@@ -47073,10 +47083,6 @@
 /area/hallway/primary/central)
 "mFf" = (
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "chemistry_shutters_2";
-	name = "chemistry Shutters"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -47085,6 +47091,10 @@
 	},
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 4
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "quarantineshutters";
+	name = "Isolation Shutters"
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
@@ -48002,8 +48012,8 @@
 	pixel_y = -1
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
-	id = "quarantineshutters";
-	name = "Isolation Shutters"
+	id = "chemistry_shutters_2";
+	name = "chemistry Shutters"
 	},
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
@@ -59089,11 +59099,11 @@
 /turf/open/floor/iron/white,
 /area/crew_quarters/heads/hor)
 "qTJ" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 6
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/security/main)
@@ -72113,6 +72123,9 @@
 /obj/effect/turf_decal/tile/red/half{
 	dir = 8
 	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 1
+	},
 /turf/open/floor/iron/dark/smooth_half,
 /area/security/main)
 "vCX" = (
@@ -72665,6 +72678,16 @@
 	icon_state = "plant-21"
 	},
 /obj/effect/turf_decal/tile/red/fourcorners,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "quarantineshutters";
+	name = "Isolation Shutters"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/aft)
 "vMd" = (
@@ -79967,6 +79990,19 @@
 /area/crew_quarters/heads/captain/private)
 "yld" = (
 /obj/effect/turf_decal/tile/red/fourcorners,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "quarantineshutters";
+	name = "Isolation Shutters"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 4
+	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/aft)
 "yle" = (

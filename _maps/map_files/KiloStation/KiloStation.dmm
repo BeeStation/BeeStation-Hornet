@@ -5251,7 +5251,8 @@
 "bbP" = (
 /obj/machinery/door/airlock/mining{
 	name = "Auxiliary Base";
-	req_one_access_txt = "72"
+	req_one_access_txt = "72";
+	req_access_txt = null
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -40726,7 +40727,8 @@
 "lmo" = (
 /obj/machinery/door/airlock/mining{
 	name = "Auxiliary Base";
-	req_one_access_txt = "72"
+	req_one_access_txt = "72";
+	req_access_txt = null
 	},
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
@@ -48432,7 +48434,8 @@
 "nNq" = (
 /obj/machinery/door/airlock/maintenance/external{
 	name = "construction Zone";
-	req_access_txt = "72"
+	req_access_txt = null;
+	req_one_access_txt = "72"
 	},
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1

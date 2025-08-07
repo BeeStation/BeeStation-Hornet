@@ -306,7 +306,7 @@
 /turf/open/floor/iron/freezer,
 /area/security/prison)
 "adh" = (
-/obj/machinery/portable_atmospherics/canister/plasma,
+/obj/machinery/power/port_gen/pacman,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "adi" = (
@@ -2504,7 +2504,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/power/port_gen/pacman,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "aEV" = (
@@ -10258,7 +10258,7 @@
 	req_access_txt = "19; 61"
 	},
 /obj/machinery/door/firedoor,
-/turf/open/floor/plating,
+/turf/open/floor/engine,
 /area/engine/gravity_generator)
 "ddN" = (
 /obj/structure/cable{
@@ -64607,17 +64607,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/exit)
-"vbP" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 2;
-	height = 13;
-	id = "ferry_home";
-	name = "port bay 2";
-	width = 5
-	},
-/turf/open/space/basic,
-/area/space)
 "vci" = (
 /obj/machinery/holopad,
 /obj/structure/disposalpipe/segment,
@@ -85308,7 +85297,7 @@ ojH
 anT
 anT
 anT
-anT
+opr
 anT
 anT
 anT
@@ -90980,8 +90969,8 @@ vrV
 vrV
 vrV
 vrV
+vrV
 vgb
-aMT
 aMT
 aMT
 aMT
@@ -91233,12 +91222,12 @@ aLq
 aLq
 aLq
 vgb
+vrV
 ksE
 ksE
 ksE
 vYG
 vgb
-aMT
 aMT
 aMT
 aMT
@@ -91490,12 +91479,12 @@ sKV
 jZK
 xBR
 vgb
+vrV
 ksE
 ksE
 xqt
 vrV
 vgb
-aMT
 aMT
 aMT
 aMT
@@ -91747,6 +91736,7 @@ doh
 jZK
 bdf
 vgb
+vrV
 ksE
 ksE
 ksE
@@ -91758,8 +91748,7 @@ aMT
 aMT
 aMT
 aMT
-aMT
-aMT
+qiD
 aMT
 aMT
 aMT
@@ -92008,8 +91997,8 @@ vrV
 vrV
 vrV
 vrV
+vrV
 vgb
-aMT
 aMT
 aMT
 aMT
@@ -92266,7 +92255,7 @@ vgb
 vgb
 vgb
 vgb
-aMT
+vgb
 aMT
 aMT
 aMT
@@ -93038,7 +93027,7 @@ aMT
 aMT
 aMT
 aMT
-qiD
+aMT
 aMT
 aMT
 aMT
@@ -94839,7 +94828,7 @@ ixJ
 aMT
 aMT
 aMT
-vbP
+aMT
 aMT
 aMT
 aMT
