@@ -301,7 +301,7 @@
 /mob/living/proc/Sleeping(amount) //Can't go below remaining duration
 	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_SLEEP, amount) & COMPONENT_NO_STUN)
 		return
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	var/datum/status_effect/incapacitating/sleeping/S = IsSleeping()
 	if(S)
@@ -313,7 +313,7 @@
 /mob/living/proc/SetSleeping(amount) //Sets remaining duration
 	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_SLEEP, amount) & COMPONENT_NO_STUN)
 		return
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	var/datum/status_effect/incapacitating/sleeping/S = IsSleeping()
 	if(amount <= 0)
@@ -328,7 +328,7 @@
 /mob/living/proc/AdjustSleeping(amount) //Adds to remaining duration
 	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_SLEEP, amount) & COMPONENT_NO_STUN)
 		return
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	var/datum/status_effect/incapacitating/sleeping/S = IsSleeping()
 	if(S)
@@ -341,7 +341,7 @@
 /mob/living/proc/PermaSleeping()
 	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_SLEEP, -1) & COMPONENT_NO_STUN)
 		return
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	var/datum/status_effect/incapacitating/sleeping/S = IsSleeping()
 	if(S)
@@ -364,7 +364,7 @@
 /mob/living/proc/staggered(amount) //Can't go below remaining duration
 	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_STAGGERED, amount) & COMPONENT_NO_STUN)
 		return
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	var/datum/status_effect/staggered/S = is_staggered()
 	if(S)
@@ -376,7 +376,7 @@
 /mob/living/proc/set_staggered(amount) //Sets remaining duration
 	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_STAGGERED, amount) & COMPONENT_NO_STUN)
 		return
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	var/datum/status_effect/staggered/S = is_staggered()
 	if(amount <= 0)
@@ -391,7 +391,7 @@
 /mob/living/proc/adjust_staggered(amount) //Adds to remaining duration
 	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_STAGGERED, amount) & COMPONENT_NO_STUN)
 		return
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	var/datum/status_effect/staggered/S = is_staggered()
 	if(S)
