@@ -23,7 +23,7 @@
 
 /datum/dynamic_ruleset/midround/pirates
 	name = "Space Pirates"
-	severity = DYNAMIC_MIDROUND_MEDIUM
+	severity = DYNAMIC_MIDROUND_MEDIUM | DYNAMIC_MIDROUND_HEAVY
 	points_cost = 40
 	flags = CANNOT_REPEAT
 

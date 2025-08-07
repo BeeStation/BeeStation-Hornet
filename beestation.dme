@@ -49,6 +49,7 @@
 #include "code\__DEFINES\armor.dm"
 #include "code\__DEFINES\art.dm"
 #include "code\__DEFINES\assemblies.dm"
+#include "code\__DEFINES\assert.dm"
 #include "code\__DEFINES\assets.dm"
 #include "code\__DEFINES\async.dm"
 #include "code\__DEFINES\atom_hud.dm"
