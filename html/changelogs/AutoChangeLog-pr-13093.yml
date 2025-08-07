@@ -1,8 +1,0 @@
-author: rkz, MrMelbert, Arkatos
-delete-after: true
-changes:
-  - refactor: refactor changeling antagonist
-  - rscadd: changelings now use a radial when swapping bodies
-  - rscadd: more features for changeling_profile datums
-  - bugfix: You can no longer override the ling DNA you're currently disguised as.
-      This was apparently always intended but broken for ages.
