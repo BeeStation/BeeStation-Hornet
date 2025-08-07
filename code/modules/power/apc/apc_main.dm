@@ -251,7 +251,7 @@
 	// is starting with a power cell installed, create it and set its charge level
 	if(cell_type)
 		cell = new cell_type
-		cell.charge = cell.maxcharge / 100 * 90	// (convert percentage to actual value)
+		cell.charge = start_charge * cell.maxcharge / 100	// (convert percentage to actual value)
 
 	var/area/our_area = loc.loc
 
