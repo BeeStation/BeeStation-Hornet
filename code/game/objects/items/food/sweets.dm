@@ -182,13 +182,12 @@
 	foodtypes = GROSS | TOXIC
 	food_flags = FOOD_FINGER_FOOD
 	food_reagents = list(
-		/datum/reagent/consumable/sugar = 2,
-		/datum/reagent/impedrezene = 2,
-		/datum/reagent/toxin/spewium = 2,
-		/datum/reagent/cryptobiolin = 2
-	)	//Kek
+		/datum/reagent/consumable/sugar = 3,
+		/datum/reagent/medicine/stabilizing_nanites = 1,
+		/datum/reagent/medicine/mine_salve = 5,
+		/datum/reagent/toxin/zombiepowder = 15
+	)
 	tastes = list("gummy death")
-
 
 /obj/item/food/gumball/syndicate/Initialize(mapload)
 	. = ..()
@@ -197,6 +196,10 @@
 /obj/item/food/gumball/syndicate/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/slippery, 0.5 SECONDS, NO_SLIP_WHEN_WALKING)
+
+/obj/item/food/gumball/syndicate/grind(datum/reagents/target_holder, mob/user)
+	reagents.remove_all(50)
+	. = ..()
 
 // Lollipop
 /obj/item/food/lollipop
