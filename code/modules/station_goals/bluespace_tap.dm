@@ -189,10 +189,10 @@
 	luminosity = 1
 
 	/// Correspond to power required for a mining level, first entry for level 1, etc.
-	var/list/power_needs = list(1 KILOPOWER, 5 KILOPOWER, 50 KILOPOWER, 100 KILOPOWER, 500 KILOPOWER,
-								1 MEGAPOWER, 2 MEGAPOWER, 5 MEGAPOWER, 10 MEGAPOWER, 25 MEGAPOWER,
-								50 MEGAPOWER, 75 MEGAPOWER, 125 MEGAPOWER, 200 MEGAPOWER, 500 MEGAPOWER,
-								1 GIGAAUR, 5 GIGAAUR, 15 GIGAAUR, 45 GIGAAUR, 500 GIGAAUR)
+	var/list/power_needs = list(1 KW, 5 KW, 50 KW, 100 KW, 500 KW,
+								1 MW, 2 MW, 5 MW, 10 MW, 25 MW,
+								50 MW, 75 MW, 125 MW, 200 MW, 500 MW,
+								1 GW, 5 GW, 15 GW, 45 GW, 500 GW)
 
 	/// list of possible products
 	var/static/product_list = list(
