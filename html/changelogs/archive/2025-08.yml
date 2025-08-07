@@ -48,6 +48,14 @@
   - code_imp: modifies the ASSERT() macro
   - code_imp: adds trait helpers for easily adding a list of traits to something
 2025-08-07:
+  Rukofamicom:
+  - tweak: Autotransfer will now trigger automatically once a certain amount of time
+      has passed again even with no votes due to players heckling others for using
+      the system as intended.
+  - tweak: Dead players an antagonists are no longer factored into the calculation
+      for how many votes are required to leave. If the number of living non-antagonist
+      crew is dwindling, votes to begin a new round should be given a heavier weight
+      to offset total antagonist takeover situations.
   mrmanlikesbt:
   - bugfix: fixed scientist abductor tools
   rkz, MrMelbert, Arkatos:
