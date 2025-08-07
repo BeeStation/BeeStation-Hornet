@@ -286,6 +286,7 @@
 /proc/apply_loadout_to_mob(mob/living/carbon/human/H, mob/M, client/preference_source, on_dummy = FALSE)
 	var/mob/living/carbon/human/human = H
 	var/list/gear_leftovers = list()
+	var/obj/item/storage/spawned_box
 	var/jumpsuit_style = preference_source.prefs.read_character_preference(/datum/preference/choiced/jumpsuit_style)
 	if(preference_source && LAZYLEN(preference_source.prefs.equipped_gear))
 		for(var/gear in preference_source.prefs.equipped_gear)
@@ -330,7 +331,13 @@
 						// Unequip only if we're about to equip something in that slot
 						var/obj/o = H.get_item_by_slot(G.slot)
 						if(o)
-							H.doUnEquip(o, newloc = H.drop_location(), invdrop = FALSE, silent = TRUE)
+							if(!spawned_box && !on_dummy)	//Spawn the box only if theres something being unequiped.
+								var/obj/item/storage/current_bag = H.get_item_by_slot(ITEM_SLOT_BACK)
+
+								spawned_box = new /obj/item/storage/box/suitbox(current_bag)
+								spawned_box.name = "compression box of standard gear"
+								H.put_in_hands(spawned_box)	// Not putting it in the bagpack for obvious reasons
+							H.doUnEquip(o, newloc = spawned_box ? spawned_box : H.drop_location(), invdrop = FALSE, silent = TRUE)
 
 						if(H.equip_to_slot_or_del(new_item, G.slot))
 							if(M.client)
