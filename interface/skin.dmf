@@ -352,7 +352,7 @@ window "output_legacy"
 		anchor1 = -1,-1
 		anchor2 = -1,-1
 		background-color = none
-		saved-params = "pos;size;is-minimized;is-maximized"
+		saved-params = "is-minimized;is-maximized"
 		is-pane = true
 	elem "output"
 		type = OUTPUT
@@ -371,7 +371,7 @@ window "output_browser"
 		anchor1 = -1,-1
 		anchor2 = -1,-1
 		background-color = none
-		saved-params = "pos;size;is-minimized;is-maximized"
+		saved-params = "is-minimized;is-maximized"
 		is-pane = true
 	elem "browseroutput"
 		type = BROWSER
