@@ -770,8 +770,9 @@
 		light_holder.forceMove(M)
 
 /datum/reagent/consumable/ethanol/tequila_sunrise/on_mob_end_metabolize(mob/living/M)
-	to_chat(M, span_notice("The warmth in your body fades."))
-	QDEL_NULL(light_holder)
+	if(light_holder)
+		to_chat(M, span_notice("The warmth in your body fades."))
+		QDEL_NULL(light_holder)
 
 /datum/reagent/consumable/ethanol/toxins_special
 	name = "Toxins Special"
