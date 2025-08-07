@@ -649,7 +649,6 @@
 #include "code\datums\actions\items\clothing.dm"
 #include "code\datums\actions\items\cult_dagger.dm"
 #include "code\datums\actions\items\hands_free.dm"
-#include "code\datums\actions\items\ninja.dm"
 #include "code\datums\actions\items\organ_action.dm"
 #include "code\datums\actions\items\portaseeder.dm"
 #include "code\datums\actions\items\set_internals.dm"
