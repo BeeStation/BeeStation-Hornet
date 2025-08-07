@@ -14,6 +14,9 @@
 	//initialize limbs first
 	create_bodyparts()
 
+	// All start without eyes, and get them via set species
+	become_blind(NO_EYES)
+
 	setup_human_dna()
 
 
@@ -596,7 +599,7 @@
 	if(!is_mouth_covered() && clean_lips())
 		. = TRUE
 
-	if(glasses && is_eyes_covered(FALSE, TRUE, TRUE) && glasses.wash(clean_types))
+	if(glasses && is_eyes_covered(ITEM_SLOT_MASK|ITEM_SLOT_HEAD) && glasses.wash(clean_types))
 		update_inv_glasses()
 		. = TRUE
 
@@ -686,11 +689,6 @@
 		crew_record.name = newname
 	if(locked_record)
 		locked_record.name = newname
-
-/mob/living/carbon/human/get_total_tint()
-	. = ..()
-	if(glasses)
-		. += glasses.tint
 
 /mob/living/carbon/human/update_health_hud()
 	if(!client || !hud_used)

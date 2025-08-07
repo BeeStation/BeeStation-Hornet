@@ -57,7 +57,7 @@
 			each_mob.adjust_eye_blur(5 SECONDS)
 			continue
 		to_chat(each_mob, span_warning("A wave of dread washes over you..."))
-		each_mob.adjust_blindness(1.5) // very mild blindness
+		each_mob.adjust_temp_blindness(3 SECONDS) // very mild blindness
 		each_mob.Knockdown(10)
 		each_mob.emote("scream")
 		each_mob.set_timed_status_effect(50 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)

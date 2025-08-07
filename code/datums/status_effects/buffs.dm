@@ -551,10 +551,10 @@
 		duration_mod = 2
 	owner.adjustBruteLoss(-20 * power)
 	owner.adjustFireLoss(-20 * power)
-	owner.cure_nearsighted()
+	owner.cure_nearsighted(EYE_DAMAGE)
 	owner.ExtinguishMob()
 	owner.fire_stacks = 0
-	owner.set_blindness(0)
+	owner.remove_status_effect(/datum/status_effect/temporary_blindness)
 	owner.remove_status_effect(/datum/status_effect/eye_blur)
 	owner.restore_blood()
 	owner.bodytemperature = owner.get_body_temp_normal()

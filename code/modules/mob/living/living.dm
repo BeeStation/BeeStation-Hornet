@@ -46,7 +46,7 @@
 
 		else
 			effect.be_replaced()
-			
+
 	if(buckled)
 		buckled.unbuckle_mob(src,force=1)
 
@@ -802,11 +802,7 @@
 	radiation = 0
 	set_nutrition(NUTRITION_LEVEL_FED + 50)
 	bodytemperature = get_body_temp_normal(apply_change=FALSE)
-	set_blindness(0)
-	cure_nearsighted()
-	//Some eye logic
-	var/obj/item/organ/eyes/eyes = get_organ_slot(ORGAN_SLOT_EYES)
-	cure_blind(null, eyes?.can_see)
+	cure_blind(EYE_DAMAGE)
 	cure_husk()
 	hallucination = 0
 	heal_overall_damage(INFINITY, INFINITY, INFINITY, null, TRUE) //heal brute and burn dmg on both organic and robotic limbs, and update health right away.

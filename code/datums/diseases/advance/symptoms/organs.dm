@@ -74,37 +74,37 @@
 	symptom_delay_min = 1
 	symptom_delay_max = 1
 
-/datum/symptom/sensory_restoration/Activate(datum/disease/advance/A)
-	if(!..())
+/datum/symptom/sensory_restoration/Activate(datum/disease/advance/source_disease)
+	. = ..()
+	if(!.)
 		return
-	var/mob/living/M = A.affected_mob
-	var/obj/item/organ/eyes/eyes = M.get_organ_slot(ORGAN_SLOT_EYES)
-	if (!eyes)
-		return
-	switch(A.stage)
+	var/mob/living/carbon/ill_mob = source_disease.affected_mob
+	switch(source_disease.stage)
 		if(4, 5)
-			M.restoreEars()
+			var/obj/item/organ/ears/ears = ill_mob.get_organ_slot(ORGAN_SLOT_EARS)
+			if(ears)
+				ears.adjustEarDamage(-4, -4)
 
-			if(HAS_TRAIT_FROM(M, TRAIT_BLIND, EYE_DAMAGE))
-				if(prob(20))
-					if(M.stat != DEAD)
-						to_chat(M, span_notice("Your vision slowly returns..."))
-					M.cure_blind(EYE_DAMAGE)
-					M.cure_nearsighted(EYE_DAMAGE)
-					M.set_eye_blur_if_lower(70 SECONDS)
-			else if(HAS_TRAIT_FROM(M, TRAIT_NEARSIGHT, EYE_DAMAGE))
-				if(M.stat != DEAD)
-					to_chat(M, span_notice("You can finally focus your eyes on distant objects."))
-				M.cure_nearsighted(EYE_DAMAGE)
-				M.set_eye_blur_if_lower(20 SECONDS)
-			else if(M.is_blind() || M.has_status_effect(/datum/status_effect/eye_blur))
-				M.set_blindness(0)
-				M.remove_status_effect(/datum/status_effect/eye_blur)
-			else if(eyes.damage > 0)
-				eyes.applyOrganDamage(-1)
+			ill_mob.adjust_temp_blindness(-4 SECONDS)
+			ill_mob.adjust_eye_blur(-4 SECONDS)
+
+			var/obj/item/organ/eyes/eyes = ill_mob.get_organ_slot(ORGAN_SLOT_EYES)
+			if(!eyes) // only dealing with eye stuff from here on out
+				return
+
+			eyes.applyOrganDamage(-2)
+			if(prob(20))
+				if(ill_mob.is_blind_from(EYE_DAMAGE))
+					to_chat(ill_mob, span_warning("Your vision slowly returns..."))
+					ill_mob.adjust_eye_blur(20 SECONDS)
+
+				else if(ill_mob.is_nearsighted_from(EYE_DAMAGE))
+					to_chat(ill_mob, span_warning("The blackness in your peripheral vision begins to fade."))
+					ill_mob.adjust_eye_blur(5 SECONDS)
+
 		else
-			if(prob(base_message_chance) && M.stat != DEAD)
-				to_chat(M, span_notice("[pick("Your eyes feel great.","You feel like your eyes can focus more clearly.", "You don't feel the need to blink.","Your ears feel great.","Your healing feels more acute.")]"))
+			if(prob(base_message_chance))
+				to_chat(ill_mob, span_notice("[pick("Your eyes feel great.","You feel like your eyes can focus more clearly.", "You don't feel the need to blink.","Your ears feel great.","Your hearing feels more acute.")]"))
 
 
 /datum/symptom/organ_restoration //heals damage to other internal organs that get damaged far less often

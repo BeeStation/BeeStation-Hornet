@@ -151,7 +151,7 @@
 	desc = "Prescription glasses with a built-in medical HUD."
 	icon_state = "prescmedhud"
 	emissive_state = "prehud_emissive"
-	vision_correction = 1
+	clothing_traits = list(TRAIT_NEARSIGHTED_CORRECTED)
 
 /obj/item/clothing/glasses/hud/health/sunglasses/degraded
 	name = "degraded medical HUDSunglasses"
@@ -196,7 +196,7 @@
 	desc = "Prescription glasses with a built-in diagnostic HUD."
 	icon_state = "prescdiaghud"
 	emissive_state = "prehud_emissive"
-	vision_correction = 1
+	clothing_traits = list(TRAIT_NEARSIGHTED_CORRECTED)
 
 /obj/item/clothing/glasses/hud/security
 	name = "security HUD"
@@ -281,7 +281,7 @@
 	desc = "Prescription glasses with a built-in security HUD. They do not provide flash protection."
 	icon_state = "prescsechud"
 	emissive_state = "prehud_emissive"
-	vision_correction = 1
+	clothing_traits = list(TRAIT_NEARSIGHTED_CORRECTED)
 
 /obj/item/clothing/glasses/hud/security/sunglasses/gars
 	name = "\improper HUD gar glasses"
@@ -382,7 +382,7 @@
 	vision_flags = SEE_TURFS|SEE_MOBS|SEE_OBJS
 	darkness_view = 8
 	flash_protect = 2
-	vision_correction = 1
+	clothing_traits = list(TRAIT_NEARSIGHTED_CORRECTED)
 	clothing_flags = SCAN_REAGENTS | SCAN_BOOZEPOWER
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	hud_type = list(DATA_HUD_MEDICAL_ADVANCED, DATA_HUD_DIAGNOSTIC_ADVANCED, DATA_HUD_SECURITY_ADVANCED)

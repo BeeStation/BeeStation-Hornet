@@ -126,7 +126,7 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 	if(IS_CULTIST(user))
 		to_chat(user, "[span_bigbrass("You shouldn't be playing with my toys...")]")
 		user.Stun(60)
-		user.adjust_blindness(150)
+		user.adjust_temp_blindness(300 SECONDS)
 		user.electrocute_act(10, "[name]")
 		return
 	if(!IS_SERVANT_OF_RATVAR(user))

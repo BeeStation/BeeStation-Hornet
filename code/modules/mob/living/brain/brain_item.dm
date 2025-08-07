@@ -450,3 +450,11 @@
 	for(var/X in traumas)
 		qdel(X)
 
+/obj/item/organ/brain/applyOrganDamage(damage_amount, maximum, required_organtype)
+	. = ..()
+	if(!owner)
+		return
+	if(damage >= 60)
+		SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "brain_damage", /datum/mood_event/brain_damage)
+	else
+		SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "brain_damage")

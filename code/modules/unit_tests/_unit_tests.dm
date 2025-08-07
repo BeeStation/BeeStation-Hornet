@@ -19,6 +19,7 @@
 #include "asset_smart_cache.dm"
 #include "async.dm"
 #include "autowiki.dm"
+#include "blindness.dm"
 #include "bloody_footprints.dm"
 #include "breath.dm"
 #include "check_adjustable_clothing.dm"

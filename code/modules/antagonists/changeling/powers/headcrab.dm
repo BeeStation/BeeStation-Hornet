@@ -34,13 +34,13 @@
 
 	for(var/mob/living/A in view(2,user))
 		if(ishuman(A))
-			var/mob/living/carbon/human/H = A
-			var/obj/item/organ/eyes/eyes = H.get_organ_slot(ORGAN_SLOT_EYES)
-			to_chat(H, span_userdanger("You are blinded by a shower of blood!"))
-			H.Stun(20)
-			H.set_eye_blur_if_lower(40 SECONDS)
+			var/mob/living/carbon/human/splashed = A
+			var/obj/item/organ/eyes/eyes = splashed.get_organ_slot(ORGAN_SLOT_EYES)
+			to_chat(splashed, span_userdanger("You are blinded by a shower of blood!"))
+			splashed.Stun(2 SECONDS)
+			splashed.set_eye_blur_if_lower(40 SECONDS)
 			eyes?.applyOrganDamage(5)
-			H.adjust_confusion(10 SECONDS)
+			splashed.adjust_confusion(3 SECONDS)
 		else if(issilicon(A))
 			var/mob/living/silicon/S = A
 			to_chat(S, span_userdanger("Your sensors are disabled by a shower of blood!"))

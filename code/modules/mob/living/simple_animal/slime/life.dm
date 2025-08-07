@@ -18,9 +18,17 @@
 	if(!.)
 		return
 
-	if(buckled)
+	// We get some passive bruteloss healing if we're not dead
+	if(stat != DEAD && DT_PROB(16, delta_time))
+		var/heal = 0.5
+		if(transformeffects & SLIME_EFFECT_PURPLE)
+			heal += 0.25
+		adjustBruteLoss(-heal * delta_time)
+	if((transformeffects & SLIME_EFFECT_RAINBOW) && DT_PROB(5, delta_time))
+		random_colour()
+	if(ismob(buckled))
 		handle_feeding(delta_time, times_fired)
-	if(stat) // Slimes in stasis don't lose nutrition, don't change mood and don't respond to speech
+	if(stat != CONSCIOUS) // Slimes in stasis don't lose nutrition, don't change mood and don't respond to speech
 		return
 	handle_nutrition(delta_time, times_fired)
 	if(QDELETED(src)) // Stop if the slime split during handle_nutrition()
@@ -135,19 +143,7 @@
 	return //TODO: DEFERRED
 
 
-/mob/living/simple_animal/slime/handle_traits(delta_time, times_fired)
-	. = ..()
-	if(!stat && DT_PROB(16, delta_time))
-		var/heal = 0.5
-		if(transformeffects & SLIME_EFFECT_PURPLE)
-			heal += 0.25
-		adjustBruteLoss(-heal * delta_time)
-	if((transformeffects & SLIME_EFFECT_RAINBOW) && DT_PROB(5, delta_time))
-		random_colour()
-
 /mob/living/simple_animal/slime/proc/handle_feeding(delta_time, times_fired)
-	if(!isliving(buckled))
-		return
 	alpha = 255
 	var/mob/living/M = buckled
 	if(transformeffects & SLIME_EFFECT_OIL)

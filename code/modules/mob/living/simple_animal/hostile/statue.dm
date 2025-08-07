@@ -215,4 +215,4 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/statue)
 	return things
 
 /datum/action/spell/aoe/blindness/cast_on_thing_in_aoe(mob/living/victim, atom/caster)
-	victim.set_blindness(4)
+	victim.adjust_temp_blindness(8 SECONDS)

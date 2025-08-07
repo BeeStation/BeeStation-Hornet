@@ -301,39 +301,6 @@
 			C.clear_alert("syringealert")
 
 
-
-/datum/status_effect/pacify/on_creation(mob/living/new_owner, set_duration)
-	if(isnum_safe(set_duration))
-		duration = set_duration
-	. = ..()
-
-/datum/status_effect/pacify/on_apply()
-	ADD_TRAIT(owner, TRAIT_PACIFISM, "status_effect")
-	return ..()
-
-/datum/status_effect/pacify/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_PACIFISM, "status_effect")
-
-//OTHER DEBUFFS
-/datum/status_effect/pacify
-	id = "pacify"
-	status_type = STATUS_EFFECT_REPLACE
-	tick_interval = 1
-	duration = 100
-	alert_type = null
-
-/datum/status_effect/pacify/on_creation(mob/living/new_owner, set_duration)
-	if(isnum_safe(set_duration))
-		duration = set_duration
-	. = ..()
-
-/datum/status_effect/pacify/on_apply()
-	ADD_TRAIT(owner, TRAIT_PACIFISM, "status_effect")
-	return ..()
-
-/datum/status_effect/pacify/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_PACIFISM, "status_effect")
-
 /datum/status_effect/his_wrath //does minor damage over time unless holding His Grace
 	id = "his_wrath"
 	duration = -1
@@ -1139,14 +1106,12 @@
 	mob_overlay = mutable_appearance('icons/effects/heretic.dmi', "cloud_swirl", ABOVE_MOB_LAYER)
 	owner.overlays += mob_overlay
 	owner.update_icon()
-	ADD_TRAIT(owner, TRAIT_BLIND, "cloudstruck")
+	owner.become_blind(id)
 	return TRUE
 
 /datum/status_effect/cloudstruck/on_remove()
 	. = ..()
-	if(QDELETED(owner))
-		return
-	REMOVE_TRAIT(owner, TRAIT_BLIND, "cloudstruck")
+	owner.cure_blind(id)
 	if(owner)
 		owner.overlays -= mob_overlay
 		owner.update_icon()

@@ -60,7 +60,7 @@
 	M.setCloneLoss(0, 0)
 
 	M.remove_status_effect(/datum/status_effect/eye_blur)
-	M.set_blindness(0)
+	M.remove_status_effect(/datum/status_effect/temporary_blindness)
 	M.SetKnockdown(0)
 	M.SetStun(0)
 	M.SetUnconscious(0)
@@ -860,20 +860,20 @@
 	taste_description = "dull toxin"
 
 /datum/reagent/medicine/oculine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
-	affected_mob.adjust_blindness(-2 * REM * delta_time)
+	affected_mob.adjust_temp_blindness(-4 SECONDS * REM * delta_time)
 	affected_mob.adjust_eye_blur(-4 SECONDS * REM * delta_time)
 	var/obj/item/organ/eyes/eyes = affected_mob.get_organ_slot(ORGAN_SLOT_EYES)
 	if (!eyes)
 		return
 	eyes.applyOrganDamage(-2 * REM * delta_time)
-	if(HAS_TRAIT_FROM(affected_mob, TRAIT_BLIND, EYE_DAMAGE))
+	if(affected_mob.is_blind_from(EYE_DAMAGE))
 		if(DT_PROB(10, delta_time))
 			to_chat(affected_mob, span_warning("Your vision slowly returns..."))
 			affected_mob.cure_blind(EYE_DAMAGE)
 			affected_mob.cure_nearsighted(EYE_DAMAGE)
 			affected_mob.set_eye_blur_if_lower(70 SECONDS)
 
-	else if(HAS_TRAIT_FROM(affected_mob, TRAIT_NEARSIGHT, EYE_DAMAGE))
+	else if(affected_mob.is_nearsighted_from(EYE_DAMAGE))
 		to_chat(affected_mob, span_warning("The blackness in your peripheral vision fades."))
 		affected_mob.cure_nearsighted(EYE_DAMAGE)
 		affected_mob.set_eye_blur_if_lower(20 SECONDS)

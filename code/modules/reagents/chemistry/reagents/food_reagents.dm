@@ -343,7 +343,7 @@
 		if(!victim.is_eyes_covered() || !victim.is_mouth_covered())
 			victim.emote("cry")
 			victim.set_eye_blur_if_lower(10 SECONDS)
-			victim.adjust_blindness(3) // 6 seconds
+			victim.adjust_temp_blindness(6 SECONDS)
 			victim.Knockdown(3 SECONDS)
 			if(prob(5))
 				victim.emote("scream")

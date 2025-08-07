@@ -80,8 +80,6 @@ CREATION_TEST_IGNORE_SELF(/mob)
 	  */
 	var/notransform = null	//Carbon
 
-	/// Is the mob blind
-	var/eye_blind = 0		//Carbon
 	/// What is the mobs real name (name is overridden for disguises etc)
 	var/real_name = null
 

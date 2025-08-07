@@ -161,7 +161,7 @@
 		var/obj/item/organ/eyes/eyes = target.get_organ_slot(ORGAN_SLOT_EYES)
 		if(istype(eyes))
 			eyes.applyOrganDamage(-actual_heal_amt)
-		target.adjust_blindness(-actual_effect_heal_amt)
+		target.adjust_temp_blindness(-actual_effect_heal_amt * 2)
 		target.adjust_eye_blur(-actual_effect_heal_amt * 2) //Status effects used to tick every 2 seconds before conversion, so we double them
 		target.adjust_disgust(-actual_effect_heal_amt)
 		target.adjust_dizzy(-actual_effect_heal_amt * 2)

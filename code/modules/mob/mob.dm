@@ -532,7 +532,7 @@
 		// shift-click catcher may issue examinate() calls for out-of-sight turfs
 		return
 
-	if(is_blind(src) && !blind_examine_check(examinify))
+	if(is_blind() && !blind_examine_check(examinify))
 		return
 
 	face_atom(examinify)
@@ -1365,9 +1365,6 @@
 			. =  TRUE
 		if(NAMEOF(src, stat))
 			set_stat(var_value)
-			. =  TRUE
-		if(NAMEOF(src, eye_blind))
-			set_blindness(var_value)
 			. =  TRUE
 
 	if(!isnull(.))

@@ -20,46 +20,78 @@
 	high_threshold_cleared = span_info("Your vision functions passably once more.")
 	low_threshold_cleared = span_info("Your vision is cleared of any ailment.")
 
-	var/sight_flags = 0
+	/// Sight flags this eye pair imparts on its user.
+	var/sight_flags = NONE
+	/// How much a mob can see in the dark with these eyes
 	var/see_in_dark = 2
+	/// How much innate tint these eyes have
 	var/tint = 0
+	/// How much innare flash protection these eyes have, usually paired with tint
+	var/flash_protect = 0
+	/// What level of invisibility these eyes can see
+	var/see_invisible = SEE_INVISIBLE_LIVING
+	/// How much alpha lighting has (basically, night vision)
+	var/lighting_alpha
+
+
 	var/eye_color = "" //set to a hex code to override a mob's eye color
 	var/eye_icon_state = "eyes"
 	var/old_eye_color = "fff"
-	var/flash_protect = 0
-	var/see_invisible = SEE_INVISIBLE_LIVING
-	var/lighting_alpha
-	var/no_glasses
+
+	/// Glasses cannot be worn over these eyes. Currently unused
+	var/no_glasses = FALSE
 	var/damaged	= FALSE	//damaged indicates that our eyes are undergoing some level of negative effect
 	///the type of overlay we use for this eye's blind effect
 	var/atom/movable/screen/fullscreen/blind/blind_type
 	///Can these eyes every be cured of blind? - Each eye atom should handle this themselves, don't make this make you blind
 	var/can_see = TRUE
 
-/obj/item/organ/eyes/Insert(mob/living/carbon/eye_owner, special = FALSE, drop_if_replaced = FALSE, initialising, pref_load = FALSE)
+/obj/item/organ/eyes/Insert(mob/living/carbon/eye_owner, special = FALSE, drop_if_replaced = FALSE, pref_load = FALSE)
 	. = ..()
-	if(!.)
+	owner.cure_blind(NO_EYES)
+	apply_damaged_eye_effects()
+	refresh()
+
+/// Refreshes the visuals of the eyes
+/// If call_update is TRUE, we also will call udpate_body
+/obj/item/organ/eyes/proc/refresh(call_update = TRUE)
+	owner.update_sight()
+	owner.update_tint()
+
+	if(!ishuman(owner))
 		return
+
+	var/mob/living/carbon/human/affected_human = owner
+	old_eye_color = affected_human.eye_color
+	if(initial(eye_color))
+		affected_human.eye_color = eye_color
+	else
+		eye_color = affected_human.eye_color
+
+	if(HAS_TRAIT(affected_human, TRAIT_NIGHT_VISION) && !lighting_alpha)
+		lighting_alpha = LIGHTING_PLANE_ALPHA_NV_TRAIT
+
+	if(call_update)
+		owner.dna?.species?.handle_body(affected_human) //updates eye icon
+
+/obj/item/organ/eyes/Remove(mob/living/carbon/eye_owner, special = FALSE, pref_load = FALSE)
+	..()
 	if(ishuman(eye_owner))
 		var/mob/living/carbon/human/human_owner = eye_owner
-		old_eye_color = human_owner.eye_color
-		if(eye_color)
-			human_owner.eye_color = eye_color
-		else
-			eye_color = human_owner.eye_color
-		if(HAS_TRAIT(human_owner, TRAIT_NIGHT_VISION_WEAK) && !lighting_alpha)
-			lighting_alpha = LIGHTING_PLANE_ALPHA_NV_TRAIT
-	eye_owner.update_tint()
-	owner.update_sight()
-	if(eye_owner.has_dna() && ishuman(eye_owner))
-		eye_owner.dna.species.handle_body(eye_owner) //updates eye icon
-
-/obj/item/organ/eyes/Remove(mob/living/carbon/eye_owner, special = 0, pref_load = FALSE)
-	..()
-	if(ishuman(eye_owner) && eye_color)
-		var/mob/living/carbon/human/human_owner = eye_owner
-		human_owner.eye_color = old_eye_color
+		if(initial(eye_color))
+			human_owner.eye_color = old_eye_color
 		human_owner.update_body()
+
+	// Cure blindness from eye damage
+	eye_owner.cure_blind(EYE_DAMAGE)
+	eye_owner.cure_nearsighted(EYE_DAMAGE)
+	// Eye blind and temp blind go to, even if this is a bit of cheesy way to clear blindness
+	eye_owner.remove_status_effect(/datum/status_effect/eye_blur)
+	eye_owner.remove_status_effect(/datum/status_effect/temporary_blindness)
+	// Then become blind anyways (if not special)
+	if(!special)
+		eye_owner.become_blind(NO_EYES)
+
 	eye_owner.update_tint()
 	eye_owner.update_sight()
 
@@ -68,27 +100,44 @@
 	. = ..()
 	eye_color = initial(eye_color)
 
-/obj/item/organ/eyes/on_life(delta_time, times_fired)
-	..()
-	var/mob/living/carbon/C = owner
-	//since we can repair fully damaged eyes, check if healing has occurred
-	if((organ_flags & ORGAN_FAILING) && (damage < maxHealth))
-		organ_flags &= ~ORGAN_FAILING
-		C.cure_blind(EYE_DAMAGE)
+/obj/item/organ/eyes/applyOrganDamage(damage_amount, maximum, required_organtype)
+	. = ..()
+	if(!owner)
+		return
+	apply_damaged_eye_effects()
+
+/// Applies effects to our owner based on how damaged our eyes are
+/obj/item/organ/eyes/proc/apply_damaged_eye_effects()
+	// we're in healthy threshold, either try to heal (if damaged) or do nothing
+	if(damage <= low_threshold)
+		if(damaged)
+			damaged = FALSE
+			// clear nearsightedness from damage
+			owner.cure_nearsighted(EYE_DAMAGE)
+			// if we're still nearsighted, reset its severity
+			// this is kinda icky, ideally we'd track severity to source but that's way more complex
+			var/datum/status_effect/grouped/nearsighted/nearsightedness = owner.is_nearsighted()
+			nearsightedness?.set_nearsighted_severity(1)
+			// and cure blindness from damage
+			owner.cure_blind(EYE_DAMAGE)
+		return
+
 	//various degrees of "oh fuck my eyes", from "point a laser at your eye" to "staring at the Sun" intensities
-	if(damage > 20 && can_see)
-		damaged = TRUE
-		if((organ_flags & ORGAN_FAILING))
-			C.become_blind(EYE_DAMAGE, blind_type)
-		else if(damage > 30)
-			C.overlay_fullscreen("eye_damage", /atom/movable/screen/fullscreen/impaired, 2)
-		else
-			C.overlay_fullscreen("eye_damage", /atom/movable/screen/fullscreen/impaired, 1)
-	//called once since we don't want to keep clearing the screen of eye damage for people who are below 20 damage
-	else if(damaged)
-		damaged = FALSE
-		C.clear_fullscreen("eye_damage")
-	return
+	// 50 - blind
+	// 49-31 - nearsighted (2 severity)
+	// 30-20 - nearsighted (1 severity)
+	if(organ_flags & ORGAN_FAILING)
+		// become blind from damage
+		owner.become_blind(EYE_DAMAGE)
+
+	else
+		// become nearsighted from damage
+		owner.become_nearsighted(EYE_DAMAGE)
+		// update the severity of our nearsightedness based on our eye damage
+		var/datum/status_effect/grouped/nearsighted/nearsightedness = owner.is_nearsighted()
+		nearsightedness.set_nearsighted_severity(damage > high_threshold ? 2 : 1)
+
+	damaged = TRUE
 
 
 /obj/item/organ/eyes/night_vision
@@ -434,7 +483,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/abstract/eye_lighting)
 
 /obj/item/organ/eyes/psyphoza/Insert(mob/living/carbon/M, special, drop_if_replaced, initialising)
 	. = ..()
-	M.become_blind("uncurable", /atom/movable/screen/fullscreen/blind/psychic, FALSE)
+	M.become_blind("uncurable")
 	M.remove_client_colour(/datum/client_colour/monochrome/blind)
 	//Handle weird ability code
 	var/datum/action/item_action/organ_action/psychic_highlight/P = locate(/datum/action/item_action/organ_action/psychic_highlight) in M.actions
@@ -443,7 +492,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/abstract/eye_lighting)
 		P?.removed = FALSE
 
 /obj/item/organ/eyes/psyphoza/Remove(mob/living/carbon/M, special = FALSE, pref_load = FALSE)
-	M.cure_blind("uncurable", TRUE)
+	M.cure_blind("uncurable")
 	var/datum/action/item_action/organ_action/psychic_highlight/P = locate(/datum/action/item_action/organ_action/psychic_highlight) in M.actions
 	P?.remove()
 	return ..()

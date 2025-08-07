@@ -497,7 +497,7 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 
 	// center does strong effect. If purser is with someone, they'll all be the victims.
 	for(var/mob/living/center_turf_mob in T.get_all_mobs())
-		center_turf_mob.adjust_blindness(300)
+		center_turf_mob.adjust_temp_blindness(600 SECONDS)
 		center_turf_mob.Stun(100)
 		center_turf_mob.emote("scream")
 		center_turf_mob.hallucination = 500

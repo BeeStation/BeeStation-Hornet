@@ -438,7 +438,7 @@
 				flashed.set_confusion_if_lower(confusion_duration * CONFUSION_STACK_MAX_MULTIPLIER)
 				flashed.adjust_dizzy_up_to(20 SECONDS, 40 SECONDS)
 				flashed.adjust_drowsiness_up_to(20 SECONDS, 40 SECONDS)
-				flashed.apply_status_effect(/datum/status_effect/pacify, 100)
+				flashed.adjust_pacifism(10 SECONDS)
 
 
 
@@ -452,7 +452,7 @@
 		flashed.set_confusion_if_lower(confusion_duration * CONFUSION_STACK_MAX_MULTIPLIER)
 		flashed.adjust_dizzy_up_to(8 SECONDS, 40 SECONDS)
 		flashed.adjust_drowsiness_up_to(8 SECONDS, 40 SECONDS)
-		flashed.apply_status_effect(/datum/status_effect/pacify, 40)
+		flashed.adjust_pacifism(4 SECONDS)
 
 #undef FLASH_USE
 #undef FLASH_USE_BURNOUT

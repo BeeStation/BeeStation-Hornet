@@ -267,7 +267,13 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 	damage = clamp(damage + d, 0, maximum)
 	var/mess = check_damage_thresholds(owner)
 	prev_damage = damage
-	if(mess && owner)
+
+	if(damage >= maxHealth)
+		organ_flags |= ORGAN_FAILING
+	else
+		organ_flags &= ~ORGAN_FAILING
+
+	if(mess && owner && owner.stat <= SOFT_CRIT)
 		to_chat(owner, mess)
 
 ///SETS an organ's damage to the amount "d", and in doing so clears or sets the failing flag, good for when you have an effect that should fix an organ if broken

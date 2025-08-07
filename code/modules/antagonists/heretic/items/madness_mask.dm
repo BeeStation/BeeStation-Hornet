@@ -53,9 +53,7 @@
 		REMOVE_TRAIT(src, TRAIT_NODROP, CLOTHING_TRAIT)
 
 	for(var/mob/living/carbon/human/human_in_range in view(local_user))
-		if(IS_HERETIC_OR_MONSTER(human_in_range))
-			continue
-		if(HAS_TRAIT(human_in_range, TRAIT_BLIND))
+		if(IS_HERETIC_OR_MONSTER(human_in_range) || human_in_range.is_blind())
 			continue
 
 		SEND_SIGNAL(human_in_range, COMSIG_HERETIC_MASK_ACT, rand(-2, -20) * delta_time)

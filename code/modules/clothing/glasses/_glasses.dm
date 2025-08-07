@@ -15,7 +15,6 @@
 	var/invis_override = 0 //Override to allow glasses to set higher than normal see_invis
 	var/lighting_alpha
 	var/list/icon/current = list() //the current hud icons
-	var/vision_correction = 0 //does wearing these glasses correct some of our vision defects?
 	var/glass_colour_type //colors your vision when worn
 	var/force_glass_colour = FALSE	//Should the user be forced to see the colour?
 	var/emissive_state = null
@@ -69,7 +68,7 @@
 			if(H.glasses == src)
 				to_chat(H, span_danger("[src] overloads and blinds you!"))
 				H.flash_act(visual = 1)
-				H.adjust_blindness(3)
+				H.adjust_temp_blindness(6 SECONDS)
 				H.set_eye_blur_if_lower(10 SECONDS)
 				eyes.applyOrganDamage(5)
 
@@ -132,7 +131,7 @@
 	icon_state = "prescmeson"
 	item_state = "glasses"
 	emissive_state = "prehud_emissive"
-	vision_correction = 1
+	clothing_traits = list(TRAIT_NEARSIGHTED_CORRECTED)
 
 /obj/item/clothing/glasses/science
 	name = "science goggles"
@@ -162,7 +161,7 @@
 	emissive_state = "prehud_emissive"
 	resistance_flags = NONE
 	armor_type = /datum/armor/science_prescription
-	vision_correction = 1
+	clothing_traits = list(TRAIT_NEARSIGHTED_CORRECTED)
 
 
 /datum/armor/science_prescription
@@ -216,7 +215,7 @@
 	desc = "Such a dapper eyepiece!"
 	icon_state = "monocle"
 	item_state = "headset" // lol
-	vision_correction = 1
+	clothing_traits = list(TRAIT_NEARSIGHTED_CORRECTED)
 
 /obj/item/clothing/glasses/material
 	name = "optical material scanner"
@@ -253,28 +252,25 @@
 	desc = "Made by Nerd. Co."
 	icon_state = "glasses"
 	item_state = "glasses"
-	vision_correction = 1 //corrects nearsightedness
+	clothing_traits = list(TRAIT_NEARSIGHTED_CORRECTED)
 
 /obj/item/clothing/glasses/regular/jamjar
 	name = "jamjar glasses"
 	desc = "Also known as Virginity Protectors."
 	icon_state = "jamjar_glasses"
 	item_state = "jamjar_glasses"
-	vision_correction = 1
 
 /obj/item/clothing/glasses/regular/hipster
 	name = "hipster glasses"
 	desc = "Made by Uncool. Co."
 	icon_state = "hipster_glasses"
 	item_state = "hipster_glasses"
-	vision_correction = 1
 
 /obj/item/clothing/glasses/regular/circle
 	name = "circle glasses"
 	desc = "Why would you wear something so controversial yet so brave?"
 	icon_state = "circle_glasses"
 	item_state = "circle_glasses"
-	vision_correction = 1
 
 /obj/item/clothing/glasses/sunglasses/circle_sunglasses
 	name = "circle sunglasses"
@@ -428,7 +424,7 @@
 	icon_state = "blindfold"
 	item_state = "blindfold"
 	flash_protect = 2
-	tint = 3
+	tint = INFINITY // You WILL Be blind, no matter what
 	darkness_view = 1
 	dog_fashion = /datum/dog_fashion/head
 
@@ -562,7 +558,7 @@
 	clothing_flags = SCAN_REAGENTS | SCAN_BOOZEPOWER
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
-	vision_correction = 1  // why should the eye of a god have bad vision?
+	clothing_traits = list(TRAIT_NEARSIGHTED_CORRECTED)  // why should the eye of a god have bad vision?
 	//var/datum/action/scan/scan_ability
 
 /obj/item/clothing/glasses/godeye/Initialize(mapload)
