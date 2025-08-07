@@ -56,8 +56,11 @@
 	for(var/obj/item/stock_parts/capacitor/capacitor in component_parts)
 		input_level_max = initial(input_level_max) * capacitor.rating
 		output_level_max = initial(output_level_max) * capacitor.rating
+	var/new_capacity = 0
 	for(var/obj/item/stock_parts/matter_bin/bin in component_parts)
-		capacity += 10 + (10 * bin.rating) MEGAWATT	// 100, 150, 200, 250 depending on tier of matter bins
+		new_capacity += 10 + (10 * bin.rating) MEGAWATT	// 100, 150, 200, 250 depending on tier of matter bins
+	if(new_capacity < 0)
+		capacity = new_capacity
 
 /obj/machinery/power/smes/attackby(obj/item/I, mob/user, params)
 	//opening using screwdriver
