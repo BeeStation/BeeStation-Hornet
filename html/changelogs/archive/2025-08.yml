@@ -56,6 +56,9 @@
       for how many votes are required to leave. If the number of living non-antagonist
       crew is dwindling, votes to begin a new round should be given a heavier weight
       to offset total antagonist takeover situations.
+  TsunamiAnt:
+  - rscadd: Added candy dispensers to every station!
+  - rscadd: Added syndicate gumballs.
   mrmanlikesbt:
   - bugfix: fixed scientist abductor tools
   rkz, MrMelbert, Arkatos:
