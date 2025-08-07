@@ -1,0 +1,10 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - tweak: Autotransfer will now trigger automatically once a certain amount of time
+      has passed again even with no votes due to players heckling others for using
+      the system as intended.
+  - tweak: Dead players an antagonists are no longer factored into the calculation
+      for how many votes are required to leave. If the number of living non-antagonist
+      crew is dwindling, votes to begin a new round should be given a heavier weight
+      to offset total antagonist takeover situations.
