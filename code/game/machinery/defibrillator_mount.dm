@@ -53,7 +53,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/defibrillator_mount/loaded, 28)
 
 /obj/machinery/defibrillator_mount/process()
 	if(defib?.cell && defib.cell.charge < defib.cell.maxcharge && is_operational)
-		 var/power_to_use = 200 WATT
+		var/power_to_use = 200 WATT
 		use_power(power_to_use)
 		defib.cell.give(power_to_use * POWER_TRANSFER_LOSS)
 		update_icon()
