@@ -3982,6 +3982,12 @@
 /obj/machinery/griddle,
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
+"aVP" = (
+/obj/structure/table/wood,
+/obj/item/paper,
+/obj/item/pen,
+/turf/open/floor/wood,
+/area/library)
 "aVQ" = (
 /obj/structure/chair/fancy/comfy{
 	color = "#666666";
@@ -4421,6 +4427,13 @@
 /area/security/main)
 "bas" = (
 /obj/machinery/vending/coffee,
+/turf/open/floor/wood,
+/area/library)
+"bat" = (
+/obj/structure/table/wood,
+/obj/machinery/cell_charger{
+	desc = "It charges power cells. There is a small tag on it: Public tools charger. Please do no remove"
+	},
 /turf/open/floor/wood,
 /area/library)
 "baw" = (
@@ -5525,12 +5538,6 @@
 /obj/effect/spawner/structure/window/reinforced/prison,
 /turf/open/floor/plating,
 /area/security/warden)
-"bls" = (
-/obj/structure/table/wood,
-/obj/item/paper,
-/obj/item/pen,
-/turf/open/floor/wood,
-/area/library)
 "blu" = (
 /obj/machinery/computer/mech_bay_power_console{
 	dir = 4
@@ -9876,6 +9883,20 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/virology)
+"bYZ" = (
+/obj/item/toy/cards/deck{
+	pixel_x = 1;
+	pixel_y = 13
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/siding/wood,
+/obj/structure/table/wood,
+/obj/item/clothing/mask/cigarette/cigar{
+	pixel_x = 6
+	},
+/obj/item/clothing/mask/cigarette/cigar,
+/turf/open/floor/carpet/royalblue,
+/area/crew_quarters/bar/atrium)
 "bZb" = (
 /obj/machinery/light{
 	dir = 4
@@ -10673,18 +10694,6 @@
 	},
 /turf/open/floor/engine/co2,
 /area/engine/atmos)
-"cdN" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/table/wood,
-/obj/effect/landmark/event_spawn,
-/obj/machinery/cell_charger{
-	desc = "It charges power cells. There is a small tag on it: Public tools charger. Please do no remove"
-	},
-/turf/open/floor/carpet/black,
-/area/crew_quarters/bar/atrium)
 "cdU" = (
 /obj/structure/chair/office/light{
 	dir = 4
@@ -14562,6 +14571,16 @@
 	},
 /turf/open/floor/catwalk_floor,
 /area/maintenance/starboard/aft)
+"cGF" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/item/kirbyplants/random,
+/obj/machinery/power/apc/auto_name/directional/north{
+	pixel_y = 24
+	},
+/turf/open/floor/iron/tech,
+/area/quartermaster/storage)
 "cGH" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
@@ -15053,19 +15072,6 @@
 	},
 /turf/open/floor/plating/rust,
 /area/maintenance/starboard/fore)
-"cMC" = (
-/obj/structure/table,
-/obj/item/clothing/head/soft/cargo,
-/obj/machinery/cell_charger,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 5;
-	pixel_y = 30
-	},
-/obj/item/hand_labeler,
-/obj/item/hand_labeler,
-/obj/machinery/light/directional/north,
-/turf/open/floor/iron/tech,
-/area/quartermaster/storage)
 "cMD" = (
 /turf/closed/wall/r_wall,
 /area/engine/supermatter)
@@ -19191,13 +19197,6 @@
 	},
 /turf/open/floor/iron,
 /area/science/nanite)
-"epZ" = (
-/obj/structure/table/wood,
-/obj/machinery/cell_charger{
-	desc = "It charges power cells. There is a small tag on it: Public tools charger. Please do no remove"
-	},
-/turf/open/floor/wood,
-/area/library)
 "eqc" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -21368,16 +21367,6 @@
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
 /area/space/nearstation)
-"fgQ" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/item/kirbyplants/random,
-/obj/machinery/power/apc/auto_name/directional/north{
-	pixel_y = 24
-	},
-/turf/open/floor/iron/tech,
-/area/quartermaster/storage)
 "fgR" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -24094,6 +24083,20 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
+"gjT" = (
+/obj/machinery/conveyor{
+	dir = 8;
+	id = "QMLoad"
+	},
+/obj/machinery/status_display/supply{
+	pixel_y = -30
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/light/directional/south,
+/turf/open/floor/iron/techmaint,
+/area/quartermaster/storage)
 "gjW" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -24148,6 +24151,10 @@
 	},
 /turf/open/floor/prison/dark,
 /area/security/prison)
+"glT" = (
+/obj/machinery/suit_storage_unit/industrial/loader,
+/turf/open/floor/iron/techmaint,
+/area/quartermaster/storage)
 "glV" = (
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 4
@@ -25001,6 +25008,18 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
+"gBj" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/table/wood,
+/obj/effect/landmark/event_spawn,
+/obj/machinery/cell_charger{
+	desc = "It charges power cells. There is a small tag on it: Public tools charger. Please do no remove"
+	},
+/turf/open/floor/carpet/black,
+/area/crew_quarters/bar/atrium)
 "gBM" = (
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
@@ -25991,16 +26010,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
-"haj" = (
-/obj/effect/mapping_helpers/airlock/cyclelink_helper_multi{
-	cycle_id = "atmos_external"
-	},
-/obj/machinery/door/airlock/external{
-	name = "Atmospherics External Airlock";
-	req_one_access = "24, 13"
-	},
-/turf/open/floor/plating,
-/area/maintenance/aft)
 "haz" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -30456,13 +30465,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/iron/showroomfloor,
 /area/crew_quarters/heads/captain)
-"iJd" = (
-/obj/machinery/light_switch{
-	pixel_y = 28
-	},
-/obj/machinery/light/directional/north,
-/turf/open/floor/iron/tech,
-/area/quartermaster/miningdock)
 "iJf" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -30474,6 +30476,13 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
+"iJp" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/light/directional/south,
+/turf/open/floor/iron/tech,
+/area/quartermaster/office)
 "iJy" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Detective's Office Maintenance";
@@ -32310,6 +32319,13 @@
 /obj/effect/spawner/structure/window/reinforced/prison,
 /turf/open/floor/plating,
 /area/crew_quarters/heads/hos)
+"jww" = (
+/obj/machinery/light_switch{
+	pixel_y = 28
+	},
+/obj/machinery/light/directional/north,
+/turf/open/floor/iron/tech,
+/area/quartermaster/miningdock)
 "jwy" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
@@ -32819,6 +32835,19 @@
 	},
 /turf/open/floor/catwalk_floor,
 /area/maintenance/port/fore)
+"jGi" = (
+/obj/structure/table,
+/obj/item/clothing/head/soft/cargo,
+/obj/machinery/cell_charger,
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 5;
+	pixel_y = 30
+	},
+/obj/item/hand_labeler,
+/obj/item/hand_labeler,
+/obj/machinery/light/directional/north,
+/turf/open/floor/iron/tech,
+/area/quartermaster/storage)
 "jGm" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -34124,10 +34153,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/central)
-"kgO" = (
-/obj/machinery/suit_storage_unit/medical,
-/turf/open/floor/iron/dark,
-/area/medical/morgue)
 "kgR" = (
 /obj/machinery/door/airlock/hatch{
 	name = "MiniSat Teleporter";
@@ -39249,10 +39274,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
-"mkG" = (
-/obj/machinery/suit_storage_unit/industrial/loader,
-/turf/open/floor/iron/techmaint,
-/area/quartermaster/storage)
 "mkJ" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -45498,13 +45519,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/chief)
-"oQC" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/light/directional/south,
-/turf/open/floor/iron/tech,
-/area/quartermaster/office)
 "oQN" = (
 /obj/machinery/seed_extractor,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
@@ -49290,20 +49304,6 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/security/brig)
-"qsB" = (
-/obj/item/toy/cards/deck{
-	pixel_x = 1;
-	pixel_y = 13
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/siding/wood,
-/obj/structure/table/wood,
-/obj/item/clothing/mask/cigarette/cigar{
-	pixel_x = 6
-	},
-/obj/item/clothing/mask/cigarette/cigar,
-/turf/open/floor/carpet/royalblue,
-/area/crew_quarters/bar/atrium)
 "qsK" = (
 /obj/machinery/light,
 /obj/structure/sign/warning/electricshock{
@@ -66279,20 +66279,6 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/white,
 /area/science/robotics/lab)
-"wQH" = (
-/obj/machinery/conveyor{
-	dir = 8;
-	id = "QMLoad"
-	},
-/obj/machinery/status_display/supply{
-	pixel_y = -30
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/light/directional/south,
-/turf/open/floor/iron/techmaint,
-/area/quartermaster/storage)
 "wQJ" = (
 /obj/effect/turf_decal/trimline/dark_blue/filled/line{
 	dir = 5
@@ -66354,6 +66340,10 @@
 	},
 /turf/open/floor/iron/white,
 /area/science/lab)
+"wRX" = (
+/obj/machinery/suit_storage_unit/medical,
+/turf/open/floor/iron/dark,
+/area/medical/morgue)
 "wSm" = (
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 8;
@@ -88319,7 +88309,7 @@ pDH
 pqa
 pqa
 hGX
-wQH
+gjT
 aZE
 muo
 muo
@@ -89082,7 +89072,7 @@ aSg
 inn
 aSg
 aZE
-fgQ
+cGF
 lmc
 vuU
 cjt
@@ -89339,7 +89329,7 @@ kIa
 dJT
 aSg
 aZE
-mkG
+glT
 gfT
 vuU
 cjt
@@ -90110,7 +90100,7 @@ gjl
 gjl
 gjl
 gjl
-cMC
+jGi
 upl
 kzu
 uJn
@@ -91917,9 +91907,9 @@ wNi
 rSg
 cpj
 rSg
-oQC
+iJp
 bxy
-iJd
+jww
 fiY
 flP
 flP
@@ -104253,7 +104243,7 @@ pmc
 sHA
 tyR
 cBD
-kgO
+wRX
 snx
 cAL
 cAL
@@ -104745,7 +104735,7 @@ dBZ
 cKr
 wlO
 hHJ
-qsB
+bYZ
 fyT
 vHr
 fyT
@@ -105827,10 +105817,10 @@ ccB
 cbH
 bLK
 aaf
-haj
+way
 ctl
 ctl
-haj
+way
 ixA
 aoV
 aaf
@@ -106291,7 +106281,7 @@ unQ
 nez
 fkY
 fyT
-cdN
+gBj
 kIP
 tTC
 aYV
@@ -106343,7 +106333,7 @@ bLK
 gXs
 oSu
 oSu
-haj
+way
 oSu
 lTm
 cnb
@@ -113485,10 +113475,10 @@ aIt
 aRO
 aRO
 aUC
-bls
+aVP
 hCC
 aYW
-epZ
+bat
 jAf
 aYV
 sGq
