@@ -20,7 +20,7 @@
 
 /obj/item/inducer/proc/induce(obj/item/stock_parts/cell/target, coefficient)
 	var/totransfer = min(cell.charge, cell.chargerate) * transfer_coef
-	target.give(totransfer POWER_TRANSFER_LOSS)
+	target.give(totransfer * POWER_TRANSFER_LOSS)
 	cell.use(totransfer)
 	cell.update_icon()
 	target.update_icon()

@@ -164,7 +164,7 @@
 	use_power(power_to_use)
 
 	// Charge cell only by power used minus 15% (power transfer loss)
-	cell_charging.give(power_to_use POWER_TRANSFER_LOSS)
+	cell_charging.give(power_to_use * POWER_TRANSFER_LOSS)
 
 	update_appearance()
 

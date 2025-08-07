@@ -478,7 +478,7 @@
 
 	var/obj/item/stock_parts/cell/C = suit.cell
 	use_power(charge_rate)
-	C.give(charge_rate POWER_TRANSFER_LOSS)
+	C.give(charge_rate * POWER_TRANSFER_LOSS)
 
 /obj/machinery/suit_storage_unit/proc/shock(mob/user, prb)
 	if(!prob(prb))
