@@ -183,7 +183,7 @@
 	name = "super-advanced hard disk drive"
 	desc = "A high capacity HDD, for use in cluster storage solutions where capacity is more important than power efficiency."
 	max_capacity = 512
-	power_usage = 0.1 KW
+	power_usage = 0.1 KILOPOWER
 	icon_state = "harddisk_mini"
 	w_class = WEIGHT_CLASS_SMALL
 	custom_price = PAYCHECK_MEDIUM * 4
@@ -191,7 +191,7 @@
 /obj/item/computer_hardware/hard_drive/cluster
 	name = "cluster hard disk drive"
 	desc = "A large storage cluster consisting of multiple HDDs for usage in dedicated storage systems."
-	power_usage = 0.5 KW
+	power_usage = 0.5 KILOPOWER
 	max_capacity = 2048
 	icon_state = "harddisk"
 	w_class = WEIGHT_CLASS_NORMAL

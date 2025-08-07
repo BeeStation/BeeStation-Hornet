@@ -139,7 +139,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 	var/ex_power = 3
 	var/ready
 
-	var/power_used_per_shot = 20 MW
+	var/power_used_per_shot = 20 MEGAPOWER
 	var/obj/item/stock_parts/cell/cell
 	var/obj/machinery/power/terminal/invisible/terminal
 	use_power = NO_POWER_USE
@@ -209,7 +209,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 
 /obj/machinery/power/bsa/full/Initialize(mapload, cannon_direction = WEST)
 	. = ..()
-	cell = new /obj/item/stock_parts/cell(src, 20 MW)
+	cell = new /obj/item/stock_parts/cell(src, 20 MEGAPOWER)
 	cell.charge = 0
 	top_layer = top_layer || mutable_appearance(icon, layer = ABOVE_MOB_LAYER)
 	switch(cannon_direction)

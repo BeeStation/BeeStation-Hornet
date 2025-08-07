@@ -6,8 +6,8 @@
 	icon_state = "close"
 	obj_flags = CAN_BE_HIT | USES_TGUI
 	use_power = ACTIVE_POWER_USE
-	active_power_usage = 100 W
-	idle_power_usage = 50 W
+	active_power_usage = 100 POWER
+	idle_power_usage = 50 POWER
 	power_channel = AREA_USAGE_EQUIP
 	density = TRUE
 	obj_flags = BLOCKS_CONSTRUCTION // Becomes undense when the unit is open

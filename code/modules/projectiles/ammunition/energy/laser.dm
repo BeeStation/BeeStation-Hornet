@@ -3,26 +3,26 @@
 	select_name = "kill"
 
 /obj/item/ammo_casing/energy/laser/gatlinggun
-	e_cost = 10 W
+	e_cost = 10 POWER
 
 /obj/item/ammo_casing/energy/lasergun
 	projectile_type = /obj/projectile/beam/laser
-	e_cost = 710 W
+	e_cost = 710 POWER
 	select_name = "kill"
 
 /obj/item/ammo_casing/energy/lasergun/repeater
-	e_cost = 500 W
+	e_cost = 500 POWER
 
 /obj/item/ammo_casing/energy/lasergun/captain
-	e_cost = 1000 W
+	e_cost = 1000 POWER
 
 /obj/item/ammo_casing/energy/lasergun/old
 	projectile_type = /obj/projectile/beam/laser
-	e_cost = 2000 W
+	e_cost = 2000 POWER
 	select_name = "kill"
 
 /obj/item/ammo_casing/energy/laser/hos
-	e_cost = 1200 W
+	e_cost = 1200 POWER
 
 /obj/item/ammo_casing/energy/laser/practice
 	projectile_type = /obj/projectile/beam/practice
@@ -48,7 +48,7 @@
 
 /obj/item/ammo_casing/energy/laser/pulse
 	projectile_type = /obj/projectile/beam/pulse
-	e_cost = 2000 W
+	e_cost = 2000 POWER
 	select_name = "DESTROY"
 	fire_sound = 'sound/weapons/pulse.ogg'
 
@@ -78,7 +78,7 @@
 
 /obj/item/ammo_casing/energy/xray
 	projectile_type = /obj/projectile/beam/xray
-	e_cost = 500 W
+	e_cost = 500 POWER
 	fire_sound = 'sound/weapons/laser3.ogg'
 
 /obj/item/ammo_casing/energy/mindflayer

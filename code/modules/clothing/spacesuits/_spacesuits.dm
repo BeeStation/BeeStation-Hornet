@@ -1,4 +1,4 @@
-#define THERMAL_REGULATOR_COST 25 W // the cost per tick for the thermal regulator
+#define THERMAL_REGULATOR_COST 25 POWER // the cost per tick for the thermal regulator
 
 //Note:	Everything in modules/clothing/spacesuits should have the entire suit grouped together.
 //		Meaning the the suit is defined directly after the corrisponding helmet. Just like below!

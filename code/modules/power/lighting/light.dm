@@ -11,8 +11,8 @@
 	layer = WALL_OBJ_LAYER
 	max_integrity = 100
 	use_power = ACTIVE_POWER_USE
-	idle_power_usage = 0.02 KW
-	active_power_usage = 0.2 KW
+	idle_power_usage = 0.02 KILOPOWER
+	active_power_usage = 0.2 KILOPOWER
 	power_channel = AREA_USAGE_LIGHT //Lights are calc'd via area so they dont need to be in the machine list
 	always_area_sensitive = TRUE
 	var/on = FALSE					// 1 if on, 0 if off
@@ -475,7 +475,7 @@
 	if(!has_emergency_power(pwr))
 		return FALSE
 	var/obj/item/stock_parts/cell/real_cell = get_cell()
-	if(real_cell.charge > 2 KW) // it's meant to handle 120 W, ya doofus // Lol nevermind that
+	if(real_cell.charge > 2 KILOPOWER) // it's meant to handle 120 W, ya doofus // Lol nevermind that
 		visible_message(span_warning("[src] short-circuits from too powerful of a power cell!"))
 		burn_out()
 		return FALSE

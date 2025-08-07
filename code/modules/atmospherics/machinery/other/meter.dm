@@ -6,8 +6,8 @@
 	layer = HIGH_PIPE_LAYER
 	power_channel = AREA_USAGE_ENVIRON
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 25 W
-	active_power_usage = 50 W
+	idle_power_usage = 25 POWER
+	active_power_usage = 50 POWER
 	max_integrity = 150
 	armor_type = /datum/armor/machinery_meter
 	greyscale_config = /datum/greyscale_config/meter

@@ -11,7 +11,7 @@
 
 
 	var/active = FALSE
-	var/power_gen = 2.5 KW
+	var/power_gen = 2.5 KILOPOWER
 	var/power_output = 1
 	var/consumption = 0
 	var/base_icon = "portgen0"
@@ -281,7 +281,7 @@
 	base_icon = "portgen1"
 	circuit = /obj/item/circuitboard/machine/pacman/super
 	sheet_path = /obj/item/stack/sheet/mineral/uranium
-	power_gen = 6 KW
+	power_gen = 6 KILOPOWER
 	time_per_sheet = 85
 
 /obj/machinery/power/port_gen/pacman/super/overheat()
@@ -293,7 +293,7 @@
 	icon_state = "portgen2_0"
 	circuit = /obj/item/circuitboard/machine/pacman/mrs
 	sheet_path = /obj/item/stack/sheet/mineral/diamond
-	power_gen = 10 KW
+	power_gen = 10 KILOPOWER
 	time_per_sheet = 80
 
 /obj/machinery/power/port_gen/pacman/mrs/overheat()
