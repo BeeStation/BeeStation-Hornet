@@ -1,6 +1,7 @@
 /datum/status_effect/silenced
 	id = "silent"
 	alert_type = null
+	//remove_on_fullheal = TRUE
 
 /datum/status_effect/silenced/on_creation(mob/living/new_owner, duration = 10 SECONDS)
 	src.duration = duration

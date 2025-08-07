@@ -9,6 +9,7 @@
 /datum/status_effect/confusion
 	id = "confusion"
 	alert_type = null
+	//remove_on_fullheal = TRUE
 
 /datum/status_effect/confusion/on_creation(mob/living/new_owner, duration = 10 SECONDS)
 	src.duration = duration

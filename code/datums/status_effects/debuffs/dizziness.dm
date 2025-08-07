@@ -2,6 +2,7 @@
 	id = "dizziness"
 	tick_interval = 2 SECONDS
 	alert_type = null
+	//remove_on_fullheal = TRUE
 
 /datum/status_effect/dizziness/on_creation(mob/living/new_owner, duration = 10 SECONDS)
 	src.duration = duration
@@ -54,9 +55,11 @@
 	var/pixel_y_diff = 0
 
 	// This shit is annoying at high strengthvar/pixel_x_diff = 0
+	var/list/view_range_list = getviewsize(owner.client.view)
+	var/view_range = view_range_list[1]
 	var/amplitude = amount * (sin(amount * (time)) + 1)
-	var/x_diff = amplitude * sin(amount * time)
-	var/y_diff = amplitude * cos(amount * time)
+	var/x_diff = clamp(amplitude * sin(amount * time), -view_range, view_range)
+	var/y_diff = clamp(amplitude * cos(amount * time), -view_range, view_range)
 	pixel_x_diff += x_diff
 	pixel_y_diff += y_diff
 	// Brief explanation. We're basically snapping between different pixel_x/ys instantly, with delays between

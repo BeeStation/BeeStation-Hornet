@@ -39,7 +39,6 @@
 
 #define STASIS_ADMIN "stasis_admin"
 
-// Stasis helpers
 #define STASIS_SHAPECHANGE_EFFECT "stasis_shapechange"
 
 #define ISADVANCEDTOOLUSER(mob) (HAS_TRAIT(mob, TRAIT_ADVANCEDTOOLUSER) && !HAS_TRAIT(mob, TRAIT_DISCOORDINATED_TOOL_USER))
