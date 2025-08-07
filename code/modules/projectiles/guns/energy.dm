@@ -58,7 +58,7 @@
 
 /obj/item/gun/energy/examine(mob/user)
 	. = ..()
-	if(get_cell())
+	if(cell)
 		var/obj/item/ammo_casing/energy/shot = ammo_type[select]	//Finds cost of selected shot
 		if(shot)
 			. += "Shots to battery depletion: <b><span class='cfc_orange'>[floor(cell.charge / shot.e_cost)]</span></b>"
