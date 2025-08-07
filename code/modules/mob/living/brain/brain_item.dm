@@ -239,6 +239,12 @@
 		owner.death()
 		brain_death = TRUE
 
+/obj/item/organ/brain/update_hypoxia(hypoxia)
+	// Effects of hypoxia on the brain:
+	// - Headache
+	// - Light-headedness
+	// - Confusion
+
 /obj/item/organ/brain/check_damage_thresholds(mob/M)
 	. = ..()
 	//if we're not more injured than before, return without gambling for a trauma

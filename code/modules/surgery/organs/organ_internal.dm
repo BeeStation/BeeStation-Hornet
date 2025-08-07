@@ -8,8 +8,12 @@
 	var/slot
 	var/organ_flags = ORGAN_EDIBLE
 	var/maxHealth = STANDARD_ORGAN_THRESHOLD
-	var/damage = 0		//total damage this organ has sustained
-	///Healing factor and decay factor function on % of maxhealth, and do not work by applying a static number per tick
+	// Total damage this organ has sustained
+	var/damage = 0
+	// Total amount of asphyxiation damage this organ has sustained,
+	// heals naturally over time. Acts as a buffer for real decay
+	var/hypoxia = 0
+	/// Healing factor and decay factor function on % of maxhealth, and do not work by applying a static number per tick
 	var/healing_factor 	= 0										//fraction of maxhealth healed per on_life(), set to 0 for generic organs
 	var/decay_factor 	= 0										//same as above but when without a living owner, set to 0 for generic organs
 	var/high_threshold	= STANDARD_ORGAN_THRESHOLD * 0.45		//when severe organ damage occurs
@@ -200,6 +204,11 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 
 /obj/item/organ/process(delta_time, times_fired)
 	on_death(delta_time, times_fired) //Kinda hate doing it like this, but I really don't want to call process directly.
+
+/// Triggered whenenver hypoxia damage is updated, recalculate any damage
+/// caused by hypoxia.
+/obj/item/organ/proc/update_hypoxia(hypoxia)
+	return
 
 /obj/item/organ/proc/on_death(delta_time, times_fired) //runs decay when outside of a person
 	if(organ_flags & (ORGAN_SYNTHETIC | ORGAN_FROZEN))
@@ -398,5 +407,9 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		status = "<font color='#ff9933'>Severely Damaged</font>"
 	else if (damage > low_threshold)
 		status = "<font color='#ffcc33'>Mildly Damaged</font>"
+	else if (asphyxiation > high_threshold)
+		status = "<font color='#489cc6'>Severe Hypoxia</font>"
+	else if (asphyxiation > low_threshold)
+		status = "<font color='#66c4f3'>Mild Hypoxia</font>"
 
 	return status
