@@ -1,3 +1,4 @@
+//Sponsored by big overlay
 /obj/item/candydispenser
 	name = "gumball dispenser"
 	desc = "A whimsical device with a glass globe on top, which can be operated to dispense various candies."
@@ -21,8 +22,8 @@
 	sharpness = BLUNT
 
 	var/obj/candy_type = /obj/item/food/gumball
-	var/total_candies = 50
 	var/const/max_candies = 50
+	var/total_candies = 50
 
 /obj/item/candydispenser/Initialize(mapload)
 	. = ..()
@@ -111,6 +112,7 @@
 			desc = "A [candy_type.name] machine. There are a few candies left."
 		if(0)
 			desc = "A [candy_type.name] machine. It's empty!"
+	add_overlay("[icon_state]_bulb")
 
 
 /obj/item/candydispenser/attack_self(mob/user)
