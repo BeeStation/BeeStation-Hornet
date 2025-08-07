@@ -218,7 +218,7 @@
 	M.AdjustParalyzed(-40 * REM * delta_time)
 	M.AdjustImmobilized(-40 * REM * delta_time)
 	M.adjustStaminaLoss(-40 * REM * delta_time, 0)
-	M.drowsyness = max(M.drowsyness - (60 * REM * delta_time), 0)
+	M.adjust_drowsiness(-(120 SECONDS * REM * delta_time))
 	M.set_jitter_if_lower(4 SECONDS * REM * delta_time)
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1)
 	if(DT_PROB(2.5, delta_time))
@@ -512,7 +512,7 @@
 		if(10)
 			to_chat(M, span_warning("You start to feel tired...") )
 		if(11 to 25)
-			M.adjust_drowsyness(1 * REM * delta_time)
+			M.adjust_drowsiness(2 SECONDS * REM * delta_time)
 		if(26 to INFINITY)
 			M.Sleeping(60 * REM * delta_time, 0)
 			. = TRUE

@@ -162,10 +162,10 @@
 		if(istype(eyes))
 			eyes.applyOrganDamage(-actual_heal_amt)
 		target.adjust_blindness(-actual_effect_heal_amt)
-		target.adjust_blurriness(-actual_effect_heal_amt)
+		target.adjust_eye_blur(-actual_effect_heal_amt * 2) //Status effects used to tick every 2 seconds before conversion, so we double them
 		target.adjust_disgust(-actual_effect_heal_amt)
-		target.adjust_dizzy(-actual_effect_heal_amt)
-		target.adjust_confusion(-actual_effect_heal_amt)
+		target.adjust_dizzy(-actual_effect_heal_amt * 2)
+		target.adjust_confusion(-actual_effect_heal_amt * 2)
 		target.hallucination = max(target.hallucination - actual_effect_heal_amt, 0)
 	if(heal_clone)
 		target.adjustCloneLoss(-max(CEILING(actual_heal_amt * 0.75, 0.5), 1), updating_health = FALSE)

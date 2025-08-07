@@ -149,12 +149,12 @@
 	desc = "DAMN, THIS THING LOOKS ROBUST!"
 	icon_state ="kahluaglass"
 
-/datum/reagent/consumable/ethanol/kahlua/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.set_dizzy_if_lower(10 SECONDS * REM * delta_time)
-	M.adjust_drowsyness(-3 * REM * delta_time)
-	M.AdjustSleeping(-40 * REM * delta_time)
-	if(!HAS_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE))
-		M.set_jitter_if_lower(10 SECONDS)
+/datum/reagent/consumable/ethanol/kahlua/on_mob_life(mob/living/carbon/drinker, delta_time, times_fired)
+	drinker.set_dizzy_if_lower(10 SECONDS * REM * delta_time)
+	drinker.adjust_drowsiness(-6 SECONDS * REM * delta_time)
+	drinker.AdjustSleeping(-40 * REM * delta_time)
+	if(!HAS_TRAIT(drinker, TRAIT_ALCOHOL_TOLERANCE))
+		drinker.set_jitter_if_lower(10 SECONDS)
 	..()
 	. = TRUE
 
@@ -194,12 +194,12 @@
 	desc = "This is a glass of Thirteen Loko, it appears to be of the highest quality. The drink, not the glass."
 	icon_state = "thirteen_loko_glass"
 
-/datum/reagent/consumable/ethanol/thirteenloko/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.adjust_drowsyness(-7 * REM * delta_time)
-	M.AdjustSleeping(-40 * REM * delta_time)
-	M.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, M.get_body_temp_normal())
-	if(!HAS_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE))
-		M.set_jitter_if_lower(10 SECONDS)
+/datum/reagent/consumable/ethanol/thirteenloko/on_mob_life(mob/living/carbon/drinker, delta_time, times_fired)
+	drinker.adjust_drowsiness(-14 SECONDS * REM * delta_time)
+	drinker.AdjustSleeping(-40 * REM * delta_time)
+	drinker.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, drinker.get_body_temp_normal())
+	if(!HAS_TRAIT(drinker, TRAIT_ALCOHOL_TOLERANCE))
+		drinker.set_jitter_if_lower(10 SECONDS)
 	return ..()
 
 /datum/reagent/consumable/ethanol/thirteenloko/overdose_start(mob/living/M)

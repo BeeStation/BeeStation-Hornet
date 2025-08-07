@@ -342,7 +342,7 @@
 		//actually handle the pepperspray effects
 		if(!victim.is_eyes_covered() || !victim.is_mouth_covered())
 			victim.emote("cry")
-			victim.blur_eyes(5) // 10 seconds
+			victim.set_eye_blur_if_lower(10 SECONDS)
 			victim.adjust_blindness(3) // 6 seconds
 			victim.Knockdown(3 SECONDS)
 			if(prob(5))
@@ -645,35 +645,18 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	taste_description = "bitterness"
 
-/datum/reagent/consumable/tearjuice/expose_mob(mob/living/M, method=TOUCH, reac_volume)
-	if(!istype(M))
+/datum/reagent/consumable/tearjuice/expose_mob(mob/living/exposed_mob, method=TOUCH, reac_volume)
+	if(!istype(exposed_mob))
 		return
-	var/unprotected = FALSE
-	switch(method)
-		if(INGEST)
-			unprotected = TRUE
-		if(INJECT)
-			unprotected = FALSE
-		else	//Touch or vapor
-			if(!M.is_mouth_covered() && !M.is_eyes_covered())
-				unprotected = TRUE
-	if(unprotected)
-		if(!M.get_organ_slot(ORGAN_SLOT_EYES))	//can't blind somebody with no eyes
-			to_chat(M, span_notice("Your eye sockets feel wet."))
-		else
-			if(!M.eye_blurry)
-				to_chat(M, span_warning("Tears well up in your eyes!"))
-			M.adjust_blindness(2)
-			M.blur_eyes(5)
-	..()
 
-/datum/reagent/consumable/tearjuice/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	var/mob/living/carbon/victim = exposed_mob
+	if(method == TOUCH || method == VAPOR)
+		var/tear_proof = victim.is_eyes_covered()
+		if (!tear_proof)
+			to_chat(exposed_mob, span_warning("Your eyes sting!"))
+			victim.emote("cry")
+			victim.adjust_eye_blur(6 SECONDS)
 	..()
-	if(M.eye_blurry)	//Don't worsen vision if it was otherwise fine
-		M.blur_eyes(4 * REM * delta_time)
-		if(DT_PROB(5, delta_time))
-			to_chat(M, span_warning("Your eyes sting!"))
-			M.adjust_blindness(2)
 
 
 /datum/reagent/consumable/nutriment/stabilized
@@ -738,7 +721,7 @@
 		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2*REM, 150)
 		M.adjustToxLoss(3*REM,0)
 		M.adjustStaminaLoss(10*REM,0)
-		M.blur_eyes(5)
+		M.set_eye_blur_if_lower(10 SECONDS)
 		. = TRUE
 	..()
 

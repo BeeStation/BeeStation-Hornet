@@ -555,7 +555,7 @@
 	owner.ExtinguishMob()
 	owner.fire_stacks = 0
 	owner.set_blindness(0)
-	owner.set_blurriness(0)
+	owner.remove_status_effect(/datum/status_effect/eye_blur)
 	owner.restore_blood()
 	owner.bodytemperature = owner.get_body_temp_normal()
 	if(istype(owner, /mob/living/carbon/human))

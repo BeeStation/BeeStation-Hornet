@@ -48,7 +48,6 @@
 
 		if(stat != DEAD)
 			handle_traits(delta_time, times_fired) // eye, ear, brain damages
-			handle_status_effects(delta_time, times_fired) //all special effects, stun, knockdown, jitteryness, hallucination, sleeping, etc
 
 	handle_fire(delta_time, times_fired)
 
@@ -104,13 +103,6 @@
 	var/turf/location = get_turf(src)
 	location.hotspot_expose(700, 25 * delta_time, TRUE)
 
-/*
- * this updates some effects: mostly old stuff such as drunkness, druggy, etc.
- * that should be converted to status effect datums one day.
- */
-/mob/living/proc/handle_status_effects(delta_time, times_fired)
-	return
-
 /mob/living/proc/handle_traits(delta_time, times_fired)
 	//Eyes
 	if(eye_blind) //blindness, heals slowly over time
@@ -118,8 +110,6 @@
 			adjust_blindness(-1.5 * delta_time)
 		else if(!stat && !(HAS_TRAIT(src, TRAIT_BLIND)))
 			adjust_blindness(-0.5 * delta_time)
-	else if(eye_blurry) //blurry eyes heal slowly
-		adjust_blurriness(-0.5 * delta_time)
 
 /mob/living/proc/update_damage_hud()
 	return

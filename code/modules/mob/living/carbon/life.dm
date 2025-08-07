@@ -401,21 +401,6 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 												"You ever wonder if /dev/null supports sharding?",
 												"What if we use a language that was written on a napkin and created over 1 weekend for all of our servers?"))
 
-// This updates all special effects that really should be status effect datums: Druggy, Hallucinations, Drunkenness, Mute, etc..
-/mob/living/carbon/handle_status_effects(delta_time, times_fired)
-	..()
-
-	var/restingpwr = 0.5 + 2 * resting
-
-	if(drowsyness)
-		adjust_drowsyness(-1 * restingpwr * delta_time)
-		blur_eyes(1 * delta_time)
-		if(DT_PROB(2.5, delta_time))
-			AdjustSleeping(10 SECONDS)
-
-	if(hallucination)
-		handle_hallucinations(delta_time, times_fired)
-
 /// Base carbon environment handler, adds natural stabilization
 /mob/living/carbon/handle_environment(datum/gas_mixture/environment, delta_time, times_fired)
 	var/areatemp = get_temperature(environment)

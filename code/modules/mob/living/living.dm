@@ -722,8 +722,6 @@
 	if(full_heal)
 		fully_heal(admin_revive)
 	if(stat == DEAD && can_be_revived()) //in some cases you can't revive (e.g. no brain)
-		remove_from_dead_mob_list()
-		add_to_alive_mob_list()
 		set_suicide(FALSE)
 		set_stat(UNCONSCIOUS) //the mob starts unconscious,
 		updatehealth() //then we check if the mob should wake up.
@@ -804,7 +802,6 @@
 	set_nutrition(NUTRITION_LEVEL_FED + 50)
 	bodytemperature = get_body_temp_normal(apply_change=FALSE)
 	set_blindness(0)
-	set_blurriness(0)
 	cure_nearsighted()
 	//Some eye logic
 	var/obj/item/organ/eyes/eyes = get_organ_slot(ORGAN_SLOT_EYES)
@@ -814,7 +811,6 @@
 	heal_overall_damage(INFINITY, INFINITY, INFINITY, null, TRUE) //heal brute and burn dmg on both organic and robotic limbs, and update health right away.
 	ExtinguishMob()
 	fire_stacks = 0
-	set_drowsyness(0)
 	stop_sound_channel(CHANNEL_HEARTBEAT)
 	SEND_SIGNAL(src, COMSIG_LIVING_POST_FULLY_HEAL, admin_revive)
 
@@ -1523,6 +1519,9 @@
 		if(HARD_CRIT)
 			if(stat != UNCONSCIOUS)
 				cure_blind(UNCONSCIOUS_TRAIT)
+		if(DEAD)
+			remove_from_dead_mob_list()
+			add_to_alive_mob_list()
 	switch(stat) //Current stat.
 		if(CONSCIOUS)
 			if(. >= UNCONSCIOUS)
@@ -1550,6 +1549,8 @@
 			ADD_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
 		if(DEAD)
 			REMOVE_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
+			remove_from_alive_mob_list()
+			add_to_dead_mob_list()
 
 ///Reports the event of the change in value of the buckled variable.
 /mob/living/proc/set_buckled(new_buckled)
@@ -1682,26 +1683,46 @@
 	else
 		clear_fullscreen("remote_view", 0)
 
+
 /mob/living/vv_edit_var(var_name, var_value)
 	switch(var_name)
 		if (NAMEOF(src, maxHealth))
-			if (!isnum_safe(var_value) || var_value <= 0)
+			if (!isnum(var_value) || var_value <= 0)
 				return FALSE
-		if(NAMEOF(src, stat))
-			if((stat == DEAD) && (var_value < DEAD))//Bringing the dead back to life
-				remove_from_dead_mob_list()
-				add_to_alive_mob_list()
-			if((stat < DEAD) && (var_value == DEAD))//Kill he
-				remove_from_alive_mob_list()
-				add_to_dead_mob_list()
 		if(NAMEOF(src, health)) //this doesn't work. gotta use procs instead.
 			return FALSE
+		if(NAMEOF(src, resting))
+			set_resting(var_value)
+			. = TRUE
+		if(NAMEOF(src, lying_angle))
+			set_lying_angle(var_value)
+			. = TRUE
+		if(NAMEOF(src, buckled))
+			set_buckled(var_value)
+			. = TRUE
+		if(NAMEOF(src, num_legs))
+			set_num_legs(var_value)
+			. = TRUE
+		if(NAMEOF(src, usable_legs))
+			set_usable_legs(var_value)
+			. = TRUE
+		if(NAMEOF(src, num_hands))
+			set_num_hands(var_value)
+			. = TRUE
+		if(NAMEOF(src, usable_hands))
+			set_usable_hands(var_value)
+			. = TRUE
+		if(NAMEOF(src, body_position))
+			set_body_position(var_value)
+			. = TRUE
+
+	if(!isnull(.))
+		datum_flags |= DF_VAR_EDITED
+		return
+
 	. = ..()
+
 	switch(var_name)
-		if(NAMEOF(src, eye_blind))
-			set_blindness(var_value)
-		if(NAMEOF(src, eye_blurry))
-			set_blurriness(var_value)
 		if(NAMEOF(src, maxHealth))
 			updatehealth()
 		if(NAMEOF(src, resize))

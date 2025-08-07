@@ -328,23 +328,23 @@
 /datum/reagent/fuel/unholywater/on_mob_end_metabolize(mob/living/L)
 	REMOVE_TRAIT(L, TRAIT_NO_BLEEDING, type)
 
-/datum/reagent/fuel/unholywater/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	if(IS_CULTIST(M))
-		M.adjust_drowsyness(-5* REM * delta_time)
-		M.AdjustAllImmobility(-40 *REM* REM * delta_time)
-		M.adjustStaminaLoss(-10 * REM * delta_time, 0)
-		M.adjustToxLoss(-2 * REM * delta_time, 0)
-		M.adjustOxyLoss(-2 * REM * delta_time, 0)
-		M.adjustBruteLoss(-2 * REM * delta_time, 0)
-		M.adjustFireLoss(-2 * REM * delta_time, 0)
-		if(ishuman(M) && M.blood_volume < BLOOD_VOLUME_NORMAL)
-			M.blood_volume += 3 * REM * delta_time
+/datum/reagent/fuel/unholywater/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	if(IS_CULTIST(affected_mob))
+		affected_mob.adjust_drowsiness(-10 SECONDS * REM * delta_time)
+		affected_mob.AdjustAllImmobility(-40 *REM* REM * delta_time)
+		affected_mob.adjustStaminaLoss(-10 * REM * delta_time, 0)
+		affected_mob.adjustToxLoss(-2 * REM * delta_time, 0)
+		affected_mob.adjustOxyLoss(-2 * REM * delta_time, 0)
+		affected_mob.adjustBruteLoss(-2 * REM * delta_time, 0)
+		affected_mob.adjustFireLoss(-2 * REM * delta_time, 0)
+		if(ishuman(affected_mob) && affected_mob.blood_volume < BLOOD_VOLUME_NORMAL)
+			affected_mob.blood_volume += 3 * REM * delta_time
 	else  // Will deal about 90 damage when 50 units are thrown
-		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3 * REM * delta_time, 150)
-		M.adjustToxLoss(1 * REM * delta_time, 0)
-		M.adjustFireLoss(1 * REM * delta_time, 0)
-		M.adjustOxyLoss(1 * REM * delta_time, 0)
-		M.adjustBruteLoss(1 * REM * delta_time, 0)
+		affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3 * REM * delta_time, 150)
+		affected_mob.adjustToxLoss(1 * REM * delta_time, 0)
+		affected_mob.adjustFireLoss(1 * REM * delta_time, 0)
+		affected_mob.adjustOxyLoss(1 * REM * delta_time, 0)
+		affected_mob.adjustBruteLoss(1 * REM * delta_time, 0)
 	holder.remove_reagent(type, 1)
 	return TRUE
 
@@ -1215,7 +1215,7 @@
 	if(DT_PROB(55, delta_time))
 		affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2)
 	if(DT_PROB(30, delta_time))
-		affected_mob.adjust_drowsyness(3)
+		affected_mob.adjust_drowsiness(6 SECONDS)
 	if(DT_PROB(5, delta_time))
 		affected_mob.emote("drool")
 	..()
@@ -1345,16 +1345,18 @@
 
 /datum/reagent/nitrous_oxide/expose_mob(mob/living/exposed_mob, method=TOUCH, reac_volume)
 	if(method == VAPOR)
-		exposed_mob.adjust_drowsyness(max(round(reac_volume, 1), 2))
+		// apply 2 seconds of drowsiness per unit applied, with a min duration of 4 seconds
+		var/drowsiness_to_apply = max(round(reac_volume, 1) * 2 SECONDS, 4 SECONDS)
+		exposed_mob.adjust_drowsiness(drowsiness_to_apply)
 
-/datum/reagent/nitrous_oxide/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.adjust_drowsyness(2 * REM * delta_time)
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
+/datum/reagent/nitrous_oxide/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	affected_mob.adjust_drowsiness(4 SECONDS * REM * delta_time)
+	if(ishuman(affected_mob))
+		var/mob/living/carbon/human/H = affected_mob
 		H.blood_volume = max(H.blood_volume - (10 * REM * delta_time), 0)
 	if(DT_PROB(10, delta_time))
-		M.losebreath += 2
-		M.adjust_confusion_up_to(2 SECONDS, 5 SECONDS)
+		affected_mob.losebreath += 2
+		affected_mob.adjust_confusion_up_to(2 SECONDS, 5 SECONDS)
 	..()
 
 /datum/reagent/nitrium_high_metabolization
@@ -2124,7 +2126,7 @@
 /datum/reagent/peaceborg/inabizine/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(DT_PROB(17, delta_time))
 		M.Stun(20, 0)
-		M.blur_eyes(5)
+		M.set_eye_blur_if_lower(10 SECONDS)
 	if(DT_PROB(17, delta_time))
 		M.Knockdown(2 SECONDS)
 	if(DT_PROB(10, delta_time))
@@ -2185,23 +2187,23 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 2.5 * REAGENTS_METABOLISM //0.5u/second
 
-/datum/reagent/eldritch/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	if(IS_HERETIC(M))
-		M.adjust_drowsyness(-5 * REM * delta_time)
-		M.AdjustAllImmobility(-40 * REM * delta_time)
-		M.adjustStaminaLoss(-10 * REM * delta_time, FALSE)
-		M.adjustToxLoss(-2 * REM * delta_time, FALSE)
-		M.adjustOxyLoss(-2 * REM * delta_time, FALSE)
-		M.adjustBruteLoss(-2 * REM * delta_time, FALSE)
-		M.adjustFireLoss(-2 * REM * delta_time, FALSE)
-		if(ishuman(M) && M.blood_volume < BLOOD_VOLUME_NORMAL)
-			M.blood_volume += 3 * REM * delta_time
+/datum/reagent/eldritch/on_mob_life(mob/living/carbon/drinker, delta_time, times_fired)
+	if(IS_HERETIC(drinker))
+		drinker.adjust_drowsiness(-10 * REM * delta_time)
+		drinker.AdjustAllImmobility(-40 * REM * delta_time)
+		drinker.adjustStaminaLoss(-10 * REM * delta_time, FALSE)
+		drinker.adjustToxLoss(-2 * REM * delta_time, FALSE)
+		drinker.adjustOxyLoss(-2 * REM * delta_time, FALSE)
+		drinker.adjustBruteLoss(-2 * REM * delta_time, FALSE)
+		drinker.adjustFireLoss(-2 * REM * delta_time, FALSE)
+		if(ishuman(drinker) && drinker.blood_volume < BLOOD_VOLUME_NORMAL)
+			drinker.blood_volume += 3 * REM * delta_time
 	else
-		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3 * REM * delta_time, 150)
-		M.adjustToxLoss(2 * REM * delta_time, FALSE)
-		M.adjustFireLoss(2 * REM * delta_time, FALSE)
-		M.adjustOxyLoss(2 * REM * delta_time, FALSE)
-		M.adjustBruteLoss(2 * REM * delta_time, FALSE)
+		drinker.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3 * REM * delta_time, 150)
+		drinker.adjustToxLoss(2 * REM * delta_time, FALSE)
+		drinker.adjustFireLoss(2 * REM * delta_time, FALSE)
+		drinker.adjustOxyLoss(2 * REM * delta_time, FALSE)
+		drinker.adjustBruteLoss(2 * REM * delta_time, FALSE)
 	..()
 	return TRUE
 

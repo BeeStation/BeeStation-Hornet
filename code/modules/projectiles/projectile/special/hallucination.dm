@@ -152,7 +152,7 @@
 
 /obj/projectile/hallucination/laser/hal_apply_effect()
 	hal_target.adjustStaminaLoss(20)
-	hal_target.blur_eyes(2)
+	hal_target.adjust_eye_blur(4 SECONDS)
 
 /obj/projectile/hallucination/taser
 	name = "electrode"

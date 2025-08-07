@@ -135,6 +135,18 @@
 	last_shown_duration = CEILING((duration - world.time) / 10, 1)
 	linked_alert.maptext = MAPTEXT("[last_shown_duration]s")
 
+/// Remove [seconds] of duration from the status effect, qdeling / ending if we eclipse the current world time.
+/datum/status_effect/proc/remove_duration(seconds)
+	if(duration == -1) // Infinite duration
+		return FALSE
+
+	duration -= seconds
+	if(duration <= world.time)
+		qdel(src)
+		return TRUE
+
+	return FALSE
+
 ////////////////
 // ALERT HOOK //
 ////////////////

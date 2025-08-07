@@ -59,7 +59,7 @@
 	M.setOxyLoss(0, 0)
 	M.setCloneLoss(0, 0)
 
-	M.set_blurriness(0)
+	M.remove_status_effect(/datum/status_effect/eye_blur)
 	M.set_blindness(0)
 	M.SetKnockdown(0)
 	M.SetStun(0)
@@ -72,7 +72,7 @@
 	M.remove_status_effect(/datum/status_effect/silenced)
 	M.remove_status_effect(/datum/status_effect/dizziness)
 	M.disgust = 0
-	M.drowsyness = 0
+	M.remove_status_effect(/datum/status_effect/drowsiness)
 	// Remove all speech related status effects
 	for(var/effect in typesof(/datum/status_effect/speech))
 		M.remove_status_effect(effect)
@@ -106,18 +106,18 @@
 	color = "#FF00FF"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
 
-/datum/reagent/medicine/synaptizine/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.adjust_drowsyness(-5 * REM * delta_time)
-	M.AdjustStun(-20 * REM * delta_time)
-	M.AdjustKnockdown(-20 * REM * delta_time)
-	M.AdjustUnconscious(-20 * REM * delta_time)
-	M.AdjustImmobilized(-20 * REM * delta_time)
-	M.AdjustParalyzed(-20 * REM * delta_time)
+/datum/reagent/medicine/synaptizine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	affected_mob.adjust_drowsiness(-10 SECONDS * REM * delta_time)
+	affected_mob.AdjustStun(-20 * REM * delta_time)
+	affected_mob.AdjustKnockdown(-20 * REM * delta_time)
+	affected_mob.AdjustUnconscious(-20 * REM * delta_time)
+	affected_mob.AdjustImmobilized(-20 * REM * delta_time)
+	affected_mob.AdjustParalyzed(-20 * REM * delta_time)
 	if(holder.has_reagent(/datum/reagent/toxin/mindbreaker))
 		holder.remove_reagent(/datum/reagent/toxin/mindbreaker, 5 * REM * delta_time)
-	M.hallucination = max(M.hallucination - (10 * REM * delta_time), 0)
+	affected_mob.hallucination = max(affected_mob.hallucination - (10 * REM * delta_time), 0)
 	if(DT_PROB(16, delta_time))
-		M.adjustToxLoss(1, 0)
+		affected_mob.adjustToxLoss(1, 0)
 		. = TRUE
 	..()
 
@@ -127,15 +127,15 @@
 	color = "#EC536D" // rgb: 236, 83, 109
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 
-/datum/reagent/medicine/synaphydramine/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.adjust_drowsyness(-5 * REM * delta_time)
+/datum/reagent/medicine/synaphydramine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	affected_mob.adjust_drowsiness(-10 SECONDS * REM * delta_time)
 	if(holder.has_reagent(/datum/reagent/toxin/mindbreaker))
 		holder.remove_reagent(/datum/reagent/toxin/mindbreaker, 5 * REM * delta_time)
 	if(holder.has_reagent(/datum/reagent/toxin/histamine))
 		holder.remove_reagent(/datum/reagent/toxin/histamine, 5 * REM * delta_time)
-	M.hallucination = max(M.hallucination - (10 * REM * delta_time), 0)
+	affected_mob.hallucination = max(affected_mob.hallucination - (10 * REM * delta_time), 0)
 	if(DT_PROB(16, delta_time))
-		M.adjustToxLoss(1, 0)
+		affected_mob.adjustToxLoss(1, 0)
 		. = TRUE
 	..()
 
@@ -776,7 +776,7 @@
 
 /datum/reagent/medicine/diphenhydramine/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(DT_PROB(5, delta_time))
-		M.adjust_drowsyness(1)
+		M.adjust_drowsiness(2 SECONDS)
 	M.adjust_jitter(-2 SECONDS * REM * delta_time)
 	holder.remove_reagent(/datum/reagent/toxin/histamine, 3 * REM * delta_time)
 	..()
@@ -799,14 +799,14 @@
 	L.remove_movespeed_mod_immunities(type, /datum/movespeed_modifier/damage_slowdown)
 	..()
 
-/datum/reagent/medicine/morphine/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+/datum/reagent/medicine/morphine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	switch(current_cycle)
 		if(11)
-			to_chat(M, span_warning("You start to feel tired...") )
+			to_chat(affected_mob, span_warning("You start to feel tired...") )
 		if(12 to 24)
-			M.adjust_drowsyness(1 * REM * delta_time)
+			affected_mob.adjust_drowsiness(2 SECONDS * REM * delta_time)
 		if(24 to INFINITY)
-			M.Sleeping(40 * REM * delta_time)
+			affected_mob.Sleeping(40 * REM * delta_time)
 			. = TRUE
 	..()
 
@@ -859,25 +859,24 @@
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	taste_description = "dull toxin"
 
-/datum/reagent/medicine/oculine/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	var/obj/item/organ/eyes/eyes = M.get_organ_slot(ORGAN_SLOT_EYES)
+/datum/reagent/medicine/oculine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	affected_mob.adjust_blindness(-2 * REM * delta_time)
+	affected_mob.adjust_eye_blur(-4 SECONDS * REM * delta_time)
+	var/obj/item/organ/eyes/eyes = affected_mob.get_organ_slot(ORGAN_SLOT_EYES)
 	if (!eyes)
 		return
 	eyes.applyOrganDamage(-2 * REM * delta_time)
-	if(HAS_TRAIT_FROM(M, TRAIT_BLIND, EYE_DAMAGE))
+	if(HAS_TRAIT_FROM(affected_mob, TRAIT_BLIND, EYE_DAMAGE))
 		if(DT_PROB(10, delta_time))
-			to_chat(M, span_warning("Your vision slowly returns..."))
-			M.cure_blind(EYE_DAMAGE)
-			M.cure_nearsighted(EYE_DAMAGE)
-			M.blur_eyes(35)
+			to_chat(affected_mob, span_warning("Your vision slowly returns..."))
+			affected_mob.cure_blind(EYE_DAMAGE)
+			affected_mob.cure_nearsighted(EYE_DAMAGE)
+			affected_mob.set_eye_blur_if_lower(70 SECONDS)
 
-	else if(HAS_TRAIT_FROM(M, TRAIT_NEARSIGHT, EYE_DAMAGE))
-		to_chat(M, span_warning("The blackness in your peripheral vision fades."))
-		M.cure_nearsighted(EYE_DAMAGE)
-		M.blur_eyes(10)
-	else if(M.is_blind() || M.eye_blurry)
-		M.set_blindness(0)
-		M.set_blurriness(0)
+	else if(HAS_TRAIT_FROM(affected_mob, TRAIT_NEARSIGHT, EYE_DAMAGE))
+		to_chat(affected_mob, span_warning("The blackness in your peripheral vision fades."))
+		affected_mob.cure_nearsighted(EYE_DAMAGE)
+		affected_mob.set_eye_blur_if_lower(20 SECONDS)
 	..()
 
 /datum/reagent/medicine/atropine
@@ -1046,16 +1045,21 @@
 	color = "#00B4C8"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "raw egg"
+	/// All status effects we remove on metabolize.
+	/// Does not include drunk (despite what you may thing) as that's decresed gradually
+	var/static/list/status_effects_to_clear = list(
+		/datum/status_effect/confusion,
+		/datum/status_effect/dizziness,
+		/datum/status_effect/drowsiness,
+		/datum/status_effect/speech/slurring/drunk,
+	)
 
-/datum/reagent/medicine/antihol/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	if(!HAS_TRAIT(M, TRAIT_LIGHT_DRINKER))
-		M.remove_status_effect(/datum/status_effect/dizziness)
-		M.set_drowsyness(0)
-		M.remove_status_effect(/datum/status_effect/speech/slurring/drunk)
-		M.remove_status_effect(/datum/status_effect/confusion)
-		M.adjust_drunk_effect(-10 * REM * delta_time)
-	M.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 3 * REM * delta_time, FALSE, TRUE)
-	M.adjustToxLoss(-0.2 * REM * delta_time, 0)
+/datum/reagent/medicine/antihol/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	if(!HAS_TRAIT(affected_mob, TRAIT_LIGHT_DRINKER))
+		for(var/effect in status_effects_to_clear)
+			affected_mob.remove_status_effect(effect)
+	affected_mob.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 3 * REM * delta_time, FALSE, TRUE)
+	affected_mob.adjustToxLoss(-0.2 * REM * delta_time, 0)
 	..()
 	. = TRUE
 
@@ -1445,17 +1449,17 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	metabolization_rate = 0.4 * REAGENTS_METABOLISM
 
-/datum/reagent/medicine/haloperidol/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	for(var/datum/reagent/drug/R in M.reagents.reagent_list)
-		M.reagents.remove_reagent(R.type, 5 * REM * delta_time)
-	M.adjust_drowsyness(2 * REM * delta_time)
-	if(M.get_timed_status_effect_duration(/datum/status_effect/jitter) >= 6 SECONDS)
-		M.adjust_jitter(-6 SECONDS * REM * delta_time)
-	if (M.hallucination >= 5)
-		M.hallucination -= 5 * REM * delta_time
+/datum/reagent/medicine/haloperidol/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	for(var/datum/reagent/drug/R in affected_mob.reagents.reagent_list)
+		affected_mob.reagents.remove_reagent(R.type, 5 * REM * delta_time)
+	affected_mob.adjust_drowsiness(4 SECONDS * REM * delta_time)
+	if(affected_mob.get_timed_status_effect_duration(/datum/status_effect/jitter) >= 6 SECONDS)
+		affected_mob.adjust_jitter(-6 SECONDS * REM * delta_time)
+	if (affected_mob.hallucination >= 5)
+		affected_mob.hallucination -= 5 * REM * delta_time
 	if(DT_PROB(10, delta_time))
-		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1, 50)
-	M.adjustStaminaLoss(2.5 * REM * delta_time, 0)
+		affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1, 50)
+	affected_mob.adjustStaminaLoss(2.5 * REM * delta_time, 0)
 	..()
 	return TRUE
 

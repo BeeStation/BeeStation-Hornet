@@ -228,7 +228,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 		if(STAGE_HAUNT)
 
 			if(prob(5))
-				H.blur_eyes(1)
+				H.set_eye_blur_if_lower(2 SECONDS)
 
 			if(prob(5))
 				H.playsound_local(src,'sound/voice/cluwnelaugh2_reversed.ogg', 1)
@@ -410,7 +410,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 			H.invisibility = initial(H.invisibility)
 			H.set_density(initial(H.density))
 			H.set_anchored(initial(H.anchored))
-			H.blur_eyes(10)
+			H.set_eye_blur_if_lower(20 SECONDS)
 			animate(H.client,color = old_color, time = 20)
 
 	eating = FALSE
@@ -537,7 +537,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	SEND_SIGNAL(sac_target, COMSIG_ADD_MOOD_EVENT, "shadow_realm", /datum/mood_event/shadow_realm)
 
 	sac_target.flash_act()
-	sac_target.blur_eyes(15)
+	sac_target.set_eye_blur_if_lower(30 SECONDS)
 	sac_target.set_jitter_if_lower(20 SECONDS)
 	sac_target.set_dizzy_if_lower(20 SECONDS)
 	sac_target.hallucination += 12
@@ -616,7 +616,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	// Oh god where are we?
 	sac_target.flash_act()
 	sac_target.set_timed_status_effect(120 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
-	sac_target.blur_eyes(50)
+	sac_target.set_eye_blur_if_lower(100 SECONDS)
 	sac_target.set_timed_status_effect(60 SECONDS, /datum/status_effect/dizziness, only_if_higher = TRUE)
 	sac_target.AdjustKnockdown(80)
 	sac_target.adjustStaminaLoss(120)

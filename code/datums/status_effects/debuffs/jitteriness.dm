@@ -8,6 +8,12 @@
 	return ..()
 
 /datum/status_effect/jitter/on_apply()
+	// If we're being applied to a dead person, don't make the status effect.
+	// Just do a bit of jitter animation and be done.
+	if(owner.stat == DEAD)
+		owner.do_jitter_animation(duration / 10)
+		return FALSE
+
 	RegisterSignal(owner, list(COMSIG_LIVING_POST_FULLY_HEAL, COMSIG_LIVING_DEATH), PROC_REF(remove_jitter))
 	SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, id, /datum/mood_event/jittery)
 	return TRUE
@@ -37,13 +43,13 @@
 	qdel(src)
 
 /datum/status_effect/jitter/tick()
+	// Resting helps against jitter
+	// While resting, we lose 8 seconds of duration (4 additional ticks) per tick
+	if(owner.resting && remove_duration(4 * initial(tick_interval)))
+		return
 
 	var/time_left_in_seconds = (duration - world.time) / 10
 	owner.do_jitter_animation(time_left_in_seconds)
-
-	// Decrease the duration by our resting_modifier, effectively skipping resting_modifier ticks per tick
-	var/resting_modifier = owner.resting ? 5 : 1
-	duration -= ((resting_modifier - 1) * initial(tick_interval))
 
 /// Helper proc that causes the mob to do a jittering animation by jitter_amount.
 /// jitter_amount will only apply up to 300 (maximum jitter effect).

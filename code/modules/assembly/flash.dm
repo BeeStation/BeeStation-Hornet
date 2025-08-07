@@ -437,7 +437,7 @@
 				to_chat(flashed, span_notice("The light makes you feel oddly relaxed..."))
 				flashed.set_confusion_if_lower(confusion_duration * CONFUSION_STACK_MAX_MULTIPLIER)
 				flashed.adjust_dizzy_up_to(20 SECONDS, 40 SECONDS)
-				flashed.adjust_drowsyness(min(flashed.drowsyness+10, 20))
+				flashed.adjust_drowsiness_up_to(20 SECONDS, 40 SECONDS)
 				flashed.apply_status_effect(/datum/status_effect/pacify, 100)
 
 
@@ -451,7 +451,7 @@
 		to_chat(flashed, span_notice("Such a pretty light..."))
 		flashed.set_confusion_if_lower(confusion_duration * CONFUSION_STACK_MAX_MULTIPLIER)
 		flashed.adjust_dizzy_up_to(8 SECONDS, 40 SECONDS)
-		flashed.adjust_drowsyness(min(flashed.drowsyness+4, 20))
+		flashed.adjust_drowsiness_up_to(8 SECONDS, 40 SECONDS)
 		flashed.apply_status_effect(/datum/status_effect/pacify, 40)
 
 #undef FLASH_USE

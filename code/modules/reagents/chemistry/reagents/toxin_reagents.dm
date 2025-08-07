@@ -256,7 +256,7 @@
 /datum/reagent/toxin/spore/on_mob_life(mob/living/carbon/C, delta_time, times_fired)
 	C.damageoverlaytemp = 60
 	C.update_damage_hud()
-	C.blur_eyes(3 * REM * delta_time)
+	C.set_eye_blur_if_lower(6 SECONDS * REM * delta_time)
 	return ..()
 
 /datum/reagent/toxin/spore_burning
@@ -282,17 +282,17 @@
 	toxpwr = 0
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 
-/datum/reagent/toxin/chloralhydrate/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+/datum/reagent/toxin/chloralhydrate/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	switch(current_cycle)
 		if(1 to 10)
-			M.adjust_confusion(2 SECONDS * REM * delta_time)
-			M.adjust_drowsyness(2 * REM * delta_time)
+			affected_mob.adjust_confusion(2 SECONDS * REM * delta_time)
+			affected_mob.adjust_drowsiness(4 SECONDS * REM * delta_time)
 		if(10 to 50)
-			M.Sleeping(40 * REM * delta_time)
+			affected_mob.Sleeping(40 * REM * delta_time)
 			. = TRUE
 		if(51 to INFINITY)
-			M.Sleeping(40 * REM * delta_time)
-			M.adjustToxLoss(1 * (current_cycle - 50) * REM * delta_time, 0)
+			affected_mob.Sleeping(40 * REM * delta_time)
+			affected_mob.adjustToxLoss(1 * (current_cycle - 50) * REM * delta_time, FALSE)
 			. = TRUE
 	..()
 
@@ -429,7 +429,7 @@
 		switch(pick(1, 2, 3, 4))
 			if(1)
 				to_chat(M, span_danger("You can barely see!"))
-				M.blur_eyes(3)
+				M.set_eye_blur_if_lower(6 SECONDS)
 			if(2)
 				M.emote("cough")
 			if(3)

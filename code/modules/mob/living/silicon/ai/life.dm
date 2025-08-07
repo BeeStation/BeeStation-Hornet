@@ -4,8 +4,6 @@
 		//Being dead doesn't mean your temperature never changes
 		//who did this shit I hate you
 
-	handle_status_effects(delta_time, times_fired)
-
 	handle_traits(delta_time, times_fired)
 
 	if(malfhack?.aidisabled)

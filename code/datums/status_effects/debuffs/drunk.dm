@@ -74,8 +74,8 @@
 		qdel(src)
 
 /datum/status_effect/inebriated/tick()
-	// Drunk value does not decrease while dead
-	if(owner.stat == DEAD)
+	// Drunk value does not decrease while dead or in stasis
+	if(owner.stat == DEAD || IS_IN_STASIS(owner))
 		return
 
 	// Every tick, the drunk value decrases by
@@ -184,7 +184,7 @@
 
 	// Over 71, we will constantly have blurry eyes
 	if(drunk_value >= 71)
-		owner.blur_eyes(5)
+		owner.set_eye_blur_if_lower((drunk_value * 2 SECONDS) - 140 SECONDS)
 
 	// Over 81, we will gain constant toxloss
 	if(drunk_value >= 81)
