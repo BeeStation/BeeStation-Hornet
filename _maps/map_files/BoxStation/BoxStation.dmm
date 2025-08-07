@@ -9811,7 +9811,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/item/kirbyplants/random,
+/obj/item/candydispenser/engineering{
+	pixel_y = 11
+	},
+/obj/structure/table,
 /turf/open/floor/iron,
 /area/engine/break_room)
 "bYQ" = (

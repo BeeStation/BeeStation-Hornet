@@ -27351,6 +27351,16 @@
 	},
 /turf/open/floor/iron/dark,
 /area/hallway/secondary/command)
+"iJQ" = (
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/obj/item/candydispenser/engineering{
+	pixel_y = 11
+	},
+/obj/structure/table/glass,
+/turf/open/floor/iron,
+/area/engine/engineering)
 "iJX" = (
 /obj/structure/sign/poster/random{
 	pixel_y = 32
@@ -96438,7 +96448,7 @@ vWF
 ahc
 rjL
 dBS
-bBc
+iJQ
 amI
 kpi
 wXO

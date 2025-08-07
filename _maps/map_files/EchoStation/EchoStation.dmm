@@ -13473,6 +13473,10 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/power/smes/engineering,
+/obj/item/candydispenser/engineering{
+	pixel_y = 20;
+	pixel_x = -5
+	},
 /turf/open/floor/iron/large,
 /area/engine/engineering)
 "gSP" = (

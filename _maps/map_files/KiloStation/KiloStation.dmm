@@ -53872,16 +53872,13 @@
 /area/engine/atmos)
 "pwH" = (
 /obj/structure/table,
-/obj/item/clipboard,
-/obj/item/airlock_painter{
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/obj/item/airlock_painter,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
+/obj/item/candydispenser/engineering{
+	pixel_y = 11
+	},
 /turf/open/floor/iron/dark,
 /area/engine/break_room)
 "pwM" = (

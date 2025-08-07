@@ -26026,11 +26026,8 @@
 "gHI" = (
 /obj/structure/table/wood,
 /obj/effect/turf_decal/bot,
-/obj/item/reagent_containers/cup/soda_cans/thirteenloko{
-	pixel_x = -6
-	},
-/obj/item/reagent_containers/cup/glass/mug/cocoa{
-	pixel_x = 6
+/obj/item/candydispenser/engineering{
+	pixel_y = 11
 	},
 /turf/open/floor/iron/sepia,
 /area/engine/break_room)

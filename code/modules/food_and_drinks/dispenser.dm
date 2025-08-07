@@ -9,8 +9,9 @@
 	icon_state = "dispenser"
 	hitsound = 'sound/weapons/smash.ogg'
 	w_class = WEIGHT_CLASS_HUGE
+	item_flags = ISWEAPON
 
-	var/variant = "gumball"
+	var/variant = "default"
 
 	//Its a cheaply made sheetmetal, glass and plastic thingy. Hefty and unwieldy.
 	force = 7
@@ -141,10 +142,13 @@
 	candy_type = /obj/item/food/lollipop
 
 /obj/item/candydispenser/syndie
-	name = "blood-red gumball dispenser"
-	desc = "A whimsical device with a glass globe on top, which can be operated to dispense various candies. This one looks rather... sinister. All the corners appear sharpened."
-	variant = "syndie"
 	candy_type = /obj/item/food/gumball/syndicate
 	force = 18
 	throwforce = 23
 	bleed_force = BLEED_SCRATCH
+
+/obj/item/candydispenser/engineering
+	name = "engineering gumball dispenser"
+	desc = "A whimsical device with a glass globe on top, which can be operated to dispense various candies."
+	variant = "engineering"
+	candy_type = /obj/item/food/gumball/engineering

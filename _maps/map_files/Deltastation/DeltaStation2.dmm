@@ -12526,6 +12526,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/structure/table/reinforced,
+/obj/item/candydispenser/engineering{
+	pixel_y = 11
+	},
 /turf/open/floor/iron,
 /area/engine/break_room)
 "bGn" = (
