@@ -83,7 +83,7 @@ window "mainwindow"
 		anchor2 = 100,100
 		background-color = none
 		is-default = true
-		saved-params = "pos;size;is-minimized;is-maximized"
+		saved-params = "is-minimized;is-maximized"
 		icon = 'icons\\ss13_64.png'
 		macro = "default"
 		menu = "menu"
@@ -147,7 +147,7 @@ window "mapwindow"
 		anchor1 = 0,0
 		anchor2 = 100,100
 		background-color = none
-		saved-params = "pos;size;is-minimized;is-maximized"
+		saved-params = "is-minimized;is-maximized"
 		is-pane = true
 		outer-size = 656x538
 		inner-size = 640x499
@@ -183,7 +183,7 @@ window "infowindow"
 		anchor1 = none
 		anchor2 = none
 		background-color = none
-		saved-params = "pos;size;is-minimized;is-maximized"
+		saved-params = "is-minimized;is-maximized"
 		is-pane = true
 		outer-size = 656x538
 		inner-size = 640x499
@@ -287,7 +287,7 @@ window "outputwindow"
 		anchor1 = none
 		anchor2 = none
 		background-color = none
-		saved-params = "pos;size;is-minimized;is-maximized"
+		saved-params = "is-minimized;is-maximized"
 		is-pane = true
 		outer-size = 656x1017
 		inner-size = 640x979
