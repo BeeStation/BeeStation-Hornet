@@ -12,8 +12,8 @@
 	circuit = /obj/item/circuitboard/machine/emitter
 
 	use_power = NO_POWER_USE
-	idle_power_usage = 500 POWER
-	active_power_usage = 5 KILOPOWER
+	idle_power_usage = 500 WATT
+	active_power_usage = 5 KW
 
 	var/icon_state_on = "emitter_+a"
 	var/icon_state_underpowered = "emitter_+u"

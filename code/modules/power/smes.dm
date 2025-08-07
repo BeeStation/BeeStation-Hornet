@@ -11,19 +11,19 @@
 
 
 
-	var/capacity = 0 POWER // maximum charge
-	var/charge = 0 POWER // actual charge
+	var/capacity = 0 WATT // maximum charge
+	var/charge = 0 WATT // actual charge
 
 	var/input_attempt = TRUE // TRUE = attempting to charge, FALSE = not attempting to charge
 	var/inputting = TRUE // TRUE = actually inputting, FALSE = not inputting
-	var/input_level = 50 KILOPOWER // amount of power the SMES attempts to charge by
-	var/input_level_max = 200 KILOPOWER // cap on input_level
+	var/input_level = 50 KW // amount of power the SMES attempts to charge by
+	var/input_level_max = 200 KW // cap on input_level
 	var/input_available = 0 // amount of charge available from input last tick
 
 	var/output_attempt = TRUE // TRUE = attempting to output, FALSE = not attempting to output
 	var/outputting = TRUE // TRUE = actually outputting, FALSE = not outputting
-	var/output_level = 50 KILOPOWER // amount of power the SMES attempts to output
-	var/output_level_max = 200 KILOPOWER // cap on output_level
+	var/output_level = 50 KW // amount of power the SMES attempts to output
+	var/output_level_max = 200 KW // cap on output_level
 	var/output_used = 0 // amount of power actually outputted. may be less than output_level if the powernet returns excess power
 	var/process_cells = FALSE //We have self-recharging cells
 
@@ -57,7 +57,7 @@
 		input_level_max = initial(input_level_max) * capacitor.rating
 		output_level_max = initial(output_level_max) * capacitor.rating
 	for(var/obj/item/stock_parts/matter_bin/bin in component_parts)
-		capacity += 10 + (10 * bin.rating) MEGAPOWER	// 100, 150, 200, 250 depending on tier of matter bins
+		capacity += 10 + (10 * bin.rating) MW	// 100, 150, 200, 250 depending on tier of matter bins
 
 /obj/machinery/power/smes/attackby(obj/item/I, mob/user, params)
 	//opening using screwdriver

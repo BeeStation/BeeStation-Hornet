@@ -40,8 +40,8 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	var/last_world_time = "00:00"
 	var/list/last_header_icons
 
-	var/base_active_power_usage = 10 POWER	// Aurs per second, Power usage when the computer is on. Remember hardware can use power too.
-	var/base_idle_power_usage = 5 POWER	// Aurs per second, Power usage when the computer is turned off
+	var/base_active_power_usage = 10 WATT	// Aurs per second, Power usage when the computer is on. Remember hardware can use power too.
+	var/base_idle_power_usage = 5 WATT	// Aurs per second, Power usage when the computer is turned off
 
 	// Modular computers can run on various devices. Each DEVICE (Laptop, Console, Tablet,..)
 	// must have it's own DMI file. Icon states must be called exactly the same in all files, but may look differently
