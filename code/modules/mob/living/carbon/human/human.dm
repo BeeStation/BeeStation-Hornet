@@ -128,8 +128,8 @@
 	if(mind)
 		var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling)
-			tab_data["Chemical Storage"] = GENERATE_STAT_TEXT("[changeling.chem_charges]/[changeling.chem_storage]")
-			tab_data["Absorbed DNA"] = GENERATE_STAT_TEXT("[changeling.absorbedcount]")
+			tab_data["Chemical Storage"] = GENERATE_STAT_TEXT("[changeling.chem_charges]/[changeling.total_chem_storage]")
+			tab_data["Absorbed DNA"] = GENERATE_STAT_TEXT("[changeling.absorbed_count]")
 	return tab_data
 
 // called when something steps onto a human
