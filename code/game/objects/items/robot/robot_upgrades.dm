@@ -154,7 +154,7 @@
 	desc = "A satchel of holding replacement for mining cyborg's ore satchel module."
 	icon_state = "cyborg_upgrade3"
 	require_model = TRUE
-	model_type = list(/obj/item/robot_model/miner, /obj/item/robot_model/security)
+	model_type = list(/obj/item/robot_model/miner, /obj/item/robot_model/security, /obj/item/robot_model/standard)
 	model_flags = BORG_MODEL_MINER
 
 /obj/item/borg/upgrade/soh/action(mob/living/silicon/robot/robot)
