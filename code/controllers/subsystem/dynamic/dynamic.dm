@@ -586,7 +586,7 @@ SUBSYSTEM_DEF(dynamic)
 	// Get possible rulesets
 	var/list/possible_rulesets = list()
 	for(var/datum/dynamic_ruleset/midround/ruleset in midround_configured_rulesets)
-		if(ruleset.severity != forced_severity)
+		if(!(ruleset.severity & forced_severity))
 			continue
 
 		if(check_is_ruleset_blocked(ruleset, midround_executed_rulesets))
@@ -612,7 +612,7 @@ SUBSYSTEM_DEF(dynamic)
 			if(DYNAMIC_MIDROUND_MEDIUM)
 				new_severity = DYNAMIC_MIDROUND_LIGHT
 
-		log_dynamic("MIDROUND: FAIL: Tried to roll a [forced_severity] midround, but there are no possible rulesets.")
+		log_dynamic("MIDROUND: FAIL: Tried to roll a [severity_flag_to_text(forced_severity)] midround but there are no possible rulesets.")
 
 		if(!isnull(new_severity))
 			choose_midround_ruleset(new_severity)
@@ -798,3 +798,13 @@ SUBSYSTEM_DEF(dynamic)
 
 	WARNING("Something has gone terribly wrong. /datum/controller/subsystem/dynamic/antag_pick() failed to select a candidate. Falling back to pick()")
 	return pick(candidates)
+
+/datum/controller/subsystem/dynamic/proc/severity_flag_to_text(flag)
+	var/texts = list()
+	if (flag & DYNAMIC_MIDROUND_LIGHT)
+		texts += "LIGHT"
+	if (flag & DYNAMIC_MIDROUND_MEDIUM)
+		texts += "MEDIUM"
+	if (flag & DYNAMIC_MIDROUND_HEAVY)
+		texts += "HEAVY"
+	return jointext(texts, " | ")

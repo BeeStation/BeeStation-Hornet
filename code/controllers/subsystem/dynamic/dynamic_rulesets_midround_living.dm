@@ -137,7 +137,7 @@
 
 /datum/dynamic_ruleset/midround/living/obsessed
 	name = "Obsessed"
-	severity = DYNAMIC_MIDROUND_LIGHT
+	severity = DYNAMIC_MIDROUND_LIGHT | DYNAMIC_MIDROUND_MEDIUM
 	antag_datum = /datum/antagonist/obsessed
 	role_preference = /datum/role_preference/midround/obsessed
 	weight = 4
