@@ -21982,6 +21982,10 @@
 /obj/item/mmi{
 	pixel_y = 11
 	},
+/obj/item/storage/box/bodybags{
+	pixel_y = 3;
+	pixel_x = 6
+	},
 /turf/open/floor/iron/white,
 /area/science/robotics)
 "ltd" = (

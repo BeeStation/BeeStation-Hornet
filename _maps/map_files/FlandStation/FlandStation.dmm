@@ -11136,6 +11136,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 2
 	},
+/obj/machinery/computer/warrant,
 /turf/open/floor/iron/dark,
 /area/hallway/primary/central)
 "cSA" = (
@@ -12928,6 +12929,13 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/bridge)
+"dsj" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/chair/stool/directional/east,
+/turf/open/floor/carpet,
+/area/crew_quarters/bar/atrium)
 "dsm" = (
 /obj/effect/spawner/randomvend/snack,
 /turf/open/floor/carpet,
@@ -16949,7 +16957,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/structure/chair/stool/directional/south,
+/obj/structure/chair/stool/directional/north,
 /turf/open/floor/carpet,
 /area/crew_quarters/bar/atrium)
 "ezK" = (
@@ -35094,7 +35102,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/obj/structure/chair/stool/bar/directional/west,
+/obj/structure/chair/stool/directional/east,
 /turf/open/floor/wood,
 /area/crew_quarters/bar/atrium)
 "iWb" = (
@@ -44921,7 +44929,7 @@
 	},
 /area/docking/arrival)
 "lru" = (
-/obj/structure/chair/stool/directional/south,
+/obj/structure/chair/stool/directional/north,
 /turf/open/floor/carpet,
 /area/crew_quarters/bar/atrium)
 "lrw" = (
@@ -47642,8 +47650,8 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/obj/structure/chair/stool/bar/directional/west,
 /obj/effect/landmark/start/assistant,
+/obj/structure/chair/stool/directional/east,
 /turf/open/floor/wood,
 /area/crew_quarters/bar/atrium)
 "meo" = (
@@ -54699,7 +54707,7 @@
 /area/library)
 "nZF" = (
 /obj/effect/landmark/start/assistant,
-/obj/structure/chair/stool/directional/west,
+/obj/structure/chair/stool/directional/east,
 /turf/open/floor/carpet,
 /area/crew_quarters/bar/atrium)
 "nZM" = (
@@ -66105,6 +66113,10 @@
 	},
 /turf/open/floor/carpet/green,
 /area/crew_quarters/dorms)
+"qVR" = (
+/obj/structure/chair/stool/directional/east,
+/turf/open/floor/carpet,
+/area/crew_quarters/bar/atrium)
 "qVX" = (
 /obj/structure/closet/secure_closet/personal,
 /obj/effect/turf_decal/bot,
@@ -72056,7 +72068,7 @@
 	dir = 8
 	},
 /obj/structure/disposalpipe/segment,
-/obj/structure/chair/stool/bar/directional/south,
+/obj/structure/chair/stool/directional/north,
 /turf/open/floor/wood,
 /area/crew_quarters/bar/atrium)
 "sxX" = (
@@ -72064,7 +72076,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 8
 	},
-/obj/structure/chair/stool/bar/directional/south,
+/obj/structure/chair/stool/directional/north,
 /turf/open/floor/wood,
 /area/crew_quarters/bar/atrium)
 "sxZ" = (
@@ -72129,7 +72141,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 8
 	},
-/obj/structure/chair/stool/bar/directional/south,
+/obj/structure/chair/stool/directional/north,
 /turf/open/floor/wood,
 /area/crew_quarters/bar/atrium)
 "szc" = (
@@ -80241,7 +80253,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/chair/stool/directional/west,
+/obj/structure/chair/stool/directional/east,
 /turf/open/floor/carpet,
 /area/crew_quarters/bar/atrium)
 "uBw" = (
@@ -83591,8 +83603,8 @@
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "vqq" = (
-/obj/structure/chair/stool/directional/south,
 /obj/effect/landmark/start/assistant,
+/obj/structure/chair/stool/directional/north,
 /turf/open/floor/carpet,
 /area/crew_quarters/bar/atrium)
 "vqt" = (
@@ -118049,8 +118061,8 @@ ksN
 mse
 sxX
 mRd
-cXO
-kSv
+dsj
+qVR
 mRd
 fXw
 rkv

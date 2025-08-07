@@ -113,6 +113,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
+/obj/machinery/computer/warrant,
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "abn" = (
@@ -4859,10 +4860,10 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible/layer4{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 10
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/visible/layer2{
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 10
 	},
 /turf/open/floor/iron,
@@ -5250,7 +5251,7 @@
 "bbP" = (
 /obj/machinery/door/airlock/mining{
 	name = "Auxiliary Base";
-	req_one_access_txt = "32;47;48;37"
+	req_one_access_txt = "72"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -8293,10 +8294,10 @@
 	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/dark/visible,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/visible/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/visible/layer4{
-	dir = 8
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 1
 	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/maintenance/disposal/incinerator)
 "bFh" = (
@@ -13256,11 +13257,11 @@
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume/incinerator_atmos{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 5
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 5
 	},
 /turf/open/floor/engine,
 /area/maintenance/disposal/incinerator)
@@ -18279,11 +18280,11 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible/layer4{
+/obj/machinery/atmospherics/pipe/smart/simple/dark/visible,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 5
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/dark/visible,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/visible/layer2{
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 5
 	},
 /turf/open/floor/iron/dark,
@@ -29910,9 +29911,6 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/visible/layer2{
-	dir = 4
-	},
 /turf/open/floor/iron,
 /area/maintenance/disposal/incinerator)
 "hKa" = (
@@ -36938,7 +36936,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
 	dir = 5
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/visible/layer2{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 6
 	},
 /turf/open/floor/iron/dark,
@@ -37719,10 +37717,12 @@
 /obj/machinery/atmospherics/pipe/smart/simple/dark/visible{
 	dir = 6
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible/layer4{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 10
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/visible/layer2,
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "kkX" = (
@@ -37737,8 +37737,8 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/smart/simple/dark/visible,
 /obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible/layer4,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/visible/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark,
 /area/maintenance/disposal/incinerator)
 "kla" = (
@@ -40726,7 +40726,7 @@
 "lmo" = (
 /obj/machinery/door/airlock/mining{
 	name = "Auxiliary Base";
-	req_one_access_txt = "32;47;48;37"
+	req_one_access_txt = "72"
 	},
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
@@ -43049,8 +43049,10 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible/layer4,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/visible/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/maintenance/disposal/incinerator)
 "lZo" = (
@@ -48430,7 +48432,7 @@
 "nNq" = (
 /obj/machinery/door/airlock/maintenance/external{
 	name = "construction Zone";
-	req_access_txt = "32;47;48;37"
+	req_access_txt = "72"
 	},
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
@@ -57852,9 +57854,11 @@
 "qLD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/dark/visible,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/visible/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/maintenance/disposal/incinerator)
 "qLM" = (
@@ -58156,7 +58160,7 @@
 	name = "Auxiliary Base Shutters Toggle";
 	pixel_x = -24;
 	pixel_y = 6;
-	req_one_access_txt = "32;47;48;37"
+	req_one_access_txt = "72"
 	},
 /obj/structure/girder/displaced,
 /obj/structure/grille/broken,
@@ -61414,11 +61418,11 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/dark/visible,
-/obj/machinery/atmospherics/pipe/smart/manifold/supply/visible/layer2{
-	dir = 4
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 1
 	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/maintenance/disposal/incinerator)
 "rVD" = (
@@ -62516,7 +62520,7 @@
 	name = "Auxiliary Base Shutters Toggle";
 	pixel_x = 24;
 	pixel_y = 6;
-	req_one_access_txt = "32;47;48;37"
+	req_one_access_txt = "72"
 	},
 /obj/item/radio/intercom{
 	pixel_y = -28
@@ -73063,8 +73067,8 @@
 	pixel_y = 6
 	},
 /obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/engine,
 /area/maintenance/disposal/incinerator)
 "vFm" = (

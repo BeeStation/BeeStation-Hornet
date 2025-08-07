@@ -61008,8 +61008,7 @@
 /obj/structure/cable/yellow,
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
-	id = "hosprivacy";
-	name = "HoS Privacy Blast Door"
+	id = "Prisongate"
 	},
 /turf/open/floor/plating,
 /area/security/main)
@@ -91821,8 +91820,7 @@
 /obj/structure/cable/yellow,
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
-	id = "hosprivacy";
-	name = "HoS Privacy Blast Door"
+	id = "Prisongate"
 	},
 /turf/open/floor/plating,
 /area/security/prison)
