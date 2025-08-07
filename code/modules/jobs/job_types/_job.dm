@@ -314,17 +314,32 @@
 					continue
 
 				if(G.slot)
-					var/obj/o
-					if(on_dummy) // remove the old item
-						o = H.get_item_by_slot(G.slot)
-						H.doUnEquip(H.get_item_by_slot(G.slot), newloc = H.drop_location(), invdrop = FALSE, silent = TRUE)
-					if(H.equip_to_slot_or_del(G.spawn_item(H, skirt_pref = jumpsuit_style), G.slot))
-						if(M.client)
-							to_chat(M, span_notice("Equipping you with [G.display_name]!"))
-						if(on_dummy && o)
-							qdel(o)
+					if(G.slot == ITEM_SLOT_BACK)
+						var/obj/item/storage/new_bag = G.spawn_item(H, skirt_pref = jumpsuit_style)
+						var/obj/item/storage/old_bag = H.get_item_by_slot(ITEM_SLOT_BACK)
+						if(old_bag)
+							for(var/obj/item/item in old_bag.contents)
+								item.forceMove(new_bag)
+							H.doUnEquip(old_bag, newloc = H.drop_location(), invdrop = FALSE, silent = TRUE)
+							if(H.equip_to_slot_or_del(new_bag, G.slot))
+								if(M.client)
+									to_chat(M, span_notice("Equipping you with [G.display_name]!"))
 					else
-						gear_leftovers += G
+						var/obj/item/new_item = G.spawn_item(H, skirt_pref = jumpsuit_style)
+
+						// Unequip only if we're about to equip something in that slot
+						var/obj/o = H.get_item_by_slot(G.slot)
+						if(o)
+							H.doUnEquip(o, newloc = H.drop_location(), invdrop = FALSE, silent = TRUE)
+
+						if(H.equip_to_slot_or_del(new_item, G.slot))
+							if(M.client)
+								to_chat(M, span_notice("Equipping you with [G.display_name]!"))
+
+						else
+							// If slot was blocked, or item couldn't be equipped, push to leftovers
+							gear_leftovers += G
+							qdel(new_item) // prevent duplicate spawns
 				else
 					gear_leftovers += G
 
