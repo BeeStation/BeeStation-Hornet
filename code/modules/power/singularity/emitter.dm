@@ -13,7 +13,7 @@
 
 	use_power = NO_POWER_USE
 	idle_power_usage = 500 WATT
-	active_power_usage = 5 KW
+	active_power_usage = 5 KILOWATT
 
 	var/icon_state_on = "emitter_+a"
 	var/icon_state_underpowered = "emitter_+u"
