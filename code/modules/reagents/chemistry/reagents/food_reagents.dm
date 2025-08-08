@@ -342,12 +342,12 @@
 		//actually handle the pepperspray effects
 		if(!victim.is_eyes_covered() || !victim.is_mouth_covered())
 			victim.emote("cry")
-			victim.blur_eyes(5) // 10 seconds
-			victim.adjust_blindness(3) // 6 seconds
+			victim.set_eye_blur_if_lower(10 SECONDS)
+			victim.adjust_temp_blindness(6 SECONDS)
 			victim.Knockdown(3 SECONDS)
 			if(prob(5))
 				victim.emote("scream")
-			victim.confused = max(M.confused, 5) // 10 seconds
+			victim.set_confusion_if_lower(5 SECONDS)
 			victim.add_movespeed_modifier(/datum/movespeed_modifier/reagent/pepperspray)
 			addtimer(CALLBACK(victim, TYPE_PROC_REF(/mob, remove_movespeed_modifier), /datum/movespeed_modifier/reagent/pepperspray), 10 SECONDS)
 		victim.update_damage_hud()
@@ -406,24 +406,24 @@
 /datum/reagent/drug/mushroomhallucinogen/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(ispsyphoza(M))
 		return
-	if(!M.slurring)
-		M.slurring = 1 * REM * delta_time
+	M.set_slurring_if_lower(1 SECONDS * REM * delta_time)
+
 	switch(current_cycle)
 		if(1 to 5)
-			M.Dizzy(5 * REM * delta_time)
-			M.set_drugginess(30 * REM * delta_time)
+			M.set_timed_status_effect(10 SECONDS * REM * delta_time, /datum/status_effect/dizziness, only_if_higher = TRUE)
+			M.set_timed_status_effect(60 SECONDS * REM * delta_time, /datum/status_effect/drugginess)
 			if(DT_PROB(5, delta_time))
 				M.emote(pick("twitch","giggle"))
 		if(5 to 10)
-			M.Jitter(10 * REM * delta_time)
-			M.Dizzy(10 * REM * delta_time)
-			M.set_drugginess(35 * REM * delta_time)
+			M.set_timed_status_effect(20 SECONDS * REM * delta_time, /datum/status_effect/jitter, only_if_higher = TRUE)
+			M.set_timed_status_effect(20 SECONDS * REM * delta_time, /datum/status_effect/dizziness, only_if_higher = TRUE)
+			M.set_timed_status_effect(70 SECONDS * REM * delta_time, /datum/status_effect/drugginess)
 			if(DT_PROB(10, delta_time))
 				M.emote(pick("twitch","giggle"))
 		if (10 to INFINITY)
-			M.Jitter(20 * REM * delta_time)
-			M.Dizzy(20 * REM * delta_time)
-			M.set_drugginess(40 * REM * delta_time)
+			M.set_timed_status_effect(40 SECONDS * REM * delta_time, /datum/status_effect/jitter, only_if_higher = TRUE)
+			M.set_timed_status_effect(40 SECONDS * REM * delta_time, /datum/status_effect/dizziness, only_if_higher = TRUE)
+			M.set_timed_status_effect(80 SECONDS * REM * delta_time, /datum/status_effect/drugginess)
 			if(DT_PROB(16, delta_time))
 				M.emote(pick("twitch","giggle"))
 	..()
@@ -441,7 +441,7 @@
 		if(DT_PROB(min(current_cycle/2, 12.5), delta_time))
 			to_chat(M, span_danger("You can't get the scent of garlic out of your nose! You can barely think..."))
 			M.Paralyze(10)
-			M.Jitter(10)
+			M.set_jitter_if_lower(20 SECONDS)
 	else if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.job == JOB_NAME_COOK)
@@ -645,35 +645,18 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	taste_description = "bitterness"
 
-/datum/reagent/consumable/tearjuice/expose_mob(mob/living/M, method=TOUCH, reac_volume)
-	if(!istype(M))
+/datum/reagent/consumable/tearjuice/expose_mob(mob/living/exposed_mob, method=TOUCH, reac_volume)
+	if(!istype(exposed_mob))
 		return
-	var/unprotected = FALSE
-	switch(method)
-		if(INGEST)
-			unprotected = TRUE
-		if(INJECT)
-			unprotected = FALSE
-		else	//Touch or vapor
-			if(!M.is_mouth_covered() && !M.is_eyes_covered())
-				unprotected = TRUE
-	if(unprotected)
-		if(!M.get_organ_slot(ORGAN_SLOT_EYES))	//can't blind somebody with no eyes
-			to_chat(M, span_notice("Your eye sockets feel wet."))
-		else
-			if(!M.eye_blurry)
-				to_chat(M, span_warning("Tears well up in your eyes!"))
-			M.adjust_blindness(2)
-			M.blur_eyes(5)
-	..()
 
-/datum/reagent/consumable/tearjuice/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	var/mob/living/carbon/victim = exposed_mob
+	if(method == TOUCH || method == VAPOR)
+		var/tear_proof = victim.is_eyes_covered()
+		if (!tear_proof)
+			to_chat(exposed_mob, span_warning("Your eyes sting!"))
+			victim.emote("cry")
+			victim.adjust_eye_blur(6 SECONDS)
 	..()
-	if(M.eye_blurry)	//Don't worsen vision if it was otherwise fine
-		M.blur_eyes(4 * REM * delta_time)
-		if(DT_PROB(5, delta_time))
-			to_chat(M, span_warning("Your eyes sting!"))
-			M.adjust_blindness(2)
 
 
 /datum/reagent/consumable/nutriment/stabilized
@@ -738,7 +721,7 @@
 		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2*REM, 150)
 		M.adjustToxLoss(3*REM,0)
 		M.adjustStaminaLoss(10*REM,0)
-		M.blur_eyes(5)
+		M.set_eye_blur_if_lower(10 SECONDS)
 		. = TRUE
 	..()
 

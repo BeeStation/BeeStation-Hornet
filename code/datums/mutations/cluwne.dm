@@ -32,7 +32,7 @@
 			if(6)
 				owner.Stun(1)
 				owner.Knockdown(20)
-				owner.Jitter(500)
+				owner.set_timed_status_effect(1000 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
 
 /datum/mutation/cluwne/on_losing(mob/living/carbon/owner)
 	owner.emote("scream")

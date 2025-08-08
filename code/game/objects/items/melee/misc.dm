@@ -460,8 +460,8 @@
 	return span_danger("The baton is still charging!")
 
 /obj/item/melee/classic_baton/retractible_stun/additional_effects_carbon(mob/living/target, mob/living/user)
-	target.Jitter(2 SECONDS)
-	target.stuttering += 2 SECONDS
+	target.set_jitter_if_lower(4 SECONDS)
+	target.adjust_stutter(4 SECONDS)
 
 /obj/item/melee/classic_baton/retractible_stun/attack_self(mob/user)
 	on = !on
@@ -564,8 +564,8 @@
 				target.Knockdown(knockdown_time_carbon)
 				target.drop_all_held_items()
 				target.adjustStaminaLoss(stamina_damage)
-				if(target_confusion > 0 && target.confused < 6 SECONDS)
-					target.confused = min(target.confused + target_confusion, 6 SECONDS)
+				if(target_confusion > 0)
+					target.adjust_confusion_up_to(target_confusion, 6 SECONDS)
 			else
 				target.Knockdown(knockdown_time_carbon)
 				target.adjustStaminaLoss(stamina_damage_non_target)

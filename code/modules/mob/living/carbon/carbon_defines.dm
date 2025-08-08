@@ -50,8 +50,6 @@
 
 	var/rotate_on_lying = 1
 
-	var/tinttotal = 0	// Total level of visualy impairing items
-
 	var/list/icon_render_keys = list()
 	var/list/bodyparts = list(
 		/obj/item/bodypart/chest,
@@ -74,7 +72,6 @@
 	var/next_hallucination = 0
 	var/damageoverlaytemp = 0
 
-	var/drunkenness = 0 //Overall drunkenness - check handle_alcohol() in life.dm for effects
 	var/stam_regen_start_time = 0 //used to halt stamina regen temporarily
 	var/stam_heal = 10	//Stamina healed per 2 seconds overall. When the mob has taken more than 60 stamina damage, the rate of stamina regeneration will be increased, up to 20 per second when the mob has taken 120 stamina damage.
 

@@ -10,7 +10,7 @@
 		H.SetImmobilized(0)
 		H.SetParalyzed(0)
 		H.adjustStaminaLoss(-75)
-		H.stuttering = 0
+		H.remove_status_effect(/datum/status_effect/speech/stutter)
 		H.reagents.add_reagent(/datum/reagent/medicine/amphetamine, 5)
 		H.say(pick("A CORNERED FOX IS MORE DANGEROUS THAN A JACKAL!","HURT ME MOOORRREEE!","IMPRESSIVE!"), forced = "ninjaboost")
 		a_boost--

@@ -256,7 +256,7 @@
 /datum/reagent/toxin/spore/on_mob_life(mob/living/carbon/C, delta_time, times_fired)
 	C.damageoverlaytemp = 60
 	C.update_damage_hud()
-	C.blur_eyes(3 * REM * delta_time)
+	C.set_eye_blur_if_lower(6 SECONDS * REM * delta_time)
 	return ..()
 
 /datum/reagent/toxin/spore_burning
@@ -282,17 +282,17 @@
 	toxpwr = 0
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 
-/datum/reagent/toxin/chloralhydrate/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+/datum/reagent/toxin/chloralhydrate/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	switch(current_cycle)
 		if(1 to 10)
-			M.confused += 2 * REM * delta_time
-			M.drowsyness += 2 * REM * delta_time
+			affected_mob.adjust_confusion(2 SECONDS * REM * delta_time)
+			affected_mob.adjust_drowsiness(4 SECONDS * REM * delta_time)
 		if(10 to 50)
-			M.Sleeping(40 * REM * delta_time)
+			affected_mob.Sleeping(40 * REM * delta_time)
 			. = TRUE
 		if(51 to INFINITY)
-			M.Sleeping(40 * REM * delta_time)
-			M.adjustToxLoss(1 * (current_cycle - 50) * REM * delta_time, 0)
+			affected_mob.Sleeping(40 * REM * delta_time)
+			affected_mob.adjustToxLoss(1 * (current_cycle - 50) * REM * delta_time, FALSE)
 			. = TRUE
 	..()
 
@@ -371,13 +371,10 @@
 	toxpwr = 0
 	taste_description = "silence"
 
-/datum/reagent/toxin/mutetoxin/on_mob_metabolize(mob/living/L)
-	. = ..()
-	ADD_TRAIT(L, TRAIT_MUTE, type)
-
-/datum/reagent/toxin/mutetoxin/on_mob_end_metabolize(mob/living/L)
-	. = ..()
-	REMOVE_TRAIT(L, TRAIT_MUTE, type)
+/datum/reagent/toxin/mutetoxin/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	// Gain approximately 12 seconds * creation purity seconds of silence every metabolism tick.
+	M.set_silence_if_lower(6 SECONDS * REM * delta_time)
+	..()
 
 /datum/reagent/toxin/staminatoxin
 	name = "Tirizene"
@@ -432,7 +429,7 @@
 		switch(pick(1, 2, 3, 4))
 			if(1)
 				to_chat(M, span_danger("You can barely see!"))
-				M.blur_eyes(3)
+				M.set_eye_blur_if_lower(6 SECONDS)
 			if(2)
 				M.emote("cough")
 			if(3)
@@ -589,22 +586,22 @@
 	if(method == TOUCH || method == VAPOR)
 		M.reagents?.add_reagent(/datum/reagent/toxin/itching_powder, reac_volume)
 
-/datum/reagent/toxin/itching_powder/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+/datum/reagent/toxin/itching_powder/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	if(DT_PROB(8, delta_time))
-		to_chat(M, "<span class='danger'>You scratch at your head.</span>")
-		M.adjustBruteLoss(0.2*REM, 0)
+		to_chat(affected_mob, span_danger("You scratch at your head."))
+		affected_mob.adjustBruteLoss(0.2*REM, FALSE)
 		. = TRUE
 	if(DT_PROB(8, delta_time))
-		to_chat(M, "<span class='danger'>You scratch at your leg.</span>")
-		M.adjustBruteLoss(0.2*REM, 0)
+		to_chat(affected_mob, span_danger("You scratch at your leg."))
+		affected_mob.adjustBruteLoss(0.2*REM, FALSE)
 		. = TRUE
 	if(DT_PROB(8, delta_time))
-		to_chat(M, "<span class='danger'>You scratch at your arm.</span>")
-		M.adjustBruteLoss(0.2*REM, 0)
+		to_chat(affected_mob, span_danger("You scratch at your arm."))
+		affected_mob.adjustBruteLoss(0.2*REM, FALSE)
 		. = TRUE
 	if(DT_PROB(1.5, delta_time))
-		M.reagents.add_reagent(/datum/reagent/toxin/histamine,rand(1,3))
-		M.reagents.remove_reagent(/datum/reagent/toxin/itching_powder,1.2)
+		holder.add_reagent(/datum/reagent/toxin/histamine,rand(1,3))
+		holder.remove_reagent(/datum/reagent/toxin/itching_powder,1.2)
 		return
 	..()
 
@@ -1002,7 +999,13 @@
 
 /datum/reagent/toxin/bungotoxin/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	M.adjustOrganLoss(ORGAN_SLOT_HEART, 3 * REM * delta_time)
-	M.confused = M.dizziness //add a tertiary effect here if this is isn't an effective poison.
+
+	// If our mob's currently dizzy from anything else, we will also gain confusion
+	var/mob_dizziness = M.get_timed_status_effect_duration(/datum/status_effect/confusion)
+	if(mob_dizziness > 0)
+		// Gain confusion equal to about half the duration of our current dizziness
+		M.set_timed_status_effect(mob_dizziness / 2, /datum/status_effect/confusion)
+
 	if(current_cycle >= 12 && DT_PROB(4, delta_time))
 		var/tox_message = pick("You feel your heart spasm in your chest.", "You feel faint.","You feel you need to catch your breath.","You feel a prickle of pain in your chest.")
 		to_chat(M, span_notice("[tox_message]"))
@@ -1020,10 +1023,10 @@
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 
 /datum/reagent/toxin/morphvenom/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.set_drugginess(5)
+	M.set_timed_status_effect(10 SECONDS * REM * delta_time, /datum/status_effect/drugginess)
 	M.adjustStaminaLoss(30 * REM * delta_time)
 	M.silent = max(M.silent, 3 * REM * delta_time)
-	M.confused = max(M.confused, 3 * REM * delta_time)
+	M.adjust_confusion(3 SECONDS * REM * delta_time)
 	..()
 
 /datum/reagent/toxin/morphvenom/mimite

@@ -46,8 +46,8 @@
 		healing_amount *= -0.5
 
 	if(owner.health > owner.crit_threshold && prob(4))
-		owner.Jitter(10)
-		owner.Dizzy(5)
+		owner.set_jitter_if_lower(20 SECONDS)
+		owner.set_dizzy_if_lower(10 SECONDS)
 		owner.hallucination = min(owner.hallucination + 3, 24)
 
 	if(prob(2))

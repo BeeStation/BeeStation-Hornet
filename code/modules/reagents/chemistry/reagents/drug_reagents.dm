@@ -17,7 +17,7 @@
 	overdose_threshold = 30
 
 /datum/reagent/drug/space_drugs/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.set_drugginess(15 * REM * delta_time)
+	M.set_drugginess(30 SECONDS * REM * delta_time)
 	if(isturf(M.loc) && !isspaceturf(M.loc) && !HAS_TRAIT(M, TRAIT_IMMOBILIZED) && DT_PROB(5, delta_time))
 		step(M, pick(GLOB.cardinals))
 	if(DT_PROB(3.5, delta_time))
@@ -218,8 +218,8 @@
 	M.AdjustParalyzed(-40 * REM * delta_time)
 	M.AdjustImmobilized(-40 * REM * delta_time)
 	M.adjustStaminaLoss(-40 * REM * delta_time, 0)
-	M.drowsyness = max(M.drowsyness - (60 * REM * delta_time), 0)
-	M.Jitter(2 * REM * delta_time)
+	M.adjust_drowsiness(-(120 SECONDS * REM * delta_time))
+	M.set_jitter_if_lower(4 SECONDS * REM * delta_time)
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1)
 	if(DT_PROB(2.5, delta_time))
 		M.emote(pick("twitch", "shiver"))
@@ -241,14 +241,14 @@
 	. = TRUE
 
 /datum/reagent/drug/methamphetamine/addiction_act_stage1(mob/living/M)
-	M.Jitter(5)
+	M.set_jitter_if_lower(10 SECONDS)
 	if(prob(20))
 		M.emote(pick("twitch","drool","moan"))
 	..()
 
 /datum/reagent/drug/methamphetamine/addiction_act_stage2(mob/living/M)
-	M.Jitter(10)
-	M.Dizzy(10)
+	M.set_jitter_if_lower(20 SECONDS)
+	M.set_dizzy_if_lower(20 SECONDS)
 	if(prob(30))
 		M.emote(pick("twitch","drool","moan"))
 	..()
@@ -257,8 +257,8 @@
 	if(!HAS_TRAIT(M, TRAIT_IMMOBILIZED) && !ismovable(M.loc))
 		for(var/i = 0, i < 4, i++)
 			step(M, pick(GLOB.cardinals))
-	M.Jitter(15)
-	M.Dizzy(15)
+	M.set_jitter_if_lower(30 SECONDS)
+	M.set_dizzy_if_lower(30 SECONDS)
 	if(prob(40))
 		M.emote(pick("twitch","drool","moan"))
 	..()
@@ -267,8 +267,8 @@
 	if(!HAS_TRAIT(M, TRAIT_IMMOBILIZED) && !ismovable(M.loc))
 		for(var/i = 0, i < 8, i++)
 			step(M, pick(GLOB.cardinals))
-	M.Jitter(20)
-	M.Dizzy(20)
+	M.set_jitter_if_lower(40 SECONDS)
+	M.set_dizzy_if_lower(40 SECONDS)
 	M.adjustToxLoss(5, 0)
 	if(prob(50))
 		M.emote(pick("twitch","drool","moan"))
@@ -339,7 +339,7 @@
 	if(!HAS_TRAIT(M, TRAIT_IMMOBILIZED) && !ismovable(M.loc))
 		for(var/i = 0, i < 8, i++)
 			step(M, pick(GLOB.cardinals))
-	M.Jitter(5)
+	M.set_jitter_if_lower(10 SECONDS)
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10)
 	if(prob(20))
 		M.emote(pick("twitch","drool","moan"))
@@ -350,8 +350,8 @@
 	if(!HAS_TRAIT(M, TRAIT_IMMOBILIZED) && !ismovable(M.loc))
 		for(var/i = 0, i < 8, i++)
 			step(M, pick(GLOB.cardinals))
-	M.Jitter(10)
-	M.Dizzy(10)
+	M.set_jitter_if_lower(20 SECONDS)
+	M.set_dizzy_if_lower(20 SECONDS)
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10)
 	if(prob(30))
 		M.emote(pick("twitch","drool","moan"))
@@ -362,8 +362,8 @@
 	if(!HAS_TRAIT(M, TRAIT_IMMOBILIZED) && !ismovable(M.loc))
 		for(var/i = 0, i < 12, i++)
 			step(M, pick(GLOB.cardinals))
-	M.Jitter(15)
-	M.Dizzy(15)
+	M.set_jitter_if_lower(30 SECONDS)
+	M.set_dizzy_if_lower(30 SECONDS)
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10)
 	if(prob(40))
 		M.emote(pick("twitch","drool","moan"))
@@ -374,8 +374,8 @@
 	if(!HAS_TRAIT(M, TRAIT_IMMOBILIZED) && !ismovable(M.loc))
 		for(var/i = 0, i < 16, i++)
 			step(M, pick(GLOB.cardinals))
-	M.Jitter(50)
-	M.Dizzy(50)
+	M.set_timed_status_effect(100 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
+	M.set_timed_status_effect(100 SECONDS, /datum/status_effect/dizziness, only_if_higher = TRUE)
 	M.adjustToxLoss(5, 0)
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10)
 	if(prob(50))
@@ -430,8 +430,8 @@
 	..()
 
 /datum/reagent/drug/happiness/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.jitteriness = 0
-	M.confused = 0
+	M.remove_status_effect(/datum/status_effect/jitter)
+	M.remove_status_effect(/datum/status_effect/confusion)
 	M.disgust = 0
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.2 * REM * delta_time)
 	..()
@@ -446,7 +446,7 @@
 				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "happiness_drug", /datum/mood_event/happiness_drug_good_od)
 			if(2)
 				M.emote("sway")
-				M.Dizzy(25)
+				M.set_dizzy_if_lower(50 SECONDS)
 			if(3)
 				M.emote("frown")
 				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "happiness_drug", /datum/mood_event/happiness_drug_bad_od)
@@ -457,7 +457,7 @@
 /datum/reagent/drug/happiness/addiction_act_stage1(mob/living/M)// all work and no play makes jack a dull boy
 	var/datum/component/mood/mood = M.GetComponent(/datum/component/mood)
 	mood?.setSanity(min(mood.sanity, SANITY_DISTURBED))
-	M.Jitter(5)
+	M.set_jitter_if_lower(10 SECONDS)
 	if(prob(20))
 		M.emote(pick("twitch","laugh","frown"))
 	..()
@@ -465,7 +465,7 @@
 /datum/reagent/drug/happiness/addiction_act_stage2(mob/living/M)
 	var/datum/component/mood/mood = M.GetComponent(/datum/component/mood)
 	mood?.setSanity(min(mood.sanity, SANITY_UNSTABLE))
-	M.Jitter(10)
+	M.set_jitter_if_lower(20 SECONDS)
 	if(prob(30))
 		M.emote(pick("twitch","laugh","frown"))
 	..()
@@ -473,7 +473,7 @@
 /datum/reagent/drug/happiness/addiction_act_stage3(mob/living/M)
 	var/datum/component/mood/mood = M.GetComponent(/datum/component/mood)
 	mood?.setSanity(min(mood.sanity, SANITY_CRAZY))
-	M.Jitter(15)
+	M.set_jitter_if_lower(30 SECONDS)
 	if(prob(40))
 		M.emote(pick("twitch","laugh","frown"))
 	..()
@@ -481,7 +481,7 @@
 /datum/reagent/drug/happiness/addiction_act_stage4(mob/living/carbon/human/M)
 	var/datum/component/mood/mood = M.GetComponent(/datum/component/mood)
 	mood?.setSanity(SANITY_INSANE)
-	M.Jitter(20)
+	M.set_jitter_if_lower(40 SECONDS)
 	if(prob(50))
 		M.emote(pick("twitch","laugh","frown"))
 	..()
@@ -512,13 +512,13 @@
 		if(10)
 			to_chat(M, span_warning("You start to feel tired...") )
 		if(11 to 25)
-			M.drowsyness += 1 * REM * delta_time
+			M.adjust_drowsiness(2 SECONDS * REM * delta_time)
 		if(26 to INFINITY)
 			M.Sleeping(60 * REM * delta_time, 0)
 			. = TRUE
 	//Providing a Mood Boost
-	M.confused -= 3 * REM * delta_time
-	M.jitteriness -= 5 * REM * delta_time
+	M.adjust_confusion(-3 SECONDS * REM * delta_time)
+	M.adjust_jitter(-10 SECONDS * REM * delta_time)
 	M.disgust -= 3 * REM * delta_time
 	//Ketamine is also a dissociative anasthetic which means Hallucinations!
 	M.hallucination += 5 * REM * delta_time
@@ -542,14 +542,14 @@
 		else
 			to_chat(M, span_warning("You feel like you your limbs won't move..."))
 		M.drop_all_held_items()
-		M.Dizzy(5)
+		M.set_timed_status_effect(10 SECONDS, /datum/status_effect/dizziness, only_if_higher = TRUE)
 	..()
 
 //Addiction Gradient
 /datum/reagent/drug/ketamine/addiction_act_stage1(mob/living/M)
 	if(prob(20))
 		M.drop_all_held_items()
-		M.Jitter(2)
+		M.set_jitter_if_lower(4 SECONDS)
 	..()
 
 /datum/reagent/drug/ketamine/addiction_act_stage2(mob/living/M)
@@ -557,8 +557,8 @@
 		M.drop_all_held_items()
 		M.adjustToxLoss(2*REM, 0)
 		. = 1
-		M.Jitter(3)
-		M.Dizzy(3)
+		M.set_timed_status_effect(6 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
+		M.set_timed_status_effect(6 SECONDS, /datum/status_effect/dizziness, only_if_higher = TRUE)
 	..()
 
 /datum/reagent/drug/ketamine/addiction_act_stage3(mob/living/M)
@@ -566,8 +566,8 @@
 		M.drop_all_held_items()
 		M.adjustToxLoss(3*REM, 0)
 		. = 1
-		M.Jitter(4)
-		M.Dizzy(4)
+		M.set_timed_status_effect(8 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
+		M.set_timed_status_effect(8 SECONDS, /datum/status_effect/dizziness, only_if_higher = TRUE)
 	..()
 
 

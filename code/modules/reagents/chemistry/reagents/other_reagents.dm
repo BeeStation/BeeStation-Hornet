@@ -267,17 +267,15 @@
 		data = list("misc" = 0)
 
 	data["misc"] += delta_time SECONDS * REM
-	M.jitteriness = min(M.jitteriness + (2 * delta_time), 10)
+	M.adjust_jitter_up_to(4 SECONDS * delta_time, 20 SECONDS)
 	if(IS_CULTIST(M))
 		for(var/datum/action/innate/cult/blood_magic/BM in M.actions)
 			to_chat(M, span_cultlarge("Your blood rites falter as holy water scours your body!"))
 			for(var/datum/action/innate/cult/blood_spell/BS in BM.spells)
 				qdel(BS)
 	if(data["misc"] >= (25 SECONDS)) // 10 units
-		if(!M.stuttering)
-			M.stuttering = 1
-		M.stuttering = min(M.stuttering + (2 * delta_time), 10)
-		M.Dizzy(5)
+		M.adjust_jitter_up_to(4 SECONDS * delta_time, 20 SECONDS)
+		M.set_dizzy_if_lower(10 SECONDS)
 		if(IS_SERVANT_OF_RATVAR(M) && DT_PROB(10, delta_time))
 			M.say(text2ratvar(pick("Please don't leave me...", "Rat'var what happened?", "My friends, where are you?", "The hierophant network just went dark, is anyone there?", "The light is fading...", "No... It can't be...")), forced = "holy water")
 			if(prob(40))
@@ -297,8 +295,8 @@
 				M.mind.remove_antag_datum(/datum/antagonist/cult)
 			if(IS_SERVANT_OF_RATVAR(M))
 				remove_servant_of_ratvar(M.mind)
-			M.jitteriness = 0
-			M.stuttering = 0
+			M.remove_status_effect(/datum/status_effect/jitter)
+			M.remove_status_effect(/datum/status_effect/speech/stutter)
 			holder.remove_reagent(type, volume)	// maybe this is a little too perfect and a max() cap on the statuses would be better??
 			return
 	holder.remove_reagent(type, 1 * REAGENTS_METABOLISM * delta_time) //fixed consumption to prevent balancing going out of whack
@@ -330,23 +328,23 @@
 /datum/reagent/fuel/unholywater/on_mob_end_metabolize(mob/living/L)
 	REMOVE_TRAIT(L, TRAIT_NO_BLEEDING, type)
 
-/datum/reagent/fuel/unholywater/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	if(IS_CULTIST(M))
-		M.drowsyness = max(M.drowsyness - (5* REM * delta_time), 0)
-		M.AdjustAllImmobility(-40 *REM* REM * delta_time)
-		M.adjustStaminaLoss(-10 * REM * delta_time, 0)
-		M.adjustToxLoss(-2 * REM * delta_time, 0)
-		M.adjustOxyLoss(-2 * REM * delta_time, 0)
-		M.adjustBruteLoss(-2 * REM * delta_time, 0)
-		M.adjustFireLoss(-2 * REM * delta_time, 0)
-		if(ishuman(M) && M.blood_volume < BLOOD_VOLUME_NORMAL)
-			M.blood_volume += 3 * REM * delta_time
+/datum/reagent/fuel/unholywater/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	if(IS_CULTIST(affected_mob))
+		affected_mob.adjust_drowsiness(-10 SECONDS * REM * delta_time)
+		affected_mob.AdjustAllImmobility(-40 *REM* REM * delta_time)
+		affected_mob.adjustStaminaLoss(-10 * REM * delta_time, 0)
+		affected_mob.adjustToxLoss(-2 * REM * delta_time, 0)
+		affected_mob.adjustOxyLoss(-2 * REM * delta_time, 0)
+		affected_mob.adjustBruteLoss(-2 * REM * delta_time, 0)
+		affected_mob.adjustFireLoss(-2 * REM * delta_time, 0)
+		if(ishuman(affected_mob) && affected_mob.blood_volume < BLOOD_VOLUME_NORMAL)
+			affected_mob.blood_volume += 3 * REM * delta_time
 	else  // Will deal about 90 damage when 50 units are thrown
-		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3 * REM * delta_time, 150)
-		M.adjustToxLoss(1 * REM * delta_time, 0)
-		M.adjustFireLoss(1 * REM * delta_time, 0)
-		M.adjustOxyLoss(1 * REM * delta_time, 0)
-		M.adjustBruteLoss(1 * REM * delta_time, 0)
+		affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3 * REM * delta_time, 150)
+		affected_mob.adjustToxLoss(1 * REM * delta_time, 0)
+		affected_mob.adjustFireLoss(1 * REM * delta_time, 0)
+		affected_mob.adjustOxyLoss(1 * REM * delta_time, 0)
+		affected_mob.adjustBruteLoss(1 * REM * delta_time, 0)
 	holder.remove_reagent(type, 1)
 	return TRUE
 
@@ -1074,7 +1072,7 @@
 /datum/reagent/bluespace/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(current_cycle > 10 && DT_PROB(7.5, delta_time))
 		to_chat(M, span_warning("You feel unstable..."))
-		M.Jitter(2)
+		M.set_timed_status_effect(2 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
 		current_cycle = 1
 		addtimer(CALLBACK(M, TYPE_PROC_REF(/mob/living, bluespace_shuffle)), 30)
 	..()
@@ -1192,10 +1190,17 @@
 	taste_description = "sourness"
 
 /datum/reagent/cryptobiolin/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.Dizzy(1)
-	if(!M.confused)
-		M.confused = 1
-	M.confused = max(M.confused, 20)
+	M.set_timed_status_effect(2 SECONDS, /datum/status_effect/dizziness, only_if_higher = TRUE)
+
+	// Cryptobiolin adjusts the mob's confusion down to 20 seconds if it's higher,
+	// or up to 1 second if it's lower, but will do nothing if it's in between
+	var/confusion_left = M.get_timed_status_effect_duration(/datum/status_effect/confusion)
+	if(confusion_left < 1 SECONDS)
+		M.set_confusion(1 SECONDS)
+
+	else if(confusion_left > 20 SECONDS)
+		M.set_confusion(20 SECONDS)
+
 	..()
 
 /datum/reagent/impedrezene
@@ -1205,14 +1210,14 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "numbness"
 
-/datum/reagent/impedrezene/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.jitteriness = max(M.jitteriness - (2.5*delta_time),0)
+/datum/reagent/impedrezene/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	affected_mob.adjust_jitter(-5 SECONDS * delta_time)
 	if(DT_PROB(55, delta_time))
-		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2)
+		affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2)
 	if(DT_PROB(30, delta_time))
-		M.drowsyness = max(M.drowsyness, 3)
+		affected_mob.adjust_drowsiness(6 SECONDS)
 	if(DT_PROB(5, delta_time))
-		M.emote("drool")
+		affected_mob.emote("drool")
 	..()
 
 /datum/reagent/nanomachines
@@ -1338,18 +1343,20 @@
 		var/temp = holder ? holder.chem_temp : T20C
 		T.atmos_spawn_air("n2o=[reac_volume/5];TEMP=[temp]")
 
-/datum/reagent/nitrous_oxide/expose_mob(mob/living/M, method=TOUCH, reac_volume)
+/datum/reagent/nitrous_oxide/expose_mob(mob/living/exposed_mob, method=TOUCH, reac_volume)
 	if(method == VAPOR)
-		M.drowsyness += max(round(reac_volume, 1), 2)
+		// apply 2 seconds of drowsiness per unit applied, with a min duration of 4 seconds
+		var/drowsiness_to_apply = max(round(reac_volume, 1) * 2 SECONDS, 4 SECONDS)
+		exposed_mob.adjust_drowsiness(drowsiness_to_apply)
 
-/datum/reagent/nitrous_oxide/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.drowsyness += 2 * REM * delta_time
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
+/datum/reagent/nitrous_oxide/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	affected_mob.adjust_drowsiness(4 SECONDS * REM * delta_time)
+	if(ishuman(affected_mob))
+		var/mob/living/carbon/human/H = affected_mob
 		H.blood_volume = max(H.blood_volume - (10 * REM * delta_time), 0)
 	if(DT_PROB(10, delta_time))
-		M.losebreath += 2
-		M.confused = min(M.confused + 2, 5)
+		affected_mob.losebreath += 2
+		affected_mob.adjust_confusion_up_to(2 SECONDS, 5 SECONDS)
 	..()
 
 /datum/reagent/nitrium_high_metabolization
@@ -2102,10 +2109,9 @@
 	taste_description = "dizziness"
 
 /datum/reagent/peaceborg/confuse/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	if(M.confused < 6)
-		M.confused = clamp(M.confused + (3 * REM * delta_time), 0, 5)
-	if(M.dizziness < 6)
-		M.dizziness = clamp(M.dizziness + (3 * REM * delta_time), 0, 5)
+	M.adjust_confusion_up_to(3 SECONDS * REM * delta_time, 5 SECONDS)
+	M.adjust_dizzy_up_to(6 SECONDS * REM * delta_time, 12 SECONDS)
+
 	if(DT_PROB(10, delta_time))
 		to_chat(M, "You feel confused and disorientated.")
 	..()
@@ -2120,7 +2126,7 @@
 /datum/reagent/peaceborg/inabizine/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(DT_PROB(17, delta_time))
 		M.Stun(20, 0)
-		M.blur_eyes(5)
+		M.set_eye_blur_if_lower(10 SECONDS)
 	if(DT_PROB(17, delta_time))
 		M.Knockdown(2 SECONDS)
 	if(DT_PROB(10, delta_time))
@@ -2181,23 +2187,23 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 2.5 * REAGENTS_METABOLISM //0.5u/second
 
-/datum/reagent/eldritch/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	if(IS_HERETIC(M))
-		M.drowsyness = max(M.drowsyness - (5 * REM * delta_time), 0)
-		M.AdjustAllImmobility(-40 * REM * delta_time)
-		M.adjustStaminaLoss(-10 * REM * delta_time, FALSE)
-		M.adjustToxLoss(-2 * REM * delta_time, FALSE)
-		M.adjustOxyLoss(-2 * REM * delta_time, FALSE)
-		M.adjustBruteLoss(-2 * REM * delta_time, FALSE)
-		M.adjustFireLoss(-2 * REM * delta_time, FALSE)
-		if(ishuman(M) && M.blood_volume < BLOOD_VOLUME_NORMAL)
-			M.blood_volume += 3 * REM * delta_time
+/datum/reagent/eldritch/on_mob_life(mob/living/carbon/drinker, delta_time, times_fired)
+	if(IS_HERETIC(drinker))
+		drinker.adjust_drowsiness(-10 * REM * delta_time)
+		drinker.AdjustAllImmobility(-40 * REM * delta_time)
+		drinker.adjustStaminaLoss(-10 * REM * delta_time, FALSE)
+		drinker.adjustToxLoss(-2 * REM * delta_time, FALSE)
+		drinker.adjustOxyLoss(-2 * REM * delta_time, FALSE)
+		drinker.adjustBruteLoss(-2 * REM * delta_time, FALSE)
+		drinker.adjustFireLoss(-2 * REM * delta_time, FALSE)
+		if(ishuman(drinker) && drinker.blood_volume < BLOOD_VOLUME_NORMAL)
+			drinker.blood_volume += 3 * REM * delta_time
 	else
-		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3 * REM * delta_time, 150)
-		M.adjustToxLoss(2 * REM * delta_time, FALSE)
-		M.adjustFireLoss(2 * REM * delta_time, FALSE)
-		M.adjustOxyLoss(2 * REM * delta_time, FALSE)
-		M.adjustBruteLoss(2 * REM * delta_time, FALSE)
+		drinker.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3 * REM * delta_time, 150)
+		drinker.adjustToxLoss(2 * REM * delta_time, FALSE)
+		drinker.adjustFireLoss(2 * REM * delta_time, FALSE)
+		drinker.adjustOxyLoss(2 * REM * delta_time, FALSE)
+		drinker.adjustBruteLoss(2 * REM * delta_time, FALSE)
 	..()
 	return TRUE
 

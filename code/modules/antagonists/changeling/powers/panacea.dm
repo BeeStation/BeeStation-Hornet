@@ -41,7 +41,7 @@
 
 	if(iscarbon(user))
 		var/mob/living/carbon/L = user
-		L.drunkenness = 0
+		L.remove_status_effect(/datum/status_effect/inebriated)
 		L.setToxLoss(0, 0)
 		L.adjustOrganLoss(ORGAN_SLOT_BRAIN, -100)
 		L.cure_all_traumas(TRAUMA_RESILIENCE_SURGERY)

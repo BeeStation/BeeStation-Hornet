@@ -274,7 +274,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/urinal, 32)
 
 	if(washing_face)
 		SEND_SIGNAL(user, COMSIG_COMPONENT_CLEAN_FACE_ACT, CLEAN_WASH)
-		user.drowsyness = max(user.drowsyness - rand(2,3), 0) //Washing your face wakes you up if you're falling asleep
 	else if(ishuman(user))
 		var/mob/living/carbon/human/human_user = user
 		if(!human_user.wash_hands(CLEAN_WASH))
@@ -306,7 +305,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/urinal, 32)
 		if(B.cell && B.cell.charge && B.turned_on)
 			flick("baton_active", src)
 			user.Paralyze(B.stun_time)
-			user.stuttering = B.stun_time/20
+			user.set_stutter(B.stun_time)
 			B.deductcharge(B.cell_hit_cost)
 			user.visible_message(span_warning("[user] shocks [user.p_them()]self while attempting to wash the active [B.name]!"), \
 								span_userdanger("You unwisely attempt to wash [B] while it's still on."))

@@ -12,10 +12,10 @@
 			verb_ask = pick(initial(worn_mask.chosen_tongue.ask_mod))
 			verb_yell = pick(initial(worn_mask.chosen_tongue.yell_mod))
 			verb_exclaim = pick(initial(worn_mask.chosen_tongue.exclaim_mod))
-	if(slurring || !T)
+	// Any subtype of slurring in our status effects make us "slur"
+	if((locate(/datum/status_effect/speech/slurring) in status_effects) || !T)
 		return "slurs"
-	else
-		. = ..()
+	return ..()
 
 /mob/living/carbon/human/GetVoice()
 	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
@@ -31,17 +31,6 @@
 		var/obj/item/clothing/mask/modulator = wear_mask
 		current_name = modulator.get_name(src, current_name)
 	return current_name
-
-/mob/living/carbon/human/IsVocal()
-	// how do species that don't breathe talk? magic, that's what.
-	if(!HAS_TRAIT_FROM(src, TRAIT_NOBREATH, SPECIES_TRAIT) && !get_organ_slot(ORGAN_SLOT_LUNGS))
-		return FALSE
-	if(dna?.species && !dna?.species.speak_no_tongue)
-		if(!get_organ_slot(ORGAN_SLOT_TONGUE))
-			return FALSE
-	if(mind)
-		return !mind.miming
-	return TRUE
 
 /mob/living/carbon/human/proc/SetSpecialVoice(new_voice)
 	if(new_voice)

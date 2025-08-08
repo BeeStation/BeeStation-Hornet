@@ -22,8 +22,8 @@
 	name = "stunslug"
 	damage = 5
 	paralyze = 100
-	stutter = 5
-	jitter = 20
+	stutter = 10 SECONDS
+	jitter = 40 SECONDS
 	range = 7
 	icon_state = "spark"
 	color = "#FFFF00"

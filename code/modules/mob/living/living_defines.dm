@@ -42,8 +42,6 @@
 	/// Value of lying lying_angle before last change. TODO: Remove the need for this.
 	var/lying_prev = 0
 
-	var/confused = 0	//Makes the mob move in random directions.
-
 	var/hallucination = 0 //Directly affects how long a mob will hallucinate for
 
 	var/last_special = 0 //Used by the resist verb, likely used to prevent players from bypassing next_move by logging in/out.
@@ -115,13 +113,6 @@
 
 	var/list/status_effects //a list of all status effects the mob has
 	var/druggy = 0
-
-	//Speech
-	var/stuttering = 0
-	var/slurring = 0
-	var/cultslurring = 0
-	var/clockslurring = 0
-	var/derpspeech = 0
 
 	var/list/implants = null
 

@@ -7,8 +7,8 @@
 	armor_flag = STAMINA
 	nodamage = FALSE
 	knockdown = 30
-	stutter = 5
-	jitter = 20
+	stutter = 10 SECONDS
+	jitter = 40 SECONDS
 	hitsound = 'sound/weapons/taserhit.ogg'
 	range = 7
 	tracer_type = /obj/effect/projectile/tracer/stun
@@ -23,12 +23,11 @@
 		var/mob/living/carbon/C = target
 		SEND_SIGNAL(C, COMSIG_ADD_MOOD_EVENT, "tased", /datum/mood_event/tased)
 		SEND_SIGNAL(C, COMSIG_LIVING_MINOR_SHOCK)
-		if(C.confused < 10)
-			C.confused = 10
+		C.set_confusion_if_lower(10 SECONDS)
 		if(C.has_dna() && C.dna.check_mutation(/datum/mutation/hulk))
 			C.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ), forced = "hulk")
 		else if((C.status_flags & CANKNOCKDOWN) && !HAS_TRAIT(C, TRAIT_STUNIMMUNE))
-			addtimer(CALLBACK(C, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation), jitter), 5)
+			addtimer(CALLBACK(C, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation), 20), 5)
 
 /obj/projectile/energy/electrode/on_range() //to ensure the bolt sparks when it reaches the end of its range if it didn't hit a target yet
 	do_sparks(1, TRUE, src)

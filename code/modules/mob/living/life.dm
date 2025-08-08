@@ -46,10 +46,6 @@
 
 		handle_gravity(delta_time, times_fired)
 
-		if(stat != DEAD)
-			handle_traits(delta_time, times_fired) // eye, ear, brain damages
-			handle_status_effects(delta_time, times_fired) //all special effects, stun, knockdown, jitteryness, hallucination, sleeping, etc
-
 	handle_fire(delta_time, times_fired)
 
 	if(machine)
@@ -103,21 +99,6 @@
 		return TRUE
 	var/turf/location = get_turf(src)
 	location.hotspot_expose(700, 25 * delta_time, TRUE)
-
-//this updates all special effects: knockdown, druggy, stuttering, etc..
-/mob/living/proc/handle_status_effects(delta_time, times_fired)
-	if(confused)
-		confused = max(0, confused - (1 * delta_time))
-
-/mob/living/proc/handle_traits(delta_time, times_fired)
-	//Eyes
-	if(eye_blind) //blindness, heals slowly over time
-		if(HAS_TRAIT_FROM(src, TRAIT_BLIND, EYES_COVERED)) //covering your eyes heals blurry eyes faster
-			adjust_blindness(-1.5 * delta_time)
-		else if(!stat && !(HAS_TRAIT(src, TRAIT_BLIND)))
-			adjust_blindness(-0.5 * delta_time)
-	else if(eye_blurry) //blurry eyes heal slowly
-		adjust_blurriness(-0.5 * delta_time)
 
 /mob/living/proc/update_damage_hud()
 	return
