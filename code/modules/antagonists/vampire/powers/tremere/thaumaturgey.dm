@@ -108,7 +108,6 @@
 	user.newtonian_move(get_dir(target_atom, user))
 	var/obj/projectile/magic/arcane_barrage/vampire/bolt = new(user.loc)
 	bolt.vampire_power = src
-	bolt.level = level_current
 	bolt.firer = user
 	bolt.def_zone = ran_zone(user.get_combat_bodyzone())
 	bolt.preparePixelProjectile(target_atom, user)
@@ -125,11 +124,10 @@
 	name = "blood bolt"
 	icon_state = "mini_leaper"
 	damage = 20
-
-	var/level = 1
+	var/datum/action/vampire/targeted/tremere/thaumaturgy/vampire_power
 
 /obj/projectile/magic/arcane_barrage/vampire/on_hit(target)
-	if(istype(target, /obj/structure/closet) && level >= 3)
+	if(istype(target, /obj/structure/closet) && vampire_power.level_current >= 3)
 		var/obj/structure/closet/hit_closet = target
 		if(hit_closet)
 			hit_closet.welded = FALSE
@@ -138,15 +136,15 @@
 			hit_closet.update_appearance()
 			qdel(src)
 			return BULLET_ACT_HIT
-	if(istype(target, /obj/machinery/door) && level >= 3)
+	if(istype(target, /obj/machinery/door) && vampire_power.level_current >= 3)
 		var/obj/machinery/door/hit_airlock = target
 		hit_airlock.open()
 		qdel(src)
 		return BULLET_ACT_HIT
 	if(ismob(target))
-		if(level >= 4)
+		if(vampire_power.level_current >= 4)
 			damage = 40
-		if(level >= 5)
+		if(vampire_power.level_current >= 5)
 			var/mob/living/person_hit = target
 			person_hit.blood_volume -= 60
 			vampire_power.vampiredatum_power.AddBloodVolume(60)
