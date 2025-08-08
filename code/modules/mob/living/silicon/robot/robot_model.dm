@@ -39,10 +39,6 @@
 	var/list/storages = list()
 
 // ------------------------------------------ Traits
-	/// Whether or not the borg can be pushed around
-	var/can_be_pushed = TRUE
-	/// Mag boots
-	var/magpulsing = FALSE
 	/// Clean trash under the borg
 	var/clean_on_move = FALSE
 	/// Whether the borg loses tool slots with damage.
@@ -55,6 +51,11 @@
 	var/canDispose = FALSE
 
 	var/did_feedback = FALSE
+
+	/**
+	* List of traits that will be applied to the mob if this module is used.
+	*/
+	var/list/module_traits = null
 
 // ------------------------------------------ Offsets
 	var/hat_offset = -3

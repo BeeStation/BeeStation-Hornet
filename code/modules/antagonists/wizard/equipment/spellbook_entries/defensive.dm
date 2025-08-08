@@ -125,28 +125,23 @@
 /datum/spellbook_entry/item/armor
 	name = "Mastercrafted Armour Set"
 	desc = "An artefact suit of armour that allows you to cast spells while providing more protection against attacks and the void of space."
-	item_path = /obj/item/clothing/suit/space/hardsuit/wizard
+	item_path = /obj/item/mod/control/pre_equipped/enchanted
 	category = "Defensive"
 
-/datum/spellbook_entry/item/armor/buy_spell(mob/living/carbon/human/user, obj/item/spellbook/book)
-	new /obj/item/clothing/shoes/sandal/magic(get_turf(user)) //In case they've lost them.
-	new /obj/item/clothing/gloves/color/purple(get_turf(user))//To complete the outfit
-	new /obj/item/clothing/mask/breath(get_turf(user)) // so the air gets to your mouth. Just an average mask.
-	new /obj/item/tank/internals/emergency_oxygen/magic_oxygen(get_turf(user)) // so you have something to actually breathe. Near infinite.
-	. = ..()
-
-/datum/spellbook_entry/item/shielded_armor
-	name = "Shielded Mastercrafted Armour Set"
-	desc = "An artefact suit of armour that allows you to cast spells while providing more protection against attacks and the void of space. A shielded variation that requires additional charges to be bought in order to restore it's magical shields"
-	item_path = /obj/item/clothing/suit/space/hardsuit/shielded/wizard
-	category = "Defensive"
-
-/datum/spellbook_entry/item/shielded_armor/buy_spell(mob/living/carbon/human/user, obj/item/spellbook/book)
-	new /obj/item/clothing/shoes/sandal/magic(get_turf(user)) //In case they've lost them.
-	new /obj/item/clothing/gloves/color/purple(get_turf(user))//To complete the outfit
-	new /obj/item/clothing/mask/breath(get_turf(user)) // so the air gets to your mouth. Just an average mask.
-	new /obj/item/tank/internals/emergency_oxygen/magic_oxygen(get_turf(user)) // so you have something to actually breathe. Near infinite.
-	. = ..()
+/datum/spellbook_entry/item/armor/try_equip_item(mob/living/carbon/human/user, obj/item/to_equip)
+	var/obj/item/mod/control/mod = to_equip
+	var/obj/item/mod/module/storage/storage = locate() in mod.modules
+	var/obj/item/back = user.back
+	if(back)
+		if(!user.dropItemToGround(back))
+			return
+		for(var/obj/item/item as anything in back.contents)
+			item.forceMove(storage)
+	if(!user.equip_to_slot_if_possible(mod, mod.slot_flags, qdel_on_fail = FALSE, disable_warning = TRUE))
+		return
+	if(!user.dropItemToGround(user.wear_suit) || !user.dropItemToGround(user.head))
+		return
+	mod.quick_activation()
 
 /datum/spellbook_entry/item/battlemage_charge
 	name = "Battlemage Armour Charges"
