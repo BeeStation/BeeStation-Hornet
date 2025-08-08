@@ -1368,8 +1368,8 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	desc = "This modified oxygen candle is delivered fresh directly off the conveyor at one of our signature warcrime factories. \
 			Pull the tab and watch in glee as a solid quarter of the station becomes uninhabitable."
 	item = /obj/item/flashlight/oxycandle/hellfire
-	player_minimum = 8
-	cost = 2
+	player_minimum = 15
+	cost = 4
 
 //Support and Mechs
 /datum/uplink_item/support
