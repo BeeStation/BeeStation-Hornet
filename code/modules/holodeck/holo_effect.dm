@@ -104,12 +104,23 @@
 	SIGNAL_HANDLER
 	our_mob = null
 
-/obj/effect/holodeck_effect/mobspawner/pet
+/obj/effect/holodeck_effect/mobspawner/pet/Initialize(mapload)
+	. = ..()
 	mobtype = list(
-		/mob/living/simple_animal/butterfly, /mob/living/simple_animal/chick/holo,
-		/mob/living/simple_animal/pet/cat, /mob/living/simple_animal/pet/cat/kitten,
-		/mob/living/basic/pet/dog/corgi, /mob/living/basic/pet/dog/corgi/puppy,
-		/mob/living/basic/pet/dog/pug, /mob/living/simple_animal/pet/fox)
+		/mob/living/simple_animal/butterfly,
+		/mob/living/simple_animal/chick/holo,
+		/mob/living/simple_animal/pet/fox,
+		/mob/living/simple_animal/rabbit,
+	)
+	mobtype += pick(
+		/mob/living/basic/pet/dog/corgi,
+		/mob/living/basic/pet/dog/corgi/puppy,
+		/mob/living/basic/pet/dog/pug,
+	)
+	mobtype += pick(
+		/mob/living/simple_animal/pet/cat,
+		/mob/living/simple_animal/pet/cat/kitten,
+	)
 
 /obj/effect/holodeck_effect/mobspawner/bee
 	mobtype = /mob/living/simple_animal/hostile/poison/bees/toxin

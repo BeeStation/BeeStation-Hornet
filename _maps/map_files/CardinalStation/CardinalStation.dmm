@@ -2450,17 +2450,6 @@
 	},
 /turf/open/floor/grass/no_border,
 /area/hydroponics/garden)
-"aBH" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/hypospray/medipen{
-	pixel_y = 9;
-	pixel_x = 18
-	},
-/obj/item/candydispenser/lollipop{
-	pixel_y = 10
-	},
-/turf/open/floor/iron/textured_large,
-/area/medical/medbay/lobby)
 "aBI" = (
 /obj/effect/turf_decal/siding/thinplating_new/terracotta,
 /obj/effect/decal/cleanable/dirt,
@@ -8699,6 +8688,17 @@
 	},
 /turf/open/floor/iron/edge,
 /area/quartermaster/sorting)
+"bMp" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/hypospray/medipen{
+	pixel_y = 9;
+	pixel_x = 18
+	},
+/obj/item/candydispenser/lollipop{
+	pixel_y = 10
+	},
+/turf/open/floor/iron/textured_large,
+/area/medical/medbay/lobby)
 "bMr" = (
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 8
@@ -9760,6 +9760,19 @@
 /obj/machinery/status_display/ai/directional/north,
 /turf/open/floor/iron/white/textured,
 /area/security/brig/medbay)
+"bXs" = (
+/obj/effect/turf_decal/siding/wideplating_new/dark,
+/obj/effect/turf_decal/trimline/red/filled/mid_joiner,
+/obj/structure/bed/dogbed/tyson,
+/obj/effect/turf_decal/tile/techfloor/diagonal,
+/obj/structure/extinguisher_cabinet/directional/south,
+/mob/living/basic/pet/dog/bullterrier/tyson,
+/obj/item/clothing/mask/gas/old{
+	name = "chewed up gas mask";
+	desc = "A face-covering mask that can be connected to an air supply. This one appears to be one of Tyson's favorite chew toys."
+	},
+/turf/open/floor/iron/techmaint,
+/area/security/warden)
 "bXC" = (
 /turf/closed/wall/r_wall,
 /area/security/interrogation_room)
@@ -19405,6 +19418,24 @@
 /obj/machinery/airalarm/directional/north,
 /turf/open/floor/iron/dark/textured,
 /area/crew_quarters/heads/hos)
+"dTA" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/dark_blue{
+	dir = 1
+	},
+/obj/structure/bed/dogbed/ian{
+	pixel_y = -1;
+	pixel_x = -3
+	},
+/obj/item/stack/sheet/bone{
+	desc = "A bone for a good boy.";
+	name = "Dog bone"
+	},
+/mob/living/basic/pet/dog/corgi/ian,
+/obj/machinery/airalarm/directional/south,
+/obj/machinery/light/directional/south,
+/turf/open/floor/wood/big,
+/area/crew_quarters/heads/hop)
 "dTE" = (
 /obj/structure/flora/ausbushes/sparsegrass{
 	pixel_x = 25
@@ -21607,29 +21638,6 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/storage/primary)
-"etv" = (
-/obj/structure/table/reinforced,
-/obj/machinery/light/directional/north,
-/obj/item/stack/medical/bruise_pack{
-	pixel_x = -9;
-	pixel_y = 2
-	},
-/obj/item/stack/medical/ointment{
-	pixel_y = 4;
-	pixel_x = 5
-	},
-/obj/structure/sign/departments/medbay/alt{
-	pixel_y = 32
-	},
-/obj/item/storage/box/bodybags{
-	pixel_x = 12;
-	pixel_y = 6
-	},
-/obj/item/storage/firstaid/regular{
-	pixel_y = 6
-	},
-/turf/open/floor/iron/textured_large,
-/area/medical/medbay/lobby)
 "etD" = (
 /obj/effect/turf_decal/siding/dark{
 	dir = 1
@@ -27720,6 +27728,17 @@
 	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/science/server)
+"fIN" = (
+/obj/effect/turf_decal/trimline/yellow/filled/line{
+	dir = 1
+	},
+/obj/machinery/light/directional/east,
+/obj/structure/table,
+/obj/item/candydispenser/engineering{
+	pixel_y = 11
+	},
+/turf/open/floor/iron,
+/area/engine/storage_shared)
 "fIV" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -46384,6 +46403,29 @@
 	},
 /turf/open/floor/carpet/green,
 /area/security/courtroom)
+"juq" = (
+/obj/structure/table/reinforced,
+/obj/machinery/light/directional/north,
+/obj/item/stack/medical/bruise_pack{
+	pixel_x = -9;
+	pixel_y = 2
+	},
+/obj/item/stack/medical/ointment{
+	pixel_y = 4;
+	pixel_x = 5
+	},
+/obj/structure/sign/departments/medbay/alt{
+	pixel_y = 32
+	},
+/obj/item/storage/box/bodybags{
+	pixel_x = 12;
+	pixel_y = 6
+	},
+/obj/item/storage/firstaid/regular{
+	pixel_y = 6
+	},
+/turf/open/floor/iron/textured_large,
+/area/medical/medbay/lobby)
 "jus" = (
 /obj/structure/lattice,
 /obj/structure/window/reinforced/corner{
@@ -53407,16 +53449,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
-"kOT" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "kitchencounter";
-	name = "Kitchen Counter Shutters"
-	},
-/obj/machinery/door/firedoor,
-/obj/item/candydispenser,
-/turf/open/floor/plating,
-/area/crew_quarters/kitchen)
 "kOU" = (
 /turf/closed/wall/r_wall,
 /area/maintenance/department/bridge)
@@ -83554,17 +83586,6 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/engine/engine_room)
-"qUR" = (
-/obj/effect/turf_decal/trimline/yellow/filled/line{
-	dir = 1
-	},
-/obj/machinery/light/directional/east,
-/obj/structure/table,
-/obj/item/candydispenser/engineering{
-	pixel_y = 11
-	},
-/turf/open/floor/iron,
-/area/engine/storage_shared)
 "qUT" = (
 /obj/effect/turf_decal/plaque{
 	icon_state = "L13"
@@ -89722,6 +89743,16 @@
 	dir = 1
 	},
 /area/maintenance/department/bridge)
+"siE" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "kitchencounter";
+	name = "Kitchen Counter Shutters"
+	},
+/obj/machinery/door/firedoor,
+/obj/item/candydispenser,
+/turf/open/floor/plating,
+/area/crew_quarters/kitchen)
 "siS" = (
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 6
@@ -98455,24 +98486,6 @@
 /obj/machinery/light/directional/south,
 /turf/open/floor/iron/textured_large,
 /area/hallway/primary/fore)
-"tXR" = (
-/obj/effect/turf_decal/siding/wood,
-/obj/effect/turf_decal/siding/dark_blue{
-	dir = 1
-	},
-/obj/structure/bed/dogbed/ian{
-	pixel_y = -1;
-	pixel_x = -3
-	},
-/obj/item/stack/sheet/bone{
-	desc = "A bone for a good boy.";
-	name = "Dog bone"
-	},
-/mob/living/basic/pet/dog/corgi/Ian,
-/obj/machinery/airalarm/directional/south,
-/obj/machinery/light/directional/south,
-/turf/open/floor/wood/big,
-/area/crew_quarters/heads/hop)
 "tXS" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line,
 /obj/effect/turf_decal/trimline/neutral/line,
@@ -108253,19 +108266,6 @@
 /obj/machinery/airalarm/directional/north,
 /turf/open/floor/noslip/blue,
 /area/crew_quarters/fitness/recreation)
-"vTl" = (
-/obj/effect/turf_decal/siding/wideplating_new/dark,
-/obj/effect/turf_decal/trimline/red/filled/mid_joiner,
-/obj/structure/bed/dogbed/walter,
-/obj/effect/turf_decal/tile/techfloor/diagonal,
-/obj/structure/extinguisher_cabinet/directional/south,
-/mob/living/basic/pet/dog/bullterrier/walter,
-/obj/item/clothing/mask/gas/old{
-	name = "chewed up gas mask";
-	desc = "A face-covering mask that can be connected to an air supply. This one appears to be one of Walter's favorite chew toys."
-	},
-/turf/open/floor/iron/techmaint,
-/area/security/warden)
 "vTn" = (
 /obj/effect/turf_decal/siding/blue{
 	dir = 9
@@ -138903,7 +138903,7 @@ uOP
 otx
 cko
 vDU
-tXR
+dTA
 eYi
 eYi
 eYi
@@ -152574,7 +152574,7 @@ ePi
 hyJ
 oqq
 heF
-qUR
+fIN
 fiZ
 izH
 uWr
@@ -153532,7 +153532,7 @@ xjN
 hZL
 xcI
 nmY
-kOT
+siE
 hgy
 qRB
 xcI
@@ -154524,7 +154524,7 @@ kdI
 vDe
 fyS
 hSK
-vTl
+bXs
 kdI
 qTU
 kTJ
@@ -166132,7 +166132,7 @@ pJZ
 kEt
 nae
 pVR
-aBH
+bMp
 bpQ
 xVz
 ljg
@@ -166389,7 +166389,7 @@ dRH
 orj
 vsI
 pVR
-etv
+juq
 bqn
 fCW
 hMd

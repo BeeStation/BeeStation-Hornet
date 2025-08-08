@@ -5188,12 +5188,6 @@
 	},
 /turf/open/floor/engine/vacuum,
 /area/science/mixing/chamber)
-"bre" = (
-/obj/structure/bed/dogbed/ian,
-/obj/machinery/camera/directional/north,
-/mob/living/basic/pet/dog/corgi/Ian,
-/turf/open/floor/carpet/blue,
-/area/crew_quarters/heads/hop)
 "brm" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -10540,6 +10534,17 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/aft)
+"diV" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/table/wood/poker,
+/obj/item/toy/cards/deck,
+/obj/item/candydispenser{
+	pixel_y = 11
+	},
+/turf/open/floor/carpet/red,
+/area/crew_quarters/bar)
 "diZ" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -21530,6 +21535,19 @@
 	},
 /turf/open/floor/iron/dark,
 /area/hallway/secondary/service)
+"gSA" = (
+/obj/machinery/requests_console{
+	department = "Warden's Office";
+	departmentType = 5;
+	pixel_y = 32
+	},
+/obj/structure/bed/dogbed/tyson,
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 8
+	},
+/mob/living/basic/pet/dog/bullterrier/tyson,
+/turf/open/floor/iron/dark,
+/area/security/warden)
 "gSE" = (
 /obj/machinery/door/window/westleft{
 	name = "Research Division Deliveries";
@@ -27351,16 +27369,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/hallway/secondary/command)
-"iJQ" = (
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/obj/item/candydispenser/engineering{
-	pixel_y = 11
-	},
-/obj/structure/table/glass,
-/turf/open/floor/iron,
-/area/engine/engineering)
 "iJX" = (
 /obj/structure/sign/poster/random{
 	pixel_y = 32
@@ -40767,19 +40775,6 @@
 /obj/structure/table/wood,
 /turf/open/floor/wood,
 /area/maintenance/port)
-"naj" = (
-/obj/machinery/requests_console{
-	department = "Warden's Office";
-	departmentType = 5;
-	pixel_y = 32
-	},
-/obj/structure/bed/dogbed/walter,
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 8
-	},
-/mob/living/basic/pet/dog/bullterrier/walter,
-/turf/open/floor/iron/dark,
-/area/security/warden)
 "nal" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
@@ -45300,6 +45295,12 @@
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/fitness/recreation)
+"ozV" = (
+/obj/structure/bed/dogbed/ian,
+/obj/machinery/camera/directional/north,
+/mob/living/basic/pet/dog/corgi/ian,
+/turf/open/floor/carpet/blue,
+/area/crew_quarters/heads/hop)
 "oAp" = (
 /obj/machinery/camera/directional/north,
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
@@ -48097,6 +48098,16 @@
 /obj/structure/lattice,
 /turf/open/space/basic,
 /area/space/nearstation)
+"pBF" = (
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/obj/item/candydispenser/engineering{
+	pixel_y = 11
+	},
+/obj/structure/table/glass,
+/turf/open/floor/iron,
+/area/engine/engineering)
 "pCa" = (
 /turf/open/floor/iron/white,
 /area/medical/sleeper)
@@ -51438,16 +51449,6 @@
 	},
 /turf/open/floor/iron,
 /area/science/shuttle)
-"qHD" = (
-/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
-	dir = 1
-	},
-/obj/item/candydispenser/lollipop{
-	pixel_y = 10
-	},
-/obj/structure/table/glass,
-/turf/open/floor/iron/white,
-/area/medical/medbay/lobby)
 "qHP" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Chapel Dock Access"
@@ -56362,17 +56363,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
-"spX" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/table/wood/poker,
-/obj/item/toy/cards/deck,
-/obj/item/candydispenser{
-	pixel_y = 11
-	},
-/turf/open/floor/carpet/red,
-/area/crew_quarters/bar)
 "sqo" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -60373,6 +60363,16 @@
 	},
 /turf/open/space/basic,
 /area/solar/port/aft)
+"tJl" = (
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
+	dir = 1
+	},
+/obj/item/candydispenser/lollipop{
+	pixel_y = 10
+	},
+/obj/structure/table/glass,
+/turf/open/floor/iron/white,
+/area/medical/medbay/lobby)
 "tJs" = (
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
@@ -96448,7 +96448,7 @@ vWF
 ahc
 rjL
 dBS
-iJQ
+pBF
 amI
 kpi
 wXO
@@ -109293,7 +109293,7 @@ seE
 jsO
 xUk
 uGg
-bre
+ozV
 xzd
 vtM
 xvC
@@ -109881,7 +109881,7 @@ hDL
 kEJ
 qzO
 mAX
-spX
+diV
 fLL
 jxP
 abH
@@ -112410,7 +112410,7 @@ chl
 jLU
 nBQ
 fgw
-qHD
+tJl
 iaQ
 iaQ
 vSr
@@ -113151,7 +113151,7 @@ goO
 jId
 kTG
 tTo
-naj
+gSA
 dgh
 vvd
 njs
