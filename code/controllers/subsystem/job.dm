@@ -177,13 +177,15 @@ SUBSYSTEM_DEF(job)
 			return FALSE
 		var/position_limit = job.get_spawn_position_count()
 		// Unassign our previous job, to prevent double counts
-		if (player.mind.assigned_role)
+		if(player.mind.assigned_role)
 			var/datum/job/current_job = SSjob.GetJob(player.mind.assigned_role)
 			current_job.current_positions--
 			player.mind.assigned_role = null
 		player.mind.assigned_role = rank
 		unassigned -= player
 		job.current_positions++
+		if(!latejoin)
+			player.client.inc_metabalance(METACOIN_READY_UP_REWARD, reason = "Thanks for readying up!")
 		JobDebug("Player: [player] is now Rank: [rank], JCP:[job.current_positions], JPL:[position_limit]. Group size: [job.count_players_in_group()]")
 		return TRUE
 	JobDebug("AR has failed, Player: [player], Rank: [rank]")
