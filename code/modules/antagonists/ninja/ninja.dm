@@ -1,11 +1,12 @@
 /datum/antagonist/ninja
-	name = "Ninja"
+	name = "\improper Space Ninja"
 	antagpanel_category = "Ninja"
 	banning_key = ROLE_NINJA
 	show_name_in_check_antagonists = TRUE
 	show_to_ghosts = TRUE
 	antag_moodlet = /datum/mood_event/focused
 	required_living_playtime = 4
+	//preview_outfit = /datum/outfit/ninja_preview
 	var/helping_station = FALSE
 	var/give_equipment = TRUE
 
@@ -22,8 +23,15 @@
 	var/mob/living/M = mob_override || owner.current
 	update_ninja_icons_removed(M)
 
-/datum/antagonist/ninja/proc/equip_space_ninja(mob/living/carbon/human/H = owner.current)
-	return H.equipOutfit(/datum/outfit/ninja)
+/**
+ *
+ * Proc that equips the space ninja outfit on a given individual.  By default this is the owner of the antagonist datum.
+ * Arguments:
+ * * ninja - The human to receive the gear
+ * * Returns a proc call on the given human which will equip them with all the gear.
+ */
+/datum/antagonist/ninja/proc/equip_space_ninja(mob/living/carbon/human/ninja = owner.current)
+	return ninja.equipOutfit(/datum/outfit/ninja)
 
 /datum/antagonist/ninja/proc/addMemories()
 	antag_memory += "I am an elite mercenary assassin of the mighty Spider Clan. A <font color='red'><B>SPACE NINJA</B></font>!<br>"
