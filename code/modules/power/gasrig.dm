@@ -127,8 +127,8 @@
 
 	var/temp_shield = (((aver_gas_power + 1) * aver_specific_heat) * log(10, total_moles * GASRIG_SHIELD_MOL_LOG_MULTIPLER)) + GASRIG_NATURAL_SHIELD_RECOVERY
 	display_shield_efficiency = temp_shield
-	shield_strength_change = (shield_strength - (depth * GASRIG_DEPTH_SHIELD_DAMAGE_MULTIPLIER)) + temp_shield
-	shield_strength = max(min(shield_strength_change, GASRIG_MAX_SHIELD_STRENGTH), 0)
+	shield_strength_change = (depth * GASRIG_DEPTH_SHIELD_DAMAGE_MULTIPLIER) + temp_shield
+	shield_strength = max(min(shield_strength + shield_strength_change, GASRIG_MAX_SHIELD_STRENGTH), 0)
 
 /obj/machinery/atmospherics/gasrig/core/proc/produce_gases(datum/gas_mixture/air)
 	var/efficiency = get_fracking_efficiency(fracking_input.airs[1])
@@ -304,19 +304,19 @@
 	name = "AGR shield gas input port"
 	desc = "Input port for the AGR to intake shielding gas."
 	icon = 'icons/obj/machines/gasrig.dmi'
-	icon_state = "gasrig_port"
+	icon_state = "gasrig_port_1"
 	layer = LOW_OBJ_LAYER
 
 /obj/machinery/atmospherics/components/unary/gasrig/fracking_input
 	name = "AGR fracking gas input port"
 	desc = "Input port for the AGR to intake fracking gas."
 	icon = 'icons/obj/machines/gasrig.dmi'
-	icon_state = "gasrig_port"
+	icon_state = "gasrig_port_2"
 	layer = LOW_OBJ_LAYER
 
 /obj/machinery/atmospherics/components/unary/gasrig/gas_output
 	name = "AGR gas output port"
 	desc = "Main output for the AGR"
 	icon = 'icons/obj/machines/gasrig.dmi'
-	icon_state = "gasrig_port"
+	icon_state = "gasrig_port_3"
 	layer = LOW_OBJ_LAYER

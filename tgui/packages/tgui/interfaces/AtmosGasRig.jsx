@@ -66,9 +66,9 @@ export const AtmosGasRig = (props) => {
                 <br />
                 Shielding Strength:
                 <br />
-                {data.shield_eff}
+                {data.shield_strength_change}
                 <br />
-                <BlockQuote>
+                <BlockQuote color="">
                   Gas Power: {data.gas_power}
                   <br />
                   Specific Heat: {data.specific_heat}
