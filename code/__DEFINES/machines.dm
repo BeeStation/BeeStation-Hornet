@@ -65,7 +65,7 @@
 #define MC_NET "NET"
 #define MC_PRINT "PRINT"
 #define MC_CELL "CELL"
-#define MC_CHARGE "CHARGE"
+#define MC_CHARGER "CHARGER"
 #define MC_AI "AI"
 #define MC_SENSORS "SENSORS"
 #define MC_SIGNALLER "SIGNALER"
