@@ -334,9 +334,11 @@
 							if(!spawned_box && !on_dummy)	//Spawn the box only if theres something being unequiped.
 								var/obj/item/storage/current_bag = H.get_item_by_slot(ITEM_SLOT_BACK)
 
-								spawned_box = new /obj/item/storage/box/suitbox(current_bag)
+								spawned_box = new /obj/item/storage/box
 								spawned_box.name = "compression box of standard gear"
-								H.put_in_hands(spawned_box)	// Not putting it in the bagpack for obvious reasons
+								spawned_box.forceMove(current_bag)	// Gets put in the backpack
+								if(M.client)
+									to_chat(M, span_notice("A box with your standard equipment was placed in your [current_bag.name]!"))
 							H.doUnEquip(o, newloc = spawned_box ? spawned_box : H.drop_location(), invdrop = FALSE, silent = TRUE)
 
 						if(H.equip_to_slot_or_del(new_item, G.slot))
