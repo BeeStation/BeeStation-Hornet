@@ -20,7 +20,8 @@
 	constant_bloodcost = 0
 	cooldown_time = 6 SECONDS
 	prefire_message = "Click where you wish to fire."
-	///Blood shield given while this Power is active.
+
+	/// Blood shield given while this Power is active.
 	var/datum/weakref/blood_shield
 
 /datum/action/vampire/targeted/tremere/thaumaturgy/two
@@ -107,6 +108,7 @@
 	user.newtonian_move(get_dir(target_atom, user))
 	var/obj/projectile/magic/arcane_barrage/vampire/bolt = new(user.loc)
 	bolt.vampire_power = src
+	bolt.level = level_current
 	bolt.firer = user
 	bolt.def_zone = ran_zone(user.get_combat_bodyzone())
 	bolt.preparePixelProjectile(target_atom, user)
@@ -123,10 +125,11 @@
 	name = "blood bolt"
 	icon_state = "mini_leaper"
 	damage = 20
-	var/datum/action/vampire/targeted/tremere/thaumaturgy/vampire_power
+
+	var/level = 1
 
 /obj/projectile/magic/arcane_barrage/vampire/on_hit(target)
-	if(istype(target, /obj/structure/closet) && vampire_power.level_current >= 3)
+	if(istype(target, /obj/structure/closet) && level >= 3)
 		var/obj/structure/closet/hit_closet = target
 		if(hit_closet)
 			hit_closet.welded = FALSE
@@ -135,15 +138,15 @@
 			hit_closet.update_appearance()
 			qdel(src)
 			return BULLET_ACT_HIT
-	if(istype(target, /obj/machinery/door) && vampire_power.level_current >= 3)
+	if(istype(target, /obj/machinery/door) && level >= 3)
 		var/obj/machinery/door/hit_airlock = target
-		hit_airlock.open(2)
+		hit_airlock.open()
 		qdel(src)
 		return BULLET_ACT_HIT
 	if(ismob(target))
-		if(vampire_power.level_current >= 4)
+		if(level >= 4)
 			damage = 40
-		if(vampire_power.level_current >= 5)
+		if(level >= 5)
 			var/mob/living/person_hit = target
 			person_hit.blood_volume -= 60
 			vampire_power.vampiredatum_power.AddBloodVolume(60)
@@ -157,7 +160,6 @@
  *	The shield spawned when using Thaumaturgy when strong enough.
  *	Copied mostly from '/obj/item/shield/changeling'
  */
-
 /obj/item/shield/vampire
 	name = "blood shield"
 	desc = "A shield made out of blood, requiring blood to sustain hits."
@@ -173,7 +175,6 @@
 	ADD_TRAIT(src, TRAIT_NODROP, TRAIT_VAMPIRE)
 
 /obj/item/shield/vampire/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	var/datum/antagonist/vampire/vampiredatum = owner.mind.has_antag_datum(/datum/antagonist/vampire)
-	if(vampiredatum)
-		vampiredatum.AddBloodVolume(-15)
+	var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(owner)
+	vampiredatum?.AddBloodVolume(-15)
 	return ..()
