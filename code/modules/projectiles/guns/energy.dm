@@ -164,7 +164,19 @@
 		charge_timer = 0
 
 		if(use_cyborg_cell)
-			var/mob/living/silicon/robot/R = loc
+			var/mob/living/silicon/robot/R
+
+			//If the gun is in the cyborg's active loadout, the location is the cyborg itself
+			if(iscyborg(loc))
+				R = loc
+
+			//If the gun is currently stored, then it is not directly in the cyborg it is stored in the model inside of the cyborg
+			else if(istype(loc, /obj/item/robot_model))
+				R = loc.loc //this is possibly the most cursed thing I've ever done
+
+			else
+				return //Not equipped, not stashed in a cyborg model, it shouldn't even exist then.
+
 			if(!R.cell.use(100)) //if the cyborg is not charged enough, or doesn't have a cell, don't recharge
 				return
 		cell.give(100)

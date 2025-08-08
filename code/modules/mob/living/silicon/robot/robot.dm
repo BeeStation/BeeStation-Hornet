@@ -172,7 +172,7 @@
 		model_list["Peacekeeper"] = /obj/item/robot_model/peacekeeper
 
 	if(!CONFIG_GET(flag/disable_secborg))
-		model_list["Security"] = /obj/item/robot_model/security
+		model_list["Guard Dog"] = /obj/item/robot_model/guard
 
 	// Create radial menu for choosing borg model
 	var/list/module_icons = list()

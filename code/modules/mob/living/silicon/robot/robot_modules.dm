@@ -566,9 +566,9 @@
 			return FALSE
 	. = ..()
 
-// --------------------- Security
-/obj/item/robot_model/security
-	name = "Security"
+// --------------------- guard
+/obj/item/robot_model/guard
+	name = "Guard"
 	basic_modules = list(
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/restraints/handcuffs/cable/zipties,
@@ -588,8 +588,8 @@
 		/obj/item/clockwork/weapon/brass_spear,
 		/obj/item/clock_module/ocular_warden,
 		/obj/item/clock_module/vanguard)
-	cyborg_base_icon = "sec"
-	model_select_icon = "security"
+	cyborg_base_icon = "guard"
+	model_select_icon = "guard"
 	can_be_pushed = FALSE
 	hat_offset = 3
 	cyborg_armor = TRUE
@@ -603,15 +603,6 @@
 	bomb = 50
 	acid = 100
 
-// --------------------- Borgi
-/obj/item/robot_model/borgi
-	name = "Borgi"
-	basic_modules = list(
-		/obj/item/assembly/flash/cyborg,
-		/obj/item/borg/charger,
-		/obj/item/borg/cyborghug/peacekeeper)
-	cyborg_base_icon = "borgi"
-	model_select_icon = "standard"
 
 // --------------------- Deathsquad
 /obj/item/robot_model/deathsquad
