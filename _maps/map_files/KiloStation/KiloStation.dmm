@@ -30785,6 +30785,14 @@
 	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
+"hWS" = (
+/obj/structure/table/wood,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/item/candydispenser{
+	pixel_y = 11
+	},
+/turf/open/floor/iron/dark,
+/area/crew_quarters/bar)
 "hWT" = (
 /obj/structure/table,
 /obj/item/paper_bin{
@@ -31486,17 +31494,6 @@
 	},
 /turf/open/floor/iron,
 /area/security/brig)
-"ijm" = (
-/obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = 28
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 1
-	},
-/turf/open/floor/iron/dark,
-/area/quartermaster/storage)
 "iju" = (
 /obj/machinery/mass_driver{
 	dir = 1;
@@ -53864,16 +53861,13 @@
 /area/engine/atmos)
 "pwH" = (
 /obj/structure/table,
-/obj/item/clipboard,
-/obj/item/airlock_painter{
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/obj/item/airlock_painter,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
+/obj/item/candydispenser/engineering{
+	pixel_y = 11
+	},
 /turf/open/floor/iron/dark,
 /area/engine/break_room)
 "pwM" = (
@@ -63079,13 +63073,13 @@
 "sxr" = (
 /obj/machinery/light,
 /obj/structure/table,
-/obj/item/storage/box/bodybags{
-	pixel_y = 5
-	},
 /obj/structure/sign/departments/chemistry{
 	pixel_y = -32
 	},
 /obj/effect/turf_decal/tile/dark/opposingcorners,
+/obj/item/candydispenser/lollipop{
+	pixel_y = 10
+	},
 /turf/open/floor/iron/dark,
 /area/medical/medbay/lobby)
 "sxD" = (
@@ -63113,21 +63107,6 @@
 /obj/item/cardboard_cutout,
 /turf/open/floor/plating,
 /area/maintenance/fore)
-"sxN" = (
-/obj/structure/table/wood,
-/obj/machinery/computer/libraryconsole{
-	pixel_y = 5
-	},
-/obj/effect/decal/cleanable/cobweb,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -26
-	},
-/obj/item/radio/intercom{
-	pixel_y = 22
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted,
-/turf/open/floor/iron/dark,
-/area/crew_quarters/bar)
 "sxV" = (
 /obj/machinery/door/airlock/external{
 	name = "Supply Dock Airlock";
@@ -63674,16 +63653,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/sorting)
-"sGt" = (
-/obj/structure/table,
-/obj/item/radio{
-	desc = "An old handheld radio. You could use it, if you really wanted to.";
-	icon_state = "radio";
-	name = "old radio"
-	},
-/obj/effect/turf_decal/tile/red/opposingcorners,
-/turf/open/floor/iron/showroomfloor,
-/area/crew_quarters/bar/atrium)
 "sGC" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -64668,6 +64637,18 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/main)
+"sVL" = (
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/machinery/firealarm{
+	dir = 8;
+	pixel_x = 28
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 1
+	},
+/obj/machinery/suit_storage_unit/industrial/loader,
+/turf/open/floor/iron/dark,
+/area/quartermaster/storage)
 "sWe" = (
 /obj/structure/table,
 /obj/item/paper_bin{
@@ -65791,6 +65772,17 @@
 	},
 /turf/open/floor/iron/dark,
 /area/storage/tcom)
+"tmS" = (
+/obj/structure/table,
+/obj/item/radio{
+	desc = "An old handheld radio. You could use it, if you really wanted to.";
+	icon_state = "radio";
+	name = "old radio"
+	},
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/machinery/cell_charger,
+/turf/open/floor/iron/showroomfloor,
+/area/crew_quarters/bar/atrium)
 "tmV" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
@@ -74129,6 +74121,19 @@
 	},
 /turf/open/floor/iron/dark,
 /area/bridge)
+"vWw" = (
+/obj/structure/table/wood,
+/obj/effect/decal/cleanable/cobweb,
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -26
+	},
+/obj/item/radio/intercom{
+	pixel_y = 22
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted,
+/obj/machinery/cell_charger,
+/turf/open/floor/iron/dark,
+/area/crew_quarters/bar)
 "vWz" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/cable/yellow{
@@ -98520,7 +98525,7 @@ chS
 xDC
 amA
 wdS
-crP
+jrs
 jrs
 lxw
 amA
@@ -106489,7 +106494,7 @@ tfq
 pcG
 mYI
 btE
-sxN
+vWw
 btT
 gbc
 bug
@@ -108032,7 +108037,7 @@ uRI
 iEg
 btE
 lLG
-geQ
+hWS
 geQ
 tdJ
 geQ
@@ -116773,7 +116778,7 @@ teM
 teM
 wYL
 ouU
-sGt
+tmS
 aKF
 teM
 xxR
@@ -122439,7 +122444,7 @@ sHT
 tKM
 bhH
 bhH
-ijm
+sVL
 ios
 rOZ
 uOB

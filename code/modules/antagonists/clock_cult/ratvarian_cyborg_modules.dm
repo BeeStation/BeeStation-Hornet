@@ -16,7 +16,7 @@
 
 /obj/item/clock_module/attack_self(mob/user)
 	..()
-	if(!is_servant_of_ratvar(user))
+	if(!IS_SERVANT_OF_RATVAR(user))
 		return
 	var/mob/living/silicon/robot/R = user
 	if(!istype(R))

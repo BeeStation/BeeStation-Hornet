@@ -107,7 +107,7 @@ SUBSYSTEM_DEF(traumas)
 		"clowns"    = typecacheof(list(
 			/obj/item/clothing/under/rank/civilian/clown, /obj/item/clothing/shoes/clown_shoes,
 			/obj/item/clothing/mask/gas/clown_hat, /obj/item/instrument/bikehorn,
-			/obj/item/modular_computer/tablet/pda/clown, /obj/item/grown/bananapeel)),
+			/obj/item/modular_computer/tablet/pda/preset/clown, /obj/item/grown/bananapeel)),
 
 		"greytide"  = typecacheof(list(
 			/obj/item/clothing/under/color/grey, /obj/item/melee/baton/cattleprod,
@@ -169,7 +169,6 @@ SUBSYSTEM_DEF(traumas)
 			/obj/item/stack/sheet/brass,
 			/obj/machinery/door/airlock/clockwork,
 			/obj/item/clothing/suit/wizrobe, /obj/item/clothing/head/wizard, /obj/item/spellbook, /obj/item/staff,
-			/obj/item/clothing/suit/space/hardsuit/shielded/wizard, /obj/item/clothing/suit/space/hardsuit/wizard,
 			/obj/item/gun/magic/staff, /obj/item/gun/magic/wand,
 			/obj/item/nullrod, /obj/item/clothing/under/rank/civilian/chaplain)),
 
@@ -208,10 +207,8 @@ SUBSYSTEM_DEF(traumas)
 			/obj/item/reagent_containers/cup/glass/bottle/sake,
 			/obj/item/throwing_star,
 			/obj/item/clothing/head/costume/kitty/genuine,
-			/obj/item/clothing/suit/space/space_ninja,
-			/obj/item/clothing/mask/gas/space_ninja,
-			/obj/item/clothing/shoes/space_ninja,
-			/obj/item/clothing/gloves/space_ninja,
+			/obj/item/clothing/under/syndicate/ninja,
+			/obj/item/clothing/mask/gas/ninja,
 			/obj/item/vibro_weapon,
 			/obj/item/nullrod/scythe/vibro,
 			/obj/item/energy_katana,

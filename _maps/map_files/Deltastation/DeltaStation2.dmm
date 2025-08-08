@@ -12526,6 +12526,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/structure/table/reinforced,
+/obj/item/candydispenser/engineering{
+	pixel_y = 11
+	},
 /turf/open/floor/iron,
 /area/engine/break_room)
 "bGn" = (
@@ -39143,13 +39147,15 @@
 /area/crew_quarters/locker)
 "gDt" = (
 /obj/structure/table,
-/obj/item/storage/firstaid/regular,
 /obj/item/radio/intercom{
 	dir = 8;
 	pixel_x = 28
 	},
 /obj/machinery/light/small{
 	dir = 4
+	},
+/obj/item/candydispenser/lollipop{
+	pixel_y = 10
 	},
 /turf/open/floor/iron,
 /area/medical/medbay/lobby)
@@ -40419,17 +40425,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
-"gUY" = (
-/obj/machinery/newscaster{
-	pixel_x = -32
-	},
-/obj/item/kirbyplants/random,
-/obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/effect/turf_decal/tile/yellow/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/crew_quarters/bar/atrium)
 "gVb" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -47943,15 +47938,6 @@
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/toilet/restrooms)
-"jrv" = (
-/obj/machinery/airalarm/directional/south{
-	pixel_y = -22
-	},
-/obj/machinery/light/small,
-/turf/open/floor/plating{
-	broken = 1
-	},
-/area/medical/morgue)
 "jrz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
@@ -57535,6 +57521,7 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /obj/machinery/digital_clock/directional/south,
+/obj/item/storage/firstaid/regular,
 /turf/open/floor/iron,
 /area/medical/medbay/lobby)
 "mAQ" = (
@@ -60157,6 +60144,14 @@
 	},
 /turf/open/floor/iron/dark,
 /area/bridge)
+"noi" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/item/candydispenser{
+	pixel_y = 11
+	},
+/turf/open/floor/iron/dark,
+/area/crew_quarters/bar)
 "not" = (
 /obj/machinery/door/morgue{
 	name = "Confession Booth";
@@ -72543,6 +72538,11 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/science/research)
+"rnn" = (
+/obj/structure/table/wood,
+/obj/machinery/cell_charger,
+/turf/open/floor/wood,
+/area/library)
 "rnC" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -73896,6 +73896,18 @@
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/engine/engineering)
+"rJp" = (
+/obj/machinery/newscaster{
+	pixel_x = -32
+	},
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/effect/turf_decal/tile/yellow/opposingcorners{
+	dir = 1
+	},
+/obj/machinery/cell_charger,
+/obj/structure/table,
+/turf/open/floor/iron,
+/area/crew_quarters/bar/atrium)
 "rJs" = (
 /obj/structure/closet/athletic_mixed,
 /obj/item/pool/pool_noodle,
@@ -76272,13 +76284,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
-"stM" = (
-/obj/effect/turf_decal/tile/brown/half/contrasted{
-	dir = 4
-	},
-/obj/machinery/camera/directional/north,
-/turf/open/floor/iron,
-/area/quartermaster/storage)
 "stS" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -79215,6 +79220,16 @@
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/security/checkpoint/science/research)
+"tpD" = (
+/obj/machinery/airalarm/directional/south{
+	pixel_y = -22
+	},
+/obj/machinery/light/small,
+/obj/machinery/suit_storage_unit/medical,
+/turf/open/floor/plating{
+	broken = 1
+	},
+/area/medical/morgue)
 "tpE" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -83449,6 +83464,14 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
+"uJZ" = (
+/obj/effect/turf_decal/tile/brown/half/contrasted{
+	dir = 4
+	},
+/obj/machinery/camera/directional/north,
+/obj/machinery/suit_storage_unit/industrial/loader,
+/turf/open/floor/iron,
+/area/quartermaster/storage)
 "uKo" = (
 /obj/machinery/status_display/evac,
 /turf/closed/wall,
@@ -125187,7 +125210,7 @@ jdl
 cfV
 chM
 cjr
-cjs
+rnn
 cps
 cqN
 cpr
@@ -131576,7 +131599,7 @@ rOT
 rOT
 gPF
 fNr
-gUY
+rJp
 aYD
 bdH
 bfd
@@ -132850,7 +132873,7 @@ aDL
 ogs
 aGk
 hTK
-icn
+noi
 tPm
 rOT
 wmK
@@ -136288,7 +136311,7 @@ laY
 jVd
 jce
 geg
-jrv
+tpD
 dCy
 pRu
 wuY
@@ -140036,7 +140059,7 @@ aoE
 pKM
 lkf
 aoF
-stM
+uJZ
 ayB
 azE
 azE

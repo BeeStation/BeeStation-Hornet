@@ -83,7 +83,6 @@
 		return FALSE
 	return unique_enzymes == other.unique_enzymes \
 		&& unique_identity == other.unique_identity \
-		&& unique_features == other.unique_features \
 		&& blood_type == other.blood_type \
 		&& species?.type == other.species?.type \
 		&& real_name == other.real_name
@@ -387,10 +386,23 @@
 		update_instability(FALSE)
 		return
 
-/datum/dna/proc/is_same_as(datum/dna/D)
-	if(unique_identity == D.unique_identity && mutation_index == D.mutation_index && real_name == D.real_name)
-		if(species.type == D.species.type && unique_features == D.unique_features && blood_type == D.blood_type)
-			return TRUE
+/**
+ * Checks if two DNAs are practically the same by comparing their most defining features
+ *
+ * Arguments:
+ * * target_dna The DNA that we are comparing to
+ */
+/datum/dna/proc/is_same_as(datum/dna/target_dna)
+	if( \
+		unique_identity == target_dna.unique_identity \
+		&& mutation_index == target_dna.mutation_index \
+		&& real_name == target_dna.real_name \
+		&& species.type == target_dna.species.type \
+		&& compare_list(features, target_dna.features) \
+		&& blood_type == target_dna.blood_type \
+	)
+		return TRUE
+
 	return FALSE
 
 /datum/dna/proc/update_instability(alert=TRUE)

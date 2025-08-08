@@ -24,15 +24,14 @@ export const prevNextCamera = (cameras, activeCamera) => {
  * Filters cameras, applies search terms and sorts the alphabetically.
  */
 export const selectCameras = (cameras, searchText = '') => {
-  const testSearch = createSearch(searchText, (camera) => camera.name);
-  return flow([
-    // Null camera filter
-    filter((camera) => camera?.name),
-    // Optional search term
-    searchText && filter(testSearch),
-    // Slightly expensive, but way better than sorting in BYOND
-    sortBy((camera) => camera.name),
-  ])(cameras);
+  let queriedCameras = filter(cameras, (camera) => !!camera.name);
+  if (searchText) {
+    const testSearch = createSearch(searchText, (camera) => camera.name);
+    queriedCameras = filter(queriedCameras, testSearch);
+  }
+  queriedCameras = sort(queriedCameras);
+
+  return queriedCameras;
 };
 
 export const CameraConsole = (props) => {

@@ -276,7 +276,7 @@
 /obj/item/storage/box/debugtools/PopulateContents()
 	var/static/items_inside = list(
 		/obj/item/flashlight/emp/debug=1,
-		/obj/item/modular_computer/tablet/pda=1,
+		/obj/item/modular_computer/tablet/pda/preset=1,
 		/obj/item/modular_computer/tablet/preset/advanced=1,
 		/obj/item/storage/belt/military/abductor/full=1,
 		/obj/item/geiger_counter=1,

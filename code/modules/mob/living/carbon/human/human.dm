@@ -70,48 +70,6 @@
 	//...and display them.
 	add_to_all_human_data_huds()
 
-/mob/living/carbon/human/get_stat_tabs()
-	var/list/tabs = ..()
-	if(istype(wear_suit, /obj/item/clothing/suit/space/space_ninja))
-		tabs.Insert(1, "SpiderOS")
-	return tabs
-
-//Ninja Code
-/mob/living/carbon/human/get_stat(selected_tab)
-	if(selected_tab == "SpiderOS")
-		var/list/tab_data = list()
-		var/obj/item/clothing/suit/space/space_ninja/SN = wear_suit
-		if(!SN)
-			return
-		tab_data["SpiderOS Status"] = GENERATE_STAT_TEXT("[SN.s_initialized ? "Initialized" : "Disabled"]")
-		tab_data["Current Time"] = GENERATE_STAT_TEXT("[station_time_timestamp()]")
-		tab_data["divider_spideros"] = GENERATE_STAT_DIVIDER
-		if(SN.s_initialized)
-			//Suit gear
-			tab_data["Energy Charge"] = GENERATE_STAT_TEXT("[round(SN.cell.charge/100)]%")
-			tab_data["Smoke Bombs"] = GENERATE_STAT_TEXT("[SN.s_bombs]")
-			//Ninja status
-			tab_data["Fingerprints"] = GENERATE_STAT_TEXT("[rustg_hash_string(RUSTG_HASH_MD5, dna.unique_identity)]")
-			tab_data["Unique Identity"] = GENERATE_STAT_TEXT("[dna.unique_enzymes]")
-			tab_data["Overall Status"] = GENERATE_STAT_TEXT("[stat > 1 ? "dead" : "[health]% healthy"]")
-			tab_data["Nutrition Status"] = GENERATE_STAT_TEXT("[nutrition]")
-			tab_data["Oxygen Loss"] = GENERATE_STAT_TEXT("[getOxyLoss()]")
-			tab_data["Toxin Levels"] = GENERATE_STAT_TEXT("[getToxLoss()]")
-			tab_data["Burn Severity"] = GENERATE_STAT_TEXT("[getFireLoss()]")
-			tab_data["Brute Trauma"] = GENERATE_STAT_TEXT("[getBruteLoss()]")
-			tab_data["Radiation Levels"] = GENERATE_STAT_TEXT("[radiation] rad")
-			tab_data["Body Temperature"] = GENERATE_STAT_TEXT("[bodytemperature-T0C] degrees C ([bodytemperature*1.8-459.67] degrees F)")
-
-			//Diseases
-			if(diseases.len)
-				tab_data["DivSpiderOs2"] = GENERATE_STAT_DIVIDER
-				tab_data["Viruses"] = GENERATE_STAT_TEXT("")
-				for(var/thing in diseases)
-					var/datum/disease/D = thing
-					tab_data["* [D.name]"] = GENERATE_STAT_TEXT("Type: [D.spread_text], Stage: [D.stage]/[D.max_stages], Possible Cure: [D.cure_text]")
-		return tab_data
-	return ..()
-
 /mob/living/carbon/human/get_stat_tab_status()
 	var/list/tab_data = ..()
 	var/obj/item/tank/target_tank = internal || external
@@ -128,8 +86,8 @@
 	if(mind)
 		var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling)
-			tab_data["Chemical Storage"] = GENERATE_STAT_TEXT("[changeling.chem_charges]/[changeling.chem_storage]")
-			tab_data["Absorbed DNA"] = GENERATE_STAT_TEXT("[changeling.absorbedcount]")
+			tab_data["Chemical Storage"] = GENERATE_STAT_TEXT("[changeling.chem_charges]/[changeling.total_chem_storage]")
+			tab_data["Absorbed DNA"] = GENERATE_STAT_TEXT("[changeling.absorbed_count]")
 	return tab_data
 
 // called when something steps onto a human
@@ -367,7 +325,7 @@
 	var/require_thickness = (injection_flags & INJECT_CHECK_PENETRATE_THICK)
 	for(var/obj/item/clothing/iter_clothing in clothingonpart(the_part))
 		// If it has armour, it has enough thickness to block basic things
-		if(!require_thickness && (iter_clothing.get_armor().get_rating(MELEE) >= 10 || iter_clothing.get_armor().get_rating(BULLET) >= 10))
+		if(!require_thickness && (iter_clothing.get_armor().get_rating(MELEE) >= 20 || iter_clothing.get_armor().get_rating(BULLET) >= 20))
 			if (user && (injection_flags & INJECT_TRY_SHOW_ERROR_MESSAGE))
 				to_chat(user, span_alert("The clothing on [p_their()] [the_part.name] is too thick!"))
 			return FALSE
@@ -440,7 +398,7 @@
 					threatcount += 2
 
 	//Check for dresscode violations
-	if(istype(head, /obj/item/clothing/head/wizard) || istype(head, /obj/item/clothing/head/helmet/space/hardsuit/wizard))
+	if(istype(head, /obj/item/clothing/head/wizard))
 		threatcount += 2
 
 	//Check for nonhuman scum

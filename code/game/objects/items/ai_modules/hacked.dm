@@ -1,9 +1,10 @@
 /obj/item/ai_module/syndicate // This one doesn't inherit from ion boards because it doesn't call ..() in transmit_laws. ~Miauw
 	name = "Hacked AI Module"
 	desc = "An AI Module for hacking additional laws to an AI."
+	laws = list("")
 
 /obj/item/ai_module/syndicate/attack_self(mob/user)
-	var/new_law = tgui_input_text(user, "Enter a new core law for the AI.", "Freeform Law Entry", laws[1], max_length = CONFIG_GET(number/max_law_len), multiline = TRUE)
+	var/new_law = tgui_input_text(user, "Enter a new law for the AI", "Freeform Law Entry", laws[1], max_length = CONFIG_GET(number/max_law_len), multiline = TRUE)
 	if(!new_law || !user.is_holding(src))
 		return
 	if(CHAT_FILTER_CHECK(new_law))
@@ -44,7 +45,7 @@
 	if(!istype(malf_candidate)) //If you are using it on cyborg upload console or a cyborg
 		to_chat(sender, span_warning("You should use [src] on an AI upload console or the AI core itself."))
 		return
-	if(IS_MALF(malf_candidate)) //Already malf
+	if(IS_MALF_AI(malf_candidate)) //Already malf
 		to_chat(sender, span_warning("Unknown error occurred. Upload process aborted."))
 		return
 

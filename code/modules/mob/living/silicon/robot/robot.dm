@@ -730,6 +730,8 @@
 	if (cell) //Sanity check.
 		cell.forceMove(T)
 		cell = null
+	// Call destroy() before deleting to ensure that the borg's brain stays connected
+	Destroy()
 	qdel(src)
 
 /mob/living/silicon/robot/proc/notify_ai(notifytype, oldname, newname)
@@ -888,7 +890,7 @@
 	return
 
 /mob/living/silicon/robot/proc/has_model()
-	if(!model || istype(model, /obj/item/robot_model))
+	if(!model || model.type == /obj/item/robot_model)
 		return FALSE
 	else
 		return TRUE
@@ -899,10 +901,10 @@
 	if(hands)
 		hands.icon_state = model.model_select_icon
 
-	if(model.can_be_pushed)
-		status_flags |= CANPUSH
-	else
-		status_flags &= ~CANPUSH
+	REMOVE_TRAITS_IN(src, MODULE_TRAIT)
+	if(model.module_traits)
+		for(var/trait in model.module_traits)
+			ADD_TRAIT(src, trait, MODULE_TRAIT)
 
 	if(model.clean_on_move)
 		AddElement(/datum/element/cleaning)
@@ -925,7 +927,6 @@
 
 	hat_offset = model.hat_offset
 
-	magpulse = model.magpulsing
 	updatename()
 
 /mob/living/silicon/robot/proc/place_on_head(obj/item/new_hat)

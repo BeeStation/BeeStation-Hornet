@@ -21,10 +21,10 @@ export const Radio = (props) => {
     subspaceSwitchable,
   } = data;
   const tunedChannel = RADIO_CHANNELS.find((channel) => channel.freq === frequency);
-  const channels = map((value, key) => ({
+  const channels = map(data.channels, (value, key) => ({
     name: key,
     status: !!value,
-  }))(data.channels);
+  }));
   return (
     <Window width={360} height={106 + (channels.len > 0 ? 6 + channels.len * 21 : 24)}>
       <Window.Content>

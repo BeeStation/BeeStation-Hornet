@@ -19,7 +19,6 @@
 		return MAP_ERROR
 	var/turf/landing_turf = pick(possible_spawns)
 	var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates(
-		role = /datum/role_preference/midround_ghost/prisoner,
 		check_jobban = ROLE_PRISONER,
 		poll_time = 30 SECONDS,
 		role_name_text = "prisoner",
@@ -33,7 +32,7 @@
 
 /proc/spawn_prisoners(turf/landing_turf, list/candidates, list/spawned_mobs)
 	var/job_check = 0
-	for (var/mob/H in SSticker.mode.current_players[CURRENT_LIVING_PLAYERS])
+	for (var/mob/H in SSdynamic.current_players[CURRENT_LIVING_PLAYERS])
 		if(H.mind)
 			var/datum/mind/M = H.mind
 			if (M.assigned_role == JOB_NAME_SECURITYOFFICER || M.assigned_role == JOB_NAME_HEADOFSECURITY)

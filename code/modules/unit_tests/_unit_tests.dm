@@ -40,7 +40,6 @@
 #endif
 
 #include "food_edibility_check.dm"
-#include "gamemode_sanity.dm"
 #include "gas_transfer.dm"
 #include "greyscale_config.dm"
 #include "handcuff_tests.dm"
@@ -56,6 +55,7 @@
 #include "metabolizing.dm"
 #include "mindbound_actions.dm"
 #include "missing_icons.dm"
+#include "modsuit.dm"
 #include "mutant_organs.dm"
 #include "ntnetwork_tests.dm"
 #include "organs.dm"

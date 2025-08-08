@@ -45,7 +45,7 @@
 	jobtype = /datum/job/geneticist
 
 	id = /obj/item/card/id/job/geneticist
-	belt = /obj/item/modular_computer/tablet/pda/geneticist
+	belt = /obj/item/modular_computer/tablet/pda/preset/geneticist
 	ears = /obj/item/radio/headset/headset_med
 	uniform = /obj/item/clothing/under/rank/medical/geneticist
 	shoes = /obj/item/clothing/shoes/sneakers/white

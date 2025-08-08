@@ -345,7 +345,7 @@
 	log_objective(owner, research_objective.explanation_text)
 
 	var/num_heads = 0
-	for(var/mob/player in SSticker.mode.current_players[CURRENT_LIVING_PLAYERS])
+	for(var/mob/player in SSdynamic.current_players[CURRENT_LIVING_PLAYERS])
 		if(player.client && (player.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)))
 			num_heads++
 	// Give normal sacrifice objective
@@ -393,7 +393,7 @@
  */
 /datum/antagonist/heretic/proc/possible_sacrifice_targets(include_current_targets = TRUE)
 	. = list()
-	for(var/mob/living/carbon/human/player in SSticker.mode.current_players[CURRENT_LIVING_PLAYERS])
+	for(var/mob/living/carbon/human/player in SSdynamic.current_players[CURRENT_LIVING_PLAYERS])
 		if(!player.mind || !player.client || player.client.is_afk())
 			continue
 		var/datum/mind/possible_target = player.mind
@@ -756,7 +756,7 @@
 	desc = "Utilize your connection to the beyond to unlock new eldritch abilities"
 	icon_icon = 'icons/obj/heretic.dmi'
 	button_icon_state = "book_open"
-	background_icon_state = "bg_ecult"
+	background_icon_state = "bg_heretic"
 
 /datum/action/antag_info/heretic/New(Target)
 	. = ..()

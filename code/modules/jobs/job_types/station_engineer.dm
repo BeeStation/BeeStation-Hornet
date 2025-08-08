@@ -40,7 +40,7 @@
 
 	id =  /obj/item/card/id/job/station_engineer
 	belt = /obj/item/storage/belt/utility/full/engi
-	l_pocket = /obj/item/modular_computer/tablet/pda/station_engineer
+	l_pocket = /obj/item/modular_computer/tablet/pda/preset/station_engineer
 	ears = /obj/item/radio/headset/headset_eng
 	uniform = /obj/item/clothing/under/rank/engineering/engineer
 	shoes = /obj/item/clothing/shoes/workboots
@@ -57,11 +57,12 @@
 	name = "Station Engineer (Gloves)"
 	gloves = /obj/item/clothing/gloves/color/yellow
 
-/datum/outfit/job/engineer/gloved/rig
-	name = "Station Engineer (Hardsuit)"
-	mask = /obj/item/clothing/mask/breath
-	suit = /obj/item/clothing/suit/space/hardsuit/engine
+/datum/outfit/job/engineer/mod
+	name = "Station Engineer (MODsuit)"
+
 	suit_store = /obj/item/tank/internals/oxygen
+	back = /obj/item/mod/control/pre_equipped/engineering
 	head = null
+	mask = /obj/item/clothing/mask/breath
 	internals_slot = ITEM_SLOT_SUITSTORE
 

@@ -11,8 +11,16 @@
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/paramedic
 
-	base_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_CLONING, ACCESS_MECH_MEDICAL, ACCESS_MAINT_TUNNELS,
-						ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_AUX_BASE)
+	base_access = list(
+		ACCESS_MEDICAL,
+		ACCESS_MORGUE,
+		ACCESS_CLONING,
+		ACCESS_MECH_MEDICAL,
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_EVA,
+		ACCESS_EXTERNAL_AIRLOCKS,
+		ACCESS_AUX_BASE
+	)
 	extra_access = list(ACCESS_SURGERY, ACCESS_MINERAL_STOREROOM, ACCESS_VIROLOGY)
 
 	departments = DEPT_BITFLAG_MED
@@ -40,7 +48,7 @@
 	jobtype = /datum/job/paramedic
 
 	id = /obj/item/card/id/job/paramedic
-	belt = /obj/item/modular_computer/tablet/pda/paramedic
+	belt = /obj/item/modular_computer/tablet/pda/preset/paramedic
 	ears = /obj/item/radio/headset/headset_med
 	glasses = /obj/item/clothing/glasses/hud/health/sunglasses/degraded
 	gloves = /obj/item/clothing/gloves/color/latex/nitrile

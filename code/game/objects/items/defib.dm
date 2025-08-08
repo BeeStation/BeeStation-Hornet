@@ -1,5 +1,6 @@
 //backpack item
 #define HALFWAYCRITDEATH ((HEALTH_THRESHOLD_CRIT + HEALTH_THRESHOLD_DEAD) * 0.5)
+#define DEFIB_CAN_HURT(source) (source.combat || (source.req_defib && !source.defib.safety))
 
 /obj/item/defibrillator
 	name = "defibrillator"
@@ -38,14 +39,13 @@
 	. = ..()
 	paddles = make_paddles()
 	update_power()
-	return
+	RegisterSignal(paddles, COMSIG_DEFIBRILLATOR_SUCCESS, PROC_REF(on_defib_success))
 
 /obj/item/defibrillator/loaded/Initialize(mapload) //starts with hicap
 	. = ..()
 	paddles = make_paddles()
 	cell = new(src)
 	update_power()
-	return
 
 /obj/item/defibrillator/fire_act(exposed_temperature, exposed_volume)
 	. = ..()
@@ -234,7 +234,7 @@
 			return FALSE
 
 
-/obj/item/defibrillator/proc/cooldowncheck(mob/user)
+/obj/item/defibrillator/proc/cooldowncheck()
 	addtimer(CALLBACK(src, PROC_REF(finish_charging)), cooldown_duration)
 
 /obj/item/defibrillator/proc/finish_charging()
@@ -248,6 +248,12 @@
 	paddles.cooldown = FALSE
 	paddles.update_appearance()
 	update_power()
+
+/obj/item/defibrillator/proc/on_defib_success(obj/item/shockpaddles/source)
+	deductcharge(source.revivecost)
+	source.cooldown = TRUE
+	cooldowncheck()
+	return COMPONENT_DEFIB_STOP
 
 /obj/item/defibrillator/compact
 	name = "compact defibrillator"
@@ -313,7 +319,8 @@
 	var/cooldown = FALSE
 	var/busy = FALSE
 	var/obj/item/defibrillator/defib
-	var/req_defib = TRUE
+	var/req_defib = TRUE // Whether or not the paddles require a defibrilator object
+	var/recharge_time = 6 SECONDS // Only applies to defibs that do not require a defibrilator. See: do_success
 	var/combat = FALSE //If it penetrates armor and gives additional functionality
 	var/grab_ghost = TRUE
 	var/tlimit = DEFIB_TIME_LIMIT * 10
@@ -364,14 +371,16 @@
 		else
 			snap_back()
 
-/obj/item/shockpaddles/proc/recharge(var/time)
+/obj/item/shockpaddles/proc/recharge(time)
 	if(req_defib || !time)
 		return
 	cooldown = TRUE
 	update_appearance()
-	sleep(time)
-	var/turf/T = get_turf(src)
-	T.audible_message(span_notice("[src] beeps: Unit is recharged."))
+	addtimer(CALLBACK(src, PROC_REF(finish_recharge)), time)
+
+/obj/item/shockpaddles/proc/finish_recharge()
+	var/turf/current_turf = get_turf(src)
+	current_turf.audible_message("<span class='notice'>[src] beeps: Unit is recharged.</span>")
 	playsound(src, 'sound/machines/defib_ready.ogg', 50, FALSE)
 	cooldown = FALSE
 	update_appearance()
@@ -483,7 +492,25 @@
 		H.notify_ghost_cloning("Your heart is being defibrillated!")
 	else if(can_defib(H))
 		H.notify_ghost_cloning("Your heart is being defibrillated!", source = src)
+
 	do_help(H, user)
+
+/// Called whenever the paddles successfuly shock something
+/obj/item/shockpaddles/proc/do_success()
+	if(busy)
+		busy = FALSE
+
+	update_appearance()
+	if(SEND_SIGNAL(src, COMSIG_DEFIBRILLATOR_SUCCESS) & COMPONENT_DEFIB_STOP)
+		return
+	recharge(recharge_time)
+
+/// Called whenever the paddles fail to shock something after a do_x proc
+/obj/item/shockpaddles/proc/do_cancel()
+	if(busy)
+		busy = FALSE
+
+	update_appearance()
 
 /obj/item/shockpaddles/proc/can_defib(mob/living/carbon/H)
 	var/obj/item/organ/heart = H.get_organ_by_type(/obj/item/organ/heart)
@@ -500,17 +527,15 @@
 		return
 	return TRUE
 
-/obj/item/shockpaddles/proc/shock_touching(dmg, mob/H)
-	if(isliving(H.pulledby))		//CLEAR!
+/obj/item/shockpaddles/proc/shock_pulling(dmg, mob/H)
+	if(isliving(H.pulledby)) //CLEAR!
 		var/mob/living/M = H.pulledby
-		if(M.electrocute_act(30, H))
-			M.visible_message(span_danger("[M] is electrocuted by [M.p_their()] contact with [H]!"))
+		if(M.electrocute_act(dmg, H))
+			M.visible_message("<span class='danger'>[M] is electrocuted by [M.p_their()] contact with [H]!</span>")
 			M.emote("scream")
 
 /obj/item/shockpaddles/proc/do_disarm(mob/living/M, mob/living/user)
-	if(req_defib && defib.safety)
-		return
-	if(!req_defib && !combat)
+	if(!DEFIB_CAN_HURT(src))
 		return
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
@@ -527,50 +552,38 @@
 	if(HAS_TRAIT(M,MOB_ORGANIC))
 		M.emote("gasp")
 	log_combat(user, M, "zapped", src)
-	if(req_defib)
-		defib.deductcharge(revivecost)
-		cooldown = TRUE
-	busy = FALSE
-	update_icon()
-	if(req_defib)
-		defib.cooldowncheck(user)
-	else
-		recharge(60)
+	do_success()
 
 /obj/item/shockpaddles/proc/do_harm(mob/living/carbon/H, mob/living/user)
-	if(req_defib && defib.safety)
+	if(!DEFIB_CAN_HURT(src))
 		return
-	if(!req_defib && !combat)
-		return
-	user.visible_message(span_warning("[user] begins to place [src] on [H]'s chest."),
-		span_warning("You overcharge the paddles and begin to place them onto [H]'s chest..."))
+	user.visible_message("<span class='warning'>[user] begins to place [src] on [H]'s chest.</span>",
+		"<span class='warning'>You overcharge the paddles and begin to place them onto [H]'s chest...</span>")
 	busy = TRUE
 	update_icon()
-	if(do_after(user, 15, target = H))
-		user.visible_message(span_notice("[user] places [src] on [H]'s chest."),
-			span_warning("You place [src] on [H]'s chest and begin to charge them."))
+	if(do_after(user, 1.5 SECONDS, H, extra_checks = CALLBACK(src, PROC_REF(is_wielded))))
+		user.visible_message("<span class='notice'>[user] places [src] on [H]'s chest.</span>",
+			"<span class='warning'>You place [src] on [H]'s chest and begin to charge them.</span>")
 		var/turf/T = get_turf(defib)
 		playsound(src, 'sound/machines/defib_charge.ogg', 50, 0)
 		if(req_defib)
 			T.audible_message(span_warning("\The [defib] lets out an urgent beep and lets out a steadily rising hum..."))
 		else
-			user.audible_message(span_warning("[src] let out an urgent beep."))
-		if(do_after(user, 15, target = H)) //Takes longer due to overcharging
+			user.audible_message("<span class='warning'>[src] let out an urgent beep.</span>")
+		if(do_after(user, 1.5 SECONDS, H, extra_checks = CALLBACK(src, PROC_REF(is_wielded)))) //Takes longer due to overcharging
 			if(!H)
-				busy = FALSE
-				update_icon()
+				do_cancel()
 				return
 			if(H && H.stat == DEAD)
 				to_chat(user, span_warning("[H] is dead."))
 				playsound(src, 'sound/machines/defib_failed.ogg', 50, 0)
-				busy = FALSE
-				update_icon()
+				do_cancel()
 				return
 			user.visible_message(span_boldannounce("<i>[user] shocks [H] with \the [src]!"), span_warning("You shock [H] with \the [src]!"))
 			playsound(src, 'sound/machines/defib_zap.ogg', 100, 1, -1)
 			playsound(src, 'sound/weapons/egloves.ogg', 100, 1, -1)
 			H.emote("scream")
-			shock_touching(45, H)
+			shock_pulling(45, H)
 			if(H.can_heartattack() && !H.undergoing_cardiac_arrest())
 				if(!H.stat)
 					H.visible_message(span_warning("[H] thrashes wildly, clutching at [H.p_their()] chest!"),
@@ -580,37 +593,28 @@
 			log_combat(user, H, "overloaded the heart of", defib)
 			H.Paralyze(100)
 			H.Jitter(100)
-			if(req_defib)
-				defib.deductcharge(revivecost)
-				cooldown = TRUE
-			busy = FALSE
-			update_icon()
-			if(!req_defib)
-				recharge(60)
-			if(req_defib && (defib.cooldowncheck(user)))
-				return
-	busy = FALSE
-	update_icon()
+			do_success()
+			return
+	do_cancel()
 
 /obj/item/shockpaddles/proc/do_help(mob/living/carbon/H, mob/living/user)
 	user.visible_message(span_warning("[user] begins to place [src] on [H]'s chest."), span_warning("You begin to place [src] on [H]'s chest..."))
 	busy = TRUE
-	update_icon()
-	if(do_after(user, 30, target = H)) //beginning to place the paddles on patient's chest to allow some time for people to move away to stop the process
-		user.visible_message(span_notice("[user] places [src] on [H]'s chest."), span_warning("You place [src] on [H]'s chest."))
+	update_appearance()
+	if(do_after(user, 3 SECONDS, H, extra_checks = CALLBACK(src, PROC_REF(is_wielded)))) //beginning to place the paddles on patient's chest to allow some time for people to move away to stop the process
+		user.visible_message("<span class='notice'>[user] places [src] on [H]'s chest.</span>", "<span class='warning'>You place [src] on [H]'s chest.</span>")
 		playsound(src, 'sound/machines/defib_charge.ogg', 75, 0)
 		var/total_burn	= 0
 		var/total_brute	= 0
 		var/tplus = world.time - H.timeofdeath	//length of time spent dead
 		var/obj/item/organ/heart = H.get_organ_by_type(/obj/item/organ/heart)
-		if(do_after(user, 20, target = H)) //placed on chest and short delay to shock for dramatic effect, revive time is 5sec total
+		if(do_after(user, 2 SECONDS, target = H, extra_checks = CALLBACK(src, PROC_REF(is_wielded)))) //placed on chest and short delay to shock for dramatic effect, revive time is 5sec total
 			for(var/obj/item/carried_item in H.contents)
 				if(istype(carried_item, /obj/item/clothing/suit/space))
 					if((!combat && !req_defib) || (req_defib && !defib.combat))
 						user.audible_message(span_warning("[req_defib ? "[defib]" : "[src]"] buzzes: Patient's chest is obscured. Operation aborted."))
 						playsound(src, 'sound/machines/defib_failed.ogg', 50, 0)
-						busy = FALSE
-						update_icon()
+						do_cancel()
 						return
 			if(H.stat == DEAD)
 				H.visible_message(span_warning("[H]'s body convulses a bit."))
@@ -618,7 +622,7 @@
 				playsound(src, 'sound/machines/defib_zap.ogg', 75, 1, -1)
 				total_brute	= H.getBruteLoss()
 				total_burn	= H.getFireLoss()
-				shock_touching(30, H)
+				shock_pulling(30, H)
 				var/failed
 
 				if (H.suiciding)
@@ -668,14 +672,8 @@
 					H.Jitter(100)
 					SEND_SIGNAL(H, COMSIG_LIVING_MINOR_SHOCK)
 					log_combat(user, H, "revived", defib)
-				if(req_defib)
-					defib.deductcharge(revivecost)
-					cooldown = 1
-				update_icon()
-				if(req_defib)
-					defib.cooldowncheck(user)
-				else
-					recharge(60)
+				do_success()
+				return
 			else if (!H.get_organ_by_type(/obj/item/organ/heart))
 				user.visible_message(span_warning("[req_defib ? "[defib]" : "[src]"] buzzes: Patient's heart is missing. Operation aborted."))
 				playsound(src, 'sound/machines/defib_failed.ogg', 50, 0)
@@ -690,8 +688,10 @@
 			else
 				user.visible_message(span_warning("[req_defib ? "[defib]" : "[src]"] buzzes: Patient is not in a valid state. Operation aborted."))
 				playsound(src, 'sound/machines/defib_failed.ogg', 50, 0)
-	busy = FALSE
-	update_icon()
+	do_cancel()
+
+/obj/item/shockpaddles/proc/is_wielded()
+	return HAS_TRAIT(src, TRAIT_WIELDED)
 
 /obj/item/shockpaddles/cyborg
 	name = "cyborg defibrillator paddles"
@@ -728,3 +728,4 @@
 #undef SNAP_INTERACT
 
 #undef HALFWAYCRITDEATH
+#undef DEFIB_CAN_HURT
