@@ -119,3 +119,10 @@
 #define COMSIG_MOB_TAKE_CONSCIOUSNESS_DAMAGE "take_consciousness_damage"
 /// From /mob/living/proc/Unconscious(amount): (mob/living/source, amount, override)
 #define COMSIG_MOB_BECOME_UNCONSCIOUS "become_unconscious"
+
+//==========================
+// Health / Injuries
+//==========================
+
+/// Called on a mob when their brain's consciousness rating is updated.
+#define COMSIG_MOB_BRAIN_CONSCIOUSNESS_UPDATE "brain_conscious_update"

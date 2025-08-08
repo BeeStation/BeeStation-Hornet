@@ -20,6 +20,9 @@
 
 	organ_traits = list(TRAIT_ADVANCEDTOOLUSER)
 
+	/// Amount of consciousness provided by this brain
+	var/consciousness_rating = BRAIN_DAMAGE_DEATH
+
 	var/suicided = FALSE
 	var/mob/living/brain/brainmob = null
 	var/brain_death = FALSE //if the brainmob was intentionally killed by attacking the brain after removal, or by severe braindamage
@@ -244,6 +247,9 @@
 	// - Headache
 	// - Light-headedness
 	// - Confusion
+	consciousness_rating = initial(consciousness_rating) * (hypoxia / maxHealth)
+	if (owner)
+		SEND_SIGNAL(owner, COMSIG_MOB_BRAIN_CONSCIOUSNESS_UPDATE, consciousness_rating)
 
 /obj/item/organ/brain/check_damage_thresholds(mob/M)
 	. = ..()

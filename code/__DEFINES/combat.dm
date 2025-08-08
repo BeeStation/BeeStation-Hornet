@@ -390,3 +390,6 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 
 /// Injury absorption duration
 #define INJURY_ABSORPTION_DURATION (30 SECONDS)
+
+/// Maximum amount of hypoxia damage an organ can take per tick
+#define MAX_HYPOXIA_DAMAGE_PER_TICK 2

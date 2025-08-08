@@ -220,6 +220,23 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 
 	if(organ_flags & ORGAN_FAILING)
 		return
+	// Get the circulation rating
+	if (owner)
+		var/circulation_rating = owner.blood.get_circulation_proportion()
+		// How much hypoxia damage do we want to deal?
+		var/desired_hypoxia_damage = circulation_rating < 0 ? INFINITY : 150 * (1 - circulation_rating)
+		var/damage_dealt = max(desired_hypoxia_damage - hypoxia, MAX_HYPOXIA_DAMAGE_PER_TICK * delta_time)
+		var/hypoxia_damage = min(damage_dealt, maxHealth - hypoxia)
+		// Take the damage and update the effects of it
+		hypoxia += hypoxia_damage
+		update_hypoxia(hypoxia)
+		// If we are maxed out on hypoxia, then we start to take regular decay
+		var/decay_damage = damage_dealt - hypoxia
+		if (decay_damage > 0)
+			applyOrganDamage(decay_damage)
+		// Prevent healing while dying of hypoxia
+		if (damage_dealt > 0)
+			return
 	///Damage decrements by a percent of its maxhealth
 	var/healing_amount = healing_factor
 	///Damage decrements again by a percent of its maxhealth, up to a total of 4 extra times depending on the owner's health
