@@ -461,6 +461,9 @@ const VampireGuide = (_props) => {
               <Box inline textColor="blue">
                 Mindshields.
               </Box>{' '}
+              <br /> <br />
+              <b>NOTE:</b> You can only vasaslize a certain amount of people based on how many crewmembers there are! The{' '}
+              <i>Tremere</i> clan has this limit increased.
             </Box>
           )}
         </Stack.Item>
