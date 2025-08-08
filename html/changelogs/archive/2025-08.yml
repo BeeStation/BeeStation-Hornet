@@ -42,6 +42,28 @@
   - tweak: Lowers the min pop required for dragon and blob to spawn.
   - tweak: All dynamic midround rulesets are equally weighted.
 2025-08-06:
+  Nakalon:
+  - bugfix: Fixed Atmospheric external airlock access in Box Station
   mrmanlikesbt, Mothblocks, Bomberman66Dev, san7890:
   - code_imp: modifies the ASSERT() macro
   - code_imp: adds trait helpers for easily adding a list of traits to something
+2025-08-07:
+  Rukofamicom:
+  - tweak: Autotransfer will now trigger automatically once a certain amount of time
+      has passed again even with no votes due to players heckling others for using
+      the system as intended.
+  - tweak: Dead players an antagonists are no longer factored into the calculation
+      for how many votes are required to leave. If the number of living non-antagonist
+      crew is dwindling, votes to begin a new round should be given a heavier weight
+      to offset total antagonist takeover situations.
+  TsunamiAnt:
+  - rscadd: Added candy dispensers to every station!
+  - rscadd: Added syndicate gumballs.
+  mrmanlikesbt:
+  - bugfix: fixed scientist abductor tools
+  rkz, MrMelbert, Arkatos:
+  - refactor: refactor changeling antagonist
+  - rscadd: changelings now use a radial when swapping bodies
+  - rscadd: more features for changeling_profile datums
+  - bugfix: You can no longer override the ling DNA you're currently disguised as.
+      This was apparently always intended but broken for ages.

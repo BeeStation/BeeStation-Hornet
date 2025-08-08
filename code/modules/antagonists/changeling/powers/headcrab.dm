@@ -11,16 +11,10 @@
 
 /datum/action/changeling/headcrab/sting_action(mob/user)
 	set waitfor = FALSE
-	if(alert("Are we sure we wish to kill ourself and create a headslug?",,"Yes", "No") != "Yes")
+	var/confirm = tgui_alert(user, "Are we sure we wish to destroy our body and create a headslug?", "Last Resort", list("Yes", "No"))
+	if(confirm != "Yes")
 		return
-	if(isliving(user))
-		var/mob/living/L = user
-		var/mob/living/puller = L.pulledby
-		if(puller)
-			var/datum/antagonist/changeling/other_ling = IS_CHANGELING(puller)
-			if(other_ling?.isabsorbing)
-				to_chat(user, span_warning("Our last resort is being disrupted by another changeling!"))
-				return
+
 	var/turf/T = user.loc
 	if(!T || !isopenturf(T) || !IS_CHANGELING(user))
 		to_chat(user, span_warning("You can't become a headslug right now!"))

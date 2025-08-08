@@ -1470,17 +1470,6 @@
 /mob/living/proc/on_fall()
 	return
 
-/mob/living/lingcheck()
-	if(mind)
-		var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)
-		if(changeling)
-			if(changeling.changeling_speak)
-				return LINGHIVE_LING
-			return LINGHIVE_OUTSIDER
-	if(mind?.linglink)
-		return LINGHIVE_LINK
-	return LINGHIVE_NONE
-
 /mob/living/forceMove(atom/destination)
 	stop_pulling()
 	if(buckled)

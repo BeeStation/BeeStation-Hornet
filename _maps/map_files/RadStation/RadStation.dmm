@@ -8186,6 +8186,9 @@
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 6
 	},
+/obj/item/candydispenser{
+	pixel_y = 11
+	},
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "cCS" = (
@@ -14850,10 +14853,13 @@
 /turf/open/space/basic,
 /area/solar/starboard/aft)
 "eNH" = (
-/obj/item/kirbyplants/random,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/item/candydispenser/engineering{
+	pixel_y = 11
+	},
+/obj/structure/table,
 /turf/open/floor/iron/dark,
 /area/engine/engine_room)
 "eNK" = (
@@ -60969,8 +60975,11 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "uaR" = (
-/obj/item/kirbyplants/random,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/item/candydispenser/lollipop{
+	pixel_y = 10
+	},
+/obj/structure/table/glass,
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
 "uaW" = (

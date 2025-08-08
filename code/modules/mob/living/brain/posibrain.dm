@@ -227,3 +227,6 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 	var/datum/job/posibrain/pj = SSjob.GetJob(JOB_NAME_POSIBRAIN)
 	pj.remove_posi_slot(src)
 	return ..()
+
+/obj/item/mmi/posibrain/add_mmi_overlay()
+	return
