@@ -39,6 +39,8 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = IDLE_POWER_USE
 	layer = NUCLEAR_REACTOR_LAYER
+	resistance_flags = INDESTRUCTIBLE|ACID_PROOF|FIRE_PROOF
+	density = TRUE
 
 	var/depth = 0
 
@@ -74,19 +76,25 @@
 	shielding_input = new/obj/machinery/atmospherics/components/unary/gasrig/shielding_input(offset_loc, TRUE)
 	shielding_input.dir = WEST
 	shielding_input.set_init_directions()
+	RegisterSignal(shielding_input, COMSIG_PARENT_QDELETING, PROC_REF(kill_children))
 	offset_loc = locate(x + 1, y, z)
 	fracking_input = new/obj/machinery/atmospherics/components/unary/gasrig/fracking_input(offset_loc, TRUE)
 	fracking_input.dir = EAST
 	fracking_input.set_init_directions()
+	RegisterSignal(fracking_input, COMSIG_PARENT_QDELETING, PROC_REF(kill_children))
 	offset_loc = locate(x, y - 1, z)
 	gas_output = new/obj/machinery/atmospherics/components/unary/gasrig/gas_output(offset_loc, TRUE)
 	gas_output.dir = SOUTH
 	gas_output.set_init_directions()
+	RegisterSignal(gas_output, COMSIG_PARENT_QDELETING, PROC_REF(kill_children))
 
 /obj/machinery/atmospherics/gasrig/core/Initialize(mapload)
 	. = ..()
 	init_inputs()
 	update_pipenets()
+
+/obj/machinery/atmospherics/gasrig/core/proc/kill_children()
+	Destroy()
 
 /obj/machinery/atmospherics/gasrig/core/Destroy()
 	shielding_input.Destroy()
@@ -103,6 +111,12 @@
 	approach_set_depth()
 	update_pipenets()
 
+/obj/machinery/atmospherics/gasrig/core/examine(mob/user)
+	. = ..()
+	if(needs_repairs)
+		. += span_warning("Some components have been damaged beyond repair. Use plasteel sheets to replace them.")
+	if(health < GASRIG_MAX_HEALTH)
+		. += "It is damaged. Use a welder to repair it."
 
 /obj/machinery/atmospherics/gasrig/core/proc/get_shield_damage(datum/gas_mixture/air)
 	var/datum/gas_mixture/temp_air = new
@@ -308,6 +322,10 @@
 	shielding_input.update_parents()
 	fracking_input.update_parents()
 	gas_output.update_parents()
+
+/obj/machinery/atmospherics/components/unary/gasrig/
+	resistance_flags = INDESTRUCTIBLE|ACID_PROOF|FIRE_PROOF
+	density = TRUE
 
 /obj/machinery/atmospherics/components/unary/gasrig/shielding_input
 	name = "AGR shield gas input port"

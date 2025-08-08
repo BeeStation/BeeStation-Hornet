@@ -53,7 +53,7 @@ export const AtmosGasRigTemplate = (props) => {
               }}
             />
             <br />
-            Set Depth: (K):
+            Set Depth:
             <br />
             <NumberInput
               animated
