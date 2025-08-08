@@ -11,6 +11,10 @@
 /datum/unit_test/blindness/Run()
 	var/mob/living/carbon/human/dummy = allocate(/mob/living/carbon/human/consistent)
 	var/obj/item/clothing/glasses/blindfold/blindfold = new(dummy.loc)
+
+	// Initialize the dummy's mind - this is what's missing!
+	dummy.mind_initialize()
+
 	TEST_ASSERT(!dummy.is_blind(), "Dummy was blind on initialize, and shouldn't be.")
 
 	// Become blind
@@ -70,6 +74,9 @@
 /datum/unit_test/nearsightedness/Run()
 	var/mob/living/carbon/human/dummy = allocate(/mob/living/carbon/human/consistent)
 	var/obj/item/clothing/glasses/regular/glasses = allocate(/obj/item/clothing/glasses/regular)
+
+	// Initialize the dummy's mind
+	dummy.mind_initialize()
 
 	// Become quirk nearsighted
 	// Have to do a transfer here so we don't get glasses
