@@ -22,9 +22,11 @@
 /datum/computer_file/program/gasrig_monitor/ui_data(mob/user)
 	if(gasrig == null)
 		..()
+		return
 	gasrig.ui_data(user)
 
 /datum/computer_file/program/gasrig_monitor/ui_act(action, params)
 	if(gasrig == null)
 		..()
+		return
 	gasrig.ui_act(action, params)
