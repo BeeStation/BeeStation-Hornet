@@ -545,11 +545,11 @@
 
 	if(opened)
 		if(wiresexposed)
-			add_overlay("ov-opencover +w")
+			add_overlay("[model.special_light_key]-opencover +w")
 		else if(cell)
-			add_overlay("ov-opencover +c")
+			add_overlay("[model.special_light_key]-opencover +c")
 		else
-			add_overlay("ov-opencover -c")
+			add_overlay("[model.special_light_key]-opencover -c")
 	if(hat)
 		var/mutable_appearance/head_overlay = hat.build_worn_icon(default_layer = 20, default_icon_file = 'icons/mob/clothing/head/default.dmi')
 		head_overlay.pixel_y += hat_offset
