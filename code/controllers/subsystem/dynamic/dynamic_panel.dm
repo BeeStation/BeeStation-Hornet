@@ -98,6 +98,7 @@
 
 	data["current_midround_points"] = SSdynamic.midround_points
 	data["midround_grace_period"] = SSdynamic.midround_grace_period / (1 MINUTES)
+	data["midround_failure_stallout"] = SSdynamic.midround_failure_stallout / (1 MINUTES)
 
 	data["living_delta"] = SSdynamic.midround_living_delta
 	data["dead_delta"] = SSdynamic.midround_dead_delta
@@ -306,7 +307,9 @@
 			var/result = SSdynamic.execute_ruleset(midround_ruleset)
 			message_admins("[key_name(usr)] forced the midround ruleset ([midround_ruleset]) to execute - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
 			log_dynamic("[key_name(usr)] forced the midround ruleset ([midround_ruleset]) to execute - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
+			SSdynamic.midround_executed_rulesets += SSdynamic.midround_chosen_ruleset
 			SSdynamic.midround_chosen_ruleset = null
+			return TRUE
 
 		if("set_midround_points")
 			var/new_points = params["new_points"]
@@ -316,10 +319,16 @@
 			log_dynamic("[key_name(usr)] set the midround points to [new_points]")
 			return TRUE
 		if("set_midround_grace_period")
-			var/new_grace_period = params["new_grace_period"] MINUTES
-			SSdynamic.midround_grace_period = new_grace_period
-			message_admins("[key_name(usr)] set the midround graceperiod to [new_grace_period]")
-			log_dynamic("[key_name(usr)] set the midround graceperiod to [new_grace_period]")
+			var/new_grace_period = params["new_grace_period"]
+			SSdynamic.midround_grace_period = new_grace_period MINUTES
+			message_admins("[key_name(usr)] set the midround grace period to [new_grace_period] minutes")
+			log_dynamic("[key_name(usr)] set the midround grace period to [new_grace_period] minutes")
+			return TRUE
+		if("set_midround_failure_stallout")
+			var/new_midround_stallout = params["new_midround_stallout"]
+			SSdynamic.midround_failure_stallout = new_midround_stallout MINUTES
+			message_admins("[key_name(usr)] set the midround stallout time to [new_midround_stallout] minutes")
+			log_dynamic("[key_name(usr)] set the midround grace period to [new_midround_stallout] minutes")
 			return TRUE
 
 		if("set_midround_living_delta")

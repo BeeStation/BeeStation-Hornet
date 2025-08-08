@@ -134,7 +134,7 @@
 	severity = DYNAMIC_MIDROUND_HEAVY
 	antag_datum = /datum/antagonist/wizard
 	points_cost = 50
-	weight = 2
+	weight = 4
 
 /datum/dynamic_ruleset/midround/ghost/wizard/get_poll_icon()
 	return /obj/item/clothing/head/wizard
@@ -162,7 +162,7 @@
 	drafted_players_amount = 3
 	points_cost = 50
 	minimum_players_required = 20
-	weight = 1
+	weight = 4
 	use_spawn_locations = FALSE
 	flags = CANNOT_REPEAT
 
@@ -196,8 +196,8 @@
 	severity = DYNAMIC_MIDROUND_HEAVY
 	antag_datum = /datum/antagonist/blob
 	points_cost = 50
-	minimum_players_required = 20
-	weight = 6
+	minimum_players_required = 13
+	weight = 4
 	use_spawn_locations = FALSE
 	flags = CANNOT_REPEAT
 
@@ -266,7 +266,8 @@
 	severity = DYNAMIC_MIDROUND_HEAVY
 	antag_datum = /datum/antagonist/space_dragon
 	points_cost = 40
-	weight = 5
+	weight = 4
+	minimum_players_required = 10
 	flags = CANNOT_REPEAT
 
 /datum/dynamic_ruleset/midround/ghost/space_dragon/get_poll_icon()
@@ -292,10 +293,10 @@
 
 /datum/dynamic_ruleset/midround/ghost/ninja
 	name = "Space Ninja"
-	severity = DYNAMIC_MIDROUND_MEDIUM
+	severity = DYNAMIC_MIDROUND_MEDIUM | DYNAMIC_MIDROUND_HEAVY
 	antag_datum = /datum/antagonist/ninja
 	points_cost = 40
-	weight = 6
+	weight = 4
 	flags = CANNOT_REPEAT
 
 /datum/dynamic_ruleset/midround/ghost/ninja/get_poll_icon()
@@ -321,10 +322,10 @@
 
 /datum/dynamic_ruleset/midround/ghost/nightmare
 	name = "Nightmare"
-	severity = DYNAMIC_MIDROUND_MEDIUM
+	severity = DYNAMIC_MIDROUND_LIGHT | DYNAMIC_MIDROUND_MEDIUM
 	antag_datum = /datum/antagonist/nightmare
-	points_cost = 30
-	weight = 6
+	points_cost = 40
+	weight = 4
 
 /datum/dynamic_ruleset/midround/ghost/nightmare/get_poll_icon()
 	return /obj/item/light_eater
@@ -358,7 +359,7 @@
 	antag_datum = /datum/antagonist/abductor/agent
 	drafted_players_amount = 2
 	points_cost = 30
-	weight = 6
+	weight = 4
 	use_spawn_locations = FALSE
 
 	var/has_made_leader = FALSE
@@ -390,7 +391,7 @@
 	severity = DYNAMIC_MIDROUND_MEDIUM
 	antag_datum = /datum/antagonist/abductor/scientist/solo
 	points_cost = 30
-	weight = 6
+	weight = 4
 	use_spawn_locations = FALSE
 
 	var/datum/team/abductor_team/team
@@ -413,10 +414,10 @@
 
 /datum/dynamic_ruleset/midround/ghost/revenant
 	name = "Revenant"
-	severity = DYNAMIC_MIDROUND_MEDIUM
+	severity = DYNAMIC_MIDROUND_LIGHT | DYNAMIC_MIDROUND_MEDIUM
 	antag_datum = /datum/antagonist/revenant
 	points_cost = 30
-	weight = 6
+	weight = 4
 
 /datum/dynamic_ruleset/midround/ghost/revenant/get_poll_icon()
 	return /mob/living/simple_animal/revenant
@@ -458,7 +459,7 @@
 
 /datum/dynamic_ruleset/midround/ghost/spiders
 	name = "Spider Infestation"
-	severity = DYNAMIC_MIDROUND_MEDIUM
+	severity = DYNAMIC_MIDROUND_MEDIUM | DYNAMIC_MIDROUND_HEAVY
 	antag_datum = /datum/antagonist/spider
 	drafted_players_amount = 3
 	points_cost = 40
@@ -516,7 +517,7 @@
 
 /datum/dynamic_ruleset/midround/ghost/swarmer
 	name = "Swarmer"
-	severity = DYNAMIC_MIDROUND_MEDIUM
+	severity = DYNAMIC_MIDROUND_MEDIUM | DYNAMIC_MIDROUND_HEAVY
 	antag_datum = /datum/antagonist/swarmer
 	points_cost = 40
 	weight = 4

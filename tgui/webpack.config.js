@@ -21,6 +21,7 @@ const createStats = (verbose) => ({
   performance: false,
   timings: verbose,
   version: verbose,
+  errorDetails: true,
 });
 
 module.exports = (env = {}, argv) => {
@@ -40,6 +41,7 @@ module.exports = (env = {}, argv) => {
       filename: '[name].bundle.js',
       chunkFilename: '[name].bundle.js',
       chunkLoadTimeout: 15000,
+      publicPath: '/',
     },
     resolve: {
       extensions: ['.tsx', '.ts', '.js', '.jsx'],
