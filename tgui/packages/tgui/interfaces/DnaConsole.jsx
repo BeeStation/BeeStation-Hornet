@@ -1,5 +1,4 @@
 import { filter, uniqBy } from 'common/collections';
-import { flow } from 'common/fp';
 import { classes } from 'common/react';
 import { capitalize } from 'common/string';
 import { resolveAsset } from '../assets';
@@ -473,7 +472,7 @@ const StorageMutations = (props) => {
 const StorageChromosomes = (props) => {
   const { data, act } = useBackend();
   const chromos = data.chromoStorage ?? [];
-  const uniqueChromos = uniqBy((chromo) => chromo.Name)(chromos);
+  const uniqueChromos = uniqBy(chromos, (chromo) => chromo.Name);
   const chromoName = data.view.storageChromoName;
   const chromo = chromos.find((chromo) => chromo.Name === chromoName);
   return (
@@ -547,10 +546,10 @@ const MutationInfo = (props) => {
   }
   const savedToConsole = mutationStorage.find((x) => isSameMutation(x, mutation));
   const savedToDisk = diskMutations.find((x) => isSameMutation(x, mutation));
-  const combinedMutations = flow([uniqBy((mutation) => mutation.Name), filter((x) => x.Name !== mutation.Name)])([
-    ...diskMutations,
-    ...mutationStorage,
-  ]);
+  const combinedMutations = filter(
+    uniqBy([...diskMutations, ...mutationStorage], (mutation) => mutation.Name),
+    (x) => x.Name !== mutation.Name
+  );
   return (
     <>
       <LabeledList>

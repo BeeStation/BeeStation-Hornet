@@ -502,7 +502,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	return ..()
 
 /atom/movable/screen/alert/clockwork/clocksense/process()
-	var/datum/antagonist/servant_of_ratvar/servant_antagonist = is_servant_of_ratvar(owner)
+	var/datum/antagonist/servant_of_ratvar/servant_antagonist = IS_SERVANT_OF_RATVAR(owner)
 	if(!(servant_antagonist?.team))
 		return
 	desc = "Stored Power - <b>[display_power(GLOB.clockcult_power)]</b>.<br>"
@@ -552,6 +552,21 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 	name = "Low Blood Charge"
 	desc = "Your blood's electric charge is running low, find a source of charge for your blood. Use a recharging station found in robotics or the dormitory bathrooms, or eat some Ethereal-friendly food."
 	icon_state = "etherealcharge"
+
+//MODsuit unique
+/atom/movable/screen/alert/nocore
+	name = "Missing Core"
+	desc = "Unit has no core. No modules available until a core is reinstalled. Robotics may provide assistance."
+	icon_state = "no_cell"
+
+/atom/movable/screen/alert/emptycell/plasma
+	name = "Out of Power"
+	desc = "Unit's plasma core has no charge remaining. No modules available until plasma core is recharged. \
+		Unit can be refilled through plasma ore."
+
+/atom/movable/screen/alert/lowcell/plasma
+	name = "Low Charge"
+	desc = "Unit's plasma core is running low. Unit can be refilled through plasma ore."
 
 //Need to cover all use cases - emag, illegal upgrade module, malf AI hack, traitor cyborg
 /atom/movable/screen/alert/hacked

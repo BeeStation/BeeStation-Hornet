@@ -26,7 +26,8 @@ const storestyle = {
 
 type Info = {
   true_name: string;
-  // TODO: changeling refactor from tg
+  // hive_name: string;
+  // TODO: changeling refactor from tg //Nah pluh we need the memory system
   // stolen_antag_info: string;
   // memories: Memory[];
   objectives: Objective[];
@@ -58,7 +59,7 @@ export const AntagInfoChangeling = (_props) => {
 };
 
 /*
-TODO: changeling refactor from tg
+TODO: changeling refactor from tg // MEMORY system, for yaknow "MEMORIESSECTION"??
 <Stack.Item grow={3}>
   <Stack fill>
     <Stack.Item grow basis={0}>

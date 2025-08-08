@@ -13473,6 +13473,10 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/power/smes/engineering,
+/obj/item/candydispenser/engineering{
+	pixel_y = 20;
+	pixel_x = -5
+	},
 /turf/open/floor/iron/large,
 /area/engine/engineering)
 "gSP" = (
@@ -13754,12 +13758,8 @@
 	},
 /obj/structure/table/wood,
 /obj/effect/turf_decal/siding/wood,
-/obj/item/plate{
-	pixel_y = 3
-	},
-/obj/item/food/donkpocket/pizza{
-	pixel_x = -1;
-	pixel_y = 4
+/obj/item/candydispenser{
+	pixel_y = 11
 	},
 /turf/open/floor/carpet/green,
 /area/crew_quarters/cafeteria)
@@ -15520,11 +15520,11 @@
 /turf/open/floor/plating,
 /area/science/mixing)
 "hXM" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
 	},
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
@@ -16125,6 +16125,9 @@
 	dir = 6
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "iry" = (
@@ -19221,6 +19224,9 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "jWU" = (
@@ -19467,10 +19473,7 @@
 	dir = 1;
 	light_color = "#7AC3FF"
 	},
-/obj/item/storage/crayons{
-	pixel_x = 3;
-	pixel_y = 4
-	},
+/obj/machinery/cell_charger,
 /turf/open/floor/carpet/green,
 /area/crew_quarters/cafeteria)
 "kcF" = (
@@ -21389,6 +21392,9 @@
 	dir = 8
 	},
 /obj/machinery/chem_master,
+/obj/item/candydispenser/lollipop{
+	pixel_y = 21
+	},
 /turf/open/floor/iron,
 /area/medical/apothecary)
 "leF" = (
@@ -35035,6 +35041,7 @@
 	},
 /obj/machinery/portable_atmospherics/canister/plasma,
 /obj/machinery/atmospherics/components/unary/portables_connector,
+/obj/effect/mapping_helpers/atmos_auto_connect,
 /turf/open/floor/iron/dark,
 /area/science/server)
 "suO" = (
@@ -38265,6 +38272,7 @@
 /turf/open/floor/iron/dark,
 /area/hallway/primary/aft)
 "uef" = (
+/obj/machinery/libraryscanner,
 /turf/open/floor/plating,
 /area/library/abandoned)
 "ueQ" = (
@@ -43632,12 +43640,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/wood,
 /obj/effect/turf_decal/siding/wood,
-/obj/item/reagent_containers/condiment/peppermill{
-	pixel_y = 28
-	},
-/obj/item/reagent_containers/condiment/saltshaker{
-	pixel_y = 23
-	},
 /obj/item/paicard,
 /turf/open/floor/carpet/green,
 /area/crew_quarters/cafeteria)
@@ -45482,9 +45484,6 @@
 /obj/effect/decal/cleanable/food/flour,
 /obj/structure/disposalpipe/segment{
 	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
 	},
 /obj/structure/rack,
 /obj/item/stack/package_wrap,

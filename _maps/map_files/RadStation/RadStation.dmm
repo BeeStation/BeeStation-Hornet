@@ -8186,6 +8186,9 @@
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 6
 	},
+/obj/item/candydispenser{
+	pixel_y = 11
+	},
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "cCS" = (
@@ -13489,6 +13492,17 @@
 	},
 /turf/open/floor/iron,
 /area/bridge)
+"emx" = (
+/obj/machinery/suit_storage_unit/industrial/loader,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/machinery/airalarm/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/quartermaster/storage)
 "emC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/trash/cheesie,
@@ -14850,10 +14864,13 @@
 /turf/open/space/basic,
 /area/solar/starboard/aft)
 "eNH" = (
-/obj/item/kirbyplants/random,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/item/candydispenser/engineering{
+	pixel_y = 11
+	},
+/obj/structure/table,
 /turf/open/floor/iron/dark,
 /area/engine/engine_room)
 "eNK" = (
@@ -28038,13 +28055,6 @@
 /obj/machinery/door/airlock/public/glass/incinerator/atmos_interior,
 /turf/open/floor/engine,
 /area/engine/atmospherics_engine)
-"jfn" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/siding/wideplating/dark{
-	dir = 10
-	},
-/turf/open/floor/iron/cafeteria,
-/area/crew_quarters/kitchen)
 "jfJ" = (
 /obj/machinery/suit_storage_unit/rd,
 /turf/open/floor/iron,
@@ -35348,6 +35358,16 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/wall,
 /area/security/main)
+"lJt" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/siding/wideplating/dark{
+	dir = 10
+	},
+/obj/machinery/cell_charger{
+	desc = "It charges power cells. There is a small tag on it: Public tools charger. Please do no remove"
+	},
+/turf/open/floor/iron/cafeteria,
+/area/crew_quarters/kitchen)
 "lJA" = (
 /obj/machinery/atmospherics/components/trinary/filter/atmos/plasma{
 	dir = 1
@@ -48254,6 +48274,14 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
+"pTl" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/open/floor/iron,
+/area/quartermaster/storage)
 "pTp" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/siding/wideplating/dark{
@@ -53192,18 +53220,6 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/hydroponics)
-"rCP" = (
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
-	},
-/obj/machinery/airalarm/directional/east,
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/two,
-/turf/open/floor/iron/dark,
-/area/quartermaster/storage)
 "rCR" = (
 /obj/structure/cable/yellow,
 /obj/structure/cable/yellow{
@@ -60966,8 +60982,11 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "uaR" = (
-/obj/item/kirbyplants/random,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/item/candydispenser/lollipop{
+	pixel_y = 10
+	},
+/obj/structure/table/glass,
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
 "uaW" = (
@@ -95910,7 +95929,7 @@ krB
 krB
 tgI
 krf
-haM
+pTl
 cfA
 fVm
 cfA
@@ -96680,7 +96699,7 @@ nFK
 eyo
 krB
 lvd
-rCP
+emx
 yij
 bsk
 oBB
@@ -111837,7 +111856,7 @@ cbV
 pyP
 omR
 cqL
-jfn
+lJt
 kok
 bZA
 mWi

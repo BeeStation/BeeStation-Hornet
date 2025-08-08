@@ -581,7 +581,7 @@
 	icon_state = "cubalibreglass"
 
 /datum/reagent/consumable/ethanol/cuba_libre/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	if(M?.mind?.has_antag_datum(/datum/antagonist/rev)) //Cuba Libre, the traditional drink of revolutions! Heals revolutionaries.
+	if(IS_REVOLUTIONARY(M)) //Cuba Libre, the traditional drink of revolutions! Heals revolutionaries.
 		M.adjustBruteLoss(-1 * REM * delta_time, 0)
 		M.adjustFireLoss(-1 * REM * delta_time, 0)
 		M.adjustToxLoss(-1 * REM * delta_time, 0)
@@ -816,7 +816,7 @@
 /datum/reagent/consumable/ethanol/beepsky_smash/on_mob_metabolize(mob/living/carbon/M)
 	if(HAS_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE))
 		metabolization_rate = 0.8
-	if(M.mind != null && !HAS_TRAIT(M.mind, TRAIT_LAW_ENFORCEMENT_METABOLISM))
+	if(!HAS_MIND_TRAIT(M, TRAIT_LAW_ENFORCEMENT_METABOLISM))
 		B = new()
 		M.gain_trauma(B, TRAUMA_RESILIENCE_ABSOLUTE)
 	ADD_TRAIT(M, TRAIT_NOBLOCK, type) //sorry sec, but you dont get a special stam heal to help with blocking
@@ -824,7 +824,7 @@
 
 /datum/reagent/consumable/ethanol/beepsky_smash/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	M.Jitter(2)
-	if(M.mind != null && HAS_TRAIT(M.mind, TRAIT_LAW_ENFORCEMENT_METABOLISM))
+	if(HAS_MIND_TRAIT(M, TRAIT_LAW_ENFORCEMENT_METABOLISM))
 		M.adjustStaminaLoss(-10 * REM * delta_time, 0)
 		if(DT_PROB(10, delta_time))
 			new /datum/hallucination/items_other(M)
@@ -840,7 +840,7 @@
 	return ..()
 
 /datum/reagent/consumable/ethanol/beepsky_smash/overdose_start(mob/living/carbon/M)
-	if(M.mind != null && !HAS_TRAIT(M.mind, TRAIT_LAW_ENFORCEMENT_METABOLISM))
+	if(!HAS_MIND_TRAIT(M, TRAIT_LAW_ENFORCEMENT_METABOLISM))
 		M.gain_trauma(/datum/brain_trauma/mild/phobia/security, TRAUMA_RESILIENCE_BASIC)
 
 
@@ -1441,9 +1441,10 @@
 	icon_state = "changelingsting"
 
 /datum/reagent/consumable/ethanol/changelingsting/on_mob_life(mob/living/carbon/target, delta_time, times_fired)
-	var/datum/antagonist/changeling/changeling = target.mind?.has_antag_datum(/datum/antagonist/changeling)
-	changeling?.chem_charges += metabolization_rate * REM * delta_time
-	changeling?.chem_charges = clamp(changeling.chem_charges, 0, changeling.chem_storage)
+	if(target.mind) //Changeling Sting assists in the recharging of changeling chemicals.
+		var/datum/antagonist/changeling/changeling = target.mind.has_antag_datum(/datum/antagonist/changeling)
+		if(changeling)
+			changeling.adjust_chemicals(metabolization_rate * REM * delta_time)
 	return ..()
 
 /datum/reagent/consumable/ethanol/irishcarbomb
@@ -1963,7 +1964,7 @@
 
 /datum/reagent/consumable/ethanol/quadruple_sec/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	//Securidrink in line with the Screwdriver for engineers or Nothing for mimes
-	if(M.mind != null && HAS_TRAIT(M.mind, TRAIT_LAW_ENFORCEMENT_METABOLISM))
+	if(HAS_MIND_TRAIT(M, TRAIT_LAW_ENFORCEMENT_METABOLISM))
 		M.heal_bodypart_damage(0.5 * REM * delta_time, 0.5 * REM * delta_time)
 		M.adjust_nutrition(-1 * REM * delta_time)
 		. = TRUE
@@ -1987,7 +1988,7 @@
 
 /datum/reagent/consumable/ethanol/quintuple_sec/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	//Securidrink in line with the Screwdriver for engineers or Nothing for mimes but STRONG..
-	if(M.mind != null && HAS_TRAIT(M.mind, TRAIT_LAW_ENFORCEMENT_METABOLISM))
+	if(HAS_MIND_TRAIT(M, TRAIT_LAW_ENFORCEMENT_METABOLISM))
 		M.heal_bodypart_damage(1 * REM * delta_time, 1 * REM * delta_time, 1 * REM * delta_time)
 		M.adjust_nutrition(-2 * REM * delta_time)
 		. = TRUE

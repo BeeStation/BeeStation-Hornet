@@ -80,7 +80,6 @@
 		progs_to_store += new /datum/computer_file/program/job_management(src)
 
 	for (var/datum/computer_file/program/prog in progs_to_store)
-		prog.required_access = list()
 		prog.transfer_access = list()
 		store_file(prog)
 

@@ -308,7 +308,7 @@
 					/obj/item/grenade/smokebomb,
 					/obj/item/grenade/smokebomb,
 					/obj/item/grenade/smokebomb,
-					/obj/item/pen/sleepy,
+					/obj/item/pen/paralytic,
 					/obj/item/grenade/chem_grenade/incendiary)
 	crate_name = "emergency crate"
 	crate_type = /obj/structure/closet/crate/internals
@@ -2115,6 +2115,18 @@
 					/obj/item/circuitboard/machine/monkey_recycler,
 					/obj/item/circuitboard/machine/processor/slime)
 	crate_name = "xenobiology starter crate"
+	crate_type = /obj/structure/closet/crate/secure/science
+
+/datum/supply_pack/science/mod_core
+	name = "MOD core Crate"
+	desc = "Three cores, perfect for any MODsuit construction! Naturally harvested™, of course."
+	cost = 600
+	access = ACCESS_ROBOTICS
+	access_budget = ACCESS_ROBOTICS
+	contains = list(/obj/item/mod/core/standard,
+		/obj/item/mod/core/standard,
+		/obj/item/mod/core/standard)
+	crate_name = "MOD core crate"
 	crate_type = /obj/structure/closet/crate/secure/science
 
 //////////////////////////////////////////////////////////////////////////////

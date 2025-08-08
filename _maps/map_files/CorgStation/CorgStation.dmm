@@ -7700,11 +7700,11 @@
 /area/security/brig)
 "cgw" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/libraryconsole{
-	pixel_y = 2
-	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
+	},
+/obj/machinery/cell_charger{
+	desc = "It charges power cells. There is a small tag on it: Public tools charger. Please do no remove"
 	},
 /turf/open/floor/wood,
 /area/library)
@@ -27351,6 +27351,16 @@
 	},
 /turf/open/floor/iron/dark,
 /area/hallway/secondary/command)
+"iJQ" = (
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/obj/item/candydispenser/engineering{
+	pixel_y = 11
+	},
+/obj/structure/table/glass,
+/turf/open/floor/iron,
+/area/engine/engineering)
 "iJX" = (
 /obj/structure/sign/poster/random{
 	pixel_y = 32
@@ -28693,6 +28703,9 @@
 /obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -3;
 	pixel_y = 14
+	},
+/obj/machinery/cell_charger{
+	desc = "It charges power cells. There is a small tag on it: Public tools charger. Please do no remove"
 	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/bar)
@@ -51426,13 +51439,13 @@
 /turf/open/floor/iron,
 /area/science/shuttle)
 "qHD" = (
-/obj/structure/chair/fancy/comfy{
-	buildstackamount = 0;
-	color = "#742925"
-	},
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 1
 	},
+/obj/item/candydispenser/lollipop{
+	pixel_y = 10
+	},
+/obj/structure/table/glass,
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
 "qHP" = (
@@ -56355,6 +56368,9 @@
 	},
 /obj/structure/table/wood/poker,
 /obj/item/toy/cards/deck,
+/obj/item/candydispenser{
+	pixel_y = 11
+	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/bar)
 "sqo" = (
@@ -96432,7 +96448,7 @@ vWF
 ahc
 rjL
 dBS
-bBc
+iJQ
 amI
 kpi
 wXO

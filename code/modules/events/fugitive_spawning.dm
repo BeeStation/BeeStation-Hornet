@@ -7,7 +7,6 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 	max_occurrences = 1
 	min_players = 20
 	earliest_start = 30 MINUTES //deadchat sink, lets not even consider it early on.
-	gamemode_blacklist = list("nuclear")
 	cannot_spawn_after_shuttlecall = TRUE
 
 /datum/round_event/ghost_role/fugitives
@@ -29,7 +28,6 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 		return MAP_ERROR
 	var/turf/landing_turf = pick(possible_spawns)
 	var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates(
-		role = /datum/role_preference/midround_ghost/fugitive,
 		check_jobban = ROLE_FUGITIVE,
 		poll_time = 30 SECONDS,
 		role_name_text = "fugitive",
@@ -105,7 +103,6 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 	var/datum/fugitive_type/hunter/backstory = GLOB.hunter_types[admin_select_backstory(GLOB.hunter_types)]
 	var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates(
 		question = "The Fugitive Hunters are looking for a [backstory.name]. Would you like to be considered for this role?",
-		role = /datum/role_preference/midround_ghost/fugitive_hunter,
 		check_jobban = ROLE_FUGITIVE_HUNTER,
 		poll_time = 15 SECONDS,
 		role_name_text = backstory.name,

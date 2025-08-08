@@ -190,6 +190,7 @@
 		landminemode.activate()
 		return
 	active = TRUE
+	det_time *= (0.1 * (rand(6, 14))) //between 60% and 140% of set time
 	addtimer(CALLBACK(src, PROC_REF(prime)), isnull(delayoverride)? det_time : delayoverride)
 
 /obj/item/grenade/chem_grenade/prime(mob/living/lanced_by)
@@ -199,6 +200,23 @@
 	. = ..()
 	if(!.)
 		return
+
+	for(var/obj/item/slime_extract/S in beakers)
+		if(S.Uses)
+			for(var/obj/item/reagent_containers/cup/G in beakers)
+				G.reagents.trans_to(S, G.reagents.total_volume)
+
+			//If there is still a core (sometimes it's used up)
+			//and there are reagents left, behave normally,
+			//otherwise drop it on the ground for timed reactions like gold.
+
+			if(S)
+				if(S.reagents?.total_volume)
+					for(var/obj/item/reagent_containers/cup/G in beakers)
+						S.reagents.trans_to(G, S.reagents.total_volume)
+				else
+					S.forceMove(get_turf(src))
+					no_splash = TRUE
 
 	var/list/datum/reagents/reactants = list()
 	for(var/obj/item/reagent_containers/cup/G in beakers)
@@ -222,50 +240,10 @@
 
 	qdel(src)
 
-//Large chem grenades accept slime cores and use the appropriately.
-/obj/item/grenade/chem_grenade/large
-	name = "large grenade"
-	desc = "A custom made large grenade. Larger splash range and increased ignition temperature compared to basic grenades. Fits exotic and bluespace based containers."
-	casedesc = "This casing affects a larger area than the basic model and can fit exotic containers, including slime cores and bluespace beakers. Heats contents by 25 K upon ignition."
-	icon_state = "large_grenade"
-	allowed_containers = list(
-		/obj/item/reagent_containers/cup,
-		/obj/item/reagent_containers/condiment,
-		/obj/item/reagent_containers/cup/glass,
-	)
-	banned_containers = list()
-	affected_area = 5
-	ignition_temp = 25 // Large grenades are slightly more effective at setting off heat-sensitive mixtures than smaller grenades.
-	threatscale = 1.1	// 10% more effective.
-
-/obj/item/grenade/chem_grenade/large/prime(mob/living/lanced_by)
-	if(stage != GRENADE_READY || dud_flags)
-		active = FALSE
-		update_icon()
-		return
-
-	for(var/obj/item/slime_extract/S in beakers)
-		if(S.Uses)
-			for(var/obj/item/reagent_containers/cup/G in beakers)
-				G.reagents.trans_to(S, G.reagents.total_volume)
-
-			//If there is still a core (sometimes it's used up)
-			//and there are reagents left, behave normally,
-			//otherwise drop it on the ground for timed reactions like gold.
-
-			if(S)
-				if(S.reagents?.total_volume)
-					for(var/obj/item/reagent_containers/cup/G in beakers)
-						S.reagents.trans_to(G, S.reagents.total_volume)
-				else
-					S.forceMove(get_turf(src))
-					no_splash = TRUE
-	..()
-
 	//I tried to just put it in the allowed_containers list but
 	//if you do that it must have reagents.  If you're going to
 	//make a special case you might as well do it explicitly. -Sayu
-/obj/item/grenade/chem_grenade/large/attackby(obj/item/I, mob/user, params)
+/obj/item/grenade/chem_grenade/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/slime_extract) && stage == GRENADE_WIRED)
 		if(!user.transferItemToLoc(I, src))
 			return

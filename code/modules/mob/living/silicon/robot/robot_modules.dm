@@ -91,7 +91,7 @@
 		for(var/obj/item/emag_module in emag_modules)
 			add_module(emag_module, FALSE, FALSE)
 	// Ratvar
-	if(is_servant_of_ratvar(robot) && !robot.ratvar)	//It just works :^)
+	if(IS_SERVANT_OF_RATVAR(robot) && !robot.ratvar)	//It just works :^)
 		robot.SetRatvar(TRUE, FALSE)
 	if(robot.ratvar)
 		for(var/obj/item/ratvar_module in ratvar_modules)
@@ -316,7 +316,6 @@
 		/obj/item/stack/sheet/brass/cyborg)
 	cyborg_base_icon = "engineer"
 	model_select_icon = "engineer"
-	magpulsing = TRUE
 	hat_offset = -4
 
 // --------------------- Janitor
@@ -395,7 +394,7 @@
 		/obj/item/clock_module/vanguard)
 	cyborg_base_icon = "medical"
 	model_select_icon = "medical"
-	can_be_pushed = FALSE
+	module_traits = list(TRAIT_PUSHIMMUNE)
 	hat_offset = 3
 
 /obj/item/robot_model/medical/be_transformed_to(obj/item/robot_model/old_model)
@@ -496,7 +495,7 @@
 		/obj/item/clock_module/sigil_submission)
 	cyborg_base_icon = "peace"
 	model_select_icon = "standard"
-	can_be_pushed = FALSE
+	module_traits = list(TRAIT_PUSHIMMUNE)
 	hat_offset = -2
 
 // --------------------- Service
@@ -585,7 +584,7 @@
 		/obj/item/clock_module/vanguard)
 	cyborg_base_icon = "sec"
 	model_select_icon = "security"
-	can_be_pushed = FALSE
+	module_traits = list(TRAIT_PUSHIMMUNE)
 	hat_offset = 3
 
 /obj/item/robot_model/security/respawn_consumable(mob/living/silicon/robot/robot, coeff = 1)
@@ -627,7 +626,7 @@
 	ratvar_modules = list(/obj/item/clock_module/abscond)
 	cyborg_base_icon = "centcom"
 	model_select_icon = "malf"
-	can_be_pushed = FALSE
+	module_traits = list(TRAIT_PUSHIMMUNE)
 	hat_offset = 3
 
 // ------------------------------------------ Syndicate
@@ -647,7 +646,7 @@
 		/obj/item/pinpointer/syndicate_cyborg)
 	cyborg_base_icon = "synd_sec"
 	model_select_icon = "malf"
-	can_be_pushed = FALSE
+	module_traits = list(TRAIT_PUSHIMMUNE)
 	hat_offset = 3
 
 /obj/item/robot_model/syndicate/rebuild_modules()
@@ -687,7 +686,7 @@
 		/obj/item/organ_storage)
 	cyborg_base_icon = "synd_medical"
 	model_select_icon = "malf"
-	can_be_pushed = FALSE
+	module_traits = list(TRAIT_PUSHIMMUNE)
 	hat_offset = 3
 
 // --------------------- Syndicate Saboteur
@@ -720,8 +719,7 @@
 		)
 	cyborg_base_icon = "synd_engi"
 	model_select_icon = "malf"
-	can_be_pushed = FALSE
-	magpulsing = TRUE
+	module_traits = list(TRAIT_PUSHIMMUNE, TRAIT_NEGATES_GRAVITY)
 	hat_offset = -4
 	canDispose = TRUE
 

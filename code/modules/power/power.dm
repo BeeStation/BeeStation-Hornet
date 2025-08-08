@@ -162,6 +162,7 @@
 	SHOULD_CALL_PARENT(TRUE)
 
 	if(machine_stat & BROKEN)
+		update_appearance()
 		return
 	if(powered(power_channel))
 		if(machine_stat & NOPOWER)

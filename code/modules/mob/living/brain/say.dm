@@ -19,8 +19,5 @@
 	else
 		return ..()
 
-/mob/living/brain/lingcheck()
-	return LINGHIVE_NONE
-
 /mob/living/brain/treat_message(message)
 	return treat_message_min(message)
