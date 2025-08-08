@@ -90,5 +90,54 @@
   - bugfix: You will no longer attempt to place C4/X4 that is no longer in your hands
       because you've already done something else with it. This means no more accidentally
       bombing your bag of explosives.
+  - balance: Morphs can now see living mobs through walls and while vent crawling,
+      better enabling them to set up ambushes.
+  - balance: Morphs can now initiate a weaker ambush that doesn't inject venom and
+      knocks down for less time by attacking mobs while transformed. This type of
+      ambush will flash silicons.
+  - balance: Successfully ambushing as a morph, or being attacked while disguised
+      will now force the morph out of disguise for at least 20 seconds
+  - balance: Morph venom now causes worse confusion in mobs affected by the venom
+  - tweak: Morphs can no longer carry humanoid mobs and will instead digest them on
+      the spot which is interruptible and takes three seconds. Morphs also no longer
+      remove clothing items from humanoids they digest, meaning your suit sensors
+      can still locate you.
+  - tweak: Ambushes now set the morph on a melee attack cooldown while also stunning
+      their target for 1 second, giving victims a brief window to understand they
+      have been ambushed before beginning to take damage.
+  - tweak: Morphs now do burn damage instead of brute (to represent acidic attacks),
+      but the damage dealt is unchanged. This makes the damage they deal to cyborgs
+      harder to repair, and also makes them much more threatening to IPCs who are
+      immune to the venom effects.
+  - tweak: 'Morph movespeed has been reversed: They are now slow when transformed
+      and faster when they aren''t. This means they are easier to hit when disguised
+      (potentially as something very small), but able to properly pursue targets when
+      they aren''t.'
+  - tweak: Morphs now heal from anything they can digest, though the healing is limited
+      to 50% of their max HP every 2.5 minutes. Eating mobs bypasses this limitation
+      on healing.
+  - tweak: Morphs are no longer given away by examining suspicious objects, but attacking
+      one will break their disguise and prevent them from taking a new one for 20
+      seconds. If you have reason to suspect something is a morph, start swinging
+      before you get ambushed.
+  - rscadd: Morphs now have a status effect to indicate when they are unable to transform
+      and for how long
+  - tweak: Morphs no longer have a cooldown on disguises except as described above
+      in combat oriented situations.
+  - balance: Wheelys now have the same speed as skateboards instead of lightspeed.
+  - balance: Nitrium move speed buff has been reduced. High and low doses provide
+      different boosts now as well, but both are lower than the old speed.
+  - balance: Nitrium is no longer fatal in any capacity when misused, making it the
+      safest available speed boosting "drug".
+  - balance: Nitrium no longer gives damage slowdown immunity, but has retained all
+      other immunities.
+  - tweak: Nitrium stops restoring stamina after a certain point, and instead starts
+      to inflict stamina damage. This is indicated by the messages "Your body aches!"
+      or "Your body feels like it's on fire!" when you are under the effects. (Note
+      that nitrium still offers stamina crit immunity so you will never accidentally
+      fall into stamcrit making you unable to switch your internals off)
+  - tweak: Nitrium is now highly addicting and has an overdose threshold. These do
+      not mechanically punish players and serve only as flavor and a clear warning
+      respectively.
   TsunamiAnt:
   - code_imp: dynamic point deltas are now (5,-5) not (10,-10)
