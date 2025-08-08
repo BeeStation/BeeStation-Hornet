@@ -7041,20 +7041,6 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
-"bWw" = (
-/obj/structure/platform/wood,
-/obj/effect/decal/fakestairs/newstairs/left{
-	dir = 1
-	},
-/obj/structure/railing/perspective/wood/corner{
-	dir = 1;
-	pixel_y = -20
-	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 8
-	},
-/turf/open/floor/carpet/red,
-/area/crew_quarters/bar)
 "bWx" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -16008,9 +15994,6 @@
 	},
 /obj/item/clothing/mask/gas/old{
 	name = "John the Grey gas mask"
-	},
-/obj/item/modular_computer/tablet/pda/preset/assistant{
-	name = "PDA (John the Grey)"
 	},
 /obj/item/paper{
 	name = "Note from John the Grey";
@@ -25981,21 +25964,6 @@
 /obj/effect/turf_decal/siding/wood,
 /turf/open/floor/wood,
 /area/library)
-"int" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/effect/turf_decal/tile/green/half/contrasted{
-	dir = 1
-	},
-/obj/structure/railing/perspective/gray/corner{
-	dir = 1;
-	pixel_y = -20
-	},
-/turf/open/floor/noslip/standard,
-/area/hallway/secondary/service)
 "inu" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -29651,20 +29619,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/hallway/primary/fore)
-"jxP" = (
-/obj/structure/platform/wood,
-/obj/effect/decal/fakestairs/newstairs/right{
-	dir = 1
-	},
-/obj/structure/railing/perspective/wood/corner{
-	dir = 4;
-	pixel_y = -20
-	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 4
-	},
-/turf/open/floor/carpet/red,
-/area/crew_quarters/bar)
 "jyg" = (
 /obj/structure/rack,
 /obj/item/circuitboard/machine/fat_sucker,
@@ -31316,6 +31270,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/railing/perspective/wood/corner{
+	dir = 4;
+	pixel_y = -20
+	},
 /obj/effect/turf_decal/siding/wood,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -32255,6 +32213,20 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/virology)
+"koL" = (
+/obj/structure/platform/wood,
+/obj/effect/decal/fakestairs/newstairs/right{
+	dir = 1
+	},
+/obj/structure/railing/perspective/wood/corner{
+	dir = 4;
+	pixel_y = -20
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/turf/open/floor/carpet/red,
+/area/crew_quarters/bar)
 "koS" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -47131,11 +47103,6 @@
 /obj/effect/spawner/lootdrop/glowstick/lit,
 /turf/open/floor/plating,
 /area/maintenance/port/central)
-"phj" = (
-/obj/structure/platform/wood,
-/obj/structure/railing/perspective/wood,
-/turf/open/floor/wood,
-/area/crew_quarters/bar)
 "phw" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -53067,11 +53034,6 @@
 	},
 /turf/open/floor/iron,
 /area/engine/engineering)
-"rjM" = (
-/obj/structure/railing/perspective/gray/corner,
-/obj/structure/disposalpipe/segment,
-/turf/open/floor/iron/dark,
-/area/hallway/secondary/service)
 "rjR" = (
 /obj/machinery/light_switch{
 	pixel_y = -25
@@ -53323,7 +53285,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/machinery/door/airlock/personal/glass,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -60242,6 +60203,11 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/crew_quarters/dorms)
+"tFp" = (
+/obj/structure/platform/wood,
+/obj/structure/railing/perspective/wood,
+/turf/open/floor/wood,
+/area/crew_quarters/bar)
 "tFG" = (
 /obj/machinery/computer/shuttle_flight{
 	dir = 8;
@@ -63022,9 +62988,6 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/exit)
 "uCb" = (
-/obj/structure/railing/perspective/gray{
-	dir = 4
-	},
 /obj/structure/chair{
 	dir = 8
 	},
@@ -64579,15 +64542,6 @@
 	pixel_x = 30
 	},
 /obj/structure/table/wood,
-/obj/item/modular_computer/tablet/pda/preset,
-/obj/item/modular_computer/tablet/pda/preset{
-	pixel_x = 2;
-	pixel_y = 2
-	},
-/obj/item/modular_computer/tablet/pda/preset{
-	pixel_x = 4;
-	pixel_y = 4
-	},
 /obj/item/book/manual/wiki/sopservice,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
@@ -66412,6 +66366,20 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/execution/education)
+"vEh" = (
+/obj/structure/platform/wood,
+/obj/effect/decal/fakestairs/newstairs/left{
+	dir = 1
+	},
+/obj/structure/railing/perspective/wood/corner{
+	dir = 1;
+	pixel_y = -20
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/open/floor/carpet/red,
+/area/crew_quarters/bar)
 "vEj" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
@@ -66862,7 +66830,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 9
 	},
-/obj/structure/platform/black,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
 "vKM" = (
@@ -74041,7 +74008,6 @@
 	req_access_txt = "62";
 	dir = 4
 	},
-/obj/structure/railing/perspective/gray,
 /obj/structure/closet/emcloset,
 /turf/open/floor/noslip/standard,
 /area/hallway/secondary/service)
@@ -103818,7 +103784,7 @@ tIj
 ipn
 gBc
 mHr
-kwc
+kIy
 yak
 yak
 lWn
@@ -109529,7 +109495,7 @@ xzr
 xzr
 hcl
 wxN
-xzr
+tFp
 wWM
 iLR
 pDH
@@ -109786,7 +109752,7 @@ qzO
 ahR
 cQM
 uGD
-nUo
+vEh
 nUo
 fYI
 qqs
@@ -110043,7 +110009,7 @@ qzO
 mAX
 spX
 fLL
-abH
+koL
 abH
 oKr
 hDC
@@ -110300,7 +110266,7 @@ lwn
 hQk
 tHF
 lQR
-xzr
+tFp
 wWM
 awN
 cWG
@@ -110557,7 +110523,7 @@ qzO
 hjM
 lYg
 hDj
-xzr
+tFp
 wWM
 qyX
 xws
