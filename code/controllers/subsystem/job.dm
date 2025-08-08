@@ -185,7 +185,7 @@ SUBSYSTEM_DEF(job)
 		unassigned -= player
 		job.current_positions++
 		if(!latejoin)
-			player.client.inc_metabalance(METACOIN_READY_UP_REWARD, reason = "Thanks for readying up!")
+			player.client.inc_metabalance(METACOIN_READY_UP_REWARD, reason = "Joined the station as a roundstart crew member.")
 		JobDebug("Player: [player] is now Rank: [rank], JCP:[job.current_positions], JPL:[position_limit]. Group size: [job.count_players_in_group()]")
 		return TRUE
 	JobDebug("AR has failed, Player: [player], Rank: [rank]")
