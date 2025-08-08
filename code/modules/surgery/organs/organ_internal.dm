@@ -407,9 +407,9 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		status = "<font color='#ff9933'>Severely Damaged</font>"
 	else if (damage > low_threshold)
 		status = "<font color='#ffcc33'>Mildly Damaged</font>"
-	else if (asphyxiation > high_threshold)
+	else if (hypoxia > high_threshold)
 		status = "<font color='#489cc6'>Severe Hypoxia</font>"
-	else if (asphyxiation > low_threshold)
+	else if (hypoxia > low_threshold)
 		status = "<font color='#66c4f3'>Mild Hypoxia</font>"
 
 	return status
