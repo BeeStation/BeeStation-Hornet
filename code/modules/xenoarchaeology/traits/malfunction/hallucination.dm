@@ -14,7 +14,7 @@
 	if(!.)
 		return
 	for(var/mob/living/target in focus)
-		var/datum/hallucination/H = pick(GLOB.hallucination_list)
-		H = new H(target)
+		var/datum/hallucination/H = pick_weight(GLOB.random_hallucination_weighted_list)
+		target.cause_hallucination(H, "xenoartifact hallucination")
 	dump_targets()
 	clear_focus()

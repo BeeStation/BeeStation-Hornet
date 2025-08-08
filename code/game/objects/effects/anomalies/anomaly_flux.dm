@@ -1,6 +1,6 @@
 /obj/effect/anomaly/flux
 	name = "flux wave anomaly"
-	icon_state = "electricity2"
+	icon_state = "flux"
 	density = TRUE
 	var/canshock = FALSE
 	var/shockdamage = 20

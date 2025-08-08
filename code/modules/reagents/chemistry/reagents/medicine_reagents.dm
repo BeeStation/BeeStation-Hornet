@@ -76,7 +76,7 @@
 	M.stuttering = 0
 	M.slurring = 0
 	M.jitteriness = 0
-	M.hallucination = 0
+	M.remove_status_effect(/datum/status_effect/hallucination)
 	M.radiation = 0
 	REMOVE_TRAITS_NOT_IN(M, list(SPECIES_TRAIT, ROUNDSTART_TRAIT, ORGAN_TRAIT))
 	M.reagents.remove_all_type(/datum/reagent/toxin, 5 * REM * delta_time, FALSE, TRUE)
@@ -114,7 +114,7 @@
 	M.AdjustParalyzed(-20 * REM * delta_time)
 	if(holder.has_reagent(/datum/reagent/toxin/mindbreaker))
 		holder.remove_reagent(/datum/reagent/toxin/mindbreaker, 5 * REM * delta_time)
-	M.hallucination = max(M.hallucination - (10 * REM * delta_time), 0)
+	M.adjust_hallucinations(-20 SECONDS * REM * delta_time)
 	if(DT_PROB(16, delta_time))
 		M.adjustToxLoss(1, 0)
 		. = TRUE
@@ -132,7 +132,7 @@
 		holder.remove_reagent(/datum/reagent/toxin/mindbreaker, 5 * REM * delta_time)
 	if(holder.has_reagent(/datum/reagent/toxin/histamine))
 		holder.remove_reagent(/datum/reagent/toxin/histamine, 5 * REM * delta_time)
-	M.hallucination = max(M.hallucination - (10 * REM * delta_time), 0)
+	M.adjust_hallucinations(-20 SECONDS * REM * delta_time)
 	if(DT_PROB(16, delta_time))
 		M.adjustToxLoss(1, 0)
 		. = TRUE
@@ -411,7 +411,6 @@
 	metabolization_rate = 0.4 * REAGENTS_METABOLISM
 
 /datum/reagent/medicine/mine_salve/on_mob_life(mob/living/carbon/C, delta_time, times_fired)
-	C.hal_screwyhud = SCREWYHUD_HEALTHY
 	C.adjustBruteLoss(-0.25 * REM * delta_time, 0)
 	C.adjustFireLoss(-0.25 * REM * delta_time, 0)
 	..()
@@ -434,11 +433,13 @@
 				to_chat(M, span_danger("You feel your wounds fade away to nothing!") )
 	..()
 
-/datum/reagent/medicine/mine_salve/on_mob_end_metabolize(mob/living/M)
-	if(iscarbon(M))
-		var/mob/living/carbon/N = M
-		N.hal_screwyhud = SCREWYHUD_NONE
-	..()
+/datum/reagent/medicine/mine_salve/on_mob_metabolize(mob/living/metabolizer)
+	. = ..()
+	metabolizer.apply_status_effect(/datum/status_effect/grouped/screwy_hud/fake_healthy, type)
+
+/datum/reagent/medicine/mine_salve/on_mob_end_metabolize(mob/living/metabolizer)
+	. = ..()
+	metabolizer.apply_status_effect(/datum/status_effect/grouped/screwy_hud/fake_healthy, type)
 
 /datum/reagent/medicine/synthflesh
 	name = "Synthflesh"
@@ -524,7 +525,7 @@
 
 /datum/reagent/medicine/liquid_solder/on_mob_life(mob/living/M)
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, (-3*REM))
-	M.hallucination = max(0, M.hallucination - 10)
+	M.adjust_hallucinations(-20 SECONDS)
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		if(prob(30) && C.has_trauma_type(BRAIN_TRAUMA_SPECIAL))
@@ -1433,7 +1434,7 @@
 	. = TRUE
 
 /datum/reagent/medicine/earthsblood/overdose_process(mob/living/affected_mob, delta_time, times_fired)
-	affected_mob.hallucination = clamp(affected_mob.hallucination + (5 * REM * delta_time), 0, 60)
+	affected_mob.adjust_hallucinations_up_to(10 SECONDS * REM * delta_time, 120 SECONDS)
 	affected_mob.adjustToxLoss(5 * REM * delta_time, 0)
 	..()
 	. = TRUE
@@ -1452,8 +1453,9 @@
 	M.drowsyness += 2 * REM * delta_time
 	if(M.jitteriness >= 3)
 		M.jitteriness -= 3 * REM * delta_time
-	if (M.hallucination >= 5)
-		M.hallucination -= 5 * REM * delta_time
+	if (M.get_timed_status_effect_duration(/datum/status_effect/hallucination) >= 10 SECONDS)
+		M.adjust_hallucinations(-10 SECONDS * REM * delta_time)
+
 	if(DT_PROB(10, delta_time))
 		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1, 50)
 	M.adjustStaminaLoss(2.5 * REM * delta_time, 0)
@@ -1650,7 +1652,7 @@
 	. = TRUE
 
 /datum/reagent/medicine/psicodine/overdose_process(mob/living/M, delta_time, times_fired)
-	M.hallucination = clamp(M.hallucination + (5 * REM * delta_time), 0, 60)
+	M.adjust_hallucinations_up_to(10 SECONDS * REM * delta_time, 120 SECONDS)
 	M.adjustToxLoss(1 * REM * delta_time, 0)
 	..()
 	. = TRUE

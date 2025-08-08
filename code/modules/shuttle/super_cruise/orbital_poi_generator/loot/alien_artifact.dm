@@ -500,7 +500,7 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 		center_turf_mob.adjust_blindness(300)
 		center_turf_mob.Stun(100)
 		center_turf_mob.emote("scream")
-		center_turf_mob.hallucination = 500
+		center_turf_mob.set_hallucinations(10 MINUTES)
 
 	// non-center will not be that strong
 	sends_insanity_pulse(T, pulse_power, 1)

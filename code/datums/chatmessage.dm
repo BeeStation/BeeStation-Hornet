@@ -425,6 +425,15 @@
 /mob/dead/new_player/should_show_chat_message(atom/movable/speaker, datum/language/message_language, is_emote, is_heard)
 	return CHATMESSAGE_CANNOT_HEAR
 
+/**
+ * Creates a message overlay at a defined location for a given speaker
+ *
+ * Arguments:
+ * * speaker - The atom who is saying this message
+ * * message_language - The language that the message is said in
+ * * raw_message - The text content of the message
+ * * spans - Additional classes to be added to the message
+ */
 /proc/create_chat_message(atom/movable/speaker, datum/language/message_language, list/hearers, raw_message, list/spans, list/message_mods)
 	if(!length(hearers))
 		return

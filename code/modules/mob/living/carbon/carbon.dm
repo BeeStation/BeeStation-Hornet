@@ -250,12 +250,6 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 /mob/living/carbon/is_muzzled()
 	return(istype(src.wear_mask, /obj/item/clothing/mask/muzzle))
 
-/mob/living/carbon/hallucinating()
-	if(hallucination)
-		return TRUE
-	else
-		return FALSE
-
 /mob/living/carbon/resist_buckle()
 	if(!HAS_TRAIT(src, TRAIT_RESTRAINED))
 		buckled.user_unbuckle_mob(src, src)
@@ -758,29 +752,39 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		clear_fullscreen("brute")
 
 /mob/living/carbon/update_health_hud(shown_health_amount)
-	if(!client || !hud_used)
+	if(!client || !hud_used?.healths)
 		return
-	if(hud_used.healths)
-		if(stat != DEAD)
-			. = 1
-			if(shown_health_amount == null)
-				shown_health_amount = health
-			if(shown_health_amount >= maxHealth)
-				hud_used.healths.icon_state = "health0"
-			else if(shown_health_amount > maxHealth*0.8)
-				hud_used.healths.icon_state = "health1"
-			else if(shown_health_amount > maxHealth*0.6)
-				hud_used.healths.icon_state = "health2"
-			else if(shown_health_amount > maxHealth*0.4)
-				hud_used.healths.icon_state = "health3"
-			else if(shown_health_amount > maxHealth*0.2)
-				hud_used.healths.icon_state = "health4"
-			else if(shown_health_amount > 0)
-				hud_used.healths.icon_state = "health5"
-			else
-				hud_used.healths.icon_state = "health6"
-		else
-			hud_used.healths.icon_state = "health7"
+
+	if(stat == DEAD)
+		hud_used.healths.icon_state = "health7"
+		return
+
+	if(SEND_SIGNAL(src, COMSIG_CARBON_UPDATING_HEALTH_HUD, shown_health_amount) & COMPONENT_OVERRIDE_HEALTH_HUD)
+		return
+
+	if(shown_health_amount == null)
+		shown_health_amount = health
+
+	if(shown_health_amount >= maxHealth)
+		hud_used.healths.icon_state = "health0"
+
+	else if(shown_health_amount > maxHealth * 0.8)
+		hud_used.healths.icon_state = "health1"
+
+	else if(shown_health_amount > maxHealth * 0.6)
+		hud_used.healths.icon_state = "health2"
+
+	else if(shown_health_amount > maxHealth * 0.4)
+		hud_used.healths.icon_state = "health3"
+
+	else if(shown_health_amount > maxHealth*0.2)
+		hud_used.healths.icon_state = "health4"
+
+	else if(shown_health_amount > 0)
+		hud_used.healths.icon_state = "health5"
+
+	else
+		hud_used.healths.icon_state = "health6"
 
 /mob/living/carbon/update_stamina_hud(shown_stamina_loss)
 	if(!client || !hud_used?.stamina)
@@ -1014,7 +1018,6 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	VV_DROPDOWN_OPTION(VV_HK_MAKE_AI, "Make AI")
 	VV_DROPDOWN_OPTION(VV_HK_MODIFY_BODYPART, "Modify bodypart")
 	VV_DROPDOWN_OPTION(VV_HK_MODIFY_ORGANS, "Modify organs")
-	VV_DROPDOWN_OPTION(VV_HK_HALLUCINATION, "Hallucinate")
 	VV_DROPDOWN_OPTION(VV_HK_MARTIAL_ART, "Give Martial Arts")
 	VV_DROPDOWN_OPTION(VV_HK_GIVE_TRAUMA, "Give Brain Trauma")
 	VV_DROPDOWN_OPTION(VV_HK_CURE_TRAUMA, "Cure Brain Traumas")
@@ -1121,17 +1124,6 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		log_admin("[key_name(usr)] has cured all traumas from [key_name(src)].")
 		message_admins(span_notice("[key_name_admin(usr)] has cured all traumas from [key_name_admin(src)]."))
 
-	if(href_list[VV_HK_HALLUCINATION] && check_rights(R_FUN))
-		var/list/hallucinations = subtypesof(/datum/hallucination)
-		var/result = input(usr, "Choose the hallucination to apply","Send Hallucination") as null|anything in hallucinations
-		if(!usr)
-			return
-		if(QDELETED(src))
-			to_chat(usr, "Mob doesn't exist anymore")
-			return
-		if(result)
-			new result(src, TRUE)
-
 	if(href_list[VV_HK_GIVE_MUTATION] && check_rights(R_FUN|R_DEBUG))
 		if(!dna)
 			to_chat(usr, "Mob doesn't have DNA")
@@ -1189,7 +1181,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 /mob/living/carbon/proc/hypnosis_vulnerable()
 	if(HAS_TRAIT(src, TRAIT_MINDSHIELD))
 		return FALSE
-	if(hallucinating())
+	if(has_status_effect(/datum/status_effect/hallucination))
 		return TRUE
 
 	if(IsSleeping())
@@ -1292,9 +1284,6 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	switch(var_name)
 		if(NAMEOF(src, disgust))
 			set_disgust(var_value)
-			. = TRUE
-		if(NAMEOF(src, hal_screwyhud))
-			set_screwyhud(var_value)
 			. = TRUE
 		if(NAMEOF(src, handcuffed))
 			set_handcuffed(var_value)

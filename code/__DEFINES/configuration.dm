@@ -48,6 +48,8 @@
 #define MEDIEVAL_SPEECH_FILE "medieval_speech.json"
 #define HERETIC_INFLUENCE_FILE "heretic_influences.json"
 #define MALFUNCTION_FLAVOR_FILE "malfunction_flavor.json"
+/// File location for hallucination lines
+#define HALLUCINATION_FILE "hallucination.json"
 
 /// Force the log directory to be something specific in the data/logs folder
 #define OVERRIDE_LOG_DIRECTORY_PARAMETER "log-directory"

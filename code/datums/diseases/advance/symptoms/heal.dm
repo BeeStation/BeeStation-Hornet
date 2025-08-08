@@ -1006,6 +1006,6 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 					realpower = power + 10
 					if(M.stat)
 						M.emote("scream")
-					M.hallucination = min(40, M.hallucination + (5 * power))
+					M.adjust_hallucinations_up_to(8 SECONDS, (10 * power) SECONDS)
 					SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "hyperactivity", /datum/mood_event/paranoid)
 				M.AdjustAllImmobility((realpower * -10),TRUE)

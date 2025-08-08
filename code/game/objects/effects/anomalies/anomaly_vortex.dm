@@ -1,6 +1,6 @@
 /obj/effect/anomaly/bhole
 	name = "vortex anomaly"
-	icon_state = "bhole3"
+	icon_state = "vortex"
 	desc = "That's a nice station you have there. It'd be a shame if something happened to it."
 
 /obj/effect/anomaly/bhole/anomalyEffect()
