@@ -116,7 +116,7 @@
 	gun_charge = 1000
 	fire_rate = 1		//One shots per second
 	charge_delay = 6	//Fully charged in 60 seconds
-
+	w_class = WEIGHT_CLASS_LARGE //Same weight as disabler, for the slightly higher slowdown while active
 	can_charge = FALSE
 	use_cyborg_cell = TRUE
 	requires_wielding = FALSE
