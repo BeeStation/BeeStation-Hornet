@@ -57,11 +57,12 @@
 	name = "Station Engineer (Gloves)"
 	gloves = /obj/item/clothing/gloves/color/yellow
 
-/datum/outfit/job/engineer/gloved/rig
-	name = "Station Engineer (Hardsuit)"
-	mask = /obj/item/clothing/mask/breath
-	suit = /obj/item/clothing/suit/space/hardsuit/engine
+/datum/outfit/job/engineer/mod
+	name = "Station Engineer (MODsuit)"
+
 	suit_store = /obj/item/tank/internals/oxygen
+	back = /obj/item/mod/control/pre_equipped/engineering
 	head = null
+	mask = /obj/item/clothing/mask/breath
 	internals_slot = ITEM_SLOT_SUITSTORE
 

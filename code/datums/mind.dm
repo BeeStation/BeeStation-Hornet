@@ -52,7 +52,6 @@
 	var/datum/job/assigned_role
 	var/special_role
 	var/list/restricted_roles = list()
-	var/linglink
 	/// Martial art on this mind
 	var/datum/martial_art/martial_art = null
 	var/static/default_martial_art = new/datum/martial_art

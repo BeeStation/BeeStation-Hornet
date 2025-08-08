@@ -458,7 +458,7 @@
 	taste_description = "childhood whimsy"
 
 /datum/reagent/consumable/sprinkles/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	if(M.mind && HAS_TRAIT(M.mind, TRAIT_LAW_ENFORCEMENT_METABOLISM))
+	if(HAS_MIND_TRAIT(M, TRAIT_LAW_ENFORCEMENT_METABOLISM))
 		M.heal_bodypart_damage(1 * REM * delta_time, 1 * REM * delta_time, 0)
 		. = TRUE
 	..()

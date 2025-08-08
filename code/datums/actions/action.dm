@@ -302,23 +302,40 @@
 		unset_click_ability(clicker, refund_cooldown = FALSE)
 	clicker.next_click = world.time + click_cd_override
 
-/// Whether our action is currently available to use or not
-/datum/action/proc/is_available()
+/**
+ * Whether our action is currently available to use or not
+ * * feedback - If true this is being called to check if we have any messages to show to the owner
+ */
+/datum/action/proc/is_available(feedback = FALSE)
 	if(!owner)
 		return FALSE
 	if (next_use_time && world.time < next_use_time)
 		return FALSE
 	if((check_flags & AB_CHECK_HANDS_BLOCKED) && HAS_TRAIT(owner, TRAIT_HANDS_BLOCKED))
+		if (feedback)
+			owner.balloon_alert(owner, "hands blocked!")
 		return FALSE
 	if((check_flags & AB_CHECK_IMMOBILE) && HAS_TRAIT(owner, TRAIT_IMMOBILIZED))
+		if (feedback)
+			owner.balloon_alert(owner, "can't move!")
+		return FALSE
+	if((check_flags & AB_CHECK_INCAPACITATED) && HAS_TRAIT(owner, TRAIT_INCAPACITATED))
+		if (feedback)
+			owner.balloon_alert(owner, "incapacitated!")
 		return FALSE
 	if((check_flags & AB_CHECK_LYING) && isliving(owner))
 		var/mob/living/action_user = owner
 		if(action_user.body_position == LYING_DOWN)
+			if (feedback)
+				owner.balloon_alert(owner, "must stand up!")
 			return FALSE
 	if((check_flags & AB_CHECK_CONSCIOUS) && owner.stat != CONSCIOUS)
+		if (feedback)
+			owner.balloon_alert(owner, "unconscious!")
 		return FALSE
 	if ((check_flags & AB_CHECK_DEAD) && owner.stat == DEAD)
+		if (feedback)
+			owner.balloon_alert(owner, "dead!")
 		return FALSE
 	return TRUE
 
