@@ -608,18 +608,18 @@
 /obj/item/robot_model/guard/be_transformed_to(obj/item/robot_model/old_module)
 	var/mob/living/silicon/robot/cyborg = loc
 	var/list/guard_icons = list(
-		"Borgi" = image(icon = 'icons/mob/robots.dmi', icon_state = "guard"),
-		"Treaded" = image(icon = 'icons/mob/robots.dmi', icon_state = "guard-tread"),
-		"Traditional" = image(icon = 'icons/mob/robots.dmi', icon_state = "guard_alt")
+		"Traditional" = image(icon = 'icons/mob/robots.dmi', icon_state = "guard"),
+		"Treaded" = image(icon = 'icons/mob/robots.dmi', icon_state = "guard_tread"),
+		"Borgi" = image(icon = 'icons/mob/robots.dmi', icon_state = "guard_alt")
 	)
 	var/service_robot_icon = show_radial_menu(cyborg, cyborg, guard_icons, custom_check = CALLBACK(src, PROC_REF(check_menu), cyborg, old_module), radius = 42, require_near = TRUE)
 	switch(service_robot_icon)
-		if("Borgi")
-			cyborg_base_icon = "guard"
 		if("Traditional")
-			cyborg_base_icon = "guard_alt"
+			cyborg_base_icon = "guard"
 		if("Treaded")
-			cyborg_base_icon = "guard-tread"
+			cyborg_base_icon = "guard_tread"
+		if("Borgi")
+			cyborg_base_icon = "guard_alt"
 		else
 			return FALSE
 	. = ..()
