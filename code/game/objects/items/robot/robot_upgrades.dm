@@ -675,7 +675,7 @@
 	model_flags = BORG_MODEL_SECURITY
 
 /obj/item/borg/upgrade/transform/security/action(mob/living/silicon/robot/robot, user = usr)
-	if(CONFIG_GET(flag/disable_secborg))
+	if(CONFIG_GET(flag/disable_guardianborg))
 		to_chat(user, span_warning("Nanotrasen policy disallows the use of weapons of mass destruction."))
 		return FALSE
 	return ..()

@@ -29,9 +29,6 @@
 	fire_sound = 'sound/weapons/taser2.ogg'
 	harmful = FALSE
 
-/obj/item/ammo_casing/energy/disabler/cyborg
-	e_cost = 100 //Cyborg cell capacity is much larger than a normal gun, this helps offset that somewhat.
-
 /obj/item/ammo_casing/energy/disabler/hos
 	projectile_type = /obj/projectile/beam/disabler
 	e_cost = 50

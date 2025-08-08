@@ -231,6 +231,7 @@
 		/obj/item/restraints/handcuffs/cable/zipties,
 		/obj/item/soap/nanotrasen,
 		/obj/item/borg/cyborghug,
+		/obj/item/gps/cyborg,
 		/obj/item/instrument/piano_synth)
 	emag_modules = list(/obj/item/melee/energy/sword/cyborg)
 	ratvar_modules = list(
@@ -568,21 +569,22 @@
 
 // --------------------- guard
 /obj/item/robot_model/guard
-	name = "Guard"
+	name = "Guardian"
 	basic_modules = list(
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/restraints/handcuffs/cable/zipties,
-		/obj/item/borg/charger,
-		/obj/item/weldingtool/cyborg/mini,
-		/obj/item/gun/energy/disabler/cyborg,
 		/obj/item/gun/energy/e_gun/mini/exploration/cyborg,
 		/obj/item/reagent_containers/peppercloud_deployer,
-		/obj/item/clothing/mask/gas/sechailer/cyborg,
 		/obj/item/holosign_creator/security,
 		/obj/item/storage/bag/ore/cyborg,
+		/obj/item/gps/cyborg,
+		/obj/item/borg/charger,
 		/obj/item/extinguisher/mini,
-		/obj/item/crowbar/cyborg)
-	emag_modules = list(/obj/item/gun/energy/laser/cyborg)
+		/obj/item/weldingtool/cyborg/mini,
+		/obj/item/crowbar/cyborg,
+		/obj/item/borg/lollipop,
+		/obj/item/borg/cyborghug)
+	emag_modules = list(/obj/item/melee/energy/sword/cyborg)
 	ratvar_modules = list(
 		/obj/item/clock_module/abscond,
 		/obj/item/clockwork/weapon/brass_spear,
