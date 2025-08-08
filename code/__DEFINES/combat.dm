@@ -393,3 +393,10 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 
 /// Maximum amount of hypoxia damage an organ can take per tick
 #define MAX_HYPOXIA_DAMAGE_PER_TICK 2
+
+/// How much hypoxia damage do organs heal per tick?
+/// This is important as it defines how long it takes for someone
+/// to get out of critical condition when the brain is suffering hypoxia.
+/// The brain has 200 health and we regain consciousness after the brain
+/// heals to 100 hypoxia damage or less.
+#define HYPOXIA_HEAL_PER_TICK 2
