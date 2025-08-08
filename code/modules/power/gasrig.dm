@@ -127,11 +127,12 @@
 
 	var/temp_shield = (((aver_gas_power + 1) * aver_specific_heat) * log(10, total_moles * GASRIG_SHIELD_MOL_LOG_MULTIPLER)) + GASRIG_NATURAL_SHIELD_RECOVERY
 	display_shield_efficiency = temp_shield
-	shield_strength_change = (depth * GASRIG_DEPTH_SHIELD_DAMAGE_MULTIPLIER) + temp_shield
+	shield_strength_change = (get_depth() * GASRIG_DEPTH_SHIELD_DAMAGE_MULTIPLIER) + temp_shield
 	shield_strength = max(min(shield_strength + shield_strength_change, GASRIG_MAX_SHIELD_STRENGTH), 0)
 
 /obj/machinery/atmospherics/gasrig/core/proc/produce_gases(datum/gas_mixture/air)
 	var/efficiency = get_fracking_efficiency(fracking_input.airs[1])
+	var/temp_depth = get_depth()
 
 	if (air.return_pressure() > get_output_pressure(efficiency))
 		update_mode(GASRIG_MODE_OVERPRESSURE)
@@ -142,22 +143,22 @@
 
 	if(!functional)
 		return
-	if((depth >= GASRIG_O2[1]) && (depth <= GASRIG_O2[2]))
+	if((temp_depth >= GASRIG_O2[1]) && (temp_depth <= GASRIG_O2[2]))
 		calculate_gas_to_output(GASRIG_O2, /datum/gas/oxygen, air, efficiency)
 
-	if((depth >= GASRIG_N2[1]) && (depth <= GASRIG_N2[2]))
+	if((temp_depth >= GASRIG_N2[1]) && (temp_depth <= GASRIG_N2[2]))
 		calculate_gas_to_output(GASRIG_N2, /datum/gas/nitrogen, air, efficiency)
 
-	if((depth >= GASRIG_PLAS[1]) && (depth <= GASRIG_PLAS[2]))
+	if((temp_depth >= GASRIG_PLAS[1]) && (temp_depth <= GASRIG_PLAS[2]))
 		calculate_gas_to_output(GASRIG_PLAS, /datum/gas/plasma, air, efficiency)
 
-	if((depth >= GASRIG_CO2[1]) && (depth <= GASRIG_CO2[2]))
+	if((temp_depth >= GASRIG_CO2[1]) && (temp_depth <= GASRIG_CO2[2]))
 		calculate_gas_to_output(GASRIG_CO2, /datum/gas/carbon_dioxide, air, efficiency)
 
-	if((depth >= GASRIG_N2O[1]) && (depth <= GASRIG_N2O[2]))
+	if((temp_depth >= GASRIG_N2O[1]) && (temp_depth <= GASRIG_N2O[2]))
 		calculate_gas_to_output(GASRIG_N2O, /datum/gas/nitrous_oxide, air, efficiency)
 
-	if((depth >= GASRIG_NOB[1]) && (depth <= GASRIG_NOB[2]))
+	if((temp_depth >= GASRIG_NOB[1]) && (temp_depth <= GASRIG_NOB[2]))
 		calculate_gas_to_output(GASRIG_NOB, /datum/gas/hypernoblium, air, efficiency)
 
 /obj/machinery/atmospherics/gasrig/core/proc/get_fracking_efficiency(datum/gas_mixture/air)
@@ -214,31 +215,36 @@
 
 /obj/machinery/atmospherics/gasrig/core/welder_act(mob/living/user, obj/item/tool)
 	if(health >= GASRIG_MAX_HEALTH)
-		to_chat(user, span_notice("No repairs needed!"))
+		balloon_alert(user, "No repairs needed!")
+		return
+	if(get_depth() > 0)
+		balloon_alert(user, "The rig needs to be raised to repair it!")
+		return
+	if(needs_repairs)
+		balloon_alert(user, "Repair with plasteel first!")
 		return
 	if(tool.use_tool(src, user, 0, volume=50, amount=2))
 		change_health(10)
 
 /obj/machinery/atmospherics/gasrig/core/attackby(obj/item/I, mob/user, params)
-	if(!needs_repairs)
-		to_chat(user, span_notice("No repairs needed!"))
-		return
 	if(istype(I, /obj/item/stack/sheet/plasteel))
 		var/obj/item/stack/sheet/plasteel/PS = I
+		if(!needs_repairs)
+			balloon_alert(user, "No repairs needed!")
+			return
+		if(get_depth() > 0)
+			balloon_alert(user, "The rig needs to be raised to repair it!")
+			return
 		if(PS.get_amount() >= 10)
 			PS.use(10)
-			to_chat(user, span_notice("You replace damaged plating."))
+			balloon_alert(user, "You replace damaged plating.")
 			playsound(src.loc, 'sound/machines/click.ogg', 75, 1)
 			needs_repairs = FALSE
 			update_mode(GASRIG_MODE_NORMAL)
 			change_health(10)
 			update_appearance()
 		else
-			to_chat(user, span_warning("You need 10 sheets of plasteel!"))
-		return
-
-/obj/machinery/atmospherics/gasrig/core/ui_state(mob/user)
-	return GLOB.default_state
+			balloon_alert(user, "You need 10 sheets of plasteel!")
 
 /obj/machinery/atmospherics/gasrig/core/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -290,8 +296,8 @@
 
 /obj/machinery/atmospherics/gasrig/core/proc/calculate_gas_to_output(gas_constant, gas_type, var/datum/gas_mixture/air, efficiency)
 	var/difference = gas_constant[2] - gas_constant[1]
-	var/percent_rising = ((depth - gas_constant[1]) / (difference/2))
-	var/percent_falling = ((gas_constant[2] - depth) / (difference/2))
+	var/percent_rising = ((get_depth() - gas_constant[1]) / (difference/2))
+	var/percent_falling = ((gas_constant[2] - get_depth()) / (difference/2))
 
 	add_gas_to_output(gas_type, air, gas_constant[3] * min(percent_falling, percent_rising) * efficiency, depth * GASRIG_DEPTH_TEMP_MULTIPLER)
 
@@ -320,3 +326,21 @@
 	icon = 'icons/obj/machines/gasrig.dmi'
 	icon_state = "gasrig_port_3"
 	layer = LOW_OBJ_LAYER
+
+/obj/machinery/atmospherics/gasrig/dummy
+	name = "\improper Advanced Gas Rig"
+	desc = "This state-of-the-art gas mining rig will extend a collector down to the depths of atmosphere below to extract all the gases a station could need."
+	icon = 'icons/obj/machines/gasrig.dmi'
+	layer = LOW_OBJ_LAYER
+
+	var/obj/machinery/atmospherics/gasrig/core/parent
+
+/obj/machinery/atmospherics/gasrig/dummy/New(var/obj/machinery/atmospherics/gasrig/core/gasrig, iconstate)
+	parent = gasrig
+	icon_state = iconstate
+
+/obj/machinery/atmospherics/gasrig/dummy/welder_act(mob/living/user, obj/item/tool)
+	parent.welder_act(user, tool)
+
+/obj/machinery/atmospherics/gasrig/dummy/attackby(obj/item/I, mob/user, params)
+	parent.attackby(I, user, params)
