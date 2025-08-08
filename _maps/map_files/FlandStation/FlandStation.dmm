@@ -2925,14 +2925,6 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/maintenance/port/fore)
-"aJf" = (
-/obj/structure/table/wood,
-/obj/effect/landmark/event_spawn,
-/obj/machinery/cell_charger{
-	desc = "It charges power cells. There is a small tag on it: Public tools charger. Please do no remove"
-	},
-/turf/open/floor/carpet/grimy,
-/area/library)
 "aJk" = (
 /obj/effect/decal/cleanable/vomit/old,
 /turf/open/floor/plating,
@@ -17130,6 +17122,14 @@
 	},
 /turf/open/floor/engine,
 /area/engine/engine_room)
+"eCd" = (
+/obj/structure/table/wood,
+/obj/effect/landmark/event_spawn,
+/obj/machinery/cell_charger{
+	desc = "It charges power cells. There is a small tag on it: Public tools charger. Please do no remove"
+	},
+/turf/open/floor/carpet/grimy,
+/area/library)
 "eCe" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
@@ -17380,6 +17380,13 @@
 /obj/machinery/firealarm/directional/west,
 /turf/open/floor/iron/tiled,
 /area/medical/virology)
+"eFA" = (
+/obj/structure/table/wood,
+/obj/machinery/cell_charger{
+	desc = "It charges power cells. There is a small tag on it: Public tools charger. Please do no remove"
+	},
+/turf/open/floor/carpet,
+/area/crew_quarters/bar/atrium)
 "eFD" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 6
@@ -19973,19 +19980,6 @@
 /obj/structure/fans/tiny,
 /turf/open/floor/iron/techmaint,
 /area/science/misc_lab)
-"fjf" = (
-/obj/structure/table/reinforced,
-/obj/item/bodypart/chest/robot,
-/obj/item/bodypart/arm/right/robot{
-	pixel_x = 6
-	},
-/obj/item/bodypart/arm/left/robot{
-	pixel_x = -6
-	},
-/obj/item/bodypart/leg/right/robot,
-/obj/item/bodypart/leg/right/robot,
-/turf/open/floor/iron/tech/grid,
-/area/ai_monitored/turret_protected/ai_upload_foyer)
 "fji" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/white{
@@ -22588,6 +22582,24 @@
 	},
 /turf/open/floor/iron,
 /area/security/checkpoint/escape)
+"fNp" = (
+/obj/structure/table,
+/obj/effect/turf_decal/bot,
+/obj/item/bodypart/arm/right/robot{
+	pixel_x = 3
+	},
+/obj/item/bodypart/arm/left/robot{
+	pixel_x = -3
+	},
+/obj/item/stack/cable_coil/white,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/turf/open/floor/iron/grid/steel,
+/area/science/robotics/lab)
 "fNr" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
@@ -26029,17 +26041,6 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/medical/virology)
-"gHI" = (
-/obj/structure/table/wood,
-/obj/effect/turf_decal/bot,
-/obj/item/reagent_containers/cup/soda_cans/thirteenloko{
-	pixel_x = -6
-	},
-/obj/item/reagent_containers/cup/glass/mug/cocoa{
-	pixel_x = 6
-	},
-/turf/open/floor/iron/sepia,
-/area/engine/break_room)
 "gHS" = (
 /obj/machinery/power/apc/auto_name/directional/south,
 /obj/structure/table,
@@ -44015,30 +44016,6 @@
 	dir = 1
 	},
 /area/quartermaster/storage)
-"lhk" = (
-/obj/structure/table/wood,
-/obj/item/bodypart/chest/robot{
-	pixel_y = 2
-	},
-/obj/item/bodypart/head/robot{
-	pixel_y = 10
-	},
-/obj/item/bodypart/arm/left/robot{
-	pixel_x = -5
-	},
-/obj/item/bodypart/arm/right/robot{
-	pixel_x = 4
-	},
-/obj/item/bodypart/leg/right/robot{
-	pixel_x = 5;
-	pixel_y = -7
-	},
-/obj/item/bodypart/leg/left/robot{
-	pixel_x = -4;
-	pixel_y = -7
-	},
-/turf/open/floor/wood,
-/area/bridge/showroom/corporate)
 "lhm" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Fore Brig Desk";
@@ -47813,11 +47790,6 @@
 "mgT" = (
 /turf/open/floor/iron/dark/side,
 /area/hallway/primary/central)
-"mhb" = (
-/obj/item/kirbyplants/random,
-/obj/effect/turf_decal/tile/blue,
-/turf/open/floor/iron/white,
-/area/medical/medbay/lobby)
 "mhe" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /turf/open/floor/iron,
@@ -47984,6 +47956,14 @@
 /obj/machinery/firealarm/directional/south,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/ai)
+"mjg" = (
+/obj/effect/turf_decal/tile/blue,
+/obj/item/candydispenser/lollipop{
+	pixel_y = 10
+	},
+/obj/structure/table,
+/turf/open/floor/iron/white,
+/area/medical/medbay/lobby)
 "mji" = (
 /obj/machinery/computer/crew{
 	dir = 1
@@ -51731,10 +51711,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/techmaint,
 /area/maintenance/department/engine)
-"njj" = (
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/science/robotics/lab)
 "njk" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
@@ -61631,6 +61607,14 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
+"pQf" = (
+/obj/structure/table/wood,
+/obj/effect/turf_decal/bot,
+/obj/item/candydispenser/engineering{
+	pixel_y = 11
+	},
+/turf/open/floor/iron/sepia,
+/area/engine/break_room)
 "pQq" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
@@ -67871,13 +67855,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
-"rwi" = (
-/obj/structure/table/wood,
-/obj/machinery/cell_charger{
-	desc = "It charges power cells. There is a small tag on it: Public tools charger. Please do no remove"
-	},
-/turf/open/floor/carpet,
-/area/crew_quarters/bar/atrium)
 "rwr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
@@ -68430,6 +68407,30 @@
 /obj/effect/turf_decal/tile/yellow/opposingcorners,
 /turf/open/floor/iron/sepia,
 /area/engine/engineering)
+"rDb" = (
+/obj/structure/table/wood,
+/obj/item/bodypart/chest/robot{
+	pixel_y = 2
+	},
+/obj/item/bodypart/head/robot{
+	pixel_y = 10
+	},
+/obj/item/bodypart/arm/left/robot{
+	pixel_x = -5
+	},
+/obj/item/bodypart/arm/right/robot{
+	pixel_x = 4
+	},
+/obj/item/bodypart/leg/right/robot{
+	pixel_x = 5;
+	pixel_y = -7
+	},
+/obj/item/bodypart/leg/left/robot{
+	pixel_x = -4;
+	pixel_y = -7
+	},
+/turf/open/floor/wood,
+/area/bridge/showroom/corporate)
 "rDh" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -72235,6 +72236,10 @@
 	},
 /turf/open/floor/iron/sepia,
 /area/maintenance/department/engine)
+"sAN" = (
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron,
+/area/science/robotics/lab)
 "sAO" = (
 /obj/effect/turf_decal/guideline/guideline_out_arrow_con/blue{
 	dir = 9
@@ -82146,24 +82151,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/courtroom)
-"vav" = (
-/obj/structure/table,
-/obj/effect/turf_decal/bot,
-/obj/item/bodypart/arm/right/robot{
-	pixel_x = 3
-	},
-/obj/item/bodypart/arm/left/robot{
-	pixel_x = -3
-	},
-/obj/item/stack/cable_coil/white,
-/obj/item/assembly/flash/handheld/weak,
-/obj/item/assembly/flash/handheld/weak,
-/obj/item/assembly/flash/handheld/weak,
-/obj/item/assembly/flash/handheld/weak,
-/obj/item/assembly/flash/handheld/weak,
-/obj/item/assembly/flash/handheld/weak,
-/turf/open/floor/iron/grid/steel,
-/area/science/robotics/lab)
 "vaE" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -86649,6 +86636,19 @@
 /obj/structure/plasticflaps,
 /turf/open/floor/plating,
 /area/quartermaster/sorting)
+"vVZ" = (
+/obj/structure/table/reinforced,
+/obj/item/bodypart/chest/robot,
+/obj/item/bodypart/arm/right/robot{
+	pixel_x = 6
+	},
+/obj/item/bodypart/arm/left/robot{
+	pixel_x = -6
+	},
+/obj/item/bodypart/leg/right/robot,
+/obj/item/bodypart/leg/right/robot,
+/turf/open/floor/iron/tech/grid,
+/area/ai_monitored/turret_protected/ai_upload_foyer)
 "vWb" = (
 /obj/structure/table/wood,
 /obj/machinery/recharger,
@@ -86937,14 +86937,6 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/science/mixing)
-"waG" = (
-/obj/structure/table/wood,
-/obj/item/storage/photo_album,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/carpet/green,
-/area/crew_quarters/dorms)
 "waI" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -92633,6 +92625,16 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/security/main)
+"xqx" = (
+/obj/structure/table/wood,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/item/candydispenser{
+	pixel_y = 11
+	},
+/turf/open/floor/carpet/green,
+/area/crew_quarters/dorms)
 "xqD" = (
 /obj/machinery/power/terminal,
 /obj/structure/cable/yellow,
@@ -114931,7 +114933,7 @@ gFZ
 syW
 mbO
 rea
-aJf
+eCd
 vSP
 yfU
 rsG
@@ -118306,7 +118308,7 @@ pFH
 syY
 mRd
 tvr
-rwi
+eFA
 mRd
 mRd
 mRd
@@ -124195,7 +124197,7 @@ rmz
 hLq
 cOk
 klS
-mhb
+mjg
 esg
 fTN
 jId
@@ -129914,7 +129916,7 @@ dsX
 xph
 fIf
 xJr
-njj
+sAN
 uwE
 noj
 gDL
@@ -131968,7 +131970,7 @@ vBG
 yfq
 rVu
 pgr
-vav
+fNp
 trH
 kYH
 wAn
@@ -134267,7 +134269,7 @@ tfT
 hRk
 jyA
 tUb
-lhk
+rDb
 tfT
 qZR
 jKi
@@ -141466,7 +141468,7 @@ cBt
 tXM
 oPn
 qyd
-gHI
+pQf
 pFP
 ykQ
 gfk
@@ -143240,7 +143242,7 @@ nIP
 qEC
 llg
 oIH
-waG
+xqx
 xHL
 eax
 wtw
@@ -150920,7 +150922,7 @@ miR
 kOu
 aYu
 vNw
-fjf
+vVZ
 jyr
 kiU
 vNw

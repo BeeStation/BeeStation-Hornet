@@ -37,6 +37,8 @@
 	var/chem_recharge_slowdown = 0
 	/// The range this ling can sting things.
 	var/sting_range = 2
+	/// Changeling name, what other lings see over the hivemind when talking.
+	var/changelingID = "Changeling"
 	/// The number of genetics points (to buy powers) this ling currently has.
 	var/genetic_points = 10
 	/// The max number of genetics points (to buy powers) this ling can have..
@@ -60,6 +62,9 @@
 
 	/// Static typecache of all changeling powers that are usable.
 	var/static/list/all_powers = typecacheof(/datum/action/changeling, TRUE)
+
+	/// Static list of possible ids. Initialized into the greek alphabet the first time it is used
+	var/static/list/possible_changeling_IDs
 
 	/// Satic list of what each slot associated with (in regard to changeling flesh items).
 	var/static/list/slot2type = list(
@@ -204,17 +209,25 @@
 	else
 		adjust_chemicals((chem_recharge_rate - chem_recharge_slowdown) * delta_time)
 
-/*
+/**
  * Signal proc for [COMSIG_MOB_MIDDLECLICKON] and [COMSIG_MOB_ALTCLICKON].
  * Allows the changeling to sting people with a click.
  */
 /datum/antagonist/changeling/proc/on_click_sting(mob/living/carbon/ling, atom/clicked)
 	SIGNAL_HANDLER
 
-	if(!chosen_sting || clicked == ling || !istype(ling) || ling.stat != CONSCIOUS)
+	// nothing to handle
+	if(!chosen_sting)
+		return
+	if(!isliving(ling) || clicked == ling || ling.stat != CONSCIOUS)
+		return
+	// sort-of hack done here: we use in_given_range here because it's quicker.
+	// actual ling stings do pathfinding to determine whether the target's "in range".
+	// however, this is "close enough" preliminary checks to not block click
+	if(!isliving(clicked) || !IN_GIVEN_RANGE(ling, clicked, sting_range))
 		return
 
-	INVOKE_ASYNC(chosen_sting, /datum/action/changeling/sting.proc/try_to_sting, ling, clicked)
+	INVOKE_ASYNC(chosen_sting, TYPE_PROC_REF(/datum/action/changeling/sting, try_to_sting), ling, clicked)
 
 	return COMSIG_MOB_CANCEL_CLICKON
 
@@ -845,3 +858,5 @@
 /datum/mood_event/fallen_changeling
 	description = "My powers! Where are my powers?!"
 	mood_change = -4
+
+#undef FORMAT_CHEM_CHARGES_TEXT

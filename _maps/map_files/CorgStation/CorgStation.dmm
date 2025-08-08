@@ -1658,26 +1658,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/engine/engine_smes)
-"aug" = (
-/obj/structure/table,
-/obj/item/stack/sheet/iron/fifty,
-/obj/item/stack/sheet/iron/fifty,
-/obj/item/stack/sheet/iron/fifty,
-/obj/item/bodypart/arm/right/robot,
-/obj/item/bodypart/arm/right/robot,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/item/assembly/prox_sensor,
-/obj/item/assembly/prox_sensor,
-/obj/item/assembly/prox_sensor,
-/obj/item/assembly/prox_sensor,
-/obj/item/assembly/prox_sensor,
-/obj/item/assembly/prox_sensor,
-/obj/machinery/cell_charger,
-/obj/structure/extinguisher_cabinet/directional/west,
-/turf/open/floor/iron/dark,
-/area/science/robotics/lab)
 "auk" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -7718,6 +7698,16 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/brig)
+"cgw" = (
+/obj/structure/table/wood,
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/machinery/cell_charger{
+	desc = "It charges power cells. There is a small tag on it: Public tools charger. Please do no remove"
+	},
+/turf/open/floor/wood,
+/area/library)
 "cgE" = (
 /obj/machinery/mass_driver{
 	dir = 4;
@@ -8717,6 +8707,16 @@
 	},
 /turf/open/floor/iron,
 /area/engine/engine_room)
+"cAQ" = (
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
+	dir = 1
+	},
+/obj/item/candydispenser/lollipop{
+	pixel_y = 10
+	},
+/obj/structure/table/glass,
+/turf/open/floor/iron/white,
+/area/medical/medbay/lobby)
 "cBq" = (
 /obj/structure/chair/stool/bar,
 /obj/effect/turf_decal/siding/wood{
@@ -9224,6 +9224,17 @@
 	},
 /turf/open/floor/iron,
 /area/science/xenobiology)
+"cMD" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/table/wood/poker,
+/obj/item/toy/cards/deck,
+/obj/item/candydispenser{
+	pixel_y = 11
+	},
+/turf/open/floor/carpet/red,
+/area/crew_quarters/bar)
 "cMF" = (
 /obj/machinery/power/apc/auto_name/directional/east,
 /obj/structure/cable/yellow{
@@ -10343,6 +10354,15 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/visible,
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
+"dfF" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/machinery/newscaster{
+	pixel_x = -30
+	},
+/turf/open/floor/iron/dark,
+/area/science/robotics/lab)
 "dfL" = (
 /obj/machinery/dna_scannernew,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
@@ -27706,6 +27726,16 @@
 "iRh" = (
 /turf/closed/wall/r_wall,
 /area/crew_quarters/heads/hos)
+"iRj" = (
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/obj/item/candydispenser/engineering{
+	pixel_y = 11
+	},
+/obj/structure/table/glass,
+/turf/open/floor/iron,
+/area/engine/engineering)
 "iRm" = (
 /obj/machinery/telecomms/processor/preset_four,
 /turf/open/floor/circuit/telecomms/server,
@@ -28682,6 +28712,21 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/engine/engine_smes)
+"jgg" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/condiment/peppermill{
+	pixel_x = -8;
+	pixel_y = 14
+	},
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = -3;
+	pixel_y = 14
+	},
+/obj/machinery/cell_charger{
+	desc = "It charges power cells. There is a small tag on it: Public tools charger. Please do no remove"
+	},
+/turf/open/floor/carpet/red,
+/area/crew_quarters/bar)
 "jgj" = (
 /obj/effect/turf_decal/tile/brown/fourcorners/contrasted,
 /obj/effect/turf_decal/delivery,
@@ -35933,6 +35978,26 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/courtroom)
+"lDW" = (
+/obj/structure/table,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/bodypart/arm/right/robot,
+/obj/item/bodypart/arm/right/robot,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/item/assembly/prox_sensor,
+/obj/item/assembly/prox_sensor,
+/obj/item/assembly/prox_sensor,
+/obj/item/assembly/prox_sensor,
+/obj/item/assembly/prox_sensor,
+/obj/item/assembly/prox_sensor,
+/obj/machinery/cell_charger,
+/obj/structure/extinguisher_cabinet/directional/west,
+/turf/open/floor/iron/dark,
+/area/science/robotics/lab)
 "lEl" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -40137,18 +40202,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/security/courtroom)
-"mOI" = (
-/obj/item/reagent_containers/cup/bucket,
-/obj/item/assembly/prox_sensor,
-/obj/item/mop,
-/obj/item/bodypart/arm/right/robot,
-/obj/effect/decal/cleanable/oil,
-/obj/effect/decal/cleanable/robot_debris,
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/turf/open/floor/plating,
-/area/maintenance/starboard/aft)
 "mOK" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -49852,15 +49905,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
-"qhc" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/obj/machinery/newscaster{
-	pixel_x = -30
-	},
-/turf/open/floor/iron/dark,
-/area/science/robotics/lab)
 "qhl" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/effect/turf_decal/siding/dark{
@@ -51412,16 +51456,6 @@
 	},
 /turf/open/floor/iron,
 /area/science/shuttle)
-"qHD" = (
-/obj/structure/chair/fancy/comfy{
-	buildstackamount = 0;
-	color = "#742925"
-	},
-/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
-	dir = 1
-	},
-/turf/open/floor/iron/white,
-/area/medical/medbay/lobby)
 "qHP" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Chapel Dock Access"
@@ -56336,14 +56370,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
-"spX" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/table/wood/poker,
-/obj/item/toy/cards/deck,
-/turf/open/floor/carpet/red,
-/area/crew_quarters/bar)
 "sqo" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -61092,6 +61118,18 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/fore)
+"tZh" = (
+/obj/item/reagent_containers/cup/bucket,
+/obj/item/assembly/prox_sensor,
+/obj/item/mop,
+/obj/item/bodypart/arm/right/robot,
+/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/robot_debris,
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/turf/open/floor/plating,
+/area/maintenance/starboard/aft)
 "tZu" = (
 /obj/machinery/door/poddoor/shutters{
 	id = "teledoor";
@@ -66599,16 +66637,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /turf/open/floor/iron/dark,
 /area/maintenance/department/chapel/monastery)
-"vIJ" = (
-/obj/structure/table/wood,
-/obj/effect/turf_decal/siding/wood{
-	dir = 8
-	},
-/obj/machinery/cell_charger{
-	desc = "It charges power cells. There is a small tag on it: Public tools charger. Please do no remove"
-	},
-/turf/open/floor/wood,
-/area/library)
 "vJi" = (
 /turf/closed/wall,
 /area/hallway/secondary/entry)
@@ -71491,21 +71519,6 @@
 	},
 /turf/open/floor/iron,
 /area/science/robotics)
-"xul" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/condiment/peppermill{
-	pixel_x = -8;
-	pixel_y = 14
-	},
-/obj/item/reagent_containers/condiment/saltshaker{
-	pixel_x = -3;
-	pixel_y = 14
-	},
-/obj/machinery/cell_charger{
-	desc = "It charges power cells. There is a small tag on it: Public tools charger. Please do no remove"
-	},
-/turf/open/floor/carpet/red,
-/area/crew_quarters/bar)
 "xun" = (
 /obj/structure/sign/warning/vacuum/external,
 /turf/closed/wall,
@@ -96434,7 +96447,7 @@ vWF
 ahc
 rjL
 dBS
-bBc
+iRj
 amI
 kpi
 wXO
@@ -105438,8 +105451,8 @@ jzs
 pkM
 kMq
 orb
-qhc
-aug
+dfF
+lDW
 qlH
 bwg
 uXG
@@ -107060,7 +107073,7 @@ xXa
 iQQ
 whv
 wct
-vIJ
+cgw
 rzN
 xXa
 xXa
@@ -109101,7 +109114,7 @@ jsX
 gaj
 tZO
 gxN
-xul
+jgg
 fhO
 jzC
 fhO
@@ -109867,7 +109880,7 @@ hDL
 kEJ
 qzO
 mAX
-spX
+cMD
 fLL
 jxP
 abH
@@ -112396,7 +112409,7 @@ chl
 jLU
 nBQ
 fgw
-qHD
+cAQ
 iaQ
 iaQ
 vSr
@@ -114231,7 +114244,7 @@ tBk
 xxj
 tBk
 tBk
-mOI
+tZh
 tBk
 tBk
 lVo

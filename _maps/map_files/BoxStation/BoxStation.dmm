@@ -3982,6 +3982,12 @@
 /obj/machinery/griddle,
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
+"aVP" = (
+/obj/structure/table/wood,
+/obj/item/paper,
+/obj/item/pen,
+/turf/open/floor/wood,
+/area/library)
 "aVQ" = (
 /obj/structure/chair/fancy/comfy{
 	color = "#666666";
@@ -4421,6 +4427,13 @@
 /area/security/main)
 "bas" = (
 /obj/machinery/vending/coffee,
+/turf/open/floor/wood,
+/area/library)
+"bat" = (
+/obj/structure/table/wood,
+/obj/machinery/cell_charger{
+	desc = "It charges power cells. There is a small tag on it: Public tools charger. Please do no remove"
+	},
 /turf/open/floor/wood,
 /area/library)
 "baw" = (
@@ -9794,13 +9807,6 @@
 "bYN" = (
 /turf/closed/wall,
 /area/security/checkpoint/engineering)
-"bYO" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/item/kirbyplants/random,
-/turf/open/floor/iron,
-/area/engine/break_room)
 "bYQ" = (
 /obj/machinery/suit_storage_unit/atmos,
 /obj/effect/turf_decal/stripes/line{
@@ -9870,6 +9876,20 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/virology)
+"bYZ" = (
+/obj/item/toy/cards/deck{
+	pixel_x = 1;
+	pixel_y = 13
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/siding/wood,
+/obj/structure/table/wood,
+/obj/item/clothing/mask/cigarette/cigar{
+	pixel_x = 6
+	},
+/obj/item/clothing/mask/cigarette/cigar,
+/turf/open/floor/carpet/royalblue,
+/area/crew_quarters/bar/atrium)
 "bZb" = (
 /obj/machinery/light{
 	dir = 4
@@ -22648,20 +22668,6 @@
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/iron,
 /area/hydroponics)
-"fHG" = (
-/obj/item/toy/cards/deck{
-	pixel_x = 1;
-	pixel_y = 13
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/siding/wood,
-/obj/structure/table/wood,
-/obj/item/clothing/mask/cigarette/cigar{
-	pixel_x = 6
-	},
-/obj/item/clothing/mask/cigarette/cigar,
-/turf/open/floor/carpet/royalblue,
-/area/crew_quarters/bar/atrium)
 "fHJ" = (
 /obj/machinery/computer/atmos_control/air_tank{
 	dir = 1
@@ -24978,6 +24984,18 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
+"gBj" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/table/wood,
+/obj/effect/landmark/event_spawn,
+/obj/machinery/cell_charger{
+	desc = "It charges power cells. There is a small tag on it: Public tools charger. Please do no remove"
+	},
+/turf/open/floor/carpet/black,
+/area/crew_quarters/bar/atrium)
 "gBM" = (
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
@@ -25968,16 +25986,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
-"haj" = (
-/obj/effect/mapping_helpers/airlock/cyclelink_helper_multi{
-	cycle_id = "atmos_external"
-	},
-/obj/machinery/door/airlock/external{
-	name = "Atmospherics External Airlock";
-	req_one_access = "24, 13"
-	},
-/turf/open/floor/plating,
-/area/maintenance/aft)
 "haz" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -29522,14 +29530,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/carpet/green,
 /area/crew_quarters/dorms)
-"ipn" = (
-/obj/item/stack/medical/gauze,
-/obj/item/stack/medical/bruise_pack,
-/obj/item/stack/medical/ointment,
-/obj/effect/turf_decal/tile/blue,
-/obj/structure/table,
-/turf/open/floor/iron/white,
-/area/medical/medbay/lobby)
 "ips" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -31919,12 +31919,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/surgery)
-"jpe" = (
-/obj/structure/table/wood,
-/obj/item/paper,
-/obj/item/pen,
-/turf/open/floor/wood,
-/area/library)
 "jpg" = (
 /obj/machinery/digital_clock/directional/north,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
@@ -41330,6 +41324,15 @@
 /obj/machinery/teleport/hub,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat_interior)
+"nfR" = (
+/obj/item/stack/medical/gauze,
+/obj/item/stack/medical/bruise_pack,
+/obj/item/stack/medical/ointment,
+/obj/effect/turf_decal/tile/blue,
+/obj/structure/table,
+/obj/item/storage/firstaid/regular,
+/turf/open/floor/iron/white,
+/area/medical/medbay/lobby)
 "nfV" = (
 /obj/machinery/computer/cargo/request,
 /obj/effect/turf_decal/tile/brown{
@@ -42239,13 +42242,6 @@
 	},
 /turf/open/floor/carpet/blue,
 /area/bridge/meeting_room)
-"nzv" = (
-/obj/structure/table/wood,
-/obj/machinery/cell_charger{
-	desc = "It charges power cells. There is a small tag on it: Public tools charger. Please do no remove"
-	},
-/turf/open/floor/wood,
-/area/library)
 "nzC" = (
 /obj/machinery/computer/atmos_control/nitrogen_tank{
 	dir = 1
@@ -45633,6 +45629,18 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron/white,
 /area/medical/virology)
+"oTO" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/poddoor/shutters{
+	id = "barcounter";
+	name = "Bar Counter Shutters"
+	},
+/obj/machinery/door/firedoor,
+/obj/item/candydispenser{
+	pixel_y = 11
+	},
+/turf/open/floor/iron/cafeteria_red,
+/area/crew_quarters/bar)
 "oTT" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/structure/closet,
@@ -48123,18 +48131,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/carpet,
 /area/vacant_room/office)
-"pSg" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/table/wood,
-/obj/effect/landmark/event_spawn,
-/obj/machinery/cell_charger{
-	desc = "It charges power cells. There is a small tag on it: Public tools charger. Please do no remove"
-	},
-/turf/open/floor/carpet/black,
-/area/crew_quarters/bar/atrium)
 "pSj" = (
 /obj/structure/closet/wardrobe/black,
 /obj/item/clothing/shoes/jackboots,
@@ -55272,12 +55268,6 @@
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/iron/dark,
 /area/medical/cryo)
-"sHB" = (
-/obj/item/storage/firstaid/regular,
-/obj/machinery/camera/directional/north,
-/obj/structure/table,
-/turf/open/floor/iron/white,
-/area/medical/medbay/lobby)
 "sHM" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/smart/simple/orange/visible/layer2{
@@ -57247,6 +57237,14 @@
 	},
 /turf/open/floor/iron/tech,
 /area/quartermaster/miningdock)
+"ttP" = (
+/obj/machinery/camera/directional/north,
+/obj/structure/table,
+/obj/item/candydispenser/lollipop{
+	pixel_y = 10
+	},
+/turf/open/floor/iron/white,
+/area/medical/medbay/lobby)
 "tud" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/secure_closet/brig_physician,
@@ -62979,6 +62977,16 @@
 	},
 /turf/open/floor/prison,
 /area/security/prison)
+"vCY" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/item/candydispenser/engineering{
+	pixel_y = 11
+	},
+/obj/structure/table,
+/turf/open/floor/iron,
+/area/engine/break_room)
 "vDd" = (
 /obj/structure/disposalpipe/sorting/unsorted/flip{
 	dir = 1
@@ -99658,7 +99666,7 @@ bZy
 qHS
 bTg
 rew
-bYO
+vCY
 cfc
 tgu
 oov
@@ -104746,7 +104754,7 @@ dBZ
 cKr
 wlO
 hHJ
-fHG
+bYZ
 fyT
 vHr
 fyT
@@ -105774,7 +105782,7 @@ aJC
 cOn
 fRF
 pEE
-pLg
+oTO
 nez
 fkY
 fyT
@@ -105828,10 +105836,10 @@ ccB
 cbH
 bLK
 aaf
-haj
+way
 ctl
 ctl
-haj
+way
 ixA
 aoV
 aaf
@@ -106292,14 +106300,14 @@ unQ
 nez
 fkY
 fyT
-pSg
+gBj
 kIP
 tTC
 aYV
 kDj
 rpN
 vzd
-ipn
+nfR
 vmZ
 qjW
 vmZ
@@ -106344,7 +106352,7 @@ bLK
 gXs
 oSu
 oSu
-haj
+way
 oSu
 lTm
 cnb
@@ -106556,7 +106564,7 @@ aYV
 kDj
 cOt
 uwZ
-sHB
+ttP
 pcD
 kSZ
 pcD
@@ -113486,10 +113494,10 @@ aIt
 aRO
 aRO
 aUC
-jpe
+aVP
 hCC
 aYW
-nzv
+bat
 jAf
 aYV
 sGq

@@ -6908,6 +6908,14 @@
 /obj/machinery/power/supermatter_crystal/engine,
 /turf/open/floor/engine,
 /area/engine/supermatter)
+"cjT" = (
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/item/candydispenser/lollipop{
+	pixel_y = 10
+	},
+/obj/structure/table/glass,
+/turf/open/floor/iron/white,
+/area/medical/medbay/lobby)
 "cjU" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -8177,17 +8185,6 @@
 	luminosity = 2
 	},
 /area/security/nuke_storage)
-"cCP" = (
-/obj/structure/table/reinforced,
-/obj/item/kitchen/fork{
-	pixel_x = -6;
-	pixel_y = 13
-	},
-/obj/effect/turf_decal/siding/wideplating/dark{
-	dir = 6
-	},
-/turf/open/floor/iron/cafeteria,
-/area/crew_quarters/kitchen)
 "cCS" = (
 /obj/effect/turf_decal/guideline/guideline_half_edge/purple{
 	dir = 4
@@ -14849,13 +14846,6 @@
 	},
 /turf/open/space/basic,
 /area/solar/starboard/aft)
-"eNH" = (
-/obj/item/kirbyplants/random,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/iron/dark,
-/area/engine/engine_room)
 "eNK" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -20580,6 +20570,20 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible/layer4,
 /turf/open/floor/iron/dark,
 /area/engine/engine_room)
+"gDF" = (
+/obj/structure/table/reinforced,
+/obj/item/kitchen/fork{
+	pixel_x = -6;
+	pixel_y = 13
+	},
+/obj/effect/turf_decal/siding/wideplating/dark{
+	dir = 6
+	},
+/obj/item/candydispenser{
+	pixel_y = 11
+	},
+/turf/open/floor/iron/cafeteria,
+/area/crew_quarters/kitchen)
 "gDW" = (
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=1-Bridge";
@@ -28038,6 +28042,16 @@
 /obj/machinery/door/airlock/public/glass/incinerator/atmos_interior,
 /turf/open/floor/engine,
 /area/engine/atmospherics_engine)
+"jfn" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/siding/wideplating/dark{
+	dir = 10
+	},
+/obj/machinery/cell_charger{
+	desc = "It charges power cells. There is a small tag on it: Public tools charger. Please do no remove"
+	},
+/turf/open/floor/iron/cafeteria,
+/area/crew_quarters/kitchen)
 "jfJ" = (
 /obj/machinery/suit_storage_unit/rd,
 /turf/open/floor/iron,
@@ -28951,16 +28965,6 @@
 "jvB" = (
 /turf/closed/wall,
 /area/bridge/meeting_room)
-"jvC" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/siding/wideplating/dark{
-	dir = 10
-	},
-/obj/machinery/cell_charger{
-	desc = "It charges power cells. There is a small tag on it: Public tools charger. Please do no remove"
-	},
-/turf/open/floor/iron/cafeteria,
-/area/crew_quarters/kitchen)
 "jvE" = (
 /obj/effect/turf_decal/tile/blue{
 	alpha = 200;
@@ -35613,6 +35617,16 @@
 	icon_state = "1-4"
 	},
 /turf/open/floor/iron,
+/area/engine/engine_room)
+"lNB" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/item/candydispenser/engineering{
+	pixel_y = 11
+	},
+/obj/structure/table,
+/turf/open/floor/iron/dark,
 /area/engine/engine_room)
 "lNN" = (
 /turf/open/floor/engine/n2,
@@ -59587,16 +59601,6 @@
 	},
 /turf/open/floor/iron/dark/side,
 /area/hallway/primary/central)
-"tER" = (
-/obj/machinery/newscaster{
-	pixel_x = 32;
-	pixel_y = 1
-	},
-/obj/effect/turf_decal/guideline/guideline_edge/purple{
-	dir = 4
-	},
-/turf/open/floor/iron/dark,
-/area/science/robotics)
 "tFg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -60967,11 +60971,6 @@
 /obj/effect/turf_decal/guideline/guideline_edge/purple,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
-"uaR" = (
-/obj/item/kirbyplants/random,
-/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
-/turf/open/floor/iron/white,
-/area/medical/medbay/lobby)
 "uaW" = (
 /obj/machinery/door/airlock/research/glass{
 	id_tag = "RoboFoyer";
@@ -70424,6 +70423,16 @@
 	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
+"xhi" = (
+/obj/machinery/newscaster{
+	pixel_x = 32;
+	pixel_y = 1
+	},
+/obj/effect/turf_decal/guideline/guideline_edge/purple{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/science/robotics)
 "xhl" = (
 /obj/machinery/power/rad_collector/anchored,
 /obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
@@ -99789,7 +99798,7 @@ jwV
 tVp
 enQ
 fNW
-tER
+xhi
 gjP
 duA
 oTo
@@ -105997,7 +106006,7 @@ hdr
 vVF
 hfT
 iaC
-eNH
+lNB
 peX
 qBW
 ocl
@@ -108528,7 +108537,7 @@ fxR
 bMY
 xKJ
 mjM
-uaR
+cjT
 ijk
 xvs
 bPy
@@ -111839,7 +111848,7 @@ cbV
 pyP
 omR
 cqL
-jvC
+jfn
 kok
 bZA
 mWi
@@ -112867,7 +112876,7 @@ cYQ
 eeJ
 pTp
 diN
-cCP
+gDF
 kMP
 bSd
 mWi

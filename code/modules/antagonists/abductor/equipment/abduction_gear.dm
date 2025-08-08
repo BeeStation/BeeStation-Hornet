@@ -180,16 +180,16 @@
 	righthand_file = 'icons/mob/inhands/antag/abductor_righthand.dmi'
 
 /obj/item/proc/AbductorCheck(mob/user)
-	if(HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_TRAINING))
+	if(HAS_MIND_TRAIT(user, TRAIT_ABDUCTOR_TRAINING))
 		return TRUE
 	to_chat(user, span_warning("You can't figure out how this works!"))
 	return FALSE
 
 /obj/item/abductor/proc/ScientistCheck(mob/user)
-	if(!HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_TRAINING))
+	if(!HAS_MIND_TRAIT(user, TRAIT_ABDUCTOR_TRAINING))
 		to_chat(user, span_warning("You can't figure out how this works!"))
 		return FALSE
-	if(!HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_SCIENTIST_TRAINING))
+	if(!HAS_MIND_TRAIT(user, TRAIT_ABDUCTOR_SCIENTIST_TRAINING))
 		to_chat(user, span_warning("You're not trained to use this!"))
 		return FALSE
 	return TRUE

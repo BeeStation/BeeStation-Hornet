@@ -20063,6 +20063,17 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/medical/medbay/lobby)
+"ezN" = (
+/obj/structure/table,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted,
+/obj/item/candydispenser/engineering{
+	pixel_y = 11
+	},
+/turf/open/floor/iron/dark,
+/area/engine/break_room)
 "ezP" = (
 /obj/machinery/telecomms/server/presets/science,
 /obj/effect/turf_decal/stripes/line{
@@ -22221,19 +22232,6 @@
 /obj/item/rollerbed,
 /turf/open/floor/iron/showroomfloor,
 /area/security/main)
-"fjU" = (
-/obj/structure/table/wood,
-/obj/effect/decal/cleanable/cobweb,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -26
-	},
-/obj/item/radio/intercom{
-	pixel_y = 22
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted,
-/obj/machinery/cell_charger,
-/turf/open/floor/iron/dark,
-/area/crew_quarters/bar)
 "fjZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -29684,6 +29682,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/wall,
 /area/maintenance/port/fore)
+"hEY" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/iron/dark,
+/area/science/robotics/lab)
 "hFk" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-03"
@@ -38693,6 +38696,18 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/prison)
+"kAb" = (
+/obj/machinery/light,
+/obj/structure/table,
+/obj/structure/sign/departments/chemistry{
+	pixel_y = -32
+	},
+/obj/effect/turf_decal/tile/dark/opposingcorners,
+/obj/item/candydispenser/lollipop{
+	pixel_y = 10
+	},
+/turf/open/floor/iron/dark,
+/area/medical/medbay/lobby)
 "kAk" = (
 /obj/machinery/disposal/bin,
 /obj/effect/turf_decal/bot,
@@ -39841,11 +39856,6 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/medical/medbay/lobby)
-"kWs" = (
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/turf/open/floor/iron/dark,
-/area/science/robotics/lab)
 "kWG" = (
 /obj/effect/turf_decal/box/corners{
 	dir = 1
@@ -52240,6 +52250,14 @@
 	},
 /turf/open/floor/iron/dark,
 /area/medical/morgue)
+"oUu" = (
+/obj/structure/table/wood,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/item/candydispenser{
+	pixel_y = 11
+	},
+/turf/open/floor/iron/dark,
+/area/crew_quarters/bar)
 "oUB" = (
 /obj/machinery/door/poddoor,
 /turf/open/floor/plating/airless{
@@ -53874,20 +53892,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/engine/atmos)
-"pwH" = (
-/obj/structure/table,
-/obj/item/clipboard,
-/obj/item/airlock_painter{
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/obj/item/airlock_painter,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted,
-/turf/open/floor/iron/dark,
-/area/engine/break_room)
 "pwM" = (
 /obj/machinery/shower{
 	dir = 4;
@@ -54879,6 +54883,33 @@
 	broken = 1
 	},
 /area/security/execution/transfer)
+"pMm" = (
+/obj/structure/table,
+/obj/item/mmi,
+/obj/item/bodypart/chest/robot{
+	pixel_y = 4
+	},
+/obj/item/bodypart/leg/right/robot{
+	pixel_x = 6
+	},
+/obj/item/bodypart/arm/right/robot{
+	pixel_x = 6;
+	pixel_y = 6
+	},
+/obj/item/bodypart/leg/left/robot{
+	pixel_x = -6
+	},
+/obj/item/bodypart/arm/left/robot{
+	pixel_x = -6;
+	pixel_y = 6
+	},
+/obj/item/bodypart/head/robot,
+/obj/machinery/light,
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/storage/tech)
 "pMP" = (
 /obj/effect/mapping_helpers/airlock/abandoned,
 /obj/machinery/door/airlock/medical{
@@ -56386,17 +56417,6 @@
 /obj/structure/lattice/catwalk,
 /turf/open/floor/plating,
 /area/science/shuttledock)
-"qmI" = (
-/obj/structure/table,
-/obj/item/radio{
-	desc = "An old handheld radio. You could use it, if you really wanted to.";
-	icon_state = "radio";
-	name = "old radio"
-	},
-/obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/machinery/cell_charger,
-/turf/open/floor/iron/showroomfloor,
-/area/crew_quarters/bar/atrium)
 "qna" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment,
@@ -63099,18 +63119,6 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/medical/medbay/central)
-"sxr" = (
-/obj/machinery/light,
-/obj/structure/table,
-/obj/item/storage/box/bodybags{
-	pixel_y = 5
-	},
-/obj/structure/sign/departments/chemistry{
-	pixel_y = -32
-	},
-/obj/effect/turf_decal/tile/dark/opposingcorners,
-/turf/open/floor/iron/dark,
-/area/medical/medbay/lobby)
 "sxD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -63136,6 +63144,19 @@
 /obj/item/cardboard_cutout,
 /turf/open/floor/plating,
 /area/maintenance/fore)
+"sxN" = (
+/obj/structure/table/wood,
+/obj/effect/decal/cleanable/cobweb,
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -26
+	},
+/obj/item/radio/intercom{
+	pixel_y = 22
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted,
+/obj/machinery/cell_charger,
+/turf/open/floor/iron/dark,
+/area/crew_quarters/bar)
 "sxV" = (
 /obj/machinery/door/airlock/external{
 	name = "Supply Dock Airlock";
@@ -63682,6 +63703,17 @@
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/sorting)
+"sGt" = (
+/obj/structure/table,
+/obj/item/radio{
+	desc = "An old handheld radio. You could use it, if you really wanted to.";
+	icon_state = "radio";
+	name = "old radio"
+	},
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/machinery/cell_charger,
+/turf/open/floor/iron/showroomfloor,
+/area/crew_quarters/bar/atrium)
 "sGC" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -75680,33 +75712,6 @@
 /obj/effect/turf_decal/tile/red,
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
-"wwn" = (
-/obj/structure/table,
-/obj/item/mmi,
-/obj/item/bodypart/chest/robot{
-	pixel_y = 4
-	},
-/obj/item/bodypart/leg/right/robot{
-	pixel_x = 6
-	},
-/obj/item/bodypart/arm/right/robot{
-	pixel_x = 6;
-	pixel_y = 6
-	},
-/obj/item/bodypart/leg/left/robot{
-	pixel_x = -6
-	},
-/obj/item/bodypart/arm/left/robot{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/bodypart/head/robot,
-/obj/machinery/light,
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/iron/dark,
-/area/storage/tech)
 "wwy" = (
 /obj/structure/chair{
 	dir = 1
@@ -104689,7 +104694,7 @@ ksk
 gwl
 hIF
 jVH
-sxr
+kAb
 rmr
 aQW
 aQW
@@ -106487,7 +106492,7 @@ tfq
 pcG
 mYI
 btE
-fjU
+sxN
 btT
 gbc
 bug
@@ -108030,7 +108035,7 @@ uRI
 iEg
 btE
 lLG
-geQ
+oUu
 geQ
 tdJ
 geQ
@@ -111152,7 +111157,7 @@ nJw
 hpP
 bYG
 bYG
-wwn
+pMm
 bDI
 hqq
 xus
@@ -114755,7 +114760,7 @@ qqg
 dey
 bof
 aCc
-pwH
+ezN
 etx
 swy
 nGW
@@ -116771,7 +116776,7 @@ teM
 teM
 wYL
 ouU
-qmI
+sGt
 aKF
 teM
 xxR
@@ -118558,7 +118563,7 @@ aZS
 uJl
 qhG
 dZj
-kWs
+hEY
 fHL
 vSX
 aZS
