@@ -1,5 +1,5 @@
 /// Uncomment this to enable testing of Vampire features (such as vassalizing people with a mind instead of a client).
-#define VAMPIRE_TESTING
+//#define VAMPIRE_TESTING
 
 #ifdef VAMPIRE_TESTING
 	#ifdef CIBUILDING
