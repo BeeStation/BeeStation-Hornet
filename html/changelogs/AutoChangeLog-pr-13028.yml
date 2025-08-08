@@ -1,8 +1,0 @@
-author: Doktorwueue (wueue) and SirYoshimoto
-delete-after: true
-changes:
-  - rscadd: Adds crew wearable backpacks in the style of all cyborgs to Cargo, Security,
-      Engineering, Medical, Bar, Chef, Botany, Donksoft and Robotics clothes vendors
-      for 300cr (Syndicate bags are 350cr). Also available in the Beecoin shop for
-      2000 beecoins (syndicate bags are 3500 beecoins for donors only).
-  - imageadd: Adds mob, inhand and icon sprites of 10 Cyborg style backpacks.

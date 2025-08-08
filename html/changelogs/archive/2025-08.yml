@@ -67,3 +67,10 @@
   - rscadd: more features for changeling_profile datums
   - bugfix: You can no longer override the ling DNA you're currently disguised as.
       This was apparently always intended but broken for ages.
+2025-08-08:
+  Doktorwueue (wueue) and SirYoshimoto:
+  - rscadd: Adds crew wearable backpacks in the style of all cyborgs to Cargo, Security,
+      Engineering, Medical, Bar, Chef, Botany, Donksoft and Robotics clothes vendors
+      for 300cr (Syndicate bags are 350cr). Also available in the Beecoin shop for
+      2000 beecoins (syndicate bags are 3500 beecoins for donors only).
+  - imageadd: Adds mob, inhand and icon sprites of 10 Cyborg style backpacks.
