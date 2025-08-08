@@ -1,0 +1,4 @@
+author: TsunamiAnt
+delete-after: true
+changes:
+  - code_imp: dynamic point deltas are now (5,-5) not (10,-10)
