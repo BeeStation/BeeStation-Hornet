@@ -127,7 +127,7 @@
 
 	var/temp_shield = (((aver_gas_power + 1) * aver_specific_heat) * log(10, total_moles * GASRIG_SHIELD_MOL_LOG_MULTIPLER)) + GASRIG_NATURAL_SHIELD_RECOVERY
 	display_shield_efficiency = temp_shield
-	shield_strength_change = (get_depth() * GASRIG_DEPTH_SHIELD_DAMAGE_MULTIPLIER) + temp_shield
+	shield_strength_change = temp_shield - (get_depth() * GASRIG_DEPTH_SHIELD_DAMAGE_MULTIPLIER)
 	shield_strength = max(min(shield_strength + shield_strength_change, GASRIG_MAX_SHIELD_STRENGTH), 0)
 
 /obj/machinery/atmospherics/gasrig/core/proc/produce_gases(datum/gas_mixture/air)
@@ -274,12 +274,15 @@
 	data["co2_constants"] = GASRIG_CO2
 	data["n2o_constants"] = GASRIG_N2O
 	data["nob_constants"] = GASRIG_NOB
-	. =  data
+	return data
 
 /obj/machinery/atmospherics/gasrig/core/ui_act(action, params)
 	if(..())
 		return
-	say(action)
+	ui_act_base(action, params)
+
+
+/obj/machinery/atmospherics/gasrig/core/proc/ui_act_base(action, params)
 	switch(action)
 		if("set_depth")
 			set_depth = text2num(params["set_depth"])
