@@ -12526,6 +12526,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/structure/table/reinforced,
+/obj/item/candydispenser/engineering{
+	pixel_y = 11
+	},
 /turf/open/floor/iron,
 /area/engine/break_room)
 "bGn" = (
@@ -39143,13 +39147,15 @@
 /area/crew_quarters/locker)
 "gDt" = (
 /obj/structure/table,
-/obj/item/storage/firstaid/regular,
 /obj/item/radio/intercom{
 	dir = 8;
 	pixel_x = 28
 	},
 /obj/machinery/light/small{
 	dir = 4
+	},
+/obj/item/candydispenser/lollipop{
+	pixel_y = 10
 	},
 /turf/open/floor/iron,
 /area/medical/medbay/lobby)
@@ -57541,6 +57547,7 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /obj/machinery/digital_clock/directional/south,
+/obj/item/storage/firstaid/regular,
 /turf/open/floor/iron,
 /area/medical/medbay/lobby)
 "mAQ" = (
@@ -60163,6 +60170,14 @@
 	},
 /turf/open/floor/iron/dark,
 /area/bridge)
+"noi" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/item/candydispenser{
+	pixel_y = 11
+	},
+/turf/open/floor/iron/dark,
+/area/crew_quarters/bar)
 "not" = (
 /obj/machinery/door/morgue{
 	name = "Confession Booth";
@@ -132856,7 +132871,7 @@ aDL
 ogs
 aGk
 hTK
-icn
+noi
 tPm
 rOT
 wmK
