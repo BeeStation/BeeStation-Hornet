@@ -1,0 +1,18 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - balance: Wheelys now have the same speed as skateboards instead of lightspeed.
+  - balance: Nitrium move speed buff has been reduced. High and low doses provide
+      different boosts now as well, but both are lower than the old speed.
+  - balance: Nitrium is no longer fatal in any capacity when misused, making it the
+      safest available speed boosting "drug".
+  - balance: Nitrium no longer gives damage slowdown immunity, but has retained all
+      other immunities.
+  - tweak: Nitrium stops restoring stamina after a certain point, and instead starts
+      to inflict stamina damage. This is indicated by the messages "Your body aches!"
+      or "Your body feels like it's on fire!" when you are under the effects. (Note
+      that nitrium still offers stamina crit immunity so you will never accidentally
+      fall into stamcrit making you unable to switch your internals off)
+  - tweak: Nitrium is now highly addicting and has an overdose threshold. These do
+      not mechanically punish players and serve only as flavor and a clear warning
+      respectively.
