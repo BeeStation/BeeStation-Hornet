@@ -263,3 +263,16 @@
 /datum/vampire_clan/proc/on_favorite_vassal(datum/antagonist/vampire/source, datum/antagonist/vassal/vassaldatum)
 	SIGNAL_HANDLER
 	vassaldatum.BuyPower(new /datum/action/vampire/targeted/brawn)
+
+/**
+ * Calculates how many vassals you can have at any given time
+ */
+/datum/vampire_clan/proc/get_max_vassals()
+	var/total_players = length(GLOB.joined_player_list)
+	switch(total_players)
+		if(1 to 15)
+			return 1
+		if(15 to 35)
+			return 3
+		if(25 to INFINITY)
+			return 4

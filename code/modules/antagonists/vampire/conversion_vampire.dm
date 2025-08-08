@@ -23,6 +23,10 @@
 		user.balloon_alert(user, "enter a clan first.")
 		return FALSE
 
+	if(length(vassals) >= my_clan.get_max_vassals())
+		user.balloon_alert(user, "too many vassals!")
+		return FALSE
+
 #ifndef VAMPIRE_TESTING
 	if(!conversion_target.client)
 		user.balloon_alert(user, "can't be vassalized!")
@@ -34,17 +38,13 @@
 		return FALSE
 
 	var/datum/antagonist/vassal/vassaldatum = IS_VASSAL(conversion_target)
-	if(vassaldatum && !vassaldatum.master.broke_masquerade)
-		user.balloon_alert(user, "someone else's vassal!")
+	var/mob/living/vassal_master = conversion_target.mind.enslaved_to
+	if((vassaldatum && !vassaldatum.master.broke_masquerade) || (vassal_master && vassal_master != owner.current))
+		user.balloon_alert(user, "enslaved to someone else!")
 		return FALSE
 
 	if(conversion_target.stat > UNCONSCIOUS)
 		user.balloon_alert(user, "must be awake!")
-		return FALSE
-
-	var/mob/living/vassal_master = conversion_target.mind.enslaved_to
-	if(vassal_master && vassal_master != owner.current)
-		user.balloon_alert(user, "enslaved to someone else!")
 		return FALSE
 
 	return TRUE

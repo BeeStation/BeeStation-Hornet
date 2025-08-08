@@ -52,7 +52,7 @@
 		to_chat(owner.current, span_cultbold("You violated the Masquerade! Break the Masquerade [3 - masquerade_infractions] more times and you will become a criminal to the all other Vampires!"))
 
 /datum/antagonist/vampire/proc/RankUp()
-	if(!owner || !owner.current || IS_FAVORITE_VASSAL(owner.current))
+	if(!owner?.current)
 		return
 	vampire_level_unspent++
 	if(!my_clan)

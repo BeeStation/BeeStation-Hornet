@@ -74,6 +74,16 @@
 	vassaldatum.BuyPower(new /datum/action/vampire/shapeshift/batform)
 
 /datum/vampire_clan/tremere/on_vassal_made(datum/antagonist/vampire/source, mob/living/user, mob/living/target)
-	..()
+	. = ..()
 	to_chat(vampiredatum.owner.current, span_danger("You have now gained an additional Rank to spend!"))
 	vampiredatum.vampire_level_unspent++
+
+/datum/vampire_clan/tremere/get_max_vassals()
+	var/total_players = length(GLOB.joined_player_list)
+	switch(total_players)
+		if(1 to 15)
+			return 3
+		if(15 to 35)
+			return 5
+		if(25 to INFINITY)
+			return 7
