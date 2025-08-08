@@ -609,19 +609,17 @@
 	var/mob/living/silicon/robot/cyborg = loc
 	var/list/guard_icons = list(
 		"Borgi" = image(icon = 'icons/mob/robots.dmi', icon_state = "guard"),
-		"Drone" = image(icon = 'icons/mob/robots.dmi', icon_state = "drone_guard"),
+		"Treaded" = image(icon = 'icons/mob/robots.dmi', icon_state = "guard-tread"),
 		"Traditional" = image(icon = 'icons/mob/robots.dmi', icon_state = "guard_alt")
 	)
 	var/service_robot_icon = show_radial_menu(cyborg, cyborg, guard_icons, custom_check = CALLBACK(src, PROC_REF(check_menu), cyborg, old_module), radius = 42, require_near = TRUE)
 	switch(service_robot_icon)
 		if("Borgi")
 			cyborg_base_icon = "guard"
-		if("Drone")
-			cyborg_base_icon = "drone_guard"
-			special_light_key = "drone"
-			special_cover_key = "drone"
 		if("Traditional")
 			cyborg_base_icon = "guard_alt"
+		if("Treaded")
+			cyborg_base_icon = "guard-tread"
 		else
 			return FALSE
 	. = ..()
