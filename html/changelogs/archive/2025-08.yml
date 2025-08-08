@@ -74,3 +74,21 @@
       for 300cr (Syndicate bags are 350cr). Also available in the Beecoin shop for
       2000 beecoins (syndicate bags are 3500 beecoins for donors only).
   - imageadd: Adds mob, inhand and icon sprites of 10 Cyborg style backpacks.
+  Rukofamicom:
+  - rscdel: Door charges have been entirely removed from the game code
+  - tweak: Instead, any grenade can now be inserted into an open airlock, which will
+      cause it to detonate the next time the airlock opens. This is how door charges
+      behaved.
+  - rscdel: Large chemical grenades have been removed. These were able to hold bluespace
+      beakers and slime cores.
+  - tweak: All chemical grenades accept xenobio slime cores now.
+  - tweak: Chemical payloads no longer require Gibtonite or C4, a simple igniter will
+      do now.
+  - tweak: Primed grenades will now have a +/- 40% variable fuse timer to reinforce
+      their purpose as area denial tools moreso than sudden takedown tools. Cook grenades
+      at your peril.
+  - bugfix: You will no longer attempt to place C4/X4 that is no longer in your hands
+      because you've already done something else with it. This means no more accidentally
+      bombing your bag of explosives.
+  TsunamiAnt:
+  - code_imp: dynamic point deltas are now (5,-5) not (10,-10)
