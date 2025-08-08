@@ -82,7 +82,7 @@
 
 /obj/effect/client_image_holder/hallucination/danger/anomaly
 	name = "flux wave anomaly"
-	image_icon = 'icons/effects/effects.dmi'
+	image_icon = 'icons/effects/anomalies.dmi'
 	image_state = "flux"
 	image_layer = OBJ_LAYER + 0.01
 

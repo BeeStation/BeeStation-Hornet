@@ -1,6 +1,6 @@
 /obj/effect/anomaly/blood
 	name = "blood anomaly"
-	icon_state = "blood_anomaly"
+	icon_state = "blood"
 	density = TRUE
 	anomaly_core = /obj/item/assembly/signaler/anomaly/blood
 	var/sucking = FALSE

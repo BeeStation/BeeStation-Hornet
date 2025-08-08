@@ -58,13 +58,13 @@
 		if(icon_exists(icon, icon_state))
 			continue
 
-		Fail("Hallucination image holder [image_holder] had an invalid / missing icon state for the icon [icon].")
+		TEST_FAIL("Hallucination image holder [image_holder] had an invalid / missing icon state for the icon [icon].")
 
 /datum/unit_test/hallucination_icons/proc/check_hallucination_icon(hallucination, icon, icon_state)
 	if(!icon)
-		Fail("Hallucination [hallucination] forgot to set its icon file.")
+		TEST_FAIL("Hallucination [hallucination] forgot to set its icon file.")
 	if(!icon_state)
-		Fail("Hallucination [hallucination] forgot to set an icon state.")
+		TEST_FAIL("Hallucination [hallucination] forgot to set an icon state.")
 	if(!icon || !icon_state || icon_exists(icon, icon_state))
 		return
-	Fail("Hallucination [hallucination] has an invalid icon_state ([icon_state]) for its icon ([icon]).")
+	TEST_FAIL("Hallucination [hallucination] has an invalid icon_state ([icon_state]) for its icon ([icon]).")

@@ -8,7 +8,7 @@
 
 /obj/effect/anomaly/grav
 	name = "gravitational anomaly"
-	icon_state = "shield3-rewind"
+	icon_state = "gravity"
 	density = FALSE
 	var/boing = 0
 	///Warp effect holder for displacement filter to "pulse" the anomaly
