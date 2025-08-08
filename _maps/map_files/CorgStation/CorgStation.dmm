@@ -11988,8 +11988,10 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "dKh" = (
-/obj/structure/reagent_dispensers/watertank,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
 /turf/open/floor/plating,
 /area/maintenance/department/science/central)
 "dKD" = (
@@ -24378,7 +24380,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/turf/open/floor/iron/dark/telecomms,
+/turf/open/floor/iron/dark,
 /area/science/nanite)
 "hOq" = (
 /obj/structure/cable/yellow{
@@ -31314,10 +31316,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/railing/perspective/wood/corner{
-	dir = 4;
-	pixel_y = -20
-	},
 /obj/effect/turf_decal/siding/wood,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -32731,11 +32729,9 @@
 /turf/open/floor/iron,
 /area/ai_monitored/turret_protected/aisat/foyer)
 "kwc" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
+/obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/plating,
-/area/maintenance/department/science/central)
+/area/science/explab)
 "kwk" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Bar"
@@ -104083,7 +104079,7 @@ dKh
 pOm
 cRG
 bLk
-bLk
+kwc
 lWn
 mzl
 ucD
@@ -107979,7 +107975,7 @@ bPC
 hcb
 dAY
 tgO
-rjM
+dAY
 uCb
 aRS
 ggm
@@ -108240,7 +108236,7 @@ ouA
 bTQ
 eae
 wwP
-int
+iNG
 wOr
 ijj
 eCl
@@ -109533,7 +109529,7 @@ xzr
 xzr
 hcl
 wxN
-phj
+xzr
 wWM
 iLR
 pDH
@@ -109790,7 +109786,7 @@ qzO
 ahR
 cQM
 uGD
-bWw
+nUo
 nUo
 fYI
 qqs
@@ -110047,7 +110043,7 @@ qzO
 mAX
 spX
 fLL
-jxP
+abH
 abH
 oKr
 hDC
@@ -110304,7 +110300,7 @@ lwn
 hQk
 tHF
 lQR
-phj
+xzr
 wWM
 awN
 cWG
@@ -110561,7 +110557,7 @@ qzO
 hjM
 lYg
 hDj
-phj
+xzr
 wWM
 qyX
 xws

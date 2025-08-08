@@ -76166,6 +76166,9 @@
 	pixel_y = -25
 	},
 /obj/machinery/light/small,
+/obj/item/storage/backpack/duffelbag/med/surgery{
+	pixel_y = 7
+	},
 /turf/open/floor/iron/showroomfloor,
 /area/security/main)
 "wDF" = (
