@@ -283,21 +283,3 @@
 /datum/gear/accessory/backpack/medical_borg_bag
 	display_name = "medical cyborg bag"
 	path = /obj/item/storage/backpack/medical_borg_bag
-
-//Syndi borg bags//
-
-/datum/gear/accessory/backpack/syndi
-	subtype_path = /datum/gear/accessory/backpack
-	cost = 5000
-
-/datum/gear/accessory/backpack/syndi/syndiassault_borg_bag
-	display_name = "suspiscious assault cyborg bag"
-	path = /obj/item/storage/backpack/syndiassault_borg_bag
-
-/datum/gear/accessory/backpack/syndi/syndimed_borg_bag
-	display_name = "suspiscious medical cyborg bag"
-	path = /obj/item/storage/backpack/syndimed_borg_bag
-
-/datum/gear/accessory/backpack/syndi/syndieng_borg_bag
-	display_name = "suspiscious engineering cyborg bag"
-	path = /obj/item/storage/backpack/syndieng_borg_bag

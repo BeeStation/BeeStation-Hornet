@@ -301,7 +301,7 @@
 	name = "medical cyborg bag"
 	desc = "Store the scalpel to safe the captains life in this sterile bag! It gives off a strong smell of antiseptic spray."
 	icon_state = "mediborgpack"
-custom_premium_price = 300
+	custom_premium_price = 300
 
 /////////////////
 //DONATOR ITEMS//
