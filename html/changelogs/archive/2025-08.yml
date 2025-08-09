@@ -142,6 +142,9 @@
   TsunamiAnt:
   - code_imp: dynamic point deltas are now (5,-5) not (10,-10)
 2025-08-09:
+  mrmanlikesbt, LemonInTheDark, ninjanomnom:
+  - code_imp: shifted around some signal logic
+  - code_imp: micro optimizations for signal code
   ? 'rkz, Fikou, MrMelbert, MTandi, Zonespace27, HatterHat, san7890, dawsonkeyes,
     mc-oofert, tralezab, SmArtKar, coiax, Ryll/Shaps, Jacquerel, necromanceranne,
     Xander3395, grungussuss, GPeckman, Holoo-1, OrionTheFox, Momo8289, Wallemations, '
