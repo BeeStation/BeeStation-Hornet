@@ -1,0 +1,4 @@
+author: Nakalon
+delete-after: true
+changes:
+  - bugfix: Fixes a bug causing qdeled modular computers to drop parts
