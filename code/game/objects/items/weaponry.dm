@@ -48,6 +48,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	slot_flags = ITEM_SLOT_BELT
 	force = 2
 	throwforce = 1
+	canblock = TRUE
 
 	w_class = WEIGHT_CLASS_LARGE
 	item_flags = ISWEAPON
@@ -61,12 +62,12 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	return SHAME
 
 /obj/item/sord/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
+	. = ..()
 	if(isitem(hitby))
 		var/obj/item/I = hitby
 		owner.attackby(src)
 		owner.attackby(src, owner)
 		owner.visible_message(span_danger("[owner] can't get a grip, and stabs himself with both the [I] and the[src] while trying to parry the [I]!"))
-	return ..()
 
 /obj/item/claymore
 	name = "claymore"

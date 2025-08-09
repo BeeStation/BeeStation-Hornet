@@ -439,12 +439,12 @@
 	canblock = TRUE
 
 /obj/item/nullrod/sord/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
+	. = ..()
 	if(isitem(hitby))
 		var/obj/item/I = hitby
 		owner.attackby(src)
 		owner.attackby(src, owner)
 		owner.visible_message(span_danger("[owner] can't get a grip, and stabs himself with both the [I] and the[src] while trying to parry the [I]!"))
-	return ..()
 
 /obj/item/nullrod/scythe
 	name = "reaper scythe"
