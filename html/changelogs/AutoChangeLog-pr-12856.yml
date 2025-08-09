@@ -1,0 +1,8 @@
+author: Nakalon
+delete-after: true
+changes:
+  - tweak: IPC brains now fit inside Robotic Torsos
+  - tweak: A warning message will appear when attempting to fit an IPC brain inside
+      a body which already has a brain (even if elsewhere)
+  - rscadd: A new surgery called Identity Recalibration can be preformed on robotic
+      torsos! (You'll need an ID)
