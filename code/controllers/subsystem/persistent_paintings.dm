@@ -93,7 +93,7 @@ SUBSYSTEM_DEF(persistent_paintings)
 	/// A list of /datum/paintings saved or ready to be saved this round.
 	var/list/paintings = list()
 
-/datum/controller/subsystem/persistent_paintings/Initialize(start_timeofday)
+/datum/controller/subsystem/persistent_paintings/Initialize()
 	var/json_file = file("data/paintings.json")
 	if(fexists(json_file))
 		var/list/raw_data = update_format(json_decode(file2text(json_file)))
@@ -105,7 +105,7 @@ SUBSYSTEM_DEF(persistent_paintings)
 	for(var/obj/structure/sign/painting/painting_frame as anything in painting_frames)
 		painting_frame.load_persistent()
 
-	return ..()
+	return SS_INIT_SUCCESS
 
 /**
  * Generates painting data ready to be consumed by ui.

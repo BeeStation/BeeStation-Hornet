@@ -145,8 +145,9 @@
 		return 1
 	return
 
-/turf/closed/wall/clockwork/mech_melee_attack(obj/vehicle/sealed/mecha/M)
-	return
+/turf/closed/wall/clockwork/mech_melee_attack(obj/vehicle/sealed/mecha/mecha_attacker, mob/living/user)
+	..()
+	return 0
 
 /turf/closed/wall/clockwork/update_icon()
 	. = ..()
