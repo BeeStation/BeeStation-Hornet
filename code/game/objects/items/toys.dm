@@ -442,8 +442,8 @@
 	twohand_force = 0
 	attack_verb_continuous = list("attacks", "strikes", "hits")
 	attack_verb_simple = list("attack", "strike", "hit")
-	block_upgrade_walk = FALSE
-	block_level = 0
+
+	canblock = FALSE
 	item_flags = ISWEAPON
 
 /obj/item/dualsaber/toy/on_wield(obj/item/source, mob/living/carbon/user)

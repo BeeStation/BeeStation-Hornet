@@ -63,8 +63,8 @@
 	flags_1 = CONDUCT_1
 	obj_flags = UNIQUE_RENAME
 	force = 15
-	block_level = 1
-	block_upgrade_walk = TRUE
+	canblock = TRUE
+
 	block_power = 50
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	throwforce = 10
@@ -625,8 +625,8 @@
 	armour_penetration = 1000
 	var/obj/machinery/power/supermatter_crystal/shard
 	var/balanced = 1
-	block_level = 1
-	block_upgrade_walk = TRUE
+	canblock = TRUE
+
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
 	force_string = "INFINITE"
 

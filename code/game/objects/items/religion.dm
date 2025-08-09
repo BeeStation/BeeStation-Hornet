@@ -298,8 +298,8 @@
 /obj/item/claymore/weak
 	desc = "This one is rusted."
 	force = 30
-	block_level = 1
-	block_upgrade_walk = TRUE
+	canblock = TRUE
+
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	armour_penetration = 15
 

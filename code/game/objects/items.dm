@@ -173,9 +173,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/toolspeed = 1
 
 	/// The chance that holding this item will block attacks.
-	var/block_level = 0
-	//does the item block better if walking?
-	var/block_upgrade_walk = FALSE
+	var/canblock = FALSE
 	//blocking flags
 	var/block_flags = BLOCKING_ACTIVE
 	//reduces stamina damage taken whilst blocking. block power of 0 means it takes the full force of the attacking weapon
@@ -339,9 +337,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 /obj/item/proc/check_allowed_items(atom/target, not_inside, target_self)
 	if(((src in target) && !target_self) || (!isturf(target.loc) && !isturf(target) && not_inside))
-		return 0
+		return FALSE
 	else
-		return 1
+		return TRUE
 
 /obj/item/blob_act(obj/structure/blob/B)
 	if(B.loc == loc && !(resistance_flags & INDESTRUCTIBLE))
@@ -622,12 +620,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, owner, hitby, attack_text, damage, attack_type) & COMPONENT_HIT_REACTION_BLOCK)
 		return TRUE
 	var/relative_dir = (dir2angle(get_dir(hitby, owner)) - dir2angle(owner.dir)) //shamelessly stolen from mech code
-	var/final_block_level = block_level
 	var/obj/item/bodypart/blockhand = null
 	if(owner.stat) //can't block if you're dead
-		return 0
-	if(HAS_TRAIT(owner, TRAIT_NOBLOCK) && !istype(src, /obj/item/shield)) //shields can always block, because they break instead of using stamina damage
-		return 0
+		return FALSE
+	if(HAS_TRAIT(owner, TRAIT_NOBLOCK))
+		to_chat(owner, span_danger("You fumble when trying to block the attack, you're too jittery!")) //No blocking while under the influence of certain drugs
+		return FALSE
 	if(owner.get_active_held_item() == src) //copypaste of this code for an edgecase-nodrops
 		if(owner.active_hand_index == 1)
 			blockhand = (locate(/obj/item/bodypart/l_arm) in owner.bodyparts)
@@ -639,48 +637,31 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		else
 			blockhand = (locate(/obj/item/bodypart/l_arm) in owner.bodyparts)
 	if(!blockhand)
-		return 0
+		return FALSE
 	if(blockhand?.bodypart_disabled)
 		to_chat(owner, span_danger("You're too exausted to block the attack!"))
-		return 0
-	else if(HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE) && owner.getStaminaLoss() >= 30)
+		return FALSE
+	else if(owner.getStaminaLoss() >= 50)
 		to_chat(owner, span_danger("You're too exausted to block the attack!"))
-		return 0
+		return FALSE
 	if(block_flags & BLOCKING_ACTIVE && owner.get_active_held_item() != src) //you can still parry with the offhand
-		return 0
+		return FALSE
 	if(isprojectile(hitby)) //fucking bitflags broke this when coded in other ways
 		var/obj/projectile/P = hitby
 		if(block_flags & BLOCKING_PROJECTILE)
 			if(P.movement_type & PHASING) //you can't block piercing rounds!
-				return 0
+				return FALSE
 			// Recalculate the relative_dir based on the projectile angle
 			relative_dir = dir2angle(angle2dir(P.Angle)) - dir2angle(owner.dir)
 		else
-			return 0
-	if(owner.m_intent == MOVE_INTENT_WALK)
-		final_block_level += block_upgrade_walk
+			return FALSE
 	switch(relative_dir)
-		if(180, -180)
-			if(final_block_level >= 1)
-				playsound(src, block_sound, 50, 1)
-				owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"))
-				return 1
 		if(135, 225, -135, -225)
-			if(final_block_level >= 2)
+			if(canblock)
 				playsound(src, block_sound, 50, 1)
 				owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"))
-				return 1
-		if(90, 270, -90, -270)
-			if(final_block_level >= 3)
-				owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"))
-				playsound(src, block_sound, 50, 1)
-				return 1
-		if(45, 315, -45, -315)
-			if(final_block_level >= 4)
-				playsound(src, block_sound, 50, 1)
-				owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"))
-				return 1
-	return 0
+				return TRUE
+	return FALSE
 
 /obj/item/proc/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	var/blockhand = 0
@@ -832,7 +813,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		return FALSE
 	return TRUE
 
-//the mob M is attempting to equip this item into the slot passed through as 'slot'. Return 1 if it can do this and 0 if it can't.
+//the mob M is attempting to equip this item into the slot passed through as 'slot'. return TRUE if it can do this and 0 if it can't.
 //if this is being done by a mob other than M, it will include the mob equipper, who is trying to equip the item to mob M. equipper will be null otherwise.
 //If you are making custom procs but would like to retain partial or complete functionality of this one, include a 'return ..()' to where you want this to happen.
 //Set disable_warning to TRUE if you wish it to not give you outputs.
@@ -868,7 +849,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	attack_self(user)
 
 /obj/item/proc/IsReflect(var/def_zone) //This proc determines if and at what% an object will reflect energy projectiles if it's in l_hand,r_hand or wear_suit
-	return 0
+	return FALSE
 
 /obj/item/proc/eyestab(mob/living/carbon/M, mob/living/carbon/user)
 
@@ -1097,12 +1078,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	return SEND_SIGNAL(src, COMSIG_ATOM_HITBY, AM, skipcatch, hitpush, blocked, throwingdatum)
 
 /obj/item/attack_hulk(mob/living/carbon/human/user)
-	return 0
+	return FALSE
 
 /obj/item/attack_animal(mob/living/simple_animal/M)
 	if (obj_flags & CAN_BE_HIT)
 		return ..()
-	return 0
+	return FALSE
 
 /obj/item/burn()
 	if(!QDELETED(src))
@@ -1309,7 +1290,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 // Returns a numeric value for sorting items used as parts in machines, so they can be replaced by the rped
 /obj/item/proc/get_part_rating()
-	return 0
+	return FALSE
 
 /obj/item/doMove(atom/destination)
 	if (ismob(loc))

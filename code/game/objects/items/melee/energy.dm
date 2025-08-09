@@ -182,8 +182,8 @@
 	throw_speed = 3
 	throw_range = 5
 	armour_penetration = 35
-	block_level = 1
-	block_upgrade_walk = TRUE
+	canblock = TRUE
+
 	block_power = 35
 	block_sound = 'sound/weapons/egloves.ogg'
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY

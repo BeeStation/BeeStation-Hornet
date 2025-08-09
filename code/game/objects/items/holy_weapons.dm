@@ -149,7 +149,7 @@
 	item_state = "nullrod"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
-	block_upgrade_walk = TRUE
+
 	force = 18
 	throw_speed = 3
 	throw_range = 4
@@ -291,7 +291,7 @@
 	damtype = BURN
 	attack_verb_continuous = list("punches", "cross counters", "pummels")
 	attack_verb_simple = list("punch", "cross counter", "pummel")
-	block_upgrade_walk = FALSE
+
 
 /obj/item/nullrod/godhand/Initialize(mapload)
 	. = ..()
@@ -308,7 +308,7 @@
 	force = 5
 	slot_flags = ITEM_SLOT_BACK
 	block_flags = BLOCKING_PROJECTILE
-	block_level = 1
+	canblock = TRUE
 	block_power = 20
 	var/shield_icon = "shield-red"
 
@@ -334,7 +334,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	slot_flags = ITEM_SLOT_BACK|ITEM_SLOT_BELT
 	block_flags = BLOCKING_NASTY | BLOCKING_ACTIVE
-	block_level = 1
+	canblock = TRUE
 	block_power = 30
 	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_CUT
@@ -436,7 +436,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
-	block_level = 1
+	canblock = TRUE
 
 /obj/item/nullrod/sord/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	if(isitem(hitby))
@@ -455,7 +455,7 @@
 	righthand_file = 'icons/mob/inhands/weapons/polearms_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 	armour_penetration = 35
-	block_level = 1
+	canblock = TRUE
 	block_power = 15
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	slot_flags = ITEM_SLOT_BACK
@@ -597,7 +597,7 @@
 	tool_behaviour = TOOL_SAW
 	toolspeed = 2 //slower than a real saw
 	attack_weight = 2
-	block_upgrade_walk = FALSE
+
 
 
 /obj/item/nullrod/chainsaw/Initialize(mapload)

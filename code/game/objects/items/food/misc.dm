@@ -180,8 +180,8 @@
 	)
 	force = 30
 	throwforce = 15
-	block_level = 2
-	block_upgrade_walk = TRUE
+	canblock = TRUE
+
 	block_power = 55
 	attack_weight = 2
 	armour_penetration = 80

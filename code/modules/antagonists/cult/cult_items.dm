@@ -19,7 +19,7 @@
 	inhand_y_dimension = 32
 	w_class = WEIGHT_CLASS_SMALL
 	block_power = 0
-	block_level = 0
+	canblock = FALSE
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	force = 15
 	throwforce = 12 // unlike normal daggers, this one is curved and not designed to be thrown
@@ -50,8 +50,8 @@ Striking a noncultist, however, will tear their flesh."}
 	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_CUT
 	w_class = WEIGHT_CLASS_BULKY
-	block_level = 1
-	block_upgrade_walk = TRUE
+	canblock = TRUE
+
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	throwforce = 10
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -575,7 +575,7 @@ Striking a noncultist, however, will tear their flesh."}
 	throwforce = 40
 	throw_speed = 2
 	armour_penetration = 30
-	block_upgrade_walk = TRUE
+
 	attack_verb_continuous = list("attacks", "impales", "stabs", "tears", "lacerates", "gores")
 	attack_verb_simple = list("attack", "impale", "stab", "tear", "lacerate", "gore")
 	sharpness = SHARP

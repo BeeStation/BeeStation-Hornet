@@ -146,7 +146,7 @@
 	desc = "The chainsaw you want when you need to kill every damn thing in the room."
 	w_class = WEIGHT_CLASS_LARGE
 	block_power = 75
-	block_level = 1
+	canblock = TRUE
 	attack_weight = 3
 	armour_penetration = 75
 	light_range = 6
