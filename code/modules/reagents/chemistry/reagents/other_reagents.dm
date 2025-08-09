@@ -643,7 +643,8 @@
 
 /datum/reagent/mutationtoxin/golem/on_mob_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
-	var/static/list/random_golem_types = subtypesof(/datum/species/golem) - type
+	var/static/list/random_golem_types
+	random_golem_types = subtypesof(/datum/species/golem) - type
 	for(var/datum/species/golem/golem as anything in random_golem_types)
 		if(!initial(golem.random_eligible))
 			random_golem_types -= golem
