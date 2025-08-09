@@ -807,6 +807,7 @@
 	item_state = "syringe_kit"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
+	w_class = WEIGHT_CLASS_NORMAL
 	foldable = /obj/item/stack/sheet/cardboard //BubbleWrap
 
 /obj/item/storage/box/lights/Initialize(mapload)
@@ -1373,21 +1374,36 @@
 /obj/item/storage/box/locker/security
 	name = "security locker box"
 	icon_state = "secbox"
+/obj/item/storage/box/stabilized //every single stabilized extract from xenobiology
+	name = "box of stabilized extracts"
+	icon_state = "syndiebox"
 
-/obj/item/storage/box/locker/security/detective
-	name = "detective essentials"
-	desc = "The necessary equipment for any detective!"
-	illustration = "fpen"
-
-/obj/item/storage/box/locker/security/detective/PopulateContents()
-	new /obj/item/camera/detective(src)
-	new /obj/item/taperecorder(src)
-	new /obj/item/pinpointer/crew(src)
-	new /obj/item/binoculars(src)
-	new /obj/item/detective_scanner(src)
-	new /obj/item/flashlight/seclite(src)
-	new /obj/item/holosign_creator/security(src)
-	new /obj/item/reagent_containers/peppercloud_deployer(src)
+/obj/item/storage/box/stabilized/PopulateContents()
+	var/static/items_inside = list(
+		/obj/item/slimecross/stabilized/grey=1,\
+		/obj/item/slimecross/stabilized/orange=1,\
+		/obj/item/slimecross/stabilized/purple=1,\
+		/obj/item/slimecross/stabilized/blue=1,\
+		/obj/item/slimecross/stabilized/metal=1,\
+		/obj/item/slimecross/stabilized/yellow=1,\
+		/obj/item/slimecross/stabilized/darkpurple=1,\
+		/obj/item/slimecross/stabilized/darkblue=1,\
+		/obj/item/slimecross/stabilized/silver=1,\
+		/obj/item/slimecross/stabilized/bluespace=1,\
+		/obj/item/slimecross/stabilized/sepia=1,\
+		/obj/item/slimecross/stabilized/cerulean=1,\
+		/obj/item/slimecross/stabilized/pyrite=1,\
+		/obj/item/slimecross/stabilized/red=1,\
+		/obj/item/slimecross/stabilized/green=1,\
+		/obj/item/slimecross/stabilized/pink=1,\
+		/obj/item/slimecross/stabilized/gold=1,\
+		/obj/item/slimecross/stabilized/oil=1,\
+		/obj/item/slimecross/stabilized/black=1,\
+		/obj/item/slimecross/stabilized/lightpink=1,\
+		/obj/item/slimecross/stabilized/adamantine=1,\
+		/obj/item/slimecross/stabilized/rainbow=1,\
+		)
+	generate_items_inside(items_inside,src)
 
 /obj/item/storage/box/party_poppers
 	name = "box of party_poppers"
@@ -1396,4 +1412,3 @@
 /obj/item/storage/box/party_poppers/PopulateContents()
 	for(var/i in 1 to 5)
 		new /obj/item/reagent_containers/spray/chemsprayer/party(src)
-

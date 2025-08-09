@@ -90,7 +90,6 @@
 /// Called in /obj/structure/moneybot/add_money(). (to_add)
 #define COMSIG_MONEYBOT_ADD_MONEY "moneybot_add_money"
 
-
 #define COMSIG_GREYSCALE_CONFIG_REFRESHED "greyscale_config_refreshed"
 
 
@@ -158,3 +157,10 @@
 
 ///sent from ai controllers when they possess a pawn: (datum/ai_controller/source_controller)
 #define COMSIG_AI_CONTROLLER_POSSESSED_PAWN "ai_controller_possessed_pawn"
+/// Called when a device a traitor has planted effects someone's mood. Pass the mind of the viewer.
+#define COMSIG_DEMORALISING_EVENT "traitor_demoralise_event"
+
+/// Called when a projectile dampener captures an object.
+#define COMSIG_DAMPENER_CAPTURE "dampener_capture"
+/// Called when a projectile dampener releases an object.
+#define COMSIG_DAMPENER_RELEASE "dampener_release"

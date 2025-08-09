@@ -965,30 +965,6 @@
 	dir = 1
 	},
 /area/centcom/ferry)
-"acf" = (
-/obj/structure/table/reinforced,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
-	dir = 4
-	},
-/obj/structure/cable/white{
-	icon_state = "4-8"
-	},
-/obj/item/folder/red,
-/obj/item/restraints/handcuffs,
-/obj/item/assembly/flash/handheld,
-/obj/structure/railing{
-	dir = 8
-	},
-/obj/effect/turf_decal/trimline/green/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/siding/thinplating_new{
-	dir = 4
-	},
-/turf/open/floor/iron/edge{
-	dir = 8
-	},
-/area/centcom/ferry)
 "acg" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -3412,14 +3388,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/centcom/evac)
-"ahZ" = (
-/obj/structure/closet/crate/bin,
-/obj/effect/turf_decal/tile/green/anticorner/contrasted{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/tdome/tdomeobserve)
 "aia" = (
 /obj/machinery/firealarm{
 	dir = 1;
@@ -3707,15 +3675,6 @@
 	dir = 4
 	},
 /area/centcom/supply)
-"aiP" = (
-/obj/effect/turf_decal/tile/dark_blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/siding/thinplating_new{
-	dir = 10
-	},
-/turf/open/floor/iron,
-/area/tdome/tdomeobserve)
 "aiQ" = (
 /obj/structure/railing,
 /obj/item/kirbyplants/random,
@@ -3925,13 +3884,6 @@
 	dir = 4
 	},
 /area/centcom/supply)
-"ajo" = (
-/obj/effect/turf_decal/tile/dark_blue/half/contrasted,
-/obj/effect/turf_decal/siding/thinplating_new{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/tdome/tdomeobserve)
 "ajp" = (
 /obj/effect/turf_decal/box/corners{
 	dir = 1
@@ -3960,16 +3912,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/smooth,
 /area/centcom/supply)
-"ajt" = (
-/obj/effect/turf_decal/tile/dark_blue,
-/obj/effect/turf_decal/siding/thinplating_new{
-	dir = 9
-	},
-/obj/effect/turf_decal/tile/dark_blue/corner_ramp/offset{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/tdome/tdomeobserve)
 "aju" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 1
@@ -6586,15 +6528,6 @@
 	dir = 8
 	},
 /area/syndicate_mothership/control)
-"aqh" = (
-/obj/effect/turf_decal/siding/thinplating_new{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/dark_blue/corner_ramp{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/tdome/tdomeobserve)
 "aqi" = (
 /obj/item/gun/energy/ionrifle/carbine/pin{
 	pixel_y = 5
@@ -6893,16 +6826,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/centcom/evac)
-"aqW" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/obj/machinery/door/airlock/centcom{
-	name = "Thunderdome Administration";
-	req_access_txt = "102"
-	},
-/obj/machinery/door/firedoor,
-/turf/open/floor/iron/techmaint,
-/area/tdome/tdomeobserve)
 "aqX" = (
 /obj/structure/fluff/arc,
 /turf/open/floor/grass/no_border,
@@ -7781,13 +7704,6 @@
 /obj/structure/chair/office,
 /turf/open/floor/iron/edge,
 /area/centcom/ferry)
-"ats" = (
-/obj/effect/turf_decal/siding/thinplating_new,
-/obj/effect/turf_decal/tile/dark_blue/corner_ramp{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/tdome/tdomeobserve)
 "att" = (
 /obj/effect/turf_decal/siding/blue{
 	dir = 4
@@ -10950,10 +10866,6 @@
 	},
 /turf/open/floor/catwalk_floor/iron,
 /area/centcom/control)
-"aBF" = (
-/obj/structure/fans/tiny,
-/turf/open/floor/iron/dark,
-/area/tdome/tdomeobserve)
 "aBG" = (
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /turf/open/floor/iron/dark,
@@ -12068,21 +11980,6 @@
 "aEp" = (
 /turf/closed/indestructible/riveted,
 /area/tdome/tdomeobserve)
-"aEq" = (
-/obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/door/airlock/external,
-/turf/open/floor/iron/techmaint,
-/area/tdome/tdomeobserve)
-"aEr" = (
-/obj/machinery/vending/cola,
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/iron/dark,
-/area/tdome/tdomeobserve)
-"aEs" = (
-/obj/machinery/vending/snack,
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/iron/dark,
-/area/tdome/tdomeobserve)
 "aEt" = (
 /obj/effect/turf_decal/trimline/dark_blue/filled/line{
 	dir = 9
@@ -12104,27 +12001,6 @@
 /obj/structure/railing,
 /turf/open/floor/iron/large,
 /area/centcom/supply)
-"aEx" = (
-/obj/structure/chair,
-/obj/effect/turf_decal/tile/green{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/tdome/tdomeobserve)
-"aEy" = (
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/tdome/tdomeobserve)
-"aEz" = (
-/obj/structure/chair,
-/obj/effect/turf_decal/tile/green{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/tdome/tdomeobserve)
 "aEA" = (
 /obj/machinery/door/airlock/maintenance_hatch,
 /turf/open/floor/plating,
@@ -12189,10 +12065,6 @@
 	icon_state = "asteroid8";
 	name = "sand"
 	},
-/area/tdome/tdomeobserve)
-"aEI" = (
-/obj/effect/turf_decal/tile/red,
-/turf/open/floor/iron/corner,
 /area/tdome/tdomeobserve)
 "aEJ" = (
 /obj/effect/turf_decal/tile/neutral{
@@ -12263,14 +12135,6 @@
 "aER" = (
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron/corner,
-/area/tdome/tdomeobserve)
-"aES" = (
-/obj/effect/turf_decal/tile/green{
-	dir = 8
-	},
-/turf/open/floor/iron/corner{
-	dir = 8
-	},
 /area/tdome/tdomeobserve)
 "aET" = (
 /obj/structure/flora/ausbushes/lavendergrass,
@@ -13678,9 +13542,6 @@
 	},
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
-"aIl" = (
-/turf/closed/indestructible/fakeglass,
-/area/tdome/tdomeobserve)
 "aIm" = (
 /obj/effect/turf_decal/trimline/red/line{
 	dir = 1
@@ -14216,18 +14077,6 @@
 	dir = 4
 	},
 /area/centcom/ferry)
-"aJH" = (
-/obj/structure/rack,
-/obj/item/clothing/under/color/red,
-/obj/item/clothing/shoes/sneakers/brown,
-/obj/item/clothing/suit/armor/vest,
-/obj/item/clothing/head/helmet/swat,
-/obj/item/gun/energy/laser,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/tdome/arena)
 "aJI" = (
 /turf/closed/indestructible/fakeglass,
 /area/tdome/tdomeadmin)
@@ -14246,18 +14095,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/syndicate_mothership/control)
-"aJL" = (
-/obj/structure/rack,
-/obj/item/clothing/under/color/green,
-/obj/item/clothing/shoes/sneakers/brown,
-/obj/item/clothing/suit/armor/vest,
-/obj/item/clothing/head/helmet/swat,
-/obj/item/gun/energy/laser,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/tdome/arena)
 "aJM" = (
 /obj/effect/landmark/abductor/scientist,
 /turf/open/floor/plating/abductor,
@@ -14486,13 +14323,6 @@
 	},
 /turf/open/floor/catwalk_floor/iron,
 /area/centcom/control)
-"aKj" = (
-/obj/effect/turf_decal/delivery,
-/obj/machinery/door/airlock/external{
-	name = "Backup Emergency Escape Shuttle"
-	},
-/turf/open/floor/iron,
-/area/tdome/tdomeadmin)
 "aKk" = (
 /obj/docking_port/stationary{
 	dir = 4;
@@ -16052,16 +15882,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/tdome/tdomeobserve)
-"aOc" = (
-/obj/structure/table,
-/obj/item/paper_bin,
-/obj/item/pen,
-/obj/effect/turf_decal/tile/green/anticorner/contrasted{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/tdome/tdomeobserve)
 "aOd" = (
 /obj/machinery/sleeper{
 	dir = 4
@@ -16300,30 +16120,6 @@
 	color = "#808080"
 	},
 /area/syndicate_mothership/control)
-"aOF" = (
-/obj/structure/table/reinforced,
-/obj/item/stamp/denied{
-	pixel_x = 6;
-	pixel_y = 9
-	},
-/obj/item/stamp{
-	pixel_x = -5;
-	pixel_y = 9
-	},
-/obj/item/stamp/centcom,
-/obj/structure/railing{
-	dir = 8
-	},
-/obj/effect/turf_decal/trimline/green/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/siding/thinplating_new{
-	dir = 4
-	},
-/turf/open/floor/iron/edge{
-	dir = 8
-	},
-/area/centcom/ferry)
 "aOG" = (
 /obj/structure/dresser,
 /obj/machinery/light{
@@ -17269,10 +17065,6 @@
 	color = "#808080"
 	},
 /area/syndicate_mothership/control)
-"aQN" = (
-/obj/structure/closet/crate/bin,
-/turf/open/floor/iron/dark,
-/area/tdome/tdomeobserve)
 "aQO" = (
 /obj/structure/flora/grass/jungle/b,
 /obj/structure/flora/ausbushes/fullgrass,
@@ -18493,18 +18285,6 @@
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /turf/open/floor/iron/white/textured,
 /area/ctf)
-"aTH" = (
-/obj/effect/turf_decal/tile/dark_blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/siding/thinplating_new{
-	dir = 6
-	},
-/obj/effect/turf_decal/tile/dark_blue/corner_ramp{
-	dir = 6
-	},
-/turf/open/floor/iron,
-/area/tdome/tdomeobserve)
 "aTI" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -19724,15 +19504,6 @@
 "aWy" = (
 /turf/open/floor/plating/broken,
 /area/syndicate_mothership/control)
-"aWz" = (
-/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
-	dir = 1
-	},
-/obj/effect/turf_decal/siding/thinplating_new{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/tdome/tdomeobserve)
 "aWA" = (
 /obj/structure/railing{
 	dir = 8
@@ -20137,15 +19908,6 @@
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/open/floor/plating/dirt/jungle,
 /area/syndicate_mothership/control)
-"aXB" = (
-/obj/effect/turf_decal/tile/dark_blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/siding/thinplating_new{
-	dir = 5
-	},
-/turf/open/floor/iron,
-/area/tdome/tdomeobserve)
 "aXC" = (
 /obj/item/storage/briefcase{
 	pixel_x = -3;
@@ -20959,14 +20721,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/centcom/control)
-"aZG" = (
-/obj/machinery/igniter/on,
-/obj/effect/turf_decal/delivery,
-/obj/effect/landmark/arena/end{
-	arena_id = "thunderdome"
-	},
-/turf/open/floor/iron,
-/area/tdome/arena)
 "aZH" = (
 /obj/effect/turf_decal/trimline/red/line{
 	dir = 1
@@ -21132,6 +20886,22 @@
 	dir = 1
 	},
 /area/syndicate_mothership/control)
+"bnE" = (
+/obj/effect/turf_decal/tile/techfloor{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/thinplating_new/dark{
+	dir = 1
+	},
+/obj/effect/turf_decal/trimline/dark_red/warning{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/techfloor,
+/obj/effect/turf_decal/trimline/dark_red/mid_joiner{
+	dir = 1
+	},
+/turf/open/floor/iron/dark/textured,
+/area/centcom/control)
 "bxr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
@@ -21222,6 +20992,12 @@
 	icon_state = "foam_plating"
 	},
 /area/syndicate_mothership/control)
+"cvU" = (
+/obj/structure/table/reinforced,
+/obj/item/mod/paint,
+/obj/machinery/light,
+/turf/open/floor/iron/dark/smooth_large,
+/area/centcom/control)
 "cwa" = (
 /obj/structure/sink{
 	dir = 4;
@@ -21246,6 +21022,14 @@
 	},
 /turf/open/floor/plating/rust,
 /area/syndicate_mothership/control)
+"cJW" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/edges/borderfloor{
+	dir = 1
+	},
+/obj/effect/turf_decal/edges/techfloor,
+/turf/open/floor/iron/dark,
+/area/tdome/tdomeobserve)
 "cMZ" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 1
@@ -21275,6 +21059,44 @@
 	},
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
+"cSG" = (
+/obj/effect/turf_decal/loading_area{
+	dir = 4
+	},
+/obj/machinery/door/poddoor{
+	id = "thunderdome";
+	name = "Thunderdome Blast Door"
+	},
+/turf/open/floor/iron,
+/area/tdome/tdomeadmin)
+"cUh" = (
+/obj/effect/turf_decal/siding/thinplating_new/dark{
+	dir = 9
+	},
+/obj/effect/turf_decal/trimline/dark_red/warning{
+	dir = 9
+	},
+/obj/effect/turf_decal/trimline/dark_red/mid_joiner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/techfloor,
+/turf/open/floor/iron/dark/textured,
+/area/centcom/control)
+"cUG" = (
+/obj/effect/turf_decal/siding/thinplating_new/dark{
+	dir = 5
+	},
+/obj/effect/turf_decal/trimline/dark_red/warning{
+	dir = 5
+	},
+/obj/effect/turf_decal/tile/techfloor{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/dark_red/mid_joiner{
+	dir = 1
+	},
+/turf/open/floor/iron/dark/textured,
+/area/centcom/control)
 "cUT" = (
 /obj/effect/turf_decal/trimline/red/filled/mid_joiner{
 	dir = 1
@@ -21297,6 +21119,16 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/syndicate_mothership/control)
+"ddL" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/edges/borderfloor/corner1{
+	dir = 8
+	},
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 5
+	},
+/turf/open/floor/iron/dark,
+/area/tdome/tdomeobserve)
 "deG" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/green,
@@ -21326,6 +21158,11 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/syndicate_mothership/control)
+"doc" = (
+/obj/structure/table/reinforced,
+/obj/item/mod/module/visor/rave,
+/turf/open/floor/iron/dark/smooth_large,
+/area/centcom/control)
 "dtd" = (
 /obj/effect/turf_decal/trimline/red/warning,
 /obj/effect/turf_decal/siding/dark,
@@ -21354,6 +21191,22 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/syndicate_mothership/control)
+"dBV" = (
+/obj/structure/rack,
+/obj/item/clothing/under/color/green,
+/obj/item/clothing/shoes/sneakers/brown,
+/obj/item/clothing/suit/armor/tdome/green,
+/obj/item/clothing/head/helmet/thunderdome,
+/obj/item/melee/baton/loaded,
+/obj/item/melee/energy/sword/saber/green,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/tdome/tdomeadmin)
+"dMW" = (
+/turf/open/space/basic,
+/area/tdome/tdomeobserve)
 "dNo" = (
 /obj/machinery/chem_dispenser/drinks/beer/fullupgrade,
 /obj/structure/table/reinforced{
@@ -21371,6 +21224,11 @@
 /obj/structure/flora/ash/cacti,
 /turf/open/floor/plating/dirt/jungle,
 /area/syndicate_mothership/control)
+"dSL" = (
+/obj/machinery/door/airlock/external,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/iron,
+/area/centcom/control)
 "dXB" = (
 /obj/effect/turf_decal/sand,
 /obj/effect/turf_decal/weather/dirt{
@@ -21421,6 +21279,18 @@
 /obj/structure/spacevine,
 /turf/open/floor/plating/dirt/jungle,
 /area/syndicate_mothership/control)
+"eFZ" = (
+/obj/effect/turf_decal/tile/dark_blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 6
+	},
+/obj/effect/turf_decal/tile/dark_blue/corner_ramp{
+	dir = 6
+	},
+/turf/open/floor/iron/edge,
+/area/tdome/tdomeobserve)
 "eKu" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -21429,6 +21299,13 @@
 	},
 /turf/open/floor/plating/rust,
 /area/syndicate_mothership/control)
+"eNB" = (
+/obj/machinery/door/airlock/external{
+	name = "Backup Emergency Escape Shuttle"
+	},
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/iron,
+/area/tdome/tdomeadmin)
 "eOy" = (
 /obj/effect/turf_decal/sand,
 /obj/effect/turf_decal/weather/dirt,
@@ -21437,6 +21314,11 @@
 	},
 /turf/open/floor/plating/broken,
 /area/syndicate_mothership/control)
+"eOP" = (
+/obj/structure/table/reinforced,
+/obj/item/mod/control/pre_equipped/responsory/inquisitory/commander,
+/turf/open/floor/iron/dark/smooth_large,
+/area/centcom/control)
 "eTR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb,
@@ -21471,12 +21353,35 @@
 /obj/structure/flora/tree/pine/xmas,
 /turf/open/floor/grass/snow,
 /area/syndicate_mothership)
+"fpK" = (
+/obj/effect/turf_decal/siding/thinplating_new/dark{
+	dir = 1
+	},
+/obj/effect/turf_decal/trimline/dark_red/warning{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/techfloor{
+	dir = 10
+	},
+/obj/effect/turf_decal/trimline/dark_red/mid_joiner{
+	dir = 1
+	},
+/turf/open/floor/iron/dark/textured,
+/area/centcom/control)
 "fsD" = (
 /obj/structure/flora/ash/cap_shroom{
 	pixel_y = 6
 	},
 /turf/open/floor/plating/dirt/jungle,
 /area/syndicate_mothership/control)
+"fwD" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/edges/borderfloor/corner1,
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 9
+	},
+/turf/open/floor/iron/dark,
+/area/tdome/tdomeobserve)
 "fzn" = (
 /obj/structure/chair{
 	dir = 1
@@ -21494,6 +21399,21 @@
 	},
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
+"fHG" = (
+/obj/structure/table/reinforced,
+/obj/item/mod/module/storage/bluespace,
+/turf/open/floor/iron/dark/smooth_large,
+/area/centcom/control)
+"fJg" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/edges/borderfloor{
+	dir = 8
+	},
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/tdome/tdomeobserve)
 "fNr" = (
 /obj/structure/flora/ausbushes/sparsegrass{
 	pixel_x = 6
@@ -21506,6 +21426,22 @@
 /obj/machinery/light/small,
 /turf/open/floor/plating,
 /area/syndicate_mothership/control)
+"fSq" = (
+/obj/effect/turf_decal/siding/thinplating_new/dark{
+	dir = 10
+	},
+/obj/effect/turf_decal/trimline/dark_red/warning{
+	dir = 10
+	},
+/obj/effect/turf_decal/tile/techfloor{
+	dir = 4
+	},
+/obj/effect/turf_decal/trimline/dark_red/mid_joiner,
+/obj/effect/turf_decal/trimline/dark_red/mid_joiner{
+	dir = 8
+	},
+/turf/open/floor/iron/dark/textured,
+/area/centcom/control)
 "fYy" = (
 /obj/structure/chair/office{
 	name = "tactical swivel chair"
@@ -21537,6 +21473,15 @@
 /obj/effect/turf_decal/trimline/red/filled/mid_joiner,
 /turf/open/floor/mineral/plastitanium,
 /area/syndicate_mothership/control)
+"goj" = (
+/obj/structure/railing{
+	dir = 10
+	},
+/obj/effect/turf_decal/tile/green/anticorner/contrasted{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/tdome/tdomeobserve)
 "goT" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/red,
@@ -21550,17 +21495,47 @@
 	},
 /turf/open/floor/iron,
 /area/tdome/arena_source)
+"gpI" = (
+/obj/structure/table/reinforced,
+/obj/item/mod/control/pre_equipped/traitor,
+/turf/open/floor/iron/dark/smooth_large,
+/area/centcom/control)
+"gqI" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/edges/borderfloor,
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/tdome/tdomeobserve)
 "gub" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/plasma,
 /obj/machinery/light/small,
 /turf/open/floor/plating,
 /area/syndicate_mothership/control)
+"gxA" = (
+/obj/machinery/door/airlock/centcom{
+	name = "Thunderdome Backstage"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/tdome/tdomeobserve)
 "gxW" = (
 /obj/structure/lattice,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/rust,
 /area/syndicate_mothership/control)
+"gBy" = (
+/obj/structure/table/reinforced,
+/obj/item/mod/paint,
+/turf/open/floor/iron/dark/smooth_large,
+/area/centcom/control)
+"gDx" = (
+/turf/open/floor/iron,
+/area/tdome/tdomeadmin)
 "gFf" = (
 /obj/structure/lattice/catwalk,
 /obj/effect/turf_decal/weather/snow/corner{
@@ -21577,6 +21552,9 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/syndicate_mothership/control)
+"hac" = (
+/turf/closed/indestructible/riveted,
+/area/tdome/arena)
 "hcS" = (
 /obj/structure/table/reinforced{
 	color = "#c1b6a5"
@@ -21595,6 +21573,21 @@
 	},
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
+"hgG" = (
+/obj/effect/turf_decal/tile/techfloor{
+	dir = 10
+	},
+/obj/effect/turf_decal/trimline/dark_red/warning{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/thinplating_new/dark{
+	dir = 1
+	},
+/obj/effect/turf_decal/trimline/dark_red/mid_joiner{
+	dir = 1
+	},
+/turf/open/floor/iron/dark/textured,
+/area/centcom/control)
 "hhi" = (
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 4
@@ -21614,6 +21607,14 @@
 	},
 /turf/open/floor/plating/broken,
 /area/syndicate_mothership/control)
+"hiX" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/turf/open/floor/iron/corner{
+	dir = 8
+	},
+/area/tdome/tdomeobserve)
 "hmd" = (
 /obj/effect/turf_decal/sand,
 /obj/effect/turf_decal/weather/dirt{
@@ -21638,6 +21639,15 @@
 	},
 /turf/open/floor/iron/dark/textured_large,
 /area/syndicate_mothership/control)
+"hmP" = (
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted,
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 8
+	},
+/turf/open/floor/iron/edge{
+	dir = 8
+	},
+/area/tdome/tdomeobserve)
 "hoa" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/poddoor{
@@ -21711,6 +21721,14 @@
 	},
 /turf/open/floor/plating/dirt/jungle,
 /area/syndicate_mothership/control)
+"hUB" = (
+/obj/structure/table/reinforced,
+/obj/item/mod/module/constructor,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/iron/dark/smooth_large,
+/area/centcom/control)
 "hVx" = (
 /obj/effect/turf_decal/trimline/red/warning{
 	dir = 4
@@ -21767,6 +21785,11 @@
 	},
 /turf/open/floor/iron/tech/grid,
 /area/syndicate_mothership/control)
+"ijC" = (
+/obj/structure/table/reinforced,
+/obj/item/mod/module/stealth,
+/turf/open/floor/iron/dark/smooth_large,
+/area/centcom/control)
 "imY" = (
 /obj/machinery/firealarm/directional/west,
 /obj/effect/landmark/start/nukeop_leader,
@@ -21813,6 +21836,19 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
+"iFO" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/edges/borderfloor{
+	dir = 4
+	},
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/tdome/tdomeobserve)
+"iJl" = (
+/turf/open/floor/iron/dark/textured,
+/area/centcom/control)
 "iKv" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -21873,6 +21909,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/mineral/plastitanium,
 /area/syndicate_mothership/control)
+"jlJ" = (
+/obj/effect/turf_decal/siding/thinplating_new,
+/obj/effect/turf_decal/tile/dark_blue/corner_ramp{
+	dir = 8
+	},
+/turf/open/floor/iron/large,
+/area/tdome/tdomeobserve)
 "jnM" = (
 /obj/effect/turf_decal/sand,
 /obj/effect/turf_decal/weather/dirt{
@@ -21884,6 +21927,12 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/broken,
 /area/syndicate_mothership/control)
+"joG" = (
+/obj/structure/table/reinforced,
+/obj/item/mod/control/pre_equipped/elite/flamethrower,
+/obj/machinery/light,
+/turf/open/floor/iron/dark/smooth_large,
+/area/centcom/control)
 "jra" = (
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 1
@@ -21936,6 +21985,15 @@
 	dir = 9
 	},
 /area/syndicate_mothership/control)
+"jHx" = (
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/dark_blue/corner_ramp{
+	dir = 4
+	},
+/turf/open/floor/iron/large,
+/area/tdome/tdomeobserve)
 "jMV" = (
 /obj/effect/turf_decal/trimline/red/filled/mid_joiner,
 /obj/effect/decal/cleanable/generic,
@@ -21967,6 +22025,17 @@
 	},
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
+"jYu" = (
+/obj/machinery/light,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/edges/borderfloor/corner1{
+	dir = 4
+	},
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 10
+	},
+/turf/open/floor/iron/dark,
+/area/tdome/tdomeobserve)
 "kbc" = (
 /obj/structure/chair{
 	dir = 1
@@ -21983,6 +22052,11 @@
 	},
 /turf/open/floor/iron/tech,
 /area/syndicate_mothership/control)
+"koj" = (
+/turf/open/floor/iron/dark/smooth_edge{
+	dir = 8
+	},
+/area/tdome/tdomeobserve)
 "kBq" = (
 /obj/effect/turf_decal/trimline/neutral/warning{
 	dir = 1
@@ -22050,6 +22124,21 @@
 	},
 /turf/open/floor/plating/rust,
 /area/syndicate_mothership/control)
+"kYg" = (
+/obj/structure/closet/crate/bin,
+/turf/open/floor/iron,
+/area/tdome/tdomeobserve)
+"kZy" = (
+/obj/effect/turf_decal/tile/dark_blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 5
+	},
+/turf/open/floor/iron/corner{
+	dir = 8
+	},
+/area/tdome/tdomeobserve)
 "lcz" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
@@ -22129,6 +22218,19 @@
 	},
 /turf/open/floor/plating/snowed,
 /area/syndicate_mothership)
+"lwr" = (
+/obj/structure/rack,
+/obj/item/clothing/under/color/red,
+/obj/item/clothing/shoes/sneakers/brown,
+/obj/item/clothing/suit/armor/tdome/red,
+/obj/item/clothing/head/helmet/thunderdome,
+/obj/item/melee/baton/loaded,
+/obj/item/melee/energy/sword/saber/red,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/tdome/tdomeadmin)
 "lAZ" = (
 /obj/structure/flora/tree/dead,
 /turf/open/floor/grass/snow,
@@ -22165,6 +22267,20 @@
 /obj/effect/turf_decal/siding/white,
 /turf/open/floor/iron/freezer,
 /area/syndicate_mothership/control)
+"lSe" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate,
+/obj/item/clothing/suit/space/syndicate/black/green,
+/obj/item/clothing/head/helmet/space/syndicate/green/dark,
+/obj/item/toy/balloon/syndicate{
+	pixel_x = 7;
+	pixel_y = 4
+	},
+/turf/open/floor/plating/broken,
+/area/syndicate_mothership/control)
 "lTF" = (
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/trimline/red/filled/mid_joiner,
@@ -22193,6 +22309,18 @@
 /obj/structure/chair/noose,
 /turf/open/floor/plating/broken,
 /area/syndicate_mothership/control)
+"mba" = (
+/obj/effect/turf_decal/trimline/dark_red/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/techfloor/anticorner{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/thinplating_new/dark/corner{
+	dir = 8
+	},
+/turf/open/floor/iron/dark/textured,
+/area/centcom/control)
 "mbC" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/weather/dirt/corner{
@@ -22253,6 +22381,11 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/syndicate_mothership/control)
+"mzv" = (
+/obj/machinery/door/airlock/external,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/iron,
+/area/tdome/tdomeobserve)
 "mEG" = (
 /obj/structure/table/reinforced{
 	color = "#c1b6a5"
@@ -22284,6 +22417,18 @@
 	},
 /turf/open/floor/plating/snowed,
 /area/syndicate_mothership)
+"mJc" = (
+/obj/structure/rack,
+/obj/item/clothing/under/color/red,
+/obj/item/clothing/shoes/sneakers/brown,
+/obj/item/clothing/suit/armor/vest,
+/obj/item/clothing/head/helmet/swat,
+/obj/item/gun/energy/laser,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/tdome/tdomeadmin)
 "mJJ" = (
 /obj/effect/turf_decal/siding/dark/corner,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -22407,6 +22552,16 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
+"ohs" = (
+/obj/effect/turf_decal/loading_area{
+	dir = 4
+	},
+/obj/machinery/door/poddoor{
+	id = "thunderdomegen";
+	name = "General Supply"
+	},
+/turf/open/floor/iron,
+/area/tdome/tdomeadmin)
 "oiw" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 5
@@ -22432,6 +22587,11 @@
 	},
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
+"ojN" = (
+/obj/structure/fans/tiny,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/tdome/tdomeobserve)
 "opo" = (
 /obj/effect/turf_decal/sand,
 /obj/effect/turf_decal/weather/dirt{
@@ -22488,6 +22648,22 @@
 	},
 /turf/open/floor/plating/snowed,
 /area/syndicate_mothership)
+"oEo" = (
+/obj/effect/turf_decal/trimline/dark_red/corner,
+/obj/effect/turf_decal/siding/thinplating_new/dark/corner,
+/obj/effect/turf_decal/tile/techfloor{
+	dir = 9
+	},
+/obj/effect/turf_decal/tile/techfloor{
+	dir = 4
+	},
+/turf/open/floor/iron/dark/textured,
+/area/centcom/control)
+"oMh" = (
+/obj/structure/table/reinforced,
+/obj/item/mod/core/infinite,
+/turf/open/floor/iron/dark/textured,
+/area/centcom/control)
 "oNl" = (
 /obj/effect/turf_decal/trimline/red/filled/mid_joiner{
 	dir = 1
@@ -22539,6 +22715,18 @@
 /obj/effect/turf_decal/weather/dirt/corner,
 /turf/open/floor/plating/rust,
 /area/syndicate_mothership/control)
+"pmn" = (
+/obj/effect/turf_decal/tile/dark_blue,
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 9
+	},
+/obj/effect/turf_decal/tile/dark_blue/corner_ramp/offset{
+	dir = 4
+	},
+/turf/open/floor/iron/edge{
+	dir = 1
+	},
+/area/tdome/tdomeobserve)
 "pmF" = (
 /obj/structure/lattice/catwalk,
 /turf/open/floor/plating/rust,
@@ -22553,10 +22741,36 @@
 	},
 /turf/open/floor/plating/broken,
 /area/syndicate_mothership/control)
+"pxU" = (
+/obj/effect/turf_decal/bot,
+/turf/closed/indestructible/riveted,
+/area/tdome/tdomeobserve)
+"pzS" = (
+/obj/structure/table/reinforced,
+/obj/item/mod/skin_applier/honkerative,
+/turf/open/floor/iron/dark/smooth_large,
+/area/centcom/control)
 "pMa" = (
 /obj/structure/chair,
 /turf/open/floor/mineral/plastitanium,
 /area/syndicate_mothership/control)
+"pMn" = (
+/obj/structure/curtain,
+/obj/machinery/shower{
+	dir = 8
+	},
+/turf/open/floor/iron/white/textured,
+/area/tdome/tdomeobserve)
+"pMX" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/obj/machinery/door/airlock/centcom{
+	name = "Thunderdome Administration";
+	req_access_txt = "102"
+	},
+/obj/machinery/door/firedoor,
+/turf/open/floor/iron/techmaint,
+/area/tdome/tdomeadmin)
 "pNW" = (
 /obj/effect/turf_decal/sand,
 /obj/effect/turf_decal/weather/dirt{
@@ -22564,6 +22778,13 @@
 	},
 /turf/open/floor/plating/broken,
 /area/syndicate_mothership/control)
+"pPu" = (
+/obj/structure/railing{
+	dir = 6
+	},
+/obj/effect/turf_decal/tile/red/anticorner/contrasted,
+/turf/open/floor/iron,
+/area/tdome/tdomeobserve)
 "pRr" = (
 /obj/structure/lattice,
 /obj/effect/decal/cleanable/glass,
@@ -22590,10 +22811,28 @@
 /obj/structure/lattice/catwalk,
 /turf/open/floor/plating/broken,
 /area/syndicate_mothership/control)
+"qaS" = (
+/obj/effect/turf_decal/siding/thinplating_new/dark{
+	dir = 10
+	},
+/obj/effect/turf_decal/trimline/dark_red/warning{
+	dir = 10
+	},
+/obj/effect/turf_decal/trimline/dark_red/mid_joiner,
+/obj/effect/turf_decal/tile/techfloor{
+	dir = 4
+	},
+/turf/open/floor/iron/dark/textured,
+/area/centcom/control)
 "qdf" = (
 /obj/machinery/gibber,
 /turf/open/floor/iron/cafeteria,
 /area/centcom/holding)
+"qdG" = (
+/obj/structure/table/reinforced,
+/obj/item/mod/control/pre_equipped/apocryphal,
+/turf/open/floor/iron/dark/smooth_large,
+/area/centcom/control)
 "qdT" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/lattice/catwalk,
@@ -22639,6 +22878,10 @@
 	},
 /turf/open/floor/iron/dark/textured_large,
 /area/syndicate_mothership/control)
+"quD" = (
+/obj/effect/turf_decal/tile/green,
+/turf/open/floor/iron/corner,
+/area/tdome/tdomeobserve)
 "qzl" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 5
@@ -22670,6 +22913,13 @@
 	icon_state = "foam_plating"
 	},
 /area/syndicate_mothership/control)
+"qFU" = (
+/obj/structure/curtain,
+/obj/machinery/shower{
+	dir = 4
+	},
+/turf/open/floor/iron/white/textured,
+/area/tdome/tdomeobserve)
 "qJI" = (
 /obj/effect/turf_decal/trimline/red/line{
 	dir = 8
@@ -22703,6 +22953,11 @@
 /obj/effect/mapping_helpers/dead_body_placer,
 /turf/open/floor/plating/broken,
 /area/syndicate_mothership/control)
+"qQG" = (
+/obj/structure/table/reinforced,
+/obj/item/mod/module/jetpack/advanced,
+/turf/open/floor/iron/dark/smooth_large,
+/area/centcom/control)
 "qWW" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -22725,6 +22980,19 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/syndicate_mothership/control)
+"qZu" = (
+/obj/structure/table/reinforced,
+/obj/item/mod/module/anomaly_locked/kinesis/plus,
+/turf/open/floor/iron/dark/smooth_large,
+/area/centcom/control)
+"rca" = (
+/obj/structure/table/reinforced,
+/obj/item/mod/module/anomaly_locked/antigrav,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/iron/dark/smooth_large,
+/area/centcom/control)
 "rct" = (
 /obj/structure/table,
 /obj/item/lighter,
@@ -22741,6 +23009,37 @@
 	},
 /turf/open/floor/iron/dark/textured,
 /area/centcom/evac)
+"reD" = (
+/obj/effect/turf_decal/siding/thinplating_new/dark{
+	dir = 6
+	},
+/obj/effect/turf_decal/trimline/dark_red/warning{
+	dir = 6
+	},
+/obj/effect/turf_decal/tile/techfloor{
+	dir = 1
+	},
+/obj/effect/turf_decal/trimline/dark_red/mid_joiner,
+/obj/effect/turf_decal/trimline/dark_red/mid_joiner{
+	dir = 4
+	},
+/turf/open/floor/iron/dark/textured,
+/area/centcom/control)
+"rfL" = (
+/obj/effect/turf_decal/siding/thinplating_new/dark{
+	dir = 1
+	},
+/obj/effect/turf_decal/trimline/dark_red/warning{
+	dir = 1
+	},
+/obj/effect/turf_decal/trimline/dark_red/mid_joiner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/techfloor{
+	dir = 10
+	},
+/turf/open/floor/iron/dark/textured,
+/area/centcom/control)
 "rkh" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark,
 /obj/effect/turf_decal/trimline/neutral/warning{
@@ -22762,11 +23061,42 @@
 	},
 /turf/open/floor/iron,
 /area/centcom/control)
+"rBc" = (
+/obj/structure/table/reinforced,
+/obj/item/mod/control/pre_equipped/corporate,
+/turf/open/floor/iron/dark/smooth_large,
+/area/centcom/control)
 "rDi" = (
 /obj/effect/turf_decal/sand,
 /obj/effect/turf_decal/weather/dirt,
 /turf/open/floor/plating/rust,
 /area/syndicate_mothership/control)
+"rJz" = (
+/obj/machinery/light,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/edges/borderfloor/corner1{
+	dir = 1
+	},
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 6
+	},
+/turf/open/floor/iron/dark,
+/area/tdome/tdomeobserve)
+"rKd" = (
+/obj/effect/turf_decal/loading_area{
+	dir = 8
+	},
+/obj/machinery/door/poddoor{
+	id = "thunderdomegen";
+	name = "General Supply"
+	},
+/turf/open/floor/iron,
+/area/tdome/tdomeadmin)
+"rPo" = (
+/obj/machinery/vending/cola,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/iron,
+/area/tdome/tdomeobserve)
 "rRh" = (
 /obj/structure/table/reinforced{
 	color = "#c1b6a5"
@@ -22810,6 +23140,9 @@
 	},
 /turf/open/floor/iron,
 /area/tdome/arena)
+"rZO" = (
+/turf/closed/indestructible/fakeglass,
+/area/tdome/arena)
 "seY" = (
 /obj/structure/spacevine,
 /turf/open/floor/plating/dirt/jungle,
@@ -22837,6 +23170,22 @@
 /obj/structure/flora/ausbushes/fernybush,
 /turf/open/floor/plating/dirt/jungle,
 /area/syndicate_mothership/control)
+"sqE" = (
+/obj/effect/turf_decal/siding/thinplating_new/dark{
+	dir = 6
+	},
+/obj/effect/turf_decal/trimline/dark_red/warning{
+	dir = 6
+	},
+/obj/effect/turf_decal/trimline/dark_red/mid_joiner,
+/obj/effect/turf_decal/tile/techfloor{
+	dir = 1
+	},
+/obj/effect/turf_decal/trimline/dark_red/mid_joiner{
+	dir = 4
+	},
+/turf/open/floor/iron/dark/textured,
+/area/centcom/control)
 "sqZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/trimline/neutral/warning{
@@ -22864,6 +23213,16 @@
 	},
 /turf/open/floor/plating/rust,
 /area/syndicate_mothership/control)
+"sDk" = (
+/obj/effect/turf_decal/loading_area{
+	dir = 8
+	},
+/obj/machinery/door/poddoor{
+	id = "thunderdome";
+	name = "Thunderdome Blast Door"
+	},
+/turf/open/floor/iron,
+/area/tdome/tdomeadmin)
 "sLp" = (
 /obj/structure/grille,
 /turf/open/floor/plating,
@@ -22895,6 +23254,19 @@
 	},
 /turf/open/floor/iron/tech,
 /area/syndicate_mothership/control)
+"sXp" = (
+/obj/machinery/igniter/on,
+/obj/effect/turf_decal/delivery,
+/obj/effect/landmark/arena/end{
+	arena_id = "thunderdome"
+	},
+/turf/open/floor/iron,
+/area/tdome/tdomeadmin)
+"sZN" = (
+/obj/structure/table/reinforced,
+/obj/item/mod/module/anti_magic,
+/turf/open/floor/iron/dark/textured,
+/area/centcom/control)
 "taD" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/weather/dirt/corner{
@@ -22926,6 +23298,39 @@
 	},
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
+"ttg" = (
+/obj/effect/turf_decal/siding/thinplating_new/dark,
+/obj/effect/turf_decal/trimline/dark_red/warning,
+/obj/effect/turf_decal/trimline/dark_red/mid_joiner,
+/obj/effect/turf_decal/tile/techfloor{
+	dir = 5
+	},
+/turf/open/floor/iron/dark/textured,
+/area/centcom/control)
+"twf" = (
+/obj/structure/table/reinforced,
+/obj/item/stamp/denied{
+	pixel_x = 6;
+	pixel_y = 9
+	},
+/obj/item/stamp{
+	pixel_x = -5;
+	pixel_y = 9
+	},
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/green/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 4
+	},
+/obj/item/stamp/chameleon,
+/turf/open/floor/iron/edge{
+	dir = 8
+	},
+/area/centcom/ferry)
 "tzh" = (
 /obj/effect/turf_decal/sand,
 /obj/effect/turf_decal/weather/dirt{
@@ -22934,6 +23339,17 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/broken,
 /area/syndicate_mothership/control)
+"tAO" = (
+/obj/effect/turf_decal/tile/dark_blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 10
+	},
+/turf/open/floor/iron/corner{
+	dir = 4
+	},
+/area/tdome/tdomeobserve)
 "tFR" = (
 /obj/effect/turf_decal/trimline/neutral/warning{
 	dir = 1
@@ -22967,6 +23383,10 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/mineral/plastitanium,
 /area/syndicate_mothership/control)
+"tSI" = (
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron,
+/area/tdome/tdomeadmin)
 "tUf" = (
 /obj/structure/flora/ausbushes/pointybush,
 /turf/open/floor/grass/snow,
@@ -23048,6 +23468,15 @@
 	dir = 8
 	},
 /area/syndicate_mothership/control)
+"uwC" = (
+/obj/effect/turf_decal/trimline/dark_red/mid_joiner,
+/obj/effect/turf_decal/tile/techfloor{
+	dir = 5
+	},
+/obj/effect/turf_decal/trimline/dark_red/warning,
+/obj/effect/turf_decal/siding/thinplating_new/dark,
+/turf/open/floor/iron/dark/textured,
+/area/centcom/control)
 "uAV" = (
 /obj/effect/turf_decal/box/corners{
 	dir = 8
@@ -23081,11 +23510,44 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/rust,
 /area/syndicate_mothership/control)
+"uSz" = (
+/obj/item/clipboard{
+	pixel_y = 1;
+	pixel_x = 6
+	},
+/obj/structure/table/reinforced,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
+	dir = 4
+	},
+/obj/structure/cable/white{
+	icon_state = "4-8"
+	},
+/obj/item/folder/red,
+/obj/item/restraints/handcuffs,
+/obj/item/assembly/flash/handheld,
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/green/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 4
+	},
+/turf/open/floor/iron/edge{
+	dir = 8
+	},
+/area/centcom/ferry)
 "vcG" = (
 /obj/structure/closet/cardboard,
 /obj/effect/turf_decal/trimline/neutral/warning,
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
+"vhb" = (
+/obj/machinery/igniter/on,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/iron,
+/area/tdome/tdomeadmin)
 "vkM" = (
 /obj/structure/lattice,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -23154,6 +23616,9 @@
 	},
 /turf/open/floor/iron/freezer,
 /area/syndicate_mothership/control)
+"wfh" = (
+/turf/open/floor/iron/tech,
+/area/centcom/control)
 "wgn" = (
 /obj/structure/flora/tree/pine,
 /obj/structure/flora/grass/both,
@@ -23193,6 +23658,17 @@
 	},
 /turf/open/floor/plating/dirt/jungle,
 /area/syndicate_mothership/control)
+"wIa" = (
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 4
+	},
+/turf/open/floor/iron/edge{
+	dir = 4
+	},
+/area/tdome/tdomeobserve)
 "wMh" = (
 /obj/structure/railing{
 	dir = 4
@@ -23264,20 +23740,6 @@
 /obj/structure/lattice/catwalk,
 /turf/open/floor/plating/asteroid/planetary,
 /area/syndicate_mothership/control)
-"xEd" = (
-/obj/structure/railing{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/crate,
-/obj/item/clothing/suit/space/syndicate/black/green,
-/obj/item/clothing/head/helmet/space/syndicate/green/dark,
-/obj/item/toy/balloon/syndicate{
-	pixel_x = 7;
-	pixel_y = 4
-	},
-/turf/open/floor/plating/broken,
-/area/syndicate_mothership/control)
 "xLM" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 5
@@ -23285,6 +23747,11 @@
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/plating/dirt/jungle,
 /area/syndicate_mothership/control)
+"xMN" = (
+/obj/machinery/vending/snack,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/iron,
+/area/tdome/tdomeobserve)
 "xOz" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 1
@@ -23314,6 +23781,16 @@
 	},
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
+"xWt" = (
+/obj/structure/table/reinforced,
+/obj/item/mod/module/anomaly_locked/teleporter,
+/turf/open/floor/iron/dark/smooth_large,
+/area/centcom/control)
+"xXw" = (
+/obj/structure/table/reinforced,
+/obj/item/mod/module/energy_shield,
+/turf/open/floor/iron/dark/smooth_large,
+/area/centcom/control)
 "yaN" = (
 /obj/effect/turf_decal/trimline/red/filled/mid_joiner,
 /obj/effect/turf_decal/weather/dirt{
@@ -23324,6 +23801,18 @@
 /obj/effect/turf_decal/trimline/neutral,
 /turf/open/floor/mineral/plastitanium,
 /area/syndicate_mothership/control)
+"ybc" = (
+/obj/structure/rack,
+/obj/item/clothing/under/color/green,
+/obj/item/clothing/shoes/sneakers/brown,
+/obj/item/clothing/suit/armor/vest,
+/obj/item/clothing/head/helmet/swat,
+/obj/item/gun/energy/laser,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/tdome/tdomeadmin)
 "ylz" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin{
@@ -33758,7 +34247,7 @@ afs
 aaE
 aaE
 aaE
-xEd
+lSe
 fQJ
 aku
 aku
@@ -61334,10 +61823,10 @@ aaa
 aaa
 aaa
 aaa
+dMW
 aEp
 aEp
 aEp
-aEp
 aIv
 aIv
 aIv
@@ -61348,7 +61837,7 @@ aIv
 aIv
 aIv
 aIv
-aaa
+aIv
 aaa
 aaa
 aaa
@@ -61559,8 +62048,8 @@ apJ
 aSZ
 amE
 aLf
-acf
-aOF
+uSz
+twf
 avR
 aQX
 aTL
@@ -61576,6 +62065,12 @@ afk
 aCa
 azA
 aoe
+aio
+aio
+aio
+aio
+aio
+aio
 aaa
 aaa
 aaa
@@ -61585,16 +62080,11 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+dMW
 aEp
 aEG
 aEH
-aEv
+aIR
 aIw
 aIR
 aJd
@@ -61605,7 +62095,6 @@ aIR
 aJd
 aJn
 aIv
-aaa
 aaa
 aaa
 aaa
@@ -61833,11 +62322,12 @@ aKL
 aCa
 azA
 aoe
-aaa
-aaa
-aaa
-aaa
-aaa
+fHG
+cUh
+fSq
+eOP
+gpI
+aio
 aEp
 aEp
 aEp
@@ -61851,19 +62341,18 @@ aEp
 aEp
 aEv
 aEv
-aEp
-aIv
-aIv
-aIR
-aIR
 aIv
 aIv
 aIv
 aIR
 aIR
 aIv
-aab
-aaa
+aIv
+aIv
+aIR
+aIR
+aIv
+aIv
 aaa
 aaa
 aaa
@@ -62090,15 +62579,16 @@ aAh
 aRL
 aYc
 amD
-aaa
-aaa
-aaa
-aaa
-aaa
-aEp
+qZu
+rfL
+mba
+qaS
+joG
+aio
 asm
 aFD
 aGb
+qFU
 aEp
 aVq
 aHb
@@ -62108,7 +62598,7 @@ abu
 aEp
 aHZ
 aIh
-aqW
+pMX
 aIx
 aJo
 aHC
@@ -62119,9 +62609,8 @@ aIS
 aPb
 azc
 aog
-aab
-aab
-aaa
+aIv
+aIv
 aaa
 aaa
 aaa
@@ -62347,14 +62836,15 @@ azA
 aKM
 aNl
 amD
-aaa
-aaa
-aaa
-aaa
-aaa
-aEp
+xWt
+rfL
+wfh
+ttg
+qdG
+aio
 aYw
 aTS
+aFE
 aFE
 aGu
 aFE
@@ -62365,7 +62855,7 @@ aFE
 aHS
 aas
 aZn
-aqW
+pMX
 aDT
 aJf
 aZQ
@@ -62378,7 +62868,6 @@ aSC
 amG
 aZE
 aIv
-aaa
 aaa
 aaa
 aaa
@@ -62604,15 +63093,16 @@ aAi
 arz
 anU
 amD
-aaa
-aaa
-aaa
-aaa
-aaa
-aEp
+rca
+rfL
+wfh
+ttg
+rBc
+aio
 adS
 aFF
 aGd
+pMn
 aEp
 adq
 adq
@@ -62622,7 +63112,7 @@ adq
 aEp
 aai
 aZL
-aEp
+aIv
 aIv
 aIv
 aIv
@@ -62635,7 +63125,6 @@ aKp
 aHI
 azc
 aIv
-aaa
 aaa
 aaa
 aaa
@@ -62861,11 +63350,12 @@ aoX
 agQ
 aCB
 amD
-aaa
-aaa
-aaa
-aaa
-aEp
+xXw
+rfL
+wfh
+ttg
+iJl
+aio
 aEp
 aEp
 aEp
@@ -62879,20 +63369,19 @@ aEp
 aEp
 aas
 aZn
-aEp
+hac
 rYB
 rYB
 rYB
 rYB
 rYB
-rYB
+lwr
 aIv
 aQn
 abd
 aJS
 aSC
 aIv
-aaa
 aaa
 aaa
 aaa
@@ -63118,13 +63607,14 @@ auX
 aVI
 aCC
 amD
-aaa
-aaa
-aaa
-aaa
-aEp
-aQN
-aEp
+qQG
+rfL
+wfh
+ttg
+iJl
+dSL
+ojN
+mzv
 aFG
 aTX
 aGv
@@ -63136,20 +63626,19 @@ aMW
 aNF
 adO
 aZL
-aEp
+hac
 aIz
 aIz
 aIz
 aIz
 aIz
-aIz
+ohs
 aIv
 aIv
 aIv
 aJX
 aJX
 aIv
-aaa
 aaa
 aaa
 aaa
@@ -63375,13 +63864,14 @@ aBB
 atz
 aCD
 amD
-aaa
-aaa
-aaa
-aaa
-aEq
-aBF
-aEq
+ijC
+fpK
+wfh
+ttg
+pzS
+aio
+kYg
+aEp
 aai
 avI
 aGv
@@ -63393,7 +63883,7 @@ adP
 aVD
 adP
 aHi
-aEp
+hac
 aIA
 aIT
 aIT
@@ -63401,14 +63891,13 @@ aIT
 aIT
 aJu
 aJD
-aJH
+mJc
 aIv
 aXJ
 aid
 aIv
 aIv
 aIv
-aaa
 aaa
 aaa
 aaa
@@ -63632,11 +64121,12 @@ aBC
 aOr
 aCE
 amD
-aaa
-aaa
-aaa
-aaa
-aEp
+hUB
+hgG
+wfh
+uwC
+gBy
+aio
 aEv
 aEp
 aas
@@ -63650,7 +64140,7 @@ aEK
 aGw
 aEK
 aEp
-aEp
+hac
 aIB
 aIU
 aev
@@ -63658,14 +64148,13 @@ aev
 aIU
 aJv
 aJD
-aJH
+mJc
 aIv
 aMA
 aSC
 aIR
 aKA
 aIv
-aaa
 aaa
 aaa
 aaa
@@ -63889,11 +64378,12 @@ auX
 aWV
 aCF
 amD
-aaa
-aaa
-aaa
-aaa
-aEp
+sZN
+bnE
+oEo
+sqE
+cvU
+aio
 aEG
 aEv
 aai
@@ -63907,7 +64397,7 @@ aNR
 ahg
 azb
 aQo
-aEp
+hac
 aIB
 aev
 ajX
@@ -63915,14 +64405,13 @@ aFg
 aev
 aJv
 aJD
-aJH
+mJc
 aIv
 aXJ
 ahe
 aIR
 aKB
 aIv
-aaa
 aaa
 aaa
 aaa
@@ -64146,11 +64635,12 @@ aFd
 aak
 aCG
 amD
-aaa
-aaa
-aaa
-aaa
-aEp
+oMh
+cUG
+reD
+doc
+gBy
+aio
 aEH
 aEv
 aas
@@ -64164,7 +64654,7 @@ aGc
 aAo
 aGc
 acC
-aEp
+hac
 aIB
 aIU
 aev
@@ -64172,14 +64662,13 @@ aev
 aIU
 aJv
 aJD
-aJH
+mJc
 aIv
 aMA
 aSC
 aIR
 aKA
 aIv
-aaa
 aaa
 aaa
 aaa
@@ -64407,7 +64896,8 @@ aio
 aio
 aio
 aio
-aEp
+aio
+aio
 aEv
 aEp
 aai
@@ -64421,7 +64911,7 @@ aGc
 aGc
 aGc
 aPe
-aEp
+hac
 aIC
 aIW
 aIW
@@ -64429,14 +64919,13 @@ aIW
 aIW
 aJw
 aJD
-aJH
+mJc
 aIv
 aXJ
 ahe
 aIv
 aIv
 aIv
-aaa
 aaa
 aaa
 aaa
@@ -64664,8 +65153,9 @@ aAd
 aod
 alN
 aiu
-aEr
-aEI
+rPo
+aER
+aNq
 aMW
 aTh
 aZn
@@ -64673,18 +65163,18 @@ aEK
 aNB
 aGc
 aQK
-aGy
+pxU
 uHH
 aHV
 aIc
 aEp
-aEp
+hac
 aID
 aID
 aID
 aID
 aID
-aID
+cSG
 aIv
 aIv
 aIv
@@ -64692,7 +65182,6 @@ aIv
 aKh
 aIv
 aIv
-aaa
 aaa
 aaa
 aaa
@@ -64921,8 +65410,9 @@ aiu
 aip
 aiu
 aio
-aEs
-aEJ
+xMN
+hiX
+aVD
 adP
 aVD
 aGh
@@ -64934,7 +65424,7 @@ aGx
 acW
 atB
 atB
-aIl
+rZO
 aWn
 afb
 aIX
@@ -64942,14 +65432,13 @@ aJh
 aJh
 aJs
 afb
-aIs
+vhb
 aJI
 aWN
 aWN
 akm
 aeO
 aIv
-aaa
 aaa
 aaa
 aaa
@@ -65181,6 +65670,7 @@ aio
 aEp
 aEK
 aEp
+aEp
 aFK
 aEp
 aEp
@@ -65191,7 +65681,7 @@ aEp
 aXr
 aLx
 aLx
-aIl
+rZO
 aIt
 aIt
 aIt
@@ -65199,7 +65689,7 @@ aIt
 aIt
 aIt
 aIt
-aIt
+gDx
 aJI
 adX
 awp
@@ -65208,7 +65698,6 @@ aXp
 aKC
 aIv
 aIv
-aaa
 aaa
 aaa
 aaa
@@ -65439,6 +65928,7 @@ ada
 aXS
 aEv
 adP
+adP
 agc
 aEp
 aGK
@@ -65448,7 +65938,7 @@ aEp
 aoh
 aLx
 aLx
-aIl
+rZO
 aIu
 aIF
 aIF
@@ -65456,7 +65946,7 @@ aIF
 aIF
 aIF
 aIF
-aIu
+tSI
 aJI
 aWN
 aWN
@@ -65465,7 +65955,6 @@ adl
 aIR
 aKG
 aIv
-aaa
 aaa
 aaa
 aaa
@@ -65696,6 +66185,7 @@ agY
 aCj
 aFr
 aut
+aut
 aas
 aEp
 aEv
@@ -65705,7 +66195,7 @@ aEp
 aPD
 aPs
 aQZ
-aIl
+rZO
 aIt
 aXN
 aXN
@@ -65713,7 +66203,7 @@ aXN
 aXN
 aXN
 aXN
-aIt
+gDx
 aJI
 adX
 awp
@@ -65722,7 +66212,6 @@ axE
 aIR
 aKA
 aIv
-aaa
 aaa
 aaa
 aaa
@@ -65952,6 +66441,7 @@ ain
 aEv
 aEN
 aEv
+pPu
 acL
 aRH
 aEp
@@ -65962,7 +66452,7 @@ aEp
 aoh
 aLx
 aLx
-aIl
+rZO
 aIt
 aIt
 aIt
@@ -65970,7 +66460,7 @@ aIt
 aIt
 aIt
 aIt
-aIt
+gDx
 aJI
 aWN
 aWN
@@ -65979,7 +66469,6 @@ abz
 aIv
 aKA
 aIv
-aaa
 aaa
 aaa
 aaa
@@ -66206,10 +66695,11 @@ anp
 aTV
 aXc
 aiu
-aOc
-aEy
-aVN
-aVN
+fwD
+iFO
+iFO
+iFO
+jYu
 aGk
 aEp
 aEv
@@ -66219,7 +66709,7 @@ aEp
 aAO
 aLx
 aLx
-aIl
+rZO
 aIt
 aIt
 aIt
@@ -66227,7 +66717,7 @@ aIt
 aIt
 aIt
 aIt
-aIt
+gDx
 aJI
 aIv
 aIv
@@ -66236,7 +66726,6 @@ aIv
 aIv
 aIv
 aIv
-aaa
 aaa
 aaa
 aaa
@@ -66463,10 +66952,11 @@ aSu
 aSu
 aDV
 aiu
-aEx
-ajt
-ajo
-aiP
+gqI
+pmn
+hmP
+tAO
+cJW
 aGl
 aGw
 acU
@@ -66476,7 +66966,7 @@ aGy
 aoh
 aLx
 aLx
-aIl
+rZO
 aIt
 aIt
 aIt
@@ -66484,7 +66974,7 @@ aJi
 aJi
 aIt
 aIt
-aIt
+gDx
 aJI
 adF
 aLh
@@ -66493,7 +66983,6 @@ aMo
 aIR
 aKG
 aIv
-aaa
 aaa
 aaa
 aaa
@@ -66720,10 +67209,11 @@ aXc
 aXc
 aWd
 aEg
-aVN
-aqh
+gqI
+jHx
 atD
-ats
+jlJ
+cJW
 aGm
 aUn
 aVN
@@ -66733,7 +67223,7 @@ aNk
 aMX
 aPs
 aQZ
-aIl
+rZO
 aIt
 aIt
 aIt
@@ -66741,7 +67231,7 @@ aJj
 aJq
 aIt
 aIt
-aIt
+gDx
 aJI
 aWg
 aXw
@@ -66750,7 +67240,6 @@ aca
 aKD
 aKA
 aIv
-aaa
 aaa
 aaa
 aaa
@@ -66977,10 +67466,11 @@ aub
 acV
 aDW
 aiu
-aEz
-aXB
-aWz
-aTH
+gqI
+kZy
+wIa
+eFZ
+cJW
 aGl
 aGy
 abm
@@ -66990,7 +67480,7 @@ aEp
 aoh
 aLx
 aLx
-aIl
+rZO
 aIt
 aIt
 aIt
@@ -66998,7 +67488,7 @@ aJi
 aJi
 aIt
 aIt
-aIt
+gDx
 aJI
 aZh
 aGT
@@ -67007,7 +67497,6 @@ aSx
 aIR
 aKG
 aIv
-aaa
 aaa
 aaa
 aaa
@@ -67234,10 +67723,11 @@ anp
 aTV
 aXc
 aiu
-ahZ
-aEy
-aVN
-aVN
+ddL
+fJg
+fJg
+fJg
+rJz
 amZ
 aEp
 aEv
@@ -67247,7 +67737,7 @@ aEp
 aAO
 aLx
 aLx
-aIl
+rZO
 aIt
 aIt
 aIt
@@ -67255,7 +67745,7 @@ aIt
 aIt
 aIt
 aIt
-aIt
+gDx
 aJI
 aIv
 aIv
@@ -67264,7 +67754,6 @@ aIv
 aIv
 aIv
 aIv
-aaa
 aaa
 aaa
 aaa
@@ -67494,6 +67983,7 @@ ain
 aEv
 aEN
 aEv
+goj
 ark
 aXW
 aEp
@@ -67504,7 +67994,7 @@ aEp
 aoh
 aLx
 aLx
-aIl
+rZO
 aIt
 aIt
 aIt
@@ -67512,7 +68002,7 @@ aIt
 aIt
 aIt
 aIt
-aIt
+gDx
 aJI
 aWN
 aWN
@@ -67521,7 +68011,6 @@ aYD
 aIv
 aKG
 aIv
-aaa
 aaa
 aaa
 aaa
@@ -67752,6 +68241,7 @@ aqd
 aXI
 aFr
 aut
+aut
 aPt
 aEp
 aEv
@@ -67761,7 +68251,7 @@ aEp
 aPD
 aPs
 aQZ
-aIl
+rZO
 aIt
 agB
 agB
@@ -67769,7 +68259,7 @@ agB
 agB
 agB
 agB
-aIt
+gDx
 aJI
 adX
 awp
@@ -67778,7 +68268,6 @@ ady
 aIR
 aKG
 aIv
-aaa
 aaa
 aaa
 aaa
@@ -68009,6 +68498,7 @@ aDy
 aeL
 aEv
 aWk
+aWk
 aii
 aEp
 aGP
@@ -68018,7 +68508,7 @@ aEp
 aXr
 aLx
 aLx
-aIl
+rZO
 aIu
 aIF
 aIF
@@ -68026,7 +68516,7 @@ aIF
 aIF
 aIF
 aIF
-aIu
+tSI
 aJI
 aWN
 aWN
@@ -68035,7 +68525,6 @@ awh
 aIR
 aKA
 aIv
-aaa
 aaa
 aaa
 aaa
@@ -68265,7 +68754,8 @@ aio
 aEp
 aEK
 aEp
-aFK
+aEp
+gxA
 aEp
 aEp
 aEp
@@ -68275,7 +68765,7 @@ aEp
 aoh
 aLx
 aLx
-aIl
+rZO
 aIt
 aIt
 aIt
@@ -68283,7 +68773,7 @@ aIt
 aIt
 aIt
 aIt
-aIt
+gDx
 aJI
 adX
 awp
@@ -68292,7 +68782,6 @@ adH
 aKC
 aIv
 aIv
-aaa
 aaa
 aaa
 aaa
@@ -68519,8 +69008,9 @@ agI
 aip
 aiu
 aio
-aEr
-aER
+rPo
+quD
+aMW
 aWk
 aMW
 aGp
@@ -68532,7 +69022,7 @@ aGx
 aAA
 auf
 auf
-aIl
+rZO
 aIs
 aWE
 aIY
@@ -68540,14 +69030,13 @@ aJk
 aJk
 aJt
 aWE
-aZG
+sXp
 aJI
 aWN
 aWN
 akm
 aeO
 aIv
-aaa
 aaa
 aaa
 aaa
@@ -68776,8 +69265,9 @@ agI
 aiu
 aqv
 aiu
-aEs
-aES
+xMN
+aEJ
+ahb
 aVD
 aNc
 aZn
@@ -68790,13 +69280,13 @@ aHP
 aHP
 aIc
 aEp
-aEp
+hac
 aMh
 aMh
 aMh
 aMh
 aMh
-aMh
+sDk
 aIv
 aIv
 aIv
@@ -68804,7 +69294,6 @@ aIv
 aKh
 aIv
 aIv
-aaa
 aaa
 aaa
 aaa
@@ -69034,6 +69523,7 @@ aio
 aio
 aio
 aEp
+aEp
 aEv
 aEp
 aai
@@ -69047,7 +69537,7 @@ aSY
 aSY
 aSY
 aNL
-aEp
+hac
 aIL
 aIZ
 aIZ
@@ -69055,14 +69545,13 @@ aIZ
 aIZ
 aJx
 aJD
-aJL
+ybc
 aIv
 aiJ
 aKo
 aIv
 aIv
 aIv
-aaa
 aaa
 aaa
 aaa
@@ -69290,7 +69779,8 @@ agI
 aio
 aqw
 alL
-aEp
+aET
+aET
 aET
 aEv
 aPt
@@ -69304,7 +69794,7 @@ aSY
 aal
 aSY
 afe
-aEp
+hac
 aIM
 aJa
 aBX
@@ -69312,14 +69802,13 @@ aBX
 aJa
 aJy
 aJD
-aJL
+ybc
 aIv
 aYA
 ahe
 aIR
 aKA
 aIv
-aaa
 aaa
 aaa
 aaa
@@ -69548,6 +70037,7 @@ aio
 aiu
 aiu
 aEp
+aEp
 aEU
 aEv
 aai
@@ -69561,7 +70051,7 @@ aSE
 aMH
 aYj
 aeQ
-aEp
+hac
 aIM
 aBX
 aWs
@@ -69569,14 +70059,13 @@ aRW
 aBX
 aJy
 aJD
-aJL
+ybc
 aIv
 aMA
 aSt
 aIR
 aKB
 aIv
-aaa
 aaa
 aaa
 aaa
@@ -69805,6 +70294,7 @@ aio
 aKS
 aet
 aEp
+aEp
 aEv
 aEp
 aPt
@@ -69818,7 +70308,7 @@ aEK
 aEp
 aEK
 aEp
-aEp
+hac
 aIM
 aJa
 aBX
@@ -69826,14 +70316,13 @@ aBX
 aJa
 aJy
 aJD
-aJL
+ybc
 aIv
 aCl
 ahe
 aIR
 aKA
 aIv
-aaa
 aaa
 aaa
 aaa
@@ -70063,6 +70552,7 @@ agI
 agI
 aEB
 aWL
+aWL
 aYt
 aai
 aKc
@@ -70075,7 +70565,7 @@ aWk
 aMW
 aWk
 aFN
-aEp
+hac
 aIN
 aJc
 aJc
@@ -70083,14 +70573,13 @@ aJc
 aJc
 aJz
 aJD
-aJL
+ybc
 aIv
 aMA
 aSt
 aIv
 aIv
 aIv
-aaa
 aaa
 aaa
 aaa
@@ -70319,6 +70808,7 @@ aio
 amb
 amb
 aEp
+koj
 aXQ
 aEp
 aFQ
@@ -70332,20 +70822,19 @@ aVD
 abk
 afg
 aGN
-aEp
+hac
 aMi
 aMi
 aMi
 aMi
 aMi
-aMi
+rKd
 aIv
 aIv
 aIv
 aJX
 aJX
 aIv
-aaa
 aaa
 aaa
 aaa
@@ -70587,22 +71076,22 @@ aEp
 aEp
 aEp
 aEp
+aEp
 aPt
 aZn
-aEp
+hac
 apF
 apF
 apF
 apF
 apF
-apF
+dBV
 aIv
 aiJ
 aaR
 aAC
 aSt
 aIv
-aaa
 aaa
 aaa
 aaa
@@ -70832,7 +71321,8 @@ agI
 aio
 aSH
 aUH
-aYn
+aSH
+aEp
 aUB
 aFR
 aFR
@@ -70846,7 +71336,7 @@ adq
 aEp
 aai
 aGN
-aEp
+aIv
 aIv
 aIv
 aIv
@@ -70859,7 +71349,6 @@ ans
 agX
 aoz
 aIv
-aaa
 aaa
 aaa
 aaa
@@ -71089,7 +71578,8 @@ aUO
 aio
 aqI
 aqI
-aYn
+aNO
+aEp
 aBP
 aTS
 aFE
@@ -71103,7 +71593,7 @@ aFE
 aHS
 aPt
 aZn
-aqW
+pMX
 aRT
 aSm
 aJo
@@ -71116,7 +71606,6 @@ aSt
 aIv
 aKg
 aIv
-aaa
 aaa
 aaa
 aaa
@@ -71346,7 +71835,8 @@ aan
 asY
 aRo
 aRo
-aYn
+aNO
+aEp
 aRJ
 aFS
 aFS
@@ -71360,7 +71850,7 @@ aHE
 aEp
 aIg
 aIr
-aqW
+pMX
 aAU
 aZQ
 aPS
@@ -71373,7 +71863,6 @@ aoz
 aIv
 aNr
 aIv
-aaa
 aaa
 aaa
 aaa
@@ -71615,9 +72104,10 @@ aEp
 aEp
 aEp
 aEp
-aEv
-aEv
 aEp
+aEv
+aEv
+aIv
 aIv
 aIv
 aIR
@@ -71630,7 +72120,6 @@ aIR
 aIv
 aNr
 aIv
-aaa
 aaa
 aaa
 aaa
@@ -71872,9 +72361,10 @@ aYn
 amW
 aWM
 aYn
+aEp
 aET
 aEU
-aEv
+aIR
 aIQ
 aIR
 aJm
@@ -71887,7 +72377,6 @@ aJr
 aIv
 aNr
 aIv
-aaa
 aaa
 aaa
 aaa
@@ -72142,9 +72631,9 @@ aIv
 aIv
 aIv
 aIv
+aIv
 aNr
 aIv
-aaa
 aaa
 aaa
 aaa
@@ -72398,10 +72887,10 @@ aaa
 aaa
 aaa
 aaa
-aIv
-aKj
-aIv
 aaa
+aIv
+eNB
+aIv
 aaa
 aaa
 aaa
@@ -72656,8 +73145,8 @@ aaa
 aaa
 aaa
 aaa
-aKk
 aaa
+aKk
 aaa
 aaa
 aaa
