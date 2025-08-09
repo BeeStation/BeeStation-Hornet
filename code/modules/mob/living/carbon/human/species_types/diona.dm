@@ -11,7 +11,7 @@
 		NOHUSK,
 		NO_UNDERWEAR,
 		NOSOCKS,
-		NOEYESPRITES
+		NOEYESPRITES,
 	)
 	inherent_traits = list(
 		TRAIT_BEEFRIEND,
@@ -21,7 +21,7 @@
 		TRAIT_NORADDAMAGE,
 		TRAIT_NOBREATH,
 		TRAIT_NO_DNA_COPY,
-		TRAIT_NO_TRANSFORMATION_STING
+		TRAIT_NO_TRANSFORMATION_STING,
 	)
 	inherent_biotypes = list(MOB_HUMANOID, MOB_ORGANIC, MOB_BUG)
 	mutant_bodyparts = list("diona_leaves", "diona_thorns", "diona_flowers", "diona_moss", "diona_mushroom", "diona_antennae", "diona_eyes", "diona_pbody")
