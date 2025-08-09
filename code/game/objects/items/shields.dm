@@ -8,50 +8,33 @@
 	max_integrity =  75
 	item_flags = ISWEAPON
 	var/transparent = FALSE	// makes beam projectiles pass through the shield
-	var/durability = TRUE //the shield uses durability instead of stamina
+	var/shield_break_sound = 'sound/effects/glassbr3.ogg'
 
 /obj/item/shield/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(transparent && (hitby.pass_flags & PASSTRANSPARENT))
 		return FALSE
 	return ..()
 
+/obj/item/shield/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armour_penetration)
+	if(damage_amount >= atom_integrity)
+		shatter()
+		return
+	..()
 
 /obj/item/shield/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, damage, attack_type)
-	if(durability)
-		var/attackforce = 0
-		if(isprojectile(hitby))
-			var/obj/projectile/P = hitby
-			if(P.damage_type != STAMINA)// disablers dont do shit to shields
-				attackforce = (P.damage / 2)
-		else if(isitem(hitby))
-			var/obj/item/I = hitby
-			attackforce = damage
-			if(!I.damtype == BRUTE)
-				attackforce = (attackforce / 2)
-			attackforce = (attackforce * I.attack_weight)
-			if(I.damtype == STAMINA)//pure stamina damage wont affect blocks
-				attackforce = 0
-		else if(isliving(hitby)) //not putting an anti stamina clause in here. only stamina damage simplemobs i know of are swarmers, and them eating shields makes sense
-			var/mob/living/L = hitby
-			if(block_flags & BLOCKING_HUNTER)
-				attackforce = (damage) //some shields are better at blocking simple mobs
-			else
-				attackforce = (damage * 2)//simplemobs have an advantage here because of how much these blocking mechanics put them at a disadvantage
-			if(block_flags & BLOCKING_NASTY)
-				L.attackby(src, owner)
-				owner.visible_message(span_danger("[L] injures themselves on [owner]'s [src]!"))
-		if(attackforce)
-			owner.changeNext_move(CLICK_CD_MELEE)
-		if (atom_integrity <= attackforce || (owner.getStaminaLoss() >= 50 && HAS_TRAIT(src, TRAIT_NODROP)))
-			var/turf/T = get_turf(owner)
-			T.visible_message(span_warning("[hitby] destroys [src]!"))
-			atom_integrity = 1
+	. = ..()
+	if(owner.getStaminaLoss() >= 50)
+		//If we are too tired to keep blocking, but can't drop the shield, shatter it because something cheesy is going on
+		if(HAS_TRAIT(src, TRAIT_NODROP))
 			shatter(owner)
 			return FALSE
-		take_damage(attackforce * ((100-(block_power))/100))
-		return TRUE
-	else
-		return ..()
+
+		//Otherwise, send the shield flying out of our hand
+		else
+			var/turf/this_turf = get_turf(src)
+			var/list/turf/nearby_turfs = RANGE_TURFS(3, this_turf) - this_turf
+			throw_at(pick(nearby_turfs), 3, 1)
+			return FALSE
 
 /obj/item/shield/attackby(obj/item/weldingtool/W, mob/living/user, params)
 	if(istype(W))
@@ -79,9 +62,10 @@
 		if(0 to 25)
 			. += span_warning("It's falling apart!")
 
-/obj/item/shield/proc/shatter(mob/living/carbon/human/owner)
-	playsound(owner, 'sound/effects/glassbr3.ogg', 100)
-	new /obj/item/shard((get_turf(src)))
+/obj/item/shield/proc/shatter()
+	var/turf/T = get_turf(src)
+	T.visible_message(span_warning("[src] is destroyed!"))
+	playsound(src, shield_break_sound, 100)
 	qdel(src)
 
 /obj/item/shield/riot
@@ -130,17 +114,13 @@
 	transparent = FALSE
 	custom_materials = list(/datum/material/iron=8500)
 	max_integrity = 65
+	shield_break_sound = 'sound/effects/grillehit.ogg'
 
 /obj/item/shield/riot/roman/fake
 	desc = "Bears an inscription on the inside: <i>\"Romanes venio domus\"</i>. It appears to be a bit flimsy."
 
 	block_power = 0
 	max_integrity = 30
-
-/obj/item/shield/riot/roman/shatter(mob/living/carbon/human/owner)
-	playsound(owner, 'sound/effects/grillehit.ogg', 100)
-	new /obj/item/stack/sheet/iron(get_turf(src))
-	qdel(src)
 
 /obj/item/shield/riot/buckler
 	name = "wooden buckler"
@@ -156,11 +136,7 @@
 	transparent = FALSE
 	max_integrity = 55
 	w_class = WEIGHT_CLASS_NORMAL
-
-/obj/item/shield/riot/buckler/shatter(mob/living/carbon/human/owner)
-	playsound(owner, 'sound/effects/bang.ogg', 50)
-	new /obj/item/stack/sheet/wood(get_turf(src))
-	qdel(src)
+	shield_break_sound = 'sound/effects/bang.ogg'
 
 /obj/item/shield/riot/goliath
 	name = "Goliath shield"
@@ -175,13 +151,9 @@
 	transparent = FALSE
 	block_power = 25
 	max_integrity = 70
-	block_flags = BLOCKING_HUNTER | BLOCKING_PROJECTILE
+	block_flags = BLOCKING_PROJECTILE
 	w_class = WEIGHT_CLASS_BULKY
-
-/obj/item/shield/riot/goliath/shatter(mob/living/carbon/human/owner)
-	playsound(owner, 'sound/effects/bang.ogg', 50)
-	new /obj/item/stack/sheet/animalhide/goliath_hide(get_turf(src))
-	qdel(src)
+	shield_break_sound = 'sound/effects/bang.ogg'
 
 /obj/item/shield/riot/flash
 	name = "strobe shield"
@@ -279,17 +251,17 @@
 
 	var/cooldown_duration = 100
 	var/cooldown_timer
+	shield_break_sound = 'sound/effects/turbolift/turbolift-close.ogg'
 
-/obj/item/shield/energy/shatter(mob/living/carbon/human/owner)
-	playsound(owner, 'sound/effects/turbolift/turbolift-close.ogg', 200, 1)
-	src.attack_self(owner)
-	to_chat(owner, span_warning("The [src] overheats!."))
+/obj/item/shield/energy/shatter()
+	atom_integrity = 1
+	playsound(src, shield_break_sound, 200, 1)
+	attack_self()
 	cooldown_timer = world.time + cooldown_duration
-	addtimer(CALLBACK(src, PROC_REF(recharged), owner), cooldown_duration)
+	addtimer(CALLBACK(src, PROC_REF(recharged)), cooldown_duration)
 
-/obj/item/shield/energy/proc/recharged(mob/living/carbon/human/owner)//ree. i hate addtimer. ree.
-	playsound(owner, 'sound/effects/beepskyspinsabre.ogg', 35, 1)
-	to_chat(owner, span_warning("The [src] is ready to use!."))
+/obj/item/shield/energy/proc/recharged()
+	playsound(src, 'sound/effects/beepskyspinsabre.ogg', 35, 1)
 
 /obj/item/shield/energy/Initialize(mapload)
 	. = ..()

@@ -664,54 +664,64 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	return FALSE
 
 /obj/item/proc/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
-	var/blockhand = 0
-	var/attackforce = 0
-	if(owner.get_active_held_item() == src) //this feels so hacky...
-		if(owner.active_hand_index == 1)
-			blockhand = BODY_ZONE_L_ARM
+	var/attackforce = damage
+
+	//Projectiles completely bypass blocking cooldown. Shields trigger the blocking cooldown but are not affected by it.
+	if(!isprojectile(hitby))
+		if(istype(src, /obj/item/shield) || COOLDOWN_FINISHED(owner, block_cooldown))
+			COOLDOWN_START(owner, block_cooldown, BLOCK_CD)
 		else
-			blockhand = BODY_ZONE_R_ARM
-	else
-		if(owner.active_hand_index == 1)
-			blockhand = BODY_ZONE_R_ARM
-		else
-			blockhand = BODY_ZONE_L_ARM
-	if(isprojectile(hitby))
+			return FALSE
+
+	//Since we are already checking for projectile, the block only proceeds if the BLOCKING_PROJECTILE flag is present
+	else if(block_flags & BLOCKING_PROJECTILE)
 		var/obj/projectile/P = hitby
-		if(P.damage_type != STAMINA)// disablers dont do shit to shields
-			attackforce = (P.damage)
-	else if(isitem(hitby))
+		if(P.damage_type == STAMINA)
+			attackforce = 0 //Blocking disablers and tasers is free, but other projectiles do their standard damage
+
+	//It's a projectile and we don't have the flag for blocking those, fail to block and get out of here
+	else
+		return FALSE
+
+	//Alright, it isn't a projectile and the cooldown is set if we aren't a shield. Are we being hit with a weapon?
+	if(isitem(hitby))
 		var/obj/item/I = hitby
-		attackforce = damage
-		if(I.is_sharp())
-			attackforce = (attackforce / 2)//sharp weapons get much of their force by virtue of being sharp, not physical power
-		if(!I.damtype == BRUTE)
-			attackforce = (attackforce / 2)//as above, burning weapons, or weapons that deal other damage type probably dont get force from physical power
-		attackforce = (attackforce * I.attack_weight)
-		if(I.damtype == STAMINA)//pure stamina damage wont affect blocks
+
+		//If we block a stamina weapon, it does nothing unless it electrocutes us separately
+		if(I.damtype == STAMINA)
 			attackforce = 0
-	else if(attack_type == UNARMED_ATTACK && isliving(hitby))
-		var/mob/living/L = hitby
-		if(block_flags & BLOCKING_NASTY && !HAS_TRAIT(L, TRAIT_PIERCEIMMUNE))
-			INVOKE_ASYNC(L, TYPE_PROC_REF(/atom, attackby), src, owner)
-			owner.visible_message(span_danger("[L] injures themselves on [owner]'s [src]!"))
-	else if(isliving(hitby))
-		var/mob/living/L = hitby
-		attackforce = (damage * 2)//simplemobs have an advantage here because of how much these blocking mechanics put them at a disadvantage
-		if(block_flags & BLOCKING_NASTY)
-			if(istype(L, /mob/living/simple_animal))
-				var/mob/living/simple_animal/S = L
-				if(!S.hardattacks)
-					INVOKE_ASYNC(S, TYPE_PROC_REF(/atom, attackby), src, owner)
-					owner.visible_message(span_danger("[S] injures themselves on [owner]'s [src]!"))
-			else
-				INVOKE_ASYNC(L, TYPE_PROC_REF(/atom, attackby), src, owner)
-				owner.visible_message(span_danger("[L] injures themselves on [owner]'s [src]!"))
-	owner.apply_damage(attackforce, STAMINA, blockhand, block_power)
-	if((owner.getStaminaLoss() >= 35 && HAS_TRAIT(src, TRAIT_NODROP)) || (HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE) && owner.getStaminaLoss() >= 30))//if you don't drop the item, you can't block for a few seconds
-		INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob/living/carbon/human, blockbreak))
-	if(attackforce)
-		owner.changeNext_move(CLICK_CD_MELEE)
+
+		//Blocking gets a bonus against weapons that don't get their power from brute force, but the weight also doesn't matter
+		else if(!I.damtype == BRUTE)
+			attackforce = (attackforce * 0.8)
+
+		//When blocking a sharp weapon, the force conveyed is determined purely by its weight rather than its damage
+		else if(I.is_sharp())
+			attackforce = I.w_class * 2
+
+		//And if it's a blunt weapon blocking is less effective
+		else
+			attackforce = max(I.w_class * 3, attackforce * 1.5)
+
+	//if it's not a weapon and it's not a projectile, we need to check for BLOCKING_NASTY
+	else if(attack_type == UNARMED_ATTACK && isliving(hitby) && block_flags & BLOCKING_NASTY)
+		var/mob/living/unarmed_living_mob = hitby
+		INVOKE_ASYNC(unarmed_living_mob, TYPE_PROC_REF(/atom, attackby), src, owner)
+		owner.visible_message(span_danger("[unarmed_living_mob] injures themselves on [owner]'s [src]!"))
+
+	//If the attacker is a simple_animal we need to check if they are designed to be good against blocking
+	if(istype(hitby, /mob/living/simple_animal))
+		var/mob/living/simple_animal/simplemob = hitby
+		if(simplemob.hardattacks)
+			attackforce = attackforce * 5 //likely enough to disarm a shield in one hit or two. Will also deal very heavy damage to most shield durabilities
+
+	//We are ready to deal stamina damage to our owner
+	owner.apply_damage(attackforce, STAMINA, blocked = block_power)
+	owner.changeNext_move(CLICK_CD_MELEE)
+
+	//This is done here so we don't have to pass attackforce up somehow
+	if(istype(src, /obj/item/shield))
+		take_damage(attackforce)
 	return TRUE
 
 /obj/item/proc/talk_into(mob/M, input, channel, spans, datum/language/language, list/message_mods)

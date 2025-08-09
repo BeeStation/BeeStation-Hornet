@@ -127,7 +127,7 @@
 		if(!isclothing(I))
 			if(I.hit_reaction(src, AM, attack_text, damage, attack_type))
 				I.on_block(src, AM, attack_text, damage, attack_type)
-				return 1
+				return TRUE
 	if(wear_suit?.hit_reaction(src, AM, attack_text, damage, attack_type))
 		return TRUE
 	if(w_uniform?.hit_reaction(src, AM, attack_text, damage, attack_type))
