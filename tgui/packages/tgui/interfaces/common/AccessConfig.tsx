@@ -60,7 +60,7 @@ export const AccessConfig = (props) => {
 
   const selectedAccess = accesses.find((access) => access.name === selectedAccessName) || accesses[0];
 
-  const selectedAccessEntries = sortBy((entry: Area) => entry.desc)(selectedAccess?.accesses || []);
+  const selectedAccessEntries = sortBy(selectedAccess?.accesses || [], (entry: Area) => entry.desc);
 
   const checkAccessIcon = (accesses: Area[]) => {
     let oneAccess = false;
