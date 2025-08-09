@@ -118,8 +118,8 @@
 
 	var/mob/living/living_mob = mob_to_tweak
 	handle_clown_mutation(living_mob, "You have evolved beyond your clownish nature, allowing you to wield weapons without harming yourself.")
-	RegisterSignal(living_mob, COMSIG_MOB_LOGIN, .proc/on_login)
-	RegisterSignal(living_mob, COMSIG_LIVING_LIFE, .proc/on_life)
+	RegisterSignal(living_mob, COMSIG_MOB_LOGIN, PROC_REF(on_login))
+	RegisterSignal(living_mob, COMSIG_LIVING_LIFE, PROC_REF(on_life))
 	living_mob.hud_used?.lingchemdisplay.invisibility = 0
 	living_mob.hud_used?.lingchemdisplay.maptext = FORMAT_CHEM_CHARGES_TEXT(chem_charges)
 
@@ -127,7 +127,7 @@
 		return
 
 	var/mob/living/carbon/carbon_mob = mob_to_tweak
-	RegisterSignals(carbon_mob, list(COMSIG_MOB_MIDDLECLICKON, COMSIG_MOB_ALTCLICKON), .proc/on_click_sting)
+	RegisterSignals(carbon_mob, list(COMSIG_MOB_MIDDLECLICKON, COMSIG_MOB_ALTCLICKON), PROC_REF(on_click_sting))
 
 	// Brains are optional for lings.
 	var/obj/item/organ/brain/our_ling_brain = carbon_mob.get_organ_slot(ORGAN_SLOT_BRAIN)
