@@ -42,7 +42,7 @@
 				owner.visible_message(span_danger("[L] injures themselves on [owner]'s [src]!"))
 		if(attackforce)
 			owner.changeNext_move(CLICK_CD_MELEE)
-		if (atom_integrity <= attackforce)
+		if (atom_integrity <= attackforce || (owner.getStaminaLoss() >= 50 && HAS_TRAIT(src, TRAIT_NODROP)))
 			var/turf/T = get_turf(owner)
 			T.visible_message(span_warning("[hitby] destroys [src]!"))
 			atom_integrity = 1
