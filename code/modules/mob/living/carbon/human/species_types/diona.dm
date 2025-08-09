@@ -251,8 +251,8 @@
 		I.pixel_y = rand(-10, 10)
 	nymph.old_name = H.real_name
 	nymph.features = H.dna.features
-	H.mind.transfer_to(nymph) //Move the player's mind datum to the player nymph
-	H.mind.grab_ghost() // Throw the fucking ghost back into the nymph.
+	H.mind?.transfer_to(nymph) //Move the player's mind datum to the player nymph
+	H.mind?.grab_ghost() // Throw the fucking ghost back into the nymph.
 	H.gib(TRUE, TRUE, TRUE)  //Gib the old corpse with nothing left of use
 
 /datum/action/diona/partition
