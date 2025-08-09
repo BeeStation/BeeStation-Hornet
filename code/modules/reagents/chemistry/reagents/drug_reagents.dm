@@ -580,7 +580,7 @@
 		return
 
 	var/obj/item/organ/heart/heart = affected_mob.get_organ_slot(ORGAN_SLOT_HEART)
-	if(!heart || heart.organ_flags & ORGAN_FAILING)
+	if(!heart || (heart.organ_flags & ORGAN_FAILING))
 		return
 
 	if(affected_mob.stat == DEAD)

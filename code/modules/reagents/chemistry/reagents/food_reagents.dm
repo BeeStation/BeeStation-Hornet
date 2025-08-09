@@ -285,8 +285,8 @@
 	switch(current_cycle)
 		if(1 to 15)
 			cooling = -10
-			if(holder.has_reagent(/datum/reagent/consumable/capsaicin))
-				holder.remove_reagent(/datum/reagent/consumable/capsaicin, 5 * REM * delta_time)
+			if(affected_mob.reagents.has_reagent(/datum/reagent/consumable/capsaicin))
+				affected_mob.reagents.remove_reagent(/datum/reagent/consumable/capsaicin, 5 * REM * delta_time)
 		if(15 to 25)
 			cooling = -20
 		if(25 to 35)
@@ -579,7 +579,7 @@
 
 /datum/reagent/consumable/corn_syrup/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	holder.add_reagent(/datum/reagent/consumable/sugar, 3 * REM * delta_time)
+	affected_mob.reagents.add_reagent(/datum/reagent/consumable/sugar, 3 * REM * delta_time)
 
 /datum/reagent/consumable/honey
 	name = "Honey"
@@ -593,7 +593,7 @@
 
 /datum/reagent/consumable/honey/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	holder.add_reagent(/datum/reagent/consumable/sugar, 1 * REM * delta_time)
+	affected_mob.reagents.add_reagent(/datum/reagent/consumable/sugar, 1 * REM * delta_time)
 	affected_mob.adjustBruteLoss(-1, updating_health = FALSE)
 	affected_mob.adjustFireLoss(-1, updating_health = FALSE)
 	affected_mob.adjustOxyLoss(-1, updating_health = FALSE)
@@ -882,8 +882,8 @@
 
 /datum/reagent/consumable/nutriment/cloth/on_mob_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
-	holder.add_reagent(/datum/reagent/consumable/nutriment, 1)
-	holder.add_reagent(/datum/reagent/consumable/maltodextrin/microplastics, 1)
+	affected_mob.reagents.add_reagent(/datum/reagent/consumable/nutriment, 1)
+	affected_mob.reagents.add_reagent(/datum/reagent/consumable/maltodextrin/microplastics, 1)
 
 /datum/reagent/consumable/gravy
 	name = "Gravy"

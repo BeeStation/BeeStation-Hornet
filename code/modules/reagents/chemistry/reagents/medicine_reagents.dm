@@ -72,7 +72,7 @@
 	affected_mob.radiation = 0
 
 	REMOVE_TRAITS_NOT_IN(affected_mob, list(SPECIES_TRAIT, ROUNDSTART_TRAIT, ORGAN_TRAIT))
-	holder.remove_all_type(/datum/reagent/toxin, 5 * REM * delta_time, FALSE, TRUE)
+	affected_mob.reagents.remove_all_type(/datum/reagent/toxin, 5 * REM * delta_time, FALSE, TRUE)
 	if(affected_mob.blood_volume < BLOOD_VOLUME_NORMAL)
 		affected_mob.blood_volume = BLOOD_VOLUME_NORMAL
 
@@ -107,8 +107,8 @@
 	affected_mob.AdjustImmobilized(-20 * REM * delta_time)
 	affected_mob.AdjustParalyzed(-20 * REM * delta_time)
 
-	if(holder.has_reagent(/datum/reagent/toxin/mindbreaker))
-		holder.remove_reagent(/datum/reagent/toxin/mindbreaker, 5 * REM * delta_time)
+	if(affected_mob.reagents.has_reagent(/datum/reagent/toxin/mindbreaker))
+		affected_mob.reagents.remove_reagent(/datum/reagent/toxin/mindbreaker, 5 * REM * delta_time)
 
 	affected_mob.hallucination = max(affected_mob.hallucination - (10 * REM * delta_time), 0)
 	if(DT_PROB(16, delta_time))
@@ -126,10 +126,10 @@
 	affected_mob.drowsyness = max(affected_mob.drowsyness - (5 * REM * delta_time), 0)
 	affected_mob.hallucination = max(affected_mob.hallucination - (10 * REM * delta_time), 0)
 
-	if(holder.has_reagent(/datum/reagent/toxin/mindbreaker))
-		holder.remove_reagent(/datum/reagent/toxin/mindbreaker, 5 * REM * delta_time)
-	if(holder.has_reagent(/datum/reagent/toxin/histamine))
-		holder.remove_reagent(/datum/reagent/toxin/histamine, 5 * REM * delta_time)
+	if(affected_mob.reagents.has_reagent(/datum/reagent/toxin/mindbreaker))
+		affected_mob.reagents.remove_reagent(/datum/reagent/toxin/mindbreaker, 5 * REM * delta_time)
+	if(affected_mob.reagents.has_reagent(/datum/reagent/toxin/histamine))
+		affected_mob.reagents.remove_reagent(/datum/reagent/toxin/histamine, 5 * REM * delta_time)
 
 	if(DT_PROB(16, delta_time))
 		affected_mob.adjustToxLoss(1, updating_health = FALSE)
@@ -390,12 +390,12 @@
 	. = ..()
 	if(DT_PROB(1.5, delta_time))
 		to_chat(affected_mob, span_warning("You feel salty."))
-		holder.add_reagent(/datum/reagent/consumable/sodiumchloride, 1)
-		holder.remove_reagent(/datum/reagent/medicine/salglu_solution, 0.5)
+		affected_mob.reagents.add_reagent(/datum/reagent/consumable/sodiumchloride, 1)
+		affected_mob.reagents.remove_reagent(/datum/reagent/medicine/salglu_solution, 0.5)
 	else if(DT_PROB(1.5, delta_time))
 		to_chat(affected_mob, span_warning("You feel sweet."))
-		holder.add_reagent(/datum/reagent/consumable/sugar, 1)
-		holder.remove_reagent(/datum/reagent/medicine/salglu_solution, 0.5)
+		affected_mob.reagents.add_reagent(/datum/reagent/consumable/sugar, 1)
+		affected_mob.reagents.remove_reagent(/datum/reagent/medicine/salglu_solution, 0.5)
 	if(DT_PROB(18, delta_time))
 		affected_mob.adjustBruteLoss(0.5, FALSE, FALSE, BODYTYPE_ORGANIC)
 		affected_mob.adjustFireLoss(0.5, FALSE, FALSE, BODYTYPE_ORGANIC)
@@ -487,10 +487,10 @@
 
 /datum/reagent/medicine/charcoal/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	for(var/datum/reagent/reagent in holder.reagent_list)
+	for(var/datum/reagent/reagent in affected_mob.reagents.reagent_list)
 		if(reagent == src)
 			continue
-		holder.remove_reagent(reagent.type, 0.75 * REM * delta_time)
+		affected_mob.reagents.remove_reagent(reagent.type, 0.75 * REM * delta_time)
 
 	affected_mob.adjustToxLoss(-1 * REM * delta_time, updating_health = FALSE)
 	return UPDATE_MOB_HEALTH
@@ -506,11 +506,11 @@
 
 /datum/reagent/medicine/system_cleaner/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	for(var/datum/reagent/reagent in holder.reagent_list)
+	for(var/datum/reagent/reagent in affected_mob.reagents.reagent_list)
 		if(reagent == src)
 			continue
 
-		holder.remove_reagent(reagent.type, 1 * REM * delta_time)
+		affected_mob.reagents.remove_reagent(reagent.type, 1 * REM * delta_time)
 
 	affected_mob.adjustToxLoss(-2 * REM * delta_time, updating_health = FALSE)
 	return UPDATE_MOB_HEALTH
@@ -570,10 +570,10 @@
 
 /datum/reagent/medicine/calomel/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	for(var/datum/reagent/reagent in holder.reagent_list)
+	for(var/datum/reagent/reagent in affected_mob.reagents.reagent_list)
 		if(reagent == src)
 			continue
-		holder.remove_reagent(reagent.type, 2.5 * REM * delta_time)
+		affected_mob.reagents.remove_reagent(reagent.type, 2.5 * REM * delta_time)
 
 	if(affected_mob.health > 20)
 		affected_mob.adjustToxLoss(2.5 * REM * delta_time, updating_health = FALSE)
@@ -602,10 +602,10 @@
 
 /datum/reagent/medicine/pen_acid/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	for(var/datum/reagent/reagent in holder.reagent_list)
+	for(var/datum/reagent/reagent in affected_mob.reagents.reagent_list)
 		if(reagent == src)
 			continue
-		holder.remove_reagent(reagent.type, 2 * REM * delta_time)
+		affected_mob.reagents.remove_reagent(reagent.type, 2 * REM * delta_time)
 
 	affected_mob.radiation -= (max(affected_mob.radiation - RAD_MOB_SAFE, 0) / 50) * REM * delta_time
 	affected_mob.adjustToxLoss(-2 * REM * delta_time, updating_health = FALSE)
@@ -653,8 +653,8 @@
 
 /datum/reagent/medicine/salbutamol/overdose_process(mob/living/carbon/affected_mob)
 	. = ..()
-	holder.add_reagent(/datum/reagent/toxin/histamine, 1)
-	holder.remove_reagent(/datum/reagent/medicine/salbutamol, 1)
+	affected_mob.reagents.add_reagent(/datum/reagent/toxin/histamine, 1)
+	affected_mob.reagents.remove_reagent(/datum/reagent/medicine/salbutamol, 1)
 
 /datum/reagent/medicine/perfluorodecalin
 	name = "Perfluorodecalin"
@@ -781,7 +781,7 @@
 	if(DT_PROB(5, delta_time))
 		affected_mob.drowsyness++
 	affected_mob.jitteriness -= 1 * REM * delta_time
-	holder.remove_reagent(/datum/reagent/toxin/histamine, 3 * REM * delta_time)
+	affected_mob.reagents.remove_reagent(/datum/reagent/toxin/histamine, 3 * REM * delta_time)
 
 /datum/reagent/medicine/morphine
 	name = "Morphine"
@@ -908,8 +908,8 @@
 
 /datum/reagent/medicine/atropine/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	holder.add_reagent(/datum/reagent/toxin/histamine, 3 * REM * delta_time)
-	holder.remove_reagent(/datum/reagent/medicine/atropine, 2 * REM * delta_time)
+	affected_mob.reagents.add_reagent(/datum/reagent/toxin/histamine, 3 * REM * delta_time)
+	affected_mob.reagents.remove_reagent(/datum/reagent/medicine/atropine, 2 * REM * delta_time)
 	affected_mob.Dizzy(1 * REM * delta_time)
 	affected_mob.Jitter(1 * REM * delta_time)
 
@@ -1018,8 +1018,8 @@
 
 /datum/reagent/medicine/neurine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(holder.has_reagent(/datum/reagent/consumable/ethanol/neurotoxin))
-		holder.remove_reagent(/datum/reagent/consumable/ethanol/neurotoxin, 5 * REM * delta_time)
+	if(affected_mob.reagents.has_reagent(/datum/reagent/consumable/ethanol/neurotoxin))
+		affected_mob.reagents.remove_reagent(/datum/reagent/consumable/ethanol/neurotoxin, 5 * REM * delta_time)
 
 	if(DT_PROB(8, delta_time))
 		affected_mob.cure_trauma_type(resilience = TRAUMA_RESILIENCE_BASIC)
@@ -1054,7 +1054,7 @@
 		if(ishuman(affected_mob))
 			var/mob/living/carbon/human/affected_human = affected_mob
 			affected_human.drunkenness = max(affected_human.drunkenness - (10 * REM * delta_time), 0)
-	holder.remove_all_type(/datum/reagent/consumable/ethanol, 3 * REM * delta_time, FALSE, TRUE)
+	affected_mob.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 3 * REM * delta_time, FALSE, TRUE)
 	affected_mob.adjustToxLoss(-0.2 * REM * delta_time, updating_health = FALSE)
 	return UPDATE_MOB_HEALTH
 
@@ -1131,7 +1131,7 @@
 /datum/reagent/medicine/insulin/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	affected_mob.AdjustSleeping(-20 * REM * delta_time)
-	holder.remove_reagent(/datum/reagent/consumable/sugar, 3 * REM * delta_time)
+	affected_mob.reagents.remove_reagent(/datum/reagent/consumable/sugar, 3 * REM * delta_time)
 
 //Trek Chems, used primarily by medibots. Only heals a specific damage type, but is very efficient.
 /datum/reagent/medicine/bicaridine
@@ -1151,8 +1151,8 @@
 
 /datum/reagent/medicine/bicaridine/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	holder.add_reagent(metabolite, 1)
-	holder.remove_reagent(/datum/reagent/medicine/bicaridine, 1)
+	affected_mob.reagents.add_reagent(metabolite, 1)
+	affected_mob.reagents.remove_reagent(/datum/reagent/medicine/bicaridine, 1)
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_LIVER, 1 * REM * delta_time)
 
 /datum/reagent/medicine/dexalin
@@ -1208,8 +1208,8 @@
 
 /datum/reagent/medicine/kelotane/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	holder.add_reagent(metabolite, 1)
-	holder.remove_reagent(/datum/reagent/medicine/kelotane, 1)
+	affected_mob.reagents.add_reagent(metabolite, 1)
+	affected_mob.reagents.remove_reagent(/datum/reagent/medicine/kelotane, 1)
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_LIVER, 1 * REM * delta_time)
 
 /datum/reagent/medicine/antitoxin
@@ -1230,8 +1230,8 @@
 
 /datum/reagent/medicine/antitoxin/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	holder.add_reagent(metabolite, 1)
-	holder.remove_reagent(/datum/reagent/medicine/antitoxin, 1)
+	affected_mob.reagents.add_reagent(metabolite, 1)
+	affected_mob.reagents.remove_reagent(/datum/reagent/medicine/antitoxin, 1)
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_LIVER, 1 * REM * delta_time)
 
 /datum/reagent/medicine/carthatoline
@@ -1249,8 +1249,8 @@
 	if(affected_mob.getToxLoss() && DT_PROB(5, delta_time))
 		affected_mob.vomit(1)
 
-	for(var/datum/reagent/toxin/reagent in holder.reagent_list)
-		holder.remove_reagent(reagent.type, 1)
+	for(var/datum/reagent/toxin/reagent in affected_mob.reagents.reagent_list)
+		affected_mob.reagents.remove_reagent(reagent.type, 1)
 	return UPDATE_MOB_HEALTH
 
 /datum/reagent/medicine/carthatoline/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -1383,7 +1383,7 @@
 /datum/reagent/medicine/syndicate_nanites/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(DT_PROB(13, delta_time))
-		holder.remove_reagent(type, metabolization_rate * 15) // ~5 units at a rate of 0.4 but i wanted a nice number in code
+		affected_mob.reagents.remove_reagent(type, metabolization_rate * 15) // ~5 units at a rate of 0.4 but i wanted a nice number in code
 		affected_mob.vomit(20) // nanite safety protocols make your body expel them to prevent harmies
 
 /datum/reagent/medicine/earthsblood //Created by ambrosia gaia plants
@@ -1425,8 +1425,8 @@
 	affected_mob.drowsyness += 2 * REM * delta_time
 	affected_mob.adjustStaminaLoss(2.5 * REM * delta_time, updating_health = FALSE)
 
-	for(var/datum/reagent/drug/drug in holder.reagent_list)
-		holder.remove_reagent(drug.type, 5 * REM * delta_time)
+	for(var/datum/reagent/drug/drug in affected_mob.reagents.reagent_list)
+		affected_mob.reagents.remove_reagent(drug.type, 5 * REM * delta_time)
 	if(affected_mob.jitteriness >= 3)
 		affected_mob.jitteriness -= 3 * REM * delta_time
 	if(affected_mob.hallucination >= 5)
@@ -1506,8 +1506,8 @@
 
 /datum/reagent/medicine/corazone/overdose_process(mob/living/affected_mob)
 	. = ..()
-	holder.add_reagent(/datum/reagent/toxin/histamine, 1)
-	holder.remove_reagent(/datum/reagent/medicine/corazone, 1)
+	affected_mob.reagents.add_reagent(/datum/reagent/toxin/histamine, 1)
+	affected_mob.reagents.remove_reagent(/datum/reagent/medicine/corazone, 1)
 
 /datum/reagent/medicine/muscle_stimulant
 	name = "Muscle Stimulant"

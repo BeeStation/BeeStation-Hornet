@@ -304,7 +304,7 @@
 				remove_servant_of_ratvar(affected_mob.mind)
 			affected_mob.jitteriness = 0
 			affected_mob.stuttering = 0
-			holder.remove_reagent(type, volume)	// maybe this is a little too perfect and a max() cap on the statuses would be better??
+			affected_mob.reagents.remove_reagent(type, volume)	// maybe this is a little too perfect and a max() cap on the statuses would be better??
 			return
 
 /datum/reagent/water/holywater/expose_turf(turf/exposed_turf, reac_volume)

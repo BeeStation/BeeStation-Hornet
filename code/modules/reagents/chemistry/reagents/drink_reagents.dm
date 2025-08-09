@@ -306,8 +306,8 @@
 
 /datum/reagent/consumable/milk/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(holder.has_reagent(/datum/reagent/consumable/capsaicin))
-		holder.remove_reagent(/datum/reagent/consumable/capsaicin, 1 * delta_time)
+	if(affected_mob.reagents.has_reagent(/datum/reagent/consumable/capsaicin))
+		affected_mob.reagents.remove_reagent(/datum/reagent/consumable/capsaicin, 1 * delta_time)
 
 	if(affected_mob.getBruteLoss() && DT_PROB(10, delta_time))
 		affected_mob.heal_bodypart_damage(1, updating_health = FALSE)
@@ -318,14 +318,14 @@
 */
 /datum/reagent/consumable/milk/overdose_start(mob/living/carbon/affected_mob)
 	. = ..()
-	holder.add_reagent(/datum/reagent/toxin/bonehurtingjuice, 5) //The integer here should match var/starting_amount in ../milk/overdose_process(mob/living/carbon/affected_mob)
+	affected_mob.reagents.add_reagent(/datum/reagent/toxin/bonehurtingjuice, 5) //The integer here should match var/starting_amount in ../milk/overdose_process(mob/living/carbon/affected_mob)
 
 /datum/reagent/consumable/milk/overdose_process(mob/living/carbon/affected_mob)
 	. = ..()
 	var/datum/reagent/converted_reagent = /datum/reagent/toxin/bonehurtingjuice //Needed to get the metabolism for desired reagent, exists solely for brevity compared to /datum/reagent/category/reagent.metabolization_rate
 	var/minimum_cycles = overdose_threshold/metabolization_rate //minimum_cycles is the number of ticks for an amount of units equal to the overdose threshold to process.
 	var/amount_to_add = 45 / minimum_cycles + initial(converted_reagent.metabolization_rate) //amount_to_add is the calculated amount to add per tick to meet ensure that target_units after minimum_cycle ticks.
-	holder.add_reagent(/datum/reagent/toxin/bonehurtingjuice, amount_to_add)
+	affected_mob.reagents.add_reagent(/datum/reagent/toxin/bonehurtingjuice, amount_to_add)
 	/*In depth explanation by DatBoiTim
 	* This number will not put more than 50u of BHJ into their system if only 500u(ie bare minimum OD).
 	*  milk.overdose_threshold / milk.metabolization_rate = minimum_cycles = 1,250 cycles
@@ -408,8 +408,8 @@
 	affected_mob.AdjustSleeping(-40 * REM * delta_time)
 
 	affected_mob.adjust_bodytemperature(25 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, 0, affected_mob.get_body_temp_normal())
-	if(holder.has_reagent(/datum/reagent/consumable/frostoil))
-		holder.remove_reagent(/datum/reagent/consumable/frostoil, 5 * REM * delta_time)
+	if(affected_mob.reagents.has_reagent(/datum/reagent/consumable/frostoil))
+		affected_mob.reagents.remove_reagent(/datum/reagent/consumable/frostoil, 5 * REM * delta_time)
 
 /datum/reagent/consumable/tea
 	name = "Tea"
@@ -861,7 +861,7 @@
 
 /datum/reagent/consumable/doctor_delight/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	// Drains the nutrition of the holder. Not medical staff though, since it's the Doctor's Delight!
+	// Drains the nutrition of the affected_mob.reagents. Not medical staff though, since it's the Doctor's Delight!
 	if(affected_mob.nutrition && (affected_mob.nutrition - 2 > 0))
 		if(!HAS_MIND_TRAIT(affected_mob, TRAIT_MEDICAL_METABOLISM))
 			affected_mob.adjust_nutrition(-2 * REM * delta_time)
@@ -1119,8 +1119,8 @@
 
 /datum/reagent/consumable/hot_cocoa/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(holder.has_reagent(/datum/reagent/consumable/capsaicin))
-		holder.remove_reagent(/datum/reagent/consumable/capsaicin, 2 * REM * delta_time)
+	if(affected_mob.reagents.has_reagent(/datum/reagent/consumable/capsaicin))
+		affected_mob.reagents.remove_reagent(/datum/reagent/consumable/capsaicin, 2 * REM * delta_time)
 
 	affected_mob.adjust_bodytemperature(5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, 0, affected_mob.get_body_temp_normal())
 	if(affected_mob.getBruteLoss() && DT_PROB(10, delta_time))
