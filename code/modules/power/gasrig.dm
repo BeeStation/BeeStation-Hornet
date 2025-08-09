@@ -71,26 +71,45 @@
 
 	var/obj/machinery/atmospherics/components/unary/gasrig/gas_output/gas_output
 
+	var/list/dummies = list()
+
 /obj/machinery/atmospherics/gasrig/core/proc/init_inputs()
 	var/offset_loc = locate(x - 1, y, z)
-	shielding_input = new/obj/machinery/atmospherics/components/unary/gasrig/shielding_input(offset_loc, TRUE)
+	shielding_input = new/obj/machinery/atmospherics/components/unary/gasrig/shielding_input(offset_loc, TRUE, src)
 	shielding_input.dir = WEST
 	shielding_input.set_init_directions()
 	RegisterSignal(shielding_input, COMSIG_PARENT_QDELETING, PROC_REF(kill_children))
 	offset_loc = locate(x + 1, y, z)
-	fracking_input = new/obj/machinery/atmospherics/components/unary/gasrig/fracking_input(offset_loc, TRUE)
+	fracking_input = new/obj/machinery/atmospherics/components/unary/gasrig/fracking_input(offset_loc, TRUE, src)
 	fracking_input.dir = EAST
 	fracking_input.set_init_directions()
 	RegisterSignal(fracking_input, COMSIG_PARENT_QDELETING, PROC_REF(kill_children))
 	offset_loc = locate(x, y - 1, z)
-	gas_output = new/obj/machinery/atmospherics/components/unary/gasrig/gas_output(offset_loc, TRUE)
+	gas_output = new/obj/machinery/atmospherics/components/unary/gasrig/gas_output(offset_loc, TRUE, src)
 	gas_output.dir = SOUTH
 	gas_output.set_init_directions()
 	RegisterSignal(gas_output, COMSIG_PARENT_QDELETING, PROC_REF(kill_children))
 
+/obj/machinery/atmospherics/gasrig/core/proc/init_dummies()
+	var/offset_loc = locate(x - 1, y + 1, z)
+	dummies += new/obj/machinery/atmospherics/gasrig/dummy(offset_loc, src, "gasrig_d1")
+	offset_loc = locate(x, y + 1, z)
+	dummies += new/obj/machinery/atmospherics/gasrig/dummy(offset_loc, src, "gasrig_d2")
+	offset_loc = locate(x + 1, y + 1, z)
+	dummies += new/obj/machinery/atmospherics/gasrig/dummy(offset_loc, src, "gasrig_d3")
+	offset_loc = locate(x - 1, y - 1, z)
+	dummies += new/obj/machinery/atmospherics/gasrig/dummy(offset_loc, src, "gasrig_d4")
+	offset_loc = locate(x + 1, y - 1, z)
+	dummies += new/obj/machinery/atmospherics/gasrig/dummy(offset_loc, src, "gasrig_d5")
+
+	for(var/obj/machinery/atmospherics/gasrig/dummy/dummy in dummies)
+		RegisterSignal(dummy, COMSIG_PARENT_QDELETING, PROC_REF(kill_children))
+
+
 /obj/machinery/atmospherics/gasrig/core/Initialize(mapload)
 	. = ..()
 	init_inputs()
+	init_dummies()
 	update_pipenets()
 
 /obj/machinery/atmospherics/gasrig/core/proc/kill_children()
@@ -100,6 +119,8 @@
 	shielding_input.Destroy()
 	fracking_input.Destroy()
 	gas_output.Destroy()
+	for(var/obj/machinery/atmospherics/gasrig/dummy/dummy in dummies)
+		dummy.Destroy()
 	STOP_PROCESSING(SSmachines, src)
 	return ..()
 
@@ -326,6 +347,20 @@
 /obj/machinery/atmospherics/components/unary/gasrig/
 	resistance_flags = INDESTRUCTIBLE|ACID_PROOF|FIRE_PROOF
 	density = TRUE
+	var/obj/machinery/atmospherics/gasrig/core/parent
+
+/obj/machinery/atmospherics/components/unary/gasrig/New(loc, booled, var/obj/machinery/atmospherics/gasrig/core/C)
+	..(loc, booled)
+	parent = C
+
+/obj/machinery/atmospherics/components/unary/gasrig/welder_act(mob/living/user, obj/item/tool)
+	parent.welder_act(user, tool)
+
+/obj/machinery/atmospherics/components/unary/gasrig/attackby(obj/item/I, mob/user, params)
+	parent.attackby(I, user, params)
+
+/obj/machinery/atmospherics/components/unary/gasrig/ui_interact(mob/user, datum/tgui/ui)
+	parent.ui_interact(user, ui)
 
 /obj/machinery/atmospherics/components/unary/gasrig/shielding_input
 	name = "AGR shield gas input port"
@@ -353,10 +388,10 @@
 	desc = "This state-of-the-art gas mining rig will extend a collector down to the depths of atmosphere below to extract all the gases a station could need."
 	icon = 'icons/obj/machines/gasrig.dmi'
 	layer = LOW_OBJ_LAYER
-
 	var/obj/machinery/atmospherics/gasrig/core/parent
 
-/obj/machinery/atmospherics/gasrig/dummy/New(var/obj/machinery/atmospherics/gasrig/core/gasrig, iconstate)
+/obj/machinery/atmospherics/gasrig/dummy/New(loc, var/obj/machinery/atmospherics/gasrig/core/gasrig, iconstate)
+	..(loc)
 	parent = gasrig
 	icon_state = iconstate
 
@@ -365,6 +400,9 @@
 
 /obj/machinery/atmospherics/gasrig/dummy/attackby(obj/item/I, mob/user, params)
 	parent.attackby(I, user, params)
+
+/obj/machinery/atmospherics/gasrig/dummy/ui_interact(mob/user, datum/tgui/ui)
+	parent.ui_interact(user, ui)
 
 #undef GASRIG_MAX_SHIELD_STRENGTH
 #undef GASRIG_NATURAL_SHIELD_RECOVERY
