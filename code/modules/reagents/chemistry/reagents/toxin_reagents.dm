@@ -487,6 +487,22 @@
 	else
 		..()
 
+//Very similar to heparin, but causes toxin damage instead of brute
+/datum/reagent/toxin/apidvenom
+	name = "Apid Venom"
+	description = "Venom extracted from Apids. Destroys blood cells and prevents it from clotting properly."
+	metabolization_rate = 0.2 * REAGENTS_METABOLISM
+	reagent_state = LIQUID
+	color = "#6c9919"
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	toxpwr = 0.25
+
+/datum/reagent/toxin/apidvenom/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	. = ..()
+	var/bleed_rate = M.get_bleed_rate()
+	if (bleed_rate < BLEED_SURFACE)
+		M.add_bleeding(BLEED_SURFACE - bleed_rate, FALSE) //Bleeding can never go lower than this while reagent is in system
+
 /datum/reagent/toxin/spidervenom
 	name = "Spider Venom"
 	description = "A type of venom extracted from spiders. Causes toxin damage and can paralyze in large doses."
@@ -775,11 +791,9 @@
 	toxpwr = 0
 
 /datum/reagent/toxin/heparin/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if (!H.is_bleeding())
-			H.add_bleeding(BLEED_SURFACE)
-		H.adjustBruteLoss(1 * REAGENTS_EFFECT_MULTIPLIER * delta_time, 0) //Brute damage increases with the amount they're bleeding
+	var/bleed_rate = M.get_bleed_rate()
+	if (bleed_rate < BLEED_CUT)
+		M.add_bleeding(BLEED_CUT - bleed_rate, FALSE)//Brute damage increases with the amount they're bleeding
 		. = TRUE
 	return ..() || .
 
@@ -1009,7 +1023,7 @@
 	M.set_drugginess(5)
 	M.adjustStaminaLoss(30 * REM * delta_time)
 	M.silent = max(M.silent, 3 * REM * delta_time)
-	M.confused = max(M.confused, 3 * REM * delta_time)
+	M.confused = max(M.confused, 10 * REM * delta_time)
 	..()
 
 /datum/reagent/toxin/morphvenom/mimite

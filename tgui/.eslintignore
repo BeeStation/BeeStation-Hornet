@@ -4,3 +4,4 @@
 /**/*.chunk.*
 /**/*.hot-update.*
 
+/public

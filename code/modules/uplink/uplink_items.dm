@@ -1262,13 +1262,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/deployablemine/traitor
 	cost = 4
 
-/datum/uplink_item/explosives/doorCharge
-	name = "Airlock Charge"
-	desc = "A small explosive device that can be used to sabotage airlocks to cause an explosion upon opening. \
-			To apply, remove the airlock's maintenance panel and place it within."
-	item = /obj/item/doorCharge
-	cost = 4
-
 /datum/uplink_item/explosives/virus_grenade
 	name = "Fungal Tuberculosis Grenade"
 	desc = "A primed bio-grenade packed into a compact box. Comes with five Bio Virus Antidote Kit (BVAK) \
@@ -2516,6 +2509,13 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/toy/cards/deck/syndicate
 	cost = 1
 	surplus = 40
+
+/datum/uplink_item/badass/syndieballdispenser
+	name = "Syndie-Ball™ dispenser"
+	desc = "This abomination of a gumball dispenser is filled with gumballs that will restore lost blood and repair damaged tissue, but will also leave you in an unconscious near-death state for a time afterward. They are hard enough to slip on if you were to step on one.\
+			We also took an angle-grinder to it and sharpened the edges up a bit, in case you want to use it as a weapon."
+	item = /obj/item/candydispenser/syndie
+	cost = 2
 
 /datum/uplink_item/badass/syndiecigs
 	name = "Syndicate Smokes"

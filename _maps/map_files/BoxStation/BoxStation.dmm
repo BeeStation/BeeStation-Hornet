@@ -9811,7 +9811,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/item/kirbyplants/random,
+/obj/item/candydispenser/engineering{
+	pixel_y = 11
+	},
+/obj/structure/table,
 /turf/open/floor/iron,
 /area/engine/break_room)
 "bYQ" = (
@@ -25993,16 +25996,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
-"haj" = (
-/obj/effect/mapping_helpers/airlock/cyclelink_helper_multi{
-	cycle_id = "atmos_external"
-	},
-/obj/machinery/door/airlock/external{
-	name = "Atmospherics External Airlock";
-	req_one_access = "24, 13"
-	},
-/turf/open/floor/plating,
-/area/maintenance/aft)
 "haz" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -29553,6 +29546,7 @@
 /obj/item/stack/medical/ointment,
 /obj/effect/turf_decal/tile/blue,
 /obj/structure/table,
+/obj/item/storage/firstaid/regular,
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
 "ips" = (
@@ -55277,9 +55271,11 @@
 /turf/open/floor/iron/dark,
 /area/medical/cryo)
 "sHB" = (
-/obj/item/storage/firstaid/regular,
 /obj/machinery/camera/directional/north,
 /obj/structure/table,
+/obj/item/candydispenser/lollipop{
+	pixel_y = 10
+	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
 "sHM" = (
@@ -66212,6 +66208,18 @@
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
+"wOz" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/poddoor/shutters{
+	id = "barcounter";
+	name = "Bar Counter Shutters"
+	},
+/obj/machinery/door/firedoor,
+/obj/item/candydispenser{
+	pixel_y = 11
+	},
+/turf/open/floor/iron/cafeteria_red,
+/area/crew_quarters/bar)
 "wOB" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/smart/simple/yellow/visible,
@@ -105778,7 +105786,7 @@ aJC
 cOn
 fRF
 pEE
-pLg
+wOz
 nez
 fkY
 fyT
@@ -105832,10 +105840,10 @@ ccB
 cbH
 bLK
 aaf
-haj
+way
 ctl
 ctl
-haj
+way
 ixA
 aoV
 aaf
@@ -106348,7 +106356,7 @@ bLK
 gXs
 oSu
 oSu
-haj
+way
 oSu
 lTm
 cnb
