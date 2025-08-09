@@ -53,7 +53,9 @@
 			addtimer(CALLBACK(src, PROC_REF(fix_mapsize), client), 1 SECONDS)
 
 /datum/preference/toggle/fullscreen/proc/fix_mapsize(client/client)
-	var/windowsize = winget(client, "split", "size")
+ 	if (!client)
+ 		return
+ 	var/windowsize = winget(client, "split", "size")
 	if (!client || !windowsize)
 		return
 	var/split = findtext(windowsize, "x")
