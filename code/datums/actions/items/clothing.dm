@@ -65,3 +65,26 @@
 	var/obj/item/clothing/ears/headphones/H = target
 	if(istype(H))
 		H.interact(owner)
+
+//aurafarming
+/datum/action/item_action/noirmode
+	name = "Noir Ambience"
+	desc = "Set up the mood for an interrogation."
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
+	button_icon_state = "noir_mode"
+	cooldown_time = 30 SECONDS
+
+/datum/action/item_action/noirmode/on_activate(mob/user, atom/target)
+	var/area/A = get_area(user)
+	if(istype(A, /area/security/detectives_office) || istype(A, /area/security/interrogation_room))
+		var/list/mobs_to_iterate = mobs_in_area_type(list(A))
+		for(var/mob/living/L as() in mobs_to_iterate)
+			ADD_TRAIT(L, TRAIT_NOIR, TRAIT_GENERIC)
+			L.add_client_colour(/datum/client_colour/monochrome)
+			if(L == user)
+				to_chat(L, span_notice("The shadows overtake the room. They are in your realm now."))
+			else
+				to_chat(L, span_userdanger("The shadows overtake the room. An ominous feeling falls over you."))
+		start_cooldown()
+	else
+		to_chat(user, "<span class='warning'>You can only use the noir ability in the detective's office or interrogation room.</span>")

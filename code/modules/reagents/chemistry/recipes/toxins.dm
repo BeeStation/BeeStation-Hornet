@@ -63,11 +63,17 @@
 	required_reagents = list(/datum/reagent/consumable/ethanol = 1, /datum/reagent/chlorine = 3, /datum/reagent/water = 1)
 	reaction_tags = REACTION_TAG_DAMAGING | REACTION_TAG_OTHER
 
-/datum/chemical_reaction/mutetoxin //i'll just fit this in here snugly between other unfun chemicals :v
+/datum/chemical_reaction/whisper_toxin
+	name = "Whisper Toxin"
+	results = list(/datum/reagent/toxin/whispertoxin = 2)
+	required_reagents = list(/datum/reagent/uranium = 2, /datum/reagent/water = 1, /datum/reagent/carbon = 1)
+	reaction_tags = REACTION_TAG_OTHER | REACTION_TAG_TOXIN
+
+/datum/chemical_reaction/mutetoxin
 	name = "Mute Toxin"
 	results = list(/datum/reagent/toxin/mutetoxin = 2)
-	required_reagents = list(/datum/reagent/uranium = 2, /datum/reagent/water = 1, /datum/reagent/carbon = 1)
-	reaction_tags = REACTION_TAG_OTHER
+	required_reagents = list(/datum/reagent/toxin/whispertoxin = 1, /datum/reagent/medicine/earthsblood = 1)
+	reaction_tags = REACTION_TAG_OTHER | REACTION_TAG_TOXIN
 
 /datum/chemical_reaction/zombiepowder
 	name = "Zombie Powder"

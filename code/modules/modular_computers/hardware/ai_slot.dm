@@ -6,7 +6,8 @@
 	w_class = WEIGHT_CLASS_SMALL
 	device_type = MC_AI
 	expansion_hw = TRUE
-
+	can_hack = FALSE
+	custom_price = PAYCHECK_MEDIUM * 4
 	var/obj/item/aicard/stored_card
 	var/locked = FALSE
 

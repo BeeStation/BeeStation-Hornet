@@ -204,7 +204,7 @@
 	lefthand_file = 'icons/mob/inhands/weapons/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
 	block_level = 1
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	block_power = 25
 
 /obj/item/staff/bostaff/ComponentInitialize()

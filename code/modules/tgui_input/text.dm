@@ -25,7 +25,7 @@
 		else
 			return
 	// Client does NOT have tgui_input on: Returns regular input
-	if(!user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_input))
+	if(user.client.prefs && !user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_input))
 		if(encode)
 			if(multiline)
 				return stripped_multiline_input(user, message, title, default, max_length)
@@ -67,7 +67,7 @@
 		else
 			return
 	// Client does NOT have tgui_input on: Returns regular input
-	if(!user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_input))
+	if(user.client.prefs && !user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_input))
 		if(encode)
 			if(multiline)
 				return stripped_multiline_input(user, message, title, default, max_length)

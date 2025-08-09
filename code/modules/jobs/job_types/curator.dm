@@ -6,9 +6,9 @@
 	supervisors = "the head of personnel"
 	faction = "Station"
 	total_positions = 1
-	spawn_positions = 1
 	selection_color = "#dddddd"
-	exp_requirements = 60 //medium grief percentage
+	exp_requirements = 60
+	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/curator
 
 	base_access = list(ACCESS_LIBRARY, ACCESS_AUX_BASE, ACCESS_MINING_STATION)
@@ -38,7 +38,7 @@
 
 	id = /obj/item/card/id/job/curator
 	shoes = /obj/item/clothing/shoes/laceup
-	belt = /obj/item/modular_computer/tablet/pda/curator
+	belt = /obj/item/modular_computer/tablet/pda/preset/curator
 	ears = /obj/item/radio/headset/headset_curator
 	uniform = /obj/item/clothing/under/rank/civilian/curator
 	l_hand = /obj/item/storage/bag/books

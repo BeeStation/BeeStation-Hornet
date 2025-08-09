@@ -202,7 +202,7 @@ export const StatTextAtom = (props) => {
   storeAtomRef(null);
 
   return (
-    <Flex.Item mt={0.5} width={Byond.BYOND_MAJOR >= 515 ? '33%' : '50%'}>
+    <Flex.Item mt={0.5} width={'33%'}>
       <Button
         height="100%"
         pl={0}
@@ -254,15 +254,11 @@ export const StatTextAtom = (props) => {
         color="transparent">
         <div className="StatAtomElement">
           <Flex direction="row" wrap="wrap">
-            {Byond.BYOND_MAJOR >= 515 ? (
+            {
               <Flex.Item mr={1}>
                 <img width="32px" height="32px" src={atom_icon} />
               </Flex.Item>
-            ) : (
-              <Flex.Item basis={6} mr={2}>
-                <div className={StatTagToClassName(atom_tag)}>{atom_tag}</div>
-              </Flex.Item>
-            )}
+            }
             <Flex.Item grow={1} className="StatWordWrap">
               {capitalize(atom_name)}
             </Flex.Item>

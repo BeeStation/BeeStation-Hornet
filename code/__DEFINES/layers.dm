@@ -7,6 +7,8 @@
 ///cinematics are "below" the splash screen
 #define CINEMATIC_LAYER -1
 
+#define ABOVE_GAME_PLANE -2
+
 #define SPACE_LAYER 1.8
 //#define TURF_LAYER 2 //For easy recordkeeping; this is a byond define
 #define MID_TURF_LAYER 2.02
@@ -205,6 +207,8 @@
 #define HUD_PLANE 1000
 #define HUD_LAYER 25
 #define HUD_RENDER_TARGET "HUD_PLANE"
+/// Layer for screentips
+#define SCREENTIP_LAYER 26
 
 #define ABOVE_HUD_PLANE 1100
 #define ABOVE_HUD_RENDER_TARGET "ABOVE_HUD_PLANE"

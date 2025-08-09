@@ -370,20 +370,6 @@
 			client << link(href_list["url"])
 		if("cacheReloaded")
 			reinitialize()
-		if("byondui_update")
-			update_byondui(payload["id"], payload["mounting"])
-
-/**
- * Respond to a ByondUi element mounting or unmounting.
- * This is used by the prefs menu to avoid https://www.byond.com/forum/post/2873835 in 514.
- * This is no longer necessary for clients above 515.1609
- */
-/datum/tgui_window/proc/update_byondui(id, mounting)
-	if(findtext(id, "character_preview")) // this is a character preview byondui
-		// HACK: Without this the character starts out really tiny because of https://www.byond.com/forum/post/2873835
-		// You can fix it by updating the atom's appearance (in any way), so let's just do something unexpensive and change its name!
-		client?.prefs?.character_preview_view?.rename_byond_bug_moment()
-
 
 /datum/tgui_window/vv_edit_var(var_name, var_value)
 	return var_name != NAMEOF(src, id) && ..()

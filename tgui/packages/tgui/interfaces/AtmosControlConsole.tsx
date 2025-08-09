@@ -1,7 +1,9 @@
 import { Box, Button, Dropdown, LabeledList, NumberInput, Section, Stack } from '../components';
 
-import { useBackend, useLocalState } from '../backend';
+import { useState } from 'react';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
+import { AtmosHandbookContent, atmosHandbookHooks } from './common/AtmosHandbook';
 import { Gasmix, GasmixParser } from './common/GasmixParser';
 
 type Chamber = {
@@ -21,8 +23,9 @@ export const AtmosControlConsole = (props) => {
     control: boolean;
   }>();
   const chambers = data.chambers || [];
-  const [chamberId, setChamberId] = useLocalState('chamberID', chambers[0]?.id);
+  const [chamberId, setChamberId] = useState(chambers[0]?.id);
   const selectedChamber = chambers.length === 1 ? chambers[0] : chambers.find((chamber) => chamber.id === chamberId);
+  const [setActiveGasId, setActiveReactionId] = atmosHandbookHooks();
   return (
     <Window width={550} height={350}>
       <Window.Content scrollable>
@@ -40,7 +43,7 @@ export const AtmosControlConsole = (props) => {
           title={selectedChamber ? selectedChamber.name : 'Chamber Reading'}
           buttons={!!data.reconnecting && <Button icon="undo" content="Reconnect" onClick={() => act('reconnect')} />}>
           {!!selectedChamber && !!selectedChamber.gasmix ? (
-            <GasmixParser gasmix={selectedChamber.gasmix} />
+            <GasmixParser gasmix={selectedChamber.gasmix} gasesOnClick={setActiveGasId} reactionOnClick={setActiveReactionId} />
           ) : (
             <Box italic> {'No Sensors Detected!'}</Box>
           )}
@@ -123,6 +126,7 @@ export const AtmosControlConsole = (props) => {
             </Stack>
           </Section>
         )}
+        <AtmosHandbookContent />
       </Window.Content>
     </Window>
   );

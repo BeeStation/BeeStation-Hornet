@@ -32,7 +32,7 @@
 
 /datum/component/moved_relay/Destroy(force, silent)
 	for(var/atom/A as() in ordered_parents)
-		UnregisterSignal(A, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(A, COMSIG_QDELETING)
 		UnregisterSignal(A, COMSIG_MOVABLE_MOVED)
 	ordered_parents = null
 	return ..()
@@ -40,13 +40,13 @@
 /datum/component/moved_relay/UnregisterFromParent()
 	if (ordered_parents)
 		for(var/atom/A as() in ordered_parents)
-			UnregisterSignal(A, COMSIG_PARENT_QDELETING)
+			UnregisterSignal(A, COMSIG_QDELETING)
 			UnregisterSignal(A, COMSIG_MOVABLE_MOVED)
 		ordered_parents.Cut()
 	return ..()
 
 /datum/component/moved_relay/proc/register_parent(atom/A)
-	RegisterSignal(A, COMSIG_PARENT_QDELETING, PROC_REF(parent_deleted))
+	RegisterSignal(A, COMSIG_QDELETING, PROC_REF(parent_deleted))
 	RegisterSignal(A, COMSIG_MOVABLE_MOVED, PROC_REF(parent_moved))
 	ordered_parents += A
 	//Recursively register parents
@@ -70,7 +70,7 @@
 	unregister_parent(source)
 
 /datum/component/moved_relay/proc/unregister_parent(atom/A)
-	UnregisterSignal(A, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(A, COMSIG_QDELETING)
 	UnregisterSignal(A, COMSIG_MOVABLE_MOVED)
 	var/position = ordered_parents.Find(A)
 	if (!position)

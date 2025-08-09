@@ -270,7 +270,7 @@ SUBSYSTEM_DEF(zclear)
 							//Since the wiping takes 90 seconds they could potentially still be on the z-level as it is wiping if they reconnect in time
 							random_teleport_atom(M)
 							M.Knockdown(5)
-							to_chat(M, span_warning("You feel sick as your body lurches through space and time, the ripples of the starship that brought you here eminate no more and you get the horrible feeling that you have been left behind."))
+							to_chat(M, span_warning("You feel sick as your body lurches through space and time, the ripples of the starship that brought you here emanate no more and you get the horrible feeling that you have been left behind."))
 					else
 						delete_atom(thing)
 				else

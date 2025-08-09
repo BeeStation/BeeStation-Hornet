@@ -11,6 +11,15 @@
 	malfunction_probability = 1
 	var/max_idle_programs = 2 // 2 idle, + 1 active = 3 as said in description.
 	device_type = MC_CPU
+	custom_price = PAYCHECK_MEDIUM * 2
+
+/obj/item/computer_hardware/processor_unit/update_overclocking(mob/living/user, obj/item/tool)
+	if(hacked)
+		balloon_alert(user, "<font color='#e06eb1'>Update:</font> // Processing Power Overload // <font color='#ffffff'>Spatial Stability Compromized</font>")
+		to_chat(user, "<span class='cfc_magenta'>Update:</span> // Processing Power Overload // <span class='cfc_negative'>Spatial Stability Compromized</span>")
+	else
+		balloon_alert(user, "<font color='#e06eb1'>Update:</font> // Values Nominal // <font color='#00d41c'>Stability Regained</font>")
+		to_chat(user, "<span class='cfc_magenta'>Update:</span> // Values Nominal // <span class='cfc_green'>Stability Regained</span>")
 
 /obj/item/computer_hardware/processor_unit/on_remove(obj/item/modular_computer/remove_from, mob/user)
 	remove_from.shutdown_computer()
@@ -22,6 +31,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	power_usage = 25
 	max_idle_programs = 1
+	custom_price = PAYCHECK_EASY * 2
 
 /obj/item/computer_hardware/processor_unit/photonic
 	name = "photonic processor board"
@@ -30,6 +40,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	power_usage = 250
 	max_idle_programs = 4
+	custom_price = PAYCHECK_MEDIUM * 4
 
 /obj/item/computer_hardware/processor_unit/photonic/small
 	name = "photonic microprocessor"
@@ -38,3 +49,4 @@
 	w_class = WEIGHT_CLASS_TINY
 	power_usage = 75
 	max_idle_programs = 2
+	custom_price = PAYCHECK_MEDIUM * 3

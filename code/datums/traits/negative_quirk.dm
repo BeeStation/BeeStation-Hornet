@@ -30,7 +30,7 @@
 
 /datum/quirk/blooddeficiency/on_process(delta_time)
 	var/mob/living/carbon/human/H = quirk_target
-	if((NOBLOOD in H.dna.species.species_traits) || HAS_TRAIT(H, TRAIT_NO_BLOOD)) //can't lose blood if your species doesn't have any
+	if(HAS_TRAIT(H, TRAIT_NOBLOOD) || HAS_TRAIT(H, TRAIT_NO_BLOOD)) //can't lose blood if your species doesn't have any
 		return
 	if(H.blood_volume > (BLOOD_VOLUME_SAFE - 25)) // just barely survivable without treatment
 		H.blood_volume -= 0.275 * delta_time
@@ -74,7 +74,7 @@
 	if(!quirk_target.reagents.has_reagent(/datum/reagent/medicine/mannitol))
 		if(prob(80))
 			quirk_target.adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.1 * delta_time)
-	var/obj/item/organ/brain/B = quirk_target.getorgan(/obj/item/organ/brain)
+	var/obj/item/organ/brain/B = quirk_target.get_organ_by_type(/obj/item/organ/brain)
 	if(B)
 		if(B.damage>BRAIN_DAMAGE_MILD-1 && !notified)
 			to_chat(quirk_target, span_danger("You sense your brain is getting beyond your control..."))
@@ -413,7 +413,6 @@
 /datum/quirk/prosthetic_limb/on_spawn()
 	var/limb_slot = read_choice_preference(/datum/preference/choiced/quirk/prosthetic_limb_location) || pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG) // default to random
 	var/mob/living/carbon/human/H = quirk_target
-	var/obj/item/bodypart/old_part = H.get_bodypart(limb_slot)
 	var/obj/item/bodypart/prosthetic
 	switch(limb_slot)
 		if(BODY_ZONE_L_ARM)
@@ -428,9 +427,7 @@
 		if(BODY_ZONE_R_LEG)
 			prosthetic = new/obj/item/bodypart/r_leg/robot/surplus(quirk_target)
 			slot_string = "right leg"
-	prosthetic.replace_limb(H)
-	qdel(old_part)
-	H.regenerate_icons()
+	H.del_and_replace_bodypart(prosthetic)
 	medical_record_text = "Patient uses a low-budget prosthetic on the [prosthetic.name]."
 
 /datum/quirk/prosthetic_limb/post_spawn()

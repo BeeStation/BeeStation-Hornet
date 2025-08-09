@@ -508,6 +508,11 @@
 	turf_type = /turf/open/floor/plating/ashplanet/rocky
 	defer_change = 1
 
+/turf/closed/mineral/ash_rock/station
+	baseturfs = /turf/open/floor/plating
+	turf_type = /turf/open/floor/plating
+	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
+
 /turf/closed/mineral/snowmountain
 	name = "snowy mountainside"
 	icon = MAP_SWITCH('icons/turf/walls/mountain_wall.dmi', 'icons/turf/mining.dmi')

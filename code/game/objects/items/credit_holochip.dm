@@ -12,7 +12,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/holochip)
 
 /obj/item/holochip/Initialize(mapload, amount)
 	. = ..()
-	credits = amount
+	if(!mapload && !credits)
+		credits = amount
 	update_icon()
 
 /obj/item/holochip/examine(mob/user)

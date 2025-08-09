@@ -11,7 +11,8 @@ jobs:
     - uses: actions/stale@v9
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
-        stale-label: 'Stale'
+        stale-issue-label: 'Stale'
+        stale-pr-label: 'Stale'
         exempt-issue-labels: 'Triaged'
         exempt-pr-labels: 'Triaged'
         days-before-issue-stale: 210

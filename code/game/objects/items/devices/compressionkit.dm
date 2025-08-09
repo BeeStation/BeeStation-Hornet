@@ -21,11 +21,11 @@
 
 /obj/item/compressionkit/suicide_act(mob/living/carbon/M)
 	M.visible_message(span_suicide("[M] is sticking their head in [src] and turning it on! [M.p_theyre(TRUE)] going to compress their own skull!"))
-	var/obj/item/bodypart/head = M.get_bodypart("head")
+	var/obj/item/bodypart/head = M.get_bodypart(BODY_ZONE_HEAD)
 	if(!head)
 		return
 	var/turf/T = get_turf(M)
-	var/list/organs = M.getorganszone("head") + M.getorganszone("eyes") + M.getorganszone("mouth")
+	var/list/organs = M.get_organs_for_zone(BODY_ZONE_HEAD) + M.get_organs_for_zone("eyes") + M.get_organs_for_zone("mouth")
 	for(var/internal_organ in organs)
 		var/obj/item/organ/I = internal_organ
 		I.Remove(M)

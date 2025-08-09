@@ -290,7 +290,7 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 
 /obj/effect/mob_spawn/cow
 	name = "sleeper"
-	mob_type = 	/mob/living/simple_animal/cow
+	mob_type = 	/mob/living/basic/cow
 	death = FALSE
 	roundstart = FALSE
 	mob_gender = FEMALE
@@ -351,8 +351,8 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 	name = "Engineer"
 	outfit = /datum/outfit/job/engineer/gloved
 
-/obj/effect/mob_spawn/human/engineer/rig
-	outfit = /datum/outfit/job/engineer/gloved/rig
+/obj/effect/mob_spawn/human/engineer/mod
+	outfit = /datum/outfit/job/engineer/mod
 
 /obj/effect/mob_spawn/human/clown
 	name = JOB_NAME_CLOWN
@@ -366,8 +366,8 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 	name = JOB_NAME_SHAFTMINER
 	outfit = /datum/outfit/job/miner
 
-/obj/effect/mob_spawn/human/miner/rig
-	outfit = /datum/outfit/job/miner/equipped/hardsuit
+/obj/effect/mob_spawn/human/miner/mod
+	outfit = /datum/outfit/job/miner/equipped/mod
 
 /obj/effect/mob_spawn/human/miner/explorer
 	outfit = /datum/outfit/job/miner/equipped

@@ -22,7 +22,7 @@
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	block_level = 2
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	block_power = 70
 	block_sound = 'sound/weapons/egloves.ogg'
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
@@ -104,7 +104,7 @@
 		user.visible_message(span_suicide("[user] begins spinning way too fast! It looks like [user.p_theyre()] trying to commit suicide!"))
 
 		var/obj/item/bodypart/head/myhead = user.get_bodypart(BODY_ZONE_HEAD)//stole from chainsaw code
-		var/obj/item/organ/brain/B = user.getorganslot(ORGAN_SLOT_BRAIN)
+		var/obj/item/organ/brain/B = user.get_organ_slot(ORGAN_SLOT_BRAIN)
 		B.organ_flags &= ~ORGAN_VITAL	//this cant possibly be a good idea
 		var/randdir
 		for(var/i in 1 to 24)//like a headless chicken!

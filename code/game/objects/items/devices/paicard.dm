@@ -15,6 +15,7 @@
 	///what emotion icon we have. handled in /mob/living/silicon/pai/Topic()
 	var/emotion_icon = "off"
 	resistance_flags = FIRE_PROOF | ACID_PROOF | INDESTRUCTIBLE
+	custom_price = PAYCHECK_MEDIUM * 4
 
 /obj/item/paicard/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] is staring sadly at [src]! [user.p_they()] can't keep living without real human intimacy!"))

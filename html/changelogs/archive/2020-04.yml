@@ -1,0 +1,441 @@
+2020-04-01:
+  ike709:
+  - rscadd: 'Adds various Papa Johns-related code changes. Including, but not limited
+      to:'
+  - rscadd: All players will be given a valid Papa Johns promo code when they spawn
+      in*
+  - rscadd: '*Some conditions apply. See the Discord announcement for details'
+  - rscadd: Nanotrasen has been bought by Papa Johns Intergalactic, Inc. and is now
+      a subsidiary
+  - rscadd: Pizza Hut has taken over the Syndicate
+  - rscadd: Every player now starts the round with a complementary pizza slice
+  - rscadd: All pizzas have been tweaked
+  - rscadd: New station goal to bake a lot of pizzas
+  - rscadd: Assistants have had their job title changed to Papa Johns Delivery Boy
+  - rscadd: New lobby images and sounds
+  - rscadd: Various other code changes
+  - rscadd: Better ingredients. Better pizza. Papa Johns.
+  - rscadd: 'Disclaimer: Happy April Fool''s. We''re not actually sponsored by Papa
+      Johns. Though we did attempt to get a real affiliate link by reaching out to
+      Papa Johns. Seriously, I''m not kidding. Sadly, they couldn''t understand what
+      Space Station 13 was and we gave up.'
+  qwertyquerty:
+  - bugfix: fixed gangs
+2020-04-03:
+  Ike709, AzlanPC:
+  - rscadd: The gulag is now tasked with making pizzas to earn their freedom.
+  - rscadd: The pizza goal has been increased as a result of this newfound production
+      capacity.
+2020-04-04:
+  Dingo-Dongler:
+  - bugfix: RnD servers no longer disappear when screwdrivered
+  jlsnow301:
+  - rscadd: Added a secondary check to fireman carry to fix a bug.
+  pinkblossom6:
+  - imageadd: adds a new titlescreen
+2020-04-05:
+  Dingo-Dongler:
+  - rscadd: Added the card game Uno! Get a deck from your local Good Clean Fun vendor.
+  - tweak: Hands of cards show their top card.
+  Isy232:
+  - rscadd: Cooking oil can now be made with 1 part oil, 1 part sugar, 1 part hydrogen
+      and 1 part carbon.
+  Shdorsh:
+  - rscadd: A scanner circuit that can analyze 1 rock at the same time, working with
+      a reference given by a sensor.
+  - rscadd: A drill circuit that can mine a rock (only the ones found on the asteroid
+      ofc) on its own. It can only mine 1 rock at the same time and it takes some
+      time to do so.
+  St0rmC4st3r:
+  - admin: added ion law logging with a specified source.
+  Victor239:
+  - tweak: Stun batons now do 75 apply_damage instead of 90 adjustStaminaLoss. This
+      means you can do limb targeting, damage is reduced by armor and it may take
+      a moment to knockdown once in stamcrit.
+  - tweak: Limb disabling total damage increased, now only requires disabling three
+      limbs to stamcrit not four.
+  jlsnow301:
+  - rscadd: More descriptive text for abductor teams
+  - tweak: Increased frequency of ayyliens
+  ro5490:
+  - rscadd: Added Nooses
+  - soundadd: added sound files for the noose
+  - imageadd: added icons for the noose
+  - bugfix: Take a cable coil, stand on a chair, build a noose, then drag whoever
+      onto it to hang them
+  zeskorion:
+  - rscadd: Syndiebase has a bottle of viral base and two cans of laughter
+  - tweak: Virologists now spawn with viral base in their right pocket, and it no
+      longer appears in the viro fridge
+  - tweak: virologist heirloom is now a dropper
+  - tweak: virology has been remapped on most maps to now have two separate isolated
+      labs that can be bolted from inside, perfect for two antisocial virologists
+  - config: there are now two virologist slots
+  - rscadd: the cat surgeon in space will try to knock you unconscious with morphine
+      and his saw. and, when he gets you unconscious, he'll give you cat ears and
+      a tail, before pacifying you.
+  - imageadd: Cat Surgeon now has a syringe gun
+2020-04-06:
+  PowerfulBacon:
+  - admin: Admins now have a hud icon for survivalists.
+  Victor239:
+  - balance: Removed security access from the HOP
+  - tweak: Replaced their energy gun with a mini energy gun and added combat gloves
+      to their locker.
+  ike709:
+  - rscdel: April Fools is over.
+  ro5490:
+  - admin: Adds attempted hang Noose logging
+  - bugfix: fixed nooses putting you off center after escaping them
+  - bugfix: fixed people staying in a noose if they get beheaded
+  zeskorion:
+  - rscadd: fingergun emote
+  - rscadd: admin only lethal fingergun speedloader
+2020-04-07:
+  Bastian0930:
+  - rscadd: The syndicate have installed a SD card on the agent ID! You can now get
+      a random name by putting in nothing and clicking OK.
+  - admin: Logs agent ID names.
+  - rscadd: The clowns sound synthesizer has been upgraded to include 4 more sounds
+      from Donk Co! They are sounds which a typical sitcom would have.
+  Isy232:
+  - rscadd: Re-Adds public autolathes to all stations.
+  jlsnow301:
+  - rscadd: Flypeople now receive the beefriend trait
+  - tweak: Flypeople now also move faster and take more damage
+  nikk735:
+  - rscadd: Added new virus (Cornu Cutaneum) spiked skin
+  zeskorion:
+  - admin: new vaccinate all diseases adminverb
+2020-04-08:
+  Arturlang:
+  - rscadd: Adds the blob spore symptom, a new virus for advanced diseases.
+  Bastian0930:
+  - admin: Anomaly explosions are now logged.
+  zeskorion:
+  - rscadd: Rabid gorillas
+  - tweak: monkey leaders now become gorillas instead of normal monkeys
+  - balance: buffed gorillas slightly
+  - bugfix: fixed jungle fever so the code within it that gives antag monkeys the
+      ability to ventcrawl universally works
+2020-04-09:
+  Bastian0930:
+  - rscadd: The syndicate has loaded names onto the agent ID! By putting in no name,
+      the ID will fabricate a random name!
+  - admin: A lot of shit related to grenades, killer tomatos, and doors is now logged.
+  ivanmixo:
+  - admin: Adds a new verb, also creates logs when used.
+  qwertyquerty:
+  - rscdel: Some in-game instances of slurs
+  zeskorion:
+  - tweak: whips now feel like indiana jones and shit man.
+  - balance: telebatons need a bit more robustness
+  - rscadd: 'Disease channels: you can now have up to four advance diseases, dependent
+      on severity (1 beneficial, 1 debilitating, 1 deadly, 1 sentient)'
+  - rscadd: 'Dynamic disease severity: medhuds now actually care about all the symptoms
+      in a disease, and the thresholds they meet'
+  - tweak: changes most disease severity values
+  - tweak: SBG syndrome is no longer intentionally vague and spooky (RIP)
+  - balance: having a high resistance beneficial disease no longer makes you immune
+      to AIDS
+  - bugfix: fixes a fuckload of disease thresholds not working
+2020-04-10:
+  MCterra10:
+  - bugfix: fixes config
+  PowerfulBacon:
+  - rscadd: Added in new circuit board for plasma engine
+  - rscadd: Added in new circuit board for plasma engine heater
+  - rscadd: Added in new tool designs for custom shuttle creator
+  - rscadd: Added in new tech branch costing 10000 research points to unlock shuttle
+      creation tools
+  - rscadd: Added the custom shuttle console
+  - rscadd: Added the plasma engine
+  - rscadd: Added the plasma engine heater
+  - rscadd: Added the Custom Shuttle Designator
+  - rscadd: Added the custom shuttle navigation computer
+  - rscadd: Researches to make shuttles more efficient
+  - rscadd: 20% more efficient flight upgrade
+  - rscadd: 40% more efficient flight upgrade
+  - rscadd: 80% more efficient flight upgrade
+  - rscadd: 'Void thruster - Requires no fuel or heater to operate, produces a very
+      good amount of thrust. icon: Added in new plasma engine icons icon: Added in
+      new plasma heater icons icon: Added icon for shuttle creator'
+  - bugfix: 'Rather than searching every atom of every turf, now we just store machines
+      that need to be updated in a global list (Credit: Ike709 for idea)'
+  - bugfix: Shuttle can now dock with stationary ports
+  - bugfix: Shuttles cannot dock on top of plating now
+  - bugfix: Shuttles can now be made on lavaland
+  - bugfix: You can no longer target new destinations while in transit
+  - tweak: Shuttle targetter stop working when war is declared
+  - config: Created 2 new config options defining shuttle max size and count of shuttles
+2020-04-11:
+  dekunutkid:
+  - rscadd: The ability for Ethereals to consume power from APCs while on harm intent,
+      and give APCs power while on grab intent.
+  - rscadd: All hair options are available for Ethereals with the color matching the
+      Ethereal's color.
+  - rscadd: Ethereals can now use a power cell in their hand and drain it at a 5%
+      nutrition yield.
+  ivanmixo:
+  - bugfix: Fixes the labor camp point claim console, you can actually get your ID
+      back now.
+2020-04-12:
+  St0rmC4st3r:
+  - bugfix: Fixed coronary bypass, lobectomy and wound tending surgery being possible
+      only with basic tools.
+  zeskorion:
+  - balance: cqc and carp no longer bypass armor
+  - tweak: carp now deals 15 punch damage instead of 10-15, but no longer has an 8
+      second rng stun attached
+  - balance: aggro grabs now only stop the target from moving, they may act normally
+  - code_imp: removed non-functional code that made resisting aggro grabs deal stamina
+      damage
+2020-04-13:
+  Cenrus:
+  - rscadd: Droppers can now be fabricated at your nearest autolathe.
+  PowerfulBacon:
+  - tweak: Custom shuttles can land on non-station plating
+  TheGreyDiamond:
+  - tweak: changing colors of medical and service radio
+2020-04-14:
+  Dingo-Dongler:
+  - bugfix: Scooping vanilla ice cream out of the ice cream vat now works.
+  - bugfix: Self sustaining rainbow slime extracts now spawn plasma, holy water and
+      uranium properly
+  Victor239:
+  - tweak: Nuke operative chest implants reversed - now you can remove the microbomb
+      implant without having to scrap the firearm authentication implant.
+  - bugfix: Contractor baton now works like it did before the police/telebaton update.
+2020-04-16:
+  Crossedfall:
+  - admin: DSAY bans are now separate from OOC bans.
+  Dingo-Dongler:
+  - bugfix: Removed stray pixel on durathread helment.
+  St0rmC4st3r:
+  - tweak: The toxin treatment kit is no longer a box of charcoal and has some more
+      powerful drugs.
+  - tweak: Charcoal is no longer a universal answer to poisoning, but still very viable
+      against poisoning being in progress.
+  francinum:
+  - code_imp: Issues reported with the ingame tracker are now labeled automatically.
+  - config: Config flag string/issue_label contains the setting.
+  zeskorion:
+  - balance: ritual dagger now has 12 throwforce, as opposed to 25
+  - balance: cult longsword can now be used by non-cultists, but this deals not insignificant
+      stamina and brain damage per hit
+  - balance: lowers cult armor values across the board
+  - balance: 'mirror shield significantly nerfed: now no longer stuns, instead doing
+      knockdown, has a lower block chance, can shatter from melee attacks, and now
+      spawns with a fixed amount of non-recharging illusions'
+  - balance: cult stun reflavored to occult whispers, can't stun through hearing protection
+  - bugfix: harm alarm now cares about hearing protection
+  - bugfix: dance grenade socially awkward now cares about hearing protection
+  - tweak: headphones now provide protection from flashbang if worn on the ear slot
+  - tweak: earmuffs now provide more robust hearing protection
+  - code_imp: hearing protection refactor
+  - tweak: disposals loops are no longer inescapable if you dont have explosives
+2020-04-17:
+  zeskorion:
+  - tweak: felinids are weak to loud noises now, not just to ear damage
+2020-04-19:
+  BeloneX:
+  - rscadd: Added more botany spawn flags to box and pubby.
+  CthulhuOnIce:
+  - admin: added a verb to display a humorous video in the case of a bug
+  St0rmC4st3r:
+  - rscadd: Nanotrasen has provided the on-board botanists with their own minor botanical
+      chemical dispenser for advanced botanical duties.
+  ike709:
+  - bugfix: Flypeople now get a viable amount of nutrients from vomit. No more starving.
+  jlsnow301:
+  - rscadd: Airlocks can now be marked as protected against power outages and sabotage.
+  - tweak: Arrivals airlocks now use this function and open with or without power.
+  - rscadd: New arrivals airlock sprite.
+  qwertyquerty:
+  - tweak: decreased reagent cap on carbon mobs to 1000
+  zeskorion:
+  - balance: nerfed flashes
+  - tweak: makes flash blindness true blindness for half of the duration
+  - bugfix: fixes borg flash blindness
+2020-04-21:
+  BeloneX:
+  - rscadd: replaced the normal sunglasses in the detectives offices with a sechud
+  PowerfulBacon:
+  - tweak: Changeling IPCs will now use the backup name
+  - rscadd: Added flashbulbs, the thing that powers the flash.
+  - rscadd: Added flashbulbs to basic security tech, and they can be printed from
+      a security protolathe.
+  - rscadd: Flash now has a 20 decisecond forced cooldown (2 seconds)
+  - rscdel: Removes confusion from flashes completely.
+  - tweak: Basic security research now unlocks flashbulbs.
+  - tweak: Flashbulbs can be removed from flashes using wirecutters and inserted if
+      burnt out.
+  - tweak: Flash boxes now spawn with 2 flashes and 4 spare security bulbs.
+  - balance: Flash burnout is now based on charges rather than how fast you use it
+      and luck.
+  - balance: Flash AOE no longer stuns and no longer confuses people.
+  - balance: 'Exosuit fabricator flashes now only have 4 charges. icon: Adds in new
+      icons for flashbulbs.'
+  Victor239:
+  - rscadd: Classic EMP grenades now break lights also.
+  - bugfix: Energy chainsaws no longer revert to normal chainsaws when implanted
+  - rscadd: Non-flashproof sunglasses have been added to the ClothesMate.
+  - tweak: All flashproof sunglasses are now named "advanced sunglasses" and subtypes
+      have their descriptions changed.
+  - balance: Meta and Delta static maint sunglasses have been swapped with dynamic
+      loot spawns.
+  ike709:
+  - bugfix: Flypeople can now vomit even if they're starving.
+  - rscadd: Flypeople will only vomit when consuming food.
+  zeskorion:
+  - tweak: zombies and skeletons can metabolize chems again
+2020-04-23:
+  CthulhuOnIce:
+  - rscadd: Added overhead style chat
+  Dingo-Dongler:
+  - spellcheck: Gaseous decomposition now has capital letters
+  PowerfulBacon:
+  - rscadd: Adds the explosive flashbulb
+  Vasily2013:
+  - rscadd: Overhauled engineering compartment with new and improved TEG setup.
+  - rscadd: A new, fancy SM chamber monitoring console so you can see exactly how
+      fucked your gas mix is without a SM monitor. (Useful for if the SM ever gets
+      dragged away somehow.)
+  - rscdel: The unrobust Radiation Collector engine.
+  - tweak: tweaked engineering gameplay slightly, and probably a few engineering mains'
+      nerves.
+  Victor239:
+  - tweak: Contractor baton knockdown causes item drop again.
+  - bugfix: Various helmets now have the same stats as their counterpart suit's stats
+  - balance: Flagellant hood (the head part) now has 0 armor instead of negative
+  - tweak: CE hardsuit now has 100 rad protection
+  zeskorion:
+  - rscadd: straight razor and hand mirror
+  - rscadd: hair stylist sprays
+  - rscadd: chinese knockoff pda
+  - rscdel: Removed code for removed rooms
+  - tweak: tweaked self surgery and razor interactions with mirrors
+  - imageadd: Straight razor, hand mirror, and various spray sprites
+  - rscadd: 69 more random rooms
+  - rscadd: box station now has randomized maintenance
+2020-04-24:
+  Mick1299:
+  - bugfix: fixed an oversight that allowed cyborgs to charge nearly instantly.
+  - code_imp: added a boolean variable that prevents multiple instances of the charging
+      loop from occurring at once.
+  Ryll:
+  - bugfix: You can now shove people into disposal bins.
+  TheChaser212:
+  - bugfix: Cars and mechs can go down z-levels
+  Victor239:
+  - tweak: Atmos techs now have access to the Pubby Engine Room (and thus the engi
+      protolathe).
+  - rscadd: Karate martial arts scroll now available in traitor uplink for 6 TC. Requires
+      more skill and is weaker than other martial arts but is a cheap and stealthy
+      boost to your combat potential.
+  - rscadd: Warden's room gets a keycard authentication device.
+  - rscadd: Security staff can use keycard authentication devices if necessary.
+  zeskorion:
+  - rscadd: nonfixed maint sunglasses have flash protection again! rejoice!
+  - balance: buffed cat surgeon healing
+2020-04-25:
+  Victor239:
+  - rscadd: Semi-auto rounds and heavy laser autoturrets added to nuke operative uplink
+      for 8 and 12 TC respectively.
+2020-04-26:
+  CthulhuOnIce:
+  - tweak: runechat doesn't show whispers anymore
+  - code_imp: updates runechat to better code standards
+  Mick1299:
+  - rscadd: Vitamin and Tea powder reagents to Aspera tea
+  - rscadd: custom description to Astra tea
+  - bugfix: Aspera tea grinding into nothing
+  Victor239:
+  - rscadd: Departmental skirts in wardrobes.
+  - rscadd: Preference to spawn with jumpsuit or jumpskirt.
+  - rscadd: Request consoles in every department.
+  ike709:
+  - rscdel: Removed subsystem initialization messages from roundstart.
+  zeskorion:
+  - rscadd: you can now tint an item that covers the eyes by spraying it with a dark
+      color. This makes it obscure vision and protect against flashes. tint can be
+      cleaned off with soap or a damp rag (damp rags can be made by clicking a sink
+      with a bandage)
+2020-04-27:
+  JJRcop:
+  - bugfix: Fixed brain damage never giving traumas.
+  Mick1299:
+  - rscadd: YouTool refill canister, and a way to order it
+  - bugfix: Soviet Soda and YouTool construction, deconstruction, and refilling
+  - code_imp: Defines refill_canister for YouTool and sovietsoda
+  PowerfulBacon:
+  - tweak: overhead chat now based on job name.
+  - tweak: certain simplemobs have custom colours too
+2020-04-28:
+  AyyRobotics:
+  - rscadd: Added Safety Moth Posters
+  - imageadd: added _and updated_ the poster images
+  - imagedel: deleted the old image file so it could be replaced with the above
+  Isy232:
+  - rscadd: Adds new cargo crates.
+  - tweak: Some cargo crates cost less or have more items.
+  Victor239:
+  - rscadd: Adds Deputies, a non-roundstart non-mindshieled security job. Ask the
+      HOS to buy you the deputy bag from the SecTech and the HOP to promote you after.
+  - tweak: Security playtime requirements increased.
+  WhyIsCaeciliusTaken:
+  - rscadd: Added Concentrated BZ bottle
+  - rscadd: You can now order CBZ in very small quantities from cargo at a ludicrous
+      cost.
+  - bugfix: fixed the inconsistent gasping issue with CBZ
+  zeskorion:
+  - rscdel: Removed team lings
+  - rscdel: removed ling's shield
+  - rscdel: Since it was near useless, the hivemind link ability was axed
+  - tweak: changelings no longer have a cap on genomes
+  - tweak: Hivemind and Regenerate are no longer default changeling abilities
+  - tweak: headslugs can now be used whilst incapacitated or dead, and no longer cause
+      an explosion.
+  - tweak: spread infestation now spawns a single, reskinned, player controlled tumor
+      monkey to cause mayhem
+  - tweak: pheremone receptors no longer slows chem regen
+  - tweak: mimic voice no longer slows chem regen
+  - tweak: augmented eyesight no longer gives flash protection while inactive
+  - tweak: changelings cannot absorb targets that cannot die
+  - tweak: absorbing other lings no longer gives you all of their points, instead
+      giving you a flat +2, and not increasing your chem storage.
+  - balance: chameleon skin cost halved, and it no longer costs chems to toggle
+  - balance: fleshmend is now a passive heal that slows regen, instead of a quick,
+      active combat heal
+  - balance: anatomic panacea has been buffed and now no longer relies on spawning
+      healing chems in the user
+  - balance: Changelings can no longer revive when husked
+  - balance: armblade damage reduced by 5. it now deals 20 damage, slightly more than
+      a dark blessing
+  - balance: resonant screech respects hearing protection (FINALLY)
+  - imageadd: headslugs are now headspiders, and no longer look like weird purple
+      things
+2020-04-29:
+  PowerfulBacon:
+  - code_imp: Implements the code for roundstart special roles
+  jlsnow301:
+  - rscadd: Perma prisoners can now enter cryosleep as an escape from suffering.
+  - rscadd: Boxstation now has a cryosleeper.
+  - rscadd: Metastation gains an extra O2 canister in medbay.
+  - tweak: All four maps receive facelifts, slight reworks.
+  stylemistake:
+  - rscadd: added tgui version 3.
+  - rscadd: lots of new fancy interfaces to discover!
+  - rscadd: check out the new camera console and your modular tablets for cool apps!
+2020-04-30:
+  Victor239:
+  - rscadd: Medical staff spawn with a unique first-aid kit with surgical tools needed
+      for Tend Wounds.
+  - tweak: Pubby maximum pop changed from 80 to 50, and minimum removed.
+  - tweak: Meta minimum pop changed from 30 to 15.
+  - tweak: Delta minimum pop changed from 50 to 40.
+  - balance: 'Augmentation surgery is now two steps less. Now it is: scalpel -> hemostat
+      -> retractor -> robotic limb.'
+  - balance: Gygax now has force 25 instead of 30
+  - balance: Gygax inflicts knockdown instead of unconscious
+  - balance: Leg acurator doesnt auto punch

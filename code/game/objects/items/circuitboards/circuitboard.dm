@@ -14,6 +14,8 @@
 	w_class = WEIGHT_CLASS_SMALL
 	grind_results = list(/datum/reagent/silicon = 20)
 	var/build_path = null
+	/// whether or not the circuit board will build into a vendor whose products cost nothing (used for offstation vending machines mostly)
+	var/all_products_free = FALSE
 
 /obj/item/circuitboard/proc/apply_default_parts(obj/machinery/M)
 	if(LAZYLEN(M.component_parts))

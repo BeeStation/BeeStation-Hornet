@@ -1,6 +1,7 @@
 /obj/item/melee/baton
 	name = "stun baton"
-	desc = "A stun baton for incapacitating people with. Left click to stun, right click to baton shove."
+	desc = "A stun baton for incapacitating people with."
+	desc_controls = "Left click to stun, right click to baton shove."
 
 	icon_state = "stunbaton"
 	item_state = "baton"
@@ -53,6 +54,9 @@
 
 /obj/item/melee/baton/Initialize(mapload)
 	. = ..()
+	// Adding an extra break for the sake of presentation
+	if(stamina_loss_amt != 0)
+		offensive_notes = "\nVarious interviewed security forces report being able to beat criminals into exhaustion with only <span class='warning'>[round(100 / stamina_loss_amt, 0.1)] hit\s!</span>"
 	if(preload_cell_type)
 		if(!ispath(preload_cell_type,/obj/item/stock_parts/cell))
 			log_mapping("[src] at [AREACOORD(src)] had an invalid preload_cell_type: [preload_cell_type].")

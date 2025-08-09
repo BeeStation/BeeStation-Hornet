@@ -64,7 +64,7 @@
 	obj_flags = UNIQUE_RENAME
 	force = 15
 	block_level = 1
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	block_power = 50
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	throwforce = 10
@@ -196,6 +196,12 @@
 	var/force_on // Damage when on - not stunning
 	var/force_off // Damage when off - not stunning
 	var/weight_class_on // What is the new size class when turned on
+
+/obj/item/melee/classic_baton/Initialize(mapload)
+	. = ..()
+	// Adding an extra break for the sake of presentation
+	if(stamina_damage != 0)
+		offensive_notes = "It takes [span_warning("[CEILING(100 / stamina_damage, 1)] stunning hit\s")] to stun an enemy."
 
 // Description for trying to stun when still on cooldown.
 /obj/item/melee/classic_baton/proc/get_wait_description()
@@ -378,7 +384,7 @@
 
 /obj/item/melee/classic_baton/telescopic/suicide_act(mob/living/user)
 	var/mob/living/carbon/human/H = user
-	var/obj/item/organ/brain/B = H.getorgan(/obj/item/organ/brain)
+	var/obj/item/organ/brain/B = H.get_organ_by_type(/obj/item/organ/brain)
 
 	user.visible_message(span_suicide("[user] stuffs [src] up [user.p_their()] nose and presses the 'extend' button! It looks like [user.p_theyre()] trying to clear [user.p_their()] mind."))
 	if(!on)
@@ -620,7 +626,7 @@
 	var/obj/machinery/power/supermatter_crystal/shard
 	var/balanced = 1
 	block_level = 1
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
 	force_string = "INFINITE"
 
@@ -819,7 +825,7 @@
  */
 /obj/item/melee/roastingstick/proc/on_transform(obj/item/source, mob/user, active)
 	SIGNAL_HANDLER
-
+	icon_state = active ? "roastingstick_1" : "roastingstick_0"
 	item_state = active ? "nullrod" : null
 	if(user)
 		balloon_alert(user, "[active ? "extended" : "collapsed"] [src]")
@@ -828,17 +834,23 @@
 
 /obj/item/melee/roastingstick/attackby(atom/target, mob/user)
 	..()
-	if (istype(target, /obj/item/food/sausage))
-		if (!HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE))
-			to_chat(user, span_warning("You must extend [src] to attach anything to it!"))
-			return
-		if (held_sausage)
-			to_chat(user, span_warning("[held_sausage] is already attached to [src]!"))
-			return
-		if (user.transferItemToLoc(target, src))
-			held_sausage = target
+	if (istype(target, /obj/item/food/meat) || istype(target, /obj/item/food/sausage))
+		var/obj/item/food/target_sausage = target
+		if ( !( target_sausage.foodtypes & RAW ) &&  !( target_sausage.foodtypes & FRIED ) ) // ONLY COOKED MEATS, NO RAW, NO FRIED.
+			if (!HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE))
+				to_chat(user, span_warning("You must extend [src] to attach anything to it!"))
+				return
+			if (held_sausage)
+				to_chat(user, span_warning("[held_sausage] is already attached to [src]!"))
+				return
+			if (user.transferItemToLoc(target, src))
+				held_sausage = target
+			else
+				to_chat(user, span_warning("[target] doesn't seem to want to get on [src]!"))
 		else
-			to_chat(user, span_warning("[target] doesn't seem to want to get on [src]!"))
+			to_chat(user, span_warning("[target] can't be roasted using [src]! Pre-cook the meat!"))
+	else
+		to_chat(user, span_warning("[target] can't be roasted using [src]!"))
 	update_appearance()
 
 /obj/item/melee/roastingstick/attack_hand(mob/user, list/modifiers)

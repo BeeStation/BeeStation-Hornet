@@ -9,7 +9,7 @@
 	owner = new_owner
 	family_name = new_family_name
 
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(examine))
+	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(examine))
 
 /datum/component/heirloom/proc/examine(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER

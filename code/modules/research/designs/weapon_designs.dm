@@ -242,16 +242,6 @@
 	category = list("Weapons")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 
-/datum/design/large_grenade
-	name = "Large Grenade"
-	desc = "A grenade that affects a larger area and use larger containers."
-	id = "large_Grenade"
-	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 3000)
-	build_path = /obj/item/grenade/chem_grenade/large
-	category = list("Weapons")
-	departmental_flags = DEPARTMENTAL_FLAG_SECURITY | DEPARTMENTAL_FLAG_MEDICAL
-
 /datum/design/pyro_grenade
 	name = "Pyro Grenade"
 	desc = "An advanced grenade that is able to self ignite its mixture."

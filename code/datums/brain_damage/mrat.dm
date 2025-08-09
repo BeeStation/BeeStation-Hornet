@@ -12,7 +12,14 @@
 
 /datum/brain_trauma/special/imaginary_friend/mrat/get_ghost()
 	set waitfor = FALSE
-	var/list/mob/dead/observer/candidates = pollMentorCandidatesForMob("Do you want to play as [owner]'s mentor rat?", ROLE_IMAGINARY_FRIEND, null, 7.5 SECONDS, friend, POLL_IGNORE_MRAT)
+	var/list/mob/dead/observer/candidates = SSpolling.poll_mentor_ghost_candidates(
+		check_jobban = ROLE_IMAGINARY_FRIEND,
+		poll_time = 10 SECONDS,
+		ignore_category = POLL_IGNORE_MRAT,
+		jump_target = friend,
+		role_name_text = "[owner]'s mentor rat",
+		alert_pic = owner,
+	)
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		friend.key = C.key
@@ -25,7 +32,7 @@
 		I.add_kick_action()
 
 		friend_initialized = TRUE
-		to_chat(owner, span_notice("You have acquired the mentor rat [friend.key], ask them any question you like. They will leave your presence when they are done."))
+		to_chat(owner, span_notice("You have acquired the mentor rat [C.client?.display_name_chat() || C.key], ask them any question you like. They will leave your presence when they are done."))
 	else
 		to_chat(owner, span_warning("No mentor responded to your request. Try again later."))
 		qdel(src)

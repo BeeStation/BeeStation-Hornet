@@ -13,14 +13,14 @@
 
 /datum/holoparasite_ability/major/gravity/register_signals()
 	..()
-	RegisterSignal(owner, COMSIG_HOSTILE_ATTACKINGTARGET, PROC_REF(on_attack))
+	RegisterSignal(owner, COMSIG_HOSTILE_PRE_ATTACKINGTARGET, PROC_REF(on_attack))
 	RegisterSignal(owner, COMSIG_HOLOPARA_RECALL, PROC_REF(on_recall))
 	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(recheck_distances))
 	RegisterSignal(owner, COMSIG_MOB_ALTCLICKON, PROC_REF(on_alt_click))
 
 /datum/holoparasite_ability/major/gravity/unregister_signals()
 	..()
-	UnregisterSignal(owner, list(COMSIG_HOSTILE_ATTACKINGTARGET, COMSIG_HOLOPARA_RECALL, COMSIG_MOVABLE_MOVED, COMSIG_MOB_ALTCLICKON))
+	UnregisterSignal(owner, list(COMSIG_HOSTILE_PRE_ATTACKINGTARGET, COMSIG_HOLOPARA_RECALL, COMSIG_MOVABLE_MOVED, COMSIG_MOB_ALTCLICKON))
 
 /datum/holoparasite_ability/major/gravity/proc/on_attack(datum/_source, mob/living/target)
 	SIGNAL_HANDLER

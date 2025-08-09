@@ -57,120 +57,6 @@
 			return
 		toggle_exempt_status(C)
 
-	else if(href_list["makeAntag"])
-		if(!check_rights(R_ADMIN))
-			return
-		if (!SSticker.mode)
-			to_chat(usr, span_danger("Not until the round starts!"))
-			return
-		switch(href_list["makeAntag"])
-			if("traitors")
-				var/maxCount = input("Set number of Traitors","Set Traitor Count (max)",1) as num|null
-				if (!maxCount)
-					return
-				if(src.makeTraitors(maxCount))
-					message_admins("[key_name_admin(src.owner)] created [maxCount] traitor(s).")
-					log_admin("[key_name(src.owner)] created [maxCount] traitor(s).")
-				else
-					message_admins("[key_name_admin(src.owner)] tried to create  [maxCount] traitor(s). Unfortunately, there were no candidates available.")
-					log_admin("[key_name(src.owner)] failed to create [maxCount] traitor(s).")
-			if("changelings")
-				var/maxCount = input("Set number of Changelings","Set Changeling Count (max)",1) as num|null
-				if (!maxCount)
-					return
-				if(src.makeChangelings(maxCount))
-					message_admins("[key_name(src.owner)] created [maxCount] changelings.")
-					log_admin("[key_name(src.owner)] created [maxCount] changelings.")
-				else
-					message_admins("[key_name_admin(src.owner)] tried to create [maxCount] changelings. Unfortunately, there were no candidates available.")
-					log_admin("[key_name(src.owner)] failed to create [maxCount] changelings.")
-			if("revs")
-				var/maxCount = input("Set number of Revolutionaries","Set Revolutionaries Count (max)",1) as num|null
-				if (!maxCount)
-					return
-				if(src.makeRevs(maxCount))
-					message_admins("[key_name(src.owner)] started a revolution with [maxCount] freedom fighters.")
-					log_admin("[key_name(src.owner)] started a [maxCount] freedom fighters.")
-				else
-					message_admins("[key_name_admin(src.owner)] tried to start a revolution with [maxCount] freedom fighters. Unfortunately, there were no candidates available.")
-					log_admin("[key_name(src.owner)] failed to start a revolution with [maxCount] freedom fighters.")
-			if("cult")
-				var/maxCount = input("Set number of Cultists","Set Cultist Count (max)",1) as num|null
-				if (!maxCount)
-					return
-				if(src.makeCult(maxCount))
-					message_admins("[key_name(src.owner)] started a cult with [maxCount] cultists.")
-					log_admin("[key_name(src.owner)] started a cult with [maxCount] cultists.")
-				else
-					message_admins("[key_name_admin(src.owner)] tried to start a cult with [maxCount] cultists. Unfortunately, there were no candidates available.")
-					log_admin("[key_name(src.owner)] failed to start a cult with [maxCount] cultists.")
-			if("wizard")
-				message_admins("[key_name(src.owner)] is creating a wizard...")
-				if(src.makeWizard())
-					message_admins("[key_name(src.owner)] created a wizard.")
-					log_admin("[key_name(src.owner)] created a wizard.")
-				else
-					message_admins("[key_name_admin(src.owner)] tried to create a wizard. Unfortunately, there were no candidates available.")
-					log_admin("[key_name(src.owner)] failed to create a wizard.")
-			if("nukeops")
-				message_admins("[key_name(src.owner)] is creating a nuke team...")
-				var/maxCount = input("Set number of Nuke OPs","Set Nuke OP Count (max)",5) as num|null
-				if (!maxCount)
-					message_admins("[key_name_admin(src.owner)] has cancelled the creation of a Nuke team.")
-					return
-				if(src.makeNukeTeam(maxCount))
-					message_admins("[key_name(src.owner)] created a nuke team with [maxCount] operatives")
-					log_admin("[key_name(src.owner)] created a nuke team with [maxCount] operatives")
-				else
-					message_admins("[key_name_admin(src.owner)] tried to create a nuke team with [maxCount] operatives Unfortunately, there were not enough candidates available.")
-					log_admin("[key_name(src.owner)] failed to create a nuke team with [maxCount] operatives.")
-			if("ninja")
-				message_admins("[key_name(src.owner)] spawned a ninja.")
-				log_admin("[key_name(src.owner)] spawned a ninja.")
-				src.makeSpaceNinja()
-			if("aliens")
-				message_admins("[key_name(src.owner)] started an alien infestation.")
-				log_admin("[key_name(src.owner)] started an alien infestation.")
-				src.makeAliens()
-			if("deathsquad")
-				message_admins("[key_name(src.owner)] is creating a death squad...")
-				if(src.makeDeathsquad())
-					message_admins("[key_name(src.owner)] created a death squad.")
-					log_admin("[key_name(src.owner)] created a death squad.")
-				else
-					message_admins("[key_name_admin(src.owner)] tried to create a death squad. Unfortunately, there were not enough candidates available.")
-					log_admin("[key_name(src.owner)] failed to create a death squad.")
-			if("blob")
-				var/strength = input("Set Blob Resource Gain Rate","Set Resource Rate",1) as num|null
-				if(!strength)
-					return
-				message_admins("[key_name(src.owner)] spawned a blob with base resource gain [strength].")
-				log_admin("[key_name(src.owner)] spawned a blob with base resource gain [strength].")
-				new/datum/round_event/ghost_role/blob(TRUE, strength)
-			if("centcom")
-				message_admins("[key_name(src.owner)] is creating a CentCom response team...")
-				if(src.makeEmergencyresponseteam())
-					message_admins("[key_name(src.owner)] created a CentCom response team.")
-					log_admin("[key_name(src.owner)] created a CentCom response team.")
-				else
-					message_admins("[key_name_admin(src.owner)] tried to create a CentCom response team. Unfortunately, there were not enough candidates available.")
-					log_admin("[key_name(src.owner)] failed to create a CentCom response team.")
-			if("abductors")
-				message_admins("[key_name(src.owner)] is creating an abductor team...")
-				if(src.makeAbductorTeam())
-					message_admins("[key_name(src.owner)] created an abductor team.")
-					log_admin("[key_name(src.owner)] created an abductor team.")
-				else
-					message_admins("[key_name_admin(src.owner)] tried to create an abductor team. Unfortunately there were not enough candidates available.")
-					log_admin("[key_name(src.owner)] failed to create an abductor team.")
-			if("revenant")
-				if(src.makeRevenant())
-					message_admins("[key_name(src.owner)] created a revenant.")
-					log_admin("[key_name(src.owner)] created a revenant.")
-				else
-					message_admins("[key_name_admin(src.owner)] tried to create a revenant. Unfortunately, there were no candidates available.")
-					log_admin("[key_name(src.owner)] failed to create a revenant.")
-
 	else if(href_list["forceevent"])
 		if(!check_rights(R_FUN))
 			return
@@ -213,165 +99,9 @@
 	else if(href_list["editrights"])
 		edit_rights_topic(href_list)
 
-	else if(href_list["gamemode_panel"])
-		if(!check_rights(R_ADMIN))
-			return
-		SSticker.mode.admin_panel()
-
-	else if(href_list["f_dynamic_roundstart"])
-		if(!check_rights(R_ADMIN))
-			return
-		if(SSticker && SSticker.mode)
-			return tgui_alert(usr, "The game has already started.")
-		if(!istype(SSticker.mode, /datum/game_mode/dynamic))
-			return tgui_alert(usr, "The game mode has to be dynamic mode.")
-		var/roundstart_rules = list()
-		for (var/rule in subtypesof(/datum/dynamic_ruleset/roundstart))
-			var/datum/dynamic_ruleset/roundstart/newrule = new rule(SSticker.mode)
-			roundstart_rules[newrule.name] = newrule
-		var/added_rule = input(usr,"What ruleset do you want to force? This will bypass threat level and population restrictions.", "Rigging Roundstart", null) as null|anything in roundstart_rules
-		if (added_rule)
-			GLOB.dynamic_forced_roundstart_ruleset += roundstart_rules[added_rule]
-			log_admin("[key_name(src.owner)] set [added_rule] to be a forced roundstart ruleset.")
-			message_admins("[key_name(src.owner)] set [added_rule] to be a forced roundstart ruleset.", 1)
-			Game()
-
-	else if(href_list["f_dynamic_roundstart_clear"])
-		if(!check_rights(R_ADMIN))
-			return
-		GLOB.dynamic_forced_roundstart_ruleset = list()
-		Game()
-		log_admin("[key_name(src.owner)] cleared the rigged roundstart rulesets. The mode will pick them as normal.")
-		message_admins("[key_name(src.owner)] cleared the rigged roundstart rulesets. The mode will pick them as normal.", 1)
-
-	else if(href_list["f_dynamic_roundstart_remove"])
-		if(!check_rights(R_ADMIN))
-			return
-		var/datum/dynamic_ruleset/roundstart/rule = locate(href_list["f_dynamic_roundstart_remove"])
-		GLOB.dynamic_forced_roundstart_ruleset -= rule
-		Game()
-		log_admin("[key_name(src.owner)] removed [rule] from the forced roundstart rulesets.")
-		message_admins("[key_name(src.owner)] removed [rule] from the forced roundstart rulesets.", 1)
-
-	else if(href_list["f_dynamic_latejoin"])
-		if(!check_rights(R_ADMIN))
-			return
-		if(!SSticker || !SSticker.mode)
-			return alert(usr, "The game must start first.", null, null, null, null)
-		if(!istype(SSticker.mode, /datum/game_mode/dynamic))
-			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
-		var/latejoin_rules = list()
-		var/datum/game_mode/dynamic/mode = SSticker.mode
-		for (var/rule in subtypesof(/datum/dynamic_ruleset/latejoin))
-			var/datum/dynamic_ruleset/latejoin/newrule = new rule(SSticker.mode)
-			mode.configure_ruleset(newrule)
-			latejoin_rules[newrule.name] = newrule
-		var/added_rule = input(usr,"What ruleset do you want to force upon the next latejoiner? This will bypass threat level and population restrictions.", "Rigging Latejoin", null) as null|anything in latejoin_rules
-		if (added_rule)
-			mode.forced_latejoin_rule = latejoin_rules[added_rule]
-			log_admin("[key_name(src.owner)] set [added_rule] to proc on the next latejoin.")
-			message_admins("[key_name(src.owner)] set [added_rule] to proc on the next latejoin.", 1)
-			Game()
-
-	else if(href_list["f_dynamic_latejoin_clear"])
-		if(!check_rights(R_ADMIN))
-			return
-		if (SSticker && SSticker.mode && istype(SSticker.mode,/datum/game_mode/dynamic))
-			var/datum/game_mode/dynamic/mode = SSticker.mode
-			mode.forced_latejoin_rule = null
-			Game()
-			log_admin("[key_name(src.owner)] cleared the forced latejoin ruleset.")
-			message_admins("[key_name(src.owner)] cleared the forced latejoin ruleset.", 1)
-
-	else if(href_list["f_dynamic_midround"])
-		if(!check_rights(R_ADMIN))
-			return
-		if(!SSticker || !SSticker.mode)
-			return alert(usr, "The game must start first.", null, null, null, null)
-		if(!istype(SSticker.mode, /datum/game_mode/dynamic))
-			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
-		var/midround_rules = list()
-		var/datum/game_mode/dynamic/mode = SSticker.mode
-		for (var/rule in subtypesof(/datum/dynamic_ruleset/midround))
-			var/datum/dynamic_ruleset/midround/newrule = new rule(SSticker.mode)
-			mode.configure_ruleset(newrule)
-			midround_rules[newrule.name] = rule
-		var/added_rule = input(usr,"What ruleset do you want to force right now? This will bypass threat level and population restrictions.", "Execute Ruleset", null) as null|anything in midround_rules
-		if (added_rule)
-			log_admin("[key_name(src.owner)] executed the [added_rule] ruleset.")
-			message_admins("[key_name(src.owner)] executed the [added_rule] ruleset.", 1)
-			mode.picking_specific_rule(midround_rules[added_rule],1)
-
-	else if (href_list["f_dynamic_options"])
-		if(!check_rights(R_ADMIN))
-			return
-
-		if(SSticker && SSticker.mode)
-			return alert(usr, "The game has already started.", null, null, null, null)
-		if(!istype(SSticker.mode, /datum/game_mode/dynamic))
-			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
-
-		dynamic_mode_options(usr)
-
-	else if(href_list["f_dynamic_force_extended"])
-		if(!check_rights(R_ADMIN))
-			return
-
-		if(!istype(SSticker.mode, /datum/game_mode/dynamic))
-			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
-
-		GLOB.dynamic_forced_extended = !GLOB.dynamic_forced_extended
-		log_admin("[key_name(src.owner)] set 'forced_extended' to [GLOB.dynamic_forced_extended].")
-		message_admins("[key_name(src.owner)] set 'forced_extended' to [GLOB.dynamic_forced_extended].")
-		dynamic_mode_options(usr)
-
-	else if(href_list["f_dynamic_no_stacking"])
-		if(!check_rights(R_ADMIN))
-			return
-
-		if(!istype(SSticker.mode, /datum/game_mode/dynamic))
-			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
-
-		GLOB.dynamic_no_stacking = !GLOB.dynamic_no_stacking
-		log_admin("[key_name(src.owner)] set 'no_stacking' to [GLOB.dynamic_no_stacking].")
-		message_admins("[key_name(src.owner)] set 'no_stacking' to [GLOB.dynamic_no_stacking].")
-		dynamic_mode_options(usr)
-
-	else if(href_list["f_dynamic_stacking_limit"])
-		if(!check_rights(R_ADMIN))
-			return
-
-		if(!istype(SSticker.mode, /datum/game_mode/dynamic))
-			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
-
-		GLOB.dynamic_stacking_limit = input(usr,"Change the threat limit at which round-endings rulesets will start to stack.", "Change stacking limit", null) as num
-		log_admin("[key_name(src.owner)] set 'stacking_limit' to [GLOB.dynamic_stacking_limit].")
-		message_admins("[key_name(src.owner)] set 'stacking_limit' to [GLOB.dynamic_stacking_limit].")
-		dynamic_mode_options(usr)
-
-	else if(href_list["f_dynamic_forced_threat"])
-		if(!check_rights(R_ADMIN))
-			return
-
-		if(SSticker && SSticker.mode)
-			return alert(usr, "The game has already started.", null, null, null, null)
-
-		if(!istype(SSticker.mode, /datum/game_mode/dynamic))
-			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
-
-		var/new_value = input(usr, "Enter the forced threat level for dynamic mode.", "Forced threat level") as num
-		if (new_value > 100)
-			return alert(usr, "The value must be be under 100.", null, null, null, null)
-		GLOB.dynamic_forced_threat_level = new_value
-
-		log_admin("[key_name(src.owner)] set 'forced_threat_level' to [GLOB.dynamic_forced_threat_level].")
-		message_admins("[key_name(src.owner)] set 'forced_threat_level' to [GLOB.dynamic_forced_threat_level].")
-		dynamic_mode_options(usr)
-
 	else if(href_list["call_shuttle"])
 		if(!check_rights(R_ADMIN))
 			return
-
 
 		switch(href_list["call_shuttle"])
 			if("1")
@@ -412,66 +142,6 @@
 			return
 
 		usr.client.trigger_centcom_recall()
-
-	else if(href_list["toggle_continuous"])
-		if(!check_rights(R_ADMIN))
-			return
-		var/list/continuous = CONFIG_GET(keyed_list/continuous)
-		if(!continuous[SSticker.mode.config_tag])
-			continuous[SSticker.mode.config_tag] = TRUE
-		else
-			continuous[SSticker.mode.config_tag] = FALSE
-
-		message_admins(span_adminnotice("[key_name_admin(src.owner)] toggled the round to [continuous[SSticker.mode.config_tag] ? "continue if all antagonists die" : "end with the antagonists"]."))
-		check_antagonists()
-
-	else if(href_list["toggle_midround_antag"])
-		if(!check_rights(R_ADMIN))
-			return
-
-		var/list/midround_antag = CONFIG_GET(keyed_list/midround_antag)
-		if(!midround_antag[SSticker.mode.config_tag])
-			midround_antag[SSticker.mode.config_tag] = TRUE
-		else
-			midround_antag[SSticker.mode.config_tag] = FALSE
-
-		message_admins(span_adminnotice("[key_name_admin(src.owner)] toggled the round to [midround_antag[SSticker.mode.config_tag] ? "use" : "skip"] the midround antag system."))
-		check_antagonists()
-
-	else if(href_list["alter_midround_time_limit"])
-		if(!check_rights(R_ADMIN))
-			return
-
-		var/timer = input("Enter new maximum time",, CONFIG_GET(number/midround_antag_time_check)) as num|null
-		if(!timer)
-			return
-		CONFIG_SET(number/midround_antag_time_check, timer)
-		message_admins(span_adminnotice("[key_name_admin(src.owner)] edited the maximum midround antagonist time to [timer] minutes."))
-		check_antagonists()
-
-	else if(href_list["alter_midround_life_limit"])
-		if(!check_rights(R_ADMIN))
-			return
-
-		var/ratio = input("Enter new life ratio",, CONFIG_GET(number/midround_antag_life_check) * 100) as num
-		if(!ratio)
-			return
-		CONFIG_SET(number/midround_antag_life_check, ratio / 100)
-
-		message_admins(span_adminnotice("[key_name_admin(src.owner)] edited the midround antagonist living crew ratio to [ratio]% alive."))
-		check_antagonists()
-
-	else if(href_list["toggle_noncontinuous_behavior"])
-		if(!check_rights(R_ADMIN))
-			return
-
-		if(!SSticker.mode.round_ends_with_antag_death)
-			SSticker.mode.round_ends_with_antag_death = 1
-		else
-			SSticker.mode.round_ends_with_antag_death = 0
-
-		message_admins(span_adminnotice("[key_name_admin(src.owner)] edited the midround antagonist system to [SSticker.mode.round_ends_with_antag_death ? "end the round" : "continue as extended"] upon failure."))
-		check_antagonists()
 
 	else if(href_list["delay_round_end"])
 		if(!check_rights(R_ADMIN))
@@ -747,47 +417,6 @@
 			return
 		cmd_admin_mute(href_list["mute"], text2num(href_list["mute_type"]))
 
-	else if(href_list["c_mode"])
-		return HandleCMode()
-
-	else if(href_list["f_secret"])
-		return HandleFSecret()
-
-	else if(href_list["c_mode2"])
-		if(!check_rights(R_ADMIN|R_SERVER))
-			return
-
-		if (SSticker.HasRoundStarted())
-			alert("The round has already started.")
-			HandleCMode()
-			return
-		if(SSticker.gamemode_hotswap_disabled)
-			alert("A gamemode has already loaded maps and cannot be changed!")
-			HandleCMode()
-			return
-		GLOB.master_mode = href_list["c_mode2"]
-		//Disable presetup so their gamemode gets loaded.
-		SSticker.pre_setup_completed = FALSE
-		log_admin("[key_name(src.owner)] set the mode as [GLOB.master_mode].")
-		message_admins(span_adminnotice("[key_name_admin(src.owner)] set the mode as [GLOB.master_mode]."))
-		to_chat(world, span_adminnotice("<b>The mode is now: [GLOB.master_mode]</b>"))
-		Game() // updates the main game menu
-		HandleCMode()
-
-	else if(href_list["f_secret2"])
-		if(!check_rights(R_ADMIN|R_SERVER))
-			return
-
-		if(SSticker.HasRoundStarted())
-			return alert(usr, "The game has already started.", null, null, null, null)
-		if(GLOB.master_mode != "secret")
-			return alert(usr, "The game mode has to be secret!", null, null, null, null)
-		GLOB.secret_force_mode = href_list["f_secret2"]
-		log_admin("[key_name(src.owner)] set the forced secret mode as [GLOB.secret_force_mode].")
-		message_admins(span_adminnotice("[key_name_admin(src.owner)] set the forced secret mode as [GLOB.secret_force_mode]."))
-		Game() // updates the main game menu
-		HandleFSecret()
-
 	else if(href_list["monkeyone"])
 		if(!check_rights(R_SPAWN))
 			return
@@ -885,7 +514,7 @@
 		log_admin("[key_name(src.owner)] has sent [key_name(M)] back to the Lobby.")
 		message_admins("[key_name(src.owner)] has sent [key_name(M)] back to the Lobby.")
 
-		var/mob/dead/new_player/NP = new()
+		var/mob/dead/new_player/authenticated/NP = new()
 		NP.ckey = M.ckey
 		qdel(M)
 
@@ -1181,7 +810,7 @@
 		var/Remove = href_list["removejobslot"]
 
 		for(var/datum/job/job in SSjob.occupations)
-			if(job.title == Remove && job.total_positions - job.current_positions > 0)
+			if(job.title == Remove && job.get_spawn_position_count() - job.current_positions > 0)
 				job.total_positions -= 1
 				break
 
@@ -1487,10 +1116,10 @@
 								var/obj/item/I = O
 								L.put_in_hands(I)
 								if(iscyborg(L))
-									var/mob/living/silicon/robot/R = L
-									if(R.module)
-										R.module.add_module(I, TRUE, TRUE)
-										R.activate_module(I)
+									var/mob/living/silicon/robot/robot = L
+									if(robot.model)
+										robot.model.add_module(I, TRUE, TRUE)
+										robot.activate_module(I)
 
 		if(pod)
 			new /obj/effect/pod_landingzone(target, pod)
@@ -1561,7 +1190,6 @@
 				return
 			G.report_message = description
 		message_admins("[key_name(src.owner)] created \"[G.name]\" station goal.")
-		SSticker.mode.station_goals += G
 		modify_goals()
 
 	else if(href_list["viewruntime"])
@@ -1578,7 +1206,7 @@
 	else if(href_list["showrelatedacc"])
 		if(!check_rights(R_ADMIN))
 			return
-		var/client/C = locate(href_list["client"]) in GLOB.clients
+		var/client/C = locate(href_list["client"]) in GLOB.clients_unsafe
 		var/thing_to_check
 		if(href_list["showrelatedacc"] == "cid")
 			thing_to_check = C.related_accounts_cid
@@ -1954,30 +1582,3 @@
 				return
 		message_admins("[key_name_admin(src.owner)] force-cryoed [ADMIN_LOOKUPFLW(target)]].")
 		log_admin("[key_name(src.owner)] force-cryoed [key_name(target)]].")
-
-/datum/admins/proc/HandleCMode()
-	if(!check_rights(R_ADMIN))
-		return
-
-	var/dat = {"<B>What mode do you wish to play?</B><HR>"}
-	for(var/mode in config.modes)
-		dat += {"<A href='byond://?src=[REF(src)];[HrefToken()];c_mode2=[mode]'>[config.mode_names[mode]]</A><br>"}
-	dat += {"<A href='byond://?src=[REF(src)];[HrefToken()];c_mode2=secret'>Secret</A><br>"}
-	dat += {"<A href='byond://?src=[REF(src)];[HrefToken()];c_mode2=random'>Random</A><br>"}
-	dat += {"Now: [GLOB.master_mode]"}
-	usr << browse(HTML_SKELETON(dat), "window=c_mode")
-
-/datum/admins/proc/HandleFSecret()
-	if(!check_rights(R_ADMIN))
-		return
-
-	if(SSticker.HasRoundStarted())
-		return tgui_alert(usr, "The game has already started.")
-	if(GLOB.master_mode != "secret")
-		return tgui_alert(usr, "The game mode has to be secret!")
-	var/dat = {"<B>What game mode do you want to force secret to be? Use this if you want to change the game mode, but want the players to believe it's secret. This will only work if the current game mode is secret.</B><HR>"}
-	for(var/mode in config.modes)
-		dat += {"<A href='byond://?src=[REF(src)];[HrefToken()];f_secret2=[mode]'>[config.mode_names[mode]]</A><br>"}
-	dat += {"<A href='byond://?src=[REF(src)];[HrefToken()];f_secret2=secret'>Random (default)</A><br>"}
-	dat += {"Now: [GLOB.secret_force_mode]"}
-	usr << browse(HTML_SKELETON(dat), "window=f_secret")

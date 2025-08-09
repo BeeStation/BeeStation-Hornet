@@ -125,7 +125,7 @@ SUBSYSTEM_DEF(time_track)
 	log_perf(
 		list(
 			world.time,
-			length(GLOB.clients),
+			length(GLOB.clients_unsafe),
 			time_dilation_current,
 			time_dilation_avg_fast,
 			time_dilation_avg,

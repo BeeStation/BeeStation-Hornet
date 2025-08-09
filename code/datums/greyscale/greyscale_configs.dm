@@ -207,6 +207,26 @@
 	icon_file = 'icons/obj/plushes.dmi'
 	json_config = 'code/datums/greyscale/json_configs/plushie_spacelizard.json'
 
+/datum/greyscale_config/beret
+	name = "Beret"
+	icon_file = 'icons/obj/clothing/head/beret.dmi'
+	json_config = 'code/datums/greyscale/json_configs/beret.json'
+
+/datum/greyscale_config/beret/worn
+	name = "Beret Worn"
+	icon_file = 'icons/mob/clothing/head/beret.dmi'
+	json_config = 'code/datums/greyscale/json_configs/beret_worn.json'
+
+/datum/greyscale_config/beret_badge
+	name = "Beret With Badge"
+	icon_file = 'icons/obj/clothing/head/beret.dmi'
+	json_config = 'code/datums/greyscale/json_configs/beret_badge.json'
+
+/datum/greyscale_config/beret_badge/worn
+	name = "Beret With Badge Worn"
+	icon_file = 'icons/mob/clothing/head/beret.dmi'
+	json_config = 'code/datums/greyscale/json_configs/beret_badge_worn.json'
+
 /datum/greyscale_config/bandana
 	name = "Bandana"
 	icon_file = 'icons/obj/clothing/masks.dmi'

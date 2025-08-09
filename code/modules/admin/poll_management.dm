@@ -501,7 +501,7 @@ SELECT p.text, pv.rating, COUNT(*)
 	if(poll_type != POLLTYPE_MULTI)
 		options_allowed = null
 	var/admin_ckey = created_by
-	var/admin_ip = usr.client.address
+	var/admin_ip = usr.client.is_localhost() ? "127.0.0.1" : usr.client.address
 	var/end_datetime_sql
 	if (interval in list("SECOND", "MINUTE", "HOUR", "DAY", "WEEK", "MONTH", "YEAR"))
 		end_datetime_sql = "NOW() + INTERVAL :duration [interval]"

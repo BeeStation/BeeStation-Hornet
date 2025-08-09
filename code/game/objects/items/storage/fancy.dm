@@ -126,6 +126,7 @@
 	spawn_type = /obj/item/food/egg
 	spawn_count = 12
 	contents_tag = "egg"
+	custom_price = 25
 
 /obj/item/storage/fancy/egg_box/Initialize(mapload)
 	. = ..()
@@ -184,6 +185,8 @@
 
 /obj/item/storage/fancy/cigarettes/AltClick(mob/user)
 	. = ..()
+	if(!user.canUseTopic(src, BE_CLOSE))
+		return
 	var/obj/item/lighter = locate(/obj/item/lighter) in contents
 	if(lighter)
 		quick_remove_item(lighter, user)

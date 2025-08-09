@@ -69,12 +69,12 @@
 
 /obj/machinery/computer/message_monitor/proc/set_linked_server(var/obj/machinery/telecomms/message_server/server)
 	if(linked_server)
-		UnregisterSignal(linked_server, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(linked_server, COMSIG_QDELETING)
 	if(server != linked_server)
 		authenticated = FALSE
 	linked_server = server
 	if(server)
-		RegisterSignal(server, COMSIG_PARENT_QDELETING, PROC_REF(server_deleting))
+		RegisterSignal(server, COMSIG_QDELETING, PROC_REF(server_deleting))
 	ui_update()
 
 /obj/machinery/computer/message_monitor/proc/server_deleting()

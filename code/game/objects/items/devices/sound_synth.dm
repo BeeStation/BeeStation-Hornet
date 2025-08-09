@@ -24,9 +24,18 @@
 		"Honk" = "selected_sound=sound/items/bikehorn.ogg&shiftpitch=1&volume=50",
 		"Applause" = "selected_sound=sound/effects/applause.ogg&shiftpitch=1&volume=65",
 		"Laughter" = "selected_sound=sound/effects/laughtrack.ogg&shiftpitch=1&volume=65",
+		"Booing" = "selected_sound=sound/effects/audience-boo.ogg&shiftpitch=0&volume=80",
+		"Awwing" = "selected_sound=sound/effects/audience-aww.ogg&shiftpitch=0&volume=80",
+		"Gasping" = "selected_sound=sound/effects/audience-gasp.ogg&shiftpitch=0&volume=80",
+		"Oohing" = "selected_sound=sound/effects/audience-ooh.ogg&shiftpitch=0&volume=80",
 		"Rimshot" = "selected_sound=sound/effects/rimshot.ogg&shiftpitch=1&volume=65",
 		"Trombone" = "selected_sound=sound/misc/sadtrombone.ogg&shiftpitch=1&volume=50",
 		"Airhorn" = "selected_sound=sound/items/airhorn.ogg&shiftpitch=1&volume=50",
+		"Hiss" = "selected_sound=sound/voice/hiss4.ogg&shiftpitch=0&volume=80",
+		"Tick" = "selected_sound=sound/items/timer.ogg&shiftpitch=0&volume=80",
+		"Primed" = "selected_sound=sound/weapons/armbomb.ogg&shiftpitch=0&volume=80",
+		"Terminal" = "selected_sound=sound/machines/terminal_alert.ogg&shiftpitch=0&volume=80",
+		"Delam" = "selected_sound=sound/machines/engine_alert2.ogg&shiftpitch=0&volume=80",
 		"Alert" = "selected_sound=sound/effects/alert.ogg&shiftpitch=1&volume=50",
 		"Boom" = "selected_sound=sound/effects/explosion1.ogg&shiftpitch=1&volume=50",
 		"Boom from Afar" = "selected_sound=sound/effects/explosionfar.ogg&shiftpitch=1&volume=50",
@@ -38,17 +47,11 @@
 		"Double Beep" = "selected_sound=sound/machines/twobeep.ogg&shiftpitch=1&volume=50",
 		"Flush" = "selected_sound=sound/machines/disposalflush.ogg&shiftpitch=1&volume=40",
 		"Kawaii" = "selected_sound=sound/ai/default/animes.ogg&shiftpitch=0&volume=60",
-		"Startup" = "selected_sound=sound/mecha/nominal.ogg&shiftpitch=0&volume=50",
-		"Welding Noises" = "selected_sound=sound/items/welder.ogg&shiftpitch=1&volume=55",
+		"Welding Noises" = "selected_sound=sound/items/welder2.ogg&shiftpitch=1&volume=55",
 		"Short Slide Whistle" = "selected_sound=sound/effects/slide_whistle_short.ogg&shiftpitch=1&volume=50",
 		"Long Slide Whistle" = "selected_sound=sound/effects/slide_whistle_long.ogg&shiftpitch=1&volume=50",
 		"YEET" = "selected_sound=sound/effects/yeet.ogg&shiftpitch=1&volume=50",
-		"Time Stop" = "selected_sound=sound/magic/timeparadox2.ogg&shiftpitch=0&volume=80",
-		"Click" = "selected_sound=sound/machines/click.ogg&shiftpitch=0&volume=80",
-		"Booing" = "selected_sound=sound/effects/audience-boo.ogg&shiftpitch=0&volume=80",
-		"Awwing" = "selected_sound=sound/effects/audience-aww.ogg&shiftpitch=0&volume=80",
-		"Gasping" = "selected_sound=sound/effects/audience-gasp.ogg&shiftpitch=0&volume=80",
-		"Oohing" = "selected_sound=sound/effects/audience-ooh.ogg&shiftpitch=0&volume=80"
+		"Time Stop" = "selected_sound=sound/magic/timeparadox2.ogg&shiftpitch=0&volume=80"
 	)
 	var/static/list/sounds = list()
 	var/static/list/sound_filenames = list()

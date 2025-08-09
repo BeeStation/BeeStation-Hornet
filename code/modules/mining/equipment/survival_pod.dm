@@ -148,6 +148,10 @@
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
 	icon_state = "pwindow"
 
+/obj/structure/window/reinforced/survival_pod/corner
+	icon_state = "pwindow_corner"
+	density = FALSE
+
 //Door
 /obj/machinery/door/airlock/survival_pod
 	name = "airlock"
@@ -253,6 +257,7 @@
 	desc = "A heated storage unit."
 	icon_state = "donkvendor"
 	icon = 'icons/obj/lavaland/donkvendor.dmi'
+	base_build_path = /obj/machinery/smartfridge/survival_pod
 	light_range = 5
 	light_power = 1.2
 	light_color = "#DDFFD3"
@@ -260,15 +265,12 @@
 	pixel_y = -4
 	flags_1 = NODECONSTRUCT_1
 	opacity = FALSE
-	var/empty = FALSE
 
 /obj/machinery/smartfridge/survival_pod/update_icon()
 	return
 
-/obj/machinery/smartfridge/survival_pod/Initialize(mapload)
+/obj/machinery/smartfridge/survival_pod/preloaded/Initialize(mapload)
 	. = ..()
-	if(empty)
-		return
 	for(var/i in 1 to 5)
 		var/obj/item/food/donkpocket/warm/W = new(src)
 		load(W)
@@ -281,11 +283,6 @@
 
 /obj/machinery/smartfridge/survival_pod/accept_check(obj/item/O)
 	return isitem(O)
-
-/obj/machinery/smartfridge/survival_pod/empty
-	name = "dusty survival pod storage"
-	desc = "A heated storage unit. This one's seen better days."
-	empty = TRUE
 
 //Fans
 /obj/structure/fans

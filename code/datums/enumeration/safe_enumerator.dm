@@ -10,7 +10,7 @@
 	. = ..()
 	reference_list = source
 	for (var/datum/element in reference_list)
-		RegisterSignal(element, COMSIG_PARENT_PREQDELETED, PROC_REF(element_deleted))
+		RegisterSignal(element, COMSIG_PREQDELETED, PROC_REF(element_deleted))
 
 // Assuming this won't happen super frequently
 /datum/enumerator/list/safe/proc/element_deleted(datum/source)

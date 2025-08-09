@@ -5,6 +5,6 @@
 	"main": "autowiki.js",
 	"author": "Mothblocks",
 	"dependencies": {
-		"mwbot": "^2.0.0"
+		"mwbot": "^2.1.3"
 	}
 }

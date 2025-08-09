@@ -12,7 +12,7 @@
 	layer = FLY_LAYER
 	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	animate_movement = 0
+	animate_movement = FALSE
 	var/amount = 4
 	var/lifetime = 5
 	var/opaque = 1 //whether the smoke can block the view when in enough amountz
@@ -298,7 +298,7 @@
 			contained = "\[[contained]\]"
 
 		var/where = "[AREACOORD(location)]"
-		if(carry.my_atom.fingerprintslast)
+		if(carry.my_atom?.fingerprintslast) //Some reagents don't have a my_atom in some cases
 			var/mob/M = get_mob_by_ckey(carry.my_atom.fingerprintslast)
 			var/more = ""
 			if(M)
@@ -344,3 +344,11 @@
 	smoke.effect_type = smoke_type
 	smoke.set_up(range, location)
 	smoke.start()
+
+/obj/effect/particle_effect/smoke/chem/quick
+	lifetime = 2 //under lifetime 1, this kills itself the first time it processes, not working. i hate smoke code
+	opaque = FALSE
+	alpha = 100
+
+/datum/effect_system/smoke_spread/chem/quick
+	effect_type = /obj/effect/particle_effect/smoke/chem/quick

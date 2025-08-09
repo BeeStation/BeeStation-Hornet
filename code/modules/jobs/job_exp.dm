@@ -35,9 +35,6 @@ GLOBAL_PROTECT(exp_to_update)
 	return exp_requirements
 
 /datum/job/proc/get_exp_req_type()
-	if(title in (SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND) | list(JOB_NAME_AI)))
-		if(CONFIG_GET(flag/use_exp_restrictions_heads_department) && exp_type_department)
-			return exp_type_department
 	return exp_type
 
 /proc/job_is_xp_locked(jobtitle)
@@ -64,7 +61,7 @@ GLOBAL_PROTECT(exp_to_update)
 	return amount
 
 /client/proc/get_exp_living(pure_numeric = FALSE)
-	if(!prefs.exp || !prefs.exp[EXP_TYPE_LIVING])
+	if(!prefs || !prefs.exp || !prefs.exp[EXP_TYPE_LIVING])
 		return pure_numeric ? 0 : "No data"
 	var/exp_living = text2num(prefs.exp[EXP_TYPE_LIVING])
 	return pure_numeric ? exp_living : get_exp_format(exp_living)

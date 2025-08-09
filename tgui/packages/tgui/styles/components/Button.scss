@@ -3,12 +3,13 @@
  * SPDX-License-Identifier: MIT
  */
 
+@use 'sass:color';
 @use '../base.scss';
 @use '../colors.scss';
 @use '../functions.scss' as *;
 
 $color-default: colors.bg(colors.$primary) !default;
-$color-disabled: #999999 !default;
+$color-disabled: hsl(0, 0%, 60%) !default;
 $color-selected: colors.bg(colors.$green) !default;
 $color-caution: colors.bg(colors.$yellow) !default;
 $color-danger: colors.bg(colors.$red) !default;
@@ -34,7 +35,7 @@ $bg-map: colors.$bg-map !default;
   }
 
   &:hover {
-    background-color: if($luminance > 0.6, darken($color, 15%), lighten($color, 30%));
+    background-color: if($luminance > 0.6, color.adjust($color, $lightness: -15%), color.adjust($color, $lightness: 30%));
     color: $text-color;
   }
 }

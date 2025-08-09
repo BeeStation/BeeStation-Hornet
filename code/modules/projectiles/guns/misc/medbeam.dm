@@ -57,7 +57,7 @@
 		to_chat(loc, span_warning("You lose control of the beam!"))
 	LoseTarget()
 
-/obj/item/gun/medbeam/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
+/obj/item/gun/medbeam/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
 	if(isliving(user))
 		add_fingerprint(user)
 
@@ -69,7 +69,7 @@
 	current_target = target
 	active = TRUE
 	current_beam = user.Beam(current_target, icon_state="medbeam", time = 10 MINUTES, maxdistance = max_range, beam_type = /obj/effect/ebeam/medical)
-	RegisterSignal(current_beam, COMSIG_PARENT_QDELETING, PROC_REF(beam_died))//this is a WAY better rangecheck than what was done before (process check)
+	RegisterSignal(current_beam, COMSIG_QDELETING, PROC_REF(beam_died))//this is a WAY better rangecheck than what was done before (process check)
 
 	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
 

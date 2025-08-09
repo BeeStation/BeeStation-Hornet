@@ -135,11 +135,11 @@
 //===================
 
 /datum/artifact_effect/inducespasm
-	signal_types = list(COMSIG_PARENT_EXAMINE)
+	signal_types = list(COMSIG_ATOM_EXAMINE)
 	effect_act_descs = list("examined")
 
 /datum/artifact_effect/inducespasm/register_signals(source)
-	RegisterSignal(source, COMSIG_PARENT_EXAMINE, PROC_REF(do_effect))
+	RegisterSignal(source, COMSIG_ATOM_EXAMINE, PROC_REF(do_effect))
 
 /datum/artifact_effect/inducespasm/proc/do_effect(datum/source, mob/observer, list/examine_text)
 	if(ishuman(observer))
@@ -403,7 +403,7 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 		/datum/gas/hypernoblium = 1,
 		/datum/gas/plasma = 3,
 		/datum/gas/tritium = 2,
-		/datum/gas/nitryl = 1
+		/datum/gas/nitrium = 1
 	)
 	var/datum/gas/input
 	var/datum/gas/output

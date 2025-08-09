@@ -30,13 +30,9 @@
 	show_in_antagpanel = TRUE
 	ui_name = "AntagInfoAbductorScientist"
 
-/datum/antagonist/abductor/scientist/onemanteam
-	name = "Abductor Solo"
-	outfit = /datum/outfit/abductor/scientist/onemanteam
-
-/datum/antagonist/abductor/scientist/onemanteam
-	name = "Abductor Solo"
-	outfit = /datum/outfit/abductor/scientist/onemanteam
+/datum/antagonist/abductor/scientist/solo
+	name = "Lone Abductor"
+	outfit = /datum/outfit/abductor/scientist/solo
 
 /datum/antagonist/abductor/create_team(datum/team/abductor_team/new_team)
 	if(!new_team)
@@ -83,7 +79,7 @@
 	//Equip
 	var/mob/living/carbon/human/H = owner.current
 	H.set_species(/datum/species/abductor)
-	var/obj/item/organ/tongue/abductor/T = H.getorganslot(ORGAN_SLOT_TONGUE)
+	var/obj/item/organ/tongue/abductor/T = H.get_organ_slot(ORGAN_SLOT_TONGUE)
 	T.mothership = "[team.name]"
 
 	H.real_name = "[team.name] [sub_role]"

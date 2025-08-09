@@ -16,8 +16,6 @@
 	flags_cover = HEADCOVERSEYES
 	flags_inv = HIDEHAIR
 	bang_protect = 1
-	clothing_flags = THICKMATERIAL
-
 
 /datum/armor/head_helmet
 	melee = 35

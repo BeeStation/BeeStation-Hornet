@@ -71,14 +71,14 @@
 /mob/proc/restoreEars()
 
 /mob/living/carbon/restoreEars()
-	var/obj/item/organ/ears/ears = getorgan(/obj/item/organ/ears)
+	var/obj/item/organ/ears/ears = get_organ_by_type(/obj/item/organ/ears)
 	if(ears)
 		ears.restoreEars()
 
 /mob/proc/adjustEarDamage()
 
 /mob/living/carbon/adjustEarDamage(ddmg, ddeaf)
-	var/obj/item/organ/ears/ears = getorgan(/obj/item/organ/ears)
+	var/obj/item/organ/ears/ears = get_organ_by_type(/obj/item/organ/ears)
 	if(ears)
 		ears.adjustEarDamage(ddmg, ddeaf)
 		if(ears.deaf)
@@ -87,7 +87,7 @@
 /mob/proc/minimumDeafTicks()
 
 /mob/living/carbon/minimumDeafTicks(value)
-	var/obj/item/organ/ears/ears = getorgan(/obj/item/organ/ears)
+	var/obj/item/organ/ears/ears = get_organ_by_type(/obj/item/organ/ears)
 	if(ears)
 		ears.minimumDeafTicks(value)
 
@@ -100,42 +100,36 @@
 	visual = TRUE
 	bang_protect = -2
 
-/obj/item/organ/ears/cat/Insert(mob/living/carbon/human/H, special = 0, drop_if_replaced = TRUE, pref_load = FALSE)
-	..()
-	if(pref_load)
-		H.update_body()
-		return
-	if(istype(H))
-		color = H.hair_color
-		H.dna.features["ears"] = H.dna.species.mutant_bodyparts["ears"] = "Cat"
-		H.update_body()
+/obj/item/organ/ears/cat/on_insert(mob/living/carbon/human/ear_owner)
+	. = ..()
+	if(istype(ear_owner) && ear_owner.dna)
+		color = ear_owner.hair_color
+		ear_owner.dna.features["ears"] = ear_owner.dna.species.mutant_bodyparts["ears"] = "Cat"
+		ear_owner.update_body()
 
-/obj/item/organ/ears/cat/Remove(mob/living/carbon/human/H, special = 0, pref_load = FALSE)
-	..()
-	if(pref_load && istype(H))
-		H.update_body()
-		return
-	if(istype(H))
-		color = H.hair_color
-		H.dna.features["ears"] = "None"
-		H.dna.species.mutant_bodyparts -= "ears"
-		H.update_body()
+/obj/item/organ/ears/cat/on_remove(mob/living/carbon/human/ear_owner)
+	. = ..()
+	if(istype(ear_owner) && ear_owner.dna)
+		color = ear_owner.hair_color
+		ear_owner.dna.features["ears"] = "None"
+		ear_owner.dna.species.mutant_bodyparts -= "ears"
+		ear_owner.update_body()
 
 /obj/item/organ/ears/penguin
 	name = "penguin ears"
 	desc = "The source of a penguin's happy feet."
 	var/datum/component/waddle
 
-/obj/item/organ/ears/penguin/Insert(mob/living/carbon/human/H, special = 0, drop_if_replaced = TRUE, pref_load = FALSE)
+/obj/item/organ/ears/penguin/on_insert(mob/living/carbon/human/ear_owner)
 	. = ..()
-	if(istype(H))
-		to_chat(H, span_notice("You suddenly feel like you've lost your balance."))
-		waddle = H.AddComponent(/datum/component/waddling)
+	if(istype(ear_owner))
+		to_chat(ear_owner, span_notice("You suddenly feel like you've lost your balance."))
+		waddle = ear_owner.AddComponent(/datum/component/waddling)
 
-/obj/item/organ/ears/penguin/Remove(mob/living/carbon/human/H,  special = 0, pref_load = FALSE)
+/obj/item/organ/ears/penguin/on_remove(mob/living/carbon/human/ear_owner)
 	. = ..()
-	if(istype(H))
-		to_chat(H, span_notice("Your sense of balance comes back to you."))
+	if(istype(ear_owner))
+		to_chat(ear_owner, span_notice("Your sense of balance comes back to you."))
 		QDEL_NULL(waddle)
 
 /obj/item/organ/ears/bronze

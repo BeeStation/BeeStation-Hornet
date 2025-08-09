@@ -3,7 +3,8 @@
 /obj/item/chainsaw
 	name = "chainsaw"
 	desc = "A versatile power tool. Useful for limbing trees and delimbing humans."
-	icon_state = "chainsaw_off"
+	icon_state = "chainsaw"
+	base_icon_state = "chainsaw"
 	lefthand_file = 'icons/mob/inhands/weapons/chainsaw_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/chainsaw_righthand.dmi'
 	flags_1 = CONDUCT_1
@@ -11,138 +12,152 @@
 	block_power = 20
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	attack_weight = 2
-	var/force_on = 24
 	w_class = WEIGHT_CLASS_HUGE
 	throwforce = 13
 	throw_speed = 2
 	throw_range = 4
-	custom_materials = list(/datum/material/iron=13000)
-	attack_verb_continuous = list("saws", "tears", "lacerates", "cuts", "chops", "dices")
-	attack_verb_simple = list("saw", "tear", "lacerate", "cut", "chop", "dice")
+	custom_materials = list(/datum/material/iron = 13000)
 	hitsound = "swing_hit"
-	sharpness = SHARP_DISMEMBER
-	bleed_force = BLEED_DEEP_WOUND
 	actions_types = list(/datum/action/item_action/startchainsaw)
-	var/on = FALSE
-	tool_behaviour = TOOL_SAW
 	toolspeed = 0.5
 	item_flags = ISWEAPON
 
-/obj/item/chainsaw/Initialize(mapload)
-	. = ..()
+	/// How much damage the chainsaw deals while active
+	var/active_force = 24
+	/// How much damage the chainsaw deals when thrown, while active
+	var/active_throwforce = 14
+	/// How much bleed damage the chainsaw deals while active
+	var/active_bleedforce = BLEED_DEEP_WOUND
+	/// How sharp this is when active
+	var/active_sharpness = SHARP_DISMEMBER
+	/// The sound this chainsaw makes when attacking something while active
+	var/sound/active_hitsound = 'sound/weapons/chainsaw_hit.ogg'
+	/// The sound that plays when the chainsaw is enabled
+	var/sound/start_sound = 'sound/weapons/chainsaw_on.ogg'
+	/// The sound that plays when the chainsaw is turned off
+	var/sound/off_sound = 'sound/weapons/chainsaw_off.ogg'
 
 /obj/item/chainsaw/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/butchering, 30, 100, 0, 'sound/weapons/chainsawhit.ogg', TRUE)
-	AddComponent(/datum/component/two_handed, require_twohands=TRUE, block_power_unwielded=block_power, block_power_wielded=block_power)
+	AddComponent(/datum/component/butchering, \
+		_speed = 3 SECONDS, \
+		_effectiveness = 100, \
+		_bonus_modifier = 0, \
+		_butcher_sound = active_hitsound, \
+		disabled = TRUE, \
+	)
+
+	AddComponent(/datum/component/two_handed, \
+		require_twohands = TRUE, \
+		block_power_unwielded = block_power, \
+		block_power_wielded = block_power, \
+		ignore_attack_self = TRUE, \
+	)
+
+	AddComponent(/datum/component/transforming, \
+		force_on = active_force, \
+		throwforce_on = active_throwforce, \
+		bleedforce_on = active_bleedforce, \
+		sharpness_on = active_sharpness, \
+		hitsound_on = active_hitsound, \
+		w_class_on = w_class, \
+		attack_verb_continuous_on = list("saws", "tears", "lacerates", "cuts", "chops", "dices"), \
+		attack_verb_simple_on = list("saw", "tear", "lacerate", "cut", "chop", "dice"), \
+	)
+	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
+
+/obj/item/chainsaw/proc/on_transform(obj/item/source, mob/user, active)
+	SIGNAL_HANDLER
+
+	to_chat(user, span_notice("As you pull the starting cord dangling from [src], [active ? "it begins to whirr" : "the chain stops moving"]."))
+
+	if(active && start_sound)
+		playsound(src, start_sound, 35, TRUE)
+	else if(!active && off_sound)
+		playsound(src, off_sound, 35, TRUE)
+
+	tool_behaviour = (active ? TOOL_SAW : NONE)
+
+	var/datum/component/butchering/butchering = src.GetComponent(/datum/component/butchering)
+	butchering.butchering_enabled = active
+
+	update_appearance(UPDATE_ICON_STATE)
+
+	return COMPONENT_NO_DEFAULT_MESSAGE
 
 /obj/item/chainsaw/suicide_act(mob/living/carbon/user)
-	if(on)
+	var/datum/component/transforming/transforming = src.GetComponent(/datum/component/transforming)
+
+	if(transforming.active)
 		user.visible_message(span_suicide("[user] begins to tear [user.p_their()] head off with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
-		playsound(src, 'sound/weapons/chainsawhit.ogg', 100, TRUE)
+		playsound(src, active_hitsound, 100, TRUE)
+
 		var/obj/item/bodypart/head/myhead = user.get_bodypart(BODY_ZONE_HEAD)
-		if(myhead)
-			myhead.dismember()
-	else
-		user.visible_message(span_suicide("[user] smashes [src] into [user.p_their()] neck, destroying [user.p_their()] esophagus! It looks like [user.p_theyre()] trying to commit suicide!"))
-		playsound(src, 'sound/weapons/genhit1.ogg', 100, TRUE)
-	return BRUTELOSS
+		myhead?.dismember()
 
-/obj/item/chainsaw/attack_self(mob/user)
-	on = !on
-	to_chat(user, "As you pull the starting cord dangling from [src], [on ? "it begins to whirr." : "the chain stops moving."]")
-	force = on ? force_on : initial(force)
-	throwforce = on ? force_on : initial(force)
-	icon_state = "chainsaw_[on ? "on" : "off"]"
-	var/datum/component/butchering/butchering = src.GetComponent(/datum/component/butchering)
-	butchering.butchering_enabled = on
-
-	if(on)
-		hitsound = 'sound/weapons/chainsawhit.ogg'
-	else
-		hitsound = "swing_hit"
-
-	if(src == user.get_active_held_item()) //update inhands
-		user.update_inv_hands()
-	update_action_buttons()
+		return BRUTELOSS
 
 // DOOMGUY CHAINSAW
 /obj/item/chainsaw/doomslayer
 	name = "THE GREAT COMMUNICATOR"
 	desc = span_warning("VRRRRRRR!!!")
 	armour_penetration = 100
-	force_on = 30
+	active_force = 30
 
 /obj/item/chainsaw/doomslayer/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(attack_type == PROJECTILE_ATTACK)
 		owner.visible_message(span_danger("Ranged attacks just make [owner] angrier!"))
 		playsound(src, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 75, TRUE)
-		return 1
-	return 0
+		return ..()
+	return FALSE
 
 // ENERGY CHAINSAW
 /obj/item/chainsaw/energy
 	name = "energy chainsaw"
 	desc = "Become Leatherspace."
-	icon = 'icons/obj/items_and_weapons.dmi'
-	icon_state = "echainsaw_off"
+	icon_state = "echainsaw"
+	base_icon_state = "echainsaw"
 	lefthand_file = 'icons/mob/inhands/weapons/chainsaw_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/chainsaw_righthand.dmi'
-	force_on = 40
 	w_class = WEIGHT_CLASS_HUGE
-	attack_verb_continuous = list("saws", "shreds", "rends", "guts", "eviscerates")
-	attack_verb_simple = list("saw", "shred", "rend", "gut", "eviscerate")
 	actions_types = list(/datum/action/item_action/startchainsaw)
 	block_power = 50
 	armour_penetration = 50
 	light_color = "#ff0000"
-	var/onsound
-	var/offsound
-	onsound = 'sound/weapons/echainsawon.ogg'
-	offsound = 'sound/weapons/echainsawoff.ogg'
-	on = FALSE
 	light_system = MOVABLE_LIGHT
 	light_range = 3
 	light_power = 1
 	light_on = TRUE
+	active_force = 40
+	active_hitsound = 'sound/weapons/energychainsaw_hit1.ogg'
 
-/obj/item/chainsaw/energy/attack_self(mob/user)
-	on = !on
-	to_chat(user, "As you pull the starting cord dangling from [src], [on ? "it begins to whirr intimidatingly." : "the plasma microblades stop moving."]")
-	force = on ? force_on : initial(force)
-	playsound(user, on ? onsound : offsound , 50, 1)
-	if(on)
-		set_light(TRUE)
-	else
-		set_light(FALSE)
-	throwforce = on ? force_on : initial(force)
-	icon_state = "echainsaw_[on ? "on" : "off"]"
+/obj/item/chainsaw/ComponentInitialize()
+	. = ..()
+	var/datum/component/transforming/transforming = src.GetComponent(/datum/component/transforming)
 
-	if(hitsound == "swing_hit")
-		hitsound = pick('sound/weapons/echainsawhit1.ogg','sound/weapons/echainsawhit2.ogg')
-	else
-		hitsound = "swing_hit"
+	transforming.attack_verb_continuous_on = list("saws", "shreds", "rends", "guts", "eviscerates")
+	transforming.attack_verb_simple_on = list("saw", "shred", "rend", "gut", "eviscerate")
 
-	if(src == user.get_active_held_item())
-		user.update_inv_hands()
-	update_action_buttons()
+/obj/item/chainsaw/energy/on_transform(obj/item/source, mob/user, active)
+	. = ..()
+	set_light(active)
 
-// DOOMGUY ENERGY CHAINSAW
 /obj/item/chainsaw/energy/doom
 	name = "super energy chainsaw"
 	desc = "The chainsaw you want when you need to kill every damn thing in the room."
-	force_on = 60
 	w_class = WEIGHT_CLASS_LARGE
 	block_power = 75
 	block_level = 1
-	attack_weight = 3 //fear him
+	attack_weight = 3
 	armour_penetration = 75
-	var/knockdown = 1
 	light_range = 6
+	active_force = 60
+
+	/// How much time someone is knocked down for when attacking them
+	var/knockdown_time = 1 SECONDS
 
 /obj/item/chainsaw/energy/doom/attack(mob/living/target)
-	..()
-	target.Knockdown(4)
+	. = ..()
+	target.Knockdown(knockdown_time)
 
 /datum/action/item_action/startchainsaw
 	name = "Pull The Starting Cord"

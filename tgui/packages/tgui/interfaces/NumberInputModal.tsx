@@ -1,7 +1,9 @@
 import { Loader } from './common/Loader';
 import { InputButtons } from './common/InputButtons';
 import { isEscape, KEY } from 'common/keys';
-import { useBackend, useLocalState } from '../backend';
+import { useState, useEffect } from 'react';
+import { clamp } from 'common/math';
+import { useBackend } from '../backend';
 import { Box, Button, RestrictedInput, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
@@ -18,20 +20,21 @@ type NumberInputData = {
 
 export const NumberInputModal = (_) => {
   const { act, data } = useBackend<NumberInputData>();
-  const { init_value, large_buttons, message = '', timeout, title } = data;
-  const [input, setInput] = useLocalState('input', init_value);
-  const onChange = (value: number) => {
+  const { init_value, large_buttons, message = '', timeout, title, min_value, max_value } = data;
+  const [input, setInput] = useState(init_value);
+
+  const [clampedInput, setClampedInput] = useState(clamp(input, min_value, max_value));
+  const setValue = (value: number) => {
     if (value === input) {
       return;
     }
     setInput(value);
   };
-  const onClick = (value: number) => {
-    if (value === input) {
-      return;
-    }
-    setInput(value);
-  };
+
+  useEffect(() => {
+    setClampedInput(clamp(input, min_value, max_value));
+  }, [input]);
+
   // Dynamically changes the window height based on the message.
   const windowHeight =
     140 + (message.length > 30 ? Math.ceil(message.length / 3) : 0) + (message.length && large_buttons ? 5 : 0);
@@ -42,7 +45,7 @@ export const NumberInputModal = (_) => {
       <Window.Content
         onKeyDown={(event) => {
           if (event.key === KEY.Enter) {
-            act('submit', { entry: input });
+            act('submit', { entry: clampedInput });
           }
           if (isEscape(event.key)) {
             act('cancel');
@@ -54,10 +57,10 @@ export const NumberInputModal = (_) => {
               <Box color="label">{message}</Box>
             </Stack.Item>
             <Stack.Item>
-              <InputArea input={input} onClick={onClick} onChange={onChange} />
+              <InputArea input={input} onClick={setValue} onChange={setValue} />
             </Stack.Item>
             <Stack.Item>
-              <InputButtons input={input} />
+              <InputButtons input={clampedInput} />
             </Stack.Item>
           </Stack>
         </Section>
@@ -71,13 +74,21 @@ const InputArea = (props) => {
   const { act, data } = useBackend<NumberInputData>();
   const { min_value, max_value, init_value, round_value } = data;
   const { input, onClick, onChange } = props;
+  const [inputValue, setInputValue] = useState(input);
+  useEffect(() => {
+    onChange(clamp(inputValue, min_value, max_value));
+  }, [inputValue]);
+
   return (
     <Stack fill>
       <Stack.Item>
         <Button
           disabled={input === min_value}
           icon="angle-double-left"
-          onClick={() => onClick(min_value)}
+          onClick={() => {
+            const newValue = min_value ?? 0; // Ensure a valid number
+            setInputValue(newValue); // Update the input state
+          }}
           tooltip={min_value ? `Min (${min_value})` : 'Min'}
         />
       </Stack.Item>
@@ -89,16 +100,21 @@ const InputArea = (props) => {
           allowFloats={!round_value}
           minValue={min_value}
           maxValue={max_value}
-          onChange={(_, value) => onChange(value)}
+          onChange={(_, value) => {
+            setInputValue(value); // Update the input state when the user types
+          }}
           onEnter={(_, value) => act('submit', { entry: value })}
-          value={input}
+          value={inputValue} // Ensure the input field reflects the current state
         />
       </Stack.Item>
       <Stack.Item>
         <Button
           disabled={input === max_value}
           icon="angle-double-right"
-          onClick={() => onClick(max_value)}
+          onClick={() => {
+            const newValue = max_value ?? 0; // Ensure a valid number
+            setInputValue(newValue); // Update the input state
+          }}
           tooltip={max_value ? `Max (${max_value})` : 'Max'}
         />
       </Stack.Item>
@@ -106,7 +122,10 @@ const InputArea = (props) => {
         <Button
           disabled={input === init_value}
           icon="redo"
-          onClick={() => onClick(init_value)}
+          onClick={() => {
+            const newValue = init_value; // Reset to the initial value
+            setInputValue(newValue); // Update the input state
+          }}
           tooltip={init_value ? `Reset (${init_value})` : 'Reset'}
         />
       </Stack.Item>

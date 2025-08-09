@@ -98,7 +98,7 @@ GLOBAL_VAR(antag_prototypes)
 		return
 
 	var/out = "[TOOLTIP_CSS_SETUP]<B>[name]</B>[(current && (current.real_name!=name))?" (as [current.real_name])":""]<br>"
-	out += "Mind currently owned by key: [key] [active?"(synced)":"(not synced)"]<br>"
+	out += "Mind currently owned by key: [full_key()] [active?"(synced)":"(not synced)"]<br>"
 	out += "Assigned role: [assigned_role]. <a href='byond://?src=[REF(src)];role_edit=1'>Edit</a><br>"
 	out += "Faction and special role: <b><font color='red'>[special_role]</font></b><br>"
 

@@ -26,7 +26,7 @@ handles linking back and forth.
 	src.allow_standalone = allow_standalone
 	src.mat_container_flags = mat_container_flags
 
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(OnAttackBy))
+	RegisterSignal(parent, COMSIG_ATOM_ATTACKBY, PROC_REF(OnAttackBy))
 	RegisterSignal(parent, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(check_z_disconnect))
 	RegisterSignal(parent, COMSIG_PARENT_RECEIVE_BUFFER, PROC_REF(receive_buffer))
 

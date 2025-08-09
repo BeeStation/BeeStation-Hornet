@@ -92,3 +92,6 @@
 #define FACTION_RATVAR "ratvar"
 /// Swarmers & the swarmer beacon.
 #define FACTION_SWARMER "swarmer"
+
+/// Generates a mob faction for the passed owner, used by stabilized pink extracts
+#define FACTION_PINK_EXTRACT(owner) "pink_[owner]"

@@ -183,7 +183,7 @@
 		new /datum/data/vendor_equipment("Tracking Implant Kit", 		/obj/item/storage/box/minertracker,									1000),
 		new /datum/data/vendor_equipment("Expanded E. Oxygen Tank",		/obj/item/tank/internals/emergency_oxygen/engi,						1000),
 		new /datum/data/vendor_equipment("Fulton Extraction Pack",		/obj/item/extraction_pack,											1000),
-		new /datum/data/vendor_equipment("Mining Hardsuit",				/obj/item/clothing/suit/space/hardsuit/mining,						2000),
+		new /datum/data/vendor_equipment("Mining MODsuit", /obj/item/mod/control/pre_equipped/mining, 2500),
 		new /datum/data/vendor_equipment("Jump Boots",					/obj/item/clothing/shoes/bhop,										2000),
 	//Consumables
 		new /datum/data/vendor_equipment("30 Marker Beacons",			/obj/item/stack/marker_beacon/thirty,								150),

@@ -3,7 +3,7 @@
 // Generic spell signals
 
 
-/// Sent from /datum/action/spell/pre_cast() to the caster: (datum/action/cooldown/spell/spell, mob/user, atom/target)
+/// Sent from /datum/action/spell/pre_cast() to the caster: (datum/action/spell/spell, mob/user, atom/target)
 #define COMSIG_MOB_PRE_SPELL_CAST "mob_spell_pre_cast"
 /// Sent from /datum/action/spell/pre_cast() to the spell: (mob/user, atom/target)
 #define COMSIG_SPELL_PRE_CAST "spell_pre_cast"
@@ -14,16 +14,16 @@
 	/// Return from before cast signals to prevent the spell from going on cooldown before aftercast.
 	#define SPELL_NO_IMMEDIATE_COOLDOWN (1 << 2)
 
-/// Sent from /datum/action/spell/set_click_ability() to the caster: (datum/action/cooldown/spell/spell)
+/// Sent from /datum/action/spell/set_click_ability() to the caster: (datum/action/spell/spell)
 #define COMSIG_MOB_SPELL_ACTIVATED "mob_spell_active"
 	/// Same as spell_cancel_cast, as they're able to be used interchangeably
 	#define SPELL_CANCEL_ACTIVATION SPELL_CANCEL_CAST
 
-/// Sent from /datum/action/spell/cast() to the caster: (datum/action/cooldown/spell/spell, mob/user, atom/target)
+/// Sent from /datum/action/spell/cast() to the caster: (datum/action/spell/spell, mob/user, atom/target)
 #define COMSIG_MOB_CAST_SPELL "mob_cast_spell"
 /// Sent from /datum/action/spell/cast() to the spell: (mob/user, atom/target)
 #define COMSIG_SPELL_CAST "spell_cast"
-// Sent from /datum/action/spell/post_cast() to the caster: (datum/action/cooldown/spell/spell, mob/user, atom/target)
+// Sent from /datum/action/spell/post_cast() to the caster: (datum/action/spell/spell, mob/user, atom/target)
 #define COMSIG_MOB_POST_SPELL_CAST "mob_after_spell_cast"
 /// Sent from /datum/action/spell/post_cast() to the spell: (mob/user, atom/target)
 #define COMSIG_SPELL_POST_CAST "spell_after_cast"
@@ -53,16 +53,16 @@
 // Jaunt Spells
 /// Sent from datum/action/spell/jaunt/enter_jaunt, to the mob jaunting: (obj/effect/dummy/phased_mob/jaunt, datum/action/spell/spell)
 #define COMSIG_MOB_ENTER_JAUNT "spell_mob_enter_jaunt"
-/// Sent from datum/action/spell/jaunt/exit_jaunt, after the mob exited jaunt: (datum/action/cooldown/spell/spell)
+/// Sent from datum/action/spell/jaunt/exit_jaunt, after the mob exited jaunt: (datum/action/spell/spell)
 #define COMSIG_MOB_AFTER_EXIT_JAUNT "spell_mob_after_exit_jaunt"
 
 /// Sent from/datum/action/spell/jaunt/bloodcrawl/slaughter_demon/try_enter_jaunt,
 /// to any unconscious / critical mobs being dragged when the jaunter enters blood:
-/// (datum/action/cooldown/spell/jaunt/bloodcrawl/crawl, mob/living/jaunter, obj/effect/decal/cleanable/blood)
+/// (datum/action/spell/jaunt/bloodcrawl/crawl, mob/living/jaunter, obj/effect/decal/cleanable/blood)
 #define COMSIG_LIVING_BLOOD_CRAWL_PRE_CONSUMED "living_pre_consumed_by_bloodcrawl"
 /// Sent from/datum/action/spell/jaunt/bloodcrawl/slaughter_demon/consume_victim,
 /// to the victim being consumed by the slaughter demon.
-/// (datum/action/cooldown/spell/jaunt/bloodcrawl/crawl, mob/living/jaunter)
+/// (datum/action/spell/jaunt/bloodcrawl/crawl, mob/living/jaunter)
 #define COMSIG_LIVING_BLOOD_CRAWL_CONSUMED "living_consumed_by_bloodcrawl"
 	/// Return at any point to stop the bloodcrawl "consume" process from continuing.
 	#define COMPONENT_STOP_CONSUMPTION (1 << 0)
@@ -70,22 +70,22 @@
 // Signals for specific spells
 
 // Lichdom
-/// Sent from /datum/action/spell/lichdom/cast(), to the item being imbued: (datum/action/cooldown/spell/spell, mob/user)
+/// Sent from /datum/action/spell/lichdom/cast(), to the item being imbued: (datum/action/spell/spell, mob/user)
 #define COMSIG_ITEM_IMBUE_SOUL "item_imbue_soul"
 	/// Return to stop the cast and prevent the soul imbue
 	#define COMPONENT_BLOCK_IMBUE (1 << 0)
 
-/// Sent from /datum/action/spell/aoe/knock/cast(), to every nearby turf (for connect loc): (datum/action/cooldown/spell/aoe/knock/spell, mob/living/caster)
+/// Sent from /datum/action/spell/aoe/knock/cast(), to every nearby turf (for connect loc): (datum/action/spell/aoe/knock/spell, mob/living/caster)
 #define COMSIG_ATOM_MAGICALLY_UNLOCKED "atom_magic_unlock"
 
 // Instant Summons
-/// Sent from /datum/action/spell/summonitem/cast(), to the item being marked for recall: (datum/action/cooldown/spell/spell, mob/user)
+/// Sent from /datum/action/spell/summonitem/cast(), to the item being marked for recall: (datum/action/spell/spell, mob/user)
 #define COMSIG_ITEM_MARK_RETRIEVAL "item_mark_retrieval"
 	/// Return to stop the cast and prevent the item from being marked
 	#define COMPONENT_BLOCK_MARK_RETRIEVAL (1 << 0)
 
 // Charge
-/// Sent from /datum/action/spell/charge/cast(), to the item in hand being charged: (datum/action/cooldown/spell/spell, mob/user)
+/// Sent from /datum/action/spell/charge/cast(), to the item in hand being charged: (datum/action/spell/spell, mob/user)
 #define COMSIG_ITEM_MAGICALLY_CHARGED "item_magic_charged"
 	/// Return if an item was successfuly recharged
 	#define COMPONENT_ITEM_CHARGED (1 << 0)

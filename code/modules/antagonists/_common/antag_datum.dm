@@ -26,7 +26,6 @@ GLOBAL_LIST(admin_antag_list)
 	var/can_elimination_hijack = ELIMINATION_NEUTRAL //If these antags are alone when a shuttle elimination happens.
 	/// If above 0, this is the multiplier for the speed at which we hijack the shuttle. Do not directly read, use hijack_speed().
 	var/hijack_speed = 0
-	var/count_against_dynamic_roll_chance = TRUE
 	//Antag panel properties
 	var/show_in_antagpanel = TRUE	//This will hide adding this antag type in antag panel, use only for internal subtypes that shouldn't be added directly but still show if possessed by mind
 	var/antagpanel_category = "Uncategorized"	//Antagpanel will display these together, REQUIRED
@@ -88,7 +87,7 @@ GLOBAL_LIST(admin_antag_list)
 		info_button.Grant(new_body)
 	apply_innate_effects(new_body)
 	give_antag_moodies()
-	if(count_against_dynamic_roll_chance && new_body.stat != DEAD)
+	if(new_body.stat != DEAD)
 		new_body.add_to_current_living_antags()
 	new_body.update_action_buttons()
 
@@ -126,7 +125,7 @@ GLOBAL_LIST(admin_antag_list)
 		replace_banned_player()
 	else if(owner.current.client?.holder && (CONFIG_GET(flag/auto_deadmin_antagonists) || owner.current.client.prefs?.read_player_preference(/datum/preference/toggle/deadmin_antagonist)))
 		owner.current.client.holder.auto_deadmin()
-	if(count_against_dynamic_roll_chance && owner.current.stat != DEAD && owner.current.client)
+	if(owner.current.stat != DEAD && owner.current.client)
 		owner.current.add_to_current_living_antags()
 	owner.current.update_action_buttons()
 
@@ -147,16 +146,22 @@ GLOBAL_LIST(admin_antag_list)
 /datum/antagonist/proc/replace_banned_player()
 	set waitfor = FALSE
 
-	var/list/mob/dead/observer/candidates = poll_candidates_for_mob("Do you want to play as a [name]?", banning_key, null, 7.5 SECONDS, owner.current, ignore_category = FALSE)
-	if(LAZYLEN(candidates))
-		var/mob/dead/observer/C = pick(candidates)
-		to_chat(owner, "Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!")
-		message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(owner)]) to replace a jobbanned player.")
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(
+		check_jobban = banning_key,
+		poll_time = 10 SECONDS,
+		checked_target = owner.current,
+		jump_target = owner.current,
+		role_name_text = name,
+	)
+	if(candidate)
 		owner.current.ghostize(FALSE)
-		owner.current.key = C.key
+		owner.current.key = candidate.key
+
+		to_chat(owner, "Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!")
+		message_admins("[key_name_admin(candidate)] has taken control of ([key_name_admin(owner)]) to replace a jobbanned player.")
 	else
 		owner.current.playable_bantype = banning_key
-		owner.current.ghostize(FALSE,SENTIENCE_FORCE)
+		owner.current.ghostize(FALSE, SENTIENCE_FORCE)
 
 ///Called by the remove_antag_datum() and remove_all_antag_datums() mind procs for the antag datum to handle its own removal and deletion.
 /datum/antagonist/proc/on_removal()
@@ -294,8 +299,6 @@ GLOBAL_LIST(admin_antag_list)
 	log_admin("[key_name(user)] has removed [name] antagonist status from [key_name(owner)].")
 	on_removal()
 
-//gamemode/proc/is_mode_antag(antagonist/A) => TRUE/FALSE
-
 //Additional data to display in antagonist panel section
 //nuke disk code, genome count, etc
 /datum/antagonist/proc/antag_panel_data()
@@ -349,7 +352,7 @@ GLOBAL_LIST(admin_antag_list)
 	return custom_team
 
 /datum/antagonist/custom/admin_add(datum/mind/new_owner,mob/admin)
-	var/custom_name = stripped_input(admin, "Custom antagonist name:", "Custom antag", "Antagonist")
+	var/custom_name = tgui_input_text(admin, "Custom antagonist name:", "Custom antag", "Antagonist")
 	if(custom_name)
 		name = custom_name
 	else

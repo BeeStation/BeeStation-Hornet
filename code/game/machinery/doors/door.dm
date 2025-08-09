@@ -224,7 +224,7 @@
 	else if(I.item_flags & NOBLUDGEON || user.combat_mode)
 		return ..()
 	else if(!user.combat_mode && istype(I, /obj/item/stack/sheet/wood))
-		return ..() // we need this so our can_barricade element can be called using COMSIG_PARENT_ATTACKBY
+		return ..() // we need this so our can_barricade element can be called using COMSIG_ATOM_ATTACKBY
 	else if(try_to_activate_door(I, user))
 		return TRUE
 	return ..()
@@ -395,7 +395,7 @@
 /obj/machinery/door/morgue
 	icon = 'icons/obj/doors/doormorgue.dmi'
 
-/obj/machinery/door/get_dumping_location(obj/item/storage/source,mob/user)
+/obj/machinery/door/get_dumping_location()
 	return null
 
 /obj/machinery/door/proc/lock()

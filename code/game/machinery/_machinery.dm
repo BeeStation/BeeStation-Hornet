@@ -191,6 +191,20 @@
 
 	return INITIALIZE_HINT_LATELOAD
 
+/obj/machinery/add_context_self(datum/screentip_context/context, mob/user)
+	if (machine_stat & BROKEN)
+		return
+
+	//Tools
+	context.add_left_click_tool_action("[panel_open ? "Close" : "Open"] Maintenance Panel", TOOL_SCREWDRIVER)
+	if (panel_open && circuit)
+		context.add_left_click_tool_action("Hack Wires", TOOL_MULTITOOL)
+		context.add_left_click_tool_action("Cut Wires", TOOL_WIRECUTTER)
+
+	var/can_unfasten = can_be_unfasten_wrench()
+	if(can_unfasten||!anchored)
+		context.add_left_click_tool_action("[anchored ? "Unwrench from floor" : "Wrench to floor"]", TOOL_WRENCH)
+
 /obj/machinery/LateInitialize()
 	. = ..()
 	power_change()
@@ -407,7 +421,6 @@
 	return occupant_typecache ? is_type_in_typecache(am, occupant_typecache) : isliving(am)
 
 /obj/machinery/proc/close_machine(atom/movable/target = null)
-	SEND_SIGNAL(src, COMSIG_MACHINE_CLOSE, target)
 	state_open = FALSE
 	set_density(TRUE)
 	if(!target)
@@ -427,6 +440,7 @@
 	if(target && !target.has_buckled_mobs() && (!isliving(target) || !mobtarget.buckled))
 		set_occupant(target)
 		target.forceMove(src)
+	SEND_SIGNAL(src, COMSIG_MACHINE_CLOSE, target)
 	updateUsrDialog()
 	update_icon()
 	ui_update()
@@ -822,6 +836,20 @@
 		return FALSE
 	return ..()
 
+/**
+ * This should be called before mass qdeling components to make space for replacements.
+ * If not done, things will go awry as Exited() destroys the machine when it detects
+ * even a single component exiting the atom.
+ */
+/obj/machinery/proc/clear_components()
+	if(!component_parts)
+		return
+	var/list/old_components = component_parts
+	circuit = null
+	component_parts = null
+	for(var/atom/atom_part in old_components)
+		qdel(atom_part)
+
 /obj/machinery/proc/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/I)
 	if(!(flags_1 & NODECONSTRUCT_1) && I.tool_behaviour == TOOL_SCREWDRIVER)
 		I.play_tool_sound(src, 50)
@@ -996,6 +1024,9 @@
 		. += display_parts(user, TRUE)
 	if(return_blood_DNA())
 		. += "<span class='warning'>It's smeared with blood!</span>"
+
+/obj/machinery/examine_descriptor(mob/user)
+	return "machine"
 
 //called on machinery construction (i.e from frame to machinery) but not on initialization
 /obj/machinery/proc/on_construction()

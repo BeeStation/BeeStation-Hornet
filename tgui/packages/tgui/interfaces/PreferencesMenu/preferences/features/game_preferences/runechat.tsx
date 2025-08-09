@@ -39,3 +39,11 @@ export const show_balloon_alerts: Feature<string> = {
   description: 'Show text above items when certain interactions are used.',
   component: FeatureButtonedDropdownInput,
 };
+
+export const enable_runechat_looc: FeatureToggle = {
+  name: 'Enable Runechat LOOC',
+  category: 'CHAT',
+  subcategory: 'Runechat',
+  description: 'LOOC messages will show above heads.',
+  component: CheckboxInput,
+};

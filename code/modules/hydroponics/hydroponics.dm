@@ -535,17 +535,27 @@
 	if(S.has_reagent(/datum/reagent/plantnutriment/eznutriment, 1))
 		yieldmod = 1
 		mutmod = 1
+		cycledelay = 200
 		adjustNutri(round(S.get_reagent_amount(/datum/reagent/plantnutriment/eznutriment) * 1))
 
 	if(S.has_reagent(/datum/reagent/plantnutriment/left4zednutriment, 1))
 		yieldmod = 0
 		mutmod = 2
+		cycledelay = 200
 		adjustNutri(round(S.get_reagent_amount(/datum/reagent/plantnutriment/left4zednutriment) * 1))
 
 	if(S.has_reagent(/datum/reagent/plantnutriment/robustharvestnutriment, 1))
 		yieldmod = 1.3
 		mutmod = 0
+		cycledelay = 200
 		adjustNutri(round(S.get_reagent_amount(/datum/reagent/plantnutriment/robustharvestnutriment) *1 ))
+
+	if(S.has_reagent(/datum/reagent/plantnutriment/slimenutriment, 1))
+		yieldmod = 0.8
+		mutmod = 1
+		cycledelay = 150
+		adjustNutri(round(S.get_reagent_amount(/datum/reagent/plantnutriment/slimenutriment) *1))
+
 
 	// Ambrosia Gaia produces earthsblood.
 	if(S.has_reagent(/datum/reagent/medicine/earthsblood))
@@ -712,6 +722,7 @@
 		adjustNutri(round(S.get_reagent_amount(/datum/reagent/medicine/adminordrazine) * 1))
 		adjustPests(-rand(1,5))
 		adjustWeeds(-rand(1,5))
+		
 	if(S.has_reagent(/datum/reagent/medicine/adminordrazine, 5))
 		switch(rand(100))
 			if(66  to 100)
@@ -821,7 +832,7 @@
 		message += "- Toxicity level: [span_notice("[toxic] / 100")]"
 		message += "- Water level: [span_notice("[waterlevel] / [maxwater]")]"
 		message += "- Nutrition level: [span_notice("[nutrilevel] / [maxnutri]")]"
-		to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")))
+		to_chat(user, examine_block(jointext(message, "\n")))
 
 	else if(istype(O, /obj/item/cultivator))
 		if(weedlevel > 0)

@@ -59,7 +59,7 @@ Slimecrossing Potions
 		to_chat(user, span_notice("You feed [M] [src]!"))
 	else
 		to_chat(user, span_warning("You drink [src]!"))
-	if(isanimal(M))
+	if(isanimal_or_basicmob(M))
 		ADD_TRAIT(M, TRAIT_PACIFISM, MAGIC_TRAIT)
 	else if(iscarbon(M))
 		var/mob/living/carbon/C = M

@@ -384,7 +384,7 @@
 			if(player.stat != DEAD)
 				if(issilicon(player)) //Borgs are technically dead anyways
 					continue
-				if(isanimal(player)) //animals don't count
+				if(isanimal_or_basicmob(player)) //animals don't count
 					continue
 				if(isbrain(player)) //also technically dead
 					continue
@@ -475,7 +475,6 @@
 
 		if(SHUTTLE_IGNITING)
 			var/success = TRUE
-			//Check if the gamemode is clockcult and the clockies are utter failures
 			if(GLOB.celestial_gateway && !GLOB.gateway_opening)
 				SSshuttle.registerHostileEnvironment(GLOB.celestial_gateway)
 				var/obj/structure/destructible/clockwork/massive/celestial_gateway/gateway = GLOB.celestial_gateway
@@ -677,7 +676,7 @@
 	name = "emergency space helmet"
 	icon_state = "syndicate-helm-orange"
 	item_state = "syndicate-helm-orange"
-	flash_protect = 0
+	flash_protect = FLASH_PROTECTION_NONE
 
 /obj/item/clothing/suit/space/orange
 	name = "emergency space suit"

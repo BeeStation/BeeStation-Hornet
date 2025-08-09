@@ -8,10 +8,12 @@
 	expansion_hw = TRUE
 	var/stored_paper = 20
 	var/max_paper = 30
+	can_hack = FALSE
+	custom_price = PAYCHECK_MEDIUM * 2
 
-/obj/item/computer_hardware/printer/diagnostics(mob/living/user)
-	..()
-	to_chat(user, "Paper level: [stored_paper]/[max_paper].")
+/obj/item/computer_hardware/printer/diagnostics()
+	. = ..()
+	. += "Paper level: [stored_paper]/[max_paper]."
 
 /obj/item/computer_hardware/printer/examine(mob/user)
 	. = ..()
@@ -71,14 +73,43 @@
 	if(istype(I, /obj/item/paper))
 		if(stored_paper >= max_paper)
 			to_chat(user, span_warning("You try to add \the [I] into [src], but its paper bin is full!"))
+			balloon_alert(user, "printer bin is full!")
 			return FALSE
 
 		if(user && !user.temporarilyRemoveItemFromInventory(I))
+			balloon_alert(user, "can't insert!")
 			return FALSE
+
+		playsound(src, 'sound/machines/paper_insert.ogg', 40, vary = TRUE)
 		to_chat(user, span_notice("You insert \the [I] into [src]'s paper recycler."))
+		balloon_alert(user, "inserted paper!")
 		qdel(I)
 		stored_paper++
 		return TRUE
+
+	if(istype(I, /obj/item/paper_bin))
+		var/obj/item/paper_bin/bin = I
+		if(bin.total_paper <= 0)
+			balloon_alert(user, "empty bin!")
+			return FALSE
+
+		if(stored_paper >= max_paper)
+			to_chat(user, span_warning("You try to add \the [I] into [src], but its paper bin is full!"))
+			balloon_alert(user, "printer bin is full!")
+			return FALSE
+
+		var/papers_added
+		while((bin.total_paper > 0) && (stored_paper < max_paper))
+			papers_added++
+			stored_paper++
+			bin.total_paper--
+
+		playsound(src, 'sound/machines/paper_insert.ogg', 40, vary = TRUE)
+		to_chat(user, span_notice("Added in [papers_added] new sheets. You now have [stored_paper] / [max_paper] printing paper stored."))
+		balloon_alert(user, "added in [papers_added] new sheets!")
+		bin.update_appearance()
+		return TRUE
+
 	return FALSE
 
 /obj/item/computer_hardware/printer/mini
@@ -89,3 +120,4 @@
 	w_class = WEIGHT_CLASS_TINY
 	stored_paper = 5
 	max_paper = 15
+	custom_price = PAYCHECK_MEDIUM

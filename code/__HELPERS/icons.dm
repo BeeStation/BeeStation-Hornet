@@ -1320,7 +1320,7 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 	if (!target)
 		return
 	if (target == world)
-		target = GLOB.clients
+		target = GLOB.clients_unsafe
 
 	var/list/targets
 	if (!islist(target))
@@ -1430,10 +1430,27 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 	return icon2html(I, target, sourceonly = sourceonly)
 
 //Returns TRUE if the given iconstate is located in the given file, otherwise returns false.
-/proc/icon_exists(file, state)
-	var/list/states = icon_states(file)
-	if(states.Find(state))
+/proc/icon_exists(file, state, scream)
+	var/static/list/icon_states_cache = list()
+	if(icon_states_cache[file]?[state])
 		return TRUE
+
+	if(icon_states_cache[file]?[state] == FALSE)
+		return FALSE
+
+	var/list/states = icon_states(file)
+
+	if(!icon_states_cache[file])
+		icon_states_cache[file] = list()
+
+	if(state in states)
+		icon_states_cache[file][state] = TRUE
+		return TRUE
+	else
+		icon_states_cache[file][state] = FALSE
+		if(scream)
+			stack_trace("Icon Lookup for state: [state] in file [file] failed.")
+		return FALSE
 
 /**
  * Center's an image.

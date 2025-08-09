@@ -78,30 +78,33 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/asteroid/nearstation/bomb_site
 	name = "Bomb Testing Asteroid"
 
-/area/asteroid/paradise
+/area/paradise
 	name = "paradise"
 	icon_state = "asteroid"
 	outdoors = TRUE
-	area_flags = VALID_TERRITORY | UNIQUE_AREA | CAVES_ALLOWED
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	area_flags = UNIQUE_AREA | BLOBS_ALLOWED
 	camera_networks = list(CAMERA_NETWORK_STATION)
+	requires_power = FALSE
 
-/area/asteroid/paradise/surface
+/area/paradise/surface
 	name = "paradise surface"
 	ambientsounds = list('sound/ambience/seag1.ogg','sound/ambience/seag2.ogg','sound/ambience/seag2.ogg','sound/ambience/ambiodd.ogg','sound/ambience/ambinice.ogg')
 	sound_environment = null
+	area_flags = VALID_TERRITORY | UNIQUE_AREA | HIDDEN_STASH_LOCATION
+	fullbright_type = FULLBRIGHT_STARLIGHT
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 
-/area/asteroid/paradise/surface/sand
+/area/paradise/surface/sand
 	name = "paradise surface sand"
 	map_generator = /datum/map_generator/grass_generator
 
-/area/asteroid/paradise/surface/water
+/area/paradise/surface/water
 	name = "paradise surface water"
 	ambientsounds = list('sound/ambience/shore.ogg')
 	mood_bonus = 1
 	mood_message = span_warning("The waves sound nice.\n")
 
-/area/asteroid/paradise/surface/grass
+/area/paradise/surface/grass
 	name = "paradise surface grass"
 	map_generator = /datum/map_generator/grass_generator
 
@@ -266,10 +269,15 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "maint_engi"
 
 /area/maintenance/department/science/xenobiology
-	name = "Xenobiology Maintenance"
+	name = "Abandoned Club"
 	icon_state = "xenomaint"
 	area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA | XENOBIOLOGY_COMPATIBLE
 
+//Maintenance - Cardstation's club
+
+/area/maintenance/club
+	name = "Xenobiology Maintenance"
+	icon_state = "yellow"
 
 //Maintenance - Generic
 
@@ -708,6 +716,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Lounge"
 	icon_state = "yellow"
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
+
+/area/crew_quarters/barbershop
+	name = "Barbershop"
+	icon_state = "yellow"
+	sound_environment = SOUND_AREA_TUNNEL_ENCLOSED
 
 /area/crew_quarters/fitness
 	name = "Fitness Room"
@@ -1180,6 +1193,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Auxillery Surgery"
 	icon_state = "surgery"
 
+/area/medical/booth
+	name = "Medical Booth"
+
 /area/medical/cryo
 	name = "Cryogenics"
 	icon_state = "cryo"
@@ -1266,7 +1282,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/security/processing
 	name = "Labor Shuttle Dock"
 	icon_state = "sec_prison"
-	camera_networks = list(CAMERA_NETWORK_PRISON)
+	camera_networks = list(CAMERA_NETWORK_PRISON, CAMERA_NETWORK_LABOR)
 
 /area/security/processing/cremation
 	name = "Security Crematorium"
@@ -1284,10 +1300,48 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "detective"
 	ambientsounds = list('sound/ambience/ambidet1.ogg','sound/ambience/ambidet2.ogg','sound/ambience/ambidet3.ogg','sound/ambience/ambidet4.ogg')
 
+/area/security/detectives_office/Exited(atom/movable/a, atom/oldloc)
+	..()
+	if (!isliving(a))
+		return
+
+	var/mob/living/living_a = a
+	if(!(HAS_TRAIT(living_a, TRAIT_NOIR)))
+		return
+
+	REMOVE_TRAIT(living_a, TRAIT_NOIR, TRAIT_GENERIC)
+	if(ishuman(a))
+		var/mob/living/carbon/human/human_a = a
+		if (human_a.has_quirk(/datum/quirk/monochromatic))
+			return
+
+	living_a.remove_client_colour(/datum/client_colour/monochrome)
+
 /area/security/detectives_office/private_investigators_office
 	name = "Private Investigator's Office"
 	icon_state = "detective"
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
+
+/area/security/interrogation_room
+	name = "Interrogation Room"
+	icon_state = "interrogation"
+
+/area/security/interrogation_room/Exited(atom/movable/a, atom/oldloc)
+	..()
+	if (!isliving(a))
+		return
+
+	var/mob/living/living_a = a
+	if(!(HAS_TRAIT(living_a, TRAIT_NOIR)))
+		return
+
+	REMOVE_TRAIT(living_a, TRAIT_NOIR, TRAIT_GENERIC)
+	if(ishuman(a))
+		var/mob/living/carbon/human/human_a = a
+		if (human_a.has_quirk(/datum/quirk/monochromatic))
+			return
+
+	living_a.remove_client_colour(/datum/client_colour/monochrome)
 
 /area/security/range
 	name = "Firing Range"
@@ -1727,6 +1781,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "eva"
 	ambience_index = AMBIENCE_DANGER
 	color_correction = /datum/client_colour/area_color/cold_ish
+	camera_networks = list(CAMERA_NETWORK_STATION)
 
 /area/ai_monitored/storage/satellite
 	name = "AI Satellite Maint"
@@ -1828,3 +1883,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/tcommsat/relay
 	name = "Telecommunications Relay"
 	icon_state = "tcom_sat_cham"
+
+//Flavor area on Card Station
+
+/area/syndicate_sat
+	name = "Starboard Aft Bathroom" //syndies are spoofing sensor area reading
+	icon_state = "syndie-control"
+	sound_environment = SOUND_AREA_TUNNEL_ENCLOSED

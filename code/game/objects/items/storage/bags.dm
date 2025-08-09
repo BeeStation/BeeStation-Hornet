@@ -278,7 +278,7 @@
 			/obj/item/food/grown,
 			/obj/item/seeds,
 			/obj/item/grown,
-			/obj/item/reagent_containers/cup/glass/honeycomb,
+			/obj/item/food/honeycomb,
 			/obj/item/disk/plantgene,
 			/obj/item/food/seaweed_sheet
 		)
@@ -386,6 +386,7 @@
 	throw_range = 5
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
+	custom_price = 10
 	custom_materials = list(/datum/material/iron=3000)
 
 /obj/item/storage/bag/tray/Initialize(mapload)

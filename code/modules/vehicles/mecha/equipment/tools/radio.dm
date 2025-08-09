@@ -10,7 +10,7 @@
 /obj/item/mecha_parts/mecha_equipment/radio/Initialize(mapload)
 	. = ..()
 	radio = new(src)
-	RegisterSignal(radio, COMSIG_PARENT_QDELETING, PROC_REF(radio_deleted))
+	RegisterSignal(radio, COMSIG_QDELETING, PROC_REF(radio_deleted))
 
 /obj/item/mecha_parts/mecha_equipment/radio/Destroy()
 	qdel(radio)

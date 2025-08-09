@@ -4,8 +4,10 @@
 /obj/vehicle/ridden/lavaboat
 	name = "lava boat"
 	desc = "A boat used for traversing lava."
-	icon_state = "goliath_boat"
 	icon = 'icons/obj/lavaland/dragonboat.dmi'
+	icon_state = "goliath_boat"
+	icon_preview = 'icons/obj/previews.dmi'
+	icon_state_preview = "boat"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	can_buckle = TRUE
 
@@ -22,7 +24,7 @@
 	righthand_file = 'icons/mob/inhands/misc/lavaland_righthand.dmi'
 	desc = "Not to be confused with the kind Research hassles you for."
 	force = 12
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 

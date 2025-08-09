@@ -190,7 +190,7 @@
 	if(!owner?.current)
 		return FALSE
 	var/list/uniqueslips = list()
-	for(var/obj/item/modular_computer/tablet/pda/clown/PDA in owner.current.get_contents())
+	for(var/obj/item/modular_computer/tablet/pda/preset/clown/PDA in owner.current.get_contents())
 		for(var/H in PDA.slip_victims)
 			uniqueslips |= H
 	return length(uniqueslips) >= target_amount

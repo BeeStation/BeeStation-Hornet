@@ -2,7 +2,7 @@
 	name = "shield"
 	icon = 'icons/obj/shields.dmi'
 	block_level = 1
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	block_flags = BLOCKING_PROJECTILE
 	block_power = 50
 	max_integrity =  75
@@ -133,7 +133,7 @@
 
 /obj/item/shield/riot/roman/fake
 	desc = "Bears an inscription on the inside: <i>\"Romanes venio domus\"</i>. It appears to be a bit flimsy."
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	block_power = 0
 	max_integrity = 30
 
@@ -148,7 +148,7 @@
 	icon_state = "buckler"
 	item_state = "buckler"
 	block_level = 1
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	lefthand_file = 'icons/mob/inhands/equipment/shields_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/shields_righthand.dmi'
 	custom_materials = list(/datum/material/wood = MINERAL_MATERIAL_AMOUNT * 10)
@@ -168,7 +168,7 @@
 	icon_state = "goliath_shield"
 	item_state = "goliath_shield"
 	block_level = 1
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	lefthand_file = 'icons/mob/inhands/equipment/shields_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/shields_righthand.dmi'
 	custom_materials = null

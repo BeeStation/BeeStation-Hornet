@@ -56,11 +56,11 @@
 			antag_elligable = TRUE
 	if(antag_elligable)
 		if(prob(7))
-			created_human.mind.make_Traitor()
+			created_human.mind.add_antag_datum(/datum/antagonist/traitor)
 			created_human.flavor_text += " - That was, until you made a deal with your newfound Benefactors. You know Nanotrasen is sending a recovery team - \
 			And, hopefully, how to exploit your newfound position..." //Makes their special status a little more obvious upon entering the mob
 		else if(prob(8))
-			created_human.mind.make_Changeling()
+			created_human.mind.add_antag_datum(/datum/antagonist/changeling)
 			created_human.flavor_text += " - Or so's the cover story we've curated to sway the hearts of the hapless souls who, one day, may stumble upon \
 			our miserable, eeked out existence here... And inadvertently begin the hunt anew." //Ditto
 	created_human.mind.store_memory(created_human.flavor_text)
@@ -113,7 +113,7 @@
 	belt = /obj/item/gun/energy/e_gun
 	l_pocket = /obj/item/pen
 	back = /obj/item/storage/backpack/satchel
-	r_pocket = /obj/item/modular_computer/tablet/pda/heads
+	r_pocket = /obj/item/modular_computer/tablet/pda/preset/heads
 	l_hand = /obj/item/clothing/head/helmet/space/fragile
 	id = /obj/item/card/id/away/old
 

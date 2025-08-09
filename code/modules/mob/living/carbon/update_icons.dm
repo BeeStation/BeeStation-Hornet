@@ -1,3 +1,7 @@
+/mob/living/carbon/update_obscured_slots(obscured_flags)
+	..()
+	update_body()
+
 //IMPORTANT: Multiple animate() calls do not stack well, so try to do them all at once if you can.
 /mob/living/carbon/update_transform()
 	var/matrix/ntransform = matrix(transform) //aka transform.Copy()
@@ -60,9 +64,8 @@
 		if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
 			I.screen_loc = ui_hand_position(get_held_index_of_item(I))
 			client.screen += I
-			if(observers?.len)
-				for(var/M in observers)
-					var/mob/dead/observe = M
+			if(length(observers))
+				for(var/mob/dead/observe as anything in observers)
 					if(observe.client && observe.client.eye == src)
 						observe.client.screen += I
 					else
@@ -106,7 +109,7 @@
 	apply_overlay(DAMAGE_LAYER)
 
 
-/mob/living/carbon/update_inv_wear_mask()
+/mob/living/carbon/update_inv_wear_mask(update_obscured = TRUE)
 	remove_overlay(FACEMASK_LAYER)
 
 	if(!get_bodypart(BODY_ZONE_HEAD)) //Decapitated
@@ -117,13 +120,15 @@
 		inv.update_icon()
 
 	if(wear_mask)
+		if(update_obscured)
+			update_obscured_slots(wear_mask.flags_inv)
 		if(!(check_obscured_slots() & ITEM_SLOT_MASK))
 			overlays_standing[FACEMASK_LAYER] = wear_mask.build_worn_icon(src, default_layer = FACEMASK_LAYER, default_icon_file = 'icons/mob/clothing/mask.dmi')
 		update_hud_wear_mask(wear_mask)
 
 	apply_overlay(FACEMASK_LAYER)
 
-/mob/living/carbon/update_inv_neck()
+/mob/living/carbon/update_inv_neck(update_obscured = TRUE)
 	remove_overlay(NECK_LAYER)
 
 	if(client && hud_used && hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_NECK) + 1])
@@ -131,13 +136,15 @@
 		inv.update_icon()
 
 	if(wear_neck)
+		if(update_obscured)
+			update_obscured_slots(wear_neck.flags_inv)
 		if(!(check_obscured_slots() & ITEM_SLOT_NECK))
 			overlays_standing[NECK_LAYER] = wear_neck.build_worn_icon(src, default_layer = NECK_LAYER, default_icon_file = 'icons/mob/clothing/neck.dmi')
 		update_hud_neck(wear_neck)
 
 	apply_overlay(NECK_LAYER)
 
-/mob/living/carbon/update_inv_back()
+/mob/living/carbon/update_inv_back(update_obscured = TRUE)
 	remove_overlay(BACK_LAYER)
 
 	if(client && hud_used && hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_BACK) + 1])
@@ -145,12 +152,14 @@
 		inv.update_icon()
 
 	if(back)
+		if(update_obscured)
+			update_obscured_slots(back.flags_inv)
 		overlays_standing[BACK_LAYER] = back.build_worn_icon(src, default_layer = BACK_LAYER, default_icon_file = 'icons/mob/clothing/back.dmi')
 		update_hud_back(back)
 
 	apply_overlay(BACK_LAYER)
 
-/mob/living/carbon/update_inv_head()
+/mob/living/carbon/update_inv_head(update_obscured = TRUE)
 	remove_overlay(HEAD_LAYER)
 
 	if(!get_bodypart(BODY_ZONE_HEAD)) //Decapitated
@@ -161,14 +170,18 @@
 		inv.update_icon()
 
 	if(head)
+		if(update_obscured)
+			update_obscured_slots(head.flags_inv)
 		overlays_standing[HEAD_LAYER] = head.build_worn_icon(default_layer = HEAD_LAYER, default_icon_file = 'icons/mob/clothing/head/default.dmi')
 		update_hud_head(head)
 
 	apply_overlay(HEAD_LAYER)
 
-/mob/living/carbon/update_inv_handcuffed()
+/mob/living/carbon/update_inv_handcuffed(update_obscured = TRUE)
 	remove_overlay(HANDCUFF_LAYER)
 	if(handcuffed)
+		if(update_obscured)
+			update_obscured_slots(handcuffed.flags_inv)
 		overlays_standing[HANDCUFF_LAYER] = mutable_appearance('icons/mob/mob.dmi', "handcuff1", CALCULATE_MOB_OVERLAY_LAYER(HANDCUFF_LAYER))
 		apply_overlay(HANDCUFF_LAYER)
 
@@ -206,12 +219,14 @@
 //"icon_file" is used automatically for inhands etc. to make sure it gets the right inhand file
 //Clothing layer is the layer that clothing would usually appear on
 /obj/item/proc/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
+	RETURN_TYPE(/list)
+
 	. = list()
 
 /mob/living/carbon/update_body()
 	update_body_parts()
 
-/mob/living/carbon/proc/update_body_parts(var/update_limb_data)
+/mob/living/carbon/proc/update_body_parts(update_limb_data)
 	//Check the cache to see if it needs a new sprite
 	update_damage_overlays()
 	var/list/needs_update = list()

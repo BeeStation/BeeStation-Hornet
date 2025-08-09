@@ -216,10 +216,17 @@
 
 /obj/item/RBMK_box/core/multitool_act(mob/living/user, obj/item/I)
 	. = ..()
+	var/list/parts = get_parts()
+
+	if(length(parts) == 8)
+		var/obj/machinery/atmospherics/components/unary/rbmk/core/newCore = build_reactor(parts)
+		newCore.user_activate(user)
+	return
+
+/obj/item/RBMK_box/core/proc/get_parts()
 	var/list/parts = list()
 	var/types_seen = list()
 	for(var/obj/item/RBMK_box/box in orange(1,src))
-
 		var/direction = get_dir(src, box)
 		box.dir = direction
 		if(box.box_type in list("coolant_input", "waste_output", "moderator_input"))
@@ -231,9 +238,15 @@
 					types_seen += box.box_type
 		else
 			parts |= box
+	return parts
+
+/obj/item/RBMK_box/core/pre_assemble_reactor/Initialize(mapload)
+	. = ..()
+	var/list/parts = get_parts()
+
 	if(length(parts) == 8)
 		var/obj/machinery/atmospherics/components/unary/rbmk/core/newCore = build_reactor(parts)
-		newCore.activate(user)
+		newCore.activate()
 	return
 
 /obj/item/RBMK_box/core/proc/build_reactor(list/parts)

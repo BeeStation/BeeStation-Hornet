@@ -5,8 +5,7 @@
 	department_head = list(JOB_NAME_CHIEFENGINEER)
 	supervisors = "the chief engineer"
 	faction = "Station"
-	total_positions = 5
-	spawn_positions = 5
+	dynamic_spawn_group = JOB_SPAWN_GROUP_DEPARTMENT
 	selection_color = "#fff5cc"
 	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
@@ -15,7 +14,6 @@
 
 	base_access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_MECH_ENGINE,
 						ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_TCOMSAT, ACCESS_MINERAL_STOREROOM, ACCESS_AUX_BASE)
-	extra_access = list(ACCESS_ATMOSPHERICS)
 
 	departments = DEPT_BITFLAG_ENG
 	bank_account_department = ACCOUNT_ENG_BITFLAG
@@ -30,13 +28,19 @@
 
 	lightup_areas = list(/area/engine/atmos)
 
+/datum/job/station_engineer/get_access()
+	. = ..()
+	LOWPOP_GRANT_ACCESS(JOB_NAME_ATMOSPHERICTECHNICIAN, ACCESS_ATMOSPHERICS)
+	if (SSjob.initial_players_to_assign < COMMAND_POPULATION_MINIMUM)
+		. |= ACCESS_CE
+
 /datum/outfit/job/engineer
 	name = JOB_NAME_STATIONENGINEER
 	jobtype = /datum/job/station_engineer
 
 	id =  /obj/item/card/id/job/station_engineer
 	belt = /obj/item/storage/belt/utility/full/engi
-	l_pocket = /obj/item/modular_computer/tablet/pda/station_engineer
+	l_pocket = /obj/item/modular_computer/tablet/pda/preset/station_engineer
 	ears = /obj/item/radio/headset/headset_eng
 	uniform = /obj/item/clothing/under/rank/engineering/engineer
 	shoes = /obj/item/clothing/shoes/workboots
@@ -53,11 +57,12 @@
 	name = "Station Engineer (Gloves)"
 	gloves = /obj/item/clothing/gloves/color/yellow
 
-/datum/outfit/job/engineer/gloved/rig
-	name = "Station Engineer (Hardsuit)"
-	mask = /obj/item/clothing/mask/breath
-	suit = /obj/item/clothing/suit/space/hardsuit/engine
+/datum/outfit/job/engineer/mod
+	name = "Station Engineer (MODsuit)"
+
 	suit_store = /obj/item/tank/internals/oxygen
+	back = /obj/item/mod/control/pre_equipped/engineering
 	head = null
+	mask = /obj/item/clothing/mask/breath
 	internals_slot = ITEM_SLOT_SUITSTORE
 

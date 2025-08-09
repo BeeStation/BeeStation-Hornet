@@ -43,6 +43,7 @@
 				4= bolts (BOLTS)
 				8= shock (SHOCK)
 				16= door safties (SAFE)
+				32= emergency mode (EMERGENCY)
 	*/
 
 /obj/item/assembly/control/airlock/activate()
@@ -70,6 +71,9 @@
 					D.set_electrified(MACHINE_NOT_ELECTRIFIED, usr)
 			if(specialfunctions & SAFE)
 				D.safe = !D.safe
+			if(specialfunctions & EMERGENCY)
+				D.emergency = !D.emergency
+				D.update_icon()
 
 	for(var/D in open_or_close)
 		INVOKE_ASYNC(D, doors_need_closing ? TYPE_PROC_REF(/obj/machinery/door/airlock, close) : TYPE_PROC_REF(/obj/machinery/door/airlock, open))

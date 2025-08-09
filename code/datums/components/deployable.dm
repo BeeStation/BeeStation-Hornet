@@ -39,7 +39,7 @@
 	RegisterSignal(parent, COMSIG_ITEM_AFTERATTACK, PROC_REF(on_afterattack))
 	RegisterSignal(parent, COMSIG_DEPLOYABLE_FORCE_DEPLOY, PROC_REF(force_deploy))
 	RegisterSignal(parent, COMSIG_ATOM_UPDATE_ICON_STATE, PROC_REF(on_update_icon_state))
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 
 /datum/component/deployable/Destroy(force, silent)
 	item_parent = null

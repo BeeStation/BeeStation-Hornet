@@ -6,9 +6,9 @@
 	supervisors = "the head of personnel"
 	faction = "Station"
 	total_positions = 1
-	spawn_positions = 1
 	selection_color = "#dddddd"
-	exp_requirements = 120
+	exp_requirements = 60
+	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/chaplain
 
 	base_access = list(ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_MORGUE, ACCESS_THEATRE)
@@ -118,7 +118,7 @@
 	jobtype = /datum/job/chaplain
 
 	id = /obj/item/card/id/job/chaplain
-	belt = /obj/item/modular_computer/tablet/pda/chaplain
+	belt = /obj/item/modular_computer/tablet/pda/preset/chaplain
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/chaplain
 	backpack_contents = list(

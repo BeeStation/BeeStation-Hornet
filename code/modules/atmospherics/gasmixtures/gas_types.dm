@@ -84,7 +84,7 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	purchaseable = TRUE
 	base_value = 0.1
 	desc = "A very common gas that used to pad artificial atmospheres to habitable pressure."
-	primary_color = COLOR_RED
+	primary_color = "#ffff00"
 
 /datum/gas/carbon_dioxide //what the fuck is this?
 	id = GAS_CO2
@@ -107,7 +107,7 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	rarity = 800
 	base_value = 1.5
 	desc = "A flammable gas with many other curious properties. Its research is one of NT's primary objective."
-	primary_color = "#A020F0"
+	primary_color = "#ffc0cb"
 
 /datum/gas/water_vapor
 	id = GAS_WATER_VAPOR
@@ -130,7 +130,7 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	moles_visible = MOLES_GAS_VISIBLE
 	fusion_power = 10
 	rarity = 50
-	base_value = 2.5
+	base_value = 5
 	desc = "The most noble gas of them all. High quantities of hyper-noblium actively prevents reactions from occurring."
 	primary_color = COLOR_TEAL
 
@@ -148,17 +148,17 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	desc = "Causes drowsiness, euphoria, and eventually unconsciousness."
 	primary_color = "#ffe4c4"
 
-/datum/gas/nitryl
-	id = GAS_NITRYL
+/datum/gas/nitrium
+	id = GAS_NITRIUM
 	specific_heat = 10
-	name = "Nitryl"
+	name = "Nitrium"
 	fusion_power = 7
-	gas_overlay = "nitryl"
+	gas_overlay = "nitrium"
 	moles_visible = MOLES_GAS_VISIBLE
 	dangerous = TRUE
 	rarity = 1
 	base_value = 6
-	desc = "An experimental performance enhancing gas. Nitryl can have amplified effects as more of it gets into your bloodstream."
+	desc = "An experimental performance enhancing gas. Nitrium can have amplified effects as more of it gets into your bloodstream."
 	primary_color = "#a52a2a"
 
 /datum/gas/tritium
@@ -195,16 +195,6 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	base_value = 2.5
 	desc = "A gas that could supply even more oxygen to the bloodstream when inhaled, without being an oxidizer."
 	primary_color = "#7b68ee"
-
-/datum/gas/stimulum
-	id = GAS_STIMULUM
-	specific_heat = 80
-	name = "Stimulum"
-	rarity = 200
-	base_value = 3
-	desc = "An experimental gas that makes you stun and sleep immune and slightly regenerates stamina, but also causes suffocation the longer you've been breathing it."
-	primary_color = "#ffc0cb"
-
 
 /obj/effect/overlay/gas
 	icon = 'icons/effects/atmospherics.dmi'

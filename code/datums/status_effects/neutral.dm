@@ -183,7 +183,7 @@
 		return
 
 	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(check_owner_in_range))
-	RegisterSignals(offered_item, list(COMSIG_PARENT_QDELETING, COMSIG_ITEM_DROPPED), PROC_REF(dropped_item))
+	RegisterSignals(offered_item, list(COMSIG_QDELETING, COMSIG_ITEM_DROPPED), PROC_REF(dropped_item))
 
 /datum/status_effect/offering/Destroy()
 	for(var/mob/living/carbon/removed_taker as anything in possible_takers)
@@ -274,3 +274,13 @@
 	if(!.)
 		return
 	new_owner.start_leaning(object, leaning_offset)
+
+/atom/movable/screen/alert/status_effect/morph_cooldown
+	name = "Chameleon Recharge"
+	desc = "Your ability to transform is recovering!"
+	icon_state = "dna_melt"
+
+/datum/status_effect/morph_cooldown
+	id = "morph_cooldown"
+	duration = 20 SECONDS
+	alert_type = /atom/movable/screen/alert/status_effect/morph_cooldown

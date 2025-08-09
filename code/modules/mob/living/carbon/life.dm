@@ -20,7 +20,7 @@
 			if(reagents && !reagents.has_reagent(/datum/reagent/toxin/formaldehyde, 1)) // No organ decay if the body contains formaldehyde.
 				for(var/V in internal_organs)
 					var/obj/item/organ/O = V
-					O.on_death() //Needed so organs decay while inside the body.
+					O.on_death(delta_time, times_fired) //Needed so organs decay while inside the body.
 
 		. = ..()
 		if(QDELETED(src))
@@ -46,18 +46,8 @@
 			update_stamina() //needs to go before updatehealth to remove stamcrit
 			updatehealth()
 
-	//Updates the number of stored chemicals for changeling powers
-	if(hud_used?.lingchemdisplay && !isalien(src) && mind)
-		var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)
-		if(changeling)
-			changeling.regenerate(delta_time, times_fired)
-			hud_used.lingchemdisplay.invisibility = 0
-			hud_used.lingchemdisplay.maptext = MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#dd66dd'>[round(changeling.chem_charges)]</font></div>")
-		else
-			hud_used.lingchemdisplay.invisibility = INVISIBILITY_ABSTRACT
-
 	if(stat != DEAD)
-		return 1
+		return TRUE
 
 ///////////////
 // BREATHING //
@@ -66,8 +56,8 @@
 //Start of a breath chain, calls breathe()
 /mob/living/carbon/handle_breathing(delta_time, times_fired)
 	var/next_breath = 4
-	var/obj/item/organ/lungs/L = getorganslot(ORGAN_SLOT_LUNGS)
-	var/obj/item/organ/heart/H = getorganslot(ORGAN_SLOT_HEART)
+	var/obj/item/organ/lungs/L = get_organ_slot(ORGAN_SLOT_LUNGS)
+	var/obj/item/organ/heart/H = get_organ_slot(ORGAN_SLOT_HEART)
 	if(L)
 		if(L.damage > L.high_threshold)
 			next_breath--
@@ -88,7 +78,7 @@
 
 //Second link in a breath chain, calls check_breath()
 /mob/living/carbon/proc/breathe(delta_time, times_fired)
-	var/obj/item/organ/lungs = getorganslot(ORGAN_SLOT_LUNGS)
+	var/obj/item/organ/lungs = get_organ_slot(ORGAN_SLOT_LUNGS)
 	if(reagents.has_reagent(/datum/reagent/toxin/lexorin, needs_metabolizing = TRUE))
 		return
 
@@ -98,7 +88,7 @@
 
 	var/datum/gas_mixture/breath
 
-	if(!getorganslot(ORGAN_SLOT_BREATHING_TUBE))
+	if(!get_organ_slot(ORGAN_SLOT_BREATHING_TUBE))
 		if(health <= HEALTH_THRESHOLD_FULLCRIT || (pulledby && pulledby.grab_state >= GRAB_KILL) || HAS_TRAIT(src, TRAIT_MAGIC_CHOKE) || !lungs || lungs.organ_flags & ORGAN_FAILING)
 			losebreath++  //You can't breath at all when in critical or when being choked, so you're going to miss a breath
 
@@ -154,7 +144,7 @@
 	if(HAS_TRAIT(src, TRAIT_NOBREATH))
 		return
 
-	var/obj/item/organ/lungs = getorganslot(ORGAN_SLOT_LUNGS)
+	var/obj/item/organ/lungs = get_organ_slot(ORGAN_SLOT_LUNGS)
 	if(!lungs)
 		adjustOxyLoss(2)
 
@@ -255,10 +245,13 @@
 		var/tritium_partialpressure = (GET_MOLES(/datum/gas/tritium, breath)/breath.total_moles())*breath_pressure
 		radiation += tritium_partialpressure/10
 
-	//NITRYL
-	if(GET_MOLES(/datum/gas/nitryl, breath))
-		var/nitryl_partialpressure = (GET_MOLES(/datum/gas/nitryl, breath)/breath.total_moles())*breath_pressure
-		adjustFireLoss(nitryl_partialpressure/4)
+	//NITRIUM
+	if(GET_MOLES(/datum/gas/nitrium, breath))
+		var/nitrium_partialpressure = (GET_MOLES(/datum/gas/nitrium, breath)/breath.total_moles())*breath_pressure
+		if(nitrium_partialpressure > 0.5)
+			adjustFireLoss(nitrium_partialpressure * 0.15)
+		if(nitrium_partialpressure > 5)
+			adjustToxLoss(nitrium_partialpressure * 0.05)
 
 	//BREATH TEMPERATURE
 	handle_breath_temperature(breath)
@@ -332,7 +325,7 @@
 			if(dna.temporary_mutations[mut] < world.time)
 				if(mut == UI_CHANGED)
 					if(dna.previous["UI"])
-						dna.uni_identity = merge_text(dna.uni_identity,dna.previous["UI"])
+						dna.unique_identity = merge_text(dna.unique_identity,dna.previous["UI"])
 						updateappearance(mutations_overlay_update=1)
 						dna.previous.Remove("UI")
 					dna.temporary_mutations.Remove(mut)
@@ -350,8 +343,15 @@
 						dna.previous.Remove("blood_type")
 					dna.temporary_mutations.Remove(mut)
 					continue
+				if(mut == UF_CHANGED)
+					if(dna.previous["UF"])
+						dna.unique_features = dna.previous["UF"]
+						updateappearance(mutations_overlay_update=1)
+						dna.previous.Remove("UF")
+					dna.temporary_mutations.Remove(mut)
+					continue
 		for(var/datum/mutation/HM as() in dna.mutations)
-			if(HM?.timed)
+			if(HM?.timeout)
 				dna.remove_mutation(HM.type)
 
 	radiation = max(radiation - (RAD_LOSS_PER_SECOND * delta_time), 0)
@@ -676,12 +676,12 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 /mob/living/carbon/proc/handle_liver(delta_time, times_fired)
 	if(!dna)
 		return
-	var/obj/item/organ/liver/liver = getorganslot(ORGAN_SLOT_LIVER)
+	var/obj/item/organ/liver/liver = get_organ_slot(ORGAN_SLOT_LIVER)
 	if(!liver)
 		liver_failure(delta_time, times_fired)
 
 /mob/living/carbon/proc/undergoing_liver_failure()
-	var/obj/item/organ/liver/liver = getorganslot(ORGAN_SLOT_LIVER)
+	var/obj/item/organ/liver/liver = get_organ_slot(ORGAN_SLOT_LIVER)
 	if(liver && (liver.organ_flags & ORGAN_FAILING))
 		return TRUE
 
@@ -701,7 +701,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 /mob/living/carbon/proc/can_heartattack()
 	if(!needs_heart())
 		return FALSE
-	var/obj/item/organ/heart/heart = getorganslot(ORGAN_SLOT_HEART)
+	var/obj/item/organ/heart/heart = get_organ_slot(ORGAN_SLOT_HEART)
 	if(!heart || (heart.organ_flags & ORGAN_SYNTHETIC))
 		return FALSE
 	return TRUE
@@ -709,7 +709,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 /mob/living/carbon/proc/needs_heart()
 	if(HAS_TRAIT(src, TRAIT_STABLEHEART))
 		return FALSE
-	if(dna && dna.species && (NOBLOOD in dna.species.species_traits)) //not all carbons have species!
+	if(dna && dna.species && (HAS_TRAIT(src, TRAIT_NOBLOOD) || isnull(dna.species.mutantheart))) //not all carbons have species!
 		return FALSE
 	return TRUE
 
@@ -721,7 +721,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
  * related situations (i.e not just cardiac arrest)
  */
 /mob/living/carbon/proc/undergoing_cardiac_arrest()
-	var/obj/item/organ/heart/heart = getorganslot(ORGAN_SLOT_HEART)
+	var/obj/item/organ/heart/heart = get_organ_slot(ORGAN_SLOT_HEART)
 	if(istype(heart) && heart.beating)
 		return FALSE
 	else if(!needs_heart())
@@ -732,7 +732,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 	if(!can_heartattack())
 		return FALSE
 
-	var/obj/item/organ/heart/heart = getorganslot(ORGAN_SLOT_HEART)
+	var/obj/item/organ/heart/heart = get_organ_slot(ORGAN_SLOT_HEART)
 	if(!istype(heart))
 		return
 

@@ -19,6 +19,7 @@ export const Connections = (props) => {
         position: 'absolute',
         pointerEvents: 'none',
         zIndex: -1,
+        overflow: 'visible',
       }}>
       {connections.map((val, index) => {
         const from = val.from;

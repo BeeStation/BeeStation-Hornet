@@ -69,6 +69,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/blob)
 	if(blob_core)
 		blob_core.update_icon()
 	SSshuttle.registerHostileEnvironment(src)
+	announcement_time = world.time + OVERMIND_ANNOUNCEMENT_MAX_TIME
 	. = ..()
 	START_PROCESSING(SSobj, src)
 

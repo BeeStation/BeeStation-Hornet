@@ -40,13 +40,13 @@
 /area/template_noop)
 "k" = (
 /obj/structure/frame/computer,
-/obj/item/circuitboard/computer/secure_data,
 /obj/machinery/light/small{
 	dir = 8
 	},
 /obj/machinery/status_display/evac{
 	pixel_x = -32
 	},
+/obj/item/circuitboard/computer/records/security,
 /turf/open/floor/carpet/red,
 /area/template_noop)
 "l" = (

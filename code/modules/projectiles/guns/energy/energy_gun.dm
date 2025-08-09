@@ -139,7 +139,7 @@
 		fail_tick -= delta_time * 0.5
 	..()
 
-/obj/item/gun/energy/e_gun/nuclear/shoot_live_shot(mob/living/user, pointblank = 0, atom/pbtarget = null, message = 1)
+/obj/item/gun/energy/e_gun/nuclear/after_live_shot_fired(mob/living/user, pointblank = 0, atom/pbtarget = null, message = 1)
 	failcheck()
 	update_icon()
 	..()

@@ -60,67 +60,67 @@ Reproductive extracts:
 		to_chat(user, span_notice("The [src] rejects the Monkey Cube!")) //in case it fails to insert for whatever reason you get feedback
 
 /obj/item/slimecross/reproductive/grey
-	colour = "grey"
+	colour = SLIME_TYPE_GREY
 
 /obj/item/slimecross/reproductive/orange
-	colour = "orange"
+	colour = SLIME_TYPE_ORANGE
 
 /obj/item/slimecross/reproductive/purple
-	colour = "purple"
+	colour = SLIME_TYPE_PURPLE
 
 /obj/item/slimecross/reproductive/blue
-	colour = "blue"
+	colour = SLIME_TYPE_BLUE
 
 /obj/item/slimecross/reproductive/metal
-	colour = "metal"
+	colour = SLIME_TYPE_METAL
 
 /obj/item/slimecross/reproductive/yellow
-	colour = "yellow"
+	colour = SLIME_TYPE_YELLOW
 
 /obj/item/slimecross/reproductive/darkpurple
-	colour = "dark purple"
+	colour = SLIME_TYPE_DARK_PURPLE
 
 /obj/item/slimecross/reproductive/darkblue
-	colour = "dark blue"
+	colour = SLIME_TYPE_DARK_BLUE
 
 /obj/item/slimecross/reproductive/silver
-	colour = "silver"
+	colour = SLIME_TYPE_SILVER
 
 /obj/item/slimecross/reproductive/bluespace
-	colour = "bluespace"
+	colour = SLIME_TYPE_BLUESPACE
 
 /obj/item/slimecross/reproductive/sepia
-	colour = "sepia"
+	colour = SLIME_TYPE_SEPIA
 
 /obj/item/slimecross/reproductive/cerulean
-	colour = "cerulean"
+	colour = SLIME_TYPE_CERULEAN
 
 /obj/item/slimecross/reproductive/pyrite
-	colour = "pyrite"
+	colour = SLIME_TYPE_PYRITE
 
 /obj/item/slimecross/reproductive/red
-	colour = "red"
+	colour = SLIME_TYPE_RED
 
 /obj/item/slimecross/reproductive/green
-	colour = "green"
+	colour = SLIME_TYPE_GREEN
 
 /obj/item/slimecross/reproductive/pink
-	colour = "pink"
+	colour = SLIME_TYPE_PINK
 
 /obj/item/slimecross/reproductive/gold
-	colour = "gold"
+	colour = SLIME_TYPE_GOLD
 
 /obj/item/slimecross/reproductive/oil
-	colour = "oil"
+	colour = SLIME_TYPE_OIL
 
 /obj/item/slimecross/reproductive/black
-	colour = "black"
+	colour = SLIME_TYPE_BLACK
 
 /obj/item/slimecross/reproductive/lightpink
-	colour = "light pink"
+	colour = SLIME_TYPE_LIGHT_PINK
 
 /obj/item/slimecross/reproductive/adamantine
-	colour = "adamantine"
+	colour = SLIME_TYPE_ADAMANTINE
 
 /obj/item/slimecross/reproductive/rainbow
-	colour = "rainbow"
+	colour = SLIME_TYPE_RAINBOW

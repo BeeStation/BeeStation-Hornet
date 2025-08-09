@@ -16,7 +16,7 @@
 	reward = 45000
 	wanted_types = list(/obj/item/assembly/signaler/anomaly/bluespace)
 
-/datum/bounty/item/core/delimber
+/datum/bounty/item/core/bioscrambler
 	name = "bioscrambler anomaly core"
 	reward = 30000
 	wanted_types = list(/obj/item/assembly/signaler/anomaly/bioscrambler)

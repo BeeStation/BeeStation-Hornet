@@ -111,7 +111,7 @@ export const EmojiInputModal = (_) => {
                   value={emoji}
                   className={`EmojiButton emoji48x48 ${emoji}`}
                   onClick={(event) => {
-                    setEmojis(insert(emojis, cursor_pos, event.target.value));
+                    setEmojis(insert(emojis, cursor_pos, emoji));
                     setCursorPos(cursor_pos + 1);
                   }}
                 />

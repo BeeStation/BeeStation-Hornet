@@ -6,7 +6,6 @@
 	supervisors = "the head of personnel"
 	faction = "Station"
 	total_positions = 2
-	spawn_positions = 1
 	selection_color = "#bbe291"
 
 	outfit = /datum/outfit/job/janitor
@@ -33,7 +32,7 @@
 	jobtype = /datum/job/janitor
 
 	id = /obj/item/card/id/job/janitor
-	belt = /obj/item/modular_computer/tablet/pda/janitor
+	belt = /obj/item/modular_computer/tablet/pda/preset/janitor
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/janitor
 

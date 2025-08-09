@@ -38,6 +38,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster/wanted)
 	var/posterHeaderText
 	var/posterHeaderColor
 
+	poster_item_type = /obj/item/poster/wanted
+
 CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/sign/poster/wanted)
 
 /obj/structure/sign/poster/wanted/Initialize(mapload, icon/person_icon, person_name, description, postHeaderText, postHeaderColor, background, pname, pdesc)

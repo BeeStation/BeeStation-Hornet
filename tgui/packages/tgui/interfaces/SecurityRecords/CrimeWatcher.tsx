@@ -237,7 +237,7 @@ const CrimeAuthor = (props) => {
       </Stack.Item>
       <Stack.Item color="label">
         Fine (leave blank to arrest)
-        <RestrictedInput onEnter={(_, value) => setCrimeFine(value)} fluid maxValue={1000} />
+        <RestrictedInput onChange={(_, value) => setCrimeFine(value)} fluid maxValue={1000} />
       </Stack.Item>
       <Stack.Item>
         <Button.Confirm

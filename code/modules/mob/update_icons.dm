@@ -10,37 +10,60 @@
 /mob/proc/update_icons()
 	return
 
+///Updates item slots obscured by this item (or using an override of flags to check)
+/mob/proc/update_obscured_slots(obscured_flags)
+	if(obscured_flags & HIDEGLOVES)
+		update_inv_gloves(update_obscured = FALSE)
+	if(obscured_flags & HIDESUITSTORAGE)
+		update_inv_s_store(update_obscured = FALSE)
+	if(obscured_flags & HIDEJUMPSUIT)
+		update_inv_w_uniform(update_obscured = FALSE)
+	if(obscured_flags & HIDESHOES)
+		update_inv_shoes(update_obscured = FALSE)
+	if(obscured_flags & HIDEMASK)
+		update_inv_wear_mask(update_obscured = FALSE)
+	if(obscured_flags & HIDEBELT)
+		update_inv_belt(update_obscured = FALSE)
+	if(obscured_flags & HIDEEARS)
+		update_inv_ears(update_obscured = FALSE)
+	if(obscured_flags & HIDEEYES)
+		update_inv_glasses(update_obscured = FALSE)
+	if(obscured_flags & HIDENECK)
+		update_inv_neck(update_obscured = FALSE)
+	if(obscured_flags & HIDEHEADGEAR)
+		update_inv_head(update_obscured = FALSE)
+
 /mob/proc/update_transform()
 	return
 
-/mob/proc/update_inv_handcuffed()
+/mob/proc/update_inv_handcuffed(update_obscured = FALSE)
 	return
 
-/mob/proc/update_inv_legcuffed()
+/mob/proc/update_inv_legcuffed(update_obscured = FALSE)
 	return
 
-/mob/proc/update_inv_back()
+/mob/proc/update_inv_back(update_obscured = FALSE)
 	return
 
 /mob/proc/update_inv_hands()
 	return
 
-/mob/proc/update_inv_wear_mask()
+/mob/proc/update_inv_wear_mask(update_obscured = FALSE)
 	return
 
-/mob/proc/update_inv_neck()
+/mob/proc/update_inv_neck(update_obscured = FALSE)
 	return
 
-/mob/proc/update_inv_wear_suit()
+/mob/proc/update_inv_wear_suit(update_obscured = FALSE)
 	return
 
-/mob/proc/update_inv_w_uniform()
+/mob/proc/update_inv_w_uniform(update_obscured = FALSE)
 	return
 
-/mob/proc/update_inv_belt()
+/mob/proc/update_inv_belt(update_obscured = FALSE)
 	return
 
-/mob/proc/update_inv_head()
+/mob/proc/update_inv_head(update_obscured = FALSE)
 	return
 
 /mob/proc/update_body()
@@ -52,23 +75,23 @@
 /mob/proc/update_fire()
 	return
 
-/mob/proc/update_inv_gloves()
+/mob/proc/update_inv_glasses(update_obscured = FALSE)
 	return
 
-/mob/proc/update_inv_wear_id()
+/mob/proc/update_inv_wear_id(update_obscured = FALSE)
 	return
 
-/mob/proc/update_inv_shoes()
+/mob/proc/update_inv_shoes(update_obscured = FALSE)
 	return
 
-/mob/proc/update_inv_glasses()
+/mob/proc/update_inv_gloves(update_obscured = FALSE)
 	return
 
-/mob/proc/update_inv_s_store()
+/mob/proc/update_inv_s_store(update_obscured = FALSE)
 	return
 
 /mob/proc/update_inv_pockets()
 	return
 
-/mob/proc/update_inv_ears()
+/mob/proc/update_inv_ears(update_obscured = FALSE)
 	return

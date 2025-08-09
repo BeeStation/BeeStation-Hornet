@@ -7,7 +7,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	base_icon_state = "conveyor"
 	name = "conveyor belt"
 	desc = "A conveyor belt."
-	layer = BELOW_OPEN_DOOR_LAYER
+	layer = GAS_PUMP_LAYER
 	processing_flags = NONE
 	var/operating = 0	// 1 if running forward, -1 if backwards, 0 if off
 	var/operable = 1	// true if can operate (no broken segments in this belt run)
@@ -112,9 +112,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/conveyor)
 		neighbors["[direction]"] = TRUE
 		valid.neighbors["[turn(direction, 180)]"] = TRUE
 		RegisterSignal(valid, COMSIG_MOVABLE_MOVED, PROC_REF(nearby_belt_changed), override=TRUE)
-		RegisterSignal(valid, COMSIG_PARENT_QDELETING, PROC_REF(nearby_belt_changed), override=TRUE)
+		RegisterSignal(valid, COMSIG_QDELETING, PROC_REF(nearby_belt_changed), override=TRUE)
 		valid.RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(nearby_belt_changed), override=TRUE)
-		valid.RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(nearby_belt_changed), override=TRUE)
+		valid.RegisterSignal(src, COMSIG_QDELETING, PROC_REF(nearby_belt_changed), override=TRUE)
 
 /obj/machinery/conveyor/proc/nearby_belt_changed(datum/source)
 	SIGNAL_HANDLER

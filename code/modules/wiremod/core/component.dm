@@ -17,6 +17,9 @@
 	/// The name of the component shown on the UI
 	var/display_name = "Generic"
 
+/// The category of the component in the UI
+	var/category = COMPONENT_DEFAULT_CATEGORY
+
 	/// The colour this circuit component appears in the UI
 	var/ui_color = "blue"
 
@@ -177,7 +180,7 @@
 	arguments += args
 	var/datum/port/output/output_port = new(arglist(arguments))
 	output_ports += output_port
-	sortTim(output_ports, /proc/cmp_port_order_asc)
+	sortTim(output_ports, GLOBAL_PROC_REF(cmp_port_order_asc))
 	return output_port
 
 /**
@@ -246,14 +249,20 @@
 	if(!parent?.on)
 		return FALSE
 
-	var/obj/item/stock_parts/cell/cell = parent.get_cell()
-	if(!cell?.use(power_usage_per_input))
-		return FALSE
+	var/flags = SEND_SIGNAL(parent, COMSIG_CIRCUIT_PRE_POWER_USAGE, power_usage_per_input)
+	if(!(flags & COMPONENT_OVERRIDE_POWER_USAGE))
+		var/obj/item/stock_parts/cell/cell = parent.get_cell()
+		if(!cell?.use(power_usage_per_input))
+			return FALSE
 
 	if((circuit_flags & CIRCUIT_FLAG_INPUT_SIGNAL) && !COMPONENT_TRIGGERED_BY(trigger_input, port))
 		return FALSE
 
 	return TRUE
+
+/// Called when trying to get the physical location of this object
+/obj/item/circuit_component/proc/get_location()
+	return get_turf(src) || get_turf(parent?.shell)
 
 /// Called before input_received and should_receive_input. Used to perform behaviour that shouldn't care whether the input should be received or not.
 /obj/item/circuit_component/proc/pre_input_received(datum/port/input/port)

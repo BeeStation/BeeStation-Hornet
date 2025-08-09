@@ -33,8 +33,8 @@
 		if(M.flags_inv & HIDEHAIR)
 			hair_hidden = 1
 	if(!hair_hidden)
-		if(!getorgan(/obj/item/organ/brain)) //Applies the debrained overlay if there is no brain
-			overlays_standing[HAIR_LAYER] = mutable_appearance('icons/mob/human_face.dmi', "debrained", CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER))
+		if(!get_organ_by_type(/obj/item/organ/brain)) //Applies the debrained overlay if there is no brain
+			overlays_standing[HAIR_LAYER] = mutable_appearance('icons/mob/species/human/human_face.dmi', "debrained", CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER))
 			apply_overlay(HAIR_LAYER)
 
 
@@ -77,16 +77,16 @@
 		client.screen += I
 
 //Update uniform in compliance with monkey icons
-/mob/living/carbon/monkey/update_inv_w_uniform()
+/mob/living/carbon/monkey/update_inv_w_uniform(update_obscured)
 	update_clothing_icons(UNIFORM_LAYER)
 
-/mob/living/carbon/monkey/update_inv_head()
+/mob/living/carbon/monkey/update_inv_head(update_obscured)
 	update_clothing_icons(HEAD_LAYER)
 
-/mob/living/carbon/monkey/update_inv_back()
+/mob/living/carbon/monkey/update_inv_back(update_obscured)
 	update_clothing_icons(BACK_LAYER)
 
-/mob/living/carbon/monkey/update_inv_wear_mask()
+/mob/living/carbon/monkey/update_inv_wear_mask(update_obscured)
 	update_clothing_icons(FACEMASK_LAYER)
 
 //used to handle monkey clothing

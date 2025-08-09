@@ -35,6 +35,8 @@ GLOBAL_LIST_INIT(valid_keys, list(
 ))
 
 /proc/input_sanity_check(client/C, key)
+	if(!C?.logged_in || !C.prefs) // no keybinds for you
+		return TRUE
 	if(GLOB.valid_keys[key])
 		return FALSE
 

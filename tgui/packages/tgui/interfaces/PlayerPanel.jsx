@@ -1,11 +1,12 @@
 /* eslint-disable react/prefer-stateless-function */
 import { useBackend, useLocalState } from '../backend';
-import { Box, ColorBox, Input, Section, Table, Tooltip, Button, Flex, ByondUi, Tabs, NumberInput } from '../components';
+import { Box, ColorBox, Input, Section, Table, Tooltip, Button, Flex, ByondUi, Tabs, NumberInput, Icon, Stack } from '../components';
 import { COLORS } from '../constants';
 import { Window } from '../layouts';
 import { sanitizeText } from '../sanitize';
 import { ButtonCheckbox } from '../components/Button';
 import { Component } from 'react';
+import { capitalizeFirst } from 'common/string';
 
 /**
 --------------------
@@ -31,7 +32,8 @@ const TELEMETRY_COLOR_MAP = {
   'DC': '#aaaaaa',
 };
 
-const KEY_REGEX = /^(\[[\d:]+\]) ([\S\s]+?)\/\(([\S\s]+?)\) \(([\s\S]+?) \((\d+, \d+, \d+)\)\) \(Event #(\d+)\)$/;
+const KEY_REGEX =
+  /^(\[[\d:]+\]) ([\S\s]+?)\/\(([^#]+?)?\)(?:#\(([\S\s]+?)?\))? \(([\s\S]+?) \((\d+, \d+, \d+)\)\) \(Event #(\d+)\)$/;
 
 const TIMESTAMP_PARSE_REGEX = /^\[(\d+):(\d+):(\d+)\]/;
 
@@ -183,6 +185,8 @@ export const PlayerPanel = (_) => {
                 <PlayerDetails
                   metacurrency_name={metacurrency_name}
                   ckey={selected_player.ckey}
+                  external_method_name={selected_player.external_method_name}
+                  external_display_name={selected_player.external_display_name}
                   previous_names={selected_player.previous_names}
                   has_mind={selected_player.has_mind}
                   // log_mob and log_client are nested, cannot be pure
@@ -261,6 +265,8 @@ class PlayerDetails extends Component {
       ip = 'N/A',
       related_accounts_ip = 'N/A',
       related_accounts_cid = 'N/A',
+      external_method_name,
+      external_display_name,
     } = this.props;
 
     return (
@@ -268,6 +274,8 @@ class PlayerDetails extends Component {
         <Flex.Item grow={1} minWidth="125px">
           <PlayerDetailsSection
             ckey={ckey}
+            external_method_name={external_method_name}
+            external_display_name={external_display_name}
             mob_type={mob_type}
             species={species}
             byond_version={byond_version}
@@ -312,6 +320,8 @@ class PlayerDetailsSection extends Component {
     const { act } = useBackend();
     const {
       ckey,
+      external_method_name,
+      external_display_name,
       mob_type,
       species,
       byond_version,
@@ -384,6 +394,15 @@ class PlayerDetailsSection extends Component {
             {metacurrency_balance}
           </Box>
           <br />
+          {external_method_name ? (
+            <>
+              <strong>{external_method_name} Name:</strong>{' '}
+              <Box inline color="#d8d8d8">
+                {external_display_name}
+              </Box>
+              <br />
+            </>
+          ) : null}
           <hr style={{ border: '1px solid #ffbf00', height: 0, opacity: 0.8 }} />
           <Box textAlign="center" bold>
             Names
@@ -610,7 +629,7 @@ class LogViewer extends Component {
     const log_entries = [];
     for (let key of sorted) {
       if (!hideLogKey) {
-        log_entries.push(<LogEntryKey key={key} key_data={key} />);
+        log_entries.push(<LogEntryKey key={key} key_data={key} clientMode={clientLog} />);
       }
       log_entries.push(<LogEntryValue key={key + log_data[key]} value_data={log_data[key]} />);
     }
@@ -657,23 +676,31 @@ class LogViewer extends Component {
 class LogEntryKey extends PureComponent {
   render() {
     const { act } = useBackend();
-    const { key_data } = this.props;
+    const { key_data, clientMode } = this.props;
     let results = KEY_REGEX.exec(key_data);
-    if (results && results.length === 7) {
+    if (results && results.length === 8) {
       let key_obj = {
         timestamp: results[1],
         ckey: results[2],
         character_name: results[3],
-        area_name: results[4],
-        coordinates: results[5],
-        event_number: results[6],
+        external_display_name: results[4],
+        area_name: results[5],
+        coordinates: results[6],
+        event_number: results[7],
       };
       return (
         <Table.Row>
           <Table.Cell collapsing>{key_obj.timestamp}</Table.Cell>
           <Table.Cell collapsing>#{key_obj.event_number}</Table.Cell>
           <Table.Cell style={ELLIPSIS_STYLE}>
-            <TooltipWrap text={key_obj.character_name} />
+            <Tooltip
+              content={
+                clientMode
+                  ? key_obj.character_name
+                  : `${key_obj.ckey}${key_obj.external_display_name ? ` (${key_obj.external_display_name})` : ''}`
+              }>
+              <span>{clientMode ? key_obj.character_name : key_obj.external_display_name || key_obj.ckey}</span>
+            </Tooltip>
           </Table.Cell>
           <Table.Cell
             collapsing
@@ -739,6 +766,8 @@ const PlayerTable = (_) => {
           <PlayerTableEntry
             key={player.ckey}
             selected_ckey={selected_ckey}
+            external_method_id={player.external_method_id}
+            formatted_external_display_name={player.formatted_external_display_name}
             name={player.name}
             real_name={player.real_name}
             job={player.job}
@@ -865,6 +894,8 @@ class PlayerTableEntry extends PureComponent {
   render() {
     const {
       selected_ckey,
+      external_method_id,
+      formatted_external_display_name,
       name,
       real_name,
       job,
@@ -893,7 +924,13 @@ class PlayerTableEntry extends PureComponent {
           <PlayerTelemetryButton telemetry={telemetry} ckey={ckey} />
         </Table.Cell>
         <Table.Cell collapsing textAlign="right" style={ELLIPSIS_STYLE}>
-          <PlayerCKEYButton telemetry={telemetry} connected={connected} ckey={ckey} />
+          <PlayerCKEYButton
+            telemetry={telemetry}
+            connected={connected}
+            ckey={ckey}
+            external_method_id={external_method_id}
+            formatted_external_display_name={formatted_external_display_name}
+          />
         </Table.Cell>
         <Table.Cell collapsing textAlign="center">
           <PlayerHoursButton living_playtime={living_playtime} ckey={ckey} />
@@ -975,7 +1012,7 @@ class PlayerTelemetryButton extends PureComponent {
 class PlayerCKEYButton extends PureComponent {
   render() {
     const { act } = useBackend();
-    const { telemetry, connected, ckey } = this.props;
+    const { telemetry, connected, ckey, external_method_id, formatted_external_display_name } = this.props;
     return (
       <Button
         fluid
@@ -986,8 +1023,17 @@ class PlayerCKEYButton extends PureComponent {
           color: color_from_telemetry(telemetry),
           fontStyle: !connected ? 'italic' : null,
         }}
-        content={ckey}
-        tooltip={'Open Player Panel - ' + ckey}
+        content={
+          external_method_id ? (
+            <>
+              <Icon name={`tg-${external_method_id}`} mr={1} style={{ verticalAlign: 'middle' }} />
+              {formatted_external_display_name}
+            </>
+          ) : (
+            ckey
+          )
+        }
+        tooltip={`Open Player Panel - ${ckey}${external_method_id ? ` (${formatted_external_display_name})` : ''}`}
         onClick={() => act('open_player_panel', { who: ckey })}
       />
     );

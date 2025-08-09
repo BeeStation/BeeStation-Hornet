@@ -131,6 +131,16 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 	GLOB.air_alarms += src
 	check_enviroment()
 
+/obj/machinery/airalarm/add_context_self(datum/screentip_context/context, mob/user)
+	if(buildstage == AIR_ALARM_BUILD_NO_WIRES)
+		context.add_left_click_tool_action("Pry out Electronics", TOOL_CROWBAR)
+	if(buildstage == AIR_ALARM_BUILD_COMPLETE)
+		context.add_left_click_tool_action("[panel_open ? "Expose wires" : "Unexpose wires"]", TOOL_SCREWDRIVER)
+	if (panel_open)
+		context.add_left_click_tool_action("Manipulate wires", TOOL_WIRECUTTER)
+	if(buildstage == AIR_ALARM_BUILD_NO_CIRCUIT)
+		context.add_left_click_tool_action("Detatch Alarm", TOOL_WRENCH)
+
 /obj/machinery/airalarm/process()
 	if(!COOLDOWN_FINISHED(src, warning_cooldown) || (machine_stat & (NOPOWER|BROKEN)) || shorted || (buildstage != AIR_ALARM_BUILD_COMPLETE))
 		return
@@ -142,7 +152,7 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 	if(my_area)
 		my_area = null
 	if(connected_sensor)
-		UnregisterSignal(connected_sensor, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(connected_sensor, COMSIG_QDELETING)
 		UnregisterSignal(connected_sensor.loc, COMSIG_TURF_EXPOSE)
 		connected_sensor.connected_airalarm = null
 		connected_sensor = null
@@ -733,7 +743,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airalarm, 27)
 	sensor.connected_airalarm = src
 	connected_sensor = sensor
 
-	RegisterSignal(connected_sensor, COMSIG_PARENT_QDELETING, PROC_REF(disconnect_sensor))
+	RegisterSignal(connected_sensor, COMSIG_QDELETING, PROC_REF(disconnect_sensor))
 
 	// Transfer signal from air alarm to sensor
 	UnregisterSignal(loc, COMSIG_TURF_EXPOSE)
@@ -748,7 +758,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airalarm, 27)
 
 ///Used to reset the air alarm to default configuration after disconnecting from air sensor
 /obj/machinery/airalarm/proc/disconnect_sensor()
-	UnregisterSignal(connected_sensor, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(connected_sensor, COMSIG_QDELETING)
 
 	// Transfer signal from sensor to air alarm
 	UnregisterSignal(connected_sensor.loc, COMSIG_TURF_EXPOSE)

@@ -31,6 +31,7 @@
 		w_class_on = w_class, \
 		clumsy_check = FALSE)
 	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
+	tool_behaviour = tool_act_off
 
 /*
  * Signal proc for [COMSIG_TRANSFORMING_ON_TRANSFORM].

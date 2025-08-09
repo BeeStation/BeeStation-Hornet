@@ -7,7 +7,6 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 	max_occurrences = 1
 	min_players = 20
 	earliest_start = 30 MINUTES //deadchat sink, lets not even consider it early on.
-	gamemode_blacklist = list("nuclear")
 	cannot_spawn_after_shuttlecall = TRUE
 
 /datum/round_event/ghost_role/fugitives
@@ -28,7 +27,12 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 		message_admins("No valid spawn locations found, aborting...")
 		return MAP_ERROR
 	var/turf/landing_turf = pick(possible_spawns)
-	var/list/candidates = get_candidates(ROLE_FUGITIVE, /datum/role_preference/midround_ghost/fugitive)
+	var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates(
+		check_jobban = ROLE_FUGITIVE,
+		poll_time = 30 SECONDS,
+		role_name_text = "fugitive",
+		alert_pic = /obj/item/clothing/mask/gas/tiki_mask,
+	)
 	var/result = spawn_fugitives(landing_turf, candidates, spawned_mobs)
 	if(result != SUCCESSFUL_SPAWN)
 		return result
@@ -97,7 +101,13 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 /proc/spawn_hunters()
 	set waitfor = FALSE
 	var/datum/fugitive_type/hunter/backstory = GLOB.hunter_types[admin_select_backstory(GLOB.hunter_types)]
-	var/list/candidates = poll_ghost_candidates("The Fugitive Hunters are looking for a [backstory.name]. Would you like to be considered for this role?", ROLE_FUGITIVE_HUNTER, /datum/role_preference/midround_ghost/fugitive_hunter, 15 SECONDS)
+	var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates(
+		question = "The Fugitive Hunters are looking for a [backstory.name]. Would you like to be considered for this role?",
+		check_jobban = ROLE_FUGITIVE_HUNTER,
+		poll_time = 15 SECONDS,
+		role_name_text = backstory.name,
+		alert_pic = /obj/item/melee/baton,
+	)
 	var/datum/map_template/shuttle/ship = new backstory.ship_type
 	var/x = rand(TRANSITIONEDGE,world.maxx - TRANSITIONEDGE - ship.width)
 	var/y = rand(TRANSITIONEDGE,world.maxy - TRANSITIONEDGE - ship.height)

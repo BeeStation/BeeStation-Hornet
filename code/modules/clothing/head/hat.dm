@@ -64,7 +64,7 @@
 	desc = "These were once used by plague doctors. They're pretty much useless."
 	item_state = "that"
 	icon_state = "plaguedoctor"
-	clothing_flags = THICKMATERIAL | BLOCK_GAS_SMOKE_EFFECT | SNUG_FIT
+	clothing_flags = BLOCK_GAS_SMOKE_EFFECT | SNUG_FIT
 	armor_type = /datum/armor/costume_plague
 	flags_inv = HIDEHAIR
 
@@ -95,9 +95,12 @@
 /obj/item/clothing/head/flatcap
 	name = "flat cap"
 	desc = "A working man's cap."
+	icon_state = "beret_flat"
 	icon = 'icons/obj/clothing/head/beret.dmi'
-	worn_icon = 'icons/mob/clothing/head/beret.dmi'
-	icon_state = "flat_cap"
+	icon_state_preview = "beret_flat"
+	greyscale_config = /datum/greyscale_config/beret
+	greyscale_config_worn = /datum/greyscale_config/beret/worn
+	greyscale_colors = "#8F7654"
 	item_state = null
 
 /obj/item/clothing/head/costume/santa

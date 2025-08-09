@@ -68,7 +68,7 @@
 	var/list/obj/machinery/door/airlock/close_others = list()
 	var/obj/item/electronics/airlock/electronics
 	COOLDOWN_DECLARE(shockCooldown) //Prevents multiple shocks from happening
-	var/obj/item/doorCharge/charge //If applied, causes an explosion upon opening the door
+	var/obj/item/grenade/charge //If applied, will explode the next time the door opens
 	var/obj/item/note //Any papers pinned to the airlock
 	var/detonated = FALSE
 	var/abandoned = FALSE
@@ -335,7 +335,7 @@
 /obj/machinery/door/airlock/narsie_act()
 	var/turf/T = get_turf(src)
 	var/obj/machinery/door/airlock/cult/A
-	if(GLOB.cult_narsie)
+	if(GLOB.narsie)
 		var/runed = prob(20)
 		if(glass)
 			if(runed)
@@ -706,8 +706,6 @@
 		. += span_warning("This airlock cycles on ID: [sanitize(closeOtherId)].")
 	if(obj_flags & EMAGGED)
 		. += span_warning("Its access panel is smoking slightly.")
-	if(charge && !panel_open && in_range(user, src))
-		. += span_warning("The maintenance panel seems haphazardly fastened.")
 	if(charge && panel_open)
 		. += span_warning("Something is wired up to the airlock's electronics!")
 	if(note)
@@ -1060,7 +1058,7 @@
 		cable.plugin(src, user)
 	else if(istype(C, /obj/item/airlock_painter))
 		change_paintjob(C, user)
-	else if(istype(C, /obj/item/doorCharge))
+	else if(istype(C, /obj/item/grenade))
 		if(!panel_open || security_level)
 			to_chat(user, span_warning("The maintenance panel must be open to apply [C]!"))
 			return
@@ -1075,6 +1073,7 @@
 		update_icon()
 		user.transferItemToLoc(C, src, TRUE)
 		charge = C
+		return
 	else if(istype(C, /obj/item/paper) || istype(C, /obj/item/photo))
 		if(note)
 			to_chat(user, span_warning("There's already something pinned to this airlock! Use wirecutters to remove it."))
@@ -1151,8 +1150,8 @@
 		to_chat(user, span_notice("You carefully start removing [charge] from [src]..."))
 		if(!I.use_tool(src, user, 150, volume=50))
 			to_chat(user, span_warning("You slip and [charge] detonates!"))
-			EX_ACT(charge, EXPLODE_DEVASTATE)
-			user.Paralyze(60)
+			charge.forceMove(user.loc)
+			charge.prime()
 			return
 		user.visible_message(span_notice("[user] removes [charge] from [src]."), \
 							span_notice("You gently pry out [charge] from [src] and unhook its wires."))
@@ -1213,17 +1212,11 @@
 	if(charge && !detonated)
 		panel_open = TRUE
 		update_icon(state=AIRLOCK_OPENING)
-		visible_message(span_warning("[src]'s panel is blown off in a spray of deadly shrapnel!"))
+		visible_message(span_warning("[src]'s panel flies open!"))
 		charge.forceMove(drop_location())
-		EX_ACT(charge, EXPLODE_DEVASTATE)
+		addtimer(CALLBACK(charge, TYPE_PROC_REF(/obj/item/grenade, prime)), 3)
 		detonated = 1
 		charge = null
-		for(var/mob/living/carbon/human/H in orange(2,src))
-			H.Unconscious(160)
-			H.adjust_fire_stacks(20)
-			H.IgniteMob() //Guaranteed knockout and ignition for nearby people
-			H.apply_damage(40, BRUTE, BODY_ZONE_CHEST)
-		return
 	if(forced < 2)
 		if(!protected_door)
 			use_power(50)
@@ -1699,8 +1692,45 @@
 /obj/machinery/door/airlock/proc/set_wires(wire_security_level)
 	return new /datum/wires/airlock(src, wire_security_level)
 
+/obj/machinery/door/airlock/add_context_self(datum/screentip_context/context, mob/user)
+	if (machine_stat & BROKEN)
+		return
+
+	//Silicons
+	if (context.accept_silicons())
+		context.add_left_click_action("Interface with", canAIControl(user))
+		context.add_shift_click_action("Open", (lights && locked) ? "Blocked" : null, (!lights || !locked) && canAIControl(user))
+		context.add_ctrl_click_action("[locked ? "Raise" : "Drop"] Bolts", "Blocked", canAIControl(user))
+		context.add_alt_click_action("[secondsElectrified ? "Un-electrify" : "Electrify"]", "Blocked", canAIControl(user))
+		context.add_ctrl_shift_click_action("[emergency ? "Disable" : "Enable"] Emergency Access", "Blocked", canAIControl(user))
+	else
+		context.add_left_click_action("Open", (lights && locked) ? "Bolted" : null, (!lights || !locked))
+
+	if(!isliving(user))
+		return
+
+	//Tools
+	context.add_left_click_tool_action("[panel_open ? "Close" : "Open"] Maintenance Panel", TOOL_SCREWDRIVER)
+	if (panel_open)
+		switch (security_level)
+			if (AIRLOCK_SECURITY_IRON, AIRLOCK_SECURITY_PLASTEEL_I, AIRLOCK_SECURITY_PLASTEEL_O)
+				context.add_left_click_tool_action("Cut Shielding", TOOL_WELDER)
+		context.add_left_click_tool_action("Hack Wires", TOOL_MULTITOOL)
+		context.add_left_click_tool_action("Cut Wires", TOOL_WIRECUTTER)
+	if (!hasPower())
+		context.add_left_click_tool_action("Pry Open", TOOL_CROWBAR)
+		return
+
+	context.add_left_click_tool_action("Weld Shut", TOOL_WELDER)
+	context.add_left_click_tool_action("Repair", TOOL_WELDER)
+
+
+	// Handle lazy initalisation of access
+	if (length(req_access) || length(req_one_access) || req_access_txt != "0" || req_one_access_txt != "0")
+		context.add_access_context("Access Required", allowed(user))
+
 /obj/machinery/door/airlock/proc/set_cycle_pump(obj/machinery/atmospherics/components/unary/airlock_pump/pump)
-	RegisterSignal(pump, COMSIG_PARENT_QDELETING, PROC_REF(unset_cycle_pump))
+	RegisterSignal(pump, COMSIG_QDELETING, PROC_REF(unset_cycle_pump))
 	cycle_pump = pump
 
 /obj/machinery/door/airlock/proc/unset_cycle_pump()

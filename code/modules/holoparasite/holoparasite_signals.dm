@@ -4,13 +4,16 @@
 /mob/living/simple_animal/hostile/holoparasite/proc/register_body_signals(mob/living/target)
 	RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(on_summoner_moved))
 	RegisterSignal(target, COMSIG_ATOM_DIR_CHANGE, PROC_REF(on_summoner_dir_change))
-	RegisterSignal(target, COMSIG_LIVING_UPDATE_HEALTH, PROC_REF(on_summoner_update_health))
+	RegisterSignal(target, COMSIG_LIVING_HEALTH_UPDATE, PROC_REF(on_summoner_update_health))
+	RegisterSignal(target, COMSIG_LIVING_ON_WABBAJACKED, PROC_REF(on_owner_wabbajacked))
+	RegisterSignal(target, COMSIG_LIVING_SHAPESHIFTED, PROC_REF(on_owner_shapeshifted))
+	RegisterSignal(target, COMSIG_LIVING_UNSHAPESHIFTED, PROC_REF(on_owner_unshapeshifted))
 
 /**
  * Unregisters the relevant signals from a body.
  */
 /mob/living/simple_animal/hostile/holoparasite/proc/unregister_body_signals(mob/living/target)
-	UnregisterSignal(target, list(COMSIG_MOVABLE_MOVED, COMSIG_ATOM_DIR_CHANGE, COMSIG_LIVING_UPDATE_HEALTH))
+	UnregisterSignal(target, list(COMSIG_MOVABLE_MOVED, COMSIG_ATOM_DIR_CHANGE, COMSIG_LIVING_HEALTH_UPDATE, COMSIG_LIVING_ON_WABBAJACKED, COMSIG_LIVING_SHAPESHIFTED, COMSIG_LIVING_UNSHAPESHIFTED))
 
 /**
  * Handle the summoner's movement, snapping the holoparasite back to their them if they move too far away,

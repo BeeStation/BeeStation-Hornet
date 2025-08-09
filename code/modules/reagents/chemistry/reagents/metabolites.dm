@@ -63,5 +63,5 @@
 	if(L.mind)
 		var/datum/antagonist/changeling/changeling = L.mind.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling)
-			changeling.chem_charges = max(changeling.chem_charges-2, 0)
+			changeling.adjust_chemicals(-2)
 	return ..()

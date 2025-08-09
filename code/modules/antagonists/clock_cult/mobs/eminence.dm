@@ -224,7 +224,7 @@
 	if(!isliving(M))
 		to_chat(user, span_warning("You cannot jump to them!"))
 		return
-	if(!is_servant_of_ratvar(M))
+	if(!IS_SERVANT_OF_RATVAR(M))
 		to_chat(user, span_warning("They are no longer a servant of Rat'var!"))
 		return
 	var/turf/T = get_turf(M)
@@ -264,7 +264,7 @@
 	var/mob/living/simple_animal/eminence/E = owner
 	if(!istype(E))
 		return FALSE
-	if(E.selected_mob && is_servant_of_ratvar(E.selected_mob))
+	if(E.selected_mob && IS_SERVANT_OF_RATVAR(E.selected_mob))
 		return TRUE
 	return FALSE
 
@@ -275,7 +275,7 @@
 		to_chat(E, span_brass("You are not the Eminence! (This is a bug)"))
 		reset_spell_cooldown()
 		return FALSE
-	if(!E.selected_mob || !is_servant_of_ratvar(E.selected_mob))
+	if(!E.selected_mob || !IS_SERVANT_OF_RATVAR(E.selected_mob))
 		E.selected_mob = null
 		to_chat(user, span_neovgre("You need to select a valid target by clicking on them."))
 		reset_spell_cooldown()

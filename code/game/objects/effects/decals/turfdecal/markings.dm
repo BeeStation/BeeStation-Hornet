@@ -464,6 +464,23 @@
 /obj/effect/turf_decal/numbers/two_nine
 	icon_state = "number_2-9"
 
+/obj/effect/turf_decal/siding/asteroid
+	icon_state = "siding_asteroid_line"
+
+/obj/effect/turf_decal/siding/asteroid/corner
+	icon_state = "siding_asteroid_corner"
+
+/obj/effect/turf_decal/siding/asteroid/end
+	icon_state = "siding_asteroid_end"
+
+/obj/effect/turf_decal/siding/dirt
+	icon_state = "siding_dirt_line"
+
+/obj/effect/turf_decal/siding/dirt/corner
+	icon_state = "siding_dirt_corner"
+
+/obj/effect/turf_decal/siding/dirt/end
+	icon_state = "siding_dirt_end"
 ///Borderfloors
 
 //Plain
@@ -545,3 +562,53 @@
 
 /obj/effect/turf_decal/evac/evac_massive_right
 	icon_state = "evac_massive_right"
+
+/// ALPHANUMERIC DECALS (SO FAR ONLY FOR CHESS ALGEBRAIC NOTATION) ///
+
+/obj/effect/turf_decal/board_number/one
+	icon_state = "board_1"
+
+/obj/effect/turf_decal/board_number/two
+	icon_state = "board_2"
+
+/obj/effect/turf_decal/board_number/three
+	icon_state = "board_3"
+
+/obj/effect/turf_decal/board_number/four
+	icon_state = "board_4"
+
+/obj/effect/turf_decal/board_number/five
+	icon_state = "board_5"
+
+/obj/effect/turf_decal/board_number/six
+	icon_state = "board_6"
+
+/obj/effect/turf_decal/board_number/seven
+	icon_state = "board_7"
+
+/obj/effect/turf_decal/board_number/eight
+	icon_state = "board_8"
+
+/obj/effect/turf_decal/board_letter/a
+	icon_state = "board_a"
+
+/obj/effect/turf_decal/board_letter/b
+	icon_state = "board_b"
+
+/obj/effect/turf_decal/board_letter/c
+	icon_state = "board_c"
+
+/obj/effect/turf_decal/board_letter/d
+	icon_state = "board_d"
+
+/obj/effect/turf_decal/board_letter/e
+	icon_state = "board_e"
+
+/obj/effect/turf_decal/board_letter/f
+	icon_state = "board_f"
+
+/obj/effect/turf_decal/board_letter/g
+	icon_state = "board_g"
+
+/obj/effect/turf_decal/board_letter/h
+	icon_state = "board_h"

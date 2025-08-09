@@ -7,6 +7,7 @@
   border: thin solid;
   border-radius: 3px;
   color: colors.$background;
+  user-select: none;
   font-family: 'Consolas', monospace;
   font-weight: bolder;
   font-size: 1rem;

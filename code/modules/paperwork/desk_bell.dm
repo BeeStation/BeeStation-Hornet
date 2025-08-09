@@ -89,3 +89,68 @@
 	desc = "The cornerstone of any customer service job. This one's been modified for hyper-performance."
 	icon_state = "desk_bell_fancy"
 	ring_cooldown_length = 0
+
+/obj/structure/desk_bell/wired
+	name = "wired desk bell"
+	desc = "The cornerstone of any customer service job. This one has some wires coming out of it."
+	var/obj/item/radio/internal_radio
+	var/radio_key = /obj/item/encryptionkey
+	var/radio_channel = null
+	var/msg = null
+	var/location = null
+	var/job_title = "Staff"
+	COOLDOWN_DECLARE(radio_cooldown)
+
+/obj/structure/desk_bell/wired/Initialize(mapload)
+	. = ..()
+	if(!location)	//so you can set custom location names in a mapping editor
+		var/area = get_area(loc)
+		location = "[get_area_name(area, TRUE)]"
+	internal_radio = new(src)
+	internal_radio.keyslot = new radio_key
+	internal_radio.canhear_range = 0
+	internal_radio.recalculateChannels()
+
+/obj/structure/desk_bell/wired/ring_bell(mob/living/user)
+	. = ..()
+	if(COOLDOWN_FINISHED(src, radio_cooldown))
+		COOLDOWN_START(src, radio_cooldown, 3 MINUTES)
+		msg = "[station_time_timestamp(format = "hh:mm")] - [job_title] requested to \"[location]\"."
+		internal_radio.talk_into(src, msg, radio_channel)
+	return
+
+/obj/structure/desk_bell/wired/Destroy()
+	QDEL_NULL(internal_radio)
+	return ..()
+
+/obj/structure/desk_bell/wired/medical
+	radio_key = /obj/item/encryptionkey/headset_med
+	radio_channel = RADIO_CHANNEL_MEDICAL
+
+/obj/structure/desk_bell/wired/command
+	radio_key = /obj/item/encryptionkey/headset_com
+	radio_channel = RADIO_CHANNEL_COMMAND
+
+/obj/structure/desk_bell/wired/security
+	radio_key = /obj/item/encryptionkey/headset_sec
+	radio_channel = RADIO_CHANNEL_SECURITY
+
+/obj/structure/desk_bell/wired/science
+	radio_key = /obj/item/encryptionkey/headset_sci
+	radio_channel = RADIO_CHANNEL_SCIENCE
+
+/obj/structure/desk_bell/wired/service
+	radio_key = /obj/item/encryptionkey/headset_service
+	radio_channel = RADIO_CHANNEL_SERVICE
+
+/obj/structure/desk_bell/wired/cargo
+	radio_key = /obj/item/encryptionkey/headset_cargo
+	radio_channel = RADIO_CHANNEL_SUPPLY
+
+/obj/structure/desk_bell/wired/engineering
+	radio_key = /obj/item/encryptionkey/headset_eng
+	radio_channel = RADIO_CHANNEL_ENGINEERING
+
+/obj/structure/desk_bell/wired/syndicate //funny
+	radio_key = /obj/item/encryptionkey/syndicate
+	radio_channel = RADIO_CHANNEL_SYNDICATE

@@ -17,6 +17,7 @@
 	return ..()
 
 /turf/open/floor/circuit/update_icon()
+	. = ..()
 	if(on)
 		if(LAZYLEN(SSmapping.nuke_threats))
 			icon_state = "rcircuitanim"
@@ -208,6 +209,14 @@
 /turf/open/floor/monotile/light
 	icon_state = "white_full"
 	floor_tile = /obj/item/stack/tile/mono/light
+
+/turf/open/floor/monotile/chess_white
+	icon_state = "white_full"
+	color = "#eeeed2"
+
+/turf/open/floor/monotile/chess_black
+	icon_state = "white_full"
+	color = "#93b570"
 
 /turf/open/floor/monofloor
 	icon_state = "steel_monofloor"

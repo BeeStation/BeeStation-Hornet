@@ -65,15 +65,15 @@
 
 /obj/machinery/light/proc/store_cell(new_cell)
 	if(cell)
-		UnregisterSignal(cell, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(cell, COMSIG_QDELETING)
 	cell = new_cell
 	if(cell)
-		RegisterSignal(cell, COMSIG_PARENT_QDELETING, PROC_REF(remove_cell))
+		RegisterSignal(cell, COMSIG_QDELETING, PROC_REF(remove_cell))
 
 /obj/machinery/light/proc/remove_cell()
 	SIGNAL_HANDLER
 	if(cell)
-		UnregisterSignal(cell, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(cell, COMSIG_QDELETING)
 		cell = null
 
 // create a new lighting fixture
@@ -539,7 +539,7 @@
 				var/datum/species/ethereal/E = user.dna.species
 				if(E.drain_time > world.time)
 					return
-				var/obj/item/organ/stomach/battery/stomach = user.getorganslot(ORGAN_SLOT_STOMACH)
+				var/obj/item/organ/stomach/battery/stomach = user.get_organ_slot(ORGAN_SLOT_STOMACH)
 				if(!istype(stomach))
 					to_chat(user, span_warning("You can't receive charge!"))
 					return

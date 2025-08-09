@@ -42,6 +42,20 @@
 	speech_chance = 2
 	emote_hear = list("flutters.", "flaps its wings.", "flaps its wings aggressively!")
 
+/datum/ai_planning_subtree/random_speech/cow
+	speech_chance = 1
+	speak = list("moo?","moo","MOOOOOO")
+	emote_hear = list("brays.")
+	emote_see = list("shakes her head.")
+
+///unlike normal cows, wisdom cows speak of wisdom and won't shut the fuck up
+/datum/ai_planning_subtree/random_speech/cow/wisdom
+	speech_chance = 15
+
+/datum/ai_planning_subtree/random_speech/cow/wisdom/New()
+	. = ..()
+	speak = GLOB.wisdoms //Done here so it's setup properly
+
 /datum/ai_planning_subtree/random_speech/dog
 	speech_chance = 1
 

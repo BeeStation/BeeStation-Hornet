@@ -103,7 +103,7 @@
 	. = ..()
 	statuscode = 200
 	response = "Pong!"
-	data = length(GLOB.clients)
+	data = length(GLOB.clients_unsafe)
 
 /datum/world_topic/playing
 	key = "playing"
@@ -209,7 +209,7 @@
 /datum/world_topic/playerlist/Run(list/input)
 	. = ..()
 	data = list()
-	for(var/client/C as() in GLOB.clients)
+	for(var/client/C as() in GLOB.clients_unsafe)
 		data += C.ckey
 	statuscode = 200
 	response = "Player list fetched"
@@ -222,14 +222,12 @@
 	. = ..()
 	data = list()
 	data["version"] = GLOB.game_version
-	data["mode"] = GLOB.master_mode
 	data["respawn"] = config ? !CONFIG_GET(flag/norespawn) : FALSE
 	data["enter"] = GLOB.enter_allowed
-	data["vote"] = CONFIG_GET(flag/allow_vote_mode)
 	data["ai"] = CONFIG_GET(flag/allow_ai)
 	data["host"] = world.host ? world.host : null
 	data["round_id"] = text2num(GLOB.round_id) // I don't know who's fault it is that round id is loaded as a string but screw you
-	data["players"] = GLOB.clients.len
+	data["players"] = GLOB.clients_unsafe.len
 	data["revision"] = GLOB.revdata.commit
 	data["revision_date"] = GLOB.revdata.date
 	data["hub"] = GLOB.hub_visibility
@@ -276,8 +274,6 @@
 	. = ..()
 	// Add on a little extra data for our "special" patrons
 	data["active_players"] = get_active_player_count()
-	if(SSticker.HasRoundStarted())
-		data["real_mode"] = SSticker.mode.name
 
 /datum/world_topic/identify_uuid
 	key = "identify_uuid"
@@ -285,6 +281,7 @@
 
 /datum/world_topic/identify_uuid/Run(list/input)
 	var/uuid = input["uuid"]
+	var/discord_uid = input["discord_uid"]
 	data = list()
 
 	if(!SSdbcore.Connect())
@@ -294,7 +291,7 @@
 		return
 
 	var/datum/db_query/query_ckey_lookup = SSdbcore.NewQuery(
-		"SELECT ckey FROM [format_table_name("player")] WHERE uuid = :uuid",
+		"SELECT ckey,discord_uid FROM [format_table_name("player")] WHERE uuid = :uuid",
 		list("uuid" = uuid)
 	)
 	if(!query_ckey_lookup.Execute())
@@ -307,8 +304,48 @@
 	response = "UUID Checked against database"
 	data["identified_ckey"] = null
 	if(query_ckey_lookup.NextRow())
-		data["identified_ckey"] = query_ckey_lookup.item[1]
+		var/identified_discord_uid = query_ckey_lookup.item[2]
+		var/identified_ckey = query_ckey_lookup.item[1]
+		if(!istext(identified_ckey))
+			qdel(query_ckey_lookup)
+			return
+		// No associated UID (unlinked account), a UID was not sent (outdated cog), or the UIDs match
+		// If the UIDs do not match, we error
+		if(!isnull(identified_discord_uid) && !isnull(discord_uid) && identified_discord_uid != discord_uid)
+			qdel(query_ckey_lookup)
+			statuscode = 401
+			response = "Discord ID mismatch"
+			return
+		// Update the UID in the database if it's blank.
+		if(!isnull(discord_uid) && isnull(identified_discord_uid))
+			var/datum/db_query/query_select_discord_uid = SSdbcore.NewQuery(
+				"SELECT ckey FROM [format_table_name("player")] WHERE discord_uid = :discord_uid",
+				list("discord_uid" = discord_uid)
+			)
+			if(!query_select_discord_uid.Execute())
+				qdel(query_ckey_lookup)
+				qdel(query_select_discord_uid)
+				statuscode = 500
+				response = "Database query failed"
+				return
+			// Only set it if no one else already has this Discord UID.
+			if(!query_select_discord_uid.NextRow())
+				var/datum/db_query/query_update_discord_uid = SSdbcore.NewQuery(
+					"UPDATE [format_table_name("player")] SET discord_uid = :discord_uid WHERE uuid = :uuid",
+					list("uuid" = uuid, "discord_uid" = discord_uid)
+				)
+				if(!query_update_discord_uid.Execute())
+					qdel(query_ckey_lookup)
+					qdel(query_select_discord_uid)
+					qdel(query_update_discord_uid)
+					statuscode = 500
+					response = "Database query failed"
+					return
+				qdel(query_update_discord_uid)
+			qdel(query_select_discord_uid)
+		data["identified_ckey"] = identified_ckey
 	qdel(query_ckey_lookup)
+
 
 /datum/world_topic/d_ooc_send
 	key = "discord_send"
@@ -322,7 +359,7 @@
 	unm = copytext(sanitize(unm), 1, MAX_MESSAGE_LEN)
 	msg = emoji_parse(msg)
 	log_ooc("DISCORD: [unm]: [msg]")
-	for(var/client/C in GLOB.clients)
+	for(var/client/C in GLOB.clients_unsafe)
 		if(C.prefs.read_player_preference(/datum/preference/toggle/chat_ooc))
 			if(!("discord-[unm]" in C.prefs.ignoring))
 				to_chat(C, span_dooc("<b>[span_prefix("OOC: ")] <EM>[unm]:</EM> [span_messagelinkify("[msg]")]</b>"))

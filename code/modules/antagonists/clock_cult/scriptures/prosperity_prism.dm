@@ -66,7 +66,7 @@
 		powered = TRUE
 		update_icon_state()
 	for(var/mob/living/L in range(4, src))
-		if(!is_servant_of_ratvar(L))
+		if(!IS_SERVANT_OF_RATVAR(L))
 			continue
 		if(!L.toxloss && !L.staminaloss && !L.bruteloss && !L.fireloss)
 			continue
@@ -82,7 +82,7 @@
 					holder.add_reagent(R.type, 50*delta_time)
 
 /obj/structure/destructible/clockwork/gear_base/prosperityprism/attack_hand(mob/user, list/modifiers)
-	if(is_servant_of_ratvar(user))
+	if(IS_SERVANT_OF_RATVAR(user))
 		if(!anchored)
 			to_chat(user, span_warning("[src] needs to be fastened to the floor!"))
 			return

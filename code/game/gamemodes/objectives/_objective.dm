@@ -77,7 +77,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		return FALSE
 	if(M.force_escaped)
 		return TRUE
-	if(SSticker.force_ending || SSticker.mode.station_was_nuked) // Just let them win.
+	if(SSticker.force_ending || GLOB.station_was_nuked) // Just let them win.
 		return TRUE
 	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)
 		return FALSE
@@ -199,26 +199,6 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	if(!HAS_TRAIT(SSstation, STATION_TRAIT_LATE_ARRIVALS) && istype(target_area, /area/shuttle/arrival))
 		return FALSE
 	return TRUE
-
-/datum/objective/proc/find_target_by_role(role, role_type=FALSE,invert=FALSE)//Option sets either to check assigned role or special role. Default to assigned., invert inverts the check, eg: "Don't choose a Ling"
-	var/list/possible_targets = list()
-	for(var/datum/mind/possible_target as() in get_crewmember_minds())
-		if(is_valid_target(possible_target))
-			var/is_role = FALSE
-			if(role_type)
-				if(possible_target.special_role == role)
-					is_role = TRUE
-			else
-				if(possible_target.assigned_role == role)
-					is_role = TRUE
-			if(is_role && !invert || !is_role && invert)
-				possible_targets += possible_target
-	if(length(possible_targets))
-		set_target(pick(possible_targets))
-	else
-		set_target(null)
-	update_explanation_text()
-	return target
 
 /datum/objective/proc/update_explanation_text()
 	if(team_explanation_text && LAZYLEN(get_owners()) > 1)

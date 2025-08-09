@@ -153,27 +153,30 @@ Arguments:
 * -user: the player doing the action
 */
 
-/obj/machinery/atmospherics/components/unary/rbmk/core/proc/activate(mob/living/user)
+/obj/machinery/atmospherics/components/unary/rbmk/core/proc/user_activate(mob/living/user)
 	if(active)
 		to_chat(user, span_notice("You already activated the machine."))
 		return
 	to_chat(user, span_notice("You activate the machine."))
+	activate()
+
+/obj/machinery/atmospherics/components/unary/rbmk/core/proc/activate()
 	active = TRUE
 	start_power = TRUE
 	update_appearance()
 	if (linked_interface)
 		linked_interface.active = TRUE
 		linked_interface.update_appearance()
-		RegisterSignal(linked_interface, COMSIG_PARENT_QDELETING, PROC_REF(unregister_signals))
+		RegisterSignal(linked_interface, COMSIG_QDELETING, PROC_REF(unregister_signals))
 	linked_input.active = TRUE
 	linked_input.update_appearance()
-	RegisterSignal(linked_input, COMSIG_PARENT_QDELETING, PROC_REF(unregister_signals))
+	RegisterSignal(linked_input, COMSIG_QDELETING, PROC_REF(unregister_signals))
 	linked_output.active = TRUE
 	linked_output.update_appearance()
-	RegisterSignal(linked_output, COMSIG_PARENT_QDELETING, PROC_REF(unregister_signals))
+	RegisterSignal(linked_output, COMSIG_QDELETING, PROC_REF(unregister_signals))
 	linked_moderator.active = TRUE
 	linked_moderator.update_appearance()
-	RegisterSignal(linked_moderator, COMSIG_PARENT_QDELETING, PROC_REF(unregister_signals))
+	RegisterSignal(linked_moderator, COMSIG_QDELETING, PROC_REF(unregister_signals))
 	START_PROCESSING(SSmachines, src)
 	desired_reate_of_reaction = 1
 	var/startup_sound = pick('sound/effects/rbmk/startup.ogg', 'sound/effects/rbmk/startup2.ogg')
@@ -202,13 +205,13 @@ Arguments:
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/unregister_signals(only_signals = FALSE)
 	SIGNAL_HANDLER
 	if(linked_interface)
-		UnregisterSignal(linked_interface, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(linked_interface, COMSIG_QDELETING)
 	if(linked_input)
-		UnregisterSignal(linked_input, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(linked_input, COMSIG_QDELETING)
 	if(linked_output)
-		UnregisterSignal(linked_output, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(linked_output, COMSIG_QDELETING)
 	if(linked_moderator)
-		UnregisterSignal(linked_moderator, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(linked_moderator, COMSIG_QDELETING)
 	if(!only_signals)
 		deactivate()
 

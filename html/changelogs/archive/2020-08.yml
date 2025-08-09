@@ -1,0 +1,158 @@
+2020-08-01:
+  '- Ohagi-Chan':
+  - tweak: Adds a few Atmos components to Inhabited lavaland ruins
+  Sarchutar:
+  - bugfix: lizardpeople can speak draconic again
+2020-08-02:
+  Atlas48:
+  - bugfix: Mulebots will no longer get stuck when trying to move through the access
+      port near cargo.
+  BettonnCZ:
+  - bugfix: Non-premium contraband correctly charges the listed price
+  Crossedfall:
+  - bugfix: The female executive suit uses the correct object now
+  - rscdel: Removed the unused "really black" female skirt suit.
+  PowerfulBacon:
+  - tweak: Blocks command from incursion
+2020-08-04:
+  super12pl:
+  - config: Removes devils from rotation on MRP
+  zeskorion:
+  - config: extended is a lot more common on sage. if you really want to roll that
+      antag, golden is your best bet
+2020-08-05:
+  PowerfulBacon:
+  - bugfix: some runtimes
+  Victor239:
+  - bugfix: Pressure tanks are not empty anymore.
+  ike709:
+  - tweak: Optimized slime processing code.
+2020-08-07:
+  totallynotkatfood:
+  - rscadd: Added tiny fans to arrival shuttles
+2020-08-10:
+  Crossedfall:
+  - bugfix: Ahelps will show up correctly in discord again
+2020-08-11:
+  Crossedfall:
+  - bugfix: Radio uplinks will no longer use registered frequencies
+2020-08-12:
+  Crossedfall:
+  - bugfix: Liver failure is actually deadly again
+  Kerbin-Fiber:
+  - bugfix: Delta Station's Virology has been fixed by a competent Atmospheric Technician.
+  Zeskorion, LilithRofocale:
+  - rscadd: pituitary disruption is now more fun
+  - rscadd: fast zombies
+  - imageadd: fast zombie sprites from LilithRofocale
+  - tweak: autophageocytosis no longer kills its own zombies or undead mobs
+  - tweak: shit-tier disease cure changed from sugar to water, so beesease wont cure
+      speed specced diseases
+  - balance: spiked skin armor cap lowered by 25
+  - balance: nanite symptoms now screw with nanites.
+  - balance: necroseed made less annoying and memeable
+  - balance: stat changes to disease symptoms across the board
+  - bugfix: you can no longer die of acute respiratory distress if you don't need
+      to breath
+  - bugfix: should fix a few issues with onadd() and refresh() not being called when
+      they should
+  - bugfix: pituitary disruption size fuckery should now work properly. Instead of
+      using a calculation, it makes you do a single waddle, preventing the symptom
+      from being gamed using clown shoes to become a midget
+  - bugfix: dna saboteur severity should now work properly
+  - bugfix: changing species now cures viruses you cannot have as the new species
+  - bugfix: fixes necrotizing fasciitis and autophageocytosis having switched severity
+      values
+  - bugfix: Blob spores no longer deletes the disease it comes in when it procs (it
+      called qdel(), for god's sakes, not even using cure())
+  - bugfix: fixes diseases runtiming when they are cured and activate in the same
+      tick
+2020-08-13:
+  PowerfulBacon:
+  - config: Head roles on MRP are protected from antagonist roles
+2020-08-17:
+  Crossedfall:
+  - bugfix: Skull Echo now correctly encodes its speech.
+  MCterra10:
+  - bugfix: syringes no longer instantly transfer diseases
+  super12pl:
+  - config: Switches probabilities of extended and secret extended on MRP
+2020-08-18:
+  zeskorion:
+  - tweak: aheal no longer replaces all organs
+  - bugfix: fixed apid wing sprites
+  - bugfix: fixed flight potion
+2020-08-20:
+  St0rmC4st3r:
+  - admin: Cyborg renaming is now logged
+  super12pl:
+  - rscadd: Added science sunglasses
+2020-08-22:
+  Crossedfall:
+  - code_imp: Git will automatically try to normalize line endings. LF is now the
+      default line ending for dm, sh, and dme files.
+  ike709:
+  - bugfix: Atmos should lag even less.
+2020-08-23:
+  PowerfulBacon:
+  - rscadd: A sound and animation is played when you press an action button.
+  Sarchutar:
+  - bugfix: fixes normal wingpack not showing up in the techweb/techfab
+  - bugfix: fixes jellypeople not getting the slime language
+  St0rmC4st3r:
+  - bugfix: Patch and bottle dispensers no longer spew out products despite the maximum
+      being dispensed.
+  aguyiguess:
+  - rscadd: Added the Syndicate Beer to the uplink under "Pointless Badassery" for
+      4 TC.
+2020-08-24:
+  thelaughingbomb:
+  - tweak: Wall slamming now checks if you are standing
+2020-08-25:
+  PowerfulBacon:
+  - tweak: Wizards and nukeops are no longer pacafists
+2020-08-26:
+  Isy232:
+  - rscadd: Abductor ship now has a recharger.
+  - rscadd: Abductor gun can now fire ion shots and freeze shots.
+  totallynotkatfood:
+  - bugfix: Zombie claw infections now check for blocks
+2020-08-31:
+  That0nePerson:
+  - rscadd: Added chugging! Target mouth with a drinking glass to down 50u of a drink.
+  - rscadd: 'Added Fourth Wall: A drink that gives temporary brain traumas over time
+      that are cured when the drink is out of your system.'
+  - rscadd: 'Added Rat''vander Cocktail: A drink that makes you slur like the Nar''sour,
+      but clock-cult styled. Explodes if mixed with Nar''sour.'
+  - rscadd: 'Added Icewing: A drink that cools you down if hot, and heals some burn
+      damage if too cold. Perfect for watcher hunting!'
+  - rscadd: 'Added Sarsaparillian Sunset: a drink that slowly heals burn damage, but
+      if overdosed over 50u, deals rapid burn damage and grants fire breath.'
+  - rscadd: 'Added Bee''s Knees: A drink that tastes bad to everyone except apids,
+      but tastes fantastic to apids and heals them.'
+  - tweak: Gave Plasmaflood (drink) a clear message of its effects.
+  - bugfix: Fixed a Nar'sour typo.
+  - imageadd: Added sprites for all drinks.
+  Zeskorion, thatguythere03:
+  - rscadd: Biometallic Replication, level nine symptom that does robot stuff. See
+      the wiki.
+  - rscadd: Exolocomotive Xenomitosis, the tubby custard virus. See the wiki.
+  - rscadd: antivirus, cures IPCS and other robots of diseases. printable in med or
+      sci
+  - tweak: vitiligo and revitiligo work on mutcolors, are now curable
+  - tweak: bee infestation resistance threshold lowered, demoted to level 0
+  - tweak: nano symbiosis and silicolysis now heal and damage robot bits, respectively
+  - tweak: made sure most healsymptoms wont work on robotic limbs
+  - balance: pituitary disruption healing and cell damage have both been boosted a
+      bit
+  - tweak: ipcs are no longer completely virus immune
+  - imageadd: new sprites by thatguythere03, as well as some shitty codersprites by
+      myself
+  yorii:
+  - imageadd: Added missing hud icons for the gimmick jobs.
+  - imageadd: Service job icons are now green.
+  - imageadd: Slight tweaking of a few pixels to make mime icon look more like a mime.
+  zeskorion:
+  - bugfix: organic flux induction stealth threshold works proper now
+  - bugfix: pituitary disruption wont rip you out of your new body if your old body
+      regrows a head

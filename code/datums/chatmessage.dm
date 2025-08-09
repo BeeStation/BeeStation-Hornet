@@ -47,6 +47,7 @@
 
 #define COLOR_PERSON_UNKNOWN "#999999"
 #define COLOR_CHAT_EMOTE "#727272"
+#define COLOR_CHAT_LOOC "#ffde5c"
 
 /datum/chatmessage_group
 	/// List of clients in this group
@@ -129,7 +130,7 @@
 				continue
 			var/datum/chatmessage_group/group_heard = hearers_to_groups[C]
 			C.images.Remove(group_heard.message)
-			UnregisterSignal(C, COMSIG_PARENT_QDELETING)
+			UnregisterSignal(C, COMSIG_QDELETING)
 	if(!QDELETED(message_loc))
 		LAZYREMOVE(message_loc.chat_messages, src)
 	message_loc = null
@@ -157,7 +158,7 @@
 
 	for(var/client/C as() in hearers)
 		if(C)
-			RegisterSignal(C, COMSIG_PARENT_QDELETING, PROC_REF(client_deleted))
+			RegisterSignal(C, COMSIG_QDELETING, PROC_REF(client_deleted))
 
 	// Remove spans in the message from things like the recorder
 	var/static/regex/span_check = new(@"<\/?span[^>]*>", "gi")
@@ -212,6 +213,10 @@
 		var/image/r_icon = image('icons/ui_icons/chat/chat_icons.dmi', icon_state = "emote")
 		LAZYADD(prefixes, "\icon[r_icon]")
 		tgt_color = COLOR_CHAT_EMOTE
+	else if (extra_classes.Find("looc"))
+		var/image/r_icon = image('icons/ui_icons/chat/chat_icons.dmi', icon_state = "looc")
+		LAZYADD(prefixes, "\icon[r_icon]")
+		tgt_color = COLOR_CHAT_LOOC
 
 	// Append language icon if the language uses one
 	var/datum/language/language_instance = GLOB.language_datum_instances[language]
@@ -417,6 +422,9 @@
 		return CHATMESSAGE_CANNOT_HEAR
 	return ..()
 
+/mob/dead/new_player/should_show_chat_message(atom/movable/speaker, datum/language/message_language, is_emote, is_heard)
+	return CHATMESSAGE_CANNOT_HEAR
+
 /proc/create_chat_message(atom/movable/speaker, datum/language/message_language, list/hearers, raw_message, list/spans, list/message_mods)
 	if(!length(hearers))
 		return
@@ -561,14 +569,17 @@
 		if(5)
 			return "#[num2hex(c, 2)][num2hex(m, 2)][num2hex(x, 2)]"
 
-/atom/proc/balloon_alert(mob/viewer, text, color = null, show_in_chat = TRUE)
-	if(!viewer?.client)
+/atom/proc/balloon_alert(mob/viewer, text, color = null, show_in_chat = TRUE, offset_x, offset_y)
+	if(!ismob(viewer))
+		return
+	var/mob/M = viewer
+	if(!M.client)
 		return
 	switch(viewer.client.prefs.read_player_preference(/datum/preference/choiced/show_balloon_alerts))
 		if(BALLOON_ALERT_ALWAYS)
-			new /datum/chatmessage/balloon_alert(text, src, viewer, color)
+			new /datum/chatmessage/balloon_alert(text, src, viewer, color, offset_x, offset_y)
 		if(BALLOON_ALERT_WITH_CHAT)
-			new /datum/chatmessage/balloon_alert(text, src, viewer, color)
+			new /datum/chatmessage/balloon_alert(text, src, viewer, color, offset_x, offset_y)
 			if(show_in_chat)
 				to_chat(viewer, span_notice("[text]."))
 		if(BALLOON_ALERT_NEVER)
@@ -588,7 +599,7 @@
 /datum/chatmessage/balloon_alert
 	tgt_color = "#ffffff" //default color
 
-/datum/chatmessage/balloon_alert/New(text, atom/target, mob/owner, color)
+/datum/chatmessage/balloon_alert/New(text, atom/target, mob/owner, color, offset_x, offset_y)
 	if (!istype(target))
 		CRASH("Invalid target given for chatmessage")
 	if(QDELETED(owner) || !istype(owner) || !owner.client)
@@ -600,7 +611,7 @@
 	//handle colort
 	if(color)
 		tgt_color = color
-	INVOKE_ASYNC(src, PROC_REF(generate_image), text, target, owner)
+	INVOKE_ASYNC(src, PROC_REF(generate_image), text, target, owner, offset_x, offset_y)
 
 /datum/chatmessage/balloon_alert/Destroy()
 	if(!QDELETED(message_loc))
@@ -613,7 +624,7 @@
 		animate(group.message, alpha = 0, pixel_y = group.message.pixel_y + MESSAGE_FADE_PIXEL_Y, time = fadetime, flags = ANIMATION_PARALLEL)
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src), fadetime, TIMER_DELETE_ME, SSrunechat)
 
-/datum/chatmessage/balloon_alert/generate_image(text, atom/target, mob/owner)
+/datum/chatmessage/balloon_alert/generate_image(text, atom/target, mob/owner, offset_x, offset_y)
 	// Register client who owns this message
 	var/client/owned_by = owner.client
 
@@ -645,6 +656,8 @@
 	group.message.maptext_height = CHAT_MESSAGE_HEIGHT
 	group.message.maptext_x = (BALLOON_TEXT_WIDTH - bound_width) * -0.5
 	group.message.maptext = MAPTEXT("<span style='text-align: center; -dm-text-outline: 1px #0005; color: [tgt_color]'>[text]</span>")
+	group.message.pixel_x = offset_x
+	group.message.pixel_y = offset_y
 
 	// View the message
 	owned_by.images += group.message
@@ -652,7 +665,7 @@
 	hearers_to_groups[owned_by] = group
 	group.clients += owned_by
 	groups += group
-	RegisterSignal(owned_by, COMSIG_PARENT_QDELETING, PROC_REF(client_deleted))
+	RegisterSignal(owned_by, COMSIG_QDELETING, PROC_REF(client_deleted))
 
 	var/duration_mult = 1
 	var/duration_length = length(text) - BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MIN
@@ -661,7 +674,7 @@
 		duration_mult += duration_length * BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MULT
 
 	// Animate the message
-	animate(group.message, alpha = 255, pixel_y = world.icon_size * 1.1, time = BALLOON_TEXT_SPAWN_TIME)
+	animate(group.message, alpha = 255, pixel_y = (group.message.pixel_y + world.icon_size) * 1.1, time = BALLOON_TEXT_SPAWN_TIME)
 
 	LAZYADD(message_loc.balloon_alerts, src)
 
@@ -696,6 +709,7 @@
 #undef CHATMESSAGE_SHOW_LANGUAGE_ICON
 #undef COLOR_PERSON_UNKNOWN
 #undef COLOR_CHAT_EMOTE
+#undef COLOR_CHAT_LOOC
 #undef BUCKET_LIMIT
 #undef CM_COLOR_SAT_MIN
 #undef CM_COLOR_SAT_MAX

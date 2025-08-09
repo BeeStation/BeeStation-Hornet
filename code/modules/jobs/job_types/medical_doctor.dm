@@ -5,15 +5,13 @@
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	supervisors = "the chief medical officer"
 	faction = "Station"
-	total_positions = 5
-	spawn_positions = 3
+	dynamic_spawn_group = JOB_SPAWN_GROUP_DEPARTMENT
 	selection_color = "#d4ebf2"
 	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/medical_doctor
 
 	base_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CLONING, ACCESS_MECH_MEDICAL, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS, ACCESS_VIROLOGY)
-	extra_access = list(ACCESS_CHEMISTRY, ACCESS_GENETICS)
 
 	departments = DEPT_BITFLAG_MED
 	bank_account_department = ACCOUNT_MED_BITFLAG
@@ -40,12 +38,19 @@
 		/area/medical/genetics/cloning
 	)
 
+/datum/job/medical_doctor/get_access()
+	. = ..()
+	LOWPOP_GRANT_ACCESS(JOB_NAME_CHEMIST, ACCESS_CHEMISTRY)
+	LOWPOP_GRANT_ACCESS(JOB_NAME_GENETICIST, ACCESS_GENETICS)
+	if (SSjob.initial_players_to_assign < COMMAND_POPULATION_MINIMUM)
+		. |= ACCESS_CMO
+
 /datum/outfit/job/medical_doctor
 	name = JOB_NAME_MEDICALDOCTOR
 	jobtype = /datum/job/medical_doctor
 
 	id = /obj/item/card/id/job/medical_doctor
-	belt = /obj/item/modular_computer/tablet/pda/medical
+	belt = /obj/item/modular_computer/tablet/pda/preset/medical
 	ears = /obj/item/radio/headset/headset_med
 	uniform = /obj/item/clothing/under/rank/medical/doctor
 	shoes = /obj/item/clothing/shoes/sneakers/white
@@ -60,3 +65,15 @@
 
 	box = /obj/item/storage/box/survival/medical
 	chameleon_extras = /obj/item/gun/syringe
+
+/datum/outfit/job/doctor/mod
+	name = "Medical Doctor (MODsuit)"
+
+	suit_store = /obj/item/tank/internals/oxygen
+	back = /obj/item/mod/control/pre_equipped/medical
+	suit = null
+	head = null
+	uniform = /obj/item/clothing/under/rank/medical/doctor
+	mask = /obj/item/clothing/mask/breath/medical
+	r_pocket = /obj/item/flashlight/pen
+	internals_slot = ITEM_SLOT_SUITSTORE

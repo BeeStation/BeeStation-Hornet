@@ -102,7 +102,7 @@
 #define CLICK_CD_RAPID 2
 #define CLICK_CD_HYPER_RAPID 1
 #define CLICK_CD_CLICK_ABILITY 6
-#define CLICK_CD_BREAKOUT 100
+#define CLICK_CD_BREAKOUT 20
 #define CLICK_CD_HANDCUFFED 10
 #define CLICK_CD_RESIST 20
 #define CLICK_CD_GRABBING 10
@@ -110,7 +110,6 @@
 
 //Cuff resist speeds
 #define FAST_CUFFBREAK 1
-#define INSTANT_CUFFBREAK 2
 
 //Grab levels
 #define GRAB_PASSIVE 0
@@ -261,12 +260,12 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 #define BODY_GROUP_LEGS "legs"
 #define BODY_GROUP_ARMS "arms"
 
-#define BODY_ZONE_HEAD		"head"
-#define BODY_ZONE_CHEST		"chest"
-#define BODY_ZONE_L_ARM		"l_arm"
-#define BODY_ZONE_R_ARM		"r_arm"
-#define BODY_ZONE_L_LEG		"l_leg"
-#define BODY_ZONE_R_LEG		"r_leg"
+#define BODY_ZONE_HEAD "head"
+#define BODY_ZONE_CHEST "chest"
+#define BODY_ZONE_L_ARM "l_arm"
+#define BODY_ZONE_R_ARM "r_arm"
+#define BODY_ZONE_L_LEG "l_leg"
+#define BODY_ZONE_R_LEG "r_leg"
 
 #define BODY_ZONE_PRECISE_EYES		"eyes"
 #define BODY_ZONE_PRECISE_MOUTH		"mouth"

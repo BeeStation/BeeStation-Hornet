@@ -199,7 +199,7 @@ const PreviewDisplay = (props) => {
           )}
         </Table.Row>
       </Table>
-      {!!data.generate_full_preview && `Time Spent: ${data.sprites.time_spent}ms`}
+      {!!data.unlocked && `Time Spent: ${data.sprites.time_spent}ms`}
       <Divider />
       {!data.refreshing && (
         <Table>
@@ -253,19 +253,50 @@ const LoadingAnimation = () => {
 export const GreyscaleModifyMenu = (props) => {
   const { act, data } = useBackend<GreyscaleMenuData>();
   return (
-    <Window title="Color Configuration" width={325} height={800}>
+    <Window title="Color Configuration" width={325} height={470}>
       <Window.Content scrollable>
         <ConfigDisplay />
         <ColorDisplay />
         <IconStatesDisplay />
-        {!!data.unlocked && <Button content="Refresh Icon File" onClick={() => act('refresh_file')} />}
-        <Button content="Apply" onClick={() => act('apply')} mx={1} />
-        <Button.Checkbox
-          content="Full Preview"
-          disabled={!data.generate_full_preview && !data.unlocked}
-          checked={data.generate_full_preview}
-          onClick={() => act('toggle_full_preview')}
-        />
+        <Flex direction="column">
+          {!!data.unlocked && (
+            <Flex.Item justify="flex-start">
+              <Button
+                content={<Icon name="file-image-o" spin={data.monitoring_files} />}
+                tooltip="Continuously checks files for changes and reloads when necessary. WARNING: Very expensive"
+                selected={data.monitoring_files}
+                onClick={() => act('toggle_mass_refresh')}
+                width={1.9}
+                mr={-0.2}
+              />
+              <Button
+                content="Refresh Icon File"
+                tooltip="Loads the json configuration and icon file fresh from disk. This is useful to avoid restarting the server to see changes. WARNING: Expensive"
+                onClick={() => act('refresh_file')}
+              />
+              <Button
+                content="Save Icon File"
+                tooltip="Saves the icon to a temp file in tmp/. This is useful if you want to use a generated icon elsewhere or just view a more accurate representation"
+                onClick={() => act('save_dmi')}
+              />
+            </Flex.Item>
+          )}
+          <Flex.Item>
+            <Button
+              content="Apply"
+              tooltip="Applies changes made to the object this menu was created from."
+              color="red"
+              onClick={() => act('apply')}
+            />
+            <Button.Checkbox
+              content="Full Preview"
+              tooltip="Generates and displays the full sprite generation process instead of just the final output."
+              disabled={!data.generate_full_preview && !data.unlocked}
+              checked={data.generate_full_preview}
+              onClick={() => act('toggle_full_preview')}
+            />
+          </Flex.Item>
+        </Flex>
         <PreviewDisplay />
         {!!data.refreshing && <LoadingAnimation />}
       </Window.Content>
