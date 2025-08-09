@@ -54,7 +54,7 @@
 		INVOKE_ASYNC(ore_box, TYPE_PROC_REF(/obj/structure/ore_box, dump_box_contents))
 	return ..()
 
-/obj/vehicle/sealed/mecha/working/clarke/Move()
+/obj/vehicle/sealed/mecha/clarke/Move()
 	. = ..()
 	update_pressure()
 
@@ -63,16 +63,16 @@
   *
   * Checks for Lavaland pressure, if that works out the mech's speed is equal to fast_pressure_step_in and the cooldown for the mecha drill is halved. If not it uses slow_pressure_step_in and drill cooldown is normal.
   */
-/obj/vehicle/sealed/mecha/working/clarke/proc/update_pressure()
+/obj/vehicle/sealed/mecha/clarke/proc/update_pressure()
 	var/turf/T = get_turf(loc)
 
 	if(lavaland_equipment_pressure_check(T))
 		movedelay = fast_pressure_step_in
-		for(var/obj/item/mecha_parts/mecha_equipment/drill/drill in equipment)
+		for(var/obj/item/mecha_parts/mecha_equipment/drill/drill in flat_equipment)
 			drill.equip_cooldown = initial(drill.equip_cooldown)/2
 	else
 		movedelay = slow_pressure_step_in
-		for(var/obj/item/mecha_parts/mecha_equipment/drill/drill in equipment)
+		for(var/obj/item/mecha_parts/mecha_equipment/drill/drill in flat_equipment)
 			drill.equip_cooldown = initial(drill.equip_cooldown)
 
 /obj/vehicle/sealed/mecha/clarke/moved_inside(mob/living/carbon/human/H)

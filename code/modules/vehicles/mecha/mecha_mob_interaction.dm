@@ -113,7 +113,7 @@
 				return
 			if(!silent)
 				to_chat(AI, span_notice("Returning to core..."))
-			AI.controlled_mech = null
+			AI.controlled_equipment = null
 			AI.remote_control = null
 			mob_container = AI
 			newloc = get_turf(AI.linked_core)

@@ -19,12 +19,12 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "f" = (
-/obj/vehicle/sealed/mecha/working/ripley/deathripley,
+/obj/vehicle/sealed/mecha/ripley/deathripley,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
 "g" = (
-/obj/vehicle/sealed/mecha/working/ripley,
+/obj/vehicle/sealed/mecha/ripley,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
@@ -127,7 +127,7 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "z" = (
-/obj/vehicle/sealed/mecha/working/ripley/mk2,
+/obj/vehicle/sealed/mecha/ripley/mk2,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
@@ -197,7 +197,7 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "K" = (
-/obj/vehicle/sealed/mecha/working/clarke,
+/obj/vehicle/sealed/mecha/clarke,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)

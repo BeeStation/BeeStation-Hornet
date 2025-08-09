@@ -69,7 +69,7 @@
 	// SHOOT IT
 	var/pre_bullet_integrity = demo_mech.get_integrity()
 	var/pre_bullet_arm_integrity = left_arm_equipment.get_integrity()
-	dummy_gun.fire_gun(demo_mech, dummy, FALSE)
+	dummy_gun.pull_trigger(demo_mech, dummy, FALSE)
 
 	check_integrity(demo_mech, pre_bullet_integrity, expected_bullet_damage, "shot with a bullet")
 	check_integrity(left_arm_equipment, pre_bullet_arm_integrity, expected_bullet_damage, "shot with a bullet")

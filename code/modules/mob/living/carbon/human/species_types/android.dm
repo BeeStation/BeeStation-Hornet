@@ -1,7 +1,10 @@
 /datum/species/android
 	name = "Android"
 	id = "android"
-	species_traits = list(NOREAGENTS,NO_DNA_COPY,NOBLOOD,NOFLASH)
+	species_traits = list(
+		NOREAGENTS,
+		NOFLASH
+	)
 	inherent_traits = list(
 		TRAIT_NOMETABOLISM,
 		TRAIT_TOXIMMUNE,
@@ -17,6 +20,8 @@
 		TRAIT_LIMBATTACHMENT,
 		TRAIT_NOCLONELOSS,
 		TRAIT_NO_TRANSFORMATION_STING,
+		TRAIT_NO_DNA_COPY,
+		TRAIT_NO_BLOOD,
 	)
 	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
 	meat = null
