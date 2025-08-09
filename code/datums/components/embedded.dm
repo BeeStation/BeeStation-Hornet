@@ -113,11 +113,11 @@
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(jostleCheck))
 	RegisterSignal(parent, COMSIG_CARBON_EMBED_RIP, PROC_REF(ripOut))
 	RegisterSignal(parent, COMSIG_CARBON_EMBED_REMOVAL, PROC_REF(safeRemove))
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(checkRemoval))
+	RegisterSignal(parent, COMSIG_ATOM_ATTACKBY, PROC_REF(checkRemoval))
 	RegisterSignal(parent, COMSIG_ATOM_ATTACK_HAND, PROC_REF(tryPullOutOther))
 
 /datum/component/embedded/UnregisterFromParent()
-	UnregisterSignal(parent, list(COMSIG_MOVABLE_MOVED, COMSIG_CARBON_EMBED_RIP, COMSIG_CARBON_EMBED_REMOVAL, COMSIG_PARENT_ATTACKBY, COMSIG_ATOM_ATTACK_HAND))
+	UnregisterSignal(parent, list(COMSIG_MOVABLE_MOVED, COMSIG_CARBON_EMBED_RIP, COMSIG_CARBON_EMBED_REMOVAL, COMSIG_ATOM_ATTACKBY, COMSIG_ATOM_ATTACK_HAND))
 
 /datum/component/embedded/process(delta_time)
 	var/mob/living/carbon/victim = parent

@@ -397,3 +397,6 @@
 	. = ..()
 	if(wielded && !user.is_holding(src))
 		qdel(src)
+
+/obj/item/offhand/attack(mob/living/target, mob/living/user)
+	return

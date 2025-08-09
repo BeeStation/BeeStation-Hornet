@@ -56,7 +56,7 @@
 	greyscale_config_worn = /datum/greyscale_config/plasmaman_helmet_default_worn
 	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS
 	strip_delay = 80
-	flash_protect = 2
+	flash_protect = FLASH_PROTECTION_WELDER
 	tint = 2
 	armor_type = /datum/armor/space_plasmaman
 	resistance_flags = FIRE_PROOF
@@ -140,7 +140,7 @@
 	var/mob/living/carbon/human/human_user = user
 	var/obj/item/organ/lungs/living_lungs = human_user.get_organ_slot(ORGAN_SLOT_LUNGS)
 	//Early return if its not on the head slot, on a mob that breathes plasma
-	if(slot != ITEM_SLOT_HEAD || living_lungs.breathing_class == /datum/breathing_class/plasma)
+	if(slot != ITEM_SLOT_HEAD || living_lungs.breathing_class == /datum/breathing_class/plasma || ishumantesting(human_user))
 		return
 
 	user.dropItemToGround(src)

@@ -160,6 +160,9 @@ GLOBAL_LIST_INIT(ai_employers, list(
 #define IS_REVOLUTIONARY(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/rev))
 #define IS_HEAD_REVOLUTIONARY(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/rev/head))
 
+//Tells whether or not someone is a space ninja
+#define IS_SPACE_NINJA(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/ninja))
+
 // Max of all fugitive types
 #define MAXIMUM_TOTAL_FUGITIVES 4
 

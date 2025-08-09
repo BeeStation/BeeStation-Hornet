@@ -1437,9 +1437,7 @@
 /datum/reagent/consumable/ethanol/changelingsting/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	var/datum/antagonist/changeling/changeling = IS_CHANGELING(affected_mob)
-	if(changeling)
-		changeling.chem_charges += metabolization_rate * REM * delta_time
-		changeling.chem_charges = clamp(changeling.chem_charges, 0, changeling.chem_storage)
+	changeling?.adjust_chemicals(metabolization_rate * REM * delta_time)
 
 /datum/reagent/consumable/ethanol/irishcarbomb
 	name = "Irish Car Bomb"

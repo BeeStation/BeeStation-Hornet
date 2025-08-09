@@ -184,10 +184,10 @@
 	return FALSE
 
 /obj/item/abductor/proc/ScientistCheck(mob/user)
-	if(HAS_MIND_TRAIT(user, TRAIT_ABDUCTOR_TRAINING))
+	if(!HAS_MIND_TRAIT(user, TRAIT_ABDUCTOR_TRAINING))
 		to_chat(user, span_warning("You can't figure out how this works!"))
 		return FALSE
-	if(HAS_MIND_TRAIT(user, TRAIT_ABDUCTOR_SCIENTIST_TRAINING))
+	if(!HAS_MIND_TRAIT(user, TRAIT_ABDUCTOR_SCIENTIST_TRAINING))
 		to_chat(user, span_warning("You're not trained to use this!"))
 		return FALSE
 	return TRUE
@@ -784,9 +784,24 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "Abduct with style - spiky style. Prevents digital tracking."
 	icon_state = "alienhelmet"
 	item_state = "alienhelmet"
-	flash_protect = 1
-	blockTracking = TRUE
+	flash_protect = FLASH_PROTECTION_FLASH
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
+
+/obj/item/clothing/head/helmet/abductor/equipped(mob/living/user, slot)
+	. = ..()
+	if(slot_flags & slot)
+		RegisterSignal(user, COMSIG_LIVING_CAN_TRACK, PROC_REF(can_track))
+	else
+		UnregisterSignal(user, COMSIG_LIVING_CAN_TRACK)
+
+/obj/item/clothing/head/helmet/abductor/dropped(mob/living/user)
+	. = ..()
+	UnregisterSignal(user, COMSIG_LIVING_CAN_TRACK)
+
+/obj/item/clothing/head/helmet/abductor/proc/can_track(datum/source, mob/user)
+	SIGNAL_HANDLER
+
+	return COMPONENT_CANT_TRACK
 
 // Operating Table / Beds / Lockers
 

@@ -70,14 +70,11 @@
 	if(requires_tech)
 		. = FALSE
 
-	if(iscyborg(user))
-		var/mob/living/silicon/robot/robot = user
-		var/obj/item/surgical_processor/surgical_processor = locate() in robot.model.modules
-		if(!isnull(surgical_processor))
-			if(replaced_by in surgical_processor.advanced_surgeries)
-				return FALSE
-			if(type in surgical_processor.advanced_surgeries)
-				return TRUE
+	var/surgery_signal = SEND_SIGNAL(user, COMSIG_SURGERY_STARTING, src, target)
+	if(surgery_signal & COMPONENT_FORCE_SURGERY)
+		return TRUE
+	if(surgery_signal & COMPONENT_CANCEL_SURGERY)
+		return FALSE
 
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user

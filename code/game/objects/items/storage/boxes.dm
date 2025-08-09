@@ -807,6 +807,7 @@
 	item_state = "syringe_kit"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
+	w_class = WEIGHT_CLASS_NORMAL
 	foldable = /obj/item/stack/sheet/cardboard //BubbleWrap
 
 /obj/item/storage/box/lights/Initialize(mapload)
@@ -1372,3 +1373,33 @@
 /obj/item/storage/box/locker/security
 	name = "security locker box"
 	icon_state = "secbox"
+/obj/item/storage/box/stabilized //every single stabilized extract from xenobiology
+	name = "box of stabilized extracts"
+	icon_state = "syndiebox"
+
+/obj/item/storage/box/stabilized/PopulateContents()
+	var/static/items_inside = list(
+		/obj/item/slimecross/stabilized/grey=1,\
+		/obj/item/slimecross/stabilized/orange=1,\
+		/obj/item/slimecross/stabilized/purple=1,\
+		/obj/item/slimecross/stabilized/blue=1,\
+		/obj/item/slimecross/stabilized/metal=1,\
+		/obj/item/slimecross/stabilized/yellow=1,\
+		/obj/item/slimecross/stabilized/darkpurple=1,\
+		/obj/item/slimecross/stabilized/darkblue=1,\
+		/obj/item/slimecross/stabilized/silver=1,\
+		/obj/item/slimecross/stabilized/bluespace=1,\
+		/obj/item/slimecross/stabilized/sepia=1,\
+		/obj/item/slimecross/stabilized/cerulean=1,\
+		/obj/item/slimecross/stabilized/pyrite=1,\
+		/obj/item/slimecross/stabilized/red=1,\
+		/obj/item/slimecross/stabilized/green=1,\
+		/obj/item/slimecross/stabilized/pink=1,\
+		/obj/item/slimecross/stabilized/gold=1,\
+		/obj/item/slimecross/stabilized/oil=1,\
+		/obj/item/slimecross/stabilized/black=1,\
+		/obj/item/slimecross/stabilized/lightpink=1,\
+		/obj/item/slimecross/stabilized/adamantine=1,\
+		/obj/item/slimecross/stabilized/rainbow=1,\
+		)
+	generate_items_inside(items_inside,src)

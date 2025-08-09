@@ -1045,7 +1045,7 @@
 	affected_mob.set_drugginess(5)
 	affected_mob.adjustStaminaLoss(30 * REM * delta_time, updating_health = FALSE)
 	affected_mob.silent = max(affected_mob.silent, 3 * REM * delta_time)
-	affected_mob.confused = max(affected_mob.confused, 3 * REM * delta_time)
+	affected_mob.confused = max(affected_mob.confused, 10 * REM * delta_time)
 	return UPDATE_MOB_HEALTH
 
 /datum/reagent/toxin/morphvenom/mimite

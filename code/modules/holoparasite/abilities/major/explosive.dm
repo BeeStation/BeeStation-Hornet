@@ -41,7 +41,7 @@
 	var/static/list/forbidden_typecache
 	/// A list of signals which will trigger a bomb detonation.
 	var/static/list/boom_signals = list(
-		COMSIG_PARENT_ATTACKBY,
+		COMSIG_ATOM_ATTACKBY,
 		COMSIG_ATOM_BUMPED,
 		COMSIG_ATOM_ATTACK_HAND,
 		COMSIG_ATOM_ATTACK_PAW,

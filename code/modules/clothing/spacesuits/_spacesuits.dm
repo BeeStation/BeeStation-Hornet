@@ -18,7 +18,7 @@
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	heat_protection = HEAD
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
-	flash_protect = 2
+	flash_protect = FLASH_PROTECTION_WELDER
 	strip_delay = 50
 	equip_delay_other = 50
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
@@ -120,8 +120,9 @@
 	allowed = list(
 		/obj/item/flashlight,
 		/obj/item/tank/internals,
+		/obj/item/tank/jetpack/oxygen/captain,
 		)
-	slowdown = 1
+	slowdown = 0.9
 	armor_type = /datum/armor/suit_space
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	cold_protection = CHEST | GROIN | LEGS | FEET | ARMS | HANDS

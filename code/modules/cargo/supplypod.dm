@@ -398,9 +398,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/closet/supplypod)
 			return FALSE
 		if(istype(obj_to_insert, /obj/effect/supplypod_rubble))
 			return FALSE
-		if((obj_to_insert.comp_lookup && obj_to_insert.comp_lookup[COMSIG_OBJ_HIDE]) && reverse_option_list["Underfloor"])
+		if((obj_to_insert._listen_lookup && obj_to_insert._listen_lookup[COMSIG_OBJ_HIDE]) && reverse_option_list["Underfloor"])
 			return TRUE
-		else if ((obj_to_insert.comp_lookup && obj_to_insert.comp_lookup[COMSIG_OBJ_HIDE]) && !reverse_option_list["Underfloor"])
+		else if ((obj_to_insert._listen_lookup && obj_to_insert._listen_lookup[COMSIG_OBJ_HIDE]) && !reverse_option_list["Underfloor"])
 			return FALSE
 		if(isProbablyWallMounted(obj_to_insert) && reverse_option_list["Wallmounted"])
 			return TRUE

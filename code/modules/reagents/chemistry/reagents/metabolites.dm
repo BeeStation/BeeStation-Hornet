@@ -61,5 +61,5 @@
 //This one's effect is grandfathered in from before other metabolites existed. One of the only direct counters to changelings
 /datum/reagent/metabolite/bz/on_mob_life(mob/living/carbon/affected_mob)
 	. = ..()
-	var/datum/antagonist/changeling/changeling = affected_mob.mind?.has_antag_datum(/datum/antagonist/changeling)
-	changeling?.chem_charges = max(changeling.chem_charges-2, 0)
+	var/datum/antagonist/changeling/changeling = IS_CHANGELING(affected_mob)
+	changeling?.adjust_chemicals(-2)

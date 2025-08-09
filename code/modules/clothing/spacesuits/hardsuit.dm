@@ -15,22 +15,23 @@
 	light_range = 4
 	light_power = 1
 	light_on = FALSE
-	actions_types = list(/datum/action/item_action/toggle_helmet_light)
-	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	flags_inv = HIDEMASK | HIDEEARS | HIDEEYES | HIDEFACE | HIDEHAIR | HIDEFACIALHAIR
-	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	clothing_flags = NOTCONSUMABLE | STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT | HEADINTERNALS
-
-	/// Whether or not this hardsuit has a geiger counter installed
-	var/geiger_counter = FALSE
-
-	/// If the headlamp is broken, used by lighteater
-	var/light_broken = FALSE
-
 	var/basestate = "hardsuit"
 	var/on = FALSE
 	var/obj/item/clothing/suit/space/hardsuit/suit
 	var/hardsuit_type = "engineering" //Determines used sprites: hardsuit[on]-[type]
+	actions_types = list(/datum/action/item_action/toggle_helmet_light)
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	clothing_flags = NOTCONSUMABLE | STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS
+	var/geiger_counter = TRUE
+	var/current_tick_amount = 0
+	var/radiation_count = 0
+	var/grace = RAD_GEIGER_GRACE_PERIOD
+	var/datum/looping_sound/geiger/soundloop
+	/// If the headlamp is broken, used by lighteater
+	var/light_broken = FALSE
+
 
 /datum/armor/space_hardsuit
 	melee = 10
@@ -39,6 +40,7 @@
 	energy = 15
 	bomb = 10
 	bio = 100
+	rad = 75
 	fire = 50
 	acid = 75
 	stamina = 20
@@ -46,8 +48,9 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/Initialize(mapload)
 	. = ..()
-	if(geiger_counter)
-		AddComponent(/datum/component/geiger_sound)
+	soundloop = new(src, FALSE, TRUE)
+	soundloop.volume = 5
+	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/head/helmet/space/hardsuit/Destroy()
 	// Move to nullspace first to prevent qdel loops
@@ -55,10 +58,9 @@
 	if(!QDELETED(suit))
 		qdel(suit)
 	suit = null
-
-	if(geiger_counter)
-		qdel(GetComponent(/datum/component/geiger_sound))
-	. = ..()
+	QDEL_NULL(soundloop)
+	STOP_PROCESSING(SSobj, src)
+	return ..()
 
 /obj/item/clothing/head/helmet/space/hardsuit/attack_self(mob/user)
 	if(light_broken)
@@ -75,7 +77,10 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/dropped(mob/user)
 	..()
-	suit?.RemoveHelmet()
+	if(suit)
+		suit.RemoveHelmet()
+		if(user.client)
+			soundloop.stop(user)
 
 /obj/item/clothing/head/helmet/space/hardsuit/item_action_slot_check(slot)
 	if(slot == ITEM_SLOT_HEAD)
@@ -86,8 +91,12 @@
 	if(slot != ITEM_SLOT_HEAD)
 		if(suit)
 			suit.RemoveHelmet()
+			if(user.client)
+				soundloop.stop(user)
 		else
 			qdel(src)
+	else if(user.client)
+		soundloop.start(user)
 
 /obj/item/clothing/head/helmet/space/hardsuit/proc/toggle_hud(mob/user)
 	var/datum/component/team_monitor/worn/monitor = GetComponent(/datum/component/team_monitor/worn)
@@ -104,6 +113,29 @@
 	var/mob/wearer = loc
 	if(msg && ishuman(wearer))
 		wearer.show_message("[icon2html(src, wearer)]<b>[span_robot("[msg]")]</b>", MSG_VISUAL)
+
+/obj/item/clothing/head/helmet/space/hardsuit/rad_act(amount)
+	. = ..()
+	if(amount <= RAD_BACKGROUND_RADIATION || !geiger_counter)
+		return
+	current_tick_amount += amount
+
+/obj/item/clothing/head/helmet/space/hardsuit/process(delta_time)
+	if(!geiger_counter)
+		return
+
+	radiation_count = LPFILTER(radiation_count, current_tick_amount, delta_time, RAD_GEIGER_RC)
+
+	if(current_tick_amount)
+		grace = RAD_GEIGER_GRACE_PERIOD
+	else
+		grace -= delta_time
+		if(grace <= 0)
+			radiation_count = 0
+
+	current_tick_amount = 0
+
+	soundloop.last_radiation = radiation_count
 
 /obj/item/clothing/head/helmet/space/hardsuit/emp_act(severity)
 	. = ..()
@@ -146,6 +178,7 @@
 	energy = 15
 	bomb = 10
 	bio = 100
+	rad = 75
 	fire = 50
 	acid = 75
 	stamina = 20
@@ -284,16 +317,16 @@
 	armor_type = /datum/armor/hardsuit_engine
 	hardsuit_type = "engineering"
 	resistance_flags = FIRE_PROOF
-	geiger_counter = TRUE
 
 
 /datum/armor/hardsuit_engine
 	melee = 30
 	bullet = 5
-	laser = 10
-	energy = 12
+	laser = 20
+	energy = 20
 	bomb = 10
 	bio = 100
+	rad = 75
 	fire = 100
 	acid = 75
 	stamina = 20
@@ -308,7 +341,7 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/engine
 	resistance_flags = FIRE_PROOF
 
-//Atmospherics
+	//Atmospherics
 
 /datum/armor/hardsuit_engine
 	melee = 30
@@ -317,6 +350,7 @@
 	energy = 15
 	bomb = 10
 	bio = 100
+	rad = 75
 	fire = 100
 	acid = 75
 	stamina = 20
@@ -332,6 +366,7 @@
 	heat_protection = HEAD												//Uncomment to enable firesuit protection
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
+
 /datum/armor/engine_atmos
 	melee = 30
 	bullet = 5
@@ -339,6 +374,7 @@
 	energy = 15
 	bomb = 10
 	bio = 100
+	rad = 25
 	fire = 100
 	acid = 75
 	stamina = 20
@@ -355,7 +391,7 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/engine/atmos
 
 
-//Chief Engineer's hardsuit
+	//Chief Engineer's hardsuit
 
 /datum/armor/engine_atmos
 	melee = 30
@@ -364,6 +400,7 @@
 	energy = 15
 	bomb = 10
 	bio = 100
+	rad = 25
 	fire = 100
 	acid = 75
 	stamina = 20
@@ -379,17 +416,15 @@
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
-/obj/item/clothing/head/helmet/space/hardsuit/engine/elite/Initialize(mapload)
-	. = ..()
-	AddElement(/datum/element/radiation_protected_clothing)
 
 /datum/armor/engine_elite
 	melee = 40
 	bullet = 5
-	laser = 10
+	laser = 20
 	energy = 15
 	bomb = 50
 	bio = 100
+	rad = 100
 	fire = 100
 	acid = 90
 	stamina = 30
@@ -407,11 +442,7 @@
 	jetpack = /obj/item/tank/jetpack/suit
 	cell = /obj/item/stock_parts/cell/super
 
-/obj/item/clothing/suit/space/hardsuit/engine/elite/Initialize(mapload)
-	. = ..()
-	AddElement(/datum/element/radiation_protected_clothing)
-
-//Mining hardsuit
+	//Mining hardsuit
 
 /datum/armor/engine_elite
 	melee = 40
@@ -420,6 +451,7 @@
 	energy = 20
 	bomb = 50
 	bio = 100
+	rad = 100
 	fire = 100
 	acid = 90
 	stamina = 30
@@ -447,6 +479,7 @@
 	energy = 15
 	bomb = 50
 	bio = 100
+	rad = 50
 	fire = 50
 	acid = 75
 	stamina = 40
@@ -478,6 +511,7 @@
 	energy = 20
 	bomb = 50
 	bio = 100
+	rad = 50
 	fire = 50
 	acid = 75
 	stamina = 40
@@ -511,6 +545,7 @@
 	energy = 10
 	bomb = 50
 	bio = 100
+	rad = 50
 	fire = 50
 	acid = 75
 	stamina = 20
@@ -538,30 +573,7 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/exploration
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 
-//Cybersun Hardsuit
-//A kind of side-grade to the explorer suit, sacrificing burn protection for brute. If you can kill the guy inside it, anyways.
-
-/datum/armor/hardsuit_exploration
-	melee = 35
-	bullet = 15
-	laser = 20
-	energy = 10
-	bomb = 50
-	bio = 100
-	fire = 50
-	acid = 75
-	stamina = 20
-	bleed = 70
-
-/obj/item/clothing/head/helmet/space/hardsuit/cybersun
-	name = "Cybersun hardsuit helmet"
-	desc = "A bulbous red helmet designed for scavenging in hazardous, low pressure environments. Has dual floodlights, and a 360 Degree view."
-	icon_state = "hardsuit0-cybersun"
-	item_state = "death_commando_mask"
-	hardsuit_type = "cybersun"
-	armor_type = /datum/armor/hardsuit_cybersun
-	strip_delay = 600
-	clothing_flags = NOTCONSUMABLE | STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS | THICKMATERIAL
+	//Syndicate hardsuit
 
 /datum/armor/hardsuit_cybersun
 	melee = 30
@@ -570,25 +582,11 @@
 	energy = 15
 	bomb = 60
 	bio = 100
+	rad = 55
 	fire = 30
 	acid = 60
 	stamina = 15
 	bleed = 70
-
-/obj/item/clothing/suit/space/hardsuit/cybersun
-	icon_state = "cybersun"
-	name = "Cybersun hardsuit"
-	desc = "A bulky, protective suit designed to protect against the perils facing Cybersun Employed Engineers, Researchers, and more as they head from the safety of \
-		more stable employment to the dangers of Nanotrasen Controlled Deep Space. Designed to get the job done despite on-site hazards in derelicts, laser armor was \
-		sacrificed in favor of more effective blunt armor plates and radiation shielding."
-	armor_type = /datum/armor/hardsuit_cybersun
-	hardsuit_type = "cybersun"
-	item_state = "death_commando_mask"
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/cybersun
-	jetpack = /obj/item/tank/jetpack/suit
-	clothing_flags = NOTCONSUMABLE | STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS | THICKMATERIAL
-
-//Syndicate hardsuit
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi
 	name = "blood-red hardsuit helmet"
@@ -615,6 +613,7 @@
 	energy = 55
 	bomb = 35
 	bio = 100
+	rad = 50
 	fire = 50
 	acid = 100
 	stamina = 60
@@ -791,6 +790,7 @@
 	energy = 80
 	bomb = 55
 	bio = 100
+	rad = 70
 	fire = 100
 	acid = 100
 	stamina = 80
@@ -819,6 +819,7 @@
 	energy = 80
 	bomb = 55
 	bio = 100
+	rad = 70
 	fire = 100
 	acid = 100
 	stamina = 80
@@ -858,18 +859,6 @@
 	clothing_flags = CASTING_CLOTHES | NOTCONSUMABLE | STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS | THICKMATERIAL
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
-/datum/armor/hardsuit_wizard
-	melee = 40
-	bullet = 40
-	laser = 40
-	energy = 50
-	bomb = 35
-	bio = 100
-	fire = 100
-	acid = 100
-	stamina = 70
-	bleed = 70
-
 /obj/item/clothing/suit/space/hardsuit/wizard
 	icon_state = "hardsuit-wiz"
 	name = "gem-encrusted hardsuit"
@@ -895,6 +884,7 @@
 	energy = 50
 	bomb = 35
 	bio = 100
+	rad = 50
 	fire = 100
 	acid = 100
 	stamina = 70
@@ -920,9 +910,10 @@
 	icon_state = "hardsuit0-medical"
 	item_state = "medical_helm"
 	hardsuit_type = "medical"
-	flash_protect = 0
+	flash_protect = FLASH_PROTECTION_NONE
 	armor_type = /datum/armor/hardsuit_medical
-	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT | SCAN_REAGENTS | HEADINTERNALS
+	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS
+	clothing_traits = list(TRAIT_REAGENT_SCANNER)
 
 
 /datum/armor/hardsuit_medical
@@ -932,6 +923,7 @@
 	energy = 15
 	bomb = 10
 	bio = 100
+	rad = 60
 	fire = 60
 	acid = 75
 	stamina = 20
@@ -962,6 +954,7 @@
 	energy = 15
 	bomb = 10
 	bio = 100
+	rad = 60
 	fire = 60
 	acid = 75
 	stamina = 20
@@ -970,7 +963,7 @@
 /obj/item/clothing/head/helmet/space/hardsuit/medical/cmo
 	name = "chief medical officer's hardsuit helmet"
 	desc = "A special helmet designed for work in a hazardous, low pressure environment. Built with lightweight materials for extra comfort and protects the eyes from intense light."
-	flash_protect = 2
+	flash_protect = FLASH_PROTECTION_WELDER
 
 /obj/item/clothing/suit/space/hardsuit/medical/cmo
 	name = "chief medical officer's hardsuit"
@@ -985,7 +978,8 @@
 	resistance_flags = ACID_PROOF | FIRE_PROOF
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	armor_type = /datum/armor/hardsuit_rd
-	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT | SCAN_REAGENTS | HEADINTERNALS
+	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS
+	clothing_traits = list(TRAIT_REAGENT_SCANNER)
 	actions_types = list(
 		/datum/action/item_action/toggle_helmet_light,
 		/datum/action/item_action/toggle_research_scanner
@@ -1000,6 +994,7 @@
 	energy = 15
 	bomb = 100
 	bio = 100
+	rad = 60
 	fire = 60
 	acid = 80
 	stamina = 30
@@ -1041,6 +1036,7 @@
 	energy = 15
 	bomb = 100
 	bio = 100
+	rad = 60
 	fire = 60
 	acid = 80
 	stamina = 30
@@ -1059,20 +1055,6 @@
 	hardsuit_type = "sec"
 	armor_type = /datum/armor/hardsuit_security
 
-
-
-/datum/armor/hardsuit_security
-	melee = 35
-	bullet = 35
-	laser = 30
-	energy = 50
-	bomb = 40
-	bio = 100
-	fire = 75
-	acid = 75
-	stamina = 50
-	bleed = 70
-
 /obj/item/clothing/suit/space/hardsuit/security
 	icon_state = "hardsuit-sec"
 	name = "security hardsuit"
@@ -1090,6 +1072,7 @@
 	energy = 50
 	bomb = 40
 	bio = 100
+	rad = 50
 	fire = 75
 	acid = 75
 	stamina = 50
@@ -1116,6 +1099,7 @@
 	energy = 50
 	bomb = 40
 	bio = 100
+	rad = 50
 	fire = 75
 	acid = 75
 	stamina = 50
@@ -1140,6 +1124,7 @@
 	energy = 50
 	bomb = 40
 	bio = 100
+	rad = 50
 	fire = 75
 	acid = 75
 	stamina = 50
@@ -1165,6 +1150,7 @@
 	energy = 60
 	bomb = 50
 	bio = 100
+	rad = 50
 	fire = 100
 	acid = 100
 	stamina = 60
@@ -1181,7 +1167,7 @@
 	armor_type = /datum/armor/hardsuit_swat
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
-	blocks_shove_knockdown = TRUE
+	clothing_flags = BLOCKS_SHOVE_KNOCKDOWN
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT //this needed to be added a long fucking time ago
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/swat
 	clothing_flags = NOTCONSUMABLE | STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS | THICKMATERIAL
@@ -1195,6 +1181,7 @@
 	energy = 60
 	bomb = 50
 	bio = 100
+	rad = 50
 	fire = 100
 	acid = 100
 	stamina = 60
@@ -1236,6 +1223,7 @@
 	energy = 20
 	bomb = 10
 	bio = 100
+	rad = 75
 	fire = 60
 	acid = 30
 	stamina = 20
@@ -1257,6 +1245,7 @@
 	energy = 20
 	bomb = 10
 	bio = 100
+	rad = 75
 	fire = 60
 	acid = 30
 	stamina = 20
@@ -1292,6 +1281,7 @@
 	energy = 10
 	bomb = 50
 	bio = 100
+	rad = 100
 	fire = 100
 	acid = 75
 	stamina = 30
@@ -1319,6 +1309,7 @@
 	energy = 10
 	bomb = 50
 	bio = 100
+	rad = 100
 	fire = 100
 	acid = 75
 	stamina = 30
@@ -1350,6 +1341,7 @@
 	energy = 40
 	bomb = 10
 	bio = 100
+	rad = 50
 	fire = 100
 	acid = 100
 	stamina = 60
@@ -1359,6 +1351,13 @@
 	. = ..()
 	if(!allowed)
 		allowed = GLOB.advanced_hardsuit_allowed
+	AddComponent(
+		/datum/component/shielded, \
+		max_integrity = shield_integrity, \
+		recharge_start_delay = recharge_delay, \
+		charge_increment_delay = recharge_rate, \
+		shield_icon = shield_icon \
+	)
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -1383,9 +1382,21 @@
 
 	///Icon state to be fed into the shielded component
 	var/team_shield_icon = "shield-old"
+	var/shield_integrity = 150
+	var/charge_recovery = 30
+	var/recharge_start_delay = 20 SECONDS
+	var/charge_increment_delay = 1 SECONDS
 
-/obj/item/clothing/suit/armor/vest/ctf/setup_shielding()
-	AddComponent(/datum/component/shielded, max_integrity = 150, charge_recovery = 30, recharge_start_delay = 20 SECONDS, charge_increment_delay = 1 SECONDS, shield_icon = team_shield_icon)
+/obj/item/clothing/suit/armor/vest/ctf/Initialize(mapload)
+	. = ..()
+	AddComponent(
+		/datum/component/shielded, \
+		max_integrity = shield_integrity, \
+		charge_recovery = charge_recovery, \
+		recharge_start_delay = recharge_start_delay, \
+		charge_increment_delay = charge_increment_delay, \
+		shield_icon = team_shield_icon \
+	)
 
 // LIGHT SHIELDED VEST
 
@@ -1396,9 +1407,7 @@
 	greyscale_config = /datum/greyscale_config/ctf_light
 	greyscale_config_worn = /datum/greyscale_config/ctf_light_worn
 	slowdown = -0.25
-
-/obj/item/clothing/suit/armor/vest/ctf/light/setup_shielding()
-	AddComponent(/datum/component/shielded, max_integrity = 50, charge_recovery = 30, recharge_start_delay = 20 SECONDS, charge_increment_delay = 1 SECONDS, shield_icon = team_shield_icon)
+	shield_integrity = 50
 
 // RED TEAM SUITS
 
@@ -1454,7 +1463,6 @@
 	)
 	jetpack = /obj/item/tank/jetpack/suit
 
-
 /datum/armor/shielded_syndi
 	melee = 40
 	bullet = 50
@@ -1462,13 +1470,22 @@
 	energy = 40
 	bomb = 35
 	bio = 100
+	rad = 50
 	fire = 100
 	acid = 100
 	stamina = 60
 	bleed = 70
 
-/obj/item/clothing/suit/space/hardsuit/shielded/syndi/setup_shielding()
-	AddComponent(/datum/component/shielded, max_integrity = 60, charge_recovery = 20, recharge_start_delay = 20 SECONDS, charge_increment_delay = 1 SECONDS, shield_icon = "shield-red")
+/obj/item/clothing/suit/space/hardsuit/shielded/syndi/Initialize(mapload)
+	. = ..()
+	AddComponent(
+		/datum/component/shielded, \
+		max_integrity = 60, \
+		charge_recovery = 20, \
+		recharge_start_delay = 20 SECONDS, \
+		charge_increment_delay = 1 SECONDS, \
+		shield_icon = "shield-red" \
+	)
 
 /obj/item/clothing/suit/space/hardsuit/shielded/syndi/ComponentInitialize()
 	. = ..()
@@ -1497,6 +1514,7 @@
 	energy = 40
 	bomb = 35
 	bio = 100
+	rad = 50
 	fire = 100
 	acid = 100
 	stamina = 60
@@ -1538,13 +1556,22 @@
 	energy =60
 	bomb = 100
 	bio = 100
+	rad = 100
 	fire = 100
 	acid = 100
 	stamina = 100
 	bleed = 100
 
-/obj/item/clothing/suit/space/hardsuit/shielded/swat/setup_shielding()
-	AddComponent(/datum/component/shielded, max_integrity = 80, charge_recovery = 20, recharge_start_delay = 1.5 SECONDS, charge_increment_delay = 1 SECONDS, shield_icon = "shield-old")
+/obj/item/clothing/suit/space/hardsuit/shielded/swat/Initialize(mapload)
+	. = ..()
+	AddComponent(
+		/datum/component/shielded, \
+		max_integrity = 80, \
+		charge_recovery = 20, \
+		recharge_start_delay = 1.5 SECONDS, \
+		charge_increment_delay = 1 SECONDS, \
+		shield_icon = "shield-old" \
+	)
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/swat
 	name = "death commando helmet"
@@ -1565,6 +1592,7 @@
 	energy = 60
 	bomb = 100
 	bio = 100
+	rad = 100
 	fire = 100
 	acid = 100
 	stamina = 100
@@ -1609,13 +1637,22 @@
 	energy = 135
 	bomb = 135
 	bio = 100
+	rad = 100
 	fire = 100
 	acid = 100
 	stamina = 100
 	bleed = 100
 
-/obj/item/clothing/suit/space/hardsuit/shielded/doomguy/setup_shielding()
-	AddComponent(/datum/component/shielded, max_integrity = 20, charge_recovery = 20, recharge_start_delay = 1 SECONDS, charge_increment_delay = 1 SECONDS, shield_icon = "shield-old")
+/obj/item/clothing/suit/space/hardsuit/shielded/doomguy/Initialize(mapload)
+	. = ..()
+	AddComponent(
+		/datum/component/shielded, \
+		max_integrity = 20, \
+		charge_recovery = 20, \
+		recharge_start_delay = 1 SECONDS, \
+		charge_increment_delay = 1 SECONDS, \
+		shield_icon = "shield-old" \
+	)
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/doomguy
 	name = "juggernaut helmet"
@@ -1637,6 +1674,7 @@
 	energy = 135
 	bomb = 135
 	bio = 100
+	rad = 100
 	fire = 100
 	acid = 100
 	stamina = 100
