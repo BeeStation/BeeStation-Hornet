@@ -521,33 +521,25 @@
 	var/last_en = environ
 	var/last_ch = charging
 
-	if(!src.avail())
+	if(!avail())
 		main_status = APC_NO_POWER
-	else if(surplus() < 0)
-		main_status = APC_LOW_POWER
-	else
-		main_status = APC_HAS_POWER
 
 	if(cell && !shorted) //need to check to make sure the cell is still there since rigged cells can randomly explode after use().
-		if(surplus() >= lastused_total)	// if power excess recharge the cell (if not maxcharge)
-			add_load(lastused_total)
-			if(surplus() >= cell.chargerate && cell.charge != cell.maxcharge)
-				cell.give(cell.chargerate)
-				add_load(cell.chargerate) // add the load used to recharge the cell
-		else // IF surplus alone is not enough we go to cell
+		var/surplus_used = min(surplus(), lastused_total)	//Here we're using the powernet to meet demand
+		var/remaining_load = lastused_total - surplus_used
+		main_status = APC_HAS_POWER
+		add_load(surplus_used)
+		if(remaining_load)	// Here we're using cell charge to meet demand (if any and whatever is left even if all)
 			charging = APC_NOT_CHARGING
 			main_status = APC_LOW_POWER
-			var/surplus_used = min(surplus(), lastused_total)
-			var/remaining_load = lastused_total - surplus_used
-			add_load(surplus_used)
-			if(remaining_load)
-				cell.use(remaining_load)
+			cell.use(remaining_load)
+		else if(surplus() >= cell.chargerate && cell.charge != cell.maxcharge && chargemode) // Here we're charging the cell (if theres enough power to do so)
+			charging = APC_CHARGING
+			cell.give(cell.chargerate)
+			add_load(cell.chargerate) // add the load used to recharge the cell
+		update_appearance()
 
 	if(cell && !shorted) //need to check to make sure the cell is still there since rigged cells can randomly explode after give().
-
-		// set channels depending on how much charge we have left
-
-		// Allow the APC to operate as normal if the cell can charge
 		if(charging && longtermpower < 10)
 			longtermpower += 1
 		else if(longtermpower > -10)
@@ -585,12 +577,6 @@
 		if(cell.charge >= cell.maxcharge)
 			cell.charge = cell.maxcharge
 			charging = APC_FULLY_CHARGED
-
-		if(chargemode)
-			if(!charging && surplus() > 0)
-				charging = APC_CHARGING
-		else // chargemode off
-			charging = APC_NOT_CHARGING
 
 		//=====Clock Cult=====
 		if(integration_cog && cell.charge >= cell.maxcharge/2)
