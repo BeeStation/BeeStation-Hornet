@@ -7833,7 +7833,6 @@
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bad" = (
-/obj/machinery/pipe_dispenser/disposal/transit_tube,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -7964,13 +7963,6 @@
 "bbH" = (
 /obj/machinery/suit_storage_unit/atmos,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/engine/atmos)
-"bbI" = (
-/obj/machinery/pipe_dispenser/disposal,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -8257,13 +8249,6 @@
 /obj/effect/turf_decal/stripes/end,
 /turf/open/floor/iron,
 /area/engine/atmos)
-"bdj" = (
-/obj/machinery/pipe_dispenser,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/engine/atmos)
 "bdm" = (
 /obj/machinery/meter,
 /obj/structure/grille,
@@ -8473,7 +8458,6 @@
 /area/engine/atmos)
 "beB" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants/random,
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = -24
@@ -8486,12 +8470,12 @@
 	},
 /area/engine/atmos)
 "beD" = (
-/obj/machinery/vending/wardrobe/atmos_wardrobe,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light{
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
+/obj/machinery/vending/wardrobe/atmos_wardrobe,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "beE" = (
@@ -10932,10 +10916,13 @@
 /turf/open/floor/iron/dark,
 /area/security/main)
 "btW" = (
-/obj/effect/turf_decal/stripes/line{
+/obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/turf/open/floor/iron,
+/obj/item/kirbyplants/random,
+/turf/open/floor/iron/dark/corner{
+	dir = 1
+	},
 /area/engine/atmos)
 "bud" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
@@ -81009,11 +80996,11 @@
 /turf/open/floor/iron,
 /area/janitor)
 "tVa" = (
-/obj/structure/closet/toolcloset,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
+/obj/machinery/vending/engivend,
 /turf/open/floor/iron,
 /area/engine/storage_shared)
 "tVe" = (
@@ -119779,7 +119766,7 @@ aMB
 pjM
 bdg
 uEI
-bdg
+btW
 beB
 aMB
 bho
@@ -120557,10 +120544,10 @@ bhn
 fLo
 bkR
 jWU
-btW
+bad
 bqc
 bws
-btW
+bad
 bvi
 bwz
 bxN
@@ -120806,8 +120793,8 @@ aUS
 aWK
 aYk
 bad
-bbI
-bdj
+bad
+bad
 beF
 aWG
 bho
