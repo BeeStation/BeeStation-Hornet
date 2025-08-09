@@ -631,6 +631,7 @@
 	force_string = "INFINITE"
 
 /obj/item/melee/supermatter_sword/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, damage, attack_type)
+	//This is a cheat item, it doesn't need to obey blocking
 	qdel(hitby)
 	owner.visible_message(span_danger("[hitby] evaporates in midair!"))
 	return TRUE
