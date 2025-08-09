@@ -656,7 +656,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		else
 			return FALSE
 	switch(relative_dir)
-		if(135, 225, -135, -225)
+		if(180, -180) //Check for head on attack
+			if(canblock)
+				playsound(src, block_sound, 50, 1)
+				owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"))
+				return TRUE
+		if(135, 225, -135, -225) //Check for forward diagonals
 			if(canblock)
 				playsound(src, block_sound, 50, 1)
 				owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"))
