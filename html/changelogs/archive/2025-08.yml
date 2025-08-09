@@ -154,6 +154,8 @@
       the Power Monitor app.
   - tweak: Atmos role disk was given the Power Monitor app.
   - refactor: Refactored my own ass code to ensure this bug doesn't happen ever again.
+  - rscadd: You now get 40 beecoins at roundstart after readying up.
+  - bugfix: Fixes a bug causing qdeled modular computers to drop parts
   mrmanlikesbt, LemonInTheDark, ninjanomnom:
   - code_imp: shifted around some signal logic
   - code_imp: micro optimizations for signal code
