@@ -154,7 +154,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "N" = (
-/obj/machinery/modular_computer/console/preset/civilian,
+/obj/item/modular_computer/console/preset/civilian,
 /turf/open/floor/iron,
 /area/template_noop)
 "O" = (

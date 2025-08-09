@@ -62,37 +62,6 @@
 	desc = "A device that wirelessly recharges connected device from nearby APC. Standard issue for Engineers."
 	w_class = WEIGHT_CLASS_TINY // This premium little item can be fit into PDAs
 
-/obj/item/computer_hardware/recharger/wired
-	name = "wired power connector"
-	desc = "A power connector that recharges connected device from nearby power wire. Incompatible with portable computers."
-	icon_state = "charger_wire"
-	w_class = WEIGHT_CLASS_NORMAL
-
-/obj/item/computer_hardware/recharger/wired/can_install(obj/item/modular_computer/install_into, mob/living/user = null)
-	if(ismachinery(install_into.physical) && install_into.physical.anchored)
-		return ..()
-	to_chat(user, span_warning("\The [src] is incompatible with portable computers!"))
-	return 0
-
-/obj/item/computer_hardware/recharger/wired/use_power(amount, charging = 0)
-	if(ismachinery(holder.physical) && holder.physical.anchored)
-		var/obj/machinery/M = holder.physical
-		var/turf/T = M.loc
-		if(!T || !istype(T))
-			return 0
-
-		var/obj/structure/cable/C = T.get_cable_node()
-		if(!C || !C.powernet)
-			return 0
-
-		var/power_in_net = C.powernet.avail-C.powernet.load
-
-		if(power_in_net && power_in_net > amount)
-			C.powernet.load += amount
-			return 1
-
-	return 0
-
 /// This recharger exists only in borg built-in tablets. I would have tied it to the borg's cell but
 /// the program that displays laws should always be usable, and the exceptions were starting to pile.
 /obj/item/computer_hardware/recharger/cyborg
@@ -101,7 +70,6 @@
 
 /obj/item/computer_hardware/recharger/cyborg/use_power(amount, charging = 0)
 	return TRUE
-
 
 // This is not intended to be obtainable in-game. Intended for adminbus and debugging purposes.
 /obj/item/computer_hardware/recharger/lambda

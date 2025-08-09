@@ -13,9 +13,6 @@
 	var/obj/item/computer_hardware/hard_drive/hdd = all_components[MC_HDD]
 	if(hdd)
 		hdd.virus_defense = default_virus_defense
-	if(default_disk)
-		var/obj/item/computer_hardware/hard_drive/portable/disk = new default_disk(src)
-		install_component(disk)
 
 	if(insert_type)
 		inserted_item = new insert_type(src)
@@ -96,7 +93,7 @@
 	name = "security PDA"
 	default_disk = /obj/item/computer_hardware/hard_drive/role/security
 	icon_state = "pda-security"
-	default_virus_defense = ANTIVIRUS_NONE
+	default_virus_defense = ANTIVIRUS_MEDIUM
 
 /obj/item/modular_computer/tablet/pda/preset/deputy
 	name = "deputy PDA"
