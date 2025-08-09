@@ -53,7 +53,7 @@ const DIFFMAP = [
   },
 ] as const;
 
-export const AccessConfig = (props) => {
+export function AccessConfig(props: ConfigProps) {
   const { accesses = [], selectedList = [], accessMod, grantAll, denyAll, grantDep, denyDep } = props;
 
   const [selectedAccessName, setSelectedAccessName] = useState(accesses[0]?.name);
