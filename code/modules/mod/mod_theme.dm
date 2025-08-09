@@ -227,7 +227,6 @@
 	laser = 5
 	energy = 5
 	bio = 50
-	rad = 5
 	fire = 25
 	acid = 25
 	bleed = 10
@@ -293,7 +292,6 @@
 	laser = 10
 	energy = 10
 	bomb = 10
-	rad = 75 //taken from hardsuits, not long-term solution
 	bio = 100
 	fire = 100
 	acid = 50
@@ -361,8 +359,7 @@
 	bullet = 5
 	laser = 10
 	energy = 15
-	bomb = 10
-	rad = 25 //taken from hardsuits, not long-term solution
+	bomb = 10 //taken from hardsuits, not long-term solution
 	bio = 100
 	fire = 100
 	acid = 75
@@ -434,7 +431,6 @@
 	laser = 20
 	energy = 15
 	bomb = 50
-	rad = 100 //taken from hardsuits, not long-term solution
 	bio = 100
 	fire = 100
 	acid = 90
@@ -949,7 +945,6 @@
 	energy = 25
 	bomb = 25
 	bio = 100
-	rad = 30
 	fire = 75
 	acid = 75
 	stamina = 25
@@ -1019,7 +1014,6 @@
 	energy = 25
 	bomb = 40
 	bio = 100
-	rad = 40
 	fire = 100
 	acid = 95
 	stamina = 30
@@ -1269,7 +1263,6 @@
 	energy = 30
 	bomb = 35
 	bio = 100
-	rad = 40
 	fire = 50
 	acid = 90
 	stamina = 30
@@ -1343,7 +1336,6 @@
 	energy = 35
 	bomb = 55
 	bio = 100
-	rad = 65
 	fire = 100
 	acid = 100
 	stamina = 45
@@ -1418,7 +1410,6 @@
 	laser = 40
 	energy = 40
 	bomb = 40
-	rad = 75
 	fire = 100
 	acid = 100
 	stamina = 40
@@ -1486,8 +1477,7 @@
 	laser = 50
 	energy = 50
 	bomb = 35
-	bio = 100
-	rad = 50
+	bio = 1000
 	fire = 100
 	acid = 100
 	stamina = 50
@@ -1558,7 +1548,6 @@
 	energy = 30
 	bomb = 30
 	bio = 100
-	rad = 60
 	fire = 100
 	acid = 100
 	bleed = 50
@@ -1629,7 +1618,6 @@
 	energy = 15
 	bomb = 50
 	bio = 100
-	rad = 100
 	fire = 100
 	acid = 75
 	stamina = 30
@@ -1731,7 +1719,6 @@
 	energy = 50
 	bomb = 50
 	bio = 100
-	rad = 90
 	fire = 100
 	acid = 90
 	stamina = 40
@@ -1999,7 +1986,6 @@
 	laser = 50
 	energy = 50
 	bomb = 100
-	rad = 100
 	bio = 100
 	fire = 100
 	stamina = 50
@@ -2063,7 +2049,6 @@
 	energy = 100
 	bomb = 100
 	bio = 100
-	rad = 100
 	fire = 100
 	acid = 100
 	stamina = 100

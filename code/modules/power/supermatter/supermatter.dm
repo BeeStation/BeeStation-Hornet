@@ -1061,7 +1061,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 /obj/machinery/power/supermatter_crystal/proc/holiday_lights()
 	holiday_lights = TRUE
-	RegisterSignal(src, COMSIG_PARENT_ATTACKBY, PROC_REF(holiday_item_interaction))
+	RegisterSignal(src, COMSIG_ATOM_ATTACKBY, PROC_REF(holiday_item_interaction))
 	update_appearance()
 
 /// Consume the santa hat and add it as an overlay
