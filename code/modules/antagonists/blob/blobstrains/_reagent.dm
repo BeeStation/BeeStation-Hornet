@@ -23,7 +23,7 @@
 	name = "Unknown"
 	description = "shouldn't exist and you should adminhelp immediately."
 	color = "#FFFFFF"
-	chem_flags = CHEMICAL_NOT_DEFINED
+	chemical_flags = CHEMICAL_NOT_DEFINED
 	taste_description = "bad code and slime"
 
 
