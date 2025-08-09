@@ -156,6 +156,9 @@
   - refactor: Refactored my own ass code to ensure this bug doesn't happen ever again.
   - rscadd: You now get 40 beecoins at roundstart after readying up.
   - bugfix: Fixes a bug causing qdeled modular computers to drop parts
+  Rukofamicom:
+  - bugfix: Diona no longer need to breathe at any time, instead of only being freed
+      of this burden as a nymph
   mrmanlikesbt, LemonInTheDark, ninjanomnom:
   - code_imp: shifted around some signal logic
   - code_imp: micro optimizations for signal code

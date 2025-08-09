@@ -1,5 +1,0 @@
-author: Rukofamicom
-delete-after: true
-changes:
-  - bugfix: Diona no longer need to breathe at any time, instead of only being freed
-      of this burden as a nymph
