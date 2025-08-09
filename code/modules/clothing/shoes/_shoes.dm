@@ -74,5 +74,3 @@
 /obj/item/clothing/shoes/generate_digitigrade_icons(icon/base_icon, greyscale_colors)
 	return icon(SSgreyscale.GetColoredIconByType(/datum/greyscale_config/digitigrade, greyscale_colors), "boots_worn")
 
-/obj/item/proc/negates_gravity()
-	return FALSE

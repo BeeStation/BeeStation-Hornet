@@ -4785,6 +4785,10 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/science/xenobiology)
+"bfJ" = (
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron,
+/area/science/robotics/lab)
 "bfN" = (
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/iron,
@@ -10470,29 +10474,6 @@
 	},
 /turf/open/floor/iron/freezer,
 /area/medical/surgery)
-"cLG" = (
-/obj/structure/table,
-/obj/item/storage/box/beakers{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/storage/box/syringes,
-/obj/machinery/door/window/southright{
-	name = "Miscellaneous Medical Supplies";
-	req_access_txt = "5"
-	},
-/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/sign/map/right{
-	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
-	icon_state = "map-right-fland";
-	pixel_y = 32
-	},
-/obj/item/book/manual/wiki/sopmedical,
-/turf/open/floor/iron/dark,
-/area/medical/storage)
 "cLH" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -22582,24 +22563,6 @@
 	},
 /turf/open/floor/iron,
 /area/security/checkpoint/escape)
-"fNp" = (
-/obj/structure/table,
-/obj/effect/turf_decal/bot,
-/obj/item/bodypart/arm/right/robot{
-	pixel_x = 3
-	},
-/obj/item/bodypart/arm/left/robot{
-	pixel_x = -3
-	},
-/obj/item/stack/cable_coil/white,
-/obj/item/assembly/flash/handheld/weak,
-/obj/item/assembly/flash/handheld/weak,
-/obj/item/assembly/flash/handheld/weak,
-/obj/item/assembly/flash/handheld/weak,
-/obj/item/assembly/flash/handheld/weak,
-/obj/item/assembly/flash/handheld/weak,
-/turf/open/floor/iron/grid/steel,
-/area/science/robotics/lab)
 "fNr" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
@@ -26041,6 +26004,14 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/medical/virology)
+"gHI" = (
+/obj/structure/table/wood,
+/obj/effect/turf_decal/bot,
+/obj/item/candydispenser/engineering{
+	pixel_y = 11
+	},
+/turf/open/floor/iron/sepia,
+/area/engine/break_room)
 "gHS" = (
 /obj/machinery/power/apc/auto_name/directional/south,
 /obj/structure/table,
@@ -26750,13 +26721,6 @@
 	},
 /turf/open/floor/engine/co2/light,
 /area/engine/atmos)
-"gPN" = (
-/obj/structure/table,
-/obj/item/paper_bin,
-/obj/effect/turf_decal/bot,
-/obj/item/pen,
-/turf/open/floor/iron/dark,
-/area/quartermaster/storage)
 "gPO" = (
 /turf/open/floor/wood,
 /area/hallway/primary/aft)
@@ -31326,6 +31290,19 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/checkpoint)
+"hZJ" = (
+/obj/structure/table/reinforced,
+/obj/item/bodypart/chest/robot,
+/obj/item/bodypart/arm/right/robot{
+	pixel_x = 6
+	},
+/obj/item/bodypart/arm/left/robot{
+	pixel_x = -6
+	},
+/obj/item/bodypart/leg/right/robot,
+/obj/item/bodypart/leg/right/robot,
+/turf/open/floor/iron/tech/grid,
+/area/ai_monitored/turret_protected/ai_upload_foyer)
 "hZK" = (
 /obj/machinery/disposal/bin,
 /obj/effect/turf_decal/delivery,
@@ -31902,6 +31879,24 @@
 	dir = 5
 	},
 /area/teleporter)
+"ihH" = (
+/obj/structure/table,
+/obj/effect/turf_decal/bot,
+/obj/item/bodypart/arm/right/robot{
+	pixel_x = 3
+	},
+/obj/item/bodypart/arm/left/robot{
+	pixel_x = -3
+	},
+/obj/item/stack/cable_coil/white,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/turf/open/floor/iron/grid/steel,
+/area/science/robotics/lab)
 "iib" = (
 /obj/effect/turf_decal/guideline/guideline_in/bar{
 	dir = 9
@@ -47790,6 +47785,14 @@
 "mgT" = (
 /turf/open/floor/iron/dark/side,
 /area/hallway/primary/central)
+"mhb" = (
+/obj/effect/turf_decal/tile/blue,
+/obj/item/candydispenser/lollipop{
+	pixel_y = 10
+	},
+/obj/structure/table,
+/turf/open/floor/iron/white,
+/area/medical/medbay/lobby)
 "mhe" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /turf/open/floor/iron,
@@ -47956,14 +47959,6 @@
 /obj/machinery/firealarm/directional/south,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/ai)
-"mjg" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/item/candydispenser/lollipop{
-	pixel_y = 10
-	},
-/obj/structure/table,
-/turf/open/floor/iron/white,
-/area/medical/medbay/lobby)
 "mji" = (
 /obj/machinery/computer/crew{
 	dir = 1
@@ -50119,30 +50114,6 @@
 	dir = 6
 	},
 /area/ai_monitored/storage/eva)
-"mNq" = (
-/obj/structure/table,
-/obj/machinery/door/window/southleft{
-	name = "Miscellaneous Medical Supplies";
-	req_access_txt = "5"
-	},
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = -3;
-	pixel_y = 2
-	},
-/obj/item/clothing/glasses/hud/health,
-/obj/item/clothing/glasses/hud/health,
-/obj/item/clothing/neck/stethoscope,
-/obj/item/clothing/neck/stethoscope,
-/obj/item/storage/belt/medical,
-/obj/item/storage/belt/medical,
-/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
-/obj/structure/sign/map/left{
-	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
-	icon_state = "map-left-fland";
-	pixel_y = 32
-	},
-/turf/open/floor/iron/dark,
-/area/medical/storage)
 "mNx" = (
 /obj/machinery/camera/directional/west{
 	c_tag = "Central Primary Hallway - Central Port";
@@ -61607,14 +61578,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
-"pQf" = (
-/obj/structure/table/wood,
-/obj/effect/turf_decal/bot,
-/obj/item/candydispenser/engineering{
-	pixel_y = 11
-	},
-/turf/open/floor/iron/sepia,
-/area/engine/break_room)
 "pQq" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
@@ -62510,6 +62473,23 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
+"qcT" = (
+/obj/machinery/door/window/southright{
+	name = "Miscellaneous Medical Supplies";
+	req_access_txt = "5"
+	},
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/sign/map/right{
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	icon_state = "map-right-fland";
+	pixel_y = 32
+	},
+/obj/machinery/suit_storage_unit/medical,
+/turf/open/floor/iron/dark,
+/area/medical/storage)
 "qdi" = (
 /obj/structure/railing{
 	dir = 1
@@ -68407,30 +68387,6 @@
 /obj/effect/turf_decal/tile/yellow/opposingcorners,
 /turf/open/floor/iron/sepia,
 /area/engine/engineering)
-"rDb" = (
-/obj/structure/table/wood,
-/obj/item/bodypart/chest/robot{
-	pixel_y = 2
-	},
-/obj/item/bodypart/head/robot{
-	pixel_y = 10
-	},
-/obj/item/bodypart/arm/left/robot{
-	pixel_x = -5
-	},
-/obj/item/bodypart/arm/right/robot{
-	pixel_x = 4
-	},
-/obj/item/bodypart/leg/right/robot{
-	pixel_x = 5;
-	pixel_y = -7
-	},
-/obj/item/bodypart/leg/left/robot{
-	pixel_x = -4;
-	pixel_y = -7
-	},
-/turf/open/floor/wood,
-/area/bridge/showroom/corporate)
 "rDh" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -71220,6 +71176,30 @@
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
+"smn" = (
+/obj/structure/table/wood,
+/obj/item/bodypart/chest/robot{
+	pixel_y = 2
+	},
+/obj/item/bodypart/head/robot{
+	pixel_y = 10
+	},
+/obj/item/bodypart/arm/left/robot{
+	pixel_x = -5
+	},
+/obj/item/bodypart/arm/right/robot{
+	pixel_x = 4
+	},
+/obj/item/bodypart/leg/right/robot{
+	pixel_x = 5;
+	pixel_y = -7
+	},
+/obj/item/bodypart/leg/left/robot{
+	pixel_x = -4;
+	pixel_y = -7
+	},
+/turf/open/floor/wood,
+/area/bridge/showroom/corporate)
 "smp" = (
 /obj/effect/turf_decal/siding/dark,
 /obj/effect/turf_decal/trimline/red/filled/line{
@@ -72236,10 +72216,6 @@
 	},
 /turf/open/floor/iron/sepia,
 /area/maintenance/department/engine)
-"sAN" = (
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/science/robotics/lab)
 "sAO" = (
 /obj/effect/turf_decal/guideline/guideline_out_arrow_con/blue{
 	dir = 9
@@ -86636,19 +86612,6 @@
 /obj/structure/plasticflaps,
 /turf/open/floor/plating,
 /area/quartermaster/sorting)
-"vVZ" = (
-/obj/structure/table/reinforced,
-/obj/item/bodypart/chest/robot,
-/obj/item/bodypart/arm/right/robot{
-	pixel_x = 6
-	},
-/obj/item/bodypart/arm/left/robot{
-	pixel_x = -6
-	},
-/obj/item/bodypart/leg/right/robot,
-/obj/item/bodypart/leg/right/robot,
-/turf/open/floor/iron/tech/grid,
-/area/ai_monitored/turret_protected/ai_upload_foyer)
 "vWb" = (
 /obj/structure/table/wood,
 /obj/machinery/recharger,
@@ -86937,6 +86900,16 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/science/mixing)
+"waG" = (
+/obj/structure/table/wood,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/item/candydispenser{
+	pixel_y = 11
+	},
+/turf/open/floor/carpet/green,
+/area/crew_quarters/dorms)
 "waI" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -91482,6 +91455,11 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /turf/open/floor/iron/dark,
 /area/engine/gravity_generator)
+"xeA" = (
+/obj/effect/turf_decal/bot,
+/obj/machinery/suit_storage_unit/industrial/loader,
+/turf/open/floor/iron/dark,
+/area/quartermaster/storage)
 "xeC" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/effect/landmark/start/assistant,
@@ -91965,6 +91943,36 @@
 /obj/effect/landmark/start/cyborg,
 /turf/open/floor/iron/dark,
 /area/science/robotics/mechbay)
+"xjj" = (
+/obj/structure/table,
+/obj/machinery/door/window/southleft{
+	name = "Miscellaneous Medical Supplies";
+	req_access_txt = "5"
+	},
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = -3;
+	pixel_y = 2
+	},
+/obj/item/clothing/glasses/hud/health,
+/obj/item/clothing/glasses/hud/health,
+/obj/item/clothing/neck/stethoscope,
+/obj/item/clothing/neck/stethoscope,
+/obj/item/storage/belt/medical,
+/obj/item/storage/belt/medical,
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/structure/sign/map/left{
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	icon_state = "map-left-fland";
+	pixel_y = 32
+	},
+/obj/item/book/manual/wiki/sopmedical,
+/obj/item/storage/box/beakers{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/storage/box/syringes,
+/turf/open/floor/iron/dark,
+/area/medical/storage)
 "xjk" = (
 /obj/machinery/airalarm/directional/south{
 	pixel_y = -22
@@ -92625,16 +92633,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/security/main)
-"xqx" = (
-/obj/structure/table/wood,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/item/candydispenser{
-	pixel_y = 11
-	},
-/turf/open/floor/carpet/green,
-/area/crew_quarters/dorms)
 "xqD" = (
 /obj/machinery/power/terminal,
 /obj/structure/cable/yellow,
@@ -124197,7 +124195,7 @@ rmz
 hLq
 cOk
 klS
-mjg
+mhb
 esg
 fTN
 jId
@@ -126057,7 +126055,7 @@ kuT
 vVR
 uaf
 wMZ
-gPN
+xeA
 aJR
 quh
 qpR
@@ -128546,7 +128544,7 @@ lLM
 lLM
 boD
 ayc
-mNq
+xjj
 erx
 nZt
 grU
@@ -128803,7 +128801,7 @@ lLM
 vuQ
 vuQ
 ayc
-cLG
+qcT
 gfu
 vkY
 wwZ
@@ -129916,7 +129914,7 @@ dsX
 xph
 fIf
 xJr
-sAN
+bfJ
 uwE
 noj
 gDL
@@ -131970,7 +131968,7 @@ vBG
 yfq
 rVu
 pgr
-fNp
+ihH
 trH
 kYH
 wAn
@@ -134269,7 +134267,7 @@ tfT
 hRk
 jyA
 tUb
-rDb
+smn
 tfT
 qZR
 jKi
@@ -141468,7 +141466,7 @@ cBt
 tXM
 oPn
 qyd
-pQf
+gHI
 pFP
 ykQ
 gfk
@@ -143242,7 +143240,7 @@ nIP
 qEC
 llg
 oIH
-xqx
+waG
 xHL
 eax
 wtw
@@ -150922,7 +150920,7 @@ miR
 kOu
 aYu
 vNw
-vVZ
+hZJ
 jyr
 kiU
 vNw

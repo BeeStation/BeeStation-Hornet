@@ -4,6 +4,7 @@
 	meat = /obj/item/food/meat/slab/human/mutant/ethereal
 	mutantstomach = /obj/item/organ/stomach/battery/ethereal
 	mutanttongue = /obj/item/organ/tongue/ethereal
+	mutantheart = /obj/item/organ/heart/ethereal
 	exotic_blood = /datum/reagent/consumable/liquidelectricity //Liquid Electricity. fuck you think of something better gamer
 	siemens_coeff = 0.5 //They thrive on energy
 	inherent_traits = list(
@@ -38,6 +39,7 @@
 	)
 
 	var/current_color
+	var/default_color
 	var/EMPeffect = FALSE
 	var/emageffect = FALSE
 	var/r1
@@ -49,7 +51,6 @@
 	//this is shit but how do i fix it? no clue.
 	var/drain_time = 0 //used to keep ethereals from spam draining power sources
 	var/obj/effect/dummy/lighting_obj/ethereal_light
-	var/default_color
 
 /datum/species/ethereal/Destroy(force)
 	if(ethereal_light)
@@ -72,8 +73,8 @@
 	spec_updatehealth(ethereal)
 	new_ethereal.set_safe_hunger_level()
 
-	//var/obj/item/organ/heart/ethereal/ethereal_heart = new_ethereal.get_organ_slot(ORGAN_SLOT_HEART)
-	//ethereal_heart.ethereal_color = default_color
+	var/obj/item/organ/heart/ethereal/ethereal_heart = new_ethereal.get_organ_slot(ORGAN_SLOT_HEART)
+	ethereal_heart.ethereal_color = default_color
 
 	for(var/obj/item/bodypart/limb as anything in new_ethereal.bodyparts)
 		if(limb.limb_id == SPECIES_ETHEREAL)

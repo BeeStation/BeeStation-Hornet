@@ -320,6 +320,20 @@ CREATION_TEST_IGNORE_SELF(/turf)
 			return TRUE
 	return FALSE
 
+/**
+ * Checks whether the specified turf is blocked by something dense inside it, but ignores anything with the climbable trait
+ *
+ * Works similar to is_blocked_turf(), but ignores climbables and has less options. Primarily added for jaunting checks
+ */
+/turf/proc/is_blocked_turf_ignore_climbable()
+	if(density)
+		return TRUE
+
+	for(var/atom/movable/atom_content as anything in contents)
+		if(atom_content.density && !(atom_content.flags_1 & ON_BORDER_1) && !HAS_TRAIT(atom_content, TRAIT_CLIMBABLE))
+			return TRUE
+	return FALSE
+
 /proc/is_anchored_dense_turf(turf/T) //like the older version of the above, fails only if also anchored
 	if(T.density)
 		return 1
@@ -659,17 +673,3 @@ CREATION_TEST_IGNORE_SELF(/turf)
 		if(!ismopable(movable_content))
 			continue
 		movable_content.wash(clean_types)
-
-/**
- * Checks whether the specified turf is blocked by something dense inside it, but ignores anything with the climbable trait
- *
- * Works similar to is_blocked_turf(), but ignores climbables and has less options. Primarily added for jaunting checks
- */
-/turf/proc/is_blocked_turf_ignore_climbable()
-	if(density)
-		return TRUE
-
-	for(var/atom/movable/atom_content as anything in contents)
-		if(atom_content.density && !(atom_content.flags_1 & ON_BORDER_1) && !HAS_TRAIT(atom_content, TRAIT_CLIMBABLE))
-			return TRUE
-	return FALSE

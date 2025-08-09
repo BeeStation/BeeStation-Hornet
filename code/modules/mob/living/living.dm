@@ -94,6 +94,7 @@
 
 //Called when we bump onto a mob
 /mob/living/proc/MobBump(mob/M)
+	SEND_SIGNAL(src, COMSIG_LIVING_MOB_BUMP, M)
 	//Even if we don't push/swap places, we "touched" them, so spread fire
 	spreadFire(M)
 
@@ -542,7 +543,7 @@
 		if(body_position == LYING_DOWN)
 			if(!silent)
 				to_chat(src, span_notice("You will now try to stay lying down on the floor."))
-		else if(buckled && buckled.buckle_lying != NO_BUCKLE_LYING)
+		else if(HAS_TRAIT(src, TRAIT_FORCED_STANDING) || (buckled && buckled.buckle_lying != NO_BUCKLE_LYING))
 			if(!silent)
 				to_chat(src, span_notice("You will now lay down as soon as you are able to."))
 		else
@@ -924,7 +925,7 @@
 		return pick("trails_1", "trails_2")
 
 /mob/living/experience_pressure_difference(pressure_difference, direction, pressure_resistance_prob_delta = 0)
-	if(buckled)
+	if(buckled || mob_negates_gravity())
 		return
 	if(client && client.move_delay >= world.time + world.tick_lag*2)
 		pressure_resistance_prob_delta -= 30
@@ -1137,7 +1138,7 @@
 		return FALSE
 	if(invisibility || alpha == 0)//cloaked
 		return FALSE
-	if(SEND_SIGNAL(src, COMSIG_LIVING_CAN_TRACK, args) & COMPONENT_CANT_TRACK)
+	if(SEND_SIGNAL(src, COMSIG_LIVING_CAN_TRACK, user) & COMPONENT_CANT_TRACK)
 		return FALSE
 
 	// Now, are they viewable by a camera? (This is last because it's the most intensive check)
@@ -1914,8 +1915,8 @@
 /// Proc to append behavior to the condition of being floored. Called when the condition starts.
 /mob/living/proc/on_floored_start()
 	if(body_position == STANDING_UP) //force them on the ground
-		set_lying_angle(pick(90, 270))
 		set_body_position(LYING_DOWN)
+		set_lying_angle(pick(90, 270))
 		on_fall()
 
 

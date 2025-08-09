@@ -734,6 +734,8 @@
 
 	. = ..()
 
+/obj/item/toy/crayon/spraycan/attackby_storage_insert(datum/component/storage, atom/storage_holder, mob/user)
+	return is_capped
 /obj/item/toy/crayon/spraycan/afterattack_secondary(atom/target, mob/user, proximity, params)
 	if(!proximity)
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN

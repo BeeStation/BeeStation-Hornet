@@ -142,7 +142,7 @@
 	icon_state = "sunhudmed"
 	emissive_state = "sun_emissive"
 	darkness_view = 1
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 	tint = 1
 	glass_colour_type = /datum/client_colour/glass_colour/blue
 
@@ -156,7 +156,7 @@
 /obj/item/clothing/glasses/hud/health/sunglasses/degraded
 	name = "degraded medical HUDSunglasses"
 	desc = "Sunglasses with a medical HUD. They do not provide flash protection."
-	flash_protect = 0
+	flash_protect = FLASH_PROTECTION_NONE
 
 /obj/item/clothing/glasses/hud/diagnostic
 	name = "diagnostic HUD"
@@ -183,13 +183,13 @@
 	icon_state = "sunhuddiag"
 	emissive_state = "sun_emissive"
 	item_state = "glasses"
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 	tint = 1
 
 /obj/item/clothing/glasses/hud/diagnostic/sunglasses/degraded
 	name = "degraded diagnostic sunglasses"
 	desc = "Sunglasses with a diagnostic HUD. They do not provide flash protection."
-	flash_protect = 0
+	flash_protect = FLASH_PROTECTION_NONE
 
 /obj/item/clothing/glasses/hud/diagnostic/prescription
 	name = "prescription diagnostic HUDglasses"
@@ -224,7 +224,7 @@
 /obj/item/clothing/glasses/hud/security/chameleon
 	name = "chameleon security HUD"
 	desc = "A stolen security HUD integrated with Syndicate chameleon technology. Provides flash protection."
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 
 	// Yes this code is the same as normal chameleon glasses, but we don't
 	// have multiple inheritance, okay?
@@ -258,14 +258,14 @@
 	icon_state = "sunhudsec"
 	emissive_state = "sechud_emissive"
 	darkness_view = 1
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 	tint = 1
 	glass_colour_type = /datum/client_colour/glass_colour/darkred
 
 /obj/item/clothing/glasses/hud/security/sunglasses/degraded
 	name = "degraded security HUDSunglasses"
 	desc = "Sunglasses with a security HUD. They do not provide flash protection."
-	flash_protect = 0
+	flash_protect = FLASH_PROTECTION_NONE
 
 /obj/item/clothing/glasses/hud/security/night
 	name = "night vision security HUD"
@@ -381,9 +381,9 @@
 	item_state = "doublegodeye"
 	vision_flags = SEE_TURFS|SEE_MOBS|SEE_OBJS
 	darkness_view = 8
-	flash_protect = 2
+	flash_protect = FLASH_PROTECTION_WELDER
 	vision_correction = 1
-	clothing_flags = SCAN_REAGENTS | SCAN_BOOZEPOWER
+	clothing_traits = list(TRAIT_BOOZE_SLIDER, TRAIT_REAGENT_SCANNER)
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	hud_type = list(DATA_HUD_MEDICAL_ADVANCED, DATA_HUD_DIAGNOSTIC_ADVANCED, DATA_HUD_SECURITY_ADVANCED)
 	resistance_flags = INDESTRUCTIBLE

@@ -24,7 +24,7 @@
 	src.pixel_y_offset = pixel_y_offset
 	src.loose_hat = loose_hat
 	// Examine signals
-	RegisterSignal(source, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(source, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 	//RegisterSignal(source, COMSIG_ATOM_REQUESTING_CONTEXT_FROM_ITEM, PROC_REF(on_requesting_context_from_item))
 
 	// Equip signals, used to drop loose hats
@@ -32,13 +32,13 @@
 	RegisterSignal(source, COMSIG_ITEM_DROPPED, PROC_REF(on_drop))
 
 	// Wear & Remove
-	RegisterSignal(source, COMSIG_PARENT_ATTACKBY, PROC_REF(on_attackby))
+	RegisterSignal(source, COMSIG_ATOM_ATTACKBY, PROC_REF(on_attackby))
 	RegisterSignal(source, COMSIG_ATOM_ATTACK_HAND_SECONDARY, PROC_REF(on_secondary_attack_hand))
 
 	// Overlays
 	RegisterSignals(source, list(COMSIG_ITEM_GET_WORN_OVERLAYS), PROC_REF(get_worn_overlays))
 
-	RegisterSignal(source, COMSIG_PARENT_QDELETING, PROC_REF(on_qdel))
+	RegisterSignal(source, COMSIG_QDELETING, PROC_REF(on_qdel))
 
 // Inherit the new values passed to the component
 /datum/component/hat_stabilizer/InheritComponent(datum/component/hat_stabilizer/new_comp, original, use_worn_icon, pixel_y_offset, loose_hat)
@@ -58,12 +58,12 @@
 	if (attached_hat)
 		remove_hat()
 	UnregisterSignal(parent, list(
-		COMSIG_PARENT_EXAMINE,
-		COMSIG_PARENT_ATTACKBY,
+		COMSIG_ATOM_EXAMINE,
+		COMSIG_ATOM_ATTACKBY,
 		COMSIG_ATOM_ATTACK_HAND_SECONDARY,
 		COMSIG_ITEM_GET_WORN_OVERLAYS,
 		COMSIG_ATOM_UPDATE_OVERLAYS,
-		COMSIG_PARENT_QDELETING,
+		COMSIG_QDELETING,
 		COMSIG_ITEM_EQUIPPED,
 		COMSIG_ITEM_DROPPED
 	))

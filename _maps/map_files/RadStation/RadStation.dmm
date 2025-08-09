@@ -6170,6 +6170,17 @@
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/cafeteria)
+"bYh" = (
+/obj/machinery/suit_storage_unit/industrial/loader,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/machinery/airalarm/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/quartermaster/storage)
 "bYr" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
@@ -6908,14 +6919,6 @@
 /obj/machinery/power/supermatter_crystal/engine,
 /turf/open/floor/engine,
 /area/engine/supermatter)
-"cjT" = (
-/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
-/obj/item/candydispenser/lollipop{
-	pixel_y = 10
-	},
-/obj/structure/table/glass,
-/turf/open/floor/iron/white,
-/area/medical/medbay/lobby)
 "cjU" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -8185,6 +8188,20 @@
 	luminosity = 2
 	},
 /area/security/nuke_storage)
+"cCP" = (
+/obj/structure/table/reinforced,
+/obj/item/kitchen/fork{
+	pixel_x = -6;
+	pixel_y = 13
+	},
+/obj/effect/turf_decal/siding/wideplating/dark{
+	dir = 6
+	},
+/obj/item/candydispenser{
+	pixel_y = 11
+	},
+/turf/open/floor/iron/cafeteria,
+/area/crew_quarters/kitchen)
 "cCS" = (
 /obj/effect/turf_decal/guideline/guideline_half_edge/purple{
 	dir = 4
@@ -14846,6 +14863,16 @@
 	},
 /turf/open/space/basic,
 /area/solar/starboard/aft)
+"eNH" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/item/candydispenser/engineering{
+	pixel_y = 11
+	},
+/obj/structure/table,
+/turf/open/floor/iron/dark,
+/area/engine/engine_room)
 "eNK" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -20570,20 +20597,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible/layer4,
 /turf/open/floor/iron/dark,
 /area/engine/engine_room)
-"gDF" = (
-/obj/structure/table/reinforced,
-/obj/item/kitchen/fork{
-	pixel_x = -6;
-	pixel_y = 13
-	},
-/obj/effect/turf_decal/siding/wideplating/dark{
-	dir = 6
-	},
-/obj/item/candydispenser{
-	pixel_y = 11
-	},
-/turf/open/floor/iron/cafeteria,
-/area/crew_quarters/kitchen)
 "gDW" = (
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=1-Bridge";
@@ -35618,16 +35631,6 @@
 	},
 /turf/open/floor/iron,
 /area/engine/engine_room)
-"lNB" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/item/candydispenser/engineering{
-	pixel_y = 11
-	},
-/obj/structure/table,
-/turf/open/floor/iron/dark,
-/area/engine/engine_room)
 "lNN" = (
 /turf/open/floor/engine/n2,
 /area/engine/atmos)
@@ -44615,6 +44618,14 @@
 	},
 /turf/open/floor/iron,
 /area/engine/atmospherics_engine)
+"oOg" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/open/floor/iron,
+/area/quartermaster/storage)
 "oOn" = (
 /obj/machinery/door/poddoor/shutters/radiation/preopen{
 	id = "engsm";
@@ -45296,6 +45307,16 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/checkpoint/engineering)
+"oXZ" = (
+/obj/machinery/newscaster{
+	pixel_x = 32;
+	pixel_y = 1
+	},
+/obj/effect/turf_decal/guideline/guideline_edge/purple{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/science/robotics)
 "oYh" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -53209,18 +53230,6 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/hydroponics)
-"rCP" = (
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
-	},
-/obj/machinery/airalarm/directional/east,
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/two,
-/turf/open/floor/iron/dark,
-/area/quartermaster/storage)
 "rCR" = (
 /obj/structure/cable/yellow,
 /obj/structure/cable/yellow{
@@ -60971,6 +60980,14 @@
 /obj/effect/turf_decal/guideline/guideline_edge/purple,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
+"uaR" = (
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/item/candydispenser/lollipop{
+	pixel_y = 10
+	},
+/obj/structure/table/glass,
+/turf/open/floor/iron/white,
+/area/medical/medbay/lobby)
 "uaW" = (
 /obj/machinery/door/airlock/research/glass{
 	id_tag = "RoboFoyer";
@@ -70423,16 +70440,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
-"xhi" = (
-/obj/machinery/newscaster{
-	pixel_x = 32;
-	pixel_y = 1
-	},
-/obj/effect/turf_decal/guideline/guideline_edge/purple{
-	dir = 4
-	},
-/turf/open/floor/iron/dark,
-/area/science/robotics)
 "xhl" = (
 /obj/machinery/power/rad_collector/anchored,
 /obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
@@ -95921,7 +95928,7 @@ krB
 krB
 tgI
 krf
-haM
+oOg
 cfA
 fVm
 cfA
@@ -96691,7 +96698,7 @@ nFK
 eyo
 krB
 lvd
-rCP
+bYh
 yij
 bsk
 oBB
@@ -99798,7 +99805,7 @@ jwV
 tVp
 enQ
 fNW
-xhi
+oXZ
 gjP
 duA
 oTo
@@ -106006,7 +106013,7 @@ hdr
 vVF
 hfT
 iaC
-lNB
+eNH
 peX
 qBW
 ocl
@@ -108537,7 +108544,7 @@ fxR
 bMY
 xKJ
 mjM
-cjT
+uaR
 ijk
 xvs
 bPy
@@ -112876,7 +112883,7 @@ cYQ
 eeJ
 pTp
 diN
-gDF
+cCP
 kMP
 bSd
 mWi

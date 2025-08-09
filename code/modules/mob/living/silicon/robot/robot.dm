@@ -898,10 +898,10 @@
 	if(hands)
 		hands.icon_state = model.model_select_icon
 
-	if(model.can_be_pushed)
-		status_flags |= CANPUSH
-	else
-		status_flags &= ~CANPUSH
+	REMOVE_TRAITS_IN(src, MODULE_TRAIT)
+	if(model.module_traits)
+		for(var/trait in model.module_traits)
+			ADD_TRAIT(src, trait, MODULE_TRAIT)
 
 	if(model.clean_on_move)
 		AddElement(/datum/element/cleaning)
@@ -916,7 +916,6 @@
 
 	hat_offset = model.hat_offset
 
-	magpulse = model.magpulsing
 	updatename()
 
 /mob/living/silicon/robot/proc/place_on_head(obj/item/new_hat)
@@ -962,7 +961,7 @@
 	upgrades += new_upgrade
 	new_upgrade.forceMove(src)
 	RegisterSignal(new_upgrade, COMSIG_MOVABLE_MOVED, PROC_REF(remove_from_upgrades))
-	RegisterSignal(new_upgrade, COMSIG_PARENT_QDELETING, PROC_REF(on_upgrade_deleted))
+	RegisterSignal(new_upgrade, COMSIG_QDELETING, PROC_REF(on_upgrade_deleted))
 	logevent("Hardware [new_upgrade] installed successfully.")
 
 ///Called when an upgrade is moved outside the robot. So don't call this directly, use forceMove etc.
@@ -972,7 +971,7 @@
 		return
 	old_upgrade.deactivate(src)
 	upgrades -= old_upgrade
-	UnregisterSignal(old_upgrade, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_QDELETING))
+	UnregisterSignal(old_upgrade, list(COMSIG_MOVABLE_MOVED, COMSIG_QDELETING))
 
 ///Called when an applied upgrade is deleted.
 /mob/living/silicon/robot/proc/on_upgrade_deleted(obj/item/borg/upgrade/old_upgrade)
@@ -980,7 +979,7 @@
 	if(!QDELETED(src))
 		old_upgrade.deactivate(src)
 	upgrades -= old_upgrade
-	UnregisterSignal(old_upgrade, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_QDELETING))
+	UnregisterSignal(old_upgrade, list(COMSIG_MOVABLE_MOVED, COMSIG_QDELETING))
 
 /mob/living/silicon/robot/proc/make_shell(var/obj/item/borg/upgrade/ai/board)
 	if(isnull(board))

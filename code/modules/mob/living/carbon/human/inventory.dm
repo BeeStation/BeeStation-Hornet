@@ -138,7 +138,7 @@
 			if(ears)
 				return
 			ears = I
-			update_inv_ears()
+			update_worn_ears()
 		if(ITEM_SLOT_EYES)
 			if(glasses)
 				return
@@ -270,7 +270,7 @@
 	else if(I == ears)
 		ears = null
 		if(!QDELETED(src))
-			update_inv_ears()
+			update_worn_ears()
 	else if(I == shoes)
 		shoes = null
 		if(!QDELETED(src))

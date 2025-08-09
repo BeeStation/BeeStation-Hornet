@@ -696,7 +696,7 @@
   * Default behaviour is to get the name and icon of the object and it's reagents where
   * the TRANSPARENT flag is set on the reagents holder
   *
-  * Produces a signal COMSIG_PARENT_EXAMINE
+  * Produces a signal COMSIG_ATOM_EXAMINE
   */
 /atom/proc/examine(mob/user)
 	var/examine_string = get_examine_string(user, thats = TRUE)
@@ -775,7 +775,7 @@
 				continue
 			to_chat(user, "\t[span_notice("<span class='[GLOB.soul_glimmer_cfc_list[soul]]'>[soul]")], [present_souls[soul] > 1 ? "[present_souls[soul]] times" : "once"].</span>")
 
-	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
+	SEND_SIGNAL(src, COMSIG_ATOM_EXAMINE, user, .)
 
 /*
  * A list of "tags" displayed after atom's description in examine.

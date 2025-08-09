@@ -240,7 +240,7 @@
 		sight_flags = eyes?.sight_flags
 		//Register signal for losing our eyes
 		if(eyes)
-			RegisterSignal(eyes, COMSIG_PARENT_QDELETING, PROC_REF(handle_eyes))
+			RegisterSignal(eyes, COMSIG_QDELETING, PROC_REF(handle_eyes))
 
 	//handle eyes - make them xray so we can see all the things
 	eyes?.sight_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
@@ -411,7 +411,7 @@
 
 /datum/action/change_psychic_visual/New(Target)
 	. = ..()
-	RegisterSignal(psychic_overlay, COMSIG_PARENT_QDELETING, PROC_REF(parent_destroy))
+	RegisterSignal(psychic_overlay, COMSIG_QDELETING, PROC_REF(parent_destroy))
 
 /datum/action/change_psychic_visual/Destroy()
 	psychic_overlay = null
@@ -440,7 +440,7 @@
 	. = ..()
 	psychic_action = Target
 	//Bad, but not my job to fix your runtimes
-	RegisterSignal(psychic_action, COMSIG_PARENT_QDELETING, PROC_REF(parent_destroy), override = TRUE)
+	RegisterSignal(psychic_action, COMSIG_QDELETING, PROC_REF(parent_destroy), override = TRUE)
 
 /datum/action/change_psychic_auto/Destroy()
 	psychic_action = null
@@ -472,8 +472,8 @@
 
 /datum/action/change_psychic_texture/New(Target)
 	. = ..()
-	RegisterSignal(psychic_overlay, COMSIG_PARENT_QDELETING, PROC_REF(parent_destroy))
-	RegisterSignal(blind_overlay, COMSIG_PARENT_QDELETING, PROC_REF(parent_destroy))
+	RegisterSignal(psychic_overlay, COMSIG_QDELETING, PROC_REF(parent_destroy))
+	RegisterSignal(blind_overlay, COMSIG_QDELETING, PROC_REF(parent_destroy))
 
 
 /datum/action/change_psychic_texture/Destroy()

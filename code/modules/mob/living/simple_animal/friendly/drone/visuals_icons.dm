@@ -74,7 +74,7 @@
 		client.screen += internal_storage
 
 
-/mob/living/simple_animal/drone/update_worn_head()
+/mob/living/simple_animal/drone/update_worn_head(update_obscured)
 	remove_overlay(DRONE_HEAD_LAYER)
 
 	if(head)
@@ -91,7 +91,7 @@
 
 	apply_overlay(DRONE_HEAD_LAYER)
 
-/mob/living/simple_animal/drone/update_worn_mask()
+/mob/living/simple_animal/drone/update_worn_mask(update_obscured)
 	update_worn_head()
 
 /mob/living/simple_animal/drone/regenerate_icons()

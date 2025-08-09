@@ -56,7 +56,7 @@
 	update_appearance()
 	var/mob/living/carbon/human/H = owner
 	if(istype(H))
-		H.update_inv_ears()
+		H.update_worn_ears()
 		H.update_worn_neck()
 		H.update_worn_head()
 	to_chat(owner, span_notice("You turn the music [headphones_on? "on. Untz Untz Untz!" : "off."]"))

@@ -134,6 +134,7 @@
 	if(!. || !I) //We don't want to set anything to null if the parent returned 0.
 		return
 
+	var/not_handled = FALSE //if we actually unequipped an item, this is because we dont want to run this proc twice, once for carbons and once for humans
 	if(I == head)
 		head = null
 		SEND_SIGNAL(src, COMSIG_CARBON_UNEQUIP_HAT, I, force, newloc, no_move, invdrop, silent)
@@ -161,10 +162,19 @@
 		legcuffed = null
 		if(!QDELETED(src))
 			update_worn_legcuffs()
+	else
+		not_handled = TRUE
+
 	if(I == internal && (QDELETED(src) || QDELETED(I) || I.loc != src))
 		cutoff_internals()
 		if(!QDELETED(src))
 			update_action_buttons_icon(status_only = TRUE)
+
+	if(not_handled)
+		return
+
+	update_equipment_speed_mods()
+	update_obscured_slots(I.flags_inv)
 
 /// Returns TRUE if an air tank compatible helmet is equipped.
 /mob/living/carbon/proc/can_breathe_helmet()

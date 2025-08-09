@@ -1,6 +1,10 @@
 ///The standard amount of bodyparts a carbon has. Currently 6, HEAD/L_ARM/R_ARM/CHEST/L_LEG/R_LEG
 #define BODYPARTS_DEFAULT_MAXIMUM 6
 
+/mob/living/carbon/update_obscured_slots(obscured_flags)
+	..()
+	update_body()
+
 /mob/living/carbon/human/update_clothing(slot_flags)
 	if(slot_flags & ITEM_SLOT_BACK)
 		update_worn_back()
@@ -17,7 +21,7 @@
 	if(slot_flags & ITEM_SLOT_ID)
 		update_worn_id()
 	if(slot_flags & ITEM_SLOT_EARS)
-		update_inv_ears()
+		update_worn_ears()
 	if(slot_flags & ITEM_SLOT_EYES)
 		update_worn_glasses()
 	if(slot_flags & ITEM_SLOT_GLOVES)
@@ -47,7 +51,7 @@
 		if(OFFSET_GLASSES)
 			update_worn_glasses()
 		if(OFFSET_EARS)
-			update_inv_ears()
+			update_worn_ears()
 		if(OFFSET_SHOES)
 			update_worn_shoes()
 		if(OFFSET_S_STORE)
@@ -193,7 +197,7 @@
 	apply_overlay(DAMAGE_LAYER)
 
 
-/mob/living/carbon/update_worn_mask()
+/mob/living/carbon/update_worn_mask(update_obscured = TRUE)
 	remove_overlay(FACEMASK_LAYER)
 
 	if(!get_bodypart(BODY_ZONE_HEAD)) //Decapitated
@@ -204,13 +208,15 @@
 		inv.update_icon()
 
 	if(wear_mask)
+		if(update_obscured)
+			update_obscured_slots(wear_mask.flags_inv)
 		if(!(check_obscured_slots() & ITEM_SLOT_MASK))
 			overlays_standing[FACEMASK_LAYER] = wear_mask.build_worn_icon(src, default_layer = FACEMASK_LAYER, default_icon_file = 'icons/mob/clothing/mask.dmi')
 		update_hud_wear_mask(wear_mask)
 
 	apply_overlay(FACEMASK_LAYER)
 
-/mob/living/carbon/update_worn_neck()
+/mob/living/carbon/update_worn_neck(update_obscured = TRUE)
 	remove_overlay(NECK_LAYER)
 
 	if(client && hud_used && hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_NECK) + 1])
@@ -218,13 +224,15 @@
 		inv.update_icon()
 
 	if(wear_neck)
+		if(update_obscured)
+			update_obscured_slots(wear_neck.flags_inv)
 		if(!(check_obscured_slots() & ITEM_SLOT_NECK))
 			overlays_standing[NECK_LAYER] = wear_neck.build_worn_icon(src, default_layer = NECK_LAYER, default_icon_file = 'icons/mob/clothing/neck.dmi')
 		update_hud_neck(wear_neck)
 
 	apply_overlay(NECK_LAYER)
 
-/mob/living/carbon/update_worn_back()
+/mob/living/carbon/update_worn_back(update_obscured = TRUE)
 	remove_overlay(BACK_LAYER)
 
 	if(client && hud_used && hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_BACK) + 1])
@@ -232,12 +240,14 @@
 		inv.update_icon()
 
 	if(back)
+		if(update_obscured)
+			update_obscured_slots(back.flags_inv)
 		overlays_standing[BACK_LAYER] = back.build_worn_icon(src, default_layer = BACK_LAYER, default_icon_file = 'icons/mob/clothing/back.dmi')
 		update_hud_back(back)
 
 	apply_overlay(BACK_LAYER)
 
-/mob/living/carbon/update_worn_head()
+/mob/living/carbon/update_worn_head(update_obscured = TRUE)
 	remove_overlay(HEAD_LAYER)
 
 	if(!get_bodypart(BODY_ZONE_HEAD)) //Decapitated
@@ -248,14 +258,20 @@
 		inv.update_icon()
 
 	if(head)
-		overlays_standing[HEAD_LAYER] = head.build_worn_icon(src, default_layer = HEAD_LAYER, default_icon_file = 'icons/mob/clothing/head/default.dmi')
+		if(update_obscured)
+			update_obscured_slots(head.flags_inv)
+		if(!(check_obscured_slots() & ITEM_SLOT_HEAD))
+			overlays_standing[HEAD_LAYER] = head.build_worn_icon(src, default_layer = HEAD_LAYER, default_icon_file = 'icons/mob/clothing/head/default.dmi')
 		update_hud_head(head)
 
 	apply_overlay(HEAD_LAYER)
 
-/mob/living/carbon/update_worn_handcuffs()
+
+/mob/living/carbon/update_worn_handcuffs(update_obscured = TRUE)
 	remove_overlay(HANDCUFF_LAYER)
 	if(handcuffed)
+		if(update_obscured)
+			update_obscured_slots(handcuffed.flags_inv)
 		overlays_standing[HANDCUFF_LAYER] = mutable_appearance('icons/mob/mob.dmi', "handcuff1", CALCULATE_MOB_OVERLAY_LAYER(HANDCUFF_LAYER))
 		apply_overlay(HANDCUFF_LAYER)
 

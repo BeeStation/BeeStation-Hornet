@@ -74,7 +74,7 @@
 	light_power = 1
 	light_on = TRUE
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
-	flash_protect = 2
+	flash_protect = FLASH_PROTECTION_WELDER
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	bang_protect = 1 //make this consistent with other plasmaman helmets
 	resistance_flags = NONE
