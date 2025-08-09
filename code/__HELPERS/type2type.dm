@@ -308,14 +308,14 @@
 
 
 
-/// Turns a Body_parts_covered bitfield into a list of organ/limb names. (I challenge you to find a use for this)
-/proc/body_parts_covered2organ_names(bpc)
+/// Turns a Body_parts_covered bitfield into a list of organ/limb names. (I challenge you to find a use for this) //Fuck you
+/proc/cover_flags2body_zones(bpc)
 	var/list/covered_parts = list()
 
 	if(!bpc)
 		return 0
 
-	if(bpc & FULL_BODY)
+	if(bpc == FULL_BODY)
 		covered_parts |= list(BODY_ZONE_L_ARM,BODY_ZONE_R_ARM,BODY_ZONE_HEAD,BODY_ZONE_CHEST,BODY_ZONE_L_LEG,BODY_ZONE_R_LEG)
 
 	else

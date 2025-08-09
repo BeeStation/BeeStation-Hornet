@@ -4,7 +4,15 @@
 	custom_price = 20 // For all sneakers
 	greyscale_config = /datum/greyscale_config/sneakers
 	greyscale_config_worn = /datum/greyscale_config/sneakers_worn
+	supports_variations_flags = CLOTHING_DIGITIGRADE_MASK
 	flags_1 = IS_PLAYER_COLORABLE_1
+
+/obj/item/clothing/shoes/sneakers/get_general_color(icon/base_icon)
+	var/colors = SSgreyscale.ParseColorString(greyscale_colors)
+	return colors ? colors[1] : ..()
+
+/obj/item/clothing/shoes/sneakers/generate_digitigrade_icons(icon/base_icon, greyscale_colors)
+	return icon(SSgreyscale.GetColoredIconByType(/datum/greyscale_config/digitigrade, greyscale_colors), "sneakers_worn")
 
 /obj/item/clothing/shoes/sneakers/black
 	name = "black shoes"
@@ -78,6 +86,10 @@
 	greyscale_config = /datum/greyscale_config/sneakers_orange
 	greyscale_config_worn = /datum/greyscale_config/sneakers_orange_worn
 	flags_1 = NONE
+
+/obj/item/clothing/shoes/sneakers/orange/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/update_icon_updates_onmob, ITEM_SLOT_HANDCUFFED)
 
 /obj/item/clothing/shoes/sneakers/orange/attack_self(mob/user)
 	if (src.chained)

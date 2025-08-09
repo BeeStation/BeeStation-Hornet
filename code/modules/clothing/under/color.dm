@@ -12,7 +12,7 @@
 	item_state = "jumpsuit"
 	worn_icon_state = "jumpsuit"
 	worn_icon = 'icons/mob/clothing/under/color.dmi'
-	supports_variations = DIGITIGRADE_VARIATION
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION
 	flags_1 = IS_PLAYER_COLORABLE_1
 
 /obj/item/clothing/under/color/jumpskirt
@@ -20,7 +20,7 @@
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
 	icon_state = "jumpskirt"
-	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON //Doesn't require a new icon.
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON //Doesn't require a new icon.
 
 /obj/item/clothing/under/color/random
 	icon_state = "random_jumpsuit"
@@ -266,6 +266,9 @@
 	greyscale_config_worn = null
 	can_adjust = FALSE
 	flags_1 = NONE
+
+/obj/item/clothing/under/color/rainbow/get_general_color(icon/base_icon)
+	return "#3f3f3f"
 
 /obj/item/clothing/under/color/jumpskirt/rainbow
 	name = "rainbow jumpskirt"

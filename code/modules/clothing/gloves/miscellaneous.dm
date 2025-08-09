@@ -5,13 +5,13 @@
 	icon_state = "fingerless"
 	item_state = "fingerless"
 	worn_icon_state = "fingerless"
-	transfer_prints = TRUE
 	strip_delay = 40
 	equip_delay_other = 20
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	custom_price = 10
 	undyeable = TRUE
+	clothing_traits = list(TRAIT_FINGERPRINT_PASSTHROUGH)
 
 /obj/item/clothing/gloves/botanic_leather
 	name = "botanist's leather gloves"
@@ -61,7 +61,6 @@
 	icon_state = "bracers"
 	item_state = "bracers"
 	worn_icon_state = "bracers"
-	transfer_prints = TRUE
 	strip_delay = 40
 	equip_delay_other = 20
 	body_parts_covered = ARMS
@@ -89,9 +88,9 @@
 	icon_state = "rapid"
 	item_state = "rapid"
 	worn_icon_state = "rapid"
-	transfer_prints = TRUE
 	item_flags = ISWEAPON
 	var/warcry = "AT"
+	clothing_traits = list(TRAIT_FINGERPRINT_PASSTHROUGH)
 
 /obj/item/clothing/gloves/rapid/Touch(atom/A, proximity)
 	var/mob/living/M = loc
@@ -156,7 +155,6 @@
 	icon_state = "pincher"
 	item_state = "pincher"
 	worn_icon_state = "pincher"
-	transfer_prints = FALSE
 	actions_types = list(/datum/action/item_action/artifact_pincher_mode)
 	var/safety = FALSE
 

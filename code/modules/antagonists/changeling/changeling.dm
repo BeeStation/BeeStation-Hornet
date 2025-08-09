@@ -101,7 +101,6 @@
 	return ..()
 
 /datum/antagonist/changeling/on_gain()
-	generate_name()
 	create_emporium()
 	create_innate_actions()
 	create_initial_profile()
@@ -135,20 +134,6 @@
 	if(our_ling_brain)
 		our_ling_brain.organ_flags &= ~ORGAN_VITAL
 		our_ling_brain.decoy_override = TRUE
-
-/datum/antagonist/changeling/proc/generate_name()
-	var/static/list/left_changling_names = GLOB.greek_letters.Copy()
-
-	var/honorific
-	if(owner.current.gender == FEMALE)
-		honorific = "Ms."
-	else
-		honorific = "Mr."
-	if(length(left_changling_names))
-		changelingID = pick_n_take(left_changling_names)
-		changelingID = "[honorific] [changelingID]"
-	else
-		changelingID = "[honorific] [pick(GLOB.greek_letters)] No.[rand(1,9)]"
 
 /datum/antagonist/changeling/remove_innate_effects(mob/living/mob_override)
 	var/mob/living/living_mob = mob_override || owner.current
@@ -429,7 +414,7 @@
 	new_profile.protected = protect
 
 	new_profile.age = target.age
-	//new_profile.physique = target.physique
+	new_profile.physique = target.physique
 
 	// Clothes, of course
 	new_profile.underwear = target.underwear
@@ -438,8 +423,8 @@
 	new_profile.socks = target.socks
 
 	// Hair and facial hair gradients, alongside their colours.
-	//new_profile.grad_style = LAZYLISTDUPLICATE(target.grad_style)
-	//new_profile.grad_color = LAZYLISTDUPLICATE(target.grad_color)
+	new_profile.grad_style = LAZYLISTDUPLICATE(target.grad_style)
+	new_profile.grad_color = LAZYLISTDUPLICATE(target.grad_color)
 
 	// Make an icon snapshot of what they currently look like
 	var/datum/icon_snapshot/entry = new()
@@ -689,9 +674,9 @@
 	user.undershirt = chosen_profile.undershirt
 	user.socks = chosen_profile.socks
 	user.age = chosen_profile.age
-	//user.physique = chosen_profile.physique
-	//user.grad_style = LAZYLISTDUPLICATE(chosen_profile.grad_style)
-	//user.grad_color = LAZYLISTDUPLICATE(chosen_profile.grad_color)
+	user.physique = chosen_profile.physique
+	user.grad_style = LAZYLISTDUPLICATE(chosen_profile.grad_style)
+	user.grad_color = LAZYLISTDUPLICATE(chosen_profile.grad_color)
 
 	chosen_dna.transfer_identity(user, TRUE)
 

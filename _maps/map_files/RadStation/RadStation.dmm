@@ -6170,6 +6170,17 @@
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/cafeteria)
+"bYh" = (
+/obj/machinery/suit_storage_unit/industrial/loader,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/machinery/airalarm/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/quartermaster/storage)
 "bYr" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
@@ -13492,17 +13503,6 @@
 	},
 /turf/open/floor/iron,
 /area/bridge)
-"emx" = (
-/obj/machinery/suit_storage_unit/industrial/loader,
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
-	},
-/obj/machinery/airalarm/directional/east,
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/open/floor/iron/dark,
-/area/quartermaster/storage)
 "emC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/trash/cheesie,
@@ -28055,6 +28055,16 @@
 /obj/machinery/door/airlock/public/glass/incinerator/atmos_interior,
 /turf/open/floor/engine,
 /area/engine/atmospherics_engine)
+"jfn" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/siding/wideplating/dark{
+	dir = 10
+	},
+/obj/machinery/cell_charger{
+	desc = "It charges power cells. There is a small tag on it: Public tools charger. Please do no remove"
+	},
+/turf/open/floor/iron/cafeteria,
+/area/crew_quarters/kitchen)
 "jfJ" = (
 /obj/machinery/suit_storage_unit/rd,
 /turf/open/floor/iron,
@@ -35358,16 +35368,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/wall,
 /area/security/main)
-"lJt" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/siding/wideplating/dark{
-	dir = 10
-	},
-/obj/machinery/cell_charger{
-	desc = "It charges power cells. There is a small tag on it: Public tools charger. Please do no remove"
-	},
-/turf/open/floor/iron/cafeteria,
-/area/crew_quarters/kitchen)
 "lJA" = (
 /obj/machinery/atmospherics/components/trinary/filter/atmos/plasma{
 	dir = 1
@@ -44618,6 +44618,14 @@
 	},
 /turf/open/floor/iron,
 /area/engine/atmospherics_engine)
+"oOg" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/open/floor/iron,
+/area/quartermaster/storage)
 "oOn" = (
 /obj/machinery/door/poddoor/shutters/radiation/preopen{
 	id = "engsm";
@@ -45299,6 +45307,16 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/checkpoint/engineering)
+"oXZ" = (
+/obj/machinery/newscaster{
+	pixel_x = 32;
+	pixel_y = 1
+	},
+/obj/effect/turf_decal/guideline/guideline_edge/purple{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/science/robotics)
 "oYh" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -48274,14 +48292,6 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
-"pTl" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/two,
-/obj/effect/spawner/lootdrop/maintenance/two,
-/obj/effect/spawner/lootdrop/maintenance/two,
-/turf/open/floor/iron,
-/area/quartermaster/storage)
 "pTp" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/siding/wideplating/dark{
@@ -59776,17 +59786,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/medical/apothecary)
-"tIQ" = (
-/obj/machinery/newscaster{
-	pixel_x = 32;
-	pixel_y = 1
-	},
-/obj/effect/turf_decal/guideline/guideline_edge/purple{
-	dir = 4
-	},
-/obj/machinery/aug_manipulator,
-/turf/open/floor/iron/dark,
-/area/science/robotics)
 "tIR" = (
 /turf/closed/wall,
 /area/maintenance/department/science)
@@ -95929,7 +95928,7 @@ krB
 krB
 tgI
 krf
-pTl
+oOg
 cfA
 fVm
 cfA
@@ -96699,7 +96698,7 @@ nFK
 eyo
 krB
 lvd
-emx
+bYh
 yij
 bsk
 oBB
@@ -99806,7 +99805,7 @@ jwV
 tVp
 enQ
 fNW
-tIQ
+oXZ
 gjP
 duA
 oTo
@@ -111856,7 +111855,7 @@ cbV
 pyP
 omR
 cqL
-lJt
+jfn
 kok
 bZA
 mWi

@@ -8707,6 +8707,16 @@
 	},
 /turf/open/floor/iron,
 /area/engine/engine_room)
+"cAQ" = (
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
+	dir = 1
+	},
+/obj/item/candydispenser/lollipop{
+	pixel_y = 10
+	},
+/obj/structure/table/glass,
+/turf/open/floor/iron/white,
+/area/medical/medbay/lobby)
 "cBq" = (
 /obj/structure/chair/stool/bar,
 /obj/effect/turf_decal/siding/wood{
@@ -9214,6 +9224,17 @@
 	},
 /turf/open/floor/iron,
 /area/science/xenobiology)
+"cMD" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/table/wood/poker,
+/obj/item/toy/cards/deck,
+/obj/item/candydispenser{
+	pixel_y = 11
+	},
+/turf/open/floor/carpet/red,
+/area/crew_quarters/bar)
 "cMF" = (
 /obj/machinery/power/apc/auto_name/directional/east,
 /obj/structure/cable/yellow{
@@ -10333,6 +10354,15 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/visible,
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
+"dfF" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/machinery/newscaster{
+	pixel_x = -30
+	},
+/turf/open/floor/iron/dark,
+/area/science/robotics/lab)
 "dfL" = (
 /obj/machinery/dna_scannernew,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
@@ -24775,18 +24805,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/command)
-"hVH" = (
-/obj/item/reagent_containers/cup/bucket,
-/obj/item/assembly/prox_sensor,
-/obj/item/mop,
-/obj/item/bodypart/r_arm/robot,
-/obj/effect/decal/cleanable/oil,
-/obj/effect/decal/cleanable/robot_debris,
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/turf/open/floor/plating,
-/area/maintenance/starboard/aft)
 "hWq" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/nitrous_output{
 	dir = 4
@@ -27351,16 +27369,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/hallway/secondary/command)
-"iJQ" = (
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/obj/item/candydispenser/engineering{
-	pixel_y = 11
-	},
-/obj/structure/table/glass,
-/turf/open/floor/iron,
-/area/engine/engineering)
 "iJX" = (
 /obj/structure/sign/poster/random{
 	pixel_y = 32
@@ -27718,6 +27726,16 @@
 "iRh" = (
 /turf/closed/wall/r_wall,
 /area/crew_quarters/heads/hos)
+"iRj" = (
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/obj/item/candydispenser/engineering{
+	pixel_y = 11
+	},
+/obj/structure/table/glass,
+/turf/open/floor/iron,
+/area/engine/engineering)
 "iRm" = (
 /obj/machinery/telecomms/processor/preset_four,
 /turf/open/floor/circuit/telecomms/server,
@@ -35960,6 +35978,26 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/courtroom)
+"lDW" = (
+/obj/structure/table,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/bodypart/arm/right/robot,
+/obj/item/bodypart/arm/right/robot,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/item/assembly/prox_sensor,
+/obj/item/assembly/prox_sensor,
+/obj/item/assembly/prox_sensor,
+/obj/item/assembly/prox_sensor,
+/obj/item/assembly/prox_sensor,
+/obj/item/assembly/prox_sensor,
+/obj/machinery/cell_charger,
+/obj/structure/extinguisher_cabinet/directional/west,
+/turf/open/floor/iron/dark,
+/area/science/robotics/lab)
 "lEl" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -47690,26 +47728,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/exit)
-"pul" = (
-/obj/structure/table,
-/obj/item/stack/sheet/iron/fifty,
-/obj/item/stack/sheet/iron/fifty,
-/obj/item/stack/sheet/iron/fifty,
-/obj/item/bodypart/r_arm/robot,
-/obj/item/bodypart/r_arm/robot,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/item/assembly/prox_sensor,
-/obj/item/assembly/prox_sensor,
-/obj/item/assembly/prox_sensor,
-/obj/item/assembly/prox_sensor,
-/obj/item/assembly/prox_sensor,
-/obj/item/assembly/prox_sensor,
-/obj/machinery/cell_charger,
-/obj/structure/extinguisher_cabinet/directional/west,
-/turf/open/floor/iron/dark,
-/area/science/robotics/lab)
 "pun" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
@@ -51438,16 +51456,6 @@
 	},
 /turf/open/floor/iron,
 /area/science/shuttle)
-"qHD" = (
-/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
-	dir = 1
-	},
-/obj/item/candydispenser/lollipop{
-	pixel_y = 10
-	},
-/obj/structure/table/glass,
-/turf/open/floor/iron/white,
-/area/medical/medbay/lobby)
 "qHP" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Chapel Dock Access"
@@ -56362,17 +56370,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
-"spX" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/table/wood/poker,
-/obj/item/toy/cards/deck,
-/obj/item/candydispenser{
-	pixel_y = 11
-	},
-/turf/open/floor/carpet/red,
-/area/crew_quarters/bar)
 "sqo" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -61121,6 +61118,18 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/fore)
+"tZh" = (
+/obj/item/reagent_containers/cup/bucket,
+/obj/item/assembly/prox_sensor,
+/obj/item/mop,
+/obj/item/bodypart/arm/right/robot,
+/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/robot_debris,
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/turf/open/floor/plating,
+/area/maintenance/starboard/aft)
 "tZu" = (
 /obj/machinery/door/poddoor/shutters{
 	id = "teledoor";
@@ -65552,16 +65561,6 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
-"vsj" = (
-/obj/machinery/aug_manipulator,
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/obj/machinery/newscaster{
-	pixel_x = -30
-	},
-/turf/open/floor/iron/dark,
-/area/science/robotics/lab)
 "vsy" = (
 /obj/structure/table/wood/fancy/red,
 /obj/machinery/door/poddoor/shutters{
@@ -96448,7 +96447,7 @@ vWF
 ahc
 rjL
 dBS
-iJQ
+iRj
 amI
 kpi
 wXO
@@ -105452,8 +105451,8 @@ jzs
 pkM
 kMq
 orb
-vsj
-pul
+dfF
+lDW
 qlH
 bwg
 uXG
@@ -109881,7 +109880,7 @@ hDL
 kEJ
 qzO
 mAX
-spX
+cMD
 fLL
 jxP
 abH
@@ -112410,7 +112409,7 @@ chl
 jLU
 nBQ
 fgw
-qHD
+cAQ
 iaQ
 iaQ
 vSr
@@ -114245,7 +114244,7 @@ tBk
 xxj
 tBk
 tBk
-hVH
+tZh
 tBk
 tBk
 lVo

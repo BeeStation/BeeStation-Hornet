@@ -27,11 +27,11 @@
 	if(pockets)
 		create_storage(storage_type = /datum/storage/pockets/exo)
 /obj/item/clothing/suit/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
-	. = list()
+	. = ..()
 	if(!isinhands)
 		if(damaged_clothes)
 			. += mutable_appearance('icons/effects/item_damage.dmi', "damaged[blood_overlay_type]", item_layer)
-		if(HAS_BLOOD_DNA(src))
+		if(GET_ATOM_BLOOD_DNA_LENGTH(src))
 			. += mutable_appearance('icons/effects/blood.dmi', "[blood_overlay_type]blood", item_layer)
 		var/mob/living/carbon/human/M = loc
 		if(ishuman(M) && M.w_uniform)
@@ -45,7 +45,11 @@
 	..()
 	if(ismob(loc))
 		var/mob/M = loc
-		M.update_inv_wear_suit()
+		M.update_worn_oversuit()
+
+/obj/item/clothing/suit/generate_digitigrade_icons(icon/base_icon, greyscale_colors)
+	var/icon/legs = icon(SSgreyscale.GetColoredIconByType(/datum/greyscale_config/digitigrade, greyscale_colors), "oversuit_worn")
+	return replace_icon_legs(base_icon, legs)
 
 /obj/item/clothing/suit/proc/on_mob_move()
 	SIGNAL_HANDLER

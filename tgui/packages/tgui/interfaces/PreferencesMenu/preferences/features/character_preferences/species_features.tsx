@@ -1,7 +1,6 @@
 import { FeatureColorInput, Feature, FeatureChoiced, FeatureValueProps, FeatureButtonedDropdownInput, StandardizedPalette } from '../base';
 
 const eyePresets = {
-  // these need to be short color (3 byte) compatible
   '#aaccff': 'Baby Blue',
   '#0099bb': 'Blue-Green',
   '#3399ff': 'Light Blue',
@@ -122,6 +121,35 @@ export const facial_hair_color: Feature<string> = {
   },
 };
 
+export const facial_hair_gradient: FeatureChoiced = {
+  name: 'Facial hair gradient',
+  component: FeatureButtonedDropdownInput,
+};
+
+export const facial_hair_gradient_color: Feature<string> = {
+  name: 'Facial hair gradient color',
+  small_supplemental: false,
+  predictable: false,
+  component: (props: FeatureValueProps<string>) => {
+    const { handleSetValue, value, featureId, act } = props;
+
+    return (
+      <StandardizedPalette
+        choices={Object.keys(hairPresets)}
+        displayNames={hairPresets}
+        onSetValue={handleSetValue}
+        value={value}
+        hex_values
+        allow_custom
+        featureId={featureId}
+        act={act}
+        maxWidth="385px"
+        includeHex
+      />
+    );
+  },
+};
+
 export const hair_color: Feature<string> = {
   name: 'Hair Color',
   small_supplemental: false,
@@ -144,6 +172,11 @@ export const hair_color: Feature<string> = {
       />
     );
   },
+};
+
+export const gradient_style: FeatureChoiced = {
+  name: 'Hair gradient',
+  component: FeatureButtonedDropdownInput,
 };
 
 export const gradient_color: Feature<string> = {
@@ -170,8 +203,55 @@ export const gradient_color: Feature<string> = {
   },
 };
 
+/*
+export const feature_human_ears: FeatureChoiced = {
+  name: 'Ears',
+  component: FeatureButtonedDropdownInput,
+};
+
+export const feature_human_tail: FeatureChoiced = {
+  name: 'Tail',
+  component: FeatureButtonedDropdownInput,
+};
+
+export const feature_monkey_tail: FeatureChoiced = {
+  name: 'Tail',
+  component: FeatureButtonedDropdownInput,
+};
+*/
+
+export const feature_lizard_body_markings: FeatureChoiced = {
+  name: 'Body Markings',
+  component: FeatureButtonedDropdownInput,
+};
+
+export const feature_lizard_frills: FeatureChoiced = {
+  name: 'Frills',
+  component: FeatureButtonedDropdownInput,
+};
+
+export const feature_lizard_horns: FeatureChoiced = {
+  name: 'Horns',
+  component: FeatureButtonedDropdownInput,
+};
+
 export const feature_lizard_legs: FeatureChoiced = {
-  name: 'Leg Type',
+  name: 'Legs',
+  component: FeatureButtonedDropdownInput,
+};
+
+export const feature_lizard_snout: FeatureChoiced = {
+  name: 'Snout',
+  component: FeatureButtonedDropdownInput,
+};
+
+export const feature_lizard_spines: FeatureChoiced = {
+  name: 'Spines',
+  component: FeatureButtonedDropdownInput,
+};
+
+export const feature_lizard_tail: FeatureChoiced = {
+  name: 'Tail',
   component: FeatureButtonedDropdownInput,
 };
 
@@ -198,16 +278,6 @@ export const feature_ipc_antenna_color: Feature<string> = {
 export const feature_ipc_screen_color: Feature<string> = {
   name: 'Screen Color',
   component: FeatureColorInput,
-};
-
-export const feature_human_tail: FeatureChoiced = {
-  name: 'Tail',
-  component: FeatureButtonedDropdownInput,
-};
-
-export const feature_human_ears: FeatureChoiced = {
-  name: 'Ears',
-  component: FeatureButtonedDropdownInput,
 };
 
 export const feature_insect_type: FeatureChoiced = {

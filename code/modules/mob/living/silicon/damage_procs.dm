@@ -30,13 +30,13 @@
 /mob/living/silicon/setCloneLoss(amount, updating_health = TRUE, forced = FALSE)
 	return FALSE
 
-/mob/living/silicon/adjustStaminaLoss(amount, updating_health = TRUE, forced = FALSE)//immune to stamina damage.
+/mob/living/silicon/adjustStaminaLoss(amount, updating_stamina = TRUE, forced = FALSE, required_biotype)//immune to stamina damage.
 	return FALSE
 
 /mob/living/silicon/setStaminaLoss(amount, updating_health = TRUE)
 	return FALSE
 
-/mob/living/silicon/adjustOrganLoss(slot, amount, maximum = 500, required_status)
+/mob/living/silicon/adjustOrganLoss(slot, amount, maximum = 500, required_organ_flag) //immune to organ damage (no organs, duh)
 	return FALSE
 
 /mob/living/silicon/setOrganLoss(slot, amount)

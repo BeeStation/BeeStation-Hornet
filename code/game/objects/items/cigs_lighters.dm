@@ -159,6 +159,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	if(starts_lit)
 		light()
 	AddComponent(/datum/component/knockoff,90,list(BODY_ZONE_PRECISE_MOUTH),list(ITEM_SLOT_MASK))//90% to knock off when wearing a mask
+	AddElement(/datum/element/update_icon_updates_onmob)
 
 /obj/item/clothing/mask/cigarette/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -261,8 +262,8 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	//can't think of any other way to update the overlays :<
 	if(ismob(loc))
 		var/mob/M = loc
-		M.update_inv_wear_mask()
-		M.update_inv_hands()
+		M.update_worn_mask()
+		M.update_held_items()
 
 	playsound(src, 'sound/items/cig_light.ogg', 75, 1, -1)
 
@@ -283,8 +284,8 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	if(ismob(loc))
 		var/mob/living/M = loc
 		to_chat(M, span_notice("Your [name] goes out."))
-		M.update_inv_wear_mask()
-		M.update_inv_hands()
+		M.update_worn_mask()
+		M.update_held_items()
 
 /obj/item/clothing/mask/cigarette/proc/handle_reagents()
 	if(reagents.total_volume)
@@ -551,7 +552,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 			lit = 0
 			icon_state = icon_off
 			item_state = icon_off
-			M.update_inv_wear_mask()
+			M.update_worn_mask()
 			packeditem = 0
 			name = "empty [initial(name)]"
 		STOP_PROCESSING(SSobj, src)
