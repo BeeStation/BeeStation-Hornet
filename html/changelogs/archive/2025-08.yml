@@ -148,6 +148,12 @@
       a body which already has a brain (even if elsewhere)
   - rscadd: A new surgery called Identity Recalibration can be preformed on robotic
       torsos! (You'll need an ID)
+  - bugfix: Fixed a bug stopping players from downloading programs that had a hardware
+      requirement
+  - tweak: CE and Atmos PDAs start with a micro area recharger for compatibility with
+      the Power Monitor app.
+  - tweak: Atmos role disk was given the Power Monitor app.
+  - refactor: Refactored my own ass code to ensure this bug doesn't happen ever again.
   mrmanlikesbt, LemonInTheDark, ninjanomnom:
   - code_imp: shifted around some signal logic
   - code_imp: micro optimizations for signal code

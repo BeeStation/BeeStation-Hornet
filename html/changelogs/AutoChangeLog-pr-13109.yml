@@ -1,9 +1,0 @@
-author: Nakalon
-delete-after: true
-changes:
-  - bugfix: Fixed a bug stopping players from downloading programs that had a hardware
-      requirement
-  - tweak: CE and Atmos PDAs start with a micro area recharger for compatibility with
-      the Power Monitor app.
-  - tweak: Atmos role disk was given the Power Monitor app.
-  - refactor: Refactored my own ass code to ensure this bug doesn't happen ever again.
