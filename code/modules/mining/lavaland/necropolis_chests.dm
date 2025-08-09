@@ -16,7 +16,7 @@
 
 /obj/structure/closet/crate/necropolis/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_PARENT_ATTACKBY, PROC_REF(try_spawn_loot))
+	RegisterSignal(src, COMSIG_ATOM_ATTACKBY, PROC_REF(try_spawn_loot))
 
 /obj/structure/closet/crate/necropolis/proc/try_spawn_loot(datum/source, obj/item/item, mob/user, params)
 	SIGNAL_HANDLER

@@ -627,8 +627,8 @@
 	var/obj/item/clothing/helmet = mod.get_part_from_slot(ITEM_SLOT_HEAD)
 	if(!istype(helmet))
 		return
-	RegisterSignal(helmet, COMSIG_PARENT_EXAMINE, PROC_REF(add_examine))
-	RegisterSignal(helmet, COMSIG_PARENT_ATTACKBY,  PROC_REF(place_hat))
+	RegisterSignal(helmet, COMSIG_ATOM_EXAMINE, PROC_REF(add_examine))
+	RegisterSignal(helmet, COMSIG_ATOM_ATTACKBY,  PROC_REF(place_hat))
 	RegisterSignal(helmet, COMSIG_ATOM_ATTACK_HAND_SECONDARY,  PROC_REF(remove_hat))
 
 /obj/item/mod/module/hat_stabilizer/on_part_deactivation(deleting = FALSE)
@@ -639,8 +639,8 @@
 	var/obj/item/clothing/helmet = mod.get_part_from_slot(ITEM_SLOT_HEAD)
 	if(!istype(helmet))
 		return
-	UnregisterSignal(helmet, COMSIG_PARENT_EXAMINE)
-	UnregisterSignal(helmet, COMSIG_PARENT_ATTACKBY)
+	UnregisterSignal(helmet, COMSIG_ATOM_EXAMINE)
+	UnregisterSignal(helmet, COMSIG_ATOM_ATTACKBY)
 	UnregisterSignal(helmet, COMSIG_ATOM_ATTACK_HAND_SECONDARY)
 
 /obj/item/mod/module/hat_stabilizer/proc/add_examine(datum/source, mob/user, list/base_examine)

@@ -141,3 +141,22 @@
       respectively.
   TsunamiAnt:
   - code_imp: dynamic point deltas are now (5,-5) not (10,-10)
+2025-08-09:
+  ? 'rkz, Fikou, MrMelbert, MTandi, Zonespace27, HatterHat, san7890, dawsonkeyes,
+    mc-oofert, tralezab, SmArtKar, coiax, Ryll/Shaps, Jacquerel, necromanceranne,
+    Xander3395, grungussuss, GPeckman, Holoo-1, OrionTheFox, Momo8289, Wallemations, '
+  : - rscadd: modsuits
+    - tweak: all ERT have been converted to use modsuits
+    - tweak: all antagonists that had hardsuits (Nukies, Spacewizard, Uplink Traitors)
+        have been converted to use modsuits
+    - rscadd: adds a loader modsuit for cargo to use. It is not spaceproof and has
+        very little module support, but is good for hauling crates
+    - code_imp: adds unit test to confirm all outfits apply correctly
+    - rscdel: deletes antagonist, ERT, and head of staff hardsuits
+    - refactor: refactored wizard casting to check a clothing flag, instead of a var
+    - tweak: captain's backpack now fits on both MODsuits & suit storage slots
+    - bugfix: fixes spellcards targeting. Revamps lockon component.
+    - rscadd: adds infiltrator kit, a modsuit that hides your species mutantorgans
+        like wings and antennae, with superior armor, normal runspeed and silent footsteps,
+        in exchange for no spaceproofing.
+    - refactor: refactors ninja gear to all use modsuit modules
