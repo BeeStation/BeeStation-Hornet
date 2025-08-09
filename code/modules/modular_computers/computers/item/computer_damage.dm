@@ -23,7 +23,7 @@
 		new /obj/item/stack/sheet/iron(newloc, round(steel_sheet_cost/2))
 		for(var/port in all_components)
 			var/obj/item/computer_hardware/component = all_components[port]
-			if(prob(50))
+			if(prob(MC_PART_DROP_CHANCE))
 				uninstall_component(component)	// Lets not just delete all components like that
 			else
 				qdel(component)
