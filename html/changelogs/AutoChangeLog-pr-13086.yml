@@ -1,0 +1,5 @@
+author: mrmanlikesbt, LemonInTheDark, ninjanomnom
+delete-after: true
+changes:
+  - code_imp: shifted around some signal logic
+  - code_imp: micro optimizations for signal code

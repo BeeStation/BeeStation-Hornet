@@ -11,14 +11,14 @@ SUBSYSTEM_DEF(zfall)
 /datum/controller/subsystem/zfall/proc/add_openspace_inhabitant(atom/movable/A)
 	if(!ismob(A) || (A in openspace_inhabitants))
 		return
-	RegisterSignal(A, COMSIG_PARENT_QDELETING, PROC_REF(remove_openspace_inhabitant), A)
+	RegisterSignal(A, COMSIG_QDELETING, PROC_REF(remove_openspace_inhabitant), A)
 	openspace_inhabitants |= A
 
 /datum/controller/subsystem/zfall/proc/remove_openspace_inhabitant(atom/movable/A)
 	SIGNAL_HANDLER
 	if(!(A in openspace_inhabitants))
 		return
-	UnregisterSignal(A, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(A, COMSIG_QDELETING)
 	openspace_inhabitants -= A
 
 /datum/controller/subsystem/zfall/proc/check_z_fall(atom/movable/A)
