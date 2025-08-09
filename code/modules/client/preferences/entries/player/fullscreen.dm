@@ -50,7 +50,7 @@
 		if(client.fully_created)
 			INVOKE_ASYNC(client, PROC_REF(fix_mapsize), client)
 		else
-			addtimer(CALLBACK(client, PROC_REF(fix_mapsize), client), 1 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(fix_mapsize), client), 1 SECONDS)
 
 /datum/preference/toggle/fullscreen/proc/fix_mapsize(client/client)
 	var/windowsize = winget(client, "split", "size")
