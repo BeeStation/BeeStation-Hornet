@@ -103,7 +103,7 @@
 	//Description
 	material_description = get_material_desc()
 	//Setup description stuff
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examined))
+	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examined))
 
 /datum/component/xenoartifact/Destroy(force, silent)
 	if(!QDELETED(parent))
@@ -214,13 +214,13 @@
 	//Regular target follow through
 	create_beam(target)
 	targets += target
-	RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(unregister_target), TRUE)
+	RegisterSignal(target, COMSIG_QDELETING, PROC_REF(unregister_target), TRUE)
 
 /datum/component/xenoartifact/proc/unregister_target(datum/source)
 	SIGNAL_HANDLER
 
 	targets -= source
-	UnregisterSignal(source, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(source, COMSIG_QDELETING)
 
 /datum/component/xenoartifact/proc/on_examined(datum/source, mob/user, list/examine_text)
 	SIGNAL_HANDLER
@@ -296,7 +296,7 @@
 	blacklisted_traits += trait.blacklist_traits
 	blacklisted_traits += trait.type
 	//Ant-hardel stuff
-	RegisterSignal(trait, COMSIG_PARENT_QDELETING, PROC_REF(handle_trait))
+	RegisterSignal(trait, COMSIG_QDELETING, PROC_REF(handle_trait))
 
 	return TRUE
 
@@ -393,7 +393,7 @@
 
 /datum/component/xenoartifact/proc/remove_individual_trait(datum/xenoartifact_trait/trait, destroy = FALSE)
 	traits_catagories[trait.priority] -= trait
-	UnregisterSignal(trait, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(trait, COMSIG_QDELETING)
 	if(destroy)
 		qdel(trait)
 

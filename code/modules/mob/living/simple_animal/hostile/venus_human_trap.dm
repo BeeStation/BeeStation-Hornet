@@ -234,7 +234,7 @@
 	// Only create a new vine if the target is a mob or an object
 	if(ismob(the_target) || isobj(the_target))
 		var/datum/beam/newVine = Beam(the_target, "vine", maxdistance = vine_grab_distance, beam_type=/obj/effect/ebeam/vine)
-		RegisterSignal(newVine, COMSIG_PARENT_QDELETING, PROC_REF(remove_vine), newVine, override = TRUE)
+		RegisterSignal(newVine, COMSIG_QDELETING, PROC_REF(remove_vine), newVine, override = TRUE)
 		vines += newVine
 
 	var/mob/living/L = the_target
