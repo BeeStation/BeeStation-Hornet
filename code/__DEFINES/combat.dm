@@ -108,6 +108,8 @@
 #define CLICK_CD_GRABBING 10
 #define CLICK_CD_LOOK_DIRECTION 5
 
+#define BLOCK_CD 3 SECONDS
+
 //Cuff resist speeds
 #define FAST_CUFFBREAK 1
 
