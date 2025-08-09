@@ -286,6 +286,7 @@
 /proc/apply_loadout_to_mob(mob/living/carbon/human/H, mob/M, client/preference_source, on_dummy = FALSE)
 	var/mob/living/carbon/human/human = H
 	var/list/gear_leftovers = list()
+	var/obj/item/storage/spawned_box
 	var/jumpsuit_style = preference_source.prefs.read_character_preference(/datum/preference/choiced/jumpsuit_style)
 	if(preference_source && LAZYLEN(preference_source.prefs.equipped_gear))
 		for(var/gear in preference_source.prefs.equipped_gear)
@@ -314,17 +315,40 @@
 					continue
 
 				if(G.slot)
-					var/obj/o
-					if(on_dummy) // remove the old item
-						o = H.get_item_by_slot(G.slot)
-						H.doUnEquip(H.get_item_by_slot(G.slot), newloc = H.drop_location(), invdrop = FALSE, silent = TRUE)
-					if(H.equip_to_slot_or_del(G.spawn_item(H, skirt_pref = jumpsuit_style), G.slot))
-						if(M.client)
-							to_chat(M, span_notice("Equipping you with [G.display_name]!"))
-						if(on_dummy && o)
-							qdel(o)
+					if(G.slot == ITEM_SLOT_BACK)
+						var/obj/item/storage/new_bag = G.spawn_item(H, skirt_pref = jumpsuit_style)
+						var/obj/item/storage/old_bag = H.get_item_by_slot(ITEM_SLOT_BACK)
+						if(old_bag)
+							for(var/obj/item/item in old_bag.contents)
+								item.forceMove(new_bag)
+							H.doUnEquip(old_bag, newloc = H.drop_location(), invdrop = FALSE, silent = TRUE)
+							if(H.equip_to_slot_or_del(new_bag, G.slot))
+								if(M.client)
+									to_chat(M, span_notice("Equipping you with [G.display_name]!"))
 					else
-						gear_leftovers += G
+						var/obj/item/new_item = G.spawn_item(H, skirt_pref = jumpsuit_style)
+
+						// Unequip only if we're about to equip something in that slot
+						var/obj/o = H.get_item_by_slot(G.slot)
+						if(o)
+							if(!spawned_box && !on_dummy)	//Spawn the box only if theres something being unequiped.
+								var/obj/item/storage/current_bag = H.get_item_by_slot(ITEM_SLOT_BACK)
+
+								spawned_box = new /obj/item/storage/box
+								spawned_box.name = "compression box of standard gear"
+								spawned_box.forceMove(current_bag)	// Gets put in the backpack
+								if(M.client)
+									to_chat(M, span_notice("A box with your standard equipment was placed in your [current_bag.name]!"))
+							H.doUnEquip(o, newloc = spawned_box ? spawned_box : H.drop_location(), invdrop = FALSE, silent = TRUE)
+
+						if(H.equip_to_slot_or_del(new_item, G.slot))
+							if(M.client)
+								to_chat(M, span_notice("Equipping you with [G.display_name]!"))
+
+						else
+							// If slot was blocked, or item couldn't be equipped, push to leftovers
+							gear_leftovers += G
+							qdel(new_item) // prevent duplicate spawns
 				else
 					gear_leftovers += G
 
