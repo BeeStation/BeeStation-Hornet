@@ -48,12 +48,14 @@
 			winset(client, "status_bar", "is-visible=false")
 
 		if(client.fully_created)
-			INVOKE_ASYNC(client, TYPE_PROC_REF(/client, fit_viewport))
+			INVOKE_ASYNC(client, PROC_REF(fix_mapsize), client)
 		else
-			addtimer(CALLBACK(client, TYPE_PROC_REF(/client, fit_viewport), 1 SECONDS))
+			addtimer(CALLBACK(src, PROC_REF(fix_mapsize), client), 1 SECONDS)
 
 /datum/preference/toggle/fullscreen/proc/fix_mapsize(client/client)
-	var/windowsize = winget(client, "split", "size")
+ 	if (!client)
+ 		return
+ 	var/windowsize = winget(client, "split", "size")
 	if (!client || !windowsize)
 		return
 	var/split = findtext(windowsize, "x")
