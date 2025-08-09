@@ -439,9 +439,13 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NEGATES_GRAVITY "negates_gravity"
 #define TRAIT_NIGHT_VISION "night_vision"
 
+/// Oozelings with this trait will not lose limbs from low blood/nutrition.
+#define TRAIT_OOZELING_NO_CANNIBALIZE "oozeling_no_cannibalize"
+
+/// For the detective aurafarming ability
+#define TRAIT_NOIR "noir"
+
 /// Prevents items from being speed potion-ed, but allows their speed to be altered in other ways
 #define TRAIT_NO_SPEED_POTION "no_speed_potion"
-//for the detective aurafarming ability
-#define TRAIT_NOIR "noir" //people who are in the noir state,
 
 // END TRAIT DEFINES
