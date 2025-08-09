@@ -27,7 +27,7 @@
 	. = ..()
 	var/mob/living/current_mob = mob_override || owner.current
 
-	RegisterSignal(current_mob, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(current_mob, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 
 	// Tracking
 	setup_monitor(current_mob)
@@ -44,7 +44,7 @@
 	. = ..()
 	var/mob/living/current_mob = mob_override || owner.current
 
-	UnregisterSignal(current_mob, COMSIG_PARENT_EXAMINE)
+	UnregisterSignal(current_mob, COMSIG_ATOM_EXAMINE)
 
 	// Tracking
 	QDEL_NULL(monitor)
