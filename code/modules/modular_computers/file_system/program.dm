@@ -110,15 +110,17 @@
  * Checks for hardware incompatibilities.
  * If the current computer doesn't have the hardware matching hardware equipment an error will display and the program wont start.
  * Arguments:
+ * * to_check - The computer being checked, this does not use the computer var due to cases where the program doesn't exist yet in any computer but needs to be checked against yours.
  * * user - The mob that started the program
+ * * loud - Are we making a sound and displaying balloon alert?
  **/
-/datum/computer_file/program/proc/is_supported_by_hardware(mob/living/user, loud = TRUE)
+/datum/computer_file/program/proc/is_supported_by_hardware(obj/item/modular_computer/to_check, mob/user, loud = TRUE)
 	if(!hardware_requirement)
 		return TRUE
-	if(!computer?.get_modular_computer_part(hardware_requirement))
+	if(!to_check?.get_modular_computer_part(hardware_requirement))
 		if(loud)	// Else fail silently
-			computer.balloon_alert(user, "<font color='#d80000'>ERROR:</font> Required hardware type :: <font color='#e65bc3'>[hardware_requirement]</font> not found!")
-			playsound(computer, 'sound/machines/defib_failed.ogg', 25, TRUE)
+			to_check.balloon_alert(user, "<font color='#d80000'>ERROR:</font> Required hardware type :: <font color='#e65bc3'>[hardware_requirement]</font> not found!")
+			playsound(to_check, 'sound/machines/defib_failed.ogg', 25, TRUE)
 		return FALSE
 	return TRUE
 
@@ -183,7 +185,7 @@
  **/
 /datum/computer_file/program/proc/on_start(mob/living/user)
 	SHOULD_CALL_PARENT(TRUE)
-	if(is_supported_by_hardware(user, 1))
+	if(is_supported_by_hardware(computer, user, 1))
 		if(requires_ntnet && network_destination)
 			var/obj/item/computer_hardware/network_card/network_card = computer.all_components[MC_NET]
 			generate_network_log("Connection opened to [network_destination].", network_card) // Probably should be cut

@@ -376,7 +376,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		return FALSE
 
 	// If we have a recharger, enable it automatically. Lets computer without a battery work.
-	var/obj/item/computer_hardware/recharger/recharger = all_components[MC_CHARGE]
+	var/obj/item/computer_hardware/recharger/recharger = all_components[MC_CHARGER]
 	if(recharger)
 		recharger.enabled = 1
 
@@ -479,7 +479,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	data["PC_theme_locked"] = theme_locked
 
 	var/obj/item/computer_hardware/battery/battery_module = all_components[MC_CELL]
-	var/obj/item/computer_hardware/recharger/recharger = all_components[MC_CHARGE]
+	var/obj/item/computer_hardware/recharger/recharger = all_components[MC_CHARGER]
 	var/obj/item/computer_hardware/hard_drive/drive = all_components[MC_HDD]
 
 	if(battery_module?.battery)
@@ -569,7 +569,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		to_chat(user, span_danger("\The [src]'s screen shows \"I/O ERROR - Unable to run program\" warning."))
 		return FALSE
 
-	if(!program.is_supported_by_hardware(user))
+	if(!program.is_supported_by_hardware(src, user))
 		return FALSE
 
 	// The program is already running. Resume it.
