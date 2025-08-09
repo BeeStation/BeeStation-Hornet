@@ -1,4 +1,5 @@
-import { FeatureChoiced, FeatureButtonedDropdownInput } from '../base';
+import { FeatureChoiced } from '../base';
+import { FeatureButtonedDropdownInput } from '../dropdowns';
 
 export const quirk_prosthetic_limb_location: FeatureChoiced = {
   name: 'Prosthetic Limb Location',

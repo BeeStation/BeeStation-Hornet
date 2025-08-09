@@ -1,5 +1,6 @@
 import { BasicInput } from './BasicInput';
-import { NumberInput, Button, Stack, Input, Dropdown, Box } from '../../components';
+import { NumberInput, Button, Stack, Input, Box } from '../../components';
+import { Dropdown } from 'tgui-core/components';
 
 export const FUNDAMENTAL_DATA_TYPES = {
   'string': (props) => {
@@ -44,8 +45,7 @@ export const FUNDAMENTAL_DATA_TYPES = {
         color={'transparent'}
         options={Array.isArray(extraData) ? extraData : Object.keys(extraData)}
         onSelected={setValue}
-        displayText={value}
-        displayTextFirst
+        selected={value}
         noscroll
       />
     );

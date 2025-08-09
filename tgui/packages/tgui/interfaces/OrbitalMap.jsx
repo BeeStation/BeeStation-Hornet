@@ -2,8 +2,10 @@
 
 // Made by powerfulbacon
 
-import { Box, Button, Section, Table, DraggableClickableControl, Dropdown, Divider, NoticeBox, ProgressBar, Flex, OrbitalMapComponent, OrbitalMapSvg } from '../components';
-import { useBackend, useLocalState } from '../backend';
+import { Box, Button, Section, Table, DraggableClickableControl, Divider, NoticeBox, ProgressBar, Flex, OrbitalMapComponent, OrbitalMapSvg } from '../components';
+import { Dropdown } from 'tgui-core/components';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import { Window } from '../layouts';
 import { useRef } from 'react';
 
@@ -22,10 +24,10 @@ export const OrbitalMap = (props) => {
     designatorId = null,
     shuttleId = null,
   } = data;
-  const [zoomScale, setZoomScale] = useLocalState('zoomScale', 1);
-  const [xOffset, setXOffset] = useLocalState('xOffset', 0);
-  const [yOffset, setYOffset] = useLocalState('yOffset', 0);
-  const [trackedBody, setTrackedBody] = useLocalState('trackedBody', shuttleName);
+  const [zoomScale, setZoomScale] = useState(1);
+  const [xOffset, setXOffset] = useState(0);
+  const [yOffset, setYOffset] = useState(0);
+  const [trackedBody, setTrackedBody] = useState(shuttleName);
 
   const radarRef = useRef(null);
 
@@ -306,7 +308,7 @@ export const OrbitalMapDisplay = (props) => {
     radarRef,
   } = props;
 
-  const [offset, setOffset] = useLocalState('offset', [0, 0]);
+  const [offset, setOffset] = useState([0, 0]);
 
   let lockedZoomScale = Math.max(Math.min(zoomScale, 4), 0.125);
 

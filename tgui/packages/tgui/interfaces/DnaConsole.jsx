@@ -3,7 +3,8 @@ import { classes } from 'common/react';
 import { capitalize } from 'common/string';
 import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
-import { Box, Button, Collapsible, Dimmer, Divider, Dropdown, Flex, Icon, LabeledList, NumberInput, ProgressBar, Section } from '../components';
+import { Box, Button, Collapsible, Dimmer, Divider, Flex, Icon, LabeledList, NumberInput, ProgressBar, Section } from '../components';
+import { Dropdown } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 const SUBJECT_CONSCIOUS = 0;

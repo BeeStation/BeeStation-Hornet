@@ -1,6 +1,7 @@
 /* eslint-disable react/prefer-stateless-function */
 import { useBackend } from '../backend';
-import { Button, Input, TextArea, LabeledList, Section, Box, Dropdown, Stack, Collapsible, Flex, NumberInput } from '../components';
+import { Button, Input, TextArea, LabeledList, Section, Box, Stack, Collapsible, Flex, NumberInput } from '../components';
+import { Dropdown } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 const KEY_REGEX = /^(\[[\d:]+\]) ([\S\s]+?)\/\(([\S\s]+?)\) \(([\s\S]+?) \((\d+, \d+, \d+)\)\) \(Event #(\d+)\)$/;

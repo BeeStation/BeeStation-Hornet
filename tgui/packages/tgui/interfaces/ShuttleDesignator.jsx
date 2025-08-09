@@ -1,4 +1,6 @@
-import { Button, Section, Dropdown, NoticeBox, ProgressBar } from '../components';
+import { Dropdown } from 'tgui-core/components';
+
+import { Button, Section, NoticeBox, ProgressBar } from '../components';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 

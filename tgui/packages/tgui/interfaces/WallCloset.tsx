@@ -1,5 +1,8 @@
+import { DmIcon } from 'tgui-core/components';
+import { CSSProperties } from 'react';
+
 import { useBackend } from '../backend';
-import { Box, Flex, DmIcon, Icon } from '../components';
+import { Box, Flex, Icon } from '../components';
 import { Window } from '../layouts';
 
 type WallClosetData = {
@@ -80,10 +83,11 @@ const Cell = (props) => {
                   height="100%"
                   width="100%"
                   backgroundColor="red"
-                  style={{
-                    imageRendering: 'pixelated',
-                    msInterpolationMode: 'nearest-neighbor',
-                  }}
+                  style={
+                    {
+                      imageRendering: 'pixelated',
+                    } as CSSProperties
+                  }
                 />
               ) : (
                 <Box
