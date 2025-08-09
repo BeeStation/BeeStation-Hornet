@@ -39,6 +39,7 @@
 	if(disk_flags & DISK_ATMOS)
 		progs_to_store += new /datum/computer_file/program/atmosscan(src)
 		progs_to_store += new /datum/computer_file/program/alarm_monitor(src)
+		progs_to_store += new /datum/computer_file/program/gasrig_monitor(src)
 
 	if(disk_flags & DISK_SEC)
 		progs_to_store += new /datum/computer_file/program/records/security(src)
