@@ -77,7 +77,9 @@
 	if(iscarbon(mover))
 		var/mob/living/carbon/C = mover
 		if(allow_walk && C.m_intent == MOVE_INTENT_WALK)
-			return 1
+			return TRUE
+	if(issilicon(mover))
+		return TRUE
 
 /obj/structure/holosign/barrier/wetsign
 	name = "wet floor holobarrier"

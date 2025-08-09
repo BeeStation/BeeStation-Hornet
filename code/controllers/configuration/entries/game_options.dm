@@ -24,7 +24,7 @@
 
 /datum/config_entry/flag/disable_human_mood
 
-/datum/config_entry/flag/disable_secborg	// disallow secborg model to be chosen.
+/datum/config_entry/flag/disable_guardianborg	// disallow secborg model to be chosen.
 
 /datum/config_entry/flag/disable_peaceborg
 

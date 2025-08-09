@@ -30,6 +30,7 @@
 	var/display_empty = TRUE
 	var/selfcharge = 0
 	var/charge_timer = 0
+	///How often a shot recharges
 	var/charge_delay = 8
 	///whether the gun's cell drains the cyborg user's cell to recharge
 	var/use_cyborg_cell = FALSE
@@ -100,8 +101,8 @@
 	if(dead_cell)	//this makes much more sense.
 		cell.use(cell.maxcharge)
 	update_ammo_types()
-	recharge_newshot(TRUE)
-	if(selfcharge)
+	recharge_newshot()
+	if(selfcharge || use_cyborg_cell)
 		START_PROCESSING(SSobj, src)
 	update_appearance()
 	AddElement(/datum/element/update_icon_updates_onmob)
@@ -155,14 +156,32 @@
 	return ..()
 
 /obj/item/gun/energy/process(delta_time)
-	if(selfcharge && cell && cell.percent() < 100)
+	if((selfcharge || use_cyborg_cell) && cell && cell.percent() < 100)
 		charge_timer += delta_time
 		if(charge_timer < charge_delay)
 			return
+
 		charge_timer = 0
+
+		if(use_cyborg_cell)
+			var/mob/living/silicon/robot/R
+
+			//If the gun is in the cyborg's active loadout, the location is the cyborg itself
+			if(iscyborg(loc))
+				R = loc
+
+			//If the gun is currently stored, then it is not directly in the cyborg it is stored in the model inside of the cyborg
+			else if(istype(loc, /obj/item/robot_model))
+				R = loc.loc //this is possibly the most cursed thing I've ever done
+
+			else
+				return //Not equipped, not stashed in a cyborg model, it shouldn't even exist then.
+
+			if(!R.cell.use(100)) //if the cyborg is not charged enough, or doesn't have a cell, don't recharge
+				return
 		cell.give(100)
 		if(!chambered) //if empty chamber we try to charge a new shot
-			recharge_newshot(TRUE)
+			recharge_newshot()
 		update_appearance()
 
 /obj/item/gun/energy/attack_self(mob/living/user as mob)
@@ -181,16 +200,10 @@
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	return !QDELETED(cell) ? (cell.charge >= shot.e_cost) : FALSE
 
-/obj/item/gun/energy/recharge_newshot(no_cyborg_drain)
+/obj/item/gun/energy/recharge_newshot()
 	if (!ammo_type || !cell)
 		return
-	if(use_cyborg_cell && !no_cyborg_drain)
-		if(iscyborg(loc))
-			var/mob/living/silicon/robot/R = loc
-			if(R.cell)
-				var/obj/item/ammo_casing/energy/shot = ammo_type[select] //Necessary to find cost of shot
-				if(R.cell.use(shot.e_cost)) 		//Take power from the borg...
-					cell.give(shot.e_cost)	//... to recharge the shot
+
 	if(!chambered)
 		var/obj/item/ammo_casing/energy/AC = ammo_type[select]
 		if(cell.charge >= AC.e_cost) //if there's enough power in the cell cell...
@@ -216,7 +229,7 @@
 	if (shot.select_name && user)
 		balloon_alert(user, "You set [src]'s mode to [shot.select_name].")
 	chambered = null
-	recharge_newshot(TRUE)
+	recharge_newshot()
 	update_appearance()
 
 /obj/item/gun/energy/update_icon_state()
