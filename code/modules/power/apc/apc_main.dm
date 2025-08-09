@@ -504,13 +504,16 @@
 		force_update = TRUE
 		return
 
-//dont use any power from that channel if we shut that power channel off
+	//dont use any power from that channel if we shut that power channel off
 	lastused_light = APC_CHANNEL_IS_ON(lighting) ? area.power_usage[AREA_USAGE_LIGHT] + area.power_usage[AREA_USAGE_STATIC_LIGHT] : 0
 	lastused_equip = APC_CHANNEL_IS_ON(equipment) ? area.power_usage[AREA_USAGE_EQUIP] + area.power_usage[AREA_USAGE_STATIC_EQUIP] : 0
 	lastused_environ = APC_CHANNEL_IS_ON(environ) ? area.power_usage[AREA_USAGE_ENVIRON] + area.power_usage[AREA_USAGE_STATIC_ENVIRON] : 0
 	area.clear_usage()
 
 	lastused_total = lastused_light + lastused_equip + lastused_environ
+
+	if(!operating)	//If the APC is off, lets not have it draw?
+		lastused_total = 0
 
 	//store states to update icon if any change
 	var/last_lt = lighting
@@ -525,30 +528,20 @@
 	else
 		main_status = APC_HAS_POWER
 
-	var/cellused
-	if(cell && !shorted)
-		// draw power from cell as before to power the area
-		cellused = min(cell.charge, lastused_total)	// clamp deduction to a max, amount left in cell
-		cell.use(cellused)
-
 	if(cell && !shorted) //need to check to make sure the cell is still there since rigged cells can randomly explode after use().
-		if(surplus() > lastused_total)	// if power excess recharge the cell by the same amount just used
-			cell.give(cellused)
-			if(cell) //make sure the cell didn't expode and actually used power.
-				add_load(cellused) // add the load used to recharge the cell
-
-
-		else // no excess, and not enough per-apc
-			if((cell.charge + surplus()) >= lastused_total) // can we draw enough from cell+grid to cover last usage?
-				cell.charge = min(cell.maxcharge, cell.charge + surplus()) //recharge with what we can
-				add_load(surplus()) // so draw what we can from the grid
-				charging = APC_NOT_CHARGING
-			else // not enough power available to run the last tick!
-				charging = APC_NOT_CHARGING
-				// This turns everything off in the case that there is still a charge left on the battery, just not enough to run the room.
-				equipment = autoset(equipment, AUTOSET_FORCE_OFF)
-				lighting = autoset(lighting, AUTOSET_FORCE_OFF)
-				environ = autoset(environ, AUTOSET_FORCE_OFF)
+		if(surplus() >= lastused_total)	// if power excess recharge the cell (if not maxcharge)
+			add_load(lastused_total)
+			if(surplus() >= cell.chargerate && cell.charge != cell.maxcharge)
+				cell.give(cell.chargerate)
+				add_load(cell.chargerate) // add the load used to recharge the cell
+		else // IF surplus alone is not enough we go to cell
+			charging = APC_NOT_CHARGING
+			main_status = APC_LOW_POWER
+			var/surplus_used = min(surplus(), lastused_total)
+			var/remaining_load = lastused_total - surplus_used
+			add_load(surplus_used)
+			if(remaining_load)
+				cell.use(remaining_load)
 
 	if(cell && !shorted) //need to check to make sure the cell is still there since rigged cells can randomly explode after give().
 
@@ -588,27 +581,14 @@
 		if(integration_cog)
 			alarm_manager.clear_alarm(ALARM_POWER)
 
-		// now trickle-charge the cell
-		if(chargemode && charging == APC_CHARGING && operating)
-			if(surplus() > 0) // check to make sure we have enough to charge
-				// Max charge is capped to % per second constant
-				var/ch = min(surplus(), cell.chargerate)
-				add_load(ch) // Removes the power we're taking from the grid
-				cell.give(ch) // actually recharge the cell
-
-			else
-				charging = APC_NOT_CHARGING // stop charging
-
 		// show cell as fully charged if so
 		if(cell.charge >= cell.maxcharge)
 			cell.charge = cell.maxcharge
 			charging = APC_FULLY_CHARGED
 
 		if(chargemode)
-			if(!charging)
-				if(surplus() > 0)
-					charging = APC_CHARGING
-
+			if(!charging && surplus() > 0)
+				charging = APC_CHARGING
 		else // chargemode off
 			charging = APC_NOT_CHARGING
 
@@ -632,22 +612,19 @@
 			playsound(src, 'sound/machines/apc/PowerUp_001.ogg', 10, 1)
 			apc_sound_stage = 4
 
-	else // no cell, switch everything off
-
+	else // wanted to redo this but cell-less APC needs a big refactor everywhere else so this stays for now
 		charging = APC_NOT_CHARGING
-
 		equipment = autoset(equipment, AUTOSET_FORCE_OFF)
 		lighting = autoset(lighting, AUTOSET_FORCE_OFF)
 		environ = autoset(environ, AUTOSET_FORCE_OFF)
 		alarm_manager.send_alarm(ALARM_POWER)
 
 	// update icon & area power if anything changed
-
 	if(last_lt != lighting || last_eq != equipment || last_en != environ || force_update)
 		force_update = FALSE
 		queue_icon_update()
 		update()
-	else if (last_ch != charging)
+	else if(last_ch != charging)
 		queue_icon_update()
 
 /*Power module, used for APC construction*/
