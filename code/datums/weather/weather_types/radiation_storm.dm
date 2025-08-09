@@ -38,7 +38,7 @@
 		return
 
 	var/mob/living/carbon/human/H = L
-	if(!H.can_mutate() || H.status_flags & GODMODE || isdiona(H))
+	if(!H.can_mutate() || HAS_TRAIT(H, TRAIT_GODMODE) || isdiona(H))
 		return
 
 	if(HAS_TRAIT(H, TRAIT_RADIMMUNE))

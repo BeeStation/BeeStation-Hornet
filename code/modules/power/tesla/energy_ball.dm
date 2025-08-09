@@ -164,7 +164,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/energy_ball)
 /obj/anomaly/energy_ball/proc/dust_mobs(atom/A)
 	if(isliving(A))
 		var/mob/living/L = A
-		if(L.incorporeal_move || L.status_flags & GODMODE)
+		if(L.incorporeal_move || HAS_TRAIT(L, TRAIT_GODMODE))
 			return
 	if(!iscarbon(A))
 		return

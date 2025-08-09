@@ -974,12 +974,13 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 	desc = "Doomed to squawk the Earth."
 	color = "#FFFFFF77"
 	speak_chance = 20
-	status_flags = GODMODE
+	status_flags = NONE
 	incorporeal_move = INCORPOREAL_MOVE_BASIC
 	butcher_results = list(/obj/item/ectoplasm = 1)
 
 /mob/living/simple_animal/parrot/Poly/ghost/Initialize(mapload)
 	memory_saved = TRUE //At this point nothing is saved
+	ADD_TRAIT(src, TRAIT_GODMODE, TRAIT_GENERIC)
 	. = ..()
 
 /mob/living/simple_animal/parrot/Poly/ghost/handle_automated_speech()
