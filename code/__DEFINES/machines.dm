@@ -72,6 +72,9 @@
 #define MC_IDENTIFY "IDENTIFY"
 #define MC_CAMERA "CAMERA"
 
+//Chance Defines
+#define MC_PART_DROP_CHANCE 50
+
 //Trojan defines
 #define BREACHER "BREACHER"
 #define SLEDGE "SLEDGE"
