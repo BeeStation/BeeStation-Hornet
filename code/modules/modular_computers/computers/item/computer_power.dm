@@ -3,7 +3,7 @@
 	if(check_power_override())
 		return TRUE
 
-	var/obj/item/computer_hardware/recharger/recharger = all_components[MC_CHARGE]
+	var/obj/item/computer_hardware/recharger/recharger = all_components[MC_CHARGER]
 
 	if(recharger && recharger.check_functionality())
 		if(recharger.use_power(amount))
@@ -75,7 +75,7 @@
 
 // Handles power-related things, such as battery interaction, recharging, shutdown when it's discharged
 /obj/item/modular_computer/proc/handle_power(delta_time)
-	var/obj/item/computer_hardware/recharger/recharger = all_components[MC_CHARGE]
+	var/obj/item/computer_hardware/recharger/recharger = all_components[MC_CHARGER]
 	if(recharger)
 		recharger.process(delta_time)
 

@@ -458,7 +458,7 @@
 	taste_description = "childhood whimsy"
 
 /datum/reagent/consumable/sprinkles/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	if(M.mind && HAS_TRAIT(M.mind, TRAIT_LAW_ENFORCEMENT_METABOLISM))
+	if(HAS_MIND_TRAIT(M, TRAIT_LAW_ENFORCEMENT_METABOLISM))
 		M.heal_bodypart_damage(1 * REM * delta_time, 1 * REM * delta_time, 0)
 		. = TRUE
 	..()
@@ -595,20 +595,17 @@
 	description = "Sweet, sweet honey that decays into sugar. Has antibacterial and natural healing properties."
 	color = "#d3a308"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	nutriment_factor = 15 * REAGENTS_METABOLISM
+	nutriment_factor = 0 * REAGENTS_METABOLISM //Honey converts 2:5 into sugar, so this may as well be 15
 	metabolization_rate = 1 * REAGENTS_METABOLISM
 	taste_description = "sweetness"
 	default_container = /obj/item/reagent_containers/condiment/honey
-	var/power = 0
 
 /datum/reagent/consumable/honey/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	if(power == 0)
-		holder.add_reagent(/datum/reagent/consumable/sugar, 3 * REM * delta_time)
-	if(DT_PROB(33, delta_time))
-		M.adjustBruteLoss(-1, 0)
-		M.adjustFireLoss(-1, 0)
-		M.adjustOxyLoss(-1, 0)
-		M.adjustToxLoss(-1, 0)
+	holder.add_reagent(/datum/reagent/consumable/sugar, 1 * REM * delta_time)
+	M.adjustBruteLoss(-1, 0)
+	M.adjustFireLoss(-1, 0)
+	M.adjustOxyLoss(-1, 0)
+	M.adjustToxLoss(-1, 0)
 	..()
 
 /datum/reagent/consumable/honey/expose_mob(mob/living/M, method=TOUCH, reac_volume)
@@ -618,11 +615,6 @@
 			var/datum/surgery/S = s
 			S.speed_modifier = max(0.6, S.speed_modifier) // +60% surgery speed on each step, compared to bacchus' blessing's ~46%
 	..()
-
-/datum/reagent/consumable/honey/special
-	name = "Royal Honey"
-	description = "A special honey which heals the imbiber far faster than normal honey"
-	power = 1
 
 /datum/reagent/consumable/mayonnaise
 	name = "Mayonnaise"
@@ -773,10 +765,10 @@
 /datum/reagent/consumable/tinlux/proc/add_reagent_light(mob/living/living_holder)
 	var/obj/effect/dummy/lighting_obj/moblight/mob_light_obj = living_holder.mob_light(2)
 	LAZYSET(mobs_affected, living_holder, mob_light_obj)
-	RegisterSignal(living_holder, COMSIG_PARENT_QDELETING, PROC_REF(on_living_holder_deletion))
+	RegisterSignal(living_holder, COMSIG_QDELETING, PROC_REF(on_living_holder_deletion))
 
 /datum/reagent/consumable/tinlux/proc/remove_reagent_light(mob/living/living_holder)
-	UnregisterSignal(living_holder, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(living_holder, COMSIG_QDELETING)
 	var/obj/effect/dummy/lighting_obj/moblight/mob_light_obj = LAZYACCESS(mobs_affected, living_holder)
 	LAZYREMOVE(mobs_affected, living_holder)
 	if(mob_light_obj)

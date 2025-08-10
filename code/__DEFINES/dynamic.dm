@@ -9,11 +9,11 @@
 #define DYNAMIC_CATEGORY_LATEJOIN "Latejoin"
 
 /// For relatively small antagonists (Sleeper Agent, Obsessed, Fugitives, etc.)
-#define DYNAMIC_MIDROUND_LIGHT "Light"
+#define DYNAMIC_MIDROUND_LIGHT (1 << 0)
 /// For round disruptive antagonists (Abductors, Malf AI, Slaughter Demon, etc.)
-#define DYNAMIC_MIDROUND_MEDIUM "Medium"
+#define DYNAMIC_MIDROUND_MEDIUM (1 << 1)
 /// For round ending antagonists (Wizard, Lone Operative, Blob, etc.)
-#define DYNAMIC_MIDROUND_HEAVY "Heavy"
+#define DYNAMIC_MIDROUND_HEAVY (1 << 2)
 
 /// Only one ruleset with this flag will be picked
 #define HIGH_IMPACT_RULESET (1<<0)

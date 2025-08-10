@@ -634,7 +634,7 @@
 		S.change_head_color(color2)
 		dropped = TRUE
 
-#define PKBORG_DAMPEN_CYCLE_DELAY 20
+#define PKBORG_DAMPEN_CYCLE_DELAY 2 SECONDS
 
 //Peacekeeper Cyborg Projectile Dampenening Field
 /obj/item/borg/projectile_dampen
@@ -650,7 +650,7 @@
 	var/energy_recharge_cyborg_drain_coefficient = 0.4
 	var/cyborg_cell_critical_percentage = 0.05
 	var/mob/living/silicon/robot/host = null
-	var/datum/proximity_monitor/advanced/peaceborg_dampener/dampening_field
+	var/datum/proximity_monitor/advanced/projectile_dampener/peaceborg/dampening_field
 	var/projectile_damage_coefficient = 0.5
 	/// Energy cost per tracked projectile damage amount per second
 	var/projectile_damage_tick_ecost_coefficient = 10
@@ -703,6 +703,8 @@
 		QDEL_NULL(dampening_field)
 	var/mob/living/silicon/robot/owner = get_host()
 	dampening_field = new(owner, field_radius, TRUE, src)
+	RegisterSignal(dampening_field, COMSIG_DAMPENER_CAPTURE,  PROC_REF(dampen_projectile))
+	RegisterSignal(dampening_field, COMSIG_DAMPENER_RELEASE,  PROC_REF(restore_projectile))
 	owner?.model.allow_riding = FALSE
 	active = TRUE
 
@@ -773,14 +775,11 @@
 		host.cell.use(energy_recharge * delta_time * energy_recharge_cyborg_drain_coefficient)
 		energy += energy_recharge * delta_time
 
-/obj/item/borg/projectile_dampen/proc/dampen_projectile(obj/projectile/P, track_projectile = TRUE)
-	if(tracked[P])
-		return
-	if(track_projectile)
-		tracked[P] = P.damage
-	P.damage *= projectile_damage_coefficient
-	P.speed *= projectile_speed_coefficient
-	P.add_overlay(projectile_effect)
+/obj/item/borg/projectile_dampen/proc/dampen_projectile(obj/projectile/projectile)
+	tracked[projectile] = projectile.damage
+	projectile.damage *= projectile_damage_coefficient
+	projectile.speed *= projectile_speed_coefficient
+	projectile.add_overlay(projectile_effect)
 
 /obj/item/borg/projectile_dampen/proc/restore_projectile(obj/projectile/P)
 	tracked -= P

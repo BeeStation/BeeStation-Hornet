@@ -1,5 +1,4 @@
 import { filter, sortBy } from 'common/collections';
-import { flow } from 'common/fp';
 import { useBackend, useLocalState } from 'tgui/backend';
 import { Stack, Input, Section, Tabs, NoticeBox, Box, Icon, Button } from 'tgui/components';
 import { JOB2ICON } from '../common/JobToIcon';
@@ -16,10 +15,10 @@ export const SecurityRecordTabs = (props) => {
 
   const [search, setSearch] = useLocalState('search', '');
 
-  const sorted: SecurityRecord[] = flow([
-    filter((record: SecurityRecord) => isRecordMatch(record, search)),
-    sortBy((record: SecurityRecord) => record.name),
-  ])(records);
+  const sorted = sortBy(
+    filter(records, (record) => isRecordMatch(record, search)),
+    (record) => record.name
+  );
 
   return (
     <Stack fill vertical>

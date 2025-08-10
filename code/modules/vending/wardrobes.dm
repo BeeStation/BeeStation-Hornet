@@ -38,11 +38,13 @@
 		)
 	contraband = list(
 		/obj/item/clothing/suit/hooded/wintercoat/security/old = 3,
+		/obj/item/storage/backpack/security_borg_bag = 3,
 		)
 	premium = list(
 		/obj/item/clothing/under/rank/security/officer/formal = 3,
 		/obj/item/clothing/suit/jacket/officer/blue = 3,
 		/obj/item/clothing/head/beret/sec/navyofficer = 3,
+		/obj/item/storage/backpack/peace_borg_bag = 3,
 		)
 	refill_canister = /obj/item/vending_refill/wardrobe/sec_wardrobe
 	dept_req_for_free = ACCOUNT_SEC_BITFLAG
@@ -84,7 +86,12 @@
 		/obj/item/clothing/suit/apron/surgical = 4,
 		/obj/item/clothing/mask/surgical = 4
 	)
-	contraband = list(/obj/item/clothing/suit/hooded/wintercoat/medical/old = 3)
+	contraband = list(
+		/obj/item/clothing/suit/hooded/wintercoat/medical/old = 3,
+	)
+	premium = list(
+		/obj/item/storage/backpack/medical_borg_bag = 2,
+	)
 	refill_canister = /obj/item/vending_refill/wardrobe/medi_wardrobe
 	dept_req_for_free = ACCOUNT_MED_BITFLAG
 
@@ -114,7 +121,11 @@
 					/obj/item/clothing/head/utility/hardhat = 3,
 					/obj/item/clothing/head/utility/hardhat/welding = 3,
 					)
-	contraband = list(/obj/item/clothing/suit/hooded/wintercoat/engineering/old = 3)
+	contraband = list(/obj/item/clothing/suit/hooded/wintercoat/engineering/old = 3,
+	)
+	premium = list(
+		/obj/item/storage/backpack/engineer_borg_bag = 3,
+	)
 	refill_canister = /obj/item/vending_refill/wardrobe/engi_wardrobe
 	dept_req_for_free = ACCOUNT_ENG_BITFLAG
 	light_color = COLOR_VIVID_YELLOW
@@ -165,7 +176,7 @@
 		/obj/item/clothing/mask/bandana/striped/cargo = 3,
 		/obj/item/clothing/head/soft/cargo = 3,
 		/obj/item/clothing/head/beret/cargo = 3,
-		/obj/item/radio/headset/headset_cargo = 3
+		/obj/item/radio/headset/headset_cargo = 3,
 		)
 
 	premium = list(
@@ -175,7 +186,8 @@
 		/obj/item/clothing/under/misc/mailman = 2,
 		/obj/item/storage/backpack/satchel/mail = 2,
 		/obj/item/clothing/under/plasmaman/mailman = 2,
-		/obj/item/clothing/head/helmet/space/plasmaman/mailman = 2
+		/obj/item/clothing/head/helmet/space/plasmaman/mailman = 2,
+		/obj/item/storage/backpack/mining_borg_bag = 3,
 	)
 	contraband = list(
 		/obj/item/radio/headset/headset_quartermaster = 1,
@@ -211,7 +223,14 @@
 					/obj/item/organ/tongue/robot = 2,
 					/obj/item/clothing/under/costume/mech_suit = 2,
 					/obj/item/clothing/under/costume/mech_suit/white = 2,
-					/obj/item/clothing/under/costume/mech_suit/blue = 2,)
+					/obj/item/clothing/under/costume/mech_suit/blue = 2,
+					/obj/item/storage/backpack/engineer_borg_bag = 2,
+					/obj/item/storage/backpack/mining_borg_bag = 2,
+					/obj/item/storage/backpack/janitor_borg_bag = 2,
+					/obj/item/storage/backpack/peace_borg_bag = 2,
+					/obj/item/storage/backpack/service_borg_bag = 2,
+					/obj/item/storage/backpack/security_borg_bag = 2,
+					/obj/item/storage/backpack/medical_borg_bag = 2)
 	refill_canister = /obj/item/vending_refill/wardrobe/robo_wardrobe
 	extra_price = 300
 	dept_req_for_free = ACCOUNT_SCI_BITFLAG
@@ -268,7 +287,11 @@
 					/obj/item/clothing/head/helmet/space/plasmaman/botany = 3,
 					/obj/item/clothing/accessory/armband/hydro = 3,
 					/obj/item/clothing/head/cowboy = 3)
-	contraband = list(/obj/item/clothing/suit/hooded/wintercoat/hydro/old = 3)
+	contraband = list(/obj/item/clothing/suit/hooded/wintercoat/hydro/old = 3,
+	)
+	premium = list(
+		/obj/item/storage/backpack/service_borg_bag = 2,
+	)
 	refill_canister = /obj/item/vending_refill/wardrobe/hydro_wardrobe
 	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 	light_color = LIGHT_COLOR_ELECTRIC_GREEN
@@ -333,7 +356,9 @@
 		/obj/item/clothing/neck/tie/black = 2,
 		/obj/item/clothing/neck/tie/blue = 2
 	)
-	premium = list(/obj/item/storage/box/dishdrive = 1)
+	premium = list(/obj/item/storage/box/dishdrive = 1,
+		/obj/item/storage/backpack/service_borg_bag = 2,
+	)
 	refill_canister = /obj/item/vending_refill/wardrobe/bar_wardrobe
 	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 
@@ -362,7 +387,11 @@
 					/obj/item/clothing/under/rank/civilian/altchef = 1,
 					/obj/item/clothing/head/utility/chefhat = 3,
 					/obj/item/reagent_containers/cup/rag = 1,
-					/obj/item/clothing/suit/hooded/wintercoat = 2)
+					/obj/item/clothing/suit/hooded/wintercoat = 2,
+	)
+	premium = list(
+		/obj/item/storage/backpack/service_borg_bag = 3,
+	)
 	refill_canister = /obj/item/vending_refill/wardrobe/chef_wardrobe
 	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 
@@ -394,10 +423,13 @@
 					/obj/item/storage/bag/trash = 2,
 					/obj/item/clothing/shoes/galoshes = 2,
 					/obj/item/watertank/janitor = 1,
-					/obj/item/storage/belt/janitor = 2)
+					/obj/item/storage/belt/janitor = 2,)
 	contraband = list(
 					/obj/item/holosign_creator/janibarrier = 1,
 					/obj/item/caution = 3, //The really old crusty ones
+	)
+	premium = list(
+		/obj/item/storage/backpack/janitor_borg_bag = 2,
 	)
 	refill_canister = /obj/item/vending_refill/wardrobe/jani_wardrobe
 	dept_req_for_free = ACCOUNT_SRV_BITFLAG

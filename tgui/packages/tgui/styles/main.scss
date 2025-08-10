@@ -4,7 +4,8 @@
  */
 
 @use 'sass:meta';
-@use './base.scss';
+@use 'base';
+@use '~tgui-core/styles';
 
 // Core styles
 @include meta.load-css('./reset.scss');
@@ -49,7 +50,6 @@
 @include meta.load-css('./interfaces/AlertModal.scss');
 @include meta.load-css('./interfaces/ColorPicker.scss');
 @include meta.load-css('./interfaces/AntagInfo.scss');
-@include meta.load-css('./interfaces/CameraConsole.scss');
 @include meta.load-css('./interfaces/Changelog.scss');
 @include meta.load-css('./interfaces/ChemDispenser.scss');
 @include meta.load-css('./interfaces/NtosNotepad.scss');

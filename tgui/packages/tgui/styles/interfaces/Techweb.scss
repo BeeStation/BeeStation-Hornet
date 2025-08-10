@@ -25,7 +25,7 @@
 .Techweb__HeaderContent {
   background-color: black;
   padding: 6px;
-  border: 1px solid #40628a;
+  border: 1px solid hsl(212.4, 36.6%, 39.6%);
 }
 
 .Techweb__HeaderContent > * > :not(:last-child) {
@@ -35,14 +35,14 @@
 .Techweb__HeaderSectionTabs {
   margin-top: 2px;
   background-color: black;
-  border: 1px solid #40628a;
+  border: 1px solid hsl(212.4, 36.6%, 39.6%);
   padding-left: 5px;
   padding-right: 5px;
   height: 30px;
 }
 
 .Techweb__HeaderTabTitle {
-  border-right: 1px solid #40628a;
+  border-right: 1px solid hsl(212.4, 36.6%, 39.6%);
   padding-right: 0.5em;
   margin-right: 0.5em;
   font-weight: bold;
@@ -81,7 +81,7 @@
 
 .Techweb__NodeContainer {
   background-color: black;
-  border: 1px solid #40628a;
+  border: 1px solid hsl(212.4, 36.6%, 39.6%);
 }
 
 .Techweb__TierDisplay {
