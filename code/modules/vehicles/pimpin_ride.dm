@@ -11,10 +11,12 @@
 /obj/vehicle/ridden/janicart/Initialize(mapload)
 	. = ..()
 	update_icon()
-	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/janicart)
 	GLOB.janitor_devices += src
 	if(floorbuffer)
 		AddElement(/datum/element/cleaning)
+
+/obj/vehicle/ridden/janicart/add_riding_element()
+	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/janicart)
 
 /obj/vehicle/ridden/janicart/Destroy()
 	GLOB.janitor_devices -= src
