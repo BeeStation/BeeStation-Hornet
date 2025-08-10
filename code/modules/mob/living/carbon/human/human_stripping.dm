@@ -77,54 +77,6 @@ GLOBAL_LIST_INIT(strippable_human_layout, list(
 	key = STRIPPABLE_ITEM_JUMPSUIT
 	item_slot = ITEM_SLOT_ICLOTHING
 
-/datum/strippable_item/mob_item_slot/jumpsuit/start_unequip(atom/source, mob/user)
-	var/obj/item/item = get_item(source)
-
-	if(isnull(item))
-		return FALSE
-
-	if(HAS_TRAIT(item, TRAIT_NO_STRIP))
-		return FALSE
-
-	if(!HAS_TRAIT(user, TRAIT_STEALTH_PICKPOCKET))
-		source.visible_message(
-			span_warning("[user] tries to remove [source]'s [item.name]."),
-			span_userdanger("[user] tries to remove your [item.name]."),
-			ignored_mobs = user,
-		)
-
-	to_chat(user, span_danger("You try to remove [source]'s [item.name]..."))
-	source.log_message("[key_name(source)] is being stripped of [item.name] by [key_name(user)]", LOG_ATTACK, color="red")
-	user.log_message("[key_name(source)] is being stripped of [item.name] by [key_name(user)]", LOG_ATTACK, color="red", log_globally=FALSE)
-	item.add_fingerprint(src)
-
-	if(iscarbon(user))
-		var/mob/living/carbon/carbon_user = user
-		var/mob/living/carbon/source_pocket = source
-		var/obj/item/pocket_item = source_pocket.get_item_by_slot(ITEM_SLOT_LPOCKET)
-		var/obj/item/reagent_containers/syringe/syringeitem = null
-
-		if(istype(pocket_item, /obj/item/reagent_containers/syringe))
-			syringeitem = pocket_item
-
-		else
-			pocket_item = source_pocket.get_item_by_slot(ITEM_SLOT_RPOCKET)
-			if (istype(pocket_item, /obj/item/reagent_containers/syringe))
-				syringeitem = pocket_item
-
-		if(syringeitem)
-
-			if((!carbon_user.gloves || !(carbon_user.gloves.clothing_flags & THICKMATERIAL)) || (syringeitem.type == /obj/item/reagent_containers/syringe/piercing))
-				finish_unequip_mob(syringeitem, source, user)
-				syringeitem.embed(user)
-				user.visible_message(span_danger("You see [user] try to rip off [source]'s jumpsuit and scream in pain!"), span_userdanger("A syringe embeds itself in your hand!"))
-				user.emote("scream")
-				return FALSE
-
-	var/result = start_unequip_mob(item, source, user, strip_delay = POCKET_STRIP_DELAY, hidden = TRUE)
-
-	return result
-
 /datum/strippable_item/mob_item_slot/jumpsuit/get_alternate_action(atom/source, mob/user)
 	var/obj/item/clothing/under/jumpsuit = get_item(source)
 	if(!istype(jumpsuit))
@@ -220,6 +172,8 @@ GLOBAL_LIST_INIT(strippable_human_layout, list(
 
 /datum/strippable_item/mob_item_slot/needs_jumpsuit/pocket/start_unequip(atom/source, mob/user)
 	var/obj/item/item = get_item(source)
+	var/mob/living/carbon/source_pocket = source
+
 	if(isnull(item))
 		return FALSE
 
@@ -230,16 +184,8 @@ GLOBAL_LIST_INIT(strippable_human_layout, list(
 	user.log_message(log_message, LOG_ATTACK, color="red", log_globally=FALSE)
 	item.add_fingerprint(src)
 
-	if(iscarbon(user) && istype(item, /obj/item/reagent_containers/syringe/))
-		var/mob/living/carbon/carbon_user = user
-
-		if(!carbon_user.gloves || !(carbon_user.gloves.clothing_flags & THICKMATERIAL))
-			var/obj/item/reagent_containers/syringe/syringeitem = item
-			finish_unequip_mob(item, source, user)
-			syringeitem.embed(user)
-			user.visible_message(span_danger("You see [user] yank their hand out of [source]'s pocket and scream in pain!"), span_userdanger("A syringe embeds itself in your hand!"))
-			user.emote("scream")
-			return TRUE
+	if(item.on_start_stripping(source, user, source_pocket.get_slot_by_item(item), item))
+		return FALSE
 
 	var/result = start_unequip_mob(item, source, user, strip_delay = POCKET_STRIP_DELAY, hidden = TRUE)
 

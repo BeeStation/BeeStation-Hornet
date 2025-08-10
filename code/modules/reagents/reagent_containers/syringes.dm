@@ -312,3 +312,28 @@
 	volume = 5
 	fill_icon_state = "syringe_crude"
 	fill_icon_thresholds = list(5, 10, 15)
+
+/obj/item/reagent_containers/syringe/on_start_stripping(mob/source, mob/user, item_slot, obj/item)
+	if(!iscarbon(user))
+		return FALSE
+
+	var/mob/living/carbon/carbon_user = user
+	var/obj/item/reagent_containers/syringe/syringeitem = item
+
+	if(item_slot == ITEM_SLOT_LPOCKET || item_slot == ITEM_SLOT_RPOCKET)
+		if(!carbon_user.gloves || !(carbon_user.gloves.clothing_flags & THICKMATERIAL))
+			finish_unequip_mob(item, source, user)
+			syringeitem.embed(user)
+			user.visible_message(span_danger("You see [user] yank their hand out of [source]'s pocket and scream in pain!"), span_userdanger("A syringe embeds itself in your hand!"))
+			user.emote("scream")
+			return TRUE
+	else
+		if(item_slot == ITEM_SLOT_ICLOTHING)
+			if((!carbon_user.gloves || !(carbon_user.gloves.clothing_flags & THICKMATERIAL)) || (syringeitem.type == /obj/item/reagent_containers/syringe/piercing))
+				finish_unequip_mob(syringeitem, source, user)
+				syringeitem.embed(user)
+				user.visible_message(span_danger("You see [user] try to rip off [source]'s jumpsuit and scream in pain!"), span_userdanger("A syringe embeds itself in your hand!"))
+				user.emote("scream")
+				return TRUE
+
+	return FALSE
