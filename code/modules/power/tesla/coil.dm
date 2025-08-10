@@ -201,9 +201,6 @@
 /obj/machinery/power/energy_accumulator/grounding_rod/anchored
 	anchored = TRUE
 
-/obj/machinery/power/energy_accumulator/grounding_rod/anchored
-	anchored = TRUE
-
 /obj/machinery/power/energy_accumulator/grounding_rod/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))

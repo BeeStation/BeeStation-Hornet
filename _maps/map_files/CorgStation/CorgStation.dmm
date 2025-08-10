@@ -63714,6 +63714,15 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/science/xenobiology)
+"uNg" = (
+/obj/structure/window/plasma/reinforced,
+/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+	dir = 1
+	},
+/obj/structure/cable,
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
+/turf/open/floor/circuit/green,
+/area/engine/supermatter)
 "uNh" = (
 /obj/structure/table/reinforced,
 /obj/machinery/microwave{
@@ -87937,7 +87946,7 @@ aVT
 rXf
 aPU
 auG
-nDS
+uNg
 aCQ
 gcM
 asE

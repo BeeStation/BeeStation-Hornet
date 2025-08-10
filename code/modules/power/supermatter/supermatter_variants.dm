@@ -1,7 +1,7 @@
 /// Normal SM with it's processing disabled.
 /obj/machinery/power/supermatter_crystal/hugbox
 	disable_damage = TRUE
-	disable_gas =  TRUE
+	disable_gas = TRUE
 	disable_power_change = TRUE
 	disable_process = SM_PROCESS_DISABLED
 

@@ -54007,6 +54007,17 @@
 	dir = 1
 	},
 /area/hallway/primary/aft)
+"kWF" = (
+/obj/structure/window/plasma/reinforced/spawner/west,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+	dir = 4
+	},
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
+/turf/open/floor/iron/techmaint,
+/area/engine/supermatter)
 "kWJ" = (
 /obj/structure/plasticflaps/opaque,
 /obj/effect/turf_decal/bot{
@@ -108788,6 +108799,17 @@
 /obj/item/survivalcapsule/capsule_checkpoint,
 /turf/open/floor/iron/dark/textured,
 /area/ai_monitored/security/armory)
+"vVk" = (
+/obj/structure/window/plasma/reinforced/spawner/east,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+	dir = 8
+	},
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
+/turf/open/floor/iron/techmaint,
+/area/engine/supermatter)
 "vVv" = (
 /obj/structure/platform/warning{
 	dir = 1
@@ -151817,7 +151839,7 @@ dGN
 bgt
 ukm
 rgL
-rgL
+vVk
 oBP
 bgt
 cDu
@@ -152845,7 +152867,7 @@ bgt
 lPz
 mXl
 sLy
-sLy
+kWF
 hSU
 bgt
 cDu

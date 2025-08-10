@@ -25120,7 +25120,7 @@
 /obj/structure/window/plasma/reinforced{
 	dir = 8
 	},
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
 /turf/open/floor/iron/tech,
 /area/engine/supermatter)
 "ikf" = (
@@ -60328,6 +60328,19 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
+"tPR" = (
+/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/structure/window/plasma/reinforced{
+	dir = 4
+	},
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
+/turf/open/floor/plating,
+/area/engine/supermatter)
 "tQd" = (
 /obj/structure/chair/fancy/comfy{
 	color = "#596479";
@@ -105497,7 +105510,7 @@ mrW
 mrW
 qrb
 hlD
-hlD
+tPR
 ruq
 mrW
 niY

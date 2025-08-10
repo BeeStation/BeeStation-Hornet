@@ -169,7 +169,6 @@
 		qdel(src)
 		return
 
-	to_chat(world, "i am cleaning it")
 	COOLDOWN_START(src, clean_cooldown, RADIATION_CLEAN_IMMUNITY_TIME)
 
 /datum/component/irradiated/proc/on_geiger_counter_scan(datum/source, mob/user, obj/item/geiger_counter/geiger_counter)

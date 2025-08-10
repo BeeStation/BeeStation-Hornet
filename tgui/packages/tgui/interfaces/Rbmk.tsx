@@ -1,13 +1,9 @@
-import { filter, sortBy } from 'common/collections';
-import { flow } from 'common/fp';
-import { ReactNode, useState } from 'react';
-import { Box, Button, LabeledList, ProgressBar, Section, Stack, Chart } from '../components';
+import { ReactNode } from 'react';
+import { ProgressBar, Section, Stack, Chart } from '../components';
 import { toFixed } from 'common/math';
-import { BooleanLike } from 'common/react';
 
 import { useBackend } from '../backend';
-import { getGasFromPath } from '../constants';
-import { Window, NtosWindow } from '../layouts';
+import { Window } from '../layouts';
 
 type RbmkProps = {
   sectionButton?: ReactNode;
@@ -59,10 +55,10 @@ export const RbmkContent = (props: RbmkProps) => {
     logged_coolant_output_temp,
   } = props;
 
-  const pressure_data = logged_pressure.map((value, i) => [i, value]);
-  const power_data = logged_power.map((value, i) => [i, value]);
-  const coolant_input_data = logged_coolant_input_temp.map((value, i) => [i, value]);
-  const coolant_output_data = logged_coolant_output_temp.map((value, i) => [i, value]);
+  const pressure_data = logged_pressure.map((value, i) => [i, Array.isArray(value) ? value[0] : value]);
+  const power_data = logged_power.map((value, i) => [i, Array.isArray(value) ? value[0] : value]);
+  const coolant_input_data = logged_coolant_input_temp.map((value, i) => [i, Array.isArray(value) ? value[0] : value]);
+  const coolant_output_data = logged_coolant_output_temp.map((value, i) => [i, Array.isArray(value) ? value[0] : value]);
 
   return (
     <Stack height="100%">

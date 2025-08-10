@@ -42214,6 +42214,19 @@
 	},
 /turf/open/floor/iron/white,
 /area/science/explab)
+"hCq" = (
+/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/structure/window/plasma/reinforced{
+	dir = 8
+	},
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
+/turf/open/floor/circuit/green,
+/area/engine/supermatter)
 "hCt" = (
 /obj/item/kirbyplants/random,
 /obj/effect/turf_decal/stripes/line{
@@ -65769,6 +65782,19 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/security/checkpoint/engineering)
+"pjf" = (
+/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/structure/window/plasma/reinforced{
+	dir = 4
+	},
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
+/turf/open/floor/circuit/green,
+/area/engine/supermatter)
 "pjy" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -120218,7 +120244,7 @@ atQ
 auZ
 awg
 qjL
-uMZ
+pjf
 uMZ
 aAU
 aCl
@@ -121246,7 +121272,7 @@ atU
 avd
 awg
 jzv
-oZf
+hCq
 oZf
 aAY
 aCl

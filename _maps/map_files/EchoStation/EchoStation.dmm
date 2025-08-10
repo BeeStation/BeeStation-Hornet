@@ -22295,6 +22295,19 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/closed/wall,
 /area/quartermaster/sorting)
+"lFm" = (
+/obj/structure/window/plasma/reinforced{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold/cyan/visible{
+	dir = 4
+	},
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
+/turf/open/floor/plating,
+/area/engine/supermatter)
 "lFA" = (
 /obj/structure/railing/corner{
 	dir = 1
@@ -37692,7 +37705,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/green/visible{
 	dir = 8
 	},
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
 /turf/open/floor/plating,
 /area/engine/supermatter)
 "tRC" = (
@@ -61329,7 +61342,7 @@ dXI
 dXI
 ocx
 nsq
-nsq
+lFm
 xcB
 xiB
 nKk

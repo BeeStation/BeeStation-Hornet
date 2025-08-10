@@ -41850,6 +41850,23 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/security/execution/transfer)
+"kHl" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold/general/visible,
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/structure/window/plasma/reinforced{
+	dir = 1
+	},
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
+/turf/open/floor/engine,
+/area/engine/supermatter)
 "kHH" = (
 /turf/closed/mineral,
 /area/asteroid/nearstation)
@@ -56738,7 +56755,7 @@
 /obj/effect/turf_decal/stripes/red/line,
 /obj/structure/cable,
 /obj/structure/window/plasma/reinforced,
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "oAF" = (
@@ -147112,7 +147129,7 @@ oAm
 txe
 apy
 mDD
-kbB
+kHl
 edg
 uxj
 rJD
