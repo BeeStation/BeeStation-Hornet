@@ -149,7 +149,6 @@
 	righthand_file = 'icons/mob/inhands/equipment/shields_righthand.dmi'
 	custom_materials = null
 	transparent = FALSE
-	max_integrity = 75
 	block_flags = BLOCKING_PROJECTILE
 	w_class = WEIGHT_CLASS_BULKY
 	shield_break_sound = 'sound/effects/bang.ogg'
