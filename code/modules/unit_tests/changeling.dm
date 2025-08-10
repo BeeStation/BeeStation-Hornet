@@ -48,17 +48,19 @@
 	if(isnull(final_icon))
 		final_icon = icon('icons/effects/effects.dmi', "nothing")
 
-	// If we have a lot of dna features with a lot of parts (icons)
-	// This'll eventually runtime into a bad icon operation
-	// So we're recaching the icons here to prevent it from failing
-	final_icon = icon(final_icon)
-	final_icon.Insert(getFlatIcon(ling, no_anim = TRUE), dir = SOUTH, frame = last_frame)
-	final_icon.Insert(getFlatIcon(victim, no_anim = TRUE), dir = NORTH, frame = last_frame)
+	// Get the flat icons first to avoid issues with icon operations
+	var/icon/ling_icon = getFlatIcon(ling, no_anim = TRUE)
+	var/icon/victim_icon = getFlatIcon(victim, no_anim = TRUE)
+
+	// Insert the icons directly without recreating final_icon
+	final_icon.Insert(ling_icon, dir = SOUTH, frame = last_frame)
+	final_icon.Insert(victim_icon, dir = NORTH, frame = last_frame)
 
 	if(both_species)
 		var/prior_species = victim.dna.species.type
 		victim.set_species(/datum/species/lizard)
-		final_icon.Insert(getFlatIcon(victim, no_anim = TRUE), dir = EAST, frame = last_frame)
+		var/icon/lizard_victim_icon = getFlatIcon(victim, no_anim = TRUE)
+		final_icon.Insert(lizard_victim_icon, dir = EAST, frame = last_frame)
 		victim.set_species(prior_species)
 
 	last_frame += 1

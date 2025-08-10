@@ -172,7 +172,7 @@
 			"installed" = !!hard_drive.find_file_by_name(P.filename),
 			"size" = P.size,
 			"access" = emagged && P.available_on_syndinet ? TRUE : P.can_download(user, access = access),
-			"compatible" = P.is_supported_by_hardware(user, loud = FALSE),
+			"compatible" = P.is_supported_by_hardware(computer, user, loud = FALSE),
 			"requiredhardware" = P.hardware_requirement,
 			"verifiedsource" = P.available_on_ntnet,
 		))
