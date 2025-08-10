@@ -2606,16 +2606,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/engine/engine_room)
-"aOF" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/item/candydispenser/engineering{
-	pixel_y = 11
-	},
-/obj/structure/table,
-/turf/open/floor/iron/dark,
-/area/engine/engine_room)
 "aOH" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 1;
@@ -2848,6 +2838,10 @@
 /obj/effect/landmark/navigate_destination,
 /turf/open/floor/prison,
 /area/security/prison)
+"aTo" = (
+/obj/machinery/power/energy_accumulator/tesla_coil,
+/turf/open/floor/iron/tech/grid,
+/area/engine/engineering)
 "aTw" = (
 /obj/effect/turf_decal/guideline/guideline_edge/blue{
 	color = "#267878";
@@ -4889,6 +4883,20 @@
 "bAo" = (
 /turf/closed/wall,
 /area/security/brig/medbay)
+"bAy" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/item/radio/intercom{
+	pixel_x = -31;
+	pixel_y = -2
+	},
+/obj/structure/table/reinforced,
+/obj/machinery/camera/directional/west,
+/obj/item/pipe_dispenser,
+/obj/item/pipe_dispenser,
+/turf/open/floor/iron,
+/area/engine/engine_room)
 "bAQ" = (
 /obj/machinery/conveyor{
 	id = "MailConv"
@@ -6445,19 +6453,6 @@
 "cbX" = (
 /turf/closed/wall,
 /area/crew_quarters/heads/hos)
-"ccf" = (
-/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
-	dir = 9
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/structure/window/plasma/reinforced{
-	dir = 8
-	},
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
-/turf/open/floor/plating,
-/area/engine/supermatter)
 "cct" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -6835,6 +6830,19 @@
 	dir = 4
 	},
 /area/hallway/primary/central)
+"cie" = (
+/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/structure/window/plasma/reinforced{
+	dir = 4
+	},
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
+/turf/open/floor/plating,
+/area/engine/supermatter)
 "cij" = (
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
@@ -8187,6 +8195,20 @@
 	luminosity = 2
 	},
 /area/security/nuke_storage)
+"cCP" = (
+/obj/structure/table/reinforced,
+/obj/item/kitchen/fork{
+	pixel_x = -6;
+	pixel_y = 13
+	},
+/obj/effect/turf_decal/siding/wideplating/dark{
+	dir = 6
+	},
+/obj/item/candydispenser{
+	pixel_y = 11
+	},
+/turf/open/floor/iron/cafeteria,
+/area/crew_quarters/kitchen)
 "cCS" = (
 /obj/effect/turf_decal/guideline/guideline_half_edge/purple{
 	dir = 4
@@ -11807,12 +11829,6 @@
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
-"dMD" = (
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/vending/engivend,
-/turf/open/floor/iron/dark,
-/area/engine/atmos)
 "dMH" = (
 /obj/structure/rack,
 /obj/item/storage/box/rubbershot{
@@ -13488,6 +13504,17 @@
 	},
 /turf/open/floor/iron,
 /area/bridge)
+"emx" = (
+/obj/machinery/suit_storage_unit/industrial/loader,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/machinery/airalarm/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/quartermaster/storage)
 "emC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/trash/cheesie,
@@ -13596,17 +13623,6 @@
 /obj/effect/mapping_helpers/airlock/abandoned,
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
-"epl" = (
-/obj/machinery/suit_storage_unit/industrial/loader,
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
-	},
-/obj/machinery/airalarm/directional/east,
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/open/floor/iron/dark,
-/area/quartermaster/storage)
 "epw" = (
 /obj/structure/table,
 /obj/machinery/reagentgrinder{
@@ -14859,6 +14875,16 @@
 	},
 /turf/open/space/basic,
 /area/solar/starboard/aft)
+"eNH" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/item/candydispenser/engineering{
+	pixel_y = 11
+	},
+/obj/structure/table,
+/turf/open/floor/iron/dark,
+/area/engine/engine_room)
 "eNK" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -15978,6 +16004,12 @@
 /obj/structure/closet/crate,
 /turf/open/floor/iron,
 /area/quartermaster/storage)
+"fdw" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/vending/engivend,
+/turf/open/floor/iron/dark,
+/area/engine/atmos)
 "fdG" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "Engineering";
@@ -16982,19 +17014,6 @@
 	},
 /turf/open/floor/iron,
 /area/engine/engineering)
-"ftI" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/structure/window/plasma/reinforced{
-	dir = 8
-	},
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
-/turf/open/floor/plating,
-/area/engine/supermatter)
 "ftQ" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
@@ -17994,6 +18013,19 @@
 	},
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen/coldroom)
+"fKh" = (
+/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
+	dir = 9
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/structure/window/plasma/reinforced{
+	dir = 8
+	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/turf/open/floor/plating,
+/area/engine/supermatter)
 "fKo" = (
 /obj/effect/turf_decal/siding/dark{
 	dir = 9
@@ -22562,19 +22594,6 @@
 	},
 /turf/open/floor/carpet/green,
 /area/crew_quarters/cafeteria)
-"hlD" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
-	dir = 8
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/structure/window/plasma/reinforced{
-	dir = 4
-	},
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
-/turf/open/floor/plating,
-/area/engine/supermatter)
 "hlI" = (
 /obj/machinery/flasher{
 	id = "aicore";
@@ -22724,6 +22743,19 @@
 /obj/machinery/rnd/production/circuit_imprinter,
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
+"hnQ" = (
+/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/structure/window/plasma/reinforced{
+	dir = 8
+	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/turf/open/floor/plating,
+/area/engine/supermatter)
 "hof" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -25108,20 +25140,6 @@
 	},
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
-"ijZ" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/effect/turf_decal/stripes/closeup,
-/obj/structure/window/plasma/reinforced{
-	dir = 8
-	},
-/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
-/turf/open/floor/iron/tech,
-/area/engine/supermatter)
 "ikf" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -28067,16 +28085,6 @@
 /obj/machinery/door/airlock/public/glass/incinerator/atmos_interior,
 /turf/open/floor/engine,
 /area/engine/atmospherics_engine)
-"jfn" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/siding/wideplating/dark{
-	dir = 10
-	},
-/obj/machinery/cell_charger{
-	desc = "It charges power cells. There is a small tag on it: Public tools charger. Please do no remove"
-	},
-/turf/open/floor/iron/cafeteria,
-/area/crew_quarters/kitchen)
 "jfJ" = (
 /obj/machinery/suit_storage_unit/rd,
 /turf/open/floor/iron,
@@ -28679,14 +28687,6 @@
 /obj/structure/aquarium,
 /turf/open/floor/iron,
 /area/quartermaster/qm)
-"jrS" = (
-/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
-/obj/item/candydispenser/lollipop{
-	pixel_y = 10
-	},
-/obj/structure/table/glass,
-/turf/open/floor/iron/white,
-/area/medical/medbay/lobby)
 "jrW" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/neutral{
@@ -29758,20 +29758,6 @@
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/maintenance/department/science)
-"jHq" = (
-/obj/structure/table/reinforced,
-/obj/item/kitchen/fork{
-	pixel_x = -6;
-	pixel_y = 13
-	},
-/obj/effect/turf_decal/siding/wideplating/dark{
-	dir = 6
-	},
-/obj/item/candydispenser{
-	pixel_y = 11
-	},
-/turf/open/floor/iron/cafeteria,
-/area/crew_quarters/kitchen)
 "jHs" = (
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 4
@@ -32643,20 +32629,6 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/engine/engine_room)
-"kKM" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/item/radio/intercom{
-	pixel_x = -31;
-	pixel_y = -2
-	},
-/obj/structure/table/reinforced,
-/obj/machinery/camera/directional/west,
-/obj/item/pipe_dispenser,
-/obj/item/pipe_dispenser,
-/turf/open/floor/iron,
-/area/engine/engine_room)
 "kKQ" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
@@ -35397,6 +35369,16 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/wall,
 /area/security/main)
+"lJt" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/siding/wideplating/dark{
+	dir = 10
+	},
+/obj/machinery/cell_charger{
+	desc = "It charges power cells. There is a small tag on it: Public tools charger. Please do no remove"
+	},
+/turf/open/floor/iron/cafeteria,
+/area/crew_quarters/kitchen)
 "lJA" = (
 /obj/machinery/atmospherics/components/trinary/filter/atmos/plasma{
 	dir = 1
@@ -43389,6 +43371,19 @@
 	},
 /turf/open/floor/iron/tech,
 /area/engine/atmos)
+"osk" = (
+/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
+	dir = 5
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/structure/window/plasma/reinforced{
+	dir = 4
+	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/turf/open/floor/plating,
+/area/engine/supermatter)
 "osm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/glass,
@@ -47985,14 +47980,6 @@
 	},
 /turf/open/floor/iron/tech,
 /area/science/xenobiology)
-"pOV" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/two,
-/obj/effect/spawner/lootdrop/maintenance/two,
-/obj/effect/spawner/lootdrop/maintenance/two,
-/turf/open/floor/iron,
-/area/quartermaster/storage)
 "pOX" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -48304,6 +48291,14 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
+"pTl" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/open/floor/iron,
+/area/quartermaster/storage)
 "pTp" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/siding/wideplating/dark{
@@ -52751,19 +52746,6 @@
 	},
 /turf/open/floor/wood,
 /area/security/courtroom)
-"ruq" = (
-/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
-	dir = 5
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/structure/window/plasma/reinforced{
-	dir = 4
-	},
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
-/turf/open/floor/plating,
-/area/engine/supermatter)
 "rur" = (
 /obj/effect/turf_decal/siding/brown{
 	dir = 9
@@ -53693,10 +53675,6 @@
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/service)
-"rKb" = (
-/obj/machinery/power/energy_accumulator/tesla_coil,
-/turf/open/floor/iron/tech/grid,
-/area/engine/engineering)
 "rKk" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/grille_or_trash,
@@ -58013,6 +57991,20 @@
 	},
 /turf/open/floor/iron/sepia,
 /area/quartermaster/storage)
+"thb" = (
+/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/effect/turf_decal/stripes/closeup,
+/obj/structure/window/plasma/reinforced{
+	dir = 8
+	},
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
+/turf/open/floor/iron/tech,
+/area/engine/supermatter)
 "thf" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/sign/warning/securearea{
@@ -60319,19 +60311,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
-"tPR" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
-	dir = 8
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/structure/window/plasma/reinforced{
-	dir = 4
-	},
-/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
-/turf/open/floor/plating,
-/area/engine/supermatter)
 "tQd" = (
 /obj/structure/chair/fancy/comfy{
 	color = "#596479";
@@ -61020,6 +60999,14 @@
 /obj/effect/turf_decal/guideline/guideline_edge/purple,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
+"uaR" = (
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/item/candydispenser/lollipop{
+	pixel_y = 10
+	},
+/obj/structure/table/glass,
+/turf/open/floor/iron/white,
+/area/medical/medbay/lobby)
 "uaW" = (
 /obj/machinery/door/airlock/research/glass{
 	id_tag = "RoboFoyer";
@@ -62004,6 +61991,19 @@
 /obj/effect/decal/cleanable/insectguts,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
+"uoZ" = (
+/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/structure/window/plasma/reinforced{
+	dir = 4
+	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/turf/open/floor/plating,
+/area/engine/supermatter)
 "upd" = (
 /obj/machinery/button/door{
 	id = "xeno5";
@@ -95909,7 +95909,7 @@ krB
 krB
 tgI
 krf
-pOV
+pTl
 cfA
 fVm
 cfA
@@ -96679,7 +96679,7 @@ nFK
 eyo
 krB
 lvd
-epl
+emx
 yij
 bsk
 oBB
@@ -103943,7 +103943,7 @@ peX
 fos
 ckw
 pxP
-kKM
+bAy
 uLf
 ngR
 xkg
@@ -105488,9 +105488,9 @@ thf
 mrW
 mrW
 qrb
-hlD
-tPR
-ruq
+uoZ
+cie
+osk
 mrW
 niY
 dIL
@@ -105994,7 +105994,7 @@ hdr
 vVF
 hfT
 iaC
-aOF
+eNH
 peX
 qBW
 ocl
@@ -106516,9 +106516,9 @@ hKF
 mrW
 mrW
 pJI
-ftI
-ijZ
-ccf
+hnQ
+thb
+fKh
 mrW
 kWy
 dIL
@@ -108525,7 +108525,7 @@ fxR
 bMY
 xKJ
 mjM
-jrS
+uaR
 ijk
 xvs
 bPy
@@ -108818,8 +108818,8 @@ cTs
 vhc
 gLV
 kwh
-rKb
-rKb
+aTo
+aTo
 syy
 qnA
 eGz
@@ -111836,7 +111836,7 @@ cbV
 pyP
 omR
 cqL
-jfn
+lJt
 kok
 bZA
 mWi
@@ -112864,7 +112864,7 @@ cYQ
 eeJ
 pTp
 diN
-jHq
+cCP
 kMP
 bSd
 mWi
@@ -113169,7 +113169,7 @@ shZ
 shZ
 ies
 iRY
-dMD
+fdw
 xVm
 eNK
 pTW
