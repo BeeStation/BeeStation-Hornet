@@ -1504,7 +1504,6 @@
 #include "code\game\objects\items\peppercloud.dm"
 #include "code\game\objects\items\pet_carrier.dm"
 #include "code\game\objects\items\pinpointer.dm"
-#include "code\game\objects\items\pitchfork.dm"
 #include "code\game\objects\items\pneumaticCannon.dm"
 #include "code\game\objects\items\powerfist.dm"
 #include "code\game\objects\items\RCD.dm"
