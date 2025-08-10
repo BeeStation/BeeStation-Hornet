@@ -1,0 +1,5 @@
+author: Aramix
+delete-after: true
+changes:
+  - bugfix: mail now spawns at the intended rate (max 1/minute at 5+ pop, with crate
+      still being limited to 6-12 mails)
