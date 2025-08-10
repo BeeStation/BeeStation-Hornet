@@ -345,7 +345,6 @@
 	new /obj/item/surgical_drapes(src)
 	new /obj/item/scalpel/advanced(src)
 	new /obj/item/retractor/advanced(src)
-	new /obj/item/retractor/advanced(src)
 	new /obj/item/reagent_containers/medspray/sterilizine(src)
 	new /obj/item/gun/medbeam(src)
 
@@ -387,6 +386,16 @@
 	new /obj/item/grenade/flashbang(src)
 	new /obj/item/assembly/flash/handheld(src)
 	new /obj/item/melee/baton/loaded(src)
+	update_appearance()
+
+/obj/item/storage/belt/security/ert/full/PopulateContents()
+	new /obj/item/shield/riot/tele(src)
+	new /obj/item/melee/baton/loaded(src)
+	new /obj/item/club(src)
+	new /obj/item/grenade/flashbang(src)
+	new /obj/item/reagent_containers/peppercloud_deployer(src)
+	new /obj/item/assembly/flash/handheld(src)
+	new /obj/item/holosign_creator/security(src)
 	update_appearance()
 
 /obj/item/storage/belt/security/deputy
@@ -818,7 +827,7 @@
 /obj/item/storage/belt/fannypack/worn/detective //Starting contents defined in detective.dm where the rest of their loadout is handled.
 	name = "Worn belt"
 	desc = "A weathered belt that is used for storing various gadgets"
-	
+
 /obj/item/storage/belt/fannypack/black
 	name = "black fannypack"
 	icon_state = "fannypack_black"

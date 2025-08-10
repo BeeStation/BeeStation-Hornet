@@ -367,7 +367,10 @@
 
 /obj/item/mod/control/GetAccess()
 	if(ai_controller)
-		return req_access.Copy()
+		if(req_access)
+			return req_access.Copy()
+		else
+			return ..()
 	else
 		return ..()
 
