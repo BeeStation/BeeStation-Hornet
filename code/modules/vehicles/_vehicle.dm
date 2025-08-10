@@ -55,7 +55,7 @@
 
 ///Vehicles should only ever have one riding element, so this proc should never call parent types.
 /obj/vehicle/proc/add_riding_element()
-	CRASH("Vehicles should never call add_riding_element() from parent types")
+	return
 
 /obj/vehicle/Destroy(force)
 	QDEL_NULL(trailer)
