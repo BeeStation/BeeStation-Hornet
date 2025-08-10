@@ -14,7 +14,7 @@
  * Randomizes everything about a human, including DNA and name
  */
 /proc/randomize_human(mob/living/carbon/human/human, randomize_mutations = FALSE)
-	human.gender = human.dna.species.sexes ? pick(MALE, FEMALE, PLURAL, NEUTER) : PLURAL
+	human.gender = human.dna.species.sexes ? pick(MALE, FEMALE, PLURAL) : PLURAL
 	human.physique = human.gender
 	human.real_name = human.dna?.species.random_name(human.gender) || random_unique_name(human.gender)
 	human.name = human.get_visible_name()

@@ -170,8 +170,6 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 			L[DNA_GENDER_BLOCK] = construct_block(G_MALE, GENDERS)
 		if(FEMALE)
 			L[DNA_GENDER_BLOCK] = construct_block(G_FEMALE, GENDERS)
-		if(NEUTER)
-			L[DNA_GENDER_BLOCK] = construct_block(G_NEUTER, GENDERS)
 		else
 			L[DNA_GENDER_BLOCK] = construct_block(G_PLURAL, GENDERS)
 	if(ishuman(holder))
@@ -352,8 +350,6 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 					set_uni_identity_block(blocknumber, construct_block(G_MALE, GENDERS))
 				if(FEMALE)
 					set_uni_identity_block(blocknumber, construct_block(G_FEMALE, GENDERS))
-				if(NEUTER)
-					set_uni_identity_block(blocknumber, construct_block(G_NEUTER, GENDERS))
 				else
 					set_uni_identity_block(blocknumber, construct_block(G_PLURAL, GENDERS))
 		if(DNA_FACIAL_HAIRSTYLE_BLOCK)
@@ -682,8 +678,6 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 			gender = MALE
 		if(G_FEMALE)
 			gender = FEMALE
-		if(G_NEUTER)
-			gender = NEUTER
 		else
 			gender = PLURAL
 
