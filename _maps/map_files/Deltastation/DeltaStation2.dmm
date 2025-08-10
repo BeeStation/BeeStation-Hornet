@@ -7816,7 +7816,7 @@
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "bad" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector{
+/obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /obj/structure/lattice/catwalk,
@@ -7945,17 +7945,10 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "bbH" = (
+/obj/machinery/suit_storage_unit/atmos,
+/obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/turf/open/floor/engine,
-/area/engine/atmos)
-"bbI" = (
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/obj/structure/fireaxecabinet{
-	pixel_x = -32
+	dir = 8
 	},
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/engine/atmos)
@@ -8226,12 +8219,6 @@
 "bdi" = (
 /turf/open/floor/iron,
 /area/engine/atmos)
-"bdj" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
-	dir = 4
-	},
-/turf/closed/wall/r_wall,
-/area/engine/atmos)
 "bdm" = (
 /obj/machinery/meter,
 /obj/structure/grille,
@@ -8435,23 +8422,24 @@
 /obj/machinery/air_sensor/plasma_tank,
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
-"beD" = (
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 4
+"beB" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = -24
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible/layer1{
 	dir = 8
 	},
 /turf/open/floor/catwalk_floor/iron,
 /area/engine/atmos)
-"beE" = (
-/obj/item/storage/toolbox/electrical,
-/obj/item/wrench,
-/obj/item/clothing/gloves/color/yellow,
-/obj/structure/table/reinforced,
+"beD" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/turf_decal/bot,
+/obj/machinery/vending/wardrobe/atmos_wardrobe,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "beF" = (
@@ -10886,10 +10874,13 @@
 /turf/open/floor/iron/dark,
 /area/security/main)
 "btW" = (
-/obj/effect/turf_decal/stripes/line{
+/obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/turf/open/floor/iron,
+/obj/item/kirbyplants/random,
+/turf/open/floor/iron/dark/corner{
+	dir = 1
+	},
 /area/engine/atmos)
 "bud" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
@@ -80920,11 +80911,11 @@
 /turf/open/floor/iron,
 /area/janitor)
 "tVa" = (
-/obj/structure/closet/toolcloset,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
+/obj/machinery/vending/engivend,
 /turf/open/floor/iron,
 /area/engine/storage_shared)
 "tVe" = (
@@ -119675,8 +119666,8 @@ kaJ
 pjM
 wqS
 uEI
-bdi
-bdi
+btW
+beB
 aMB
 bho
 oPr
@@ -120452,11 +120443,11 @@ aWH
 bhn
 oPr
 bkR
-beD
-btW
+jWU
+bad
 bqc
 bws
-btW
+bad
 bvi
 bwz
 bxN
@@ -120701,9 +120692,9 @@ uJk
 aUS
 aWK
 aYk
-btW
-btW
-btW
+bad
+bad
+bad
 beF
 aWG
 bho

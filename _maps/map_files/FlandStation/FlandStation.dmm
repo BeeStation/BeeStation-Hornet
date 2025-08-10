@@ -4404,7 +4404,6 @@
 /area/science/shuttle)
 "aZm" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/pipe_dispenser/disposal,
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "aZB" = (
@@ -31866,11 +31865,6 @@
 	},
 /turf/open/floor/iron/checker,
 /area/quartermaster/storage)
-"igW" = (
-/obj/effect/turf_decal/bot,
-/obj/machinery/pipe_dispenser/disposal/transit_tube,
-/turf/open/floor/iron/dark,
-/area/engine/atmos)
 "iho" = (
 /obj/machinery/power/apc/auto_name/directional/north,
 /obj/structure/cable/yellow{
@@ -45048,8 +45042,12 @@
 /turf/open/floor/iron,
 /area/medical/cryo)
 "lsK" = (
-/obj/effect/turf_decal/bot,
-/obj/machinery/pipe_dispenser,
+/obj/machinery/suit_storage_unit/atmos,
+/obj/effect/turf_decal/delivery,
+/obj/machinery/newscaster{
+	pixel_x = 28;
+	pixel_y = 1
+	},
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "lsL" = (
@@ -76070,27 +76068,9 @@
 /turf/open/floor/engine,
 /area/science/misc_lab/range)
 "tAo" = (
-/obj/machinery/newscaster{
-	pixel_x = 28;
-	pixel_y = 1
-	},
-/obj/structure/rack,
-/obj/item/clothing/gloves/color/black,
-/obj/item/clothing/gloves/color/black,
-/obj/item/clothing/gloves/color/black,
-/obj/item/clothing/mask/gas,
-/obj/item/clothing/mask/gas,
-/obj/item/clothing/mask/gas,
-/obj/item/clothing/suit/hazardvest{
-	pixel_x = 4
-	},
-/obj/item/clothing/suit/hazardvest{
-	pixel_x = 4
-	},
-/obj/item/clothing/suit/hazardvest{
-	pixel_x = 4
-	},
-/turf/open/floor/iron,
+/obj/machinery/vending/engivend,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/iron/dark,
 /area/engine/atmos)
 "tAv" = (
 /obj/machinery/door/airlock/maintenance_hatch{
@@ -82739,7 +82719,6 @@
 /obj/item/radio/intercom{
 	pixel_x = 28
 	},
-/obj/machinery/pipe_dispenser,
 /turf/open/floor/iron/techmaint,
 /area/quartermaster/exploration_prep)
 "vgC" = (
@@ -141811,7 +141790,7 @@ xsR
 vDT
 vOX
 ydP
-ydP
+lsK
 tAo
 pTX
 xZT
@@ -145414,7 +145393,7 @@ aNF
 jot
 ubg
 cKm
-igW
+aZm
 wxD
 jTm
 cKm
@@ -145671,7 +145650,7 @@ lFC
 fUa
 lFC
 qfq
-lsK
+aZm
 uPW
 lgU
 qfq

@@ -3281,19 +3281,25 @@
 /turf/open/floor/plating,
 /area/engine/break_room)
 "aGz" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/turf/open/floor/engine,
+/turf/open/floor/iron/dark,
 /area/engine/atmos)
 "aGA" = (
-/turf/open/floor/engine,
+/obj/structure/rack,
+/obj/item/clothing/gloves/color/black,
+/obj/item/clothing/gloves/color/black,
+/obj/item/clothing/gloves/color/black,
+/obj/item/clothing/suit/hazardvest,
+/obj/item/clothing/suit/hazardvest,
+/obj/item/clothing/suit/hazardvest,
+/obj/item/clothing/mask/gas,
+/obj/item/clothing/mask/gas,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron/dark,
 /area/engine/atmos)
 "aGB" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/turf/open/floor/engine,
+/obj/effect/turf_decal/delivery,
+/obj/machinery/portable_atmospherics/scrubber/huge/movable,
+/turf/open/floor/iron/dark,
 /area/engine/atmos)
 "aGK" = (
 /obj/machinery/power/apc{
@@ -24758,19 +24764,11 @@
 /turf/open/floor/iron/showroomfloor,
 /area/science/mixing)
 "gaY" = (
-/obj/structure/rack,
-/obj/item/clothing/gloves/color/black,
-/obj/item/clothing/gloves/color/black,
-/obj/item/clothing/gloves/color/black,
-/obj/item/clothing/suit/hazardvest,
-/obj/item/clothing/suit/hazardvest,
-/obj/item/clothing/suit/hazardvest,
-/obj/item/clothing/mask/gas,
-/obj/item/clothing/mask/gas,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
+/obj/machinery/vending/wardrobe/atmos_wardrobe,
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "gbc" = (
@@ -78284,7 +78282,6 @@
 	},
 /area/engine/engineering)
 "xgA" = (
-/obj/machinery/vending/wardrobe/atmos_wardrobe,
 /obj/effect/turf_decal/bot,
 /obj/machinery/newscaster{
 	pixel_y = -28
@@ -78292,6 +78289,7 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 4
 	},
+/obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "xgB" = (
@@ -80528,11 +80526,11 @@
 	},
 /area/maintenance/starboard)
 "xRr" = (
-/obj/structure/reagent_dispensers/fueltank,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 1
 	},
 /obj/effect/turf_decal/bot,
+/obj/machinery/vending/engivend,
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "xRv" = (

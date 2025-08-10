@@ -1,0 +1,7 @@
+author: Solene and Rukofamicom
+delete-after: true
+changes:
+  - tweak: Loadout items now will be equipped on your character on spawn, replacing
+      standard job equipment (which will spawn in a box instead).
+  - bugfix: Fixed duplication of loadout items on spawn.
+  - bugfix: Loadout's will now display properly on the character panel
