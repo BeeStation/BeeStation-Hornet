@@ -9221,21 +9221,21 @@
 	},
 /area/engine/atmos)
 "bVU" = (
-/obj/machinery/pipe_dispenser/disposal/transit_tube,
+/obj/machinery/portable_thermomachine,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bVW" = (
-/obj/machinery/pipe_dispenser,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bVX" = (
-/obj/machinery/pipe_dispenser/disposal,
+/obj/machinery/portable_thermomachine,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -10367,20 +10367,20 @@
 /area/maintenance/starboard/aft)
 "cbz" = (
 /obj/machinery/vending/wardrobe/atmos_wardrobe,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/engine/atmos)
 "cbB" = (
-/obj/machinery/portable_thermomachine,
 /obj/effect/turf_decal/stripes/line{
-	dir = 6
+	dir = 4
 	},
+/obj/machinery/portable_atmospherics/scrubber/huge/movable,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "cbC" = (
-/obj/machinery/portable_thermomachine,
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
+/obj/machinery/vending/engivend,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "cbD" = (
@@ -22476,6 +22476,15 @@
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/cmo)
+"fDQ" = (
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/engine/atmos)
 "fDZ" = (
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
 	dir = 4
@@ -44893,6 +44902,9 @@
 	dir = 4
 	},
 /obj/machinery/meter,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/iron,
 /area/engine/atmos)
 "oCv" = (
@@ -57700,6 +57712,16 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/fitness)
+"tzY" = (
+/obj/machinery/atmospherics/components/binary/pump{
+	dir = 8;
+	name = "Port to Filter"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/engine/atmos)
 "tAf" = (
 /obj/machinery/light/small,
 /turf/open/floor/engine/o2,
@@ -102233,7 +102255,7 @@ bYQ
 bXR
 bMK
 cbz
-cbD
+tzY
 bOd
 jKu
 bOd
@@ -102747,7 +102769,7 @@ bXS
 bXS
 bMK
 cbB
-bRA
+fDQ
 bOd
 wMp
 bTO
