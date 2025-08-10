@@ -505,8 +505,8 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	icon_state = "staff"
 	lefthand_file = 'icons/mob/inhands/weapons/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
-
-	force = 3
+	hitsound = 'sound/effects/woodhit.ogg'
+	force = 12
 	throwforce = 5
 	throw_speed = 2
 	throw_range = 5
@@ -516,8 +516,12 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	attack_verb_continuous = list("bludgeons", "whacks", "disciplines")
 	attack_verb_simple = list("bludgeon", "whack", "discipline")
 	resistance_flags = FLAMMABLE
+	canblock = TRUE
+	block_flags = BLOCKING_ACTIVE | BLOCKING_UNBALANCE
+	block_power = 50
 
 /obj/item/staff/broom
+	force = 5
 	name = "broom"
 	desc = "Used for sweeping, and flying into the night while cackling. Black cat not included."
 	icon = 'icons/obj/wizard.dmi'
@@ -532,7 +536,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	item_state = "stick"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
-	force = 3
+	force = 5
 	throwforce = 5
 	throw_speed = 2
 	throw_range = 5
@@ -717,6 +721,33 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	icon_state = "hoverboard_nt"
 	item_state = "hoverboard_nt"
 	board_item_type = /obj/vehicle/ridden/scooter/skateboard/hoverboard/admin
+
+/obj/item/staff/bostaff
+	name = "bo staff"
+	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts."
+	force = 10
+	w_class = WEIGHT_CLASS_BULKY
+	slot_flags = ITEM_SLOT_BACK
+	throwforce = 20
+	throw_speed = 2
+	attack_verb_continuous = list("smashes", "slams", "whacks", "thwacks")
+	attack_verb_simple = list("smash", "slam", "whack", "thwack")
+	icon = 'icons/obj/items_and_weapons.dmi'
+	icon_state = "bostaff0"
+	lefthand_file = 'icons/mob/inhands/weapons/staves_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
+
+	canblock = TRUE
+	block_power = 25
+	block_flags = BLOCKING_ACTIVE | BLOCKING_COUNTERATTACK | BLOCKING_UNBALANCE
+
+/obj/item/staff/bostaff/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/two_handed, force_unwielded=10, force_wielded=17, block_power_unwielded=25, block_power_wielded=75, icon_wielded="bostaff1")
+
+/obj/item/staff/bostaff/update_icon_state()
+	icon_state = "bostaff0"
+	..()
 
 /obj/item/melee/baseball_bat
 	name = "baseball bat"

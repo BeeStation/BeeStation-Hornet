@@ -210,7 +210,7 @@
 			"Dark Blessing" = /obj/item/nullrod/armblade,
 			"Unholy Blessing" = /obj/item/nullrod/armblade/tentacle,
 			"Carp-Sie Plushie" = /obj/item/nullrod/carp,
-			"Monk's Staff" = /obj/item/nullrod/claymore/bostaff,
+			"Monk's Staff" = /obj/item/nullrod/bostaff,
 			"Arrythmic Knife" = /obj/item/nullrod/tribal_knife,
 			"Unholy Pitchfork" = /obj/item/nullrod/pitchfork,
 			"Egyptian Staff" = /obj/item/nullrod/egyptian,
@@ -307,9 +307,11 @@
 	w_class = WEIGHT_CLASS_HUGE
 	force = 5
 	slot_flags = ITEM_SLOT_BACK
-	block_flags = BLOCKING_PROJECTILE
+
+	//Keep in mind it can only block once every three seconds. This staff's whole purpose is defense so it's good at it when it does
 	canblock = TRUE
-	block_power = 20
+	block_flags = BLOCKING_PROJECTILE | BLOCKING_UNBALANCE | BLOCKING_UNBLOCKABLE
+	block_power = 100 //No stamina damage for this one
 	var/shield_icon = "shield-red"
 
 /obj/item/nullrod/staff/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
@@ -455,8 +457,8 @@
 	w_class = WEIGHT_CLASS_BULKY
 	armour_penetration = 35
 	canblock = TRUE
-	block_power = 15
-	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
+	block_power = 0
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_COUNTERATTACK
 	slot_flags = ITEM_SLOT_BACK
 	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_CUT
@@ -720,15 +722,16 @@
 		user.faction |= FACTION_CARP
 		used_blessing = TRUE
 
-/obj/item/nullrod/claymore/bostaff //May as well make it a "claymore" and inherit the blocking
+/obj/item/nullrod/bostaff
 	name = "monk's staff"
 	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts, it is now used to harass the clown."
 	w_class = WEIGHT_CLASS_BULKY
-	force = 14
-	block_power = 40
+	force = 10
+	throwforce = 20
+	throw_speed = 2
 	slot_flags = ITEM_SLOT_BACK
 	sharpness = BLUNT
-	hitsound = "swing_hit"
+	hitsound = 'sound/effects/woodhit.ogg'
 	attack_verb_continuous = list("smashes", "slams", "whacks", "thwacks")
 	attack_verb_simple = list("smash", "slam", "whack", "thwack")
 	icon = 'icons/obj/items_and_weapons.dmi'
@@ -737,6 +740,18 @@
 	worn_icon_state = "bostaff0"
 	lefthand_file = 'icons/mob/inhands/weapons/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
+
+	canblock = TRUE
+	block_power = 25
+	block_flags = BLOCKING_ACTIVE | BLOCKING_COUNTERATTACK | BLOCKING_UNBALANCE
+
+/obj/item/nullrod/bostaff/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/two_handed, force_unwielded=10, force_wielded=17, block_power_unwielded=25, block_power_wielded=75, icon_wielded="bostaff1")
+
+/obj/item/nullrod/bostaff/update_icon_state()
+	icon_state = "bostaff0"
+	..()
 
 /obj/item/nullrod/tribal_knife
 	name = "arrhythmic knife"
