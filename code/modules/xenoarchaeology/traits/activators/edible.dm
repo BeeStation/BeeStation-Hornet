@@ -29,7 +29,7 @@
 		after_eat = CALLBACK(src, PROC_REF(after_eat)),\
 		eat_time = bite_time,\
 		bite_consumption = (max_bite_reagents * (component_parent.trait_strength/100)))
-	RegisterSignal(component_parent?.parent, COMSIG_PARENT_ATTACKBY, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_b))
+	RegisterSignal(component_parent?.parent, COMSIG_ATOM_ATTACKBY, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_b))
 
 /datum/xenoartifact_trait/activator/edible/remove_parent(datum/source, pensive = TRUE)
 	if(!component_parent?.parent)
