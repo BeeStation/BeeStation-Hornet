@@ -192,7 +192,7 @@
 	active_throwforce = 35 // Does a lot of damage on throw, but will embed
 	active_bleedforce = BLEED_DEEP_WOUND
 
-/obj/item/melee/energy/sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/melee/energy/sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	if(!HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE))
 		return FALSE
 	return ..()
@@ -251,7 +251,7 @@
 	active_bleedforce = BLEED_DEEP_WOUND
 	sword_color_icon = null // Stops icon from breaking when turned on.
 
-/obj/item/melee/energy/sword/cyborg/saw/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/melee/energy/sword/cyborg/saw/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	return FALSE
 
 /obj/item/melee/energy/sword/esaw/implant //Energy Saw Arm Implant

@@ -82,11 +82,6 @@
 	. = ..()
 	AddComponent(/datum/component/butchering, 30, 95, 5) //fast and effective, but as a sword, it might damage the results.
 
-/obj/item/melee/sabre/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(attack_type == PROJECTILE_ATTACK)
-		final_block_chance = 0 //Don't bring a sword to a gunfight
-	return ..()
-
 /obj/item/melee/sabre/on_exit_storage(datum/storage/container)
 	var/obj/item/storage/belt/sabre/sabre = container.real_location?.resolve()
 	if(istype(sabre))
@@ -377,7 +372,7 @@
 	force_off = 0
 	weight_class_on = WEIGHT_CLASS_BULKY
 
-/obj/item/melee/classic_baton/telescopic/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/melee/classic_baton/telescopic/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	if(on)
 		return ..()
 	return 0

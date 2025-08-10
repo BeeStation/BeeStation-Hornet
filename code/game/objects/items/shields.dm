@@ -13,7 +13,7 @@
 	var/transparent = FALSE	// makes beam projectiles pass through the shield
 	var/shield_break_sound = 'sound/effects/glassbr3.ogg'
 
-/obj/item/shield/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/shield/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	if(transparent && (hitby.pass_flags & PASSTRANSPARENT))
 		return FALSE
 	return ..()
@@ -178,7 +178,7 @@
 	. = embedded_flash.attack_self(user)
 	update_icon()
 
-/obj/item/shield/riot/flash/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/shield/riot/flash/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	. = ..()
 	if (. && !embedded_flash.burnt_out)
 		INVOKE_ASYNC(embedded_flash, TYPE_PROC_REF(/obj/item/assembly/flash/handheld, activate))
@@ -273,7 +273,7 @@
 		clumsy_check = !can_clumsy_use)
 	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
 
-/obj/item/shield/energy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/shield/energy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	if(HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE))
 		if(isprojectile(hitby))
 			var/obj/projectile/P = hitby
@@ -321,7 +321,7 @@
 		attack_verb_simple_on = list("smack", "strike", "crack", "beat"))
 	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
 
-/obj/item/shield/riot/tele/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/shield/riot/tele/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	if(HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE))
 		return ..()
 	return FALSE

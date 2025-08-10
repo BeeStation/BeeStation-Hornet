@@ -628,20 +628,6 @@ Striking a noncultist, however, will tear their flesh."}
 			playsound(T, 'sound/effects/glassbr3.ogg', 100)
 	qdel(src)
 
-/obj/item/cult_spear/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(ISWIELDED(src))
-		final_block_chance *= 2
-	if(prob(final_block_chance))
-		if(attack_type == PROJECTILE_ATTACK)
-			owner.visible_message(span_danger("[owner] deflects [attack_text] with [src]!"))
-			playsound(src, pick('sound/weapons/effects/ric1.ogg', 'sound/weapons/effects/ric2.ogg', 'sound/weapons/effects/ric3.ogg', 'sound/weapons/effects/ric4.ogg', 'sound/weapons/effects/ric5.ogg'), 100, 1)
-			return TRUE
-		else
-			playsound(src, 'sound/weapons/parry.ogg', 100, 1)
-			owner.visible_message(span_danger("[owner] parries [attack_text] with [src]!"))
-			return TRUE
-	return FALSE
-
 /datum/action/innate/cult/spear
 	name = "Bloody Bond"
 	desc = "Call the blood spear back to your hand!"
@@ -846,7 +832,7 @@ Striking a noncultist, however, will tear their flesh."}
 	hitsound = 'sound/weapons/smash.ogg'
 	var/illusions = 4
 
-/obj/item/shield/mirror/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/shield/mirror/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	if(IS_CULTIST(owner))
 		if (attack_type == MELEE_ATTACK && ishuman(hitby.loc))
 			// Cannot block someone who has the bible on their side
