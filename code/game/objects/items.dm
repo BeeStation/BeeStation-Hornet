@@ -617,6 +617,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	SHOULD_NOT_SLEEP(TRUE)
 
+	//First and foremost, check for unblockable flags
+	if(isitem(hitby))
+		var/obj/item/item_hitby = hitby
+		if(item_hitby.block_flags & BLOCKING_UNBLOCKABLE && !(block_flags & BLOCKING_UNBLOCKABLE))
+			return FALSE
+
 	if(SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, owner, hitby, attack_text, damage, attack_type) & COMPONENT_HIT_REACTION_BLOCK)
 		return TRUE
 	var/relative_dir = (dir2angle(get_dir(hitby, owner)) - dir2angle(owner.dir)) //shamelessly stolen from mech code
@@ -676,6 +682,15 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 /obj/item/proc/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	var/attackforce = damage
+	var/mob/living/attacking_mob
+	var/mob/living/unarmed_mob
+
+	if(isliving(hitby))
+		attacking_mob = hitby
+		unarmed_mob = TRUE
+
+	if(isliving(hitby.loc))
+		attacking_mob = hitby.loc
 
 	if(isprojectile(hitby) && block_flags & BLOCKING_PROJECTILE)
 		var/obj/projectile/P = hitby
@@ -702,20 +717,31 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		else
 			attackforce = max(I.w_class * 3, attackforce * 1.5)
 
-	//if it's not a weapon and it's not a projectile, we need to check for BLOCKING_NASTY
-	else if(attack_type == UNARMED_ATTACK && isliving(hitby) && block_flags & BLOCKING_NASTY)
-		var/mob/living/unarmed_living_mob = hitby
-		INVOKE_ASYNC(unarmed_living_mob, TYPE_PROC_REF(/atom, attackby), src, owner)
-		owner.visible_message(span_danger("[unarmed_living_mob] injures themselves on [owner]'s [src]!"))
+		//Is it a weapon especially adept at counterattacks? If so we roll for one
+		if(block_flags & BLOCKING_COUNTERATTACK && prob(50))
+			//is the item we blocked held by a mob, or was it thrown at us? We can't counter attack a thrown item.
+			if(isliving(hitby.loc))
+				var/mob/living/living_enemy = hitby.loc
+				INVOKE_ASYNC(living_enemy, TYPE_PROC_REF(/atom, attackby), src, owner)
+
+	//if it's not a weapon and it's not a projectile, we need to check for counterattacks and blocking_nasty
+	else if(attack_type == UNARMED_ATTACK && unarmed_mob && block_flags & (BLOCKING_NASTY|BLOCKING_COUNTERATTACK))
+		INVOKE_ASYNC(attacking_mob, TYPE_PROC_REF(/atom, attackby), src, owner)
+		owner.visible_message(span_danger("[attacking_mob] injures themselves on [owner]'s [src]!"))
+
+	//If this weapon is prone to knocking the opponent off balance, we want to delay their next attack and knock them down
+	if(block_flags & BLOCKING_UNBALANCE && prob(20) && attacking_mob)
+		attacking_mob.Knockdown(1 SECONDS)
+		attacking_mob.changeNext_move(CLICK_CD_MELEE * 2)
 
 	//If the attacker is a simple_animal we need to check if they are designed to be especially good against blocking
 	if(istype(hitby, /mob/living/simple_animal))
 		var/mob/living/simple_animal/simplemob = hitby
 		if(simplemob.hardattacks)
-			attackforce = attackforce * 5 //You can probably only block them once or twice at most
+			attackforce = attackforce * 5 //You can probably only block them once or twice at most because of stamina and/or shield damage
 
 	//We are ready to deal stamina damage to our owner
-	owner.apply_damage(min(attackforce, 50), STAMINA, blocked = block_power)
+	owner.apply_damage(min(attackforce, 60), STAMINA, blocked = block_power)
 	owner.changeNext_move(CLICK_CD_MELEE)
 
 	//This is done here so we don't have to pass attackforce up somehow
