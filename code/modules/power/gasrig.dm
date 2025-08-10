@@ -78,17 +78,17 @@
 	shielding_input = new/obj/machinery/atmospherics/components/unary/gasrig/shielding_input(offset_loc, TRUE, src)
 	shielding_input.dir = WEST
 	shielding_input.set_init_directions()
-	RegisterSignal(shielding_input, COMSIG_PARENT_QDELETING, PROC_REF(kill_children))
+	RegisterSignal(shielding_input, COMSIG_QDELETING, PROC_REF(kill_children))
 	offset_loc = locate(x + 1, y, z)
 	fracking_input = new/obj/machinery/atmospherics/components/unary/gasrig/fracking_input(offset_loc, TRUE, src)
 	fracking_input.dir = EAST
 	fracking_input.set_init_directions()
-	RegisterSignal(fracking_input, COMSIG_PARENT_QDELETING, PROC_REF(kill_children))
+	RegisterSignal(fracking_input, COMSIG_QDELETING, PROC_REF(kill_children))
 	offset_loc = locate(x, y - 1, z)
 	gas_output = new/obj/machinery/atmospherics/components/unary/gasrig/gas_output(offset_loc, TRUE, src)
 	gas_output.dir = SOUTH
 	gas_output.set_init_directions()
-	RegisterSignal(gas_output, COMSIG_PARENT_QDELETING, PROC_REF(kill_children))
+	RegisterSignal(gas_output, COMSIG_QDELETING, PROC_REF(kill_children))
 
 /obj/machinery/atmospherics/gasrig/core/proc/init_dummies()
 	var/offset_loc = locate(x - 1, y + 1, z)
@@ -103,7 +103,7 @@
 	dummies += new/obj/machinery/atmospherics/gasrig/dummy(offset_loc, src, "gasrig_d5")
 
 	for(var/obj/machinery/atmospherics/gasrig/dummy/dummy in dummies)
-		RegisterSignal(dummy, COMSIG_PARENT_QDELETING, PROC_REF(kill_children))
+		RegisterSignal(dummy, COMSIG_QDELETING, PROC_REF(kill_children))
 
 
 /obj/machinery/atmospherics/gasrig/core/Initialize(mapload)
