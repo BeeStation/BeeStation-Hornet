@@ -14251,11 +14251,13 @@
 /turf/open/floor/iron,
 /area/maintenance/starboard)
 "bTi" = (
-/obj/effect/turf_decal/bot{
-	dir = 1
+/obj/structure/window/reinforced{
+	dir = 8
 	},
-/obj/machinery/disposal/bin,
-/obj/structure/disposalpipe/trunk,
+/obj/machinery/atmospherics/pipe/smart/simple/green/visible/layer1{
+	dir = 4
+	},
+/obj/machinery/portable_atmospherics/pump,
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "bTl" = (
@@ -14523,7 +14525,14 @@
 /turf/open/floor/iron/white,
 /area/medical/surgery)
 "bUz" = (
-/obj/structure/disposalpipe/segment,
+/obj/machinery/disposal/bin,
+/obj/structure/disposalpipe/trunk,
+/obj/effect/turf_decal/bot{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "bUA" = (
@@ -36798,6 +36807,9 @@
 	departmentType = 3;
 	name = "Atmos RC";
 	pixel_x = 30
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/green/visible/layer1{
+	dir = 10
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)

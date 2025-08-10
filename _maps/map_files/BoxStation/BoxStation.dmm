@@ -8828,6 +8828,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
 	dir = 6
 	},
+/obj/machinery/portable_atmospherics/pump,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bTP" = (
@@ -40262,7 +40263,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/yellow/visible{
 	dir = 6
 	},
-/obj/machinery/portable_atmospherics/pump,
+/obj/machinery/portable_atmospherics/scrubber,
 /turf/open/floor/catwalk_floor/iron,
 /area/engine/atmos)
 "mIZ" = (
@@ -53973,6 +53974,7 @@
 /turf/open/floor/iron,
 /area/engine/engineering)
 "siD" = (
+/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible,
 /obj/machinery/portable_atmospherics/scrubber,
 /turf/open/floor/iron,
 /area/engine/atmos)
@@ -102481,9 +102483,9 @@ bMK
 bMK
 cbC
 oBM
-siD
+bOd
 mIQ
-bUS
+siD
 qxh
 vGm
 tdq
@@ -102739,7 +102741,7 @@ bMK
 cbB
 fDQ
 bOd
-wMp
+eHG
 bTO
 dZf
 owx
