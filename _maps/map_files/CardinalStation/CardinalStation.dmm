@@ -5653,16 +5653,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 8
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 8
-	},
 /obj/structure/railing/perspective/wood/corner{
 	dir = 4
 	},
@@ -7055,13 +7045,13 @@
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 8
 	},
-/obj/machinery/vending/tool,
 /obj/effect/turf_decal/bot,
 /obj/machinery/camera/directional/west,
 /obj/machinery/power/apc/auto_name/directional/west,
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
+/obj/machinery/vending/engivend,
 /turf/open/floor/iron/smooth_large,
 /area/engine/atmos)
 "btt" = (
@@ -13145,31 +13135,6 @@
 	},
 /obj/effect/turf_decal/trimline/dark/filled/line,
 /obj/effect/turf_decal/trimline/dark/filled/mid_joiner,
-/obj/structure/window/reinforced/spawner,
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/trimline/yellow/mid_joiner{
-	dir = 1
-	},
-/obj/effect/turf_decal/trimline/yellow/mid_joiner{
-	dir = 1
-	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 1
-	},
-/obj/effect/turf_decal/trimline/yellow/line{
-	dir = 1;
-	alpha = 200
-	},
-/obj/structure/platform/warning,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/turf_decal/trimline/white/filled/warning{
-	dir = 1
-	},
-/obj/effect/turf_decal/trimline/dark/filled/line,
-/obj/effect/turf_decal/trimline/dark/filled/mid_joiner,
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/trimline/yellow/mid_joiner{
 	dir = 1
@@ -13589,19 +13554,6 @@
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
 "cIz" = (
-/obj/effect/turf_decal/siding/dark_blue{
-	dir = 8
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 8
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/effect/turf_decal/siding/dark_blue{
 	dir = 8
 	},
@@ -16362,24 +16314,6 @@
 /turf/open/floor/wood/big,
 /area/hydroponics)
 "djf" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 4
-	},
-/obj/machinery/requests_console{
-	announcementConsole = 1;
-	department = "Head of Personnel's Desk";
-	departmentType = 5;
-	name = "Head of Personnel RC";
-	pixel_x = 30
-	},
-/obj/machinery/light/directional/east,
-/obj/structure/disposalpipe/segment{
-	dir = 9
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
@@ -24864,7 +24798,7 @@
 /area/ai_monitored/turret_protected/aisat/hallway)
 "fee" = (
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
-/obj/machinery/pipe_dispenser/disposal/transit_tube,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/iron/techmaint,
 /area/engine/atmos)
 "fej" = (
@@ -25716,7 +25650,6 @@
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 10
 	},
-/obj/machinery/pipe_dispenser,
 /obj/effect/turf_decal/trimline/white/filled/line{
 	color = "#7fc1a2";
 	alpha = 230;
@@ -27295,6 +27228,10 @@
 /obj/machinery/airalarm/directional/west,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
+"fEB" = (
+/obj/machinery/power/energy_accumulator/grounding_rod,
+/turf/open/floor/plating/airless,
+/area/engine/engine_room/external)
 "fEM" = (
 /obj/structure/chair/fancy/sofa/corp/right,
 /obj/machinery/light/floor{
@@ -32148,27 +32085,6 @@
 	dir = 1;
 	alpha = 200
 	},
-/obj/structure/window/reinforced/corner,
-/obj/structure/platform/warning/corner,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/turf_decal/trimline/white/filled/warning{
-	dir = 1
-	},
-/obj/effect/turf_decal/trimline/dark/filled/line,
-/obj/effect/turf_decal/trimline/yellow/mid_joiner{
-	dir = 1
-	},
-/obj/effect/turf_decal/trimline/yellow/mid_joiner{
-	dir = 1
-	},
-/obj/effect/turf_decal/trimline/dark/filled/mid_joiner,
-/obj/effect/turf_decal/trimline/yellow/line{
-	dir = 1;
-	alpha = 200
-	},
 /obj/structure/platform/warning/corner,
 /obj/structure/railing/perspective/gray/corner,
 /turf/open/floor/iron/dark/smooth_large,
@@ -33424,7 +33340,7 @@
 "gMj" = (
 /obj/machinery/light/cold/directional/west,
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
-/obj/machinery/pipe_dispenser/disposal,
+/obj/machinery/portable_atmospherics/pump,
 /turf/open/floor/iron/techmaint,
 /area/engine/atmos)
 "gMq" = (
@@ -51288,22 +51204,6 @@
 	},
 /obj/machinery/camera/directional/north,
 /obj/machinery/digital_clock/directional/west,
-/obj/item/book/manual/wiki/sopsupply{
-	pixel_x = -6;
-	pixel_y = 9
-	},
-/obj/item/book/manual/wiki/sopcommand{
-	pixel_y = 7
-	},
-/obj/item/book/manual/wiki/sopservice{
-	pixel_y = 10;
-	pixel_x = 6
-	},
-/obj/item/book/manual/wiki/sopsecurity,
-/obj/item/book/manual/wiki/sopengineering,
-/obj/item/book/manual/wiki/sopmedical,
-/obj/item/book/manual/wiki/sopscience,
-/obj/item/book/manual/wiki/security_space_law,
 /turf/open/floor/carpet/green,
 /area/lawoffice)
 "kqd" = (
@@ -54363,31 +54263,6 @@
 	dir = 1;
 	alpha = 200
 	},
-/obj/structure/window/reinforced/corner{
-	dir = 8
-	},
-/obj/structure/platform/warning/corner{
-	dir = 8
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/turf_decal/trimline/white/filled/warning{
-	dir = 1
-	},
-/obj/effect/turf_decal/trimline/dark/filled/line,
-/obj/effect/turf_decal/trimline/yellow/mid_joiner{
-	dir = 1
-	},
-/obj/effect/turf_decal/trimline/yellow/mid_joiner{
-	dir = 1
-	},
-/obj/effect/turf_decal/trimline/dark/filled/mid_joiner,
-/obj/effect/turf_decal/trimline/yellow/line{
-	dir = 1;
-	alpha = 200
-	},
 /obj/structure/platform/warning/corner{
 	dir = 8
 	},
@@ -55972,14 +55847,6 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/quartermaster/storage)
-"loK" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/power/energy_accumulator/tesla_coil,
-/obj/machinery/power/energy_accumulator/tesla_coil,
-/turf/open/floor/iron/dark/smooth_large,
-/area/engine/engine_room)
 "loP" = (
 /obj/machinery/disposal/bin,
 /obj/effect/turf_decal/box,
@@ -59304,14 +59171,6 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/engine/atmos)
-"lZY" = (
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/obj/effect/turf_decal/siding/wideplating_new/dark{
-	dir = 8
-	},
-/obj/machinery/portable_thermomachine,
-/turf/open/floor/iron/dark,
-/area/engine/atmos)
 "lZZ" = (
 /obj/effect/turf_decal/siding/wideplating_new/corner{
 	dir = 8
@@ -60130,27 +59989,6 @@
 /turf/open/floor/vault/rock,
 /area/teleporter)
 "miq" = (
-/obj/effect/turf_decal/trimline/white/filled/warning{
-	dir = 1
-	},
-/obj/effect/turf_decal/trimline/dark/filled/line,
-/obj/effect/turf_decal/trimline/dark/filled/mid_joiner,
-/obj/structure/window/reinforced/spawner,
-/obj/effect/turf_decal/trimline/yellow/mid_joiner{
-	dir = 1
-	},
-/obj/effect/turf_decal/trimline/yellow/mid_joiner{
-	dir = 1
-	},
-/obj/effect/turf_decal/trimline/yellow/line{
-	dir = 1;
-	alpha = 200
-	},
-/obj/structure/platform/warning,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/effect/turf_decal/trimline/white/filled/warning{
 	dir = 1
 	},
@@ -61522,8 +61360,7 @@
 	name = "emergency supermatter ejection pad"
 	},
 /obj/machinery/power/supermatter_crystal/engine{
-	moveable = 1;
-	anchored = 0
+	moveable = 1
 	},
 /turf/open/floor/engine,
 /area/engine/supermatter)
@@ -65780,7 +65617,6 @@
 /obj/effect/turf_decal/trimline/yellow/filled/line{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/pump,
 /obj/machinery/atmospherics/pipe/smart/simple/yellow/visible/layer2{
 	dir = 5
 	},
@@ -70196,7 +70032,6 @@
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 10
 	},
-/obj/machinery/pipe_dispenser,
 /obj/structure/platform/warning{
 	dir = 10
 	},
@@ -78770,7 +78605,7 @@
 "pTH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
-/obj/machinery/pipe_dispenser,
+/obj/machinery/portable_atmospherics/scrubber/huge/movable,
 /turf/open/floor/iron/techmaint,
 /area/engine/atmos)
 "pTK" = (
@@ -81406,28 +81241,6 @@
 	},
 /obj/effect/turf_decal/trimline/dark/filled/line,
 /obj/effect/turf_decal/trimline/dark/filled/mid_joiner,
-/obj/structure/window/reinforced/spawner,
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/trimline/yellow/mid_joiner{
-	dir = 1
-	},
-/obj/effect/turf_decal/trimline/yellow/mid_joiner{
-	dir = 1
-	},
-/obj/effect/turf_decal/trimline/yellow/line{
-	dir = 1;
-	alpha = 200
-	},
-/obj/structure/platform/warning,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/turf_decal/trimline/white/filled/warning{
-	dir = 1
-	},
-/obj/effect/turf_decal/trimline/dark/filled/line,
-/obj/effect/turf_decal/trimline/dark/filled/mid_joiner,
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/trimline/yellow/mid_joiner{
 	dir = 1
@@ -81721,10 +81534,10 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "qAM" = (
+/obj/machinery/power/energy_accumulator/tesla_coil,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/power/energy_accumulator/tesla_coil,
 /turf/open/floor/iron/dark/smooth_large,
 /area/engine/engine_room)
 "qAN" = (
@@ -82990,30 +82803,6 @@
 /turf/open/floor/plating,
 /area/maintenance/department/crew_quarters/bar)
 "qNw" = (
-/obj/effect/turf_decal/trimline/white/filled/warning{
-	dir = 1
-	},
-/obj/effect/turf_decal/trimline/dark/filled/line,
-/obj/effect/turf_decal/trimline/dark/filled/mid_joiner,
-/obj/structure/window/reinforced/spawner,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/obj/effect/turf_decal/trimline/yellow/mid_joiner{
-	dir = 1
-	},
-/obj/effect/turf_decal/trimline/yellow/mid_joiner{
-	dir = 1
-	},
-/obj/effect/turf_decal/trimline/yellow/line{
-	dir = 1;
-	alpha = 200
-	},
-/obj/structure/platform/warning,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/effect/turf_decal/trimline/white/filled/warning{
 	dir = 1
 	},
@@ -86743,23 +86532,6 @@
 /area/construction/mining/aux_base)
 "rzs" = (
 /obj/structure/sign/poster/official/random/directional/north,
-/obj/structure/table/wood,
-/obj/item/clothing/glasses/sunglasses/advanced/big{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/clothing/glasses/sunglasses/advanced,
-/obj/effect/turf_decal/siding/wood{
-	dir = 8
-	},
-/obj/structure/railing/perspective/wood{
-	dir = 8
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/sign/poster/official/random/directional/north,
 /obj/structure/bookcase,
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -87615,10 +87387,10 @@
 /turf/open/floor/iron,
 /area/maintenance/department/medical)
 "rLN" = (
+/obj/machinery/power/energy_accumulator/grounding_rod,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/power/energy_accumulator/grounding_rod,
 /turf/open/floor/iron/dark/smooth_large,
 /area/engine/engine_room)
 "rMc" = (
@@ -91482,28 +91254,6 @@
 /turf/open/floor/iron/techmaint,
 /area/hallway/secondary/entry)
 "sBv" = (
-/obj/effect/turf_decal/trimline/white/filled/warning{
-	dir = 1
-	},
-/obj/effect/turf_decal/trimline/dark/filled/line,
-/obj/effect/turf_decal/trimline/dark/filled/mid_joiner,
-/obj/structure/window/reinforced/spawner,
-/obj/effect/turf_decal/stripes/corner,
-/obj/effect/turf_decal/trimline/yellow/mid_joiner{
-	dir = 1
-	},
-/obj/effect/turf_decal/trimline/yellow/mid_joiner{
-	dir = 1
-	},
-/obj/effect/turf_decal/trimline/yellow/line{
-	dir = 1;
-	alpha = 200
-	},
-/obj/structure/platform/warning,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/effect/turf_decal/trimline/white/filled/warning{
 	dir = 1
 	},
@@ -99797,16 +99547,6 @@
 /turf/open/floor/plating,
 /area/maintenance/disposal)
 "uiI" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 8
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -153354,7 +153094,7 @@ btp
 fSy
 lGE
 rPr
-lZY
+nSv
 bhs
 clk
 lOL
@@ -155179,7 +154919,7 @@ epD
 eyY
 vZg
 lVj
-loK
+qAM
 qAM
 rLN
 bdr
@@ -160318,9 +160058,9 @@ hyT
 aTm
 qDd
 sPV
-hDE
+fEB
 jFq
-hDE
+fEB
 aTm
 hyT
 ijT

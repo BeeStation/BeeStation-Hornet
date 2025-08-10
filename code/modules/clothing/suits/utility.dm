@@ -198,7 +198,7 @@
 	equip_delay_other = 60
 	flags_inv = HIDEJUMPSUIT
 
-/obj/item/clothing/suit/utility/radiation/Initialize()
+/obj/item/clothing/suit/utility/radiation/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/radiation_protected_clothing)
 	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100)

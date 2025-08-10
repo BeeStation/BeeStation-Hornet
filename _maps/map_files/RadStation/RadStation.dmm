@@ -11808,9 +11808,9 @@
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
 "dMD" = (
-/obj/machinery/vending/tool,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/vending/engivend,
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "dMH" = (
@@ -16992,7 +16992,6 @@
 /obj/structure/window/plasma/reinforced{
 	dir = 8
 	},
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/plating,
 /area/engine/supermatter)
@@ -32653,7 +32652,6 @@
 	pixel_y = -2
 	},
 /obj/structure/table/reinforced,
-/obj/item/tank/internals/plasma,
 /obj/machinery/camera/directional/west,
 /obj/item/pipe_dispenser,
 /obj/item/pipe_dispenser,
@@ -42392,13 +42390,6 @@
 	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/cafeteria)
-"nYz" = (
-/obj/effect/turf_decal/stripes/end{
-	dir = 4
-	},
-/obj/machinery/pipe_dispenser,
-/turf/open/floor/iron/dark,
-/area/engine/atmos)
 "nYQ" = (
 /obj/structure/railing/corner{
 	dir = 1
@@ -61062,13 +61053,6 @@
 /obj/structure/table/wood,
 /turf/open/floor/carpet/green,
 /area/crew_quarters/cafeteria)
-"ubG" = (
-/obj/effect/turf_decal/stripes/end{
-	dir = 8
-	},
-/obj/machinery/pipe_dispenser/disposal/transit_tube,
-/turf/open/floor/iron/dark,
-/area/engine/atmos)
 "ubJ" = (
 /obj/item/chair{
 	dir = 1
@@ -64144,11 +64128,6 @@
 	},
 /turf/open/floor/iron/tech,
 /area/engine/engine_room)
-"vcG" = (
-/obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/pipe_dispenser/disposal,
-/turf/open/floor/iron/dark,
-/area/engine/atmos)
 "vcO" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 5
@@ -111144,7 +111123,7 @@ pTW
 pTW
 jnE
 iCJ
-ubG
+jzT
 iQZ
 ogv
 vCY
@@ -111401,7 +111380,7 @@ sOT
 tlL
 jnE
 mbS
-vcG
+dbF
 gSZ
 uBo
 vCY
@@ -111658,7 +111637,7 @@ pTW
 pTW
 jnE
 iCJ
-nYz
+dbF
 eNK
 nIB
 eqW

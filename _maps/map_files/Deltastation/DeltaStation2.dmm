@@ -7754,13 +7754,6 @@
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
-"bad" = (
-/obj/machinery/pipe_dispenser/disposal/transit_tube,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/engine/atmos)
 "bae" = (
 /obj/machinery/airalarm/directional/south{
 	pixel_y = -22
@@ -7896,13 +7889,6 @@
 "bbH" = (
 /obj/machinery/suit_storage_unit/atmos,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/engine/atmos)
-"bbI" = (
-/obj/machinery/pipe_dispenser/disposal,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -8189,13 +8175,6 @@
 /obj/effect/turf_decal/stripes/end,
 /turf/open/floor/iron,
 /area/engine/atmos)
-"bdj" = (
-/obj/machinery/pipe_dispenser,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/engine/atmos)
 "bdm" = (
 /obj/machinery/meter,
 /obj/structure/grille,
@@ -8405,7 +8384,6 @@
 /area/engine/atmos)
 "beB" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants/random,
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = -24
@@ -8418,12 +8396,12 @@
 	},
 /area/engine/atmos)
 "beD" = (
-/obj/machinery/vending/wardrobe/atmos_wardrobe,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light{
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
+/obj/machinery/vending/wardrobe/atmos_wardrobe,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "beE" = (
@@ -15854,8 +15832,8 @@
 /turf/open/floor/carpet/green,
 /area/lawoffice)
 "cfo" = (
-/obj/effect/turf_decal/bot,
 /obj/machinery/power/energy_accumulator/tesla_coil,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/engine/engineering)
 "cfp" = (
@@ -44526,6 +44504,14 @@
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/heads/cmo)
+"ikg" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/power/energy_accumulator/tesla_coil,
+/turf/open/floor/plating/airless,
+/area/space/nearstation)
 "ikk" = (
 /obj/effect/turf_decal/tile/blue,
 /obj/structure/sign/poster/official/work_for_a_future{
@@ -66688,6 +66674,16 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/crew_quarters/bar)
+"pwG" = (
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/power/energy_accumulator/tesla_coil,
+/turf/open/floor/plating/airless,
+/area/space/nearstation)
 "pwL" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -78459,8 +78455,6 @@
 /turf/open/floor/catwalk_floor,
 /area/hallway/secondary/exit/departure_lounge)
 "tde" = (
-/obj/structure/table/reinforced,
-/obj/item/tank/internals/plasma,
 /obj/machinery/light/small,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -26
@@ -80944,11 +80938,11 @@
 /turf/open/floor/iron,
 /area/janitor)
 "tVa" = (
-/obj/structure/closet/toolcloset,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
+/obj/machinery/vending/engivend,
 /turf/open/floor/iron,
 /area/engine/storage_shared)
 "tVe" = (
@@ -82138,13 +82132,13 @@
 /turf/open/floor/iron,
 /area/crew_quarters/fitness/recreation)
 "upp" = (
+/obj/machinery/power/energy_accumulator/tesla_coil,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/camera/directional/south{
 	c_tag = "Engineering - Secure Storage";
 	name = "engineering camera"
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/power/energy_accumulator/tesla_coil,
 /turf/open/floor/iron,
 /area/engine/engineering)
 "upD" = (
@@ -91888,6 +91882,15 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/medical/medbay/aft)
+"xpO" = (
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/obj/item/kirbyplants/random,
+/turf/open/floor/iron/dark/corner{
+	dir = 1
+	},
+/area/engine/atmos)
 "xpP" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -93279,6 +93282,14 @@
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/toilet/restrooms)
+"xMe" = (
+/obj/structure/cable,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/power/energy_accumulator/tesla_coil,
+/turf/open/floor/plating/airless,
+/area/space/nearstation)
 "xMk" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -115164,7 +115175,7 @@ clR
 cnB
 clR
 clR
-cnB
+pwG
 clR
 clR
 cnB
@@ -116444,7 +116455,7 @@ cbP
 cdC
 aad
 cjb
-ckx
+xMe
 aaa
 aad
 abj
@@ -116454,7 +116465,7 @@ ctn
 abj
 aad
 aaa
-czp
+ikg
 cAI
 aad
 cdC
@@ -119751,7 +119762,7 @@ aMB
 pjM
 bdg
 uEI
-bdg
+xpO
 beB
 aMB
 bho
@@ -120777,9 +120788,9 @@ uJk
 aUS
 aWK
 aYk
-bad
-bbI
-bdj
+btW
+btW
+btW
 beF
 aWG
 bho

@@ -66,7 +66,6 @@
 	icon_state = "0-2"
 	},
 /obj/item/tank/internals/plasma/full,
-/obj/machinery/power/rad_collector/anchored,
 /turf/open/floor/engine,
 /area/template_noop)
 "q" = (
@@ -91,7 +90,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/tesla_coil,
+/obj/machinery/power/energy_accumulator/tesla_coil,
 /turf/open/floor/engine,
 /area/template_noop)
 "t" = (
@@ -102,7 +101,7 @@
 /area/template_noop)
 "v" = (
 /obj/structure/cable,
-/obj/machinery/power/tesla_coil,
+/obj/machinery/power/energy_accumulator/tesla_coil,
 /turf/open/floor/engine,
 /area/template_noop)
 "w" = (
@@ -147,7 +146,6 @@
 	icon_state = "0-4"
 	},
 /obj/item/tank/internals/plasma/full,
-/obj/machinery/power/rad_collector/anchored,
 /turf/open/floor/engine,
 /area/template_noop)
 "F" = (
@@ -220,7 +218,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/tesla_coil,
+/obj/machinery/power/energy_accumulator/tesla_coil,
 /turf/open/floor/engine,
 /area/template_noop)
 "Q" = (
@@ -254,7 +252,6 @@
 "U" = (
 /obj/structure/cable,
 /obj/item/tank/internals/plasma/full,
-/obj/machinery/power/rad_collector/anchored,
 /turf/open/floor/engine,
 /area/template_noop)
 "V" = (

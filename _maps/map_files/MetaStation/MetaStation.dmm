@@ -13027,16 +13027,7 @@
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bMf" = (
-/obj/structure/rack,
-/obj/item/clothing/suit/hazardvest,
-/obj/item/clothing/suit/hazardvest,
-/obj/item/clothing/suit/hazardvest,
-/obj/item/clothing/suit/hazardvest,
-/obj/item/clothing/gloves/color/black,
-/obj/item/clothing/gloves/color/black,
-/obj/item/clothing/gloves/color/black,
-/obj/item/clothing/mask/gas,
-/obj/item/clothing/mask/gas,
+/obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bMg" = (
@@ -14303,7 +14294,11 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "bTi" = (
-/obj/machinery/vending/wardrobe/atmos_wardrobe,
+/obj/effect/turf_decal/bot{
+	dir = 1
+	},
+/obj/machinery/disposal/bin,
+/obj/structure/disposalpipe/trunk,
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "bTl" = (
@@ -14571,17 +14566,13 @@
 /turf/open/floor/iron/white,
 /area/medical/surgery)
 "bUz" = (
-/obj/machinery/disposal/bin,
-/obj/structure/disposalpipe/trunk,
-/obj/effect/turf_decal/bot{
-	dir = 1
-	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "bUA" = (
-/obj/machinery/pipe_dispenser,
+/obj/machinery/vending/wardrobe/atmos_wardrobe,
 /obj/effect/turf_decal/stripes/line{
-	dir = 10
+	dir = 8
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
@@ -14592,17 +14583,22 @@
 /obj/machinery/light_switch{
 	pixel_y = 28
 	},
-/obj/machinery/pipe_dispenser/disposal,
-/obj/effect/turf_decal/stripes/line,
+/obj/structure/rack,
+/obj/item/clothing/gloves/color/black,
+/obj/item/clothing/gloves/color/black,
+/obj/item/clothing/gloves/color/black,
+/obj/item/clothing/suit/hazardvest,
+/obj/item/clothing/suit/hazardvest,
+/obj/item/clothing/suit/hazardvest,
+/obj/item/clothing/suit/hazardvest,
+/obj/item/clothing/mask/gas,
+/obj/item/clothing/mask/gas,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bUC" = (
-/obj/item/radio/intercom{
-	pixel_y = 28
-	},
-/obj/machinery/pipe_dispenser/disposal/transit_tube,
+/obj/machinery/vending/engivend,
 /obj/effect/turf_decal/stripes/line{
-	dir = 6
+	dir = 4
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
@@ -14845,6 +14841,9 @@
 "bVK" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
 	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
@@ -36798,12 +36797,6 @@
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain/private)
 "iMV" = (
-/obj/machinery/requests_console{
-	department = "Atmospherics";
-	departmentType = 3;
-	name = "Atmos RC";
-	pixel_x = 30
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -36813,6 +36806,12 @@
 	name = "emergency shower"
 	},
 /obj/effect/mapping_helpers/make_non_slip,
+/obj/machinery/requests_console{
+	department = "Atmospherics";
+	departmentType = 3;
+	name = "Atmos RC";
+	pixel_x = 30
+	},
 /turf/open/floor/iron,
 /area/engine/atmos)
 "iNO" = (
@@ -42807,6 +42806,7 @@
 	c_tag = "Atmospherics - Starboard"
 	},
 /obj/machinery/light/directional/west,
+/obj/item/radio/intercom/directional/west,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "leM" = (
@@ -63826,7 +63826,6 @@
 /turf/open/floor/iron,
 /area/hallway/primary/port)
 "sGb" = (
-/obj/structure/reagent_dispensers/fueltank,
 /obj/item/radio/intercom{
 	pixel_y = -26
 	},

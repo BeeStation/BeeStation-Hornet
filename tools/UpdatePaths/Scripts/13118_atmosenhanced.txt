@@ -1,3 +1,5 @@
 /obj/machinery/power/tesla_coil : /obj/machinery/power/energy_accumulator/tesla_coil{@OLD}
 /obj/machinery/power/grounding_rod : /obj/machinery/power/energy_accumulator/grounding_rod{@OLD}
-/obj/machinery/power/rad_collector : @DELETE
+
+/obj/machinery/power/rad_collector/@SUBTYPES : @DELETE
+/obj/item/circuitboard/machine/rad_collector : @DELETE
