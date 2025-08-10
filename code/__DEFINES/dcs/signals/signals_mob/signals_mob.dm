@@ -35,6 +35,8 @@
 	#define ACCESS_ALLOWED (1<<0)
 	#define ACCESS_DISALLOWED (1<<1)
 	#define LOCKED_ATOM_INCOMPATIBLE (1<<2)
+/// from base of /datum/view_data/proc/afterViewChange() : (view)
+#define COMSIG_VIEWDATA_UPDATE "viewdata_update"
 
 ///from base of mob/can_cast_magic(): (mob/user, magic_flags, charge_cost)
 #define COMSIG_MOB_RESTRICT_MAGIC "mob_cast_magic"
@@ -51,7 +53,6 @@
 #define COMSIG_MOB_HUD_CREATED "mob_hud_created"				//! from base of mob/create_mob_hud(): ()
 #define COMSIG_MOB_ATTACK_HAND_TURF "mob_attack_hand_turf"		//! from base of turf/attack_hand
 #define COMSIG_MOB_HAND_ATTACKED "mob_hand_attacked"			//! from base of
-#define COMSIG_MOB_EQUIPPED_ITEM "mob_equipped_item"			//! from base of /item/equipped(): (/mob/user, /obj/item, slot)
 #define COMSIG_MOB_DROPPED_ITEM "mob_dropped_item"				//! from base of /item/dropped(): (/mob/user, /obj/item, loc)
 #define COMSIG_MOB_APPLY_DAMGE	"mob_apply_damage"				//! from base of /mob/living/proc/apply_damage(): (damage, damagetype, def_zone)
 #define COMSIG_MOB_THROW "mob_throw"							//! from base of /mob/throw_item(): (atom/target)
@@ -73,6 +74,11 @@
 	#define SPEECH_IGNORE_SPAM 6
 	#define SPEECH_FORCED 7 */
 	#define SPEECH_RANGE 8
+
+///from /datum/component/speechmod/handle_speech(): ()
+#define COMSIG_TRY_MODIFY_SPEECH "try_modify_speech"
+	///Return value if we prevent speech from being modified
+	#define PREVENT_MODIFY_SPEECH 1
 
 #define COMSIG_MOB_EMOTE "mob_emote" // from /mob/living/emote(): ()
 #define COMSIG_MOB_SWAP_HANDS "mob_swap_hands"        //from base of mob/swap_hand()

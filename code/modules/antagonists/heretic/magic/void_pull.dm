@@ -2,7 +2,7 @@
 	name = "Void Pull"
 	desc = "Calls the void, damaging, knocking down, and stunning people nearby. \
 		Distant foes are also pulled closer to you (but not damaged)."
-	background_icon_state = "bg_ecult"
+	background_icon_state = "bg_heretic"
 	icon_icon = 'icons/hud/actions/actions_ecult.dmi'
 	button_icon_state = "voidpull"
 	sound = 'sound/magic/voidblink.ogg'

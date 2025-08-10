@@ -2721,18 +2721,6 @@
 /obj/item/stack/ore/iron,
 /turf/open/floor/iron,
 /area/quartermaster/miningoffice)
-"azs" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
-	pixel_y = 28
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron,
-/area/quartermaster/warehouse)
 "azw" = (
 /turf/open/floor/circuit/green{
 	luminosity = 2
@@ -13431,19 +13419,6 @@
 	},
 /turf/open/floor/engine/cult,
 /area/library)
-"bOo" = (
-/obj/structure/table,
-/obj/effect/turf_decal/tile/blue/half/contrasted{
-	dir = 4
-	},
-/obj/effect/turf_decal/siding/dark_blue{
-	dir = 3
-	},
-/obj/item/candydispenser/lollipop{
-	pixel_y = 10
-	},
-/turf/open/floor/iron/white,
-/area/medical/medbay/lobby)
 "bOp" = (
 /obj/machinery/holopad,
 /obj/effect/turf_decal/stripes/line{
@@ -21945,6 +21920,20 @@
 "dlV" = (
 /turf/closed/wall/r_wall,
 /area/maintenance/department/science/xenobiology)
+"dlZ" = (
+/mob/living/basic/pet/dog/bullterrier/tyson,
+/obj/structure/bed/dogbed/tyson,
+/obj/machinery/newscaster{
+	pixel_y = -30
+	},
+/obj/effect/turf_decal/tile/dark_red/half{
+	dir = 8
+	},
+/obj/effect/turf_decal/box/white,
+/turf/open/floor/iron/smooth_half{
+	dir = 1
+	},
+/area/security/warden)
 "dmi" = (
 /obj/machinery/computer/security,
 /obj/machinery/computer/security/telescreen/prison{
@@ -23669,17 +23658,6 @@
 /obj/machinery/status_display/ai,
 /turf/closed/wall,
 /area/medical/morgue)
-"dRX" = (
-/obj/structure/table/reinforced,
-/obj/structure/desk_bell{
-	pixel_x = -8
-	},
-/obj/effect/turf_decal/siding/wood,
-/obj/item/candydispenser{
-	pixel_y = 11
-	},
-/turf/open/floor/wood/big,
-/area/crew_quarters/bar)
 "dRZ" = (
 /obj/machinery/cryopod,
 /obj/machinery/computer/cryopod{
@@ -28406,6 +28384,17 @@
 /obj/machinery/airalarm/directional/north,
 /turf/open/floor/iron,
 /area/medical/chemistry)
+"fHk" = (
+/obj/structure/table/reinforced,
+/obj/structure/desk_bell{
+	pixel_x = -8
+	},
+/obj/effect/turf_decal/siding/wood,
+/obj/item/candydispenser{
+	pixel_y = 11
+	},
+/turf/open/floor/wood/big,
+/area/crew_quarters/bar)
 "fHP" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow,
@@ -29634,23 +29623,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
-"gdn" = (
-/obj/structure/table/glass,
-/obj/item/storage/box/beakers{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/storage/box/syringes,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted,
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/structure/window/reinforced,
-/turf/open/floor/iron,
-/area/medical/storage)
 "gdv" = (
 /obj/structure/closet/lasertag/blue,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -36714,6 +36686,18 @@
 	},
 /turf/open/floor/holofloor/plating,
 /area/holodeck/prison)
+"iKo" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted,
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/structure/window/reinforced,
+/obj/machinery/suit_storage_unit/medical,
+/turf/open/floor/iron,
+/area/medical/storage)
 "iKp" = (
 /obj/machinery/vending/security,
 /obj/machinery/firealarm{
@@ -41290,18 +41274,6 @@
 /obj/effect/decal/cleanable/oil,
 /turf/open/floor/iron,
 /area/maintenance/aft/secondary)
-"kxK" = (
-/obj/machinery/status_display/evac{
-	pixel_y = 32
-	},
-/obj/structure/bed/dogbed/ian,
-/mob/living/basic/pet/dog/corgi/ian,
-/obj/effect/turf_decal/siding/wood,
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/turf/open/floor/wood,
-/area/crew_quarters/heads/hop)
 "kxS" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/cable/yellow{
@@ -42854,6 +42826,19 @@
 	},
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
+"leO" = (
+/obj/structure/table,
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/dark_blue{
+	dir = 3
+	},
+/obj/item/candydispenser/lollipop{
+	pixel_y = 10
+	},
+/turf/open/floor/iron/white,
+/area/medical/medbay/lobby)
 "leU" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -43130,16 +43115,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2,
 /turf/open/floor/iron/dark,
 /area/aisat)
-"lkA" = (
-/obj/effect/turf_decal/tile/yellow/anticorner/contrasted{
-	dir = 1
-	},
-/obj/structure/table/glass,
-/obj/item/candydispenser/engineering{
-	pixel_y = 11
-	},
-/turf/open/floor/iron,
-/area/engine/break_room)
 "llo" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -43367,34 +43342,6 @@
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/prison,
 /area/security/prison)
-"lpP" = (
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 8
-	},
-/obj/machinery/firealarm/directional/east,
-/obj/effect/turf_decal/stripes/line,
-/obj/structure/table/glass,
-/obj/item/clothing/neck/stethoscope,
-/obj/item/clothing/neck/stethoscope,
-/obj/item/storage/belt/medical,
-/obj/item/storage/belt/medical,
-/obj/item/clothing/glasses/hud/health,
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = -3;
-	pixel_y = 2
-	},
-/obj/item/clothing/glasses/hud/health,
-/obj/machinery/door/window/westleft{
-	dir = 2;
-	name = "First-Aid Supplies";
-	req_access_txt = "5"
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/effect/loot_jobscale/medical/first_aid_kit,
-/turf/open/floor/iron,
-/area/medical/storage)
 "lqg" = (
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/lavendergrass,
@@ -43677,6 +43624,19 @@
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/plating,
 /area/maintenance/aft)
+"luK" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/sink/kitchen{
+	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
+	name = "old sink";
+	pixel_y = 28
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/suit_storage_unit/industrial/loader,
+/turf/open/floor/iron,
+/area/quartermaster/warehouse)
 "luO" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
@@ -54043,6 +54003,39 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/science/shuttledock)
+"oZY" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 8
+	},
+/obj/machinery/firealarm/directional/east,
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/table/glass,
+/obj/item/clothing/neck/stethoscope,
+/obj/item/clothing/neck/stethoscope,
+/obj/item/storage/belt/medical,
+/obj/item/storage/belt/medical,
+/obj/item/clothing/glasses/hud/health,
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = -3;
+	pixel_y = 2
+	},
+/obj/item/clothing/glasses/hud/health,
+/obj/machinery/door/window/westleft{
+	dir = 2;
+	name = "First-Aid Supplies";
+	req_access_txt = "5"
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/effect/loot_jobscale/medical/first_aid_kit,
+/obj/item/storage/box/syringes,
+/obj/item/storage/box/beakers{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/turf/open/floor/iron,
+/area/medical/storage)
 "pav" = (
 /obj/machinery/light_switch{
 	pixel_y = 28
@@ -62846,6 +62839,18 @@
 	},
 /turf/open/floor/wood/big,
 /area/crew_quarters/bar)
+"slP" = (
+/obj/machinery/status_display/evac{
+	pixel_y = 32
+	},
+/obj/structure/bed/dogbed/ian,
+/mob/living/basic/pet/dog/corgi/ian,
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/open/floor/wood,
+/area/crew_quarters/heads/hop)
 "smt" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
@@ -65277,20 +65282,6 @@
 "thn" = (
 /turf/closed/wall/r_wall,
 /area/science/server)
-"thu" = (
-/mob/living/basic/pet/dog/bullterrier/tyson,
-/obj/structure/bed/dogbed/tyson,
-/obj/machinery/newscaster{
-	pixel_y = -30
-	},
-/obj/effect/turf_decal/tile/dark_red/half{
-	dir = 8
-	},
-/obj/effect/turf_decal/box/white,
-/turf/open/floor/iron/smooth_half{
-	dir = 1
-	},
-/area/security/warden)
 "thM" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -75673,6 +75664,16 @@
 	},
 /turf/open/floor/plating,
 /area/chapel/main)
+"wQo" = (
+/obj/effect/turf_decal/tile/yellow/anticorner/contrasted{
+	dir = 1
+	},
+/obj/structure/table/glass,
+/obj/item/candydispenser/engineering{
+	pixel_y = 11
+	},
+/turf/open/floor/iron,
+/area/engine/break_room)
 "wQy" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/iron/dark,
@@ -98966,7 +98967,7 @@ lBQ
 gGF
 awS
 ayl
-azs
+luK
 aAM
 aCa
 aDm
@@ -101343,7 +101344,7 @@ vNW
 bXK
 pXO
 ndt
-gdn
+iKo
 fIL
 jSs
 xPR
@@ -102112,7 +102113,7 @@ aJo
 vRu
 iKg
 bXK
-lpP
+oZY
 krk
 vHE
 dVa
@@ -104906,7 +104907,7 @@ biX
 mla
 bmt
 bkz
-kxK
+slP
 bsQ
 bus
 oLS
@@ -106471,7 +106472,7 @@ aYX
 ukx
 jpN
 mdh
-bOo
+leO
 tMi
 oJb
 oIR
@@ -107448,7 +107449,7 @@ qtX
 adY
 xgM
 iSo
-thu
+dlZ
 adY
 sbU
 aEN
@@ -114420,7 +114421,7 @@ tsu
 oNb
 kQe
 wzT
-dRX
+fHk
 oHa
 xTu
 kJK
@@ -121861,7 +121862,7 @@ oYY
 ipo
 hRb
 bfX
-lkA
+wQo
 esQ
 rmo
 fvZ

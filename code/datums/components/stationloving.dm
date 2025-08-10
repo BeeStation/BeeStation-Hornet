@@ -10,7 +10,7 @@
 
 	RegisterSignal(parent, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(z_check))
 	RegisterSignal(parent, COMSIG_MOVABLE_SECLUDED_LOCATION, PROC_REF(relocate))
-	RegisterSignal(parent, COMSIG_PARENT_PREQDELETED, PROC_REF(check_deletion))
+	RegisterSignal(parent, COMSIG_PREQDELETED, PROC_REF(check_deletion))
 	RegisterSignal(parent, COMSIG_ITEM_IMBUE_SOUL, PROC_REF(check_soul_imbue))
 	RegisterSignal(parent, COMSIG_ITEM_MARK_RETRIEVAL, PROC_REF(check_mark_retrieval))
 	src.inform_admins = inform_admins
