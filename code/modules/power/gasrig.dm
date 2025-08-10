@@ -250,6 +250,7 @@
 		return
 	if(tool.use_tool(src, user, 0, volume=50, amount=2))
 		change_health(10)
+		balloon_alert(user, "You repair the rig's damage!")
 
 /obj/machinery/atmospherics/gasrig/core/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/sheet/plasteel))
@@ -293,6 +294,7 @@
 	data["max_health"] = GASRIG_MAX_HEALTH
 	data["health"] = health
 	data["needs_repairs"] = needs_repairs
+	data["over_pressure"] = (mode == GASRIG_MODE_OVERPRESSURE)
 	data["o2_constants"] = GASRIG_O2
 	data["n2_constants"] = GASRIG_N2
 	data["plas_constants"] = GASRIG_PLAS
