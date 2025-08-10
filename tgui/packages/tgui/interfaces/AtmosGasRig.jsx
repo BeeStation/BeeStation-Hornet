@@ -92,6 +92,7 @@ export const AtmosGasRigTemplate = (props) => {
             {data.fracking_eff}
             <br />
             <br />
+            <br />
             {DisplayWarning(data.needs_repairs, 'Repairs needed! Use plasteel to replace damaged components.')}
             <br />
             {DisplayWarning(data.over_pressure, 'Output pressure has exceeded maximum.')}

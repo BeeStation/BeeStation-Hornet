@@ -24,8 +24,6 @@
 	var/health = GASRIG_MAX_HEALTH
 	var/needs_repairs = FALSE
 
-	var/functional = TRUE
-
 	var/display_efficiency = 1
 	var/display_shield_efficiency = 0
 
@@ -98,10 +96,16 @@
 	return ..()
 
 /obj/machinery/atmospherics/gasrig/core/process(delta_time)
-	if(!needs_repairs && active)
-		produce_gases(gas_output.airs[1])
 	get_shield_damage(shielding_input.airs[1])
 	get_damage(delta_time)
+	if(machine_stat & NOPOWER)
+		update_pipenets()
+		return
+	if(!needs_repairs && active)
+		produce_gases(gas_output.airs[1])
+	if(needs_repairs && active)
+		produce_gases(src.loc.return_air())
+		src.air_update_turf(FALSE, FALSE)
 	approach_set_depth()
 	update_pipenets()
 
@@ -145,14 +149,8 @@
 	var/temp_depth = get_depth()
 
 	if (air.return_pressure() > get_output_pressure(efficiency))
-		update_mode(GASRIG_MODE_OVERPRESSURE)
 		return
 
-	//produce_gases will never be called if repairs are needed
-	update_mode(GASRIG_MODE_NORMAL)
-
-	if(!functional)
-		return
 	if((temp_depth >= GASRIG_O2[1]) && (temp_depth <= GASRIG_O2[2]))
 		calculate_gas_to_output(GASRIG_O2, /datum/gas/oxygen, air, efficiency)
 
@@ -218,14 +216,10 @@
 	mode = new_mode
 	switch(new_mode)
 		if(GASRIG_MODE_NORMAL)
-			functional = TRUE
-			active = TRUE
 			icon_state = "gasrig_1"
 			gas_output.icon_state = "gasrig_port_3"
 			update_appearance()
 			gas_output.update_appearance()
-		if(GASRIG_MODE_OVERPRESSURE)
-			functional = FALSE
 		if(GASRIG_MODE_REPAIR)
 			//here so it only plays once
 			playsound(src.loc, 'sound/weapons/blastcannon.ogg', 100)
@@ -235,8 +229,6 @@
 			update_appearance()
 			gas_output.update_appearance()
 			needs_repairs = TRUE
-			functional = FALSE
-			active = FALSE
 
 /obj/machinery/atmospherics/gasrig/core/welder_act(mob/living/user, obj/item/tool)
 	if(health >= GASRIG_MAX_HEALTH)
