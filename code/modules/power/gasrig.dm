@@ -33,7 +33,7 @@
 
 /obj/machinery/atmospherics/gasrig/core
 	name = "\improper Advanced Gas Rig"
-	desc = "This state-of-the-art gas mining rig will extend a collector down to the depths of atmosphere below to extract all the gases a station could need."
+	desc = "This state-of-the-art gas mining rig will extend a collector down to the depths of the atmosphere below to extract all the gases a station could need."
 	icon = 'icons/obj/machines/gasrig.dmi'
 	icon_state = "gasrig_1"
 	use_power = IDLE_POWER_USE
@@ -381,7 +381,19 @@
 	parent.attackby(I, user, params)
 
 /obj/machinery/atmospherics/components/unary/gasrig/ui_interact(mob/user, datum/tgui/ui)
-	parent.ui_interact(user, ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "AtmosGasRig")
+		ui.open()
+		ui.set_autoupdate(TRUE)
+
+/obj/machinery/atmospherics/components/unary/gasrig/ui_act(action, params)
+	if(..())
+		return
+	parent.ui_act_base(action, params)
+
+/obj/machinery/atmospherics/components/unary/gasrig/ui_data()
+	return parent.ui_data()
 
 /obj/machinery/atmospherics/components/unary/gasrig/shielding_input
 	name = "AGR shield gas input port"
@@ -406,7 +418,7 @@
 
 /obj/machinery/atmospherics/gasrig/dummy
 	name = "\improper Advanced Gas Rig"
-	desc = "This state-of-the-art gas mining rig will extend a collector down to the depths of atmosphere below to extract all the gases a station could need."
+	desc = "This state-of-the-art gas mining rig will extend a collector down to the depths of the atmosphere below to extract all the gases a station could need."
 	icon = 'icons/obj/machines/gasrig.dmi'
 	layer = LOW_OBJ_LAYER
 	var/obj/machinery/atmospherics/gasrig/core/parent
@@ -423,7 +435,19 @@
 	parent.attackby(I, user, params)
 
 /obj/machinery/atmospherics/gasrig/dummy/ui_interact(mob/user, datum/tgui/ui)
-	parent.ui_interact(user, ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "AtmosGasRig")
+		ui.open()
+		ui.set_autoupdate(TRUE)
+
+/obj/machinery/atmospherics/gasrig/dummy/ui_data()
+	return parent.ui_data()
+
+/obj/machinery/atmospherics/gasrig/dummy/ui_act(action, params)
+	if(..())
+		return
+	parent.ui_act_base(action, params)
 
 #undef GASRIG_MAX_SHIELD_STRENGTH
 #undef GASRIG_NATURAL_SHIELD_RECOVERY

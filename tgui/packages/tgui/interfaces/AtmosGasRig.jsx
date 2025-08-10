@@ -4,7 +4,7 @@ import { Window } from '../layouts';
 
 export const AtmosGasRig = (props) => {
   return (
-    <Window theme="ntos" width={500} height={450}>
+    <Window theme="ntos" width={500} height={425}>
       <Window.Content>{AtmosGasRigTemplate(props)}</Window.Content>
     </Window>
   );
