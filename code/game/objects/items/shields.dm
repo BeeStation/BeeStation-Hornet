@@ -4,7 +4,7 @@
 	canblock = TRUE
 
 	block_flags = BLOCKING_PROJECTILE
-	block_power = 50
+	block_power = 20
 	max_integrity =  75
 	item_flags = ISWEAPON
 	var/transparent = FALSE	// makes beam projectiles pass through the shield
@@ -149,8 +149,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/shields_righthand.dmi'
 	custom_materials = null
 	transparent = FALSE
-	block_power = 25
-	max_integrity = 70
+	max_integrity = 75
 	block_flags = BLOCKING_PROJECTILE
 	w_class = WEIGHT_CLASS_BULKY
 	shield_break_sound = 'sound/effects/bang.ogg'
@@ -239,7 +238,7 @@
 	throw_speed = 3
 	max_integrity = 50
 	block_sound = 'sound/weapons/egloves.ogg'
-	block_flags = BLOCKING_PROJECTILE
+	block_flags = BLOCKING_PROJECTILE | BLOCKING_UNBLOCKABLE
 	/// Force of the shield when active.
 	var/active_force = 10
 	/// Throwforce of the shield when active.
