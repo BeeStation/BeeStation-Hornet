@@ -458,7 +458,7 @@
 	armour_penetration = 35
 	canblock = TRUE
 	block_power = 0
-	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_COUNTERATTACK
+	block_flags = BLOCKING_ACTIVE | BLOCKING_COUNTERATTACK
 	slot_flags = ITEM_SLOT_BACK
 	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_CUT

@@ -76,9 +76,11 @@
 	icon_state = "asclepius_dormant"
 	item_state = "asclepius_dormant"
 
-	canblock = TRUE
-	block_power = 40 //blocks very well to encourage using it. Just because you're a pacifist doesn't mean you can't defend yourself
-	block_flags = null //not active, so it's null
+	//Switches to true when taking the oath which also gives pacifism
+	canblock = FALSE
+	block_power = 100
+	block_flags = BLOCKING_UNBALANCE | BLOCKING_PROJECTILE
+
 	var/activated = FALSE
 	var/usedHand
 
@@ -133,6 +135,7 @@
 	icon_state = "asclepius_active"
 	item_state = "asclepius_active"
 	activated = TRUE
+	canblock = TRUE
 
 //Memento Mori
 /obj/item/clothing/neck/necklace/memento_mori

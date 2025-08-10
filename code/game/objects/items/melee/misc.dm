@@ -66,7 +66,7 @@
 	canblock = TRUE
 
 	block_power = 50
-	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_UNBALANCE
 	throwforce = 10
 	w_class = WEIGHT_CLASS_BULKY
 	armour_penetration = 75
@@ -631,7 +631,6 @@
 	force_string = "INFINITE"
 
 /obj/item/melee/supermatter_sword/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, damage, attack_type)
-	//This is a cheat item, it doesn't need to obey blocking
 	qdel(hitby)
 	owner.visible_message(span_danger("[hitby] evaporates in midair!"))
 	return TRUE
