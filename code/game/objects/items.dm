@@ -852,7 +852,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		return FALSE
 	return TRUE
 
-//the mob M is attempting to equip this item into the slot passed through as 'slot'. return TRUE if it can do this and 0 if it can't.
+//the mob M is attempting to equip this item into the slot passed through as 'slot'. return TRUE if it can do this and FALSE if it can't.
 //if this is being done by a mob other than M, it will include the mob equipper, who is trying to equip the item to mob M. equipper will be null otherwise.
 //If you are making custom procs but would like to retain partial or complete functionality of this one, include a 'return ..()' to where you want this to happen.
 //Set disable_warning to TRUE if you wish it to not give you outputs.
