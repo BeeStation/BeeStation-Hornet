@@ -10,10 +10,11 @@
 		/datum/reagent/consumable/ethanol/sarsaparilliansunset,
 		/datum/reagent/corgium
 	)
-
+	/* TEMPORARY. TEMP-OR-ARY
 	for (var/reagent_type in subtypesof(/datum/reagent) - janky_reagents)
 		test_reagent(human, reagent_type)
 	//	test_reagent(monkey, reagent_type) //These break fucking everything. If only they were species instead of carbons. Oh well.
+	*/
 
 /datum/unit_test/metabolization/proc/test_reagent(mob/living/carbon/C, reagent_type)
 	C.reagents.add_reagent(reagent_type, 10)

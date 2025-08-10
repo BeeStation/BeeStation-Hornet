@@ -50,7 +50,7 @@
 	if(in_range(user, src) || isobserver(user))
 		. += span_notice("The status display reads:<br>" + \
 			"Power generation at <b>[input_power_multiplier * 100]%</b>.<br>" + \
-		 	"Shock interval at <b>[cooldown_time * 0.1]</b> seconds.<br>" + \
+			"Shock interval at <b>[cooldown_time * 0.1]</b> seconds.<br>" + \
 			"Stored <b>[display_energy(get_stored_joules())]</b>.<br>" + \
 			"Processing <b>[display_power(processed_energy)]</b>.")
 
