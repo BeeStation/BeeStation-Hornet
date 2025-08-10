@@ -100,6 +100,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	destination.dna.unique_enzymes = unique_enzymes
 	destination.dna.unique_identity = unique_identity
 	destination.dna.blood_type = blood_type
+	destination.dna.unique_features = unique_features
 	destination.dna.features = features.Copy()
 	destination.dna.real_name = real_name
 	destination.dna.temporary_mutations = temporary_mutations.Copy()
@@ -120,7 +121,11 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	new_dna.unique_features = unique_features
 	new_dna.blood_type = blood_type
 	new_dna.features = features.Copy()
-	new_dna.species = new species.type
+	//if the new DNA has a holder, transform them immediately, otherwise save it
+	if(new_dna.holder)
+		new_dna.holder.set_species(species.type, icon_update = 0)
+	else
+		new_dna.species = new species.type
 	new_dna.real_name = real_name
 	new_dna.update_body_size() //Must come after features.Copy()
 	// Mutations aren't gc managed, but they still aren't templates
