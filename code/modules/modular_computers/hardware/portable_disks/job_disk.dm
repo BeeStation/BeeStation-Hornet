@@ -37,6 +37,7 @@
 
 	if(disk_flags & DISK_ATMOS)
 		progs_to_store += new /datum/computer_file/program/atmosscan(src)
+		progs_to_store += new /datum/computer_file/program/power_monitor(src)
 		progs_to_store += new /datum/computer_file/program/gasrig_monitor(src)
 
 	if(disk_flags & DISK_NETWORK)	//Put this higher up so players see it easier and try to interact with it
