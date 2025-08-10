@@ -64157,9 +64157,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/green/visible{
-	dir = 4
-	},
 /turf/open/floor/iron/techmaint,
 /area/engine/atmos)
 "mZc" = (
