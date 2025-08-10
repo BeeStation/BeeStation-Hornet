@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Section, ProgressBar, NumberInput, Box, Button, Table, Flex, BlockQuote } from '../components';
+import { Section, ProgressBar, NumberInput, Box, Button, Table, Flex, BlockQuote, NoticeBox } from '../components';
 import { Window } from '../layouts';
 
 export const AtmosGasRig = (props) => {
@@ -10,12 +10,19 @@ export const AtmosGasRig = (props) => {
   );
 };
 
+const DisplayWarning = (warning, message) => {
+  if (warning) {
+    return <NoticeBox color="red">{message}</NoticeBox>;
+  }
+  return <Box />;
+};
+
 export const AtmosGasRigTemplate = (props) => {
   const { act, data } = useBackend();
   const depth = data.depth;
   const barHeight = 300;
   return (
-    <Section title="Advanced Gas Rig:">
+    <Section title="Advanced Gas Rig:" height="100%">
       <Flex>
         <Flex.Item>
           <Box minWidth="300px">
@@ -84,8 +91,8 @@ export const AtmosGasRigTemplate = (props) => {
             <br />
             {data.fracking_eff}
             <br />
-            {Window.height}
             <br />
+            {DisplayWarning(data.needs_repairs, 'Repairs needed! Use plasteel to replace damaged components.')}
           </Box>
         </Flex.Item>
         <Flex.Item>
