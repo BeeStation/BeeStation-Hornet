@@ -5,16 +5,19 @@
 	desc = "This state-of-the-art gas mining rig will extend a collector down to the depths of the atmosphere below to extract all the gases a station could need."
 	icon = 'icons/obj/machines/gasrig.dmi'
 	icon_state = "gasrig_1"
+	/// Machine starts idle unless you want it to always start active
 	use_power = IDLE_POWER_USE
-	idle_power_usage = IDLE_POWER_USE
+	/// What we expend when NOT harvesting gasses
+	idle_power_usage = 2 KILOWATT
+	/// Power draw when harvesting gas (increases according to depth at Y x Depth / 200) (This will always be power usage at 200 depth)
+	active_power_usage = 25 KILOWATT
 	layer = NUCLEAR_REACTOR_LAYER
 	resistance_flags = INDESTRUCTIBLE|ACID_PROOF|FIRE_PROOF
 	density = TRUE
 
 	var/depth = 0
 
-	var/set_depth = 0
-
+	var/set_depth = 0	// wtf is this? what should we be checking depth or set_depth?
 	var/shield_strength = GASRIG_MAX_SHIELD_STRENGTH
 	var/shield_strength_change = 0
 
@@ -96,15 +99,18 @@
 	STOP_PROCESSING(SSmachines, src)
 	return ..()
 
-/obj/machinery/atmospherics/gasrig/core/process(delta_time)
+/obj/machinery/atmospherics/gasrig/core/process(delta_time)	// Machine operation is here
 	get_shield_damage(shielding_input.airs[1])
 	get_damage(delta_time)
 	if(machine_stat & NOPOWER)
 		update_pipenets()
 		return
+	if(!active)
+		update_use_power(IDLE_POWER_USE) // We're not fraking yet so power consumption is IDLE
 	if(!needs_repairs && active)
+		update_use_power(ACTIVE_POWER_USE)
 		produce_gases(gas_output.airs[1])
-	if(needs_repairs && active)
+	if(needs_repairs && active)	// I assume this is air leak you should comment this and explain it
 		produce_gases(src.loc.return_air())
 		src.air_update_turf(FALSE, FALSE)
 	approach_set_depth()
@@ -153,6 +159,7 @@
 		overpressure = TRUE
 		return
 	overpressure = FALSE
+	calculate_power_use()
 	if((temp_depth >= GASRIG_O2[1]) && (temp_depth <= GASRIG_O2[2]))
 		calculate_gas_to_output(GASRIG_O2, /datum/gas/oxygen, air, efficiency)
 
@@ -170,6 +177,10 @@
 
 	if((temp_depth >= GASRIG_NOB[1]) && (temp_depth <= GASRIG_NOB[2]))
 		calculate_gas_to_output(GASRIG_NOB, /datum/gas/hypernoblium, air, efficiency)
+
+/obj/machinery/atmospherics/gasrig/core/proc/calculate_power_use()
+	var/depth = get_depth()
+	active_power_usage = initial(active_power_usage) * (depth / 200) // 100 depth is 12.5 kW/s 200 depth is 25 300 is 37.5, 1000 is 125 kW.
 
 /obj/machinery/atmospherics/gasrig/core/proc/get_fracking_efficiency(datum/gas_mixture/air)
 	var/datum/gas_mixture/temp_air = new
@@ -211,6 +222,8 @@
 /obj/machinery/atmospherics/gasrig/core/proc/get_depth()
 	return depth
 
+// We have a proc for this called update_icon, update_appearance() calls that and update_overlays() no need for this
+// Do it on update_icon, then when you would call this call update_appearance instead
 /obj/machinery/atmospherics/gasrig/core/proc/get_new_icon()
 	switch(mode)
 		if(GASRIG_MODE_NORMAL)
