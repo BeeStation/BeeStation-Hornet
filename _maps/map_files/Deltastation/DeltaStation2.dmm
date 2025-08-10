@@ -7578,10 +7578,6 @@
 	},
 /turf/open/floor/engine/co2,
 /area/engine/atmos)
-"aXW" = (
-/obj/machinery/atmospherics/miner/station/carbon_dioxide,
-/turf/open/floor/engine/co2,
-/area/engine/atmos)
 "aXX" = (
 /obj/machinery/air_sensor/carbon_tank,
 /turf/open/floor/engine/co2,
@@ -7972,10 +7968,6 @@
 /area/engine/atmos)
 "bbN" = (
 /obj/machinery/air_sensor/oxygen_tank,
-/turf/open/floor/engine/o2,
-/area/engine/atmos)
-"bbO" = (
-/obj/machinery/atmospherics/miner/station/oxygen,
 /turf/open/floor/engine/o2,
 /area/engine/atmos)
 "bbP" = (
@@ -8439,10 +8431,6 @@
 	},
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
-"bev" = (
-/obj/machinery/atmospherics/miner/station/plasma,
-/turf/open/floor/engine/plasma,
-/area/engine/atmos)
 "bew" = (
 /obj/machinery/air_sensor/plasma_tank,
 /turf/open/floor/engine/plasma,
@@ -8861,10 +8849,6 @@
 /area/engine/atmos)
 "bhv" = (
 /obj/machinery/air_sensor/nitrogen_tank,
-/turf/open/floor/engine/n2,
-/area/engine/atmos)
-"bhw" = (
-/obj/machinery/atmospherics/miner/station/nitrogen,
 /turf/open/floor/engine/n2,
 /area/engine/atmos)
 "bhx" = (
@@ -9299,10 +9283,6 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/open/floor/engine/n2o,
-/area/engine/atmos)
-"bkH" = (
-/obj/machinery/atmospherics/miner/station/n2o,
 /turf/open/floor/engine/n2o,
 /area/engine/atmos)
 "bkI" = (
@@ -116094,15 +116074,15 @@ gXZ
 aSQ
 aRF
 aWu
-aXW
+aWt
 aWt
 aRF
 bcY
-bev
+bcX
 bcX
 aRF
 biU
-bkH
+biT
 biT
 aRF
 bpO
@@ -123549,11 +123529,11 @@ aVa
 aTl
 aRF
 bal
-bbO
+bam
 bam
 aRF
 bgg
-bhw
+bgh
 bgh
 aRF
 aMN

@@ -1295,7 +1295,6 @@
 /turf/open/floor/plating,
 /area/maintenance/port/central)
 "arB" = (
-/obj/machinery/atmospherics/miner/n2o,
 /obj/machinery/light/floor,
 /turf/open/floor/engine/n2o/light,
 /area/engine/atmos)
@@ -10675,7 +10674,6 @@
 /turf/open/floor/iron/dark,
 /area/hallway/secondary/entry)
 "cOw" = (
-/obj/machinery/atmospherics/miner/carbon_dioxide,
 /obj/machinery/light/floor,
 /turf/open/floor/engine/co2/light,
 /area/engine/atmos)
@@ -12673,7 +12671,6 @@
 /turf/open/floor/iron/showroomfloor,
 /area/crew_quarters/cryopods)
 "dpu" = (
-/obj/machinery/atmospherics/miner/oxygen,
 /obj/machinery/light/floor,
 /turf/open/floor/engine/o2/light,
 /area/engine/atmos)
@@ -42899,7 +42896,6 @@
 /turf/open/floor/iron/dark,
 /area/library)
 "kVd" = (
-/obj/machinery/atmospherics/miner/nitrogen,
 /obj/machinery/light/floor,
 /turf/open/floor/engine/n2/light,
 /area/engine/atmos)
@@ -70853,7 +70849,6 @@
 /turf/open/floor/iron/dark,
 /area/security/courtroom)
 "sgB" = (
-/obj/machinery/atmospherics/miner/plasma,
 /obj/machinery/light/floor,
 /turf/open/floor/engine/plasma/light,
 /area/engine/atmos)

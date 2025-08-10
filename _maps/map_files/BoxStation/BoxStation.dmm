@@ -9081,10 +9081,6 @@
 	dir = 4
 	},
 /area/engine/atmos)
-"bUU" = (
-/obj/machinery/atmospherics/miner/station/n2o,
-/turf/open/floor/engine/n2o,
-/area/engine/atmos)
 "bUV" = (
 /obj/machinery/air_sensor/nitrous_tank,
 /turf/open/floor/engine/n2o,
@@ -9821,10 +9817,6 @@
 	dir = 4
 	},
 /area/engine/atmos)
-"bYU" = (
-/obj/machinery/atmospherics/miner/station/plasma,
-/turf/open/floor/engine/plasma,
-/area/engine/atmos)
 "bYV" = (
 /obj/machinery/air_sensor/plasma_tank,
 /turf/open/floor/engine/plasma,
@@ -10532,10 +10524,6 @@
 "ccw" = (
 /turf/closed/wall/r_wall,
 /area/engine/engineering)
-"ccB" = (
-/obj/machinery/atmospherics/miner/station/carbon_dioxide,
-/turf/open/floor/engine/co2,
-/area/engine/atmos)
 "ccC" = (
 /obj/machinery/air_sensor/carbon_tank,
 /turf/open/floor/engine/co2,
@@ -11817,14 +11805,6 @@
 	},
 /turf/open/floor/iron,
 /area/engine/engineering)
-"clU" = (
-/obj/machinery/atmospherics/miner/station/nitrogen,
-/turf/open/floor/engine/n2,
-/area/engine/atmos)
-"clW" = (
-/obj/machinery/atmospherics/miner/station/oxygen,
-/turf/open/floor/engine/o2,
-/area/engine/atmos)
 "clY" = (
 /obj/machinery/atmospherics/pipe/smart/simple,
 /obj/structure/grille,
@@ -102232,7 +102212,7 @@ sHM
 okf
 bQA
 ckW
-clU
+cmU
 koX
 ccw
 cpa
@@ -103260,7 +103240,7 @@ aaf
 qPz
 bQA
 ckZ
-clW
+cmV
 tAf
 bLK
 aaa
@@ -105811,15 +105791,15 @@ bPm
 bPm
 bLK
 bTW
-bUU
+bTW
 bTW
 bLK
 bXW
-bYU
+bXW
 bXW
 bLK
 cbH
-ccB
+cbH
 cbH
 bLK
 aaf

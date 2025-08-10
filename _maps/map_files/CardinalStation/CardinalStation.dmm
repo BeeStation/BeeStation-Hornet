@@ -112,7 +112,6 @@
 /turf/open/floor/engine,
 /area/science/mixing)
 "abB" = (
-/obj/machinery/atmospherics/miner/station/oxygen,
 /turf/open/floor/engine/o2,
 /area/engine/atmos)
 "abI" = (
@@ -37501,7 +37500,6 @@
 /turf/open/floor/iron/smooth_half,
 /area/engine/engineering)
 "hDJ" = (
-/obj/machinery/atmospherics/miner/station/n2o,
 /turf/open/floor/engine/n2o,
 /area/engine/atmos)
 "hEj" = (
@@ -87677,7 +87675,6 @@
 /turf/open/floor/grass/no_border,
 /area/medical/virology)
 "rOI" = (
-/obj/machinery/atmospherics/miner/station/carbon_dioxide,
 /turf/open/floor/engine/co2,
 /area/engine/atmos)
 "rOQ" = (
@@ -96332,7 +96329,6 @@
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
 "tDl" = (
-/obj/machinery/atmospherics/miner/station/nitrogen,
 /turf/open/floor/engine/n2,
 /area/engine/atmos)
 "tDq" = (
@@ -97592,7 +97588,6 @@
 /turf/open/floor/iron/techmaint,
 /area/gateway)
 "tPP" = (
-/obj/machinery/atmospherics/miner/station/plasma,
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
 "tPU" = (

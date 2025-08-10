@@ -42664,10 +42664,6 @@
 /obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron,
 /area/engine/engine_room)
-"ocM" = (
-/obj/machinery/atmospherics/miner/station/n2o,
-/turf/open/floor/engine/n2o,
-/area/engine/atmos)
 "ocS" = (
 /turf/closed/wall,
 /area/hallway/primary/port)
@@ -44899,10 +44895,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/catwalk_floor,
 /area/maintenance/department/science)
-"oRY" = (
-/obj/machinery/atmospherics/miner/station/nitrogen,
-/turf/open/floor/engine/n2,
-/area/engine/atmos)
 "oRZ" = (
 /obj/structure/table,
 /obj/structure/extinguisher_cabinet{
@@ -48260,10 +48252,6 @@
 	},
 /turf/open/floor/plating,
 /area/engine/break_room)
-"pSx" = (
-/obj/machinery/atmospherics/miner/station/plasma,
-/turf/open/floor/engine/plasma,
-/area/engine/atmos)
 "pSz" = (
 /mob/living/basic/mothroach,
 /obj/effect/decal/remains/human,
@@ -55916,10 +55904,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/exploration_prep)
-"sxn" = (
-/obj/machinery/atmospherics/miner/station/carbon_dioxide,
-/turf/open/floor/engine/co2,
-/area/engine/atmos)
 "sxp" = (
 /turf/closed/wall,
 /area/crew_quarters/toilet)
@@ -57222,10 +57206,6 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
-/area/engine/atmos)
-"sUj" = (
-/obj/machinery/atmospherics/miner/station/oxygen,
-/turf/open/floor/engine/o2,
 /area/engine/atmos)
 "sUm" = (
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
@@ -110453,11 +110433,11 @@ ePs
 vgn
 iRY
 cYS
-oRY
+lNN
 lNN
 iRY
 obU
-sUj
+mwi
 mwi
 iRY
 yeA
@@ -113034,7 +113014,7 @@ vfY
 tNi
 sbZ
 pxB
-sxn
+qgU
 qsw
 iRY
 gsA
@@ -115593,11 +115573,11 @@ lKh
 lKh
 iRY
 lKP
-ocM
+gpe
 gpe
 iRY
 ewZ
-pSx
+eiL
 eiL
 iRY
 gsA

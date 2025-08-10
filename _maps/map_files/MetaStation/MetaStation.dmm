@@ -348,10 +348,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/wall,
 /area/janitor)
-"acj" = (
-/obj/machinery/atmospherics/miner/station/n2o,
-/turf/open/floor/engine/n2o,
-/area/engine/atmos)
 "ack" = (
 /obj/structure/lattice/catwalk,
 /turf/open/space,
@@ -577,10 +573,6 @@
 /obj/structure/lattice/catwalk,
 /turf/open/space,
 /area/solar/starboard/fore)
-"aeG" = (
-/obj/machinery/atmospherics/miner/station/plasma,
-/turf/open/floor/engine/plasma,
-/area/engine/atmos)
 "afo" = (
 /obj/machinery/light{
 	dir = 4
@@ -1013,10 +1005,6 @@
 /obj/structure/sign/warning/electricshock,
 /turf/closed/wall,
 /area/maintenance/solars/port/fore)
-"ajl" = (
-/obj/machinery/atmospherics/miner/station/carbon_dioxide,
-/turf/open/floor/engine/co2,
-/area/engine/atmos)
 "ajm" = (
 /turf/closed/wall/r_wall,
 /area/security/brig)
@@ -1042,10 +1030,6 @@
 "ajD" = (
 /turf/closed/wall,
 /area/security/main)
-"ajO" = (
-/obj/machinery/atmospherics/miner/station/nitrogen,
-/turf/open/floor/engine/n2,
-/area/engine/atmos)
 "ajP" = (
 /obj/structure/table/reinforced,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -1334,10 +1318,6 @@
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/fitness/recreation)
-"amu" = (
-/obj/machinery/atmospherics/miner/station/oxygen,
-/turf/open/floor/engine/o2,
-/area/engine/atmos)
 "amA" = (
 /turf/open/indestructible/sound/pool,
 /area/crew_quarters/fitness/recreation)
@@ -121617,7 +121597,7 @@ bza
 aaf
 gJs
 chO
-ajO
+cjc
 ckG
 bAR
 aaf
@@ -122645,7 +122625,7 @@ bza
 aaf
 gJs
 chR
-amu
+cjf
 ckH
 bAR
 aaf
@@ -125711,15 +125691,15 @@ bCC
 bCC
 bAR
 bJd
-acj
+bJd
 bJd
 bAR
 bPy
-aeG
+bPy
 bPy
 bAR
 bUJ
-ajl
+bUJ
 bUJ
 bAR
 aaf

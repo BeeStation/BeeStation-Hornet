@@ -2928,10 +2928,6 @@
 "aDz" = (
 /turf/open/floor/engine/n2,
 /area/engine/atmos)
-"aDA" = (
-/obj/machinery/atmospherics/miner/station/nitrogen,
-/turf/open/floor/engine/n2,
-/area/engine/atmos)
 "aDB" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
@@ -2950,10 +2946,6 @@
 /turf/open/floor/iron/dark,
 /area/security/checkpoint/engineering)
 "aDC" = (
-/turf/open/floor/engine/o2,
-/area/engine/atmos)
-"aDD" = (
-/obj/machinery/atmospherics/miner/station/oxygen,
 /turf/open/floor/engine/o2,
 /area/engine/atmos)
 "aDI" = (
@@ -3151,18 +3143,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/security/main)
-"aFm" = (
-/obj/machinery/atmospherics/miner/station/carbon_dioxide,
-/turf/open/floor/engine/co2,
-/area/engine/atmos)
-"aFn" = (
-/obj/machinery/atmospherics/miner/station/plasma,
-/turf/open/floor/engine/plasma,
-/area/engine/atmos)
-"aFo" = (
-/obj/machinery/atmospherics/miner/station/n2o,
-/turf/open/floor/engine/n2o,
-/area/engine/atmos)
 "aFu" = (
 /obj/structure/table,
 /obj/machinery/recharger,
@@ -107844,11 +107824,11 @@ oiP
 kNM
 aIG
 htS
-aDA
+aDz
 aDz
 aFM
 cPc
-aDD
+aDC
 aDC
 aFM
 mix
@@ -110687,7 +110667,7 @@ aCw
 acK
 cBA
 aHe
-aFm
+aFc
 aFc
 caK
 acK
@@ -111715,7 +111695,7 @@ aCw
 acK
 cBA
 aHh
-aFn
+aFd
 aFd
 ccT
 acK
@@ -112743,7 +112723,7 @@ bDb
 cfL
 cBA
 aHk
-aFo
+aFe
 aFe
 ctr
 acK
