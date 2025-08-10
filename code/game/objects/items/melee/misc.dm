@@ -135,17 +135,25 @@
 		user.death(FALSE)
 	REMOVE_TRAIT(src, TRAIT_NODROP, SABRE_SUICIDE_TRAIT)
 
+/obj/item/melee/sabre/carbon_fiber
+	name = "carbon fiber sabre"
+	desc = "A sabre made of a sleek carbon fiber polymer with a reinforced blade."
+	icon_state = "sabre_fiber"
+	item_state = "sabre_fiber"
+	force = 15
+	armour_penetration = 25
+	sharpness = SHARP //No dismembering for security sabre without direct intent
+
 /obj/item/melee/sabre/mime
 	name = "Bread Blade"
 	desc = "An elegant weapon, it has an inscription on it that says:  \"La Gluten Gutter\"."
-	force = 18
+	force = 25
 	icon_state = "rapier"
 	item_state = "rapier"
 	lefthand_file = null
 	righthand_file = null
 	block_power = 60
 	armor_type = /datum/armor/sabre_mime
-
 
 /datum/armor/sabre_mime
 	fire = 100

@@ -801,7 +801,7 @@
 /obj/item/storage/belt/fannypack/worn/detective //Starting contents defined in detective.dm where the rest of their loadout is handled.
 	name = "Worn belt"
 	desc = "A weathered belt that is used for storing various gadgets"
-	
+
 /obj/item/storage/belt/fannypack/black
 	name = "black fannypack"
 	icon_state = "fannypack_black"
@@ -866,6 +866,12 @@
 	worn_icon_state = "sheath"
 	w_class = WEIGHT_CLASS_BULKY
 
+	//Sheathes made to hold swords can block too
+	force = 8
+	canblock = TRUE
+	block_flags = BLOCKING_ACTIVE
+	block_power = 25
+
 /obj/item/storage/belt/sabre/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/update_icon_updates_onmob)
@@ -898,13 +904,32 @@
 	item_state = initial(item_state)
 	worn_icon_state = initial(worn_icon_state)
 	if(contents.len)
-		icon_state += "-sabre"
-		item_state += "-sabre"
-		worn_icon_state += "-sabre"
+		icon_state += "_sabre"
+		item_state += "_sabre"
+		worn_icon_state += "_sabre"
 	return ..()
 
 /obj/item/storage/belt/sabre/PopulateContents()
 	new /obj/item/melee/sabre(src)
+	update_appearance()
+
+//While it might be useful in a pinch, this is the real reason I want the sheathes to be able to block
+/obj/item/storage/belt/sabre/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, damage, attack_type)
+	if(!length(contents) && istype(hitby, /obj/item/melee/sabre))
+		owner.visible_message(span_danger("[owner] smoothly catches [hitby] with the [src]!"))
+		playsound(src, 'sound/items/sheath.ogg', 50, TRUE)
+		hitby.forceMove(src)
+		return TRUE
+	. = ..()
+
+/obj/item/storage/belt/sabre/carbon_fiber
+	name = "carbon fiber sabre sheath"
+	desc = "A military grade sabre sheath."
+	icon_state = "sheath_fiber"
+	item_state = "sheath_fiber"
+
+/obj/item/storage/belt/sabre/carbon_fiber/PopulateContents()
+	new /obj/item/melee/sabre/carbon_fiber(src)
 	update_appearance()
 
 /obj/item/storage/belt/sabre/mime
@@ -932,4 +957,4 @@
 
 /obj/item/storage/belt/sabre/mime/PopulateContents()
 	new /obj/item/melee/sabre/mime(src)
-	update_icon()
+	update_appearance()
