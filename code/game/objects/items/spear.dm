@@ -25,6 +25,8 @@
 	var/war_cry = "AAAAARGH!!!"
 	var/icon_prefix = "spearglass"
 
+	canblock = TRUE
+	block_flags = BLOCKING_ACTIVE | BLOCKING_UNBALANCE | BLOCKING_COUNTERATTACK
 
 /datum/armor/item_spear
 	fire = 50
@@ -63,6 +65,11 @@
 		parts_list -= G
 		qdel(src)
 	return ..()
+
+/obj/item/spear/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
+	if(ISWIELDED(src))
+		return ..()
+	return FALSE
 
 /obj/item/spear/explosive
 	name = "explosive lance"
@@ -145,33 +152,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/spear/explosive)
 		explosive.prime(lanced_by=user)
 		qdel(src)
 
-//GREY TIDE
-/obj/item/spear/grey_tide
-	name = "\improper Grey Tide"
-	desc = "Recovered from the aftermath of a revolt aboard Defense Outpost Theta Aegis, in which a seemingly endless tide of Assistants caused heavy casualities among Nanotrasen military forces."
-	attack_verb_continuous = list("gores")
-	attack_verb_simple = list("gore")
-	force=15
-
-/obj/item/spear/grey_tide/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/two_handed, force_unwielded=15, force_wielded=25, block_power_wielded=25, icon_wielded="[icon_prefix]1")
-
-/obj/item/spear/grey_tide/afterattack(atom/movable/AM, mob/living/user, proximity)
-	. = ..()
-	if(!proximity)
-		return
-	user.faction |= "greytide([REF(user)])"
-	if(isliving(AM))
-		var/mob/living/L = AM
-		if(istype (L, /mob/living/simple_animal/hostile/illusion))
-			return
-		if(!L.stat && prob(50))
-			var/mob/living/simple_animal/hostile/illusion/M = new(user.loc)
-			M.faction = user.faction.Copy()
-			M.Copy_Parent(user, 100, user.health/2.5, 12, 30)
-			M.GiveTarget(L)
-
 /*
  * Bone Spear
  */
@@ -182,11 +162,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/spear/explosive)
 	desc = "A haphazardly-constructed yet still deadly weapon. The pinnacle of modern technology."
 	force = 12
 	throwforce = 22
-	armour_penetration = 15				//Enhanced armor piercing
+	armour_penetration = 50				//Enhanced armor piercing
 
 /obj/item/spear/bonespear/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/two_handed, force_unwielded=12, force_wielded=20, block_power_wielded=25, icon_wielded="[icon_prefix]1")
+	AddComponent(/datum/component/two_handed, force_unwielded=12, force_wielded=20, block_power_wielded=60, icon_wielded="[icon_prefix]1")
 
 /obj/item/spear/bamboospear
 	icon_prefix = "bamboo_spear"
@@ -211,5 +191,4 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/spear/explosive)
 
 /obj/item/spear/bamboospear/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/two_handed, force_unwielded=10, force_wielded=18, \
-				block_power_wielded=25, icon_wielded="[icon_prefix]1")
+	AddComponent(/datum/component/two_handed, force_unwielded=10, force_wielded=18, block_power_wielded=25, icon_wielded="[icon_prefix]1")

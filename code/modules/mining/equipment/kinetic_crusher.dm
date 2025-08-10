@@ -31,6 +31,10 @@
 	var/detonation_damage = 25
 	var/backstab_bonus = 15
 
+	canblock = TRUE
+	block_flags = BLOCKING_ACTIVE
+	block_power = 0
+
 /obj/item/kinetic_crusher/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/butchering, 60, 110) //technically it's huge and bulky, but this provides an incentive to use it
