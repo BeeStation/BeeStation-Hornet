@@ -98,6 +98,10 @@
 	offset_loc = locate(x + 1, y + 1, z)
 	dummies += new/obj/machinery/atmospherics/gasrig/dummy(offset_loc, src, "gasrig_d3")
 	offset_loc = locate(x - 1, y - 1, z)
+
+	for(var/obj/machinery/atmospherics/gasrig/dummy/dummy in dummies)
+		dummy.layer = ABOVE_MOB_LAYER
+
 	dummies += new/obj/machinery/atmospherics/gasrig/dummy(offset_loc, src, "gasrig_d4")
 	offset_loc = locate(x + 1, y - 1, z)
 	dummies += new/obj/machinery/atmospherics/gasrig/dummy(offset_loc, src, "gasrig_d5")
@@ -138,6 +142,8 @@
 		. += span_warning("Some components have been damaged beyond repair. Use plasteel sheets to replace them.")
 	if(health < GASRIG_MAX_HEALTH)
 		. += "It is damaged. Use a welder to repair it."
+	if(mode == GASRIG_MODE_OVERPRESSURE)
+		. += "Maximum output pressure exceeded."
 
 /obj/machinery/atmospherics/gasrig/core/proc/get_shield_damage(datum/gas_mixture/air)
 	var/datum/gas_mixture/temp_air = new
@@ -245,12 +251,20 @@
 		if(GASRIG_MODE_NORMAL)
 			functional = TRUE
 			active = TRUE
+			icon_state = "gasrig_1"
+			gas_output.icon_state = "gasrig_port_3"
+			update_appearance()
+			gas_output.update_appearance()
 		if(GASRIG_MODE_OVERPRESSURE)
 			functional = FALSE
 		if(GASRIG_MODE_REPAIR)
 			//here so it only plays once
 			playsound(src.loc, 'sound/weapons/blastcannon.ogg', 100)
 			playsound(src.loc, 'sound/machines/hiss.ogg', 50)
+			icon_state = "gasrig_1_off"
+			gas_output.icon_state = "gasrig_port_3_off"
+			update_appearance()
+			gas_output.update_appearance()
 			needs_repairs = TRUE
 			functional = FALSE
 			active = FALSE
