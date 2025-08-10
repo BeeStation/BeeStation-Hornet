@@ -655,6 +655,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			relative_dir = dir2angle(angle2dir(P.Angle)) - dir2angle(owner.dir)
 		else
 			return FALSE
+	else
+		//Projectiles completely bypass blocking cooldown. Shields trigger the blocking cooldown but are not affected by it. This OR is intentional
+		if(istype(src, /obj/item/shield) || COOLDOWN_FINISHED(owner, block_cooldown))
+			COOLDOWN_START(owner, block_cooldown, BLOCK_CD)
+		else
+			return FALSE
 	switch(relative_dir)
 		if(180, -180) //Check for head on attack
 			if(canblock)
@@ -671,25 +677,13 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	var/attackforce = damage
 
-	//Projectiles completely bypass blocking cooldown. Shields trigger the blocking cooldown but are not affected by it.
-	if(!isprojectile(hitby))
-		if(istype(src, /obj/item/shield) || COOLDOWN_FINISHED(owner, block_cooldown))
-			COOLDOWN_START(owner, block_cooldown, BLOCK_CD)
-		else
-			return FALSE
-
-	//Since we are already checking for projectile, the block only proceeds if the BLOCKING_PROJECTILE flag is present
-	else if(block_flags & BLOCKING_PROJECTILE)
+	if(isprojectile(hitby) && block_flags & BLOCKING_PROJECTILE)
 		var/obj/projectile/P = hitby
 		if(P.damage_type == STAMINA)
 			attackforce = 0 //Blocking disablers and tasers is free, but other projectiles do their standard damage
 
-	//It's a projectile and we don't have the flag for blocking those, fail to block and get out of here
-	else
-		return FALSE
-
-	//Alright, it isn't a projectile and the cooldown is set if we aren't a shield. Are we being hit with a weapon?
-	if(isitem(hitby))
+	//Alright, it isn't a projectile, are we being hit with a weapon?
+	else if(isitem(hitby))
 		var/obj/item/I = hitby
 
 		//If we block a stamina weapon, it does nothing unless it electrocutes us separately
@@ -704,7 +698,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		else if(I.is_sharp())
 			attackforce = I.w_class * 2
 
-		//And if it's a blunt weapon blocking is less effective
+		//And if it's a blunt weapon, blocking takes the worst outcome between weight and damage bonuses
 		else
 			attackforce = max(I.w_class * 3, attackforce * 1.5)
 
@@ -714,14 +708,14 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		INVOKE_ASYNC(unarmed_living_mob, TYPE_PROC_REF(/atom, attackby), src, owner)
 		owner.visible_message(span_danger("[unarmed_living_mob] injures themselves on [owner]'s [src]!"))
 
-	//If the attacker is a simple_animal we need to check if they are designed to be good against blocking
+	//If the attacker is a simple_animal we need to check if they are designed to be especially good against blocking
 	if(istype(hitby, /mob/living/simple_animal))
 		var/mob/living/simple_animal/simplemob = hitby
 		if(simplemob.hardattacks)
-			attackforce = attackforce * 5 //likely enough to disarm a shield in one hit or two. Will also deal very heavy damage to most shield durabilities
+			attackforce = attackforce * 5 //You can probably only block them once or twice at most
 
 	//We are ready to deal stamina damage to our owner
-	owner.apply_damage(attackforce, STAMINA, blocked = block_power)
+	owner.apply_damage(min(attackforce, 50), STAMINA, blocked = block_power)
 	owner.changeNext_move(CLICK_CD_MELEE)
 
 	//This is done here so we don't have to pass attackforce up somehow
