@@ -87,7 +87,7 @@ const recipe_effect_structure: Recipe[] = [
     icon: 'thermometer-full',
     override_base: 0.85,
     scale: 1.15,
-    tooltip: (v, d) => 'Maximum: ' + (d.baseMaxTemperature * v).toExponential() + ' K',
+    tooltip: (v, d) => `Maximum: ${(d.baseMaxTemperature * v).toExponential()} K`,
   },
 ];
 
@@ -202,7 +202,7 @@ export const HypertorusRecipes = (props: RecipeProps) => {
                   // so we set the width to work with both without jumping.
                   return (
                     <Table.Cell key={param}>
-                      <Tooltip content={(tooltip || ((v) => 'x' + v))(value, rest)}>
+                      <Tooltip content={(tooltip || ((v) => `x${v}`))(value, rest)}>
                         <Icon className="hypertorus-recipes__icon" name={effect_to_icon(value, scale, override_base || 1)} />
                       </Tooltip>
                     </Table.Cell>

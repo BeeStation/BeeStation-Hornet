@@ -44,7 +44,7 @@ export const HypertorusParameters = (props) => {
   const energy_minimum_suffix = energy_minimum_exponent / 3;
 
   let activity = heat_output / (heat_output < 0 ? heat_output_min : heat_output_max);
-  if (isNaN(activity) || !isFinite(activity)) {
+  if (Number.isNaN(activity) || !Number.isFinite(activity)) {
     activity = 0;
   }
 

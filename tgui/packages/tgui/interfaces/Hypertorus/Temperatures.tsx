@@ -36,7 +36,7 @@ const height = 200;
 
 const VerticalBar = (props) => {
   const { color, value, progressHeight } = props;
-  let y = height - progressHeight;
+  const y = height - progressHeight;
 
   return (
     <div className="hypertorus-temperatures__vertical-bar">{!!value && <Box backgroundColor={color} top={`${y}px`} />}</div>
@@ -51,7 +51,7 @@ const BarLabel = (props) => {
       <Box align="center">{label}</Box>
       {value > 0 ? (
         <>
-          <Box align="center">{to_exponential_if_big(value) + ' K'}</Box>
+          <Box align="center">{`${to_exponential_if_big(value)} K`}</Box>
           <Box align="center">{delta === 0 ? '-' : `${delta < 0 ? '' : '+'}${to_exponential_if_big(delta)} K/s`}</Box>
         </>
       ) : (
@@ -137,7 +137,7 @@ export const HypertorusTemperatures = (props) => {
     const label = (
       <Box className="hypertorus-temperatures__y-axis-label">
         {icon && <Icon className="hypertorus-temperatures__y-axis-label-icon" name={icon} />}
-        {to_exponential_if_big(value) + ' K'}
+        {`${to_exponential_if_big(value)} K`}
       </Box>
     );
     return (

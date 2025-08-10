@@ -3,9 +3,8 @@ import { useBackend } from 'tgui/backend';
 import { getGasColor, getGasLabel } from 'tgui/constants';
 import { Box, Button, LabeledList, NumberInput, ProgressBar, Section } from '../../components';
 import { toFixed } from 'common/math';
-import { flow } from 'common/fp';
 
-import { HypertorusFuel, HypertorusGas } from '.';
+import type { HypertorusFuel, HypertorusGas } from '.';
 import { HelpDummy, HoverHelp } from './helpers';
 
 type GasListProps = {
@@ -59,7 +58,7 @@ const ensure_gases = (gas_array: HypertorusGas[] = [], gasids) => {
     gases_by_id[gas.id] = true;
   });
 
-  for (let gasid of gasids) {
+  for (const gasid of gasids) {
     if (!gases_by_id[gasid]) {
       gas_array.push({ id: gasid, amount: 0 });
     }
@@ -81,10 +80,10 @@ const GasList = (props: GasListProps) => {
   } = props;
   const { start_power, start_cooling } = data;
 
-  const gases: HypertorusGas[] = flow([
-    filter((gas: HypertorusGas) => gas.amount >= 0.01),
-    sortBy((gas: HypertorusGas) => -gas.amount),
-  ])(raw_gases);
+  const gases: HypertorusGas[] = sortBy(
+    filter(raw_gases, (gas: HypertorusGas) => gas.amount >= 0.01),
+    (gas: HypertorusGas) => -gas.amount
+  );
 
   if (stickyGases) {
     ensure_gases(gases, stickyGases);
@@ -131,7 +130,7 @@ const GasList = (props: GasListProps) => {
               </>
             }>
             <ProgressBar color={getGasColor(gas.id)} value={gas.amount} minValue={0} maxValue={minimumScale}>
-              {toFixed(gas.amount, 2) + ' moles'}
+              {`${toFixed(gas.amount, 2)} moles`}
             </ProgressBar>
           </LabeledList.Item>
         );
