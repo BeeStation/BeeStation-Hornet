@@ -8630,6 +8630,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/machinery/portable_atmospherics/pump,
 /turf/open/floor/iron/dark/side{
 	dir = 8
 	},
@@ -8828,7 +8829,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
 	dir = 6
 	},
-/obj/machinery/portable_atmospherics/pump,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bTP" = (
@@ -20120,11 +20120,8 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hos)
 "eHG" = (
-/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible{
-	dir = 4
-	},
 /obj/machinery/portable_atmospherics/pump,
-/turf/open/floor/catwalk_floor/iron,
+/turf/open/floor/iron,
 /area/engine/atmos)
 "eHI" = (
 /obj/structure/closet/lasertag/blue,
@@ -22176,6 +22173,13 @@
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
+"fzX" = (
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
+	dir = 5
+	},
+/obj/machinery/portable_atmospherics/scrubber,
+/turf/open/floor/iron,
+/area/engine/atmos)
 "fzZ" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/cable/yellow{
@@ -40263,7 +40267,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/yellow/visible{
 	dir = 6
 	},
-/obj/machinery/portable_atmospherics/scrubber,
 /turf/open/floor/catwalk_floor/iron,
 /area/engine/atmos)
 "mIZ" = (
@@ -53974,9 +53977,10 @@
 /turf/open/floor/iron,
 /area/engine/engineering)
 "siD" = (
-/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible,
 /obj/machinery/portable_atmospherics/scrubber,
-/turf/open/floor/iron,
+/turf/open/floor/iron/dark/side{
+	dir = 8
+	},
 /area/engine/atmos)
 "siJ" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -101186,7 +101190,7 @@ bML
 gcp
 aZh
 aZe
-aZe
+siD
 bSF
 ixP
 cFV
@@ -101443,8 +101447,8 @@ bMN
 kEj
 bMU
 bMU
-bRD
-bOd
+fzX
+eHG
 gKG
 cFV
 tvg
@@ -102485,7 +102489,7 @@ cbC
 oBM
 bOd
 mIQ
-siD
+bUS
 qxh
 vGm
 tdq
@@ -102741,7 +102745,7 @@ bMK
 cbB
 fDQ
 bOd
-eHG
+wMp
 bTO
 dZf
 owx
