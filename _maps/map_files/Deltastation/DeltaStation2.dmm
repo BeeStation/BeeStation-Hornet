@@ -64766,6 +64766,12 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/quartermaster/miningoffice)
+"oOj" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/engine/atmos)
 "oOt" = (
 /obj/machinery/light/small,
 /obj/machinery/power/apc{
@@ -120674,9 +120680,9 @@ uJk
 aUS
 aWK
 aYk
-bad
-bad
-bad
+oOj
+oOj
+oOj
 beF
 aWG
 bho

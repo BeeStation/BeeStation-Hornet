@@ -20,6 +20,7 @@
 
 	var/mode = GASRIG_MODE_NORMAL
 	var/active = TRUE
+	var/overpressure = FALSE
 
 	var/health = GASRIG_MAX_HEALTH
 	var/needs_repairs = FALSE
@@ -115,7 +116,7 @@
 		. += span_warning("Some components have been damaged beyond repair. Use plasteel sheets to replace them.")
 	if(health < GASRIG_MAX_HEALTH)
 		. += "It is damaged. Use a welder to repair it."
-	if(mode == GASRIG_MODE_OVERPRESSURE)
+	if(overpressure)
 		. += "Maximum output pressure exceeded."
 
 /obj/machinery/atmospherics/gasrig/core/proc/get_shield_damage(datum/gas_mixture/air)
@@ -149,8 +150,9 @@
 	var/temp_depth = get_depth()
 
 	if (air.return_pressure() > get_output_pressure(efficiency))
+		overpressure = TRUE
 		return
-
+	overpressure = FALSE
 	if((temp_depth >= GASRIG_O2[1]) && (temp_depth <= GASRIG_O2[2]))
 		calculate_gas_to_output(GASRIG_O2, /datum/gas/oxygen, air, efficiency)
 
@@ -209,6 +211,24 @@
 /obj/machinery/atmospherics/gasrig/core/proc/get_depth()
 	return depth
 
+/obj/machinery/atmospherics/gasrig/core/proc/get_new_icon()
+	switch(mode)
+		if(GASRIG_MODE_NORMAL)
+			if(active)
+				icon_state = "gasrig_1"
+				gas_output.icon_state = "gasrig_port_3"
+				return
+		if(GASRIG_MODE_REPAIR)
+			if(active)
+				icon_state = "gasrig_1_broken"
+				gas_output.icon_state = "gasrig_port_3_broken"
+				return
+	icon_state = "gasrig_1_off"
+	gas_output.icon_state = "gasrig_port_3_off"
+	update_appearance()
+	gas_output.update_appearance()
+
+
 /obj/machinery/atmospherics/gasrig/core/proc/update_mode(new_mode)
 	if (mode == new_mode)
 		return
@@ -216,18 +236,12 @@
 	mode = new_mode
 	switch(new_mode)
 		if(GASRIG_MODE_NORMAL)
-			icon_state = "gasrig_1"
-			gas_output.icon_state = "gasrig_port_3"
-			update_appearance()
-			gas_output.update_appearance()
+			get_new_icon()
 		if(GASRIG_MODE_REPAIR)
 			//here so it only plays once
 			playsound(src.loc, 'sound/weapons/blastcannon.ogg', 100)
 			playsound(src.loc, 'sound/machines/hiss.ogg', 50)
-			icon_state = "gasrig_1_off"
-			gas_output.icon_state = "gasrig_port_3_off"
-			update_appearance()
-			gas_output.update_appearance()
+			get_new_icon()
 			needs_repairs = TRUE
 
 /obj/machinery/atmospherics/gasrig/core/welder_act(mob/living/user, obj/item/tool)
@@ -285,8 +299,9 @@
 	data["specific_heat"] = display_gas_specific_heat
 	data["max_health"] = GASRIG_MAX_HEALTH
 	data["health"] = health
+	data["active"] = active
 	data["needs_repairs"] = needs_repairs
-	data["over_pressure"] = (mode == GASRIG_MODE_OVERPRESSURE)
+	data["over_pressure"] = overpressure
 	data["o2_constants"] = GASRIG_O2
 	data["n2_constants"] = GASRIG_N2
 	data["plas_constants"] = GASRIG_PLAS
@@ -306,7 +321,10 @@
 		if("set_depth")
 			set_depth = text2num(params["set_depth"])
 			. = TRUE
-	update_icon()
+		if("active")
+			active = !active
+			. = TRUE
+	get_new_icon()
 		//log_gasrig(usr)
 
 /obj/machinery/atmospherics/gasrig/core/proc/add_gas_to_output(var/datum/gas/to_add, var/datum/gas_mixture/air, amount, temp)

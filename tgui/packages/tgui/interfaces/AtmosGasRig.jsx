@@ -23,6 +23,13 @@ export const AtmosGasRigTemplate = (props) => {
   const barHeight = 300;
   return (
     <Section title="Advanced Gas Rig:" height="100%">
+      <Button
+        mt="-10px"
+        icon={data.active ? 'power-off' : 'times'}
+        content={data.active ? 'On' : 'Off'}
+        selected={data.active}
+        onClick={() => act('active')}
+      />
       <Flex>
         <Flex.Item>
           <Box minWidth="300px">
