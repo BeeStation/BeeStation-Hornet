@@ -26,7 +26,7 @@
 
 /obj/item/shield/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, damage, attack_type)
 	. = ..()
-	if(owner.getStaminaLoss() >= 50)
+	if(owner.getStaminaLoss() >= 45)
 		//If we are too tired to keep blocking, but can't drop the shield, shatter it because something cheesy is going on
 		if(HAS_TRAIT(src, TRAIT_NODROP))
 			shatter(owner)
