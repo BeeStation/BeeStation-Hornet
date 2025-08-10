@@ -128,7 +128,7 @@
 	if(!needs_repairs && active)
 		produce_gases(gas_output.airs[1])
 	get_shield_damage(shielding_input.airs[1])
-	get_damage()
+	get_damage(delta_time)
 	approach_set_depth()
 	update_pipenets()
 
@@ -207,11 +207,15 @@
 	health = max(min(health + amount, GASRIG_MAX_HEALTH), 0)
 
 
-/obj/machinery/atmospherics/gasrig/core/proc/get_damage()
+/obj/machinery/atmospherics/gasrig/core/proc/get_damage(delta_time)
 	if(shield_strength > 0)
 		return
 
 	change_health(-5)
+
+	if(!needs_repairs)
+		if(DT_PROB(50, delta_time))
+			playsound(src.loc, 'sound/machines/apc/PowerSwitch_Cover.ogg', 75, 1)
 	if (health <= 0)
 		update_mode(GASRIG_MODE_REPAIR)
 
@@ -244,6 +248,9 @@
 		if(GASRIG_MODE_OVERPRESSURE)
 			functional = FALSE
 		if(GASRIG_MODE_REPAIR)
+			//here so it only plays once
+			playsound(src.loc, 'sound/weapons/blastcannon.ogg', 100)
+			playsound(src.loc, 'sound/machines/hiss.ogg', 50)
 			needs_repairs = TRUE
 			functional = FALSE
 			active = FALSE
