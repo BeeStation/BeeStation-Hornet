@@ -4,7 +4,10 @@
 	canblock = TRUE
 
 	block_flags = BLOCKING_PROJECTILE
-	block_power = 20
+
+	//Shields have no blocking cooldown so they can block until integrity gives out or 50 stamina damage is reached,
+	//be very careful if you increase this
+	block_power = 0
 	max_integrity =  75
 	item_flags = ISWEAPON
 	var/transparent = FALSE	// makes beam projectiles pass through the shield
@@ -119,7 +122,6 @@
 /obj/item/shield/riot/roman/fake
 	desc = "Bears an inscription on the inside: <i>\"Romanes venio domus\"</i>. It appears to be a bit flimsy."
 
-	block_power = 0
 	max_integrity = 30
 
 /obj/item/shield/riot/buckler
