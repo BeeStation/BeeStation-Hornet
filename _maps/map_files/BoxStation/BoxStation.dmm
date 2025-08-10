@@ -7868,7 +7868,7 @@
 /area/engine/atmos)
 "bNV" = (
 /obj/machinery/atmospherics/gasrig/core,
-/turf/open/floor/iron,
+/turf/open/floor/engine,
 /area/engine/atmos)
 "bNY" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
@@ -15040,6 +15040,12 @@
 	},
 /turf/open/floor/plating/rust,
 /area/maintenance/starboard/fore)
+"cMA" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/open/floor/engine,
+/area/engine/atmos)
 "cMD" = (
 /turf/closed/wall/r_wall,
 /area/engine/supermatter)
@@ -19425,6 +19431,9 @@
 "eug" = (
 /turf/open/floor/engine,
 /area/gateway)
+"eup" = (
+/turf/open/floor/engine,
+/area/engine/atmos)
 "euG" = (
 /obj/machinery/atmospherics/pipe/smart/simple,
 /turf/open/floor/plating,
@@ -31045,6 +31054,12 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
+"iWK" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/open/floor/engine,
+/area/engine/atmos)
 "iXb" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow{
@@ -42711,6 +42726,12 @@
 	},
 /turf/open/floor/iron/white,
 /area/science/mixing)
+"nHT" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/open/floor/engine,
+/area/engine/atmos)
 "nHV" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -48050,6 +48071,12 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/engine,
 /area/science/misc_lab)
+"pQg" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/open/floor/engine,
+/area/engine/atmos)
 "pQr" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -102950,9 +102977,9 @@ cBD
 cBD
 oyg
 bLK
-bOd
-bOd
-bOd
+iWK
+eup
+cMA
 bOd
 bOd
 bQv
@@ -103207,9 +103234,9 @@ ura
 cBD
 pdl
 bLK
-bOd
+eup
 bNV
-bOd
+eup
 fRd
 bQs
 bSK
@@ -103464,9 +103491,9 @@ nrO
 cBD
 oyg
 bLK
-bOd
-bOd
-bOd
+pQg
+eup
+nHT
 bOd
 bOd
 bSJ
