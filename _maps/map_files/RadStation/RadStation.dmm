@@ -17771,7 +17771,8 @@
 /obj/machinery/door/window/northleft{
 	dir = 2;
 	name = "Chemistry Desk";
-	req_one_access_txt = "5;33"
+	req_one_access_txt = null;
+	req_access_txt = "33"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "chemistry_shutters";
@@ -33292,7 +33293,7 @@
 /obj/machinery/door/airlock/medical/glass{
 	id_tag = "MedbayFoyer";
 	name = "Medbay";
-	req_one_access_txt = "5;63"
+	req_one_access_txt = "5"
 	},
 /obj/effect/mapping_helpers/airlock/unres{
 	dir = 4
@@ -36320,7 +36321,8 @@
 /obj/machinery/door/window/northright{
 	dir = 2;
 	name = "Chemistry Desk";
-	req_one_access_txt = "5;33"
+	req_one_access_txt = null;
+	req_access_txt = "33"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "chemistry_shutters";
@@ -38132,7 +38134,7 @@
 	dir = 1
 	},
 /turf/open/space/basic,
-/area/solar/starboard/aft)
+/area/engine/atmos)
 "mGv" = (
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	alpha = 180;
@@ -59205,8 +59207,8 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold{
-	dir = 4
+/obj/machinery/atmospherics/pipe/layer_manifold/supply/visible/layer2{
+	dir = 8
 	},
 /turf/open/floor/plating,
 /area/ai_monitored/storage/satellite)

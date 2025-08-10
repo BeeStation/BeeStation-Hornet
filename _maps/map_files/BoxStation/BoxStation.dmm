@@ -1563,6 +1563,10 @@
 "auQ" = (
 /turf/open/floor/iron,
 /area/construction/mining/aux_base)
+"auS" = (
+/obj/machinery/camera/directional/north,
+/turf/open/floor/engine/co2,
+/area/engine/atmos)
 "auX" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4{
 	dir = 1
@@ -12104,9 +12108,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark,
 /area/security/main)
-"com" = (
-/turf/open/space/basic,
-/area/quartermaster/miningdock)
 "con" = (
 /obj/machinery/newscaster{
 	pixel_y = -32
@@ -14463,10 +14464,6 @@
 /turf/open/floor/iron/dark,
 /area/medical/morgue)
 "cGc" = (
-/obj/machinery/door/airlock/maintenance{
-	id_tag = "commissarydoor";
-	req_one_access_txt = "12;63;48;50"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -14479,6 +14476,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/machinery/door/airlock/personal,
 /turf/open/floor/plating,
 /area/maintenance/port)
 "cGd" = (
@@ -17444,6 +17442,10 @@
 /obj/machinery/camera/directional/west,
 /turf/open/floor/plating,
 /area/engine/engineering)
+"dGc" = (
+/obj/machinery/camera/directional/east,
+/turf/open/floor/engine/n2,
+/area/engine/atmos)
 "dGz" = (
 /obj/machinery/light{
 	dir = 8
@@ -33882,6 +33884,10 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
+"kbJ" = (
+/obj/machinery/camera/directional/east,
+/turf/open/floor/engine/air,
+/area/engine/atmos)
 "kbW" = (
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
@@ -43739,6 +43745,7 @@
 /obj/machinery/status_display/ai{
 	pixel_x = 32
 	},
+/obj/machinery/camera/directional/east,
 /turf/open/floor/iron,
 /area/crew_quarters/dorms)
 "oaL" = (
@@ -45973,6 +45980,10 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron,
 /area/hallway/primary/port)
+"pbe" = (
+/obj/machinery/camera/directional/north,
+/turf/open/floor/engine/n2o,
+/area/engine/atmos)
 "pbA" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -48086,10 +48097,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/ai)
-"pQK" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/space)
 "pRl" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
@@ -48992,6 +48999,10 @@
 /obj/effect/landmark/navigate_destination,
 /turf/open/floor/plating/airless,
 /area/science/test_area)
+"qmO" = (
+/obj/machinery/camera/directional/north,
+/turf/open/floor/engine/plasma,
+/area/engine/atmos)
 "qnn" = (
 /obj/structure/rack,
 /obj/item/storage/box/teargas{
@@ -54737,9 +54748,6 @@
 /obj/effect/landmark/start/assistant,
 /turf/open/floor/carpet/black,
 /area/crew_quarters/bar/atrium)
-"szd" = (
-/turf/closed/wall,
-/area/space)
 "szk" = (
 /obj/machinery/flasher/portable,
 /obj/effect/turf_decal/stripes/line{
@@ -58327,6 +58335,10 @@
 	},
 /turf/open/floor/iron/white,
 /area/science/mixing)
+"tKk" = (
+/obj/machinery/camera/directional/east,
+/turf/open/floor/engine/o2,
+/area/engine/atmos)
 "tKy" = (
 /obj/structure/chair/fancy/sofa/old/right{
 	color = "#742925";
@@ -59440,6 +59452,7 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 4
 	},
+/obj/machinery/camera/directional/north,
 /turf/open/floor/iron,
 /area/crew_quarters/dorms)
 "uht" = (
@@ -89335,11 +89348,11 @@ cjt
 wRC
 wXe
 bxu
-szd
-pQK
-pQK
-szd
-szd
+bxu
+bxx
+bxx
+bxu
+bxu
 aaa
 aaa
 aaa
@@ -89596,7 +89609,7 @@ cDJ
 btC
 cnW
 vye
-szd
+bxu
 aaa
 aaa
 aaa
@@ -89853,7 +89866,7 @@ rNC
 rcM
 qvN
 hqc
-pQK
+bxx
 aaa
 aaa
 aaa
@@ -90110,7 +90123,7 @@ nQb
 tvX
 nTd
 hqc
-pQK
+bxx
 aaa
 aaa
 aaa
@@ -90367,7 +90380,7 @@ gpP
 tVO
 frc
 hqc
-pQK
+bxx
 aaa
 jZP
 jZP
@@ -90624,7 +90637,7 @@ gpP
 tVO
 kft
 mPk
-atS
+bxu
 aaf
 jZP
 nVG
@@ -90881,7 +90894,7 @@ oqd
 tVO
 kft
 uSE
-szd
+bxu
 aaa
 bxy
 fVH
@@ -91138,8 +91151,8 @@ spD
 nxw
 fvP
 tmR
-szd
-com
+bxu
+aaa
 bxy
 bxy
 fHQ
@@ -102479,7 +102492,7 @@ imP
 pwN
 ckY
 dpE
-cmU
+dGc
 cmU
 ccw
 ccw
@@ -102953,9 +102966,9 @@ aJq
 qVS
 aJq
 taa
-aJq
-oGj
 cJr
+oGj
+aJq
 aRt
 cjx
 gUu
@@ -103507,7 +103520,7 @@ imP
 rDe
 ckY
 fCv
-cmV
+tKk
 cmV
 bLK
 aaa
@@ -104535,7 +104548,7 @@ upK
 tSH
 clY
 hJe
-cmW
+kbJ
 cmW
 bLK
 aaa
@@ -105800,15 +105813,15 @@ eVa
 bPm
 bPm
 bLK
-bTW
+pbe
 bUU
 bTW
 bLK
-bXW
+qmO
 bYU
 bXW
 bLK
-cbH
+auS
 ccB
 cbH
 bLK
