@@ -46,9 +46,10 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	slot_flags = ITEM_SLOT_BELT
-	force = 2
+	force = 4.13
 	throwforce = 1
 	canblock = TRUE
+	block_flags = BLOCKING_ACTIVE
 
 	w_class = WEIGHT_CLASS_LARGE
 	item_flags = ISWEAPON
@@ -63,11 +64,8 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 
 /obj/item/sord/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	. = ..()
-	if(isitem(hitby))
-		var/obj/item/I = hitby
-		owner.attackby(src)
-		owner.attackby(src, owner)
-		owner.visible_message(span_danger("[owner] can't get a grip, and stabs himself with both the [I] and the[src] while trying to parry the [I]!"))
+	owner.attackby(src, owner)
+	owner.visible_message(span_danger("[owner] can't get a grip, and stabs himself with the [src] while trying to parry the [hitby]!"))
 
 /obj/item/claymore
 	name = "claymore"
