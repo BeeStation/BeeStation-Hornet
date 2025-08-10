@@ -7820,6 +7820,9 @@
 	dir = 8
 	},
 /obj/structure/lattice/catwalk,
+/obj/machinery/atmospherics/components/unary/outlet_injector/on{
+	dir = 8
+	},
 /turf/open/space,
 /area/engine/atmos)
 "baj" = (
@@ -8426,11 +8429,17 @@
 /area/space)
 "beD" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/effect/turf_decal/bot,
 /obj/machinery/vending/wardrobe/atmos_wardrobe,
+/obj/machinery/atmospherics/pipe/smart/simple/green/visible/layer1{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/engine/atmos)
 "beF" = (
@@ -10865,7 +10874,11 @@
 /turf/open/floor/iron/dark,
 /area/security/main)
 "btW" = (
-)
+/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/turf/open/floor/catwalk_floor/iron_smooth,
+/area/space)
 "bud" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/effect/turf_decal/bot,
@@ -68412,6 +68425,12 @@
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
+"qbi" = (
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
+	dir = 4
+	},
+/turf/closed/wall/r_wall,
+/area/space)
 "qbk" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -93500,6 +93519,18 @@
 	icon_state = "chapel"
 	},
 /area/chapel/main)
+"xQp" = (
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/green/visible/layer1{
+	dir = 8
+	},
+/turf/open/floor/catwalk_floor/iron,
+/area/engine/atmos)
 "xQq" = (
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /obj/structure/cable/yellow{
@@ -120431,11 +120462,11 @@ aWH
 bhn
 oPr
 bkR
-jWU
-bad
+xQp
+oOj
 bqc
 bws
-bad
+oOj
 bvi
 bwz
 bxN
@@ -122472,7 +122503,7 @@ alT
 aKe
 alT
 aML
-btW
+qbi
 aRF
 aRF
 aTg
