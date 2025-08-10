@@ -186,7 +186,7 @@
 
 	block_power = 35
 	block_sound = 'sound/weapons/egloves.ogg'
-	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE | BLOCKING_UNBLOCKABLE
 	embedding = list("embed_chance" = 200, "armour_block" = 60, "max_pain_mult" = 15)
 
 	active_throwforce = 35 // Does a lot of damage on throw, but will embed

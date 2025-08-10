@@ -332,7 +332,7 @@
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	w_class = WEIGHT_CLASS_HUGE
-	slot_flags = ITEM_SLOT_BACK|ITEM_SLOT_BELT
+	slot_flags = ITEM_SLOT_BACK | ITEM_SLOT_BELT
 	block_flags = BLOCKING_NASTY | BLOCKING_ACTIVE
 	canblock = TRUE
 	block_power = 30
@@ -407,6 +407,7 @@
 	worn_icon_state = "swordblue"
 	slot_flags = ITEM_SLOT_BELT
 	hitsound = 'sound/weapons/blade1.ogg'
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE | BLOCKING_UNBLOCKABLE
 
 /obj/item/nullrod/claymore/saber/red
 	name = "dark energy sword"
