@@ -16,6 +16,9 @@
 	item_flags = ISWEAPON
 	force = 12
 
+	canblock = TRUE
+	block_flags = BLOCKING_ACTIVE
+
 	attack_verb_continuous = list("robusts")
 	attack_verb_simple = list("robust")
 	hitsound = 'sound/weapons/smash.ogg'

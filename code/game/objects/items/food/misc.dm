@@ -181,8 +181,9 @@
 	force = 30
 	throwforce = 15
 	canblock = TRUE
-
 	block_power = 55
+	block_flags = BLOCKING_ACTIVE
+
 	attack_weight = 2
 	armour_penetration = 80
 	//wound_bonus = -50
