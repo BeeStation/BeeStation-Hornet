@@ -128,14 +128,14 @@
 
 /obj/projectile/bullet/shotgun_breaching
 	name = "12g breaching round"
-	desc = "A breaching round designed to destroy airlocks and windows with only a few shots, but is ineffective against other targets."
+	desc = "A breaching round designed to destroy minor objects and windows with only a few shots, but is ineffective against other targets."
 	hitsound = 'sound/weapons/sonic_jackhammer.ogg'
 	damage = 10 //does shit damage to everything except doors and windows
 	bleed_force = BLEED_SURFACE
 
 /obj/projectile/bullet/shotgun_breaching/on_hit(atom/target)
 	if(isstructure(target) || ismachinery(target))
-		damage = 500 //one shot to break a window or grille, or 3 shots to breach an airlock door
+		damage = 125 // nerfed to stop sec from instantly breaking rwalls into AI sat.
 	if (isturf(target))
-		damage = 700
+		damage = 325
 	..()
