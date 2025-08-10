@@ -101,7 +101,13 @@
 		if(source.canblock)
 			//empty line
 			readout += ""
-			readout += "It has [span_warning("[weapon_tag_convert((source.block_power * OUTPUT_MODIFIER))]")] blocking ability."
+			readout += "It should be able to block incoming attacks [(source.block_flags & BLOCKING_ACTIVE) ? "from your main-hand.":"even in your off-hand"]"
+			if(source.block_flags & BLOCKING_UNBALANCE)
+				readout += "It may be able to throw your opponent off-balance when blocking their attacks."
+			if(source.block_flags & (BLOCKING_COUNTERATTACK | BLOCKING_NASTY))
+				readout += "It is able to counter-attack while blocking."
+			if(source.block_flags & BLOCKING_PROJECTILE)
+				readout += "It can reflect laser weaponry."
 
 	// Custom manual notes
 	if(source.offensive_notes)

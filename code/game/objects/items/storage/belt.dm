@@ -927,6 +927,7 @@
 	desc = "A military grade sabre sheath."
 	icon_state = "sheath_fiber"
 	item_state = "sheath_fiber"
+	worn_icon_state = "sheath_fiber"
 
 /obj/item/storage/belt/sabre/carbon_fiber/PopulateContents()
 	new /obj/item/melee/sabre/carbon_fiber(src)
