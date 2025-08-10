@@ -82,7 +82,7 @@
 	name = "Gas Crystal"
 	desc = "Some kind of crystal, this shouldn't spawn"
 	icon = 'icons/obj/atmospherics/crystallizer_items.dmi'
-	icon_state = "bluefrag"
+	icon_state = "healium_crystal"
 	item_state = "flashbang"
 	resistance_flags = FIRE_PROOF
 
