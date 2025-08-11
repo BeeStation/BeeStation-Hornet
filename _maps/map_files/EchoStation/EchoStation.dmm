@@ -6010,7 +6010,6 @@
 /turf/open/floor/plating/rust,
 /area/science/test_area)
 "daZ" = (
-/obj/machinery/pipe_dispenser/disposal,
 /turf/open/floor/iron/smooth_half{
 	dir = 1
 	},
@@ -11823,7 +11822,6 @@
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "gdz" = (
-/obj/machinery/pipe_dispenser/disposal/transit_tube,
 /turf/open/floor/iron/smooth_half{
 	dir = 1
 	},
@@ -12454,7 +12452,6 @@
 /turf/closed/wall/r_wall,
 /area/engine/supermatter)
 "grQ" = (
-/obj/machinery/pipe_dispenser,
 /turf/open/floor/iron/smooth_half{
 	dir = 1
 	},
