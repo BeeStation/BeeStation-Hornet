@@ -128,7 +128,7 @@
 
 /obj/projectile/bullet/shotgun_breaching/on_hit(atom/target)
 	if(isstructure(target) || ismachinery(target))
-		damage = 125 // nerfed to stop sec from instantly breaking rwalls into AI sat.
+		damage = 125
 	if (isturf(target))
-		damage = 325
+		damage = 325 // nerfed to stop sec from instantly breaking rwalls into AI sat.
 	..()
