@@ -1797,7 +1797,9 @@
 	)
 	design_ids = list(
 		"pin_loyalty",
-		"shieldbelt"
+		"shieldbelt",
+		"c38_hotshot",
+		"c38_iceblox",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
