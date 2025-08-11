@@ -1,7 +1,7 @@
 /obj/projectile/bullet/shotgun_slug
 	name = "12g shotgun slug"
-	damage = 51 //For some reason this is incredibly weak even when set to high numbers, keep it high.
-	armour_penetration = 10
+	damage = 32
+	armour_penetration = 20
 
 /obj/projectile/bullet/shotgun_gold
 	name = "golden shotgun slug"
@@ -60,8 +60,8 @@
 
 /obj/projectile/bullet/pellet/shotgun_buckshot
 	name = "buckshot pellet"
-	damage = 10
-	tile_dropoff = 0.25
+	damage = 9
+	tile_dropoff = 0.75
 	armour_penetration = 25
 
 /obj/projectile/bullet/pellet/shotgun_rubbershot
