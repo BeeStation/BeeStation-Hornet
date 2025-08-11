@@ -6,7 +6,7 @@
 	icon_state = "blshell"
 	caliber = "shotgun"
 	var/high_power = TRUE
-	custom_materials = list(/datum/material/iron=4000)
+	custom_materials = list(/datum/material/iron=4000, /datum/material/gold=2000)
 	projectile_type = /obj/projectile/bullet/shotgun_slug
 
 /obj/item/ammo_casing/shotgun/beanbag
@@ -14,7 +14,7 @@
 	desc = "A weak beanbag slug for riot control."
 	icon_state = "bshell"
 	high_power = FALSE
-	custom_materials = list(/datum/material/iron=250)
+	custom_materials = list(/datum/material/iron=2500)
 	projectile_type = /obj/projectile/bullet/shotgun_beanbag
 
 /obj/item/ammo_casing/shotgun/incendiary
@@ -23,6 +23,7 @@
 	icon_state = "ishell"
 	high_power = FALSE
 	projectile_type = /obj/projectile/bullet/incendiary/shotgun
+	custom_materials = list(/datum/material/iron=4000, /datum/material/plasma=2000)
 
 /obj/item/ammo_casing/shotgun/dragonsbreath
 	name = "plasma-tipped dragonsbreath shell"
@@ -32,16 +33,17 @@
 	projectile_type = /obj/projectile/bullet/incendiary/shotgun/dragonsbreath
 	pellets = 4
 	variance = 35
+	custom_materials = list(/datum/material/iron=4000, /datum/material/plasma=4000)
 
 /obj/item/ammo_casing/shotgun/stunslug
-	name = "energy-tipped taser slug"
+	name = "copper-tipped taser slug"
 	desc = "A stunning taser slug."
 	icon_state = "stunshell"
-	custom_materials = list(/datum/material/iron=250)
+	custom_materials = list(/datum/material/iron=3000, /datum/material/diamond=2000)
 	projectile_type = /obj/projectile/bullet/shotgun_stunslug
 
 /obj/item/ammo_casing/shotgun/pulseslug
-	name = "energy-tipped pulse slug"
+	name = "copper-tipped pulse slug"
 	desc = "A delicate device which can be loaded into a shotgun. The primer acts as a button which triggers the gain medium and fires a powerful \
 	energy blast. While the heat and power drain limit it to one use, it can still allow an operator to engage targets that ballistic ammunition \
 	would have difficulty with."

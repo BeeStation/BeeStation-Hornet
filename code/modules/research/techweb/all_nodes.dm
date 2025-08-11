@@ -1138,7 +1138,7 @@
 		"mech_honker",
 		"mech_mousetrap_mortar",
 		"mech_punching_face",
-		"shotgunshellhonk",
+		"shotgunslughonk",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
@@ -1926,8 +1926,8 @@
 		"techshotshell",
 		"shotgundartcryostasis",
 		"stunshell",
-		"shotgunshellgold",
-		"shotgunshellbronze",
+		"shotgunsluggold",
+		"shotgunslugbronze",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
