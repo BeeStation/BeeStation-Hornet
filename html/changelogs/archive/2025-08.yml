@@ -195,3 +195,8 @@
   TsunamiAnt:
   - rscadd: Engineering now has oxycandles in the engie-vend
   - tweak: Hellfire candles are now cheaper.
+2025-08-11:
+  Schoolboy215:
+  - bugfix: Add previously missing hair dye receipe
+  SunShine214:
+  - bugfix: Radiation Collector Research Mode works again
