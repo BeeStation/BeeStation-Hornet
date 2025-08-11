@@ -418,4 +418,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 //for the detective aurafarming ability
 #define TRAIT_NOIR "noir" //people who are in the noir state,
 
+/// Circulation value trait for blood sources
+#define TRAIT_VALUE_CIRCULATION "circulation"
+
 // END TRAIT DEFINES

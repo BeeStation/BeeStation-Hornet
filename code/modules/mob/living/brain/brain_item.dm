@@ -250,6 +250,7 @@
 	consciousness_rating = initial(consciousness_rating) * (hypoxia / maxHealth)
 	if (owner)
 		SEND_SIGNAL(owner, COMSIG_MOB_BRAIN_CONSCIOUSNESS_UPDATE, consciousness_rating)
+	message_admins("brain has [consciousness_rating] consciousness caused by [hypoxia] hypoxia")
 
 /obj/item/organ/brain/check_damage_thresholds(mob/M)
 	. = ..()

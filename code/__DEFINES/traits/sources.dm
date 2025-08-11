@@ -150,3 +150,4 @@
 #define FROM_UNCONSCIOUS "unconscious"
 #define FROM_DRUGS "drugs"
 #define FROM_HITPOINTS "hitpoints"
+#define FROM_HEART "heart"

@@ -42,3 +42,12 @@
 /// Number between 0 and 1 representing how well blood is circulating around the body.
 /// Numbers less than 1 mean that the body is not getting enough blood-flow
 /datum/blood_source/proc/get_circulation_proportion()
+	return GET_TRAIT_VALUE(src, TRAIT_VALUE_CIRCULATION)
+
+/// Set the base circulation rating to the specified value
+/datum/blood_source/proc/set_circulation_rating(multiplier, source)
+	ADD_MULTIPLICATIVE_TRAIT(src, TRAIT_VALUE_CIRCULATION, source, multiplier)
+
+/// Multiply the circulation rating by the specified value
+/datum/blood_source/proc/multiply_circulation_rating(multiplier, source)
+	ADD_MULTIPLICATIVE_TRAIT(src, TRAIT_VALUE_CIRCULATION, source, multiplier)

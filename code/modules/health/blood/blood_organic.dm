@@ -142,8 +142,6 @@
 /datum/blood_source/organic/get_circulation_proportion()
 	if (!owner.needs_heart())
 		return 1
-	if (owner.undergoing_cardiac_arrest())
-		return 0
-	return 1
+	return ..()
 
 #undef BLOOD_DRIP_RATE_MOD
