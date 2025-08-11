@@ -52,8 +52,16 @@
 /obj/item/ammo_casing/shotgun/buckshot
 	name = "buckshot shell"
 	desc = "A gold-tipped 12 gauge buckshot shell."
-	icon_state = "gshell"
+	icon_state = "gnshell"
 	projectile_type = /obj/projectile/bullet/pellet/shotgun_buckshot
+	pellets = 6
+	variance = 10
+
+/obj/item/ammo_casing/shotgun/buckshot/armour_piercing
+	name = "armour-piercing buckshot shell"
+	desc = "A gold-tipped, armour-piercing 12 gauge buckshot shell."
+	icon_state = "gshell"
+	projectile_type = /obj/projectile/bullet/pellet/shotgun_buckshot/armour_piercing
 	pellets = 6
 	variance = 10
 

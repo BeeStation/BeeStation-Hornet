@@ -1,12 +1,12 @@
 /obj/projectile/bullet/shotgun_slug
 	name = "12g shotgun slug"
-	damage = 32
-	armour_penetration = 20
+	damage = 35 // single slug, high damage, high armour penetration, definitely more than buckshot
+	armour_penetration = 32
 
 /obj/projectile/bullet/shotgun_gold
 	name = "golden shotgun slug"
-	damage = 20
-	armour_penetration = 15
+	damage = 28
+	armour_penetration = 26
 
 /obj/projectile/bullet/shotgun_bronze
 	name = "bronze shotgun slug"
@@ -26,9 +26,10 @@
 
 /obj/projectile/bullet/shotgun_beanbag
 	name = "beanbag slug"
-	damage = 15
-	stamina = 75
-	armour_penetration = -20
+	damage = 5
+	stamina = 40
+	jitter = 5
+	armour_penetration = -10
 	bleed_force = BLEED_TINY
 
 /obj/projectile/bullet/incendiary/shotgun
@@ -58,11 +59,17 @@
 	ricochet_decay_chance = 0.9
 	bleed_force = BLEED_SCRATCH
 
+/obj/projectile/bullet/pellet/shotgun_buckshot/armour_piercing
+	name = "armour-piercing buckshot pellet"
+	damage = 4
+	tile_dropoff = 0.50
+	armour_penetration = 24
+
 /obj/projectile/bullet/pellet/shotgun_buckshot
 	name = "buckshot pellet"
-	damage = 9
-	tile_dropoff = 0.75
-	armour_penetration = 25
+	damage = 7
+	tile_dropoff = 1
+	armour_penetration = -5
 
 /obj/projectile/bullet/pellet/shotgun_rubbershot
 	name = "rubbershot pellet"

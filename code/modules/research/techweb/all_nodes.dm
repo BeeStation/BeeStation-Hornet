@@ -49,6 +49,7 @@
 		"sec_beanbag_slug",
 		"sec_Brslug",
 		"sec_bshot",
+		"sec_bapshot",
 		"sec_dart",
 		"sec_Islug",
 		"sec_rshot",

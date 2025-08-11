@@ -65,6 +65,13 @@
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 	materials = list(/datum/material/iron = 4000, /datum/material/gold = 2000)
 
+/datum/design/buckshot_armour_shell/sec
+	id = "sec_bapshot"
+	build_type = PROTOLATHE
+	category = list("Ammo")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+	materials = list(/datum/material/iron = 4000, /datum/material/gold = 2000)
+
 /datum/design/buckshot_shell/sec
 	id = "sec_bshot"
 	build_type = PROTOLATHE
