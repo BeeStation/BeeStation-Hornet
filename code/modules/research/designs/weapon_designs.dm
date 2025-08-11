@@ -407,7 +407,7 @@
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/shotgun_gold_slug
-	name = "Gold-tipped gold slug"
+	name = "Gold shotgun slug"
 	desc = "A premium version of the standard shotgun slug, all that gold made the slug less powerful."
 	id = "shotgunsluggold"
 	build_type = PROTOLATHE
@@ -417,7 +417,7 @@
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/shotgun_bronze_slug
-	name = "Bronze-tipped bronze slug"
+	name = "Bronze shotgun slug"
 	desc = "A mostly cosmetic weak version of a beanbag slug made out of bronze, or is that copper."
 	id = "shotgunslugbronze"
 	build_type = PROTOLATHE
@@ -427,7 +427,7 @@
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/shotgun_honk_slug
-	name = "Clown-tipped banana slug"
+	name = "Banana shotgun slug"
 	desc = "A slug that looks like a banana, it is not edible."
 	id = "shotgunslughonk"
 	build_type = PROTOLATHE
