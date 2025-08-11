@@ -1,12 +1,12 @@
 /obj/projectile/bullet/shotgun_slug
 	name = "12g shotgun slug"
-	damage = 35 // single slug, high damage, low armour penetration, 3 slugs to crit
-	armour_penetration = 14
+	damage = 35 // single slug, high damage, low armour penetration, 3 slugs to crit unarmoured
+	armour_penetration = 25
 
 /obj/projectile/bullet/shotgun_gold
 	name = "golden shotgun slug"
 	damage = 28
-	armour_penetration = 10
+	armour_penetration = 20
 
 /obj/projectile/bullet/shotgun_bronze
 	name = "bronze shotgun slug"
@@ -14,14 +14,14 @@
 	paralyze = 10
 	stamina = 15
 	stutter = 5
-	armour_penetration = -25
+	armour_penetration = -15
 
 /obj/projectile/bullet/shotgun_honk
 	name = "honk shotgun slug"
 	icon_state = "banana"
 	damage = 1 // 1 damage because comedy.
 	knockdown = 100
-	armour_penetration = -50
+	armour_penetration = -5
 	bleed_force = 0
 
 /obj/projectile/bullet/shotgun_beanbag
@@ -67,9 +67,9 @@
 
 /obj/projectile/bullet/pellet/shotgun_buckshot // Seperated to AP and normal buckshot
 	name = "buckshot pellet"
-	damage = 7
+	damage = 8
 	tile_dropoff = 1
-	armour_penetration = -5
+	armour_penetration = 20
 
 /obj/projectile/bullet/pellet/shotgun_rubbershot
 	name = "rubbershot pellet"
