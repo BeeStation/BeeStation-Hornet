@@ -88,32 +88,32 @@
 /datum/antagonist/ert/security // kinda handled by the base template but here for completion
 
 /datum/antagonist/ert/security/red
-	outfit = /datum/outfit/centcom/ert/security/alert
+	outfit = /datum/outfit/centcom/ert/security/amber/red
 
 /datum/antagonist/ert/engineer
 	role = "Engineer"
 	outfit = /datum/outfit/centcom/ert/engineer
 
 /datum/antagonist/ert/engineer/red
-	outfit = /datum/outfit/centcom/ert/engineer/alert
+	outfit = /datum/outfit/centcom/ert/engineer/amber/red
 
 /datum/antagonist/ert/medic
 	role = JOB_CENTCOM_MEDICAL_DOCTOR
 	outfit = /datum/outfit/centcom/ert/medic
 
 /datum/antagonist/ert/medic/red
-	outfit = /datum/outfit/centcom/ert/medic/alert
+	outfit = /datum/outfit/centcom/ert/medic/amber/red
 
 /datum/antagonist/ert/commander
 	role = "Commander"
 	outfit = /datum/outfit/centcom/ert/commander
 
 /datum/antagonist/ert/commander/red
-	outfit = /datum/outfit/centcom/ert/commander/alert
+	outfit = /datum/outfit/centcom/ert/commander/amber/red
 
 /datum/antagonist/ert/deathsquad
 	name = "Deathsquad Trooper"
-	outfit = /datum/outfit/centcom/death_commando
+	outfit = /datum/outfit/centcom/ert/death_commando
 	role = "Trooper"
 	plasmaman_outfit = /datum/outfit/plasmaman/death_commando
 
@@ -130,13 +130,6 @@
 /datum/antagonist/ert/security/inquisitor/on_gain()
 	. = ..()
 	owner.holy_role = HOLY_ROLE_PRIEST
-
-/datum/antagonist/ert/chaplain
-	role = JOB_NAME_CHAPLAIN
-	outfit = /datum/outfit/centcom/ert/chaplain
-
-/datum/antagonist/ert/chaplain/inquisitor
-	outfit = /datum/outfit/centcom/ert/chaplain/inquisitor
 
 /datum/antagonist/ert/chaplain/on_gain()
 	. = ..()
@@ -157,13 +150,13 @@
 	role = "Heavy Duty Janitor"
 	outfit = /datum/outfit/centcom/ert/janitor/heavy
 
-/datum/antagonist/ert/kudzu
+/datum/antagonist/ert/janitor/kudzu
 	role = "Weed Whacker"
-	outfit = /datum/outfit/centcom/ert/kudzu
+	outfit = /datum/outfit/centcom/ert/janitor/kudzu
 
 /datum/antagonist/ert/deathsquad/leader
 	name = "Deathsquad Officer"
-	outfit = /datum/outfit/centcom/death_commando/officer
+	outfit = /datum/outfit/centcom/ert/death_commando/officer
 	role = "Officer"
 
 /datum/antagonist/ert/intern
@@ -190,12 +183,6 @@
 	outfit = /datum/outfit/centcom/centcom_attorney
 	role = "Attorney"
 	plasmaman_outfit = /datum/outfit/plasmaman/centcom_attorney
-
-/datum/antagonist/ert/doomguy
-	name = "The Juggernaut"
-	outfit = /datum/outfit/centcom/death_commando/doomguy
-	random_names = FALSE
-	role = "The Juggernaut"
 
 /datum/antagonist/ert/clown
 	name = "Comedy Response Officer"

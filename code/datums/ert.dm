@@ -56,7 +56,7 @@
 	mission = "Conduct a routine performance review of [station_name()] and its Captain."
 
 /datum/ert/inquisition
-	roles = list(/datum/antagonist/ert/chaplain/inquisitor, /datum/antagonist/ert/security/inquisitor, /datum/antagonist/ert/medic/inquisitor)
+	roles = list(/datum/antagonist/ert/security/inquisitor, /datum/antagonist/ert/medic/inquisitor)
 	leader_role = /datum/antagonist/ert/commander/inquisitor
 	rename_team = "Inquisition"
 	mission = "Destroy any traces of paranormal activity aboard the station."
@@ -133,8 +133,8 @@
 	code = "HOOOOOOOOOONK"
 
 /datum/ert/kudzu
-	roles = list(/datum/antagonist/ert/kudzu)
-	leader_role = /datum/antagonist/ert/kudzu
+	roles = list(/datum/antagonist/ert/janitor/kudzu)
+	leader_role = /datum/antagonist/ert/janitor/kudzu
 	teamsize = 5
 	opendoors = FALSE
 	rename_team = "Weed Whackers"
