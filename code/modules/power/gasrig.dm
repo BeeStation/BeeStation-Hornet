@@ -253,7 +253,7 @@
 	. += mutable_appearance(initial(icon), "glass_overlay_1", 2)	// Layers may not be working as I expect it, if not, delete layer arg and move this after last mutable
 	if(active)
 		. += mutable_appearance(initial(icon), "overlay_1", 1)
-	if(GASRIG_MODE_REPAIR)	// Whatever "broken" is
+	if(new_mode == GASRIG_MODE_REPAIR)	// Whatever "broken" is
 		. += mutable_appearance(initial(icon), "overlay_1_broken", 1)
 
 
@@ -427,9 +427,9 @@
 
 /obj/machinery/atmospherics/components/unary/gasrig/gas_output/update_overlays()
 	. = ..()
-	if(active)
+	if(active)	// bro wtf gat_output doesn't have an active var?
 		. += mutable_appearance(initial(icon), "overlay_3")
-	if(GASRIG_MODE_REPAIR)	// Whatever "broken" is
+	if(new_mode == GASRIG_MODE_REPAIR)	// Whatever "broken" is
 		. += mutable_appearance(initial(icon), "overlay_3_broken")
 
 /obj/machinery/atmospherics/gasrig/dummy
