@@ -137,5 +137,5 @@
 	if(isstructure(target) || ismachinery(target))
 		damage = 125
 	if (isturf(target))
-		damage = 325 // nerfed to stop sec from instantly breaking rwalls into AI sat.
+		damage = 150 // 3 shots for normal walls 8 for rwalls
 	..()
