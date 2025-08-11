@@ -624,7 +624,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	//First and foremost, check for unblockable flags
 	if(isitem(hitby))
 		var/obj/item/item_hitby = hitby
-		if(item_hitby.block_flags & BLOCKING_UNBLOCKABLE && !(block_flags & BLOCKING_UNBLOCKABLE))
+		if((item_hitby.block_flags & BLOCKING_UNBLOCKABLE) && !(block_flags & BLOCKING_UNBLOCKABLE))
 			return FALSE
 
 	if(SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, owner, hitby, attack_text, damage, attack_type) & COMPONENT_HIT_REACTION_BLOCK)
@@ -654,7 +654,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	else if(owner.getStaminaLoss() >= 45)
 		to_chat(owner, span_danger("You're too exausted to block the attack!"))
 		return FALSE
-	if(block_flags & BLOCKING_ACTIVE && owner.get_active_held_item() != src) //you can still parry with the offhand
+	if((block_flags & BLOCKING_ACTIVE) && owner.get_active_held_item() != src) //you can still parry with the offhand
 		return FALSE
 	if(isprojectile(hitby)) //fucking bitflags broke this when coded in other ways
 		var/obj/projectile/P = hitby
@@ -696,7 +696,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(isliving(hitby.loc))
 		attacking_mob = hitby.loc
 
-	if(isprojectile(hitby) && block_flags & BLOCKING_PROJECTILE)
+	if(isprojectile(hitby) && (block_flags & BLOCKING_PROJECTILE))
 		var/obj/projectile/P = hitby
 		if(P.damage_type == STAMINA)
 			attackforce = 0 //Blocking disablers and tasers is free, but other projectiles do their standard damage
@@ -722,7 +722,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			attackforce = max(I.w_class * 3, attackforce * 1.5)
 
 		//Is it a weapon especially adept at counterattacks? If so we roll for one
-		if(block_flags & BLOCKING_COUNTERATTACK && prob(50))
+		if((block_flags & BLOCKING_COUNTERATTACK) && prob(50))
 			//is the item we blocked held by a mob, or was it thrown at us? We can't counter attack a thrown item.
 			if(isliving(hitby.loc))
 				var/mob/living/living_enemy = hitby.loc
@@ -730,12 +730,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 				owner.visible_message(span_danger("[owner] deftly counter-attacks while deflecting [hitby]!"))
 
 	//if it's not a weapon and it's not a projectile, we need to check for counterattacks and blocking_nasty
-	else if(attack_type == UNARMED_ATTACK && unarmed_mob && block_flags & (BLOCKING_NASTY|BLOCKING_COUNTERATTACK))
+	else if(attack_type == UNARMED_ATTACK && unarmed_mob && (block_flags & (BLOCKING_NASTY|BLOCKING_COUNTERATTACK)))
 		INVOKE_ASYNC(attacking_mob, TYPE_PROC_REF(/atom, attackby), src, owner)
 		owner.visible_message(span_danger("[attacking_mob] injures themselves on [owner]'s [src]!"))
 
 	//If this weapon is prone to knocking the opponent off balance, we want to delay their next attack and knock them down
-	if(block_flags & BLOCKING_UNBALANCE && prob(20) && attacking_mob)
+	if((block_flags & BLOCKING_UNBALANCE) && prob(20) && attacking_mob)
 		owner.visible_message(span_warning("[owner] knocks [attacking_mob] off balance!"))
 		attacking_mob.Knockdown(1 SECONDS)
 		attacking_mob.changeNext_move(CLICK_CD_MELEE * 2)
