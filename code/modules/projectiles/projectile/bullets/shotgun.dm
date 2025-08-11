@@ -1,12 +1,12 @@
 /obj/projectile/bullet/shotgun_slug
 	name = "12g shotgun slug"
-	damage = 35 // single slug, high damage, high armour penetration, definitely more than buckshot
-	armour_penetration = 32
+	damage = 35 // single slug, high damage, low armour penetration, 3 slugs to crit
+	armour_penetration = 14
 
 /obj/projectile/bullet/shotgun_gold
 	name = "golden shotgun slug"
 	damage = 28
-	armour_penetration = 26
+	armour_penetration = 10
 
 /obj/projectile/bullet/shotgun_bronze
 	name = "bronze shotgun slug"
@@ -61,9 +61,9 @@
 
 /obj/projectile/bullet/pellet/shotgun_buckshot/armour_piercing
 	name = "armour-piercing buckshot pellet"
-	damage = 4
+	damage = 6
 	tile_dropoff = 0.50
-	armour_penetration = 24
+	armour_penetration = 60
 
 /obj/projectile/bullet/pellet/shotgun_buckshot // Seperated to AP and normal buckshot
 	name = "buckshot pellet"
