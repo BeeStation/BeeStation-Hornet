@@ -65,7 +65,7 @@
 	tile_dropoff = 0.50
 	armour_penetration = 24
 
-/obj/projectile/bullet/pellet/shotgun_buckshot
+/obj/projectile/bullet/pellet/shotgun_buckshot // Seperated to AP and normal buckshot
 	name = "buckshot pellet"
 	damage = 7
 	tile_dropoff = 1

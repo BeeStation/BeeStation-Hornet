@@ -50,7 +50,7 @@
 	projectile_type = /obj/projectile/beam/pulse/shotgun
 
 /obj/item/ammo_casing/shotgun/buckshot
-	name = "buckshot shell"
+	name = "buckshot shell" //seperated into two different types.
 	desc = "A bronze-tipped 12 gauge buckshot shell."
 	icon_state = "gnshell"
 	projectile_type = /obj/projectile/bullet/pellet/shotgun_buckshot
