@@ -60906,7 +60906,6 @@
 	req_access_txt = "39"
 	},
 /obj/item/book/manual/wiki/infections,
-/obj/item/extrapolator,
 /obj/item/storage/box/beakers{
 	pixel_x = 4;
 	pixel_y = 4

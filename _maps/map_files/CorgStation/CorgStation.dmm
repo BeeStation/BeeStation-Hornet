@@ -7205,7 +7205,6 @@
 /area/science/shuttle)
 "bYC" = (
 /obj/structure/table/glass,
-/obj/item/extrapolator,
 /obj/machinery/requests_console{
 	department = "Medbay";
 	departmentType = 1;

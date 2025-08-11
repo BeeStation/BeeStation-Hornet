@@ -11821,11 +11821,6 @@
 	},
 /turf/open/floor/prison/dark,
 /area/security/prison)
-"gdz" = (
-/turf/open/floor/iron/smooth_half{
-	dir = 1
-	},
-/area/engine/engineering)
 "gdP" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/box/corners{
@@ -12451,11 +12446,6 @@
 /obj/machinery/meter,
 /turf/closed/wall/r_wall,
 /area/engine/supermatter)
-"grQ" = (
-/turf/open/floor/iron/smooth_half{
-	dir = 1
-	},
-/area/engine/engineering)
 "gse" = (
 /obj/machinery/atmospherics/pipe/smart/simple/purple/visible,
 /turf/open/floor/engine/vacuum,
@@ -33061,7 +33051,6 @@
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
 	dir = 4
 	},
-/obj/item/extrapolator,
 /obj/structure/table,
 /obj/machinery/light/small/broken/directional/north,
 /obj/item/radio/intercom/directional/north,
@@ -59022,9 +59011,9 @@ rRt
 hoG
 vxi
 pVY
-grQ
 daZ
-gdz
+daZ
+daZ
 toU
 sXB
 gqv

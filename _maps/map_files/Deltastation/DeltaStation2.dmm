@@ -81224,14 +81224,6 @@
 /area/maintenance/port/aft)
 "tZI" = (
 /obj/structure/table,
-/obj/item/extrapolator{
-	pixel_x = -3;
-	pixel_y = 6
-	},
-/obj/item/extrapolator{
-	pixel_x = 6;
-	pixel_y = 14
-	},
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 2;
 	pixel_y = -31

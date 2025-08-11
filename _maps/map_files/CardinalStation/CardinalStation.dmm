@@ -21827,7 +21827,6 @@
 	dir = 6
 	},
 /obj/structure/table,
-/obj/item/extrapolator,
 /turf/open/floor/iron/white,
 /area/medical/virology)
 "evH" = (
@@ -44571,7 +44570,6 @@
 	pixel_y = 26;
 	pixel_x = 16
 	},
-/obj/item/extrapolator,
 /turf/open/floor/iron/white,
 /area/medical/virology)
 "iXD" = (
@@ -117776,7 +117774,6 @@
 /obj/effect/turf_decal/trimline/green/filled/line{
 	dir = 5
 	},
-/obj/item/extrapolator,
 /obj/machinery/light/small/directional/north,
 /obj/machinery/firealarm{
 	pixel_y = 28

@@ -57880,7 +57880,6 @@
 "tCS" = (
 /obj/structure/table/glass,
 /obj/item/book/manual/wiki/infections,
-/obj/item/extrapolator,
 /obj/item/radio/intercom{
 	frequency = 1485;
 	name = "Station Intercom (Medbay)";
