@@ -1,4 +1,0 @@
-author: Tsar-Salat
-delete-after: true
-changes:
-  - code_imp: game compiles with no linter errors

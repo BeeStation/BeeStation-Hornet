@@ -200,3 +200,5 @@
   - bugfix: Add previously missing hair dye receipe
   SunShine214:
   - bugfix: Radiation Collector Research Mode works again
+  Tsar-Salat:
+  - code_imp: game compiles with no linter errors
