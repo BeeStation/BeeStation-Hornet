@@ -399,7 +399,18 @@
 	icon_state = "coatengineer"
 	item_state = "coatengineer"
 	armor_type = /datum/armor/wintercoat_engineering
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/t_scanner, /obj/item/construction/rcd, /obj/item/pipe_dispenser, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
+	allowed = list(
+		/obj/item/flashlight,
+		/obj/item/tank/internals/emergency_oxygen,
+		/obj/item/tank/internals/plasmaman,
+		/obj/item/t_scanner,
+		/obj/item/construction/rcd,
+		/obj/item/pipe_dispenser,
+		/obj/item/toy,
+		/obj/item/storage/fancy/cigarettes,
+		/obj/item/lighter,
+		/obj/item/gun/ballistic/rifle/rebarxbow,
+	)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/engineering
 
 
