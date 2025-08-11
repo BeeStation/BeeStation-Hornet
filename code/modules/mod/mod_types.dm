@@ -466,6 +466,7 @@
 		/obj/item/mod/module/emp_shield/advanced,
 		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/jetpack,
+		/obj/item/mod/module/active_sonar,
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack,
@@ -479,6 +480,7 @@
 		/obj/item/mod/module/emp_shield/advanced,
 		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/jetpack,
+		/obj/item/mod/module/active_sonar,
 	)
 
 /obj/item/mod/control/pre_equipped/corporate

@@ -148,7 +148,6 @@
 #define JOB_ERT_OFFICER         "Security Response Officer"
 #define JOB_ERT_ENGINEER        "Engineering Response Officer"
 #define JOB_ERT_MEDICAL_DOCTOR  "Medical Response Officer"
-#define JOB_ERT_CHAPLAIN        "Religious Response Officer"
 #define JOB_ERT_JANITOR         "Janitorial Response Officer"
 
 // CentCom
