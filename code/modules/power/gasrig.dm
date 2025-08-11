@@ -241,6 +241,21 @@
 	update_appearance()
 	gas_output.update_appearance()
 
+/obj/machinery/atmospherics/gasrig/core/update_icon_state()
+	. = ..()
+	if(active)
+		icon_state = "gasrig_1"
+	else
+		icon_state = "gasrig_1_off"
+
+/obj/machinery/atmospherics/gasrig/core/update_overlays()
+	. = ..()
+	. += mutable_appearance(initial(icon), "glass_overlay_1", 2)	// Layers may not be working as I expect it, if not, delete layer arg and move this after last mutable
+	if(active)
+		. += mutable_appearance(initial(icon), "overlay_1", 1)
+	if(GASRIG_MODE_REPAIR)	// Whatever "broken" is
+		. += mutable_appearance(initial(icon), "overlay_1_broken", 1)
+
 
 /obj/machinery/atmospherics/gasrig/core/proc/update_mode(new_mode)
 	if (mode == new_mode)
@@ -409,6 +424,13 @@
 	icon = 'icons/obj/machines/gasrig.dmi'
 	icon_state = "gasrig_port_3"
 	layer = LOW_OBJ_LAYER
+
+/obj/machinery/atmospherics/components/unary/gasrig/gas_output/update_overlays()
+	. = ..()
+	if(active)
+		. += mutable_appearance(initial(icon), "overlay_3")
+	if(GASRIG_MODE_REPAIR)	// Whatever "broken" is
+		. += mutable_appearance(initial(icon), "overlay_3_broken")
 
 /obj/machinery/atmospherics/gasrig/dummy
 	name = "\improper Advanced Gas Rig"
