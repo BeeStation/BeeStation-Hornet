@@ -141,3 +141,64 @@
       respectively.
   TsunamiAnt:
   - code_imp: dynamic point deltas are now (5,-5) not (10,-10)
+2025-08-09:
+  Nakalon:
+  - tweak: IPC brains now fit inside Robotic Torsos
+  - tweak: A warning message will appear when attempting to fit an IPC brain inside
+      a body which already has a brain (even if elsewhere)
+  - rscadd: A new surgery called Identity Recalibration can be preformed on robotic
+      torsos! (You'll need an ID)
+  - bugfix: Fixed a bug stopping players from downloading programs that had a hardware
+      requirement
+  - tweak: CE and Atmos PDAs start with a micro area recharger for compatibility with
+      the Power Monitor app.
+  - tweak: Atmos role disk was given the Power Monitor app.
+  - refactor: Refactored my own ass code to ensure this bug doesn't happen ever again.
+  - rscadd: You now get 40 beecoins at roundstart after readying up.
+  - bugfix: Fixes a bug causing qdeled modular computers to drop parts
+  Rukofamicom:
+  - bugfix: Diona no longer need to breathe at any time, instead of only being freed
+      of this burden as a nymph
+  mrmanlikesbt, LemonInTheDark, ninjanomnom:
+  - code_imp: shifted around some signal logic
+  - code_imp: micro optimizations for signal code
+  ? 'rkz, Fikou, MrMelbert, MTandi, Zonespace27, HatterHat, san7890, dawsonkeyes,
+    mc-oofert, tralezab, SmArtKar, coiax, Ryll/Shaps, Jacquerel, necromanceranne,
+    Xander3395, grungussuss, GPeckman, Holoo-1, OrionTheFox, Momo8289, Wallemations, '
+  : - rscadd: modsuits
+    - tweak: all ERT have been converted to use modsuits
+    - tweak: all antagonists that had hardsuits (Nukies, Spacewizard, Uplink Traitors)
+        have been converted to use modsuits
+    - rscadd: adds a loader modsuit for cargo to use. It is not spaceproof and has
+        very little module support, but is good for hauling crates
+    - code_imp: adds unit test to confirm all outfits apply correctly
+    - rscdel: deletes antagonist, ERT, and head of staff hardsuits
+    - refactor: refactored wizard casting to check a clothing flag, instead of a var
+    - tweak: captain's backpack now fits on both MODsuits & suit storage slots
+    - bugfix: fixes spellcards targeting. Revamps lockon component.
+    - rscadd: adds infiltrator kit, a modsuit that hides your species mutantorgans
+        like wings and antennae, with superior armor, normal runspeed and silent footsteps,
+        in exchange for no spaceproofing.
+    - refactor: refactors ninja gear to all use modsuit modules
+2025-08-10:
+  Aramix:
+  - bugfix: mail now spawns at the intended rate (max 1/minute at 5+ pop, with crate
+      still being limited to 6-12 mails)
+  Nakalon:
+  - rscdel: Retired the Pipe Dispenser Machine.
+  - rscadd: Added Engivend Vendors to Atmos. (And moved some things around to accomodate)
+  Solene and Rukofamicom:
+  - tweak: Loadout items now will be equipped on your character on spawn, replacing
+      standard job equipment (which will spawn in a box instead).
+  - bugfix: Fixed duplication of loadout items on spawn.
+  - bugfix: Loadout's will now display properly on the character panel
+  TsunamiAnt:
+  - rscadd: Engineering now has oxycandles in the engie-vend
+  - tweak: Hellfire candles are now cheaper.
+2025-08-11:
+  Schoolboy215:
+  - bugfix: Add previously missing hair dye receipe
+  SunShine214:
+  - bugfix: Radiation Collector Research Mode works again
+  Tsar-Salat:
+  - code_imp: game compiles with no linter errors

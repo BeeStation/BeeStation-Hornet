@@ -138,7 +138,7 @@
 		COMSIG_MODULE_USED,
 	), PROC_REF(module_interacted_with))
 	RegisterSignal(linked_module, COMSIG_MODULE_COOLDOWN_STARTED, PROC_REF(cooldown_started))
-	RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(pinner_deleted))
+	RegisterSignal(user, COMSIG_QDELETING, PROC_REF(pinner_deleted))
 
 /datum/action/item_action/mod/pinned_module/Destroy()
 	deltimer(cooldown_timer)

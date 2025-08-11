@@ -317,7 +317,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		CRASH("item add_item_action got a type or instance of something that wasn't an action.")
 
 	LAZYADD(actions, action)
-	RegisterSignal(action, COMSIG_PARENT_QDELETING, PROC_REF(on_action_deleted))
+	RegisterSignal(action, COMSIG_QDELETING, PROC_REF(on_action_deleted))
 	grant_action_to_bearer(action)
 	return action
 
@@ -333,7 +333,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(!action)
 		return
 
-	UnregisterSignal(action, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(action, COMSIG_QDELETING)
 	LAZYREMOVE(actions, action)
 	qdel(action)
 
