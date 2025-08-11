@@ -254,11 +254,9 @@
 	// Organ damage due to lack of blood circulation
 	if (circulation_disruption < 1)
 		var/damage_applied = (1 - circulation_disruption) * delta_time
-		for (var/obj/item/organ/organ in get_organs())
-			organ.applyOrganDamage(damage_applied * organ.decay_factor)
 		// Organic bodyparts that need blood and nothing else die without it
 		if (circulation_flags == CIRCULATION_BLOOD)
-			receive_damage(damage_applied * 0.1, 0, damage_applied * 0.3)
+			receive_damage(clamp(damage_applied * 0.1, 0, (max_damage * (1 - circulation_disruption)) - brute_dam), 0, clamp(damage_applied * 0.3, 0, (max_damage * (1 - circulation_disruption)) - stamina_dam))
 
 //Applies brute and burn damage to the organ. Returns 1 if the damage-icon states changed at all.
 //Damage will not exceed max_damage using this proc

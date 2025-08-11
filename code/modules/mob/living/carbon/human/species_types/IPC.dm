@@ -73,7 +73,7 @@
 	var/datum/action/innate/change_screen/change_screen
 
 	speak_no_tongue = FALSE  // who stole my soundblaster?! (-candy/etherware)
-	blood_type = /datum/blood_source/silicon
+	blood_type = new /datum/blood_source/silicon
 
 /datum/species/ipc/random_name(gender, unique, lastname, attempts)
 	. = "[pick(GLOB.posibrain_names)]-[rand(100, 999)]"

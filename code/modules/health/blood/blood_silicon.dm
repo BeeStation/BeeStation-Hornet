@@ -6,7 +6,7 @@
 	/// Type of the mob's blood
 	var/datum/reagent/blood_type
 
-/datum/blood_source/silicon/New(mob/living/owner)
+/datum/blood_source/silicon/Initialize(mob/living/owner)
 	. = ..()
 	// Determine the blood type
 	src.blood_type = /datum/reagent/oil

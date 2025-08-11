@@ -2,7 +2,7 @@
 	icon = 'icons/mob/pets.dmi'
 	mob_size = MOB_SIZE_SMALL
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
-	blood = /datum/blood_source/organic
+	blood = new /datum/blood_source/organic
 
 	/// if the mob is protected from being renamed by collars.
 	var/unique_pet = FALSE

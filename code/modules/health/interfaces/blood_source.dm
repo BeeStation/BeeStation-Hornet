@@ -16,7 +16,7 @@
 
 	VAR_PROTECTED/mob/living/owner
 
-/datum/blood_source/New(mob/living/owner)
+/datum/blood_source/proc/Initialize(mob/living/owner)
 	// Stop bleeding if we change the source of our blood
 	src.owner = owner
 	owner.remove_status_effect(/datum/status_effect/bleeding)

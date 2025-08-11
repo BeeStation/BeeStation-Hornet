@@ -11,6 +11,8 @@
 	attack_verb_continuous = list("attacks", "slaps", "whacks")
 	attack_verb_simple = list("attack", "slap", "whack")
 
+	healing_factor = 0
+
 	// 10 minutes of survival time before total brain death
 	decay_factor = STANDARD_ORGAN_DECAY
 
@@ -235,7 +237,7 @@
 	return FALSE
 
 /obj/item/organ/brain/on_life(delta_time, times_fired)
-	SHOULD_CALL_PARENT(FALSE)
+	..()
 	if(damage >= BRAIN_DAMAGE_DEATH) //rip
 		to_chat(owner, span_userdanger("The last spark of life in your brain fizzles out."))
 		owner.investigate_log("has been killed by brain damage.", INVESTIGATE_DEATHS)
