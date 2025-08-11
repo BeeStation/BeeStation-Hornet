@@ -77,7 +77,7 @@
 	build_type = PROTOLATHE
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
-	materials = list(/datum/material/iron = 4000, /datum/material/gold = 2000)
+	materials = list(/datum/material/iron = 4000, /datum/material/copper = 2000)
 
 /datum/design/shotgun_dart/sec
 	id = "sec_dart"

@@ -51,11 +51,12 @@
 
 /obj/item/ammo_casing/shotgun/buckshot
 	name = "buckshot shell"
-	desc = "A gold-tipped 12 gauge buckshot shell."
+	desc = "A bronze-tipped 12 gauge buckshot shell."
 	icon_state = "gnshell"
 	projectile_type = /obj/projectile/bullet/pellet/shotgun_buckshot
 	pellets = 6
 	variance = 10
+	list(/datum/material/iron=4000, /datum/material/copper=2000)
 
 /obj/item/ammo_casing/shotgun/buckshot/armour_piercing
 	name = "armour-piercing buckshot shell"

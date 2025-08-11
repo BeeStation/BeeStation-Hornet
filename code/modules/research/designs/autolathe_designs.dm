@@ -805,7 +805,7 @@
 
 /datum/design/buckshot_armour_shell
 	name = "Armour-Piercing Buckshot Shell"
-	id = "buckshot_shell"
+	id = "buckshot_armour_shell"
 	build_type = AUTOLATHE
 	materials = list(/datum/material/iron = 4000)
 	build_path = /obj/item/ammo_casing/shotgun/buckshot/armour_piercing
