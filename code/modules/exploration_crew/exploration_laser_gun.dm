@@ -125,6 +125,24 @@
 /obj/item/gun/energy/e_gun/mini/exploration/cyborg/add_seclight_point()
 	return
 
+/obj/item/gun/energy/e_gun/mini/exploration/cyborg/process(delta_time)
+	//The next process tick after the gun is fully charged, we return to normal movement speed
+	if(cell.percent() == 100)
+		var/mob/living/silicon/robot/R
+		if(iscyborg(loc))
+			R = loc
+		else if(iscyborg(loc.loc))
+			R = loc.loc
+		R?.remove_status_effect(/datum/status_effect/cyborg_sentry)
+	. = ..()
+
+/obj/item/gun/energy/e_gun/mini/exploration/cyborg/on_chamber_fired()
+	var/mob/living/silicon/robot/R
+	if(iscyborg(loc)) //Gun can only be fired from the main bar.
+		R = loc
+		R.apply_status_effect(/datum/status_effect/cyborg_sentry)
+	. = ..()
+
 //Standard disabler round
 /obj/item/ammo_casing/energy/disabler/cyborg
 	e_cost = 100 //10 shot capacity

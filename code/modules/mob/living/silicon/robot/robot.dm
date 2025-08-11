@@ -917,14 +917,6 @@
 			autoclean_toggle.Remove(src)
 			QDEL_NULL(autoclean_toggle)
 
-	if(model.cyborg_armor)
-		set_armor(/datum/armor/cyborg)
-		add_movespeed_modifier(/datum/movespeed_modifier/cyborg_armor)
-
-	else
-		set_armor(/datum/armor/none)
-		remove_movespeed_modifier(/datum/movespeed_modifier/cyborg_armor)
-
 	hat_offset = model.hat_offset
 
 	updatename()

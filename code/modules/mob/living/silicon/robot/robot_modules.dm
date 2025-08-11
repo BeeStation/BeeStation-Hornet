@@ -593,14 +593,13 @@
 	model_select_icon = "guard"
 	module_traits = list(TRAIT_PUSHIMMUNE)
 	hat_offset = 3
-	cyborg_armor = TRUE
 
 //Aside from bomb and acid, not actually a lot of armor
 /datum/armor/cyborg
-	melee = 15
-	bullet = 15
-	laser = 10
-	energy = 10
+	melee = 30
+	bullet = 30
+	laser = 30
+	energy = 30
 	bomb = 50
 	acid = 100
 
