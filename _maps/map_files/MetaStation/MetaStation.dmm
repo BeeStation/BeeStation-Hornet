@@ -5335,6 +5335,9 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
+/obj/item/clothing/gloves/color/yellow{
+	pixel_y = 6
+	},
 /turf/open/floor/iron,
 /area/storage/primary)
 "aPs" = (
@@ -5543,13 +5546,19 @@
 /turf/open/floor/iron,
 /area/quartermaster/qm)
 "aQu" = (
-/obj/structure/closet/crate{
-	opened = 1
-	},
 /obj/machinery/light{
 	dir = 8
 	},
 /obj/effect/turf_decal/delivery,
+/obj/structure/closet/crate/engineering/electrical,
+/obj/item/storage/toolbox/electrical{
+	pixel_x = 1;
+	pixel_y = -1
+	},
+/obj/item/storage/toolbox/electrical{
+	pixel_x = 1;
+	pixel_y = -1
+	},
 /turf/open/floor/iron,
 /area/storage/primary)
 "aQv" = (
@@ -10483,6 +10492,10 @@
 	},
 /obj/structure/table,
 /obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high{
+	charge = 100;
+	maxcharge = 15000
+	},
 /obj/item/stock_parts/cell/high{
 	charge = 100;
 	maxcharge = 15000
@@ -22412,12 +22425,6 @@
 /turf/open/floor/iron/dark/textured,
 /area/security/main)
 "dug" = (
-/obj/structure/table,
-/obj/item/wirecutters,
-/obj/item/flashlight{
-	pixel_x = 1;
-	pixel_y = 5
-	},
 /obj/machinery/requests_console{
 	department = "Tool Storage";
 	pixel_x = 30
@@ -40717,18 +40724,11 @@
 /turf/open/floor/iron,
 /area/engine/break_room)
 "kmY" = (
-/obj/structure/table,
-/obj/item/assembly/igniter{
-	pixel_x = -4;
-	pixel_y = -4
+/obj/effect/turf_decal/tile/red{
+	dir = 4
 	},
-/obj/item/assembly/igniter,
-/obj/item/screwdriver{
-	pixel_y = 16
-	},
-/obj/effect/turf_decal/tile/brown/half/contrasted,
 /turf/open/floor/iron,
-/area/storage/primary)
+/area/construction/storage_wing)
 "knj" = (
 /obj/machinery/camera/directional/east{
 	c_tag = "Auxiliary Tool Storage"
@@ -48242,21 +48242,15 @@
 	pixel_y = 28
 	},
 /obj/structure/table,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
+/obj/item/assembly/igniter,
+/obj/item/assembly/igniter{
+	pixel_x = -4;
+	pixel_y = -4
 	},
 /obj/item/screwdriver{
 	pixel_y = 16
 	},
-/obj/item/stack/cable_coil{
-	pixel_x = 2;
-	pixel_y = -2
-	},
-/obj/item/stack/cable_coil{
-	pixel_x = 3;
-	pixel_y = 5
-	},
+/obj/item/t_scanner,
 /turf/open/floor/iron,
 /area/storage/primary)
 "mYS" = (
@@ -53909,13 +53903,10 @@
 /turf/open/space,
 /area/space/nearstation)
 "oXI" = (
-/obj/structure/table,
 /obj/item/radio/intercom{
 	dir = 4;
 	pixel_x = 27
 	},
-/obj/item/clothing/gloves/color/yellow,
-/obj/item/t_scanner,
 /obj/effect/turf_decal/tile/brown/half/contrasted,
 /turf/open/floor/iron,
 /area/storage/primary)
@@ -64881,6 +64872,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 2
 	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "taC" = (
@@ -71682,12 +71676,12 @@
 "vuD" = (
 /obj/machinery/camera/directional/west,
 /obj/structure/rack,
-/obj/item/storage/toolbox/electrical{
-	pixel_x = 1;
-	pixel_y = -1
-	},
 /obj/effect/turf_decal/tile/brown/half/contrasted{
 	dir = 1
+	},
+/obj/item/flashlight{
+	pixel_x = 1;
+	pixel_y = 5
 	},
 /turf/open/floor/iron,
 /area/storage/primary)
@@ -103572,12 +103566,12 @@ shr
 aax
 kcV
 oKU
-cYA
+kmY
 nWC
 ley
 vDL
 oho
-kmY
+pfB
 dug
 oXI
 pfB

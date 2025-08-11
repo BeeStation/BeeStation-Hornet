@@ -14675,9 +14675,12 @@
 /turf/open/floor/plating,
 /area/maintenance/disposal)
 "dPX" = (
-/obj/structure/reagent_dispensers/water_cooler,
 /obj/machinery/light{
 	dir = 4
+	},
+/obj/structure/table/wood,
+/obj/machinery/computer/libraryconsole{
+	pixel_y = 8
 	},
 /turf/open/floor/iron/dark,
 /area/library)
@@ -17551,10 +17554,8 @@
 /turf/open/floor/catwalk_floor,
 /area/drydock/security)
 "eHv" = (
-/obj/structure/table/wood,
-/obj/machinery/computer/libraryconsole{
-	pixel_y = 8
-	},
+/obj/machinery/bookbinder,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
 /area/library)
 "eHE" = (

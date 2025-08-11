@@ -42288,6 +42288,7 @@
 /area/maintenance/starboard/fore)
 "nAF" = (
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
+/obj/effect/turf_decal/tile/green/half/contrasted,
 /turf/open/floor/iron,
 /area/crew_quarters/fitness)
 "nAP" = (

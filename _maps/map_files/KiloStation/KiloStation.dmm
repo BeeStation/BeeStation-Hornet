@@ -2357,6 +2357,10 @@
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "emmd";
+	name = "Emergency Medical Lockdown Shutters"
+	},
 /turf/open/floor/iron/dark,
 /area/medical/genetics)
 "awf" = (
@@ -6044,12 +6048,8 @@
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hos)
 "bkV" = (
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "emmd";
-	name = "Emergency Medical Lockdown Shutters"
-	},
 /obj/structure/table/reinforced,
-/turf/open/floor/plating,
+/turf/open/floor/iron/showroomfloor,
 /area/medical/medbay/central)
 "bkY" = (
 /obj/effect/turf_decal/bot,
@@ -15418,6 +15418,10 @@
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "emmd";
+	name = "Emergency Medical Lockdown Shutters"
+	},
 /turf/open/floor/iron/dark,
 /area/hallway/primary/fore)
 "deL" = (
@@ -19920,6 +19924,10 @@
 	name = "Morgue";
 	req_access_txt = "5"
 	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "emmd";
+	name = "Emergency Medical Lockdown Shutters"
+	},
 /turf/open/floor/iron/dark,
 /area/medical/genetics/cloning)
 "exs" = (
@@ -24397,10 +24405,6 @@
 	dir = 1
 	},
 /obj/structure/disposalpipe/segment,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "emmd";
-	name = "Emergency Medical Lockdown Shutters"
-	},
 /obj/structure/table/reinforced,
 /obj/item/paper_bin{
 	pixel_x = -4;
@@ -24409,7 +24413,7 @@
 /obj/item/pen{
 	pixel_x = -4
 	},
-/turf/open/floor/plating,
+/turf/open/floor/iron/showroomfloor,
 /area/medical/medbay/central)
 "fUC" = (
 /obj/structure/sign/poster/contraband/random{
@@ -25223,6 +25227,10 @@
 	req_access_txt = "5"
 	},
 /obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "emmd";
+	name = "Emergency Medical Lockdown Shutters"
+	},
 /turf/open/floor/iron/dark,
 /area/medical/genetics/cloning)
 "ghR" = (
@@ -29518,6 +29526,10 @@
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
+"hCV" = (
+/obj/effect/turf_decal/siding/wood,
+/turf/open/floor/wood,
+/area/security/interrogation_room)
 "hDu" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
@@ -37739,10 +37751,6 @@
 /area/maintenance/disposal/incinerator)
 "kla" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "emmd";
-	name = "Emergency Medical Lockdown Shutters"
-	},
 /obj/structure/desk_bell{
 	pixel_x = 8
 	},
@@ -37754,7 +37762,7 @@
 /obj/item/reagent_containers/hypospray/medipen{
 	pixel_y = 5
 	},
-/turf/open/floor/plating,
+/turf/open/floor/iron/showroomfloor,
 /area/medical/medbay/central)
 "kld" = (
 /obj/effect/turf_decal/bot,
@@ -41100,6 +41108,10 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "emmd";
+	name = "Emergency Medical Lockdown Shutters"
+	},
 /turf/open/floor/iron/dark,
 /area/medical/medbay/central)
 "lti" = (
@@ -41118,6 +41130,10 @@
 /obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "emmd";
+	name = "Emergency Medical Lockdown Shutters"
 	},
 /turf/open/floor/iron/dark,
 /area/medical/storage)
@@ -42650,12 +42666,6 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "lTO" = (
-/obj/machinery/button/door{
-	id = "quarantineshutters";
-	name = "Quarantine Lockdown";
-	req_access_txt = "39";
-	pixel_y = 26
-	},
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4;
 	color = "#439C1E"
@@ -44685,6 +44695,10 @@
 	},
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "emmd";
+	name = "Emergency Medical Lockdown Shutters"
 	},
 /turf/open/floor/iron/dark,
 /area/medical/storage)
@@ -47426,10 +47440,6 @@
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/unres{
 	dir = 8
-	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "emmd";
-	name = "Emergency Medical Lockdown Shutters"
 	},
 /obj/machinery/door/airlock/medical/glass{
 	id_tag = "medbay_front_door";
@@ -54046,6 +54056,10 @@
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "emmd";
+	name = "Emergency Medical Lockdown Shutters"
+	},
 /turf/open/floor/iron/dark,
 /area/hallway/primary/fore)
 "pzf" = (
@@ -57884,6 +57898,13 @@
 /obj/item/clothing/gloves/color/latex,
 /obj/effect/turf_decal/tile/dark_green/anticorner/contrasted{
 	dir = 1
+	},
+/obj/machinery/button/door{
+	id = "quarantineshutters";
+	name = "Quarantine Lockdown";
+	req_access_txt = "39";
+	pixel_y = 39;
+	pixel_x = 7
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/medical/virology)
@@ -63609,7 +63630,8 @@
 /obj/item/reagent_containers/dropper,
 /obj/item/reagent_containers/dropper,
 /obj/machinery/light_switch{
-	pixel_y = -24
+	pixel_y = -24;
+	pixel_x = -5
 	},
 /turf/open/floor/iron/freezer,
 /area/medical/virology)
@@ -64765,7 +64787,6 @@
 /area/engine/break_room)
 "sXf" = (
 /obj/structure/table,
-/obj/item/ai_module/supplied/quarantine,
 /obj/machinery/flasher{
 	id = "AI";
 	name = "Meatbag Pacifier";
@@ -65431,6 +65452,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "emmd";
+	name = "Emergency Medical Lockdown Shutters"
 	},
 /turf/open/floor/iron/dark,
 /area/medical/surgery)
@@ -68365,10 +68390,6 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
-	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "emmd";
-	name = "Emergency Medical Lockdown Shutters"
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
@@ -74542,17 +74563,7 @@
 	normaldoorcontrol = 1;
 	req_access_txt = "5";
 	dir = 4;
-	pixel_y = -25;
-	pixel_x = -6
-	},
-/obj/machinery/button/door{
-	id = "emmd";
-	name = "Medbay Lobby Shutters Toggle";
-	normaldoorcontrol = 1;
-	req_access_txt = "5";
-	dir = 4;
-	pixel_y = -25;
-	pixel_x = 6
+	pixel_y = -25
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/medical/medbay/central)
@@ -75824,7 +75835,6 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = "medbay_front_door";
 	name = "Medbay Desk";
 	req_access_txt = "5"
 	},
@@ -78692,13 +78702,6 @@
 	name = "Medical Lockdown Toggle";
 	pixel_x = 40;
 	pixel_y = -24
-	},
-/obj/machinery/button/door{
-	id = "quarantineshutters";
-	name = "Quarantine Lockdown";
-	pixel_x = 32;
-	pixel_y = -37;
-	req_access_txt = "39"
 	},
 /obj/effect/turf_decal/tile/dark_blue/half/contrasted,
 /obj/structure/chair/fancy/comfy{
@@ -101139,7 +101142,7 @@ ijY
 epb
 ukl
 vgK
-orr
+hCV
 iQT
 hBB
 irJ
