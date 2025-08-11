@@ -11,14 +11,16 @@
 	idle_power_usage = 2 KILOWATT
 	/// Power draw when harvesting gas (increases according to depth at Y x Depth / 200) (This will always be power usage at 200 depth)
 	active_power_usage = 25 KILOWATT
-	layer = NUCLEAR_REACTOR_LAYER
+	layer = LOW_OBJ_LAYER
 	resistance_flags = INDESTRUCTIBLE|ACID_PROOF|FIRE_PROOF
 	density = TRUE
 
 	var/depth = 0
 
-	var/set_depth = 0	// wtf is this? what should we be checking depth or set_depth?
+	/// the desired depth to approach
+	var/set_depth = 0
 	var/shield_strength = GASRIG_MAX_SHIELD_STRENGTH
+	/// used for displaying the shield strength delta
 	var/shield_strength_change = 0
 
 	var/mode = GASRIG_MODE_NORMAL
@@ -35,6 +37,8 @@
 	var/display_gas_specific_heat = 0
 
 	init_processing = TRUE
+
+	var/datum/looping_sound/gravgen/soundloop
 
 	var/obj/machinery/atmospherics/components/unary/gasrig/shielding_input/shielding_input
 
@@ -83,6 +87,9 @@
 
 /obj/machinery/atmospherics/gasrig/core/Initialize(mapload)
 	. = ..()
+	soundloop = new(src)
+	soundloop.volume = 10 //depth starts at zero so init at minimum volume
+	soundloop.start() //start immediately as it starts on
 	init_inputs()
 	init_dummies()
 	update_pipenets()
@@ -96,6 +103,7 @@
 	gas_output.Destroy()
 	for(var/obj/machinery/atmospherics/gasrig/dummy/dummy in dummies)
 		dummy.Destroy()
+	QDEL_NULL(soundloop)
 	STOP_PROCESSING(SSmachines, src)
 	return ..()
 
@@ -104,13 +112,14 @@
 	get_damage(delta_time)
 	if(machine_stat & NOPOWER)
 		update_pipenets()
+		active = FALSE //turn off since power is gone
 		return
 	if(!active)
-		update_use_power(IDLE_POWER_USE) // We're not fraking yet so power consumption is IDLE
+		update_use_power(IDLE_POWER_USE) // We're not fracking yet so power consumption is IDLE
 	if(!needs_repairs && active)
 		update_use_power(ACTIVE_POWER_USE)
 		produce_gases(gas_output.airs[1])
-	if(needs_repairs && active)	// I assume this is air leak you should comment this and explain it
+	if(needs_repairs && active)	//when repairs are needed leak gases into the turf instead of gas_output
 		produce_gases(src.loc.return_air())
 		src.air_update_turf(FALSE, FALSE)
 	approach_set_depth()
@@ -158,6 +167,7 @@
 	if (air.return_pressure() > get_output_pressure(efficiency))
 		overpressure = TRUE
 		return
+
 	overpressure = FALSE
 	calculate_power_use()
 	if((temp_depth >= GASRIG_O2[1]) && (temp_depth <= GASRIG_O2[2]))
@@ -180,7 +190,7 @@
 
 /obj/machinery/atmospherics/gasrig/core/proc/calculate_power_use()
 	var/depth = get_depth()
-	active_power_usage = initial(active_power_usage) * (depth / 200) // 100 depth is 12.5 kW/s 200 depth is 25 300 is 37.5, 1000 is 125 kW.
+	active_power_usage = max(initial(active_power_usage) * (depth / 200), 2 KILOWATT) // 100 depth is 12.5 kW/s 200 depth is 25 300 is 37.5, 1000 is 125 kW.
 
 /obj/machinery/atmospherics/gasrig/core/proc/get_fracking_efficiency(datum/gas_mixture/air)
 	var/datum/gas_mixture/temp_air = new
@@ -216,46 +226,32 @@
 			depth += min(GASRIG_DEPTH_CHANGE_SPEED, set_depth - temp_depth)
 		if (temp_depth > set_depth)
 			depth += max(-GASRIG_DEPTH_CHANGE_SPEED, set_depth - temp_depth)
-
+		soundloop.volume = max(10, floor((temp_depth / GASRIG_MAX_DEPTH) * 75))
 
 //for potential station altitude updates.
 /obj/machinery/atmospherics/gasrig/core/proc/get_depth()
 	return depth
 
-// We have a proc for this called update_icon, update_appearance() calls that and update_overlays() no need for this
-// Do it on update_icon, then when you would call this call update_appearance instead
-/obj/machinery/atmospherics/gasrig/core/proc/get_new_icon()
-	switch(mode)
-		if(GASRIG_MODE_NORMAL)
-			if(active)
-				icon_state = "gasrig_1"
-				gas_output.icon_state = "gasrig_port_3"
-				return
-		if(GASRIG_MODE_REPAIR)
-			if(active)
-				icon_state = "gasrig_1_broken"
-				gas_output.icon_state = "gasrig_port_3_broken"
-				return
-	icon_state = "gasrig_1_off"
-	gas_output.icon_state = "gasrig_port_3_off"
-	update_appearance()
-	gas_output.update_appearance()
-
 /obj/machinery/atmospherics/gasrig/core/update_icon_state()
 	. = ..()
-	if(active)
-		icon_state = "gasrig_1"
-	else
-		icon_state = "gasrig_1_off"
+	if(mode == GASRIG_MODE_NORMAL && !needs_repairs)
+		if(active)
+			icon_state = "gasrig_1"
+			return
+	icon_state = "gasrig_1_off"
+	return
 
 /obj/machinery/atmospherics/gasrig/core/update_overlays()
 	. = ..()
-	. += mutable_appearance(initial(icon), "glass_overlay_1", 2)	// Layers may not be working as I expect it, if not, delete layer arg and move this after last mutable
-	if(active)
-		. += mutable_appearance(initial(icon), "overlay_1", 1)
-	if(new_mode == GASRIG_MODE_REPAIR)	// Whatever "broken" is
-		. += mutable_appearance(initial(icon), "overlay_1_broken", 1)
+	. += mutable_appearance(initial(icon), "glass_overlay_1")	// Layers may not be working as I expect it, if not, delete layer arg and move this after last mutable
+	if(active && !needs_repairs)
+		. += mutable_appearance(initial(icon), "overlay_1")
+	if(mode == GASRIG_MODE_REPAIR)	// Whatever "broken" is
+		. += mutable_appearance(initial(icon), "overlay_1_broken")
 
+/obj/machinery/atmospherics/gasrig/core/update_appearance(updates)
+	. = ..()
+	gas_output.update_appearance()
 
 /obj/machinery/atmospherics/gasrig/core/proc/update_mode(new_mode)
 	if (mode == new_mode)
@@ -264,13 +260,23 @@
 	mode = new_mode
 	switch(new_mode)
 		if(GASRIG_MODE_NORMAL)
-			get_new_icon()
+			update_appearance()
+			if(active)
+				soundloop.start()
 		if(GASRIG_MODE_REPAIR)
 			//here so it only plays once
 			playsound(src.loc, 'sound/weapons/blastcannon.ogg', 100)
 			playsound(src.loc, 'sound/machines/hiss.ogg', 50)
-			get_new_icon()
+			update_appearance()
 			needs_repairs = TRUE
+			soundloop.stop()
+
+/obj/machinery/atmospherics/gasrig/core/proc/set_active(to_set)
+	active = to_set
+	if(!active)
+		soundloop.stop()
+		return
+	soundloop.start()
 
 /obj/machinery/atmospherics/gasrig/core/welder_act(mob/living/user, obj/item/tool)
 	if(health >= GASRIG_MAX_HEALTH)
@@ -350,9 +356,9 @@
 			set_depth = text2num(params["set_depth"])
 			. = TRUE
 		if("active")
-			active = !active
+			set_active(!active)
 			. = TRUE
-	get_new_icon()
+	update_appearance()
 		//log_gasrig(usr)
 
 /obj/machinery/atmospherics/gasrig/core/proc/add_gas_to_output(var/datum/gas/to_add, var/datum/gas_mixture/air, amount, temp)
@@ -427,9 +433,9 @@
 
 /obj/machinery/atmospherics/components/unary/gasrig/gas_output/update_overlays()
 	. = ..()
-	if(active)	// bro wtf gat_output doesn't have an active var?
+	if(parent.active)
 		. += mutable_appearance(initial(icon), "overlay_3")
-	if(new_mode == GASRIG_MODE_REPAIR)	// Whatever "broken" is
+	if(parent.mode == GASRIG_MODE_REPAIR)	// Whatever "broken" is
 		. += mutable_appearance(initial(icon), "overlay_3_broken")
 
 /obj/machinery/atmospherics/gasrig/dummy
