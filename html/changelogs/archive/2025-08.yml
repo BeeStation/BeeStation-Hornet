@@ -196,6 +196,9 @@
   - rscadd: Engineering now has oxycandles in the engie-vend
   - tweak: Hellfire candles are now cheaper.
 2025-08-11:
+  Isaac:
+  - bugfix: Medical modsuits can now fit first aid kits
+  - bugfix: You can now fit large items in extended capacity/syndicate storage modules
   Schoolboy215:
   - bugfix: Add previously missing hair dye receipe
   SunShine214:
