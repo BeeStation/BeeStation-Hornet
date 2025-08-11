@@ -172,6 +172,9 @@
 	keytype = /obj/item/key/janitor
 	empable = TRUE
 
+/datum/component/riding/vehicle/janicart/keyless
+	keytype = null
+
 /datum/component/riding/vehicle/janicart/handle_specials()
 	. = ..()
 	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 4), TEXT_SOUTH = list(0, 7), TEXT_EAST = list(-12, 7), TEXT_WEST = list( 12, 7)))
