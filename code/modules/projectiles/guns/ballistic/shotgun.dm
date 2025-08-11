@@ -36,7 +36,7 @@
 	if(chambered && istype(chambered, /obj/item/ammo_casing/p50))
 		user.log_message("fired a p50 round from [src] at [target ? target : "unknown target"]. Catastrophic failure imminent.", LOG_ATTACK, color="red")
 		if(prob(20))
-			user.log_message("[key_name(user)] fired a p50 round from [src] at and it exploded.")
+			user.log_message("[key_name(user)] fired a p50 round from [src] and it exploded.")
 			playsound(user, fire_sound, fire_sound_volume, vary_fire_sound)
 			to_chat(user, span_userdanger("[src] catastrophically explodes in your hands!"))
 			user.take_bodypart_damage(0, 40)
