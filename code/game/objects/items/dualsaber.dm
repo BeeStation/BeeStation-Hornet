@@ -25,7 +25,8 @@
 
 	block_power = 70
 	block_sound = 'sound/weapons/egloves.ogg'
-	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
+	block_flags = BLOCKING_ACTIVE | BLOCKING_COUNTERATTACK | BLOCKING_PROJECTILE | BLOCKING_UNBLOCKABLE
+
 	max_integrity = 200
 	armor_type = /datum/armor/item_dualsaber
 	resistance_flags = FIRE_PROOF
@@ -150,7 +151,7 @@
 
 /obj/item/dualsaber/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	if(ISWIELDED(src))
-		return ..()
+	return ..()
 	return 0
 
 /obj/item/dualsaber/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)  //In case thats just so happens that it is still activated on the groud, prevents hulk from picking it up

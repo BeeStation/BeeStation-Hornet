@@ -8,7 +8,7 @@
 	//Shields have no blocking cooldown so they can block until integrity gives out or 50 stamina damage is reached,
 	//be very careful if you increase this
 	block_power = 0
-	max_integrity =  75
+	max_integrity =  120
 	item_flags = ISWEAPON
 	var/transparent = FALSE	// makes beam projectiles pass through the shield
 	var/shield_break_sound = 'sound/effects/glassbr3.ogg'
@@ -26,6 +26,8 @@
 
 /obj/item/shield/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, damage, attack_type)
 	. = ..()
+	if(QDELETED(src))
+		return FALSE
 	if(owner.getStaminaLoss() >= 45)
 		//If we are too tired to keep blocking, but can't drop the shield, shatter it because something cheesy is going on
 		if(HAS_TRAIT(src, TRAIT_NODROP))
@@ -35,8 +37,10 @@
 		//Otherwise, send the shield flying out of our hand
 		else
 			var/turf/this_turf = get_turf(src)
-			var/list/turf/nearby_turfs = RANGE_TURFS(3, this_turf) - this_turf
-			throw_at(pick(nearby_turfs), 3, 1)
+			var/list/turf/nearby_turfs = RANGE_TURFS(2, this_turf) - this_turf
+			forceMove(this_turf)
+			throw_at(pick(nearby_turfs), 2, 1)
+			owner.visible_message(span_danger("[owner]'s [src] is sent flying from thier hands!"))
 			return FALSE
 
 /obj/item/shield/attackby(obj/item/weldingtool/W, mob/living/user, params)
@@ -47,7 +51,7 @@
 			user.visible_message("[user] is welding the [src].", \
 									span_notice("You begin repairing the [src]]..."))
 			if(W.use_tool(src, user, 40, volume=50))
-				atom_integrity += 10
+				atom_integrity += 20
 				user.visible_message("[user.name] has repaired some dents on [src].", \
 									span_notice("You finish repairing some of the dents on [src]."))
 			else
@@ -116,13 +120,13 @@
 	righthand_file = 'icons/mob/inhands/equipment/shields_righthand.dmi'
 	transparent = FALSE
 	custom_materials = list(/datum/material/iron=8500)
-	max_integrity = 65
+	max_integrity = 250
 	shield_break_sound = 'sound/effects/grillehit.ogg'
 
 /obj/item/shield/riot/roman/fake
 	desc = "Bears an inscription on the inside: <i>\"Romanes venio domus\"</i>. It appears to be a bit flimsy."
 
-	max_integrity = 30
+	max_integrity = 50
 
 /obj/item/shield/riot/buckler
 	name = "wooden buckler"
@@ -136,7 +140,7 @@
 	custom_materials = list(/datum/material/wood = MINERAL_MATERIAL_AMOUNT * 10)
 	resistance_flags = FLAMMABLE
 	transparent = FALSE
-	max_integrity = 55
+	max_integrity = 80
 	w_class = WEIGHT_CLASS_NORMAL
 	shield_break_sound = 'sound/effects/bang.ogg'
 

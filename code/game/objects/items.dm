@@ -727,6 +727,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			if(isliving(hitby.loc))
 				var/mob/living/living_enemy = hitby.loc
 				INVOKE_ASYNC(living_enemy, TYPE_PROC_REF(/atom, attackby), src, owner)
+				owner.visible_message(span_danger("[owner] deftly counter-attacks while deflecting [hitby]!"))
 
 	//if it's not a weapon and it's not a projectile, we need to check for counterattacks and blocking_nasty
 	else if(attack_type == UNARMED_ATTACK && unarmed_mob && block_flags & (BLOCKING_NASTY|BLOCKING_COUNTERATTACK))
@@ -735,6 +736,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	//If this weapon is prone to knocking the opponent off balance, we want to delay their next attack and knock them down
 	if(block_flags & BLOCKING_UNBALANCE && prob(20) && attacking_mob)
+		owner.visible_message(span_warning("[owner] knocks [attacking_mob] off balance!"))
 		attacking_mob.Knockdown(1 SECONDS)
 		attacking_mob.changeNext_move(CLICK_CD_MELEE * 2)
 
