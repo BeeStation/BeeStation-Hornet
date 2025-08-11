@@ -156,6 +156,9 @@
   - refactor: Refactored my own ass code to ensure this bug doesn't happen ever again.
   - rscadd: You now get 40 beecoins at roundstart after readying up.
   - bugfix: Fixes a bug causing qdeled modular computers to drop parts
+  Rukofamicom:
+  - bugfix: Diona no longer need to breathe at any time, instead of only being freed
+      of this burden as a nymph
   mrmanlikesbt, LemonInTheDark, ninjanomnom:
   - code_imp: shifted around some signal logic
   - code_imp: micro optimizations for signal code
@@ -177,3 +180,25 @@
         like wings and antennae, with superior armor, normal runspeed and silent footsteps,
         in exchange for no spaceproofing.
     - refactor: refactors ninja gear to all use modsuit modules
+2025-08-10:
+  Aramix:
+  - bugfix: mail now spawns at the intended rate (max 1/minute at 5+ pop, with crate
+      still being limited to 6-12 mails)
+  Nakalon:
+  - rscdel: Retired the Pipe Dispenser Machine.
+  - rscadd: Added Engivend Vendors to Atmos. (And moved some things around to accomodate)
+  Solene and Rukofamicom:
+  - tweak: Loadout items now will be equipped on your character on spawn, replacing
+      standard job equipment (which will spawn in a box instead).
+  - bugfix: Fixed duplication of loadout items on spawn.
+  - bugfix: Loadout's will now display properly on the character panel
+  TsunamiAnt:
+  - rscadd: Engineering now has oxycandles in the engie-vend
+  - tweak: Hellfire candles are now cheaper.
+2025-08-11:
+  Schoolboy215:
+  - bugfix: Add previously missing hair dye receipe
+  SunShine214:
+  - bugfix: Radiation Collector Research Mode works again
+  Tsar-Salat:
+  - code_imp: game compiles with no linter errors
