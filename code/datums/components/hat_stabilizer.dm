@@ -110,16 +110,18 @@
 	SIGNAL_HANDLER
 	if (isinhands)
 		return
-	if(attached_hat)
-		var/mutable_appearance/worn_overlay = attached_hat.build_worn_icon(default_layer = ABOVE_BODY_FRONT_HEAD_LAYER-0.1, default_icon_file = 'icons/mob/clothing/head/default.dmi')
-		// loose hats are slightly angled
-		if(loose_hat)
-			var/matrix/tilt_trix = matrix(worn_overlay.transform)
-			var/angle = 5
-			tilt_trix.Turn(angle * pick(1, -1))
-			worn_overlay.transform = tilt_trix
-		worn_overlay.pixel_y = pixel_y_offset + attached_hat.worn_y_offset
-		overlays += worn_overlay
+	if(!attached_hat)
+		return
+	var/mutable_appearance/worn_overlay = attached_hat.build_worn_icon(default_layer = ABOVE_BODY_FRONT_HEAD_LAYER-0.1, default_icon_file = 'icons/mob/clothing/head/default.dmi')
+	worn_overlay.appearance_flags |= RESET_COLOR
+	// loose hats are slightly angled
+	if(loose_hat)
+		var/matrix/tilt_trix = matrix(worn_overlay.transform)
+		var/angle = 5
+		tilt_trix.Turn(angle * pick(1, -1))
+		worn_overlay.transform = tilt_trix
+	worn_overlay.pixel_y = pixel_y_offset + attached_hat.worn_y_offset
+	overlays += worn_overlay
 
 /datum/component/hat_stabilizer/proc/on_qdel(atom/movable/source)
 	SIGNAL_HANDLER
