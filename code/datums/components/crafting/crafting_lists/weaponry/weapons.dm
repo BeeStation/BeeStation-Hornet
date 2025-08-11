@@ -202,6 +202,20 @@
 	category = CAT_WEAPON_RANGED
 
 
+/datum/crafting_recipe/rshotgun
+	name = "Riot Shotgun"
+	result = /obj/item/gun/ballistic/shotgun/riot
+	time = 15 SECONDS
+	tool_behaviors = list(TOOL_WRENCH, TOOL_WELDER)
+	reqs = list(
+		/obj/item/gun/ballistic/shotgun/doublebarrel/improvised = 1,
+		/obj/item/stack/rods = 5,
+		/obj/item/stack/sheet/plasteel = 10,
+		/obj/item/pipe = 2
+	)
+	category = CAT_WEAPON_RANGED
+	dangerous_craft = TRUE
+
 /datum/crafting_recipe/ishotgun
 	name = "Improvised Shotgun"
 	result = /obj/item/gun/ballistic/shotgun/doublebarrel/improvised
