@@ -199,6 +199,10 @@
   Isaac:
   - bugfix: Medical modsuits can now fit first aid kits
   - bugfix: You can now fit large items in extended capacity/syndicate storage modules
+  Rukofamicom:
+  - tweak: Toxic gas damage has been capped to 2.5 damage per second per gas, down
+      from 10 damage per second per gas. Players breathing toxic gasses will have
+      about the same time to respond as those that are breathing nothing at all now.
   Schoolboy215:
   - bugfix: Add previously missing hair dye receipe
   SunShine214:
