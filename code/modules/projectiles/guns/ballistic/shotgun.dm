@@ -32,6 +32,22 @@
 	recoil = 1
 	pb_knockback = 2
 
+/obj/item/gun/ballistic/shotgun/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
+	if(chambered && istype(chambered, /obj/item/ammo_casing/p50))
+		user.log_message("fired a p50 round from [src] at [target ? target : "unknown target"]. Catastrophic failure imminent.", LOG_ATTACK, color="red")
+		if(prob(20))
+			user.log_message("[key_name(user)] fired a p50 round from [src] at and it exploded.")
+			playsound(user, fire_sound, fire_sound_volume, vary_fire_sound)
+			to_chat(user, span_userdanger("[src] catastrophically explodes in your hands!"))
+			user.take_bodypart_damage(0, 40)
+			explosion(src, 0, 0, 2, 2)
+			qdel(chambered)
+			chambered = null
+			user.dropItemToGround(src)
+			qdel(src)
+			return FALSE
+	return ..()
+
 /obj/item/gun/ballistic/shotgun/lethal
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/lethal
 
@@ -243,7 +259,7 @@
 	sawn_desc = "I'm just here for the gasoline."
 	no_pin_required = TRUE
 	unique_reskin_icon = null
-	recoil = 1.5
+	recoil = 3
 	var/slung = FALSE
 	var/reinforced = FALSE
 	var/barrel_stress = 0

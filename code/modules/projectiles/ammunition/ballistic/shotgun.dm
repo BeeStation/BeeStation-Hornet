@@ -1,7 +1,7 @@
 // Shotgun
 
 /obj/item/ammo_casing/shotgun
-	name = "shotgun slug"
+	name = "gold-tipped shotgun slug"
 	desc = "A 12 gauge lead slug."
 	icon_state = "blshell"
 	caliber = "shotgun"
@@ -10,7 +10,7 @@
 	projectile_type = /obj/projectile/bullet/shotgun_slug
 
 /obj/item/ammo_casing/shotgun/beanbag
-	name = "beanbag slug"
+	name = "gold-tipped beanbag slug"
 	desc = "A weak beanbag slug for riot control."
 	icon_state = "bshell"
 	high_power = FALSE
@@ -18,14 +18,14 @@
 	projectile_type = /obj/projectile/bullet/shotgun_beanbag
 
 /obj/item/ammo_casing/shotgun/incendiary
-	name = "incendiary slug"
-	desc = "An incendiary-coated shotgun slug."
+	name = "plasma-tipped incendiary slug"
+	desc = "A plasma-coated shotgun slug."
 	icon_state = "ishell"
 	high_power = FALSE
 	projectile_type = /obj/projectile/bullet/incendiary/shotgun
 
 /obj/item/ammo_casing/shotgun/dragonsbreath
-	name = "dragonsbreath shell"
+	name = "plasma-tipped dragonsbreath shell"
 	desc = "A shotgun shell which fires a spread of incendiary pellets."
 	icon_state = "ishell2"
 	high_power = FALSE
@@ -34,34 +34,22 @@
 	variance = 35
 
 /obj/item/ammo_casing/shotgun/stunslug
-	name = "taser slug"
+	name = "energy-tipped taser slug"
 	desc = "A stunning taser slug."
 	icon_state = "stunshell"
 	custom_materials = list(/datum/material/iron=250)
 	projectile_type = /obj/projectile/bullet/shotgun_stunslug
 
-/obj/item/ammo_casing/shotgun/meteorslug
-	name = "meteorslug shell"
-	desc = "A shotgun shell rigged with CMC technology, which launches a massive slug when fired."
-	icon_state = "mshell"
-	projectile_type = /obj/projectile/bullet/shotgun_meteorslug
-
 /obj/item/ammo_casing/shotgun/pulseslug
-	name = "pulse slug"
+	name = "energy-tipped pulse slug"
 	desc = "A delicate device which can be loaded into a shotgun. The primer acts as a button which triggers the gain medium and fires a powerful \
 	energy blast. While the heat and power drain limit it to one use, it can still allow an operator to engage targets that ballistic ammunition \
 	would have difficulty with."
 	icon_state = "pshell"
 	projectile_type = /obj/projectile/beam/pulse/shotgun
 
-/obj/item/ammo_casing/shotgun/frag12
-	name = "FRAG-12 slug"
-	desc = "A high explosive breaching round for a 12 gauge shotgun."
-	icon_state = "heshell"
-	projectile_type = /obj/projectile/bullet/shotgun_frag12
-
 /obj/item/ammo_casing/shotgun/buckshot
-	name = "buckshot shell"
+	name = "gold-tipped buckshot shell"
 	desc = "A 12 gauge buckshot shell."
 	icon_state = "gshell"
 	projectile_type = /obj/projectile/bullet/pellet/shotgun_buckshot
@@ -69,7 +57,7 @@
 	variance = 10
 
 /obj/item/ammo_casing/shotgun/rubbershot
-	name = "rubber shot"
+	name = "bronze-tipped rubber shot"
 	desc = "A shotgun casing filled with densely-packed rubber balls, used to incapacitate crowds from a distance."
 	icon_state = "bshell"
 	high_power = FALSE
@@ -79,7 +67,7 @@
 	custom_materials = list(/datum/material/iron=4000)
 
 /obj/item/ammo_casing/shotgun/incapacitate
-	name = "custom incapacitating shot"
+	name = "improvised incapacitation shell"
 	desc = "A shotgun casing filled with... something. used to incapacitate targets."
 	icon_state = "bountyshell"
 	high_power = FALSE
@@ -106,7 +94,7 @@
 	variance = 15
 
 /obj/item/ammo_casing/shotgun/ion
-	name = "ion shell"
+	name = "gold-tipped ion shell"
 	desc = "An advanced shotgun shell which uses a subspace ansible crystal to produce an effect similar to a standard ion rifle. \
 	The unique properties of the crystal split the pulse into a spread of individually weaker bolts."
 	icon_state = "ionshell"
@@ -115,7 +103,7 @@
 	variance = 35
 
 /obj/item/ammo_casing/shotgun/laserslug
-	name = "scatter laser shell"
+	name = "gold-tipped scatter laser shell"
 	desc = "An advanced shotgun shell that uses a micro laser to replicate the effects of a scatter laser weapon in a ballistic package."
 	icon_state = "lshell"
 	projectile_type = /obj/projectile/beam/weak
@@ -123,15 +111,15 @@
 	variance = 35
 
 /obj/item/ammo_casing/shotgun/techshell
-	name = "unloaded technological shell"
+	name = "unloaded bluespace shell"
 	desc = "A high-tech shotgun shell which can be loaded with materials to produce unique effects."
 	icon_state = "cshell"
 	projectile_type = null
 
 /obj/item/ammo_casing/shotgun/dart
-	name = "shotgun dart"
+	name = "gold-tipped shotgun dart"
 	desc = "A dart for use in shotguns. Can be injected with up to 30 units of any chemical."
-	icon_state = "cshell"
+	icon_state = "dtshell"
 	high_power = FALSE
 	projectile_type = /obj/projectile/bullet/dart
 	var/reagent_amount = 30
@@ -144,7 +132,7 @@
 	return
 
 /obj/item/ammo_casing/shotgun/dart/noreact
-	name = "cryostasis shotgun dart"
+	name = "gold-tipped cryostasis shotgun dart"
 	desc = "A dart for use in shotguns, using similar technology as cryostatis beakers to keep internal reagents from reacting. Can be injected with up to 10 units of any chemical."
 	high_power = FALSE
 	icon_state = "cnrshell"
@@ -167,9 +155,30 @@
 	reagents.add_reagent(/datum/reagent/toxin/sodium_thiopental, 6)
 
 /obj/item/ammo_casing/shotgun/breacher
-	name = "breaching slug"
+	name = "bronze-tipped breaching slug"
 	desc = "A 12 gauge anti-material slug. Great for breaching airlocks and windows with minimal shots."
 	icon_state = "breacher"
 	high_power = FALSE
 	projectile_type = /obj/projectile/bullet/shotgun_breaching
+	custom_materials = list(/datum/material/iron=4000)
+
+/obj/item/ammo_casing/shotgun/gold
+	name = "gold-tipped gold slug"
+	desc = "A gold slug. Stronger than a beanbag weaker than a normal slug, but the best at flexing."
+	icon_state = "gdshell"
+	projectile_type = /obj/projectile/bullet/shotgun_gold
+	custom_materials = list(/datum/material/gold=4000)
+
+/obj/item/ammo_casing/shotgun/bronze
+	name = "bronze-tipped bronze slug"
+	desc = "A bronze slug. It acts like a weak beanbag and taser slug combined."
+	icon_state = "bzshell"
+	projectile_type = /obj/projectile/bullet/shotgun_bronze
+	custom_materials = list(/datum/material/copper=4000)
+
+/obj/item/ammo_casing/shotgun/honk
+	name = "clown-tipped banana slug"
+	desc = "Is this even a real slug? It looks like a banana."
+	icon_state = "hkshell"
+	projectile_type = /obj/projectile/bullet/shotgun_honk
 	custom_materials = list(/datum/material/iron=4000)

@@ -912,7 +912,8 @@
 
 /obj/item/storage/box/rubbershot
 	name = "box of rubber shots"
-	desc = "A box full of rubber shots, designed for riot shotguns."
+	desc = "A box full of rubber shots, designed for riot shotguns. The box is manufactured by Nano Manufacturing."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "rubbershot_box"
 	illustration = null
 
@@ -922,7 +923,8 @@
 
 /obj/item/storage/box/lethalshot
 	name = "box of lethal shotgun shots"
-	desc = "A box full of lethal shots, designed for riot shotguns."
+	desc = "A box full of lethal shots, designed for riot shotguns. The box is manufactured by Nano Defence."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "lethalshot_box"
 	illustration = null
 
@@ -932,7 +934,8 @@
 
 /obj/item/storage/box/beanbag
 	name = "box of beanbags"
-	desc = "A box full of beanbag shells."
+	desc = "A small box full of beanbag shells. The box is manufactured by Nano Manufacturing."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "rubbershot_box"
 	illustration = null
 
@@ -941,8 +944,9 @@
 		new /obj/item/ammo_casing/shotgun/beanbag(src)
 
 /obj/item/storage/box/breacherslug
-	name = "box of breaching shotgun shells"
-	desc = "A box full of breaching slugs, designed for rapid entry."
+	name = "box of breaching cartridges"
+	desc = "A small box full of breaching slugs. The box is manufactured by Breech Co."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "breachershot_box"
 	illustration = null
 
@@ -951,8 +955,9 @@
 		new /obj/item/ammo_casing/shotgun/breacher(src)
 
 /obj/item/storage/box/incapacitateshot
-	name = "box of incapacitating shotgun shots"
-	desc = "A box full of incapacitating shots, designed for shotguns."
+	name = "box of incapacitating cartridges"
+	desc = "A small box full of incapacitating shots, made for a shotgun. The box is manufactured by Bounteas Incorporated."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "incapacitateshot_box"
 	illustration = null
 

@@ -1,61 +1,54 @@
 /obj/projectile/bullet/shotgun_slug
 	name = "12g shotgun slug"
-	damage = 41
-	armour_penetration = 0
+	damage = 51 //For some reason this is incredibly weak even when set to high numbers, keep it high.
+	armour_penetration = 10
+
+/obj/projectile/bullet/shotgun_gold
+	name = "golden shotgun slug"
+	damage = 20
+	armour_penetration = 15
+
+/obj/projectile/bullet/shotgun_bronze
+	name = "bronze shotgun slug"
+	damage = 5
+	paralyze = 10
+	stamina = 15
+	stutter = 5
+	armour_penetration = -25
+
+/obj/projectile/bullet/shotgun_honk
+	name = "honk shotgun slug"
+	icon_state = "banana"
+	damage = 1 // 1 damage because comedy.
+	knockdown = 100
+	armour_penetration = -50
+	bleed_force = 0
 
 /obj/projectile/bullet/shotgun_beanbag
 	name = "beanbag slug"
-	damage = 10
-	stamina = 50
+	damage = 15
+	stamina = 75
 	armour_penetration = -20
 	bleed_force = BLEED_TINY
 
 /obj/projectile/bullet/incendiary/shotgun
 	name = "incendiary slug"
-	damage = 20
+	damage = 15
 
 /obj/projectile/bullet/incendiary/shotgun/dragonsbreath
 	name = "dragonsbreath pellet"
-	damage = 5
+	damage = 2.5
 
 /obj/projectile/bullet/shotgun_stunslug
 	name = "stunslug"
 	damage = 5
-	paralyze = 100
+	paralyze = 25
+	stamina = 25
 	stutter = 5
-	jitter = 20
-	range = 7
+	jitter = 5
+	range = 8
 	icon_state = "spark"
 	color = "#FFFF00"
-
-/obj/projectile/bullet/shotgun_meteorslug
-	name = "meteorslug"
-	icon = 'icons/obj/meteor.dmi'
-	icon_state = "dust"
-	damage = 20
-	paralyze = 20
-	hitsound = 'sound/effects/meteorimpact.ogg'
-
-/obj/projectile/bullet/shotgun_meteorslug/on_hit(atom/target, blocked = FALSE)
-	. = ..()
-	if(ismovable(target))
-		var/atom/movable/M = target
-		var/atom/throw_target = get_edge_target_turf(M, get_dir(src, get_step_away(M, src)))
-		M.safe_throw_at(throw_target, 3, 2)
-
-/obj/projectile/bullet/shotgun_meteorslug/Initialize(mapload)
-	. = ..()
-	SpinAnimation()
-
-/obj/projectile/bullet/shotgun_frag12
-	name ="frag12 slug"
-	damage = 25
-	paralyze = 10
-
-/obj/projectile/bullet/shotgun_frag12/on_hit(atom/target, blocked = FALSE)
-	..()
-	explosion(target, -1, 0, 1)
-	return BULLET_ACT_HIT
 
 /obj/projectile/bullet/pellet
 	var/tile_dropoff = 0.75
@@ -67,21 +60,21 @@
 
 /obj/projectile/bullet/pellet/shotgun_buckshot
 	name = "buckshot pellet"
-	damage = 8
-	tile_dropoff = 0.5
-	armour_penetration = 20
+	damage = 10
+	tile_dropoff = 0.25
+	armour_penetration = 25
 
 /obj/projectile/bullet/pellet/shotgun_rubbershot
 	name = "rubbershot pellet"
-	damage = 2
-	stamina = 7
+	damage = 3
+	stamina = 12
 	tile_dropoff = 0.5
 	tile_dropoff_s = 0
 	ricochets_max = 2
 	ricochet_chance = 80
 	ricochet_incidence_leeway = 60
 	ricochet_decay_chance = 0.75
-	armour_penetration = -20
+	armour_penetration = -15
 	bleed_force = BLEED_TINY
 
 /obj/projectile/bullet/pellet/shotgun_rubbershot/Range()
@@ -93,8 +86,8 @@
 
 /obj/projectile/bullet/pellet/shotgun_incapacitate
 	name = "incapacitating pellet"
-	damage = 1
-	stamina = 5
+	damage = 4
+	stamina = 15
 
 /obj/projectile/bullet/pellet/Range()
 	..()
@@ -107,7 +100,7 @@
 
 /obj/projectile/bullet/pellet/shotgun_glass
 	tile_dropoff = 0.5
-	damage = 6
+	damage = 10
 	range = 8
 	ricochets_max = 0
 	shrapnel_type = /obj/item/shrapnel/bullet/shotgun/glass

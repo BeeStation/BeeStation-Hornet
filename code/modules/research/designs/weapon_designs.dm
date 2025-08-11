@@ -345,7 +345,7 @@
 	desc = "A stunning shell for a shotgun."
 	id = "stunshell"
 	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 200)
+	materials = list(/datum/material/iron = 2000)
 	build_path = /obj/item/ammo_casing/shotgun/stunslug
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
@@ -395,10 +395,40 @@
 	desc = "A shotgun dart designed with similar internals to that of a cryostasis beaker, allowing reagents to not react when inside."
 	id = "shotgundartcryostasis"
 	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 3500)
+	materials = list(/datum/material/iron = 2000)
 	build_path = /obj/item/ammo_casing/shotgun/dart/noreact
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
+/datum/design/shotgun_gold_slug
+	name = "Gold-tipped gold slug"
+	desc = "A premium version of the standard shotgun slug, all that gold made the slug less powerful."
+	id = "shotgunsluggold"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/gold = 2000)
+	build_path = /obj/item/ammo_casing/shotgun/gold
+	category = list("Ammo")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
+/datum/design/shotgun_bronze_slug
+	name = "Bronze-tipped bronze slug"
+	desc = "A mostly cosmetic weak version of a beanbag slug made out of bronze, or is that copper."
+	id = "shotgunslugbronze"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/copper = 2000)
+	build_path = /obj/item/ammo_casing/shotgun/bronze
+	category = list("Ammo")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
+/datum/design/shotgun_honk_slug
+	name = "Clown-tipped banana slug"
+	desc = "A slug that looks like a banana, it is not edible."
+	id = "shotgunslughonk"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 2000, /datum/material/bananium = 500)
+	build_path = /obj/item/ammo_casing/shotgun/honk
+	category = list("Ammo")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY | DEPARTMENTAL_FLAG_SERVICE
 
 /datum/design/flashbulb
 	name = "Security Flashbulb"
