@@ -222,7 +222,11 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 	if (owner)
 		var/circulation_rating = owner.blood.get_circulation_proportion()
 		// How much hypoxia damage do we want to deal?
-		var/desired_hypoxia_damage = circulation_rating < 0 ? INFINITY : 150 * (1 - circulation_rating)
+		var/desired_hypoxia_damage = CLAMP01(1 - circulation_rating)
+		desired_hypoxia_damage = max(0, (maxHealth * 0.6) - ((desired_hypoxia_damage ** 0.3) / ((maxHealth * 0.6) ** (-0.7))))
+		if (desired_hypoxia_damage > 0.6 * maxHealth)
+			desired_hypoxia_damage = maxHealth * 2
+		// Increase our damage until we reach the desired threshold
 		var/damage_dealt = clamp(desired_hypoxia_damage - hypoxia, -HYPOXIA_HEAL_PER_TICK * delta_time, MAX_HYPOXIA_DAMAGE_PER_TICK * delta_time)
 		var/hypoxia_damage = min(damage_dealt, maxHealth - hypoxia)
 		// Take the damage and update the effects of it

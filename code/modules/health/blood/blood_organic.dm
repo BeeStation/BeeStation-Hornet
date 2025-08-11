@@ -46,19 +46,11 @@
 		//Effects of bloodloss
 		var/word = pick("dizzy","woozy","faint")
 
-		// How much oxyloss we want to be on
-		var/desired_damage = (source.getMaxHealth() * 1.2) * CLAMP01((volume - BLOOD_VOLUME_SURVIVE) / (BLOOD_VOLUME_NORMAL - BLOOD_VOLUME_SURVIVE))
-		// Make it so we only go unconcious at 25% blood remaining
-		desired_damage = max(0, (source.getMaxHealth() * 1.2) - ((desired_damage ** 0.3) / ((source.getMaxHealth() * 1.2) ** (-0.7))))
-		if (desired_damage >= source.getMaxHealth() * 1.2)
-			desired_damage = source.getMaxHealth() * 2.0
 		switch(volume)
 			if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)
 				if(DT_PROB(2.5, delta_time))
 					to_chat(src, span_warning("You feel [word]."))
-				//adjustOxyLoss(round(0.005 * (BLOOD_VOLUME_NORMAL - blood_volume) * delta_time, 1))
 			if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY)
-				//adjustOxyLoss(round(0.01 * (BLOOD_VOLUME_NORMAL - blood_volume) * delta_time, 1))
 				if(DT_PROB(2.5, delta_time))
 					source.blur_eyes(6)
 					to_chat(src, span_warning("You feel very [word]."))
@@ -68,12 +60,6 @@
 					source.blur_eyes(6)
 					source.Unconscious(rand(3,6))
 					to_chat(src, span_warning("You feel extremely [word]."))
-			if(-INFINITY to BLOOD_VOLUME_SURVIVE)
-				desired_damage = source.getMaxHealth() * 2.0
-				// Rapidly die with no saving you
-				source.adjustOxyLoss(clamp(source.getMaxHealth() * 2.0 - source.getOxyLoss(), 0, 10))
-		var/health_difference = clamp(desired_damage - source.getOxyLoss(), 0, 5)
-		source.adjustOxyLoss(health_difference)
 
 /// Bleed out of the mob
 /datum/blood_source/organic/bleed(amount)
@@ -142,6 +128,9 @@
 /datum/blood_source/organic/get_circulation_proportion()
 	if (!owner.needs_heart())
 		return 1
-	return ..()
+	// Multiplied by blood volume
+	var/base_proportion = ..()
+	base_proportion *= CLAMP01((volume - BLOOD_VOLUME_SURVIVE) / (BLOOD_VOLUME_NORMAL - BLOOD_VOLUME_SURVIVE))
+	return base_proportion
 
 #undef BLOOD_DRIP_RATE_MOD
