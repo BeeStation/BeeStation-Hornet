@@ -56,7 +56,7 @@
 	projectile_type = /obj/projectile/bullet/pellet/shotgun_buckshot
 	pellets = 6
 	variance = 10
-	custom_material = list(/datum/material/iron=4000, /datum/material/copper=2000)
+	custom_materials = list(/datum/material/iron=4000, /datum/material/copper=2000)
 
 /obj/item/ammo_casing/shotgun/buckshot/armour_piercing
 	name = "armour-piercing buckshot shell"
