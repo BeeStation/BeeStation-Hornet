@@ -6,6 +6,7 @@
 	var/enforce_human = TRUE
 	var/roles = list(/datum/antagonist/ert/security, /datum/antagonist/ert/medic, /datum/antagonist/ert/engineer) //List of possible roles to be assigned to ERT members.
 	var/rename_team
+	var/low_priority_leader = FALSE
 	var/code
 	var/mission = "Assist the station."
 	var/teamsize = 4
@@ -76,24 +77,25 @@
 	mission = "Assist in disaster recovery. If station loss is unavoidable, assist in evacuation and or decomissioning."
 	polldesc = "a Nanotrasen Disaster Response Team"
 	code = "blue"
+	low_priority_leader = TRUE
 
 /datum/ert/specialist/engineer
-	roles = list(/datum/antagonist/ert/engineer)
+	roles = list(/datum/antagonist/ert/engineer/blue)
 
 /datum/ert/specialist/security
-	roles = list(/datum/antagonist/ert/security)
+	roles = list(/datum/antagonist/ert/security/blue)
 
 /datum/ert/specialist/medical
-	roles = list(/datum/antagonist/ert/medic)
+	roles = list(/datum/antagonist/ert/medic/blue)
 
 /datum/ert/specialist/eng_sec
-	roles = list(/datum/antagonist/ert/engineer, /datum/antagonist/ert/security)
+	roles = list(/datum/antagonist/ert/engineer/blue, /datum/antagonist/ert/security/blue)
 
 /datum/ert/specialist/med_sec
-	roles = list(/datum/antagonist/ert/medic, /datum/antagonist/ert/security)
+	roles = list(/datum/antagonist/ert/medic/blue, /datum/antagonist/ert/security/blue)
 
 /datum/ert/specialist/eng_med
-	roles = list(/datum/antagonist/ert/engineer, /datum/antagonist/ert/medic)
+	roles = list(/datum/antagonist/ert/engineer/blue, /datum/antagonist/ert/medic/blue)
 
 /datum/ert/specialist/janitor
 	roles = list(/datum/antagonist/ert/janitor, /datum/antagonist/ert/janitor/heavy)

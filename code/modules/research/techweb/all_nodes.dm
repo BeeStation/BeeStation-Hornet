@@ -2041,7 +2041,6 @@
 		"mod_visor_sechud",
 		"mod_stealth",
 		"mod_mag_harness",
-		"mod_pathfinder",
 		"mod_holster",
 		"mod_sonar",
 		"mod_projectile_dampener",
