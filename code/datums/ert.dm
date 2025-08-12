@@ -141,23 +141,11 @@
 	mission = "Assist in legal matters."
 	polldesc = "a partnership with an up-and-coming Nanotrasen law firm"
 
-// Not yet
-
-//datum/ert/clown
-//	roles = list(/datum/antagonist/ert/clown)
-//	leader_role = /datum/antagonist/ert/clown
-//	teamsize = 7
-//	opendoors = FALSE
-//	rename_team = "The Circus"
-//	mission = "Provide vital morale support to the station in this time of crisis"
-//	code = "Banana"
-
-//datum/ert/honk
-//	roles = list(/datum/antagonist/ert/clown/honk)
-//	leader_role = /datum/antagonist/ert/clown/honk
-//	teamsize = 5
-//	opendoors = TRUE
-//	rename_team = "HONK Squad"
-//	mission = "HONK them into submission"
-//	polldesc = "an elite Nanotrasen tactical pranking squad"
-//	code = "HOOOOOOOOOONK"
+/datum/ert/clown
+	roles = list(/datum/antagonist/ert/clown)
+	leader_role = /datum/antagonist/ert/clown
+	teamsize = 4
+	opendoors = FALSE
+	rename_team = "The Circus"
+	mission = "Provide vital morale support to the station in this time of crisis"
+	code = "Banana"

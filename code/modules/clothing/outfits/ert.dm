@@ -513,7 +513,7 @@
 //////////////////////////////////////////
 /datum/outfit/centcom/centcom_clown
 	name = "Code Banana ERT"
-	id = /obj/item/card/id/centcom
+	id = /obj/item/card/id/centcom/clown
 	belt = /obj/item/modular_computer/tablet/pda/preset/clown
 	ears = /obj/item/radio/headset/headset_cent
 	uniform = /obj/item/clothing/under/rank/civilian/clown
@@ -546,21 +546,3 @@
 	W.access |= ACCESS_THEATRE
 	W.update_label(W.registered_name, W.assignment)
 	H.dna.add_mutation(/datum/mutation/clumsy)
-
-/datum/outfit/centcom/centcom_clown/honk_squad
-	name = "HONK Squad Trooper"
-	back = /obj/item/storage/backpack/holding/clown
-	shoes = /obj/item/clothing/shoes/clown_shoes/taeclowndo
-	suit = /obj/item/clothing/suit/space/hardsuit/shielded/swat/honk
-	suit_store = /obj/item/tank/internals/emergency_oxygen/double
-	l_pocket = /obj/item/bikehorn/golden
-	r_pocket = /obj/item/shield/energy/bananium
-	l_hand = /obj/item/pneumatic_cannon/pie/selfcharge
-	backpack_contents = list(
-		/obj/item/stamp/clown = 1,
-		/obj/item/reagent_containers/spray/waterflower/lube = 1,
-		/obj/item/food/grown/banana = 1,
-		/obj/item/instrument/bikehorn = 1,
-		/obj/item/megaphone/clown = 1,
-		/obj/item/reagent_containers/spray/chemsprayer/janitor/clown = 1,
-	)

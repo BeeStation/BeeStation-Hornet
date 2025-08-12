@@ -752,6 +752,15 @@ update_label("John Doe", "Clowny")
 	access = get_all_accesses()
 	. = ..()
 
+/obj/item/card/id/ert/clown
+	registered_name = JOB_ERT_CLOWN
+	assignment = JOB_ERT_CLOWN
+	icon_state = "ert"
+
+/obj/item/card/id/ert/clown/Initialize(mapload)
+	access = get_all_accesses()
+	. = ..()
+
 /obj/item/card/id/ert/kudzu
 	registered_name = "Weed Whacker"
 	assignment = "Weed Whacker"
