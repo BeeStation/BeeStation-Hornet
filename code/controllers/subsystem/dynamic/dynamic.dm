@@ -465,7 +465,7 @@ SUBSYSTEM_DEF(dynamic)
 		return
 
 	// Antags have done their jobs, good job guys
-	if(SSticker.check_finished() || EMERGENCY_ESCAPED_OR_ENDGAMED || EMERGENCY_CALLED)
+	if(SSticker.check_finished() || EMERGENCY_ESCAPED_OR_ENDGAMED || EMERGENCY_CALLED || EMERGENCY_AT_LEAST_DOCKED)
 		return
 
 	update_midround_chances()

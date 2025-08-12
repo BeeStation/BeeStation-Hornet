@@ -307,7 +307,8 @@
 			var/result = SSdynamic.execute_ruleset(midround_ruleset)
 			message_admins("[key_name(usr)] forced the midround ruleset ([midround_ruleset]) to execute - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
 			log_dynamic("[key_name(usr)] forced the midround ruleset ([midround_ruleset]) to execute - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
-			SSdynamic.midround_executed_rulesets += SSdynamic.midround_chosen_ruleset
+			if(result == DYNAMIC_EXECUTE_SUCCESS)
+				SSdynamic.midround_executed_rulesets += SSdynamic.midround_chosen_ruleset
 			SSdynamic.midround_chosen_ruleset = null
 			return TRUE
 

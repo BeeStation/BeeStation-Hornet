@@ -115,6 +115,14 @@
 /datum/dynamic_ruleset/midround/living/heretic/get_poll_icon()
 	return /obj/item/codex_cicatrix
 
+/datum/dynamic_ruleset/midround/living/obsessed/trim_candidates()
+	. = ..()
+	for(var/mob/candidate in candidates)
+		// CLANKERS GO HOME (github copilot comment)
+		if(isipc(candidate))
+			candidates -= candidate
+			continue
+
 /datum/dynamic_ruleset/midround/living/heretic/execute()
 	. = ..()
 	for(var/mob/chosen_candidate in chosen_candidates)
