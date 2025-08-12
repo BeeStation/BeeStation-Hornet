@@ -84,16 +84,18 @@ export const AtmosGasRigTemplate = (props) => {
               }
             />
             <br />
-            Shielding Strength:
-            <br />
-            {data.shield_strength_change}
-            <br />
-            <BlockQuote color="">
-              Gas Power: {data.gas_power}
+            <Box mb={2} mt={2}>
+              Shielding Strength:
               <br />
-              Specific Heat: {data.specific_heat}
+              {data.shield_strength_change}
               <br />
-            </BlockQuote>
+              <BlockQuote color="">
+                Gas Power: {data.gas_power}
+                <br />
+                Specific Heat: {data.specific_heat}
+                <br />
+              </BlockQuote>
+            </Box>
             Fracking Efficiency:
             <br />
             {data.fracking_eff}

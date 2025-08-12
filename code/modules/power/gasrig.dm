@@ -123,7 +123,7 @@
 	if(needs_repairs && active)	//when repairs are needed leak gases into the turf instead of gas_output
 		produce_gases(src.loc.return_air())
 		src.air_update_turf(FALSE, FALSE)
-	approach_set_depth()
+	approach_set_depth(delta_time)
 	update_pipenets()
 
 /obj/machinery/atmospherics/gasrig/core/examine(mob/user)
@@ -220,13 +220,13 @@
 /obj/machinery/atmospherics/gasrig/core/proc/get_output_pressure(fracking_efficiency)
 	return max(GASRIG_DEFAULT_OUTPUT_PRESSURE, fracking_efficiency * GASRIG_FRACKING_PRESSURE_MULTIPLER)
 
-/obj/machinery/atmospherics/gasrig/core/proc/approach_set_depth()
+/obj/machinery/atmospherics/gasrig/core/proc/approach_set_depth(delta_time)
 	var/temp_depth = get_depth()
 	if (temp_depth != set_depth)
 		if ((temp_depth < set_depth) && !needs_repairs)
-			depth += min(GASRIG_DEPTH_CHANGE_SPEED, set_depth - temp_depth)
+			depth += min(GASRIG_DEPTH_CHANGE_SPEED * delta_time, set_depth - temp_depth)
 		if (temp_depth > set_depth)
-			depth += max(-GASRIG_DEPTH_CHANGE_SPEED, set_depth - temp_depth)
+			depth += max(-GASRIG_DEPTH_CHANGE_SPEED * delta_time, set_depth - temp_depth)
 		soundloop.volume = max(10, floor((temp_depth / GASRIG_MAX_DEPTH) * 75))
 
 //for potential station altitude updates.
