@@ -267,18 +267,18 @@
 /obj/item/gun/ballistic/shotgun/doublebarrel/improvised/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
 	if(chambered.BB && !reinforced)
 		var/obj/item/ammo_casing/shotgun/S = chambered
-		if(prob(10 + barrel_stress) && S.high_power)	//Base 10% chance of misfiring. Goes up with each shot of high_power ammo
+		if(prob(2.5 + barrel_stress) && S.high_power)	//Base 2.5% chance of misfiring. Goes up with each shot of high_power ammo
 			backfire(user)
 			return FALSE
 
 		else if (S.high_power)
-			barrel_stress += 5
-			if (barrel_stress == 10)
+			barrel_stress += 2.5
+			if (barrel_stress == 15)
 				to_chat(user, span_warning("[src]'s barrel is left warped from the force of the shot!"))
-			else if (barrel_stress == 25)
+			else if (barrel_stress == 30)
 				to_chat(user, span_danger("[src]'s barrel cracks from the repeated strain!"))
 
-		else if (prob(5) && barrel_stress >= 30) // If the barrel is damaged enough to be cracked, flat 5% chance to detonate on low-power ammo as well.
+		else if (prob(2.5) && barrel_stress >= 30) // If the barrel is damaged enough to be cracked, flat 5% chance to detonate on low-power ammo as well.
 			backfire(user)
 			return FALSE
 	return ..()
