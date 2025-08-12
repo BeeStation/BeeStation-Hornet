@@ -13,8 +13,6 @@
 
 /datum/computer_file/program/gasrig_monitor/on_start(mob/user)
 	..()
-
-	SSnetworks.station_network
 	//for error handling
 	var/rig_found = FALSE
 	for(var/obj/machinery/atmospherics/gasrig/core/C in GLOB.machines)

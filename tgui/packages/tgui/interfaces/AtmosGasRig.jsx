@@ -103,7 +103,6 @@ export const AtmosGasRigTemplate = (props) => {
             <br />
             <br />
             {DisplayWarning(data.needs_repairs, 'Repairs needed! Use plasteel to replace damaged components.')}
-            <br />
             {DisplayWarning(data.over_pressure, 'Output pressure has exceeded maximum.')}
           </Box>
         </Flex.Item>
