@@ -1,0 +1,5 @@
+author: pixelpoepleman
+delete-after: true
+changes:
+  - rscadd: Added syringes embedding in pickpockets unless protected by thick clothes
+      (seen via examine)
