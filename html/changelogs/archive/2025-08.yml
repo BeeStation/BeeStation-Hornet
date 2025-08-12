@@ -209,3 +209,9 @@
   - bugfix: Radiation Collector Research Mode works again
   Tsar-Salat:
   - code_imp: game compiles with no linter errors
+2025-08-12:
+  Rukofamicom:
+  - bugfix: Tequila sunrise no longer makes shadowpeople and nightmares permanently
+      glow
+  - bugfix: Nightmares are now given a more accurate blurb with regard to the server
+      rules.
