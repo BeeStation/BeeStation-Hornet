@@ -183,7 +183,7 @@
 	user.log_message("[key_name(source)] is being stripped of [item.name] by [key_name(user)]", LOG_ATTACK, color="red", log_globally=FALSE)
 	item.add_fingerprint(src)
 
-	if(item.on_start_stripping(source, user, source_pocket.get_slot_by_item(item), item))
+	if(item.on_start_stripping(source, user, source_pocket.get_slot_by_item(item)))
 		return FALSE
 
 	return TRUE

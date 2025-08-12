@@ -184,7 +184,7 @@ GLOBAL_LIST_INIT(strippable_human_layout, list(
 	user.log_message(log_message, LOG_ATTACK, color="red", log_globally=FALSE)
 	item.add_fingerprint(src)
 
-	if(item.on_start_stripping(source, user, source_pocket.get_slot_by_item(item), item))
+	if(item.on_start_stripping(source, user, source_pocket.get_slot_by_item(item)))
 		return FALSE
 
 	var/result = start_unequip_mob(item, source, user, strip_delay = POCKET_STRIP_DELAY, hidden = TRUE)

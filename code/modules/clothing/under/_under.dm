@@ -388,20 +388,18 @@
 	monkey_icon = base
 	GLOB.monkey_icon_cache[identity] = icon(monkey_icon) //Don't create a reference to monkey icon
 
-/obj/item/clothing/under/on_start_stripping(mob/source, mob/user, item_slot, obj/item)
+/obj/item/clothing/under/on_start_stripping(mob/source, mob/user, item_slot)
 	if(!iscarbon(user))
 		return FALSE
 
 	var/mob/living/carbon/source_pocket = source
-	var/result = FALSE // Default to false to allow stripping to continue if the items in pockets do not interrupt stripping
 	var/obj/item/pocket_item = source_pocket.get_item_by_slot(ITEM_SLOT_LPOCKET)
 
-	if(pocket_item)
-		result = pocket_item.on_start_stripping(source, user, ITEM_SLOT_ICLOTHING, pocket_item)
+	if(pocket_item && pocket_item.on_start_stripping(source, user, ITEM_SLOT_ICLOTHING))
+		return TRUE
 
-	if(result == FALSE)
-		pocket_item = source_pocket.get_item_by_slot(ITEM_SLOT_RPOCKET)
-		if(pocket_item)
-			result = pocket_item.on_start_stripping(source, user, ITEM_SLOT_ICLOTHING, pocket_item)
+	pocket_item = source_pocket.get_item_by_slot(ITEM_SLOT_RPOCKET)
+	if(pocket_item && pocket_item.on_start_stripping(source, user, ITEM_SLOT_ICLOTHING))
+		return TRUE
 
-	return result
+	return FALSE
