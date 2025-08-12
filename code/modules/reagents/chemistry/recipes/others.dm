@@ -150,6 +150,34 @@
 	reaction_tags = REACTION_TAG_OTHER
 
 
+//prevents the disease from spreading via symptoms
+/datum/chemical_reaction/falter_virus
+	name = "Falter Virus"
+	required_reagents = list(/datum/reagent/medicine/spaceacillin = 1)
+	required_catalysts = list(/datum/reagent/blood = 1)
+
+/datum/chemical_reaction/falter_virus/check_other()
+	if(CONFIG_GET(flag/neuter_allowed))
+		return TRUE
+	return FALSE
+
+/datum/chemical_reaction/falter_virus/on_reaction(datum/reagents/holder, created_volume)
+	var/datum/disease/advance/target = find_virus(holder)
+	if(target)
+		target.faltered = TRUE
+		target.spread_flags = DISEASE_SPREAD_FALTERED
+		target.spread_text = "Intentional Injection"
+		target.logchanges(holder, "FALTER")
+
+/datum/chemical_reaction/proc/find_virus(datum/reagents/holder)
+	var/datum/reagent/blood/blood = locate(/datum/reagent/blood) in holder.reagent_list
+	if(!length(blood?.data))
+		return
+	for(var/datum/disease/advance/virus in blood.data["viruses"])
+		if(!virus.mutable)
+			continue
+		return virus
+
 ////////////////////////////////// foam and foam precursor ///////////////////////////////////////////////////
 
 
