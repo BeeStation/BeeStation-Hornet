@@ -1,0 +1,7 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - bugfix: Tequila sunrise no longer makes shadowpeople and nightmares permanently
+      glow
+  - bugfix: Nightmares are now given a more accurate blurb with regard to the server
+      rules.
