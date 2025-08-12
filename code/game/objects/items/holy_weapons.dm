@@ -747,7 +747,7 @@
 
 /obj/item/nullrod/bostaff/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/two_handed, force_unwielded=10, force_wielded=17, block_power_unwielded=25, block_power_wielded=75, icon_wielded="bostaff1")
+	AddComponent(/datum/component/two_handed, force_unwielded=10, force_wielded=14, block_power_unwielded=25, block_power_wielded=75, icon_wielded="bostaff1")
 
 /obj/item/nullrod/bostaff/update_icon_state()
 	icon_state = "bostaff0"

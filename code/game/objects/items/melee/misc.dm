@@ -66,7 +66,7 @@
 	canblock = TRUE
 
 	block_power = 50
-	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_UNBALANCE
+	block_flags = BLOCKING_ACTIVE | BLOCKING_COUNTERATTACK
 	throwforce = 10
 	w_class = WEIGHT_CLASS_BULKY
 	armour_penetration = 75

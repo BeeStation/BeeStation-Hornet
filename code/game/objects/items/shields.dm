@@ -2,16 +2,19 @@
 	name = "shield"
 	icon = 'icons/obj/shields.dmi'
 	canblock = TRUE
-
+	slot_flags = ITEM_SLOT_BACK
 	block_flags = BLOCKING_PROJECTILE
+	w_class = WEIGHT_CLASS_NORMAL
 
 	//Shields have no blocking cooldown so they can block until integrity gives out or 50 stamina damage is reached,
 	//be very careful if you increase this
-	block_power = 0
+	block_power = 20
 	max_integrity =  120
 	item_flags = ISWEAPON
 	var/transparent = FALSE	// makes beam projectiles pass through the shield
 	var/shield_break_sound = 'sound/effects/glassbr3.ogg'
+	///Energy shields do not get disarmed and instead falter
+	var/is_energy_shield = FALSE
 
 /obj/item/shield/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	if(transparent && (hitby.pass_flags & PASSTRANSPARENT))
@@ -28,7 +31,7 @@
 	. = ..()
 	if(QDELETED(src))
 		return FALSE
-	if(owner.getStaminaLoss() >= 45)
+	if(owner.getStaminaLoss() >= 45 || !is_energy_shield)
 		//If we are too tired to keep blocking, but can't drop the shield, shatter it because something cheesy is going on
 		if(HAS_TRAIT(src, TRAIT_NODROP))
 			shatter(owner)
@@ -81,9 +84,12 @@
 	icon_state = "riot"
 	lefthand_file = 'icons/mob/inhands/equipment/shields_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/shields_righthand.dmi'
-	slot_flags = ITEM_SLOT_BACK
+	item_flags = SLOWS_WHILE_IN_HAND | ISWEAPON
+	slowdown = 2
 	canblock = TRUE
-	force = 10
+	block_power = 50
+	max_integrity = 300
+	force = 5
 	throwforce = 5
 	throw_speed = 2
 	throw_range = 3
@@ -95,12 +101,7 @@
 	transparent = TRUE
 
 /obj/item/shield/riot/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/melee) && W.sharpness == BLUNT)
-		if(cooldown < world.time - 25)
-			user.visible_message(span_warning("[user] bashes [src] with [W]!"))
-			playsound(user.loc, 'sound/effects/shieldbash.ogg', 50, 1)
-			cooldown = world.time
-	else if(istype(W, /obj/item/stack/sheet/mineral/titanium))
+	if(istype(W, /obj/item/stack/sheet/mineral/titanium))
 		if (atom_integrity >= max_integrity)
 			to_chat(user, span_notice("[src] is already in perfect condition."))
 		else
@@ -125,10 +126,12 @@
 
 /obj/item/shield/riot/roman/fake
 	desc = "Bears an inscription on the inside: <i>\"Romanes venio domus\"</i>. It appears to be a bit flimsy."
+	item_flags = ISWEAPON
+	slowdown = null
+	block_power = 0
+	max_integrity = 80
 
-	max_integrity = 50
-
-/obj/item/shield/riot/buckler
+/obj/item/shield/buckler
 	name = "wooden buckler"
 	desc = "A medieval wooden buckler."
 	icon_state = "buckler"
@@ -139,24 +142,21 @@
 	righthand_file = 'icons/mob/inhands/equipment/shields_righthand.dmi'
 	custom_materials = list(/datum/material/wood = MINERAL_MATERIAL_AMOUNT * 10)
 	resistance_flags = FLAMMABLE
-	transparent = FALSE
-	max_integrity = 80
 	w_class = WEIGHT_CLASS_NORMAL
 	shield_break_sound = 'sound/effects/bang.ogg'
 
-/obj/item/shield/riot/goliath
+/obj/item/shield/goliath
 	name = "Goliath shield"
 	desc = "A shield made from interwoven plates of goliath hide."
 	icon_state = "goliath_shield"
 	item_state = "goliath_shield"
 	canblock = TRUE
+	block_power = 30
+	max_integrity = 150
 
 	lefthand_file = 'icons/mob/inhands/equipment/shields_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/shields_righthand.dmi'
 	custom_materials = null
-	transparent = FALSE
-	block_flags = BLOCKING_PROJECTILE
-	w_class = WEIGHT_CLASS_BULKY
 	shield_break_sound = 'sound/effects/bang.ogg'
 
 /obj/item/shield/riot/flash
@@ -244,6 +244,8 @@
 	max_integrity = 50
 	block_sound = 'sound/weapons/egloves.ogg'
 	block_flags = BLOCKING_PROJECTILE | BLOCKING_UNBLOCKABLE
+	block_power = 100 //Easily broken, but absorb the full impact of the blow.
+	is_energy_shield = TRUE //Prevents the shield from being disarmed in the event the holder takes stamina damage somehow
 	/// Force of the shield when active.
 	var/active_force = 10
 	/// Throwforce of the shield when active.
@@ -312,15 +314,19 @@
 	throw_speed = 3
 	throw_range = 4
 	w_class = WEIGHT_CLASS_NORMAL
+	block_power = 20
+	max_integrity =  120
+	slowdown = 0
+	item_flags = ISWEAPON
 
 /obj/item/shield/riot/tele/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/transforming, \
-		force_on = 8, \
+		force_on = 5, \
 		throwforce_on = 5, \
 		throw_speed_on = 2, \
 		hitsound_on = hitsound, \
-		w_class_on = WEIGHT_CLASS_NORMAL, \
+		w_class_on = WEIGHT_CLASS_BULKY, \
 		attack_verb_continuous_on = list("smacks", "strikes", "cracks", "beats"), \
 		attack_verb_simple_on = list("smack", "strike", "crack", "beat"))
 	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
