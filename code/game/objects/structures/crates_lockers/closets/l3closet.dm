@@ -31,8 +31,6 @@
 	if(CONFIG_GET(flag/allow_virologist))
 		new /obj/item/book/manual/wiki/infections(src)
 		new /obj/item/stack/sheet/mineral/plasma(src)
-		new /obj/item/reagent_containers/cup/glass/bottle/virusfood (src)
-		new /obj/item/reagent_containers/cup/glass/bottle/virusfood (src)
 	else
 		new /obj/item/gun/syringe (src)
 

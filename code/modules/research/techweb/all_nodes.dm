@@ -378,7 +378,6 @@
 		"surgery_pacify",
 		"surgery_revival",
 		"surgery_vein_thread",
-		"surgery_viral_bond",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000

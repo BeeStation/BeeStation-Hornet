@@ -697,13 +697,6 @@
 	surgery = /datum/surgery/advanced/pacify
 	research_icon_state = "surgery_head"
 
-/datum/design/surgery/viral_bonding
-	name = "Viral Bonding"
-	desc = "A surgical procedure that forces a symbiotic relationship between a virus and its host. The patient must be dosed with spaceacillin, virus food, and formaldehyde."
-	id = "surgery_viral_bond"
-	surgery = /datum/surgery/advanced/viral_bonding
-	research_icon_state = "surgery_chest"
-
 /datum/design/surgery/healing //PLEASE ACCOUNT FOR UNIQUE HEALING BRANCHES IN THE hptech HREF (currently 2 for Brute/Burn; Combo is bonus)
 	name = "Tend Wounds"
 	desc = "An upgraded version of the original surgery."
