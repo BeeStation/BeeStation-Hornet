@@ -119,9 +119,11 @@
 				dismember_limb = TRUE
 				//You can only cut a limb off if it is already damaged enough to be fully disabled
 
-		if(dismember_limb && ((affecting.body_zone != BODY_ZONE_HEAD && affecting.body_zone != BODY_ZONE_CHEST) || stat != CONSCIOUS) && affecting.dismember(I.damtype))
-			I.add_mob_blood(src)
-			playsound(get_turf(src), I.get_dismember_sound(), 80, 1)
+		if(dismember_limb && ((affecting.body_zone != BODY_ZONE_HEAD && affecting.body_zone != BODY_ZONE_CHEST) || stat != CONSCIOUS))
+			// Ensure proper conditions before attempting dismemberment
+			if(affecting.owner == src && affecting.can_dismember() && affecting.dismember(I.damtype))
+				I.add_mob_blood(src)
+				playsound(get_turf(src), I.get_dismember_sound(), 80, 1)
 
 		return TRUE //successful attack
 
