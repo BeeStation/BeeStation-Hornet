@@ -601,7 +601,7 @@
 
 	//If they don't have a functional heart or are so damaged the drug would stop working
 	var/obj/item/organ/heart/heart = affected_mob.get_organ_slot(ORGAN_SLOT_HEART)
-	if(!heart || (heart.organ_flags & ORGAN_FAILING) || affected_mob.health < -300)
+	if(!heart || (heart.organ_flags & ORGAN_FAILING) || affected_mob.health <= -300)
 		return
 
 	ADD_TRAIT(affected_mob, TRAIT_NOCRITDAMAGE, FROM_NOOARTRIUM)
@@ -635,7 +635,7 @@
 	var/obj/item/organ/heart/heart = affected_mob.get_organ_slot(ORGAN_SLOT_HEART)
 
 	//If the heart has totally failed, or their body has taken 100 damage past the point where full death normally occurs
-	if(!heart || (heart.organ_flags & ORGAN_FAILING) || affected_mob.health < -300)
+	if(!heart || (heart.organ_flags & ORGAN_FAILING) || affected_mob.health <= -300)
 		holder.remove_reagent(/datum/reagent/drug/nooartrium, 1000)
 		return
 
@@ -666,7 +666,7 @@
 		affected_mob.adjustOrganLoss(ORGAN_SLOT_HEART, max(current_cycle, 25))
 
 		//If the mob was pushed to their absolute limits, or the above spike caused organ failure, the heart explodes
-		if(affected_mob.health < -300 || heart.organ_flags & ORGAN_FAILING)
+		if(affected_mob.health <= -300 || heart.organ_flags & ORGAN_FAILING)
 			affected_mob.add_splatter_floor(get_turf(affected_mob))
 			qdel(heart)
 			affected_mob.visible_message(span_boldwarning("[affected_mob]'s heart explodes!"))
