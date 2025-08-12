@@ -115,7 +115,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler/cyborg, /obj/item/ammo_casing/energy/laser/cutting/cyborg, /obj/item/ammo_casing/energy/laser/anti_creature/cyborg)
 	gun_charge = 1000
 	fire_rate = 1		//One shots per second
-	charge_delay = 6	//Fully charged in 60 seconds
+	charge_delay = 9	//Fully charged in 90 seconds
 	w_class = WEIGHT_CLASS_LARGE //Same weight as disabler, for the slightly higher slowdown while active
 	can_charge = FALSE
 	use_cyborg_cell = TRUE
@@ -145,7 +145,7 @@
 
 //Standard disabler round
 /obj/item/ammo_casing/energy/disabler/cyborg
-	e_cost = 100 //10 shot capacity
+	e_cost = 50 //10 shot capacity
 
 //Does 5 damage to mobs and 70 to objects, with exception to blobs
 /obj/item/ammo_casing/energy/laser/cutting/cyborg
