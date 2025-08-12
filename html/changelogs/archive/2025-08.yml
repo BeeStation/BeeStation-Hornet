@@ -215,3 +215,6 @@
       glow
   - bugfix: Nightmares are now given a more accurate blurb with regard to the server
       rules.
+  pixelpoepleman:
+  - rscadd: Added syringes embedding in pickpockets unless protected by thick clothes
+      (seen via examine)
