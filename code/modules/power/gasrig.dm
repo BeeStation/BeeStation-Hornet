@@ -113,6 +113,7 @@
 	if(machine_stat & NOPOWER)
 		update_pipenets()
 		active = FALSE //turn off since power is gone
+		soundloop.stop()
 		return
 	if(!active)
 		update_use_power(IDLE_POWER_USE) // We're not fracking yet so power consumption is IDLE
@@ -267,9 +268,8 @@
 			//here so it only plays once
 			playsound(src.loc, 'sound/weapons/blastcannon.ogg', 100)
 			playsound(src.loc, 'sound/machines/hiss.ogg', 50)
-			update_appearance()
 			needs_repairs = TRUE
-			soundloop.stop()
+			update_appearance()
 
 /obj/machinery/atmospherics/gasrig/core/proc/set_active(to_set)
 	active = to_set
@@ -433,7 +433,7 @@
 
 /obj/machinery/atmospherics/components/unary/gasrig/gas_output/update_overlays()
 	. = ..()
-	if(parent.active)
+	if(parent.active && !parent.needs_repairs)
 		. += mutable_appearance(initial(icon), "overlay_3")
 	if(parent.mode == GASRIG_MODE_REPAIR)	// Whatever "broken" is
 		. += mutable_appearance(initial(icon), "overlay_3_broken")

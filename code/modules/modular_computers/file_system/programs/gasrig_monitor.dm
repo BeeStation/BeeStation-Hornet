@@ -7,11 +7,14 @@
 	size = 4
 	tgui_id = "NtosAtmosGasRig"
 	program_icon = "clipboard-list"
+	requires_ntnet = TRUE
 	var/obj/machinery/atmospherics/gasrig/core/gasrig
 
 
 /datum/computer_file/program/gasrig_monitor/on_start(mob/user)
 	..()
+
+	SSnetworks.station_network
 	//for error handling
 	var/rig_found = FALSE
 	for(var/obj/machinery/atmospherics/gasrig/core/C in GLOB.machines)
