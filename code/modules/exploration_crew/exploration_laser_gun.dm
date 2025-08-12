@@ -145,7 +145,7 @@
 
 //Standard disabler round
 /obj/item/ammo_casing/energy/disabler/cyborg
-	e_cost = 50 //10 shot capacity
+	e_cost = 50 //20 shot capacity
 
 //Does 5 damage to mobs and 70 to objects, with exception to blobs
 /obj/item/ammo_casing/energy/laser/cutting/cyborg
