@@ -700,6 +700,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		var/obj/projectile/P = hitby
 		if(P.damage_type == STAMINA)
 			attackforce = 0 //Blocking disablers and tasers is free, but other projectiles do their standard damage
+		else
+			attackforce *= 0.5
 
 	//Alright, it isn't a projectile, are we being hit with a weapon?
 	else if(isitem(hitby))
