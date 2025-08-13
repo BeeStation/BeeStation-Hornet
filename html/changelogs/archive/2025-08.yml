@@ -218,3 +218,16 @@
   pixelpoepleman:
   - rscadd: Added syringes embedding in pickpockets unless protected by thick clothes
       (seen via examine)
+2025-08-13:
+  TsunamiAnt:
+  - config: AI laws are now weighted, with asimov being vastly more likely than anything
+      else.
+  - config: Removes crewsimov from roundstart lawsets
+  rkz, Rukofamicom:
+  - bugfix: Vehicles coded to require hands now actually require functional and empty
+      hands to operate. Most vehicles require hands, but skateboards, motorized wheelchairs
+      and Wheely Heelies do not.
+  - bugfix: Vehicles no longer have multiple riding elements applied to them, which
+      would cause very haywire things to happen.
+  - tweak: Motorized wheelchairs actually did require hands, this requirement has
+      been removed because they are propelled by a motor rather than by hand.
