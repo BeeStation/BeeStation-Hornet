@@ -151,6 +151,8 @@
 **/
 /datum/antagonist/vampire/proc/heal_vampire_organs()
 	var/mob/living/carbon/carbon_user = owner.current
+	if(!istype(carbon_user))
+		return
 
 	// Clear husk and regenerate organs
 	carbon_user.cure_husk()
