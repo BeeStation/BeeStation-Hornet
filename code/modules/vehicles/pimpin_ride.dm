@@ -6,6 +6,7 @@
 	var/obj/item/storage/bag/trash/mybag = null
 	var/floorbuffer = FALSE
 	var/datum/action/cleaning_toggle/autoclean_toggle
+	key_type = /obj/item/key/janitor
 
 /obj/vehicle/ridden/janicart/Initialize(mapload)
 	. = ..()
