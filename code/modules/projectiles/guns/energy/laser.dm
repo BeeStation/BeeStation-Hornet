@@ -51,7 +51,7 @@
 			cranking = TRUE
 			if(do_after(user, 1 SECONDS) && !fire_interrupted)
 				playsound(src, 'sound/weapons/autoguninsert.ogg', 30)
-				cell.give(50)
+				cell.give(5)
 				flick("repeater", src)
 				update_icon()
 			else
