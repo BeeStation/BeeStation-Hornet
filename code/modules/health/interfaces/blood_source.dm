@@ -22,6 +22,15 @@
 	owner.remove_status_effect(/datum/status_effect/bleeding)
 	restore_blood()
 
+/datum/blood_source/proc/transfer_to(datum/blood_source/new_source)
+	if (!new_source.status_traits)
+		new_source.status_traits = list()
+	// Copy all status traits across, as we do not want to lose values
+	// such as circulation
+	for (var/trait in status_traits)
+		var/list/trait_sources = status_traits[trait]
+		new_source.status_traits[trait] = trait_sources.Copy()
+
 /// Get the type path of the reagent used by the mob's blood
 /datum/blood_source/proc/get_blood_id()
 
@@ -46,7 +55,7 @@
 
 /// Set the base circulation rating to the specified value
 /datum/blood_source/proc/set_circulation_rating(multiplier, source)
-	ADD_MULTIPLICATIVE_TRAIT(src, TRAIT_VALUE_CIRCULATION, source, multiplier)
+	ADD_CUMULATIVE_TRAIT(src, TRAIT_VALUE_CIRCULATION, source, multiplier)
 
 /// Multiply the circulation rating by the specified value
 /datum/blood_source/proc/multiply_circulation_rating(multiplier, source)

@@ -2,6 +2,8 @@
 #define SIGNAL_REMOVETRAIT(trait_ref) "removetrait [trait_ref]"
 #define SIGNAL_UPDATETRAIT(trait_ref) "updatetrait [trait_ref]"
 
+#define FROM_TRAIT_QUEUE_HEAD "trait_queue_head"
+
 /datum/trait
 	/// Source of the trait
 	var/source
@@ -48,24 +50,35 @@
 		} \
 	} while (0)
 
-/// Add a trait to a target
+/// Add a trait to a target.
 /// Parameters:
 /// 1: The target to receive the trait
 /// 2: The key of the trait
 /// 3: The source of the trait
 /// 4: The value stored in the trait
 /// 5: The priority of the trait value
-#define ADD_VALUE_TRAIT(_target, _trait, source, _trait_value, _trait_priority) do { \
+#define ADD_VALUE_TRAIT(_target, _trait, _source, _trait_value, _trait_priority) do { \
 		if (!_target.status_traits) { \
 			_target.status_traits = list(); \
 		}; \
 		var/list/_L = _target.status_traits; \
 		var/list/target_heap = _L[_trait];\
 		if (target_heap != null) { \
-			ADD_HEAP(target_heap, new /datum/trait/priority(source, _trait_value, _trait_priority), priority, /datum/trait/priority);\
+			var/___i = 0;\
+			for (var/datum/trait/_trait_datum as anything in target_heap) { \
+				var/_T = _trait_datum.source;\
+				if (_T == _source) { \
+					REMOVE_HEAP(target_heap, _trait_datum, priority, /datum/trait/priority); \
+					if (___i == 0) {\
+						SEND_SIGNAL(_target, SIGNAL_UPDATETRAIT(_trait), _trait); \
+					}\
+				} \
+				___i++;\
+			}\
+			ADD_HEAP(target_heap, new /datum/trait/priority(_source, _trait_value, _trait_priority), priority, /datum/trait/priority);\
 		} else { \
 			target_heap = list(); \
-			ADD_HEAP(target_heap, new /datum/trait/priority(source, _trait_value, _trait_priority), priority, /datum/trait/priority);\
+			ADD_HEAP(target_heap, new /datum/trait/priority(_source, _trait_value, _trait_priority), priority, /datum/trait/priority);\
 			_L[_trait] = target_heap;\
 			SEND_SIGNAL(_target, SIGNAL_ADDTRAIT(_trait), _trait); \
 			SEND_SIGNAL(_target, SIGNAL_UPDATETRAIT(_trait), _trait); \
@@ -90,18 +103,26 @@
 		var/list/_L = _target.status_traits; \
 		var/list/_target_list = _L[_trait];\
 		if (_target_list != null) { \
-			var/datum/trait/value_head/_head = _target_list[1];\
+			var/datum/trait/value_head/_head = _target_list[FROM_TRAIT_QUEUE_HEAD];\
+			if (_target_list[_source] != null) {\
+				var/datum/trait/removed = _target_list[_source];\
+				if (removed.type == /datum/trait/add) {\
+					_head.add_cum -= removed.value;\
+				} else {\
+					_head.mult_cum -= removed.value;\
+				}\
+			}\
 			_head.add_cum += _additive_amount;\
 			_head.value = _head.add_cum * _head.mult_cum;\
-			_target_list += new /datum/trait/add(_source, _additive_amount);\
+			_target_list[_source] = new /datum/trait/add(_source, _additive_amount);\
 		} else { \
 			_target_list = list(); \
 			_L[_trait] = _target_list;\
-			_target_list += new /datum/trait/value_head();\
-			var/datum/trait/value_head/_head = _target_list[1];\
+			_target_list[FROM_TRAIT_QUEUE_HEAD] = new /datum/trait/value_head();\
+			var/datum/trait/value_head/_head = _target_list[FROM_TRAIT_QUEUE_HEAD];\
 			_head.add_cum += _additive_amount;\
 			_head.value = _additive_amount;\
-			_target_list += new /datum/trait/add(_source, _additive_amount);\
+			_target_list[_source] = new /datum/trait/add(_source, _additive_amount);\
 			SEND_SIGNAL(_target, SIGNAL_ADDTRAIT(_trait), _trait); \
 			SEND_SIGNAL(_target, SIGNAL_UPDATETRAIT(_trait), _trait); \
 		} \
@@ -125,18 +146,26 @@
 		var/list/_L = _target.status_traits; \
 		var/list/_target_list = _L[_trait];\
 		if (_target_list != null) { \
-			var/datum/trait/value_head/_head = _target_list[1];\
+			var/datum/trait/value_head/_head = _target_list[FROM_TRAIT_QUEUE_HEAD];\
+			if (_target_list[_source] != null) {\
+				var/datum/trait/removed = _target_list[_source];\
+				if (removed.type == /datum/trait/add) {\
+					_head.add_cum -= removed.value;\
+				} else {\
+					_head.mult_cum -= removed.value;\
+				}\
+			}\
 			_head.mult_cum *= _multiplicative_amount;\
 			_head.value = _head.add_cum * _head.mult_cum;\
-			_target_list += new /datum/trait/multiply(_source, _multiplicative_amount);\
+			_target_list[_source] = new /datum/trait/multiply(_source, _multiplicative_amount);\
 		} else { \
 			_target_list = list(); \
 			_L[_trait] = _target_list;\
-			_target_list += new /datum/trait/value_head();\
-			var/datum/trait/value_head/_head = _target_list[1];\
+			_target_list[FROM_TRAIT_QUEUE_HEAD] = new /datum/trait/value_head();\
+			var/datum/trait/value_head/_head = _target_list[FROM_TRAIT_QUEUE_HEAD];\
 			_head.mult_cum *= _multiplicative_amount;\
 			_head.value = 0;\
-			_target_list += new /datum/trait/multiply(_source, _multiplicative_amount);\
+			_target_list[_source] = new /datum/trait/multiply(_source, _multiplicative_amount);\
 			SEND_SIGNAL(_target, SIGNAL_ADDTRAIT(_trait), _trait); \
 			SEND_SIGNAL(_target, SIGNAL_UPDATETRAIT(_trait), _trait); \
 		} \
@@ -303,7 +332,7 @@ GLOBAL_DATUM_INIT(_trait_located, /datum/trait, null)
 
 // Note: a?:b is used because : alone breaks the terniary operator
 /// Get the value of the specified trait
-#define GET_TRAIT_VALUE(target, trait) (target.status_traits ? (length(target.status_traits[trait]) ? ((GLOB._trait_located = target.status_traits[trait][1]) && GLOB._trait_located.value) : null) : null)
+#define GET_TRAIT_VALUE(target, trait) (target.status_traits ? (length(target.status_traits[trait]) ? ((GLOB._trait_located = target.status_traits[trait][FROM_TRAIT_QUEUE_HEAD]) && GLOB._trait_located.value) : null) : null)
 
 /proc/____has_trait_not_from(datum/target, trait, source)
 	var/list/heap

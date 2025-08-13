@@ -244,12 +244,16 @@
 /// Called when a mob gains the no blood trait
 /mob/living/proc/on_no_blood_gain()
 	SIGNAL_HANDLER
+	var/datum/blood_source/previous_blood = blood
 	blood = new /datum/blood_source/none()
+	previous_blood.transfer_to(blood)
 	blood.Initialize(src)
 
 /// Called when a mob gains the no blood trait
 /mob/living/proc/on_no_blood_loss()
 	SIGNAL_HANDLER
+	var/datum/blood_source/previous_blood = blood
 	var/blood_source_type = initial(blood)
 	blood = new blood_source_type()
+	previous_blood.transfer_to(blood)
 	blood.Initialize(src)

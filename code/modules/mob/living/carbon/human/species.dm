@@ -463,11 +463,14 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	regenerate_organs(C, old_species, visual_only = C.visual_only_organs)
 
+	var/datum/blood_source/previous_blood = C.blood
 	if (TRAIT_NO_BLOOD in inherent_traits)
 		C.blood = new /datum/blood_source/none()
+		previous_blood.transfer_to(C.blood)
 		C.blood.Initialize(C)
 	else
 		C.blood = new /datum/blood_source/organic()
+		previous_blood.transfer_to(C.blood)
 		C.blood.Initialize(C)
 
 	C.consciousness = new consciousness_type(C)
