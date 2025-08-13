@@ -453,6 +453,7 @@ SUBSYSTEM_DEF(dynamic)
 	var/result = ruleset.execute()
 
 	// Since we reuse rulesets we need to empty chosen_candidates
+	ruleset.candidates = list()
 	ruleset.chosen_candidates = list()
 	return result
 
