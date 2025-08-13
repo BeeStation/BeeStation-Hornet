@@ -203,7 +203,7 @@
 /datum/action/vampire/proc/ContinueActive()
 	if(!owner)
 		return FALSE
-	if(vampiredatum_power.vampire_blood_volume < constant_bloodcost)
+	if(vampiredatum_power && vampiredatum_power.vampire_blood_volume < constant_bloodcost)
 		return FALSE
 
 	return TRUE

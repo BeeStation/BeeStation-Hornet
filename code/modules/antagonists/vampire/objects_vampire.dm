@@ -27,6 +27,8 @@
 
 /// This handles bolting down the structure.
 /obj/structure/vampire/proc/bolt(mob/user)
+	if(user)
+		return
 	to_chat(user, span_danger("You have secured [src] in place."))
 	to_chat(user, span_announce("* Vampire Tip: Examine [src] to understand how it functions!"))
 	user.playsound_local(null, 'sound/items/ratchet.ogg', 70, FALSE, pressure_affected = FALSE)
@@ -35,8 +37,9 @@
 
 /// This handles unbolting of the structure.
 /obj/structure/vampire/proc/unbolt(mob/user)
-	to_chat(user, span_danger("You have unsecured [src]."))
-	user.playsound_local(null, 'sound/items/ratchet.ogg', 70, FALSE, pressure_affected = FALSE)
+	if(user)
+		to_chat(user, span_danger("You have unsecured [src]."))
+		user.playsound_local(null, 'sound/items/ratchet.ogg', 70, FALSE, pressure_affected = FALSE)
 	set_anchored(FALSE)
 	owner = null
 

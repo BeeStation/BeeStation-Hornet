@@ -46,8 +46,7 @@
 		user.adjustFireLoss(-1.5)
 	// Stop Bleeding
 	if(istype(user) && user.is_bleeding())
-		for(var/obj/item/bodypart/part in user.bodyparts)
-			user.add_bleeding(-10)
+		user.cauterise_wounds(-0.5)
 
 /datum/action/vampire/recuperate/ContinueActive()
 	if(owner.stat == DEAD)
