@@ -737,7 +737,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	armour_penetration = 0
 
 	canblock = TRUE
-	block_power = 25
+	block_power = 75
 	block_flags = BLOCKING_ACTIVE | BLOCKING_COUNTERATTACK | BLOCKING_UNBALANCE
 
 

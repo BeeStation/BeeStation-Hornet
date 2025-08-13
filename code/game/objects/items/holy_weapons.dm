@@ -176,6 +176,7 @@
 	return (BRUTELOSS|FIRELOSS)
 
 /obj/item/nullrod/attack_self(mob/user)
+	. = ..()
 	if(user.mind && (user.mind.holy_role) && !current_skin)
 		reskin_holy_weapon(user)
 
@@ -736,13 +737,13 @@
 	attack_verb_simple = list("smash", "slam", "whack", "thwack")
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "bostaff0"
-	item_state = "bostaff0"
+	item_state = null
 	worn_icon_state = "bostaff0"
 	lefthand_file = 'icons/mob/inhands/weapons/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
 
 	canblock = TRUE
-	block_power = 25
+	block_power = 75
 	block_flags = BLOCKING_ACTIVE | BLOCKING_COUNTERATTACK | BLOCKING_UNBALANCE
 
 /obj/item/nullrod/bostaff/ComponentInitialize()
