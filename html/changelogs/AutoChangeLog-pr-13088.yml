@@ -1,0 +1,6 @@
+author: TsunamiAnt
+delete-after: true
+changes:
+  - config: AI laws are now weighted, with asimov being vastly more likely than anything
+      else.
+  - config: Removes crewsimov from roundstart lawsets
