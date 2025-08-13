@@ -219,6 +219,8 @@
   - rscadd: Added syringes embedding in pickpockets unless protected by thick clothes
       (seen via examine)
 2025-08-13:
+  Tsar-Salat:
+  - bugfix: fix radial crafting
   TsunamiAnt:
   - config: AI laws are now weighted, with asimov being vastly more likely than anything
       else.
