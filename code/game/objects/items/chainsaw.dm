@@ -9,7 +9,6 @@
 	righthand_file = 'icons/mob/inhands/weapons/chainsaw_righthand.dmi'
 	flags_1 = CONDUCT_1
 	force = 13
-	block_power = 20
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	attack_weight = 2
 	w_class = WEIGHT_CLASS_HUGE
@@ -121,6 +120,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	actions_types = list(/datum/action/item_action/startchainsaw)
 	block_power = 50
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_UNBLOCKABLE
 	armour_penetration = 50
 	light_color = "#ff0000"
 	light_system = MOVABLE_LIGHT

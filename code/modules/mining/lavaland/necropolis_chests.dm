@@ -899,8 +899,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	throwforce = 1
 
 	canblock = TRUE
+	//This increases with the number of ghosts
 	block_power = 0
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
+
 	hitsound = 'sound/effects/ghost2.ogg'
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "rends")
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "rend")

@@ -121,7 +121,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	var/swiping = FALSE
 	canblock = TRUE
-	block_power = 0
+	block_power = 50
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_COUNTERATTACK
 
 /obj/item/scythe/Initialize(mapload)

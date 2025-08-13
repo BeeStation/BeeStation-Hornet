@@ -84,7 +84,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	attack_weight = 1
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
-	block_power = 40
+	block_power = 50
 
 	canblock = TRUE
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
@@ -273,7 +273,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
-	block_power = 20
+	block_power = 25
 	canblock = TRUE
 
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
@@ -567,7 +567,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	righthand_file = 'icons/mob/inhands/weapons/chainsaw_righthand.dmi'
 	item_flags = ABSTRACT | DROPDEL | ISWEAPON
 	w_class = WEIGHT_CLASS_HUGE
-	block_power = 20
+	block_power = 0
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	force = 24
 	attack_weight = 2
@@ -744,7 +744,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 
 /obj/item/staff/bostaff/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/two_handed, force_unwielded=10, force_wielded=14, block_power_unwielded=25, block_power_wielded=75, icon_wielded="bostaff1")
+	AddComponent(/datum/component/two_handed, force_unwielded=10, force_wielded=14, block_power_unwielded=75, block_power_wielded=75, icon_wielded="bostaff1")
 
 /obj/item/staff/bostaff/update_icon_state()
 	icon_state = "bostaff0"

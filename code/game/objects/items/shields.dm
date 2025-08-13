@@ -8,7 +8,7 @@
 
 	//Shields have no blocking cooldown so they can block until integrity gives out or 50 stamina damage is reached,
 	//be very careful if you increase this
-	block_power = 20
+	block_power = 25
 	max_integrity =  120
 	item_flags = ISWEAPON
 	var/transparent = FALSE	// makes beam projectiles pass through the shield
@@ -151,8 +151,8 @@
 	icon_state = "goliath_shield"
 	item_state = "goliath_shield"
 	canblock = TRUE
-	block_power = 30
-	max_integrity = 150
+	block_power = 50
+	max_integrity = 200
 
 	lefthand_file = 'icons/mob/inhands/equipment/shields_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/shields_righthand.dmi'
@@ -314,7 +314,7 @@
 	throw_speed = 3
 	throw_range = 4
 	w_class = WEIGHT_CLASS_NORMAL
-	block_power = 20
+	block_power = 25
 	max_integrity =  120
 	slowdown = 0
 	item_flags = ISWEAPON

@@ -102,6 +102,7 @@
 			//empty line
 			readout += ""
 			readout += "It should be able to block incoming attacks [(source.block_flags & BLOCKING_ACTIVE) ? "from your main-hand.":"even in your off-hand"]"
+			readout += "It has [span_warning("[weapon_tag_convert((source.block_power + 1))]")] blocking ability."
 			if(source.block_flags & BLOCKING_UNBALANCE)
 				readout += "It may be able to throw your opponent off-balance when blocking their attacks."
 			if(source.block_flags & (BLOCKING_COUNTERATTACK | BLOCKING_NASTY))

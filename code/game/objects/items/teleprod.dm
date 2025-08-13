@@ -8,7 +8,7 @@
 
 	canblock = TRUE
 	block_flags = BLOCKING_ACTIVE | BLOCKING_COUNTERATTACK
-	block_power = 0
+	block_power = 50
 
 /obj/item/melee/baton/cattleprod/teleprod/attack(mob/living/carbon/M, mob/living/carbon/user)//handles making things teleport when hit
 	..()

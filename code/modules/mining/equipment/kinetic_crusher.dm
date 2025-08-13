@@ -33,7 +33,7 @@
 
 	canblock = TRUE
 	block_flags = BLOCKING_ACTIVE
-	block_power = 0
+	block_power = 50
 
 /obj/item/kinetic_crusher/ComponentInitialize()
 	. = ..()

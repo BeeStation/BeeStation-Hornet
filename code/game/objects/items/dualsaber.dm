@@ -23,7 +23,7 @@
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	canblock = TRUE
 
-	block_power = 70
+	block_power = 75
 	block_sound = 'sound/weapons/egloves.ogg'
 	block_flags = BLOCKING_ACTIVE | BLOCKING_COUNTERATTACK | BLOCKING_PROJECTILE | BLOCKING_UNBLOCKABLE
 

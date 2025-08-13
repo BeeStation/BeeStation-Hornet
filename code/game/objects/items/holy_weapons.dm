@@ -307,9 +307,10 @@
 	desc = "It has a mysterious, protective aura."
 	w_class = WEIGHT_CLASS_HUGE
 	force = 5
+	armour_penetration = 100 //Just like wizard staffs, but it only does 5 damage. It's magical.
 	slot_flags = ITEM_SLOT_BACK
 
-	//Keep in mind it can only block once every three seconds. This staff's whole purpose is defense so it's good at it when it does
+	//Keep in mind it can only block once once per cooldown. This staff's whole purpose is defense so it's good at it when it does
 	canblock = TRUE
 	block_flags = BLOCKING_PROJECTILE | BLOCKING_UNBALANCE | BLOCKING_UNBLOCKABLE
 	block_power = 100 //No stamina damage for this one
@@ -338,7 +339,7 @@
 	slot_flags = ITEM_SLOT_BACK | ITEM_SLOT_BELT
 	block_flags = BLOCKING_NASTY | BLOCKING_ACTIVE
 	canblock = TRUE
-	block_power = 30
+	block_power = 25
 	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_CUT
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -387,7 +388,7 @@
 	worn_icon_state = "katana"
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
-	block_power = 0
+	block_power = 25
 
 /obj/item/nullrod/claymore/multiverse
 	name = "extradimensional blade"
@@ -458,7 +459,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	armour_penetration = 35
 	canblock = TRUE
-	block_power = 0
+	block_power = 50
 	block_flags = BLOCKING_ACTIVE | BLOCKING_COUNTERATTACK
 	slot_flags = ITEM_SLOT_BACK
 	sharpness = SHARP_DISMEMBER
@@ -748,7 +749,7 @@
 
 /obj/item/nullrod/bostaff/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/two_handed, force_unwielded=10, force_wielded=14, block_power_unwielded=25, block_power_wielded=75, icon_wielded="bostaff1")
+	AddComponent(/datum/component/two_handed, force_unwielded=10, force_wielded=14, block_power_unwielded=75, block_power_wielded=75, icon_wielded="bostaff1")
 
 /obj/item/nullrod/bostaff/update_icon_state()
 	icon_state = "bostaff0"

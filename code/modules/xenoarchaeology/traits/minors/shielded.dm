@@ -12,7 +12,7 @@
 	incompatabilities = TRAIT_INCOMPATIBLE_MOB | TRAIT_INCOMPATIBLE_STRUCTURE
 	///old block power
 	var/old_block_power
-	var/max_block_power = 80
+	var/max_block_power = 75
 
 /datum/xenoartifact_trait/minor/shielded/register_parent(datum/source)
 	. = ..()
@@ -22,6 +22,7 @@
 	if(isitem(item_parent))
 		//canblock
 		item_parent.canblock = TRUE
+		item_parent.block_flags = BLOCKING_ACTIVE
 		//power
 		old_block_power = item_parent.block_power
 		item_parent.block_power = ROUND_UP(max_block_power * (component_parent.trait_strength/100))

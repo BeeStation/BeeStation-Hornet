@@ -152,7 +152,7 @@
 	item_state = "rapier"
 	lefthand_file = null
 	righthand_file = null
-	block_power = 60
+	block_power = 75
 	armor_type = /datum/armor/sabre_mime
 
 /datum/armor/sabre_mime

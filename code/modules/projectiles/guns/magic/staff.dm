@@ -7,7 +7,10 @@
 	item_flags = NEEDS_PERMIT | NO_MAT_REDEMPTION
 	weapon_weight = WEAPON_MEDIUM
 	fire_rate = 1.5
-	block_power = 20 //staffs can block shit if you're walking
+
+	canblock = TRUE
+	block_power = 50
+	block_flags = BLOCKING_ACTIVE | BLOCKING_UNBALANCE
 
 
 /obj/item/gun/magic/staff/change
