@@ -721,10 +721,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 		//And if it's a blunt weapon, blocking takes the worst outcome between weight and damage bonuses
 		else
-			attackforce = max(I.w_class * 3, attackforce * 1.5)
+			attackforce = max(I.w_class * 2, attackforce * 1.5)
 
 		//Is it a weapon especially adept at counterattacks? If so we roll for one
-		if((block_flags & BLOCKING_COUNTERATTACK) && prob(50))
+		if((owner.combat_mode && block_flags & BLOCKING_COUNTERATTACK) && prob(50))
 			//is the item we blocked held by a mob, or was it thrown at us? We can't counter attack a thrown item.
 			if(isliving(hitby.loc))
 				var/mob/living/living_enemy = hitby.loc
@@ -732,7 +732,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 				owner.visible_message(span_danger("[owner] deftly counter-attacks while deflecting [hitby]!"))
 
 	//if it's not a weapon and it's not a projectile, we need to check for counterattacks and blocking_nasty
-	else if(attack_type == UNARMED_ATTACK && unarmed_mob && (block_flags & (BLOCKING_NASTY|BLOCKING_COUNTERATTACK)))
+	else if(owner.combat_mode && attack_type == UNARMED_ATTACK && unarmed_mob && (block_flags & (BLOCKING_NASTY|BLOCKING_COUNTERATTACK)))
 		INVOKE_ASYNC(attacking_mob, TYPE_PROC_REF(/atom, attackby), src, owner)
 		owner.visible_message(span_danger("[attacking_mob] injures themselves on [owner]'s [src]!"))
 
