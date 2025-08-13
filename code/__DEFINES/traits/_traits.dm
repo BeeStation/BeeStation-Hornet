@@ -207,8 +207,8 @@
 				value_head.add_cum = 0;\
 				value_head.mult_cum = 1;\
 				for (var/__j = 2; __j <= length(_trait_list); __j++) {\
-					var/_trait_key = _trait_list[__j];\
-					var/datum/trait/scanned_trait = _trait_list[_trait_key];\
+					var/__trait_key = _trait_list[__j];\
+					var/datum/trait/scanned_trait = _trait_list[__trait_key];\
 					if (istype(scanned_trait, /datum/trait/add)) {\
 						value_head.add_cum += scanned_trait.value;\
 					} else {\
