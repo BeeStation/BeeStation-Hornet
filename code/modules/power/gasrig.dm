@@ -112,8 +112,6 @@
 	get_damage(delta_time)
 	if(machine_stat & NOPOWER)
 		update_pipenets()
-		active = FALSE //turn off since power is gone
-		soundloop.stop()
 		return
 	if(!active)
 		update_use_power(IDLE_POWER_USE) // We're not fracking yet so power consumption is IDLE
@@ -134,6 +132,19 @@
 		. += "It is damaged. Use a welder to repair it."
 	if(overpressure)
 		. += "Maximum output pressure exceeded."
+
+/obj/machinery/atmospherics/gasrig/core/power_change()
+	. = ..()
+	if(!.)
+		return
+	if(machine_stat & NOPOWER)
+		if(soundloop.is_active())
+			soundloop.stop()
+	else
+		if(active)
+			if(!soundloop.is_active())
+				soundloop.start()
+	update_appearance()
 
 /obj/machinery/atmospherics/gasrig/core/proc/get_shield_damage(datum/gas_mixture/air)
 	var/datum/gas_mixture/temp_air = new
@@ -236,7 +247,7 @@
 /obj/machinery/atmospherics/gasrig/core/update_icon_state()
 	. = ..()
 	if(mode == GASRIG_MODE_NORMAL && !needs_repairs)
-		if(active)
+		if(active && !(machine_stat & NOPOWER))
 			icon_state = "gasrig_1"
 			return
 	icon_state = "gasrig_1_off"
@@ -245,10 +256,14 @@
 /obj/machinery/atmospherics/gasrig/core/update_overlays()
 	. = ..()
 	. += mutable_appearance(initial(icon), "glass_overlay_1")	// Layers may not be working as I expect it, if not, delete layer arg and move this after last mutable
-	if(active && !needs_repairs)
+	if(!active || (machine_stat & NOPOWER))
+		return
+	if(!needs_repairs)
 		. += mutable_appearance(initial(icon), "overlay_1")
+		. += emissive_appearance(initial(icon), "overlay_1", layer)
 	if(mode == GASRIG_MODE_REPAIR)	// Whatever "broken" is
 		. += mutable_appearance(initial(icon), "overlay_1_broken")
+		. += emissive_appearance(initial(icon), "overlay_1_broken", layer)
 
 /obj/machinery/atmospherics/gasrig/core/update_appearance(updates)
 	. = ..()
@@ -386,8 +401,8 @@
 	var/obj/machinery/atmospherics/gasrig/core/parent
 
 /obj/machinery/atmospherics/components/unary/gasrig/New(loc, booled, var/obj/machinery/atmospherics/gasrig/core/C)
+	parent = C //ordered this way to prevent update_overlays from getting a null value
 	..(loc, booled)
-	parent = C
 
 /obj/machinery/atmospherics/components/unary/gasrig/welder_act(mob/living/user, obj/item/tool)
 	parent.welder_act(user, tool)
@@ -433,10 +448,14 @@
 
 /obj/machinery/atmospherics/components/unary/gasrig/gas_output/update_overlays()
 	. = ..()
-	if(parent.active && !parent.needs_repairs)
+	if(!parent.active || (machine_stat & NOPOWER))
+		return
+	if(!parent.needs_repairs)
 		. += mutable_appearance(initial(icon), "overlay_3")
-	if(parent.mode == GASRIG_MODE_REPAIR)	// Whatever "broken" is
+		. += emissive_appearance(initial(icon), "overlay_3", layer)
+	if(parent.mode == GASRIG_MODE_REPAIR)
 		. += mutable_appearance(initial(icon), "overlay_3_broken")
+		. += emissive_appearance(initial(icon), "overlay_3_broken", layer)
 
 /obj/machinery/atmospherics/gasrig/dummy
 	name = "\improper Advanced Gas Rig"
