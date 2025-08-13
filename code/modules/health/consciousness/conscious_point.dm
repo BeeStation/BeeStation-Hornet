@@ -3,7 +3,7 @@
 /datum/consciousness/point/New(mob/living/owner)
 	. = ..()
 	// By default, using a point system our health is just our damage
-	set_consciousness_source(FROM_HITPOINTS, owner.maxHealth)
+	set_consciousness_source(owner.maxHealth, FROM_HITPOINTS)
 
 /datum/consciousness/point/register_signals(mob/living/owner)
 	// No death affects stat
@@ -18,7 +18,7 @@
 
 /datum/consciousness/point/consciousness_tick(delta_time)
 	// Continuously just become the hitpoints of our owner
-	set_consciousness_source(FROM_HITPOINTS, owner.health)
+	set_consciousness_source(owner.health, FROM_HITPOINTS)
 
 /// Calculate our crit and death status when our consciousness updates
 /datum/consciousness/point/update_consciousness(consciousness_value)

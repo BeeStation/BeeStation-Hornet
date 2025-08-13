@@ -23,7 +23,7 @@
 	organ_traits = list(TRAIT_ADVANCEDTOOLUSER)
 
 	/// Amount of consciousness provided by this brain
-	var/consciousness_rating = BRAIN_DAMAGE_DEATH
+	var/consciousness_rating = 100
 
 	var/suicided = FALSE
 	var/mob/living/brain/brainmob = null
@@ -32,8 +32,6 @@
 	var/decoy_override = FALSE
 	/// Two variables necessary for calculating whether we get a brain trauma or not
 	var/damage_delta = 0
-	/// Is this brain capable of feeling pain
-	var/feels_pain = TRUE
 
 	var/list/datum/brain_trauma/traumas = list()
 	juice_typepath = null	//the moment the brains become juicable, people will find a way to cheese round removal. So NO.
@@ -89,9 +87,6 @@
 
 		trauma.owner = brain_owner
 		trauma.on_gain()
-
-	if (feels_pain)
-		brain_owner.AddComponent(/datum/component/conscious)
 
 	//Update the body's icon so it doesnt appear debrained anymore
 	brain_owner.update_hair()
@@ -249,7 +244,7 @@
 	// - Headache
 	// - Light-headedness
 	// - Confusion
-	consciousness_rating = initial(consciousness_rating) * (hypoxia / maxHealth)
+	consciousness_rating = initial(consciousness_rating) * (1 - (hypoxia / maxHealth))
 	if (owner)
 		SEND_SIGNAL(owner, COMSIG_MOB_BRAIN_CONSCIOUSNESS_UPDATE, consciousness_rating)
 	message_admins("brain has [consciousness_rating] consciousness caused by [hypoxia] hypoxia")
@@ -364,7 +359,6 @@
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "posibrain-ipc"
 	organ_flags = ORGAN_SYNTHETIC
-	feels_pain = FALSE
 
 /obj/item/organ/brain/positron/on_insert(mob/living/carbon/human/brain_owner)
 	. = ..()

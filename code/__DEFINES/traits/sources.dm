@@ -152,3 +152,4 @@
 #define FROM_HITPOINTS "hitpoints"
 #define FROM_HEART "heart"
 #define FROM_BREATH "breath"
+#define FROM_BRAIN "brain"

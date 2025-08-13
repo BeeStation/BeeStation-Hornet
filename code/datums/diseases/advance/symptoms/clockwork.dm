@@ -292,7 +292,6 @@
 	icon_state = "brain-clock"
 	status = ORGAN_ROBOTIC
 	organ_flags = ORGAN_SYNTHETIC
-	feels_pain = FALSE
 	var/robust //Set to true if the robustbits causes brain replacement. Because holy fuck is the CLANG CLANG CLANG CLANG annoying
 
 /obj/item/organ/brain/clockwork/emp_act(severity)

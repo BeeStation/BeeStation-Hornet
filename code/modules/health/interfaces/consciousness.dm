@@ -8,6 +8,7 @@
 /datum/consciousness/New(mob/living/owner)
 	. = ..()
 	src.owner = owner
+	register_signals(owner)
 
 /// Register signals on the owner
 /datum/consciousness/proc/register_signals(mob/living/owner)
@@ -26,7 +27,7 @@
 /// Provide a source of consciousness. Without one consciousness will be 0, which is dead.
 /// Source: The source of the modifier
 /// Amount: The amount of consciousness provided by the source.
-/datum/consciousness/proc/set_consciousness_source(source, amount)
+/datum/consciousness/proc/set_consciousness_source(amount, source)
 	if (!amount)
 		REMOVE_TRAIT(src, TRAIT_CONSCIOUSNESS_LEVEL, source)
 	else
@@ -36,7 +37,7 @@
 /// Set a consciousness modifier.
 /// Source: The source of the modifier
 /// Amount: The multiplier for the modifier, set to 1 to remove
-/datum/consciousness/proc/set_consciousness_modifier(source, amount)
+/datum/consciousness/proc/set_consciousness_modifier(amount, source)
 	if (amount == 1)
 		REMOVE_TRAIT(src, TRAIT_CONSCIOUSNESS_LEVEL, source)
 	else
