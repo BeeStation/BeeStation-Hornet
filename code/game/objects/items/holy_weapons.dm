@@ -304,22 +304,31 @@
 	lefthand_file = 'icons/mob/inhands/weapons/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
 	name = "red holy staff"
-	desc = "It has a mysterious, protective aura."
+	desc = "It has a mysterious, protective aura when you channel the staff"
 	w_class = WEIGHT_CLASS_HUGE
 	force = 5
-	armour_penetration = 100 //Just like wizard staffs, but it only does 5 damage. It's magical.
+	armour_penetration = 100 //Just like wizard staves, but it only does 5 damage. It's magical.
 	slot_flags = ITEM_SLOT_BACK
 
 	//Keep in mind it can only block once once per cooldown. This staff's whole purpose is defense so it's good at it when it does
 	canblock = TRUE
-	block_flags = BLOCKING_PROJECTILE | BLOCKING_UNBALANCE | BLOCKING_UNBLOCKABLE
+	block_flags = BLOCKING_ACTIVE | BLOCKING_PROJECTILE | BLOCKING_UNBALANCE | BLOCKING_UNBLOCKABLE
 	block_power = 100 //No stamina damage for this one
 	var/shield_icon = "shield-red"
 
+/obj/item/nullrod/staff/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/two_handed, force_unwielded=5, force_wielded=5, block_power_unwielded=100, block_power_wielded=100)
+
 /obj/item/nullrod/staff/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = list()
-	if(isinhands)
+	if(ISWIELDED(src))
 		. += mutable_appearance('icons/effects/effects.dmi', shield_icon, MOB_SHIELD_LAYER)
+
+/obj/item/nullrod/staff/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
+	if(ISWIELDED(src))
+		return ..()
+	return FALSE
 
 /obj/item/nullrod/staff/blue
 	name = "blue holy staff"
