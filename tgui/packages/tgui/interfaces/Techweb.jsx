@@ -704,7 +704,7 @@ const TechNode = (props) => {
         <Box className="Techweb__NodeUnlockedDesigns" mt={1}>
           {design_ids.map((k, i) => (
             <Button
-              key={id}
+              key={k}
               className={`${design_cache[k].class} Techweb__DesignIcon`}
               tooltip={<DesignTooltip design={design_cache[k]} />}
               tooltipPosition={i % 15 < 7 ? 'right' : 'left'}
