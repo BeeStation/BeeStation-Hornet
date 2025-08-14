@@ -16,6 +16,7 @@
 	set_consciousness_source(consciousness_rating, FROM_BRAIN)
 
 /datum/consciousness/organic/update_consciousness(consciousness_value)
+	..()
 	if (owner.status_flags & GODMODE)
 		return
 	if (owner.stat != DEAD)

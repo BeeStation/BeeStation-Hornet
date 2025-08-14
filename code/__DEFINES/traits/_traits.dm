@@ -176,6 +176,9 @@
 #define REMOVE_TRAIT_IF(_target, _trait, _trait_list, _condition) \
 	if (_trait_list) { \
 		var/_cached_source = _trait_list[1]; \
+		if (istext(_cached_source)) {\
+			_cached_source = _trait_list[_cached_source];\
+		}\
 		if (!istype(_cached_source, /datum/trait)) { \
 			for (var/_T in _trait_list) { \
 				if (##_condition) { \
@@ -195,15 +198,15 @@
 		} else if (istype(_cached_source, /datum/trait/value_head)) { \
 			var/_changed = FALSE;\
 			for (var/__i = length(_trait_list); __i >= 2; __i--) {\
-				var/datum/trait/_trait_datum = _trait_list[__i]; \
+				var/datum/trait/_trait_datum = _trait_list[_trait_list[__i]]; \
 				var/_T = _trait_datum.source;\
 				if (##_condition) { \
-					_trait_list -= _trait_datum;\
+					_trait_list -= _trait_list[__i];\
 					_changed = TRUE;\
 				} \
 			} /* We have to perform a full recalculation as infinity and 0 lose precision */ \
 			if (_changed) {\
-				var/datum/trait/value_head/value_head = _trait_list[1];\
+				var/datum/trait/value_head/value_head = _trait_list[FROM_TRAIT_QUEUE_HEAD];\
 				value_head.add_cum = 0;\
 				value_head.mult_cum = 1;\
 				for (var/__j = 2; __j <= length(_trait_list); __j++) {\

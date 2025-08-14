@@ -19,6 +19,7 @@ cannot die from fluid loss or brain damage.
 	return
 
 /datum/consciousness/point/nocrit/update_consciousness(consciousness_value)
+	..()
 	if (owner.status_flags & GODMODE)
 		return
 	if (owner.stat != DEAD)

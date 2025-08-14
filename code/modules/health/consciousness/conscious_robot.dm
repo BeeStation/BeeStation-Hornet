@@ -24,6 +24,7 @@ causes crit.
 	RegisterSignal(owner, SIGNAL_REMOVE_STATUS_EFFECT(/datum/status_effect/incapacitating/knockdown), PROC_REF(update_stat))
 
 /datum/consciousness/point/robot/update_consciousness(consciousness_value)
+	..()
 	if (owner.status_flags & GODMODE)
 		return
 	if (owner.stat != DEAD)
