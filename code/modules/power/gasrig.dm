@@ -15,9 +15,6 @@
 	resistance_flags = INDESTRUCTIBLE|ACID_PROOF|FIRE_PROOF
 	density = TRUE
 
-	var/obj/item/stock_parts/capacitor/capacitor
-	var/obj/item/stock_parts/manipulator/manipulator
-
 	var/depth = 0
 
 	/// the desired depth to approach
@@ -90,8 +87,6 @@
 
 /obj/machinery/atmospherics/gasrig/core/Initialize(mapload)
 	. = ..()
-	manipulator = new /obj/item/stock_parts/manipulator(src)
-	capacitor = new /obj/item/stock_parts/capacitor(src)
 	soundloop = new(src)
 	soundloop.volume = 10 //depth starts at zero so init at minimum volume
 	soundloop.start() //start immediately as it starts on
@@ -108,8 +103,6 @@
 	gas_output.Destroy()
 	for(var/obj/machinery/atmospherics/gasrig/dummy/dummy in dummies)
 		dummy.Destroy()
-	manipulator.Destroy()
-	capacitor.Destroy()
 	QDEL_NULL(soundloop)
 	STOP_PROCESSING(SSmachines, src)
 	return ..()
