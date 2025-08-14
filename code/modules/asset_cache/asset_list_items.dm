@@ -396,6 +396,13 @@
 		target_items |= vendor.contraband
 		qdel(vendor)
 
+	// Add mining vendor items
+	for(var/obj/machinery/vendor/mining_vendor as anything in subtypesof(/obj/machinery/vendor))
+		mining_vendor = new mining_vendor()
+		for(var/datum/data/vendor_equipment/prize in mining_vendor.prize_list)
+			target_items |= prize.equipment_path
+		qdel(mining_vendor)
+
 	// building icons for each item
 	for (var/atom/item as anything in target_items)
 		if (!ispath(item, /atom))
