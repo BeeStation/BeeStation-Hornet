@@ -45,11 +45,26 @@
 		if(M.current && M.current.stat != DEAD)
 			if(ishuman(M.current))
 				if(M.special_role)
-					possible_targets[M] = 0						//bad-guy
+					possible_targets[M] = 0	//bad-guy
 				else if(M.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
-					possible_targets[M] = 1						//good-guy
+					possible_targets[M] = 1	//good-guy
 
-	var/list/possible_objectives = list(1,2,3,4)
+	// Explosive plant objective - always given
+	var/datum/objective/plant_explosive/bombobjective = new /datum/objective/plant_explosive()
+	for(var/sanity in 1 to 100) // 100 checks at most.
+		var/area/selected_area = pick(GLOB.areas)
+		if(!is_station_level(selected_area.z) || !(selected_area.area_flags & VALID_TERRITORY))
+			continue
+		bombobjective.detonation_location = selected_area
+		break
+	if(bombobjective.detonation_location)
+		bombobjective.owner = owner
+		bombobjective.explanation_text = "Detonate your starter bomb in [bombobjective.detonation_location]. Note that the bomb will not work anywhere else!"
+		objectives += bombobjective
+		log_objective(owner, bombobjective.explanation_text)
+
+	var/list/possible_objectives = list(1,1,1,2,2,2,3,4,4)
+	// Research(1) and steal(2) weighted higher, kill(3) lower, capture(4) same
 
 	while(objectives.len < quantity)
 		switch(pick_n_take(possible_objectives))
@@ -121,7 +136,7 @@
 	new_owner.assigned_role = ROLE_NINJA
 	new_owner.special_role = ROLE_NINJA
 	new_owner.add_antag_datum(src)
-	message_admins("[key_name_admin(admin)] has ninja'd [key_name_admin(new_owner)].")
+ message_admins("[key_name_admin(admin)] has ninja'd [key_name_admin(new_owner)].")
 	log_admin("[key_name(admin)] has ninja'd [key_name(new_owner)].")
 
 /datum/antagonist/ninja/proc/update_ninja_icons_added(var/mob/living/carbon/human/ninja)
@@ -133,3 +148,6 @@
 	var/datum/atom_hud/antag/ninjahud = GLOB.huds[ANTAG_HUD_NINJA]
 	ninjahud.leave_hud(ninja)
 	set_antag_hud(ninja, null)
+
+/datum/objective/plant_explosive
+	var/area/detonation_location
