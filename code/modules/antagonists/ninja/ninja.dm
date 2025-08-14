@@ -136,7 +136,7 @@
 	new_owner.assigned_role = ROLE_NINJA
 	new_owner.special_role = ROLE_NINJA
 	new_owner.add_antag_datum(src)
- message_admins("[key_name_admin(admin)] has ninja'd [key_name_admin(new_owner)].")
+	message_admins("[key_name_admin(admin)] has ninja'd [key_name_admin(new_owner)].")
 	log_admin("[key_name(admin)] has ninja'd [key_name(new_owner)].")
 
 /datum/antagonist/ninja/proc/update_ninja_icons_added(var/mob/living/carbon/human/ninja)
