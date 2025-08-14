@@ -259,3 +259,25 @@
       would cause very haywire things to happen.
   - tweak: Motorized wheelchairs actually did require hands, this requirement has
       been removed because they are propelled by a motor rather than by hand.
+2025-08-14:
+  Rukofamicom:
+  - rscdel: All reagents used exclusively for manpulating viruses and all reactions
+      related to the manipulation of viruses have been removed except for spaceacillin
+      interaction that stops a virus or host holding a virus from spreading it to
+      others.
+  - rscdel: Necropolis seed symptom and bowl of blood that was supposed to be its
+      source removed from the game
+  - rscdel: Virus extrapolators have been removed from all maps
+  - code_imp: Virus extrapolator code has been significantly trimmed. The only code
+      that remains is what is necessary for medical scanners to function, to be further
+      trimmed at some point in the future probably. maybe.
+  - bugfix: Fixed nooartrium working in mobs it wasn't supposed to
+  - tweak: Nooartrium now causes the affected mob to make a loud zombie wail when
+      initially taking the drug, zombie growl periodically while the drug is active,
+      and wail again (different, weaker one) when the drug's effects end.
+  - tweak: Nooartrium now causes at least 25 heart damage when metabolization ends
+      to give it a flavorful downside as a purely medical revival drug.
+  - tweak: Nooartrium now only requires heating to 470K, just under teslium's activation
+      point at 474.
+  - code_imp: Cleaned up a lot of nooartrium code while trying to preserve all of
+      the original balance aside from the above points regarding revival and sounds.

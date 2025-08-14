@@ -211,22 +211,6 @@
 	. = ..()
 	affected_mob.AdjustSleeping(40 * REM * delta_time)
 
-/datum/reagent/consumable/virus_food
-	name = "Virus Food"
-	description = "A mixture of water and milk. Virus cells can use this mixture to reproduce."
-	nutriment_factor = 2 * REAGENTS_METABOLISM
-	color = "#899613" // rgb: 137, 150, 19
-	chemical_flags = CHEMICAL_RNG_BOTANY
-	taste_description = "watery milk"
-
-/datum/reagent/consumable/virus_food/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
-	. = ..()
-	for(var/datum/disease/disease in affected_mob.diseases)
-		if(disease.spread_flags & DISEASE_SPREAD_SPECIAL || disease.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS)
-			continue
-		if(DT_PROB(5 * disease.stage_prob, delta_time))
-			disease.update_stage(min(disease.stage += 1, disease.max_stages))
-
 /datum/reagent/consumable/soysauce
 	name = "Soysauce"
 	description = "A salty sauce made from the soy plant."
