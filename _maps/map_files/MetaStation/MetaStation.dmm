@@ -33065,14 +33065,6 @@
 /area/crew_quarters/kitchen)
 "hxb" = (
 /obj/structure/table,
-/obj/item/extrapolator{
-	pixel_x = -3;
-	pixel_y = 6
-	},
-/obj/item/extrapolator{
-	pixel_x = 6;
-	pixel_y = 14
-	},
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 2;
 	pixel_y = -31
@@ -51158,9 +51150,6 @@
 "obt" = (
 /obj/machinery/computer/pandemic,
 /obj/effect/turf_decal/bot,
-/obj/structure/reagent_dispensers/virusfood{
-	pixel_x = 32
-	},
 /turf/open/floor/iron/grid/steel,
 /area/medical/virology)
 "obN" = (
@@ -78280,14 +78269,6 @@
 /area/maintenance/aft)
 "xKt" = (
 /obj/structure/table,
-/obj/item/reagent_containers/cup/glass/bottle/virusfood{
-	pixel_x = 2;
-	pixel_y = 12
-	},
-/obj/item/reagent_containers/cup/glass/bottle/virusfood{
-	pixel_x = -6;
-	pixel_y = 8
-	},
 /obj/item/reagent_containers/cup/bottle/spaceacillin{
 	pixel_x = 9;
 	pixel_y = 12

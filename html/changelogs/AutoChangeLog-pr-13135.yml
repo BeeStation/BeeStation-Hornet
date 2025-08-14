@@ -1,0 +1,13 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - bugfix: Fixed nooartrium working in mobs it wasn't supposed to
+  - tweak: Nooartrium now causes the affected mob to make a loud zombie wail when
+      initially taking the drug, zombie growl periodically while the drug is active,
+      and wail again (different, weaker one) when the drug's effects end.
+  - tweak: Nooartrium now causes at least 25 heart damage when metabolization ends
+      to give it a flavorful downside as a purely medical revival drug.
+  - tweak: Nooartrium now only requires heating to 470K, just under teslium's activation
+      point at 474.
+  - code_imp: Cleaned up a lot of nooartrium code while trying to preserve all of
+      the original balance aside from the above points regarding revival and sounds.

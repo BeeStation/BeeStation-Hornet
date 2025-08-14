@@ -259,3 +259,15 @@
       would cause very haywire things to happen.
   - tweak: Motorized wheelchairs actually did require hands, this requirement has
       been removed because they are propelled by a motor rather than by hand.
+2025-08-14:
+  Rukofamicom:
+  - rscdel: All reagents used exclusively for manpulating viruses and all reactions
+      related to the manipulation of viruses have been removed except for spaceacillin
+      interaction that stops a virus or host holding a virus from spreading it to
+      others.
+  - rscdel: Necropolis seed symptom and bowl of blood that was supposed to be its
+      source removed from the game
+  - rscdel: Virus extrapolators have been removed from all maps
+  - code_imp: Virus extrapolator code has been significantly trimmed. The only code
+      that remains is what is necessary for medical scanners to function, to be further
+      trimmed at some point in the future probably. maybe.
