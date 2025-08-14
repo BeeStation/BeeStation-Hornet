@@ -11,8 +11,7 @@
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	can_buckle = TRUE
 
-/obj/vehicle/ridden/lavaboat/Initialize(mapload)
-	. = ..()
+/obj/vehicle/ridden/lavaboat/add_riding_element()
 	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/lavaboat)
 
 /obj/item/oar
@@ -47,6 +46,5 @@
 	desc = "This boat moves where you will it, without the need for an oar."
 	icon_state = "dragon_boat"
 
-/obj/vehicle/ridden/lavaboat/dragon/Initialize(mapload)
-	. = ..()
+/obj/vehicle/ridden/lavaboat/dragon/add_riding_element()
 	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/lavaboat/dragonboat)

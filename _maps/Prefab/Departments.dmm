@@ -516,10 +516,6 @@
 /obj/item/toy/plush/moth/lovers,
 /turf/open/floor/iron/tech/grid,
 /area/space)
-"mE" = (
-/obj/structure/reagent_dispensers/virusfood,
-/turf/open/floor/iron,
-/area/space)
 "mO" = (
 /obj/item/book/manual/wiki/barman_recipes,
 /turf/open/floor/iron/cafeteria_red,
@@ -2666,7 +2662,7 @@ Fr
 XF
 ER
 Xs
-mE
+Qk
 "}
 (20,1,1) = {"
 ZA

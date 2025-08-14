@@ -24,7 +24,7 @@
 
 /datum/config_entry/flag/disable_human_mood
 
-/datum/config_entry/flag/disable_secborg	// disallow secborg model to be chosen.
+/datum/config_entry/flag/disable_guardianborg	// disallow secborg model to be chosen.
 
 /datum/config_entry/flag/disable_peaceborg
 
@@ -269,7 +269,8 @@
 
 /datum/config_entry/keyed_list/random_laws
 	key_mode = KEY_MODE_TEXT
-	value_mode = VALUE_MODE_FLAG
+	value_mode = VALUE_MODE_NUM
+	splitter = ","
 
 /datum/config_entry/keyed_list/law_weight
 	key_mode = KEY_MODE_TEXT

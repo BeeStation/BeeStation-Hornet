@@ -328,8 +328,7 @@
 		/obj/item/pinpointer/crew,
 		/obj/item/holosign_creator/medical,
 		/obj/item/construction/plumbing,
-		/obj/item/plunger,
-		/obj/item/extrapolator
+		/obj/item/plunger
 		))
 
 /obj/item/storage/belt/medical/ert

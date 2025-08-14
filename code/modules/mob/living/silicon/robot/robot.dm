@@ -171,6 +171,9 @@
 	if(!CONFIG_GET(flag/disable_peaceborg))
 		model_list["Peacekeeper"] = /obj/item/robot_model/peacekeeper
 
+	if(!CONFIG_GET(flag/disable_guardianborg))
+		model_list["Guardian"] = /obj/item/robot_model/guard
+
 	// Create radial menu for choosing borg model
 	var/list/module_icons = list()
 	for(var/option in model_list)
@@ -542,11 +545,11 @@
 
 	if(opened)
 		if(wiresexposed)
-			add_overlay("ov-opencover +w")
+			add_overlay("[model.special_cover_key]-opencover +w")
 		else if(cell)
-			add_overlay("ov-opencover +c")
+			add_overlay("[model.special_cover_key]-opencover +c")
 		else
-			add_overlay("ov-opencover -c")
+			add_overlay("[model.special_cover_key]-opencover -c")
 	if(hat)
 		var/mutable_appearance/head_overlay = hat.build_worn_icon(default_layer = 20, default_icon_file = 'icons/mob/clothing/head/default.dmi')
 		head_overlay.pixel_y += hat_offset

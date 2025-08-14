@@ -107,8 +107,6 @@
 				/datum/symptom/asphyxiation,
 				/datum/symptom/alkali,
 				/datum/symptom/heartattack,
-				/datum/symptom/toxoplasmosis,
-				/datum/symptom/necroseed
 			)
 			if(dangerous_virus)//pick a symptom with a major effect from either the list of spreading symptoms or effective symptoms
 				if(prob(50))
