@@ -35,7 +35,12 @@ export const KitchenSink = (props) => {
           <Section fill fitted>
             <Tabs vertical>
               {stories.map((story, i) => (
-                <Tabs.Tab key={i} color="transparent" selected={i === pageIndex} onClick={() => setPageIndex(i)}>
+                <Tabs.Tab
+                  key={i}
+                  color="transparent"
+                  selected={i === pageIndex}
+                  onClick={() => setPageIndex(i)}
+                >
                   {story.meta.title}
                 </Tabs.Tab>
               ))}

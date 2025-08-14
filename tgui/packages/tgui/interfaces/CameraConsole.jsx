@@ -14,7 +14,9 @@ export const prevNextCamera = (cameras, activeCamera) => {
   if (!activeCamera) {
     return [];
   }
-  const index = cameras.findIndex((camera) => camera.name === activeCamera.name);
+  const index = cameras.findIndex(
+    (camera) => camera.name === activeCamera.name,
+  );
   return [cameras[index - 1]?.name, cameras[index + 1]?.name];
 };
 
@@ -38,7 +40,10 @@ export const CameraConsole = (props) => {
   const { act, data, config } = useBackend();
   const { mapRef, activeCamera } = data;
   const cameras = selectCameras(data.cameras);
-  const [prevCameraName, nextCameraName] = prevNextCamera(cameras, activeCamera);
+  const [prevCameraName, nextCameraName] = prevNextCamera(
+    cameras,
+    activeCamera,
+  );
   return (
     <Window width={870} height={708}>
       <div className="CameraConsole__left">
@@ -91,7 +96,13 @@ export const CameraConsoleContent = (props) => {
   return (
     <Flex direction={'column'} height="100%">
       <Flex.Item>
-        <Input autoFocus fluid mt={1} placeholder="Search for a camera" onInput={(e, value) => setSearchText(value)} />
+        <Input
+          autoFocus
+          fluid
+          mt={1}
+          placeholder="Search for a camera"
+          onInput={(e, value) => setSearchText(value)}
+        />
       </Flex.Item>
       <Flex.Item height="100%">
         <Section fill scrollable>
@@ -106,13 +117,16 @@ export const CameraConsoleContent = (props) => {
                 'Button--fluid',
                 'Button--color--transparent',
                 'Button--ellipsis',
-                activeCamera && camera.name === activeCamera.name && 'Button--selected',
+                activeCamera &&
+                  camera.name === activeCamera.name &&
+                  'Button--selected',
               ])}
               onClick={() =>
                 act('switch_camera', {
                   name: camera.name,
                 })
-              }>
+              }
+            >
               {camera.name}
             </div>
           ))}

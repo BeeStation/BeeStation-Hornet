@@ -16,9 +16,21 @@ export const PictureSelectModal = (_) => {
               </>
             }
             key={picture.ref}
-            buttons={<Button content={button_text} color="green" onClick={() => act('submit', { entry: picture.ref })} />}
-            style={{ overflow: 'auto' }}>
-            <Box mt={1} as="img" src={picture.path} style={{ float: 'left', margin: '0.5em', marginTop: '0' }} />
+            buttons={
+              <Button
+                content={button_text}
+                color="green"
+                onClick={() => act('submit', { entry: picture.ref })}
+              />
+            }
+            style={{ overflow: 'auto' }}
+          >
+            <Box
+              mt={1}
+              as="img"
+              src={picture.path}
+              style={{ float: 'left', margin: '0.5em', marginTop: '0' }}
+            />
             <span style={{ display: 'inline-block' }}>{picture.desc}</span>
           </Section>
         ))}

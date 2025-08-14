@@ -94,10 +94,20 @@ class CoilVirusConsole extends Component {
     const bar = '■'.repeat(filledLength) + '□'.repeat(20 - filledLength);
 
     return (
-      <Section fill scrollable backgroundColor="black" style={{ whiteSpace: 'pre-wrap' }}>
+      <Section
+        fill
+        scrollable
+        backgroundColor="black"
+        style={{ whiteSpace: 'pre-wrap' }}
+      >
         {/* ASCII Logo */}
         {asciiLogo.split('\n').map((ln, i) => (
-          <Box key={i} className="ascii-logo-line" mb={ln === '' ? 1 : 0} style={ln === '' ? { minHeight: '1em' } : {}}>
+          <Box
+            key={i}
+            className="ascii-logo-line"
+            mb={ln === '' ? 1 : 0}
+            style={ln === '' ? { minHeight: '1em' } : {}}
+          >
             {ln === '' ? '\u00A0' : ln}
           </Box>
         ))}
@@ -106,7 +116,12 @@ class CoilVirusConsole extends Component {
 
         {/* Fully typed script lines */}
         {scriptLines.slice(0, lineIdx).map((ln, i) => (
-          <Box key={i} className="script-line" mb={ln === '' ? 1 : 0} style={ln === '' ? { minHeight: '1em' } : {}}>
+          <Box
+            key={i}
+            className="script-line"
+            mb={ln === '' ? 1 : 0}
+            style={ln === '' ? { minHeight: '1em' } : {}}
+          >
             {ln === '' ? '\u00A0' : ln}
           </Box>
         ))}
@@ -131,7 +146,10 @@ class CoilVirusConsole extends Component {
             {/* Fire button */}
             {progress >= 100 && (
               <Box mt={1} style={{ display: 'flex', gap: '0.5rem' }}>
-                <Button className="detonate-button" onClick={() => this.props.act('Detonate')}>
+                <Button
+                  className="detonate-button"
+                  onClick={() => this.props.act('Detonate')}
+                >
                   Fire!
                 </Button>
               </Box>

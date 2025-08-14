@@ -20,7 +20,8 @@ export const Connections = (props) => {
         pointerEvents: 'none',
         zIndex: -1,
         overflow: 'visible',
-      }}>
+      }}
+    >
       {connections.map((val, index) => {
         const from = val.from;
         const to = val.to;
@@ -43,7 +44,9 @@ export const Connections = (props) => {
         val.color = val.color || 'blue';
         return (
           <path
-            className={classes([isColorClass(val.color) && `color-stroke-${val.color}`])}
+            className={classes([
+              isColorClass(val.color) && `color-stroke-${val.color}`,
+            ])}
             key={index}
             d={path}
             fill="transparent"

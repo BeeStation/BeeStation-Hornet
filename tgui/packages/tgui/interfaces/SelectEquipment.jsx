@@ -25,23 +25,30 @@ export const SelectEquipment = (props) => {
 
   // even if no custom outfits were sent, we still want to make sure there's
   // at least a 'Custom' tab so the button to create a new one pops up
-  const categories = uniq([...outfits.map((entry) => entry.category), 'Custom']);
+  const categories = uniq([
+    ...outfits.map((entry) => entry.category),
+    'Custom',
+  ]);
   const [tab] = useOutfitTabs(categories);
 
   const [searchText, setSearchText] = useLocalState('searchText', '');
-  const searchFilter = createSearch(searchText, (entry) => entry.name + entry.path);
+  const searchFilter = createSearch(
+    searchText,
+    (entry) => entry.name + entry.path,
+  );
 
   const visibleOutfits = sortBy(
     filter(
       filter(outfits, (entry) => entry.category === tab),
-      searchFilter
+      searchFilter,
     ),
     (entry) => !entry.favorite,
     (entry) => !entry.priority,
-    (entry) => entry.name
+    (entry) => entry.name,
   );
 
-  const getOutfitEntry = (current_outfit) => outfits.find((outfit) => getOutfitKey(outfit) === current_outfit);
+  const getOutfitEntry = (current_outfit) =>
+    outfits.find((outfit) => getOutfitKey(outfit) === current_outfit);
 
   const currentOutfitEntry = getOutfitEntry(current_outfit);
 
@@ -52,7 +59,13 @@ export const SelectEquipment = (props) => {
           <Stack.Item>
             <Stack fill vertical>
               <Stack.Item>
-                <Input fluid autoFocus placeholder="Search" value={searchText} onInput={(e, value) => setSearchText(value)} />
+                <Input
+                  fluid
+                  autoFocus
+                  placeholder="Search"
+                  value={searchText}
+                  onInput={(e, value) => setSearchText(value)}
+                />
               </Stack.Item>
               <Stack.Item>
                 <DisplayTabs categories={categories} />
@@ -71,7 +84,12 @@ export const SelectEquipment = (props) => {
               </Stack.Item>
               <Stack.Item grow={1}>
                 <Section fill title={name} textAlign="center">
-                  <Box as="img" m={0} src={`data:image/jpeg;base64,${icon64}`} height="100%" />
+                  <Box
+                    as="img"
+                    m={0}
+                    src={`data:image/jpeg;base64,${icon64}`}
+                    height="100%"
+                  />
                 </Section>
               </Stack.Item>
             </Stack>
@@ -88,7 +106,11 @@ const DisplayTabs = (props) => {
   return (
     <Tabs textAlign="center">
       {categories.map((category) => (
-        <Tabs.Tab key={category} selected={tab === category} onClick={() => setTab(category)}>
+        <Tabs.Tab
+          key={category}
+          selected={tab === category}
+          onClick={() => setTab(category)}
+        >
           {category}
         </Tabs.Tab>
       ))}
@@ -125,7 +147,12 @@ const OutfitDisplay = (props) => {
         />
       ))}
       {currentTab === 'Custom' && (
-        <Button color="transparent" icon="plus" fluid onClick={() => act('customoutfit')}>
+        <Button
+          color="transparent"
+          icon="plus"
+          fluid
+          onClick={() => act('customoutfit')}
+        >
           Create a custom outfit...
         </Button>
       )}
@@ -162,7 +189,8 @@ const CurrentlySelectedDisplay = (props) => {
             overflow: 'hidden',
             whiteSpace: 'nowrap',
             textOverflow: 'ellipsis',
-          }}>
+          }}
+        >
           {entry?.name}
         </Box>
       </Stack.Item>
@@ -175,7 +203,8 @@ const CurrentlySelectedDisplay = (props) => {
             act('applyoutfit', {
               path: current_outfit,
             })
-          }>
+          }
+        >
           Confirm
         </Button>
       </Stack.Item>

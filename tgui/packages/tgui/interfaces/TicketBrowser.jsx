@@ -1,5 +1,13 @@
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Section, Table, Tabs, Collapsible, BlockQuote } from '../components';
+import {
+  Box,
+  Button,
+  Section,
+  Table,
+  Tabs,
+  Collapsible,
+  BlockQuote,
+} from '../components';
 import { Window } from '../layouts';
 import { capitalize } from 'common/string';
 import { ButtonConfirm } from '../components/Button';
@@ -28,10 +36,16 @@ export const TicketBrowser = (_) => {
         {is_admin_panel ? (
           <Section fill>
             <Tabs>
-              <Tabs.Tab selected={tab === 'admin'} onClick={() => setTab('admin')}>
+              <Tabs.Tab
+                selected={tab === 'admin'}
+                onClick={() => setTab('admin')}
+              >
                 {`Admin${unclaimed_tickets.length ? ` (${unclaimed_tickets.length})` : ''}`}
               </Tabs.Tab>
-              <Tabs.Tab selected={tab === 'mentor'} onClick={() => setTab('mentor')}>
+              <Tabs.Tab
+                selected={tab === 'mentor'}
+                onClick={() => setTab('mentor')}
+              >
                 {/* eslint-disable-next-line max-len*/}
                 {`Mentor${unclaimed_tickets_mentor.length ? ` (${unclaimed_tickets_mentor.length})` : ''}`}
               </Tabs.Tab>
@@ -66,10 +80,17 @@ export const TicketBrowser = (_) => {
 };
 
 export const CollapsibleSection = ({ collapsible, children, ...remainder }) => (
-  <Section {...remainder}>{collapsible ? <Collapsible open>{children}</Collapsible> : children}</Section>
+  <Section {...remainder}>
+    {collapsible ? <Collapsible open>{children}</Collapsible> : children}
+  </Section>
 );
 
-export const TicketMenus = ({ unclaimed_tickets, open_tickets, resolved_tickets, closed_tickets }) => {
+export const TicketMenus = ({
+  unclaimed_tickets,
+  open_tickets,
+  resolved_tickets,
+  closed_tickets,
+}) => {
   return (
     <>
       <TicketMenu
@@ -139,8 +160,13 @@ export const TicketMenu = (props) => {
                     act('view', {
                       id: ticket.id,
                     })
-                  }>
-                  <u>{(ticket.is_admin_type ? '' : '[MENTOR] ') + '#' + ticket.id}</u>
+                  }
+                >
+                  <u>
+                    {(ticket.is_admin_type ? '' : '[MENTOR] ') +
+                      '#' +
+                      ticket.id}
+                  </u>
                 </Button>
               </Table.Cell>
               <Table.Cell>
@@ -150,29 +176,55 @@ export const TicketMenu = (props) => {
                     act('pm', {
                       id: ticket.id,
                     })
-                  }>
+                  }
+                >
                   <u>
-                    {ticket.initiator_key_name} \{ticket.disconnected ? '[DC]' : ''}
+                    {ticket.initiator_key_name} \
+                    {ticket.disconnected ? '[DC]' : ''}
                   </u>
                 </Button>
               </Table.Cell>
               {actions?.map((action) => (
-                <ActionButton key={action[0]} action={action} ticket_id={ticket.id} />
+                <ActionButton
+                  key={action[0]}
+                  action={action}
+                  ticket_id={ticket.id}
+                />
               ))}
               {actions_confirm?.map((action) => (
-                <ActionButton key={action[0]} action={action} ticket_id={ticket.id} confirm />
+                <ActionButton
+                  key={action[0]}
+                  action={action}
+                  ticket_id={ticket.id}
+                  confirm
+                />
               ))}
               {ticket.is_admin_type
-                ? admin_actions?.map((action) => <ActionButton key={action[0]} action={action} ticket_id={ticket.id} />)
+                ? admin_actions?.map((action) => (
+                    <ActionButton
+                      key={action[0]}
+                      action={action}
+                      ticket_id={ticket.id}
+                    />
+                  ))
                 : null}
               {ticket.is_admin_type
                 ? admin_actions_confirm?.map((action) => (
-                  <ActionButton key={action[0]} action={action} ticket_id={ticket.id} confirm />
-                ))
+                    <ActionButton
+                      key={action[0]}
+                      action={action}
+                      ticket_id={ticket.id}
+                      confirm
+                    />
+                  ))
                 : null}
               {conversion ? (
                 <ActionButton
-                  action={ticket.is_admin_type ? ['mhelp', 'label'] : ['ahelp', 'label']}
+                  action={
+                    ticket.is_admin_type
+                      ? ['mhelp', 'label']
+                      : ['ahelp', 'label']
+                  }
                   ticket_id={ticket.id}
                   confirm
                 />

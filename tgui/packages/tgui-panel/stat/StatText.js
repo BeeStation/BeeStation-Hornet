@@ -2,14 +2,24 @@ import { useSelector } from 'tgui/backend';
 import { Button, Flex, Box } from 'tgui/components';
 import { selectStatPanel } from './selectors';
 import { Divider } from '../../tgui/components';
-import { STAT_TEXT, STAT_BUTTON, STAT_ATOM, STAT_DIVIDER, STAT_BLANK } from './constants';
+import {
+  STAT_TEXT,
+  STAT_BUTTON,
+  STAT_ATOM,
+  STAT_DIVIDER,
+  STAT_BLANK,
+} from './constants';
 import { capitalize } from 'common/string';
 
 export const StatText = (props) => {
   const stat = useSelector(selectStatPanel);
   let statPanelData = stat.statInfomation;
   if (!statPanelData) {
-    return <Box color="red">Passed stat panel data was null contant coderman (or coderwoman).</Box>;
+    return (
+      <Box color="red">
+        Passed stat panel data was null contant coderman (or coderwoman).
+      </Box>
+    );
   }
   let verbs = {};
   if (stat.verbData !== null) {
@@ -20,42 +30,54 @@ export const StatText = (props) => {
       <Flex direction="row" wrap>
         {statPanelData
           ? Object.keys(statPanelData)
-            .filter((x) => x !== null)
-            .sort((a, b) => {
-              return StatTagToPriority(statPanelData[b].tag) - StatTagToPriority(statPanelData[a].tag);
-            })
-            .map(
-              (key) =>
-                !!statPanelData[key] &&
-                ((statPanelData[key].type === STAT_TEXT && <StatTextText title={key} text={statPanelData[key].text} />) ||
-                  (statPanelData[key].type === STAT_BUTTON && (
-                    <StatTextButton
-                      title={key}
-                      text={statPanelData[key].text}
-                      action_id={statPanelData[key].action}
-                      params={statPanelData[key].params}
-                      multirow={statPanelData[key].multirow}
-                      buttons={statPanelData[key].buttons}
-                    />
+              .filter((x) => x !== null)
+              .sort((a, b) => {
+                return (
+                  StatTagToPriority(statPanelData[b].tag) -
+                  StatTagToPriority(statPanelData[a].tag)
+                );
+              })
+              .map(
+                (key) =>
+                  !!statPanelData[key] &&
+                  ((statPanelData[key].type === STAT_TEXT && (
+                    <StatTextText title={key} text={statPanelData[key].text} />
                   )) ||
-                  (statPanelData[key].type === STAT_ATOM && (
-                    <StatTextAtom
-                      atom_ref={key}
-                      atom_name={statPanelData[key].text}
-                      atom_tag={statPanelData[key].tag}
-                      atom_icon={statPanelData[key].image}
-                    />
-                  )) ||
-                  (statPanelData[key].type === STAT_DIVIDER && <StatTextDivider />) ||
-                  (statPanelData[key].type === STAT_BLANK && (
-                    <Flex.Item width="100%">
-                      <br />
-                    </Flex.Item>
-                  )))
-            )
+                    (statPanelData[key].type === STAT_BUTTON && (
+                      <StatTextButton
+                        title={key}
+                        text={statPanelData[key].text}
+                        action_id={statPanelData[key].action}
+                        params={statPanelData[key].params}
+                        multirow={statPanelData[key].multirow}
+                        buttons={statPanelData[key].buttons}
+                      />
+                    )) ||
+                    (statPanelData[key].type === STAT_ATOM && (
+                      <StatTextAtom
+                        atom_ref={key}
+                        atom_name={statPanelData[key].text}
+                        atom_tag={statPanelData[key].tag}
+                        atom_icon={statPanelData[key].image}
+                      />
+                    )) ||
+                    (statPanelData[key].type === STAT_DIVIDER && (
+                      <StatTextDivider />
+                    )) ||
+                    (statPanelData[key].type === STAT_BLANK && (
+                      <Flex.Item width="100%">
+                        <br />
+                      </Flex.Item>
+                    ))),
+              )
           : 'No data'}
         {Object.keys(verbs).map((verb) => (
-          <StatTextVerb key={verb} title={verb} action_id={verbs[verb].action} params={verbs[verb].params} />
+          <StatTextVerb
+            key={verb}
+            title={verb}
+            action_id={verbs[verb].action}
+            params={verbs[verb].params}
+          />
         ))}
       </Flex>
     </div>
@@ -117,7 +139,14 @@ export const StatTextText = (props) => {
 };
 
 export const StatTextButton = (props) => {
-  const { title, text, action_id, params = [], multirow = false, buttons = [] } = props;
+  const {
+    title,
+    text,
+    action_id,
+    params = [],
+    multirow = false,
+    buttons = [],
+  } = props;
   return (
     <Flex.Item mt={1} width="100%">
       <Button
@@ -129,7 +158,8 @@ export const StatTextButton = (props) => {
             params: params,
           })
         }
-        color="transparent">
+        color="transparent"
+      >
         {!multirow ? (
           <Flex direction="row">
             <Flex.Item bold>{title}</Flex.Item>
@@ -143,7 +173,8 @@ export const StatTextButton = (props) => {
                       action_id: buttonInfo['action_id'],
                       params: buttonInfo['params'],
                     });
-                  }}>
+                  }}
+                >
                   {buttonInfo['title']}
                 </Button>
               </Flex.Item>
@@ -153,7 +184,8 @@ export const StatTextButton = (props) => {
               ml={1.5}
               style={{
                 whiteSpace: 'normal',
-              }}>
+              }}
+            >
               {text}
             </Flex.Item>
           </Flex>
@@ -171,7 +203,8 @@ export const StatTextButton = (props) => {
                         action_id: buttonInfo['action_id'],
                         params: buttonInfo['params'],
                       });
-                    }}>
+                    }}
+                  >
                     {buttonInfo['title']}
                   </Button>
                 </Flex.Item>
@@ -180,7 +213,8 @@ export const StatTextButton = (props) => {
             <Box
               style={{
                 whiteSpace: 'normal',
-              }}>
+              }}
+            >
               {text}
             </Box>
           </>
@@ -251,7 +285,8 @@ export const StatTextAtom = (props) => {
             },
           })
         }
-        color="transparent">
+        color="transparent"
+      >
         <div className="StatAtomElement">
           <Flex direction="row" wrap="wrap">
             {

@@ -87,7 +87,13 @@ export class ReadmeScroller extends Component {
     return (
       <Section fill scrollable backgroundColor="black">
         {(header + display).split('\n').map((line, i) => (
-          <Box mb={1} key={i} fontFamily="monospace" color="white" style={{ whiteSpace: 'pre-wrap' }}>
+          <Box
+            mb={1}
+            key={i}
+            fontFamily="monospace"
+            color="white"
+            style={{ whiteSpace: 'pre-wrap' }}
+          >
             {line === '' ? '\u00A0' : line}
           </Box>
         ))}

@@ -144,12 +144,13 @@ export enum GamePreferencesSelectedPage {
   Keybindings,
 }
 
-export const createSetPreference = (act: typeof sendAct, preference: string) => (value: unknown) => {
-  act('set_preference', {
-    preference,
-    value,
-  });
-};
+export const createSetPreference =
+  (act: typeof sendAct, preference: string) => (value: unknown) => {
+    act('set_preference', {
+      preference,
+      value,
+    });
+  };
 
 export enum Window {
   Character = 0,

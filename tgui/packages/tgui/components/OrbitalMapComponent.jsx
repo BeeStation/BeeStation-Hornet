@@ -40,7 +40,7 @@ export class OrbitalMapComponent extends Component {
             this.setState({
               suppressingFlicker: false,
             }),
-          suppressFlicker
+          suppressFlicker,
         );
       }
     };
@@ -75,7 +75,14 @@ export class OrbitalMapComponent extends Component {
     };
 
     this.handleDragMove = (e) => {
-      const { minValue, maxValue, step, stepPixelSize, dragMatrixX, dragMatrixY } = this.props;
+      const {
+        minValue,
+        maxValue,
+        step,
+        stepPixelSize,
+        dragMatrixX,
+        dragMatrixY,
+      } = this.props;
       const scalarScreenOffsetX = getScalarScreenOffset(e, dragMatrixX);
       const scalarScreenOffsetY = getScalarScreenOffset(e, dragMatrixY);
       this.setState((prevState) => {
@@ -90,18 +97,26 @@ export class OrbitalMapComponent extends Component {
           state.internalValueX = clamp(
             state.internalValueX + (offsetX * step) / stepPixelSize,
             minValue - step,
-            maxValue + step
+            maxValue + step,
           );
           // Clamp the final value
-          state.valueX = clamp(state.internalValueX - (state.internalValueX % step) + stepOffset, minValue, maxValue);
+          state.valueX = clamp(
+            state.internalValueX - (state.internalValueX % step) + stepOffset,
+            minValue,
+            maxValue,
+          );
           // Y TRANSLATION
           state.internalValueY = clamp(
             state.internalValueY + (offsetY * step) / stepPixelSize,
             minValue - step,
-            maxValue + step
+            maxValue + step,
           );
           // Clamp the final value
-          state.valueY = clamp(state.internalValueY - (state.internalValueY % step) + stepOffset, minValue, maxValue);
+          state.valueY = clamp(
+            state.internalValueY - (state.internalValueY % step) + stepOffset,
+            minValue,
+            maxValue,
+          );
           state.xOffset = state.valueX;
           state.yOffset = state.valueY;
           state.originX = scalarScreenOffsetX;
