@@ -463,14 +463,6 @@
 	desc = "A small bottle containing Bio Virus Antidote Kit."
 	list_reagents = list(/datum/reagent/medicine/atropine = 5, /datum/reagent/medicine/epinephrine = 5, /datum/reagent/medicine/salbutamol = 10, /datum/reagent/medicine/spaceacillin = 10)
 
-/obj/item/reagent_containers/cup/bottle/necropolis_seed
-	name = "bowl of blood"
-	label_name = "blood"
-	desc = "A clay bowl containing a fledgling Necropolis, preserved in blood. A robust virologist may be able to unlock its full potential..."
-	icon_state = "mortar"
-	spawned_disease = /datum/disease/advance/random/necropolis
-	label_icon = null
-
 /obj/item/reagent_containers/cup/bottle/felinid
 	name = "Nano-Feline Assimilative Toxoplasmosis culture bottle"
 	label_name = "Nano-Feline Assimilative Toxoplasmosis culture"
