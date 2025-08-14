@@ -191,6 +191,7 @@
 	metabolization_rate = 0.75 * REAGENTS_METABOLISM
 	metabolized_traits = list(TRAIT_SLEEPIMMUNE, TRAIT_NOBLOCK)
 
+/*
 /datum/reagent/drug/methamphetamine/on_mob_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
 	affected_mob.client?.give_award(/datum/award/achievement/misc/meth, affected_mob)
@@ -277,6 +278,7 @@
 	affected_mob.Dizzy(20)
 	affected_mob.adjustToxLoss(5, updating_health = FALSE)
 	return UPDATE_MOB_HEALTH
+*/
 
 /datum/reagent/drug/bath_salts
 	name = "Bath Salts"
