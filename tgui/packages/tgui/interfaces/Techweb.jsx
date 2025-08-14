@@ -193,7 +193,7 @@ export const TechwebContent = (props) => {
           </Flex.Item>
         </Flex>
       </Flex.Item>
-      <Flex.Item className="Techweb__RouterContent" height="100%">
+      <Flex.Item className="Techweb__RouterContent" minHeight="0" grow={1} basis="auto">
         <TechwebRouter />
       </Flex.Item>
     </Flex>
