@@ -1,18 +1,18 @@
+import { Component } from 'react';
+
+import { resolveAsset } from '../../assets';
 import { useBackend } from '../../backend';
 import {
-  Input,
-  InfinitePlane,
-  Stack,
   Box,
   Button,
-  Section,
+  InfinitePlane,
+  Input,
+  Stack,
 } from '../../components';
-import { Component } from 'react';
-import { Layout, Window } from '../../layouts';
-import { resolveAsset } from '../../assets';
+import { Window } from '../../layouts';
 import { CircuitInfo } from './CircuitInfo';
-import { NULL_REF, ABSOLUTE_Y_OFFSET, MOUSE_BUTTON_LEFT } from './constants';
 import { Connections } from './Connections';
+import { ABSOLUTE_Y_OFFSET, MOUSE_BUTTON_LEFT } from './constants';
 import { ObjectComponent } from './ObjectComponent';
 import { VariableMenu } from './VariableMenu';
 

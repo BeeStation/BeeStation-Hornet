@@ -1,23 +1,23 @@
+import { filter, sortBy } from 'common/collections';
 import { BooleanLike, classes } from 'common/react';
 import { createSearch } from 'common/string';
-import { filter, sortBy } from 'common/collections';
-import {
-  Divider,
-  Button,
-  Section,
-  Tabs,
-  Stack,
-  Box,
-  Input,
-  Icon,
-  Tooltip,
-  NoticeBox,
-} from '../components';
-import { Window } from '../layouts';
-import { Food } from './PreferencesMenu/data';
 import { useState } from 'react';
 
 import { useBackend } from '../backend';
+import {
+  Box,
+  Button,
+  Divider,
+  Icon,
+  Input,
+  NoticeBox,
+  Section,
+  Stack,
+  Tabs,
+  Tooltip,
+} from '../components';
+import { Window } from '../layouts';
+import { Food } from './PreferencesMenu/data';
 
 const TYPE_ICONS = {
   'Can Make': 'utensils',

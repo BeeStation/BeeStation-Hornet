@@ -1,6 +1,6 @@
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import { EmagConsoleText } from './NtosEmagConsole';
-import { useBackend } from '../backend';
 
 export const EmagConsole = (props) => {
   const { data } = useBackend();

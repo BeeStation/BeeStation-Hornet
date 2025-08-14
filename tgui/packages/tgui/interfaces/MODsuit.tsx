@@ -1,23 +1,24 @@
 import { BooleanLike } from 'common/react';
-import { formatSiUnit } from '../format';
+
 import { useBackend, useLocalState } from '../backend';
 import {
+  AnimatedNumber,
+  Box,
   Button,
+  Collapsible,
   ColorBox,
+  Dimmer,
+  Dropdown,
+  Icon,
   LabeledList,
+  NoticeBox,
+  NumberInput,
   ProgressBar,
   Section,
-  Collapsible,
-  Box,
-  Icon,
   Stack,
   Table,
-  Dimmer,
-  NumberInput,
-  AnimatedNumber,
-  Dropdown,
-  NoticeBox,
 } from '../components';
+import { formatSiUnit } from '../format';
 import { Window } from '../layouts';
 
 type MODsuitData = {

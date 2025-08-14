@@ -3,8 +3,8 @@ import {
   Box,
   Button,
   Divider,
-  LabeledList,
   Flex,
+  LabeledList,
   Section,
 } from '../components';
 import { Window } from '../layouts';

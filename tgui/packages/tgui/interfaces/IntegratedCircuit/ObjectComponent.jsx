@@ -1,8 +1,9 @@
-import { useBackend } from '../../backend';
-import { Box, Stack, Button } from 'tgui/components';
-import { Component } from 'react';
 import { classes, shallowDiffers } from 'common/react';
-import { ABSOLUTE_Y_OFFSET, noop } from './constants';
+import { Component } from 'react';
+import { Box, Button, Stack } from 'tgui/components';
+
+import { useBackend } from '../../backend';
+import { ABSOLUTE_Y_OFFSET } from './constants';
 import { Port } from './Port';
 
 export class ObjectComponent extends Component {

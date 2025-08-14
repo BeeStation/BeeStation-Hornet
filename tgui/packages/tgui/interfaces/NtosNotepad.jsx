@@ -1,12 +1,12 @@
-import { NtosWindow } from '../layouts';
 import { useBackend, useLocalState } from '../backend';
 import {
-  Section,
   BufferedTextArea,
   Button,
   Popper,
+  Section,
   Stack,
 } from '../components';
+import { NtosWindow } from '../layouts';
 
 export const NtosNotepad = (props) => {
   const { act, data } = useBackend();

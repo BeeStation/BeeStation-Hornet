@@ -1,19 +1,19 @@
-import {
-  Box,
-  Button,
-  Divider,
-  Dropdown,
-  Tabs,
-  Chart,
-  Section,
-  Flex,
-  LabeledList,
-  NumberInput,
-} from '../components';
 import { exhaustiveCheck } from 'common/exhaustive';
 import { BooleanLike } from 'common/react';
 
 import { useBackend, useLocalState } from '../backend';
+import {
+  Box,
+  Button,
+  Chart,
+  Divider,
+  Dropdown,
+  Flex,
+  LabeledList,
+  NumberInput,
+  Section,
+  Tabs,
+} from '../components';
 import { Window } from '../layouts';
 
 type Data = {
