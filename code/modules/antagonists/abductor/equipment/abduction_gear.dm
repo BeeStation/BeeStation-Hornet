@@ -942,6 +942,26 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	bomb = 10
 	bio = 10
 
+/obj/structure/bed/subject_transporter
+	name = "subject transporter"
+	icon = 'icons/obj/abductor.dmi'
+	icon_state = "down"
+	anchored = FALSE
+	resistance_flags = NONE
+	move_resist = MOVE_FORCE_WEAK
+
+/obj/structure/bed/subject_transporter/post_buckle_mob(mob/living/M)
+	set_density(TRUE)
+	icon_state = "up"
+	M.reset_pull_offsets(M, TRUE)
+	M.pixel_y = M.base_pixel_y
+
+/obj/structure/bed/subject_transporter/post_unbuckle_mob(mob/living/M)
+	set_density(FALSE)
+	icon_state = "down"
+	//Set them back down to the normal lying position
+	M.pixel_y = M.base_pixel_y + M.body_position_pixel_y_offset
+
 #undef VEST_STEALTH
 #undef VEST_COMBAT
 #undef GIZMO_SCAN
