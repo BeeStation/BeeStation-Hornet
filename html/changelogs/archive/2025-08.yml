@@ -195,3 +195,67 @@
   TsunamiAnt:
   - rscadd: Engineering now has oxycandles in the engie-vend
   - tweak: Hellfire candles are now cheaper.
+2025-08-11:
+  Isaac:
+  - bugfix: Medical modsuits can now fit first aid kits
+  - bugfix: You can now fit large items in extended capacity/syndicate storage modules
+  Rukofamicom:
+  - tweak: Toxic gas damage has been capped to 2.5 damage per second per gas, down
+      from 10 damage per second per gas. Players breathing toxic gasses will have
+      about the same time to respond as those that are breathing nothing at all now.
+  Schoolboy215:
+  - bugfix: Add previously missing hair dye receipe
+  SunShine214:
+  - bugfix: Radiation Collector Research Mode works again
+  Tsar-Salat:
+  - code_imp: game compiles with no linter errors
+2025-08-12:
+  Rukofamicom:
+  - bugfix: Tequila sunrise no longer makes shadowpeople and nightmares permanently
+      glow
+  - bugfix: Nightmares are now given a more accurate blurb with regard to the server
+      rules.
+  pixelpoepleman:
+  - rscadd: Added syringes embedding in pickpockets unless protected by thick clothes
+      (seen via examine)
+2025-08-13:
+  Tsar-Salat:
+  - bugfix: fix radial crafting
+  TsunamiAnt:
+  - config: AI laws are now weighted, with asimov being vastly more likely than anything
+      else.
+  - config: Removes crewsimov from roundstart lawsets
+  TsunamiAnt, Rukofamicom:
+  - rscadd: Security cyborgs are available again, but they have a fresh coat of paint
+      and a new name (Guardian) to hopefully distance them from trying to enforce
+      space law. They do not require research to unlock, but are also substantially
+      weaker than they used to be. They have swapped their stun batons for pepper
+      clouds, and their gun now has a limited capacity that recharges from the cyborg
+      cell over time. Guardian cyborgs also have additional armor plating to help
+      protect them, especially from explosives that kicks in after firing their gun.
+  - rscadd: Guardian cyborg guns now have two additional firing modes, taken from
+      the exploration gun. These modes allow them to demolish terrain and obstacles
+      as well as deal high damage to non-humanoid creatures. Both of these projectiles
+      will cause only 5 damage to humanoids.
+  - rscadd: Guardian cyborgs come equipped with an ore satchel and GPS in addition
+      to their fancy gun in order to provide better off-station support.
+  - rscadd: Guardian cyborgs have been given a hugging module and lollipop dispenser
+      to help put crew at ease, appropriate for their new appearance.
+  - rscadd: Standard cyborgs have gained a GPS and ore satchel as well
+  - tweak: Cyborgs are no longer completely stonewalled by holosigns and may pass
+      through them.
+  - bugfix: Explorer gun energy overlays are now displaying, and a new overlay has
+      been created for the "demolish" mode intended to destroy terrain and objects
+      which is purple in color.
+  - rscdel: Removes the now unused cyborg disabler upgrade from
+  - rscdel: Sort of removed the borgi from the game, since the new guardian borg has
+      hijacked their appearance. The sprite has also been modified by two pixels so
+      that it has a more neutral expression.
+  rkz, Rukofamicom:
+  - bugfix: Vehicles coded to require hands now actually require functional and empty
+      hands to operate. Most vehicles require hands, but skateboards, motorized wheelchairs
+      and Wheely Heelies do not.
+  - bugfix: Vehicles no longer have multiple riding elements applied to them, which
+      would cause very haywire things to happen.
+  - tweak: Motorized wheelchairs actually did require hands, this requirement has
+      been removed because they are propelled by a motor rather than by hand.

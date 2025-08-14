@@ -25,6 +25,7 @@
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
 	armor_type = /datum/armor/gloves_botanic_leather
+	clothing_flags = THICKMATERIAL
 
 
 /datum/armor/gloves_botanic_leather
@@ -46,7 +47,7 @@
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
 	armor_type = /datum/armor/gloves_combat
-
+	clothing_flags = THICKMATERIAL
 
 /datum/armor/gloves_combat
 	bio = 90
