@@ -134,7 +134,11 @@ export const UserDetails = () => {
             <>
               Welcome, <b>{user.name || 'Unknown'}</b>, <b>{user.job || 'Unemployed'}</b>!
               <br />
-              Your balance is <b>{user.points || 0} {user.currency_type || 'points'}</b>.
+              Your balance is{' '}
+              <b>
+                {user.points || 0} {user.currency_type || 'points'}
+              </b>
+              .
             </>
           ) : hasCard ? (
             <>
@@ -196,11 +200,7 @@ const ProductDisplay = (props: ProductDisplayProps) => {
           }
         })
         .map((product) => (
-          <Product
-            key={product.path}
-            fluid={toggleLayout === LAYOUT.List}
-            product={product}
-          />
+          <Product key={product.path} fluid={toggleLayout === LAYOUT.List} product={product} />
         ))}
     </Section>
   );
