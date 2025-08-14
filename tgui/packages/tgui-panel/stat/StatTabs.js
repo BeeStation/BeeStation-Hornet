@@ -1,13 +1,14 @@
 import { useDispatch, useSelector } from 'tgui/backend';
 import {
   Button,
+  Divider,
   Flex,
-  Tabs,
-  Section,
   Input,
   ScrollableBox,
-  Divider,
+  Section,
+  Tabs,
 } from 'tgui/components';
+
 import { useSettings } from '../settings';
 import { selectStatPanel } from './selectors';
 import { StatStatus } from './StatStatus';

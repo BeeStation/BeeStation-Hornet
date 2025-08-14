@@ -1,15 +1,16 @@
+import { capitalize } from 'common/string';
 import { useSelector } from 'tgui/backend';
-import { Button, Flex, Box } from 'tgui/components';
-import { selectStatPanel } from './selectors';
+import { Box, Button, Flex } from 'tgui/components';
+
 import { Divider } from '../../tgui/components';
 import {
-  STAT_TEXT,
-  STAT_BUTTON,
   STAT_ATOM,
-  STAT_DIVIDER,
   STAT_BLANK,
+  STAT_BUTTON,
+  STAT_DIVIDER,
+  STAT_TEXT,
 } from './constants';
-import { capitalize } from 'common/string';
+import { selectStatPanel } from './selectors';
 
 export const StatText = (props) => {
   const stat = useSelector(selectStatPanel);
