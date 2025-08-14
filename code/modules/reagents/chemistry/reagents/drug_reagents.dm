@@ -557,7 +557,6 @@
 		affected_mob.adjustToxLoss(3 * REM, updating_health = FALSE)
 		return UPDATE_MOB_HEALTH
 
-
 /// Can bring a corpse back to life temporarily (if heart is intact)
 /// Also prevents dying
 /datum/reagent/drug/nooartrium
