@@ -51583,7 +51583,7 @@
 /turf/open/floor/iron,
 /area/engine/atmos)
 "rkZ" = (
-/obj/machinery/vendor/mining,
+/obj/machinery/gear_requisition/mining,
 /turf/open/floor/iron/tech,
 /area/quartermaster/miningdock)
 "rli" = (
@@ -53480,7 +53480,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/machinery/vendor/exploration,
+/obj/machinery/gear_requisition/exploration,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/quartermaster/exploration_prep)

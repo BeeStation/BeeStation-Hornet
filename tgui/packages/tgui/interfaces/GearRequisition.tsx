@@ -6,7 +6,7 @@ import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import { getLayoutState, LAYOUT, LayoutToggle } from './common/LayoutToggle';
 
-type MiningVendorData = {
+type GearRequisitionData = {
   product_records: ProductRecord[];
   categories: Record<string, Category>;
   user: UserData;
@@ -60,8 +60,8 @@ interface CategorySelectorProps {
   onSelect: (category: string) => void;
 }
 
-export const MiningVendor = () => {
-  const { data } = useBackend<MiningVendorData>();
+export const GearRequisition = () => {
+  const { data } = useBackend<GearRequisitionData>();
 
   const { product_records = [], categories } = data;
 
@@ -117,7 +117,7 @@ export const MiningVendor = () => {
 
 /** Displays user details with mining points balance */
 export const UserDetails = () => {
-  const { data } = useBackend<MiningVendorData>();
+  const { data } = useBackend<GearRequisitionData>();
   const { user } = data;
 
   const hasAccess = user?.access_valid || user?.observer;
@@ -161,7 +161,7 @@ export const UserDetails = () => {
 
 /** Displays products in a section, with user balance at top */
 const ProductDisplay = (props: ProductDisplayProps) => {
-  const { data } = useBackend<MiningVendorData>();
+  const { data } = useBackend<GearRequisitionData>();
   const { inventory, stockSearch, setStockSearch, selectedCategory } = props;
   const { user } = data;
   const [toggleLayout, setToggleLayout] = useState(getLayoutState(LAYOUT.Grid));
@@ -210,7 +210,7 @@ const ProductDisplay = (props: ProductDisplayProps) => {
  * An individual listing for a mining equipment item.
  */
 const Product = (props: ProductProps) => {
-  const { act, data } = useBackend<MiningVendorData>();
+  const { act, data } = useBackend<GearRequisitionData>();
   const { product, fluid } = props;
   const { user } = data;
 

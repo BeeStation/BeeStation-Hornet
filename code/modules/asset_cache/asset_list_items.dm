@@ -397,9 +397,9 @@
 		qdel(vendor)
 
 	// Add mining vendor items
-	for(var/obj/machinery/vendor/mining_vendor as anything in subtypesof(/obj/machinery/vendor))
+	for(var/obj/machinery/gear_requisition/mining_vendor as anything in subtypesof(/obj/machinery/gear_requisition))
 		mining_vendor = new mining_vendor()
-		for(var/datum/data/vendor_equipment/prize in mining_vendor.prize_list)
+		for(var/datum/data/requisition_equipment/prize in mining_vendor.prize_list)
 			target_items |= prize.equipment_path
 		qdel(mining_vendor)
 

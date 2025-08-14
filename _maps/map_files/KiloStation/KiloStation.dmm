@@ -24638,7 +24638,7 @@
 /area/security/prison)
 "fYw" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/vendor/exploration,
+/obj/machinery/gear_requisition/exploration,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
@@ -76825,7 +76825,7 @@
 	},
 /area/maintenance/port)
 "wPx" = (
-/obj/machinery/vendor/mining,
+/obj/machinery/gear_requisition/mining,
 /obj/effect/turf_decal/bot,
 /obj/machinery/airalarm/directional/east,
 /obj/machinery/status_display/supply{

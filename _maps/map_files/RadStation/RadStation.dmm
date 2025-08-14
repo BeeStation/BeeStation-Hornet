@@ -29596,7 +29596,7 @@
 /turf/open/floor/iron/dark,
 /area/science/robotics/mechbay)
 "jFH" = (
-/obj/machinery/vendor/exploration,
+/obj/machinery/gear_requisition/exploration,
 /turf/open/floor/iron/dark,
 /area/quartermaster/exploration_prep)
 "jFI" = (
@@ -55721,7 +55721,7 @@
 /area/hallway/primary/central)
 "swi" = (
 /obj/machinery/airalarm/directional/east,
-/obj/machinery/vendor/mining,
+/obj/machinery/gear_requisition/mining,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
@@ -62734,7 +62734,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/guideline/guideline_half_edge/purple,
-/obj/machinery/vendor/exploration,
+/obj/machinery/gear_requisition/exploration,
 /turf/open/floor/iron/dark,
 /area/quartermaster/exploration_prep)
 "uEz" = (

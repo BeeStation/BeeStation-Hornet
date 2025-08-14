@@ -8167,7 +8167,7 @@
 /turf/open/floor/iron,
 /area/quartermaster/miningoffice)
 "bcD" = (
-/obj/machinery/vendor/mining,
+/obj/machinery/gear_requisition/mining,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light{
 	dir = 1
@@ -48199,7 +48199,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/vendor/exploration,
+/obj/machinery/gear_requisition/exploration,
 /obj/machinery/camera/directional/east,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 26

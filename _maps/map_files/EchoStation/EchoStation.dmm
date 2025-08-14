@@ -14101,7 +14101,7 @@
 /area/storage/primary)
 "hlL" = (
 /obj/effect/turf_decal/stripes/box,
-/obj/machinery/vendor/mining,
+/obj/machinery/gear_requisition/mining,
 /obj/machinery/status_display/supply{
 	pixel_y = 31
 	},
