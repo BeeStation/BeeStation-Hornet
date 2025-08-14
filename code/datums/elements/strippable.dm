@@ -163,6 +163,8 @@
 /datum/strippable_item/proc/start_unequip(atom/source, mob/user)
 
 	var/obj/item/item = get_item(source)
+	var/mob/living/carbon/source_pocket = source
+
 	if(isnull(item))
 		return FALSE
 
@@ -180,6 +182,9 @@
 	source.log_message("[key_name(source)] is being stripped of [item.name] by [key_name(user)]", LOG_ATTACK, color="red")
 	user.log_message("[key_name(source)] is being stripped of [item.name] by [key_name(user)]", LOG_ATTACK, color="red", log_globally=FALSE)
 	item.add_fingerprint(src)
+
+	if(item.on_start_stripping(source, user, source_pocket.get_slot_by_item(item)))
+		return FALSE
 
 	return TRUE
 

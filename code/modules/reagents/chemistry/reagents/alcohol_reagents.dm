@@ -755,21 +755,26 @@
 
 /datum/reagent/consumable/ethanol/tequila_sunrise/on_mob_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
+	if(isshadow(affected_mob)) //This is an uncounterable light for shadowpeople
+		return
 	to_chat(affected_mob, span_notice("You feel gentle warmth spread through your body!"))
 	light_holder = new(affected_mob)
 	light_holder.set_light(3, 0.7, "#FFCC00") //Tequila Sunrise makes you radiate dim light, like a sunrise!
 
 /datum/reagent/consumable/ethanol/tequila_sunrise/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
+	if(isshadow(affected_mob))
+		return
 	if(QDELETED(light_holder))
-		holder.del_reagent(/datum/reagent/consumable/ethanol/tequila_sunrise) //If we lost our light object somehow, remove the reagent
+		affected_mob.reagents.del_reagent(/datum/reagent/consumable/ethanol/tequila_sunrise) //If we lost our light object somehow, remove the reagent
 	else if(light_holder.loc != affected_mob)
 		light_holder.forceMove(affected_mob)
 
 /datum/reagent/consumable/ethanol/tequila_sunrise/on_mob_end_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
-	to_chat(affected_mob, span_notice("The warmth in your body fades."))
-	QDEL_NULL(light_holder)
+	if(light_holder)
+		to_chat(affected_mob, span_notice("The warmth in your body fades."))
+		QDEL_NULL(light_holder)
 
 /datum/reagent/consumable/ethanol/toxins_special
 	name = "Toxins Special"
