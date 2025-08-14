@@ -26105,14 +26105,6 @@
 /area/bridge)
 "hcn" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/cup/glass/bottle/virusfood{
-	pixel_x = 2;
-	pixel_y = 12
-	},
-/obj/item/reagent_containers/cup/glass/bottle/virusfood{
-	pixel_x = -6;
-	pixel_y = 8
-	},
 /obj/item/reagent_containers/cup/bottle/spaceacillin{
 	pixel_x = 9;
 	pixel_y = 12
@@ -29329,9 +29321,6 @@
 /area/security/brig)
 "ikK" = (
 /obj/structure/table/glass,
-/obj/structure/reagent_dispensers/virusfood{
-	pixel_x = 28
-	},
 /obj/item/clothing/gloves/color/latex,
 /obj/item/clothing/glasses/hud/health,
 /obj/item/reagent_containers/dropper,
@@ -49719,9 +49708,6 @@
 /area/storage/primary)
 "qAH" = (
 /obj/structure/table/glass,
-/obj/structure/reagent_dispensers/virusfood{
-	pixel_x = 28
-	},
 /obj/item/clothing/gloves/color/latex,
 /obj/item/clothing/glasses/hud/health,
 /obj/item/reagent_containers/dropper,
@@ -57880,7 +57866,6 @@
 "tCS" = (
 /obj/structure/table/glass,
 /obj/item/book/manual/wiki/infections,
-/obj/item/extrapolator,
 /obj/item/radio/intercom{
 	frequency = 1485;
 	name = "Station Intercom (Medbay)";

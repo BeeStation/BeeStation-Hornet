@@ -18337,9 +18337,6 @@
 /turf/open/floor/iron/grid/steel,
 /area/science/robotics/lab)
 "eOs" = (
-/obj/structure/reagent_dispensers/virusfood{
-	pixel_x = -32
-	},
 /obj/structure/table,
 /obj/item/paper_bin,
 /obj/item/clothing/neck/stethoscope,
@@ -37486,9 +37483,6 @@
 "jGv" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/computer/pandemic,
-/obj/structure/reagent_dispensers/virusfood{
-	pixel_x = -32
-	},
 /obj/machinery/light{
 	dir = 8
 	},
@@ -48425,10 +48419,6 @@
 	name = "Virology Desk Window";
 	req_access_txt = "20"
 	},
-/obj/item/reagent_containers/cup/glass/bottle/virusfood{
-	pixel_x = 2;
-	pixel_y = 12
-	},
 /obj/item/storage/box/masks{
 	pixel_x = -5;
 	pixel_y = -3
@@ -50474,14 +50464,6 @@
 	pixel_x = 26
 	},
 /obj/structure/table/glass,
-/obj/item/extrapolator{
-	pixel_x = 6;
-	pixel_y = 14
-	},
-/obj/item/extrapolator{
-	pixel_x = -3;
-	pixel_y = 6
-	},
 /obj/item/book/manual/wiki/infections{
 	pixel_x = 6;
 	pixel_y = 6
@@ -77818,14 +77800,6 @@
 "tXb" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/table,
-/obj/item/reagent_containers/cup/glass/bottle/virusfood{
-	pixel_x = 2;
-	pixel_y = 12
-	},
-/obj/item/reagent_containers/cup/glass/bottle/virusfood{
-	pixel_x = -6;
-	pixel_y = 8
-	},
 /obj/item/reagent_containers/cup/bottle/spaceacillin{
 	pixel_x = 9;
 	pixel_y = 12
@@ -88224,7 +88198,6 @@
 	dir = 9
 	},
 /obj/item/clothing/neck/stethoscope,
-/obj/item/extrapolator,
 /obj/item/storage/box/monkeycubes{
 	pixel_x = -4;
 	pixel_y = 8

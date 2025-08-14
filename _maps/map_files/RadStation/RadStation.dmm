@@ -23552,9 +23552,6 @@
 	pixel_y = 9
 	},
 /obj/item/hand_labeler,
-/obj/structure/reagent_dispensers/virusfood{
-	pixel_x = -32
-	},
 /turf/open/floor/iron/grid/steel,
 /area/medical/virology)
 "hGp" = (
@@ -26473,14 +26470,6 @@
 /area/crew_quarters/heads/hos)
 "iIc" = (
 /obj/structure/table,
-/obj/item/reagent_containers/cup/glass/bottle/virusfood{
-	pixel_x = 2;
-	pixel_y = 12
-	},
-/obj/item/reagent_containers/cup/glass/bottle/virusfood{
-	pixel_x = -6;
-	pixel_y = 8
-	},
 /obj/item/reagent_containers/cup/bottle/spaceacillin{
 	pixel_x = 9;
 	pixel_y = 12
@@ -26491,10 +26480,6 @@
 	},
 /obj/item/reagent_containers/cup/bottle/spaceacillin{
 	pixel_x = 2;
-	pixel_y = -1
-	},
-/obj/structure/reagent_dispensers/virusfood{
-	pixel_x = 31;
 	pixel_y = -1
 	},
 /turf/open/floor/iron/grid/steel,
@@ -26904,14 +26889,6 @@
 	pixel_x = -32
 	},
 /obj/structure/table,
-/obj/item/extrapolator{
-	pixel_x = 6;
-	pixel_y = 14
-	},
-/obj/item/extrapolator{
-	pixel_x = -3;
-	pixel_y = 6
-	},
 /turf/open/floor/iron/grid/steel,
 /area/medical/virology)
 "iPz" = (
