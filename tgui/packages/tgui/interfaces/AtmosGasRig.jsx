@@ -10,8 +10,8 @@ export const AtmosGasRig = (props) => {
   );
 };
 
-const DisplayWarning = (warning, message) => {
-  if (warning) {
+const DisplayWarning = (message) => {
+  if (message !== null) {
     return <NoticeBox color="red">{message}</NoticeBox>;
   }
   return <Box />;
@@ -102,8 +102,7 @@ export const AtmosGasRigTemplate = (props) => {
             <br />
             <br />
             <br />
-            {DisplayWarning(data.needs_repairs, 'Repairs needed! Use plasteel to replace damaged components.')}
-            {DisplayWarning(data.over_pressure, 'Output pressure has exceeded maximum.')}
+            {DisplayWarning(data.warning_message)}
           </Box>
         </Flex.Item>
         <Flex.Item>

@@ -15,6 +15,9 @@
 	resistance_flags = INDESTRUCTIBLE|ACID_PROOF|FIRE_PROOF
 	density = TRUE
 
+	var/obj/item/stock_parts/capacitor/capacitor
+	var/obj/item/stock_parts/manipulator/manipulator
+
 	var/depth = 0
 
 	/// the desired depth to approach
@@ -87,6 +90,8 @@
 
 /obj/machinery/atmospherics/gasrig/core/Initialize(mapload)
 	. = ..()
+	manipulator = new /obj/item/stock_parts/manipulator(src)
+	capacitor = new /obj/item/stock_parts/capacitor(src)
 	soundloop = new(src)
 	soundloop.volume = 10 //depth starts at zero so init at minimum volume
 	soundloop.start() //start immediately as it starts on
@@ -103,6 +108,8 @@
 	gas_output.Destroy()
 	for(var/obj/machinery/atmospherics/gasrig/dummy/dummy in dummies)
 		dummy.Destroy()
+	manipulator.Destroy()
+	capacitor.Destroy()
 	QDEL_NULL(soundloop)
 	STOP_PROCESSING(SSmachines, src)
 	return ..()
@@ -246,6 +253,9 @@
 
 /obj/machinery/atmospherics/gasrig/core/update_icon_state()
 	. = ..()
+	if(panel_open)
+		icon_state = "gasrig_1_open"
+		return
 	if(mode == GASRIG_MODE_NORMAL && !needs_repairs)
 		if(active && !(machine_stat & NOPOWER))
 			icon_state = "gasrig_1"
@@ -287,6 +297,8 @@
 			update_appearance()
 
 /obj/machinery/atmospherics/gasrig/core/proc/set_active(to_set)
+	if(to_set == TRUE && panel_open)
+		return
 	active = to_set
 	if(!active)
 		soundloop.stop()
@@ -308,6 +320,12 @@
 		balloon_alert(user, "You repair the rig's damage!")
 
 /obj/machinery/atmospherics/gasrig/core/attackby(obj/item/I, mob/user, params)
+	if(!active)
+		if(default_deconstruction_screwdriver(user, "gasrig_1_open", "gasrig_1_off", I))
+			return
+	if(I.tool_behaviour == TOOL_SCREWDRIVER)
+		balloon_alert(user, "Bolts secure the maintanence hatch, turn the rig off to use the hatch!")
+		return
 	if(istype(I, /obj/item/stack/sheet/plasteel))
 		var/obj/item/stack/sheet/plasteel/PS = I
 		if(!needs_repairs)
@@ -324,8 +342,11 @@
 			update_mode(GASRIG_MODE_NORMAL)
 			change_health(10)
 			update_appearance()
+			return
 		else
 			balloon_alert(user, "You need 10 sheets of plasteel!")
+			return
+	return ..()
 
 /obj/machinery/atmospherics/gasrig/core/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -349,15 +370,21 @@
 	data["max_health"] = GASRIG_MAX_HEALTH
 	data["health"] = health
 	data["active"] = active
-	data["needs_repairs"] = needs_repairs
-	data["over_pressure"] = overpressure
 	data["o2_constants"] = GASRIG_O2
 	data["n2_constants"] = GASRIG_N2
 	data["plas_constants"] = GASRIG_PLAS
 	data["co2_constants"] = GASRIG_CO2
 	data["n2o_constants"] = GASRIG_N2O
 	data["nob_constants"] = GASRIG_NOB
+	data["warning_message"] = get_warning()
 	return data
+
+/obj/machinery/atmospherics/gasrig/core/proc/get_warning()
+	if(needs_repairs)
+		return "Repairs needed! Use plasteel to replace damaged components."
+	if(overpressure)
+		return "Output pressure has exceeded maximum."
+	return null
 
 /obj/machinery/atmospherics/gasrig/core/ui_act(action, params)
 	if(..())
@@ -366,6 +393,8 @@
 
 
 /obj/machinery/atmospherics/gasrig/core/proc/ui_act_base(action, params)
+	if(machine_stat & NOPOWER)
+		return
 	switch(action)
 		if("set_depth")
 			set_depth = text2num(params["set_depth"])
