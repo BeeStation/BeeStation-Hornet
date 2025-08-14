@@ -37,15 +37,16 @@
 /datum/action/changeling/fakedeath/proc/ready_to_regenerate(datum/mind/mind)
 	if(!mind || !iscarbon(mind.current))
 		return
-	var/datum/antagonist/changeling/C = mind.has_antag_datum(/datum/antagonist/changeling)
-	if(C?.purchasedpowers)
-		to_chat(mind.current, span_notice("We are ready to revive."))
-		name = "Revive"
-		desc = "We arise once more."
-		button_icon_state = "revive"
-		update_buttons()
-		chemical_cost = 0
-		revive_ready = TRUE
+	var/datum/antagonist/changeling/ling = mind.has_antag_datum(/datum/antagonist/changeling)
+	if(!ling || !(src in ling.innate_powers))
+		return
+	to_chat(mind.current, span_notice("We are ready to revive."))
+	name = "Revive"
+	desc = "We arise once more."
+	button_icon_state = "revive"
+	update_buttons()
+	chemical_cost = 0
+	revive_ready = TRUE
 
 /datum/action/changeling/fakedeath/can_sting(mob/living/user)
 	if(HAS_TRAIT(user, TRAIT_HUSK))

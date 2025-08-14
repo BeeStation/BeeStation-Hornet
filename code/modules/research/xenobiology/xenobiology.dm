@@ -954,20 +954,30 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "potyellow"
 
-/obj/item/slimepotion/speed/pre_attack(obj/thingy, mob/user)
+/obj/item/slimepotion/speed/afterattack(obj/thingy, mob/user, proximity)
 	. = ..()
+	if(!proximity)
+		return
+	if(SEND_SIGNAL(thingy, COMSIG_SPEED_POTION_APPLIED, src, user) & SPEED_POTION_STOP)
+		return
+	if(!isobj(thingy))
+		to_chat(user, span_warning("The potion can only be used on objects!"))
+		return
+	if(HAS_TRAIT(thingy, TRAIT_SPEED_POTIONED))
+		to_chat(user, span_warning("[thingy] can't be made any faster!"))
+		return
 	if(isitem(thingy))
-		var/obj/item/item = thingy
-		if(item.anchored)
+		var/obj/item/apply_to = thingy
+		if(apply_to.anchored)
 			to_chat(user, span_warning("[src] can't be used on anchored items!"))
 			return
-		if(item.slowdown != initial(item.slowdown) || (item.obj_flags & IMMUTABLE_SLOW))
-			to_chat(user, span_warning("[item] can't be made any faster!"))
+		if( apply_to.slowdown <= 0 || (apply_to.obj_flags & IMMUTABLE_SLOW)|| HAS_TRAIT(apply_to, TRAIT_NO_SPEED_POTION))
+			if(thingy.atom_storage)
+				return NONE // lets us put the potion in
+			to_chat(user, span_warning("The [apply_to] can't be made any faster!"))
 			return
-		if(item.slowdown <= 0)
-			to_chat(user, span_warning("[item] has no slowdown in the first place!"))
-			return
-		item.slowdown *= 0.5
+		apply_to.slowdown *= 0.5
+
 	else if(istype(thingy, /obj/vehicle))
 		var/obj/vehicle/vehicle = thingy
 		var/datum/component/riding/riding = vehicle.GetComponent(/datum/component/riding)
@@ -986,6 +996,7 @@
 	to_chat(user, span_notice("You slather the red gunk over [thingy], making it faster."))
 	thingy.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 	thingy.add_atom_colour("#FF0000", FIXED_COLOUR_PRIORITY)
+	ADD_TRAIT(thingy, TRAIT_SPEED_POTIONED, SLIME_POTION_TRAIT)
 	qdel(src)
 	return FALSE
 

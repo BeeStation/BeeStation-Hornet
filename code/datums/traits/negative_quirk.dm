@@ -467,7 +467,7 @@
 	added_trauma.resilience = TRAUMA_RESILIENCE_ABSOLUTE
 	added_trauma.name = name
 	added_trauma.desc = medical_record_text
-	added_trauma.scan_desc = lowertext(name)
+	added_trauma.scan_desc = LOWER_TEXT(name)
 	added_trauma.gain_text = null
 	added_trauma.lose_text = null
 
@@ -478,7 +478,7 @@
 		return
 	// I don't /think/ we'll need this, but for newbies who think "roleplay as insane" = "license to kill",
 	// it's probably a good thing to have.
-	to_chat(quirk_holder, "<span class='big bold info'>Please note that your [lowertext(name)] does NOT give you the right to attack people or otherwise cause any interference to \
+	to_chat(quirk_holder, "<span class='big bold info'>Please note that your [LOWER_TEXT(name)] does NOT give you the right to attack people or otherwise cause any interference to \
 		the round. You are not an antagonist, and the rules will treat you the same as other crewmembers.</span>")
 
 /datum/quirk/social_anxiety

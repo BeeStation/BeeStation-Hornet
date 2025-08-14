@@ -7205,7 +7205,6 @@
 /area/science/shuttle)
 "bYC" = (
 /obj/structure/table/glass,
-/obj/item/extrapolator,
 /obj/machinery/requests_console{
 	department = "Medbay";
 	departmentType = 1;
@@ -27351,6 +27350,16 @@
 	},
 /turf/open/floor/iron/dark,
 /area/hallway/secondary/command)
+"iJQ" = (
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/obj/item/candydispenser/engineering{
+	pixel_y = 11
+	},
+/obj/structure/table/glass,
+/turf/open/floor/iron,
+/area/engine/engineering)
 "iJX" = (
 /obj/structure/sign/poster/random{
 	pixel_y = 32
@@ -51429,13 +51438,13 @@
 /turf/open/floor/iron,
 /area/science/shuttle)
 "qHD" = (
-/obj/structure/chair/fancy/comfy{
-	buildstackamount = 0;
-	color = "#742925"
-	},
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 1
 	},
+/obj/item/candydispenser/lollipop{
+	pixel_y = 10
+	},
+/obj/structure/table/glass,
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
 "qHP" = (
@@ -53549,14 +53558,6 @@
 /area/hallway/primary/aft)
 "rup" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/cup/glass/bottle/virusfood{
-	pixel_x = 2;
-	pixel_y = 12
-	},
-/obj/item/reagent_containers/cup/glass/bottle/virusfood{
-	pixel_x = -6;
-	pixel_y = 8
-	},
 /obj/item/reagent_containers/cup/bottle/spaceacillin{
 	pixel_x = 9;
 	pixel_y = 12
@@ -56358,6 +56359,9 @@
 	},
 /obj/structure/table/wood/poker,
 /obj/item/toy/cards/deck,
+/obj/item/candydispenser{
+	pixel_y = 11
+	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/bar)
 "sqo" = (
@@ -58413,9 +58417,6 @@
 /obj/item/clothing/glasses/hud/health,
 /obj/item/reagent_containers/dropper,
 /obj/item/reagent_containers/spray/cleaner,
-/obj/structure/reagent_dispensers/virusfood{
-	pixel_y = -31
-	},
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 8
 	},
@@ -61994,9 +61995,6 @@
 /obj/item/clothing/glasses/hud/health,
 /obj/item/reagent_containers/dropper,
 /obj/item/reagent_containers/spray/cleaner,
-/obj/structure/reagent_dispensers/virusfood{
-	pixel_y = 31
-	},
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 4
 	},
@@ -96435,7 +96433,7 @@ vWF
 ahc
 rjL
 dBS
-bBc
+iJQ
 amI
 kpi
 wXO

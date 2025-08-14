@@ -208,22 +208,6 @@
 	..()
 	. = TRUE
 
-/datum/reagent/consumable/virus_food
-	name = "Virus Food"
-	description = "A mixture of water and milk. Virus cells can use this mixture to reproduce."
-	nutriment_factor = 2 * REAGENTS_METABOLISM
-	color = "#899613" // rgb: 137, 150, 19
-	chem_flags = CHEMICAL_RNG_BOTANY
-	taste_description = "watery milk"
-
-/datum/reagent/consumable/virus_food/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	. = ..()
-	for(var/datum/disease/D in M.diseases)
-		if(D.spread_flags & DISEASE_SPREAD_SPECIAL || D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS)
-			continue
-		if(DT_PROB(5 * D.stage_prob, delta_time))
-			D.update_stage(min(D.stage += 1, D.max_stages))
-
 /datum/reagent/consumable/soysauce
 	name = "Soysauce"
 	description = "A salty sauce made from the soy plant."
@@ -765,10 +749,10 @@
 /datum/reagent/consumable/tinlux/proc/add_reagent_light(mob/living/living_holder)
 	var/obj/effect/dummy/lighting_obj/moblight/mob_light_obj = living_holder.mob_light(2)
 	LAZYSET(mobs_affected, living_holder, mob_light_obj)
-	RegisterSignal(living_holder, COMSIG_PARENT_QDELETING, PROC_REF(on_living_holder_deletion))
+	RegisterSignal(living_holder, COMSIG_QDELETING, PROC_REF(on_living_holder_deletion))
 
 /datum/reagent/consumable/tinlux/proc/remove_reagent_light(mob/living/living_holder)
-	UnregisterSignal(living_holder, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(living_holder, COMSIG_QDELETING)
 	var/obj/effect/dummy/lighting_obj/moblight/mob_light_obj = LAZYACCESS(mobs_affected, living_holder)
 	LAZYREMOVE(mobs_affected, living_holder)
 	if(mob_light_obj)

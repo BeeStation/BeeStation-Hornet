@@ -753,20 +753,26 @@
 	icon_state = "tequilasunriseglass"
 
 /datum/reagent/consumable/ethanol/tequila_sunrise/on_mob_metabolize(mob/living/M)
+	. = ..()
+	if(isshadow(M)) //This is an uncounterable light for shadowpeople
+		return
 	to_chat(M, span_notice("You feel gentle warmth spread through your body!"))
 	light_holder = new(M)
 	light_holder.set_light(3, 0.7, "#FFCC00") //Tequila Sunrise makes you radiate dim light, like a sunrise!
 
 /datum/reagent/consumable/ethanol/tequila_sunrise/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	. = ..()
+	if(isshadow(M))
+		return
 	if(QDELETED(light_holder))
 		M.reagents.del_reagent(/datum/reagent/consumable/ethanol/tequila_sunrise) //If we lost our light object somehow, remove the reagent
 	else if(light_holder.loc != M)
 		light_holder.forceMove(M)
-	return ..()
 
 /datum/reagent/consumable/ethanol/tequila_sunrise/on_mob_end_metabolize(mob/living/M)
-	to_chat(M, span_notice("The warmth in your body fades."))
-	QDEL_NULL(light_holder)
+	if(light_holder)
+		to_chat(M, span_notice("The warmth in your body fades."))
+		QDEL_NULL(light_holder)
 
 /datum/reagent/consumable/ethanol/toxins_special
 	name = "Toxins Special"
@@ -1442,9 +1448,10 @@
 	icon_state = "changelingsting"
 
 /datum/reagent/consumable/ethanol/changelingsting/on_mob_life(mob/living/carbon/target, delta_time, times_fired)
-	var/datum/antagonist/changeling/changeling = target.mind?.has_antag_datum(/datum/antagonist/changeling)
-	changeling?.chem_charges += metabolization_rate * REM * delta_time
-	changeling?.chem_charges = clamp(changeling.chem_charges, 0, changeling.chem_storage)
+	if(target.mind) //Changeling Sting assists in the recharging of changeling chemicals.
+		var/datum/antagonist/changeling/changeling = target.mind.has_antag_datum(/datum/antagonist/changeling)
+		if(changeling)
+			changeling.adjust_chemicals(metabolization_rate * REM * delta_time)
 	return ..()
 
 /datum/reagent/consumable/ethanol/irishcarbomb

@@ -36,7 +36,7 @@
 /datum/merger/proc/RemoveMember(atom/thing, clean=TRUE)
 	SEND_SIGNAL(thing, COMSIG_MERGER_REMOVING, src)
 	UnregisterSignal(thing, COMSIG_MOVABLE_MOVED)
-	UnregisterSignal(thing, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(thing, COMSIG_QDELETING)
 	if(!thing.mergers)
 		return
 	thing.mergers -= id
@@ -50,7 +50,7 @@
 /datum/merger/proc/AddMember(atom/thing, connected_dir) // note that this fires for the origin of the merger as well
 	SEND_SIGNAL(thing, COMSIG_MERGER_ADDING, src)
 	RegisterSignal(thing, COMSIG_MOVABLE_MOVED, PROC_REF(QueueRefresh))
-	RegisterSignal(thing, COMSIG_PARENT_QDELETING, PROC_REF(HandleMemberDel))
+	RegisterSignal(thing, COMSIG_QDELETING, PROC_REF(HandleMemberDel))
 	if(!thing.mergers)
 		thing.mergers = list()
 	else if(thing.mergers[id])
@@ -85,7 +85,7 @@
 	if(origin)
 		var/turf/starting = get_turf(origin)
 		check_turf(starting, found_turfs, NONE)
-	for(var/i = 1; i <= length(found_turfs), i++)
+	for(var/i = 1; i <= length(found_turfs); i++)
 		var/turf/focus = found_turfs[i]
 		var/list/focus_packet = found_turfs[focus]
 		var/dirs_checked = focus_packet[MERGE_TURF_PACKET_DIR]

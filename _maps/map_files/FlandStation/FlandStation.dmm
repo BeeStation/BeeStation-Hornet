@@ -360,6 +360,13 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/central)
+"aeD" = (
+/obj/structure/table/wood,
+/obj/machinery/cell_charger{
+	desc = "It charges power cells. There is a small tag on it: Public tools charger. Please do no remove"
+	},
+/turf/open/floor/carpet,
+/area/crew_quarters/bar/atrium)
 "aeJ" = (
 /turf/closed/wall/r_wall,
 /area/medical/virology)
@@ -4408,7 +4415,6 @@
 /area/science/shuttle)
 "aZm" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/pipe_dispenser/disposal,
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "aZB" = (
@@ -10470,29 +10476,6 @@
 	},
 /turf/open/floor/iron/freezer,
 /area/medical/surgery)
-"cLG" = (
-/obj/structure/table,
-/obj/item/storage/box/beakers{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/storage/box/syringes,
-/obj/machinery/door/window/southright{
-	name = "Miscellaneous Medical Supplies";
-	req_access_txt = "5"
-	},
-/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/sign/map/right{
-	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
-	icon_state = "map-right-fland";
-	pixel_y = 32
-	},
-/obj/item/book/manual/wiki/sopmedical,
-/turf/open/floor/iron/dark,
-/area/medical/storage)
 "cLH" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -14438,6 +14421,11 @@
 /obj/item/mining_voucher,
 /turf/open/floor/iron/dark,
 /area/bridge)
+"dNj" = (
+/obj/effect/turf_decal/bot,
+/obj/machinery/suit_storage_unit/industrial/loader,
+/turf/open/floor/iron/dark,
+/area/quartermaster/storage)
 "dNk" = (
 /obj/structure/closet/wardrobe/miner,
 /obj/effect/decal/cleanable/dirt,
@@ -17122,14 +17110,6 @@
 	},
 /turf/open/floor/engine,
 /area/engine/engine_room)
-"eCd" = (
-/obj/structure/table/wood,
-/obj/effect/landmark/event_spawn,
-/obj/machinery/cell_charger{
-	desc = "It charges power cells. There is a small tag on it: Public tools charger. Please do no remove"
-	},
-/turf/open/floor/carpet/grimy,
-/area/library)
 "eCe" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
@@ -17380,13 +17360,6 @@
 /obj/machinery/firealarm/directional/west,
 /turf/open/floor/iron/tiled,
 /area/medical/virology)
-"eFA" = (
-/obj/structure/table/wood,
-/obj/machinery/cell_charger{
-	desc = "It charges power cells. There is a small tag on it: Public tools charger. Please do no remove"
-	},
-/turf/open/floor/carpet,
-/area/crew_quarters/bar/atrium)
 "eFD" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 6
@@ -18364,9 +18337,6 @@
 /turf/open/floor/iron/grid/steel,
 /area/science/robotics/lab)
 "eOs" = (
-/obj/structure/reagent_dispensers/virusfood{
-	pixel_x = -32
-	},
 /obj/structure/table,
 /obj/item/paper_bin,
 /obj/item/clothing/neck/stethoscope,
@@ -21313,6 +21283,23 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/medical/genetics)
+"fyR" = (
+/obj/machinery/door/window/southright{
+	name = "Miscellaneous Medical Supplies";
+	req_access_txt = "5"
+	},
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/sign/map/right{
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	icon_state = "map-right-fland";
+	pixel_y = 32
+	},
+/obj/machinery/suit_storage_unit/medical,
+/turf/open/floor/iron/dark,
+/area/medical/storage)
 "fza" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/disposalpipe/segment{
@@ -26026,11 +26013,8 @@
 "gHI" = (
 /obj/structure/table/wood,
 /obj/effect/turf_decal/bot,
-/obj/item/reagent_containers/cup/soda_cans/thirteenloko{
-	pixel_x = -6
-	},
-/obj/item/reagent_containers/cup/glass/mug/cocoa{
-	pixel_x = 6
+/obj/item/candydispenser/engineering{
+	pixel_y = 11
 	},
 /turf/open/floor/iron/sepia,
 /area/engine/break_room)
@@ -26743,13 +26727,6 @@
 	},
 /turf/open/floor/engine/co2/light,
 /area/engine/atmos)
-"gPN" = (
-/obj/structure/table,
-/obj/item/paper_bin,
-/obj/effect/turf_decal/bot,
-/obj/item/pen,
-/turf/open/floor/iron/dark,
-/area/quartermaster/storage)
 "gPO" = (
 /turf/open/floor/wood,
 /area/hallway/primary/aft)
@@ -31878,11 +31855,6 @@
 	},
 /turf/open/floor/iron/checker,
 /area/quartermaster/storage)
-"igW" = (
-/obj/effect/turf_decal/bot,
-/obj/machinery/pipe_dispenser/disposal/transit_tube,
-/turf/open/floor/iron/dark,
-/area/engine/atmos)
 "iho" = (
 /obj/machinery/power/apc/auto_name/directional/north,
 /obj/structure/cable/yellow{
@@ -37511,9 +37483,6 @@
 "jGv" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/computer/pandemic,
-/obj/structure/reagent_dispensers/virusfood{
-	pixel_x = -32
-	},
 /obj/machinery/light{
 	dir = 8
 	},
@@ -45038,8 +45007,12 @@
 /turf/open/floor/iron,
 /area/medical/cryo)
 "lsK" = (
-/obj/effect/turf_decal/bot,
-/obj/machinery/pipe_dispenser,
+/obj/machinery/suit_storage_unit/atmos,
+/obj/effect/turf_decal/delivery,
+/obj/machinery/newscaster{
+	pixel_x = 28;
+	pixel_y = 1
+	},
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "lsL" = (
@@ -47802,8 +47775,11 @@
 /turf/open/floor/iron/dark/side,
 /area/hallway/primary/central)
 "mhb" = (
-/obj/item/kirbyplants/random,
 /obj/effect/turf_decal/tile/blue,
+/obj/item/candydispenser/lollipop{
+	pixel_y = 10
+	},
+/obj/structure/table,
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
 "mhe" = (
@@ -48442,10 +48418,6 @@
 	dir = 1;
 	name = "Virology Desk Window";
 	req_access_txt = "20"
-	},
-/obj/item/reagent_containers/cup/glass/bottle/virusfood{
-	pixel_x = 2;
-	pixel_y = 12
 	},
 /obj/item/storage/box/masks{
 	pixel_x = -5;
@@ -50127,30 +50099,6 @@
 	dir = 6
 	},
 /area/ai_monitored/storage/eva)
-"mNq" = (
-/obj/structure/table,
-/obj/machinery/door/window/southleft{
-	name = "Miscellaneous Medical Supplies";
-	req_access_txt = "5"
-	},
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = -3;
-	pixel_y = 2
-	},
-/obj/item/clothing/glasses/hud/health,
-/obj/item/clothing/glasses/hud/health,
-/obj/item/clothing/neck/stethoscope,
-/obj/item/clothing/neck/stethoscope,
-/obj/item/storage/belt/medical,
-/obj/item/storage/belt/medical,
-/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
-/obj/structure/sign/map/left{
-	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
-	icon_state = "map-left-fland";
-	pixel_y = 32
-	},
-/turf/open/floor/iron/dark,
-/area/medical/storage)
 "mNx" = (
 /obj/machinery/camera/directional/west{
 	c_tag = "Central Primary Hallway - Central Port";
@@ -50516,14 +50464,6 @@
 	pixel_x = 26
 	},
 /obj/structure/table/glass,
-/obj/item/extrapolator{
-	pixel_x = 6;
-	pixel_y = 14
-	},
-/obj/item/extrapolator{
-	pixel_x = -3;
-	pixel_y = 6
-	},
 /obj/item/book/manual/wiki/infections{
 	pixel_x = 6;
 	pixel_y = 6
@@ -66524,6 +66464,36 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
+"rdo" = (
+/obj/structure/table,
+/obj/machinery/door/window/southleft{
+	name = "Miscellaneous Medical Supplies";
+	req_access_txt = "5"
+	},
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = -3;
+	pixel_y = 2
+	},
+/obj/item/clothing/glasses/hud/health,
+/obj/item/clothing/glasses/hud/health,
+/obj/item/clothing/neck/stethoscope,
+/obj/item/clothing/neck/stethoscope,
+/obj/item/storage/belt/medical,
+/obj/item/storage/belt/medical,
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/structure/sign/map/left{
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	icon_state = "map-left-fland";
+	pixel_y = 32
+	},
+/obj/item/book/manual/wiki/sopmedical,
+/obj/item/storage/box/beakers{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/storage/box/syringes,
+/turf/open/floor/iron/dark,
+/area/medical/storage)
 "rdq" = (
 /obj/machinery/door/airlock/command{
 	name = "Corporate Showroom";
@@ -76015,27 +75985,9 @@
 /turf/open/floor/engine,
 /area/science/misc_lab/range)
 "tAo" = (
-/obj/machinery/newscaster{
-	pixel_x = 28;
-	pixel_y = 1
-	},
-/obj/structure/rack,
-/obj/item/clothing/gloves/color/black,
-/obj/item/clothing/gloves/color/black,
-/obj/item/clothing/gloves/color/black,
-/obj/item/clothing/mask/gas,
-/obj/item/clothing/mask/gas,
-/obj/item/clothing/mask/gas,
-/obj/item/clothing/suit/hazardvest{
-	pixel_x = 4
-	},
-/obj/item/clothing/suit/hazardvest{
-	pixel_x = 4
-	},
-/obj/item/clothing/suit/hazardvest{
-	pixel_x = 4
-	},
-/turf/open/floor/iron,
+/obj/machinery/vending/engivend,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/iron/dark,
 /area/engine/atmos)
 "tAv" = (
 /obj/machinery/door/airlock/maintenance_hatch{
@@ -77848,14 +77800,6 @@
 "tXb" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/table,
-/obj/item/reagent_containers/cup/glass/bottle/virusfood{
-	pixel_x = 2;
-	pixel_y = 12
-	},
-/obj/item/reagent_containers/cup/glass/bottle/virusfood{
-	pixel_x = -6;
-	pixel_y = 8
-	},
 /obj/item/reagent_containers/cup/bottle/spaceacillin{
 	pixel_x = 9;
 	pixel_y = 12
@@ -82679,7 +82623,6 @@
 /obj/item/radio/intercom{
 	pixel_x = 28
 	},
-/obj/machinery/pipe_dispenser,
 /turf/open/floor/iron/techmaint,
 /area/quartermaster/exploration_prep)
 "vgC" = (
@@ -86940,9 +86883,11 @@
 /area/science/mixing)
 "waG" = (
 /obj/structure/table/wood,
-/obj/item/storage/photo_album,
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/item/candydispenser{
+	pixel_y = 11
 	},
 /turf/open/floor/carpet/green,
 /area/crew_quarters/dorms)
@@ -87624,6 +87569,14 @@
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/qm)
+"wkq" = (
+/obj/structure/table/wood,
+/obj/effect/landmark/event_spawn,
+/obj/machinery/cell_charger{
+	desc = "It charges power cells. There is a small tag on it: Public tools charger. Please do no remove"
+	},
+/turf/open/floor/carpet/grimy,
+/area/library)
 "wks" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
@@ -88245,7 +88198,6 @@
 	dir = 9
 	},
 /obj/item/clothing/neck/stethoscope,
-/obj/item/extrapolator,
 /obj/item/storage/box/monkeycubes{
 	pixel_x = -4;
 	pixel_y = 8
@@ -114932,7 +114884,7 @@ gFZ
 syW
 mbO
 rea
-eCd
+wkq
 vSP
 yfU
 rsG
@@ -118307,7 +118259,7 @@ pFH
 syY
 mRd
 tvr
-eFA
+aeD
 mRd
 mRd
 mRd
@@ -126056,7 +126008,7 @@ kuT
 vVR
 uaf
 wMZ
-gPN
+dNj
 aJR
 quh
 qpR
@@ -128545,7 +128497,7 @@ lLM
 lLM
 boD
 ayc
-mNq
+rdo
 erx
 nZt
 grU
@@ -128802,7 +128754,7 @@ lLM
 vuQ
 vuQ
 ayc
-cLG
+fyR
 gfu
 vkY
 wwZ
@@ -141738,7 +141690,7 @@ xsR
 vDT
 vOX
 ydP
-ydP
+lsK
 tAo
 pTX
 xZT
@@ -145341,7 +145293,7 @@ aNF
 jot
 ubg
 cKm
-igW
+aZm
 wxD
 jTm
 cKm
@@ -145598,7 +145550,7 @@ lFC
 fUa
 lFC
 qfq
-lsK
+aZm
 uPW
 lgU
 qfq
