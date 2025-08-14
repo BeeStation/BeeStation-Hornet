@@ -1,7 +1,7 @@
-import { NtosWindow } from '../layouts';
-import { Section, Box } from '../components';
 import { Component } from 'react';
-import { useBackend } from '../backend';
+
+import { Box, Section } from '../components';
+import { NtosWindow } from '../layouts';
 
 // Static header always visible
 const header = String.raw`

@@ -1,5 +1,5 @@
-import { Box, Section, Stack } from '../../components';
 import { resolveAsset } from '../../assets';
+import { Box, Section, Stack } from '../../components';
 
 type Props = {
   name: string;
