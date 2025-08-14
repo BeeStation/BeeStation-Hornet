@@ -2190,9 +2190,9 @@ Then I attempt to calculate the how many hands to created based off the current 
 I take the 2s interval period and divide it by the number of hands I want to make (i.e. the current delta_time) and I keep track of how many hands I'm creating (since I always create one on a tick, then I start at 1 hand). For each hand I then use this time value multiplied by the number of hands. Since we're spawning one now, and it checks to see if hands is less than, but not less than or equal to, delta_time, no hands will be created on the next expected tick.
 Basically, we fill the time between now and 2s from now with hands based off the current lag.
 */
-/datum/reagent/helgrasp/on_mob_life(mob/living/carbon/owner, delta_time = 2, times_fired)
+/datum/reagent/helgrasp/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	spawn_hands(owner)
+	spawn_hands(affected_mob)
 	lag_remainder += delta_time - FLOOR(delta_time, 1)
 	delta_time = FLOOR(delta_time, 1)
 	if(lag_remainder >= 1)
@@ -2201,30 +2201,31 @@ Basically, we fill the time between now and 2s from now with hands based off the
 	var/hands = 1
 	var/time = 2 / delta_time
 	while(hands < delta_time) //we already made a hand now so start from 1
-		LAZYADD(timer_ids, addtimer(CALLBACK(src, PROC_REF(spawn_hands), owner), (time*hands) SECONDS, TIMER_STOPPABLE)) //keep track of all the timers we set up
+		LAZYADD(timer_ids, addtimer(CALLBACK(src, PROC_REF(spawn_hands), affected_mob), (time*hands) SECONDS, TIMER_STOPPABLE)) //keep track of all the timers we set up
+		hands += time
 
-/datum/reagent/helgrasp/proc/spawn_hands(mob/living/carbon/owner)
-	if(!owner && iscarbon(holder.my_atom))//Catch timer
-		owner = holder.my_atom
+/datum/reagent/helgrasp/proc/spawn_hands(mob/living/carbon/affected_mob)
+	if(!affected_mob && iscarbon(holder.my_atom))//Catch timer
+		affected_mob = holder.my_atom
 	//Adapted from the end of the curse - but lasts a short time
-	var/grab_dir = turn(owner.dir, pick(-90, 90, 180, 180)) //grab them from a random direction other than the one faced, favoring grabbing from behind
-	var/turf/spawn_turf = get_ranged_target_turf(owner, grab_dir, 8)//Larger range so you have more time to dodge
+	var/grab_dir = turn(affected_mob.dir, pick(-90, 90, 180, 180)) //grab them from a random direction other than the one faced, favoring grabbing from behind
+	var/turf/spawn_turf = get_ranged_target_turf(affected_mob, grab_dir, 8)//Larger range so you have more time to dodge
 	if(!spawn_turf)
 		return
-	new/obj/effect/temp_visual/dir_setting/curse/grasp_portal(spawn_turf, owner.dir)
+	new/obj/effect/temp_visual/dir_setting/curse/grasp_portal(spawn_turf, affected_mob.dir)
 	playsound(spawn_turf, 'sound/effects/curse2.ogg', 80, TRUE, -1)
 	var/obj/projectile/curse_hand/hel/hand = new (spawn_turf)
-	hand.preparePixelProjectile(owner, spawn_turf)
+	hand.preparePixelProjectile(affected_mob, spawn_turf)
 	if(QDELETED(hand)) //safety check if above fails - above has a stack trace if it does fail
 		return
 	hand.fire()
 
 //At the end, we clear up any loose hanging timers just in case and spawn any remaining lag_remaining hands all at once.
-/datum/reagent/helgrasp/on_mob_delete(mob/living/owner)
+/datum/reagent/helgrasp/on_mob_delete(mob/living/carbon/affected_mob)
 	. = ..()
 	var/hands = 0
 	while(lag_remainder > hands)
-		spawn_hands(owner)
+		spawn_hands(affected_mob)
 		hands++
 	for(var/id in timer_ids) // So that we can be certain that all timers are deleted at the end.
 		deltimer(id)
