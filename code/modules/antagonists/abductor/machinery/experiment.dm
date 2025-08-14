@@ -179,7 +179,7 @@
 	H.Dizzy(30)
 	H.AdjustKnockdown(80)
 	H.adjustStaminaLoss(120)
-	to_chat(H, span_big("[span_hypnophrase("They took you... You barely remember it... flashing lights, pale faces... the pain...")]"))
+	to_chat(H, span_big("[span_hypnophrase("They took you... You can't remember it... flashing lights, pale faces... the pain...")]"))
 	H.uncuff()
 	H.cauterise_wounds()
 	if(console && console.pad && console.pad.teleport_target)
