@@ -589,6 +589,7 @@
 	//If they aren't a mob that this should affect
 	if(!ishuman(affected_mob))
 		return
+	. = ..()
 	var/mob/living/carbon/human/human_mob = affected_mob
 	if((human_mob.dna.species.reagent_tag & PROCESS_SYNTHETIC))
 		return
@@ -616,7 +617,6 @@
 	affected_mob.grab_ghost(force = FALSE) //Shoves them back into their freshly reanimated corpse.
 	affected_mob.emote("gasp")
 	to_chat(affected_mob, span_userdanger("You feel your heart start beating with incredible strength, forcing your battered body to move!"))
-
 
 /datum/reagent/drug/nooartrium/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
