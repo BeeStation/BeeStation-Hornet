@@ -129,7 +129,7 @@
 		return "Specimen deceased."
 	var/obj/item/organ/heart/gland/GlandTest = locate() in H.internal_organs
 	if(!GlandTest)
-		say("Experimental dissection not detected!")
+		say("N glands detected!")
 		return "No glands detected!"
 	if(H.mind != null && H.ckey != null)
 		LAZYINITLIST(abductee_minds)
@@ -145,8 +145,6 @@
 			if(3)
 				to_chat(H, span_warning("You feel intensely watched."))
 		sleep(5)
-		user_abductor.team.abductees += H.mind
-		H.mind.add_antag_datum(/datum/antagonist/abductee)
 
 		for(var/obj/item/organ/heart/gland/G in H.internal_organs)
 			G.Start()
@@ -174,7 +172,14 @@
  * * H The human mob to be sent back
  */
 /obj/machinery/abductor/experiment/proc/send_back(mob/living/carbon/human/H)
-	H.Sleeping(160)
+	// Oh god where are we?
+	H.flash_act()
+	H.Jitter(60)
+	H.blur_eyes(50)
+	H.Dizzy(30)
+	H.AdjustKnockdown(80)
+	H.adjustStaminaLoss(120)
+	to_chat(H, span_big("[span_hypnophrase("They took you... You barely remember it... flashing lights, pale faces... the pain...")]"))
 	H.uncuff()
 	H.cauterise_wounds()
 	if(console && console.pad && console.pad.teleport_target)
