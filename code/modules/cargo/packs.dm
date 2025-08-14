@@ -1914,7 +1914,6 @@
 	max_supply = 4
 	access = ACCESS_VIROLOGY
 	contains = list(/obj/item/food/monkeycube,
-					/obj/item/reagent_containers/cup/glass/bottle/virusfood,
 					/obj/item/reagent_containers/cup/bottle/mutagen,
 					/obj/item/reagent_containers/cup/bottle/formaldehyde,
 					/obj/item/reagent_containers/cup/bottle/synaptizine,

@@ -1985,6 +1985,16 @@
 	burnt = 1
 	},
 /area/maintenance/port/aft)
+"aEE" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/structure/sign/departments/minsky/medical/chemistry/chemical1{
+	pixel_x = -32
+	},
+/obj/structure/table,
+/turf/open/floor/iron/grid/steel,
+/area/medical/virology)
 "aEO" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -4826,25 +4836,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/prison/shielded)
-"byT" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 9
-	},
-/obj/structure/bed/dogbed/ian,
-/mob/living/basic/pet/dog/corgi/ian{
-	density = 0;
-	dir = 1;
-	pixel_y = 4
-	},
-/obj/item/toy/beach_ball/holoball/dodgeball{
-	name = "dodgeball 3 of 5"
-	},
-/obj/machinery/newscaster{
-	pixel_x = 1;
-	pixel_y = 33
-	},
-/turf/open/floor/carpet/blue,
-/area/crew_quarters/heads/hop)
 "byV" = (
 /obj/structure/railing/corner,
 /turf/open/floor/iron/dark/smooth_corner{
@@ -8196,6 +8187,20 @@
 	luminosity = 2
 	},
 /area/security/nuke_storage)
+"cCP" = (
+/obj/structure/table/reinforced,
+/obj/item/kitchen/fork{
+	pixel_x = -6;
+	pixel_y = 13
+	},
+/obj/effect/turf_decal/siding/wideplating/dark{
+	dir = 6
+	},
+/obj/item/candydispenser{
+	pixel_y = 11
+	},
+/turf/open/floor/iron/cafeteria,
+/area/crew_quarters/kitchen)
 "cCS" = (
 /obj/effect/turf_decal/guideline/guideline_half_edge/purple{
 	dir = 4
@@ -11356,26 +11361,6 @@
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/heads/hop)
-"dFo" = (
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/bed/dogbed/tyson,
-/obj/item/stack/sheet/bone{
-	pixel_x = 6;
-	pixel_y = -6
-	},
-/mob/living/basic/pet/dog/bullterrier/tyson{
-	density = 0
-	},
-/obj/machinery/status_display/evac{
-	pixel_y = 32
-	},
-/turf/open/floor/iron/dark,
-/area/security/warden)
 "dFr" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
@@ -11836,12 +11821,6 @@
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
-"dMD" = (
-/obj/machinery/vending/tool,
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/iron/dark,
-/area/engine/atmos)
 "dMH" = (
 /obj/structure/rack,
 /obj/item/storage/box/rubbershot{
@@ -14888,6 +14867,16 @@
 	},
 /turf/open/space/basic,
 /area/solar/starboard/aft)
+"eNH" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/item/candydispenser/engineering{
+	pixel_y = 11
+	},
+/obj/structure/table,
+/turf/open/floor/iron/dark,
+/area/engine/engine_room)
 "eNK" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -19319,6 +19308,12 @@
 "ghC" = (
 /turf/closed/wall,
 /area/medical/exam_room)
+"ghD" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/vending/engivend,
+/turf/open/floor/iron/dark,
+/area/engine/atmos)
 "ghK" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/disposalpipe/segment{
@@ -23554,24 +23549,6 @@
 	},
 /turf/open/floor/iron,
 /area/janitor)
-"hGb" = (
-/obj/structure/table,
-/obj/item/clothing/gloves/color/latex,
-/obj/item/reagent_containers/dropper{
-	pixel_x = 3;
-	pixel_y = 9
-	},
-/obj/item/clothing/gloves/color/latex,
-/obj/item/reagent_containers/dropper{
-	pixel_x = 3;
-	pixel_y = 9
-	},
-/obj/item/hand_labeler,
-/obj/structure/reagent_dispensers/virusfood{
-	pixel_x = -32
-	},
-/turf/open/floor/iron/grid/steel,
-/area/medical/virology)
 "hGp" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -26486,34 +26463,6 @@
 /obj/structure/closet/secure_closet/hos,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
-"iIc" = (
-/obj/structure/table,
-/obj/item/reagent_containers/cup/glass/bottle/virusfood{
-	pixel_x = 2;
-	pixel_y = 12
-	},
-/obj/item/reagent_containers/cup/glass/bottle/virusfood{
-	pixel_x = -6;
-	pixel_y = 8
-	},
-/obj/item/reagent_containers/cup/bottle/spaceacillin{
-	pixel_x = 9;
-	pixel_y = 12
-	},
-/obj/item/reagent_containers/cup/bottle/spaceacillin{
-	pixel_x = 5;
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/cup/bottle/spaceacillin{
-	pixel_x = 2;
-	pixel_y = -1
-	},
-/obj/structure/reagent_dispensers/virusfood{
-	pixel_x = 31;
-	pixel_y = -1
-	},
-/turf/open/floor/iron/grid/steel,
-/area/medical/virology)
 "iIs" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -26911,24 +26860,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
-"iPs" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/structure/sign/departments/minsky/medical/chemistry/chemical1{
-	pixel_x = -32
-	},
-/obj/structure/table,
-/obj/item/extrapolator{
-	pixel_x = 6;
-	pixel_y = 14
-	},
-/obj/item/extrapolator{
-	pixel_x = -3;
-	pixel_y = 6
-	},
-/turf/open/floor/iron/grid/steel,
-/area/medical/virology)
 "iPz" = (
 /obj/structure/chair/fancy/sofa/old/left{
 	dir = 8
@@ -28619,6 +28550,22 @@
 	},
 /turf/open/floor/iron,
 /area/hydroponics)
+"jqZ" = (
+/obj/structure/table,
+/obj/item/reagent_containers/cup/bottle/spaceacillin{
+	pixel_x = 9;
+	pixel_y = 12
+	},
+/obj/item/reagent_containers/cup/bottle/spaceacillin{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/cup/bottle/spaceacillin{
+	pixel_x = 2;
+	pixel_y = -1
+	},
+/turf/open/floor/iron/grid/steel,
+/area/medical/virology)
 "jrh" = (
 /obj/machinery/light,
 /obj/structure/bed/roller,
@@ -38617,20 +38564,6 @@
 "mMw" = (
 /turf/closed/wall/r_wall/rust,
 /area/hallway/secondary/service)
-"mMP" = (
-/obj/structure/table/reinforced,
-/obj/item/kitchen/fork{
-	pixel_x = -6;
-	pixel_y = 13
-	},
-/obj/effect/turf_decal/siding/wideplating/dark{
-	dir = 6
-	},
-/obj/item/candydispenser{
-	pixel_y = 11
-	},
-/turf/open/floor/iron/cafeteria,
-/area/crew_quarters/kitchen)
 "mMV" = (
 /turf/open/floor/iron/dark,
 /area/bridge)
@@ -42371,13 +42304,6 @@
 	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/cafeteria)
-"nYz" = (
-/obj/effect/turf_decal/stripes/end{
-	dir = 4
-	},
-/obj/machinery/pipe_dispenser,
-/turf/open/floor/iron/dark,
-/area/engine/atmos)
 "nYQ" = (
 /obj/structure/railing/corner{
 	dir = 1
@@ -45025,6 +44951,21 @@
 	},
 /turf/open/floor/catwalk_floor,
 /area/maintenance/port/central)
+"oTW" = (
+/obj/structure/table,
+/obj/item/clothing/gloves/color/latex,
+/obj/item/reagent_containers/dropper{
+	pixel_x = 3;
+	pixel_y = 9
+	},
+/obj/item/clothing/gloves/color/latex,
+/obj/item/reagent_containers/dropper{
+	pixel_x = 3;
+	pixel_y = 9
+	},
+/obj/item/hand_labeler,
+/turf/open/floor/iron/grid/steel,
+/area/medical/virology)
 "oUf" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
@@ -57796,14 +57737,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/carpet/purple,
 /area/chapel/office)
-"teq" = (
-/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
-/obj/item/candydispenser/lollipop{
-	pixel_y = 10
-	},
-/obj/structure/table/glass,
-/turf/open/floor/iron/white,
-/area/medical/medbay/lobby)
 "teu" = (
 /obj/effect/turf_decal/guideline/guideline_edge/purple{
 	dir = 8
@@ -60055,6 +59988,25 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/port)
+"tLh" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 9
+	},
+/obj/structure/bed/dogbed/ian,
+/mob/living/basic/pet/dog/corgi/ian{
+	density = 0;
+	dir = 1;
+	pixel_y = 4
+	},
+/obj/item/toy/beach_ball/holoball/dodgeball{
+	name = "dodgeball 3 of 5"
+	},
+/obj/machinery/newscaster{
+	pixel_x = 1;
+	pixel_y = 33
+	},
+/turf/open/floor/carpet/blue,
+/area/crew_quarters/heads/hop)
 "tLs" = (
 /obj/machinery/camera/directional/west,
 /obj/effect/turf_decal/stripes/line,
@@ -60999,6 +60951,14 @@
 /obj/effect/turf_decal/guideline/guideline_edge/purple,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
+"uaR" = (
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/item/candydispenser/lollipop{
+	pixel_y = 10
+	},
+/obj/structure/table/glass,
+/turf/open/floor/iron/white,
+/area/medical/medbay/lobby)
 "uaW" = (
 /obj/machinery/door/airlock/research/glass{
 	id_tag = "RoboFoyer";
@@ -61032,13 +60992,6 @@
 /obj/structure/table/wood,
 /turf/open/floor/carpet/green,
 /area/crew_quarters/cafeteria)
-"ubG" = (
-/obj/effect/turf_decal/stripes/end{
-	dir = 8
-	},
-/obj/machinery/pipe_dispenser/disposal/transit_tube,
-/turf/open/floor/iron/dark,
-/area/engine/atmos)
 "ubJ" = (
 /obj/item/chair{
 	dir = 1
@@ -61469,16 +61422,6 @@
 	},
 /turf/open/floor/plating,
 /area/space/nearstation)
-"uhn" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/item/candydispenser/engineering{
-	pixel_y = 11
-	},
-/obj/structure/table,
-/turf/open/floor/iron/dark,
-/area/engine/engine_room)
 "uhy" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/disposal/bin,
@@ -64117,11 +64060,6 @@
 	},
 /turf/open/floor/iron/tech,
 /area/engine/engine_room)
-"vcG" = (
-/obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/pipe_dispenser/disposal,
-/turf/open/floor/iron/dark,
-/area/engine/atmos)
 "vcO" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 5
@@ -67448,6 +67386,26 @@
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/open/floor/grass,
 /area/hallway/primary/central)
+"wlY" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/bed/dogbed/tyson,
+/obj/item/stack/sheet/bone{
+	pixel_x = 6;
+	pixel_y = -6
+	},
+/mob/living/basic/pet/dog/bullterrier/tyson{
+	density = 0
+	},
+/obj/machinery/status_display/evac{
+	pixel_y = 32
+	},
+/turf/open/floor/iron/dark,
+/area/security/warden)
 "wmb" = (
 /obj/structure/window/reinforced,
 /obj/structure/flora/ausbushes/fullgrass,
@@ -102309,7 +102267,7 @@ uYx
 uYx
 uYx
 uYx
-dFo
+wlY
 wrh
 uaZ
 bKr
@@ -106014,7 +105972,7 @@ hdr
 vVF
 hfT
 iaC
-uhn
+eNH
 peX
 qBW
 ocl
@@ -108545,7 +108503,7 @@ fxR
 bMY
 xKJ
 mjM
-teq
+uaR
 ijk
 xvs
 bPy
@@ -108732,7 +108690,7 @@ fnT
 oif
 bwr
 nJK
-byT
+tLh
 sww
 sNM
 bQs
@@ -111143,7 +111101,7 @@ pTW
 pTW
 jnE
 iCJ
-ubG
+jzT
 iQZ
 ogv
 vCY
@@ -111400,7 +111358,7 @@ sOT
 tlL
 jnE
 mbS
-vcG
+dbF
 gSZ
 uBo
 vCY
@@ -111657,7 +111615,7 @@ pTW
 pTW
 jnE
 iCJ
-nYz
+dbF
 eNK
 nIB
 eqW
@@ -112884,7 +112842,7 @@ cYQ
 eeJ
 pTp
 diN
-mMP
+cCP
 kMP
 bSd
 mWi
@@ -113189,7 +113147,7 @@ shZ
 shZ
 ies
 iRY
-dMD
+ghD
 xVm
 eNK
 pTW
@@ -115752,9 +115710,9 @@ xJm
 kIj
 jeM
 edf
-iPs
+aEE
 uEa
-hGb
+oTW
 tfq
 dHW
 dHW
@@ -116777,7 +116735,7 @@ kxl
 tfq
 sWR
 lsT
-iIc
+jqZ
 baz
 pZF
 uhG
