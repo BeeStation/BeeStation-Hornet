@@ -62,8 +62,9 @@ class VirusSledgeKey extends Component {
       const { frame, deciphered, keyActivated } = prev;
 
       if (deciphered < CODE_LENGTH) {
-        if (frame >= LOCK)
-          { return { ...prev, deciphered: deciphered + 1, frame: 0 }; }
+        if (frame >= LOCK) {
+          return { ...prev, deciphered: deciphered + 1, frame: 0 };
+        }
         return { ...prev, frame: frame + 1 };
       }
 

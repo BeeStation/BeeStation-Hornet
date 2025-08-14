@@ -1,8 +1,8 @@
 import {
   CheckboxInput,
-  FeatureToggle,
-  FeatureColorInput,
   Feature,
+  FeatureColorInput,
+  FeatureToggle,
 } from '../base';
 
 export const itemoutline_pref: FeatureToggle = {

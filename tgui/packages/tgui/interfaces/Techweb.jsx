@@ -3,21 +3,20 @@ import { useState } from 'react';
 
 import { useBackend, useLocalState } from '../backend';
 import {
-  Button,
-  Section,
-  Modal,
-  Dropdown,
-  Tabs,
   Box,
-  Input,
-  Flex,
-  ProgressBar,
-  Collapsible,
-  Icon,
+  Button,
   Divider,
+  Dropdown,
+  Flex,
+  Icon,
+  Input,
+  Modal,
+  ProgressBar,
+  Section,
+  Tabs,
   Tooltip,
 } from '../components';
-import { Window, NtosWindow } from '../layouts';
+import { NtosWindow, Window } from '../layouts';
 
 // Data reshaping / ingestion (thanks stylemistake for the help, very cool!)
 // This is primarily necessary due to measures that are taken to reduce the size

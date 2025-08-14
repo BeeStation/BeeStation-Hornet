@@ -1,19 +1,20 @@
+import { binaryInsertWith } from 'common/collections';
+import { classes } from 'common/react';
 import { multiline } from 'common/string';
+import { ReactNode } from 'react';
+
+import { useBackend } from '../../../../../backend';
+import { Box, Dropdown, Stack } from '../../../../../components';
+import { PreferencesMenuData } from '../../../data';
 import {
   CheckboxInput,
+  FeatureButtonedDropdownInput,
   FeatureChoiced,
   FeatureChoicedServerData,
   FeatureDropdownInput,
-  FeatureButtonedDropdownInput,
   FeatureToggle,
   FeatureValueProps,
 } from '../base';
-import { Box, Dropdown, Stack } from '../../../../../components';
-import { classes } from 'common/react';
-import { ReactNode } from 'react';
-import { binaryInsertWith } from 'common/collections';
-import { useBackend } from '../../../../../backend';
-import { PreferencesMenuData } from '../../../data';
 
 export const ghost_accs: FeatureChoiced = {
   name: 'Ghost accessories',

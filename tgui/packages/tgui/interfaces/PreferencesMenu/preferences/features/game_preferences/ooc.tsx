@@ -1,8 +1,8 @@
 import {
   CheckboxInput,
+  Feature,
   FeatureColorInput,
   FeatureToggle,
-  Feature,
 } from '../base';
 
 export const ooccolor: Feature<string> = {
