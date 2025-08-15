@@ -108,6 +108,7 @@ const TAB2NAME: TabType[] = [
     title: 'Randomize',
     blurb: "If you didn't like the loadouts offered, you can embrace chaos. Not recommended for newer wizards.",
     component: () => <Randomize />,
+    locked: true,
   },
 ];
 

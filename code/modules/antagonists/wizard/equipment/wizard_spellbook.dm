@@ -11,9 +11,9 @@
 	/// The number of book charges we have to buy spells
 	var/uses = 10
 	/// The bonus that you get from going semi-random.
-	var/semi_random_bonus = 2
+	var/semi_random_bonus = 10
 	/// The bonus that you get from going full random.
-	var/full_random_bonus = 5
+	var/full_random_bonus = 20
 	/// Determines if this spellbook can refund anything.
 	var/refunds_allowed = TRUE
 	/// The mind that first used the book. Automatically assigned when a wizard spawns.
