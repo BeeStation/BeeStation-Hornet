@@ -3,12 +3,6 @@
 
 /datum/objective/abductee/random
 
-/datum/objective/abductee/random/New()
-	explanation_text = pick(world.file2list("strings/abductee_objectives.txt"))
-
-/datum/objective/abductee/steal
-	explanation_text = "Steal all"
-
 /datum/objective/abductee/steal/New()
 	var/target = pick(list("pets","lights","monkeys","fruits","shoes","bars of soap", "weapons", "computers", "organs"))
 	explanation_text+=" [target]."
