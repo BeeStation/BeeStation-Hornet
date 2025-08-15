@@ -1649,3 +1649,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/add_strip_actions(datum/strip_context/context)
 
 /obj/item/proc/perform_strip_actions(action_key, mob/actor)
+
+// For item specific checks on strip start. Return true to interrupt stripping, return false to continue stripping.
+/obj/item/proc/on_start_stripping(mob/source, mob/user, item_slot)
+	return FALSE

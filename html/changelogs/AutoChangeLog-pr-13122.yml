@@ -1,5 +1,0 @@
-author: Isaac
-delete-after: true
-changes:
-  - bugfix: Medical modsuits can now fit first aid kits
-  - bugfix: You can now fit large items in extended capacity/syndicate storage modules
