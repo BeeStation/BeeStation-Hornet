@@ -3737,7 +3737,7 @@
 /obj/effect/turf_decal/trimline/brown/filled/line{
 	dir = 8
 	},
-/obj/machinery/vendor/mining,
+/obj/machinery/gear_requisition/mining,
 /turf/open/floor/iron/dark,
 /area/quartermaster/miningdock)
 "aRL" = (
@@ -11109,6 +11109,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 2
 	},
+/obj/machinery/computer/warrant,
 /turf/open/floor/iron/dark,
 /area/hallway/primary/central)
 "cSA" = (
@@ -12900,6 +12901,13 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/bridge)
+"dsj" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/chair/stool/directional/east,
+/turf/open/floor/carpet,
+/area/crew_quarters/bar/atrium)
 "dsm" = (
 /obj/effect/spawner/randomvend/snack,
 /turf/open/floor/carpet,
@@ -14665,9 +14673,12 @@
 /turf/open/floor/plating,
 /area/maintenance/disposal)
 "dPX" = (
-/obj/structure/reagent_dispensers/water_cooler,
 /obj/machinery/light{
 	dir = 4
+	},
+/obj/structure/table/wood,
+/obj/machinery/computer/libraryconsole{
+	pixel_y = 8
 	},
 /turf/open/floor/iron/dark,
 /area/library)
@@ -16935,7 +16946,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/structure/chair/stool/directional/south,
+/obj/structure/chair/stool/directional/north,
 /turf/open/floor/carpet,
 /area/crew_quarters/bar/atrium)
 "ezK" = (
@@ -17541,10 +17552,8 @@
 /turf/open/floor/catwalk_floor,
 /area/drydock/security)
 "eHv" = (
-/obj/structure/table/wood,
-/obj/machinery/computer/libraryconsole{
-	pixel_y = 8
-	},
+/obj/machinery/bookbinder,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
 /area/library)
 "eHE" = (
@@ -18335,9 +18344,6 @@
 /turf/open/floor/iron/grid/steel,
 /area/science/robotics/lab)
 "eOs" = (
-/obj/structure/reagent_dispensers/virusfood{
-	pixel_x = -32
-	},
 /obj/structure/table,
 /obj/item/paper_bin,
 /obj/item/clothing/neck/stethoscope,
@@ -35087,7 +35093,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/obj/structure/chair/stool/bar/directional/west,
+/obj/structure/chair/stool/directional/east,
 /turf/open/floor/wood,
 /area/crew_quarters/bar/atrium)
 "iWb" = (
@@ -37504,9 +37510,6 @@
 "jGv" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/computer/pandemic,
-/obj/structure/reagent_dispensers/virusfood{
-	pixel_x = -32
-	},
 /obj/machinery/light{
 	dir = 8
 	},
@@ -44925,7 +44928,7 @@
 	},
 /area/docking/arrival)
 "lru" = (
-/obj/structure/chair/stool/directional/south,
+/obj/structure/chair/stool/directional/north,
 /turf/open/floor/carpet,
 /area/crew_quarters/bar/atrium)
 "lrw" = (
@@ -47650,8 +47653,8 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/obj/structure/chair/stool/bar/directional/west,
 /obj/effect/landmark/start/assistant,
+/obj/structure/chair/stool/directional/east,
 /turf/open/floor/wood,
 /area/crew_quarters/bar/atrium)
 "meo" = (
@@ -48453,10 +48456,6 @@
 	dir = 1;
 	name = "Virology Desk Window";
 	req_access_txt = "20"
-	},
-/obj/item/reagent_containers/cup/glass/bottle/virusfood{
-	pixel_x = 2;
-	pixel_y = 12
 	},
 /obj/item/storage/box/masks{
 	pixel_x = -5;
@@ -50503,14 +50502,6 @@
 	pixel_x = 26
 	},
 /obj/structure/table/glass,
-/obj/item/extrapolator{
-	pixel_x = 6;
-	pixel_y = 14
-	},
-/obj/item/extrapolator{
-	pixel_x = -3;
-	pixel_y = 6
-	},
 /obj/item/book/manual/wiki/infections{
 	pixel_x = 6;
 	pixel_y = 6
@@ -54687,7 +54678,7 @@
 /area/library)
 "nZF" = (
 /obj/effect/landmark/start/assistant,
-/obj/structure/chair/stool/directional/west,
+/obj/structure/chair/stool/directional/east,
 /turf/open/floor/carpet,
 /area/crew_quarters/bar/atrium)
 "nZM" = (
@@ -59813,7 +59804,7 @@
 /turf/open/floor/plating,
 /area/security/checkpoint/escape)
 "psq" = (
-/obj/machinery/vendor/exploration,
+/obj/machinery/gear_requisition/exploration,
 /turf/open/floor/iron/techmaint,
 /area/quartermaster/exploration_prep)
 "ptb" = (
@@ -66105,6 +66096,10 @@
 	},
 /turf/open/floor/carpet/green,
 /area/crew_quarters/dorms)
+"qVR" = (
+/obj/structure/chair/stool/directional/east,
+/turf/open/floor/carpet,
+/area/crew_quarters/bar/atrium)
 "qVX" = (
 /obj/structure/closet/secure_closet/personal,
 /obj/effect/turf_decal/bot,
@@ -72085,7 +72080,7 @@
 	dir = 8
 	},
 /obj/structure/disposalpipe/segment,
-/obj/structure/chair/stool/bar/directional/south,
+/obj/structure/chair/stool/directional/north,
 /turf/open/floor/wood,
 /area/crew_quarters/bar/atrium)
 "sxX" = (
@@ -72093,7 +72088,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 8
 	},
-/obj/structure/chair/stool/bar/directional/south,
+/obj/structure/chair/stool/directional/north,
 /turf/open/floor/wood,
 /area/crew_quarters/bar/atrium)
 "sxZ" = (
@@ -72158,7 +72153,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 8
 	},
-/obj/structure/chair/stool/bar/directional/south,
+/obj/structure/chair/stool/directional/north,
 /turf/open/floor/wood,
 /area/crew_quarters/bar/atrium)
 "szc" = (
@@ -77888,14 +77883,6 @@
 "tXb" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/table,
-/obj/item/reagent_containers/cup/glass/bottle/virusfood{
-	pixel_x = 2;
-	pixel_y = 12
-	},
-/obj/item/reagent_containers/cup/glass/bottle/virusfood{
-	pixel_x = -6;
-	pixel_y = 8
-	},
 /obj/item/reagent_containers/cup/bottle/spaceacillin{
 	pixel_x = 9;
 	pixel_y = 12
@@ -80281,7 +80268,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/chair/stool/directional/west,
+/obj/structure/chair/stool/directional/east,
 /turf/open/floor/carpet,
 /area/crew_quarters/bar/atrium)
 "uBw" = (
@@ -83630,8 +83617,8 @@
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "vqq" = (
-/obj/structure/chair/stool/directional/south,
 /obj/effect/landmark/start/assistant,
+/obj/structure/chair/stool/directional/north,
 /turf/open/floor/carpet,
 /area/crew_quarters/bar/atrium)
 "vqt" = (
@@ -88286,7 +88273,6 @@
 	dir = 9
 	},
 /obj/item/clothing/neck/stethoscope,
-/obj/item/extrapolator,
 /obj/item/storage/box/monkeycubes{
 	pixel_x = -4;
 	pixel_y = 8
@@ -118101,8 +118087,8 @@ ksN
 mse
 sxX
 mRd
-cXO
-kSv
+dsj
+qVR
 mRd
 fXw
 rkv

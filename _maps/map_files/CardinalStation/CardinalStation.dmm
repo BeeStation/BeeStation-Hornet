@@ -21799,7 +21799,6 @@
 	dir = 6
 	},
 /obj/structure/table,
-/obj/item/extrapolator,
 /turf/open/floor/iron/white,
 /area/medical/virology)
 "evH" = (
@@ -44547,7 +44546,6 @@
 	pixel_y = 26;
 	pixel_x = 16
 	},
-/obj/item/extrapolator,
 /turf/open/floor/iron/white,
 /area/medical/virology)
 "iXD" = (
@@ -50305,7 +50303,7 @@
 /turf/open/floor/iron/showroomfloor,
 /area/medical/cryo)
 "kip" = (
-/obj/machinery/vendor/exploration,
+/obj/machinery/gear_requisition/exploration,
 /obj/machinery/light/directional/north,
 /obj/effect/turf_decal/siding/dark,
 /obj/machinery/camera/directional/north,
@@ -93922,7 +93920,7 @@
 /turf/open/floor/plating/rust,
 /area/maintenance/department/science/central)
 "tdO" = (
-/obj/machinery/vendor/mining,
+/obj/machinery/gear_requisition/mining,
 /obj/machinery/firealarm{
 	dir = 1;
 	pixel_y = -28
@@ -98587,9 +98585,6 @@
 /obj/structure/window/reinforced/spawner/east,
 /obj/effect/turf_decal/trimline/green/filled/line{
 	dir = 6
-	},
-/obj/structure/reagent_dispensers/virusfood{
-	pixel_y = -32
 	},
 /obj/effect/turf_decal/trimline/green/filled/mid_joiner,
 /turf/open/floor/iron/white/textured_large,
@@ -117746,7 +117741,6 @@
 /obj/effect/turf_decal/trimline/green/filled/line{
 	dir = 5
 	},
-/obj/item/extrapolator,
 /obj/machinery/light/small/directional/north,
 /obj/machinery/firealarm{
 	pixel_y = 28
