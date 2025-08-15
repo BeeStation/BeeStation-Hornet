@@ -284,3 +284,19 @@
 2025-08-15:
   Rukofamicom:
   - bugfix: Janicart now accepts keys again
+  Tsar-Salat:
+  - bugfix: fixes some bugs with weapon dashing (ninja, etc.)
+  - bugfix: Ninja c4 works and ties in with an objective like its supposed to
+  - bugfix: readded ninja net dojo behavior
+  - bugfix: fixes energy katana worn sprite
+  - balance: Ninja adrenaline module now takes rarer uranium rather than roundstart
+      radium, and in exchange gives 5u dosage of epi, salbu, and tricord instead.
+  - rscadd: adds category support to mining vendors, refactors their UI to be functionally
+      the same as vending machines
+  - bugfix: fixes mining vendors
+  - tweak: renames mining vendors
+  TsunamiAnt:
+  - rscadd: Added calligraphy brush
+  - bugfix: fixed paperbundles
+  mrmanlikesbt, vinylspiders, absolucy:
+  - code_imp: code cleanup for reagents

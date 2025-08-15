@@ -1,9 +1,0 @@
-author: Tsar-Salat
-delete-after: true
-changes:
-  - bugfix: fixes some bugs with weapon dashing (ninja, etc.)
-  - bugfix: Ninja c4 works and ties in with an objective like its supposed to
-  - bugfix: readded ninja net dojo behavior
-  - bugfix: fixes energy katana worn sprite
-  - balance: Ninja adrenaline module now takes rarer uranium rather than roundstart
-      radium, and in exchange gives 5u dosage of epi, salbu, and tricord instead.
