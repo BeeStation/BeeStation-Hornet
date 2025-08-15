@@ -34047,6 +34047,8 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/patients_rooms)
+"kfq" = (
+)
 "kfs" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 1
@@ -42896,6 +42898,12 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/maintenance/fore)
+"nMB" = (
+/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/visible{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/engine/atmos)
 "nMH" = (
 /obj/machinery/smartfridge/chemistry/virology/preloaded,
 /turf/open/floor/iron/white,
@@ -44356,7 +44364,6 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/green/half/contrasted,
-/obj/machinery/atmospherics/pipe/smart/simple/green/visible,
 /obj/machinery/atmospherics/pipe/smart/simple/yellow/visible/layer2,
 /turf/open/floor/iron,
 /area/engine/atmos)
@@ -48954,8 +48961,10 @@
 /area/maintenance/solars/starboard/fore)
 "qmj" = (
 /obj/effect/turf_decal/tile/green/anticorner/contrasted,
-/obj/machinery/atmospherics/pipe/smart/manifold/green/visible,
 /obj/machinery/atmospherics/pipe/smart/simple/yellow/visible/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/green/visible{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/engine/atmos)
 "qmD" = (
@@ -101422,7 +101431,7 @@ pdl
 bLK
 bMN
 kEj
-bMU
+nMB
 bMU
 fzX
 eHG
@@ -105796,15 +105805,15 @@ bPm
 bPm
 bLK
 pbe
-bUU
+kfq
 bTW
 bLK
 qmO
-bYU
+kfq
 bXW
 bLK
 auS
-ccB
+kfq
 cbH
 bLK
 aaf
