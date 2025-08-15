@@ -281,3 +281,6 @@
       point at 474.
   - code_imp: Cleaned up a lot of nooartrium code while trying to preserve all of
       the original balance aside from the above points regarding revival and sounds.
+2025-08-15:
+  Rukofamicom:
+  - bugfix: Janicart now accepts keys again
