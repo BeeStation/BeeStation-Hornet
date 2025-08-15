@@ -123,7 +123,10 @@ export const statReducer = (state = initialState, action) => {
     return {
       ...state,
       alert_popup: null,
-      alert_br: { 'title': 'Battle Royale', 'text': 'The round end was delayed, would you like to start Battle Royale?' },
+      alert_br: {
+        title: 'Battle Royale',
+        text: 'The round end was delayed, would you like to start Battle Royale?',
+      },
     };
   }
   if (type === 'stat/clearAlertBr') {

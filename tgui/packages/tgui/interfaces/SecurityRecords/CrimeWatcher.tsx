@@ -1,7 +1,23 @@
-import { useLocalState, useBackend } from 'tgui/backend';
-import { SECURETAB, Crime, SecurityRecordsData } from './types';
+import { useBackend, useLocalState } from 'tgui/backend';
+import {
+  BlockQuote,
+  Box,
+  Button,
+  Collapsible,
+  Icon,
+  Input,
+  LabeledList,
+  NoticeBox,
+  RestrictedInput,
+  Section,
+  Stack,
+  Tabs,
+  TextArea,
+  Tooltip,
+} from 'tgui/components';
+
 import { getSecurityRecord } from './helpers';
-import { BlockQuote, Box, Button, Collapsible, Icon, Input, LabeledList, NoticeBox, RestrictedInput, Section, Stack, Tabs, TextArea, Tooltip } from 'tgui/components';
+import { Crime, SECURETAB, SecurityRecordsData } from './types';
 
 /** Displays a list of crimes and allows to add new ones. */
 export const CrimeWatcher = (props) => {
@@ -9,20 +25,32 @@ export const CrimeWatcher = (props) => {
   if (!foundRecord) return <> </>;
 
   const { crimes, citations } = foundRecord;
-  const [selectedTab, setSelectedTab] = useLocalState<SECURETAB>('selectedTab', SECURETAB.Crimes);
+  const [selectedTab, setSelectedTab] = useLocalState<SECURETAB>(
+    'selectedTab',
+    SECURETAB.Crimes,
+  );
 
   return (
     <Stack fill vertical>
       <Stack.Item>
         <Tabs fluid>
-          <Tabs.Tab onClick={() => setSelectedTab(SECURETAB.Crimes)} selected={selectedTab === SECURETAB.Crimes}>
+          <Tabs.Tab
+            onClick={() => setSelectedTab(SECURETAB.Crimes)}
+            selected={selectedTab === SECURETAB.Crimes}
+          >
             Crimes: {crimes.length}
           </Tabs.Tab>
-          <Tabs.Tab onClick={() => setSelectedTab(SECURETAB.Citations)} selected={selectedTab === SECURETAB.Citations}>
+          <Tabs.Tab
+            onClick={() => setSelectedTab(SECURETAB.Citations)}
+            selected={selectedTab === SECURETAB.Citations}
+          >
             Citations: {citations.length}
           </Tabs.Tab>
           <Tooltip content="Add a new crime or citation" position="bottom">
-            <Tabs.Tab onClick={() => setSelectedTab(SECURETAB.Add)} selected={selectedTab === SECURETAB.Add}>
+            <Tabs.Tab
+              onClick={() => setSelectedTab(SECURETAB.Add)}
+              selected={selectedTab === SECURETAB.Add}
+            >
               <Icon name="plus" />
             </Tabs.Tab>
           </Tooltip>
@@ -30,7 +58,11 @@ export const CrimeWatcher = (props) => {
       </Stack.Item>
       <Stack.Item grow>
         <Section fill scrollable>
-          {selectedTab < SECURETAB.Add ? <CrimeList tab={selectedTab} /> : <CrimeAuthor />}
+          {selectedTab < SECURETAB.Add ? (
+            <CrimeList tab={selectedTab} />
+          ) : (
+            <CrimeAuthor />
+          )}
         </Section>
       </Stack.Item>
     </Stack>
@@ -50,7 +82,9 @@ const CrimeList = (props) => {
     <Stack fill vertical>
       {!toDisplay.length ? (
         <Stack.Item>
-          <NoticeBox>No {tab === SECURETAB.Crimes ? 'crimes' : 'citations'} found.</NoticeBox>
+          <NoticeBox>
+            No {tab === SECURETAB.Crimes ? 'crimes' : 'citations'} found.
+          </NoticeBox>
         </Stack.Item>
       ) : (
         toDisplay.map((item, index) => <CrimeDisplay key={index} item={item} />)
@@ -67,7 +101,8 @@ const CrimeDisplay = ({ item }: { item: Crime }) => {
   const { record_ref } = foundRecord;
   const { act, data } = useBackend<SecurityRecordsData>();
   const { current_user, higher_access } = data;
-  const { author, crime_ref, details, fine, name, paid, time, valid, voider } = item;
+  const { author, crime_ref, details, fine, name, paid, time, valid, voider } =
+    item;
   const showFine = !!fine && fine > 0 ? `: ${fine} cr` : ': PAID OFF';
 
   let collapsibleColor = '';
@@ -94,7 +129,10 @@ const CrimeDisplay = ({ item }: { item: Crime }) => {
             {!valid ? 'Void' : 'Active'}
           </LabeledList.Item>
           {!valid && (
-            <LabeledList.Item color={voider ? 'gold' : 'good'} label="Voided by">
+            <LabeledList.Item
+              color={voider ? 'gold' : 'good'}
+              label="Voided by"
+            >
               {!voider ? 'Automation' : voider}
             </LabeledList.Item>
           )}
@@ -119,7 +157,8 @@ const CrimeDisplay = ({ item }: { item: Crime }) => {
             <Button
               disabled={!valid || (!higher_access && author !== current_user)}
               icon="pen"
-              onClick={() => setEditing(true)}>
+              onClick={() => setEditing(true)}
+            >
               Edit
             </Button>
             <Button.Confirm
@@ -194,7 +233,10 @@ const CrimeAuthor = (props) => {
   const [crimeName, setCrimeName] = useLocalState('crimeName', '');
   const [crimeDetails, setCrimeDetails] = useLocalState('crimeDetails', '');
   const [crimeFine, setCrimeFine] = useLocalState('crimeFine', 0);
-  const [selectedTab, setSelectedTab] = useLocalState<SECURETAB>('selectedTab', SECURETAB.Crimes);
+  const [selectedTab, setSelectedTab] = useLocalState<SECURETAB>(
+    'selectedTab',
+    SECURETAB.Crimes,
+  );
 
   const nameMeetsReqs = crimeName?.length > 2;
 
@@ -222,7 +264,12 @@ const CrimeAuthor = (props) => {
     <Stack fill vertical>
       <Stack.Item color="label">
         Name
-        <Input fluid maxLength={48} onChange={(_, value) => setCrimeName(value)} placeholder="Brief overview" />
+        <Input
+          fluid
+          maxLength={48}
+          onChange={(_, value) => setCrimeName(value)}
+          placeholder="Brief overview"
+        />
       </Stack.Item>
       <Stack.Item color="label">
         Details
@@ -237,7 +284,11 @@ const CrimeAuthor = (props) => {
       </Stack.Item>
       <Stack.Item color="label">
         Fine (leave blank to arrest)
-        <RestrictedInput onChange={(_, value) => setCrimeFine(value)} fluid maxValue={1000} />
+        <RestrictedInput
+          onChange={(_, value) => setCrimeFine(value)}
+          fluid
+          maxValue={1000}
+        />
       </Stack.Item>
       <Stack.Item>
         <Button.Confirm

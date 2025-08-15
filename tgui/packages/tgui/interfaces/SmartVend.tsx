@@ -1,5 +1,13 @@
 import { useState } from 'react';
-import { Button, ImageButton, Input, NoticeBox, NumberInput, Section, Stack } from 'tgui-core/components';
+import {
+  Button,
+  ImageButton,
+  Input,
+  NoticeBox,
+  NumberInput,
+  Section,
+  Stack,
+} from 'tgui-core/components';
 import { BooleanLike } from 'tgui-core/react';
 import { createSearch } from 'tgui-core/string';
 
@@ -27,7 +35,10 @@ export const SmartVend = (props) => {
   const [searchText, setSearchText] = useState('');
   const [displayMode, setDisplayMode] = useState(getLayoutState());
   const search = createSearch(searchText, (item: Item) => item.name);
-  const contents = searchText.length > 0 ? Object.values(data.contents).filter(search) : Object.values(data.contents);
+  const contents =
+    searchText.length > 0
+      ? Object.values(data.contents).filter(search)
+      : Object.values(data.contents);
   return (
     <Window width={431} height={575}>
       <Window.Content>
@@ -39,7 +50,10 @@ export const SmartVend = (props) => {
             <Stack>
               {data.isdryer ? (
                 <Stack.Item>
-                  <Button icon={data.drying ? 'stop' : 'tint'} onClick={() => act('Dry')}>
+                  <Button
+                    icon={data.drying ? 'stop' : 'tint'}
+                    onClick={() => act('Dry')}
+                  >
                     {data.drying ? 'Stop drying' : 'Dry'}
                   </Button>
                 </Stack.Item>
@@ -70,12 +84,17 @@ export const SmartVend = (props) => {
                 />
               </Stack.Item>
             </Stack>
-          }>
+          }
+        >
           {!contents.length ? (
             <NoticeBox>Nothing found.</NoticeBox>
           ) : (
             contents.map((item) =>
-              displayMode === LAYOUT.Grid ? <ItemTile key={item.path} item={item} /> : <ItemList key={item.path} item={item} />
+              displayMode === LAYOUT.Grid ? (
+                <ItemTile key={item.path} item={item} />
+              ) : (
+                <ItemList key={item.path} item={item} />
+              ),
             )
           )}
         </Section>
@@ -113,7 +132,9 @@ const ItemTile = ({ item }) => {
       buttonsAlt={
         <Stack bold color="rgb(185, 185, 185)" fontSize={0.8}>
           <Stack.Item grow />
-          <Stack.Item style={{ textShadow: '0 1px 1px black' }}>x{item.amount}</Stack.Item>
+          <Stack.Item style={{ textShadow: '0 1px 1px black' }}>
+            x{item.amount}
+          </Stack.Item>
         </Stack>
       }
       onClick={() =>
@@ -127,7 +148,8 @@ const ItemTile = ({ item }) => {
           path: item.path,
           amount: item.amount,
         })
-      }>
+      }
+    >
       {item.name}
     </ImageButton>
   ) as any;
@@ -148,7 +170,8 @@ const ItemList = ({ item }) => {
         <Stack
           opacity={disabled && 0.5}
           backgroundColor={'rgba(175, 175, 175, 0.1)'}
-          style={{ pointerEvents: disabled ? 'none' : 'auto' }}>
+          style={{ pointerEvents: disabled ? 'none' : 'auto' }}
+        >
           <NumberInput
             width="40px"
             minValue={1}
@@ -175,7 +198,8 @@ const ItemList = ({ item }) => {
           path: item.path,
           amount: item.amount,
         })
-      }>
+      }
+    >
       <Stack textAlign="left">
         <Stack.Item grow>{item.name}</Stack.Item>
         <Stack.Item opacity={0.5} fontSize={0.8}>

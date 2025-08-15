@@ -4,7 +4,14 @@ import { Window } from '../layouts';
 
 export const EmergencyShuttleConsole = (props) => {
   const { act, data } = useBackend();
-  const { timer_str, enabled, emagged, engines_started, authorizations_remaining, authorizations = [] } = data;
+  const {
+    timer_str,
+    enabled,
+    emagged,
+    engines_started,
+    authorizations_remaining,
+    authorizations = [],
+  } = data;
   return (
     <Window width={400} height={350}>
       <Window.Content>
@@ -23,7 +30,16 @@ export const EmergencyShuttleConsole = (props) => {
           <Section
             title="Early Launch Authorization"
             level={2}
-            buttons={<Button icon="times" content="Repeal All" color="bad" disabled={!enabled} onClick={() => act('abort')} />}>
+            buttons={
+              <Button
+                icon="times"
+                content="Repeal All"
+                color="bad"
+                disabled={!enabled}
+                onClick={() => act('abort')}
+              />
+            }
+          >
             <Grid>
               <Grid.Column>
                 <Button
@@ -36,7 +52,13 @@ export const EmergencyShuttleConsole = (props) => {
                 />
               </Grid.Column>
               <Grid.Column>
-                <Button fluid icon="minus" content="REPEAL" disabled={!enabled} onClick={() => act('repeal')} />
+                <Button
+                  fluid
+                  icon="minus"
+                  content="REPEAL"
+                  disabled={!enabled}
+                  onClick={() => act('repeal')}
+                />
               </Grid.Column>
             </Grid>
             <Section
@@ -47,10 +69,16 @@ export const EmergencyShuttleConsole = (props) => {
                 <Box inline bold color={emagged ? 'bad' : 'good'}>
                   {emagged ? 'ERROR' : 'Remaining: ' + authorizations_remaining}
                 </Box>
-              }>
+              }
+            >
               {authorizations.length > 0 ? (
                 authorizations.map((authorization) => (
-                  <Box key={authorization.name} bold fontSize="16px" className="candystripe">
+                  <Box
+                    key={authorization.name}
+                    bold
+                    fontSize="16px"
+                    className="candystripe"
+                  >
                     {authorization.name} ({authorization.job})
                   </Box>
                 ))

@@ -1,8 +1,9 @@
 // Adapted From NSV13
 
 import { clamp, toFixed } from 'common/math';
+
 import { useBackend, useSharedState } from '../backend';
-import { Button, Section, ProgressBar } from '../components';
+import { Button, ProgressBar, Section } from '../components';
 import { Window } from '../layouts';
 
 export const GenPop = (props) => {
@@ -16,18 +17,24 @@ export const GenPop = (props) => {
   // Local state to determine which modifiers we have active
   const [resistedMod, setResistedMod] = useSharedState('resisted', false);
   const [attemptedMod, setAttemptedMod] = useSharedState('attempted', false);
-  const [elevatedMod, setElevatedMod] = useSharedState('repeat_offender', false);
+  const [elevatedMod, setElevatedMod] = useSharedState(
+    'repeat_offender',
+    false,
+  );
 
   // Local state for the name of the crime being issued
   const [crimeName, setCrimeName] = useSharedState('crimeName', 'No crime');
 
   // Local state for the name of the crime details
-  const [crimeDetails, setCrimeDetails] = useSharedState('crimeDetails', 'No details provided');
+  const [crimeDetails, setCrimeDetails] = useSharedState(
+    'crimeDetails',
+    'No details provided',
+  );
 
   // Local state for the current category that we are browsing
   const [crimeCategory, setCrimeCategory] = useSharedState(
     'crimeCategory',
-    crime_list && crime_list.length > 0 ? Object.keys(crime_list)[0] : null
+    crime_list && crime_list.length > 0 ? Object.keys(crime_list)[0] : null,
   );
 
   const resetLocalState = () => {
@@ -61,7 +68,9 @@ export const GenPop = (props) => {
             <>
               <Button
                 icon="id-card-alt"
-                content={data.desired_name ? data.desired_name : 'Enter Prisoner Name'}
+                content={
+                  data.desired_name ? data.desired_name : 'Enter Prisoner Name'
+                }
                 onClick={() => act('prisoner_name')}
               />
               <Button
@@ -77,22 +86,44 @@ export const GenPop = (props) => {
                         : null
                 }
                 color="good"
-                disabled={!data.canPrint || (attemptedMod && time <= 3000) || crimeName === 'No crime' || !data.desired_name}
+                disabled={
+                  !data.canPrint ||
+                  (attemptedMod && time <= 3000) ||
+                  crimeName === 'No crime' ||
+                  !data.desired_name
+                }
                 onClick={() => {
                   act('print', {
                     desired_sentence: getProcessedTime(),
-                    desired_crime: (attemptedMod ? 'Attempted ' : '') + crimeName + (elevatedMod ? ' (Repeat offender)' : ''),
+                    desired_crime:
+                      (attemptedMod ? 'Attempted ' : '') +
+                      crimeName +
+                      (elevatedMod ? ' (Repeat offender)' : ''),
                   });
                   // Reset to the default state
                   resetLocalState();
                 }}
               />
             </>
-          }>
-          <Button icon="fast-backward" onClick={() => setTime(clamp(time - 1200, 0, 36000))} />
-          <Button icon="backward" onClick={() => setTime(clamp(time - 600, 0, 36000))} />
-          {String(getProcessedTime() / 600)} min: <Button icon="forward" onClick={() => setTime(clamp(time + 600, 0, 36000))} />
-          <Button icon="fast-forward" onClick={() => setTime(clamp(time + 1200, 0, 36000))} />
+          }
+        >
+          <Button
+            icon="fast-backward"
+            onClick={() => setTime(clamp(time - 1200, 0, 36000))}
+          />
+          <Button
+            icon="backward"
+            onClick={() => setTime(clamp(time - 600, 0, 36000))}
+          />
+          {String(getProcessedTime() / 600)} min:{' '}
+          <Button
+            icon="forward"
+            onClick={() => setTime(clamp(time + 600, 0, 36000))}
+          />
+          <Button
+            icon="fast-forward"
+            onClick={() => setTime(clamp(time + 1200, 0, 36000))}
+          />
           <br />
           {Object.keys(crime_list)
             // Remove any categories with no crimes so we don't bluescreen in the event that a category has no crimes.
@@ -100,7 +131,11 @@ export const GenPop = (props) => {
             .map((category) => (
               <Button
                 key={category}
-                icon={category === 'Capital' ? 'exclamation-triangle' : 'hourglass-start'}
+                icon={
+                  category === 'Capital'
+                    ? 'exclamation-triangle'
+                    : 'hourglass-start'
+                }
                 content={category}
                 color={crime_list[category][0].colour}
                 onClick={() => {
@@ -170,7 +205,16 @@ export const GenPop = (props) => {
           Identity: {String(data.desired_name || 'No name entered')} <br />
           Crime: {String(crimeName)} <br />
           Sentence: {String(getProcessedTime() / 600)} min <br />
-          <Section title="Crime details" buttons={<Button content="Edit" icon="pen" onClick={() => act('edit_details')} />}>
+          <Section
+            title="Crime details"
+            buttons={
+              <Button
+                content="Edit"
+                icon="pen"
+                onClick={() => act('edit_details')}
+              />
+            }
+          >
             {desired_details}
           </Section>
         </Section>
@@ -183,12 +227,33 @@ export const GenPop = (props) => {
                 title={value.name}
                 buttons={
                   <>
-                    <Button icon="backward" onClick={() => act('adjust_time', { adjust: -60, id: value.id })} />
-                    <Button icon="forward" onClick={() => act('adjust_time', { adjust: 60, id: value.id })} />
-                    <Button icon="check" content="Release" color="good" onClick={() => act('release', { id: value.id })} />
-                    <Button icon="running" content="Escaped" color="bad" onClick={() => act('escaped', { id: value.id })} />
+                    <Button
+                      icon="backward"
+                      onClick={() =>
+                        act('adjust_time', { adjust: -60, id: value.id })
+                      }
+                    />
+                    <Button
+                      icon="forward"
+                      onClick={() =>
+                        act('adjust_time', { adjust: 60, id: value.id })
+                      }
+                    />
+                    <Button
+                      icon="check"
+                      content="Release"
+                      color="good"
+                      onClick={() => act('release', { id: value.id })}
+                    />
+                    <Button
+                      icon="running"
+                      content="Escaped"
+                      color="bad"
+                      onClick={() => act('escaped', { id: value.id })}
+                    />
                   </>
-                }>
+                }
+              >
                 Incarcerated for: {value.crime} <br />
                 <ProgressBar
                   value={(value.served_time / value.sentence) * 100 * 0.01}
@@ -196,8 +261,10 @@ export const GenPop = (props) => {
                     good: [0.99, Infinity],
                     average: [0.4, 0.99],
                     bad: [-Infinity, 0.4],
-                  }}>
-                  {toFixed(value.served_time / 60)} min / {toFixed(value.sentence / 60)} min
+                  }}
+                >
+                  {toFixed(value.served_time / 60)} min /{' '}
+                  {toFixed(value.sentence / 60)} min
                 </ProgressBar>
               </Section>
             );

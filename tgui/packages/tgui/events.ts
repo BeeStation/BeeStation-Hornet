@@ -6,13 +6,15 @@
  * @license MIT
  */
 
-import { KEY_ALT, KEY_CTRL, KEY_F1, KEY_F12, KEY_SHIFT } from 'common/keycodes';
 import { EventEmitter } from 'common/events';
+import { KEY_ALT, KEY_CTRL, KEY_F1, KEY_F12, KEY_SHIFT } from 'common/keycodes';
 
 export const globalEvents = new EventEmitter();
 let ignoreWindowFocus = false;
 
-export const setupGlobalEvents = (options: { ignoreWindowFocus?: boolean } = {}): void => {
+export const setupGlobalEvents = (
+  options: { ignoreWindowFocus?: boolean } = {},
+): void => {
   ignoreWindowFocus = !!options.ignoreWindowFocus;
 };
 
@@ -132,7 +134,7 @@ document.addEventListener(
       stealFocus(e.target as HTMLElement);
     }
   },
-  true
+  true,
 );
 
 // When we click on any element on the page, untrack the last
@@ -142,7 +144,7 @@ document.addEventListener(
   (e) => {
     lastVisitedNode = null;
   },
-  true
+  true,
 );
 
 // Handle setting the window focus
@@ -190,7 +192,9 @@ export class KeyEvent {
   }
 
   isModifierKey() {
-    return this.code === KEY_CTRL || this.code === KEY_SHIFT || this.code === KEY_ALT;
+    return (
+      this.code === KEY_CTRL || this.code === KEY_SHIFT || this.code === KEY_ALT
+    );
   }
 
   isDown() {

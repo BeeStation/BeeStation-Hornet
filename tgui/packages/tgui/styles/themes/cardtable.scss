@@ -7,14 +7,14 @@
 @use 'sass:meta';
 
 @use '../colors' with (
-  $primary: hsl(0.0, 0.0%, 0.0%),
+  $primary: hsl(0, 0%, 0%),
   $fg-map-keys: (),
-  $bg-map-keys: (),
+  $bg-map-keys: ()
 );
 @use '../base' with (
   $color-bg: hsl(145.3, 73.6%, 25.3%),
   $color-bg-grad-spread: 0%,
-  $border-radius: 0,
+  $border-radius: 0
 );
 
 //Made for the roulette table, probably requires a bunch of manual hacks to work for anything else
@@ -33,14 +33,23 @@
       'color-danger': hsl(61.1, 100%, 30.8%)
     )
   );
-  @include meta.load-css('../components/NumberInput.scss', $with: ('border-color': #fff));
-  @include meta.load-css('../components/ProgressBar.scss', $with: ('background-color': rgba(0, 0, 0, 0.5)));
+  @include meta.load-css(
+    '../components/NumberInput.scss',
+    $with: ('border-color': #fff)
+  );
+  @include meta.load-css(
+    '../components/ProgressBar.scss',
+    $with: ('background-color': rgba(0, 0, 0, 0.5))
+  );
   @include meta.load-css('../components/Section.scss');
 
   // Layouts
   @include meta.load-css('../layouts/Layout.scss');
   @include meta.load-css('../layouts/Window.scss');
-  @include meta.load-css('../layouts/TitleBar.scss', $with: ('background-color': hsl(17.5, 75%, 12.5%)));
+  @include meta.load-css(
+    '../layouts/TitleBar.scss',
+    $with: ('background-color': hsl(17.5, 75%, 12.5%))
+  );
 
   .Button {
     border: base.em(2px) solid #fff;

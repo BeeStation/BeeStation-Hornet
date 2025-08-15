@@ -24,7 +24,9 @@ export const NtosCyborgRemoteMonitorContent = (props) => {
 
   return (
     <>
-      {!card && <NoticeBox>Certain features require an ID card login.</NoticeBox>}
+      {!card && (
+        <NoticeBox>Certain features require an ID card login.</NoticeBox>
+      )}
       {cyborgs.map((cyborg) => {
         return (
           <Section
@@ -42,10 +44,19 @@ export const NtosCyborgRemoteMonitorContent = (props) => {
                   })
                 }
               />
-            }>
+            }
+          >
             <LabeledList>
               <LabeledList.Item label="Status">
-                <Box color={cyborg.status ? 'bad' : cyborg.locked_down ? 'average' : 'good'}>
+                <Box
+                  color={
+                    cyborg.status
+                      ? 'bad'
+                      : cyborg.locked_down
+                        ? 'average'
+                        : 'good'
+                  }
+                >
                   {cyborg.status
                     ? 'Not Responding'
                     : cyborg.locked_down
@@ -56,12 +67,24 @@ export const NtosCyborgRemoteMonitorContent = (props) => {
                 </Box>
               </LabeledList.Item>
               <LabeledList.Item label="Charge">
-                <Box color={cyborg.charge <= 30 ? 'bad' : cyborg.charge <= 70 ? 'average' : 'good'}>
-                  {typeof cyborg.charge === 'number' ? cyborg.charge + '%' : 'Not Found'}
+                <Box
+                  color={
+                    cyborg.charge <= 30
+                      ? 'bad'
+                      : cyborg.charge <= 70
+                        ? 'average'
+                        : 'good'
+                  }
+                >
+                  {typeof cyborg.charge === 'number'
+                    ? cyborg.charge + '%'
+                    : 'Not Found'}
                 </Box>
               </LabeledList.Item>
               <LabeledList.Item label="Model">{cyborg.module}</LabeledList.Item>
-              <LabeledList.Item label="Upgrades">{cyborg.upgrades}</LabeledList.Item>
+              <LabeledList.Item label="Upgrades">
+                {cyborg.upgrades}
+              </LabeledList.Item>
             </LabeledList>
           </Section>
         );
