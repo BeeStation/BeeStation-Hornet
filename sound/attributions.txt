@@ -16,3 +16,5 @@ female_cough_5.ogg: https://freesound.org/people/thatkellytrna/sounds/425777/ , 
 female_cough_6.ogg: https://freesound.org/people/DarkNightPrincess/sounds/625322/ , license: CC0 1.0 DEED
 female_cough_7.ogg: https://freesound.org/people/drotzruhn/sounds/405206/ , license: CC BY 4.0 DEED
 whistle1.ogg: https://freesound.org/people/taure/sounds/411638/ , license: CC0 1.0 DEED
+
+abductor1, 2, 3, as well as abductorambience, and abductordooropen/abductordoorclose, are all from https://pixabay.com/ in accordance with their "pixabay content license" as can be found here: https://pixabay.com/service/terms/. Some of said sound effects have been modified and or combined by TsunamiAnt.

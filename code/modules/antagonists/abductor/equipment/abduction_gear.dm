@@ -962,6 +962,18 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	//Set them back down to the normal lying position
 	M.pixel_y = M.base_pixel_y + M.body_position_pixel_y_offset
 
+/obj/machinery/shower/abductor
+	name = "desinfection apparatus"
+	desc = "is that acid or just very weird smelling water?"
+	icon = 'icons/obj/watercloset.dmi'
+	icon_state = "alienshower"
+	density = FALSE
+	use_power = NO_POWER_USE
+	current_temperature = "freezing"
+	reagent_id = /datum/reagent/space_cleaner
+	reaction_volume = 200
+	pixel_y = 16
+
 #undef VEST_STEALTH
 #undef VEST_COMBAT
 #undef GIZMO_SCAN
