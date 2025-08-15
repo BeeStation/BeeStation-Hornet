@@ -3738,7 +3738,7 @@
 /obj/effect/turf_decal/trimline/brown/filled/line{
 	dir = 8
 	},
-/obj/machinery/vendor/mining,
+/obj/machinery/gear_requisition/mining,
 /turf/open/floor/iron/dark,
 /area/quartermaster/miningdock)
 "aRL" = (
@@ -59765,7 +59765,7 @@
 /turf/open/floor/plating,
 /area/security/checkpoint/escape)
 "psq" = (
-/obj/machinery/vendor/exploration,
+/obj/machinery/gear_requisition/exploration,
 /turf/open/floor/iron/techmaint,
 /area/quartermaster/exploration_prep)
 "ptb" = (

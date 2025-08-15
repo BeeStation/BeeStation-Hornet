@@ -23705,7 +23705,7 @@
 	pixel_y = -30
 	},
 /obj/machinery/light,
-/obj/machinery/vendor/exploration,
+/obj/machinery/gear_requisition/exploration,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
@@ -55208,7 +55208,7 @@
 /obj/machinery/camera/directional/east{
 	c_tag = "Mining Office"
 	},
-/obj/machinery/vendor/mining,
+/obj/machinery/gear_requisition/mining,
 /obj/effect/turf_decal/tile/brown/half/contrasted,
 /turf/open/floor/iron,
 /area/quartermaster/miningoffice)

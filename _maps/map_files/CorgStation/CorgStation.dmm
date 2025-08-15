@@ -31281,7 +31281,7 @@
 /area/quartermaster/office)
 "jZG" = (
 /obj/machinery/light,
-/obj/machinery/vendor/mining,
+/obj/machinery/gear_requisition/mining,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -72555,7 +72555,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/vendor/exploration,
+/obj/machinery/gear_requisition/exploration,
 /turf/open/floor/iron/white,
 /area/quartermaster/exploration_prep)
 "xJJ" = (
