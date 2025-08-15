@@ -1,0 +1,7 @@
+author: Tsar-Salat
+delete-after: true
+changes:
+  - rscadd: adds category support to mining vendors, refactors their UI to be functionally
+      the same as vending machines
+  - bugfix: fixes mining vendors
+  - tweak: renames mining vendors
