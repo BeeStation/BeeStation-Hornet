@@ -33,6 +33,7 @@
 #include "drink_icons.dm"
 #include "dynamic_ruleset_sanity.dm"
 #include "emoting.dm"
+#include "ensure_subtree_operational_datum.dm"
 #include "enumerables.dm"
 
 #ifdef REFERENCE_TRACKING_DEBUG //Don't try and parse this file if ref tracking isn't turned on. IE: don't parse ref tracking please mr linter

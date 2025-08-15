@@ -141,9 +141,9 @@
 	name = "Vector's bed"
 	anchored = TRUE
 
-/obj/structure/bed/dogbed/walter
-	desc = "Walter's bed! It reeks of testosterone and motor oil."
-	name = "Walter's bed"
+/obj/structure/bed/dogbed/tyson
+	desc = "Tyson's bed! It reeks of testosterone and motor oil."
+	name = "Tyson's bed"
 	anchored = TRUE
 
 ///Used to set the owner of a dogbed, returns FALSE if called on an owned bed or an invalid one, TRUE if the possesion succeeds
