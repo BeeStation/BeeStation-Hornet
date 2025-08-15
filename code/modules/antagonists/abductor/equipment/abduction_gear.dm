@@ -974,6 +974,39 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	reaction_volume = 200
 	pixel_y = 16
 
+/obj/item/candydispenser/abductor
+	name = "zetaball dispenser"
+	desc = "A whimsical device with a glass globe on top, which can be operated to dispense various... candies? Did they steal this from us?"
+	variant = "abductor"
+	candy_type = /obj/item/food/gumball/zeta
+
+/obj/item/candydispenser/abductor/examine(mob/user)
+	. = ..()
+	if(isabductor(user))
+		. += span_abductor("They do have SOME good ideas.")
+
+//Ayyballs
+/obj/item/food/gumball/zeta
+	name = "zetaball"
+	desc = "A pinkish-purplish, gumball-like object. You have no idea what this is made of or why, can they even eat???"
+	foodtypes = GROSS
+	food_flags = FOOD_FINGER_FOOD
+	food_reagents = list(
+		/datum/reagent/oil = 3,
+		/datum/reagent/medicine/polypyr = 4,
+		/datum/reagent/medicine/antitoxin = 2
+		)
+	tastes = list("concentrated gnerp")
+
+/obj/item/food/gumball/zeta/Initialize(mapload)
+	. = ..()
+	color = rgb(255, 0,rand(160,255))
+
+/obj/item/food/gumball/zeta/examine(mob/user)
+	. = ..()
+	if(isabductor(user))
+		. += span_abductor("Hmmm, zetaballs.")
+
 #undef VEST_STEALTH
 #undef VEST_COMBAT
 #undef GIZMO_SCAN

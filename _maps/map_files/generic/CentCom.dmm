@@ -22526,6 +22526,11 @@
 	},
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
+"ndo" = (
+/obj/structure/closet/abductor,
+/obj/item/candydispenser/abductor,
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "nec" = (
 /obj/structure/fluff/fokoff_sign,
 /turf/open/floor/grass/snow,
@@ -42590,7 +42595,7 @@ sGO
 sGO
 tJP
 tJP
-uSz
+ndo
 sGO
 sGO
 sGO
