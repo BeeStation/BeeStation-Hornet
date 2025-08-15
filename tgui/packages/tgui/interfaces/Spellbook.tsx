@@ -87,13 +87,6 @@ const TAB2NAME: TabType[] = [
     scrollable: true,
   },
   {
-    title: 'Challenges',
-    blurb:
-      'The Wizard Federation is looking for shows of power. Arming the station against you will increase the danger, but will grant you more charges for your spellbook.',
-    locked: true,
-    scrollable: true,
-  },
-  {
     title: 'Rituals',
     blurb: 'These powerful spells change the very fabric of reality. Not always in your favour.',
     scrollable: true,
@@ -103,12 +96,6 @@ const TAB2NAME: TabType[] = [
     blurb:
       'The Wizard Federation accepts that sometimes, choosing is hard. You can choose from some approved wizard loadouts here.',
     component: () => <Loadouts />,
-  },
-  {
-    title: 'Randomize',
-    blurb: "If you didn't like the loadouts offered, you can embrace chaos. Not recommended for newer wizards.",
-    component: () => <Randomize />,
-    locked: true,
   },
 ];
 
@@ -164,17 +151,15 @@ const TableOfContents = (props) => {
       />
       <Button lineHeight={lineHeightToc} fluid icon="users" content="Assistance and Summoning" onClick={() => setTabIndex(6)} />
       <Divider />
-      <Button lineHeight={lineHeightToc} fluid icon="crown" content="Challenges" onClick={() => setTabIndex(7)} />
-      <Button lineHeight={lineHeightToc} fluid icon="magic" content="Rituals" onClick={() => setTabIndex(8)} />
+      <Button lineHeight={lineHeightToc} fluid icon="magic" content="Rituals" onClick={() => setTabIndex(7)} />
       <Divider />
       <Button
         lineHeight={lineHeightToc}
         fluid
         icon="thumbs-up"
         content="Wizard Approved Loadouts"
-        onClick={() => setTabIndex(9)}
+        onClick={() => setTabIndex(8)}
       />
-      <Button lineHeight={lineHeightToc} fluid icon="dice" content="Arcane Randomizer" onClick={() => setTabIndex(10)} />
     </Box>
   );
 };
@@ -611,7 +596,7 @@ export const Spellbook = (props) => {
                         <Button disabled={tabIndex === 2} icon="home" content="TOC" onClick={() => setTabIndex(2)} />
                         <Button
                           icon="arrow-right"
-                          disabled={tabIndex === 10}
+                          disabled={tabIndex === 8}
                           content="Next Page"
                           onClick={() => setTabIndex(tabIndex + 1)}
                         />
