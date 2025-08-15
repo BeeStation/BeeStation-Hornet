@@ -34047,8 +34047,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/patients_rooms)
-"kfq" = (
-)
 "kfs" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 1
@@ -105805,15 +105803,15 @@ bPm
 bPm
 bLK
 pbe
-kfq
+bTW
 bTW
 bLK
 qmO
-kfq
+bTW
 bXW
 bLK
 auS
-kfq
+bTW
 cbH
 bLK
 aaf
