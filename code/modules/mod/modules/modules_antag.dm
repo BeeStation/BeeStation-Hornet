@@ -29,10 +29,8 @@
 	space_slowdown = 0
 
 /datum/armor/mod_module_armor_boost
-	melee = 25
-	bullet = 30
-	laser = 15
-	energy = 15
+	penetration = 40
+	blunt = 10
 
 /obj/item/mod/module/armor_booster/on_part_activation()
 	RegisterSignal(mod, COMSIG_MOD_UPDATE_SPEED, PROC_REF(on_update_speed))
@@ -167,7 +165,7 @@
 	qdel(shield)
 	UnregisterSignal(mod.wearer, COMSIG_HUMAN_CHECK_SHIELDS)
 
-/obj/item/mod/module/energy_shield/proc/shield_reaction(mob/living/carbon/human/owner, atom/movable/hitby, damage = 0, attack_text = "the attack", attack_type = MELEE_ATTACK, armour_penetration = 0)
+/obj/item/mod/module/energy_shield/proc/shield_reaction(mob/living/carbon/human/owner, atom/movable/hitby, damage = 0, attack_text = "the attack", attack_type = MELEE_ATTACK, sharpness = 0)
 	if(SEND_SIGNAL(mod, COMSIG_ITEM_HIT_REACT, owner, hitby, attack_text, 0, damage, attack_type) & COMPONENT_HIT_REACTION_BLOCK)
 		drain_power(use_power_cost)
 		return SHIELD_BLOCK
@@ -326,8 +324,6 @@
 	required_slots = list(ITEM_SLOT_FEET)
 	/// Damage on kick.
 	var/damage = 20
-	/// The wound bonus of the kick.
-	var/wounding_power = 35
 	/// How long we knockdown for on the kick.
 	var/knockdown_time = 2 SECONDS
 
@@ -366,10 +362,10 @@
 		return
 	if(isliving(target))
 		var/mob/living/living_target = target
-		living_target.apply_damage(damage, BRUTE, mod.wearer.get_combat_bodyzone(target)/*, wound_bonus = wounding_power*/)
+		living_target.deal_damage(damage, 0, BRUTE, zone = mod.wearer.get_combat_bodyzone(target))
 		living_target.Knockdown(knockdown_time)
 	else if(target.uses_integrity)
-		target.take_damage(damage, BRUTE, MELEE)
+		target.deal_damage(damage, 0, BRUTE)
 	else
 		return
 	mod.wearer.do_attack_animation(target, ATTACK_EFFECT_SMASH)

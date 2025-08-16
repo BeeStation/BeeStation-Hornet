@@ -242,11 +242,11 @@
 		damage = 15
 	if(isliving(hit_atom))
 		var/mob/living/living_atom = hit_atom
-		living_atom.apply_damage(damage, BRUTE)
+		living_atom.deal_damage(damage, 0, BRUTE)
 	else if(hit_atom.uses_integrity)
-		hit_atom.take_damage(damage, BRUTE, MELEE)
+		hit_atom.deal_damage(damage, 0, BRUTE)
 	if(damage_self && source.uses_integrity)
-		source.take_damage(source.max_integrity/5, BRUTE, MELEE)
+		source.deal_damage(source.max_integrity/5, 0, BRUTE)
 
 /atom/movable/screen/fullscreen/cursor_catcher/kinesis
 	icon_state = "kinesis"

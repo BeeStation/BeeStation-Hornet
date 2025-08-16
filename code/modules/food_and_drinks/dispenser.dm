@@ -19,8 +19,7 @@
 	throw_speed = 3
 	throw_range = 4
 	//File down the edges? No. What do you think this is? You're in a sweatshop!
-	bleed_force = BLEED_TINY
-	sharpness = BLUNT
+	sharpness = SHARP_NONE
 
 	var/obj/candy_type = /obj/item/food/gumball
 	var/const/max_candies = 50
@@ -145,7 +144,7 @@
 	candy_type = /obj/item/food/gumball/syndicate
 	force = 18
 	throwforce = 23
-	bleed_force = BLEED_SCRATCH
+	sharpness = SHARP_I
 
 /obj/item/candydispenser/engineering
 	name = "engineering gumball dispenser"

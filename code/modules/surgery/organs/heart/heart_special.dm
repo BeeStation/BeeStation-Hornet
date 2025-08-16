@@ -18,3 +18,24 @@
 	name = "polypment segment"
 	desc = "A segment of plant matter that is resposible for pumping nutrients around the body."
 	icon_state = "diona_heart"
+
+/obj/item/organ/heart/ethereal
+	name = "crystal core"
+	icon_state = "ethereal_heart-on"
+	base_icon_state = "ethereal_heart"
+	visual = TRUE //This is used by the ethereal species for color
+	desc = "A crystal-like organ that functions similarly to a heart for Ethereals."
+
+	///Color of the heart, is set by the species on gain
+	var/ethereal_color = "#9c3030"
+
+/obj/item/organ/heart/ethereal/Initialize(mapload)
+	. = ..()
+	add_atom_colour(ethereal_color, FIXED_COLOUR_PRIORITY)
+	update_appearance()
+
+/obj/item/organ/heart/ethereal/update_overlays()
+	. = ..()
+	var/mutable_appearance/shine = mutable_appearance(icon, icon_state = "[base_icon_state]_overlay-[beating ? "on" : "off"]")
+	shine.appearance_flags = RESET_COLOR //No color on this, just pure white
+	. += shine

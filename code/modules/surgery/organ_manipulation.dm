@@ -111,7 +111,7 @@
 			if(IS_ORGANIC_LIMB(target_bodypart))
 				to_chat(user, span_notice("You can't put [target_organ] into a meat enclosure!"))
 				return -1
-			if(!IS_ROBOTIC_LIMB(affected))
+			if(!IS_ROBOTIC_LIMB(target_bodypart))
 				to_chat(user, span_notice("[target] does not have the proper connectors to interface with [target_organ]."))
 				return -1
 		var/obj/item/organ/meatslab = tool

@@ -2,6 +2,7 @@
 	name = "heart"
 	desc = "I feel bad for the heartless bastard who lost this."
 	icon_state = "heart-on"
+	base_icon_state = "heart"
 	visual = FALSE
 	slot = ORGAN_SLOT_HEART
 
@@ -14,8 +15,7 @@
 	high_threshold_cleared = span_info("The pain in your chest has died down, and your breathing becomes more relaxed.")
 
 	// Heart attack code is in code/modules/mob/living/carbon/human/life.dm
-	var/beating = 1
-	var/icon_base = "heart"
+	var/beating = TRUE
 	attack_verb_continuous = list("beats", "thumps")
 	attack_verb_simple = list("beat", "thump")
 	//is this mob having a heatbeat sound played? if so, which?
@@ -29,11 +29,9 @@
 	/// How effective is this heart at circulating blood around the body
 	var/circulation_effectiveness = 1
 
-/obj/item/organ/heart/update_icon()
-	if(beating)
-		icon_state = "[icon_base]-on"
-	else
-		icon_state = "[icon_base]-off"
+/obj/item/organ/heart/update_icon_state()
+	icon_state = "[base_icon_state]-[beating ? "on" : "off"]"
+	return ..()
 
 /obj/item/organ/heart/Insert(mob/living/carbon/receiver, special, drop_if_replaced, pref_load)
 	. = ..()
@@ -58,16 +56,16 @@
 		addtimer(CALLBACK(src, PROC_REF(stop_if_unowned)), 80)
 
 /obj/item/organ/heart/proc/Stop()
-	beating = 0
-	update_icon()
+	beating = FALSE
+	update_appearance()
 	owner?.blood.set_circulation_rating(0, FROM_HEART)
-	return 1
+	return TRUE
 
 /obj/item/organ/heart/proc/Restart()
-	beating = 1
-	update_icon()
+	beating = TRUE
+	update_appearance()
 	owner?.blood.set_circulation_rating(circulation_effectiveness, FROM_HEART)
-	return 1
+	return TRUE
 
 /obj/item/organ/heart/on_eat_from(eater, feeder)
 	. = ..()
@@ -75,6 +73,9 @@
 
 /obj/item/organ/heart/on_life(delta_time, times_fired)
 	..()
+
+	if(!owner.needs_heart())
+		return
 
 	if(owner.client && beating)
 		failed = FALSE

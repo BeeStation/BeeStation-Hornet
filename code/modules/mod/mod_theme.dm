@@ -171,14 +171,9 @@
 		mod.wearer?.update_clothing(part.slot_flags)
 
 /datum/armor/mod_theme
-	melee = 10
-	bullet = 5
-	laser = 5
-	energy = 5
-	bio = 100
-	fire = 25
-	acid = 25
-	bleed = 5
+	penetration = 5
+	blunt = 10
+	reflectivity = 45
 
 /datum/mod_theme/civilian
 	name = "civilian"
@@ -222,15 +217,9 @@
 	)
 
 /datum/armor/mod_theme_civilian
-	melee = 5
-	bullet = 5
-	laser = 5
-	energy = 5
-	bio = 50
-	rad = 5
-	fire = 25
-	acid = 25
-	bleed = 10
+	penetration = 5
+	blunt = 10
+	reflectivity = 45
 
 /datum/mod_theme/engineering
 	name = "engineering"
@@ -288,17 +277,10 @@
 	)
 
 /datum/armor/mod_theme_engineering
-	melee = 15
-	bullet = 5
-	laser = 10
-	energy = 10
-	bomb = 10
-	rad = 75 //taken from hardsuits, not long-term solution
-	bio = 100
-	fire = 100
-	acid = 50
-	stamina = 15
-	bleed = 50
+	penetration = 5
+	blunt = 10
+	reflectivity = 45
+	heat = 30
 
 /datum/mod_theme/atmospheric
 	name = "atmospheric"
@@ -357,17 +339,10 @@
 	)
 
 /datum/armor/mod_theme_atmospheric
-	melee = 15
-	bullet = 5
-	laser = 10
-	energy = 15
-	bomb = 10
-	rad = 25 //taken from hardsuits, not long-term solution
-	bio = 100
-	fire = 100
-	acid = 75
-	stamina = 15
-	bleed = 50
+	penetration = 5
+	blunt = 10
+	reflectivity = 45
+	heat = 100
 
 /datum/mod_theme/advanced
 	name = "advanced"
@@ -429,17 +404,9 @@
 	)
 
 /datum/armor/mod_theme_advanced
-	melee = 20
-	bullet = 5
-	laser = 20
-	energy = 15
-	bomb = 50
-	rad = 100 //taken from hardsuits, not long-term solution
-	bio = 100
-	fire = 100
-	acid = 90
-	stamina = 20
-	bleed = 50
+	penetration = 30
+	blunt = 20
+	reflectivity = 45
 
 /datum/mod_theme/mining
 	name = "mining"
@@ -547,16 +514,9 @@
 	)
 
 /datum/armor/mod_theme_mining
-	melee = 25
-	bullet = 5
-	laser = 10
-	energy = 10
-	bomb = 30
-	bio = 100
-	fire = 100
-	acid = 75
-	stamina = 20
-	bleed = 60
+	penetration = 20
+	blunt = 40
+	reflectivity = 20
 
 /datum/mod_theme/loader
 	name = "loader"
@@ -615,16 +575,9 @@
 	)
 
 /datum/armor/mod_theme_loader
-	melee = 15
-	bullet = 5
-	laser = 5
-	energy = 5
-	bomb = 10
-	bio = 10
-	fire = 25
-	acid = 25
-	stamina = 10
-	bleed = 25
+	penetration = 5
+	blunt = 15
+	reflectivity = 20
 
 /datum/mod_theme/medical
 	name = "medical"
@@ -724,16 +677,9 @@
 	)
 
 /datum/armor/mod_theme_medical
-	melee = 10
-	bullet = 5
-	laser = 10
-	energy = 10
-	bomb = 10
-	bio = 100
-	fire = 60
-	acid = 75
-	stamina = 15
-	bleed = 55
+	penetration = 5
+	blunt = 10
+	reflectivity = 45
 
 /datum/mod_theme/rescue
 	name = "rescue"
@@ -804,16 +750,9 @@
 	)
 
 /datum/armor/mod_theme_rescue
-	melee = 15
-	bullet = 10
-	laser = 10
-	energy = 10
-	bomb = 15
-	bio = 100
-	fire = 100
-	acid = 100
-	stamina = 20
-	bleed = 50
+	penetration = 5
+	blunt = 10
+	reflectivity = 45
 
 /datum/mod_theme/research
 	name = "research"
@@ -876,16 +815,10 @@
 	)
 
 /datum/armor/mod_theme_research
-	melee = 20
-	bullet = 15
-	laser = 5
-	energy = 5
-	bomb = 100
-	bio = 100
-	fire = 100
-	acid = 100
-	stamina = 25
-	bleed = 50
+	penetration = 5
+	blunt = 10
+	reflectivity = 45
+	absorption = 100
 
 /datum/mod_theme/security
 	name = "security"
@@ -945,17 +878,9 @@
 	)
 
 /datum/armor/mod_theme_security
-	melee = 20
-	bullet = 20
-	laser = 15
-	energy = 25
-	bomb = 25
-	bio = 100
-	rad = 30
-	fire = 75
-	acid = 75
-	stamina = 25
-	bleed = 50
+	penetration = 30
+	blunt = 20
+	reflectivity = 45
 
 /datum/mod_theme/safeguard
 	name = "safeguard"
@@ -1015,17 +940,9 @@
 	)
 
 /datum/armor/mod_theme_safeguard
-	melee = 20
-	bullet = 20
-	laser = 15
-	energy = 25
-	bomb = 40
-	bio = 100
-	rad = 40
-	fire = 100
-	acid = 95
-	stamina = 30
-	bleed = 55
+	penetration = 10
+	blunt = 15
+	reflectivity = 45
 
 /datum/mod_theme/magnate
 	name = "magnate"
@@ -1089,16 +1006,9 @@
 	)
 
 /datum/armor/mod_theme_magnate
-	melee = 20
-	bullet = 25
-	laser = 25
-	energy = 25
-	bomb = 50
-	bio = 100
-	fire = 100
-	acid = 100
-	stamina = 30
-	bleed = 50
+	penetration = 5
+	blunt = 10
+	reflectivity = 45
 
 /datum/mod_theme/cosmohonk
 	name = "cosmohonk"
@@ -1157,16 +1067,9 @@
 	)
 
 /datum/armor/mod_theme_cosmohonk
-	melee = 5
-	bullet = 5
-	laser = 20
-	energy = 20
-	bomb = 10
-	bio = 100
-	fire = 60
-	acid = 30
-	stamina = 5
-	bleed = 5
+	penetration = 5
+	blunt = 10
+	reflectivity = 45
 
 /datum/mod_theme/syndicate
 	name = "syndicate"
@@ -1265,17 +1168,11 @@
 	)
 
 /datum/armor/mod_theme_syndicate
-	melee = 22.5
-	bullet = 22.5
-	laser = 15
-	energy = 30
-	bomb = 35
-	bio = 100
-	rad = 40
-	fire = 50
-	acid = 90
-	stamina = 30
-	bleed = 55
+	penetration = 80
+	blunt = 30
+	absorption = 70
+	reflectivity = 50
+	heat = 50
 
 /datum/mod_theme/elite
 	name = "elite"
@@ -1339,17 +1236,11 @@
 	)
 
 /datum/armor/mod_theme_elite
-	melee = 35
-	bullet = 30
-	laser = 35
-	energy = 35
-	bomb = 55
-	bio = 100
-	rad = 65
-	fire = 100
-	acid = 100
-	stamina = 45
-	bleed = 60
+	penetration = 90
+	blunt = 40
+	absorption = 70
+	reflectivity = 50
+	heat = 50
 
 /datum/mod_theme/infiltrator
 	name = "infiltrator"
@@ -1415,16 +1306,11 @@
 	)
 
 /datum/armor/mod_theme_infiltrator
-	melee = 40
-	bullet = 40
-	laser = 40
-	energy = 40
-	bomb = 40
-	rad = 75
-	fire = 100
-	acid = 100
-	stamina = 40
-	bleed = 50
+	penetration = 60
+	blunt = 25
+	absorption = 40
+	reflectivity = 50
+	heat = 50
 
 /datum/mod_theme/enchanted
 	name = "enchanted"
@@ -1437,7 +1323,7 @@
 		default means of power. The hood and platform boots are of unknown usage, but it's speculated that \
 		wizards trend towards the dramatic."
 	default_skin = "enchanted"
-	armor_type = /datum/armor/mod_theme_enchanted
+	armor_type = /datum/armor/military_heavy_armor
 	resistance_flags = FIRE_PROOF|ACID_PROOF
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	slowdown_deployed = 0.25
@@ -1481,19 +1367,6 @@
 			),
 		),
 	)
-
-/datum/armor/mod_theme_enchanted
-	melee = 40
-	bullet = 40
-	laser = 50
-	energy = 50
-	bomb = 35
-	bio = 100
-	rad = 50
-	fire = 100
-	acid = 100
-	stamina = 50
-	bleed = 60
 
 /datum/mod_theme/ninja
 	name = "ninja"
@@ -1554,16 +1427,11 @@
 	)
 
 /datum/armor/mod_theme_ninja
-	melee = 40
-	bullet = 30
-	laser = 20
-	energy = 30
-	bomb = 30
-	bio = 100
-	rad = 60
-	fire = 100
-	acid = 100
-	bleed = 50
+	penetration = 80
+	blunt = 30
+	absorption = 70
+	reflectivity = 50
+	heat = 50
 
 /datum/mod_theme/prototype
 	name = "prototype"
@@ -1625,17 +1493,11 @@
 	)
 
 /datum/armor/mod_theme_prototype
-	melee = 25 //Isaac has engineer AND a miner's protection. Go figure.
-	bullet = 10
-	laser = 20
-	energy = 15
-	bomb = 50
-	bio = 100
-	rad = 100
-	fire = 100
-	acid = 75
-	stamina = 30
-	bleed = 55
+	penetration = 25
+	blunt = 10
+	absorption = 10
+	reflectivity = 65
+	heat = 5
 
 /datum/mod_theme/responsory
 	name = "responsory"
@@ -1727,17 +1589,11 @@
 	)
 
 /datum/armor/mod_theme_responsory
-	melee = 45
-	bullet = 40
-	laser = 50
-	energy = 50
-	bomb = 50
-	bio = 100
-	rad = 90
-	fire = 100
-	acid = 90
-	stamina = 40
-	bleed = 60
+	penetration = 70
+	blunt = 40
+	absorption = 40
+	reflectivity = 40
+	heat = 40
 
 /datum/mod_theme/apocryphal
 	name = "apocryphal"
@@ -1798,16 +1654,11 @@
 	)
 
 /datum/armor/mod_theme_apocryphal
-	melee = 70
-	bullet = 70
-	laser = 50
-	energy = 60
-	bomb = 100
-	bio = 100
-	fire = 100
-	acid = 100
-	stamina = 50
-	bleed = 60
+	penetration = 70
+	blunt = 40
+	absorption = 40
+	reflectivity = 40
+	heat = 40
 
 /datum/mod_theme/corporate
 	name = "corporate"
@@ -1867,15 +1718,11 @@
 	)
 
 /datum/armor/mod_theme_corporate
-	melee = 65
-	bullet = 65
-	laser = 55
-	energy = 50
-	bomb = 60
-	bio = 100
-	fire = 100
-	acid = 100
-	bleed = 15
+	penetration = 25
+	blunt = 10
+	absorption = 10
+	reflectivity = 65
+	heat = 5
 
 /datum/mod_theme/chrono
 	name = "chrono"
@@ -1930,16 +1777,11 @@
 	)
 
 /datum/armor/mod_theme_chrono
-	melee = 60
-	bullet = 60
-	laser = 60
-	energy = 60
-	bomb = 30
-	bio = 100
-	fire = 100
-	acid = 100
-	stamina = 55
-	bleed = 50
+	penetration = 25
+	blunt = 10
+	absorption = 10
+	reflectivity = 65
+	heat = 5
 
 /datum/mod_theme/debug
 	name = "debug"
@@ -1996,16 +1838,11 @@
 	)
 
 /datum/armor/mod_theme_debug
-	melee = 50
-	bullet = 50
-	laser = 50
-	energy = 50
-	bomb = 100
-	rad = 100
-	bio = 100
-	fire = 100
-	stamina = 50
-	acid = 100
+	penetration = 25
+	blunt = 10
+	absorption = 10
+	reflectivity = 65
+	heat = 5
 
 /datum/mod_theme/administrative
 	name = "administrative"
@@ -2059,14 +1896,8 @@
 	)
 
 /datum/armor/mod_theme_administrative
-	melee = 100
-	bullet = 100
-	laser = 100
-	energy = 100
-	bomb = 100
-	bio = 100
-	rad = 100
-	fire = 100
-	acid = 100
-	stamina = 100
-	bleed = 100
+	penetration = 100
+	blunt = 100
+	absorption = 100
+	reflectivity = 100
+	heat = 100

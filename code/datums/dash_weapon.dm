@@ -44,7 +44,7 @@
 		return FALSE
 
 	// Use obj_damage to break through obstacles, but don't phase
-	var/turf/final_turf = do_dash(user, get_turf(user), T, obj_damage=200, obj_penetration=SHARP_VII, phase=FALSE, on_turf_cross=CALLBACK(src, PROC_REF(dashslash), user))
+	var/turf/final_turf = do_dash(user, get_turf(user), target_turf, obj_damage=200, obj_penetration=SHARP_VII, phase=FALSE, on_turf_cross=CALLBACK(src, PROC_REF(dashslash), user))
 	if(!final_turf)
 		user.balloon_alert(user, "dash blocked!")
 		return FALSE

@@ -59,13 +59,13 @@
 
 /// Apply the injury to the target
 /datum/injury/proc/apply_to_human(mob/living/carbon/human/target)
-	RegisterSignal(target, COMSIG_PARENT_ATTACKBY, PROC_REF(item_interaction))
+	RegisterSignal(target, COMSIG_ATOM_ATTACKBY, PROC_REF(item_interaction))
 	target.update_health_hud()
 	START_PROCESSING(SSinjuries, src)
 
 /// Take the injury away from the person who owns the limb
 /datum/injury/proc/remove_from_human(mob/living/carbon/human/target)
-	UnregisterSignal(target, COMSIG_PARENT_ATTACKBY)
+	UnregisterSignal(target, COMSIG_ATOM_ATTACKBY)
 	target.update_health_hud()
 	STOP_PROCESSING(SSinjuries, src)
 

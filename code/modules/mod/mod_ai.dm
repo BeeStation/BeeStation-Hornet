@@ -179,7 +179,7 @@
 		return
 	ai.controlled_equipment = null
 	ai.remote_control = null
-	ai.apply_damage(150, BURN)
+	ai.take_direct_damage(150, BURN)
 	INVOKE_ASYNC(ai, TYPE_PROC_REF(/mob/living/silicon/ai, death))
 	ai.forceMove(src)
 	stored_ai = WEAKREF(ai)

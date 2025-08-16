@@ -73,8 +73,8 @@
 
 	REMOVE_TRAITS_NOT_IN(affected_mob, list(SPECIES_TRAIT, ROUNDSTART_TRAIT, ORGAN_TRAIT))
 	affected_mob.reagents.remove_all_type(/datum/reagent/toxin, 5 * REM * delta_time, FALSE, TRUE)
-	if(affected_mob.blood_volume < BLOOD_VOLUME_NORMAL)
-		affected_mob.blood_volume = BLOOD_VOLUME_NORMAL
+	if(affected_mob.blood.volume < BLOOD_VOLUME_NORMAL)
+		affected_mob.blood.volume = BLOOD_VOLUME_NORMAL
 
 	affected_mob.cure_all_traumas(TRAUMA_RESILIENCE_MAGIC)
 	for(var/obj/item/organ/organ as anything in affected_mob.internal_organs)
@@ -305,7 +305,7 @@
 	description = "A high-tier burn medicine made from the sap of Ambrosia Vulgaris plants. Capable of treating second-degree burns when applied to the skin, but causes liver damage if ingested."
 	reagent_state = LIQUID
 	color = "#f78400"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
 	metabolization_rate = 2.5 * REAGENTS_METABOLISM
 
 /datum/reagent/medicine/advanced_burn_gel/on_mob_life(mob/living/carbon/M)
@@ -318,7 +318,7 @@
 	description = "A high-tier medicine which causes rapid coagulation of open wounds. Produced from the sap of Amborsia Vulgaris plants."
 	reagent_state = LIQUID
 	color = "#a61010"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
 	metabolization_rate = 2.5 * REAGENTS_METABOLISM
 
 /datum/reagent/medicine/coagen/on_mob_life(mob/living/carbon/M)
@@ -400,13 +400,13 @@
 /datum/reagent/medicine/salglu_solution/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(last_added)
-		affected_mob.blood_volume -= last_added
+		affected_mob.blood.volume -= last_added
 		last_added = 0
-	if(affected_mob.blood_volume < maximum_reachable)	//Can only up to double your effective blood level.
-		var/amount_to_add = min(affected_mob.blood_volume, 5 * volume)
-		var/new_blood_level = min(affected_mob.blood_volume + amount_to_add, maximum_reachable)
-		last_added = new_blood_level - affected_mob.blood_volume
-		affected_mob.blood_volume = new_blood_level
+	if(affected_mob.blood.volume < maximum_reachable)	//Can only up to double your effective blood level.
+		var/amount_to_add = min(affected_mob.blood.volume, 5 * volume)
+		var/new_blood_level = min(affected_mob.blood.volume + amount_to_add, maximum_reachable)
+		last_added = new_blood_level - affected_mob.blood.volume
+		affected_mob.blood.volume = new_blood_level
 	if(DT_PROB(18, delta_time))
 		affected_mob.adjustBruteLoss(-0.5, updating_health = FALSE)
 		affected_mob.adjustFireLoss(-0.5, updating_health = FALSE)
@@ -1400,8 +1400,8 @@
 	affected_mob.adjustCloneLoss(-3 * REM * delta_time, updating_health = FALSE)
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, -15 * REM * delta_time)
 
-	if(affected_mob.blood_volume < BLOOD_VOLUME_NORMAL)
-		affected_mob.blood_volume = max(affected_mob.blood_volume, min(affected_mob.blood_volume + 4, BLOOD_VOLUME_NORMAL))
+	if(affected_mob.blood.volume < BLOOD_VOLUME_NORMAL)
+		affected_mob.blood.volume = max(affected_mob.blood.volume, min(affected_mob.blood.volume + 4, BLOOD_VOLUME_NORMAL))
 
 	return UPDATE_MOB_HEALTH
 
@@ -1416,7 +1416,7 @@
 	name = "Terranol"
 	description = "A potent base chemical used in the production of high-tier medicine. Causes liver damage if ingested without further processing."
 	color = "#82cdb0"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
 
 /datum/reagent/medicine/terranol/on_mob_life(mob/living/carbon/M)
 	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 2 * REM)
@@ -1729,5 +1729,5 @@
 	if(DT_PROB(10, delta_time))
 		affected_mob.Jitter(5)
 
-	if(affected_mob.blood_volume < BLOOD_VOLUME_SAFE)
-		affected_mob.blood_volume = max(affected_mob.blood_volume, (min(affected_mob.blood_volume + 4, BLOOD_VOLUME_SAFE) * REM * delta_time))
+	if(affected_mob.blood.volume < BLOOD_VOLUME_SAFE)
+		affected_mob.blood.volume = max(affected_mob.blood.volume, (min(affected_mob.blood.volume + 4, BLOOD_VOLUME_SAFE) * REM * delta_time))

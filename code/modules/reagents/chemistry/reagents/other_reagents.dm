@@ -33,11 +33,11 @@
 
 	if(iscarbon(exposed_mob))
 		var/mob/living/carbon/exposed_carbon = exposed_mob
-		if(exposed_carbon.get_blood_id() == /datum/reagent/blood && (method == INJECT || (method == INGEST && HAS_TRAIT(exposed_carbon, TRAIT_DRINKSBLOOD))))
+		if(exposed_carbon.blood.get_blood_id() == /datum/reagent/blood && (method == INJECT || (method == INGEST && HAS_TRAIT(exposed_carbon, TRAIT_DRINKSBLOOD))))
 			if(!data || !(data["blood_type"] in get_safe_blood(exposed_carbon.dna.blood_type)))
 				exposed_carbon.reagents.add_reagent(/datum/reagent/toxin, reac_volume * 0.5)
 			else
-				exposed_carbon.blood_volume = min(exposed_carbon.blood_volume + round(reac_volume, 0.1), BLOOD_VOLUME_MAXIMUM)
+				exposed_carbon.blood.volume = min(exposed_carbon.blood.volume + round(reac_volume, 0.1), BLOOD_VOLUME_MAXIMUM)
 
 
 /datum/reagent/blood/on_new(list/data)
@@ -331,12 +331,15 @@
 	return ..()
 
 /datum/reagent/fuel/unholywater/on_mob_metabolize(mob/living/affected_mob)
+	..()
 	ADD_TRAIT(affected_mob, TRAIT_NO_BLEEDING, type)
 
 /datum/reagent/fuel/unholywater/on_mob_end_metabolize(mob/living/affected_mob)
+	..()
 	REMOVE_TRAIT(affected_mob, TRAIT_NO_BLEEDING, type)
 
 /datum/reagent/fuel/unholywater/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	..()
 	if(IS_CULTIST(affected_mob))
 		affected_mob.drowsyness = max(affected_mob.drowsyness - (5* REM * delta_time), 0)
 		affected_mob.AdjustAllImmobility(-40 *REM* REM * delta_time)

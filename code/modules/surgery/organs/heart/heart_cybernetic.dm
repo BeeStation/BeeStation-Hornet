@@ -2,7 +2,7 @@
 	name = "cybernetic heart"
 	desc = "An electronic device which mimics the functions of an organic human heart, albeit less efficiently. Also holds an emergency dose of epinephrine, used automatically after facing severe trauma."
 	icon_state = "heart-c-on"
-	icon_base = "heart-c"
+	base_icon_state = "heart-c"
 	organ_flags = ORGAN_SYNTHETIC
 	status = ORGAN_ROBOTIC
 	circulation_effectiveness = 0.9
@@ -31,7 +31,7 @@
 	name = "upgraded cybernetic heart"
 	desc = "An electronic device designed to mimic the functions of an organic human heart with greater effectiveness. Holds a self-refilling emergency dose of epinephrine, used automatically after facing severe trauma."
 	icon_state = "heart-c-u-on"
-	icon_base = "heart-c-u"
+	base_icon_state = "heart-c-u"
 	circulation_effectiveness = 1.3
 
 /obj/item/organ/heart/cybernetic/upgraded/used_dose()

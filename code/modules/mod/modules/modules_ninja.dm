@@ -322,7 +322,7 @@
 
 /obj/item/mod/module/energy_net/on_part_deactivation(deleting)
 	for(var/obj/structure/energy_net/net as anything in energy_nets)
-		net.atom_destruction(ENERGY)
+		net.atom_destruction(DAMAGE_ENERGY)
 
 /obj/item/mod/module/energy_net/on_select_use(atom/target)
 	. = ..()

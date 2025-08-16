@@ -369,11 +369,8 @@
 	var/static/list/keep_turfs
 
 /datum/armor/mod_ash_accretion
-	melee = 4
-	bullet = 1
-	laser = 2
-	energy = 2
-	bomb = 4
+	penetration = 2
+	blunt = 4
 
 /obj/item/mod/module/ash_accretion/Initialize(mapload)
 	. = ..()
@@ -550,7 +547,7 @@
 	nodamage = TRUE
 	range = 6
 	suppressed = SUPPRESSED_VERY
-	armor_flag = BOMB
+	damage_flag = DAMAGE_BOMB
 	light_system = MOVABLE_LIGHT
 	light_range = 1
 	light_power = 1
@@ -598,7 +595,7 @@
 	for(var/turf/closed/mineral/rock in circle_range_turfs(src, 2))
 		rock.gets_drilled()
 	for(var/mob/living/mob in range(1, src))
-		mob.apply_damage(12 * (ishostile(mob) ? fauna_boost : 1), BRUTE)
+		mob.deal_damage(12 * (ishostile(mob) ? fauna_boost : 1), 0, BRUTE, DAMAGE_BOMB)
 	for(var/obj/object in range(1, src))
-		object.take_damage(damage, BRUTE, BOMB)
+		object.deal_damage(damage, 0, BRUTE, DAMAGE_BOMB)
 	qdel(src)
