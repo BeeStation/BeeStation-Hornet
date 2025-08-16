@@ -68,8 +68,6 @@ const createComment = (screenshotFailures, zipFileUrl) => {
 };
 
 export async function showScreenshotTestResults({ github, context, exec }) {
-	const { FILE_HOUSE_KEY } = process.env;
-
 	// Check if bad-screenshots is in the artifacts
 	const { data: { artifacts } } = await github.rest.actions.listWorkflowRunArtifacts({
 		owner: context.repo.owner,
@@ -110,7 +108,7 @@ export async function showScreenshotTestResults({ github, context, exec }) {
 
 	fs.rmSync(prNumberFile);
 
-	// Collect screenshots
+	// Collect screenshots and re-upload as individual artifacts
 	const screenshotFailures = [];
 	for (const directory of fs.readdirSync("bad-screenshots")) {
 		const newPath = path.join("bad-screenshots", directory, "new.png");
@@ -119,14 +117,36 @@ export async function showScreenshotTestResults({ github, context, exec }) {
 
 		if (![newPath, oldPath, diffPath].some(p => fs.existsSync(p))) continue;
 
-		// Instead of uploading to file.house, we rely on GitHub’s artifact UI:
-		// reviewers will see the images directly in the comment using markdown.
-		screenshotFailures.push({
-			directory,
-			new: `\n![New](${`bad-screenshots/${directory}/new.png`})`,
-			old: `\n![Old](${`bad-screenshots/${directory}/old.png`})`,
-			diff: `\n![Diff](${`bad-screenshots/${directory}/diff.png`})`,
-		});
+		// Upload screenshots as new artifacts
+		const uploadAndGetUrl = async (file, label) => {
+			if (!fs.existsSync(file)) return null;
+
+			await github.rest.actions.uploadArtifact({
+				owner: context.repo.owner,
+				repo: context.repo.repo,
+				run_id: context.runId,
+				name: `${directory}-${label}`,
+				files: [file],
+			});
+
+			// Note: GitHub doesn’t provide direct image links; instead, artifact download URL:
+			const { data } = await github.rest.actions.listWorkflowRunArtifacts({
+				owner: context.repo.owner,
+				repo: context.repo.repo,
+				run_id: context.runId,
+			});
+			const artifact = data.artifacts.find(a => a.name === `${directory}-${label}`);
+			return artifact ? artifact.archive_download_url : null;
+		};
+
+		let newUrl, oldUrl, diffUrl;
+		await Promise.all([
+			uploadAndGetUrl(newPath, "new").then(u => newUrl = u),
+			uploadAndGetUrl(oldPath, "old").then(u => oldUrl = u),
+			uploadAndGetUrl(diffPath, "diff").then(u => diffUrl = u),
+		]);
+
+		screenshotFailures.push({ directory, newUrl, oldUrl, diffUrl });
 	}
 
 	if (screenshotFailures.length === 0) {
@@ -134,9 +154,13 @@ export async function showScreenshotTestResults({ github, context, exec }) {
 		return;
 	}
 
-	// Build PR comment with embedded images
-	const comment = screenshotFailures.map(({ directory, new: newImg, old, diff }) => {
-		return `### Screenshot mismatch: \`${directory}\`\n${old}\n${newImg}\n${diff}`;
+	// Build PR comment (clickable download links)
+	const comment = screenshotFailures.map(({ directory, newUrl, oldUrl, diffUrl }) => {
+		return `### Screenshot mismatch: \`${directory}\`
+
+**Old** [Download](${oldUrl})
+**New** [Download](${newUrl})
+**Diff** [Download](${diffUrl})`;
 	}).join("\n\n");
 
 	await github.rest.issues.createComment({
