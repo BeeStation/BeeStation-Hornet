@@ -131,7 +131,7 @@
 	..()
 
 /datum/objective_item/steal/supermatter/TargetExists()
-	return GLOB.main_supermatter_engine != null
+	return !isnull(GLOB.main_supermatter_engine)
 
 /datum/objective_item/steal/functionalai
 	name = "a functional AI."

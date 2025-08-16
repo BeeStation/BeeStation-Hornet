@@ -5,8 +5,6 @@
 		"Location" = "Can only happen on turfs.",
 	)
 
-/*
-
 /datum/gas_reaction/miaster/init_factors()
 	factor = list(
 		/datum/gas/miasma = "Miasma is sterilized at a rate that scales with the difference between the temperature and [MIASTER_STERILIZATION_TEMP]K.",
@@ -14,7 +12,6 @@
 		"Temperature" = "Higher temperature increases the speed of miasma sterilization.",
 		"Energy" = "[MIASTER_STERILIZATION_ENERGY] joules of energy is released per mole of miasma sterilized.",
 	)
-*/
 
 /datum/gas_reaction/plasmafire/init_factors()
 	factor = list(
@@ -27,7 +24,6 @@
 		"Energy" = "[FIRE_PLASMA_ENERGY_RELEASED] joules of energy is released per mole of plasma consumed.",
 	)
 
-/*
 /datum/gas_reaction/h2fire/init_factors()
 	factor = list(
 		/datum/gas/oxygen = "Oxygen is consumed at 0.5 moles per mole of hydrogen consumed. Higher oxygen concentration up to [HYDROGEN_OXYGEN_FULLBURN] times the hydrogen increases the hydrogen consumption rate.",
@@ -36,7 +32,6 @@
 		"Temperature" = "Minimum temperature of [FIRE_MINIMUM_TEMPERATURE_TO_EXIST] kelvin to occur",
 		"Energy" = "[FIRE_HYDROGEN_ENERGY_RELEASED] joules of energy is released per mol of hydrogen consumed.",
 	)
-*/
 
 /datum/gas_reaction/tritfire/init_factors()
 	factor = list(
@@ -48,7 +43,6 @@
 		"Radiation" = "This reaction emits radiation proportional to the amount of energy released.",
 	)
 
-/*
 /datum/gas_reaction/freonfire/init_factors()
 	factor = list(
 		/datum/gas/oxygen = "Oxygen consumption is determined by the temperature, ranging from [OXYGEN_BURN_RATIO_BASE] moles per mole of freon consumed at [FREON_LOWER_TEMPERATURE] Kelvins to [OXYGEN_BURN_RATIO_BASE-1] moles per mole of freon consumed at [FREON_MAXIMUM_BURN_TEMPERATURE] Kelvins. Higher oxygen concentration up to [FREON_OXYGEN_FULLBURN] times the freon increases freon consumption rate.",
@@ -56,14 +50,14 @@
 		/datum/gas/carbon_dioxide = "Carbon Dioxide is formed at 1 mole per mole of freon consumed.",
 		"Temperature" = "Can only occur between [FREON_LOWER_TEMPERATURE] - [FREON_MAXIMUM_BURN_TEMPERATURE] Kelvin",
 		"Energy" = "[FIRE_FREON_ENERGY_CONSUMED] joules of energy is absorbed per mole of freon consumed.",
-		"Hot Ice" = "This reaction produces hot ice when occuring between [HOT_ICE_FORMATION_MINIMUM_TEMPERATURE]-[HOT_ICE_FORMATION_MAXIMUM_TEMPERATURE] kelvins",
+		"Hot Ice" = "This reaction produces hot ice when occurring between [HOT_ICE_FORMATION_MINIMUM_TEMPERATURE]-[HOT_ICE_FORMATION_MAXIMUM_TEMPERATURE] kelvins",
 	)
-*/
+
 
 /datum/gas_reaction/nitrousformation/init_factors()
 	factor = list(
 		/datum/gas/oxygen = "10 moles of Oxygen needs to be present for the reaction to occur. Oxygen is consumed at 0.5 moles per mole of nitrous oxide formed.",
-		/datum/gas/nitrogen = " 20 moles of Nitrogen needs to be present for the reaction to occur. Nitrogen is consumed at 1 mole per mole of nitrous oxife formed.",
+		/datum/gas/nitrogen = " 20 moles of Nitrogen needs to be present for the reaction to occur. Nitrogen is consumed at 1 mole per mole of nitrous oxide formed.",
 		/datum/gas/bz = "5 moles of BZ needs to be present for the reaction to occur. Not consumed.",
 		/datum/gas/nitrous_oxide = "Nitrous oxide gets produced rapidly.",
 		"Temperature" = "Can only occur between [N2O_FORMATION_MIN_TEMPERATURE] - [N2O_FORMATION_MAX_TEMPERATURE] Kelvin",
@@ -95,7 +89,7 @@
 		/datum/gas/oxygen = "Oxygen is consumed at 0.5 moles per mole of pluoxium formed.",
 		/datum/gas/tritium = "Tritium is converted into hydrogen at 0.01 moles per mole of pluoxium formed.",
 		/datum/gas/pluoxium = "Pluoxium is produced at a constant rate in any given mixture.",
-		//datum/gas/hydrogen = "Hydrogen is formed from the tritium losing their neutrons.",
+		/datum/gas/hydrogen = "Hydrogen is formed from the tritium losing their neutrons.",
 		"Energy" = "[PLUOXIUM_FORMATION_ENERGY] joules of energy is released per mole of pluoxium formed.",
 		"Temperature" = "Can only occur between [PLUOXIUM_FORMATION_MIN_TEMP] - [PLUOXIUM_FORMATION_MAX_TEMP] Kelvin",
 	)
@@ -114,13 +108,12 @@
 	factor = list(
 		/datum/gas/oxygen = "[MINIMUM_MOLE_COUNT] moles of oxygen need to be present for the reaction to occur. Not consumed.",
 		/datum/gas/nitrium = "Nitrium is consumed at a rate that scales with the temperature.",
-		//datum/gas/hydrogen = "Hydrogen is produced at 1 mole per mole of nitrium decomposed.",
+		/datum/gas/hydrogen = "Hydrogen is produced at 1 mole per mole of nitrium decomposed.",
 		/datum/gas/nitrogen = "Nitrogen is produced at 1 mole per mole of nitrium decomposed.",
 		"Temperature" = "Can only occur below [NITRIUM_DECOMPOSITION_MAX_TEMP]. Higher temperature increases the nitrium decomposition rate.",
 		"Energy" = "[NITRIUM_DECOMPOSITION_ENERGY] joules of energy is released per mole of nitrium decomposed.",
 	)
 
-/*
 /datum/gas_reaction/freonformation/init_factors()
 	factor = list(
 		/datum/gas/plasma = "At least 0.06 moles of plasma needs to be present. Plasma is consumed at 0.6 moles per mole of freon formed.",
@@ -130,7 +123,6 @@
 		"Energy" = "Between 100 and 800 joules of energy is absorbed per mole of freon produced", // I don't know why the energy release is also a sigmoidal function, but it should really just be constant to be honest.
 		"Temperature" = "Minimum temperature of [FIRE_MINIMUM_TEMPERATURE_TO_EXIST + 100] Kelvin to occur, with production peak at 800 K. However at temperatures above 5500 K higher rates are possible maxing out at three times the low temperature rate at over 8500 K.",
 	)
-*/
 
 /datum/gas_reaction/nobliumformation/init_factors()
 	factor = list(
@@ -142,7 +134,6 @@
 		"Temperature" = "Can only occur between [NOBLIUM_FORMATION_MIN_TEMP] - [NOBLIUM_FORMATION_MAX_TEMP] kelvin",
 	)
 
-/*
 /datum/gas_reaction/halon_o2removal/init_factors()
 	factor = list(
 		/datum/gas/halon = "Halon is consumed at a rate that scales with temperature.",
@@ -214,5 +205,5 @@
 		"Radiation" = "Radiation gets released during this decomposition process.",
 		"Hallucinations" = "This reaction can cause various carbon based lifeforms in the vicinity to hallucinate.",
 		"Nuclear Particles" = "This reaction emits extremely high energy nuclear particles, up to [2 * PN_BZASE_NUCLEAR_PARTICLE_MAXIMUM] per second per unique gas mixture.",
+		"Temperature" = "Can only occur between [PN_BZASE_MIN_TEMP] - [PN_BZASE_MAX_TEMP] kelvin.",
 	)
-*/

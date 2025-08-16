@@ -5,7 +5,6 @@
 	density = FALSE
 	move_force = INFINITY
 	move_resist = INFINITY
-	status_flags = GODMODE  // You can't damage it.
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	see_in_dark = 7
 	invisibility = INVISIBILITY_ABSTRACT // No one can see us. Use 'INVISIBILITY_OBSERVER' for subtypes
@@ -16,7 +15,7 @@
 
 /mob/camera/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_NO_GLIDE, TRAIT_GENERIC) //Hacky, but needed
+	add_traits(list(TRAIT_GODMODE, TRAIT_NO_GLIDE), TRAIT_GENERIC) //Hacky, but needed
 	if(!can_hear_init)
 		// Cameras should not be able to hear by default despite being mobs
 		REMOVE_TRAIT(src, TRAIT_HEARING_SENSITIVE, TRAIT_GENERIC)

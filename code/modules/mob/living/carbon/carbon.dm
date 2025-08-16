@@ -545,7 +545,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 //Updates the mob's health from bodyparts and mob damage variables
 /mob/living/carbon/updatehealth()
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	var/total_burn	= 0
 	var/total_brute	= 0
@@ -838,7 +838,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 			REMOVE_TRAIT(src, TRAIT_SIXTHSENSE, "near-death")
 
 /mob/living/carbon/update_stat()
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	if(stat != DEAD)
 		if(health <= HEALTH_THRESHOLD_DEAD && !HAS_TRAIT(src, TRAIT_NODEATH))
@@ -865,11 +865,11 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	if(handcuffed)
 		drop_all_held_items()
 		stop_pulling()
-		throw_alert("handcuffed", /atom/movable/screen/alert/restrained/handcuffed, new_master = src.handcuffed)
+		throw_alert(ALERT_HANDCUFFED, /atom/movable/screen/alert/restrained/handcuffed, new_master = src.handcuffed)
 		SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "handcuffed", /datum/mood_event/handcuffed)
 		cuff_breakout_attempts = 0
 	else
-		clear_alert("handcuffed")
+		clear_alert(ALERT_HANDCUFFED)
 		SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "handcuffed")
 	update_action_buttons_icon() //some of our action buttons might be unusable when we're handcuffed.
 	update_inv_handcuffed()

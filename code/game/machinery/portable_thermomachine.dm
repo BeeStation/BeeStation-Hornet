@@ -42,9 +42,7 @@
 	///Should we add an overlay for open portable thermomachines
 	var/display_panel = TRUE
 
-
 /datum/armor/machinery_portable_thermomachine
-	rad = 100
 	fire = 80
 	acid = 10
 
@@ -58,10 +56,7 @@
 
 /obj/machinery/portable_thermomachine/Destroy()
 	SSair.stop_processing_machine(src)
-	return..()
-
-/obj/machinery/portable_thermomachine/on_deconstruction()
-	return ..()
+	. = ..()
 
 /obj/machinery/portable_thermomachine/examine(mob/user)
 	. = ..()

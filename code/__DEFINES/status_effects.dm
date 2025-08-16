@@ -12,6 +12,9 @@
 /// call a merge proc to combine 2 status effects
 #define STATUS_EFFECT_MERGE 4
 
+/// Use in status effect "duration" to make it last forever
+#define STATUS_EFFECT_PERMANENT -1
+
 //Necropolis
 ///makes the edges of the target's screen obscured
 #define CURSE_BLINDING (1<<0)

@@ -74,8 +74,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_RECENTLY_BLOCKED_MAGIC "recently_blocked_magic"
 /// This allows a person who has antimagic to cast spells without getting blocked
 #define TRAIT_ANTIMAGIC_NO_SELFBLOCK "anti_magic_no_selfblock"
-/// Are we immune to specifically tesla / SM shocks?
-#define TRAIT_TESLA_SHOCKIMMUNE "tesla_shock_immunity"
 #define TRAIT_SNOWSTORM_IMMUNE "snowstorm_immune"
 /// Can weave webs into cloth
 #define TRAIT_WEB_WEAVER "web_weaver"
@@ -249,6 +247,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// Apply this to make a mob not dense, and remove it when you want it to no longer make them undense, other sorces of undesity will still apply. Always define a unique source when adding a new instance of this!
 #define TRAIT_UNDENSE "undense"
+/// Makes the mob immune to damage and several other ailments.
+#define TRAIT_GODMODE "godmode"
 /// A trait gained by leaning against a wall
 #define TRAIT_LEANING "leaning"
 
@@ -256,6 +256,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 // You're immune to the hallucination effect of the supermatter, either
 // through force of will, or equipment.
 #define TRAIT_MADNESS_IMMUNE "supermatter_madness_immune"
+// You can stare into the abyss, and it turns pink.
+// Being close enough to the supermatter makes it heal at higher temperatures and emit less heat.
+#define TRAIT_SUPERMATTER_SOOTHER "supermatter_soother"
 
 //non-mob traits
 /// Used for limb-based paralysis, where replacing the limb will fix it.
@@ -443,5 +446,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NO_SPEED_POTION "no_speed_potion"
 //for the detective aurafarming ability
 #define TRAIT_NOIR "noir" //people who are in the noir state,
+
+/// Are we immune to specifically tesla / SM shocks?
+#define TRAIT_TESLA_SHOCKIMMUNE "tesla_shock_immunity"
+/// Is this atom being actively shocked? Used to prevent repeated shocks.
+#define TRAIT_BEING_SHOCKED "shocked"
 
 // END TRAIT DEFINES

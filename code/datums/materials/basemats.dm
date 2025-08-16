@@ -69,11 +69,21 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 
 /datum/material/uranium/on_applied(atom/source, amount, material_flags)
 	. = ..()
-	source.AddComponent(/datum/component/radioactive, amount / 50, source, 0) //half-life of 0 because we keep on going. amount / 50 means 40 radiation per sheet.
+
+	// Uranium structures should irradiate, but not items, because item irradiation is a lot more annoying.
+	// For example, consider picking up uranium as a miner.
+	if(isitem(source))
+		return
+
+	source.AddElement(/datum/element/radioactive, chance = URANIUM_IRRADIATION_CHANCE)
 
 /datum/material/uranium/on_removed(atom/source, amount, material_flags)
 	. = ..()
-	qdel(source.GetComponent(/datum/component/radioactive))
+
+	if(isitem(source))
+		return
+
+	source.RemoveElement(/datum/element/radioactive, chance = URANIUM_IRRADIATION_CHANCE)
 
 ///Adds firestacks on hit (Still needs support to turn into gas on destruction)
 /datum/material/plasma
@@ -220,3 +230,62 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	greyscale_colors = "#d95802"
 	categories = list(MAT_CATEGORY_ORE = TRUE, MAT_CATEGORY_RIGID = TRUE, MAT_CATEGORY_BASE_RECIPES = TRUE)
 	sheet_type = /obj/item/stack/sheet/mineral/copper
+
+// It's basically adamantine, but it isn't!
+/datum/material/metalhydrogen
+	name = "Metal Hydrogen"
+	desc = "Solid metallic hydrogen. Some say it should be impossible"
+	color = "#62708A"
+	alpha = 150
+	categories = list(
+		MAT_CATEGORY_RIGID = TRUE,
+		MAT_CATEGORY_BASE_RECIPES = TRUE,
+		MAT_CATEGORY_ITEM_MATERIAL = TRUE,
+		MAT_CATEGORY_ITEM_MATERIAL_COMPLEMENTARY = TRUE,
+		)
+	sheet_type = /obj/item/stack/sheet/mineral/metal_hydrogen
+	value_per_unit = 0.25
+	//beauty_modifier = 0.35
+
+/datum/material/metalhydrogen/on_accidental_mat_consumption(mob/living/carbon/victim, obj/item/source_item)
+	victim.apply_damage(15, BRUTE, BODY_ZONE_HEAD)
+	return TRUE
+
+// formed when freon react with o2, emits a lot of plasma when heated
+/datum/material/hot_ice
+	name = "hot ice"
+	desc = "A weird kind of ice, feels warm to the touch"
+	color = "#88cdf1"
+	alpha = 150
+	categories = list(
+		MAT_CATEGORY_RIGID = TRUE,
+		MAT_CATEGORY_BASE_RECIPES = TRUE,
+		MAT_CATEGORY_ITEM_MATERIAL = TRUE,
+		MAT_CATEGORY_ITEM_MATERIAL_COMPLEMENTARY = TRUE,
+		)
+	sheet_type = /obj/item/stack/sheet/hot_ice
+	value_per_unit = 0.35
+
+/datum/material/hot_ice/on_accidental_mat_consumption(mob/living/carbon/victim, obj/item/source_item)
+	victim.reagents.add_reagent(/datum/reagent/toxin/plasma, rand(5, 6))
+	source_item?.reagents?.add_reagent(/datum/reagent/toxin/plasma, source_item.reagents.total_volume*(3/5))
+	return TRUE
+
+/datum/material/zaukerite
+	name = "zaukerite"
+	desc = "A light absorbing crystal"
+	color = COLOR_ALMOST_BLACK
+	categories = list(
+		MAT_CATEGORY_RIGID = TRUE,
+		MAT_CATEGORY_BASE_RECIPES = TRUE,
+		MAT_CATEGORY_ITEM_MATERIAL = TRUE,
+		MAT_CATEGORY_ITEM_MATERIAL_COMPLEMENTARY = TRUE,
+		)
+	sheet_type = /obj/item/stack/sheet/mineral/zaukerite
+	value_per_unit = 0.5
+	//beauty_modifier = 0.001
+
+/datum/material/zaukerite/on_accidental_mat_consumption(mob/living/carbon/victim, obj/item/source_item)
+	victim.apply_damage(30, BURN, BODY_ZONE_HEAD)
+	source_item?.reagents?.add_reagent(/datum/reagent/toxin/plasma, source_item.reagents.total_volume*5)
+	return TRUE

@@ -213,7 +213,7 @@
 	health = clamp(health, 0, maxHealth)
 
 /mob/living/simple_animal/update_stat()
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	if(stat != DEAD)
 		if(health <= 0)
@@ -453,7 +453,7 @@
 		return FALSE
 	if(ismob(the_target))
 		var/mob/M = the_target
-		if(M.status_flags & GODMODE)
+		if(HAS_TRAIT(M, TRAIT_GODMODE))
 			return FALSE
 	if (isliving(the_target))
 		var/mob/living/L = the_target

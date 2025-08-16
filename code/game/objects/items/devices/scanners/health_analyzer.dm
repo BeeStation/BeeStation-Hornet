@@ -111,7 +111,7 @@
 		if(humantarget.undergoing_cardiac_arrest() && humantarget.stat != DEAD)
 			render_list += "<span class='alert ml-1'><b>Subject suffering from heart attack: Apply defibrillation or other electric shock immediately!</b></span>\n"
 
-	//SEND_SIGNAL(target, COMSIG_LIVING_HEALTHSCAN, render_list, advanced, user, mode)
+	SEND_SIGNAL(target, COMSIG_LIVING_HEALTHSCAN, render_list, advanced, user, mode, tochat)
 
 	// Husk detection
 	if(HAS_TRAIT(target, TRAIT_HUSK))
@@ -159,14 +159,6 @@
 			render_list += "<span class='info ml-1'>Subject Major Disabilities: [carbontarget.get_quirk_string(FALSE, CAT_QUIRK_MAJOR_DISABILITY, from_scan = TRUE)].</span>\n"
 			if(advanced)
 				render_list += "<span class='info ml-1'>Subject Minor Disabilities: [carbontarget.get_quirk_string(FALSE, CAT_QUIRK_MINOR_DISABILITY, TRUE)].</span>\n"
-
-	//if (HAS_TRAIT(target, TRAIT_IRRADIATED))
-	//	render_list += "<span class='alert ml-1'>Subject is irradiated. Supply toxin healing.</span>\n"
-
-	if (target.radiation)
-		render_list += "<span class='alert ml-1'>Subject is irradiated.</span>\n"
-		if(advanced)
-			render_list += "<span class='info ml-1'>Radiation Level: [target.radiation]%.</span>\n"
 
 	//Eyes and ears
 	if(advanced && iscarbon(target))
@@ -472,53 +464,6 @@
 					message += "[symptom.name]"
 			else
 				message += span_info("<b>[disease.name]</b>, stage [disease.stage]/[disease.max_stages].")
-	to_chat(user, examine_block(jointext(message, "\n")), avoid_highlighting = TRUE, trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
-
-/proc/genescan(mob/living/carbon/C, mob/user, list/discovered)
-	. = TRUE
-	if(!iscarbon(C) || !C.has_dna())
-		return FALSE
-	if(HAS_TRAIT(C, TRAIT_RADIMMUNE) || HAS_TRAIT(C, TRAIT_BADDNA))
-		return FALSE
-	var/list/message = list()
-	var/list/active_inherent_muts = list()
-	var/list/active_injected_muts = list()
-	var/list/inherent_muts = list()
-	var/list/mut_index = C.dna.mutation_index.Copy()
-
-	for(var/datum/mutation/each in C.dna.mutations)
-		//get name and alias if discovered (or no discovered list was provided) or just alias if not
-		var/datum/mutation/each_mutation = GET_INITIALIZED_MUTATION(each.type) //have to do this as instances of mutation do not have alias but global ones do....
-		var/each_mut_details = "ERROR"
-		if(!discovered || (each_mutation.type in discovered))
-			each_mut_details = span_info("[each_mutation.name] ([each_mutation.alias])")
-		else
-			each_mut_details = span_info("[each_mutation.alias]")
-
-		if(each_mutation.type in mut_index)
-			//add mutation readout for all active inherent mutations
-			active_inherent_muts += "[each_mut_details][span_infobold(" : Active ")]"
-			mut_index -= each_mutation.type
-		else
-			//add mutation readout for all injected (not inherent) mutations
-			active_injected_muts += each_mut_details
-
-	for(var/each in mut_index)
-		var/datum/mutation/each_mutation = GET_INITIALIZED_MUTATION(each)
-		var/each_mut_details = "ERROR"
-		if(each_mutation)
-			//repeating this code twice is nasty, but nested procs (if even possible??) or more global procs then needed is... less so
-			if(!discovered || (each_mutation.type in discovered))
-				each_mut_details = span_info("[each_mutation.name] ([each_mutation.alias])")
-			else
-				each_mut_details = span_info("[each_mutation.alias]")
-		inherent_muts += each_mut_details
-
-	message += span_noticebold("[C] scan results")
-	active_inherent_muts.len > 0 ? (message += "[jointext(active_inherent_muts, "\n")]") : ""
-	inherent_muts.len > 0 ? (message += "[jointext(inherent_muts, "\n")]") : ""
-	active_injected_muts.len > 0 ? (message += "[span_infobold("Injected mutations:\n")][jointext(active_injected_muts, "\n")]") : ""
-
 	to_chat(user, examine_block(jointext(message, "\n")), avoid_highlighting = TRUE, trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
 
 /obj/item/healthanalyzer/AltClick(mob/user)

@@ -348,8 +348,6 @@
 		return
 	..()
 
-//Looking for irradiate()? It's been moved to radiation.dm under the rad_act() for mobs.
-
 /mob/living/acid_act(acidpwr, acid_volume)
 	take_bodypart_damage(acidpwr * min(1, acid_volume * 0.1))
 	return 1
@@ -397,7 +395,7 @@
 	return 20 //20 points goes to our lucky winner Mr. Singulo!~
 
 /mob/living/narsie_act()
-	if(status_flags & GODMODE || QDELETED(src))
+	if(HAS_TRAIT(src, TRAIT_GODMODE) || QDELETED(src))
 		return
 	if(GLOB.narsie && GLOB.narsie.souls_needed[src])
 		GLOB.narsie.souls_needed -= src

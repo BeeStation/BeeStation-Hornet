@@ -673,7 +673,7 @@
 	health = new_value
 
 /mob/living/proc/updatehealth()
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	set_health(maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss())
 	staminaloss = getStaminaLoss()
@@ -801,7 +801,7 @@
 	SetImmobilized(0, FALSE)
 	SetParalyzed(0, FALSE)
 	SetSleeping(0, FALSE)
-	radiation = 0
+	qdel(GetComponent(/datum/component/irradiated))
 	set_nutrition(NUTRITION_LEVEL_FED + 50)
 	bodytemperature = get_body_temp_normal(apply_change=FALSE)
 	set_blindness(0)
@@ -1202,7 +1202,7 @@
  * Returns a mob (what our mob turned into) or null (if we failed).
  */
 /mob/living/proc/wabbajack(what_to_randomize, change_flags = WABBAJACK)
-	if(stat == DEAD || notransform || (GODMODE & status_flags))
+	if(stat == DEAD || notransform || HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 
 	if(SEND_SIGNAL(src, COMSIG_LIVING_PRE_WABBAJACKED, what_to_randomize) & STOP_WABBAJACK)
@@ -1393,21 +1393,6 @@
 	// Well, no mmind, guess we should try to move a key over
 	else if(key)
 		new_mob.key = key
-
-/mob/living/rad_act(amount)
-	. = ..()
-
-	if(!amount || (amount < RAD_MOB_SKIN_PROTECTION) || HAS_TRAIT(src, TRAIT_RADIMMUNE) || HAS_TRAIT(src, TRAIT_NORADDAMAGE))
-		return
-
-	amount -= RAD_BACKGROUND_RADIATION // This will always be at least 1 because of how skin protection is calculated
-
-	var/blocked = getarmor(null, RAD)
-
-	if(amount > RAD_BURN_THRESHOLD)
-		apply_damage((amount-RAD_BURN_THRESHOLD)/RAD_BURN_THRESHOLD, BURN, null, blocked)
-
-	apply_effect((amount*RAD_MOB_COEFFICIENT)/max(1, (radiation**2)*RAD_OVERDOSE_REDUCTION), EFFECT_IRRADIATE, blocked)
 
 /mob/living/can_block_magic(casted_magic_flags)
 	. = ..()

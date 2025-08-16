@@ -91,7 +91,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/marker_beacon)
 	energy = 75
 	bomb = 25
 	bio = 100
-	rad = 100
 	fire = 25
 
 /obj/structure/marker_beacon/Initialize(mapload, set_color)

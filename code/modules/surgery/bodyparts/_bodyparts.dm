@@ -234,7 +234,7 @@
 	var/hit_percent = (100-blocked)/100
 	if((!brute && !burn && !stamina) || hit_percent <= 0)
 		return FALSE
-	if(owner && (owner.status_flags & GODMODE))
+	if(HAS_TRAIT(owner, TRAIT_GODMODE))
 		return FALSE	//godmode
 	if(required_status && !(bodytype & required_status))
 		return FALSE

@@ -40,6 +40,7 @@ export { NumberInput } from './NumberInput';
 export { OrbitalMapComponent } from './OrbitalMapComponent';
 export { OrbitalMapSvg } from './OrbitalMapSvg';
 export { ProgressBar } from './ProgressBar';
+export { RoundGauge } from './RoundGauge';
 export { ScrollableBox } from './ScrollableBox';
 export { Pointer } from './Pointer';
 export { Popper } from './Popper';

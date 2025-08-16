@@ -69,7 +69,7 @@
 	affected_mob.slurring = 0
 	affected_mob.jitteriness = 0
 	affected_mob.hallucination = 0
-	affected_mob.radiation = 0
+	qdel(GetComponent(/datum/component/irradiated))
 
 	REMOVE_TRAITS_NOT_IN(affected_mob, list(SPECIES_TRAIT, ROUNDSTART_TRAIT, ORGAN_TRAIT))
 	affected_mob.reagents.remove_all_type(/datum/reagent/toxin, 5 * REM * delta_time, FALSE, TRUE)
@@ -586,11 +586,15 @@
 	color = "#BAA15D"
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
 	metabolization_rate = 2 * REAGENTS_METABOLISM
+	metabolized_traits = list(TRAIT_HALT_RADIATION_EFFECTS)
 
 /datum/reagent/medicine/potass_iodide/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(affected_mob.radiation > 0)
-		affected_mob.radiation -= min(8 * REM * delta_time, affected_mob.radiation)
+	if(!HAS_TRAIT(affected_mob, TRAIT_IRRADIATED))
+		return
+
+	affected_mob.adjustToxLoss(-1 * REM * delta_time, updating_health = FALSE)
+	return UPDATE_MOB_HEALTH
 
 /datum/reagent/medicine/pen_acid
 	name = "Pentetic Acid"
@@ -599,6 +603,7 @@
 	color = "#E6FFF0"
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
+	metabolized_traits = list(TRAIT_HALT_RADIATION_EFFECTS)
 
 /datum/reagent/medicine/pen_acid/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -607,7 +612,6 @@
 			continue
 		affected_mob.reagents.remove_reagent(reagent.type, 2 * REM * delta_time)
 
-	affected_mob.radiation -= (max(affected_mob.radiation - RAD_MOB_SAFE, 0) / 50) * REM * delta_time
 	affected_mob.adjustToxLoss(-2 * REM * delta_time, updating_health = FALSE)
 	return UPDATE_MOB_HEALTH
 
@@ -866,7 +870,7 @@
 	if(!eyes)
 		return
 
-	eyes.applyOrganDamage(-2 * REM * delta_time)
+	eyes.apply_organ_damage(-2 * REM * delta_time)
 	if(HAS_TRAIT_FROM(affected_mob, TRAIT_BLIND, EYE_DAMAGE))
 		if(DT_PROB(10, delta_time))
 			to_chat(affected_mob, span_warning("Your vision slowly returns..."))
