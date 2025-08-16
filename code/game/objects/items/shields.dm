@@ -255,19 +255,28 @@
 	/// Whether clumsy people can transform this without side effects.
 	var/can_clumsy_use = FALSE
 
-	var/cooldown_duration = 100
-	var/cooldown_timer
+	var/recharging = FALSE
+	var/cooldown_duration = 10 SECONDS
+
 	shield_break_sound = 'sound/effects/turbolift/turbolift-close.ogg'
 
 /obj/item/shield/energy/shatter()
-	atom_integrity = 1
-	playsound(src, shield_break_sound, 200, 1)
-	attack_self()
-	cooldown_timer = world.time + cooldown_duration
-	addtimer(CALLBACK(src, PROC_REF(recharged)), cooldown_duration)
+	if(!recharging) //This should never be possible but just in case
+		attack_self()
+		recharging = TRUE
+		playsound(src, shield_break_sound, 200, 1)
+		addtimer(CALLBACK(src, PROC_REF(recharged)), cooldown_duration)
 
 /obj/item/shield/energy/proc/recharged()
-	playsound(src, 'sound/effects/beepskyspinsabre.ogg', 35, 1)
+	recharging = FALSE
+	atom_integrity = max_integrity
+	playsound(src, 'sound/machines/ping.ogg', 85, 1)
+
+/obj/item/shield/energy/attack_self(mob/user, modifiers)
+	if(recharging == TRUE)
+		playsound(src, shield_break_sound, 200, 1)
+		return
+	. = ..()
 
 /obj/item/shield/energy/Initialize(mapload)
 	. = ..()
@@ -295,7 +304,6 @@
  */
 /obj/item/shield/energy/proc/on_transform(obj/item/source, mob/user, active)
 	SIGNAL_HANDLER
-
 	if(user)
 		balloon_alert(user, active ? "activated" : "deactivated")
 	playsound(src, active ? 'sound/weapons/saberon.ogg' : 'sound/weapons/saberoff.ogg', 35, TRUE)
