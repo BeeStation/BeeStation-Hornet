@@ -12,11 +12,11 @@
 	test_screenshot("sunglasses", flat_icon)
 
 	test_subject.equipOutfit(/datum/outfit/job/assistant/consistent/emissive_worn_overlay_test_blocked_partial)
-	var/icon/flat_icon = create_icon()
+	flat_icon = create_icon()
 	test_screenshot("partial", flat_icon)
 
 	test_subject.equipOutfit(/datum/outfit/job/assistant/consistent/emissive_worn_overlay_test_blocked_fully)
-	var/icon/flat_icon = create_icon()
+	flat_icon = create_icon()
 	test_screenshot("blocked", flat_icon)
 
 /datum/outfit/job/assistant/consistent/emissive_worn_overlay_test
