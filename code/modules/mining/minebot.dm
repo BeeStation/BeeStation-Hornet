@@ -113,13 +113,13 @@
 		return
 	if(hud_used.healths)
 		if(stat != DEAD)
-			if(health >= maxHealth)
+			if(consciousness.value >= consciousness.max_value)
 				hud_used.healths.icon_state = "health0"
-			else if(health > maxHealth * 0.7)
+			else if(consciousness.value > consciousness.max_value * 0.7)
 				hud_used.healths.icon_state = "health2"
-			else if(health > maxHealth * 0.4)
+			else if(consciousness.value > consciousness.max_value * 0.4)
 				hud_used.healths.icon_state = "health3"
-			else if(health > maxHealth * 0.2)
+			else if(consciousness.value > consciousness.max_value * 0.2)
 				hud_used.healths.icon_state = "health4"
 			else
 				hud_used.healths.icon_state = "health5"

@@ -135,9 +135,6 @@
 #define GAME_PLANE -4
 #define GAME_PLANE_RENDER_TARGET "GAME_PLANE_RENDER_TARGET"
 
-/// The game plane, but blurred
-#define GAME_BLUR_PLANE 50
-
 #define BLACKNESS_PLANE 0 //To keep from conflicts with SEE_BLACKNESS internals
 
 #define AREA_PLANE 60

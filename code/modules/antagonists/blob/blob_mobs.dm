@@ -292,14 +292,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/blob/blobspore)
 
 	flick_overlay_view(I, src, 8)
 
-/mob/living/simple_animal/hostile/blob/blobbernaut/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
-	. = ..()
-	if(updating_health)
-		update_health_hud()
-
 /mob/living/simple_animal/hostile/blob/blobbernaut/update_health_hud()
 	if(hud_used)
-		hud_used.healths.maptext = MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#e36600'>[round((health / maxHealth) * 100, 0.5)]%</font></div>")
+		hud_used.healths.maptext = MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#e36600'>[round((consciousness.value / consciousness.max_value) * 100, 0.5)]%</font></div>")
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/AttackingTarget()
 	. = ..()

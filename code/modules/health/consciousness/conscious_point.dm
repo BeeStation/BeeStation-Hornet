@@ -18,7 +18,9 @@
 
 /datum/consciousness/point/consciousness_tick(delta_time)
 	// Continuously just become the hitpoints of our owner
-	set_consciousness_source((owner.health / owner.maxHealth) * 100, FROM_HITPOINTS)
+	var/new_consciousness = (owner.health / owner.maxHealth) * 100
+	if (new_consciousness != value)
+		set_consciousness_source(new_consciousness, FROM_HITPOINTS)
 
 /// Calculate our crit and death status when our consciousness updates
 /datum/consciousness/point/update_consciousness(consciousness_value)

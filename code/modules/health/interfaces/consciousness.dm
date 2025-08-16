@@ -4,6 +4,10 @@
 /datum/consciousness
 	/// The owner of the consciousness datum
 	var/mob/living/owner
+	/// The current consciousness value
+	var/value = 0
+	/// The maximum consciousnessvalue
+	var/max_value = 100
 
 /datum/consciousness/New(mob/living/owner)
 	. = ..()
@@ -18,6 +22,8 @@
 
 /// Called when consciousness value is updated
 /datum/consciousness/proc/update_consciousness(consciousness_value)
+	SHOULD_CALL_PARENT(TRUE)
+	value = consciousness_value
 	//Oxygen damage overlay
 	if(consciousness_value < 95)
 		var/severity = 0
@@ -67,6 +73,20 @@
 	else
 		owner.clear_fullscreen("crit")
 		owner.clear_fullscreen("critvision")
+	owner.update_health_hud()
+
+	// TODO: Clean this up and update when TRAIT_IGNOREDAMAGESLOWDOWN changes
+	if(HAS_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN))
+		owner.remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown)
+		owner.remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown_flying)
+		return
+	var/health_deficiency = max((max_value - value), owner.staminaloss)
+	if(health_deficiency >= DAMAGE_SLOWDOWN_START)
+		owner.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown, TRUE, multiplicative_slowdown = (health_deficiency / 100) * DAMAGE_SLOWDOWN_CRIT)
+		owner.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown_flying, TRUE, multiplicative_slowdown = (health_deficiency / 100) * DAMAGE_SLOWDOWN_CRIT * DAMAGE_SLOWDOWN_FLYING_MULTIPLIER)
+	else
+		owner.remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown)
+		owner.remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown_flying)
 
 /// Trigger an update of the stat
 /datum/consciousness/proc/update_stat()

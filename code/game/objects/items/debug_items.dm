@@ -214,15 +214,12 @@
 	armor_type = /datum/armor/misc_adminsuit
 	gas_transfer_coefficient = 0
 	siemens_coefficient = 0
-	slowdown = -1
-	equip_delay_other = 6000 // stripping an admin for 10 minutes
 	cold_protection = FULL_BODY
 	heat_protection = FULL_BODY
 	body_parts_covered = FULL_BODY
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-
 
 // debug bag
 

@@ -674,18 +674,18 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		if(stat != DEAD)
 			. = 1
 			if(shown_health_amount == null)
-				shown_health_amount = health
+				shown_health_amount = consciousness.value
 			if (undergoing_cardiac_arrest())
 				shown_health_amount = 0
-			if(shown_health_amount >= maxHealth)
+			if(shown_health_amount >= consciousness.max_value)
 				hud_used.healths.icon_state = "health0"
-			else if(shown_health_amount > maxHealth*0.8)
+			else if(shown_health_amount > consciousness.max_value*0.8)
 				hud_used.healths.icon_state = "health1"
-			else if(shown_health_amount > maxHealth*0.6)
+			else if(shown_health_amount > consciousness.max_value*0.6)
 				hud_used.healths.icon_state = "health2"
-			else if(shown_health_amount > maxHealth*0.4)
+			else if(shown_health_amount > consciousness.max_value*0.4)
 				hud_used.healths.icon_state = "health3"
-			else if(shown_health_amount > maxHealth*0.2)
+			else if(shown_health_amount > consciousness.max_value*0.2)
 				hud_used.healths.icon_state = "health4"
 			else if(shown_health_amount > 0)
 				hud_used.healths.icon_state = "health5"
