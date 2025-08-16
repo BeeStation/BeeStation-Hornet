@@ -84,7 +84,7 @@
 	if(initial(uses) == 1)
 		uses = initial(uses)
 	var/datum/atom_hud/abductor/hud = GLOB.huds[DATA_HUD_ABDUCTOR]
-	if(gland_owner)
+	if(gland_owner.mind.has_antag_datum(/datum/antagonist/abductee))
 		gland_owner.mind.remove_antag_datum(/datum/antagonist/abductee)
 	hud.remove_from_hud(gland_owner)
 	clear_mind_control()
