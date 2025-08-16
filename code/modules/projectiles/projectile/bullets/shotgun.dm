@@ -136,6 +136,4 @@
 /obj/projectile/bullet/shotgun_breaching/on_hit(atom/target)
 	if(isstructure(target) || ismachinery(target))
 		damage = 500 //one shot to break a window or grille, or 3 shots to breach an airlock door
-	if (isturf(target))
-		damage = 700
 	..()
