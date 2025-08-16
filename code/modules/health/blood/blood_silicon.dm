@@ -63,6 +63,10 @@
 /datum/blood_source/silicon/get_circulation_proportion()
 	if (!owner.needs_heart())
 		return 1
-	return ..()
+	// Multiplied by blood volume
+	var/base_proportion = ..()
+	base_proportion *= CLAMP01((volume - BLOOD_VOLUME_SURVIVE) / (BLOOD_VOLUME_NORMAL - BLOOD_VOLUME_SURVIVE))
+	return base_proportion
+
 
 #undef BLOOD_DRIP_RATE_MOD

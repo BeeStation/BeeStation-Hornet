@@ -22,19 +22,19 @@
 	if(consciousness_value < 95)
 		var/severity = 0
 		switch(consciousness_value)
-			if(90 to 95)
+			if(80 to 100)
 				severity = 1
-			if(85 to 90)
+			if(70 to 80)
 				severity = 2
-			if(80 to 85)
-				severity = 3
-			if(75 to 80)
-				severity = 4
-			if(70 to 75)
-				severity = 5
 			if(60 to 70)
+				severity = 3
+			if(50 to 60)
+				severity = 4
+			if(40 to 50)
+				severity = 5
+			if(20 to 40)
 				severity = 6
-			if(0 to 60)
+			if(0 to 20)
 				severity = 7
 		owner.overlay_fullscreen("consciousness", /atom/movable/screen/fullscreen/oxy, severity)
 	else
@@ -43,44 +43,26 @@
 	if(owner.stat >= SOFT_CRIT)
 		var/severity = 0
 		switch(consciousness_value)
-			if(47 to 50)
+			if(-10 to 0)
 				severity = 1
-			if(44 to 46)
+			if(-20 to -10)
 				severity = 2
-			if(40 to 43)
+			if(-30 to -20)
 				severity = 3
-			if(30 to 35)
+			if(-40 to -30)
 				severity = 4
-			if(25 to 30)
+			if(-50 to -40)
 				severity = 5
-			if(20 to 25)
+			if(-60 to -50)
 				severity = 6
-			if(15 to 20)
+			if(-70 to -60)
 				severity = 7
-			if(10 to 15)
+			if(-80 to -70)
 				severity = 8
-			if(5 to 10)
+			if(-90 to -80)
 				severity = 9
-			if(0 to 5)
+			if(-100 to -90)
 				severity = 10
-		if(owner.stat != HARD_CRIT && !HAS_TRAIT(owner,TRAIT_NOHARDCRIT))
-			var/visionseverity = 4
-			switch(consciousness_value)
-				if(45 to 50)
-					visionseverity = 5
-				if(40 to 45)
-					visionseverity = 6
-				if(35 to 40)
-					visionseverity = 7
-				if(30 to 35)
-					visionseverity = 8
-				if(25 to 30)
-					visionseverity = 9
-				if(20 to 25)
-					visionseverity = 10
-			owner.overlay_fullscreen("critvision", /atom/movable/screen/fullscreen/crit/vision, visionseverity)
-		else
-			owner.clear_fullscreen("critvision")
 		owner.overlay_fullscreen("crit", /atom/movable/screen/fullscreen/crit, severity)
 	else
 		owner.clear_fullscreen("crit")

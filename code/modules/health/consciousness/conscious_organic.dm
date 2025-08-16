@@ -20,14 +20,14 @@
 	if (owner.status_flags & GODMODE)
 		return
 	if (owner.stat != DEAD)
-		if(consciousness_value <= CONSCIOUS_THRESHOLD_DEAD && !HAS_TRAIT(owner, TRAIT_NODEATH))
+		if(consciousness_value <= HEALTH_THRESHOLD_DEAD && !HAS_TRAIT(owner, TRAIT_NODEATH))
 			owner.death()
 			return
-		if(consciousness_value <= CONSCIOUS_THRESHOLD_FULLCRIT && !HAS_TRAIT(owner, TRAIT_NOHARDCRIT))
+		if(consciousness_value <= HEALTH_THRESHOLD_FULLCRIT && !HAS_TRAIT(owner, TRAIT_NOHARDCRIT))
 			owner.set_stat(HARD_CRIT)
 		else if(HAS_TRAIT(owner, TRAIT_KNOCKEDOUT))
 			owner.set_stat(UNCONSCIOUS)
-		else if(consciousness_value <= CONSCIOUS_THRESHOLD_CRIT && !HAS_TRAIT(owner, TRAIT_NOSOFTCRIT))
+		else if(consciousness_value <= HEALTH_THRESHOLD_CRIT && !HAS_TRAIT(owner, TRAIT_NOSOFTCRIT))
 			owner.set_stat(SOFT_CRIT)
 		else
 			owner.set_stat(CONSCIOUS)

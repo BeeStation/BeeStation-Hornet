@@ -244,10 +244,9 @@
 	// - Headache
 	// - Light-headedness
 	// - Confusion
-	consciousness_rating = initial(consciousness_rating) * (1 - (hypoxia / maxHealth))
+	consciousness_rating = (initial(consciousness_rating) - HEALTH_THRESHOLD_DEAD) * (1 - (hypoxia / maxHealth)) + HEALTH_THRESHOLD_DEAD
 	if (owner)
 		SEND_SIGNAL(owner, COMSIG_MOB_BRAIN_CONSCIOUSNESS_UPDATE, consciousness_rating)
-	message_admins("brain has [consciousness_rating] consciousness caused by [hypoxia] hypoxia")
 
 /obj/item/organ/brain/check_damage_thresholds(mob/M)
 	. = ..()
