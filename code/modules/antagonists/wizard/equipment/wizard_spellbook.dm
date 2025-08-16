@@ -10,6 +10,8 @@
 
 	/// The number of book charges we have to buy spells
 	var/uses = 10
+	/// The number of book charges add on randomization
+	var/random_bonus = 6
 	/// Determines if this spellbook can refund anything.
 	var/refunds_allowed = TRUE
 	/// The mind that first used the book. Automatically assigned when a wizard spawns.
@@ -289,6 +291,7 @@
 /// Purchases a fully random wizard loadout for [wizard].
 /obj/item/spellbook/proc/randomize(mob/living/carbon/human/wizard)
 	var/list/entries_copy = entries.Copy()
+	uses += random_bonus
 	while(uses > 0 && length(entries_copy))
 		var/datum/spellbook_entry/entry = pick(entries_copy)
 		if(!entry.refundable)
@@ -296,6 +299,8 @@
 		if(!purchase_entry(entry, wizard))
 			continue
 		entries_copy -= entry
+
+	refunds_allowed = FALSE
 
 /obj/item/spellbook/debug
 	name = "Debug Spellbook"
