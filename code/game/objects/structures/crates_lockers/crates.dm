@@ -278,7 +278,6 @@
 	new /obj/item/robot_model/engineering(src)
 	new /obj/item/robot_model/clown(src)
 	new /obj/item/robot_model/service(src)
-	new /obj/item/robot_model/borgi(src)
 
 /obj/structure/closet/crate/solarpanel_small
 	name = "budget solar panel crate"
