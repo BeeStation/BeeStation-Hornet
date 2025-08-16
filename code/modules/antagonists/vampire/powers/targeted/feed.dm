@@ -154,8 +154,8 @@
 		vampiredatum_power.give_masquerade_infraction()
 		break
 
-	owner.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_MUTE), TRAIT_FEED)
-	feed_target.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_MUTE), TRAIT_FEED)
+	owner.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_MUTE, TRAIT_HANDS_BLOCKED), TRAIT_FEED)
+	feed_target.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_WHISPER_ONLY, TRAIT_HANDS_BLOCKED), TRAIT_FEED)
 
 /datum/action/vampire/targeted/feed/UsePower()
 	var/mob/living/user = owner
