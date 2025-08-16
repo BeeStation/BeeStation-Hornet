@@ -104,7 +104,7 @@
 	new new_mob(current_turf)
 	/// TELEPORT: Move to Coffin & Close it!
 	user.set_resting(TRUE, TRUE, FALSE)
-	do_teleport(owner, vampiredatum_power.coffin, channel = TELEPORT_CHANNEL_MAGIC, bypass_area_restriction = TRUE, no_effects = TRUE)
+	do_teleport(owner, vampiredatum_power.coffin, channel = TELEPORT_CHANNEL_MAGIC, no_effects = TRUE)
 	vampiredatum_power.coffin.close(owner)
 	vampiredatum_power.coffin.take_contents()
 	playsound(vampiredatum_power.coffin.loc, vampiredatum_power.coffin.close_sound, 15, 1, -3)

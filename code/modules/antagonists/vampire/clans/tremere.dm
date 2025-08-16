@@ -85,9 +85,9 @@
 /datum/vampire_clan/tremere/get_max_vassals()
 	var/total_players = length(GLOB.joined_player_list)
 	switch(total_players)
-		if(1 to 15)
+		if(1 to 20)
 			return 3
-		if(15 to 35)
+		if(21 to 30)
 			return 5
-		if(25 to INFINITY)
+		if(31 to INFINITY)
 			return 7
