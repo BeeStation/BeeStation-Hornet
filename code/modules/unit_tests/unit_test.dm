@@ -137,7 +137,7 @@ GLOBAL_VAR_INIT(focused_tests, focused_tests())
 		fcopy(icon, data_filename)
 		log_test("\t[path_prefix]_[name] was found, putting in data/screenshots")
 	else
-#ifndef CITESTING
+#ifndef CIBUILDING
 		// We are probably running in a local build
 		fcopy(icon, filename)
 		log_test("Screenshot for [name] did not exist. One has been created at [filename].")
