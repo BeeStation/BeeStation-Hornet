@@ -165,6 +165,7 @@
 		return
 	. = oxyloss
 	oxyloss = clamp((oxyloss + (amount * CONFIG_GET(number/damage_multiplier))), 0, maxHealth * 2)
+	. -= oxyloss
 	if(updating_health)
 		updatehealth()
 
@@ -173,6 +174,7 @@
 		return
 	. = oxyloss
 	oxyloss = amount
+	. -= oxyloss
 	if(updating_health)
 		updatehealth()
 
