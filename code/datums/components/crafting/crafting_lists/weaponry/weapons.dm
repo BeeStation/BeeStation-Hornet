@@ -201,7 +201,6 @@
 	)
 	category = CAT_WEAPON_RANGED
 
-
 /datum/crafting_recipe/ishotgun
 	name = "Improvised Shotgun"
 	result = /obj/item/gun/ballistic/shotgun/doublebarrel/improvised

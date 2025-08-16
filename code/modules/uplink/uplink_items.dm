@@ -957,13 +957,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/ammo_box/magazine/m12g/dragon
 	purchasable_from = UPLINK_NUKE_OPS
 
-/datum/uplink_item/ammo/shotgun/meteor
-	name = "12g Meteorslug Shells"
-	desc = "An alternative 8-round meteorslug magazine for use in the Bulldog shotgun. \
-			Great for blasting airlocks off their frames and knocking down enemies."
-	item = /obj/item/ammo_box/magazine/m12g/meteor
-	purchasable_from = UPLINK_NUKE_OPS
-
 /datum/uplink_item/ammo/shotgun/slug
 	name = "12g Slug Drum"
 	desc = "An additional 8-round slug magazine for use with the Bulldog shotgun. \
