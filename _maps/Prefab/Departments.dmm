@@ -1436,7 +1436,7 @@
 /turf/open/floor/iron,
 /area/space)
 "Iu" = (
-/obj/machinery/vendor/exploration,
+/obj/machinery/gear_requisition/exploration,
 /turf/open/floor/iron/dark,
 /area/quartermaster/exploration_prep)
 "IO" = (
@@ -1871,7 +1871,7 @@
 /turf/open/floor/iron/dark,
 /area/medical/genetics)
 "Rm" = (
-/obj/machinery/vendor/mining,
+/obj/machinery/gear_requisition/mining,
 /turf/open/floor/iron/sepia,
 /area/quartermaster/storage)
 "Rq" = (

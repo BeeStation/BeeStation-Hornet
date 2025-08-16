@@ -1442,6 +1442,7 @@
 /datum/reagent/consumable/ethanol/changelingsting/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	var/datum/antagonist/changeling/changeling = IS_CHANGELING(affected_mob)
+	//Changeling Sting assists in the recharging of changeling chemicals.
 	changeling?.adjust_chemicals(metabolization_rate * REM * delta_time)
 
 /datum/reagent/consumable/ethanol/irishcarbomb

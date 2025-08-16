@@ -54,7 +54,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	var/list/metabolized_traits
 	/// A list of traits to apply while the reagent is in a mob.
 	var/list/added_traits
-	//Will be added as the reagent is processed
+	/// Will be added as the reagent is processed
 	var/metabolite
 	/// above this overdoses happen
 	var/overdose_threshold = 0

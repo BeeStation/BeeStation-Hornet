@@ -58,8 +58,8 @@
 	description = "A byproduct of the body processing BZ gas."
 	metabolization_rate = REAGENTS_METABOLISM * 0.2
 
-//This one's effect is grandfathered in from before other metabolites existed. One of the only direct counters to changelings
 /datum/reagent/metabolite/bz/on_mob_life(mob/living/carbon/affected_mob)
 	. = ..()
+	// This one's effect is grandfathered in from before other metabolites existed. One of the only direct counters to changelings
 	var/datum/antagonist/changeling/changeling = IS_CHANGELING(affected_mob)
 	changeling?.adjust_chemicals(-2)
