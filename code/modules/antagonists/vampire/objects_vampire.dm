@@ -27,7 +27,7 @@
 
 /// This handles bolting down the structure.
 /obj/structure/vampire/proc/bolt(mob/user)
-	if(user)
+	if(!user)
 		return
 	to_chat(user, span_danger("You have secured [src] in place."))
 	to_chat(user, span_announce("* Vampire Tip: Examine [src] to understand how it functions!"))
