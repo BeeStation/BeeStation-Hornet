@@ -57,8 +57,8 @@
 #define OVERRIDE_CONFIG_DIRECTORY_PARAMETER "config-directory"
 
 // Defib stats
-/// The time (in deciseconds) in which a fresh body can be defibbed
-#define DEFIB_TIME_LIMIT 900
+/// The time (in deciseconds) in which a fresh body can be defibbed.
+#define DEFIB_TIME_LIMIT 10 MINUTES
 
 #define VALUE_MODE_NUM 0
 #define VALUE_MODE_TEXT 1
@@ -66,3 +66,11 @@
 
 #define KEY_MODE_TEXT 0
 #define KEY_MODE_TYPE 1
+
+// Flags for respawn config
+/// Respawn not allowed
+#define RESPAWN_FLAG_DISABLED 0
+/// Respawn as much as you'd like
+#define RESPAWN_FLAG_FREE 1
+/// Can respawn, but not as the same character
+#define RESPAWN_FLAG_NEW_CHARACTER 2
