@@ -9,7 +9,6 @@
 	max_capacity = 500
 	device_type = MC_HDD_JOB
 	default_installs = FALSE
-	hotswap = TRUE
 	var/list/progs_to_store = list()
 	/// Job disk will ignore programs to instal if this is TRUE
 	var/dont_instal = FALSE
