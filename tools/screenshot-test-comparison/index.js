@@ -56,6 +56,9 @@ for (const filename of fs.readdirSync(artifactsDirectory)) {
 	}
 
 	for (const screenshotName of fs.readdirSync(fullPath)) {
+
+		console.log(`Checking ${screenshotName}`);
+
 		if (knownFailures.has(screenshotName)) {
 			continue
 		}
