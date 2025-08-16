@@ -2,7 +2,7 @@
 	name = "Shed form"
 	desc = "Shed your fragile form, become one with the arms, become one with the emperor. \
 		Causes heavy amounts of brain damage and sanity loss to nearby mortals."
-	background_icon_state = "bg_ecult"
+	background_icon_state = "bg_heretic"
 	icon_icon = 'icons/hud/actions/actions_ecult.dmi'
 	button_icon_state = "worm_ascend"
 
@@ -47,7 +47,7 @@
 /datum/action/spell/worm_contract
 	name = "Force Contract"
 	desc = "Forces your body to contract onto a single tile."
-	background_icon_state = "bg_ecult"
+	background_icon_state = "bg_heretic"
 	icon_icon = 'icons/hud/actions/actions_ecult.dmi'
 	button_icon_state = "worm_contract"
 
