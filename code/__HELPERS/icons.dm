@@ -714,7 +714,7 @@ world
 	return rgb(round(rgb[1]*amount), round(rgb[2]*amount), round(rgb[3]*amount))
 
 // Creates a single icon from a given /atom or /image.  Only the first argument is required.
-/proc/getFlatIcon(image/A, defdir, deficon, defstate, defblend, start = TRUE, no_anim = FALSE)
+/proc/getFlatIcon(image/A, defdir, deficon, defstate, defblend, start = TRUE, no_anim = FALSE, override_plane = null, ignore_overlays = FALSE)
 	//Define... defines.
 	var/static/icon/flat_template = icon('icons/effects/effects.dmi', "nothing")
 
@@ -800,40 +800,39 @@ world
 
 	var/curblend = A.blend_mode || defblend
 
-	if(A.overlays.len || A.underlays.len)
+	if(!ignore_overlays && (A.overlays.len || A.underlays.len))
 		var/icon/flat = BLANK
 		// Layers will be a sorted list of icons/overlays, based on the order in which they are displayed
 		var/list/layers = list()
 		var/image/copy
 		// Add the atom's icon itself, without pixel_x/y offsets.
 		if(!noIcon)
-			copy = image(icon=curicon, icon_state=curstate, layer=A.layer, dir=base_icon_dir)
-			copy.color = A.color
-			copy.alpha = A.alpha
-			copy.blend_mode = curblend
-			layers[copy] = A.layer
+			if (isnull(override_plane) || override_plane == A.plane)
+				copy = image(icon=curicon, icon_state=curstate, layer=A.layer, dir=base_icon_dir)
+				copy.color = A.color
+				copy.alpha = A.alpha
+				copy.blend_mode = curblend
+				layers += copy
 
 		// Loop through the underlays, then overlays, sorting them into the layers list
 		for(var/process_set in 0 to 1)
-			var/list/process = process_set? A.overlays : A.underlays
-			for(var/i in 1 to process.len)
+			var/list/process = process_set ? A.overlays : A.underlays
+			process = process.Copy()
+			var/i = 1
+			while (i < length(process))
 				var/image/current = process[i]
+				i++
+				process += process_set ? current.overlays : current.underlays
 				if(!current)
 					continue
-				if(current.plane != FLOAT_PLANE && current.plane != A.plane)
-					continue
-				var/current_layer = current.layer
-				if(current_layer < 0)
-					if(current_layer <= -1000)
-						return flat
-					current_layer = process_set + A.layer + current_layer / 1000
+				if (!isnull(override_plane))
+					if(current.plane != override_plane)
+						continue
+				else
+					if(current.plane != FLOAT_PLANE && current.plane != A.plane)
+						continue
 
-				for(var/p in 1 to layers.len)
-					var/image/cmp = layers[p]
-					if(current_layer < layers[cmp])
-						layers.Insert(p, current)
-						break
-				layers[current] = current_layer
+				BINARY_INSERT(current, layers, /image, current, layer, COMPARE_KEY)
 
 		//sortTim(layers, GLOBAL_PROC_REF(cmp_image_layer_asc))
 
@@ -853,7 +852,7 @@ world
 				curblend = BLEND_OVERLAY
 				add = icon(I.icon, I.icon_state, base_icon_dir)
 			else // 'I' is an appearance object.
-				add = getFlatIcon(image(I), curdir, curicon, curstate, curblend, FALSE, no_anim)
+				add = getFlatIcon(image(I), curdir, curicon, curstate, curblend, FALSE, no_anim, override_plane = override_plane, ignore_overlays = TRUE)
 			if(!add)
 				continue
 			// Find the new dimensions of the flat icon to fit the added overlay
