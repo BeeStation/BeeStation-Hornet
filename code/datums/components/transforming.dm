@@ -181,8 +181,6 @@
 		source.throwforce = throwforce_on + (source.sharpness ? sharpened_bonus : 0)
 	if(throw_speed_on)
 		source.throw_speed = throw_speed_on
-	if(bleedforce_on)
-		source.bleed_force = bleedforce_on
 
 	if(LAZYLEN(attack_verb_continuous_on))
 		source.attack_verb_continuous = attack_verb_continuous_on
@@ -212,8 +210,6 @@
 		source.throwforce = initial(source.throwforce) + (source.sharpness ? sharpened_bonus : 0)
 	if(throw_speed_on)
 		source.throw_speed = initial(source.throw_speed)
-	if(bleedforce_on)
-		source.bleed_force = initial(source.bleed_force)
 
 	if(LAZYLEN(attack_verb_continuous_on))
 		source.attack_verb_continuous = attack_verb_continuous_off

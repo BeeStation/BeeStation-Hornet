@@ -214,7 +214,7 @@
 	name ="death bolt"
 	icon_state= "chronobolt"
 	damage = 15
-	armour_penetration = 60
+	sharpness = SHARP_V
 	speed = 2
 	eyeblur = 0
 	damage_type = BRUTE

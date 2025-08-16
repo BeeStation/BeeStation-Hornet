@@ -14,6 +14,6 @@
 	/// Return to cancel the cast from beginning.
 	#define COMPONENT_CANCEL_SPELL (1<<0)
 
-//from /mob/living/carbon/human/proc/check_shields(): (atom/hit_by, damage, attack_text, attack_type, armour_penetration)
+//from /mob/living/carbon/human/proc/check_shields(): (atom/hit_by, damage, attack_text, attack_type, sharpness)
 #define COMSIG_HUMAN_CHECK_SHIELDS "human_check_shields"
 	#define SHIELD_BLOCK (1<<0)

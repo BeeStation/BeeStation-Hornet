@@ -18,7 +18,7 @@
 		TRAIT_NOBREATH,
 		TRAIT_RADIMMUNE,
 		TRAIT_VIRUSIMMUNE,
-		TRAIT_NOBLOOD,
+		TRAIT_NO_BLOOD,
 	)
 	inherent_factions = list(FACTION_FAITHLESS)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC
@@ -123,7 +123,8 @@
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_NODISMEMBER,
 		TRAIT_NOHUNGER,
-		TRAIT_NOBLOOD,
+		TRAIT_NO_BLOOD,
+		TRAIT_NO_ORGAN_PENETRATION,
 		TRAIT_NO_DNA_COPY,
 		TRAIT_NO_TRANSFORMATION_STING,
 	)
@@ -252,13 +253,11 @@
 	item_state = "arm_blade"
 	force = 25
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
-	armour_penetration = 35
+	sharpness = SHARP_VI
 	lefthand_file = 'icons/mob/inhands/antag/changeling_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/antag/changeling_righthand.dmi'
 	item_flags = ABSTRACT | DROPDEL | ISWEAPON
 	w_class = WEIGHT_CLASS_HUGE
-	sharpness = SHARP_DISMEMBER_EASY
-	bleed_force = BLEED_DEEP_WOUND
 	//Fuck you, *crowbars your evil thing
 	tool_behaviour = TOOL_CROWBAR
 

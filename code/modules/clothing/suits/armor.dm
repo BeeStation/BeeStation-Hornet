@@ -11,20 +11,8 @@
 	equip_delay_other = 40
 	max_integrity = 250
 	resistance_flags = NONE
-	armor_type = /datum/armor/suit_armor
+	armor_type = /datum/armor/security_light_armor
 	slowdown = 0.08
-
-
-/datum/armor/suit_armor
-	melee = 30
-	bullet = 30
-	laser = 30
-	energy = 40
-	bomb = 25
-	fire = 50
-	acid = 50
-	stamina = 30
-	bleed = 50
 
 /obj/item/clothing/suit/armor/Initialize(mapload)
 	. = ..()
@@ -57,19 +45,8 @@
 	icon_state = "blueshift"
 	item_state = null
 	custom_premium_price = 600
-	armor_type = /datum/armor/vest_blueshirt
+	armor_type = /datum/armor/security_heavy_armor
 	slowdown = 0.14
-
-
-/datum/armor/vest_blueshirt
-	melee = 40
-	bullet = 40
-	laser = 40
-	energy = 45
-	bomb = 30
-	fire = 50
-	acid = 50
-	stamina = 40
 
 /obj/item/clothing/suit/armor/hos
 	name = "armored greatcoat"
@@ -77,23 +54,11 @@
 	icon_state = "hos"
 	item_state = "greatcoat"
 	body_parts_covered = CHEST|GROIN|ARMS|LEGS
-	armor_type = /datum/armor/armor_hos
+	armor_type = /datum/armor/security_light_armor
 	cold_protection = CHEST|GROIN|LEGS|ARMS
 	heat_protection = CHEST|GROIN|LEGS|ARMS
 	strip_delay = 80
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
-
-
-/datum/armor/armor_hos
-	melee = 30
-	bullet = 30
-	laser = 30
-	energy = 40
-	bomb = 25
-	fire = 70
-	acid = 90
-	stamina = 40
-	bleed = 40
 
 /obj/item/clothing/suit/armor/hos/trenchcoat
 	name = "armored trenchcoat"
@@ -140,22 +105,10 @@
 	icon_state = "capcarapace"
 	item_state = "armor"
 	body_parts_covered = CHEST|GROIN
-	armor_type = /datum/armor/vest_capcarapace
+	armor_type = /datum/armor/security_heavy_armor
 	dog_fashion = null
 	resistance_flags = FIRE_PROOF
 	clothing_flags = THICKMATERIAL
-
-
-/datum/armor/vest_capcarapace
-	melee = 50
-	bullet = 40
-	laser = 50
-	energy = 60
-	bomb = 25
-	fire = 100
-	acid = 90
-	stamina = 40
-	bleed = 60
 
 /obj/item/clothing/suit/armor/vest/capcarapace/syndicate
 	name = "syndicate captain's vest"
@@ -176,20 +129,8 @@
 	icon_state = "capjacket"
 	item_state = null
 	body_parts_covered = CHEST|ARMS
-	armor_type = /datum/armor/capcarapace_jacket
+	armor_type = /datum/armor/security_light_armor
 	clothing_flags = NONE
-
-
-/datum/armor/capcarapace_jacket
-	melee = 40
-	bullet = 30
-	laser = 40
-	energy = 50
-	bomb = 55
-	fire = 90
-	acid = 80
-	stamina = 40
-	bleed = 30
 
 /obj/item/clothing/suit/armor/riot
 	name = "riot suit"
@@ -199,22 +140,13 @@
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	cold_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
-	armor_type = /datum/armor/armor_riot
+	armor_type = /datum/armor/riot
 	clothing_flags = BLOCKS_SHOVE_KNOCKDOWN
 	strip_delay = 80
 	equip_delay_other = 60
 	slowdown = 0.15
 	move_sound = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
-
-/datum/armor/armor_riot
-	melee = 50
-	bullet = 10
-	laser = 10
-	energy = 15
-	fire = 80
-	acid = 80
-	stamina = 50
-	bleed = 70
+	clothing_flags = THICKMATERIAL
 
 /obj/item/clothing/suit/armor/bone
 	name = "bone armor"
@@ -222,22 +154,10 @@
 	icon_state = "bonearmor"
 	item_state = "bonearmor"
 	blood_overlay_type = "armor"
-	armor_type = /datum/armor/armor_bone
+	armor_type = /datum/armor/security_chitin
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS
 	slowdown = 0.1
 	clothing_flags = THICKMATERIAL
-
-
-/datum/armor/armor_bone
-	melee = 35
-	bullet = 25
-	laser = 25
-	energy = 30
-	bomb = 25
-	fire = 50
-	acid = 50
-	stamina = 20
-	bleed = 50
 
 /obj/item/clothing/suit/armor/bulletproof
 	name = "bulletproof armor"
@@ -245,20 +165,10 @@
 	icon_state = "bulletproof"
 	item_state = "armor"
 	blood_overlay_type = "armor"
-	armor_type = /datum/armor/armor_bulletproof
+	armor_type = /datum/armor/bulletproof
 	strip_delay = 70
 	equip_delay_other = 50
-
-/datum/armor/armor_bulletproof
-	melee = 15
-	bullet = 60
-	laser = 10
-	energy = 10
-	bomb = 40
-	fire = 50
-	acid = 50
-	stamina = 40
-	bleed = 60
+	clothing_flags = THICKMATERIAL
 
 /obj/item/clothing/suit/armor/laserproof
 	name = "reflector vest"
@@ -266,20 +176,9 @@
 	icon_state = "armor_reflec"
 	item_state = "armor_reflec"
 	blood_overlay_type = "armor"
-	armor_type = /datum/armor/armor_laserproof
+	armor_type = /datum/armor/laserproof
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/hit_reflect_chance = 40
-
-
-/datum/armor/armor_laserproof
-	melee = 10
-	bullet = 10
-	laser = 60
-	energy = 80
-	fire = 100
-	acid = 100
-	stamina = 40
-	bleed = 10
 
 /obj/item/clothing/suit/armor/laserproof/IsReflect(def_zone)
 	if(!(def_zone in list(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN))) //If not shot where ablative is covering you, you don't get the reflection bonus!
@@ -309,44 +208,18 @@
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	slowdown = 3
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
-	armor_type = /datum/armor/armor_heavy
+	armor_type = /datum/armor/security_heavy_armor
 	move_sound = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
 	slowdown = 0.3
 	clothing_flags = THICKMATERIAL
-
-
-/datum/armor/armor_heavy
-	melee = 80
-	bullet = 80
-	laser = 50
-	energy = 60
-	bomb = 100
-	bio = 100
-	rad = 100
-	fire = 90
-	acid = 90
-	stamina = 60
-	bleed = 70
 
 /obj/item/clothing/suit/armor/tdome
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	cold_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
-	armor_type = /datum/armor/armor_tdome
+	armor_type = /datum/armor/security_heavy_armor
 	move_sound = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
-
-
-/datum/armor/armor_tdome
-	melee = 80
-	bullet = 80
-	laser = 50
-	energy = 60
-	bomb = 100
-	bio = 100
-	rad = 100
-	fire = 90
-	acid = 90
 
 /obj/item/clothing/suit/armor/tdome/red
 	name = "thunderdome suit"
@@ -362,14 +235,9 @@
 
 /obj/item/clothing/suit/armor/tdome/holosuit
 	name = "thunderdome suit"
-	armor_type = /datum/armor/tdome_holosuit
+	armor_type = /datum/armor/civilian_padded
 	cold_protection = null
 	heat_protection = null
-
-
-/datum/armor/tdome_holosuit
-	melee = 10
-	bullet = 10
 
 /obj/item/clothing/suit/armor/tdome/holosuit/red
 	desc = "Reddish armor."
@@ -410,42 +278,18 @@
 	equip_delay_other = 40
 	max_integrity = 200
 	resistance_flags = FLAMMABLE
-	armor_type = /datum/armor/vest_durathread
+	armor_type = /datum/armor/durathread
 	dog_fashion = null
 	clothing_flags = THICKMATERIAL
-
-
-/datum/armor/vest_durathread
-	melee = 20
-	bullet = 40
-	laser = 30
-	energy = 40
-	bomb = 15
-	fire = 40
-	acid = 50
-	stamina = 30
-	bleed = 60
 
 /obj/item/clothing/suit/armor/vest/russian
 	name = "russian vest"
 	desc = "A bulletproof vest with forest camo. Good thing there's plenty of forests to hide in around here, right?"
 	icon_state = "rus_armor"
 	item_state = "rus_armor"
-	armor_type = /datum/armor/vest_russian
+	armor_type = /datum/armor/security_padded
 	slowdown = 0.05
 	dog_fashion = null
-
-
-/datum/armor/vest_russian
-	melee = 25
-	bullet = 30
-	energy = 15
-	bomb = 10
-	rad = 20
-	fire = 20
-	acid = 50
-	stamina = 25
-	bleed = 20
 
 /obj/item/clothing/suit/armor/vest/russian_coat
 	name = "russian battle coat"
@@ -455,22 +299,8 @@
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	cold_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
-	armor_type = /datum/armor/vest_russian_coat
+	armor_type = /datum/armor/security_padded
 	dog_fashion = null
-
-
-/datum/armor/vest_russian_coat
-	melee = 25
-	bullet = 20
-	laser = 20
-	energy = 30
-	bomb = 20
-	bio = 50
-	rad = 20
-	fire = -10
-	acid = 50
-	stamina = 30
-	bleed = 20
 
 /obj/item/clothing/suit/armor/centcom_formal
 	name = "\improper CentCom formal coat"
@@ -478,21 +308,7 @@
 	icon_state = "centcom_formal"
 	item_state = "centcom"
 	body_parts_covered = CHEST|GROIN|ARMS
-	armor_type = /datum/armor/armor_centcom_formal
-
-
-/datum/armor/armor_centcom_formal
-	melee = 35
-	bullet = 40
-	laser = 40
-	energy = 50
-	bomb = 35
-	bio = 10
-	rad = 10
-	fire = 10
-	acid = 60
-	stamina = 40
-	bleed = 20
+	armor_type = /datum/armor/military_padded
 
 /obj/item/clothing/suit/armor/centcom_formal/Initialize(mapload)
 	. = ..()

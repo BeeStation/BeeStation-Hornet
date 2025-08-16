@@ -199,6 +199,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 		/obj/item/stack/medical/gauze,
 		/obj/item/reagent_containers/hypospray/medipen,
 		/obj/item/stack/medical/bruise_pack,
+		/obj/item/stack/medical/suture,
 		/obj/item/stack/medical/ointment,
 		/obj/item/reagent_containers/pill/oxandrolone,
 		/obj/item/storage/pill_bottle/charcoal,
@@ -350,22 +351,8 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 /obj/item/storage/backpack/holding/bluespace
 	name = "warped rune"
 	anchored = TRUE
-	armor_type = /datum/armor/holding_bluespace
 	invisibility = INVISIBILITY_ABSTRACT
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-
-
-/datum/armor/holding_bluespace
-	melee = 100
-	bullet = 100
-	laser = 100
-	energy = 100
-	bomb = 100
-	bio = 100
-	rad = 100
-	fire = 100
-	acid = 100
-	stamina = 100
 
 /obj/item/slimecross/warping/bluespace
 	colour = SLIME_TYPE_BLUESPACE

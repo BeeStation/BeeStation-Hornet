@@ -6,8 +6,7 @@
 	icon = 'icons/obj/heretic.dmi'
 	icon_state = "rune_carver"
 	flags_1 = CONDUCT_1
-	sharpness = SHARP
-	bleed_force = BLEED_CUT
+	sharpness = SHARP_V
 	w_class = WEIGHT_CLASS_SMALL
 	force = 10
 	throwforce = 20
@@ -220,8 +219,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/trap/eldritch)
 		return
 	var/mob/living/carbon/carbon_victim = victim
 	carbon_victim.Paralyze(5 SECONDS)
-	carbon_victim.apply_damage(20, BRUTE, BODY_ZONE_R_LEG)
-	carbon_victim.apply_damage(20, BRUTE, BODY_ZONE_L_LEG)
+	carbon_victim.take_direct_damage(20, BRUTE, zone = BODY_ZONE_R_LEG)
+	carbon_victim.take_direct_damage(20, BRUTE, zone = BODY_ZONE_L_LEG)
 	playsound(src, 'sound/magic/demon_attack1.ogg', 75, TRUE)
 
 /obj/structure/trap/eldritch/mad

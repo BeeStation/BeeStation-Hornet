@@ -95,7 +95,7 @@
 /datum/nanite_program/blood_restoring/check_conditions()
 	if(iscarbon(host_mob))
 		var/mob/living/carbon/C = host_mob
-		if(C.blood_volume >= BLOOD_VOLUME_SAFE)
+		if(C.blood.volume >= BLOOD_VOLUME_SAFE)
 			return FALSE
 	else
 		return FALSE
@@ -104,7 +104,7 @@
 /datum/nanite_program/blood_restoring/active_effect()
 	if(iscarbon(host_mob))
 		var/mob/living/carbon/C = host_mob
-		C.blood_volume += 2
+		C.blood.volume += 2
 
 /datum/nanite_program/repairing
 	name = "Mechanical Repair"

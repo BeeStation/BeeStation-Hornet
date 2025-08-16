@@ -384,7 +384,7 @@
 	if(. & EMP_PROTECT_CONTENTS)
 		return
 	selected_module?.deactivate(display_message = TRUE)
-	wearer.apply_damage(5 / severity, BURN)
+	wearer.take_direct_damage(5 / severity, BURN)
 	to_chat(wearer, span_danger("You feel [src] heat up from the EMP, burning you slightly."))
 	if(wearer.stat < UNCONSCIOUS && prob(10))
 		wearer.emote("scream")

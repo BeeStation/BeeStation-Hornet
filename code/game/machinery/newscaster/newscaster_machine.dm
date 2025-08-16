@@ -9,7 +9,6 @@
 	verb_say = "beeps"
 	verb_ask = "beeps"
 	verb_exclaim = "beeps"
-	armor_type = /datum/armor/machinery_newscaster
 	max_integrity = 200
 	integrity_failure = 0.25
 	///How much paper is contained within the newscaster?
@@ -60,12 +59,6 @@
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/newscaster, 30)
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
-
-
-/datum/armor/machinery_newscaster
-	melee = 50
-	fire = 50
-	acid = 30
 
 /obj/machinery/newscaster/Initialize(mapload, ndir, building)
 	. = ..()
@@ -601,10 +594,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 	if(!user.combat_mode)
 		to_chat(user, span_warning("The newscaster controls are far too complicated for your tiny brain!"))
 	else
-		take_damage(5, BRUTE, MELEE)
+		deal_damage(5, SHARP_III, BRUTE)
 
-/obj/machinery/newscaster/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
-	. = ..()
+/obj/machinery/newscaster/take_direct_damage(amount, type = BRUTE, flag = DAMAGE_STANDARD, zone = null)
+	..()
 	update_icon()
 
 /**

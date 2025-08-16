@@ -195,31 +195,49 @@
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = null
 
+/obj/item/bodypart/head/skeleton/setup_injury_trees()
+	apply_injury_tree(/datum/injury/trauma_healthy)
+
 /obj/item/bodypart/chest/skeleton
 	limb_id = SPECIES_SKELETON
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = null
 
+/obj/item/bodypart/head/skeleton/setup_injury_trees()
+	apply_injury_tree(/datum/injury/trauma_healthy)
+
 /obj/item/bodypart/l_arm/skeleton
 	limb_id = SPECIES_SKELETON
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = null
+
+/obj/item/bodypart/l_arm/skeleton/setup_injury_trees()
+	apply_injury_tree(/datum/injury/trauma_healthy)
 
 /obj/item/bodypart/r_arm/skeleton
 	limb_id = SPECIES_SKELETON
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = null
 
+/obj/item/bodypart/r_arm/skeleton/setup_injury_trees()
+	apply_injury_tree(/datum/injury/trauma_healthy)
+
 /obj/item/bodypart/l_leg/skeleton
 	limb_id = SPECIES_SKELETON
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = null
 
+/obj/item/bodypart/l_leg/skeleton/setup_injury_trees()
+	apply_injury_tree(/datum/injury/trauma_healthy)
+
 /obj/item/bodypart/r_leg/skeleton
 	limb_id = SPECIES_SKELETON
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = null
+
+/obj/item/bodypart/r_leg/skeleton/setup_injury_trees()
+	apply_injury_tree(/datum/injury/trauma_healthy)
 
 ///MUSHROOM
 /obj/item/bodypart/head/mushroom
@@ -248,26 +266,44 @@
 	is_dimorphic = FALSE
 	dmg_overlay_type = null
 
+/obj/item/bodypart/head/golem/setup_injury_trees()
+	return
+
 /obj/item/bodypart/chest/golem
 	limb_id = "golem"
 	is_dimorphic = FALSE
 	dmg_overlay_type = null
 
+/obj/item/bodypart/chest/golem/setup_injury_trees()
+	return
+
 /obj/item/bodypart/l_arm/golem
 	limb_id = "golem"
 	dmg_overlay_type = null
+
+/obj/item/bodypart/l_arm/golem/setup_injury_trees()
+	return
 
 /obj/item/bodypart/r_arm/golem
 	limb_id = "golem"
 	dmg_overlay_type = null
 
+/obj/item/bodypart/r_arm/golem/setup_injury_trees()
+	return
+
 /obj/item/bodypart/l_leg/golem
 	limb_id = "golem"
 	dmg_overlay_type = null
 
+/obj/item/bodypart/l_leg/golem/setup_injury_trees()
+	return
+
 /obj/item/bodypart/r_leg/golem
 	limb_id = "golem"
 	dmg_overlay_type = null
+
+/obj/item/bodypart/r_leg/golem/setup_injury_trees()
+	return
 
 ///
 /obj/item/bodypart/head/golem/alloy
@@ -534,8 +570,6 @@
 
 /obj/item/bodypart/head/pumpkin_man/get_limb_icon(dropped)
 	. = ..()
-	if(owner)
-		owner.cut_overlay(carved_overlay)
 	. += carved_overlay
 
 /obj/item/bodypart/chest/pumpkin_man

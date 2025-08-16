@@ -28,7 +28,7 @@
 	changed_species.mutantheart = dummy.dna.species.mutantheart
 	changed_species.mutantappendix = dummy.dna.species.mutantappendix
 	// and make sure they're not a NOBLOOD species so they need a heart
-	changed_species.inherent_traits -= TRAIT_NOBLOOD
+	changed_species.inherent_traits -= TRAIT_NO_BLOOD
 
 	// Now make them a lizard
 	dummy.set_species(changed_species)

@@ -242,7 +242,7 @@
 	ex_patient.AdjustKnockdown(-40 * delta_time)
 	ex_patient.AdjustParalyzed(-40 * delta_time)
 	ex_patient.AdjustImmobilized(-40 * delta_time)
-	ex_patient.AdjustUnconscious(-40 * delta_time)
+	ex_patient.take_consciousness_damage(-10 * delta_time)
 	if(ex_patient.reagents.get_reagent_amount(/datum/reagent/medicine/epinephrine) < 5)
 		ex_patient.reagents.add_reagent(/datum/reagent/medicine/epinephrine, 5)
 	chassis.use_power(energy_drain)

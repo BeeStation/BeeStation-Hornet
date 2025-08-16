@@ -125,7 +125,7 @@
 			shift_spell.trigger()
 			TEST_ASSERT(istype(dummy.loc, shift_spell.shapeshift_type), "Failed to transform into [shift_spell.shapeshift_type] using [shift_spell.name].")
 			var/mob/living/shifted_mob = dummy.loc
-			shifted_mob.apply_damage(shifted_mob.maxHealth * EXPECTED_HEALTH_RATIO, BRUTE, forced = TRUE)
+			shifted_mob.take_direct_damage(shifted_mob.maxHealth * EXPECTED_HEALTH_RATIO, BRUTE, DAMAGE_EXISTENTIAL)
 			TRIGGER_RESET_COOLDOWN(shift_spell)
 			TEST_ASSERT(!istype(dummy.loc, shift_spell.shapeshift_type), "Failed to unfransform from [shift_spell.shapeshift_type] using [shift_spell.name].")
 			TEST_ASSERT_EQUAL(dummy.get_total_damage(), dummy.maxHealth * EXPECTED_HEALTH_RATIO, "Failed to transfer damage from [shift_spell.shapeshift_type] to original form using [shift_spell.name].")

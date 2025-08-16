@@ -6,34 +6,36 @@
 			return facing_modifiers[MECHA_FRONT_ARMOUR]
 	return facing_modifiers[MECHA_SIDE_ARMOUR] //always return non-0
 
-/obj/vehicle/sealed/mecha/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
-	. = ..()
-	if(. && atom_integrity > 0)
+// Sharp attacks can damage the internals
+/obj/vehicle/sealed/mecha/take_sharpness_damage(amount, type, flag = DAMAGE_STANDARD, zone = null, sharpness = 0)
+	..()
+	if (atom_integrity > 0)
 		spark_system.start()
-		switch(damage_flag)
-			if(FIRE)
+		switch(flag)
+			if(DAMAGE_FIRE)
 				check_for_internal_damage(list(MECHA_INT_FIRE,MECHA_INT_TEMP_CONTROL))
-			if(MELEE)
+			if(DAMAGE_LASER)
+				check_for_internal_damage(list(MECHA_INT_FIRE,MECHA_INT_TEMP_CONTROL,MECHA_INT_CONTROL_LOST,MECHA_INT_SHORT_CIRCUIT))
+			if (DAMAGE_STANDARD)
 				check_for_internal_damage(list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST))
+			if (DAMAGE_ENERGY)
+				check_for_internal_damage(list(MECHA_INT_CONTROL_LOST,MECHA_INT_SHORT_CIRCUIT))
 			else
 				check_for_internal_damage(list(MECHA_INT_FIRE,MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST,MECHA_INT_SHORT_CIRCUIT))
-		if(. >= 5 || prob(33))
+		if(amount > 5 && prob(33))
 			to_chat(occupants, "[icon2html(src, occupants)][span_userdanger("Taking damage!")]")
-		log_message("Took [damage_amount] points of damage. Damage type: [damage_type].", LOG_MECHA)
+		log_message("Took [amount] points of damage. Damage type: [type].", LOG_MECHA)
 
-/obj/vehicle/sealed/mecha/run_atom_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	. = ..()
-	if(!damage_amount)
-		return 0
+/obj/vehicle/sealed/mecha/run_armour_damage(amount, penetration, type, flag, attack_dir, zone)
 	var/booster_deflection_modifier = 1
 	var/booster_damage_modifier = 1
-	if(damage_flag == BULLET || damage_flag == LASER || damage_flag == ENERGY)
+	if(flag == DAMAGE_LASER || flag == DAMAGE_ENERGY)
 		for(var/obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster/B in equipment)
 			if(B.projectile_react())
 				booster_deflection_modifier = B.deflect_coeff
 				booster_damage_modifier = B.damage_coeff
 				break
-	else if(damage_flag == MELEE)
+	else if(flag == DAMAGE_STANDARD)
 		for(var/obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster/B in equipment)
 			if(B.attack_react())
 				booster_deflection_modifier *= B.deflect_coeff
@@ -47,10 +49,9 @@
 	if(prob(deflect_chance * booster_deflection_modifier))
 		visible_message(span_danger("[src]'s armour deflects the attack!"))
 		log_message("Armor saved.", LOG_MECHA)
-		return 0
-	if(.)
-		. *= booster_damage_modifier
-
+		return
+	amount *= booster_damage_modifier
+	..()
 
 /obj/vehicle/sealed/mecha/attack_hand(mob/living/user)
 	. = ..()
@@ -69,7 +70,7 @@
 /obj/vehicle/sealed/mecha/attack_alien(mob/living/user)
 	log_message("Attack by alien. Attacker - [user].", LOG_MECHA, color="red")
 	playsound(src.loc, 'sound/weapons/slash.ogg', 100, 1)
-	attack_generic(user, 20, BRUTE, MELEE, 0)
+	attack_generic(user, 20, BRUTE, DAMAGE_STANDARD, 0)
 
 /obj/vehicle/sealed/mecha/attack_animal(mob/living/simple_animal/user)
 	log_message("Attack by simple animal. Attacker - [user].", LOG_MECHA, color="red")
@@ -86,7 +87,7 @@
 			animal_damage = user.obj_damage
 		animal_damage = min(animal_damage, 20*user.environment_smash)
 		log_combat(user, src, "attacked", user)
-		attack_generic(user, animal_damage, user.melee_damage_type, MELEE, play_soundeffect)
+		attack_generic(user, animal_damage, user.melee_damage_type, DAMAGE_STANDARD, play_soundeffect)
 		return 1
 
 
@@ -101,7 +102,7 @@
 
 /obj/vehicle/sealed/mecha/blob_act(obj/structure/blob/B)
 	log_message("Attack by blob. Attacker - [B].", LOG_MECHA, color="red")
-	take_damage(30, BRUTE, MELEE, 0, get_dir(src, B))
+	deal_damage(30, 0, BRUTE, dir = get_dir(src, B), sound = FALSE)
 
 /obj/vehicle/sealed/mecha/attack_tk()
 	return
@@ -117,7 +118,7 @@
 			var/mob/living/hitmob = m
 			hitmob.bullet_act(Proj) //If the sides are open, the occupant can be hit
 		return BULLET_ACT_HIT
-	log_message("Hit by projectile. Type: [Proj.name]([Proj.armor_flag]).", LOG_MECHA, color="red")
+	log_message("Hit by projectile. Type: [Proj.name]([Proj.damage_flag]).", LOG_MECHA, color="red")
 	. = ..()
 
 /obj/vehicle/sealed/mecha/ex_act(severity, target)
@@ -163,7 +164,7 @@
 		return
 	if(get_charge())
 		use_power((cell.charge/3)/(severity*2))
-		take_damage(30 / severity, BURN, ENERGY, 1)
+		deal_damage(30 / severity, 0, BURN, DAMAGE_ENERGY)
 	log_message("EMP detected", LOG_MECHA, color="red")
 
 	if(istype(src, /obj/vehicle/sealed/mecha/combat))
@@ -181,8 +182,7 @@
 
 /obj/vehicle/sealed/mecha/atmos_expose(datum/gas_mixture/air, exposed_temperature)
 	log_message("Exposed to dangerous temperature.", LOG_MECHA, color="red")
-	take_damage(5, BURN, 0, 1)
-
+	deal_damage(5, 0, BURN, DAMAGE_FIRE)
 
 /obj/vehicle/sealed/mecha/attackby(obj/item/W, mob/user, params)
 

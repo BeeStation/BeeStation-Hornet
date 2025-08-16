@@ -191,12 +191,6 @@
 	role = "Attorney"
 	plasmaman_outfit = /datum/outfit/plasmaman/centcom_attorney
 
-/datum/antagonist/ert/doomguy
-	name = "The Juggernaut"
-	outfit = /datum/outfit/centcom/death_commando/doomguy
-	random_names = FALSE
-	role = "The Juggernaut"
-
 /datum/antagonist/ert/clown
 	name = "Comedy Response Officer"
 	outfit = /datum/outfit/centcom/centcom_clown

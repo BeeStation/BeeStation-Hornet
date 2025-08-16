@@ -32,7 +32,8 @@
 		C.regenerate_organs()
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		H.restore_blood()
+		H.blood.restore_blood()
+		H.cauterise_wounds()
 		H.remove_all_embedded_objects()
 	return TRUE
 

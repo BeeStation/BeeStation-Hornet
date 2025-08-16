@@ -197,7 +197,7 @@
 	var/succeed = FALSE
 	if(organ_receiver.surgeries.len)
 		for(var/datum/surgery/procedure as anything in organ_receiver.surgeries)
-			if(procedure.location != organ.zone)
+			if(!(organ.slot in procedure.operated_bodypart.organ_slots))
 				continue
 			if(!istype(procedure, /datum/surgery/organ_manipulation))
 				continue

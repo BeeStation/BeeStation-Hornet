@@ -41,6 +41,8 @@
 #define RESTING_TRAIT "resting"
 //trait associated to a stat value or range of
 #define STAT_TRAIT "stat"
+// Critical condition trait
+#define FROM_CRITICAL_CONDITION "critical_condition"
 /// Trait associated to wearing a suit
 #define SUIT_TRAIT "suit"
 /// Trait associated to lying down (having a [lying_angle] of a different value than zero).
@@ -150,6 +152,12 @@
 #define IGNORING_GRAVITY_NEGATION "ignoring_gravity_negation"
 #define FROM_SHADOW_SECT "shadow_sect"
 #define FROM_NOOARTRIUM "nooartrium"
+#define FROM_UNCONSCIOUS "unconscious"
+#define FROM_DRUGS "drugs"
+#define FROM_HITPOINTS "hitpoints"
+#define FROM_HEART "heart"
+#define FROM_BREATH "breath"
+#define FROM_BRAIN "brain"
 
 /// Trait granted by [/mob/living/silicon/robot]
 /// Traits applied to a silicon mob by their module.

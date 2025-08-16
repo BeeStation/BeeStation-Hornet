@@ -25,3 +25,9 @@
 	MENTAL_UNSTABLE, \
 	MENTAL_INSANE, \
 )
+
+/// Possible application results
+#define MEDICAL_ITEM_NO_INTERCEPT 0
+#define MEDICAL_ITEM_APPLIED 1
+#define MEDICAL_ITEM_FAILED 2
+#define MEDICAL_ITEM_VALID 3

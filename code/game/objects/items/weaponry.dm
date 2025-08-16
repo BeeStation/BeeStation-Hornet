@@ -13,13 +13,7 @@
 	attack_verb_continuous = list("bans")
 	attack_verb_simple = list("ban")
 	max_integrity = 200
-	armor_type = /datum/armor/item_banhammer
 	resistance_flags = FIRE_PROOF
-
-
-/datum/armor/item_banhammer
-	fire = 100
-	acid = 70
 
 /obj/item/banhammer/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] is hitting [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to ban [user.p_them()]self from life."))
@@ -89,16 +83,9 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	block_upgrade_walk = TRUE
 	block_level = 1
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
-	sharpness = SHARP_DISMEMBER
-	bleed_force = BLEED_DEEP_WOUND
+	sharpness = SHARP_VI
 	max_integrity = 200
-	armor_type = /datum/armor/item_claymore
 	resistance_flags = FIRE_PROOF
-
-
-/datum/armor/item_claymore
-	fire = 100
-	acid = 50
 
 /obj/item/claymore/Initialize(mapload)
 	. = ..()
@@ -245,19 +232,13 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	force = 15
 	throwforce = 10
-	armour_penetration = 15
+	sharpness = SHARP_IV
 	w_class = WEIGHT_CLASS_LARGE
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	block_level = 0
 	block_power = 30
-	armor_type = /datum/armor/claymore_bone
-
-
-/datum/armor/claymore_bone
-	fire = 100
-	acid = 50
 
 /obj/item/katana
 	name = "katana"
@@ -280,16 +261,9 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	block_level = 1
 	block_upgrade_walk = TRUE
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
-	sharpness = SHARP_DISMEMBER
-	bleed_force = BLEED_DEEP_WOUND
+	sharpness = SHARP_IIX
 	max_integrity = 200
-	armor_type = /datum/armor/item_katana
 	resistance_flags = FIRE_PROOF
-
-
-/datum/armor/item_katana
-	fire = 100
-	acid = 50
 
 /obj/item/katana/cursed
 	slot_flags = null
@@ -353,12 +327,11 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	throwforce = 24
 	throw_speed = 4
 	embedding = list("pain_mult" = 4, "embed_chance" = 300, "fall_chance" = 0, "armour_block" = 70)
-	armour_penetration = 40
+	sharpness = SHARP_IV
 	w_class = WEIGHT_CLASS_SMALL
 	item_flags = ISWEAPON
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	sharpness = SHARP
-	bleed_force = BLEED_CUT
+	sharpness = SHARP_VI
 	custom_materials = list(/datum/material/iron=500, /datum/material/glass=500)
 	resistance_flags = FIRE_PROOF
 
@@ -371,7 +344,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 /obj/item/throwing_star/toy
 	name = "toy throwing star"
 	desc = "An aerodynamic disc strapped with adhesive for sticking to people, good for playing pranks and getting yourself killed by security."
-	sharpness = BLUNT
+	sharpness = SHARP_NONE
 	force = 0
 	throwforce = 0
 	embedding = list("pain_mult" = 0, "jostle_pain_mult" = 0, "embed_chance" = 300, "fall_chance" = 25, "armour_block" = 70)
@@ -424,8 +397,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 		attack_verb_continuous = list("slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 		attack_verb_simple = list("slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 		hitsound = 'sound/weapons/bladeslice.ogg'
-		sharpness = SHARP
-		bleed_force = BLEED_CUT
+		sharpness = SHARP_V
 	else
 		force = initial(force)
 		w_class = WEIGHT_CLASS_SMALL
@@ -434,8 +406,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 		attack_verb_continuous = list("stubs", "pokes")
 		attack_verb_simple = list("stub", "poke")
 		hitsound = 'sound/weapons/genhit.ogg'
-		sharpness = BLUNT
-		bleed_force = 0
+		sharpness = SHARP_NONE
 
 /obj/item/switchblade/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] is slitting [user.p_their()] own throat with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
@@ -513,7 +484,6 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
 	item_flags = ISWEAPON
-	armour_penetration = 100
 	attack_verb_continuous = list("bludgeons", "whacks", "disciplines")
 	attack_verb_simple = list("bludgeon", "whack", "discipline")
 	resistance_flags = FLAMMABLE
@@ -574,8 +544,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	throwforce = 0
 	throw_range = 0
 	throw_speed = 0
-	sharpness = SHARP_DISMEMBER
-	bleed_force = BLEED_DEEP_WOUND
+	sharpness = SHARP_VII
 	attack_verb_continuous = list("saws", "tears", "lacerates", "cuts", "chops", "dices")
 	attack_verb_simple = list("saw", "tear", "lacerate", "cut", "chop", "dice")
 	hitsound = 'sound/weapons/chainsaw_hit.ogg'
@@ -605,7 +574,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	name = "mounted energy chainsaw"
 	desc = "An energy chainsaw that has replaced your arm."
 	force = 40
-	armour_penetration = 50
+	sharpness = SHARP_IIX
 	hitsound = 'sound/weapons/energychainsaw_hit1.ogg'
 
 /obj/item/mounted_chainsaw/energy/Destroy()
@@ -624,7 +593,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	name = "mounted super energy chainsaw"
 	desc = "A super energy chainsaw that has replaced your arm."
 	force = 60
-	armour_penetration = 75
+	sharpness = SHARP_IIX
 	hitsound = 'sound/weapons/energychainsaw_hit1.ogg'
 
 /obj/item/mounted_chainsaw/super/Destroy()
@@ -988,23 +957,19 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 		if(H.check_shields(src, breakforce))
 			return
 		else
-			var/def_check = H.getarmor(type = MELEE)
-			H.apply_damage(stamforce, STAMINA, blocked = def_check)
+			H.deal_damage(stamforce, 0, STAMINA, zone = user.get_combat_bodyzone())
 	return ..()
 
 /obj/item/club/pre_attack(atom/A, mob/living/user, params)
 	force = initial(force)
-	armour_penetration = initial(armour_penetration)
 	if(isstructure(A) || ismachinery(A))
 		force *= 2.5
-		armour_penetration += 50
 		// To prevent unnecessary force string calculation (we want this to be treated
 		// as if it wasn't changed)
 		last_force_string_check = force
 		return ..()
 	else if(isturf(A))
 		force *= 1.5
-		armour_penetration += 50
 		last_force_string_check = force
 		return ..()
 
@@ -1038,8 +1003,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	force = 20
 	block_upgrade_walk = TRUE
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
-	sharpness = SHARP_DISMEMBER
-	bleed_force = BLEED_CUT
+	sharpness = SHARP_IV
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -1051,16 +1015,14 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	name = "vibro sword"
 	desc = "A potent weapon capable of cutting through nearly anything. Wielding it in two hands will allow you to deflect gunfire."
-	armour_penetration = 100
+	sharpness = SHARP_X
 	block_level = 1
 	block_upgrade_walk = 2
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
 	block_sound = 'sound/weapons/genhit.ogg'
-	force = 20
-	throwforce = 20
+	force = 15
+	throwforce = 25
 	throw_speed = 4
-	sharpness = SHARP_DISMEMBER
-	bleed_force = BLEED_CUT
 	attack_verb_continuous = list("cuts", "slices", "dices")
 	attack_verb_simple = list("cut", "slice", "dice")
 	w_class = WEIGHT_CLASS_BULKY

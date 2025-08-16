@@ -79,12 +79,16 @@
 	// Doesn't show the base notes for items that have the override notes variable set to true
 	if(!source.override_notes)
 		switch(source.sharpness)
-			if(SHARP)
-				readout += "It's sharp, capable of removing limbs off of a stationary target."
-			if(SHARP_DISMEMBER)
-				readout += "It's sharp and could cut through limbs, but only if the limb is already weakened."
-			if(SHARP_DISMEMBER_EASY)
-				readout += "It is very sharp and can slice through limbs like butter."
+			if (-INFINITY to SHARP_NONE)
+				readout += "It is blunt."
+			if (SHARP_NONE to SHARP_II)
+				readout += "It has a sharp edge which will result in bleeding."
+			if (SHARP_II to SHARP_V)
+				readout += "It is quite sharp, it will cause bleeding and internal damage to unarmoured opponents."
+			if (SHARP_V to SHARP_VII)
+				readout += "It is very sharp, penetrating most armour and causing internal damage."
+			if (SHARP_VII to INFINITY)
+				readout += "It is exceptionally sharp, penetrating most armours and causing internal damage."
 		// Make sure not to divide by 0 on accident
 		if(source.force > 0)
 			readout += "It takes about [span_warning("[HITS_TO_CRIT(source.force)] melee hit\s")] to take down an enemy."
@@ -95,8 +99,6 @@
 			readout += "It takes about [span_warning("[HITS_TO_CRIT(source.throwforce)] throwing hit\s")] to take down an enemy."
 		else
 			readout += "It does not deal noticeable throwing damage."
-		if(source.armour_penetration > 0 || source.block_level > 0)
-			readout += "It has [span_warning("[weapon_tag_convert(source.armour_penetration)]")] armor-piercing capability."
 
 		if(source.block_level || source.block_upgrade_walk)
 			//empty line

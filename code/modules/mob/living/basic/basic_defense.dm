@@ -54,7 +54,7 @@
 	visible_message(span_danger("[user] punches [src]!"), \
 					span_userdanger("You're punched by [user]!"), null, COMBAT_MESSAGE_RANGE, user)
 	to_chat(user, span_danger("You punch [src]!"))
-	apply_damage(15, damagetype = BRUTE)
+	deal_damage(15, 0, BRUTE)
 
 /mob/living/basic/attack_paw(mob/living/carbon/human/user, list/modifiers)
 	if(..()) //successful monkey bite.
@@ -122,7 +122,7 @@
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 	return ..()
 
-/mob/living/basic/proc/attack_threshold_check(damage, damagetype = BRUTE, armorcheck = MELEE, actuallydamage = TRUE)
+/mob/living/basic/proc/attack_threshold_check(damage, damagetype = BRUTE, armorcheck = DAMAGE_STANDARD, actuallydamage = TRUE)
 	var/temp_damage = damage
 	if(!damage_coeff[damagetype])
 		temp_damage = 0
@@ -131,13 +131,12 @@
 	if(temp_damage >= 0 && temp_damage <= force_threshold)
 		visible_message(span_warning("[src] looks unharmed!"))
 		return FALSE
-	else
-		if(actuallydamage)
-			apply_damage(damage, damagetype, blocked = getarmor(null, armorcheck))
+	else if(actuallydamage)
+		deal_damage(damage, 0, damagetype)
 		return TRUE
 
 /mob/living/basic/bullet_act(obj/projectile/Proj, def_zone, piercing_hit = FALSE)
-	apply_damage(Proj.damage, Proj.damage_type)
+	deal_damage(Proj.damage, Proj.sharpness, Proj.damage_type, Proj.damage_flag, zone = Proj.def_zone)
 	Proj.on_hit(src, 0, piercing_hit)
 	return BULLET_ACT_HIT
 
@@ -145,11 +144,11 @@
 	. = ..()
 	if(!. || QDELETED(src))
 		return
-	var/bomb_armor = getarmor(null, BOMB)
+	var/bomb_armor = get_armor_rating(ARMOUR_HEAT) * 0.5 + get_armor_rating(ARMOUR_ABSORPTION) * 0.5 + get_armor_rating(ARMOUR_BLUNT) * 0.5
 	switch (severity)
 		if (EXPLODE_DEVASTATE)
 			if(prob(bomb_armor))
-				apply_damage(500, damagetype = BRUTE)
+				deal_damage(500, 0, BRUTE, DAMAGE_BOMB)
 			else
 				investigate_log("has been gibbed by an explosion.", INVESTIGATE_DEATHS)
 				gib()
@@ -158,16 +157,16 @@
 			var/bloss = 60
 			if(prob(bomb_armor))
 				bloss = bloss / 1.5
-			apply_damage(bloss, damagetype = BRUTE)
+			deal_damage(bloss, 0, BRUTE, DAMAGE_BOMB)
 
 		if (EXPLODE_LIGHT)
 			var/bloss = 30
 			if(prob(bomb_armor))
 				bloss = bloss / 1.5
-			apply_damage(bloss, damagetype = BRUTE)
+			deal_damage(bloss, 0, BRUTE, DAMAGE_BOMB)
 
 /mob/living/basic/blob_act(obj/structure/blob/attacking_blob)
-	apply_damage(20, damagetype = BRUTE)
+	deal_damage(20, 0, BRUTE, DAMAGE_ABSORPTION)
 
 /mob/living/basic/do_attack_animation(atom/A, visual_effect_icon, used_item, no_effect)
 	if(!no_effect && !visual_effect_icon && melee_damage)
@@ -176,17 +175,6 @@
 		else
 			visual_effect_icon = ATTACK_EFFECT_SMASH
 	..()
-
-
-/mob/living/basic/update_stat()
-	if(status_flags & GODMODE)
-		return
-	if(stat != DEAD)
-		if(health <= 0)
-			death()
-		else
-			set_stat(CONSCIOUS)
-	med_hud_set_status()
 
 /mob/living/basic/emp_act(severity)
 	. = ..()
@@ -197,8 +185,8 @@
 	switch(severity)
 		if(EMP_LIGHT)
 			visible_message(span_danger("[src] shakes violently, its parts coming loose!"))
-			apply_damage(maxHealth * 0.6)
+			take_direct_damage(maxHealth * 0.6)
 			Shake(5, 5, 1 SECONDS)
 		if(EMP_HEAVY)
 			visible_message(span_danger("[src] suddenly bursts apart!"))
-			apply_damage(maxHealth)
+			take_direct_damage(maxHealth)

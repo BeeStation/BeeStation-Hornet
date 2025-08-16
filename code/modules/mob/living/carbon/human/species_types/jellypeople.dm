@@ -14,7 +14,7 @@
 		FACEHAIR,
 	)
 	inherent_traits = list(
-		TRAIT_NOBLOOD
+		TRAIT_NO_BLOOD
 	)
 	hair_color = "mutcolor"
 	hair_alpha = 150
@@ -40,7 +40,7 @@
 	bodies -= C // This means that the other bodies maintain a link
 	// so if someone mindswapped into them, they'd still be shared.
 	bodies = null
-	C.blood_volume = min(C.blood_volume, BLOOD_VOLUME_NORMAL)
+	C.blood.volume = min(C.blood.volume, BLOOD_VOLUME_NORMAL)
 	..()
 
 /datum/species/oozeling/slime/on_species_gain(mob/living/carbon/C, datum/species/old_species)
@@ -76,11 +76,11 @@
 	bodies = old_species.bodies
 
 /datum/species/oozeling/slime/spec_life(mob/living/carbon/human/H)
-	if(H.blood_volume >= BLOOD_VOLUME_SLIME_SPLIT)
+	if(H.blood.volume >= BLOOD_VOLUME_SLIME_SPLIT)
 		if(prob(5))
 			to_chat(H, span_notice("You feel very bloated!"))
 	else if(H.nutrition >= NUTRITION_LEVEL_WELL_FED)
-		H.blood_volume += 3
+		H.blood.volume += 3
 		H.adjust_nutrition(-2.5)
 
 	..()
@@ -95,7 +95,7 @@
 /datum/action/innate/split_body/is_available()
 	if(..())
 		var/mob/living/carbon/human/H = owner
-		if(H.blood_volume >= BLOOD_VOLUME_SLIME_SPLIT)
+		if(H.blood.volume >= BLOOD_VOLUME_SLIME_SPLIT)
 			return 1
 		return 0
 
@@ -116,7 +116,7 @@
 	H.notransform = TRUE
 
 	if(do_after(owner, delay = 6 SECONDS, target = owner, timed_action_flags = IGNORE_HELD_ITEM))
-		if(H.blood_volume >= BLOOD_VOLUME_SLIME_SPLIT)
+		if(H.blood.volume >= BLOOD_VOLUME_SLIME_SPLIT)
 			make_dupe()
 		else
 			to_chat(H, span_warning("...but there is not enough of you to go around! You must attain more mass to split!"))
@@ -147,7 +147,7 @@
 		spare.AddComponent(/datum/component/nanites, owner_nanites.nanite_volume)
 		SEND_SIGNAL(spare, COMSIG_NANITE_SYNC, owner_nanites, TRUE, TRUE, TRUE) //The trues are to copy activation as well
 
-	H.blood_volume *= 0.45
+	H.blood.volume *= 0.45
 	H.notransform = 0
 
 	var/datum/species/oozeling/slime/origin_datum = H.dna.species
@@ -222,7 +222,7 @@
 			occupied = "available"
 
 		L["status"] = stat
-		L["exoticblood"] = body.blood_volume
+		L["exoticblood"] = body.blood.volume
 		L["name"] = body.name
 		L["ref"] = "[REF(body)]"
 		L["occupied"] = occupied

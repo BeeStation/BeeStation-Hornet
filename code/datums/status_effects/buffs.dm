@@ -192,8 +192,8 @@
 			for(var/X in C.bodyparts)
 				var/obj/item/bodypart/BP = X
 				BP.max_damage *= 10
-				BP.brute_dam *= 10
-				BP.burn_dam *= 10
+				BP.set_brute_dam(BP.brute_dam * 10)
+				BP.set_burn_dam(BP.burn_dam * 10)
 		owner.toxloss *= 10
 		owner.oxyloss *= 10
 		owner.cloneloss *= 10
@@ -275,8 +275,8 @@
 		var/mob/living/carbon/C = owner
 		for(var/X in C.bodyparts)
 			var/obj/item/bodypart/BP = X
-			BP.brute_dam *= 0.1
-			BP.burn_dam *= 0.1
+			BP.set_brute_dam(BP.brute_dam * 0.1)
+			BP.set_burn_dam(BP.burn_dam * 0.1)
 			BP.max_damage /= 10
 	owner.toxloss *= 0.1
 	owner.oxyloss *= 0.1
@@ -554,7 +554,8 @@
 	owner.fire_stacks = 0
 	owner.set_blindness(0)
 	owner.set_blurriness(0)
-	owner.restore_blood()
+	owner.blood.restore_blood()
+	owner.cauterise_wounds()
 	owner.bodytemperature = owner.get_body_temp_normal()
 	if(istype(owner, /mob/living/carbon/human))
 		var/mob/living/carbon/human/humi = owner

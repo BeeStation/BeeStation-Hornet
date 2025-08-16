@@ -1,6 +1,10 @@
 /obj/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	..()
-	take_damage(AM.throwforce, BRUTE, MELEE, 1, get_dir(src, AM))
+	if (isitem(AM))
+		var/obj/item/thrown_item = AM
+		deal_damage(AM.throwforce, thrown_item.sharpness, BRUTE, dir = get_dir(src, AM), zone = throwingdatum.target_zone)
+	else
+		deal_damage(AM.throwforce, 0, BRUTE, dir = get_dir(src, AM), zone = throwingdatum.target_zone)
 
 /obj/ex_act(severity, target)
 	if(resistance_flags & INDESTRUCTIBLE)
@@ -10,22 +14,22 @@
 	if(QDELETED(src))
 		return
 	if(target == src)
-		take_damage(INFINITY, BRUTE, BOMB, 0)
+		deal_damage(INFINITY, 0, BRUTE, DAMAGE_BOMB, sound = 0)
 		return
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
-			take_damage(INFINITY, BRUTE, BOMB, 0)
+			deal_damage(INFINITY, 0, BRUTE, DAMAGE_BOMB, sound = 0)
 		if(EXPLODE_HEAVY)
-			take_damage(rand(100, 250), BRUTE, BOMB, 0)
+			deal_damage(rand(100, 250), 0, BRUTE, DAMAGE_BOMB, sound = 0)
 		if(EXPLODE_LIGHT)
-			take_damage(rand(10, 90), BRUTE, BOMB, 0)
+			deal_damage(rand(10, 90), 0, BRUTE, DAMAGE_BOMB, sound = 0)
 
 /obj/bullet_act(obj/projectile/P)
 	. = ..()
 	playsound(src, P.hitsound, 50, TRUE)
 	var/damage
 	if(!QDELETED(src)) //Bullet on_hit effect might have already destroyed this object
-		damage = take_damage(P.damage, P.damage_type, P.armor_flag, 0, turn(P.dir, 180), P.armour_penetration)
+		damage = deal_damage(P.damage, P.sharpness, P.damage_type, P.damage_flag, turn(P.dir, 180), FALSE, P.def_zone)
 	if(P.suppressed != SUPPRESSED_VERY)
 		visible_message(span_danger("[src] is hit by \a [P][damage ? "" : ", without leaving a mark"]!"), null, null, COMBAT_MESSAGE_RANGE)
 
@@ -37,7 +41,7 @@
 			user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ), forced="hulk")
 		else
 			playsound(src, 'sound/effects/bang.ogg', 50, 1)
-		take_damage(hulk_damage(), BRUTE, MELEE, 0, get_dir(src, user))
+		deal_damage(hulk_damage(), 0, BRUTE, null, get_dir(src, user), FALSE)
 		user.visible_message(span_danger("[user] smashes [src]!"), span_danger("You smash [src]!"), null, COMBAT_MESSAGE_RANGE)
 		return 1
 	return 0
@@ -49,10 +53,10 @@
 		var/turf/T = loc
 		if(T.underfloor_accessibility < UNDERFLOOR_INTERACTABLE && HAS_TRAIT(src, TRAIT_T_RAY_VISIBLE))
 			return
-	take_damage(400, BRUTE, MELEE, 0, get_dir(src, B))
+	deal_damage(400, 0, BRUTE, DAMAGE_STANDARD, 0, get_dir(src, B))
 
 /obj/attack_alien(mob/living/carbon/alien/humanoid/user)
-	if(attack_generic(user, 60, BRUTE, MELEE, 0))
+	if(attack_generic(user, 60, BRUTE, DAMAGE_STANDARD, 0))
 		playsound(src.loc, 'sound/weapons/slash.ogg', 100, 1)
 
 /obj/attack_animal(mob/living/simple_animal/M)
@@ -64,9 +68,9 @@
 		if(M.environment_smash)
 			play_soundeffect = 0
 		if(M.obj_damage)
-			. = attack_generic(M, M.obj_damage, M.melee_damage_type, MELEE, play_soundeffect, M.armour_penetration)
+			. = attack_generic(M, M.obj_damage, M.melee_damage_type, DAMAGE_STANDARD, play_soundeffect, M.sharpness)
 		else
-			. = attack_generic(M, M.melee_damage, M.melee_damage_type, MELEE, play_soundeffect, M.armour_penetration)
+			. = attack_generic(M, M.melee_damage, M.melee_damage_type, DAMAGE_STANDARD, play_soundeffect, M.sharpness)
 		if(. && !play_soundeffect)
 			playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
 
@@ -79,7 +83,7 @@
 
 /obj/proc/collision_damage(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	var/amt = max(0, ((force - (move_resist * MOVE_FORCE_CRUSH_RATIO)) / (move_resist * MOVE_FORCE_CRUSH_RATIO)) * 10)
-	take_damage(amt, BRUTE)
+	deal_damage(amt, 0, BRUTE)
 
 /obj/attack_slime(mob/living/simple_animal/slime/user, list/modifiers)
 	if(!user.is_adult)
@@ -87,7 +91,7 @@
 	var/damage = rand(15)
 	if(user.transformeffects & SLIME_EFFECT_RED)
 		damage *= 1.1
-	attack_generic(user, damage, MELEE, 1)
+	attack_generic(user, damage, DAMAGE_STANDARD, 1)
 
 /obj/singularity_act()
 	SSexplosions.high_mov_atom += src
@@ -117,11 +121,11 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 	. = 1
 	if(!(resistance_flags & ACID_PROOF))
 		for(var/armour_value in get_armor_rating())
-			if(armour_value != ACID && armour_value != FIRE)
+			if(armour_value != DAMAGE_ACID && armour_value != DAMAGE_FIRE)
 				set_armor(get_armor().generate_new_with_modifiers(list(0 - round(sqrt(acid_level)*0.1))))
 		if(prob(33))
 			playsound(loc, 'sound/items/welder.ogg', 150, 1)
-		take_damage(min(1 + round(sqrt(acid_level)*0.3), 300), BURN, ACID, 0)
+		deal_damage(min(1 + round(sqrt(acid_level)*0.3), 300), 0, BURN, DAMAGE_ACID, sound = FALSE)
 
 	acid_level = max(acid_level - (5 + 3*round(sqrt(acid_level))), 0)
 	if(!acid_level)
@@ -140,7 +144,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 		if(T.underfloor_accessibility < UNDERFLOOR_INTERACTABLE && HAS_TRAIT(src, TRAIT_T_RAY_VISIBLE))
 			return
 	if(exposed_temperature && !(resistance_flags & FIRE_PROOF))
-		take_damage(clamp(0.02 * exposed_temperature, 0, 20), BURN, FIRE, 0)
+		deal_damage(clamp(0.02 * exposed_temperature, 0, 20), 0, BURN, DAMAGE_FIRE, sound = FALSE)
 	if(!(resistance_flags & ON_FIRE) && (resistance_flags & FLAMMABLE) && !(resistance_flags & FIRE_PROOF))
 		resistance_flags |= ON_FIRE
 		SSfire_burning.processing[src] = src
@@ -185,9 +189,9 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 //what happens when the obj's integrity reaches zero.
 /obj/atom_destruction(damage_flag)
 	. = ..()
-	if(damage_flag == ACID)
+	if(damage_flag == DAMAGE_ACID)
 		acid_melt()
-	else if(damage_flag == FIRE)
+	else if(damage_flag == DAMAGE_FIRE)
 		burn()
 	else
 		deconstruct(FALSE)

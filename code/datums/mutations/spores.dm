@@ -27,12 +27,12 @@
 	var/datum/reagents/holder = new()
 	//If our user is a carbon, use their blood
 	var/mob/living/carbon/C = user
-	if(iscarbon(user) && C.blood_volume > 0)
-		C.blood_volume = max(0, C.blood_volume-15)
-		if(C.get_blood_id())
-			holder.add_reagent(C.get_blood_id(), min(C.blood_volume, 15))
+	if(iscarbon(user) && C.blood.volume > 0)
+		C.blood.volume = max(0, C.blood.volume-15)
+		if(C.blood.get_blood_id())
+			holder.add_reagent(C.blood.get_blood_id(), min(C.blood.volume, 15))
 		else
-			holder.add_reagent(/datum/reagent/blood, min(C.blood_volume, 15))
+			holder.add_reagent(/datum/reagent/blood, min(C.blood.volume, 15))
 	else
 		holder.add_reagent(/datum/reagent/drug/mushroomhallucinogen, 15)
 

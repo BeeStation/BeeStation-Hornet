@@ -239,7 +239,7 @@
 
 	var/mob/living/L = the_target
 	if(iscarbon(L))
-		L.apply_damage(20, STAMINA, BODY_ZONE_CHEST)
+		L.deal_damage(20, 0, STAMINA, zone = BODY_ZONE_CHEST)
 		L.Knockdown(3 SECONDS)
 		L.pulledby?.stop_pulling()
 		to_chat(L, span_alert("The vines knock you down"))
@@ -314,7 +314,7 @@
 
 		if(iscarbon(B.target)) // If they dont get away quickly, make them take constant stamina damage
 			var/mob/living/L = B.target
-			L.apply_damage(10, STAMINA, BODY_ZONE_CHEST)
+			L.deal_damage(10, 0, STAMINA, zone = BODY_ZONE_CHEST)
 			L.Knockdown(3 SECONDS)
 
 		if(get_dist(src, B.target) == 0)

@@ -66,7 +66,7 @@
 				M.add_splatter_floor(M.loc)
 				if(iscarbon(M))
 					var/mob/living/carbon/C = M
-					C.bleed(rand(1, 10))
+					C.blood.bleed(rand(1, 10))
 
 
 /datum/symptom/blobspores/OnDeath(datum/disease/advance/A)

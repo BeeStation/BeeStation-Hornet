@@ -7,8 +7,6 @@
 	sync_mind()
 	mind.show_memory(src, 0)
 
-
-	update_damage_hud()
 	update_health_hud()
 
 	var/turf/T = get_turf(src)

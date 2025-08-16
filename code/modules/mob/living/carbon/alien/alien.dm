@@ -31,6 +31,7 @@
 	return ..()
 
 /mob/living/carbon/alien/create_internal_organs()
+	// Will replace the consciousness variable upon insertion
 	internal_organs += new /obj/item/organ/brain/alien
 	internal_organs += new /obj/item/organ/alien/hivenode
 	internal_organs += new /obj/item/organ/tongue/alien
@@ -52,14 +53,14 @@
 		throw_alert("alien_fire", /atom/movable/screen/alert/alien_fire)
 		switch(bodytemperature)
 			if(360 to 400)
-				apply_damage(HEAT_DAMAGE_LEVEL_1 * delta_time, BURN)
+				take_direct_damage(HEAT_DAMAGE_LEVEL_1 * delta_time, BURN)
 			if(400 to 460)
-				apply_damage(HEAT_DAMAGE_LEVEL_2 * delta_time, BURN)
+				take_direct_damage(HEAT_DAMAGE_LEVEL_2 * delta_time, BURN)
 			if(460 to INFINITY)
 				if(on_fire)
-					apply_damage(HEAT_DAMAGE_LEVEL_3 * delta_time, BURN)
+					take_direct_damage(HEAT_DAMAGE_LEVEL_3 * delta_time, BURN)
 				else
-					apply_damage(HEAT_DAMAGE_LEVEL_2 * delta_time, BURN)
+					take_direct_damage(HEAT_DAMAGE_LEVEL_2 * delta_time, BURN)
 	else
 		clear_alert("alien_fire")
 

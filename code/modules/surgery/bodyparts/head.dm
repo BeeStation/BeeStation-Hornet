@@ -15,6 +15,20 @@
 	stam_damage_coeff = 1
 	max_stamina_damage = 100
 	is_dimorphic = TRUE
+	dismemberment_requires_death = TRUE
+	organ_slots = list(
+		ORGAN_SLOT_BRAIN,
+		ORGAN_SLOT_EARS,
+		ORGAN_SLOT_BREATHING_TUBE,
+		ORGAN_SLOT_EYES,
+		ORGAN_SLOT_HUD,
+		ORGAN_SLOT_TONGUE,
+		ORGAN_SLOT_VOICE,
+		ORGAN_SLOT_ADAMANTINE_RESONATOR,
+		ORGAN_SLOT_BRAIN_ANTIDROP,
+		ORGAN_SLOT_BRAIN_ANTISTUN,
+		ORGAN_SLOT_BRAIN_SURGICAL_IMPLANT
+	)
 
 	var/mob/living/brain/brainmob //The current occupant.
 	var/obj/item/organ/brain/brain //The brain organ
@@ -219,7 +233,7 @@
 				else if(bodytype & BODYTYPE_LARVA_PLACEHOLDER)
 					debrain_overlay.icon = 'icons/mob/animal_parts.dmi'
 					debrain_overlay.icon_state = "debrained_larva"
-				else if(!(TRAIT_NOBLOOD in species_flags_list))
+				else if(!(TRAIT_NO_BLOOD in species_flags_list))
 					debrain_overlay.icon = 'icons/mob/species/human/human_face.dmi'
 					debrain_overlay.icon_state = "debrained"
 				. += debrain_overlay

@@ -141,8 +141,44 @@
 	TEST_ASSERT_TRUE(HAS_TRAIT(target, TEST_TRAIT), "test failed")
 	TEST_ASSERT_TRUE(HAS_TRAIT(target, TEST_TRAIT_B), "test failed")
 	TEST_ASSERT_FALSE(HAS_TRAIT(target, TEST_TRAIT_C), "test failed")
-	// Handle a false-positive in spaceman DMM
-	return
+
+/datum/unit_test/additive_trait_distinct/Run()
+	var/atom/target = allocate(/atom/movable)
+	ADD_CUMULATIVE_TRAIT(target, TEST_TRAIT, SOURCE_A, 1)
+	TEST_ASSERT_TRUE(HAS_TRAIT(target, TEST_TRAIT), "test failed")
+	TEST_ASSERT_EQUAL(GET_TRAIT_VALUE(target, TEST_TRAIT), 1, "test failed")
+	ADD_CUMULATIVE_TRAIT(target, TEST_TRAIT, SOURCE_A, 2)
+	TEST_ASSERT_EQUAL(GET_TRAIT_VALUE(target, TEST_TRAIT), 2, "test failed")
+	ADD_CUMULATIVE_TRAIT(target, TEST_TRAIT, SOURCE_A, 3)
+	TEST_ASSERT_EQUAL(GET_TRAIT_VALUE(target, TEST_TRAIT), 3, "test failed")
+	REMOVE_TRAIT(target, TEST_TRAIT, SOURCE_A)
+	TEST_ASSERT_EQUAL(GET_TRAIT_VALUE(target, TEST_TRAIT), null, "test failed")
+	TEST_ASSERT_FALSE(HAS_TRAIT(target, TEST_TRAIT), "test failed")
+
+/datum/unit_test/multiplicative_trait_distinct/Run()
+	var/atom/target = allocate(/atom/movable)
+	ADD_CUMULATIVE_TRAIT(target, TEST_TRAIT, SOURCE_A, 1)
+	ADD_MULTIPLICATIVE_TRAIT(target, TEST_TRAIT, SOURCE_B, 1)
+	TEST_ASSERT_TRUE(HAS_TRAIT(target, TEST_TRAIT), "test failed")
+	TEST_ASSERT_EQUAL(GET_TRAIT_VALUE(target, TEST_TRAIT), 1, "test failed")
+	ADD_MULTIPLICATIVE_TRAIT(target, TEST_TRAIT, SOURCE_B, 2)
+	TEST_ASSERT_EQUAL(GET_TRAIT_VALUE(target, TEST_TRAIT), 2, "test failed")
+	ADD_MULTIPLICATIVE_TRAIT(target, TEST_TRAIT, SOURCE_B, 3)
+	TEST_ASSERT_EQUAL(GET_TRAIT_VALUE(target, TEST_TRAIT), 3, "test failed")
+	REMOVE_TRAIT(target, TEST_TRAIT, SOURCE_B)
+	TEST_ASSERT_EQUAL(GET_TRAIT_VALUE(target, TEST_TRAIT), 0, "test failed")
+	TEST_ASSERT_FALSE(HAS_TRAIT(target, TEST_TRAIT), "test failed")
+
+/datum/unit_test/trait_value_distinct/Run()
+	var/atom/target = allocate(/atom/movable)
+	ADD_VALUE_TRAIT(target, TEST_TRAIT, SOURCE_A, 5, 5)
+	ADD_VALUE_TRAIT(target, TEST_TRAIT, SOURCE_A, 6, 6)
+	ADD_VALUE_TRAIT(target, TEST_TRAIT, SOURCE_A, 4, 4)
+	ADD_VALUE_TRAIT(target, TEST_TRAIT, SOURCE_A, 7, 7)
+	ADD_VALUE_TRAIT(target, TEST_TRAIT, SOURCE_A, 2, 2)
+	TEST_ASSERT_EQUAL(GET_TRAIT_VALUE(target, TEST_TRAIT), 2, "test failed")
+	REMOVE_TRAIT(target, TEST_TRAIT, SOURCE_A)
+	TEST_ASSERT_NULL(GET_TRAIT_VALUE(target, TEST_TRAIT), "test failed")
 
 #undef TEST_TRAIT
 #undef TEST_TRAIT_B

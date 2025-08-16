@@ -8,13 +8,9 @@
 	. = ..()
 	handle_emp_damage(delta_time, times_fired)
 
-/mob/living/brain/update_stat()
-	if(status_flags & GODMODE)
-		return
-	if(health > HEALTH_THRESHOLD_DEAD)
-		return
-	if(stat != DEAD)
-		death()
+/// If the brain mob manages to die, we are super dead
+/mob/living/brain/death(gibbed)
+	. = ..()
 	var/obj/item/organ/brain/BR
 	if(container?.brain)
 		BR = container.brain

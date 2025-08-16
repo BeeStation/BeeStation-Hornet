@@ -20,7 +20,7 @@
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_NODISMEMBER,
 		TRAIT_NONECRODISEASE,
-		TRAIT_NOBLOOD,
+		TRAIT_NO_BLOOD,
 	)
 	mutantheart = null
 	mutantlungs = null
@@ -444,7 +444,7 @@
 
 /datum/species/golem/sand/bullet_act(obj/projectile/P, mob/living/carbon/human/H)
 	if(!(P.original == H && P.firer == H))
-		if(P.armor_flag == BULLET || P.armor_flag == BOMB)
+		if(P.damage_flag == DAMAGE_STANDARD || P.damage_flag == DAMAGE_BOMB)
 			playsound(H, 'sound/effects/shovel_dig.ogg', 70, 1)
 			H.visible_message(span_danger("The [P.name] sinks harmlessly in [H]'s sandy body!"), \
 			span_userdanger("The [P.name] sinks harmlessly in [H]'s sandy body!"))
@@ -476,7 +476,7 @@
 
 /datum/species/golem/glass/bullet_act(obj/projectile/P, mob/living/carbon/human/H)
 	if(!(P.original == H && P.firer == H)) //self-shots don't reflect
-		if(P.armor_flag == LASER || P.armor_flag == ENERGY)
+		if(P.damage_flag == DAMAGE_LASER || P.damage_flag == DAMAGE_ENERGY)
 			H.visible_message(span_danger("The [P.name] gets reflected by [H]'s glass skin!"), \
 			span_userdanger("The [P.name] gets reflected by [H]'s glass skin!"))
 			if(P.starting)
@@ -819,7 +819,7 @@
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_NODISMEMBER,
 		TRAIT_CHUNKYFINGERS,
-		TRAIT_NOBLOOD,
+		TRAIT_NO_BLOOD,
 		TRAIT_NO_DNA_COPY,
 		TRAIT_NO_TRANSFORMATION_STING,
 	)
@@ -924,7 +924,6 @@
 	name = "pile of bandages"
 	desc = "It emits a strange aura, as if there was still life within it..."
 	max_integrity = 50
-	armor_type = /datum/armor/structure_cloth_pile
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "pile_bandages"
 	resistance_flags = FLAMMABLE
@@ -933,16 +932,6 @@
 	var/mob/living/carbon/human/cloth_golem
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
-
-
-/datum/armor/structure_cloth_pile
-	melee = 90
-	bullet = 90
-	laser = 25
-	energy = 80
-	bomb = 50
-	fire = -50
-	acid = -50
 
 /obj/structure/cloth_pile/Initialize(mapload, mob/living/carbon/human/H)
 	. = ..()
@@ -1023,7 +1012,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 /datum/species/golem/bronze/bullet_act(obj/projectile/P, mob/living/carbon/human/H)
 	if(!(world.time > last_gong_time + gong_cooldown))
 		return ..()
-	if(P.armor_flag == BULLET || P.armor_flag == BOMB)
+	if(P.damage_flag == DAMAGE_STANDARD || P.damage_flag == DAMAGE_BOMB)
 		gong(H)
 		return ..()
 
@@ -1093,7 +1082,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		TRAIT_RADIMMUNE,
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_NODISMEMBER,
-		TRAIT_NOBLOOD,
+		TRAIT_NO_BLOOD,
 		TRAIT_NO_DNA_COPY,
 		TRAIT_NO_TRANSFORMATION_STING,
 	)
@@ -1180,7 +1169,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		TRAIT_RADIMMUNE,
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_NODISMEMBER,
-		TRAIT_NOBLOOD,
+		TRAIT_NO_BLOOD,
 		TRAIT_NO_DNA_COPY,
 		TRAIT_NO_TRANSFORMATION_STING,
 	)
@@ -1221,7 +1210,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_NODISMEMBER,
 		TRAIT_FAKEDEATH,
-		TRAIT_NOBLOOD,
+		TRAIT_NO_BLOOD,
 	)
 	species_language_holder = /datum/language_holder/golem/bone
 	info_text = "As a " + span_danger("Bone Golem") + ", You have a powerful spell that lets you chill your enemies with fear, and milk heals you! Just make sure to watch our for bone-hurting juice."
@@ -1316,7 +1305,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		TRAIT_RADIMMUNE,
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_NODISMEMBER,
-		TRAIT_NOBLOOD,
+		TRAIT_NO_BLOOD,
 		TRAIT_NO_DNA_COPY,
 		TRAIT_NO_TRANSFORMATION_STING,
 	)

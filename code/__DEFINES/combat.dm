@@ -7,6 +7,11 @@
 #define BRUTE "brute"
 /// Scorching and charring of the material.
 #define BURN "burn"
+/// Conciousness damage. Unlike stamina damage, this
+/// damage type stacks up with regular damage and will
+/// result in you falling unconcious if you go over the crit
+/// limit. Heals naturally over time
+#define CONSCIOUSNESS "consciousness"
 /// Poisoning. Mostly caused by reagents.
 #define TOX "toxin"
 /// Suffocation.
@@ -20,43 +25,55 @@
 
 //Damage flag defines //
 
-/// Involves corrosive substances.
-#define ACID "acid"
-/// Involved in checking if a disease can infect or spread. Also involved in xeno neurotoxin.
-#define BIO "bio"
-/// Bleed prevention
-#define BLEED "bleed"
+#define ARMOUR_PENETRATION "penetration"
+#define ARMOUR_BLUNT "blunt"
+#define ARMOUR_ABSORPTION "absorption"
+#define ARMOUR_REFLECTIVITY "reflectivity"
+#define ARMOUR_HEAT "heat"
+
+/// Involves corrosive substances and rust.
+/// 100% absorption
+/// 100% blunt
+#define DAMAGE_ACID "acid"
+/// Caused by an item protecting a human from an attack
+/// 100% absorption
+#define DAMAGE_ABSORPTION "absorption"
 /// Involves a shockwave, usually from an explosion.
-#define BOMB "bomb"
-/// Involves a solid projectile.
-#define BULLET "bullet"
-/// Involves being eaten
-#define CONSUME "consume"
+/// 50% heat
+/// 50% absorption
+/// 50% blunt
+#define DAMAGE_BOMB "bomb"
 /// Involves an EMP or energy-based projectile.
-#define ENERGY "energy"
+/// 100% reflectivity
+#define DAMAGE_ENERGY "energy"
 /// Involves fire or temperature extremes.
-#define FIRE "fire"
+/// 100% heat
+#define DAMAGE_FIRE "fire"
 /// Involves a laser.
-#define LASER "laser"
-/// Involves a melee attack or a thrown object.
-#define MELEE "melee"
-/// Involves ionizing radiation.
-#define RAD	"rad"
-/*
-/// Involved in checking the likelihood of applying a wound to a mob.
-#define WOUND "wound"
-*/
+/// 50% reflectivity
+/// 50% heat
+#define DAMAGE_LASER "laser"
+/// Damaged caused by shocking items like stun batons
+/// 50% blunt
+/// 50% absorption
+/// 50% reflectivity
+#define DAMAGE_SHOCK "shock"
+/// Standard penetration based damage
+/// 100% blunt, with sharpness converting to blunt
+#define DAMAGE_STANDARD "standard"
+/// Damage caused by the universe and the powers that be. No injuries applied.
+#define DAMAGE_EXISTENTIAL "existential"
 
 #define ARMOR_ALL "all_damage_types"
 
 /// Armor values that are used for damage
-#define ARMOR_LIST_DAMAGE list(MELEE, BULLET, LASER, ENERGY, BOMB, BIO, RAD, STAMINA, BLEED)
+#define ARMOR_LIST_DAMAGE list(ARMOUR_PENETRATION, ARMOUR_BLUNT, ARMOUR_REFLECTIVITY, ARMOUR_HEAT)
 
 /// Armor values that are used for durability
-#define ARMOR_LIST_DURABILITY list(ACID, FIRE)
+#define ARMOR_LIST_DURABILITY list(ARMOUR_ABSORPTION)
 
 /// All armors, preferable in the order as seen above
-#define ARMOR_LIST_ALL list(MELEE, BULLET, LASER, ENERGY, BOMB, BIO, RAD, STAMINA, BLEED, ACID, FIRE)
+#define ARMOR_LIST_ALL list(ARMOUR_PENETRATION, ARMOUR_BLUNT, ARMOUR_REFLECTIVITY, ARMOUR_HEAT, ARMOUR_ABSORPTION)
 
 //bitflag damage defines used for suicide_act
 #define BRUTELOSS (1<<0)
@@ -92,6 +109,27 @@
 #define HEALTH_THRESHOLD_DEAD -100
 
 #define HEALTH_THRESHOLD_NEARDEATH -90 //Not used mechanically, but to determine if someone is so close to death they hear the other side
+
+//Combat numbers
+
+// The number that is considered to be protected from basic attacks
+#define UNPROTECTED_ARMOUR_RATING 30
+// The multiplier to sharpness damage applied to the body for when the user has no sharpness protection at all.
+#define UNPROTECTED_SHARPNESS_DAMAGE_MULTIPLIER 1.5
+// The multiplier to the sharpness limb damage value when the user has no sharpness protection.
+// This doesn't apply additional brute/burn damage, but will apply additional organ/injury damage.
+// Note that this applies on top of the damage modifier above, so 2 * 1.5 = 3
+#define UNPROTECTED_SHARPNESS_INJURY_MULTIPLIER 2
+// The multiplier to blunt damage if we aren't protected.
+// Affected by BLUNT_DAMAGE_APPLIED_MULTIPLIER, so this restores
+// full damage to unprotected targets
+#define UNPROTECTED_BLUNT_DAMAGE_MULTIPLIER 2
+// How much conciousness damage we take from blunt damage
+#define BLUNT_DAMAGE_CONSCIOUSNESS_MULTIPLIER 0.85
+// How much consciousness damage is applied for head attacks
+#define BLUNT_DAMAGE_CONSCIOUSNESS_HEAD_MULTIPLIER 1.4
+// How much actual damage we take from blunt damage
+#define BLUNT_DAMAGE_APPLIED_MULTIPLIER 0.65
 
 //Actual combat defines
 
@@ -232,11 +270,32 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 #define BLOCKING_NASTY				(1<<2) //if it parries a bare hand, will the attacker be hurt?
 #define BLOCKING_HUNTER				(1<<3) //is the item more suited to fighting fauna?
 
-// Object/Item sharpness
-#define BLUNT					0	//Can only remove limbs if they're easy to remove
-#define SHARP					1	//Can only remove limbs if target is dead
-#define SHARP_DISMEMBER			2	//Can only remove limbs if the limb is already disabled
-#define SHARP_DISMEMBER_EASY	3	//Has a chance equal to weapon force to remove limb on every attack, in some cases taking them off in one swing
+/// Completely blunt weapon, will not penetrate anything
+#define SHARP_NONE 0
+/// Extremely weak, protected by basically any amount of armour but will deal
+/// some additional damage to unarmoured targets. Utensils, rods, etc.
+#define SHARP_I 10
+/// Glass Shards
+#define SHARP_II 20
+/// Knives
+#define SHARP_III 30
+/// Larger knives / cleavers
+#define SHARP_IV 40
+/// 45 - CAN DISMBEMBER
+/// Fire-axes
+#define SHARP_V 50
+/// Cult/Antag Weapons
+#define SHARP_VI 60
+/// Energy Swords, Katanas
+#define SHARP_VII 70
+/// Katanas, Weak Bullets
+#define SHARP_IIX 80
+/// Medium Bullets
+#define SHARP_IX 90
+/// Powerful Bullets
+#define SHARP_X 100
+/// Armour-piercing bullets
+#define SHARP_XII 120
 
 //! ### His Grace.
 #define HIS_GRACE_SATIATED 0 //! He hungers not. If bloodthirst is set to this, His Grace is asleep.
@@ -314,3 +373,30 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 #define ENERGY_SHIELD_INVISIBLE (1 << 2)
 /// Energy shield will take max damage when EMP'd
 #define ENERGY_SHIELD_EMP_VULNERABLE (1 << 3)
+
+/// Amount of damage needed before the slowdown starts
+#define DAMAGE_SLOWDOWN_START 40
+/// Amount of slowdown the player has when at 100 damage
+#define DAMAGE_SLOWDOWN_CRIT 0.8
+/// Multiplier to slowdown when the mob is flying
+#define DAMAGE_SLOWDOWN_FLYING_MULTIPLIER 0.333
+
+/// No priority
+#define INJURY_PRIORITY_NONE 0
+/// The injury is healing
+#define INJURY_PRIORITY_HEALING 1
+/// Show these over the top of healing injuries.
+#define INJURY_PRIORITY_ACTIVE 2
+
+/// Injury absorption duration
+#define INJURY_ABSORPTION_DURATION (30 SECONDS)
+
+/// Maximum amount of hypoxia damage an organ can take per tick
+#define MAX_HYPOXIA_DAMAGE_PER_TICK 2
+
+/// How much hypoxia damage do organs heal per tick?
+/// This is important as it defines how long it takes for someone
+/// to get out of critical condition when the brain is suffering hypoxia.
+/// The brain has 200 health and we regain consciousness after the brain
+/// heals to 100 hypoxia damage or less.
+#define HYPOXIA_HEAL_PER_TICK 2

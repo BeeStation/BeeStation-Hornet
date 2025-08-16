@@ -1,16 +1,16 @@
-/obj/item/modular_computer/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
+/obj/item/modular_computer/deal_damage(amount, penetration, type, flag, dir, sound, zone)
 	. = ..()
-	var/component_probability = min(50, max(damage_amount*0.1, 1 - atom_integrity/max_integrity))
-	switch(damage_flag)
-		if(BULLET)
-			component_probability = damage_amount * 0.5
-		if(LASER)
-			component_probability = damage_amount * 0.66
+	var/component_probability = min(50, max(amount*0.1, 1 - atom_integrity/max_integrity))
+	switch(flag)
+		if(DAMAGE_STANDARD)
+			component_probability = amount * 0.5
+		if(DAMAGE_LASER)
+			component_probability = amount * 0.66
 	if(component_probability)
 		for(var/I in all_components)
 			var/obj/item/computer_hardware/H = all_components[I]
 			if(prob(component_probability))
-				H.take_damage(round(damage_amount*0.5), damage_type, damage_flag, 0)
+				H.deal_damage(round(amount*0.5), penetration, type, flag, dir, FALSE, zone)
 
 
 /obj/item/modular_computer/deconstruct(disassembled = TRUE)

@@ -41,11 +41,10 @@
 
 //Face Scratch, deals 10 brute to head(reduced by armor), blurs the target's vision and gives them the confused effect for a short time.
 /datum/martial_art/tribal_claw/proc/faceScratch(mob/living/A, mob/living/D)
-	var/def_check = D.getarmor(BODY_ZONE_HEAD, MELEE)
 	log_combat(A, D, "face scratched (Tribal Claw)", name)
 	D.visible_message(span_warning("[A] scratches [D]'s face with their claws!"), \
 						span_userdanger("[A] scratches your face with their claws!"))
-	D.apply_damage(10, BRUTE, BODY_ZONE_HEAD, def_check)
+	D.deal_damage(10, A.get_attack_sharpness(), BRUTE, zone = BODY_ZONE_HEAD)
 	D.confused += 5
 	D.blur_eyes(5)
 	A.do_attack_animation(D, ATTACK_EFFECT_CLAW)
@@ -56,12 +55,11 @@ Jugular Cut, can only be done if the target is in crit, being held in a tier 3 g
 Deals 15 brute to head(reduced by armor) and causes a rapid bleeding effect similar to throat slicing someone with a sharp item.
 */
 /datum/martial_art/tribal_claw/proc/jugularCut(mob/living/A, mob/living/D)
-	var/def_check = D.getarmor(BODY_ZONE_HEAD, MELEE)
 	if((D.health <= D.crit_threshold || (A.pulling == D && A.grab_state >= GRAB_NECK) || D.IsSleeping()))
 		log_combat(A, D, "jugular cut (Tribal Claw)", name)
 		D.visible_message(span_warning("[A] cuts [D]'s jugular vein with their claws!"), \
 							span_userdanger("[A] cuts your jugular vein!"))
-		D.apply_damage(15, BRUTE, BODY_ZONE_HEAD, def_check)
+		D.deal_damage(15, A.get_attack_sharpness(), BRUTE, zone = BODY_ZONE_HEAD)
 		if(iscarbon(D))
 			var/mob/living/carbon/carbon_defender = D
 			carbon_defender.add_bleeding(BLEED_SURFACE)

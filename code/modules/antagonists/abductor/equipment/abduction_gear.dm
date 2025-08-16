@@ -13,7 +13,7 @@
 	icon_state = "vest_stealth"
 	item_state = "armor"
 	blood_overlay_type = "armor"
-	armor_type = /datum/armor/abductor_vest
+	armor_type = /datum/armor/military_light_armor
 	actions_types = list(/datum/action/item_action/hands_free/activate)
 	allowed = list(
 		/obj/item/abductor,
@@ -31,32 +31,6 @@
 	var/combat_cooldown = 20
 	var/datum/icon_snapshot/disguise
 
-/datum/armor/abductor_combat
-	melee = 50
-	bullet = 50
-	laser = 50
-	energy = 50
-	bomb = 50
-	rad = 15
-	bio = 50
-	fire = 90
-	acid = 90
-	stamina = 30
-	bleed = 40
-
-/datum/armor/abductor_vest
-	melee = 15
-	bullet = 15
-	laser = 15
-	energy = 25
-	bomb = 15
-	rad = 50
-	bio = 15
-	fire = 70
-	acid = 70
-	stamina = 60
-	bleed = 80
-
 /obj/item/clothing/suit/armor/abductor/vest/proc/toggle_nodrop()
 	if(HAS_TRAIT_FROM(src, TRAIT_NODROP, ABDUCTOR_VEST_TRAIT))
 		REMOVE_TRAIT(src, TRAIT_NODROP, ABDUCTOR_VEST_TRAIT)
@@ -70,11 +44,11 @@
 		if(VEST_STEALTH)
 			mode = VEST_COMBAT
 			DeactivateStealth()
-			set_armor(/datum/armor/abductor_combat)
+			set_armor(/datum/armor/military_light_armor)
 			icon_state = "vest_combat"
 		if(VEST_COMBAT)// TO STEALTH
 			mode = VEST_STEALTH
-			set_armor(/datum/armor/abductor_vest)
+			set_armor(/datum/armor/civilian_light_armor)
 			icon_state = "vest_stealth"
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
@@ -145,7 +119,7 @@
 			return
 		var/mob/living/carbon/human/M = loc
 		M.adjustStaminaLoss(-75)
-		M.SetUnconscious(0)
+		M.take_consciousness_damage(-INFINITY)
 		M.SetStun(0)
 		M.SetKnockdown(0)
 		M.SetImmobilized(0)
@@ -935,12 +909,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon_state = "abductor"
 	item_state = "bl_suit"
 	worn_icon = 'icons/mob/clothing/under/syndicate.dmi'
-	armor_type = /datum/armor/under_abductor
 	can_adjust = FALSE
-
-/datum/armor/under_abductor
-	bomb = 10
-	bio = 10
 
 #undef VEST_STEALTH
 #undef VEST_COMBAT

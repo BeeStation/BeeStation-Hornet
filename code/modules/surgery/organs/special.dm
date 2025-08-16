@@ -3,7 +3,6 @@
 	desc = "An apid stinger. Who pissed off the bee?"
 	visual = FALSE
 	icon_state = "beestinger"
-	zone = BODY_ZONE_PRECISE_GROIN
 	slot = ORGAN_SLOT_TAIL
 	actions_types = list(/datum/action/item_action/organ_action/use/bee_sting)
 

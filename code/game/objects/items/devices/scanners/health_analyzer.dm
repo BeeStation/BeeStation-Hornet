@@ -198,20 +198,27 @@
 	// Body part damage report
 	if(iscarbon(target))
 		var/mob/living/carbon/carbontarget = target
-		var/list/damaged = carbontarget.get_damaged_bodyparts(1,1)
+		var/list/damaged = carbontarget.get_damaged_bodyparts(TRUE, TRUE, FALSE, TRUE)
 		if(length(damaged)>0 || oxy_loss>0 || tox_loss>0 || fire_loss>0)
-			var/dmgreport = "<span class='info ml-1'>General status:</span>\
-							<table class='ml-2'><tr><font face='Verdana'>\
-							<td style='width:7em;'><font color='#ff0000'><b>Damage:</b></font></td>\
-							<td style='width:5em;'><font color='#ff3333'><b>Brute</b></font></td>\
-							<td style='width:4em;'><font color='#ff9933'><b>Burn</b></font></td>\
-							<td style='width:4em;'><font color='#00cc66'><b>Toxin</b></font></td>\
-							<td style='width:8em;'><font color='#00cccc'><b>Suffocation</b></font></td></tr>\
-							<tr><td><font color='#ff3333'><b>Overall:</b></font></td>\
-							<td><font color='#ff3333'><b>[CEILING(brute_loss,1)]</b></font></td>\
-							<td><font color='#ff9933'><b>[CEILING(fire_loss,1)]</b></font></td>\
-							<td><font color='#00cc66'><b>[CEILING(tox_loss,1)]</b></font></td>\
-							<td><font color='#33ccff'><b>[CEILING(oxy_loss,1)]</b></font></td></tr>"
+			var/dmgreport = {"
+<span class='info ml-1'>General status:</span>
+<table class='ml-2' style='width:100%'>
+	<tr><font face='Verdana'>
+		<td style='width:7em;'><font color='#ff0000'><b>Damage:</b></font></td>
+		<td style='width:5em;'><font color='#ff3333'><b>Brute</b></font></td>
+		<td style='width:4em;'><font color='#ff9933'><b>Burn</b></font></td>
+		<td style='width:4em;'><font color='#00cc66'><b>Toxin</b></font></td>
+		<td style='width:8em;'><font color='#00cccc'><b>Suffocation</b></td>
+		<td style='width:calc(100%-28em);'><font color='#7c7c7c'><b>Injuries</b></td>
+	</font></tr>
+	<tr>
+		<td><font color='#ff3333'><b>Overall:</b></font></td>
+		<td><font color='#ff3333'><b>[CEILING(brute_loss,1)]</b></font></td>
+		<td><font color='#ff9933'><b>[CEILING(fire_loss,1)]</b></font></td>
+		<td><font color='#00cc66'><b>[CEILING(tox_loss,1)]</b></font></td>
+		<td><font color='#33ccff'><b>[CEILING(oxy_loss,1)]</b></font></td>
+		<td></td>
+	</tr>"}
 
 			if(mode == SCANNER_VERBOSE)
 				for(var/obj/item/bodypart/limb as anything in damaged)
@@ -220,7 +227,19 @@
 					else
 						dmgreport += "<tr><td><font color='#cc3333'>[capitalize(limb.plaintext_zone)]:</font></td>"
 					dmgreport += "<td><font color='#cc3333'>[(limb.brute_dam > 0) ? "[CEILING(limb.brute_dam,1)]" : "0"]</font></td>"
-					dmgreport += "<td><font color='#ff9933'>[(limb.burn_dam > 0) ? "[CEILING(limb.burn_dam,1)]" : "0"]</font></td></tr>"
+					dmgreport += "<td><font color='#ff9933'>[(limb.burn_dam > 0) ? "[CEILING(limb.burn_dam,1)]" : "0"]</font></td>"
+					dmgreport += "<td></td>"
+					dmgreport += "<td></td>"
+					var/list/injury_texts = list()
+					for (var/datum/injury/injury in limb.injuries)
+						if (!injury.examine_description)
+							continue
+						if (injury.heal_description)
+							injury_texts += span_tooltip(injury.heal_description, injury.examine_description)
+						else
+							injury_texts += injury.examine_description
+					dmgreport += "<td>[jointext(injury_texts, ", ")]</td>"
+					dmgreport += "</tr>"
 			dmgreport += "</font></table>"
 			render_list += dmgreport // tables do not need extra linebreak
 		for(var/obj/item/bodypart/limb as anything in carbontarget.bodyparts)
@@ -250,7 +269,7 @@
 			var/missing_organs = list()
 			if(!humantarget.get_organ_slot(ORGAN_SLOT_BRAIN))
 				missing_organs += "brain"
-			if(!HAS_TRAIT_FROM(humantarget, TRAIT_NOBLOOD, SPECIES_TRAIT) && !humantarget.get_organ_slot(ORGAN_SLOT_HEART))
+			if(!HAS_TRAIT_FROM(humantarget, TRAIT_NO_BLOOD, SPECIES_TRAIT) && !humantarget.get_organ_slot(ORGAN_SLOT_HEART))
 				missing_organs += "heart"
 			if(!HAS_TRAIT_FROM(humantarget, TRAIT_NOBREATH, SPECIES_TRAIT) && !humantarget.get_organ_slot(ORGAN_SLOT_LUNGS))
 				missing_organs += "lungs"
@@ -343,24 +362,24 @@
 	// Blood Level
 	if(target.has_dna())
 		var/mob/living/carbon/carbontarget = target
-		var/blood_id = carbontarget.get_blood_id()
+		var/blood_id = carbontarget.blood.get_blood_id()
 		if(blood_id)
 			if(carbontarget.is_bleeding())
 				render_list += "<span class='alert ml-1'><b>Subject is bleeding at a rate of [round(carbontarget.get_bleed_rate(), 0.1)]/s!</b></span>\n"
 			else if (carbontarget.is_bandaged())
 				render_list += "<span class='alert ml-1'><b>Subject is bleeding (Bandaged)!</b></span>\n"
-			var/blood_percent = round((carbontarget.blood_volume / BLOOD_VOLUME_NORMAL) * 100)
+			var/blood_percent = round((carbontarget.blood.volume / BLOOD_VOLUME_NORMAL) * 100)
 			var/blood_type = carbontarget.dna.blood_type
 			if(blood_id != /datum/reagent/blood) // special blood substance
 				var/datum/reagent/R = GLOB.chemical_reagents_list[blood_id]
 				blood_type = R ? R.name : blood_id
 			var/blood_info = "[blood_type] (Compatible: [jointext(get_safe_blood(blood_type), ", ")])"
-			if(carbontarget.blood_volume <= BLOOD_VOLUME_SAFE && carbontarget.blood_volume > BLOOD_VOLUME_OKAY)
-				render_list += "<span class='alert ml-1'>Blood level: LOW [blood_percent] %, [carbontarget.blood_volume] cl,</span> [span_info("type: [blood_info]")]\n"
-			else if(carbontarget.blood_volume <= BLOOD_VOLUME_OKAY)
-				render_list += "<span class='alert ml-1'>Blood level: <b>CRITICAL [blood_percent] %</b>, [carbontarget.blood_volume] cl,</span> [span_info("type: [blood_type]")]\n"
+			if(carbontarget.blood.volume <= BLOOD_VOLUME_SAFE && carbontarget.blood.volume > BLOOD_VOLUME_OKAY)
+				render_list += "<span class='alert ml-1'>Blood level: LOW [blood_percent] %, [carbontarget.blood.volume] cl,</span> [span_info("type: [blood_info]")]\n"
+			else if(carbontarget.blood.volume <= BLOOD_VOLUME_OKAY)
+				render_list += "<span class='alert ml-1'>Blood level: <b>CRITICAL [blood_percent] %</b>, [carbontarget.blood.volume] cl,</span> [span_info("type: [blood_type]")]\n"
 			else
-				render_list += "<span class='info ml-1'>Blood level: [blood_percent] %, [carbontarget.blood_volume] cl, type: [blood_type]</span>\n"
+				render_list += "<span class='info ml-1'>Blood level: [blood_percent] %, [carbontarget.blood.volume] cl, type: [blood_type]</span>\n"
 
 	// Cybernetics
 	if(iscarbon(target))

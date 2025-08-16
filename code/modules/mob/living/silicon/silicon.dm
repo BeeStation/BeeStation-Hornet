@@ -15,6 +15,7 @@
 	deathsound = 'sound/voice/borg_deathsound.ogg'
 	examine_cursor_icon = null
 	speech_span = SPAN_ROBOT
+	consciousness = /datum/consciousness/point
 	var/datum/ai_laws/laws = null//Now... THEY ALL CAN ALL HAVE LAWS
 	var/last_lawchange_announce = 0
 	var/list/alarms_to_show = list()

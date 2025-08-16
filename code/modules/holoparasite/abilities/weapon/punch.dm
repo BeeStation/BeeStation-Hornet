@@ -45,7 +45,7 @@
 	. = ..()
 	owner.melee_damage = master_stats.damage * 5
 	owner.obj_damage = master_stats.damage * 16
-	owner.armour_penetration = 0
+	owner.sharpness = 0
 	owner.ranged = FALSE
 	if(isnull(owner.theme.mob_info[HOLOPARA_THEME_ATTACK_SOUND]))
 		owner.attack_sound = "punch"
@@ -58,7 +58,7 @@
 	. = ..()
 	owner.melee_damage = initial(owner.melee_damage)
 	owner.obj_damage = initial(owner.obj_damage)
-	owner.armour_penetration = initial(owner.armour_penetration)
+	owner.sharpness = initial(owner.sharpness)
 	owner.ranged = initial(owner.ranged)
 	if(isnull(owner.theme.mob_info[HOLOPARA_THEME_ATTACK_SOUND]))
 		owner.attack_sound = initial(owner.attack_sound)
