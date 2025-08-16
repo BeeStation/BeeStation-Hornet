@@ -1,20 +1,22 @@
 /datum/action/vampire/shapeshift
 	power_flags = BP_AM_TOGGLE
 
-	/// The shapeshift action linked to this power
-	var/datum/action/spell/shapeshift/shapeshift_action
-
-/datum/action/vampire/shapeshift/New()
-	. = ..()
-	if(shapeshift_action)
-		shapeshift_action = new shapeshift_action.type(src)
-		shapeshift_action.owner = owner
+	/// A typepath to the mob we will shapeshift into
+	var/mob/shapeshifted_mob
 
 /datum/action/vampire/shapeshift/activate_power()
 	. = ..()
-	shapeshift_action.shapeshift_type = pick(shapeshift_action.possible_shapes)
-	shapeshift_action?.on_cast(owner)
+	// This power cannot be used unless the owner is a carbon. This can't runtime
+	var/mob/living/living_owner = owner
+	living_owner.do_shapeshift(shapeshifted_mob)
 
 /datum/action/vampire/shapeshift/deactivate_power()
 	. = ..()
-	shapeshift_action?.on_cast(owner)
+	var/mob/living/living_owner = owner
+	var/percent_damage_taken = living_owner.get_total_damage() / living_owner.maxHealth
+
+	living_owner.do_unshapeshift()
+	living_owner = owner // Our owner reference is now invalid, reacquire it
+
+	// Unshapeshifting will fully heal the vampire, so we store the sustained damage beforehand and then reapply it as brute
+	living_owner.adjustBruteLoss(percent_damage_taken * living_owner.maxHealth)

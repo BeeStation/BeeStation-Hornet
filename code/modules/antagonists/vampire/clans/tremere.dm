@@ -75,7 +75,7 @@
 		spend_rank(source, target, cost_rank, blood_cost)
 
 /datum/vampire_clan/tremere/on_favorite_vassal(datum/antagonist/vampire/source, datum/antagonist/vassal/vassaldatum)
-	vassaldatum.BuyPower(new /datum/action/vampire/targeted/trespass)
+	vassaldatum.BuyPower(new /datum/action/vampire/shapeshift/batform)
 
 /datum/vampire_clan/tremere/on_vassal_made(datum/antagonist/vampire/source, mob/living/user, mob/living/target)
 	. = ..()

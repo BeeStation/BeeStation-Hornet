@@ -18,7 +18,7 @@
 		INVOKE_ASYNC(src, PROC_REF(AddBloodVolume), -VAMPIRE_PASSIVE_BLOOD_DRAIN)
 
 	// Healing
-	if(handle_healing())
+	if(handle_healing() && !istype(owner, /mob/living/simple_animal/hostile/retaliate/bat/vampire))
 		if((COOLDOWN_FINISHED(src, vampire_spam_healing)) && vampire_blood_volume > 0)
 			to_chat(owner.current, span_notice("The power of your blood knits your wounds..."))
 			COOLDOWN_START(src, vampire_spam_healing, VAMPIRE_SPAM_HEALING)
