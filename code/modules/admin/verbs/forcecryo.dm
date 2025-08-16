@@ -24,7 +24,7 @@
 	target.Stun(INFINITY, ignore_canstun = TRUE)
 	target.move_resist = INFINITY
 	target.set_anchored(TRUE)
-	target.status_flags |= GODMODE
+	ADD_TRAIT(target, TRAIT_GODMODE, TRAIT_GENERIC)
 	// ensure they're on a turf
 	target.forceMove(target_turf)
 	// send a fancy centcom pod, so nobody ICly questions this
