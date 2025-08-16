@@ -95,6 +95,7 @@
 /datum/preference/color/facial_hair_color/create_informed_default_value(datum/preferences/preferences)
 	return preferences.read_preference(/datum/preference/color/hair_color) || random_hair_color()
 
+/*
 /datum/preference/choiced/facial_hair_gradient
 	priority = PREFERENCE_PRIORITY_LATE_BODY_TYPE
 	category = PREFERENCE_CATEGORY_FEATURES
@@ -171,7 +172,7 @@
 	if (!..(preferences))
 		return FALSE
 	return preferences.read_preference(/datum/preference/choiced/facial_hair_gradient) != /datum/sprite_accessory/gradient/none::name
-
+*/
 
 /datum/preference/color/hair_color
 	db_key = "hair_color"

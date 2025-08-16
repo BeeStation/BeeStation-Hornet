@@ -121,6 +121,7 @@ export const facial_hair_color: Feature<string> = {
   },
 };
 
+/*
 export const facial_hair_gradient: FeatureChoiced = {
   name: 'Facial hair gradient',
   component: FeatureButtonedDropdownInput,
@@ -149,6 +150,7 @@ export const facial_hair_gradient_color: Feature<string> = {
     );
   },
 };
+*/
 
 export const hair_color: Feature<string> = {
   name: 'Hair Color',
