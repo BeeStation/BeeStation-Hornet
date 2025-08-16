@@ -286,11 +286,20 @@
 /proc/apply_loadout_to_mob(mob/living/carbon/human/H, mob/M, client/preference_source, on_dummy = FALSE)
 	var/mob/living/carbon/human/human = H
 	var/list/gear_leftovers = list()
+	var/list/gear_list = list()
 	var/obj/item/storage/spawned_box
 	var/jumpsuit_style = preference_source.prefs.read_character_preference(/datum/preference/choiced/jumpsuit_style)
+
 	if(preference_source && LAZYLEN(preference_source.prefs.equipped_gear))
 		for(var/gear in preference_source.prefs.equipped_gear)
-			var/datum/gear/G = GLOB.gear_datums[gear]
+			var/datum/gear/to_sort = GLOB.gear_datums[gear]
+			if(to_sort)
+				gear_list += to_sort
+			// Sort by slot priority
+			gear_list = sort_list(gear_list, /proc/gear_priority_cmp)
+
+		// Process gear in priority order
+		for(var/datum/gear/G in gear_list)
 			if(G)
 				if(!G.is_equippable)
 					continue
@@ -313,7 +322,6 @@
 					if(M.client)
 						to_chat(M, span_warning("Your current species or role does not permit you to spawn with [G.display_name]!"))
 					continue
-
 				if(G.slot)
 					if(G.slot == ITEM_SLOT_BACK)
 						var/obj/item/storage/new_bag = G.spawn_item(H, skirt_pref = jumpsuit_style)
@@ -326,21 +334,24 @@
 								if(M.client)
 									to_chat(M, span_notice("Equipping you with [G.display_name]!"))
 					else
+						var/obj/item/storage/current_bag = H.get_item_by_slot(ITEM_SLOT_BACK)
 						var/obj/item/new_item = G.spawn_item(H, skirt_pref = jumpsuit_style)
-
 						// Unequip only if we're about to equip something in that slot
 						var/obj/o = H.get_item_by_slot(G.slot)
 						if(o)
 							if(!spawned_box && !on_dummy)	//Spawn the box only if theres something being unequiped.
-								var/obj/item/storage/current_bag = H.get_item_by_slot(ITEM_SLOT_BACK)
 
 								spawned_box = new /obj/item/storage/box
 								spawned_box.name = "compression box of standard gear"
 								spawned_box.forceMove(current_bag)	// Gets put in the backpack
 								if(M.client)
 									to_chat(M, span_notice("A box with your standard equipment was placed in your [current_bag.name]!"))
+							if(isplasmaman(H) && G.slot == ITEM_SLOT_HEAD || G.slot == ITEM_SLOT_ICLOTHING)
+								new_item.forceMove(spawned_box)	// iF THEY'RE PLASMAMAN PUT IT IN THE BOX INSTEAD
+								if(M.client)
+									to_chat(M, span_notice("Storing your [G.display_name] inside a box in your [current_bag.name]!"))
+								continue
 							H.doUnEquip(o, newloc = spawned_box ? spawned_box : H.drop_location(), invdrop = FALSE, silent = TRUE)
-
 						if(H.equip_to_slot_or_del(new_item, G.slot))
 							if(M.client)
 								to_chat(M, span_notice("Equipping you with [G.display_name]!"))
@@ -353,7 +364,7 @@
 					gear_leftovers += G
 
 			else
-				preference_source.prefs.equipped_gear -= gear
+				preference_source.prefs.equipped_gear -= G
 				preference_source.prefs.mark_undatumized_dirty_character()
 
 	if(gear_leftovers.len)
@@ -389,6 +400,18 @@
 			if(M.client)
 				to_chat(M, span_danger("Failed to locate a storage object on your mob, either you spawned with no hands free and no backpack or this is a bug."))
 			qdel(item)
+
+
+/proc/get_slot_priority(datum/gear/G)
+	var/list/priority_order = list(ITEM_SLOT_BACK, ITEM_SLOT_HEAD, ITEM_SLOT_ICLOTHING)
+	var/slot = G.slot
+	var/idx = priority_order.Find(slot)
+	if(idx == -1)
+		return 999 // Very low priority if not in list
+	return idx
+
+/proc/gear_priority_cmp(a, b)
+	return get_slot_priority(a) < get_slot_priority(b)
 
 /datum/job/proc/announce(mob/living/carbon/human/H)
 	if(head_announce)
