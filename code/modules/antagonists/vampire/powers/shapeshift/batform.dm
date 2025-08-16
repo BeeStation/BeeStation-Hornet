@@ -1,3 +1,4 @@
+/*
 /datum/action/vampire/shapeshift/batform
 	name = "Bat Transformation"
 	desc = "Take on the shape of a space bat.<br><b>WARNING:</b> You will drop <b>ALL</b> of your possessions on use."
@@ -28,3 +29,4 @@
 	for(var/obj/item/item in owner)
 		owner.dropItemToGround(item, TRUE)
 	. = ..()
+*/
