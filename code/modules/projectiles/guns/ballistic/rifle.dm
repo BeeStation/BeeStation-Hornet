@@ -79,7 +79,7 @@
 	item_state = "arcane_barrage"
 	slot_flags = null
 	can_bayonet = FALSE
-	item_flags = NEEDS_PERMIT | DROPDEL | ABSTRACT | NOBLUDGEON
+	item_flags = NEEDS_PERMIT | DROPDEL | ABSTRACT | NOBLUDGEON | SLOWS_WHILE_IN_HAND | NO_WORN_SLOWDOWN
 	flags_1 = NONE
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 
