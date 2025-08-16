@@ -4,7 +4,7 @@
 
 /datum/unit_test/emissive_worn_overlays/Run()
 	test_subject = allocate(/mob/living/carbon/human/consistent)
-	// Belong to the emissive plane so that we render only our emissives
+	// Belong to the emissive plane so that we render only our emissives.
 	test_subject.plane = EMISSIVE_PLANE
 
 	test_subject.equipOutfit(/datum/outfit/job/assistant/consistent/emissive_worn_overlay_test)
