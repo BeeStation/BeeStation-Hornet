@@ -1155,36 +1155,6 @@
 	item_state = "hardsuit0-clown"
 	hardsuit_type = "clown"
 
-
-// Doomguy ERT version
-/obj/item/clothing/suit/space/hardsuit/shielded/doomguy
-	name = "juggernaut armor"
-	desc = "A somehow spaceworthy set of armor with outstanding protection against almost everything. Comes in an oddly nostalgic green. "
-	icon_state = "doomguy"
-	item_state = "doomguy"
-	shield_integrity = 20
-	recharge_delay = 100
-	armor_type = /datum/armor/military_heavy_armor
-	strip_delay = 130
-	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	resistance_flags = FIRE_PROOF | ACID_PROOF | LAVA_PROOF
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/doomguy
-	dog_fashion = /datum/dog_fashion/back/deathsquad
-
-/obj/item/clothing/suit/space/hardsuit/shielded/doomguy/setup_shielding()
-	AddComponent(/datum/component/shielded, max_integrity = 20, charge_recovery = 20, recharge_start_delay = 1 SECONDS, charge_increment_delay = 1 SECONDS, shield_icon = "shield-old")
-
-/obj/item/clothing/suit/space/hardsuit/shielded/doomguy/Initialize(mapload)
-	. = ..()
-	AddComponent(
-		/datum/component/shielded, \
-		max_integrity = 20, \
-		charge_recovery = 20, \
-		recharge_start_delay = 1 SECONDS, \
-		charge_increment_delay = 1 SECONDS, \
-		shield_icon = "shield-old" \
-	)
-
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/doomguy
 	name = "juggernaut helmet"
 	desc = "A dusty old helmet, somehow capable of resisting the strongest of blows."

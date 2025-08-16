@@ -521,23 +521,3 @@
 	var/obj/item/clothing/head/helmet/space/beret/beret = new(hat_holder)
 	hat_holder.attached_hat = beret
 	squaddie.update_clothing(mod.slot_flags)
-
-/datum/outfit/centcom/death_commando/doomguy
-	name = "The Juggernaut"
-
-	suit = /obj/item/clothing/suit/space/hardsuit/shielded/doomguy
-	shoes = /obj/item/clothing/shoes/jackboots/fast
-	gloves = /obj/item/clothing/gloves/krav_maga/combatglovesplus
-	mask = /obj/item/clothing/mask/gas/sechailer
-	suit_store = /obj/item/gun/energy/pulse/destroyer
-	belt = /obj/item/storage/belt/grenade/full/webbing
-	back = /obj/item/storage/backpack/hammerspace
-	l_pocket = /obj/item/knife/combat
-	r_pocket = /obj/item/tank/internals/emergency_oxygen/double
-	backpack_contents = list(/obj/item/storage/box/survival/engineer=1,\
-		/obj/item/reagent_containers/hypospray/combat,\
-		/obj/item/radio=1,\
-		/obj/item/chainsaw/energy/doom=1,\
-		/obj/item/gun/ballistic/sniper_rifle=1,\
-		/obj/item/gun/grenadelauncher/security=1,\
-		/obj/item/gun/ballistic/automatic/ar=1)
