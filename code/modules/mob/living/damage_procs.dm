@@ -160,7 +160,7 @@
 /mob/living/proc/getOxyLoss()
 	return oxyloss
 
-/mob/living/proc/adjustOxyLoss(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/proc/adjustOxyLoss(amount, updating_health = TRUE, forced = FALSE, required_biotype = ALL)
 	if(!forced && (status_flags & GODMODE))
 		return
 	. = oxyloss
@@ -168,7 +168,7 @@
 	if(updating_health)
 		updatehealth()
 
-/mob/living/proc/setOxyLoss(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/proc/setOxyLoss(amount, updating_health = TRUE, forced = FALSE, required_biotype = ALL)
 	if(!forced && status_flags & GODMODE)
 		return
 	. = oxyloss
@@ -180,16 +180,38 @@
 /mob/living/proc/getToxLoss()
 	return toxloss
 
-/mob/living/proc/adjustToxLoss(amount, updating_health = TRUE, forced = FALSE)
-	if(!forced && (status_flags & GODMODE))
+/mob/living/proc/can_adjust_tox_loss(amount, forced, required_biotype = ALL)
+	if(!forced && (status_flags & GODMODE) || !(mob_biotypes & required_biotype))
 		return FALSE
+	return TRUE
+
+/mob/living/proc/adjustToxLoss(amount, updating_health = TRUE, forced = FALSE, required_biotype = ALL)
+	if(!can_adjust_tox_loss(amount, forced, required_biotype))
+		return 0
+
+	if(!forced && HAS_TRAIT(src, TRAIT_TOXINLOVER)) //damage becomes healing and healing becomes damage
+		amount = -amount
+		if(HAS_TRAIT(src, TRAIT_TOXIMMUNE)) //Prevents toxin damage, but not healing
+			amount = min(amount, 0)
+		if(blood_volume)
+			if(amount > 0)
+				blood_volume = max(blood_volume - (5 * amount), 0)
+			else
+				blood_volume = max(blood_volume - amount, 0)
+
+	else if(!forced && HAS_TRAIT(src, TRAIT_TOXIMMUNE)) //Prevents toxin damage, but not healing
+		amount = min(amount, 0)
+
 	toxloss = clamp((toxloss + (amount * CONFIG_GET(number/damage_multiplier))), 0, maxHealth * 2)
+
 	if(updating_health)
 		updatehealth()
 	return amount
 
-/mob/living/proc/setToxLoss(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/proc/setToxLoss(amount, updating_health = TRUE, forced = FALSE, required_biotype = ALL)
 	if(!forced && (status_flags & GODMODE))
+		return FALSE
+	if(!forced && !(mob_biotypes & required_biotype))
 		return FALSE
 	toxloss = amount
 	if(updating_health)

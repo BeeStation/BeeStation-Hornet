@@ -608,7 +608,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	reagent_state = LIQUID
 	process_flags = ORGANIC | SYNTHETIC
 	color = "#FFEBEB"
-	chem_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 
 /datum/reagent/flightpotion/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume, show_message = TRUE)
 	. = ..()

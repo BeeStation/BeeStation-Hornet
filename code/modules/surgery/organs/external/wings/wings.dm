@@ -85,7 +85,7 @@
 		// Grant the flight action to the owner
 		fly.Grant(organ_owner)
 
-/obj/item/organ/wings/on_life(seconds_per_tick, times_fired)
+/obj/item/organ/wings/on_life(delta_time, times_fired)
 	. = ..()
 	handle_flight(owner)
 

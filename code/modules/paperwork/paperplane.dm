@@ -50,7 +50,7 @@
 
 	return ..()
 
-/obj/item/origami/paperplane/throw_at(atom/target, range, speed, mob/thrower, spin=FALSE, diagonals_first = FALSE, datum/callback/callback, quickstart = TRUE)
+/obj/item/origami/paperplane/throw_at(atom/target, range, speed, mob/thrower, spin=FALSE, diagonals_first = FALSE, datum/callback/callback, force, quickstart = TRUE)
 	. = ..(target, range, speed, thrower, FALSE, diagonals_first, callback, quickstart = quickstart)
 
 

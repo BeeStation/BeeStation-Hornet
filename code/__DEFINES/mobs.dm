@@ -17,6 +17,8 @@
 #define MOVE_INTENT_WALK "walk"
 #define MOVE_INTENT_RUN  "run"
 
+/// Amount of oxyloss that KOs a human
+#define OXYLOSS_PASSOUT_THRESHOLD 50
 // Bleed rates
 // See blood.dm for calculations
 #define BLEED_RATE_MINOR 2.4 		/// Point at which bleeding is considered minor and will eventually self-heal

@@ -527,25 +527,26 @@
 	if(istype(ears) && !ears.deaf)
 		. = TRUE
 
-/mob/living/carbon/adjustOxyLoss(amount, updating_health = TRUE, forced = FALSE)
-	. = ..()
-	if(isnull(.))
-		return
-	if(. <= 50)
-		if(getOxyLoss() > 50)
-			ADD_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
-	else if(getOxyLoss() <= 50)
-		REMOVE_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
+/mob/living/carbon/adjustOxyLoss(amount, updating_health = TRUE, forced, required_biotype)
+	if(!forced && HAS_TRAIT(src, TRAIT_NOBREATH))
+		amount = min(amount, 0) //Prevents oxy damage but not healing
 
+	. = ..()
+	check_passout()
 
 /mob/living/carbon/setOxyLoss(amount, updating_health = TRUE, forced = FALSE)
 	. = ..()
-	if(isnull(.))
-		return
-	if(. <= 50)
-		if(getOxyLoss() > 50)
+	check_passout()
+
+/**
+* Check to see if we should be passed out from oxyloss
+*/
+/mob/living/carbon/proc/check_passout()
+	var/mob_oxyloss = getOxyLoss()
+	if(mob_oxyloss >= OXYLOSS_PASSOUT_THRESHOLD)
+		if(!HAS_TRAIT_FROM(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT))
 			ADD_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
-	else if(getOxyLoss() <= 50)
+	else if(mob_oxyloss < OXYLOSS_PASSOUT_THRESHOLD)
 		REMOVE_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
 
 /mob/living/carbon/bullet_act(obj/projectile/P, def_zone, piercing_hit)

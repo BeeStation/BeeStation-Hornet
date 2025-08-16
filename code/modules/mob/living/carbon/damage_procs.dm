@@ -83,18 +83,6 @@
 		heal_overall_damage(burn = abs(amount), required_bodytype = required_bodytype, updating_health = updating_health, forced = forced)
 	return amount
 
-
-/mob/living/carbon/adjustToxLoss(amount, updating_health = TRUE, forced = FALSE)
-	if(!forced && HAS_TRAIT(src, TRAIT_TOXINLOVER)) //damage becomes healing and healing becomes damage
-		amount = -amount
-		if(amount > 0)
-			blood_volume -= 5*amount
-		else
-			blood_volume -= amount
-	if(HAS_TRAIT(src, TRAIT_TOXIMMUNE)) //Prevents toxin damage, but not healing
-		amount = min(amount, 0)
-	return ..()
-
 /mob/living/carbon/getStaminaLoss()
 	. = 0
 	for(var/obj/item/bodypart/BP as() in bodyparts)

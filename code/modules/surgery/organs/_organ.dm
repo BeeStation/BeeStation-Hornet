@@ -182,8 +182,8 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 /obj/item/organ/proc/enter_wardrobe()
 	STOP_PROCESSING(SSobj, src)
 
-/obj/item/organ/process(seconds_per_tick, times_fired)
-	on_death(seconds_per_tick, times_fired) //Kinda hate doing it like this, but I really don't want to call process directly.
+/obj/item/organ/process(delta_time, times_fired)
+	on_death(delta_time, times_fired) //Kinda hate doing it like this, but I really don't want to call process directly.
 
 /obj/item/organ/proc/OnEatFrom(eater, feeder)
 	useable = FALSE //You can't use it anymore after eating it you spaztic
