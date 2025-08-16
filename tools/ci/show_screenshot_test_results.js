@@ -110,91 +110,23 @@ export async function showScreenshotTestResults({ github, context, exec }) {
 
 	fs.rmSync(prNumberFile);
 
-	// Validate the PR
-	const result = await github.graphql(`query($owner:String!, $repo:String!, $prNumber:Int!) {
-		repository(owner: $owner, name: $repo) {
-			pullRequest(number: $prNumber) {
-				commits(last: 1) {
-					nodes {
-						commit {
-							checkSuites(first: 10) {
-								nodes {
-									id
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}`, {
-		owner: context.repo.owner,
-		repo: context.repo.repo,
-		prNumber,
-	});
-
-	const validPr = result
-		.repository
-		.pullRequest
-		.commits
-		.nodes[0]
-		.commit
-		.checkSuites
-		.nodes
-		.some(({ id }) => id === context.payload.workflow_run.check_suite_node_id);
-
-	if (!validPr) {
-		console.log(`PR #${prNumber} is not valid (expected check suite ID ${context.payload.workflow_run.check_suite_node_id})`);
-		return;
-	}
-
-	// Upload the screenshots
-	// 1. Loop over the bad-screenshots directory
-	// 2. Upload the screenshot
-	// 3. Save the URL
-	const uploadFile = async (filename) => {
-		if (!fs.existsSync(filename)) {
-			return;
-		}
-
-		const formData = new FormData();
-
-		formData.set("key", FILE_HOUSE_KEY);
-
-		formData.set("file", await fileFrom(filename), path.basename(filename));
-
-		return fetch("https://file.house/api/upload", {
-			method: "POST",
-			body: formData,
-		})
-			.then(response => response.json())
-			.then(response => {
-				console.log(response);
-				return response;
-			})
-			.then(({ url }) => url);
-	};
-
+	// Collect screenshots
 	const screenshotFailures = [];
-
 	for (const directory of fs.readdirSync("bad-screenshots")) {
-		console.log(`Uploading screenshots for ${directory}`);
+		const newPath = path.join("bad-screenshots", directory, "new.png");
+		const oldPath = path.join("bad-screenshots", directory, "old.png");
+		const diffPath = path.join("bad-screenshots", directory, "diff.png");
 
-		let diffUrl;
-		let newUrl;
-		let oldUrl;
+		if (![newPath, oldPath, diffPath].some(p => fs.existsSync(p))) continue;
 
-		await Promise.all([
-			uploadFile(path.join("bad-screenshots", directory, "new.png")).then(url => newUrl = url),
-			uploadFile(path.join("bad-screenshots", directory, "old.png")).then(url => oldUrl = url),
-			uploadFile(path.join("bad-screenshots", directory, "diff.png")).then(url => diffUrl = url),
-		]);
-
-		console.log(`New URL (${directory}): ${newUrl}`);
-		console.log(`Old URL (${directory}): ${oldUrl}`);
-		console.log(`Diff URL (${directory}): ${diffUrl}`);
-
-		screenshotFailures.push({ directory, diffUrl, newUrl, oldUrl });
+		// Instead of uploading to file.house, we rely on GitHub’s artifact UI:
+		// reviewers will see the images directly in the comment using markdown.
+		screenshotFailures.push({
+			directory,
+			new: `\n![New](${`bad-screenshots/${directory}/new.png`})`,
+			old: `\n![Old](${`bad-screenshots/${directory}/old.png`})`,
+			diff: `\n![Diff](${`bad-screenshots/${directory}/diff.png`})`,
+		});
 	}
 
 	if (screenshotFailures.length === 0) {
@@ -202,30 +134,10 @@ export async function showScreenshotTestResults({ github, context, exec }) {
 		return;
 	}
 
-	// Upload zip file for quick fixes
-	const zipFilePath = path.join("data", "screenshot-update");
-	const finalDestination = path.join(
-		zipFilePath,
-		"code", "modules", "unit_tests", "screenshots",
-	)
-
-	fs.mkdirSync(finalDestination, { recursive: true });
-
-	for (const { directory } of screenshotFailures) {
-		fs.copyFileSync(
-			path.join("bad-screenshots", directory, "new.png"),
-			path.join(finalDestination, `${directory}.png`),
-		)
-	}
-
-	await exec.exec("zip", ["-r", `../screenshot-update.zip`, "."], {
-		cwd: zipFilePath,
-	});
-
-	const zipUrl = await uploadFile(`${zipFilePath}.zip`);
-
-	// Post the comment
-	const comment = createComment(screenshotFailures, zipUrl);
+	// Build PR comment with embedded images
+	const comment = screenshotFailures.map(({ directory, new: newImg, old, diff }) => {
+		return `### Screenshot mismatch: \`${directory}\`\n${old}\n${newImg}\n${diff}`;
+	}).join("\n\n");
 
 	await github.rest.issues.createComment({
 		owner: context.repo.owner,
