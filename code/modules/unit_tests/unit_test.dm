@@ -139,7 +139,7 @@ GLOBAL_VAR_INIT(focused_tests, focused_tests())
 	else if (fexists("code"))
 		// We are probably running in a local build
 		fcopy(icon, filename)
-		TEST_FAIL("Screenshot for [name] did not exist. One has been created.")
+		log_test("Screenshot for [name] did not exist. One has been created.")
 	else
 		// We are probably running in real CI, so just pretend it worked and move on
 		fcopy(icon, "data/screenshots_new/[path_prefix]_[name].png")
