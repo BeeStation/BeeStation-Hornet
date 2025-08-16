@@ -45,8 +45,7 @@
 		/obj/item/gun/magic/hook											= 5,
 		/obj/item/book_of_babel 											= 5,
 		/obj/item/clothing/neck/necklace/memento_mori						= 5,
-		/obj/item/reagent_containers/cup/glass/waterbottle/relic				= 5,
-		/obj/item/reagent_containers/cup/bottle/necropolis_seed			= 5,
+		/obj/item/reagent_containers/cup/glass/waterbottle/relic			= 5,
 		/obj/item/borg/upgrade/modkit/lifesteal								= 5,
 		/obj/item/shared_storage/red										= 5,
 		/obj/item/staff/storm												= 5,
@@ -609,7 +608,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	reagent_state = LIQUID
 	process_flags = ORGANIC | SYNTHETIC
 	color = "#FFEBEB"
-	chem_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 
 /datum/reagent/flightpotion/expose_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
 	if(iscarbon(M) && M.stat != DEAD)
