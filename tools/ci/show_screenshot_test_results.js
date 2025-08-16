@@ -68,8 +68,6 @@ const createComment = (screenshotFailures, zipFileUrl) => {
 };
 
 export async function showScreenshotTestResults({ github, context, exec }) {
-	const { FILE_HOUSE_KEY } = process.env;
-
 	// Check if bad-screenshots is in the artifacts
 	const { data: { artifacts } } = await github.rest.actions.listWorkflowRunArtifacts({
 		owner: context.repo.owner,
@@ -110,91 +108,45 @@ export async function showScreenshotTestResults({ github, context, exec }) {
 
 	fs.rmSync(prNumberFile);
 
-	// Validate the PR
-	const result = await github.graphql(`query($owner:String!, $repo:String!, $prNumber:Int!) {
-		repository(owner: $owner, name: $repo) {
-			pullRequest(number: $prNumber) {
-				commits(last: 1) {
-					nodes {
-						commit {
-							checkSuites(first: 10) {
-								nodes {
-									id
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}`, {
-		owner: context.repo.owner,
-		repo: context.repo.repo,
-		prNumber,
-	});
-
-	const validPr = result
-		.repository
-		.pullRequest
-		.commits
-		.nodes[0]
-		.commit
-		.checkSuites
-		.nodes
-		.some(({ id }) => id === context.payload.workflow_run.check_suite_node_id);
-
-	if (!validPr) {
-		console.log(`PR #${prNumber} is not valid (expected check suite ID ${context.payload.workflow_run.check_suite_node_id})`);
-		return;
-	}
-
-	// Upload the screenshots
-	// 1. Loop over the bad-screenshots directory
-	// 2. Upload the screenshot
-	// 3. Save the URL
-	const uploadFile = async (filename) => {
-		if (!fs.existsSync(filename)) {
-			return;
-		}
-
-		const formData = new FormData();
-
-		formData.set("key", FILE_HOUSE_KEY);
-
-		formData.set("file", await fileFrom(filename), path.basename(filename));
-
-		return fetch("https://file.house/api/upload", {
-			method: "POST",
-			body: formData,
-		})
-			.then(response => response.json())
-			.then(response => {
-				console.log(response);
-				return response;
-			})
-			.then(({ url }) => url);
-	};
-
+	// Collect screenshots and re-upload as individual artifacts
 	const screenshotFailures = [];
-
 	for (const directory of fs.readdirSync("bad-screenshots")) {
-		console.log(`Uploading screenshots for ${directory}`);
+		const newPath = path.join("bad-screenshots", directory, "new.png");
+		const oldPath = path.join("bad-screenshots", directory, "old.png");
+		const diffPath = path.join("bad-screenshots", directory, "diff.png");
 
-		let diffUrl;
-		let newUrl;
-		let oldUrl;
+		if (![newPath, oldPath, diffPath].some(p => fs.existsSync(p))) continue;
 
+		// Upload screenshots as new artifacts
+		const uploadAndGetUrl = async (file, label) => {
+			if (!fs.existsSync(file)) return null;
+
+			await github.rest.actions.uploadArtifact({
+				owner: context.repo.owner,
+				repo: context.repo.repo,
+				run_id: context.runId,
+				name: `${directory}-${label}`,
+				files: [file],
+			});
+
+			// Note: GitHub doesn’t provide direct image links; instead, artifact download URL:
+			const { data } = await github.rest.actions.listWorkflowRunArtifacts({
+				owner: context.repo.owner,
+				repo: context.repo.repo,
+				run_id: context.runId,
+			});
+			const artifact = data.artifacts.find(a => a.name === `${directory}-${label}`);
+			return artifact ? artifact.archive_download_url : null;
+		};
+
+		let newUrl, oldUrl, diffUrl;
 		await Promise.all([
-			uploadFile(path.join("bad-screenshots", directory, "new.png")).then(url => newUrl = url),
-			uploadFile(path.join("bad-screenshots", directory, "old.png")).then(url => oldUrl = url),
-			uploadFile(path.join("bad-screenshots", directory, "diff.png")).then(url => diffUrl = url),
+			uploadAndGetUrl(newPath, "new").then(u => newUrl = u),
+			uploadAndGetUrl(oldPath, "old").then(u => oldUrl = u),
+			uploadAndGetUrl(diffPath, "diff").then(u => diffUrl = u),
 		]);
 
-		console.log(`New URL (${directory}): ${newUrl}`);
-		console.log(`Old URL (${directory}): ${oldUrl}`);
-		console.log(`Diff URL (${directory}): ${diffUrl}`);
-
-		screenshotFailures.push({ directory, diffUrl, newUrl, oldUrl });
+		screenshotFailures.push({ directory, newUrl, oldUrl, diffUrl });
 	}
 
 	if (screenshotFailures.length === 0) {
@@ -202,30 +154,14 @@ export async function showScreenshotTestResults({ github, context, exec }) {
 		return;
 	}
 
-	// Upload zip file for quick fixes
-	const zipFilePath = path.join("data", "screenshot-update");
-	const finalDestination = path.join(
-		zipFilePath,
-		"code", "modules", "unit_tests", "screenshots",
-	)
+	// Build PR comment (clickable download links)
+	const comment = screenshotFailures.map(({ directory, newUrl, oldUrl, diffUrl }) => {
+		return `### Screenshot mismatch: \`${directory}\`
 
-	fs.mkdirSync(finalDestination, { recursive: true });
-
-	for (const { directory } of screenshotFailures) {
-		fs.copyFileSync(
-			path.join("bad-screenshots", directory, "new.png"),
-			path.join(finalDestination, `${directory}.png`),
-		)
-	}
-
-	await exec.exec("zip", ["-r", `../screenshot-update.zip`, "."], {
-		cwd: zipFilePath,
-	});
-
-	const zipUrl = await uploadFile(`${zipFilePath}.zip`);
-
-	// Post the comment
-	const comment = createComment(screenshotFailures, zipUrl);
+**Old** [Download](${oldUrl})
+**New** [Download](${newUrl})
+**Diff** [Download](${diffUrl})`;
+	}).join("\n\n");
 
 	await github.rest.issues.createComment({
 		owner: context.repo.owner,
