@@ -974,6 +974,11 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	reaction_volume = 200
 	pixel_y = 16
 
+/obj/machinery/shower/abductor/examine(mob/user)
+	. = ..()
+	if(isabductor(user))
+		. += span_abductor("It's cleaner.")
+
 /obj/item/candydispenser/abductor
 	name = "zetaball dispenser"
 	desc = "A whimsical device with a glass globe on top, which can be operated to dispense various... candies? Did they steal this from us?"

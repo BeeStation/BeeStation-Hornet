@@ -12,8 +12,8 @@
 //Console
 
 /obj/machinery/abductor/console
-	name = "abductor console"
-	desc = "Ship command center."
+	name = "strange console"
+	desc = "This console has a green interface with a myriad of options flicking by at any one time. You can't make heads or tails of any of it."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "console"
 	density = TRUE
@@ -33,6 +33,29 @@
 /obj/machinery/abductor/console/Initialize(mapload)
 	. = ..()
 	possible_gear = get_abductor_gear()
+
+/obj/machinery/abductor/console/examine(mob/user)
+	. = ..()
+	if(!isabductor(user))
+		. += span_greentextbig("You could mash on these buttons while standing on a telepad, maybe you can get it to send you back?")
+
+	if(isabductor(user))
+		. += span_abductor("We use this to requisition equipment and control our gear. Very handy.")
+
+		if(team_number)
+			switch(team_number)
+				if(1)
+					if(isabductor(user))
+						. += span_abductor("This is tuned to subduction team alpha.")
+				if(2)
+					if(isabductor(user))
+						. += span_abductor("This is tuned to subduction team beta.")
+				if(3)
+					if(isabductor(user))
+						. += span_abductor("This is tuned to subduction team gamma.")
+				if(4)
+					if(isabductor(user))
+						. += span_abductor("This is tuned to subduction team delta.")
 
 /**
  * get_abductor_gear: Returns a list of a filtered abductor gear sorted by categories

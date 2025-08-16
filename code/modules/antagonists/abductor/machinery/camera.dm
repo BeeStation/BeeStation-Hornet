@@ -1,7 +1,8 @@
 /obj/machinery/computer/camera_advanced/abductor
-	name = "Human Observation Console"
+	name = "fractal-displayed console"
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "camera"
+	desc = "A strange computer-like display? There are holographics stacked in an incomprehensible 3D fractal over it."
 	base_icon_state = null
 
 	lock_override = TRUE
@@ -30,6 +31,30 @@
 		console.camera = null
 		console = null
 	. = ..()
+
+/obj/machinery/computer/camera_advanced/abductor/examine(mob/user)
+	. = ..()
+
+	if(!isabductor(user))
+		. += span_greentext("This is useless to you.")
+
+	if(isabductor(user))
+		. += span_abductor("We use this to observe the subjects. Luckily they already have cameras everywhere.")
+
+		if(team_number)
+			switch(team_number)
+				if(1)
+					if(isabductor(user))
+						. += span_abductor("This is tuned to subduction team alpha.")
+				if(2)
+					if(isabductor(user))
+						. += span_abductor("This is tuned to subduction team beta.")
+				if(3)
+					if(isabductor(user))
+						. += span_abductor("This is tuned to subduction team gamma.")
+				if(4)
+					if(isabductor(user))
+						. += span_abductor("This is tuned to subduction team delta.")
 
 /obj/machinery/computer/camera_advanced/abductor/GrantActions(mob/living/carbon/user)
 	. = ..()

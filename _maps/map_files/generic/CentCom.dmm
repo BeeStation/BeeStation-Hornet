@@ -4430,15 +4430,13 @@
 /area/centcom/evac)
 "akM" = (
 /obj/machinery/abductor/experiment{
-	team_number = 4;
-	name = "Delta experimentation machine"
+	team_number = 4
 	},
 /turf/open/floor/plating/abductor2,
 /area/abductor_ship)
 "akO" = (
 /obj/machinery/abductor/pad{
-	team_number = 4;
-	name = "Delta Telepad"
+	team_number = 4
 	},
 /turf/open/floor/plating/abductor2,
 /area/abductor_ship)
@@ -10196,15 +10194,13 @@
 /area/centcom/evac)
 "aAu" = (
 /obj/machinery/abductor/experiment{
-	team_number = 3;
-	name = "Gamma experimentation machine"
+	team_number = 3
 	},
 /turf/open/floor/plating/abductor2,
 /area/abductor_ship)
 "aAw" = (
 /obj/machinery/abductor/pad{
-	team_number = 3;
-	name = "Gamma Telepad"
+	team_number = 3
 	},
 /turf/open/floor/plating/abductor2,
 /area/abductor_ship)
@@ -13851,15 +13847,13 @@
 /area/tdome/arena)
 "aJA" = (
 /obj/machinery/abductor/experiment{
-	team_number = 1;
-	name = "Alpha experimentation machine"
+	team_number = 1
 	},
 /turf/open/floor/plating/abductor2,
 /area/abductor_ship)
 "aJC" = (
 /obj/machinery/abductor/pad{
-	team_number = 1;
-	name = "Alpha Telepad"
+	team_number = 1
 	},
 /turf/open/floor/plating/abductor2,
 /area/abductor_ship)
@@ -14768,15 +14762,13 @@
 /area/ctf)
 "aLK" = (
 /obj/machinery/abductor/experiment{
-	team_number = 2;
-	name = "Beta experimentation machine"
+	team_number = 2
 	},
 /turf/open/floor/plating/abductor2,
 /area/abductor_ship)
 "aLM" = (
 /obj/machinery/abductor/pad{
-	team_number = 2;
-	name = "Beta Telepad"
+	team_number = 2
 	},
 /turf/open/floor/plating/abductor2,
 /area/abductor_ship)
@@ -20942,8 +20934,7 @@
 /area/syndicate_mothership/control)
 "daK" = (
 /obj/machinery/abductor/console{
-	team_number = 4;
-	name = "Delta console"
+	team_number = 4
 	},
 /turf/open/floor/plating/abductor2,
 /area/abductor_ship)
@@ -22102,8 +22093,7 @@
 /area/syndicate_mothership)
 "kDn" = (
 /obj/machinery/abductor/console{
-	team_number = 3;
-	name = "Gamma console"
+	team_number = 3
 	},
 /turf/open/floor/plating/abductor2,
 /area/abductor_ship)
@@ -22936,8 +22926,7 @@
 /area/abductor_ship)
 "pBa" = (
 /obj/machinery/abductor/console{
-	team_number = 1;
-	name = "Alpha console"
+	team_number = 1
 	},
 /turf/open/floor/plating/abductor2,
 /area/abductor_ship)
@@ -24049,8 +24038,7 @@
 /area/tdome/tdomeadmin)
 "wWW" = (
 /obj/machinery/abductor/console{
-	team_number = 2;
-	name = "Beta console"
+	team_number = 2
 	},
 /turf/open/floor/plating/abductor2,
 /area/abductor_ship)

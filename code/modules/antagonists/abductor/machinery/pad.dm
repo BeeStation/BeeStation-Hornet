@@ -1,9 +1,32 @@
 /obj/machinery/abductor/pad
-	name = "Alien Telepad"
-	desc = "Use this to transport to and from the humans' habitat."
+	name = "strange floor pad"
+	desc = "purplish glow is coming out of grooves in the floor here."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "alien-pad-idle"
 	var/turf/teleport_target
+
+/obj/machinery/abductor/pad/examine(mob/user)
+	. = ..()
+	if(!isabductor(user))
+		. += span_greentextbig("A telepad maybe? If you stand on this while mashing buttons on a console adjacent to it, maybe it will send you back.")
+
+	if(isabductor(user))
+		. += span_abductor("A phasespace transmitter. We use this to transport to and from the humans' habitat.")
+
+		if(team_number)
+			switch(team_number)
+				if(1)
+					if(isabductor(user))
+						. += span_abductor("This is tuned to subduction team alpha.")
+				if(2)
+					if(isabductor(user))
+						. += span_abductor("This is tuned to subduction team beta.")
+				if(3)
+					if(isabductor(user))
+						. += span_abductor("This is tuned to subduction team gamma.")
+				if(4)
+					if(isabductor(user))
+						. += span_abductor("This is tuned to subduction team delta.")
 
 /obj/machinery/abductor/pad/proc/Warp(mob/living/target)
 	if(!target.buckled)
