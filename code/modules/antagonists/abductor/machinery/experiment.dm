@@ -145,9 +145,8 @@
 			if(3)
 				to_chat(H, span_warning("You feel intensely watched."))
 		sleep(5)
-		user_abductor.team.abductees += H.mind
-		H.mind.add_antag_datum(/datum/antagonist/abductee)
 
+		user_abductor.team.abductees += H.mind
 		for(var/obj/item/organ/heart/gland/G in H.internal_organs)
 			G.Start()
 			point_reward++

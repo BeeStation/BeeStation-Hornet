@@ -194,14 +194,27 @@
 	to_chat(owner, span_warning("<b>Your mind snaps!</b>"))
 	to_chat(owner, "<big>[span_warning("<b>You can't remember how you got here...</b>")]</big>")
 	owner.announce_objectives()
-	var/datum/objective/first_objective = objectives[1]
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Abductee",
-		"Something isn't right with your brain, you feel like there is something you have to do no matter what...\n\
-		[LAZYLEN(objectives)?"<B>Objective</B>: [first_objective.explanation_text]": "Nevermind..."]")
+		"Something isn't right with your brain, you feel like there is something you have to do no matter what...")
 
 /datum/antagonist/abductee/proc/give_objective()
 	var/mob/living/carbon/human/H = owner.current
-	var/objtype = (prob(75) ? /datum/objective/abductee/random : pick(subtypesof(/datum/objective/abductee/) - /datum/objective/abductee/random))
+	// Give the base one
+	var/datum/objective/abductee/base = new /datum/objective/abductee
+	objectives += base
+	var/objtype
+	//pick flavor one
+	switch(rand(100))
+		// Fearful
+		if(51 to 100)
+			objtype = /datum/objective/abductee/fearful
+		// Violent
+		if(21 to 50)
+			objtype = /datum/objective/abductee/violent
+		// Paranoid
+		if(0 to 20)
+			objtype = /datum/objective/abductee/paranoid
+
 	var/datum/objective/abductee/O = new objtype()
 	objectives += O
 	log_objective(H, O.explanation_text)
