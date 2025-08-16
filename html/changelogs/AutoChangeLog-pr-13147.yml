@@ -1,0 +1,5 @@
+author: Aramix
+delete-after: true
+changes:
+  - bugfix: fancychat now auto-resizes to occupy the remaining space properly, especially
+      after reconnects
