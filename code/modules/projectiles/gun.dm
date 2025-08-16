@@ -10,7 +10,7 @@
 	worn_icon_state = "gun"
 	flags_1 =  CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
-	item_flags = SLOWS_WHILE_IN_HAND | NO_WORN_SLOWDOWN | ISWEAPON | NEEDS_PERMIT
+	item_flags = SLOWS_WHILE_IN_HAND | NO_WORN_SLOWDOWN | NEEDS_PERMIT
 	custom_materials = list(/datum/material/iron=2000)
 	w_class = WEIGHT_CLASS_LARGE
 	throwforce = 5
@@ -305,8 +305,6 @@
 	if(flag) //It's adjacent, is the user, or is on the user's person
 		if(target in user.contents) //can't shoot stuff inside us.
 			return
-		if(!ismob(target) || user.combat_mode) //melee attack
-			return
 		if(target == user && !user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH)) //so we can't shoot ourselves (unless mouth selected)
 			return
 	add_fingerprint(user)
@@ -494,7 +492,7 @@
 	if(user.combat_mode) //Flogging
 		if(bayonet)
 			M.attackby(bayonet, user)
-			return
+			return TRUE
 		else
 			return ..()
 	return
@@ -503,7 +501,7 @@
 	if(user.combat_mode)
 		if(bayonet)
 			O.attackby(bayonet, user)
-			return
+			return TRUE
 	return ..()
 
 /obj/item/gun/attackby(obj/item/I, mob/living/user, params)
