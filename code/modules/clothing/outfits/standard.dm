@@ -4,7 +4,7 @@
 	id = /obj/item/card/id/syndicate/debug
 	uniform = /obj/item/clothing/under/misc/patriotsuit
 	suit_store = /obj/item/tank/internals/emergency_oxygen/magic_oxygen
-	back = /obj/item/mod/control/pre_equipped/debug
+	suit = /obj/item/clothing/suit/space/hardsuit/debug
 	backpack_contents = list(
 		/obj/item/gun/magic/wand/resurrection/debug=1,
 		/obj/item/melee/energy/axe=1,
