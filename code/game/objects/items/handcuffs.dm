@@ -337,7 +337,7 @@
 	gender = NEUTER
 	var/knockdown = 0
 
-/obj/item/restraints/legcuffs/bola/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, quickstart = TRUE)
+/obj/item/restraints/legcuffs/bola/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, quickstart = TRUE)
 	if(!..())
 		return
 	playsound(loc,'sound/weapons/bolathrow.ogg', 75, 1)
