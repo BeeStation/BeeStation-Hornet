@@ -21,11 +21,12 @@
 	light_color = "#00ff00"//green
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
-	block_level = 2
-	block_upgrade_walk = TRUE
-	block_power = 70
+	canblock = TRUE
+
+	block_power = 75
 	block_sound = 'sound/weapons/egloves.ogg'
-	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
+	block_flags = BLOCKING_ACTIVE | BLOCKING_COUNTERATTACK | BLOCKING_PROJECTILE | BLOCKING_UNBLOCKABLE
+
 	max_integrity = 200
 	armor_type = /datum/armor/item_dualsaber
 	resistance_flags = FIRE_PROOF
@@ -148,10 +149,10 @@
 	else
 		user.adjustStaminaLoss(25)
 
-/obj/item/dualsaber/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/dualsaber/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	if(ISWIELDED(src))
 		return ..()
-	return 0
+	return FALSE
 
 /obj/item/dualsaber/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)  //In case thats just so happens that it is still activated on the groud, prevents hulk from picking it up
 	if(ISWIELDED(src))

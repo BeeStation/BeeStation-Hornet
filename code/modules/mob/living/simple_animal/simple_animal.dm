@@ -75,7 +75,8 @@
 	var/friendly_verb_simple = "nuzzle"
 	///Set to 1 to allow breaking of crates,lockers,racks,tables; 2 for walls; 3 for Rwalls.
 	var/environment_smash = ENVIRONMENT_SMASH_NONE
-	var/hardattacks = FALSE //if true, a simplemob is unaffected by NASTY_BLOCKING
+	///If true, simplemob gets an extreme bonus against blocking players
+	var/hardattacks = FALSE
 
 	var/speed = 1 //LETS SEE IF I CAN SET SPEEDS FOR SIMPLE MOBS WITHOUT DESTROYING EVERYTHING. Higher speed is slower, negative speed is faster
 
