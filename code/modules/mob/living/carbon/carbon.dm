@@ -667,33 +667,6 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	else
 		. += INFINITY
 
-//this handles hud updates
-/mob/living/carbon/update_damage_hud()
-
-	if(!client)
-		return
-
-	//Fire and Brute damage overlay (BSSR)
-	var/hurtdamage = getBruteLoss() + getFireLoss() + damageoverlaytemp
-	if(hurtdamage)
-		var/severity = 0
-		switch(hurtdamage)
-			if(5 to 15)
-				severity = 1
-			if(15 to 30)
-				severity = 2
-			if(30 to 45)
-				severity = 3
-			if(45 to 70)
-				severity = 4
-			if(70 to 85)
-				severity = 5
-			if(85 to INFINITY)
-				severity = 6
-		overlay_fullscreen("brute", /atom/movable/screen/fullscreen/brute, severity)
-	else
-		clear_fullscreen("brute")
-
 /mob/living/carbon/update_health_hud(shown_health_amount)
 	if(!client || !hud_used)
 		return
@@ -774,7 +747,6 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		if(!is_blind())
 			var/datum/component/blind_sense/B = GetComponent(/datum/component/blind_sense)
 			B?.ClearFromParent()
-	update_damage_hud()
 	update_health_hud()
 	update_stamina_hud()
 	med_hud_set_status()

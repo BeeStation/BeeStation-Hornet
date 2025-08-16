@@ -123,9 +123,6 @@
 	else if(eye_blurry) //blurry eyes heal slowly
 		adjust_blurriness(-0.5 * delta_time)
 
-/mob/living/proc/update_damage_hud()
-	return
-
 /mob/living/proc/handle_gravity(seconds_per_tick, times_fired)
 	if(gravity_state > STANDARD_GRAVITY)
 		handle_high_gravity(gravity_state, seconds_per_tick, times_fired)

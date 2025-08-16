@@ -6,7 +6,6 @@
 
 	if(damageoverlaytemp)
 		damageoverlaytemp = 0
-		update_damage_hud()
 
 	if(IS_IN_STASIS(src))
 		. = ..()

@@ -322,7 +322,6 @@
 			victim.confused = max(exposed_mob.confused, 5) // 10 seconds
 			victim.add_movespeed_modifier(/datum/movespeed_modifier/reagent/pepperspray)
 			addtimer(CALLBACK(victim, TYPE_PROC_REF(/mob, remove_movespeed_modifier), /datum/movespeed_modifier/reagent/pepperspray), 10 SECONDS)
-		victim.update_damage_hud()
 
 /datum/reagent/consumable/condensedcapsaicin/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()

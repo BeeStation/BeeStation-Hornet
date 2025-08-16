@@ -283,7 +283,6 @@
 /datum/reagent/toxin/spore/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	affected_mob.damageoverlaytemp = 60
-	affected_mob.update_damage_hud()
 	affected_mob.blur_eyes(3 * REM * delta_time)
 
 /datum/reagent/toxin/spore_burning

@@ -14,5 +14,4 @@
 	. = ..()
 	if(stat == UNCONSCIOUS)
 		set_resting(FALSE)
-	update_damage_hud()
 	update_health_hud()
