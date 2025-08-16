@@ -4,6 +4,7 @@
 
 /datum/unit_test/emissive_worn_overlays/Run()
 	test_subject = allocate(/mob/living/carbon/human/consistent)
+	test_subject.plane = EMISSIVE_PLANE
 
 	test_subject.equipOutfit(/datum/outfit/job/assistant/consistent/emissive_worn_overlay_test)
 	var/icon/flat_icon = create_icon()
@@ -29,6 +30,6 @@
 	head = /obj/item/clothing/head/bio_hood
 
 /// Create the mob icon with light cone underlay
-/datum/unit_test/screenshot_high_luminosity_eyes/proc/create_icon()
+/datum/unit_test/emissive_worn_overlays/proc/create_icon()
 	var/icon/final_icon = get_flat_icon_for_all_directions(test_subject, no_anim = FALSE)
 	return final_icon
