@@ -2,7 +2,7 @@
 // The actual one abductors are using is after this type (as smartfridge)
 /obj/machinery/abductor/gland_dispenser
 	name = "replacement organ storage"
-	desc = "A tank filled with replacement organs."
+	desc = "A tank filled with a roiling green liquid. Sinister shapes float within."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "dispenser"
 	density = TRUE
@@ -23,6 +23,14 @@
 	for(var/i in 1 to gland_types.len)
 		gland_colors[i] = random_color()
 		amounts[i] = rand(1,5)
+
+/obj/machinery/abductor/gland_dispenser/examine(mob/user)
+	. = ..()
+	if(!isabductor(user))
+		. += span_greentext("This is useless to you.")
+
+	if(isabductor(user))
+		. += span_abductor("Gland storage. Stores glands in pocket dimensions outside time to guarantee freshness.")
 
 /obj/machinery/abductor/gland_dispenser/ui_status(mob/user)
 	if(!isabductor(user) && !isobserver(user))

@@ -284,3 +284,21 @@
 	icon_state = "plus_quarter"
 /obj/effect/turf_decal/alphabet/symbol_plus/cardinal
 	icon_state = "plus_cardinal"
+
+/obj/effect/turf_decal/alphabet/alien
+	icon_state = "triangle"
+	color = "#ff0099"
+
+/obj/effect/turf_decal/alphabet/alien/triangle
+	icon_state = "triangle"
+/obj/effect/turf_decal/alphabet/alien/triangle/down
+	icon_state = "triangle_down"
+/obj/effect/turf_decal/alphabet/alien/triangle/full
+	icon_state = "triangle_full"
+/obj/effect/turf_decal/alphabet/alien/triangle/full/down
+	icon_state = "triangle_full_down"
+
+/obj/effect/turf_decal/alphabet/alien/circle
+	icon_state = "circle_h"
+/obj/effect/turf_decal/alphabet/alien/circle/vertical
+	icon_state = "circle_v"

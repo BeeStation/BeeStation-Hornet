@@ -1,6 +1,6 @@
 /obj/machinery/abductor/experiment
-	name = "experimentation machine"
-	desc = "A large man-sized tube sporting a complex array of surgical machinery."
+	name = "tube-machine device"
+	desc = "A large man-sized tube."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "experiment-open"
 	density = FALSE
@@ -14,6 +14,29 @@
 	var/obj/machinery/abductor/console/console
 	var/message_cooldown = 0
 	var/breakout_time = 450
+
+/obj/machinery/abductor/experiment/examine(mob/user)
+	. = ..()
+	if(!isabductor(user))
+		. += span_greentextbig("You could probably break out of this if you were to resist against the door hard enough.")
+
+	if(isabductor(user))
+		. += span_abductor("All in one experimentation machine. It pays out credits to whatever team it's tuned to.")
+
+		if(team_number)
+			switch(team_number)
+				if(1)
+					if(isabductor(user))
+						. += span_abductor("This is tuned to subduction team alpha.")
+				if(2)
+					if(isabductor(user))
+						. += span_abductor("This is tuned to subduction team beta.")
+				if(3)
+					if(isabductor(user))
+						. += span_abductor("This is tuned to subduction team gamma.")
+				if(4)
+					if(isabductor(user))
+						. += span_abductor("This is tuned to subduction team delta.")
 
 /obj/machinery/abductor/experiment/MouseDrop_T(mob/target, mob/user)
 	if(user.stat != CONSCIOUS || HAS_TRAIT(user, TRAIT_UI_BLOCKED) || !Adjacent(user) || !target.Adjacent(user) || !ishuman(target))
@@ -129,7 +152,7 @@
 		return "Specimen deceased."
 	var/obj/item/organ/heart/gland/GlandTest = locate() in H.internal_organs
 	if(!GlandTest)
-		say("Experimental dissection not detected!")
+		say("No glands detected!")
 		return "No glands detected!"
 	if(H.mind != null && H.ckey != null)
 		LAZYINITLIST(abductee_minds)
@@ -145,9 +168,8 @@
 			if(3)
 				to_chat(H, span_warning("You feel intensely watched."))
 		sleep(5)
-		user_abductor.team.abductees += H.mind
-		H.mind.add_antag_datum(/datum/antagonist/abductee)
 
+		user_abductor.team.abductees += H.mind
 		for(var/obj/item/organ/heart/gland/G in H.internal_organs)
 			G.Start()
 			point_reward++
@@ -174,7 +196,6 @@
  * * H The human mob to be sent back
  */
 /obj/machinery/abductor/experiment/proc/send_back(mob/living/carbon/human/H)
-	H.Sleeping(160)
 	H.uncuff()
 	H.cauterise_wounds()
 	if(console && console.pad && console.pad.teleport_target)

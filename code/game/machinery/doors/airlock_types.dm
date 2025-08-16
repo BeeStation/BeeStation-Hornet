@@ -472,6 +472,8 @@
 	aiControlDisabled = 1
 	normal_integrity = 700
 	allow_repaint = FALSE
+	doorOpen = 'sound/effects/abductordooropen.ogg'
+	doorClose = 'sound/effects/abductordoorclose.ogg'
 
 //////////////////////////////////
 /*

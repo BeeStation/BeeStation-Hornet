@@ -143,6 +143,9 @@
 	flags_1 = NONE
 	network_root_id = "ALIENS"
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_MAXIMUM
+	ambient_buzz = 'sound/ambience/abductorambience.ogg'
+	ambientsounds = list('sound/ambience/abductor1.ogg','sound/ambience/abductor2.ogg')
+	rare_ambient_sounds = list('sound/ambience/abductor3.ogg')
 
 //Syndicates
 /area/syndicate_mothership

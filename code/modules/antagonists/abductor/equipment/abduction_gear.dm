@@ -942,6 +942,76 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	bomb = 10
 	bio = 10
 
+/obj/structure/bed/subject_transporter
+	name = "subject transporter"
+	icon = 'icons/obj/abductor.dmi'
+	icon_state = "down"
+	anchored = FALSE
+	resistance_flags = NONE
+	move_resist = MOVE_FORCE_WEAK
+
+/obj/structure/bed/subject_transporter/post_buckle_mob(mob/living/M)
+	set_density(TRUE)
+	icon_state = "up"
+	M.reset_pull_offsets(M, TRUE)
+	M.pixel_y = M.base_pixel_y
+
+/obj/structure/bed/subject_transporter/post_unbuckle_mob(mob/living/M)
+	set_density(FALSE)
+	icon_state = "down"
+	//Set them back down to the normal lying position
+	M.pixel_y = M.base_pixel_y + M.body_position_pixel_y_offset
+
+/obj/machinery/shower/abductor
+	name = "desinfection apparatus"
+	desc = "is that acid or just very weird smelling water?"
+	icon = 'icons/obj/watercloset.dmi'
+	icon_state = "alienshower"
+	density = FALSE
+	use_power = NO_POWER_USE
+	current_temperature = "freezing"
+	reagent_id = /datum/reagent/space_cleaner
+	reaction_volume = 200
+	pixel_y = 16
+
+/obj/machinery/shower/abductor/examine(mob/user)
+	. = ..()
+	if(isabductor(user))
+		. += span_abductor("It's cleaner.")
+
+/obj/item/candydispenser/abductor
+	name = "zetaball dispenser"
+	desc = "A whimsical device with a glass globe on top, which can be operated to dispense various... candies? Did they steal this from us?"
+	variant = "abductor"
+	candy_type = /obj/item/food/gumball/zeta
+
+/obj/item/candydispenser/abductor/examine(mob/user)
+	. = ..()
+	if(isabductor(user))
+		. += span_abductor("They do have SOME good ideas.")
+
+//Ayyballs
+/obj/item/food/gumball/zeta
+	name = "zetaball"
+	desc = "A pinkish-purplish, gumball-like object. You have no idea what this is made of or why, can they even eat???"
+	foodtypes = GROSS
+	food_flags = FOOD_FINGER_FOOD
+	food_reagents = list(
+		/datum/reagent/oil = 3,
+		/datum/reagent/medicine/polypyr = 4,
+		/datum/reagent/medicine/antitoxin = 2
+		)
+	tastes = list("concentrated gnerp")
+
+/obj/item/food/gumball/zeta/Initialize(mapload)
+	. = ..()
+	color = rgb(255, 0,rand(160,255))
+
+/obj/item/food/gumball/zeta/examine(mob/user)
+	. = ..()
+	if(isabductor(user))
+		. += span_abductor("Hmmm, zetaballs.")
+
 #undef VEST_STEALTH
 #undef VEST_COMBAT
 #undef GIZMO_SCAN

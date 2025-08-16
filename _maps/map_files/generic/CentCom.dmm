@@ -4304,31 +4304,6 @@
 	},
 /turf/open/floor/plating/dirt/jungle,
 /area/syndicate_mothership/control)
-"ako" = (
-/turf/closed/indestructible/abductor{
-	icon_state = "alien20"
-	},
-/area/abductor_ship)
-"akp" = (
-/turf/closed/indestructible/abductor{
-	icon_state = "alien21"
-	},
-/area/abductor_ship)
-"akq" = (
-/turf/closed/indestructible/abductor{
-	icon_state = "alien22"
-	},
-/area/abductor_ship)
-"akr" = (
-/turf/closed/indestructible/abductor{
-	icon_state = "alien23"
-	},
-/area/abductor_ship)
-"aks" = (
-/turf/closed/indestructible/abductor{
-	icon_state = "alien24"
-	},
-/area/abductor_ship)
 "aku" = (
 /turf/closed/indestructible/syndicate,
 /area/syndicate_mothership/control)
@@ -4453,43 +4428,17 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /turf/open/floor/iron/dark/textured_large,
 /area/centcom/evac)
-"akK" = (
-/turf/closed/indestructible/abductor{
-	icon_state = "alien16"
-	},
-/area/abductor_ship)
-"akL" = (
-/turf/closed/indestructible/abductor{
-	icon_state = "alien17"
-	},
-/area/abductor_ship)
 "akM" = (
 /obj/machinery/abductor/experiment{
 	team_number = 4
 	},
-/turf/open/floor/plating/abductor,
-/area/abductor_ship)
-"akN" = (
-/obj/machinery/abductor/console{
-	team_number = 4
-	},
-/turf/open/floor/plating/abductor,
+/turf/open/floor/plating/abductor2,
 /area/abductor_ship)
 "akO" = (
 /obj/machinery/abductor/pad{
 	team_number = 4
 	},
-/turf/open/floor/plating/abductor,
-/area/abductor_ship)
-"akP" = (
-/turf/closed/indestructible/abductor{
-	icon_state = "alien18"
-	},
-/area/abductor_ship)
-"akQ" = (
-/turf/closed/indestructible/abductor{
-	icon_state = "alien19"
-	},
+/turf/open/floor/plating/abductor2,
 /area/abductor_ship)
 "akS" = (
 /obj/effect/turf_decal/stripes/line{
@@ -4619,28 +4568,12 @@
 /obj/machinery/light,
 /turf/open/floor/grass/no_border,
 /area/centcom/evac)
-"alg" = (
-/turf/closed/indestructible/abductor{
-	icon_state = "alien14"
-	},
-/area/abductor_ship)
-"alh" = (
-/obj/machinery/computer/camera_advanced/abductor{
-	team_number = 4
-	},
-/turf/open/floor/plating/abductor,
-/area/abductor_ship)
 "ali" = (
 /turf/open/floor/plating/abductor,
 /area/abductor_ship)
 "alj" = (
 /obj/structure/closet/abductor,
 /turf/open/floor/plating/abductor,
-/area/abductor_ship)
-"alk" = (
-/turf/closed/indestructible/abductor{
-	icon_state = "alien15"
-	},
 /area/abductor_ship)
 "aln" = (
 /obj/effect/turf_decal/edges/techfloor{
@@ -4769,47 +4702,11 @@
 	},
 /turf/open/floor/iron/dark,
 /area/syndicate_mothership/control)
-"alB" = (
-/turf/closed/indestructible/abductor{
-	icon_state = "alien12"
-	},
-/area/abductor_ship)
-"alC" = (
-/obj/item/retractor/alien,
-/obj/item/hemostat/alien,
-/obj/structure/table/abductor,
-/turf/open/floor/plating/abductor,
-/area/abductor_ship)
-"alD" = (
-/obj/effect/landmark/abductor/scientist{
-	team_number = 4
-	},
-/turf/open/floor/plating/abductor,
-/area/abductor_ship)
-"alE" = (
-/obj/structure/table/optable/abductor,
-/obj/effect/light_emitter{
-	set_cap = 1;
-	set_luminosity = 4
-	},
-/turf/open/floor/plating/abductor,
-/area/abductor_ship)
-"alF" = (
-/obj/effect/landmark/abductor/agent{
-	team_number = 4
-	},
-/turf/open/floor/plating/abductor,
-/area/abductor_ship)
 "alG" = (
 /obj/effect/turf_decal/stripes/closeup,
 /obj/structure/fans/tiny,
 /turf/open/floor/iron/techmaint,
 /area/centcom/supply)
-"alH" = (
-/turf/closed/indestructible/abductor{
-	icon_state = "alien13"
-	},
-/area/abductor_ship)
 "alI" = (
 /turf/open/space/transit,
 /area/space)
@@ -4929,24 +4826,6 @@
 	},
 /turf/open/floor/wood/big,
 /area/syndicate_mothership/control)
-"alX" = (
-/turf/closed/indestructible/abductor{
-	icon_state = "alien10"
-	},
-/area/abductor_ship)
-"alY" = (
-/obj/item/surgical_drapes,
-/obj/item/paper/guides/antag/abductor,
-/obj/item/scalpel/alien,
-/obj/structure/table/abductor,
-/obj/item/cautery/alien,
-/turf/open/floor/plating/abductor,
-/area/abductor_ship)
-"alZ" = (
-/turf/closed/indestructible/abductor{
-	icon_state = "alien11"
-	},
-/area/abductor_ship)
 "amb" = (
 /turf/open/floor/iron/dark/smooth_edge{
 	dir = 8
@@ -5075,39 +4954,9 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/centcom/evac)
-"amr" = (
-/turf/closed/indestructible/abductor{
-	icon_state = "alien6"
-	},
-/area/abductor_ship)
-"ams" = (
-/turf/closed/indestructible/abductor{
-	icon_state = "alien7"
-	},
-/area/abductor_ship)
 "amt" = (
 /obj/machinery/smartfridge/abductor,
 /turf/open/floor/plating/abductor,
-/area/abductor_ship)
-"amu" = (
-/obj/structure/table/abductor,
-/obj/item/surgicaldrill/alien,
-/obj/item/circular_saw/alien,
-/turf/open/floor/plating/abductor,
-/area/abductor_ship)
-"amv" = (
-/obj/structure/bed/abductor,
-/turf/open/floor/plating/abductor,
-/area/abductor_ship)
-"amw" = (
-/turf/closed/indestructible/abductor{
-	icon_state = "alien8"
-	},
-/area/abductor_ship)
-"amx" = (
-/turf/closed/indestructible/abductor{
-	icon_state = "alien9"
-	},
 /area/abductor_ship)
 "amD" = (
 /turf/closed/indestructible/riveted,
@@ -5294,29 +5143,6 @@
 	},
 /turf/open/floor/iron,
 /area/centcom/supply)
-"anb" = (
-/turf/closed/indestructible/abductor,
-/area/abductor_ship)
-"anc" = (
-/turf/closed/indestructible/abductor{
-	icon_state = "alien2"
-	},
-/area/abductor_ship)
-"and" = (
-/turf/closed/indestructible/abductor{
-	icon_state = "alien3"
-	},
-/area/abductor_ship)
-"ane" = (
-/turf/closed/indestructible/abductor{
-	icon_state = "alien4"
-	},
-/area/abductor_ship)
-"anf" = (
-/turf/closed/indestructible/abductor{
-	icon_state = "alien5"
-	},
-/area/abductor_ship)
 "ani" = (
 /obj/machinery/newscaster,
 /turf/closed/indestructible/riveted,
@@ -9531,6 +9357,15 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/centcom/control)
+"ayl" = (
+/obj/structure/closet/abductor,
+/obj/item/stock_parts/cell/infinite/abductor,
+/obj/item/stock_parts/cell/infinite/abductor,
+/obj/item/wrench/abductor,
+/obj/item/circuitboard/machine/abductor/core,
+/obj/item/circuitboard/machine/abductor/core,
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "ayn" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/sign/warning/vacuum,
@@ -10361,19 +10196,13 @@
 /obj/machinery/abductor/experiment{
 	team_number = 3
 	},
-/turf/open/floor/plating/abductor,
-/area/abductor_ship)
-"aAv" = (
-/obj/machinery/abductor/console{
-	team_number = 3
-	},
-/turf/open/floor/plating/abductor,
+/turf/open/floor/plating/abductor2,
 /area/abductor_ship)
 "aAw" = (
 /obj/machinery/abductor/pad{
 	team_number = 3
 	},
-/turf/open/floor/plating/abductor,
+/turf/open/floor/plating/abductor2,
 /area/abductor_ship)
 "aAx" = (
 /turf/closed/indestructible/fakeglass{
@@ -10615,12 +10444,6 @@
 "aBd" = (
 /turf/open/floor/iron/large,
 /area/centcom/evac)
-"aBe" = (
-/obj/machinery/computer/camera_advanced/abductor{
-	team_number = 3
-	},
-/turf/open/floor/plating/abductor,
-/area/abductor_ship)
 "aBf" = (
 /obj/structure/chair/wood/wings{
 	dir = 1
@@ -10977,18 +10800,6 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/tdome/tdomeobserve)
-"aBQ" = (
-/obj/effect/landmark/abductor/scientist{
-	team_number = 3
-	},
-/turf/open/floor/plating/abductor,
-/area/abductor_ship)
-"aBR" = (
-/obj/effect/landmark/abductor/agent{
-	team_number = 3
-	},
-/turf/open/floor/plating/abductor,
-/area/abductor_ship)
 "aBS" = (
 /obj/machinery/door/airlock{
 	icon = 'icons/obj/doors/airlocks/station/uranium.dmi';
@@ -14038,19 +13849,13 @@
 /obj/machinery/abductor/experiment{
 	team_number = 1
 	},
-/turf/open/floor/plating/abductor,
-/area/abductor_ship)
-"aJB" = (
-/obj/machinery/abductor/console{
-	team_number = 1
-	},
-/turf/open/floor/plating/abductor,
+/turf/open/floor/plating/abductor2,
 /area/abductor_ship)
 "aJC" = (
 /obj/machinery/abductor/pad{
 	team_number = 1
 	},
-/turf/open/floor/plating/abductor,
+/turf/open/floor/plating/abductor2,
 /area/abductor_ship)
 "aJD" = (
 /obj/effect/turf_decal/loading_area,
@@ -14068,12 +13873,6 @@
 	},
 /turf/open/floor/iron/cafeteria,
 /area/centcom/holding)
-"aJF" = (
-/obj/machinery/computer/camera_advanced/abductor{
-	team_number = 1
-	},
-/turf/open/floor/plating/abductor,
-/area/abductor_ship)
 "aJG" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
@@ -14109,14 +13908,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/syndicate_mothership/control)
-"aJM" = (
-/obj/effect/landmark/abductor/scientist,
-/turf/open/floor/plating/abductor,
-/area/abductor_ship)
-"aJN" = (
-/obj/effect/landmark/abductor/agent,
-/turf/open/floor/plating/abductor,
-/area/abductor_ship)
 "aJO" = (
 /obj/structure/chair/fancy/comfy{
 	buildstackamount = 0;
@@ -14973,19 +14764,13 @@
 /obj/machinery/abductor/experiment{
 	team_number = 2
 	},
-/turf/open/floor/plating/abductor,
-/area/abductor_ship)
-"aLL" = (
-/obj/machinery/abductor/console{
-	team_number = 2
-	},
-/turf/open/floor/plating/abductor,
+/turf/open/floor/plating/abductor2,
 /area/abductor_ship)
 "aLM" = (
 /obj/machinery/abductor/pad{
 	team_number = 2
 	},
-/turf/open/floor/plating/abductor,
+/turf/open/floor/plating/abductor2,
 /area/abductor_ship)
 "aLN" = (
 /obj/effect/turf_decal/trimline/red/line{
@@ -15017,24 +14802,6 @@
 	},
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
-"aLS" = (
-/obj/machinery/computer/camera_advanced/abductor{
-	team_number = 2
-	},
-/turf/open/floor/plating/abductor,
-/area/abductor_ship)
-"aLT" = (
-/obj/effect/landmark/abductor/scientist{
-	team_number = 2
-	},
-/turf/open/floor/plating/abductor,
-/area/abductor_ship)
-"aLU" = (
-/obj/effect/landmark/abductor/agent{
-	team_number = 2
-	},
-/turf/open/floor/plating/abductor,
-/area/abductor_ship)
 "aLV" = (
 /turf/closed/indestructible/riveted,
 /area/awaymission/errorroom)
@@ -18979,6 +18746,13 @@
 	},
 /turf/open/floor/iron/dark,
 /area/syndicate_mothership/control)
+"aVm" = (
+/obj/structure/bed/alien,
+/obj/effect/landmark/abductor/scientist{
+	team_number = 4
+	},
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "aVn" = (
 /turf/open/floor/iron/large,
 /area/centcom/supplypod/loading/three)
@@ -19526,11 +19300,6 @@
 	dir = 1
 	},
 /area/centcom/control)
-"aWB" = (
-/obj/structure/table/abductor,
-/obj/machinery/recharger,
-/turf/open/floor/plating/abductor,
-/area/abductor_ship)
 "aWC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/shuttle/engine/heater,
@@ -20882,6 +20651,12 @@
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/ctf)
+"baJ" = (
+/obj/machinery/shuttle/engine/void{
+	dir = 1
+	},
+/turf/closed/indestructible/abductorsmooth,
+/area/abductor_ship)
 "bbB" = (
 /obj/structure/flora/rock/pile/icy,
 /turf/open/floor/plating/ice/smooth,
@@ -20903,6 +20678,14 @@
 	},
 /turf/open/floor/iron/dark,
 /area/tdome/tdomeobserve)
+"bjn" = (
+/obj/structure/table/optable/abductor,
+/obj/effect/light_emitter{
+	set_cap = 1;
+	set_luminosity = 4
+	},
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "bjA" = (
 /obj/effect/turf_decal/weather/dirt/corner{
 	dir = 1
@@ -20940,6 +20723,9 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/tech,
 /area/syndicate_mothership/control)
+"bFV" = (
+/turf/open/space/basic,
+/area/abductor_ship)
 "bGL" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 10
@@ -20998,6 +20784,12 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/tdome/tdomeadmin)
+"bXW" = (
+/obj/structure/shuttle/engine/heater{
+	resistance_flags = 3
+	},
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "caB" = (
 /turf/open/floor/iron,
 /area/tdome/tdomeadmin)
@@ -21009,6 +20801,18 @@
 /obj/machinery/airalarm/directional/south,
 /turf/open/floor/mineral/plastitanium,
 /area/syndicate_mothership/control)
+"cgS" = (
+/obj/structure/closet/abductor,
+/obj/item/firing_pin/abductor,
+/obj/item/mop/advanced,
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
+"cjN" = (
+/obj/effect/turf_decal/alphabet/alien/triangle/full/down{
+	dir = 4
+	},
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "coL" = (
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
 /obj/machinery/airalarm/directional/east,
@@ -21046,6 +20850,18 @@
 	},
 /turf/open/floor/plating/rust,
 /area/syndicate_mothership/control)
+"cHd" = (
+/obj/machinery/limbgrower,
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
+"cKy" = (
+/obj/item/storage/box/alienhandcuffs,
+/obj/structure/closet/abductor{
+	anchored = 1;
+	name = "Alpha locker"
+	},
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "cMX" = (
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 1
@@ -21116,6 +20932,12 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/syndicate_mothership/control)
+"daK" = (
+/obj/machinery/abductor/console{
+	team_number = 4
+	},
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "deG" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/green,
@@ -21187,6 +21009,28 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/syndicate_mothership/control)
+"dyI" = (
+/obj/structure/table/abductor,
+/obj/machinery/recharger{
+	pixel_y = 3
+	},
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
+"dEA" = (
+/obj/effect/turf_decal/alphabet/alien/triangle,
+/obj/effect/light_emitter{
+	set_cap = 1;
+	set_luminosity = 4
+	},
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
+"dGs" = (
+/obj/machinery/door/airlock/abductor{
+	normalspeed = 0;
+	name = "Gamma-Delta Wing"
+	},
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "dNo" = (
 /obj/machinery/chem_dispenser/drinks/beer/fullupgrade,
 /obj/structure/table/reinforced{
@@ -21255,12 +21099,25 @@
 /obj/structure/flora/rock/pile/icy,
 /turf/open/floor/grass/snow,
 /area/syndicate_mothership)
+"eiO" = (
+/obj/structure/bed/subject_transporter,
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "ejH" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 9
 	},
 /turf/open/floor/plating/snowed,
 /area/syndicate_mothership)
+"enR" = (
+/obj/structure/closet/abductor,
+/obj/item/firing_pin/abductor,
+/obj/item/firing_pin/abductor,
+/obj/item/stack/sheet/mineral/abductor/fifty,
+/obj/item/stack/sheet/mineral/abductor/fifty,
+/obj/item/stack/sheet/mineral/abductor/fifty,
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "eDv" = (
 /obj/machinery/igniter/on,
 /obj/effect/turf_decal/delivery,
@@ -21332,6 +21189,13 @@
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/grass/snow,
 /area/syndicate_mothership)
+"fle" = (
+/obj/effect/light_emitter{
+	set_cap = 1;
+	set_luminosity = 4
+	},
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "fmE" = (
 /obj/structure/flora/tree/pine/xmas,
 /turf/open/floor/grass/snow,
@@ -21342,6 +21206,11 @@
 	},
 /turf/open/floor/plating/dirt/jungle,
 /area/syndicate_mothership/control)
+"fsR" = (
+/obj/structure/closet/abductor,
+/obj/item/melee/baton/abductor,
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "ftr" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/green,
@@ -21354,6 +21223,19 @@
 	},
 /turf/open/floor/iron,
 /area/tdome/tdomeadmin)
+"ftF" = (
+/obj/machinery/computer/camera_advanced/abductor{
+	team_number = 1
+	},
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
+"fyz" = (
+/obj/machinery/door/airlock/abductor{
+	normalspeed = 0;
+	name = "Alpha-Beta Surgery"
+	},
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "fzn" = (
 /obj/structure/chair{
 	dir = 1
@@ -21417,11 +21299,25 @@
 	},
 /turf/open/floor/carpet/purple,
 /area/syndicate_mothership/control)
+"fYS" = (
+/obj/machinery/door/airlock/abductor{
+	normalspeed = 0;
+	name = "Gamma-Delta Readyroom"
+	},
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "fYY" = (
 /obj/machinery/door/airlock/external,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron,
 /area/centcom/control)
+"gcc" = (
+/obj/machinery/door/airlock/abductor{
+	normalspeed = 0;
+	name = "Alpha-Beta Readyroom"
+	},
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "geF" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 8
@@ -21453,6 +21349,11 @@
 	},
 /turf/open/floor/iron/dark,
 /area/tdome/tdomeobserve)
+"gnX" = (
+/obj/structure/closet/abductor,
+/obj/item/multitool/abductor,
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "goT" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/red,
@@ -21482,11 +21383,22 @@
 /obj/machinery/light/small,
 /turf/open/floor/plating,
 /area/syndicate_mothership/control)
+"gxj" = (
+/obj/structure/door_assembly/door_assembly_abductor,
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "gxW" = (
 /obj/structure/lattice,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/rust,
 /area/syndicate_mothership/control)
+"gCS" = (
+/obj/machinery/door/airlock/abductor{
+	normalspeed = 0;
+	name = "Quarters"
+	},
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "gFf" = (
 /obj/structure/lattice/catwalk,
 /obj/effect/turf_decal/weather/snow/corner{
@@ -21515,6 +21427,16 @@
 	},
 /turf/open/floor/iron/white/textured,
 /area/tdome/tdomeobserve)
+"hbp" = (
+/obj/effect/turf_decal/alphabet/alien/triangle/full/down{
+	dir = 1
+	},
+/obj/effect/light_emitter{
+	set_cap = 1;
+	set_luminosity = 4
+	},
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "hcS" = (
 /obj/structure/table/reinforced{
 	color = "#c1b6a5"
@@ -21663,6 +21585,13 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/rust,
 /area/syndicate_mothership/control)
+"hGJ" = (
+/obj/machinery/door/airlock/abductor{
+	normalspeed = 0;
+	name = "Delta-Gamma Teleportation"
+	},
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "hHA" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/weather/dirt{
@@ -21710,6 +21639,13 @@
 	dir = 8
 	},
 /area/centcom/ferry)
+"hLn" = (
+/obj/machinery/door/airlock/abductor{
+	normalspeed = 0;
+	name = "Gamma Quarters"
+	},
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "hSl" = (
 /obj/structure/flora/grass/jungle/b{
 	pixel_x = -13;
@@ -21801,6 +21737,11 @@
 	},
 /turf/open/floor/iron/tech/grid,
 /area/syndicate_mothership/control)
+"ilc" = (
+/obj/structure/table/abductor,
+/obj/item/firing_pin/abductor,
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "imY" = (
 /obj/machinery/firealarm/directional/west,
 /obj/effect/landmark/start/nukeop_leader,
@@ -21903,6 +21844,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/mineral/plastitanium,
 /area/syndicate_mothership/control)
+"iTF" = (
+/obj/structure/bed/abductor,
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "iUu" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/effect/mapping_helpers/Mapper_Comment{
@@ -22015,6 +21960,12 @@
 /obj/effect/decal/cleanable/generic,
 /turf/open/floor/mineral/plastitanium,
 /area/syndicate_mothership/control)
+"jQT" = (
+/obj/structure/closet/abductor,
+/obj/item/chromosome/stabilizer,
+/obj/item/chromosome/power,
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "jRP" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 5
@@ -22049,6 +22000,14 @@
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/centcom/control)
+"jZG" = (
+/obj/structure/closet/abductor,
+/obj/item/stock_parts/cell/infinite/abductor,
+/obj/item/stock_parts/cell/infinite/abductor,
+/obj/item/weldingtool/abductor,
+/obj/item/circuitboard/machine/abductor/core,
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "kbc" = (
 /obj/structure/chair{
 	dir = 1
@@ -22065,6 +22024,28 @@
 	},
 /turf/open/floor/iron/tech,
 /area/syndicate_mothership/control)
+"kjc" = (
+/mob/living/basic/cow{
+	name = "Lady Hoofington of Orion";
+	desc = "There is no grass here... What has she been eating??."
+	},
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
+"kkw" = (
+/obj/item/storage/box/alienhandcuffs,
+/obj/structure/closet/abductor{
+	anchored = 1;
+	name = "Gamma locker"
+	},
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
+"kqj" = (
+/obj/machinery/door/airlock/abductor{
+	normalspeed = 0;
+	name = "Delta Quarters"
+	},
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "krY" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 1
@@ -22091,6 +22072,12 @@
 	dir = 4
 	},
 /area/tdome/tdomeobserve)
+"kuq" = (
+/obj/structure/table/abductor,
+/obj/item/circular_saw/alien,
+/obj/item/surgicaldrill/alien,
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "kBq" = (
 /obj/effect/turf_decal/trimline/neutral/warning{
 	dir = 1
@@ -22104,6 +22091,12 @@
 	},
 /turf/open/floor/plating/snowed,
 /area/syndicate_mothership)
+"kDn" = (
+/obj/machinery/abductor/console{
+	team_number = 3
+	},
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "kEB" = (
 /obj/effect/turf_decal/trimline/red/filled/mid_joiner{
 	dir = 1
@@ -22112,6 +22105,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/mineral/plastitanium,
 /area/syndicate_mothership/control)
+"kHR" = (
+/obj/machinery/door/airlock/abductor{
+	normalspeed = 0;
+	name = "Delta-Gamma Surgery"
+	},
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "kKd" = (
 /obj/structure/chair/office{
 	name = "tactical swivel chair"
@@ -22167,6 +22167,13 @@
 	},
 /turf/open/floor/plating/rust,
 /area/syndicate_mothership/control)
+"kNK" = (
+/obj/machinery/door/airlock/abductor{
+	normalspeed = 0;
+	name = "Alpha-Beta Wing"
+	},
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "kQp" = (
 /obj/structure/table/reinforced,
 /obj/item/mod/module/anomaly_locked/teleporter,
@@ -22425,6 +22432,20 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/syndicate_mothership/control)
+"mzi" = (
+/obj/structure/bed/alien,
+/obj/effect/landmark/abductor/scientist{
+	team_number = 2
+	},
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
+"mDZ" = (
+/obj/structure/table/abductor,
+/obj/item/toy/plush/lizard_plushie/space{
+	name = "Probes-the-Subject"
+	},
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "mEG" = (
 /obj/structure/table/reinforced{
 	color = "#c1b6a5"
@@ -22472,6 +22493,10 @@
 	},
 /turf/open/floor/iron/dark/textured,
 /area/centcom/control)
+"mJE" = (
+/obj/machinery/shower/abductor,
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "mJJ" = (
 /obj/effect/turf_decal/siding/dark/corner,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -22495,6 +22520,20 @@
 /obj/structure/closet/crate/bin,
 /turf/open/floor/iron,
 /area/tdome/tdomeobserve)
+"mRi" = (
+/obj/structure/table/abductor,
+/obj/item/surgical_drapes,
+/obj/item/paper/guides/antag/abductor,
+/obj/item/cautery/alien,
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
+"naA" = (
+/obj/machinery/door/airlock/abductor{
+	normalspeed = 0;
+	name = "Control Cortex"
+	},
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "ncu" = (
 /obj/structure/table/reinforced{
 	color = "#c1b6a5"
@@ -22516,10 +22555,19 @@
 	},
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
+"ndo" = (
+/obj/structure/closet/abductor,
+/obj/item/candydispenser/abductor,
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "nec" = (
 /obj/structure/fluff/fokoff_sign,
 /turf/open/floor/grass/snow,
 /area/syndicate_mothership)
+"net" = (
+/obj/structure/table/abductor,
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "nft" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/lattice/catwalk,
@@ -22533,6 +22581,14 @@
 	},
 /turf/open/floor/plating,
 /area/syndicate_mothership/control)
+"nhe" = (
+/obj/item/crowbar/abductor,
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
+"nkO" = (
+/obj/structure/table/abductor,
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "nnf" = (
 /obj/effect/turf_decal/trimline/red/warning,
 /obj/effect/turf_decal/siding/dark,
@@ -22579,6 +22635,17 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/mineral/plastitanium,
 /area/syndicate_mothership/control)
+"ntd" = (
+/obj/effect/turf_decal/alphabet/alien/triangle{
+	dir = 1
+	},
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
+"nuw" = (
+/obj/structure/table/abductor,
+/obj/item/abductor/gizmo,
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "nyE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/lattice/catwalk,
@@ -22687,6 +22754,13 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/syndicate_mothership/control)
+"osP" = (
+/obj/machinery/door/airlock/abductor{
+	normalspeed = 0;
+	name = "Delta-Gamma Experimentation"
+	},
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "ovX" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -22723,6 +22797,13 @@
 	},
 /turf/open/floor/plating/snowed,
 /area/syndicate_mothership)
+"oHT" = (
+/obj/structure/table/abductor,
+/obj/item/retractor/alien,
+/obj/item/hemostat/alien,
+/obj/item/scalpel/alien,
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "oLH" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/edges/borderfloor,
@@ -22731,12 +22812,25 @@
 	},
 /turf/open/floor/iron/dark,
 /area/tdome/tdomeobserve)
+"oMH" = (
+/obj/structure/bed/alien,
+/obj/effect/landmark/abductor/agent{
+	team_number = 3
+	},
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "oNl" = (
 /obj/effect/turf_decal/trimline/red/filled/mid_joiner{
 	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/syndicate_mothership/control)
+"oQb" = (
+/obj/effect/turf_decal/alphabet/alien/triangle{
+	dir = 4
+	},
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "oRH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/floor,
@@ -22782,6 +22876,18 @@
 /obj/effect/turf_decal/weather/dirt/corner,
 /turf/open/floor/plating/rust,
 /area/syndicate_mothership/control)
+"pfv" = (
+/obj/machinery/door/airlock/abductor{
+	normalspeed = 0;
+	name = "Delta-Gamma Storage"
+	},
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
+"piG" = (
+/obj/structure/table/abductor,
+/obj/item/chromosome/synchronizer,
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "pmF" = (
 /obj/structure/lattice/catwalk,
 /turf/open/floor/plating/rust,
@@ -22809,6 +22915,27 @@
 /obj/effect/turf_decal/tile/techfloor,
 /turf/open/floor/iron/dark/textured,
 /area/centcom/control)
+"puE" = (
+/obj/item/storage/box/alienhandcuffs,
+/obj/structure/closet/abductor{
+	anchored = 1;
+	name = "Delta locker"
+	},
+/obj/item/abductor/silencer,
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
+"pBa" = (
+/obj/machinery/abductor/console{
+	team_number = 1
+	},
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
+"pBv" = (
+/obj/structure/sign/poster/contraband/lusty_xenomorph{
+	pixel_y = 33
+	},
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "pDC" = (
 /obj/effect/turf_decal/trimline/dark_red/mid_joiner,
 /obj/effect/turf_decal/tile/techfloor{
@@ -22818,6 +22945,12 @@
 /obj/effect/turf_decal/siding/thinplating_new/dark,
 /turf/open/floor/iron/dark/textured,
 /area/centcom/control)
+"pHm" = (
+/obj/machinery/computer/camera_advanced/abductor{
+	team_number = 4
+	},
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "pMa" = (
 /obj/structure/chair,
 /turf/open/floor/mineral/plastitanium,
@@ -22829,6 +22962,13 @@
 	},
 /turf/open/floor/plating/broken,
 /area/syndicate_mothership/control)
+"pQe" = (
+/obj/structure/bed/alien,
+/obj/effect/landmark/abductor/scientist{
+	team_number = 3
+	},
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "pRr" = (
 /obj/structure/lattice,
 /obj/effect/decal/cleanable/glass,
@@ -22850,6 +22990,12 @@
 	},
 /turf/open/floor/iron/dark/textured,
 /area/centcom/control)
+"pUV" = (
+/obj/effect/turf_decal/alphabet/alien/triangle/full/down{
+	dir = 8
+	},
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "pVV" = (
 /obj/effect/turf_decal/trimline/neutral/warning{
 	dir = 9
@@ -22871,6 +23017,11 @@
 /obj/structure/lattice/catwalk,
 /turf/open/floor/plating/broken,
 /area/syndicate_mothership/control)
+"pZs" = (
+/obj/item/discovery_scanner,
+/obj/structure/closet/abductor,
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "qdf" = (
 /obj/machinery/gibber,
 /turf/open/floor/iron/cafeteria,
@@ -22898,6 +23049,11 @@
 	},
 /turf/open/floor/grass/snow,
 /area/syndicate_mothership)
+"qhV" = (
+/obj/structure/bed/alien,
+/obj/effect/landmark/abductor/agent,
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "qje" = (
 /turf/open/space/basic,
 /area/tdome/tdomeobserve)
@@ -22906,6 +23062,18 @@
 /obj/machinery/door/poddoor/shuttledock,
 /turf/open/floor/mineral/plastitanium,
 /area/syndicate_mothership/control)
+"qnx" = (
+/obj/effect/light_emitter{
+	set_cap = 1;
+	set_luminosity = 4
+	},
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
+"qpk" = (
+/obj/structure/closet/abductor,
+/obj/item/radio/headset/abductor,
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "qpY" = (
 /obj/structure/flora/tree/dead,
 /obj/structure/flora/grass/both,
@@ -22932,6 +23100,10 @@
 	},
 /turf/open/floor/iron/dark/textured_large,
 /area/syndicate_mothership/control)
+"qxU" = (
+/obj/item/kirbyplants/photosynthetic,
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "qyl" = (
 /obj/structure/table/reinforced,
 /obj/item/mod/paint,
@@ -22950,6 +23122,10 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/rust,
 /area/syndicate_mothership/control)
+"qAb" = (
+/obj/structure/girder/displaced,
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "qAf" = (
 /obj/effect/turf_decal/trimline/neutral/warning{
 	dir = 8
@@ -22958,6 +23134,13 @@
 	dir = 4
 	},
 /area/syndicate_mothership/control)
+"qAj" = (
+/obj/machinery/door/airlock/abductor{
+	normalspeed = 0;
+	name = "Beta Quarters"
+	},
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "qBk" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/lattice/catwalk,
@@ -23050,6 +23233,12 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/syndicate_mothership/control)
+"riM" = (
+/obj/structure/closet/abductor,
+/obj/item/abductor/silencer,
+/obj/item/circuitboard/machine/abductor/core,
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "rkh" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark,
 /obj/effect/turf_decal/trimline/neutral/warning{
@@ -23064,6 +23253,11 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/tdome/tdomeadmin)
+"ruw" = (
+/obj/structure/bed/alien,
+/obj/effect/landmark/abductor/scientist,
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "rvu" = (
 /obj/structure/table/reinforced,
 /obj/item/mod/control/pre_equipped/apocryphal,
@@ -23087,6 +23281,11 @@
 	},
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
+"rTs" = (
+/obj/structure/table/abductor,
+/obj/item/abductor/mind_device,
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "rVO" = (
 /obj/structure/chair/office{
 	name = "tactical swivel chair"
@@ -23121,6 +23320,23 @@
 	},
 /turf/open/floor/iron,
 /area/tdome/arena)
+"scF" = (
+/obj/machinery/door/airlock/abductor{
+	normalspeed = 0;
+	name = "Alpha Quarters"
+	},
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
+"sep" = (
+/obj/effect/turf_decal/alphabet/alien/triangle{
+	dir = 1
+	},
+/obj/effect/light_emitter{
+	set_cap = 1;
+	set_luminosity = 4
+	},
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "seY" = (
 /obj/structure/spacevine,
 /turf/open/floor/plating/dirt/jungle,
@@ -23189,6 +23405,9 @@
 	},
 /turf/open/floor/plating/rust,
 /area/syndicate_mothership/control)
+"sGO" = (
+/turf/closed/indestructible/abductorsmooth,
+/area/abductor_ship)
 "sIs" = (
 /turf/open/floor/iron/dark/smooth_edge{
 	dir = 8
@@ -23241,11 +23460,31 @@
 	},
 /turf/open/floor/iron/tech,
 /area/syndicate_mothership/control)
+"sWQ" = (
+/obj/item/kirbyplants/photosynthetic{
+	icon_state = "plant-19"
+	},
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "sYr" = (
 /obj/structure/table/reinforced,
 /obj/item/mod/control/pre_equipped/traitor,
 /turf/open/floor/iron/dark/smooth_large,
 /area/centcom/control)
+"sYK" = (
+/obj/structure/sign/poster/contraband/busty_backdoor_xeno_babes_6{
+	pixel_y = -32
+	},
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
+"taq" = (
+/obj/effect/turf_decal/alphabet/alien/triangle/full/down,
+/obj/effect/light_emitter{
+	set_cap = 1;
+	set_luminosity = 4
+	},
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "taD" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/weather/dirt/corner{
@@ -23292,6 +23531,19 @@
 	},
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
+"tns" = (
+/obj/effect/turf_decal/alphabet/alien/triangle/full/down{
+	dir = 1
+	},
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
+"tvX" = (
+/obj/machinery/door/airlock/abductor{
+	normalspeed = 0;
+	name = "Alpha-Beta Experimentation"
+	},
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "tzh" = (
 /obj/effect/turf_decal/sand,
 /obj/effect/turf_decal/weather/dirt{
@@ -23344,6 +23596,37 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/mineral/plastitanium,
 /area/syndicate_mothership/control)
+"tJP" = (
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
+"tOM" = (
+/obj/structure/closet/abductor,
+/obj/item/clothing/under/abductor,
+/obj/item/clothing/under/abductor,
+/obj/item/clothing/under/abductor,
+/obj/item/clothing/under/abductor,
+/obj/item/clothing/under/abductor,
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
+"tQS" = (
+/obj/structure/bed/alien,
+/obj/effect/landmark/abductor/agent{
+	team_number = 2
+	},
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
+"tSq" = (
+/obj/machinery/computer/camera_advanced/abductor{
+	team_number = 2
+	},
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
+"tSP" = (
+/obj/effect/turf_decal/alphabet/alien/triangle{
+	dir = 8
+	},
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "tUf" = (
 /obj/structure/flora/ausbushes/pointybush,
 /turf/open/floor/grass/snow,
@@ -23352,6 +23635,10 @@
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/open/floor/plating/dirt/jungle/dark,
 /area/syndicate_mothership/control)
+"tWy" = (
+/obj/structure/fluff/iced_abductor,
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "tYM" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 1
@@ -23430,6 +23717,13 @@
 	},
 /turf/open/floor/iron,
 /area/tdome/tdomeadmin)
+"uth" = (
+/obj/machinery/door/airlock/abductor{
+	normalspeed = 0;
+	name = "Alpha-Beta Storage"
+	},
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "uwm" = (
 /obj/structure/sign/poster/contraband/syndicate{
 	pixel_y = 32
@@ -23470,11 +23764,50 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/rust,
 /area/syndicate_mothership/control)
+"uRD" = (
+/obj/structure/closet/abductor,
+/obj/item/paper/guides/antag/abductor,
+/obj/item/paper/guides/antag/abductor,
+/obj/item/paper/guides/antag/abductor,
+/obj/item/paper/guides/antag/abductor,
+/obj/item/organ/tongue/abductor,
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
+"uSz" = (
+/obj/structure/closet/abductor,
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
+"uUP" = (
+/obj/structure/closet/abductor,
+/obj/item/screwdriver/abductor,
+/obj/item/multitool/abductor,
+/obj/item/wrench/abductor,
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "vcG" = (
 /obj/structure/closet/cardboard,
 /obj/effect/turf_decal/trimline/neutral/warning,
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
+"vcT" = (
+/obj/machinery/door/airlock/abductor{
+	normalspeed = 0;
+	name = "Maintenance"
+	},
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
+"vfS" = (
+/obj/structure/closet/abductor,
+/obj/item/dance_trance,
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
+"viE" = (
+/obj/structure/closet/abductor,
+/obj/item/radio/headset/abductor,
+/obj/item/stock_parts/cell/infinite/abductor,
+/obj/item/circuitboard/machine/abductor/core,
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "vkM" = (
 /obj/structure/lattice,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -23507,15 +23840,33 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/carpet/purple,
 /area/syndicate_mothership/control)
+"vsI" = (
+/obj/effect/decal/cleanable/oil/streak,
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "vtG" = (
 /obj/machinery/vending/snack,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/tdome/tdomeobserve)
+"vus" = (
+/obj/structure/bed/alien,
+/obj/effect/landmark/abductor/agent{
+	team_number = 4
+	},
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "vEe" = (
 /obj/effect/turf_decal/trimline/red/filled/mid_joiner,
 /turf/open/floor/mineral/plastitanium,
 /area/syndicate_mothership/control)
+"vFx" = (
+/obj/structure/closet/abductor,
+/obj/item/stack/sheet/mineral/abductor/fifty,
+/obj/item/stack/sheet/mineral/abductor/fifty,
+/obj/item/stack/sheet/mineral/abductor/fifty,
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "vKF" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/green,
@@ -23529,6 +23880,10 @@
 	},
 /turf/open/floor/iron,
 /area/tdome/tdomeadmin)
+"vLs" = (
+/obj/effect/decal/cleanable/oil/slippery,
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "vLZ" = (
 /obj/effect/turf_decal/siding/thinplating_new,
 /obj/effect/turf_decal/tile/dark_blue/corner_ramp{
@@ -23544,6 +23899,12 @@
 /obj/machinery/door/poddoor,
 /turf/open/floor/plating,
 /area/syndicate_mothership/control)
+"vSx" = (
+/obj/item/kirbyplants/photosynthetic{
+	icon_state = "plant-07"
+	},
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "vUo" = (
 /obj/effect/turf_decal/trimline/neutral/warning{
 	dir = 1
@@ -23621,11 +23982,25 @@
 	},
 /turf/open/floor/iron,
 /area/tdome/tdomeadmin)
+"wCo" = (
+/obj/structure/closet/abductor,
+/obj/item/screwdriver/abductor,
+/obj/item/crowbar/abductor,
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "wGA" = (
 /obj/structure/table/reinforced,
 /obj/item/mod/skin_applier/honkerative,
 /turf/open/floor/iron/dark/smooth_large,
 /area/centcom/control)
+"wKl" = (
+/obj/structure/closet/abductor,
+/obj/item/clothing/under/abductor,
+/obj/item/clothing/under/abductor,
+/obj/item/radio/headset/abductor,
+/obj/item/radio/headset/abductor,
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "wMh" = (
 /obj/structure/railing{
 	dir = 4
@@ -23661,6 +24036,21 @@
 	},
 /turf/open/floor/iron,
 /area/tdome/tdomeadmin)
+"wWW" = (
+/obj/machinery/abductor/console{
+	team_number = 2
+	},
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
+"wXM" = (
+/obj/item/storage/box/alienhandcuffs,
+/obj/structure/closet/abductor{
+	anchored = 1;
+	name = "Beta locker"
+	},
+/obj/item/melee/baton/abductor,
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "xam" = (
 /obj/effect/turf_decal/trimline/red/warning{
 	dir = 4
@@ -23679,6 +24069,13 @@
 /obj/effect/mapping_helpers/tile_breaker,
 /turf/open/floor/mineral/plastitanium,
 /area/syndicate_mothership/control)
+"xhJ" = (
+/obj/machinery/door/airlock/abductor{
+	normalspeed = 0;
+	name = "Alpha-Beta Teleportation"
+	},
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "xlg" = (
 /obj/structure/railing/corner{
 	dir = 4
@@ -23794,6 +24191,17 @@
 	},
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
+"xVX" = (
+/obj/structure/closet/abductor,
+/obj/item/chromosome/energy,
+/obj/item/chromosome/energy,
+/obj/item/organ/tongue/abductor,
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
+"xYN" = (
+/obj/structure/girder/reinforced,
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "yaN" = (
 /obj/effect/turf_decal/trimline/red/filled/mid_joiner,
 /obj/effect/turf_decal/weather/dirt{
@@ -24079,14 +24487,14 @@ aaa
 aaa
 aaa
 aaa
-aRk
-aRk
-aRk
-aRk
-aRk
-aRk
-aRk
-aRk
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aRk
 aRk
 aRk
@@ -24253,40 +24661,6 @@ aaa
 aaa
 aaa
 aaa
-aRk
-aRk
-aRk
-aRk
-aRk
-aRk
-aRk
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aRk
-aRk
-aRk
-aRk
-aRk
-aRk
-aRk
 aaa
 aaa
 aaa
@@ -24310,13 +24684,6 @@ aaa
 aaa
 aaa
 aaa
-aRk
-aRk
-aRk
-aRk
-aRk
-aRk
-aRk
 aaa
 aaa
 aaa
@@ -24336,14 +24703,55 @@ aaa
 aaa
 aaa
 aaa
-aRk
-aRk
-aRk
-aRk
-aRk
-aRk
-aRk
-aRk
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aRk
 aLV
 aLV
@@ -24509,42 +24917,6 @@ aaa
 aaa
 aaa
 aaa
-aRk
-aRk
-akK
-alg
-alB
-alX
-amr
-aRk
-aRk
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aRk
-aRk
-akK
-alg
-alB
-alX
-amr
-aRk
-aRk
 aaa
 aaa
 aaa
@@ -24566,15 +24938,6 @@ aaa
 aaa
 aaa
 aaa
-aRk
-aRk
-akK
-alg
-alB
-alX
-amr
-aRk
-aRk
 aaa
 aaa
 aaa
@@ -24593,14 +24956,59 @@ aaa
 aaa
 aaa
 aaa
-aRk
-aRk
-akK
-alg
-alB
-alX
-amr
-aRk
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aRk
 aLV
 aLW
@@ -24766,42 +25174,6 @@ aaa
 aaa
 aaa
 aaa
-aRk
-ako
-akL
-alh
-alC
-alY
-ams
-anb
-aRk
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aRk
-ako
-akL
-aBe
-alC
-alY
-ams
-anb
-aRk
 aaa
 aaa
 aaa
@@ -24823,15 +25195,6 @@ aaa
 aaa
 aaa
 aaa
-aRk
-ako
-akL
-aJF
-alC
-alY
-ams
-anb
-aRk
 aaa
 aaa
 aaa
@@ -24850,14 +25213,59 @@ aaa
 aaa
 aaa
 aaa
-aRk
-ako
-akL
-aLS
-alC
-alY
-ams
-anb
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aRk
 aLV
 aLW
@@ -25023,42 +25431,6 @@ aaa
 aaa
 aaa
 aaa
-aRk
-akp
-akM
-ali
-alD
-ali
-amt
-anc
-aRk
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aRk
-akp
-aAu
-ali
-aBQ
-ali
-amt
-anc
-aRk
 aaa
 aaa
 aaa
@@ -25080,15 +25452,6 @@ aaa
 aaa
 aaa
 aaa
-aRk
-akp
-aJA
-ali
-aJM
-ali
-amt
-anc
-aRk
 aaa
 aaa
 aaa
@@ -25107,14 +25470,59 @@ aaa
 aaa
 aaa
 aaa
-aRk
-akp
-aLK
-ali
-aLT
-ali
-amt
-anc
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aRk
 aLV
 aLW
@@ -25280,42 +25688,6 @@ aaa
 aaa
 aaa
 aaa
-aRk
-akq
-akN
-ali
-alE
-ali
-amu
-and
-aRk
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aRk
-akq
-aAv
-ali
-alE
-ali
-amu
-and
-aRk
 aaa
 aaa
 aaa
@@ -25337,15 +25709,6 @@ aaa
 aaa
 aaa
 aaa
-aRk
-akq
-aJB
-ali
-alE
-ali
-amu
-and
-aRk
 aaa
 aaa
 aaa
@@ -25364,14 +25727,59 @@ aaa
 aaa
 aaa
 aaa
-aRk
-akq
-aLL
-ali
-alE
-ali
-amu
-and
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aRk
 aLV
 aLW
@@ -25537,42 +25945,6 @@ aaa
 aaa
 aaa
 aaa
-aRk
-akr
-akO
-ali
-alF
-ali
-amv
-ane
-aRk
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aRk
-akr
-aAw
-ali
-aBR
-ali
-amv
-ane
-aRk
 aaa
 aaa
 aaa
@@ -25594,15 +25966,6 @@ aaa
 aaa
 aaa
 aaa
-aRk
-akr
-aJC
-ali
-aJN
-ali
-amv
-ane
-aRk
 aaa
 aaa
 aaa
@@ -25621,14 +25984,59 @@ aaa
 aaa
 aaa
 aaa
-aRk
-akr
-aLM
-ali
-aLU
-ali
-amv
-ane
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aRk
 aLV
 aLW
@@ -25794,42 +26202,6 @@ aaa
 aaa
 aaa
 aaa
-aRk
-aks
-akP
-alj
-aWB
-aMp
-amw
-anf
-aRk
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aRk
-aks
-akP
-alj
-aWB
-aMp
-amw
-anf
-aRk
 aaa
 aaa
 aaa
@@ -25851,15 +26223,6 @@ aaa
 aaa
 aaa
 aaa
-aRk
-aks
-akP
-alj
-aWB
-aMp
-amw
-anf
-aRk
 aaa
 aaa
 aaa
@@ -25878,14 +26241,59 @@ aaa
 aaa
 aaa
 aaa
-aRk
-aks
-akP
-alj
-aWB
-aMp
-amw
-anf
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aRk
 aLV
 aLW
@@ -26051,42 +26459,6 @@ aaa
 aaa
 aaa
 aaa
-aRk
-aRk
-akQ
-alk
-alH
-alZ
-amx
-aRk
-aRk
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aRk
-aRk
-akQ
-alk
-alH
-alZ
-amx
-aRk
-aRk
 aaa
 aaa
 aaa
@@ -26108,15 +26480,6 @@ aaa
 aaa
 aaa
 aaa
-aRk
-aRk
-akQ
-alk
-alH
-alZ
-amx
-aRk
-aRk
 aaa
 aaa
 aaa
@@ -26135,14 +26498,59 @@ aaa
 aaa
 aaa
 aaa
-aRk
-aRk
-akQ
-alk
-alH
-alZ
-amx
-aRk
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aRk
 aLV
 aLX
@@ -26309,8 +26717,8 @@ aaa
 aaa
 aaa
 aaa
-aRk
-aRk
+aaa
+aaa
 aRk
 aRk
 aRk
@@ -26366,13 +26774,6 @@ aaa
 aaa
 aaa
 aaa
-aRk
-aRk
-aRk
-aRk
-aRk
-aRk
-aRk
 aaa
 aaa
 aaa
@@ -26392,14 +26793,21 @@ aaa
 aaa
 aaa
 aaa
-aRk
-aRk
-aRk
-aRk
-aRk
-aRk
-aRk
-aRk
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aRk
 aLV
 aLW
@@ -35323,15 +35731,15 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
 aaa
 aaa
 aaa
@@ -35576,23 +35984,23 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
 aaa
 aaa
 aaa
@@ -35831,27 +36239,27 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
 aaa
 aaa
 aaa
@@ -36086,31 +36494,31 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+sGO
+sGO
+sGO
+uSz
+uSz
+uSz
+sGO
+sGO
+sGO
+alj
+net
+alj
+sGO
+sGO
+sGO
+dyI
+amt
+amt
+sGO
+sGO
+sGO
+sGO
+sGO
 aaa
 aaa
 aaa
@@ -36342,33 +36750,33 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+sGO
+sGO
+sGO
+aJA
+ali
+ali
+ali
+uSz
+sGO
+ali
+ali
+ali
+ali
+vSx
+sGO
+ali
+ali
+ali
+ali
+cgS
+sGO
+xYN
+sGO
+sGO
+sGO
 aaa
 aaa
 aaa
@@ -36597,37 +37005,37 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+net
+ali
+fle
+ali
+ali
+tvX
+ali
+ali
+fle
+ali
+ali
+uth
+ali
+ali
+fle
+ali
+vFx
+vcT
+tJP
+sGO
+sGO
+sGO
+sGO
+sGO
 aaa
 aaa
 aaa
@@ -36853,39 +37261,39 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+aLK
+ali
+ali
+ali
+ali
+sGO
+ali
+ali
+ali
+ali
+ali
+sGO
+ali
+ali
+ali
+ali
+aMp
+sGO
+tJP
+tJP
+sGO
+sGO
+sGO
+sGO
+sGO
 aaa
 aaa
 aaa
@@ -37109,41 +37517,41 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+mJE
+ali
+ali
+sGO
+sGO
+sGO
+ali
+ali
+ali
+sGO
+sGO
+sGO
+ali
+ali
+ali
+sGO
+sGO
+sGO
+tJP
+tJP
+xYN
+sGO
+sGO
+sGO
+sGO
 aaa
 aaa
 aaa
@@ -37365,43 +37773,43 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+tvX
+sGO
+sGO
+sGO
+sGO
+ali
+fle
+ali
+sGO
+sGO
+sGO
+sGO
+uth
+sGO
+sGO
+sGO
+sGO
+sGO
+vcT
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
 aaa
 aaa
 aaa
@@ -37622,43 +38030,43 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+sGO
+sGO
+sGO
+ali
+ali
+ali
+sGO
+sGO
+sGO
+pBa
+ali
+qxU
+sGO
+sGO
+sGO
+ali
+ali
+ali
+sGO
+sGO
+sGO
+ali
+ali
+ali
+sGO
+sGO
+sGO
+xVX
+tJP
+xYN
+sGO
+sGO
+sGO
+sGO
+sGO
 aaa
 aaa
 aaa
@@ -37878,45 +38286,45 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+sGO
+sGO
+sGO
+net
+ali
+cKy
+ntd
+ali
+sGO
+aJC
+ntd
+ali
+ali
+ali
+sGO
+ali
+ali
+ali
+ali
+ali
+sGO
+ali
+ali
+ali
+ali
+ali
+sGO
+tJP
+tJP
+tJP
+tJP
+piG
+sGO
+xYN
+sGO
+sGO
+sGO
 aaa
 aaa
 aaa
@@ -38134,47 +38542,47 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+dyI
+ali
+fle
+ali
+ali
+gcc
+ali
+ali
+fle
+ali
+ali
+xhJ
+ali
+ali
+fle
+ali
+ali
+fyz
+ali
+ali
+bjn
+ali
+ali
+vcT
+qnx
+tJP
+tJP
+tJP
+gxj
+vcT
+tJP
+sGO
+sGO
+sGO
+sGO
 aaa
 aaa
 aaa
@@ -38391,47 +38799,47 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+net
+ali
+wXM
+tns
+ali
+sGO
+aLM
+tns
+ali
+ali
+eiO
+sGO
+ali
+ali
+ali
+ali
+qxU
+sGO
+ali
+ali
+ali
+ali
+vSx
+sGO
+qAb
+tJP
+tJP
+tJP
+iTF
+sGO
+tJP
+tJP
+sGO
+sGO
+sGO
 aaa
 aaa
 aaa
@@ -38647,49 +39055,49 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+ali
+ali
+ali
+sGO
+sGO
+sGO
+eiO
+eiO
+eiO
+sGO
+sGO
+sGO
+ali
+ali
+ali
+sGO
+sGO
+sGO
+kuq
+mRi
+oHT
+sGO
+sGO
+sGO
+tJP
+tJP
+jQT
+sGO
+sGO
+sGO
+tJP
+tJP
+xYN
+sGO
+sGO
 aaa
 aaa
 aaa
@@ -38904,49 +39312,49 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+gcc
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+kNK
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+vcT
+sGO
+sGO
+sGO
+sGO
+sGO
+vcT
+sGO
+sGO
+sGO
 aaa
 aaa
 aaa
@@ -39160,51 +39568,51 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+sGO
+wKl
+ali
+wKl
+sGO
+sGO
+sGO
+wKl
+ali
+wKl
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+ali
+ali
+ali
+ali
+ali
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+tJP
+tJP
+tJP
+sGO
+sGO
+sGO
+xYN
+qAb
+tWy
+sGO
+sGO
+sGO
 aaa
 aaa
 aRk
@@ -39417,51 +39825,51 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+net
+ali
+ali
+ali
+net
+sGO
+net
+ali
+ali
+ali
+net
+sGO
+sGO
+sGO
+sGO
+ali
+ali
+fle
+ali
+ali
+ali
+ali
+ali
+fle
+ali
+ali
+sGO
+sGO
+sGO
+sGO
+wCo
+tJP
+tJP
+tJP
+xYN
+sGO
+gnX
+tJP
+tJP
+tJP
+tJP
+bXW
+baJ
 aaa
 aaa
 aRk
@@ -39674,51 +40082,51 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+ali
+ali
+fle
+ali
+ali
+sGO
+ali
+ali
+fle
+ali
+sYK
+sGO
+sGO
+sGO
+fle
+ali
+ali
+ali
+ali
+ali
+fle
+ali
+ali
+ali
+ali
+ali
+fle
+sGO
+sGO
+sGO
+qnx
+vsI
+tJP
+tJP
+tJP
+vcT
+tJP
+tJP
+tJP
+tJP
+qnx
+bXW
+baJ
 aaa
 aaa
 aRk
@@ -39931,51 +40339,51 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+qhV
+ali
+ali
+ali
+ruw
+sGO
+oMH
+ali
+ali
+ali
+pQe
+sGO
+sGO
+sWQ
+ali
+ali
+sGO
+sGO
+sGO
+qxU
+ali
+ali
+sGO
+sGO
+sGO
+ali
+ali
+vSx
+sGO
+sGO
+xYN
+tJP
+tJP
+tJP
+uRD
+sGO
+gxj
+tJP
+vLs
+kjc
+fsR
+bXW
+baJ
 aaa
 aaa
 aRk
@@ -40187,53 +40595,53 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+sGO
+sGO
+ali
+ali
+ali
+sGO
+sGO
+sGO
+ali
+ali
+ali
+sGO
+sGO
+sGO
+ali
+ali
+sGO
+sGO
+sGO
+sGO
+sGO
+naA
+sGO
+sGO
+sGO
+sGO
+sGO
+ali
+ali
+sGO
+sGO
+sGO
+tJP
+tJP
+tJP
+sGO
+sGO
+sGO
+tJP
+tJP
+tJP
+sGO
+sGO
+sGO
+sGO
 aaa
 aaa
 aaa
@@ -40444,53 +40852,53 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+sGO
+sGO
+sGO
+scF
+sGO
+sGO
+sGO
+sGO
+sGO
+hLn
+sGO
+sGO
+sGO
+sGO
+fle
+ali
+sGO
+sGO
+sGO
+ftF
+dyI
+ali
+net
+kDn
+sGO
+sGO
+sGO
+ali
+fle
+sGO
+sGO
+sGO
+sGO
+vcT
+sGO
+sGO
+sGO
+sGO
+sGO
+vcT
+sGO
+sGO
+sGO
+sGO
+sGO
 aaa
 aaa
 aaa
@@ -40701,53 +41109,53 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+sGO
+sGO
+ali
+tSP
+qxU
+sGO
+sGO
+sGO
+sWQ
+pUV
+ali
+sGO
+sGO
+ali
+ali
+ali
+sGO
+sGO
+pBa
+sep
+ali
+ali
+ali
+taq
+tSq
+sGO
+sGO
+ali
+ali
+ali
+sGO
+sGO
+ilc
+tJP
+tJP
+sGO
+sGO
+sGO
+gxj
+tJP
+tJP
+pZs
+sGO
+sGO
+sGO
 aaa
 aaa
 aaa
@@ -40958,53 +41366,53 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+sGO
+alj
+ali
+ali
+ali
+ali
+ali
+ali
+ali
+ali
+ali
+ali
+sGO
+ali
+ali
+ali
+vSx
+sGO
+nuw
+ali
+ali
+ali
+ali
+ali
+net
+sGO
+sWQ
+ali
+ali
+ali
+sGO
+tOM
+nhe
+tJP
+tJP
+qpk
+sGO
+qAb
+tJP
+tJP
+tJP
+tJP
+tJP
+bXW
+baJ
 aaa
 aaa
 aaa
@@ -41215,53 +41623,53 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+sGO
+net
+ali
+fle
+ali
+ali
+fle
+ali
+ali
+fle
+ali
+ali
+gCS
+ali
+ali
+fle
+ali
+naA
+ali
+ali
+ali
+fle
+ali
+ali
+ali
+naA
+ali
+fle
+ali
+ali
+vcT
+qnx
+tJP
+tJP
+vsI
+tJP
+vcT
+tJP
+vsI
+tJP
+tJP
+qnx
+tJP
+bXW
+baJ
 aaa
 aaa
 aaa
@@ -41472,53 +41880,53 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+sGO
+alj
+ali
+ali
+ali
+ali
+ali
+ali
+ali
+ali
+ali
+ali
+sGO
+ali
+ali
+ali
+ali
+sGO
+net
+ali
+ali
+ali
+ali
+ali
+rTs
+sGO
+ali
+ali
+ali
+ali
+sGO
+xYN
+tJP
+qAb
+tJP
+tJP
+sGO
+vfS
+tJP
+tJP
+tJP
+tJP
+xYN
+bXW
+baJ
 aaa
 aaa
 aaa
@@ -41729,53 +42137,53 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+sGO
+sGO
+ali
+cjN
+vSx
+sGO
+sGO
+sGO
+ali
+oQb
+qxU
+sGO
+sGO
+ali
+ali
+ali
+sGO
+sGO
+tSq
+hbp
+ali
+ali
+ali
+dEA
+daK
+sGO
+sGO
+ali
+ali
+ali
+sGO
+sGO
+tJP
+tJP
+tJP
+sGO
+sGO
+sGO
+nkO
+tJP
+xYN
+xYN
+sGO
+sGO
+sGO
 aaa
 aaa
 aaa
@@ -41986,53 +42394,53 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+sGO
+sGO
+sGO
+qAj
+sGO
+sGO
+sGO
+sGO
+sGO
+kqj
+sGO
+sGO
+sGO
+sGO
+fle
+ali
+sGO
+sGO
+sGO
+wWW
+net
+ali
+dyI
+pHm
+sGO
+sGO
+sGO
+ali
+fle
+sGO
+sGO
+sGO
+sGO
+vcT
+sGO
+sGO
+sGO
+sGO
+sGO
+vcT
+sGO
+sGO
+sGO
+sGO
+sGO
 aaa
 aaa
 aaa
@@ -42243,53 +42651,53 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+sGO
+sGO
+ali
+ali
+ali
+sGO
+sGO
+sGO
+ali
+ali
+ali
+sGO
+sGO
+sGO
+ali
+ali
+sGO
+sGO
+sGO
+sGO
+sGO
+naA
+sGO
+sGO
+sGO
+sGO
+sGO
+ali
+ali
+sGO
+sGO
+sGO
+tJP
+tJP
+ndo
+sGO
+sGO
+sGO
+gxj
+tJP
+uUP
+sGO
+sGO
+sGO
+sGO
 aaa
 aaa
 aaa
@@ -42501,51 +42909,51 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+net
+ali
+ali
+ali
+net
+sGO
+net
+ali
+ali
+ali
+net
+sGO
+sGO
+ali
+ali
+ali
+sGO
+sGO
+sGO
+ali
+ali
+vSx
+sGO
+sGO
+sGO
+ali
+ali
+ali
+sGO
+sGO
+tJP
+tJP
+tJP
+tJP
+gxj
+sGO
+xYN
+tJP
+tJP
+tJP
+vsI
+bXW
+baJ
 aaa
 aaa
 aaa
@@ -42758,51 +43166,51 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+pBv
+ali
+fle
+ali
+ali
+sGO
+qxU
+ali
+fle
+ali
+ali
+sGO
+sGO
+sGO
+fle
+ali
+ali
+ali
+ali
+ali
+fle
+ali
+ali
+ali
+ali
+ali
+fle
+sGO
+sGO
+sGO
+qnx
+tJP
+tJP
+tJP
+tJP
+vcT
+tJP
+tJP
+tJP
+tJP
+qnx
+bXW
+baJ
 aaa
 aaa
 aaa
@@ -43015,51 +43423,51 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+tQS
+ali
+ali
+ali
+mzi
+sGO
+vus
+ali
+ali
+ali
+aVm
+sGO
+sGO
+sGO
+sGO
+ali
+ali
+fle
+ali
+ali
+ali
+ali
+ali
+fle
+ali
+qxU
+sGO
+sGO
+sGO
+sGO
+tJP
+tJP
+tJP
+vsI
+xYN
+sGO
+cHd
+tJP
+tJP
+tJP
+tJP
+bXW
+baJ
 aaa
 aaa
 aaa
@@ -43272,51 +43680,51 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+sGO
+wKl
+ali
+wKl
+sGO
+sGO
+sGO
+wKl
+ali
+wKl
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+ali
+ali
+ali
+ali
+ali
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+jZG
+tJP
+tJP
+sGO
+sGO
+sGO
+mDZ
+gxj
+iTF
+sGO
+sGO
+sGO
 aaa
 aaa
 aaa
@@ -43530,49 +43938,49 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+fYS
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+dGs
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+vcT
+sGO
+sGO
+sGO
+sGO
+sGO
+vcT
+sGO
+sGO
+sGO
 aaa
 aaa
 aaa
@@ -43787,49 +44195,49 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+ali
+ali
+ali
+sGO
+sGO
+sGO
+eiO
+eiO
+eiO
+sGO
+sGO
+sGO
+ali
+ali
+ali
+sGO
+sGO
+sGO
+kuq
+mRi
+oHT
+sGO
+sGO
+sGO
+nkO
+tJP
+gxj
+sGO
+sGO
+sGO
+tJP
+tJP
+xYN
+sGO
+sGO
 aaa
 aaa
 aaa
@@ -44045,47 +44453,47 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+net
+ali
+kkw
+tns
+ali
+sGO
+aAw
+tns
+ali
+ali
+eiO
+sGO
+ali
+ali
+ali
+ali
+ali
+sGO
+ali
+ali
+ali
+ali
+ali
+sGO
+viE
+tJP
+tJP
+tJP
+tWy
+sGO
+tJP
+tJP
+sGO
+sGO
+sGO
 aaa
 aaa
 aaa
@@ -44302,47 +44710,47 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+dyI
+ali
+fle
+ali
+ali
+fYS
+ali
+ali
+fle
+ali
+ali
+hGJ
+ali
+ali
+fle
+ali
+ali
+kHR
+ali
+ali
+bjn
+ali
+ali
+vcT
+qnx
+vLs
+tJP
+tJP
+tJP
+vcT
+tJP
+sGO
+sGO
+sGO
+sGO
 aaa
 aaa
 aaa
@@ -44560,45 +44968,45 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+sGO
+sGO
+sGO
+net
+ali
+puE
+ntd
+ali
+sGO
+akO
+ntd
+ali
+ali
+qxU
+sGO
+qxU
+ali
+ali
+ali
+sWQ
+sGO
+ali
+ali
+ali
+ali
+ali
+sGO
+tJP
+tJP
+tJP
+tJP
+ayl
+sGO
+xYN
+sGO
+sGO
+sGO
 aaa
 aaa
 aaa
@@ -44818,43 +45226,43 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+sGO
+sGO
+sGO
+ali
+ali
+ali
+sGO
+sGO
+sGO
+daK
+ali
+ali
+sGO
+sGO
+sGO
+ali
+ali
+ali
+sGO
+sGO
+sGO
+ali
+ali
+ali
+sGO
+sGO
+sGO
+qAb
+tJP
+riM
+sGO
+sGO
+sGO
+sGO
+sGO
 aaa
 aaa
 aaa
@@ -45075,43 +45483,43 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+hGJ
+sGO
+sGO
+sGO
+sGO
+ali
+fle
+ali
+sGO
+sGO
+sGO
+sGO
+pfv
+sGO
+sGO
+sGO
+sGO
+sGO
+vcT
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
 aaa
 aaa
 aaa
@@ -45333,41 +45741,41 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+mJE
+ali
+ali
+sGO
+sGO
+sGO
+ali
+ali
+ali
+sGO
+sGO
+sGO
+ali
+ali
+ali
+sGO
+sGO
+sGO
+tJP
+tJP
+xYN
+sGO
+sGO
+sGO
+sGO
 aaa
 aaa
 aaa
@@ -45591,39 +45999,39 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+aAu
+tns
+ali
+ali
+ali
+sGO
+ali
+ali
+ali
+ali
+vSx
+sGO
+ali
+ali
+ali
+ali
+aMp
+sGO
+tJP
+tJP
+sGO
+sGO
+sGO
+sGO
+sGO
 aaa
 aaa
 aaa
@@ -45849,37 +46257,37 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+net
+ali
+fle
+ali
+ali
+osP
+ali
+ali
+fle
+ali
+ali
+pfv
+ali
+ali
+fle
+ali
+enR
+vcT
+tJP
+sGO
+sGO
+sGO
+sGO
+sGO
 aaa
 aaa
 aaa
@@ -46108,33 +46516,33 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+sGO
+sGO
+sGO
+akM
+ntd
+ali
+ali
+uSz
+sGO
+sWQ
+ali
+ali
+ali
+ali
+sGO
+ali
+ali
+ali
+ali
+cgS
+sGO
+xYN
+sGO
+sGO
+sGO
 aaa
 aaa
 aaa
@@ -46366,31 +46774,31 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+sGO
+sGO
+sGO
+uSz
+uSz
+uSz
+sGO
+sGO
+sGO
+alj
+net
+alj
+sGO
+sGO
+sGO
+dyI
+amt
+amt
+sGO
+sGO
+sGO
+sGO
+sGO
 aaa
 aaa
 aaa
@@ -46625,27 +47033,27 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
 aaa
 aaa
 aaa
@@ -46884,24 +47292,24 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+bFV
 aaa
 aaa
 aaa
@@ -47145,15 +47553,15 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
+sGO
 aaa
 aaa
 aaa
