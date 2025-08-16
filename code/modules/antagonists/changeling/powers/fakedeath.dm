@@ -27,12 +27,20 @@
 		addtimer(CALLBACK(src, PROC_REF(ready_to_regenerate), user.mind), LING_FAKEDEATH_TIME, TIMER_UNIQUE)
 	return TRUE
 
-/datum/action/changeling/fakedeath/proc/revive(mob/living/user)
+/datum/action/changeling/fakedeath/proc/revive(mob/living/carbon/user)
 	if(!user || !istype(user))
 		return
+
+	playsound(user, 'sound/magic/demon_consume.ogg', 50, TRUE)
+	user.visible_message(
+		span_warning("[user]'s missing limbs reform, making a loud, grotesque sound!"),
+		span_userdanger("Your limbs regrow, making a loud, crunchy sound and giving you great pain!"),
+		span_hear("You hear organic matter ripping and tearing!"),
+	)
+
 	user.cure_fakedeath("changeling")
 	user.revive(full_heal = TRUE)
-	user.regenerate_organs()
+	user.regenerate_limbs()
 
 /datum/action/changeling/fakedeath/proc/ready_to_regenerate(datum/mind/mind)
 	if(!mind || !iscarbon(mind.current))

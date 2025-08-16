@@ -20,7 +20,7 @@
 #define IRON_TO_CONSTRUCT_SHELL_CONVERSION 50
 // misc
 #define SOULS_TO_REVIVE 3
-#define BLOODCULT_EYE "f00"
+#define BLOODCULT_EYE "#FF0000"
 
 //soulstone & construct themes
 #define THEME_CULT "cult"

@@ -28,6 +28,7 @@ Bonus
 	base_message_chance = 100
 	symptom_delay_min = 25
 	symptom_delay_max = 80
+	required_organ = ORGAN_SLOT_EARS
 	prefixes = list("Aural ")
 	bodies = list("Ear")
 	threshold_desc = "<b>Resistance 9:</b> Causes permanent deafness, instead of intermittent.<br>\
@@ -46,23 +47,24 @@ Bonus
 	if(A.resistance >= 9) //permanent deafness
 		power = 2
 
-/datum/symptom/deafness/Activate(datum/disease/advance/A)
-	if(!..())
+/datum/symptom/deafness/Activate(datum/disease/advance/advanced_disease)
+	. = ..()
+	if(!.)
 		return
-	var/mob/living/carbon/M = A.affected_mob
-	if(M.stat == DEAD)
-		return
-	switch(A.stage)
+
+	var/mob/living/carbon/infected_mob = advanced_disease.affected_mob
+	var/obj/item/organ/ears/ears = infected_mob.get_organ_slot(ORGAN_SLOT_EARS)
+
+	switch(advanced_disease.stage)
 		if(3, 4)
 			if(prob(base_message_chance) && !suppress_warning)
-				to_chat(M, span_warning("[pick("You hear a ringing in your ear.", "Your ears pop.")]"))
+				to_chat(infected_mob, span_warning("[pick("You hear a ringing in your ear.", "Your ears pop.")]"))
 		if(5)
 			if(power >= 2)
-				var/obj/item/organ/ears/ears = M.get_organ_slot(ORGAN_SLOT_EARS)
 				if(istype(ears) && ears.damage < ears.maxHealth)
-					to_chat(M, span_userdanger("Your ears pop painfully and start bleeding!"))
+					to_chat(infected_mob, span_userdanger("Your ears pop painfully and start bleeding!"))
 					ears.damage = max(ears.damage, ears.maxHealth)
-					M.emote("scream")
+					infected_mob.emote("scream")
 			else
-				to_chat(M, span_userdanger("Your ears pop and begin ringing loudly!"))
-				M.minimumDeafTicks(20)
+				to_chat(infected_mob, span_userdanger("Your ears pop and begin ringing loudly!"))
+				infected_mob.minimumDeafTicks(20)

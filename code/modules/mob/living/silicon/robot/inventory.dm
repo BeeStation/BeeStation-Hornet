@@ -211,7 +211,7 @@
 
 
 
-/mob/living/silicon/robot/swap_hand()
+/mob/living/silicon/robot/perform_hand_swap()
 	cycle_modules()
 	refresh_self_screentips()
 

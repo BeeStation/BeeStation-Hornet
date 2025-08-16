@@ -301,6 +301,9 @@
 /// A simple helper for checking traits in a mob's mind
 #define HAS_MIND_TRAIT(target, trait) (HAS_TRAIT(target, trait) || (target.mind ? HAS_TRAIT(target.mind, trait) : FALSE))
 
+/// Returns a list of trait sources for this trait. Only useful for wacko cases and internal futzing
+#define GET_TRAIT_SOURCES(target, trait) (target.status_traits?[trait] || list())
+
 GLOBAL_DATUM_INIT(_trait_located, /datum/trait, null)
 
 // Note: a?:b is used because : alone breaks the terniary operator

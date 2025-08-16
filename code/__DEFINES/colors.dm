@@ -51,12 +51,17 @@
 #define COLOR_YELLOW "#FFFF00"
 #define COLOR_VIVID_YELLOW "#FBFF23"
 
-#define COLOR_OLIVE            "#808000"
-#define COLOR_VIBRANT_LIME     "#00FF00"
+#define COLOR_OLIVE "#808000"
+#define COLOR_VIBRANT_LIME "#00FF00"
+#define COLOR_SERVICE_LIME "#58C800"
+#define COLOR_JADE "#5EFB6E"
+#define COLOR_EMERALD "#00CC66"
 #define COLOR_LIME "#32CD32"
+#define COLOR_DARK_LIME "#00aa00"
+#define COLOR_VERY_PALE_LIME_GREEN "#DDFFD3"
+#define COLOR_VERY_DARK_LIME_GREEN "#003300"
 #define COLOR_GREEN "#008000"
 #define COLOR_DARK_MODERATE_LIME_GREEN "#44964A"
-#define COLOR_VERY_DARK_LIME_GREEN "#003300"
 
 #define COLOR_CYAN             "#00FFFF"
 #define COLOR_DARK_CYAN	  	   "#00A2FF"
@@ -233,6 +238,8 @@ GLOBAL_LIST_INIT(color_list_rainbow, list(
 /// The default color for Byond Member / ADMIN OOC, used as a fallback when the preference is not enabled
 #define DEFAULT_BONUS_OOC_COLOR "#c43b23"
 
+#define DEFAULT_HEX_COLOR_LEN 6
+
 // Some defines for accessing specific entries in color matrices.
 
 #define CL_MATRIX_RR 1
@@ -255,3 +262,5 @@ GLOBAL_LIST_INIT(color_list_rainbow, list(
 #define CL_MATRIX_CG 18
 #define CL_MATRIX_CB 19
 #define CL_MATRIX_CA 20
+
+#define HUSK_COLOR_TONE rgb(96, 88, 80)

@@ -4,7 +4,7 @@
 	icon_state = "innards"
 	visual = TRUE
 	zone = BODY_ZONE_CHEST
-	slot = "parasite_egg"
+	slot = ORGAN_SLOT_PARASITE_EGG
 
 /obj/item/organ/body_egg/on_find(mob/living/finder)
 	..()
@@ -15,23 +15,19 @@
 		src.Insert(loc)
 	return ..()
 
-/obj/item/organ/body_egg/Insert(mob/living/carbon/egg_owner, special = FALSE, drop_if_replaced = TRUE)
+/obj/item/organ/body_egg/on_mob_insert(mob/living/carbon/egg_owner, special = FALSE, movement_flags)
 	. = ..()
-	if(!.)
-		return
-	ADD_TRAIT(egg_owner, TRAIT_XENO_HOST, ORGAN_TRAIT)
-	ADD_TRAIT(egg_owner, TRAIT_XENO_IMMUNE, ORGAN_TRAIT)
+
+	egg_owner.add_traits(list(TRAIT_XENO_HOST, TRAIT_XENO_IMMUNE), ORGAN_TRAIT)
 	START_PROCESSING(SSobj, src)
 	egg_owner.med_hud_set_status()
 	INVOKE_ASYNC(src, PROC_REF(AddInfectionImages), egg_owner)
 
-/obj/item/organ/body_egg/Remove(mob/living/carbon/egg_owner, special = FALSE, pref_load = FALSE)
+/obj/item/organ/body_egg/on_mob_remove(mob/living/carbon/egg_owner, special, movement_flags)
 	. = ..()
-	if(owner)
-		REMOVE_TRAIT(owner, TRAIT_XENO_HOST, ORGAN_TRAIT)
-		REMOVE_TRAIT(owner, TRAIT_XENO_IMMUNE, ORGAN_TRAIT)
-		egg_owner.med_hud_set_status()
-		INVOKE_ASYNC(src, PROC_REF(RemoveInfectionImages), egg_owner)
+	egg_owner.remove_traits(list(TRAIT_XENO_HOST, TRAIT_XENO_IMMUNE), ORGAN_TRAIT)
+	egg_owner.med_hud_set_status()
+	INVOKE_ASYNC(src, PROC_REF(RemoveInfectionImages), egg_owner)
 
 /obj/item/organ/body_egg/on_death(delta_time, times_fired)
 	. = ..()

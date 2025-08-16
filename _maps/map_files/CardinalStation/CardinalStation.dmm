@@ -19434,15 +19434,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/maintenance/club)
-"dTJ" = (
-/obj/machinery/aug_manipulator,
-/obj/effect/decal/cleanable/robot_debris{
-	icon_state = "gib4";
-	pixel_x = 14;
-	pixel_y = 4
-	},
-/turf/open/floor/iron/dark,
-/area/science/robotics/lab)
 "dUa" = (
 /obj/structure/fluff/hedge/opaque{
 	pixel_y = 5
@@ -36779,6 +36770,13 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
+"hwI" = (
+/obj/structure/table/wood,
+/obj/item/razor{
+	pixel_x = 11
+	},
+/turf/open/floor/concrete/slab,
+/area/crew_quarters/barbershop)
 "hwT" = (
 /obj/machinery/conveyor{
 	dir = 1;
@@ -50322,14 +50320,6 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/medical/cryo)
-"kip" = (
-/obj/machinery/gear_requisition/exploration,
-/obj/machinery/light/directional/north,
-/obj/effect/turf_decal/siding/dark,
-/obj/machinery/camera/directional/north,
-/obj/machinery/airalarm/directional/north,
-/turf/open/floor/mineral/titanium,
-/area/quartermaster/exploration_prep)
 "kit" = (
 /obj/effect/turf_decal/siding{
 	color = "#535c5b";
@@ -60600,6 +60590,14 @@
 	},
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/engine/atmos)
+"moa" = (
+/obj/machinery/gear_requisition/exploration,
+/obj/machinery/light/directional/north,
+/obj/effect/turf_decal/siding/dark,
+/obj/machinery/camera/directional/north,
+/obj/machinery/airalarm/directional/north,
+/turf/open/floor/mineral/titanium,
+/area/quartermaster/exploration_prep)
 "moc" = (
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /obj/structure/closet/wardrobe/grey,
@@ -71673,13 +71671,6 @@
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/science/nanite)
-"oCx" = (
-/obj/structure/table/wood,
-/obj/item/razor/straightrazor{
-	pixel_x = 11
-	},
-/turf/open/floor/concrete/slab,
-/area/crew_quarters/barbershop)
 "oCA" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8
@@ -93931,14 +93922,6 @@
 	},
 /turf/open/floor/plating/rust,
 /area/maintenance/department/science/central)
-"tdO" = (
-/obj/machinery/gear_requisition/mining,
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -28
-	},
-/turf/open/floor/vault/rock,
-/area/quartermaster/miningoffice)
 "tdQ" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -114657,6 +114640,14 @@
 	},
 /turf/open/floor/catwalk_floor/iron,
 /area/maintenance/starboard/central)
+"xkX" = (
+/obj/machinery/gear_requisition/mining,
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = -28
+	},
+/turf/open/floor/vault/rock,
+/area/quartermaster/miningoffice)
 "xli" = (
 /obj/machinery/portable_atmospherics/canister/air,
 /obj/effect/turf_decal/box/corners{
@@ -117848,6 +117839,14 @@
 	},
 /turf/open/floor/monotile/steel,
 /area/science/explab)
+"xSN" = (
+/obj/effect/decal/cleanable/robot_debris{
+	icon_state = "gib4";
+	pixel_x = 14;
+	pixel_y = 4
+	},
+/turf/open/floor/iron/dark,
+/area/science/robotics/lab)
 "xSY" = (
 /obj/structure/table/reinforced{
 	color = "#c2bfa3"
@@ -138393,7 +138392,7 @@ hyT
 hyT
 hyT
 sQF
-kip
+moa
 hiX
 dAV
 gbg
@@ -148943,7 +148942,7 @@ wfG
 uDV
 vUM
 stt
-oCx
+hwI
 mgS
 lfm
 asP
@@ -149710,7 +149709,7 @@ pDL
 fmT
 mgc
 tNq
-dTJ
+xSN
 uDV
 mmW
 nZj
@@ -156652,7 +156651,7 @@ rKt
 nHE
 uhS
 kxL
-tdO
+xkX
 agD
 fmz
 sSF

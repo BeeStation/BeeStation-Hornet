@@ -47,7 +47,7 @@
 		noz.update_icon()
 	if(istype(loc, /mob/living/carbon))//Someone's wearing it
 		var/mob/living/carbon/wearer = loc
-		wearer.update_inv_back()
+		wearer.update_worn_back()
 
 /obj/item/watertank/update_overlays()
 	. = ..()
@@ -66,7 +66,7 @@
 	. += filling
 
 /obj/item/watertank/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
-	. = list()
+	. = ..()
 	if(!isinhands)
 		if(reagents.total_volume < 1)
 			return
@@ -285,7 +285,7 @@
 		if(istype(loc, /mob/living/carbon))
 			var/mob/living/carbon/wearer = loc
 			if(wearer.back == src)
-				wearer.update_inv_back()
+				wearer.update_worn_back()
 
 /obj/item/watertank/atmos/update_overlays()
 	. = ..()
@@ -430,7 +430,7 @@
 	if(istype(loc, /mob/living/carbon))
 		var/mob/living/carbon/wearer = loc
 		if(wearer.get_active_held_item() == src)//Someone's holding it
-			wearer.update_inv_hands()
+			wearer.update_held_items()
 
 /obj/item/extinguisher/mini/nozzle/update_overlays()
 	. = ..()
@@ -462,7 +462,7 @@
 		update_icon()
 		tank.update_icon()
 		var/mob/living/carbon/wearer = tank.loc
-		wearer.update_inv_back()
+		wearer.update_worn_back()
 
 /obj/item/extinguisher/mini/nozzle/proc/update_nozzle_stats()
 	max_water = tank.volume
@@ -671,7 +671,7 @@
 
 //Todo : cache these.
 /obj/item/reagent_containers/chemtank/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin) //apply chemcolor and level
-	. = list()
+	. = ..()
 	//inhands + reagent_filling
 	if(!isinhands && reagents.total_volume)
 		var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "backpackmob-10", item_layer)
@@ -716,7 +716,7 @@
 	reagents.expose(user, INJECT,injection_amount,0)
 	reagents.trans_to(user,used_amount,multiplier=usage_ratio)
 	update_icon()
-	user.update_inv_back() //for overlays update
+	user.update_worn_back() //for overlays update
 
 /datum/action/item_action/activate_injector
 	name = "Activate Injector"

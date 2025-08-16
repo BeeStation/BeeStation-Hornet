@@ -50,7 +50,7 @@
 		return TRUE
 
 	//charge(?) and go
-	if(bodypart.heal_damage(5,5,null,BODYTYPE_ROBOTIC))
+	if(bodypart.heal_damage(brute = 5, burn = 5, required_bodytype = BODYTYPE_ROBOTIC))
 		blessed.update_damage_overlays()
 
 	blessed.visible_message(span_notice("[chap] [did_we_charge ? "repairs" : "repairs and charges"] [blessed] with the power of [GLOB.deity]!"))
@@ -138,15 +138,15 @@
 	..()
 	var/altar_turf = get_turf(religious_tool)
 	var/blessing = pick(
-					/obj/item/organ/cyberimp/arm/surgery,
-					/obj/item/organ/cyberimp/eyes/hud/diagnostic,
-					/obj/item/organ/cyberimp/eyes/hud/medical,
-					/obj/item/organ/cyberimp/mouth/breathing_tube,
-					/obj/item/organ/cyberimp/chest/thrusters,
-					/obj/item/organ/cyberimp/chest/nutriment,
-					/obj/item/organ/cyberimp/arm/toolset,
-					/obj/item/organ/wings/cybernetic,
-					/obj/item/organ/eyes/robotic/glow)
+		/obj/item/organ/cyberimp/arm/surgery,
+		/obj/item/organ/cyberimp/eyes/hud/diagnostic,
+		/obj/item/organ/cyberimp/eyes/hud/medical,
+		/obj/item/organ/cyberimp/mouth/breathing_tube,
+		/obj/item/organ/cyberimp/chest/thrusters,
+		/obj/item/organ/cyberimp/chest/nutriment,
+		/obj/item/organ/cyberimp/arm/toolset,
+		/obj/item/organ/wings/cybernetic,
+		/obj/item/organ/eyes/robotic/glow)
 	new blessing(altar_turf)
 	return TRUE
 
