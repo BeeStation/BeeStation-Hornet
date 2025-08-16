@@ -1873,13 +1873,14 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	var/dismember_limb = FALSE
 	var/weapon_sharpness = I.is_sharp()
+	var/mob_dismember_weakness = HAS_TRAIT(H, TRAIT_EASYDISMEMBER)
 
-	if(((HAS_TRAIT(H, TRAIT_EASYDISMEMBER) && limb_damage) || (weapon_sharpness == SHARP_DISMEMBER_EASY)) && prob(I.force))
+	if(((mob_dismember_weakness && limb_damage) || (weapon_sharpness == SHARP_DISMEMBER_EASY)) && prob(I.force))
 		dismember_limb = TRUE
 		//Easy dismemberment on the mob allows even blunt weapons to potentially delimb, but only if the limb is already damaged
 		//Certain weapons are so sharp/strong they have a chance to cleave right through a limb without following the normal restrictions
 
-	else if(weapon_sharpness > SHARP || (weapon_sharpness == SHARP && H.stat == DEAD))
+	else if(weapon_sharpness > SHARP || mob_dismember_weakness || (weapon_sharpness == SHARP && H.stat == DEAD))
 		//Delimbing cannot normally occur with blunt weapons
 		//You also aren't cutting someone's arm off with a scalpel unless they're already dead
 
@@ -1887,7 +1888,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			dismember_limb = TRUE
 			//You can only cut a limb off if it is already damaged enough to be fully disabled
 
-	if(dismember_limb && ((affecting.body_zone != BODY_ZONE_HEAD && affecting.body_zone != BODY_ZONE_CHEST) || H.stat != CONSCIOUS) && affecting.dismember(I.damtype))
+	if(dismember_limb && affecting.dismember(I.damtype))
 		I.add_mob_blood(H)
 		playsound(get_turf(H), I.get_dismember_sound(), 80, 1)
 
