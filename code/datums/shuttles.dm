@@ -574,9 +574,13 @@
 	suffix = "meta"
 	name = "Salvage Ship"
 
+/datum/map_template/shuttle/whiteship/birdboat
+	suffix = "birdboat"
+	name = "NT Personal Trader"
+
 /datum/map_template/shuttle/whiteship/pubby
 	suffix = "pubby"
-	name = "NT Personal Trader"
+	name = "MK7 Zealot Cruiser"
 
 /datum/map_template/shuttle/whiteship/cere
 	suffix = "cere"
@@ -735,6 +739,10 @@
 /datum/map_template/shuttle/exploration/rad
 	suffix = "rad"
 	name = "rad exploration shuttle"
+
+/datum/map_template/shuttle/exploration/pubby
+	suffix = "pubby"
+	name = "pubby exploration shuttle"
 
 /datum/map_template/shuttle/labour/delta
 	suffix = "delta"
