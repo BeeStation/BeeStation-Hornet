@@ -2,7 +2,8 @@ import { sortBy } from 'common/collections';
 import { classes } from 'common/react';
 import { PropsWithChildren, ReactNode } from 'react';
 import { useBackend } from '../../backend';
-import { Box, Button, Dropdown, Stack, Flex, Tooltip } from '../../components';
+import { Box, Button, Stack, Flex, Tooltip } from '../../components';
+import { Dropdown } from 'tgui-core/components';
 import { createSetPreference, Job, JoblessRole, JobPriority, PreferencesMenuData, ServerData } from './data';
 import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
 
@@ -255,16 +256,11 @@ const JoblessRoleDropdown = (props) => {
     },
   ];
 
+  const selection = options?.find((option) => option.value === selected)!.displayText;
+
   return (
     <Box width="30%" style={{ margin: '5px auto' }}>
-      <Dropdown
-        width="100%"
-        selected={selected}
-        onSelected={createSetPreference(act, 'joblessrole')}
-        options={options}
-        displayText={<Box pr={1}>{options.find((option) => option.value === selected)!.displayText}</Box>}
-        displayTextFirst
-      />
+      <Dropdown width="100%" selected={selection} onSelected={createSetPreference(act, 'joblessrole')} options={options} />
     </Box>
   );
 };

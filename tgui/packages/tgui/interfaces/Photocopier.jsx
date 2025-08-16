@@ -1,6 +1,8 @@
+import { Dropdown } from 'tgui-core/components';
+
 import { sortBy } from 'common/collections';
 import { useBackend } from '../backend';
-import { Box, Button, Dropdown, Flex, NumberInput, ProgressBar, Section } from '../components';
+import { Box, Button, Flex, NumberInput, ProgressBar, Section } from '../components';
 import { Window } from '../layouts';
 
 export const Photocopier = (props) => {

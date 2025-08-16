@@ -1,5 +1,7 @@
+import { Dropdown } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Box, Button, LabeledList, ProgressBar, Section, ColorBox, Dropdown } from '../components';
+import { Box, Button, LabeledList, ProgressBar, Section, ColorBox } from '../components';
 import { NtosWindow } from '../layouts';
 
 export const NtosConfiguration = (props) => {

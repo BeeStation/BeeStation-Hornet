@@ -1,8 +1,9 @@
 import { filter, map } from 'common/collections';
 import { useState } from 'react';
+import { Dropdown } from 'tgui-core/components';
 
 import { useBackend, useLocalState } from '../backend';
-import { Button, Section, Modal, Dropdown, Tabs, Box, Input, Flex, ProgressBar, Collapsible, Icon, Divider, Tooltip } from '../components';
+import { Button, Section, Modal, Tabs, Box, Input, Flex, ProgressBar, Collapsible, Icon, Divider, Tooltip } from '../components';
 import { Window, NtosWindow } from '../layouts';
 
 // Data reshaping / ingestion (thanks stylemistake for the help, very cool!)

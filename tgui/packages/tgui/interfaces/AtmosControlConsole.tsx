@@ -1,4 +1,5 @@
-import { Box, Button, Dropdown, LabeledList, NumberInput, Section, Stack } from '../components';
+import { Box, Button, LabeledList, NumberInput, Section, Stack } from '../components';
+import { Dropdown } from 'tgui-core/components';
 
 import { useState } from 'react';
 import { useBackend } from '../backend';
