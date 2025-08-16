@@ -130,8 +130,8 @@
 
 	// log the signal
 	if(istype(signal, /datum/signal/subspace/messaging/tablet_msg))
-		var/datum/signal/subspace/messaging/tablet_msg/PDAsignal = signal
-		var/datum/data_tablet_msg/msg = new(PDAsignal.format_target(), "[PDAsignal.data["name"]] ([PDAsignal.data["job"]])", PDAsignal.data["message"], PDAsignal.data["photo"], PDAsignal.data["emojis"])
+		var/datum/signal/subspace/messaging/tablet_msg/PDanomaly_core = signal
+		var/datum/data_tablet_msg/msg = new(PDanomaly_core.format_target(), "[PDanomaly_core.data["name"]] ([PDanomaly_core.data["job"]])", PDanomaly_core.data["message"], PDanomaly_core.data["photo"], PDanomaly_core.data["emojis"])
 		modular_msgs += msg
 		signal.logged = msg
 	else if(istype(signal, /datum/signal/subspace/messaging/rc))

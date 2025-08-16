@@ -283,8 +283,15 @@
 	//HALLUCINATE
 	else if((findtext(message, hallucinate_words)))
 		cooldown = COOLDOWN_MEME
-		for(var/mob/living/carbon/C in listeners)
-			new /datum/hallucination/delusion(C, TRUE, null,150 * power_multiplier,0)
+		for(var/mob/living/target in listeners)
+			target.cause_hallucination( \
+				get_random_valid_hallucination_subtype(/datum/hallucination/delusion/preset), \
+				"voice of god", \
+				duration = 15 SECONDS * power_multiplier, \
+				affects_us = FALSE, \
+				affects_others = TRUE, \
+				skip_nearby = FALSE, \
+			)
 
 	//WAKE UP
 	else if((findtext(message, wakeup_words)))

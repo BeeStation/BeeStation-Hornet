@@ -1434,11 +1434,13 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/after_equip_job(datum/job/J, mob/living/carbon/human/H, client/preference_source = null)
 	H.update_mutant_bodyparts()
 
-// Do species-specific reagent handling here
-// Return 1 if it should do normal processing too
-// Return 0 if it shouldn't deplete and do its normal effect
-// Other return values will cause weird badness
-
+/**
+ * Handling special reagent types.
+ *
+ * Return False to run the normal on_mob_life() for that reagent.
+ * Return True to not run the normal metabolism effects.
+ * NOTE: If you return TRUE, that reagent will not be removed liike normal! You must handle it manually.
+ */
 /datum/species/proc/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
 	if(chem.type == exotic_blood)
 		H.blood_volume = min(H.blood_volume + round(chem.volume, 0.1), BLOOD_VOLUME_MAXIMUM)
@@ -1590,9 +1592,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				H.throw_alert("nutrition", /atom/movable/screen/alert/nocell)
 			else
 				H.throw_alert("nutrition", /atom/movable/screen/alert/emptycell)
-
-/datum/species/proc/update_health_hud(mob/living/carbon/human/H)
-	return 0
 
 /**
  * Species based handling for irradiation

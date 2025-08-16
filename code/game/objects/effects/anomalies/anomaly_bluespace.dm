@@ -4,7 +4,7 @@
 	icon_state = "bluespace"
 	density = TRUE
 	max_spawned_faked = 4
-	aSignal = /obj/item/assembly/signaler/anomaly/bluespace
+	anomaly_core = /obj/item/assembly/signaler/anomaly/bluespace
 
 /obj/effect/anomaly/bluespace/anomalyEffect()
 	..()

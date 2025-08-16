@@ -38,9 +38,9 @@
 		/datum/gas/carbon_dioxide = 1
 	)
 	low_alert_category = "not_enough_tox"
-	low_alert_datum = /atom/movable/screen/alert/not_enough_tox
+	low_alert_datum = /atom/movable/screen/alert/not_enough_plas
 	high_alert_category = "too_much_tox"
-	high_alert_datum = /atom/movable/screen/alert/too_much_tox
+	high_alert_datum = /atom/movable/screen/alert/too_much_plas
 
 /proc/breathing_class_list()
 	var/list/breathing_classes = list()
