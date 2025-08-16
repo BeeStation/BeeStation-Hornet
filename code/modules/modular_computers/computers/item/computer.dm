@@ -137,16 +137,6 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 /obj/item/modular_computer/Destroy()
 	kill_program(forced = TRUE)
 	STOP_PROCESSING(SSobj, src)
-	var/obj/item/computer_hardware/card_slot/card_slot = all_components[MC_CARD]
-	if(card_slot)
-		if(card_slot.stored_card)
-			card_slot.RemoveID()
-	for(var/port in all_components)
-		var/obj/item/computer_hardware/component = all_components[port]
-		if(prob(50))
-			uninstall_component(component)	// Lets not just delete all components like that
-		else
-			qdel(component)
 	all_components?.Cut()
 	if(istype(stored_pai_card))
 		qdel(stored_pai_card)
@@ -369,7 +359,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		return FALSE
 
 	// If we have a recharger, enable it automatically. Lets computer without a battery work.
-	var/obj/item/computer_hardware/recharger/recharger = all_components[MC_CHARGE]
+	var/obj/item/computer_hardware/recharger/recharger = all_components[MC_CHARGER]
 	if(recharger)
 		recharger.enabled = 1
 
@@ -472,7 +462,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	data["PC_theme_locked"] = theme_locked
 
 	var/obj/item/computer_hardware/battery/battery_module = all_components[MC_CELL]
-	var/obj/item/computer_hardware/recharger/recharger = all_components[MC_CHARGE]
+	var/obj/item/computer_hardware/recharger/recharger = all_components[MC_CHARGER]
 	var/obj/item/computer_hardware/hard_drive/drive = all_components[MC_HDD]
 
 	if(battery_module?.battery)
@@ -562,7 +552,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		to_chat(user, span_danger("\The [src]'s screen shows \"I/O ERROR - Unable to run program\" warning."))
 		return FALSE
 
-	if(!program.is_supported_by_hardware(user))
+	if(!program.is_supported_by_hardware(src, user))
 		return FALSE
 
 	// The program is already running. Resume it.
@@ -759,7 +749,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		stored_pai_card = attacking_item
 		// If the pAI moves out of the PDA, remove the reference.
 		RegisterSignal(stored_pai_card, COMSIG_MOVABLE_MOVED, PROC_REF(stored_pai_moved))
-		RegisterSignal(stored_pai_card, COMSIG_PARENT_QDELETING, PROC_REF(remove_pai))
+		RegisterSignal(stored_pai_card, COMSIG_QDELETING, PROC_REF(remove_pai))
 		to_chat(user, span_notice("You slot \the [attacking_item] into [src]."))
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
 		update_appearance()
@@ -817,7 +807,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	if(!istype(stored_pai_card))
 		return
 	UnregisterSignal(stored_pai_card, COMSIG_MOVABLE_MOVED)
-	UnregisterSignal(stored_pai_card, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(stored_pai_card, COMSIG_QDELETING)
 	stored_pai_card = null
 	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
 	update_appearance()

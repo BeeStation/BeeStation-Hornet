@@ -9,6 +9,21 @@
 	icon = 'icons/obj/clothing/under/syndicate.dmi'
 	worn_icon = 'icons/mob/clothing/under/syndicate.dmi'
 
+/obj/item/clothing/under/syndicate/bloodred
+	name = "blood-red sneaksuit"
+	desc = "It still counts as stealth if there are no witnesses."
+	icon_state = "bloodred_pajamas"
+	item_state = "bl_suit"
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	can_adjust = FALSE
+	supports_variations = NONE
+
+/obj/item/clothing/under/syndicate/bloodred/sleepytime
+	name = "blood-red pajamas"
+	desc = "Do operatives dream of nuclear sheep?"
+	icon_state = "bloodred_pajamas"
+	item_state = "bl_suit"
+
 /obj/item/clothing/under/syndicate/tacticool
 	name = "tacticool turtleneck"
 	desc = "Just looking at it makes you want to buy an SKS, go into the woods, and -operate-."

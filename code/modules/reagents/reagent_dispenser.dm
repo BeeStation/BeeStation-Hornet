@@ -283,18 +283,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/reagent_dispensers/peppertank, 30)
 	if(!QDELETED(src))
 		qdel(src)
 
-
-/obj/structure/reagent_dispensers/virusfood
-	name = "virus food dispenser"
-	desc = "A dispenser of low-potency virus mutagenic."
-	icon_state = "virus_food"
-	anchored = TRUE
-	density = FALSE
-	layer = ABOVE_WINDOW_LAYER
-	reagent_id = /datum/reagent/consumable/virus_food
-
-MAPPING_DIRECTIONAL_HELPERS(/obj/structure/reagent_dispensers/virusfood, 30)
-
 /obj/structure/reagent_dispensers/nutriment/fat/oil
 	name = "vat of cooking oil"
 	desc = "A huge metal vat with a tap on the front. Filled with cooking oil for use in frying food."

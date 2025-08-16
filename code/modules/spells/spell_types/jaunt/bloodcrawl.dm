@@ -251,10 +251,10 @@
 	to_chat(jaunter, ("<span class='clown'>[victim] joins your party! Your health is fully restored.</span>"))
 	consumed_mobs += victim
 	RegisterSignal(victim, COMSIG_MOB_STATCHANGE, PROC_REF(on_victim_statchange))
-	RegisterSignal(victim, COMSIG_PARENT_QDELETING, PROC_REF(on_victim_deleted))
+	RegisterSignal(victim, COMSIG_QDELETING, PROC_REF(on_victim_deleted))
 
 /**
- * Signal proc for COMSIG_LIVING_DEATH and COMSIG_PARENT_QDELETING
+ * Signal proc for COMSIG_LIVING_DEATH and COMSIG_QDELETING
  *
  * If our demon is deleted or destroyed, expel all of our consumed mobs
  */
@@ -265,7 +265,7 @@
 	for(var/mob/living/friend as anything in consumed_mobs)
 
 		// Unregister the signals first
-		UnregisterSignal(friend, list(COMSIG_MOB_STATCHANGE, COMSIG_PARENT_QDELETING))
+		UnregisterSignal(friend, list(COMSIG_MOB_STATCHANGE, COMSIG_QDELETING))
 
 		friend.forceMove(release_turf)
 		if(!friend.revive(full_heal = TRUE, admin_revive = TRUE))

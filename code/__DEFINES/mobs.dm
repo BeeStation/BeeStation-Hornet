@@ -413,6 +413,15 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define REAGENTS_METABOLISM 0.2 //How many units of reagent are consumed per second, by default.
 #define REAGENTS_EFFECT_MULTIPLIER (REAGENTS_METABOLISM / 0.4) // By defining the effect multiplier this way, it'll exactly adjust all effects according to how they originally were with the 0.4 metabolism
 
+// Eye protection
+// THese values are additive to determine your overall flash protection.
+#define FLASH_PROTECTION_SENSITIVE -1
+#define FLASH_PROTECTION_NONE 0
+#define FLASH_PROTECTION_FLASH 1
+#define FLASH_PROTECTION_WELDER 2
+#define FLASH_PROTECTION_WELDER_SENSITIVE 3
+#define FLASH_PROTECTION_WELDER_HYPER_SENSITIVE 4
+
 // Roundstart trait system
 
 //The maximum amount of positive quirks one character can have at roundstart, and I hope whoever originally named this simply MAX_QUIRKS stubs their toe
@@ -548,7 +557,7 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define SHOES_LAYER 18
 /// Ears layer (Spessmen have ears? Wow)
 #define EARS_LAYER 17
-/// Suit layer (armor, hardsuits, etc.)
+/// Suit layer (armor, coats, etc.)
 #define SUIT_LAYER 16
 /// Glasses layer
 #define GLASSES_LAYER 15
@@ -594,7 +603,6 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define ABOVE_SHOES_LAYER (SHOES_LAYER-1)
 /// The layer above mutant body parts
 #define ABOVE_BODY_FRONT_LAYER (BODY_FRONT_LAYER-1)
-
 
 //used by canUseTopic()
 /// If silicons need to be next to the atom to use this

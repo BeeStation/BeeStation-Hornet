@@ -5,9 +5,7 @@
 	bodyflag = FLAG_IPC
 	sexes = FALSE
 	species_traits = list(
-		NOTRANSSTING,
 		NOEYESPRITES,
-		NO_DNA_COPY,
 		NOZOMBIE,
 		MUTCOLORS,
 		REVIVESBYHEALING,
@@ -24,7 +22,9 @@
 		TRAIT_EASYDISMEMBER,
 		TRAIT_POWERHUNGRY,
 		TRAIT_XENO_IMMUNE,
-		TRAIT_TOXIMMUNE
+		TRAIT_TOXIMMUNE,
+		TRAIT_NO_DNA_COPY,
+		TRAIT_NO_TRANSFORMATION_STING,
 	)
 	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
 	mutantbrain = /obj/item/organ/brain/positron

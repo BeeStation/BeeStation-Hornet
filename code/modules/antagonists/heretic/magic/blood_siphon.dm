@@ -2,7 +2,7 @@
 	name = "Blood Siphon"
 	desc = "A touch spell that heals your wounds while damaging the enemy. \
 		It has a chance to transfer wounds between you and your enemy."
-	background_icon_state = "bg_ecult"
+	background_icon_state = "bg_heretic"
 	icon_icon = 'icons/hud/actions/actions_ecult.dmi'
 	button_icon_state = "blood_siphon"
 	ranged_mousepointer = 'icons/effects/mouse_pointers/throw_target.dmi'

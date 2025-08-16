@@ -8,8 +8,7 @@
 	integrity_failure = 0.5
 	var/static/mutable_appearance/atvcover
 
-/obj/vehicle/ridden/atv/Initialize(mapload)
-	. = ..()
+/obj/vehicle/ridden/atv/add_riding_element()
 	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/atv)
 
 /obj/vehicle/ridden/atv/post_buckle_mob(mob/living/M)

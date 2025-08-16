@@ -25,6 +25,7 @@
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
 	armor_type = /datum/armor/security_padded
+	clothing_flags = THICKMATERIAL
 
 /obj/item/clothing/gloves/combat
 	name = "combat gloves"
@@ -40,6 +41,7 @@
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
 	armor_type = /datum/armor/military_padded
+	clothing_flags = THICKMATERIAL
 
 /obj/item/clothing/gloves/bracer
 	name = "bone bracers"

@@ -389,7 +389,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 /obj/structure/window/atmos_expose(datum/gas_mixture/air, exposed_temperature)
 	deal_damage(round(air.return_volume() / 100), 0, BURN, DAMAGE_FIRE, sound = FALSE)
 
-/obj/structure/window/get_dumping_location(obj/item/storage/source,mob/user)
+/obj/structure/window/get_dumping_location()
 	return null
 
 /obj/structure/window/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/passing_atom)

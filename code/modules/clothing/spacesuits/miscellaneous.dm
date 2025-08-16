@@ -298,7 +298,7 @@ Contains:
 	icon_state = "space"
 	item_state = "eva_helmet"
 	desc = "A lightweight space helmet with the basic ability to protect the wearer from the vacuum of space during emergencies."
-	flash_protect = 0
+	flash_protect = FLASH_PROTECTION_NONE
 	armor_type = /datum/armor/civilian_padded
 
 /obj/item/clothing/head/helmet/space/freedom
@@ -402,7 +402,7 @@ Contains:
 	item_state = "syndicate-helm-orange"
 	armor_type = /datum/armor/civilian_padded
 	strip_delay = 65
-	flash_protect = 0
+	flash_protect = FLASH_PROTECTION_NONE
 
 /obj/item/clothing/suit/space/fragile
 	name = "emergency space suit"
@@ -446,7 +446,7 @@ Contains:
 	desc = "An airtight helmet meant to protect the wearer during emergency situations."
 	min_cold_protection_temperature = EMERGENCY_HELM_MIN_TEMP_PROTECT
 	heat_protection = NONE
-	flash_protect = 0
+	flash_protect = FLASH_PROTECTION_NONE
 	bang_protect = 0
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR
 	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS

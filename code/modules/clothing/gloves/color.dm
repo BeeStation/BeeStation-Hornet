@@ -85,6 +85,7 @@
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
+	clothing_flags = THICKMATERIAL
 	cut_type = /obj/item/clothing/gloves/fingerless
 
 /obj/item/clothing/gloves/color/orange
@@ -176,6 +177,7 @@
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	strip_delay = 60
 	armor_type = /datum/armor/security_padded
+	clothing_flags = THICKMATERIAL
 
 /obj/item/clothing/gloves/color/latex
 	name = "latex gloves"

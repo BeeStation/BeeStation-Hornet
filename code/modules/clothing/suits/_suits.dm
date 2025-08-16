@@ -8,7 +8,8 @@
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 	allowed = list(
 		/obj/item/tank/internals/emergency_oxygen,
-		/obj/item/tank/internals/plasmaman
+		/obj/item/tank/internals/plasmaman,
+		/obj/item/tank/jetpack/oxygen/captain,
 	)
 	armor_type = /datum/armor/suit
 	slot_flags = ITEM_SLOT_OCLOTHING
@@ -22,8 +23,6 @@
 	. = ..()
 	if(pockets)
 		create_storage(storage_type = /datum/storage/pockets/exo)
-	setup_shielding()
-
 /obj/item/clothing/suit/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = list()
 	if(!isinhands)
@@ -85,14 +84,5 @@
 /obj/item/clothing/suit/Destroy()
 	listeningTo = null
 	. = ..()
-
-/**
- * Wrapper proc to apply shielding through AddComponent().
- * Called in /obj/item/clothing/Initialize().
- * Override with an AddComponent(/datum/component/shielded, args) call containing the desired shield statistics.
- * See /datum/component/shielded documentation for a description of the arguments
- **/
-/obj/item/clothing/suit/proc/setup_shielding()
-	return
 
 #undef FOOTSTEP_COOLDOWN

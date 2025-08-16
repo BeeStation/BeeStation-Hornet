@@ -55,7 +55,7 @@
 	. = ..()
 	new /obj/item/robot_model/syndicate_medical(src)
 	new /obj/item/robot_model/syndicate(src)
-	new /obj/item/robot_model/security(src)
+	new /obj/item/robot_model/guard(src)
 	new /obj/item/robot_model/saboteur(src)
 	new /obj/item/robot_model/deathsquad(src)
 
@@ -79,7 +79,7 @@
 	. = ..()
 	new /obj/item/robot_model/syndicate_medical(src)
 	new /obj/item/robot_model/syndicate(src)
-	new /obj/item/robot_model/security(src)
+	new /obj/item/robot_model/guard(src)
 	new /obj/item/robot_model/saboteur(src)
 	new /obj/item/robot_model/deathsquad(src)
 

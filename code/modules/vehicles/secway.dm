@@ -7,8 +7,7 @@
 	key_type = /obj/item/key/security
 	integrity_failure = 0.5
 
-/obj/vehicle/ridden/secway/Initialize(mapload)
-	. = ..()
+/obj/vehicle/ridden/secway/add_riding_element()
 	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/secway)
 
 /obj/vehicle/ridden/secway/atom_break()

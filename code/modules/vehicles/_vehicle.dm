@@ -47,6 +47,11 @@
 	autogrant_actions_controller = list()
 	occupant_actions = list()
 	generate_actions()
+	add_riding_element()
+
+///Vehicles should only ever have one riding element, so this proc should never call parent types.
+/obj/vehicle/proc/add_riding_element()
+	return
 
 /obj/vehicle/Destroy(force)
 	QDEL_NULL(trailer)

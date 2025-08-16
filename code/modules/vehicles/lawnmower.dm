@@ -10,13 +10,10 @@
 	var/list/gib_sounds = list('sound/effects/mowermovesquish.ogg')
 	var/normal_variant = TRUE // This is just so the lawnmower doesn't explode twice on destruction and for initializing.
 
-/obj/vehicle/ridden/lawnmower/Initialize(mapload)
-
+/obj/vehicle/ridden/lawnmower/add_riding_element()
 	if(normal_variant)
-		. = ..()
 		AddElement(/datum/element/ridable, /datum/component/riding/vehicle/lawnmower)
 	else
-		. = ..()
 		AddElement(/datum/element/ridable, /datum/component/riding/vehicle/lawnmower/nukie)
 
 
