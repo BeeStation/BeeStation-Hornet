@@ -97,6 +97,11 @@ const TAB2NAME: TabType[] = [
       'The Wizard Federation accepts that sometimes, choosing is hard. You can choose from some approved wizard loadouts here.',
     component: () => <Loadouts />,
   },
+  {
+    title: 'Randomize',
+    blurb: "If you didn't like the loadouts offered, you can embrace chaos. Not recommended for newer wizards.",
+    component: () => <Randomize />,
+  },
 ];
 
 enum Buywords {
@@ -160,6 +165,7 @@ const TableOfContents = (props) => {
         content="Wizard Approved Loadouts"
         onClick={() => setTabIndex(8)}
       />
+      <Button lineHeight={lineHeightToc} fluid icon="dice" content="Arcane Randomizer" onClick={() => setTabIndex(9)} />
     </Box>
   );
 };
@@ -314,7 +320,8 @@ const Randomize = (props) => {
     <Stack fill vertical>
       {points < 10 && <PointLocked />}
       <Stack.Item>
-        Semi-Randomize will ensure you at least get some mobility and lethality and additional 20% spell value.
+        Randomize will not allot additional points nor will it purchase any items. You will get a random amount of normal,
+        refundable spells worth 10 points.
       </Stack.Item>
       <Stack.Item>
         <Button.Confirm
@@ -323,27 +330,10 @@ const Randomize = (props) => {
           lineHeight={lineHeightRandomize}
           fluid
           icon="dice-three"
-          content="Semi-Randomize!"
-          onClick={() => act('semirandomize')}
+          content="Randomize!"
+          onClick={() => act('randomize')}
         />
         <Divider />
-      </Stack.Item>
-      <Stack.Item>
-        Full Random will give you anything at a whopping 50% spell value increase!. There&apos;s no going back, either!
-      </Stack.Item>
-      <Stack.Item>
-        <NoticeBox danger>
-          <Button.Confirm
-            confirmContent="Cowabunga it is?"
-            confirmIcon="dice"
-            lineHeight={lineHeightRandomize}
-            fluid
-            color="black"
-            icon="dice"
-            content="Full Random!"
-            onClick={() => act('randomize')}
-          />
-        </NoticeBox>
       </Stack.Item>
     </Stack>
   );
@@ -596,7 +586,7 @@ export const Spellbook = (props) => {
                         <Button disabled={tabIndex === 2} icon="home" content="TOC" onClick={() => setTabIndex(2)} />
                         <Button
                           icon="arrow-right"
-                          disabled={tabIndex === 8}
+                          disabled={tabIndex === 9}
                           content="Next Page"
                           onClick={() => setTabIndex(tabIndex + 1)}
                         />
