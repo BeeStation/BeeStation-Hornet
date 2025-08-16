@@ -420,7 +420,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 		if("shielding")
 			toggle_shielding(usr)
 			. = TRUE
-		if("reaction_supression")
+		if("reaction_suppression")
 			toggle_reaction_suppression(usr)
 			. = TRUE
 	ui_update()
