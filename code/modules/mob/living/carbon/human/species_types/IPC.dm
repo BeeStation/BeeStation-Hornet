@@ -22,7 +22,7 @@
 		TRAIT_REVIVESBYHEALING,
 		TRAIT_NO_DEBRAIN_OVERLAY
 	)
-	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
+	inherent_biotypes = MOB_ROBOTIC|MOB_HUMANOID
 	mutantbrain = /obj/item/organ/brain/positron
 	mutanteyes = /obj/item/organ/eyes/robotic
 	mutanttongue = /obj/item/organ/tongue/robot

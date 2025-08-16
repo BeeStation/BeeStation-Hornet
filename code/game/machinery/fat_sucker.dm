@@ -62,7 +62,7 @@
 	playsound(src, 'sound/machines/click.ogg', 50)
 	if(occupant)
 		var/mob/living/L = occupant
-		if(!iscarbon(L) || HAS_TRAIT(L, TRAIT_POWERHUNGRY) || !(MOB_ORGANIC in L?.mob_biotypes))
+		if(!iscarbon(L) || HAS_TRAIT(L, TRAIT_POWERHUNGRY) || !(L?.mob_biotypes & MOB_ORGANIC))
 			occupant.forceMove(drop_location())
 			set_occupant(null)
 			return

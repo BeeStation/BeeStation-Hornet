@@ -534,7 +534,7 @@
 	. = ..()
 	check_passout()
 
-/mob/living/carbon/setOxyLoss(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/carbon/setOxyLoss(amount, updating_health = TRUE, forced, required_biotype)
 	. = ..()
 	check_passout()
 

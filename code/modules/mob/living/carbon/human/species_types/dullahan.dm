@@ -8,7 +8,7 @@
 		TRAIT_NONECRODISEASE,
 		TRAIT_USES_SKINTONES,
 	)
-	inherent_biotypes = list(MOB_UNDEAD, MOB_HUMANOID)
+	inherent_biotypes = MOB_UNDEAD|MOB_HUMANOID
 	mutant_bodyparts = list("body_size" = "Normal")
 	mutantbrain = /obj/item/organ/brain/dullahan
 	mutanteyes = /obj/item/organ/eyes/dullahan

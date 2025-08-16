@@ -887,6 +887,18 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	update_worn_handcuffs()
 	update_hud_handcuffed()
 
+/mob/living/carbon/revive(full_heal = FALSE, admin_revive = FALSE, excess_healing = 0)
+	if(excess_healing)
+		if(dna && !HAS_TRAIT(src, TRAIT_NOBLOOD))
+			blood_volume += (excess_healing * 2) //1 excess = 10 blood
+
+		for(var/obj/item/organ/target_organ as anything in organs)
+			if(!target_organ.damage)
+				continue
+
+			target_organ.applyOrganDamage(excess_healing * -1, required_organ_flag = ORGAN_ORGANIC) //1 excess = 5 organ damage healed
+
+	return ..()
 
 /mob/living/carbon/heal_and_revive(heal_to = 75, revive_message)
 	// We can't heal them if they're missing a heart

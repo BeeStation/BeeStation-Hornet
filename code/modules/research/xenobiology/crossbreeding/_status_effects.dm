@@ -925,9 +925,12 @@
 
 /datum/status_effect/stabilized/black/tick()
 	if(owner.pulling && isliving(owner.pulling) && owner.grab_state == GRAB_KILL)
+
 		var/mob/living/M = owner.pulling
 		if(M.stat == DEAD)
+			to_chat(owner, span_warning("[M] is dead, you cannot drain anymore life from them!"))
 			return
+
 		if(!messagedelivered)
 			to_chat(owner,span_notice("You feel your hands melt around [M]'s neck and start to drain [M.p_them()] of life."))
 			to_chat(owner.pulling, span_userdanger("[owner]'s hands melt around your neck, and you can feel your life starting to drain away!"))
@@ -944,7 +947,7 @@
 			healing_types += CLONE
 
 		if(LAZYLEN(healing_types) != 0)
-			owner.apply_damage_type(-heal_amount, damagetype=pick(healing_types), forced = TRUE)
+			owner.heal_damage_type(heal_amount, damagetype=pick(healing_types))
 		owner.adjust_nutrition(3)
 		M.adjustCloneLoss(heal_amount * 1.2) //This way, two people can't just convert each other's damage away.
 	else

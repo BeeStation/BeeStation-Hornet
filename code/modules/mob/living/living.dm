@@ -718,8 +718,13 @@
 		clear_fullscreen("brute")
 
 //proc used to ressuscitate a mob
-/mob/living/proc/revive(full_heal = FALSE, admin_revive = FALSE)
-	SEND_SIGNAL(src, COMSIG_LIVING_REVIVE, src, full_heal, admin_revive)
+/mob/living/proc/revive(full_heal = FALSE, admin_revive = FALSE, excess_healing = 0)
+	if(excess_healing)
+		adjustOxyLoss(-excess_healing, FALSE)
+		adjustToxLoss(-excess_healing, FALSE, TRUE) //slime friendly
+		updatehealth()
+
+		grab_ghost()
 	if(full_heal)
 		fully_heal(admin_revive)
 	if(stat == DEAD && can_be_revived()) //in some cases you can't revive (e.g. no brain)
@@ -731,7 +736,12 @@
 		update_sight()
 		clear_alert("not_enough_oxy")
 		reload_fullscreen()
-		. = 1
+		. = TRUE
+		if(excess_healing)
+			INVOKE_ASYNC(src, PROC_REF(emote), "gasp")
+			log_combat(src, src, "revived")
+
+	SEND_SIGNAL(src, COMSIG_LIVING_REVIVE, full_heal, admin_revive)
 
 /*
  * Heals up the [target] to up to [heal_to] of the main damage types.
@@ -792,10 +802,12 @@
 	SHOULD_CALL_PARENT(TRUE)
 
 	restore_blood()
-	setToxLoss(0, 0) //zero as second argument not automatically call updatehealth().
-	setOxyLoss(0, 0)
-	setCloneLoss(0, 0)
-	setStaminaLoss(0, 0)
+	setToxLoss(0, updating_health = FALSE, forced = TRUE)
+	setOxyLoss(0, updating_health = FALSE, forced = TRUE)
+	setBruteLoss(0, updating_health = FALSE, forced = TRUE)
+	setFireLoss(0, updating_health = FALSE, forced = TRUE)
+	setCloneLoss(0, updating_health = FALSE, forced = TRUE)
+	setStaminaLoss(0, updating_stamina = FALSE, forced = TRUE)
 	SetUnconscious(0, FALSE)
 	set_disgust(0)
 	SetStun(0, FALSE)
@@ -824,6 +836,8 @@
 	stuttering = 0
 	slurring = 0
 	jitteriness = 0
+
+	updatehealth()
 	stop_sound_channel(CHANNEL_HEARTBEAT)
 	SEND_SIGNAL(src, COMSIG_LIVING_POST_FULLY_HEAL, admin_revive)
 

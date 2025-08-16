@@ -6,7 +6,7 @@
 		TRAIT_BEEFRIEND,
 		TRAIT_MUTANT_COLORS
 	)
-	inherent_biotypes = list(MOB_ORGANIC,MOB_HUMANOID,MOB_BUG)
+	inherent_biotypes = MOB_ORGANIC|MOB_HUMANOID|MOB_BUG
 	mutant_bodyparts = list(
 		"apid_stripes" = "thick",
 		"apid_headstripes" = "thick",
@@ -69,11 +69,6 @@
 		if(findname(.))
 			. = .(gender, TRUE, lastname, attempts+1)
 
-/datum/species/apid/check_species_weakness(obj/item/weapon, mob/living/attacker)
-	if(istype(weapon, /obj/item/melee/flyswatter))
-		return 29 //Bees get x30 damage from flyswatters
-	return 0
-
 /datum/species/apid/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	if(chem.type == /datum/reagent/toxin/pestkiller)
 		H.adjustToxLoss(3)
@@ -86,12 +81,20 @@
 	return ..()
 
 /datum/species/apid/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
+	. = ..()
+	RegisterSignal(C, COMSIG_MOB_APPLY_DAMAGE_MODIFIERS, PROC_REF(damage_weakness))
 	C.mind?.teach_crafting_recipe(/datum/crafting_recipe/honeycomb)
-	return ..()
 
 /datum/species/apid/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
+	. = ..()
+	UnregisterSignal(C, COMSIG_MOB_APPLY_DAMAGE_MODIFIERS)
 	C.mind?.forget_crafting_recipe(/datum/crafting_recipe/honeycomb)
-	return ..()
+
+/datum/species/apid/proc/damage_weakness(datum/source, list/damage_mods, damage_amount, damagetype, def_zone, sharpness, attack_direction, obj/item/attacking_item)
+	SIGNAL_HANDLER
+
+	if(istype(attacking_item, /obj/item/melee/flyswatter))
+		damage_mods += 30 // Yes, a 30x damage modifier
 
 /datum/species/apid/get_species_description()
 	return "Beepeople, god damn it. It's hip, and alive! Buzz buzz!"

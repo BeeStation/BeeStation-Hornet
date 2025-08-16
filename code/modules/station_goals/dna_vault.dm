@@ -111,7 +111,7 @@
 		if(animals[living_target.type])
 			to_chat(user, span_notice("Animal data already present in local storage."))
 			return
-		if(!(MOB_ORGANIC in living_target.mob_biotypes))
+		if(!(living_target.mob_biotypes & MOB_ORGANIC))
 			to_chat(user, span_alert("No compatible DNA detected."))
 			return .
 		animals[living_target.type] = 1

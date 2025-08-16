@@ -6,7 +6,7 @@
 	icon = 'icons/mob/cult.dmi'
 	icon_state = "shade_cult"
 	icon_living = "shade_cult"
-	mob_biotypes = list(MOB_SPIRIT)
+	mob_biotypes = MOB_SPIRIT
 	maxHealth = 40
 	health = 40
 	spacewalk = TRUE

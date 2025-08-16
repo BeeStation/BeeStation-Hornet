@@ -7,7 +7,7 @@
 		TRAIT_DRINKS_BLOOD,
 		TRAIT_USES_SKINTONES
 	)
-	inherent_biotypes = list(MOB_UNDEAD, MOB_HUMANOID)
+	inherent_biotypes = MOB_UNDEAD|MOB_HUMANOID
 	mutant_bodyparts = list(
 		"body_size" = "Normal"
 	)
@@ -63,10 +63,11 @@
 		C.adjust_fire_stacks(3 * delta_time)
 		C.IgniteMob()
 
-/datum/species/vampire/check_species_weakness(obj/item/weapon, mob/living/attacker)
-	if(istype(weapon, /obj/item/nullrod/whip))
-		return 1 //Whips deal 2x damage to vampires. Vampire killer.
-	return 0
+/datum/species/vampire/proc/damage_weakness(datum/source, list/damage_mods, damage_amount, damagetype, def_zone, sharpness, attack_direction, obj/item/attacking_item)
+	SIGNAL_HANDLER
+
+	if(istype(attacking_item, /obj/item/nullrod/whip))
+		damage_mods += 2
 
 /datum/species/vampire/get_species_description()
 	return "A classy Vampire! They descend upon Space Station Thirteen Every year to spook the crew! \"Bleeg!!\""

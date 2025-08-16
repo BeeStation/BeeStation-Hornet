@@ -16,7 +16,7 @@
 		TRAIT_NO_UNDERWEAR,
 		TRAIT_NOHUSK
 	)
-	inherent_biotypes = list(MOB_HUMANOID, MOB_ORGANIC, MOB_BUG)
+	inherent_biotypes = MOB_HUMANOID|MOB_ORGANIC|MOB_BUG
 	mutant_bodyparts = list(
 		"diona_leaves",
 		"diona_thorns",

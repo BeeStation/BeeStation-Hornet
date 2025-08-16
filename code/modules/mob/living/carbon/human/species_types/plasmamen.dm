@@ -12,7 +12,7 @@
 		TRAIT_NOBLOOD,
 		TRAIT_ENVIROSUIT
 	)
-	inherent_biotypes = list(MOB_INORGANIC, MOB_HUMANOID)
+	inherent_biotypes = MOB_MINERAL|MOB_HUMANOID
 	mutantlungs = /obj/item/organ/lungs/plasmaman
 	mutanttongue = /obj/item/organ/tongue/bone/plasmaman
 	mutantliver = /obj/item/organ/liver/plasmaman
