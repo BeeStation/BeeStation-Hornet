@@ -31,10 +31,10 @@
 
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/fortitude)
 
-/datum/action/vampire/fortitude/UsePower()
+/datum/action/vampire/fortitude/process()
 	. = ..()
 	if(!.)
-		return
+		return FALSE
 
 	var/mob/living/carbon/user = owner
 	if(user.buckled && istype(user.buckled, /obj/vehicle))

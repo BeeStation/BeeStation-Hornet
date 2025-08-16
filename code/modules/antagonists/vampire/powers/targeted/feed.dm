@@ -157,7 +157,13 @@
 	owner.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_MUTE), TRAIT_FEED)
 	feed_target.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_MUTE), TRAIT_FEED)
 
-/datum/action/vampire/targeted/feed/UsePower()
+	START_PROCESSING(SSprocessing, src)
+
+/datum/action/vampire/targeted/feed/process()
+	. = ..()
+	if(!.)
+		return FALSE
+
 	var/mob/living/user = owner
 
 	if(!target_ref)
@@ -234,12 +240,6 @@
 		power_activated_sucessfully()
 		return
 
-	// Play heartbeat sound effect to vampire (and maybe target)
-	owner.playsound_local(null, 'sound/effects/singlebeat.ogg', 40, TRUE)
-
-	if(!silent_feed)
-		feed_target.playsound_local(null, 'sound/effects/singlebeat.ogg', 40, TRUE)
-
 /datum/action/vampire/targeted/feed/deactivate_power()
 	. = ..()
 	REMOVE_TRAITS_IN(owner, TRAIT_FEED)
@@ -261,6 +261,10 @@
 
 	warning_target_bloodvol = BLOOD_VOLUME_MAXIMUM
 	blood_taken = 0
+
+/datum/action/vampire/targeted/feed/power_activated_sucessfully()
+	. = ..()
+	STOP_PROCESSING(SSprocessing, src)
 
 /datum/action/vampire/targeted/feed/proc/handle_feeding(mob/living/carbon/target, mult = 1)
 	var/feed_amount = 15 + (level_current * 2)
@@ -288,7 +292,11 @@
 		target.reagents.trans_to(owner, INGEST, 1) // Run transfer of 1 unit of reagent from them to me.
 
 	// Play heartbeat sound for flavor
-	owner.playsound_local(null, 'sound/effects/singlebeat.ogg', 40, TRUE)
+	if(prob(50))
+		owner.playsound_local(null, 'sound/effects/singlebeat.ogg', 40, TRUE)
+
+		if(!silent_feed)
+			target.playsound_local(null, 'sound/effects/singlebeat.ogg', 40, TRUE)
 
 	vampiredatum_power.total_blood_drank += blood_to_take
 	blood_taken += blood_to_take

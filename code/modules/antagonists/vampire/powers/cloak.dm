@@ -36,10 +36,10 @@
 	user.AddElement(/datum/element/digital_camo)
 	user.balloon_alert(user, "cloak turned on.")
 
-/datum/action/vampire/cloak/UsePower()
+/datum/action/vampire/cloak/process()
 	. = ..()
 	if(!.)
-		return
+		return FALSE
 
 	animate(owner, alpha = max(25, owner.alpha - min(75, 10 + 5 * level_current)), time = 1.5 SECONDS)
 

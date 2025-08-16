@@ -144,9 +144,39 @@
 		return FALSE
 	return TRUE
 
-/datum/action/vampire/update_buttons(force = FALSE)
+/datum/action/vampire/update_buttons(status_only, force)
 	background_icon_state = currently_active ? background_icon_state_on : background_icon_state_off
 	. = ..()
+
+/// Used by powers that are continuously active (That have BP_AM_TOGGLE flag)
+/datum/action/vampire/process(delta_time)
+	SHOULD_CALL_PARENT(TRUE)
+	. = ..()
+	if(!currently_active)
+		return FALSE
+
+	if(!ContinueActive()) // We can't afford the Power? Deactivate it.
+		deactivate_power()
+		return FALSE
+	// We can keep this up (For now), so Pay Cost!
+	if(!(power_flags & BP_AM_COSTLESS_UNCONSCIOUS) && owner.stat != CONSCIOUS)
+		if(vampiredatum_power)
+			vampiredatum_power.AddBloodVolume(-constant_bloodcost * delta_time)
+		else
+			var/mob/living/living_owner = owner
+			if(!HAS_TRAIT(living_owner, TRAIT_NO_BLOOD))
+				living_owner.blood_volume -= constant_bloodcost * delta_time
+
+	return TRUE
+
+/// Checks to make sure this power can stay active
+/datum/action/vampire/proc/ContinueActive()
+	if(!owner)
+		return FALSE
+	if(vampiredatum_power && vampiredatum_power.vampire_blood_volume < constant_bloodcost)
+		return FALSE
+
+	return TRUE
 
 /datum/action/vampire/proc/pay_cost()
 	// Vassals get powers too!
@@ -164,7 +194,7 @@
 /datum/action/vampire/proc/activate_power()
 	currently_active = TRUE
 	if(power_flags & BP_AM_TOGGLE)
-		RegisterSignal(owner, COMSIG_LIVING_LIFE, PROC_REF(UsePower))
+		START_PROCESSING(SSprocessing, src)
 
 	owner.log_message("used [src][bloodcost != 0 ? " at the cost of [bloodcost]" : ""].", LOG_ATTACK, color="red")
 	update_buttons()
@@ -173,40 +203,15 @@
 	if(!currently_active) //Already inactive? Return
 		return
 
+	currently_active = FALSE
+
 	if(power_flags & BP_AM_TOGGLE)
-		UnregisterSignal(owner, COMSIG_LIVING_LIFE)
+		STOP_PROCESSING(SSprocessing, src)
 	if(power_flags & BP_AM_SINGLEUSE)
 		remove_after_use()
 		return
-
-	currently_active = FALSE
 	start_cooldown()
 	update_buttons()
-
-/// Used by powers that are continuously active (That have BP_AM_TOGGLE flag)
-/datum/action/vampire/proc/UsePower()
-	if(!ContinueActive()) // We can't afford the Power? Deactivate it.
-		deactivate_power()
-		return FALSE
-	// We can keep this up (For now), so Pay Cost!
-	if(!(power_flags & BP_AM_COSTLESS_UNCONSCIOUS) && owner.stat != CONSCIOUS)
-		if(vampiredatum_power)
-			vampiredatum_power.AddBloodVolume(-constant_bloodcost)
-		else
-			var/mob/living/living_owner = owner
-			if(!HAS_TRAIT(living_owner, TRAIT_NO_BLOOD))
-				living_owner.blood_volume -= constant_bloodcost
-
-	return TRUE
-
-/// Checks to make sure this power can stay active
-/datum/action/vampire/proc/ContinueActive()
-	if(!owner)
-		return FALSE
-	if(vampiredatum_power && vampiredatum_power.vampire_blood_volume < constant_bloodcost)
-		return FALSE
-
-	return TRUE
 
 /// Used to unlearn Single-Use Powers
 /datum/action/vampire/proc/remove_after_use()
