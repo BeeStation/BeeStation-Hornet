@@ -70,8 +70,12 @@
 
 	finalize_spend_rank(vampiredatum, cost_rank, blood_cost)
 
+	// QoL
+	if(vampiredatum.vampire_level_unspent > 0)
+		spend_rank(source, target, cost_rank, blood_cost)
+
 /datum/vampire_clan/tremere/on_favorite_vassal(datum/antagonist/vampire/source, datum/antagonist/vassal/vassaldatum)
-	vassaldatum.BuyPower(new /datum/action/vampire/shapeshift/batform)
+	vassaldatum.BuyPower(new /datum/action/vampire/targeted/trespass)
 
 /datum/vampire_clan/tremere/on_vassal_made(datum/antagonist/vampire/source, mob/living/user, mob/living/target)
 	. = ..()

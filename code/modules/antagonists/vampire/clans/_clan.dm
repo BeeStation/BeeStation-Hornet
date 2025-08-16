@@ -167,6 +167,10 @@
 
 	finalize_spend_rank(vampiredatum, cost_rank, blood_cost)
 
+	// QoL
+	if(vampiredatum.vampire_level_unspent > 0)
+		spend_rank(source, target, cost_rank, blood_cost)
+
 /datum/vampire_clan/proc/finalize_spend_rank(datum/antagonist/vampire/source, cost_rank = TRUE, blood_cost)
 	vampiredatum.LevelUpPowers()
 	vampiredatum.vampire_regen_rate += 0.05
