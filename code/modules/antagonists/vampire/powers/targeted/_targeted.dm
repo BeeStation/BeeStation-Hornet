@@ -86,6 +86,8 @@
 
 	power_in_use = TRUE
 	FireTargetedPower(target_atom)
+	if(power_flags & BP_AM_TOGGLE)
+		RegisterSignal(owner, COMSIG_LIVING_LIFE, PROC_REF(UsePower))
 	// Skip this part so we can return TRUE right away.
 	if(power_activates_immediately)
 		power_activated_sucessfully() // Mesmerize pays only after success.

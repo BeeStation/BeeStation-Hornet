@@ -501,7 +501,7 @@
 	START_PROCESSING(SSprocessing, src)
 
 /// Actions process to handle their cooldown timer
-/datum/action/process(delta_time)
+/datum/action/process()
 	if(!owner || (next_use_time - world.time) <= 0)
 		update_buttons()
 		STOP_PROCESSING(SSfastprocess, src)

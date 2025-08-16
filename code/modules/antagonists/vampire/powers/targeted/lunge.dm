@@ -61,9 +61,9 @@
 	owner.face_atom(target_atom)
 	if(level_current > 3)
 		do_lunge(target_atom)
-	else
-		prepare_target_lunge(target_atom)
+		return TRUE
 
+	prepare_target_lunge(target_atom)
 	return TRUE
 
 ///Starts processing the power and prepares the lunge by spinning, calls lunge at the end of it.
@@ -71,7 +71,12 @@
 	START_PROCESSING(SSprocessing, src)
 	owner.balloon_alert(owner, "lunge started!")
 
-	// make them jiggle
+	// Spin
+	owner.spin(8, 1)
+	owner.balloon_alert_to_viewers("spins wildly!", "you spin!")
+	// Smoke
+	do_smoke(0, owner.loc, smoke_type = /obj/effect/particle_effect/smoke/transparent)
+	//animate them shake
 	var/base_x = owner.base_pixel_x
 	var/base_y = owner.base_pixel_y
 	animate(owner, pixel_x = base_x, pixel_y = base_y, time = 1, loop = -1)
@@ -97,12 +102,6 @@
 /datum/action/vampire/targeted/lunge/process()
 	if(!power_in_use) //If running SSfasprocess (on cooldown)
 		return ..() //Manage our cooldown timers
-
-	if(prob(75))
-		owner.spin(8, 1)
-		owner.balloon_alert_to_viewers("spins wildly!", "you spin!")
-	else
-		do_smoke(0, owner.loc, smoke_type = /obj/effect/particle_effect/smoke/transparent)
 
 ///Actually lunges the target, then calls lunge end.
 /datum/action/vampire/targeted/lunge/proc/do_lunge(atom/hit_atom)
