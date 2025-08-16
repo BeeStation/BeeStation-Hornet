@@ -24,6 +24,8 @@
 	var/cyborg_base_icon = "robot"
 	/// If we want specific lights, use this instead of copying lights in the dmi
 	var/special_light_key
+	/// If we want specific covers, use this instead of copying covers in the dmi. Default of "ov"
+	var/special_cover_key = "ov"
 
 // ------------------------------------------ Modules (tools)
 	/// Holds all the usable modules (tools)
@@ -39,10 +41,6 @@
 	var/list/storages = list()
 
 // ------------------------------------------ Traits
-	/// Whether or not the borg can be pushed around
-	var/can_be_pushed = TRUE
-	/// Mag boots
-	var/magpulsing = FALSE
 	/// Clean trash under the borg
 	var/clean_on_move = FALSE
 	/// Whether the borg loses tool slots with damage.
@@ -55,6 +53,11 @@
 	var/canDispose = FALSE
 
 	var/did_feedback = FALSE
+
+	/**
+	* List of traits that will be applied to the mob if this module is used.
+	*/
+	var/list/module_traits = null
 
 // ------------------------------------------ Offsets
 	var/hat_offset = -3

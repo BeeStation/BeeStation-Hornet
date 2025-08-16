@@ -352,7 +352,7 @@
 	stalking = target
 	to_chat(owner, span_notice("You begin to stalk [span_name("[target]")], following [target.p_their()] every move from behind your cloak."))
 	RegisterSignals(target, list(COMSIG_MOVABLE_MOVED, COMSIG_ATOM_DIR_CHANGE), PROC_REF(on_stalked_moved))
-	RegisterSignal(target, COMSIG_PARENT_PREQDELETED, PROC_REF(on_stalked_pre_qdel))
+	RegisterSignal(target, COMSIG_PREQDELETED, PROC_REF(on_stalked_pre_qdel))
 	on_stalked_moved(target)
 	deadchat_broadcast(span_ghostalert("[span_name("[owner.real_name]")] has begun to stalk [span_name("[target.real_name]")]!"), follow_target = owner, turf_target = get_turf(owner))
 	COOLDOWN_START(src, stalk_cooldown, 15 SECONDS)
@@ -373,7 +373,7 @@
 	var/out_and_about = scouting && owner.is_manifested()
 	owner.incorporeal_move = out_and_about ? INCORPOREAL_MOVE_BASIC : FALSE
 	owner.set_anchored(out_and_about)
-	UnregisterSignal(stalking, list(COMSIG_MOVABLE_MOVED, COMSIG_ATOM_DIR_CHANGE, COMSIG_PARENT_PREQDELETED))
+	UnregisterSignal(stalking, list(COMSIG_MOVABLE_MOVED, COMSIG_ATOM_DIR_CHANGE, COMSIG_PREQDELETED))
 	stalking = null
 	stalkee_was_notified = FALSE
 	owner.pixel_x = initial(owner.pixel_x)

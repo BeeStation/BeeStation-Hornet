@@ -9,7 +9,6 @@
 	mutanttongue = /obj/item/organ/tongue/zombie
 	species_traits = list(
 		NOZOMBIE,
-		NOTRANSSTING
 	)
 	inherent_traits = list(
 		// SHARED WITH ALL ZOMBIES
@@ -19,6 +18,7 @@
 		TRAIT_LIMBATTACHMENT,
 		TRAIT_NOBREATH,
 		TRAIT_NOCLONELOSS,
+		TRAIT_NO_TRANSFORMATION_STING,
 		TRAIT_NODEATH,
 		TRAIT_NOHUNGER,
 		TRAIT_NOMETABOLISM,

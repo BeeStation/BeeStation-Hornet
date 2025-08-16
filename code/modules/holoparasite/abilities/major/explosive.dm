@@ -1,7 +1,7 @@
 #define UNREGISTER_BOMB_SIGNALS(A) \
 	do { \
 		UnregisterSignal(A, boom_signals); \
-		UnregisterSignal(A, list(COMSIG_PARENT_EXAMINE, COMSIG_PARENT_PREQDELETED)); \
+		UnregisterSignal(A, list(COMSIG_ATOM_EXAMINE, COMSIG_PREQDELETED)); \
 	} while (0)
 
 /datum/holoparasite_ability/major/explosive
@@ -41,7 +41,7 @@
 	var/static/list/forbidden_typecache
 	/// A list of signals which will trigger a bomb detonation.
 	var/static/list/boom_signals = list(
-		COMSIG_PARENT_ATTACKBY,
+		COMSIG_ATOM_ATTACKBY,
 		COMSIG_ATOM_BUMPED,
 		COMSIG_ATOM_ATTACK_HAND,
 		COMSIG_ATOM_ATTACK_PAW,
@@ -174,8 +174,8 @@
 	arming = FALSE
 	COOLDOWN_START(src, arming_cooldown, arming_cooldown_length)
 	arm_hud.begin_timer(arming_cooldown_length)
-	RegisterSignal(target, COMSIG_PARENT_EXAMINE, PROC_REF(display_examine))
-	RegisterSignal(target, COMSIG_PARENT_PREQDELETED, PROC_REF(on_bomb_destroyed))
+	RegisterSignal(target, COMSIG_ATOM_EXAMINE, PROC_REF(display_examine))
+	RegisterSignal(target, COMSIG_PREQDELETED, PROC_REF(on_bomb_destroyed))
 	RegisterSignals(target, boom_signals, PROC_REF(kaboom))
 	bomb_disarm_timers[target] = addtimer(CALLBACK(src, PROC_REF(disable), target), master_stats.potential * 18 * 10, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_STOPPABLE)
 	bombs += target

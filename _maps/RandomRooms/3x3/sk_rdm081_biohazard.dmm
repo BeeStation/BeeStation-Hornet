@@ -49,10 +49,6 @@
 	pixel_y = 9
 	},
 /obj/item/reagent_containers/cup/bottle/mutagen,
-/obj/item/reagent_containers/cup/glass/bottle/virusfood{
-	pixel_x = 6;
-	pixel_y = 4
-	},
 /turf/open/floor/plating,
 /area/template_noop)
 "h" = (

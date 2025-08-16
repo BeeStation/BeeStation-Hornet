@@ -65,12 +65,6 @@
 	contents_cost = 700
 	export_types = list(/obj/structure/reagent_dispensers/beerkeg)
 
-
-/datum/export/large/pipe_dispenser
-	cost = 500
-	unit_name = "pipe dispenser"
-	export_types = list(/obj/machinery/pipe_dispenser)
-
 /datum/export/large/emitter
 	cost = 550
 	unit_name = "emitter"

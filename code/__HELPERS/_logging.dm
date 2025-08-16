@@ -213,6 +213,9 @@
 /proc/log_qdel(text)
 	WRITE_LOG(GLOB.world_qdel_log, "QDEL: [text]")
 
+/proc/log_signal(text)
+	WRITE_LOG(GLOB.world_signal_log, "SIGNAL: [text]")
+
 /proc/log_query_debug(text)
 	WRITE_LOG(GLOB.query_debug_log, "SQL: [text]")
 

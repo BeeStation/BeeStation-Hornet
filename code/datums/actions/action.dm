@@ -86,7 +86,7 @@
 /// Links the passed target to our action, registering any relevant signals
 /datum/action/proc/link_to(master)
 	src.master = master
-	RegisterSignal(master, COMSIG_PARENT_QDELETING, PROC_REF(clear_ref), override = TRUE)
+	RegisterSignal(master, COMSIG_QDELETING, PROC_REF(clear_ref), override = TRUE)
 
 	if(isatom(master))
 		RegisterSignal(master, COMSIG_ATOM_UPDATED_ICON, PROC_REF(update_icon_on_signal))
@@ -99,7 +99,7 @@
 		Remove(owner)
 	master = null
 	if (selected_target)
-		UnregisterSignal(selected_target, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(selected_target, COMSIG_QDELETING)
 		selected_target = null
 	QDEL_LIST_ASSOC_VAL(viewers) // Qdel the buttons in the viewers list **NOT THE HUDS**
 	return ..()
@@ -128,7 +128,7 @@
 		Remove(previous_owner)
 	SEND_SIGNAL(src, COMSIG_ACTION_GRANTED, owner)
 	//SEND_SIGNAL(owner, COMSIG_MOB_GRANTED_ACTION, src)
-	RegisterSignal(owner, COMSIG_PARENT_QDELETING, PROC_REF(clear_ref), override = TRUE)
+	RegisterSignal(owner, COMSIG_QDELETING, PROC_REF(clear_ref), override = TRUE)
 
 	// Register some signals based on our check_flags
 	// so that our button icon updates when relevant
@@ -167,7 +167,7 @@
 		return
 	SEND_SIGNAL(src, COMSIG_ACTION_REMOVED, owner)
 	//SEND_SIGNAL(owner, COMSIG_MOB_REMOVED_ACTION, src)
-	UnregisterSignal(owner, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(owner, COMSIG_QDELETING)
 
 	// Clean up our check_flag signals
 	UnregisterSignal(owner, list(
@@ -183,7 +183,7 @@
 	))
 
 	if(master == owner)
-		RegisterSignal(master, COMSIG_PARENT_QDELETING, PROC_REF(clear_ref))
+		RegisterSignal(master, COMSIG_QDELETING, PROC_REF(clear_ref))
 	if (owner == remove_from)
 		owner = null
 
@@ -245,7 +245,7 @@
 		active = TRUE
 		if (target)
 			selected_target = target
-			RegisterSignal(selected_target, COMSIG_PARENT_QDELETING, PROC_REF(clear_ref))
+			RegisterSignal(selected_target, COMSIG_QDELETING, PROC_REF(clear_ref))
 	. = on_activate(user, target, trigger_flags)
 	// There is a possibility our action (or owner) is qdeleted in on_activate().
 	if(!QDELETED(src) && !QDELETED(owner))
@@ -266,7 +266,7 @@
 	active = FALSE
 	on_deactivate(user, selected_target)
 	if (selected_target)
-		UnregisterSignal(selected_target, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(selected_target, COMSIG_QDELETING)
 		selected_target = null
 
 /// Called when the action is deactivated.
@@ -302,23 +302,40 @@
 		unset_click_ability(clicker, refund_cooldown = FALSE)
 	clicker.next_click = world.time + click_cd_override
 
-/// Whether our action is currently available to use or not
-/datum/action/proc/is_available()
+/**
+ * Whether our action is currently available to use or not
+ * * feedback - If true this is being called to check if we have any messages to show to the owner
+ */
+/datum/action/proc/is_available(feedback = FALSE)
 	if(!owner)
 		return FALSE
 	if (next_use_time && world.time < next_use_time)
 		return FALSE
 	if((check_flags & AB_CHECK_HANDS_BLOCKED) && HAS_TRAIT(owner, TRAIT_HANDS_BLOCKED))
+		if (feedback)
+			owner.balloon_alert(owner, "hands blocked!")
 		return FALSE
 	if((check_flags & AB_CHECK_IMMOBILE) && HAS_TRAIT(owner, TRAIT_IMMOBILIZED))
+		if (feedback)
+			owner.balloon_alert(owner, "can't move!")
+		return FALSE
+	if((check_flags & AB_CHECK_INCAPACITATED) && HAS_TRAIT(owner, TRAIT_INCAPACITATED))
+		if (feedback)
+			owner.balloon_alert(owner, "incapacitated!")
 		return FALSE
 	if((check_flags & AB_CHECK_LYING) && isliving(owner))
 		var/mob/living/action_user = owner
 		if(action_user.body_position == LYING_DOWN)
+			if (feedback)
+				owner.balloon_alert(owner, "must stand up!")
 			return FALSE
 	if((check_flags & AB_CHECK_CONSCIOUS) && owner.stat != CONSCIOUS)
+		if (feedback)
+			owner.balloon_alert(owner, "unconscious!")
 		return FALSE
 	if ((check_flags & AB_CHECK_DEAD) && owner.stat == DEAD)
+		if (feedback)
+			owner.balloon_alert(owner, "dead!")
 		return FALSE
 	return TRUE
 

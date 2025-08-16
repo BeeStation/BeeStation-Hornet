@@ -35,12 +35,12 @@
 
 /obj/item/ammo_casing/energy/laser/cutting
 	projectile_type = /obj/projectile/beam/laser/cutting
-	select_name = "cutting laser"
+	select_name = "demolition"
 	e_cost = 30
 
 /obj/projectile/beam/laser/cutting
 	damage = 5
-	icon_state = "heavylaser"
+	icon_state = "plasmacutter"
 	tracer_type = /obj/effect/projectile/tracer/heavy_laser
 	muzzle_type = /obj/effect/projectile/muzzle/heavy_laser
 	impact_type = /obj/effect/projectile/impact/heavy_laser
@@ -107,3 +107,54 @@
 	desc = "An exploration-fitted laser repeater rifle that uses a built-in bluespace dynamo to recharge its battery, crank it and fire!"
 	pin = /obj/item/firing_pin/off_station
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/anti_creature)
+
+
+/obj/item/gun/energy/e_gun/mini/exploration/cyborg
+	name = "multi-purpose energy gun"
+	desc = "An energy gun with three firing modes useful in a variety of situations, it is not capable of causing substantial harm to crew on any setting."
+	ammo_type = list(/obj/item/ammo_casing/energy/disabler/cyborg, /obj/item/ammo_casing/energy/laser/cutting/cyborg, /obj/item/ammo_casing/energy/laser/anti_creature/cyborg)
+	gun_charge = 1000
+	fire_rate = 1		//One shots per second
+	charge_delay = 9	//Fully charged in 90 seconds
+	w_class = WEIGHT_CLASS_LARGE //Same weight as disabler, for the slightly higher slowdown while active
+	can_charge = FALSE
+	use_cyborg_cell = TRUE
+	requires_wielding = FALSE
+	pin = /obj/item/firing_pin
+
+/obj/item/gun/energy/e_gun/mini/exploration/cyborg/add_seclight_point()
+	return
+
+/obj/item/gun/energy/e_gun/mini/exploration/cyborg/process(delta_time)
+	//The next process tick after the gun is fully charged, we return to normal movement speed
+	if(cell.percent() == 100)
+		var/mob/living/silicon/robot/R
+		if(iscyborg(loc))
+			R = loc
+		else if(iscyborg(loc.loc))
+			R = loc.loc
+		R?.remove_status_effect(/datum/status_effect/cyborg_sentry)
+	. = ..()
+
+/obj/item/gun/energy/e_gun/mini/exploration/cyborg/on_chamber_fired()
+	var/mob/living/silicon/robot/R
+	if(iscyborg(loc)) //Gun can only be fired from the main bar.
+		R = loc
+		R.apply_status_effect(/datum/status_effect/cyborg_sentry)
+	. = ..()
+
+//Standard disabler round
+/obj/item/ammo_casing/energy/disabler/cyborg
+	e_cost = 50 //20 shot capacity
+
+//Does 5 damage to mobs and 70 to objects, with exception to blobs
+/obj/item/ammo_casing/energy/laser/cutting/cyborg
+	e_cost = 25 //40 shot capacity
+
+//Does 5 damage to humans, 30 damage to all other mobs.
+/obj/item/ammo_casing/energy/laser/anti_creature/cyborg
+	projectile_type = /obj/projectile/beam/laser/anti_creature/cyborg
+	e_cost = 50 //20 shot capacity
+
+/obj/projectile/beam/laser/anti_creature/cyborg
+	damage = 5  //15 is too much given this can be used on station

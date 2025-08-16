@@ -43,29 +43,29 @@
 		Retaliate()
 
 /mob/living/simple_animal/hostile/retaliate/proc/add_enemy(new_enemy)
-	RegisterSignal(new_enemy, COMSIG_PARENT_QDELETING, PROC_REF(remove_enemy), override = TRUE)
+	RegisterSignal(new_enemy, COMSIG_QDELETING, PROC_REF(remove_enemy), override = TRUE)
 	enemies |= new_enemy
 
 /mob/living/simple_animal/hostile/retaliate/proc/add_enemies(new_enemies)
 	for(var/new_enemy in new_enemies)
-		RegisterSignal(new_enemy, COMSIG_PARENT_QDELETING, PROC_REF(remove_enemy), override = TRUE)
+		RegisterSignal(new_enemy, COMSIG_QDELETING, PROC_REF(remove_enemy), override = TRUE)
 		enemies |= new_enemy
 
 /mob/living/simple_animal/hostile/retaliate/proc/clear_enemies()
 	for(var/enemy in enemies)
-		UnregisterSignal(enemy, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(enemy, COMSIG_QDELETING)
 	enemies.Cut()
 
 /mob/living/simple_animal/hostile/retaliate/proc/remove_enemy(datum/enemy_to_remove)
 	SIGNAL_HANDLER
-	UnregisterSignal(enemy_to_remove, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(enemy_to_remove, COMSIG_QDELETING)
 	enemies -= enemy_to_remove
 	if(enemy_to_remove == target) // if its the same we null the reference in target
 		target = null
 
 /mob/living/simple_animal/hostile/retaliate/add_target(new_target)
 	if(target && !(target in enemies)) //we should not remove the signal if it still exists in the enemies list
-		UnregisterSignal(target, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(target, COMSIG_QDELETING)
 	target = new_target
 	if(target) //we could also check here again if this is in the enemies list but override = TRUE might be the better idea here
-		RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(remove_enemy), override = TRUE)
+		RegisterSignal(target, COMSIG_QDELETING, PROC_REF(remove_enemy), override = TRUE)

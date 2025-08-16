@@ -55,8 +55,8 @@
 	)
 
 	if(!length(chosen_candidates))
-		message_admins("DYNAMIC: [previous_chosen_candidates] players were selected for [src], but none of them wanted to play it.")
-		log_dynamic("NOT ALLOWED: [previous_chosen_candidates] players were selected for [src], but none of them wanted to play it.")
+		message_admins("DYNAMIC: [previous_chosen_candidates] player\s [previous_chosen_candidates > 0 ? "were" : "was"] selected for [src], but none of them wanted to play it.")
+		log_dynamic("NOT ALLOWED: [previous_chosen_candidates] player\s [previous_chosen_candidates > 0 ? "were" : "was"] selected for [src], but none of them wanted to play it.")
 		return DYNAMIC_EXECUTE_FAILURE
 
 	for(var/mob/chosen_candidate in chosen_candidates)
@@ -137,7 +137,7 @@
 
 /datum/dynamic_ruleset/midround/living/obsessed
 	name = "Obsessed"
-	severity = DYNAMIC_MIDROUND_LIGHT
+	severity = DYNAMIC_MIDROUND_LIGHT | DYNAMIC_MIDROUND_MEDIUM
 	antag_datum = /datum/antagonist/obsessed
 	role_preference = /datum/role_preference/midround/obsessed
 	weight = 4

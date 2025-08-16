@@ -4,9 +4,9 @@
 	desc = "A hexagonal mesh of honeycomb."
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "honeycomb"
-	max_volume = 10
+	max_volume = 30 //So honeycomb can still be injected with additional things
 	foodtypes = SUGAR
-	food_reagents = list(/datum/reagent/consumable/honey = 5)
+	food_reagents = list(/datum/reagent/consumable/honey = 20)
 	var/honey_color = ""
 
 /obj/item/food/honeycomb/Initialize(mapload)
@@ -14,7 +14,6 @@
 	pixel_x = rand(8,-8)
 	pixel_y = rand(8,-8)
 	update_icon()
-
 
 /obj/item/food/honeycomb/update_icon()
 	cut_overlays()
@@ -30,7 +29,7 @@
 	if(istype(R))
 		name = "honeycomb ([R.name])"
 		honey_color = R.color
-		reagents.add_reagent(R.type,5)
+		reagents.add_reagent(R.type,20)
 	else
 		honey_color = ""
 	update_icon()

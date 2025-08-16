@@ -109,7 +109,7 @@
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "aE" = (
-/obj/machinery/smartfridge/survival_pod,
+/obj/machinery/smartfridge/survival_pod/preloaded,
 /turf/open/floor/pod/light,
 /area/shuttle/escape)
 "aF" = (

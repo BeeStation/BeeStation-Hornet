@@ -30,6 +30,7 @@
 	. = ..()
 	create_reagents(volume, OPENCONTAINER)
 	noz = make_noz()
+	RegisterSignal(noz, COMSIG_MOVABLE_MOVED, PROC_REF(noz_move))
 	update_icon()
 
 /obj/item/watertank/ui_action_click(mob/user)
@@ -96,6 +97,7 @@
 
 	if(QDELETED(noz))
 		noz = make_noz()
+		RegisterSignal(noz, COMSIG_MOVABLE_MOVED, PROC_REF(noz_move))
 	if(noz in src)
 		//Detach the nozzle into the user's hands
 		if(!user.put_in_hands(noz))
@@ -114,6 +116,12 @@
 /obj/item/watertank/proc/make_noz()
 	update_icon()
 	return new /obj/item/reagent_containers/spray/mister(src)
+
+/obj/item/watertank/proc/noz_move(atom/movable/mover, atom/oldloc, direction)
+	if(mover.loc == src || mover.loc == loc)
+		return
+	balloon_alert(loc, "nozzle snaps back")
+	mover.forceMove(src)
 
 /obj/item/watertank/equipped(mob/user, slot)
 	..()
@@ -146,10 +154,10 @@
 		update_icon()
 	return ..()
 
-/obj/item/watertank/attackby(obj/item/W, mob/user, params)
-	if(W == noz)
+/obj/item/watertank/attackby(obj/item/attacking_item, mob/user, params)
+	if(attacking_item == noz)
 		remove_noz()
-		return 1
+		return TRUE
 	else
 		return ..()
 
@@ -182,17 +190,9 @@
 /obj/item/reagent_containers/spray/mister/Initialize(mapload)
 	. = ..()
 	tank = loc
-	if(!istype(tank))
+	if(!tank?.reagents)
 		return INITIALIZE_HINT_QDEL
 	reagents = tank.reagents	//This mister is really just a proxy for the tank's reagents
-
-/obj/item/reagent_containers/spray/mister/doMove(atom/destination)
-	if(destination && (destination != tank?.loc || !ismob(destination)))
-		if (loc != tank)
-			to_chat(tank.loc, span_notice("The mister snaps back onto the watertank."))
-		destination = tank
-		tank.update_icon()
-	..()
 
 /obj/item/reagent_containers/spray/mister/afterattack(obj/target, mob/user, proximity)
 	if(target.loc == loc) //Safety check so you don't fill your mister with mutagen or something and then blast yourself in the face with it
@@ -480,30 +480,24 @@
 	tank = null
 	return ..()
 
-/obj/item/extinguisher/mini/nozzle/doMove(atom/destination)
-	if(destination && (destination != tank.loc || !ismob(destination)))
-		if(loc != tank)
-			to_chat(tank.loc, span_notice("The nozzle snaps back onto the tank!"))
-		destination = tank
-	..()
-
 /obj/item/extinguisher/mini/nozzle/attack_self(mob/user)
+	var/uses_pack = istype(tank, /obj/item/watertank/atmos)
 	switch(nozzle_mode)
 		if(EXTINGUISHER)
 			nozzle_mode = RESIN_LAUNCHER
-			if(tank)
+			if(uses_pack)
 				tank.update_icon()
 			balloon_alert(user, "Launcher mode")
 			return
 		if(RESIN_LAUNCHER)
 			nozzle_mode = RESIN_FOAM
-			if(tank)
+			if(uses_pack)
 				tank.update_icon()
 			balloon_alert(user, "Foamer mode")
 			return
 		if(RESIN_FOAM)
 			nozzle_mode = EXTINGUISHER
-			if(tank)
+			if(uses_pack)
 				tank.update_icon()
 			balloon_alert(user, "Extinguisher mode")
 			return
@@ -543,7 +537,7 @@
 		playsound(src,'sound/items/syringeproj.ogg',40,1)
 		var/datum/move_loop/loop = SSmove_manager.move_towards(resin_projectile, target, delay, timeout = timeout, priority = MOVEMENT_ABOVE_SPACE_PRIORITY, extra_info = target)
 		RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(resin_stop_check))
-		RegisterSignal(loop, COMSIG_PARENT_QDELETING, PROC_REF(resin_landed))
+		RegisterSignal(loop, COMSIG_QDELETING, PROC_REF(resin_landed))
 		if(tank?.upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM)
 			RegisterSignal(loop, COMSIG_MOVELOOP_REACHED_TARGET, PROC_REF(resin_landed))
 
@@ -552,10 +546,11 @@
 
 	if(nozzle_mode == RESIN_FOAM)
 		if(!Adj|| !isturf(target))
+			balloon_alert(user, "too far!")
 			return
 		for(var/S in target)
 			if(istype(S, /obj/effect/particle_effect/foam/metal/resin) || istype(S, /obj/structure/foamedmetal/resin))
-				to_chat(user, span_warning("There's already resin here!"))
+				balloon_alert(user, "already has resin!")
 				return
 		if(resin_synthesis_cooldown < max_foam)
 			if(toggled)

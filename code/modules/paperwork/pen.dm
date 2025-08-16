@@ -77,6 +77,12 @@
 	icon_state = "pen-fountain"
 	font = FOUNTAIN_PEN_FONT
 
+/obj/item/pen/brush
+	name = "calligraphy brush"
+	desc = "A traditional brush usually used for calligraphy and poems."
+	icon_state = "pen-brush"
+	font = BRUSH_PEN_FONT
+
 /obj/item/pen/charcoal
 	name = "charcoal stylus"
 	desc = "It's just a wooden stick with some compressed ash on the end. At least it can write."
@@ -84,9 +90,6 @@
 	colour = "dimgray"
 	font = CHARCOAL_FONT
 	custom_materials = null
-
-
-
 
 /obj/item/pen/fountain/captain
 	name = "captain's fountain pen"

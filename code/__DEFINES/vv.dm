@@ -128,7 +128,7 @@
 #define VV_HK_ADD_IMPLANT_TOOL	"add_implant_tool"
 #define VV_HK_DEL_IMPLANT_TOOL	"del_implant_tool"
 
-// /obj/machinery/vendor/exploration
+// /obj/machinery/gear_requisition/exploration
 #define VV_ID_GIVE_EXPLO_POINT "id_give_explo_points"
 
 // /obj/machinery/computer/rdconsole

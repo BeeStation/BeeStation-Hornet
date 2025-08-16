@@ -3,11 +3,6 @@
 	martyr_compatible = FALSE
 	var/target_role_type=0
 
-/datum/objective/debrain/find_target_by_role(role, role_type=FALSE,invert=FALSE)
-	if(!invert)
-		target_role_type = role_type
-	..()
-
 /datum/objective/debrain/check_completion()
 	if(!target)//If it's a free objective.
 		return TRUE

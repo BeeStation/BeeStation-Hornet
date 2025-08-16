@@ -32,103 +32,41 @@
 	else
 		return ..()
 
-/obj/item/circuit_component/bci_action
+/obj/item/circuit_component/equipment_action/bci
 	display_name = "BCI Action"
 	desc = "Represents an action the user can take when implanted with the brain-computer interface."
 	required_shells = list(/obj/item/organ/cyberimp/bci)
 
-	/// The icon of the button
-	var/datum/port/input/option/icon_options
-
-	/// The name to use for the button
-	var/datum/port/input/button_name
-
-	/// Called when the user presses the button
-	var/datum/port/output/signal
-
 	/// A reference to the action button itself
 	var/datum/action/innate/bci_action/bci_action
 
-CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/bci_action)
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/equipment_action)
 
-/obj/item/circuit_component/bci_action/Initialize(mapload, default_icon)
-	. = ..()
-
-	if (!isnull(default_icon))
-		icon_options.set_input(default_icon)
-
-
-/obj/item/circuit_component/bci_action/populate_ports()
-	button_name = add_input_port("Name", PORT_TYPE_STRING)
-
-	signal = add_output_port("Signal", PORT_TYPE_SIGNAL)
-
-/obj/item/circuit_component/bci_action/Destroy()
+/obj/item/circuit_component/equipment_action/bci/Destroy()
 	QDEL_NULL(bci_action)
 	return ..()
 
-/obj/item/circuit_component/bci_action/populate_options()
-	var/static/list/action_options = list(
-		"Blank",
-
-		"One Green",
-		"Two Green",
-		"Three Green",
-		"Four Green",
-		"Five Green",
-		"Plus Green",
-		"Minus Green",
-		"Power Green",
-
-		"One Red",
-		"Two Red",
-		"Three Red",
-		"Four Red",
-		"Five Red",
-		"Plus Red",
-		"Minus Red",
-		"Power Red",
-
-		"One Yellow",
-		"Two Yellow",
-		"Three Yellow",
-		"Four Yellow",
-		"Five Yellow",
-		"Plus Yellow",
-		"Minus Yellow",
-		"Power Yellow",
-
-		"One Blue",
-		"Two Blue",
-		"Three Blue",
-		"Four Blue",
-		"Five Blue",
-		"Plus Blue",
-		"Minus Blue",
-		"Power Blue",
-	)
-
-	icon_options = add_option_port("Icon", action_options)
-
-/obj/item/circuit_component/bci_action/register_shell(atom/movable/shell)
+/obj/item/circuit_component/equipment_action/bci/register_shell(atom/movable/shell)
+	. = ..()
 	var/obj/item/organ/cyberimp/bci/bci = shell
+	if(istype(bci))
+		bci_action = new(src)
+		update_action()
 
-	bci_action = new(src)
-	update_action()
+		bci.actions += list(bci_action)
 
-	bci.actions += list(bci_action)
-
-/obj/item/circuit_component/bci_action/unregister_shell(atom/movable/shell)
+/obj/item/circuit_component/equipment_action/bci/unregister_shell(atom/movable/shell)
 	var/obj/item/organ/cyberimp/bci/bci = shell
+	if(istype(bci))
+		bci.actions -= bci_action
+		QDEL_NULL(bci_action)
+	return ..()
 
-	bci.actions -= bci_action
-	QDEL_NULL(bci_action)
-
-/obj/item/circuit_component/bci_action/input_received(datum/port/input/port)
+/obj/item/circuit_component/equipment_action/bci/input_received(datum/port/input/port)
 	if (!isnull(bci_action))
 		update_action()
 
-/obj/item/circuit_component/bci_action/proc/update_action()
+/obj/item/circuit_component/equipment_action/bci/update_action()
 	bci_action.name = button_name.value
 	bci_action.button_icon_state = "[replacetextEx(LOWER_TEXT(icon_options.value), " ", "_")]"
 	bci_action.update_buttons()
@@ -139,9 +77,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/bci_action)
 	check_flags = AB_CHECK_CONSCIOUS
 	button_icon_state = "power_green"
 
-	var/obj/item/circuit_component/bci_action/circuit_component
+	var/obj/item/circuit_component/equipment_action/bci/circuit_component
 
-/datum/action/innate/bci_action/New(obj/item/circuit_component/bci_action/circuit_component)
+/datum/action/innate/bci_action/New(obj/item/circuit_component/equipment_action/bci/circuit_component)
 	..()
 
 	src.circuit_component = circuit_component
@@ -221,7 +159,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/bci_action)
 	user_port.set_output(owner)
 	user = WEAKREF(owner)
 
-	RegisterSignal(owner, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(owner, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, PROC_REF(on_borg_charge))
 	RegisterSignal(owner, COMSIG_LIVING_ELECTROCUTE_ACT, PROC_REF(on_electrocute))
 
@@ -232,7 +170,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/bci_action)
 	user = null
 
 	UnregisterSignal(owner, list(
-		COMSIG_PARENT_EXAMINE,
+		COMSIG_ATOM_EXAMINE,
 		COMSIG_PROCESS_BORGCHARGER_OCCUPANT,
 		COMSIG_LIVING_ELECTROCUTE_ACT,
 	))

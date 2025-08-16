@@ -63,7 +63,7 @@
 			var/datum/component/tamed_command/T = C.AddComponent(/datum/component/tamed_command)
 			T.add_ally(user)
 			to_chat(user, span_notice("[C] nuzzles you."))
-			UnregisterSignal(mob_target, COMSIG_PARENT_QDELETING)
+			UnregisterSignal(mob_target, COMSIG_QDELETING)
 			mob_target = null
 			if(timer)
 				deltimer(timer)
@@ -83,7 +83,7 @@
 	C.throw_at(get_turf(src), 9, 2, user, FALSE, force = 0)
 	C.transform = transform.Turn(180)
 	C.toggle_ai(AI_OFF)
-	RegisterSignal(C, COMSIG_PARENT_QDELETING, PROC_REF(handle_hard_del), override=TRUE)
+	RegisterSignal(C, COMSIG_QDELETING, PROC_REF(handle_hard_del), override=TRUE)
 	to_chat(user, span_notice("You lasso [C]!"))
 	timer = addtimer(CALLBACK(src, PROC_REF(fail_ally)), 6 SECONDS, TIMER_STOPPABLE) //after 6 seconds set the carp back
 
@@ -96,7 +96,7 @@
 	visible_message(span_warning("[mob_target] breaks free!"))
 	mob_target.transform = transform.Turn(0)
 	mob_target.toggle_ai(AI_ON)
-	UnregisterSignal(mob_target, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(mob_target, COMSIG_QDELETING)
 	mob_target = null
 	timer = null
 

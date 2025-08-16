@@ -92,7 +92,7 @@
 		return
 	if(!(get_turf(holo_atom) in linked)) //Don't derez items that have been hidden or taken away by prisoners
 		return
-	UnregisterSignal(holo_atom, COMSIG_PARENT_PREQDELETED)
+	UnregisterSignal(holo_atom, COMSIG_PREQDELETED)
 	var/turf/target_turf = get_turf(holo_atom)
 	for(var/atom/movable/atom_contents as anything in holo_atom) //make sure that things inside of a holoitem are moved outside before destroying it
 		atom_contents.forceMove(target_turf)

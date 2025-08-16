@@ -45,7 +45,7 @@
 		if(artifact_component.calibrated)
 			sound_in = 'sound/machines/click.ogg'
 			RegisterSignal(artifact_component, COMSIG_XENOA_TRIGGER, PROC_REF(catch_activation))
-			RegisterSignal(artifact_component, COMSIG_PARENT_QDELETING, PROC_REF(clean_up))
+			RegisterSignal(artifact_component, COMSIG_QDELETING, PROC_REF(clean_up))
 		else
 			say("Error: [target] needs to be calibrated.")
 	else
@@ -68,7 +68,7 @@
 	if(!artifact_component)
 		return
 	UnregisterSignal(artifact_component, COMSIG_XENOA_TRIGGER)
-	UnregisterSignal(artifact_component, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(artifact_component, COMSIG_QDELETING)
 	artifact_component = null
 
 /obj/item/sticker/artifact_tracker/proc/catch_activation(datum/source, priority)

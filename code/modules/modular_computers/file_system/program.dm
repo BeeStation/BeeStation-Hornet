@@ -2,8 +2,6 @@
 /datum/computer_file/program
 	filetype = "PRG"
 	filename = "UnknownProgram"				// File name. FILE NAME MUST BE UNIQUE IF YOU WANT THE PROGRAM TO BE DOWNLOADABLE FROM NTNET!
-	/// List of required accesses to *run* the program.
-	var/list/required_access = list()
 	/// List of required access to download or file host the program
 	var/list/transfer_access = list()
 	var/program_state = PROGRAM_STATE_KILLED// PROGRAM_STATE_KILLED or PROGRAM_STATE_BACKGROUND or PROGRAM_STATE_ACTIVE - specifies whether this program is running.
@@ -61,7 +59,6 @@
 
 /datum/computer_file/program/clone()
 	var/datum/computer_file/program/temp = ..()
-	temp.required_access = required_access
 	temp.filedesc = filedesc
 	temp.program_icon_state = program_icon_state
 	temp.requires_ntnet = requires_ntnet
@@ -113,15 +110,17 @@
  * Checks for hardware incompatibilities.
  * If the current computer doesn't have the hardware matching hardware equipment an error will display and the program wont start.
  * Arguments:
+ * * to_check - The computer being checked, this does not use the computer var due to cases where the program doesn't exist yet in any computer but needs to be checked against yours.
  * * user - The mob that started the program
+ * * loud - Are we making a sound and displaying balloon alert?
  **/
-/datum/computer_file/program/proc/is_supported_by_hardware(mob/living/user, loud = TRUE)
+/datum/computer_file/program/proc/is_supported_by_hardware(obj/item/modular_computer/to_check, mob/user, loud = TRUE)
 	if(!hardware_requirement)
 		return TRUE
-	if(!computer?.get_modular_computer_part(hardware_requirement))
+	if(!to_check?.get_modular_computer_part(hardware_requirement))
 		if(loud)	// Else fail silently
-			computer.balloon_alert(user, "<font color='#d80000'>ERROR:</font> Required hardware type :: <font color='#e65bc3'>[hardware_requirement]</font> not found!")
-			playsound(computer, 'sound/machines/defib_failed.ogg', 25, TRUE)
+			to_check.balloon_alert(user, "<font color='#d80000'>ERROR:</font> Required hardware type :: <font color='#e65bc3'>[hardware_requirement]</font> not found!")
+			playsound(to_check, 'sound/machines/defib_failed.ogg', 25, TRUE)
 		return FALSE
 	return TRUE
 
@@ -140,28 +139,21 @@
   *NT Software Hub is checking available software), a list can be given to be used instead.
   *Arguments:
   *user is a ref of the mob using the device.
-  *loud is a bool deciding if this proc should use to_chats
   *access_to_check is an access level that will be checked against the ID
-  *transfer, if TRUE and access_to_check is null, will tell this proc to use the program's transfer_access in place of access_to_check
   *access can contain a list of access numbers to check against. If access is not empty, it will be used istead of checking any inserted ID.
 */
 
-/datum/computer_file/program/proc/can_run(mob/user, loud = FALSE, access_to_check, transfer = FALSE, var/list/access)
+/datum/computer_file/program/proc/can_download(mob/user, loud = FALSE, access_to_check, var/list/access)
 	if(issilicon(user))
 		return TRUE
 
 	if(IsAdminGhost(user))
 		return TRUE
 
-	if(!transfer && computer && (computer.obj_flags & EMAGGED))	//emags can bypass the execution locks but not the download ones.
+	if(computer && (computer.obj_flags & EMAGGED))	//emags can bypass download access requirements
 		return TRUE
 
-	// Defaults to required_access
-	if(!access_to_check)
-		if(transfer && transfer_access)
-			access_to_check = transfer_access
-		else
-			access_to_check = required_access
+	access_to_check = transfer_access
 	if(!islist(access_to_check))
 		access_to_check = list(access_to_check)
 	if(!length(access_to_check)) // No required_access, allow it.
@@ -173,20 +165,14 @@
 		if(computer)
 			card_slot = computer.all_components[MC_CARD]
 			access_card = card_slot?.GetID()
-
 		if(!access_card)
-			if(loud)
-				computer.balloon_alert_to_viewers("RFID Error - Unable to scan ID")
-				to_chat(user, span_danger("\The [computer] flashes an \"RFID Error - Unable to scan ID\" warning."))
 			return FALSE
+
 		access = access_card.GetAccess()
 
 	for(var/singular_access in access_to_check)
 		if(singular_access in access)//For loop checks every individual access entry in the access list. If the user's ID has access to any entry, then we're good.
 			return TRUE
-	if(loud)
-		computer.balloon_alert_to_viewers("Access Denied")
-		to_chat(user, span_danger("\The [computer] flashes an \"Access Denied\" warning."))
 	return FALSE
 
 /**
@@ -199,7 +185,7 @@
  **/
 /datum/computer_file/program/proc/on_start(mob/living/user)
 	SHOULD_CALL_PARENT(TRUE)
-	if(can_run(user, 1))
+	if(is_supported_by_hardware(computer, user, 1))
 		if(requires_ntnet && network_destination)
 			var/obj/item/computer_hardware/network_card/network_card = computer.all_components[MC_NET]
 			generate_network_log("Connection opened to [network_destination].", network_card) // Probably should be cut

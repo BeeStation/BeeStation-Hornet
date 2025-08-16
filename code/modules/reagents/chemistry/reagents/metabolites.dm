@@ -16,13 +16,12 @@
 	name = "Metabolites"
 	color = "#FAFF00"
 	description = "You should never see this. Contact an administrator or coder"
-	chem_flags = CHEMICAL_NOT_DEFINED
+	chemical_flags = CHEMICAL_NOT_DEFINED
 
-/datum/reagent/metabolite/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+/datum/reagent/metabolite/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
 	if(volume > MAX_METABOLITES)
 		volume = MAX_METABOLITES
-	. = ..()
-
 
 /datum/reagent/metabolite/medicine
 	name = "Medicinal Metabolites"
@@ -59,9 +58,8 @@
 	description = "A byproduct of the body processing BZ gas."
 	metabolization_rate = REAGENTS_METABOLISM * 0.2
 
-/datum/reagent/metabolite/bz/on_mob_life(mob/living/L) //This one's effect is grandfathered in from before other metabolites existed. One of the only direct counters to changelings
-	if(L.mind)
-		var/datum/antagonist/changeling/changeling = L.mind.has_antag_datum(/datum/antagonist/changeling)
-		if(changeling)
-			changeling.chem_charges = max(changeling.chem_charges-2, 0)
-	return ..()
+/datum/reagent/metabolite/bz/on_mob_life(mob/living/carbon/affected_mob)
+	. = ..()
+	// This one's effect is grandfathered in from before other metabolites existed. One of the only direct counters to changelings
+	var/datum/antagonist/changeling/changeling = IS_CHANGELING(affected_mob)
+	changeling?.adjust_chemicals(-2)

@@ -109,8 +109,6 @@
 
 	/// VTEC speed boost.
 	var/speed = 0
-	/// Magboot-like effect.
-	var/magpulse = FALSE
 	/// Jetpack-like effect.
 	var/ionpulse = FALSE
 	/// Jetpack-like effect.
@@ -194,18 +192,14 @@
 	icon_state = "peace"
 
 // --------------------- Security
-/mob/living/silicon/robot/model/security
-	set_model = /obj/item/robot_model/security
-	icon_state = "sec"
+/mob/living/silicon/robot/model/guard
+	set_model = /obj/item/robot_model/guard
+	icon_state = "guard"
 
 // --------------------- Service (formerly Butler)
 /mob/living/silicon/robot/model/service
 	set_model = /obj/item/robot_model/service
 	icon_state = "brobot"
-
-// --------------------- Borgi
-/mob/living/silicon/robot/model/borgi
-	set_model = /obj/item/robot_model/borgi
 
 // --------------------- Deathsquad
 /mob/living/silicon/robot/model/deathsquad

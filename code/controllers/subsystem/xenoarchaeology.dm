@@ -118,10 +118,10 @@ SUBSYSTEM_DEF(xenoarchaeology)
 /datum/controller/subsystem/xenoarchaeology/proc/register_console(obj/machinery/computer/xenoarchaeology_console/new_console)
 	if(main_console)
 		main_console.is_main_console = FALSE
-		UnregisterSignal(main_console, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(main_console, COMSIG_QDELETING)
 	main_console = new_console
 	main_console.is_main_console = TRUE
-	RegisterSignal(main_console, COMSIG_PARENT_QDELETING, PROC_REF(catch_console))
+	RegisterSignal(main_console, COMSIG_QDELETING, PROC_REF(catch_console))
 
 /datum/controller/subsystem/xenoarchaeology/proc/catch_console(datum/source)
 	SIGNAL_HANDLER

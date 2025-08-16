@@ -135,11 +135,11 @@
 //===================
 
 /datum/artifact_effect/inducespasm
-	signal_types = list(COMSIG_PARENT_EXAMINE)
+	signal_types = list(COMSIG_ATOM_EXAMINE)
 	effect_act_descs = list("examined")
 
 /datum/artifact_effect/inducespasm/register_signals(source)
-	RegisterSignal(source, COMSIG_PARENT_EXAMINE, PROC_REF(do_effect))
+	RegisterSignal(source, COMSIG_ATOM_EXAMINE, PROC_REF(do_effect))
 
 /datum/artifact_effect/inducespasm/proc/do_effect(datum/source, mob/observer, list/examine_text)
 	if(ishuman(observer))

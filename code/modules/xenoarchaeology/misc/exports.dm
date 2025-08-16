@@ -6,7 +6,7 @@
 	unit_name = "xenoartifact"
 	export_types = list(/obj/item/xenoartifact)
 
-/datum/export/artifact/get_cost(obj/O, allowed_categories = NONE, apply_elastic = TRUE)
+/datum/export/artifact/get_cost(obj/item/O, allowed_categories = NONE, apply_elastic = TRUE)
 	cost = O.custom_price
 	return ..()
 

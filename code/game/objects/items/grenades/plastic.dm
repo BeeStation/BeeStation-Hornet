@@ -113,7 +113,7 @@
 /obj/item/grenade/plastic/afterattack(atom/movable/AM, mob/user, flag)
 	. = ..()
 	aim_dir = get_dir(user,AM)
-	if(!flag)
+	if(!flag || !user.is_holding(src))
 		return
 	if(ismob(AM) && !can_attach_mob)
 		return

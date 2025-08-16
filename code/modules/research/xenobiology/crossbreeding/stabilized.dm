@@ -12,7 +12,6 @@ Stabilized extracts:
 	effect = "stabilized"
 	icon_state = "stabilized"
 	var/datum/status_effect/linked_effect
-	var/mob/living/owner
 
 /obj/item/slimecross/stabilized/Initialize(mapload)
 	. = ..()
@@ -23,28 +22,45 @@ Stabilized extracts:
 	qdel(linked_effect)
 	return ..()
 
+/// Returns the mob that is currently holding us if we are either in their inventory or a backpack analogue.
+/// Returns null if it's in an invalid location, so that we can check explicitly for null later.
+/obj/item/slimecross/stabilized/proc/get_held_mob()
+	if(isnull(loc))
+		return null
+	if(isliving(loc))
+		return loc
+	// Snowflake check for modsuit backpacks, which should be valid but are 3 rather than 2 steps from the owner
+	if(istype(loc, /obj/item/mod/module/storage))
+		var/obj/item/mod/module/storage/mod_backpack = loc
+		var/mob/living/modsuit_wearer = mod_backpack.mod?.wearer
+		return modsuit_wearer ? modsuit_wearer : null
+	var/nested_loc = loc.loc
+	if (isliving(nested_loc))
+		return nested_loc
+	return null
+
 /obj/item/slimecross/stabilized/process()
-	var/humanfound = null
-	if(ishuman(loc))
-		humanfound = loc
-	if(ishuman(loc.loc)) //Check if in backpack.
-		humanfound = (loc.loc)
-	if(!humanfound)
+	var/mob/living/holder = get_held_mob()
+	if(isnull(holder))
 		return
-	var/mob/living/carbon/human/H = humanfound
 	var/effectpath = /datum/status_effect/stabilized
 	var/static/list/effects = subtypesof(/datum/status_effect/stabilized)
-	for(var/X in effects)
-		var/datum/status_effect/stabilized/S = X
-		if(initial(S.colour) == colour)
-			effectpath = S
-			break
-	var/datum/status_effect/stabilized/current_effect = H.has_status_effect(effectpath)
-	if(!current_effect || current_effect.duration != -1)
-		var/datum/status_effect/stabilized/S = H.apply_status_effect(effectpath)
-		owner = H
-		S.link_extract(src)
-		STOP_PROCESSING(SSobj,src)
+	for(var/datum/status_effect/stabilized/effect as anything in effects)
+		if(initial(effect.colour) != colour)
+			continue
+		effectpath = effect
+		break
+	var/datum/status_effect/stabilized/current_effect = holder.has_status_effect(effectpath)
+	if(!current_effect)
+		// No effect exists, apply it
+		holder.apply_status_effect(effectpath, src)
+		return PROCESS_KILL
+	else if(current_effect.duration != -1)
+		// Effect exists but is temporary (fading), refresh it to permanent
+		holder.apply_status_effect(effectpath, src)
+		return PROCESS_KILL
+	// Effect already exists and is permanent, stop processing
+	return PROCESS_KILL
 
 //Colors and subtypes:
 /obj/item/slimecross/stabilized/grey

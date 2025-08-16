@@ -149,253 +149,19 @@
 	required_reagents = list(/datum/reagent/mutationtoxin/jelly = 1, /datum/reagent/toxin/mutagen = 1)
 	reaction_tags = REACTION_TAG_OTHER
 
-////////////////////////////////// VIROLOGY //////////////////////////////////////////
-
-/datum/chemical_reaction/virus_food
-	name = "Virus Food"
-	results = list(/datum/reagent/consumable/virus_food = 15)
-	required_reagents = list(/datum/reagent/water = 5, /datum/reagent/consumable/milk = 5)
-
-/datum/chemical_reaction/virus_food_mutagen
-	name = "mutagenic agar"
-	results = list(/datum/reagent/toxin/mutagen/mutagenvirusfood = 1)
-	required_reagents = list(/datum/reagent/toxin/mutagen = 1, /datum/reagent/consumable/virus_food = 1)
-
-/datum/chemical_reaction/virus_food_synaptizine
-	name = "virus rations"
-	results = list(/datum/reagent/medicine/synaptizine/synaptizinevirusfood = 1)
-	required_reagents = list(/datum/reagent/medicine/synaptizine = 1, /datum/reagent/consumable/virus_food = 1)
-
-/datum/chemical_reaction/virus_food_plasma
-	name = "virus plasma"
-	results = list(/datum/reagent/toxin/plasma/plasmavirusfood = 1)
-	required_reagents = list(/datum/reagent/toxin/plasma = 1, /datum/reagent/consumable/virus_food = 1)
-
-/datum/chemical_reaction/virus_food_plasma_synaptizine
-	name = "weakened virus plasma"
-	results = list(/datum/reagent/toxin/plasma/plasmavirusfood/weak = 2)
-	required_reagents = list(/datum/reagent/medicine/synaptizine = 1, /datum/reagent/toxin/plasma/plasmavirusfood = 1)
-
-/datum/chemical_reaction/virus_food_mutagen_sugar
-	name = "sucrose agar"
-	results = list(/datum/reagent/toxin/mutagen/mutagenvirusfood/sugar = 2)
-	required_reagents = list(/datum/reagent/consumable/sugar = 1, /datum/reagent/toxin/mutagen/mutagenvirusfood = 1)
-
-/datum/chemical_reaction/virus_food_mutagen_salineglucose
-	name = "sucrose agar"
-	results = list(/datum/reagent/toxin/mutagen/mutagenvirusfood/sugar = 2)
-	required_reagents = list(/datum/reagent/medicine/salglu_solution = 1, /datum/reagent/toxin/mutagen/mutagenvirusfood = 1)
-
-/datum/chemical_reaction/virus_food_uranium
-	name = "Decaying uranium gel"
-	results = list(/datum/reagent/uranium/uraniumvirusfood = 1)
-	required_reagents = list(/datum/reagent/uranium = 1, /datum/reagent/consumable/virus_food = 1)
-
-/datum/chemical_reaction/virus_food_uranium_plasma
-	name = "Unstable uranium gel"
-	results = list(/datum/reagent/uranium/uraniumvirusfood/unstable = 1)
-	required_reagents = list(/datum/reagent/uranium = 2, /datum/reagent/toxin/plasma/plasmavirusfood = 1)
-
-/datum/chemical_reaction/virus_food_uranium_plasma_gold
-	name = "Stable uranium gel"
-	results = list(/datum/reagent/uranium/uraniumvirusfood/stable = 1)
-	required_reagents = list(/datum/reagent/uranium = 5, /datum/reagent/gold = 5, /datum/reagent/toxin/plasma = 5)
-
-/datum/chemical_reaction/virus_food_uranium_plasma_silver
-	name = "Stable uranium gel"
-	results = list(/datum/reagent/uranium/uraniumvirusfood/stable = 1)
-	required_reagents = list(/datum/reagent/uranium = 5, /datum/reagent/silver = 5, /datum/reagent/toxin/plasma = 5)
-
-/datum/chemical_reaction/virus_food_laughter
-	name = "Anomolous virus food"
-	results = list(/datum/reagent/consumable/laughter/laughtervirusfood = 1)
-	required_reagents = list(/datum/reagent/consumable/laughter = 5, /datum/reagent/consumable/virus_food = 1)
-
-/datum/chemical_reaction/virus_food_admin
-	name = "Highly unstable virus Food"
-	results = list(/datum/reagent/consumable/virus_food/advvirusfood = 1)
-	required_reagents = list(/datum/reagent/consumable/virus_food/viralbase = 1, /datum/reagent/uranium = 20)
-	mix_message = "The mixture turns every colour of the rainbow, soon settling on a bright white. There's no way this isn't a good idea."
-
-//Adds a virus symptom from the level_min to level_max range
-/datum/chemical_reaction/mix_virus
-	name = "Mix Virus"
-	required_reagents = list(/datum/reagent/consumable/virus_food = 1)
-	required_catalysts = list(/datum/reagent/blood = 1)
-	required_other = TRUE
-	var/level_min = 1
-	var/level_max = 2
-
-/datum/chemical_reaction/mix_virus/check_other()
-	if(CONFIG_GET(flag/chemviro_allowed))
-		return TRUE
-	return FALSE
-
-/datum/chemical_reaction/mix_virus/can_react(datum/reagents/holder)
-	return ..() && !isnull(find_virus(holder))
-
-/datum/chemical_reaction/mix_virus/proc/find_virus(datum/reagents/holder)
-	var/datum/reagent/blood/blood = locate(/datum/reagent/blood) in holder.reagent_list
-	if(!length(blood?.data))
-		return
-	for(var/datum/disease/advance/virus in blood.data["viruses"])
-		if(!virus.mutable)
-			continue
-		return virus
-
-/datum/chemical_reaction/mix_virus/check_other()
-	if(CONFIG_GET(flag/chemviro_allowed))
-		return TRUE
-	return FALSE
-
-/datum/chemical_reaction/mix_virus/on_reaction(datum/reagents/holder, created_volume)
-	var/datum/disease/advance/target = find_virus(holder)
-	if(target)
-		target.Evolve(level_min, level_max)
-		target.logchanges(holder, "EVOLVE")
-
-/datum/chemical_reaction/mix_virus/mix_virus_2
-	name = "Mix Virus 2"
-	required_reagents = list(/datum/reagent/toxin/mutagen = 1)
-	level_min = 2
-	level_max = 4
-
-/datum/chemical_reaction/mix_virus/mix_virus_3
-	name = "Mix Virus 3"
-	required_reagents = list(/datum/reagent/toxin/plasma = 1)
-	level_min = 4
-	level_max = 6
-
-/datum/chemical_reaction/mix_virus/mix_virus_4
-	name = "Mix Virus 4"
-	required_reagents = list(/datum/reagent/uranium = 1)
-	level_min = 5
-	level_max = 6
-
-/datum/chemical_reaction/mix_virus/mix_virus_5
-	name = "Mix Virus 5"
-	required_reagents = list(/datum/reagent/toxin/mutagen/mutagenvirusfood = 1)
-	level_min = 3
-	level_max = 3
-
-/datum/chemical_reaction/mix_virus/mix_virus_6
-	name = "Mix Virus 6"
-	required_reagents = list(/datum/reagent/toxin/mutagen/mutagenvirusfood/sugar = 1)
-	level_min = 4
-	level_max = 4
-
-/datum/chemical_reaction/mix_virus/mix_virus_7
-	name = "Mix Virus 7"
-	required_reagents = list(/datum/reagent/toxin/plasma/plasmavirusfood/weak = 1)
-	level_min = 5
-	level_max = 5
-
-/datum/chemical_reaction/mix_virus/mix_virus_8
-	name = "Mix Virus 8"
-	required_reagents = list(/datum/reagent/toxin/plasma/plasmavirusfood = 1)
-	level_min = 6
-	level_max = 6
-
-/datum/chemical_reaction/mix_virus/mix_virus_9
-	name = "Mix Virus 9"
-	required_reagents = list(/datum/reagent/medicine/synaptizine/synaptizinevirusfood = 1)
-	level_min = 1
-	level_max = 1
-
-/datum/chemical_reaction/mix_virus/mix_virus_10
-	name = "Mix Virus 10"
-	required_reagents = list(/datum/reagent/uranium/uraniumvirusfood = 1)
-	level_min = 6
-	level_max = 7
-
-/datum/chemical_reaction/mix_virus/mix_virus_11
-	name = "Mix Virus 11"
-	required_reagents = list(/datum/reagent/uranium/uraniumvirusfood/unstable = 1)
-	level_min = 7
-	level_max = 7
-
-/datum/chemical_reaction/mix_virus/mix_virus_12
-	name = "Mix Virus 12"
-	required_reagents = list(/datum/reagent/uranium/uraniumvirusfood/stable = 1)
-	level_min = 8
-	level_max = 8
-
-/datum/chemical_reaction/mix_virus/mix_virus_13
-	name = "Mix Virus 13"
-	required_reagents = list(/datum/reagent/consumable/laughter/laughtervirusfood = 1)
-	level_min = 0
-	level_max = 0
-
-/datum/chemical_reaction/mix_virus/mix_virus_14
-	name = "Mix Virus 14"
-	required_reagents = list(/datum/reagent/consumable/virus_food/advvirusfood = 1)
-	level_min = 9
-	level_max = 9
-
-//removes a random disease symptom
-/datum/chemical_reaction/mix_virus/rem_virus
-	name = "Devolve Virus"
-	required_reagents = list(/datum/reagent/medicine/synaptizine = 1)
-	required_catalysts = list(/datum/reagent/blood = 1)
-
-/datum/chemical_reaction/mix_virus/rem_virus/check_other()
-	return TRUE
-
-/datum/chemical_reaction/mix_virus/rem_virus/on_reaction(datum/reagents/holder, created_volume)
-
-	var/datum/reagent/blood/B = locate(/datum/reagent/blood) in holder.reagent_list
-	if(B && B.data)
-		var/datum/disease/advance/D = locate(/datum/disease/advance) in B.data["viruses"]
-		if(D && D.symptoms.len > (CONFIG_GET(number/virus_thinning_cap)))
-			D.Devolve()
-			D.logchanges(holder, "DEVOLVE")
-
-//prevents a random symptom from showing while keeping the stats
-/datum/chemical_reaction/mix_virus/neuter_virus
-	name = "Neuter Virus"
-	required_reagents = list(/datum/reagent/toxin/formaldehyde = 1)
-	required_catalysts = list(/datum/reagent/blood = 1)
-
-/datum/chemical_reaction/mix_virus/neuter_virus/check_other()
-	if(CONFIG_GET(flag/neuter_allowed))
-		return TRUE
-	return FALSE
-
-/datum/chemical_reaction/mix_virus/neuter_virus/on_reaction(datum/reagents/holder, created_volume)
-	var/datum/disease/advance/target = find_virus(holder)
-	if(target)
-		target.Neuter()
-		target.logchanges(holder, "NEUTER")
-
-//prevents the altering of disease symptoms
-/datum/chemical_reaction/mix_virus/preserve_virus
-	name = "Preserve Virus"
-	required_reagents = list(/datum/reagent/cryostylane = 1)
-	required_catalysts = list(/datum/reagent/blood = 1)
-
-/datum/chemical_reaction/mix_virus/preserve_virus/check_other()
-	if(CONFIG_GET(flag/neuter_allowed))
-		return TRUE
-	return FALSE
-
-/datum/chemical_reaction/mix_virus/preserve_virus/on_reaction(datum/reagents/holder, created_volume)
-	var/datum/disease/advance/target = find_virus(holder)
-	if(target)
-		target.mutable = FALSE
-		target.logchanges(holder, "PRESERVE")
 
 //prevents the disease from spreading via symptoms
-/datum/chemical_reaction/mix_virus/falter_virus
+/datum/chemical_reaction/falter_virus
 	name = "Falter Virus"
 	required_reagents = list(/datum/reagent/medicine/spaceacillin = 1)
 	required_catalysts = list(/datum/reagent/blood = 1)
 
-/datum/chemical_reaction/mix_virus/falter_virus/check_other()
+/datum/chemical_reaction/falter_virus/check_other()
 	if(CONFIG_GET(flag/neuter_allowed))
 		return TRUE
 	return FALSE
 
-/datum/chemical_reaction/mix_virus/falter_virus/on_reaction(datum/reagents/holder, created_volume)
+/datum/chemical_reaction/falter_virus/on_reaction(datum/reagents/holder, created_volume)
 	var/datum/disease/advance/target = find_virus(holder)
 	if(target)
 		target.faltered = TRUE
@@ -403,27 +169,14 @@
 		target.spread_text = "Intentional Injection"
 		target.logchanges(holder, "FALTER")
 
-/datum/chemical_reaction/mix_virus/reset_virus
-	name = "Reset Virus"
-	required_reagents = list(/datum/reagent/medicine/mutadone = 1)
-	required_catalysts = list(/datum/reagent/blood = 1)
-
-/datum/chemical_reaction/mix_virus/reset_virus/check_other()
-	if(CONFIG_GET(flag/neuter_allowed))
-		return TRUE
-	return FALSE
-
-/datum/chemical_reaction/mix_virus/reset_virus/on_reaction(datum/reagents/holder, created_volume)
-	var/datum/disease/advance/target = find_virus(holder)
-	if(target)
-		while(target.symptoms.len > VIRUS_SYMPTOM_LIMIT)
-			target.Devolve()
-		target.carrier = FALSE
-		target.dormant = FALSE
-		target.event = FALSE
-		target.faltered = FALSE
-		target.mutable = TRUE
-		target.Refresh()
+/datum/chemical_reaction/proc/find_virus(datum/reagents/holder)
+	var/datum/reagent/blood/blood = locate(/datum/reagent/blood) in holder.reagent_list
+	if(!length(blood?.data))
+		return
+	for(var/datum/disease/advance/virus in blood.data["viruses"])
+		if(!virus.mutable)
+			continue
+		return virus
 
 ////////////////////////////////// foam and foam precursor ///////////////////////////////////////////////////
 
@@ -692,6 +445,12 @@
 	name = /datum/reagent/colorful_reagent
 	results = list(/datum/reagent/colorful_reagent = 5)
 	required_reagents = list(/datum/reagent/stable_plasma = 1, /datum/reagent/uranium/radium = 1, /datum/reagent/drug/space_drugs = 1, /datum/reagent/medicine/cryoxadone = 1, /datum/reagent/consumable/triple_citrus = 1)
+	reaction_tags = REACTION_TAG_OTHER
+
+/datum/chemical_reaction/hair_dye
+	name = /datum/reagent/hair_dye
+	results = list(/datum/reagent/hair_dye = 5)
+	required_reagents = list(/datum/reagent/colorful_reagent = 1, /datum/reagent/drug/space_drugs = 1, /datum/reagent/uranium/radium = 1)
 	reaction_tags = REACTION_TAG_OTHER
 
 /datum/chemical_reaction/life

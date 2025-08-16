@@ -99,8 +99,8 @@
 		if("sabotage")
 			new /obj/item/grenade/plastic/c4 (src)
 			new /obj/item/grenade/plastic/c4 (src)
-			new /obj/item/doorCharge(src)
-			new /obj/item/doorCharge(src)
+			new /obj/item/grenade/plastic/c4 (src)
+			new /obj/item/grenade/plastic/c4 (src)
 			new /obj/item/camera_bug(src)
 			new /obj/item/sbeacondrop/powersink(src)
 			new /obj/item/computer_hardware/hard_drive/role/virus/syndicate(src)
@@ -117,7 +117,7 @@
 			new /obj/item/clothing/under/suit/black_really(src)
 
 		if("metaops")
-			new /obj/item/clothing/suit/space/hardsuit/syndi(src) // 8 tc
+			new /obj/item/mod/control/pre_equipped/nuclear/unrestricted(src) // 8 tc
 			new /obj/item/gun/ballistic/shotgun/automatic/bulldog/unrestricted(src) // 8 tc
 			new /obj/item/implanter/explosive(src) // 2 tc
 			new /obj/item/ammo_box/magazine/m12g(src) // 2 tc
@@ -547,6 +547,12 @@
 /obj/item/storage/box/syndie_kit/bee_grenades/PopulateContents()
 	for(var/i in 1 to 3)
 		new /obj/item/grenade/spawnergrenade/buzzkill(src)
+
+/obj/item/storage/box/syndie_kit/sleepytime/PopulateContents()
+	new /obj/item/clothing/under/syndicate/bloodred/sleepytime(src)
+	new /obj/item/reagent_containers/cup/glass/mug/cocoa(src)
+	new /obj/item/toy/plush/carpplushie(src)
+	new /obj/item/bedsheet/syndie(src)
 
 /obj/item/storage/box/syndie_kit/cultconstructkit
 	name = "cult construct kit"

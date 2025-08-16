@@ -97,7 +97,7 @@
 				if(ORGAN_SLOT_EYES)
 					var/obj/item/organ/eyes/robotic/clockwork/organ = new()
 					if(robustbits)
-						organ.flash_protect = 1
+						organ.flash_protect = FLASH_PROTECTION_FLASH
 					organ.Insert(H, TRUE, FALSE)
 					if(prob(40) && H.stat != DEAD)
 						to_chat(H, span_userdanger("You feel a stabbing pain in your eyeballs!"))

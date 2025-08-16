@@ -16,9 +16,9 @@
 	mutantlungs = /obj/item/organ/lungs/apid
 	mutantwings = /obj/item/organ/wings/bee
 	mutanttongue = /obj/item/organ/tongue/bee
-	burnmod = 1.5
-	toxmod = 1.5
-	staminamod = 1.25
+	mutant_organs = list(/obj/item/organ/apid_stinger)
+	brutemod = 0.8
+	toxmod = 0.5
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/apid
 	inert_mutation = /datum/mutation/wax_saliva
@@ -117,6 +117,12 @@
 			SPECIES_PERK_ICON = "wind",
 			SPECIES_PERK_NAME = "Dashing!",
 			SPECIES_PERK_DESC = "Apids can use their wings to quickly dash forward in a flurry of buzzing!",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+			SPECIES_PERK_ICON = "skull-crossbones",
+			SPECIES_PERK_NAME = "Stinger",
+			SPECIES_PERK_DESC = "Apids have stingers loaded with anti-coagulant venom, don't kick the hive!",
 		),
 		list(
 			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,

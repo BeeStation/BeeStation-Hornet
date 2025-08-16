@@ -8,7 +8,7 @@
 	name = "Orange Juice"
 	description = "Both delicious AND rich in Vitamin C, what more do you need?"
 	color = "#E78108" // rgb: 231, 129, 8
-	chem_flags = CHEMICAL_BASIC_DRINK
+	chemical_flags = CHEMICAL_BASIC_DRINK
 	taste_description = "oranges"
 	default_container = /obj/item/reagent_containers/cup/glass/bottle/juice/orangejuice
 
@@ -26,17 +26,17 @@
 	icon_state = "orangebox"
 	drink_type = FRUIT | BREAKFAST
 
-/datum/reagent/consumable/orangejuice/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	if(M.getOxyLoss() && DT_PROB(16, delta_time))
-		M.adjustOxyLoss(-1, 0)
-		. = TRUE
-	..()
+/datum/reagent/consumable/orangejuice/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	if(affected_mob.getOxyLoss() && DT_PROB(16, delta_time))
+		affected_mob.adjustOxyLoss(-1, updating_health = FALSE)
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/tomatojuice
 	name = "Tomato Juice"
 	description = "Tomatoes made into juice. What a waste of big, juicy tomatoes, huh?"
 	color = "#731008" // rgb: 115, 16, 8
-	chem_flags = CHEMICAL_BASIC_DRINK
+	chemical_flags = CHEMICAL_BASIC_DRINK
 	taste_description = "tomatoes"
 	default_container = /obj/item/reagent_containers/cup/glass/bottle/juice/tomatojuice
 
@@ -50,17 +50,17 @@
 	desc = "Are you sure this is tomato juice?"
 	icon_state = "glass_red"
 
-/datum/reagent/consumable/tomatojuice/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	if(M.getFireLoss() && DT_PROB(10, delta_time))
-		M.heal_bodypart_damage(0, 1, 0)
-		. = TRUE
-	..()
+/datum/reagent/consumable/tomatojuice/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	if(affected_mob.getFireLoss() && DT_PROB(10, delta_time))
+		affected_mob.heal_bodypart_damage(burn = 1, updating_health = FALSE)
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/limejuice
 	name = "Lime Juice"
 	description = "The sweet-sour juice of limes."
 	color = "#365E30" // rgb: 54, 94, 48
-	chem_flags = CHEMICAL_BASIC_DRINK
+	chemical_flags = CHEMICAL_BASIC_DRINK
 	taste_description = "unbearable sourness"
 	default_container = /obj/item/reagent_containers/cup/glass/bottle/juice/limejuice
 
@@ -70,17 +70,17 @@
 	desc = "A glass of sweet-sour lime juice."
 	icon_state = "glass_green"
 
-/datum/reagent/consumable/limejuice/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	if(M.getToxLoss() && DT_PROB(10, delta_time))
-		M.adjustToxLoss(-1, 0)
-		. = TRUE
-	..()
+/datum/reagent/consumable/limejuice/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	if(affected_mob.getToxLoss() && DT_PROB(10, delta_time))
+		affected_mob.adjustToxLoss(-1, updating_health = FALSE)
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/carrotjuice
 	name = "Carrot Juice"
 	description = "It is just like a carrot but without crunching."
 	color = "#973800" // rgb: 151, 56, 0
-	chem_flags = CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_GOAL_BARTENDER_SERVING
 	taste_description = "carrots"
 
 /datum/glass_style/drinking_glass/carrotjuice
@@ -89,25 +89,22 @@
 	desc = "It's just like a carrot but without crunching."
 	icon_state = "carrotjuice"
 
-/datum/reagent/consumable/carrotjuice/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.adjust_blurriness(-1 * REM * delta_time)
-	M.adjust_blindness(-1 * REM * delta_time)
+/datum/reagent/consumable/carrotjuice/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.adjust_blurriness(-1 * REM * delta_time)
+	affected_mob.adjust_blindness(-1 * REM * delta_time)
 	switch(current_cycle)
-		if(1 to 20)
-			//nothing
 		if(21 to 110)
 			if(DT_PROB(100 * (1 - (sqrt(110 - current_cycle) / 10)), delta_time))
-				M.cure_nearsighted(list(EYE_DAMAGE))
+				affected_mob.cure_nearsighted(list(EYE_DAMAGE))
 		if(110 to INFINITY)
-			M.cure_nearsighted(list(EYE_DAMAGE))
-	..()
-	return
+			affected_mob.cure_nearsighted(list(EYE_DAMAGE))
 
 /datum/reagent/consumable/berryjuice
 	name = "Berry Juice"
 	description = "A delicious blend of several different kinds of berries."
 	color = "#863333" // rgb: 134, 51, 51
-	chem_flags = NONE
+	chemical_flags = NONE
 	taste_description = "berries"
 
 /datum/glass_style/drinking_glass/berryjuice
@@ -119,7 +116,7 @@
 	name = "Apple Juice"
 	description = "The sweet juice of an apple, fit for all ages."
 	color = "#ECFF56" // rgb: 236, 255, 86
-	chem_flags = NONE
+	chemical_flags = NONE
 	taste_description = "apples"
 
 /datum/glass_style/has_foodtype/juicebox/applejuice
@@ -133,7 +130,7 @@
 	name = "Poison Berry Juice"
 	description = "A tasty juice blended from various kinds of very deadly and toxic berries."
 	color = "#863353" // rgb: 134, 51, 83
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BARTENDER_SERVING
 	taste_description = "berries"
 
 /datum/glass_style/drinking_glass/poisonberryjuice
@@ -141,16 +138,16 @@
 	name = "glass of berry juice"
 	desc = "Berry juice. Or maybe it's poison. Who cares?"
 
-/datum/reagent/consumable/poisonberryjuice/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.adjustToxLoss(1 * REM * delta_time, 0)
-	. = TRUE
-	..()
+/datum/reagent/consumable/poisonberryjuice/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.adjustToxLoss(1 * REM * delta_time, updating_health = FALSE)
+	return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/watermelonjuice
 	name = "Watermelon Juice"
 	description = "Delicious juice made from watermelon."
 	color = "#863333" // rgb: 134, 51, 51
-	chem_flags = NONE
+	chemical_flags = NONE
 	taste_description = "juicy watermelon"
 
 /datum/glass_style/drinking_glass/watermelonjuice
@@ -163,7 +160,7 @@
 	name = "Lemon Juice"
 	description = "This juice is VERY sour."
 	color = "#863333" // rgb: 175, 175, 0
-	chem_flags = CHEMICAL_BASIC_DRINK
+	chemical_flags = CHEMICAL_BASIC_DRINK
 	taste_description = "sourness"
 
 /datum/glass_style/drinking_glass/lemonjuice
@@ -176,7 +173,7 @@
 	name = "Banana Juice"
 	description = "The raw essence of a banana. HONK"
 	color = "#863333" // rgb: 175, 175, 0
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	taste_description = "banana"
 
 /datum/glass_style/drinking_glass/banana
@@ -185,16 +182,16 @@
 	desc = "The raw essence of a banana. HONK."
 	icon_state = "banana"
 
-/datum/reagent/consumable/banana/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	if((ishuman(M) && M.job == JOB_NAME_CLOWN) || ismonkey(M))
-		M.heal_bodypart_damage(1 * REM * delta_time, 1 * REM * delta_time, 0)
-		. = TRUE
-	..()
+/datum/reagent/consumable/banana/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	if((ishuman(affected_mob) && affected_mob.job == JOB_NAME_CLOWN) || ismonkey(affected_mob))
+		affected_mob.heal_bodypart_damage(1 * REM * delta_time, 1 * REM * delta_time, updating_health = FALSE)
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/nothing
 	name = "Nothing"
 	description = "Absolutely nothing."
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	taste_description = "nothing"
 
 /datum/glass_style/shot_glass/nothing
@@ -207,57 +204,61 @@
 	desc = "Absolutely nothing."
 	icon_state = "nothing"
 
-/datum/reagent/consumable/nothing/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	if(ishuman(M) && M.job == JOB_NAME_MIME)
-		M.silent = max(M.silent, MIMEDRINK_SILENCE_DURATION)
-		M.heal_bodypart_damage(1 * REM * delta_time, 1 * REM * delta_time)
-		. = TRUE
-	..()
+/datum/reagent/consumable/nothing/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	if(ishuman(affected_mob) && affected_mob.job == JOB_NAME_MIME)
+		affected_mob.silent = max(affected_mob.silent, MIMEDRINK_SILENCE_DURATION)
+		affected_mob.heal_bodypart_damage(1 * REM * delta_time, 1 * REM * delta_time, updating_health = FALSE)
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/laughter
 	name = "Laughter"
 	description = "Some say that this is the best medicine, but recent studies have proven that to be untrue."
 	metabolization_rate = INFINITY
 	color = "#FF4DD2"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	taste_description = "laughter"
 
+/datum/reagent/consumable/laughter/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.emote("laugh")
+	SEND_SIGNAL(affected_mob, COMSIG_ADD_MOOD_EVENT, "chemical_laughter", /datum/mood_event/chemical_laughter)
 
-/datum/reagent/consumable/laughter/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.emote("laugh")
-	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "chemical_laughter", /datum/mood_event/chemical_laughter)
-	..()
+/datum/reagent/consumable/laughter/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
+	if(!ishuman(exposed_mob))
+		return
 
-/datum/reagent/consumable/laughter/expose_mob(mob/living/M, method=TOUCH, reac_volume)
-	var/mob/living/carbon/human/reactor = M
-	if(istype(reactor))
-		var/datum/component/mood/mood = reactor.GetComponent(/datum/component/mood)
-		if (mood.get_event("slipped"))
-			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "laughter", /datum/mood_event/funny_prank)
-			SEND_SIGNAL(M, COMSIG_CLEAR_MOOD_EVENT, "slipped")
-			reactor.AdjustKnockdown(-20)
+	var/mob/living/carbon/human/human = exposed_mob
+	var/datum/component/mood/mood = human.GetComponent(/datum/component/mood)
+	if(mood.get_event("slipped"))
+		SEND_SIGNAL(human, COMSIG_ADD_MOOD_EVENT, "laughter", /datum/mood_event/funny_prank)
+		SEND_SIGNAL(human, COMSIG_CLEAR_MOOD_EVENT, "slipped")
+		human.AdjustKnockdown(-20)
 
 /datum/reagent/consumable/superlaughter
 	name = "Super Laughter"
 	description = "Funny until you're the one laughing."
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 	color = "#FF4DD2"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN
 	taste_description = "laughter"
 
-/datum/reagent/consumable/superlaughter/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+/datum/reagent/consumable/superlaughter/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
 	if(DT_PROB(16, delta_time))
-		M.visible_message(span_danger("[M] bursts out into a fit of uncontrollable laughter!"), span_userdanger("You burst out in a fit of uncontrollable laughter!"))
-		M.Stun(5)
-		SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "chemical_laughter", /datum/mood_event/chemical_superlaughter)
-	..()
+		affected_mob.visible_message(
+			span_danger("[affected_mob] bursts out into a fit of uncontrollable laughter!"),
+			span_userdanger("You burst out in a fit of uncontrollable laughter!"),
+		)
+		affected_mob.Stun(5)
+		SEND_SIGNAL(affected_mob, COMSIG_ADD_MOOD_EVENT, "chemical_laughter", /datum/mood_event/chemical_superlaughter)
 
 /datum/reagent/consumable/potato_juice
 	name = "Potato Juice"
 	description = "Juice of the potato. Bleh."
 	nutriment_factor = 2 * REAGENTS_METABOLISM
 	color = "#302000" // rgb: 48, 32, 0
-	chem_flags = NONE
+	chemical_flags = NONE
 	taste_description = "irish sadness"
 
 /datum/glass_style/drinking_glass/potato_juice
@@ -270,7 +271,7 @@
 	name = "Grape Juice"
 	description = "The juice of a bunch of grapes. Guaranteed non-alcoholic."
 	color = "#290029" // dark purple
-	chem_flags = NONE
+	chemical_flags = NONE
 	taste_description = "grape soda"
 
 /datum/glass_style/has_foodtype/juicebox/grapejuice
@@ -284,7 +285,7 @@
 	name = "Milk"
 	description = "An opaque white liquid produced by the mammary glands of mammals."
 	color = "#DFDFDF" // rgb: 223, 223, 223
-	chem_flags = CHEMICAL_BASIC_DRINK
+	chemical_flags = CHEMICAL_BASIC_DRINK
 	taste_description = "milk"
 	overdose_threshold = 500 //High calcium intake is bad for bone health. OD is exactly like having taken a normal-ish bone hurt juice. If anyone hits the superoverdose, well I'll be damned
 	default_container = /obj/item/reagent_containers/condiment/milk
@@ -303,27 +304,28 @@
 	icon_state = "milkbox"
 	drink_type = DAIRY | BREAKFAST
 
-/datum/reagent/consumable/milk/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	if(M.getBruteLoss() && DT_PROB(10, delta_time))
-		M.heal_bodypart_damage(1,0, 0)
-		. = TRUE
-	if(holder.has_reagent(/datum/reagent/consumable/capsaicin))
-		holder.remove_reagent(/datum/reagent/consumable/capsaicin, 1 * delta_time)
-	..()
+/datum/reagent/consumable/milk/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	if(affected_mob.reagents.has_reagent(/datum/reagent/consumable/capsaicin))
+		affected_mob.reagents.remove_reagent(/datum/reagent/consumable/capsaicin, 1 * delta_time)
 
-/*See block comment in ../milk/overdose_process(mob/living/M) for calculation and explanation of why this exists and why 5 was chosen
+	if(affected_mob.getBruteLoss() && DT_PROB(10, delta_time))
+		affected_mob.heal_bodypart_damage(1, updating_health = FALSE)
+		return UPDATE_MOB_HEALTH
+
+/*See block comment in ../milk/overdose_process(mob/living/carbon/affected_mob) for calculation and explanation of why this exists and why 5 was chosen
 * For best results use in tandem with method outlined in this comment
 */
-/datum/reagent/consumable/milk/overdose_start(mob/living/M)
-	M.reagents.add_reagent(/datum/reagent/toxin/bonehurtingjuice, 5) //The integer here should match var/starting_amount in ../milk/overdose_process(mob/living/M)
-	return ..()
+/datum/reagent/consumable/milk/overdose_start(mob/living/carbon/affected_mob)
+	. = ..()
+	affected_mob.reagents.add_reagent(/datum/reagent/toxin/bonehurtingjuice, 5) //The integer here should match var/starting_amount in ../milk/overdose_process(mob/living/carbon/affected_mob)
 
-/datum/reagent/consumable/milk/overdose_process(mob/living/M)
+/datum/reagent/consumable/milk/overdose_process(mob/living/carbon/affected_mob)
+	. = ..()
 	var/datum/reagent/converted_reagent = /datum/reagent/toxin/bonehurtingjuice //Needed to get the metabolism for desired reagent, exists solely for brevity compared to /datum/reagent/category/reagent.metabolization_rate
 	var/minimum_cycles = overdose_threshold/metabolization_rate //minimum_cycles is the number of ticks for an amount of units equal to the overdose threshold to process.
 	var/amount_to_add = 45 / minimum_cycles + initial(converted_reagent.metabolization_rate) //amount_to_add is the calculated amount to add per tick to meet ensure that target_units after minimum_cycle ticks.
-	M.reagents.add_reagent(/datum/reagent/toxin/bonehurtingjuice, amount_to_add)
-	return ..()
+	affected_mob.reagents.add_reagent(/datum/reagent/toxin/bonehurtingjuice, amount_to_add)
 	/*In depth explanation by DatBoiTim
 	* This number will not put more than 50u of BHJ into their system if only 500u(ie bare minimum OD).
 	*  milk.overdose_threshold / milk.metabolization_rate = minimum_cycles = 1,250 cycles
@@ -340,7 +342,7 @@
 	name = "Soy Milk"
 	description = "An opaque white liquid made from soybeans."
 	color = "#DFDFC7" // rgb: 223, 223, 199
-	chem_flags = CHEMICAL_BASIC_DRINK
+	chemical_flags = CHEMICAL_BASIC_DRINK
 	taste_description = "soy milk"
 	default_container = /obj/item/reagent_containers/condiment/soymilk
 
@@ -350,24 +352,21 @@
 	desc = "White and nutritious soy goodness!"
 	icon_state = "glass_white"
 
-/datum/reagent/consumable/soymilk/on_mob_add(mob/living/L)
-	..()
+/datum/reagent/consumable/soymilk/on_mob_add(mob/living/carbon/affected_mob, amount)
+	. = ..()
+	affected_mob.client?.give_award(/datum/award/achievement/misc/soy, affected_mob)
 
-	if (L.client)
-		L.client.give_award(/datum/award/achievement/misc/soy, L)
-
-
-/datum/reagent/consumable/soymilk/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	if(M.getBruteLoss() && DT_PROB(10, delta_time))
-		M.heal_bodypart_damage(1, 0, 0)
-		. = TRUE
-	..()
+/datum/reagent/consumable/soymilk/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	if(affected_mob.getBruteLoss() && DT_PROB(10, delta_time))
+		affected_mob.heal_bodypart_damage(1, updating_health = FALSE)
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/cream
 	name = "Cream"
 	description = "The fatty, still liquid part of milk. Why don't you mix this with sum scotch, eh?"
 	color = "#DFD7AF" // rgb: 223, 215, 175
-	chem_flags = CHEMICAL_BASIC_DRINK
+	chemical_flags = CHEMICAL_BASIC_DRINK
 	taste_description = "creamy milk"
 	default_container = /obj/item/reagent_containers/cup/glass/bottle/juice/cream
 
@@ -377,17 +376,17 @@
 	desc = "Ewwww..."
 	icon_state = "glass_white"
 
-/datum/reagent/consumable/cream/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	if(M.getBruteLoss() && DT_PROB(10, delta_time))
-		M.heal_bodypart_damage(1, 0, 0)
-		. = TRUE
-	..()
+/datum/reagent/consumable/cream/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	if(affected_mob.getBruteLoss() && DT_PROB(10, delta_time))
+		affected_mob.heal_bodypart_damage(1, updating_health = FALSE)
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/coffee
 	name = "Coffee"
 	description = "Coffee is a brewed drink prepared from roasted seeds, commonly called coffee beans, of the coffee plant."
 	color = "#482000" // rgb: 72, 32, 0
-	chem_flags = CHEMICAL_BASIC_DRINK
+	chemical_flags = CHEMICAL_BASIC_DRINK
 	nutriment_factor = 0
 	overdose_threshold = 80
 	taste_description = "bitterness"
@@ -398,26 +397,25 @@
 	desc = "Don't drop it, or you'll send scalding liquid and glass shards everywhere."
 	icon_state = "glass_brown"
 
-/datum/reagent/consumable/coffee/overdose_process(mob/living/M, delta_time, times_fired)
-	M.Jitter(5 * REM * delta_time)
-	..()
+/datum/reagent/consumable/coffee/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.Jitter(5 * REM * delta_time)
 
-/datum/reagent/consumable/coffee/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.dizziness = max(M.dizziness - (5 * REM * delta_time), 0)
-	M.drowsyness = max(M.drowsyness - (3 * REM * delta_time), 0)
-	M.AdjustSleeping(-40 * REM * delta_time)
-	//310.15 is the normal bodytemp.
-	M.adjust_bodytemperature(25 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, 0, M.get_body_temp_normal())
-	if(holder.has_reagent(/datum/reagent/consumable/frostoil))
-		holder.remove_reagent(/datum/reagent/consumable/frostoil, 5 * REM * delta_time)
-	..()
-	. = TRUE
+/datum/reagent/consumable/coffee/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.dizziness = max(affected_mob.dizziness - (5 * REM * delta_time), 0)
+	affected_mob.drowsyness = max(affected_mob.drowsyness - (3 * REM * delta_time), 0)
+	affected_mob.AdjustSleeping(-40 * REM * delta_time)
+
+	affected_mob.adjust_bodytemperature(25 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, 0, affected_mob.get_body_temp_normal())
+	if(affected_mob.reagents.has_reagent(/datum/reagent/consumable/frostoil))
+		affected_mob.reagents.remove_reagent(/datum/reagent/consumable/frostoil, 5 * REM * delta_time)
 
 /datum/reagent/consumable/tea
 	name = "Tea"
 	description = "Tasty black tea, it has antioxidants, it's good for you!"
 	color = "#101000" // rgb: 16, 16, 0
-	chem_flags = CHEMICAL_BASIC_DRINK
+	chemical_flags = CHEMICAL_BASIC_DRINK
 	nutriment_factor = 0
 	taste_description = "tart black tea"
 	default_container = /obj/item/reagent_containers/cup/glass/mug/tea
@@ -428,22 +426,23 @@
 	desc = "Drinking it from here would not seem right."
 	icon_state = "teaglass"
 
-/datum/reagent/consumable/tea/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.dizziness = max(M.dizziness - (2 * REM * delta_time), 0)
-	M.drowsyness = max(M.drowsyness - (1 * REM * delta_time), 0)
-	M.jitteriness = max(M.jitteriness - (3 * REM * delta_time), 0)
-	M.AdjustSleeping(-20 * REM * delta_time)
-	if(M.getToxLoss() && DT_PROB(10, delta_time))
-		M.adjustToxLoss(-1, 0)
-	M.adjust_bodytemperature(20 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, 0, M.get_body_temp_normal())
-	..()
-	. = TRUE
+/datum/reagent/consumable/tea/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.dizziness = max(affected_mob.dizziness - (2 * REM * delta_time), 0)
+	affected_mob.drowsyness = max(affected_mob.drowsyness - (1 * REM * delta_time), 0)
+	affected_mob.jitteriness = max(affected_mob.jitteriness - (3 * REM * delta_time), 0)
+	affected_mob.AdjustSleeping(-20 * REM * delta_time)
+	affected_mob.adjust_bodytemperature(20 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, 0, affected_mob.get_body_temp_normal())
+
+	if(affected_mob.getToxLoss() && DT_PROB(10, delta_time))
+		affected_mob.adjustToxLoss(-1, updating_health = FALSE)
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/lemonade
 	name = "Lemonade"
 	description = "Sweet, tangy lemonade. Good for the soul."
 	color = "#daef60"
-	chem_flags = CHEMICAL_RNG_BOTANY
+	chemical_flags = CHEMICAL_RNG_BOTANY
 	quality = DRINK_NICE
 	taste_description = "sunshine and summertime"
 
@@ -458,7 +457,7 @@
 	name = "Arnold Palmer"
 	description = "Encourages the patient to go golfing."
 	color = "#FFB766"
-	chem_flags = CHEMICAL_RNG_BOTANY
+	chemical_flags = CHEMICAL_RNG_BOTANY
 	quality = DRINK_NICE
 	nutriment_factor = 10 * REAGENTS_METABOLISM
 	taste_description = "bitter tea"
@@ -470,17 +469,16 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "arnold_palmer"
 
-/datum/reagent/consumable/tea/arnold_palmer/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+/datum/reagent/consumable/tea/arnold_palmer/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
 	if(DT_PROB(2.5, delta_time))
-		to_chat(M, span_notice("[pick("You remember to square your shoulders.","You remember to keep your head down.","You can't decide between squaring your shoulders and keeping your head down.","You remember to relax.","You think about how someday you'll get two strokes off your golf game.")]"))
-	..()
-	. = TRUE
+		to_chat(affected_mob, span_notice(pick("You remember to square your shoulders.","You remember to keep your head down.","You can't decide between squaring your shoulders and keeping your head down.","You remember to relax.","You think about how someday you'll get two strokes off your golf game.")))
 
 /datum/reagent/consumable/icecoffee
 	name = "Iced Coffee"
 	description = "Coffee and ice, refreshing and cool."
 	color = "#102838" // rgb: 16, 40, 56
-	chem_flags = CHEMICAL_RNG_BOTANY
+	chemical_flags = CHEMICAL_RNG_BOTANY
 	nutriment_factor = 0
 	taste_description = "bitter coldness"
 
@@ -491,20 +489,19 @@
 	icon = 'icons/obj/drinks/coffee.dmi'
 	icon_state = "icedcoffeeglass"
 
-/datum/reagent/consumable/icecoffee/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.dizziness = max(M.dizziness - (5 * REM * delta_time), 0)
-	M.drowsyness = max(M.drowsyness - (3 * REM * delta_time), 0)
-	M.AdjustSleeping(-40 * REM * delta_time)
-	M.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, M.get_body_temp_normal())
-	M.Jitter(5 * REM * delta_time)
-	..()
-	. = TRUE
+/datum/reagent/consumable/icecoffee/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.dizziness = max(affected_mob.dizziness - (5 * REM * delta_time), 0)
+	affected_mob.drowsyness = max(affected_mob.drowsyness - (3 * REM * delta_time), 0)
+	affected_mob.AdjustSleeping(-40 * REM * delta_time)
+	affected_mob.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, affected_mob.get_body_temp_normal())
+	affected_mob.Jitter(5 * REM * delta_time)
 
 /datum/reagent/consumable/icetea
 	name = "Iced Tea"
 	description = "No relation to a certain rap artist/actor."
 	color = "#104038" // rgb: 16, 64, 56
-	chem_flags = CHEMICAL_BASIC_DRINK
+	chemical_flags = CHEMICAL_BASIC_DRINK
 	nutriment_factor = 0
 	taste_description = "sweet tea"
 
@@ -515,21 +512,22 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "icedteaglass"
 
-/datum/reagent/consumable/icetea/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.dizziness = max(M.dizziness - (2 * REM * delta_time), 0)
-	M.drowsyness = max(M.drowsyness - (1 * REM * delta_time), 0)
-	M.AdjustSleeping(-40 * REM * delta_time)
-	if(M.getToxLoss() && DT_PROB(10, delta_time))
-		M.adjustToxLoss(-1, 0)
-	M.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, M.get_body_temp_normal())
-	..()
-	. = TRUE
+/datum/reagent/consumable/icetea/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.dizziness = max(affected_mob.dizziness - (2 * REM * delta_time), 0)
+	affected_mob.drowsyness = max(affected_mob.drowsyness - (1 * REM * delta_time), 0)
+	affected_mob.AdjustSleeping(-40 * REM * delta_time)
+	affected_mob.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, affected_mob.get_body_temp_normal())
+
+	if(affected_mob.getToxLoss() && DT_PROB(10, delta_time))
+		affected_mob.adjustToxLoss(-1, updating_health = FALSE)
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/space_cola
 	name = "Cola"
 	description = "A refreshing beverage."
 	color = "#100800" // rgb: 16, 8, 0
-	chem_flags = CHEMICAL_BASIC_DRINK
+	chemical_flags = CHEMICAL_BASIC_DRINK
 	taste_description = "cola"
 
 /datum/glass_style/drinking_glass/space_cola
@@ -538,16 +536,16 @@
 	desc = "A glass of refreshing Space Cola."
 	icon_state = "glass_brown"
 
-/datum/reagent/consumable/space_cola/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.drowsyness = max(M.drowsyness - (5 * REM * delta_time), 0)
-	M.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, M.get_body_temp_normal())
-	..()
+/datum/reagent/consumable/space_cola/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.drowsyness = max(affected_mob.drowsyness - (5 * REM * delta_time), 0)
+	affected_mob.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, affected_mob.get_body_temp_normal())
 
 /datum/reagent/consumable/nuka_cola
 	name = "Nuka Cola"
 	description = "Cola, cola never changes."
 	color = "#100800" // rgb: 16, 8, 0
-	chem_flags = CHEMICAL_RNG_BOTANY
+	chemical_flags = CHEMICAL_RNG_BOTANY
 	quality = DRINK_VERYGOOD
 	taste_description = "the future"
 
@@ -558,32 +556,32 @@
 	icon = 'icons/obj/drinks/soda.dmi'
 	icon_state = "nuka_colaglass"
 
-/datum/reagent/consumable/nuka_cola/on_mob_metabolize(mob/living/L)
-	..()
-	L.add_movespeed_modifier(/datum/movespeed_modifier/reagent/nuka_cola)
+/datum/reagent/consumable/nuka_cola/on_mob_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	affected_mob.add_movespeed_modifier(/datum/movespeed_modifier/reagent/nuka_cola)
 
-/datum/reagent/consumable/nuka_cola/on_mob_end_metabolize(mob/living/L)
-	L.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/nuka_cola)
-	..()
+/datum/reagent/consumable/nuka_cola/on_mob_end_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	affected_mob.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/nuka_cola)
 
-/datum/reagent/consumable/nuka_cola/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.Jitter(20 * REM * delta_time)
-	M.set_drugginess(30 * REM * delta_time)
-	M.dizziness += 1.5 * REM * delta_time
-	M.drowsyness = 0
-	M.AdjustSleeping(-40 * REM * delta_time)
-	M.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, M.get_body_temp_normal())
-	M.radiation += 4 * REM * delta_time
-	..()
-	. = TRUE
+/datum/reagent/consumable/nuka_cola/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.Jitter(20 * REM * delta_time)
+	affected_mob.set_drugginess(30 * REM * delta_time)
+	affected_mob.dizziness += 1.5 * REM * delta_time
+	affected_mob.drowsyness = 0
+	affected_mob.AdjustSleeping(-40 * REM * delta_time)
+	affected_mob.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, affected_mob.get_body_temp_normal())
+	affected_mob.radiation += 4 * REM * delta_time
 
 /datum/reagent/consumable/grey_bull
 	name = "Grey Bull"
 	description = "Grey Bull, it gives you gloves!"
 	color = "#EEFF00" // rgb: 238, 255, 0
-	chem_flags = CHEMICAL_RNG_BOTANY
+	chemical_flags = CHEMICAL_RNG_BOTANY
 	quality = DRINK_VERYGOOD
 	taste_description = "carbonated oil"
+	metabolized_traits = list(TRAIT_SHOCKIMMUNE)
 
 /datum/glass_style/drinking_glass/grey_bull
 	required_drink_type = /datum/reagent/consumable/grey_bull
@@ -591,27 +589,19 @@
 	desc = "Surprisingly it isn't grey."
 	icon_state = "grey_bull_glass"
 
-/datum/reagent/consumable/grey_bull/on_mob_metabolize(mob/living/L)
-	..()
-	ADD_TRAIT(L, TRAIT_SHOCKIMMUNE, type)
-
-/datum/reagent/consumable/grey_bull/on_mob_end_metabolize(mob/living/L)
-	REMOVE_TRAIT(L, TRAIT_SHOCKIMMUNE, type)
-	..()
-
-/datum/reagent/consumable/grey_bull/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.Jitter(20 * REM * delta_time)
-	M.dizziness += 1 * REM * delta_time
-	M.drowsyness = 0
-	M.AdjustSleeping(-40 * REM * delta_time)
-	M.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, M.get_body_temp_normal())
-	..()
+/datum/reagent/consumable/grey_bull/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.Jitter(20 * REM * delta_time)
+	affected_mob.dizziness += 1 * REM * delta_time
+	affected_mob.drowsyness = 0
+	affected_mob.AdjustSleeping(-40 * REM * delta_time)
+	affected_mob.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, affected_mob.get_body_temp_normal())
 
 /datum/reagent/consumable/spacemountainwind
 	name = "SM Wind"
 	description = "Blows right through you like a space wind."
 	color = "#102000" // rgb: 16, 32, 0
-	chem_flags = CHEMICAL_BASIC_DRINK
+	chemical_flags = CHEMICAL_BASIC_DRINK
 	taste_description = "sweet citrus soda"
 
 /datum/glass_style/drinking_glass/spacemountainwind
@@ -620,19 +610,18 @@
 	desc = "Space Mountain Wind. As you know, there are no mountains in space, only wind."
 	icon_state = "Space_mountain_wind_glass"
 
-/datum/reagent/consumable/spacemountainwind/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.drowsyness = max(M.drowsyness - (7 * REM * delta_time), 0)
-	M.AdjustSleeping(-20 * REM * delta_time)
-	M.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, M.get_body_temp_normal())
-	M.Jitter(5 * REM * delta_time)
-	..()
-	. = TRUE
+/datum/reagent/consumable/spacemountainwind/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.drowsyness = max(affected_mob.drowsyness - (7 * REM * delta_time), 0)
+	affected_mob.AdjustSleeping(-20 * REM * delta_time)
+	affected_mob.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, affected_mob.get_body_temp_normal())
+	affected_mob.Jitter(5 * REM * delta_time)
 
 /datum/reagent/consumable/dr_gibb
 	name = "Dr. Gibb"
 	description = "A delicious blend of 42 different flavours."
 	color = "#102000" // rgb: 16, 32, 0
-	chem_flags = CHEMICAL_BASIC_DRINK
+	chemical_flags = CHEMICAL_BASIC_DRINK
 	taste_description = "cherry soda" // FALSE ADVERTISING
 
 /datum/glass_style/drinking_glass/dr_gibb
@@ -641,16 +630,16 @@
 	desc = "Dr. Gibb. Not as dangerous as the container_name might imply."
 	icon_state = "dr_gibb_glass"
 
-/datum/reagent/consumable/dr_gibb/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.drowsyness = max(M.drowsyness - (6 * REM * delta_time), 0)
-	M.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, M.get_body_temp_normal())
-	..()
+/datum/reagent/consumable/dr_gibb/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.drowsyness = max(affected_mob.drowsyness - (6 * REM * delta_time), 0)
+	affected_mob.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, affected_mob.get_body_temp_normal())
 
 /datum/reagent/consumable/space_up
 	name = "Space-Up"
 	description = "Tastes like a hull breach in your mouth."
 	color = "#00FF00" // rgb: 0, 255, 0
-	chem_flags = CHEMICAL_BASIC_DRINK
+	chemical_flags = CHEMICAL_BASIC_DRINK
 	taste_description = "cherry soda"
 
 /datum/glass_style/drinking_glass/space_up
@@ -659,15 +648,15 @@
 	desc = "Space-up. It helps you keep your cool."
 	icon_state = "space-up_glass"
 
-/datum/reagent/consumable/space_up/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.adjust_bodytemperature(-8 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, M.get_body_temp_normal())
-	..()
+/datum/reagent/consumable/space_up/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.adjust_bodytemperature(-8 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, affected_mob.get_body_temp_normal())
 
 /datum/reagent/consumable/lemon_lime
 	name = "Lemon Lime"
 	description = "A tangy substance made of 0.5% natural citrus!"
 	color = "#8CFF00" // rgb: 135, 255, 0
-	chem_flags = CHEMICAL_BASIC_DRINK
+	chemical_flags = CHEMICAL_BASIC_DRINK
 	taste_description = "tangy lime and lemon soda"
 
 /datum/glass_style/drinking_glass/lemon_lime
@@ -676,15 +665,15 @@
 	desc = "You're pretty certain a real fruit has never actually touched this."
 	icon_state = "glass_yellow"
 
-/datum/reagent/consumable/lemon_lime/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.adjust_bodytemperature(-8 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, M.get_body_temp_normal())
-	..()
+/datum/reagent/consumable/lemon_lime/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.adjust_bodytemperature(-8 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, affected_mob.get_body_temp_normal())
 
 /datum/reagent/consumable/pwr_game
 	name = "Pwr Game"
 	description = "The only drink with the PWR that true gamers crave."
 	color = "#9385bf" // rgb: 58, 52, 75
-	chem_flags = CHEMICAL_BASIC_DRINK
+	chemical_flags = CHEMICAL_BASIC_DRINK
 	taste_description = "sweet and salty tang"
 
 /datum/glass_style/drinking_glass/pwr_game
@@ -693,15 +682,15 @@
 	desc = "Goes well with a Vlad's salad."
 	icon_state = "glass_red"
 
-/datum/reagent/consumable/pwr_game/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.adjust_bodytemperature(-8 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, M.get_body_temp_normal())
-	..()
+/datum/reagent/consumable/pwr_game/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.adjust_bodytemperature(-8 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, affected_mob.get_body_temp_normal())
 
 /datum/reagent/consumable/shamblers
 	name = "Shambler's Juice"
 	description = "~Shake me up some of that Shambler's Juice!~"
 	color = "#f00060" // rgb: 94, 0, 38
-	chem_flags = CHEMICAL_BASIC_DRINK
+	chemical_flags = CHEMICAL_BASIC_DRINK
 	taste_description = "carbonated metallic soda"
 
 /datum/glass_style/drinking_glass/shamblers
@@ -710,15 +699,15 @@
 	desc = "Mmm mm, shambly."
 	icon_state = "glass_red"
 
-/datum/reagent/consumable/shamblers/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.adjust_bodytemperature(-8 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, M.get_body_temp_normal())
-	..()
+/datum/reagent/consumable/shamblers/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.adjust_bodytemperature(-8 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, affected_mob.get_body_temp_normal())
 
 /datum/reagent/consumable/sodawater
 	name = "Soda Water"
 	description = "A can of club soda. Why not make a scotch and soda?"
 	color = "#619494" // rgb: 97, 148, 148
-	chem_flags = CHEMICAL_BASIC_DRINK
+	chemical_flags = CHEMICAL_BASIC_DRINK
 	taste_description = "carbonated water"
 
 /datum/glass_style/drinking_glass/sodawater
@@ -727,17 +716,17 @@
 	desc = "Soda water. Why not make a scotch and soda?"
 	icon_state = "glass_clear"
 
-/datum/reagent/consumable/sodawater/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.dizziness = max(M.dizziness - (5 * REM * delta_time), 0)
-	M.drowsyness = max(M.drowsyness - (3 * REM * delta_time), 0)
-	M.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, M.get_body_temp_normal())
-	..()
+/datum/reagent/consumable/sodawater/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.dizziness = max(affected_mob.dizziness - (5 * REM * delta_time), 0)
+	affected_mob.drowsyness = max(affected_mob.drowsyness - (3 * REM * delta_time), 0)
+	affected_mob.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, affected_mob.get_body_temp_normal())
 
 /datum/reagent/consumable/tonic
 	name = "Tonic Water"
 	description = "It tastes strange but at least the quinine keeps the Space Malaria at bay."
 	color = "#0064C8" // rgb: 0, 100, 200
-	chem_flags = CHEMICAL_BASIC_DRINK
+	chemical_flags = CHEMICAL_BASIC_DRINK
 	taste_description = "tart and fresh"
 
 /datum/glass_style/drinking_glass/tonic
@@ -746,19 +735,18 @@
 	desc = "Quinine tastes funny, but at least it'll keep that Space Malaria away."
 	icon_state = "glass_clear"
 
-/datum/reagent/consumable/tonic/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.dizziness = max(M.dizziness - (5 * REM * delta_time), 0)
-	M.drowsyness = max(M.drowsyness - (3 * REM * delta_time), 0)
-	M.AdjustSleeping(-40 * REM * delta_time)
-	M.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, M.get_body_temp_normal())
-	..()
-	. = TRUE
+/datum/reagent/consumable/tonic/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.dizziness = max(affected_mob.dizziness - (5 * REM * delta_time), 0)
+	affected_mob.drowsyness = max(affected_mob.drowsyness - (3 * REM * delta_time), 0)
+	affected_mob.AdjustSleeping(-40 * REM * delta_time)
+	affected_mob.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, affected_mob.get_body_temp_normal())
 
 /datum/reagent/consumable/monkey_energy
 	name = "Monkey Energy"
 	description = "The only drink that will make you unleash the ape."
 	color = "#f39b03" // rgb: 243, 155, 3
-	chem_flags = CHEMICAL_RNG_BOTANY
+	chemical_flags = CHEMICAL_RNG_BOTANY
 	taste_description = "barbecue and nostalgia"
 
 /datum/glass_style/drinking_glass/monkey_energy
@@ -767,29 +755,29 @@
 	desc = "You can unleash the ape, but without the pop of the can?"
 	icon_state = "monkey_energy_glass"
 
-/datum/reagent/consumable/monkey_energy/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.Jitter(40 * REM * delta_time)
-	M.dizziness += 1 * REM * delta_time
-	M.drowsyness = 0
-	M.AdjustSleeping(-40 * REM * delta_time)
-	M.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, M.get_body_temp_normal())
-	..()
+/datum/reagent/consumable/monkey_energy/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.Jitter(40 * REM * delta_time)
+	affected_mob.dizziness += 1 * REM * delta_time
+	affected_mob.drowsyness = 0
+	affected_mob.AdjustSleeping(-40 * REM * delta_time)
+	affected_mob.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, affected_mob.get_body_temp_normal())
 
-/datum/reagent/consumable/monkey_energy/on_mob_metabolize(mob/living/L)
-	..()
-	if(ismonkey(L))
-		L.add_movespeed_modifier(/datum/movespeed_modifier/reagent/monkey_energy)
+/datum/reagent/consumable/monkey_energy/on_mob_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	if(ismonkey(affected_mob))
+		affected_mob.add_movespeed_modifier(/datum/movespeed_modifier/reagent/monkey_energy)
 
-/datum/reagent/consumable/monkey_energy/on_mob_end_metabolize(mob/living/L)
-	L.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/monkey_energy)
-	..()
+/datum/reagent/consumable/monkey_energy/on_mob_end_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	affected_mob.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/monkey_energy)
 
 /datum/reagent/consumable/ice
 	name = "Ice"
 	description = "Frozen water, your dentist wouldn't like you chewing this."
 	reagent_state = SOLID
 	color = "#619494" // rgb: 97, 148, 148
-	chem_flags = CHEMICAL_BASIC_DRINK
+	chemical_flags = CHEMICAL_BASIC_DRINK
 	taste_description = "ice"
 	default_container = /obj/item/reagent_containers/cup/glass/ice
 
@@ -799,15 +787,15 @@
 	desc = "Generally, you're supposed to put something else in there too..."
 	icon_state = "iceglass"
 
-/datum/reagent/consumable/ice/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, M.get_body_temp_normal())
-	..()
+/datum/reagent/consumable/ice/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, affected_mob.get_body_temp_normal())
 
 /datum/reagent/consumable/soy_latte
 	name = "Soy Latte"
 	description = "A nice and tasty beverage while you are reading your hippie books."
 	color = "#664300" // rgb: 102, 67, 0
-	chem_flags = CHEMICAL_RNG_BOTANY
+	chemical_flags = CHEMICAL_RNG_BOTANY
 	quality = DRINK_NICE
 	taste_description = "creamy coffee"
 
@@ -818,22 +806,23 @@
 	icon = 'icons/obj/drinks/coffee.dmi'
 	icon_state = "soy_latte"
 
-/datum/reagent/consumable/soy_latte/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.dizziness = max(M.dizziness - (5 * REM * delta_time), 0)
-	M.drowsyness = max(M.drowsyness - (3 *REM * delta_time), 0)
-	M.SetSleeping(0)
-	M.adjust_bodytemperature(5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, 0, M.get_body_temp_normal())
-	M.Jitter(5 * REM * delta_time)
-	if(M.getBruteLoss() && DT_PROB(10, delta_time))
-		M.heal_bodypart_damage(1,0, 0)
-	..()
-	. = TRUE
+/datum/reagent/consumable/soy_latte/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.dizziness = max(affected_mob.dizziness - (5 * REM * delta_time), 0)
+	affected_mob.drowsyness = max(affected_mob.drowsyness - (3 *REM * delta_time), 0)
+	affected_mob.SetSleeping(0)
+	affected_mob.adjust_bodytemperature(5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, 0, affected_mob.get_body_temp_normal())
+	affected_mob.Jitter(5 * REM * delta_time)
+
+	if(affected_mob.getBruteLoss() && DT_PROB(10, delta_time))
+		affected_mob.heal_bodypart_damage(1, updating_health = FALSE)
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/cafe_latte
 	name = "Cafe Latte"
 	description = "A nice, strong and tasty beverage while you are reading."
 	color = "#664300" // rgb: 102, 67, 0
-	chem_flags = CHEMICAL_RNG_BOTANY
+	chemical_flags = CHEMICAL_RNG_BOTANY
 	quality = DRINK_NICE
 	taste_description = "bitter cream"
 
@@ -844,22 +833,22 @@
 	icon = 'icons/obj/drinks/coffee.dmi'
 	icon_state = "cafe_latte"
 
-/datum/reagent/consumable/cafe_latte/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.dizziness = max(M.dizziness - (5 * REM * delta_time), 0)
-	M.drowsyness = max(M.drowsyness - (6 * REM * delta_time), 0)
-	M.SetSleeping(0)
-	M.adjust_bodytemperature(5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, 0, M.get_body_temp_normal())
-	M.Jitter(5 * REM * delta_time)
-	if(M.getBruteLoss() && DT_PROB(10, delta_time))
-		M.heal_bodypart_damage(1, 0, 0)
-	..()
-	. = TRUE
+/datum/reagent/consumable/cafe_latte/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.dizziness = max(affected_mob.dizziness - (5 * REM * delta_time), 0)
+	affected_mob.drowsyness = max(affected_mob.drowsyness - (6 * REM * delta_time), 0)
+	affected_mob.SetSleeping(0)
+	affected_mob.adjust_bodytemperature(5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, 0, affected_mob.get_body_temp_normal())
+	affected_mob.Jitter(5 * REM * delta_time)
+	if(affected_mob.getBruteLoss() && DT_PROB(10, delta_time))
+		affected_mob.heal_bodypart_damage(1, updating_health = FALSE)
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/doctor_delight
 	name = "The Doctor's Delight"
 	description = "A gulp a day keeps the Medibot away! A mixture of juices that heals most damage types fairly quickly at the cost of hunger."
 	color = "#FF8CFF" // rgb: 255, 140, 255
-	chem_flags = CHEMICAL_RNG_BOTANY
+	chemical_flags = CHEMICAL_RNG_BOTANY
 	quality = DRINK_VERYGOOD
 	taste_description = "homely fruit"
 
@@ -870,22 +859,24 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "doctorsdelightglass"
 
-/datum/reagent/consumable/doctor_delight/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.adjustBruteLoss(-0.5 * REM * delta_time, 0)
-	M.adjustFireLoss(-0.5 * REM * delta_time, 0)
-	M.adjustToxLoss(-0.5 * REM * delta_time, 0)
-	M.adjustOxyLoss(-0.5 * REM * delta_time, 0)
-	if(M.nutrition && (M.nutrition - 2 > 0))
-		if(M.mind && !HAS_TRAIT(M.mind, TRAIT_MEDICAL_METABOLISM)) //Drains the nutrition of the holder. Not medical staff though, since it's the Doctor's Delight!
-			M.adjust_nutrition(-2 * REM * delta_time)
-	..()
-	. = TRUE
+/datum/reagent/consumable/doctor_delight/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	// Drains the nutrition of the affected_mob.reagents. Not medical staff though, since it's the Doctor's Delight!
+	if(affected_mob.nutrition && (affected_mob.nutrition - 2 > 0))
+		if(!HAS_MIND_TRAIT(affected_mob, TRAIT_MEDICAL_METABOLISM))
+			affected_mob.adjust_nutrition(-2 * REM * delta_time)
+
+	affected_mob.adjustBruteLoss(-0.5 * REM * delta_time, updating_health = FALSE)
+	affected_mob.adjustFireLoss(-0.5 * REM * delta_time, updating_health = FALSE)
+	affected_mob.adjustToxLoss(-0.5 * REM * delta_time, updating_health = FALSE)
+	affected_mob.adjustOxyLoss(-0.5 * REM * delta_time, updating_health = FALSE)
+	return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/chocolatepudding
 	name = "Chocolate Pudding"
 	description = "A great dessert for chocolate lovers."
 	color = "#800000"
-	chem_flags = CHEMICAL_RNG_BOTANY
+	chemical_flags = CHEMICAL_RNG_BOTANY
 	quality = DRINK_VERYGOOD
 	nutriment_factor = 4 * REAGENTS_METABOLISM
 	taste_description = "sweet chocolate"
@@ -902,7 +893,7 @@
 	description = "A great dessert for vanilla lovers."
 	color = "#FAFAD2"
 	quality = DRINK_VERYGOOD
-	chem_flags = CHEMICAL_RNG_BOTANY
+	chemical_flags = CHEMICAL_RNG_BOTANY
 	nutriment_factor = 4 * REAGENTS_METABOLISM
 	taste_description = "sweet vanilla"
 
@@ -918,7 +909,7 @@
 	description = "A cherry flavored milkshake."
 	color = "#FFB6C1"
 	quality = DRINK_VERYGOOD
-	chem_flags = CHEMICAL_RNG_BOTANY
+	chemical_flags = CHEMICAL_RNG_BOTANY
 	nutriment_factor = 4 * REAGENTS_METABOLISM
 	taste_description = "creamy cherry"
 
@@ -933,7 +924,7 @@
 	name = "Blue Cherry Shake"
 	description = "An exotic milkshake."
 	color = "#00F1FF"
-	chem_flags = CHEMICAL_RNG_BOTANY
+	chemical_flags = CHEMICAL_RNG_BOTANY
 	quality = DRINK_VERYGOOD
 	nutriment_factor = 4 * REAGENTS_METABOLISM
 	taste_description = "creamy blue cherry"
@@ -1024,7 +1015,7 @@
 	name = "Pumpkin Latte"
 	description = "A mix of pumpkin juice and coffee."
 	color = "#F4A460"
-	chem_flags = CHEMICAL_RNG_BOTANY
+	chemical_flags = CHEMICAL_RNG_BOTANY
 	quality = DRINK_VERYGOOD
 	nutriment_factor = 3 * REAGENTS_METABOLISM
 	taste_description = "creamy pumpkin"
@@ -1040,7 +1031,7 @@
 	name = "Gibb Floats"
 	description = "Ice cream on top of a Dr. Gibb glass."
 	color = "#B22222"
-	chem_flags = CHEMICAL_RNG_BOTANY
+	chemical_flags = CHEMICAL_RNG_BOTANY
 	quality = DRINK_NICE
 	nutriment_factor = 3 * REAGENTS_METABOLISM
 	taste_description = "creamy cherry"
@@ -1056,21 +1047,21 @@
 	name = "Pumpkin Juice"
 	description = "Juiced from real pumpkin."
 	color = "#FFA500"
-	chem_flags = CHEMICAL_RNG_BOTANY
+	chemical_flags = CHEMICAL_RNG_BOTANY
 	taste_description = "pumpkin"
 
 /datum/reagent/consumable/blumpkinjuice
 	name = "Blumpkin Juice"
 	description = "Juiced from real blumpkin."
 	color = "#00BFFF"
-	chem_flags = CHEMICAL_RNG_BOTANY
+	chemical_flags = CHEMICAL_RNG_BOTANY
 	taste_description = "a mouthful of pool water"
 
 /datum/reagent/consumable/triple_citrus
 	name = "Triple Citrus"
 	description = "A solution."
 	color = "#EEFF00"
-	chem_flags = CHEMICAL_RNG_BOTANY
+	chemical_flags = CHEMICAL_RNG_BOTANY
 	quality = DRINK_NICE
 	taste_description = "extreme bitterness"
 
@@ -1085,22 +1076,22 @@
 	name = "Grape soda"
 	description = "Beloved of children and teetotalers."
 	color = "#E6CDFF"
-	chem_flags = CHEMICAL_RNG_BOTANY
+	chemical_flags = CHEMICAL_RNG_BOTANY
 	taste_description = "grape soda"
 
 /datum/glass_style/drinking_glass/grape_soda
 	required_drink_type = /datum/reagent/consumable/grape_soda
 	name = "glass of grape juice"
 
-/datum/reagent/consumable/grape_soda/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, M.get_body_temp_normal())
-	..()
+/datum/reagent/consumable/grape_soda/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, affected_mob.get_body_temp_normal())
 
 /datum/reagent/consumable/milk/chocolate_milk
 	name = "Chocolate Milk"
 	description = "Milk for cool kids."
 	color = "#7D4E29"
-	chem_flags = CHEMICAL_RNG_BOTANY
+	chemical_flags = CHEMICAL_RNG_BOTANY
 	quality = DRINK_NICE
 	taste_description = "chocolate milk"
 
@@ -1117,7 +1108,7 @@
 	nutriment_factor = 4 * REAGENTS_METABOLISM
 	color = "#403010" // rgb: 64, 48, 16
 	taste_description = "creamy chocolate"
-	chem_flags = CHEMICAL_RNG_BOTANY
+	chemical_flags = CHEMICAL_RNG_BOTANY
 
 /datum/glass_style/has_foodtype/drinking_glass/hot_cocoa
 	required_drink_type = /datum/reagent/consumable/hot_cocoa
@@ -1126,20 +1117,21 @@
 	icon_state = "chocolateglass"
 	drink_type = SUGAR | DAIRY
 
-/datum/reagent/consumable/hot_cocoa/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.adjust_bodytemperature(5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, 0, M.get_body_temp_normal())
-	if(M.getBruteLoss() && DT_PROB(10, delta_time))
-		M.heal_bodypart_damage(1, 0, 0)
-		. = TRUE
-	if(holder.has_reagent(/datum/reagent/consumable/capsaicin))
-		holder.remove_reagent(/datum/reagent/consumable/capsaicin, 2 * REM * delta_time)
-	..()
+/datum/reagent/consumable/hot_cocoa/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	if(affected_mob.reagents.has_reagent(/datum/reagent/consumable/capsaicin))
+		affected_mob.reagents.remove_reagent(/datum/reagent/consumable/capsaicin, 2 * REM * delta_time)
+
+	affected_mob.adjust_bodytemperature(5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, 0, affected_mob.get_body_temp_normal())
+	if(affected_mob.getBruteLoss() && DT_PROB(10, delta_time))
+		affected_mob.heal_bodypart_damage(1, updating_health = FALSE)
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/menthol
 	name = "Menthol"
 	description = "Alleviates coughing symptoms one might have."
 	color = "#80AF9C"
-	chem_flags = CHEMICAL_BASIC_DRINK
+	chemical_flags = CHEMICAL_BASIC_DRINK
 	taste_description = "mint"
 	default_container = /obj/item/reagent_containers/cup/glass/bottle/juice/menthol
 
@@ -1149,15 +1141,15 @@
 	desc = "Tastes naturally minty, and imparts a very mild numbing sensation."
 	icon_state = "glass_green"
 
-/datum/reagent/consumable/menthol/on_mob_life(mob/living/L)
-	L.apply_status_effect(/datum/status_effect/throat_soothed)
-	..()
+/datum/reagent/consumable/menthol/on_mob_life(mob/living/carbon/affected_mob)
+	. = ..()
+	affected_mob.apply_status_effect(/datum/status_effect/throat_soothed)
 
 /datum/reagent/consumable/grenadine
 	name = "Grenadine"
 	description = "Not cherry flavored!"
 	color = "#EA1D26"
-	chem_flags = CHEMICAL_BASIC_DRINK
+	chemical_flags = CHEMICAL_BASIC_DRINK
 	taste_description = "sweet pomegranates"
 
 /datum/glass_style/drinking_glass/grenadine
@@ -1169,7 +1161,7 @@
 	name = "Parsnip Juice"
 	description = "Why..."
 	color = "#FFA500"
-	chem_flags = NONE
+	chemical_flags = NONE
 	taste_description = "parsnip"
 
 /datum/glass_style/has_foodtype/drinking_glass/parsnipjuice
@@ -1181,7 +1173,7 @@
 	name = "Pineapple Juice"
 	description = "Tart, tropical, and hotly debated."
 	color = "#F7D435"
-	chem_flags = CHEMICAL_BASIC_DRINK
+	chemical_flags = CHEMICAL_BASIC_DRINK
 	taste_description = "pineapple"
 	default_container = /obj/item/reagent_containers/cup/glass/bottle/juice/pineapplejuice
 
@@ -1202,7 +1194,7 @@
 	name = "Peach Juice"
 	description = "Just peachy."
 	color = "#E78108"
-	chem_flags = CHEMICAL_RNG_BOTANY
+	chemical_flags = CHEMICAL_RNG_BOTANY
 	taste_description = "peaches"
 
 /datum/glass_style/has_foodtype/drinking_glass/peachjuice
@@ -1214,7 +1206,7 @@
 	name = "Cream Soda"
 	description = "A classic space-American vanilla flavored soft drink."
 	color = "#dcb137"
-	chem_flags = CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	quality = DRINK_VERYGOOD
 	taste_description = "fizzy vanilla"
 
@@ -1225,9 +1217,9 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "cream_soda"
 
-/datum/reagent/consumable/cream_soda/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, M.get_body_temp_normal())
-	..()
+/datum/reagent/consumable/cream_soda/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, affected_mob.get_body_temp_normal())
 
 /datum/reagent/consumable/sol_dry
 	name = "Sol Dry"
@@ -1235,7 +1227,7 @@
 	color = "#f7d26a"
 	quality = DRINK_NICE
 	taste_description = "sweet ginger spice"
-	chem_flags = CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 
 /datum/glass_style/drinking_glass/sol_dry
 	required_drink_type = /datum/reagent/consumable/sol_dry
@@ -1243,15 +1235,15 @@
 	desc = "A soothing, mellow drink made from ginger."
 	icon_state = "soldry"
 
-/datum/reagent/consumable/sol_dry/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.adjust_disgust(-5 * REM * delta_time)
-	..()
+/datum/reagent/consumable/sol_dry/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.adjust_disgust(-5 * REM * delta_time)
 
 /datum/reagent/consumable/red_queen
 	name = "Red Queen"
 	description = "DRINK ME."
 	color = "#e6ddc3"
-	chem_flags = CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	quality = DRINK_GOOD
 	taste_description = "wonder"
 
@@ -1264,28 +1256,29 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "red_queen"
 
-/datum/reagent/consumable/red_queen/on_mob_life(mob/living/carbon/H, delta_time, times_fired)
+/datum/reagent/consumable/red_queen/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
 	if(DT_PROB(50, delta_time))
-		return ..()
+		return
+
 	var/newsize = pick(0.5, 0.75, 1, 1.50, 2)
 	newsize *= RESIZE_DEFAULT_SIZE
-	H.resize = newsize/current_size
+	affected_mob.resize = newsize / current_size
 	current_size = newsize
-	H.update_transform()
+	affected_mob.update_transform()
 	if(DT_PROB(23, delta_time))
-		H.emote("sneeze")
-	..()
+		affected_mob.emote("sneeze")
 
-/datum/reagent/consumable/red_queen/on_mob_end_metabolize(mob/living/M)
-	M.resize = RESIZE_DEFAULT_SIZE/current_size
+/datum/reagent/consumable/red_queen/on_mob_end_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	affected_mob.resize = RESIZE_DEFAULT_SIZE/current_size
 	current_size = RESIZE_DEFAULT_SIZE
-	M.update_transform()
-	..()
+	affected_mob.update_transform()
 
 /datum/reagent/consumable/bungojuice
 	name = "Bungo Juice"
 	color = "#F9E43D"
-	chem_flags = CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_GOAL_BARTENDER_SERVING
 	description = "Exotic! You feel like you are on vacation already."
 	taste_description = "succulent bungo"
 
@@ -1298,7 +1291,7 @@
 /datum/reagent/consumable/beefbroth
 	name = "Beef Broth"
 	color = "#100800" // rgb: 16, 8, 0 , just like cola
-	chem_flags = CHEMICAL_RNG_BOTANY
+	chemical_flags = CHEMICAL_RNG_BOTANY
 	taste_description = "Pure Beef Essence"
 
 /datum/glass_style/drinking_glass/beefbroth
@@ -1307,22 +1300,22 @@
 	desc = "A glass of what appears to be refreshing Space Cola."
 	icon_state = "glass_brown"
 
-/datum/reagent/consumable/beefbroth/on_mob_metabolize(mob/living/M)
-	var/obj/item/organ/tongue/T = M.get_organ_slot(ORGAN_SLOT_TONGUE)
-	if(T.liked_food & MEAT)
-		to_chat(M, span_notice("That drink was PERFECTLY beefy! It's great!."))
-		SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_verygood)
+/datum/reagent/consumable/beefbroth/on_mob_metabolize(mob/living/carbon/affected_mob)
+	var/obj/item/organ/tongue/tongue = affected_mob.get_organ_slot(ORGAN_SLOT_TONGUE)
+	if(tongue.liked_food & MEAT)
+		to_chat(affected_mob, span_notice("That drink was PERFECTLY beefy! It's great!."))
+		SEND_SIGNAL(affected_mob, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_verygood)
 	else
-		to_chat(M, span_warning("That drink was way too beefy! You feel sick."))
-		M.adjust_disgust(30)
-		SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_bad)
+		to_chat(affected_mob, span_warning("That drink was way too beefy! You feel sick."))
+		SEND_SIGNAL(affected_mob, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_bad)
+		affected_mob.adjust_disgust(30)
 	. = ..()
 
 /datum/reagent/consumable/bubble_tea
 	name = "Bubble Tea"
 	description = "Refreshing! You aren't sure what those things in the bottom are."
 	color = "#DFC7AB"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	quality = DRINK_VERYGOOD
 	taste_description = "sweet, creamy and silky tea with chewy tapioca pearls"
 
@@ -1335,7 +1328,7 @@
 /datum/reagent/consumable/beeffizz
 	name = "Beef Fizz"
 	description = "This is beef fizz, BEEF FIZZ, THERE IS NO GOD"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	quality = 0
 	taste_description = "Nice and Salty Fizzless Beef Juice with a quick bite of lemon"
 
@@ -1345,30 +1338,31 @@
 	desc = "WHO THOUGHT THIS WAS A GOOD IDEA??"
 	icon_state = "beef_fizz"
 
-/datum/reagent/consumable/beeffizz/on_mob_metabolize(mob/living/M)
-	var/obj/item/organ/tongue/T = M.get_organ_slot(ORGAN_SLOT_TONGUE)
-	if(T.liked_food & MEAT)
-		to_chat(M, span_notice("That drink was like a liquid steak! It's amazing!."))
-		SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_fantastic)
+/datum/reagent/consumable/beeffizz/on_mob_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	var/obj/item/organ/tongue/tongue = affected_mob.get_organ_slot(ORGAN_SLOT_TONGUE)
+	if(tongue.liked_food & MEAT)
+		to_chat(affected_mob, span_notice("That drink was like a liquid steak! It's amazing!."))
+		SEND_SIGNAL(affected_mob, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_fantastic)
 	else
-		to_chat(M, span_warning("That drink was like drinking a steak! I think i'm gonna puke..."))
-		M.adjust_disgust(35)
-		SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_bad)
-	. = ..()
+		to_chat(affected_mob, span_warning("That drink was like drinking a steak! I think i'm gonna puke..."))
+		SEND_SIGNAL(affected_mob, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_bad)
+		affected_mob.adjust_disgust(35)
 
-/datum/reagent/consumable/beeffizz/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	if(is_species(M, /datum/species/lizard))
-		M.adjustBruteLoss(-1.5 * REM * delta_time, 0)
-		M.adjustFireLoss(-1.5 * REM * delta_time, 0)
-		M.adjustToxLoss(-1 * REM * delta_time, 0)
+/datum/reagent/consumable/beeffizz/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
+	if(is_species(affected_mob, /datum/species/lizard))
+		affected_mob.adjustBruteLoss(-1.5 * REM * delta_time, updating_health = FALSE)
+		affected_mob.adjustFireLoss(-1.5 * REM * delta_time, updating_health = FALSE)
+		affected_mob.adjustToxLoss(-1 * REM * delta_time, updating_health = FALSE)
+		return UPDATE_MOB_HEALTH
 
 //Coconut milk which is inside of the coconut when split open
 /datum/reagent/consumable/coconutmilk
 	name = "Coconut Milk"
 	description = "A smooth, creamy liquid with a faint tropical aroma. Looks refreshing!"
 	color = "#F0EDE5" //rgb(240, 237, 229)
-	chem_flags = NONE
+	chemical_flags = NONE
 	taste_description = "a creamy tropical paradise"
 
 /datum/glass_style/drinking_glass/coconutmilk
@@ -1382,7 +1376,7 @@
 	name = "Coconut Juice"
 	description = "A slightly translucent, sweet coconut juice with a light, tropical scent"
 	color = "#ddcec0" //rgb(221, 206, 192)
-	chem_flags = NONE
+	chemical_flags = NONE
 	taste_description = "a beach holiday in a glass"
 
 /datum/glass_style/drinking_glass/coconutjuice

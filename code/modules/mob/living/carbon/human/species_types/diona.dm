@@ -9,18 +9,19 @@
 		EYECOLOR,
 		AGENDER,
 		NOHUSK,
-		NO_DNA_COPY,
 		NO_UNDERWEAR,
 		NOSOCKS,
-		NOTRANSSTING,
-		NOEYESPRITES
+		NOEYESPRITES,
 	)
 	inherent_traits = list(
 		TRAIT_BEEFRIEND,
 		TRAIT_NONECRODISEASE,
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_RESISTCOLD,
-		TRAIT_NORADDAMAGE
+		TRAIT_NORADDAMAGE,
+		TRAIT_NOBREATH,
+		TRAIT_NO_DNA_COPY,
+		TRAIT_NO_TRANSFORMATION_STING,
 	)
 	inherent_biotypes = list(MOB_HUMANOID, MOB_ORGANIC, MOB_BUG)
 	mutant_bodyparts = list("diona_leaves", "diona_thorns", "diona_flowers", "diona_moss", "diona_mushroom", "diona_antennae", "diona_eyes", "diona_pbody")
@@ -250,8 +251,8 @@
 		I.pixel_y = rand(-10, 10)
 	nymph.old_name = H.real_name
 	nymph.features = H.dna.features
-	H.mind.transfer_to(nymph) //Move the player's mind datum to the player nymph
-	H.mind.grab_ghost() // Throw the fucking ghost back into the nymph.
+	H.mind?.transfer_to(nymph) //Move the player's mind datum to the player nymph
+	H.mind?.grab_ghost() // Throw the fucking ghost back into the nymph.
 	H.gib(TRUE, TRUE, TRUE)  //Gib the old corpse with nothing left of use
 
 /datum/action/diona/partition

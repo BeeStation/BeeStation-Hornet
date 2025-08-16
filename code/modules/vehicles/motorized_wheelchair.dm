@@ -25,7 +25,7 @@
 	new /obj/item/stock_parts/capacitor(src)
 	refresh_parts()
 
-/obj/vehicle/ridden/wheelchair/motorized/make_ridable()
+/obj/vehicle/ridden/wheelchair/motorized/add_riding_element()
 	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/wheelchair/motorized)
 
 /obj/vehicle/ridden/wheelchair/motorized/CheckParts(list/parts_list)

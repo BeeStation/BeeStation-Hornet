@@ -50,14 +50,14 @@
 	if(replaced_by == /datum/surgery)
 		return FALSE
 
-	if(HAS_TRAIT(user, TRAIT_SURGEON) || (!isnull(user.mind) && HAS_TRAIT(user.mind, TRAIT_SURGEON)))
+	if(HAS_MIND_TRAIT(user, TRAIT_SURGEON))
 		if(replaced_by)
 			return FALSE
 		else
 			return TRUE
 	//Grants the user innate access to all surgeries
 
-	if(!isnull(user.mind) && HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_SURGEON))
+	if(HAS_MIND_TRAIT(user, TRAIT_ABDUCTOR_SURGEON))
 		if(replaced_by)
 			return FALSE
 		else if(!abductor_surgery_blacklist)
@@ -70,14 +70,11 @@
 	if(requires_tech)
 		. = FALSE
 
-	if(iscyborg(user))
-		var/mob/living/silicon/robot/robot = user
-		var/obj/item/surgical_processor/surgical_processor = locate() in robot.model.modules
-		if(!isnull(surgical_processor))
-			if(replaced_by in surgical_processor.advanced_surgeries)
-				return FALSE
-			if(type in surgical_processor.advanced_surgeries)
-				return TRUE
+	var/surgery_signal = SEND_SIGNAL(user, COMSIG_SURGERY_STARTING, src, target)
+	if(surgery_signal & COMPONENT_FORCE_SURGERY)
+		return TRUE
+	if(surgery_signal & COMPONENT_CANCEL_SURGERY)
+		return FALSE
 
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user

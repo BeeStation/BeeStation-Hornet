@@ -127,7 +127,7 @@
 	var/mob/user = get(loc, /mob)
 	if(!istype(user))
 		return
-	if(user.mind && HAS_TRAIT(user.mind, TRAIT_CANNOT_OPEN_PRESENTS))
+	if(HAS_MIND_TRAIT(user, TRAIT_CANNOT_OPEN_PRESENTS))
 		var/turf/floor = get_turf(src)
 		var/obj/item/thing = new /obj/item/a_gift/anything(floor)
 		if(!atom_storage.attempt_insert(src, thing, user, override = TRUE))
@@ -240,6 +240,68 @@
 	name = "emergency response team engineer backpack"
 	desc = "A spacious backpack with lots of pockets, worn by Engineers of an Emergency Response Team."
 	icon_state = "ert_engineering"
+
+/obj/item/storage/backpack/engineer_borg_bag
+	name = "engineering cyborg bag"
+	desc = "Store the tools to repair that breach in this cute borgiebag!"
+	icon_state = "engiborgpack"
+	resistance_flags = FIRE_PROOF
+	custom_premium_price = 300
+
+/obj/item/storage/backpack/mining_borg_bag
+	name = "mining cyborg bag"
+	desc = "Store the parts to repair your mechanical mining friends in this tough bag! Ash dust emanates from it constantly"
+	icon_state = "mineborgpack"
+	custom_premium_price = 300
+
+/obj/item/storage/backpack/janitor_borg_bag
+	name = "janitor cyborg bag"
+	desc = "Clean the halls in style with this adorable borgbag! It smells strongly of cleaning products."
+	icon_state = "janiborgpack"
+	custom_premium_price = 300
+
+/obj/item/storage/backpack/syndiassault_borg_bag
+	name = "suspicious assault cyborg bag"
+	desc = "Store the bullet to bring down the entirety of Nanotrasen with the comfort of a king in an adorable backpack! It gives off an odor of fresh blood and brass."
+	icon_state = "syndiassaultborgpack"
+	custom_premium_price = 350
+
+/obj/item/storage/backpack/syndimed_borg_bag
+	name = "suspicious medical cyborg bag"
+	desc = "Heal our brave operatives with medicines stored in an adorable bag! It gives off a scent of Omnizine."
+	icon_state = "syndimediborgpack"
+	custom_premium_price = 350
+
+/obj/item/storage/backpack/syndieng_borg_bag
+	name = "suspicious engineering cyborg bag"
+	desc = "Store the tools that will lead to the demise of Nanotrasen in an adorable bag! A smell of omnizine infuzed oil emanates from it."
+	icon_state = "syndiengiborgpack"
+	resistance_flags = FIRE_PROOF
+	custom_premium_price = 350
+
+/obj/item/storage/backpack/peace_borg_bag
+	name = "peace keeper cyborg bag"
+	desc = "Prevent !HUMAN HARM! in an adorable bag! It smells like pepper spray."
+	icon_state = "peaceborgpack"
+	custom_premium_price = 300
+
+/obj/item/storage/backpack/service_borg_bag
+	name = "service cyborg bag"
+	desc = "Serve the station in style with an adorable bag! It smells strongly of alcohol."
+	icon_state = "servborgpack"
+	custom_premium_price = 300
+
+/obj/item/storage/backpack/security_borg_bag
+	name = "security cyborg bag"
+	desc = "Keep the stations halls safe with a cute bag that scares the criminals away! It gives off a crackle of static occasionally"
+	icon_state = "secborgpack"
+	custom_premium_price = 300
+
+/obj/item/storage/backpack/medical_borg_bag
+	name = "medical cyborg bag"
+	desc = "Store the scalpel to safe the captains life in this sterile bag! It gives off a strong smell of antiseptic spray."
+	icon_state = "mediborgpack"
+	custom_premium_price = 300
 
 /////////////////
 //DONATOR ITEMS//
@@ -741,7 +803,7 @@
 	new /obj/item/flamethrower/full/tank(src)
 	new /obj/item/tank/internals/plasma(src)
 	new /obj/item/tank/internals/plasma(src)
-	new /obj/item/clothing/suit/space/hardsuit/syndi/elite(src)
+	new /obj/item/mod/control/pre_equipped/elite/flamethrower(src)
 	new /obj/item/gun/ballistic/automatic/pistol/APS(src)
 	new /obj/item/ammo_box/magazine/pistolm9mm(src)
 	new /obj/item/ammo_box/magazine/pistolm9mm(src)

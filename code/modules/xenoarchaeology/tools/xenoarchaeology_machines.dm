@@ -52,7 +52,7 @@
 	return
 
 /obj/machinery/xenoarchaeology_machine/proc/register_contents(atom/atom_target)
-	RegisterSignal(atom_target, COMSIG_PARENT_QDELETING, PROC_REF(unregister_contents))
+	RegisterSignal(atom_target, COMSIG_QDELETING, PROC_REF(unregister_contents))
 	RegisterSignal(atom_target, COMSIG_MOVABLE_MOVED, PROC_REF(unregister_contents))
 	held_contents += atom_target
 
@@ -60,7 +60,7 @@
 	SIGNAL_HANDLER
 
 	held_contents -= source
-	UnregisterSignal(source, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(source, COMSIG_QDELETING)
 	UnregisterSignal(source, COMSIG_MOVABLE_MOVED)
 
 /obj/machinery/xenoarchaeology_machine/proc/get_target()

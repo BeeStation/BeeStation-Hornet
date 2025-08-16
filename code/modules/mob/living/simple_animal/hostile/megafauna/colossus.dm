@@ -351,6 +351,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	pixel_y = -4
 	use_power = NO_POWER_USE
 	opacity = FALSE
+	base_build_path = /obj/machinery/smartfridge/black_box
 	var/memory_saved = FALSE
 	var/list/stored_items = list()
 	var/list/blacklist = list()

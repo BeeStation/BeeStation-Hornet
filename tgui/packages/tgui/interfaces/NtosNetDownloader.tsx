@@ -31,6 +31,7 @@ type ProgramData = {
   compatible: BooleanLike;
   size: number;
   access: BooleanLike;
+  requiredhardware: string;
   verifiedsource: BooleanLike;
 };
 
@@ -55,10 +56,10 @@ export const NtosNetDownloader = (props) => {
   const search = createSearch<ProgramData>(searchItem, (program) => program.filedesc);
   let items =
     searchItem.length > 0
-      ? // If we have a query, search everything for it.
-      filter(programs, search)
-      : // Otherwise, show respective programs for the category.
-      filter(programs, (program) => program.category === selectedCategory);
+      ? filter(programs, search)
+      : selectedCategory === 'All'
+        ? programs
+        : filter(programs, (program) => program.category === selectedCategory);
   // This sorts all programs in the lists by name and compatibility
   items = sortBy(
     items,
@@ -174,7 +175,7 @@ const Program = (props) => {
                   program.installed
                     ? 'Installed'
                     : !program.compatible
-                      ? 'Incompatible'
+                      ? `Missing ${program.requiredhardware}`
                       : !program.access
                         ? id_inserted
                           ? 'No Access'

@@ -164,7 +164,7 @@
 
 /obj/item/organ/tongue/abductor/examine(mob/user)
 	. = ..()
-	if(HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_TRAINING) || isobserver(user))
+	if(HAS_MIND_TRAIT(user, TRAIT_ABDUCTOR_TRAINING) || isobserver(user))
 		if(!mothership)
 			. += span_notice("It is not attuned to a specific mothership.")
 		else

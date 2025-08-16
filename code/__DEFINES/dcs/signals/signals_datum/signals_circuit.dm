@@ -57,6 +57,10 @@
 /// Called when the integrated circuit's is locked.
 #define COMSIG_CIRCUIT_SET_LOCKED "circuit_set_locked"
 
+/// Called before power is used in an integrated circuit (power_to_use)
+#define COMSIG_CIRCUIT_PRE_POWER_USAGE "circuit_pre_power_usage"
+	#define COMPONENT_OVERRIDE_POWER_USAGE (1<<0)
+
 /// Called when somebody passes through a scanner gate and it triggers
 #define COMSIG_SCANGATE_PASS_TRIGGER "scangate_pass_trigger"
 

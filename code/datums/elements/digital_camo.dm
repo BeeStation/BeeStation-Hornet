@@ -15,7 +15,7 @@
 	if(!isliving(target) || (target in attached_mobs))
 		return ELEMENT_INCOMPATIBLE
 	//Register signals to handle examinations and override track behaviour
-	RegisterSignal(target, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(target, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(target, COMSIG_LIVING_CAN_TRACK, PROC_REF(can_track))
 	//Create an override image to make them invisible on the AI's screen
 	var/image/img = image(loc = target)
@@ -27,7 +27,7 @@
 /datum/element/digital_camo/Detach(datum/target)
 	. = ..()
 	//Cleanup signal registers that we used
-	UnregisterSignal(target, list(COMSIG_PARENT_EXAMINE, COMSIG_LIVING_CAN_TRACK))
+	UnregisterSignal(target, list(COMSIG_ATOM_EXAMINE, COMSIG_LIVING_CAN_TRACK))
 	//Remove the images
 	for(var/mob/living/silicon/silicon as() in GLOB.silicon_mobs)
 		silicon.client?.images -= attached_mobs[target]
