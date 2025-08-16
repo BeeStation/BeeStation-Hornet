@@ -71,14 +71,21 @@
 	. = ..()
 	if(resistance_flags & ON_FIRE)
 		. += span_warning("It's on fire!")
-	var/healthpercent = atom_integrity/max_integrity * 100
-	switch(healthpercent)
+	. += generate_integrity_message()
+
+/// Returns a readable string of the vehicle's health for examining. Overridden by subtypes who want to be more verbose with their health messages.
+/obj/vehicle/proc/generate_integrity_message()
+	var/examine_text = ""
+	var/integrity = atom_integrity/max_integrity * 100
+	switch(integrity)
 		if(50 to 99)
-			. += "It looks slightly damaged."
+			examine_text = "It looks slightly damaged."
 		if(25 to 50)
-			. += "It appears heavily damaged."
+			examine_text = "It appears heavily damaged."
 		if(0 to 25)
-			. += span_warning("It's falling apart!")
+			examine_text = span_warning("It's falling apart!")
+
+	return examine_text
 
 /obj/vehicle/proc/is_key(obj/item/I)
 	return istype(I, key_type)
@@ -129,9 +136,10 @@
 
 /obj/vehicle/proc/auto_assign_occupant_flags(mob/M)	//override for each type that needs it. Default is assign driver if drivers is not at max.
 	if(driver_amount() < max_drivers)
-		add_control_flags(M, VEHICLE_CONTROL_DRIVE|VEHICLE_CONTROL_PERMISSION)
+		add_control_flags(M, VEHICLE_CONTROL_DRIVE)
 
 /obj/vehicle/proc/remove_occupant(mob/M)
+	SHOULD_CALL_PARENT(TRUE)
 	if(!istype(M))
 		return FALSE
 	remove_control_flags(M, ALL)
