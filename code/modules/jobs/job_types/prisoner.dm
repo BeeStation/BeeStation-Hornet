@@ -5,7 +5,7 @@
 	show_in_prefs = TRUE
 	faction = "Station"
 	total_positions = 3
-	min_pop = LOWPOP_JOB_LIMIT
+	//min_pop = LOWPOP_JOB_LIMIT
 	supervisors = "Security / The warden"
 	selection_color = "#dddddd"
 
@@ -59,11 +59,14 @@
 	SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(priority_announce), "A prisoner has been transferred to your station. Check any communications console or security fax machine for a detailed printout.", "NT Penal Transfer", 'sound/misc/notice2.ogg'))
 	. = ..()
 
+/datum/job/prisoner/get_access()
+	. = base_access.Copy()
+
 /datum/outfit/job/prisoner
 	name = "Prisoner"
 	jobtype = /datum/job/prisoner
 	id = /obj/item/card/id/job/prisoner
-	belt = /obj/item/modular_computer/tablet/pda/prisoner
+	belt = /obj/item/modular_computer/tablet/pda/preset/assistant/prisoner
 	uniform = /obj/item/clothing/under/rank/prisoner/lowsec
 	shoes = /obj/item/clothing/shoes/sneakers/white
 	can_be_admin_equipped = TRUE

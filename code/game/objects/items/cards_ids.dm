@@ -1323,7 +1323,6 @@ update_label("John Doe", "Clowny")
 	assignment = JOB_NAME_KING
 	hud_state = JOB_HUD_KING
 
-
 /obj/item/card/id/pass
 	name = "promotion pass"
 	desc = "A card that, when swiped on your ID card, will grant you all the access. Should not substitute your actual ID card."

@@ -322,7 +322,7 @@
 	default_disk = /obj/item/computer_hardware/hard_drive/role/maint
 	icon_state = "pda-knockoff"
 
-/obj/item/modular_computer/tablet/pda/prisoner
+/obj/item/modular_computer/tablet/pda/preset/assistant/prisoner
 	name = "Prisoner PDA"
 	desc = "A portable microcomputer by Thinktronic Systems, LTD. This model is a specially locked down variant for use by prisoners."
 	icon_state = "pda-prisoner"
