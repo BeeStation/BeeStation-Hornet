@@ -300,3 +300,31 @@
   - bugfix: fixed paperbundles
   mrmanlikesbt, vinylspiders, absolucy:
   - code_imp: code cleanup for reagents
+2025-08-16:
+  Aramix:
+  - bugfix: fancychat now auto-resizes to occupy the remaining space properly, especially
+      after reconnects
+2025-08-17:
+  Nakalon:
+  - bugfix: Fixes plasmaman loadout replacement causing their death.
+  - tweak: Backpacks will always spawn first in a players loadout now to ensure everything
+      works how it's supposed to and that their old bag does get, in fact, replaced.
+  PowerfulBacon:
+  - tweak: Adds in unit testing for emissive overlays, IPC screen emissives and clothes
+      providing emissive blockers.
+  - tweak: Screenshot tests are no longer reported with the image in the comments,
+      while we don't have access to file.house
+  Rukofamicom:
+  - rscdel: Removed dullahans
+  Solene, Ratwood/Roguetown:
+  - rscadd: Adds accents as a trait
+  - rscadd: Added British and Scottish accent (Scottish is a port from Ratwood/RogueTown).
+  - tweak: Reworked swedish.
+  - tweak: Added and fixed some things in accent jsons, including appendages for french
+      accent
+  - refactor: Refactors accent code
+  - code_imp: Cleaned up accent jsons a bit and renamed them for organization
+  mrmanlikesbt, TheSwain, JohnFulpWillard, absolucy:
+  - rscadd: added a new antagonist, the vampire (bloodsuckers)
+  - rscdel: deleted the vampire Halloween race
+  - tweak: you can now drink from blood bags
