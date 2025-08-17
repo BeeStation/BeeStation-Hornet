@@ -256,7 +256,7 @@
 	name = "security HUDSunglasses"
 	desc = "Sunglasses with a security HUD."
 	icon_state = "sunhudsec"
-	//emissive_state = "sechud_emissive"
+	emissive_state = "sechud_emissive"
 	darkness_view = 1
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = 1
