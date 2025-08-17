@@ -198,7 +198,8 @@
 		if(check_shields(user, 15, "the [hulk_verb]ing"))
 			return
 		..(user, 1)
-		playsound(loc, user.dna.species.attack_sound, 25, TRUE, -1)
+		var/obj/item/bodypart/arm/active_arm = user.get_active_hand()
+		playsound(loc, active_arm.unarmed_attack_sound, 25, TRUE, -1)
 		visible_message(span_danger("[user] [hulk_verb]ed [src]!"), \
 					span_userdanger("[user] [hulk_verb]ed [src]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), null, user)
 		to_chat(user, span_danger("You [hulk_verb] [src]!"))
@@ -244,7 +245,10 @@
 
 	if(try_inject(user, affecting, injection_flags = INJECT_TRY_SHOW_ERROR_MESSAGE))//Thick suits can stop monkey bites.
 		if(..()) //successful monkey bite, this handles disease contraction.
-			var/damage = rand(1, 3)
+			var/obj/item/bodypart/arm/active_arm = user.get_active_hand()
+			var/damage = active_arm.unarmed_damage
+			if(!damage)
+				return
 			if(stat != DEAD)
 				apply_damage(damage, BRUTE, affecting, run_armor_check(affecting, MELEE))
 		return TRUE
@@ -338,8 +342,9 @@
 	apply_damage(damage, BRUTE, affecting, armor_block)
 
 /mob/living/carbon/human/ex_act(severity, target, origin)
-	if(TRAIT_BOMBIMMUNE in dna.species.species_traits)
-		return
+	if(HAS_TRAIT(src, TRAIT_BOMBIMMUNE))
+		return FALSE
+
 	..()
 	if (!severity || QDELETED(src))
 		return
@@ -404,7 +409,7 @@
 				probability = 50
 		for(var/obj/item/bodypart/BP as() in bodyparts)
 			if(prob(probability) && !prob(getarmor(BP, BOMB)) && BP.body_zone != BODY_ZONE_HEAD && BP.body_zone != BODY_ZONE_CHEST)
-				BP.brute_dam = BP.max_damage
+				BP.receive_damage(INFINITY) //Capped by proc
 				BP.dismember()
 				max_limb_loss--
 				if(!max_limb_loss)
@@ -450,25 +455,6 @@
 				to_chat(src, span_notice("You feel your heart beating again!"))
 	electrocution_animation(40)
 
-/mob/living/carbon/human/emp_act(severity)
-	. = ..()
-	if(. & EMP_PROTECT_CONTENTS)
-		return
-	var/informed = FALSE
-	for(var/obj/item/bodypart/bodypart in src.bodyparts)
-		if(!IS_ORGANIC_LIMB(bodypart))
-			if(!informed)
-				to_chat(src, span_userdanger("You feel a sharp pain as [bodypart] overloads!"))
-				informed = TRUE
-			if(prob(30/severity)) //Random chance to disable and burn limbs
-				bodypart.receive_damage(burn = 5)
-				bodypart.receive_damage(stamina = 120) //Disable the limb since we got EMP'd
-			else
-				bodypart.receive_damage(stamina = 10) //Progressive stamina damage to ensure a consistent takedown within a reasonable number of hits, regardless of RNG
-			if(HAS_TRAIT(bodypart, TRAIT_EASYDISMEMBER) && bodypart.body_zone != "chest")
-				if(prob(5))
-					bodypart.dismember(BRUTE)
-
 /mob/living/carbon/human/acid_act(acidpwr, acid_volume, bodyzone_hit) //todo: update this to utilize check_obscured_slots() //and make sure it's check_obscured_slots(TRUE) to stop aciding through visors etc
 	var/list/damaged = list()
 	var/list/inventory_items_to_kill = list()
@@ -487,10 +473,10 @@
 		if(head_clothes)
 			if(!(head_clothes.resistance_flags & (UNACIDABLE | INDESTRUCTIBLE)))
 				head_clothes.acid_act(acidpwr, acid_volume)
-				update_inv_glasses()
-				update_inv_wear_mask()
-				update_inv_neck()
-				update_inv_head()
+				update_worn_glasses()
+				update_worn_mask()
+				update_worn_neck()
+				update_worn_head()
 			else
 				to_chat(src, span_notice("Your [head_clothes.name] protects your head and face from the acid!"))
 		else
@@ -510,8 +496,8 @@
 		if(chest_clothes)
 			if(!(chest_clothes.resistance_flags & (UNACIDABLE | INDESTRUCTIBLE)))
 				chest_clothes.acid_act(acidpwr, acid_volume)
-				update_inv_w_uniform()
-				update_inv_wear_suit()
+				update_worn_undersuit()
+				update_worn_oversuit()
 			else
 				to_chat(src, span_notice("Your [chest_clothes.name] protects your body from the acid!"))
 		else
@@ -541,9 +527,9 @@
 		if(arm_clothes)
 			if(!(arm_clothes.resistance_flags & (UNACIDABLE | INDESTRUCTIBLE)))
 				arm_clothes.acid_act(acidpwr, acid_volume)
-				update_inv_gloves()
-				update_inv_w_uniform()
-				update_inv_wear_suit()
+				update_worn_gloves()
+				update_worn_undersuit()
+				update_worn_oversuit()
 			else
 				to_chat(src, span_notice("Your [arm_clothes.name] protects your arms and hands from the acid!"))
 		else
@@ -567,9 +553,9 @@
 		if(leg_clothes)
 			if(!(leg_clothes.resistance_flags & (UNACIDABLE | INDESTRUCTIBLE)))
 				leg_clothes.acid_act(acidpwr, acid_volume)
-				update_inv_shoes()
-				update_inv_w_uniform()
-				update_inv_wear_suit()
+				update_worn_shoes()
+				update_worn_undersuit()
+				update_worn_oversuit()
 			else
 				to_chat(src, span_notice("Your [leg_clothes.name] protects your legs and feet from the acid!"))
 		else
@@ -589,9 +575,8 @@
 			if(prob(min(acidpwr*acid_volume/10, 90))) //Applies disfigurement
 				affecting.receive_damage(acidity, 2*acidity)
 				emote("scream")
-				facial_hair_style = "Shaved"
-				hair_style = "Bald"
-				update_hair()
+				set_facial_hairstyle("Shaved", update = FALSE)
+				set_hairstyle("Bald") //This calls update_body_parts()
 				ADD_TRAIT(src, TRAIT_DISFIGURED, TRAIT_GENERIC)
 
 		update_damage_overlays()
@@ -660,10 +645,12 @@
 	var/bleed_msg = harm_descriptors["bleed"]
 
 	var/list/missing = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
-	for(var/obj/item/bodypart/LB as() in bodyparts)
+
+	for(var/obj/item/bodypart/LB as anything in bodyparts)
 		missing -= LB.body_zone
-		if(LB.is_pseudopart) //don't show injury text for fake bodyparts; ie chainsaw arms or synthetic armblades
+		if(LB.bodypart_flags & BODYPART_PSEUDOPART) //don't show injury text for fake bodyparts; ie chainsaw arms or synthetic armblades
 			continue
+
 		var/self_aware = FALSE
 		if(HAS_TRAIT(src, TRAIT_SELF_AWARE))
 			self_aware = TRUE
@@ -771,7 +758,7 @@
 	var/broken_plural
 	var/damaged_plural
 	//Sets organs into their proper list
-	for(var/obj/item/organ/organ as anything in internal_organs)
+	for(var/obj/item/organ/organ as anything in organs)
 		if(organ.organ_flags & ORGAN_FAILING)
 			if(broken.len)
 				broken += ", "

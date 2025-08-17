@@ -2,7 +2,7 @@
 	name = "tongue"
 	desc = "A fleshy muscle mostly used for lying."
 	icon_state = "tonguenormal"
-	visual = FALSE
+
 	zone = BODY_ZONE_PRECISE_MOUTH
 	slot = ORGAN_SLOT_TONGUE
 	attack_verb_continuous = list("licks", "slobbers", "slaps", "frenches", "tongues")
@@ -74,17 +74,16 @@
 /obj/item/organ/tongue/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER
 
-/obj/item/organ/tongue/Insert(mob/living/carbon/M, special = FALSE, drop_if_replaced = TRUE)
+/obj/item/organ/tongue/on_mob_insert(mob/living/carbon/receiver, special, movement_flags)
 	. = ..()
-	if(!.)
-		return
-	if(modifies_speech)
-		RegisterSignal(M, COMSIG_MOB_SAY, PROC_REF(handle_speech))
-	M.UnregisterSignal(M, COMSIG_MOB_SAY)
 
-/obj/item/organ/tongue/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
-	UnregisterSignal(M, COMSIG_MOB_SAY, PROC_REF(handle_speech))
-	M.RegisterSignal(M, COMSIG_MOB_SAY, TYPE_PROC_REF(/mob/living/carbon, handle_tongueless_speech))
+	if(modifies_speech)
+		RegisterSignal(receiver, COMSIG_MOB_SAY, PROC_REF(handle_speech))
+	receiver.UnregisterSignal(receiver, COMSIG_MOB_SAY)
+
+/obj/item/organ/tongue/on_mob_remove(mob/living/carbon/tongue_owner, special, movement_flags)
+	UnregisterSignal(tongue_owner, COMSIG_MOB_SAY, PROC_REF(handle_speech))
+	tongue_owner.RegisterSignal(tongue_owner, COMSIG_MOB_SAY, TYPE_PROC_REF(/mob/living/carbon, handle_tongueless_speech))
 	return ..()
 
 /obj/item/organ/tongue/could_speak_language(datum/language/language_path)
@@ -287,8 +286,7 @@
 /obj/item/organ/tongue/robot
 	name = "robotic voicebox"
 	desc = "A voice synthesizer that can interface with organic lifeforms."
-	status = ORGAN_ROBOTIC
-	organ_flags = NONE
+	organ_flags = ORGAN_ROBOTIC
 	icon_state = "tonguerobot"
 	say_mod = "states"
 	attack_verb_continuous = list("beeps", "boops")

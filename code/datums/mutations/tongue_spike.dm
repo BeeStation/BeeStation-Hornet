@@ -30,7 +30,7 @@
 		to_chat(user, ("<span class='notice'>You concentrate really hard, but nothing happens.</span>"))
 		return
 
-	var/obj/item/organ/tongue/to_fire = locate() in user.internal_organs
+	var/obj/item/organ/tongue/to_fire = locate() in user.organs
 	if(!to_fire)
 		to_chat(user, ("<span class='notice'>You don't have a tongue to shoot!</span>"))
 		return

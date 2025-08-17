@@ -24,9 +24,9 @@
 	M.apply_damage(0.7*reac_volume, TOX)
 
 /datum/reagent/blob/regenerative_materia/on_mob_life(mob/living/carbon/C, delta_time, times_fired)
+	. = ..()
 	C.adjustToxLoss(1 * REAGENTS_EFFECT_MULTIPLIER * delta_time)
 	C.hal_screwyhud = SCREWYHUD_HEALTHY //fully healed, honest
-	..()
 
 /datum/reagent/blob/regenerative_materia/on_mob_end_metabolize(mob/living/M)
 	if(iscarbon(M))

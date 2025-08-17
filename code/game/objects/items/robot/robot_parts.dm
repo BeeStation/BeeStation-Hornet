@@ -8,10 +8,10 @@
 	desc = "A complex metal backbone with standard limb sockets and pseudomuscle anchors."
 	icon = 'icons/mob/augmentation/augments.dmi'
 	icon_state = "robo_suit"
-	var/obj/item/bodypart/l_arm/robot/l_arm = null
-	var/obj/item/bodypart/r_arm/robot/r_arm = null
-	var/obj/item/bodypart/l_leg/robot/l_leg = null
-	var/obj/item/bodypart/r_leg/robot/r_leg = null
+	var/obj/item/bodypart/arm/left/robot/l_arm = null
+	var/obj/item/bodypart/arm/right/robot/r_arm = null
+	var/obj/item/bodypart/leg/left/robot/l_leg = null
+	var/obj/item/bodypart/leg/right/robot/r_leg = null
 	var/obj/item/bodypart/chest/robot/chest = null
 	var/obj/item/bodypart/head/robot/head = null
 
@@ -24,7 +24,7 @@
 
 /obj/item/robot_suit/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_appearance()
 
 /obj/item/robot_suit/prebuilt/Initialize(mapload)
 	. = ..()
@@ -38,22 +38,22 @@
 	chest = new(src)
 	chest.wired = TRUE
 	chest.cell = new /obj/item/stock_parts/cell/high/plus(chest)
-	update_icon()
+	update_appearance()
 
 /obj/item/robot_suit/update_overlays()
 	. = ..()
 	if(l_arm)
-		. += "[l_arm.icon_state]+o"
+		. += "[initial(l_arm.icon_state)]+o"
 	if(r_arm)
-		. += "[r_arm.icon_state]+o"
+		. += "[initial(r_arm.icon_state)]+o"
 	if(chest)
-		. += "[chest.icon_state]+o"
+		. += "[initial(chest.icon_state)]+o"
 	if(l_leg)
-		. += "[l_leg.icon_state]+o"
+		. += "[initial(l_leg.icon_state)]+o"
 	if(r_leg)
-		. += "[r_leg.icon_state]+o"
+		. += "[initial(r_leg.icon_state)]+o"
 	if(head)
-		. += "[head.icon_state]+o"
+		. += "[initial(head.icon_state)]+o"
 
 /obj/item/robot_suit/proc/check_completion()
 	if(src.l_arm && src.r_arm)
@@ -97,7 +97,7 @@
 			to_chat(user, span_notice("You disassemble the cyborg shell."))
 	else
 		to_chat(user, span_notice("There is nothing to remove from the endoskeleton."))
-	update_icon()
+	update_appearance()
 
 /obj/item/robot_suit/proc/put_in_hand_or_drop(mob/living/user, obj/item/I) //normal put_in_hands() drops the item ontop of the player, this drops it at the suit's loc
 	if(!user.put_in_hands(I))
@@ -153,7 +153,7 @@
 			else
 				to_chat(user, span_warning("You need one sheet of iron to start building ED-209!"))
 				return
-	else if(istype(W, /obj/item/bodypart/l_leg/robot))
+	else if(istype(W, /obj/item/bodypart/leg/left/robot))
 		if(l_leg)
 			return
 		if(!user.transferItemToLoc(W, src))
@@ -161,9 +161,9 @@
 		W.icon_state = initial(W.icon_state)
 		W.cut_overlays()
 		l_leg = W
-		update_icon()
+		update_appearance()
 
-	else if(istype(W, /obj/item/bodypart/r_leg/robot))
+	else if(istype(W, /obj/item/bodypart/leg/right/robot))
 		if(src.r_leg)
 			return
 		if(!user.transferItemToLoc(W, src))
@@ -171,9 +171,9 @@
 		W.icon_state = initial(W.icon_state)
 		W.cut_overlays()
 		r_leg = W
-		update_icon()
+		update_appearance()
 
-	else if(istype(W, /obj/item/bodypart/l_arm/robot))
+	else if(istype(W, /obj/item/bodypart/arm/left/robot))
 		if(l_arm)
 			return
 		if(!user.transferItemToLoc(W, src))
@@ -181,9 +181,9 @@
 		W.icon_state = initial(W.icon_state)
 		W.cut_overlays()
 		l_arm = W
-		update_icon()
+		update_appearance()
 
-	else if(istype(W, /obj/item/bodypart/r_arm/robot))
+	else if(istype(W, /obj/item/bodypart/arm/right/robot))
 		if(r_arm)
 			return
 		if(!user.transferItemToLoc(W, src))
@@ -191,7 +191,7 @@
 		W.icon_state = initial(W.icon_state)//in case it is a dismembered robotic limb
 		W.cut_overlays()
 		r_arm = W
-		update_icon()
+		update_appearance()
 
 	else if(istype(W, /obj/item/bodypart/chest/robot))
 		var/obj/item/bodypart/chest/robot/CH = W
@@ -203,7 +203,7 @@
 			CH.icon_state = initial(CH.icon_state) //in case it is a dismembered robotic limb
 			CH.cut_overlays()
 			chest = CH
-			update_icon()
+			update_appearance()
 		else if(!CH.wired)
 			to_chat(user, span_warning("You need to attach wires to it first!"))
 		else
@@ -223,7 +223,7 @@
 			HD.icon_state = initial(HD.icon_state)//in case it is a dismembered robotic limb
 			HD.cut_overlays()
 			head = HD
-			update_icon()
+			update_appearance()
 		else
 			to_chat(user, span_warning("You need to attach a flash to it first!"))
 

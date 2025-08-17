@@ -19,7 +19,7 @@
 								span_userdanger("Your limbs regrow, making a loud, crunchy sound and giving you great pain!"),
 								span_italics("You hear organic matter ripping and tearing!"))
 			C.emote("scream")
-			C.regenerate_limbs(1)
+			C.regenerate_limbs()
 		if(!user.get_organ_slot(ORGAN_SLOT_BRAIN))
 			var/obj/item/organ/brain/B
 			if(C.has_dna() && C.dna.species.mutantbrain)
@@ -54,7 +54,7 @@
 	for(var/Zim in C.bodyparts)
 		var/obj/item/bodypart/BP = Zim
 		if(BP.body_part != HEAD && BP.body_part != CHEST && IS_ORGANIC_LIMB(BP))
-			if(BP.dismemberable)
+			if(!(BP.bodypart_flags & BODYPART_UNREMOVABLE))
 				parts += BP
 	if(!LAZYLEN(parts))
 		to_chat(user, span_notice("We don't have any limbs to detach."))
@@ -95,7 +95,7 @@
 	density = FALSE
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_SMALL
-	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
+	mob_biotypes = MOB_ORGANIC|MOB_BEAST
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	chat_color = "#26F55A"

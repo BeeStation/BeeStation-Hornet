@@ -7,7 +7,7 @@
 	gender = NEUTER
 	pass_flags = PASSTABLE
 	ventcrawler = VENTCRAWLER_NUDE
-	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
+	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	butcher_results = list(/obj/item/food/meat/slab/monkey = 5, /obj/item/stack/sheet/animalhide/monkey = 1)
 	type_of_meat = /obj/item/food/meat/slab/monkey
 	gib_type = /obj/effect/decal/cleanable/blood/gibs
@@ -17,10 +17,10 @@
 	bodyparts = list(
 		/obj/item/bodypart/chest/monkey,
 		/obj/item/bodypart/head/monkey,
-		/obj/item/bodypart/l_arm/monkey,
-		/obj/item/bodypart/r_arm/monkey,
-		/obj/item/bodypart/r_leg/monkey,
-		/obj/item/bodypart/l_leg/monkey
+		/obj/item/bodypart/arm/left/monkey,
+		/obj/item/bodypart/arm/right/monkey,
+		/obj/item/bodypart/leg/right/monkey,
+		/obj/item/bodypart/leg/left/monkey
 	)
 	hud_type = /datum/hud/monkey
 	mobchatspan = "monkeyhive"
@@ -70,10 +70,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 		SSmobs.cubemonkeys += src
 
 	create_dna()
-	dna.initialize_dna(random_blood_type())
+	dna.initialize_dna(random_blood_type(), randomize_features = FALSE)
 	AddComponent(/datum/component/bloodysoles/feet)
-	//Set offsets here, DONT mess with monkey species, we use human anyway.
-	dna.species.offset_features = list(OFFSET_UNIFORM = list(0,0), OFFSET_ID = list(0,0), OFFSET_GLOVES = list(0,0), OFFSET_GLASSES = list(0,0), OFFSET_EARS = list(0,0), OFFSET_SHOES = list(0,0), OFFSET_S_STORE = list(0,0), OFFSET_FACEMASK = list(0,-4), OFFSET_HEAD = list(0,-4), OFFSET_FACE = list(0,0), OFFSET_BELT = list(0,0), OFFSET_BACK = list(0,0), OFFSET_SUIT = list(0,0), OFFSET_NECK = list(0,0), OFFSET_RIGHT_HAND = list(0,0), OFFSET_LEFT_HAND = list(0,0))
 	check_if_natural()
 	AddElement(/datum/element/strippable, GLOB.strippable_monkey_items)
 	AddElement(/datum/element/footstep, FOOTSTEP_MOB_BAREFOOT, 1, 2)
@@ -94,15 +92,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	return ..()
 
 /mob/living/carbon/monkey/create_internal_organs()
-	internal_organs += new /obj/item/organ/appendix
-	internal_organs += new /obj/item/organ/lungs
-	internal_organs += new /obj/item/organ/heart
-	internal_organs += new /obj/item/organ/brain
-	internal_organs += new /obj/item/organ/tongue
-	internal_organs += new /obj/item/organ/eyes
-	internal_organs += new /obj/item/organ/ears
-	internal_organs += new /obj/item/organ/liver
-	internal_organs += new /obj/item/organ/stomach
+	organs += new /obj/item/organ/appendix
+	organs += new /obj/item/organ/lungs
+	organs += new /obj/item/organ/heart
+	organs += new /obj/item/organ/brain
+	organs += new /obj/item/organ/tongue
+	organs += new /obj/item/organ/eyes
+	organs += new /obj/item/organ/ears
+	organs += new /obj/item/organ/liver
+	organs += new /obj/item/organ/stomach
 	..()
 
 /mob/living/carbon/monkey/on_reagent_change()
@@ -139,6 +137,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	set category = "IC"
 	internal = null
 	return
+
+/mob/living/carbon/monkey/can_use_guns(obj/item/G)
+	if(G.trigger_guard == TRIGGER_GUARD_NONE)
+		to_chat(src, "<span class='warning'>You are unable to fire this!</span>")
+		return FALSE
+	return TRUE
 
 /mob/living/carbon/monkey/reagent_check(datum/reagent/R) //can metabolize all reagents
 	return FALSE
@@ -189,9 +193,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 		return 0
 	return 1
 
-/mob/living/carbon/monkey/can_use_guns(obj/item/G)
-	return TRUE
-
 /mob/living/carbon/monkey/angry
 	ai_controller = /datum/ai_controller/monkey/angry
 
@@ -226,8 +227,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	icon_state = null
 	butcher_results = list(/obj/effect/spawner/lootdrop/teratoma/minor = 5, /obj/effect/spawner/lootdrop/teratoma/major = 1)
 	type_of_meat = /obj/effect/spawner/lootdrop/teratoma/minor
-	bodyparts = list(/obj/item/bodypart/chest/monkey/teratoma, /obj/item/bodypart/head/monkey/teratoma, /obj/item/bodypart/l_arm/monkey/teratoma,
-					/obj/item/bodypart/r_arm/monkey/teratoma, /obj/item/bodypart/r_leg/monkey/teratoma, /obj/item/bodypart/l_leg/monkey/teratoma)
+	bodyparts = list(/obj/item/bodypart/chest/monkey/teratoma, /obj/item/bodypart/head/monkey/teratoma, /obj/item/bodypart/arm/left/monkey/teratoma,
+					/obj/item/bodypart/arm/right/monkey/teratoma, /obj/item/bodypart/leg/right/monkey/teratoma, /obj/item/bodypart/leg/left/monkey/teratoma)
 	ai_controller = null
 	var/creator_key = null
 
@@ -251,17 +252,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 /datum/species/teratoma
 	name = "Teratoma"
 	id = "teratoma"
-	species_traits = list(EYECOLOR, HAIR, FACEHAIR, LIPS)
 	inherent_traits = list(
+		TRAIT_NO_UNDERWEAR,
+		TRAIT_NO_BLOOD_OVERLAY,
+		TRAIT_NO_AUGMENTS,
 		TRAIT_NOHUNGER,
 		TRAIT_RADIMMUNE,
 		TRAIT_BADDNA,
 		TRAIT_CHUNKYFINGERS,
-		TRAIT_NONECRODISEASE,
-		TRAIT_NO_DNA_COPY,
-		TRAIT_NO_TRANSFORMATION_STING,
+		TRAIT_NONECRODISEASE
 	) //Made of mutated cells
-	use_skintones = FALSE
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
 	changesource_flags = MIRROR_BADMIN
 	mutantbrain = /obj/item/organ/brain/tumor
@@ -270,10 +270,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/monkey/teratoma,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/monkey/teratoma,
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/monkey/teratoma,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/monkey/teratoma,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/monkey/teratoma,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/monkey/teratoma
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/monkey/teratoma,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/monkey/teratoma,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/monkey/teratoma,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/monkey/teratoma
 	)
 
 /obj/item/organ/brain/tumor

@@ -73,9 +73,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/clothing/head/mob_holder)
 		to_chat(L, span_warning("[held_mob] wriggles free!"))
 		L.dropItemToGround(src)
 
-	if(attached_wig)
-		unattach_wig()
-
 	held_mob.forceMove(get_turf(held_mob))
 	held_mob.reset_perspective()
 	held_mob.setDir(SOUTH)

@@ -28,6 +28,7 @@ BONUS
 	base_message_chance = 15
 	symptom_delay_min = 2
 	symptom_delay_max = 15
+	required_organ = ORGAN_SLOT_LUNGS
 	bodies = list("Cough")
 	var/infective = FALSE
 	threshold_desc = "<b>Resistance 3:</b> Host will drop small items when coughing.<br>\

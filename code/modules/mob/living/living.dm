@@ -471,7 +471,7 @@
 		return TRUE
 	if(!(flags & IGNORE_GRAB) && pulledby && pulledby.grab_state >= GRAB_AGGRESSIVE)
 		return TRUE
-	if(!(flags & IGNORE_STASIS) && IS_IN_STASIS(src))
+	if(!(flags & IGNORE_STASIS) && HAS_TRAIT(src, TRAIT_STASIS))
 		return TRUE
 	return FALSE
 
@@ -718,8 +718,13 @@
 		clear_fullscreen("brute")
 
 //proc used to ressuscitate a mob
-/mob/living/proc/revive(full_heal = FALSE, admin_revive = FALSE)
-	SEND_SIGNAL(src, COMSIG_LIVING_REVIVE, src, full_heal, admin_revive)
+/mob/living/proc/revive(full_heal = FALSE, admin_revive = FALSE, excess_healing = 0)
+	if(excess_healing)
+		adjustOxyLoss(-excess_healing, FALSE)
+		adjustToxLoss(-excess_healing, FALSE, TRUE) //slime friendly
+		updatehealth()
+
+		grab_ghost()
 	if(full_heal)
 		fully_heal(admin_revive)
 	if(stat == DEAD && can_be_revived()) //in some cases you can't revive (e.g. no brain)
@@ -731,7 +736,12 @@
 		update_sight()
 		clear_alert("not_enough_oxy")
 		reload_fullscreen()
-		. = 1
+		. = TRUE
+		if(excess_healing)
+			INVOKE_ASYNC(src, PROC_REF(emote), "gasp")
+			log_combat(src, src, "revived")
+
+	SEND_SIGNAL(src, COMSIG_LIVING_REVIVE, full_heal, admin_revive)
 
 /*
  * Heals up the [target] to up to [heal_to] of the main damage types.
@@ -789,11 +799,15 @@
 
 //proc used to completely heal a mob.
 /mob/living/proc/fully_heal(admin_revive = FALSE)
+	SHOULD_CALL_PARENT(TRUE)
+
 	restore_blood()
-	setToxLoss(0, 0) //zero as second argument not automatically call updatehealth().
-	setOxyLoss(0, 0)
-	setCloneLoss(0, 0)
-	setStaminaLoss(0, 0)
+	setToxLoss(0, updating_health = FALSE, forced = TRUE)
+	setOxyLoss(0, updating_health = FALSE, forced = TRUE)
+	setBruteLoss(0, updating_health = FALSE, forced = TRUE)
+	setFireLoss(0, updating_health = FALSE, forced = TRUE)
+	setCloneLoss(0, updating_health = FALSE, forced = TRUE)
+	setStaminaLoss(0, updating_stamina = FALSE, forced = TRUE)
 	SetUnconscious(0, FALSE)
 	set_disgust(0)
 	SetStun(0, FALSE)
@@ -822,7 +836,10 @@
 	stuttering = 0
 	slurring = 0
 	jitteriness = 0
+
+	updatehealth()
 	stop_sound_channel(CHANNEL_HEARTBEAT)
+	SEND_SIGNAL(src, COMSIG_LIVING_POST_FULLY_HEAL, admin_revive)
 
 
 //proc called by revive(), to check if we can actually ressuscitate the mob (we don't want to revive him and have him instantly die again)
@@ -1171,8 +1188,11 @@
 	return TRUE
 
 /mob/living/proc/can_use_guns(obj/item/G)//actually used for more than guns!
+	if(G.trigger_guard == TRIGGER_GUARD_NONE)
+		to_chat(src, span_warning("You are unable to fire this!"))
+		return FALSE
 	if(G.trigger_guard != TRIGGER_GUARD_ALLOW_ALL && !ISADVANCEDTOOLUSER(src))
-		to_chat(src, "<span class='warning'>You don't have the dexterity to do this!</span>")
+		to_chat(src, span_warning("You try to fire [G], but can't use the trigger!"))
 		return FALSE
 	return TRUE
 
@@ -1227,7 +1247,7 @@
 		Robot.notify_ai(NEW_BORG)
 	else
 		for(var/obj/item/item in src)
-			if(!dropItemToGround(item))
+			if(!dropItemToGround(item) && !(item.item_flags & ABSTRACT))
 				qdel(item)
 				continue
 			item_contents += item
@@ -1343,8 +1363,7 @@
 
 			// Randomize everything but the species, which was already handled above.
 			new_human.randomize_human_appearance(~RANDOMIZE_SPECIES)
-			new_human.update_hair()
-			new_human.update_body() // is_creating = TRUE
+			new_human.update_body(is_creating = TRUE)
 			new_human.dna.update_dna_identity()
 			new_mob = new_human
 
@@ -1888,8 +1907,8 @@
 
 		REMOVE_TRAIT(src, TRAIT_FAT, OBESITY)
 		remove_movespeed_modifier(/datum/movespeed_modifier/obesity)
-		update_inv_w_uniform()
-		update_inv_wear_suit()
+		update_worn_undersuit()
+		update_worn_oversuit()
 
 	// Reset overeat duration.
 	overeatduration = 0

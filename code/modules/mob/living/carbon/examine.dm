@@ -20,11 +20,12 @@
 	if(wear_neck && !(obscured & ITEM_SLOT_NECK))
 		. += "[t_He] [t_is] wearing [wear_neck.get_examine_string(user)] around [t_his] neck."
 
-	for(var/obj/item/I in held_items)
-		if(!(I.item_flags & ABSTRACT))
-			. += "[t_He] [t_is] holding [I.get_examine_string(user)] in [t_his] [get_held_index_name(get_held_index_of_item(I))]."
+	for(var/obj/item/held_thing in held_items)
+		if(held_thing.item_flags & (ABSTRACT|EXAMINE_SKIP|HAND_ITEM))
+			continue
+		. += "[t_He] [t_is] holding [held_thing.get_examine_string(user)] in [t_his] [get_held_index_name(get_held_index_of_item(held_thing))]."
 
-	if(back)
+	if (back)
 		. += "[t_He] [t_has] [back.get_examine_string(user)] on [t_his] back."
 	var/appears_dead = 0
 	if(stat == DEAD)
@@ -133,3 +134,31 @@
 			if(MOOD_LEVEL_HAPPY4 to INFINITY)
 				. += "[t_He] look[p_s()] ecstatic."
 	. += "</span>"
+
+/mob/living/carbon/examine_more(mob/user)
+	. = ..()
+	. += span_notice("<i>You examine [src] closer, and note the following...</i>")
+
+	if(dna) //not all carbons have it. eg - xenos
+		//On closer inspection, this man isnt a man at all!
+		var/list/covered_zones = get_covered_body_zones()
+		for(var/obj/item/bodypart/part as anything in bodyparts)
+			if(part.body_zone in covered_zones)
+				continue
+			if(part.limb_id != dna.species.examine_limb_id)
+				. += "[span_info("[p_They()] [p_have()] \an [part.name].")]"
+	/*
+	var/list/visible_scars
+	for(var/i in all_scars)
+		var/datum/scar/S = i
+		if(S.is_visible(user))
+			LAZYADD(visible_scars, S)
+
+	for(var/i in visible_scars)
+		var/datum/scar/S = i
+		var/scar_text = S.get_examine_description(user)
+		if(scar_text)
+			. += "[scar_text]"
+	*/
+
+	return .
