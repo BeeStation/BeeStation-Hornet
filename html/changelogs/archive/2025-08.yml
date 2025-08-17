@@ -300,3 +300,7 @@
   - bugfix: fixed paperbundles
   mrmanlikesbt, vinylspiders, absolucy:
   - code_imp: code cleanup for reagents
+2025-08-16:
+  Aramix:
+  - bugfix: fancychat now auto-resizes to occupy the remaining space properly, especially
+      after reconnects
