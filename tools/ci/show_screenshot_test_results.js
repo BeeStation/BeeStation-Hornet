@@ -163,7 +163,10 @@ export async function showScreenshotTestResults({ github, context, exec }) {
 	}
 
 	// Post the comment
-	const comment = createComment(screenshotFailures, badScreenshots.archive_download_url);
+	const comment = createComment(
+		screenshotFailures,
+		badScreenshots.archive_download_url
+	);
 
 	await github.rest.issues.createComment({
 		owner: context.repo.owner,
