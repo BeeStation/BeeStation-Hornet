@@ -9851,11 +9851,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/engine,
 /area/engine/atmos)
-"dfK" = (
-/obj/structure/closet/firecloset/full,
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating,
-/area/maintenance/department/bridge)
 "dfT" = (
 /obj/machinery/airalarm/directional/west{
 	pixel_x = -23
@@ -104611,7 +104606,7 @@ iSK
 iSK
 iSK
 tKJ
-dfK
+hqf
 hqf
 far
 hhv
