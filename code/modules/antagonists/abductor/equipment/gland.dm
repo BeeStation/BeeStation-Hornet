@@ -41,7 +41,10 @@
 
 /obj/item/organ/heart/gland/proc/Start()
 	active = 1
-	owner.mind.add_antag_datum(/datum/antagonist/abductee)
+	if(owner)
+		if(owner.mind)
+			if(!owner.mind.has_antag_datum(/datum/antagonist/abductee))
+				owner.mind.add_antag_datum(/datum/antagonist/abductee)
 	COOLDOWN_START(src, activation_cooldown, rand(cooldown_low, cooldown_high))
 
 /obj/item/organ/heart/gland/proc/update_gland_hud()
