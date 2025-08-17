@@ -5,7 +5,7 @@
 	show_in_prefs = TRUE
 	faction = "Station"
 	total_positions = 3
-	spawn_positions = 3
+	min_pop = LOWPOP_JOB_LIMIT
 	supervisors = "Security / The warden"
 	selection_color = "#dddddd"
 

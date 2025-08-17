@@ -1,3 +1,25 @@
+
+// If the roundstart population was below this value, then jobs
+// will be merged inside their departments. At this population,
+// all roles get shared access to their department.
+// At or below this value, certain jobs may also be disabled.
+#define MINPOP_JOB_LIMIT 9
+/// Minimum roundstart population required for command roles to spawn
+/// Below this population, every member of the department is given
+/// access to their department's command office.
+#define COMMAND_POPULATION_MINIMUM 6
+/// The population at which the station enters into an open mode, where
+/// access restrictions are significantly diminished.
+#define STATION_UNLOCK_POPULATION 6
+// If the roundstart population is below this value, then
+// additional access requirements will be granted if there is nobody that
+// has that access requirement in the department.
+#define LOWPOP_JOB_LIMIT 14
+
+#define LOWPOP_GRANT_ACCESS(job_name, access) if ((SSjob.is_job_empty(job_name) && SSjob.initial_players_to_assign < LOWPOP_JOB_LIMIT) || SSjob.initial_players_to_assign < MINPOP_JOB_LIMIT) {\
+	. |= access;\
+}
+
 #define JOB_AVAILABLE 0
 #define JOB_UNAVAILABLE_GENERIC 1
 #define JOB_UNAVAILABLE_BANNED 2
@@ -11,6 +33,9 @@
 #define JOB_LOCK_REASON_MAP (1<<1)
 #define JOB_LOCK_REASON_CONFIG (1<<2)
 
+// Job spawn groups
+// Spawn group representing the primary roles of a department
+#define JOB_SPAWN_GROUP_DEPARTMENT "department"
 
 #define DEFAULT_RELIGION "Christianity"
 #define DEFAULT_DEITY "Space Jesus"

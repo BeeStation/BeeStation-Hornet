@@ -280,11 +280,9 @@
 
 /obj/structure/closet/secure_closet/detective/PopulateContents()
 	..()
-	new /obj/item/storage/box/rxglasses/spyglasskit(src)
-	new /obj/item/storage/box/evidence(src)
+	new /obj/item/storage/backpack/duffelbag/sec/detective(src)
 	new /obj/item/clothing/suit/armor/vest/det_suit(src)
 	new /obj/item/clothing/accessory/holster/detective(src)
-	new /obj/item/storage/box/locker/security/detective(src)
 	new /obj/item/radio/headset/headset_sec(src)
 	new /obj/item/clothing/glasses/hud/security(src)
 

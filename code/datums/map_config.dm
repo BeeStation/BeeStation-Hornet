@@ -207,8 +207,8 @@
 		. += "_maps/[map_path]/[file]"
 
 /datum/map_config/proc/is_votable()
-	var/below_max = !(config_max_users) || GLOB.clients.len <= config_max_users
-	var/above_min = !(config_min_users) || GLOB.clients.len >= config_min_users
+	var/below_max = !(config_max_users) || GLOB.clients_unsafe.len <= config_max_users
+	var/above_min = !(config_min_users) || GLOB.clients_unsafe.len >= config_min_users
 	return votable && below_max && above_min
 
 /datum/map_config/proc/MakeNextMap()

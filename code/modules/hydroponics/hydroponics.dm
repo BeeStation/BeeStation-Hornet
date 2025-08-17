@@ -701,11 +701,6 @@
 		adjustHealth(round(S.get_reagent_amount(/datum/reagent/consumable/nutriment) * 0.5))
 		adjustNutri(round(S.get_reagent_amount(/datum/reagent/consumable/nutriment) * 1))
 
-	// Compost for EVERYTHING
-	if(S.has_reagent(/datum/reagent/consumable/virus_food, 1))
-		adjustNutri(round(S.get_reagent_amount(/datum/reagent/consumable/virus_food) * 0.5))
-		adjustHealth(-round(S.get_reagent_amount(/datum/reagent/consumable/virus_food) * 0.5))
-
 	// FEED ME
 	if(S.has_reagent(/datum/reagent/blood, 1))
 		adjustNutri(round(S.get_reagent_amount(/datum/reagent/blood) * 1))
@@ -722,6 +717,7 @@
 		adjustNutri(round(S.get_reagent_amount(/datum/reagent/medicine/adminordrazine) * 1))
 		adjustPests(-rand(1,5))
 		adjustWeeds(-rand(1,5))
+
 	if(S.has_reagent(/datum/reagent/medicine/adminordrazine, 5))
 		switch(rand(100))
 			if(66  to 100)

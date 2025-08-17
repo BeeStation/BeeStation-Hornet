@@ -17,17 +17,17 @@
 	accept_hand = TRUE
 	time = 125
 
-/datum/surgery_step/thread_veins/preop(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/thread_veins/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, span_notice("You start weaving [target]'s circulatory system."),
 		"[user] starts weaving [target]'s circulatory system.",
 		"[user] starts manipulating [target]'s circulatory system.")
 
-/datum/surgery_step/thread_veins/success(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/thread_veins/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
 	display_results(user, target, span_notice("You weave [target]'s circulatory system into a resistant mesh!"),
 		"[user] weaves [target]'s circulatory system into a resistant mesh!",
 		"[user] finishes manipulating [target]'s circulatory system.")
 	new /datum/bioware/threaded_veins(target)
-	return TRUE
+	return ..()
 
 /datum/bioware/threaded_veins
 	name = "Threaded Veins"

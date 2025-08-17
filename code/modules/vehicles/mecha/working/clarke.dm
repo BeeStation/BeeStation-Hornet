@@ -1,6 +1,6 @@
 ///Lavaproof, fireproof, fast mech with low armor and higher energy consumption, cannot strafe and has an internal ore box.
 /obj/vehicle/sealed/mecha/working/clarke
-	desc = "Combining man and machine for a better, stronger engineer. Can even resist lava!"
+	desc = "Combining man and machine for a better, stronger engineer. Its reinforced tire tracks can travel safely on lava, but are slower on the metalic station floor."
 	name = "\improper Clarke"
 	icon_state = "clarke"
 	base_icon_state = "clarke"
@@ -19,7 +19,8 @@
 	internals_req_access = list(ACCESS_MECH_ENGINE, ACCESS_MECH_SCIENCE, ACCESS_MECH_MINING)
 	allow_diagonal_movement = FALSE
 	pivot_step = TRUE
-
+	var/fast_pressure_step_in = 1.25
+	var/slow_pressure_step_in = 3.5
 
 /datum/armor/working_clarke
 	melee = 20
@@ -62,9 +63,26 @@
 		var/mob/living/brain/B = M.brainmob
 		hud.add_hud_to(B)
 
-/obj/vehicle/sealed/mecha/working/clarke/generate_actions()
+/obj/vehicle/sealed/mecha/working/clarke/Move()
 	. = ..()
-	initialize_passenger_action_type(/datum/action/vehicle/sealed/mecha/mech_search_ruins)
+	update_pressure()
+
+/**
+  * Makes the mecha go faster and halves the mecha drill cooldown if in Lavaland pressure.
+  *
+  * Checks for Lavaland pressure, if that works out the mech's speed is equal to fast_pressure_step_in and the cooldown for the mecha drill is halved. If not it uses slow_pressure_step_in and drill cooldown is normal.
+  */
+/obj/vehicle/sealed/mecha/working/clarke/proc/update_pressure()
+	var/turf/T = get_turf(loc)
+
+	if(lavaland_equipment_pressure_check(T))
+		movedelay = fast_pressure_step_in
+		for(var/obj/item/mecha_parts/mecha_equipment/drill/drill in equipment)
+			drill.equip_cooldown = initial(drill.equip_cooldown)/2
+	else
+		movedelay = slow_pressure_step_in
+		for(var/obj/item/mecha_parts/mecha_equipment/drill/drill in equipment)
+			drill.equip_cooldown = initial(drill.equip_cooldown)
 
 //Ore Box Controls
 
@@ -96,60 +114,3 @@
 
 /obj/item/mecha_parts/mecha_equipment/orebox_manager/get_equip_info()
 	return "[..()] [hostmech?.box ? "<a href='byond://?src=[REF(src)];mode=0'>Unload Cargo</a>" : "Error"]"
-
-#define SEARCH_COOLDOWN 1 MINUTES
-
-/datum/action/vehicle/sealed/mecha/mech_search_ruins
-	name = "Search for Ruins"
-	button_icon_state = "mech_search_ruins" //This is missing from code itself
-	COOLDOWN_DECLARE(search_cooldown)
-
-/datum/action/vehicle/sealed/mecha/mech_search_ruins/on_activate(mob/user, atom/target)
-	if(!owner || !chassis || !(owner in chassis.occupants))
-		return
-	if(!COOLDOWN_FINISHED(src, search_cooldown))
-		chassis.balloon_alert(owner, "on cooldown!")
-		return
-	if(!isliving(owner))
-		return
-	var/mob/living/living_owner = owner
-	button_icon_state = "mech_search_ruins_cooldown"
-	update_buttons()
-	COOLDOWN_START(src, search_cooldown, SEARCH_COOLDOWN)
-	addtimer(VARSET_CALLBACK(src, button_icon_state, "mech_search_ruins"), SEARCH_COOLDOWN)
-	addtimer(CALLBACK(src, PROC_REF(update_buttons)), SEARCH_COOLDOWN)
-	var/obj/pinpointed_ruin
-	for(var/obj/effect/landmark/ruin/ruin_landmark as anything in GLOB.ruin_landmarks)
-		if(ruin_landmark.z != chassis.z)
-			continue
-		if(!pinpointed_ruin || get_dist(ruin_landmark, chassis) < get_dist(pinpointed_ruin, chassis))
-			pinpointed_ruin = ruin_landmark
-	if(!pinpointed_ruin)
-		chassis.balloon_alert(living_owner, "no ruins!")
-		return
-	var/datum/status_effect/agent_pinpointer/ruin_pinpointer = living_owner.apply_status_effect(/datum/status_effect/agent_pinpointer/ruin)
-	ruin_pinpointer.RegisterSignal(living_owner, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/datum/status_effect/agent_pinpointer/ruin, cancel_self))
-	ruin_pinpointer.scan_target = pinpointed_ruin
-	chassis.balloon_alert(living_owner, "pinpointing nearest ruin")
-
-/datum/status_effect/agent_pinpointer/ruin
-	duration = SEARCH_COOLDOWN * 0.5
-	alert_type = /atom/movable/screen/alert/status_effect/agent_pinpointer/ruin
-	tick_interval = 3 SECONDS
-	range_fuzz_factor = 0
-	minimum_range = 5
-	range_mid = 20
-	range_far = 50
-
-/datum/status_effect/agent_pinpointer/ruin/scan_for_target()
-	return
-
-/datum/status_effect/agent_pinpointer/ruin/proc/cancel_self(datum/source, atom/old_loc)
-	SIGNAL_HANDLER
-	qdel(src)
-
-/atom/movable/screen/alert/status_effect/agent_pinpointer/ruin
-	name = "Ruin Target"
-	desc = "Searching for valuables..."
-
-#undef SEARCH_COOLDOWN

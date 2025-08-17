@@ -42,9 +42,9 @@ CREATION_TEST_IGNORE_SELF(/image/appearance)
 
 	// we have no reason to show these, right?
 	ADD_UNUSED_VAR(unused_var_names, nameof_reference, active_timers)
-	ADD_UNUSED_VAR(unused_var_names, nameof_reference, comp_lookup)
+	ADD_UNUSED_VAR(unused_var_names, nameof_reference, _listen_lookup)
 	ADD_UNUSED_VAR(unused_var_names, nameof_reference, datum_components)
-	ADD_UNUSED_VAR(unused_var_names, nameof_reference, signal_procs)
+	ADD_UNUSED_VAR(unused_var_names, nameof_reference, _signal_procs)
 	ADD_UNUSED_VAR(unused_var_names, nameof_reference, status_traits)
 	ADD_UNUSED_VAR(unused_var_names, nameof_reference, gc_destroyed)
 	ADD_UNUSED_VAR(unused_var_names, nameof_reference, stat_tabs)

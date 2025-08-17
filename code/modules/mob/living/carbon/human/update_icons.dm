@@ -125,10 +125,14 @@ There are several things that need to be remembered:
 	if(slot_flags & ITEM_SLOT_LPOCKET || slot_flags & ITEM_SLOT_RPOCKET)
 		update_inv_pockets()
 
+/mob/living/carbon/human/update_obscured_slots(obscured_flags)
+	..()
+	sec_hud_set_security_status()
+
 /* --------------------------------------- */
 //vvvvvv UPDATE_INV PROCS vvvvvv
 
-/mob/living/carbon/human/update_inv_w_uniform()
+/mob/living/carbon/human/update_inv_w_uniform(update_obscured = TRUE)
 	remove_overlay(UNIFORM_LAYER)
 
 	if(client && hud_used)
@@ -142,6 +146,9 @@ There are several things that need to be remembered:
 			if(hud_used.inventory_shown)
 				client.screen += w_uniform
 		update_observer_view(w_uniform,1)
+
+		if(update_obscured)
+			update_obscured_slots(U.flags_inv)
 
 		if(wear_suit && (wear_suit.flags_inv & HIDEJUMPSUIT))
 			return
@@ -177,8 +184,7 @@ There are several things that need to be remembered:
 	apply_overlay(UNIFORM_LAYER)
 	update_mutant_bodyparts()
 
-
-/mob/living/carbon/human/update_inv_wear_id()
+/mob/living/carbon/human/update_inv_wear_id(update_obscured = TRUE)
 	remove_overlay(ID_LAYER)
 
 	if(client && hud_used)
@@ -188,6 +194,11 @@ There are several things that need to be remembered:
 	var/mutable_appearance/id_overlay = overlays_standing[ID_LAYER]
 
 	if(wear_id)
+		var/obj/item/worn_item = wear_id
+
+		if(update_obscured)
+			update_obscured_slots(worn_item.flags_inv)
+
 		var/icon_file = 'icons/mob/mob.dmi'
 		wear_id.screen_loc = ui_id
 		if(client && hud_used && hud_used.hud_shown)
@@ -207,7 +218,7 @@ There are several things that need to be remembered:
 	apply_overlay(ID_LAYER)
 
 
-/mob/living/carbon/human/update_inv_gloves()
+/mob/living/carbon/human/update_inv_gloves(update_obscured = TRUE)
 	remove_overlay(GLOVES_LAYER)
 
 	if(client && hud_used && hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_GLOVES) + 1])
@@ -226,6 +237,11 @@ There are several things that need to be remembered:
 
 	var/mutable_appearance/gloves_overlay = overlays_standing[GLOVES_LAYER]
 	if(gloves)
+		var/obj/item/worn_item = gloves
+
+		if(update_obscured)
+			update_obscured_slots(worn_item.flags_inv)
+
 		var/icon_file = 'icons/mob/clothing/hands.dmi'
 		if(istype(gloves, /obj/item/clothing/gloves))
 			var/obj/item/clothing/gloves/G = gloves
@@ -245,7 +261,7 @@ There are several things that need to be remembered:
 	apply_overlay(GLOVES_LAYER)
 
 
-/mob/living/carbon/human/update_inv_glasses()
+/mob/living/carbon/human/update_inv_glasses(update_obscured = TRUE)
 	remove_overlay(GLASSES_LAYER)
 	// If we had any luminosity from our glasses then we don't anymore
 	REMOVE_LUM_SOURCE(src, LUM_SOURCE_GLASSES)
@@ -258,7 +274,12 @@ There are several things that need to be remembered:
 		inv.update_icon()
 	if(glasses)
 		glasses.screen_loc = ui_glasses		//...draw the item in the inventory screen
-	if(istype(glasses, /obj/item/clothing/glasses))
+
+		var/obj/item/worn_item = glasses
+
+		if(update_obscured)
+			update_obscured_slots(worn_item.flags_inv)
+
 		var/obj/item/clothing/glasses/G = glasses
 		var/icon_file = 'icons/mob/clothing/eyes.dmi'
 		if(G.sprite_sheets & (dna?.species.bodyflag))
@@ -280,7 +301,7 @@ There are several things that need to be remembered:
 	apply_overlay(GLASSES_LAYER)
 
 
-/mob/living/carbon/human/update_inv_ears()
+/mob/living/carbon/human/update_inv_ears(update_obscured = TRUE)
 	remove_overlay(EARS_LAYER)
 
 	if(!get_bodypart(BODY_ZONE_HEAD)) //decapitated
@@ -291,6 +312,11 @@ There are several things that need to be remembered:
 		inv.update_icon()
 
 	if(ears)
+		var/obj/item/worn_item = ears
+
+		if(update_obscured)
+			update_obscured_slots(worn_item.flags_inv)
+
 		var/icon_file = 'icons/mob/clothing/ears.dmi'
 		if(istype(ears, /obj/item))
 			var/obj/item/E = ears
@@ -310,7 +336,7 @@ There are several things that need to be remembered:
 		overlays_standing[EARS_LAYER] = ears_overlay
 	apply_overlay(EARS_LAYER)
 
-/mob/living/carbon/human/update_inv_neck()
+/mob/living/carbon/human/update_inv_neck(update_obscured = TRUE)
 	remove_overlay(NECK_LAYER)
 
 	if(client && hud_used)
@@ -318,6 +344,12 @@ There are several things that need to be remembered:
 		inv.update_icon()
 
 	if(wear_neck)
+		var/obj/item/worn_item = wear_neck
+		update_hud_neck(wear_neck)
+
+		if(update_obscured)
+			update_obscured_slots(worn_item.flags_inv)
+
 		wear_neck.screen_loc = ui_neck
 		if(client && hud_used && hud_used.hud_shown)
 			if(hud_used.inventory_shown)			//if the inventory is open
@@ -337,7 +369,7 @@ There are several things that need to be remembered:
 			overlays_standing[NECK_LAYER] = neck_overlay
 	apply_overlay(NECK_LAYER)
 
-/mob/living/carbon/human/update_inv_shoes()
+/mob/living/carbon/human/update_inv_shoes(update_obscured = TRUE)
 	remove_overlay(SHOES_LAYER)
 
 	if(num_legs < 2)
@@ -348,6 +380,11 @@ There are several things that need to be remembered:
 		inv.update_icon()
 
 	if(shoes)
+		var/obj/item/worn_item = shoes
+
+		if(update_obscured)
+			update_obscured_slots(worn_item.flags_inv)
+
 		var/icon_file = 'icons/mob/clothing/feet.dmi'
 		if(istype(shoes, /obj/item/clothing/shoes))
 			var/obj/item/clothing/shoes/S = shoes
@@ -373,7 +410,7 @@ There are several things that need to be remembered:
 	apply_overlay(SHOES_LAYER)
 
 
-/mob/living/carbon/human/update_inv_s_store()
+/mob/living/carbon/human/update_inv_s_store(update_obscured = TRUE)
 	remove_overlay(SUIT_STORE_LAYER)
 
 	if(client && hud_used)
@@ -381,6 +418,11 @@ There are several things that need to be remembered:
 		inv.update_icon()
 
 	if(s_store)
+		var/obj/item/worn_item = s_store
+
+		if(update_obscured)
+			update_obscured_slots(worn_item.flags_inv)
+
 		s_store.screen_loc = ui_sstore1
 		if(client && hud_used && hud_used.hud_shown)
 			client.screen += s_store
@@ -397,7 +439,7 @@ There are several things that need to be remembered:
 	apply_overlay(SUIT_STORE_LAYER)
 
 
-/mob/living/carbon/human/update_inv_head()
+/mob/living/carbon/human/update_inv_head(update_obscured = TRUE)
 	remove_overlay(HEAD_LAYER)
 
 	if(!get_bodypart(BODY_ZONE_HEAD)) //Decapitated
@@ -409,7 +451,11 @@ There are several things that need to be remembered:
 
 	update_mutant_bodyparts()
 	if(head)
-		update_hud_head(head)
+		var/obj/item/worn_item = head
+		update_hud_head(worn_item)
+
+		if(update_obscured)
+			update_obscured_slots(worn_item.flags_inv)
 
 		var/icon_file = 'icons/mob/clothing/head/default.dmi'
 
@@ -427,7 +473,7 @@ There are several things that need to be remembered:
 			overlays_standing[HEAD_LAYER] = head_overlay
 	apply_overlay(HEAD_LAYER)
 
-/mob/living/carbon/human/update_inv_belt()
+/mob/living/carbon/human/update_inv_belt(update_obscured = TRUE)
 	remove_overlay(BELT_LAYER)
 
 	if(client && hud_used)
@@ -435,6 +481,11 @@ There are several things that need to be remembered:
 		inv.update_icon()
 
 	if(belt)
+		var/obj/item/worn_item = belt
+
+		if(update_obscured)
+			update_obscured_slots(worn_item.flags_inv)
+
 		var/icon_file = 'icons/mob/clothing/belt.dmi'
 		if(istype(belt, /obj/item/storage/belt))
 			var/obj/item/storage/belt/B = belt
@@ -456,14 +507,19 @@ There are several things that need to be remembered:
 
 
 
-/mob/living/carbon/human/update_inv_wear_suit()
+/mob/living/carbon/human/update_inv_wear_suit(update_obscured = TRUE)
 	remove_overlay(SUIT_LAYER)
 
 	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_OCLOTHING) + 1]
 		inv.update_icon()
 
-	if(istype(wear_suit, /obj/item/clothing/suit))
+	if(wear_suit)
+		var/obj/item/worn_item = wear_suit
+
+		if(update_obscured)
+			update_obscured_slots(worn_item.flags_inv)
+
 		var/icon_file = 'icons/mob/clothing/suits/default.dmi'
 		var/obj/item/clothing/suit/S = wear_suit
 		if(S.sprite_sheets & (dna?.species.bodyflag))
@@ -514,7 +570,7 @@ There are several things that need to be remembered:
 			update_observer_view(r_store)
 
 
-/mob/living/carbon/human/update_inv_wear_mask()
+/mob/living/carbon/human/update_inv_wear_mask(update_obscured = TRUE)
 	remove_overlay(FACEMASK_LAYER)
 
 	if(!get_bodypart(BODY_ZONE_HEAD)) //Decapitated
@@ -525,7 +581,12 @@ There are several things that need to be remembered:
 		inv.update_icon()
 
 	if(wear_mask)
-		update_hud_wear_mask(wear_mask)
+		var/obj/item/worn_item = wear_mask
+		update_hud_wear_mask(worn_item)
+
+		if(update_obscured)
+			update_obscured_slots(worn_item.flags_inv)
+
 		var/icon_file = 'icons/mob/clothing/mask.dmi'
 		if(istype(wear_mask, /obj/item/clothing/mask))
 			var/obj/item/clothing/mask/M = wear_mask
@@ -543,7 +604,7 @@ There are several things that need to be remembered:
 		apply_overlay(FACEMASK_LAYER)
 	update_mutant_bodyparts() //e.g. upgate needed because mask now hides lizard snout
 
-/mob/living/carbon/human/update_inv_back()
+/mob/living/carbon/human/update_inv_back(update_obscured = TRUE)
 	remove_overlay(BACK_LAYER)
 
 	if(client && hud_used && hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_BACK) + 1])
@@ -551,7 +612,12 @@ There are several things that need to be remembered:
 		inv.update_icon()
 
 	if(back)
-		update_hud_back(back)
+		var/obj/item/worn_item = back
+		update_hud_back(worn_item)
+
+		if(update_obscured)
+			update_obscured_slots(worn_item.flags_inv)
+
 		var/icon_file = 'icons/mob/clothing/back.dmi'
 
 		if(istype(back, /obj/item))
@@ -795,7 +861,7 @@ generate/load female uniform sprites matching all previously decided variables
 					break
 
 // Only renders the head of the human
-/mob/living/carbon/human/proc/update_body_parts_head_only(var/update_limb_data)
+/mob/living/carbon/human/proc/update_body_parts_head_only(update_limb_data)
 	if (!dna)
 		return
 
@@ -815,7 +881,7 @@ generate/load female uniform sprites matching all previously decided variables
 	if(HD && !(HAS_TRAIT(src, TRAIT_HUSK)))
 		// lipstick
 		if(lip_style && (LIPS in dna.species.species_traits))
-			var/mutable_appearance/lip_overlay = mutable_appearance('icons/mob/human_face.dmi', "lips_[lip_style]", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
+			var/mutable_appearance/lip_overlay = mutable_appearance('icons/mob/species/human/human_face.dmi', "lips_[lip_style]", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
 			lip_overlay.color = lip_color
 			if(OFFSET_FACE in dna.species.offset_features)
 				lip_overlay.pixel_x += dna.species.offset_features[OFFSET_FACE][1]
@@ -827,9 +893,9 @@ generate/load female uniform sprites matching all previously decided variables
 			var/obj/item/organ/eyes/E = get_organ_slot(ORGAN_SLOT_EYES)
 			var/mutable_appearance/eye_overlay
 			if(!E)
-				eye_overlay = mutable_appearance('icons/mob/human_face.dmi', "eyes_missing", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
+				eye_overlay = mutable_appearance('icons/mob/species/human/human_face.dmi', "eyes_missing", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
 			else
-				eye_overlay = mutable_appearance('icons/mob/human_face.dmi', E.eye_icon_state, CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
+				eye_overlay = mutable_appearance('icons/mob/species/human/human_face.dmi', E.eye_icon_state, CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
 			if((EYECOLOR in dna.species.species_traits) && E)
 				eye_overlay.color = "#" + eye_color
 			if(OFFSET_FACE in dna.species.offset_features)

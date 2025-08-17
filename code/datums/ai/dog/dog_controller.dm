@@ -27,9 +27,9 @@
 		return AI_CONTROLLER_INCOMPATIBLE
 
 	RegisterSignal(new_pawn, COMSIG_ATOM_ATTACK_HAND, PROC_REF(on_attack_hand))
-	RegisterSignal(new_pawn, COMSIG_PARENT_EXAMINE, PROC_REF(on_examined))
+	RegisterSignal(new_pawn, COMSIG_ATOM_EXAMINE, PROC_REF(on_examined))
 	RegisterSignal(new_pawn, COMSIG_CLICK_ALT, PROC_REF(check_altclicked))
-	RegisterSignals(new_pawn, list(COMSIG_MOB_DEATH, COMSIG_PARENT_QDELETING), PROC_REF(on_death))
+	RegisterSignals(new_pawn, list(COMSIG_MOB_DEATH, COMSIG_QDELETING), PROC_REF(on_death))
 	RegisterSignal(new_pawn, COMSIG_ATOM_ADD_CONTEXT, PROC_REF(add_context))
 	RegisterSignal(SSdcs, COMSIG_GLOB_CARBON_THROW_THING, PROC_REF(listened_throw))
 	return ..() //Run parent at end
@@ -40,7 +40,7 @@
 		pawn.visible_message(span_danger("[pawn] drops [carried_item]."))
 		carried_item.forceMove(pawn.drop_location())
 		blackboard[BB_SIMPLE_CARRY_ITEM] = null
-	UnregisterSignal(pawn, list(COMSIG_ATOM_ATTACK_HAND, COMSIG_PARENT_EXAMINE, COMSIG_CLICK_ALT, COMSIG_MOB_DEATH, COMSIG_GLOB_CARBON_THROW_THING, COMSIG_PARENT_QDELETING))
+	UnregisterSignal(pawn, list(COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_EXAMINE, COMSIG_CLICK_ALT, COMSIG_MOB_DEATH, COMSIG_GLOB_CARBON_THROW_THING, COMSIG_QDELETING))
 	return ..() //Run parent at end
 
 /datum/ai_controller/dog/able_to_run()
@@ -78,11 +78,11 @@
 /datum/ai_controller/dog/proc/listen_throw_land(obj/item/thrown_thing, datum/thrownthing/throwing_datum)
 	SIGNAL_HANDLER
 
-	UnregisterSignal(thrown_thing, list(COMSIG_PARENT_QDELETING, COMSIG_MOVABLE_THROW_LANDED))
+	UnregisterSignal(thrown_thing, list(COMSIG_QDELETING, COMSIG_MOVABLE_THROW_LANDED))
 	if(!istype(thrown_thing) || !isturf(thrown_thing.loc) || !can_see(pawn, thrown_thing, length=AI_DOG_VISION_RANGE) || !throwing_datum?.thrower)
 		return
 
-	current_movement_target = thrown_thing
+	set_movement_target(thrown_thing)
 	blackboard[BB_FETCH_TARGET] = thrown_thing
 	blackboard[BB_FETCH_DELIVER_TO] = throwing_datum.thrower
 	queue_behavior(/datum/ai_behavior/fetch)
@@ -261,7 +261,7 @@
 			if(pointed_item.obj_flags & ABSTRACT)
 				return
 			pawn.visible_message(span_notice("[pawn] follows [pointing_friend]'s gesture towards [pointed_movable] and barks excitedly!"))
-			current_movement_target = pointed_movable
+			set_movement_target(pointed_movable)
 			blackboard[BB_FETCH_TARGET] = pointed_movable
 			blackboard[BB_FETCH_DELIVER_TO] = pointing_friend
 			if(living_pawn.buckled)
@@ -269,7 +269,7 @@
 			queue_behavior(/datum/ai_behavior/fetch)
 		if(DOG_COMMAND_ATTACK)
 			pawn.visible_message(span_notice("[pawn] follows [pointing_friend]'s gesture towards [pointed_movable] and growls intensely!"))
-			current_movement_target = pointed_movable
+			set_movement_target(pointed_movable)
 			blackboard[BB_DOG_HARASS_TARGET] = WEAKREF(pointed_movable)
 			if(living_pawn.buckled)
 				queue_behavior(/datum/ai_behavior/resist)//in case they are in bed or something

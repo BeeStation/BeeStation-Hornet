@@ -277,6 +277,22 @@
 	desc = "A science crate."
 	icon_state = "sci_crate"
 
+/obj/structure/closet/crate/science/debug
+	name = "science crate"
+	desc = "debug cyborg modules."
+	icon_state = "sci_crate"
+
+/obj/structure/closet/crate/science/debug/obj/structure/closet/crate/science/debug/PopulateContents()
+	..()
+	new /obj/item/robot_model/standard(src)
+	new /obj/item/robot_model/peacekeeper(src)
+	new /obj/item/robot_model/miner(src)
+	new /obj/item/robot_model/medical(src)
+	new /obj/item/robot_model/janitor(src)
+	new /obj/item/robot_model/engineering(src)
+	new /obj/item/robot_model/clown(src)
+	new /obj/item/robot_model/service(src)
+
 /obj/structure/closet/crate/solarpanel_small
 	name = "budget solar panel crate"
 	icon_state = "engi_e_crate"

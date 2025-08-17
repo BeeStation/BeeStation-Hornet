@@ -25,10 +25,10 @@
 #define COMSIG_LIVING_START_PULL "living_start_pull"			///called on /living when someone starts pulling (atom/movable/pulled, state, force)
 /// from base of mob/living/Life() (seconds, times_fired)
 #define COMSIG_LIVING_LIFE "living_life"
+/// from base of mob/living/updatehealth()
+#define COMSIG_LIVING_HEALTH_UPDATE "living_health_update"
 ///from base of mob/living/death(): (gibbed, was_dead_before)
 #define COMSIG_LIVING_DEATH "living_death"
-/// from base of mob/living/updatehealth(): ()
-#define COMSIG_LIVING_UPDATE_HEALTH "living_update_health"
 /// Called when a living mob has its resting updated: (resting_state)
 #define COMSIG_LIVING_RESTING_UPDATED "resting_updated"
 ///from base of mob/living/gib(): (no_brain, no_organs, no_bodyparts)
@@ -92,6 +92,11 @@
 ///From living/set_resting(): (new_resting, silent, instant)
 #define COMSIG_LIVING_RESTING "living_resting"
 
+///From base of mob/living/MobBump() (mob/living)
+#define COMSIG_LIVING_MOB_BUMP "living_mob_bump"
+///From base of mob/living/ZImpactDamage() (mob/living, levels, turf/t)
+#define COMSIG_LIVING_Z_IMPACT "living_z_impact"
+	#define NO_Z_IMPACT_DAMAGE (1<<0)
 /// From /mob/living/proc/stop_leaning()
 #define COMSIG_LIVING_STOPPED_LEANING "living_stopped_leaning"
 

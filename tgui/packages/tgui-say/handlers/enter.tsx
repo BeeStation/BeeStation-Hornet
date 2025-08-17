@@ -21,5 +21,5 @@ export const handleEnter = function (this: Modal, event: KeyboardEvent, value: s
     });
   }
   this.events.onReset();
-  windowClose();
+  windowClose(this.fields.dpi);
 };

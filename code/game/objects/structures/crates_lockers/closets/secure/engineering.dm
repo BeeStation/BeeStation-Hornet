@@ -14,7 +14,6 @@
 	new /obj/item/clothing/suit/hazardvest(src)
 	new /obj/item/clothing/gloves/color/yellow(src)
 	new /obj/item/clothing/mask/gas(src)
-	new /obj/item/tank/jetpack/suit(src)
 	new /obj/item/radio/headset/heads/chief_engineer(src)
 
 	new /obj/item/clothing/neck/petcollar(src)

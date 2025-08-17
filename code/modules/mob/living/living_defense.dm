@@ -248,26 +248,6 @@
 		to_chat(M, span_danger("You glomp [src]!"))
 		return TRUE
 
-/mob/living/attack_basic_mob(mob/living/basic/user)
-	if(user.melee_damage == 0)
-		if(user != src)
-			visible_message(span_notice("\The [user] [user.friendly_verb_continuous] [src]!"), \
-							span_notice("\The [user] [user.friendly_verb_continuous] you!"), null, COMBAT_MESSAGE_RANGE, user)
-			to_chat(user, span_notice("You [user.friendly_verb_simple] [src]!"))
-		return FALSE
-	if(HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, span_warning("You don't want to hurt anyone!"))
-		return FALSE
-
-	if(user.attack_sound)
-		playsound(loc, user.attack_sound, 50, TRUE, TRUE)
-	user.do_attack_animation(src)
-	visible_message(span_danger("\The [user] [user.attack_verb_continuous] [src]!"), \
-					span_userdanger("\The [user] [user.attack_verb_continuous] you!"), null, COMBAT_MESSAGE_RANGE, user)
-	to_chat(user, span_danger("You [user.attack_verb_simple] [src]!"))
-	log_combat(user, src, "attacked")
-	return TRUE
-
 /mob/living/attack_animal(mob/living/simple_animal/M)
 	M.face_atom(src)
 	if(M.melee_damage == 0)
@@ -346,21 +326,21 @@
 		return FALSE
 	return FALSE
 
-/mob/living/attack_alien(mob/living/carbon/alien/humanoid/M, modifiers)
-	SEND_SIGNAL(src, COMSIG_MOB_ATTACK_ALIEN, M, modifiers)
+/mob/living/attack_alien(mob/living/carbon/alien/humanoid/user, modifiers)
+	SEND_SIGNAL(src, COMSIG_MOB_ATTACK_ALIEN, user, modifiers)
 	if(LAZYACCESS(modifiers, RIGHT_CLICK))
-		M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
+		user.do_attack_animation(src, ATTACK_EFFECT_DISARM)
 		return TRUE
-	if(M.combat_mode)
-		if(HAS_TRAIT(M, TRAIT_PACIFISM))
-			to_chat(M, "<span class='warning'>You don't want to hurt anyone!</span>")
+	if(user.combat_mode)
+		if(HAS_TRAIT(user, TRAIT_PACIFISM))
+			to_chat(user, span_warning("You don't want to hurt anyone!"))
 			return FALSE
-		M.do_attack_animation(src)
+		user.do_attack_animation(src)
 		return TRUE
 	else
-		visible_message("<span class='notice'>[M] caresses [src] with its scythe-like arm.</span>", \
-						"<span class='notice'>[M] caresses you with its scythe-like arm.</span>", null, null, M)
-		to_chat(M, "<span class='notice'>You caress [src] with your scythe-like arm.</span>")
+		visible_message(span_notice("[user] caresses [src] with its scythe-like arm."), \
+						span_notice("[user] caresses you with its scythe-like arm."), null, null, user)
+		to_chat(user, span_notice("You caress [src] with your scythe-like arm."))
 		return FALSE
 
 /mob/living/ex_act(severity, target, origin)
@@ -419,11 +399,11 @@
 /mob/living/narsie_act()
 	if(status_flags & GODMODE || QDELETED(src))
 		return
-	if(GLOB.cult_narsie && GLOB.cult_narsie.souls_needed[src])
-		GLOB.cult_narsie.souls_needed -= src
-		GLOB.cult_narsie.souls += 1
-		if((GLOB.cult_narsie.souls == GLOB.cult_narsie.soul_goal) && (GLOB.cult_narsie.resolved == FALSE))
-			GLOB.cult_narsie.resolved = TRUE
+	if(GLOB.narsie && GLOB.narsie.souls_needed[src])
+		GLOB.narsie.souls_needed -= src
+		GLOB.narsie.souls += 1
+		if((GLOB.narsie.souls == GLOB.narsie.soul_goal) && (GLOB.narsie.resolved == FALSE))
+			GLOB.narsie.resolved = TRUE
 			sound_to_playing_players('sound/machines/alarm.ogg')
 			addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(cult_ending_helper), 1), 120)
 			addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(ending_helper)), 270)
@@ -469,10 +449,6 @@
 	if(!used_item)
 		used_item = get_active_held_item()
 	..()
-
-/mob/living/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
-	. = ..()
-	EXTRAPOLATOR_ACT_ADD_DISEASES(., diseases)
 
 /mob/living/proc/sethellbound()
 	if(mind)
@@ -542,9 +518,9 @@
 
 /// Universal disarm effect, can be used by other components that also want a similar effect to pushback
 /// and stun.
-/mob/living/proc/disarm_effect(mob/living/carbon/user, silent = FALSE)
+/mob/living/proc/disarm_effect(mob/living/carbon/attacker, silent = FALSE)
 	var/turf/target_oldturf = loc
-	var/shove_dir = get_dir(user.loc, target_oldturf)
+	var/shove_dir = get_dir(attacker.loc, target_oldturf)
 	var/turf/target_shove_turf = get_step(loc, shove_dir)
 	var/mob/living/carbon/human/target_collateral_human
 	var/obj/structure/table/target_table
@@ -568,14 +544,14 @@
 		var/target_held_item = get_active_held_item()
 		if(target_held_item)
 			if (!silent)
-				visible_message(span_danger("[user.name] kicks \the [target_held_item] out of [src]'s hand!"),
-								span_danger("[user.name] kicks \the [target_held_item] out of your hand!"), null, COMBAT_MESSAGE_RANGE)
-			log_combat(user, src, "disarms [target_held_item]", "disarm")
+				visible_message(span_danger("[attacker.name] kicks \the [target_held_item] out of [src]'s hand!"),
+								span_danger("[attacker.name] kicks \the [target_held_item] out of your hand!"), null, COMBAT_MESSAGE_RANGE)
+			log_combat(attacker, src, "disarms [target_held_item]", "disarm")
 		else
 			if (!silent)
-				visible_message(span_danger("[user.name] kicks [name] onto [p_their()] side!"),
-								span_danger("[user.name] kicks you onto your side!"), null, COMBAT_MESSAGE_RANGE)
-			log_combat(user, src, "kicks", "disarm", "onto their side (paralyzing)")
+				visible_message(span_danger("[attacker.name] kicks [name] onto [p_their()] side!"),
+								span_danger("[attacker.name] kicks you onto your side!"), null, COMBAT_MESSAGE_RANGE)
+			log_combat(attacker, src, "kicks", "disarm", "onto their side (paralyzing)")
 		Paralyze(SHOVE_CHAIN_PARALYZE) //duration slightly shorter than disarm cd
 	if(shove_blocked && !is_shove_knockdown_blocked() && !buckled)
 		var/directional_blocked = FALSE
@@ -594,42 +570,42 @@
 			Knockdown(SHOVE_KNOCKDOWN_SOLID)
 			Immobilize(SHOVE_IMMOBILIZE_SOLID)
 			if (!silent)
-				user.visible_message(span_danger("[user.name] shoves [name], knocking [p_them()] down!"),
+				attacker.visible_message(span_danger("[attacker.name] shoves [name], knocking [p_them()] down!"),
 					span_danger("You shove [name], knocking [p_them()] down!"), null, COMBAT_MESSAGE_RANGE)
-			log_combat(user, src, "shoved", "disarm", "knocking them down")
+			log_combat(attacker, src, "shoved", "disarm", "knocking them down")
 		else if(target_table)
 			Paralyze(SHOVE_KNOCKDOWN_TABLE)
 			if (!silent)
-				user.visible_message(span_danger("[user.name] shoves [name] onto \the [target_table]!"),
+				attacker.visible_message(span_danger("[attacker.name] shoves [name] onto \the [target_table]!"),
 					span_danger("You shove [name] onto \the [target_table]!"), null, COMBAT_MESSAGE_RANGE)
 			throw_at(target_table, 1, 1, null, FALSE) //1 speed throws with no spin are basically just forcemoves with a hard collision check
-			log_combat(user, src, "shoved", "disarm", "onto [target_table] (table)")
+			log_combat(attacker, src, "shoved", "disarm", "onto [target_table] (table)")
 		else if(target_collateral_human)
 			Knockdown(SHOVE_KNOCKDOWN_HUMAN)
 			target_collateral_human.Knockdown(SHOVE_KNOCKDOWN_COLLATERAL)
 			if (!silent)
-				user.visible_message(span_danger("[user.name] shoves [name] into [target_collateral_human.name]!"),
+				attacker.visible_message(span_danger("[attacker.name] shoves [name] into [target_collateral_human.name]!"),
 					span_danger("You shove [name] into [target_collateral_human.name]!"), null, COMBAT_MESSAGE_RANGE)
-			log_combat(user, src, "shoved", "disarm", "into [target_collateral_human.name]")
+			log_combat(attacker, src, "shoved", "disarm", "into [target_collateral_human.name]")
 		else if(target_disposal_bin)
 			Knockdown(SHOVE_KNOCKDOWN_SOLID)
 			forceMove(target_disposal_bin)
 			if (!silent)
-				user.visible_message(span_danger("[user.name] shoves [name] into \the [target_disposal_bin]!"),
+				attacker.visible_message(span_danger("[attacker.name] shoves [name] into \the [target_disposal_bin]!"),
 					span_danger("You shove [name] into \the [target_disposal_bin]!"), null, COMBAT_MESSAGE_RANGE)
-			log_combat(user, src, "shoved", "disarm", "into [target_disposal_bin] (disposal bin)")
+			log_combat(attacker, src, "shoved", "disarm", "into [target_disposal_bin] (disposal bin)")
 		else if(target_pool)
 			Knockdown(SHOVE_KNOCKDOWN_SOLID)
 			forceMove(target_pool)
 			if (!silent)
-				user.visible_message(span_danger("[user.name] shoves [name] into \the [target_pool]!"),
+				attacker.visible_message(span_danger("[attacker.name] shoves [name] into \the [target_pool]!"),
 					span_danger("You shove [name] into \the [target_pool]!"), null, COMBAT_MESSAGE_RANGE)
-			log_combat(user, src, "shoved", "disarm", "into [target_pool] (swimming pool)")
+			log_combat(attacker, src, "shoved", "disarm", "into [target_pool] (swimming pool)")
 	else
 		if (!silent)
-			user.visible_message(span_danger("[user.name] shoves [name]!"),
+			attacker.visible_message(span_danger("[attacker.name] shoves [name]!"),
 				span_danger("You shove [name]!"), null, COMBAT_MESSAGE_RANGE)
-		log_combat(user, src, "shoved", "disarm")
+		log_combat(attacker, src, "shoved", "disarm")
 
 /** Handles exposing a mob to reagents.
   *

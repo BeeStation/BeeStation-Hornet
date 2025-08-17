@@ -28,7 +28,7 @@
 /proc/hallucination_pulse(turf/location, range, strength = 50)
 	for(var/mob/living/carbon/human/near in view(location, range))
 		// If they are immune to hallucinations
-		if (HAS_TRAIT(near, TRAIT_MADNESS_IMMUNE) || (near.mind && HAS_TRAIT(near.mind, TRAIT_MADNESS_IMMUNE)))
+		if (HAS_MIND_TRAIT(near, TRAIT_MADNESS_IMMUNE))
 			continue
 
 		// Blind people don't get hallucinations

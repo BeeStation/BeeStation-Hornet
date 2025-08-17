@@ -43,6 +43,13 @@
 	fire = 80
 	acid = 100
 
+/obj/structure/window/corner
+	icon_state = "window_corner"
+	density = FALSE
+
+/obj/structure/window/corner/unanchored
+	anchored = FALSE
+
 /obj/structure/window/examine(mob/user)
 	. = ..()
 	if(reinf)
@@ -135,6 +142,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	. = ..()
 	if(.)
 		return
+
+	if(!density)
+		return TRUE
 
 	if(fulltile)
 		return FALSE
@@ -386,7 +396,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 /obj/structure/window/atmos_expose(datum/gas_mixture/air, exposed_temperature)
 	take_damage(round(air.return_volume() / 100), BURN, 0, 0)
 
-/obj/structure/window/get_dumping_location(obj/item/storage/source,mob/user)
+/obj/structure/window/get_dumping_location()
 	return null
 
 /obj/structure/window/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/passing_atom)
@@ -445,6 +455,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 /obj/structure/window/reinforced/unanchored
 	anchored = FALSE
 
+/obj/structure/window/reinforced/corner
+	icon_state = "rwindow_corner"
+	density = FALSE
+
+/obj/structure/window/reinforced/corner/unanchored
+	anchored = FALSE
+
 /obj/structure/window/plasma
 	name = "plasma window"
 	desc = "A window made out of a plasma-silicate alloy. It looks insanely tough to break and burn through."
@@ -490,6 +507,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 /obj/structure/window/plasma/unanchored
 	anchored = FALSE
 
+/obj/structure/window/plasma/corner
+	icon_state = "plasmawindow_corner"
+	density = FALSE
+
+/obj/structure/window/plasma/corner/unanchored
+	anchored = FALSE
+
 /obj/structure/window/plasma/reinforced
 	name = "reinforced plasma window"
 	desc = "A window made out of a plasma-silicate alloy and a rod matrix. It looks hopelessly tough to break and is most likely nigh fireproof."
@@ -521,13 +545,25 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 /obj/structure/window/plasma/reinforced/unanchored
 	anchored = FALSE
 
+/obj/structure/window/plasma/reinforced/corner
+	icon_state = "plasmarwindow_corner"
+	density = FALSE
+
+/obj/structure/window/plasma/reinforced/corner/unanchored
+	anchored = FALSE
+
 /obj/structure/window/reinforced/tinted
 	name = "tinted window"
 	icon_state = "twindow" //what what, hon hon
 	opacity = TRUE
+
 /obj/structure/window/reinforced/tinted/frosted
 	name = "frosted window"
 	icon_state = "twindow"
+
+/obj/structure/window/reinforced/tinted/corner
+	icon_state = "twindow_corner"
+	density = FALSE
 
 /obj/structure/window/depleteduranium
 	name = "depleted uranium window"
@@ -560,6 +596,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	dir = NORTH
 
 /obj/structure/window/depleteduranium/unanchored
+	anchored = FALSE
+
+/obj/structure/window/depleteduranium/corner
+	icon_state = "duwindow_corner"
+	density = FALSE
+
+/obj/structure/window/depleteduranium/corner/unanchored
 	anchored = FALSE
 
 /* Full Tile Windows (more atom_integrity) */
@@ -596,6 +639,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 
 /obj/structure/window/depleteduranium/fulltile/unanchored
 	anchored = FALSE
+
+/obj/structure/window/depleteduranium/fulltile/debug
+	name = "unbreakable depleted uranium window"
+	max_integrity = INFINITY
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 /obj/structure/window/plasma/fulltile
 	icon = 'icons/obj/smooth_structures/windows/plasma_window.dmi'
@@ -847,4 +895,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	glass_amount = 2
 
 /obj/structure/window/bronze/fulltile/unanchored
+	anchored = FALSE
+
+/obj/structure/window/bronze/corner
+	icon_state = "clockwork_window_single_corner"
+	density = FALSE
+
+/obj/structure/window/bronze/corner/unanchored
 	anchored = FALSE

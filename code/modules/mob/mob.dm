@@ -29,6 +29,8 @@
 	remove_from_dead_mob_list()
 	remove_from_alive_mob_list()
 	remove_from_mob_suicide_list()
+	remove_from_disconnected_mob_list()
+
 	focus = null
 	if(length(progressbars))
 		stack_trace("[src] destroyed with elements in its progressbars list")
@@ -80,6 +82,7 @@
 			continue
 		var/datum/atom_hud/alternate_appearance/AA = v
 		AA.onNewMob(src)
+		
 	set_nutrition(rand(NUTRITION_LEVEL_START_MIN, NUTRITION_LEVEL_START_MAX))
 	. = ..()
 	update_config_movespeed()
@@ -522,22 +525,41 @@
   * [this byond forum post](https://secure.byond.com/forum/?post=1326139&page=2#comment8198716)
   * for why this isn't atom/verb/examine()
   */
-/mob/verb/examinate(atom/A as mob|obj|turf in view()) //It used to be oview(12), but I can't really say why
+/mob/verb/examinate(atom/examinify as mob|obj|turf in view()) //It used to be oview(12), but I can't really say why
 	set name = "Examine"
 	set category = "IC"
 
-	if(isturf(A) && !(sight & SEE_TURFS) && !(A in view(client ? client.view : world.view, src)))
+	if(isturf(examinify) && !(sight & SEE_TURFS) && !(examinify in view(client ? client.view : world.view, src)))
 		// shift-click catcher may issue examinate() calls for out-of-sight turfs
 		return
 
-	if(is_blind(src) && !blind_examine_check(A))
+	if(is_blind(src) && !blind_examine_check(examinify))
 		return
 
-	face_atom(A)
-	var/list/result = A.examine(src)
+	face_atom(examinify)
+	var/list/result
+	if(client)
+		LAZYINITLIST(client.recent_examines)
+		var/ref_to_atom = ref(examinify)
+		var/examine_time = client.recent_examines[ref_to_atom]
+		if(examine_time && (world.time - examine_time < EXAMINE_MORE_WINDOW))
+			result = examinify.examine_more(src)
+			if(!length(result))
+				result += span_notice("<i>You examine [examinify] closer, but find nothing of interest...</i>")
+		else
+			result = examinify.examine(src)
+			SEND_SIGNAL(src, COMSIG_MOB_EXAMINING, examinify, result)
+			client.recent_examines[ref_to_atom] = world.time // set to when we last normal examine'd them
+			addtimer(CALLBACK(src, PROC_REF(clear_from_recent_examines), ref_to_atom), RECENT_EXAMINE_MAX_WINDOW)
+	else
+		result = examinify.examine(src) // if a tree is examined but no client is there to see it, did the tree ever really exist?
 
-	to_chat(src, examine_block(jointext(result, "\n")))
-	SEND_SIGNAL(src, COMSIG_MOB_EXAMINATE, A)
+	if(result.len)
+		for(var/i in 1 to (length(result) - 1))
+			result[i] += "\n"
+
+	to_chat(src, examine_block("<span class='infoplain'>[result.Join()]</span>"))
+	SEND_SIGNAL(src, COMSIG_MOB_EXAMINATE, examinify)
 
 /mob/proc/blind_examine_check(atom/examined_thing)
 	return TRUE
@@ -569,7 +591,9 @@
 
 	/// how long it takes for the blind person to find the thing they're examining
 	var/examine_delay_length = rand(1 SECONDS, 2 SECONDS)
-	if(isobj(examined_thing))
+	if(client?.recent_examines && client?.recent_examines[ref(examined_thing)]) //easier to find things we just touched
+		examine_delay_length = 0.33 SECONDS
+	else if(isobj(examined_thing))
 		examine_delay_length *= 1.5
 	else if(ismob(examined_thing) && examined_thing != src)
 		examine_delay_length *= 2
@@ -585,6 +609,12 @@
 	examined_thing.attack_hand(src)
 	set_combat_mode(previous_combat_mode)
 	return TRUE
+
+/mob/proc/clear_from_recent_examines(ref_to_clear)
+	SIGNAL_HANDLER
+	if(!client)
+		return
+	LAZYREMOVE(client.recent_examines, ref_to_clear)
 
 /**
   * Called by using Activate Held Object with an empty hand/limb
@@ -637,6 +667,9 @@
 	set name = "Activate Held Object"
 	set category = "Object"
 	set src = usr
+
+	if(isnewplayer(src))
+		return
 
 	if(ismecha(loc))
 		return
@@ -694,6 +727,8 @@
 /mob/verb/abandon_mob()
 	set name = "Respawn"
 	set category = "OOC"
+	if(isnewplayer(src))
+		return
 	var/alert_yes
 
 	if (CONFIG_GET(flag/norespawn))
@@ -755,43 +790,6 @@
 	set name = ".dblclick"
 	set hidden = TRUE
 	set category = null
-	return
-/**
-  * Topic call back for any mob
-  *
-  * * Unset machines if "mach_close" sent
-  * * refresh the inventory of machines in range if "refresh" sent
-  * * handles the strip panel equip and unequip as well if "item" sent
-  */
-/mob/Topic(href, href_list)
-	if(href_list["mach_close"])
-		var/t1 = "window=[href_list["mach_close"]]"
-		unset_machine()
-		src << browse(null, t1)
-
-	if(href_list["item"] && usr.canUseTopic(src, BE_CLOSE, NO_DEXTERITY))
-		var/slot = text2num(href_list["item"])
-		var/hand_index = text2num(href_list["hand_index"])
-		var/obj/item/what
-		if(hand_index)
-			what = get_item_for_held_index(hand_index)
-			slot = list(slot,hand_index)
-		else
-			what = get_item_by_slot(slot)
-		if(what)
-			if(!(what.item_flags & ABSTRACT))
-				usr.stripPanelUnequip(what,src,slot)
-		else
-			usr.stripPanelEquip(what,src,slot)
-
-// The src mob is trying to strip an item from someone
-// Defined in living.dm
-/mob/proc/stripPanelUnequip(obj/item/what, mob/who)
-	return
-
-// The src mob is trying to place an item on someone
-// Defined in living.dm
-/mob/proc/stripPanelEquip(obj/item/what, mob/who)
 	return
 
 /**
@@ -1139,8 +1137,8 @@
 					break
 				search_id = 0
 
-		else if(search_pda && istype(A, /obj/item/modular_computer/tablet/pda))
-			var/obj/item/modular_computer/tablet/pda/PDA = A
+		else if(search_pda && istype(A, /obj/item/modular_computer/tablet))
+			var/obj/item/modular_computer/tablet/PDA = A
 			if(PDA.saved_identification == oldname)
 				PDA.saved_identification = newname
 				PDA.update_id_display()
@@ -1313,7 +1311,8 @@
 /mob/verb/open_language_menu_verb()
 	set name = "Open Language Menu"
 	set category = "IC"
-
+	if(isnewplayer(src))
+		return
 	get_language_holder().open_language_menu(usr)
 
 ///Adjust the nutrition of a mob

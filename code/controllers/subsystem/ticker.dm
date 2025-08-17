@@ -15,9 +15,6 @@ SUBSYSTEM_DEF(ticker)
 	var/start_immediately = FALSE
 	var/setup_done = FALSE //All game setup done including mode post setup and
 
-	var/hide_mode = FALSE
-	var/datum/game_mode/mode = null
-
 	var/login_music							//music played in pregame lobby
 	var/round_end_sound						//music/jingle played when the world reboots
 	var/round_end_sound_sent = TRUE			//If all clients have loaded it
@@ -40,13 +37,12 @@ SUBSYSTEM_DEF(ticker)
 
 	var/totalPlayers = 0					//used for pregame stats on statpanel
 	var/totalPlayersReady = 0				//used for pregame stats on statpanel
+	var/totalPlayersPreAuth = 0				//used for pregame stats on statpanel
 
 	var/queue_delay = 0
 	var/list/queued_players = list()		//used for join queues when the server exceeds the hard population cap
 
 	var/maprotatechecked = 0
-
-	var/list/datum/game_mode/runnable_modes //list of runnable gamemodes
 
 	var/news_report
 
@@ -61,15 +57,7 @@ SUBSYSTEM_DEF(ticker)
 	var/mode_result = "undefined"
 	var/end_state = "undefined"
 
-	//Gamemode setup
-	var/gamemode_hotswap_disabled = FALSE
-	var/pre_setup_completed = FALSE
-	var/fail_counter
-	var/emergency_start = FALSE
-
 /datum/controller/subsystem/ticker/Initialize()
-	load_mode()
-
 	var/list/byond_sound_formats = list(
 		"mid"  = TRUE,
 		"midi" = TRUE,
@@ -155,7 +143,7 @@ SUBSYSTEM_DEF(ticker)
 		if(GAME_STATE_STARTUP)
 			if(Master.initializations_finished_with_no_players_logged_in)
 				start_at = world.time + (CONFIG_GET(number/lobby_countdown) * 10)
-			for(var/client/C in GLOB.clients)
+			for(var/client/C in GLOB.clients_unsafe)
 				window_flash(C, ignorepref = TRUE) //let them know lobby has opened up.
 			to_chat(world, span_boldnotice("Welcome to [station_name()]!"))
 			send2chat(new /datum/tgs_message_content("New round starting on [SSmapping.config.map_name]!"), CONFIG_GET(string/chat_announce_new_game))
@@ -169,7 +157,11 @@ SUBSYSTEM_DEF(ticker)
 				timeLeft = max(0,start_at - world.time)
 			totalPlayers = 0
 			totalPlayersReady = 0
-			for(var/mob/dead/new_player/player in GLOB.player_list)
+			totalPlayersPreAuth = 0
+			for(var/mob/dead/new_player/pre_auth/player in GLOB.player_list)
+				++totalPlayersPreAuth
+				++totalPlayers
+			for(var/mob/dead/new_player/authenticated/player in GLOB.player_list)
 				++totalPlayers
 				if(player.ready == PLAYER_READY_TO_PLAY)
 					++totalPlayersReady
@@ -186,13 +178,6 @@ SUBSYSTEM_DEF(ticker)
 				send_tip_of_the_round()
 				tipped = TRUE
 
-			if(timeLeft <= 300 && !pre_setup_completed)
-				//Setup gamemode maps 30 seconds before roundstart.
-				if(!pre_setup())
-					fail_setup()
-					return
-				pre_setup_completed = TRUE
-
 			if(timeLeft <= 0)
 				current_state = GAME_STATE_SETTING_UP
 				Master.SetRunLevel(RUNLEVEL_SETUP)
@@ -200,125 +185,57 @@ SUBSYSTEM_DEF(ticker)
 					fire()
 
 		if(GAME_STATE_SETTING_UP)
-			if(!pre_setup_completed)
-				if(!pre_setup())
-					fail_setup()
-					return
-				else
-					message_admins("Pre-setup completed successfully, however was run late. Likely due to start-now or a bug.")
-					log_game("Pre-setup completed successfully, however was run late. Likely due to start-now or a bug.")
-					pre_setup_completed = TRUE
-			//Attempt normal setup
 			if(!setup())
-				fail_setup()
-			else
-				fail_counter = null
+				//setup failed
+				current_state = GAME_STATE_STARTUP
+				start_at = world.time + (CONFIG_GET(number/lobby_countdown) * 5)
+				timeLeft = null
+				Master.SetRunLevel(RUNLEVEL_LOBBY)
 
 		if(GAME_STATE_PLAYING)
-			mode.process(wait * 0.1)
+			SSdynamic.process_rulesets()
 			check_queue()
 			check_maprotate()
 
-			if(!roundend_check_paused && mode.check_finished(force_ending) || force_ending)
+			if(!roundend_check_paused && (check_finished() || force_ending))
 				current_state = GAME_STATE_FINISHED
 				toggle_ooc(TRUE) // Turn it on
 				toggle_dooc(TRUE)
 				declare_completion(force_ending)
 				Master.SetRunLevel(RUNLEVEL_POSTGAME)
 
-//Reverts the game to the lobby
-/datum/controller/subsystem/ticker/proc/fail_setup()
-	if(fail_counter >= 2)
-		log_game("Failed setting up [GLOB.master_mode] [fail_counter + 1] times, defaulting to extended.")
-		message_admins("Failed setting up [GLOB.master_mode] [fail_counter + 1] times, defaulting to extended.")
-		//This has failed enough, lets just get on with extended.
-		failsafe_pre_setup()
-		return
-	//Let's try this again.
-	fail_counter++
-	current_state = GAME_STATE_STARTUP
-	start_at = world.time + (CONFIG_GET(number/lobby_countdown) * 5)
-	timeLeft = null
-	Master.SetRunLevel(RUNLEVEL_LOBBY)
-	pre_setup_completed = FALSE
-	//Return to default mode
-	load_mode()
-	message_admins("Failed to setup. Failures: ([fail_counter] / 3).")
-	log_game("Setup failed.")
-
-//Fallback presetup that sets up extended.
-/datum/controller/subsystem/ticker/proc/failsafe_pre_setup()
-	//Emergerncy start extended.
-	emergency_start = TRUE
-	pre_setup_completed = TRUE
-	mode = config.pick_mode("extended")
-
-//Select gamemode and load any maps associated with it
-/datum/controller/subsystem/ticker/proc/pre_setup()
-	if(GLOB.master_mode == "random" || GLOB.master_mode == "secret")
-		runnable_modes = config.get_runnable_modes()
-
-		if(GLOB.master_mode == "secret" || GLOB.master_mode == "secret_extended")
-			hide_mode = TRUE
-			if(GLOB.secret_force_mode != "secret")
-				var/datum/game_mode/smode = config.pick_mode(GLOB.secret_force_mode)
-				if(!smode.can_start())
-					message_admins(span_notice("Unable to force secret [GLOB.secret_force_mode]. [smode.required_players] players and [smode.required_enemies] eligible antagonists needed."))
-				else
-					mode = smode
-
-		if(!mode)
-			if(!runnable_modes.len)
-				to_chat(world, "<B>Unable to choose playable game mode.</B> Reverting to pre-game lobby.")
-				return FALSE
-			mode = pick_weight(runnable_modes)
-			if(!mode)	//too few roundtypes all run too recently
-				mode = pick(runnable_modes)
-
-	else
-		mode = config.pick_mode(GLOB.master_mode)
-		if(!mode.can_start())
-			to_chat(world, "<B>Unable to start [mode.name].</B> Not enough players, [mode.required_players] players and [mode.required_enemies] eligible antagonists needed. Reverting to pre-game lobby.")
-			qdel(mode)
-			mode = null
-			SSjob.ResetOccupations()
-			return FALSE
-
-	return mode.setup_maps()
+/// Checks if the round should be ending, called every ticker tick
+/datum/controller/subsystem/ticker/proc/check_finished()
+	if(!setup_done)
+		return FALSE
+	if(SSshuttle.emergency && (SSshuttle.emergency.mode == SHUTTLE_ENDGAME))
+		return TRUE
+	if(GLOB.station_was_nuked)
+		return TRUE
+	return FALSE
 
 /datum/controller/subsystem/ticker/proc/setup()
-	message_admins("Setting up game.")
+	to_chat(world, span_boldannounce("Starting game..."))
 	var/init_start = world.timeofday
 
 	CHECK_TICK
-	//Configure mode and assign player to special mode stuff
-	var/can_continue = 0
-	mode.setup_antag_candidates()			//Re-calculate antag candidates in case anybody left
-	can_continue = src.mode.pre_setup()		//Choose antagonists
+	// Configure dynamic
+	var/can_continue = FALSE
+	can_continue = SSdynamic.select_roundstart_antagonists() //Choose antagonists
 	CHECK_TICK
-	can_continue = can_continue && SSjob.DivideOccupations(mode.required_jobs) 				//Distribute jobs
+	can_continue = can_continue && SSjob.DivideOccupations() //Distribute jobs
 	CHECK_TICK
 
-	to_chat(world, span_boldannounce("Starting game..."))
-	if(!GLOB.Debug2 && !emergency_start)
+	if(!GLOB.Debug2)
 		if(!can_continue)
-			log_game("[mode.name] failed pre_setup, cause: [mode.setup_error]")
-			QDEL_NULL(mode)
-			to_chat(world, "<B>Error setting up [GLOB.master_mode].</B> Reverting to pre-game lobby.")
+			log_game("Dynamic failed pre_setup")
+			to_chat(world, "<B>Error setting up dynamic.</B> Reverting to pre-game lobby.")
 			SSjob.ResetOccupations()
 			return FALSE
 	else
-		message_admins(span_notice("DEBUG: Bypassing prestart checks..."))
+		message_admins("DEBUG: Bypassing prestart checks...")
 
 	CHECK_TICK
-	if(hide_mode)
-		var/list/modes = new
-		for (var/datum/game_mode/M in runnable_modes)
-			modes += M.name
-		modes = sort_list(modes)
-		to_chat(world, "<b>The gamemode is: secret!\nPossibilities:</B> [english_list(modes)]")
-	else
-		mode.announce()
 
 	if(!CONFIG_GET(flag/ooc_during_round))
 		toggle_ooc(FALSE) // Turn it off
@@ -362,7 +279,7 @@ SUBSYSTEM_DEF(ticker)
 
 	// Store areas where lights need to stay on
 	var/list/lightup_area_typecache = list()
-	var/minimal_access = CONFIG_GET(flag/jobs_have_minimal_access)
+	var/minimal_access = SSjob.initial_players_to_assign < LOWPOP_JOB_LIMIT
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
 		var/role = player.mind?.assigned_role
 		if(!role)
@@ -382,22 +299,44 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/PostSetup()
 	set waitfor = FALSE
-	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_POST_START)
-	mode.post_setup()
+
+	// Execute dynamic rulesets
+	SSdynamic.post_setup()
+
+	// Send roundstart report
+	SScommunications.queue_roundstart_report()
+
+	// Handle database
+	if(SSdbcore.Connect())
+		var/list/to_set = list()
+		var/arguments = list()
+		if(GLOB.revdata.originmastercommit)
+			to_set += "commit_hash = :commit_hash"
+			arguments["commit_hash"] = GLOB.revdata.originmastercommit
+		if(to_set.len)
+			arguments["round_id"] = GLOB.round_id
+			var/datum/db_query/query_round_game_mode = SSdbcore.NewQuery(
+				"UPDATE [format_table_name("round")] SET [to_set.Join(", ")] WHERE id = :round_id",
+				arguments
+			)
+			query_round_game_mode.Execute()
+			qdel(query_round_game_mode)
+
 	GLOB.start_state = new /datum/station_state()
 	GLOB.start_state.count()
 
 	var/list/adm = get_admin_counts()
 	var/list/allmins = adm["present"]
-	send2tgs("Server", "Round [GLOB.round_id ? "#[GLOB.round_id]:" : "of"] [hide_mode ? "secret":"[mode.name]"] has started[allmins.len ? ".":" with no active admins online!"]")
+	send2tgs("Server", "Round [GLOB.round_id ? "#[GLOB.round_id]:" : ""] has started[allmins.len ? "." : " with no active admins online!"]")
 	setup_done = TRUE
 
-	for(var/i in GLOB.start_landmarks_list)
-		var/obj/effect/landmark/start/S = i
-		if(istype(S))							//we can not runtime here. not in this important of a proc.
+	for(var/obj/effect/landmark/start/S as anything in GLOB.start_landmarks_list)
+		if(istype(S)) //we can not runtime here. not in this important of a proc.
 			S.after_round_start()
 		else
 			stack_trace("[S] [S.type] found in start landmarks list, which isn't a start landmark!")
+
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_POST_START)
 
 //These callbacks will fire after roundstart key transfer
 /datum/controller/subsystem/ticker/proc/OnRoundstart(datum/callback/cb)
@@ -422,7 +361,7 @@ SUBSYSTEM_DEF(ticker)
 				M.gib(TRUE)
 
 /datum/controller/subsystem/ticker/proc/create_characters()
-	for(var/mob/dead/new_player/player in GLOB.player_list)
+	for(var/mob/dead/new_player/authenticated/player in GLOB.player_list)
 		if(player.ready == PLAYER_READY_TO_PLAY && player.mind)
 			GLOB.joined_player_list += player.ckey
 			player.create_character(FALSE)
@@ -431,7 +370,7 @@ SUBSYSTEM_DEF(ticker)
 		CHECK_TICK
 
 /datum/controller/subsystem/ticker/proc/collect_minds()
-	for(var/mob/dead/new_player/P in GLOB.player_list)
+	for(var/mob/dead/new_player/authenticated/P in GLOB.player_list)
 		if(P.new_character?.mind)
 			SSticker.minds += P.new_character.mind
 		CHECK_TICK
@@ -443,7 +382,7 @@ SUBSYSTEM_DEF(ticker)
 	var/list/spare_id_candidates = list()
 	var/enforce_coc = CONFIG_GET(flag/spare_enforce_coc)
 
-	for(var/mob/dead/new_player/N in GLOB.player_list)
+	for(var/mob/dead/new_player/authenticated/N in GLOB.player_list)
 		var/mob/living/carbon/human/player = N.new_character
 		var/datum/mind/mind = player?.mind
 		if(istype(player) && mind && mind.assigned_role)
@@ -469,7 +408,7 @@ SUBSYSTEM_DEF(ticker)
 		CHECK_TICK
 	if(length(spare_id_candidates))			//No captain, time to choose acting captain
 		if(!enforce_coc)
-			for(var/mob/dead/new_player/player in spare_id_candidates)
+			for(var/mob/dead/new_player/authenticated/player in spare_id_candidates)
 				SSjob.promote_to_captain(player, captainless)
 
 		else
@@ -479,7 +418,7 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/transfer_characters()
 	var/list/livings = list()
-	for(var/mob/dead/new_player/player in GLOB.mob_list)
+	for(var/mob/dead/new_player/authenticated/player in GLOB.mob_list)
 		var/mob/living = player.transfer_character()
 		if(living)
 			qdel(player)
@@ -517,7 +456,7 @@ SUBSYSTEM_DEF(ticker)
 	var/hpc = CONFIG_GET(number/hard_popcap)
 	if(!hpc)
 		list_clear_nulls(queued_players)
-		for (var/mob/dead/new_player/NP in queued_players)
+		for (var/mob/dead/new_player/authenticated/NP in queued_players)
 			to_chat(NP, span_userdanger("The alive players limit has been released!<br><a href='byond://?src=[REF(NP)];late_join=override'>[html_encode(">>Join Game<<")]</a>"))
 			SEND_SOUND(NP, sound('sound/misc/notice1.ogg'))
 			NP.LateChoices()
@@ -526,7 +465,7 @@ SUBSYSTEM_DEF(ticker)
 		return
 
 	queue_delay++
-	var/mob/dead/new_player/next_in_line = queued_players[1]
+	var/mob/dead/new_player/authenticated/next_in_line = queued_players[1]
 
 	switch(queue_delay)
 		if(5) //every 5 ticks check if there is a slot available
@@ -568,8 +507,6 @@ SUBSYSTEM_DEF(ticker)
 /datum/controller/subsystem/ticker/Recover()
 	current_state = SSticker.current_state
 	force_ending = SSticker.force_ending
-	hide_mode = SSticker.hide_mode
-	mode = SSticker.mode
 
 	login_music = SSticker.login_music
 	round_end_sound = SSticker.round_end_sound
@@ -586,6 +523,7 @@ SUBSYSTEM_DEF(ticker)
 
 	totalPlayers = SSticker.totalPlayers
 	totalPlayersReady = SSticker.totalPlayersReady
+	totalPlayersPreAuth = SSticker.totalPlayersPreAuth
 
 	queue_delay = SSticker.queue_delay
 	queued_players = SSticker.queued_players
@@ -656,6 +594,112 @@ SUBSYSTEM_DEF(ticker)
 			message_admins("Failed to send news report through crosscomms. The sending task expired.")
 			log_game("Failed to send news report through crosscomms. The sending task expired.")
 
+/datum/controller/subsystem/ticker/proc/generate_credit_text()
+	var/list/round_credits = list()
+	var/len_before_addition
+	var/custom_title_holder
+
+	// HEADS OF STAFF
+	round_credits += "<center><h1>The Glorious Command Staff:</h1>"
+	len_before_addition = round_credits.len
+	for(var/mob/player in GLOB.mob_list)
+		if(player.mind && (player.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)))
+			custom_title_holder = get_custom_title_from_id(player.mind, newline=TRUE)
+			round_credits += "<center><h2>[player] as the [player.mind.assigned_role][custom_title_holder]</h2>"
+	if(round_credits.len == len_before_addition)
+		round_credits += list("<center><h2>A serious bureaucratic error has occurred!</h2>", "<center><h2>No one was in charge of the crew!</h2>")
+	round_credits += "<br>"
+
+	// SILICONS
+	round_credits += "<center><h1>The Silicon \"Intelligences\":</h1>"
+	len_before_addition = round_credits.len
+	for(var/mob/living/silicon/player in GLOB.mob_list)
+		if(player.mind && (player.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SILICON)))
+			round_credits += "<center><h2>[player] as the [player.mind.assigned_role]</h2>"
+	if(round_credits.len == len_before_addition)
+		round_credits += list("<center><h2>[station_name()] had no silicon helpers!</h2>", "<center><h2>Not a single door was opened today!</h2>")
+	round_credits += "<br>"
+
+	// SECURITY
+	round_credits += "<center><h1>The Brave Security Officers:</h1>"
+	len_before_addition = round_credits.len
+	for(var/mob/player in GLOB.mob_list)
+		if(player.mind && (player.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY)))
+			custom_title_holder = get_custom_title_from_id(player.mind, newline=TRUE)
+			round_credits += "<center><h2>[player] as the [player.mind.assigned_role][custom_title_holder]</h2>"
+	if(round_credits.len == len_before_addition)
+		round_credits += list("<center><h2>[station_name()] has fallen to Communism!</h2>", "<center><h2>No one was there to protect the crew!</h2>")
+	round_credits += "<br>"
+
+	// MEDICAL
+	round_credits += "<center><h1>The Wise Medical Department:</h1>"
+	len_before_addition = round_credits.len
+	for(var/mob/player in GLOB.mob_list)
+		if(player.mind && (player.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_MEDICAL)))
+			custom_title_holder = get_custom_title_from_id(player.mind, newline=TRUE)
+			round_credits += "<center><h2>[player] as the [player.mind.assigned_role][custom_title_holder]</h2>"
+	if(round_credits.len == len_before_addition)
+		round_credits += list("<center><h2>Healthcare was not included!</h2>", "<center><h2>There were no doctors today!</h2>")
+	round_credits += "<br>"
+
+	// ENGINEERING
+	round_credits += "<center><h1>The Industrious Engineers:</h1>"
+	len_before_addition = round_credits.len
+	for(var/mob/player in GLOB.mob_list)
+		if(player.mind && (player.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_ENGINEERING)))
+			custom_title_holder = get_custom_title_from_id(player.mind, newline=TRUE)
+			round_credits += "<center><h2>[player] as the [player.mind.assigned_role][custom_title_holder]</h2>"
+	if(round_credits.len == len_before_addition)
+		round_credits += list("<center><h2>[station_name()] probably did not last long!</h2>", "<center><h2>No one was holding the station together!</h2>")
+	round_credits += "<br>"
+
+	// SCIENCE
+	round_credits += "<center><h1>The Inventive Science Employees:</h1>"
+	len_before_addition = round_credits.len
+	for(var/mob/player in GLOB.mob_list)
+		if(player.mind && (player.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SCIENCE)))
+			custom_title_holder = get_custom_title_from_id(player.mind, newline=TRUE)
+			round_credits += "<center><h2>[player] as the [player.mind.assigned_role][custom_title_holder]</h2>"
+	if(round_credits.len == len_before_addition)
+		round_credits += list("<center><h2>No one was doing \"science\" today!</h2>", "<center><h2>Everyone probably made it out alright, then!</h2>")
+	round_credits += "<br>"
+
+	// CARGO
+	round_credits += "<center><h1>The Rugged Cargo Crew:</h1>"
+	len_before_addition = round_credits.len
+	for(var/mob/player in GLOB.mob_list)
+		if(player.mind && (player.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_CARGO)))
+			custom_title_holder = get_custom_title_from_id(player.mind, newline=TRUE)
+			round_credits += "<center><h2>[player] as the [player.mind.assigned_role][custom_title_holder]</h2>"
+	if(round_credits.len == len_before_addition)
+		round_credits += list("<center><h2>The station was freed from paperwork!</h2>", "<center><h2>No one worked in cargo today!</h2>")
+	round_credits += "<br>"
+
+	// CIVILIANS
+	var/list/human_garbage = list()
+	round_credits += "<center><h1>The Hardy Civilians:</h1>"
+	len_before_addition = round_credits.len
+	for(var/mob/player in GLOB.mob_list) // gimmicks shouldn't be here, but let's not make the code dirty
+		if(player.mind && (player.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_CIVILIAN)))
+			if(player.mind.assigned_role == JOB_NAME_ASSISTANT)
+				human_garbage += player.mind
+			else
+				custom_title_holder = get_custom_title_from_id(player.mind, newline=TRUE)
+				round_credits += "<center><h2>[player] as the [player.mind.assigned_role][custom_title_holder]</h2>"
+	if(round_credits.len == len_before_addition)
+		round_credits += list("<center><h2>Everyone was stuck in traffic this morning!</h2>", "<center><h2>No civilians made it to work!</h2>")
+	round_credits += "<br>"
+
+	round_credits += "<center><h1>The Helpful Assistants:</h1>"
+	len_before_addition = round_credits.len
+	for(var/datum/mind/current in human_garbage)
+		custom_title_holder = get_custom_title_from_id(current, newline=TRUE)
+		round_credits += "<center><h2>[current.name][custom_title_holder]</h2>"
+	if(round_credits.len == len_before_addition)
+		round_credits += list("<center><h2>The station was free of <s>greytide</s> assistance!</h2>", "<center><h2>Not a single Assistant showed up on the station today!</h2>")
+
+	return round_credits
+
 /datum/controller/subsystem/ticker/proc/GetTimeLeft()
 	if(isnull(SSticker.timeLeft))
 		return max(0, start_at - world.time)
@@ -669,25 +713,16 @@ SUBSYSTEM_DEF(ticker)
 
 //Everyone who wanted to be an observer gets made one now
 /datum/controller/subsystem/ticker/proc/create_observers()
-	for(var/mob/dead/new_player/player in GLOB.player_list)
+	for(var/mob/dead/new_player/authenticated/player in GLOB.player_list)
 		if(player.ready == PLAYER_READY_TO_OBSERVE && player.mind)
 			//Break chain since this has a sleep input in it
-			addtimer(CALLBACK(player, TYPE_PROC_REF(/mob/dead/new_player, make_me_an_observer)), 1)
-
-/datum/controller/subsystem/ticker/proc/load_mode()
-	var/mode = CONFIG_GET(string/master_mode)
-	if(mode)
-		GLOB.master_mode = mode
-	else
-		GLOB.master_mode = "extended"
-	log_game("Master mode is '[GLOB.master_mode]'")
-	log_config("Master mode is '[GLOB.master_mode]'")
+			addtimer(CALLBACK(player, TYPE_PROC_REF(/mob/dead/new_player/authenticated, make_me_an_observer)), 1)
 
 /datum/controller/subsystem/ticker/proc/SetRoundEndSound(the_sound)
 	set waitfor = FALSE
 	round_end_sound_sent = FALSE
 	round_end_sound = fcopy_rsc(the_sound)
-	for(var/thing in GLOB.clients)
+	for(var/thing in GLOB.clients_unsafe)
 		var/client/C = thing
 		if (!C)
 			continue

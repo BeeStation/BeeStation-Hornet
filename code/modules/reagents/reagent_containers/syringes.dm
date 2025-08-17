@@ -32,10 +32,6 @@
 /obj/item/reagent_containers/syringe/attackby(obj/item/I, mob/user, params)
 	return
 
-/obj/item/reagent_containers/syringe/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
-	. = ..()
-	EXTRAPOLATOR_ACT_ADD_DISEASES(., syringe_diseases)
-
 /obj/item/reagent_containers/syringe/proc/transfer_diseases(mob/living/L)
 	for(var/datum/disease/D in syringe_diseases)
 		if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS))
@@ -295,7 +291,7 @@
 
 /obj/item/reagent_containers/syringe/piercing
 	name = "piercing syringe"
-	desc = "A diamond-tipped syringe that pierces armor. It can hold up to 10 units."
+	desc = "A diamond-tipped syringe that pierces clothing, but not heavy armor. It can hold up to 10 units."
 	icon_state = "piercing_0"
 	base_icon_state = "piercing"
 	volume = 10
@@ -312,3 +308,27 @@
 	volume = 5
 	fill_icon_state = "syringe_crude"
 	fill_icon_thresholds = list(5, 10, 15)
+
+/obj/item/reagent_containers/syringe/on_start_stripping(mob/source, mob/user, item_slot)
+	if(!iscarbon(user))
+		return FALSE
+
+	var/mob/living/carbon/carbon_user = user
+
+	if(item_slot == ITEM_SLOT_LPOCKET || item_slot == ITEM_SLOT_RPOCKET)
+		if(!carbon_user.gloves || !(carbon_user.gloves.clothing_flags & THICKMATERIAL))
+			finish_unequip_mob(src, source, user)
+			embed(user)
+			user.visible_message(span_danger("You see [user] yank their hand out of [source]'s pocket and scream in pain!"), span_userdanger("A syringe embeds itself in your hand!"))
+			user.emote("scream")
+			return TRUE
+	else
+		if(item_slot == ITEM_SLOT_ICLOTHING)
+			if((!carbon_user.gloves || !(carbon_user.gloves.clothing_flags & THICKMATERIAL)) || proj_piercing)
+				finish_unequip_mob(src, source, user)
+				embed(user)
+				user.visible_message(span_danger("You see [user] try to rip off [source]'s jumpsuit and scream in pain!"), span_userdanger("A syringe embeds itself in your hand!"))
+				user.emote("scream")
+				return TRUE
+
+	return FALSE

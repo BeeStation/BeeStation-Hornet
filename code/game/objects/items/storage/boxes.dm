@@ -807,6 +807,7 @@
 	item_state = "syringe_kit"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
+	w_class = WEIGHT_CLASS_NORMAL
 	foldable = /obj/item/stack/sheet/cardboard //BubbleWrap
 
 /obj/item/storage/box/lights/Initialize(mapload)
@@ -855,6 +856,15 @@
 /obj/item/storage/box/smart_metal_foam/PopulateContents()
 	for(var/i in 1 to 7)
 		new/obj/item/grenade/chem_grenade/smart_metal_foam(src)
+
+/obj/item/storage/box/oxycandle
+	name = "box of oxygen candles"
+	desc = "Used to repressurize areas during power emergencies."
+	illustration = "grenade"
+
+/obj/item/storage/box/oxycandle/PopulateContents()
+	for(var/i in 1 to 7)
+		new/obj/item/flashlight/oxycandle(src)
 
 /obj/item/storage/box/hug
 	name = "box of hugs"
@@ -961,145 +971,141 @@
 		new randomFigure(src)
 
 /obj/item/storage/box/ingredients //This box is for the randomely chosen version the chef spawns with, it shouldn't actually exist.
-	name = "ingredients box"
+	name = "ingredient box"
 	illustration = "fruit"
 	var/theme_name
+	var/list/possible_themes = list("wildcard", "fiesta", "italian", "vegetarian", "american", "fruity", "sweets", "delights", "grains", "carnivore", "exotic")
 
 /obj/item/storage/box/ingredients/Initialize(mapload)
 	. = ..()
-	if(theme_name)
-		name = "[name] ([theme_name])"
-		desc = "A box containing supplementary ingredients for the aspiring chef. The box's theme is '[theme_name]'."
-		item_state = "syringe_kit"
+	if(!theme_name)
+		theme_name = pick(possible_themes)
+		PopulateContents()
+	name = "[name] ([theme_name])"
+	desc = "A box containing supplementary ingredients for the aspiring chef. The box's theme is '[theme_name]'."
+	item_state = "syringe_kit"
+
+/obj/item/storage/box/ingredients/PopulateContents()
+	switch(theme_name)
+		if("wildcard")
+			var/list/randomfood = list(
+				/obj/item/food/grown/chili,
+				/obj/item/food/grown/tomato,
+				/obj/item/food/grown/carrot,
+				/obj/item/food/grown/potato,
+				/obj/item/food/grown/potato/sweet,
+				/obj/item/food/grown/apple,
+				/obj/item/food/chocolatebar,
+				/obj/item/food/grown/cherries,
+				/obj/item/food/grown/banana,
+				/obj/item/food/grown/cabbage,
+				/obj/item/food/grown/soybeans,
+				/obj/item/food/grown/corn,
+				/obj/item/food/grown/mushroom/plumphelmet,
+				/obj/item/food/grown/mushroom/chanterelle)
+			for(var/i in 1 to 7)
+				var/food = pick(randomfood)
+				new food(src)
+		if("fiesta")
+			new /obj/item/food/tortilla(src)
+			for(var/i in 1 to 2)
+				new /obj/item/food/grown/corn(src)
+				new /obj/item/food/grown/soybeans(src)
+				new /obj/item/food/grown/chili(src)
+		if("italian")
+			new /obj/item/reagent_containers/cup/glass/bottle/wine(src)
+			for(var/i in 1 to 3)
+				new /obj/item/food/grown/tomato(src)
+				new /obj/item/food/meatball(src)
+		if("vegetarian")
+			new /obj/item/food/grown/eggplant(src)
+			new /obj/item/food/grown/potato(src)
+			new /obj/item/food/grown/apple(src)
+			new /obj/item/food/grown/corn(src)
+			new /obj/item/food/grown/tomato(src)
+			for(var/i in 1 to 2)
+				new /obj/item/food/grown/carrot(src)
+		if("american")
+			new /obj/item/food/meatball(src)
+			for(var/i in 1 to 2)
+				new /obj/item/food/grown/potato(src)
+				new /obj/item/food/grown/tomato(src)
+				new /obj/item/food/grown/corn(src)
+		if("fruity")
+			new /obj/item/food/grown/citrus/lemon(src)
+			new /obj/item/food/grown/citrus/lime(src)
+			new /obj/item/food/grown/watermelon(src)
+			for(var/i in 1 to 2)
+				new /obj/item/food/grown/apple(src)
+				new /obj/item/food/grown/citrus/orange(src)
+		if("sweets")
+			new /obj/item/food/chocolatebar(src)
+			new /obj/item/food/grown/cocoapod(src)
+			new /obj/item/food/grown/apple(src)
+			for(var/i in 1 to 2)
+				new/obj/item/food/grown/cherries(src)
+				new /obj/item/food/grown/banana(src)
+		if("delights")
+			new /obj/item/food/grown/vanillapod(src)
+			new /obj/item/food/grown/cocoapod(src)
+			new /obj/item/food/grown/berries(src)
+			for(var/i in 1 to 2)
+				new /obj/item/food/grown/potato/sweet(src)
+				new /obj/item/food/grown/bluecherries(src)
+		if("grains")
+			new /obj/item/food/grown/wheat(src)
+			new /obj/item/food/grown/cocoapod(src)
+			new /obj/item/food/honeycomb(src)
+			new /obj/item/seeds/flower/poppy(src)
+			for(var/i in 1 to 3)
+				new /obj/item/food/grown/oat(src)
+		if("carnivore")
+			new /obj/item/food/meat/slab/bear(src)
+			new /obj/item/food/meat/slab/spider(src)
+			new /obj/item/food/spidereggs(src)
+			new /obj/item/food/fishmeat/carp(src)
+			new /obj/item/food/meat/slab/xeno(src)
+			new /obj/item/food/meat/slab/corgi(src)
+			new /obj/item/food/meatball(src)
+		if("exotic")
+			new /obj/item/food/grown/chili(src)
+			for(var/i in 1 to 2)
+				new /obj/item/food/fishmeat/carp(src)
+				new /obj/item/food/grown/soybeans(src)
+				new /obj/item/food/grown/cabbage(src)
 
 /obj/item/storage/box/ingredients/wildcard
 	theme_name = "wildcard"
 
-/obj/item/storage/box/ingredients/wildcard/PopulateContents()
-	for(var/i in 1 to 7)
-		var/randomFood = pick(
-			/obj/item/food/grown/chili,
-			/obj/item/food/grown/tomato,
-			/obj/item/food/grown/carrot,
-			/obj/item/food/grown/potato,
-			/obj/item/food/grown/potato/sweet,
-			/obj/item/food/grown/apple,
-			/obj/item/food/chocolatebar,
-			/obj/item/food/grown/cherries,
-			/obj/item/food/grown/banana,
-			/obj/item/food/grown/cabbage,
-			/obj/item/food/grown/soybeans,
-			/obj/item/food/grown/corn,
-			/obj/item/food/grown/mushroom/plumphelmet,
-			/obj/item/food/grown/mushroom/chanterelle,)
-		new randomFood(src)
-
 /obj/item/storage/box/ingredients/fiesta
 	theme_name = "fiesta"
-
-/obj/item/storage/box/ingredients/fiesta/PopulateContents()
-	new /obj/item/food/tortilla(src)
-	for(var/i in 1 to 2)
-		new /obj/item/food/grown/corn(src)
-		new /obj/item/food/grown/soybeans(src)
-		new /obj/item/food/grown/chili(src)
 
 /obj/item/storage/box/ingredients/italian
 	theme_name = "italian"
 
-/obj/item/storage/box/ingredients/italian/PopulateContents()
-	for(var/i in 1 to 3)
-		new /obj/item/food/grown/tomato(src)
-		new /obj/item/food/meatball(src)
-	new /obj/item/reagent_containers/cup/glass/bottle/wine(src)
-
 /obj/item/storage/box/ingredients/vegetarian
 	theme_name = "vegetarian"
-
-/obj/item/storage/box/ingredients/vegetarian/PopulateContents()
-	for(var/i in 1 to 2)
-		new /obj/item/food/grown/carrot(src)
-	new /obj/item/food/grown/eggplant(src)
-	new /obj/item/food/grown/potato(src)
-	new /obj/item/food/grown/apple(src)
-	new /obj/item/food/grown/corn(src)
-	new /obj/item/food/grown/tomato(src)
 
 /obj/item/storage/box/ingredients/american
 	theme_name = "american"
 
-/obj/item/storage/box/ingredients/american/PopulateContents()
-	for(var/i in 1 to 2)
-		new /obj/item/food/grown/potato(src)
-		new /obj/item/food/grown/tomato(src)
-		new /obj/item/food/grown/corn(src)
-	new /obj/item/food/meatball(src)
-
 /obj/item/storage/box/ingredients/fruity
 	theme_name = "fruity"
-
-/obj/item/storage/box/ingredients/fruity/PopulateContents()
-	for(var/i in 1 to 2)
-		new /obj/item/food/grown/apple(src)
-		new /obj/item/food/grown/citrus/orange(src)
-	new /obj/item/food/grown/citrus/lemon(src)
-	new /obj/item/food/grown/citrus/lime(src)
-	new /obj/item/food/grown/watermelon(src)
 
 /obj/item/storage/box/ingredients/sweets
 	theme_name = "sweets"
 
-/obj/item/storage/box/ingredients/sweets/PopulateContents()
-	for(var/i in 1 to 2)
-		new/obj/item/food/grown/cherries(src)
-		new /obj/item/food/grown/banana(src)
-	new /obj/item/food/chocolatebar(src)
-	new /obj/item/food/grown/cocoapod(src)
-	new /obj/item/food/grown/apple(src)
-
 /obj/item/storage/box/ingredients/delights
 	theme_name = "delights"
-
-/obj/item/storage/box/ingredients/delights/PopulateContents()
-	for(var/i in 1 to 2)
-		new /obj/item/food/grown/potato/sweet(src)
-		new /obj/item/food/grown/bluecherries(src)
-	new /obj/item/food/grown/vanillapod(src)
-	new /obj/item/food/grown/cocoapod(src)
-	new /obj/item/food/grown/berries(src)
 
 /obj/item/storage/box/ingredients/grains
 	theme_name = "grains"
 
-/obj/item/storage/box/ingredients/grains/PopulateContents()
-	for(var/i in 1 to 3)
-		new /obj/item/food/grown/oat(src)
-	new /obj/item/food/grown/wheat(src)
-	new /obj/item/food/grown/cocoapod(src)
-	new /obj/item/reagent_containers/cup/glass/honeycomb(src)
-	new /obj/item/seeds/flower/poppy(src)
-
 /obj/item/storage/box/ingredients/carnivore
 	theme_name = "carnivore"
 
-/obj/item/storage/box/ingredients/carnivore/PopulateContents()
-	new /obj/item/food/meat/slab/bear(src)
-	new /obj/item/food/meat/slab/spider(src)
-	new /obj/item/food/spidereggs(src)
-	new /obj/item/food/fishmeat/carp(src)
-	new /obj/item/food/meat/slab/xeno(src)
-	new /obj/item/food/meat/slab/corgi(src)
-	new /obj/item/food/meatball(src)
-
 /obj/item/storage/box/ingredients/exotic
 	theme_name = "exotic"
-
-/obj/item/storage/box/ingredients/exotic/PopulateContents()
-	for(var/i in 1 to 2)
-		new /obj/item/food/fishmeat/carp(src)
-		new /obj/item/food/grown/soybeans(src)
-		new /obj/item/food/grown/cabbage(src)
-	new /obj/item/food/grown/chili(src)
 
 /obj/item/storage/box/emptysandbags
 	name = "box of empty sandbags"
@@ -1318,6 +1324,57 @@
 	new /obj/item/encryptionkey/heads/cmo/fake(src)
 	new /obj/item/encryptionkey/heads/hop/fake(src)
 
+//TABLET COLORIZER BOX
+/obj/item/storage/box/tabletcolorizer
+	name = "colorizer box"
+	desc = "A box full of Tablet Colorizers. Unleash your inner child and play around with a vast array of colors!"
+	icon_state = "tabletcbox"
+	custom_price = PAYCHECK_MEDIUM * 4
+
+/obj/item/storage/box/tabletcolorizer/PopulateContents()
+	new /obj/item/colorizer/tablet(src)
+	new /obj/item/colorizer/tablet/pink(src)
+	new /obj/item/colorizer/tablet/sand(src)
+	new /obj/item/colorizer/tablet/green(src)
+	new /obj/item/colorizer/tablet/olive(src)
+	new /obj/item/colorizer/tablet/teal(src)
+	new /obj/item/colorizer/tablet/purple(src)
+	new /obj/item/colorizer/tablet/black(src)
+	new /obj/item/colorizer/tablet/white(src)
+
+/obj/item/storage/box/tablet4dummies
+	name = "'Tablets For Dummies'"
+	desc = "First Edition 'Tablets for Dummies' kit. Complete with body, components, and instructions for assembly."
+	icon_state = "radiobox"
+	custom_price = 150
+
+/obj/item/storage/box/tablet4dummies/PopulateContents()
+	new /obj/item/modular_computer/tablet(src)
+	new /obj/item/computer_hardware/battery(src)
+	new /obj/item/stock_parts/cell/computer/nano(src)
+	new /obj/item/computer_hardware/processor_unit/small(src)
+	new /obj/item/computer_hardware/hard_drive/micro(src)
+	new /obj/item/computer_hardware/identifier(src)
+	new /obj/item/computer_hardware/network_card(src)
+	new /obj/item/computer_hardware/card_slot(src)
+	new /obj/item/screwdriver(src)
+	new /obj/item/paper/tablet_guide(src)
+
+/obj/item/storage/box/hacking4dummies
+	name = "'Hacking For Dummies'"
+	desc = "Hacking for Dummies kit, made by the HELLRAISER Crack team. Meant to teach you how to stick it to the man! (metaphorically)."
+	icon_state = "syndiebox"
+	illustration = "disk_kit"
+	custom_price = 200
+
+/obj/item/storage/box/hacking4dummies/PopulateContents()
+	new /obj/item/screwdriver(src)
+	new /obj/item/multitool(src)
+	new /obj/item/computer_hardware/hard_drive/portable(src)
+	new /obj/item/computer_hardware/hard_drive/portable/advanced(src)
+	new /obj/item/computer_hardware/hard_drive/portable/super(src)
+	new /obj/item/paper/manualhacking_guide(src)
+
 /obj/item/storage/box/locker
 	name = "locker box"
 	desc = "A solution to locker clutter. A box. Science's best achievement."
@@ -1326,18 +1383,33 @@
 /obj/item/storage/box/locker/security
 	name = "security locker box"
 	icon_state = "secbox"
+/obj/item/storage/box/stabilized //every single stabilized extract from xenobiology
+	name = "box of stabilized extracts"
+	icon_state = "syndiebox"
 
-/obj/item/storage/box/locker/security/detective
-	name = "detective essentials"
-	desc = "The necessary equipment for any detective!"
-	illustration = "fpen"
-
-/obj/item/storage/box/locker/security/detective/PopulateContents()
-	new /obj/item/camera/detective(src)
-	new /obj/item/taperecorder(src)
-	new /obj/item/pinpointer/crew(src)
-	new /obj/item/binoculars(src)
-	new /obj/item/detective_scanner(src)
-	new /obj/item/flashlight/seclite(src)
-	new /obj/item/holosign_creator/security(src)
-	new /obj/item/reagent_containers/peppercloud_deployer(src)
+/obj/item/storage/box/stabilized/PopulateContents()
+	var/static/items_inside = list(
+		/obj/item/slimecross/stabilized/grey=1,\
+		/obj/item/slimecross/stabilized/orange=1,\
+		/obj/item/slimecross/stabilized/purple=1,\
+		/obj/item/slimecross/stabilized/blue=1,\
+		/obj/item/slimecross/stabilized/metal=1,\
+		/obj/item/slimecross/stabilized/yellow=1,\
+		/obj/item/slimecross/stabilized/darkpurple=1,\
+		/obj/item/slimecross/stabilized/darkblue=1,\
+		/obj/item/slimecross/stabilized/silver=1,\
+		/obj/item/slimecross/stabilized/bluespace=1,\
+		/obj/item/slimecross/stabilized/sepia=1,\
+		/obj/item/slimecross/stabilized/cerulean=1,\
+		/obj/item/slimecross/stabilized/pyrite=1,\
+		/obj/item/slimecross/stabilized/red=1,\
+		/obj/item/slimecross/stabilized/green=1,\
+		/obj/item/slimecross/stabilized/pink=1,\
+		/obj/item/slimecross/stabilized/gold=1,\
+		/obj/item/slimecross/stabilized/oil=1,\
+		/obj/item/slimecross/stabilized/black=1,\
+		/obj/item/slimecross/stabilized/lightpink=1,\
+		/obj/item/slimecross/stabilized/adamantine=1,\
+		/obj/item/slimecross/stabilized/rainbow=1,\
+		)
+	generate_items_inside(items_inside,src)

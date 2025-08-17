@@ -313,8 +313,7 @@
 				return adjusted
 			for(var/zone in list(BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)) // ugly check to make sure we don't reenable protection on a disabled part
 				if(damage_by_parts[zone] > limb_integrity)
-					for(var/part in body_zone2cover_flags(zone))
-						body_parts_covered &= part
+					body_parts_covered &= body_zone2cover_flags(zone)
 	return adjusted
 
 /obj/item/clothing/under/rank
@@ -387,3 +386,19 @@
 	//Finished!
 	monkey_icon = base
 	GLOB.monkey_icon_cache[identity] = icon(monkey_icon) //Don't create a reference to monkey icon
+
+/obj/item/clothing/under/on_start_stripping(mob/source, mob/user, item_slot)
+	if(!iscarbon(user))
+		return FALSE
+
+	var/mob/living/carbon/source_pocket = source
+	var/obj/item/pocket_item = source_pocket.get_item_by_slot(ITEM_SLOT_LPOCKET)
+
+	if(pocket_item && pocket_item.on_start_stripping(source, user, ITEM_SLOT_ICLOTHING))
+		return TRUE
+
+	pocket_item = source_pocket.get_item_by_slot(ITEM_SLOT_RPOCKET)
+	if(pocket_item && pocket_item.on_start_stripping(source, user, ITEM_SLOT_ICLOTHING))
+		return TRUE
+
+	return FALSE

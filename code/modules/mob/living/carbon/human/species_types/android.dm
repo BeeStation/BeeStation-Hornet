@@ -1,18 +1,25 @@
 /datum/species/android
 	name = "Android"
-	id = "android"
+	id = SPECIES_ANDROID
 	species_traits = list(
-		NOTRANSSTING,
 		NOREAGENTS,
-		NO_DNA_COPY,
 		NOFLASH
 	)
 	inherent_traits = list(
+		TRAIT_GENELESS,
 		TRAIT_NOMETABOLISM,
 		TRAIT_TOXIMMUNE,
 		TRAIT_RESISTHEAT,
 		TRAIT_NOBREATH,
+		TRAIT_NOCLONELOSS,
+		TRAIT_NOFIRE,
+		TRAIT_NOHUNGER,
+		TRAIT_NO_DNA_COPY,
+		TRAIT_NO_TRANSFORMATION_STING,
+		TRAIT_RADIMMUNE,
+		TRAIT_PIERCEIMMUNE,
 		TRAIT_RESISTCOLD,
+		TRAIT_RESISTHEAT,
 		TRAIT_RESISTHIGHPRESSURE,
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_RADIMMUNE,
@@ -25,7 +32,6 @@
 	)
 	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
 	meat = null
-	damage_overlay_type = "synth"
 	mutanttongue = /obj/item/organ/tongue/robot
 	mutantstomach = null
 	mutantheart = null
@@ -37,20 +43,21 @@
 	attack_sound = 'sound/items/trayhit1.ogg'
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 
+	bodypart_overrides = list(
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/robot/android,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/robot/android,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/robot/android,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/robot/android,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/robot/android,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/robot/android,
+	)
+	examine_limb_id = SPECIES_HUMAN
+
 /datum/species/android/on_species_gain(mob/living/carbon/C)
 	. = ..()
 	ADD_TRAIT(C, TRAIT_XENO_IMMUNE, "xeno immune")
-	for(var/X in C.bodyparts)
-		var/obj/item/bodypart/O = X
-		O.change_bodypart_status(BODYTYPE_ROBOTIC, FALSE, TRUE)
-		O.brute_reduction = 5
-		O.burn_reduction = 4
+	C.set_safe_hunger_level()
 
 /datum/species/android/on_species_loss(mob/living/carbon/C)
 	. = ..()
 	REMOVE_TRAIT(C, TRAIT_XENO_IMMUNE, "xeno immune")
-	for(var/X in C.bodyparts)
-		var/obj/item/bodypart/O = X
-		O.change_bodypart_status(BODYTYPE_ORGANIC,FALSE, TRUE)
-		O.brute_reduction = initial(O.brute_reduction)
-		O.burn_reduction = initial(O.burn_reduction)

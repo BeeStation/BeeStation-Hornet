@@ -65,11 +65,33 @@
 #define MC_NET "NET"
 #define MC_PRINT "PRINT"
 #define MC_CELL "CELL"
-#define MC_CHARGE "CHARGE"
+#define MC_CHARGER "CHARGER"
 #define MC_AI "AI"
 #define MC_SENSORS "SENSORS"
 #define MC_SIGNALLER "SIGNALER"
 #define MC_IDENTIFY "IDENTIFY"
+#define MC_CAMERA "CAMERA"
+
+//Chance Defines
+#define MC_PART_DROP_CHANCE 50
+
+//Trojan defines
+#define BREACHER "BREACHER"
+#define SLEDGE "SLEDGE"
+
+// Antivirus Defines
+#define ANTIVIRUS_NONE 0
+#define ANTIVIRUS_BASIC 1
+#define ANTIVIRUS_MEDIUM 2
+#define ANTIVIRUS_GOOD 3
+#define ANTIVIRUS_BEST 4
+
+// Part tier defines (now used for battery sizes)
+#define PART_TIER_1 1
+#define PART_TIER_2 2
+#define PART_TIER_3 3
+#define PART_TIER_4 4
+#define PART_TIER_5 5
 
 //! ## NTNet stuff, for modular computers
 //!  **NTNet module-configuration values. Do not change these. If you need to add another use larger number (5..6..7 etc)**
@@ -77,6 +99,13 @@
 #define NTNET_PEERTOPEER 2			//! P2P transfers of files between devices
 #define NTNET_COMMUNICATION 3		//! Communication (messaging)
 #define NTNET_SYSTEMCONTROL 4		//! Control of various systems, RCon, air alarm control, etc.
+
+// Types of Signal for Network Card Components!
+#define	SIGNAL_NO 0
+#define SIGNAL_LOW 1
+#define SIGNAL_HIGH 2
+#define SIGNAL_NO_RELAY 3
+#define SIGNAL_HACKED 4
 
 //! **NTNet transfer speeds, used when downloading/uploading a file/program.**
 #define NTNETSPEED_LOWSIGNAL 0.5	//! GQ/s transfer speed when the device is wirelessly connected and on Low signal
@@ -86,16 +115,6 @@
 // Caps for NTNet logging. Less than 10 would make logging useless anyway, more than 500 may make the log browser too laggy. Defaults to 100 unless user changes it.
 #define MAX_NTNET_LOGS 300
 #define MIN_NTNET_LOGS 10
-
-//Program bitflags
-///Runs on everything.
-#define PROGRAM_ALL ALL
-///Can run on Modular PC Consoles
-#define PROGRAM_CONSOLE (1<<0)
-///Can run on Laptops.
-#define PROGRAM_LAPTOP (1<<1)
-///Can run on PDAs.
-#define PROGRAM_PDA (1<<2)
 
 //Program states
 #define PROGRAM_STATE_KILLED 0

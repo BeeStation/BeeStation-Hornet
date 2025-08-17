@@ -129,7 +129,7 @@ Metals Sheets
 	qdel(src)
 
 /obj/item/stack/sheet/brass/attack_self(mob/living/user)
-	if(!is_servant_of_ratvar(user))
+	if(!IS_SERVANT_OF_RATVAR(user))
 		to_chat(user, span_danger("[src] seems far too brittle to build with.")) //haha that's because it's actually replicant alloy you DUMMY << WOAH TOOO FAR! << :^)
 	else
 		return ..()
@@ -147,7 +147,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/sheet/brass)
 /* Bronze - the non cult one */
 
 /obj/item/stack/sheet/bronze
-	name = "brass"
+	name = "bronze"
 	desc = "On closer inspection, what appears to be wholly-unsuitable-for-building brass is actually more structurally stable bronze."
 	singular_name = "bronze sheet"
 	icon_state = "sheet-brass"
@@ -161,9 +161,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/sheet/brass)
 	grind_results = list(/datum/reagent/iron = 5, /datum/reagent/copper = 3) //we have no "tin" reagent so this is the closest thing
 	merge_type = /obj/item/stack/sheet/bronze
 	tableVariant = /obj/structure/table/bronze
+	walltype = /turf/closed/wall/mineral/bronze
+	has_unique_girder = TRUE
 
 /obj/item/stack/sheet/bronze/attack_self(mob/living/user)
-	if(is_servant_of_ratvar(user))
+	if(IS_SERVANT_OF_RATVAR(user))
 		to_chat(user, span_danger("Wha... what is this cheap imitation crap? This isn't brass at all!"))
 	else
 		return ..()

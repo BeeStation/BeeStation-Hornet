@@ -39,7 +39,6 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			list("Show last [length(GLOB.lastsignalers)] signalers", "list_signalers"),
 			list("Show last [length(GLOB.lawchanges)] law changes", "list_lawchanges"),
 			list("Show AI Laws", "showailaws"),
-			list("Show Game Mode", "showgm"),
 			list("Show Crew Manifest", "manifest"),
 			list("List DNA (Blood)", "DNA"),
 			list("List Fingerprints", "fingerprints"),
@@ -138,7 +137,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 		if("tdomereset")
 			if(!check_rights(R_ADMIN))
 				return
-			var/delete_mobs = alert("Clear all mobs?","Confirm","Yes","No","Cancel")
+			var/delete_mobs = tgui_alert(usr, "Clear all mobs?","Confirm",list("Yes","No","Cancel"))
 			if(delete_mobs == "Cancel" || !delete_mobs)
 				return
 
@@ -157,16 +156,13 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			template.copy_contents_to(thunderdome)
 
 		if("clear_virus")
-
-			var/choice = input("Are you sure you want to remove all disease?") in list("Yes", "Cancel")
-			if(choice == "Yes")
-				message_admins("[key_name_admin(usr)] has cured all diseases.")
+			if(tgui_alert(usr, "Are you sure you want to remove all disease?", "", list("Yes", "Cancel")) == "Yes")
+				message_admins("[key_name_admin(usr)] has removed all diseases.")
 				for(var/thing in SSdisease.active_diseases)
 					var/datum/disease/D = thing
 					D.cure(0)
 		if("delete_virus")
-			var/choice = input("Are you sure you want to vaccinate all disease?") in list("Yes", "Cancel")
-			if(choice == "Yes")
+			if(tgui_alert(usr, "Are you sure you want to vaccinate all disease?", "", list("Yes", "Cancel")) == "Yes")
 				message_admins("[key_name_admin(usr)] has cured all diseases.")
 				for(var/thing in SSdisease.active_diseases)
 					var/datum/disease/D = thing
@@ -174,8 +170,9 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 		if("set_name")
 			if(!check_rights(R_ADMIN))
 				return
-			var/new_name = capped_input(usr, "Please input a new name for the station.", "What?")
+			var/new_name = tgui_input_text(usr, "Please input a new name for the station.")
 			if(!new_name)
+				to_chat(usr, span_warning("No name given."))
 				return
 			set_station_name(new_name)
 			log_admin("[key_name(usr)] renamed the station to \"[new_name]\".")
@@ -184,7 +181,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 		if("night_shift_set")
 			if(!check_rights(R_ADMIN))
 				return
-			var/val = alert(usr, "What do you want to set night shift to? This will override the automatic system until set to automatic again.", "Night Shift", "On", "Off", "Automatic")
+			var/val = tgui_alert(usr, "What do you want to set night shift to? This will override the automatic system until set to automatic again.", "Night Shift", list("On", "Off", "Automatic"))
 			switch(val)
 				if("Automatic")
 					if(CONFIG_GET(flag/enable_night_shifts))
@@ -201,11 +198,11 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 		if("all_light_toggle")
 			if(!check_rights(R_ADMIN))
 				return
-			var/val = alert(usr, "Do you want to turn all lights on or off?", "Light Manipulation", "On", "Off", "Cancel")
+			var/val = tgui_alert(usr, "Do you want to turn all lights on or off?", "Light Manipulation", list("On", "Off", "Cancel"))
 			var/set_to = null
+			if(val == "Cancel" || !val)
+				return
 			switch(val)
-				if("Cancel")
-					return
 				if("On")
 					set_to = TRUE
 				if("Off")
@@ -292,14 +289,6 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			if(!check_rights(R_ADMIN))
 				return
 			admin_datum.output_ai_laws()
-		if("showgm")
-			if(!check_rights(R_ADMIN))
-				return
-			if(!SSticker.HasRoundStarted())
-				alert("The game hasn't started yet!")
-			else if (SSticker.mode)
-				alert("The game mode is [SSticker.mode.name]")
-			else alert("For some reason there's a SSticker, but not a game mode")
 		if("manifest")
 			if(!check_rights(R_ADMIN))
 				return
@@ -389,21 +378,19 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			if(!check_rights(R_FUN))
 				return
 			if(!SSticker.HasRoundStarted())
-				alert("The game hasn't started yet!")
+				tgui_alert(usr, "The game hasn't started yet!")
 				return
 			if(!GLOB.admin_objective_list)
 				generate_admin_objective_list()
 			if(!GLOB.admin_antag_list)
 				generate_admin_antag_list()
 			//Get Antag Type
-			var/default_antag
-			var/selected_antag = input("Select antag type:", "Antag type", default_antag) as null|anything in GLOB.admin_antag_list
+			var/selected_antag = tgui_input_list(usr, "Select antag type:", "Antag type", GLOB.admin_antag_list)
 			selected_antag = GLOB.admin_antag_list[selected_antag]
 			if(!selected_antag)
 				return
 			//Get Objective
-			var/def_value
-			var/selected_type = input("Select objective type:", "Objective type", def_value) as null|anything in GLOB.admin_objective_list
+			var/selected_type = tgui_input_list(usr, "Select objective type (make sure it's compatible with the selected antag type):", "Objective type", GLOB.admin_objective_list)
 			selected_type = GLOB.admin_objective_list[selected_type]
 			if(!selected_type)
 				return
@@ -411,12 +398,9 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			var/datum/objective/new_objective = objective_explanation
 			new_objective.admin_edit(usr)
 			//Get Percentage
-			var/def_percentage
-			var/selected_percentage = input("Percentage of crew to convert (0-100):", "Antag Percentage", def_percentage) as num|null
+			var/selected_percentage = tgui_input_number(usr, "Percentage of crew to convert (percentage):", "Antag Percentage", 0, 100)
 			if(!selected_percentage)
 				return
-			selected_percentage = selected_percentage > 100 ? 100 : selected_percentage
-			selected_percentage = selected_percentage < 0 ? 0 : selected_percentage
 			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Mass Antag", "[objective_explanation]"))
 			//Pick antags
 			var/list/choices = list()
@@ -459,8 +443,12 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				return
 			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Bomb Cap"))
 
-			var/newBombCap = input(usr,"What would you like the new bomb cap to be? (entered as the light damage range (the 3rd number in common (1,2,3) notation)) Must be above 4)", "New Bomb Cap", GLOB.MAX_EX_LIGHT_RANGE) as num|null
+			var/newBombCap = tgui_input_number(usr, "What would you like the new bomb cap to be? (Entered as the light damage range (the 3rd number in common (1,2,3) notation))", "New Bomb Cap", GLOB.MAX_EX_LIGHT_RANGE, 10000, 4)
+			if (newBombCap > 256)
+				if(tgui_alert(usr, "The value you picked is over 256 (Z-levels are 256 tiles wide). Are you sure about this?", "Bomb Cap", list("Yes", "Cancel")) == "Cancel") // Do you want cuban petes? This is how you get cuban petes.
+					return
 			if (!CONFIG_SET(number/bombcap, newBombCap))
+				to_chat(usr, span_warning("New bomb cap not set."))
 				return
 
 			message_admins(span_boldannounce("[key_name_admin(usr)] changed the bomb cap to [GLOB.MAX_EX_DEVESTATION_RANGE], [GLOB.MAX_EX_HEAVY_RANGE], [GLOB.MAX_EX_LIGHT_RANGE]"))
@@ -477,11 +465,11 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 		if("anime")
 			if(!check_rights(R_FUN))
 				return
-			var/animetype = alert("Would you like to have the clothes be changed?",,"Yes","No","Cancel")
+			var/animetype = tgui_alert(usr, "Would you like to have the clothes be changed?", "", list("Yes","No","Cancel"))
 
 			var/droptype
 			if(animetype =="Yes")
-				droptype = alert("Make the uniforms undroppable?",,"Yes","No","Cancel")
+				droptype = tgui_alert(usr, "Make the uniforms undroppable?","",list("Yes","No","Cancel"))
 
 			if(animetype == "Cancel" || droptype == "Cancel" || !animetype || (!droptype && animetype == "Yes"))
 				return
@@ -529,13 +517,16 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			if(!check_rights(R_FUN))
 				return
 			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Virus Outbreak"))
-			switch(alert("Do you want this to be a random disease or do you have something in mind?",,"Make Your Own","Random","Choose"))
+			switch(tgui_alert(usr, "Do you want this to be a random disease or do you have something in mind?", "",list("Make Your Own","Random","Choose")))
 				if("Make Your Own")
 					AdminCreateVirus(usr.client)
 				if("Random")
 					E = new /datum/round_event/disease_outbreak()
 				if("Choose")
-					var/virus = input("Choose the virus to spread", "BIOHAZARD") as null|anything in sort_list(typesof(/datum/disease, GLOBAL_PROC_REF(cmp_typepaths_asc)))
+					var/virus = tgui_input_list(usr, "Choose the virus to spread", "BIOHAZARD", sort_list(typesof(/datum/disease, GLOBAL_PROC_REF(cmp_typepaths_asc))))
+					if (!virus)
+						to_chat(usr, span_warning("No virus selected."))
+						return
 					E = new /datum/round_event/disease_outbreak{}()
 					var/datum/round_event/disease_outbreak/DO = E
 					DO.virus_type = virus
@@ -590,8 +581,8 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				return
 			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Summon Guns"))
 			var/survivor_probability = 0
-			switch(alert("Do you want this to create survivors antagonists?",,"No Antags","Some Antags","All Antags!"))
-				if("Some Antags")
+			switch(tgui_alert(usr, "Do you want this to create survivors antagonists?", "", list("No Antags","Some Antags (25%)","All Antags!")))
+				if("Some Antags (25%)")
 					survivor_probability = 25
 				if("All Antags!")
 					survivor_probability = 100
@@ -603,8 +594,8 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				return
 			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Summon Magic"))
 			var/survivor_probability = 0
-			switch(alert("Do you want this to create survivors antagonists?",,"No Antags","Some Antags","All Antags!"))
-				if("Some Antags")
+			switch(tgui_alert(usr, "Do you want this to create survivors antagonists?", "", list("No Antags","Some Antags (25%)","All Antags!")))
+				if("Some Antags (25%)")
 					survivor_probability = 25
 				if("All Antags!")
 					survivor_probability = 100
@@ -615,12 +606,12 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			if(!check_rights(R_FUN))
 				return
 			if(!SSevents.wizardmode)
-				if(alert("Do you want to toggle summon events on?",,"Yes","No") == "Yes")
+				if(tgui_alert(usr, "Do you want to toggle summon events on?", "", list("Yes","No")) == "Yes")
 					summonevents()
 					SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Summon Events", "Activate"))
 
 			else
-				switch(alert("What would you like to do?",,"Intensify Summon Events","Turn Off Summon Events","Nothing"))
+				switch(tgui_alert(usr, "What would you like to do?", "", list("Intensify Summon Events","Turn Off Summon Events","Nothing")))
 					if("Intensify Summon Events")
 						summonevents()
 						SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Summon Events", "Intensify"))
@@ -676,7 +667,6 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			if(!J)
 				return
 			J.total_positions = -1
-			J.spawn_positions = -1
 			message_admins("[key_name_admin(usr)] has removed the cap on security officers.")
 
 		if("ctfbutton")
@@ -724,7 +714,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 		if("flipmovement")
 			if(!check_rights(R_FUN))
 				return
-			if(alert("Flip all movement controls?","Confirm","Yes","Cancel") != "Yes")
+			if(tgui_alert(usr, "Flip all movement controls?","Confirm", list("Yes","Cancel")) != "Yes")
 				return
 			var/list/movement_keys = SSinput.movement_keys
 			for(var/i in 1 to movement_keys.len)
@@ -736,7 +726,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 		if("randommovement")
 			if(!check_rights(R_FUN))
 				return
-			if(alert("Randomize all movement controls?","Confirm","Yes","Cancel") != "Yes")
+			if(tgui_alert(usr, "Randomize all movement controls?","Confirm", list("Yes","Cancel")) != "Yes")
 				return
 			var/list/movement_keys = SSinput.movement_keys
 			for(var/i in 1 to movement_keys.len)
@@ -748,20 +738,17 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 		if("custommovement")
 			if(!check_rights(R_FUN))
 				return
-			if(alert("Are you sure you want to change every movement key?","Confirm","Yes","Cancel") != "Yes")
+			if(tgui_alert(usr, "Are you sure you want to change every movement key?", "Confirm", list("Yes","Cancel")) != "Yes")
 				return
 			var/list/movement_keys = SSinput.movement_keys
 			var/list/new_movement = list()
 			for(var/i in 1 to movement_keys.len)
 				var/key = movement_keys[i]
-
-				var/msg = "Please input the new movement direction when the user presses [key]. Ex. northeast"
-				var/title = "New direction for [key]"
-				var/new_direction = text2dir(capped_input(usr, msg, title))
+				var/new_direction = tgui_input_list(usr, "Please input the new movement direction when the user presses [key].", "New direction for [key]", list("North", "West", "South", "East", "Northwest", "Southwest", "Southeast", "Northeast"))
 				if(!new_direction)
 					new_direction = movement_keys[key]
-
-				new_movement[key] = new_direction
+				else
+					new_movement[key] = text2dir(new_direction)
 			SSinput.movement_keys = new_movement
 			message_admins("[key_name_admin(usr)] has configured all movement directions.")
 			log_admin("[key_name(usr)] has configured all movement directions.")
@@ -769,7 +756,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 		if("resetmovement")
 			if(!check_rights(R_FUN))
 				return
-			if(alert("Are you sure you want to reset movement keys to default?","Confirm","Yes","Cancel") != "Yes")
+			if(tgui_alert(usr, "Are you sure you want to reset movement keys to default?","Confirm", list("Yes","Cancel")) != "Yes")
 				return
 			SSinput.setup_default_movement_keys()
 			message_admins("[key_name_admin(usr)] has reset all movement keys.")
@@ -818,8 +805,13 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				var/list/candidates = list()
 
 				if (prefs["offerghosts"]["value"] == "Yes")
-					candidates = poll_ghost_candidates(replacetext(prefs["ghostpoll"]["value"], "%TYPE%", initial(pathToSpawn.name)), BAN_ROLE_ALL_ANTAGONISTS, ignore_category = FALSE)
-
+					SSpolling.poll_ghost_candidates(
+						question = replacetext(prefs["ghostpoll"]["value"], "%TYPE%", initial(pathToSpawn.name)),
+						check_jobban = BAN_ROLE_ALL_ANTAGONISTS,
+						poll_time = 30 SECONDS,
+						role_name_text = "portal storm",
+						alert_pic = /obj/structure/carp_rift,
+					)
 				if (prefs["playersonly"]["value"] == "Yes" && length(candidates) < prefs["minplayers"]["value"])
 					message_admins("Not enough players signed up to create a portal storm, the minimum was [prefs["minplayers"]["value"]] and the number of signups [length(candidates)]")
 					return
@@ -849,7 +841,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 	if(E)
 		E.processing = FALSE
 		if(E.announceWhen>0)
-			if(alert(usr, "Would you like to alert the crew?", "Alert", "Yes", "No") != "Yes")
+			if(tgui_alert(usr, "Would you like to alert the crew?", "Alert", list("Yes", "No")) != "Yes")
 				E.announceChance = 0
 		E.processing = TRUE
 	if (usr)

@@ -141,14 +141,14 @@
 	var/alive = TRUE
 
 /datum/status_effect/cult_master/proc/deathrattle()
-	if(!QDELETED(GLOB.cult_narsie))
+	if(!QDELETED(GLOB.narsie))
 		return //if Nar'Sie is alive, don't even worry about it
-	var/area/A = get_area(owner)
-	for(var/datum/mind/B in SSticker.mode.cult)
-		if(isliving(B.current))
-			var/mob/living/M = B.current
-			SEND_SOUND(M, sound('sound/hallucinations/veryfar_noise.ogg'))
-			to_chat(M, span_cultlarge("The Cult's Master, [owner], has fallen in \the [A]!"))
+	var/area/area = get_area(owner)
+	for(var/datum/antagonist/cult/cultist in GLOB.antagonists)
+		if(isliving(cultist.owner))
+			var/mob/living/cultist_body = cultist.owner.current
+			SEND_SOUND(cultist_body, sound('sound/hallucinations/veryfar_noise.ogg'))
+			to_chat(cultist_body, span_cultlarge("The Cult's Master, [owner], has fallen in \the [area]!"))
 
 /datum/status_effect/cult_master/tick()
 	if(owner.stat != DEAD && !alive)
@@ -356,7 +356,7 @@
 	var/chem_per_tick = 1
 
 /datum/status_effect/changeling/on_apply()
-	ling = is_changeling(owner)
+	ling = IS_CHANGELING(owner)
 	if(!ling)
 		return FALSE
 	return TRUE
@@ -483,11 +483,11 @@
 					//If user does not have the corresponding hand anymore, give them one and return the rod to their hand
 					if(((hand % 2) == 0))
 						var/obj/item/bodypart/L = itemUser.newBodyPart(BODY_ZONE_R_ARM, FALSE, FALSE)
-						L.attach_limb(itemUser)
+						L.try_attach_limb(itemUser)
 						itemUser.put_in_hand(newRod, hand, forced = TRUE)
 					else
 						var/obj/item/bodypart/L = itemUser.newBodyPart(BODY_ZONE_L_ARM, FALSE, FALSE)
-						L.attach_limb(itemUser)
+						L.try_attach_limb(itemUser)
 						itemUser.put_in_hand(newRod, hand, forced = TRUE)
 					to_chat(itemUser, span_notice("Your arm suddenly grows back with the Rod of Asclepius still attached!"))
 				else

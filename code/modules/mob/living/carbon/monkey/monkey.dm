@@ -3,7 +3,7 @@
 	verb_say = "chimpers"
 	initial_language_holder = /datum/language_holder/monkey
 	icon = 'icons/mob/monkey.dmi'
-	icon_state = null
+	icon_state = "monkey1"
 	gender = NEUTER
 	pass_flags = PASSTABLE
 	ventcrawler = VENTCRAWLER_NUDE
@@ -129,8 +129,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	if(client && mind)
 		var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling)
-			tab_data["Chemical Storage"] = GENERATE_STAT_TEXT("[changeling.chem_charges]/[changeling.chem_storage]")
-			tab_data["Absorbed DNA"] = GENERATE_STAT_TEXT("[changeling.absorbedcount]")
+			tab_data["Chemical Storage"] = GENERATE_STAT_TEXT("[changeling.chem_charges]/[changeling.total_chem_storage]")
+			tab_data["Absorbed DNA"] = GENERATE_STAT_TEXT("[changeling.absorbed_count]")
 	return tab_data
 
 
@@ -251,13 +251,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 /datum/species/teratoma
 	name = "Teratoma"
 	id = "teratoma"
-	species_traits = list(NOTRANSSTING, NO_DNA_COPY, EYECOLOR, HAIR, FACEHAIR, LIPS)
+	species_traits = list(EYECOLOR, HAIR, FACEHAIR, LIPS)
 	inherent_traits = list(
 		TRAIT_NOHUNGER,
 		TRAIT_RADIMMUNE,
 		TRAIT_BADDNA,
 		TRAIT_CHUNKYFINGERS,
-		TRAIT_NONECRODISEASE
+		TRAIT_NONECRODISEASE,
+		TRAIT_NO_DNA_COPY,
+		TRAIT_NO_TRANSFORMATION_STING,
 	) //Made of mutated cells
 	use_skintones = FALSE
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
@@ -265,12 +267,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	mutantbrain = /obj/item/organ/brain/tumor
 	mutanttongue = /obj/item/organ/tongue/teratoma
 
-	species_chest = /obj/item/bodypart/chest/monkey/teratoma
-	species_head = /obj/item/bodypart/head/monkey/teratoma
-	species_l_arm = /obj/item/bodypart/l_arm/monkey/teratoma
-	species_r_arm = /obj/item/bodypart/r_arm/monkey/teratoma
-	species_l_leg = /obj/item/bodypart/l_leg/monkey/teratoma
-	species_r_leg = /obj/item/bodypart/r_leg/monkey/teratoma
+	bodypart_overrides = list(
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/monkey/teratoma,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/monkey/teratoma,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/monkey/teratoma,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/monkey/teratoma,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/monkey/teratoma,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/monkey/teratoma
+	)
 
 /obj/item/organ/brain/tumor
 	name = "teratoma brain"

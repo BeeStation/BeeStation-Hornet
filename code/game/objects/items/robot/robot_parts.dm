@@ -301,8 +301,6 @@
 				if(M.laws.id == DEFAULT_AI_LAWID)
 					O.make_laws()
 
-			SSticker.mode.remove_antag_for_borging(BM.mind)
-
 			O.job = JOB_NAME_CYBORG
 
 			O.cell = chest.cell

@@ -37,14 +37,13 @@
 	///What kind of objects this mob can smash.
 	var/environment_smash = ENVIRONMENT_SMASH_NONE
 
-	/// 1 for full damage , 0 for none , -1 for 1:1 heal from that source.
+	/// 1 for full damage, 0 for none, -1 for 1:1 heal from that source.
 	var/list/damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
+	///Minimum force required to deal any damage.
+	var/force_threshold = 0
 
 	///Verbs used for speaking e.g. "Says" or "Chitters". This can be elementized
 	var/list/speak_emote = list()
-
-	/// Minimum force required to deal any damage
-	var/force_threshold = 0
 
 	///When someone interacts with the simple animal.
 	///Help-intent verb in present continuous tense.
@@ -77,8 +76,6 @@
 	var/icon_dead = ""
 	///We only try to show a gibbing animation if this exists.
 	var/icon_gib = null
-	///Flip the sprite upside down on death. Mostly here for things lacking custom dead sprites.
-	var/flip_on_death = FALSE
 
 	///If the mob can be spawned with a gold slime core. HOSTILE_SPAWN are spawned with plasma, FRIENDLY_SPAWN are spawned with blood.
 	var/gold_core_spawnable = NO_SPAWN
@@ -130,7 +127,7 @@
 	. = ..()
 	///Automatic stamina re-gain
 	if(staminaloss > 0)
-		adjustStaminaLoss(-stamina_recovery * delta_time, FALSE, TRUE)
+		adjustStaminaLoss(-stamina_recovery * delta_time, updating_health = FALSE, forced = TRUE)
 
 /mob/living/basic/say_mod(input, list/message_mods = list())
 	if(length(speak_emote))
@@ -138,47 +135,58 @@
 	return ..()
 
 /mob/living/basic/death(gibbed)
-	if(!gibbed)
-		if(!(basic_mob_flags & DEL_ON_DEATH))
-			INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "deathgasp")
-
+	. = ..()
 	if(basic_mob_flags & DEL_ON_DEATH)
-		..()
 		qdel(src)
-		return
 	else
 		health = 0
-		icon_state = icon_dead
-		if(flip_on_death)
-			transform = transform.Turn(180)
-		set_density(FALSE)
-		..()
+		look_dead()
 
-// copied from simplemobs
+/**
+ * Apply the appearance and properties this mob has when it dies
+ * This is called by the mob pretending to be dead too so don't put loot drops in here or something
+ */
+/mob/living/basic/proc/look_dead()
+	icon_state = icon_dead
+	if(basic_mob_flags & FLIP_ON_DEATH)
+		transform = transform.Turn(180)
+	if(!(basic_mob_flags & REMAIN_DENSE_WHILE_DEAD))
+		set_density(FALSE)
+
 /mob/living/basic/revive(full_heal = FALSE, admin_revive = FALSE)
 	. = ..()
-	if(!.)
+	if (!.)
 		return
-	icon = initial(icon)
+	look_alive()
+
+/// Apply the appearance and properties this mob has when it is alive
+/mob/living/basic/proc/look_alive()
 	icon_state = icon_living
-	density = initial(density)
+	if(basic_mob_flags & FLIP_ON_DEATH)
+		transform = transform.Turn(180)
+	if(!(basic_mob_flags & REMAIN_DENSE_WHILE_DEAD))
+		set_density(initial(density))
 
 /mob/living/basic/examine(mob/user)
 	. = ..()
 	if(stat != DEAD)
 		return
-	. += span_deadsay("Upon closer examination, [p_they()] appear[p_s()] to be [HAS_TRAIT(user.mind, TRAIT_NAIVE) ? "asleep" : "dead"].")
+	. += span_deadsay("Upon closer examination, [p_they()] appear[p_s()] to be [HAS_MIND_TRAIT(user, TRAIT_NAIVE) ? "asleep" : "dead"].")
 
-/mob/living/basic/proc/melee_attack(atom/target)
-	src.face_atom(target)
-	// if(SEND_SIGNAL(src, COMSIG_HOSTILE_PRE_ATTACKINGTARGET, target) & COMPONENT_HOSTILE_NO_ATTACK)
-	// 	return FALSE //but more importantly return before attack_animal called
-	var/result = target.attack_basic_mob(src)
-	// SEND_SIGNAL(src, COMSIG_HOSTILE_POST_ATTACKINGTARGET, target, result) //Bee edit: We don't have pre_attackingtarget nor hostile simplemobs, so I'll just leave these here for anyone who stumbles upon this down the line
+/mob/living/basic/proc/melee_attack(atom/target, list/modifiers)
+	face_atom(target)
+	if(SEND_SIGNAL(src, COMSIG_HOSTILE_PRE_ATTACKINGTARGET, target) & COMPONENT_HOSTILE_NO_ATTACK)
+		return FALSE //but more importantly return before attack_animal called
+	var/result = target.attack_basic_mob(src, modifiers)
+	SEND_SIGNAL(src, COMSIG_HOSTILE_POST_ATTACKINGTARGET, target, result)
 	return result
+
+/mob/living/basic/resolve_unarmed_attack(atom/attack_target, list/modifiers)
+	melee_attack(attack_target, modifiers)
 
 /mob/living/basic/vv_edit_var(vname, vval)
 	if(vname == NAMEOF(src, speed))
+		datum_flags |= DF_VAR_EDITED
 		set_varspeed(vval)
 
 /mob/living/basic/proc/set_varspeed(var_value)
@@ -190,3 +198,18 @@
 		remove_movespeed_modifier(/datum/movespeed_modifier/simplemob_varspeed)
 	add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/simplemob_varspeed, multiplicative_slowdown = speed)
 	SEND_SIGNAL(src, POST_BASIC_MOB_UPDATE_VARSPEED)
+
+/mob/living/basic/relaymove(mob/living/user, direction)
+	if(user.incapacitated())
+		return
+	return relaydrive(user, direction)
+
+/*
+/mob/living/basic/get_stat_tab_status()
+	var/list/tab_data = ..()
+	tab_data["Health:"] = GENERATE_STAT_TEXT("[round((health / maxHealth) * 100)]%")
+	tab_data["Combat Mode:"] = GENERATE_STAT_TEXT("[combat_mode ? "On" : "Off"]")
+*/
+
+/mob/living/basic/compare_sentience_type(compare_type)
+	return sentience_type == compare_type
