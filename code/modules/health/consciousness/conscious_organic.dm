@@ -16,6 +16,12 @@
 /datum/consciousness/organic/proc/consciousness_update(datum/source, consciousness_rating)
 	set_consciousness_source(consciousness_rating, FROM_BRAIN)
 
+/datum/consciousness/organic/consciousness_tick(delta_time)
+	if (DT_PROB(3, delta_time) && value < max_value - 70)
+		to_chat(owner, span_pain("You feel like you are about to pass out!"))
+	else if (DT_PROB(2, delta_time) && value < max_value - 30)
+		to_chat(owner, span_pain("You feel lightheaded..."))
+
 /datum/consciousness/organic/update_consciousness(consciousness_value)
 	..()
 	if (owner.status_flags & GODMODE)

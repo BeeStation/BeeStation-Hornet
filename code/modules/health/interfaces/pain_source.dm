@@ -52,4 +52,10 @@
 		ADD_MULTIPLICATIVE_TRAIT(src, TRAIT_PAIN_LEVEL, source, amount)
 	//update_consciousness(GET_TRAIT_VALUE(src, TRAIT_PAIN_LEVEL))
 
+/// Add a pain message caused by a specific source
+/datum/pain_source/proc/add_pain_message(message, source)
+
+/// Remove all pain messages associated with that source
+/datum/pain_source/proc/remove_pain_messages(source)
+
 #undef TRAIT_PAIN_LEVEL

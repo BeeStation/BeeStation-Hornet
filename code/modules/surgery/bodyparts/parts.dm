@@ -52,10 +52,28 @@
 	..()
 
 /obj/item/bodypart/chest/update_effectiveness()
-	var/modifier = (50 - effectiveness) / 50
+	var/modifier = effectiveness / 50
 	// Ranges from 1 down to 0.5
 	modifier = clamp(modifier * 0.5 + 0.5, 0.5, 1)
 	owner.blood.multiply_circulation_rating(modifier, FROM_CHEST_DAMAGE)
+	pain.remove_pain_messages(FROM_CHEST_DAMAGE)
+	switch (modifier)
+		if (0.6 to 0.9)
+			pain.add_pain_message("Your chest hurts.", FROM_CHEST_DAMAGE)
+			pain.add_pain_message("You feel a stabbing pain in your chest.", FROM_CHEST_DAMAGE)
+			pain.add_pain_message("You find it difficult to breathe.", FROM_CHEST_DAMAGE)
+		if (0.3 to 0.6)
+			pain.add_pain_message("Your chest is in agony!", FROM_CHEST_DAMAGE)
+			pain.add_pain_message("Your breathing is heavy and difficult.", FROM_CHEST_DAMAGE)
+			pain.add_pain_message("You struggle to take a deep breath.", FROM_CHEST_DAMAGE)
+		if (0 to 0.3)
+			pain.add_pain_message("You feel an unbearable pain in your chest.", FROM_CHEST_DAMAGE)
+			pain.add_pain_message("You feel a staggering pain as you take a breath.", FROM_CHEST_DAMAGE)
+			pain.add_pain_message("You find yourself struggling for breath.", FROM_CHEST_DAMAGE)
+
+/obj/item/bodypart/chest/clear_effectiveness_modifiers()
+	owner.blood.multiply_circulation_rating(1, FROM_HEAD_DAMAGE)
+	pain.remove_pain_messages(FROM_CHEST_DAMAGE)
 
 /obj/item/bodypart/chest/monkey
 	icon = 'icons/mob/animal_parts.dmi'
