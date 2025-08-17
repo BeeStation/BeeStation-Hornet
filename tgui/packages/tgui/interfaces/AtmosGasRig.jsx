@@ -170,7 +170,7 @@ export const AtmosGasRigTemplate = (props) => {
               fill="aqua"
             />
             <text x="35" y={barHeight * (data.nob_constants[0] / data.max_depth) + 10} fill="white" fontSize="12px">
-              Nobium
+              Noblium
             </text>
           </svg>
         </Flex.Item>
