@@ -272,6 +272,12 @@
 /obj/item/bodypart/head/GetVoice()
 	return "The head of [real_name]"
 
+/obj/item/bodypart/head/update_effectiveness()
+	var/modifier = (50 - effectiveness) / 50
+	// Ranges from 1 down to 0.5
+	modifier = clamp(modifier * 0.5 + 0.5, 0.5, 1)
+	owner.consciousness.set_consciousness_modifier(modifier, FROM_HEAD_DAMAGE)
+
 /obj/item/bodypart/head/monkey
 	icon = 'icons/mob/animal_parts.dmi'
 	icon_static = 'icons/mob/animal_parts.dmi'

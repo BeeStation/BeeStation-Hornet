@@ -157,6 +157,8 @@
 #define FROM_HEART "heart"
 #define FROM_BREATH "breath"
 #define FROM_BRAIN "brain"
+#define FROM_CHEST_DAMAGE "chest damage"
+#define FROM_HEAD_DAMAGE "head damage"
 
 /// Trait granted by [/mob/living/silicon/robot]
 /// Traits applied to a silicon mob by their module.

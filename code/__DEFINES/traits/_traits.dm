@@ -109,7 +109,7 @@
 				if (removed.type == /datum/trait/add) {\
 					_head.add_cum -= removed.value;\
 				} else {\
-					_head.mult_cum -= removed.value;\
+					_head.mult_cum /= removed.value;\
 				}\
 			}\
 			_head.add_cum += _additive_amount;\
@@ -152,7 +152,7 @@
 				if (removed.type == /datum/trait/add) {\
 					_head.add_cum -= removed.value;\
 				} else {\
-					_head.mult_cum -= removed.value;\
+					_head.mult_cum /= removed.value;\
 				}\
 			}\
 			_head.mult_cum *= _multiplicative_amount;\
