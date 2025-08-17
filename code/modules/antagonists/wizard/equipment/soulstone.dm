@@ -46,6 +46,10 @@
 	name = "mysterious old shard"
 	old_shard = TRUE
 
+/obj/item/soulstone/vampire
+	theme = THEME_WIZARD
+	required_role = /datum/antagonist/vassal
+
 /obj/item/soulstone/pickup(mob/living/user)
 	..()
 	if(!role_check(user))

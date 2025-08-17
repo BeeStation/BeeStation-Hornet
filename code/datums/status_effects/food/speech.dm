@@ -11,11 +11,11 @@
 	. = ..()
 	UnregisterSignal(owner, COMSIG_MOB_SAY)
 
-/datum/status_effect/food/speech/italian/proc/handle_speech(datum/source, list/speech_args)
+/datum/status_effect/food/speech/italian/proc/handle_speech(datum/source, list/speech_args)	//Did not change this due to the ridiculous append that is perhaps okay? (I dislike it personally)
 	var/message = speech_args[SPEECH_MESSAGE]
 	if(message[1] != "*")
 		message = " [message]"
-		var/list/italian_words = strings(ITALIAN_TALK_FILE, "italian")
+		var/list/italian_words = strings(ITALIAN_TALK_FILE, "words")
 
 		for(var/key in italian_words)
 			var/value = italian_words[key]
