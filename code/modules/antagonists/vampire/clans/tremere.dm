@@ -80,7 +80,7 @@
 /datum/vampire_clan/tremere/on_vassal_made(datum/antagonist/vampire/source, mob/living/user, mob/living/target)
 	. = ..()
 	to_chat(vampiredatum.owner.current, span_danger("You have now gained an additional Rank to spend!"))
-	vampiredatum.vampire_level_unspent++
+	vampiredatum.vampire_level_unspent += 2
 
 /datum/vampire_clan/tremere/get_max_vassals()
 	var/total_players = length(GLOB.joined_player_list)
