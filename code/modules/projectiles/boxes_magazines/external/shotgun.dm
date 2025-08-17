@@ -4,7 +4,7 @@
 	icon_state = "m12gb"
 	multiple_sprites = 2
 	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
-	caliber = "shotgun"
+	caliber = list("shotgun")
 	max_ammo = 8
 
 /obj/item/ammo_box/magazine/m12g/stun

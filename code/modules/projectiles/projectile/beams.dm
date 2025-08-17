@@ -116,7 +116,7 @@
 			SSexplosions.medturf += target
 
 /obj/projectile/beam/pulse/shotgun
-	damage = 40
+	damage = 30
 
 /obj/projectile/beam/pulse/heavy
 	name = "heavy pulse laser"

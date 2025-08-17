@@ -1,7 +1,7 @@
 /obj/item/ammo_box/magazine/internal/cylinder
 	name = "revolver cylinder"
 	ammo_type = /obj/item/ammo_casing/a357
-	caliber = "357"
+	caliber = list(".357")
 	max_ammo = 7
 
 /obj/item/ammo_box/magazine/internal/cylinder/get_round(keep = 0)
@@ -60,7 +60,7 @@
 /obj/item/ammo_box/magazine/internal/cylinder/mime
 	name = "fingergun cylinder"
 	ammo_type = /obj/item/ammo_casing/caseless/mime
-	caliber = "mime"
+	caliber = list("mime")
 	max_ammo = 6
 
 /obj/item/ammo_box/magazine/internal/cylinder/mime/lethal

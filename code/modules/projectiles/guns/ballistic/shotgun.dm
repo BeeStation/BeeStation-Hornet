@@ -273,6 +273,12 @@
 				to_chat(user, span_warning("[src]'s barrel is left warped from the force of the shot!"))
 			else if (barrel_stress == 30)
 				to_chat(user, span_danger("[src]'s barrel cracks from the repeated strain!"))
+		else
+			barrel_stress += 1
+			if (barrel_stress == 15)
+				to_chat(user, span_warning("[src]'s barrel is warped from the force of the shot!"))
+			else if (barrel_stress == 30)
+				to_chat(user, span_danger("[src]'s barrel cracks from the repeated strain!"))
 
 	return ..()
 

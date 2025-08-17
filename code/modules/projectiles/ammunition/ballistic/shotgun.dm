@@ -33,6 +33,7 @@
 	projectile_type = /obj/projectile/bullet/incendiary/shotgun/dragonsbreath
 	pellets = 4
 	variance = 35
+	custom_materials = list(/datum/material/iron=3000, /datum/material/plasma=3000)
 
 /obj/item/ammo_casing/shotgun/stunslug
 	name = "taser slug"
@@ -48,6 +49,7 @@
 	would have difficulty with."
 	icon_state = "pshell"
 	projectile_type = /obj/projectile/beam/pulse/shotgun
+	custom_materials = list(/datum/material/iron=2000, /datum/material/diamond=3000)
 
 /obj/item/ammo_casing/shotgun/buckshot
 	name = "buckshot shell" //seperated into two different types.
@@ -74,7 +76,7 @@
 	projectile_type = /obj/projectile/bullet/pellet/shotgun_rubbershot
 	pellets = 6
 	variance = 15
-	custom_materials = list(/datum/material/iron=4000, /datum/material/copper=2000)
+	custom_materials = list(/datum/material/iron=4000, /datum/material/gold=2000)
 
 /obj/item/ammo_casing/shotgun/incapacitate
 	name = "improvised incapacitation shell"

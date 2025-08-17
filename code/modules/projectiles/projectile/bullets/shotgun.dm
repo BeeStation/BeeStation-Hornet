@@ -62,13 +62,13 @@
 /obj/projectile/bullet/pellet/shotgun_buckshot/armour_piercing
 	name = "armour-piercing buckshot pellet"
 	damage = 6
-	tile_dropoff = 0.50
+	tile_dropoff = 0.5
 	armour_penetration = 60
 
 /obj/projectile/bullet/pellet/shotgun_buckshot // Seperated to AP and normal buckshot
 	name = "buckshot pellet"
 	damage = 8
-	tile_dropoff = 1
+	tile_dropoff = 0.5
 	armour_penetration = 20
 
 /obj/projectile/bullet/pellet/shotgun_rubbershot
@@ -107,7 +107,7 @@
 
 /obj/projectile/bullet/pellet/shotgun_glass
 	tile_dropoff = 0.5
-	damage = 10
+	damage = 6
 	range = 8
 	ricochets_max = 0
 	shrapnel_type = /obj/item/shrapnel/bullet/shotgun/glass
