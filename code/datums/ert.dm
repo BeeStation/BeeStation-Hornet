@@ -149,3 +149,13 @@
 	rename_team = "The Circus"
 	mission = "Provide vital morale support to the station in this time of crisis"
 	code = "Banana"
+
+/datum/ert/bounty_hunters
+	roles = list(/datum/antagonist/ert/bounty_armor, /datum/antagonist/ert/bounty_hook, /datum/antagonist/ert/bounty_synth)
+	leader_role = /datum/antagonist/ert/bounty_armor
+	teamsize = 3
+	opendoors = FALSE
+	rename_team = "Bounty Hunters"
+	mission = "Assist the station in catching perps, dead or alive."
+	polldesc = "a Centcom-hired bounty hunting gang"
+	random_names = TRUE
