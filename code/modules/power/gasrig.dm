@@ -246,9 +246,6 @@
 
 /obj/machinery/atmospherics/gasrig/core/update_icon_state()
 	. = ..()
-	if(panel_open)
-		icon_state = "gasrig_1_open"
-		return
 	if(mode == GASRIG_MODE_NORMAL && !needs_repairs)
 		if(active && !(machine_stat & NOPOWER))
 			icon_state = "gasrig_1"
@@ -290,7 +287,7 @@
 			update_appearance()
 
 /obj/machinery/atmospherics/gasrig/core/proc/set_active(to_set)
-	if(to_set == TRUE && panel_open)
+	if(to_set == TRUE)
 		return
 	active = to_set
 	if(!active)
@@ -313,12 +310,6 @@
 		balloon_alert(user, "You repair the rig's damage!")
 
 /obj/machinery/atmospherics/gasrig/core/attackby(obj/item/I, mob/user, params)
-	if(!active)
-		if(default_deconstruction_screwdriver(user, "gasrig_1_open", "gasrig_1_off", I))
-			return
-	if(I.tool_behaviour == TOOL_SCREWDRIVER)
-		balloon_alert(user, "Bolts secure the maintanence hatch, turn the rig off to use the hatch!")
-		return
 	if(istype(I, /obj/item/stack/sheet/plasteel))
 		var/obj/item/stack/sheet/plasteel/PS = I
 		if(!needs_repairs)
