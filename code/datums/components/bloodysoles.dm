@@ -43,7 +43,7 @@
   * Returns true if the parent item is obscured by something else that the wielder is wearing
   */
 /datum/component/bloodysoles/proc/is_obscured()
-	return equipped_slot in wielder.check_obscured_slots(TRUE)
+	return wielder.check_obscured_slots(TRUE) & equipped_slot
 
 /**
   * Run to update the icon of the parent
@@ -270,7 +270,7 @@
 /datum/component/bloodysoles/feet/is_obscured()
 	if(wielder.shoes)
 		return TRUE
-	return ITEM_SLOT_FEET in wielder.check_obscured_slots(TRUE)
+	return wielder.check_obscured_slots(TRUE) & ITEM_SLOT_FEET
 
 /datum/component/bloodysoles/feet/on_moved(datum/source, OldLoc, Dir, Forced)
 	if(wielder.num_legs < 2)

@@ -306,7 +306,7 @@
 		balloon_alert(mod.wearer, "interrupted!")
 		return
 	var/target_zones = body_zone2cover_flags(mod.wearer.get_combat_bodyzone(target))
-	for(var/obj/item/clothing as anything in carbon_target.get_all_worn_items())
+	for(var/obj/item/clothing as anything in carbon_target.get_equipped_items())
 		if(!clothing)
 			continue
 		var/shared_flags = target_zones & clothing.body_parts_covered

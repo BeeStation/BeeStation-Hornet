@@ -24,6 +24,7 @@
 	visor_flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDESNOUT
 	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
 	resistance_flags = FIRE_PROOF
 	clothing_flags = SNUG_FIT | STACKABLE_HELMET_EXEMPT
 
@@ -35,7 +36,12 @@
 	stamina = 5
 
 /obj/item/clothing/head/utility/welding/attack_self(mob/user)
-	weldingvisortoggle(user)
+	adjust_visor(user)
+
+/obj/item/clothing/head/utility/welding/update_icon_state()
+	. = ..()
+	icon_state = "[initial(icon_state)][up ? "up" : ""]"
+	item_state = "[initial(item_state)][up ? "off" : ""]"
 
 /obj/item/clothing/head/kitty/visual_equipped(mob/living/carbon/human/user, slot)
 	. = ..()

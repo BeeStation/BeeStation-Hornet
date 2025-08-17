@@ -76,7 +76,8 @@ There are several things that need to be remembered:
 
 /mob/living/carbon/human/update_obscured_slots(obscured_flags)
 	..()
-	sec_hud_set_security_status()
+	if(obscured_flags & HIDEFACE)
+		sec_hud_set_security_status()
 
 /* --------------------------------------- */
 //vvvvvv UPDATE_INV PROCS vvvvvv
@@ -395,7 +396,6 @@ There are several things that need to be remembered:
 		my_head?.worn_head_offset?.apply_offset(head_overlay)
 		overlays_standing[HEAD_LAYER] = head_overlay
 
-	//update_mutant_bodyparts()
 	apply_overlay(HEAD_LAYER)
 	check_body_shape(BODYSHAPE_SNOUTED, ITEM_SLOT_HEAD)
 

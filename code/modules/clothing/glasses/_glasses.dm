@@ -47,7 +47,8 @@
 		ADD_LUM_SOURCE(origin, LUM_SOURCE_GLASSES)
 
 /obj/item/clothing/glasses/visor_toggling()
-	..()
+	. = ..()
+	alternate_worn_layer = up ? ABOVE_BODY_FRONT_HEAD_LAYER : null
 	if(visor_vars_to_toggle & VISOR_VISIONFLAGS)
 		vision_flags ^= initial(vision_flags)
 	if(visor_vars_to_toggle & VISOR_DARKNESSVIEW)
@@ -55,9 +56,9 @@
 	if(visor_vars_to_toggle & VISOR_INVISVIEW)
 		invis_view ^= initial(invis_view)
 
-/obj/item/clothing/glasses/weldingvisortoggle(mob/user)
+/obj/item/clothing/glasses/adjust_visor(mob/living/user)
 	. = ..()
-	if(. && user)
+	if(. && !user.is_holding(src) && (visor_vars_to_toggle & (VISOR_VISIONFLAGS|VISOR_INVISVIEW)))
 		user.update_sight()
 
 //called when thermal glasses are emped.
@@ -365,7 +366,15 @@
 	glass_colour_type = /datum/client_colour/glass_colour/gray
 
 /obj/item/clothing/glasses/welding/attack_self(mob/user)
-	weldingvisortoggle(user)
+	adjust_visor(user)
+
+/obj/item/clothing/glasses/welding/update_icon_state()
+	. = ..()
+	icon_state = "[initial(icon_state)][up ? "up" : ""]"
+
+/obj/item/clothing/glasses/welding/up/Initialize(mapload)
+	. = ..()
+	visor_toggling()
 
 /obj/item/clothing/glasses/welding/ghostbuster
 	name = "optical ecto-scanner"
@@ -384,7 +393,7 @@
 	var/datum/component/team_monitor/worn/ghost_vision = AddComponent(/datum/component/team_monitor/worn, "ghost", 1)
 	ghost_vision.toggle_hud(TRUE, null)
 
-/obj/item/clothing/glasses/welding/ghostbuster/weldingvisortoggle()
+/obj/item/clothing/glasses/welding/ghostbuster/adjust_visor(mob/living/user)
 	if(next_use_time > world.time)
 		return
 	. = ..()
