@@ -71,7 +71,7 @@ export async function showScreenshotTestResults({ github, context, exec }) {
 	await github.rest.issues.createComment({
 		owner: context.repo.owner,
 		repo: context.repo.repo,
-		issue_number: prNumber,
+		issue_number: github.event.number,
 		body: createComment(badScreenshots.url),
 	});
 }
