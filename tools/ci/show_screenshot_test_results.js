@@ -3,7 +3,7 @@ import fs from "fs";
 import path from "path";
 import process from "process";
 
-const createComment = (screenshotFailures, zipFileUrl) => {
+const createComment = (zipFileUrl) => {
 	return `
 		Screenshot tests failed!
 
