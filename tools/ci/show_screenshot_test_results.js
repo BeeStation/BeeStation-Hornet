@@ -162,33 +162,8 @@ export async function showScreenshotTestResults({ github, context, exec }) {
 		return;
 	}
 
-	// Upload zip file for quick fixes
-	const zipFilePath = path.join("data", "screenshot-update");
-	const finalDestination = path.join(
-		zipFilePath,
-		"code",
-		"modules",
-		"unit_tests",
-		"screenshots"
-	);
-
-	fs.mkdirSync(finalDestination, { recursive: true });
-
-	for (const { directory } of screenshotFailures) {
-		fs.copyFileSync(
-			path.join("bad-screenshots", directory, "new.png"),
-			path.join(finalDestination, `${directory}.png`)
-		);
-	}
-
-	await exec.exec("zip", ["-r", `../screenshot-update.zip`, "."], {
-		cwd: zipFilePath,
-	});
-
-	const zipUrl = await uploadFile(`${zipFilePath}.zip`);
-
 	// Post the comment
-	const comment = createComment(screenshotFailures, zipUrl);
+	const comment = createComment(screenshotFailures, badScreenshots.url);
 
 	await github.rest.issues.createComment({
 		owner: context.repo.owner,
