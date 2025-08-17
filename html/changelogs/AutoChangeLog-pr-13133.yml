@@ -1,6 +1,0 @@
-author: Nakalon
-delete-after: true
-changes:
-  - bugfix: Fixes plasmaman loadout replacement causing their death.
-  - tweak: Backpacks will always spawn first in a players loadout now to ensure everything
-      works how it's supposed to and that their old bag does get, in fact, replaced.
