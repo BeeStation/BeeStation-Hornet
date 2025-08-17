@@ -36,7 +36,7 @@
 		REMOVE_TRAIT(src, TRAIT_PAIN_LEVEL, source)
 	else
 		ADD_CUMULATIVE_TRAIT(src, TRAIT_PAIN_LEVEL, source, amount)
-	update_consciousness(GET_TRAIT_VALUE(src, TRAIT_PAIN_LEVEL))
+	//update_consciousness(GET_TRAIT_VALUE(src, TRAIT_PAIN_LEVEL))
 
 /// Set a consciousness modifier.
 /// Source: The source of the modifier
@@ -46,6 +46,6 @@
 		REMOVE_TRAIT(src, TRAIT_PAIN_LEVEL, source)
 	else
 		ADD_MULTIPLICATIVE_TRAIT(src, TRAIT_PAIN_LEVEL, source, amount)
-	update_consciousness(GET_TRAIT_VALUE(src, TRAIT_PAIN_LEVEL))
+	//update_consciousness(GET_TRAIT_VALUE(src, TRAIT_PAIN_LEVEL))
 
 #undef TRAIT_PAIN_LEVEL

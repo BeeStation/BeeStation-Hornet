@@ -16,6 +16,9 @@
 
 /// Register signals on the owner
 /datum/consciousness/proc/register_signals(mob/living/owner)
+	SHOULD_CALL_PARENT(TRUE)
+	RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_IGNOREDAMAGESLOWDOWN), PROC_REF(update_movespeed))
+	RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_IGNOREDAMAGESLOWDOWN), PROC_REF(update_movespeed))
 
 /// Called every life tick
 /datum/consciousness/proc/consciousness_tick(delta_time)
@@ -24,31 +27,15 @@
 /datum/consciousness/proc/update_consciousness(consciousness_value)
 	SHOULD_CALL_PARENT(TRUE)
 	value = consciousness_value
-	//Oxygen damage overlay
-	if(consciousness_value < 95)
-		var/severity = 0
-		switch(consciousness_value)
-			if(80 to 100)
-				severity = 1
-			if(70 to 80)
-				severity = 2
-			if(60 to 70)
-				severity = 3
-			if(50 to 60)
-				severity = 4
-			if(40 to 50)
-				severity = 5
-			if(20 to 40)
-				severity = 6
-			if(0 to 20)
-				severity = 7
-		owner.overlay_fullscreen("consciousness", /atom/movable/screen/fullscreen/oxy, severity)
-	else
-		owner.clear_fullscreen("consciousness")
+	update_movespeed()
+	update_consciousness_overlay()
+	update_death_overlay()
+	owner.update_health_hud()
 
+/datum/consciousness/proc/update_death_overlay()
 	if(owner.stat >= SOFT_CRIT)
 		var/severity = 0
-		switch(consciousness_value)
+		switch(value)
 			if(-10 to 0)
 				severity = 1
 			if(-20 to -10)
@@ -73,9 +60,32 @@
 	else
 		owner.clear_fullscreen("crit")
 		owner.clear_fullscreen("critvision")
-	owner.update_health_hud()
 
-	// TODO: Clean this up and update when TRAIT_IGNOREDAMAGESLOWDOWN changes
+/datum/consciousness/proc/update_consciousness_overlay()
+	//Oxygen damage overlay
+	if(value < 95)
+		var/severity = 0
+		switch(value)
+			if(80 to 100)
+				severity = 1
+			if(70 to 80)
+				severity = 2
+			if(60 to 70)
+				severity = 3
+			if(50 to 60)
+				severity = 4
+			if(40 to 50)
+				severity = 5
+			if(20 to 40)
+				severity = 6
+			if(0 to 20)
+				severity = 7
+		owner.overlay_fullscreen("consciousness", /atom/movable/screen/fullscreen/oxy, severity)
+	else
+		owner.clear_fullscreen("consciousness")
+
+/// Update the mob's move speed according to the consciousness value
+/datum/consciousness/proc/update_movespeed()
 	if(HAS_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN))
 		owner.remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown)
 		owner.remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown_flying)

@@ -10,6 +10,7 @@ causes crit.
 /datum/consciousness/point/robot
 
 /datum/consciousness/point/robot/register_signals(mob/living/owner)
+	..()
 	// Knockout affects stat
 	RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_KNOCKEDOUT), PROC_REF(update_stat))
 	RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_KNOCKEDOUT), PROC_REF(update_stat))

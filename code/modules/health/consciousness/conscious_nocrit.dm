@@ -16,7 +16,7 @@ cannot die from fluid loss or brain damage.
 /datum/consciousness/point/nocrit
 
 /datum/consciousness/point/nocrit/register_signals(mob/living/owner)
-	return
+	..()
 
 /datum/consciousness/point/nocrit/update_consciousness(consciousness_value)
 	..()

@@ -6,6 +6,7 @@
 	set_consciousness_source(owner.maxHealth, FROM_HITPOINTS)
 
 /datum/consciousness/point/register_signals(mob/living/owner)
+	..()
 	// No death affects stat
 	RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_NODEATH), PROC_REF(update_stat))
 	RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_NODEATH), PROC_REF(update_stat))

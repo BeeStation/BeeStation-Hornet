@@ -2,6 +2,7 @@
 /datum/consciousness/organic
 
 /datum/consciousness/organic/register_signals(mob/living/owner)
+	..()
 	RegisterSignal(owner, COMSIG_MOB_BRAIN_CONSCIOUSNESS_UPDATE, PROC_REF(consciousness_update))
 	RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_NODEATH), PROC_REF(update_stat))
 	RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_NODEATH), PROC_REF(update_stat))
