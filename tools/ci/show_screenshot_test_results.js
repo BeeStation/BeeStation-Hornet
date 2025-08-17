@@ -3,26 +3,7 @@ import fs from "fs";
 import path from "path";
 import process from "process";
 
-const createComment = (screenshotFailures, zipFileUrl) => {
-	const formatScreenshotFailure = ({
-		directory,
-		diffUrl,
-		newUrl,
-		oldUrl,
-	}) => {
-		const img = (url) => {
-			if (url) {
-				return `![](${url})`;
-			} else {
-				return "None produced.";
-			}
-		};
-
-		return `| ${directory} | ${img(oldUrl)} | ${img(newUrl)} | ${img(
-			diffUrl
-		)} |`;
-	};
-
+const createComment = (zipFileUrl) => {
 	return `
 		Screenshot tests failed!
 
@@ -31,15 +12,6 @@ const createComment = (screenshotFailures, zipFileUrl) => {
 				? `[Download zip file of new screenshots.](${zipFileUrl})`
 				: "No zip file could be produced, this is a bug!"
 		}
-
-		## Diffs
-		<details>
-			<summary>See snapshot diffs</summary>
-
-			| Name | Expected image | Produced image | Diff |
-			| :--: | :------------: | :------------: | :--: |
-			${screenshotFailures.map(formatScreenshotFailure).join("\n")}
-		</details>
 
 		## Help
 		<details>
@@ -96,102 +68,10 @@ export async function showScreenshotTestResults({ github, context, exec }) {
 		return;
 	}
 
-	// Download the screenshots from the artifacts
-	const download = await github.rest.actions.downloadArtifact({
-		owner: context.repo.owner,
-		repo: context.repo.repo,
-		artifact_id: badScreenshots.id,
-		archive_format: "zip",
-	});
-
-	fs.writeFileSync("bad-screenshots.zip", Buffer.from(download.data));
-
-	await exec.exec("unzip bad-screenshots.zip -d bad-screenshots");
-
-	const prNumberFile = path.join(
-		"bad-screenshots",
-		"pull_request_number.txt"
-	);
-
-	if (!fs.existsSync(prNumberFile)) {
-		console.log("No PR number found");
-		return;
-	}
-
-	const prNumber = parseInt(fs.readFileSync(prNumberFile, "utf8"), 10);
-	if (!prNumber) {
-		console.log("No PR number found");
-		return;
-	}
-
-	fs.rmSync(prNumberFile);
-
-	// Collect screenshots and re-upload as individual artifacts
-	const screenshotFailures = [];
-	for (const directory of fs.readdirSync("bad-screenshots")) {
-		const newPath = path.join("bad-screenshots", directory, "new.png");
-		const oldPath = path.join("bad-screenshots", directory, "old.png");
-		const diffPath = path.join("bad-screenshots", directory, "diff.png");
-
-		if (![newPath, oldPath, diffPath].some((p) => fs.existsSync(p)))
-			continue;
-
-		// Upload screenshots as new artifacts
-		const uploadAndGetUrl = async (file, label) => {
-			if (!fs.existsSync(file)) return null;
-
-			await github.rest.actions.uploadArtifact({
-				owner: context.repo.owner,
-				repo: context.repo.repo,
-				run_id: context.runId,
-				name: `${directory}-${label}`,
-				files: [file],
-			});
-
-			// Note: GitHub doesn’t provide direct image links; instead, artifact download URL:
-			const { data } = await github.rest.actions.listWorkflowRunArtifacts(
-				{
-					owner: context.repo.owner,
-					repo: context.repo.repo,
-					run_id: context.runId,
-				}
-			);
-			const artifact = data.artifacts.find(
-				(a) => a.name === `${directory}-${label}`
-			);
-			return artifact ? artifact.archive_download_url : null;
-		};
-
-		let newUrl, oldUrl, diffUrl;
-		await Promise.all([
-			uploadAndGetUrl(newPath, "new").then((u) => (newUrl = u)),
-			uploadAndGetUrl(oldPath, "old").then((u) => (oldUrl = u)),
-			uploadAndGetUrl(diffPath, "diff").then((u) => (diffUrl = u)),
-		]);
-
-		screenshotFailures.push({ directory, newUrl, oldUrl, diffUrl });
-	}
-
-	if (screenshotFailures.length === 0) {
-		console.log("No screenshot failures found");
-		return;
-	}
-
-	// Build PR comment (clickable download links)
-	const comment = screenshotFailures
-		.map(({ directory, newUrl, oldUrl, diffUrl }) => {
-			return `### Screenshot mismatch: \`${directory}\`
-
-**Old** [Download](${oldUrl})
-**New** [Download](${newUrl})
-**Diff** [Download](${diffUrl})`;
-		})
-		.join("\n\n");
-
 	await github.rest.issues.createComment({
 		owner: context.repo.owner,
 		repo: context.repo.repo,
-		issue_number: prNumber,
-		body: comment,
+		issue_number: github.event.number,
+		body: createComment(badScreenshots.url),
 	});
 }
