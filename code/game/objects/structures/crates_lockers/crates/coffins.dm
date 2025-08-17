@@ -134,11 +134,8 @@
 	STOP_PROCESSING(SSprocessing, src)
 	return ..()
 
-/obj/structure/closet/crate/coffin/process(mob/living/user)
-	. = ..()
-	if(!.)
-		return FALSE
-	if(user in src)
+/obj/structure/closet/crate/coffin/process(delta_time)
+	if(resident in src)
 		var/list/turf/area_turfs = get_area_turfs(get_area(src))
 		// Create Dirt etc.
 		var/turf/T_Dirty = pick(area_turfs)
