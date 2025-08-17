@@ -316,3 +316,11 @@
       while we don't have access to file.house
   Rukofamicom:
   - rscdel: Removed dullahans
+  Solene, Ratwood/Roguetown:
+  - rscadd: Adds accents as a trait
+  - rscadd: Added British and Scottish accent (Scottish is a port from Ratwood/RogueTown).
+  - tweak: Reworked swedish.
+  - tweak: Added and fixed some things in accent jsons, including appendages for french
+      accent
+  - refactor: Refactors accent code
+  - code_imp: Cleaned up accent jsons a bit and renamed them for organization
