@@ -1,7 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - tweak: Adds in unit testing for emissive overlays, IPC screen emissives and clothes
-      providing emissive blockers.
-  - tweak: Screenshot tests are no longer reported with the image in the comments,
-      while we don't have access to file.house

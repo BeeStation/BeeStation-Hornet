@@ -111,6 +111,32 @@ export async function showScreenshotTestResults({ github, context, exec }) {
 
 	fs.rmSync(prNumberFile);
 
+	// Validate the PR
+	const result = await github.graphql(
+		`query($owner:String!, $repo:String!, $prNumber:Int!) {
+		repository(owner: $owner, name: $repo) {
+			pullRequest(number: $prNumber) {
+				commits(last: 1) {
+					nodes {
+						commit {
+							checkSuites(first: 10) {
+								nodes {
+									id
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}`,
+		{
+			owner: context.repo.owner,
+			repo: context.repo.repo,
+			prNumber,
+		}
+	);
+
 	const validPr =
 		result.repository.pullRequest.commits.nodes[0].commit.checkSuites.nodes.some(
 			({ id }) => id === context.payload.workflow_run.check_suite_node_id
