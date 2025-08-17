@@ -320,8 +320,8 @@ const Randomize = (props) => {
     <Stack fill vertical>
       {points < 10 && <PointLocked />}
       <Stack.Item>
-        Randomize will allot additional points but wont purchase any items. You will get a random amount of normal level 1
-        spells and have refunding disabled. THIS CHOICE IS FINAL.
+        Choosing to randomize will give some bonus points and buy a random selection of spells. This is not reversible, it
+        disables refunding, and will not buy staves, wands, or similar.
       </Stack.Item>
       <Stack.Item>
         <Button.Confirm
