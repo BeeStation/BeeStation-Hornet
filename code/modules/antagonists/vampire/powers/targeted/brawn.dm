@@ -198,18 +198,22 @@
 	if(!.)
 		return FALSE
 
+	// Brujah has their own checks
+	if(brujah)
+		return TRUE
+
 	if(isliving(target_atom))
 		return TRUE
 
 	if(istype(target_atom, /obj/machinery/door/airlock))
-		if(brujah ? level_current < 2 : level_current < 4)
-			owner.balloon_alert(owner, "level [brujah ? "2" : "4"] required!")
+		if(level_current < 4)
+			owner.balloon_alert(owner, "level 4 required!")
 			return FALSE
 
 		return TRUE
 
 	if(istype(target_atom, /obj/structure/closet))
-		if(!brujah && level_current < 3)
+		if(level_current < 3)
 			owner.balloon_alert(owner, "level 3 required!")
 			return FALSE
 

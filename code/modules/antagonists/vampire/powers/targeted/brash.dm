@@ -24,7 +24,7 @@
 
 /// Hit an atom, set bloodcost, set cooldown time, play a sound, and deconstruct the atom
 /// with this one convenient proc!
-/datum/action/vampire/targeted/brawn/brash/proc/hit_with_style(atom/target_atom, sound, vol as num, var/cost as num, var/cooldown)
+/datum/action/vampire/targeted/brawn/brash/proc/hit_with_style(atom/target_atom, sound, vol as num, cost as num, cooldown)
 	if(!isobj(target_atom))
 		return
 
@@ -37,53 +37,68 @@
 
 /datum/action/vampire/targeted/brawn/brash/FireTargetedPower(atom/target_atom)
 	. = ..()
+	// People
 	if(isliving(target_atom))
 		bloodcost = 25
 		cooldown_time = 10 SECONDS
 		return
 
+	// Closets
 	if(istype(target_atom, /obj/structure/closet))
 		bloodcost = 8
 		cooldown_time = 7 SECONDS
 		return
 
+	// Girders
 	if(istype(target_atom, /obj/structure/girder))
 		hit_with_style(target_atom, 'sound/effects/bang.ogg', 60, 10, 5 SECONDS)
 		return
 
+	// Grilles
 	if(istype(target_atom, /obj/structure/grille))
 		hit_with_style(target_atom, 'sound/effects/grillehit.ogg', 50, 1, 0.5 SECONDS)
 		return
 
+	// Windows
 	if(istype(target_atom, /obj/structure/window))
 		var/obj/structure/window/window = target_atom
-		if(level_current < 4 || (istype(window, /obj/structure/window/reinforced) && level_current < 5))
-			window.balloon_alert(owner, "you need more ranks!")
+		if(istype(target_atom, /obj/structure/window/reinforced) && level_current < 5)
+			window.balloon_alert(owner, "level 5 required!")
 			return
+		else if(level_current < 4)
+			window.balloon_alert(owner, "level 4 required!")
+			return
+
 		if(istype(window, /obj/structure/window/reinforced) || istype(window, /obj/structure/window/plasma))
 			hit_with_style(window, 'sound/effects/bang.ogg', 30, 25, 15 SECONDS)
 		else
 			hit_with_style(window, 'sound/effects/bang.ogg', 20, 15, 10 SECONDS)
 		return
 
+	// Windoors
 	if(istype(target_atom, /obj/machinery/door/window))
 		hit_with_style(target_atom, 'sound/effects/bang.ogg', 50, 10, 5 SECONDS)
 		return
 
+	// Tables
 	if(istype(target_atom, /obj/structure/table))
 		hit_with_style(target_atom, 'sound/effects/bang.ogg', 35, 10, 5 SECONDS)
-
-	if(!iswallturf(target_atom))
-		return
-	if(level_current < 4 || (istype(target_atom, /turf/closed/wall/r_wall) && level_current < 5))
-		target_atom.balloon_alert(owner, "not a high enough rank!")
-		return
-	if(isindestructiblewall(target_atom))
-		target_atom.balloon_alert(owner, "this wall is indestructible!")
 		return
 
-	/// If we get past all of the if statements then it's almost certainly a wall at this point.
-	rip_and_tear(owner, target_atom)
+	// Walls
+	if(iswallturf(target_atom))
+		if(isindestructiblewall(target_atom))
+			target_atom.balloon_alert(owner, "this wall is indestructible!")
+			return
+
+		if(istype(target_atom, /turf/closed/wall/r_wall) && level_current < 5)
+			target_atom.balloon_alert(owner, "level 5 required!")
+			return
+		else if(level_current < 4)
+			target_atom.balloon_alert(owner, "level 4 required!")
+			return
+
+		rip_and_tear(owner, target_atom)
 
 /// Copied over from '/datum/element/wall_tearer/proc/rip_and_tear' with appropriate adjustment.
 /datum/action/vampire/targeted/brawn/brash/proc/rip_and_tear(mob/living/tearer, atom/target)
@@ -123,7 +138,7 @@
 		return FALSE
 	if(isliving(target_atom))
 		return TRUE
-	if(istype(target_atom, /obj/machinery/door))
+	if(istype(target_atom, /obj/machinery/door/airlock))
 		return TRUE
 	if(istype(target_atom, /obj/structure/table))
 		return TRUE
@@ -133,7 +148,9 @@
 		return TRUE
 	if(istype(target_atom, /obj/structure/grille))
 		return TRUE
-	if(((iswallturf(target_atom) && !isindestructiblewall(target_atom))) || istype(target_atom, /obj/structure/window))
+	if(istype(target_atom, /obj/structure/window))
+		return TRUE
+	if(iswallturf(target_atom))
 		return TRUE
 
 	return FALSE
