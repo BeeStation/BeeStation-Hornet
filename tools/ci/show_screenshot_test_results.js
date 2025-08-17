@@ -3,7 +3,11 @@ import fs from "fs";
 import path from "path";
 import process from "process";
 
-const createComment = (zipFileUrl) => {
+const createComment = (screenshotFailures, zipFileUrl) => {
+	const formatScreenshotFailure = ({ directory }) => {
+		return `| ${directory} |`;
+	};
+
 	return `
 		Screenshot tests failed!
 
@@ -12,6 +16,15 @@ const createComment = (zipFileUrl) => {
 				? `[Download zip file of new screenshots.](${zipFileUrl})`
 				: "No zip file could be produced, this is a bug!"
 		}
+
+		## Diffs
+		<details>
+			<summary>See snapshot diffs</summary>
+
+			| Name |
+			| :--: |
+			${screenshotFailures.map(formatScreenshotFailure).join("\n")}
+		</details>
 
 		## Help
 		<details>
@@ -68,10 +81,93 @@ export async function showScreenshotTestResults({ github, context, exec }) {
 		return;
 	}
 
+	// Download the screenshots from the artifacts
+	const download = await github.rest.actions.downloadArtifact({
+		owner: context.repo.owner,
+		repo: context.repo.repo,
+		artifact_id: badScreenshots.id,
+		archive_format: "zip",
+	});
+
+	fs.writeFileSync("bad-screenshots.zip", Buffer.from(download.data));
+
+	await exec.exec("unzip bad-screenshots.zip -d bad-screenshots");
+
+	const prNumberFile = path.join(
+		"bad-screenshots",
+		"pull_request_number.txt"
+	);
+
+	if (!fs.existsSync(prNumberFile)) {
+		console.log("No PR number found");
+		return;
+	}
+
+	const prNumber = parseInt(fs.readFileSync(prNumberFile, "utf8"), 10);
+	if (!prNumber) {
+		console.log("No PR number found");
+		return;
+	}
+
+	fs.rmSync(prNumberFile);
+
+	const validPr =
+		result.repository.pullRequest.commits.nodes[0].commit.checkSuites.nodes.some(
+			({ id }) => id === context.payload.workflow_run.check_suite_node_id
+		);
+
+	if (!validPr) {
+		console.log(
+			`PR #${prNumber} is not valid (expected check suite ID ${context.payload.workflow_run.check_suite_node_id})`
+		);
+		return;
+	}
+
+	const screenshotFailures = [];
+
+	for (const directory of fs.readdirSync("bad-screenshots")) {
+		console.log(`Uploading screenshots for ${directory}`);
+
+		screenshotFailures.push({ directory });
+	}
+
+	if (screenshotFailures.length === 0) {
+		console.log("No screenshot failures found");
+		return;
+	}
+
+	// Upload zip file for quick fixes
+	const zipFilePath = path.join("data", "screenshot-update");
+	const finalDestination = path.join(
+		zipFilePath,
+		"code",
+		"modules",
+		"unit_tests",
+		"screenshots"
+	);
+
+	fs.mkdirSync(finalDestination, { recursive: true });
+
+	for (const { directory } of screenshotFailures) {
+		fs.copyFileSync(
+			path.join("bad-screenshots", directory, "new.png"),
+			path.join(finalDestination, `${directory}.png`)
+		);
+	}
+
+	await exec.exec("zip", ["-r", `../screenshot-update.zip`, "."], {
+		cwd: zipFilePath,
+	});
+
+	const zipUrl = await uploadFile(`${zipFilePath}.zip`);
+
+	// Post the comment
+	const comment = createComment(screenshotFailures, zipUrl);
+
 	await github.rest.issues.createComment({
 		owner: context.repo.owner,
 		repo: context.repo.repo,
-		issue_number: github.event.number,
-		body: createComment(badScreenshots.url),
+		issue_number: prNumber,
+		body: comment,
 	});
 }
