@@ -39,6 +39,7 @@
 
 	GLOB.masquerade_breakers.Remove(src)
 
+	owner.current.playsound_local(null, 'sound/vampires/lunge_warn.ogg', 100, FALSE, pressure_affected = FALSE)
 	set_antag_hud(owner.current, "vampire")
 	to_chat(owner.current, span_userdanger("You have re-entered the Masquerade."))
 
