@@ -1,0 +1,6 @@
+author: mrmanlikesbt, TheSwain, JohnFulpWillard, absolucy
+delete-after: true
+changes:
+  - rscadd: added a new antagonist, the vampire (bloodsuckers)
+  - rscdel: deleted the vampire Halloween race
+  - tweak: you can now drink from blood bags
