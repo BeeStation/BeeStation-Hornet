@@ -103,7 +103,7 @@
 	spreadFire(AM)
 
 /mob/living/carbon/human/reset_perspective(atom/new_eye, force_reset = FALSE)
-	if(dna?.species?.prevent_perspective_change && !force_reset) // This is in case a species needs to prevent perspective changes in certain cases, like Dullahans preventing perspective changes when they're looking through their head.
+	if(dna?.species?.prevent_perspective_change && !force_reset) // This is in case a species needs to prevent perspective changes in certain cases
 		update_fullscreen()
 		return
 	return ..()
@@ -1054,9 +1054,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/human/species)
 
 /mob/living/carbon/human/species/apid
 	race = /datum/species/apid
-
-/mob/living/carbon/human/species/dullahan
-	race = /datum/species/dullahan
 
 /mob/living/carbon/human/species/ethereal
 	race = /datum/species/ethereal

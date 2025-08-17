@@ -300,3 +300,14 @@
   - bugfix: fixed paperbundles
   mrmanlikesbt, vinylspiders, absolucy:
   - code_imp: code cleanup for reagents
+2025-08-16:
+  Aramix:
+  - bugfix: fancychat now auto-resizes to occupy the remaining space properly, especially
+      after reconnects
+2025-08-17:
+  Nakalon:
+  - bugfix: Fixes plasmaman loadout replacement causing their death.
+  - tweak: Backpacks will always spawn first in a players loadout now to ensure everything
+      works how it's supposed to and that their old bag does get, in fact, replaced.
+  Rukofamicom:
+  - rscdel: Removed dullahans

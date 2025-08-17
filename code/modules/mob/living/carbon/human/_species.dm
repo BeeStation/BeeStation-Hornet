@@ -173,7 +173,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/preload = TRUE
 
 
-	/// Do we try to prevent reset_perspective() from working? Useful for Dullahans to stop perspective changes when they're looking through their head.
+	/// Do we try to prevent reset_perspective() from working?
 	var/prevent_perspective_change = FALSE
 
 	///List of results you get from knife-butchering. null means you cant butcher it. Associated by resulting type - value of amount

@@ -84,10 +84,6 @@ GLOBAL_LIST_INIT(prototype_organs, typecacheof(list(
 	/obj/item/organ/nymph_organ/l_arm,
 	/obj/item/organ/nymph_organ/r_leg,
 	/obj/item/organ/nymph_organ/l_leg,
-	/obj/item/organ/brain/dullahan,
-	/obj/item/organ/ears/dullahan,
-	/obj/item/organ/tongue/dullahan,
-	/obj/item/organ/eyes/dullahan,
 ), only_root_path = TRUE))
 
 // List of organ typepaths similiar to prototype_organs, but including subtypes

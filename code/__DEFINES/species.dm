@@ -3,7 +3,6 @@
 #define SPECIES_ANDROID "android"
 #define SPECIES_APID "apid"
 #define SPECIES_DEBUG "debug"
-#define SPECIES_DULLAHAN "dullahan"
 #define SPECIES_ETHEREAL "ethereal"
 #define SPECIES_FELINID "felinid"
 #define SPECIES_FLYPERSON "fly"
