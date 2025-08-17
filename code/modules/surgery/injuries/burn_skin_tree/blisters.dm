@@ -7,6 +7,7 @@
 	examine_description = "<b>blisters</b>"
 	healed_type = /datum/injury/treated_burn
 	heal_description = "This victim requires 5 units of either silver sulfadiazine, or advanced burn gel applied via patch."
+	pain = 15
 
 /datum/injury/blisters/on_damage_taken(total_damage, delta_damage, damage_type = BRUTE, damage_flag = DAMAGE_STANDARD, is_sharp = FALSE)
 	if (damage_type != BURN)

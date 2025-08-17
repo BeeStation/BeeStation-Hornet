@@ -36,6 +36,8 @@
 	/// Max amount of damage we can absorb as a fresh injury. This means that new injuries
 	/// have more health than old ones.
 	var/max_absorption = 30
+	/// How much pain this injury causes
+	var/pain = 0
 
 /datum/injury/process(delta_time)
 	if (!bodypart.owner)
@@ -62,6 +64,8 @@
 	RegisterSignal(target, COMSIG_ATOM_ATTACKBY, PROC_REF(item_interaction))
 	target.update_health_hud()
 	START_PROCESSING(SSinjuries, src)
+	if (pain)
+		target.pain.set_pain_source(pain, "[type]")
 
 /// Take the injury away from the person who owns the limb
 /datum/injury/proc/remove_from_human(mob/living/carbon/human/target)

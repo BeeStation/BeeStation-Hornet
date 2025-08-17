@@ -4,6 +4,10 @@
 /datum/pain_source
 	/// The owner of the consciousness datum
 	var/mob/living/owner
+	/// How much pain are we currently in?
+	var/pain
+
+/datum/pain_source/proc/on_life()
 
 /// Update the damage overlay, pain level between:
 /// 0: no pain

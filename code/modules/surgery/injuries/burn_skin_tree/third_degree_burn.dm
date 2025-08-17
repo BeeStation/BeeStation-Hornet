@@ -7,6 +7,7 @@
 	examine_description = "<b>third-degree burns</b>"
 	healed_type = /datum/injury/restored_skin_burn
 	heal_description = "The victim can be assisted with advanced burn gel applied via patch, but a full recovery is only possible via augmentation or replacement of the bodypart."
+	pain = 35
 
 /datum/injury/third_degree_burn/gain_message(mob/living/carbon/human/target, obj/item/bodypart/part)
 	to_chat(target, span_userdanger("The burns on your [part.plaintext_zone] intensify."))
