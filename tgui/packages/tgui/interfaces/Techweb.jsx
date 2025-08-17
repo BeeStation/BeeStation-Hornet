@@ -193,7 +193,7 @@ export const TechwebContent = (props) => {
           </Flex.Item>
         </Flex>
       </Flex.Item>
-      <Flex.Item className="Techweb__RouterContent" minHeight="0" grow={1} basis="auto" style={{ overflow: 'scroll' }}>
+      <Flex.Item className="Techweb__RouterContent" minHeight={0} grow={1}>
         <TechwebRouter />
       </Flex.Item>
     </Flex>
@@ -271,7 +271,7 @@ const TechwebOverview = (props) => {
           </Flex.Item>
         </Flex>
       </Flex.Item>
-      <Flex.Item className={'Techweb__OverviewNodes'} height="100%">
+      <Flex.Item className={'Techweb__OverviewNodes'} minHeight="0" grow={1} basis="auto" style={{ overflowY: 'scroll' }}>
         <Flex height="100%">
           {!searching && ( // is not searching
             <>
