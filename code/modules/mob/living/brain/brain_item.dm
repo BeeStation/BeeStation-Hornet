@@ -169,7 +169,7 @@
 			return
 
 		user.visible_message("[user] pours the contents of [O] onto [src], causing it to reform its original shape and turn a slightly brighter shade of pink.", span_notice("You pour the contents of [O] onto [src], causing it to reform its original shape and turn a slightly brighter shade of pink."))
-		set_organ_damage(damage - (0.05 * maxHealth))	//heals a small amount, and by using "setorgandamage", we clear the failing variable if that was up
+		set_organ_damage(damage - (0.05 * maxHealth))	//heals a small amount, and by using "set_organ_damage", we clear the failing variable if that was up
 		O.reagents.clear_reagents()
 		return
 
