@@ -161,7 +161,7 @@
 			continue
 
 		if(!to_refund.is_available())
-			to_chat(user, ("<span class='warning'>You can only refund spells that are available to cast!</span>"))
+			to_chat(user, span_warning("You can only refund spells that are available to cast!"))
 			return -1
 
 		var/amount_to_refund = to_refund.spell_level * cost
