@@ -19,7 +19,7 @@ const createComment = (screenshotFailures, zipFileUrl) => {
 
 		## Diffs
 		<details>
-			<summary>See snapshot diffs</summary>
+			<summary>See failing tests</summary>
 
 			| Name |
 			| :--: |
@@ -163,7 +163,7 @@ export async function showScreenshotTestResults({ github, context, exec }) {
 	}
 
 	// Post the comment
-	const comment = createComment(screenshotFailures, badScreenshots.url);
+	const comment = createComment(screenshotFailures, badScreenshots.archive_download_url);
 
 	await github.rest.issues.createComment({
 		owner: context.repo.owner,
