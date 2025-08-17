@@ -4571,10 +4571,6 @@
 "ali" = (
 /turf/open/floor/plating/abductor,
 /area/abductor_ship)
-"alj" = (
-/obj/structure/closet/abductor,
-/turf/open/floor/plating/abductor,
-/area/abductor_ship)
 "aln" = (
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 1
@@ -9362,8 +9358,6 @@
 /obj/item/stock_parts/cell/infinite/abductor,
 /obj/item/stock_parts/cell/infinite/abductor,
 /obj/item/wrench/abductor,
-/obj/item/circuitboard/machine/abductor/core,
-/obj/item/circuitboard/machine/abductor/core,
 /turf/open/floor/plating/abductor2,
 /area/abductor_ship)
 "ayn" = (
@@ -14928,7 +14922,17 @@
 /area/tdome/tdomeadmin)
 "aMp" = (
 /obj/structure/closet/abductor,
-/obj/item/storage/box/alienhandcuffs,
+/obj/item/firing_pin/abductor,
+/obj/item/firing_pin/abductor,
+/obj/item/firing_pin/abductor,
+/obj/item/firing_pin/abductor,
+/obj/item/organ/tongue/abductor,
+/obj/item/organ/tongue/abductor,
+/obj/item/organ/tongue/abductor,
+/obj/item/organ/tongue/abductor,
+/obj/item/stock_parts/cell/infinite/abductor,
+/obj/item/stock_parts/cell/infinite/abductor,
+/obj/item/stock_parts/cell/infinite/abductor,
 /turf/open/floor/plating/abductor,
 /area/abductor_ship)
 "aMq" = (
@@ -20684,6 +20688,9 @@
 	set_cap = 1;
 	set_luminosity = 4
 	},
+/obj/effect/landmark/navigate_destination{
+	navigation_id = "Alpha-Beta Surgery"
+	},
 /turf/open/floor/plating/abductor2,
 /area/abductor_ship)
 "bjA" = (
@@ -20698,6 +20705,12 @@
 	dir = 1
 	},
 /area/syndicate_mothership/control)
+"boX" = (
+/obj/item/paper/crumpled/bloody{
+	default_raw_text = "I've managed to survive on this godless prison of a ship for 2 weeks now. <br><br><br><br> Why does this fucking door not open. I left my food with the cow... Fuck this, fuck THIS im not dying here.<br><br><br><br><br> no            door"
+	},
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "bxh" = (
 /obj/structure/table/reinforced,
 /obj/item/mod/module/anomaly_locked/kinesis/plus,
@@ -20723,9 +20736,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/tech,
 /area/syndicate_mothership/control)
-"bFV" = (
-/turf/open/space/basic,
-/area/abductor_ship)
 "bGL" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 10
@@ -20803,8 +20813,10 @@
 /area/syndicate_mothership/control)
 "cgS" = (
 /obj/structure/closet/abductor,
-/obj/item/firing_pin/abductor,
-/obj/item/mop/advanced,
+/obj/item/storage/belt/military/abductor/full,
+/obj/item/storage/belt/military/abductor/full,
+/obj/item/storage/belt/military/abductor/med,
+/obj/item/storage/belt/military/abductor/med,
 /turf/open/floor/plating/abductor,
 /area/abductor_ship)
 "cjN" = (
@@ -20812,6 +20824,25 @@
 	dir = 4
 	},
 /turf/open/floor/plating/abductor,
+/area/abductor_ship)
+"ckv" = (
+/obj/structure/closet/abductor,
+/obj/item/storage/box/alienhandcuffs,
+/obj/item/storage/box/alienhandcuffs,
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
+"cnl" = (
+/obj/structure/closet/abductor,
+/obj/item/modular_computer/tablet/pda/preset/medical,
+/obj/item/radio/headset/headset_med,
+/obj/item/clothing/under/rank/medical/doctor,
+/obj/item/clothing/shoes/sneakers/white,
+/obj/item/clothing/suit/toggle/labcoat,
+/obj/item/clothing/gloves/color/latex/nitrile,
+/obj/item/storage/firstaid/medical,
+/obj/item/flashlight/pen,
+/obj/item/storage/backpack/satchel/med,
+/turf/open/floor/plating/abductor2,
 /area/abductor_ship)
 "coL" = (
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
@@ -20838,6 +20869,10 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron,
 /area/syndicate_mothership/control)
+"cAf" = (
+/obj/effect/decal/cleanable/blood/footprints,
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "cEy" = (
 /obj/effect/turf_decal/sand,
 /obj/effect/turf_decal/weather/dirt{
@@ -20855,11 +20890,7 @@
 /turf/open/floor/plating/abductor2,
 /area/abductor_ship)
 "cKy" = (
-/obj/item/storage/box/alienhandcuffs,
-/obj/structure/closet/abductor{
-	anchored = 1;
-	name = "Alpha locker"
-	},
+/obj/structure/closet/abductor/readyroom,
 /turf/open/floor/plating/abductor,
 /area/abductor_ship)
 "cMX" = (
@@ -20910,6 +20941,21 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron,
 /area/tdome/tdomeobserve)
+"cTB" = (
+/obj/effect/light_emitter{
+	set_cap = 1;
+	set_luminosity = 4
+	},
+/obj/effect/landmark/navigate_destination{
+	navigation_id = "Alpha-Beta Teleportation"
+	},
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
+"cUG" = (
+/obj/structure/closet/abductor,
+/obj/item/mop/advanced,
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "cUT" = (
 /obj/effect/turf_decal/trimline/red/filled/mid_joiner{
 	dir = 1
@@ -21109,15 +21155,6 @@
 	},
 /turf/open/floor/plating/snowed,
 /area/syndicate_mothership)
-"enR" = (
-/obj/structure/closet/abductor,
-/obj/item/firing_pin/abductor,
-/obj/item/firing_pin/abductor,
-/obj/item/stack/sheet/mineral/abductor/fifty,
-/obj/item/stack/sheet/mineral/abductor/fifty,
-/obj/item/stack/sheet/mineral/abductor/fifty,
-/turf/open/floor/plating/abductor,
-/area/abductor_ship)
 "eDv" = (
 /obj/machinery/igniter/on,
 /obj/effect/turf_decal/delivery,
@@ -21180,10 +21217,23 @@
 /obj/structure/girder/reinforced,
 /turf/open/floor/plating,
 /area/syndicate_mothership/control)
+"faT" = (
+/obj/machinery/door/airlock/abductor{
+	normalspeed = 0;
+	name = "Gamma-Delta Readyroom"
+	},
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "ffI" = (
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/plating/dirt/jungle,
 /area/syndicate_mothership/control)
+"fgp" = (
+/obj/effect/turf_decal/alphabet/alien/circle{
+	dir = 1
+	},
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "fhN" = (
 /obj/structure/flora/stump,
 /obj/structure/fans/tiny/invisible,
@@ -21195,6 +21245,19 @@
 	set_luminosity = 4
 	},
 /turf/open/floor/plating/abductor,
+/area/abductor_ship)
+"fmt" = (
+/obj/item/clothing/under/rank/security/officer,
+/obj/item/storage/belt/security/full,
+/obj/structure/closet/abductor,
+/obj/item/clothing/neck/tie/black,
+/obj/item/clothing/gloves/color/black,
+/obj/item/clothing/shoes/jackboots,
+/obj/item/clothing/suit/armor/vest,
+/obj/item/restraints/legcuffs/bola/energy,
+/obj/item/restraints/legcuffs/bola/energy,
+/obj/item/storage/fancy/donut_box,
+/turf/open/floor/plating/abductor2,
 /area/abductor_ship)
 "fmE" = (
 /obj/structure/flora/tree/pine/xmas,
@@ -21209,6 +21272,7 @@
 "fsR" = (
 /obj/structure/closet/abductor,
 /obj/item/melee/baton/abductor,
+/obj/item/dance_trance,
 /turf/open/floor/plating/abductor2,
 /area/abductor_ship)
 "ftr" = (
@@ -21253,6 +21317,20 @@
 	},
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
+"fCC" = (
+/obj/effect/decal/cleanable/blood/gibs/core,
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
+"fDG" = (
+/obj/effect/light_emitter{
+	set_cap = 1;
+	set_luminosity = 4
+	},
+/obj/effect/landmark/navigate_destination{
+	navigation_id = "Alpha-Beta Readyroom"
+	},
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "fGm" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
@@ -21377,6 +21455,12 @@
 	},
 /turf/open/floor/iron,
 /area/tdome/tdomeadmin)
+"gtK" = (
+/obj/structure/table/abductor,
+/obj/item/tank/internals/oxygen,
+/obj/item/clothing/mask/gas/explorer,
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "gub" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/plasma,
@@ -21518,6 +21602,10 @@
 	},
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
+"hqf" = (
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "hrM" = (
 /obj/effect/turf_decal/siding/dark/corner{
 	dir = 4
@@ -21646,6 +21734,26 @@
 	},
 /turf/open/floor/plating/abductor2,
 /area/abductor_ship)
+"hMO" = (
+/obj/effect/light_emitter{
+	set_cap = 1;
+	set_luminosity = 4
+	},
+/obj/effect/landmark/navigate_destination{
+	navigation_id = "Gamma-Delta Readyroom"
+	},
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
+"hMT" = (
+/obj/effect/light_emitter{
+	set_cap = 1;
+	set_luminosity = 4
+	},
+/obj/effect/landmark/navigate_destination{
+	navigation_id = "Delta-Gamma Storage"
+	},
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "hSl" = (
 /obj/structure/flora/grass/jungle/b{
 	pixel_x = -13;
@@ -21739,7 +21847,9 @@
 /area/syndicate_mothership/control)
 "ilc" = (
 /obj/structure/table/abductor,
-/obj/item/firing_pin/abductor,
+/obj/item/candydispenser/abductor{
+	pixel_y = 13
+	},
 /turf/open/floor/plating/abductor2,
 /area/abductor_ship)
 "imY" = (
@@ -21855,6 +21965,10 @@
 	},
 /turf/open/floor/plating/dirt/jungle,
 /area/syndicate_mothership/control)
+"iXy" = (
+/obj/effect/mob_spawn/human/corpse/nanotrasensoldier,
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "jdo" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -21892,6 +22006,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/mineral/plastitanium,
 /area/syndicate_mothership/control)
+"jku" = (
+/obj/effect/turf_decal/alphabet/alien/circle,
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "jnM" = (
 /obj/effect/turf_decal/sand,
 /obj/effect/turf_decal/weather/dirt{
@@ -21955,6 +22073,12 @@
 	dir = 9
 	},
 /area/syndicate_mothership/control)
+"jGW" = (
+/obj/effect/turf_decal/alphabet/alien/circle{
+	dir = 8
+	},
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "jMV" = (
 /obj/effect/turf_decal/trimline/red/filled/mid_joiner,
 /obj/effect/decal/cleanable/generic,
@@ -21962,8 +22086,8 @@
 /area/syndicate_mothership/control)
 "jQT" = (
 /obj/structure/closet/abductor,
-/obj/item/chromosome/stabilizer,
-/obj/item/chromosome/power,
+/obj/item/megaphone/command,
+/obj/item/bedsheet/double/captain,
 /turf/open/floor/plating/abductor2,
 /area/abductor_ship)
 "jRP" = (
@@ -21975,6 +22099,16 @@
 	},
 /turf/open/floor/plating/snowed,
 /area/syndicate_mothership)
+"jSB" = (
+/obj/effect/light_emitter{
+	set_cap = 1;
+	set_luminosity = 4
+	},
+/obj/effect/landmark/navigate_destination{
+	navigation_id = "Alpha-Beta Experimentation"
+	},
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "jTo" = (
 /obj/structure/chair/office{
 	dir = 1;
@@ -22002,10 +22136,11 @@
 /area/centcom/control)
 "jZG" = (
 /obj/structure/closet/abductor,
+/obj/item/organ/tongue/abductor,
+/obj/item/organ/tongue/abductor,
 /obj/item/stock_parts/cell/infinite/abductor,
 /obj/item/stock_parts/cell/infinite/abductor,
-/obj/item/weldingtool/abductor,
-/obj/item/circuitboard/machine/abductor/core,
+/obj/item/shield_belt,
 /turf/open/floor/plating/abductor2,
 /area/abductor_ship)
 "kbc" = (
@@ -22030,14 +22165,6 @@
 	desc = "There is no grass here... What has she been eating??."
 	},
 /turf/open/floor/plating/abductor2,
-/area/abductor_ship)
-"kkw" = (
-/obj/item/storage/box/alienhandcuffs,
-/obj/structure/closet/abductor{
-	anchored = 1;
-	name = "Gamma locker"
-	},
-/turf/open/floor/plating/abductor,
 /area/abductor_ship)
 "kqj" = (
 /obj/machinery/door/airlock/abductor{
@@ -22187,6 +22314,16 @@
 	},
 /turf/open/floor/iron/dark,
 /area/tdome/tdomeobserve)
+"kWC" = (
+/obj/effect/light_emitter{
+	set_cap = 1;
+	set_luminosity = 4
+	},
+/obj/effect/landmark/navigate_destination{
+	navigation_id = "Delta-Gamma Teleportation"
+	},
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "lcz" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
@@ -22308,11 +22445,30 @@
 /obj/effect/turf_decal/trimline/neutral/warning,
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
+"lMH" = (
+/obj/effect/mob_spawn/human/corpse/cargo_tech,
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "lNE" = (
 /obj/machinery/door/airlock/centcom,
 /obj/effect/turf_decal/siding/white,
 /turf/open/floor/iron/freezer,
 /area/syndicate_mothership/control)
+"lRn" = (
+/obj/structure/closet/abductor,
+/obj/item/storage/belt/security/deputy,
+/obj/item/radio/headset/headset_sec,
+/obj/item/clothing/under/rank/security/officer/blueshirt,
+/obj/item/clothing/accessory/armband/deputy,
+/obj/item/clothing/shoes/sneakers/black,
+/obj/item/clothing/glasses/hud/security/deputy,
+/obj/item/clothing/head/soft/sec,
+/obj/item/modular_computer/tablet/pda/preset/deputy,
+/obj/item/storage/backpack/security,
+/obj/item/storage/backpack/security,
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "lTF" = (
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/trimline/red/filled/mid_joiner,
@@ -22351,12 +22507,33 @@
 	},
 /turf/open/floor/iron,
 /area/tdome/tdomeadmin)
+"lXS" = (
+/obj/effect/light_emitter{
+	set_cap = 1;
+	set_luminosity = 4
+	},
+/obj/effect/landmark/navigate_destination{
+	navigation_id = "Alpha-Beta Storage"
+	},
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "lZa" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/lattice/catwalk,
 /obj/structure/chair/noose,
 /turf/open/floor/plating/broken,
 /area/syndicate_mothership/control)
+"lZe" = (
+/obj/structure/table/optable/abductor,
+/obj/effect/light_emitter{
+	set_cap = 1;
+	set_luminosity = 4
+	},
+/obj/effect/landmark/navigate_destination{
+	navigation_id = "Delta-Gamma Surgery"
+	},
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "mbC" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/weather/dirt/corner{
@@ -22364,6 +22541,10 @@
 	},
 /turf/open/floor/plating/broken,
 /area/syndicate_mothership/control)
+"mes" = (
+/obj/item/storage/belt/utility/full/engi,
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "mmb" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/lattice/catwalk,
@@ -22432,6 +22613,13 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/syndicate_mothership/control)
+"mwu" = (
+/obj/machinery/door/airlock/abductor{
+	normalspeed = 0;
+	name = "Alpha-Beta Readyroom"
+	},
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "mzi" = (
 /obj/structure/bed/alien,
 /obj/effect/landmark/abductor/scientist{
@@ -22555,11 +22743,6 @@
 	},
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
-"ndo" = (
-/obj/structure/closet/abductor,
-/obj/item/candydispenser/abductor,
-/turf/open/floor/plating/abductor2,
-/area/abductor_ship)
 "nec" = (
 /obj/structure/fluff/fokoff_sign,
 /turf/open/floor/grass/snow,
@@ -22581,10 +22764,6 @@
 	},
 /turf/open/floor/plating,
 /area/syndicate_mothership/control)
-"nhe" = (
-/obj/item/crowbar/abductor,
-/turf/open/floor/plating/abductor2,
-/area/abductor_ship)
 "nkO" = (
 /obj/structure/table/abductor,
 /turf/open/floor/plating/abductor2,
@@ -22613,6 +22792,16 @@
 /obj/effect/decal/cleanable/insectguts,
 /turf/open/floor/plating,
 /area/syndicate_mothership/control)
+"npV" = (
+/obj/item/gun/ballistic/shotgun/doublebarrel/improvised/sawn,
+/obj/item/ammo_casing/shotgun/improvised,
+/obj/item/ammo_casing/shotgun/improvised,
+/obj/item/ammo_casing/shotgun/improvised,
+/obj/item/ammo_casing/shotgun/improvised,
+/obj/item/ammo_casing/shotgun/improvised,
+/obj/item/ammo_casing/shotgun/improvised,
+/turf/open/floor/plating/abductor2,
+/area/abductor_ship)
 "nsr" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/red,
@@ -22883,10 +23072,9 @@
 	},
 /turf/open/floor/plating/abductor2,
 /area/abductor_ship)
-"piG" = (
-/obj/structure/table/abductor,
-/obj/item/chromosome/synchronizer,
-/turf/open/floor/plating/abductor2,
+"pls" = (
+/obj/effect/turf_decal/alphabet/alien/circle/vertical,
+/turf/open/floor/plating/abductor,
 /area/abductor_ship)
 "pmF" = (
 /obj/structure/lattice/catwalk,
@@ -22915,15 +23103,6 @@
 /obj/effect/turf_decal/tile/techfloor,
 /turf/open/floor/iron/dark/textured,
 /area/centcom/control)
-"puE" = (
-/obj/item/storage/box/alienhandcuffs,
-/obj/structure/closet/abductor{
-	anchored = 1;
-	name = "Delta locker"
-	},
-/obj/item/abductor/silencer,
-/turf/open/floor/plating/abductor,
-/area/abductor_ship)
 "pBa" = (
 /obj/machinery/abductor/console{
 	team_number = 1
@@ -23020,6 +23199,10 @@
 "pZs" = (
 /obj/item/discovery_scanner,
 /obj/structure/closet/abductor,
+/obj/item/mop/advanced,
+/obj/item/mop/advanced,
+/obj/item/mop/advanced,
+/obj/item/mop/advanced,
 /turf/open/floor/plating/abductor2,
 /area/abductor_ship)
 "qdf" = (
@@ -23067,11 +23250,6 @@
 	set_cap = 1;
 	set_luminosity = 4
 	},
-/turf/open/floor/plating/abductor2,
-/area/abductor_ship)
-"qpk" = (
-/obj/structure/closet/abductor,
-/obj/item/radio/headset/abductor,
 /turf/open/floor/plating/abductor2,
 /area/abductor_ship)
 "qpY" = (
@@ -23601,11 +23779,7 @@
 /area/abductor_ship)
 "tOM" = (
 /obj/structure/closet/abductor,
-/obj/item/clothing/under/abductor,
-/obj/item/clothing/under/abductor,
-/obj/item/clothing/under/abductor,
-/obj/item/clothing/under/abductor,
-/obj/item/clothing/under/abductor,
+/obj/item/organ/tongue/abductor,
 /turf/open/floor/plating/abductor2,
 /area/abductor_ship)
 "tQS" = (
@@ -23770,7 +23944,8 @@
 /obj/item/paper/guides/antag/abductor,
 /obj/item/paper/guides/antag/abductor,
 /obj/item/paper/guides/antag/abductor,
-/obj/item/organ/tongue/abductor,
+/obj/item/paper/guides/antag/abductor,
+/obj/item/paper/guides/antag/abductor,
 /turf/open/floor/plating/abductor2,
 /area/abductor_ship)
 "uSz" = (
@@ -23782,6 +23957,8 @@
 /obj/item/screwdriver/abductor,
 /obj/item/multitool/abductor,
 /obj/item/wrench/abductor,
+/obj/item/circuitboard/machine/abductor/core,
+/obj/item/organ/tongue/abductor,
 /turf/open/floor/plating/abductor2,
 /area/abductor_ship)
 "vcG" = (
@@ -23798,14 +23975,14 @@
 /area/abductor_ship)
 "vfS" = (
 /obj/structure/closet/abductor,
-/obj/item/dance_trance,
+/obj/item/clothing/glasses/meson/night,
+/obj/item/clothing/suit/space/hardsuit/exploration,
 /turf/open/floor/plating/abductor2,
 /area/abductor_ship)
 "viE" = (
 /obj/structure/closet/abductor,
 /obj/item/radio/headset/abductor,
 /obj/item/stock_parts/cell/infinite/abductor,
-/obj/item/circuitboard/machine/abductor/core,
 /turf/open/floor/plating/abductor2,
 /area/abductor_ship)
 "vkM" = (
@@ -23856,17 +24033,20 @@
 	},
 /turf/open/floor/plating/abductor,
 /area/abductor_ship)
+"vDr" = (
+/obj/effect/light_emitter{
+	set_cap = 1;
+	set_luminosity = 4
+	},
+/obj/effect/landmark/navigate_destination{
+	navigation_id = "Delta-Gamma Experimentation"
+	},
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "vEe" = (
 /obj/effect/turf_decal/trimline/red/filled/mid_joiner,
 /turf/open/floor/mineral/plastitanium,
 /area/syndicate_mothership/control)
-"vFx" = (
-/obj/structure/closet/abductor,
-/obj/item/stack/sheet/mineral/abductor/fifty,
-/obj/item/stack/sheet/mineral/abductor/fifty,
-/obj/item/stack/sheet/mineral/abductor/fifty,
-/turf/open/floor/plating/abductor,
-/area/abductor_ship)
 "vKF" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/green,
@@ -23902,6 +24082,16 @@
 "vSx" = (
 /obj/item/kirbyplants/photosynthetic{
 	icon_state = "plant-07"
+	},
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
+"vTw" = (
+/obj/effect/light_emitter{
+	set_cap = 1;
+	set_luminosity = 4
+	},
+/obj/effect/landmark/navigate_destination{
+	navigation_id = "Control Room"
 	},
 /turf/open/floor/plating/abductor,
 /area/abductor_ship)
@@ -24042,15 +24232,6 @@
 	},
 /turf/open/floor/plating/abductor2,
 /area/abductor_ship)
-"wXM" = (
-/obj/item/storage/box/alienhandcuffs,
-/obj/structure/closet/abductor{
-	anchored = 1;
-	name = "Beta locker"
-	},
-/obj/item/melee/baton/abductor,
-/turf/open/floor/plating/abductor,
-/area/abductor_ship)
 "xam" = (
 /obj/effect/turf_decal/trimline/red/warning{
 	dir = 4
@@ -24064,6 +24245,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/mineral/plastitanium,
 /area/syndicate_mothership/control)
+"xey" = (
+/obj/effect/turf_decal/alphabet/alien/circle/vertical{
+	dir = 1
+	},
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "xho" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/tile_breaker,
@@ -24150,6 +24337,12 @@
 	},
 /turf/open/floor/plating/broken,
 /area/syndicate_mothership/control)
+"xFm" = (
+/obj/effect/turf_decal/alphabet/alien/circle/vertical{
+	dir = 4
+	},
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "xJP" = (
 /obj/structure/table/reinforced,
 /obj/item/mod/control/pre_equipped/corporate,
@@ -24193,9 +24386,11 @@
 /area/syndicate_mothership/control)
 "xVX" = (
 /obj/structure/closet/abductor,
-/obj/item/chromosome/energy,
-/obj/item/chromosome/energy,
-/obj/item/organ/tongue/abductor,
+/obj/item/circuitboard/machine/abductor/core,
+/obj/item/storage/belt/military/abductor/med,
+/obj/item/storage/belt/military/abductor/med,
+/obj/item/storage/belt/military/abductor/full,
+/obj/item/storage/belt/military/abductor/full,
 /turf/open/floor/plating/abductor2,
 /area/abductor_ship)
 "xYN" = (
@@ -24221,6 +24416,14 @@
 	},
 /turf/open/floor/iron,
 /area/tdome/tdomeobserve)
+"yht" = (
+/obj/structure/closet/abductor,
+/obj/item/storage/belt/military/abductor/med,
+/obj/item/storage/belt/military/abductor/med,
+/obj/item/storage/belt/military/abductor/full,
+/obj/item/storage/belt/military/abductor/full,
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "ylz" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin{
@@ -36501,13 +36704,13 @@ sGO
 sGO
 uSz
 uSz
-uSz
+lRn
 sGO
 sGO
 sGO
-alj
 net
-alj
+ali
+ali
 sGO
 sGO
 sGO
@@ -36753,7 +36956,7 @@ aaa
 sGO
 sGO
 sGO
-sGO
+xYN
 sGO
 aJA
 ali
@@ -37009,12 +37212,12 @@ sGO
 sGO
 sGO
 sGO
-sGO
-sGO
-sGO
-net
+tJP
+tJP
+vcT
 ali
-fle
+ali
+jSB
 ali
 ali
 tvX
@@ -37026,12 +37229,12 @@ ali
 uth
 ali
 ali
-fle
+lXS
 ali
-vFx
+ali
 vcT
 tJP
-sGO
+tJP
 sGO
 sGO
 sGO
@@ -37265,9 +37468,9 @@ sGO
 sGO
 sGO
 sGO
-sGO
-sGO
-sGO
+iXy
+boX
+tJP
 sGO
 aLK
 ali
@@ -37281,7 +37484,7 @@ ali
 ali
 ali
 sGO
-ali
+ckv
 ali
 ali
 ali
@@ -37289,7 +37492,7 @@ aMp
 sGO
 tJP
 tJP
-sGO
+tJP
 sGO
 sGO
 sGO
@@ -37521,9 +37724,9 @@ sGO
 sGO
 sGO
 sGO
-sGO
-sGO
-sGO
+xYN
+xYN
+npV
 sGO
 sGO
 sGO
@@ -37539,7 +37742,7 @@ ali
 sGO
 sGO
 sGO
-ali
+cUG
 ali
 ali
 sGO
@@ -37779,7 +37982,7 @@ sGO
 sGO
 sGO
 sGO
-sGO
+vcT
 sGO
 sGO
 sGO
@@ -38035,9 +38238,9 @@ sGO
 sGO
 sGO
 sGO
-ali
-ali
-ali
+net
+dyI
+net
 sGO
 sGO
 sGO
@@ -38289,9 +38492,9 @@ aaa
 sGO
 sGO
 sGO
-sGO
-sGO
 net
+sGO
+ali
 ali
 cKy
 ntd
@@ -38319,7 +38522,7 @@ tJP
 tJP
 tJP
 tJP
-piG
+nkO
 sGO
 xYN
 sGO
@@ -38545,18 +38748,18 @@ aaa
 sGO
 sGO
 sGO
-sGO
-sGO
-sGO
-dyI
 ali
-fle
+jku
+mwu
+ali
+ali
+fDG
 ali
 ali
 gcc
+fgp
 ali
-ali
-fle
+cTB
 ali
 ali
 xhJ
@@ -38579,7 +38782,7 @@ tJP
 gxj
 vcT
 tJP
-sGO
+tJP
 sGO
 sGO
 sGO
@@ -38801,13 +39004,13 @@ aaa
 aaa
 sGO
 sGO
-sGO
-sGO
-sGO
-sGO
-net
 ali
-wXM
+fle
+ali
+sGO
+ali
+ali
+cKy
 tns
 ali
 sGO
@@ -38837,7 +39040,7 @@ iTF
 sGO
 tJP
 tJP
-sGO
+tJP
 sGO
 sGO
 aaa
@@ -39057,9 +39260,9 @@ aaa
 aaa
 sGO
 sGO
-sGO
-sGO
-sGO
+net
+ali
+ali
 sGO
 sGO
 sGO
@@ -39315,7 +39518,7 @@ aaa
 sGO
 sGO
 sGO
-sGO
+mwu
 sGO
 sGO
 sGO
@@ -39572,13 +39775,13 @@ sGO
 sGO
 sGO
 wKl
-ali
+jGW
 wKl
 sGO
 sGO
 sGO
 wKl
-ali
+jGW
 wKl
 sGO
 sGO
@@ -40088,7 +40291,7 @@ ali
 ali
 fle
 ali
-ali
+vSx
 sGO
 ali
 ali
@@ -40876,7 +41079,7 @@ sGO
 ftF
 dyI
 ali
-net
+rTs
 kDn
 sGO
 sGO
@@ -41369,7 +41572,7 @@ aaa
 sGO
 sGO
 sGO
-alj
+net
 ali
 ali
 ali
@@ -41392,7 +41595,7 @@ ali
 ali
 ali
 ali
-net
+nuw
 sGO
 sWQ
 ali
@@ -41400,15 +41603,15 @@ ali
 ali
 sGO
 tOM
-nhe
 tJP
 tJP
-qpk
+tJP
+uSz
 sGO
 qAb
 tJP
-tJP
-tJP
+fCC
+mes
 tJP
 tJP
 bXW
@@ -41626,7 +41829,7 @@ aaa
 sGO
 sGO
 sGO
-net
+ali
 ali
 fle
 ali
@@ -41646,7 +41849,7 @@ naA
 ali
 ali
 ali
-fle
+vTw
 ali
 ali
 ali
@@ -41664,10 +41867,10 @@ tJP
 vcT
 tJP
 vsI
-tJP
+hqf
+lMH
 tJP
 qnx
-tJP
 bXW
 baJ
 aaa
@@ -41883,7 +42086,6 @@ aaa
 sGO
 sGO
 sGO
-alj
 ali
 ali
 ali
@@ -41891,22 +42093,23 @@ ali
 ali
 ali
 ali
-ali
-ali
-ali
-sGO
 ali
 ali
 ali
 ali
 sGO
-net
+ali
+ali
+ali
+ali
+sGO
+nuw
 ali
 ali
 ali
 ali
 ali
-rTs
+nuw
 sGO
 ali
 ali
@@ -41921,8 +42124,8 @@ tJP
 sGO
 vfS
 tJP
-tJP
-tJP
+cAf
+cAf
 tJP
 xYN
 bXW
@@ -42177,7 +42380,7 @@ tJP
 sGO
 sGO
 sGO
-nkO
+gtK
 tJP
 xYN
 xYN
@@ -42687,7 +42890,7 @@ sGO
 sGO
 tJP
 tJP
-ndo
+xYN
 sGO
 sGO
 sGO
@@ -43684,13 +43887,13 @@ sGO
 sGO
 sGO
 wKl
-ali
+xFm
 wKl
 sGO
 sGO
 sGO
 wKl
-ali
+xFm
 wKl
 sGO
 sGO
@@ -43941,7 +44144,7 @@ aaa
 sGO
 sGO
 sGO
-sGO
+faT
 sGO
 sGO
 sGO
@@ -44197,9 +44400,9 @@ aaa
 aaa
 sGO
 sGO
-sGO
-sGO
-sGO
+net
+ali
+ali
 sGO
 sGO
 sGO
@@ -44455,13 +44658,13 @@ aaa
 aaa
 sGO
 sGO
-sGO
-sGO
-sGO
-sGO
-net
 ali
-kkw
+fle
+ali
+sGO
+ali
+ali
+cKy
 tns
 ali
 sGO
@@ -44491,7 +44694,7 @@ tWy
 sGO
 tJP
 tJP
-sGO
+fmt
 sGO
 sGO
 aaa
@@ -44713,18 +44916,18 @@ aaa
 sGO
 sGO
 sGO
-sGO
-sGO
-sGO
-dyI
 ali
-fle
+xey
+faT
+ali
+ali
+hMO
 ali
 ali
 fYS
+pls
 ali
-ali
-fle
+kWC
 ali
 ali
 hGJ
@@ -44736,7 +44939,7 @@ ali
 kHR
 ali
 ali
-bjn
+lZe
 ali
 ali
 vcT
@@ -44747,7 +44950,7 @@ tJP
 tJP
 vcT
 tJP
-sGO
+tJP
 sGO
 sGO
 sGO
@@ -44971,11 +45174,11 @@ aaa
 sGO
 sGO
 sGO
-sGO
-sGO
 net
+sGO
 ali
-puE
+ali
+cKy
 ntd
 ali
 sGO
@@ -45231,9 +45434,9 @@ sGO
 sGO
 sGO
 sGO
-ali
-ali
-ali
+net
+dyI
+net
 sGO
 sGO
 sGO
@@ -45489,7 +45692,7 @@ sGO
 sGO
 sGO
 sGO
-sGO
+vcT
 sGO
 sGO
 sGO
@@ -45745,9 +45948,9 @@ sGO
 sGO
 sGO
 sGO
-sGO
-sGO
-sGO
+xYN
+tJP
+tJP
 sGO
 sGO
 sGO
@@ -45763,7 +45966,7 @@ ali
 sGO
 sGO
 sGO
-ali
+cUG
 ali
 ali
 sGO
@@ -46003,9 +46206,9 @@ sGO
 sGO
 sGO
 sGO
-sGO
-sGO
-sGO
+tJP
+tJP
+tJP
 sGO
 aAu
 tns
@@ -46019,7 +46222,7 @@ ali
 ali
 vSx
 sGO
-ali
+ckv
 ali
 ali
 ali
@@ -46027,7 +46230,7 @@ aMp
 sGO
 tJP
 tJP
-sGO
+tJP
 sGO
 sGO
 sGO
@@ -46261,12 +46464,12 @@ sGO
 sGO
 sGO
 sGO
-sGO
-sGO
-sGO
-net
+tJP
+tJP
+vcT
 ali
-fle
+ali
+vDr
 ali
 ali
 osP
@@ -46278,12 +46481,12 @@ ali
 pfv
 ali
 ali
-fle
+hMT
 ali
-enR
+ali
 vcT
 tJP
-sGO
+tJP
 sGO
 sGO
 sGO
@@ -46519,7 +46722,7 @@ aaa
 sGO
 sGO
 sGO
-sGO
+qAb
 sGO
 akM
 ntd
@@ -46537,7 +46740,7 @@ ali
 ali
 ali
 ali
-cgS
+yht
 sGO
 xYN
 sGO
@@ -46780,14 +46983,14 @@ sGO
 sGO
 sGO
 uSz
+cnl
 uSz
-uSz
 sGO
 sGO
 sGO
-alj
+ali
+ali
 net
-alj
 sGO
 sGO
 sGO
@@ -47309,7 +47512,7 @@ sGO
 sGO
 sGO
 sGO
-bFV
+aaa
 aaa
 aaa
 aaa

@@ -250,6 +250,7 @@
 	if(G.console)
 		G.console.gizmo = null
 
+	G.team_number = team_number
 	gizmo = G
 	G.console = src
 	return TRUE
@@ -263,6 +264,7 @@
 			C.vest = null
 			break
 
+	V.team_number = team_number
 	vest = V
 	return TRUE
 

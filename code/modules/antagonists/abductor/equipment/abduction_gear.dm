@@ -30,6 +30,8 @@
 	/// Cooldown in seconds
 	var/combat_cooldown = 20
 	var/datum/icon_snapshot/disguise
+	// Vests aren't actually linked to the team like machines might be, they are directly linked to a console. Set in addvest()
+	var/team_number
 
 /datum/armor/abductor_combat
 	melee = 50
@@ -56,6 +58,29 @@
 	acid = 70
 	stamina = 60
 	bleed = 80
+
+/obj/item/clothing/suit/armor/abductor/vest/examine(mob/user)
+	. = ..()
+
+	if(isabductor(user))
+		. += span_abductor("The agent's most important tool. This state of the art vest links to a team console and can be remotely controlled.")
+
+		if(team_number)
+			switch(team_number)
+				if(1)
+					if(isabductor(user))
+						. += span_abductor("This is tuned to subduction team alpha.")
+				if(2)
+					if(isabductor(user))
+						. += span_abductor("This is tuned to subduction team beta.")
+				if(3)
+					if(isabductor(user))
+						. += span_abductor("This is tuned to subduction team gamma.")
+				if(4)
+					if(isabductor(user))
+						. += span_abductor("This is tuned to subduction team delta.")
+		else
+			. += span_redtextbig("Tune the vest to a your team's console by using it on the console itself.")
 
 /obj/item/clothing/suit/armor/abductor/vest/proc/toggle_nodrop()
 	if(HAS_TRAIT_FROM(src, TRAIT_NODROP, ABDUCTOR_VEST_TRAIT))
@@ -202,6 +227,31 @@
 	var/mode = GIZMO_SCAN
 	var/mob/living/marked = null
 	var/obj/machinery/abductor/console/console
+	// Same deal as with the vest. Directly linked to a console for convenience. Set in addgizmo()
+	var/team_number = 0
+x
+/obj/item/abductor/gizmo/examine(mob/user)
+	. = ..()
+
+	if(isabductor(user))
+		. += span_abductor("A multigraviton-analytical wave-space transmitter. We mark and save a being's direct realspace essence with this to use during calculations.")
+
+		if(team_number)
+			switch(team_number)
+				if(1)
+					if(isabductor(user))
+						. += span_abductor("This is tuned to subduction team alpha.")
+				if(2)
+					if(isabductor(user))
+						. += span_abductor("This is tuned to subduction team beta.")
+				if(3)
+					if(isabductor(user))
+						. += span_abductor("This is tuned to subduction team gamma.")
+				if(4)
+					if(isabductor(user))
+						. += span_abductor("This is tuned to subduction team delta.")
+		else
+			. += span_redtextbig("Tune the tool to a your team's console by using it on the console itself.")
 
 /obj/item/abductor/gizmo/attack_self(mob/user)
 	if(!ScientistCheck(user))
@@ -918,6 +968,31 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	can_weld_shut = FALSE
 	material_drop = /obj/item/stack/sheet/mineral/abductor
 	door_anim_time = 0 // no animation
+
+/obj/structure/closet/abductor/readyroom
+	name = "alien locker"
+	desc = "Contains secrets of the universe."
+	icon_state = "abductor"
+	icon_door = "abductor"
+	can_weld_shut = FALSE
+	material_drop = /obj/item/stack/sheet/mineral/abductor
+	door_anim_time = 0 // no animation
+	anchored = TRUE
+
+/obj/structure/closet/abductor/readyroom/examine(mob/user)
+	. = ..()
+
+	if(isabductor(user))
+		. += span_abductor("Gear storage for agents.")
+
+/obj/structure/closet/abductor/readyroom/PopulateContents()
+	new /obj/item/clothing/head/helmet/abductor(src)
+	new /obj/item/clothing/suit/armor/abductor/vest(src)
+	new /obj/item/melee/baton/abductor(src)
+	new /obj/item/storage/belt/military/abductor/full(src)
+	new /obj/item/abductor/silencer(src)
+	new /obj/item/gun/energy/alien(src)
+	new /obj/item/storage/backpack/abductor(src)
 
 /obj/structure/door_assembly/door_assembly_abductor
 	name = "alien airlock assembly"
