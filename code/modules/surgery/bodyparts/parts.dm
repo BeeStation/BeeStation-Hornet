@@ -51,6 +51,9 @@
 		cavity_item = null
 	..()
 
+/obj/item/bodypart/chest/update_effectiveness()
+	
+
 /obj/item/bodypart/chest/monkey
 	icon = 'icons/mob/animal_parts.dmi'
 	icon_static = 'icons/mob/animal_parts.dmi'
