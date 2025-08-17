@@ -20661,6 +20661,12 @@
 	},
 /turf/closed/indestructible/abductorsmooth,
 /area/abductor_ship)
+"bbi" = (
+/obj/effect/turf_decal/alphabet/alien/triangle/full{
+	dir = 8
+	},
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "bbB" = (
 /obj/structure/flora/rock/pile/icy,
 /turf/open/floor/plating/ice/smooth,
@@ -20869,6 +20875,12 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron,
 /area/syndicate_mothership/control)
+"cyN" = (
+/obj/effect/turf_decal/alphabet/alien/triangle/down{
+	dir = 1
+	},
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "cAf" = (
 /obj/effect/decal/cleanable/blood/footprints,
 /turf/open/floor/plating/abductor2,
@@ -21063,11 +21075,7 @@
 /turf/open/floor/plating/abductor,
 /area/abductor_ship)
 "dEA" = (
-/obj/effect/turf_decal/alphabet/alien/triangle,
-/obj/effect/light_emitter{
-	set_cap = 1;
-	set_luminosity = 4
-	},
+/obj/effect/turf_decal/alphabet/alien/triangle/down,
 /turf/open/floor/plating/abductor,
 /area/abductor_ship)
 "dGs" = (
@@ -21511,16 +21519,6 @@
 	},
 /turf/open/floor/iron/white/textured,
 /area/tdome/tdomeobserve)
-"hbp" = (
-/obj/effect/turf_decal/alphabet/alien/triangle/full/down{
-	dir = 1
-	},
-/obj/effect/light_emitter{
-	set_cap = 1;
-	set_luminosity = 4
-	},
-/turf/open/floor/plating/abductor,
-/area/abductor_ship)
 "hcS" = (
 /obj/structure/table/reinforced{
 	color = "#c1b6a5"
@@ -21933,6 +21931,12 @@
 	},
 /turf/open/floor/iron/dark/textured,
 /area/centcom/control)
+"iIw" = (
+/obj/effect/turf_decal/alphabet/alien/triangle/down{
+	dir = 8
+	},
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "iKv" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -22777,6 +22781,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/mineral/plastitanium,
 /area/syndicate_mothership/control)
+"nnu" = (
+/obj/effect/turf_decal/alphabet/alien/triangle/full{
+	dir = 1
+	},
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "npj" = (
 /obj/structure/closet/crate/secure/gear,
 /obj/item/reagent_containers/cup/glass/bottle/beer/syndicate,
@@ -23505,16 +23515,6 @@
 	},
 /turf/open/floor/plating/abductor2,
 /area/abductor_ship)
-"sep" = (
-/obj/effect/turf_decal/alphabet/alien/triangle{
-	dir = 1
-	},
-/obj/effect/light_emitter{
-	set_cap = 1;
-	set_luminosity = 4
-	},
-/turf/open/floor/plating/abductor,
-/area/abductor_ship)
 "seY" = (
 /obj/structure/spacevine,
 /turf/open/floor/plating/dirt/jungle,
@@ -23656,11 +23656,7 @@
 /turf/open/floor/plating/abductor,
 /area/abductor_ship)
 "taq" = (
-/obj/effect/turf_decal/alphabet/alien/triangle/full/down,
-/obj/effect/light_emitter{
-	set_cap = 1;
-	set_luminosity = 4
-	},
+/obj/effect/turf_decal/alphabet/alien/triangle/full,
 /turf/open/floor/plating/abductor,
 /area/abductor_ship)
 "taD" = (
@@ -24133,6 +24129,12 @@
 /obj/effect/turf_decal/trimline/neutral/warning,
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
+"wqc" = (
+/obj/effect/turf_decal/alphabet/alien/triangle/down{
+	dir = 4
+	},
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "wqJ" = (
 /obj/structure/table/reinforced,
 /obj/item/radio{
@@ -24262,6 +24264,12 @@
 	name = "Alpha-Beta Teleportation"
 	},
 /turf/open/floor/plating/abductor2,
+/area/abductor_ship)
+"xlf" = (
+/obj/effect/turf_decal/alphabet/alien/triangle/full{
+	dir = 4
+	},
+/turf/open/floor/plating/abductor,
 /area/abductor_ship)
 "xlg" = (
 /obj/structure/railing/corner{
@@ -36959,7 +36967,7 @@ sGO
 xYN
 sGO
 aJA
-ali
+ntd
 ali
 ali
 uSz
@@ -37473,7 +37481,7 @@ boX
 tJP
 sGO
 aLK
-ali
+tns
 ali
 ali
 ali
@@ -40803,13 +40811,13 @@ sGO
 sGO
 sGO
 ali
-ali
+oQb
 ali
 sGO
 sGO
 sGO
 ali
-ali
+cjN
 ali
 sGO
 sGO
@@ -41066,7 +41074,7 @@ sGO
 sGO
 sGO
 sGO
-hLn
+qAj
 sGO
 sGO
 sGO
@@ -41333,10 +41341,10 @@ ali
 sGO
 sGO
 pBa
-sep
+ntd
+fle
 ali
-ali
-ali
+fle
 taq
 tSq
 sGO
@@ -42345,13 +42353,13 @@ sGO
 sGO
 sGO
 ali
-cjN
+xlf
 vSx
 sGO
 sGO
 sGO
 ali
-oQb
+wqc
 qxU
 sGO
 sGO
@@ -42361,10 +42369,10 @@ ali
 sGO
 sGO
 tSq
-hbp
+tns
+fle
 ali
-ali
-ali
+fle
 dEA
 daK
 sGO
@@ -42602,7 +42610,7 @@ sGO
 sGO
 sGO
 sGO
-qAj
+hLn
 sGO
 sGO
 sGO
@@ -42859,13 +42867,13 @@ sGO
 sGO
 sGO
 ali
-ali
+bbi
 ali
 sGO
 sGO
 sGO
 ali
-ali
+iIw
 ali
 sGO
 sGO
@@ -44665,11 +44673,11 @@ sGO
 ali
 ali
 cKy
-tns
+nnu
 ali
 sGO
 aAw
-tns
+nnu
 ali
 ali
 eiO
@@ -45179,11 +45187,11 @@ sGO
 ali
 ali
 cKy
-ntd
+cyN
 ali
 sGO
 akO
-ntd
+cyN
 ali
 ali
 qxU
@@ -46211,7 +46219,7 @@ tJP
 tJP
 sGO
 aAu
-tns
+nnu
 ali
 ali
 ali
@@ -46725,7 +46733,7 @@ sGO
 qAb
 sGO
 akM
-ntd
+cyN
 ali
 ali
 uSz

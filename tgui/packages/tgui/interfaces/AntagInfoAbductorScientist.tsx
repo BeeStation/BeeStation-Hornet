@@ -66,6 +66,55 @@ const BasicLoreSection = (_props) => {
   );
 };
 
+const WikiSection = (_props) => {
+  return (
+    <Section>
+      <BlockQuote>
+        <Box italic bold textColor="purple">
+          But what do I do next?
+        </Box>
+        First things first. You may always use the{' '}
+        <Box inline bold textColor="red">
+          navigate
+        </Box>{' '}
+        button to the left of your combat mode button for assistance.
+        <br />- You will probably have woken up in your resting contraption.{' '}
+        <Box inline textColor="pink">
+          Examine the doors.
+        </Box>
+        <br />- It will be labelled with either Alpha △, Beta ▼, Gamma ▲, or Delta ▽. This is your{' '}
+        <Box inline bold textColor="blue">
+          team.
+        </Box>
+        <br />- Now head out of the door labelled with a triangle and walk south. This is the path to the control center.
+        <br />- Head in there, walk over to the console labelled with your team, and find the science tool next to it. Link it
+        to the console. Your agent buddy will join you soon.
+        <br />- <b>Make sure both your science tool and the agent&apos;s vest are linked to the console of your team.</b>
+        <br />-{' '}
+        <Box inline textColor="pink">
+          Examine
+        </Box>{' '}
+        them to ensure they are. Examining anything in your ship will likely yield important information.
+        <br />- The ship is organised as follows:{' '}
+        <Box inline textColor="pink">
+          The top section houses quarters and the readyrooms.
+        </Box>
+        <br />-{' '}
+        <Box inline textColor="purple">
+          The bottom section houses maintenance areas.
+        </Box>{' '}
+        <br />-{' '}
+        <Box inline bold>
+          Your workplace is on either to the left or right of the control center.
+        </Box>{' '}
+        <br />- The scientist controls teleportation from the control room, you yourself as well as subjects are brought in via
+        the teleportation rooms, operated on in the surgery rooms, and returned via the experimentation rooms.
+        <br />- That&apos;s mostly it! For more detail, ask the mentors or consult the wiki!
+      </BlockQuote>
+    </Section>
+  );
+};
+
 const SurgerySubsection = (_props) => {
   return (
     <Section name="Experimentation">
@@ -204,7 +253,7 @@ export const AntagInfoAbductorScientist = (_props) => {
   const { data } = useBackend<Info>();
   const { objectives } = data;
   return (
-    <Window width={620} height={620} theme="abductor">
+    <Window width={620} height={985} theme="abductor">
       <Window.Content>
         <Stack vertical fill>
           <Stack.Item>
@@ -212,6 +261,7 @@ export const AntagInfoAbductorScientist = (_props) => {
           </Stack.Item>
           <Stack.Item>
             <BasicLoreSection />
+            <WikiSection />
           </Stack.Item>
           <Stack.Item grow>
             <ObjectivesSection objectives={objectives} />
