@@ -19,6 +19,17 @@
 	test_screenshot("blocked", get_flat_icon_for_all_directions(test_subject, no_anim = FALSE, override_plane = EMISSIVE_PLANE))
 	qdel(test_subject)
 
+	test_subject = allocate(/mob/living/carbon/human/consistent)
+	test_subject.set_species(/datum/species/ipc)
+	test_screenshot("ipc", get_flat_icon_for_all_directions(test_subject, no_anim = FALSE, override_plane = EMISSIVE_PLANE))
+	qdel(test_subject)
+
+	test_subject = allocate(/mob/living/carbon/human/consistent)
+	test_subject.set_species(/datum/species/ipc)
+	test_subject.equipOutfit(/datum/outfit/job/assistant/consistent/emissive_worn_overlay_test_blocked_fully)
+	test_screenshot("ipc_blocked", get_flat_icon_for_all_directions(test_subject, no_anim = FALSE, override_plane = EMISSIVE_PLANE))
+	qdel(test_subject)
+
 /datum/outfit/job/assistant/consistent/emissive_worn_overlay_test
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 
