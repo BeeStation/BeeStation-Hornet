@@ -1,6 +1,0 @@
-author: Rukofamicom
-delete-after: true
-changes:
-  - bugfix: fixed holoparasites and contractor agents still showing player keys on
-      round-end reports
-  - tweak: Antagonist ckey is no longer reported to deadchat.
