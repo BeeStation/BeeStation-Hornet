@@ -39,12 +39,14 @@ type MidroundData = {
   midround_failure_stallout: number;
   living_delta: number;
   dead_delta: number;
+  dead_security_delta: number;
   observer_delta: number;
   linear_delta: number;
   linear_delta_forced: number;
   logged_points: number[][];
   logged_points_living: number[][];
   logged_points_dead: number[][];
+  logged_points_dead_security: number[][];
   logged_points_observer: number[][];
   logged_points_antag: number[][];
   logged_points_linear: number[][];
@@ -358,6 +360,7 @@ const MidroundPage = () => {
     logged_points,
     logged_points_living,
     logged_points_dead,
+    logged_points_dead_security,
     logged_points_observer,
     logged_points_antag,
     logged_points_linear,
@@ -370,6 +373,7 @@ const MidroundPage = () => {
     midround_failure_stallout,
     living_delta,
     dead_delta,
+    dead_security_delta,
     observer_delta,
     linear_delta,
     linear_delta_forced,
@@ -383,6 +387,7 @@ const MidroundPage = () => {
   const points_data = logged_points.map((value, i) => [i, Array.isArray(value) ? value[0] : value]);
   const living_data = logged_points_living.map((value, i) => [i, Array.isArray(value) ? value[0] : value]);
   const dead_data = logged_points_dead.map((value, i) => [i, Array.isArray(value) ? value[0] : value]);
+  const dead_security_data = logged_points_dead_security.map((value, i) => [i, Array.isArray(value) ? value[0] : value]);
   const observer_data = logged_points_observer.map((value, i) => [i, Array.isArray(value) ? value[0] : value]);
   const antag_data = logged_points_antag.map((value, i) => [i, Array.isArray(value) ? value[0] : value]);
   const linear_data = logged_points_linear.map((value, i) => [i, Array.isArray(value) ? value[0] : value]);
@@ -403,6 +408,7 @@ const MidroundPage = () => {
 
   const [show_living_delta, toggle_living_graph] = useLocalState('show_living_delta', true);
   const [show_dead_delta, toggle_dead_graph] = useLocalState('show_dead_delta', true);
+  const [show_dead_security_delta, toggle_dead_security_graph] = useLocalState('show_dead_security_delta', true);
   const [show_observer_delta, toggle_observer_graph] = useLocalState('show_observer_delta', true);
   const [show_antag_delta, toggle_antag_graph] = useLocalState('show_antag_delta', true);
   const [show_linear_delta, toggle_linear_graph] = useLocalState('show_linear_delta', true);
@@ -495,6 +501,17 @@ const MidroundPage = () => {
                   maxValue={10}
                   step={0.5}
                   onChange={(value) => act('set_midround_dead_delta', { new_dead_delta: value })}
+                  width="25%"
+                />
+              </LabeledList.Item>
+              <LabeledList.Item label="Dead Sec Delta" verticalAlign="middle">
+                <NumberInput
+                  value={dead_security_delta ?? 0}
+                  animated
+                  minValue={-10}
+                  maxValue={10}
+                  step={0.5}
+                  onChange={(value) => act('set_midround_dead_security_delta', { new_dead_security_delta: value })}
                   width="25%"
                 />
               </LabeledList.Item>
@@ -718,6 +735,15 @@ const MidroundPage = () => {
                 strokeColor="rgb(46, 147, 222)"
               />
             )}
+            {show_dead_security_delta && (
+              <Chart.Line
+                fillPositionedParent
+                data={dead_security_data}
+                rangeX={[0, dead_security_data.length - 1]}
+                rangeY={[-5, 5]}
+                strokeColor="rgb(46, 147, 222)"
+              />
+            )}
             {show_observer_delta && (
               <Chart.Line
                 fillPositionedParent
@@ -768,6 +794,13 @@ const MidroundPage = () => {
         <Button icon={show_dead_delta ? 'check-square-o' : 'square-o'} onClick={() => toggle_dead_graph(!show_dead_delta)}>
           <Box inline textColor="blue">
             Dead
+          </Box>
+        </Button>
+        <Button
+          icon={show_dead_security_delta ? 'check-square-o' : 'square-o'}
+          onClick={() => toggle_dead_security_graph(!show_dead_security_delta)}>
+          <Box inline textColor="blue">
+            Dead Security
           </Box>
         </Button>
         <Button

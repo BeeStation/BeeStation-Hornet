@@ -102,6 +102,7 @@
 
 	data["living_delta"] = SSdynamic.midround_living_delta
 	data["dead_delta"] = SSdynamic.midround_dead_delta
+	data["dead_security_delta"] = SSdynamic.midround_dead_security_delta
 	data["observer_delta"] = SSdynamic.midround_observer_delta
 	data["linear_delta"] = SSdynamic.midround_linear_delta
 	data["linear_delta_forced"] = SSdynamic.midround_linear_delta_forced
@@ -110,6 +111,7 @@
 	data["logged_points_living"] = SSdynamic.logged_points["logged_points_living"]
 	data["logged_points_observer"] = SSdynamic.logged_points["logged_points_observer"]
 	data["logged_points_dead"] = SSdynamic.logged_points["logged_points_dead"]
+	data["logged_points_dead_security"] = SSdynamic.logged_points["logged_points_dead_security"]
 	data["logged_points_antag"] = SSdynamic.logged_points["logged_points_antag"]
 	data["logged_points_linear"] = SSdynamic.logged_points["logged_points_linear"]
 	data["logged_points_linear_forced"] = SSdynamic.logged_points["logged_points_linear_forced"]
@@ -342,6 +344,12 @@
 			SSdynamic.midround_dead_delta = new_dead_delta
 			message_admins("[key_name(usr)] set the midround dead delta to [new_dead_delta]")
 			log_dynamic("[key_name(usr)] set the midround dead delta to [new_dead_delta]")
+			return TRUE
+		if("set_midround_dead_security_delta")
+			var/new_dead_security_delta = params["new_dead_security_delta"]
+			SSdynamic.midround_dead_security_delta = new_dead_security_delta
+			message_admins("[key_name(usr)] set the midround dead security delta to [new_dead_security_delta]")
+			log_dynamic("[key_name(usr)] set the midround dead security delta to [new_dead_security_delta]")
 			return TRUE
 		if("set_midround_observer_delta")
 			var/new_observer_delta = params["new_observer_delta"]

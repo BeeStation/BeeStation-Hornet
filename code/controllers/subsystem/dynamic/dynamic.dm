@@ -97,6 +97,7 @@ SUBSYSTEM_DEF(dynamic)
 		CURRENT_LIVING_ANTAGS = list(),
 		CURRENT_DEAD_PLAYERS = list(),
 		CURRENT_OBSERVERS = list(),
+		CURRENT_SECURITY = list(),
 	)
 
 	/**
@@ -159,9 +160,10 @@ SUBSYSTEM_DEF(dynamic)
 	var/midround_grace_period = 20 MINUTES
 	/// The amount of midround points given per minute for every type of player
 	/// The total midround points delta cannot be lower than 0, it always increases or stays the same
-	var/midround_living_delta = 0.05
+	var/midround_living_delta = 0.025
 	var/midround_observer_delta = 0
 	var/midround_dead_delta = -0.4
+	var/midround_dead_security_delta = -1
 	var/midround_linear_delta = 0.9
 	/// This delta is applied no matter what
 	var/midround_linear_delta_forced = 0.25
@@ -504,6 +506,15 @@ SUBSYSTEM_DEF(dynamic)
 	var/living_delta = length(current_players[CURRENT_LIVING_PLAYERS]) * midround_living_delta
 	var/observing_delta = length(current_players[CURRENT_OBSERVERS]) * midround_observer_delta
 	var/dead_delta = length(current_players[CURRENT_DEAD_PLAYERS]) * midround_dead_delta
+	// How many security people are dead.
+	var/deadsec
+	// Figure out deadsec
+	for(var/mob/deadguy in CURRENT_DEAD_PLAYERS)
+		if(deadguy.mind)
+			if(HAS_TRAIT(deadguy, TRAIT_SECURITY))
+				deadsec += 1
+
+	var/dead_sec_delta = deadsec * midround_dead_security_delta
 
 	var/antag_delta = 0
 	for(var/mob/antag in current_players[CURRENT_LIVING_ANTAGS])
@@ -511,7 +522,7 @@ SUBSYSTEM_DEF(dynamic)
 			antag_delta += midround_points_per_antag["[antag_datum.type]"]
 
 	// Add points
-	midround_points += max(living_delta + observing_delta + dead_delta + antag_delta + midround_linear_delta, 0)
+	midround_points += max(living_delta + observing_delta + dead_delta + dead_sec_delta + antag_delta + midround_linear_delta, 0)
 	midround_points += midround_linear_delta_forced
 
 	// Log point sources
@@ -519,6 +530,7 @@ SUBSYSTEM_DEF(dynamic)
 	logged_points["logged_points_living"] += living_delta
 	logged_points["logged_points_observer"] += observing_delta
 	logged_points["logged_points_dead"] += dead_delta
+	logged_points["logged_points_deadsec"] += dead_sec_delta
 	logged_points["logged_points_antag"] += antag_delta
 	logged_points["logged_points_linear"] += midround_linear_delta
 	logged_points["logged_points_linear_forced"] += midround_linear_delta_forced
