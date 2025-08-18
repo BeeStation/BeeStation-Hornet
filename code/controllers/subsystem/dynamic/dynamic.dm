@@ -513,7 +513,7 @@ SUBSYSTEM_DEF(dynamic)
 	// Figure out deadsec
 	for(var/mob/deadguy in CURRENT_DEAD_PLAYERS)
 		if(deadguy.mind)
-			if(HAS_TRAIT(deadguy, TRAIT_SECURITY))
+			if(HAS_MIND_TRAIT(deadguy, TRAIT_SECURITY))
 				deadsec += 1
 
 	var/dead_security_delta = deadsec * midround_dead_security_delta
