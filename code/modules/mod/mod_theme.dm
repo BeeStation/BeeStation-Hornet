@@ -652,6 +652,7 @@
 		/obj/item/storage/pill_bottle,
 		/obj/item/storage/bag/chemistry,
 		/obj/item/storage/bag/bio,
+		/obj/item/storage/firstaid,
 	)
 	variants = list(
 		"medical" = list(
@@ -764,6 +765,7 @@
 		/obj/item/storage/bag/chemistry,
 		/obj/item/storage/bag/bio,
 		/obj/item/melee/classic_baton/police/telescopic,
+		/obj/item/storage/firstaid,
 	)
 	variants = list(
 		"rescue" = list(

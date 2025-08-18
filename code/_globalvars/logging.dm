@@ -16,6 +16,9 @@ GLOBAL_PROTECT(world_runtime_log)
 GLOBAL_VAR(world_qdel_log)
 GLOBAL_PROTECT(world_qdel_log)
 
+GLOBAL_VAR(world_signal_log)
+GLOBAL_PROTECT(world_signal_log)
+
 GLOBAL_VAR(world_attack_log)
 GLOBAL_PROTECT(world_attack_log)
 

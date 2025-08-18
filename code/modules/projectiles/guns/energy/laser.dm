@@ -103,9 +103,15 @@
 	return
 
 /obj/item/gun/energy/laser/cyborg
-	can_charge = FALSE
 	desc = "An energy-based laser gun that draws power from the cyborg's internal energy cell directly. So this is what freedom looks like?"
+	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/cyborg)
+	gun_charge = 1000 	//10 shot capacity
+	fire_rate = 2 		//Two shots per second, higher DPS due to hacked module but still slightly worse than normal laser gun
+	charge_delay = 6 	//Still 10 shots per minute overall
+
+	can_charge = FALSE
 	use_cyborg_cell = TRUE
+	requires_wielding = FALSE
 
 /obj/item/gun/energy/laser/cyborg/emp_act()
 	return

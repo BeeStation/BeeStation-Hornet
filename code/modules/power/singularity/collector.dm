@@ -49,7 +49,6 @@
 /obj/machinery/power/rad_collector/process(delta_time)
 	if(!loaded_tank)
 		return
-	var/datum/gas_mixture/loaded_tank_air = loaded_tank.return_air()
 	if(!bitcoinmining)
 		if(GET_MOLES(/datum/gas/plasma, loaded_tank.air_contents) < 0.0001)
 			investigate_log("<font color='red'>out of fuel</font>.", INVESTIGATE_ENGINES)
@@ -69,10 +68,10 @@
 			playsound(src, 'sound/machines/ding.ogg', 50, 1)
 			eject()
 		else
-			var/gasdrained = bitcoinproduction_drain*drainratio*delta_time
-			loaded_tank_air.gases[/datum/gas/tritium][MOLES] += -gasdrained
-			loaded_tank_air.gases[/datum/gas/oxygen][MOLES] += -gasdrained
-			loaded_tank_air.gases[/datum/gas/carbon_dioxide][MOLES] += gasdrained*2
+			var/gasdrained = min(bitcoinproduction_drain*drainratio*delta_time,GET_MOLES(/datum/gas/tritium, loaded_tank.air_contents),GET_MOLES(/datum/gas/oxygen, loaded_tank.air_contents))
+			REMOVE_MOLES(/datum/gas/tritium, loaded_tank.air_contents, gasdrained)
+			REMOVE_MOLES(/datum/gas/oxygen, loaded_tank.air_contents, gasdrained)
+			ADD_MOLES(/datum/gas/carbon_dioxide, loaded_tank.air_contents, gasdrained*2)
 			var/bitcoins_mined = RAD_COLLECTOR_OUTPUT
 			var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_ENG_ID)
 			if(D)
