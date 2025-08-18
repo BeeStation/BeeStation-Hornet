@@ -60,6 +60,7 @@
 #define LANGUAGE_EMP "emp"
 #define LANGUAGE_HOLOPARA "holoparasite"
 #define LANGUAGE_BABEL "babel"
+#define LANGUAGE_VAMPIRE "vampire"
 
 // Language flags. Used in granting and removing languages.
 /// This language can be spoken.
@@ -82,5 +83,6 @@ GLOBAL_LIST_INIT(multilingual_language_list, typecacheof(list(
 	/datum/language/sylvan,
 	/datum/language/terrum,
 	/datum/language/uncommon,
-	/datum/language/voltaic
+	/datum/language/voltaic,
+	/datum/language/vampiric,
 )))

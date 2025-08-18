@@ -300,7 +300,7 @@
 /obj/machinery/camera/preset{
 	dir = 10
 	},
-/obj/machinery/vendor/exploration,
+/obj/machinery/gear_requisition/exploration,
 /obj/machinery/button/door{
 	desc = "A remote control switch.";
 	id = "exploration";
