@@ -1255,7 +1255,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 /obj/item/circuitboard/machine/mining_equipment_vendor
 	name = "mining equipment vendor (Machine Board)"
 	icon_state = "supply"
-	build_path = /obj/machinery/vendor/mining
+	build_path = /obj/machinery/gear_requisition/mining
 	req_components = list(
 		/obj/item/stack/sheet/glass = 1,
 		/obj/item/stock_parts/matter_bin = 3)
@@ -1263,7 +1263,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 /obj/item/circuitboard/machine/exploration_equipment_vendor
 	name = "exploration equipment vendor (Machine Board)"
 	icon_state = "supply"
-	build_path = /obj/machinery/vendor/exploration
+	build_path = /obj/machinery/gear_requisition/exploration
 	req_components = list(
 		/obj/item/stack/sheet/glass = 1,
 		/obj/item/stock_parts/matter_bin = 3)
@@ -1271,7 +1271,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 
 /obj/item/circuitboard/machine/mining_equipment_vendor/golem
 	name = "golem ship equipment vendor (Machine Board)"
-	build_path = /obj/machinery/vendor/mining/golem
+	build_path = /obj/machinery/gear_requisition/mining/golem
 
 /obj/item/circuitboard/machine/pump
 	name = "portable liquid pump (Machine Board)"

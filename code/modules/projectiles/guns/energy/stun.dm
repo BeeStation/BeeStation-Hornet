@@ -26,15 +26,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/disabler)
 	ammo_x_offset = 2
 
-/obj/item/gun/energy/e_gun/advtaser/cyborg
-	name = "cyborg taser"
-	desc = "An integrated hybrid taser that draws directly from a cyborg's power cell. The weapon contains a limiter to prevent the cyborg's power cell from overheating."
-	can_charge = FALSE
-	use_cyborg_cell = TRUE
-	requires_wielding = FALSE
 
-/obj/item/gun/energy/e_gun/advtaser/cyborg/add_seclight_point()
-	return
 
 /obj/item/gun/energy/e_gun/advtaser/heirloom
 	name = "old hybrid taser"
@@ -62,6 +54,11 @@
 /obj/item/gun/energy/disabler/cyborg
 	name = "cyborg disabler"
 	desc = "An integrated disabler that draws from a cyborg's power cell. This weapon contains a limiter to prevent the cyborg's power cell from overheating."
+	ammo_type = list(/obj/item/ammo_casing/energy/disabler/cyborg)
+	gun_charge = 1000 	//10 shot capacity
+	fire_rate = 2		//2 shots per second
+	charge_delay = 3 	//20 shots per minute
+						//100 shots total out of a normal power cell, not factoring other drains. Up to 400 shots from a bluespace cell
 	can_charge = FALSE
 	use_cyborg_cell = TRUE
 	requires_wielding = FALSE

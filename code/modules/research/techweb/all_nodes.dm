@@ -379,7 +379,6 @@
 		"surgery_pacify",
 		"surgery_revival",
 		"surgery_vein_thread",
-		"surgery_viral_bond",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
@@ -983,27 +982,6 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1500)
 	export_price = 1000
 
-/datum/techweb_node/cyborg_upg_security
-	id = "cyborg_upg_security"
-	tech_tier = 4
-	display_name = "Cyborg Upgrades: Security"
-	description = "Militia grade upgrades for cyborgs."
-	prereq_ids = list(
-		"adv_engi",
-		"adv_robotics",
-		"weaponry",
-	)
-	design_ids = list(
-		"borg_transform_security",
-		"borg_upgrade_disablercooler",
-	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
-	export_price = 5000
-
-/datum/techweb_node/cyborg_upg_security/New() //Techweb nodes don't have an init,
-	. = ..()
-	hidden = CONFIG_GET(flag/disable_secborg)
-
 /datum/techweb_node/ai
 	id = "ai"
 	tech_tier = 3
@@ -1450,7 +1428,7 @@
 		"med_scanner",
 		"posibrain",
 	)
-	design_ids = list("healthanalyzer_advanced", "extrapolator")
+	design_ids = list("healthanalyzer_advanced")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
 
