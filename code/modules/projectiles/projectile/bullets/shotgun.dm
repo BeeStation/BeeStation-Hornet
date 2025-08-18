@@ -38,7 +38,7 @@
 
 /obj/projectile/bullet/incendiary/shotgun/dragonsbreath
 	name = "dragonsbreath pellet"
-	damage = 2.5
+	damage = 4
 
 /obj/projectile/bullet/shotgun_stunslug
 	name = "stunslug"
@@ -104,6 +104,13 @@
 		stamina -= tile_dropoff_s
 	if(damage < 0 && stamina < 0)
 		qdel(src)
+
+/obj/projectile/bullet/pellet/shotgun_metal
+	tile_dropoff = 0.75
+	damage = 8
+	range = 6
+	ricochets_max = 0
+	shrapnel_type = /obj/item/shrapnel/bullet/shotgun
 
 /obj/projectile/bullet/pellet/shotgun_glass
 	tile_dropoff = 0.5

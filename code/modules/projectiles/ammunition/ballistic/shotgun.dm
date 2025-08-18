@@ -92,10 +92,11 @@
 	name = "improvised shell"
 	desc = "A shotgun shell improvised from small metal shards. It won't travel as far as a regular shotgun shell, but it will still pack a punch against unarmoured opponents at close ranges."
 	icon_state = "improvshell"
+	projectile_type = /obj/projectile/bullet/pellet/shotgun_metal
 	custom_materials = list(/datum/material/iron=250, /datum/material/glass=250)
 	pellets = 6
 	variance = 10
-	gun_damage = 50
+	gun_damage = 25
 
 /obj/item/ammo_casing/shotgun/improvised/glasspack
 	name = "improvised glass-packed shell"
@@ -118,7 +119,7 @@
 	name = "scatter laser shell"
 	desc = "A gold-tipped advanced shotgun shell that uses a micro laser to replicate the effects of a scatter laser weapon in a ballistic package."
 	icon_state = "lshell"
-	projectile_type = /obj/projectile/beam/weak
+	projectile_type = /obj/projectile/beam/weak/shotgun
 	pellets = 6
 	variance = 35
 
