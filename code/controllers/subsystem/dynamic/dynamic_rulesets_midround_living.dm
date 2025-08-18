@@ -92,7 +92,7 @@
 	severity = DYNAMIC_MIDROUND_LIGHT
 	role_preference = /datum/role_preference/midround/traitor
 	antag_datum = /datum/antagonist/traitor
-	weight = 6
+	weight = 7
 	points_cost = 30
 
 /datum/dynamic_ruleset/midround/living/sleeper_agent/get_poll_icon()
@@ -109,7 +109,7 @@
 	severity = DYNAMIC_MIDROUND_LIGHT
 	role_preference = /datum/role_preference/midround/heretic
 	antag_datum = /datum/antagonist/heretic
-	weight = 6
+	weight = 7
 	points_cost = 30
 
 /datum/dynamic_ruleset/midround/living/heretic/get_poll_icon()
@@ -148,7 +148,7 @@
 	severity = DYNAMIC_MIDROUND_LIGHT
 	role_preference = /datum/role_preference/midround/vampire
 	antag_datum = /datum/antagonist/vampire
-	weight = 6
+	weight = 7
 	points_cost = 30
 	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_CURATOR)
 
@@ -172,7 +172,7 @@
 	severity = DYNAMIC_MIDROUND_LIGHT | DYNAMIC_MIDROUND_MEDIUM
 	antag_datum = /datum/antagonist/obsessed
 	role_preference = /datum/role_preference/midround/obsessed
-	weight = 4
+	weight = 6
 	points_cost = 20
 
 /datum/dynamic_ruleset/midround/living/obsessed/get_poll_icon()
