@@ -134,7 +134,7 @@
 	. = ..()
 
 /obj/item/gun/ballistic/revolver/detective/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
-	if (!(chambered.caliber in magazine.caliber))
+	if (chambered && chambered.caliber == "357")
 		if(prob(70 - (magazine.ammo_count() * 10)))	//minimum probability of 10, maximum of 60
 			playsound(user, fire_sound, fire_sound_volume, vary_fire_sound)
 			to_chat(user, span_userdanger("[src] blows up in your face!"))
