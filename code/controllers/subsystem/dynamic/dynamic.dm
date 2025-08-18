@@ -427,9 +427,9 @@ SUBSYSTEM_DEF(dynamic)
 	return FALSE
 
 /**
- * Execute roundstart rulesets, configures midrounds and latejoins
+ * Execute roundstart rulesets
 **/
-/datum/controller/subsystem/dynamic/proc/post_setup(report)
+/datum/controller/subsystem/dynamic/proc/execute_roundstart_rulesets()
 	// Execute Roundstarts
 	for(var/datum/dynamic_ruleset/roundstart/ruleset in roundstart_executed_rulesets)
 		var/result = execute_ruleset(ruleset)
