@@ -799,7 +799,7 @@ const MidroundPage = () => {
         <Button
           icon={show_dead_security_delta ? 'check-square-o' : 'square-o'}
           onClick={() => toggle_dead_security_graph(!show_dead_security_delta)}>
-          <Box inline textColor="blue">
+          <Box inline textColor="red">
             Dead Security
           </Box>
         </Button>

@@ -58,6 +58,7 @@ SUBSYSTEM_DEF(dynamic)
 		"logged_points" = list(0),
 		"logged_points_living" = list(0),
 		"logged_points_dead" = list(0),
+		"logged_points_dead_security" = list(0),
 		"logged_points_observer" = list(0),
 		"logged_points_antag" = list(0),
 		"logged_points_linear" = list(0),
@@ -503,17 +504,18 @@ SUBSYSTEM_DEF(dynamic)
 
 	var/previous_midround_points = midround_points
 
+	var/living_delta = length(current_players[CURRENT_LIVING_PLAYERS]) * midround_living_delta
+	var/observing_delta = length(current_players[CURRENT_OBSERVERS]) * midround_observer_delta
+	var/dead_delta = length(current_players[CURRENT_DEAD_PLAYERS]) * midround_dead_delta
+
 	// How many security people are dead.
-	var/deadsec
+	var/deadsec = 0
 	// Figure out deadsec
 	for(var/mob/deadguy in CURRENT_DEAD_PLAYERS)
 		if(deadguy.mind)
 			if(HAS_TRAIT(deadguy, TRAIT_SECURITY))
 				deadsec += 1
 
-	var/living_delta = length(current_players[CURRENT_LIVING_PLAYERS]) * midround_living_delta
-	var/observing_delta = length(current_players[CURRENT_OBSERVERS]) * midround_observer_delta
-	var/dead_delta = length(current_players[CURRENT_DEAD_PLAYERS]) * midround_dead_delta
 	var/dead_security_delta = deadsec * midround_dead_security_delta
 
 	var/antag_delta = 0
