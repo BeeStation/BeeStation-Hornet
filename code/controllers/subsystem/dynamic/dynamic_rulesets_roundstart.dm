@@ -207,7 +207,7 @@
 	var/datum/team/cult/team
 
 /datum/dynamic_ruleset/roundstart/bloodcult/set_drafted_players_amount()
-	drafted_players_amount = ROUND_UP(length(SSdynamic.roundstart_candidates) / 10)
+	drafted_players_amount = ROUND_UP(length(GLOB.player_list) / 10)
 
 /datum/dynamic_ruleset/roundstart/bloodcult/execute()
 	team = new
@@ -254,7 +254,7 @@
 	var/datum/team/clock_cult/main_cult
 
 /datum/dynamic_ruleset/roundstart/clockcult/set_drafted_players_amount()
-	drafted_players_amount = ROUND_UP(length(SSdynamic.roundstart_candidates) / 7)
+	drafted_players_amount = ROUND_UP(length(GLOB.player_list) / 7)
 
 /datum/dynamic_ruleset/roundstart/clockcult/choose_candidates()
 	. = ..()
@@ -310,7 +310,7 @@
 	var/datum/team/nuclear/nuke_team
 
 /datum/dynamic_ruleset/roundstart/nuclear/set_drafted_players_amount()
-	drafted_players_amount = ROUND_UP(length(SSdynamic.roundstart_candidates) / 7)
+	drafted_players_amount = ROUND_UP(length(GLOB.player_list) / 7)
 
 /datum/dynamic_ruleset/roundstart/nuclear/choose_candidates()
 	. = ..()
@@ -406,8 +406,8 @@
 	var/datum/team/revolution/team
 	var/finished = FALSE
 
-/datum/dynamic_ruleset/roundstart/nuclear/set_drafted_players_amount()
-	drafted_players_amount = ROUND_UP(length(SSdynamic.roundstart_candidates) / 15)
+/datum/dynamic_ruleset/roundstart/revolution/set_drafted_players_amount()
+	drafted_players_amount = ROUND_UP(length(GLOB.player_list) / 15)
 
 /datum/dynamic_ruleset/roundstart/revolution/execute()
 	team = new
