@@ -461,7 +461,7 @@
 	name = "Spider Infestation"
 	severity = DYNAMIC_MIDROUND_MEDIUM | DYNAMIC_MIDROUND_HEAVY
 	antag_datum = /datum/antagonist/spider
-	drafted_players_amount = 3
+	drafted_players_amount = 2
 	points_cost = 40
 	weight = 4
 
