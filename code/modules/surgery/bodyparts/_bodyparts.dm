@@ -132,6 +132,9 @@
 	/// If the bodypart is permanently destroyed
 	var/destroyed = FALSE
 
+	/// How much pain does this limb feel?
+	var/pain_multiplier = 0.4
+
 /obj/item/bodypart/Initialize(mapload)
 	. = ..()
 	if(can_be_disabled)

@@ -29,6 +29,8 @@
 		ORGAN_SLOT_BRAIN_ANTISTUN,
 		ORGAN_SLOT_BRAIN_SURGICAL_IMPLANT
 	)
+	// Contains the squishy head, which the body wants to protect, so you feel more pain
+	pain_multiplier = 0.8
 
 	var/mob/living/brain/brainmob //The current occupant.
 	var/obj/item/organ/brain/brain //The brain organ
