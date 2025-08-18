@@ -82,6 +82,7 @@
 	role_preference = /datum/role_preference/roundstart/heretic
 	antag_datum = /datum/antagonist/heretic
 	weight = 8
+	minimum_players_required = 13
 
 //////////////////////////////////////////////
 //                                          //
@@ -94,6 +95,7 @@
 	role_preference = /datum/role_preference/roundstart/vampire
 	antag_datum = /datum/antagonist/vampire
 	weight = 8
+	minimum_players_required = 13
 	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_CURATOR)
 
 //////////////////////////////////////////////
@@ -106,9 +108,9 @@
 	name = "Malfunctioning AI"
 	role_preference = /datum/role_preference/roundstart/malfunctioning_ai
 	antag_datum = /datum/antagonist/malf_ai
-	minimum_players_required = 24
 	weight = 6
 	points_cost = 13
+	minimum_players_required = 24
 	restricted_roles = list(JOB_NAME_CYBORG)
 	flags = SHOULD_USE_ANTAG_REP | CANNOT_REPEAT
 
