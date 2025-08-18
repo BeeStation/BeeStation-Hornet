@@ -54,7 +54,7 @@
 
 	data["roundstart_points"] = SSdynamic.roundstart_points
 	data["roundstart_divergence"] = SSdynamic.roundstart_point_divergence
-	data["roundstart_ready_amount"] = length(SSdynamic.roundstart_candidates)
+	data["roundstart_ready_amount"] = SSdynamic.roundstart_ready_amount
 	data["has_round_started"] = SSticker.HasRoundStarted()
 
 	data["roundstart_divergence_upper"] = SSdynamic.roundstart_divergence_percent_upper

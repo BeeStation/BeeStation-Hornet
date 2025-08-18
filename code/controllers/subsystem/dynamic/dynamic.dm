@@ -15,6 +15,8 @@ SUBSYSTEM_DEF(dynamic)
 	var/list/datum/dynamic_ruleset/roundstart/roundstart_executed_rulesets = list()
 	/// List of players ready on roundstart.
 	var/list/mob/dead/new_player/authenticated/roundstart_candidates = list()
+	/// The amount of people ready at roundstart
+	var/roundstart_ready_amount = 0
 	/// A list if roundstart rulesets configured from 'dynamic.json'
 	var/list/datum/dynamic_ruleset/roundstart/roundstart_configured_rulesets
 
@@ -261,6 +263,10 @@ SUBSYSTEM_DEF(dynamic)
 		return TRUE
 
 	pick_roundstart_rulesets(roundstart_configured_rulesets)
+
+	// Save us from hard dels
+	roundstart_ready_amount = length(roundstart_candidates)
+	roundstart_candidates = list()
 	return TRUE
 
 /**
