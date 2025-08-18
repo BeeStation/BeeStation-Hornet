@@ -29,7 +29,7 @@
 /obj/item/ammo_casing/c38/exploration
 	name = ".38 Prospector bullet casing"
 	desc = "A .38 bullet casing."
-	caliber = list("38")
+	caliber = "38"
 	projectile_type = /obj/projectile/bullet/c38/exploration
 
 /obj/item/ammo_box/c38/exploration
