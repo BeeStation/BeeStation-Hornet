@@ -511,7 +511,7 @@ SUBSYSTEM_DEF(dynamic)
 	// How many security people are dead.
 	var/deadsec = 0
 	// Figure out deadsec
-	for(var/mob/living/deadguy in CURRENT_DEAD_PLAYERS)
+	for(var/mob/living/deadguy in current_players[CURRENT_DEAD_PLAYERS])
 		if(HAS_MIND_TRAIT(deadguy, TRAIT_SECURITY))
 			deadsec += 1
 
