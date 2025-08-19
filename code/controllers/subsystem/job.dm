@@ -43,7 +43,8 @@ SUBSYSTEM_DEF(job)
 		JOB_NAME_RESEARCHDIRECTOR,
 		JOB_NAME_CHIEFMEDICALOFFICER,
 		JOB_NAME_DEPUTY,
-		JOB_NAME_GIMMICK)
+		JOB_NAME_GIMMICK,
+		JOB_NAME_PRISONER)
 
 	/// If TRUE, some player has been assigned Captaincy or Acting Captaincy at some point during the shift and has been given the spare ID safe code.
 	var/assigned_captain = FALSE
