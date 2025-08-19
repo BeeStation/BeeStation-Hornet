@@ -514,9 +514,13 @@ SUBSYSTEM_DEF(dynamic)
 			var/mob/dead/observer/observer = dead_guy
 			if(HAS_MIND_TRAIT(observer, TRAIT_SECURITY))
 				dead_security_delta += midround_dead_security_delta
-		else
+		if(ismob(dead_guy))
 			var/mob/living/dead_mob = dead_guy
 			if(HAS_MIND_TRAIT(dead_mob, TRAIT_SECURITY))
+				dead_security_delta += midround_dead_security_delta
+		if(isbrain(dead_guy))
+			var/mob/living/brain_guy = dead_guy
+			if(HAS_MIND_TRAIT(brain_guy, TRAIT_SECURITY))
 				dead_security_delta += midround_dead_security_delta
 
 	var/antag_delta = 0
