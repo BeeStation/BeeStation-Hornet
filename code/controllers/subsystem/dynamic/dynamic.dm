@@ -161,7 +161,7 @@ SUBSYSTEM_DEF(dynamic)
 	var/midround_grace_period = 20 MINUTES
 	/// The amount of midround points given per minute for every type of player
 	/// The total midround points delta cannot be lower than 0, it always increases or stays the same
-	var/midround_living_delta = 0.025
+	var/midround_living_delta = 0.05
 	var/midround_observer_delta = 0
 	var/midround_dead_delta = -0.4
 	var/midround_dead_security_delta = -1

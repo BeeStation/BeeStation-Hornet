@@ -741,7 +741,7 @@ const MidroundPage = () => {
                 data={dead_security_data}
                 rangeX={[0, dead_security_data.length - 1]}
                 rangeY={[-5, 5]}
-                strokeColor="rgb(46, 147, 222)"
+                strokeColor="rgba(255, 0, 93, 1)"
               />
             )}
             {show_observer_delta && (
@@ -799,7 +799,7 @@ const MidroundPage = () => {
         <Button
           icon={show_dead_security_delta ? 'check-square-o' : 'square-o'}
           onClick={() => toggle_dead_security_graph(!show_dead_security_delta)}>
-          <Box inline textColor="orange">
+          <Box inline textColor="deeppink">
             Dead Security
           </Box>
         </Button>
