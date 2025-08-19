@@ -333,3 +333,14 @@
   - bugfix: fixed holoparasites and contractor agents still showing player keys on
       round-end reports
   - tweak: Antagonist ckey is no longer reported to deadchat.
+2025-08-19:
+  Aramix:
+  - bugfix: fixes first column to use tech node tier 0 (researched) instead of 1 by
+      default
+  - bugfix: changes the key for designs details to use design id rather than tech
+      node id
+  - bugfix: fixes last design in a node being offset downwards
+  - bugfix: properly resizes techweb in window
+  - bugfix: removes duplicate design entries in window
+  - bugfix: removes an edge case pertaining design disk in techweb view
+  - tweak: tweaked margin of designs to be integer pixels
