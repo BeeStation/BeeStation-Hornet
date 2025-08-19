@@ -55,6 +55,12 @@
 /obj/effect/turf_decal/siding/thinplating/dark,
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2,
 /obj/effect/mob_spawn/human/corpse/damaged,
+/obj/machinery/atmospherics/components/trinary/filter/atmos/o2{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/shuttle/abandoned)
 "bh" = (
@@ -129,15 +135,16 @@
 /obj/structure/shuttle/engine/propulsion/left{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/shuttle/abandoned)
 "cU" = (
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 5
-	},
+/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2,
 /turf/open/floor/plating/abductor2,
 /area/shuttle/abandoned)
 "dN" = (
@@ -149,9 +156,6 @@
 	},
 /obj/effect/turf_decal/guideline/guideline_edge/darkblue{
 	dir = 3
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
-	dir = 1
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/shuttle/abandoned)
@@ -181,6 +185,15 @@
 	dir = 6
 	},
 /turf/open/floor/plating/abductor2,
+/area/shuttle/abandoned)
+"fg" = (
+/obj/machinery/atmospherics/components/trinary/filter/atmos/n2{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/turf/closed/wall/mineral/abductor,
 /area/shuttle/abandoned)
 "fC" = (
 /obj/structure/barricade/sandbags,
@@ -293,13 +306,7 @@
 /area/shuttle/abandoned)
 "iH" = (
 /obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
 	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
 	},
 /obj/item/clothing/head/helmet/swat,
 /obj/effect/turf_decal/edges/borderfloor/full,
@@ -313,6 +320,12 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 6
 	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/shuttle/abandoned)
 "iL" = (
@@ -324,7 +337,6 @@
 	},
 /obj/structure/table/glass,
 /obj/machinery/recharger,
-/obj/item/gun/energy/laser/retro,
 /turf/open/floor/plating/abductor,
 /area/shuttle/abandoned)
 "ji" = (
@@ -637,6 +649,9 @@
 	pixel_x = 33;
 	pixel_y = -15
 	},
+/obj/machinery/atmospherics/components/unary/outlet_injector/on{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/shuttle/abandoned)
 "ww" = (
@@ -836,7 +851,6 @@
 /area/shuttle/abandoned)
 "Fb" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
-/obj/item/gun/energy/alien,
 /obj/item/ammo_casing/spent,
 /obj/effect/turf_decal/guideline/guideline_edge/darkblue{
 	dir = 1
@@ -845,6 +859,7 @@
 	dir = 8
 	},
 /mob/living/carbon/human/species/abductor,
+/obj/item/gun/energy/laser/retro,
 /turf/open/floor/iron/dark/smooth_large,
 /area/shuttle/abandoned)
 "Fg" = (
@@ -1043,6 +1058,9 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/airalarm/directional/north,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 6
+	},
 /turf/open/floor/plating/abductor2,
 /area/shuttle/abandoned)
 "KE" = (
@@ -1322,6 +1340,9 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/siding/thinplating/dark,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron,
 /area/shuttle/abandoned)
 "Ui" = (
@@ -1331,6 +1352,13 @@
 /obj/machinery/power/rtg/advanced,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plating/abductor2,
+/area/shuttle/abandoned)
+"Un" = (
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/components/unary/portables_connector/layer2{
+	dir = 1
+	},
+/turf/closed/wall/mineral/abductor,
 /area/shuttle/abandoned)
 "Vd" = (
 /mob/living/simple_animal/hostile/breadloaf/slice,
@@ -1349,8 +1377,8 @@
 /obj/effect/decal/cleanable/blood/tracks{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 6
+/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4{
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
@@ -1630,11 +1658,11 @@ Np
 Dg
 zz
 Np
-Np
+fg
 Np
 zz
 KC
-Np
+Un
 Np
 Ac
 "}
