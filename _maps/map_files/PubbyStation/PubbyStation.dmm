@@ -9874,10 +9874,10 @@
 /turf/open/floor/iron/techmaint,
 /area/quartermaster/qm)
 "beM" = (
-/obj/machinery/vendor/mining,
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
 	},
+/obj/machinery/gear_requisition/mining,
 /turf/open/floor/iron/techmaint,
 /area/quartermaster/miningdock)
 "beO" = (
@@ -15319,10 +15319,6 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron,
 /area/engine/atmos)
-"bQH" = (
-/obj/machinery/pipe_dispenser,
-/turf/open/floor/iron,
-/area/engine/atmos)
 "bQI" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible,
 /turf/open/floor/iron,
@@ -15463,6 +15459,9 @@
 /obj/structure/table,
 /obj/item/clothing/gloves/color/fyellow,
 /obj/item/wrench,
+/obj/item/storage/box/donkpockets{
+	pixel_y = 5
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "bRq" = (
@@ -15474,7 +15473,6 @@
 /turf/open/floor/plating,
 /area/maintenance/department/cargo)
 "bRv" = (
-/obj/machinery/pipe_dispenser/disposal,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -15550,10 +15548,6 @@
 	id = "atmos";
 	name = "Atmospherics Security Door"
 	},
-/turf/open/floor/iron,
-/area/engine/atmos)
-"bSe" = (
-/obj/machinery/pipe_dispenser/disposal/transit_tube,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bSf" = (
@@ -25289,9 +25283,7 @@
 /area/crew_quarters/bar)
 "eCa" = (
 /obj/structure/table,
-/obj/item/storage/box/donkpockets{
-	pixel_y = 5
-	},
+/obj/item/candydispenser/engineering,
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "eCe" = (
@@ -26128,9 +26120,6 @@
 	},
 /obj/item/storage/box/syringes,
 /obj/machinery/light,
-/obj/structure/reagent_dispensers/virusfood{
-	pixel_y = -32
-	},
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 8
 	},
@@ -30566,7 +30555,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/vendor/exploration,
+/obj/machinery/gear_requisition/exploration,
 /turf/open/floor/iron/dark/textured_large,
 /area/science/shuttledock)
 "hbP" = (
@@ -36373,9 +36362,6 @@
 /obj/machinery/light,
 /obj/item/extrapolator,
 /obj/item/book/manual/wiki/infections,
-/obj/structure/reagent_dispensers/virusfood{
-	pixel_y = -32
-	},
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 8
 	},
@@ -103972,9 +103958,9 @@ doH
 cGs
 vkU
 bPQ
-bQH
+bMf
 bRv
-bSe
+bMf
 bPQ
 rQO
 acV
