@@ -18,7 +18,7 @@
 	/// An existing strip menus
 	var/list/strip_menus
 
-/datum/element/strippable/Attach(datum/target, list/items, should_strip_proc_path, list/layout)
+/datum/element/strippable/Attach(datum/target, list/items = list(), should_strip_proc_path, list/layout)
 	. = ..()
 	if(!isatom(target))
 		return ELEMENT_INCOMPATIBLE
