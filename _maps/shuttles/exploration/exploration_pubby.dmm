@@ -534,8 +534,8 @@
 /turf/open/floor/plating,
 /area/shuttle/exploration)
 "Rp" = (
-/obj/machinery/vendor/exploration,
 /obj/effect/turf_decal/bot,
+/obj/machinery/gear_requisition/exploration,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "RQ" = (
