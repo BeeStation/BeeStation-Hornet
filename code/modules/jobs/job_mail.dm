@@ -16,11 +16,13 @@
 //PRISONER
 /datum/job/prisoner
 	mail_goodies = list(
+		/obj/item/clothing/mask/cigarette = 10,
 		/obj/item/stack/spacecash/c20 = 10,
 		/obj/item/stack/spacecash/c50 = 10,
 		/obj/item/food/syndicake = 8,
 		/obj/item/reagent_containers/cup/glass/bottle/vodka/badminka = 5,
 		/obj/item/food/cake/birthday = 5,
+		/obj/item/toy/sword = 5,
 		/obj/item/choice_beacon/radial/music = 3,
 		/obj/item/toy/cards/deck/syndicate = 2,
 	)

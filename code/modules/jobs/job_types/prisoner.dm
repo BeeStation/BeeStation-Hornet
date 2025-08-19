@@ -60,7 +60,7 @@
 	. = ..()
 
 /datum/job/prisoner/get_access()
-	. = base_access.Copy()
+	return list()
 
 /datum/outfit/job/prisoner
 	name = "Prisoner"
