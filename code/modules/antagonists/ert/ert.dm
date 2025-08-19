@@ -279,7 +279,6 @@
 	role = "Attorney"
 	plasmaman_outfit = /datum/outfit/plasmaman/centcom_attorney
 
-
 /datum/antagonist/ert/clown
 	name = "Comedy Response Officer"
 	outfit = /datum/outfit/centcom/centcom_clown
@@ -307,14 +306,33 @@
 	missiondesc += "<BR><B>Your Mission</B> : [ert_team.mission.explanation_text]"
 	to_chat(owner,missiondesc)
 
-/datum/antagonist/ert/bounty_armor
-	role = "Armored Bounty Hunter"
-	outfit = /datum/outfit/bounty/armor/ert
+//////////////////////////////////////////
+/////////////// BOUNTY HUNTERS ///////////
+//////////////////////////////////////////
 
-/datum/antagonist/ert/bounty_hook
-	role = "Hookgun Bounty Hunter"
-	outfit = /datum/outfit/bounty/hook/ert
+/datum/antagonist/ert/bounty
+	outfit = /datum/outfit/bounty
 
-/datum/antagonist/ert/bounty_synth
-	role = "Synthetic Bounty Hunter"
-	outfit = /datum/outfit/bounty/synth/ert
+/datum/antagonist/ert/bounty/operative
+	outfit = /datum/outfit/bounty/operative
+
+/datum/antagonist/ert/bounty/gunner
+	outfit = /datum/outfit/bounty/gunner
+
+/datum/antagonist/ert/bounty/technician
+	outfit = /datum/outfit/bounty/technician
+
+/datum/antagonist/ert/bounty/greet()
+	if(!ert_team)
+		return
+
+	to_chat(owner, "<B><font size=3 color=red>You are the [name].</font></B>")
+
+	var/missiondesc = "Your services are required for a mission on [station_name()] by Nanotrasen's Central Command."
+	if(leader) //If Squad Leader
+		missiondesc += " You are the most experienced hunter here. As such, you are expected to take point in this rag-tag group of misfits."
+	else
+		missiondesc += " Follow orders given by your leader, or betray them to avoid having to split the payout."
+
+	missiondesc += "<BR><B>Your Contract</B> : [ert_team.mission.explanation_text]"
+	to_chat(owner,missiondesc)

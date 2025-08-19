@@ -151,11 +151,11 @@
 	code = "Banana"
 
 /datum/ert/bounty_hunters
-	roles = list(/datum/antagonist/ert/bounty_armor, /datum/antagonist/ert/bounty_hook, /datum/antagonist/ert/bounty_synth)
-	leader_role = /datum/antagonist/ert/bounty_armor
+	roles = list(/datum/antagonist/ert/bounty/operative, /datum/antagonist/ert/bounty/gunner, /datum/antagonist/ert/bounty/technician)
+	leader_role = /datum/antagonist/ert/bounty/operative
 	teamsize = 3
 	opendoors = FALSE
 	rename_team = "Bounty Hunters"
 	mission = "Assist the station in catching perps, dead or alive."
-	polldesc = "a Centcom-hired bounty hunting gang"
+	polldesc = "a Centcom-hired bounty hunter"
 	random_names = TRUE

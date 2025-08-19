@@ -776,12 +776,12 @@ update_label("John Doe", "Clowny")
 	icon_state = "centcom"
 
 /// Trim for Bounty Hunters hired by centcom.
-/obj/item/card/id/silver/bounty/ert
+/obj/item/card/id/ert/bounty
 	registered_name = "Bounty Hunter"
 	assignment = "Bounty Hunter"
 	icon_state = "ert"
 
-/obj/item/card/id/silver/bounty/ert/Initialize(mapload)
+/obj/item/card/id/ert/bounty/Initialize(mapload)
 	. = ..()
 	access = list(ACCESS_CENT_GENERAL)
 

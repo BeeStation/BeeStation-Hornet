@@ -49,58 +49,6 @@
 	if(prob(50))
 		suit = /obj/item/clothing/suit/armor/bulletproof
 
-/datum/outfit/bounty
-	name = "Bounty Hunter"
-
-	uniform = /obj/item/clothing/under/rank/prisoner
-	id = /obj/item/card/id/silver/bounty
-	back = /obj/item/storage/backpack/ert
-	r_pocket = /obj/item/restraints/handcuffs/cable
-	ears = /obj/item/radio/headset
-	shoes = /obj/item/clothing/shoes/jackboots
-	box = /obj/item/storage/box/survival
-
-/datum/outfit/bounty/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	if(visualsOnly)
-		return
-	var/obj/item/card/id/W = H.wear_id
-	W.registered_name = H.real_name
-	W.update_label()
-
-/datum/outfit/bounty/armor
-	name = "Bounty Hunter - Armored"
-	gloves = /obj/item/clothing/gloves/tackler/combat
-	mask = /obj/item/clothing/mask/gas
-	glasses = /obj/item/clothing/glasses/sunglasses/advanced/garb
-
-/datum/outfit/bounty/hook
-	name = "Bounty Hunter - Hook"
-	mask = /obj/item/clothing/mask/gas/sechailer/swat
-	gloves = /obj/item/clothing/gloves/tackler/combat
-	uniform = /obj/item/clothing/under/color/black
-	r_hand = /obj/item/implanter/stealth
-	head = /obj/item/clothing/head/beanie/black
-	belt = /obj/item/storage/belt/military
-
-/datum/outfit/bounty/synth
-	name = "Bounty Hunter - Synth"
-	uniform = /obj/item/clothing/under/color/white
-	suit = /obj/item/clothing/suit/armor/riot
-	glasses = /obj/item/clothing/glasses/eyepatch
-	r_hand = /obj/item/autosurgeon/hydraulic_blade
-	l_hand = /obj/item/bountytrap
-	backpack_contents = list(
-		/obj/item/storage/firstaid/regular = 1,
-		/obj/item/pinpointer/shuttle = 1,
-		/obj/item/bountytrap = 2
-		)
-
-/datum/outfit/bounty/synth/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	if(visualsOnly)
-		return
-	var/obj/item/organ/eyes/robotic/glow/eyes = new()
-	eyes.Insert(H, drop_if_replaced = FALSE)
-
 /datum/outfit/russian_hunter
 	name = "Russian Hunter"
 
@@ -146,25 +94,3 @@
 		gloves = /obj/item/clothing/gloves/tackler/combat
 	else if(prob(30))
 		gloves = /obj/item/clothing/gloves/fingerless
-
-
-//ids and ert code
-
-/obj/item/card/id/advanced/bountyhunter
-	assignment = "Bounty Hunter"
-	//icon_state = "card_flames" //oh SHIT
-	//trim = /datum/id_trim/bounty_hunter
-
-/datum/outfit/bounty/armor/ert
-	id = /obj/item/card/id/silver/bounty/ert
-
-/datum/outfit/bounty/hook/ert
-	id = /obj/item/card/id/silver/bounty/ert
-
-/datum/outfit/bounty/synth/ert
-	id = /obj/item/card/id/silver/bounty/ert
-
-/*
-/obj/item/card/id/advanced/bountyhunter/ert
-	trim = /datum/id_trim/centcom/bounty_hunter
-*/

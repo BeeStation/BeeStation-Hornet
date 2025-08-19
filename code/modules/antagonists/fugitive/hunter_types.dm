@@ -1,7 +1,6 @@
 GLOBAL_LIST_INIT(hunter_types, list(
 	FUGITIVE_HUNTER_SPACE_POLICE = new /datum/fugitive_type/hunter/space_police,
-	FUGITIVE_HUNTER_RUSSIAN = new /datum/fugitive_type/hunter/russian,
-	FUGITIVE_HUNTER_BOUNTY = new /datum/fugitive_type/hunter/bounty
+	FUGITIVE_HUNTER_RUSSIAN = new /datum/fugitive_type/hunter/russian
 ))
 
 /datum/fugitive_type/hunter
@@ -30,11 +29,3 @@ GLOBAL_LIST_INIT(hunter_types, list(
 	outfit = /datum/outfit/russian_hunter
 	has_leader = TRUE
 	leader_outfit = /datum/outfit/russian_hunter/leader
-
-/datum/fugitive_type/hunter/bounty
-	name = "Bounty Hunter"
-	multiple_name = "Bounty Hunters"
-	greet_message = span_bold("You are a bounty hunter, chasing profits through the capture of dangerous and desired people across the galaxy.") + "\n" +\
-	span_bold("You've been tracking this bounty for a while, and you've nearly caught up to them. Now's your chance!")
-	ship_type = /datum/map_template/shuttle/hunter/bounty
-	outfit = list(/datum/outfit/bounty/armor, /datum/outfit/bounty/hook, /datum/outfit/bounty/synth)
