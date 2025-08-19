@@ -508,14 +508,10 @@ SUBSYSTEM_DEF(dynamic)
 	var/observing_delta = length(current_players[CURRENT_OBSERVERS]) * midround_observer_delta
 	var/dead_delta = length(current_players[CURRENT_DEAD_PLAYERS]) * midround_dead_delta
 
-	// How many security people are dead.
-	var/deadsec = 0
-	// Figure out deadsec
-	for(var/mob/living/deadguy in current_players[CURRENT_DEAD_PLAYERS])
-		if(HAS_MIND_TRAIT(deadguy, TRAIT_SECURITY))
-			deadsec += 1
-
-	var/dead_security_delta = deadsec * midround_dead_security_delta
+	var/dead_security_delta = 0
+	for(var/mob/living/dead_guy in current_players[CURRENT_DEAD_PLAYERS])
+		if(HAS_MIND_TRAIT(dead_guy, TRAIT_SECURITY))
+			dead_security_delta += midround_dead_security_delta
 
 	var/antag_delta = 0
 	for(var/mob/antag in current_players[CURRENT_LIVING_ANTAGS])
