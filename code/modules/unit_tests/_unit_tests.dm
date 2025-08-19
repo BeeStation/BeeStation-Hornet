@@ -32,6 +32,7 @@
 #include "dcs_get_id_from_elements.dm"
 #include "drink_icons.dm"
 #include "dynamic_ruleset_sanity.dm"
+#include "emissive_worn_overlays.dm"
 #include "emoting.dm"
 #include "ensure_subtree_operational_datum.dm"
 #include "enumerables.dm"

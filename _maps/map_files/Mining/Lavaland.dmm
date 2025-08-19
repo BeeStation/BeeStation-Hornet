@@ -3033,7 +3033,7 @@
 /turf/closed/mineral/random/volcanic,
 /area/lavaland/surface/outdoors/unexplored)
 "qw" = (
-/obj/machinery/vendor/mining,
+/obj/machinery/gear_requisition/mining,
 /obj/structure/extinguisher_cabinet/directional/east,
 /turf/open/floor/iron/dark,
 /area/mine/gateway)
@@ -3067,7 +3067,7 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "qO" = (
-/obj/machinery/vendor/mining,
+/obj/machinery/gear_requisition/mining,
 /turf/open/floor/iron/dark,
 /area/mine/gateway)
 "qQ" = (
@@ -4110,7 +4110,7 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "wK" = (
-/obj/machinery/vendor/mining,
+/obj/machinery/gear_requisition/mining,
 /turf/open/floor/iron/dark,
 /area/mine/production)
 "wL" = (
