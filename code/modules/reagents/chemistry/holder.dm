@@ -245,7 +245,7 @@
 		var/part = amount / src.total_volume
 		for(var/reagent in cached_reagents)
 			var/datum/reagent/T = reagent
-			if(remove_blacklisted && (T.chem_flags & CHEMICAL_NOT_SYNTH))
+			if(remove_blacklisted && (T.chemical_flags & CHEMICAL_NOT_SYNTH))
 				continue
 			var/transfer_amount = T.volume * part
 			if(preserve_data)
@@ -263,7 +263,7 @@
 			if(!to_transfer)
 				break
 			var/datum/reagent/T = reagent
-			if(remove_blacklisted && (T.chem_flags & CHEMICAL_NOT_SYNTH))
+			if(remove_blacklisted && (T.chemical_flags & CHEMICAL_NOT_SYNTH))
 				continue
 			if(preserve_data)
 				trans_data = copy_data(T)
@@ -859,7 +859,7 @@
 	R.on_new(data)
 
 	if(isliving(my_atom))
-		R.on_mob_add(my_atom) //Must occur before it could possibly run on_mob_delete
+		R.on_mob_add(my_atom, amount) //Must occur before it could possibly run on_mob_delete
 
 	update_total()
 	if(my_atom)
@@ -1188,7 +1188,7 @@
 			for(var/each_define in chem_defines)
 				i += 1
 				var/datum/reagent/R = thing
-				if(initial(R.chem_flags) & each_define)
+				if(initial(R.chemical_flags) & each_define)
 					random_reagent[i] += R
 
 	// returns a pick from a static before making a list - saving memory

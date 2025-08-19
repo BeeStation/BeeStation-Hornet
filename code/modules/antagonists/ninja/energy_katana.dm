@@ -53,7 +53,7 @@
 	var/list/modifiers = params2list(click_parameters)
 
 	if(LAZYACCESS(modifiers, RIGHT_CLICK) && !target.density)
-		jaunt?.Teleport(user, target)
+		jaunt?.teleport(user, target)
 	if(proximity_flag && (isobj(target) || issilicon(target)))
 		spark_system.start()
 		playsound(user, "sparks", 50, 1)

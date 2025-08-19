@@ -363,7 +363,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 		return
 	if(!is_valid_recipe(recipe, get_recipes())) //href exploit protection
 		return
-	if(!multiplier || multiplier < 1) //href exploit protection
+	if(!multiplier || multiplier < 1 || !IS_FINITE(multiplier)) //href exploit protection
 		return
 	if(!building_checks(builder, recipe, multiplier))
 		return

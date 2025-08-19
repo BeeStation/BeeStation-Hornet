@@ -12,7 +12,7 @@
 	size = 8
 	tgui_id = "NtosPowerMonitor"
 	program_icon = "plug"
-	hardware_requirement = MC_CHARGE
+	hardware_requirement = MC_CHARGER
 
 	var/has_alert = 0
 	var/obj/structure/cable/attached_wire

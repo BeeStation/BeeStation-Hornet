@@ -7044,13 +7044,13 @@
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 8
 	},
-/obj/machinery/vending/tool,
 /obj/effect/turf_decal/bot,
 /obj/machinery/camera/directional/west,
 /obj/machinery/power/apc/auto_name/directional/west,
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
+/obj/machinery/vending/engivend,
 /turf/open/floor/iron/smooth_large,
 /area/engine/atmos)
 "btt" = (
@@ -21827,7 +21827,6 @@
 	dir = 6
 	},
 /obj/structure/table,
-/obj/item/extrapolator,
 /turf/open/floor/iron/white,
 /area/medical/virology)
 "evH" = (
@@ -24858,7 +24857,7 @@
 /area/ai_monitored/turret_protected/aisat/hallway)
 "fee" = (
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
-/obj/machinery/pipe_dispenser/disposal/transit_tube,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/iron/techmaint,
 /area/engine/atmos)
 "fej" = (
@@ -25710,7 +25709,6 @@
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 10
 	},
-/obj/machinery/pipe_dispenser,
 /obj/effect/turf_decal/trimline/white/filled/line{
 	color = "#7fc1a2";
 	alpha = 230;
@@ -33384,7 +33382,7 @@
 "gMj" = (
 /obj/machinery/light/cold/directional/west,
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
-/obj/machinery/pipe_dispenser/disposal,
+/obj/machinery/portable_atmospherics/pump,
 /turf/open/floor/iron/techmaint,
 /area/engine/atmos)
 "gMq" = (
@@ -44572,7 +44570,6 @@
 	pixel_y = 26;
 	pixel_x = 16
 	},
-/obj/item/extrapolator,
 /turf/open/floor/iron/white,
 /area/medical/virology)
 "iXD" = (
@@ -50326,7 +50323,7 @@
 /turf/open/floor/iron/showroomfloor,
 /area/medical/cryo)
 "kip" = (
-/obj/machinery/vendor/exploration,
+/obj/machinery/gear_requisition/exploration,
 /obj/machinery/light/directional/north,
 /obj/effect/turf_decal/siding/dark,
 /obj/machinery/camera/directional/north,
@@ -59219,14 +59216,6 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/engine/atmos)
-"lZY" = (
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/obj/effect/turf_decal/siding/wideplating_new/dark{
-	dir = 8
-	},
-/obj/machinery/portable_thermomachine,
-/turf/open/floor/iron/dark,
-/area/engine/atmos)
 "lZZ" = (
 /obj/effect/turf_decal/siding/wideplating_new/corner{
 	dir = 8
@@ -65640,7 +65629,6 @@
 /obj/effect/turf_decal/trimline/yellow/filled/line{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/pump,
 /obj/machinery/atmospherics/pipe/smart/simple/yellow/visible/layer2{
 	dir = 5
 	},
@@ -70056,7 +70044,6 @@
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 10
 	},
-/obj/machinery/pipe_dispenser,
 /obj/structure/platform/warning{
 	dir = 10
 	},
@@ -78629,7 +78616,7 @@
 "pTH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
-/obj/machinery/pipe_dispenser,
+/obj/machinery/portable_atmospherics/scrubber/huge/movable,
 /turf/open/floor/iron/techmaint,
 /area/engine/atmos)
 "pTK" = (
@@ -93945,7 +93932,7 @@
 /turf/open/floor/plating/rust,
 /area/maintenance/department/science/central)
 "tdO" = (
-/obj/machinery/vendor/mining,
+/obj/machinery/gear_requisition/mining,
 /obj/machinery/firealarm{
 	dir = 1;
 	pixel_y = -28
@@ -98620,9 +98607,6 @@
 /obj/structure/window/reinforced/spawner/east,
 /obj/effect/turf_decal/trimline/green/filled/line{
 	dir = 6
-	},
-/obj/structure/reagent_dispensers/virusfood{
-	pixel_y = -32
 	},
 /obj/effect/turf_decal/trimline/green/filled/mid_joiner,
 /turf/open/floor/iron/white/textured_large,
@@ -117787,7 +117771,6 @@
 /obj/effect/turf_decal/trimline/green/filled/line{
 	dir = 5
 	},
-/obj/item/extrapolator,
 /obj/machinery/light/small/directional/north,
 /obj/machinery/firealarm{
 	pixel_y = 28
@@ -153091,7 +153074,7 @@ btp
 fSy
 lGE
 rPr
-lZY
+nSv
 bhs
 clk
 lOL

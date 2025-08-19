@@ -16,11 +16,8 @@
 #define EUPHORIA_ACTIVE 1
 #define EUPHORIA_LAST_FLAG 2
 
-#define MIASMA_CORPSE_MOLES 0.02
-#define MIASMA_GIBS_MOLES 0.005
-
-#define MIN_TOXIC_GAS_DAMAGE 1
-#define MAX_TOXIC_GAS_DAMAGE 10
+#define MIN_TOXIC_GAS_DAMAGE 0.5
+#define MAX_TOXIC_GAS_DAMAGE 2.5
 
 // Pressure limits.
 /// This determins at what pressure the ultra-high pressure red icon is displayed. (This one is set as a constant)

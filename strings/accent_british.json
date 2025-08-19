@@ -1,0 +1,61 @@
+{
+	"words": {
+		"hello": ["'ello", "oi", "'ey up"],
+		"hi": ["oi", "'ello"],
+		"hey": ["'ey"],
+		"goodbye": ["cheers", "laters"],
+		"yes": ["yeah", "yeh"],
+		"no": ["nah", "nope"],
+		"my": "me",
+		"your": "ya",
+		"you": "ya",
+		"are": "are",
+		"dude": "man",
+		"bro": "bruv",
+		"isn't it": "innit",
+		"what's up": ["wha's goin' on", "'ow's it goin'"],
+		"thanks": "cheers",
+		"sec": "constable",
+		"security": "constabulary",
+		"secoff": "constable",
+		"officer": "constable",
+		"i am": "i'm",
+		"do not": "don't",
+		"does not": "don't",
+		"is not": "ain't",
+		"have not": "ain't",
+		"going to": "gonna",
+		"want to": "wanna"
+},
+
+	"start": {
+		"h": "'",
+		"thi": "fi",
+		"tho": "fo",
+		"tha": "fa"
+},
+
+	"end": {
+		"ing": "in'",
+		"er": "ah",
+		"ld": "wd",
+		"rt": "",
+		"r": "h",
+		"ould": "ud",
+		"t's": "'s",
+		"ts": "'s",
+		"t": "'",
+		"'t": "'"
+},
+
+	"syllables": {
+		"tt": "'",
+		"oo": "u",
+		"ou": "ow",
+		"ea": "ee",
+		"ar": "ah",
+		"ck": "k",
+		"igh": "oi",
+		"all": "awl"
+}
+}

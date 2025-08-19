@@ -15,28 +15,15 @@ jobs:
     name: Show Screenshot Test Results
     runs-on: ubuntu-22.04
     steps:
-      - name: "Check for ARTIFACTS_FILE_HOUSE_KEY"
-        id: secrets_set
-        env:
-          ENABLER_SECRET: ${{ secrets.ARTIFACTS_FILE_HOUSE_KEY }}
-        run: |
-          unset SECRET_EXISTS
-          if [ -n "$ENABLER_SECRET" ]; then SECRET_EXISTS=true ; fi
-          echo "SECRETS_ENABLED=$SECRET_EXISTS" >> $GITHUB_OUTPUT
       - name: Checkout
-        if: steps.secrets_set.outputs.SECRETS_ENABLED
         uses: actions/checkout@v4
       - name: Prepare module
-        if: steps.secrets_set.outputs.SECRETS_ENABLED
         run: |
           # This is needed because node-fetch needs import and doesn't work with require :/
           echo "{\"type\": \"module\"}" > package.json
           npm install node-fetch
       - name: Show screenshot test results
-        if: steps.secrets_set.outputs.SECRETS_ENABLED
         uses: actions/github-script@v6
-        env:
-          FILE_HOUSE_KEY: ${{ secrets.ARTIFACTS_FILE_HOUSE_KEY }}
         with:
           script: |
             const { showScreenshotTestResults } = await import('${{ github.workspace }}/tools/ci/show_screenshot_test_results.js')

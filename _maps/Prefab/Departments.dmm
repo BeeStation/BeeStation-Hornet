@@ -520,10 +520,6 @@
 /obj/item/toy/plush/moth/lovers,
 /turf/open/floor/iron/tech/grid,
 /area/space)
-"mE" = (
-/obj/structure/reagent_dispensers/virusfood,
-/turf/open/floor/iron,
-/area/space)
 "mO" = (
 /obj/item/book/manual/wiki/barman_recipes,
 /turf/open/floor/iron/cafeteria_red,
@@ -1440,7 +1436,7 @@
 /turf/open/floor/iron,
 /area/space)
 "Iu" = (
-/obj/machinery/vendor/exploration,
+/obj/machinery/gear_requisition/exploration,
 /turf/open/floor/iron/dark,
 /area/quartermaster/exploration_prep)
 "IO" = (
@@ -1875,7 +1871,7 @@
 /turf/open/floor/iron/dark,
 /area/medical/genetics)
 "Rm" = (
-/obj/machinery/vendor/mining,
+/obj/machinery/gear_requisition/mining,
 /turf/open/floor/iron/sepia,
 /area/quartermaster/storage)
 "Rq" = (
@@ -2670,7 +2666,7 @@ Fr
 XF
 ER
 Xs
-mE
+Qk
 "}
 (20,1,1) = {"
 ZA

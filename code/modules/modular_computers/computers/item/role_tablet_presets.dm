@@ -170,6 +170,10 @@
 	default_disk = /obj/item/computer_hardware/hard_drive/role/ce
 	icon_state = "pda-ce"
 
+/obj/item/modular_computer/tablet/pda/preset/heads/chief_engineer/Initialize(mapload)
+	. = ..()
+	install_component(new /obj/item/computer_hardware/recharger/APC/pda)
+
 /obj/item/modular_computer/tablet/pda/preset/heads/chief_medical_officer
 	name = "chief medical officer PDA"
 	default_disk = /obj/item/computer_hardware/hard_drive/role/cmo
@@ -287,6 +291,10 @@
 	name = "atmospherics PDA"
 	default_disk = /obj/item/computer_hardware/hard_drive/role/atmos
 	icon_state = "pda-atmos"
+
+/obj/item/modular_computer/tablet/pda/preset/atmospheric_technician/Initialize(mapload)
+	. = ..()
+	install_component(new /obj/item/computer_hardware/recharger/APC/pda)
 
 /obj/item/modular_computer/tablet/pda/preset/chemist
 	name = "chemist PDA"

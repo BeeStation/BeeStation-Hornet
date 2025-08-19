@@ -28,7 +28,7 @@
 /turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "bM" = (
-/obj/machinery/vendor/exploration,
+/obj/machinery/gear_requisition/exploration,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "cp" = (

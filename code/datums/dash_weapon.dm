@@ -3,51 +3,67 @@
 	desc = "Teleport to the targeted location."
 	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "jetboot"
+	/// How many dash charges do we have?
 	var/current_charges = 1
+	/// How many dash charges can we hold?
 	var/max_charges = 1
-	var/charge_rate = 250
-	var/obj/item/dashing_item
+	/// How long does it take to get a dash charge back?
+	var/charge_rate = 25 SECONDS
+	/// What sound do we play on dash?
 	var/dash_sound = 'sound/magic/blink.ogg'
+	/// What sound do we play on recharge?
 	var/recharge_sound = 'sound/magic/charge.ogg'
+	/// What effect does our beam use?
 	var/beam_effect = "blur"
+	/// How long does our beam last?
+	var/beam_length = 2 SECONDS
+	/// What effect should we play when we phase in (at the teleport target turf)
 	var/phasein = /obj/effect/temp_visual/dir_setting/ninja/phase
+	/// What effect should we play when we phase out (at the source turf)
 	var/phaseout = /obj/effect/temp_visual/dir_setting/ninja/phase/out
 
-/datum/action/innate/dash/Grant(mob/user, obj/dasher)
-	. = ..()
-	dashing_item = dasher
-
-/datum/action/innate/dash/Destroy()
-	dashing_item = null
-	return ..()
-
-/datum/action/innate/dash/is_available()
-	if(current_charges > 0)
-		return TRUE
-	else
-		return FALSE
+/datum/action/innate/dash/is_available(feedback = FALSE)
+	return ..() && (current_charges > 0)
 
 /datum/action/innate/dash/on_activate()
+	var/obj/item/dashing_item = master
+	if(!istype(dashing_item))
+		return
+
 	dashing_item.attack_self(owner) //Used to toggle dash behavior in the dashing item
 
-/datum/action/innate/dash/proc/Teleport(mob/user, atom/target)
-	if(!is_available())
-		return
-	var/turf/T = get_turf(target)
-	if(user in viewers(user.client.view, T))
-		var/obj/spot1 = new phaseout(get_turf(user), user.dir)
-		var/turf/new_location = do_dash(user, get_turf(user), T, obj_damage=200, phase=FALSE, on_turf_cross=CALLBACK(src, PROC_REF(dashslash), user))
-		if(new_location)
-			playsound(T, dash_sound, 25, 1)
-			var/obj/spot2 = new phasein(new_location, user.dir)
-			spot1.Beam(spot2,beam_effect,time=2 SECONDS)
-			if (owner)
-				owner.update_action_buttons_icon()
-			if (current_charges == max_charges)
-				addtimer(CALLBACK(src, PROC_REF(charge)), charge_rate)
-			current_charges--
-		else
-			to_chat(user, span_warning("You cannot dash here!"))
+/// Teleport user to target using do_dash. Returns TRUE if teleport successful, FALSE otherwise.
+/datum/action/innate/dash/proc/teleport(mob/user, atom/target)
+	if(!is_available(feedback = TRUE))
+		return FALSE
+
+	var/turf/current_turf = get_turf(user)
+	var/turf/target_turf = get_turf(target)
+	if(!(target in view(user.client.view, user)))
+		user.balloon_alert(user, "out of view!")
+		return FALSE
+
+	// Use obj_damage to break through obstacles, but don't phase
+	var/turf/final_turf = do_dash(user, current_turf, target_turf, obj_damage = 200, phase = FALSE, on_turf_cross = CALLBACK(src, PROC_REF(dashslash), user))
+	if(!final_turf)
+		user.balloon_alert(user, "dash blocked!")
+		return FALSE
+
+	var/obj/spot_one = new phaseout(current_turf, user.dir)
+	var/obj/spot_two = new phasein(final_turf, user.dir) // Use where ninja actually ended up
+	spot_one.Beam(spot_two, beam_effect, time = beam_length)
+	playsound(final_turf, dash_sound, 25, TRUE) // Play sound where ninja ended up
+	owner?.update_action_buttons_icon()
+
+	if (current_charges == max_charges)
+		addtimer(CALLBACK(src, PROC_REF(charge)), charge_rate)
+
+	//User dashed but still ended up in the same place, take no charge. Yes this can occur from shenanigans.
+	// The ninja dash does nothing to walls, and windows/tables are all instantly taken out by the 200 damage anyway, so this is just sanity check
+	if(current_turf != final_turf)
+		current_charges--
+
+	return TRUE
 
 /datum/action/innate/dash/proc/dashslash(mob/user, turf/slash_location)
 	for(var/mob/living/target in slash_location)//Hit everything in the turf
@@ -58,17 +74,25 @@
 		if ((target.body_position == LYING_DOWN) || !target.density || user == target)
 			continue
 		// Slash through target
-		target.attackby(dashing_item, user)
-		user.do_item_attack_animation(target, used_item=dashing_item)
+		target.attackby(master, user)
+		user.do_item_attack_animation(target, used_item = master)
 		to_chat(target, span_userdanger("[user] goes through you faster than you can see!"))
 	return TRUE
 
+/// Callback for [/proc/teleport] to increment our charges after  use.
 /datum/action/innate/dash/proc/charge()
 	current_charges = clamp(current_charges + 1, 0, max_charges)
-	if (owner)
-		owner.update_action_buttons_icon()
-		to_chat(owner, span_notice("[src] now has [current_charges]/[max_charges] charges."))
+
+	var/obj/item/dashing_item = master
+	if(!istype(dashing_item))
+		return
+
 	if(recharge_sound)
-		playsound(dashing_item, recharge_sound, 50, 1)
+		playsound(dashing_item, recharge_sound, 50, TRUE)
+
+	if(!owner)
+		return
+	owner.update_action_buttons_icon()
+	dashing_item.balloon_alert(owner, "[current_charges]/[max_charges] dash charges")
 	if (current_charges != max_charges)
 		addtimer(CALLBACK(src, PROC_REF(charge)), charge_rate)

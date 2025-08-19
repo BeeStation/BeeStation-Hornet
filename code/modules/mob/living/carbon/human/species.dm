@@ -155,7 +155,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	// Species specific bitflags. Used for things like if the race is unable to become a changeling.
 	var/species_bitflags = NONE
 
-	/// Do we try to prevent reset_perspective() from working? Useful for Dullahans to stop perspective changes when they're looking through their head.
+	/// Do we try to prevent reset_perspective() from working?
 	var/prevent_perspective_change = FALSE
 
 	//Should we preload this species's organs?

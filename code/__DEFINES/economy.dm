@@ -66,7 +66,7 @@
 // this should use the same bitflag values in `\_DEFINES\jobs.dm` to match.
 // It's true that bitflags shouldn't be separated in two DEFINES if these are same, but just in case the system can be devided, it's remained separated.
 
-/// How much mail the Economy SS will create per minute, regardless of firing time.
+/// How much mail the Economy SS can create per minute, regardless of firing time.
 #define MAX_MAIL_PER_MINUTE 1
 /// Probability of using letters of envelope sprites on all letters.
 #define FULL_CRATE_LETTER_ODDS 70
