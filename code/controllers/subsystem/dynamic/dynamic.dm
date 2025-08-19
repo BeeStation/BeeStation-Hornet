@@ -509,9 +509,15 @@ SUBSYSTEM_DEF(dynamic)
 	var/dead_delta = length(current_players[CURRENT_DEAD_PLAYERS]) * midround_dead_delta
 
 	var/dead_security_delta = 0
-	for(var/mob/living/dead_guy in current_players[CURRENT_DEAD_PLAYERS])
-		if(HAS_MIND_TRAIT(dead_guy, TRAIT_SECURITY))
-			dead_security_delta += midround_dead_security_delta
+	for(var/dead_guy as anything in current_players[CURRENT_DEAD_PLAYERS])
+		if(isobserver(dead_guy))
+			var/mob/dead/observer/observer = dead_guy
+			if(HAS_MIND_TRAIT(observer, TRAIT_SECURITY))
+				dead_security_delta += midround_dead_security_delta
+		else
+			var/mob/living/dead_mob = dead_guy
+			if(HAS_MIND_TRAIT(dead_mob, TRAIT_SECURITY))
+				dead_security_delta += midround_dead_security_delta
 
 	var/antag_delta = 0
 	for(var/mob/antag in current_players[CURRENT_LIVING_ANTAGS])
