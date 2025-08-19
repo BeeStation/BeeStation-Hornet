@@ -102,7 +102,7 @@
 	shoes = /obj/item/clothing/shoes/combat
 	gloves = /obj/item/clothing/gloves/tackler/combat
 	ears = /obj/item/radio/headset
-
+	uniform = /obj/item/clothing/under/syndicate/combat
 	id = /obj/item/card/id/silver/bounty
 
 /datum/outfit/bounty/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
