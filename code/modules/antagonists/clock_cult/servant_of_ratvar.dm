@@ -1,3 +1,25 @@
+GLOBAL_LIST_EMPTY(servants_of_ratvar)	//List of minds in the cult
+GLOBAL_LIST_EMPTY(all_servants_of_ratvar)	//List of minds in the cult
+GLOBAL_LIST_EMPTY(human_servants_of_ratvar)	//Humans in the cult
+GLOBAL_LIST_EMPTY(cyborg_servants_of_ratvar)
+
+GLOBAL_VAR(ratvar_arrival_tick)	//The world.time that Ratvar will arrive if the gateway is not disrupted
+
+GLOBAL_VAR_INIT(installed_integration_cogs, 0)
+
+GLOBAL_VAR(celestial_gateway)	//The celestial gateway
+GLOBAL_VAR_INIT(ratvar_risen, FALSE)	//Has ratvar risen?
+GLOBAL_VAR_INIT(gateway_opening, FALSE)	//Is the gateway currently active?
+
+//A useful list containing all scriptures with the index of the name.
+//This should only be used for looking up scriptures
+GLOBAL_LIST_EMPTY(clockcult_all_scriptures)
+
+GLOBAL_VAR_INIT(clockcult_power, 2500)
+GLOBAL_VAR_INIT(clockcult_vitality, 200)
+
+GLOBAL_VAR(clockcult_eminence)
+
 //==========================
 //====  Servant antag   ====
 //==========================
@@ -72,7 +94,7 @@
 		forbearance = mutable_appearance('icons/effects/genetics.dmi', "servitude", -MUTATIONS_LAYER)
 		owner_mob.add_overlay(forbearance)
 	owner.current.throw_alert("clockinfo", /atom/movable/screen/alert/clockwork/clocksense)
-	SSticker.mode.update_clockcult_icons_added(owner)
+	add_antag_hud(ANTAG_HUD_CLOCKWORK, "clockwork", owner.current)
 	var/datum/language_holder/LH = owner.current.get_language_holder()
 	LH.grant_language(/datum/language/ratvar, source = LANGUAGE_CULTIST)
 
@@ -80,7 +102,7 @@
 	owner.current.faction -= FACTION_RATVAR
 	owner.current.clear_alert("clockinfo")
 	transmit_spell.Remove(transmit_spell.owner)
-	SSticker.mode.update_clockcult_icons_removed(owner)
+	remove_antag_hud(ANTAG_HUD_CLOCKWORK, owner.current)
 	if(forbearance && ishuman(owner.current))
 		var/mob/living/carbon/owner_mob = owner.current
 		owner_mob.remove_overlay(forbearance)

@@ -88,7 +88,7 @@
 	if(!(obscured & ITEM_SLOT_EYES))
 		if(glasses && !(glasses.item_flags & EXAMINE_SKIP))
 			. += "[t_He] [t_has] [glasses.get_examine_string(user)] covering [t_his] eyes."
-		else if(eye_color == BLOODCULT_EYE && iscultist(src) && HAS_TRAIT(src, CULT_EYES))
+		else if(eye_color == BLOODCULT_EYE && IS_CULTIST(src) && HAS_TRAIT(src, CULT_EYES))
 			. += span_warning("<B>[t_His] eyes are glowing an unnatural red!</B>")
 
 	//ears
@@ -386,6 +386,8 @@
 						"<a href='byond://?src=[REF(src)];hud=s;add_note=1;examine_time=[world.time]'>\[Add note\]</a>"), "")
 	else if(isobserver(user) && traitstring)
 		. += span_info("<b>Traits:</b> [traitstring]")
+
+	SEND_SIGNAL(src, COMSIG_ATOM_EXAMINE, user, .)
 
 /mob/living/proc/status_effect_examines(pronoun_replacement) //You can include this in any mob's examine() to show the examine texts of status effects!
 	var/list/dat = list()

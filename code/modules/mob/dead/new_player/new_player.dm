@@ -8,7 +8,7 @@
 	shift_to_open_context_menu = FALSE
 
 /mob/dead/new_player/authenticated
-	var/ready = 0
+	var/ready = PLAYER_NOT_READY
 	var/spawning = 0//Referenced when you want to delete the new_player later on in the code.
 	var/mob/living/new_character	//for instant transfer once the round is set up
 	///Used to make sure someone doesn't get spammed with messages if they're ineligible for roles.
@@ -372,21 +372,15 @@
 
 	GLOB.joined_player_list += character.ckey
 
-	if(CONFIG_GET(flag/allow_latejoin_antagonists) && humanc)	//Borgs aren't allowed to be antags. Will need to be tweaked if we get true latejoin ais.
-		if(SSshuttle.emergency)
-			switch(SSshuttle.emergency.mode)
-				if(SHUTTLE_RECALL, SHUTTLE_IDLE)
-					SSticker.mode.make_antag_chance(humanc)
-					SSticker.mode.make_special_antag_chance(humanc)
-				if(SHUTTLE_CALL)
-					if(SSshuttle.emergency.timeLeft(1) > initial(SSshuttle.emergencyCallTime)*0.5)
-						SSticker.mode.make_antag_chance(humanc)
-						SSticker.mode.make_special_antag_chance(humanc)
+	//Borgs aren't allowed to be antags. Will need to be tweaked if we get true latejoin ais.
+	if(CONFIG_GET(flag/allow_latejoin_antagonists) && humanc)
+		SSdynamic.on_player_latejoin(humanc)
 
 	if(CONFIG_GET(flag/roundstart_traits))
 		SSquirks.AssignQuirks(character.mind, character.client, TRUE)
 
-	GLOB.manifest.inject(humanc)
+	if(humanc)
+		GLOB.manifest.inject(humanc)
 	log_manifest(character.mind.key,character.mind,character,latejoin = TRUE)
 
 /mob/dead/new_player/authenticated/proc/AddEmploymentContract(mob/living/carbon/human/employee)

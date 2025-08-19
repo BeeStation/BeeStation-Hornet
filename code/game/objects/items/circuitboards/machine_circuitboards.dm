@@ -497,7 +497,8 @@
 	icon_state = "generic"
 	build_path = /obj/machinery/smartfridge
 	req_components = list(/obj/item/stock_parts/matter_bin = 1)
-	var/static/list/fridges_name_paths = list(/obj/machinery/smartfridge = "plant produce",
+	var/static/list/fridges_name_paths = list(
+		/obj/machinery/smartfridge = "plant produce",
 		/obj/machinery/smartfridge/food = "food",
 		/obj/machinery/smartfridge/drinks = "drinks",
 		/obj/machinery/smartfridge/extract = "slimes",
@@ -506,27 +507,37 @@
 		/obj/machinery/smartfridge/chemistry/virology = "viruses",
 		/obj/machinery/smartfridge/disks = "disks")
 	needs_anchored = FALSE
+	var/is_special_type = FALSE
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 
-/obj/item/circuitboard/machine/smartfridge/Initialize(mapload, new_type)
-	if(new_type)
-		build_path = new_type
+/obj/item/circuitboard/machine/smartfridge/apply_default_parts(obj/machinery/smartfridge/M)
+	build_path = M.base_build_path
+	if(!fridges_name_paths.Find(build_path))
+		name = "[initial(M.name)] (Machine Board)" //if it's a unique type, give it a unique name.
+		is_special_type = TRUE
 	return ..()
 
-/obj/item/circuitboard/machine/smartfridge/attackby(obj/item/I, mob/user, params)
-	if(I.tool_behaviour == TOOL_SCREWDRIVER)
-		var/position = fridges_name_paths.Find(build_path, fridges_name_paths)
-		position = (position == fridges_name_paths.len) ? 1 : (position + 1)
-		build_path = fridges_name_paths[position]
-		to_chat(user, span_notice("You set the board to [fridges_name_paths[build_path]]."))
-	else
-		return ..()
+/obj/item/circuitboard/machine/smartfridge/screwdriver_act(mob/living/user, obj/item/tool)
+	if (is_special_type)
+		return FALSE
+	var/position = fridges_name_paths.Find(build_path, fridges_name_paths)
+	position = (position == length(fridges_name_paths)) ? 1 : (position + 1)
+	build_path = fridges_name_paths[position]
+	to_chat(user, span_notice("You set the board to [fridges_name_paths[build_path]]."))
+	return TRUE
 
 /obj/item/circuitboard/machine/smartfridge/examine(mob/user)
 	. = ..()
+	if(is_special_type)
+		return
 	. += span_info("[src] is set to [fridges_name_paths[build_path]]. You can use a screwdriver to reconfigure it.")
 
+/obj/item/circuitboard/machine/dehydrator
+	name = "Dehydrator"
+	build_path = /obj/machinery/smartfridge/drying
+	req_components = list(/obj/item/stock_parts/matter_bin = 1)
+	needs_anchored = FALSE
 
 /obj/item/circuitboard/machine/portable_thermomachine
 	name = "portable thermomachine (Machine Board)"
@@ -1244,7 +1255,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 /obj/item/circuitboard/machine/mining_equipment_vendor
 	name = "mining equipment vendor (Machine Board)"
 	icon_state = "supply"
-	build_path = /obj/machinery/vendor/mining
+	build_path = /obj/machinery/gear_requisition/mining
 	req_components = list(
 		/obj/item/stack/sheet/glass = 1,
 		/obj/item/stock_parts/matter_bin = 3)
@@ -1252,7 +1263,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 /obj/item/circuitboard/machine/exploration_equipment_vendor
 	name = "exploration equipment vendor (Machine Board)"
 	icon_state = "supply"
-	build_path = /obj/machinery/vendor/exploration
+	build_path = /obj/machinery/gear_requisition/exploration
 	req_components = list(
 		/obj/item/stack/sheet/glass = 1,
 		/obj/item/stock_parts/matter_bin = 3)
@@ -1260,7 +1271,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 
 /obj/item/circuitboard/machine/mining_equipment_vendor/golem
 	name = "golem ship equipment vendor (Machine Board)"
-	build_path = /obj/machinery/vendor/mining/golem
+	build_path = /obj/machinery/gear_requisition/mining/golem
 
 /obj/item/circuitboard/machine/pump
 	name = "portable liquid pump (Machine Board)"

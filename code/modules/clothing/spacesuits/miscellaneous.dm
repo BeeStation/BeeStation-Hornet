@@ -85,7 +85,7 @@ Contains:
 	greyscale_colors = "#397F3F#FFCE5B"
 	dynamic_hair_suffix = "+generic"
 	dynamic_fhair_suffix = "+generic"
-	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT
+	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT
 	flags_inv = 0
 	armor_type = /datum/armor/space_beret
 	strip_delay = 130
@@ -415,7 +415,7 @@ Contains:
 	icon_state = "space"
 	item_state = "eva_helmet"
 	desc = "A lightweight space helmet with the basic ability to protect the wearer from the vacuum of space during emergencies."
-	flash_protect = 0
+	flash_protect = FLASH_PROTECTION_NONE
 	armor_type = /datum/armor/space_eva
 
 
@@ -555,7 +555,7 @@ Contains:
 	item_state = "syndicate-helm-orange"
 	armor_type = /datum/armor/space_fragile
 	strip_delay = 65
-	flash_protect = 0
+	flash_protect = FLASH_PROTECTION_NONE
 
 
 /datum/armor/space_fragile
@@ -628,7 +628,7 @@ Contains:
 	armor_type = /datum/armor/hardsuit_skinsuit
 	min_cold_protection_temperature = EMERGENCY_HELM_MIN_TEMP_PROTECT
 	heat_protection = NONE
-	flash_protect = 0
+	flash_protect = FLASH_PROTECTION_NONE
 	bang_protect = 0
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR
 	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS

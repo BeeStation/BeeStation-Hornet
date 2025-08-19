@@ -22,7 +22,7 @@
 	var/datum/station_state/end_state = new /datum/station_state()
 	end_state.count()
 	var/station_integrity = min(PERCENT(GLOB.start_state.score(end_state)), 100)
-	return !SSticker.mode.station_was_nuked && station_integrity >= target_amount
+	return !GLOB.station_was_nuked && station_integrity >= target_amount
 
 /datum/objective/crew/poly
 	explanation_text = "Make sure Poly keeps his headset, and stays alive until the end of the shift."

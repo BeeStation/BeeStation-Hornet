@@ -21,7 +21,7 @@ SUBSYSTEM_DEF(polling)
  *
  * Arguments
  * * question: Optional, The question to ask the candidates. If null, a default question will be used. ("Do you want to play as role?")
- * * role: Optional, A role preference (/datum/role_preference/antagonist/traitor) to pass, it won't show to any candidates who don't have it in their preferences.
+ * * role: Optional, A role preference (/datum/role_preference/roundstart/traitor) to pass, it won't show to any candidates who don't have it in their preferences.
  * * check_jobban: Optional, What jobban role / flag to check, it won't show to any candidates who have this jobban.
  * * poll_time: How long the poll will last.
  * * ignore_category: Optional, A poll category. If a candidate has this category in their ignore list, they won't be polled.
@@ -103,7 +103,7 @@ SUBSYSTEM_DEF(polling)
 			continue
 
 		new_poll.alert_buttons += poll_alert_button
-		new_poll.RegisterSignal(poll_alert_button, COMSIG_PARENT_QDELETING, TYPE_PROC_REF(/datum/candidate_poll, clear_alert_ref))
+		new_poll.RegisterSignal(poll_alert_button, COMSIG_QDELETING, TYPE_PROC_REF(/datum/candidate_poll, clear_alert_ref))
 
 		poll_alert_button.icon = ui_style2icon(candidate_mob.client?.prefs?.read_preference(/datum/preference/choiced/ui_style))
 		poll_alert_button.desc = "[question]"

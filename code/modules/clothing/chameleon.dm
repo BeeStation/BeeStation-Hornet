@@ -688,7 +688,7 @@
 	item_state = "mime_envirohelm"
 	resistance_flags = FIRE_PROOF
 	strip_delay = 80
-	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT | HEADINTERNALS
+	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
@@ -702,7 +702,7 @@
 	desc = "A tough envirohelm woven from alloy threads. It can take on the appearance of other headgear."
 	//icon_state = "engineer_envirohelm"
 	item_state = "engineer_envirohelm"
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 
 /obj/item/clothing/head/chameleon/drone
 	// The camohat, I mean, holographic hat projection, is part of the
@@ -1050,30 +1050,30 @@
 	item_state = "syndie_headset"
 	bang_protect = 3
 
-/obj/item/modular_computer/tablet/pda/chameleon
+/obj/item/modular_computer/tablet/pda/preset/chameleon
 	name = "tablet"
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
-/obj/item/modular_computer/tablet/pda/chameleon/Initialize(mapload)
+/obj/item/modular_computer/tablet/pda/preset/chameleon/Initialize(mapload)
 	. = ..()
 	chameleon_action = new(src)
 	chameleon_action.chameleon_type = /obj/item/modular_computer/tablet/pda
 	chameleon_action.chameleon_name = "tablet"
-	chameleon_action.chameleon_blacklist = typecacheof(list(/obj/item/modular_computer/tablet/pda/heads), only_root_path = TRUE)
+	chameleon_action.chameleon_blacklist = typecacheof(list(/obj/item/modular_computer/tablet/pda/preset/heads), only_root_path = TRUE)
 	chameleon_action.initialize_disguises()
 	add_item_action(chameleon_action)
 
-/obj/item/modular_computer/tablet/pda/chameleon/emp_act(severity)
+/obj/item/modular_computer/tablet/pda/preset/chameleon/emp_act(severity)
 	. = ..()
 	if(. & EMP_PROTECT_SELF)
 		return
 	chameleon_action.emp_randomise()
 
-/obj/item/modular_computer/tablet/pda/chameleon/broken/Initialize(mapload)
+/obj/item/modular_computer/tablet/pda/preset/chameleon/broken/Initialize(mapload)
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
 
-/obj/item/modular_computer/tablet/pda/chameleon/attackby(obj/item/W, mob/user, params)
+/obj/item/modular_computer/tablet/pda/preset/chameleon/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_MULTITOOL)
 		if(chameleon_action.hidden)
 			chameleon_action.hidden = FALSE

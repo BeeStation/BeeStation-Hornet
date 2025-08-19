@@ -33,7 +33,7 @@
 	jobtype = /datum/job/lawyer
 
 	id = /obj/item/card/id/job/lawyer
-	belt = /obj/item/modular_computer/tablet/pda/lawyer
+	belt = /obj/item/modular_computer/tablet/pda/preset/lawyer
 	ears = /obj/item/radio/headset/headset_srvsec
 	uniform = /obj/item/clothing/under/rank/civilian/lawyer/bluesuit
 	suit = /obj/item/clothing/suit/toggle/lawyer

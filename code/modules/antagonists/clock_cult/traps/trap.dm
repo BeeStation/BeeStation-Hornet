@@ -8,7 +8,7 @@
 
 /obj/item/clockwork/trap_placer/attack_self(mob/user)
 	. = ..()
-	if(!is_servant_of_ratvar(user))
+	if(!IS_SERVANT_OF_RATVAR(user))
 		return
 	for(var/obj/structure/destructible/clockwork/trap/T in get_turf(src))
 		if(istype(T, type))
@@ -30,7 +30,7 @@
 
 /obj/item/wallframe/clocktrap/examine(mob/user)
 	. = ..()
-	if(is_servant_of_ratvar(user))
+	if(IS_SERVANT_OF_RATVAR(user))
 		. += span_brass("It looks like it can be placed on a wall.")
 
 //Wall item (either spawned by a wallframe or directly)
@@ -69,7 +69,7 @@
 	RegisterSignal(parent, COMSIG_CLOCKWORK_SIGNAL_RECEIVED, PROC_REF(trigger))
 	RegisterSignal(parent, COMSIG_ATOM_EMINENCE_ACT, PROC_REF(trigger))	//The eminence can trigger traps too
 	RegisterSignal(parent, COMSIG_ATOM_ATTACK_HAND, PROC_REF(clicked))
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(OnAttackBy))
+	RegisterSignal(parent, COMSIG_ATOM_ATTACKBY, PROC_REF(OnAttackBy))
 
 /datum/component/clockwork_trap/proc/add_input(datum/component/clockwork_trap/input)
 	outputs |= input.parent
@@ -90,7 +90,7 @@
 /datum/component/clockwork_trap/proc/OnAttackBy(datum/source, obj/item/I, mob/user)
 	SIGNAL_HANDLER
 
-	if(is_servant_of_ratvar(user))
+	if(IS_SERVANT_OF_RATVAR(user))
 		if(istype(I, /obj/item/clockwork/clockwork_slab))
 			var/obj/item/clockwork/clockwork_slab/slab = I
 			if(slab.buffer)

@@ -32,6 +32,7 @@
 #include "dcs_get_id_from_elements.dm"
 #include "drink_icons.dm"
 #include "dynamic_ruleset_sanity.dm"
+#include "emissive_worn_overlays.dm"
 #include "emoting.dm"
 #include "enumerables.dm"
 
@@ -40,7 +41,6 @@
 #endif
 
 #include "food_edibility_check.dm"
-#include "gamemode_sanity.dm"
 #include "gas_transfer.dm"
 #include "greyscale_config.dm"
 #include "handcuff_tests.dm"
@@ -56,6 +56,7 @@
 #include "metabolizing.dm"
 #include "mindbound_actions.dm"
 #include "missing_icons.dm"
+#include "modsuit.dm"
 #include "mutant_organs.dm"
 #include "ntnetwork_tests.dm"
 #include "organs.dm"
