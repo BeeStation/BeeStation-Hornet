@@ -1,10 +1,22 @@
-import { useBackend } from '../../backend';
-import { Icon, NumberInput, ProgressBar, Box, Button, Section, Stack, LabeledList, NoticeBox, Collapsible } from '../../components';
-import { MainData, MechModule } from './data';
-import { classes } from 'common/react';
-import { toFixed } from 'common/math';
-import { formatPower } from '../../format';
 import { GasmixParser } from 'tgui/interfaces/common/GasmixParser';
+import {
+  Box,
+  Button,
+  Collapsible,
+  Icon,
+  LabeledList,
+  NoticeBox,
+  NumberInput,
+  ProgressBar,
+  Section,
+  Stack,
+} from 'tgui-core/components';
+import { formatPower } from 'tgui-core/format';
+import { toFixed } from 'tgui-core/math';
+import { classes } from 'tgui-core/react';
+
+import { useBackend } from '../../backend';
+import { MainData, MechModule } from './data';
 
 const moduleSlotIcon = (param) => {
   switch (param) {

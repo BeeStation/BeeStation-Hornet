@@ -1169,7 +1169,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	name = "Mauler Ammo Bag"
 	desc = "A duffel bag containing ammo for three full reloads of the LMG, scattershot carbine, and SRM-8 missile laucher that are equipped on a standard Mauler exosuit."
 	item = /obj/item/storage/backpack/duffelbag/syndie/ammo/mauler
-	cost = 6
+	cost = 4
 	purchasable_from = UPLINK_NUKE_OPS
 
 //Grenades and Explosives
@@ -1422,13 +1422,13 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	desc = "A lightweight exosuit, painted in a dark scheme. Its speed and equipment selection make it excellent \
 			for hit-and-run style attacks. Features an incendiary carbine, flash bang launcher, teleporter, ion thrusters and a Tesla energy array."
 	item = /obj/vehicle/sealed/mecha/gygax/dark/loaded
-	cost = 80
+	cost = 60
 
 /datum/uplink_item/support/honker
 	name = "Dark H.O.N.K."
 	desc = "A clown combat mech equipped with bombanana peel and tearstache grenade launchers, as well as the ubiquitous HoNkER BlAsT 5000."
 	item = /obj/vehicle/sealed/mecha/honker/dark/loaded
-	cost = 80
+	cost = 60
 	purchasable_from = UPLINK_CLOWN_OPS
 
 /datum/uplink_item/support/mauler
@@ -1436,7 +1436,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	desc = "A massive and incredibly deadly military-grade exosuit. Features long-range targeting, thrust vectoring \
 			and deployable smoke. Comes equipped with an LMG, scattershot carbine, missile rack, an antiprojectile armor booster and a Tesla energy array."
 	item = /obj/vehicle/sealed/mecha/marauder/mauler/loaded
-	cost = 140
+	cost = 100
 
 // Stealth Items
 /datum/uplink_item/stealthy_tools

@@ -173,6 +173,10 @@
 	var/overclock_temp = 0
 	///Temperature threshold at which actuators may start causing internal damage
 	var/overclock_temp_danger = 15
+	///Whether the mech has an option to enable safe overclocking
+	var/overclock_safety_available = FALSE
+	///Whether the overclocking turns off automatically when overheated
+	var/overclock_safety = FALSE
 
 	//Bool for zoom on/off
 	var/zoom_mode = FALSE
@@ -523,6 +527,9 @@
 		return
 	overclock_temp = min(overclock_temp + delta_time, overclock_temp_danger * 2)
 	if(overclock_temp < overclock_temp_danger)
+		return
+	if(overclock_temp >= overclock_temp_danger && overclock_safety)
+		toggle_overclock(FALSE)
 		return
 	var/damage_chance = 100 * ((overclock_temp - overclock_temp_danger) / (overclock_temp_danger * 2))
 	if(DT_PROB(damage_chance, delta_time))
@@ -944,6 +951,15 @@
 	else
 		overclock_mode = !overclock_mode
 	log_message("Toggled overclocking.", LOG_MECHA)
+
+	for(var/mob/occupant as anything in occupants)
+		var/datum/action/act = locate(/datum/action/vehicle/sealed/mecha/mech_overclock) in occupant.actions
+		if(!act)
+			continue
+		act.button_icon_state = "mech_overload_[overclock_mode ? "on" : "off"]"
+		balloon_alert(occupant, "overclock [overclock_mode ? "on":"off"]")
+		act.update_buttons()
+
 	if(overclock_mode)
 		movedelay = movedelay / overclock_coeff
 		visible_message(span_notice("[src] starts heating up, making humming sounds."))
@@ -990,5 +1006,5 @@
 			act.button_icon_state = "mech_lights_on"
 		else
 			act.button_icon_state = "mech_lights_off"
-		balloon_alert(occupant, "toggled lights [mecha_flags & LIGHTS_ON ? "on":"off"]")
+		balloon_alert(occupant, "lights [mecha_flags & LIGHTS_ON ? "on":"off"]")
 		act.update_buttons()

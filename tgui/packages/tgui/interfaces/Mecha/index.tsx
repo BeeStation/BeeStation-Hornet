@@ -1,11 +1,20 @@
+import { useState } from 'react';
+import {
+  Button,
+  ByondUi,
+  LabeledList,
+  ProgressBar,
+  Section,
+  Stack,
+} from 'tgui-core/components';
+import { formatSiUnit } from 'tgui-core/format';
+
+import { useBackend } from '../../backend';
 import { Window } from '../../layouts';
-import { useBackend, useLocalState } from '../../backend';
-import { ByondUi, Stack, Button, Section, ProgressBar, LabeledList } from '../../components';
-import { formatSiUnit } from '../../format';
-import { ModulesPane } from './ModulesPane';
-import { AlertPane } from './AlertPane';
 import { AccessConfig } from '../common/AccessConfig';
+import { AlertPane } from './AlertPane';
 import { MainData } from './data';
+import { ModulesPane } from './ModulesPane';
 
 export const Mecha = (props) => {
   const { data } = useBackend<MainData>();
@@ -20,7 +29,7 @@ export const Mecha = (props) => {
 
 export const Content = (props) => {
   const { act, data } = useBackend<MainData>();
-  const [edit_access, editAccess] = useLocalState('edit_access', false);
+  const [edit_access, editAccess] = useState(false);
   const { name, mecha_flags, mechflag_keys, mech_view, one_access, regions, accesses } = data;
   const id_lock = mecha_flags & mechflag_keys['ID_LOCK_ON'];
   return (
@@ -138,7 +147,11 @@ const PowerBar = (props) => {
           ? 'Power cell missing'
           : power_level === 1e31
             ? 'Infinite'
-            : `${formatSiUnit(power_level * 1000, 0, 'J')} of ${formatSiUnit(power_max * 1000, 0, 'J')}`}
+            : `${formatSiUnit(power_level, 0, 'J')} of ${formatSiUnit(
+                power_max,
+                0,
+                'J',
+              )}`}
       </ProgressBar>
     </LabeledList.Item>
   );

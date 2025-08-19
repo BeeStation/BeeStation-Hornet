@@ -1,7 +1,6 @@
 import { sortBy } from 'common/collections';
 import { useState } from 'react';
-
-import { Button, Section, Stack, Tabs } from '../../components';
+import { Button, Section, Stack, Tabs } from 'tgui-core/components';
 
 type BaseProps = {
   accessMod: (ref: string) => void;
@@ -54,7 +53,15 @@ const DIFFMAP = [
 ] as const;
 
 export function AccessConfig(props: ConfigProps) {
-  const { accesses = [], selectedList = [], accessMod, grantAll, denyAll, grantDep, denyDep } = props;
+  const {
+    accesses = [],
+    selectedList = [],
+    accessMod,
+    grantAll,
+    denyAll,
+    grantDep,
+    denyDep,
+  } = props;
 
   const [selectedAccessName, setSelectedAccessName] = useState(accesses[0]?.name);
 
@@ -62,7 +69,7 @@ export function AccessConfig(props: ConfigProps) {
 
   const selectedAccessEntries = sortBy(selectedAccess?.accesses || [], (entry: Area) => entry.desc);
 
-  const checkAccessIcon = (accesses: Area[]) => {
+  function checkAccessIcon(accesses: Area[]) {
     let oneAccess = false;
     let oneInaccess = false;
     for (let element of accesses) {
@@ -79,7 +86,7 @@ export function AccessConfig(props: ConfigProps) {
     } else {
       return ACCESS.Granted;
     }
-  };
+  }
 
   return (
     <Section
@@ -129,10 +136,17 @@ export function AccessConfig(props: ConfigProps) {
       </Stack>
     </Section>
   );
-};
+}
 
-const AccessButtons = (props: AccessButtonProps) => {
-  const { selectedAccessEntries, selectedList, accessMod, grantDep, denyDep, selectedAccess } = props;
+function AccessButtons(props: AccessButtonProps) {
+  const {
+    selectedAccessEntries,
+    selectedList,
+    accessMod,
+    grantDep,
+    denyDep,
+    selectedAccess,
+  } = props;
 
   return (
     <Stack fill vertical>
@@ -166,4 +180,4 @@ const AccessButtons = (props: AccessButtonProps) => {
       </Stack.Item>
     </Stack>
   );
-};
+}

@@ -1,3 +1,5 @@
+import { BooleanLike } from 'tgui-core/react';
+
 import { Region } from '../common/AccessConfig';
 
 export type AccessData = {
@@ -6,7 +8,7 @@ export type AccessData = {
 };
 
 export type MainData = {
-  isoperator: boolean;
+  isoperator: BooleanLike;
   ui_theme: string;
   name: string;
   integrity: number;
@@ -18,11 +20,13 @@ export type MainData = {
   internal_damage_keys: string[];
   mechflag_keys: string[];
 
-  can_use_overclock: boolean;
-  overclock_mode: boolean;
+  can_use_overclock: BooleanLike;
+  overclock_safety_available: BooleanLike;
+  overclock_safety: BooleanLike;
+  overclock_mode: BooleanLike;
   overclock_temp_percentage: number;
 
-  one_access: boolean;
+  one_access: BooleanLike;
   regions: Region[];
   accesses: string[];
 
@@ -42,10 +46,10 @@ export type MainData = {
   one_atmosphere: number;
   cabin_pressure: number;
   cabin_temp: number;
-  enclosed: boolean;
-  cabin_sealed: boolean;
+  enclosed: BooleanLike;
+  cabin_sealed: BooleanLike;
   dna_lock: string | null;
-  weapons_safety: boolean;
+  weapons_safety: BooleanLike;
   mech_view: string;
   modules: MechModule[];
   selected_module_index: number;
@@ -53,14 +57,14 @@ export type MainData = {
 };
 
 export type MechModule = {
-  selected: boolean;
+  selected: BooleanLike;
   slot: string;
   icon: string;
   name: string;
-  detachable: boolean;
-  can_be_toggled: boolean;
-  can_be_triggered: boolean;
-  active: boolean;
+  detachable: BooleanLike;
+  can_be_toggled: BooleanLike;
+  can_be_triggered: BooleanLike;
+  active: BooleanLike;
   active_label: string;
   equip_cooldown: string;
   energy_per_use: number;
