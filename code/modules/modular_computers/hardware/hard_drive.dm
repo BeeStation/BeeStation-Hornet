@@ -285,3 +285,25 @@
 	for(var/datum/computer_file/program/messenger/messenger in stored_files)
 		messenger.ringer_status = install_into.init_ringer_on
 		messenger.ringtone = install_into.init_ringtone
+
+/obj/item/computer_hardware/hard_drive/inmate
+	name = "inmate solid state drive"
+	desc = "A highly secure SSD chip for portable devices. It only comes pre-installed with the barest necessities."
+	power_usage = 2
+	max_capacity = 32
+	icon_state = "ssd_micro"
+	w_class = WEIGHT_CLASS_TINY
+	custom_price = PAYCHECK_EASY
+
+/obj/item/computer_hardware/hard_drive/inmate/install_default_programs()
+	store_file(new /datum/computer_file/program/messenger(src))
+	store_file(new /datum/computer_file/program/notepad(src))
+
+/obj/item/computer_hardware/hard_drive/inmate/on_install(obj/item/modular_computer/install_into, mob/living/user = null)
+	. = ..()
+	if(!.)
+		return
+	// Set the default ringtone
+	for(var/datum/computer_file/program/messenger/messenger in stored_files)
+		messenger.ringer_status = install_into.init_ringer_on
+		messenger.ringtone = install_into.init_ringtone

@@ -66,7 +66,7 @@
 	name = "Prisoner"
 	jobtype = /datum/job/prisoner
 	id = /obj/item/card/id/job/prisoner
-	belt = /obj/item/modular_computer/tablet/pda/preset/assistant/prisoner
+	belt = /obj/item/modular_computer/tablet/pda/prisoner
 	uniform = /obj/item/clothing/under/rank/prisoner/lowsec
 	shoes = /obj/item/clothing/shoes/sneakers/white
 	can_be_admin_equipped = TRUE
