@@ -347,3 +347,18 @@
 2025-08-20:
   Rukofamicom:
   - balance: Breaching slugs no longer work on turfs (walls)
+  rkz, MrMelbert:
+  - rscadd: Added a few new hallucinations. Find them all, but don't lose your head!
+  - refactor: Refactored most existing hallucinations. Let me know if any of them
+      are acting funky.
+  - refactor: RDS quirk is now a brain trauma. The hallucinations brain trauma can
+      now be paused with Mindbreaker, like RDS.
+  - refactor: Refactored hallucination into a status effect. This means cyborgs and
+      simplemobs can (hypothetically) hallucinate now. In most cases they shouldn't
+      though.
+  - refactor: Refactored fake hud into a status effect.
+  - bugfix: Fixes some hallucinations acting improperly. There were multiple cases
+      of hallucinations using incorrect icon states which made them completely un-noticable.
+  - admin: You can now force specific mass hallucinations.
+  - admin: You can now force specific outcomes of some hallucinations, such as delusions,
+      fake alerts, fake sounds, and more. Check the VV dropdown.
