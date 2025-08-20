@@ -32,6 +32,7 @@
 #include "dcs_get_id_from_elements.dm"
 #include "drink_icons.dm"
 #include "dynamic_ruleset_sanity.dm"
+#include "emissive_worn_overlays.dm"
 #include "emoting.dm"
 #include "enumerables.dm"
 
@@ -42,6 +43,7 @@
 #include "food_edibility_check.dm"
 #include "gas_transfer.dm"
 #include "greyscale_config.dm"
+#include "hallucination_icons.dm"
 #include "handcuff_tests.dm"
 #include "heretic_knowledge.dm"
 #include "heretic_rituals.dm"

@@ -179,3 +179,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/sheet/bronze)
 	. = ..()
 	pixel_x = 0
 	pixel_y = 0
+
+/* Fleshy iron */
+
+/obj/item/stack/sheet/fleshymass
+	name = "fleshy mass"
+	singular_name = "fleshy mass"
+	desc = "You swear it looks at you..."
+	icon_state = "sheet-fleshymass"
+	item_state = "sheet-fleshymass"
+	merge_type = /obj/item/stack/sheet/fleshymass
+
+/obj/item/stack/sheet/fleshymass/get_recipes()
+	return GLOB.fleshymass_recipes

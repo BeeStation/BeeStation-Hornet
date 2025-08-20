@@ -4,14 +4,17 @@
 /obj/machinery/door/airlock
 	smoothing_groups = list(SMOOTH_GROUP_AIRLOCK)
 
+	/// The current state of the airlock, used to construct the airlock overlays
+	var/airlock_state
+
 /// Forces the airlock to unbolt and open
 /obj/machinery/door/airlock/proc/secure_open()
 	locked = FALSE
-	update_icon()
+	update_appearance()
 	stoplag(0.2 SECONDS)
 	open(forced = TRUE)
 	locked = TRUE
-	update_icon()
+	update_appearance()
 
 /// Forces the airlock to close and bolt
 /obj/machinery/door/airlock/proc/secure_close()
@@ -19,11 +22,12 @@
 	close(forced = TRUE)
 	locked = TRUE
 	stoplag(0.2 SECONDS)
-	update_icon()
+	update_appearance()
 
 /obj/machinery/airlock_sensor
 	icon = 'icons/obj/airlock_machines.dmi'
 	icon_state = "airlock_sensor_off"
+	base_icon_state = "airlock_sensor"
 	name = "airlock sensor"
 	resistance_flags = FIRE_PROOF
 
@@ -46,14 +50,15 @@
 	id_tag = INCINERATOR_SYNDICATELAVA_AIRLOCK_SENSOR
 	master_tag = INCINERATOR_SYNDICATELAVA_AIRLOCK_CONTROLLER
 
-/obj/machinery/airlock_sensor/update_icon()
-	if(on)
-		if(alert)
-			icon_state = "airlock_sensor_alert"
-		else
-			icon_state = "airlock_sensor_standby"
+/obj/machinery/airlock_sensor/update_icon_state()
+	if(!on)
+		icon_state = "[base_icon_state]_off"
 	else
-		icon_state = "airlock_sensor_off"
+		if(alert)
+			icon_state = "[base_icon_state]_alert"
+		else
+			icon_state = "[base_icon_state]_standby"
+	return ..()
 
 SCREENTIP_ATTACK_HAND(/obj/machinery/airlock_sensor, "Use")
 
@@ -73,6 +78,6 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/airlock_sensor, "Use")
 		var/pressure = round(air_sample.return_pressure(),0.1)
 		if((pressure < ONE_ATMOSPHERE*0.8) != alert)
 			alert = !alert
-			update_icon()
+			update_appearance()
 
 #undef AIRLOCK_CONTROL_RANGE

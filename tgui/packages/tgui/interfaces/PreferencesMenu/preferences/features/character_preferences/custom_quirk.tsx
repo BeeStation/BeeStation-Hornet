@@ -30,3 +30,8 @@ export const quirk_alcohol_type: FeatureChoiced = {
   name: 'Type Of Alcohol',
   component: FeatureButtonedDropdownInput,
 };
+
+export const quirk_accent: FeatureChoiced = {
+  name: 'Accent',
+  component: FeatureButtonedDropdownInput,
+};
