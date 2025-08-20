@@ -42,8 +42,7 @@
 	return data
 
 /obj/machinery/computer/holodeck/prison/ui_act(action, params)
-	if(!allowed(usr))
-		to_chat(usr, span_warning("Access denied."))
+	if(isobserver(usr))
 		return
 	if(..())
 		return

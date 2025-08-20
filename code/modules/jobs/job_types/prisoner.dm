@@ -53,6 +53,7 @@
 		message.name = "Prisoner transfer Documentation"
 		message.add_raw_text(deets)
 		availableSecFaxes.receive(message, "NT Penal Division", important = TRUE)
+		message.update_icon()
 
 	// Announcement after
 	print_command_report(deets, title = "Prisoner transfer Documentation", announce = FALSE)
