@@ -48,7 +48,7 @@
 	var/chance = (CHANCE_EQUATION_SLOPE * (1 - integrity)) + RADIATION_CHANCE_AT_FULL_INTEGRITY
 
 	radiation_pulse(
-		source = src,
+		src,
 		max_range = 8,
 		threshold = threshold,
 		chance = chance * 100,
@@ -79,20 +79,20 @@
 	var/psy_coeff_diff = -0.05
 	for(var/mob/living/carbon/human/seen_by_sm in view(src, SM_HALLUCINATION_RANGE(internal_energy)))
 		// Someone (generally a Psychologist), when looking at the SM within hallucination range makes it easier to manage.
-		if(!seen_by_sm.mind)
-			continue
-
 		if(HAS_MIND_TRAIT(seen_by_sm, TRAIT_SUPERMATTER_SOOTHER))
 			psy_coeff_diff = 0.05
-
-	hallucination_pulse(src, SM_HALLUCINATION_RANGE(internal_energy), internal_energy * hallucination_power, message = FALSE)
+	visible_hallucination_pulse(
+		center = src,
+		radius = SM_HALLUCINATION_RANGE(internal_energy),
+		hallucination_duration = internal_energy * hallucination_power,
+		hallucination_max_duration = 400 SECONDS,
+	)
 	psy_coeff = clamp(psy_coeff + psy_coeff_diff, 0, 1)
 
 /obj/machinery/power/supermatter_crystal/proc/handle_high_power()
 	if(internal_energy <= POWER_PENALTY_THRESHOLD && damage <= danger_point) //If the power is above 5000 or if the damage is above 550
 		last_high_energy_accumulation_perspective_machines = SSmachines.times_fired //Prevent oddly high initial zap due to high energy zaps not getting triggered via too low energy.
 		return
-
 	var/range = 4
 	zap_cutoff = 1500
 	var/total_moles = absorbed_gasmix.total_moles()
@@ -104,7 +104,6 @@
 		//We should always be able to zap our way out of the default enclosure
 		//See supermatter_zap() for more details
 		range = clamp(internal_energy / pressure * 10, 2, 7)
-
 	var/flags = ZAP_SUPERMATTER_FLAGS
 	var/zap_count = 0
 	//Deal with power zaps
@@ -124,9 +123,8 @@
 			//Machines go boom
 			flags |= (ZAP_MOB_STUN | ZAP_MACHINE_EXPLOSIVE | ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE)
 			zap_count = 4
-
 	//Now we deal with damage shit
-	if(damage > danger_point && prob(20))
+	if (damage > danger_point && prob(20))
 		zap_count += 1
 
 	if(zap_count >= 1)

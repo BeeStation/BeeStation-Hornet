@@ -322,7 +322,7 @@
 				internal_output.assert_gases(/datum/gas/healium, /datum/gas/proto_nitrate)
 				internal_output.gases[/datum/gas/proto_nitrate][MOLES] += scaled_production * 1.5
 				internal_output.gases[/datum/gas/healium][MOLES] += scaled_production * 1.5
-				induce_hallucination(50 * power_level, seconds_per_tick)
+				visible_hallucination_pulse(src, HALLUCINATION_HFR(heat_output), 100 SECONDS * power_level * seconds_per_tick)
 
 		if(5)
 			if(moderator_list[/datum/gas/plasma] > 15)
@@ -342,7 +342,7 @@
 			if(moderator_list[/datum/gas/bz] > 100)
 				internal_output.assert_gases(/datum/gas/healium, /datum/gas/freon)
 				internal_output.gases[/datum/gas/healium][MOLES] += scaled_production
-				induce_hallucination(500, seconds_per_tick)
+				visible_hallucination_pulse(src, HALLUCINATION_HFR(heat_output), 100 SECONDS * power_level * seconds_per_tick)
 				internal_output.gases[/datum/gas/freon][MOLES] += scaled_production * 1.15
 			if(moderator_list[/datum/gas/healium] > 100)
 				if(critical_threshold_proximity > 400)
@@ -365,7 +365,7 @@
 				radiation *= 2
 				heat_output *= 2.25
 			if(moderator_list[/datum/gas/bz])
-				induce_hallucination(900, seconds_per_tick, force = TRUE)
+				visible_hallucination_pulse(src, HALLUCINATION_HFR(heat_output), 100 SECONDS * power_level * seconds_per_tick)
 				internal_output.gases[/datum/gas/antinoblium][MOLES] += clamp(dirty_production_rate / 0.045, 0, 10) * seconds_per_tick
 			if(moderator_list[/datum/gas/healium] > 100)
 				if(critical_threshold_proximity > 400)
