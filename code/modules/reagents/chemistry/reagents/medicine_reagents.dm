@@ -963,12 +963,11 @@
 
 /datum/reagent/medicine/strange_reagent/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
 	. = ..()
-	if(exposed_mob.stat == DEAD)
-		if(exposed_mob.suiciding || exposed_mob.ishellbound()) //they are never coming back
-			exposed_mob.visible_message(span_warning("[exposed_mob]'s body does not react..."))
-		if(M.suiciding || M.ishellbound() || tplus > tlimit) //they are never coming back
-	var/tplus = world.time - M.timeofdeath	//length of time spent dead
+	var/tplus = world.time - exposed_mob.timeofdeath	//length of time spent dead
 	var/tlimit = DEFIB_TIME_LIMIT
+	if(exposed_mob.stat == DEAD)
+		if(exposed_mob.suiciding || exposed_mob.ishellbound() || tplus > tlimit) //they are never coming back
+			exposed_mob.visible_message(span_warning("[exposed_mob]'s body does not react..."))
 			return
 		if(exposed_mob.getBruteLoss() >= 100 || exposed_mob.getFireLoss() >= 100 || HAS_TRAIT(exposed_mob, TRAIT_HUSK)) //body is too damaged to be revived
 			exposed_mob.visible_message(span_warning("[exposed_mob]'s body convulses a bit, and then falls still once more."))
