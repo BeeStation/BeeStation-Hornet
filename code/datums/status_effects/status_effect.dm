@@ -200,7 +200,22 @@
 				qdel(S)
 				. = TRUE
 
-/mob/living/proc/has_status_effect(effect) //returns the effect if the mob calling the proc owns the given status effect
+/**
+ * Checks if this mob has a status effect that shares the passed effect's ID
+ *
+ * checked_effect - TYPEPATH of a status effect to check for. Checks for its ID, not its typepath
+ *
+ * Returns an instance of a status effect, or NULL if none were found.
+ */
+/mob/proc/has_status_effect(datum/status_effect/checked_effect)
+	// Yes I'm being cringe and putting this on the mob level even though status effects only apply to the living level
+	// There's quite a few places (namely examine and, bleh, cult code) where it's easier to not need to cast to living before checking
+	// for an effect such as blindness
+	return null
+
+/mob/living/has_status_effect(effect) //returns the effect if the mob calling the proc owns the given status effect
+	RETURN_TYPE(/datum/status_effect)
+
 	. = FALSE
 	if(status_effects)
 		var/datum/status_effect/S1 = effect
