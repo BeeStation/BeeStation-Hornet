@@ -20,16 +20,23 @@
 /datum/role_preference/midround/malfunctioning_ai
 	name = "Value Drifted AI"
 	description = "With a law zero to complete your objectives at all costs, combine your \
-	omnipotence and malfunction modules to wreak havoc across the station. \
-	Go delta to destroy the station and all those who opposed you."
+		omnipotence and malfunction modules to wreak havoc across the station. \
+		Go delta to destroy the station and all those who opposed you."
 	antag_datum = /datum/antagonist/malf_ai
 	use_icon = /datum/role_preference/roundstart/malfunctioning_ai
+
+/datum/role_preference/midround/vampire
+	name = "Vampiric Accident"
+	description = "After your death, you awaken to see yourself as an undead monster. \n\
+		Scrape by Space Station 13, or take it over, vassalizing your way!"
+	antag_datum = /datum/antagonist/vampire
+	use_icon = /datum/role_preference/roundstart/vampire
 
 /datum/role_preference/midround/obsessed
 	name = "Obsessed"
 	description = "You're obsessed with someone! Your obsession may begin to notice their \
-	personal items are stolen and their coworkers have gone missing, \
-	but will they realize they are your next victim in time?"
+		personal items are stolen and their coworkers have gone missing, \
+		but will they realize they are your next victim in time?"
 	antag_datum = /datum/antagonist/obsessed
 
 /datum/role_preference/midround/obsessed/get_preview_icon()
