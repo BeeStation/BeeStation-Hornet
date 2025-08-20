@@ -344,3 +344,6 @@
   - bugfix: removes duplicate design entries in window
   - bugfix: removes an edge case pertaining design disk in techweb view
   - tweak: tweaked margin of designs to be integer pixels
+2025-08-20:
+  Rukofamicom:
+  - balance: Breaching slugs no longer work on turfs (walls)
