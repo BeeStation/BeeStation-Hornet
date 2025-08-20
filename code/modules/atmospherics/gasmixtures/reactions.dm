@@ -120,43 +120,6 @@
 		SET_REACTION_RESULTS(consumed)
 		. = REACTING
 
-
-/**
- * Dry Heat Sterilization:
- *
- * Clears out pathogens in the air.
- */
-/datum/gas_reaction/miaster
-	priority_group = PRIORITY_POST_FORMATION
-	name = "Dry Heat Sterilization"
-	id = "sterilization"
-	desc = "Pathogens cannot survive in a hot environment. Miasma decomposes on high temperature."
-
-/datum/gas_reaction/miaster/init_reqs()
-	requirements = list(
-		/datum/gas/miasma = MINIMUM_MOLE_COUNT,
-		"MIN_TEMP" = MIASTER_STERILIZATION_TEMP,
-	)
-
-/datum/gas_reaction/miaster/react(datum/gas_mixture/air, datum/holder)
-	var/list/cached_gases = air.gases
-	// As the name says it, it needs to be dry
-	if(cached_gases[/datum/gas/water_vapor] && cached_gases[/datum/gas/water_vapor][MOLES] / air.total_moles() > MIASTER_STERILIZATION_MAX_HUMIDITY)
-		return NO_REACTION
-
-	//Replace miasma with oxygen
-	var/cleaned_air = min(cached_gases[/datum/gas/miasma][MOLES], MIASTER_STERILIZATION_RATE_BASE + (air.temperature - MIASTER_STERILIZATION_TEMP) / MIASTER_STERILIZATION_RATE_SCALE)
-	cached_gases[/datum/gas/miasma][MOLES] -= cleaned_air
-	ASSERT_GAS(/datum/gas/oxygen, air)
-	cached_gases[/datum/gas/oxygen][MOLES] += cleaned_air
-
-	//Possibly burning a bit of organic matter through maillard reaction, so a *tiny* bit more heat would be understandable
-	air.temperature += cleaned_air * MIASTER_STERILIZATION_ENERGY
-	SET_REACTION_RESULTS(cleaned_air)
-
-	return REACTING
-
-
 // Fire:
 
 /**

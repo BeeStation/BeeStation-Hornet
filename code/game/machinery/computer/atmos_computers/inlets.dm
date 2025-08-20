@@ -72,10 +72,6 @@
 	name = "hypernoblium tank input injector"
 	chamber_id = ATMOS_GAS_MONITOR_HYPERNOBLIUM
 
-/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/miasma_input
-	name = "miasma tank input injector"
-	chamber_id = ATMOS_GAS_MONITOR_MIASMA
-
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/nitrium_input
 	name = "nitrium tank input injector"
 	chamber_id = ATMOS_GAS_MONITOR_NITRIUM

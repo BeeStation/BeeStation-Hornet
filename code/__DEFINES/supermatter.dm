@@ -1,12 +1,3 @@
-/// The minimum pressure for a pure miasma atmosphere to begin being consumed. Higher values mean it takes more miasma pressure to make miasma start being consumed. Should be >= 0
-#define MIASMA_CONSUMPTION_PP (ONE_ATMOSPHERE*0.01)
-/// How the amount of miasma consumed per tick scales with partial pressure. Higher values decrease the rate miasma consumption scales with partial pressure. Should be >0
-#define MIASMA_PRESSURE_SCALING (ONE_ATMOSPHERE*0.5)
-/// How much the amount of miasma consumed per tick scales with gasmix power ratio. Higher values means gasmix has a greater effect on the miasma consumed.
-#define MIASMA_GASMIX_SCALING (0.3)
-/// The amount of matter power generated for every mole of miasma consumed. Higher values mean miasma generates more power.
-#define MIASMA_POWER_GAIN 10
-
 /// The minimum pressure for a pure CO2 atmosphere to begin being consumed. Higher values mean it takes more CO2 pressure to make CO2 be consumed. Should be >= 0
 #define CO2_CONSUMPTION_PP (ONE_ATMOSPHERE*0.01)
 /// How the amount of CO2 consumed per tick scales with partial pressure. Higher values decrease the rate CO2 consumption scales with partial pressure. Should be >0

@@ -220,13 +220,6 @@ const GASES = [
     color: 'mediumslateblue',
   },
   {
-    id: 'miasma',
-    path: '/datum/gas/miasma',
-    name: 'Miasma',
-    label: 'Miasma',
-    color: 'olive',
-  },
-  {
     id: 'freon',
     path: '/datum/gas/freon',
     name: 'Freon',

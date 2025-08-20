@@ -5,14 +5,6 @@
 		"Location" = "Can only happen on turfs.",
 	)
 
-/datum/gas_reaction/miaster/init_factors()
-	factor = list(
-		/datum/gas/miasma = "Miasma is sterilized at a rate that scales with the difference between the temperature and [MIASTER_STERILIZATION_TEMP]K.",
-		/datum/gas/oxygen = "One mole of oxygen is released per mole of miasma consumed.",
-		"Temperature" = "Higher temperature increases the speed of miasma sterilization.",
-		"Energy" = "[MIASTER_STERILIZATION_ENERGY] joules of energy is released per mole of miasma sterilized.",
-	)
-
 /datum/gas_reaction/plasmafire/init_factors()
 	factor = list(
 		/datum/gas/oxygen = "Oxygen consumption is determined by the temperature, ranging from [OXYGEN_BURN_RATIO_BASE] moles per mole of plasma consumed at [PLASMA_MINIMUM_BURN_TEMPERATURE] Kelvins to [OXYGEN_BURN_RATIO_BASE-1] moles per mole of plasma consumed at [PLASMA_UPPER_TEMPERATURE] Kelvins. Higher oxygen concentration up to [PLASMA_OXYGEN_FULLBURN] times the plasma increases the speed of plasma consumption.",

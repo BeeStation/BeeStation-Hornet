@@ -17,7 +17,6 @@ GLOBAL_LIST_INIT(gas_id_to_canister, init_gas_id_to_canister())
 		GAS_HYPER_NOBLIUM = /obj/machinery/portable_atmospherics/canister/hyper_noblium,
 		GAS_PLUOXIUM = /obj/machinery/portable_atmospherics/canister/pluoxium,
 		"caution" = /obj/machinery/portable_atmospherics/canister,
-		GAS_MIASMA = /obj/machinery/portable_atmospherics/canister/miasma,
 		GAS_FREON = /obj/machinery/portable_atmospherics/canister/freon,
 		GAS_HYDROGEN = /obj/machinery/portable_atmospherics/canister/hydrogen,
 		GAS_HEALIUM = /obj/machinery/portable_atmospherics/canister/healium,

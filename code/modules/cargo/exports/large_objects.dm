@@ -139,7 +139,6 @@
 		/datum/gas/bz,
 		/datum/gas/nitrium,
 		/datum/gas/hypernoblium,
-		/datum/gas/miasma,
 		/datum/gas/tritium,
 		/datum/gas/pluoxium,
 		/datum/gas/freon,

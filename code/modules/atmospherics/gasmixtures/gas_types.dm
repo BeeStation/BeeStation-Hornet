@@ -196,18 +196,6 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	desc = "A gas that could supply even more oxygen to the bloodstream when inhaled, without being an oxidizer."
 	primary_color = "#7b68ee"
 
-/datum/gas/miasma
-	id = GAS_MIASMA
-	specific_heat = 20
-	name = "Miasma"
-	dangerous = TRUE
-	gas_overlay = "miasma"
-	moles_visible = MOLES_GAS_VISIBLE * 60
-	rarity = 250
-	base_value = 1
-	desc = "Not necessarily a gas, miasma refers to biological pollutants found in the atmosphere."
-	primary_color = COLOR_OLIVE
-
 /datum/gas/freon
 	id = GAS_FREON
 	specific_heat = 600

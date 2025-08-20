@@ -57,7 +57,6 @@ GLOBAL_LIST_INIT(station_gas_chambers, list(
 	ATMOS_GAS_MONITOR_HEALIUM = "Healium Supply",
 	ATMOS_GAS_MONITOR_H2 = "Hydrogen Supply",
 	ATMOS_GAS_MONITOR_HYPERNOBLIUM = "Hypernoblium Supply",
-	ATMOS_GAS_MONITOR_MIASMA = "Miasma Supply",
 	ATMOS_GAS_MONITOR_NITRIUM = "Nitrium Supply",
 	ATMOS_GAS_MONITOR_PLUOXIUM = "Pluoxium Supply",
 	ATMOS_GAS_MONITOR_PROTO_NITRATE = "Proto-Nitrate Supply",

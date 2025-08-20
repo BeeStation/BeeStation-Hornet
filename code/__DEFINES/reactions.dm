@@ -25,18 +25,6 @@
 /// The temperature required for water vapor to condense as ice instead of water.
 #define WATER_VAPOR_DEPOSITION_POINT 200
 
-// Miaster:
-/// The minimum temperature miasma begins being sterilized at.
-#define MIASTER_STERILIZATION_TEMP (FIRE_MINIMUM_TEMPERATURE_TO_EXIST + 70)
-/// The maximum ratio of water vapor to other gases miasma can be sterilized at.
-#define MIASTER_STERILIZATION_MAX_HUMIDITY 0.1
-/// The minimum amount of miasma that will be sterilized in a reaction tick.
-#define MIASTER_STERILIZATION_RATE_BASE 20
-/// The temperature required to sterilize an additional mole of miasma in a reaction tick.
-#define MIASTER_STERILIZATION_RATE_SCALE 20
-/// The amount of energy released when a mole of miasma is sterilized.
-#define MIASTER_STERILIZATION_ENERGY 2e-3
-
 // Fire:
 
 // - General:

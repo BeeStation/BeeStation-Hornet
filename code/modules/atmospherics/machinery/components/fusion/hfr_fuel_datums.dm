@@ -108,7 +108,7 @@ GLOBAL_LIST_INIT(hfr_fuels_list, hfr_fuels_create_list())
 	temperature_change_multiplier = 0.9
 	requirements = list(/datum/gas/hypernoblium, /datum/gas/hydrogen)
 	primary_products = list(/datum/gas/antinoblium)
-	secondary_products = list(/datum/gas/antinoblium, /datum/gas/helium, /datum/gas/proto_nitrate, /datum/gas/zauker, /datum/gas/healium, /datum/gas/miasma)
+	secondary_products = list(/datum/gas/antinoblium, /datum/gas/helium, /datum/gas/proto_nitrate, /datum/gas/zauker, /datum/gas/healium)
 	meltdown_flags = HYPERTORUS_FLAG_DEVASTATING_EXPLOSION | HYPERTORUS_FLAG_RADIATION_PULSE | HYPERTORUS_FLAG_EMP | HYPERTORUS_FLAG_BIG_SPREAD
 
 /datum/hfr_fuel/hypernob_trit_fuel
@@ -122,7 +122,7 @@ GLOBAL_LIST_INIT(hfr_fuels_list, hfr_fuels_create_list())
 	temperature_change_multiplier = 0.95
 	requirements = list(/datum/gas/hypernoblium, /datum/gas/tritium)
 	primary_products = list(/datum/gas/antinoblium)
-	secondary_products = list(/datum/gas/antinoblium, /datum/gas/helium, /datum/gas/proto_nitrate, /datum/gas/zauker, /datum/gas/healium, /datum/gas/miasma)
+	secondary_products = list(/datum/gas/antinoblium, /datum/gas/helium, /datum/gas/proto_nitrate, /datum/gas/zauker, /datum/gas/healium)
 	meltdown_flags = HYPERTORUS_FLAG_DEVASTATING_EXPLOSION | HYPERTORUS_FLAG_RADIATION_PULSE | HYPERTORUS_FLAG_EMP | HYPERTORUS_FLAG_BIG_SPREAD
 
 /datum/hfr_fuel/hypernob_antinob_fuel
@@ -136,5 +136,5 @@ GLOBAL_LIST_INIT(hfr_fuels_list, hfr_fuels_create_list())
 	temperature_change_multiplier = 1
 	requirements = list(/datum/gas/hypernoblium, /datum/gas/antinoblium)
 	primary_products = list(/datum/gas/helium)
-	secondary_products = list(/datum/gas/plasma, /datum/gas/oxygen, /datum/gas/nitrogen, /datum/gas/proto_nitrate, /datum/gas/nitrium, /datum/gas/miasma)
+	secondary_products = list(/datum/gas/plasma, /datum/gas/oxygen, /datum/gas/nitrogen, /datum/gas/proto_nitrate, /datum/gas/nitrium)
 	meltdown_flags = HYPERTORUS_FLAG_DEVASTATING_EXPLOSION | HYPERTORUS_FLAG_RADIATION_PULSE | HYPERTORUS_FLAG_EMP | HYPERTORUS_FLAG_MASSIVE_SPREAD | HYPERTORUS_FLAG_CRITICAL_MELTDOWN

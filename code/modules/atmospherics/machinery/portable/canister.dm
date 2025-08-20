@@ -630,13 +630,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 	greyscale_config = /datum/greyscale_config/canister/double_stripe
 	greyscale_colors = "#eaeaea#be3455"
 
-/obj/machinery/portable_atmospherics/canister/miasma
-	name = "Miasma canister"
-	gas_type = /datum/gas/miasma
-	filled = 1
-	greyscale_config = /datum/greyscale_config/canister/double_stripe
-	greyscale_colors = "#009823#f7d5d3"
-
 /obj/machinery/portable_atmospherics/canister/nitrogen
 	name = "Nitrogen canister"
 	gas_type = /datum/gas/nitrogen

@@ -204,11 +204,6 @@
 	overlay_color = "#00f7ff"
 	spawn_id = /datum/gas/hypernoblium
 
-/obj/machinery/atmospherics/miner/miasma
-	name = "\improper Miasma Gas Miner"
-	overlay_color = "#395806"
-	spawn_id = /datum/gas/miasma
-
 /obj/machinery/atmospherics/miner/nitrium
 	name = "\improper Nitrium Gas Miner"
 	overlay_color = "#752b00"

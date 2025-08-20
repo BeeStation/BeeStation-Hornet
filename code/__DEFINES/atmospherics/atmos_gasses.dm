@@ -10,7 +10,6 @@
 #define GAS_TRITIUM "tritium"
 #define GAS_HYPER_NOBLIUM "hypernoblium"
 #define GAS_PLUOXIUM "pluoxium"
-#define GAS_MIASMA "miasma"
 #define GAS_FREON "freon"
 #define GAS_HYDROGEN "hydrogen"
 #define GAS_HEALIUM "healium"

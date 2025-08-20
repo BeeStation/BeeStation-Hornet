@@ -56,10 +56,6 @@
 	name = "hypernoblium tank output inlet"
 	chamber_id = ATMOS_GAS_MONITOR_HYPERNOBLIUM
 
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/miasma_output
-	name = "miasma tank output inlet"
-	chamber_id = ATMOS_GAS_MONITOR_MIASMA
-
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/nitrium_output
 	name = "nitrium tank output inlet"
 	chamber_id = ATMOS_GAS_MONITOR_NITRIUM

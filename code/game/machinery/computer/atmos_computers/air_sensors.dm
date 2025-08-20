@@ -50,10 +50,6 @@
 	name = "hypernoblium tank gas sensor"
 	chamber_id = ATMOS_GAS_MONITOR_HYPERNOBLIUM
 
-/obj/machinery/air_sensor/miasma_tank
-	name = "miasma tank gas sensor"
-	chamber_id = ATMOS_GAS_MONITOR_MIASMA
-
 /obj/machinery/air_sensor/nitrium_tank
 	name = "nitrium tank gas sensor"
 	chamber_id = ATMOS_GAS_MONITOR_NITRIUM

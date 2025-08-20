@@ -164,24 +164,6 @@ GLOBAL_LIST_INIT(sm_gas_behavior, init_sm_gas())
 	power_transmission = -0.5
 	heat_power_generation = -1
 
-/datum/sm_gas/miasma
-	gas_path = /datum/gas/miasma
-	heat_power_generation = 0.5
-	desc = "Will be consumed by the Supermatter to generate power."
-
-///Miasma is really just microscopic particulate. It gets consumed like anything else that touches the crystal.
-/datum/sm_gas/miasma/extra_effects(obj/machinery/power/supermatter_crystal/sm)
-	if(!sm.gas_percentage[/datum/gas/miasma])
-		return
-	var/miasma_pp = sm.absorbed_gasmix.return_pressure() * sm.gas_percentage[/datum/gas/miasma]
-	var/miasma_ratio = clamp(((miasma_pp - MIASMA_CONSUMPTION_PP) / (miasma_pp + MIASMA_PRESSURE_SCALING)) * (1 + (sm.gas_heat_power_generation * MIASMA_GASMIX_SCALING)), 0, 1)
-	var/consumed_miasma = sm.absorbed_gasmix.gases[/datum/gas/miasma][MOLES] * miasma_ratio
-	if(!consumed_miasma)
-		return
-	sm.absorbed_gasmix.gases[/datum/gas/miasma][MOLES] -= consumed_miasma
-	sm.external_power_trickle += consumed_miasma * MIASMA_POWER_GAIN
-	sm.log_activation("miasma absorption")
-
 /datum/sm_gas/freon
 	gas_path = /datum/gas/freon
 	heat_modifier = -9

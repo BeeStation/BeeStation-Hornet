@@ -266,10 +266,6 @@
 	name = "hypernoblium filter"
 	filter_type = list(/datum/gas/hypernoblium)
 
-/obj/machinery/atmospherics/components/trinary/filter/atmos/miasma
-	name = "miasma filter"
-	filter_type = list(/datum/gas/miasma)
-
 /obj/machinery/atmospherics/components/trinary/filter/atmos/no2
 	name = "nitrium filter"
 	filter_type = list(/datum/gas/nitrium)
@@ -341,10 +337,6 @@
 /obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/hypernoblium
 	name = "hypernoblium filter"
 	filter_type = list(/datum/gas/hypernoblium)
-
-/obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/miasma
-	name = "miasma filter"
-	filter_type = list(/datum/gas/miasma)
 
 /obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/no2
 	name = "nitrium filter"

@@ -162,10 +162,6 @@
 	name = "Hypernoblium Supply Control (Computer Board)"
 	build_path = /obj/machinery/computer/atmos_control/hypernoblium_tank
 
-/obj/item/circuitboard/computer/atmos_control/miasma_tank
-	name = "Miasma Supply Control (Computer Board)"
-	build_path = /obj/machinery/computer/atmos_control/miasma_tank
-
 /obj/item/circuitboard/computer/atmos_control/nitrium_tank
 	name = "Nitrium Supply Control (Computer Board)"
 	build_path = /obj/machinery/computer/atmos_control/nitrium_tank
