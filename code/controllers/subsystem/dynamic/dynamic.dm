@@ -98,7 +98,6 @@ SUBSYSTEM_DEF(dynamic)
 		CURRENT_LIVING_ANTAGS = list(),
 		CURRENT_DEAD_PLAYERS = list(),
 		CURRENT_OBSERVERS = list(),
-		CURRENT_SECURITY = list(),
 	)
 
 	/**
@@ -164,7 +163,7 @@ SUBSYSTEM_DEF(dynamic)
 	var/midround_living_delta = 0.05
 	var/midround_observer_delta = 0
 	var/midround_dead_delta = -0.4
-	var/midround_dead_security_delta = -1
+	var/midround_dead_security_delta = -0.6
 	var/midround_linear_delta = 0.9
 	/// This delta is applied no matter what
 	var/midround_linear_delta_forced = 0.25
@@ -509,19 +508,9 @@ SUBSYSTEM_DEF(dynamic)
 	var/dead_delta = length(current_players[CURRENT_DEAD_PLAYERS]) * midround_dead_delta
 
 	var/dead_security_delta = 0
-	for(var/dead_guy as anything in current_players[CURRENT_DEAD_PLAYERS])
-		if(isobserver(dead_guy))
-			var/mob/dead/observer/observer = dead_guy
-			if(HAS_MIND_TRAIT(observer, TRAIT_SECURITY))
-				dead_security_delta += midround_dead_security_delta
-		if(ismob(dead_guy))
-			var/mob/living/dead_mob = dead_guy
-			if(HAS_MIND_TRAIT(dead_mob, TRAIT_SECURITY))
-				dead_security_delta += midround_dead_security_delta
-		if(isbrain(dead_guy))
-			var/mob/living/brain_guy = dead_guy
-			if(HAS_MIND_TRAIT(brain_guy, TRAIT_SECURITY))
-				dead_security_delta += midround_dead_security_delta
+	for(var/mob/dead_guy in current_players[CURRENT_DEAD_PLAYERS])
+		if(HAS_MIND_TRAIT(dead_guy, TRAIT_SECURITY))
+			dead_security_delta += midround_dead_security_delta
 
 	var/antag_delta = 0
 	for(var/mob/antag in current_players[CURRENT_LIVING_ANTAGS])
