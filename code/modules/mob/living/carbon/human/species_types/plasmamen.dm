@@ -157,6 +157,13 @@
 					H.emote("sigh")
 		H.reagents.remove_reagent(chem.type, chem.metabolization_rate * delta_time)
 		return TRUE
+
+	if(istype(chem, /datum/reagent/blackpowder))
+		H.set_drugginess(7.5 * delta_time)
+		if(H.get_timed_status_effect_duration(/datum/status_effect/hallucination) / 10 < chem.volume)
+			H.adjust_hallucinations(2.5 SECONDS * delta_time)
+		// Do normal metabolism
+		return FALSE
 	return ..()
 
 /datum/species/plasmaman/get_scream_sound(mob/living/carbon/user)

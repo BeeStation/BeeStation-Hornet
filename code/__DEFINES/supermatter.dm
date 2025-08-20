@@ -97,11 +97,11 @@
 /// Purge the current forced delam and make it zero again (back to normal).
 /// Needs to be higher priority than current forced_delam though.
 #define SM_DELAM_STRATEGY_PURGE null
-/// Totally disable the processing of the SM, used on the hugbox
+///Totally disable the processing of the SM, used on the hugbox
 #define SM_PROCESS_DISABLED -1
-/// Totally disable the processing of the SM, set when the timestop effect hit the SM
+///Totally disable the processing of the SM, set when the timestop effect hit the SM
 #define SM_PROCESS_TIMESTOP 0
-/// Enable the SM to process atmos and internal procs
+///Enable the SM to process atmos and internal procs
 #define SM_PROCESS_ENABLED 1
 
 

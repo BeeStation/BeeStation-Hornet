@@ -366,8 +366,29 @@
 		SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "chemical_euphoria")
 	// Activate mood on first flag, remove on second, do nothing on third.
 
-	if(has_moles)
-		handle_breath_temperature(breath)
+	//BZ (Facepunch port of their Agent B)
+	if(GET_MOLES(/datum/gas/bz, breath))
+		var/bz_partialpressure = (GET_MOLES(/datum/gas/bz, breath)/breath.total_moles())*breath_pressure
+		if(bz_partialpressure > 1)
+			adjust_hallucinations(20)
+		else if(bz_partialpressure > 0.01)
+			adjust_hallucinations(10 SECONDS)
+
+	//TRITIUM
+	if(GET_MOLES(/datum/gas/tritium, breath))
+		var/tritium_partialpressure = (GET_MOLES(/datum/gas/tritium, breath)/breath.total_moles())*breath_pressure
+		radiation += tritium_partialpressure/10
+
+	//NITRIUM
+	if(GET_MOLES(/datum/gas/nitrium, breath))
+		var/nitrium_partialpressure = (GET_MOLES(/datum/gas/nitrium, breath)/breath.total_moles())*breath_pressure
+		if(nitrium_partialpressure > 0.5)
+			adjustFireLoss(nitrium_partialpressure * 0.15)
+		if(nitrium_partialpressure > 5)
+			adjustToxLoss(nitrium_partialpressure * 0.05)
+
+	//BREATH TEMPERATURE
+	handle_breath_temperature(breath)
 
 	breath.garbage_collect()
 
@@ -604,9 +625,6 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 
 	if(druggy)
 		adjust_drugginess(-0.5 * delta_time)
-
-	if(hallucination)
-		handle_hallucinations(delta_time, times_fired)
 
 	if(drunkenness)
 		drunkenness = max(drunkenness - ((0.005 + (drunkenness * 0.02)) * delta_time), 0)
