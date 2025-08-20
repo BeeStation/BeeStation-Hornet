@@ -142,7 +142,7 @@
 
 /obj/projectile/bullet/shotgun_breaching/on_hit(atom/target)
 	if(isstructure(target) || ismachinery(target))
-		damage = 125
+		damage = 500
 	if (isturf(target))
 		damage = 150 // 3 shots for normal walls 8 for rwalls
 	..()
