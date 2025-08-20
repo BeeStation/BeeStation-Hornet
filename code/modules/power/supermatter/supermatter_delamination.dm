@@ -40,17 +40,16 @@
 	if(supermatter_turf)
 		supermatter_z = supermatter_turf.get_virtual_z_level()
 
-	for(var/mob in GLOB.alive_mob_list)
-		var/mob/living/L = mob
-		if(istype(L) && L.get_virtual_z_level() == supermatter_z)
-			if(ishuman(mob))
-				//Hilariously enough, running into a closet should make you get hit the hardest.
-				var/mob/living/carbon/human/H = mob
-				H.hallucination += max(50, min(300, DETONATION_HALLUCINATION * sqrt(1 / (get_dist(mob, src) + 1)) ) )
-			var/rads = DETONATION_RADS * sqrt( 1 / (get_dist(L, src) + 1) )
-			L.rad_act(rads)
+	for(var/mob/living/victim as anything in GLOB.alive_mob_list)
+		if(!istype(victim) || victim.get_virtual_z_level() != supermatter_z)
+			continue
+		//Hilariously enough, running into a closet should make you get hit the hardest.
+		var/hallucination_amount = max(100 SECONDS, min(600 SECONDS, DETONATION_HALLUCINATION * sqrt(1 / (get_dist(victim, src) + 1))))
+		victim.adjust_hallucinations(hallucination_amount)
+		var/rads = DETONATION_RADS * sqrt( 1 / (get_dist(victim, src) + 1) )
+		victim.rad_act(rads)
 
-	for(var/mob/M in GLOB.player_list)
+	for(var/mob/M as anything in GLOB.player_list)
 		if(M.get_virtual_z_level() == supermatter_z)
 			SEND_SOUND(M, 'sound/magic/charge.ogg')
 			to_chat(M, span_boldannounce("You feel reality distort for a moment..."))
