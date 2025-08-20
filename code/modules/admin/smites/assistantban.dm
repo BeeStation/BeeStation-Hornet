@@ -109,7 +109,7 @@
 		return FALSE
 	if(see_invisible < the_target.invisibility)
 		return FALSE
-	if(ismob(the_target) && (HAS_TRAIT(the_target, TRAIT_GODMODE)))
+	if(ismob(the_target) && HAS_TRAIT(the_target, TRAIT_GODMODE))
 		return FALSE
 	return TRUE
 
