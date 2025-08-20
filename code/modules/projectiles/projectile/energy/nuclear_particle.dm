@@ -5,15 +5,15 @@
 	armor_flag = ENERGY
 	damage_type = TOX
 	damage = 10
-	speed = 2.5
+	speed = 5
 	hitsound = 'sound/weapons/emitter2.ogg'
 	impact_type = /obj/effect/projectile/impact/xray
 
 	/// List of possible colors
 	var/static/list/particle_colors = list(
 		"red" = COLOR_RED,
-		"blue" = COLOR_VIBRANT_LIME,
-		"green" = COLOR_BLUE,
+		"blue" = COLOR_BLUE,
+		"green" = COLOR_VIBRANT_LIME,
 		"yellow" = COLOR_YELLOW,
 		"cyan" = COLOR_CYAN,
 		"purple" = COLOR_MAGENTA

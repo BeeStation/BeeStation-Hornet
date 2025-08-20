@@ -36,10 +36,6 @@
  * Contains the main fusion calculations and checks, for more informations check the comments along the code.
  */
 /obj/machinery/atmospherics/components/unary/hypertorus/core/proc/fusion_process(seconds_per_tick)
-//fusion: a terrible idea that was fun but broken. Now reworked to be less broken and more interesting. Again (and again, and again). Again! Again but with machine!
-//Fusion Rework Counter: Please increment this if you make a major overhaul to this system again.
-//7 reworks
-
 	if(check_power_use())
 		if(start_cooling)
 			inject_from_side_components(seconds_per_tick)

@@ -1139,4 +1139,111 @@
 		air.temperature = max((temperature * old_heat_capacity + energy_released) / new_heat_capacity, TCMB)
 	return REACTING
 
+//fusion: a terrible idea that was fun but broken. Now reworked to be less broken and more interesting. Again (and again, and again). Again!
+//Fusion Rework Counter: Please increment this if you make a major overhaul to this system again.
+//7 reworks
+
+/datum/gas_reaction/fusion
+	exclude = FALSE
+	priority_group = PRIORITY_FORMATION
+	name = "Plasmic Fusion"
+	id = "fusion"
+
+/datum/gas_reaction/fusion/init_reqs()
+	requirements = list(
+		/datum/gas/tritium = FUSION_TRITIUM_MOLES_USED,
+		/datum/gas/plasma = FUSION_MOLE_THRESHOLD,
+		/datum/gas/carbon_dioxide = FUSION_MOLE_THRESHOLD,
+		"MIN_TEMP" = FUSION_TEMPERATURE_THRESHOLD,
+	)
+
+/datum/gas_reaction/fusion/react(datum/gas_mixture/air, datum/holder)
+	var/turf/open/location
+	if (istype(holder,/datum/pipenet)) //Find the tile the reaction is occuring on, or a random part of the network if it's a pipenet.
+		var/datum/pipenet/fusion_pipenet = holder
+		location = get_turf(pick(fusion_pipenet.members))
+	else
+		location = get_turf(holder)
+	if(!air.analyzer_results)
+		air.analyzer_results = new
+	var/list/cached_scan_results = air.analyzer_results
+	var/thermal_energy = air.thermal_energy()
+	var/reaction_energy = 0 //Reaction energy can be negative or positive, for both exothermic and endothermic reactions.
+	var/initial_plasma = GET_MOLES(/datum/gas/plasma, air)
+	var/initial_carbon = GET_MOLES(/datum/gas/carbon_dioxide, air)
+	var/scale_factor = max(air.return_volume() / FUSION_SCALE_DIVISOR, FUSION_MINIMAL_SCALE)
+	var/temperature_scale = log(10, air.return_temperature())
+	//The size of the phase space hypertorus
+	var/toroidal_size = 	TOROID_CALCULATED_THRESHOLD \
+							+ (temperature_scale <= FUSION_BASE_TEMPSCALE ? \
+							(temperature_scale-FUSION_BASE_TEMPSCALE) / FUSION_BUFFER_DIVISOR \
+							: 4 ** (temperature_scale-FUSION_BASE_TEMPSCALE) / FUSION_SLOPE_DIVISOR)
+	var/gas_power = 0
+	for (var/datum/gas/gas_id as anything in air.gases)
+		gas_power += initial(gas_id.fusion_power)*air.gases[gas_id][MOLES]
+	var/instability = MODULUS((gas_power*INSTABILITY_GAS_POWER_FACTOR),toroidal_size) //Instability effects how chaotic the behavior of the reaction is
+	cached_scan_results[id] = instability//used for analyzer feedback
+
+	var/plasma = (initial_plasma-FUSION_MOLE_THRESHOLD)/(scale_factor) //We have to scale the amounts of carbon and plasma down a significant amount in order to show the chaotic dynamics we want
+	var/carbon = (initial_carbon-FUSION_MOLE_THRESHOLD)/(scale_factor) //We also subtract out the threshold amount to make it harder for fusion to burn itself out.
+
+	//The reaction is a specific form of the Kicked Rotator system, which displays chaotic behavior and can be used to model particle interactions.
+	plasma = MODULUS(plasma - (instability*sin(TODEGREES(carbon))), toroidal_size)
+	carbon = MODULUS(carbon - plasma, toroidal_size)
+
+	SET_MOLES(/datum/gas/plasma, 		 air, plasma * scale_factor + FUSION_MOLE_THRESHOLD) //Scales the gases back up
+	SET_MOLES(/datum/gas/carbon_dioxide, air, carbon * scale_factor + FUSION_MOLE_THRESHOLD)
+
+	var/delta_plasma = min(initial_plasma - air.gases[/datum/gas/plasma][MOLES], toroidal_size * scale_factor * 1.5)
+
+	//Energy is gained or lost corresponding to the creation or destruction of mass.
+	//Low instability prevents endothermality while higher instability acutally encourages it.
+	reaction_energy = 	instability <= FUSION_INSTABILITY_ENDOTHERMALITY || delta_plasma > 0 ? \
+						max(delta_plasma*PLASMA_BINDING_ENERGY, 0) \
+						: delta_plasma*PLASMA_BINDING_ENERGY * (instability-FUSION_INSTABILITY_ENDOTHERMALITY)**0.5
+
+	//To achieve faster equilibrium. Too bad it is not that good at cooling down.
+	if (reaction_energy)
+		var/middle_energy = (((TOROID_CALCULATED_THRESHOLD / 2) * scale_factor) + FUSION_MOLE_THRESHOLD) * (200 * FUSION_MIDDLE_ENERGY_REFERENCE)
+		thermal_energy = middle_energy * FUSION_ENERGY_TRANSLATION_EXPONENT ** log(10, thermal_energy / middle_energy)
+
+		//This bowdlerization is a double-edged sword. Tread with care!
+		var/bowdlerized_reaction_energy = 	clamp(reaction_energy, \
+											thermal_energy * ((1 / FUSION_ENERGY_TRANSLATION_EXPONENT ** 2) - 1), \
+											thermal_energy * (FUSION_ENERGY_TRANSLATION_EXPONENT ** 2 - 1))
+		thermal_energy = middle_energy * 10 ** log(FUSION_ENERGY_TRANSLATION_EXPONENT, (thermal_energy + bowdlerized_reaction_energy) / middle_energy)
+
+	//The reason why you should set up a tritium production line.
+	REMOVE_MOLES(/datum/gas/tritium, air, FUSION_TRITIUM_MOLES_USED)
+
+	//The decay of the tritium and the reaction's energy produces waste gases, different ones depending on whether the reaction is endo or exothermic
+	var/standard_waste_gas_output = scale_factor * (FUSION_TRITIUM_CONVERSION_COEFFICIENT*FUSION_TRITIUM_MOLES_USED)
+	if (delta_plasma > 0)
+		ADD_MOLES(/datum/gas/water_vapor, air, standard_waste_gas_output)
+	else
+		ADD_MOLES(/datum/gas/bz, air, standard_waste_gas_output)
+	//Oxygen is a bit touchy subject
+	ADD_MOLES(/datum/gas/oxygen, air, standard_waste_gas_output)
+
+	if(reaction_energy)
+		if(location)
+			var/particle_chance = ((PARTICLE_CHANCE_CONSTANT)/(reaction_energy-PARTICLE_CHANCE_CONSTANT)) + 1//Asymptopically approaches 100% as the energy of the reaction goes up.
+			if(prob(PERCENT(particle_chance)))
+				location.fire_nuclear_particle()
+			radiation_pulse(
+				location,
+				max_range = rand(6,30),
+				threshold = RAD_EXTREME_INSULATION,
+				chance = 60,
+			)
+		var/new_heat_capacity = air.heat_capacity()
+		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
+			air.temperature = clamp(thermal_energy/new_heat_capacity, TCMB, INFINITY)
+		return REACTING
+	else if(reaction_energy == 0 && instability <= FUSION_INSTABILITY_ENDOTHERMALITY)
+		var/new_heat_capacity = air.heat_capacity()
+		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
+			air.temperature = clamp(thermal_energy/new_heat_capacity, TCMB, INFINITY) //THIS SHOULD STAY OR FUSION WILL EAT YOUR FACE
+		return REACTING
+
 #undef SET_REACTION_RESULTS
