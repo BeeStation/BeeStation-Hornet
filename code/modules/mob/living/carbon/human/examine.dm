@@ -202,7 +202,7 @@
 	else if (is_bandaged())
 		msg += "[src] is [bleed_msg], but it is covered.\n"
 
-	if(!(user == src && src.hal_screwyhud == SCREWYHUD_HEALTHY)) //fake healthy
+	if(!(user == src && has_status_effect(/datum/status_effect/grouped/screwy_hud/fake_healthy))) //fake healthy
 		if(temp)
 			if(temp < 25)
 				msg += "[t_He] [t_has] minor [brute_msg].\n"

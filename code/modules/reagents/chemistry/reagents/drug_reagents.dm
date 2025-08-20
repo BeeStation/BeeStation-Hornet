@@ -34,8 +34,9 @@
 
 /datum/reagent/drug/space_drugs/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(affected_mob.hallucination < volume && DT_PROB(10, delta_time))
-		affected_mob.hallucination += 5
+	var/hallucination_duration_in_seconds = (affected_mob.get_timed_status_effect_duration(/datum/status_effect/hallucination) / 10)
+	if(hallucination_duration_in_seconds < volume && DT_PROB(10, delta_time))
+		affected_mob.adjust_hallucinations(10 SECONDS)
 
 /datum/reagent/drug/nicotine
 	name = "Nicotine"
@@ -314,7 +315,7 @@
 
 	affected_mob.adjustStaminaLoss(-5 * REM * delta_time, updating_health = FALSE)
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 4 * REM * delta_time)
-	affected_mob.hallucination += 5 * REM * delta_time
+	affected_mob.adjust_hallucinations(10 SECONDS * REM * delta_time)
 	return UPDATE_MOB_HEALTH
 
 /datum/reagent/drug/bath_salts/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -329,7 +330,7 @@
 	if(DT_PROB(28, delta_time))
 		affected_mob.drop_all_held_items()
 
-	affected_mob.hallucination += 5 * REM * delta_time
+	affected_mob.adjust_hallucinations(10 SECONDS * REM * delta_time)
 
 /datum/reagent/drug/bath_salts/addiction_act_stage1(mob/living/carbon/affected_mob)
 	. = ..()
@@ -340,7 +341,7 @@
 		for(var/i = 1 to 8)
 			step(affected_mob, pick(GLOB.cardinals))
 
-	affected_mob.hallucination += 10
+	affected_mob.adjust_hallucinations(20 SECONDS)
 	affected_mob.set_jitter_if_lower(10 SECONDS)
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10)
 
@@ -353,7 +354,7 @@
 		for(var/i = 1 to 8)
 			step(affected_mob, pick(GLOB.cardinals))
 
-	affected_mob.hallucination += 20
+	affected_mob.adjust_hallucinations(40 SECONDS)
 	affected_mob.set_jitter_if_lower(20 SECONDS)
 	affected_mob.set_dizzy_if_lower(20 SECONDS)
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10)
@@ -367,7 +368,7 @@
 		for(var/i = 1 to 12)
 			step(affected_mob, pick(GLOB.cardinals))
 
-	affected_mob.hallucination += 30
+	affected_mob.adjust_hallucinations(60 SECONDS)
 	affected_mob.set_jitter_if_lower(30 SECONDS)
 	affected_mob.set_dizzy_if_lower(30 SECONDS)
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10)
@@ -381,7 +382,7 @@
 		for(var/i = 1 to 16)
 			step(affected_mob, pick(GLOB.cardinals))
 
-	affected_mob.hallucination += 30
+	affected_mob.adjust_hallucinations(60 SECONDS)
 	affected_mob.set_jitter_if_lower(100 SECONDS)
 	affected_mob.set_dizzy_if_lower(100 SECONDS)
 	affected_mob.adjustToxLoss(5, updating_health = FALSE)
@@ -514,14 +515,14 @@
 	affected_mob.adjust_jitter(-10 SECONDS * REM * delta_time)
 	affected_mob.disgust -= 3 * REM * delta_time
 	//Ketamine is also a dissociative anasthetic which means Hallucinations!
-	affected_mob.hallucination += 5 * REM * delta_time
+	affected_mob.adjust_hallucinations(10 SECONDS * REM * delta_time)
 
 /datum/reagent/drug/ketamine/overdose_process(mob/living/carbon/affected_mob)
 	. = ..()
 	var/obj/item/organ/brain/brain = affected_mob.get_organ_by_type(/obj/item/organ/brain)
 	brain?.gain_trauma_type(BRAIN_TRAUMA_SEVERE, TRAUMA_RESILIENCE_SURGERY)
 
-	affected_mob.hallucination += 10
+	affected_mob.adjust_hallucinations(20 SECONDS)
 	//Uh Oh Someone is tired
 	if(prob(40))
 		if(HAS_TRAIT(affected_mob, TRAIT_IGNOREDAMAGESLOWDOWN))

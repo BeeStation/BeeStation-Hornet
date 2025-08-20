@@ -126,9 +126,6 @@
 	firstname.Find(real_name)
 	return firstname.match
 
-///Is the mob hallucinating?
-/mob/proc/hallucinating()
-	return FALSE
 
 
 // moved out of admins.dm because things other than admin procs were calling this.
