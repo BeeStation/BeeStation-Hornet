@@ -145,7 +145,7 @@
 	icon_state = "wraith_specs"
 	invis_view = SEE_INVISIBLE_SPIRIT
 	invis_override = null
-	flash_protect = -1
+	flash_protect = FLASH_PROTECTION_SENSITIVE
 	vision_flags = SEE_MOBS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	glass_colour_type = /datum/client_colour/glass_colour/yellow
@@ -192,7 +192,7 @@
 	armor_type = /datum/armor/helmet_clockcult
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	w_class = WEIGHT_CLASS_BULKY
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 	bang_protect = 3
 
 

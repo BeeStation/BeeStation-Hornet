@@ -195,7 +195,7 @@
 
 	var/delay = 2
 	var/datum/move_loop/our_loop = SSmove_manager.move_towards_legacy(water, pick(targets), delay, timeout = delay * 4, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
-	RegisterSignal(our_loop, COMSIG_PARENT_QDELETING, PROC_REF(water_finished_moving))
+	RegisterSignal(our_loop, COMSIG_QDELETING, PROC_REF(water_finished_moving))
 
 /obj/item/mecha_parts/mecha_equipment/extinguisher/proc/water_finished_moving(datum/move_loop/has_target/source)
 	SIGNAL_HANDLER

@@ -130,7 +130,7 @@
 				continue
 			var/datum/chatmessage_group/group_heard = hearers_to_groups[C]
 			C.images.Remove(group_heard.message)
-			UnregisterSignal(C, COMSIG_PARENT_QDELETING)
+			UnregisterSignal(C, COMSIG_QDELETING)
 	if(!QDELETED(message_loc))
 		LAZYREMOVE(message_loc.chat_messages, src)
 	message_loc = null
@@ -158,7 +158,7 @@
 
 	for(var/client/C as() in hearers)
 		if(C)
-			RegisterSignal(C, COMSIG_PARENT_QDELETING, PROC_REF(client_deleted))
+			RegisterSignal(C, COMSIG_QDELETING, PROC_REF(client_deleted))
 
 	// Remove spans in the message from things like the recorder
 	var/static/regex/span_check = new(@"<\/?span[^>]*>", "gi")
@@ -665,7 +665,7 @@
 	hearers_to_groups[owned_by] = group
 	group.clients += owned_by
 	groups += group
-	RegisterSignal(owned_by, COMSIG_PARENT_QDELETING, PROC_REF(client_deleted))
+	RegisterSignal(owned_by, COMSIG_QDELETING, PROC_REF(client_deleted))
 
 	var/duration_mult = 1
 	var/duration_length = length(text) - BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MIN

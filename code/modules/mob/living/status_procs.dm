@@ -1,6 +1,6 @@
 //Here are the procs used to modify status effects of a mob.
 //The effects include: stun, knockdown, unconscious, sleeping, resting, jitteriness, dizziness,
-// eye damage, eye_blind, TRAIT_BLIND trait, and TRAIT_NEARSIGHT trait.
+// eye damage, eye_blind trait trait.
 
 
 ////////////////////////////// STUN ////////////////////////////////////
@@ -225,6 +225,7 @@
 	Knockdown(amount)
 	Stun(amount)
 	Immobilize(amount)
+	Unconscious(amount)
 
 
 /mob/living/proc/SetAllImmobility(amount)
@@ -232,6 +233,7 @@
 	SetKnockdown(amount)
 	SetStun(amount)
 	SetImmobilized(amount)
+	SetUnconscious(amount)
 
 
 /mob/living/proc/AdjustAllImmobility(amount)
@@ -239,7 +241,7 @@
 	AdjustKnockdown(amount)
 	AdjustStun(amount)
 	AdjustImmobilized(amount)
-
+	AdjustUnconscious(amount)
 
 //////////////////UNCONSCIOUS
 /mob/living/proc/IsUnconscious() //If we're unconscious

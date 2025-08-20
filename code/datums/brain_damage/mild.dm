@@ -19,7 +19,7 @@
 	owner.hallucination = 0
 	..()
 
-/datum/brain_trauma/mild/stutteringf
+/datum/brain_trauma/mild/stuttering
 	name = "Stuttering"
 	desc = "Patient can't speak properly."
 	scan_desc = "reduced mouth coordination"

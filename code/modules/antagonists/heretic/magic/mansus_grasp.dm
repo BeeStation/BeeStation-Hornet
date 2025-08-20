@@ -1,7 +1,7 @@
 /datum/action/spell/touch/mansus_grasp
 	name = "Mansus Grasp"
 	desc = "A touch spell that lets you channel the power of the Old Gods through your grip."
-	background_icon_state = "bg_ecult"
+	background_icon_state = "bg_heretic"
 	icon_icon = 'icons/hud/actions/actions_ecult.dmi'
 	button_icon_state = "mansus_grasp"
 	sound = 'sound/items/welder.ogg'
@@ -37,12 +37,15 @@
 
 	var/mob/living/living_hit = victim
 	living_hit.apply_damage(10, BRUTE)
-	if(iscarbon(victim))
-		var/mob/living/carbon/carbon_hit = victim
-		carbon_hit.silent = 3 SECONDS
-		carbon_hit.adjust_timed_status_effect(7 SECONDS, /datum/status_effect/speech/slurring/heretic)
-		carbon_hit.AdjustKnockdown(5 SECONDS)
-		carbon_hit.adjustStaminaLoss(80)
+	if(!iscarbon(victim))
+		return TRUE
+
+	var/mob/living/carbon/carbon_hit = victim
+
+	carbon_hit.set_silence_if_lower(3 SECONDS)
+	carbon_hit.adjust_timed_status_effect(4 SECONDS, /datum/status_effect/speech/slurring/heretic)
+	carbon_hit.AdjustKnockdown(5 SECONDS)
+	carbon_hit.adjustStaminaLoss(80)
 
 	return TRUE
 

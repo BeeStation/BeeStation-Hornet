@@ -491,7 +491,7 @@
 	if(DT_PROB(2 + nearby_people, delta_time))
 		H.set_timed_status_effect(6 SECONDS, /datum/status_effect/speech/stutter, only_if_higher = TRUE)
 		SEND_SIGNAL(quirk_target, COMSIG_ADD_MOOD_EVENT, "anxiety", /datum/mood_event/anxiety)
-	else if(DT_PROB(min(3, nearby_people), delta_time) && !H.silent)
+	else if(DT_PROB(min(3, nearby_people), delta_time) && !H.has_status_effect(/datum/status_effect/silenced))
 		to_chat(H, span_danger("You retreat into yourself. You <i>really</i> don't feel up to talking."))
 		H.set_silence_if_lower(6 SECONDS)
 		SEND_SIGNAL(quirk_target, COMSIG_ADD_MOOD_EVENT, "anxiety_mute", /datum/mood_event/anxiety_mute)

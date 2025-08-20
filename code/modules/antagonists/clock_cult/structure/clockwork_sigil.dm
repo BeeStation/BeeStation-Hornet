@@ -122,9 +122,7 @@
 		return FALSE
 	M.Paralyze(60)
 	M.adjust_temp_blindness(240 SECONDS)
-	var/mob/living/carbon/C = M
-	if(istype(C))
-		C.silent += 15
+	M.adjust_silence(30 SECONDS)
 	qdel(src)
 
 #undef SIGIL_INVOKATION_ALPHA

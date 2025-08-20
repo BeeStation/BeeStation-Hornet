@@ -368,6 +368,8 @@
 	else if(isobserver(user) && traitstring)
 		. += span_info("<b>Traits:</b> [traitstring]")
 
+	SEND_SIGNAL(src, COMSIG_ATOM_EXAMINE, user, .)
+
 /**
  * Shows any and all examine text related to any status effects the user has.
  */

@@ -316,28 +316,12 @@
 	dangerous_craft = TRUE
 
 /datum/crafting_recipe/chemical_payload
-	name = "Chemical Payload (C4)"
+	name = "Chemical Payload"
 	result = /obj/item/bombcore/chemical
 	time = 3 SECONDS
 	reqs = list(
 		/obj/item/stock_parts/matter_bin = 1,
-		/obj/item/grenade/plastic/c4 = 1,
-		/obj/item/grenade/chem_grenade = 2
-	)
-	parts = list(
-		/obj/item/stock_parts/matter_bin = 1,
-		/obj/item/grenade/chem_grenade = 2
-	)
-	category = CAT_CHEMISTRY
-	dangerous_craft = TRUE
-
-/datum/crafting_recipe/chemical_payload2
-	name = "Chemical Payload (Gibtonite)"
-	result = /obj/item/bombcore/chemical
-	time = 5 SECONDS
-	reqs = list(
-		/obj/item/stock_parts/matter_bin = 1,
-		/obj/item/gibtonite = 1,
+		/obj/item/assembly/igniter = 1,
 		/obj/item/grenade/chem_grenade = 2
 	)
 	parts = list(
@@ -371,3 +355,34 @@
 	)
 	category = CAT_WEAPON_MELEE
 	dangerous_craft = TRUE
+
+/datum/crafting_recipe/stake
+	name = "Stake"
+	result = /obj/item/stake
+	reqs = list(/obj/item/stack/sheet/wood = 3)
+	time = 8 SECONDS
+	category = CAT_WEAPON_MELEE
+	dangerous_craft = TRUE
+
+/datum/crafting_recipe/hardened_stake
+	name = "Hardened Stake"
+	result = /obj/item/stake/hardened
+	tool_behaviors = list(TOOL_WELDER)
+	reqs = list(/obj/item/stack/rods = 1)
+	time = 6 SECONDS
+	category = CAT_WEAPON_MELEE
+	dangerous_craft = TRUE
+	crafting_flags = CRAFT_MUST_BE_LEARNED
+
+/datum/crafting_recipe/silver_stake
+	name = "Silver Stake"
+	result = /obj/item/stake/hardened/silver
+	tool_behaviors = list(TOOL_WELDER)
+	reqs = list(
+		/obj/item/stack/sheet/mineral/silver = 1,
+		/obj/item/stake/hardened = 1,
+	)
+	time = 8 SECONDS
+	category = CAT_WEAPON_MELEE
+	dangerous_craft = TRUE
+	crafting_flags = CRAFT_MUST_BE_LEARNED
