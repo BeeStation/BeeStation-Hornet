@@ -213,7 +213,7 @@
 		raise_target = null
 		return FALSE
 	raise_target.grab_ghost() // Shove them back in their body.
-	raise_target.revive(full_heal = 1, admin_revive = 1)
+	raise_target.revive(HEAL_ALL)
 	playsound(altar_turf, 'sound/magic/staff_healing.ogg', 50, TRUE)
 	raise_target = null
 	return ..()

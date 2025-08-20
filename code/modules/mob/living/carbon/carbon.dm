@@ -879,6 +879,18 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	update_inv_handcuffed()
 	update_hud_handcuffed()
 
+/mob/living/carbon/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE)
+	if(excess_healing)
+		if(dna && !HAS_TRAIT(src, TRAIT_NOBLOOD))
+			blood_volume += (excess_healing * 2) //1 excess = 10 blood
+
+		for(var/obj/item/organ/organ as anything in internal_organs)
+			if(organ.organ_flags & ORGAN_SYNTHETIC)
+				continue
+
+			organ.applyOrganDamage(excess_healing * -1) //1 excess = 5 organ damage healed
+
+	return ..()
 
 /mob/living/carbon/heal_and_revive(heal_to = 75, revive_message)
 	// We can't heal them if they're missing a heart
@@ -898,40 +910,50 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		src.cure_husk()
 	return ..()
 
-/mob/living/carbon/fully_heal(admin_revive = FALSE)
-	if(reagents)
-		reagents.clear_reagents()
-		for(var/addi in reagents.addiction_list)
-			reagents.remove_addiction(addi)
-	for(var/obj/item/organ/organ as anything in internal_organs)
-		organ.set_organ_damage(0)
-	var/obj/item/organ/brain/B = get_organ_by_type(/obj/item/organ/brain)
-	if(B)
-		B.brain_death = FALSE
-	for(var/thing in diseases)
-		var/datum/disease/D = thing
-		if(D.danger != DISEASE_BENEFICIAL && D.danger != DISEASE_POSITIVE)
-			D.cure(FALSE)
-	if(admin_revive)
-		suiciding = FALSE
+/mob/living/carbon/fully_heal(heal_flags = HEAL_ALL)
+
+	// Should be handled via signal on embedded, or via heal on bodypart
+	// Otherwise I don't care to give it a separate flag
+	remove_all_embedded_objects()
+
+	if(heal_flags & HEAL_NEGATIVE_DISEASES)
+		for(var/datum/disease/disease as anything in diseases)
+			if(disease.danger != DISEASE_BENEFICIAL && disease.danger != DISEASE_POSITIVE)
+				disease.cure(FALSE)
+
+	if(heal_flags & HEAL_LIMBS)
 		regenerate_limbs()
+
+	if(heal_flags & (HEAL_REFRESH_ORGANS|HEAL_ORGANS))
 		regenerate_organs()
-		set_handcuffed(null)
-		for(var/obj/item/restraints/R in contents) //actually remove cuffs from inventory
-			qdel(R)
-		update_handcuffed()
+		if(ismoth(src))
+			REMOVE_TRAIT(src, TRAIT_MOTH_BURNT, "fire")
+
+	if(heal_flags & HEAL_TRAUMAS)
+		cure_all_traumas(TRAUMA_RESILIENCE_MAGIC)
+		// Addictions are like traumas
 		if(reagents)
+			reagents.clear_reagents()
+			for(var/addi in reagents.addiction_list)
+				reagents.remove_addiction(addi)
 			reagents.addiction_list = list()
-	cure_all_traumas(TRAUMA_RESILIENCE_MAGIC)
-	..()
+
+	if(heal_flags & HEAL_RESTRAINTS)
+		QDEL_NULL(handcuffed)
+		QDEL_NULL(legcuffed)
+		set_handcuffed(null)
+		update_handcuffed()
+
 	// heal ears after healing traits, since ears check TRAIT_DEAF trait
 	// when healing.
 	restoreEars()
 
+	return ..()
+
 /mob/living/carbon/can_be_revived()
-	. = ..()
 	if(!get_organ_by_type(/obj/item/organ/brain) && (!mind || !mind.has_antag_datum(/datum/antagonist/changeling)))
-		return 0
+		return FALSE
+	return ..()
 
 /mob/living/carbon/harvest(mob/living/user)
 	if(QDELETED(src))

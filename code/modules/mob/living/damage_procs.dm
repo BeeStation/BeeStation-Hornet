@@ -157,6 +157,14 @@
 		updatehealth()
 	return amount
 
+/mob/living/proc/setBruteLoss(amount, updating_health = TRUE, forced = FALSE)
+	if(!forced && (status_flags & GODMODE))
+		return
+	. = bruteloss
+	bruteloss = amount
+	if(updating_health)
+		updatehealth()
+
 /mob/living/proc/getOxyLoss()
 	return oxyloss
 
@@ -169,7 +177,7 @@
 		updatehealth()
 
 /mob/living/proc/setOxyLoss(amount, updating_health = TRUE, forced = FALSE)
-	if(!forced && status_flags & GODMODE)
+	if(!forced && (status_flags & GODMODE))
 		return
 	. = oxyloss
 	oxyloss = amount
@@ -205,6 +213,14 @@
 	if(updating_health)
 		updatehealth()
 	return amount
+
+/mob/living/proc/setFireLoss(amount, updating_health = TRUE, forced = FALSE)
+	if(!forced && (status_flags & GODMODE))
+		return
+	. = fireloss
+	fireloss = amount
+	if(updating_health)
+		updatehealth()
 
 /mob/living/proc/getCloneLoss()
 	return cloneloss

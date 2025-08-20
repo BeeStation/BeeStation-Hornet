@@ -30,6 +30,10 @@
 	/// Regardless of what this value is set to, duration will not display if a linked alert is not set
 	var/show_duration = TRUE
 	var/last_shown_duration = 0
+	/// Do we self-terminate when a fullheal is called?
+	var/remove_on_fullheal = FALSE
+	/// If remove_on_fullheal is TRUE, what flag do we need to be removed?
+	var/heal_flag_necessary = HEAL_STATUS
 
 /datum/status_effect/New(list/arguments)
 	on_creation(arglist(arguments))
@@ -42,6 +46,7 @@
 		return
 	if(owner)
 		LAZYADD(owner.status_effects, src)
+		RegisterSignal(owner, COMSIG_LIVING_POST_FULLY_HEAL, PROC_REF(remove_effect_on_heal))
 
 	if(duration != -1)
 		duration = world.time + duration
@@ -65,6 +70,7 @@
 		owner.clear_alert(id)
 		LAZYREMOVE(owner.status_effects, src)
 		on_remove()
+		UnregisterSignal(owner, COMSIG_LIVING_POST_FULLY_HEAL)
 		owner = null
 	return ..()
 
@@ -128,6 +134,16 @@
 
 /datum/status_effect/proc/nextmove_adjust()
 	return 0
+
+/// Signal proc for [COMSIG_LIVING_POST_FULLY_HEAL] to remove us on fullheal
+/datum/status_effect/proc/remove_effect_on_heal(datum/source, heal_flags)
+	SIGNAL_HANDLER
+
+	if(!remove_on_fullheal)
+		return
+
+	if(!heal_flag_necessary || (heal_flags & heal_flag_necessary))
+		qdel(src)
 
 /datum/status_effect/proc/update_icon()
 	if (!linked_alert || !show_duration || duration <= 0)
