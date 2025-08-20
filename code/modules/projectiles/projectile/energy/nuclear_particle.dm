@@ -1,11 +1,11 @@
 /obj/projectile/energy/nuclear_particle
 	name = "nuclear particle"
 	icon_state = "nuclear_particle"
-	pass_flags = PASSTABLE | PASSTRANSPARENT | PASSGRILLE | PASSMACHINE
+	pass_flags = PASSTABLE | PASSTRANSPARENT | PASSGRILLE | PASSMACHINE | PASSSTRUCTURE
 	armor_flag = ENERGY
 	damage_type = TOX
 	damage = 10
-	speed = 5
+	speed = 1
 	hitsound = 'sound/weapons/emitter2.ogg'
 	impact_type = /obj/effect/projectile/impact/xray
 
