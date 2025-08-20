@@ -328,3 +328,37 @@
   - rscadd: added a new antagonist, the vampire (bloodsuckers)
   - rscdel: deleted the vampire Halloween race
   - tweak: you can now drink from blood bags
+2025-08-18:
+  Rukofamicom:
+  - bugfix: fixed holoparasites and contractor agents still showing player keys on
+      round-end reports
+  - tweak: Antagonist ckey is no longer reported to deadchat.
+2025-08-19:
+  Aramix:
+  - bugfix: fixes first column to use tech node tier 0 (researched) instead of 1 by
+      default
+  - bugfix: changes the key for designs details to use design id rather than tech
+      node id
+  - bugfix: fixes last design in a node being offset downwards
+  - bugfix: properly resizes techweb in window
+  - bugfix: removes duplicate design entries in window
+  - bugfix: removes an edge case pertaining design disk in techweb view
+  - tweak: tweaked margin of designs to be integer pixels
+2025-08-20:
+  Rukofamicom:
+  - balance: Breaching slugs no longer work on turfs (walls)
+  rkz, MrMelbert:
+  - rscadd: Added a few new hallucinations. Find them all, but don't lose your head!
+  - refactor: Refactored most existing hallucinations. Let me know if any of them
+      are acting funky.
+  - refactor: RDS quirk is now a brain trauma. The hallucinations brain trauma can
+      now be paused with Mindbreaker, like RDS.
+  - refactor: Refactored hallucination into a status effect. This means cyborgs and
+      simplemobs can (hypothetically) hallucinate now. In most cases they shouldn't
+      though.
+  - refactor: Refactored fake hud into a status effect.
+  - bugfix: Fixes some hallucinations acting improperly. There were multiple cases
+      of hallucinations using incorrect icon states which made them completely un-noticable.
+  - admin: You can now force specific mass hallucinations.
+  - admin: You can now force specific outcomes of some hallucinations, such as delusions,
+      fake alerts, fake sounds, and more. Check the VV dropdown.
