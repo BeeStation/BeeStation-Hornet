@@ -233,7 +233,10 @@
 /obj/item/assembly/flash/proc/flash_end()
 	set_light_on(FALSE)
 
- /*
+/**
+ * Handles actual flashing part of the attack
+ *
+ * This proc is awful in every sense of the way, someone should definitely refactor this whole code.
  * Arguments:
  * * M - Victim
  * * user - Attacker
@@ -248,8 +251,10 @@
 		log_combat(user, flashed, "[targeted? "flashed(targeted)" : "flashed(AOE)"]", src)
 	else //caused by emp/remote signal
 		flashed.log_message("was [targeted? "flashed(targeted)" : "flashed(AOE)"]",LOG_ATTACK)
+
 	if(generic_message && flashed != user)
 		to_chat(flashed, span_disarm("[src] emits a blinding light!"))
+
 	if(targeted)
 		//No flash protection, blind and stun
 		if(flashed.flash_act(1))
