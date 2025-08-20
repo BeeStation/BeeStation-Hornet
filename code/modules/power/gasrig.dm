@@ -287,8 +287,6 @@
 			update_appearance()
 
 /obj/machinery/atmospherics/gasrig/core/proc/set_active(to_set)
-	if(to_set == TRUE)
-		return
 	active = to_set
 	if(!active)
 		soundloop.stop()
@@ -443,21 +441,21 @@
 	desc = "Input port for the AGR to intake shielding gas."
 	icon = 'icons/obj/machines/gasrig.dmi'
 	icon_state = "gasrig_port_1"
-	layer = LOW_OBJ_LAYER
+	layer = HIGH_OBJ_LAYER
 
 /obj/machinery/atmospherics/components/unary/gasrig/fracking_input
 	name = "AGR fracking gas input port"
 	desc = "Input port for the AGR to intake fracking gas."
 	icon = 'icons/obj/machines/gasrig.dmi'
 	icon_state = "gasrig_port_2"
-	layer = LOW_OBJ_LAYER
+	layer = HIGH_OBJ_LAYER
 
 /obj/machinery/atmospherics/components/unary/gasrig/gas_output
 	name = "AGR gas output port"
 	desc = "Main output for the AGR"
 	icon = 'icons/obj/machines/gasrig.dmi'
 	icon_state = "gasrig_port_3"
-	layer = LOW_OBJ_LAYER
+	layer = HIGH_OBJ_LAYER
 
 /obj/machinery/atmospherics/components/unary/gasrig/gas_output/update_overlays()
 	. = ..()
@@ -474,7 +472,7 @@
 	name = "\improper Advanced Gas Rig"
 	desc = "This state-of-the-art gas mining rig will extend a collector down to the depths of the atmosphere below to extract all the gases a station could need."
 	icon = 'icons/obj/machines/gasrig.dmi'
-	layer = LOW_OBJ_LAYER
+	layer = HIGH_OBJ_LAYER
 	var/obj/machinery/atmospherics/gasrig/core/parent
 
 /obj/machinery/atmospherics/gasrig/dummy/New(loc, var/obj/machinery/atmospherics/gasrig/core/gasrig, iconstate)
