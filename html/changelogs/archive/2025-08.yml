@@ -328,3 +328,8 @@
   - rscadd: added a new antagonist, the vampire (bloodsuckers)
   - rscdel: deleted the vampire Halloween race
   - tweak: you can now drink from blood bags
+2025-08-18:
+  Rukofamicom:
+  - bugfix: fixed holoparasites and contractor agents still showing player keys on
+      round-end reports
+  - tweak: Antagonist ckey is no longer reported to deadchat.
