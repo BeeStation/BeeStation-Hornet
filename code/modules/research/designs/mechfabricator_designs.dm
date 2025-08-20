@@ -601,6 +601,24 @@
 	construction_time = 400
 	category = list("Exosuit Equipment")
 
+/datum/design/mech_radio
+	name = "Mech Radio"
+	id = "mech_radio"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/radio
+	materials = list(/datum/material/iron=2500)
+	construction_time = 100
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_air_tank
+	name = "Mech Air Tank"
+	id = "mech_air_tank"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/air_tank
+	materials = list(/datum/material/iron=5000)
+	construction_time = 100
+	category = list("Exosuit Equipment")
+
 /////////////////////////////////////////
 //////////////Borg Upgrades//////////////
 /////////////////////////////////////////
@@ -821,7 +839,6 @@
 	build_path =/obj/item/mecha_parts/mecha_tracking
 	materials = list(/datum/material/iron=500)
 	construction_time = 50
-	category = list("Exosuit Equipment")
 
 /datum/design/mecha_tracking_ai_control
 	name = "AI Control Beacon"
@@ -830,7 +847,6 @@
 	build_path = /obj/item/mecha_parts/mecha_tracking/ai_control
 	materials = list(/datum/material/iron = 1000, /datum/material/glass = 500, /datum/material/silver = 200)
 	construction_time = 50
-	category = list("Control Interfaces")
 
 /datum/design/synthetic_flash
 	name = "Flash"

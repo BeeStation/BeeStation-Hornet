@@ -43,10 +43,11 @@
 
 //Mecha cooldowns
 #define COOLDOWN_MECHA_MESSAGE "mecha_message"
-#define COOLDOWN_MECHA_EQUIPMENT "mecha_equipment"
+#define COOLDOWN_MECHA_EQUIPMENT(type) ("mecha_equip_[type]")
 #define COOLDOWN_MECHA_ARMOR "mecha_armor"
 #define COOLDOWN_MECHA_MELEE_ATTACK "mecha_melee"
 #define COOLDOWN_MECHA_SMOKE "mecha_smoke"
+#define COOLDOWN_MECHA_CABIN_SEAL "mecha_cabin_seal"
 
 #define COOLDOWN_EMOTE_WINDOW "emote_window"
 

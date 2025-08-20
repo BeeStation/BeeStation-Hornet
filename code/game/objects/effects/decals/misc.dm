@@ -21,17 +21,21 @@
 /obj/effect/decal/chempuff/blob_act(obj/structure/blob/B)
 	return
 
-/obj/effect/decal/chempuff/proc/loop_ended(datum/source)
+/obj/effect/decal/chempuff/proc/end_life(datum/move_loop/engine)
+	QDEL_IN(src, engine.delay) //Gotta let it stop drifting
+	animate(src, alpha = 0, time = engine.delay)
+
+/obj/effect/decal/chempuff/proc/loop_ended(datum/move_loop/source)
 	SIGNAL_HANDLER
 	if(QDELETED(src))
 		return
-	qdel(src)
+	end_life(source)
 
 /obj/effect/decal/chempuff/proc/check_move(datum/move_loop/source, succeeded)
 	if(QDELETED(src))
 		return
 	if(!succeeded || lifetime < 0)
-		qdel(src)
+		end_life(source)
 		return
 
 	var/puff_reagents_string = reagents?.log_list()
@@ -40,7 +44,7 @@
 
 	for(var/atom/movable/turf_atom in our_turf)
 		if(lifetime < 0)
-			qdel(src)
+			end_life(source)
 			break
 
 		//we ignore the puff itself and stuff below the floor

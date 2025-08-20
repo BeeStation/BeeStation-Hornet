@@ -230,6 +230,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Trait that prevents you from being moved when pulled.
 #define TRAIT_NO_MOVE_PULL "no_move_pull"
 #define TRAIT_SILENT_FOOTSTEPS "silent_footsteps" //makes your footsteps completely silent
+/// This mob can strip other mobs.
+#define TRAIT_CAN_STRIP "can_strip"
+#define TRAIT_KNOW_ROBO_WIRES "know_robo_wires"
 
 /// This mob has no soul
 #define TRAIT_NO_SOUL "no_soul"

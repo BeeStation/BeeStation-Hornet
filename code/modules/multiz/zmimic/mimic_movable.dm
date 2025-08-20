@@ -59,6 +59,7 @@
 	return
 
 /atom/movable/openspace/mech_melee_attack(obj/vehicle/sealed/mecha/M)
+	..()
 	return 0
 
 /atom/movable/openspace/blob_act(obj/structure/blob/B)

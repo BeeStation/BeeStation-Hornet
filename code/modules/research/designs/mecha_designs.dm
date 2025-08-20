@@ -273,8 +273,8 @@
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/mech_missile_rack
-	name = "Exosuit Weapon (BRM-6 Missile Rack)"
-	desc = "Allows for the construction of an BRM-6 Breaching Missile Rack."
+	name = "PEP-6 Missile Rack"
+	desc = "Allows for the construction of an PEP-6 Breaching Missile Rack."
 	id = "mech_missile_rack"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/breaching
@@ -283,11 +283,11 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_missile_rack_ammo
-	name = "BRM-6 Missile Rack Ammunition"
-	desc = "Ammunition for the BRM-6 Missile Rack."
+	name = "PEP-6 Missile Rack Ammunition"
+	desc = "Ammunition for the PEP-6 Missile Rack."
 	id = "mech_missile_rack_ammo"
 	build_type = PROTOLATHE | MECHFAB
-	build_path = /obj/item/mecha_ammo/missiles_br
+	build_path = /obj/item/mecha_ammo/missiles_pep
 	materials = list(/datum/material/iron=8000,/datum/material/gold=500)
 	construction_time = 20
 	category = list("Exosuit Ammunition", "Ammo")
@@ -375,32 +375,22 @@
 	construction_time = 100
 	category = list("Exosuit Equipment")
 
-/datum/design/mech_energy_relay
-	name = "Exosuit Module (Tesla Energy Relay)"
-	desc = "Tesla Energy Relay"
-	id = "mech_energy_relay"
-	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay
-	materials = list(/datum/material/iron=10000,/datum/material/glass =  2000,/datum/material/gold=2000,/datum/material/silver=3000)
-	construction_time = 100
-	category = list("Exosuit Equipment")
-
 /datum/design/mech_ccw_armor
 	name = "Exosuit Module (Reactive Armor Booster Module)"
-	desc = "Exosuit-mounted armor booster."
+	desc = "Exosuit-mounted melee armor booster."
 	id = "mech_ccw_armor"
 	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster
+	build_path = /obj/item/mecha_parts/mecha_equipment/armor/anticcw_armor_booster
 	materials = list(/datum/material/iron=20000,/datum/material/silver=5000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_proj_armor
 	name = "Exosuit Module (Reflective Armor Booster Module)"
-	desc = "Exosuit-mounted armor booster."
+	desc = "Exosuit-mounted ranged armor booster."
 	id = "mech_proj_armor"
 	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster
+	build_path = /obj/item/mecha_parts/mecha_equipment/armor/antiproj_armor_booster
 	materials = list(/datum/material/iron=20000,/datum/material/gold=5000)
 	construction_time = 100
 	category = list("Exosuit Equipment")

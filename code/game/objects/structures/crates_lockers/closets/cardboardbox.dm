@@ -57,11 +57,12 @@
 				L.do_alert_animation(L)
 		playsound(loc, 'sound/machines/chime.ogg', 50, FALSE, -5)
 
-/mob/living/proc/do_alert_animation(atom/A)
-	var/image/I = image('icons/obj/storage/closet.dmi', A, "cardboard_special", A.layer+1)
-	flick_overlay_view(I, A, 8)
-	I.alpha = 0
-	animate(I, pixel_z = 32, alpha = 255, time = 5, easing = ELASTIC_EASING)
+/mob/living/proc/do_alert_animation()
+	var/image/alert_image = image('icons/obj/storage/closet.dmi', src, "cardboard_special", layer+1)
+	alert_image.plane = ABOVE_LIGHTING_PLANE
+	flick_overlay_view(alert_image, 0.8 SECONDS)
+	alert_image.alpha = 0
+	animate(alert_image, pixel_z = 32, alpha = 255, time = 5, easing = ELASTIC_EASING)
 
 
 /obj/structure/closet/cardboard/metal

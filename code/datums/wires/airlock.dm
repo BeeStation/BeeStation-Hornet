@@ -9,8 +9,14 @@
 	wires = list(
 		WIRE_POWER1,
 		WIRE_BACKUP1,
-		WIRE_OPEN, WIRE_BOLTS, WIRE_IDSCAN, WIRE_AI,
-		WIRE_SHOCK, WIRE_SAFETY, WIRE_TIMING, WIRE_LIGHT,
+		WIRE_OPEN,
+		WIRE_BOLTS,
+		WIRE_IDSCAN,
+		WIRE_AI,
+		WIRE_SHOCK,
+		WIRE_SAFETY,
+		WIRE_TIMING,
+		WIRE_BOLTLIGHT,
 	)
 	src.security_level = security_level
 	//Add more power wires
@@ -125,7 +131,7 @@
 					A.close()
 			if(WIRE_TIMING)
 				A.normalspeed = !A.normalspeed
-			if(WIRE_LIGHT)
+			if(WIRE_BOLTLIGHT)
 				A.lights = !A.lights
 				A.update_icon()
 			if(WIRE_ZAP1, WIRE_ZAP2) // Doors have a lot of power coursing through them, even a multitool can be overloaded on the wrong wires
@@ -187,7 +193,7 @@
 			A.autoclose = mend
 			if(A.autoclose && !A.density)
 				A.close()
-		if(WIRE_LIGHT) // Cut to disable lights, mend to re-enable.
+		if(WIRE_BOLTLIGHT) // Cut to disable lights, mend to re-enable.
 			A.lights = mend
 			A.update_icon()
 	ui_update()
