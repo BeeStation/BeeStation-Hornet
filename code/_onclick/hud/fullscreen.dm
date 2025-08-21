@@ -62,7 +62,7 @@
 /atom/movable/screen/fullscreen
 	icon = 'icons/hud/fullscreen/screen_full.dmi'
 	icon_state = "default"
-	screen_loc = "CENTER-7,CENTER-7"
+	//screen_loc = "CENTER-7,CENTER-7"
 	layer = FULLSCREEN_LAYER
 	plane = FULLSCREEN_PLANE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
@@ -74,7 +74,9 @@
 	if (screen_loc == "CENTER-7,CENTER-7" && view != client_view)
 		var/list/actualview = getviewsize(client_view)
 		view = client_view
-		transform = matrix(actualview[1]/FULLSCREEN_OVERLAY_RESOLUTION_X, 0, 0, 0, actualview[2]/FULLSCREEN_OVERLAY_RESOLUTION_Y, 0)
+		var/matrix/fullscreentrix = matrix(actualview[1]/FULLSCREEN_OVERLAY_RESOLUTION_X, 0, 0, 0, actualview[2]/FULLSCREEN_OVERLAY_RESOLUTION_Y, 0)
+		fullscreentrix.Scale(2.2,2.2) //ISOMETRIC!!
+		transform = fullscreentrix
 
 /atom/movable/screen/fullscreen/proc/should_show_to(mob/mymob)
 	if(!show_when_dead && mymob.stat == DEAD)

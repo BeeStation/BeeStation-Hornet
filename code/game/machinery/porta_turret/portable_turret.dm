@@ -23,6 +23,7 @@
 	max_integrity = 160
 	integrity_failure = 0.5
 	armor_type = /datum/armor/machinery_porta_turret
+	isometric_mode = ISOMETRIC_FLATTEN
 
 	/// If TRUE, this will cause the turret to stop working if the stored_gun var is null in process()
 	var/uses_stored = TRUE

@@ -18,6 +18,7 @@
 	armor_type = /datum/armor/structure_grille
 	max_integrity = 50
 	integrity_failure = 0.4
+	isometric_mode = ISOMETRIC_BLOCKIFY
 	var/rods_type = /obj/item/stack/rods
 	var/rods_amount = 2
 	var/rods_broken = TRUE

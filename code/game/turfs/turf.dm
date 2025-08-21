@@ -212,6 +212,11 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	if(TT)
 		add_turf_texture(TT)
 
+	if(isometric_mode == ISOMETRIC_FLATTEN)
+		flatify()
+	if(isometric_mode == ISOMETRIC_BLOCKIFY)
+		blockify()
+
 	return INITIALIZE_HINT_NORMAL
 
 /// Initializes our adjacent turfs. If you want to avoid this, do not override it, instead set init_air to FALSE

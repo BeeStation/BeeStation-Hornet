@@ -9,6 +9,7 @@
 	plane            = LIGHTING_PLANE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	invisibility     = INVISIBILITY_LIGHTING
+	isometric_mode = ISOMETRIC_FLATTEN
 
 	var/needs_update = FALSE
 	var/turf/myturf

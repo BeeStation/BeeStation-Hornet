@@ -20,6 +20,8 @@
 
 	interaction_flags_atom = INTERACT_ATOM_UI_INTERACT
 
+	isometric_mode = ISOMETRIC_BLOCKIFY
+
 	var/air_tight = FALSE	//TRUE means density will be set as soon as the door begins to close
 	var/visible = TRUE
 	var/operating = FALSE

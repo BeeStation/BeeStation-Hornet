@@ -10,6 +10,7 @@ CREATION_TEST_IGNORE_SELF(/turf/closed)
 	init_air = FALSE
 	rad_insulation = RAD_MEDIUM_INSULATION
 	pass_flags_self = PASSCLOSEDTURF
+	isometric_mode = ISOMETRIC_BLOCKIFY
 
 /turf/closed/Initialize(mapload)
 	. = ..()

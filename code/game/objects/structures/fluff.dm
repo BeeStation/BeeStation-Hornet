@@ -8,6 +8,7 @@
 	anchored = TRUE
 	density = FALSE
 	opacity = FALSE
+	isometric_mode = ISOMETRIC_BLOCKIFY
 	var/deconstructible = TRUE
 
 /obj/structure/fluff/attackby(obj/item/I, mob/living/user, params)

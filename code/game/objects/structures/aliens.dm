@@ -87,6 +87,7 @@
 	base_icon_state = "resin_wall"
 	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN, SMOOTH_GROUP_ALIEN_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WALLS)
+	isometric_mode = ISOMETRIC_BLOCKIFY
 
 /obj/structure/alien/resin/membrane
 	name = "resin membrane"
@@ -98,6 +99,7 @@
 	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WALLS)
 	opacity = FALSE
 	max_integrity = 160
+	isometric_mode = ISOMETRIC_BLOCKIFY
 
 /obj/structure/alien/resin/attack_paw(mob/user)
 	return attack_hand(user)
@@ -124,6 +126,7 @@
 	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN, SMOOTH_GROUP_ALIEN_WEEDS)
 	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WEEDS)
 	max_integrity = 15
+	isometric_mode = ISOMETRIC_FLATTEN
 	var/last_expand = 0 //last world.time this weed expanded
 	var/growth_cooldown_low = 150
 	var/growth_cooldown_high = 200

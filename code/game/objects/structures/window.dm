@@ -17,6 +17,7 @@
 	rad_flags = RAD_PROTECT_CONTENTS
 	pass_flags_self = PASSTRANSPARENT
 	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
+	isometric_mode = ISOMETRIC_FLATTEN
 	var/ini_dir = null
 	var/state = WINDOW_OUT_OF_FRAME
 	var/reinf = FALSE
@@ -619,6 +620,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	flags_1 = PREVENT_CLICK_UNDER_1
 	obj_flags = CAN_BE_HIT
 	glass_amount = 2
+	isometric_mode = ISOMETRIC_BLOCKIFY
 
 /obj/structure/window/fulltile/unanchored
 	anchored = FALSE
@@ -636,6 +638,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	obj_flags = CAN_BE_HIT
 	rad_insulation = RAD_FULL_INSULATION
 	glass_amount = 2
+	isometric_mode = ISOMETRIC_BLOCKIFY
 
 /obj/structure/window/depleteduranium/fulltile/unanchored
 	anchored = FALSE
@@ -657,6 +660,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	flags_1 = PREVENT_CLICK_UNDER_1
 	obj_flags = CAN_BE_HIT
 	glass_amount = 2
+	isometric_mode = ISOMETRIC_BLOCKIFY
 
 /obj/structure/window/plasma/fulltile/unanchored
 	anchored = FALSE
@@ -673,6 +677,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	flags_1 = PREVENT_CLICK_UNDER_1
 	obj_flags = CAN_BE_HIT
 	glass_amount = 2
+	isometric_mode = ISOMETRIC_BLOCKIFY
 
 /obj/structure/window/plasma/reinforced/fulltile/unanchored
 	anchored = FALSE
@@ -689,6 +694,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	flags_1 = PREVENT_CLICK_UNDER_1
 	obj_flags = CAN_BE_HIT
 	glass_amount = 2
+	isometric_mode = ISOMETRIC_BLOCKIFY
 
 /obj/structure/window/reinforced/fulltile/unanchored
 	anchored = FALSE
@@ -704,6 +710,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	flags_1 = PREVENT_CLICK_UNDER_1
 	obj_flags = CAN_BE_HIT
 	glass_amount = 2
+	isometric_mode = ISOMETRIC_BLOCKIFY
 
 /obj/structure/window/reinforced/tinted/fulltile/nightclub
 	color = "#9b1d70"
@@ -717,6 +724,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE)
 	max_integrity = 150
 	glass_amount = 2
+	isometric_mode = ISOMETRIC_BLOCKIFY
 
 /obj/structure/window/shuttle
 	name = "shuttle window"
@@ -777,7 +785,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	explosion_block = 3
 	glass_type = /obj/item/stack/sheet/plastitaniumglass
 	glass_amount = 2
-
+	isometric_mode = ISOMETRIC_BLOCKIFY
 
 /datum/armor/window_plastitanium
 	melee = 50
@@ -814,6 +822,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	bashsound = 'sound/weapons/slashmiss.ogg'
 	breaksound = 'sound/items/poster_ripped.ogg'
 	hitsound = 'sound/weapons/slashmiss.ogg'
+	isometric_mode = ISOMETRIC_BLOCKIFY
 	var/static/mutable_appearance/torn = mutable_appearance('icons/obj/smooth_structures/windows/paperframes.dmi',icon_state = "torn", layer = ABOVE_OBJ_LAYER - 0.1)
 	var/static/mutable_appearance/paper = mutable_appearance('icons/obj/smooth_structures/windows/paperframes.dmi',icon_state = "paper", layer = ABOVE_OBJ_LAYER - 0.1)
 
@@ -893,6 +902,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	obj_flags = CAN_BE_HIT
 	max_integrity = 50
 	glass_amount = 2
+	isometric_mode = ISOMETRIC_BLOCKIFY
 
 /obj/structure/window/bronze/fulltile/unanchored
 	anchored = FALSE

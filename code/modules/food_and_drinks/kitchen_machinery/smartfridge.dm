@@ -18,6 +18,7 @@
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
 	integrity_failure = 0.5
 	can_atmos_pass = ATMOS_PASS_NO
+	isometric_mode = ISOMETRIC_BLOCKIFY
 	/// Icon state part for contents display
 	var/contents_overlay_icon = "plant"
 	/// What path boards used to construct it should build into when dropped. Needed so we don't accidentally have them build variants with items preloaded in them.

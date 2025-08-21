@@ -14,6 +14,7 @@
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_GIRDER)
 	canSmoothWith = list(SMOOTH_GROUP_GIRDER)
+	isometric_mode = ISOMETRIC_BLOCKIFY
 	var/state = GIRDER_NORMAL
 	var/girderpasschance = 20 // percentage chance that a projectile passes through the girder.
 	var/can_displace = TRUE //If the girder can be moved around by wrenching it

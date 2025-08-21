@@ -8,6 +8,7 @@
 	max_integrity = 1
 	armor_type = /datum/armor/structure_holosign
 	layer = BELOW_OBJ_LAYER
+	isometric_mode = ISOMETRIC_BLOCKIFY
 	var/obj/item/holosign_creator/projector
 
 

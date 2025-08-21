@@ -9,6 +9,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/turf/open/openspace)
 	underfloor_accessibility = UNDERFLOOR_INTERACTABLE
 	allow_z_travel = TRUE
 	resistance_flags = INDESTRUCTIBLE
+	isometric_mode = ISOMETRIC_FLATTEN
 	//mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 	/* PORT WITH JPS IMPROVEMENT PR

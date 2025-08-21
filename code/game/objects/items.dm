@@ -27,15 +27,15 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	//eg: 32x32 sprite, 64x64 sprite, etc.
 	//allows inhands/worn sprites to be of any size, but still centered on a mob properly
 	/// x dimension of the worn sprite
-	var/worn_x_dimension = 32
+	var/worn_x_dimension = 64
 	/// y dimension of the worn sprite
-	var/worn_y_dimension = 32
+	var/worn_y_dimension = 64
 
 	//Same as above but for inhands, uses the lefthand_ and righthand_ file vars
 	/// x dimension of the inhand sprite
-	var/inhand_x_dimension = 32
+	var/inhand_x_dimension = 64
 	/// y dimension of the inhand sprite
-	var/inhand_y_dimension = 32
+	var/inhand_y_dimension = 64
 	/// Worn overlay will be shifted by this along y axis
 	var/worn_y_offset = 0
 

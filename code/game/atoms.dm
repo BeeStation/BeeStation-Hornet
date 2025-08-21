@@ -10,6 +10,8 @@
 	plane = GAME_PLANE
 	appearance_flags = TILE_BOUND|LONG_GLIDE
 
+	var/isometric_mode = ISOMETRIC_NONE
+
 	/// pass_flags that we are. If any of this matches a pass_flag on a moving thing, by default, we let them through.
 	var/pass_flags_self = NONE
 
@@ -262,6 +264,19 @@
 
 	ComponentInitialize()
 	InitializeAIController()
+	if(isProbablyWallMounted(src) && !isometric_mode)
+		isometric_mode = ISOMETRIC_WALLMOUNTED
+	if(isometric_mode == ISOMETRIC_FLATTEN)
+		flatify()
+	if(isometric_mode == ISOMETRIC_BLOCKIFY)
+		blockify()
+	if(isometric_mode == ISOMETRIC_WALLMOUNTED)
+		wallmountify()
+	if(isometric_mode == ISOMETRIC_TABLE)
+		tableify()
+
+	if(isometric_mode == NONE && ismob(src))
+		pixel_z += 10
 
 	if(length(smoothing_groups))
 		#ifdef UNIT_TESTS

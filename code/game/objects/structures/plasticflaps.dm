@@ -8,7 +8,7 @@
 	anchored = TRUE
 	layer = BELOW_OBJ_LAYER
 	can_atmos_pass = ATMOS_PASS_NO
-
+	isometric_mode = ISOMETRIC_BLOCKIFY
 
 /datum/armor/structure_plasticflaps
 	melee = 100

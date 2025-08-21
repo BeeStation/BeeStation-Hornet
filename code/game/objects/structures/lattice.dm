@@ -13,6 +13,7 @@
 	max_integrity = 50
 	layer = LATTICE_LAYER //under pipes
 	plane = FLOOR_PLANE
+	isometric_mode = ISOMETRIC_FLATTEN
 	var/number_of_rods = 1
 	//	flags = CONDUCT_1
 	z_flags = Z_BLOCK_OUT_DOWN

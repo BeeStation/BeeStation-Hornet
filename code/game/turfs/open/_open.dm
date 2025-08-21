@@ -3,6 +3,7 @@ CREATION_TEST_IGNORE_SELF(/turf/open)
 /turf/open
 	plane = FLOOR_PLANE
 	can_hit = FALSE
+	isometric_mode = ISOMETRIC_FLATTEN
 	FASTDMM_PROP(\
 		pipe_astar_cost = 1.5\
 	)

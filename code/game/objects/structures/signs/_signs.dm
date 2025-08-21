@@ -8,6 +8,7 @@
 	armor_type = /datum/armor/structure_sign
 	var/buildable_sign = 1 //unwrenchable and modifiable
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
+	isometric_mode = ISOMETRIC_WALLMOUNTED //a lot of signs are centered on the tile so lets just do this to be sure to catch all of them
 
 
 /datum/armor/structure_sign

@@ -44,6 +44,7 @@ Possible to do for anyone motivated enough:
 	max_integrity = 300
 	armor_type = /datum/armor/machinery_holopad
 	circuit = /obj/item/circuitboard/machine/holopad
+	isometric_mode = ISOMETRIC_FLATTEN
 	var/list/masters //List of living mobs that use the holopad
 	var/list/holorays //Holoray-mob link.
 	var/last_request = 0 //to prevent request spam. ~Carn

@@ -358,3 +358,17 @@ AUTH_CLIENT_VERB(vote_to_leave)
 		player_details.voted_to_leave = TRUE
 		SSautotransfer.connected_votes_to_leave++
 		to_chat(src, "<font color='purple'>You are now voting for the current round to end.</font>")
+
+AUTH_CLIENT_VERB(dir_left)
+	set name = "Change Perspective Left"
+	set desc = "Changes your perspective to the left."
+	set category = "OOC"
+
+	dir = turn(dir, -90)
+
+AUTH_CLIENT_VERB(dir_right)
+	set name = "Change Perspective Right"
+	set desc = "Changes your perspective to the right."
+	set category = "OOC"
+
+	dir = turn(dir, 90)
