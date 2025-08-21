@@ -297,7 +297,7 @@
 	. = ..()
 	affected_mob.damageoverlaytemp = 60
 	affected_mob.update_damage_hud()
-	affected_mob.blur_eyes(3 * REM * delta_time)
+	affected_mob.set_eye_blur_if_lower(6 SECONDS * REM * delta_time)
 
 /datum/reagent/toxin/spore_burning
 	name = "Burning Spore Toxin"
@@ -326,8 +326,8 @@
 	. = ..()
 	switch(current_cycle)
 		if(1 to 10)
-			affected_mob.confused += 2 * REM * delta_time
-			affected_mob.drowsyness += 2 * REM * delta_time
+			affected_mob.adjust_confusion(2 SECONDS * REM * delta_time)
+			affected_mob.adjust_drowsiness(4 SECONDS * REM * delta_time)
 		if(10 to 50)
 			affected_mob.Sleeping(40 * REM * delta_time)
 		if(51 to INFINITY)
@@ -400,7 +400,11 @@
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST | CHEMICAL_GOAL_BARTENDER_SERVING
 	toxpwr = 0
 	taste_description = "silence"
-	metabolized_traits = list(TRAIT_MUTE)
+
+/datum/reagent/toxin/mutetoxin/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	// Gain approximately 12 seconds * creation purity seconds of silence every metabolism tick.
+	affected_mob.set_silence_if_lower(6 SECONDS * REM * delta_time)
 
 /datum/reagent/toxin/staminatoxin
 	name = "Tirizene"
@@ -454,11 +458,12 @@
 	toxpwr = 0
 
 /datum/reagent/toxin/histamine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
 	if(DT_PROB(30, delta_time))
 		switch(pick(1, 2, 3, 4))
 			if(1)
 				to_chat(affected_mob, span_danger("You can barely see!"))
-				affected_mob.blur_eyes(3)
+				affected_mob.set_eye_blur_if_lower(6 SECONDS)
 			if(2)
 				affected_mob.emote("cough")
 			if(3)
@@ -466,9 +471,8 @@
 			if(4)
 				if(prob(75))
 					to_chat(affected_mob, "You scratch at an itch.")
-					affected_mob.adjustBruteLoss(2 * REM, updating_health = FALSE)
+					affected_mob.adjustBruteLoss(2 * REM * delta_time, updating_health = FALSE)
 					return UPDATE_MOB_HEALTH
-	..()
 
 /datum/reagent/toxin/histamine/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -1034,9 +1038,16 @@
 /datum/reagent/toxin/bungotoxin/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_HEART, 3 * REM * delta_time)
-	affected_mob.confused = affected_mob.dizziness //add a tertiary effect here if this is isn't an effective poison.
-	if(current_cycle >= 12 && DT_PROB(4, delta_time))
-		to_chat(affected_mob, span_notice(pick("You feel your heart spasm in your chest.", "You feel faint.","You feel you need to catch your breath.","You feel a prickle of pain in your chest.")))
+
+	// If our mob's currently dizzy from anything else, we will also gain confusion
+	var/mob_dizziness = affected_mob.get_timed_status_effect_duration(/datum/status_effect/confusion)
+	if(mob_dizziness > 0)
+		// Gain confusion equal to about half the duration of our current dizziness
+		affected_mob.set_confusion(mob_dizziness / 2)
+
+	if(current_cycle >= 13 && DT_PROB(4, delta_time))
+		var/tox_message = pick("You feel your heart spasm in your chest.", "You feel faint.","You feel you need to catch your breath.","You feel a prickle of pain in your chest.")
+		to_chat(affected_mob, span_notice("[tox_message]"))
 
 //This reagent is intentionally not designed to give much fighting chance. Its only ever used when morph manages to trick somebody into interacting with its disguised form
 /datum/reagent/toxin/morphvenom
@@ -1050,10 +1061,10 @@
 
 /datum/reagent/toxin/morphvenom/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.set_drugginess(5)
+	affected_mob.set_timed_status_effect(10 SECONDS * REM * delta_time, /datum/status_effect/drugginess)
 	affected_mob.adjustStaminaLoss(30 * REM * delta_time, updating_health = FALSE)
-	affected_mob.silent = max(affected_mob.silent, 3 * REM * delta_time)
-	affected_mob.confused = max(affected_mob.confused, 10 * REM * delta_time)
+	affected_mob.set_silence_if_lower(6 SECONDS * REM * delta_time)
+	affected_mob.adjust_confusion(3 SECONDS * REM * delta_time)
 	return UPDATE_MOB_HEALTH
 
 /datum/reagent/toxin/morphvenom/mimite

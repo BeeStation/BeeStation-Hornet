@@ -46,10 +46,6 @@
 
 		handle_gravity(delta_time, times_fired)
 
-		if(stat != DEAD)
-			handle_traits(delta_time, times_fired) // eye, ear, brain damages
-			handle_status_effects(delta_time, times_fired) //all special effects, stun, knockdown, jitteryness, hallucination, sleeping, etc
-
 	handle_fire(delta_time, times_fired)
 
 	if(machine)
@@ -104,27 +100,12 @@
 	var/turf/location = get_turf(src)
 	location.hotspot_expose(700, 25 * delta_time, TRUE)
 
-//this updates all special effects: knockdown, druggy, stuttering, etc..
-/mob/living/proc/handle_status_effects(delta_time, times_fired)
-	if(confused)
-		confused = max(0, confused - (1 * delta_time))
-
-/mob/living/proc/handle_traits(delta_time, times_fired)
-	//Eyes
-	if(eye_blind) //blindness, heals slowly over time
-		if(HAS_TRAIT_FROM(src, TRAIT_BLIND, EYES_COVERED)) //covering your eyes heals blurry eyes faster
-			adjust_blindness(-1.5 * delta_time)
-		else if(!stat && !(HAS_TRAIT(src, TRAIT_BLIND)))
-			adjust_blindness(-0.5 * delta_time)
-	else if(eye_blurry) //blurry eyes heal slowly
-		adjust_blurriness(-0.5 * delta_time)
-
 /mob/living/proc/update_damage_hud()
 	return
 
-/mob/living/proc/handle_gravity(seconds_per_tick, times_fired)
+/mob/living/proc/handle_gravity(delta_time, times_fired)
 	if(gravity_state > STANDARD_GRAVITY)
-		handle_high_gravity(gravity_state, seconds_per_tick, times_fired)
+		handle_high_gravity(gravity_state, delta_time, times_fired)
 
 /mob/living/proc/gravity_animate()
 	if(!get_filter("gravity"))
@@ -132,11 +113,11 @@
 	animate(get_filter("gravity"), y = 1, time = 10, loop = -1)
 	animate(y = 0, time = 10)
 
-/mob/living/proc/handle_high_gravity(gravity, seconds_per_tick, times_fired)
+/mob/living/proc/handle_high_gravity(gravity, delta_time, times_fired)
 	if(gravity < GRAVITY_DAMAGE_THRESHOLD) //Aka gravity values of 3 or more
 		return
 
 	var/grav_strength = gravity - GRAVITY_DAMAGE_THRESHOLD
-	adjustBruteLoss(min(GRAVITY_DAMAGE_SCALING * grav_strength, GRAVITY_DAMAGE_MAXIMUM) * seconds_per_tick)
+	adjustBruteLoss(min(GRAVITY_DAMAGE_SCALING * grav_strength, GRAVITY_DAMAGE_MAXIMUM) * delta_time)
 
 #undef BODYTEMP_DIVISOR

@@ -671,10 +671,10 @@
 		to_chat(target, span_userdanger("[user] sprays [src] into your face!"))
 
 		if(C.client)
-			C.blur_eyes(3)
-			C.adjust_blindness(1)
+			C.set_eye_blur_if_lower(6 SECONDS)
+			C.adjust_temp_blindness(2 SECONDS)
 		if(!C.is_eyes_covered()) // no eye protection? ARGH IT BURNS.
-			C.confused = max(C.confused, 3)
+			C.adjust_confusion(3 SECONDS)
 			C.Paralyze(60)
 		if(ishuman(C) && actually_paints)
 			var/mob/living/carbon/human/H = C

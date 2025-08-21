@@ -37,12 +37,15 @@
 
 	var/mob/living/living_hit = victim
 	living_hit.apply_damage(10, BRUTE)
-	if(iscarbon(victim))
-		var/mob/living/carbon/carbon_hit = victim
-		carbon_hit.silent = 3 SECONDS
-		carbon_hit.slurring = 7 SECONDS
-		carbon_hit.AdjustKnockdown(5 SECONDS)
-		carbon_hit.adjustStaminaLoss(80)
+	if(!iscarbon(victim))
+		return TRUE
+
+	var/mob/living/carbon/carbon_hit = victim
+
+	carbon_hit.set_silence_if_lower(3 SECONDS)
+	carbon_hit.adjust_timed_status_effect(4 SECONDS, /datum/status_effect/speech/slurring/heretic)
+	carbon_hit.AdjustKnockdown(5 SECONDS)
+	carbon_hit.adjustStaminaLoss(80)
 
 	return TRUE
 
@@ -103,7 +106,7 @@
 			playsound(carbon_user, 'sound/effects/wounds/sizzle1.ogg', 70, vary = TRUE)
 			if(prob(50))
 				carbon_user.emote("scream")
-				//carbon_user.adjust_timed_status_effect(26 SECONDS, /datum/status_effect/speech/stutter)
+				carbon_user.adjust_stutter(26 SECONDS)
 		source.cast_on_hand_hit(src, user, user)
 
 		escape_our_torment++

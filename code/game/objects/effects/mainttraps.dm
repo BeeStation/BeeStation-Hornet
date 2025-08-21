@@ -313,7 +313,7 @@
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if((HAS_TRAIT(H, TRAIT_MUTE)) || H.silent)// NO MIMES
+		if((HAS_TRAIT(H, TRAIT_MUTE)) || H.has_status_effect(/datum/status_effect/silenced))// NO MIMES
 			to_chat(user, span_warning("The quiet cannot comprehend [src]."))
 			return
 		if(HAS_TRAIT(H, TRAIT_LAW_ENFORCEMENT_METABOLISM) || HAS_TRAIT(H, TRAIT_MINDSHIELD))// NO SHITSEC
@@ -374,7 +374,7 @@
 	for(var/mob/living/carbon/human/H in invokers)
 		if(H.stat == DEAD)
 			continue
-		H.adjust_blindness(10)
+		H.adjust_temp_blindness(20 SECONDS)
 		if(prob(10))
 			var/mob/living/simple_animal/hostile/floor_cluwne/cluwne = new(src.loc)
 			cluwne.force_target(H)

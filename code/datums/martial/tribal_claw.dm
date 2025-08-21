@@ -46,8 +46,8 @@
 	D.visible_message(span_warning("[A] scratches [D]'s face with their claws!"), \
 						span_userdanger("[A] scratches your face with their claws!"))
 	D.apply_damage(10, BRUTE, BODY_ZONE_HEAD, def_check)
-	D.confused += 5
-	D.blur_eyes(5)
+	D.adjust_confusion(5 SECONDS)
+	D.set_eye_blur_if_lower(10 SECONDS)
 	A.do_attack_animation(D, ATTACK_EFFECT_CLAW)
 	playsound(get_turf(D), 'sound/weapons/slash.ogg', 50, 1, -1)
 
@@ -74,15 +74,11 @@ Deals 15 brute to head(reduced by armor) and causes a rapid bleeding effect simi
 //Tail Grab, instantly puts your target in a T3 grab and makes them unable to talk for a short time.
 /datum/martial_art/tribal_claw/proc/tailGrab(mob/living/A, mob/living/D)
 	log_combat(A, D, "tail grabbed (Tribal Claw)", name)
-	D.visible_message(span_warning("[A] grabs [D] with their tail!"), \
-						span_userdanger("[A] grabs you with their tail!"))
+	D.visible_message(span_warning("[A] grabs [D] with their tail!"), span_userdanger("[A] grabs you with their tail!"))
 	D.grabbedby(A, 1)
 	D.Knockdown(5) //Without knockdown target still stands up while T3 grabbed.
 	A.setGrabState(GRAB_NECK)
-	if(iscarbon(D))
-		var/mob/living/carbon/carbon_defender = D
-		if(carbon_defender.silent <= 10)
-			carbon_defender.silent = clamp(carbon_defender.silent + 10, 0, 10)
+	D.adjust_silence_up_to(20 SECONDS, 20 SECONDS)
 
 /datum/martial_art/tribal_claw/harm_act(mob/living/A, mob/living/D)
 	add_to_streak("H",D)

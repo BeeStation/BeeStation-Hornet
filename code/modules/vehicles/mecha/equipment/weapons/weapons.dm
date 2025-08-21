@@ -201,14 +201,14 @@
 			continue
 		to_chat(M, "<font color='red' size='7'>HONK</font>")
 		M.SetSleeping(0)
-		M.stuttering += 20
+		M.adjust_stutter(40 SECONDS)
 		M.adjustEarDamage(0, 30)
 		M.Paralyze(60)
 		if(prob(30))
 			M.Stun(200)
 			M.Unconscious(80)
 		else
-			M.Jitter(500)
+			M.set_jitter_if_lower(1000 SECONDS)
 
 	log_message("Honked from [src.name]. HONK!", LOG_MECHA)
 	var/turf/T = get_turf(src)

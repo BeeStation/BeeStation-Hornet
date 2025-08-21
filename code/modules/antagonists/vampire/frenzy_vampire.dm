@@ -100,7 +100,7 @@
 	if(!vampiredatum?.frenzied)
 		return
 	user.adjustFireLoss(0.75)
-	user.Jitter(5)
+	user.set_jitter_if_lower(10 SECONDS)
 
 /datum/movespeed_modifier/frenzy_speed
 	blacklisted_movetypes = (FLYING|FLOATING)

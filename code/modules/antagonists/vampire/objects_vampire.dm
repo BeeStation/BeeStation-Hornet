@@ -309,7 +309,7 @@
 			span_userdanger("[user] performs a ritual, spilling some blood from your [selected_bodypart.name]!"))
 
 		INVOKE_ASYNC(target, TYPE_PROC_REF(/mob, emote), "scream")
-		target.Jitter(5 SECONDS)
+		target.set_jitter(5 SECONDS)
 		target.apply_damage(held_item ? held_item.force / 4 : 2, held_item ? held_item.damtype : BRUTE, selected_bodypart)
 		return TRUE
 	else

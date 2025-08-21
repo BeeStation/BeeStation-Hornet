@@ -118,9 +118,9 @@
 		owner.emote("scream")
 		owner.Paralyze(100)
 
-	owner.jitteriness += 30
-	owner.confused += 30
-	owner.stuttering += 30
+	owner.adjust_jitter(1 MINUTES)
+	owner.adjust_confusion(30 SECONDS)
+	owner.adjust_stutter(1 MINUTES)
 
 	recent_queen_death = TRUE
 	owner.throw_alert("alien_noqueen", /atom/movable/screen/alert/alien_vulnerable)

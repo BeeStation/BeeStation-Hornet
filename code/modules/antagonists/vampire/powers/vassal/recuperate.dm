@@ -36,7 +36,7 @@
 	if(!user)
 		return
 
-	user.Jitter(5 SECONDS)
+	user.set_jitter_if_lower(5 SECONDS)
 	user.adjustStaminaLoss(bloodcost * 1.1)
 	user.adjustBruteLoss(-2.5)
 	user.adjustToxLoss(-2, forced = TRUE)

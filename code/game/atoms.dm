@@ -1334,26 +1334,54 @@
 		return TRUE
 
 /**
-  * call back when a var is edited on this atom
-  *
-  * Can be used to implement special handling of vars
-  *
-  * At the atom level, if you edit a var named "color" it will add the atom colour with
-  * admin level priority to the atom colours list
-  *
-  * Also, if GLOB.Debug2 is FALSE, it sets the ADMIN_SPAWNED_1 flag on flags_1, which signifies
-  * the object has been admin edited
-  */
+ * call back when a var is edited on this atom
+ *
+ * Can be used to implement special handling of vars
+ *
+ * At the atom level, if you edit a var named "color" it will add the atom colour with
+ * admin level priority to the atom colours list
+ *
+ * Also, if GLOB.Debug2 is FALSE, it sets the [ADMIN_SPAWNED_1] flag on [flags_1][/atom/var/flags_1], which signifies
+ * the object has been admin edited
+ */
 /atom/vv_edit_var(var_name, var_value)
 	switch(var_name)
+		if(NAMEOF(src, light_range))
+			if(light_system == STATIC_LIGHT)
+				set_light(l_range = var_value)
+			else
+				set_light_range(var_value)
+			. = TRUE
+		if(NAMEOF(src, light_power))
+			if(light_system == STATIC_LIGHT)
+				set_light(l_power = var_value)
+			else
+				set_light_power(var_value)
+			. = TRUE
+		if(NAMEOF(src, light_color))
+			if(light_system == STATIC_LIGHT)
+				set_light(l_color = var_value)
+			else
+				set_light_color(var_value)
+			. = TRUE
+		if(NAMEOF(src, light_on))
+			set_light_on(var_value)
+			. = TRUE
+		if(NAMEOF(src, light_flags))
+			set_light_flags(var_value)
+			. = TRUE
+		if(NAMEOF(src, smoothing_junction))
+			set_smoothed_icon_state(var_value)
+			. = TRUE
+		if(NAMEOF(src, opacity))
+			set_opacity(var_value)
+			. = TRUE
 		if(NAMEOF(src, base_pixel_x))
 			set_base_pixel_x(var_value)
 			. = TRUE
 		if(NAMEOF(src, base_pixel_y))
 			set_base_pixel_y(var_value)
 			. = TRUE
-		if (NAMEOF(src, _emissive_count))
-			return FALSE
 
 	if(!isnull(.))
 		datum_flags |= DF_VAR_EDITED

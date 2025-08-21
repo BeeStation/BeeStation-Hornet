@@ -1,6 +1,6 @@
 //Here are the procs used to modify status effects of a mob.
 //The effects include: stun, knockdown, unconscious, sleeping, resting, jitteriness, dizziness, ear damage,
-//eye_blind, eye_blurry, druggy, TRAIT_BLIND trait, TRAIT_NEARSIGHT trait, and TRAIT_HUSK trait.
+//eye_blind, trait, and TRAIT_HUSK trait.
 
 
 /mob/living/carbon/IsParalyzed(include_stamcrit = TRUE)
@@ -16,29 +16,6 @@
 	ADD_TRAIT(src, TRAIT_INCAPACITATED, STAMINA)
 	ADD_TRAIT(src, TRAIT_IMMOBILIZED, STAMINA)
 	ADD_TRAIT(src, TRAIT_FLOORED, STAMINA)
-
-
-/mob/living/carbon/adjust_drugginess(amount)
-	druggy = max(druggy+amount, 0)
-	if(druggy)
-		overlay_fullscreen("high", /atom/movable/screen/fullscreen/high)
-		throw_alert("high", /atom/movable/screen/alert/high)
-		SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "high", /datum/mood_event/high)
-		sound_environment_override = SOUND_ENVIRONMENT_DRUGGED
-	else
-		clear_fullscreen("high")
-		clear_alert("high")
-		SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "high")
-		sound_environment_override = SOUND_ENVIRONMENT_NONE
-
-/mob/living/carbon/set_drugginess(amount)
-	druggy = max(amount, 0)
-	if(druggy)
-		overlay_fullscreen("high", /atom/movable/screen/fullscreen/high)
-		throw_alert("high", /atom/movable/screen/alert/high)
-	else
-		clear_fullscreen("high")
-		clear_alert("high")
 
 /mob/living/carbon/adjust_disgust(amount)
 	disgust = clamp(disgust+amount, 0, DISGUST_LEVEL_MAXEDOUT)
@@ -89,8 +66,3 @@
 	var/obj/item/organ/brain/B = get_organ_slot(ORGAN_SLOT_BRAIN)
 	if(B)
 		. = B.cure_all_traumas(resilience, special_method)
-
-/mob/living/carbon/update_blindness(overlay = /atom/movable/screen/fullscreen/blind, add_color, var/can_see = TRUE)
-	var/obj/item/organ/eyes/E = get_organ_slot(ORGAN_SLOT_EYES)
-	can_see = E?.can_see
-	return ..()

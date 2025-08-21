@@ -145,7 +145,7 @@
 			continue
 		if(watcher.stat != CONSCIOUS)
 			continue
-		if(watcher.is_blind() || HAS_TRAIT(watcher, TRAIT_NEARSIGHT))
+		if(watcher.is_blind() || watcher.is_nearsighted_currently())
 			continue
 		if(IS_VAMPIRE(watcher) || IS_VASSAL(watcher))
 			continue

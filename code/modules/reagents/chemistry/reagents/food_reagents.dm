@@ -314,12 +314,12 @@
 		//actually handle the pepperspray effects
 		if(!victim.is_eyes_covered() || !victim.is_mouth_covered())
 			victim.emote("cry")
-			victim.blur_eyes(5) // 10 seconds
-			victim.adjust_blindness(3) // 6 seconds
+			victim.set_eye_blur_if_lower(10 SECONDS)
+			victim.adjust_temp_blindness(6 SECONDS)
+			victim.set_confusion_if_lower(5 SECONDS)
 			victim.Knockdown(3 SECONDS)
 			if(prob(5))
 				victim.emote("scream")
-			victim.confused = max(exposed_mob.confused, 5) // 10 seconds
 			victim.add_movespeed_modifier(/datum/movespeed_modifier/reagent/pepperspray)
 			addtimer(CALLBACK(victim, TYPE_PROC_REF(/mob, remove_movespeed_modifier), /datum/movespeed_modifier/reagent/pepperspray), 10 SECONDS)
 		victim.update_damage_hud()
@@ -376,32 +376,25 @@
 	metabolization_rate = 0.2 * REAGENTS_METABOLISM
 	taste_description = "mushroom"
 
-/datum/reagent/drug/mushroomhallucinogen/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+/datum/reagent/drug/mushroomhallucinogen/on_mob_life(mob/living/carbon/psychonaut, delta_time, times_fired)
 	. = ..()
-	if(ispsyphoza(affected_mob))
+	if(ispsyphoza(psychonaut))
 		return
 
-	if(!affected_mob.slurring)
-		affected_mob.slurring = 1 * REM * delta_time
+	psychonaut.set_slurring_if_lower(1 SECONDS * REM * delta_time)
 
 	switch(current_cycle)
-		if(1 to 5)
-			affected_mob.Dizzy(5 * REM * delta_time)
-			affected_mob.set_drugginess(30 * REM * delta_time)
+		if(2 to 6)
 			if(DT_PROB(5, delta_time))
-				affected_mob.emote(pick("twitch", "giggle"))
-		if(5 to 10)
-			affected_mob.Jitter(10 * REM * delta_time)
-			affected_mob.Dizzy(10 * REM * delta_time)
-			affected_mob.set_drugginess(35 * REM * delta_time)
+				psychonaut.emote(pick("twitch","giggle"))
+		if(6 to 11)
+			psychonaut.set_jitter_if_lower(20 SECONDS * REM * delta_time)
 			if(DT_PROB(10, delta_time))
-				affected_mob.emote(pick("twitch", "giggle"))
-		if (10 to INFINITY)
-			affected_mob.Jitter(20 * REM * delta_time)
-			affected_mob.Dizzy(20 * REM * delta_time)
-			affected_mob.set_drugginess(40 * REM * delta_time)
+				psychonaut.emote(pick("twitch","giggle"))
+		if (11 to INFINITY)
+			psychonaut.set_jitter_if_lower(40 SECONDS * REM * delta_time)
 			if(DT_PROB(16, delta_time))
-				affected_mob.emote(pick("twitch", "giggle"))
+				psychonaut.emote(pick("twitch","giggle"))
 
 /datum/reagent/consumable/garlic //NOTE: having garlic in your blood stops vampires from biting you.
 	name = "Garlic Juice"
@@ -417,13 +410,13 @@
 		if(DT_PROB(min(current_cycle / 2, 12.5), delta_time))
 			to_chat(affected_mob, span_danger("You can't get the scent of garlic out of your nose! You can barely think..."))
 			affected_mob.Paralyze(10)
-			affected_mob.Jitter(10)
-	else if(ishuman(affected_mob))
+			affected_mob.set_jitter_if_lower(20 SECONDS)
+	else
 		var/mob/living/carbon/human/affected_human = affected_mob
 		if(affected_human.job == JOB_NAME_COOK)
 			if(DT_PROB(10, delta_time)) //stays in the system much longer than sprinkles/banana juice, so heals slower to partially compensate
-				affected_human.heal_bodypart_damage(1, 1, updating_health = FALSE)
-				return UPDATE_MOB_HEALTH
+				if(affected_mob.heal_bodypart_damage(brute = 1 * REM * delta_time, burn = 1 * REM * delta_time, updating_health = FALSE))
+					return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/sprinkles
 	name = "Sprinkles"
@@ -620,36 +613,18 @@
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	taste_description = "bitterness"
 
-/datum/reagent/consumable/tearjuice/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
+/datum/reagent/consumable/tearjuice/expose_mob(mob/living/exposed_mob, method = INGEST, reac_volume)
 	. = ..()
-	if(!istype(exposed_mob))
+	if(!ishuman(exposed_mob))
 		return
 
-	var/unprotected = FALSE
-	switch(method)
-		if(INGEST)
-			unprotected = TRUE
-		if(INJECT)
-			unprotected = FALSE
-		else	//Touch or vapor
-			if(!exposed_mob.is_mouth_covered() && !exposed_mob.is_eyes_covered())
-				unprotected = TRUE
-	if(unprotected)
-		if(!exposed_mob.get_organ_slot(ORGAN_SLOT_EYES))	//can't blind somebody with no eyes
-			to_chat(exposed_mob, span_notice("Your eye sockets feel wet."))
-		else
-			if(!exposed_mob.eye_blurry)
-				to_chat(exposed_mob, span_warning("Tears well up in your eyes!"))
-			exposed_mob.adjust_blindness(2)
-			exposed_mob.blur_eyes(5)
-
-/datum/reagent/consumable/tearjuice/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
-	. = ..()
-	if(affected_mob.eye_blurry)	//Don't worsen vision if it was otherwise fine
-		affected_mob.blur_eyes(4 * REM * delta_time)
-		if(DT_PROB(5, delta_time))
-			to_chat(affected_mob, span_warning("Your eyes sting!"))
-			affected_mob.adjust_blindness(2)
+	var/mob/living/carbon/victim = exposed_mob
+	if(method == TOUCH || method == VAPOR)
+		var/tear_proof = victim.is_eyes_covered()
+		if (!tear_proof)
+			to_chat(exposed_mob, span_warning("Your eyes sting!"))
+			victim.emote("cry")
+			victim.adjust_eye_blur(6 SECONDS)
 
 /datum/reagent/consumable/nutriment/stabilized
 	name = "Stabilized Nutriment"
@@ -710,6 +685,7 @@
 
 /datum/reagent/consumable/entpoly/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
+	var/need_mob_update
 	if(current_cycle >= 10)
 		affected_mob.Unconscious(40 * REM * delta_time, FALSE)
 	if(DT_PROB(10, delta_time))
@@ -717,7 +693,9 @@
 		affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2 * REM, 150)
 		affected_mob.adjustToxLoss(3 * REM, updating_health = FALSE)
 		affected_mob.adjustStaminaLoss(10 * REM, updating_health = FALSE)
-		affected_mob.blur_eyes(5)
+		affected_mob.set_eye_blur_if_lower(10 SECONDS)
+		need_mob_update = TRUE
+	if(need_mob_update)
 		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/tinlux

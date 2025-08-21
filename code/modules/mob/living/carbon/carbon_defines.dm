@@ -12,7 +12,6 @@
 	var/list/internal_organs = list()
 	//Same as above, but stores "slot ID" - "organ" pairs for easy access.
 	var/list/internal_organs_slot = list()
-	var/silent = FALSE 		//Can't talk. Value goes down every life proc. //NOTE TO FUTURE CODERS: DO NOT INITIALIZE NUMERICAL VARS AS NULL OR I WILL MURDER YOU.
 	var/dreaming = 0 //How many dream images we have left to send
 	///Whether or not the mob is currently handcuffed, defined as the handcuff item restraining them
 	var/obj/item/restraints/handcuffs/handcuffed = null
@@ -50,8 +49,6 @@
 
 	var/rotate_on_lying = 1
 
-	var/tinttotal = 0	// Total level of visualy impairing items
-
 	var/list/icon_render_keys = list()
 	var/list/bodyparts = list(
 		/obj/item/bodypart/chest,
@@ -75,7 +72,6 @@
 	/// This number is also reset to 0 every tick of carbon Life(). Pain.
 	var/damageoverlaytemp = 0
 
-	var/drunkenness = 0 //Overall drunkenness - check handle_alcohol() in life.dm for effects
 	var/stam_regen_start_time = 0 //used to halt stamina regen temporarily
 	var/stam_heal = 10	//Stamina healed per 2 seconds overall. When the mob has taken more than 60 stamina damage, the rate of stamina regeneration will be increased, up to 20 per second when the mob has taken 120 stamina damage.
 

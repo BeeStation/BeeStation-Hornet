@@ -278,7 +278,7 @@
 
 /mob/living/carbon/proc/ninja_knockdown()
 	Knockdown(3 SECONDS)
-	Jitter(3 SECONDS)
+	set_jitter_if_lower(3 SECONDS)
 
 //CAMERAS//
 /obj/machinery/camera/ninjadrain_act(mob/living/carbon/human/ninja, obj/item/mod/module/hacker/hacking_module)

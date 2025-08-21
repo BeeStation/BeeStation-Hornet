@@ -51,23 +51,24 @@
 	affected_mob.setOxyLoss(0, updating_health = FALSE)
 	affected_mob.setCloneLoss(0, updating_health = FALSE)
 
-	affected_mob.set_blurriness(0)
-	affected_mob.set_blindness(0)
+	affected_mob.remove_status_effect(/datum/status_effect/eye_blur)
+	affected_mob.remove_status_effect(/datum/status_effect/temporary_blindness)
 	affected_mob.SetKnockdown(0)
 	affected_mob.SetStun(0)
 	affected_mob.SetUnconscious(0)
 	affected_mob.SetParalyzed(0)
 	affected_mob.SetImmobilized(0)
-	affected_mob.confused = 0
+	affected_mob.remove_status_effect(/datum/status_effect/confusion)
 	affected_mob.SetSleeping(0)
 
-	affected_mob.silent = FALSE
-	affected_mob.dizziness = 0
+	affected_mob.remove_status_effect(/datum/status_effect/silenced)
+	affected_mob.remove_status_effect(/datum/status_effect/dizziness)
 	affected_mob.disgust = 0
-	affected_mob.drowsyness = 0
-	affected_mob.stuttering = 0
-	affected_mob.slurring = 0
-	affected_mob.jitteriness = 0
+	affected_mob.remove_status_effect(/datum/status_effect/drowsiness)
+	// Remove all speech related status effects
+	for(var/effect in typesof(/datum/status_effect/speech))
+		affected_mob.remove_status_effect(effect)
+	affected_mob.remove_status_effect(/datum/status_effect/jitter)
 	affected_mob.remove_status_effect(/datum/status_effect/hallucination)
 	affected_mob.radiation = 0
 
@@ -100,20 +101,16 @@
 
 /datum/reagent/medicine/synaptizine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.drowsyness = max(affected_mob.drowsyness - (5 * REM * delta_time), 0)
-	affected_mob.AdjustStun(-20 * REM * delta_time)
-	affected_mob.AdjustKnockdown(-20 * REM * delta_time)
-	affected_mob.AdjustUnconscious(-20 * REM * delta_time)
-	affected_mob.AdjustImmobilized(-20 * REM * delta_time)
-	affected_mob.AdjustParalyzed(-20 * REM * delta_time)
+	affected_mob.adjust_drowsiness(-10 SECONDS * REM * delta_time)
+	affected_mob.AdjustAllImmobility(-20 * REM * delta_time)
 
 	if(affected_mob.reagents.has_reagent(/datum/reagent/toxin/mindbreaker))
 		affected_mob.reagents.remove_reagent(/datum/reagent/toxin/mindbreaker, 5 * REM * delta_time)
 
 	affected_mob.adjust_hallucinations(-20 SECONDS * REM * delta_time)
 	if(DT_PROB(16, delta_time))
-		affected_mob.adjustToxLoss(1, updating_health = FALSE)
-		return UPDATE_MOB_HEALTH
+		if(affected_mob.adjustToxLoss(1, updating_health = FALSE))
+			return UPDATE_MOB_HEALTH
 
 /datum/reagent/medicine/synaphydramine
 	name = "Diphen-Synaptizine"
@@ -123,17 +120,16 @@
 
 /datum/reagent/medicine/synaphydramine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.drowsyness = max(affected_mob.drowsyness - (5 * REM * delta_time), 0)
+	affected_mob.adjust_drowsiness(-10 SECONDS * REM * delta_time)
+	if(holder.has_reagent(/datum/reagent/toxin/mindbreaker))
+		holder.remove_reagent(/datum/reagent/toxin/mindbreaker, 5 * REM * delta_time)
+	if(holder.has_reagent(/datum/reagent/toxin/histamine))
+		holder.remove_reagent(/datum/reagent/toxin/histamine, 5 * REM * delta_time)
 	affected_mob.adjust_hallucinations(-20 SECONDS * REM * delta_time)
 
-	if(affected_mob.reagents.has_reagent(/datum/reagent/toxin/mindbreaker))
-		affected_mob.reagents.remove_reagent(/datum/reagent/toxin/mindbreaker, 5 * REM * delta_time)
-	if(affected_mob.reagents.has_reagent(/datum/reagent/toxin/histamine))
-		affected_mob.reagents.remove_reagent(/datum/reagent/toxin/histamine, 5 * REM * delta_time)
-
 	if(DT_PROB(16, delta_time))
-		affected_mob.adjustToxLoss(1, updating_health = FALSE)
-		return UPDATE_MOB_HEALTH
+		if(affected_mob.adjustToxLoss(1 * REM * delta_time, updating_health = FALSE))
+			return UPDATE_MOB_HEALTH
 
 /datum/reagent/medicine/inacusiate
 	name = "Inacusiate"
@@ -243,10 +239,10 @@
 
 /datum/reagent/medicine/rezadone/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.adjustToxLoss(1 * REM * delta_time, updating_health = FALSE)
-	affected_mob.Dizzy(5 * REM * delta_time)
-	affected_mob.Jitter(5 * REM * delta_time)
-	return UPDATE_MOB_HEALTH
+	if(affected_mob.adjustToxLoss(1 * REM * delta_time, updating_health = FALSE))
+		. = UPDATE_MOB_HEALTH
+	affected_mob.set_dizzy_if_lower(10 SECONDS * REM * delta_time)
+	affected_mob.set_jitter_if_lower(10 SECONDS * REM * delta_time)
 
 /datum/reagent/medicine/rezadone/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
 	. = ..()
@@ -699,11 +695,11 @@
 
 /datum/reagent/medicine/ephedrine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
+	var/obj/item/held_item = affected_mob.get_active_held_item()
 	if(DT_PROB(10, delta_time))
-		var/obj/item/held_item = affected_mob.get_active_held_item()
 		if(held_item && affected_mob.dropItemToGround(held_item))
 			to_chat(affected_mob, span_notice("Your hands spaz out and you drop what you were holding!"))
-			affected_mob.Jitter(10)
+			affected_mob.set_jitter_if_lower(20 SECONDS)
 
 	affected_mob.AdjustAllImmobility(-20 * REM * delta_time)
 	affected_mob.adjustStaminaLoss(-10 * REM * delta_time, FALSE)
@@ -729,7 +725,7 @@
 	if(prob(3))
 		affected_mob.visible_message(span_danger("[affected_mob] starts having a seizure!"), span_userdanger("You have a seizure!"))
 		affected_mob.Unconscious(100)
-		affected_mob.Jitter(350)
+		affected_mob.set_jitter_if_lower(400 SECONDS)
 
 	if(prob(33))
 		affected_mob.adjustToxLoss(2 * REM, updating_health = FALSE)
@@ -741,7 +737,7 @@
 	if(prob(6))
 		affected_mob.visible_message(span_danger("[affected_mob] starts having a seizure!"), span_userdanger("You have a seizure!"))
 		affected_mob.Unconscious(100)
-		affected_mob.Jitter(350)
+		affected_mob.set_jitter_if_lower(400 SECONDS)
 
 	if(prob(33))
 		affected_mob.adjustToxLoss(3 * REM, updating_health = FALSE)
@@ -752,7 +748,7 @@
 	if(prob(12))
 		affected_mob.visible_message(span_danger("[affected_mob] starts having a seizure!"), span_userdanger("You have a seizure!"))
 		affected_mob.Unconscious(100)
-		affected_mob.Jitter(350)
+		affected_mob.set_jitter_if_lower(400 SECONDS)
 
 	if(prob(33))
 		affected_mob.adjustToxLoss(4 * REM, updating_health = FALSE)
@@ -764,7 +760,7 @@
 	if(prob(24))
 		affected_mob.visible_message(span_danger("[affected_mob] starts having a seizure!"), span_userdanger("You have a seizure!"))
 		affected_mob.Unconscious(100)
-		affected_mob.Jitter(350)
+		affected_mob.set_jitter_if_lower(400 SECONDS)
 
 	if(prob(33))
 		affected_mob.adjustToxLoss(5 * REM, updating_health = FALSE)
@@ -782,9 +778,9 @@
 /datum/reagent/medicine/diphenhydramine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(DT_PROB(5, delta_time))
-		affected_mob.drowsyness++
-	affected_mob.jitteriness -= 1 * REM * delta_time
-	affected_mob.reagents.remove_reagent(/datum/reagent/toxin/histamine, 3 * REM * delta_time)
+		affected_mob.adjust_drowsiness(2 SECONDS)
+	affected_mob.adjust_jitter(-2 SECONDS * REM * delta_time)
+	holder.remove_reagent(/datum/reagent/toxin/histamine, 3 * REM * delta_time)
 
 /datum/reagent/medicine/morphine
 	name = "Morphine"
@@ -810,30 +806,30 @@
 		if(11)
 			to_chat(affected_mob, span_warning("You start to feel tired...") )
 		if(12 to 24)
-			affected_mob.drowsyness += 1 * REM * delta_time
+			affected_mob.adjust_drowsiness(2 SECONDS * REM * delta_time)
 		if(24 to INFINITY)
-			affected_mob.Sleeping(40 * REM * delta_time)
+			affected_mob.Sleeping(4 SECONDS * REM * delta_time)
 
 /datum/reagent/medicine/morphine/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(DT_PROB(18, delta_time))
 		affected_mob.drop_all_held_items()
-		affected_mob.Dizzy(2)
-		affected_mob.Jitter(2)
+		affected_mob.set_dizzy_if_lower(4 SECONDS)
+		affected_mob.set_jitter_if_lower(4 SECONDS)
 
 /datum/reagent/medicine/morphine/addiction_act_stage1(mob/living/carbon/affected_mob)
 	. = ..()
 	if(prob(33))
 		affected_mob.drop_all_held_items()
-		affected_mob.Jitter(2)
+		affected_mob.set_jitter_if_lower(4 SECONDS)
 
 /datum/reagent/medicine/morphine/addiction_act_stage2(mob/living/carbon/affected_mob)
 	. = ..()
 	if(prob(33))
 		affected_mob.drop_all_held_items()
 		affected_mob.adjustToxLoss(1 * REM, updating_health = FALSE)
-		affected_mob.Dizzy(3)
-		affected_mob.Jitter(3)
+		affected_mob.set_dizzy_if_lower(6 SECONDS)
+		affected_mob.set_jitter_if_lower(6 SECONDS)
 		return UPDATE_MOB_HEALTH
 
 /datum/reagent/medicine/morphine/addiction_act_stage3(mob/living/carbon/affected_mob)
@@ -841,8 +837,8 @@
 	if(prob(33))
 		affected_mob.drop_all_held_items()
 		affected_mob.adjustToxLoss(2 * REM, updating_health = FALSE)
-		affected_mob.Dizzy(4)
-		affected_mob.Jitter(4)
+		affected_mob.set_dizzy_if_lower(8 SECONDS)
+		affected_mob.set_jitter_if_lower(8 SECONDS)
 		return UPDATE_MOB_HEALTH
 
 /datum/reagent/medicine/morphine/addiction_act_stage4(mob/living/carbon/affected_mob)
@@ -850,8 +846,8 @@
 	if(prob(33))
 		affected_mob.drop_all_held_items()
 		affected_mob.adjustToxLoss(3 * REM, updating_health = FALSE)
-		affected_mob.Dizzy(5)
-		affected_mob.Jitter(5)
+		affected_mob.set_dizzy_if_lower(10 SECONDS)
+		affected_mob.set_jitter_if_lower(10 SECONDS)
 		return UPDATE_MOB_HEALTH
 
 /datum/reagent/medicine/oculine
@@ -865,24 +861,22 @@
 
 /datum/reagent/medicine/oculine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
+	affected_mob.adjust_temp_blindness(-4 SECONDS * REM * delta_time)
+	affected_mob.adjust_eye_blur(-4 SECONDS * REM * delta_time)
 	var/obj/item/organ/eyes/eyes = affected_mob.get_organ_slot(ORGAN_SLOT_EYES)
-	if(!eyes)
-		return
-
-	eyes.applyOrganDamage(-2 * REM * delta_time)
-	if(HAS_TRAIT_FROM(affected_mob, TRAIT_BLIND, EYE_DAMAGE))
-		if(DT_PROB(10, delta_time))
-			to_chat(affected_mob, span_warning("Your vision slowly returns..."))
-			affected_mob.cure_blind(EYE_DAMAGE)
-			affected_mob.cure_nearsighted(EYE_DAMAGE)
-			affected_mob.blur_eyes(35)
-	else if(HAS_TRAIT_FROM(affected_mob, TRAIT_NEARSIGHT, EYE_DAMAGE))
-		to_chat(affected_mob, span_warning("The blackness in your peripheral vision fades."))
-		affected_mob.cure_nearsighted(EYE_DAMAGE)
-		affected_mob.blur_eyes(10)
-	else if(affected_mob.is_blind() || affected_mob.eye_blurry)
-		affected_mob.set_blindness(0)
-		affected_mob.set_blurriness(0)
+	if(eyes)
+		// Healing eye damage will cure nearsightedness and blindness from ... eye damage
+		if(eyes.applyOrganDamage(-2 * REM * delta_time))
+			. = UPDATE_MOB_HEALTH
+		// If our eyes are seriously damaged, we have a probability of causing eye blur while healing depending on purity
+		if(eyes.damaged && IS_ORGANIC_ORGAN(eyes) && DT_PROB(16 - min(6, 12), delta_time))
+			// While healing, gives some eye blur
+			if(affected_mob.is_blind_from(EYE_DAMAGE))
+				to_chat(affected_mob, span_warning("Your vision slowly returns..."))
+				affected_mob.adjust_eye_blur(20 SECONDS)
+			else if(affected_mob.is_nearsighted_from(EYE_DAMAGE))
+				to_chat(affected_mob, span_warning("The blackness in your peripheral vision begins to fade."))
+				affected_mob.adjust_eye_blur(5 SECONDS)
 
 /datum/reagent/medicine/atropine
 	name = "Atropine"
@@ -895,26 +889,28 @@
 
 /datum/reagent/medicine/atropine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
+	if(affected_mob.health <= 20)
+		var/need_mob_update
+		need_mob_update = affected_mob.adjustToxLoss(-4* REM * delta_time, updating_health = FALSE)
+		need_mob_update += affected_mob.adjustBruteLoss(-4* REM * delta_time, updating_health = FALSE)
+		need_mob_update += affected_mob.adjustFireLoss(-4* REM * delta_time, updating_health = FALSE)
+		need_mob_update += affected_mob.adjustOxyLoss(-5* REM * delta_time, updating_health = FALSE)
+		if(need_mob_update)
+			. = UPDATE_MOB_HEALTH
+
 	affected_mob.losebreath = 0
 
 	if(DT_PROB(10, delta_time))
-		affected_mob.Dizzy(5)
-		affected_mob.Jitter(5)
+		affected_mob.set_dizzy_if_lower(10 SECONDS)
+		affected_mob.set_jitter_if_lower(10 SECONDS)
 		affected_mob.drop_all_held_items()
-
-	if(affected_mob.health <= 20)
-		affected_mob.adjustToxLoss(-4* REM * delta_time, 0)
-		affected_mob.adjustBruteLoss(-4* REM * delta_time, 0)
-		affected_mob.adjustFireLoss(-4* REM * delta_time, 0)
-		affected_mob.adjustOxyLoss(-5* REM * delta_time, 0)
-		return UPDATE_MOB_HEALTH
 
 /datum/reagent/medicine/atropine/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	affected_mob.reagents.add_reagent(/datum/reagent/toxin/histamine, 3 * REM * delta_time)
 	affected_mob.reagents.remove_reagent(/datum/reagent/medicine/atropine, 2 * REM * delta_time)
-	affected_mob.Dizzy(1 * REM * delta_time)
-	affected_mob.Jitter(1 * REM * delta_time)
+	affected_mob.set_dizzy_if_lower(2 SECONDS * REM * delta_time)
+	affected_mob.set_jitter_if_lower(2 SECONDS * REM * delta_time)
 
 /datum/reagent/medicine/epinephrine
 	name = "Epinephrine"
@@ -1036,7 +1032,7 @@
 
 /datum/reagent/medicine/mutadone/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.jitteriness = 0
+	affected_mob.remove_status_effect(/datum/status_effect/jitter)
 	if(affected_mob.has_dna())
 		affected_mob.dna.remove_all_mutations(mutadone = TRUE)
 
@@ -1046,20 +1042,23 @@
 	color = "#00B4C8"
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "raw egg"
+	/// All status effects we remove on metabolize.
+	/// Does not include drunk (despite what you may thing) as that's decresed gradually
+	var/static/list/status_effects_to_clear = list(
+		/datum/status_effect/confusion,
+		/datum/status_effect/dizziness,
+		/datum/status_effect/drowsiness,
+		/datum/status_effect/speech/slurring/drunk,
+	)
 
 /datum/reagent/medicine/antihol/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(!HAS_TRAIT(affected_mob, TRAIT_LIGHT_DRINKER))
-		affected_mob.dizziness = 0
-		affected_mob.drowsyness = 0
-		affected_mob.slurring = 0
-		affected_mob.confused = 0
-		if(ishuman(affected_mob))
-			var/mob/living/carbon/human/affected_human = affected_mob
-			affected_human.drunkenness = max(affected_human.drunkenness - (10 * REM * delta_time), 0)
-	affected_mob.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 3 * REM * delta_time, FALSE, TRUE)
-	affected_mob.adjustToxLoss(-0.2 * REM * delta_time, updating_health = FALSE)
-	return UPDATE_MOB_HEALTH
+	for(var/effect in status_effects_to_clear)
+		affected_mob.remove_status_effect(effect)
+	affected_mob.reagents.remove_reagent(/datum/reagent/consumable/ethanol, 8 * REM * delta_time, include_subtypes = TRUE)
+	if(affected_mob.adjustToxLoss(-0.2 * REM * delta_time, updating_health = FALSE))
+		. = UPDATE_MOB_HEALTH
+	affected_mob.adjust_drunk_effect(-10 * REM * delta_time)
 
 //Stimulants. Used in Adrenal Implant
 /datum/reagent/medicine/amphetamine
@@ -1113,7 +1112,7 @@
 	. = ..()
 	affected_mob.AdjustAllImmobility(-80, FALSE)
 	affected_mob.adjustStaminaLoss(-80, updating_health = FALSE)
-	affected_mob.Jitter(300)
+	affected_mob.set_jitter_if_lower(20 SECONDS * REM * delta_time)
 
 /datum/reagent/medicine/pumpup/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -1297,14 +1296,14 @@
 	var/obj/item/organ/liver/liver = affected_mob.get_organ_slot(ORGAN_SLOT_LIVER)
 	if(liver.damage > 0)
 		liver.damage = max(liver.damage - 4 * repair_strength, 0)
-		affected_mob.confused = 2
+		affected_mob.set_confusion_if_lower(4 SECONDS)
 	affected_mob.adjustToxLoss(-6 * REM * delta_time, updating_health = FALSE)
 	return UPDATE_MOB_HEALTH
 
 /datum/reagent/medicine/hepanephrodaxon/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2)
-	affected_mob.confused = 2
+	affected_mob.set_confusion_if_lower(4 SECONDS)
 
 /datum/reagent/medicine/inaprovaline
 	name = "Inaprovaline"
@@ -1398,16 +1397,25 @@
 
 /datum/reagent/medicine/earthsblood/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.adjustBruteLoss(-3 * REM * delta_time, updating_health = FALSE)
-	affected_mob.adjustFireLoss(-3 * REM * delta_time, updating_health = FALSE)
-	affected_mob.adjustOxyLoss(-15 * REM * delta_time, updating_health = FALSE)
-	affected_mob.adjustToxLoss(-3 * REM * delta_time, updating_health = FALSE)
-	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1 * REM * delta_time, 150) //This does, after all, come from ambrosia, and the most powerful ambrosia in existence, at that!
-	affected_mob.adjustCloneLoss(-1 * REM * delta_time, updating_health = FALSE)
-	affected_mob.adjustStaminaLoss(-30 * REM * delta_time, updating_health = FALSE)
-	affected_mob.jitteriness = clamp(affected_mob.jitteriness + (3 * REM * delta_time), 0, 30)
-	affected_mob.druggy = clamp(affected_mob.druggy + (10 * REM * delta_time), 0, 15 * REM * delta_time) //See above
-	return UPDATE_MOB_HEALTH
+	var/need_mob_update
+	if(current_cycle < 25) //10u has to be processed before u get into THE FUN ZONE
+		need_mob_update = affected_mob.adjustBruteLoss(-1 * REM * delta_time, updating_health = FALSE)
+		need_mob_update += affected_mob.adjustFireLoss(-1 * REM * delta_time, updating_health = FALSE)
+		need_mob_update += affected_mob.adjustOxyLoss(-0.5 * REM * delta_time, updating_health = FALSE)
+		need_mob_update += affected_mob.adjustToxLoss(-0.5 * REM * delta_time, updating_health = FALSE)
+		need_mob_update += affected_mob.adjustStaminaLoss(-2 * REM * delta_time, updating_health = FALSE)
+		need_mob_update += affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1 * REM * delta_time, 150) //This does, after all, come from ambrosia, and the most powerful ambrosia in existence, at that!
+	else
+		need_mob_update = affected_mob.adjustBruteLoss(-5 * REM * delta_time, updating_health = FALSE) //slow to start, but very quick healing once it gets going
+		need_mob_update += affected_mob.adjustFireLoss(-5 * REM * delta_time, updating_health = FALSE)
+		need_mob_update += affected_mob.adjustOxyLoss(-3 * REM * delta_time, updating_health = FALSE)
+		need_mob_update += affected_mob.adjustToxLoss(-3 * REM * delta_time, updating_health = FALSE)
+		need_mob_update += affected_mob.adjustStaminaLoss(-8 * REM * delta_time, updating_health = FALSE)
+		need_mob_update += affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2 * REM * delta_time, 150)
+		affected_mob.adjust_jitter_up_to(6 SECONDS * REM * delta_time, 1 MINUTES)
+	affected_mob.adjust_drugginess_up_to(20 SECONDS * REM * delta_time, 30 SECONDS * REM * delta_time)
+	if(need_mob_update)
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/medicine/earthsblood/overdose_process(mob/living/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -1425,20 +1433,25 @@
 
 /datum/reagent/medicine/haloperidol/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.drowsyness += 2 * REM * delta_time
-	affected_mob.adjustStaminaLoss(2.5 * REM * delta_time, updating_health = FALSE)
-
 	for(var/datum/reagent/drug/drug in affected_mob.reagents.reagent_list)
 		affected_mob.reagents.remove_reagent(drug.type, 5 * REM * delta_time)
-	if(affected_mob.jitteriness >= 3)
-		affected_mob.jitteriness -= 3 * REM * delta_time
+	affected_mob.adjust_drowsiness(4 SECONDS * REM * delta_time)
+
+	if(affected_mob.get_timed_status_effect_duration(/datum/status_effect/jitter) >= 6 SECONDS)
+		affected_mob.adjust_jitter(-6 SECONDS * REM * delta_time)
+
 	if (affected_mob.get_timed_status_effect_duration(/datum/status_effect/hallucination) >= 10 SECONDS)
 		affected_mob.adjust_hallucinations(-10 SECONDS * REM * delta_time)
 
-	if(DT_PROB(10, delta_time))
-		affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1, 50)
+	if(affected_mob.getStaminaLoss() >= 100)
+		affected_mob.reagents.remove_reagent(type, 2 * REM * delta_time)
 
-	return UPDATE_MOB_HEALTH
+	var/need_mob_update = FALSE
+	if(DT_PROB(10, delta_time))
+		need_mob_update += affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1, 50)
+	need_mob_update += affected_mob.adjustStaminaLoss(2.5 * REM * delta_time, updating_health = FALSE)
+	if(need_mob_update)
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/medicine/lavaland_extract
 	name = "Lavaland Extract"
@@ -1550,13 +1563,14 @@
 
 /datum/reagent/medicine/modafinil/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(!overdosed) // We do not want any effects on OD
-		overdose_threshold = overdose_threshold + ((rand(-10, 10) / 10) * REM * delta_time) // for extra fun
-		affected_mob.AdjustAllImmobility(-20 * REM * delta_time)
-		affected_mob.adjustStaminaLoss(-15 * REM * delta_time, updating_health = FALSE)
-		affected_mob.Jitter(1)
-		metabolization_rate = 0.005 * REAGENTS_METABOLISM * rand(5, 20) // randomizes metabolism between 0.02 and 0.08 per second
-		return UPDATE_MOB_HEALTH
+	if(overdosed) // We do not want any effects on OD
+		return
+	overdose_threshold = overdose_threshold + ((rand(-10, 10) / 10) * REM * delta_time) // for extra fun
+	affected_mob.AdjustAllImmobility(-20 * REM * delta_time)
+	affected_mob.adjustStaminaLoss(-15 * REM * delta_time, updating_health = FALSE)
+	affected_mob.set_jitter_if_lower(1 SECONDS * REM * delta_time)
+	metabolization_rate = 0.005 * REAGENTS_METABOLISM * rand(5, 20) // randomizes metabolism between 0.02 and 0.08 per second
+	return UPDATE_MOB_HEALTH
 
 /datum/reagent/medicine/modafinil/overdose_start(mob/living/affected_mob)
 	to_chat(affected_mob, span_userdanger("You feel awfully out of breath and jittery!"))
@@ -1565,37 +1579,39 @@
 /datum/reagent/medicine/modafinil/overdose_process(mob/living/affected_mob, delta_time, times_fired)
 	. = ..()
 	overdose_progress++
-
+	var/need_mob_update
 	switch(overdose_progress)
 		if(1 to 40)
-			affected_mob.jitteriness = min(affected_mob.jitteriness + (1 * REM * delta_time), 10)
-			affected_mob.stuttering = min(affected_mob.stuttering + (1 * REM * delta_time), 10)
-			affected_mob.Dizzy(5 * REM * delta_time)
+			affected_mob.adjust_jitter_up_to(2 SECONDS * REM * delta_time, 20 SECONDS)
+			affected_mob.adjust_stutter_up_to(2 SECONDS * REM * delta_time, 20 SECONDS)
+			affected_mob.set_dizzy_if_lower(10 SECONDS * REM * delta_time)
 			if(DT_PROB(30, delta_time))
 				affected_mob.losebreath++
+				need_mob_update = TRUE
 		if(41 to 80)
-			affected_mob.adjustOxyLoss(0.1 * REM * delta_time, updating_health = FALSE)
-			affected_mob.adjustStaminaLoss(0.1 * REM * delta_time, updating_health = FALSE)
-			affected_mob.jitteriness = min(affected_mob.jitteriness + (1 * REM * delta_time), 20)
-			affected_mob.stuttering = min(affected_mob.stuttering + (1 * REM * delta_time), 20)
-			affected_mob.Dizzy(10 * REM * delta_time)
+			need_mob_update = affected_mob.adjustOxyLoss(0.1 * REM * delta_time, updating_health = FALSE)
+			need_mob_update += affected_mob.adjustStaminaLoss(0.1 * REM * delta_time, updating_health = FALSE)
+			affected_mob.adjust_jitter_up_to(2 SECONDS * REM * delta_time, 40 SECONDS)
+			affected_mob.adjust_stutter_up_to(2 SECONDS * REM * delta_time, 40 SECONDS)
+			affected_mob.set_dizzy_if_lower(20 SECONDS * REM * delta_time)
 			if(DT_PROB(30, delta_time))
 				affected_mob.losebreath++
+				need_mob_update = TRUE
 			if(DT_PROB(10, delta_time))
 				to_chat(affected_mob, "You have a sudden fit!")
 				affected_mob.emote("moan")
 				affected_mob.Paralyze(20) // you should be in a bad spot at this point unless epipen has been used
-			. = UPDATE_MOB_HEALTH
 		if(81)
 			to_chat(affected_mob, "You feel too exhausted to continue!") // at this point you will eventually die unless you get charcoal
 			affected_mob.adjustOxyLoss(0.1 * REM * delta_time, updating_health = FALSE)
 			affected_mob.adjustStaminaLoss(0.1 * REM * delta_time, updating_health = FALSE)
-			. = UPDATE_MOB_HEALTH
 		if(82 to INFINITY)
+			REMOVE_TRAIT(affected_mob, TRAIT_SLEEPIMMUNE, type)
 			affected_mob.Sleeping(100 * REM * delta_time)
 			affected_mob.adjustOxyLoss(1.5 * REM * delta_time, updating_health = FALSE)
 			affected_mob.adjustStaminaLoss(1.5 * REM * delta_time, updating_health = FALSE)
-			. = UPDATE_MOB_HEALTH
+	if(need_mob_update)
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/medicine/psicodine
 	name = "Psicodine"
@@ -1612,9 +1628,9 @@
 /datum/reagent/medicine/psicodine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	dosage++
-	affected_mob.jitteriness = max(affected_mob.jitteriness - (6 * REM * delta_time), 0)
-	affected_mob.dizziness = max(affected_mob.dizziness - (6 * REM * delta_time), 0)
-	affected_mob.confused = max(affected_mob.confused - (6 * REM * delta_time), 0)
+	affected_mob.adjust_jitter(-12 SECONDS * REM * delta_time)
+	affected_mob.adjust_dizzy(-12 SECONDS * REM * delta_time)
+	affected_mob.adjust_confusion(-6 SECONDS * REM * delta_time)
 	affected_mob.disgust = max(affected_mob.disgust - (6 * REM * delta_time), 0)
 	var/datum/component/mood/mood = affected_mob.GetComponent(/datum/component/mood)
 	if(mood?.sanity <= SANITY_NEUTRAL) // only take effect if in negative sanity and then...
@@ -1693,7 +1709,7 @@
 		return UPDATE_MOB_HEALTH
 
 	if(DT_PROB(10, delta_time))
-		affected_mob.Jitter(5)
+		affected_mob.set_jitter_if_lower(10 SECONDS)
 
 	if(affected_mob.blood_volume < BLOOD_VOLUME_SAFE)
 		affected_mob.blood_volume = max(affected_mob.blood_volume, (min(affected_mob.blood_volume + 4, BLOOD_VOLUME_SAFE) * REM * delta_time))

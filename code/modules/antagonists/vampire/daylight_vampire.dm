@@ -152,7 +152,7 @@
 	living_owner.remove_traits(list(TRAIT_SLEEPIMMUNE, TRAIT_NOBREATH), TRAIT_VAMPIRE)
 	living_owner.add_traits(torpor_traits, TRAIT_TORPOR)
 
-	living_owner.jitteriness = 0
+	living_owner.remove_status_effect(/datum/status_effect/jitter)
 
 	DisableAllPowers()
 

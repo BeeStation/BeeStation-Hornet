@@ -885,13 +885,14 @@
  * Removes a specific reagent. can supress reactions if needed
  * Arguments
  *
- * * [reagent][datum/reagent] - the type of reagent
+ * * [reagent_type][datum/reagent] - the type of reagent
  * * amount - the volume to remove
  * * safety - if FALSE will initiate reactions upon removing. used for trans_id_to
+ * * include_subtypes - if TRUE will remove the specified amount from all subtypes of reagent_type as well
  */
-/datum/reagents/proc/remove_reagent(datum/reagent/reagent, amount, safety)
-	if(!ispath(reagent))
-		stack_trace("invalid reagent passed to remove reagent [reagent]")
+/datum/reagents/proc/remove_reagent(datum/reagent/reagent_type, amount, safety = TRUE, include_subtypes = FALSE)
+	if(!ispath(reagent_type))
+		stack_trace("invalid reagent passed to remove reagent [reagent_type]")
 		return FALSE
 
 	if(!IS_FINITE(amount))
@@ -904,7 +905,13 @@
 
 	var/list/cached_reagents = reagent_list
 	for(var/datum/reagent/cached_reagent as anything in cached_reagents)
-		if (cached_reagent.type == reagent)
+		//check for specific type or subtypes
+		if(!include_subtypes)
+			if(cached_reagent.type != reagent_type)
+				continue
+		else if(!istype(cached_reagent, reagent_type))
+			continue
+
 			//clamp the removal amount to be between current reagent amount
 			//and zero, to prevent removing more than the holder has stored
 			amount = clamp(amount, 0, cached_reagent.volume)

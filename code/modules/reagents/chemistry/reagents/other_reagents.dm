@@ -253,6 +253,11 @@
 	desc = "A glass of holy water."
 	icon_state = "glass_clear"
 
+/datum/reagent/water/holywater/on_mob_add(mob/living/L, amount)
+	. = ..()
+	if(data)
+		data["misc"] = 0
+
 /datum/reagent/water/holywater/on_mob_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
 	affected_mob.AddComponent(/datum/component/anti_magic, type, MAGIC_RESISTANCE_HOLY)
@@ -272,17 +277,15 @@
 		data = list("misc" = 0)
 
 	data["misc"] += delta_time SECONDS * REM
-	affected_mob.jitteriness = min(affected_mob.jitteriness + (2 * delta_time), 10)
+	affected_mob.adjust_jitter_up_to(4 SECONDS * delta_time, 20 SECONDS)
 	if(IS_CULTIST(affected_mob))
 		for(var/datum/action/innate/cult/blood_magic/BM in affected_mob.actions)
 			to_chat(affected_mob, span_cultlarge("Your blood rites falter as holy water scours your body!"))
 			for(var/datum/action/innate/cult/blood_spell/BS in BM.spells)
 				qdel(BS)
 	if(data["misc"] >= (25 SECONDS)) // 10 units
-		if(!affected_mob.stuttering)
-			affected_mob.stuttering = 1
-		affected_mob.stuttering = min(affected_mob.stuttering + (2 * delta_time), 10)
-		affected_mob.Dizzy(5)
+		affected_mob.adjust_stutter_up_to(4 SECONDS * delta_time, 20 SECONDS)
+		affected_mob.set_dizzy_if_lower(10 SECONDS)
 		if(IS_SERVANT_OF_RATVAR(affected_mob) && DT_PROB(10, delta_time))
 			affected_mob.say(text2ratvar(pick("Please don't leave me...", "Rat'var what happened?", "My friends, where are you?", "The hierophant network just went dark, is anyone there?", "The light is fading...", "No... It can't be...")), forced = "holy water")
 			if(prob(40))
@@ -302,10 +305,14 @@
 				affected_mob.mind.remove_antag_datum(/datum/antagonist/cult)
 			if(IS_SERVANT_OF_RATVAR(affected_mob))
 				remove_servant_of_ratvar(affected_mob.mind)
-			affected_mob.jitteriness = 0
-			affected_mob.stuttering = 0
-			affected_mob.reagents.remove_reagent(type, volume)	// maybe this is a little too perfect and a max() cap on the statuses would be better??
+			affected_mob.remove_status_effect(/datum/status_effect/jitter)
+			affected_mob.remove_status_effect(/datum/status_effect/speech/stutter)
+			affected_mob.remove_status_effect(/datum/status_effect/speech/stutter)
+			if(holder)
+				holder.remove_reagent(type, volume) // maybe this is a little too perfect and a max() cap on the statuses would be better??
 			return
+	if(holder)
+		holder.remove_reagent(type, 1 * REAGENTS_METABOLISM * delta_time) //fixed consumption to prevent balancing going out of whack
 
 /datum/reagent/water/holywater/expose_turf(turf/exposed_turf, reac_volume)
 	. = ..()
@@ -333,7 +340,7 @@
 /datum/reagent/fuel/unholywater/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(IS_CULTIST(affected_mob))
-		affected_mob.drowsyness = max(affected_mob.drowsyness - 5 * REM * delta_time, 0)
+		affected_mob.adjust_drowsiness(-10 SECONDS * REM * delta_time)
 		affected_mob.AdjustAllImmobility(-40 * REM* REM * delta_time)
 		affected_mob.adjustStaminaLoss(-10 * REM * delta_time, updating_health = FALSE)
 		affected_mob.adjustToxLoss(-2 * REM * delta_time, updating_health = FALSE, forced = TRUE)
@@ -1085,7 +1092,7 @@
 	. = ..()
 	if(current_cycle > 10 && DT_PROB(7.5, delta_time))
 		to_chat(affected_mob, span_warning("You feel unstable..."))
-		affected_mob.Jitter(2)
+		affected_mob.set_jitter_if_lower(2 SECONDS)
 		current_cycle = 1
 		addtimer(CALLBACK(affected_mob, TYPE_PROC_REF(/mob/living, bluespace_shuffle)), 30)
 
@@ -1202,10 +1209,16 @@
 
 /datum/reagent/cryptobiolin/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.Dizzy(1)
-	if(!affected_mob.confused)
-		affected_mob.confused = 1
-	affected_mob.confused = max(affected_mob.confused, 20)
+	affected_mob.set_dizzy_if_lower(2 SECONDS)
+
+	// Cryptobiolin adjusts the mob's confusion down to 20 seconds if it's higher,
+	// or up to 1 second if it's lower, but will do nothing if it's in between
+	var/confusion_left = affected_mob.get_timed_status_effect_duration(/datum/status_effect/confusion)
+	if(confusion_left < 1 SECONDS)
+		affected_mob.set_confusion(1 SECONDS)
+
+	else if(confusion_left > 20 SECONDS)
+		affected_mob.set_confusion(20 SECONDS)
 
 /datum/reagent/impedrezene
 	name = "Impedrezene"
@@ -1216,11 +1229,12 @@
 
 /datum/reagent/impedrezene/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.jitteriness = max(affected_mob.jitteriness - 2.5 * delta_time, 0)
+	affected_mob.adjust_jitter(-5 SECONDS * delta_time)
 	if(DT_PROB(55, delta_time))
 		affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2)
+		. = TRUE
 	if(DT_PROB(30, delta_time))
-		affected_mob.drowsyness = max(affected_mob.drowsyness, 3)
+		affected_mob.adjust_drowsiness(6 SECONDS)
 	if(DT_PROB(5, delta_time))
 		affected_mob.emote("drool")
 
@@ -1346,7 +1360,9 @@
 
 /datum/reagent/nitrous_oxide/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
 	if(method == VAPOR)
-		exposed_mob.drowsyness += max(round(reac_volume, 1), 2)
+		// apply 2 seconds of drowsiness per unit applied, with a min duration of 4 seconds
+		var/drowsiness_to_apply = max(round(reac_volume, 1) * 2 SECONDS, 4 SECONDS)
+		exposed_mob.adjust_drowsiness(drowsiness_to_apply)
 
 /////////////////////////Colorful Powder////////////////////////////
 //For colouring in /proc/mix_color_from_reagents
@@ -1958,10 +1974,8 @@
 
 /datum/reagent/peaceborg/confuse/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(affected_mob.confused < 6)
-		affected_mob.confused = clamp(affected_mob.confused + 3 * REM * delta_time, 0, 5)
-	if(affected_mob.dizziness < 6)
-		affected_mob.dizziness = clamp(affected_mob.dizziness + 3 * REM * delta_time, 0, 5)
+	affected_mob.adjust_confusion_up_to(3 SECONDS * REM * delta_time, 5 SECONDS)
+	affected_mob.adjust_dizzy_up_to(6 SECONDS * REM * delta_time, 12 SECONDS)
 	if(DT_PROB(10, delta_time))
 		to_chat(affected_mob, "You feel confused and disorientated.")
 
@@ -1976,7 +1990,7 @@
 	. = ..()
 	if(DT_PROB(17, delta_time))
 		affected_mob.Stun(20, 0)
-		affected_mob.blur_eyes(5)
+		affected_mob.set_eye_blur_if_lower(10 SECONDS)
 	if(DT_PROB(17, delta_time))
 		affected_mob.Knockdown(2 SECONDS)
 	if(DT_PROB(10, delta_time))
@@ -2039,7 +2053,7 @@
 /datum/reagent/eldritch/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(IS_HERETIC(affected_mob))
-		affected_mob.drowsyness = max(affected_mob.drowsyness - 5 * REM * delta_time, 0)
+		affected_mob.adjust_drowsiness(-10 * REM * delta_time)
 		affected_mob.AdjustAllImmobility(-40 * REM * delta_time)
 		affected_mob.adjustStaminaLoss(-10 * REM * delta_time, updating_health = FALSE)
 		affected_mob.adjustToxLoss(-2 * REM * delta_time, updating_health = FALSE)

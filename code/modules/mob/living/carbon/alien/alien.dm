@@ -20,7 +20,6 @@
 	heat_protection = 0.5 // minor heat insulation
 
 	var/leaping = FALSE
-	var/move_delay_add = 0 // movement delay to add
 
 /mob/living/carbon/alien/Initialize(mapload)
 	add_verb(/mob/living/proc/mob_sleep)

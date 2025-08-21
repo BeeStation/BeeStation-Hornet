@@ -228,7 +228,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 		if(STAGE_HAUNT)
 
 			if(prob(5))
-				H.blur_eyes(1)
+				H.set_eye_blur_if_lower(2 SECONDS)
 
 			if(prob(5))
 				H.playsound_local(src,'sound/voice/cluwnelaugh2_reversed.ogg', 1)
@@ -368,7 +368,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	if(get_dist(src,H) <= 1)
 		visible_message(span_danger("[src] begins dragging [H] under the floor!"))
 		if(do_after(src, 50, target = H) && eating)
-			H.become_blind()
+			H.become_blind(JOB_NAME_CLOWN)
 			H.invisibility = INVISIBILITY_SPIRIT
 			H.set_density(FALSE)
 			H.set_anchored(TRUE)
@@ -406,11 +406,11 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 			H.cluwneify()
 			H.adjustBruteLoss(30)
 			H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 100)
-			H.cure_blind(null)
+			H.cure_blind(JOB_NAME_CLOWN)
 			H.invisibility = initial(H.invisibility)
 			H.set_density(initial(H.density))
 			H.set_anchored(initial(H.anchored))
-			H.blur_eyes(10)
+			H.set_eye_blur_if_lower(20 SECONDS)
 			animate(H.client,color = old_color, time = 20)
 
 	eating = FALSE
@@ -466,7 +466,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 
 	sac_target.handcuffed = new /obj/item/restraints/handcuffs/energy/cult(sac_target)
 	sac_target.update_handcuffed()
-	sac_target.do_jitter_animation(100)
+	sac_target.do_jitter_animation()
 
 	if(sac_target.legcuffed)
 		sac_target.legcuffed.forceMove(sac_target.drop_location())
@@ -474,8 +474,8 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 		sac_target.legcuffed = null
 		sac_target.update_inv_legcuffed()
 
-	addtimer(CALLBACK(sac_target, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation), 100), SACRIFICE_SLEEP_DURATION * (1/3))
-	addtimer(CALLBACK(sac_target, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation), 100), SACRIFICE_SLEEP_DURATION * (2/3))
+	addtimer(CALLBACK(sac_target, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation)), SACRIFICE_SLEEP_DURATION * (1/3))
+	addtimer(CALLBACK(sac_target, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation)), SACRIFICE_SLEEP_DURATION * (2/3))
 
 	// Grab their ghost, just in case they're dead or something.
 	sac_target.grab_ghost()
@@ -515,7 +515,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	if(!sac_target.heal_and_revive(75, span_danger("[sac_target]'s heart begins to beat with an unholy force as they return from death!")))
 		return
 
-	sac_target.cure_blind(null)
+	sac_target.cure_blind(JOB_NAME_CLOWN)
 	sac_target.invisibility = initial(sac_target.invisibility)
 	sac_target.set_density(initial(sac_target.density))
 	sac_target.set_anchored(initial(sac_target.anchored))
@@ -537,9 +537,9 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	SEND_SIGNAL(sac_target, COMSIG_ADD_MOOD_EVENT, "shadow_realm", /datum/mood_event/shadow_realm)
 
 	sac_target.flash_act()
-	sac_target.blur_eyes(15)
-	sac_target.Jitter(10)
-	sac_target.Dizzy(10)
+	sac_target.set_eye_blur_if_lower(30 SECONDS)
+	sac_target.set_jitter_if_lower(20 SECONDS)
+	sac_target.set_dizzy_if_lower(20 SECONDS)
 	sac_target.adjust_hallucinations(24 SECONDS)
 	sac_target.emote("scream")
 
@@ -579,9 +579,8 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	SEND_SIGNAL(sac_target, COMSIG_CLEAR_MOOD_EVENT, "shadow_realm")
 
 	// Wherever we end up, we sure as hell won't be able to explain
-	sac_target.slurring += 20
-	sac_target.cultslurring += 20
-	sac_target.stuttering += 20
+	sac_target.adjust_timed_status_effect(40 SECONDS, /datum/status_effect/speech/slurring/heretic)
+	sac_target.adjust_stutter(40 SECONDS)
 
 	// They're already back on the station for some reason, don't bother teleporting
 	if(is_station_level(sac_target.z))
@@ -616,9 +615,9 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 
 	// Oh god where are we?
 	sac_target.flash_act()
-	sac_target.Jitter(60)
-	sac_target.blur_eyes(50)
-	sac_target.Dizzy(30)
+	sac_target.set_timed_status_effect(120 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
+	sac_target.set_eye_blur_if_lower(100 SECONDS)
+	sac_target.set_timed_status_effect(60 SECONDS, /datum/status_effect/dizziness, only_if_higher = TRUE)
 	sac_target.AdjustKnockdown(80)
 	sac_target.adjustStaminaLoss(120)
 

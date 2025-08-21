@@ -71,7 +71,7 @@
 
 	var/mob/living/carbon/human/human_vampire = vampiredatum.owner.current
 	if(human_vampire)
-		human_vampire.set_dizziness(3 SECONDS)
+		human_vampire.set_dizzy(3 SECONDS)
 		human_vampire.Paralyze(2 SECONDS)
 		human_vampire.physiology.stamina_mod /= 0.4
 
@@ -114,7 +114,7 @@
 	SIGNAL_HANDLER
 	user.playsound_local(null, 'sound/effects/explosion_distant.ogg', 40, TRUE)
 	target.playsound_local(null, 'sound/effects/singlebeat.ogg', 40, TRUE)
-	target.Jitter(15 SECONDS)
+	target.set_jitter(15 SECONDS)
 	INVOKE_ASYNC(target, TYPE_PROC_REF(/mob, emote), "laugh")
 
 /**

@@ -253,7 +253,7 @@
 		C.set_heartattack(FALSE)
 		C.revive(full_heal = FALSE, admin_revive = FALSE)
 		C.emote("gasp")
-		C.Jitter(100)
+		C.set_timed_status_effect(100 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
 		SEND_SIGNAL(C, COMSIG_LIVING_MINOR_SHOCK)
 		log_game("[C] has been successfully defibrillated by nanites.")
 	else
