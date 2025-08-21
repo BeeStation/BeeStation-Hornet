@@ -803,6 +803,14 @@
 	build_path = /obj/item/ammo_casing/shotgun/buckshot
 	category = list("hacked", "Security")
 
+/datum/design/buckshot_armour_shell
+	name = "Armour-Piercing Buckshot Shell"
+	id = "buckshot_armour_shell"
+	build_type = AUTOLATHE
+	materials = list(/datum/material/iron = 3000, /datum/material/gold = 2000)
+	build_path = /obj/item/ammo_casing/shotgun/buckshot/armour_piercing
+	category = list("hacked", "Security")
+
 /datum/design/shotgun_dart
 	name = "Shotgun Dart"
 	id = "shotgun_dart"

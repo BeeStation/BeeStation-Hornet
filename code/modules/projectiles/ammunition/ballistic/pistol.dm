@@ -9,7 +9,6 @@
 /obj/item/ammo_casing/c10mm/improv
 	name = "improvised 10mm bullet casing"
 	desc = "A handmade 10mm bullet casing."
-	caliber = "10mm"
 	projectile_type = /obj/projectile/bullet/c10mm/improv
 	variance = 10 //Shit ammo is inaccurate.
 
