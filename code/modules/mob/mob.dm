@@ -1246,6 +1246,7 @@
 	VV_DROPDOWN_OPTION(VV_HK_GIVE_SPELL, "Give Spell")
 	VV_DROPDOWN_OPTION(VV_HK_REMOVE_SPELL, "Remove Spell")
 	VV_DROPDOWN_OPTION(VV_HK_GIVE_DISEASE, "Give Disease")
+	VV_DROPDOWN_OPTION(VV_HK_GODMODE, "Toggle Godmode")
 	VV_DROPDOWN_OPTION(VV_HK_DROP_ALL, "Drop Everything")
 	VV_DROPDOWN_OPTION(VV_HK_REGEN_ICONS, "Regenerate Icons")
 	VV_DROPDOWN_OPTION(VV_HK_PLAYER_PANEL, "Show player panel")
@@ -1264,6 +1265,9 @@
 
 	if(href_list[VV_HK_GIVE_SPELL] && check_rights(R_FUN))
 		usr.client.give_spell(src)
+
+	if(href_list[VV_HK_GODMODE] && check_rights(R_FUN))
+		usr.client.cmd_admin_godmode(src)
 
 	if(href_list[VV_HK_REMOVE_SPELL] && check_rights(R_FUN))
 		usr.client.remove_spell(src)

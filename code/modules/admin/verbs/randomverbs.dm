@@ -197,10 +197,10 @@
 	if(!check_rights(R_ADMIN))
 		return
 
-	if(HAS_TRAIT(M, TRAIT_GODMODE))
-		REMOVE_TRAIT(M, TRAIT_GODMODE, TRAIT_GENERIC)
+	if(HAS_TRAIT_FROM(M, TRAIT_GODMODE, "adminabuse"))
+		REMOVE_TRAIT(M, TRAIT_GODMODE, "adminabuse")
 	else
-		ADD_TRAIT(M, TRAIT_GODMODE, TRAIT_GENERIC)
+		ADD_TRAIT(M, TRAIT_GODMODE, "adminabuse")
 
 	to_chat(usr, span_adminnotice("Toggled [(HAS_TRAIT(M, TRAIT_GODMODE)) ? "ON" : "OFF"]"))
 
