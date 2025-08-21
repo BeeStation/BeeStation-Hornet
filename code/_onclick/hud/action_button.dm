@@ -15,6 +15,8 @@
 	/// A weakref of the last thing we hovered over
 	/// God I hate how dragging works
 	var/datum/weakref/last_hovored_ref
+	/// overlay for keybind maptext
+	var/mutable_appearance/keybind_maptext
 
 /atom/movable/screen/movable/action_button/Destroy()
 	if(our_hud)
@@ -43,6 +45,9 @@
 		return FALSE
 
 	var/list/modifiers = params2list(params)
+	if(LAZYACCESS(modifiers, ALT_CLICK))
+		begin_creating_bind(usr)
+		return TRUE
 	if(LAZYACCESS(modifiers, SHIFT_CLICK))
 		var/datum/hud/our_hud = usr.hud_used
 		our_hud.position_action(src, SCRN_OBJ_DEFAULT)
@@ -59,6 +64,14 @@
 	alpha = 200
 	animate(src, transform = matrix(), time=0.4 SECONDS, alpha=255)
 	return TRUE
+
+/atom/movable/screen/movable/action_button/proc/begin_creating_bind(mob/user)
+	if(!isnull(linked_action.full_key))
+		linked_action.full_key = null
+		linked_action.update_button(src)
+		return
+	linked_action.full_key = tgui_input_keycombo(user, "Please bind a key for this action.")
+	linked_action.update_button(src)
 
 // Entered and Exited won't fire while you're dragging something, because you're still "holding" it
 // Very much byond logic, but I want nice behavior, so we fake it with drag
@@ -134,6 +147,15 @@
 
 	user.client.prefs.action_buttons_screen_locs["[name]_[id]"] = position_info
 
+/atom/movable/screen/movable/action_button/proc/update_keybind_maptext(key)
+	cut_overlay(keybind_maptext)
+	if(!key)
+		return
+	keybind_maptext = new
+	keybind_maptext.maptext = MAPTEXT("<span style='text-align: right'>[key]</span>")
+	keybind_maptext.transform = keybind_maptext.transform.Translate(-4, length(key) > 1 ? -6 : 2) //with modifiers, its placed lower so cooldown is visible
+	add_overlay(keybind_maptext)
+
 /atom/movable/screen/movable/action_button/proc/load_position()
 	var/mob/user = our_hud.mymob
 	if(!user)
@@ -184,7 +206,7 @@
 	hud_used.palette_actions.refresh_actions()
 
 /atom/movable/screen/button_palette
-	desc = "<b>Drag</b> buttons to move them<br><b>Shift-click</b> any button to reset it<br><b>Alt-click</b> this to reset all buttons"
+	desc = "<b>Drag</b> buttons to move them<br><b>Shift-click</b> any button to reset it<br><b>Alt-click any button</b> to begin binding it to a key<br><b>Alt-click this</b> to reset all buttons."
 	icon = 'icons/hud/64x16_actions.dmi'
 	icon_state = "screen_gen_palette"
 	screen_loc = ui_action_palette
