@@ -100,7 +100,7 @@
 
 /obj/item/ammo_casing/shotgun/improvised/glasspack
 	name = "improvised glass-packed shell"
-	desc = "An extremely weak shotgun shell that's been filled with shards of glass instead of metal pellets."
+	desc = "A shotgun shell that's been filled with shards of glass instead of metal pellets."
 	projectile_type = /obj/projectile/bullet/pellet/shotgun_glass
 	custom_materials = list(/datum/material/iron=100, /datum/material/glass=400)
 	pellets = 5
