@@ -498,7 +498,6 @@ const PowerSection = (_props) => {
                       width="32px"
                       style={{
                         imageRendering: 'pixelated',
-                        msInterpolationMode: 'nearest-neighbor',
                       }}
                     />
                   </Stack.Item>
@@ -578,7 +577,6 @@ const ClanSection = () => {
               width="128px"
               style={{
                 imageRendering: 'pixelated',
-                msInterpolationMode: 'nearest-neighbor',
               }}
             />
           </Stack.Item>
