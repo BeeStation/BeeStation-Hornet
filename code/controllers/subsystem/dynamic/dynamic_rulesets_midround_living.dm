@@ -152,6 +152,14 @@
 	points_cost = 30
 	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_CURATOR)
 
+/datum/dynamic_ruleset/midround/living/vampire/trim_candidates()
+	. = ..()
+	for(var/mob/living/carbon/candidate in candidates)
+		// Don't draft incompatible species
+		if(candidate.dna.species.species_bitflags & NOT_TRANSMORPHIC)
+			candidates -= candidate
+			continue
+
 /datum/dynamic_ruleset/midround/living/vampire/get_poll_icon()
 	return icon('icons/vampires/actions_vampire.dmi', icon_state = "power_feed")
 
