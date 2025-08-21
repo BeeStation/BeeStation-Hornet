@@ -1,10 +1,11 @@
+import { BlockQuote, Button, LabeledList, NoticeBox, Section, Stack } from 'tgui-core/components';
+import { decodeHtmlEntities } from 'tgui-core/string';
+
 import { useBackend } from '../../backend';
-import { BlockQuote, Button, LabeledList, NoticeBox, Section, Stack } from '../../components';
-import { decodeHtmlEntities } from 'common/string';
 import { RequestMessage, RequestPriority, RequestsData, RequestType } from './types';
 
-export const MessageViewTab = (props, context) => {
-  const { act, data } = useBackend<RequestsData>(context);
+export const MessageViewTab = (props) => {
+  const { act, data } = useBackend<RequestsData>();
   const { messages = [] } = data;
   return (
     <Section fill scrollable>
@@ -17,20 +18,15 @@ export const MessageViewTab = (props, context) => {
   );
 };
 
-const MessageDisplay = (
-  props: {
-    message: RequestMessage;
-  },
-  context
-) => {
-  const { act } = useBackend(context);
+const MessageDisplay = (props: { message: RequestMessage }) => {
+  const { act } = useBackend();
   const { message } = props;
   const append_list_keys = message.appended_list ? Object.keys(message.appended_list) : [];
   return (
     <Stack.Item>
       <Section title={message.request_type + ' from ' + message.sender_department + ', ' + message.received_time}>
-        {message.priority === RequestPriority.HIGH && <NoticeBox warning>High Priority</NoticeBox>}
-        {message.priority === RequestPriority.EXTREME && <NoticeBox bad>!!!Extreme Priority!!!</NoticeBox>}
+        {message.priority === RequestPriority.HIGH && <NoticeBox>High Priority</NoticeBox>}
+        {message.priority === RequestPriority.EXTREME && <NoticeBox danger>!!!Extreme Priority!!!</NoticeBox>}
         <BlockQuote>
           {decodeHtmlEntities(message.content)}
           {!!message.appended_list && !!append_list_keys.length && (

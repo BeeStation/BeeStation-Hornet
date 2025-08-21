@@ -9,7 +9,7 @@
 	idle_power_usage = 100
 	active_power_usage = 2500
 	var/list/stored_items = list()
-	var/obj/machinery/gulag_teleporter/linked_teleporter = null
+	var/obj/machinery/gulag_teleporter/linked_teleporter
 	///Icon of the current screen status
 	var/screen_icon = "gulag_on"
 
@@ -19,7 +19,7 @@
 		return
 
 	. += mutable_appearance(icon, screen_icon)
-	. += emissive_appearance(icon, screen_icon, src)
+	. += emissive_appearance(icon, screen_icon)
 
 /obj/machinery/gulag_item_reclaimer/Destroy()
 	for(var/i in contents)
@@ -27,6 +27,7 @@
 		I.forceMove(get_turf(src))
 	if(linked_teleporter)
 		linked_teleporter.linked_reclaimer = null
+	linked_teleporter = null
 	return ..()
 
 /obj/machinery/gulag_item_reclaimer/on_emag(mob/user)
@@ -36,9 +37,7 @@
 	ui_update()
 	screen_icon = "emagged_general"
 	update_appearance()
-
-/obj/machinery/gulag_item_reclaimer/ui_state(mob/user)
-	return GLOB.default_state
+	balloon_alert(user, "id checker scrambled")
 
 /obj/machinery/gulag_item_reclaimer/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -76,8 +75,9 @@
 
 	return data
 
-/obj/machinery/gulag_item_reclaimer/ui_act(action, params)
-	if(..())
+/obj/machinery/gulag_item_reclaimer/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	. = ..()
+	if(.)
 		return
 
 	switch(action)

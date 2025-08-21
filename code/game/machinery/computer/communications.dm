@@ -141,7 +141,7 @@
 			// Only notify people if an actual change happened
 			log_game("[key_name(usr)] has changed the security level to [params["newSecurityLevel"]] with [src] at [AREACOORD(usr)].")
 			message_admins("[ADMIN_LOOKUPFLW(usr)] has changed the security level to [params["newSecurityLevel"]] with [src] at [AREACOORD(usr)].")
-			deadchat_broadcast(span_deadsay("[span_name("[usr.real_name]")] has changed the security level to [params["newSecurityLevel"]] with [src] at [span_name("[get_area_name(usr, TRUE)]")]."), usr)
+			deadchat_broadcast(span_deadsay("[span_name("[usr.real_name]")] has changed the security level to [params["newSecurityLevel"]] with [src] at [span_name("[get_area_name(usr, TRUE)]")]."), usr, message_type=DEADCHAT_ANNOUNCEMENT)
 
 			alert_level_tick += 1
 			. = TRUE
@@ -178,7 +178,7 @@
 
 			var/associates = emagged ? "the Syndicate": "CentCom"
 			usr.log_talk(message, LOG_SAY, tag = "message to [associates]")
-			deadchat_broadcast(span_deadsay("[span_name("[usr.real_name]")] has messaged [associates], \"[message]\" at [span_name("[get_area_name(usr, TRUE)]")]."), usr)
+			deadchat_broadcast(span_deadsay("[span_name("[usr.real_name]")] has messaged [associates], \"[message]\" at [span_name("[get_area_name(usr, TRUE)]")]."), usr, message_type=DEADCHAT_ANNOUNCEMENT)
 			COOLDOWN_START(src, important_action_cooldown, IMPORTANT_ACTION_COOLDOWN)
 			. = TRUE
 		if ("purchaseShuttle")
