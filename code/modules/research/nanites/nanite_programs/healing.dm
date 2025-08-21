@@ -228,9 +228,20 @@
 	if(!iscarbon(host_mob)) //nonstandard biology
 		return FALSE
 	var/mob/living/carbon/C = host_mob
+	if(C.suiciding || C.ishellbound() || HAS_TRAIT(C, TRAIT_HUSK)) //can't revive
+		return FALSE
+	if((world.time - C.timeofdeath) > 1800) //too late
+		return FALSE
+	if((C.getBruteLoss() >= MAX_REVIVE_BRUTE_DAMAGE) || (C.getFireLoss() >= MAX_REVIVE_FIRE_DAMAGE) || !C.can_be_revived()) //too damaged
+		return FALSE
+	if(!C.get_organ_by_type(/obj/item/organ/heart)) //what are we even shocking
+		return FALSE
+	var/obj/item/organ/brain/BR = C.get_organ_by_type(/obj/item/organ/brain)
+	if(QDELETED(BR) || BR.brain_death || (BR.organ_flags & ORGAN_FAILING) || BR.suicided)
+		return FALSE
 	if(C.get_ghost())
 		return FALSE
-	return C.can_defib()
+	return TRUE
 
 /datum/nanite_program/defib/proc/zap()
 	var/mob/living/carbon/C = host_mob

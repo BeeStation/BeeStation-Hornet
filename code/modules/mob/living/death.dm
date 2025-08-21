@@ -64,49 +64,38 @@
 /mob/living/proc/spawn_dust(just_ash = FALSE)
 	new /obj/effect/decal/cleanable/ash(loc)
 
-/*
- * Called when the mob dies. Can also be called manually to kill a mob.
- *
- * Arguments:
- * * gibbed - Was the mob gibbed?
-*/
-/mob/living/proc/death(gibbed)
-	if(stat == DEAD)
-		return FALSE
 
+/mob/living/proc/death(gibbed)
 	set_stat(DEAD)
 	unset_machine()
 	timeofdeath = world.time
 	tod = station_time_timestamp()
-	var/turf/death_turf = get_turf(src)
-	var/area/death_area = get_area(src)
-	// Display a death message if the mob is a player mob (has an active mind)
-	var/player_mob_check = mind && mind.name && mind.active
-
-	// and, display a death message if the area allows it (or if they're in nullspace)
-	var/valid_area_check = !death_area || !(death_area.area_flags & NO_DEATH_MESSAGE)
-
-	if(player_mob_check && valid_area_check)
-		deadchat_broadcast(" has died at <b>[get_area_name(death_turf)]</b>.", "<b>[mind.name]</b>", follow_target = src, turf_target = death_turf, message_type=DEADCHAT_DEATHRATTLE)
+	var/turf/T = get_turf(src)
+	if(mind)
+		if(mind.name && mind.active && !istype(T.loc, /area/ctf))
+			var/rendered = span_deadsay("<b>[mind.name]</b> has died at <b>[get_area_name(T)]</b>.")
+			deadchat_broadcast(rendered, follow_target = src, turf_target = T, message_type=DEADCHAT_DEATHRATTLE)
 		mind.store_memory("Time of death: [tod]", 0)
 	if(playable)
 		remove_from_spawner_menu()
-	set_drugginess(0)
-	set_disgust(0)
+
 	SetSleeping(0, 0)
-	reset_perspective(null)
-	reload_fullscreen()
+
 	update_action_buttons_icon()
-	update_damage_hud()
 	update_health_hud()
+
 	med_hud_set_health()
 	med_hud_set_status()
+
+
 	stop_pulling()
 
 	SEND_SIGNAL(src, COMSIG_LIVING_DEATH, gibbed)
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_MOB_DEATH, src, gibbed)
 
 	if (client)
+		reset_perspective(null)
+		reload_fullscreen()
 		client.move_delay = initial(client.move_delay)
 		//This first death of the game will not incur a ghost role cooldown
 		client.next_ghost_role_tick = client.next_ghost_role_tick || suiciding ? world.time + CONFIG_GET(number/ghost_role_cooldown) : world.time
@@ -124,3 +113,14 @@
 		client?.tgui_panel?.give_dead_popup()
 
 	return TRUE
+
+/mob/living/carbon/death(gibbed)
+	. = ..()
+
+	set_drugginess(0)
+	set_disgust(0)
+	update_damage_hud()
+
+	if(!gibbed && !QDELETED(src))
+		addtimer(CALLBACK(src, PROC_REF(med_hud_set_status)), (DEFIB_TIME_LIMIT * 10) + 10)
+

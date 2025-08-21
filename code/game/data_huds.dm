@@ -197,6 +197,14 @@
 			if(!get_organ_by_type(/obj/item/organ/brain) || soul_departed() || ishellbound())
 				holder.icon_state = "huddead-permanent"
 				return
+			if(tod)
+				var/tdelta = round(world.time - timeofdeath)
+				if(tdelta < (DEFIB_TIME_LIMIT * 10))
+					if(!client && key)
+						holder.icon_state = "huddefib-ssd"
+						return
+					holder.icon_state = "huddefib"
+					return
 			if(!client && key)
 				holder.icon_state = "huddead-ssd"
 				return

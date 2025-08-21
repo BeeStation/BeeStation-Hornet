@@ -177,7 +177,6 @@
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	default_gravity = STANDARD_GRAVITY
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
-	area_flags = UNIQUE_AREA | NO_DEATH_MESSAGE
 
 /area/ctf/control_room
 	name = "Control Room A"

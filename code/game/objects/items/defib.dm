@@ -323,6 +323,7 @@
 	var/recharge_time = 6 SECONDS // Only applies to defibs that do not require a defibrilator. See: do_success
 	var/combat = FALSE //If it penetrates armor and gives additional functionality
 	var/grab_ghost = TRUE
+	var/tlimit = DEFIB_TIME_LIMIT * 10
 
 	var/mob/listeningTo
 
@@ -489,7 +490,7 @@
 
 	if((!req_defib && grab_ghost) || (req_defib && defib.grab_ghost))
 		H.notify_ghost_cloning("Your heart is being defibrillated!")
-	else if(H.can_defib())
+	else if(can_defib(H))
 		H.notify_ghost_cloning("Your heart is being defibrillated!", source = src)
 
 	do_help(H, user)
@@ -510,6 +511,21 @@
 		busy = FALSE
 
 	update_appearance()
+
+/obj/item/shockpaddles/proc/can_defib(mob/living/carbon/H)
+	var/obj/item/organ/heart = H.get_organ_by_type(/obj/item/organ/heart)
+	if(H.suiciding || H.ishellbound() || HAS_TRAIT(H, TRAIT_HUSK))
+		return
+	if((world.time - H.timeofdeath) > tlimit)
+		return
+	if((H.getBruteLoss() >= MAX_REVIVE_BRUTE_DAMAGE) || (H.getFireLoss() >= MAX_REVIVE_FIRE_DAMAGE))
+		return
+	if(!heart || (heart.organ_flags & ORGAN_FAILING))
+		return
+	var/obj/item/organ/brain/BR = H.get_organ_by_type(/obj/item/organ/brain)
+	if(QDELETED(BR) || BR.brain_death || (BR.organ_flags & ORGAN_FAILING) || BR.suicided)
+		return
+	return TRUE
 
 /obj/item/shockpaddles/proc/shock_pulling(dmg, mob/H)
 	if(isliving(H.pulledby)) //CLEAR!
@@ -590,6 +606,7 @@
 		playsound(src, 'sound/machines/defib_charge.ogg', 75, 0)
 		var/total_burn	= 0
 		var/total_brute	= 0
+		var/tplus = world.time - H.timeofdeath	//length of time spent dead
 		var/obj/item/organ/heart = H.get_organ_by_type(/obj/item/organ/heart)
 		if(do_after(user, 2 SECONDS, target = H, extra_checks = CALLBACK(src, PROC_REF(is_wielded)))) //placed on chest and short delay to shock for dramatic effect, revive time is 5sec total
 			for(var/obj/item/carried_item in H.contents)
@@ -612,6 +629,8 @@
 					failed = span_warning("[req_defib ? "[defib]" : "[src]"] buzzes: Resuscitation failed - Recovery of patient impossible. Further attempts futile.")
 				else if (H.ishellbound())
 					failed = span_warning("[req_defib ? "[defib]" : "[src]"] buzzes: Resuscitation failed - Patient's soul appears to be on another plane of existence.  Further attempts futile.")
+				else if (tplus > tlimit)
+					failed = span_warning("[req_defib ? "[defib]" : "[src]"] buzzes: Resuscitation failed - Body has decayed for too long. Further attempts futile.")
 				else if (!heart)
 					failed = span_warning("[req_defib ? "[defib]" : "[src]"] buzzes: Resuscitation failed - Patient's heart is missing.")
 				else if (heart.organ_flags & ORGAN_FAILING)
