@@ -15,6 +15,8 @@ SUBSYSTEM_DEF(dynamic)
 	var/list/datum/dynamic_ruleset/roundstart/roundstart_executed_rulesets = list()
 	/// List of players ready on roundstart.
 	var/list/mob/dead/new_player/authenticated/roundstart_candidates = list()
+	/// The amount of people ready at roundstart
+	var/roundstart_ready_amount = 0
 	/// A list if roundstart rulesets configured from 'dynamic.json'
 	var/list/datum/dynamic_ruleset/roundstart/roundstart_configured_rulesets
 
@@ -261,6 +263,10 @@ SUBSYSTEM_DEF(dynamic)
 		return TRUE
 
 	pick_roundstart_rulesets(roundstart_configured_rulesets)
+
+	// Save us from hard dels
+	roundstart_ready_amount = length(roundstart_candidates)
+	roundstart_candidates = list()
 	return TRUE
 
 /**
@@ -421,9 +427,9 @@ SUBSYSTEM_DEF(dynamic)
 	return FALSE
 
 /**
- * Execute roundstart rulesets, configures midrounds and latejoins
+ * Execute roundstart rulesets
 **/
-/datum/controller/subsystem/dynamic/proc/post_setup(report)
+/datum/controller/subsystem/dynamic/proc/execute_roundstart_rulesets()
 	// Execute Roundstarts
 	for(var/datum/dynamic_ruleset/roundstart/ruleset in roundstart_executed_rulesets)
 		var/result = execute_ruleset(ruleset)
@@ -453,6 +459,7 @@ SUBSYSTEM_DEF(dynamic)
 	var/result = ruleset.execute()
 
 	// Since we reuse rulesets we need to empty chosen_candidates
+	ruleset.candidates = list()
 	ruleset.chosen_candidates = list()
 	return result
 
@@ -465,7 +472,7 @@ SUBSYSTEM_DEF(dynamic)
 		return
 
 	// Antags have done their jobs, good job guys
-	if(SSticker.check_finished() || EMERGENCY_ESCAPED_OR_ENDGAMED || EMERGENCY_CALLED)
+	if(SSticker.check_finished() || EMERGENCY_ESCAPED_OR_ENDGAMED || EMERGENCY_CALLED || EMERGENCY_AT_LEAST_DOCKED)
 		return
 
 	update_midround_chances()
