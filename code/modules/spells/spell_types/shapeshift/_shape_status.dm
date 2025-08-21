@@ -136,7 +136,9 @@
 
 	// Otherwise our caster died, just make our mob die
 	else
+		to_chat(world, "Before death: [owner] stat=[owner.stat]")
 		owner.death()
+		to_chat(world, "After death: [owner] stat=[owner.stat]")
 
 /// Signal proc for [COMSIG_QDELETING] from our caster, delete us / our owner if we get deleted
 /datum/status_effect/shapechange_mob/proc/on_caster_deleted(datum/source)

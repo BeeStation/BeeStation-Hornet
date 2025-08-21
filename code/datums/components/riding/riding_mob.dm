@@ -362,7 +362,7 @@
 	if(istype(parent, /mob/living/simple_animal))
 		var/mob/living/simple_animal/S = parent
 		override_allow_spacemove = S.spacewalk
-		RegisterSignal(parent, COMSIG_MOB_DEATH, PROC_REF(handle_mortality))
+		RegisterSignal(parent, COMSIG_LIVING_DEATH, PROC_REF(handle_mortality))
 
 /datum/component/riding/creature/tamed/proc/handle_mortality()
 	qdel(src)

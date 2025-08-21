@@ -8,7 +8,7 @@
 	check_flags = AB_CHECK_DEAD
 
 //Heals the things that the other regenerative abilities don't.
-/datum/action/changeling/panacea/sting_action(mob/user)
+/datum/action/changeling/panacea/sting_action(mob/living/user)
 	to_chat(user, span_notice("We cleanse impurities from our form."))
 	..()
 	var/list/bad_organs = list(

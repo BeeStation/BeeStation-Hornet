@@ -1144,8 +1144,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			else
 				explosion(src, 0, 0, 3, 4)
 
-/obj/item/proc/on_mob_death(mob/living/L, gibbed)
-
 /obj/item/proc/grind_requirements(obj/machinery/reagentgrinder/R) //Used to check for extra requirements for grinding an object
 	return TRUE
 

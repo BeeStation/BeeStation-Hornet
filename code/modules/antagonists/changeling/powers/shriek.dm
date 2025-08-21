@@ -8,7 +8,7 @@
 	req_human = 1
 
 //A flashy ability, good for crowd control and sowing chaos.
-/datum/action/changeling/resonant_shriek/sting_action(mob/user)
+/datum/action/changeling/resonant_shriek/sting_action(mob/living/user)
 	..()
 	for(var/mob/living/M in hearers(4, user))
 		if(iscarbon(M) && M.get_ear_protection() <= 0)
@@ -36,7 +36,7 @@
 	chemical_cost = 25
 	dna_cost = 2
 
-/datum/action/changeling/dissonant_shriek/sting_action(mob/user)
+/datum/action/changeling/dissonant_shriek/sting_action(mob/living/user)
 	..()
 	for(var/obj/machinery/light/L in range(5, usr))
 		L.on = 1

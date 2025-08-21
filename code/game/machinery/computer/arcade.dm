@@ -271,7 +271,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	updateUsrDialog()
 	return
 
-/obj/machinery/computer/arcade/battle/proc/arcade_action(mob/user)
+/obj/machinery/computer/arcade/battle/proc/arcade_action(mob/living/user)
 	if ((enemy_mp <= 0) || (enemy_hp <= 0))
 		if(!gameover)
 			gameover = TRUE
@@ -282,8 +282,8 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 				bomb_cooldown = initial(bomb_cooldown)
 				new /obj/effect/spawner/newbomb/plasma(loc, /obj/item/assembly/timer)
 				new /obj/item/clothing/head/collectable/petehat(loc)
-				message_admins("[ADMIN_LOOKUPFLW(usr)] has outbombed Cuban Pete and been awarded a bomb.")
-				log_game("[key_name(usr)] has outbombed Cuban Pete and been awarded a bomb.")
+				message_admins("[ADMIN_LOOKUPFLW(user)] has outbombed Cuban Pete and been awarded a bomb.")
+				log_game("[key_name(user)] has outbombed Cuban Pete and been awarded a bomb.")
 				Reset()
 				obj_flags &= ~EMAGGED
 			else
@@ -310,7 +310,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 			temp = "You have been drained! GAME OVER"
 			playsound(loc, 'sound/arcade/lose.ogg', 50, 1, extrarange = -3, falloff_exponent = 10)
 			if(obj_flags & EMAGGED)
-				usr.gib()
+				user.gib()
 			SSblackbox.record_feedback("nested tally", "arcade_results", 1, list("loss", "mana", (obj_flags & EMAGGED ? "emagged":"normal")))
 
 	else if ((enemy_hp <= 10) && (enemy_mp > 4))
@@ -330,8 +330,8 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		temp = "You have been crushed! GAME OVER"
 		playsound(loc, 'sound/arcade/lose.ogg', 50, 1, extrarange = -3, falloff_exponent = 10)
 		if(obj_flags & EMAGGED)
-			usr.investigate_log("has been gibbed by an emagged Orion Trail game.", INVESTIGATE_DEATHS)
-			usr.gib()
+			user.investigate_log("has been gibbed by an emagged Orion Trail game.", INVESTIGATE_DEATHS)
+			user.gib()
 		SSblackbox.record_feedback("nested tally", "arcade_results", 1, list("loss", "hp", (obj_flags & EMAGGED ? "emagged":"normal")))
 
 	blocked = FALSE
@@ -493,8 +493,11 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		gamers[gamer] = -1
 
 
-/obj/machinery/computer/arcade/orion_trail/ui_interact(mob/user)
+/obj/machinery/computer/arcade/orion_trail/ui_interact(mob/_user)
 	. = ..()
+	if (!isliving(_user))
+		return
+	var/mob/living/user = _user
 	if(fuel <= 0 || food <=0 || settlers.len == 0)
 		gameStatus = ORION_STATUS_GAMEOVER
 		event = null
@@ -725,12 +728,13 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 			playsound(loc,'sound/weapons/gunshot.ogg', 100, 1)
 			killed_crew++
 
+			var/mob/living/user = usr
+
 			if(settlers.len == 0 || alive == 0)
 				say("The last crewmember [sheriff], shot themselves, GAME OVER!")
 				if(obj_flags & EMAGGED)
-					usr.investigate_log("has been killed by an emagged Orion Trail game.", INVESTIGATE_DEATHS)
-					usr.death(0)
-					obj_flags &= EMAGGED
+					user.investigate_log("has been killed by an emagged Orion Trail game.", INVESTIGATE_DEATHS)
+					user.death()
 				gameStatus = ORION_STATUS_GAMEOVER
 				event = null
 
@@ -741,8 +745,8 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 			else if(obj_flags & EMAGGED)
 				if(usr.name == sheriff)
 					say("The crew of the ship chose to kill [usr.name]!")
-					usr.investigate_log("has been killed by an emagged Orion Trail game.", INVESTIGATE_DEATHS)
-					usr.death(0)
+					user.investigate_log("has been killed by an emagged Orion Trail game.", INVESTIGATE_DEATHS)
+					user.death()
 
 			if(event == ORION_TRAIL_LING) //only ends the ORION_TRAIL_LING event, since you can do this action in multiple places
 				event = null

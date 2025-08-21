@@ -67,6 +67,7 @@
 	magnification = user.mind
 	RegisterSignal(magnification, COMSIG_MIND_TRANSFER_TO, PROC_REF(disconnect))
 	RegisterSignal(magnification.current, COMSIG_MOB_LOGOUT, PROC_REF(disconnect))
+	RegisterSignal(user, COMSIG_LIVING_DEATH, PROC_REF(mob_death))
 	playsound(src, 'sound/machines/microwave/microwave-end.ogg', 100, FALSE)
 
 	update_icon()
@@ -77,7 +78,8 @@
 	disconnect()
 	. = ..()
 
-/obj/item/clothing/head/helmet/monkey_sentience_helmet/on_mob_death(mob/living/L, gibbed)
+/obj/item/clothing/head/helmet/monkey_sentience_helmet/proc/mob_death(mob/living/L, gibbed)
+	SIGNAL_HANDLER
 	if(magnification.current == L)
 		disconnect()
 
@@ -87,6 +89,8 @@
 		return
 	UnregisterSignal(magnification, COMSIG_MIND_TRANSFER_TO)
 	UnregisterSignal(magnification.current, COMSIG_MOB_LOGOUT)
+	if(new_mob)
+		UnregisterSignal(new_mob, COMSIG_LIVING_DEATH)
 	var/mob/living/monkey = new_mob || magnification.current
 	if (!monkey)
 		CRASH("A mind registered to a disconnecting monkey sentience helmet doesn't have a current mob!")

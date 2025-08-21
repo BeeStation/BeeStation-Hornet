@@ -537,9 +537,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 	if(..())
 		return 3
 
-/mob/living/simple_animal/slime/can_be_implanted()
-	return TRUE
-
 CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime/random)
 
 /mob/living/simple_animal/slime/random/Initialize(mapload, new_colour, new_is_adult)

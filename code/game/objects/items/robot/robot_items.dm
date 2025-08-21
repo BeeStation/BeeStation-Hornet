@@ -674,6 +674,12 @@
 	icon_state = "shield0"
 	START_PROCESSING(SSfastprocess, src)
 	host = loc
+	RegisterSignal(host, COMSIG_LIVING_DEATH, PROC_REF(on_death))
+
+/obj/item/borg/projectile_dampen/proc/on_death(datum/source, gibbed)
+	SIGNAL_HANDLER
+
+	deactivate_field()
 
 /obj/item/borg/projectile_dampen/Destroy()
 	STOP_PROCESSING(SSfastprocess, src)
@@ -742,10 +748,6 @@
 	deactivate_field()
 	update_appearance()
 	to_chat(user, span_boldnotice("[src] deactivates itself."))
-
-/obj/item/borg/projectile_dampen/on_mob_death()
-	deactivate_field()
-	. = ..()
 
 /obj/item/borg/projectile_dampen/process(delta_time)
 	process_recharge(delta_time)

@@ -8,6 +8,7 @@
 
 /mob/living/Initialize(mapload)
 	. = ..()
+	AddElement(/datum/element/movetype_handler)
 	register_init_signals()
 	if(unique_name)
 		name = "[name] ([rand(1, 1000)])"
@@ -25,10 +26,6 @@
 	//color correction
 	RegisterSignal(src, COMSIG_MOVABLE_ENTERED_AREA, PROC_REF(apply_color_correction))
 	gravity_setup()
-
-/mob/living/ComponentInitialize()
-	. = ..()
-	AddElement(/datum/element/movetype_handler)
 
 /mob/living/prepare_huds()
 	..()
@@ -53,6 +50,7 @@
 	remove_from_all_data_huds()
 	GLOB.mob_living_list -= src
 	QDEL_LIST(diseases)
+	QDEL_LIST(surgeries)
 	return ..()
 
 /mob/living/proc/can_bumpslam()
