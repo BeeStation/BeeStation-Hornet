@@ -912,7 +912,7 @@
 
 /obj/item/storage/box/rubbershot
 	name = "box of rubber shots"
-	desc = "A standard box full of rubber shots, designed for riot shotguns. The box is manufactured by Nano Manufacturing."
+	desc = "A standard box full of rubber shots, designed for riot shotguns."
 	icon_state = "rubbershot_box"
 	illustration = null
 
@@ -922,8 +922,7 @@
 
 /obj/item/storage/box/lethalshot
 	name = "box of lethal shotgun shots"
-	desc = "A standard box full of lethal shots, designed for riot shotguns. The box is manufactured by Nano Defence."
-	icon_state = "lethalshot_box"
+	desc = "A standard box full of lethal shots, designed for riot shotguns."
 	illustration = null
 
 /obj/item/storage/box/lethalshot/PopulateContents()
@@ -932,7 +931,7 @@
 
 /obj/item/storage/box/beanbag
 	name = "box of beanbags"
-	desc = "A standard box full of beanbag shells. The box is manufactured by Nano Manufacturing."
+	desc = "A standard box full of beanbag shells."
 	icon_state = "rubbershot_box"
 	illustration = null
 
@@ -942,7 +941,7 @@
 
 /obj/item/storage/box/breacherslug
 	name = "box of breaching cartridges"
-	desc = "A standard box full of breaching slugs. The box is manufactured by Breech Co."
+	desc = "A standard box full of breaching slugs."
 	icon_state = "breachershot_box"
 	illustration = null
 
@@ -952,7 +951,7 @@
 
 /obj/item/storage/box/incapacitateshot
 	name = "box of incapacitating cartridges"
-	desc = "A standard box full of incapacitating shots, made for a shotgun. The box is manufactured by Bounteas Incorporated."
+	desc = "A standard box full of incapacitating shots, made for a shotgun."
 	icon_state = "incapacitateshot_box"
 	illustration = null
 
