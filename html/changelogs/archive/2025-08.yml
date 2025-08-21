@@ -362,3 +362,7 @@
   - admin: You can now force specific mass hallucinations.
   - admin: You can now force specific outcomes of some hallucinations, such as delusions,
       fake alerts, fake sounds, and more. Check the VV dropdown.
+2025-08-21:
+  TsunamiAnt:
+  - tweak: removed spellbook randomizer/challenges
+  - balance: wizards can now refund everywhere
