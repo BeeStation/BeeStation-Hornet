@@ -1033,7 +1033,6 @@
 	lefthand_file = 'icons/vampires/bs_leftinhand.dmi'
 	righthand_file = 'icons/vampires/bs_rightinhand.dmi'
 	slot_flags = ITEM_SLOT_POCKETS
-	w_class = WEIGHT_CLASS_SMALL
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb_continuous = list("staked", "stabbed", "tore into")
 	attack_verb_simple = list("staked", "stabbed", "tore into")
