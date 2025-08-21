@@ -121,21 +121,21 @@
  * Called when a Vampire successfully starts spending their Rank
  * args:
  * vampiredatum - the antagonist datum of the Vampire running this.
- * target - The Vassal (if any) we are upgrading.
+ * carbon_vassal - The Vassal (if any) we are upgrading.
  * cost_rank - TRUE/FALSE on whether this will cost us a rank when we go through with it.
  * blood_cost - A number saying how much it costs to rank up.
  */
-/datum/vampire_clan/proc/on_spend_rank(datum/antagonist/vampire/source, mob/living/carbon/target, cost_rank = TRUE, blood_cost)
+/datum/vampire_clan/proc/on_spend_rank(datum/antagonist/vampire/source, mob/living/carbon/carbon_vassal, cost_rank = TRUE, blood_cost)
 	SIGNAL_HANDLER
 
-	INVOKE_ASYNC(src, PROC_REF(spend_rank), vampiredatum, target, cost_rank, blood_cost)
+	INVOKE_ASYNC(src, PROC_REF(spend_rank), vampiredatum, carbon_vassal, cost_rank, blood_cost)
 
-/datum/vampire_clan/proc/spend_rank(datum/antagonist/vampire/source, mob/living/carbon/target, cost_rank = TRUE, blood_cost)
-	// Purchase Power Prompt
+/datum/vampire_clan/proc/spend_rank(datum/antagonist/vampire/source, mob/living/carbon/carbon_vassal, cost_rank = TRUE, blood_cost)
+	// Generate radial menu
 	var/list/options = list()
 	var/list/radial_display = list()
 	for(var/datum/action/vampire/power as anything in vampiredatum.all_vampire_powers)
-		if(initial(power.purchase_flags) & VAMPIRE_CAN_BUY && !(locate(power) in vampiredatum.powers))
+		if((initial(power.purchase_flags) & VAMPIRE_CAN_BUY) && !(locate(power) in vampiredatum.powers))
 			options[initial(power.name)] = power
 
 			var/datum/radial_menu_choice/option = new
@@ -143,33 +143,37 @@
 			option.info = "[span_boldnotice(initial(power.name))]\n[span_cult(power.power_explanation)]"
 			radial_display[initial(power.name)] = option
 
-	var/mob/living/user = vampiredatum.owner.current
+	var/mob/living/living_vampire = vampiredatum.owner.current
 
+	// Show radial menu
 	if(!length(options))
-		to_chat(user, span_notice("You grow more ancient by the night!"))
+		to_chat(living_vampire, span_notice("You grow more ancient by the night!"))
 	else
-		to_chat(user, span_notice("You have the opportunity to grow more ancient. Select a power to advance your Rank."))
+		to_chat(living_vampire, span_notice("You have the opportunity to grow more ancient. Select a power to advance your Rank."))
 
+		// If we're in a closet, anchor the radial menu to it. If not, anchor it to the vampire body
 		var/power_response
-		if(istype(user.loc, /obj/structure/closet))
-			var/obj/structure/closet/container = user.loc
-			power_response = show_radial_menu(user, container, radial_display)
+		if(istype(living_vampire.loc, /obj/structure/closet))
+			var/obj/structure/closet/container = living_vampire.loc
+			power_response = show_radial_menu(living_vampire, container, radial_display)
 		else
-			power_response = show_radial_menu(user, user, radial_display)
+			power_response = show_radial_menu(living_vampire, living_vampire, radial_display)
 
-		if(!power_response || QDELETED(src) || QDELETED(user))
+		if(isnull(power_response) || QDELETED(src) || QDELETED(living_vampire))
 			return FALSE
 
+		// Give power
 		var/datum/action/vampire/purchased_power = options[power_response]
 		vampiredatum.BuyPower(new purchased_power)
-		user.balloon_alert(user, "learned [power_response]!")
-		to_chat(user, span_notice("You have learned how to use [power_response]!"))
+
+		living_vampire.balloon_alert(living_vampire, "learned [power_response]!")
+		to_chat(living_vampire, span_notice("You have learned how to use [power_response]!"))
 
 	finalize_spend_rank(vampiredatum, cost_rank, blood_cost)
 
 	// QoL
 	if(vampiredatum.vampire_level_unspent > 0)
-		spend_rank(source, target, cost_rank, blood_cost)
+		spend_rank(source, carbon_vassal, cost_rank, blood_cost)
 
 /datum/vampire_clan/proc/finalize_spend_rank(datum/antagonist/vampire/source, cost_rank = TRUE, blood_cost)
 	vampiredatum.LevelUpPowers()
@@ -216,12 +220,12 @@
 		return FALSE
 
 	// Brujuah clan time
-	if(istype(clan_objective, /datum/objective/brujah_clan_objective) && (clan_objective.target == vassaldatum.owner))
+	if(istype(clan_objective, /datum/objective/brujah_clan_objective) && clan_objective.target == vassaldatum.owner)
 		var/datum/objective/brujah_clan_objective/brujah_objective = clan_objective
 
 		// Find Mind Implant & Destroy
 		for(var/obj/item/implant/mindshield/mindshield in vassaldatum.owner.current.implants)
-			mindshield.Destroy()
+			qdel(mindshield)
 
 		vassaldatum.make_special(/datum/antagonist/vassal/discordant)
 		brujah_objective.target_subverted = TRUE

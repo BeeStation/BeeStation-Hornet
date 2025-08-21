@@ -11,7 +11,7 @@
 	vassal_description = "The Favorite Vassal gets unique abilities over other Vassals depending on your Clan \
 		and becomes completely immune to Mindshields. If part of Ventrue, this is the Vassal you will rank up."
 
-	///Vampire levels, but for Vassals, used by Ventrue.
+	/// Vampire levels, but for Vassals, used by Ventrue.
 	var/vassal_level
 
 /datum/antagonist/vassal/favorite/on_gain()
