@@ -44,6 +44,7 @@
 #include "food_edibility_check.dm"
 #include "gas_transfer.dm"
 #include "greyscale_config.dm"
+#include "hallucination_icons.dm"
 #include "handcuff_tests.dm"
 #include "heretic_knowledge.dm"
 #include "heretic_rituals.dm"
