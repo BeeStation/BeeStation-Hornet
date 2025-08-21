@@ -955,6 +955,19 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		return FALSE
 	return ..()
 
+/mob/living/carbon/proc/can_defib()
+	var/obj/item/organ/heart = get_organ_by_type(/obj/item/organ/heart)
+	if(suiciding || ishellbound() || HAS_TRAIT(src, TRAIT_HUSK))
+		return
+	if((getBruteLoss() >= MAX_REVIVE_BRUTE_DAMAGE) || (getFireLoss() >= MAX_REVIVE_FIRE_DAMAGE))
+		return
+	if(!heart || (heart.organ_flags & ORGAN_FAILING))
+		return
+	var/obj/item/organ/brain/BR = get_organ_by_type(/obj/item/organ/brain)
+	if(QDELETED(BR) || BR.brain_death || (BR.organ_flags & ORGAN_FAILING) || BR.suicided)
+		return
+	return TRUE
+
 /mob/living/carbon/harvest(mob/living/user)
 	if(QDELETED(src))
 		return
