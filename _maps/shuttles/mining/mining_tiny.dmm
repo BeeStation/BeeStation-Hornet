@@ -60,8 +60,8 @@
 "t" = (
 /obj/machinery/requests_console{
 	department = "Cargo Bay";
-	departmentType = 2;
-	pixel_y = -35
+	pixel_y = -35;
+	supplies_requestable = 1
 	},
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/regular{

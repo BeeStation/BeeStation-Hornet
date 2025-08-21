@@ -70,10 +70,10 @@
 	},
 /obj/machinery/requests_console{
 	department = "Science";
-	departmentType = 2;
 	name = "Science RC";
 	pixel_y = 29;
-	receive_ore_updates = 1
+	receive_ore_updates = 1;
+	supplies_requestable = 1
 	},
 /obj/item/storage/toolbox/electrical,
 /turf/open/floor/iron/dark,
@@ -2132,13 +2132,14 @@
 	pixel_y = -1
 	},
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "Research Director's Desk";
-	departmentType = 5;
 	name = "Research Director RC";
 	pixel_x = -2;
 	pixel_y = 30;
-	receive_ore_updates = 1
+	receive_ore_updates = 1;
+	assistance_requestable = 1;
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
 	},
 /obj/effect/turf_decal/tile/black/opposingcorners{
 	dir = 1
@@ -2991,12 +2992,13 @@
 /area/maintenance/department/chapel)
 "bqm" = (
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "Chief Medical Officer's Desk";
-	departmentType = 5;
 	name = "Chief Medical Officer's RC";
 	pixel_x = 1;
-	pixel_y = -31
+	pixel_y = -31;
+	assistance_requestable = 1;
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
 	},
 /obj/machinery/keycard_auth{
 	pixel_x = -6;
@@ -3159,10 +3161,10 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/requests_console{
 	department = "Science";
-	departmentType = 2;
 	name = "Science RC";
 	pixel_y = 30;
-	receive_ore_updates = 1
+	receive_ore_updates = 1;
+	supplies_requestable = 1
 	},
 /obj/machinery/camera/directional/north,
 /turf/open/floor/iron,
@@ -4166,11 +4168,11 @@
 "bYv" = (
 /obj/machinery/requests_console{
 	department = "Science";
-	departmentType = 2;
 	name = "Science Requests Console";
 	pixel_x = -32;
 	pixel_y = -33;
-	receive_ore_updates = 1
+	receive_ore_updates = 1;
+	supplies_requestable = 1
 	},
 /obj/machinery/monkey_recycler,
 /turf/open/floor/iron/grid/steel,
@@ -9985,10 +9987,11 @@
 	},
 /obj/machinery/requests_console{
 	department = "Engineering";
-	departmentType = 3;
 	name = "Engineering RC";
 	pixel_x = -32;
-	pixel_y = -1
+	pixel_y = -1;
+	assistance_requestable = 1;
+	supplies_requestable = 1
 	},
 /obj/machinery/camera/directional/west,
 /obj/machinery/light{
@@ -10123,9 +10126,9 @@
 "fhx" = (
 /obj/machinery/requests_console{
 	department = "Cargo Bay";
-	departmentType = 2;
 	pixel_x = 31;
-	pixel_y = -2
+	pixel_y = -2;
+	supplies_requestable = 1
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -10493,11 +10496,12 @@
 	alpha = 180
 	},
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "Bridge";
-	departmentType = 5;
 	name = "Bridge RC";
-	pixel_y = -31
+	pixel_y = -31;
+	assistance_requestable = 1;
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
 	},
 /obj/structure/filingcabinet{
 	pixel_x = -8
@@ -16751,12 +16755,12 @@
 	},
 /obj/machinery/camera/directional/east,
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "Chief Engineer's Desk";
-	departmentType = 4;
 	name = "Chief Engineer RC";
 	pixel_x = 32;
-	pixel_y = 31
+	pixel_y = 31;
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
 	},
 /obj/machinery/power/apc/auto_name/directional/east{
 	pixel_x = 24
@@ -17253,12 +17257,13 @@
 	pixel_y = -3
 	},
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "Captain's Desk";
-	departmentType = 5;
 	name = "Captain RC";
 	pixel_x = -1;
-	pixel_y = -33
+	pixel_y = -33;
+	assistance_requestable = 1;
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
 	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 10
@@ -22771,9 +22776,9 @@
 	},
 /obj/machinery/requests_console{
 	department = "Janitorial";
-	departmentType = 1;
 	pixel_x = 31;
-	pixel_y = -2
+	pixel_y = -2;
+	assistance_requestable = 1
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/bot/right,
@@ -23892,8 +23897,8 @@
 /obj/machinery/vending/dinnerware,
 /obj/machinery/requests_console{
 	department = "Kitchen";
-	departmentType = 2;
-	pixel_y = 30
+	pixel_y = 30;
+	supplies_requestable = 1
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/kitchen)
@@ -25764,10 +25769,11 @@
 "nxE" = (
 /obj/machinery/requests_console{
 	department = "AI";
-	departmentType = 5;
 	name = "AI RC";
 	pixel_x = 30;
-	pixel_y = -30
+	pixel_y = -30;
+	assistance_requestable = 1;
+	anon_tips_receiver = 1
 	},
 /obj/machinery/ai_slipper{
 	uses = 10
@@ -30929,8 +30935,8 @@
 "qjP" = (
 /obj/machinery/requests_console{
 	department = "Cargo Bay";
-	departmentType = 2;
-	pixel_y = 29
+	pixel_y = 29;
+	supplies_requestable = 1
 	},
 /obj/machinery/computer/cargo,
 /obj/effect/turf_decal/stripes/line,
@@ -31482,10 +31488,11 @@
 /area/hallway/primary/fore)
 "qDp" = (
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "Bridge";
-	departmentType = 5;
-	pixel_y = 30
+	pixel_y = 30;
+	assistance_requestable = 1;
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
 	},
 /obj/machinery/vending/job_disk,
 /obj/effect/turf_decal/bot,
@@ -36258,12 +36265,13 @@
 	dir = 1
 	},
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "Captain's Desk";
-	departmentType = 5;
 	name = "Captain RC";
 	pixel_x = -32;
-	pixel_y = -2
+	pixel_y = -2;
+	assistance_requestable = 1;
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
 	},
 /obj/machinery/airalarm/directional/south,
 /turf/open/floor/carpet/royalblue,
@@ -37989,10 +37997,10 @@
 /obj/effect/turf_decal/bot,
 /obj/machinery/requests_console{
 	department = "Chemistry";
-	departmentType = 2;
 	pixel_x = 32;
 	pixel_y = -2;
-	receive_ore_updates = 1
+	receive_ore_updates = 1;
+	supplies_requestable = 1
 	},
 /obj/machinery/airalarm/directional/south,
 /obj/machinery/camera/directional/east,
@@ -39124,11 +39132,11 @@
 "uDY" = (
 /obj/machinery/requests_console{
 	department = "Science";
-	departmentType = 2;
 	name = "Science RC";
 	pixel_x = 32;
 	pixel_y = -3;
-	receive_ore_updates = 1
+	receive_ore_updates = 1;
+	supplies_requestable = 1
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -42661,9 +42669,9 @@
 "wxq" = (
 /obj/machinery/requests_console{
 	department = "Cargo Bay";
-	departmentType = 2;
 	pixel_x = -1;
-	pixel_y = -33
+	pixel_y = -33;
+	supplies_requestable = 1
 	},
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted{
 	dir = 8
