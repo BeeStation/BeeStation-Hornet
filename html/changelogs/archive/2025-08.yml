@@ -363,6 +363,14 @@
   - admin: You can now force specific outcomes of some hallucinations, such as delusions,
       fake alerts, fake sounds, and more. Check the VV dropdown.
 2025-08-21:
+  Bieyes:
+  - rscadd: Three new shotgun slugs!
+  - rscadd: Added the ability to load .50 cals into a shotgun.
+  - rscdel: Removed meteorslug and fragslug.
+  - tweak: Resprited every slug and cartridge boxes.
+  - tweak: Gold is required to print most slugs.
+  - tweak: Improvised shotgun no longer explodes!
+  - balance: Rebalanced most shotgun slugs.
   TsunamiAnt:
   - tweak: removed spellbook randomizer/challenges
   - balance: wizards can now refund everywhere
