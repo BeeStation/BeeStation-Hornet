@@ -32,6 +32,6 @@ causes crit.
 		if (consciousness_value <= 0)
 			owner.death()
 		else if(HAS_TRAIT(owner, TRAIT_KNOCKEDOUT) || owner.IsStun() || owner.IsKnockdown() || owner.IsParalyzed())
-			owner.set_stat(UNCONSCIOUS)
+			owner.set_stat_source(UNCONSCIOUS, FROM_CONSCIOUSNESS)
 		else
-			owner.set_stat(CONSCIOUS)
+			owner.clear_stat(FROM_CONSCIOUSNESS)

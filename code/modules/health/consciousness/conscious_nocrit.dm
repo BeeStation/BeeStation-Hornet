@@ -26,4 +26,4 @@ cannot die from fluid loss or brain damage.
 		if (consciousness_value <= 0)
 			owner.death()
 		else
-			owner.set_stat(CONSCIOUS)
+			owner.clear_stat(FROM_CONSCIOUSNESS)

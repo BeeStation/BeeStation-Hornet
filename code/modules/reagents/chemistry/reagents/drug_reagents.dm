@@ -602,9 +602,10 @@
 
 	if(affected_mob.stat == DEAD)
 		back_from_the_dead = TRUE
-	affected_mob.set_stat(CONSCIOUS) // This doesn't touch knocked out
 	affected_mob.updatehealth()
 	affected_mob.update_sight()
+	// Nooartrium provides consciousness, preventing death
+	affected_mob.consciousness.set_consciousness_source(100, FROM_NOOARTRIUM)
 	REMOVE_TRAIT(affected_mob, TRAIT_KNOCKEDOUT, STAT_TRAIT)
 	REMOVE_TRAIT(affected_mob, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT) // Prevents knockout by oxyloss
 	affected_mob.SetAllImmobility(0)
@@ -635,6 +636,8 @@
 	. = ..()
 	playsound(affected_mob, 'sound/hallucinations/far_noise.ogg', 50, TRUE, 10)
 	affected_mob.update_sight()
+	// Remove the consciousness provided by nooartrium
+	affected_mob.consciousness.set_consciousness_source(0, FROM_NOOARTRIUM)
 
 	//Make sure heart removal isn't the reason the drug stopped working
 	var/obj/item/organ/heart/heart = affected_mob.get_organ_slot(ORGAN_SLOT_HEART)

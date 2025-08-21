@@ -731,7 +731,7 @@
 		remove_from_dead_mob_list()
 		add_to_alive_mob_list()
 		set_suicide(FALSE)
-		set_stat(UNCONSCIOUS) //the mob starts unconscious,
+		clear_stat(FROM_DEAD) //the mob starts unconscious,
 		updatehealth() //then we check if the mob should wake up.
 		update_sight()
 		clear_alert("not_enough_oxy")
@@ -1508,8 +1508,8 @@
 		if(client)
 			reset_perspective()
 
-
-/mob/living/set_stat(new_stat)
+/mob/living/set_stat_source(new_stat, source)
+	TODO
 	. = ..()
 	if(isnull(.))
 		return

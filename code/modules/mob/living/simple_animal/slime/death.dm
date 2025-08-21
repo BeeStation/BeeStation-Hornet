@@ -22,7 +22,7 @@
 		Feedstop(silent = TRUE) //releases ourselves from the mob we fed on.
 
 	GLOB.total_slimes--
-	set_stat(DEAD)
+	set_stat_source(DEAD, FROM_DEAD)
 	cut_overlays()
 
 	return ..(gibbed)

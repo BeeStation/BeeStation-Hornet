@@ -113,14 +113,14 @@
 			if(CONSCIOUS)
 				if(stasis)
 					to_chat(src, span_danger("Nerve gas in the air has put you in stasis!"))
-					set_stat(UNCONSCIOUS)
+					set_stat_source(UNCONSCIOUS, FROM_BZ)
 					powerlevel = 0
 					rabid = FALSE
 					regenerate_icons()
 			if(UNCONSCIOUS, HARD_CRIT)
 				if(!stasis)
 					to_chat(src, span_notice("You wake up from the stasis."))
-					set_stat(CONSCIOUS)
+					clear_stat(FROM_BZ)
 					regenerate_icons()
 
 	updatehealth()

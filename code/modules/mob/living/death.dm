@@ -50,7 +50,7 @@
 
 /mob/living/death(gibbed)
 	var/was_dead_before = stat == DEAD
-	set_stat(DEAD)
+	set_stat_source(DEAD, FROM_DEAD)
 	SEND_SIGNAL(src, COMSIG_LIVING_DEATH, gibbed, was_dead_before)
 	unset_machine()
 	timeofdeath = world.time

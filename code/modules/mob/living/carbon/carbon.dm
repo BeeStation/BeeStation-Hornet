@@ -736,7 +736,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		else if(health > HEALTH_THRESHOLD_NEARDEATH)
 			REMOVE_TRAIT(src, TRAIT_SIXTHSENSE, "near-death")
 
-/mob/living/carbon/set_stat(new_stat)
+/mob/living/carbon/set_stat_source(new_stat, source)
 	. = ..()
 	if (stat == CONSCIOUS)
 		if(!is_blind())

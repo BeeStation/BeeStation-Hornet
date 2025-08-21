@@ -82,7 +82,7 @@
 			continue
 		var/datum/atom_hud/alternate_appearance/AA = v
 		AA.onNewMob(src)
-		
+
 	set_nutrition(rand(NUTRITION_LEVEL_START_MIN, NUTRITION_LEVEL_START_MAX))
 	. = ..()
 	update_config_movespeed()
@@ -1339,7 +1339,8 @@
 /mob/proc/hears_radio()
 	return TRUE
 
-/mob/proc/set_stat(new_stat)
+/mob/proc/set_stat_source(new_stat, source)
+	TODO
 	if(new_stat == stat)
 		return
 	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, new_stat)
