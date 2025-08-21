@@ -160,11 +160,10 @@
 /datum/action/vampire/targeted/feed/UsePower()
 	var/mob/living/user = owner
 
-	if(!target_ref)
+	var/mob/living/feed_target = target_ref?.resolve()
+	if(!feed_target)
 		power_activated_sucessfully()
 		return
-
-	var/mob/living/feed_target = target_ref.resolve()
 
 	if(!silent_feed)
 		feed_target.SetUnconscious(10 SECONDS)
@@ -244,8 +243,8 @@
 	. = ..()
 	REMOVE_TRAITS_IN(owner, TRAIT_FEED)
 
-	if(target_ref)
-		var/mob/living/feed_target = target_ref.resolve()
+	var/mob/living/feed_target = target_ref?.resolve()
+	if(feed_target)
 		REMOVE_TRAITS_IN(feed_target, TRAIT_FEED)
 
 		log_combat(owner, feed_target, "fed on blood", addition = "(and took [blood_taken] blood)")
