@@ -2,8 +2,10 @@
 
 //this singleton datum is used by the events controller to dictate how it selects events
 /datum/round_event_control
-	var/name						//The human-readable name of the event
-	var/typepath					//The typepath of the event datum /datum/round_event
+	var/name //The human-readable name of the event
+	//var/category //The category of the event
+	//var/description //The description of the event
+	var/typepath //The typepath of the event datum /datum/round_event
 
 	var/weight = 10					//The weight this event has in the random-selection process.
 									//Higher weights are more likely to be picked.
@@ -24,18 +26,10 @@
 	var/alert_observers = TRUE		//should we let the ghosts and admins know this event is firing
 									//should be disabled on events that fire a lot
 
-	var/list/gamemode_blacklist = list() // Event won't happen in these gamemodes
-	var/list/gamemode_whitelist = list() // Event will happen ONLY in these gamemodes if not empty
-
 	var/triggering	//admin cancellation
 	var/auto_add = TRUE				//Auto add to the event pool, if not you have to do it yourself!
 	var/can_malf_fake_alert = FALSE	//Can be faked by malf ai?
 
-	/// Whether or not dynamic is allowed to cancel these events if it is planning to run its own midround event soon,
-	/// or has run a midround event recently.
-	/// Avoid enabling this setting without adding a dynamic ruleset to replace it as it will significantly decrease
-	/// the event's spawn rate.
-	var/dynamic_should_hijack = FALSE
 	var/cannot_spawn_after_shuttlecall = FALSE	// Prevents the event from spawning after the shuttle was called
 
 /datum/round_event_control/New()
@@ -51,7 +45,7 @@
 
 // Checks if the event can be spawned. Used by event controller and "false alarm" event.
 // Admin-created events override this.
-/datum/round_event_control/proc/canSpawnEvent(var/players_amt, var/gamemode)
+/datum/round_event_control/proc/canSpawnEvent(players_amt)
 	if(occurrences >= max_occurrences)
 		return FALSE
 	if(earliest_start >= world.time-SSticker.round_start_time)
@@ -60,19 +54,11 @@
 		return FALSE
 	if(players_amt < min_players)
 		return FALSE
-	if(gamemode_blacklist.len && (gamemode in gamemode_blacklist))
-		return FALSE
-	if(gamemode_whitelist.len && !(gamemode in gamemode_whitelist))
-		return FALSE
 	if(holidayID && (!SSevents.holidays || !SSevents.holidays[holidayID]))
 		return FALSE
 	if(cannot_spawn_after_shuttlecall && !EMERGENCY_IDLE_OR_RECALLED)
 		return FALSE
 	if(ispath(typepath, /datum/round_event/ghost_role) && !(GLOB.ghost_role_flags & GHOSTROLE_MIDROUND_EVENT))
-		return FALSE
-
-	var/datum/game_mode/dynamic/dynamic = SSticker.mode
-	if (istype(dynamic) && dynamic_should_hijack && dynamic.random_event_hijacked != HIJACKED_NOTHING)
 		return FALSE
 
 	return TRUE
@@ -86,12 +72,11 @@
 
 	triggering = TRUE
 	if (alert_observers)
-		message_admins("Random Event triggering in [RANDOM_EVENT_ADMIN_INTERVENTION_TIME] seconds: [name] (<a href='?src=[REF(src)];cancel=1'>CANCEL</a>)")
+		message_admins("Random Event triggering in [RANDOM_EVENT_ADMIN_INTERVENTION_TIME] seconds: [name] (<a href='byond://?src=[REF(src)];cancel=1'>CANCEL</a>)")
 		play_sound_to_all_admins('sound/effects/admin_alert.ogg')
 		sleep(RANDOM_EVENT_ADMIN_INTERVENTION_TIME SECONDS)
-		var/gamemode = SSticker.mode.config_tag
 		var/players_amt = get_active_player_count(alive_check = TRUE, afk_check = TRUE, human_check = TRUE)
-		if(!canSpawnEvent(players_amt, gamemode))
+		if(!canSpawnEvent(players_amt))
 			message_admins("Second pre-condition check for [name] failed, skipping...")
 			return EVENT_INTERRUPTED
 
@@ -104,7 +89,7 @@
 	..()
 	if(href_list["cancel"])
 		if(!triggering)
-			to_chat(usr, "<span class='admin'>You are too late to cancel that event</span>")
+			to_chat(usr, span_admin("You are too late to cancel that event"))
 			return
 		triggering = FALSE
 		message_admins("[key_name_admin(usr)] cancelled event [name].")
@@ -122,7 +107,7 @@
 	if(random)
 		log_game("Random Event triggering: [name] ([typepath])")
 	if (alert_observers)
-		deadchat_broadcast("<span class='deadsay'><b>[name]</b> has just been triggered!</span>") //STOP ASSUMING IT'S BADMINS!
+		deadchat_broadcast(span_deadsay("<b>[name]</b> has just been triggered!")) //STOP ASSUMING IT'S BADMINS!
 	return E
 
 //Special admins setup

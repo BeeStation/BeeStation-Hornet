@@ -67,3 +67,5 @@
 				printer_ready = world.time + PRINTER_TIMEOUT
 				print_paper()
 				return
+
+#undef PRINTER_TIMEOUT

@@ -129,7 +129,7 @@
 		return
 	if(QDELETED(wielder) || is_obscured())
 		return
-	if(!(wielder.mobility_flags & MOBILITY_STAND) || !wielder.has_gravity(wielder.loc))
+	if(wielder.body_position == LYING_DOWN || !wielder.has_gravity(wielder.loc))
 		return
 
 	var/half_our_blood = bloody_shoes[last_blood_state] / 2
@@ -262,7 +262,7 @@
 	for(var/X in wielder.bodyparts)
 		var/obj/item/bodypart/affecting = X
 		if(affecting.body_part == LEG_RIGHT || affecting.body_part == LEG_LEFT)
-			if(!affecting.disabled)
+			if(!affecting.bodypart_disabled)
 				FP.species_types |= affecting.limb_id
 				break
 
@@ -273,13 +273,13 @@
 	return ITEM_SLOT_FEET in wielder.check_obscured_slots(TRUE)
 
 /datum/component/bloodysoles/feet/on_moved(datum/source, OldLoc, Dir, Forced)
-	if(wielder.get_num_legs(FALSE) < 2)
+	if(wielder.num_legs < 2)
 		return
 
 	..()
 
 /datum/component/bloodysoles/feet/on_step_blood(datum/source, obj/effect/decal/cleanable/pool)
-	if(wielder.get_num_legs(FALSE) < 2)
+	if(wielder.num_legs < 2)
 		return
 
 	..()

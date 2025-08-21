@@ -27,7 +27,7 @@
 	RegisterSignal(drifting_loop, COMSIG_MOVELOOP_STOP, PROC_REF(drifting_stop))
 	RegisterSignal(drifting_loop, COMSIG_MOVELOOP_PREPROCESS_CHECK, PROC_REF(before_move))
 	RegisterSignal(drifting_loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(after_move))
-	RegisterSignal(drifting_loop, COMSIG_PARENT_QDELETING, PROC_REF(loop_death))
+	RegisterSignal(drifting_loop, COMSIG_QDELETING, PROC_REF(loop_death))
 
 /datum/component/drift/Destroy()
 	inertia_last_loc = null
@@ -62,6 +62,10 @@
 /datum/component/drift/proc/before_move(datum/source)
 	SIGNAL_HANDLER
 	var/atom/movable/movable_parent = parent
+	// We cannot drift while not on a turf
+	if (!isturf(movable_parent.loc))
+		qdel(src)
+		return MOVELOOP_SKIP_STEP
 	movable_parent.inertia_moving = TRUE
 	old_dir = movable_parent.dir
 

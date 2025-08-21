@@ -242,16 +242,6 @@
 	category = list("Weapons")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 
-/datum/design/large_grenade
-	name = "Large Grenade"
-	desc = "A grenade that affects a larger area and use larger containers."
-	id = "large_Grenade"
-	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 3000)
-	build_path = /obj/item/grenade/chem_grenade/large
-	category = list("Weapons")
-	departmental_flags = DEPARTMENTAL_FLAG_SECURITY | DEPARTMENTAL_FLAG_MEDICAL
-
 /datum/design/pyro_grenade
 	name = "Pyro Grenade"
 	desc = "An advanced grenade that is able to self ignite its mixture."
@@ -396,7 +386,7 @@
 	id = "largecrossbow"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 5000, /datum/material/glass = 1500, /datum/material/uranium = 1500, /datum/material/silver = 1500)
-	build_path = /obj/item/gun/energy/kinetic_accelerator/crossbow/large
+	build_path = /obj/item/gun/energy/recharge/ebow/large
 	category = list("Weapons")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
@@ -419,3 +409,17 @@
 	build_path = /obj/item/flashbulb
 	category = list("Weapons")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
+/////////////////////////////////////////
+/////////////////Armour//////////////////
+/////////////////////////////////////////
+
+/datum/design/shield_belt
+	name = "Shield Belt"
+	desc = "A belt which evelops the user inside a high-energy shield which blocks incoming and outgoing high-energy projectiles."
+	id = "shieldbelt"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 1 * MINERAL_MATERIAL_AMOUNT, /datum/material/uranium = 1 * MINERAL_MATERIAL_AMOUNT)
+	build_path = /obj/item/shield_belt
+	category = list("Weapons")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE

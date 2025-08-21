@@ -6,6 +6,8 @@
 	var/list/played_names = list() //List of names this key played under this round
 	var/byond_version = "Unknown"
 	var/datum/achievement_data/achievements
+	/// Whether or not this client has voted to leave
+	var/voted_to_leave = FALSE
 
 /datum/player_details/New(key)
 	achievements = new(key)

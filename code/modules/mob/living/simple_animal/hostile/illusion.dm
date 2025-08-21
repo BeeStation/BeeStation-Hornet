@@ -8,12 +8,13 @@
 	gender = NEUTER
 	mob_biotypes = list()
 	melee_damage = 5
-	a_intent = INTENT_HARM
-	attacktext = "gores"
+	combat_mode = TRUE
+	attack_verb_continuous = "gores"
+	attack_verb_simple = "gore"
 	maxHealth = 100
 	health = 100
 	speed = 0
-	faction = list("illusion")
+	faction = list(FACTION_ILLUSION)
 	var/life_span = INFINITY //how long until they despawn
 	var/mob/living/parent_mob
 	var/multiply_chance = 0 //if we multiply on hit
@@ -21,7 +22,7 @@
 	deathmessage = "vanishes into thin air! It was a fake!"
 
 
-/mob/living/simple_animal/hostile/illusion/Life()
+/mob/living/simple_animal/hostile/illusion/Life(delta_time = SSMOBS_DT, times_fired)
 	..()
 	if(world.time > life_span)
 		death()
@@ -35,7 +36,7 @@
 	health = hp
 	melee_damage = damage
 	multiply_chance = replicate
-	faction -= "neutral"
+	faction -= FACTION_NEUTRAL
 	transform = initial(transform)
 	pixel_y = base_pixel_y
 	pixel_x = base_pixel_x
@@ -71,3 +72,11 @@
 
 /mob/living/simple_animal/hostile/illusion/escape/AttackingTarget()
 	return FALSE
+
+/mob/living/simple_animal/hostile/illusion/mirage
+	AIStatus = AI_OFF
+	density = FALSE
+
+/mob/living/simple_animal/hostile/illusion/mirage/death(gibbed)
+	do_sparks(rand(3, 6), FALSE, src)
+	return ..()

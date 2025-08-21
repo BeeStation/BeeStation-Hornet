@@ -94,7 +94,7 @@ Bonus
 	prefixes = list("Spontaneous ")
 	var/time_to_cure
 	threshold_desc = "<b>Resistance/Stage Speed:</b> Highest between these determines the amount of time before self-curing.<br>\
-					  <b>Stealth 4</b> Doubles the time before the virus self-cures"
+						<b>Stealth 4</b> Doubles the time before the virus self-cures"
 
 
 /datum/symptom/viralreverse/Activate(datum/disease/advance/A)
@@ -109,7 +109,7 @@ Bonus
 /datum/symptom/viralreverse/proc/Heal(mob/living/M, datum/disease/advance/A)
 	A.stage -= 1
 	if(A.stage < 2)
-		to_chat(M, "<span class='notice'>You suddenly feel healthy.</span>")
+		to_chat(M, span_notice("You suddenly feel healthy."))
 		A.cure(FALSE) //Doesn't Add Resistance. Virology can now make potions for stuff, be it healing the senses or making people explode
 
 /datum/symptom/viralreverse/Start(datum/disease/advance/A)
@@ -169,7 +169,7 @@ Bonus
 			S.stopped = TRUE
 			captives += S
 		used = TRUE
-	
+
 
 /*
 //////////////////////////////////////
@@ -195,10 +195,10 @@ Bonus
 	prefixes = list("Super", "Mega", "Admin ")
 	var/maxpower
 	var/powerbudget
-	var/scramble = FALSE 
+	var/scramble = FALSE
 	var/used = FALSE
 	threshold_desc = "<b>Transmission 8:</b> Constantly scrambles the power of all unneutered symptoms.<br>\
-					  <b>Stage Speed 8</b> Doubles the power boost"
+						<b>Stage Speed 8</b> Doubles the power boost"
 
 
 /datum/symptom/viralpower/Start(datum/disease/advance/A)
@@ -219,10 +219,10 @@ Bonus
 			if(S == src)
 				return
 			S.power += power
-			maxpower += S.power 
+			maxpower += S.power
 		if(scramble)
-			powerbudget += power 
-			maxpower += power 
+			powerbudget += power
+			maxpower += power
 			power = 0
 		used = TRUE
 	if(scramble)

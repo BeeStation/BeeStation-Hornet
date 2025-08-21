@@ -26,10 +26,11 @@
 	maxHealth = 350
 	health = 350
 	spacewalk = TRUE
-	a_intent = INTENT_HARM
-	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0.5, OXY = 1)
+	combat_mode = TRUE
+	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
 	speed = 0
-	attacktext = "chomps"
+	attack_verb_continuous = "chomps"
+	attack_verb_simple = "chomp"
 	attack_sound = 'sound/magic/demon_attack1.ogg'
 	deathsound = 'sound/creatures/space_dragon_roar.ogg'
 	icon = 'icons/mob/spacedragon.dmi'
@@ -42,6 +43,8 @@
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 	melee_damage = 35
 	mob_size = MOB_SIZE_LARGE
+	see_in_dark = NIGHTVISION_FOV_RANGE
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	armour_penetration = 30
 	pixel_x = -16
 	turns_per_move = 5
@@ -52,15 +55,16 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = 1500
-	faction = list("carp")
+	faction = list(FACTION_CARP)
 	pressure_resistance = 200
-	movement_type = FLYING | FLOATING // fly so you can move without gravity, float so no animation applies
+	is_flying_animal = TRUE
+	no_flying_animation = TRUE
 	/// How much endlag using Wing Gust should apply.  Each use of wing gust increments this, and it decreases over time.
 	var/tiredness = 0
 	/// A multiplier to how much each use of wing gust should add to the tiredness variable.  Set to 5 if the current rift is destroyed.
 	var/tiredness_mult = 1
 	/// The distance Space Dragon's gust reaches
-	var/gust_distance = 4
+	var/gust_distance = 3
 	/// The amount of tiredness to add to Space Dragon per use of gust
 	var/gust_tiredness = 30
 	/// Determines whether or not Space Dragon is in the middle of using wing gust.  If set to true, prevents him from moving and doing certain actions.
@@ -70,7 +74,7 @@
 	/// Whether space dragon is swallowing a body currently
 	var/is_swallowing = FALSE
 	/// The cooldown ability to use wing gust
-	var/datum/action/cooldown/gust_attack/gust
+	var/datum/action/gust_attack/gust
 	/// The ability to make your sprite smaller
 	var/datum/action/small_sprite/space_dragon/small_sprite
 	/// The color of the space dragon.
@@ -86,15 +90,17 @@
 	small_sprite = new
 	small_sprite.Grant(src)
 	ADD_TRAIT(src, TRAIT_FREE_HYPERSPACE_MOVEMENT, INNATE_TRAIT)
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 /mob/living/simple_animal/hostile/space_dragon/proc/living_revive(source)
 	SIGNAL_HANDLER
 	if(!isliving(source))
 		return
 	var/mob/living/mob = source
+	//TODO Componentize this
 	if(mob in src)
 		playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
-		visible_message("<span class='danger'>[src] vomits up [mob]!</span>")
+		visible_message(span_danger("[src] vomits up [mob]!"))
 		mob.forceMove(loc)
 		mob.Paralyze(50)
 		UnregisterSignal(mob, COMSIG_LIVING_REVIVE)
@@ -106,21 +112,21 @@
 		//dragon_name()
 		color_selection()
 
-/mob/living/simple_animal/hostile/space_dragon/Life(seconds, times_fired)
+/mob/living/simple_animal/hostile/space_dragon/Life(delta_time = SSMOBS_DT, times_fired)
 	. = ..()
-	tiredness = max(tiredness - 1, 0)
+	tiredness = max(tiredness - (0.5 * delta_time), 0)
 
 /mob/living/simple_animal/hostile/space_dragon/AttackingTarget()
 	if(using_special)
 		return
 	if(target == src)
-		to_chat(src, "<span class='warning'>You almost bite yourself, but then decide against it.</span>")
+		to_chat(src, span_warning("You almost bite yourself, but then decide against it."))
 		return
 	if(istype(target, /turf/closed/wall))
 		if(tearing_wall)
 			return
 		var/turf/closed/wall/thewall = target
-		to_chat(src, "<span class='warning'>You begin tearing through the wall...</span>")
+		to_chat(src, span_warning("You begin tearing through the wall..."))
 		playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE)
 		var/timetotear = 4 SECONDS
 		if(istype(target, /turf/closed/wall/r_wall))
@@ -128,6 +134,7 @@
 		tearing_wall = TRUE
 		if(do_after(src, timetotear, target = thewall))
 			if(istype(thewall, /turf/open))
+				tearing_wall = FALSE
 				return
 			thewall.dismantle_wall(1)
 			playsound(src, 'sound/effects/meteorimpact.ogg', 100, TRUE)
@@ -138,7 +145,7 @@
 		if(L.stat == DEAD)
 			if(is_swallowing)
 				return
-			to_chat(src, "<span class='warning'>You begin to swallow [L] whole...</span>")
+			to_chat(src, span_warning("You begin to swallow [L] whole..."))
 			is_swallowing = TRUE
 			if(do_after(src, 3 SECONDS, target = L))
 				RegisterSignal(L, COMSIG_LIVING_REVIVE, PROC_REF(living_revive))
@@ -170,10 +177,6 @@
 	. = ..()
 	update_dragon_overlay()
 
-/mob/living/simple_animal/hostile/space_dragon/wabbajack_act(mob/living/new_mob)
-	empty_contents()
-	. = ..()
-
 /mob/living/simple_animal/hostile/space_dragon/ex_act(severity, target, origin)
 	set waitfor = FALSE
 	if(origin && istype(origin, /datum/spacevine_mutation) && isvineimmune(src))
@@ -200,10 +203,10 @@
 /mob/living/simple_animal/hostile/space_dragon/proc/dragon_name()
 	var/chosen_name = sanitize_name(reject_bad_text(stripped_input(src, "What would you like your name to be?", "Choose Your Name", real_name, MAX_NAME_LEN)))
 	if(!chosen_name)
-		to_chat(src, "<span class='warning'>Not a valid name, please try again.</span>")
+		to_chat(src, span_warning("Not a valid name, please try again."))
 		dragon_name()
 		return
-	to_chat(src, "<span class='notice'>Your name is now <span class='name'>[chosen_name]</span>, the feared Space Dragon.</span>")
+	to_chat(src, span_notice("Your name is now [span_name("[chosen_name]")], the feared Space Dragon."))
 	fully_replace_character_name(null, chosen_name)
 
 /**
@@ -215,12 +218,12 @@
 /mob/living/simple_animal/hostile/space_dragon/proc/color_selection()
 	chosen_color = tgui_color_picker(src,"What would you like your color to be?","Choose Your Color", COLOR_WHITE)
 	if(!chosen_color) //redo proc until we get a color
-		to_chat(src, "<span class='warning'>Not a valid color, please try again.</span>")
+		to_chat(src, span_warning("Not a valid color, please try again."))
 		color_selection()
 		return
 	var/temp_hsv = RGBtoHSV(chosen_color)
 	if(ReadHSV(temp_hsv)[3] < DARKNESS_THRESHOLD)
-		to_chat(src, "<span class='danger'>Invalid color. Your color is not bright enough.</span>")
+		to_chat(src, span_danger("Invalid color. Your color is not bright enough."))
 		color_selection()
 		return
 	add_atom_colour(chosen_color, FIXED_COLOUR_PRIORITY)
@@ -319,7 +322,7 @@
 			continue
 		hit_list += L
 		L.adjustFireLoss(30)
-		to_chat(L, "<span class='userdanger'>You're hit by [src]'s fire breath!</span>")
+		to_chat(L, span_userdanger("You're hit by [src]'s fire breath!"))
 	// deals damage to mechs
 	for(var/obj/vehicle/sealed/mecha/M in T.contents)
 		if(M in hit_list)
@@ -338,7 +341,7 @@
 /mob/living/simple_animal/hostile/space_dragon/proc/eat(atom/movable/A)
 	if(A?.loc != src)
 		playsound(src, 'sound/magic/demon_attack1.ogg', 100, TRUE)
-		visible_message("<span class='warning'>[src] swallows [A] whole!</span>")
+		visible_message(span_warning("[src] swallows [A] whole!"))
 		A.forceMove(src)
 		return TRUE
 	return FALSE
@@ -380,7 +383,6 @@
 	target.add_filter("anger_glow", 3, list("type" = "outline", "color" = "#ff330030", "size" = 2))
 	target.add_movespeed_modifier(/datum/movespeed_modifier/rift_empowerment)
 	addtimer(CALLBACK(src, PROC_REF(end_carp_speedboost), target), 8 SECONDS)
-
 /**
  * Remove the speed boost from carps when hit by space dragon's flame breath
  *
@@ -414,13 +416,20 @@
 		overlay.appearance_flags = RESET_COLOR
 		add_overlay(overlay)
 	playsound(src, 'sound/effects/gravhit.ogg', 100, TRUE)
-	for (var/mob/living/candidate in view(gust_distance, src))
-		if(candidate == src || candidate.faction_check_mob(src))
+	var/list/candidates_flung = list()
+	for (var/turf/epicenter in view(1, usr.loc))
+		if(istype(epicenter, /turf/closed)) //Gusts dont go through walls.
 			continue
-		visible_message("<span class='boldwarning'>[candidate] is knocked back by the gust!</span>")
-		to_chat(candidate, "<span class='userdanger'>You're knocked back by the gust!</span>")
+		for (var/mob/living/mob in view(gust_distance, epicenter))
+			if(mob == src || mob.faction_check_mob(src))
+				continue
+			candidates_flung |= mob
+
+	for(var/mob/living/candidate in candidates_flung)
+		visible_message(span_boldwarning("[candidate] is knocked back by the gust!"))
+		to_chat(candidate, span_userdanger("You're knocked back by the gust!"))
 		var/dir_to_target = get_dir(get_turf(src), get_turf(candidate))
-		var/throwtarget = get_edge_target_turf(target, dir_to_target)
+		var/throwtarget = get_edge_target_turf(candidate, dir_to_target)
 		candidate.safe_throw_at(throwtarget, 10, 1, src)
 		candidate.Paralyze(50)
 	addtimer(CALLBACK(src, PROC_REF(reset_status)), 4 + ((tiredness * tiredness_mult) / 10))
@@ -431,7 +440,7 @@
 	if(!message)
 		return
 	if(CHAT_FILTER_CHECK(message))
-		to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+		to_chat(usr, span_warning("Your message contains forbidden words."))
 		return
 	message = treat_message_min(message)
 	log_talk(message, LOG_SAY)
@@ -439,7 +448,7 @@
 	var/valid_span_class = "srt_radio carpspeak"
 	if(istype(src, /mob/living/simple_animal/hostile/space_dragon))
 		valid_span_class += " big"
-	var/rendered = "<span class='[valid_span_class]'>Carp Wavespeak <span class='name'>[shown_name]</span> <span class='message'>[message_a]</span></span>"
+	var/rendered = "<span class='[valid_span_class]'>Carp Wavespeak [span_name(shown_name)] [span_message(message_a)]</span>"
 	for(var/mob/S in GLOB.player_list)
 		if(!S.stat && ("carp" in S.faction))
 			to_chat(S, rendered)
@@ -447,17 +456,18 @@
 			var/link = FOLLOW_LINK(S, src)
 			to_chat(S, "[link] [rendered]")
 
-/datum/action/cooldown/gust_attack
+/datum/action/gust_attack
 	name = "Gust Attack"
 	desc = "Use your wings to knock back foes with gusts of air, pushing them away and stunning them. Using this too often will leave you vulnerable for longer periods of time."
 	background_icon_state = "bg_default"
-	icon_icon = 'icons/mob/actions/actions_space_dragon.dmi'
+	icon_icon = 'icons/hud/actions/actions_space_dragon.dmi'
 	button_icon_state = "gust_attack"
 	cooldown_time = 5 SECONDS // the ability takes up around 2-3 seconds
 
-/datum/action/cooldown/gust_attack/Trigger()
-	if(!..() || !istype(owner, /mob/living/simple_animal/hostile/space_dragon))
-		return FALSE
+/datum/action/gust_attack/is_available()
+	return ..() && istype(owner, /mob/living/simple_animal/hostile/space_dragon)
+
+/datum/action/gust_attack/on_activate(mob/user, atom/target)
 	var/mob/living/simple_animal/hostile/space_dragon/S = owner
 	if(S.using_special)
 		return FALSE
@@ -465,7 +475,7 @@
 	S.icon_state = "spacedragon_gust"
 	S.update_dragon_overlay()
 	S.useGust(TRUE)
-	StartCooldown()
+	start_cooldown()
 	return TRUE
 
 #undef DARKNESS_THRESHOLD

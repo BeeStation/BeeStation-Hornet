@@ -16,6 +16,8 @@
 
 	light_color = LIGHT_COLOR_BLUE
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/crew)
+
 /obj/machinery/computer/crew/Initialize(mapload, obj/item/circuitboard/C)
 	. = ..()
 	AddComponent(/datum/component/usb_port, list(
@@ -293,8 +295,10 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 
 	return results
 
-/datum/crewmonitor/ui_act(action,params)
-
+/datum/crewmonitor/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	. = ..()
+	if(.)
+		return
 	switch (action)
 		if ("select_person")
 			var/mob/living/silicon/ai/AI = usr

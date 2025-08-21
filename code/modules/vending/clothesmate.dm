@@ -28,6 +28,9 @@
 				/obj/item/clothing/head/beanie/rasta = 3,
 				/obj/item/clothing/head/beret = 3,
 				/obj/item/clothing/head/beret/black = 3,
+				/obj/item/clothing/mask/bandana = 3,
+				/obj/item/clothing/mask/bandana/striped = 3,
+				/obj/item/clothing/mask/bandana/skull = 3,
 				/obj/item/clothing/neck/scarf/pink = 3,
 				/obj/item/clothing/neck/scarf/red = 3,
 				/obj/item/clothing/neck/scarf/green = 3,
@@ -47,6 +50,7 @@
 				/obj/item/clothing/neck/tie/red = 3,
 				/obj/item/clothing/neck/tie/black = 3,
 				/obj/item/clothing/neck/tie/horrible = 3,
+				/obj/item/clothing/head/beret/black = 3,
 				/obj/item/clothing/head/chaplain/kippah = 3,
 				/obj/item/clothing/head/chaplain/taqiyah/red = 3,
 				/obj/item/clothing/head/hats/tophat = 1,
@@ -160,6 +164,7 @@
 				/obj/item/clothing/shoes/laceup = 2,
 				/obj/item/clothing/shoes/winterboots = 3,
 				/obj/item/clothing/shoes/jackboots_replica = 3,
+				/obj/item/clothing/shoes/jackboots_replica/white = 3,
 			),
 		),
 
@@ -184,7 +189,9 @@
 		/obj/item/clothing/suit/jacket/letterman_syndie = 1,
 		/obj/item/clothing/under/costume/jabroni = 1,
 		/obj/item/clothing/suit/costume/vapeshirt = 1,
-		/obj/item/clothing/under/costume/geisha = 1
+		/obj/item/clothing/under/costume/geisha = 1,
+		/obj/item/clothing/under/rank/centcom/officer/replica = 1,
+		/obj/item/clothing/under/rank/centcom/officer_skirt/replica = 1
 	)
 	premium = list(
 		/obj/item/clothing/under/suit/checkered = 1,

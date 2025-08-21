@@ -62,10 +62,10 @@
 	if(!istype(turf))
 		return
 
-	if(!turf.footstep || source.buckled || source.throwing || source.movement_type & (VENTCRAWLING | FLYING))
+	if(!turf.footstep || source.buckled || source.throwing || source.movement_type & (VENTCRAWLING | FLOATING | FLYING))
 		return
 
-	if(!(source.mobility_flags & MOBILITY_STAND)) //play crawling sound if we're lying
+	if(source.body_position == LYING_DOWN) //play crawling sound if we're lying
 		playsound(source, 'sound/effects/footstep/crawl1.ogg', 15 * volume, falloff_distance = 1, vary = sound_vary)
 		return
 
@@ -75,6 +75,7 @@
 			return
 		if(carbon_source.m_intent == MOVE_INTENT_WALK)
 			return// stealth
+
 	steps_for_living[source] += 1
 	var/steps = steps_for_living[source]
 
@@ -114,6 +115,9 @@
 
 /datum/element/footstep/proc/play_humanstep(mob/living/carbon/human/source)
 	SIGNAL_HANDLER
+
+	if(HAS_TRAIT(source, TRAIT_SILENT_FOOTSTEPS))
+		return
 
 	var/volume_multiplier = 1
 	var/range_adjustment = 0

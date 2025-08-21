@@ -9,13 +9,26 @@
 	obj_flags = CAN_BE_HIT | ON_BLUEPRINTS
 	dir = NONE			// dir will contain dominant direction for junction pipes
 	max_integrity = 200
-	armor = list(MELEE = 25,  BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 90, ACID = 30, STAMINA = 0)
+	armor_type = /datum/armor/structure_disposalpipe
 	layer = DISPOSAL_PIPE_LAYER			// slightly lower than wires and other pipes
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
+	damage_deflection = 10
 	var/dpdir = NONE					// bitmask of pipe directions
 	var/initialize_dirs = NONE			// bitflags of pipe directions added on init, see \code\_DEFINES\pipe_construction.dm
 	var/flip_type						// If set, the pipe is flippable and becomes this type when flipped
 
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/disposalpipe)
+
+
+/datum/armor/structure_disposalpipe
+	melee = 25
+	bullet = 10
+	laser = 10
+	energy = 100
+	rad = 100
+	fire = 90
+	acid = 30
 
 /obj/structure/disposalpipe/Initialize(mapload, obj/structure/disposalconstruct/make_from)
 	. = ..()
@@ -45,6 +58,11 @@
 		H.active = FALSE
 		expel(H, get_turf(src), 0)
 	return ..()
+
+/obj/structure/disposalpipe/proc/can_enter_from_dir(dir)
+	if(dir & dpdir)
+		return TRUE
+	return FALSE
 
 // returns the direction of the next pipe object, given the entrance dir
 // by default, returns the bitmask of remaining directions
@@ -108,13 +126,6 @@
 	for(var/obj/structure/disposalholder/H in src)
 		H.contents_explosion(severity, target)
 
-
-/obj/structure/disposalpipe/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	if(damage_flag == MELEE && damage_amount < 10)
-		return 0
-	return ..()
-
-
 //welding tool: unfasten and convert to obj/disposalconstruct
 /obj/structure/disposalpipe/welder_act(mob/living/user, obj/item/I)
 	if(!can_be_deconstructed(user))
@@ -124,10 +135,10 @@
 		return TRUE
 
 	add_fingerprint(user)
-	to_chat(user, "<span class='notice'>You start slicing [src]...</span>")
+	to_chat(user, span_notice("You start slicing [src]..."))
 	if(I.use_tool(src, user, 30, volume=50))
 		deconstruct()
-		to_chat(user, "<span class='notice'>You slice [src].</span>")
+		to_chat(user, span_notice("You slice [src]."))
 	return TRUE
 
 //checks if something is blocking the deconstruction (e.g. trunk with a bin still linked to it)
@@ -152,6 +163,21 @@
 	if(current_size >= STAGE_FIVE)
 		deconstruct()
 
+
+/obj/structure/disposalpipe/rotator
+	icon_state = "pipe-r1"
+	initialize_dirs = DISP_DIR_LEFT | DISP_DIR_RIGHT | DISP_DIR_FLIP
+	flip_type = /obj/structure/disposalpipe/rotator/flip
+	/// In what direction the atom travels.
+	var/direction_angle = -90
+
+/obj/structure/disposalpipe/rotator/nextdir(obj/structure/disposalholder/holder)
+	return turn(holder.dir, direction_angle)
+
+/obj/structure/disposalpipe/rotator/flip
+	icon_state = "pipe-r2"
+	flip_type = /obj/structure/disposalpipe/rotator
+	direction_angle = 90
 
 // Straight/bent pipe segment
 /obj/structure/disposalpipe/segment
@@ -245,7 +271,7 @@
 
 /obj/structure/disposalpipe/trunk/can_be_deconstructed(mob/user)
 	if(linked)
-		to_chat(user, "<span class='warning'>You need to deconstruct disposal machinery above this pipe!</span>")
+		to_chat(user, span_warning("You need to deconstruct disposal machinery above this pipe!"))
 		return FALSE
 	return TRUE
 

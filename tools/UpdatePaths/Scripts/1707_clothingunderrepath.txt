@@ -166,7 +166,7 @@
 /obj/item/clothing/under/rank/engineer/hazard : /obj/item/clothing/under/rank/engineering/engineer/hazard
 /obj/item/clothing/under/rank/engineer/skirt : /obj/item/clothing/under/rank/engineering/engineer/skirt
 
-/obj/item/clothing/under/rank/centcom_officer : /obj/item/clothing/under/rank/centcom/officer
+/obj/item/clothing/under/rank/centcom_officer : /obj/item/clothing/under/rank/centcom/official
 /obj/item/clothing/under/rank/centcom_commander : /obj/item/clothing/under/rank/centcom/commander
 
 /obj/item/clothing/under/gimmick/rank/captain/suit : /obj/item/clothing/under/rank/captain/suit

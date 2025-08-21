@@ -3,12 +3,12 @@
 	icon = 'icons/obj/clothing/under/default.dmi'
 	worn_icon = 'icons/mob/clothing/under/default.dmi'
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
-	permeability_coefficient = 0.9
 	slot_flags = ITEM_SLOT_ICLOTHING
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
+	armor_type = /datum/armor/clothing_under
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
-	var/fitted = FEMALE_UNIFORM_FULL // For use in alternate clothing styles for women
+	/// The variable containing the flags for how the woman uniform cropping is supposed to interact with the sprite.
+	var/female_sprite_flags = FEMALE_UNIFORM_FULL
 	var/has_sensor = HAS_SENSORS // For the crew computer
 	var/random_sensor = TRUE
 	var/sensor_mode = NO_SENSORS
@@ -19,6 +19,11 @@
 	var/mutable_appearance/accessory_overlay
 	var/freshly_laundered = FALSE
 	dying_key = DYE_REGISTRY_UNDER
+
+
+/datum/armor/clothing_under
+	bio = 10
+	bleed = 10
 
 /obj/item/clothing/under/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = list()
@@ -37,19 +42,47 @@
 		C.use(1)
 		has_sensor = HAS_SENSORS
 		update_sensors(NO_SENSORS)
-		to_chat(user,"<span class='notice'>You repair the suit sensors on [src] with [C].</span>")
+		to_chat(user, span_notice("You repair the suit sensors on [src] with [C]."))
 		return 1
 	if(!attach_accessory(I, user))
 		return ..()
 
-/obj/item/clothing/under/update_clothes_damaged_state(damaging = TRUE)
+/obj/item/clothing/under/attack_hand_secondary(mob/user, params)
+	. = ..()
+	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
+		return
+
+	toggle()
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+/obj/item/clothing/under/update_clothes_damaged_state(damaged_state = CLOTHING_DAMAGED)
 	..()
 	if(ismob(loc))
 		var/mob/M = loc
 		M.update_inv_w_uniform()
-	if(has_sensor > NO_SENSORS)
+	if(damaged_state == CLOTHING_SHREDDED && has_sensor > NO_SENSORS)
 		has_sensor = BROKEN_SENSORS
-		update_sensors(NO_SENSORS)
+	else if(damaged_state == CLOTHING_PRISTINE && has_sensor == BROKEN_SENSORS)
+		has_sensor = HAS_SENSORS
+	update_sensors(NO_SENSORS)
+
+/obj/item/clothing/under/add_context_self(datum/screentip_context/context, mob/user)
+	if(isnull(context.held_item) && has_sensor == HAS_SENSORS)
+		context.add_right_click_action("Toggle suit sensors")
+
+	if(istype(context.held_item, /obj/item/clothing/accessory) && !attached_accessory)
+		var/obj/item/clothing/accessory/accessory = context.held_item
+		if(accessory.can_attach_accessory(src, user))
+			context.add_left_click_action("Attach accessory")
+
+	if(has_sensor == BROKEN_SENSORS)
+		context.add_left_click_item_action("Repair suit sensors", /obj/item/stack/cable_coil)
+
+	if(attached_accessory)
+		context.add_alt_click_item_action("Remove accessory", null)
+	else if(can_adjust)
+		context.add_alt_click_action(adjusted == ALT_STYLE ? "Wear normally" : "Wear casually")
+
 
 /obj/item/clothing/under/Initialize(mapload)
 	. = ..()
@@ -71,14 +104,14 @@
 		var/new_sensor_mode = pick(SENSOR_OFF, SENSOR_OFF, SENSOR_OFF, SENSOR_LIVING, SENSOR_LIVING, SENSOR_VITALS, SENSOR_VITALS, SENSOR_COORDS)
 		if(ismob(loc))
 			var/mob/M = loc
-			to_chat(M,"<span class='warning'>The sensors on the [src] change rapidly!</span>")
+			to_chat(M,span_warning("The sensors on the [src] change rapidly!"))
 		update_sensors(new_sensor_mode)
 
-/obj/item/clothing/under/equipped(mob/user, slot)
+/obj/item/clothing/under/visual_equipped(mob/user, slot)
 	..()
 	if(adjusted)
 		adjusted = NORMAL_STYLE
-		fitted = initial(fitted)
+		female_sprite_flags = initial(female_sprite_flags)
 		if(!alt_covers_chest)
 			body_parts_covered |= CHEST
 
@@ -88,15 +121,17 @@
 	if(slot == ITEM_SLOT_ICLOTHING)
 		update_sensors(sensor_mode, TRUE)
 
-	if(slot == ITEM_SLOT_ICLOTHING && freshly_laundered)
-		freshly_laundered = FALSE
-		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "fresh_laundry", /datum/mood_event/fresh_laundry)
-
 	if(attached_accessory && slot != ITEM_SLOT_HANDS && ishuman(user))
 		var/mob/living/carbon/human/H = user
 		attached_accessory.on_uniform_equip(src, user)
 		if(attached_accessory.above_suit)
 			H.update_inv_wear_suit()
+
+/obj/item/clothing/under/equipped(mob/user, slot)
+	..()
+	if(slot == ITEM_SLOT_ICLOTHING && freshly_laundered)
+		freshly_laundered = FALSE
+		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "fresh_laundry", /datum/mood_event/fresh_laundry)
 
 /obj/item/clothing/under/dropped(mob/user)
 	..()
@@ -120,7 +155,7 @@
 		var/obj/item/clothing/accessory/A = I
 		if(attached_accessory)
 			if(user)
-				to_chat(user, "<span class='warning'>[src] already has an accessory.</span>")
+				to_chat(user, span_warning("[src] already has an accessory."))
 			return
 		else
 
@@ -132,7 +167,7 @@
 				return
 
 			if(user && notifyAttach)
-				to_chat(user, "<span class='notice'>You attach [I] to [src].</span>")
+				to_chat(user, span_notice("You attach [I] to [src]."))
 
 			var/accessory_color = attached_accessory.icon_state
 			accessory_overlay = mutable_appearance('icons/mob/accessories.dmi', "[accessory_color]")
@@ -160,9 +195,9 @@
 		var/obj/item/clothing/accessory/A = attached_accessory
 		attached_accessory.detach(src, user)
 		if(user.put_in_hands(A))
-			to_chat(user, "<span class='notice'>You detach [A] from [src].</span>")
+			to_chat(user, span_notice("You detach [A] from [src]."))
 		else
-			to_chat(user, "<span class='notice'>You detach [A] from [src] and it falls on the floor.</span>")
+			to_chat(user, span_notice("You detach [A] from [src] and it falls on the floor."))
 
 		if(ishuman(loc))
 			var/mob/living/carbon/human/H = loc
@@ -215,6 +250,71 @@
 				. += "Its vital tracker and tracking beacon appear to be enabled."
 	if(attached_accessory)
 		. += "\A [attached_accessory] is attached to it."
+
+/obj/item/clothing/under/verb/toggle()
+	set name = "Adjust Suit Sensors"
+	set category = "Object"
+	set src in usr
+	set_sensors(usr)
+
+/obj/item/clothing/under/attack_hand(mob/user, list/modifiers)
+	if(attached_accessory && ispath(attached_accessory.atom_storage) && loc == user)
+		attached_accessory.attack_hand(user)
+		return
+	..()
+
+/obj/item/clothing/under/AltClick(mob/user)
+	if(!user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, !iscyborg(user)))
+		return
+	if(attached_accessory)
+		remove_accessory(user)
+	else
+		rolldown()
+
+/obj/item/clothing/under/verb/jumpsuit_adjust()
+	set name = "Adjust Jumpsuit Style"
+	set category = null
+	set src in usr
+	rolldown()
+
+/obj/item/clothing/under/proc/rolldown()
+	if(!can_use(usr))
+		return
+	if(!can_adjust)
+		to_chat(usr, span_warning("You cannot wear this suit any differently!"))
+		return
+	if(toggle_jumpsuit_adjust())
+		to_chat(usr, span_notice("You adjust the suit to wear it more casually."))
+	else
+		to_chat(usr, span_notice("You adjust the suit back to normal."))
+	if(ishuman(usr))
+		var/mob/living/carbon/human/H = usr
+		H.update_inv_w_uniform()
+		H.update_body()
+
+/obj/item/clothing/under/proc/toggle_jumpsuit_adjust()
+	if(adjusted == DIGITIGRADE_STYLE)
+		return
+	adjusted = !adjusted
+	if(adjusted)
+		envirosealed = FALSE
+		if(female_sprite_flags != FEMALE_UNIFORM_TOP_ONLY)
+			female_sprite_flags = NO_FEMALE_UNIFORM
+		if(!alt_covers_chest) // for the special snowflake suits that expose the chest when adjusted
+			body_parts_covered &= ~CHEST
+			body_parts_covered &= ~ARMS
+	else
+		female_sprite_flags = initial(female_sprite_flags)
+		envirosealed = initial(envirosealed)
+		if(!alt_covers_chest)
+			body_parts_covered |= CHEST
+			body_parts_covered |= ARMS
+			if(!LAZYLEN(damage_by_parts))
+				return adjusted
+			for(var/zone in list(BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)) // ugly check to make sure we don't reenable protection on a disabled part
+				if(damage_by_parts[zone] > limb_integrity)
+					body_parts_covered &= body_zone2cover_flags(zone)
+	return adjusted
 
 /obj/item/clothing/under/rank
 	dying_key = DYE_REGISTRY_UNDER
@@ -286,3 +386,19 @@
 	//Finished!
 	monkey_icon = base
 	GLOB.monkey_icon_cache[identity] = icon(monkey_icon) //Don't create a reference to monkey icon
+
+/obj/item/clothing/under/on_start_stripping(mob/source, mob/user, item_slot)
+	if(!iscarbon(user))
+		return FALSE
+
+	var/mob/living/carbon/source_pocket = source
+	var/obj/item/pocket_item = source_pocket.get_item_by_slot(ITEM_SLOT_LPOCKET)
+
+	if(pocket_item && pocket_item.on_start_stripping(source, user, ITEM_SLOT_ICLOTHING))
+		return TRUE
+
+	pocket_item = source_pocket.get_item_by_slot(ITEM_SLOT_RPOCKET)
+	if(pocket_item && pocket_item.on_start_stripping(source, user, ITEM_SLOT_ICLOTHING))
+		return TRUE
+
+	return FALSE

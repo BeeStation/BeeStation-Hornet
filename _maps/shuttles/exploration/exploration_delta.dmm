@@ -1,14 +1,14 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aR" = (
 /obj/structure/lattice,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
 /turf/template_noop,
 /area/shuttle/exploration)
 "cg" = (
-/obj/machinery/airalarm{
+/obj/machinery/airalarm/directional/north{
 	pixel_y = 23
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 4
 	},
 /obj/structure/chair/fancy/shuttle,
@@ -24,7 +24,7 @@
 	frequency = 1453;
 	pixel_y = 24
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 6
 	},
 /turf/open/floor/mineral/titanium,
@@ -33,14 +33,14 @@
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/exploration)
 "fr" = (
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
+/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden{
 	dir = 4
 	},
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/exploration)
 "fF" = (
 /obj/machinery/door/airlock/external/glass,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -61,8 +61,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/auto_name/east,
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
+/obj/machinery/power/apc/auto_name/directional/east,
+/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden{
 	dir = 8
 	},
 /turf/open/floor/mineral/titanium,
@@ -89,7 +89,7 @@
 	minbodytemp = 2.7;
 	name = "Tom"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "ll" = (
@@ -122,15 +122,15 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "qa" = (
-/obj/machinery/atmospherics/components/unary/tank/air{
-	dir = 4;
-	initialize_directions = 4
+/obj/machinery/atmospherics/components/tank/air{
+	dir = 3;
+	initialize_directions = 3
 	},
 /obj/machinery/light/small,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "qi" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 9
 	},
 /turf/closed/wall/mineral/titanium/nodiagonal,
@@ -183,10 +183,10 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "tq" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 4
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/bridge_pipe/scrubbers/hidden{
+	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "ts" = (
@@ -241,16 +241,16 @@
 /area/shuttle/exploration)
 "Dl" = (
 /obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
 /turf/open/floor/plating,
 /area/shuttle/exploration)
 "DM" = (
 /obj/machinery/door/airlock/shuttle,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "GH" = (
-/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+/obj/machinery/atmospherics/pipe/smart/manifold/purple/visible{
 	dir = 1
 	},
 /obj/effect/turf_decal/delivery,
@@ -271,7 +271,7 @@
 	width = 16
 	},
 /obj/machinery/door/airlock/external/glass,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 10
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -280,16 +280,16 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "In" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "IP" = (
-/obj/machinery/atmospherics/pipe/manifold4w/purple/visible,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/purple/visible,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "IQ" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 9
 	},
 /obj/structure/chair/fancy/shuttle,
@@ -313,7 +313,7 @@
 /area/shuttle/exploration)
 "Nc" = (
 /obj/machinery/holopad,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Nx" = (
@@ -332,14 +332,13 @@
 "NT" = (
 /obj/structure/table,
 /obj/item/trash/pistachios,
-/obj/item/trash/can/food/beans{
+/obj/item/trash/canned/beans{
 	pixel_y = 10
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "OE" = (
 /obj/structure/closet/emcloset/anchored,
-/obj/machinery/advanced_airlock_controller/directional/east,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "OU" = (
@@ -352,17 +351,17 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "PA" = (
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
+/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden{
 	dir = 4
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Qb" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/exploration)
 "Qy" = (
-/obj/machinery/atmospherics/pipe/simple/purple/visible{
+/obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
 	dir = 6
 	},
 /obj/effect/turf_decal/bot,
@@ -393,7 +392,7 @@
 /area/template_noop)
 "SA" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 9
 	},
 /turf/open/floor/mineral/titanium,
@@ -405,14 +404,14 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Vl" = (
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/exploration)
 "Xj" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
 /turf/closed/wall/mineral/titanium/nodiagonal,
@@ -431,7 +430,7 @@
 /turf/open/floor/plating,
 /area/shuttle/exploration)
 "ZX" = (
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
+/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden{
 	dir = 8
 	},
 /turf/open/floor/mineral/titanium,

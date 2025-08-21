@@ -34,17 +34,17 @@
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
 		if(blocked != 100) // not completely blocked
-			if(M.can_inject(null, FALSE, def_zone,)) // Pass the hit zone to see if it can inject by whether it hit the head or the body.
+			if(M.can_inject(null, def_zone, INJECT_CHECK_PENETRATE_THICK)) // Pass the hit zone to see if it can inject by whether it hit the head or the body.
 				..()
-				reagents.reaction(M, INJECT)
+				reagents.expose(M, INJECT)
 				reagents.trans_to(M, reagents.total_volume)
 				M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 15, 170)
 				M.confused += 3
 				return BULLET_ACT_HIT
 			else
 				blocked = 100
-				target.visible_message("<span class='danger'>\The [src] was deflected!</span>", \
-									   "<span class='userdanger'>You were protected against \the [src]!</span>")
+				target.visible_message(span_danger("\The [src] was deflected!"), \
+									   span_userdanger("You were protected against \the [src]!"))
 
 	..(target, blocked)
 	DISABLE_BITFIELD(reagents.flags, NO_REACT)

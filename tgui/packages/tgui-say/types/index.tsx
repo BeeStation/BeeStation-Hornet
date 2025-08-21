@@ -1,4 +1,4 @@
-import { RefObject } from 'inferno';
+import { RefObject } from 'react';
 
 export type Modal = {
   events: Events;
@@ -33,6 +33,7 @@ type Fields = {
   innerRef: RefObject<HTMLInputElement>;
   lightMode: boolean;
   showRadioPrefix: boolean;
+  dpi: number;
   maxLength: number;
   radioPrefix: string;
   tempHistory: string;

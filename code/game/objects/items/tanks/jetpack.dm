@@ -8,7 +8,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	distribute_pressure = ONE_ATMOSPHERE * O2STANDARD
 	actions_types = list(/datum/action/item_action/set_internals, /datum/action/item_action/toggle_jetpack, /datum/action/item_action/jetpack_stabilization)
-	var/gas_type = GAS_O2
+	var/gas_type = /datum/gas/oxygen
 	var/on = FALSE
 	var/stabilizers = FALSE
 	var/full_speed = TRUE // If the jetpack will have a speedboost in space/nograv or not
@@ -27,9 +27,24 @@
 	QDEL_NULL(ion_trail)
 	return ..()
 
+/obj/item/tank/jetpack/item_action_slot_check(slot)
+	if(slot & slot_flags)
+		return TRUE
+
+/obj/item/tank/jetpack/equipped(mob/user, slot, initial)
+	. = ..()
+	if(on && !(slot & slot_flags))
+		turn_off(user)
+
+/obj/item/tank/jetpack/dropped(mob/user, silent)
+	. = ..()
+	if(on)
+		turn_off(user)
+
 /obj/item/tank/jetpack/populate_gas()
 	if(gas_type)
-		air_contents.set_moles(gas_type, ((6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)))
+		var/datum/gas_mixture/our_mix = return_air()
+		SET_MOLES(gas_type, our_mix, ((6 * ONE_ATMOSPHERE * volume / (R_IDEAL_GAS_EQUATION * T20C))))
 
 /obj/item/tank/jetpack/ui_action_click(mob/user, action)
 	if(istype(action, /datum/action/item_action/toggle_jetpack))
@@ -37,7 +52,7 @@
 	else if(istype(action, /datum/action/item_action/jetpack_stabilization))
 		if(on)
 			stabilizers = !stabilizers
-			to_chat(user, "<span class='notice'>You turn the jetpack stabilization [stabilizers ? "on" : "off"].</span>")
+			to_chat(user, span_notice("You turn the jetpack stabilization [stabilizers ? "on" : "off"]."))
 	else
 		toggle_internals(user)
 
@@ -48,10 +63,10 @@
 
 	if(!on)
 		turn_on(user)
-		to_chat(user, "<span class='notice'>You turn the jetpack on.</span>")
+		to_chat(user, span_notice("You turn the jetpack on."))
 	else
 		turn_off(user)
-		to_chat(user, "<span class='notice'>You turn the jetpack off.</span>")
+		to_chat(user, span_notice("You turn the jetpack off."))
 	update_action_buttons()
 
 /obj/item/tank/jetpack/equipped(mob/user, slot)
@@ -77,7 +92,8 @@
 
 /obj/item/tank/jetpack/proc/on_user_add()
 	RegisterSignal(known_user, COMSIG_MOVABLE_MOVED, PROC_REF(move_react))
-	RegisterSignal(known_user, COMSIG_PARENT_QDELETING, PROC_REF(lose_known_user))
+	RegisterSignal(known_user, COMSIG_QDELETING, PROC_REF(lose_known_user))
+	RegisterSignal(known_user, COMSIG_MOVABLE_SPACEMOVE, PROC_REF(spacemove_react))
 
 /// Resets our current user, preventing them from using the jetpack.
 /obj/item/tank/jetpack/proc/lose_known_user()
@@ -89,7 +105,8 @@
 /obj/item/tank/jetpack/proc/on_user_loss()
 	known_user.remove_movespeed_modifier(/datum/movespeed_modifier/jetpack/fullspeed)
 	UnregisterSignal(known_user, COMSIG_MOVABLE_MOVED)
-	UnregisterSignal(known_user, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(known_user, COMSIG_QDELETING)
+	UnregisterSignal(known_user, COMSIG_MOVABLE_SPACEMOVE)
 
 /obj/item/tank/jetpack/proc/turn_on(mob/user)
 	if(!known_user)
@@ -114,10 +131,27 @@
 
 /obj/item/tank/jetpack/proc/move_react(mob/user)
 	SIGNAL_HANDLER
-	if(on)
-		allow_thrust(THRUST_REQUIREMENT_SPACEMOVE, user)
-		// Update speed according to pressure
-		JETPACK_SPEED_CHECK(known_user, MOVESPEED_ID_JETPACK, -1, full_speed)
+	if(!on)//If jet dont work, it dont work
+		return
+	if(!user || !user.client)//Don't allow jet self using
+		return
+	if(!isturf(user.loc))//You can't use jet in nowhere or from mecha/closet
+		return
+	if(!(user.movement_type & FLOATING) || user.buckled)//You don't want use jet in gravity or while buckled.
+		return
+	if(user.pulledby)//You don't must use jet if someone pull you
+		return
+	if(user.throwing)//You don't must use jet if you thrown
+		return
+	allow_thrust(THRUST_REQUIREMENT_SPACEMOVE, user)
+	// Update speed according to pressure
+	JETPACK_SPEED_CHECK(known_user, MOVESPEED_ID_JETPACK, -1, full_speed)
+
+/obj/item/tank/jetpack/proc/spacemove_react(mob/user, movement_dir)
+	SIGNAL_HANDLER
+
+	if(on && (movement_dir || stabilizers))
+		return COMSIG_MOVABLE_STOP_SPACEMOVE
 
 /obj/item/tank/jetpack/proc/allow_thrust(num, mob/living/user, use_fuel = TRUE)
 	if(!on || !known_user)
@@ -125,9 +159,8 @@
 	if((num < 0.005 || num > THRUST_REQUIREMENT_GRAVITY * 0.5 || air_contents.total_moles() < num))
 		turn_off(user)
 		return
-
 	if(use_fuel)
-		assume_air_moles(air_contents, num)
+		remove_air(num)
 
 	return TRUE
 
@@ -136,7 +169,7 @@
 		return
 	var/mob/living/carbon/human/H = user
 	H.say(";WHAT THE FUCK IS CARBON DIOXIDE?", forced="jetpack suicide")
-	H.visible_message("<span class='suicide'>[user] is suffocating [user.p_them()]self with [src]! It looks like [user.p_they()] didn't read what that jetpack says!</span>")
+	H.visible_message(span_suicide("[user] is suffocating [user.p_them()]self with [src]! It looks like [user.p_they()] didn't read what that jetpack says!"))
 	return OXYLOSS
 
 /obj/item/tank/jetpack/improvised
@@ -156,12 +189,12 @@
 		turn_off(user)
 		return
 	if(rand(0,250) == 0)
-		to_chat(user, "<span class='notice'>You feel your jetpack's engines cut out.</span>")
+		to_chat(user, span_notice("You feel your jetpack's engines cut out."))
 		turn_off(user)
 		return
 
 	if(use_fuel)
-		assume_air_moles(air_contents, num)
+		remove_air(num)
 
 	return TRUE
 
@@ -195,6 +228,7 @@
 	w_class = WEIGHT_CLASS_LARGE
 	volume = 90
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF //steal objective items are hard to destroy.
+	slot_flags = ITEM_SLOT_BACK | ITEM_SLOT_SUITSTORE
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
 /obj/item/tank/jetpack/oxygen/security
@@ -333,10 +367,14 @@
 	animate(who, transform = null, time = 2)
 
 /obj/item/tank/jetpack/combustion/populate_gas()
+	var/datum/gas_mixture/our_mix = return_air()
 	var/moles_full = ((6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
 	var/ideal_o2_percent = (1 / PLASMA_OXYGEN_FULLBURN) * 2
-	air_contents.set_moles(GAS_PLASMA, moles_full * (1 - ideal_o2_percent))
-	air_contents.set_moles(GAS_O2, moles_full * ideal_o2_percent)
+	our_mix.assert_gas(/datum/gas/plasma)
+	our_mix.assert_gas(/datum/gas/oxygen)
+	SET_MOLES(/datum/gas/plasma, our_mix, moles_full*(1-ideal_o2_percent))
+	SET_MOLES(/datum/gas/oxygen, our_mix, moles_full*ideal_o2_percent)
+
 
 /obj/item/tank/jetpack/combustion/allow_thrust(num, mob/living/user, use_fuel = TRUE)
 	if(!on || !known_user)
@@ -346,16 +384,17 @@
 		return
 
 	var/potential_energy = 0
+	var/datum/gas_mixture/our_mix = return_air()
 	// Minified version of plasmafire burn reaction, with a "controlled" burnrate adjustment due to the high energy output of the reaction
 	// Also produces no waste products (CO2/Trit)
 	var/oxygen_burn_rate = (OXYGEN_BURN_RATE_BASE - 1)
 	var/plasma_burn_rate = 0
-	if(air_contents.get_moles(GAS_O2) > air_contents.get_moles(GAS_PLASMA)*PLASMA_OXYGEN_FULLBURN)
-		plasma_burn_rate = air_contents.get_moles(GAS_PLASMA)/PLASMA_BURN_RATE_DELTA
+	if(GET_MOLES(/datum/gas/oxygen, our_mix) > GET_MOLES(/datum/gas/plasma, our_mix) * PLASMA_OXYGEN_FULLBURN)
+		plasma_burn_rate = GET_MOLES(/datum/gas/plasma, our_mix)/PLASMA_BURN_RATE_DELTA
 	else
-		plasma_burn_rate = (air_contents.get_moles(GAS_O2)/PLASMA_OXYGEN_FULLBURN)/PLASMA_BURN_RATE_DELTA
+		plasma_burn_rate = (GET_MOLES(/datum/gas/plasma, our_mix)/PLASMA_OXYGEN_FULLBURN)/PLASMA_BURN_RATE_DELTA
 	if(plasma_burn_rate > MINIMUM_HEAT_CAPACITY)
-		plasma_burn_rate = min(plasma_burn_rate,air_contents.get_moles(GAS_PLASMA),air_contents.get_moles(GAS_O2)/oxygen_burn_rate) //Ensures matter is conserved properly
+		plasma_burn_rate = min(plasma_burn_rate,GET_MOLES(/datum/gas/plasma, our_mix),GET_MOLES(/datum/gas/oxygen, our_mix)/oxygen_burn_rate) //Ensures matter is conserved properly
 		potential_energy = FIRE_PLASMA_ENERGY_RELEASED * (plasma_burn_rate)
 
 	// Normalize thrust volume to joules
@@ -369,8 +408,8 @@
 
 	// Consume
 	if(use_fuel)
-		air_contents.set_moles(GAS_PLASMA, QUANTIZE(air_contents.get_moles(GAS_PLASMA) - plasma_burn_rate))
-		air_contents.set_moles(GAS_O2, QUANTIZE(air_contents.get_moles(GAS_O2) - (plasma_burn_rate * oxygen_burn_rate)))
+		SET_MOLES(/datum/gas/plasma, our_mix, QUANTIZE(GET_MOLES(/datum/gas/plasma, our_mix) - plasma_burn_rate))
+		SET_MOLES(/datum/gas/oxygen, our_mix, QUANTIZE(GET_MOLES(/datum/gas/oxygen, our_mix) - (plasma_burn_rate * oxygen_burn_rate)))
 	update_fade(15)
 	update_lifespan(4)
 
@@ -382,7 +421,7 @@
 	icon_state = "jetpack-black"
 	item_state =  "jetpack-black"
 	distribute_pressure = 0
-	gas_type = GAS_CO2
+	gas_type = /datum/gas/carbon_dioxide
 
 // Integrated suit jetpacks
 // These use the tanks of a suit's suit storage instead of an internal tank, and their parent hardsuit assigns their known user.
@@ -397,17 +436,14 @@
 	slot_flags = null
 	gas_type = null
 	full_speed = FALSE
-	var/datum/gas_mixture/temp_air_contents
 	var/obj/item/tank/internals/tank = null
 
 /obj/item/tank/jetpack/suit/Initialize(mapload)
 	. = ..()
 	STOP_PROCESSING(SSobj, src)
-	temp_air_contents = air_contents
 
 /obj/item/tank/jetpack/suit/Destroy()
 	tank = null
-	QDEL_NULL(temp_air_contents)
 	. = ..()
 
 /obj/item/tank/jetpack/suit/attack_self()
@@ -415,12 +451,12 @@
 
 /obj/item/tank/jetpack/suit/cycle(mob/user)
 	if(!istype(loc, /obj/item/clothing/suit/space/hardsuit))
-		to_chat(user, "<span class='warning'>\The [src] must be connected to a hardsuit!</span>")
+		to_chat(user, span_warning("\The [src] must be connected to a hardsuit!"))
 		return
 
 	var/mob/living/carbon/human/H = user
 	if(!istype(H.s_store, /obj/item/tank/internals))
-		to_chat(user, "<span class='warning'>You need a tank in your suit storage!</span>")
+		to_chat(user, span_warning("You need a tank in your suit storage!"))
 		return
 	..()
 
@@ -430,17 +466,16 @@
 		return
 	var/mob/living/carbon/human/H = user
 	tank = H.s_store
-	air_contents = tank.air_contents
-	RegisterSignals(tank, list(COMSIG_ITEM_DROPPED, COMSIG_PARENT_QDELETING), PROC_REF(on_tank_drop))
+	air_contents = tank.return_air()
+	RegisterSignals(tank, list(COMSIG_ITEM_DROPPED, COMSIG_QDELETING), PROC_REF(on_tank_drop))
 	START_PROCESSING(SSobj, src)
 	..()
 
 // This override kills our tank reference before shutting off and resets our tank contents.
 /obj/item/tank/jetpack/suit/turn_off(mob/user)
 	if(!isnull(tank))
-		UnregisterSignal(tank, list(COMSIG_ITEM_DROPPED, COMSIG_PARENT_QDELETING))
+		UnregisterSignal(tank, list(COMSIG_ITEM_DROPPED, COMSIG_QDELETING))
 		tank = null
-	air_contents = temp_air_contents
 	STOP_PROCESSING(SSobj, src)
 	..()
 
@@ -458,7 +493,7 @@
 	return FALSE
 
 /mob/living/carbon/has_jetpack_power(movement_dir = FALSE, thrust = THRUST_REQUIREMENT_SPACEMOVE, require_stabilization = FALSE, use_fuel = TRUE)
-	var/obj/item/organ/cyberimp/chest/thrusters/T = getorganslot(ORGAN_SLOT_THRUSTERS)
+	var/obj/item/organ/cyberimp/chest/thrusters/T = get_organ_slot(ORGAN_SLOT_THRUSTERS)
 	if(istype(T) && movement_dir && T.allow_thrust(thrust, use_fuel = use_fuel))
 		return TRUE
 

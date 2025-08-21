@@ -5,18 +5,18 @@
 /obj/item/stack/tile/mineral/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WELDER)
 		if(get_amount() < 4)
-			to_chat(user, "<span class='warning'>You need at least four tiles to do this!</span>")
+			to_chat(user, span_warning("You need at least four tiles to do this!"))
 			return
 		if(!mineralType)
-			to_chat(user, "<span class='warning'>You can not reform this!</span>")
+			to_chat(user, span_warning("You can not reform this!"))
 			stack_trace("A mineral tile of type [type] doesn't have its' mineralType set.")
 			return
 		if(W.use_tool(src, user, 0, volume=40))
 			var/sheet_type = text2path("/obj/item/stack/sheet/mineral/[mineralType]")
 			var/obj/item/stack/sheet/mineral/new_item = new sheet_type(user.loc)
-			user.visible_message("<span class='notice'>[user] shaped [src] into [new_item] with [W].</span>", \
-				"<span class='notice'>You shaped [src] into [new_item] with [W].</span>", \
-				"<span class='hear'>You hear welding.</span>")
+			user.visible_message(span_notice("[user] shaped [src] into [new_item] with [W]."), \
+				span_notice("You shaped [src] into [new_item] with [W]."), \
+				span_hear("You hear welding."))
 			var/holding = user.is_holding(src)
 			use(4)
 			if(holding && QDELETED(src))
@@ -109,6 +109,7 @@
 	icon_state = "tile_abductor"
 	item_state = "tile-abductor"
 	turf_type = /turf/open/floor/mineral/abductor
+	mats_per_unit = list(/datum/material/alloy/alien=MINERAL_MATERIAL_AMOUNT*0.25)
 	mineralType = "abductor"
 	merge_type = /obj/item/stack/tile/mineral/abductor
 
@@ -217,7 +218,7 @@
 	item_state = "tile-darkshuttle"
 	turf_type = /turf/open/floor/mineral/plastitanium
 	mineralType = "plastitanium"
-	mats_per_unit = list(/datum/material/titanium=500, /datum/material/plasma=500)
+	mats_per_unit = list(/datum/material/alloy/plastitanium=MINERAL_MATERIAL_AMOUNT*0.50)
 	merge_type = /obj/item/stack/tile/mineral/plastitanium
 	tile_reskin_types = list(
 		/obj/item/stack/tile/mineral/plastitanium,

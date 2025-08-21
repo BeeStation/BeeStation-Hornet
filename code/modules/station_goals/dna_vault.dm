@@ -73,52 +73,58 @@
 	var/list/animals = list()
 	var/list/plants = list()
 	var/list/dna = list()
+	///weak ref to the dna vault
+	var/datum/weakref/dna_vault_ref
 
 /obj/item/dna_probe/proc/clear_data()
 	animals = list()
 	plants = list()
 	dna = list()
 
-/obj/item/dna_probe/afterattack(atom/target, mob/user, proximity)
+/obj/item/dna_probe/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	if(!proximity || !target)
+	if(!proximity_flag || !target)
 		return
+
 	//tray plants
 	if(istype(target, /obj/machinery/hydroponics))
 		var/obj/machinery/hydroponics/H = target
 		if(!H.myseed)
 			return
 		if(!H.harvest)// So it's bit harder.
-			to_chat(user, "<span class='warning'>Plant needs to be ready to harvest to perform full data scan.</span>") //Because space dna is actually magic
+			to_chat(user, span_warning("Plant needs to be ready to harvest to perform full data scan.")) //Because space dna is actually magic
 			return
 		if(plants[H.myseed.type])
-			to_chat(user, "<span class='notice'>Plant data already present in local storage.</span>")
+			to_chat(user, span_notice("Plant data already present in local storage."))
 			return
 		plants[H.myseed.type] = 1
-		to_chat(user, "<span class='notice'>Plant data added to local storage.</span>")
+		to_chat(user, span_notice("Plant data added to local storage."))
 
 	//animals
-	var/static/list/non_simple_animals = typecacheof(list(/mob/living/carbon/monkey, /mob/living/carbon/alien))
-	if(isanimal(target) || is_type_in_typecache(target,non_simple_animals))
-		if(isanimal(target))
-			var/mob/living/simple_animal/A = target
-			if(!A.healable || (A.flags_1 & HOLOGRAM_1)) //simple approximation of being animal not a robot or similar. Also checking if holographic
-				to_chat(user, "<span class='warning'>No compatible DNA detected.</span>")
-				return
-		if(animals[target.type])
-			to_chat(user, "<span class='notice'>Animal data already present in local storage.</span>")
+	var/obj/machinery/dna_vault/our_vault = dna_vault_ref?.resolve()
+	var/static/list/non_simple_animals = typecacheof(list(/mob/living/carbon/alien))
+	if(isanimal_or_basicmob(target) || is_type_in_typecache(target, non_simple_animals) || ismonkey(target))
+		var/mob/living/living_target = target
+		if(our_vault.animals[living_target.type])
+			to_chat(user, span_notice("Animal data already present in vault storage."))
 			return
-		animals[target.type] = 1
-		to_chat(user, "<span class='notice'>Animal data added to local storage.</span>")
+		if(animals[living_target.type])
+			to_chat(user, span_notice("Animal data already present in local storage."))
+			return
+		if(!(MOB_ORGANIC in living_target.mob_biotypes))
+			to_chat(user, span_alert("No compatible DNA detected."))
+			return .
+		animals[living_target.type] = 1
+		balloon_alert(user, "data added")
 
 	//humans
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		if(dna[H.dna.uni_identity])
-			to_chat(user, "<span class='notice'>Humanoid data already present in local storage.</span>")
+		if(dna[H.dna.unique_identity])
+			to_chat(user, span_notice("Humanoid data already present in local storage."))
 			return
-		dna[H.dna.uni_identity] = 1
-		to_chat(user, "<span class='notice'>Humanoid data added to local storage.</span>")
+		dna[H.dna.unique_identity] = 1
+		to_chat(user, span_notice("Humanoid data added to local storage."))
 
 /obj/machinery/dna_vault
 	name = "DNA Vault"
@@ -163,12 +169,11 @@
 		F.parent = src
 		fillers += F
 
-	if(SSticker.mode)
-		for(var/datum/station_goal/dna_vault/G in SSticker.mode.station_goals)
-			animals_max = G.animal_count
-			plants_max = G.plant_count
-			dna_max = G.human_count
-			break
+	var/datum/station_goal/dna_vault/dna_vault_goal = SSstation.get_station_goal(/datum/station_goal/dna_vault)
+	if(dna_vault_goal)
+		animals_max = dna_vault_goal.animal_count
+		plants_max = dna_vault_goal.plant_count
+		dna_max = dna_vault_goal.human_count
 	. = ..()
 
 /obj/machinery/dna_vault/Destroy()
@@ -249,7 +254,7 @@
 				uploaded++
 				dna[ui] = 1
 		check_goal()
-		to_chat(user, "<span class='notice'>[uploaded] new datapoints uploaded.</span>")
+		to_chat(user, span_notice("[uploaded] new datapoints uploaded."))
 	else
 		return ..()
 
@@ -260,30 +265,38 @@
 	var/datum/species/S = H.dna.species
 	switch(upgrade_type)
 		if(VAULT_TOXIN)
-			to_chat(H, "<span class='notice'>You feel resistant to airborne toxins.</span>")
+			to_chat(H, span_notice("You feel resistant to airborne toxins."))
 			if(locate(/obj/item/organ/lungs) in H.internal_organs)
 				var/obj/item/organ/lungs/L = H.internal_organs_slot[ORGAN_SLOT_LUNGS]
-				L.gas_max -= GAS_PLASMA
+				L.gas_max -= /datum/gas/plasma
 			ADD_TRAIT(H, TRAIT_VIRUSIMMUNE, "dna_vault")
 		if(VAULT_NOBREATH)
-			to_chat(H, "<span class='notice'>Your lungs feel great.</span>")
+			to_chat(H, span_notice("Your lungs feel great."))
 			ADD_TRAIT(H, TRAIT_NOBREATH, "dna_vault")
 		if(VAULT_FIREPROOF)
-			to_chat(H, "<span class='notice'>You feel fireproof.</span>")
+			to_chat(H, span_notice("You feel fireproof."))
 			S.burnmod = 0.5
 			ADD_TRAIT(H, TRAIT_RESISTHEAT, "dna_vault")
 			ADD_TRAIT(H, TRAIT_NOFIRE, "dna_vault")
 		if(VAULT_STUNTIME)
-			to_chat(H, "<span class='notice'>Nothing can keep you down for long.</span>")
+			to_chat(H, span_notice("Nothing can keep you down for long."))
 			S.stunmod = 0.5
 		if(VAULT_ARMOUR)
-			to_chat(H, "<span class='notice'>You feel tough.</span>")
+			to_chat(H, span_notice("You feel tough."))
 			S.armor = 30
 			ADD_TRAIT(H, TRAIT_PIERCEIMMUNE, "dna_vault")
 		if(VAULT_SPEED)
-			to_chat(H, "<span class='notice'>Your legs feel faster.</span>")
+			to_chat(H, span_notice("Your legs feel faster."))
 			H.add_movespeed_modifier(/datum/movespeed_modifier/dna_vault_speedup)
 		if(VAULT_QUICK)
-			to_chat(H, "<span class='notice'>Your arms move as fast as lightning.</span>")
+			to_chat(H, span_notice("Your arms move as fast as lightning."))
 			H.next_move_modifier = 0.5
 	power_lottery[H] = list()
+
+#undef VAULT_TOXIN
+#undef VAULT_NOBREATH
+#undef VAULT_FIREPROOF
+#undef VAULT_STUNTIME
+#undef VAULT_ARMOUR
+#undef VAULT_SPEED
+#undef VAULT_QUICK

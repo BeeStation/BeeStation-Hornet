@@ -17,10 +17,10 @@ SUBSYSTEM_DEF(metrics)
 	/// The real time of day the server started. Used to calculate time drift
 	var/world_init_time = 0 // Not set in here. Set in world/New()
 
-/datum/controller/subsystem/metrics/Initialize(start_timeofday)
+/datum/controller/subsystem/metrics/Initialize()
 	if(!CONFIG_GET(flag/elasticsearch_metrics_enabled))
 		flags |= SS_NO_FIRE // Disable firing to save CPU
-	return ..()
+	return SS_INIT_SUCCESS
 
 
 /datum/controller/subsystem/metrics/fire(resumed)
@@ -38,7 +38,7 @@ SUBSYSTEM_DEF(metrics)
 	out["maptick"] = world.map_cpu
 	out["elapsed_processed"] = world.time
 	out["elapsed_real"] = (REALTIMEOFDAY - world_init_time)
-	out["client_count"] = length(GLOB.clients)
+	out["client_count"] = length(GLOB.clients_unsafe)
 	out["time_dilation_current"] = SStime_track.time_dilation_current
 	out["time_dilation_1m"] = SStime_track.time_dilation_avg
 	out["time_dilation_5m"] = SStime_track.time_dilation_avg_slow
@@ -81,6 +81,6 @@ SUBSYSTEM_DEF(metrics)
 
 // Uncomment this if you add new metrics to verify how the JSON formats
 
-/client/verb/debug_metrics()
+AUTH_CLIENT_VERB(debug_metrics)
 	usr << browse(SSmetrics.get_metrics_json(), "window=aadebug")
 */

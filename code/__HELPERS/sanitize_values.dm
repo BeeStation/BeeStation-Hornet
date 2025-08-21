@@ -1,6 +1,6 @@
 //general stuff
 /// Return `number` if it is in the range `min to max`, otherwise `default`
-/proc/sanitize_integer(number, min=0, max=1, default=0)
+/proc/sanitize_integer(number, min=0, max=INFINITY, default=0)
 	if(isnum_safe(number))
 		number = round(number)
 		if(min <= number && number <= max)
@@ -75,7 +75,7 @@
 			if(97 to 102)		//letters a to f
 				. += char
 			if(65 to 70)		//letters A to F
-				char = lowertext(char)
+				char = LOWER_TEXT(char)
 				. += char
 			else
 				break

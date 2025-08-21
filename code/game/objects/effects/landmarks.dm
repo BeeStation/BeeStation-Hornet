@@ -219,7 +219,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	..()
 	var/datum/job/J = SSjob.GetJob(job)
 	J.total_positions += 1
-	J.spawn_positions += 1
 	SSjob.job_manager_blacklisted -= J.title
 
 /obj/effect/landmark/start/randommaint/backalley_doc
@@ -343,6 +342,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 /obj/effect/landmark/carpspawn
 	name = "carpspawn"
 	icon_state = "carp_spawn"
+
+/obj/effect/landmark/loneops
+	name = "lone ops"
+	icon_state = "lone_ops"
 
 //observer start
 /obj/effect/landmark/observer_start
@@ -484,6 +487,8 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 /obj/effect/landmark/ruin
 	var/datum/map_template/ruin/ruin_template
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/landmark/ruin)
+
 /obj/effect/landmark/ruin/Initialize(mapload, my_ruin_template)
 	. = ..()
 	name = "ruin_[GLOB.ruin_landmarks.len + 1]"
@@ -515,7 +520,74 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 	if(prob(70))
 		var/bottle_count = pick(10;1, 5;2, 2;3)
 		for(var/index in 1 to bottle_count)
-			var/obj/item/reagent_containers/food/drinks/beer/almost_empty/B = new(get_turf(src))
+			var/obj/item/reagent_containers/cup/glass/bottle/beer/almost_empty/B = new(get_turf(src))
 			B.pixel_x += rand(-6, 6)
 			B.pixel_y += rand(-6, 6)
 	return INITIALIZE_HINT_QDEL
+
+
+//Landmark that creates destinations for the navigate verb to path to
+/obj/effect/landmark/navigate_destination
+	name = "navigate verb destination"
+	icon_state = "navigate"
+	layer = OBJ_LAYER
+
+	/// navigation_id automatically sets to its area name (Bridge, Hydroponics, etc)
+	/// If you want to use a dedicated name for a specific area, set this value in DMM.
+	/// example) navigation_id = "Bartender's storage"
+	var/navigation_id
+
+	// Note: if multiple area needs a standard name, use "navigation_area_name"
+
+/obj/effect/landmark/navigate_destination/Initialize(mapload)
+	. = ..()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/effect/landmark/navigate_destination/LateInitialize()
+	. = ..()
+
+	if(!navigation_id)
+		var/area/linked_area = get_area(loc)
+		if(!isarea(linked_area))
+			stack_trace("The navigation landmark failed to get an area.")
+			qdel(src)
+			return
+		navigation_id = linked_area.get_navigation_area_name()
+	if(!navigation_id)
+		navigation_id = "Unnamed area"
+
+	var/fail_assoc_count
+	var/actual_key = navigation_id
+	while(GLOB.navigate_destinations[actual_key])
+		actual_key = "[navigation_id] ([++fail_assoc_count])"
+	GLOB.navigate_destinations[actual_key] = src
+
+/// Checks if this destination is available to a user.
+/obj/effect/landmark/navigate_destination/proc/is_available_to_user(mob/user)
+	if(!isatom(src) || !compare_z_with(user) || get_dist(get_turf(src), user) > MAX_NAVIGATE_RANGE)
+		return FALSE
+	return TRUE
+
+/// Checks if each z of this destination and a user.
+/// * FALSE: target destination doesn't exist, or z-groups are different (i.e. Station to Lavaland)
+/// * 1: very exactly same z
+/// * 16 (UP): target destination is above the user
+/// * 32 (DOWN): target destination is below the user
+/obj/effect/landmark/navigate_destination/proc/compare_z_with(mob/user)
+	var/turf/target_turf = get_turf(src)
+	if(!target_turf)
+		return FALSE
+
+	var/target_z = src.get_virtual_z_level()
+	var/user_z = user.get_virtual_z_level()
+	if(!compare_z(target_z, user_z)) // gets null or FALSE: z-level groups are different
+		return FALSE
+
+	if(target_z == user_z)
+		return 1 // same z
+	return target_z > user_z ? UP : DOWN // returns direction from user to target
+
+
+/obj/effect/landmark/navigate_destination/Destroy()
+	. = ..()
+	GLOB.navigate_destinations -= navigation_id

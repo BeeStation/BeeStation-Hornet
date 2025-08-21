@@ -6,7 +6,7 @@
 	var/fire_sound
 	var/projectiles_per_shot = 1
 	var/variance = 0
-	var/randomspread = FALSE //use random spread for machineguns, instead of shotgun scatter
+	var/even_distribution = FALSE
 	var/projectile_delay = 0
 	var/firing_effect_type = /obj/effect/temp_visual/dir_setting/firing_effect	//the visual effect appearing when the weapon is fired.
 	var/kickback = TRUE //Will using this weapon in no grav push mecha back.
@@ -21,7 +21,7 @@
 		return TRUE
 	return FALSE
 
-/obj/item/mecha_parts/mecha_equipment/weapon/action(mob/source, atom/target, params)
+/obj/item/mecha_parts/mecha_equipment/weapon/action(mob/source, atom/target, list/modifiers)
 	if(!action_checks(target))
 		return FALSE
 	var/newtonian_target = turn(chassis.dir,180)
@@ -31,17 +31,17 @@
 			break
 		var/spread = 0
 		if(variance)
-			if(randomspread)
+			if(!even_distribution)
 				spread = round((rand() - 0.5) * variance)
 			else
 				spread = round((i / projectiles_per_shot - 0.5) * variance)
 
-		var/obj/projectile/A = new projectile(get_turf(src))
-		A.firer = chassis
-		A.preparePixelProjectile(target, source, params, spread)
+		var/obj/projectile/projectile_obj = new projectile(get_turf(src))
+		projectile_obj.firer = chassis
+		projectile_obj.preparePixelProjectile(target, source, modifiers, spread)
 
-		A.fire()
-		if(!A.suppressed && firing_effect_type)
+		projectile_obj.fire()
+		if(!projectile_obj.suppressed && firing_effect_type)
 			new firing_effect_type(get_turf(src), chassis.dir)
 		playsound(chassis, fire_sound, 50, TRUE)
 
@@ -77,7 +77,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/disabler/on_emag(mob/user)
 	..()
-	to_chat(user, "<span class='notice'>You disable [src]'s safety procedures, making it shoot harmful lasers.</span>")
+	to_chat(user, span_notice("You disable [src]'s safety procedures, making it shoot harmful lasers."))
 	projectile = /obj/projectile/beam/laser
 	harmful = TRUE
 
@@ -139,6 +139,25 @@
 		return TRUE
 	return FALSE
 
+//Exosuit-mounted kinetic accelerator
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/mecha_kineticgun
+	equip_cooldown = 10
+	name = "Exosuit Proto-kinetic Accelerator"
+	desc = "An exosuit-mounted mining tool that does increased damage in low pressure. Drawing from an onboard power source allows it to project further than the handheld version."
+	icon_state = "mecha_kineticgun"
+	energy_drain = 30
+	projectile = /obj/projectile/kinetic/mech
+	fire_sound = 'sound/weapons/kenetic_accel.ogg'
+	harmful = TRUE
+
+//attachable to all mechas, like the plasma cutter
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/mecha_kineticgun/can_attach(obj/vehicle/sealed/mecha/M)
+	. = ..()
+	if(.) //combat mech
+		return
+	if(LAZYLEN(M.equipment) < M.max_equip)
+		return TRUE
+
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/taser
 	name = "\improper PBT \"Pacifier\" mounted taser"
 	desc = "A weapon for combat exosuits. Shoots non-lethal stunning electrodes."
@@ -167,7 +186,7 @@
 		return FALSE
 
 
-/obj/item/mecha_parts/mecha_equipment/weapon/honker/action(mob/source, atom/target, params)
+/obj/item/mecha_parts/mecha_equipment/weapon/honker/action(mob/source, atom/target, list/modifiers)
 	if(!action_checks(target))
 		return
 	playsound(chassis, 'sound/items/airhorn.ogg', 100, 1)
@@ -201,9 +220,13 @@
 //Base ballistic weapon type
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic
 	name = "general ballistic weapon"
-	fire_sound = 'sound/weapons/gunshot.ogg'
+	fire_sound = 'sound/weapons/gunshot_smg.ogg'
 	var/projectiles
+	var/projectiles_cache //ammo to be loaded in, if possible.
+	var/projectiles_cache_max
 	var/projectile_energy_cost
+	var/disabledreload //For weapons with no cache (like the rockets) which are reloaded by hand
+	var/ammo_type
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/action_checks(target)
 	if(!..())
@@ -213,33 +236,45 @@
 	return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/get_equip_info()
-	return "[..()] \[[src.projectiles]\][(src.projectiles < initial(src.projectiles))?" - <a href='?src=[REF(src)];rearm=1'>Rearm</a>":null]"
+	return "[..()] \[[projectiles][projectiles_cache_max &&!projectile_energy_cost?"/[projectiles_cache]":""]\][!disabledreload &&(src.projectiles < initial(src.projectiles))?" - <a href='byond://?src=[REF(src)];rearm=1'>Rearm</a>":null]"
 
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/rearm()
 	if(projectiles < initial(projectiles))
 		var/projectiles_to_add = initial(projectiles) - projectiles
-		while(chassis.get_charge() >= projectile_energy_cost && projectiles_to_add)
-			projectiles++
-			projectiles_to_add--
-			chassis.use_power(projectile_energy_cost)
-	send_byjax(chassis.occupants,"exosuit.browser","[REF(src)]",src.get_equip_info())
-	log_message("Rearmed [src.name].", LOG_MECHA)
-	return 1
+
+		if(projectile_energy_cost)
+			while(chassis.get_charge() >= projectile_energy_cost && projectiles_to_add)
+				projectiles++
+				projectiles_to_add--
+				chassis.use_power(projectile_energy_cost)
+
+		else
+			if(!projectiles_cache)
+				return FALSE
+			if(projectiles_to_add <= projectiles_cache)
+				projectiles = projectiles + projectiles_to_add
+				projectiles_cache = projectiles_cache - projectiles_to_add
+			else
+				projectiles = projectiles + projectiles_cache
+				projectiles_cache = 0
+
+		send_byjax(chassis.occupants,"exosuit.browser","[REF(src)]",src.get_equip_info())
+		log_message("Rearmed [src].", LOG_MECHA)
+		return TRUE
 
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/needs_rearm()
-	. = !(projectiles > 0)
+	return projectiles <= 0
 
 
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/Topic(href, href_list)
 	..()
 	if (href_list["rearm"])
-		src.rearm()
-	return
+		rearm()
 
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/action(mob/source, atom/target, params)
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/action(mob/source, atom/target, list/modifiers)
 	if(..())
 		projectiles -= projectiles_per_shot
 		send_byjax(chassis.occupants,"exosuit.browser","[REF(src)]",src.get_equip_info())
@@ -253,8 +288,10 @@
 	equip_cooldown = 10
 	projectile = /obj/projectile/bullet/incendiary/fnx99
 	projectiles = 24
-	projectile_energy_cost = 15
+	projectiles_cache = 24
+	projectiles_cache_max = 96
 	harmful = TRUE
+	ammo_type = "incendiary"
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/silenced
 	name = "\improper S.H.H. \"Quietus\" Carbine"
@@ -274,10 +311,13 @@
 	equip_cooldown = 20
 	projectile = /obj/projectile/bullet/scattershot
 	projectiles = 40
-	projectile_energy_cost = 25
+	projectiles_cache = 40
+	projectiles_cache_max = 160
 	projectiles_per_shot = 4
 	variance = 25
 	harmful = TRUE
+	even_distribution = TRUE
+	ammo_type = "scattershot"
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg
 	name = "\improper Ultra AC 2"
@@ -286,23 +326,41 @@
 	equip_cooldown = 10
 	projectile = /obj/projectile/bullet/lmg
 	projectiles = 300
-	projectile_energy_cost = 20
+	projectiles_cache = 300
+	projectiles_cache_max = 1200
 	projectiles_per_shot = 3
 	variance = 6
-	randomspread = 1
 	projectile_delay = 2
 	harmful = TRUE
+	ammo_type = "lmg"
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack
 	name = "\improper SRM-8 missile rack"
-	desc = "A weapon for combat exosuits. Shoots light explosive missiles."
+	desc = "A weapon for combat exosuits. Launches light explosive missiles."
 	icon_state = "mecha_missilerack"
 	projectile = /obj/projectile/bullet/a84mm_he
 	fire_sound = 'sound/weapons/grenadelaunch.ogg'
 	projectiles = 8
-	projectile_energy_cost = 1000
+	projectiles_cache = 0
+	projectiles_cache_max = 0
+	disabledreload = TRUE
 	equip_cooldown = 60
 	harmful = TRUE
+	ammo_type = "missiles_he"
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/breaching
+	name = "\improper BRM-6 missile rack"
+	desc = "A weapon for combat exosuits. Launches low-explosive breaching missiles designed to explode only when striking a sturdy target."
+	icon_state = "mecha_missilerack_six"
+	projectile = /obj/projectile/bullet/a84mm_br
+	fire_sound = 'sound/weapons/grenadelaunch.ogg'
+	projectiles = 6
+	projectiles_cache = 0
+	projectiles_cache_max = 0
+	disabledreload = TRUE
+	equip_cooldown = 60
+	harmful = TRUE
+	ammo_type = "missiles_br"
 
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher
@@ -310,7 +368,7 @@
 	var/missile_range = 30
 	var/diags_first = FALSE
 
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/action(mob/source, atom/target, params)
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/action(mob/source, atom/target, list/modifiers)
 	if(!action_checks(target))
 		return
 	var/obj/O = new projectile(chassis.loc)
@@ -333,10 +391,12 @@
 	projectile = /obj/item/grenade/flashbang
 	fire_sound = 'sound/weapons/grenadelaunch.ogg'
 	projectiles = 6
+	projectiles_cache = 6
+	projectiles_cache_max = 24
 	missile_speed = 1.5
-	projectile_energy_cost = 800
 	equip_cooldown = 60
 	var/det_time = 20
+	ammo_type = "flashbang"
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/flashbang/proj_init(obj/item/grenade/flashbang/F, mob/user)
 	var/turf/T = get_turf(src)
@@ -348,9 +408,12 @@
 	name = "\improper SOB-3 grenade launcher"
 	desc = "A weapon for combat exosuits. Launches primed clusterbangs. You monster."
 	projectiles = 3
+	projectiles_cache = 0
+	projectiles_cache_max = 0
+	disabledreload = TRUE
 	projectile = /obj/item/grenade/clusterbuster
-	projectile_energy_cost = 1600 //getting off cheap seeing as this is 3 times the flashbangs held in the grenade launcher.
 	equip_cooldown = 90
+	ammo_type = "clusterbang"
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/banana_mortar
 	name = "banana mortar"
@@ -414,7 +477,7 @@
 			return 1
 	return 0
 
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/punching_glove/action(target)
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/punching_glove/action(mob/source, atom/target, list/modifiers)
 	. = ..()
 	if(.)
 		to_chat(usr, "[icon2html(src, usr)]<font color='red' size='5'>HONK</font>")
@@ -422,7 +485,7 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/punching_glove/proj_init(obj/item/punching_glove/PG)
 	if(!istype(PG))
 		return
-	 //has to be low sleep or it looks weird, the beam doesn't exist for very long so it's a non-issue
+	//has to be low sleep or it looks weird, the beam doesn't exist for very long so it's a non-issue
 	chassis.Beam(PG, icon_state = "chain", time = missile_range * 20, maxdistance = missile_range + 2)
 
 /obj/item/punching_glove
@@ -437,3 +500,37 @@
 			var/atom/movable/AM = hit_atom
 			AM.safe_throw_at(get_edge_target_turf(AM,get_dir(src, AM)), 7, 2)
 		qdel(src)
+
+///dark honk weapons
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/banana_mortar/bombanana
+	name = "bombanana mortar"
+	desc = "Equipment for clown exosuits. Launches exploding banana peels."
+	icon_state = "mecha_bananamrtr"
+	projectile = /obj/item/grown/bananapeel/bombanana
+	projectiles = 8
+	projectile_energy_cost = 1000
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/banana_mortar/bombanana/can_attach(obj/vehicle/sealed/mecha/combat/honker/M)
+	if(..())
+		if(istype(M))
+			return TRUE
+	return FALSE
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/flashbang/tearstache
+	name = "\improper HONKeR-6 grenade launcher"
+	desc = "A weapon for combat exosuits. Launches primed tear-stache grenades."
+	icon_state = "mecha_grenadelnchr"
+	projectile = /obj/item/grenade/chem_grenade/teargas/moustache
+	fire_sound = 'sound/weapons/grenadelaunch.ogg'
+	projectiles = 6
+	missile_speed = 1.5
+	projectile_energy_cost = 800
+	equip_cooldown = 60
+	det_time = 20
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/flashbang/tearstache/can_attach(obj/vehicle/sealed/mecha/combat/honker/M)
+	if(..())
+		if(istype(M))
+			return TRUE
+	return FALSE

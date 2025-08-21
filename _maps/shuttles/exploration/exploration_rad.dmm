@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "am" = (
-/obj/machinery/atmospherics/pipe/simple/purple/visible{
+/obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
 	dir = 10
 	},
 /obj/effect/decal/cleanable/dirt/dust,
@@ -21,20 +21,17 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "aW" = (
-/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+/obj/machinery/atmospherics/pipe/smart/manifold/purple/visible{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "bM" = (
-/obj/machinery/vendor/exploration,
+/obj/machinery/gear_requisition/exploration,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "cp" = (
-/obj/machinery/door/poddoor/shutters{
-	id = "exploration"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -47,10 +44,10 @@
 	name = "Exploration Shuttle Shutters";
 	pixel_y = 24
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
 /obj/structure/fans/tiny,
+/obj/machinery/door/poddoor/shutters{
+	id = "exploration"
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "dt" = (
@@ -82,7 +79,7 @@
 /turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "eN" = (
-/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+/obj/machinery/atmospherics/pipe/smart/manifold/purple/visible{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt/dust,
@@ -105,7 +102,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 6
 	},
 /turf/open/floor/mineral/titanium,
@@ -114,7 +111,7 @@
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/exploration)
 "gt" = (
-/obj/machinery/atmospherics/pipe/manifold4w/purple/visible,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/purple/visible,
 /obj/effect/decal/cleanable/oil,
 /turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
@@ -125,9 +122,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "js" = (
-/obj/structure/chair/stool/bar{
-	dir = 4
-	},
+/obj/structure/chair/stool/bar/directional/west,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -139,7 +134,7 @@
 	pixel_x = -16;
 	pixel_y = 16
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 10
 	},
 /turf/open/floor/mineral/titanium,
@@ -166,11 +161,11 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "rT" = (
-/obj/machinery/door/firedoor/border_only,
 /obj/machinery/door/airlock/shuttle/glass{
 	autoclose = 0.1
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "sk" = (
@@ -178,7 +173,6 @@
 	id = "ExploIFuckedUp";
 	name = "Engine Room Vent"
 	},
-/obj/structure/fans/tiny,
 /turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "tu" = (
@@ -186,7 +180,7 @@
 /area/shuttle/exploration)
 "tG" = (
 /obj/effect/decal/cleanable/blood/old,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 5
 	},
 /turf/open/floor/mineral/titanium,
@@ -208,9 +202,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/structure/chair/stool/bar{
-	dir = 4
-	},
+/obj/structure/chair/stool/bar/directional/west,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
 	},
@@ -247,9 +239,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Ai" = (
-/obj/structure/chair/stool/bar{
-	dir = 4
-	},
+/obj/structure/chair/stool/bar/directional/west,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Ar" = (
@@ -322,10 +312,9 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Hc" = (
-/obj/machinery/firealarm/directional/south,
 /obj/machinery/light,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/atmospherics/components/unary/tank/air{
+/obj/machinery/atmospherics/components/tank/air{
 	dir = 1;
 	initialize_directions = 1
 	},
@@ -343,7 +332,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "IS" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
 /turf/open/floor/mineral/titanium,
@@ -407,19 +396,14 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "PL" = (
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/directional/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
 /obj/structure/table,
 /obj/machinery/recharger,
-/obj/machinery/camera/autoname{
-	dir = 8;
-	network = list("ss13","sci")
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+/obj/machinery/camera/directional/east,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 9
 	},
 /turf/open/floor/mineral/titanium,
@@ -428,7 +412,6 @@
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/exploration)
 "QO" = (
-/obj/machinery/door/firedoor/border_only,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -436,6 +419,7 @@
 /obj/machinery/door/airlock/shuttle/glass{
 	autoclose = 0.1
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "Sb" = (
@@ -468,7 +452,7 @@
 /area/shuttle/exploration)
 "Uf" = (
 /obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
 /turf/open/floor/plating,
 /area/shuttle/exploration)
 "UF" = (
@@ -479,24 +463,21 @@
 /turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "WU" = (
-/obj/machinery/door/poddoor/shutters{
-	id = "exploration"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
 /obj/structure/fans/tiny,
+/obj/machinery/door/poddoor/shutters{
+	id = "exploration"
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "YV" = (
 /obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 9
 	},
 /turf/open/floor/plating,
@@ -511,7 +492,7 @@
 	pixel_x = 9;
 	pixel_y = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 

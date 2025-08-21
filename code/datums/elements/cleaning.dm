@@ -25,10 +25,10 @@
 		// Clean humans that are lying down
 		else if(ishuman(A))
 			var/mob/living/carbon/human/cleaned_human = A
-			if(!(cleaned_human.mobility_flags & MOBILITY_STAND))
+			if(cleaned_human.body_position == LYING_DOWN)
 				cleaned_human.wash(CLEAN_WASH)
 				cleaned_human.regenerate_icons()
-				to_chat(cleaned_human, "<span class='danger'>[AM] cleans your face!</span>")
+				to_chat(cleaned_human, span_danger("[AM] cleans your face!"))
 
 /datum/action/cleaning_toggle
 	name = "Floor Cleaning Toggle"
@@ -53,8 +53,7 @@
 	if(isnull(toggle_target))
 		toggle_target = M
 
-/datum/action/cleaning_toggle/Trigger()
-	. = ..()
+/datum/action/cleaning_toggle/on_activate(mob/user, atom/target)
 	if(!toggle_target)
 		log_runtime("Floor Cleaning Toggle action triggered without a target.")
 		return
@@ -65,5 +64,5 @@
 		toggle_target.AddElement(/datum/element/cleaning)
 		toggled = TRUE
 	owner.balloon_alert(owner, "Auto-cleaning is [toggled ? "ON" : "OFF"]")
-	to_chat(owner, "<span class='notice'>The auto-cleaning is now [toggled ? "ON" : "OFF"].</span>")
+	to_chat(owner, span_notice("The auto-cleaning is now [toggled ? "ON" : "OFF"]."))
 

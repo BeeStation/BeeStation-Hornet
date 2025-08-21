@@ -11,8 +11,7 @@
 		if(A.attachable)
 			return TRUE
 
-/atom
-	var/datum/wires/wires = null
+/atom/var/datum/wires/wires = null
 
 /atom/proc/attempt_wire_interaction(mob/user)
 	if(!wires)
@@ -33,7 +32,7 @@
 	var/list/wire_to_colors = list() // Dictionary of colors to wire.
 	var/list/assemblies = list() // List of attached assemblies.
 	var/randomize = 0 // If every instance of these wires should be random.
-					  // Prevents wires from showing up in station blueprints
+						// Prevents wires from showing up in station blueprints
 	var/list/labelled_wires = list() // Associative List of wires that have labels. Key = wire, Value = Bool (Revealed) [To be refactored into skills]
 
 /datum/wires/New(atom/holder)
@@ -58,7 +57,12 @@
 
 /datum/wires/Destroy()
 	holder = null
-	assemblies.Cut()
+	//properly clear refs to avoid harddels & other problems
+	for(var/color in assemblies)
+		var/obj/item/assembly/assembly = assemblies[color]
+		assembly.holder = null
+		assembly.connected = null
+	LAZYCLEARLIST(assemblies)
 	return ..()
 
 /datum/wires/proc/add_duds(duds)
@@ -133,26 +137,28 @@
 /datum/wires/proc/is_dud_color(color)
 	return is_dud(get_wire(color))
 
-/datum/wires/proc/cut(wire)
+/// Cut a specific wire.
+/// User may be null
+/datum/wires/proc/cut(wire, mob/user_or_null)
 	if(is_cut(wire))
 		cut_wires -= wire
-		on_cut(wire, mend = TRUE)
+		on_cut(wire, user_or_null, mend = TRUE)
 	else
 		cut_wires += wire
-		on_cut(wire, mend = FALSE)
+		on_cut(wire, user_or_null, mend = FALSE)
 	ui_update()
 
-/datum/wires/proc/cut_color(color)
-	cut(get_wire(color))
+/datum/wires/proc/cut_color(color, mob/user_or_null)
+	cut(get_wire(color), user_or_null)
 	ui_update()
 
-/datum/wires/proc/cut_random()
-	cut(wires[rand(1, wires.len)])
+/datum/wires/proc/cut_random(mob/user_or_null)
+	cut(wires[rand(1, wires.len)], user_or_null)
 	ui_update()
 
-/datum/wires/proc/cut_all()
+/datum/wires/proc/cut_all(mob/user_or_null)
 	for(var/wire in wires)
-		cut(wire)
+		cut(wire, user_or_null)
 	ui_update()
 
 /datum/wires/proc/pulse(wire, user)
@@ -176,7 +182,16 @@
 	if(S && istype(S) && S.attachable && !is_attached(color))
 		assemblies[color] = S
 		S.forceMove(holder)
+		/**
+		 * special snowflake check for machines
+		 * someone attached a signaler to the machines wires
+		 * move it to the machines component parts so it doesn't get moved out in dump_inventory_contents() which gets called a lot
+		 */
+		if(istype(holder, /obj/machinery))
+			var/obj/machinery/machine = holder
+			LAZYADD(machine.component_parts, S)
 		S.connected = src
+		S.on_attach() // Notify assembly that it is attached
 		ui_update()
 		return S
 
@@ -185,7 +200,7 @@
 	if(S && istype(S))
 		assemblies -= color
 		S.connected = null
-		S.forceMove(holder.drop_location())
+		S.on_detach() // Notify the assembly.  This should remove the reference to our holder
 		ui_update()
 		return S
 
@@ -203,12 +218,17 @@
 
 // Overridable Procs
 /datum/wires/proc/interactable(mob/user)
+	SHOULD_CALL_PARENT(TRUE)
+	if((SEND_SIGNAL(user, COMSIG_TRY_WIRES_INTERACT, holder) & COMPONENT_CANT_INTERACT_WIRES))
+		return FALSE
 	return TRUE
 
 /datum/wires/proc/get_status()
 	return list()
 
-/datum/wires/proc/on_cut(wire, mend = FALSE)
+/// Called when a wire is asked to be cut
+/// User accepts null
+/datum/wires/proc/on_cut(wire, mob/user, mend = FALSE)
 	return
 
 /datum/wires/proc/on_pulse(wire, user)
@@ -283,10 +303,10 @@
 			if(I || IsAdminGhost(usr))
 				if(I && holder)
 					I.play_tool_sound(holder, 20)
-				cut_color(target_wire)
+				cut_color(target_wire, usr)
 				. = TRUE
 			else
-				to_chat(L, "<span class='warning'>You need wirecutters!</span>")
+				to_chat(L, span_warning("You need wirecutters!"))
 		if("pulse")
 			I = L.is_holding_tool_quality(TOOL_MULTITOOL)
 			if(I || IsAdminGhost(usr))
@@ -295,7 +315,7 @@
 				pulse_color(target_wire, L)
 				. = TRUE
 			else
-				to_chat(L, "<span class='warning'>You need a multitool!</span>")
+				to_chat(L, span_warning("You need a multitool!"))
 		if("attach")
 			if(is_attached(target_wire))
 				I = detach_assembly(target_wire)
@@ -313,6 +333,6 @@
 							A.forceMove(L.drop_location())
 						. = TRUE
 					else
-						to_chat(L, "<span class='warning'>You need an attachable assembly!</span>")
+						to_chat(L, span_warning("You need an attachable assembly!"))
 
 #undef MAXIMUM_EMP_WIRES

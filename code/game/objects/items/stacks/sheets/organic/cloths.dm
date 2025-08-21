@@ -20,8 +20,21 @@ Various Cloths
 	merge_type = /obj/item/stack/sheet/cotton
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
-	var/pull_effort = 30
+	var/pull_effort = 10
 	var/loom_result = /obj/item/stack/sheet/cotton/cloth
+	/// A lazily initiated "food" version of the cloth for moths
+	var/obj/item/food/clothing/moth_snack
+
+/obj/item/stack/sheet/cotton/attack(mob/living/target_mob, mob/living/user, params)
+	if(isnull(moth_snack))
+		moth_snack = new
+		moth_snack.name = name
+		moth_snack.clothing = WEAKREF(src)
+	moth_snack.attack(target_mob, user, params)
+
+/obj/item/stack/sheet/cotton/Destroy()
+	QDEL_NULL(moth_snack)
+	return ..()
 
 /obj/item/stack/sheet/cotton/cloth
 	name = "cloth"
@@ -48,7 +61,6 @@ Various Cloths
 	singular_name = "raw durathread ball"
 	icon_state = "sheet-durathreadraw"
 	merge_type = /obj/item/stack/sheet/cotton/durathread
-	pull_effort = 70
 	loom_result = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /obj/item/stack/sheet/cotton/cloth/durathread

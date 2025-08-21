@@ -1,15 +1,16 @@
 /datum/job/exploration_crew
 	title = JOB_NAME_EXPLORATIONCREW
 	description = "Go out into space to complete different missions for loads of cash. Find and deliver back research disks for rare technologies."
-	department_for_prefs = DEPT_BITFLAG_SCI
+	department_for_prefs = DEPT_NAME_SCIENCE
 	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
 	supervisors = "the research director"
 	faction = "Station"
 	total_positions = 3
-	spawn_positions = 3
 	minimal_player_age = 3
-	exp_requirements = 900
-	exp_type = EXP_TYPE_CREW
+	// Requires 1 round as a scientist to unlock, which itself reuqires
+	// 2 hours as crew.
+	exp_requirements = 60
+	exp_type = EXP_TYPE_SCIENCE
 	selection_color = "#ffeeff"
 
 	outfit = /datum/outfit/job/exploration_crew
@@ -36,42 +37,20 @@
 	)
 	minimal_lightup_areas = list(/area/quartermaster/exploration_dock, /area/quartermaster/exploration_prep)
 
-/datum/job/exploration_crew/equip(mob/living/carbon/human/H, visualsOnly, announce, latejoin, datum/outfit/outfit_override, client/preference_source)
-	if(outfit_override)
-		return ..()
-	if(visualsOnly || latejoin)
-		return ..()
-	var/static/exploration_job_id = 0
-	exploration_job_id ++
-	switch(exploration_job_id)
-		//Scientist is most important due to scanner
-		if(1)
-			to_chat(H, "<span class='notice big'>You are the exploration team's <span class'sciradio'>Scientist</span>!</span>")
-			to_chat(H, "<span class='notice'>Scan undiscovered creates to gain discovery research points!</span>")
-			outfit_override = /datum/outfit/job/exploration_crew/scientist
-		if(2)
-			to_chat(H, "<span class='notice big'>You are the exploration team's <span class'medradio'>Medical Doctor</span>!</span>")
-			to_chat(H, "<span class='notice'>Ensure your team's health by locating and healing injured team members.</span>")
-			outfit_override = /datum/outfit/job/exploration_crew/medic
-		if(3)
-			to_chat(H, "<span class='notice big'>You are the exploration team's <span class'engradio'>Engineer</span>!</span>")
-			to_chat(H, "<span class='notice'>Create entry points with your explosives and maintain the hull of your ship.</span>")
-			outfit_override = /datum/outfit/job/exploration_crew/engineer
-	. = ..(H, visualsOnly, announce, latejoin, outfit_override, preference_source)
-
 /datum/outfit/job/exploration_crew
 	name = JOB_NAME_EXPLORATIONCREW
 	jobtype = /datum/job/exploration_crew
 
 	id = /obj/item/card/id/job/exploration_crew
-	belt = /obj/item/modular_computer/tablet/pda/exploration_crew
+	belt = /obj/item/modular_computer/tablet/pda/preset/exploration_crew
 	ears = /obj/item/radio/headset/headset_exploration
 	shoes = /obj/item/clothing/shoes/jackboots
 	gloves = /obj/item/clothing/gloves/color/black
 	uniform = /obj/item/clothing/under/rank/cargo/exploration
 	backpack_contents = list(
 		/obj/item/knife/combat/survival=1,\
-		/obj/item/stack/marker_beacon/thirty=1)
+		/obj/item/stack/marker_beacon/thirty=1,\
+		/obj/item/mining_voucher/exploration=1)
 	r_pocket = /obj/item/gun/energy/e_gun/mini/exploration
 
 	backpack = /obj/item/storage/backpack/explorer
@@ -84,7 +63,7 @@
 	name = "Exploration Crew (Engineer)"
 
 	belt = /obj/item/storage/belt/utility/full
-	r_pocket = /obj/item/modular_computer/tablet/pda/exploration_crew
+	r_pocket = /obj/item/modular_computer/tablet/pda/preset/exploration_crew
 
 	backpack_contents = list(
 		/obj/item/knife/combat/survival=1,
@@ -123,10 +102,10 @@
 		/obj/item/stack/marker_beacon/thirty=1,
 		/obj/item/pinpointer/crew=1,
 		/obj/item/sensor_device=1,
-		/obj/item/rollerbed=1,
 		/obj/item/discovery_scanner=1
 	)
 
+	r_hand = /obj/item/rollerbed
 	l_hand = /obj/item/storage/firstaid/medical
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel/med

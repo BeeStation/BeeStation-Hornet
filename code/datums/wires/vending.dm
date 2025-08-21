@@ -11,6 +11,8 @@
 	..()
 
 /datum/wires/vending/interactable(mob/user)
+	if(!..())
+		return FALSE
 	var/obj/machinery/vending/V = holder
 	if(!issilicon(user) && V.seconds_electrified && V.shock(user, 100))
 		return FALSE
@@ -42,7 +44,7 @@
 			V.shut_up = !V.shut_up
 	ui_update()
 
-/datum/wires/vending/on_cut(wire, mend)
+/datum/wires/vending/on_cut(wire, mob/user, mend)
 	var/obj/machinery/vending/V = holder
 	switch(wire)
 		if(WIRE_THROW)

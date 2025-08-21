@@ -8,7 +8,7 @@
 	desired_items = list(
 		/obj/item/seeds)
 	rites_list = list(
-		/datum/religion_rites/create_podperson,
+		/datum/religion_rites/create_diona,
 		/datum/religion_rites/create_sandstone,
 		/datum/religion_rites/grass_generator,
 		/datum/religion_rites/summon_animals)
@@ -22,7 +22,7 @@
 	if(!istype(N, /obj/item/seeds))
 		return
 	adjust_favor(25, L)
-	to_chat(L, "<span class='notice'>You offer [N] to [GLOB.deity], pleasing them and gaining 25 favor in the process.</span>")
+	to_chat(L, span_notice("You offer [N] to [GLOB.deity], pleasing them and gaining 25 favor in the process."))
 	qdel(N)
 	return TRUE
 
@@ -35,7 +35,7 @@
 	anchored = FALSE
 	light_range = 5
 	light_color = LIGHT_COLOR_GREEN
-	break_message = "<span class='warning'>The luminous green crystal shatters!</span>"
+	break_message = span_warning("The luminous green crystal shatters!")
 	var/heal_delay = 20
 	var/last_heal = 0
 	var/spread_delay = 45
@@ -60,10 +60,10 @@
 		for(var/mob/living/L in range(5, src))
 			if(L.health == L.maxHealth)
 				continue
-			if(!ispodperson(L) && !L.mind?.holy_role)
+			if(!isdiona(L) && !L.mind?.holy_role)
 				continue
 			new /obj/effect/temp_visual/heal(get_turf(src), "#47ac05")
-			if(ispodperson(L) || L.mind?.holy_role)
+			if(isdiona(L) || L.mind?.holy_role)
 				L.adjustBruteLoss(-2*delta_time, 0)
 				L.adjustToxLoss(-2*delta_time, 0)
 				L.adjustOxyLoss(-2*delta_time, 0)
@@ -115,10 +115,10 @@
 /obj/structure/destructible/religion/nature_pylon/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/nullrod))
 		if(user.mind?.holy_role == NONE)
-			to_chat(user, "<span class='warning'>Only the faithful may control the disposition of [src]!</span>")
+			to_chat(user, span_warning("Only the faithful may control the disposition of [src]!"))
 			return
 		anchored = !anchored
-		user.visible_message("<span class ='notice'>[user] [anchored ? "" : "un"]anchors [src] [anchored ? "to" : "from"] the floor with [I].</span>", "<span class ='notice'>You [anchored ? "" : "un"]anchor [src] [anchored ? "to" : "from"] the floor with [I].</span>")
+		user.visible_message(span_notice("[user] [anchored ? "" : "un"]anchors [src] [anchored ? "to" : "from"] the floor with [I]."), span_notice("You [anchored ? "" : "un"]anchor [src] [anchored ? "to" : "from"] the floor with [I]."))
 		playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
 		user.do_attack_animation(src)
 		return
@@ -143,7 +143,7 @@
 /datum/religion_rites/summon_animals/perform_rite(mob/living/user, atom/religious_tool)
 	var/turf/altar_turf = get_turf(religious_tool)
 	new /obj/effect/temp_visual/bluespace_fissure/long(altar_turf)
-	user.visible_message("<span class'notice'>A tear in reality appears above the altar!</span>")
+	user.visible_message(span_notice("A tear in reality appears above the altar!"))
 	return ..()
 
 /datum/religion_rites/summon_animals/invoke_effect(mob/living/user, atom/religious_tool)
@@ -151,11 +151,11 @@
 	var/turf/altar_turf = get_turf(religious_tool)
 	for(var/i in 1 to 8)
 		var/mob/living/spawned_mob = create_random_mob(altar_turf, FRIENDLY_SPAWN)
-		spawned_mob.faction |= "neutral"
+		spawned_mob.faction |= FACTION_NEUTRAL
 	playsound(altar_turf, 'sound/ambience/servicebell.ogg', 25, TRUE)
 	if(prob(0.1))
 		playsound(altar_turf, 'sound/effects/bamf.ogg', 100, TRUE)
-		altar_turf.visible_message("<span class='boldwarning'>A large form seems to be forcing its way into your reality via the portal [user] opened! RUN!!!</span>")
+		altar_turf.visible_message(span_boldwarning("A large form seems to be forcing its way into your reality via the portal [user] opened! RUN!!!"))
 		new /mob/living/simple_animal/hostile/jungle/leaper(altar_turf)
 	return ..()
 
@@ -177,7 +177,7 @@
 
 /datum/religion_rites/grass_generator
 	name = "Blessing of Nature"
-	desc = "Summon a moveable object that slowly generates grass and fairy-grass around itself while healing any Pod-People or Holy people nearby."
+	desc = "Summon a moveable object that slowly generates grass and fairy-grass around itself while healing any Dionae or Holy people nearby."
 	ritual_length = 60 SECONDS
 	ritual_invocations = list(
 		"Let the plantlife grow ...",
@@ -194,7 +194,7 @@
 		new /obj/structure/destructible/religion/nature_pylon(T)
 	return ..()
 
-/datum/religion_rites/create_podperson
+/datum/religion_rites/create_diona
 	name = "Nature Conversion"
 	desc = "Convert a human-esque individual into a being of nature. Buckle a human to convert them, otherwise it will convert you."
 	ritual_length = 30 SECONDS
@@ -205,26 +205,26 @@
 	invoke_msg = "... May the grass be greener on the other side, show us what it means to be one with nature!!"
 	favor_cost = 300
 
-/datum/religion_rites/create_podperson/perform_rite(mob/living/user, atom/religious_tool)
+/datum/religion_rites/create_diona/perform_rite(mob/living/user, atom/religious_tool)
 	if(!ismovable(religious_tool))
-		to_chat(user,"<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
+		to_chat(user,span_warning("This rite requires a religious device that individuals can be buckled to."))
 		return FALSE
 	var/atom/movable/movable_reltool = religious_tool
 	if(!movable_reltool)
 		return FALSE
 	if(LAZYLEN(movable_reltool.buckled_mobs))
-		to_chat(user,"<span class='warning'>You're going to convert the one buckled on [movable_reltool].</span>")
+		to_chat(user,span_warning("You're going to convert the one buckled on [movable_reltool]."))
 	else
 		if(!movable_reltool.can_buckle) //yes, if you have somehow managed to have someone buckled to something that now cannot buckle, we will still let you perform the rite!
-			to_chat(user,"<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
+			to_chat(user,span_warning("This rite requires a religious device that individuals can be buckled to."))
 			return FALSE
-		if(ispodperson(user))
-			to_chat(user,"<span class='warning'>You've already converted yourself. To convert others, they must be buckled to [movable_reltool].</span>")
+		if(isdiona(user))
+			to_chat(user,span_warning("You've already converted yourself. To convert others, they must be buckled to [movable_reltool]."))
 			return FALSE
-		to_chat(user,"<span class='warning'>You're going to convert yourself with this ritual.</span>")
+		to_chat(user,span_warning("You're going to convert yourself with this ritual."))
 	return ..()
 
-/datum/religion_rites/create_podperson/invoke_effect(mob/living/user, atom/religious_tool)
+/datum/religion_rites/create_diona/invoke_effect(mob/living/user, atom/religious_tool)
 	..()
 	if(!ismovable(religious_tool))
 		CRASH("[name]'s perform_rite had a movable atom that has somehow turned into a non-movable!")
@@ -239,6 +239,6 @@
 				break
 	if(!rite_target)
 		return FALSE
-	rite_target.set_species(/datum/species/pod)
-	rite_target.visible_message("<span class='notice'>[rite_target] has been converted by the rite of [name]!</span>")
+	rite_target.set_species(/datum/species/diona)
+	rite_target.visible_message(span_notice("[rite_target] has been converted by the rite of [name]!"))
 	return TRUE

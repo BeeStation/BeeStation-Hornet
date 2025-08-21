@@ -196,7 +196,20 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	rotationMatrix.Scale(1.5)
 	rotationMatrix.Translate(0, -distance)
 	rotationMatrix.Turn(get_angle(target_turf, parent_turf))
-	animate(screen, transform = rotationMatrix, time = 2)
+	var/new_alpha = 240
+	if(share_z)
+		switch(get_dist(target_turf, parent_turf))
+			if(0)
+				new_alpha = 0
+			if(1)
+				new_alpha = 60
+			if(2)
+				new_alpha = 100
+			if(3)
+				new_alpha = 150
+			else
+				new_alpha = 240
+	animate(screen, alpha = new_alpha, transform = rotationMatrix, time = 0.2 SECONDS)
 
 //===========
 // Handles hiding / showing the hud when equipped
@@ -271,13 +284,13 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	//Get new frequency
 	var/new_freq = input(user, "Enter a new frequency (1 - 999):", "Frequency Change", 1) as num|null
 	if(!new_freq)
-		to_chat(user, "<span class='warning'>Invalid frequency. Encrypted tracking HUD disabled.</span>")
+		to_chat(user, span_warning("Invalid frequency. Encrypted tracking HUD disabled."))
 		return
 	if(new_freq < 1 || new_freq > 999)
-		to_chat(user, "<span class='warning'>Frequency is out of range. Must be between 1 and 999.</span>")
+		to_chat(user, span_warning("Frequency is out of range. Must be between 1 and 999."))
 		return
 	set_frequency(new_freq)
-	to_chat(user, "<span class='notice'>Tracking HUD now scanning on frequency <i>[team_frequency]</i>.</span>")
+	to_chat(user, span_notice("Tracking HUD now scanning on frequency <i>[team_frequency]</i>."))
 	//Set frequency of the linked beacon
 	if(attached_beacon)
 		attached_beacon.set_frequency(new_freq)
@@ -565,13 +578,13 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	//Get new frequency
 	var/new_freq = input(user, "Enter a new frequency (1 - 999):", "Frequency Change", 1) as num|null
 	if(!new_freq)
-		to_chat(user, "<span class='warning'>Invalid frequency. Encrypted tracking beacon disabled.</span>")
+		to_chat(user, span_warning("Invalid frequency. Encrypted tracking beacon disabled."))
 		return
 	if(new_freq < 1 || new_freq > 999)
-		to_chat(user, "<span class='warning'>Frequency is out of range. Must be between 1 and 999.</span>")
+		to_chat(user, span_warning("Frequency is out of range. Must be between 1 and 999."))
 		return
 	set_frequency(new_freq)
-	to_chat(user, "<span class='notice'>Tracking HUD now transmitting on frequency <i>[team_frequency]</i>.</span>")
+	to_chat(user, span_notice("Tracking HUD now transmitting on frequency <i>[team_frequency]</i>."))
 	//Set frequency of the linked tracker
 	if(attached_monitor)
 		attached_monitor.set_frequency(new_freq)

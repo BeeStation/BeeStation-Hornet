@@ -1,0 +1,136 @@
+/turf/@SUBTYPES{initial_temperature=@ANY} : /turf/@SUBTYPES{@OLD; initial_temperature=@SKIP}
+/obj/machinery/atmospherics/components/unary/tank/@SUBTYPES : /obj/machinery/atmospherics/components/tank/@SUBTYPES{@OLD}
+/obj/machinery/embedded_controller/radio/airlock_controller/@SUBTYPES : /obj/machinery/airlock_controller/@SUBTYPES{@OLD}
+/obj/machinery/air_sensor/atmos/@SUBTYPES: /obj/machinery/air_sensor/@SUBTYPES{@OLD;frequency=@SKIP;id_tag=@SKIP}
+/obj/machinery/air_sensor/toxins_mixing_tank: /obj/machinery/air_sensor/toxins_burn_chamber{@OLD;frequency=@SKIP;id_tag=@SKIP}
+/obj/machinery/air_sensor/@SUBTYPES : /obj/machinery/air_sensor/@SUBTYPES{@OLD;frequency=@SKIP;id_tag=@SKIP}
+/obj/machinery/portable_atmospherics/canister/proto : @DELETE
+/obj/machinery/embedded_controller/radio/airlock_controller/@SUBTYPES : /obj/machinery/airlock_controller/@SUBTYPES{@OLD}
+/obj/machinery/atmospherics/components/trinary/filter/@SUBTYPES{filter_type = "n2"} : /obj/machinery/atmospherics/components/trinary/filter/@SUBTYPES{@OLD; filter_type = list(/datum/gas/nitrogen)}
+
+/obj/machinery/atmospherics/pipe/simple/@SUBTYPES : /obj/machinery/atmospherics/pipe/smart/simple/@SUBTYPES{@OLD}
+/obj/machinery/atmospherics/pipe/manifold/@SUBTYPES : /obj/machinery/atmospherics/pipe/smart/manifold/@SUBTYPES{@OLD}
+/obj/machinery/atmospherics/pipe/manifold4w/@SUBTYPES : /obj/machinery/atmospherics/pipe/smart/manifold4w/@SUBTYPES{@OLD}
+
+/obj/machinery/airalarm/engine : /obj/machinery/airalarm{@OLD}
+/obj/machinery/airalarm/server : /obj/machinery/airalarm{@OLD}
+/obj/machinery/airalarm/mixingchamber : /obj/machinery/airalarm{@OLD}
+/obj/machinery/airalarm/kitchen_cold_room : /obj/machinery/airalarm{@OLD}
+
+/obj/machinery/advanced_airlock_controller/@SUBTYPES : @DELETE
+/obj/machinery/advanced_airlock_controller : @DELETE
+
+/obj/machinery/air_sensor/sm_core : /obj/machinery/air_sensor/engine_chamber{@OLD}
+/obj/machinery/air_sensor/incinerator_toxmix : /obj/machinery/air_sensor/incinerator_tank{@OLD}
+
+/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/@SUBTYPES{id="syndie_lavaland_inc_in"} : /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/@SUBTYPES{chamber_id="syndie_lavaland_inc_in"}
+/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/@SUBTYPES{id="n2_in_bunker"} : /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/@SUBTYPES{chamber_id="n2_in_bunker"}
+/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/@SUBTYPES{id="o2_in_bunker"} : /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/@SUBTYPES{chamber_id="o2_in_bunker"}
+/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/@SUBTYPES : /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/@SUBTYPES{@OLD}
+/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/@SUBTYPES : /obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/@SUBTYPES{@OLD}
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/atmos/@SUBTYPES : /obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/monitored/@SUBTYPES{@OLD}
+/obj/machinery/computer/atmos_control/tank/toxins_mixing_tank : /obj/machinery/computer/atmos_control/toxinsmix{@OLD;frequency=@SKIP;output_tag=@SKIP;input_tag=@SKIP;sensors=@SKIP}
+/obj/machinery/computer/atmos_control/tank/@SUBTYPES : /obj/machinery/computer/atmos_control/@SUBTYPES{@OLD;frequency=@SKIP;output_tag=@SKIP;input_tag=@SKIP;sensors=@SKIP}
+
+
+
+/obj/machinery/airalarm/unlocked : /obj/machinery/airalarm{@OLD; locked = "0"}
+
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/engine_waste : /obj/machinery/atmospherics/components/unary/outlet_injector/on{@OLD}
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/atmos_waste : /obj/machinery/atmospherics/components/unary/outlet_injector/on{@OLD}
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/toxins_mixing_input : /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/toxins_burn_chamber_input{@OLD}
+
+
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4/lavaland : /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{@OLD}
+
+/obj/machinery/atmospherics/components/unary/@SUBTYPES{frequency=@ANY} : /obj/machinery/atmospherics/components/unary/@SUBTYPES{@OLD; frequency=@SKIP}
+
+/obj/machinery/airalarm/server{dir=1} : /obj/machinery/airalarm/directional/north{@OLD;dir=@SKIP;pixel_y=@SKIP}, /obj/effect/mapping_helpers/airalarm/tlv_no_checks
+/obj/machinery/airalarm/server{dir=2} : /obj/machinery/airalarm/directional/south{@OLD;dir=@SKIP;pixel_y=@SKIP}, /obj/effect/mapping_helpers/airalarm/tlv_no_checks
+/obj/machinery/airalarm/server{dir=@UNSET} : /obj/machinery/airalarm/directional/south{@OLD;dir=@SKIP;pixel_y=@SKIP}, /obj/effect/mapping_helpers/airalarm/tlv_no_checks
+/obj/machinery/airalarm/server{dir=4} : /obj/machinery/airalarm/directional/east{@OLD;dir=@SKIP;pixel_x=@SKIP}, /obj/effect/mapping_helpers/airalarm/tlv_no_checks
+/obj/machinery/airalarm/server{dir=8} : /obj/machinery/airalarm/directional/west{@OLD;dir=@SKIP;pixel_x=@SKIP}, /obj/effect/mapping_helpers/airalarm/tlv_no_checks
+/obj/machinery/airalarm/kitchen_cold_room{dir=1} : /obj/machinery/airalarm/directional/north{@OLD;dir=@SKIP;pixel_y=@SKIP}, /obj/effect/mapping_helpers/airalarm/tlv_cold_room
+/obj/machinery/airalarm/kitchen_cold_room{dir=2} : /obj/machinery/airalarm/directional/south{@OLD;dir=@SKIP;pixel_y=@SKIP}, /obj/effect/mapping_helpers/airalarm/tlv_cold_room
+/obj/machinery/airalarm/kitchen_cold_room{dir=@UNSET} : /obj/machinery/airalarm/directional/south{@OLD;dir=@SKIP;pixel_y=@SKIP}, /obj/effect/mapping_helpers/airalarm/tlv_cold_room
+/obj/machinery/airalarm/kitchen_cold_room{dir=4} : /obj/machinery/airalarm/directional/east{@OLD;dir=@SKIP;pixel_x=@SKIP}, /obj/effect/mapping_helpers/airalarm/tlv_cold_room
+/obj/machinery/airalarm/kitchen_cold_room{dir=8} : /obj/machinery/airalarm/directional/west{@OLD;dir=@SKIP;pixel_x=@SKIP}, /obj/effect/mapping_helpers/airalarm/tlv_cold_room
+/obj/machinery/airalarm/unlocked{dir=1} : /obj/machinery/airalarm/directional/north{@OLD;dir=@SKIP;pixel_y=@SKIP}, /obj/effect/mapping_helpers/airalarm/unlocked
+/obj/machinery/airalarm/unlocked{dir=2} : /obj/machinery/airalarm/directional/south{@OLD;dir=@SKIP;pixel_y=@SKIP}, /obj/effect/mapping_helpers/airalarm/unlocked
+/obj/machinery/airalarm/unlocked{dir=@UNSET} : /obj/machinery/airalarm/directional/south{@OLD;dir=@SKIP;pixel_y=@SKIP}, /obj/effect/mapping_helpers/airalarm/unlocked
+/obj/machinery/airalarm/unlocked{dir=4} : /obj/machinery/airalarm/directional/east{@OLD;dir=@SKIP;pixel_x=@SKIP}, /obj/effect/mapping_helpers/airalarm/unlocked
+/obj/machinery/airalarm/unlocked{dir=8} : /obj/machinery/airalarm/directional/west{@OLD;dir=@SKIP;pixel_x=@SKIP}, /obj/effect/mapping_helpers/airalarm/unlocked
+/obj/machinery/airalarm/engine{dir=1} : /obj/machinery/airalarm/directional/north{@OLD;dir=@SKIP;pixel_y=@SKIP}, /obj/effect/mapping_helpers/airalarm/engine_access
+/obj/machinery/airalarm/engine{dir=2} : /obj/machinery/airalarm/directional/south{@OLD;dir=@SKIP;pixel_y=@SKIP}, /obj/effect/mapping_helpers/airalarm/engine_access
+/obj/machinery/airalarm/engine{dir=@UNSET} : /obj/machinery/airalarm/directional/south{@OLD;dir=@SKIP;pixel_y=@SKIP}, /obj/effect/mapping_helpers/airalarm/engine_access
+/obj/machinery/airalarm/engine{dir=4} : /obj/machinery/airalarm/directional/east{@OLD;dir=@SKIP;pixel_x=@SKIP}, /obj/effect/mapping_helpers/airalarm/engine_access
+/obj/machinery/airalarm/engine{dir=8} : /obj/machinery/airalarm/directional/west{@OLD;dir=@SKIP;pixel_x=@SKIP}, /obj/effect/mapping_helpers/airalarm/engine_access
+/obj/machinery/airalarm/mixingchamber{dir=1} : /obj/machinery/airalarm/directional/north{@OLD;dir=@SKIP;pixel_y=@SKIP}, /obj/effect/mapping_helpers/airalarm/mixingchamber_access
+/obj/machinery/airalarm/mixingchamber{dir=2} : /obj/machinery/airalarm/directional/south{@OLD;dir=@SKIP;pixel_y=@SKIP}, /obj/effect/mapping_helpers/airalarm/mixingchamber_access
+/obj/machinery/airalarm/mixingchamber{dir=@UNSET} : /obj/machinery/airalarm/directional/south{@OLD;dir=@SKIP;pixel_y=@SKIP}, /obj/effect/mapping_helpers/airalarm/mixingchamber_access
+/obj/machinery/airalarm/mixingchamber{dir=4} : /obj/machinery/airalarm/directional/east{@OLD;dir=@SKIP;pixel_x=@SKIP}, /obj/effect/mapping_helpers/airalarm/mixingchamber_access
+/obj/machinery/airalarm/mixingchamber{dir=8} : /obj/machinery/airalarm/directional/west{@OLD;dir=@SKIP;pixel_x=@SKIP}, /obj/effect/mapping_helpers/airalarm/mixingchamber_access
+/obj/machinery/airalarm/all_access{dir=1} : /obj/machinery/airalarm/directional/north{@OLD;dir=@SKIP;pixel_y=@SKIP}, /obj/effect/mapping_helpers/airalarm/all_access
+/obj/machinery/airalarm/all_access{dir=2} : /obj/machinery/airalarm/directional/south{@OLD;dir=@SKIP;pixel_y=@SKIP}, /obj/effect/mapping_helpers/airalarm/all_access
+/obj/machinery/airalarm/all_access{dir=@UNSET} : /obj/machinery/airalarm/directional/south{@OLD;dir=@SKIP;pixel_y=@SKIP}, /obj/effect/mapping_helpers/airalarm/all_access
+/obj/machinery/airalarm/all_access{dir=4} : /obj/machinery/airalarm/directional/east{@OLD;dir=@SKIP;pixel_x=@SKIP}, /obj/effect/mapping_helpers/airalarm/all_access
+/obj/machinery/airalarm/all_access{dir=8} : /obj/machinery/airalarm/directional/west{@OLD;dir=@SKIP;pixel_x=@SKIP}, /obj/effect/mapping_helpers/airalarm/all_access
+/obj/machinery/airalarm/syndicate{dir=1} : /obj/machinery/airalarm/directional/north{@OLD;dir=@SKIP;pixel_y=@SKIP}, /obj/effect/mapping_helpers/airalarm/syndicate_access
+/obj/machinery/airalarm/syndicate{dir=2} : /obj/machinery/airalarm/directional/south{@OLD;dir=@SKIP;pixel_y=@SKIP}, /obj/effect/mapping_helpers/airalarm/syndicate_access
+/obj/machinery/airalarm/syndicate{dir=@UNSET} : /obj/machinery/airalarm/directional/south{@OLD;dir=@SKIP;pixel_y=@SKIP}, /obj/effect/mapping_helpers/airalarm/syndicate_access
+/obj/machinery/airalarm/syndicate{dir=4} : /obj/machinery/airalarm/directional/east{@OLD;dir=@SKIP;pixel_x=@SKIP}, /obj/effect/mapping_helpers/airalarm/syndicate_access
+/obj/machinery/airalarm/syndicate{dir=8} : /obj/machinery/airalarm/directional/west{@OLD;dir=@SKIP;pixel_x=@SKIP}, /obj/effect/mapping_helpers/airalarm/syndicate_access
+/obj/machinery/airalarm/away{dir=1} : /obj/machinery/airalarm/directional/north{@OLD;dir=@SKIP;pixel_y=@SKIP}, /obj/effect/mapping_helpers/airalarm/away_general_access
+/obj/machinery/airalarm/away{dir=2} : /obj/machinery/airalarm/directional/south{@OLD;dir=@SKIP;pixel_y=@SKIP}, /obj/effect/mapping_helpers/airalarm/away_general_access
+/obj/machinery/airalarm/away{dir=@UNSET} : /obj/machinery/airalarm/directional/south{@OLD;dir=@SKIP;pixel_y=@SKIP}, /obj/effect/mapping_helpers/airalarm/away_general_access
+/obj/machinery/airalarm/away{dir=4} : /obj/machinery/airalarm/directional/east{@OLD;dir=@SKIP;pixel_x=@SKIP}, /obj/effect/mapping_helpers/airalarm/away_general_access
+/obj/machinery/airalarm/away{dir=8} : /obj/machinery/airalarm/directional/west{@OLD;dir=@SKIP;pixel_x=@SKIP}, /obj/effect/mapping_helpers/airalarm/away_general_access
+
+#Updates cryo cells pathing by removing the atmosmachinery path
+/obj/machinery/atmospherics/components/unary/cryo_cell : /obj/machinery/cryo_cell{@OLD;initialize_directions=@SKIP}
+
+/obj/machinery/meter/atmos/atmos_waste_loop : /obj/machinery/meter/monitored/waste_loop{@OLD}
+/obj/machinery/meter/atmos/distro_loop : /obj/machinery/meter/monitored/distro_loop{@OLD}
+
+/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden : /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2{@OLD}, /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubber/hidden/layer4{@OLD}
+/obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer2 : /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2{@OLD}
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer4 : /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubber/hidden/layer4{@OLD}
+/obj/effect/mapping_helpers/simple_pipes/supply/hidden : /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden{@OLD}
+/obj/@SUBTYPES{CanAtmosPass=@ANY} : /obj/@SUBTYPES{@OLD;CanAtmosPass=@SKIP}
+
+/obj/machinery/door/airlock/research : /obj/machinery/door/airlock/research{@OLD;frequency=@SKIP}
+/obj/machinery/computer/atmos_control/sm : @DELETE
+
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer/layer_1 : /obj/machinery/atmospherics/components/unary/thermomachine/freezer/layer1{@OLD}
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer/layer_2 : /obj/machinery/atmospherics/components/unary/thermomachine/freezer/layer2{@OLD}
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer/layer_4 : /obj/machinery/atmospherics/components/unary/thermomachine/freezer/layer4{@OLD}
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer/layer_5 : /obj/machinery/atmospherics/components/unary/thermomachine/freezer/layer5{@OLD}
+
+/obj/machinery/atmospherics/components/unary/thermomachine/heater/layer_1 : /obj/machinery/atmospherics/components/unary/thermomachine/heater/layer1{@OLD}
+/obj/machinery/atmospherics/components/unary/thermomachine/heater/layer_2 : /obj/machinery/atmospherics/components/unary/thermomachine/heater/layer2{@OLD}
+/obj/machinery/atmospherics/components/unary/thermomachine/heater/layer_4 : /obj/machinery/atmospherics/components/unary/thermomachine/heater/layer4{@OLD}
+/obj/machinery/atmospherics/components/unary/thermomachine/heater/layer_5 : /obj/machinery/atmospherics/components/unary/thermomachine/heater/layer5{@OLD}
+
+/obj/machinery/atmospherics/components/unary/thermomachine/heater/on/layer_1 : /obj/machinery/atmospherics/components/unary/thermomachine/heater/on/layer1{@OLD}
+/obj/machinery/atmospherics/components/unary/thermomachine/heater/on/layer_2 : /obj/machinery/atmospherics/components/unary/thermomachine/heater/on/layer2{@OLD}
+/obj/machinery/atmospherics/components/unary/thermomachine/heater/on/layer_4 : /obj/machinery/atmospherics/components/unary/thermomachine/heater/on/layer4{@OLD}
+/obj/machinery/atmospherics/components/unary/thermomachine/heater/on/layer_5 : /obj/machinery/atmospherics/components/unary/thermomachine/heater/on/layer5{@OLD}
+
+# No more compressed mapping for you, Floria!
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/nitrogen_input/@SUBTYPES : /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/nitrogen_input{@OLD}
+/obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/oxygen_output/@SUBTYPES : /obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/oxygen_output{@OLD}
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/atmos_waste/layer4 : /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer4{@OLD}
+/obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/carbon_output/@SUBTYPES : /obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/carbon_output{@OLD}
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/oxygen_input/@SUBTYPES : /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/oxygen_input{@OLD}
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/air_input/@SUBTYPES : /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/air_input{@OLD}
+/obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/nitrogen_output/@SUBTYPES : /obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/nitrogen_output{@OLD}
+/obj/machinery/door/airlock/alarmlock : /obj/machinery/door/airlock/public/glass{@OLD}
+
+# Now for Echostation's COLD
+/turf/open/floor/plating/beach/deep_water : /turf/open/floor/plating/beach/deep_water/cold{@OLD}
+/turf/open/floor/plating/beach/coastline_t : /turf/open/floor/plating/beach/coastline_t/cold{@OLD}
+/turf/open/floor/plating/beach/coastline_b : /turf/open/floor/plating/beach/coastline_b/cold{@OLD}
+/turf/open/floor/plating/beach/coastline_t/sandwater_inner : /turf/open/floor/plating/beach/coastline_t/sandwater_inner/cold{@OLD}
+
+#Apparently we have window firelocks in shuttles. Not anymore we dont!
+/obj/machinery/door/firedoor/window : @DELETE

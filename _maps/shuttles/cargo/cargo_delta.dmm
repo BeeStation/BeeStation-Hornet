@@ -68,7 +68,7 @@
 	},
 /obj/machinery/door/poddoor{
 	id = "cargounload";
-	name = "supply dock unloading door"
+	name = "supply Dock Unloading Door"
 	},
 /obj/structure/fans/tiny,
 /turf/open/floor/plating,
@@ -145,7 +145,7 @@
 "s" = (
 /obj/machinery/door/poddoor{
 	id = "cargoload";
-	name = "supply dock loading door"
+	name = "supply Dock Loading Door"
 	},
 /obj/machinery/conveyor{
 	dir = 4;

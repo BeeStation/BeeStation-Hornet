@@ -8,17 +8,24 @@
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 	allowed = list(
 		/obj/item/tank/internals/emergency_oxygen,
-		/obj/item/tank/internals/plasmaman
-	)
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
+		/obj/item/tank/internals/plasmaman,
+		/obj/item/tank/jetpack/oxygen/captain,
+		)
+	armor_type = /datum/armor/clothing_suit
 	slot_flags = ITEM_SLOT_OCLOTHING
 	var/blood_overlay_type = "suit"
 	var/move_sound = null
 	var/footstep = 0
 	var/mob/listeningTo
-	pocket_storage_component_path = /datum/component/storage/concrete/pockets/exo
+	var/pockets = TRUE
 
+/datum/armor/clothing_suit
+	bleed = 5
 
+/obj/item/clothing/suit/Initialize(mapload)
+	. = ..()
+	if(pockets)
+		create_storage(storage_type = /datum/storage/pockets/exo)
 /obj/item/clothing/suit/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = list()
 	if(!isinhands)
@@ -34,7 +41,7 @@
 				if(A.above_suit)
 					. += U.accessory_overlay
 
-/obj/item/clothing/suit/update_clothes_damaged_state(damaging = TRUE)
+/obj/item/clothing/suit/update_clothes_damaged_state(damaged_state = CLOTHING_DAMAGED)
 	..()
 	if(ismob(loc))
 		var/mob/M = loc

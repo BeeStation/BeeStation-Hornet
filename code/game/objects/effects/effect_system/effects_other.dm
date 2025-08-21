@@ -82,6 +82,9 @@
 /datum/effect_system/trail_follow/proc/set_dir(obj/effect/particle_effect/ion_trails/I)
 	I.setDir(holder.dir)
 
+/datum/effect_system/trail_follow/ion/grav_allowed
+	nograv_required = FALSE
+
 //Reagent-based explosion effect
 
 /datum/effect_system/reagents_explosion
@@ -105,7 +108,7 @@
 
 /datum/effect_system/reagents_explosion/start()
 	if(explosion_message)
-		location.visible_message("<span class='danger'>The solution violently explodes!</span>", \
-								"<span class='italics'>You hear an explosion!</span>")
+		location.visible_message(span_danger("The solution violently explodes!"), \
+								span_italics("You hear an explosion!"))
 
 	dyn_explosion(location, amount, flashing_factor, explosion_multiplier = explosion_sizes)

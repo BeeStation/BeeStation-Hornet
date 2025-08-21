@@ -49,6 +49,7 @@
 	smoothing_flags = NONE
 	canSmoothWith = null
 	smoothing_groups = null
+	rcd_memory = null
 
 /turf/closed/wall/vault/rock
 	name = "rocky wall"
@@ -71,6 +72,7 @@
 	smoothing_flags = SMOOTH_BITMASK
 	desc = "A wall covered in a thick sheet of ice."
 	canSmoothWith = null
+	rcd_memory = null
 	hardness = 35
 	slicing_duration = 150 //welding through the ice+metal
 	bullet_sizzle = TRUE
@@ -126,27 +128,3 @@
 	girder_type = /obj/structure/girder/bronze
 
 
-/turf/closed/indestructible/cordon
-	name = "cordon"
-	desc = "The final word in problem solving."
-	icon_state = "cordon"
-
-//Will this look good? No. Will it work? Probably.
-
-/turf/closed/indestructible/cordon/Entered(atom/movable/AM)
-	. = ..()
-	if(isobserver(AM))
-		return
-	if(ismob(AM))
-		var/mob/interloper = AM
-		interloper.death()
-	if(ismecha(AM))
-		var/obj/vehicle/sealed/mecha/fuckphazons = AM
-		var/mob/living/carbon/interloper = fuckphazons.occupants
-		interloper?.death()
-		qdel(interloper)
-
-	qdel(AM)
-
-/turf/closed/indestructible/cordon/is_holy()
-	return TRUE // The blessed cordon

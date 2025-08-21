@@ -125,19 +125,15 @@
 	tiled_dirt = FALSE
 	transform = MAP_SWITCH(TRANSLATE_MATRIX(-9, -9), matrix())
 	resistance_flags = INDESTRUCTIBLE
-	var/static/datum/gas_mixture/immutable/planetary/GM
+	planetary_atmos = TRUE
+	init_air = FALSE //grass should act almost like space tiles as has the entire plannets atmos to cycle with
+	thermal_conductivity = OPEN_HEAT_TRANSFER_COEFFICIENT
+	heat_capacity = 700000
 
-/turf/open/floor/plating/grass/Initialize()
-	if(!GM)
-		GM = new
-	. = ..()
-	air = GM
-	update_air_ref(2)
-	return
 
 /turf/open/floor/plating/beach
 	name = "beach"
-	icon = 'icons/misc/beach.dmi'
+	icon = 'icons/misc/beach/beach.dmi'
 	flags_1 = NONE
 	planetary_atmos = TRUE
 	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
@@ -156,22 +152,23 @@
 	gender = PLURAL
 	name = "sand"
 	desc = "Surf's up."
-	icon_state = "sand"
+	icon_state = "Water-0"
 	baseturfs = /turf/open/floor/plating/beach/sand
 
 /turf/open/floor/plating/beach/water
-	gender = PLURAL
 	name = "water"
 	desc = "Ocean waves: Salty breeze, briny depths, endless blue expanse."
-	icon_state = "water"
+	icon = 'icons/misc/Beach/beach.dmi'
+	icon_state = "Water-255"
+	base_icon_state = "Water"
 	baseturfs = /turf/open/floor/plating/beach/water
 	slowdown = 3
 	bullet_sizzle = TRUE
 	bullet_bounce_sound = 'sound/effects/splash.ogg'
 	footstep = FOOTSTEP_WATER
-	barefootstep = FOOTSTEP_WATER
-	clawfootstep = FOOTSTEP_WATER
-	heavyfootstep = FOOTSTEP_WATER
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
+	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_FLOOR_GRASS, SMOOTH_GROUP_FLOOR_ICE, SMOOTH_GROUP_CLOSED_TURFS)
+	canSmoothWith = list(SMOOTH_GROUP_FLOOR_GRASS, SMOOTH_GROUP_FLOOR_ICE, SMOOTH_GROUP_CLOSED_TURFS)
 
 // pool.dm copy paste
 
@@ -201,7 +198,7 @@
 	. = ..()
 	if(!istype(newloc, /turf/open/indestructible/sound/pool))
 		var/datum/component/swimming/S = Obj.GetComponent(/datum/component/swimming) //Handling admin TPs here.
-		S?.RemoveComponent()
+		S?.ClearFromParent()
 
 /turf/open/MouseDrop_T(atom/dropping, mob/user)
 	if(!isliving(user) || !isliving(dropping)) //No I don't want ghosts to be able to dunk people into the pool.
@@ -210,8 +207,8 @@
 	var/datum/component/swimming/S = dropping.GetComponent(/datum/component/swimming)
 	if(S)
 		if(do_after(user, 1 SECONDS, target = dropping))
-			S.RemoveComponent()
-			visible_message("<span class='notice'>[dropping] climbs out of the pool.</span>")
+			S.ClearFromParent()
+			visible_message(span_notice("[dropping] climbs out of the pool."))
 			AM.forceMove(src)
 	else
 		. = ..()
@@ -224,10 +221,10 @@
 		return FALSE
 	. = ..()
 	if(user != dropping)
-		dropping.visible_message("<span class='notice'>[user] starts to lower [dropping] down into [src].</span>", \
-		 "<span class='notice'>You start to lower [dropping] down into [src].</span>")
+		dropping.visible_message(span_notice("[user] starts to lower [dropping] down into [src]."), \
+			span_notice("You start to lower [dropping] down into [src]."))
 	else
-		to_chat(user, "<span class='notice'>You start climbing down into [src]...")
+		to_chat(user, span_notice("You start climbing down into [src]..."))
 	if(do_after(user, 4 SECONDS, target = dropping))
 		splash(dropping)
 
@@ -235,7 +232,7 @@
 /turf/open/floor/plating/beach/water/proc/splash(mob/user)
 	user.forceMove(src)
 	playsound(src, 'sound/effects/splosh.ogg', 100, 1) //Credit to hippiestation for this sound file!
-	user.visible_message("<span class='boldwarning'>SPLASH!</span>")
+	user.visible_message(span_boldwarning("SPLASH!"))
 	var/zap = 0
 	if(issilicon(user)) //Do not throw brick in a pool. Brick begs.
 		zap = 1 //Sorry borgs! Swimming will come at a cost.
@@ -256,7 +253,7 @@
 		user.emp_act(zap)
 		user.emote("scream") //Chad coders use M.say("*scream")
 		do_sparks(zap, TRUE, user)
-		to_chat(user, "<span class='userdanger'>WARNING: WATER DAMAGE DETECTED!</span>")
+		to_chat(user, span_userdanger("WARNING: WATER DAMAGE DETECTED!"))
 		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "robotpool", /datum/mood_event/robotpool)
 	else
 		if(!check_clothes(user))
@@ -287,22 +284,8 @@
 	icon_state = "water_deep"
 	name = "deep water"
 	density = 1 //no swimming
-
-/turf/open/floor/plating/beach/coastline_t
-	name = "coastline"
-	desc = "Tide's high tonight. Charge your batons."
-	icon_state = "sandwater_t"
-	baseturfs = /turf/open/floor/plating/beach/coastline_t
-
-/turf/open/floor/plating/beach/coastline_b
-	name = "coastline"
-	icon_state = "sandwater_b"
-	desc = "Tide's high tonight. Charge your batons."
-	baseturfs = /turf/open/floor/plating/beach/coastline_b
-
-/turf/open/floor/plating/beach/coastline_t/sandwater_inner
-	icon_state = "sandwater_inner"
-	baseturfs = /turf/open/floor/plating/beach/coastline_t/sandwater_inner
+	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_FLOOR_GRASS, SMOOTH_GROUP_FLOOR_ICE, SMOOTH_GROUP_CLOSED_TURFS)
+	canSmoothWith = list(SMOOTH_GROUP_FLOOR_GRASS, SMOOTH_GROUP_FLOOR_ICE, SMOOTH_GROUP_CLOSED_TURFS)
 
 /turf/open/floor/plating/ironsand
 	gender = PLURAL
@@ -329,7 +312,7 @@
 	icon = 'icons/turf/floors/ice_turf.dmi'
 	icon_state = "ice-0"
 	initial_gas_mix = FROZEN_ATMOS
-	initial_temperature = 180
+	temperature = 180
 	planetary_atmos = TRUE
 	baseturfs = /turf/open/floor/plating/ice
 	slowdown = 1
@@ -354,16 +337,20 @@
 	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_FLOOR_ICE)
 	canSmoothWith = list(SMOOTH_GROUP_FLOOR_ICE)
 
+/turf/open/floor/plating/ice/smooth/planetary
+	initial_gas_mix = KITCHEN_COLDROOM_ATMOS
+	planetary_atmos = TRUE
+
 /turf/open/floor/plating/ice/smooth/red
 	icon = 'icons/turf/floors/red_ice.dmi'
 	icon_state = "red_ice-0"
 	base_icon_state = "red_ice"
 
 /turf/open/floor/plating/ice/colder
-	initial_temperature = 140
+	temperature = 140
 
 /turf/open/floor/plating/ice/temperate
-	initial_temperature = 255.37
+	temperature = 255.37
 
 /turf/open/floor/plating/ice/break_tile()
 	return
@@ -378,7 +365,7 @@
 	icon = 'icons/turf/snow.dmi'
 	icon_state = "snowplating"
 	initial_gas_mix = FROZEN_ATMOS
-	initial_temperature = 180
+	temperature = 180
 	attachment_holes = FALSE
 	planetary_atmos = TRUE
 	footstep = FOOTSTEP_SAND
@@ -387,7 +374,9 @@
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/open/floor/plating/snowed/cavern
-	initial_gas_mix = "n2=82;plasma=24;TEMP=120"
+	initial_gas_mix = KITCHEN_COLDROOM_ATMOS
+	planetary_atmos = TRUE
+
 
 /turf/open/floor/plating/snowed/smoothed
 	planetary_atmos = TRUE
@@ -398,11 +387,15 @@
 	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_FLOOR_SNOWED)
 	canSmoothWith = list(SMOOTH_GROUP_FLOOR_SNOWED)
 
-/turf/open/floor/plating/snowed/colder
-	initial_temperature = 140
+/turf/open/floor/plating/snowed/smoothed/planetary
+	initial_gas_mix = KITCHEN_COLDROOM_ATMOS
+	planetary_atmos = TRUE
 
-/turf/open/floor/plating/snowed/temperatre
-	initial_temperature = 255.37
+/turf/open/floor/plating/snowed/colder
+	temperature = 140
+
+/turf/open/floor/plating/snowed/temperate
+	temperature = 255.37
 
 /turf/open/floor/plating/elevatorshaft
 	name = "elevator shaft"

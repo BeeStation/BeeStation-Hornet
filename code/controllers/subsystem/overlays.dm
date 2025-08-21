@@ -19,7 +19,7 @@ SUBSYSTEM_DEF(overlays)
 /datum/controller/subsystem/overlays/Initialize()
 	initialized = TRUE
 	fire(mc_check = FALSE)
-	return ..()
+	return SS_INIT_SUCCESS
 
 
 /datum/controller/subsystem/overlays/stat_entry()
@@ -46,21 +46,17 @@ SUBSYSTEM_DEF(overlays)
 		count++
 		if(!atom_to_compile)
 			continue
+		if(length(atom_to_compile.overlays) >= MAX_ATOM_OVERLAYS)
+			//Break it real GOOD
+			stack_trace("Too many overlays on [atom_to_compile.type] - [length(atom_to_compile.overlays)], refusing to update and cutting.")
+			atom_to_compile.overlays.Cut()
+			continue
 		STAT_START_STOPWATCH
 		COMPILE_OVERLAYS(atom_to_compile)
 		UNSETEMPTY(atom_to_compile.add_overlays)
 		UNSETEMPTY(atom_to_compile.remove_overlays)
 		STAT_STOP_STOPWATCH
 		STAT_LOG_ENTRY(stats, atom_to_compile.type)
-		if(length(atom_to_compile.overlays) >= MAX_ATOM_OVERLAYS)
-			//Break it real GOOD
-			var/text_lays = overlays2text(atom_to_compile.overlays)
-			stack_trace("Too many overlays on [atom_to_compile.type] - [length(atom_to_compile.overlays)], refusing to update and cutting.\
-				\n What follows is a printout of all existing overlays at the time of the overflow \n[text_lays]")
-			atom_to_compile.overlays.Cut()
-			//Let them know they fucked up
-			atom_to_compile.add_overlay(mutable_appearance('icons/testing/greyscale_error.dmi'))
-			continue
 		if(mc_check)
 			if(MC_TICK_CHECK)
 				break
@@ -281,3 +277,5 @@ SUBSYSTEM_DEF(overlays)
 			overlays |= cached_other
 	else if(cut_old)
 		cut_overlays()
+
+#undef ZM_AUTOMANGLE

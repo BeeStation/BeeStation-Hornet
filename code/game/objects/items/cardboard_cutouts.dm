@@ -20,9 +20,9 @@
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/item/cardboard_cutout/attack_hand(mob/living/user)
-	if(user.a_intent == INTENT_HELP || pushed_over)
+	if(!user.combat_mode || pushed_over)
 		return ..()
-	user.visible_message("<span class='warning'>[user] pushes over [src]!</span>", "<span class='danger'>You push over [src]!</span>")
+	user.visible_message(span_warning("[user] pushes over [src]!"), span_danger("You push over [src]!"))
 	playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 	push_over()
 
@@ -38,7 +38,7 @@
 /obj/item/cardboard_cutout/attack_self(mob/living/user)
 	if(!pushed_over)
 		return
-	to_chat(user, "<span class='notice'>You right [src].</span>")
+	to_chat(user, span_notice("You right [src]."))
 	desc = initial(desc)
 	icon = initial(icon)
 	icon_state = initial(icon_state) //This resets a cutout to its blank state - this is intentional to allow for resetting
@@ -60,15 +60,15 @@
 	user.do_attack_animation(src)
 
 	if(I.force)
-		user.visible_message("<span class='danger'>[user] hits [src] with [I]!</span>", \
-			"<span class='danger'>You hit [src] with [I]!</span>")
+		user.visible_message(span_danger("[user] hits [src] with [I]!"), \
+			span_danger("You hit [src] with [I]!"))
 		if(prob(I.force))
 			push_over()
 
 /obj/item/cardboard_cutout/bullet_act(obj/projectile/P, def_zone, piercing_hit = FALSE)
 	if(istype(P, /obj/projectile/bullet/reusable))
 		P.on_hit(src, 0, piercing_hit)
-	visible_message("<span class='danger'>[src] is hit by [P]!</span>")
+	visible_message(span_danger("[src] is hit by [P]!"))
 	playsound(src, 'sound/weapons/slice.ogg', 50, 1)
 	if(prob(P.damage))
 		push_over()
@@ -78,19 +78,19 @@
 	if(!crayon || !user)
 		return
 	if(pushed_over)
-		to_chat(user, "<span class='warning'>Right [src] first!</span>")
+		to_chat(user, span_warning("Right [src] first!"))
 		return
 	if(crayon.check_empty(user))
 		return
 	if(crayon.is_capped)
-		to_chat(user, "<span class='warning'>Take the cap off first!</span>")
+		to_chat(user, span_warning("Take the cap off first!"))
 		return
 	var/new_appearance = input(user, "Choose a new appearance for [src].", "26th Century Deception") as null|anything in sort_list(possible_appearances)
 	if(!new_appearance || !crayon || !user.canUseTopic(src, BE_CLOSE))
 		return
-	if(!do_after(user, 10, src, progress = TRUE))
+	if(!do_after(user, 1 SECONDS, src, timed_action_flags = IGNORE_HELD_ITEM))
 		return
-	user.visible_message("<span class='notice'>[user] gives [src] a new look.</span>", "<span class='notice'>Voila! You give [src] a new look.</span>")
+	user.visible_message(span_notice("[user] gives [src] a new look."), span_notice("Voila! You give [src] a new look."))
 	crayon.use_charges(1)
 	crayon.check_empty(user)
 	alpha = 255
@@ -183,65 +183,139 @@
 /obj/item/cardboard_cutout/setDir(newdir)
 	dir = SOUTH
 
-/obj/item/cardboard_cutout/adaptive //Purchased by Syndicate agents, these cutouts are indistinguishable from normal cutouts but aren't discolored when their appearance is changed
+//Purchased by Syndicate agents, these cutouts are indistinguishable from normal cutouts but aren't discolored when their appearance is changed
+/obj/item/cardboard_cutout/adaptive
 	deceptive = TRUE
 
-//	--- CHESS PIECES ---
+/obj/item/cardboard_cutout/adaptive/assistant
+	desc = "A cardboat cutout of an assistant."
+	icon_state = "cutout_greytide"
 
-// WHITE
+/obj/item/cardboard_cutout/adaptive/assistant/Initialize(mapload)
+	. = ..()
+	name = "[pick(GLOB.first_names_male)] [pick(GLOB.last_names)]"
 
-/obj/item/cardboard_cutout/adaptive/chess
-	desc = "A large cardboard cutout resembling a chess piece."
+/obj/item/cardboard_cutout/adaptive/clown
+	desc = "A cardboard cutout of a clown. You get the feeling that it should be in a corner."
+	icon_state = "cutout_clown"
 
-/obj/item/cardboard_cutout/adaptive/chess/king
-	name = "White King"
-	icon_state = "cutout_ian";
+/obj/item/cardboard_cutout/adaptive/clown/Initialize(mapload)
+	. = ..()
+	name = pick(GLOB.clown_names)
 
-/obj/item/cardboard_cutout/adaptive/chess/queen
-	name = "White Queen"
-	icon_state = "cutout_clown";
+/obj/item/cardboard_cutout/adaptive/mime
+	desc = "...(A cardboard cutout of a mime.)"
+	icon_state = "cutout_mime"
 
-/obj/item/cardboard_cutout/adaptive/chess/rook
-	name = "White Rook"
-	icon_state = "cutout_deathsquad";
+/obj/item/cardboard_cutout/adaptive/mime/Initialize(mapload)
+	. = ..()
+	name = pick(GLOB.mime_names)
 
-/obj/item/cardboard_cutout/adaptive/chess/knight
-	name = "White Knight"
-	icon_state = "cutout_lusty";
+/obj/item/cardboard_cutout/adaptive/traitor
+	desc = "A cardboard cutout of a traitor."
+	icon_state = "cutout_traitor"
 
-/obj/item/cardboard_cutout/adaptive/chess/bishop
-	name = "White Bishop"
-	icon_state = "cutout_ntsec";
+/obj/item/cardboard_cutout/adaptive/traitor/Initialize(mapload)
+	. = ..()
+	name = pick("Unknown", "Captain")
 
-/obj/item/cardboard_cutout/adaptive/chess/pawn
-	name = "White Pawn"
-	icon_state = "cutout_greytide";
+/obj/item/cardboard_cutout/adaptive/nukeop
+	desc = "A cardboard cutout of a nuclear operative."
+	icon_state = "cutout_fluke"
 
-// BLACK
+/obj/item/cardboard_cutout/adaptive/nukeop/Initialize(mapload)
+	. = ..()
+	name = pick("Unknown", "COMMS", "Telecomms", "AI", "stealthy op", "STEALTH", "sneakybeaky", "MEDIC", "Medic")
 
-/obj/item/cardboard_cutout/adaptive/chess/black
-	color = "#9999BB";
+/obj/item/cardboard_cutout/adaptive/cultist
+	name = "Unknown"
+	desc = "A cardboard cutout of a cultist."
+	icon_state = "cutout_cultist"
 
-/obj/item/cardboard_cutout/adaptive/chess/black/king
-	name = "Black King"
-	icon_state = "cutout_wizard";
+/obj/item/cardboard_cutout/adaptive/clockcultist
+	desc = "A cardboard cutout of a servant of Ratvar."
+	icon_state = "cutout_servant"
 
-/obj/item/cardboard_cutout/adaptive/chess/black/queen
-	name = "Black Queen"
-	icon_state = "cutout_traitor";
+/obj/item/cardboard_cutout/adaptive/clockcultist/Initialize(mapload)
+	. = ..()
+	name = "[pick(GLOB.first_names_male)] [pick(GLOB.last_names)]"
 
-/obj/item/cardboard_cutout/adaptive/chess/black/rook
-	name = "Black Rook"
-	icon_state = "cutout_cultist";
+/obj/item/cardboard_cutout/adaptive/rev
+	name = "Unknown"
+	desc = "A cardboard cutout of a revolutionary."
+	icon_state = "cutout_viva"
 
-/obj/item/cardboard_cutout/adaptive/chess/black/knight
-	name = "Black Knight"
-	icon_state = "cutout_fukken_xeno";
+/obj/item/cardboard_cutout/adaptive/wizard
+	desc = "A cardboard cutout of a wizard."
+	icon_state = "cutout_wizard"
 
-/obj/item/cardboard_cutout/adaptive/chess/black/bishop
-	name = "Black Bishop"
-	icon_state = "cutout_fluke";
+/obj/item/cardboard_cutout/adaptive/wizard/Initialize(mapload)
+	. = ..()
+	name = "[pick(GLOB.wizard_first)], [pick(GLOB.wizard_second)]"
 
-/obj/item/cardboard_cutout/adaptive/chess/black/pawn
-	name = "Black Pawn"
-	icon_state = "cutout_shadowling";
+/obj/item/cardboard_cutout/adaptive/shadowling
+	name = "Unknown"
+	desc = "A cardboard cutout of a shadowling."
+	icon_state = "cutout_shadowling"
+
+/obj/item/cardboard_cutout/adaptive/xeno
+	desc = "A cardboard cutout of a xenomorph."
+	icon_state = "cutout_fukken_xeno"
+
+/obj/item/cardboard_cutout/adaptive/xeno/Initialize(mapload)
+	. = ..()
+	name = "alien hunter ([rand(1, 999)])"
+
+/obj/item/cardboard_cutout/adaptive/xenomaid
+	desc = "A cardboard cutout of a xenomorph maid."
+	icon_state = "cutout_lusty"
+
+/obj/item/cardboard_cutout/adaptive/xenomaid/Initialize(mapload)
+	. = ..()
+	name = "lusty xenomorph maid ([rand(1, 999)])"
+
+/obj/item/cardboard_cutout/adaptive/swarmer
+	desc = "A cardboard cutout of a swarmer."
+	icon_state = "cutout_swarmer"
+
+/obj/item/cardboard_cutout/adaptive/swarmer/Initialize(mapload)
+	. = ..()
+	name = "swarmer ([rand(1, 999)])"
+
+/obj/item/cardboard_cutout/adaptive/ashwalker
+	desc = "A cardboard cutout of an ash walker."
+	icon_state = "cutout_free_antag"
+
+/obj/item/cardboard_cutout/adaptive/ashwalker/Initialize(mapload)
+	. = ..()
+	name = random_lizard_name(pick(MALE, FEMALE))
+
+/obj/item/cardboard_cutout/adaptive/deathsquad
+	desc = "A cardboard cutout of a death commando."
+	icon_state = "cutout_deathsquad"
+
+/obj/item/cardboard_cutout/adaptive/deathsquad/Initialize(mapload)
+	. = ..()
+	name = pick(GLOB.commando_names)
+
+/obj/item/cardboard_cutout/adaptive/ian
+	name = "Ian"
+	desc = "A cardboard cutout of the HoP's beloved corgi."
+	icon_state = "cutout_ian"
+
+/obj/item/cardboard_cutout/adaptive/slaughterdemon
+	name = "slaughter demon"
+	desc = "A cardboard cutout of a slaughter demon."
+	icon = 'icons/mob/mob.dmi'
+	icon_state = "daemon"
+
+/obj/item/cardboard_cutout/adaptive/laughterdemon
+	name = "laughter demon"
+	desc = "A cardboard cutout of a laughter demon."
+	icon = 'icons/mob/mob.dmi'
+	icon_state = "bowmon"
+
+/obj/item/cardboard_cutout/adaptive/securityofficer
+	name = "Private Security Officer"
+	desc = "A cardboard cutout of a private security officer."
+	icon_state = "cutout_ntsec"

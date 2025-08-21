@@ -1,4 +1,13 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ay" = (
+/obj/machinery/door/airlock/external/glass,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
+/obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "aA" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 4
@@ -29,6 +38,25 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
+"bk" = (
+/obj/machinery/door/airlock/external/glass,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
+/obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"bo" = (
+/obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
+	dir = 10
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/machinery/power/terminal{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "bA" = (
 /obj/structure/closet/crate,
 /obj/item/radio/headset/headset_exploration,
@@ -39,23 +67,12 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"bS" = (
-/obj/machinery/holopad,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
+"cc" = (
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"ce" = (
-/obj/machinery/door/airlock/shuttle,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"cr" = (
-/obj/machinery/atmospherics/pipe/manifold4w/scrubbers/hidden,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "cG" = (
@@ -71,21 +88,19 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"dv" = (
-/obj/machinery/atmospherics/pipe/manifold/purple/visible{
-	dir = 4
-	},
+"ds" = (
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
 /obj/effect/turf_decal/stripes/line{
-	dir = 8
+	dir = 1
 	},
-/obj/effect/turf_decal/stripes/corner,
+/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"dN" = (
-/obj/machinery/door/airlock/external/glass,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/delivery,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+"dP" = (
+/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
 /turf/open/floor/mineral/titanium,
@@ -102,6 +117,15 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
+"eH" = (
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
+	dir = 5
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "eN" = (
 /mob/living/simple_animal/chicken/turkey{
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
@@ -114,27 +138,44 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"fy" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+"ff" = (
+/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"fo" = (
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "fO" = (
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"fU" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 5
+"gD" = (
+/obj/machinery/door/airlock/external/glass,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
+/obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "gJ" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/exploration)
-"gM" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/effect/turf_decal/stripes/line,
+"gO" = (
+/obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
+	dir = 9
+	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 1
+	dir = 10
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -144,29 +185,12 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/shuttle/exploration)
-"gW" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+"gU" = (
+/obj/effect/spawner/structure/window/shuttle,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"hc" = (
-/obj/machinery/camera/autoname{
-	dir = 8;
-	name = "Exploration Shuttle";
-	network = list("exploration shuttle")
-	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
-	dir = 4
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/mineral/titanium,
+/turf/open/floor/plating,
 /area/shuttle/exploration)
 "hP" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
@@ -178,8 +202,22 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/exploration)
-"hW" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+"il" = (
+/obj/machinery/atmospherics/pipe/smart/manifold/dark/visible{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/airalarm/directional/west,
+/obj/effect/mapping_helpers/airalarm/unlocked,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"ip" = (
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 4
 	},
 /turf/closed/wall/mineral/titanium/nodiagonal,
@@ -202,6 +240,13 @@
 /obj/effect/spawner/structure/window/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/exploration)
+"jG" = (
+/obj/machinery/atmospherics/pipe/smart/simple/purple/visible,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "jO" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/light{
@@ -219,14 +264,8 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"jS" = (
-/obj/machinery/atmospherics/pipe/simple/purple/visible{
-	dir = 9
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
-/obj/machinery/light{
+"kj" = (
+/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
 	dir = 4
 	},
 /turf/open/floor/mineral/titanium,
@@ -263,10 +302,24 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"lg" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+"lC" = (
+/obj/machinery/door/airlock/external/glass,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 6
 	},
+/obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"lO" = (
+/obj/machinery/atmospherics/pipe/smart/simple/purple/visible,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/machinery/power/apc/auto_name/directional/east{
+	locked = 0
+	},
+/obj/structure/cable/yellow,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "lY" = (
@@ -282,11 +335,11 @@
 	},
 /turf/open/floor/engine,
 /area/shuttle/exploration)
-"mk" = (
-/obj/machinery/door/airlock/external/glass,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/delivery,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+"mf" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/purple/visible,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "ml" = (
@@ -294,15 +347,9 @@
 /obj/structure/tank_dispenser/oxygen,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"mr" = (
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
-	dir = 8
-	},
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
+"mv" = (
+/obj/machinery/atmospherics/pipe/smart/simple/orange/visible{
+	dir = 4
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -313,37 +360,23 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"mR" = (
-/obj/machinery/door/airlock/external/glass,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 5
-	},
-/obj/effect/turf_decal/delivery,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 1
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
 "nu" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 29
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"nF" = (
-/obj/machinery/atmospherics/pipe/manifold/dark/visible,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
+"nv" = (
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
+	dir = 6
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"nK" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 10
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
+"nH" = (
+/obj/machinery/door/airlock/external/glass,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
+/obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "nY" = (
@@ -352,22 +385,12 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"om" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+"oM" = (
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 9
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"pd" = (
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
-	dir = 4
-	},
-/obj/effect/turf_decal/caution,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -381,28 +404,23 @@
 /obj/item/toy/cards/deck/unum,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/exploration)
-"qJ" = (
-/obj/machinery/atmospherics/pipe/simple/purple/visible{
-	dir = 10
+"rw" = (
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
+	dir = 5
 	},
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 24
-	},
-/obj/machinery/light{
+/obj/effect/turf_decal/stripes/corner{
 	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"sh" = (
-/obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
-/turf/open/floor/plating,
+"sr" = (
+/obj/machinery/door/airlock/external/glass,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
+	dir = 10
+	},
+/obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "sD" = (
 /obj/machinery/computer/shuttle_flight/custom_shuttle/exploration{
@@ -411,34 +429,12 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"sO" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 5
+"tr" = (
+/obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
+	dir = 10
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"sY" = (
-/obj/machinery/atmospherics/pipe/manifold/dark/visible{
-	dir = 8
-	},
-/obj/machinery/airalarm/unlocked{
-	dir = 4;
-	pixel_x = -24
-	},
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"te" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
+	dir = 9
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -449,16 +445,10 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"tD" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 4
-	},
-/obj/effect/turf_decal/caution{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/mineral/titanium,
+"tz" = (
+/obj/effect/spawner/structure/window/shuttle,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible,
+/turf/open/floor/plating,
 /area/shuttle/exploration)
 "um" = (
 /obj/item/storage/toolbox/mechanical,
@@ -470,18 +460,11 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"up" = (
-/obj/machinery/atmospherics/pipe/manifold4w/purple/visible,
+"uE" = (
+/obj/machinery/atmospherics/pipe/smart/manifold/dark/visible,
 /obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"uQ" = (
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "vb" = (
@@ -496,47 +479,13 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"vx" = (
-/obj/machinery/atmospherics/pipe/simple/purple/visible,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"wc" = (
-/obj/machinery/atmospherics/pipe/simple/dark/visible{
-	dir = 4
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"wo" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"xl" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 5
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
 "yh" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/exploration)
-"ym" = (
-/obj/machinery/atmospherics/pipe/simple/purple/visible{
-	dir = 9
+"yl" = (
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
+	dir = 4
 	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"yz" = (
-/obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/n2,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "yM" = (
@@ -544,22 +493,10 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"zN" = (
-/obj/machinery/atmospherics/pipe/manifold/purple/visible{
-	dir = 4
+"zG" = (
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
+	dir = 10
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"Ac" = (
-/obj/machinery/door/airlock/external/glass,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 6
-	},
-/obj/effect/turf_decal/delivery,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Af" = (
@@ -569,34 +506,16 @@
 /obj/machinery/light,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/exploration)
-"Ay" = (
-/turf/closed/wall/mineral/plastitanium,
-/area/shuttle/exploration)
-"Az" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+"Ak" = (
+/obj/machinery/holopad,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
+/obj/machinery/atmospherics/pipe/bridge_pipe/supply/hidden{
 	dir = 4
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"AN" = (
-/obj/machinery/door/airlock/external/glass,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 9
-	},
-/obj/effect/turf_decal/delivery,
-/obj/docking_port/mobile{
-	dwidth = 16;
-	height = 15;
-	id = "exploration";
-	name = "Exploration Shuttle";
-	port_direction = 4;
-	shuttle_object_type = /datum/orbital_object/shuttle/custom_shuttle;
-	width = 23
-	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 1
-	},
-/turf/open/floor/mineral/titanium,
+"Ay" = (
+/turf/closed/wall/mineral/plastitanium,
 /area/shuttle/exploration)
 "AU" = (
 /obj/effect/turf_decal/bot,
@@ -605,38 +524,46 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/exploration)
-"Cc" = (
-/obj/machinery/atmospherics/pipe/manifold4w/purple/visible,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
+"CX" = (
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"Cu" = (
+"Dc" = (
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"Dn" = (
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"Dx" = (
 /obj/machinery/door/airlock/external/glass,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
+	dir = 5
+	},
 /obj/effect/turf_decal/delivery,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"CU" = (
-/obj/machinery/door/airlock/external/glass,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/effect/turf_decal/delivery,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+"EO" = (
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"Dn" = (
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration)
-"Fr" = (
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
-	dir = 8
+"Fe" = (
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
+	dir = 10
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -646,6 +573,23 @@
 /obj/item/gps/mining/exploration,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"Gc" = (
+/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden{
+	dir = 4
+	},
+/obj/effect/turf_decal/caution,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"Gg" = (
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Gt" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
@@ -668,9 +612,14 @@
 /obj/item/wrench,
 /turf/open/floor/mineral/titanium/purple,
 /area/shuttle/exploration)
-"HG" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/corner{
+"HF" = (
+/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /turf/open/floor/mineral/titanium,
@@ -680,16 +629,27 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"JG" = (
-/obj/machinery/atmospherics/pipe/simple/purple/visible{
-	dir = 9
+"Id" = (
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
+	dir = 5
 	},
-/obj/effect/turf_decal/stripes/line{
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"Iy" = (
+/obj/machinery/atmospherics/components/trinary/filter/atmos/n2/flipped,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"IE" = (
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 10
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
+/obj/machinery/light{
+	dir = 8
 	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"IF" = (
+/obj/machinery/atmospherics/components/trinary/filter/atmos/o2/flipped,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "JP" = (
@@ -697,15 +657,12 @@
 /obj/item/stack/sheet/mineral/plasma/five,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/exploration)
-"JV" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 9
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"Kc" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+"Kr" = (
+/obj/machinery/atmospherics/pipe/smart/manifold/purple/visible{
 	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/mineral/titanium,
@@ -715,27 +672,11 @@
 /obj/item/toy/cards/deck,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/exploration)
-"Lc" = (
-/obj/machinery/atmospherics/pipe/simple/purple/visible{
-	dir = 10
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
+"Lu" = (
+/obj/machinery/atmospherics/pipe/smart/simple/orange/visible{
+	dir = 5
 	},
 /turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"Ls" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
-/turf/open/floor/mineral/titanium/purple,
-/area/shuttle/exploration)
-"LA" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 10
-	},
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "LR" = (
 /obj/structure/chair/fancy/shuttle{
@@ -743,52 +684,74 @@
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/exploration)
-"My" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration)
-"MF" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 5
-	},
-/obj/effect/turf_decal/stripes/corner{
+"Mq" = (
+/obj/machinery/door/airlock/shuttle,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"Nl" = (
-/obj/machinery/atmospherics/pipe/simple/dark/visible{
+"MB" = (
+/obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
+	dir = 9
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"NA" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/bridge_pipe/scrubbers/visible,
+/obj/machinery/atmospherics/pipe/bridge_pipe/dark/visible{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"NW" = (
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 5
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"NO" = (
-/obj/machinery/door/airlock/external/glass,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 10
-	},
-/obj/effect/turf_decal/delivery,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"NZ" = (
-/obj/machinery/atmospherics/pipe/simple/purple/visible,
-/obj/effect/turf_decal/stripes/corner{
+"Ok" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/purple/visible,
+/obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/power/apc/auto_name/east{
-	locked = 0
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
 	},
-/obj/structure/cable/yellow,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"Of" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
+"Ol" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"OC" = (
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
+	dir = 4
+	},
+/obj/item/beacon,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"OE" = (
+/obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
+	dir = 10
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 24
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -802,43 +765,61 @@
 /obj/item/storage/box/donkpockets,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/exploration)
+"PZ" = (
+/obj/machinery/camera/directional/east{
+	name = "Exploration Shuttle"
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"Qe" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 25
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "QG" = (
 /obj/machinery/shuttle/engine/plasma{
 	dir = 4
 	},
 /turf/open/floor/engine,
 /area/shuttle/exploration)
-"QT" = (
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
-	dir = 4
+"RG" = (
+/obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
+	dir = 9
 	},
 /obj/effect/turf_decal/stripes/corner{
-	dir = 1
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 4
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"SG" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+"SN" = (
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 4
 	},
-/obj/item/beacon,
+/obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "SO" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"SR" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 25
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /turf/open/floor/mineral/titanium,
@@ -848,73 +829,7 @@
 /obj/machinery/microwave,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/exploration)
-"TU" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 10
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"TV" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
-	dir = 4
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"Up" = (
-/obj/structure/chair/fancy/shuttle,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/mineral/titanium/blue,
-/area/shuttle/exploration)
-"Vw" = (
-/obj/structure/table,
-/obj/machinery/recharger,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration)
-"VA" = (
-/obj/machinery/atmospherics/pipe/simple/purple/visible{
-	dir = 10
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/obj/machinery/power/terminal{
-	dir = 4
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"VO" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 9
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration)
-"VV" = (
-/obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/canister/air,
-/obj/item/analyzer,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration)
-"Wd" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"Wh" = (
-/obj/machinery/atmospherics/pipe/simple/purple/visible,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"Xp" = (
+"TH" = (
 /obj/machinery/requests_console{
 	department = "Exploration Shuttle";
 	pixel_x = -32;
@@ -927,12 +842,71 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"XG" = (
-/obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+"TV" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
 	},
-/turf/open/floor/plating,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"TX" = (
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible,
+/turf/open/floor/mineral/titanium/purple,
+/area/shuttle/exploration)
+"Up" = (
+/obj/structure/chair/fancy/shuttle,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/exploration)
+"Us" = (
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"Vw" = (
+/obj/structure/table,
+/obj/machinery/recharger,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"VH" = (
+/obj/machinery/atmospherics/pipe/smart/manifold/purple/visible{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"VR" = (
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
+	dir = 9
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"VT" = (
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"VV" = (
+/obj/effect/turf_decal/bot,
+/obj/machinery/portable_atmospherics/canister/air,
+/obj/item/analyzer,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"XH" = (
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
+	dir = 4
+	},
+/obj/effect/turf_decal/caution{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "XI" = (
 /obj/machinery/atmospherics/components/binary/dp_vent_pump,
@@ -940,6 +914,32 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"Yd" = (
+/obj/machinery/door/airlock/external/glass,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
+	dir = 9
+	},
+/obj/effect/turf_decal/delivery,
+/obj/docking_port/mobile{
+	dwidth = 16;
+	height = 15;
+	id = "exploration";
+	name = "Exploration Shuttle";
+	port_direction = 4;
+	shuttle_object_type = /datum/orbital_object/shuttle/custom_shuttle;
+	width = 23
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"Yn" = (
+/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden{
+	dir = 8
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "YE" = (
@@ -959,18 +959,14 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"YR" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
-/obj/machinery/atmospherics/pipe/simple/dark/visible{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
+"Ze" = (
+/obj/machinery/atmospherics/pipe/smart/simple/purple/visible,
+/obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"ZB" = (
-/obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/o2,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "ZM" = (
@@ -981,6 +977,12 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /turf/open/floor/mineral/titanium/blue,
+/area/shuttle/exploration)
+"ZW" = (
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
+	dir = 9
+	},
+/turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 
 (1,1,1) = {"
@@ -1020,17 +1022,17 @@ Ay
 (3,1,1) = {"
 yh
 yh
-VA
-Cc
-JG
+bo
+Ok
+gO
 gS
 aA
 hP
 aA
 AU
-Lc
-up
-ym
+tr
+mf
+MB
 yh
 yh
 "}
@@ -1038,15 +1040,15 @@ yh
 df
 df
 um
-qJ
-NZ
-vx
-zN
-zN
-zN
-dv
-Wh
-jS
+OE
+lO
+jG
+VH
+VH
+VH
+Kr
+Ze
+RG
 fO
 df
 df
@@ -1110,7 +1112,7 @@ Dn
 Dn
 df
 YO
-fU
+Id
 TV
 df
 kH
@@ -1127,8 +1129,8 @@ Dn
 Dn
 YE
 fO
-te
-Az
+yl
+Dc
 df
 df
 df
@@ -1144,8 +1146,8 @@ kH
 HU
 df
 fO
-te
-Az
+yl
+Dc
 SO
 fO
 fO
@@ -1161,8 +1163,8 @@ df
 df
 df
 fO
-te
-Az
+yl
+Dc
 Up
 KX
 ZT
@@ -1174,12 +1176,12 @@ gJ
 ZM
 jB
 Hm
-sY
+il
 lc
-Nl
+Lu
 fO
-SG
-Az
+OC
+Dc
 Up
 Tz
 pR
@@ -1191,12 +1193,12 @@ ZM
 ZM
 jB
 aP
-nF
-wc
-wc
+uE
+kj
+mv
 fO
-te
-Az
+yl
+Dc
 Up
 PF
 JP
@@ -1206,17 +1208,17 @@ ZM
 "}
 (14,1,1) = {"
 yM
-sh
-Ls
-YR
-ZB
-yz
+tz
+TX
+NA
+IF
+Iy
 ve
-bS
-cr
-Of
-fy
-xl
+Ak
+Ol
+CX
+Us
+NW
 fO
 jB
 ZM
@@ -1229,62 +1231,62 @@ dS
 fO
 cG
 Gt
-hc
-SR
-MF
+PZ
+Qe
+rw
 fO
-Kc
+SN
 df
 gJ
 gJ
 "}
 (16,1,1) = {"
-Ac
+lC
 bb
-dN
-pd
-fU
+gD
+Gc
+Id
 jB
 df
 df
 df
-XG
-lg
-tD
-mk
+gU
+nv
+XH
+bk
 XI
-mR
+Dx
 "}
 (17,1,1) = {"
-NO
-gM
-Cu
-sO
-TU
-HG
-Wd
-mr
-Wd
-QT
-JV
-uQ
-CU
-wo
-AN
+sr
+cc
+ay
+eH
+zG
+Gg
+EO
+HF
+EO
+dP
+ZW
+ff
+nH
+ds
+Yd
 "}
 (18,1,1) = {"
 gJ
 gJ
 df
-nK
-fy
-fy
-fy
-gW
-Fr
-fy
-fy
-om
+Fe
+Us
+Us
+Us
+VT
+Yn
+Us
+Us
+oM
 df
 gJ
 gJ
@@ -1297,8 +1299,8 @@ df
 df
 df
 df
-ce
-hW
+Mq
+ip
 df
 df
 df
@@ -1313,10 +1315,10 @@ gJ
 jB
 iT
 aV
-My
-VO
-LA
-Xp
+fo
+VR
+IE
+TH
 mL
 jB
 gJ

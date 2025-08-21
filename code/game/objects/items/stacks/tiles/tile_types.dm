@@ -29,6 +29,8 @@
 	/// Allows us to replace the plating we are attacking if our baseturfs are the same.
 	var/replace_plating = FALSE
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/tile)
+
 /obj/item/stack/tile/Initialize(mapload, new_amount, merge = TRUE, mob/user = null)
 	. = ..()
 	pixel_x = rand(-3, 3)
@@ -44,7 +46,7 @@
 /obj/item/stack/tile/examine(mob/user)
 	. = ..()
 	if(tile_reskin_types || tile_rotate_dirs)
-		. += "<span class='notice'>Use while in your hand to change what type of [src] you want.</span>"
+		. += span_notice("Use while in your hand to change what type of [src] you want.")
 	if(throwforce && !is_cyborg) //do not want to divide by zero or show the message to borgs who can't throw
 		var/verb
 		switch(CEILING(MAX_LIVING_HEALTH / throwforce, 1)) //throws to crit a human
@@ -60,7 +62,7 @@
 				verb = "mediocre"
 		if(!verb)
 			return
-		. += "<span class='notice'>Those could work as a [verb] throwing weapon.</span>"
+		. += span_notice("Those could work as a [verb] throwing weapon.")
 
 /**
  * Place our tile on a plating, or replace it.
@@ -86,9 +88,9 @@
 
 	// If we and the target tile share the same initial baseturf and they consent, replace em.
 	if(!target_plating.allow_replacement || initial(target_plating.baseturfs) != initial(placed_turf_path.baseturfs))
-		to_chat(user, "<span class='notice'>You cannot place this tile here directly!</span>")
+		to_chat(user, span_notice("You cannot place this tile here directly!"))
 		return
-	to_chat(user, "<span class='notice'>You begin replacing the floor with the tile...</span>")
+	to_chat(user, span_notice("You begin replacing the floor with the tile..."))
 	if(!do_after(user, 3 SECONDS, target_plating))
 		return
 	if(!istype(target_plating))
@@ -114,11 +116,11 @@
 
 /obj/item/stack/tile/grass/attackby(obj/item/W, mob/user, params)
 	if((W.tool_behaviour == TOOL_SHOVEL) && params)
-		to_chat(user, "<span class='notice'>You start digging up [src].</span>")
+		to_chat(user, span_notice("You start digging up [src]."))
 		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
 		if(do_after(user, 2 * get_amount(), target = src))
 			new /obj/item/stack/ore/glass(get_turf(src), 2 * get_amount())
-			user.visible_message("<span class='notice'>[user] digs up [src].</span>", "<span class='notice'>You uproot [src].</span>")
+			user.visible_message(span_notice("[user] digs up [src]."), span_notice("You uproot [src]."))
 			playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
 			qdel(src)
 	else

@@ -1,7 +1,7 @@
 /**********************Lazarus Injector**********************/
 /obj/item/lazarus_injector
 	name = "lazarus injector"
-	desc = "An injector with a cocktail of nanomachines and chemicals, this device can seemingly raise animals from the dead, making them become friendly to the user. Unfortunately, the process is useless on higher forms of life and incredibly costly, so these were hidden in storage until an executive thought they'd be great motivation for some of their employees."
+	desc = "An injector with a cocktail of nanomachines and chemicals, this device can seemingly raise animals from the dead. Testing has shown inconsistent results and the animals with especially strong wills may attack the person reviving them."
 	icon = 'icons/obj/syringe.dmi'
 	icon_state = "lazarus_hypo"
 	item_state = "hypo"
@@ -11,65 +11,46 @@
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 5
-	var/loaded = 1
-	var/malfunctioning = 0
-	var/revive_type = SENTIENCE_ORGANIC //So you can't revive boss monsters or robots with it
+	///Can this still be used?
+	var/loaded = TRUE
+	///Injector malf?
+	var/malfunctioning = FALSE
+	///So you can't revive boss monsters or robots with it
+	var/revive_type = SENTIENCE_ORGANIC
 
 /obj/item/lazarus_injector/afterattack(atom/target, mob/user, proximity_flag)
 	. = ..()
-	if(!loaded)
+	if(!loaded || !(isliving(target) && proximity_flag))
 		return
-	if(isliving(target) && proximity_flag)
-		if(isanimal(target))
-			var/mob/living/simple_animal/M = target
-			if(M.sentience_type != revive_type)
-				to_chat(user, "<span class='info'>[src] does not work on this sort of creature.</span>")
-				return
-			if(M.stat == DEAD)
-				if(M.mind)
-					loaded = 0
-					if(M.suiciding || M.ishellbound())
-						user.visible_message("<span class='notice'>[user] injects [M] with [src], but nothing happened.</span>")
-						return
-					M.revive(full_heal = 1, admin_revive = 1)
-					M.AIStatus = AI_OFF // don't let them attack people randomly after revived
-					M.notify_ghost_cloning("Your body is revived by a lazarus injector!", source=M)
-					log_game("[key_name(user)] has revived a player mob [key_name(target)] with a lazarus injector")
-				else // only do this to mindless mobs
-					M.revive(full_heal = 1, admin_revive = 1)
-					if(ishostile(target))
-						var/mob/living/simple_animal/hostile/H = M
-						if(malfunctioning)
-							H.faction |= list("lazarus", "[REF(user)]")
-							H.robust_searching = 1
-							H.friends += user
-							H.attack_same = 1
-							log_game("[key_name(user)] has revived hostile mob [key_name(target)] with a malfunctioning lazarus injector")
-						else
-							H.attack_same = 0
-				loaded = 0
-				user.visible_message("<span class='notice'>[user] injects [M] with [src], reviving it.</span>")
-				SSblackbox.record_feedback("tally", "lazarus_injector", 1, M.type)
-				playsound(src,'sound/effects/refill.ogg',50,1)
-				icon_state = "lazarus_empty"
-				return
-			else
-				to_chat(user, "<span class='info'>[src] is only effective on the dead.</span>")
-				return
-		else
-			to_chat(user, "<span class='info'>[src] is only effective on lesser beings.</span>")
-			return
+	var/mob/living/target_animal = target
+	if(!target_animal.compare_sentience_type(revive_type)) // Will also return false if not a basic or simple mob, which are the only two we want anyway
+		balloon_alert(user, "invalid creature!")
+		return
+	if(target_animal.stat != DEAD)
+		balloon_alert(user, "it's not dead!")
+		return
+
+	target_animal.lazarus_revive(user, malfunctioning)
+	expend(target_animal, user)
+	return
+
+/obj/item/lazarus_injector/proc/expend(atom/revived_target, mob/user)
+	user.visible_message(span_notice("[user] injects [revived_target] with [src], reviving it."))
+	SSblackbox.record_feedback("tally", "lazarus_injector", 1, revived_target.type)
+	loaded = FALSE
+	playsound(src,'sound/effects/refill.ogg',50,TRUE)
+	icon_state = "lazarus_empty"
 
 /obj/item/lazarus_injector/emp_act()
 	. = ..()
 	if(. & EMP_PROTECT_SELF)
 		return
 	if(!malfunctioning)
-		malfunctioning = 1
+		malfunctioning = TRUE
 
 /obj/item/lazarus_injector/examine(mob/user)
 	. = ..()
 	if(!loaded)
-		. += "<span class='info'>[src] is empty.</span>"
+		. += span_info("[src] is empty.")
 	if(malfunctioning)
-		. += "<span class='info'>The display on [src] seems to be flickering.</span>"
+		. += span_info("The display on [src] seems to be flickering.")

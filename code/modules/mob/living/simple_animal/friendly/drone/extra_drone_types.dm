@@ -27,7 +27,7 @@
 	"2. Kill.\n"+\
 	"3. Destroy."
 	default_storage = /obj/item/uplink
-	default_hatmask = /obj/item/clothing/head/helmet/space/hardsuit/syndi
+	default_hatmask = /obj/item/clothing/head/helmet/swat
 	hacked = TRUE
 	flavortext = null
 
@@ -37,12 +37,13 @@
 	hidden_uplink.telecrystals = 10
 
 /mob/living/simple_animal/drone/syndrone/Login()
-	..()
-	to_chat(src, "<span class='notice'>You can kill and eat other drones to increase your health!</span>" )
+	. = ..()
+	if(!. || !client)
+		return FALSE
+	to_chat(src, span_notice("You can kill and eat other drones to increase your health!") )
 
 /mob/living/simple_animal/drone/syndrone/badass
 	name = "Badass Syndrone"
-	default_hatmask = /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite
 	default_storage = /obj/item/uplink/nuclear
 
 /mob/living/simple_animal/drone/syndrone/badass/Initialize(mapload)

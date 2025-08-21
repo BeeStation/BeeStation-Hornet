@@ -21,7 +21,7 @@
 
 /datum/objective/open/damage_equipment/proc/register_machine_damage(obj/machinery/source)
 	SIGNAL_HANDLER
-	UnregisterSignal(source, list(COMSIG_MACHINERY_BROKEN, COMSIG_PARENT_QDELETING))
+	UnregisterSignal(source, list(COMSIG_MACHINERY_BROKEN, COMSIG_QDELETING))
 	damaged_machines ++
 
 /datum/objective/open/damage_equipment/update_explanation_text()
@@ -36,8 +36,8 @@
 
 /datum/objective/open/damage_equipment/get_completion_message()
 	if (!damaged_machines)
-		return "[explanation_text] <span class='redtext'>No sabotaged machines!</span>"
-	return "[explanation_text] <span class='infotext'>[damaged_machines] sabotaged machines!</span>"
+		return "[explanation_text] [span_redtext("No sabotaged machines!")]"
+	return "[explanation_text] [span_infotext("[damaged_machines] sabotaged machines!")]"
 
 /datum/objective/open/damage_equipment/get_target()
 	return selected_area
@@ -71,5 +71,5 @@
 				if (!allowed)
 					continue
 				RegisterSignal(machine, COMSIG_MACHINERY_BROKEN, PROC_REF(register_machine_damage))
-				RegisterSignal(machine, COMSIG_PARENT_QDELETING, PROC_REF(register_machine_damage))
+				RegisterSignal(machine, COMSIG_QDELETING, PROC_REF(register_machine_damage))
 				break

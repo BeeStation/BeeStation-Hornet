@@ -55,11 +55,6 @@
 	desc = "Designed to quickly reload revolvers. Blister rounds can be injected with up to 10 units of chemicals."
 	ammo_type = /obj/item/ammo_casing/c38/dart
 
-/obj/item/ammo_box/c38/emp
-	name = "speed loader (.38 BLK_OUT)"
-	desc = "Designed to quickly reload revolvers. 'BLK_OUT' rounds unleash a small EMP on impact."
-	ammo_type = /obj/item/ammo_casing/c38/emp
-
 /obj/item/ammo_box/c38/mime
 	name = "speed loader (.38 finger)"
 	max_ammo = 6
@@ -115,7 +110,7 @@
 /obj/item/ammo_box/c38/box
 	name = "ammo box (.38)"
 	desc = "A small pack of .38 cartridges"
-	icon_state = "357OLD-0"
+	icon_state = "357OLD"
 	ammo_type = /obj/item/ammo_casing/c38
 	max_ammo = 7
 	multiple_sprites = 1

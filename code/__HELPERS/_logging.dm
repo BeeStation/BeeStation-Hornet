@@ -74,6 +74,10 @@
 	if (CONFIG_GET(flag/log_game))
 		WRITE_LOG(GLOB.world_game_log, "GAME: [text]")
 
+/proc/log_dynamic(text)
+	if (CONFIG_GET(flag/log_dynamic))
+		WRITE_LOG(GLOB.world_dynamic_log, "DYNAMIC: [text]")
+
 /proc/log_objective(whom, objective, admin_involved)
 	if (CONFIG_GET(flag/log_objective))
 		WRITE_LOG(GLOB.world_objective_log, "OBJ: [key_name(whom)] was assigned the following objective [admin_involved ? "by [key_name(admin_involved)]" : "automatically"]: [objective]")
@@ -209,6 +213,9 @@
 /proc/log_qdel(text)
 	WRITE_LOG(GLOB.world_qdel_log, "QDEL: [text]")
 
+/proc/log_signal(text)
+	WRITE_LOG(GLOB.world_signal_log, "SIGNAL: [text]")
+
 /proc/log_query_debug(text)
 	WRITE_LOG(GLOB.query_debug_log, "SQL: [text]")
 
@@ -219,6 +226,11 @@
 /proc/log_href_exploit(atom/user, data = "")
 	WRITE_LOG(GLOB.href_exploit_attempt_log, "HREF: [key_name(user)] has potentially attempted an href exploit.[data]")
 	message_admins("[key_name_admin(user)] has potentially attempted an href exploit.[data]")
+
+/// Logging for wizard powers learned
+/proc/log_spellbook(text)
+	WRITE_LOG(world.log, text)
+
 
 /* Log to both DD and the logfile. */
 /proc/log_world(text)
@@ -270,7 +282,7 @@
 	rustg_log_close_all()
 
 /* Helper procs for building detailed log lines */
-/proc/key_name(whom, include_link = null, include_name = TRUE, href = "priv_msg")
+/proc/key_name(whom, include_link = null, include_name = TRUE, href = "priv_msg", include_external_name = TRUE)
 	var/mob/M
 	var/client/C
 	var/key
@@ -327,11 +339,11 @@
 	if(key)
 		if(C?.holder?.fakekey && !include_name)
 			if(include_link)
-				. += "<a href='?[href]=[C.findStealthKey()]'>"
+				. += "<a href='byond://?[href]=[C.findStealthKey()]'>"
 			. += "Administrator"
 		else
 			if(include_link)
-				. += "<a href='?[href]=[ckey]'>"
+				. += "<a href='byond://?[href]=[ckey]'>"
 			. += key
 		if(!C)
 			. += "\[DC\]"
@@ -350,10 +362,18 @@
 		else if(fallback_name)
 			. += "/([fallback_name])"
 
+	if(include_external_name && C?.key_is_external && istype(C?.external_method))
+		. += "#("
+		if(include_link) // show an icon
+			. += "<span class='chat16x16 badge-badge_[C.external_method.get_badge_id()]' style='vertical-align: -3px;'></span>"
+		. += "[C.external_method.format_display_name(C.external_display_name)]"
+		. += ")"
+
+
 	return .
 
-/proc/key_name_admin(whom, include_name = TRUE)
-	return key_name(whom, TRUE, include_name)
+/proc/key_name_admin(whom, include_name = TRUE, include_external_name = TRUE)
+	return key_name(whom, TRUE, include_name, include_external_name = include_external_name)
 
 /proc/loc_name(atom/A)
 	if(!istype(A))
@@ -367,3 +387,4 @@
 		return "([AREACOORD(T)])"
 	else if(A.loc)
 		return "(UNKNOWN (?, ?, ?))"
+

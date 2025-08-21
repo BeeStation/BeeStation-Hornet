@@ -22,9 +22,9 @@
 	name = "Explosive Lattice"
 	taste_description = "the bomb"
 	color = "#8B2500"
-	chem_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
+	chemical_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
 
-/datum/reagent/blob/explosive_lattice/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/O)
+/datum/reagent/blob/explosive_lattice/expose_mob(mob/living/M, method=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/O)
 	var/initial_volume = reac_volume
 	reac_volume = ..()
 	if(reac_volume >= 10) //if it's not a spore cloud, bad time incoming
@@ -33,7 +33,7 @@
 		for(var/mob/living/L in ohearers(1, get_turf(M)))
 			if(FACTION_BLOB in L.faction) //no friendly fire
 				continue
-			var/aoe_volume = ..(L, TOUCH, initial_volume, 0, L.get_permeability_protection(), O)
+			var/aoe_volume = ..(L, TOUCH, initial_volume, 0, L.getarmor(null, BIO) * 0.01, O)
 			L.apply_damage(0.4*aoe_volume, BRUTE)
 		if(M)
 			M.apply_damage(0.6*reac_volume, BRUTE)

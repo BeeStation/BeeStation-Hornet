@@ -72,6 +72,8 @@
 	alpha = 0
 	var/turnedness = 179 //179 turns counterclockwise, 181 turns clockwise
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/cult/rune_spawn)
+
 /obj/effect/temp_visual/cult/rune_spawn/Initialize(mapload, set_duration, set_color)
 	if(isnum_safe(set_duration))
 		duration = set_duration

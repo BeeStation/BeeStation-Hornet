@@ -7,6 +7,7 @@
 	tastes = list("bread" = 10)
 	foodtypes = GRAIN
 	eat_time = 3 SECONDS
+	crafting_complexity = FOOD_COMPLEXITY_2
 	/// type is spawned 5 at a time and replaces this bread loaf when processed by cutting tool
 	var/obj/item/food/breadslice/slice_type
 	/// so that the yield can change if it isnt 5
@@ -19,8 +20,8 @@
 
 /obj/item/food/bread/make_processable()
 	if (slice_type)
-		AddElement(/datum/element/processable, TOOL_KNIFE, slice_type, yield, 3 SECONDS, table_required = TRUE)
-		AddElement(/datum/element/processable, TOOL_SAW, slice_type, yield, 4 SECONDS, table_required = TRUE)
+		AddElement(/datum/element/processable, TOOL_KNIFE, slice_type, yield, 3 SECONDS, table_required = TRUE, screentip_verb = "Slice")
+		AddElement(/datum/element/processable, TOOL_SAW, slice_type, yield, 4 SECONDS, table_required = TRUE, screentip_verb = "Slice")
 
 /obj/item/food/breadslice
 	name = "breadslice?"
@@ -30,8 +31,9 @@
 	food_flags = FOOD_FINGER_FOOD
 	eat_time = 0.5 SECONDS
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_2
 
-/obj/item/food/breadslice/Initialize()
+/obj/item/food/breadslice/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/dunkable, 10)
 
@@ -46,10 +48,15 @@
 	foodtypes = GRAIN
 	w_class = WEIGHT_CLASS_SMALL
 	slice_type = /obj/item/food/breadslice/plain
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/bread/plain/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/customizable_reagent_holder, /obj/item/food/bread/empty, CUSTOM_INGREDIENT_ICON_FILL, max_ingredients = 8)
+
+// special subtype we use for the "Bread" Admin Smite (or the breadify proc)
+/obj/item/food/bread/plain/smite
+	desc = "If you hold it up to your ear, you can hear the screams of the damned."
 
 /obj/item/food/breadslice/plain
 	name = "bread slice"
@@ -59,14 +66,13 @@
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 2
 	)
+	decomp_type = /obj/item/food/breadslice/moldy
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/breadslice/plain/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/customizable_reagent_holder, null, CUSTOM_INGREDIENT_ICON_STACK)
 
-/*
- * REAL MOLDY FOOD. We just cant support it right now. Start porting after newfood is complete
- *
 /obj/item/food/breadslice/moldy
 	name = "moldy 'bread' slice"
 	desc = "Entire stations have been ripped apart arguing whether this is still good to eat."
@@ -78,16 +84,12 @@
 	tastes = list("decaying fungus" = 1)
 	foodtypes = GROSS
 	preserved_food = TRUE
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/breadslice/moldy/bacteria
 	name = "bacteria-rich moldy 'bread' slice"
 	desc = "Something (possibly necroyeast) has caused this bread to rise in a macabre state of unlife. \
 		It lurchs about when unattended. You might want to locate a priest if you see this. Or maybe a flamethrower."
-
-/obj/item/food/breadslice/moldy/bacteria/Initialize(mapload)
-	. = ..()
-	AddElement(/datum/element/swabable, CELL_LINE_TABLE_MOLD, CELL_VIRUS_TABLE_GENERIC, rand(2, 4), 25)
-*/
 
 /obj/item/food/bread/meat
 	name = "meatbread loaf"
@@ -100,6 +102,7 @@
 	tastes = list("bread" = 10, "meat" = 10)
 	foodtypes = GRAIN | MEAT
 	slice_type = /obj/item/food/breadslice/meat
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/breadslice/meat
 	name = "meatbread slice"
@@ -111,6 +114,7 @@
 	)
 	tastes = list("bread" = 1, "meat" = 1)
 	foodtypes = GRAIN | MEAT
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/bread/xenomeat
 	name = "xenomeatbread loaf"
@@ -123,6 +127,7 @@
 	tastes = list("bread" = 10, "acid" = 10)
 	foodtypes = GRAIN | MEAT
 	slice_type = /obj/item/food/breadslice/xenomeat
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/breadslice/xenomeat
 	name = "xenomeatbread slice"
@@ -134,6 +139,7 @@
 	)
 	tastes = list("bread" = 10, "acid" = 10)
 	foodtypes = GRAIN | MEAT
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/bread/spidermeat
 	name = "spider meat loaf"
@@ -147,6 +153,7 @@
 	tastes = list("bread" = 10, "cobwebs" = 5)
 	foodtypes = GRAIN | MEAT | TOXIC
 	slice_type = /obj/item/food/breadslice/spidermeat
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/breadslice/spidermeat
 	name = "spider meat bread slice"
@@ -159,6 +166,7 @@
 	)
 	tastes = list("bread" = 10, "cobwebs" = 5)
 	foodtypes = GRAIN | MEAT | TOXIC
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/bread/banana
 	name = "banana-nut bread"
@@ -171,6 +179,7 @@
 	tastes = list("bread" = 10) // bananjuice will also flavour
 	foodtypes = GRAIN | FRUIT
 	slice_type = /obj/item/food/breadslice/banana
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/breadslice/banana
 	name = "banana-nut bread slice"
@@ -182,6 +191,7 @@
 	)
 	tastes = list("bread" = 10)
 	foodtypes = GRAIN | FRUIT
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/bread/tofu
 	name = "Tofubread"
@@ -194,6 +204,7 @@
 	tastes = list("bread" = 10, "tofu" = 10)
 	foodtypes = GRAIN | VEGETABLES
 	slice_type = /obj/item/food/breadslice/tofu
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/breadslice/tofu
 	name = "tofubread slice"
@@ -205,6 +216,7 @@
 	)
 	tastes = list("bread" = 10, "tofu" = 10)
 	foodtypes = GRAIN | VEGETABLES
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/bread/creamcheese
 	name = "cream cheese bread"
@@ -217,6 +229,7 @@
 	tastes = list("bread" = 10, "cheese" = 10)
 	foodtypes = GRAIN | DAIRY
 	slice_type = /obj/item/food/breadslice/creamcheese
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/breadslice/creamcheese
 	name = "cream cheese bread slice"
@@ -228,6 +241,7 @@
 	)
 	tastes = list("bread" = 10, "cheese" = 10)
 	foodtypes = GRAIN | DAIRY
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/bread/mimana
 	name = "mimana bread"
@@ -242,6 +256,7 @@
 	tastes = list("bread" = 10, "silence" = 10)
 	foodtypes = GRAIN | FRUIT
 	slice_type = /obj/item/food/breadslice/mimana
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/breadslice/mimana
 	name = "mimana bread slice"
@@ -254,6 +269,7 @@
 		/datum/reagent/consumable/nutriment/vitamin = 2
 	)
 	foodtypes = GRAIN | FRUIT
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/bread/empty
 	name = "bread"
@@ -286,9 +302,11 @@
 	bite_consumption = 3
 	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = ITEM_SLOT_BACK|ITEM_SLOT_BELT
-	attack_verb = list("touche")
+	attack_verb_continuous = list("touche's")
+	attack_verb_simple = list("touche")
 	tastes = list("bread" = 1)
 	foodtypes = GRAIN
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/baguette/mime
 	name = "French Baguette"
@@ -314,6 +332,7 @@
 	bite_consumption = 3
 	tastes = list("bread" = 1, "garlic" = 1, "butter" = 1)
 	foodtypes = GRAIN
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/butterbiscuit
 	name = "butter biscuit"
@@ -327,6 +346,7 @@
 	tastes = list("butter" = 1, "biscuit" = 1)
 	foodtypes = GRAIN | BREAKFAST
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/butterdog
 	name = "butterdog"
@@ -341,6 +361,7 @@
 	tastes = list("butter" = 1, "exotic butter" = 1)
 	foodtypes = GRAIN | DAIRY
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/butterdog/ComponentInitialize()
 	. = ..()

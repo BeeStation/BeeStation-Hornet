@@ -15,6 +15,8 @@ Simple datum which is instanced once per type and is used for every object of sa
 	var/greyscale_colors
 	///Base alpha of the material, is used for greyscale icons.
 	var/alpha
+	///Bitflags that influence how SSmaterials handles this material.
+	var/init_flags = MATERIAL_INIT_MAPLOAD
 	///Materials "Traits". its a map of key = category | Value = Bool. Used to define what it can be used for
 	var/list/categories = list()
 	///The type of sheet this material creates. This should be replaced as soon as possible by greyscale sheets
@@ -39,6 +41,7 @@ Simple datum which is instanced once per type and is used for every object of sa
 	var/texture_layer_icon_state
 	///a cached icon for the texture filter
 	var/cached_texture_filter_icon
+
 
 /datum/material/New()
 	. = ..()
@@ -91,16 +94,7 @@ Simple datum which is instanced once per type and is used for every object of sa
 		o.throwforce *= strength_modifier
 
 		/*
-		var/list/temp_armor_list = list() //Time to add armor modifiers!
-
-		if(!istype(o.armor))
-			return
-
-		var/list/current_armor = o.armor?.getList()
-
-		for(var/i in current_armor)
-			temp_armor_list[i] = current_armor[i] * armor_modifiers[i]
-		o.armor = getArmor(arglist(temp_armor_list))
+		o.set_armor(o.get_armor().generate_new_with_multipliers(armor_modifiers))
 		*/
 
 	if(!isitem(o))
@@ -152,7 +146,7 @@ Simple datum which is instanced once per type and is used for every object of sa
 		return path
 
 ///This proc is called when the material is removed from an object.
-/datum/material/proc/on_removed(atom/source, material_flags)
+/datum/material/proc/on_removed(atom/source, amount, material_flags)
 	if(material_flags & MATERIAL_COLOR) //Prevent changing things with pre-set colors, to keep colored toolboxes their looks for example
 		if(color)
 			source.remove_atom_colour(FIXED_COLOUR_PRIORITY, color)
@@ -168,13 +162,13 @@ Simple datum which is instanced once per type and is used for every object of sa
 		source.name = initial(source.name)
 
 	if(istype(source, /obj)) //objs
-		on_removed_obj(source, material_flags)
+		on_removed_obj(source, amount, material_flags)
 
-	if(istype(source, /turf)) //turfs
-		on_removed_turf(source, material_flags)
+	else if(istype(source, /turf)) //turfs
+		on_removed_turf(source, amount, material_flags)
 
 ///This proc is called when the material is removed from an object specifically.
-/datum/material/proc/on_removed_obj(obj/o, material_flags)
+/datum/material/proc/on_removed_obj(obj/o, amount, material_flags)
 	if(material_flags & MATERIAL_AFFECT_STATISTICS)
 		var/new_max_integrity = initial(o.max_integrity)
 		o.modify_max_integrity(new_max_integrity)
@@ -204,6 +198,17 @@ Simple datum which is instanced once per type and is used for every object of sa
  */
 /datum/material/proc/on_accidental_mat_consumption(mob/living/carbon/M, obj/item/S)
 	return FALSE
+
+/** Returns the composition of this material.
+  *
+  * Mostly used for alloys when breaking down materials.
+  *
+  * Arguments:
+  * - amount: The amount of the material to break down.
+  * - breakdown_flags: Some flags dictating how exactly this material is being broken down.
+  */
+/datum/material/proc/return_composition(amount=1, breakdown_flags=NONE)
+	return list((src) = amount) // Yes we need the parenthesis, without them BYOND stringifies src into "src" and things break.
 
 /// Returns GLOB.recipes of a material to modify the recipes.
 /// This will be only called once from SSMaterials.

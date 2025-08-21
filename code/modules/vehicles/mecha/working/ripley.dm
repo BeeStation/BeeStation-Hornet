@@ -13,7 +13,7 @@
 	max_integrity = 200
 	lights_power = 7
 	deflect_chance = 15
-	armor = list(MELEE = 40,  BULLET = 20, LASER = 10, ENERGY = 20, BOMB = 40, BIO = 0, RAD = 20, FIRE = 100, ACID = 100, STAMINA = 0)
+	armor_type = /datum/armor/working_ripley
 	max_equip = 6
 	wreckage = /obj/structure/mecha_wreckage/ripley
 	internals_req_access = list(ACCESS_MECH_ENGINE, ACCESS_MECH_SCIENCE, ACCESS_MECH_MINING)
@@ -29,6 +29,17 @@
 	/// Custom Ripley step and turning sounds (from TGMC)
 	stepsound = 'sound/mecha/powerloader_step.ogg'
 	turnsound = 'sound/mecha/powerloader_turn2.ogg'
+
+
+/datum/armor/working_ripley
+	melee = 40
+	bullet = 20
+	laser = 10
+	energy = 20
+	bomb = 40
+	rad = 20
+	fire = 100
+	acid = 100
 
 /obj/vehicle/sealed/mecha/working/ripley/Move()
 	. = ..()
@@ -48,8 +59,12 @@
 
 /obj/vehicle/sealed/mecha/working/ripley/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/armor_plate,3,/obj/item/stack/sheet/animalhide/goliath_hide,list(MELEE = 10,  BULLET = 5, LASER = 5))
+	AddComponent(/datum/component/armor_plate, 3 ,/obj/item/stack/sheet/animalhide/goliath_hide, /datum/armor/armor_plate_ripley_goliath)
 
+/datum/armor/armor_plate_ripley_goliath
+	melee = 10
+	bullet = 5
+	laser = 5
 
 /obj/vehicle/sealed/mecha/working/ripley/Destroy()
 	for(var/atom/movable/A in cargo)
@@ -59,18 +74,28 @@
 	return ..()
 
 /obj/vehicle/sealed/mecha/working/ripley/mk2
-	desc = "Autonomous Power Loader Unit MK-II. This prototype Ripley is refitted with a pressurized cabin, trading its prior speed for atmospheric protection"
+	desc = "Autonomous Power Loader Unit MK-II. This prototype Ripley is refitted with a pressurized cabin, trading its prior speed for atmospheric protection and armor."
 	name = "\improper APLU MK-II \"Ripley\""
 	icon_state = "ripleymkii"
 	base_icon_state = "ripleymkii"
 	fast_pressure_step_in = 1.75 //step_in while in low pressure conditions
 	slow_pressure_step_in = 3 //step_in while in normal pressure conditions
 	movedelay = 4
-	armor = list(MELEE = 40,  BULLET = 20, LASER = 10, ENERGY = 20, BOMB = 40, BIO = 0, RAD = 0, FIRE = 100, ACID = 100, STAMINA = 0)
+	armor_type = /datum/armor/ripley_mk2
 	wreckage = /obj/structure/mecha_wreckage/ripley/mk2
 	enclosed = TRUE
 	enter_delay = 40
 	silicon_icon_state = null
+
+
+/datum/armor/ripley_mk2
+	melee = 40
+	bullet = 20
+	laser = 10
+	energy = 20
+	bomb = 40
+	fire = 100
+	acid = 100
 
 /obj/vehicle/sealed/mecha/working/ripley/mk2/generate_actions()
 	initialize_passenger_action_type(/datum/action/vehicle/sealed/mecha/mech_eject)
@@ -79,26 +104,6 @@
 	initialize_passenger_action_type(/datum/action/vehicle/sealed/mecha/mech_toggle_lights)
 	initialize_passenger_action_type(/datum/action/vehicle/sealed/mecha/mech_view_stats)
 	initialize_passenger_action_type(/datum/action/vehicle/sealed/mecha/strafe)
-
-/obj/vehicle/sealed/mecha/working/ripley/firefighter
-	desc = "Autonomous Power Loader Unit MK-III. This model is refitted with a pressurized cabin and additional hazard protection."
-	name = "\improper APLU MK-III \"Firefighter\""
-	icon_state = "firefighter"
-	base_icon_state = "firefighter"
-	max_temperature = 65000
-	max_integrity = 250
-	fast_pressure_step_in = 2 //step_in while in low pressure conditions
-	slow_pressure_step_in = 4 //step_in while in normal pressure conditions
-	movedelay = 4
-	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	rad_flags = RAD_PROTECT_CONTENTS
-	lights_power = 7
-	armor = list(MELEE = 40,  BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 60, BIO = 0, RAD = 70, FIRE = 100, ACID = 100, STAMINA = 0)
-	max_equip = 5 // More armor, less tools
-	wreckage = /obj/structure/mecha_wreckage/ripley/firefighter
-	enclosed = TRUE
-	enter_delay = 40
-	silicon_icon_state = null
 
 
 /obj/vehicle/sealed/mecha/working/ripley/deathripley
@@ -139,10 +144,6 @@
 
 /obj/vehicle/sealed/mecha/working/ripley/mining/Initialize(mapload)
 	. = ..()
-	take_damage(125) // Low starting health
-
-/obj/vehicle/sealed/mecha/working/ripley/mining/Initialize(mapload)
-	. = ..()
 	if(cell)
 		cell.charge = FLOOR(cell.charge * 0.25, 1) //Starts at very low charge
 	if(prob(70)) //Maybe add a drill
@@ -160,6 +161,9 @@
 	//Attach hydraulic clamp
 	var/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/HC = new
 	HC.attach(src)
+
+	take_damage(max_integrity * 0.5, sound_effect=FALSE) //Low starting health
+
 	var/obj/item/mecha_parts/mecha_equipment/mining_scanner/scanner = new
 	scanner.attach(src)
 
@@ -173,7 +177,7 @@
 	if(href_list["drop_from_cargo"])
 		var/obj/cargoobj = locate(href_list["drop_from_cargo"]) in cargo
 		if(cargoobj)
-			to_chat(occupants, "[icon2html(src, occupants)]<span class='notice'>You unload [cargoobj].</span>")
+			to_chat(occupants, "[icon2html(src, occupants)][span_notice("You unload [cargoobj].")]")
 			cargoobj.forceMove(drop_location())
 			LAZYREMOVE(cargo, cargoobj)
 			if(cargoobj == box)
@@ -194,23 +198,23 @@
 	output += "<b>Cargo Compartment Contents:</b><div style=\"margin-left: 15px;\">"
 	if(LAZYLEN(cargo))
 		for(var/obj/O in cargo)
-			output += "<a href='?src=[REF(src)];drop_from_cargo=[REF(O)]'>Unload</a> : [O]<br>"
+			output += "<a href='byond://?src=[REF(src)];drop_from_cargo=[REF(O)]'>Unload</a> : [O]<br>"
 	else
 		output += "Nothing"
 	output += "</div>"
 	return output
 
 /obj/vehicle/sealed/mecha/working/ripley/relay_container_resist(mob/living/user, obj/O)
-	to_chat(user, "<span class='notice'>You lean on the back of [O] and start pushing so it falls out of [src].</span>")
+	to_chat(user, span_notice("You lean on the back of [O] and start pushing so it falls out of [src]."))
 	if(do_after(user, 300, target = O))
 		if(!user || user.stat != CONSCIOUS || user.loc != src || O.loc != src )
 			return
-		to_chat(user, "<span class='notice'>You successfully pushed [O] out of [src]!</span>")
+		to_chat(user, span_notice("You successfully pushed [O] out of [src]!"))
 		O.forceMove(drop_location())
 		LAZYREMOVE(cargo, O)
 	else
 		if(user.loc == src) //so we don't get the message if we resisted multiple times and succeeded.
-			to_chat(user, "<span class='warning'>You fail to push [O] out of [src]!</span>")
+			to_chat(user, span_warning("You fail to push [O] out of [src]!"))
 
 /**
   * Makes the mecha go faster and halves the mecha drill cooldown if in Lavaland pressure.

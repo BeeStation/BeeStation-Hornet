@@ -28,7 +28,7 @@
 	message_admins("[ADMIN_LOOKUPFLW(owner)] is no longer hypnotized with the phrase '[hypnotic_phrase]'.")
 	log_game("[key_name(owner)] is no longer hypnotized with the phrase '[hypnotic_phrase]'.")
 	owner.log_message("is no longer hypnotized with the phrase '[hypnotic_phrase]'.", LOG_ATTACK, color="red")
-	to_chat(owner, "<span class='userdanger'>You suddenly snap out of your hypnosis. The phrase '[hypnotic_phrase]' no longer feels important to you.</span>")
+	to_chat(owner, span_userdanger("You suddenly snap out of your hypnosis. The phrase '[hypnotic_phrase]' no longer feels important to you."))
 	owner.clear_alert("hypnosis")
 	var/datum/mind/M = owner.mind
 	var/datum/antagonist/hypnotized/B = M.has_antag_datum(/datum/antagonist/hypnotized)
@@ -39,17 +39,21 @@
 		B.objectives -= objective
 	M.remove_antag_datum(/datum/antagonist/hypnotized)
 
-/datum/brain_trauma/hypnosis/on_life()
+/datum/brain_trauma/hypnosis/on_life(delta_time, times_fired)
 	..()
-	if(prob(2))
-		switch(rand(1,2))
-			if(1)
-				to_chat(owner, "<i>...[lowertext(hypnotic_phrase)]...</i>")
-			if(2)
-				new /datum/hallucination/chat(owner, TRUE, FALSE, "<span class='hypnophrase'>[hypnotic_phrase]</span>")
+	if(DT_PROB(1, delta_time))
+		if(prob(50))
+			to_chat(owner, span_hypnophrase("<i>...[LOWER_TEXT(hypnotic_phrase)]...</i>"))
+		else
+			owner.cause_hallucination( \
+				/datum/hallucination/chat, \
+				"hypnosis", \
+				force_radio = TRUE, \
+				specific_message = span_hypnophrase("[hypnotic_phrase]"), \
+			)
 
 /datum/brain_trauma/hypnosis/handle_hearing(datum/source, list/hearing_args)
-	hearing_args[HEARING_RAW_MESSAGE] = target_phrase.Replace(hearing_args[HEARING_RAW_MESSAGE], "<span class='hypnophrase'>$1</span>")
+	hearing_args[HEARING_RAW_MESSAGE] = target_phrase.Replace(hearing_args[HEARING_RAW_MESSAGE], span_hypnophrase("$1"))
 
 /// A "hardened" variant of the hypnosis trauma, used by hypnoflashes so that nanites can't cure it.
 /datum/brain_trauma/hypnosis/hardened

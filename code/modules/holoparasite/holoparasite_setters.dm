@@ -3,6 +3,7 @@
  */
 /mob/living/simple_animal/hostile/holoparasite/proc/set_summoner(datum/mind/new_summoner)
 	if(!istype(new_summoner))
+		stack_trace("Bad summoner type: [new_summoner] on [key_name(src)], expected mind")
 		return FALSE
 	var/datum/mind/old_summoner = summoner
 	// Unregister all signals from our old summoner.
@@ -55,15 +56,15 @@
 	name = new_name
 	real_name = new_name
 	mind?.name = new_name
-	color_name = "<span class='name'>[COLOR_TEXT(accent_color, new_name)]</span>"
+	color_name = span_name("[COLOR_TEXT(accent_color, new_name)]")
 	SSblackbox.record_feedback("text", "holoparasite_name", 1, new_name)
 	SEND_SIGNAL(src, COMSIG_HOLOPARA_SET_NAME, old_name, new_name)
 	if(!internal)
 		message_admins("[ADMIN_LOOKUPFLW(src)] was renamed from [old_name] to [new_name].")
 		log_game("[key_name(src)] was renamed from [old_name] to [new_name]")
 		if(!silent)
-			to_chat(src, "<span class='holoparasite'>Your name is now [color_name]!</span>")
-			to_chat(summoner.current, "<span class='holoparasite'>[old_color_name] is now known as [color_name]!</span>")
+			to_chat(src, span_holoparasite("Your name is now [color_name]!"))
+			to_chat(summoner.current, span_holoparasite("[old_color_name] is now known as [color_name]!"))
 
 /**
  * Sets the accent color of the holoparasite.
@@ -82,10 +83,10 @@
 			tracking_beacon.add_to_huds()
 	for(var/mutable_appearance/overlay as() in accent_overlays)
 		overlay.color = new_color
-	color_name = "<span class='name'>[COLOR_TEXT(new_color, real_name)]</span>"
+	color_name = span_name("[COLOR_TEXT(new_color, real_name)]")
 	SEND_SIGNAL(src, COMSIG_HOLOPARA_SET_ACCENT_COLOR, old_accent_color, new_color)
 	if(!silent)
-		to_chat(src, "<span class='holoparasite'>Your [COLOR_TEXT(new_color, "new accent color")] has been set.</span>")
+		to_chat(src, span_holoparasite("Your [COLOR_TEXT(new_color, "new accent color")] has been set."))
 	SSblackbox.record_feedback("tally", "holoparasite_accent_color", 1, new_color)
 	return TRUE
 
@@ -110,10 +111,10 @@
 	new_battlecry = trim(new_battlecry, HOLOPARA_MAX_BATTLECRY_LENGTH)
 	if(CHAT_FILTER_CHECK(new_battlecry))
 		if(!silent)
-			to_chat(src, "<span class='warning'>Your battlecry contains forbidden words.</span>")
+			to_chat(src, span_warning("Your battlecry contains forbidden words."))
 		return FALSE
 	battlecry = new_battlecry
 	if(!silent)
-		to_chat(src, "<span class='notice'>You set your battlecry to '<b>[battlecry]</b>'.</span>")
+		to_chat(src, span_notice("You set your battlecry to '<b>[battlecry]</b>'."))
 	SSblackbox.record_feedback("tally", "holoparasite_battlecry", 1, battlecry)
 	balloon_alert(src, "battlecry set", show_in_chat = FALSE)

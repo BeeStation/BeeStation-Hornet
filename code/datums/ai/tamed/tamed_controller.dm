@@ -41,7 +41,7 @@
 	return ..()
 
 /datum/ai_controller/tamed/UnpossessPawn(destroy)
-	UnregisterSignal(pawn, list(COMSIG_ATOM_ATTACK_HAND, COMSIG_PARENT_EXAMINE, COMSIG_CLICK_ALT, COMSIG_MOB_DEATH, COMSIG_GLOB_CARBON_THROW_THING, COMSIG_PARENT_QDELETING))
+	UnregisterSignal(pawn, list(COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_EXAMINE, COMSIG_CLICK_ALT, COMSIG_MOB_DEATH, COMSIG_GLOB_CARBON_THROW_THING, COMSIG_QDELETING))
 	return ..()
 
 /datum/ai_controller/tamed/able_to_run()
@@ -140,9 +140,9 @@
 /// Someone's interacting with us by hand, see if they're being nice or mean
 /datum/ai_controller/tamed/proc/on_attack_hand(datum/source, mob/living/user)
 	SIGNAL_HANDLER
-	if(user.a_intent == INTENT_HELP)
+	if(!user.combat_mode)
 		if(prob(25))
-			user.visible_message("[source] nuzzles [user]!", "<span class='notice'>[source] nuzzles you!</span>")
+			user.visible_message("[source] nuzzles [user]!", span_notice("[source] nuzzles you!"))
 		return
 	if(blackboard[BB_DOG_FRIENDS][WEAKREF(user)])
 		anger++
@@ -229,3 +229,10 @@
 		return
 	set_command_mode(speaker, command)
 
+
+#undef TAMED_COMMAND_FOLLOW
+#undef TAMED_COMMAND_STOP
+#undef TAMED_COMMAND_WANDER
+#undef TAMED_COMMAND_ATTACK
+#undef ANGER_THRESHOLD_ATTACK
+#undef ANGER_RESET_TIME

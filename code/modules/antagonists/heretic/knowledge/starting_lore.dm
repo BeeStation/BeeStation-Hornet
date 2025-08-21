@@ -27,7 +27,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 		/datum/heretic_knowledge/limited_amount/base_flesh,
 		/datum/heretic_knowledge/limited_amount/base_void,
 		)
-	spell_to_add = /obj/effect/proc_holder/spell/targeted/touch/mansus_grasp
+	spell_to_add = /datum/action/spell/touch/mansus_grasp
 	cost = 0
 	route = HERETIC_PATH_START
 
@@ -52,15 +52,15 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	priority = MAX_KNOWLEDGE_PRIORITY - 1 // Knowing how to remake your heart is important
 	route = HERETIC_PATH_START
 
-/datum/heretic_knowledge/living_heart/on_research(mob/user)
+/datum/heretic_knowledge/living_heart/on_research(mob/user, datum/antagonist/heretic/our_heretic)
 	. = ..()
 
-	var/obj/item/organ/heart/our_heart = user.getorganslot(ORGAN_SLOT_HEART)
+	var/obj/item/organ/heart/our_heart = user.get_organ_slot(ORGAN_SLOT_HEART)
 	if(our_heart)
 		our_heart.AddComponent(/datum/component/living_heart)
 
-/datum/heretic_knowledge/living_heart/on_lose(mob/user)
-	var/obj/item/organ/heart/our_heart = user.getorganslot(ORGAN_SLOT_HEART)
+/datum/heretic_knowledge/living_heart/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
+	var/obj/item/organ/heart/our_heart = user.get_organ_slot(ORGAN_SLOT_HEART)
 	if(our_heart)
 		qdel(our_heart.GetComponent(/datum/component/living_heart))
 
@@ -71,7 +71,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	return TRUE
 
 /datum/heretic_knowledge/living_heart/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
-	var/obj/item/organ/our_living_heart = user.getorganslot(ORGAN_SLOT_HEART)
+	var/obj/item/organ/our_living_heart = user.get_organ_slot(ORGAN_SLOT_HEART)
 	// Obviously you need a heart in your chest to do a ritual on your... heart
 	if(!our_living_heart)
 		loc.balloon_alert(user, "ritual failed, you have no [ORGAN_SLOT_HEART]!") // "you have no heart!"
@@ -85,7 +85,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 
 	// By this point they are making a new heart
 	// If their current heart is organic / not synthetic, we can continue the ritual as normal
-	if(our_living_heart.status == ORGAN_ORGANIC && !(our_living_heart.organ_flags & ORGAN_SYNTHETIC))
+	if(is_valid_heart(our_living_heart))
 		return TRUE
 
 	// If their current heart is not organic / is synthetic, they need an organic replacement
@@ -98,9 +98,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	for(var/obj/item/organ/nearby_organ in atoms)
 		if(!istype(nearby_organ, required_organ_type))
 			continue
-		if(!nearby_organ.useable)
-			continue
-		if(nearby_organ.status != ORGAN_ORGANIC || (nearby_organ.organ_flags & (ORGAN_SYNTHETIC|ORGAN_FAILING)))
+		if(!is_valid_heart(nearby_organ))
 			continue
 
 		selected_atoms += nearby_organ
@@ -112,14 +110,14 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 
 /datum/heretic_knowledge/living_heart/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 
-	var/obj/item/organ/heart/our_heart = user.getorganslot(ORGAN_SLOT_HEART)
+	var/obj/item/organ/heart/our_heart = user.get_organ_slot(ORGAN_SLOT_HEART)
 
 	// Our heart is robotic or synthetic - we need to replace it, and we fortunately should have one by here
-	if(our_heart.status != ORGAN_ORGANIC || (our_heart.organ_flags & ORGAN_SYNTHETIC))
+	if(!is_valid_heart(our_heart))
 		var/obj/item/organ/heart/our_replacement_heart = locate() in selected_atoms
 		if(our_replacement_heart)
 			// Throw our current heart out of our chest, violently
-			user.visible_message("<span class='boldwarning'>[user]'s [our_heart.name] bursts suddenly out of [user.p_their()] chest!</span>")
+			user.visible_message(span_boldwarning("[user]'s [our_heart.name] bursts suddenly out of [user.p_their()] chest!"))
 			INVOKE_ASYNC(user, /mob/proc/emote, "scream")
 			user.apply_damage(20, BRUTE, BODY_ZONE_CHEST)
 			// And put our organic heart in its place
@@ -136,8 +134,21 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	if(our_heart in selected_atoms)
 		selected_atoms -= our_heart
 	our_heart.AddComponent(/datum/component/living_heart)
-	to_chat(user, "<span class='warning'>You feel your [our_heart.name] begin to pulse faster and faster as it awakens!</span>")
+	to_chat(user, span_warning("You feel your [our_heart.name] begin to pulse faster and faster as it awakens!"))
 	playsound(user, 'sound/magic/demon_consume.ogg', 50, TRUE)
+	return TRUE
+
+/// Checks if the passed heart is a valid heart to become a living heart
+/datum/heretic_knowledge/living_heart/proc/is_valid_heart(obj/item/organ/new_heart)
+	if(!new_heart)
+		return FALSE
+	if(!new_heart.useable)
+		return FALSE
+	if(new_heart.status != ORGAN_ORGANIC)
+		return FALSE
+	if(new_heart.organ_flags & (ORGAN_SYNTHETIC|ORGAN_FAILING))
+		return FALSE
+
 	return TRUE
 
 /**

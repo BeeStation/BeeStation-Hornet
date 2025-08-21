@@ -32,7 +32,7 @@
 	},
 /area/ruin/powered)
 "i" = (
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /turf/open/floor/plating/asteroid{
 	name = "dirt"
 	},
@@ -97,7 +97,7 @@
 /turf/open/floor/pod/dark,
 /area/ruin/powered)
 "w" = (
-/obj/machinery/smartfridge/survival_pod,
+/obj/machinery/smartfridge/survival_pod/preloaded,
 /turf/open/floor/pod/dark,
 /area/ruin/powered)
 "x" = (

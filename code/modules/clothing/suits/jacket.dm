@@ -41,7 +41,11 @@
 	desc = "A thick jacket with a rubbery, water-resistant shell."
 	icon_state = "pufferjacket"
 	item_state = "hostrench"
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 50, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
+	armor_type = /datum/armor/jacket_puffer
+
+
+/datum/armor/jacket_puffer
+	bio = 50
 
 /obj/item/clothing/suit/jacket/puffer/vest
 	name = "puffer vest"
@@ -50,7 +54,11 @@
 	item_state = "armor"
 	body_parts_covered = CHEST|GROIN
 	cold_protection = CHEST|GROIN
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 30, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
+	armor_type = /datum/armor/puffer_vest
+
+
+/datum/armor/puffer_vest
+	bio = 30
 
 /obj/item/clothing/suit/jacket/miljacket
 	name = "military jacket"
@@ -108,3 +116,28 @@
 	desc = "A fancy coat made of silk. This one is blue."
 	icon_state = "aristo_blue"
 	item_state = "aristo_blue"
+
+// New COOL jackets
+/obj/item/clothing/suit/jacket/undergroundserpents //www.youtube.com/watch?v=S0ximxe4XtU&t=61s
+	name = "Underground Serpents jacket"
+	desc = "Underground Serpents Jacket rules, we are the underground serpents. That's us, and we rule! ."
+	icon_state = "userpents_jacket"
+	item_state = "userpents_jacket"
+
+/obj/item/clothing/suit/jacket/teenbiker
+	name = "Teen biker jacket"
+	desc = "A red jacket with a pill on its back."
+	icon_state = "teenbiker_jacket"
+	item_state = "teenbiker_jacket"
+
+/obj/item/clothing/suit/jacket/driver
+	name = "Driver jacket"
+	desc = "A white and black jacket with a golden scorpion on its back. Perfect for driving through the night."
+	icon_state = "driver_jacket"
+	item_state = "driver_jacket"
+
+/obj/item/clothing/suit/jacket/lieutenant
+	name = "Lieutenant Vest"
+	desc = "A short orange vest that once belonged to a lieutenant."
+	icon_state = "lieutenant_jacket"
+	item_state = "lieutenant_jacket"

@@ -11,6 +11,7 @@
 	hud_possible = list(ANTAG_HUD, AI_DETECT_HUD = HUD_LIST_LIST)
 	var/list/visibleCameraChunks = list()
 	var/mob/living/silicon/ai/ai = null
+	var/relay_speech = FALSE
 	var/use_static = TRUE
 	var/static_visibility_range = 16
 	var/ai_detector_visible = TRUE
@@ -21,12 +22,6 @@
 	GLOB.ai_eyes += src
 	update_ai_detect_hud()
 	setLoc(loc, TRUE)
-
-/mob/camera/ai_eye/proc/set_relay_speech(relay)
-	if(relay)
-		become_hearing_sensitive()
-	else
-		REMOVE_TRAIT(src, TRAIT_HEARING_SENSITIVE, TRAIT_GENERIC)
 
 /mob/camera/ai_eye/proc/update_ai_detect_hud()
 	var/datum/atom_hud/ai_detector/hud = GLOB.huds[DATA_HUD_AI_DETECT]
@@ -87,7 +82,7 @@
 		if(use_static)
 			ai.camera_visibility(src)
 		if(ai.client && !ai.multicam_on)
-			ai.client.eye = src
+			ai.client.set_eye(src)
 		update_ai_detect_hud()
 		//Holopad
 		if(istype(ai.current_holopad, /obj/machinery/holopad))
@@ -105,11 +100,11 @@
 	var/turf/target = get_step_multiz(src, dir)
 	if(!target)
 		if(feedback)
-			to_chat(feedback_to, "<span class='warning'>There's nowhere to go in that direction!</span>")
+			to_chat(feedback_to, span_warning("There's nowhere to go in that direction!"))
 		return FALSE
 	if(!canZMove(dir, source, target))
 		if(feedback)
-			to_chat(feedback_to, "<span class='warning'>You couldn't move there!</span>")
+			to_chat(feedback_to, span_warning("You couldn't move there!"))
 		return FALSE
 	setLoc(target, TRUE)
 	return TRUE
@@ -118,7 +113,7 @@
 	return TRUE
 
 /mob/camera/ai_eye/Move()
-	return 0
+	return
 
 /mob/camera/ai_eye/proc/GetViewerClient()
 	if(ai)
@@ -218,7 +213,7 @@
 
 /mob/camera/ai_eye/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
 	. = ..()
-	if(speaker && ai && !radio_freq && speaker != ai && near_camera(speaker))
+	if(relay_speech && speaker && ai && !radio_freq && speaker != ai && near_camera(speaker))
 		ai.relay_speech(message, speaker, message_language, raw_message, radio_freq, spans, message_mods)
 
 /obj/effect/overlay/ai_detect_hud

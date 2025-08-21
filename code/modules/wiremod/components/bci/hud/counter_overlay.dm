@@ -8,6 +8,7 @@
 /obj/item/circuit_component/counter_overlay
 	display_name = "Counter Overlay"
 	desc = "A component that shows an three digit counter. Requires a BCI shell."
+	category = "BCI"
 
 	required_shells = list(/obj/item/organ/cyberimp/bci)
 
@@ -56,7 +57,7 @@
 	numbers = list()
 
 	QDEL_NULL(counter_appearance)
-	var/image/counter = image(icon = 'icons/mob/screen_bci.dmi', icon_state = "hud_numbers", loc = owner)
+	var/image/counter = image(icon = 'icons/hud/screen_bci.dmi', icon_state = "hud_numbers", loc = owner)
 	if(image_pixel_x.value)
 		counter.pixel_x = image_pixel_x.value
 	if(image_pixel_y.value)
@@ -73,7 +74,7 @@
 
 	for(var/i = 1 to 3)
 		var/cur_num = round(cleared_number / (10 ** (3 - i))) % 10
-		var/image/number = image(icon = 'icons/mob/screen_bci.dmi', icon_state = "hud_number_[cur_num]", loc = owner)
+		var/image/number = image(icon = 'icons/hud/screen_bci.dmi', icon_state = "hud_number_[cur_num]", loc = owner)
 
 		if(image_pixel_x.value)
 			number.pixel_x = image_pixel_x.value + (i - 1) * 9

@@ -18,7 +18,7 @@
 		else
 			return
 	// Client does NOT have tgui_input on: Returns regular input
-	if(!user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_input))
+	if(user.client.prefs && !user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_input))
 		return input(user, message, title, default) as color|null
 	var/datum/tgui_color_picker/picker = new(user, message, title, default, timeout, autofocus)
 	picker.ui_interact(user)
@@ -48,7 +48,7 @@
 		else
 			return
 	// Client does NOT have tgui_input on: Returns regular input
-	if(!user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_input))
+	if(user.client.prefs && !user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_input))
 		return input(user, message, title, default) as color|null
 	var/datum/tgui_color_picker/async/picker = new(user, message, title, default, callback, timeout, autofocus)
 	picker.ui_interact(user)
@@ -132,7 +132,7 @@
 		return
 	switch(action)
 		if("submit")
-			var/raw_data = lowertext(params["entry"])
+			var/raw_data = LOWER_TEXT(params["entry"])
 			var/hex = sanitize_hexcolor(raw_data, desired_format = 6, include_crunch = TRUE)
 			if (!hex)
 				return

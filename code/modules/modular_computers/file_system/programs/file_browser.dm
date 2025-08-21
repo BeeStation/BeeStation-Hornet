@@ -2,8 +2,8 @@
 	filename = "filemanager"
 	filedesc = "File Manager"
 	extended_desc = "This program allows management of files."
-	program_icon_state = "generic"
-	size = 8
+	program_icon_state = "software"
+	size = 2
 	requires_ntnet = FALSE
 	available_on_ntnet = FALSE
 	undeletable = TRUE
@@ -129,10 +129,10 @@
 	return data
 
 /datum/computer_file/program/proc/check_filename(name)
-	if(CHAT_FILTER_CHECK(name))
+	if(OOC_FILTER_CHECK(name))
 		alert(usr, "Filename contains prohibited words.")
 		return
-	if(!reject_bad_text(name, 32, ascii_only = TRUE, alphanumeric_only = TRUE, underscore_allowed = TRUE) || lowertext(name) != name)
+	if(!reject_bad_text(name, 32, ascii_only = TRUE, alphanumeric_only = TRUE, underscore_allowed = TRUE) || LOWER_TEXT(name) != name)
 		alert(usr, "All filenames must be 32 characters or less, lowercase, and cannot contain: < > / and \\")
 		return
 	return name

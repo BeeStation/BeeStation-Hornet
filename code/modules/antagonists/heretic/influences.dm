@@ -1,3 +1,4 @@
+GLOBAL_DATUM_INIT(reality_smash_track, /datum/reality_smash_tracker, new)
 
 /// The number of influences spawned per heretic
 #define NUM_INFLUENCES_PER_HERETIC 4
@@ -149,17 +150,17 @@
 		return
 
 	if(IS_HERETIC(user))
-		to_chat(user, "<span class='boldwarning'>You know better than to tempt forces out of your control!</span>")
+		to_chat(user, span_boldwarning("You know better than to tempt forces out of your control!"))
 		return TRUE
 
 	var/mob/living/carbon/human/human_user = user
 	var/obj/item/bodypart/their_poor_arm = human_user.get_active_hand()
 	if(prob(25))
-		to_chat(human_user, "<span class='userdanger'>An otherwordly presence tears and atomizes your [their_poor_arm.name] as you try to touch the hole in the very fabric of reality!</span>")
+		to_chat(human_user, span_userdanger("An otherwordly presence tears and atomizes your [their_poor_arm.name] as you try to touch the hole in the very fabric of reality!"))
 		their_poor_arm.dismember()
 		qdel(their_poor_arm)
 	else
-		to_chat(human_user,"<span class='danger'>You pull your hand away from the hole as the eldritch energy flails, trying to latch onto existance itself!</span>")
+		to_chat(human_user,span_danger("You pull your hand away from the hole as the eldritch energy flails, trying to latch onto existance itself!"))
 	return TRUE
 
 /obj/effect/visible_heretic_influence/attack_tk(mob/user)
@@ -169,13 +170,13 @@
 	. = COMPONENT_CANCEL_ATTACK_CHAIN
 
 	if(IS_HERETIC(user))
-		to_chat(user, "<span class='boldwarning'>You know better than to tempt forces out of your control!</span>")
+		to_chat(user, span_boldwarning("You know better than to tempt forces out of your control!"))
 		return
 
 	var/mob/living/carbon/human/human_user = user
 
 	// A very elaborate way to suicide
-	to_chat(human_user, "<span class='userdanger'>Eldritch energy lashes out, piercing your fragile mind, tearing it to pieces!</span>")
+	to_chat(human_user, span_userdanger("Eldritch energy lashes out, piercing your fragile mind, tearing it to pieces!"))
 	human_user.ghostize()
 	var/obj/item/bodypart/head/head = locate() in human_user.get_bodypart(BODY_ZONE_HEAD)
 	if(head)
@@ -195,7 +196,7 @@
 		return
 
 	var/mob/living/carbon/human/human_user = user
-	to_chat(human_user, "<span class='userdanger'>Your mind burns as you stare at the tear!</span>")
+	to_chat(human_user, span_userdanger("Your mind burns as you stare at the tear!"))
 	human_user.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10, 190)
 	SEND_SIGNAL(human_user, COMSIG_ADD_MOOD_EVENT, "gates_of_mansus", /datum/mood_event/gates_of_mansus)
 
@@ -264,16 +265,16 @@
 
 	being_drained = TRUE
 	balloon_alert(user, "You begin draining the influence")
-	RegisterSignal(user, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(user, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 
-	if(!do_after(user, 10 SECONDS, target = src))
+	if(!do_after(user, 10 SECONDS, src, hidden = TRUE))
 		being_drained = FALSE
 		balloon_alert(user, "Interrupted")
-		UnregisterSignal(user, COMSIG_PARENT_EXAMINE)
+		UnregisterSignal(user, COMSIG_ATOM_EXAMINE)
 		return
 
 	// We don't need to set being_drained back since we delete after anyways
-	UnregisterSignal(user, COMSIG_PARENT_EXAMINE)
+	UnregisterSignal(user, COMSIG_ATOM_EXAMINE)
 	balloon_alert(user, "Influence drained")
 
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
@@ -287,8 +288,8 @@
  */
 /obj/effect/heretic_influence/proc/after_drain(mob/living/user)
 	if(user)
-		to_chat(user, "<span class='hypnophrase'>[pick(strings(HERETIC_INFLUENCE_FILE, "drain_message"))]</span>")
-		to_chat(user, "<span class='warning'>[src] begins to fade into reality!</span>")
+		to_chat(user, span_hypnophrase("[pick(strings(HERETIC_INFLUENCE_FILE, "drain_message"))]"))
+		to_chat(user, span_warning("[src] begins to fade into reality!"))
 
 	var/obj/effect/visible_heretic_influence/illusion = new /obj/effect/visible_heretic_influence(drop_location())
 	illusion.name = "\improper" + pick(strings(HERETIC_INFLUENCE_FILE, "drained")) + " " + format_text(name)
@@ -297,7 +298,7 @@
 	qdel(src)
 
 /*
- * Signal proc for [COMSIG_PARENT_EXAMINE], registered on the user draining the influence.
+ * Signal proc for [COMSIG_ATOM_EXAMINE], registered on the user draining the influence.
  *
  * Gives a chance for examiners to see that the heretic is interacting with an infuence.
  */
@@ -307,7 +308,7 @@
 	if(prob(50))
 		return
 
-	examine_list += "<span class='warning'>[source]'s hand seems to be glowing a ["<span class='hypnophrase'>strange purple</span>"]...</span>"
+	examine_list += span_warning("[source]'s hand seems to be glowing a [span_hypnophrase("strange purple")]...")
 
 /*
  * Add a mind to the list of tracked minds,

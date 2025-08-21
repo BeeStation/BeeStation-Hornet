@@ -28,6 +28,8 @@
 	var/energy_to_raise = 32
 	var/energy_to_lower = -20
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/energy_ball)
+
 /obj/anomaly/energy_ball/Initialize(mapload, starting_energy = 50, is_miniball = FALSE)
 	. = ..()
 	energy = starting_energy
@@ -123,9 +125,9 @@
 	var/obj/effect/energy_ball/EB = new(loc, 0, TRUE)
 
 	EB.transform *= rand(30, 70) * 0.01
-	var/icon/I = icon(icon,icon_state,dir)
+	var/list/icon_dimensions = get_icon_dimensions(icon)
 
-	var/orbitsize = (I.Width() + I.Height()) * rand(40, 80) * 0.01
+	var/orbitsize = (icon_dimensions["width"] + icon_dimensions["height"]) * rand(40, 80) * 0.01
 	orbitsize -= (orbitsize / world.icon_size) * (world.icon_size * 0.25)
 
 	EB.orbit(src, orbitsize, pick(FALSE, TRUE), rand(10, 25), pick(3, 4, 5, 6, 36))
@@ -150,7 +152,7 @@
 	if(!iscarbon(user))
 		return
 	var/mob/living/carbon/jedi = user
-	to_chat(jedi, "<span class='userdanger'>That was a shockingly dumb idea.</span>")
+	to_chat(jedi, span_userdanger("That was a shockingly dumb idea."))
 	var/obj/item/organ/brain/rip_u = locate(/obj/item/organ/brain) in jedi.internal_organs
 	jedi.ghostize(jedi)
 	if(rip_u)
@@ -320,3 +322,6 @@
 			var/obj/o = closest_atom
 			o.tesla_act(power, tesla_flags, shocked_targets)
 #undef TESLA_MAX_BALLS
+
+#undef TESLA_DEFAULT_POWER
+#undef TESLA_MINI_POWER

@@ -1,16 +1,15 @@
-import { Component, createRef, RefObject } from 'inferno';
-import type { InfernoNode } from 'inferno';
-import { Button, Stack, Flex, Box } from '../../components';
+import { Component, createRef, PropsWithChildren, ReactNode, RefObject } from 'react';
+import { Button, Flex, Stack, Box } from '../../components';
 import { FlexProps } from '../../components/Flex';
 import { CollapsibleSection } from 'tgui/components/CollapsibleSection';
 
 type TabbedMenuProps = {
-  categoryEntries: [string, InfernoNode][];
+  categoryEntries: [string, ReactNode][];
   categoryScales: Record<string, string>;
   contentProps?: FlexProps;
 };
 
-export class TabbedMenu extends Component<TabbedMenuProps> {
+export class TabbedMenu extends Component<TabbedMenuProps & PropsWithChildren> {
   categoryRefs: Record<string, RefObject<HTMLDivElement>> = {};
   sectionRef: RefObject<HTMLDivElement> = createRef();
 

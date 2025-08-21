@@ -13,7 +13,7 @@
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/mining)
-"k" = (
+"j" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -23,10 +23,7 @@
 	pixel_x = -26;
 	unlocked = 1
 	},
-/obj/machinery/camera/autoname{
-	dir = 1;
-	network = list("ss13","cargo")
-	},
+/obj/machinery/camera/directional/south,
 /obj/effect/turf_decal/loading_area{
 	dir = 4
 	},
@@ -59,20 +56,6 @@
 	},
 /obj/effect/spawner/structure/window/hollow/survival_pod/directional,
 /turf/closed/wall/mineral/titanium/survival/nodiagonal,
-/area/shuttle/mining)
-"t" = (
-/obj/machinery/requests_console{
-	department = "Cargo Bay";
-	pixel_y = -35;
-	supplies_requestable = 1
-	},
-/obj/structure/table/reinforced,
-/obj/item/storage/firstaid/regular{
-	pixel_x = -5;
-	pixel_y = 8
-	},
-/obj/item/storage/toolbox/emergency,
-/turf/open/floor/pod/dark,
 /area/shuttle/mining)
 "u" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -136,6 +119,20 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/closed/wall/mineral/titanium/survival/nodiagonal,
 /area/shuttle/mining)
+"N" = (
+/obj/machinery/requests_console{
+	department = "Cargo Bay";
+	pixel_y = -35;
+	supplies_requestable = 1
+	},
+/obj/structure/table/reinforced,
+/obj/item/storage/firstaid/regular{
+	pixel_x = -5;
+	pixel_y = 8
+	},
+/obj/item/storage/toolbox/emergency,
+/turf/open/floor/pod/dark,
+/area/shuttle/mining)
 "Q" = (
 /obj/effect/turf_decal/box/white,
 /obj/structure/chair/fancy/shuttle{
@@ -169,7 +166,7 @@ S
 (2,1,1) = {"
 u
 A
-k
+j
 r
 "}
 (3,1,1) = {"
@@ -181,7 +178,7 @@ J
 (4,1,1) = {"
 I
 Y
-t
+N
 f
 "}
 (5,1,1) = {"

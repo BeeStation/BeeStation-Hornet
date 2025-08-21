@@ -4,6 +4,9 @@ GLOBAL_PROTECT(log_directory)
 GLOBAL_VAR(world_game_log)
 GLOBAL_PROTECT(world_game_log)
 
+GLOBAL_VAR(world_dynamic_log)
+GLOBAL_PROTECT(world_dynamic_log)
+
 GLOBAL_VAR(world_objective_log)
 GLOBAL_PROTECT(world_objective_log)
 
@@ -12,6 +15,9 @@ GLOBAL_PROTECT(world_runtime_log)
 
 GLOBAL_VAR(world_qdel_log)
 GLOBAL_PROTECT(world_qdel_log)
+
+GLOBAL_VAR(world_signal_log)
+GLOBAL_PROTECT(world_signal_log)
 
 GLOBAL_VAR(world_attack_log)
 GLOBAL_PROTECT(world_attack_log)
@@ -88,6 +94,15 @@ GLOBAL_PROTECT(admin_log)
 GLOBAL_LIST_EMPTY(lastsignalers)	//! keeps last 100 signals here in format: "[src] used [REF(src)] @ location [src.loc]: [freq]/[code]"
 GLOBAL_PROTECT(lastsignalers)
 
+/// Used to add a text log to the signaler investigation log.
+/// Do not add to the list directly; if the list is too large it can cause lag when an admin tries to view it.
+/proc/add_to_signaler_investigate_log(text)
+	var/log_length = length(GLOB.lastsignalers)
+	if(log_length >= INVESTIGATE_SIGNALER_LOG_MAX_LENGTH)
+		GLOB.lastsignalers = GLOB.lastsignalers.Copy((INVESTIGATE_SIGNALER_LOG_MAX_LENGTH - log_length) + 2)
+	GLOB.lastsignalers += list(text)
+
+
 GLOBAL_LIST_EMPTY(lawchanges) //! Stores who uploaded laws to which silicon-based lifeform, and what the law was
 GLOBAL_PROTECT(lawchanges)
 
@@ -121,4 +136,9 @@ GLOBAL_PROTECT(picture_logging_prefix)
 #ifdef REFERENCE_DOING_IT_LIVE
 GLOBAL_LIST_EMPTY(harddel_log)
 GLOBAL_PROTECT(harddel_log)
+#endif
+
+#if defined(UNIT_TESTS) || defined(SPACEMAN_DMM)
+GLOBAL_VAR(test_log)
+GLOBAL_PROTECT(test_log)
 #endif

@@ -1,7 +1,7 @@
 /obj/item/implant/camera
 	name = "camera implant"
 	desc = "Watchful eye inside you."
-	activated = FALSE
+	actions_types = null
 	var/obj/machinery/camera/camera
 
 /obj/item/implant/camera/get_data()
@@ -15,7 +15,7 @@
 /obj/item/implant/camera/on_implanted(mob/user)
 	camera = new (user)		//Insert the camera directly into the mob so the camera actually shows what it sees
 	camera.c_tag = "IMPLANT #[rand(1, 999)]"
-	camera.network = list("ss13")
+	camera.network = list(CAMERA_NETWORK_STATION)
 	camera.internal_light = FALSE		//No AI camera light
 
 /obj/item/implant/camera/removed(mob/living/source, silent, special)

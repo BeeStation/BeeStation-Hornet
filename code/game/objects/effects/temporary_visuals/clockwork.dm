@@ -109,6 +109,8 @@
 	pixel_x = -16
 	duration = 30
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/ratvar/prolonging_prism)
+
 /obj/effect/temp_visual/ratvar/prolonging_prism/Initialize(mapload, set_appearance)
 	. = ..()
 	if(set_appearance)
@@ -158,6 +160,8 @@
 	desc = "Steam! It's hot. It also serves as a game distribution platform."
 	icon_state = "smoke"
 	duration = 15
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/steam)
 
 /obj/effect/temp_visual/steam/Initialize(mapload, steam_direction)
 	. = ..()

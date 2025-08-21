@@ -21,8 +21,8 @@
 		if(target.mind?.holy_role == HOLY_ROLE_HIGHPRIEST)
 			charge_amt *= 2
 		R.cell?.charge += charge_amt
-		R.visible_message("<span class='notice'>[chap] charges [R] with the power of [GLOB.deity]!</span>")
-		to_chat(R, "<span class='boldnotice'>You are charged by the power of [GLOB.deity]!</span>")
+		R.visible_message(span_notice("[chap] charges [R] with the power of [GLOB.deity]!"))
+		to_chat(R, span_boldnotice("You are charged by the power of [GLOB.deity]!"))
 		SEND_SIGNAL(R, COMSIG_ADD_MOOD_EVENT, "blessing", /datum/mood_event/blessing)
 		playsound(chap, 'sound/effects/bang.ogg', 25, TRUE, -1)
 		return TRUE
@@ -32,7 +32,7 @@
 
 	//first we determine if we can charge them
 	var/did_we_charge = FALSE
-	var/obj/item/organ/stomach/battery/ethereal/eth_stomach = blessed.getorganslot(ORGAN_SLOT_STOMACH)
+	var/obj/item/organ/stomach/battery/ethereal/eth_stomach = blessed.get_organ_slot(ORGAN_SLOT_STOMACH)
 	if(istype(eth_stomach))
 		eth_stomach.adjust_charge(60)
 		did_we_charge = TRUE
@@ -41,10 +41,10 @@
 	var/obj/item/bodypart/bodypart = blessed.get_bodypart(chap.get_combat_bodyzone(target, zone_context = BODYZONE_CONTEXT_ROBOTIC_LIMB_HEALING))
 	if(IS_ORGANIC_LIMB(bodypart))
 		if(!did_we_charge)
-			to_chat(chap, "<span class='warning'>[GLOB.deity] scoffs at the idea of healing such fleshy matter!</span>")
+			to_chat(chap, span_warning("[GLOB.deity] scoffs at the idea of healing such fleshy matter!"))
 		else
-			blessed.visible_message("<span class='notice'>[chap] charges [blessed] with the power of [GLOB.deity]!</span>")
-			to_chat(blessed, "<span class='boldnotice'>You feel charged by the power of [GLOB.deity]!</span>")
+			blessed.visible_message(span_notice("[chap] charges [blessed] with the power of [GLOB.deity]!"))
+			to_chat(blessed, span_boldnotice("You feel charged by the power of [GLOB.deity]!"))
 			SEND_SIGNAL(blessed, COMSIG_ADD_MOOD_EVENT, "blessing", /datum/mood_event/blessing)
 			playsound(chap, 'sound/machines/synth_yes.ogg', 25, TRUE, -1)
 		return TRUE
@@ -53,8 +53,8 @@
 	if(bodypart.heal_damage(5,5,null,BODYTYPE_ROBOTIC))
 		blessed.update_damage_overlays()
 
-	blessed.visible_message("<span class='notice'>[chap] [did_we_charge ? "repairs" : "repairs and charges"] [blessed] with the power of [GLOB.deity]!</span>")
-	to_chat(blessed, "<span class='boldnotice'>The inner machinations of [GLOB.deity] [did_we_charge ? "repairs" : "repairs and charges"] you!</span>")
+	blessed.visible_message(span_notice("[chap] [did_we_charge ? "repairs" : "repairs and charges"] [blessed] with the power of [GLOB.deity]!"))
+	to_chat(blessed, span_boldnotice("The inner machinations of [GLOB.deity] [did_we_charge ? "repairs" : "repairs and charges"] you!"))
 	playsound(chap, 'sound/effects/bang.ogg', 25, TRUE, -1)
 	SEND_SIGNAL(blessed, COMSIG_ADD_MOOD_EVENT, "blessing", /datum/mood_event/blessing)
 	return TRUE
@@ -64,10 +64,10 @@
 	if(!istype(the_cell)) //how...
 		return
 	if(the_cell.charge < 300)
-		to_chat(chap,"<span class='notice'>[GLOB.deity] does not accept pity amounts of power.</span>")
+		to_chat(chap,span_notice("[GLOB.deity] does not accept pity amounts of power."))
 		return
 	adjust_favor(round(the_cell.charge/100), chap)
-	to_chat(chap, "<span class='notice'>You offer [the_cell]'s power to [GLOB.deity], pleasing them.</span>")
+	to_chat(chap, span_notice("You offer [the_cell]'s power to [GLOB.deity], pleasing them."))
 	qdel(I)
 	return TRUE
 
@@ -87,21 +87,21 @@
 
 /datum/religion_rites/synthconversion/perform_rite(mob/living/user, atom/religious_tool)
 	if(!ismovable(religious_tool))
-		to_chat(user,"<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
+		to_chat(user,span_warning("This rite requires a religious device that individuals can be buckled to."))
 		return FALSE
 	var/atom/movable/movable_reltool = religious_tool
 	if(!movable_reltool)
 		return FALSE
 	if(LAZYLEN(movable_reltool.buckled_mobs))
-		to_chat(user,"<span class='warning'>You're going to convert the one buckled on [movable_reltool].</span>")
+		to_chat(user,span_warning("You're going to convert the one buckled on [movable_reltool]."))
 	else
 		if(!movable_reltool.can_buckle) //yes, if you have somehow managed to have someone buckled to something that now cannot buckle, we will still let you perform the rite!
-			to_chat(user,"<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
+			to_chat(user,span_warning("This rite requires a religious device that individuals can be buckled to."))
 			return FALSE
 		if(isandroid(user))
-			to_chat(user,"<span class='warning'>You've already converted yourself. To convert others, they must be buckled to [movable_reltool].</span>")
+			to_chat(user,span_warning("You've already converted yourself. To convert others, they must be buckled to [movable_reltool]."))
 			return FALSE
-		to_chat(user,"<span class='warning'>You're going to convert yourself with this ritual.</span>")
+		to_chat(user,span_warning("You're going to convert yourself with this ritual."))
 	return ..()
 
 /datum/religion_rites/synthconversion/invoke_effect(mob/living/user, atom/religious_tool)
@@ -120,7 +120,7 @@
 	if(!rite_target)
 		return FALSE
 	rite_target.set_species(/datum/species/android)
-	rite_target.visible_message("<span class='notice'>[rite_target] has been converted by the rite of [name]!</span>")
+	rite_target.visible_message(span_notice("[rite_target] has been converted by the rite of [name]!"))
 	return TRUE
 
 
@@ -166,18 +166,18 @@
 /datum/religion_rites/machine_implantation/perform_rite(mob/living/user, atom/religious_tool)
 	chosen_implant = locate() in get_turf(religious_tool)
 	if(!chosen_implant)
-		to_chat(user, "<span class='warning'>This rite requires cybernetics for implantation.</span>")
+		to_chat(user, span_warning("This rite requires cybernetics for implantation."))
 		return FALSE
 	if(!ismovable(religious_tool))
-		to_chat(user,"<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
+		to_chat(user,span_warning("This rite requires a religious device that individuals can be buckled to."))
 		return FALSE
 	var/atom/movable/movable_reltool = religious_tool
 	if(length(movable_reltool.buckled_mobs))
-		to_chat(user,"<span class='warning'>You're going to merge the implant with the one buckled on [movable_reltool].</span>")
+		to_chat(user,span_warning("You're going to merge the implant with the one buckled on [movable_reltool]."))
 	else if(!movable_reltool.can_buckle) //yes, if you have somehow managed to have someone buckled to something that now cannot buckle, we will still let you perform the rite!
-		to_chat(user,"<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
+		to_chat(user,span_warning("This rite requires a religious device that individuals can be buckled to."))
 		return FALSE
-	to_chat(user,"<span class='warning'>You're going to merge the implant into yourself with this ritual.</span>")
+	to_chat(user,span_warning("You're going to merge the implant into yourself with this ritual."))
 	return ..()
 
 /datum/religion_rites/machine_implantation/invoke_effect(mob/living/user, atom/religious_tool)
@@ -197,6 +197,6 @@
 		chosen_implant = null
 		return FALSE
 	chosen_implant.Insert(rite_target)
-	rite_target.visible_message("<span class='notice'>[chosen_implant] has been merged into [rite_target] by the rite of [name]!</span>")
+	rite_target.visible_message(span_notice("[chosen_implant] has been merged into [rite_target] by the rite of [name]!"))
 	chosen_implant = null
 	return TRUE

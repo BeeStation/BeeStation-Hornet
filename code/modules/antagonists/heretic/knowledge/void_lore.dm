@@ -48,18 +48,13 @@
 	priority = MAX_KNOWLEDGE_PRIORITY - 5
 	route = HERETIC_PATH_VOID
 
-/datum/heretic_knowledge/limited_amount/base_void/on_research(mob/user)
-	. = ..()
-	var/datum/antagonist/heretic/our_heretic = IS_HERETIC(user)
-	our_heretic.heretic_path = route
-
 /datum/heretic_knowledge/limited_amount/base_void/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	if(!isopenturf(loc))
 		loc.balloon_alert(user, "ritual failed, invalid location!")
 		return FALSE
 
 	var/turf/open/our_turf = loc
-	if(our_turf.GetTemperature() > T0C)
+	if(our_turf.get_temperature() > T0C)
 		loc.balloon_alert(user, "ritual failed, not cold enough!")
 		return FALSE
 
@@ -74,10 +69,10 @@
 	cost = 1
 	route = HERETIC_PATH_VOID
 
-/datum/heretic_knowledge/void_grasp/on_gain(mob/user)
+/datum/heretic_knowledge/void_grasp/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
 	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, PROC_REF(on_mansus_grasp))
 
-/datum/heretic_knowledge/void_grasp/on_lose(mob/user)
+/datum/heretic_knowledge/void_grasp/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	UnregisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK)
 
 /datum/heretic_knowledge/void_grasp/proc/on_mansus_grasp(mob/living/source, mob/living/target)
@@ -88,7 +83,7 @@
 
 	var/mob/living/carbon/carbon_target = target
 	var/turf/open/target_turf = get_turf(carbon_target)
-	target_turf.TakeTemperature(-20)
+	target_turf.take_temperature(-20)
 	carbon_target.adjust_bodytemperature(-40)
 	carbon_target.silent += 4
 
@@ -107,11 +102,11 @@
 	cost = 1
 	route = HERETIC_PATH_VOID
 
-/datum/heretic_knowledge/cold_snap/on_gain(mob/user)
+/datum/heretic_knowledge/cold_snap/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
 	ADD_TRAIT(user, TRAIT_RESISTCOLD, type)
 	ADD_TRAIT(user, TRAIT_NOBREATH, type)
 
-/datum/heretic_knowledge/cold_snap/on_lose(mob/user)
+/datum/heretic_knowledge/cold_snap/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	REMOVE_TRAIT(user, TRAIT_RESISTCOLD, type)
 	REMOVE_TRAIT(user, TRAIT_NOBREATH, type)
 
@@ -130,11 +125,11 @@
 	cost = 2
 	route = HERETIC_PATH_VOID
 
-/datum/heretic_knowledge/void_mark/on_gain(mob/user)
+/datum/heretic_knowledge/void_mark/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
 	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, PROC_REF(on_mansus_grasp))
 	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, PROC_REF(on_eldritch_blade))
 
-/datum/heretic_knowledge/void_mark/on_lose(mob/user)
+/datum/heretic_knowledge/void_mark/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	UnregisterSignal(user, list(COMSIG_HERETIC_MANSUS_GRASP_ATTACK, COMSIG_HERETIC_BLADE_ATTACK))
 
 /datum/heretic_knowledge/void_mark/proc/on_mansus_grasp(mob/living/source, mob/living/target)
@@ -173,7 +168,7 @@
 		/datum/heretic_knowledge/rune_carver,
 		/datum/heretic_knowledge/crucible,
 	)
-	spell_to_add = /obj/effect/proc_holder/spell/pointed/void_phase
+	spell_to_add = /datum/action/spell/pointed/void_phase
 	cost = 1
 	route = HERETIC_PATH_VOID
 
@@ -191,10 +186,10 @@
 	route = HERETIC_PATH_VOID
 
 
-/datum/heretic_knowledge/void_blade_upgrade/on_gain(mob/user)
+/datum/heretic_knowledge/void_blade_upgrade/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
 	RegisterSignal(user, COMSIG_HERETIC_RANGED_BLADE_ATTACK, PROC_REF(on_ranged_eldritch_blade))
 
-/datum/heretic_knowledge/void_blade_upgrade/on_lose(mob/user)
+/datum/heretic_knowledge/void_blade_upgrade/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	UnregisterSignal(user, COMSIG_HERETIC_RANGED_BLADE_ATTACK)
 
 /datum/heretic_knowledge/void_blade_upgrade/proc/on_ranged_eldritch_blade(mob/living/user, mob/living/target)
@@ -222,7 +217,7 @@
 		/datum/heretic_knowledge/spell/blood_siphon,
 		/datum/heretic_knowledge/summon/rusty
 	)
-	spell_to_add = /obj/effect/proc_holder/spell/targeted/void_pull
+	spell_to_add = /datum/action/spell/aoe/void_pull
 	cost = 1
 	route = HERETIC_PATH_VOID
 
@@ -237,6 +232,8 @@
 		The Aristocrat stands before me, beckoning. We will play a waltz to the whispers of dying reality, \
 		as the world is destroyed before our eyes. The void will return all to nothing, WITNESS MY ASCENSION!"
 	route = HERETIC_PATH_VOID
+	announcement_text = "The nobleman of void %USER% has arrived, stepping along to the Waltz that ends worlds!"
+	announcement_sound = 'sound/ambience/antag/heretic/ascend_void.ogg'
 	///soundloop for the void theme
 	var/datum/looping_sound/void_loop/sound_loop
 	///Reference to the ongoing voidstrom that surrounds the heretic
@@ -248,7 +245,7 @@
 		return FALSE
 
 	var/turf/open/our_turf = loc
-	if(our_turf.GetTemperature() > T0C)
+	if(our_turf.get_temperature() > T0C)
 		loc.balloon_alert(user, "ritual failed, not cold enough!")
 		return FALSE
 
@@ -256,17 +253,18 @@
 
 /datum/heretic_knowledge/final/void_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
-	priority_announce("[generate_heretic_text()] The nobleman of void [user.real_name] has arrived, step along to the Waltz that ends worlds! [generate_heretic_text()]","[generate_heretic_text()]", ANNOUNCER_SPANOMALIES)
 	ADD_TRAIT(user, TRAIT_RESISTLOWPRESSURE, MAGIC_TRAIT)
 
 	// Let's get this show on the road!
 	sound_loop = new(user, TRUE, TRUE)
 	RegisterSignal(user, COMSIG_LIVING_LIFE, PROC_REF(on_life))
 	RegisterSignal(user, COMSIG_MOB_DEATH, PROC_REF(on_death))
+	SSsecurity_level.set_level(SEC_LEVEL_LAMBDA)
 
-/datum/heretic_knowledge/final/void_final/on_lose(mob/user)
+/datum/heretic_knowledge/final/void_final/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	on_death() // Losing is pretty much dying. I think
 	RegisterSignals(user, list(COMSIG_LIVING_LIFE, COMSIG_MOB_DEATH))
+	SSsecurity_level.set_level(SEC_LEVEL_BLUE)
 
 /**
  * Signal proc for [COMSIG_LIVING_LIFE].
@@ -288,7 +286,7 @@
 	var/turf/open/source_turf = get_turf(source)
 	if(!isopenturf(source_turf))
 		return
-	source_turf.TakeTemperature(-20)
+	source_turf.take_temperature(-20)
 
 	var/area/source_area = get_area(source)
 
@@ -304,7 +302,7 @@
  *
  * Stop the storm when the heretic passes away.
  */
-/datum/heretic_knowledge/final/void_final/proc/on_death()
+/datum/heretic_knowledge/final/void_final/proc/on_death(datum/source)
 	SIGNAL_HANDLER
 
 	if(sound_loop)

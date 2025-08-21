@@ -12,8 +12,8 @@
 		/datum/surgery_step/close
 		)
 
-/datum/surgery/hepatectomy/can_start(mob/user, mob/living/carbon/target, target_zone)
-	var/obj/item/organ/liver/L = target.getorganslot(ORGAN_SLOT_LIVER)
+/datum/surgery/hepatectomy/can_start(mob/user, mob/living/carbon/target)
+	var/obj/item/organ/liver/L = target.get_organ_slot(ORGAN_SLOT_LIVER)
 	if(L?.damage > 50 && !(L.organ_flags & ORGAN_FAILING))
 		return TRUE
 
@@ -21,26 +21,26 @@
 //95% chance of success, not 100 because organs are delicate
 /datum/surgery_step/hepatectomy
 	name = "remove damaged liver section"
-	implements = list(TOOL_SCALPEL = 95, /obj/item/melee/transforming/energy/sword = 65, /obj/item/knife = 45,
+	implements = list(TOOL_SCALPEL = 95, /obj/item/melee/energy/sword = 65, /obj/item/knife = 45,
 		/obj/item/shard = 35)
 	time = 52
 
-/datum/surgery_step/hepatectomy/preop(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
-	display_results(user, target, "<span class='notice'>You begin to cut out a damaged piece of [target]'s liver...</span>",
-		"<span class='notice'>[user] begins to make an incision in [target].</span>",
-		"<span class='notice'>[user] begins to make an incision in [target].</span>")
+/datum/surgery_step/hepatectomy/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	display_results(user, target, span_notice("You begin to cut out a damaged piece of [target]'s liver..."),
+		span_notice("[user] begins to make an incision in [target]."),
+		span_notice("[user] begins to make an incision in [target]."))
 
-/datum/surgery_step/hepatectomy/success(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/hepatectomy/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
 	var/mob/living/carbon/human/H = target
 	H.setOrganLoss(ORGAN_SLOT_LIVER, 10) //not bad, not great
-	display_results(user, target, "<span class='notice'>You successfully remove the damaged part of [target]'s liver.</span>",
-		"<span class='notice'>[user] successfullly removes the damaged part of [target]'s liver.",
-		"<span class='notice'>[user] successfullly removes the damaged part of [target]'s liver.")
-	return TRUE
+	display_results(user, target, span_notice("You successfully remove the damaged part of [target]'s liver."),
+		span_notice("[user] successfully removes the damaged part of [target]'s liver."),
+		span_notice("[user] successfully removes the damaged part of [target]'s liver."))
+	return ..()
 
 /datum/surgery_step/hepatectomy/failure(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery)
 	var/mob/living/carbon/human/H = target
 	H.adjustOrganLoss(ORGAN_SLOT_LIVER, 15)
-	display_results(user, target, "<span class='warning'>You cut the wrong part of [target]'s liver!</span>",
-		"<span class='warning'>[user] cuts the wrong part of [target]'s liver!",
-		"<span class='warning'>[user] cuts the wrong part of [target]'s liver!")
+	display_results(user, target, span_warning("You cut the wrong part of [target]'s liver!"),
+		span_warning("[user] cuts the wrong part of [target]'s liver!"),
+		span_warning("[user] cuts the wrong part of [target]'s liver!"))

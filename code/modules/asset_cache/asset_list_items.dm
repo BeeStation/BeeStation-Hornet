@@ -50,6 +50,13 @@
 		"smmon_4.gif" = 'icons/program_icons/smmon_4.gif',
 		"smmon_5.gif" = 'icons/program_icons/smmon_5.gif',
 		"smmon_6.gif" = 'icons/program_icons/smmon_6.gif',
+		"antivirus_0.gif" = 'icons/program_icons/antivirus_0.gif',
+		"antivirus_1.gif" = 'icons/program_icons/antivirus_1.gif',
+		"antivirus_2.gif" = 'icons/program_icons/antivirus_2.gif',
+		"antivirus_3.gif" = 'icons/program_icons/antivirus_3.gif',
+		"antivirus_4.gif" = 'icons/program_icons/antivirus_4.gif',
+		"power_drain.gif" = 'icons/program_icons/power_drain.gif',
+		"no_relay.gif" = 'icons/program_icons/no_relay.gif',
 		"borg_self_monitor.gif" = 'icons/program_icons/borg_self_monitor.gif'
 	)
 
@@ -60,9 +67,9 @@
 
 /datum/asset/simple/radar_assets
 	assets = list(
-		"ntosradarbackground.png"	= 'icons/UI_Icons/tgui/ntosradar_background.png',
-		"ntosradarpointer.png"		= 'icons/UI_Icons/tgui/ntosradar_pointer.png',
-		"ntosradarpointerS.png"		= 'icons/UI_Icons/tgui/ntosradar_pointer_S.png'
+		"ntosradarbackground.png"	= 'icons/ui_icons/tgui/ntosradar_background.png',
+		"ntosradarpointer.png"		= 'icons/ui_icons/tgui/ntosradar_pointer.png',
+		"ntosradarpointerS.png"		= 'icons/ui_icons/tgui/ntosradar_pointer_S.png'
 	)
 
 /datum/asset/spritesheet/simple/pda
@@ -136,31 +143,6 @@
 		"fuckywucky.png" = 'html/fuckywucky.png'
 	)
 
-/datum/asset/simple/namespaced/changelog
-	assets = list(
-		"88x31.png" = 'html/88x31.png',
-		"bug-minus.png" = 'html/bug-minus.png',
-		"cross-circle.png" = 'html/cross-circle.png',
-		"hard-hat-exclamation.png" = 'html/hard-hat-exclamation.png',
-		"image-minus.png" = 'html/image-minus.png',
-		"image-plus.png" = 'html/image-plus.png',
-		"music-minus.png" = 'html/music-minus.png',
-		"music-plus.png" = 'html/music-plus.png',
-		"tick-circle.png" = 'html/tick-circle.png',
-		"wrench-screwdriver.png" = 'html/wrench-screwdriver.png',
-		"spell-check.png" = 'html/spell-check.png',
-		"burn-exclamation.png" = 'html/burn-exclamation.png',
-		"chevron.png" = 'html/chevron.png',
-		"chevron-expand.png" = 'html/chevron-expand.png',
-		"scales.png" = 'html/scales.png',
-		"coding.png" = 'html/coding.png',
-		"ban.png" = 'html/ban.png',
-		"chrome-wrench.png" = 'html/chrome-wrench.png',
-		"changelog.css" = 'html/changelog.css'
-	)
-	parents = list("changelog.html" = 'html/changelog.html')
-
-
 /datum/asset/simple/jquery
 	legacy = TRUE
 	assets = list(
@@ -226,18 +208,43 @@
 
 /datum/asset/simple/arcade
 	assets = list(
-		"boss1.gif" = 'icons/UI_Icons/Arcade/boss1.gif',
-		"boss2.gif" = 'icons/UI_Icons/Arcade/boss2.gif',
-		"boss3.gif" = 'icons/UI_Icons/Arcade/boss3.gif',
-		"boss4.gif" = 'icons/UI_Icons/Arcade/boss4.gif',
-		"boss5.gif" = 'icons/UI_Icons/Arcade/boss5.gif',
-		"boss6.gif" = 'icons/UI_Icons/Arcade/boss6.gif',
+		"boss1.gif" = 'icons/ui_icons/Arcade/boss1.gif',
+		"boss2.gif" = 'icons/ui_icons/Arcade/boss2.gif',
+		"boss3.gif" = 'icons/ui_icons/Arcade/boss3.gif',
+		"boss4.gif" = 'icons/ui_icons/Arcade/boss4.gif',
+		"boss5.gif" = 'icons/ui_icons/Arcade/boss5.gif',
+		"boss6.gif" = 'icons/ui_icons/Arcade/boss6.gif',
 		)
 
 /datum/asset/spritesheet/simple/achievements
 	name ="achievements"
 	assets = list(
-		"default" = 'icons/UI_Icons/Achievements/default.png'
+		"default" = 'icons/ui_icons/Achievements/default.png'
+	)
+
+/datum/asset/spritesheet/simple/condiments
+	name = "condiments"
+	assets = list(
+		CONDIMASTER_STYLE_FALLBACK = 'icons/ui_icons/condiments/bottle.png',
+		"flour" = 'icons/ui_icons/condiments/flour.png',
+		"rice" = 'icons/ui_icons/condiments/rice.png',
+		"sugar" = 'icons/ui_icons/condiments/sugar.png',
+		"milk" = 'icons/ui_icons/condiments/milk.png',
+		"enzyme" = 'icons/ui_icons/condiments/enzyme.png',
+		"capsaicin" = 'icons/ui_icons/condiments/hotsauce.png',
+		"frostoil" = 'icons/ui_icons/condiments/coldsauce.png',
+		"bbqsauce" = 'icons/ui_icons/condiments/bbqsauce.png',
+		"soymilk" = 'icons/ui_icons/condiments/soymilk.png',
+		"soysauce" = 'icons/ui_icons/condiments/soysauce.png',
+		"ketchup" = 'icons/ui_icons/condiments/ketchup.png',
+		"mayonnaise" = 'icons/ui_icons/condiments/mayonnaise.png',
+		"oliveoil" = 'icons/ui_icons/condiments/oliveoil.png',
+		"cooking_oil" = 'icons/ui_icons/condiments/cookingoil.png',
+		"peanut_butter" = 'icons/ui_icons/condiments/peanutbutter.png',
+		"cherryjelly" = 'icons/ui_icons/condiments/cherryjelly.png',
+		"honey" = 'icons/ui_icons/condiments/honey.png',
+		"blackpepper" = 'icons/ui_icons/condiments/peppermillsmall.png',
+		"sodiumchloride" = 'icons/ui_icons/condiments/saltshakersmall.png',
 	)
 
 /datum/asset/spritesheet_batched/medicine_containers
@@ -336,7 +343,7 @@
 			if (!ispath(item, /atom))
 				// biogenerator outputs to beakers by default
 				if (initial(D.build_type) & BIOGENERATOR)
-					item = /obj/item/reagent_containers/glass/beaker/large
+					item = /obj/item/reagent_containers/cup/beaker/large
 				else
 					continue  // shouldn't happen, but just in case
 					// hint^ it does fucking happen. this was giving me so much trouble
@@ -353,7 +360,7 @@
 				continue
 			if(ispath(item, /obj/item/bodypart)) // mmm snowflake limbcode as usual
 				var/obj/item/bodypart/body_part = item
-				icon_file = initial(body_part.static_icon)
+				icon_file = initial(body_part.icon_static)
 			else
 				icon_file = initial(item.icon)
 
@@ -382,53 +389,52 @@
 /datum/asset/spritesheet_batched/vending/create_spritesheets()
 	// initialising the list of items we need
 	var/target_items = list()
-	var/prize_dummy = list()
-	for(var/obj/machinery/vendor/V as() in subtypesof(/obj/machinery/vendor))
-		V = new V()
-		prize_dummy |= V.prize_list // prize_list is added by Init()
-		qdel(V)
-	for(var/datum/data/vendor_equipment/V as() in prize_dummy)
-		target_items |= V.equipment_path
-	for(var/obj/machinery/vending/V as() in subtypesof(/obj/machinery/vending))
-		V = new V() // It seems `initial(list var)` has nothing. need to make a type.
-		for(var/O in list(V.products, V.premium, V.contraband))
-			target_items |= O
-		qdel(V)
-	for(var/atom/item as() in target_items)
-		if (!ispath(item, /atom))
-			return FALSE
+	for(var/obj/machinery/vending/vendor as anything in subtypesof(/obj/machinery/vending))
+		vendor = new vendor() // It seems `initial(list var)` has nothing. need to make a type.
+		target_items |= vendor.products
+		target_items |= vendor.premium
+		target_items |= vendor.contraband
+		qdel(vendor)
 
-		var/overlay = initial(item.icon_state)
-		var/icon_init = initial(item.icon)
-		var/list/icon_states_available = icon_states(icon_init)
-		if(!(overlay in icon_states_available))
-			var/icon_file = "[icon_init]" || "Unknown Generated Icon"
-			stack_trace("Invalid overlay: Icon object '[icon_file]' [REF(src)] used in '[src]' [type] is missing icon state [overlay].")
+	// Add mining vendor items
+	for(var/obj/machinery/gear_requisition/mining_vendor as anything in subtypesof(/obj/machinery/gear_requisition))
+		mining_vendor = new mining_vendor()
+		for(var/datum/data/requisition_equipment/prize in mining_vendor.prize_list)
+			target_items |= prize.equipment_path
+		qdel(mining_vendor)
+
+	// building icons for each item
+	for (var/atom/item as anything in target_items)
+		if (!ispath(item, /atom))
 			continue
+
+		var/icon_state = initial(item.icon_state)
+		if(ispath(item, /obj))
+			var/obj/obj_atom = item
+			if(initial(obj_atom.icon_state_preview))
+				icon_state = initial(obj_atom.icon_state_preview)
+		var/has_gags = initial(item.greyscale_config) && initial(item.greyscale_colors)
+		var/has_color = initial(item.color) && icon_state
+		// GAGS and colored icons must be pregenerated
+		// Otherwise we can rely on DMIcon, so skip it to save init time
+		if(!has_gags && !has_color)
+			continue
+		#ifdef UNIT_TESTS
+		if (!has_gags && !icon_exists(initial(item.icon), icon_state))
+			var/icon_file = initial(item.icon)
+			var/icon_states_string
+			for (var/an_icon_state in icon_states(icon_file))
+				if (!icon_states_string)
+					icon_states_string = "[json_encode(an_icon_state)]([text_ref(an_icon_state)])"
+				else
+					icon_states_string += ", [json_encode(an_icon_state)]([text_ref(an_icon_state)])"
+
+			stack_trace("[item] does not have a valid icon state, icon=[icon_file], icon_state=[json_encode(icon_state)]([text_ref(icon_state)]), icon_states=[icon_states_string]")
+			continue
+		#endif
 
 		var/imgid = replacetext(replacetext("[item]", "/obj/item/", ""), "/", "-")
 		insert_icon(imgid, get_display_icon_for(item))
-
-/datum/asset/spritesheet_batched/crafting
-	name = "crafting"
-
-/datum/asset/spritesheet_batched/crafting/create_spritesheets()
-	var/chached_list = list()
-	for(var/datum/crafting_recipe/R in GLOB.crafting_recipes)
-		if(!R.name)
-			continue
-		var/atom/A = R.result
-		if(!ispath(A, /atom))
-			stack_trace("The recipe '[R.type]' has '[A]' which is not atom. This is because our crafting system is not up-to-date to TG's.")
-			continue
-		if(chached_list[A]) // this prevents an icon to be inserted again
-			continue
-		chached_list[A] = TRUE
-
-		var/imgid = replacetext(copytext("[A]", 2), "/", "-")
-		var/datum/universal_icon/entry = get_display_icon_for(A)
-		entry.scale(42, 42)
-		insert_icon(imgid, entry)
 
 // basically admin debugging tool assets
 /datum/asset/spritesheet_batched/tools
@@ -459,7 +465,7 @@
 		"cultivator" = uni_icon('icons/obj/items_and_weapons.dmi', "cultivator"),
 		"spade" = uni_icon('icons/obj/mining.dmi', "spade"),
 		TOOL_RUSTSCRAPER = uni_icon('icons/obj/tools.dmi', "wirebrush"),
-		TOOL_ROLLINGPIN = uni_icon('icons/obj/kitchen.dmi', "rolling_pin"),
+		TOOL_ROLLINGPIN = uni_icon('icons/obj/service/kitchen.dmi', "rolling_pin"),
 		TOOL_BIKEHORN = uni_icon('icons/obj/items_and_weapons.dmi', "bike_horn"),
 		"debug_placeholder" = uni_icon('icons/obj/device.dmi', "hypertool")
 	)
@@ -514,14 +520,15 @@
 		"atool.png" = 'html/img/atool.png',
 		"apistol.png" = 'html/img/apistol.png',
 		"scitool.png" = 'html/img/scitool.png',
-		"alienorgan.png"= 'html/img/alienorgan.png',
-		"abaton.png"= 'html/img/abaton.png',
-		"spiderguard.png"= 'html/img/spiderguard.png',
-		"spiderbroodmother.png"= 'html/img/spiderbroodmother.png',
-		"spidernurse.png"= 'html/img/spidernurse.png',
-		"spiderhunter.png"= 'html/img/spiderhunter.png',
-		"spiderviper.png"= 'html/img/spiderviper.png',
-		"spidertarantula.png"= 'html/img/spidertarantula.png',
+		"alienorgan.png" = 'html/img/alienorgan.png',
+		"abaton.png" = 'html/img/abaton.png',
+		"spiderguard.png" = 'html/img/spiderguard.png',
+		"spiderbroodmother.png" = 'html/img/spiderbroodmother.png',
+		"spidernurse.png" = 'html/img/spidernurse.png',
+		"spiderhunter.png" = 'html/img/spiderhunter.png',
+		"spiderviper.png" = 'html/img/spiderviper.png',
+		"spidertarantula.png" = 'html/img/spidertarantula.png',
+		"vampire.png" = 'html/img/vampire.png',
 	)
 
 /datum/asset/simple/orbit
@@ -552,13 +559,25 @@
 	var/tab = "use subtypes of this please"
 	assets = list()
 
+/datum/asset/simple/portraits/library
+	tab = "library"
+
+/datum/asset/simple/portraits/library_secure
+	tab = "library_secure"
+
+/datum/asset/simple/portraits/library_private
+	tab = "library_private"
+
+/datum/asset/simple/portraits
+	assets = list()
+
 /datum/asset/simple/portraits/New()
-	if(!length(SSpersistence.paintings[tab]))
+	if(!length(SSpersistent_paintings.paintings))
 		return
-	for(var/list/portrait as anything in SSpersistence.paintings[tab])
-		var/png = "data/paintings/[tab]/[portrait["md5"]].png"
+	for(var/datum/painting/portrait as anything in SSpersistent_paintings.paintings)
+		var/png = "data/paintings/images/[portrait.md5].png"
 		if(fexists(png))
-			var/asset_name = "[tab]_[portrait["md5"]]"
+			var/asset_name = "paintings_[portrait.md5]"
 			assets[asset_name] = png
 	..() //this is where it registers all these assets we added to the list
 
@@ -603,3 +622,105 @@
 		if (icon != 'icons/misc/language.dmi')
 			var/icon_state = initial(L.icon_state)
 			insert_icon("language-[icon_state]", uni_icon(icon, icon_state))
+
+/// Maps icon names to ref values
+/datum/asset/json/icon_ref_map
+	name = "icon_ref_map"
+	early = TRUE
+
+/datum/asset/json/icon_ref_map/generate()
+	var/list/data = list() //"icons/obj/drinks.dmi" => "[0xc000020]"
+
+	//var/start = "0xc000000"
+	var/value = 0
+
+	while(TRUE)
+		value += 1
+		var/ref = "\[0xc[num2text(value,6,16)]\]"
+		var/mystery_meat = locate(ref)
+
+		if(isicon(mystery_meat))
+			if(!isfile(mystery_meat)) // Ignore the runtime icons for now
+				continue
+			var/path = get_icon_dmi_path(mystery_meat) //Try to get the icon path
+			if(path)
+				data[path] = ref
+		else if(mystery_meat)
+			continue //Some other non-icon resource, ogg/json/whatever
+		else //Out of resources end this, could also try to end this earlier as soon as runtime generated icons appear but eh
+			break
+
+	return data
+///Representative icons for the contents of each crafting recipe
+/datum/asset/spritesheet_batched/crafting
+	name = "crafting"
+
+/datum/asset/spritesheet_batched/crafting/create_spritesheets()
+	var/id = 1
+	for(var/atom in GLOB.crafting_recipes_atoms)
+		add_atom_icon(atom, id++)
+	add_tool_icons()
+
+/datum/asset/spritesheet_batched/crafting/cooking
+	name = "cooking"
+
+/datum/asset/spritesheet_batched/crafting/cooking/create_spritesheets()
+	var/id = 1
+	for(var/atom in GLOB.cooking_recipes_atoms)
+		add_atom_icon(atom, id++)
+
+/**
+ * Adds the ingredient icon to the spritesheet with given ID
+ *
+ * ingredient_typepath can be an obj typepath OR a reagent typepath
+ *
+ * If it a reagent, it will use the default container's icon state,
+ * OR if it has a glass style associated, it will use that
+ */
+/datum/asset/spritesheet_batched/crafting/proc/add_atom_icon(ingredient_typepath, id)
+	var/icon_file
+	var/icon_state
+	var/obj/preview_item = ingredient_typepath
+	if(ispath(ingredient_typepath, /datum/reagent))
+		var/datum/reagent/reagent = ingredient_typepath
+		preview_item = initial(reagent.default_container)
+		var/datum/glass_style/style = GLOB.glass_style_singletons[preview_item]?[reagent]
+		if(istype(style))
+			icon_file = style.icon
+			icon_state = style.icon_state
+
+	icon_file ||= initial(preview_item.icon_preview) || initial(preview_item.icon)
+	icon_state ||= initial(preview_item.icon_state_preview) || initial(preview_item.icon_state)
+
+	//if(PERFORM_ALL_TESTS(focus_only/bad_cooking_crafting_icons))
+	//	if(!icon_exists(icon_file, icon_state, scream = TRUE))
+	//		return
+
+	insert_icon("a[id]", uni_icon(icon_file, icon_state, SOUTH))
+
+///Adds tool icons to the spritesheet
+/datum/asset/spritesheet_batched/crafting/proc/add_tool_icons()
+	var/list/tool_icons = list(
+		TOOL_CROWBAR = uni_icon('icons/obj/tools.dmi', "crowbar"),
+		TOOL_MULTITOOL = uni_icon('icons/obj/device.dmi', "multitool"),
+		TOOL_SCREWDRIVER = uni_icon('icons/obj/tools.dmi', "screwdriver_map"),
+		TOOL_WIRECUTTER = uni_icon('icons/obj/tools.dmi', "cutters_map"),
+		TOOL_WRENCH = uni_icon('icons/obj/tools.dmi', "wrench"),
+		TOOL_WELDER = uni_icon('icons/obj/tools.dmi', "welder"),
+		TOOL_ANALYZER = uni_icon('icons/obj/device.dmi', "analyzer"),
+		TOOL_MINING = uni_icon('icons/obj/mining.dmi', "minipick"),
+		TOOL_SHOVEL = uni_icon('icons/obj/mining.dmi', "spade"),
+		TOOL_RETRACTOR = uni_icon('icons/obj/surgery.dmi', "retractor"),
+		TOOL_HEMOSTAT = uni_icon('icons/obj/surgery.dmi', "hemostat"),
+		TOOL_CAUTERY = uni_icon('icons/obj/surgery.dmi', "cautery"),
+		TOOL_DRILL = uni_icon('icons/obj/surgery.dmi', "drill"),
+		TOOL_SCALPEL = uni_icon('icons/obj/surgery.dmi', "scalpel"),
+		TOOL_SAW = uni_icon('icons/obj/surgery.dmi', "saw"),
+		TOOL_KNIFE = uni_icon('icons/obj/service/kitchen.dmi', "knife"),
+		TOOL_BLOODFILTER = uni_icon('icons/obj/surgery.dmi', "bloodfilter"),
+		TOOL_ROLLINGPIN = uni_icon('icons/obj/service/kitchen.dmi', "rolling_pin"),
+		TOOL_RUSTSCRAPER = uni_icon('icons/obj/tools.dmi', "wirebrush"),
+	)
+
+	for(var/tool in tool_icons)
+		insert_icon(replacetext(tool, " ", ""), tool_icons[tool])

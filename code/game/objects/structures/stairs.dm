@@ -18,6 +18,7 @@
 
 
 /obj/structure/stairs/Initialize(mapload)
+	GLOB.stairs += src
 	if(force_open_above)
 		force_open_above()
 		build_signal_listener()
@@ -33,6 +34,7 @@
 
 /obj/structure/stairs/Destroy()
 	listeningTo = null
+	GLOB.stairs -= src
 	return ..()
 
 /obj/structure/stairs/Move()			//Look this should never happen but...
@@ -42,7 +44,7 @@
 	update_surrounding()
 
 // Passthrough for 0G travel
-/obj/structure/stairs/attack_hand(mob/user)
+/obj/structure/stairs/attack_hand(mob/user, list/modifiers)
 	var/turf/T = get_turf(src)
 	T.attack_hand(user)
 
@@ -138,3 +140,7 @@
 
 /obj/structure/stairs/attack_ghost(mob/user)
 	stair_ascend(user)
+
+#undef STAIR_TERMINATOR_AUTOMATIC
+#undef STAIR_TERMINATOR_NO
+#undef STAIR_TERMINATOR_YES

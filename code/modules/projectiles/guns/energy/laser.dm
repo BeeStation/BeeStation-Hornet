@@ -30,6 +30,44 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/old)
 	ammo_x_offset = 3
 
+/obj/item/gun/energy/laser/repeater
+	name = "NT LRR Model 2284"
+	icon_state = "repeater"
+	item_state = null
+	desc = "An experimental laser repeater rifle that uses a built-in bluespace dynamo to recharge its battery, crank it and fire!"
+	gun_charge = 200
+	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/repeater)
+	can_charge = FALSE //don't put this in a recharger
+	var/cranking = FALSE
+	var/fire_interrupted = FALSE
+
+/obj/item/gun/energy/laser/repeater/proc/crank_charge(mob/living/user)
+	if(cell.charge >= gun_charge)
+		to_chat(user,"<span class='danger'>The gun is at maximum charge already!</span>")
+		return
+	else if(!cranking)
+		balloon_alert(user, "You start cranking")
+		while(cell.charge < gun_charge)
+			cranking = TRUE
+			if(do_after(user, 1 SECONDS) && !fire_interrupted)
+				playsound(src, 'sound/weapons/autoguninsert.ogg', 30)
+				cell.give(50)
+				flick("repeater", src)
+				update_icon()
+			else
+				break
+	cranking = FALSE
+	fire_interrupted = FALSE
+
+/obj/item/gun/energy/laser/repeater/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
+	if(cranking)
+		fire_interrupted = TRUE //no more cranking when you shoot.
+	return ..()
+
+/obj/item/gun/energy/laser/repeater/attack_self(mob/living/user)
+	if(!cranking)
+		crank_charge(user)
+
 /obj/item/gun/energy/laser/captain
 	name = "antique laser gun"
 	icon_state = "caplaser"
@@ -45,6 +83,13 @@
 	weapon_weight = WEAPON_LIGHT
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
+/obj/item/gun/energy/laser/captain/contents_explosion(severity, target)
+	if (!ammo_type || !cell)
+		name = "\improper broken antique laser gun"
+		desc = "This is an antique laser gun. All craftsmanship is of the highest quality. It was decorated with leather and chrome. Seems too be damaged to the point of not functioning, but still valuable."
+		icon_state = "caplaser_broken"
+		update_icon()
+
 /obj/item/gun/energy/laser/captain/scattershot
 	name = "scatter shot laser rifle"
 	icon_state = "lasercannon"
@@ -52,11 +97,21 @@
 	desc = "An industrial-grade heavy-duty laser rifle with a modified laser lens to scatter its shot into multiple smaller lasers. The inner-core can self-charge for theoretically infinite use."
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter, /obj/item/ammo_casing/energy/laser)
 	shaded_charge = FALSE
+	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
+
+/obj/item/gun/energy/laser/captain/scattershot/contents_explosion(severity, target)
+	return
 
 /obj/item/gun/energy/laser/cyborg
-	can_charge = FALSE
 	desc = "An energy-based laser gun that draws power from the cyborg's internal energy cell directly. So this is what freedom looks like?"
+	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/cyborg)
+	gun_charge = 1000 	//10 shot capacity
+	fire_rate = 2 		//Two shots per second, higher DPS due to hacked module but still slightly worse than normal laser gun
+	charge_delay = 6 	//Still 10 shots per minute overall
+
+	can_charge = FALSE
 	use_cyborg_cell = TRUE
+	requires_wielding = FALSE
 
 /obj/item/gun/energy/laser/cyborg/emp_act()
 	return

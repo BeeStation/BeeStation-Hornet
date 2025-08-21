@@ -8,9 +8,9 @@ SUBSYSTEM_DEF(ban_cache)
 	flags = SS_NO_FIRE
 	var/query_started = FALSE
 
-/datum/controller/subsystem/ban_cache/Initialize(start_timeofday)
+/datum/controller/subsystem/ban_cache/Initialize()
 	generate_queries()
-	return ..()
+	return SS_INIT_SUCCESS
 
 /// Generates ban caches for any logged in clients. This ensures the amount of in-series ban checking we have to do that actually involves sleeps is VERY low
 /datum/controller/subsystem/ban_cache/proc/generate_queries()
@@ -29,6 +29,9 @@ SUBSYSTEM_DEF(ban_cache)
 		// If they've already got a ban cached, or a request goin, don't do it
 		if(lad.ban_cache || lad.ban_cache_start)
 			continue
+		// skip pre-auth users
+		if(!lad.logged_in)
+			continue
 
 		look_for += ckey
 		lad.ban_cache_start = current_time
@@ -36,6 +39,9 @@ SUBSYSTEM_DEF(ban_cache)
 		query_args += list("key[num_keys]" = ckey)
 		query_arg_keys += ":key[num_keys]"
 		num_keys++
+
+	if(num_keys == 0)
+		return
 
 	// We're gonna try and make a query for clients
 	var/datum/db_query/query_batch_ban_cache = SSdbcore.NewQuery(

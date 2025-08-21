@@ -1,4 +1,4 @@
-/datum/admins/proc/open_borgopanel(borgo in GLOB.silicon_mobs)
+/datum/admins/proc/open_borgopanel(mob/living/silicon/robot/borgo as null|anything in GLOB.cyborg_list)
 	set category = "Admin"
 	set name = "Show Borg Panel"
 	set desc = "Show borg panel"
@@ -6,10 +6,19 @@
 	if(!check_rights(R_ADMIN))
 		return
 
-	if (!istype(borgo, /mob/living/silicon/robot))
-		borgo = input("Select a borg", "Select a borg", null, null) as null|anything in sort_names(GLOB.silicon_mobs)
-	if (!istype(borgo, /mob/living/silicon/robot))
-		to_chat(usr, "<span class='warning'>Borg is required for borgpanel</span>")
+	if(!length(GLOB.cyborg_list))
+		to_chat(usr, span_warning("There are no borgs to show a panel for!"))
+		return
+
+	if(isnull(borgo))
+		borgo = input("Select a borg", "Select a borg", null, null) as null|anything in sort_names(GLOB.cyborg_list)
+
+	if(!istype(borgo))
+		return
+
+	if(QDELING(borgo))
+		to_chat(usr, span_warning("Cannot open a panel for that borg, it's being/been deleted!"))
+		return
 
 	var/datum/borgpanel/borgpanel = new(usr, borgo)
 
@@ -49,7 +58,7 @@
 		"ref" = REF(borg),
 		"name" = "[borg]",
 		"emagged" = borg.emagged,
-		"active_module" = "[borg.module.type]",
+		"active_module" = "[borg.model.type]",
 		"lawupdate" = borg.lawupdate,
 		"lockdown" = borg.lockcharge,
 		"scrambledcodes" = borg.scrambledcodes
@@ -57,7 +66,7 @@
 	.["upgrades"] = list()
 	for (var/upgradetype in subtypesof(/obj/item/borg/upgrade)-/obj/item/borg/upgrade/hypospray) //hypospray is a dummy parent for hypospray upgrades
 		var/obj/item/borg/upgrade/upgrade = upgradetype
-		if (initial(upgrade.module_type) && !is_type_in_list(borg.module, initial(upgrade.module_type))) // Upgrade requires a different module
+		if (initial(upgrade.model_type) && !is_type_in_list(borg.model, initial(upgrade.model_type))) // Upgrade requires a different module
 			continue
 		var/installed = FALSE
 		if (locate(upgradetype) in borg)
@@ -71,14 +80,14 @@
 		.["channels"] += list(list("name" = k, "installed" = (k in borg.radio.channels)))
 	.["cell"] = borg.cell ? list("missing" = FALSE, "maxcharge" = borg.cell.maxcharge, "charge" = borg.cell.charge) : list("missing" = TRUE, "maxcharge" = 1, "charge" = 0)
 	.["modules"] = list()
-	for(var/moduletype in typesof(/obj/item/robot_module))
-		var/obj/item/robot_module/module = moduletype
+	for(var/model_type in typesof(/obj/item/robot_model))
+		var/obj/item/robot_model/model = model_type
 		.["modules"] += list(list(
-			"name" = initial(module.name),
-			"type" = "[module]"
+			"name" = initial(model.name),
+			"type" = "[model]"
 		))
 	.["ais"] = list(list("name" = "None", "ref" = "null", "connected" = isnull(borg.connected_ai)))
-	for(var/mob/living/silicon/ai/ai in GLOB.ai_list)
+	for(var/mob/living/silicon/ai/ai as anything in GLOB.ai_list)
 		.["ais"] += list(list("name" = ai.name, "ref" = REF(ai), "connected" = (borg.connected_ai == ai)))
 
 
@@ -152,11 +161,9 @@
 			var/upgradepath = text2path(params["upgrade"])
 			var/obj/item/borg/upgrade/installedupgrade = locate(upgradepath) in borg
 			if (installedupgrade)
-				installedupgrade.deactivate(borg, user)
-				borg.upgrades -= installedupgrade
 				message_admins("[key_name_admin(user)] removed the [installedupgrade] upgrade from [ADMIN_LOOKUPFLW(borg)].")
 				log_admin("[key_name(user)] removed the [installedupgrade] upgrade from [key_name(borg)].")
-				qdel(installedupgrade)
+				qdel(installedupgrade) // see [mob/living/silicon/robot/on_upgrade_deleted()].
 			else
 				var/obj/item/borg/upgrade/upgrade = new upgradepath(borg)
 				upgrade.action(borg, user)
@@ -192,11 +199,11 @@
 				log_admin("[key_name(user)] added the [channel] radio channel to [key_name(borg)].")
 			borg.radio.recalculateChannels()
 		if ("setmodule")
-			var/newmodulepath = text2path(params["module"])
-			if (ispath(newmodulepath))
-				borg.module.transform_to(newmodulepath)
-				message_admins("[key_name_admin(user)] changed the module of [ADMIN_LOOKUPFLW(borg)] to [newmodulepath].")
-				log_admin("[key_name(user)] changed the module of [key_name(borg)] to [newmodulepath].")
+			var/new_model_path = text2path(params["module"])
+			if (ispath(new_model_path))
+				borg.model.transform_to(new_model_path)
+				message_admins("[key_name_admin(user)] changed [ADMIN_LOOKUPFLW(borg)]'s model to [new_model_path].")
+				log_admin("[key_name(user)] changed [key_name(borg)]'s model to [new_model_path].")
 		if ("slavetoai")
 			var/mob/living/silicon/ai/newai = locate(params["slavetoai"]) in GLOB.ai_list
 			if (newai && newai != borg.connected_ai)

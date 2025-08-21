@@ -106,7 +106,7 @@
 				)
 		)
 		for(var/turf/affected_turf as anything in template_and_bordering_turfs)
-			affected_turf.air_update_turf(TRUE)
+			affected_turf.air_update_turf(TRUE, TRUE)
 			affected_turf.levelupdate()
 
 /datum/map_template/proc/load_new_z(orbital_body_type, list/level_traits = list(ZTRAIT_AWAY = TRUE))
@@ -148,9 +148,15 @@
 
 	var/list/border = block(locate(max(T.x, 1), max(T.y, 1),  T.z),
 							locate(min(T.x+width, world.maxx), min(T.y+height, world.maxy), T.z))
-	for(var/L in border)
-		var/turf/turf_to_disable = L
-		turf_to_disable.ImmediateDisableAdjacency()
+	// Cache for sonic speed
+	var/list/to_rebuild = SSair.adjacent_rebuild
+	// iterate over turfs in the border and clear them from active atmos processing
+	for(var/turf/border_turf as anything in border)
+		SSair.remove_from_active(border_turf)
+		to_rebuild -= border_turf
+		for(var/turf/sub_turf as anything in border_turf.atmos_adjacent_turfs)
+			sub_turf.atmos_adjacent_turfs?.Remove(border_turf)
+		border_turf.atmos_adjacent_turfs?.Cut()
 
 	// Accept cached maps, but don't save them automatically - we don't want
 	// ruins clogging up memory for the whole round.

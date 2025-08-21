@@ -10,6 +10,12 @@
 	e_cost = 71
 	select_name = "kill"
 
+/obj/item/ammo_casing/energy/lasergun/cyborg
+	e_cost = 100
+
+/obj/item/ammo_casing/energy/lasergun/repeater
+	e_cost = 50
+
 /obj/item/ammo_casing/energy/lasergun/captain
 	e_cost = 100 // Older technology is less efficient
 

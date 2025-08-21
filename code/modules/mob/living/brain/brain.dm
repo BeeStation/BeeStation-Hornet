@@ -5,7 +5,6 @@
 	var/datum/dna/stored/stored_dna // dna var for brain. Used to store dna, brain dna is not considered like actual dna, brain.has_dna() returns FALSE.
 	stat = DEAD //we start dead by default
 	see_invisible = SEE_INVISIBLE_LIVING
-	possible_a_intents = list(INTENT_HELP, INTENT_HARM) //for mechas
 	speech_span = SPAN_ROBOT
 
 /mob/living/brain/Initialize(mapload)
@@ -16,6 +15,9 @@
 		var/obj/item/organ/brain/OB = new(loc) //we create a new brain organ for it.
 		OB.brainmob = src
 		forceMove(OB)
+	if(!container?.mecha) //Unless inside a mecha, brains are rather helpless.
+		ADD_TRAIT(src, TRAIT_IMMOBILIZED, BRAIN_UNAIDED)
+		ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, BRAIN_UNAIDED)
 
 
 /mob/living/brain/proc/create_dna()
@@ -34,12 +36,6 @@
 	container = null
 	QDEL_NULL(stored_dna)
 	return ..()
-
-/mob/living/brain/update_mobility()
-	if(in_contents_of(/obj/vehicle/sealed/mecha))
-		mobility_flags = MOBILITY_FLAGS_DEFAULT
-	else
-		mobility_flags = NONE
 
 /mob/living/brain/ex_act() //you cant blow up brainmobs because it makes transfer_to() freak out when borgs blow up.
 	return
@@ -89,8 +85,6 @@
 		var/obj/vehicle/sealed/mecha/M = container.mecha
 		if(M.mouse_pointer)
 			client.mouse_pointer_icon = M.mouse_pointer
-	if (client && ranged_ability && ranged_ability.ranged_mousepointer)
-		client.mouse_pointer_icon = ranged_ability.ranged_mousepointer
 
 /mob/living/brain/proc/get_traumas()
 	. = list()

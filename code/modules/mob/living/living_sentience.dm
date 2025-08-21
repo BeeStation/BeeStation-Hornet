@@ -32,11 +32,11 @@
 /mob/living/proc/give_mind(mob/user)
 	if(key || !playable || stat)
 		return FALSE
-	var/question = alert("Do you want to become [name]?", "[name]", "Yes", "No")
+	var/question = tgui_alert(user, "Do you want to become [name]?", "[name]", list("Yes", "No"))
 	if(question != "Yes" || !src || QDELETED(src))
 		return FALSE
 	if(key)
-		to_chat(user, "<span class='notice'>Someone else already took [name].</span>")
+		to_chat(user, span_notice("Someone else already took [name]."))
 		return FALSE
 	if(!SSticker.HasRoundStarted())
 		return FALSE
@@ -46,19 +46,19 @@
 	log_game("[key_name(src)] took control of [name].")
 	remove_from_spawner_menu()
 	if(get_spawner_flavour_text())
-		to_chat(src, "<span class='notice'>[get_spawner_flavour_text()]</span>")
+		to_chat(src, span_notice("[get_spawner_flavour_text()]"))
 	return TRUE
 
 /mob/living/proc/set_playable(ban_type = null, poll_ignore_key = null)
 	playable = TRUE
 	playable_bantype = ban_type
 	if (!key)	//check if there is nobody already inhibiting this mob
-		notify_ghosts("[name] can be controlled", null, enter_link="<a href=?src=[REF(src)];activate=1>(Click to play)</a>", source=src, action=NOTIFY_ATTACK, ignore_key = poll_ignore_key)
+		notify_ghosts("[name] can be controlled", null, enter_link="<a href='byond://?src=[REF(src)];activate=1'>(Click to play)</a>", source=src, action=NOTIFY_ATTACK, ignore_key = poll_ignore_key)
 		LAZYADD(GLOB.mob_spawners["[name]"], src)
 		AddElement(/datum/element/point_of_interest)
 		SSmobs.update_spawners()
 	else // it's spawned but someone occupied already
-		notify_ghosts("[name] has appeared!", source=src, action=NOTIFY_ORBIT, header="Something's Interesting!")
+		notify_ghosts("[name] has appeared!", source=src, action=NOTIFY_ORBIT, header="Something Interesting!")
 
 
 /mob/living/get_spawner_desc()

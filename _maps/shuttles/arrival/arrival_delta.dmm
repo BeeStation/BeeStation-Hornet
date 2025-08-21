@@ -371,9 +371,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/turf/open/floor/iron{
-	heat_capacity = 1e+006
-	},
+/turf/open/floor/iron,
 /area/shuttle/arrival)
 "PO" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
@@ -395,9 +393,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/turf/open/floor/iron{
-	heat_capacity = 1e+006
-	},
+/turf/open/floor/iron,
 /area/shuttle/arrival)
 "XW" = (
 /obj/item/kirbyplants{
@@ -406,9 +402,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/turf/open/floor/iron{
-	heat_capacity = 1e+006
-	},
+/turf/open/floor/iron,
 /area/shuttle/arrival)
 
 (1,1,1) = {"

@@ -93,17 +93,17 @@
 	for(var/transform in src.transforms)
 		switch(transform["type"])
 			if(RUSTG_ICONFORGE_BLEND_COLOR)
-				target.Blend(target["color"], target["blend_mode"])
+				target.Blend(transform["color"], transform["blend_mode"])
 			if(RUSTG_ICONFORGE_BLEND_ICON)
-				var/datum/universal_icon/icon_object = target["icon"]
+				var/datum/universal_icon/icon_object = transform["icon"]
 				if(!istype(icon_object))
 					stack_trace("Invalid icon found in icon transformer during apply()! [icon_object]")
 					continue
-				target.Blend(icon_object.to_icon(), target["blend_mode"])
+				target.Blend(icon_object.to_icon(), transform["blend_mode"])
 			if(RUSTG_ICONFORGE_SCALE)
-				target.Scale(target["width"], target["height"])
+				target.Scale(transform["width"], transform["height"])
 			if(RUSTG_ICONFORGE_CROP)
-				target.Crop(target["x1"], target["y1"], target["x2"], target["y2"])
+				target.Crop(transform["x1"], transform["y1"], transform["x2"], transform["y2"])
 	return target
 
 /datum/icon_transformer/proc/copy()

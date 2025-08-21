@@ -2,14 +2,24 @@
 	name = "equipment reclaimer station"
 	desc = "Used to reclaim your items after you finish your sentence at the labor camp."
 	icon = 'icons/obj/terminals.dmi'
-	icon_state = "dorm_taken"
+	icon_state = "gulag_off"
 	req_access = list(ACCESS_SECURITY) //REQACCESS TO ACCESS ALL STORED ITEMS
 	density = FALSE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 100
 	active_power_usage = 2500
 	var/list/stored_items = list()
-	var/obj/machinery/gulag_teleporter/linked_teleporter
+	var/obj/machinery/gulag_teleporter/linked_teleporter = null
+	///Icon of the current screen status
+	var/screen_icon = "gulag_on"
+
+/obj/machinery/gulag_item_reclaimer/update_overlays()
+	. = ..()
+	if(machine_stat & (NOPOWER|BROKEN))
+		return
+
+	. += mutable_appearance(icon, screen_icon)
+	. += emissive_appearance(icon, screen_icon, src)
 
 /obj/machinery/gulag_item_reclaimer/Destroy()
 	for(var/i in contents)
@@ -24,6 +34,8 @@
 	// emagging lets anyone reclaim all the items
 	req_access = list()
 	ui_update()
+	screen_icon = "emagged_general"
+	update_appearance()
 
 /obj/machinery/gulag_item_reclaimer/ui_state(mob/user)
 	return GLOB.default_state
@@ -72,7 +84,7 @@
 		if("release_items")
 			var/mob/living/carbon/human/H = locate(params["mobref"]) in stored_items
 			if(H != usr && !allowed(usr))
-				to_chat(usr, "<span class='warning'>Access denied.</span>")
+				to_chat(usr, span_warning("Access denied."))
 				return
 			drop_items(H)
 			. = TRUE

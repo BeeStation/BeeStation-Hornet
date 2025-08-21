@@ -21,7 +21,7 @@
 	record_to_blackbox() // bleh I don't like doing this here, but there's no other place to do it without adding new signals, and I've added WAY too many signals already...
 	return {"
 		<div class='panel [considered_alive(holder.owner) ? "green" : "red"]border'>
-			<span class='header'>[holder.owner.name] had the following holoparasite[is_solo() ? "" : "s"]:</span>
+			[span_header("[holder.owner.name] had the following holoparasite[is_solo() ? "" : "s"]:")]
 			<br>
 			[print_all_holoparas()]
 		</div>
@@ -34,7 +34,7 @@
 	return {"
 		<div class="section">
 			<div class="section-title">
-				<b>[holopara_mind.key]</b> was <b>[holoparasite.color_name]</b>, the <b>[holoparasite.theme.name]</b><br>
+				<b>[holoparasite.color_name]</b>, the <b>[holoparasite.theme.name]</b><br>
 			</div>
 			<div class="section-rest">
 				<div class="section-content">
@@ -99,7 +99,7 @@
 			</div>
 			<div class="section-rest">
 				<div class="section-content">
-					[html_encode(replacetext(body, "$theme", lowertext(holoparasite.theme.name)))]
+					[html_encode(replacetext(body, "$theme", LOWER_TEXT(holoparasite.theme.name)))]
 				</div>
 			</span>
 		</div>

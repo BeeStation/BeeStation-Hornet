@@ -8,14 +8,11 @@
 	extended_desc = "This program connects to sensors around the station to provide information about electrical systems"
 	ui_header = "power_norm.gif"
 	transfer_access = list(ACCESS_ENGINE)
-	usage_flags = PROGRAM_CONSOLE
-	requires_ntnet = 0
 	network_destination = "power monitoring system"
-	size = 9
+	size = 8
 	tgui_id = "NtosPowerMonitor"
 	program_icon = "plug"
-
-
+	hardware_requirement = MC_CHARGER
 
 	var/has_alert = 0
 	var/obj/structure/cable/attached_wire
@@ -33,7 +30,8 @@
 	search()
 	history["supply"] = list()
 	history["demand"] = list()
-
+	if(istype(computer, /obj/machinery/modular_computer/console)) // This way the console doesn't require a signaller
+		return
 
 /datum/computer_file/program/power_monitor/process_tick()
 	if(!get_powernet())

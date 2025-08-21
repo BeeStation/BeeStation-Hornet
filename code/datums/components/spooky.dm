@@ -40,7 +40,7 @@
 	if((H.getStaminaLoss() > 95) && (!istype(H.dna.species, /datum/species/skeleton)) && (!istype(H.dna.species, /datum/species/golem)) && (!istype(H.dna.species, /datum/species/android)) && (!istype(H.dna.species, /datum/species/oozeling)))
 		H.Paralyze(20)
 		H.set_species(/datum/species/skeleton)
-		H.visible_message("<span class='warning'>[H] has given up on life as a mortal.</span>")
+		H.visible_message(span_warning("[H] has given up on life as a mortal."))
 		var/T = get_turf(H)
 		if(too_spooky)
 			if(prob(30))
@@ -56,7 +56,7 @@
 		change_name(H)	//time for a new name!
 
 /datum/component/spooky/proc/change_name(mob/living/carbon/human/H)
-	var/t = sanitize_name(stripped_input(H, "Enter your new skeleton name", H.real_name, null, MAX_NAME_LEN))
+	var/t = sanitize_name(tgui_input_text(H, "Enter your new skeleton name", "", H.real_name, MAX_NAME_LEN))
 	if(!t)
 		t = "spooky skeleton"
 	H.fully_replace_character_name(null, t)

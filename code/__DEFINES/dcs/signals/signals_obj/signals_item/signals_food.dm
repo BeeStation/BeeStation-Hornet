@@ -41,7 +41,25 @@
 ///Called when an object is meant to be grilled through a grill: (atom/fry_object, grill_time)
 #define COMSIG_GRILL_FOOD "item_grill_food"
 
+// Baking foods (oven)
+//Called when an object is inserted into an oven (atom/oven, mob/baker)
+#define COMSIG_ITEM_OVEN_PLACED_IN "item_placed_in_oven"
+//Called when an object is in an oven
+#define COMSIG_ITEM_BAKED "item_baked"
+	#define COMPONENT_HANDLED_BAKING (1<<0)
+	#define COMPONENT_BAKING_GOOD_RESULT (1<<1)
+	#define COMPONENT_BAKING_BAD_RESULT (1<<2)
+///Called when an object is turned into another item through baking in an oven
+#define COMSIG_BAKE_COMPLETED "item_bake_completed"
+
 ///From /datum/component/edible/on_compost(source, /mob/living/user)
 #define COMSIG_EDIBLE_ON_COMPOST "on_compost"
 	// Used to stop food from being composted.
 	#define COMPONENT_EDIBLE_BLOCK_COMPOST 1
+
+///Called when we try to feed food to an object
+#define COMSIG_FOOD_FEED_ITEM "feed_item"
+
+//Drink
+///from base of obj/item/reagent_containers/cup/attack(): (mob/M, mob/user)
+#define COMSIG_GLASS_DRANK "glass_drank"

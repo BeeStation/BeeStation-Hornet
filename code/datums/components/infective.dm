@@ -27,12 +27,13 @@
 	RegisterSignal(parent, COMSIG_MOVABLE_BUCKLE, PROC_REF(try_infect_buckle))
 	RegisterSignal(parent, COMSIG_MOVABLE_BUMP, PROC_REF(try_infect_collide))
 	RegisterSignal(parent, COMSIG_MOVABLE_IMPACT_ZONE, PROC_REF(try_infect_impact_zone))
-	RegisterSignal(parent, COMSIG_ATOM_EXTRAPOLATOR_ACT, PROC_REF(extrapolation))
 	if(isitem(parent))
 		RegisterSignal(parent, COMSIG_ITEM_ATTACK_ZONE, PROC_REF(try_infect_attack_zone))
 		RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(try_infect_attack))
 		RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(try_infect_equipped))
 		RegisterSignal(parent, COMSIG_FOOD_EATEN, PROC_REF(try_infect_eat))
+		if(istype(parent, /obj/item/reagent_containers/cup))
+			RegisterSignal(parent, COMSIG_GLASS_DRANK, PROC_REF(try_infect_drink))
 	else if(istype(parent, /obj/effect/decal/cleanable/blood/gibs))
 		RegisterSignal(parent, COMSIG_GIBS_STREAK, PROC_REF(try_infect_streak))
 
@@ -43,7 +44,18 @@
 		eater.ForceContractDisease(V)
 	try_infect(feeder, BODY_ZONE_L_ARM)
 
+/datum/component/infective/proc/try_infect_drink(datum/source, mob/living/drinker, mob/living/feeder)
+	SIGNAL_HANDLER
+
+	for(var/disease in diseases)
+		drinker.ForceContractDisease(disease)
+	var/appendage_zone = feeder.held_items.Find(source)
+	appendage_zone = appendage_zone == 0 ? BODY_ZONE_CHEST : appendage_zone % 2 ? BODY_ZONE_R_ARM : BODY_ZONE_L_ARM
+	try_infect(feeder, appendage_zone)
+
 /datum/component/infective/proc/clean(datum/source, clean_types)
+	SIGNAL_HANDLER
+
 	if(clean_types & required_clean_types)
 		qdel(src)
 		return TRUE
@@ -85,18 +97,18 @@
 /datum/component/infective/proc/try_infect_equipped(datum/source, mob/living/L, slot)
 	SIGNAL_HANDLER
 
-	var/old_permeability
+	var/old_bio_armor
 	if(isitem(parent))
-		//if you are putting an infective item on, it obviously will not protect you, so set its permeability high enough that it will never block ContactContractDisease()
-		var/obj/item/I = parent
-		old_permeability = I.permeability_coefficient
-		I.permeability_coefficient = 1.01
+		//if you are putting an infective item on, it obviously will not protect you, so set its bio armor low enough that it will never block ContactContractDisease()
+		var/obj/item/equipped_item = parent
+		old_bio_armor = equipped_item.get_armor_rating(BIO)
+		equipped_item.set_armor_rating(BIO, 0)
 
 	try_infect(L, slot2body_zone(slot))
 
 	if(isitem(parent))
-		var/obj/item/I = parent
-		I.permeability_coefficient = old_permeability
+		var/obj/item/equipped_item = parent
+		equipped_item.set_armor_rating(BIO, old_bio_armor)
 
 /datum/component/infective/proc/try_infect_crossed(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
@@ -116,7 +128,3 @@
 /datum/component/infective/proc/try_infect(mob/living/L, target_zone)
 	for(var/V in diseases)
 		L.ContactContractDisease(V, target_zone)
-
-/datum/component/infective/proc/extrapolation(datum/source, mob/user, obj/item/extrapolator/extrapolator, dry_run = FALSE, list/result)
-	SIGNAL_HANDLER
-	EXTRAPOLATOR_ACT_ADD_DISEASES(result, diseases)

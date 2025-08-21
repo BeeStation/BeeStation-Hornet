@@ -1,4 +1,4 @@
-/datum/antagonist/traitor/proc/forge_human_objectives()
+/datum/antagonist/traitor/proc/forge_objectives()
 	var/is_hijacker = FALSE
 	if (GLOB.joined_player_list.len >= 30) // Less murderboning on lowpop thanks
 		is_hijacker = prob(10)
@@ -8,15 +8,6 @@
 	if(is_hijacker)
 		objectives_to_assign--
 
-	// Set up an exchange if there are enough traitors
-	if(!SSticker.mode.exchange_blue && SSticker.mode.traitors.len >= 8)
-		if(!SSticker.mode.exchange_red)
-			SSticker.mode.exchange_red = owner
-		else
-			SSticker.mode.exchange_blue = owner
-			assign_exchange_role(SSticker.mode.exchange_red)
-			assign_exchange_role(SSticker.mode.exchange_blue)
-		objectives_to_assign-- // Exchange counts towards number of objectives
 	// Adds objectives_to_assign minus 1 objectives, since this is an exclusive range.
 	for(var/i in 1 to objectives_to_assign)
 		forge_single_human_objective(is_martyr)

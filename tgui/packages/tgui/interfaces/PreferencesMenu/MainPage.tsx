@@ -2,14 +2,14 @@ import { classes } from 'common/react';
 import { sendAct, useBackend, useLocalState } from '../../backend';
 import { Box, Button, Flex, LabeledList, Popper, Stack, TrackOutsideClicks, Input, Icon, FitText } from '../../components';
 import { createSetPreference, PreferencesMenuData, RandomSetting } from './data';
-import { CharacterPreview } from './CharacterPreview';
+import { CharacterPreview } from '../common/CharacterPreview';
 import { RandomizationButton } from './RandomizationButton';
 import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
 import { MultiNameInput, NameInput } from './names';
 import { Gender, GENDERS } from './preferences/gender';
 import features from './preferences/features';
 import { FeatureChoicedServerData, FeatureValueInput } from './preferences/features/base';
-import { filterMap, sortBy } from 'common/collections';
+import { filter, map, sortBy } from 'common/collections';
 import { useRandomToggleState } from './useRandomToggleState';
 import { createSearch } from 'common/string';
 
@@ -65,21 +65,18 @@ const CharacterControls = (props: {
   );
 };
 
-const ChoicedSelection = (
-  props: {
-    name: string;
-    catalog: FeatureChoicedServerData;
-    selected: string;
-    supplementalFeature?: string;
-    supplementalValue?: unknown;
-    onClose: () => void;
-    onSelect: (value: string) => void;
-    searchText: string;
-    setSearchText: (value: string) => void;
-  },
-  context
-) => {
-  const { act } = useBackend<PreferencesMenuData>(context);
+const ChoicedSelection = (props: {
+  name: string;
+  catalog: FeatureChoicedServerData;
+  selected: string;
+  supplementalFeature?: string;
+  supplementalValue?: unknown;
+  onClose: () => void;
+  onSelect: (value: string) => void;
+  searchText: string;
+  setSearchText: (value: string) => void;
+}) => {
+  const { act } = useBackend<PreferencesMenuData>();
 
   const { catalog, supplementalFeature, supplementalValue, searchText, setSearchText } = props;
 
@@ -109,7 +106,7 @@ const ChoicedSelection = (
         height: `${calculatedHeight}px`,
         width: `${calculatedWidth}px`,
       }}>
-      <Box className="PopupWindow" style={{ 'padding': '5px' }} width="100%" height="100%">
+      <Box className="PopupWindow" style={{ padding: '5px' }} width="100%" height="100%">
         <Stack vertical fill>
           <Stack.Item>
             <Stack fill>
@@ -128,10 +125,10 @@ const ChoicedSelection = (
               <Stack.Item grow>
                 <Box
                   style={{
-                    'border-bottom': '1px solid #888',
-                    'font-weight': 'bold',
-                    'font-size': '14px',
-                    'text-align': 'center',
+                    borderBottom: '1px solid #888',
+                    fontWeight: 'bold',
+                    fontSize: '14px',
+                    textAlign: 'center',
                   }}>
                   Select {props.name}
                 </Box>
@@ -204,10 +201,10 @@ const ChoicedSelection = (
                 <Box
                   pb={0.25}
                   style={{
-                    'border-bottom': '1px solid rgba(255, 255, 255, 0.1)',
-                    'font-weight': 'bold',
-                    'font-size': '14px',
-                    'text-align': 'center',
+                    borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+                    fontWeight: 'bold',
+                    fontSize: '14px',
+                    textAlign: 'center',
                   }}>
                   Select {features[supplementalFeature].name}
                 </Box>
@@ -229,14 +226,8 @@ const ChoicedSelection = (
   );
 };
 
-const GenderButton = (
-  props: {
-    handleSetGender: (gender: Gender) => void;
-    gender: Gender;
-  },
-  context
-) => {
-  const [genderMenuOpen, setGenderMenuOpen] = useLocalState(context, 'genderMenuOpen', false);
+const GenderButton = (props: { handleSetGender: (gender: Gender) => void; gender: Gender }) => {
+  const [genderMenuOpen, setGenderMenuOpen] = useLocalState('genderMenuOpen', false);
 
   return (
     <Popper
@@ -244,7 +235,7 @@ const GenderButton = (
         placement: 'right',
       }}
       popperContent={
-        genderMenuOpen && (
+        genderMenuOpen ? (
           <TrackOutsideClicks onOutsideClick={() => setGenderMenuOpen(false)} removeOnOutsideClick>
             <Box className="theme-generic-yellow">
               <Stack className="PopupWindow" ml={0.5} p={0.5}>
@@ -268,11 +259,14 @@ const GenderButton = (
               </Stack>
             </Box>
           </TrackOutsideClicks>
+        ) : (
+          <> </>
         )
       }>
       <Button
-        onClick={() => {
+        onClick={(event) => {
           setGenderMenuOpen(!genderMenuOpen);
+          event.stopPropagation();
         }}
         fontSize="22px"
         icon={GENDERS[props.gender].icon}
@@ -283,28 +277,25 @@ const GenderButton = (
   );
 };
 
-const MainFeature = (
-  props: {
-    catalog: FeatureChoicedServerData & {
-      name: string;
-      supplemental_feature?: string;
-    };
-    currentValue: string;
-    isOpen: boolean;
-    handleClose: () => void;
-    handleOpen: () => void;
-    handleSelect: (newClothing: string) => void;
-    randomization?: RandomSetting;
-    setRandomization: (newSetting: RandomSetting) => void;
-  },
-  context
-) => {
-  const { act, data } = useBackend<PreferencesMenuData>(context);
+const MainFeature = (props: {
+  catalog: FeatureChoicedServerData & {
+    name: string;
+    supplemental_feature?: string;
+  };
+  currentValue: string;
+  isOpen: boolean;
+  handleClose: () => void;
+  handleOpen: () => void;
+  handleSelect: (newClothing: string) => void;
+  randomization?: RandomSetting;
+  setRandomization: (newSetting: RandomSetting) => void;
+}) => {
+  const { act, data } = useBackend<PreferencesMenuData>();
 
   const { catalog, currentValue, isOpen, handleOpen, handleClose, handleSelect, randomization, setRandomization } = props;
 
   const supplementalFeature = catalog.supplemental_feature;
-  let [searchText, setSearchText] = useLocalState(context, catalog.name + '_choiced_search', '');
+  let [searchText, setSearchText] = useLocalState(catalog.name + '_choiced_search', '');
   const handleCloseInternal = () => {
     handleClose();
     setSearchText('');
@@ -316,8 +307,8 @@ const MainFeature = (
         placement: 'bottom-start',
       }}
       popperContent={
-        isOpen && (
-          <TrackOutsideClicks onOutsideClick={handleCloseInternal} removeOnOutsideClick>
+        isOpen ? (
+          <TrackOutsideClicks onOutsideClick={props.handleClose} removeOnOutsideClick>
             <ChoicedSelection
               name={catalog.name}
               catalog={catalog}
@@ -330,10 +321,13 @@ const MainFeature = (
               setSearchText={setSearchText}
             />
           </TrackOutsideClicks>
+        ) : (
+          <> </>
         )
       }>
       <Button
-        onClick={() => {
+        onClick={(event) => {
+          event.stopPropagation();
           if (isOpen) {
             handleCloseInternal();
           } else {
@@ -383,7 +377,7 @@ const MainFeature = (
         style={{
           height: `24px`,
           width: `${CLOTHING_CELL_SIZE}px`,
-          'overflow-wrap': 'anywhere',
+          overflowWrap: 'anywhere',
         }}
         textAlign="center">
         {catalog.name}
@@ -399,10 +393,11 @@ const createSetRandomization = (act: typeof sendAct, preference: string) => (new
   });
 };
 
-const sortPreferences = sortBy<[string, unknown]>(([featureId, _]) => {
-  const feature = features[featureId];
-  return feature?.name;
-});
+const sortPreferences = (array: [string, unknown][]) =>
+  sortBy(array, ([featureId, _]) => {
+    const feature = features[featureId];
+    return feature?.name;
+  });
 
 const PreferenceList = (props: {
   act: typeof sendAct;
@@ -445,16 +440,11 @@ const PreferenceList = (props: {
   );
 };
 
-export const MainPage = (
-  props: {
-    openSpecies: () => void;
-  },
-  context
-) => {
-  const { act, data } = useBackend<PreferencesMenuData>(context);
-  const [currentClothingMenu, setCurrentClothingMenu] = useLocalState<string | null>(context, 'currentClothingMenu', null);
-  const [multiNameInputOpen, setMultiNameInputOpen] = useLocalState(context, 'multiNameInputOpen', false);
-  const [randomToggleEnabled] = useRandomToggleState(context);
+export const MainPage = (props: { openSpecies: () => void }) => {
+  const { act, data } = useBackend<PreferencesMenuData>();
+  const [currentClothingMenu, setCurrentClothingMenu] = useLocalState<string | null>('currentClothingMenu', null);
+  const [multiNameInputOpen, setMultiNameInputOpen] = useLocalState('multiNameInputOpen', false);
+  const [randomToggleEnabled] = useRandomToggleState();
 
   return (
     <ServerPreferencesFetcher
@@ -482,18 +472,15 @@ export const MainPage = (
             return {};
           }
 
+          if (!randomBodyEnabled) {
+            return {};
+          }
+
           return Object.fromEntries(
-            filterMap(Object.keys(preferences), (preferenceKey) => {
-              if (serverData.random.randomizable.indexOf(preferenceKey) === -1) {
-                return undefined;
-              }
-
-              if (!randomBodyEnabled) {
-                return undefined;
-              }
-
-              return [preferenceKey, data.character_preferences.randomization[preferenceKey] || RandomSetting.Disabled];
-            })
+            map(
+              filter(Object.keys(preferences), (key) => serverData.random.randomizable.includes(key)),
+              (key) => [key, data.character_preferences.randomization[key] || RandomSetting.Disabled]
+            )
           );
         };
 
@@ -532,12 +519,9 @@ export const MainPage = (
             )}
 
             <Stack height={`${CLOTHING_SIDEBAR_ROWS * CLOTHING_CELL_SIZE}px`}>
-              <Stack.Item fill style={{ 'margin-right': '-2.5px' }}>
+              <Stack.Item style={{ marginRight: '-2.5px' }}>
                 <Stack vertical fill>
-                  <Stack.Item
-                    className="section-background"
-                    p={0.75}
-                    style={{ 'margin-right': '1px', 'margin-bottom': '-5px' }}>
+                  <Stack.Item className="section-background" p={0.75} style={{ marginRight: '1px', marginBottom: '-5px' }}>
                     <CharacterControls
                       gender={data.character_preferences.misc.gender}
                       handleOpenSpecies={props.openSpecies}
@@ -565,7 +549,7 @@ export const MainPage = (
                 </Stack>
               </Stack.Item>
 
-              <Stack.Item fill width={`${CLOTHING_CELL_SIZE * 2 + 15}px`} className="section-background" p={0.75}>
+              <Stack.Item width={`${CLOTHING_CELL_SIZE * 2 + 15}px`} className="section-background" p={0.75}>
                 <Stack height="100%" vertical wrap>
                   {mainFeatures.map(([clothingKey, clothing]) => {
                     const catalog =

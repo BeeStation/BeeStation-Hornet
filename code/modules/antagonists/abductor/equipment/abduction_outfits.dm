@@ -2,7 +2,7 @@
 	name = "Abductor Basic"
 	uniform = /obj/item/clothing/under/abductor
 	shoes = /obj/item/clothing/shoes/combat
-	back = /obj/item/storage/backpack
+	back = /obj/item/storage/backpack/abductor
 	ears = /obj/item/radio/headset/abductor
 	id = /obj/item/card/id/syndicate
 
@@ -37,12 +37,12 @@
 	name = "Abductor Agent"
 	head = /obj/item/clothing/head/helmet/abductor
 	suit = /obj/item/clothing/suit/armor/abductor/vest
-	suit_store = /obj/item/abductor/baton
+	suit_store = /obj/item/melee/baton/abductor
 	belt = /obj/item/storage/belt/military/abductor/full
 
 	backpack_contents = list(
-		/obj/item/gun/energy/alien = 1,
-		/obj/item/abductor/silencer = 1
+		/obj/item/abductor/silencer = 1,
+		/obj/item/gun/energy/alien=1,
 		)
 
 /datum/outfit/abductor/scientist
@@ -58,15 +58,15 @@
 		var/obj/item/implant/abductor/beamplant = new /obj/item/implant/abductor(H)
 		beamplant.implant(H)
 
-/datum/outfit/abductor/scientist/onemanteam
+/datum/outfit/abductor/scientist/solo
 	name = "Abductor Scientist (w/ agent gear)"
 	head = /obj/item/clothing/head/helmet/abductor
 	suit = /obj/item/clothing/suit/armor/abductor/vest
-	suit_store = /obj/item/abductor/baton
+	suit_store = /obj/item/melee/baton/abductor
 	belt = /obj/item/storage/belt/military/abductor/full
+	l_pocket = /obj/item/gun/energy/alien
 
 	backpack_contents = list(
-	/obj/item/abductor/gizmo = 1,
-	/obj/item/gun/energy/alien = 1,
-	/obj/item/abductor/silencer = 1
+		/obj/item/abductor/gizmo = 1,
+		/obj/item/abductor/silencer = 1
 	)

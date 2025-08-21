@@ -189,9 +189,9 @@
 
 /// Reads layer configurations to take out some useful overall information
 /datum/greyscale_config/proc/ReadMetadata()
-	var/icon/source = icon(icon_file)
-	height = source.Height()
-	width = source.Width()
+	var/list/icon_dimensions = get_icon_dimensions(icon_file)
+	height = icon_dimensions["width"]
+	width = icon_dimensions["height"]
 
 	var/list/datum/greyscale_layer/all_layers = list()
 	for(var/state in icon_states)
@@ -281,8 +281,9 @@
 	for(var/datum/greyscale_layer/layer as anything in group)
 		var/icon/layer_icon
 		if(islist(layer))
+			var/list/layer_list = layer
 			layer_icon = GenerateLayerGroup(colors, layer, render_steps, new_icon || last_external_icon)
-			layer = layer[1] // When there are multiple layers in a group like this we use the first one's blend mode
+			layer = layer_list[1] // When there are multiple layers in a group like this we use the first one's blend mode
 		else
 			layer_icon = layer.Generate(colors, render_steps, new_icon || last_external_icon)
 
@@ -328,12 +329,15 @@
 /// Internal recursive proc to handle nested layer groups
 /datum/greyscale_config/proc/GenerateLayerGroup_entry(list/colors, list/group, datum/universal_icon/last_external_icon)
 	var/datum/universal_icon/new_icon
-	for(var/datum/greyscale_layer/layer as anything in group)
+	for(var/layer_group as anything in group)
 		var/datum/universal_icon/layer_icon
-		if(islist(layer))
+		var/datum/greyscale_layer/layer
+		if(islist(layer_group))
 			layer_icon = GenerateLayerGroup_entry(colors, layer, new_icon || last_external_icon)
-			layer = layer[1] // When there are multiple layers in a group like this we use the first one's blend mode
+			var/list/layer_list = layer_group
+			layer = layer_list[1] // When there are multiple layers in a group like this we use the first one's blend mode
 		else
+			layer = layer_group
 			layer_icon = layer.Generate_entry(colors, new_icon || last_external_icon)
 
 		if(!new_icon)

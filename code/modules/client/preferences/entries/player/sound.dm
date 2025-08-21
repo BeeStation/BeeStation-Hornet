@@ -95,3 +95,15 @@
 /datum/preference/toggle/sound_vox/apply_to_client(client/client, value)
 	if (!value)
 		client.mob?.stop_sound_channel(CHANNEL_VOX)
+
+/// Controls hearing the combat mode toggle sound
+/datum/preference/toggle/sound_combatmode
+	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
+	db_key = "sound_combatmode"
+	preference_type = PREFERENCE_PLAYER
+
+/// Controls hearing the combat mode toggle sound
+/datum/preference/toggle/sound_ghostpoll
+	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
+	db_key = "sound_ghostpoll"
+	preference_type = PREFERENCE_PLAYER

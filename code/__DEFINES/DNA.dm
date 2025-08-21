@@ -2,64 +2,9 @@
 
 #define CHECK_DNA_AND_SPECIES(C) if((!(C.dna)) || (!(C.dna.species))) return
 
-// Defines copying names of mutations in all cases, make sure to change this if you change mutation's type
-#define HULK		/datum/mutation/hulk
-#define XRAY		/datum/mutation/thermal/x_ray
-#define SPACEMUT	/datum/mutation/space_adaptation
-#define TK			/datum/mutation/telekinesis
-#define NERVOUS		/datum/mutation/nervousness
-#define EPILEPSY	/datum/mutation/epilepsy
-#define MUTATE		/datum/mutation/bad_dna
-#define COUGH		/datum/mutation/cough
-#define DWARFISM	/datum/mutation/dwarfism
-#define GIGANTISM	/datum/mutation/gigantism
-#define CLOWNMUT	/datum/mutation/clumsy
-#define TOURETTES	/datum/mutation/tourettes
-#define DEAFMUT		/datum/mutation/deaf
-#define BLINDMUT	/datum/mutation/blind
-#define RACEMUT		/datum/mutation/race
-#define BADSIGHT	/datum/mutation/nearsight
-#define LASEREYES	/datum/mutation/laser_eyes
-#define CHAMELEON	/datum/mutation/chameleon
-#define WACKY		/datum/mutation/wacky
-#define MUT_MUTE	/datum/mutation/mute
-#define SMILE		/datum/mutation/smile
-#define STONER		/datum/mutation/stoner
-#define UNINTELLIGIBLE		/datum/mutation/unintelligible
-#define SWEDISH		/datum/mutation/swedish
-#define CHAV		/datum/mutation/chav
-#define ELVIS		/datum/mutation/elvis
-#define RADIOACTIVE	/datum/mutation/radioactive
-#define GLOWY		/datum/mutation/glow
-#define ANTIGLOWY	/datum/mutation/glow/anti
-#define TELEPATHY	/datum/mutation/telepathy
-#define FIREBREATH	/datum/mutation/firebreath
-#define VOID		/datum/mutation/void
-#define STRONG    	/datum/mutation/strong
-#define FIRESWEAT	/datum/mutation/fire
-#define THERMAL		/datum/mutation/thermal
-#define ANTENNA		/datum/mutation/antenna
-#define PARANOIA	/datum/mutation/paranoia
-#define INSULATED	/datum/mutation/insulated
-#define SHOCKTOUCH	/datum/mutation/shock
-#define OLFACTION	/datum/mutation/olfaction
-#define ACIDFLESH	/datum/mutation/acidflesh
-#define BADBLINK	/datum/mutation/badblink
-#define SPASTIC		/datum/mutation/spastic
-#define EXTRASTUN	/datum/mutation/extrastun
-#define GELADIKINESIS		/datum/mutation/geladikinesis
-#define CRYOKINESIS /datum/mutation/cryokinesis
-#define CLUWNEMUT   /datum/mutation/cluwne
-#define WAXSALIVA   /datum/mutation/wax_saliva
-#define STRONGWINGS /datum/mutation/strongwings
-#define CATCLAWS    /datum/mutation/catclaws
-#define OVERLOAD    /datum/mutation/overload
-#define ACIDOOZE    /datum/mutation/acidooze
-#define MEDIEVAL    /datum/mutation/medieval
-#define SPORES      /datum/mutation/spores
-
 #define UI_CHANGED "ui changed"
 #define UE_CHANGED "ue changed"
+#define UF_CHANGED "uf changed"
 
 #define CHAMELEON_MUTATION_DEFAULT_TRANSPARENCY 204
 
@@ -90,6 +35,37 @@
 #define DNA_HAIR_GRADIENT_COLOR_BLOCK	8
 #define DNA_HAIR_GRADIENT_STYLE_BLOCK	9
 
+#define DNA_FEATURE_BLOCKS			29
+#define DNA_MUTANT_COLOR_BLOCK		1
+#define DNA_ETHEREAL_COLOR_BLOCK	2
+#define DNA_LIZARD_MARKINGS_BLOCK	3
+#define DNA_LIZARD_TAIL_BLOCK		4
+#define DNA_SNOUT_BLOCK				5
+#define DNA_HORNS_BLOCK				6
+#define DNA_FRILLS_BLOCK			7
+#define DNA_SPINES_BLOCK			8
+#define DNA_HUMAN_TAIL_BLOCK		9
+#define DNA_EARS_BLOCK				10
+#define DNA_MOTH_WINGS_BLOCK		11
+#define DNA_MOTH_ANTENNAE_BLOCK		12
+#define DNA_MOTH_MARKINGS_BLOCK		13
+#define DNA_APID_ANTENNA_BLOCK		14
+#define DNA_APID_STRIPES_BLOCK		15
+#define DNA_APID_HEADSTRIPES_BLOCK	16
+#define DNA_PSYPHOZA_CAP_BLOCK		17
+#define DNA_INSECT_TYPE_BLOCK		18
+#define DNA_IPC_SCREEN_BLOCK		19
+#define DNA_IPC_ANTENNA_BLOCK		20
+#define DNA_IPC_CHASSIS_BLOCK		21
+#define DNA_DIONA_LEAVES_BLOCK		22
+#define DNA_DIONA_THORNS_BLOCK		23
+#define DNA_DIONA_FLOWERS_BLOCK		24
+#define DNA_DIONA_MOSS_BLOCK		25
+#define DNA_DIONA_MUSHROOM_BLOCK	26
+#define DNA_DIONA_ANTENNAE_BLOCK	27
+#define DNA_DIONA_EYES_BLOCK		28
+#define DNA_DIONA_PBODY_BLOCK		29
+
 #define DNA_SEQUENCE_LENGTH			4
 #define DNA_MUTATION_BLOCKS			8
 #define DNA_UNIQUE_ENZYMES_LEN		32
@@ -109,28 +85,34 @@
 #define CLONER_MATURE_CLONE "mature"
 
 //! ## species traits for mutantraces
-#define MUTCOLORS		1
-#define HAIR			2
-#define FACEHAIR		3
-#define EYECOLOR		4
-#define LIPS			5
-#define NOBLOOD			6
-#define NOTRANSSTING	7
-#define NOZOMBIE		8
-#define NO_UNDERWEAR	9
-#define NOLIVER			10
-#define NOSTOMACH		11
-#define NO_DNA_COPY     12
-#define NOFLASH			13
-#define DYNCOLORS		14 //! Use this if you want to change the race's color without the player being able to pick their own color. AKA special color shifting TRANSLATION: AWFUL.
-#define AGENDER			15
-#define NOEYESPRITES	16 //! Do not draw eyes or eyeless overlay
-#define NOREAGENTS     17 //! DO NOT PROCESS REAGENTS
-#define REVIVESBYHEALING 18 // Will revive on heal when healing and total HP > 0.
-#define NOHUSK			19 // Can't be husked.
-#define NOMOUTH			20
-#define NOSOCKS       21 // You cannot wear socks.
-#define ENVIROSUIT		22 //! spawns with an envirosuit
+#define MUTCOLORS 1
+#define HAIR 2
+#define FACEHAIR 3
+#define EYECOLOR 4
+#define LIPS 5
+#define NOZOMBIE 8
+#define NO_UNDERWEAR 9
+//Flashing has no effect
+#define NOFLASH 11
+// Use this if you want to change the race's color without the player being able to pick their own color. AKA special color shifting TRANSLATION: AWFUL.
+#define DYNCOLORS 12
+// No sex!
+#define AGENDER 13
+// Do not draw eyes or eyeless overlay
+#define NOEYESPRITES 14
+// DO NOT PROCESS REAGENTS
+#define NOREAGENTS 15
+// Will revive on heal when healing and total HP > 0.
+#define REVIVESBYHEALING 16
+// Can't be husked.
+#define NOHUSK 17
+#define NOMOUTH 18
+// You cannot wear socks.
+#define NOSOCKS 19
+// spawns with an envirosuit
+#define ENVIROSUIT 20
+//No augments
+#define NOAUGMENTS 21
 
 /// Used for determining which wounds are applicable to this species.
 /// if we have flesh (can suffer slash/piercing/burn wounds, requires they don't have NOBLOOD)
@@ -165,11 +147,16 @@
 #define ORGAN_SLOT_BRAIN_SURGICAL_IMPLANT "brain_surgical"
 #define ORGAN_SLOT_TAIL "tail"
 #define ORGAN_SLOT_WINGS "wings"
+#define ORGAN_SLOT_R_ARM_NYMPH "r_arm_nymph" //I can't think of any way of doing this better, please tell me if there is a better way.
+#define ORGAN_SLOT_L_ARM_NYMPH "l_arm_nymph"
+#define ORGAN_SLOT_R_LEG_NYMPH "r_leg_nymph"
+#define ORGAN_SLOT_L_LEG_NYMPH "l_leg_nymph"
+#define ORGAN_SLOT_CHEST_NYMPH "chest_nymph"
 
 //organ defines
-#define STANDARD_ORGAN_THRESHOLD 	100
-#define STANDARD_ORGAN_HEALING 		0.001
-#define STANDARD_ORGAN_DECAY		0.00074	//designed to fail organs when left to decay for ~45 minutes
+#define STANDARD_ORGAN_THRESHOLD 100
+#define STANDARD_ORGAN_HEALING 0.0005
+#define STANDARD_ORGAN_DECAY 0.00037 //designed to fail organs when left to decay for ~45 minutes
 
 // used for the can_chromosome var on mutations
 #define CHROMOSOME_NEVER 0

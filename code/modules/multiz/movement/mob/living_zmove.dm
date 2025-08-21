@@ -1,4 +1,3 @@
-#define MOVETYPE_NONE_JUMP -1
 #define MOVETYPE_NONE 0
 #define MOVETYPE_CLIMB 1
 #define MOVETYPE_FLY 2
@@ -30,7 +29,7 @@
 		return MOVETYPE_JETPACK
 	else if(can_climb)
 		return MOVETYPE_CLIMB
-	return upwards ? MOVETYPE_NONE_JUMP : MOVETYPE_NONE
+	return MOVETYPE_NONE
 
 /// Attempts a zMove up or down, provides feedback if unable to do so.
 /mob/living/zMove(dir, feedback = FALSE, feedback_to = src)
@@ -38,20 +37,22 @@
 		return FALSE
 	if(remote_control)
 		remote_control.relaymove(src, dir)
-		return
+		return TRUE
 	var/turf/source = get_turf(src)
 	var/turf/target = get_step_multiz(src, dir)
 	if(!target)
 		if(feedback)
-			to_chat(feedback_to, "<span class='warning'>There is nothing in that direction!</span>")
+			to_chat(feedback_to, span_warning("There is nothing in that direction!"))
 		return FALSE
 	if(istype(loc, /obj/effect/dummy/phased_mob)) // I despise this
 		var/obj/effect/dummy/phased_mob/L = loc
 		L.relaymove(src, dir)
-		return
+		// Return true if we changed position
+		return source != get_turf(L)
 	if(istype(buckled))
 		buckled.relaymove(src, dir)
-		return
+		// Return true if we changed position
+		return source != get_turf(src)
 	var/move_verb = "floating"
 	var/delay = 1 SECONDS
 	var/upwards = dir == UP
@@ -59,11 +60,7 @@
 	switch(move_type)
 		if(MOVETYPE_NONE)
 			if(feedback)
-				to_chat(feedback_to, "<span class='warning'>Something is blocking you!</span>")
-			return FALSE
-		if(MOVETYPE_NONE_JUMP)
-			visible_message("<span class='warning'>[src] jumps into the air, as if [p_they()] expected to float... Gravity pulls [p_them()] back down quickly.</span>", "<span class='warning'>You try jumping into the space above you. Gravity pulls you back down quickly.</span>")
-			do_jump_animation()
+				to_chat(feedback_to, span_warning("Something is blocking you!"))
 			return FALSE
 		if(MOVETYPE_JAUNT)
 			move_verb = "moving"
@@ -82,11 +79,12 @@
 			delay = 1 SECONDS
 		else
 			move_verb = "(unknown move type, call a coder!) moving"
-	return start_travel_z(src, upwards, move_verb, delay, allow_movement = (move_type != MOVETYPE_CLIMB))
+	start_travel_z(src, upwards, move_verb, delay, allow_movement = (move_type != MOVETYPE_CLIMB))
+	return TRUE
 
 /// Actually starts a zMove, doing movement animations
 /mob/living/proc/start_travel_z(mob/user, upwards = TRUE, move_verb = "floating", delay = 3 SECONDS, allow_movement = TRUE)
-	user.visible_message("<span class='notice'>[user] begins [move_verb] [upwards ? "upwards" : "downwards"]!</span>", "<span class='notice'>You begin [move_verb] [upwards ? "upwards" : "downwards"].")
+	user.visible_message(span_notice("[user] begins [move_verb] [upwards ? "upwards" : "downwards"]!"), span_notice("You begin [move_verb] [upwards ? "upwards" : "downwards"]."))
 	animate(user, delay, pixel_y = upwards ? 32 : -32, transform = matrix() * 0.8)
 	var/list/bucklemobs_c = user.buckled_mobs?.Copy()
 	for(var/mob/M in bucklemobs_c)
@@ -136,27 +134,6 @@
 		source.travel_z(user, target, dir) // Move
 	else
 		balloon_alert(user, "movement was blocked")
-
-/// Offsets the mob up and then quickly has them fall back down, like a jump.
-/mob/proc/do_jump_animation()
-	set waitfor = FALSE
-	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(do_jump_animation_on), src)
-	// Z-Mimic: copy jump animation
-	for(var/atom/movable/bound_overlay as anything in get_associated_mimics())
-		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(do_jump_animation_on), bound_overlay)
-	addtimer(CALLBACK(src, PROC_REF(after_jump_animation)), 0.4 SECONDS)
-
-/mob/proc/after_jump_animation()
-	return
-
-/proc/do_jump_animation_on(atom/movable/target)
-	animate(target, 0.3 SECONDS, pixel_y = 16, transform = matrix() * 0.9, easing = QUAD_EASING)
-	sleep(0.3 SECONDS)
-	animate(target, 0.1 SECONDS, pixel_y = 0, transform = matrix(), easing = QUAD_EASING)
-
-/mob/living/carbon/after_jump_animation()
-	reset_lying_transform()
-	UPDATE_OO_IF_PRESENT
 
 /mob/living/carbon/proc/reset_lying_transform()
 	var/lying_prev_temp = lying_prev

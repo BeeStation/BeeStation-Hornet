@@ -15,10 +15,10 @@
 	//Apply effect
 	apply_effect(I)
 	//Add in examine effect
-	RegisterSignal(I, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(I, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 
 /datum/component/enchantment/Destroy()
-	UnregisterSignal(parent, COMSIG_PARENT_EXAMINE)
+	UnregisterSignal(parent, COMSIG_ATOM_EXAMINE)
 	return ..()
 
 /datum/component/enchantment/proc/apply_effect(obj/item/target)
@@ -29,9 +29,9 @@
 
 	if(!examine_description)
 		return
-	if(is_servant_of_ratvar(user) || !isliving(user))
-		examine_list += "<span class='neovgre'>[examine_description]</span>"
-		examine_list += "<span class='neovgre'>It's blessing has a power of [level]!</span>"
+	if(IS_SERVANT_OF_RATVAR(user) || !isliving(user))
+		examine_list += span_neovgre("[examine_description]")
+		examine_list += span_neovgre("It's blessing has a power of [level]!")
 	else
 		examine_list += "It is glowing slightly!"
 		var/mob/living/L = user

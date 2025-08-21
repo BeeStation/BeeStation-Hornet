@@ -24,7 +24,10 @@
 	if(ismovable(target))
 		tracker = new(target, CALLBACK(src, PROC_REF(move_react)))
 
+	RegisterSignal(parent, COMSIG_MOVABLE_UPDATE_GLIDE_SIZE, PROC_REF(orbiter_glide_size_update))
+
 /datum/component/orbiter/UnregisterFromParent()
+	UnregisterSignal(parent, COMSIG_MOVABLE_UPDATE_GLIDE_SIZE)
 	var/atom/target = parent
 	target.orbit_datum = null
 	QDEL_NULL(tracker)
@@ -65,8 +68,12 @@
 			orbiter.orbiting.end_orbit(orbiter)
 	current_orbiters[orbiter] = TRUE
 	orbiter.orbiting = src
+
+	ADD_TRAIT(orbiter, TRAIT_NO_FLOATING_ANIM, ORBITING_TRAIT)
 	RegisterSignal(orbiter, COMSIG_MOVABLE_MOVED, PROC_REF(orbiter_move_react))
+
 	SEND_SIGNAL(parent, COMSIG_ATOM_ORBIT_BEGIN, orbiter)
+
 	var/matrix/initial_transform = matrix(orbiter.transform)
 	current_orbiters[orbiter] = initial_transform
 
@@ -85,8 +92,15 @@
 
 	orbiter.SpinAnimation(rotation_speed, -1, clockwise, rotation_segments, parallel = FALSE)
 
+	if(ismob(orbiter))
+		var/mob/orbiter_mob = orbiter
+		orbiter_mob.updating_glide_size = FALSE
+	if(ismovable(parent))
+		var/atom/movable/movable_parent = parent
+		orbiter.glide_size = movable_parent.glide_size
+
 	orbiter.abstract_move(get_turf(parent))
-	to_chat(orbiter, "<span class='notice'>Now orbiting [parent].</span>")
+	to_chat(orbiter, span_notice("Now orbiting [parent]."))
 
 /datum/component/orbiter/proc/end_orbit(atom/movable/orbiter, refreshing=FALSE)
 	if(!current_orbiters[orbiter])
@@ -99,6 +113,14 @@
 	current_orbiters -= orbiter
 	orbiter.stop_orbit(src)
 	orbiter.orbiting = null
+
+	if(ismob(orbiter))
+		var/mob/orbiter_mob = orbiter
+		orbiter_mob.updating_glide_size = TRUE
+		orbiter_mob.glide_size = 8
+
+	REMOVE_TRAIT(orbiter, TRAIT_NO_FLOATING_ANIM, ORBITING_TRAIT)
+
 	if(!refreshing && !length(current_orbiters) && !QDELING(src))
 		qdel(src)
 
@@ -139,12 +161,12 @@
 	if(!newturf)
 		qdel(src)
 
-	var/atom/curloc = master.loc
+	var/atom/current_location = master.loc
 	for(var/atom/movable/movable_orbiter as anything in current_orbiters)
 		if(QDELETED(movable_orbiter) || movable_orbiter.loc == newturf)
 			continue
 		movable_orbiter.abstract_move(newturf)
-		if(CHECK_TICK && master.loc != curloc)
+		if(CHECK_TICK && master.loc != current_location)
 			// We moved again during the checktick, cancel current operation
 			break
 
@@ -155,6 +177,12 @@
 	if(orbiter.loc == get_turf(parent))
 		return
 	end_orbit(orbiter)
+
+/datum/component/orbiter/proc/orbiter_glide_size_update(datum/source, target)
+	SIGNAL_HANDLER
+	for(var/orbiter in current_orbiters)
+		var/atom/movable/movable_orbiter = orbiter
+		movable_orbiter.glide_size = target
 
 /////////////////////
 

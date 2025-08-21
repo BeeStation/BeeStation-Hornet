@@ -1,13 +1,23 @@
 /*ALL DEFINES RELATED TO INVENTORY OBJECTS, MANAGEMENT, ETC, GO HERE*/
 
 //! ## ITEM INVENTORY WEIGHT, FOR w_class
-#define WEIGHT_CLASS_TINY     1 //! Usually items smaller then a human hand, (e.g. playing cards, lighter, scalpel, coins/holochips)
-#define WEIGHT_CLASS_SMALL    2 //! Pockets can hold small and tiny items, (e.g. flashlight, multitool, grenades, GPS device)
-#define WEIGHT_CLASS_NORMAL   4 //! Items which do not fit in pockets, but still fit easily into a backpack, (e.g. gas mask, iron sheets)
-#define WEIGHT_CLASS_LARGE    8 //! The upper end of items that fit in backpacks, and take up a large amount of its space (e.g. Boxes, Stun Batons, Fire extinguishers)
-#define WEIGHT_CLASS_BULKY    10 //! Items that can be wielded or equipped but not stored in an inventory, (e.g. defibrillator, backpack, space suits)
-#define WEIGHT_CLASS_HUGE     12 //! Usually represents objects that require two hands to operate, (e.g. shotgun, two-handed melee weapons)
-#define WEIGHT_CLASS_GIGANTIC 15 //! Essentially means it cannot be picked up or placed in an inventory, (e.g. mech parts, safe)
+
+//! Usually items smaller then a human hand, (e.g. playing cards, lighter, scalpel, coins/holochips)
+#define WEIGHT_CLASS_TINY 1
+//! Pockets can hold small and tiny items, (e.g. flashlight, multitool, grenades, GPS device)
+#define WEIGHT_CLASS_SMALL 2
+//! Items which do not fit in pockets, but still fit easily into a backpack, (e.g. gas mask, iron sheets)
+#define WEIGHT_CLASS_NORMAL 4
+
+#define WEIGHT_CLASS_MEDIUM 6
+//! The upper end of items that fit in backpacks, and take up a large amount of its space (e.g. Boxes, Stun Batons, Fire extinguishers)
+#define WEIGHT_CLASS_LARGE 8
+//! Items that can be wielded or equipped but not stored in an inventory, (e.g. defibrillator, backpack, space suits)
+#define WEIGHT_CLASS_BULKY 10
+//! Usually represents objects that require two hands to operate, (e.g. shotgun, two-handed melee weapons)
+#define WEIGHT_CLASS_HUGE 12
+//! Essentially means it cannot be picked up or placed in an inventory, (e.g. mech parts, safe)
+#define WEIGHT_CLASS_GIGANTIC 15
 
 //Inventory depth: limits how many nested storage items you can access directly.
 //1: stuff in mob, 2: stuff in backpack, 3: stuff in box in backpack, etc
@@ -76,11 +86,15 @@
 #define HIDEFACIALHAIR (1<<9)
 #define HIDENECK (1<<10)
 /// for wigs, only obscures the headgear
-//#define HIDEHEADGEAR (1<<11)
+#define HIDEHEADGEAR (1<<11)
 ///for lizard snouts, because some HIDEFACE clothes don't actually conceal that portion of the head.
 #define HIDESNOUT (1<<12)
-///hides mutant/moth wings, does not apply to functional wings
-//#define HIDEMUTWINGS (1<<13)
+///hides mutant/moth wings
+#define HIDEMUTWINGS (1<<13)
+///hides belts and riggings
+#define HIDEBELT (1<<14)
+///hides antennae
+#define HIDEANTENNAE (1<<15)
 
 
 //bitflags for clothing coverage - also used for limbs
@@ -107,9 +121,14 @@
 #define RIGHT_HANDS 2
 
 //flags for female outfits: How much the game can safely "take off" the uniform without it looking weird
-#define NO_FEMALE_UNIFORM			0
-#define FEMALE_UNIFORM_FULL			1
-#define FEMALE_UNIFORM_TOP			2
+/// For when there's simply no need for a female version of this uniform.
+#define NO_FEMALE_UNIFORM 0
+/// For the game to take off everything, disregards other flags.
+#define FEMALE_UNIFORM_FULL (1<<0)
+/// For when you really need to avoid the game cutting off that one pixel between the legs, to avoid the comeback of the infamous "dixel".
+#define FEMALE_UNIFORM_TOP_ONLY (1<<1)
+/// For when you don't want the "breast" effect to be applied (the one that cuts two pixels in the middle of the front of the uniform when facing east or west).
+#define FEMALE_UNIFORM_NO_BREASTS (1<<2)
 
 //flags for alternate styles: These are hard sprited so don't set this if you didn't put the effort in
 #define NORMAL_STYLE 0
@@ -148,6 +167,7 @@ GLOBAL_LIST_INIT(advanced_hardsuit_allowed, typecacheof(list(
 	/obj/item/flashlight,
 	/obj/item/gun,
 	/obj/item/melee/baton,
+	/obj/item/melee/tonfa,
 	/obj/item/reagent_containers/peppercloud_deployer,
 	/obj/item/restraints/handcuffs,
 	/obj/item/tank/internals)))
@@ -160,11 +180,12 @@ GLOBAL_LIST_INIT(security_hardsuit_allowed, typecacheof(list(
 	/obj/item/gun/energy,
 	/obj/item/gun/grenadelauncher,
 	/obj/item/melee/baton,
+	/obj/item/melee/tonfa,
 	/obj/item/reagent_containers/peppercloud_deployer,
 	/obj/item/restraints/handcuffs,
 	/obj/item/tank/internals)))
 
-GLOBAL_LIST_INIT(detective_vest_allowed, typecacheof(list(
+GLOBAL_LIST_INIT(detective_vest_allowed, (list(
 	/obj/item/ammo_box,
 	/obj/item/ammo_casing,
 	/obj/item/detective_scanner,
@@ -175,6 +196,7 @@ GLOBAL_LIST_INIT(detective_vest_allowed, typecacheof(list(
 	/obj/item/gun/grenadelauncher,
 	/obj/item/lighter,
 	/obj/item/melee/baton,
+	/obj/item/melee/tonfa,
 	/obj/item/melee/classic_baton/police,
 	/obj/item/reagent_containers/peppercloud_deployer,
 	/obj/item/restraints/handcuffs,
@@ -182,7 +204,7 @@ GLOBAL_LIST_INIT(detective_vest_allowed, typecacheof(list(
 	/obj/item/tank/internals/emergency_oxygen,
 	/obj/item/tank/internals/plasmaman)))
 
-GLOBAL_LIST_INIT(security_vest_allowed, typecacheof(list(
+GLOBAL_LIST_INIT(security_vest_allowed, (list(
 	/obj/item/ammo_box,
 	/obj/item/ammo_casing,
 	/obj/item/flashlight,
@@ -191,13 +213,14 @@ GLOBAL_LIST_INIT(security_vest_allowed, typecacheof(list(
 	/obj/item/gun/grenadelauncher,
 	/obj/item/knife/combat,
 	/obj/item/melee/baton,
+	/obj/item/melee/tonfa,
 	/obj/item/melee/classic_baton/police/telescopic,
 	/obj/item/reagent_containers/peppercloud_deployer,
 	/obj/item/restraints/handcuffs,
 	/obj/item/tank/internals/emergency_oxygen,
 	/obj/item/tank/internals/plasmaman)))
 
-GLOBAL_LIST_INIT(security_wintercoat_allowed, typecacheof(list(
+GLOBAL_LIST_INIT(security_wintercoat_allowed, (list(
 	/obj/item/ammo_box,
 	/obj/item/ammo_casing,
 	/obj/item/flashlight,
@@ -207,9 +230,15 @@ GLOBAL_LIST_INIT(security_wintercoat_allowed, typecacheof(list(
 	/obj/item/gun/grenadelauncher,
 	/obj/item/lighter,
 	/obj/item/melee/baton,
+	/obj/item/melee/tonfa,
 	/obj/item/melee/classic_baton/police/telescopic,
 	/obj/item/reagent_containers/peppercloud_deployer,
 	/obj/item/restraints/handcuffs,
 	/obj/item/tank/internals/emergency_oxygen,
 	/obj/item/tank/internals/plasmaman,
 	/obj/item/toy)))
+
+// Collection flags for RPED inventory
+#define COLLECT_ONE 0
+#define COLLECT_EVERYTHING 1
+#define COLLECT_SAME 2

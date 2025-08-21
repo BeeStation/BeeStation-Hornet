@@ -8,27 +8,22 @@ SUBSYSTEM_DEF(persistence)
 	var/list/obj/structure/chisel_message/chisel_messages = list()
 	var/list/saved_messages = list()
 	var/list/saved_modes = list(1,2,3)
-	var/list/saved_dynamic_rulesets = list()
 	var/list/saved_trophies = list()
 	var/list/antag_rep = list()
 	var/list/antag_rep_change = list()
 	var/list/picture_logging_information = list()
 	var/list/obj/structure/sign/picture_frame/photo_frames
-	var/list/obj/structure/sign/painting/painting_frames = list()
 	var/list/obj/item/storage/photo_album/photo_albums
-	var/list/paintings = list()
 
 /datum/controller/subsystem/persistence/Initialize()
 	LoadPoly()
 	LoadChiselMessages()
 	LoadTrophies()
-	LoadRecentModes()
-	LoadRecentDynamicRules()
 	LoadPhotoPersistence()
 	if(CONFIG_GET(flag/use_antag_rep))
 		LoadAntagReputation()
-	LoadPaintings()
-	return ..()
+	load_custom_outfits()
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/persistence/proc/LoadPoly()
 	for(var/mob/living/simple_animal/parrot/Poly/P in GLOB.alive_mob_list)
@@ -99,24 +94,6 @@ SUBSYSTEM_DEF(persistence)
 		saved_trophies = json["data"]
 	SetUpTrophies(saved_trophies.Copy())
 
-/datum/controller/subsystem/persistence/proc/LoadRecentModes()
-	var/json_file = file("data/RecentModes.json")
-	if(!fexists(json_file))
-		return
-	var/list/json = json_decode(rustg_file_read(json_file))
-	if(!json)
-		return
-	saved_modes = json["data"]
-
-/datum/controller/subsystem/persistence/proc/LoadRecentDynamicRules()
-	var/json_file = file("data/RecentDynamicRules.json")
-	if(!fexists(json_file))
-		return
-	var/list/json = json_decode(rustg_file_read(json_file))
-	if(!json)
-		return
-	saved_dynamic_rulesets = json["data"]
-
 /datum/controller/subsystem/persistence/proc/LoadAntagReputation()
 	var/json = rustg_file_read(FILE_ANTAG_REP)
 	if(!json)
@@ -156,12 +133,10 @@ SUBSYSTEM_DEF(persistence)
 /datum/controller/subsystem/persistence/proc/CollectData()
 	CollectChiselMessages()
 	CollectTrophies()
-	CollectRoundtype()
-	CollectDynamicRules()
 	SavePhotoPersistence()						//THIS IS PERSISTENCE, NOT THE LOGGING PORTION.
 	if(CONFIG_GET(flag/use_antag_rep))
 		CollectAntagReputation()
-	SavePaintings()
+	save_custom_outfits()
 
 /datum/controller/subsystem/persistence/proc/GetPhotoAlbums()
 	var/album_path = file("data/photo_albums.json")
@@ -274,33 +249,6 @@ SUBSYSTEM_DEF(persistence)
 		data["placer_key"] = T.placer_key
 		saved_trophies += list(data)
 
-/datum/controller/subsystem/persistence/proc/CollectRoundtype()
-	saved_modes[3] = saved_modes[2]
-	saved_modes[2] = saved_modes[1]
-	saved_modes[1] = SSticker.mode.config_tag
-	var/json_file = file("data/RecentModes.json")
-	var/list/file_data = list()
-	file_data["data"] = saved_modes
-	fdel(json_file)
-	WRITE_FILE(json_file, json_encode(file_data))
-
-/datum/controller/subsystem/persistence/proc/CollectDynamicRules()
-	var/list/amount_of_rules = length(CONFIG_GET(number_list/repeated_mode_adjust))
-	var/datum/game_mode/dynamic/dynamic = SSticker.mode
-	if(istype(dynamic))
-		var/list/this_round = list()
-		for(var/datum/dynamic_ruleset/rule in dynamic.executed_rules)
-			if(!CHECK_BITFIELD(rule.flags, PERSISTENT_RULESET))
-				continue
-			this_round |= rule.name
-		saved_dynamic_rulesets.Insert(1, list(this_round))
-	if(length(saved_dynamic_rulesets) > amount_of_rules)
-		saved_dynamic_rulesets.Cut(amount_of_rules + 1)
-	fdel("data/RecentDynamicRules.json")
-	rustg_file_write(json_encode(list(
-		"data" = saved_dynamic_rulesets
-	)), "data/RecentDynamicRules.json")
-
 /datum/controller/subsystem/persistence/proc/CollectAntagReputation()
 	var/ANTAG_REP_MAXIMUM = CONFIG_GET(number/antag_rep_maximum)
 
@@ -315,18 +263,35 @@ SUBSYSTEM_DEF(persistence)
 	fdel(FILE_ANTAG_REP)
 	rustg_file_append(json_encode(antag_rep), FILE_ANTAG_REP)
 
-/datum/controller/subsystem/persistence/proc/LoadPaintings()
-	var/json_file = file("data/paintings.json")
-	if(fexists(json_file))
-		paintings = json_decode(file2text(json_file))
+/datum/controller/subsystem/persistence/proc/load_custom_outfits()
+	var/file = file("data/custom_outfits.json")
+	if(!fexists(file))
+		return
+	var/outfits_json = file2text(file)
+	var/list/outfits = json_decode(outfits_json)
+	if(!islist(outfits))
+		return
 
-	for(var/obj/structure/sign/painting/P in painting_frames)
-		P.load_persistent()
+	for(var/outfit_data in outfits)
+		if(!islist(outfit_data))
+			continue
 
-/datum/controller/subsystem/persistence/proc/SavePaintings()
-	for(var/obj/structure/sign/painting/P in painting_frames)
-		P.save_persistent()
+		var/outfittype = text2path(outfit_data["outfit_type"])
+		if(!ispath(outfittype, /datum/outfit))
+			continue
+		var/datum/outfit/outfit = new outfittype
+		if(!outfit.load_from(outfit_data))
+			continue
+		GLOB.custom_outfits += outfit
 
-	var/json_file = file("data/paintings.json")
-	fdel(json_file)
-	WRITE_FILE(json_file, json_encode(paintings))
+/datum/controller/subsystem/persistence/proc/save_custom_outfits()
+	var/file = file("data/custom_outfits.json")
+	fdel(file)
+
+	var/list/data = list()
+	for(var/datum/outfit/outfit in GLOB.custom_outfits)
+		data += list(outfit.get_json_data())
+
+	WRITE_FILE(file, json_encode(data))
+
+#undef FILE_ANTAG_REP

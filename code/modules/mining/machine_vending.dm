@@ -1,7 +1,7 @@
 /**********************Mining Equipment Vendor**************************/
 
-/obj/machinery/vendor
-	name = "equipment vendor"
+/obj/machinery/gear_requisition
+	name = "gear requisition"
 	processing_flags = START_PROCESSING_MANUALLY
 	subsystem_type = /datum/controller/subsystem/processing/fastprocess
 	density = TRUE
@@ -13,46 +13,69 @@
 	/// if it's declared, the vendor will only use this account, not the account from your card
 	var/datum/bank_account/bound_bank_account
 	var/currency_type = ACCOUNT_CURRENCY_MINING
+	var/vendor_type = "generic"
 
-/obj/machinery/vendor/Initialize(mapload)
+/obj/machinery/gear_requisition/Initialize(mapload)
 	. = ..()
 	if(bound_bank_account && !istype(bound_bank_account))
 		bound_bank_account = SSeconomy.get_budget_account(bound_bank_account, force=TRUE) // grabbing united budget will be bad for this. "force=TRUE" will always grab the correct budget.
 
-/obj/machinery/vendor/update_icon()
+/obj/machinery/gear_requisition/update_icon()
 	if(powered())
 		icon_state = initial(icon_state)
 	else
 		icon_state = "[initial(icon_state)]-off"
 
-/obj/machinery/vendor/ui_assets(mob/user)
+/obj/machinery/gear_requisition/ui_assets(mob/user)
 	return list(
 		get_asset_datum(/datum/asset/spritesheet_batched/vending),
 	)
 
 
-/obj/machinery/vendor/ui_state(mob/user)
+/obj/machinery/gear_requisition/ui_state(mob/user)
 	return GLOB.default_state
 
-/obj/machinery/vendor/ui_interact(mob/user, datum/tgui/ui)
+/obj/machinery/gear_requisition/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "MiningVendor")
+		ui = new(user, src, "GearRequisition")
 		ui.open()
 
-/obj/machinery/vendor/ui_static_data(mob/user)
+/obj/machinery/gear_requisition/ui_static_data(mob/user)
 	. = list()
 	.["product_records"] = list()
-	for(var/datum/data/vendor_equipment/prize in prize_list)
+	.["categories"] = list()
+
+	// Define all categories with their icons
+	.["categories"]["Mining Tools"] = list("icon" = "pickaxe")
+	.["categories"]["Equipment"] = list("icon" = "toolbox")
+	.["categories"]["Consumables"] = list("icon" = "pills")
+	.["categories"]["Shelters"] = list("icon" = "home")
+	.["categories"]["Upgrades"] = list("icon" = "cog")
+	.["categories"]["Mining Bot"] = list("icon" = "robot")
+	.["categories"]["Novelty"] = list("icon" = "gift")
+
+	for(var/datum/data/requisition_equipment/prize in prize_list)
 		var/list/product_data = list(
 			path = replacetext(replacetext("[prize.equipment_path]", "/obj/item/", ""), "/", "-"),
 			name = prize.equipment_name,
 			price = prize.cost,
-			ref = REF(prize)
+			ref = REF(prize),
+			category = prize.category
 		)
+
+		var/atom/printed = prize.equipment_path
+		// If it's not GAGS and has no innate colors we have to care about, we use DMIcon
+		if(ispath(printed, /atom) \
+			&& (!initial(printed.greyscale_config) || !initial(printed.greyscale_colors)) \
+			&& !initial(printed.color) \
+		)
+			product_data["icon"] = initial(printed.icon)
+			product_data["icon_state"] = initial(printed.icon_state)
+
 		.["product_records"] += list(product_data)
 
-/obj/machinery/vendor/ui_data(mob/user)
+/obj/machinery/gear_requisition/ui_data(mob/user)
 	. = list()
 	var/datum/bank_account/target_account = bound_bank_account
 	.["user"] = list()
@@ -75,11 +98,11 @@
 		if(id_card)
 			.["user"]["card_found"] = TRUE
 			.["user"]["name"] = id_card.registered_name || id_card.registered_account?.account_holder || "Unknown"
-			var/datum/data/record/R = find_record("name", id_card.registered_name, GLOB.data_core.general)
+			var/datum/record/crew/R = find_record(id_card.registered_name, GLOB.manifest.general)
 			if(!R)
-				R = find_record("name", id_card.registered_account.account_holder, GLOB.data_core.general)
+				R = find_record(id_card.registered_account.account_holder, GLOB.manifest.general)
 			if(R)
-				.["user"]["job"] = R.fields["rank"]
+				.["user"]["job"] = R.rank
 			else if(id_card.assignment)
 				.["user"]["job"] = id_card.assignment
 			else if(id_card.registered_account?.account_job)
@@ -92,8 +115,17 @@
 			.["user"]["name"] = target_account.account_holder
 			.["user"]["job"] = "the Budget Account"
 
+	// Populate stock data for each product
+	for(var/datum/data/requisition_equipment/prize in prize_list)
+		var/path_key = replacetext(replacetext("[prize.equipment_path]", "/obj/item/", ""), "/", "-")
+		.["stock"][path_key] = list(
+			"name" = prize.equipment_name,
+			"path" = path_key,
+			"amount" = 999, // Mining vendors have unlimited stock
+			"colorable" = FALSE
+		)
 
-/obj/machinery/vendor/ui_act(action, params)
+/obj/machinery/gear_requisition/ui_act(action, params)
 	if(..())
 		return
 	var/mob/M = usr
@@ -101,52 +133,65 @@
 		return
 
 	switch(action)
-		if("purchase")
+		if("vend") // Changed from "purchase" to "vend" for compatibility
 			var/datum/bank_account/target_account = bound_bank_account
 			if(!target_account) // if bound_bank_account is null, it means you need to get a new account
 				var/obj/item/card/id/I = M.get_idcard(TRUE)
 				if(!istype(I))
-					to_chat(usr, "<span class='alert'>Error: An ID is required!</span>")
+					to_chat(usr, span_alert("Error: An ID is required!"))
 					flick(icon_deny, src)
 					return
 				if(!I.registered_account)
-					to_chat(usr, "<span class='alert'>Error: Bank account is required on your card!</span>")
+					to_chat(usr, span_alert("Error: Bank account is required on your card!"))
 					flick(icon_deny, src)
 					return
 				target_account = I.registered_account
 			if(!target_account)
-				to_chat(usr, "<span class='alert'>Error: Something's bugged. Tell a coder!</span>")
+				to_chat(usr, span_alert("Error: Something's bugged. Tell a coder!"))
 				flick(icon_deny, src)
 				CRASH("the mining vendor failed to find a target account for purchase.")
-			var/datum/data/vendor_equipment/prize = locate(params["ref"]) in prize_list
+			var/datum/data/requisition_equipment/prize = locate(params["ref"]) in prize_list
 			if(!prize || !(prize in prize_list))
-				to_chat(usr, "<span class='alert'>Error: Invalid choice!</span>")
+				to_chat(usr, span_alert("Error: Invalid choice!"))
 				flick(icon_deny, src)
 				return
 			if(!target_account.adjust_currency(currency_type, -prize.cost)) // this checks if you can buy it first. if you have points, you buy it. if not, this error message comes.
-				to_chat(usr, "<span class='alert'>Error: Insufficient points for [prize.equipment_name] on [target_account.account_holder]'s bank account!</span>")
+				to_chat(usr, span_alert("Error: Insufficient points for [prize.equipment_name] on [target_account.account_holder]'s bank account!"))
 				flick(icon_deny, src)
 				return
-			to_chat(usr, "<span class='notice'>[src] clanks to life briefly before vending [prize.equipment_name]!</span>")
+			to_chat(usr, span_notice("[src] clanks to life briefly before vending [prize.equipment_name]!"))
 			var/obj/created = new prize.equipment_path(loc)
 			if (M.CanReach(src) && isitem(created))
 				M.put_in_hands(created)
 			SSblackbox.record_feedback("nested tally", "mining_equipment_bought", 1, list("[type]", "[prize.equipment_path]"))
 			. = TRUE
+		if("purchase") // Keep old action name for backwards compatibility
+			return ui_act("vend", params)
 
-/obj/machinery/vendor/attackby(obj/item/I, mob/user, params)
+/obj/machinery/gear_requisition/proc/RedeemVoucher(obj/item/mining_voucher/voucher, mob/redeemer)
+	return
+
+/obj/machinery/gear_requisition/attackby(obj/item/I, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "mining-open", "mining", I))
 		return
 	if(default_deconstruction_crowbar(I))
 		return
+	if(istype(I, /obj/item/mining_voucher))
+		var/obj/item/mining_voucher/V = I
+		if(src.vendor_type == V.voucher_type)
+			RedeemVoucher(V, user)
+			return
+		else
+			to_chat(user, span_warning("This voucher seems to be incompatible with [src]."))
+			return
 	return ..()
 
-/obj/machinery/vendor/ex_act(severity, target)
+/obj/machinery/gear_requisition/ex_act(severity, target)
 	do_sparks(5, TRUE, src)
 	if(prob(50 / severity) && severity < 3)
 		qdel(src)
 
-/obj/machinery/vendor/mining
+/obj/machinery/gear_requisition/mining
 	name = "mining equipment vendor"
 	desc = "An equipment vendor for miners, points collected at an ore redemption machine can be spent here."
 	icon = 'icons/obj/machines/mining_machines.dmi'
@@ -157,85 +202,92 @@
 	icon_deny = "mining-deny"
 	prize_list = list( //if you add something to this, please, for the love of god, sort it by price/type. use tabs and not spaces.
 	//Direct mining tools go here
-		new /datum/data/vendor_equipment("Proto-Kinetic Accelerator",	/obj/item/gun/energy/kinetic_accelerator,							500),
-		new /datum/data/vendor_equipment("Proto-Kinetic Crusher",		/obj/item/kinetic_crusher,											800),
-		new /datum/data/vendor_equipment("Mining Conscription Kit",		/obj/item/storage/backpack/duffelbag/mining_conscript,				1000),
-		new /datum/data/vendor_equipment("Plasma Cutter", 				/obj/item/gun/energy/plasmacutter,									2000),
-		new /datum/data/vendor_equipment("Advanced Plasma Cutter", 		/obj/item/gun/energy/plasmacutter/adv,								4000),
+		new /datum/data/requisition_equipment("Proto-Kinetic Accelerator", /obj/item/gun/energy/recharge/kinetic_accelerator, 500, "Mining Tools"),
+		new /datum/data/requisition_equipment("Proto-Kinetic Crusher", /obj/item/kinetic_crusher, 800, "Mining Tools"),
+		new /datum/data/requisition_equipment("Mining Conscription Kit", /obj/item/storage/backpack/duffelbag/mining_conscript, 1000, "Mining Tools"),
+		new /datum/data/requisition_equipment("Plasma Cutter", /obj/item/gun/energy/plasmacutter, 2000, "Mining Tools"),
+		new /datum/data/requisition_equipment("Advanced Plasma Cutter", /obj/item/gun/energy/plasmacutter/adv, 4000, "Mining Tools"),
 	//Assorted other equipment
-		new /datum/data/vendor_equipment("Explorer's Webbing",			/obj/item/storage/belt/mining,										500),
-		new /datum/data/vendor_equipment("Survival Knife",				/obj/item/knife/combat/survival,							500),
-		new	/datum/data/vendor_equipment("Seclite", 					/obj/item/flashlight/seclite,										500),
-		new /datum/data/vendor_equipment("Advanced Ore Scanner",		/obj/item/t_scanner/adv_mining_scanner,								800),
-		new /datum/data/vendor_equipment("Jaunter",						/obj/item/wormhole_jaunter,											750),
-		new /datum/data/vendor_equipment("Tracking Implant Kit", 		/obj/item/storage/box/minertracker,									1000),
-		new /datum/data/vendor_equipment("Expanded E. Oxygen Tank",		/obj/item/tank/internals/emergency_oxygen/engi,						1000),
-		new /datum/data/vendor_equipment("Fulton Extraction Pack",		/obj/item/extraction_pack,											1000),
-		new /datum/data/vendor_equipment("Mining Hardsuit",				/obj/item/clothing/suit/space/hardsuit/mining,						2000),
-		new /datum/data/vendor_equipment("Jump Boots",					/obj/item/clothing/shoes/bhop,										2000),
+		new /datum/data/requisition_equipment("Explorer's Webbing", /obj/item/storage/belt/mining, 500, "Equipment"),
+		new /datum/data/requisition_equipment("Survival Knife", /obj/item/knife/combat/survival, 500, "Equipment"),
+		new /datum/data/requisition_equipment("Seclite", /obj/item/flashlight/seclite, 500, "Equipment"),
+		new /datum/data/requisition_equipment("Advanced Ore Scanner", /obj/item/t_scanner/adv_mining_scanner, 800, "Equipment"),
+		new /datum/data/requisition_equipment("Jaunter", /obj/item/wormhole_jaunter, 750, "Equipment"),
+		new /datum/data/requisition_equipment("Tracking Implant Kit", /obj/item/storage/box/minertracker, 1000, "Equipment"),
+		new /datum/data/requisition_equipment("Expanded E. Oxygen Tank", /obj/item/tank/internals/emergency_oxygen/engi, 1000, "Equipment"),
+		new /datum/data/requisition_equipment("Fulton Extraction Pack", /obj/item/extraction_pack, 1000, "Equipment"),
+		new /datum/data/requisition_equipment("Mining MODsuit", /obj/item/mod/control/pre_equipped/mining, 2500, "Equipment"),
+		new /datum/data/requisition_equipment("Jump Boots", /obj/item/clothing/shoes/bhop, 2000, "Equipment"),
 	//Consumables
-		new /datum/data/vendor_equipment("30 Marker Beacons",			/obj/item/stack/marker_beacon/thirty,								150),
-		new /datum/data/vendor_equipment("Regen. Core Stabilizer",		/obj/item/hivelordstabilizer,										400),
-		new /datum/data/vendor_equipment("Fulton Beacon",				/obj/item/fulton_core,												500),
-		new /datum/data/vendor_equipment("Lazarus Injector",			/obj/item/lazarus_injector,											1000),
-		new /datum/data/vendor_equipment("Survival Medipen",			/obj/item/reagent_containers/hypospray/medipen/survival,			1000),
-		new /datum/data/vendor_equipment("Skeleton Key",				/obj/item/skeleton_key,												1200),
+		new /datum/data/requisition_equipment("30 Marker Beacons", /obj/item/stack/marker_beacon/thirty, 150, "Consumables"),
+		new /datum/data/requisition_equipment("Regen. Core Stabilizer", /obj/item/hivelordstabilizer, 400, "Consumables"),
+		new /datum/data/requisition_equipment("Fulton Beacon", /obj/item/fulton_core, 500, "Consumables"),
+		new /datum/data/requisition_equipment("Lazarus Injector", /obj/item/lazarus_injector, 1000, "Consumables"),
+		new /datum/data/requisition_equipment("Survival Medipen", /obj/item/reagent_containers/hypospray/medipen/survival, 1000, "Consumables"),
+		new /datum/data/requisition_equipment("Skeleton Key", /obj/item/skeleton_key, 1200, "Consumables"),
 	//Shelters
-		new /datum/data/vendor_equipment("Shelter Capsule",				/obj/item/survivalcapsule,											400),
-		new /datum/data/vendor_equipment("Luxury Shelter Capsule",		/obj/item/survivalcapsule/luxury,									3000),
-		new /datum/data/vendor_equipment("Mining Outpost Capsule",		/obj/item/survivalcapsule/encampment,								5000),
-		new /datum/data/vendor_equipment("Luxury Bar Capsule",			/obj/item/survivalcapsule/luxuryelite,								10000),
+		new /datum/data/requisition_equipment("Shelter Capsule", /obj/item/survivalcapsule, 400, "Shelters"),
+		new /datum/data/requisition_equipment("Luxury Shelter Capsule", /obj/item/survivalcapsule/luxury, 3000, "Shelters"),
+		new /datum/data/requisition_equipment("Mining Outpost Capsule", /obj/item/survivalcapsule/encampment, 5000, "Shelters"),
+		new /datum/data/requisition_equipment("Luxury Bar Capsule", /obj/item/survivalcapsule/luxuryelite, 10000, "Shelters"),
 	//Upgrades to mining tools
-		new /datum/data/vendor_equipment("P-KA Upgrade: Bot-Friendly",	/obj/item/borg/upgrade/modkit/minebot_passthrough,					100),
-		new /datum/data/vendor_equipment("P-KA Cosmetic Super Chassis",	/obj/item/borg/upgrade/modkit/chassis_mod,							200),
-		new /datum/data/vendor_equipment("P-KA Cosmetic Hyper Chassis",	/obj/item/borg/upgrade/modkit/chassis_mod/orange,					200),
-		new /datum/data/vendor_equipment("P-KA Upgrade: Tracer Shots",	/obj/item/borg/upgrade/modkit/tracer,								200),
-		new /datum/data/vendor_equipment("P-KA Upgrade: Adj. T. Shots",	/obj/item/borg/upgrade/modkit/tracer/adjustable,					300),
-		new /datum/data/vendor_equipment("P-KA Upgrade: Range",			/obj/item/borg/upgrade/modkit/range,								1000),
-		new /datum/data/vendor_equipment("P-KA Upgrade: Damage",		/obj/item/borg/upgrade/modkit/damage,								1000),
-		new /datum/data/vendor_equipment("P-KA Upgrade: Cooldown",		/obj/item/borg/upgrade/modkit/cooldown,								1000),
-		new /datum/data/vendor_equipment("P-KA Upgrade: Bounty", 		/obj/item/borg/upgrade/modkit/bounty,								1000),
-		new /datum/data/vendor_equipment("P-KA Upgrade: Resonator", 	/obj/item/borg/upgrade/modkit/resonator_blasts,						1000),
-		new /datum/data/vendor_equipment("P-KA Upgrade: AoE Damage",	/obj/item/borg/upgrade/modkit/aoe/mobs,								1500),
-		new /datum/data/vendor_equipment("P-KA Upgrade: AoE Mining",	/obj/item/borg/upgrade/modkit/aoe/turfs,							2000),
+		new /datum/data/requisition_equipment("P-KA Upgrade: Bot-Friendly", /obj/item/borg/upgrade/modkit/minebot_passthrough, 100, "Upgrades"),
+		new /datum/data/requisition_equipment("P-KA Cosmetic Super Chassis", /obj/item/borg/upgrade/modkit/chassis_mod, 200, "Upgrades"),
+		new /datum/data/requisition_equipment("P-KA Cosmetic Hyper Chassis", /obj/item/borg/upgrade/modkit/chassis_mod/orange, 200, "Upgrades"),
+		new /datum/data/requisition_equipment("P-KA Upgrade: Tracer Shots", /obj/item/borg/upgrade/modkit/tracer, 200, "Upgrades"),
+		new /datum/data/requisition_equipment("P-KA Upgrade: Adj. T. Shots", /obj/item/borg/upgrade/modkit/tracer/adjustable, 300, "Upgrades"),
+		new /datum/data/requisition_equipment("P-KA Upgrade: Range", /obj/item/borg/upgrade/modkit/range, 1000, "Upgrades"),
+		new /datum/data/requisition_equipment("P-KA Upgrade: Damage", /obj/item/borg/upgrade/modkit/damage, 1000, "Upgrades"),
+		new /datum/data/requisition_equipment("P-KA Upgrade: Cooldown", /obj/item/borg/upgrade/modkit/cooldown, 1000, "Upgrades"),
+		new /datum/data/requisition_equipment("P-KA Upgrade: Bounty", /obj/item/borg/upgrade/modkit/bounty, 1000, "Upgrades"),
+		new /datum/data/requisition_equipment("P-KA Upgrade: Resonator", /obj/item/borg/upgrade/modkit/resonator_blasts, 1000, "Upgrades"),
+		new /datum/data/requisition_equipment("P-KA Upgrade: AoE Damage", /obj/item/borg/upgrade/modkit/aoe/mobs, 1500, "Upgrades"),
+		new /datum/data/requisition_equipment("P-KA Upgrade: AoE Mining", /obj/item/borg/upgrade/modkit/aoe/turfs, 2000, "Upgrades"),
 	//Mining bot buddy
-		new /datum/data/vendor_equipment("Mining Bot Companion",		/mob/living/simple_animal/hostile/mining_drone,						800),
-		new /datum/data/vendor_equipment("Minebot Upgrade: Armor",		/obj/item/minebot_upgrade/health,									400),
-		new /datum/data/vendor_equipment("Minebot Upgrade: Ore Scoop",	/obj/item/minebot_upgrade/ore_pickup,								400),
-		new /datum/data/vendor_equipment("Minebot Upgrade: Cooldown",	/obj/item/borg/upgrade/modkit/cooldown/minebot,						600),
-		new /datum/data/vendor_equipment("Minebot Upgrade: Medical",	/obj/item/minebot_upgrade/medical,									800),
-		new /datum/data/vendor_equipment("Minebot Upgrade: A.I.",		/obj/item/slimepotion/slime/sentience/mining,						1000),
-		new /datum/data/vendor_equipment("Minebot Weatherproof Chassis",/obj/item/minebot_upgrade/antiweather,								1200),
+		new /datum/data/requisition_equipment("Mining Bot Companion", /mob/living/simple_animal/hostile/mining_drone, 800, "Mining Bot"),
+		new /datum/data/requisition_equipment("Minebot Upgrade: Armor", /obj/item/minebot_upgrade/health, 400, "Mining Bot"),
+		new /datum/data/requisition_equipment("Minebot Upgrade: Ore Scoop", /obj/item/minebot_upgrade/ore_pickup, 400, "Mining Bot"),
+		new /datum/data/requisition_equipment("Minebot Upgrade: Medical", /obj/item/minebot_upgrade/medical, 800, "Mining Bot"),
+		new /datum/data/requisition_equipment("Minebot Upgrade: A.I.", /obj/item/slimepotion/slime/sentience/mining, 1000, "Mining Bot"),
+		new /datum/data/requisition_equipment("Minebot Weatherproof Chassis", /obj/item/minebot_upgrade/antiweather, 1200, "Mining Bot"),
 	//Various novelty items
-		new /datum/data/vendor_equipment("1000 Space Cash",				/obj/item/stack/spacecash/c1000,									2000),
-		new /datum/data/vendor_equipment("Point Transfer Card",			/obj/item/card/mining_point_card,									500),
-		new /datum/data/vendor_equipment("GAR Mesons",					/obj/item/clothing/glasses/meson/gar,								500),
-		new /datum/data/vendor_equipment("Pizza",						/obj/item/pizzabox/margherita,										200),
-		new /datum/data/vendor_equipment("Whiskey",						/obj/item/reagent_containers/food/drinks/bottle/whiskey,			100),
-		new /datum/data/vendor_equipment("Absinthe",					/obj/item/reagent_containers/food/drinks/bottle/absinthe/premium,	100),
-		new /datum/data/vendor_equipment("Cigar",						/obj/item/clothing/mask/cigarette/cigar/havana,						150),
-		new /datum/data/vendor_equipment("Soap",						/obj/item/soap/nanotrasen,											200),
-		new /datum/data/vendor_equipment("Laser Pointer",				/obj/item/laser_pointer,											300),
-		new /datum/data/vendor_equipment("Toy Alien",					/obj/item/clothing/mask/facehugger/toy,								300),
+		new /datum/data/requisition_equipment("1000 Space Cash", /obj/item/stack/spacecash/c1000, 2000, "Novelty"),
+		new /datum/data/requisition_equipment("Point Transfer Card", /obj/item/card/mining_point_card, 500, "Novelty"),
+		new /datum/data/requisition_equipment("GAR Mesons", /obj/item/clothing/glasses/meson/gar, 500, "Novelty"),
+		new /datum/data/requisition_equipment("Pizza", /obj/item/pizzabox/margherita, 200, "Novelty"),
+		new /datum/data/requisition_equipment("Whiskey", /obj/item/reagent_containers/cup/glass/bottle/whiskey, 100, "Novelty"),
+		new /datum/data/requisition_equipment("Absinthe", /obj/item/reagent_containers/cup/glass/bottle/absinthe/premium, 100, "Novelty"),
+		new /datum/data/requisition_equipment("Cigar", /obj/item/clothing/mask/cigarette/cigar/havana, 150, "Novelty"),
+		new /datum/data/requisition_equipment("Soap", /obj/item/soap/nanotrasen, 200, "Novelty"),
+		new /datum/data/requisition_equipment("Laser Pointer", /obj/item/laser_pointer, 300, "Novelty"),
+		new /datum/data/requisition_equipment("Toy Alien", /obj/item/clothing/mask/facehugger/toy, 300, "Novelty"),
 		)
+	vendor_type = "mining"
 
-/datum/data/vendor_equipment
+/datum/data/requisition_equipment
 	var/equipment_name = "generic"
 	var/equipment_path = null
 	var/cost = 0
+	var/category = "Mining Equipment" // Add category support
 
-/datum/data/vendor_equipment/New(name, path, cost)
+/datum/data/requisition_equipment/New(name, path, cost, category = "Mining Equipment")
 	src.equipment_name = name
 	src.equipment_path = path
 	src.cost = cost
+	src.category = category
 
-/obj/machinery/vendor/mining/attackby(obj/item/I, mob/user, params)
+/obj/machinery/gear_requisition/mining/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/mining_voucher))
-		RedeemVoucher(I, user)
-		return
+		var/obj/item/mining_voucher/V = I
+		if(src.vendor_type == V.voucher_type)
+			RedeemVoucher(V, user)
+			return
+		else
+			to_chat(user, span_warning("This voucher seems to be incompatible with [src]."))
+			return
 	return ..()
 
-/obj/machinery/vendor/mining/proc/RedeemVoucher(obj/item/mining_voucher/voucher, mob/redeemer)
+/obj/machinery/gear_requisition/mining/RedeemVoucher(obj/item/mining_voucher/voucher, mob/redeemer)
 	var/items = list("Survival Capsule and Explorer's Webbing", "Resonator Kit", "Minebot Kit", "Extraction and Rescue Kit", "Crusher Kit", "Mining Conscription Kit")
 
 	var/selection = input(redeemer, "Pick your equipment", "Mining Voucher Redemption") as null|anything in sort_list(items)
@@ -268,34 +320,35 @@
 
 /****************Golem Point Vendor**************************/
 
-/obj/machinery/vendor/mining/golem
+/obj/machinery/gear_requisition/mining/golem
 	name = "golem ship equipment vendor"
 	circuit = /obj/item/circuitboard/machine/mining_equipment_vendor/golem
 
-/obj/machinery/vendor/mining/golem/Initialize(mapload)
+/obj/machinery/gear_requisition/mining/golem/Initialize(mapload)
 	. = ..()
 	desc += "\nIt seems a few selections have been added."
 	prize_list += list(
-		new /datum/data/vendor_equipment("Extra Id",       				/obj/item/card/id/golem, 				                   		250),
-		new /datum/data/vendor_equipment("Science Goggles",       		/obj/item/clothing/glasses/science,								250),
-		new /datum/data/vendor_equipment("Monkey Cube",					/obj/item/food/monkeycube,        	300),
-		new /datum/data/vendor_equipment("Toolbelt",					/obj/item/storage/belt/utility,	    							350),
-		new /datum/data/vendor_equipment("Royal Cape of the Liberator", /obj/item/bedsheet/rd/royal_cape, 								500),
-		new /datum/data/vendor_equipment("Grey Slime Extract",			/obj/item/slime_extract/grey,									1000),
-		new /datum/data/vendor_equipment("P-KA Upgrade: Trigger Mod",	/obj/item/borg/upgrade/modkit/trigger_guard,					1000),
-		new /datum/data/vendor_equipment("The Liberator's Legacy",  	/obj/item/storage/box/rndboards,								2000)
-		)
+		new /datum/data/requisition_equipment("Extra Id", /obj/item/card/id/golem, 250, "Equipment"),
+		new /datum/data/requisition_equipment("Science Goggles", /obj/item/clothing/glasses/science, 250, "Equipment"),
+		new /datum/data/requisition_equipment("Monkey Cube", /obj/item/food/monkeycube, 300, "Consumables"),
+		new /datum/data/requisition_equipment("Toolbelt", /obj/item/storage/belt/utility, 350, "Equipment"),
+		new /datum/data/requisition_equipment("Royal Cape of the Liberator", /obj/item/bedsheet/rd/royal_cape, 500, "Novelty"),
+		new /datum/data/requisition_equipment("Grey Slime Extract", /obj/item/slime_extract/grey, 1000, "Consumables"),
+		new /datum/data/requisition_equipment("P-KA Upgrade: Trigger Mod", /obj/item/borg/upgrade/modkit/trigger_guard, 1000, "Upgrades"),
+		new /datum/data/requisition_equipment("The Liberator's Legacy", /obj/item/storage/box/rndboards, 2000, "Equipment"),
+	)
 
 /**********************Mining Equipment Vendor Items**************************/
 
 /**********************Mining Equipment Voucher**********************/
 
 /obj/item/mining_voucher
-	name = "mining voucher"
+	name = "mining equipment voucher"
 	desc = "A token to redeem a piece of equipment. Use it on a mining equipment vendor."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "mining_voucher"
 	w_class = WEIGHT_CLASS_TINY
+	var/voucher_type = "mining"
 
 /**********************Mining Point Card**********************/
 
@@ -310,24 +363,24 @@
 		if(points)
 			var/obj/item/card/id/C = I
 			if(!C.registered_account)
-				to_chat(user, "<span class='info'>[C] has no registered account!</span>")
+				to_chat(user, span_info("[C] has no registered account!"))
 				return ..()
 			C.registered_account.adjust_currency(ACCOUNT_CURRENCY_MINING, points)
-			to_chat(user, "<span class='info'>You transfer [points] points to [C.registered_account.account_holder]'s bank account.</span>")
+			to_chat(user, span_info("You transfer [points] points to [C.registered_account.account_holder]'s bank account."))
 			points = 0
 		else
-			to_chat(user, "<span class='info'>There's no points left on [src].</span>")
+			to_chat(user, span_info("There's no points left on [src]."))
 	..()
 
 /obj/item/card/mining_point_card/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>There's [points] point\s on the card.</span>"
+	. += span_info("There's [points] point\s on the card.")
 
 ///Conscript kit
 /obj/item/card/id/pass/mining_access_card
 	name = "mining access card"
 	desc = "A small card, that when used on any ID, will add mining access."
-	access = list(ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MECH_MINING, ACCESS_MINERAL_STOREROOM, ACCESS_CARGO)
+	access = list(ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MECH_MINING, ACCESS_MINERAL_STOREROOM, ACCESS_CARGO, ACCESS_GATEWAY)
 
 /obj/item/storage/backpack/duffelbag/mining_conscript
 	name = "mining conscription kit"

@@ -5,7 +5,7 @@
 	These remove snowflake code for special holodeck functions.
 */
 /obj/effect/holodeck_effect
-	icon = 'icons/mob/screen_gen.dmi'
+	icon = 'icons/hud/screen_gen.dmi'
 	icon_state = "x2"
 	invisibility = INVISIBILITY_ABSTRACT
 
@@ -34,7 +34,7 @@
 	deck = new(loc)
 	safety(!(HC.obj_flags & EMAGGED))
 	deck.holo = HC
-	RegisterSignal(deck, COMSIG_PARENT_QDELETING, PROC_REF(handle_card_delete))
+	RegisterSignal(deck, COMSIG_QDELETING, PROC_REF(handle_card_delete))
 	return deck
 
 /obj/effect/holodeck_effect/cards/proc/handle_card_delete(datum/source)
@@ -50,14 +50,14 @@
 		deck.card_throwforce = 0
 		deck.card_throw_speed = 3
 		deck.card_throw_range = 7
-		deck.card_attack_verb = list("attacked")
+		deck.card_attack_verb_continuous = list("attacks")
 	else
 		deck.card_hitsound = 'sound/weapons/bladeslice.ogg'
 		deck.card_force = 5
 		deck.card_throwforce = 10
 		deck.card_throw_speed = 3
 		deck.card_throw_range = 7
-		deck.card_attack_verb = list("attacked", "sliced", "diced", "slashed", "cut")
+		deck.card_attack_verb_continuous = list("attacks", "slices", "dices", "slashes", "cuts")
 
 
 /obj/effect/holodeck_effect/sparks/activate(var/obj/machinery/computer/holodeck/HC)
@@ -66,7 +66,7 @@
 		var/datum/effect_system/spark_spread/s = new
 		s.set_up(3, 1, T)
 		s.start()
-		T.set_temperature(5000)
+		T.temperature = (5000)
 		T.hotspot_expose(50000,50000,1)
 
 /obj/effect/holodeck_effect/random_book
@@ -92,7 +92,7 @@
 	// these vars are not really standardized but all would theoretically create stuff on death
 	for(var/v in list("butcher_results","corpse","weapon1","weapon2","blood_volume") & our_mob.vars)
 		our_mob.vars[v] = null
-	RegisterSignal(our_mob, COMSIG_PARENT_QDELETING, PROC_REF(handle_mob_delete))
+	RegisterSignal(our_mob, COMSIG_QDELETING, PROC_REF(handle_mob_delete))
 	return our_mob
 
 /obj/effect/holodeck_effect/mobspawner/deactivate(var/obj/machinery/computer/holodeck/HC)
@@ -108,8 +108,8 @@
 	mobtype = list(
 		/mob/living/simple_animal/butterfly, /mob/living/simple_animal/chick/holo,
 		/mob/living/simple_animal/pet/cat, /mob/living/simple_animal/pet/cat/kitten,
-		/mob/living/simple_animal/pet/dog/corgi, /mob/living/simple_animal/pet/dog/corgi/puppy,
-		/mob/living/simple_animal/pet/dog/pug, /mob/living/simple_animal/pet/fox)
+		/mob/living/basic/pet/dog/corgi, /mob/living/basic/pet/dog/corgi/puppy,
+		/mob/living/basic/pet/dog/pug, /mob/living/simple_animal/pet/fox)
 
 /obj/effect/holodeck_effect/mobspawner/bee
 	mobtype = /mob/living/simple_animal/hostile/poison/bees/toxin

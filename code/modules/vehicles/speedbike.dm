@@ -4,8 +4,7 @@
 
 /obj/vehicle/ridden/space/Initialize(mapload)
 	. = ..()
-	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
-	D.override_allow_spacemove = TRUE
+	//TODO: Space subtyping is deprecated. Kill space subtyping
 
 /obj/vehicle/ridden/space/speedbike
 	name = "Speedbike"
@@ -19,13 +18,9 @@
 	. = ..()
 	overlay = mutable_appearance(icon, overlay_state, ABOVE_MOB_LAYER)
 	add_overlay(overlay)
-	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
-	D.set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, -8), TEXT_SOUTH = list(0, 4), TEXT_EAST = list(-10, 5), TEXT_WEST = list( 10, 5)))
-	D.vehicle_move_delay = 0
-	D.set_vehicle_dir_offsets(NORTH, -16, -16)
-	D.set_vehicle_dir_offsets(SOUTH, -16, -16)
-	D.set_vehicle_dir_offsets(EAST, -18, 0)
-	D.set_vehicle_dir_offsets(WEST, -18, 0)
+
+/obj/vehicle/ridden/space/speedbike/add_riding_element()
+	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/speedbike)
 
 /obj/vehicle/ridden/space/speedbike/Move(newloc,move_dir)
 	if(has_buckled_mobs())
@@ -55,18 +50,9 @@
 	if(isnull(overlay))
 		overlay = mutable_appearance(icon, "speedwagon_cover", ABOVE_MOB_LAYER)
 	add_overlay(overlay)
-	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
-	D.vehicle_move_delay = 0
-	D.set_riding_offsets(1, list(TEXT_NORTH = list(-10, -4), TEXT_SOUTH = list(16, 3), TEXT_EAST = list(-4, 30), TEXT_WEST = list(4, -3)))
-	D.set_riding_offsets(2, list(TEXT_NORTH = list(19, -5, 4), TEXT_SOUTH = list(-13, 3, 4), TEXT_EAST = list(-4, -3, 4.1), TEXT_WEST = list(4, 28, 3.9)))
-	D.set_riding_offsets(3, list(TEXT_NORTH = list(-10, -18, 4.2), TEXT_SOUTH = list(16, 25, 3.9), TEXT_EAST = list(-22, 30), TEXT_WEST = list(22, -3, 4.1)))
-	D.set_riding_offsets(4, list(TEXT_NORTH = list(19, -18, 4.2), TEXT_SOUTH = list(-13, 25, 3.9), TEXT_EAST = list(-22, 3, 3.9), TEXT_WEST = list(22, 28)))
-	D.set_vehicle_dir_offsets(NORTH, -48, -48)
-	D.set_vehicle_dir_offsets(SOUTH, -48, -48)
-	D.set_vehicle_dir_offsets(EAST, -48, -48)
-	D.set_vehicle_dir_offsets(WEST, -48, -48)
-	for(var/i in GLOB.cardinals)
-		D.set_vehicle_dir_layer(i, BELOW_MOB_LAYER)
+
+/obj/vehicle/ridden/space/speedwagon/add_riding_element()
+	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/speedwagon)
 
 /obj/vehicle/ridden/space/speedwagon/Bump(atom/movable/A)
 	. = ..()
@@ -74,7 +60,7 @@
 		var/atom/throw_target = get_edge_target_turf(A, dir)
 		if(crash_all)
 			A.throw_at(throw_target, 4, 3)
-			visible_message("<span class='danger'>[src] crashes into [A]!</span>")
+			visible_message(span_danger("[src] crashes into [A]!"))
 			playsound(src, 'sound/effects/bang.ogg', 50, 1)
 		if(ishuman(A))
 			var/mob/living/carbon/human/H = A
@@ -87,12 +73,13 @@
 				H.apply_damage(rand(20,35), BRUTE)
 			if(!crash_all)
 				H.throw_at(throw_target, 4, 3)
-				visible_message("<span class='danger'>[src] crashes into [H]!</span>")
+				visible_message(span_danger("[src] crashes into [H]!"))
 				playsound(src, 'sound/effects/bang.ogg', 50, 1)
 
 /obj/vehicle/ridden/space/speedwagon/Moved()
 	. = ..()
-	if(has_buckled_mobs())
-		for(var/atom/A as() in range(2, src))
-			if(!(A in buckled_mobs))
-				Bump(A)
+	if(!has_buckled_mobs())
+		return
+	for(var/atom/A as anything in range(2, src))
+		if(!(A in buckled_mobs))
+			Bump(A)

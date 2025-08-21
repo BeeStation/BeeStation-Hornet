@@ -99,7 +99,7 @@
 		rewarded = caster
 
 /datum/status_effect/bounty/on_apply()
-	to_chat(owner, "<span class='boldnotice'>You hear something behind you talking...</span> <span class='notice'>You have been marked for death by [rewarded]. If you die, they will be rewarded.</span>")
+	to_chat(owner, "[span_boldnotice("You hear something behind you talking...")] [span_notice("You have been marked for death by [rewarded]. If you die, they will be rewarded.")]")
 	playsound(owner, 'sound/weapons/shotgunpump.ogg', 75, 0)
 	return ..()
 
@@ -110,13 +110,11 @@
 
 /datum/status_effect/bounty/proc/rewards()
 	if(rewarded && rewarded.mind && rewarded.stat != DEAD)
-		to_chat(owner, "<span class='boldnotice'>You hear something behind you talking...</span> <span class='notice'>Bounty claimed.</span>")
+		to_chat(owner, "[span_boldnotice("You hear something behind you talking...")] [span_notice("Bounty claimed.")]")
 		playsound(owner, 'sound/weapons/shotgunshot.ogg', 75, 0)
-		to_chat(rewarded, "<span class='greentext'>You feel a surge of mana flow into you!</span>")
-		for(var/obj/effect/proc_holder/spell/spell in rewarded.mind.spell_list)
-			spell.charge_counter = spell.charge_max
-			spell.recharging = FALSE
-			spell.update_icon()
+		to_chat(rewarded, span_greentext("You feel a surge of mana flow into you!"))
+		for(var/datum/action/spell/spell in rewarded.actions)
+			spell.reset_spell_cooldown()
 		rewarded.adjustBruteLoss(-25)
 		rewarded.adjustFireLoss(-25)
 		rewarded.adjustToxLoss(-25, FALSE, TRUE)
@@ -162,7 +160,8 @@
 	/// The type of alert given to people when offered, in case you need to override some behavior (like for high-fives)
 	var/give_alert_type = /atom/movable/screen/alert/give
 
-/datum/status_effect/offering/on_creation(mob/living/new_owner, obj/item/offer, give_alert_override)
+
+/datum/status_effect/offering/on_creation(mob/living/new_owner, obj/item/offer, give_alert_override, mob/living/carbon/offered)
 	. = ..()
 	if(!.)
 		return
@@ -170,23 +169,27 @@
 	if(give_alert_override)
 		give_alert_type = give_alert_override
 
-	for(var/mob/living/carbon/possible_taker in orange(1, owner))
-		if(!owner.CanReach(possible_taker) || IS_DEAD_OR_INCAP(possible_taker) || !possible_taker.can_hold_items())
-			continue
-		register_candidate(possible_taker)
+	if(offered && owner.CanReach(offered) && !IS_DEAD_OR_INCAP(offered) && offered.can_hold_items())
+		register_candidate(offered)
+	else
+		for(var/mob/living/carbon/possible_taker in orange(1, owner))
+			if(!owner.CanReach(possible_taker) || IS_DEAD_OR_INCAP(possible_taker) || !possible_taker.can_hold_items())
+				continue
+
+			register_candidate(possible_taker)
 
 	if(!possible_takers) // no one around
 		qdel(src)
 		return
 
 	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(check_owner_in_range))
-	RegisterSignals(offered_item, list(COMSIG_PARENT_QDELETING, COMSIG_ITEM_DROPPED), PROC_REF(dropped_item))
+	RegisterSignals(offered_item, list(COMSIG_QDELETING, COMSIG_ITEM_DROPPED), PROC_REF(dropped_item))
 
 /datum/status_effect/offering/Destroy()
-	for(var/i in possible_takers)
-		var/mob/living/carbon/removed_taker = i
+	for(var/mob/living/carbon/removed_taker as anything in possible_takers)
 		remove_candidate(removed_taker)
 	LAZYCLEARLIST(possible_takers)
+	offered_item = null
 	return ..()
 
 /// Hook up the specified carbon mob to be offered the item in question, give them the alert and signals and all
@@ -213,6 +216,9 @@
 	if(owner.CanReach(taker) && !IS_DEAD_OR_INCAP(taker))
 		return
 
+	taker.balloon_alert(taker, "You moved out of range of [owner]!")
+	remove_candidate(taker)
+
 /// The offerer moved, see if anyone is out of range now
 /datum/status_effect/offering/proc/check_owner_in_range(mob/living/carbon/source)
 	SIGNAL_HANDLER
@@ -225,3 +231,77 @@
 /datum/status_effect/offering/proc/dropped_item(obj/item/source)
 	SIGNAL_HANDLER
 	qdel(src)
+
+/*
+ * A status effect used for preventing caltrop message spam
+ *
+ * While a mob has this status effect, they won't receive any messages about
+ * stepping on caltrops. But they will be stunned and damaged regardless.
+ *
+ * The status effect itself has no effect, other than to disappear after
+ * a second.
+ */
+/datum/status_effect/caltropped
+	id = "caltropped"
+	duration = 1 SECONDS
+	tick_interval = INFINITY
+	status_type = STATUS_EFFECT_REFRESH
+	alert_type = null
+
+
+/atom/movable/screen/alert/status_effect/leaning
+	name = "Leaning"
+	desc = "You're leaning on something!"
+	icon_state = "buckled"
+
+/atom/movable/screen/alert/status_effect/leaning/Click()
+	var/mob/living/L = usr
+	if(!istype(L) || L != owner)
+		return
+	L.changeNext_move(CLICK_CD_RESIST)
+	if(L.last_special <= world.time)
+		return L.stop_leaning()
+
+/datum/status_effect/leaning
+	id = "leaning"
+	duration = -1
+	tick_interval = -1
+	status_type = STATUS_EFFECT_UNIQUE
+	alert_type = /atom/movable/screen/alert/status_effect/leaning
+
+/datum/status_effect/leaning/on_creation(mob/living/carbon/new_owner, atom/object, leaning_offset = 11)
+	. = ..()
+	if(!.)
+		return
+	new_owner.start_leaning(object, leaning_offset)
+
+/atom/movable/screen/alert/status_effect/morph_cooldown
+	name = "Chameleon Recharge"
+	desc = "Your ability to transform is recovering!"
+	icon_state = "dna_melt"
+
+/datum/status_effect/morph_cooldown
+	id = "morph_cooldown"
+	duration = 20 SECONDS
+	alert_type = /atom/movable/screen/alert/status_effect/morph_cooldown
+
+/atom/movable/screen/alert/status_effect/cyborg_sentry
+	name = "Sentry-mode Active"
+	desc = "Your armor is active but slowing you down!"
+	icon_state = "sentry"
+
+/datum/status_effect/cyborg_sentry
+	id = "cyborg_sentry"
+	duration = -1
+	alert_type = /atom/movable/screen/alert/status_effect/cyborg_sentry
+
+/datum/status_effect/cyborg_sentry/on_apply(mob/living/new_owner, ...)
+	. = ..()
+	owner.add_movespeed_modifier(/datum/movespeed_modifier/cyborg_sentry)
+	owner.set_armor(/datum/armor/cyborg)
+
+/datum/status_effect/cyborg_sentry/on_remove()
+	. = ..()
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/cyborg_sentry)
+	owner.set_armor(/datum/armor/none)
+

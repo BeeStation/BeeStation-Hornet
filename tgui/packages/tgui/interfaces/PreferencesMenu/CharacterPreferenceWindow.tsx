@@ -51,9 +51,9 @@ const CharacterProfiles = (props: {
   );
 };
 
-export const CharacterPreferenceWindow = (props, context) => {
-  const { act, data } = useBackend<PreferencesMenuData>(context);
-  const [currentPage, setCurrentPage] = useLocalState(context, 'currentPage_character', Page.Main);
+export const CharacterPreferenceWindow = (props) => {
+  const { act, data } = useBackend<PreferencesMenuData>();
+  const [currentPage, setCurrentPage] = useLocalState('currentPage_character', Page.Main);
 
   let pageContents;
 
@@ -94,7 +94,7 @@ export const CharacterPreferenceWindow = (props, context) => {
             icon="cog"
             tooltip="Open Game Preferences"
             tooltipPosition="bottom"
-            style={{ 'border-radius': '20px' }}
+            style={{ borderRadius: '20px' }}
             onClick={() => act('open_game_preferences')}
           />
           <SaveStatus />

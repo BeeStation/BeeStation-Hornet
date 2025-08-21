@@ -12,11 +12,7 @@
 	health = 30
 	see_in_dark = 3
 	butcher_results = list(/obj/item/food/breadslice/plain = 2)
-	response_help  = "pokes"
-	response_disarm = "passes"
-	response_harm   = "breaks"
 	melee_damage = 10
-	attacktext = "bites"
 	attack_sound = 'sound/weapons/bite.ogg'
 	ventcrawler = VENTCRAWLER_ALWAYS
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -31,6 +27,8 @@
 	mobchatspan = "blob"
 
 /mob/living/simple_animal/hostile/breadloaf/teleport_act()
+	. = ..()
+
 	if(mutations == 0)
 		mutationcap = rand(1,mutability)
 		if(prob(90))

@@ -1,0 +1,4 @@
+#comment This replaces all references of podpeople with their diona counterparts. https://github.com/BeeStation/BeeStation-Hornet/pull/10919
+
+/obj/item/food/meat/slab/human/mutant/plant : /obj/item/food/meat/slab/human/mutant/diona{@OLD}
+/obj/item/seeds/replicapod : /obj/item/seeds/dionapod{@OLD}

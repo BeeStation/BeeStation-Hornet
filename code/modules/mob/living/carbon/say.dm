@@ -1,7 +1,7 @@
 /mob/living/carbon/proc/handle_tongueless_speech(mob/living/carbon/speaker, list/speech_args)
 	SIGNAL_HANDLER
 
-	var/obj/item/organ/tongue/tongue = speaker.getorganslot(ORGAN_SLOT_TONGUE)
+	var/obj/item/organ/tongue/tongue = speaker.get_organ_slot(ORGAN_SLOT_TONGUE)
 	if(tongue && !CHECK_BITFIELD(tongue.organ_flags, ORGAN_FAILING))
 		speaker.UnregisterSignal(speaker, COMSIG_MOB_SAY)
 		return
@@ -18,10 +18,10 @@
 		return FALSE
 	return ..()
 
-/mob/living/carbon/could_speak_language(datum/language/dt)
-	if(CHECK_BITFIELD(initial(dt.flags), TONGUELESS_SPEECH))
+/mob/living/carbon/could_speak_language(datum/language/language_path)
+	if(CHECK_BITFIELD(initial(language_path.flags), TONGUELESS_SPEECH))
 		return TRUE
-	var/obj/item/organ/tongue/T = getorganslot(ORGAN_SLOT_TONGUE)
-	if(T)
-		return T.could_speak_language(dt)
+	var/obj/item/organ/tongue/spoken_with = get_organ_slot(ORGAN_SLOT_TONGUE)
+	if(spoken_with)
+		return spoken_with.could_speak_language(language_path)
 	return FALSE

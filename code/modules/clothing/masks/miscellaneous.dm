@@ -12,7 +12,7 @@
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		if(src == C.wear_mask)
-			to_chat(user, "<span class='warning'>You need help taking this off!</span>")
+			to_chat(user, span_warning("You need help taking this off!"))
 			return
 	..()
 
@@ -27,9 +27,12 @@
 	visor_flags_inv = HIDEFACE|HIDESNOUT
 	visor_flags_cover = MASKCOVERSMOUTH
 	gas_transfer_coefficient = 0.9
-	permeability_coefficient = 0.01
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 25, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
+	armor_type = /datum/armor/mask_surgical
 	actions_types = list(/datum/action/item_action/adjust)
+
+
+/datum/armor/mask_surgical
+	bio = 100
 
 /obj/item/clothing/mask/surgical/attack_self(mob/user)
 	adjustmask(user)
@@ -92,8 +95,8 @@
 		user.update_inv_wear_mask()
 		for(var/X in actions)
 			var/datum/action/A = X
-			A.UpdateButtonIcon()
-		to_chat(user, "<span class='notice'>Your emotion mask has now morphed into [choice]!</span>")
+			A.update_buttons()
+		to_chat(user, span_notice("Your emotion mask has now morphed into [choice]!"))
 		return 1
 
 
@@ -150,7 +153,7 @@
 /obj/item/clothing/mask/frog/cursed/equipped(mob/user, slot)
 	var/mob/living/carbon/C = user
 	if(C.wear_mask == src && HAS_TRAIT_FROM(src, TRAIT_NODROP, CURSED_MASK_TRAIT))
-		to_chat(user, "<span class='userdanger'>[src] was cursed! Ree!!</span>")
+		to_chat(user, span_userdanger("[src] was cursed! Ree!!"))
 	return ..()
 
 /obj/item/clothing/mask/cowmask
@@ -252,86 +255,6 @@
 	icon_state = "bumba"
 	item_state = "bumba"
 
-/obj/item/clothing/mask/bandana
-	name = "white bandana"
-	desc = "A fine white bandana with nanotech lining."
-	w_class = WEIGHT_CLASS_TINY
-	flags_cover = MASKCOVERSMOUTH
-	flags_inv = HIDEFACE|HIDEFACIALHAIR|HIDESNOUT
-	visor_flags_inv = HIDEFACE|HIDEFACIALHAIR|HIDESNOUT
-	visor_flags_cover = MASKCOVERSMOUTH
-	slot_flags = ITEM_SLOT_MASK
-	adjusted_flags = ITEM_SLOT_HEAD
-	icon_state = "bandwhite"
-
-/obj/item/clothing/mask/bandana/attack_self(mob/user)
-	adjustmask(user)
-
-/obj/item/clothing/mask/bandana/AltClick(mob/user)
-	if(!user.canUseTopic(src, BE_CLOSE))
-		return
-	if(iscarbon(user))
-		var/mob/living/carbon/C = user
-		if((C.get_item_by_slot(ITEM_SLOT_HEAD == src)) || (C.get_item_by_slot(ITEM_SLOT_MASK) == src))
-			to_chat(user, "<span class='warning'>You can't tie [src] while wearing it!</span>")
-			return
-	if(slot_flags & ITEM_SLOT_HEAD)
-		to_chat(user, "<span class='warning'>You must undo [src] before you can tie it into a neckerchief!</span>")
-	else
-		if(user.is_holding(src))
-			var/obj/item/clothing/neck/neckerchief/nk = new(src)
-			nk.name = "[name] neckerchief"
-			nk.desc = "[desc] It's tied up like a neckerchief."
-			nk.icon_state = icon_state
-			nk.sourceBandanaType = src.type
-			var/currentHandIndex = user.get_held_index_of_item(src)
-			user.transferItemToLoc(src, null)
-			user.put_in_hand(nk, currentHandIndex)
-			user.visible_message("<span class='notice'>[user] ties [src] up like a neckerchief.</span>", "<span class='notice'>You tie [src] up like a neckerchief.</span>")
-			qdel(src)
-		else
-			to_chat(user, "<span class='warning'>You must be holding [src] in order to tie it!")
-
-/obj/item/clothing/mask/bandana/red
-	name = "red bandana"
-	desc = "A fine red bandana with nanotech lining."
-	icon_state = "bandred"
-
-/obj/item/clothing/mask/bandana/blue
-	name = "blue bandana"
-	desc = "A fine blue bandana with nanotech lining."
-	icon_state = "bandblue"
-
-/obj/item/clothing/mask/bandana/green
-	name = "green bandana"
-	desc = "A fine green bandana with nanotech lining."
-	icon_state = "bandgreen"
-
-/obj/item/clothing/mask/bandana/gold
-	name = "gold bandana"
-	desc = "A fine gold bandana with nanotech lining."
-	icon_state = "bandgold"
-
-/obj/item/clothing/mask/bandana/black
-	name = "black bandana"
-	desc = "A fine black bandana with nanotech lining."
-	icon_state = "bandblack"
-
-/obj/item/clothing/mask/bandana/skull
-	name = "skull bandana"
-	desc = "A fine black bandana with nanotech lining and a skull emblem."
-	icon_state = "bandskull"
-
-/obj/item/clothing/mask/bandana/botany
-	name = "botany bandana"
-	desc = "A fine bandana with nanotech lining and a hydroponics pattern."
-	icon_state = "bandbotany"
-
-/obj/item/clothing/mask/bandana/durathread
-	name = "durathread bandana"
-	desc =  "A bandana made from durathread, you wish it would provide some protection to its wearer, but it's far too thin..."
-	icon_state = "banddurathread"
-
 /obj/item/clothing/mask/mummy
 	name = "mummy mask"
 	desc = "Ancient bandages."
@@ -368,3 +291,10 @@
 			message = replacetextEx(message,regex(capitalize(key),"g"), "[capitalize(value)]")
 			message = replacetextEx(message,regex(key,"g"), "[value]")
 	speech_args[SPEECH_MESSAGE] = trim(message)
+
+GLOBAL_LIST_INIT(cursed_animal_masks, list(
+		/obj/item/clothing/mask/pig/cursed,
+		/obj/item/clothing/mask/frog/cursed,
+		/obj/item/clothing/mask/cowmask/cursed,
+		/obj/item/clothing/mask/horsehead/cursed,
+	))

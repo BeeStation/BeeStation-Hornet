@@ -1,16 +1,14 @@
-/mob/living/carbon/monkey
-
 /mob/living/carbon/monkey/handle_mutations_and_radiation()
 	if(radiation)
 		if(radiation > RAD_MOB_KNOCKDOWN && prob(RAD_MOB_KNOCKDOWN_PROB))
 			if(!IsParalyzed())
 				emote("collapse")
 			Paralyze(RAD_MOB_KNOCKDOWN_AMOUNT)
-			to_chat(src, "<span class='danger'>You feel weak.</span>")
+			to_chat(src, span_danger("You feel weak."))
 		if(radiation > RAD_MOB_MUTATE)
 			if(prob(2))
-				to_chat(src, "<span class='danger'>You mutate!</span>")
-				easy_randmut(NEGATIVE+MINOR_NEGATIVE)
+				to_chat(src, span_danger("You mutate!"))
+				easy_random_mutate(NEGATIVE+MINOR_NEGATIVE)
 				emote("gasp")
 				domutcheck()
 
@@ -47,6 +45,8 @@
 			if(1000 to INFINITY)
 				adjustFireLoss(8)
 
+	. = ..() // interact with body heat after dealing with the hot air
+
 /mob/living/carbon/monkey/handle_environment(datum/gas_mixture/environment)
 	// Run base mob body temperature proc before taking damage
 	// this balances body temp to the enviroment and natural stabilization
@@ -69,7 +69,7 @@
 					apply_damage(HEAT_DAMAGE_LEVEL_2, BURN)
 
 	else if(bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT && !HAS_TRAIT(src, TRAIT_RESISTCOLD))
-		if(!istype(loc, /obj/machinery/atmospherics/components/unary/cryo_cell))
+		if(!istype(loc, /obj/machinery/cryo_cell))
 			add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/monkey_temperature_speedmod, multiplicative_slowdown = ((BODYTEMP_COLD_DAMAGE_LIMIT - bodytemperature) / COLD_SLOWDOWN_FACTOR))
 			switch(bodytemperature)
 				if(200 to BODYTEMP_COLD_DAMAGE_LIMIT)

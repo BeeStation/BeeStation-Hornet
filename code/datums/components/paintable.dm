@@ -2,7 +2,7 @@
 	var/current_paint
 
 /datum/component/spraycan_paintable/Initialize()
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(Repaint))
+	RegisterSignal(parent, COMSIG_ATOM_ATTACKBY, PROC_REF(Repaint))
 
 /datum/component/spraycan_paintable/Destroy()
 	RemoveCurrentCoat()
@@ -15,11 +15,11 @@
 /datum/component/spraycan_paintable/proc/Repaint(datum/source, obj/item/toy/crayon/spraycan/spraycan, mob/living/user)
 	SIGNAL_HANDLER
 
-	if(!istype(spraycan) || user.a_intent == INTENT_HARM)
+	if(!istype(spraycan) || user.combat_mode)
 		return
 	. = COMPONENT_NO_AFTERATTACK
 	if(spraycan.is_capped)
-		to_chat(user, "<span class='warning'>Take the cap off first!</span>")
+		to_chat(user, span_warning("Take the cap off first!"))
 		return
 	RemoveCurrentCoat()
 	if(spraycan.use_charges(user, 2))
@@ -28,4 +28,4 @@
 		var/atom/A = parent
 		A.add_atom_colour(colour, FIXED_COLOUR_PRIORITY)
 		playsound(spraycan, 'sound/effects/spray.ogg', 5, 1, 5)
-		to_chat(user, "<span class='notice'>You spray [spraycan] on [A], painting it.</span>")
+		to_chat(user, span_notice("You spray [spraycan] on [A], painting it."))

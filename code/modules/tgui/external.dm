@@ -50,7 +50,6 @@
  * return list Data to be sent to the UI.
  */
 /datum/proc/ui_data(mob/user)
-	SHOULD_NOT_SLEEP(TRUE) // Optional, but good code practice. Remove this if you have a valid use case.
 	return list() // Not implemented.
 
 /**
@@ -109,9 +108,14 @@
  * return bool If the UI should be updated or not.
  */
 /datum/proc/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	SHOULD_CALL_PARENT(TRUE)
 	// If UI is not interactive or usr calling Topic is not the UI user, bail.
 	if(!ui || ui.status != UI_INTERACTIVE)
-		return 1
+		return TRUE
+	if(action == "change_ui_state")
+		var/mob/living/user = ui.user
+		//write_preferences will make sure it's valid for href exploits.
+		user.client.prefs.write_preference(GLOB.preference_entries[layout_prefs_used], params["new_state"])
 
 /**
  * public

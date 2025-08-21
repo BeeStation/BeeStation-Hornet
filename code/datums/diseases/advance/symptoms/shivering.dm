@@ -30,7 +30,7 @@ Bonus
 	suffixes = list(" Shivers")
 	var/unsafe = FALSE //over the cold threshold
 	threshold_desc = "<b>Stage Speed 5:</b> Increases cooling speed; the host can fall below safe temperature levels.<br>\
-					  <b>Stage Speed 10:</b> Further increases cooling speed."
+						<b>Stage Speed 10:</b> Further increases cooling speed."
 
 /datum/symptom/shivering/severityset(datum/disease/advance/A)
 	. = ..()
@@ -55,9 +55,9 @@ Bonus
 	if(M.stat == DEAD)
 		return
 	if(!unsafe || A.stage < 4)
-		to_chat(M, "<span class='warning'>[pick("You feel cold.", "You shiver.")]</span>")
+		to_chat(M, span_warning("[pick("You feel cold.", "You shiver.")]"))
 	else
-		to_chat(M, "<span class='userdanger'>[pick("You feel your blood run cold.", "You feel ice in your veins.", "You feel like you can't heat up.", "You shiver violently." )]</span>")
+		to_chat(M, span_userdanger("[pick("You feel your blood run cold.", "You feel ice in your veins.", "You feel like you can't heat up.", "You shiver violently." )]"))
 	set_body_temp(A.affected_mob, A)
 
 /**

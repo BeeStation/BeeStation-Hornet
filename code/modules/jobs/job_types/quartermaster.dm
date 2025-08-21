@@ -1,20 +1,18 @@
 /datum/job/quartermaster
 	title = JOB_NAME_QUARTERMASTER
 	description = "Oversee and direct cargo technicians to fulfill requests for supplies and keep the station well stocked, request funds from department budgets to cover costs, deny frivolous orders when money is tight, and sell anything the station doesn't need."
-	department_for_prefs = DEPT_BITFLAG_CAR
+	department_for_prefs = DEPT_NAME_CARGO
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
 	faction = "Station"
 	total_positions = 1
-	spawn_positions = 1
 	selection_color = "#d7b088"
 	exp_requirements = 600
 	exp_type = EXP_TYPE_SUPPLY
-	exp_type_department = EXP_TYPE_SUPPLY
 
 	outfit = /datum/outfit/job/quartermaster
 
-	base_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_QM, ACCESS_MINING, ACCESS_MECH_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM, ACCESS_VAULT, ACCESS_AUX_BASE, ACCESS_EXPLORATION)
+	base_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_QM, ACCESS_MINING, ACCESS_MECH_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM, ACCESS_VAULT, ACCESS_AUX_BASE, ACCESS_EXPLORATION, ACCESS_GATEWAY)
 	extra_access = list()
 
 	departments = DEPT_BITFLAG_CAR
@@ -40,7 +38,7 @@
 	jobtype = /datum/job/quartermaster
 
 	id = /obj/item/card/id/job/quartermaster
-	belt = /obj/item/modular_computer/tablet/pda/quartermaster
+	belt = /obj/item/modular_computer/tablet/pda/preset/quartermaster
 	ears = /obj/item/radio/headset/headset_quartermaster
 	uniform = /obj/item/clothing/under/rank/cargo/quartermaster
 	shoes = /obj/item/clothing/shoes/sneakers/brown

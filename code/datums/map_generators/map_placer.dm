@@ -49,6 +49,7 @@
 
 	var/model_key
 	var/model
+	var/list/cached_model_keys = null
 	var/list/members
 	var/list/members_attributes
 	var/index
@@ -226,13 +227,23 @@
 		model_cache = placing_template.modelCache
 		set_stage(GENERATE_STAGE_BUILD_COORDINATES_START)
 		return
-	//Set these all to be the same reference
-	model_cache = placing_template.modelCache = list()
+	// Build the model cache by ourselves
+	model_cache = list()
 	set_stage(GENERATE_STAGE_BUILD_CACHE)
 	//Set the grid models
 	grid_models = placing_template.grid_models
-	//Set the first stage of the grid model loop
-	model_key = grid_models[run_stage]
+	// Cache model keys so we can index
+	cached_model_keys = list()
+	for (var/key in grid_models)
+		cached_model_keys += key
+	// Start at index 1
+	run_stage = 1
+	if (run_stage > cached_model_keys.len)
+		// No models to process
+		set_stage(GENERATE_STAGE_BUILD_COORDINATES_START)
+		placing_template.modelCache = model_cache
+		return
+	model_key = cached_model_keys[run_stage]
 	build_cache_set_model_loop()
 
 /// Build the cache
@@ -275,15 +286,15 @@
 
 /// Move to the next element in the build cache
 /datum/async_map_generator/map_place/proc/build_cache_move_next()
-	run_stage ++
-	//Check if we are still in range
-	if (run_stage > length(grid_models))
+	run_stage++
+
+	if (run_stage > cached_model_keys.len)
 		// Out of range, cache building is completed
 		set_stage(GENERATE_STAGE_BUILD_COORDINATES_START)
-		//Store the cache in the template
 		placing_template.modelCache = model_cache
 		return FALSE
-	model_key = grid_models[run_stage]
+
+	model_key = cached_model_keys[run_stage]
 	build_cache_set_model_loop()
 	return TRUE
 

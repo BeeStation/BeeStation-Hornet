@@ -25,9 +25,6 @@
 	set_stat(DEAD)
 	cut_overlays()
 
-	if(SSticker.mode)
-		SSticker.mode.check_win()
-
 	return ..(gibbed)
 
 /mob/living/simple_animal/slime/gib()

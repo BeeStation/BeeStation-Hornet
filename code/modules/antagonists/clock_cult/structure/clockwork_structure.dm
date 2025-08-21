@@ -10,7 +10,7 @@
 	density = TRUE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/can_be_repaired = TRUE //if a fabricator can repair it
-	break_message = "<span class='warning'>Sparks fly as the brass structure shatters across the ground.</span>" //The message shown when a structure breaks
+	break_message = span_warning("Sparks fly as the brass structure shatters across the ground.") //The message shown when a structure breaks
 	break_sound = 'sound/magic/clockwork/anima_fragment_death.ogg' //The sound played when a structure breaks
 	debris = list(/obj/item/clockwork/alloy_shards/large = 1, \
 		/obj/item/clockwork/alloy_shards/medium = 2, \
@@ -21,13 +21,13 @@
 /obj/structure/destructible/clockwork/examine(mob/user)
 	. = list("[get_examine_string(user, TRUE)].")
 
-	if(is_servant_of_ratvar(user) && clockwork_desc)
+	if(IS_SERVANT_OF_RATVAR(user) && clockwork_desc)
 		. += clockwork_desc
 	else if(desc)
 		. += desc
 
 /obj/structure/destructible/clockwork/attacked_by(obj/item/I, mob/living/user)
-	if(immune_to_servant_attacks && is_servant_of_ratvar(user))
+	if(immune_to_servant_attacks && IS_SERVANT_OF_RATVAR(user))
 		return
 	. = ..()
 

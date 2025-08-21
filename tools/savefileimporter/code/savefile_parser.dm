@@ -141,7 +141,7 @@
 	READ_FILE(S["lastchangelog"], lastchangelog, null)
 	NEW_QUERY(PREFERENCE_TAG_LAST_CL, owning_ckey, lastchangelog)
 
-	READ_FILE(S["UI_style"], UI_style, "Midnight")
+	READ_FILE(S["UI_style"], UI_style, "Midnight-Knox")
 	NEW_QUERY(PREFERENCE_TAG_UI_STYLE, owning_ckey, UI_style)
 
 	READ_FILE(S["outline_color"], outline_color, "#75A2BB")
@@ -217,6 +217,16 @@
 		var/em = query.ErrorMsg()
 		if(em)
 			log_info("Query error when processing [owning_ckey] | [em]")
+
+	//favorite outfits
+	READ_FILE(S["favorite_outfits"], favorite_outfits)
+
+	var/list/parsed_favs = list()
+	for(var/typetext in favorite_outfits)
+		var/datum/outfit/path = text2path(typetext)
+		if(ispath(path)) //whatever typepath fails this check probably doesn't exist anymore
+			parsed_favs += path
+	favorite_outfits = uniqueList(parsed_favs)
 
 	// Now do characters
 	parse_characters(owning_ckey, S, character_dirs)

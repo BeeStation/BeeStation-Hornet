@@ -40,6 +40,9 @@
 	/// Is night lighting allowed to occur on this station?
 	var/allow_night_lighting = TRUE
 
+	/// List of unit tests that are skipped when running this map
+	var/list/skipped_tests
+
 	//======
 	// Starlight Settings
 	//======
@@ -117,6 +120,7 @@
 		if (!fexists("_maps/[map_path]/[map_file]"))
 			log_world("Map file ([map_path]/[map_file]) does not exist!")
 			return
+
 	// "map_file": ["Lower.dmm", "Upper.dmm"]
 	else if (islist(map_file))
 		for (var/file in map_file)
@@ -181,6 +185,16 @@
 	planet_mass = text2num(json["planet_mass"]) || planet_mass
 	planet_radius = text2num(json["planet_radius"]) || planet_radius
 
+#ifdef UNIT_TESTS
+	// Check for unit tests to skip, no reason to check these if we're not running tests
+	for(var/path_as_text in json["ignored_unit_tests"])
+		var/path_real = text2path(path_as_text)
+		if(!ispath(path_real, /datum/unit_test))
+			stack_trace("Invalid path in mapping config for ignored unit tests: \[[path_as_text]\]")
+			continue
+		LAZYADD(skipped_tests, path_real)
+#endif
+
 	defaulted = FALSE
 	return TRUE
 #undef CHECK_EXISTS
@@ -193,8 +207,8 @@
 		. += "_maps/[map_path]/[file]"
 
 /datum/map_config/proc/is_votable()
-	var/below_max = !(config_max_users) || GLOB.clients.len <= config_max_users
-	var/above_min = !(config_min_users) || GLOB.clients.len >= config_min_users
+	var/below_max = !(config_max_users) || GLOB.clients_unsafe.len <= config_max_users
+	var/above_min = !(config_min_users) || GLOB.clients_unsafe.len >= config_min_users
 	return votable && below_max && above_min
 
 /datum/map_config/proc/MakeNextMap()

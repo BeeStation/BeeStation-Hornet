@@ -1,14 +1,12 @@
 /datum/job/bartender
 	title = JOB_NAME_BARTENDER
 	description = "Brew a variety of drinks for the crew, cooperate with Botany and Chemistry for more exotic recipes, create a comfy atmosphere in your Bar."
-	department_for_prefs = DEPT_BITFLAG_SRV
+	department_for_prefs = DEPT_NAME_SERVICE
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
 	faction = "Station"
 	total_positions = 1
-	spawn_positions = 1
 	selection_color = "#bbe291"
-	exp_type_department = EXP_TYPE_SERVICE // This is so the jobs menu can work properly
 
 	outfit = /datum/outfit/job/bartender
 
@@ -38,11 +36,11 @@
 
 	id = /obj/item/card/id/job/bartender
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced/reagent
-	belt = /obj/item/modular_computer/tablet/pda/bartender
+	belt = /obj/item/modular_computer/tablet/pda/preset/bartender
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/bartender
 	suit = /obj/item/clothing/suit/armor/vest
-	backpack_contents = list(/obj/item/storage/box/beanbag=1)
+	l_hand = /obj/item/storage/box/beanbag
 	shoes = /obj/item/clothing/shoes/laceup
 
 

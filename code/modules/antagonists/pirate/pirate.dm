@@ -4,6 +4,7 @@
 	roundend_category = "space pirates"
 	antagpanel_category = "Pirate"
 	show_to_ghosts = TRUE
+	required_living_playtime = 4
 	var/datum/team/pirate/crew
 
 /datum/antagonist/pirate/captain
@@ -15,7 +16,7 @@
 	set_antag_hud(current, "pirate-captain")
 
 /datum/antagonist/pirate/greet()
-	to_chat(owner, "<span class='boldannounce'>You are a Space Pirate!</span>")
+	to_chat(owner, span_boldannounce("You are a Space Pirate!"))
 	to_chat(owner, "<B>The station refused to pay for your protection, protect the ship, siphon the credits from the station and raid it for even more loot.</B>")
 	owner.announce_objectives()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Space Pirate",
@@ -65,12 +66,12 @@
 	. = ..()
 	var/mob/living/owner_mob = mob_override || owner.current
 	var/datum/language_holder/holder = owner_mob.get_language_holder()
-	holder.grant_language(/datum/language/piratespeak, TRUE, TRUE, LANGUAGE_PIRATE)
+	holder.grant_language(/datum/language/piratespeak, source = LANGUAGE_PIRATE)
 	holder.selected_language = /datum/language/piratespeak
 
 /datum/antagonist/pirate/remove_innate_effects(mob/living/mob_override)
 	var/mob/living/owner_mob = mob_override || owner.current
-	owner_mob.remove_language(/datum/language/piratespeak, TRUE, TRUE, LANGUAGE_PIRATE)
+	owner_mob.remove_language(/datum/language/piratespeak, source = LANGUAGE_PIRATE)
 	return ..()
 
 /datum/team/pirate
@@ -125,7 +126,7 @@
 /datum/team/pirate/roundend_report()
 	var/list/parts = list()
 
-	parts += "<span class='header'>Space Pirates were:</span>"
+	parts += span_header("Space Pirates were:")
 
 	var/all_dead = TRUE
 	for(var/datum/mind/M in members)
@@ -139,8 +140,8 @@
 	parts += "Total loot value : [L.get_loot_value()]/[L.target_value] credits"
 
 	if(L.check_completion() && !all_dead)
-		parts += "<span class='greentext big'>The pirate crew was successful!</span>"
+		parts += span_greentextbig("The pirate crew was successful!")
 	else
-		parts += "<span class='redtext big'>The pirate crew has failed.</span>"
+		parts += span_redtextbig("The pirate crew has failed.")
 
 	return "<div class='panel redborder'>[parts.Join("<br>")]</div>"

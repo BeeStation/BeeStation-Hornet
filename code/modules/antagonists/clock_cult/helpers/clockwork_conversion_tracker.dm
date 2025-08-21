@@ -6,7 +6,7 @@ GLOBAL_VAR(critical_servant_count)
 
 GLOBAL_VAR_INIT(conversion_warning_stage, CONVERSION_WARNING_NONE)
 
-//If there is a clockcult team (clockcult gamemode), add them to the team
+//If there is a clockcult team, add them to the team
 /proc/add_servant_of_ratvar(mob/M, add_team = TRUE, silent=FALSE, servant_type = /datum/antagonist/servant_of_ratvar, datum/team/clock_cult/team = null)
 	if(!istype(M))
 		return
@@ -36,8 +36,8 @@ GLOBAL_VAR_INIT(conversion_warning_stage, CONVERSION_WARNING_NONE)
 		var/datum/antagonist/servant_of_ratvar/cult_datum = cult_mind.has_antag_datum(/datum/antagonist/servant_of_ratvar)
 		if(!cult_datum)
 			return FALSE
-		to_chat(cult_mind, "<span class='large_brass'>Never forget th...[text2ratvar("e will of Eng'ine!")]...</span>")
-		to_chat(cult_mind, "<span class='warning'>The quiet ticking in the back of your mind slowly fades away...</span>")
+		to_chat(cult_mind, "[span_largebrass("Never forget th...[text2ratvar("e will of Eng'ine!")]...")]")
+		to_chat(cult_mind, span_warning("The quiet ticking in the back of your mind slowly fades away..."))
 		cult_datum.silent = silent
 		cult_datum.on_removal()
 		cult_mind.special_role = null

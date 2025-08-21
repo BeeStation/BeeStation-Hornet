@@ -18,7 +18,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 	base_icon_state = "req_comp"
 	layer = ABOVE_WINDOW_LAYER
 	max_integrity = 300
-	armor = list(MELEE = 70,  BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 90, STAMINA = 0)
+	armor_type = /datum/armor/machinery_requests_console
 	/// Reference to our area
 	var/area/area
 	/// Is autonaming by area on?
@@ -63,12 +63,30 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 	///Will contain the name and and job of the person who verified it
 	var/auth_id = "Unknown"
 
+/datum/armor/machinery_requests_console
+	melee = 70
+	bullet = 30
+	laser = 30
+	energy = 30
+	fire = 90
+	acid = 90
+
 /obj/machinery/requests_console/update_appearance(updates=ALL)
 	. = ..()
 	if(machine_stat & NOPOWER)
 		set_light(0)
 		return
 	set_light(1.5, 0.7, "#34D352")//green light
+
+/obj/machinery/requests_console/examine(mob/user)
+	. = ..()
+	if(!open)
+		. += span_notice("It looks like you can pry open the panel with <b>a crowbar</b>.")
+	else
+		. += span_warning("The panel was pried open, you can close it with <b>a crowbar</b>.")
+
+	if(hack_state)
+		. += span_warning("The console seems to have been tampered with!")
 
 /obj/machinery/requests_console/update_overlays()
 	. = ..()
@@ -127,7 +145,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 	GLOB.req_console_ckey_departments[ckey(department)] = department // and then we set ourselves a listed name
 
 	radio = new /obj/item/radio(src)
-	radio.listening = 0
+	radio.set_listening(FALSE)
 
 /obj/machinery/requests_console/Destroy()
 	QDEL_NULL(radio)
@@ -144,7 +162,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
-/obj/machinery/requests_console/ui_act(action, params)
+/obj/machinery/requests_console/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	if(.)
 		return
@@ -185,7 +203,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 			return TRUE
 		if("send_announcement")
 			if(!COOLDOWN_FINISHED(src, announcement_cooldown))
-				to_chat(usr, "<span class='alert'>Intercomms recharging. Please stand by.</span>")
+				to_chat(usr, span_alert("Intercomms recharging. Please stand by."))
 				return
 			if(!can_send_announcements)
 				return
@@ -194,17 +212,17 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 
 			var/message = reject_bad_text(trim(html_encode(params["message"]), MAX_MESSAGE_LEN), ascii_only = FALSE)
 			if(!message)
-				to_chat(usr, "<span class='alert'>Invalid message.</span>")
+				to_chat(usr, span_alert("Invalid message."))
 				return
 			if(isliving(usr))
 				var/mob/living/L = usr
 				message = L.treat_message(message)
 
-			minor_announce(message, "[department] Announcement:", from = auth_id, html_encode = FALSE)
+			minor_announce(message, "[department] Announcement:", html_encode = FALSE, sound_override = 'sound/misc/announce_dig.ogg')
 			GLOB.news_network.submit_article(message, department, "Station Announcements", null)
 			usr.log_talk(message, LOG_SAY, tag="station announcement from [src]")
 			message_admins("[ADMIN_LOOKUPFLW(usr)] has made a station announcement from [src] at [AREACOORD(usr)].")
-			deadchat_broadcast(" made a station announcement from ["<span class='name'>[get_area_name(usr, TRUE)]</span>"].", "<span class='name'>[usr.real_name]</span", usr, message_type=DEADCHAT_ANNOUNCEMENT)
+			deadchat_broadcast(" made a station announcement from [span_name("[get_area_name(usr, TRUE)]")].", span_name("[usr.real_name]"), usr, message_type=DEADCHAT_ANNOUNCEMENT)
 
 			COOLDOWN_START(src, announcement_cooldown, ANNOUNCEMENT_COOLDOWN_TIME)
 			announcement_authenticated = FALSE
@@ -213,7 +231,8 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 			var/recipient = params["reply_recipient"]
 
 			var/reply_message = reject_bad_text(tgui_input_text(usr, "Write a quick reply to [recipient]", "Awaiting Input"), ascii_only = FALSE)
-
+			if(QDELETED(ui) || ui.status != UI_INTERACTIVE)
+				return
 			if(!reply_message)
 				has_mail_send_error = TRUE
 				playsound(src, 'sound/machines/buzz-two.ogg', 50, TRUE)
@@ -230,7 +249,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 				return
 			var/message = reject_bad_text(trim(html_encode(params["message"]), MAX_MESSAGE_LEN), ascii_only = FALSE)
 			if(!message)
-				to_chat(usr, "<span class='alert'>Invalid message.</span>")
+				to_chat(usr, span_alert("Invalid message."))
 				has_mail_send_error = TRUE
 				return TRUE
 			var/request_type = params["request_type"]
@@ -358,10 +377,10 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 /obj/machinery/requests_console/crowbar_act(mob/living/user, obj/item/tool)
 	tool.play_tool_sound(src, 50)
 	if(open)
-		to_chat(user, "<span class='notice'>You close the maintenance panel.</span>")
+		to_chat(user, span_notice("You close the maintenance panel."))
 		open = FALSE
 	else
-		to_chat(user, "<span class='notice'>You open the maintenance panel.</span>")
+		to_chat(user, span_notice("You open the maintenance panel."))
 		open = TRUE
 	update_appearance()
 	return TRUE
@@ -370,13 +389,13 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 	if(open)
 		hack_state = !hack_state
 		if(hack_state)
-			to_chat(user, "<span class='notice'>You modify the wiring.</span>")
+			to_chat(user, span_notice("You modify the wiring."))
 		else
-			to_chat(user, "<span class='notice'>You reset the wiring.</span>")
+			to_chat(user, span_notice("You reset the wiring."))
 		update_appearance()
 		tool.play_tool_sound(src, 50)
 	else
-		to_chat(user, "<span class='warning'>You must open the maintenance panel first!</span>")
+		to_chat(user, span_warning("You must open the maintenance panel first!"))
 	return TRUE
 
 /obj/machinery/requests_console/attackby(obj/item/attacking_item, mob/user, params)
@@ -399,6 +418,14 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/requests_console, 30)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/requests_console/auto_name, 30)
+
+/obj/item/wallframe/requests_console
+	name = "requests console"
+	desc = "An unmounted requests console. Attach it to a wall to use."
+	icon = 'icons/obj/terminals.dmi'
+	icon_state = "req_comp_off"
+	result_path = /obj/machinery/requests_console/auto_name
+	pixel_shift = 30
 
 #undef REQ_EMERGENCY_SECURITY
 #undef REQ_EMERGENCY_ENGINEERING
