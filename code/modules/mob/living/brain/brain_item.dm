@@ -24,7 +24,7 @@
 	var/suicided = FALSE
 	var/mob/living/brain/brainmob = null
 	var/brain_death = FALSE //if the brainmob was intentionally killed by attacking the brain after removal, or by severe braindamage
-	/// If it's a fake brain with no brainmob assigned. Feedback messages will be faked as if it does have a brainmob. See changelings & dullahans.
+	/// If it's a fake brain with no brainmob assigned. Feedback messages will be faked as if it does have a brainmob. See changelings
 	var/decoy_override = FALSE
 	/// Two variables necessary for calculating whether we get a brain trauma or not
 	var/damage_delta = 0
@@ -169,7 +169,7 @@
 			return
 
 		user.visible_message("[user] pours the contents of [O] onto [src], causing it to reform its original shape and turn a slightly brighter shade of pink.", span_notice("You pour the contents of [O] onto [src], causing it to reform its original shape and turn a slightly brighter shade of pink."))
-		set_organ_damage(damage - (0.05 * maxHealth))	//heals a small amount, and by using "setorgandamage", we clear the failing variable if that was up
+		set_organ_damage(damage - (0.05 * maxHealth))	//heals a small amount, and by using "set_organ_damage", we clear the failing variable if that was up
 		O.reagents.clear_reagents()
 		return
 
@@ -304,6 +304,7 @@
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "posibrain-ipc"
 	organ_flags = ORGAN_SYNTHETIC
+	base_icon_state = "posibrain"
 
 /obj/item/organ/brain/positron/on_insert(mob/living/carbon/human/brain_owner)
 	. = ..()

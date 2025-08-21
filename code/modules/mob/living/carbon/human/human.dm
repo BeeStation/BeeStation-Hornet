@@ -70,48 +70,6 @@
 	//...and display them.
 	add_to_all_human_data_huds()
 
-/mob/living/carbon/human/get_stat_tabs()
-	var/list/tabs = ..()
-	if(istype(wear_suit, /obj/item/clothing/suit/space/space_ninja))
-		tabs.Insert(1, "SpiderOS")
-	return tabs
-
-//Ninja Code
-/mob/living/carbon/human/get_stat(selected_tab)
-	if(selected_tab == "SpiderOS")
-		var/list/tab_data = list()
-		var/obj/item/clothing/suit/space/space_ninja/SN = wear_suit
-		if(!SN)
-			return
-		tab_data["SpiderOS Status"] = GENERATE_STAT_TEXT("[SN.s_initialized ? "Initialized" : "Disabled"]")
-		tab_data["Current Time"] = GENERATE_STAT_TEXT("[station_time_timestamp()]")
-		tab_data["divider_spideros"] = GENERATE_STAT_DIVIDER
-		if(SN.s_initialized)
-			//Suit gear
-			tab_data["Energy Charge"] = GENERATE_STAT_TEXT("[round(SN.cell.charge/100)]%")
-			tab_data["Smoke Bombs"] = GENERATE_STAT_TEXT("[SN.s_bombs]")
-			//Ninja status
-			tab_data["Fingerprints"] = GENERATE_STAT_TEXT("[rustg_hash_string(RUSTG_HASH_MD5, dna.unique_identity)]")
-			tab_data["Unique Identity"] = GENERATE_STAT_TEXT("[dna.unique_enzymes]")
-			tab_data["Overall Status"] = GENERATE_STAT_TEXT("[stat > 1 ? "dead" : "[health]% healthy"]")
-			tab_data["Nutrition Status"] = GENERATE_STAT_TEXT("[nutrition]")
-			tab_data["Oxygen Loss"] = GENERATE_STAT_TEXT("[getOxyLoss()]")
-			tab_data["Toxin Levels"] = GENERATE_STAT_TEXT("[getToxLoss()]")
-			tab_data["Burn Severity"] = GENERATE_STAT_TEXT("[getFireLoss()]")
-			tab_data["Brute Trauma"] = GENERATE_STAT_TEXT("[getBruteLoss()]")
-			tab_data["Radiation Levels"] = GENERATE_STAT_TEXT("[radiation] rad")
-			tab_data["Body Temperature"] = GENERATE_STAT_TEXT("[bodytemperature-T0C] degrees C ([bodytemperature*1.8-459.67] degrees F)")
-
-			//Diseases
-			if(diseases.len)
-				tab_data["DivSpiderOs2"] = GENERATE_STAT_DIVIDER
-				tab_data["Viruses"] = GENERATE_STAT_TEXT("")
-				for(var/thing in diseases)
-					var/datum/disease/D = thing
-					tab_data["* [D.name]"] = GENERATE_STAT_TEXT("Type: [D.spread_text], Stage: [D.stage]/[D.max_stages], Possible Cure: [D.cure_text]")
-		return tab_data
-	return ..()
-
 /mob/living/carbon/human/get_stat_tab_status()
 	var/list/tab_data = ..()
 	var/obj/item/tank/target_tank = internal || external
@@ -128,8 +86,8 @@
 	if(mind)
 		var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling)
-			tab_data["Chemical Storage"] = GENERATE_STAT_TEXT("[changeling.chem_charges]/[changeling.chem_storage]")
-			tab_data["Absorbed DNA"] = GENERATE_STAT_TEXT("[changeling.absorbedcount]")
+			tab_data["Chemical Storage"] = GENERATE_STAT_TEXT("[changeling.chem_charges]/[changeling.total_chem_storage]")
+			tab_data["Absorbed DNA"] = GENERATE_STAT_TEXT("[changeling.absorbed_count]")
 	return tab_data
 
 // called when something steps onto a human
@@ -142,7 +100,7 @@
 	spreadFire(AM)
 
 /mob/living/carbon/human/reset_perspective(atom/new_eye, force_reset = FALSE)
-	if(dna?.species?.prevent_perspective_change && !force_reset) // This is in case a species needs to prevent perspective changes in certain cases, like Dullahans preventing perspective changes when they're looking through their head.
+	if(dna?.species?.prevent_perspective_change && !force_reset) // This is in case a species needs to prevent perspective changes in certain cases
 		update_fullscreen()
 		return
 	return ..()
@@ -440,7 +398,7 @@
 					threatcount += 2
 
 	//Check for dresscode violations
-	if(istype(head, /obj/item/clothing/head/wizard) || istype(head, /obj/item/clothing/head/helmet/space/hardsuit/wizard))
+	if(istype(head, /obj/item/clothing/head/wizard))
 		threatcount += 2
 
 	//Check for nonhuman scum
@@ -695,52 +653,53 @@
 /mob/living/carbon/human/update_health_hud()
 	if(!client || !hud_used)
 		return
-	if(dna.species.update_health_hud())
+
+	// Updates the health bar, also sends signal
+	. = ..()
+
+	// Updates the health doll
+	if(!hud_used.healthdoll)
 		return
-	else
-		if(hud_used.healths)
-			if(..()) //not dead
-				switch(hal_screwyhud)
-					if(SCREWYHUD_CRIT)
-						hud_used.healths.icon_state = "health6"
-					if(SCREWYHUD_DEAD)
-						hud_used.healths.icon_state = "health7"
-					if(SCREWYHUD_HEALTHY)
-						hud_used.healths.icon_state = "health0"
-		if(hud_used.healthdoll)
-			hud_used.healthdoll.cut_overlays()
-			if(stat != DEAD)
-				hud_used.healthdoll.icon_state = "healthdoll_OVERLAY"
-				for(var/obj/item/bodypart/BP as() in bodyparts)
-					var/damage = BP.burn_dam + BP.brute_dam + (hallucination ? BP.stamina_dam : 0)
-					var/comparison = (BP.max_damage/5)
-					var/icon_num = 0
-					if(damage)
-						icon_num = 1
-					if(damage > (comparison))
-						icon_num = 2
-					if(damage > (comparison*2))
-						icon_num = 3
-					if(damage > (comparison*3))
-						icon_num = 4
-					if(damage > (comparison*4))
-						icon_num = 5
-					if(hal_screwyhud == SCREWYHUD_HEALTHY)
-						icon_num = 0
-					if(icon_num)
-						hud_used.healthdoll.add_overlay(mutable_appearance('icons/hud/screen_gen.dmi', "[BP.body_zone][icon_num]"))
-					//Stamina Outline (Communicate that we have stamina damage)
-					//Hallucinations will appear as regular damage
-					if(BP.stamina_dam && !hallucination)
-						var/mutable_appearance/MA = mutable_appearance('icons/hud/screen_gen.dmi', "[BP.body_zone]stam")
-						MA.alpha = (BP.stamina_dam / BP.max_stamina_damage) * 70 + 30
-						hud_used.healthdoll.add_overlay(MA)
-				for(var/t in get_missing_limbs()) //Missing limbs
-					hud_used.healthdoll.add_overlay(mutable_appearance('icons/hud/screen_gen.dmi', "[t]6"))
-				for(var/t in get_disabled_limbs()) //Disabled limbs
-					hud_used.healthdoll.add_overlay(mutable_appearance('icons/hud/screen_gen.dmi', "[t]7"))
-			else
-				hud_used.healthdoll.icon_state = "healthdoll_DEAD"
+
+	hud_used.healthdoll.cut_overlays()
+	if(stat == DEAD)
+		hud_used.healthdoll.icon_state = "healthdoll_DEAD"
+		return
+
+	hud_used.healthdoll.icon_state = "healthdoll_OVERLAY"
+	for(var/obj/item/bodypart/body_part as anything in bodyparts)
+		var/icon_num = 0
+
+		if(SEND_SIGNAL(body_part, COMSIG_BODYPART_UPDATING_HEALTH_HUD, src) & COMPONENT_OVERRIDE_BODYPART_HEALTH_HUD)
+			continue
+
+		var/is_hallucinating = !!src.has_status_effect(/datum/status_effect/hallucination)
+		var/damage = body_part.burn_dam + body_part.brute_dam + (is_hallucinating ? body_part.stamina_dam : 0)
+		var/comparison = (body_part.max_damage/5)
+		if(damage)
+			icon_num = 1
+		if(damage > (comparison))
+			icon_num = 2
+		if(damage > (comparison*2))
+			icon_num = 3
+		if(damage > (comparison*3))
+			icon_num = 4
+		if(damage > (comparison*4))
+			icon_num = 5
+		if(has_status_effect(/datum/status_effect/grouped/screwy_hud/fake_healthy))
+			icon_num = 0
+		if(icon_num)
+			hud_used.healthdoll.add_overlay(mutable_appearance('icons/hud/screen_gen.dmi', "[body_part.body_zone][icon_num]"))
+		//Stamina Outline (Communicate that we have stamina damage)
+		//Hallucinations will appear as regular damage
+		if(body_part.stamina_dam && !is_hallucinating)
+			var/mutable_appearance/MA = mutable_appearance('icons/hud/screen_gen.dmi', "[body_part.body_zone]stam")
+			MA.alpha = (body_part.stamina_dam / body_part.max_stamina_damage) * 70 + 30
+			hud_used.healthdoll.add_overlay(MA)
+	for(var/t in get_missing_limbs()) //Missing limbs
+		hud_used.healthdoll.add_overlay(mutable_appearance('icons/hud/screen_gen.dmi', "[t]6"))
+	for(var/t in get_disabled_limbs()) //Disabled limbs
+		hud_used.healthdoll.add_overlay(mutable_appearance('icons/hud/screen_gen.dmi', "[t]7"))
 
 /mob/living/carbon/human/fully_heal(admin_revive = FALSE)
 	dna?.species.spec_fully_heal(src)
@@ -1104,9 +1063,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/human/species)
 /mob/living/carbon/human/species/apid
 	race = /datum/species/apid
 
-/mob/living/carbon/human/species/dullahan
-	race = /datum/species/dullahan
-
 /mob/living/carbon/human/species/ethereal
 	race = /datum/species/ethereal
 
@@ -1239,9 +1195,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/human/species)
 
 /mob/living/carbon/human/species/skeleton
 	race = /datum/species/skeleton
-
-/mob/living/carbon/human/species/vampire
-	race = /datum/species/vampire
 
 /mob/living/carbon/human/species/zombie
 	race = /datum/species/zombie

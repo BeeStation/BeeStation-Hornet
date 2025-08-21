@@ -136,6 +136,8 @@
 		return TRUE
 	if(belt?.hit_reaction(src, AM, attack_text, damage, attack_type))
 		return TRUE
+	if(SEND_SIGNAL(src, COMSIG_HUMAN_CHECK_SHIELDS, AM, damage, attack_text, attack_type, armour_penetration) & SHIELD_BLOCK)
+		return TRUE
 	return FALSE
 
 /mob/living/carbon/human/hitby(atom/movable/AM, skipcatch = FALSE, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
@@ -173,6 +175,7 @@
 	else
 		affecting = get_bodypart(ran_zone(user.get_combat_bodyzone(src)))
 	var/target_area = parse_zone(check_zone(user.get_combat_bodyzone(src))) //our intended target
+
 	if(affecting)
 		if(I.force && I.damtype != STAMINA && (!IS_ORGANIC_LIMB(affecting))) // Bodpart_robotic sparks when hit, but only when it does real damage
 			if(I.force >= 5)
@@ -657,64 +660,12 @@
 	var/bleed_msg = harm_descriptors["bleed"]
 
 	var/list/missing = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
-	for(var/obj/item/bodypart/LB as() in bodyparts)
-		missing -= LB.body_zone
-		if(LB.is_pseudopart) //don't show injury text for fake bodyparts; ie chainsaw arms or synthetic armblades
+	for(var/obj/item/bodypart/body_part as anything in bodyparts)
+		missing -= body_part.body_zone
+		if(body_part.is_pseudopart) //don't show injury text for fake bodyparts; ie chainsaw arms or synthetic armblades
 			continue
-		var/self_aware = FALSE
-		if(HAS_TRAIT(src, TRAIT_SELF_AWARE))
-			self_aware = TRUE
-		var/limb_max_damage = LB.max_damage
-		var/status = ""
-		var/brutedamage = LB.brute_dam
-		var/burndamage = LB.burn_dam
-		if(hallucination)
-			if(prob(30))
-				brutedamage += rand(30,40)
-			if(prob(30))
-				burndamage += rand(30,40)
 
-		if(HAS_TRAIT(src, TRAIT_SELF_AWARE))
-			status = "[brutedamage] brute damage and [burndamage] burn damage"
-			if(!brutedamage && !burndamage)
-				status = "no damage"
-
-		else
-			if(brutedamage > 0)
-				status = LB.light_brute_msg
-			if(brutedamage > (limb_max_damage*0.4))
-				status = LB.medium_brute_msg
-			if(brutedamage > (limb_max_damage*0.8))
-				status = LB.heavy_brute_msg
-			if(brutedamage > 0 && burndamage > 0)
-				status += " and "
-
-			if(burndamage > (limb_max_damage*0.8))
-				status += LB.heavy_burn_msg
-			else if(burndamage > (limb_max_damage*0.2))
-				status += LB.medium_burn_msg
-			else if(burndamage > 0)
-				status += LB.light_burn_msg
-
-			if(status == "")
-				status = "OK"
-		var/no_damage
-		if(status == "OK" || status == "no damage")
-			no_damage = TRUE
-		var/isdisabled = " "
-		if(LB.bodypart_disabled)
-			isdisabled = " is disabled "
-			if(no_damage)
-				isdisabled += " but otherwise "
-			else
-				isdisabled += " and "
-		combined_msg += "\t <span class='[no_damage ? "notice" : "warning"]'>Your [LB.name][isdisabled][self_aware ? " has " : " is "][status].</span>"
-
-		for(var/obj/item/I in LB.embedded_objects)
-			if(I.isEmbedHarmless())
-				combined_msg += "\t <a href='byond://?src=[REF(src)];embedded_object=[REF(I)];embedded_limb=[REF(LB)]' class='warning'>There is \a [I] stuck to your [LB.name]!</a>"
-			else
-				combined_msg += "\t <a href='byond://?src=[REF(src)];embedded_object=[REF(I)];embedded_limb=[REF(LB)]' class='warning'>There is \a [I] embedded in your [LB.name]!</a>"
+		body_part.check_for_injuries(src, combined_msg)
 
 	for(var/t in missing)
 		combined_msg += span_boldannounce("Your [parse_zone(t)] is missing!")

@@ -227,9 +227,11 @@
 		/obj/item/extinguisher,
 		/obj/item/pickaxe,
 		/obj/item/t_scanner/adv_mining_scanner,
+		/obj/item/storage/bag/ore/cyborg,
 		/obj/item/restraints/handcuffs/cable/zipties,
 		/obj/item/soap/nanotrasen,
 		/obj/item/borg/cyborghug,
+		/obj/item/gps/cyborg,
 		/obj/item/instrument/piano_synth)
 	emag_modules = list(/obj/item/melee/energy/sword/cyborg)
 	ratvar_modules = list(
@@ -316,7 +318,6 @@
 		/obj/item/stack/sheet/brass/cyborg)
 	cyborg_base_icon = "engineer"
 	model_select_icon = "engineer"
-	magpulsing = TRUE
 	hat_offset = -4
 
 // --------------------- Janitor
@@ -395,7 +396,7 @@
 		/obj/item/clock_module/vanguard)
 	cyborg_base_icon = "medical"
 	model_select_icon = "medical"
-	can_be_pushed = FALSE
+	module_traits = list(TRAIT_PUSHIMMUNE)
 	hat_offset = 3
 
 /obj/item/robot_model/medical/be_transformed_to(obj/item/robot_model/old_model)
@@ -496,7 +497,7 @@
 		/obj/item/clock_module/sigil_submission)
 	cyborg_base_icon = "peace"
 	model_select_icon = "standard"
-	can_be_pushed = FALSE
+	module_traits = list(TRAIT_PUSHIMMUNE)
 	hat_offset = -2
 
 // --------------------- Service
@@ -565,49 +566,61 @@
 			return FALSE
 	. = ..()
 
-// --------------------- Security
-/obj/item/robot_model/security
-	name = "Security"
+// --------------------- guard
+/obj/item/robot_model/guard
+	name = "Guardian"
 	basic_modules = list(
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/restraints/handcuffs/cable/zipties,
-		/obj/item/melee/baton/loaded,
+		/obj/item/gun/energy/e_gun/mini/exploration/cyborg,
+		/obj/item/reagent_containers/peppercloud_deployer,
+		/obj/item/holosign_creator/security,
+		/obj/item/storage/bag/ore/cyborg,
+		/obj/item/gps/cyborg,
 		/obj/item/borg/charger,
+		/obj/item/extinguisher/mini,
 		/obj/item/weldingtool/cyborg/mini,
-		/obj/item/gun/energy/disabler/cyborg,
-		/obj/item/clothing/mask/gas/sechailer/cyborg,
-		/obj/item/extinguisher/mini)
-	emag_modules = list(/obj/item/gun/energy/laser/cyborg)
+		/obj/item/crowbar/cyborg,
+		/obj/item/borg/lollipop,
+		/obj/item/borg/cyborghug)
+	emag_modules = list(/obj/item/melee/energy/sword/cyborg)
 	ratvar_modules = list(
 		/obj/item/clock_module/abscond,
 		/obj/item/clockwork/weapon/brass_spear,
 		/obj/item/clock_module/ocular_warden,
 		/obj/item/clock_module/vanguard)
-	cyborg_base_icon = "sec"
-	model_select_icon = "security"
-	can_be_pushed = FALSE
+	cyborg_base_icon = "guard"
+	model_select_icon = "guard"
+	module_traits = list(TRAIT_PUSHIMMUNE)
 	hat_offset = 3
 
-/obj/item/robot_model/security/respawn_consumable(mob/living/silicon/robot/robot, coeff = 1)
-	. = ..()
-	var/obj/item/gun/energy/e_gun/advtaser/cyborg/taser = locate(/obj/item/gun/energy/e_gun/advtaser/cyborg) in basic_modules
-	if(taser)
-		if(taser.cell.charge < taser.cell.maxcharge)
-			var/obj/item/ammo_casing/energy/ammo = taser.ammo_type[taser.select]
-			taser.cell.give(ammo.e_cost * coeff)
-			taser.update_icon()
-		else
-			taser.charge_timer = 0
+//Aside from bomb and acid, not actually a lot of armor
+/datum/armor/cyborg
+	melee = 30
+	bullet = 30
+	laser = 30
+	energy = 30
+	bomb = 50
+	acid = 100
 
-// --------------------- Borgi
-/obj/item/robot_model/borgi
-	name = "Borgi"
-	basic_modules = list(
-		/obj/item/assembly/flash/cyborg,
-		/obj/item/borg/charger,
-		/obj/item/borg/cyborghug/peacekeeper)
-	cyborg_base_icon = "borgi"
-	model_select_icon = "standard"
+/obj/item/robot_model/guard/be_transformed_to(obj/item/robot_model/old_module)
+	var/mob/living/silicon/robot/cyborg = loc
+	var/list/guard_icons = list(
+		"Traditional" = image(icon = 'icons/mob/robots.dmi', icon_state = "guard"),
+		"Treaded" = image(icon = 'icons/mob/robots.dmi', icon_state = "guard_tread"),
+		"Borgi" = image(icon = 'icons/mob/robots.dmi', icon_state = "guard_alt")
+	)
+	var/service_robot_icon = show_radial_menu(cyborg, cyborg, guard_icons, custom_check = CALLBACK(src, PROC_REF(check_menu), cyborg, old_module), radius = 42, require_near = TRUE)
+	switch(service_robot_icon)
+		if("Traditional")
+			cyborg_base_icon = "guard"
+		if("Treaded")
+			cyborg_base_icon = "guard_tread"
+		if("Borgi")
+			cyborg_base_icon = "guard_alt"
+		else
+			return FALSE
+	. = ..()
 
 // --------------------- Deathsquad
 /obj/item/robot_model/deathsquad
@@ -627,7 +640,7 @@
 	ratvar_modules = list(/obj/item/clock_module/abscond)
 	cyborg_base_icon = "centcom"
 	model_select_icon = "malf"
-	can_be_pushed = FALSE
+	module_traits = list(TRAIT_PUSHIMMUNE)
 	hat_offset = 3
 
 // ------------------------------------------ Syndicate
@@ -647,7 +660,7 @@
 		/obj/item/pinpointer/syndicate_cyborg)
 	cyborg_base_icon = "synd_sec"
 	model_select_icon = "malf"
-	can_be_pushed = FALSE
+	module_traits = list(TRAIT_PUSHIMMUNE)
 	hat_offset = 3
 
 /obj/item/robot_model/syndicate/rebuild_modules()
@@ -687,7 +700,7 @@
 		/obj/item/organ_storage)
 	cyborg_base_icon = "synd_medical"
 	model_select_icon = "malf"
-	can_be_pushed = FALSE
+	module_traits = list(TRAIT_PUSHIMMUNE)
 	hat_offset = 3
 
 // --------------------- Syndicate Saboteur
@@ -720,8 +733,7 @@
 		)
 	cyborg_base_icon = "synd_engi"
 	model_select_icon = "malf"
-	can_be_pushed = FALSE
-	magpulsing = TRUE
+	module_traits = list(TRAIT_PUSHIMMUNE, TRAIT_NEGATES_GRAVITY)
 	hat_offset = -4
 	canDispose = TRUE
 

@@ -35,6 +35,10 @@
 ///Note that it is fired regardless of whether the mob was dead beforehand or not.
 #define COMSIG_LIVING_GIBBED "living_gibbed"
 
+/// from /proc/healthscan(): (list/scan_results, advanced, mob/user, mode)
+/// Consumers are allowed to mutate the scan_results list to add extra information
+#define COMSIG_LIVING_HEALTHSCAN "living_healthscan"
+
 /// from /datum/component/singularity/proc/can_move(), as well as /obj/anomaly/energy_ball/proc/can_move()
 /// if a callback returns `SINGULARITY_TRY_MOVE_BLOCK`, then the singularity will not move to that turf
 #define COMSIG_ATOM_SINGULARITY_TRY_MOVE "atom_singularity_try_move"
@@ -63,6 +67,9 @@
 ///from base of mob/living/Sleeping() (amount, ignore_canstun)
 #define COMSIG_LIVING_STATUS_SLEEP "living_sleeping"
 	#define COMPONENT_NO_STUN (1<<0)		//For all of them
+///from end of fully_heal(): (heal_flags)
+#define COMSIG_LIVING_POST_FULLY_HEAL "living_post_fully_heal"
+
 #define COMSIG_LIVING_STATUS_STAGGERED "living_staggered"		///from base of mob/living/Stagger() (amount, ignore_canstun)
 
 #define COMSIG_LIVING_ENTER_STASIS	"living_enter_stasis"		//! sent when a mob is put into stasis.
@@ -92,6 +99,11 @@
 ///From living/set_resting(): (new_resting, silent, instant)
 #define COMSIG_LIVING_RESTING "living_resting"
 
+///From base of mob/living/MobBump() (mob/living)
+#define COMSIG_LIVING_MOB_BUMP "living_mob_bump"
+///From base of mob/living/ZImpactDamage() (mob/living, levels, turf/t)
+#define COMSIG_LIVING_Z_IMPACT "living_z_impact"
+	#define NO_Z_IMPACT_DAMAGE (1<<0)
 /// From /mob/living/proc/stop_leaning()
 #define COMSIG_LIVING_STOPPED_LEANING "living_stopped_leaning"
 

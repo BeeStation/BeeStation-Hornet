@@ -93,6 +93,22 @@
 
 	return finish_preview_icon(final_icon)
 
+/datum/role_preference/roundstart/vampire
+	name = "Vampire"
+	description = "After your death, you awaken to see yourself as an undead monster. \n\
+		Scrape by Space Station 13, or take it over, vassalizing your way!"
+	antag_datum = /datum/antagonist/vampire
+
+/datum/role_preference/roundstart/vampire/get_preview_icon()
+	var/icon/icon = render_preview_outfit(/datum/outfit/vampire)
+	icon.Blend(icon('icons/effects/blood.dmi', "uniformblood"), ICON_OVERLAY)
+
+	return finish_preview_icon(icon)
+
+/datum/outfit/vampire
+	name = "Vampire outfit (Preview only)"
+	suit = /obj/item/clothing/suit/costume/dracula
+
 /datum/role_preference/roundstart/blood_cultist
 	name = "Blood Cultist"
 	description = "The Geometer of Blood, Nar-Sie, has sent a number of her followers to \
@@ -256,8 +272,28 @@
 
 /datum/outfit/nuclear_operative
 	name = "Nuclear Operative (Preview only)"
-	suit = /obj/item/clothing/suit/space/hardsuit/syndipreview
-	head = /obj/item/clothing/head/helmet/space/hardsuit/syndi
+
+	back = /obj/item/mod/control/pre_equipped/empty/syndicate
+
+/datum/outfit/nuclear_operative/post_equip(mob/living/carbon/human/H, visualsOnly)
+	var/obj/item/mod/module/armor_booster/booster = locate() in H.back
+	booster.active = TRUE
+	H.update_inv_back()
+
+/datum/outfit/nuclear_operative_elite
+	name = "Nuclear Operative (Elite, Preview only)"
+
+	back = /obj/item/mod/control/pre_equipped/empty/elite
+	l_hand = /obj/item/modular_computer/tablet/nukeops
+	r_hand = /obj/item/shield/energy
+
+/datum/outfit/nuclear_operative_elite/post_equip(mob/living/carbon/human/H, visualsOnly)
+	var/obj/item/mod/module/armor_booster/booster = locate() in H.back
+	booster.active = TRUE
+	H.update_inv_back()
+	var/obj/item/shield/energy/shield = locate() in H.held_items
+	shield.icon_state = "[shield.base_icon_state]1"
+	H.update_inv_hands()
 
 /datum/role_preference/roundstart/wizard
 	name = "Wizard"

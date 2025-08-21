@@ -46,18 +46,8 @@
 			update_stamina() //needs to go before updatehealth to remove stamcrit
 			updatehealth()
 
-	//Updates the number of stored chemicals for changeling powers
-	if(hud_used?.lingchemdisplay && !isalien(src) && mind)
-		var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)
-		if(changeling)
-			changeling.regenerate(delta_time, times_fired)
-			hud_used.lingchemdisplay.invisibility = 0
-			hud_used.lingchemdisplay.maptext = MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#dd66dd'>[round(changeling.chem_charges)]</font></div>")
-		else
-			hud_used.lingchemdisplay.invisibility = INVISIBILITY_ABSTRACT
-
 	if(stat != DEAD)
-		return 1
+		return TRUE
 
 ///////////////
 // BREATHING //
@@ -224,7 +214,7 @@
 	if(Toxins_partialpressure > safe_tox_max)
 		var/ratio = (GET_MOLES(/datum/gas/plasma, breath)/safe_tox_max) * 10
 		adjustToxLoss(clamp(ratio, MIN_TOXIC_GAS_DAMAGE, MAX_TOXIC_GAS_DAMAGE))
-		throw_alert("too_much_tox", /atom/movable/screen/alert/too_much_tox)
+		throw_alert("too_much_tox", /atom/movable/screen/alert/too_much_plas)
 	else
 		clear_alert("too_much_tox")
 
@@ -246,9 +236,9 @@
 	if(GET_MOLES(/datum/gas/bz, breath))
 		var/bz_partialpressure = (GET_MOLES(/datum/gas/bz, breath)/breath.total_moles())*breath_pressure
 		if(bz_partialpressure > 1)
-			hallucination += 10
+			adjust_hallucinations(20)
 		else if(bz_partialpressure > 0.01)
-			hallucination += 5
+			adjust_hallucinations(10 SECONDS)
 
 	//TRITIUM
 	if(GET_MOLES(/datum/gas/tritium, breath))
@@ -474,9 +464,6 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 
 	if(druggy)
 		adjust_drugginess(-0.5 * delta_time)
-
-	if(hallucination)
-		handle_hallucinations(delta_time, times_fired)
 
 	if(drunkenness)
 		drunkenness = max(drunkenness - ((0.005 + (drunkenness * 0.02)) * delta_time), 0)

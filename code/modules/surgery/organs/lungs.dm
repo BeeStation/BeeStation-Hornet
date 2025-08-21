@@ -273,13 +273,13 @@
 
 		var/bz_pp = PP(breath, /datum/gas/bz)
 		if(bz_pp > BZ_brain_damage_min)
-			H.hallucination += 10
+			H.adjust_hallucinations(20 SECONDS)
 			H.reagents.add_reagent(/datum/reagent/metabolite/bz,5)
 			if(prob(33))
 				H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3, 150)
 
 		else if(bz_pp > BZ_trip_balls_min)
-			H.hallucination += 5
+			H.adjust_hallucinations(10 SECONDS)
 			H.reagents.add_reagent(/datum/reagent/metabolite/bz,1)
 
 	// Nitrium
@@ -289,11 +289,12 @@
 			to_chat(H, span_notice("You feel a burning sensation in your chest"))
 		gas_breathed = PP(breath, /datum/gas/nitrium)
 		if (nitrium_pp > 5)
-			var/existing = H.reagents.get_reagent_amount(/datum/reagent/nitrium_low_metabolization)
-			H.reagents.add_reagent(/datum/reagent/nitrium_low_metabolization, max(0, 2 - existing))
+			var/existing = H.reagents.get_reagent_amount(/datum/reagent/nitrium)
+			H.reagents.add_reagent(/datum/reagent/nitrium, max(0, 4 - existing))
 		if (nitrium_pp > 10)
-			var/existing = H.reagents.get_reagent_amount(/datum/reagent/nitrium_high_metabolization)
-			H.reagents.add_reagent(/datum/reagent/nitrium_high_metabolization, max(0, 1 - existing))
+			var/existing = H.reagents.get_reagent_amount(/datum/reagent/nitrosyl_plasmide)
+			H.reagents.add_reagent(/datum/reagent/nitrosyl_plasmide, max(0, 4 - existing))
+			H.reagents.add_reagent(/datum/reagent/nitrium, 2) //Triggers overdose message primarily, so players aren't stuck in extreme slowdown for too long.
 
 		REMOVE_MOLES(/datum/gas/nitrium, breath, gas_breathed)
 

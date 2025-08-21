@@ -600,16 +600,16 @@
 /mob/living/simple_animal/hostile/proc/handle_target_del(datum/source)
 	SIGNAL_HANDLER
 
-	UnregisterSignal(target, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(target, COMSIG_QDELETING)
 	target = null
 	LoseTarget()
 
 /mob/living/simple_animal/hostile/proc/add_target(new_target)
 	if(target)
-		UnregisterSignal(target, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(target, COMSIG_QDELETING)
 	target = new_target
 	if(target)
-		RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(handle_target_del))
+		RegisterSignal(target, COMSIG_QDELETING, PROC_REF(handle_target_del))
 
 /mob/living/simple_animal/hostile/Login(mob/user) // We add a LosetTarget() here to stop the mob from chasing down targets after it has been given over to a player
 	..()

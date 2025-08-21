@@ -76,7 +76,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/bluespace_anchor)
 /obj/machinery/bluespace_anchor/proc/set_cell(cell)
 	if(power_cell)
 		power_cell.forceMove(get_turf(src))
-		UnregisterSignal(power_cell, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(power_cell, COMSIG_QDELETING)
 	power_cell = cell
 	if(power_cell)
 		power_cell.forceMove(src)
