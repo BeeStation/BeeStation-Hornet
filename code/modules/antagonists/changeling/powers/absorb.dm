@@ -27,7 +27,7 @@
 	var/datum/antagonist/changeling/changeling = IS_CHANGELING(owner)
 	return changeling.can_absorb_dna(target)
 
-/datum/action/changeling/absorbDNA/sting_action(mob/living/user)
+/datum/action/changeling/absorbDNA/sting_action(mob/owner)
 	SHOULD_CALL_PARENT(FALSE)
 
 	var/datum/antagonist/changeling/changeling = IS_CHANGELING(owner)

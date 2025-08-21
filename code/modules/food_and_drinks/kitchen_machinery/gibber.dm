@@ -232,9 +232,9 @@
 
 /obj/machinery/gibber/autogibber/Bumped(atom/movable/AM)
 	var/atom/input = get_step(src, input_dir)
-	if(isliving(AM))
-		var/mob/living/victim = AM
+	if(ismob(AM))
+		var/mob/M = AM
 
-		if(victim.loc == input)
-			victim.forceMove(src)
-			victim.gib()
+		if(M.loc == input)
+			M.forceMove(src)
+			M.gib()

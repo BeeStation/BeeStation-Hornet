@@ -177,8 +177,7 @@
 
 /datum/heretic_knowledge/spell/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	var/datum/action/spell/created_spell = created_spell_ref?.resolve()
-	if(created_spell?.owner == user)
-		created_spell.Remove(user)
+	created_spell?.Remove(user)
 
 /*
  * A knowledge subtype for knowledge that can only

@@ -606,12 +606,11 @@ GLOBAL_VAR_INIT(nuke_off_station, 0)
 /proc/KillEveryoneOnZLevel(z)
 	if(!z)
 		return
-	for(var/_victim in GLOB.mob_living_list)
-		var/mob/living/victim = _victim
-		if(victim.stat != DEAD && victim.get_virtual_z_level() == z)
-			to_chat(victim, span_userdanger("You are shredded to atoms!"))
-			victim.investigate_log("has been gibbed by a nuclear blast.", INVESTIGATE_DEATHS)
-			victim.gib()
+	for(var/mob/M in GLOB.mob_list)
+		if(M.stat != DEAD && M.get_virtual_z_level() == z)
+			to_chat(M, span_userdanger("You are shredded to atoms!"))
+			M.investigate_log("has been gibbed by a nuclear blast.", INVESTIGATE_DEATHS)
+			M.gib()
 
 /*
 This is here to make the tiles around the station mininuke change when it's armed.

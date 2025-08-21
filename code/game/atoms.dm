@@ -1346,36 +1346,6 @@
   */
 /atom/vv_edit_var(var_name, var_value)
 	switch(var_name)
-		if(NAMEOF(src, light_range))
-			if(light_system == STATIC_LIGHT)
-				set_light(l_range = var_value)
-			else
-				set_light_range(var_value)
-			. =  TRUE
-		if(NAMEOF(src, light_power))
-			if(light_system == STATIC_LIGHT)
-				set_light(l_power = var_value)
-			else
-				set_light_power(var_value)
-			. =  TRUE
-		if(NAMEOF(src, light_color))
-			if(light_system == STATIC_LIGHT)
-				set_light(l_color = var_value)
-			else
-				set_light_color(var_value)
-			. =  TRUE
-		if(NAMEOF(src, light_on))
-			set_smoothed_icon_state(var_value)
-			. =  TRUE
-		if(NAMEOF(src, light_flags))
-			set_light_flags(var_value)
-			. =  TRUE
-		if(NAMEOF(src, smoothing_junction))
-			set_smoothed_icon_state(var_value)
-			. =  TRUE
-		if(NAMEOF(src, opacity))
-			set_opacity(var_value)
-			. =  TRUE
 		if(NAMEOF(src, base_pixel_x))
 			set_base_pixel_x(var_value)
 			. = TRUE
@@ -1383,7 +1353,7 @@
 			set_base_pixel_y(var_value)
 			. = TRUE
 		if (NAMEOF(src, _emissive_count))
-			. = FALSE
+			return FALSE
 
 	if(!isnull(.))
 		datum_flags |= DF_VAR_EDITED

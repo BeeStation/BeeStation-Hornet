@@ -87,8 +87,8 @@
 		location = get_turf(src)
 	if(location)
 		explosion(location, devastation_range, heavy_range, light_exp_range)
-	if(isliving(target))
-		var/mob/living/M = target
+	if(ismob(target))
+		var/mob/M = target
 		M.gib()
 	qdel(src)
 

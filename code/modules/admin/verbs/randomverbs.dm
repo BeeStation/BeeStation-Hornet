@@ -676,35 +676,30 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	else
 		return
 
-/client/proc/cmd_admin_gib(mob/victim in GLOB.mob_list)
+/client/proc/cmd_admin_gib(mob/M in GLOB.mob_list)
 	set category = "Adminbus"
 	set name = "Gib"
 
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/confirm = tgui_alert(usr, "Drop a brain?", "Confirm", list("Yes", "No","Cancel"))
-	if(confirm == "Cancel")
+	var/confirm = alert(src, "Drop a brain?", "Confirm", "Yes", "No","Cancel")
+	if(confirm == "Cancel" || !confirm)
 		return
 	//Due to the delay here its easy for something to have happened to the mob
-	if(!victim)
+	if(!M)
 		return
 
-	log_admin("[key_name(usr)] has gibbed [key_name(victim)]")
-	message_admins("[key_name_admin(usr)] has gibbed [key_name_admin(victim)]")
+	log_admin("[key_name(usr)] has gibbed [key_name(M)]")
+	message_admins("[key_name_admin(usr)] has gibbed [key_name_admin(M)]")
 
-	if(isobserver(victim))
-		new /obj/effect/gibspawner/generic(get_turf(victim))
+	if(isobserver(M))
+		new /obj/effect/gibspawner/generic(get_turf(M))
 		return
-
-	var/mob/living/living_victim = victim
-	if (istype(living_victim))
-		living_victim.investigate_log("has been gibbed by an admin.", INVESTIGATE_DEATHS)
-		if(confirm == "Yes")
-			living_victim.gib()
-		else
-			living_victim.gib(TRUE)
-
+	if(confirm == "Yes")
+		M.gib()
+	else
+		M.gib(1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Gib") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_gib_self()
@@ -716,10 +711,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		log_admin("[key_name(usr)] used gibself.")
 		message_admins(span_adminnotice("[key_name_admin(usr)] used gibself."))
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Gib Self") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-		var/mob/living/ourself = mob
-		if (istype(ourself))
-			ourself.gib(TRUE, TRUE, TRUE)
+		mob.gib(1, 1, 1)
 
 /client/proc/cmd_admin_check_contents(mob/living/M in GLOB.mob_list)
 	set category = "Adminbus"

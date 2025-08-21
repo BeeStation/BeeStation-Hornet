@@ -208,6 +208,10 @@
 	if(stat == DEAD)
 		. += span_deadsay("Upon closer examination, [p_they()] appear[p_s()] to be dead.")
 
+/mob/living/simple_animal/updatehealth()
+	. = ..()
+	health = clamp(health, 0, maxHealth)
+
 /mob/living/simple_animal/update_stat()
 	if(status_flags & GODMODE)
 		return
@@ -657,6 +661,12 @@
 /mob/living/simple_animal/proc/consider_wakeup()
 	if (pulledby || shouldwakeup)
 		toggle_ai(AI_ON)
+
+/mob/living/simple_animal/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+	. = ..()
+	if(!ckey && !stat)//Not unconscious
+		if(AIStatus == AI_IDLE)
+			toggle_ai(AI_ON)
 
 
 /mob/living/simple_animal/onTransitZ(old_z, new_z)
