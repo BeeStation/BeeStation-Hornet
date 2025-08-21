@@ -11652,7 +11652,8 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/glass{
 	name = "Hydroponics";
-	req_one_access_txt = "35;28"supplies_requestable = 1
+	req_one_access_txt = "35;28";
+	supplies_requestable = 1
 	},
 /turf/open/floor/iron,
 /area/hydroponics)
