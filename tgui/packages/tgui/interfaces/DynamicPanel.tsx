@@ -653,19 +653,19 @@ const MidroundPage = () => {
         <Flex.Item>
           <Section fill title="—" style={{ height: '245px', width: '40px', position: 'relative' }}>
             <Box position="absolute" top={0} left="50%" style={{ transform: 'translate(-50%, 0)' }}>
-              10
+              5
             </Box>
             <Box position="absolute" top="25%" left="50%" style={{ transform: 'translate(-50%, -50%)' }}>
-              5
+              2.5
             </Box>
             <Box position="absolute" top="50%" left="50%" style={{ transform: 'translate(-50%, -50%)' }}>
               0
             </Box>
             <Box position="absolute" top="75%" left="50%" style={{ transform: 'translate(-50%, -50%)' }}>
-              -5
+              -2.5
             </Box>
             <Box position="absolute" bottom={0} left="50%" style={{ transform: 'translate(-50%, 0)' }}>
-              -10
+              -5
             </Box>
           </Section>
         </Flex.Item>
@@ -705,7 +705,7 @@ const MidroundPage = () => {
                 fillPositionedParent
                 data={living_data}
                 rangeX={[0, living_data.length - 1]}
-                rangeY={[-10, 10]}
+                rangeY={[-5, 5]}
                 strokeColor="rgb(38, 191, 74)"
               />
             )}
@@ -714,7 +714,7 @@ const MidroundPage = () => {
                 fillPositionedParent
                 data={dead_data}
                 rangeX={[0, dead_data.length - 1]}
-                rangeY={[-10, 10]}
+                rangeY={[-5, 5]}
                 strokeColor="rgb(46, 147, 222)"
               />
             )}
@@ -723,7 +723,7 @@ const MidroundPage = () => {
                 fillPositionedParent
                 data={observer_data}
                 rangeX={[0, observer_data.length - 1]}
-                rangeY={[-10, 10]}
+                rangeY={[-5, 5]}
                 strokeColor="rgb(127, 127, 127)"
               />
             )}
@@ -732,7 +732,7 @@ const MidroundPage = () => {
                 fillPositionedParent
                 data={antag_data}
                 rangeX={[0, antag_data.length - 1]}
-                rangeY={[-10, 10]}
+                rangeY={[-5, 5]}
                 strokeColor="rgb(223, 62, 62)"
               />
             )}
@@ -741,7 +741,7 @@ const MidroundPage = () => {
                 fillPositionedParent
                 data={linear_data}
                 rangeX={[0, linear_data.length - 1]}
-                rangeY={[-10, 10]}
+                rangeY={[-5, 5]}
                 strokeColor="rgb(255, 255, 255)"
               />
             )}
@@ -750,7 +750,7 @@ const MidroundPage = () => {
                 fillPositionedParent
                 data={linear_forced_data}
                 rangeX={[0, linear_forced_data.length - 1]}
-                rangeY={[-10, 10]}
+                rangeY={[-5, 5]}
                 strokeColor="rgb(255, 255, 0)"
               />
             )}

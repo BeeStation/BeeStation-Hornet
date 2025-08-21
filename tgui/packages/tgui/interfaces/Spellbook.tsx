@@ -87,13 +87,6 @@ const TAB2NAME: TabType[] = [
     scrollable: true,
   },
   {
-    title: 'Challenges',
-    blurb:
-      'The Wizard Federation is looking for shows of power. Arming the station against you will increase the danger, but will grant you more charges for your spellbook.',
-    locked: true,
-    scrollable: true,
-  },
-  {
     title: 'Rituals',
     blurb: 'These powerful spells change the very fabric of reality. Not always in your favour.',
     scrollable: true,
@@ -163,17 +156,16 @@ const TableOfContents = (props) => {
       />
       <Button lineHeight={lineHeightToc} fluid icon="users" content="Assistance and Summoning" onClick={() => setTabIndex(6)} />
       <Divider />
-      <Button lineHeight={lineHeightToc} fluid icon="crown" content="Challenges" onClick={() => setTabIndex(7)} />
-      <Button lineHeight={lineHeightToc} fluid icon="magic" content="Rituals" onClick={() => setTabIndex(8)} />
+      <Button lineHeight={lineHeightToc} fluid icon="magic" content="Rituals" onClick={() => setTabIndex(7)} />
       <Divider />
       <Button
         lineHeight={lineHeightToc}
         fluid
         icon="thumbs-up"
         content="Wizard Approved Loadouts"
-        onClick={() => setTabIndex(9)}
+        onClick={() => setTabIndex(8)}
       />
-      <Button lineHeight={lineHeightToc} fluid icon="dice" content="Arcane Randomizer" onClick={() => setTabIndex(10)} />
+      <Button lineHeight={lineHeightToc} fluid icon="dice" content="Arcane Randomizer" onClick={() => setTabIndex(9)} />
     </Box>
   );
 };
@@ -328,7 +320,8 @@ const Randomize = (props) => {
     <Stack fill vertical>
       {points < 10 && <PointLocked />}
       <Stack.Item>
-        Semi-Randomize will ensure you at least get some mobility and lethality and additional 20% spell value.
+        Choosing to randomize will give some bonus points and buy a random selection of spells. This is not reversible, it
+        disables refunding, and will not buy staves, wands, or similar magical items.
       </Stack.Item>
       <Stack.Item>
         <Button.Confirm
@@ -337,27 +330,10 @@ const Randomize = (props) => {
           lineHeight={lineHeightRandomize}
           fluid
           icon="dice-three"
-          content="Semi-Randomize!"
-          onClick={() => act('semirandomize')}
+          content="Randomize!"
+          onClick={() => act('randomize')}
         />
         <Divider />
-      </Stack.Item>
-      <Stack.Item>
-        Full Random will give you anything at a whopping 50% spell value increase!. There&apos;s no going back, either!
-      </Stack.Item>
-      <Stack.Item>
-        <NoticeBox danger>
-          <Button.Confirm
-            confirmContent="Cowabunga it is?"
-            confirmIcon="dice"
-            lineHeight={lineHeightRandomize}
-            fluid
-            color="black"
-            icon="dice"
-            content="Full Random!"
-            onClick={() => act('randomize')}
-          />
-        </NoticeBox>
       </Stack.Item>
     </Stack>
   );
@@ -610,7 +586,7 @@ export const Spellbook = (props) => {
                         <Button disabled={tabIndex === 2} icon="home" content="TOC" onClick={() => setTabIndex(2)} />
                         <Button
                           icon="arrow-right"
-                          disabled={tabIndex === 10}
+                          disabled={tabIndex === 9}
                           content="Next Page"
                           onClick={() => setTabIndex(tabIndex + 1)}
                         />

@@ -17,7 +17,7 @@
 /datum/browser/New(nuser, nwindow_id, ntitle = 0, nwidth = 0, nheight = 0, var/atom/nref = null)
 
 	user = nuser
-	RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(user_deleted))
+	RegisterSignal(user, COMSIG_QDELETING, PROC_REF(user_deleted))
 	window_id = nwindow_id
 	if (ntitle)
 		title = format_text(ntitle)

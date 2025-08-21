@@ -265,16 +265,16 @@ GLOBAL_DATUM_INIT(reality_smash_track, /datum/reality_smash_tracker, new)
 
 	being_drained = TRUE
 	balloon_alert(user, "You begin draining the influence")
-	RegisterSignal(user, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(user, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 
 	if(!do_after(user, 10 SECONDS, src, hidden = TRUE))
 		being_drained = FALSE
 		balloon_alert(user, "Interrupted")
-		UnregisterSignal(user, COMSIG_PARENT_EXAMINE)
+		UnregisterSignal(user, COMSIG_ATOM_EXAMINE)
 		return
 
 	// We don't need to set being_drained back since we delete after anyways
-	UnregisterSignal(user, COMSIG_PARENT_EXAMINE)
+	UnregisterSignal(user, COMSIG_ATOM_EXAMINE)
 	balloon_alert(user, "Influence drained")
 
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
@@ -298,7 +298,7 @@ GLOBAL_DATUM_INIT(reality_smash_track, /datum/reality_smash_tracker, new)
 	qdel(src)
 
 /*
- * Signal proc for [COMSIG_PARENT_EXAMINE], registered on the user draining the influence.
+ * Signal proc for [COMSIG_ATOM_EXAMINE], registered on the user draining the influence.
  *
  * Gives a chance for examiners to see that the heretic is interacting with an infuence.
  */

@@ -94,6 +94,7 @@
 
 //Called when we bump onto a mob
 /mob/living/proc/MobBump(mob/M)
+	SEND_SIGNAL(src, COMSIG_LIVING_MOB_BUMP, M)
 	//Even if we don't push/swap places, we "touched" them, so spread fire
 	spreadFire(M)
 
@@ -542,7 +543,7 @@
 		if(body_position == LYING_DOWN)
 			if(!silent)
 				to_chat(src, span_notice("You will now try to stay lying down on the floor."))
-		else if(buckled && buckled.buckle_lying != NO_BUCKLE_LYING)
+		else if(HAS_TRAIT(src, TRAIT_FORCED_STANDING) || (buckled && buckled.buckle_lying != NO_BUCKLE_LYING))
 			if(!silent)
 				to_chat(src, span_notice("You will now lay down as soon as you are able to."))
 		else
@@ -811,7 +812,6 @@
 	var/obj/item/organ/eyes/eyes = get_organ_slot(ORGAN_SLOT_EYES)
 	cure_blind(null, eyes?.can_see)
 	cure_husk()
-	hallucination = 0
 	heal_overall_damage(INFINITY, INFINITY, INFINITY, null, TRUE) //heal brute and burn dmg on both organic and robotic limbs, and update health right away.
 	ExtinguishMob()
 	fire_stacks = 0
@@ -822,6 +822,7 @@
 	slurring = 0
 	jitteriness = 0
 	stop_sound_channel(CHANNEL_HEARTBEAT)
+	SEND_SIGNAL(src, COMSIG_LIVING_POST_FULLY_HEAL, admin_revive)
 
 
 //proc called by revive(), to check if we can actually ressuscitate the mob (we don't want to revive him and have him instantly die again)
@@ -921,7 +922,7 @@
 		return pick("trails_1", "trails_2")
 
 /mob/living/experience_pressure_difference(pressure_difference, direction, pressure_resistance_prob_delta = 0)
-	if(buckled)
+	if(buckled || mob_negates_gravity())
 		return
 	if(client && client.move_delay >= world.time + world.tick_lag*2)
 		pressure_resistance_prob_delta -= 30
@@ -1134,7 +1135,7 @@
 		return FALSE
 	if(invisibility || alpha == 0)//cloaked
 		return FALSE
-	if(SEND_SIGNAL(src, COMSIG_LIVING_CAN_TRACK, args) & COMPONENT_CANT_TRACK)
+	if(SEND_SIGNAL(src, COMSIG_LIVING_CAN_TRACK, user) & COMPONENT_CANT_TRACK)
 		return FALSE
 
 	// Now, are they viewable by a camera? (This is last because it's the most intensive check)
@@ -1489,17 +1490,6 @@
 /mob/living/proc/on_fall()
 	return
 
-/mob/living/lingcheck()
-	if(mind)
-		var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)
-		if(changeling)
-			if(changeling.changeling_speak)
-				return LINGHIVE_LING
-			return LINGHIVE_OUTSIDER
-	if(mind?.linglink)
-		return LINGHIVE_LINK
-	return LINGHIVE_NONE
-
 /mob/living/forceMove(atom/destination)
 	stop_pulling()
 	if(buckled)
@@ -1737,6 +1727,28 @@
 		</font>
 	"}
 
+/mob/living/vv_get_dropdown()
+	. = ..()
+	VV_DROPDOWN_OPTION("", "---------")
+	VV_DROPDOWN_OPTION(VV_HK_GIVE_HALLUCINATION, "Give Hallucination")
+	VV_DROPDOWN_OPTION(VV_HK_GIVE_DELUSION_HALLUCINATION, "Give Delusion Hallucination")
+
+/mob/living/vv_do_topic(list/href_list)
+	. = ..()
+
+	if(!.)
+		return
+
+	if(href_list[VV_HK_GIVE_HALLUCINATION])
+		if(!check_rights(NONE))
+			return
+		admin_give_hallucination(usr)
+
+	if(href_list[VV_HK_GIVE_DELUSION_HALLUCINATION])
+		if(!check_rights(NONE))
+			return
+		admin_give_delusion(usr)
+
 /mob/living/eminence_act(mob/living/simple_animal/eminence/eminence)
 	if(IS_SERVANT_OF_RATVAR(src) && !iseminence(src))
 		eminence.selected_mob = src
@@ -1920,8 +1932,8 @@
 /// Proc to append behavior to the condition of being floored. Called when the condition starts.
 /mob/living/proc/on_floored_start()
 	if(body_position == STANDING_UP) //force them on the ground
-		set_lying_angle(pick(90, 270))
 		set_body_position(LYING_DOWN)
+		set_lying_angle(pick(90, 270))
 		on_fall()
 
 
@@ -2061,3 +2073,34 @@
 	target.do_jitter_animation(10)
 	addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living, do_jitter_animation), 10), 5 SECONDS)
 	addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living, revive), TRUE, TRUE), 10 SECONDS)
+
+/// Admin only proc for making the mob hallucinate a certain thing
+/mob/living/proc/admin_give_hallucination(mob/admin)
+	if(!admin || !check_rights(NONE))
+		return
+
+	var/chosen = select_hallucination_type(admin, "What hallucination do you want to give to [src]?", "Give Hallucination")
+	if(!chosen || QDELETED(src) || !check_rights(NONE))
+		return
+
+	if(!cause_hallucination(chosen, "admin forced by [key_name_admin(admin)]"))
+		to_chat(admin, "That hallucination ([chosen]) could not be run - it may be invalid with this type of mob or has no effects.")
+		return
+
+	message_admins("[key_name_admin(admin)] gave [ADMIN_LOOKUPFLW(src)] a hallucination. (Type: [chosen])")
+	log_admin("[key_name(admin)] gave [src] a hallucination. (Type: [chosen])")
+
+/// Admin only proc for giving the mob a delusion hallucination with specific arguments
+/mob/living/proc/admin_give_delusion(mob/admin)
+	if(!admin || !check_rights(NONE))
+		return
+
+	var/list/delusion_args = create_delusion(admin)
+	if(QDELETED(src) || !check_rights(NONE) || !length(delusion_args))
+		return
+
+	delusion_args[2] = "admin forced"
+	message_admins("[key_name_admin(admin)] gave [ADMIN_LOOKUPFLW(src)] a delusion hallucination. (Type: [delusion_args[1]])")
+	log_admin("[key_name(admin)] gave [src] a delusion hallucination. (Type: [delusion_args[1]])")
+	// Not using the wrapper here because we already have a list / arglist
+	_cause_hallucination(delusion_args)

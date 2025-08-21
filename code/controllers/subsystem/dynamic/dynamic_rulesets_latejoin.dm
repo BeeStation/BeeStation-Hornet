@@ -68,3 +68,22 @@
 		// BUT let's not give smugglers a million points on arrival.
 		// Limit it to four missed passive gain cycles (4 points).
 		new_heretic.knowledge_points = min(new_heretic.knowledge_points, 5)
+
+//////////////////////////////////////////////
+//                                          //
+//             VAMPIRE BREAKOUT             //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/latejoin/vampire
+	name = "Vampire Breakout"
+	role_preference = /datum/role_preference/latejoin/vampire
+	antag_datum = /datum/antagonist/vampire
+	weight = 4
+	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_CURATOR)
+
+/datum/dynamic_ruleset/latejoin/vampire/execute()
+	. = ..()
+	for(var/mob/chosen_candidate in chosen_candidates)
+		var/datum/antagonist/vampire/new_vampire = IS_VAMPIRE(chosen_candidate)
+		new_vampire.vampire_level_unspent = rand(2,3)

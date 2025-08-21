@@ -1,0 +1,5 @@
+author: TsunamiAnt
+delete-after: true
+changes:
+  - tweak: removed spellbook randomizer/challenges
+  - balance: wizards can now refund everywhere

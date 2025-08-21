@@ -52,7 +52,6 @@
 	var/datum/job/assigned_role
 	var/special_role
 	var/list/restricted_roles = list()
-	var/linglink
 	/// Martial art on this mind
 	var/datum/martial_art/martial_art = null
 	var/static/default_martial_art = new/datum/martial_art
@@ -116,10 +115,10 @@
 	if(new_current && QDELING(new_current))
 		CRASH("Tried to set a mind's current var to a qdeleted mob, what the fuck")
 	if(current)
-		UnregisterSignal(src, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(src, COMSIG_QDELETING)
 	current = new_current
 	if(current)
-		RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(clear_current))
+		RegisterSignal(src, COMSIG_QDELETING, PROC_REF(clear_current))
 
 /datum/mind/proc/clear_current(datum/source)
 	SIGNAL_HANDLER

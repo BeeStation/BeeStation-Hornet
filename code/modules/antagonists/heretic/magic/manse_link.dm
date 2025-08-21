@@ -68,7 +68,7 @@
 	desc = "Send a psychic message to everyone connected to your Mansus Net."
 	button_icon_state = "link_speech"
 	icon_icon = 'icons/hud/actions/actions_slime.dmi'
-	background_icon_state = "bg_ecult"
+	background_icon_state = "bg_heretic"
 	/// The raw prophet that hosts our link.
 	var/mob/living/simple_animal/hostile/heretic_summon/raw_prophet/originator
 
