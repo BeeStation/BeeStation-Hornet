@@ -251,7 +251,6 @@
 	icon_state = "coatviro"
 	item_state = "coatviro"
 	allowed = list(
-		/obj/item/extrapolator,
 		/obj/item/analyzer,
 		/obj/item/flashlight/pen,
 		/obj/item/healthanalyzer,

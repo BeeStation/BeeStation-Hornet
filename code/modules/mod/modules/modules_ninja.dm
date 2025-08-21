@@ -24,14 +24,14 @@
 		RegisterSignal(mod.wearer, COMSIG_LIVING_MOB_BUMP, PROC_REF(unstealth))
 	RegisterSignal(mod.wearer, COMSIG_HUMAN_MELEE_UNARMED_ATTACK, PROC_REF(on_unarmed_attack))
 	RegisterSignal(mod.wearer, COMSIG_ATOM_BULLET_ACT, PROC_REF(on_bullet_act))
-	RegisterSignals(mod.wearer, list(COMSIG_ITEM_ATTACK, COMSIG_PARENT_ATTACKBY, COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_HITBY, COMSIG_ATOM_HULK_ATTACK, COMSIG_ATOM_ATTACK_PAW, COMSIG_CARBON_CUFF_ATTEMPTED), PROC_REF(unstealth))
+	RegisterSignals(mod.wearer, list(COMSIG_ITEM_ATTACK, COMSIG_ATOM_ATTACKBY, COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_HITBY, COMSIG_ATOM_HULK_ATTACK, COMSIG_ATOM_ATTACK_PAW, COMSIG_CARBON_CUFF_ATTEMPTED), PROC_REF(unstealth))
 	animate(mod.wearer, alpha = stealth_alpha, time = 1.5 SECONDS)
 	drain_power(use_power_cost)
 
 /obj/item/mod/module/stealth/on_deactivation(display_message = TRUE, deleting = FALSE)
 	if(bumpoff)
 		UnregisterSignal(mod.wearer, COMSIG_LIVING_MOB_BUMP)
-	UnregisterSignal(mod.wearer, list(COMSIG_HUMAN_MELEE_UNARMED_ATTACK, COMSIG_ITEM_ATTACK, COMSIG_PARENT_ATTACKBY, COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_BULLET_ACT, COMSIG_ATOM_HITBY, COMSIG_ATOM_HULK_ATTACK, COMSIG_ATOM_ATTACK_PAW, COMSIG_CARBON_CUFF_ATTEMPTED))
+	UnregisterSignal(mod.wearer, list(COMSIG_HUMAN_MELEE_UNARMED_ATTACK, COMSIG_ITEM_ATTACK, COMSIG_ATOM_ATTACKBY, COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_BULLET_ACT, COMSIG_ATOM_HITBY, COMSIG_ATOM_HULK_ATTACK, COMSIG_ATOM_ATTACK_PAW, COMSIG_CARBON_CUFF_ATTEMPTED))
 	animate(mod.wearer, alpha = 255, time = 1.5 SECONDS)
 
 /obj/item/mod/module/stealth/proc/unstealth(datum/source)
@@ -214,10 +214,10 @@
 /obj/item/mod/module/weapon_recall/proc/set_weapon(obj/item/weapon)
 	linked_weapon = weapon
 	RegisterSignal(linked_weapon, COMSIG_MOVABLE_IMPACT, PROC_REF(catch_weapon))
-	RegisterSignal(linked_weapon, COMSIG_PARENT_QDELETING, PROC_REF(deleted_weapon))
+	RegisterSignal(linked_weapon, COMSIG_QDELETING, PROC_REF(deleted_weapon))
 
 /obj/item/mod/module/weapon_recall/proc/recall_weapon(caught = FALSE)
-	linked_weapon.forceMove(get_turf(src))
+	linked_weapon.throw_at(get_turf(src), force = MOVE_FORCE_STRONG, quickstart = TRUE)
 	var/alert = ""
 	if(mod.wearer.put_in_hands(linked_weapon))
 		alert = "[linked_weapon.name] teleports to your hand"
@@ -339,7 +339,7 @@
 
 /obj/item/mod/module/energy_net/proc/add_net(obj/structure/energy_net/net)
 	energy_nets += net
-	RegisterSignal(net, COMSIG_PARENT_QDELETING, PROC_REF(remove_net))
+	RegisterSignal(net, COMSIG_QDELETING, PROC_REF(remove_net))
 
 /obj/item/mod/module/energy_net/proc/remove_net(obj/structure/energy_net/net)
 	SIGNAL_HANDLER
@@ -381,6 +381,7 @@
 	if(target.buckled)
 		target.buckled.unbuckle_mob(target, force = TRUE)
 	net.buckle_mob(target, force = TRUE)
+	net.affecting = target
 
 /obj/projectile/energy_net/Destroy()
 	QDEL_NULL(line)
@@ -394,7 +395,7 @@
 		but one of their greatest mysteries is the chemical compound their assassin-saboteurs use in times of need. \
 		It's capable of clearing any fatigue whatsoever from the user, any immobilizing effect, and can even \
 		cure total paralysis. All that's known is that the fluid requires radiation to properly 'cook,' \
-		so this module demands radium to be refilled with."
+		so this module demands uranium to be refilled with."
 	icon_state = "adrenaline_boost"
 	removable = FALSE
 	module_type = MODULE_USABLE
@@ -403,7 +404,7 @@
 	cooldown_time = 12 SECONDS
 	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 	/// What reagent we need to refill?
-	var/reagent_required = /datum/reagent/uranium/radium
+	var/reagent_required = /datum/reagent/uranium
 	/// How much of a reagent we need to refill the boost.
 	var/reagent_required_amount = 20
 
@@ -425,15 +426,21 @@
 	mod.wearer.SetAllImmobility(0)
 	mod.wearer.adjustStaminaLoss(-200)
 	mod.wearer.stuttering = 0
+	//Speed
 	mod.wearer.reagents.add_reagent(/datum/reagent/medicine/amphetamine, 5)
+	//"Oh fuck I ran out of oxygen and couldnt get into the station in time"
+	mod.wearer.reagents.add_reagent(/datum/reagent/medicine/epinephrine, 5)
+	mod.wearer.reagents.add_reagent(/datum/reagent/medicine/salbutamol, 5)
+	//"I got spawned in and gangbanged by 5 carps"
+	mod.wearer.reagents.add_reagent(/datum/reagent/medicine/tricordrazine, 5)
 	reagents.remove_reagent(reagent_required, reagents.total_volume * 0.75)
 	addtimer(CALLBACK(src, PROC_REF(boost_aftereffects), mod.wearer), 7 SECONDS)
 
 /obj/item/mod/module/adrenaline_boost/on_install()
-	RegisterSignal(mod, COMSIG_PARENT_ATTACKBY,  PROC_REF(on_attackby))
+	RegisterSignal(mod, COMSIG_ATOM_ATTACKBY,  PROC_REF(on_attackby))
 
 /obj/item/mod/module/adrenaline_boost/on_uninstall(deleting)
-	UnregisterSignal(mod, COMSIG_PARENT_ATTACKBY)
+	UnregisterSignal(mod, COMSIG_ATOM_ATTACKBY)
 
 /obj/item/mod/module/adrenaline_boost/attackby(obj/item/attacking_item, mob/user, params)
 	if(charge_boost(attacking_item, user))

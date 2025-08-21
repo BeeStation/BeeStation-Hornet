@@ -141,3 +141,224 @@
       respectively.
   TsunamiAnt:
   - code_imp: dynamic point deltas are now (5,-5) not (10,-10)
+2025-08-09:
+  Nakalon:
+  - tweak: IPC brains now fit inside Robotic Torsos
+  - tweak: A warning message will appear when attempting to fit an IPC brain inside
+      a body which already has a brain (even if elsewhere)
+  - rscadd: A new surgery called Identity Recalibration can be preformed on robotic
+      torsos! (You'll need an ID)
+  - bugfix: Fixed a bug stopping players from downloading programs that had a hardware
+      requirement
+  - tweak: CE and Atmos PDAs start with a micro area recharger for compatibility with
+      the Power Monitor app.
+  - tweak: Atmos role disk was given the Power Monitor app.
+  - refactor: Refactored my own ass code to ensure this bug doesn't happen ever again.
+  - rscadd: You now get 40 beecoins at roundstart after readying up.
+  - bugfix: Fixes a bug causing qdeled modular computers to drop parts
+  Rukofamicom:
+  - bugfix: Diona no longer need to breathe at any time, instead of only being freed
+      of this burden as a nymph
+  mrmanlikesbt, LemonInTheDark, ninjanomnom:
+  - code_imp: shifted around some signal logic
+  - code_imp: micro optimizations for signal code
+  ? 'rkz, Fikou, MrMelbert, MTandi, Zonespace27, HatterHat, san7890, dawsonkeyes,
+    mc-oofert, tralezab, SmArtKar, coiax, Ryll/Shaps, Jacquerel, necromanceranne,
+    Xander3395, grungussuss, GPeckman, Holoo-1, OrionTheFox, Momo8289, Wallemations, '
+  : - rscadd: modsuits
+    - tweak: all ERT have been converted to use modsuits
+    - tweak: all antagonists that had hardsuits (Nukies, Spacewizard, Uplink Traitors)
+        have been converted to use modsuits
+    - rscadd: adds a loader modsuit for cargo to use. It is not spaceproof and has
+        very little module support, but is good for hauling crates
+    - code_imp: adds unit test to confirm all outfits apply correctly
+    - rscdel: deletes antagonist, ERT, and head of staff hardsuits
+    - refactor: refactored wizard casting to check a clothing flag, instead of a var
+    - tweak: captain's backpack now fits on both MODsuits & suit storage slots
+    - bugfix: fixes spellcards targeting. Revamps lockon component.
+    - rscadd: adds infiltrator kit, a modsuit that hides your species mutantorgans
+        like wings and antennae, with superior armor, normal runspeed and silent footsteps,
+        in exchange for no spaceproofing.
+    - refactor: refactors ninja gear to all use modsuit modules
+2025-08-10:
+  Aramix:
+  - bugfix: mail now spawns at the intended rate (max 1/minute at 5+ pop, with crate
+      still being limited to 6-12 mails)
+  Nakalon:
+  - rscdel: Retired the Pipe Dispenser Machine.
+  - rscadd: Added Engivend Vendors to Atmos. (And moved some things around to accomodate)
+  Solene and Rukofamicom:
+  - tweak: Loadout items now will be equipped on your character on spawn, replacing
+      standard job equipment (which will spawn in a box instead).
+  - bugfix: Fixed duplication of loadout items on spawn.
+  - bugfix: Loadout's will now display properly on the character panel
+  TsunamiAnt:
+  - rscadd: Engineering now has oxycandles in the engie-vend
+  - tweak: Hellfire candles are now cheaper.
+2025-08-11:
+  Isaac:
+  - bugfix: Medical modsuits can now fit first aid kits
+  - bugfix: You can now fit large items in extended capacity/syndicate storage modules
+  Rukofamicom:
+  - tweak: Toxic gas damage has been capped to 2.5 damage per second per gas, down
+      from 10 damage per second per gas. Players breathing toxic gasses will have
+      about the same time to respond as those that are breathing nothing at all now.
+  Schoolboy215:
+  - bugfix: Add previously missing hair dye receipe
+  SunShine214:
+  - bugfix: Radiation Collector Research Mode works again
+  Tsar-Salat:
+  - code_imp: game compiles with no linter errors
+2025-08-12:
+  Rukofamicom:
+  - bugfix: Tequila sunrise no longer makes shadowpeople and nightmares permanently
+      glow
+  - bugfix: Nightmares are now given a more accurate blurb with regard to the server
+      rules.
+  pixelpoepleman:
+  - rscadd: Added syringes embedding in pickpockets unless protected by thick clothes
+      (seen via examine)
+2025-08-13:
+  Tsar-Salat:
+  - bugfix: fix radial crafting
+  TsunamiAnt:
+  - config: AI laws are now weighted, with asimov being vastly more likely than anything
+      else.
+  - config: Removes crewsimov from roundstart lawsets
+  TsunamiAnt, Rukofamicom:
+  - rscadd: Security cyborgs are available again, but they have a fresh coat of paint
+      and a new name (Guardian) to hopefully distance them from trying to enforce
+      space law. They do not require research to unlock, but are also substantially
+      weaker than they used to be. They have swapped their stun batons for pepper
+      clouds, and their gun now has a limited capacity that recharges from the cyborg
+      cell over time. Guardian cyborgs also have additional armor plating to help
+      protect them, especially from explosives that kicks in after firing their gun.
+  - rscadd: Guardian cyborg guns now have two additional firing modes, taken from
+      the exploration gun. These modes allow them to demolish terrain and obstacles
+      as well as deal high damage to non-humanoid creatures. Both of these projectiles
+      will cause only 5 damage to humanoids.
+  - rscadd: Guardian cyborgs come equipped with an ore satchel and GPS in addition
+      to their fancy gun in order to provide better off-station support.
+  - rscadd: Guardian cyborgs have been given a hugging module and lollipop dispenser
+      to help put crew at ease, appropriate for their new appearance.
+  - rscadd: Standard cyborgs have gained a GPS and ore satchel as well
+  - tweak: Cyborgs are no longer completely stonewalled by holosigns and may pass
+      through them.
+  - bugfix: Explorer gun energy overlays are now displaying, and a new overlay has
+      been created for the "demolish" mode intended to destroy terrain and objects
+      which is purple in color.
+  - rscdel: Removes the now unused cyborg disabler upgrade from
+  - rscdel: Sort of removed the borgi from the game, since the new guardian borg has
+      hijacked their appearance. The sprite has also been modified by two pixels so
+      that it has a more neutral expression.
+  rkz, Rukofamicom:
+  - bugfix: Vehicles coded to require hands now actually require functional and empty
+      hands to operate. Most vehicles require hands, but skateboards, motorized wheelchairs
+      and Wheely Heelies do not.
+  - bugfix: Vehicles no longer have multiple riding elements applied to them, which
+      would cause very haywire things to happen.
+  - tweak: Motorized wheelchairs actually did require hands, this requirement has
+      been removed because they are propelled by a motor rather than by hand.
+2025-08-14:
+  Rukofamicom:
+  - rscdel: All reagents used exclusively for manpulating viruses and all reactions
+      related to the manipulation of viruses have been removed except for spaceacillin
+      interaction that stops a virus or host holding a virus from spreading it to
+      others.
+  - rscdel: Necropolis seed symptom and bowl of blood that was supposed to be its
+      source removed from the game
+  - rscdel: Virus extrapolators have been removed from all maps
+  - code_imp: Virus extrapolator code has been significantly trimmed. The only code
+      that remains is what is necessary for medical scanners to function, to be further
+      trimmed at some point in the future probably. maybe.
+  - bugfix: Fixed nooartrium working in mobs it wasn't supposed to
+  - tweak: Nooartrium now causes the affected mob to make a loud zombie wail when
+      initially taking the drug, zombie growl periodically while the drug is active,
+      and wail again (different, weaker one) when the drug's effects end.
+  - tweak: Nooartrium now causes at least 25 heart damage when metabolization ends
+      to give it a flavorful downside as a purely medical revival drug.
+  - tweak: Nooartrium now only requires heating to 470K, just under teslium's activation
+      point at 474.
+  - code_imp: Cleaned up a lot of nooartrium code while trying to preserve all of
+      the original balance aside from the above points regarding revival and sounds.
+2025-08-15:
+  Rukofamicom:
+  - bugfix: Janicart now accepts keys again
+  Tsar-Salat:
+  - bugfix: fixes some bugs with weapon dashing (ninja, etc.)
+  - bugfix: Ninja c4 works and ties in with an objective like its supposed to
+  - bugfix: readded ninja net dojo behavior
+  - bugfix: fixes energy katana worn sprite
+  - balance: Ninja adrenaline module now takes rarer uranium rather than roundstart
+      radium, and in exchange gives 5u dosage of epi, salbu, and tricord instead.
+  - rscadd: adds category support to mining vendors, refactors their UI to be functionally
+      the same as vending machines
+  - bugfix: fixes mining vendors
+  - tweak: renames mining vendors
+  TsunamiAnt:
+  - rscadd: Added calligraphy brush
+  - bugfix: fixed paperbundles
+  mrmanlikesbt, vinylspiders, absolucy:
+  - code_imp: code cleanup for reagents
+2025-08-16:
+  Aramix:
+  - bugfix: fancychat now auto-resizes to occupy the remaining space properly, especially
+      after reconnects
+2025-08-17:
+  Nakalon:
+  - bugfix: Fixes plasmaman loadout replacement causing their death.
+  - tweak: Backpacks will always spawn first in a players loadout now to ensure everything
+      works how it's supposed to and that their old bag does get, in fact, replaced.
+  PowerfulBacon:
+  - tweak: Adds in unit testing for emissive overlays, IPC screen emissives and clothes
+      providing emissive blockers.
+  - tweak: Screenshot tests are no longer reported with the image in the comments,
+      while we don't have access to file.house
+  Rukofamicom:
+  - rscdel: Removed dullahans
+  Solene, Ratwood/Roguetown:
+  - rscadd: Adds accents as a trait
+  - rscadd: Added British and Scottish accent (Scottish is a port from Ratwood/RogueTown).
+  - tweak: Reworked swedish.
+  - tweak: Added and fixed some things in accent jsons, including appendages for french
+      accent
+  - refactor: Refactors accent code
+  - code_imp: Cleaned up accent jsons a bit and renamed them for organization
+  mrmanlikesbt, TheSwain, JohnFulpWillard, absolucy:
+  - rscadd: added a new antagonist, the vampire (bloodsuckers)
+  - rscdel: deleted the vampire Halloween race
+  - tweak: you can now drink from blood bags
+2025-08-18:
+  Rukofamicom:
+  - bugfix: fixed holoparasites and contractor agents still showing player keys on
+      round-end reports
+  - tweak: Antagonist ckey is no longer reported to deadchat.
+2025-08-19:
+  Aramix:
+  - bugfix: fixes first column to use tech node tier 0 (researched) instead of 1 by
+      default
+  - bugfix: changes the key for designs details to use design id rather than tech
+      node id
+  - bugfix: fixes last design in a node being offset downwards
+  - bugfix: properly resizes techweb in window
+  - bugfix: removes duplicate design entries in window
+  - bugfix: removes an edge case pertaining design disk in techweb view
+  - tweak: tweaked margin of designs to be integer pixels
+2025-08-20:
+  Rukofamicom:
+  - balance: Breaching slugs no longer work on turfs (walls)
+  rkz, MrMelbert:
+  - rscadd: Added a few new hallucinations. Find them all, but don't lose your head!
+  - refactor: Refactored most existing hallucinations. Let me know if any of them
+      are acting funky.
+  - refactor: RDS quirk is now a brain trauma. The hallucinations brain trauma can
+      now be paused with Mindbreaker, like RDS.
+  - refactor: Refactored hallucination into a status effect. This means cyborgs and
+      simplemobs can (hypothetically) hallucinate now. In most cases they shouldn't
+      though.
+  - refactor: Refactored fake hud into a status effect.
+  - bugfix: Fixes some hallucinations acting improperly. There were multiple cases
+      of hallucinations using incorrect icon states which made them completely un-noticable.
+  - admin: You can now force specific mass hallucinations.
+  - admin: You can now force specific outcomes of some hallucinations, such as delusions,
+      fake alerts, fake sounds, and more. Check the VV dropdown.

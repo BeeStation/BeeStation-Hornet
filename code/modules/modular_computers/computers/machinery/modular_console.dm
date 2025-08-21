@@ -24,7 +24,7 @@
 	// User-built consoles start as empty frames.
 	var/obj/item/computer_hardware/hard_drive/hard_drive = cpu.all_components[MC_HDD]
 	var/obj/item/computer_hardware/hard_drive/network_card = cpu.all_components[MC_NET]
-	var/obj/item/computer_hardware/hard_drive/recharger = cpu.all_components[MC_CHARGE]
+	var/obj/item/computer_hardware/hard_drive/recharger = cpu.all_components[MC_CHARGER]
 	qdel(recharger)
 	qdel(network_card)
 	qdel(hard_drive)

@@ -88,7 +88,7 @@
 	owner.current.faction |= FACTION_CARP
 	RegisterSignal(owner.current, COMSIG_LIVING_LIFE, PROC_REF(rift_checks))
 	RegisterSignal(owner.current, COMSIG_MOB_DEATH, PROC_REF(destroy_rifts))
-	RegisterSignal(owner.current, COMSIG_PARENT_QDELETING, PROC_REF(destroy_rifts))
+	RegisterSignal(owner.current, COMSIG_QDELETING, PROC_REF(destroy_rifts))
 	if(istype(owner.current, /mob/living/simple_animal/hostile/space_dragon))
 		var/mob/living/simple_animal/hostile/space_dragon/S = owner.current
 		S.can_summon_rifts = TRUE

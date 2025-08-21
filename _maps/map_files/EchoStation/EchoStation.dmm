@@ -475,6 +475,10 @@
 	pixel_x = -3;
 	pixel_y = 2
 	},
+/obj/machinery/recharger{
+	pixel_y = 5;
+	pixel_x = 6
+	},
 /turf/open/floor/iron/dark,
 /area/bridge/meeting_room)
 "ama" = (
@@ -2318,6 +2322,10 @@
 	dir = 1
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "quarantineshutters";
+	name = "Isolation Shutters"
+	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
 "aZu" = (
@@ -6010,7 +6018,6 @@
 /turf/open/floor/plating/rust,
 /area/science/test_area)
 "daZ" = (
-/obj/machinery/pipe_dispenser/disposal,
 /turf/open/floor/iron/smooth_half{
 	dir = 1
 	},
@@ -8234,6 +8241,10 @@
 "elK" = (
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "quarantineshutters";
+	name = "Isolation Shutters"
+	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
 "elY" = (
@@ -8984,6 +8995,10 @@
 /area/hydroponics)
 "eEo" = (
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "cmoshutter";
+	name = "CMO Office Shutters"
+	},
 /turf/open/floor/plating,
 /area/crew_quarters/heads/cmo)
 "eEs" = (
@@ -9130,6 +9145,15 @@
 	},
 /turf/open/floor/glass/reinforced/plasma,
 /area/maintenance/department/eva)
+"eIS" = (
+/obj/machinery/button/door/directional/north{
+	pixel_y = 9;
+	pixel_x = -5;
+	id = "atmosshutters";
+	name = "atmos storage shutters"
+	},
+/turf/closed/wall/r_wall,
+/area/engine/atmos)
 "eIW" = (
 /turf/open/openspace,
 /area/crew_quarters/heads/chief)
@@ -11822,12 +11846,6 @@
 	},
 /turf/open/floor/prison/dark,
 /area/security/prison)
-"gdz" = (
-/obj/machinery/pipe_dispenser/disposal/transit_tube,
-/turf/open/floor/iron/smooth_half{
-	dir = 1
-	},
-/area/engine/engineering)
 "gdP" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/box/corners{
@@ -12453,12 +12471,6 @@
 /obj/machinery/meter,
 /turf/closed/wall/r_wall,
 /area/engine/supermatter)
-"grQ" = (
-/obj/machinery/pipe_dispenser,
-/turf/open/floor/iron/smooth_half{
-	dir = 1
-	},
-/area/engine/engineering)
 "gse" = (
 /obj/machinery/atmospherics/pipe/smart/simple/purple/visible,
 /turf/open/floor/engine/vacuum,
@@ -14114,7 +14126,7 @@
 /area/storage/primary)
 "hlL" = (
 /obj/effect/turf_decal/stripes/box,
-/obj/machinery/vendor/mining,
+/obj/machinery/gear_requisition/mining,
 /obj/machinery/status_display/supply{
 	pixel_y = 31
 	},
@@ -21392,9 +21404,6 @@
 	dir = 8
 	},
 /obj/machinery/chem_master,
-/obj/item/candydispenser/lollipop{
-	pixel_y = 21
-	},
 /turf/open/floor/iron,
 /area/medical/apothecary)
 "leF" = (
@@ -21984,6 +21993,10 @@
 	},
 /obj/item/mmi{
 	pixel_y = 11
+	},
+/obj/item/storage/box/bodybags{
+	pixel_y = 3;
+	pixel_x = 6
 	},
 /turf/open/floor/iron/white,
 /area/science/robotics)
@@ -24411,6 +24424,14 @@
 	dir = 5
 	},
 /area/hallway/primary/aft)
+"mLs" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "quarantineshutters";
+	name = "Isolation Shutters"
+	},
+/turf/open/floor/plating,
+/area/medical/medbay/central)
 "mLH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/ladder,
@@ -24643,10 +24664,6 @@
 	dir = 1
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/button{
-	id = "atmosshutters";
-	pixel_x = 26
-	},
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "mSE" = (
@@ -29150,19 +29167,14 @@
 /obj/effect/turf_decal/tile/dark_blue/opposingcorners{
 	dir = 1
 	},
-/obj/item/paper_bin{
-	pixel_x = 6;
-	pixel_y = 4
-	},
-/obj/item/folder/white{
-	pixel_x = 6;
-	pixel_y = 6
-	},
 /obj/structure/desk_bell{
-	pixel_x = -13;
+	pixel_x = -17;
 	pixel_y = 10
 	},
 /obj/machinery/door/firedoor,
+/obj/item/candydispenser/lollipop{
+	pixel_y = 9
+	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
 "plG" = (
@@ -30276,6 +30288,10 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "quarantineshutters";
+	name = "Isolation Shutters"
 	},
 /turf/open/floor/plating,
 /area/medical/medbay/central)
@@ -33064,7 +33080,6 @@
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
 	dir = 4
 	},
-/obj/item/extrapolator,
 /obj/structure/table,
 /obj/machinery/light/small/broken/directional/north,
 /obj/item/radio/intercom/directional/north,
@@ -59025,9 +59040,9 @@ rRt
 hoG
 vxi
 pVY
-grQ
 daZ
-gdz
+daZ
+daZ
 toU
 sXB
 gqv
@@ -122250,7 +122265,7 @@ pHt
 nyd
 eHd
 sPE
-tHO
+eIS
 tHO
 tHO
 tHO
@@ -124786,7 +124801,7 @@ bDD
 kmh
 ttY
 pTI
-jLp
+mLs
 ttY
 aZr
 elK

@@ -219,6 +219,7 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/cmd_regenerate_asset_cache,
 	/client/proc/cmd_clear_smart_asset_cache,
 	/client/proc/view_runtimes,
+	/client/proc/debug_hallucination_weighted_list_per_type,
 	)
 
 GLOBAL_LIST_INIT(admin_verbs_possess, list(/proc/possess, GLOBAL_PROC_REF(release)))
