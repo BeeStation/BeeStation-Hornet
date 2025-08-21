@@ -159,6 +159,8 @@
 #define FROM_BRAIN "brain"
 #define FROM_CHEST_DAMAGE "chest damage"
 #define FROM_HEAD_DAMAGE "head damage"
+#define FROM_PAIN_BASE "pain_base"
+#define FROM_PAIN_SHOCK "pain_shock"
 
 /// Trait granted by [/mob/living/silicon/robot]
 /// Traits applied to a silicon mob by their module.

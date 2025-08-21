@@ -27,6 +27,7 @@
 	change_exempt_flags = BP_BLOCK_CHANGE_SPECIES
 	dmg_overlay_type = "robotic"
 	circulation_flags = CIRCULATION_BLOOD | CIRCULATION_COOLANT
+	pain_multiplier = 0.5
 
 	brute_reduction = 5
 	burn_reduction = 4
@@ -60,6 +61,7 @@
 	change_exempt_flags = BP_BLOCK_CHANGE_SPECIES
 	dmg_overlay_type = "robotic"
 	circulation_flags = CIRCULATION_BLOOD | CIRCULATION_COOLANT
+	pain_multiplier = 0.5
 
 	brute_reduction = 5
 	burn_reduction = 4
@@ -93,6 +95,7 @@
 	change_exempt_flags = BP_BLOCK_CHANGE_SPECIES
 	dmg_overlay_type = "robotic"
 	circulation_flags = CIRCULATION_BLOOD | CIRCULATION_COOLANT
+	pain_multiplier = 0.5
 
 	brute_reduction = 5
 	burn_reduction = 4
@@ -126,6 +129,7 @@
 	change_exempt_flags = BP_BLOCK_CHANGE_SPECIES
 	dmg_overlay_type = "robotic"
 	circulation_flags = CIRCULATION_BLOOD | CIRCULATION_COOLANT
+	pain_multiplier = 0.5
 
 	brute_reduction = 5
 	burn_reduction = 4
@@ -157,6 +161,7 @@
 	change_exempt_flags = BP_BLOCK_CHANGE_SPECIES
 	dmg_overlay_type = "robotic"
 	circulation_flags = CIRCULATION_BLOOD | CIRCULATION_COOLANT
+	pain_multiplier = 0.5
 
 	brute_reduction = 5
 	burn_reduction = 4
@@ -271,6 +276,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	dmg_overlay_type = "robotic"
 	circulation_flags = CIRCULATION_BLOOD | CIRCULATION_COOLANT
+	pain_multiplier = 0.5
 
 	brute_reduction = 5
 	burn_reduction = 4

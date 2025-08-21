@@ -60,3 +60,12 @@
 /// Multiply the circulation rating by the specified value
 /datum/blood_source/proc/multiply_circulation_rating(multiplier, source)
 	ADD_MULTIPLICATIVE_TRAIT(src, TRAIT_VALUE_CIRCULATION, source, multiplier)
+
+/// Enter shock, raised by a particular source. We are in shock if we have at least
+/// 1 shock source.
+/datum/blood_source/proc/enter_shock(source)
+	ADD_MULTIPLICATIVE_TRAIT(src, TRAIT_VALUE_CIRCULATION, source, 0)
+
+/// Exit shock
+/datum/blood_source/proc/exit_shock(source)
+	ADD_MULTIPLICATIVE_TRAIT(src, TRAIT_VALUE_CIRCULATION, source, 1)

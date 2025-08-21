@@ -9,6 +9,7 @@
 	num_hands = 0 //Populated on init through list/bodyparts
 	usable_hands = 0 //Populated on init through list/bodyparts
 	blood = new /datum/blood_source/organic
+	pain = new /datum/pain_source/carbon
 	//List of /obj/item/organ in the mob. They don't go in the contents for some reason I don't want to know.
 	var/list/internal_organs = list()
 	//Same as above, but stores "slot ID" - "organ" pairs for easy access.

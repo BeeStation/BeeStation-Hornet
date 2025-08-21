@@ -7,10 +7,27 @@
 	/// How much pain are we currently in?
 	var/pain
 
+/datum/pain_source/proc/Initialize(mob/living/owner)
+	src.owner = owner
+	register_signals()
+
 /datum/pain_source/proc/register_signals()
 
 /datum/pain_source/proc/on_life()
 
+/datum/pain_source/proc/update_pain(pain_value)
+	pain = pain_value
+	update_damage_overlay(pain)
+	if (pain >= 100)
+		enter_pain_crit()
+	else
+		exit_pain_crit()
+
+/datum/pain_source/proc/enter_pain_crit()
+	owner.blood.enter_shock(FROM_PAIN_SHOCK)
+
+/datum/pain_source/proc/exit_pain_crit()
+	owner.blood.exit_shock(FROM_PAIN_SHOCK)
 
 /// Update the damage overlay, pain level between:
 /// 0: no pain
@@ -43,7 +60,7 @@
 		REMOVE_TRAIT(src, TRAIT_PAIN_LEVEL, source)
 	else
 		ADD_CUMULATIVE_TRAIT(src, TRAIT_PAIN_LEVEL, source, amount)
-	//update_consciousness(GET_TRAIT_VALUE(src, TRAIT_PAIN_LEVEL))
+	update_pain(GET_TRAIT_VALUE(src, TRAIT_PAIN_LEVEL))
 
 /// Set a consciousness modifier.
 /// Source: The source of the modifier
@@ -53,7 +70,7 @@
 		REMOVE_TRAIT(src, TRAIT_PAIN_LEVEL, source)
 	else
 		ADD_MULTIPLICATIVE_TRAIT(src, TRAIT_PAIN_LEVEL, source, amount)
-	//update_consciousness(GET_TRAIT_VALUE(src, TRAIT_PAIN_LEVEL))
+	update_pain(GET_TRAIT_VALUE(src, TRAIT_PAIN_LEVEL))
 
 /// Add a pain message caused by a specific source
 /datum/pain_source/proc/add_pain_message(message, source)

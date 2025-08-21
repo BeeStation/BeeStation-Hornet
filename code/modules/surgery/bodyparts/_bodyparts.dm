@@ -259,7 +259,9 @@
 		var/damage_applied = (1 - circulation_disruption) * delta_time
 		// Organic bodyparts that need blood and nothing else die without it
 		if (circulation_flags == CIRCULATION_BLOOD)
-			receive_damage(clamp(damage_applied * 0.1, 0, (max_damage * (1 - circulation_disruption)) - brute_dam), 0, clamp(damage_applied * 0.3, 0, (max_damage * (1 - circulation_disruption)) - stamina_dam))
+			var/circulation_rating = owner.blood.get_circulation_proportion()
+			var/desired_hypoxia_damage = max(0, (max_damage * 3) - (((CLAMP01(circulation_rating) * (max_damage * 3)) ** 0.3) / ((max_damage * 3) ** (-0.7))))
+			receive_damage(clamp(damage_applied * 0.1, 0, desired_hypoxia_damage - damage_applied * 0.1))
 
 //Applies brute and burn damage to the organ. Returns 1 if the damage-icon states changed at all.
 //Damage will not exceed max_damage using this proc

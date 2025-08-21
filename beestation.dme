@@ -2892,6 +2892,7 @@
 #include "code\modules\health\interfaces\blood_source.dm"
 #include "code\modules\health\interfaces\consciousness.dm"
 #include "code\modules\health\interfaces\pain_source.dm"
+#include "code\modules\health\pain\pain_carbon.dm"
 #include "code\modules\holiday\easter.dm"
 #include "code\modules\holiday\holidays.dm"
 #include "code\modules\holodeck\area_copy.dm"

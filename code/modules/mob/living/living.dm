@@ -27,6 +27,7 @@
 	gravity_setup()
 	// Blood init
 	blood.Initialize(src)
+	pain.Initialize(src)
 	if (!istype(consciousness))
 		consciousness = new consciousness(src)
 
