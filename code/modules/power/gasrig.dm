@@ -11,7 +11,7 @@
 	idle_power_usage = 2 KILOWATT
 	/// Power draw when harvesting gas (increases according to depth at Y x Depth / 200) (This will always be power usage at 200 depth)
 	active_power_usage = 25 KILOWATT
-	layer = LOW_OBJ_LAYER
+	layer = HIGH_OBJ_LAYER
 	resistance_flags = INDESTRUCTIBLE|ACID_PROOF|FIRE_PROOF
 	density = TRUE
 
