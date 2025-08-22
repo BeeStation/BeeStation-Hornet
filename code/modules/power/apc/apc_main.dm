@@ -527,48 +527,35 @@
 	if(cell && !shorted) //need to check to make sure the cell is still there since rigged cells can randomly explode after use().
 		var/surplus_used = min(surplus(), lastused_total)	//Here we're using the powernet to meet demand
 		var/remaining_load = lastused_total - surplus_used
-		main_status = APC_HAS_POWER
 		add_load(surplus_used)
+		if(surplus())	// If no external power don't update the charge status
+			main_status = APC_HAS_POWER
 		if(remaining_load)	// Here we're using cell charge to meet demand (if any and whatever is left even if all)
 			charging = APC_NOT_CHARGING
 			main_status = APC_LOW_POWER
-			cell.use(remaining_load)
+			cell.use(min(remaining_load, cell.charge))
+			if(cell.percent() < 50)	// below 50 things get depowered
+				lighting = autoset(lighting, AUTOSET_FORCE_OFF)
+				alarm_manager.send_alarm(ALARM_POWER)
+			if(cell.percent() < 25)
+				equipment = autoset(equipment, AUTOSET_FORCE_OFF)
+			if(cell.charge < remaining_load)	// If battery cannot meet demand shut everything off
+				environ = autoset(environ, AUTOSET_FORCE_OFF)
+
 		else if(surplus() >= cell.chargerate && cell.charge != cell.maxcharge && chargemode) // Here we're charging the cell (if theres enough power to do so)
 			charging = APC_CHARGING
 			cell.give(cell.chargerate)
 			add_load(cell.chargerate) // add the load used to recharge the cell
+			if(cell.percent() > 15 && cell.charge > lastused_environ)	// If cell charge is above 15% and can handle environ, turn it ON.
+				environ = autoset(environ, AUTOSET_ON)
+			if(cell.percent() >= 50)	// After 50% things will start repowering
+				equipment = autoset(equipment, AUTOSET_ON)
+			if(cell.percent() > 75)
+				lighting = autoset(lighting, AUTOSET_ON)
+				alarm_manager.clear_alarm(ALARM_POWER)
 		update_appearance()
 
 	if(cell && !shorted) //need to check to make sure the cell is still there since rigged cells can randomly explode after give().
-		if(charging && longtermpower < 10)
-			longtermpower += 1
-		else if(longtermpower > -10)
-			longtermpower -= 2
-
-		if(cell.charge <= 0) // zero charge, turn all off
-			equipment = autoset(equipment, AUTOSET_FORCE_OFF)
-			lighting = autoset(lighting, AUTOSET_FORCE_OFF)
-			environ = autoset(environ, AUTOSET_FORCE_OFF)
-			alarm_manager.send_alarm(ALARM_POWER)
-
-		else if(cell.percent() < 20 && longtermpower < 0) // <25%, turn off lighting & equipment
-			equipment = autoset(equipment, AUTOSET_OFF)
-			lighting = autoset(lighting, AUTOSET_OFF)
-			environ = autoset(environ, AUTOSET_ON)
-			alarm_manager.send_alarm(ALARM_POWER)
-
-		else if(cell.percent() < 50 && longtermpower < 0) // <50%, turn off lighting
-			equipment = autoset(equipment, AUTOSET_ON)
-			lighting = autoset(lighting, AUTOSET_OFF)
-			environ = autoset(environ, AUTOSET_ON)
-			alarm_manager.send_alarm(ALARM_POWER)
-
-		else // otherwise all can be on
-			equipment = autoset(equipment, AUTOSET_ON)
-			lighting = autoset(lighting, AUTOSET_ON)
-			environ = autoset(environ, AUTOSET_ON)
-			if(cell.percent() > 75)
-				alarm_manager.clear_alarm(ALARM_POWER)
 
 		if(integration_cog)
 			alarm_manager.clear_alarm(ALARM_POWER)
