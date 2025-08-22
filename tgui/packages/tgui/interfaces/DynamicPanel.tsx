@@ -1,4 +1,5 @@
-import { Box, Button, Divider, Dropdown, Tabs, Chart, Section, Flex, LabeledList, NumberInput } from '../components';
+import { Box, Button, Divider, Tabs, Chart, Section, Flex, LabeledList, NumberInput } from '../components';
+import { Dropdown } from 'tgui-core/components';
 import { exhaustiveCheck } from 'common/exhaustive';
 import { BooleanLike } from 'common/react';
 

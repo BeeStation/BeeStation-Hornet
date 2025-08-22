@@ -1,7 +1,8 @@
 import { classes } from 'common/react';
 import { useBackend } from '../backend';
 import { Component, Fragment } from 'react';
-import { Box, Button, Collapsible, Dropdown, Icon, Section, Stack, Table } from '../components';
+import { Box, Button, Collapsible, Icon, Section, Stack, Table } from '../components';
+import { Dropdown } from 'tgui-core/components';
 import { Window } from '../layouts';
 import { resolveAsset } from '../assets';
 import dateformat from 'dateformat';
@@ -301,7 +302,7 @@ export class Changelog extends Component {
         </Stack.Item>
         <Stack.Item>
           <Dropdown
-            displayText={selectedDate}
+            autoScroll={false}
             options={dateChoices}
             onSelected={(value) => {
               const index = dateChoices.indexOf(value);
@@ -313,7 +314,7 @@ export class Changelog extends Component {
               return this.getData(dates[index]);
             }}
             selected={selectedDate}
-            width={'150px'}
+            width="150px"
           />
         </Stack.Item>
         <Stack.Item>

@@ -1,11 +1,13 @@
-import { multiline } from 'common/string';
-import { CheckboxInput, FeatureChoiced, FeatureChoicedServerData, FeatureDropdownInput, FeatureButtonedDropdownInput, FeatureToggle, FeatureValueProps } from '../base';
-import { Box, Dropdown, Stack } from '../../../../../components';
-import { classes } from 'common/react';
-import { ReactNode } from 'react';
 import { binaryInsertWith } from 'common/collections';
-import { useBackend } from '../../../../../backend';
+import { ReactNode } from 'react';
+import { useBackend } from 'tgui/backend';
+import { Box, Stack, Dropdown } from 'tgui-core/components';
+import { classes } from 'tgui-core/react';
+
 import { PreferencesMenuData } from '../../../data';
+import { multiline } from 'common/string';
+import { CheckboxInput, FeatureChoiced, FeatureChoicedServerData, FeatureToggle, FeatureValueProps } from '../base';
+import { FeatureDropdownInput, FeatureButtonedDropdownInput } from '../dropdowns';
 
 export const ghost_accs: FeatureChoiced = {
   name: 'Ghost accessories',
@@ -76,14 +78,13 @@ const GhostFormInput = (props: FeatureValueProps<string, string, FeatureChoicedS
 
   return (
     <Dropdown
+      autoScroll={false}
       disabled={!data.content_unlocked}
       selected={props.value}
-      displayText={props.value ? displayTexts[props.value] : null}
-      displayTextFirst
+      placeholder={props.value ? displayTexts[props.value] : null}
       clipSelectedText={false}
       onSelected={props.handleSetValue}
       width="100%"
-      displayHeight="32px"
       options={options}
       buttons
     />
