@@ -60,6 +60,7 @@ SUBSYSTEM_DEF(dynamic)
 		"logged_points" = list(0),
 		"logged_points_living" = list(0),
 		"logged_points_dead" = list(0),
+		"logged_points_dead_security" = list(0),
 		"logged_points_observer" = list(0),
 		"logged_points_antag" = list(0),
 		"logged_points_linear" = list(0),
@@ -164,6 +165,7 @@ SUBSYSTEM_DEF(dynamic)
 	var/midround_living_delta = 0.05
 	var/midround_observer_delta = 0
 	var/midround_dead_delta = -0.4
+	var/midround_dead_security_delta = -0.6
 	var/midround_linear_delta = 0.9
 	/// This delta is applied no matter what
 	var/midround_linear_delta_forced = 0.25
@@ -512,13 +514,18 @@ SUBSYSTEM_DEF(dynamic)
 	var/observing_delta = length(current_players[CURRENT_OBSERVERS]) * midround_observer_delta
 	var/dead_delta = length(current_players[CURRENT_DEAD_PLAYERS]) * midround_dead_delta
 
+	var/dead_security_delta = 0
+	for(var/mob/dead_guy in current_players[CURRENT_DEAD_PLAYERS])
+		if(HAS_MIND_TRAIT(dead_guy, TRAIT_SECURITY))
+			dead_security_delta += midround_dead_security_delta
+
 	var/antag_delta = 0
 	for(var/mob/antag in current_players[CURRENT_LIVING_ANTAGS])
 		for(var/datum/antagonist/antag_datum in antag.mind?.antag_datums)
 			antag_delta += midround_points_per_antag["[antag_datum.type]"]
 
 	// Add points
-	midround_points += max(living_delta + observing_delta + dead_delta + antag_delta + midround_linear_delta, 0)
+	midround_points += max(living_delta + observing_delta + dead_delta + dead_security_delta + antag_delta + midround_linear_delta, 0)
 	midround_points += midround_linear_delta_forced
 
 	// Log point sources
@@ -526,6 +533,7 @@ SUBSYSTEM_DEF(dynamic)
 	logged_points["logged_points_living"] += living_delta
 	logged_points["logged_points_observer"] += observing_delta
 	logged_points["logged_points_dead"] += dead_delta
+	logged_points["logged_points_dead_security"] += dead_security_delta
 	logged_points["logged_points_antag"] += antag_delta
 	logged_points["logged_points_linear"] += midround_linear_delta
 	logged_points["logged_points_linear_forced"] += midround_linear_delta_forced
