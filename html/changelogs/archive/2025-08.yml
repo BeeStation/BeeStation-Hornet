@@ -386,6 +386,10 @@
   - bugfix: fixed dynamic suddenly transforming IPCs into human heretics
   - code_imp: small code sanity for dynamic
 2025-08-22:
+  Bieyes:
+  - tweak: Shotgun slugs are more cheaper to produce.
+  - tweak: Dart slugs cost silver now.
+  - tweak: Shotgun slugs are now their respective prices in Autolathes.
   TsunamiAnt:
   - tweak: Dynamic now pays attention to security and slows down spawning if officers
       start dying.
