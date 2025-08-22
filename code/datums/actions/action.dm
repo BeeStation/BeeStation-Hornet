@@ -549,6 +549,16 @@
 /datum/action/proc/is_active()
 	return active
 
+/datum/action/proc/begin_creating_bind(atom/movable/screen/movable/action_button/current_button, mob/user)
+	if(!current_button || user != owner)
+		return
+	if(!isnull(full_key))
+		full_key = null
+		update_button(current_button)
+		return
+	full_key = tgui_input_keycombo(user, "Please bind a key for this action.")
+	update_button(current_button)
+
 //Exists to keep master private
 /datum/action/proc/get_master()
 	SHOULD_BE_PURE(TRUE)
@@ -566,5 +576,5 @@
 		if(source.next_click > world.time)
 			return
 		else
-			source.next_click = world.time + CLICK_CD_RANGE
+			source.next_click = world.time + CLICK_CD_HYPER_RAPID
 	INVOKE_ASYNC(src, PROC_REF(trigger))

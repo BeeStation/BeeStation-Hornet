@@ -46,7 +46,7 @@
 
 	var/list/modifiers = params2list(params)
 	if(LAZYACCESS(modifiers, ALT_CLICK))
-		begin_creating_bind(usr)
+		linked_action?.begin_creating_bind(src, usr)
 		return TRUE
 	if(LAZYACCESS(modifiers, SHIFT_CLICK))
 		var/datum/hud/our_hud = usr.hud_used
@@ -64,14 +64,6 @@
 	alpha = 200
 	animate(src, transform = matrix(), time=0.4 SECONDS, alpha=255)
 	return TRUE
-
-/atom/movable/screen/movable/action_button/proc/begin_creating_bind(mob/user)
-	if(!isnull(linked_action.full_key))
-		linked_action.full_key = null
-		linked_action.update_button(src)
-		return
-	linked_action.full_key = tgui_input_keycombo(user, "Please bind a key for this action.")
-	linked_action.update_button(src)
 
 // Entered and Exited won't fire while you're dragging something, because you're still "holding" it
 // Very much byond logic, but I want nice behavior, so we fake it with drag
