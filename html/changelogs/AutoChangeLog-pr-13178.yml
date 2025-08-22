@@ -1,5 +1,0 @@
-author: TsunamiAnt
-delete-after: true
-changes:
-  - tweak: Dynamic now pays attention to security and slows down spawning if officers
-      start dying.
