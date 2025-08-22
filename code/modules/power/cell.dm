@@ -259,7 +259,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 /obj/item/stock_parts/cell/ninja
 	name = "black power cell"
 	icon_state = "bscell"
-	maxcharge = 10000
+	maxcharge = 100 KILOWATT
 	custom_materials = list(/datum/material/glass=60)
 	chargerate = 2000
 
