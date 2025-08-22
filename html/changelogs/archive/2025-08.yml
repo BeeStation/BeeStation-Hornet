@@ -393,3 +393,7 @@
   TsunamiAnt:
   - tweak: Dynamic now pays attention to security and slows down spawning if officers
       start dying.
+  rkz, jlsnow301:
+  - refactor: Refactored dropdowns and popper TGUI components to be more performant
+      and stable(This means the preference menu). They should no longer be hidden
+      by other UI elements or window size.

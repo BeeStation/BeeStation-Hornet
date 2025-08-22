@@ -1,6 +1,0 @@
-author: rkz, jlsnow301
-delete-after: true
-changes:
-  - refactor: Refactored dropdowns and popper TGUI components to be more performant
-      and stable(This means the preference menu). They should no longer be hidden
-      by other UI elements or window size.
