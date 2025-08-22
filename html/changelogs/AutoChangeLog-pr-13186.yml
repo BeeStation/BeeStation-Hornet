@@ -1,0 +1,6 @@
+author: Bieyes
+delete-after: true
+changes:
+  - tweak: Shotgun slugs are more cheaper to produce.
+  - tweak: Dart slugs cost silver now.
+  - tweak: Shotgun slugs are now their respective prices in Autolathes.
