@@ -62,8 +62,8 @@
 	Radio.set_frequency(FREQ_COMMON)
 
 /obj/machinery/vending/deputy/vend(list/params, list/greyscale_colors)
-	var/datum/vending_product/R = locate(params["ref"])
-	var/cat_name = R.get_category_name()
+	var/datum/vending_product/item = locate(params["ref"])
+	var/cat_name = item.get_category_name()
 
 	if(!allowed(usr))
 		if(cat_name == "Kit")
