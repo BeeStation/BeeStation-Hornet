@@ -355,6 +355,7 @@
 	item_state = "security"//Could likely use a better one.
 	worn_icon_state = "security"
 	content_overlays = TRUE
+	custom_price = 80
 
 /obj/item/storage/belt/security/Initialize(mapload)
 	. = ..()
@@ -391,7 +392,7 @@
 /obj/item/storage/belt/security/deputy
 	name = "deputy security belt"
 
-/obj/item/storage/belt/security/deputy/full/PopulateContents()
+/obj/item/storage/belt/security/deputy/PopulateContents()
 	new /obj/item/melee/classic_baton/police/deputy(src)
 	new /obj/item/restraints/handcuffs(src)
 	new /obj/item/restraints/handcuffs/cable(src)

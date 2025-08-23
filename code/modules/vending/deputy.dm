@@ -26,7 +26,7 @@
 				/obj/item/clothing/head/soft/sec = 4,
 				/obj/item/clothing/under/rank/security/officer/blueshirt = 4,
 				/obj/item/clothing/shoes/sneakers/black = 4,
-				/obj/item/storage/belt/security/deputy = 4,
+				/obj/item/storage/belt/security = 4,
 				/obj/item/clothing/accessory/armband/deputy = 4,
 			),
 		),
@@ -50,8 +50,8 @@
 					/obj/item/clothing/suit/armor/vest = 4)
 
 	refill_canister = /obj/item/vending_refill/deputy
-	default_price = 50
-	extra_price = 70
+	default_price = PAYCHECK_MINIMAL * 10
+	extra_price = PAYCHECK_MINIMAL * 15
 	dept_req_for_free = NONE
 
 /obj/machinery/vending/deputy/Initialize(mapload)
