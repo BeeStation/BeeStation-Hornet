@@ -218,7 +218,7 @@
 
 	var/this_is_like_playing_right = "Yes"
 	if(!force_observe)
-		this_is_like_playing_right = tgui_alert(src, "Are you sure you wish to observe? You will not be able to play this round!", "Player Setup", list("Yes", "No"))
+		this_is_like_playing_right = tgui_alert(src, "Are you sure you wish to observe?", "Player Setup", list("Yes", "No"))
 
 	if(QDELETED(src) || !src.client)
 		ready = PLAYER_NOT_READY

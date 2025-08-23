@@ -82,7 +82,7 @@
 			continue
 		var/datum/atom_hud/alternate_appearance/AA = v
 		AA.onNewMob(src)
-		
+
 	set_nutrition(rand(NUTRITION_LEVEL_START_MIN, NUTRITION_LEVEL_START_MAX))
 	. = ..()
 	update_config_movespeed()
@@ -750,8 +750,6 @@
 
 	if(!check_respawn_delay())
 		return
-
-	log_game("[key_name(usr)] used respawn mob.")
 
 	to_chat(usr, span_boldnotice("Please roleplay correctly!"))
 
