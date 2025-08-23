@@ -7,6 +7,7 @@
 	light_mask = "dep-light-mask"
 	vend_reply = "Thank you for your service!"
 	req_access = list(ACCESS_BRIG)
+	light_color = "#ff2466"
 	var/obj/item/radio/Radio
 
 	// The deputisation kit
