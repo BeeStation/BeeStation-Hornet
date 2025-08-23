@@ -139,12 +139,12 @@
 				frontman_spawned = TRUE
 			else
 				if((chosen_candidate == earmarked_leader) || (numagents == 1 && !leader_spawned))
-					ert_antag = new template.leader_role ()
+					ert_antag = new template.leader_role()
 					earmarked_leader = null
 					leader_spawned = TRUE
 				else
-					ert_antag = template.roles[WRAP(numagents,1,length(template.roles) + 1)]
-					ert_antag = new ert_antag ()
+					ert_antag = template.roles[WRAP(numagents, 1, length(template.roles) + 1)]
+					ert_antag = new ert_antag()
 					frontman_spawned = TRUE
 
 			ert_antag.random_names = template.random_names
