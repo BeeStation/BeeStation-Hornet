@@ -70,7 +70,7 @@
 		if(cat_name == "Kit")
 			ADD_TRAIT(usr.mind, TRAIT_SECURITY, JOB_TRAIT)
 			playsound(src, 'sound/effects/startup.ogg', 100, FALSE)
-			say("APS thanks you for enlisting in our volunteer program!")
+			vend_reply = "APS thanks you for enlisting in our volunteer program!"
 			Radio.talk_into(src, "[usr.name], [get_area(usr.loc)], has just enlisted for Auri Private Security’s volunteer deputy program! APS thanks you for your service, and reminds all crew members: **Unauthorized enforcement is strictly prohibited!** Remember; Compliance is a team effort! ")
 
 		else if(cat_name == "Contraband" || scan_id == 0)
@@ -91,6 +91,8 @@
 		return
 
 	..()
+
+	vend_reply = initial(vend_reply)
 
 /obj/machinery/vending/deputy/Destroy()
 	QDEL_NULL(Radio)
