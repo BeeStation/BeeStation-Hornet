@@ -67603,6 +67603,15 @@
 	broken = 1
 	},
 /area/maintenance/starboard/aft)
+"rsu" = (
+/obj/effect/turf_decal/guideline/guideline_mid/purple,
+/obj/effect/turf_decal/guideline/guideline_out/yellow,
+/obj/effect/turf_decal/guideline/guideline_in/blue,
+/obj/machinery/vending/deputy,
+/turf/open/floor/iron/dark/corner{
+	dir = 4
+	},
+/area/hallway/primary/central)
 "rsv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/firealarm/directional/south,
@@ -129086,7 +129095,7 @@ bQm
 sIS
 bZm
 gAI
-rOy
+rsu
 rfa
 fXI
 cnM

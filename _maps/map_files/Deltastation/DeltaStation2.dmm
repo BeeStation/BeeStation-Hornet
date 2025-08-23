@@ -79139,6 +79139,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
+/obj/machinery/vending/deputy,
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
 "toc" = (

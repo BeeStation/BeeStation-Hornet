@@ -27323,6 +27323,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/machinery/vending/deputy,
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "gTo" = (

@@ -38333,6 +38333,7 @@
 	light_color = "#e8eaff"
 	},
 /obj/effect/turf_decal/tile/red,
+/obj/machinery/vending/deputy,
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "juU" = (

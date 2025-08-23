@@ -29589,6 +29589,7 @@
 	alpha = 180;
 	dir = 1
 	},
+/obj/machinery/vending/deputy,
 /turf/open/floor/iron/dark/side{
 	dir = 4
 	},

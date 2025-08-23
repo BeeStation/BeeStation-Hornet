@@ -5664,6 +5664,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
+/obj/machinery/vending/deputy,
 /turf/open/floor/iron,
 /area/security/main)
 "bPo" = (
