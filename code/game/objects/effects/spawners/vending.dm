@@ -38,7 +38,7 @@
 	name = "Deputy vendor"
 	desc = "Spawns a deputy vendor if the station is lowpop."
 	icon = 'icons/obj/vending.dmi'
-	icon_state = "secdrobe-broken"
+	icon_state = "dep-broken"
 
 /obj/effect/spawner/deputy_vend/Initialize(mapload)
 	. = ..()

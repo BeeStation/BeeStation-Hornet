@@ -391,7 +391,7 @@
 /obj/item/storage/belt/security/deputy
 	name = "deputy security belt"
 
-/obj/item/storage/belt/security/deputy/PopulateContents()
+/obj/item/storage/belt/security/deputy/full/PopulateContents()
 	new /obj/item/melee/classic_baton/police/deputy(src)
 	new /obj/item/restraints/handcuffs(src)
 	new /obj/item/restraints/handcuffs/cable(src)

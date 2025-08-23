@@ -593,7 +593,7 @@
 	new /obj/item/clothing/glasses/hud/security/deputy(src)
 	new /obj/item/clothing/under/rank/security/officer/blueshirt(src)
 	new /obj/item/clothing/shoes/sneakers/black(src)
-	new /obj/item/storage/belt/security/deputy(src)
+	new /obj/item/storage/belt/security/deputy/full(src)
 	new /obj/item/clothing/accessory/armband/deputy(src)
 	new /obj/item/card/id/pass/deputy(src)
 
