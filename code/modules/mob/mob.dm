@@ -732,7 +732,8 @@
 
 	switch(CONFIG_GET(flag/allow_respawn))
 		if(RESPAWN_FLAG_NEW_CHARACTER)
-			if(tgui_alert(usr, "Note, respawning is only allowed as another character. You have been dead for [DisplayTimeText(usr.get_respawn_time(), 1)] out of a required [DisplayTimeText(CONFIG_GET(number/respawn_delay), 1)].", "Respawn", list("Respawn"), timeout = 80) != "Respawn")
+			if(!check_respawn_delay())
+				if(tgui_alert_async(usr, "Note, respawning is only allowed as another character. You have been dead for [DisplayTimeText(usr.get_respawn_time(), 1)] out of a required [DisplayTimeText(CONFIG_GET(number/respawn_delay), 1)].", "Respawn Unavailable", list("Okay"), timeout = 80) != "Respawn")
 				return
 
 		if(RESPAWN_FLAG_FREE)
