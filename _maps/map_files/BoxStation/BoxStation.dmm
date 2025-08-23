@@ -13556,10 +13556,10 @@
 /turf/open/floor/iron/white,
 /area/science/xenobiology)
 "cBJ" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
-	dir = 5
-	},
 /obj/effect/landmark/event_spawn,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
+	dir = 9
+	},
 /turf/open/floor/iron,
 /area/engine/atmos)
 "cBK" = (
@@ -22437,11 +22437,11 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/cmo)
 "fDQ" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
+	dir = 4
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
@@ -26616,6 +26616,12 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
+"hoq" = (
+/obj/machinery/atmospherics/pipe/layer_manifold/scrubbers/visible{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/engine/atmos)
 "hos" = (
 /obj/structure/chair/office{
 	dir = 4
@@ -40225,6 +40231,17 @@
 /obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat/hallway)
+"mHQ" = (
+/obj/machinery/atmospherics/components/binary/pump/on/layer4{
+	dir = 8;
+	name = "Scrubbers to Waste"
+	},
+/obj/machinery/atmospherics/components/binary/pump/off/general/visible/layer5{
+	dir = 8;
+	name = "Mix to Distro"
+	},
+/turf/open/floor/iron,
+/area/engine/atmos)
 "mIb" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
 	dir = 4
@@ -42897,9 +42914,7 @@
 /turf/open/floor/plating,
 /area/maintenance/fore)
 "nMB" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/visible{
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "nMH" = (
@@ -43082,14 +43097,16 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4{
-	dir = 8
+/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
+/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible,
-/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible/layer5,
+/obj/machinery/atmospherics/pipe/smart/manifold/yellow/visible/layer5{
+	dir = 4
+	},
 /turf/open/floor/catwalk_floor/iron,
 /area/engine/atmos)
 "nPA" = (
@@ -101686,7 +101703,7 @@ pdl
 bLK
 nCA
 bOd
-bOd
+hoq
 bOd
 bRA
 bOd
@@ -101943,7 +101960,7 @@ pdl
 bLK
 bMP
 jHJ
-bOd
+mHQ
 rkQ
 bRB
 bSI
