@@ -56,7 +56,7 @@
 	missiondesc += "<BR><B>Your Mission</B>: [ert_team.mission.explanation_text]"
 	missiondesc += "<BR><b>Your Shared Tracking Frequency</b>: <i>[ert_team.ert_frequency]</i>"
 
-	to_chat(owner,missiondesc)
+	to_chat(owner, missiondesc)
 
 /datum/antagonist/ert/proc/update_name()
 	var/name = pick(name_source)
@@ -98,7 +98,7 @@
 	outfit = /datum/outfit/centcom/centcom_official
 
 /datum/antagonist/ert/official/greet()
-	to_chat(owner, "<B><font size=3 color=red>You are a CentCom Official.</font></B>")
+	to_chat(owner, "<B><font size=20 color=red>You are a CentCom Official.</font></B>")
 	if (ert_team)
 		to_chat(owner, "Central Command is sending you to [station_name()] with the task: [ert_team.mission.explanation_text]")
 	else

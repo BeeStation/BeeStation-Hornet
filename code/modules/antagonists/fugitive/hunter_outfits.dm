@@ -96,7 +96,7 @@
 		gloves = /obj/item/clothing/gloves/fingerless
 
 // Stuff they all have
-/datum/outfit/bounty/
+/datum/outfit/bounty
 	name = "Bounty Hunter"
 
 	shoes = /obj/item/clothing/shoes/combat
