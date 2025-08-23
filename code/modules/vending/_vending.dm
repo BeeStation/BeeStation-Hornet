@@ -40,6 +40,11 @@
 	/// Sourced directly from product_categories.
 	var/category
 
+/datum/vending_product/proc/get_category_name()
+	var/name
+	name = category["name"]
+	return name
+
 /**
   * # vending machines
   *
@@ -1070,7 +1075,7 @@
 						log_econ("[price_to_use] credits were inserted into [src] by [D.account_holder] to buy [R].")
 
 	if(last_shopper != REF(usr) || purchase_message_cooldown < world.time)
-		say("Thank you for shopping with [src]!")
+		say(vend_reply)
 		purchase_message_cooldown = world.time + 5 SECONDS
 		last_shopper = REF(usr)
 	use_power(5)
