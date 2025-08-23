@@ -68,22 +68,25 @@
 	if(!allowed(usr))
 		if(cat_name == "Kit")
 			ADD_TRAIT(usr.mind, TRAIT_SECURITY, JOB_TRAIT)
-			playsound(src, 'sound/effects/startup.ogg', 80, FALSE)
-			say("Auri private security thanks you for enlisting in our volunteer program!")
-			Radio.talk_into(src, "[usr.name], [get_area(usr.loc)], has just enlisted for Auri Private Security’s volunteer deputy program! APS thanks you for your service, and reminds all crew members that unauthorized enforcement is strictly prohibited! Remember; Compliance is a team effort! ")
+			playsound(src, 'sound/effects/startup.ogg', 100, FALSE)
+			say("APS thanks you for enlisting in our volunteer program!")
+			Radio.talk_into(src, "[usr.name], [get_area(usr.loc)], has just enlisted for Auri Private Security’s volunteer deputy program! APS thanks you for your service, and reminds all crew members: **Unauthorized enforcement is strictly prohibited!** Remember; Compliance is a team effort! ")
 
 		else if(cat_name == "Contraband" || scan_id == 0)
 			playsound(src, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
+			flick(icon_deny,src)
 			say("ERR-!")
 
 		else
 			playsound(src, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 			say("Only qualified personnel are allowed to purchase spare equipment. Enlist now!")
+			flick(icon_deny,src)
 			return
 
 	else if(cat_name == "Kit")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 		say("ERROR! You are already enlisted. Please purchase spare gear separately.")
+		flick(icon_deny,src)
 		return
 
 	..()
