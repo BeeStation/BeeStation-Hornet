@@ -1,19 +1,6 @@
 
 /// Ammunition Crafting
 
-/datum/crafting_recipe/meteorslug
-	name = "Meteorslug Shell"
-	result = /obj/item/ammo_casing/shotgun/meteorslug
-	time = 0.5 SECONDS
-	tool_behaviors = list(TOOL_SCREWDRIVER)
-	reqs = list(
-		/obj/item/ammo_casing/shotgun/techshell = 1,
-		/obj/item/rcd_ammo = 1,
-		/obj/item/stock_parts/manipulator = 2
-	)
-	category = CAT_WEAPON_AMMO
-	dangerous_craft = TRUE
-
 /datum/crafting_recipe/pulseslug
 	name = "Pulse Slug Shell"
 	result = /obj/item/ammo_casing/shotgun/pulseslug
@@ -35,20 +22,6 @@
 	reqs = list(
 		/obj/item/ammo_casing/shotgun/techshell = 1,
 		/datum/reagent/phosphorus = 5
-	)
-	category = CAT_WEAPON_AMMO
-	dangerous_craft = TRUE
-
-/datum/crafting_recipe/frag12
-	name = "FRAG-12 Shell"
-	result = /obj/item/ammo_casing/shotgun/frag12
-	time = 0.5 SECONDS
-	tool_behaviors = list(TOOL_SCREWDRIVER)
-	reqs = list(
-		/obj/item/ammo_casing/shotgun/techshell = 1,
-		/datum/reagent/glycerol = 5,
-		/datum/reagent/toxin/acid = 5,
-		/datum/reagent/toxin/acid/fluacid = 5
 	)
 	category = CAT_WEAPON_AMMO
 	dangerous_craft = TRUE

@@ -8,7 +8,6 @@
 /obj/item/ammo_casing/caseless/rocket/hedp
 	name = "\improper PM-9HEDP"
 	desc = "An 84mm High Explosive Dual Purpose rocket. Pointy end toward mechs."
-	caliber = "84mm"
 	icon_state = "84mm-hedp"
 	projectile_type = /obj/projectile/bullet/a84mm
 

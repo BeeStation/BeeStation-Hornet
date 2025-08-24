@@ -1,4 +1,5 @@
-import { Dropdown, NumberInput, Stack } from '../../../../../components';
+import { NumberInput, Stack } from '../../../../../components';
+import { Dropdown } from 'tgui-core/components';
 import { Feature, FeatureNumericData, FeatureValueProps } from '../base';
 
 type FpsServerData = FeatureNumericData & {
@@ -18,7 +19,6 @@ const FpsInput = (props: FeatureValueProps<number, number, FpsServerData>) => {
       <Stack.Item basis="70%">
         <Dropdown
           displayText={props.value === -1 ? recommened : 'Custom'}
-          displayTextFirst
           selected={props.value === -1 ? recommened : 'Custom'}
           onSelected={(value) => {
             if (value === recommened) {

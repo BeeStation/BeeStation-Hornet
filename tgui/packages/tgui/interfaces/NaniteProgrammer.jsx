@@ -1,5 +1,6 @@
 import { useBackend } from '../backend';
-import { Button, Dropdown, Grid, Input, LabeledList, NoticeBox, NumberInput, Section } from '../components';
+import { Button, Grid, Input, LabeledList, NoticeBox, NumberInput, Section } from '../components';
+import { Dropdown } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 export const NaniteCodes = (props) => {

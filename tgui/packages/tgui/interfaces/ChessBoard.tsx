@@ -1,5 +1,7 @@
+import { DmIcon } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Box, Flex, DmIcon, Icon } from '../components';
+import { Box, Flex, Icon } from '../components';
 import { Window } from '../layouts';
 
 type ChessBoardData = {
@@ -56,10 +58,12 @@ const Cell = (props) => {
                 height="170%"
                 width="170%"
                 backgroundColor="red"
-                style={{
-                  imageRendering: 'pixelated',
-                  msInterpolationMode: 'nearest-neighbor',
-                }}
+                style={
+                  {
+                    imageRendering: 'pixelated',
+                    msInterpolationMode: 'nearest-neighbor',
+                  } as any
+                }
               />
             </Box>
           )}

@@ -301,7 +301,7 @@ SUBSYSTEM_DEF(ticker)
 	set waitfor = FALSE
 
 	// Execute dynamic rulesets
-	SSdynamic.post_setup()
+	SSdynamic.execute_roundstart_rulesets()
 
 	// Send roundstart report
 	SScommunications.queue_roundstart_report()

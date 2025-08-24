@@ -2,7 +2,7 @@
 	name = "bolt action rifle internal magazine"
 	desc = "Oh god, this shouldn't be here"
 	ammo_type = /obj/item/ammo_casing/a762
-	caliber = "a762"
+	caliber = list("a762")
 	max_ammo = 5
 	multiload = 1
 
@@ -17,7 +17,7 @@
 	name = "lever action rifle internal magazine"
 	desc = "Why the fuck can you see this, this is meant to be IN the gun!"
 	ammo_type = /obj/item/ammo_casing/c38
-	caliber = "38"
+	caliber = list("38")
 	max_ammo = 8
 	multiload = FALSE
 
@@ -25,6 +25,6 @@
 	name = "pipegun internal magazine"
 	desc = "Me when I accidentally see items that shouldn't exist."
 	ammo_type = /obj/item/ammo_casing/a762/improv
-	caliber = "a762"
+	caliber = list("a762")
 	max_ammo = 1
 	start_empty = TRUE

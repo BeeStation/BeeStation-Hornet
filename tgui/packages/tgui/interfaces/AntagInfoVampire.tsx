@@ -1,11 +1,12 @@
-import { resolveAsset } from '../assets';
 import { BooleanLike } from 'common/react';
 import { useBackend, useLocalState } from '../backend';
-import { Box, DmIcon, Icon, Section, Stack, Tabs } from '../components';
+import { Box, Icon, Section, Stack, Tabs } from '../components';
 import { Window } from '../layouts';
 import { ObjectivesSection, Objective } from './common/ObjectiveSection';
 import { AntagInfoHeader } from './common/AntagInfoHeader';
 import { sanitizeText } from 'tgui/sanitize';
+
+import { DmIcon } from 'tgui-core/components';
 
 type VampireInformation = {
   clan: ClanInfo[];
@@ -497,7 +498,6 @@ const PowerSection = (_props) => {
                       width="32px"
                       style={{
                         imageRendering: 'pixelated',
-                        msInterpolationMode: 'nearest-neighbor',
                       }}
                     />
                   </Stack.Item>
@@ -577,7 +577,6 @@ const ClanSection = () => {
               width="128px"
               style={{
                 imageRendering: 'pixelated',
-                msInterpolationMode: 'nearest-neighbor',
               }}
             />
           </Stack.Item>

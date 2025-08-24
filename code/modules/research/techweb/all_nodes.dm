@@ -49,6 +49,7 @@
 		"sec_beanbag_slug",
 		"sec_Brslug",
 		"sec_bshot",
+		"sec_bapshot",
 		"sec_dart",
 		"sec_Islug",
 		"sec_rshot",
@@ -1132,6 +1133,7 @@
 		"mech_honker",
 		"mech_mousetrap_mortar",
 		"mech_punching_face",
+		"shotgunslughonk",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
@@ -1790,7 +1792,9 @@
 	)
 	design_ids = list(
 		"pin_loyalty",
-		"shieldbelt"
+		"shieldbelt",
+		"c38_hotshot",
+		"c38_iceblox",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
@@ -1912,21 +1916,18 @@
 /datum/techweb_node/exotic_ammo
 	id = "exotic_ammo"
 	tech_tier = 4
-	display_name = "Exotic Ammunition"
+	display_name = "Exotic Shotgun Ammunition"
 	description = "They won't know what hit em."
-	prereq_ids = list(
-		"adv_weaponry",
-		"medical_weapons",
-	)
+	prereq_ids = list("adv_weaponry")
 	design_ids = list(
 		"techshotshell",
-		"c38_hotshot",
-		"c38_iceblox",
 		"shotgundartcryostasis",
+		"stunshell",
+		"shotgunsluggold",
+		"shotgunslugbronze",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
-	hidden = TRUE
 
 /datum/techweb_node/gravity_gun
 	id = "gravity_gun"
