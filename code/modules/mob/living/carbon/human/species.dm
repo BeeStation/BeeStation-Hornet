@@ -2341,6 +2341,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		else
 			H.adjust_bodytemperature((BODYTEMP_HEATING_MAX + (H.fire_stacks * 12)) * 0.5 * delta_time)
 			H.add_mood_event("on_fire", /datum/mood_event/on_fire)
+			H.add_mob_memory(/datum/memory/was_burning)
 
 /datum/species/proc/CanIgniteMob(mob/living/carbon/human/H)
 	if(HAS_TRAIT(H, TRAIT_NOFIRE))

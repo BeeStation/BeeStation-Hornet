@@ -374,7 +374,7 @@
 
 /// Called when this mob slips over, override as needed
 /mob/proc/slip(knockdown, paralyze, forcedrop, w_amount, obj/O, lube)
-	return
+	add_mob_memory(/datum/memory/was_slipped, antagonist = O)
 
 //bodypart selection verbs - Cyberboss
 //8:repeated presses toggles through head - eyes - mouth

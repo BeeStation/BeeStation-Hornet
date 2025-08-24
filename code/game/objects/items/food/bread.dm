@@ -47,6 +47,7 @@
 	tastes = list("bread" = 10)
 	foodtypes = GRAIN
 	w_class = WEIGHT_CLASS_SMALL
+	venue_value = FOOD_PRICE_CHEAP
 	slice_type = /obj/item/food/breadslice/plain
 	crafting_complexity = FOOD_COMPLEXITY_1
 
@@ -66,6 +67,7 @@
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 2
 	)
+	venue_value = FOOD_PRICE_TRASH
 	decomp_type = /obj/item/food/breadslice/moldy
 	crafting_complexity = FOOD_COMPLEXITY_1
 
@@ -101,6 +103,7 @@
 	)
 	tastes = list("bread" = 10, "meat" = 10)
 	foodtypes = GRAIN | MEAT
+	venue_value = FOOD_PRICE_CHEAP
 	slice_type = /obj/item/food/breadslice/meat
 	crafting_complexity = FOOD_COMPLEXITY_3
 
@@ -203,6 +206,7 @@
 	)
 	tastes = list("bread" = 10, "tofu" = 10)
 	foodtypes = GRAIN | VEGETABLES
+	venue_value = FOOD_PRICE_TRASH
 	slice_type = /obj/item/food/breadslice/tofu
 	crafting_complexity = FOOD_COMPLEXITY_3
 
@@ -306,6 +310,7 @@
 	attack_verb_simple = list("touche")
 	tastes = list("bread" = 1)
 	foodtypes = GRAIN
+	venue_value = FOOD_PRICE_CHEAP
 	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/baguette/mime
@@ -332,6 +337,7 @@
 	bite_consumption = 3
 	tastes = list("bread" = 1, "garlic" = 1, "butter" = 1)
 	foodtypes = GRAIN
+	venue_value = FOOD_PRICE_NORMAL
 	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/butterbiscuit
@@ -346,6 +352,7 @@
 	tastes = list("butter" = 1, "biscuit" = 1)
 	foodtypes = GRAIN | BREAKFAST
 	w_class = WEIGHT_CLASS_SMALL
+	venue_value = FOOD_PRICE_CHEAP
 	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/butterdog

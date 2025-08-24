@@ -413,6 +413,7 @@
 	)
 	tastes = list("jelly" = 1, "sweet potato" = 1)
 	foodtypes = VEGETABLES | SUGAR
+	venue_value = FOOD_PRICE_EXOTIC
 	slice_type = /obj/item/food/pieslice/dulcedebatata
 	crafting_complexity = FOOD_COMPLEXITY_3
 

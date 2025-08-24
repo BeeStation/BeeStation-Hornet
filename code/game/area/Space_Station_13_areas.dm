@@ -151,10 +151,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 //Maintenance
 
 /area/maintenance
+	name = "Generic Maintenance"
 	ambience_index = AMBIENCE_MAINT
 	ambient_buzz = 'sound/ambience/source_corridor2.ogg'
 	ambient_buzz_vol = 20
-	area_flags = HIDDEN_STASH_LOCATION | VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
+	area_flags = HIDDEN_STASH_LOCATION | VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA | PERSISTENT_ENGRAVINGS
 	rare_ambient_sounds = list(
 		'sound/machines/airlock.ogg',
 		'sound/effects/snap.ogg',
@@ -1267,13 +1268,14 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	camera_networks = list(CAMERA_NETWORK_STATION, CAMERA_NETWORK_COURT)
 
 /area/security/prison
-	name = "Prison Wing"
+	name = "\improper Prison Wing"
 	icon_state = "sec_prison"
 	mood_bonus = -4
 	mood_job_allowed = list(JOB_NAME_HEADOFSECURITY,JOB_NAME_WARDEN, JOB_NAME_SECURITYOFFICER)  // JUSTICE!
 	mood_job_reverse = TRUE
 	mood_message = "I'm trapped here with little hope of escape!"
 	camera_networks = list(CAMERA_NETWORK_PRISON)
+	area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA | PERSISTENT_ENGRAVINGS
 
 /area/security/prison/shielded
 	name = "Prison Wing Shielded area"

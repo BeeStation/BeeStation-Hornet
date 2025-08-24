@@ -52,3 +52,25 @@
 		mult = art_piece.get_integrity() / art_piece.max_integrity
 
 	apply_moodlet(source, user, impressiveness * mult)
+
+/datum/element/art/commoner
+
+/datum/element/art/commoner/apply_moodlet(atom/source, mob/living/user, impress)
+	var/msg
+	var/list/haters = list()
+	for(var/hater_department_type as anything in list(/datum/job_department/security, /datum/job_department/command))
+		var/datum/job_department/hater_department = SSjob.get_department_type(hater_department_type)
+		for(var/datum/job/hater_job as anything in hater_department.department_jobs)
+			haters += hater_job.title
+	var/datum/job/quartermaster/fucking_quartermaster = SSjob.get_job_type(/datum/job/quartermaster)
+	haters += fucking_quartermaster.title
+
+	if(!(user.mind.assigned_role.title in haters))
+		user.add_mood_event("artgreat", /datum/mood_event/artgreat)
+		msg = "What \a [pick("masterpiece", "chef-d'oeuvre")] [source.p_theyre()]. So [pick("relatable", "down to earth", "true", "real")]!"
+	else
+		user.add_mood_event("artbad", /datum/mood_event/artbad)
+		msg = "Wow, [source.p_they()] sucks."
+
+	user.visible_message(span_notice("[user] stops to inspect [source]."), \
+		span_notice("You appraise [source], inspecting the fine craftsmanship of the proletariat... [msg]"))

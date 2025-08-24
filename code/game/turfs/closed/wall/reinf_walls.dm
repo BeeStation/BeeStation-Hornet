@@ -7,6 +7,7 @@
 	smoothing_flags = SMOOTH_BITMASK
 	opacity = TRUE
 	density = TRUE
+	turf_flags = NONE
 	max_integrity = 900
 	damage_deflection = 21
 	armor_type = /datum/armor/r_wall_armor
@@ -279,6 +280,7 @@
 	canSmoothWith = list(SMOOTH_GROUP_SYNDICATE_WALLS, SMOOTH_GROUP_PLASTITANIUM_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS)
 	explosion_block = 20
 	sheet_type = /obj/item/stack/sheet/mineral/plastitanium
+	turf_flags = NONE
 
 /turf/closed/wall/r_wall/syndicate/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
 	return FALSE

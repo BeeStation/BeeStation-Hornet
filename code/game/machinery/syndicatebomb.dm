@@ -217,32 +217,39 @@
 	next_beep = world.time + 10
 	detonation_timer = world.time + (timer_set * 10)
 	playsound(loc, 'sound/machines/click.ogg', 30, 1)
-	notify_ghosts("\A [src] has been activated at [get_area(src)]!", source = src, action = NOTIFY_ORBIT, flashwindow = FALSE, header = "Bomb Planted")
+	update_appearance()
 
 /obj/machinery/syndicatebomb/proc/settings(mob/user)
-	var/new_timer = input(user, "Please set the timer.", "Timer", "[timer_set]") as num
-	if(in_range(src, user) && isliving(user)) //No running off and setting bombs from across the station
-		timer_set = clamp(new_timer, minimum_timer, maximum_timer)
-		loc.visible_message(span_notice("[icon2html(src, viewers(src))] timer set for [timer_set] seconds."))
-	if(alert(user,"Would you like to start the countdown now?",,"Yes","No") == "Yes" && in_range(src, user) && isliving(user))
-		if(active)
-			return
-		if(!anchored)
-			to_chat(user, span_warning("[src] must be anchored in order to arm!"))
-			return
-		if(atom_integrity != max_integrity)
-			to_chat(user, span_warning("[src] must be undamaged in order to arm!"))
-			return
-		visible_message(span_danger("[icon2html(src, viewers(loc))] [timer_set] seconds until detonation, please clear the area."))
-		activate()
-		update_icon()
-		add_fingerprint(user)
+	if(!user.canUseTopic(src, !issilicon(user)) || !user.can_interact_with(src))
+		return
+	var/new_timer = tgui_input_number(user, "Set the timer", "Countdown", timer_set, maximum_timer, minimum_timer)
+	if(!new_timer || QDELETED(user) || QDELETED(src) || !user.canUseTopic(src, be_close = TRUE, no_dexterity = FALSE, no_tk = TRUE))
+		return
+	loc.visible_message(span_notice("[icon2html(src, viewers(src))] timer set for [timer_set] seconds."))
+	var/choice = tgui_alert(user, "Would you like to start the countdown now?", "Bomb Timer", list("Yes","No"))
+	if(choice != "Yes")
+		return
+	if(active)
+		to_chat(user, span_warning("The bomb is already active!"))
+		return
+	if(!anchored)
+		to_chat(user, span_warning("[src] must be anchored in order to arm!"))
+		return
+	if(atom_integrity != max_integrity)
+		to_chat(user, span_warning("[src] must be undamaged in order to arm!"))
+		return
+	visible_message(span_danger("[icon2html(src, viewers(loc))] [timer_set] seconds until detonation, please clear the area."))
+	activate()
+	add_fingerprint(user)
+	// We don't really concern ourselves with duds or fakes after this
+	if(isnull(payload) || istype(payload, /obj/machinery/syndicatebomb/training))
+		return
 
-		if(payload && !istype(payload, /obj/item/bombcore/training))
-			log_bomber(user, "has primed a", src, "for detonation (Payload: [payload.name])")
-			if(istype(payload, /obj/item/bombcore))
-				var/obj/item/bombcore/payload_core = payload
-				payload_core.adminlog = "The [name] that [key_name(user)] had primed detonated!"
+	notify_ghosts("\A [src] has been activated at [get_area(src)]!", source = src, action = NOTIFY_ORBIT, flashwindow = FALSE, header = "Bomb Planted")
+	user.add_mob_memory(/datum/memory/bomb_planted/syndicate, antagonist = src)
+	log_bomber(user, "has primed a", src, "for detonation (Payload: [payload.name])")
+	//payload.adminlog = "The [name] that [key_name(user)] had primed detonated!"
+	user.log_message("primed the [src]. (Payload: [payload.name])", LOG_GAME, log_globally = FALSE)
 
 ///Bomb Subtypes///
 

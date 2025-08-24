@@ -73,6 +73,7 @@
 		/datum/reagent/consumable/nutriment/vitamin = 6
 	)
 	foodtypes = GRAIN | MEAT | GORE
+	venue_value = FOOD_PRICE_EXOTIC
 	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/burger/appendix
@@ -99,6 +100,7 @@
 	)
 	tastes = list("bun" = 4, "fish" = 4)
 	foodtypes = GRAIN | MEAT
+	venue_value = FOOD_PRICE_EXOTIC
 	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/burger/tofu
@@ -125,20 +127,19 @@
 	)
 	tastes = list("bun" = 4, "lettuce" = 2, "sludge" = 1)
 	foodtypes = GRAIN | TOXIC
+	venue_value = FOOD_PRICE_EXOTIC
 	crafting_complexity = FOOD_COMPLEXITY_3
 
-/obj/item/food/burger/roburgerbig
+/obj/item/food/burger/roburger/big
 	name = "roburger"
 	desc = "This massive patty looks like poison. Beep."
 	icon_state = "roburger"
 	max_volume = 120
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 11,
-		/datum/reagent/nanomachines = 140,
+		/datum/reagent/nanomachines = 80,
 		/datum/reagent/consumable/nutriment/vitamin = 15
 	)
-	tastes = list("bun" = 4, "lettuce" = 2, "sludge" = 1)
-	foodtypes = GRAIN | TOXIC
 
 /obj/item/food/burger/xeno
 	name = "xenoburger"
@@ -151,6 +152,7 @@
 	)
 	tastes = list("bun" = 4, "acid" = 4)
 	foodtypes = GRAIN | MEAT
+	venue_value = FOOD_PRICE_EXOTIC
 	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/burger/bearger
@@ -163,6 +165,7 @@
 		/datum/reagent/consumable/nutriment/vitamin = 7
 	)
 	foodtypes = GRAIN | MEAT
+	venue_value = FOOD_PRICE_EXOTIC
 	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/burger/clown
@@ -218,6 +221,7 @@
 	alpha = 170
 	verb_say = "moans"
 	verb_yell = "wails"
+	venue_value = FOOD_PRICE_EXOTIC
 	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/burger/ghost/Initialize(mapload)
@@ -400,6 +404,7 @@
 	icon_state = "jellyburger"
 	tastes = list("bun" = 4, "jelly" = 2)
 	foodtypes = GRAIN | MEAT
+	venue_value = FOOD_PRICE_EXOTIC
 	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/burger/jelly/slime
@@ -433,6 +438,7 @@
 	max_volume = 100
 	tastes = list("bun" = 4, "type two diabetes" = 10)
 	foodtypes = GRAIN | MEAT | DAIRY
+	venue_value = FOOD_PRICE_EXOTIC
 	crafting_complexity = FOOD_COMPLEXITY_5
 
 /obj/item/food/burger/fivealarm
@@ -524,6 +530,7 @@
 	)
 	tastes = list("bun" = 2, "assistant" = 4)
 	foodtypes = GRAIN | MEAT | DAIRY
+	venue_value = FOOD_PRICE_EXOTIC
 	crafting_complexity = FOOD_COMPLEXITY_4
 
 /obj/item/food/burger/rib

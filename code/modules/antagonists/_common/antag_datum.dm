@@ -21,6 +21,7 @@ GLOBAL_LIST(admin_antag_list)
 	var/delay_roundend = TRUE
 	var/antag_memory = ""//These will be removed with antag datum
 	var/antag_moodlet //typepath of moodlet that the mob will gain with their status
+	///name of the UI that will try to open, right now using a generic ui
 	var/ui_name = "AntagInfoGeneric"
 
 	var/can_elimination_hijack = ELIMINATION_NEUTRAL //If these antags are alone when a shuttle elimination happens.
@@ -310,11 +311,6 @@ GLOBAL_LIST(admin_antag_list)
 
 /datum/antagonist/Topic(href,href_list)
 	if(!check_rights(R_ADMIN))
-		return
-	//Antag memory edit
-	if (href_list["memory_edit"])
-		edit_memory(usr)
-		owner.traitor_panel()
 		return
 
 	//Some commands might delete/modify this datum clearing or changing owner

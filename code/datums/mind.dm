@@ -45,7 +45,11 @@
 	/// Is this mind active?
 	var/active = FALSE
 
-	var/memory
+	///a list of /datum/memories. assoc type of memory = memory datum. only one type of memory will be stored, new ones of the same type overriding the last.
+	var/list/memories = list()
+	///reference to the memory panel tgui
+	var/datum/memory_panel/memory_panel
+
 	var/list/quirks = list()
 
 	/// Job datum indicating the mind's role. This should always exist after initialization, as a reference to a singleton.
@@ -106,6 +110,8 @@
 
 /datum/mind/Destroy()
 	SSticker.minds -= src
+	QDEL_LIST(memories)
+	QDEL_NULL(memory_panel)
 	QDEL_LIST(antag_datums)
 	soulOwner = null
 	set_current(null)
@@ -192,15 +198,6 @@
 
 	last_death = world.time
 
-/datum/mind/proc/store_memory(new_text)
-	var/newlength = length(memory) + length(new_text)
-	if(newlength > MAX_MESSAGE_LEN * 100)
-		memory = copytext(memory, -newlength-MAX_MESSAGE_LEN * 100)
-	memory += "[new_text]<BR>"
-
-/datum/mind/proc/wipe_memory()
-	memory = null
-
 // Datum antag mind procs
 /datum/mind/proc/add_antag_datum(datum_type_or_instance, team)
 	if(!datum_type_or_instance)
@@ -254,7 +251,7 @@
 			return A
 
 /datum/mind/proc/equip_traitor(employer = "The Syndicate", silent = FALSE, datum/antagonist/uplink_owner, telecrystals = TELECRYSTALS_DEFAULT)
-	if(!current)
+	if(isnull(current))
 		return
 	var/mob/living/carbon/human/traitor_mob = current
 	if (!istype(traitor_mob))
@@ -315,31 +312,40 @@
 
 	if (!implant)
 		. = uplink_loc
-		var/datum/component/uplink/U = uplink_loc.AddComponent(/datum/component/uplink, traitor_mob.key, TRUE, FALSE, starting_tc = telecrystals)
-		if(!U)
+		var/unlock_text
+		var/datum/component/uplink/new_uplink = uplink_loc.AddComponent(/datum/component/uplink, traitor_mob.key, TRUE, FALSE, starting_tc = telecrystals)
+		if(!new_uplink)
 			CRASH("Uplink creation failed.")
-		U.setup_unlock_code()
+		new_uplink.setup_unlock_code()
+
+		unlock_text = "Your Uplink is cunningly disguised as your [uplink_loc.name]. "
+		if(uplink_loc == R)
+			unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly disguised a Syndicate Uplink as your [R.name]. Simply speak [new_uplink.unlock_code] into the :d channel to unlock its hidden features."
+			add_memory(/datum/memory/key/traitor_uplink, uplink_loc = R.name, uplink_code = new_uplink.unlock_code)
+
+		else if(uplink_loc == PDA)
+			unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly disguised a Syndicate Uplink as your [PDA.name]. Simply enter the code \"[new_uplink.unlock_code]\" into the ring tone selection to unlock its hidden features."
+			add_memory(/datum/memory/key/traitor_uplink, uplink_loc = "PDA", uplink_code = new_uplink.unlock_code)
+
+		else if(uplink_loc == P)
+			var/instructions = english_list(new_uplink.unlock_code)
+			unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly disguised a Syndicate Uplink as your [P.name]. Simply twist the top of the pen [instructions] from its starting position to unlock it's hidden features."
+			add_memory(/datum/memory/key/traitor_uplink, uplink_loc = "PDA pen", uplink_code = instructions)
+
 		if(!silent)
-			if(uplink_loc == R)
-				U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly disguised a Syndicate Uplink as your [R.name]. Simply speak [U.unlock_code] into the :d channel to unlock its hidden features."
-			else if(uplink_loc == PDA)
-				U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly disguised a Syndicate Uplink as your [PDA.name]. Simply enter the code \"[U.unlock_code]\" into the ring tone selection to unlock its hidden features."
-			else if(uplink_loc == P)
-				U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly disguised a Syndicate Uplink as your [P.name]. Simply twist the top of the pen [english_list(U.unlock_code)] from its starting position to unlock its hidden features."
-			to_chat(traitor_mob, span_boldnotice("[U.unlock_text]"))
+			to_chat(traitor_mob, span_boldnotice(unlock_text))
 
 		if(uplink_owner)
-			uplink_owner.antag_memory += U.unlock_note + "<br>"
-		else
-			traitor_mob.mind.store_memory(U.unlock_note)
+			uplink_owner.antag_memory += new_uplink.unlock_note + "<br>"
+			
 	else
-		var/obj/item/implant/uplink/starting/I = new(traitor_mob)
-		I.implant(traitor_mob, null, silent = TRUE)
-		var/datum/component/uplink/U = I.GetComponent(/datum/component/uplink)
+		var/obj/item/implant/uplink/starting/new_implant = new(traitor_mob)
+		new_implant.implant(traitor_mob, null, silent = TRUE)
+		var/datum/component/uplink/new_uplink = new_implant.GetComponent(/datum/component/uplink)
 		if(!silent)
-			U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly implanted [employer == "You" ? "yourself" : "you"] with a Syndicate Uplink (although uplink implants cost valuable TC, so you will have slightly less). Simply trigger the uplink to access it."
-			to_chat(traitor_mob, span_boldnotice("[U.unlock_text]"))
-		return I
+			new_uplink.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly implanted [employer == "You" ? "yourself" : "you"] with a Syndicate Uplink (although uplink implants cost valuable TC, so you will have slightly less). Simply trigger the uplink to access it."
+		add_memory(/datum/memory/key/traitor_uplink/implant, uplink_loc = "implant")
+		return new_implant
 
 //Link a new mobs mind to the creator of said mob. They will join any team they are currently on, and will only switch teams when their creator does.
 
@@ -349,60 +355,36 @@
 		creator = mob_creator.mind
 	if(!creator || !istype(creator))
 		return
-	if(creator.has_antag_datum(/datum/antagonist/cult))
+
+	if(IS_CULTIST_MIND(creator))
 		add_antag_datum(/datum/antagonist/cult)
-	else if(creator.has_antag_datum(/datum/antagonist/servant_of_ratvar))
+
+	else if(IS_SERVANT_OF_RATVAR_MIND(creator))
 		INVOKE_ASYNC(src, PROC_REF(add_servant_of_ratvar), current, TRUE)
-	if(creator.has_antag_datum(/datum/antagonist/rev))
+
+	else if(IS_REVOLUTIONARY_MIND(creator))
 		var/datum/antagonist/rev/converter = creator.has_antag_datum(/datum/antagonist/rev, TRUE)
-		converter.add_revolutionary(src, FALSE)
-	var/datum/antagonist/nukeop/creator_nukie = creator.has_antag_datum(/datum/antagonist/nukeop, TRUE)
-	if(creator_nukie)
+		converter.add_revolutionary(src, stun = FALSE)
+
+	else if(IS_NUCLEAR_OPERATIVE_MIND(creator))
+		var/datum/antagonist/nukeop/converter = creator.has_antag_datum(/datum/antagonist/nukeop, TRUE)
 		var/datum/antagonist/nukeop/nukie_datum = new()
 		nukie_datum.send_to_spawnpoint = FALSE
 		nukie_datum.nukeop_outfit = null
-		add_antag_datum(nukie_datum, creator_nukie.nuke_team)
+		add_antag_datum(nukie_datum, converter.nuke_team)
+
 	enslaved_to = creator
+
 	if(creator.current)
 		current.faction |= creator.current.faction
 		creator.current.faction |= current.faction
+
+	current.log_message("has been enslaved to [key_name(creator)].", LOG_GAME)
+	log_admin("[key_name(current)] has been enslaved to [key_name(creator)].")
+
 	if(creator.special_role)
 		message_admins("[ADMIN_LOOKUPFLW(current)] has been created by [ADMIN_LOOKUPFLW(creator.current)], an antagonist.")
 		to_chat(current, span_userdanger("Despite your creator's current allegiances, your true master remains [creator.name]. If their loyalties change, so do yours. This will never change unless your creator's body is destroyed."))
-
-/datum/mind/proc/show_memory(mob/recipient, window=1)
-	if(!recipient)
-		recipient = current
-	var/output = "<B>[current.real_name]'s Memories:</B><br>"
-	output += memory
-
-
-	var/list/antag_objectives = get_all_antag_objectives()
-	for(var/datum/antagonist/A in antag_datums)
-		output += A.antag_memory
-
-	if(antag_objectives.len)
-		output += "<br><B>Objectives:</B>"
-		var/obj_count = 1
-		for(var/datum/objective/objective in antag_objectives)
-			output += "<br><B>Objective #[obj_count++]</B>: [objective.explanation_text]"
-			if (objective.name == "gimmick")
-				output += " - This objective is optional and not tracked, so just have fun with it!"
-			var/list/datum/mind/other_owners = objective.get_owners() - src
-			if(other_owners.len)
-				output += "<ul>"
-				for(var/datum/mind/M in other_owners)
-					output += "<li>Conspirator: [M.name]</li>"
-				output += "</ul>"
-	if(crew_objectives.len)
-		output += "<br><B>Optional Objectives:</B>"
-		for(var/datum/objective/objective as() in crew_objectives)
-			output += "<br>[objective.explanation_text]"
-
-	if(window)
-		recipient << browse(HTML_SKELETON(output),"window=memory")
-	else if(antag_objectives.len || crew_objectives.len || memory)
-		to_chat(recipient, "<i>[output]</i>")
 
 /datum/mind/Topic(href, href_list)
 	if(!check_rights(R_ADMIN))
@@ -424,12 +406,6 @@
 		if (!new_role)
 			return
 		assigned_role = new_role
-
-	else if (href_list["memory_edit"])
-		var/new_memo = stripped_multiline_input(usr, "Write new memory", "Memory", memory, MAX_MESSAGE_LEN)
-		if (isnull(new_memo))
-			return
-		memory = new_memo
 
 	else if (href_list["obj_edit"] || href_list["obj_add"])
 		var/objective_pos //Edited objectives need to keep same order in antag objective list
@@ -555,7 +531,7 @@
 					current.dropItemToGround(W, TRUE) //The TRUE forces all items to drop, since this is an admin undress.
 			if("takeuplink")
 				take_uplink()
-				memory = null//Remove any memory they may have had.
+				wipe_memory()//Remove any memory they may have had.
 				log_admin("[key_name(usr)] removed [current]'s uplink.")
 			if("crystals")
 				if(check_rights(R_FUN, 0))

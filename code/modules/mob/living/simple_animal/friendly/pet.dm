@@ -61,6 +61,8 @@
 		collar_type = "[initial(collar_type)]_dead"
 	regenerate_icons()
 
+	add_memory_in_range(src, 7, /datum/memory/pet_died, deuteragonist = src) //Protagonist is the person memorizing it
+
 /mob/living/simple_animal/pet/gib()
 	if(pcollar)
 		pcollar.forceMove(drop_location())

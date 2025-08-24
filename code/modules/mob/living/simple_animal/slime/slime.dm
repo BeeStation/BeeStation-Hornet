@@ -553,13 +553,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime/random)
 /mob/living/simple_animal/slime/get_discovery_id()
 	return "[colour] slime"
 
-/mob/living/simple_animal/slime/give_mind(mob/user)
-	. = ..()
-	if (.)
-		if(mind && master)
-			mind.store_memory("<b>Serve [master.real_name], your master.</b>")
-	return .
-
 /mob/living/simple_animal/slime/get_spawner_desc()
 	return "be a slime[master ? " under the command of [master.real_name]" : " with free will"]."
 

@@ -610,7 +610,7 @@ SUBSYSTEM_DEF(job)
 	if(ishuman(living_mob))
 		var/mob/living/carbon/human/wageslave = living_mob
 		if(wageslave.mind?.account_id)
-			living_mob.add_memory("Your account ID is [wageslave.mind.account_id].")
+			wageslave.add_mob_memory(/datum/memory/key/account, remembered_id = wageslave.account_id)
 	if(job && living_mob)
 		job.after_spawn(living_mob, M, joined_late, M.client) // note: this happens before the mob has a key! M will always have a client, living_mob might not.
 
@@ -872,6 +872,7 @@ SUBSYSTEM_DEF(job)
 		to_chat(new_captain, span_notice("Due to your position in the chain of command, you have been granted access to captain's spare ID. You can find in important note about this [where]."))
 	else
 		to_chat(new_captain, span_notice("You can find the code to obtain your spare ID from the secure safe on the Bridge [where]."))
+		new_captain.add_mob_memory(/datum/memory/key/captains_spare_code, safe_code = SSid_access.spare_id_safe_code)
 
 	// Force-give their ID card bridge access.
 	if(H.wear_id?.GetID())

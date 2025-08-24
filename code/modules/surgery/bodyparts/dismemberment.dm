@@ -24,6 +24,7 @@
 			C.emote("scream")
 
 	C.add_mood_event("dismembered", /datum/mood_event/dismembered)
+	C.add_mob_memory(/datum/memory/was_dismembered, lost_limb = src)
 	drop_limb()
 
 	C.update_equipment_speed_mods() // Update in case speed affecting item unequipped by dismemberment

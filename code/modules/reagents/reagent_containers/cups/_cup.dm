@@ -32,6 +32,7 @@
 	if(!ishuman(M))
 		return
 	var/mob/living/carbon/human/H = M
+
 	var/obj/item/organ/tongue/T = H.get_organ_slot(ORGAN_SLOT_TONGUE)
 
 	if((drink_type & BREAKFAST) && world.time - SSticker.round_start_time < STOP_SERVING_BREAKFAST)

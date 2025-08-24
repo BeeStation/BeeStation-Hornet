@@ -457,10 +457,17 @@ Behavior that's still missing from this component that original food items had t
 	if(!ishuman(eater))
 		return FALSE
 	var/mob/living/carbon/human/human_eater = eater
-	var/obj/item/organ/tongue/tongue = human_eater.get_organ_slot(ORGAN_SLOT_TONGUE)
+
+	if(istype(parent, /obj/item/food))
+		var/obj/item/food/memorable_food = parent
+		if(memorable_food.venue_value >= FOOD_PRICE_EXOTIC)
+			human_eater.add_mob_memory(/datum/memory/good_food, food = parent)
+
 	if((foodtypes & BREAKFAST) && world.time - SSticker.round_start_time < STOP_SERVING_BREAKFAST)
 		human_eater.add_mood_event("breakfast", /datum/mood_event/breakfast)
 	last_check_time = world.time
+
+	var/obj/item/organ/tongue/tongue = human_eater.get_organ_slot(ORGAN_SLOT_TONGUE)
 	if(HAS_TRAIT(human_eater, TRAIT_AGEUSIA))
 		if(foodtypes & tongue.toxic_food)
 			to_chat(human_eater, span_warning("You don't feel so good..."))

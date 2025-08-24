@@ -140,8 +140,9 @@
 	else
 		return null
 
-/datum/surgery/proc/complete()
+/datum/surgery/proc/complete(mob/surgeon)
 	SSblackbox.record_feedback("tally", "surgeries_completed", 1, type)
+	surgeon.add_mob_memory(/datum/memory/surgery, deuteragonist = surgeon, surgery_type = name)
 	qdel(src)
 
 /datum/surgery/advanced

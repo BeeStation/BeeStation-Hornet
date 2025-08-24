@@ -14,6 +14,10 @@
 	/// Our collar
 	var/obj/item/clothing/neck/petcollar/collar
 
+/mob/living/basic/pet/death(gibbed)
+	. = ..()
+	add_memory_in_range(src, 7, /datum/memory/pet_died, deuteragonist = src) //Protagonist is the person memorizing it
+
 /mob/living/basic/pet/Initialize(mapload)
 	. = ..()
 

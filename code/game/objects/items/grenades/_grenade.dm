@@ -112,6 +112,8 @@
 		shrapnel_initialized = TRUE
 		AddComponent(/datum/component/pellet_cloud, projectile_type=shrapnel_type, magnitude=shrapnel_radius)
 	playsound(src, 'sound/weapons/armbomb.ogg', volume, 1)
+	if(istype(user))
+		user.add_mob_memory(/datum/memory/bomb_planted, antagonist = src)
 	active = TRUE
 	icon_state = initial(icon_state) + "_active"
 	det_time *= (0.1 * (rand(6, 14))) //between 60% and 140% of set time

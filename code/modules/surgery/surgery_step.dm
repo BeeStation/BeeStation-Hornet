@@ -128,7 +128,7 @@
 		if(advance && !repeatable)
 			surgery.status++
 			if(surgery.status > surgery.steps.len)
-				surgery.complete()
+				surgery.complete(user)
 
 	surgery.step_in_progress = FALSE
 	return advance
