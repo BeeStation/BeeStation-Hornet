@@ -63,7 +63,7 @@
 	Radio.set_frequency(FREQ_COMMON)
 
 /obj/machinery/vending/deputy/vend(list/params, list/greyscale_colors)
-	var/datum/vending_product/item_to_buy = locate(params["ref"]) // Note: this needs href protection apparently
+	var/datum/vending_product/item_to_buy = locate(params["ref"]) in src.product_records + src.coin_records + src.hidden_records // Note: this needs href protection apparently
 	var/item_category = item_to_buy.get_category_name()
 
 	var/mob/user_mob = usr

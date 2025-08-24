@@ -969,7 +969,7 @@
 	. = TRUE
 	if(!can_vend(usr))
 		return
-	var/datum/vending_product/product = locate(params["ref"])
+	var/datum/vending_product/product = locate(params["ref"]) in src.product_records + src.coin_records + src.hidden_records
 	var/atom/fake_atom = product.product_path
 
 	var/list/allowed_configs = list()
@@ -1006,7 +1006,7 @@
 	if(!can_vend(usr))
 		return
 	vend_ready = FALSE //One thing at a time!!
-	var/datum/vending_product/R = locate(params["ref"])
+	var/datum/vending_product/R = locate(params["ref"]) in src.product_records + src.coin_records + src.hidden_records
 	var/list/record_to_check = product_records + coin_records
 	if(extended_inventory)
 		record_to_check = product_records + coin_records + hidden_records
