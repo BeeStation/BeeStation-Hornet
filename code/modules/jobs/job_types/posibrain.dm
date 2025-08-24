@@ -15,6 +15,8 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 	exp_type = EXP_TYPE_CREW
 	random_spawns_possible = FALSE
 
+	job_flags = JOB_NEW_PLAYER_JOINABLE
+
 	display_order = JOB_DISPLAY_ORDER_CYBORG
 	departments = DEPT_BITFLAG_SILICON
 

@@ -31,6 +31,7 @@
 
 	display_order = JOB_DISPLAY_ORDER_HEAD_OF_SECURITY
 	rpg_title = "Guard Leader"
+	job_flags = JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/head_of_security

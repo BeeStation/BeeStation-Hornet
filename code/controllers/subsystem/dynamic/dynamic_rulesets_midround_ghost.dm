@@ -173,8 +173,8 @@
 	return /obj/machinery/nuclearbomb
 
 /datum/dynamic_ruleset/midround/ghost/nuclear_assault/finish_setup(mob/new_character)
-	new_character.mind.special_role = ROLE_OPERATIVE
-	new_character.mind.assigned_role = ROLE_OPERATIVE
+	new_character.mind.set_assigned_role(SSjob.GetJobType(/datum/job/nuclear_operative))
+	new_character.mind.special_role = ROLE_NUCLEAR_OPERATIVE
 
 	if(has_made_leader)
 		return ..()
@@ -340,6 +340,8 @@
 	player_mind.active = TRUE
 
 	var/mob/living/carbon/human/nightmare_body = new(pick(spawn_locations))
+	player_mind.set_assigned_role(SSjob.GetJobType(/datum/job/nightmare))
+	player_mind.special_role = ROLE_NIGHTMARE
 	nightmare_body.set_species(/datum/species/shadow/nightmare)
 	player_mind.transfer_to(nightmare_body)
 

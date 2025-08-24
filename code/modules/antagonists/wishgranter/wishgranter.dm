@@ -1,5 +1,5 @@
 /datum/antagonist/wishgranter
-	name = "Wishgranter Avatar"
+	name = "\improper Wishgranter Avatar"
 	show_in_antagpanel = FALSE
 	show_name_in_check_antagonists = TRUE
 	can_elimination_hijack = ELIMINATION_ENABLED
@@ -18,6 +18,7 @@
 	give_powers()
 
 /datum/antagonist/wishgranter/greet()
+	. = ..()
 	to_chat(owner, "<B>Your inhibitions are swept away, the bonds of loyalty broken, you are free to murder as you please!</B>")
 	owner.announce_objectives()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Wishgranter's Avatar",

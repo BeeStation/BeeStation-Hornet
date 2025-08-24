@@ -227,7 +227,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			ID = 1
 		else
 			ID = 0
-		for(var/datum/job/job in SSjob.occupations)
+		for(var/datum/job/job in SSjob.joinable_occupations)
 			dat += "<tr>"
 			if(job_blacklisted(job.title))
 				continue
@@ -935,7 +935,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	updateUsrDialog()
 
 /obj/machinery/computer/card/proc/get_subordinates(rank)
-	for(var/datum/job/job in SSjob.occupations)
+	for(var/datum/job/job in SSjob.joinable_occupations)
 		if(rank in job.department_head)
 			head_subordinates += job.title
 

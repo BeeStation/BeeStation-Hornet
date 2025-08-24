@@ -3,16 +3,22 @@ SUBSYSTEM_DEF(job)
 	init_order = INIT_ORDER_JOBS
 	flags = SS_NO_FIRE
 
-	var/list/occupations = list()		//List of all jobs
-	var/list/datum/job/name_occupations = list()	//Dict of all jobs, keys are titles
-	var/list/type_occupations = list()	//Dict of all jobs, keys are types
-	var/list/unassigned = list()		//Players who need jobs
-	var/initial_players_to_assign = 0 	//used for checking against population caps
+	/// List of all jobs.
+	var/list/datum/job/all_occupations = list()
+	/// List of jobs that can be joined through the starting menu.
+	var/list/datum/job/joinable_occupations = list()
+	/// Dictionary of all jobs, keys are titles.
+	var/list/name_occupations = list()
+	/// Dictionary of all jobs, keys are types.
+	var/list/datum/job/type_occupations = list()
+
+	var/list/unassigned = list() //Players who need jobs
+	var/initial_players_to_assign = 0 //used for checking against population caps
 
 	var/list/prioritized_jobs = list()
 	var/list/latejoin_trackers = list()	//Don't read this list, use GetLateJoinTurfs() instead
 
-	var/overflow_role = JOB_NAME_ASSISTANT
+	var/overflow_role = /datum/job/assistant
 
 	var/list/level_order = list(JP_HIGH,JP_MEDIUM,JP_LOW)
 
@@ -55,7 +61,7 @@ SUBSYSTEM_DEF(job)
 	var/turf/safe_code_request_loc
 
 /datum/controller/subsystem/job/Initialize()
-	if(!occupations.len)
+	if(!length(all_occupations))
 		SetupOccupations()
 	if(CONFIG_GET(flag/load_jobs_from_txt))
 		LoadJobs()
@@ -77,7 +83,8 @@ SUBSYSTEM_DEF(job)
 	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/job/Recover()
-	occupations = SSjob.occupations
+	set waitfor = FALSE
+	all_occupations = SSjob.all_occupations
 	name_occupations = SSjob.name_occupations
 	type_occupations = SSjob.type_occupations
 	unassigned = SSjob.unassigned
@@ -95,40 +102,48 @@ SUBSYSTEM_DEF(job)
 	job_manager_blacklisted = SSjob.job_manager_blacklisted
 
 /datum/controller/subsystem/job/proc/set_overflow_role(new_overflow_role)
-	var/datum/job/new_overflow = GetJob(new_overflow_role)
+	var/datum/job/new_overflow = ispath(new_overflow_role) ? GetJobType(new_overflow_role) : GetJob(new_overflow_role)
 	if(!new_overflow || new_overflow.lock_flags)
+		JobDebug("Failed to set new overflow role: [new_overflow_role]")
 		CRASH("[new_overflow_role] was used for an overflow role, but it's not allowed. BITFLAG: [new_overflow?.lock_flags]")
 	var/cap = CONFIG_GET(number/overflow_cap)
 
 	new_overflow.allow_bureaucratic_error = FALSE
 	new_overflow.total_positions = cap
 
-	if(new_overflow_role != overflow_role)
-		var/datum/job/old_overflow = GetJob(overflow_role)
-		old_overflow.allow_bureaucratic_error = initial(old_overflow.allow_bureaucratic_error)
-		old_overflow.total_positions = initial(old_overflow.total_positions)
-		overflow_role = new_overflow_role
-		JobDebug("Overflow role set to : [new_overflow_role]")
+	if(new_overflow.type == overflow_role)
+		return
+	var/datum/job/old_overflow = GetJob(overflow_role)
+	old_overflow.allow_bureaucratic_error = initial(old_overflow.allow_bureaucratic_error)
+	old_overflow.total_positions = initial(old_overflow.total_positions)
+	overflow_role = new_overflow_role
+	JobDebug("Overflow role set to : [new_overflow_role]")
 
 /datum/controller/subsystem/job/proc/SetupOccupations(faction = "Station")
-	occupations = list()
-	var/list/all_jobs = subtypesof(/datum/job)
-	if(!all_jobs.len)
-		to_chat(world, span_boldannounce("Error setting up jobs, no job datums found."))
-		return 0
+	name_occupations = list()
+	type_occupations = list()
 
-	for(var/datum/job/each_job as anything in all_jobs)
-		each_job = new each_job()
-		if(each_job.faction != faction)
+	var/list/all_jobs = subtypesof(/datum/job)
+	if(!length(all_jobs))
+		all_occupations = list()
+		to_chat(world, span_boldannounce("Error setting up jobs, no job datums found."))
+		return FALSE
+
+	for(var/job_type in all_jobs)
+		var/datum/job/job = new job_type()
+		if(job.faction != faction)
 			continue
-		occupations += each_job
-		name_occupations[each_job.title] = each_job
-		type_occupations[each_job.type] = each_job
+		all_occupations += job
+		name_occupations[job.title] = job
+		type_occupations[job_type] = job
+		if(job.job_flags & JOB_NEW_PLAYER_JOINABLE)
+			joinable_occupations += job
+
 	if(SSmapping.map_adjustment)
 		SSmapping.map_adjustment.job_change()
 		log_world("Applied '[SSmapping.map_adjustment.map_file_name]' map adjustment: job_change()")
 
-	return 1
+	return TRUE
 
 /datum/controller/subsystem/job/proc/is_job_empty(rank)
 	return GetJob(rank).current_positions == 0
@@ -137,7 +152,7 @@ SUBSYSTEM_DEF(job)
 	RETURN_TYPE(/datum/job)
 	if(!rank)
 		CRASH("proc has taken no job name")
-	if(!occupations.len)
+	if(!length(all_occupations))
 		SetupOccupations()
 	if(!name_occupations[rank])
 		CRASH("job name [rank] is not valid")
@@ -147,16 +162,23 @@ SUBSYSTEM_DEF(job)
 	RETURN_TYPE(/datum/job)
 	if(!jobtype)
 		CRASH("proc has taken no job type")
-	if(!occupations.len)
+	if(!length(all_occupations))
 		SetupOccupations()
-	if(!type_occupations[jobtype])
-		CRASH("job type [jobtype] is not valid")
+	//if(!type_occupations[jobtype])
+	//	CRASH("job type [jobtype] is not valid")
 	return type_occupations[jobtype]
+
+/*
+/datum/controller/subsystem/job/proc/get_department_type(department_type)
+	if(!length(all_occupations))
+		SetupOccupations()
+	return joinable_departments_by_type[department_type]
+*/
 
 /datum/controller/subsystem/job/proc/GetJobActiveDepartment(rank)
 	if(!rank)
 		CRASH("proc has taken no job name")
-	if(!occupations.len)
+	if(!length(all_occupations))
 		SetupOccupations()
 	if(!name_occupations[rank])
 		CRASH("job name [rank] is not valid")
@@ -224,7 +246,7 @@ SUBSYSTEM_DEF(job)
 /datum/controller/subsystem/job/proc/GiveRandomJob(mob/dead/new_player/authenticated/player)
 	JobDebug("GRJ Giving random job, Player: [player]")
 	. = FALSE
-	for(var/datum/job/job in shuffle(occupations))
+	for(var/datum/job/job in shuffle(joinable_occupations))
 		if(!job || job.lock_flags)
 			continue
 
@@ -262,11 +284,12 @@ SUBSYSTEM_DEF(job)
 
 /datum/controller/subsystem/job/proc/ResetOccupations()
 	JobDebug("Occupations reset.")
-	for(var/mob/dead/new_player/authenticated/player in GLOB.player_list)
-		if((player) && (player.mind))
-			player.mind.assigned_role = null
-			player.mind.special_role = null
-			SSpersistence.antag_rep_change[player.ckey] = 0
+	for(var/mob/dead/new_player/authenticated/player as anything in GLOB.player_list)
+		if(!player?.mind)
+			continue
+		player.mind.set_assigned_role(GetJobType(/datum/job/unassigned))
+		player.mind.special_role = null
+		SSpersistence.antag_rep_change[player.ckey] = 0
 	SetupOccupations()
 	unassigned = list()
 	return
@@ -281,7 +304,7 @@ SUBSYSTEM_DEF(job)
 
 	//Holder for Triumvirate is stored in the SSticker, this just processes it
 	if(SSticker.triai)
-		for(var/datum/job/ai/A in occupations)
+		for(var/datum/job/ai/A in all_occupations)
 			A.total_positions = 3
 		for(var/obj/effect/landmark/start/ai/secondary/S in GLOB.start_landmarks_list)
 			S.latejoin_active = TRUE
@@ -392,7 +415,7 @@ SUBSYSTEM_DEF(job)
 	for(var/mob/dead/new_player/authenticated/player in unassigned)
 		var/list/available_jobs = list()
 		// Find all jobs that we are actually able to be
-		for(var/datum/job/job in occupations)
+		for(var/datum/job/job in all_occupations)
 			if (!is_valid_job(player, job, priority))
 				continue
 			JobDebug("Preparing, Player: [player], Job:[job.title]")
@@ -426,7 +449,7 @@ SUBSYSTEM_DEF(job)
 	if (priority == JP_MEDIUM)
 		for(var/mob/dead/new_player/authenticated/player in sorted_orderings)
 			// Assign high priority jobs
-			for(var/datum/job/job in occupations)
+			for(var/datum/job/job in all_occupations)
 				if (!is_valid_job(player, job, JP_HIGH))
 					continue
 				var/list/player_job_list = sorted_orderings[player]
@@ -610,7 +633,7 @@ SUBSYSTEM_DEF(job)
 	if(ishuman(living_mob))
 		var/mob/living/carbon/human/wageslave = living_mob
 		if(wageslave.mind?.account_id)
-			wageslave.add_mob_memory(/datum/memory/key/account, remembered_id = wageslave.account_id)
+			wageslave.add_mob_memory(/datum/memory/key/account, remembered_id = wageslave.mind.account_id)
 	if(job && living_mob)
 		job.after_spawn(living_mob, M, joined_late, M.client) // note: this happens before the mob has a key! M will always have a client, living_mob might not.
 
@@ -652,7 +675,7 @@ SUBSYSTEM_DEF(job)
 
 /datum/controller/subsystem/job/proc/LoadJobs()
 	var/jobstext = rustg_file_read("[global.config.directory]/jobs.txt")
-	for(var/datum/job/J in occupations)
+	for(var/datum/job/J in all_occupations)
 		if(J.gimmick) //gimmick job slots are dependant on random maint
 			continue
 		var/regex/jobs = new("[J.title]=(-1|\\d+)")
@@ -662,7 +685,7 @@ SUBSYSTEM_DEF(job)
 			log_runtime("Error in /datum/controller/subsystem/job/proc/LoadJobs: Failed to locate job of title [J.title] in jobs.txt")
 
 /datum/controller/subsystem/job/proc/HandleFeedbackGathering()
-	for(var/datum/job/job in occupations)
+	for(var/datum/job/job in all_occupations)
 		var/high = 0 //high
 		var/medium = 0 //medium
 		var/low = 0 //low
@@ -872,7 +895,7 @@ SUBSYSTEM_DEF(job)
 		to_chat(new_captain, span_notice("Due to your position in the chain of command, you have been granted access to captain's spare ID. You can find in important note about this [where]."))
 	else
 		to_chat(new_captain, span_notice("You can find the code to obtain your spare ID from the secure safe on the Bridge [where]."))
-		new_captain.add_mob_memory(/datum/memory/key/captains_spare_code, safe_code = SSid_access.spare_id_safe_code)
+		new_captain.add_mob_memory(/datum/memory/key/captains_spare_code, safe_code = spare_id_safe_code)
 
 	// Force-give their ID card bridge access.
 	if(H.wear_id?.GetID())

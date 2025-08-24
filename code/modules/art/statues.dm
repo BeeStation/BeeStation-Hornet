@@ -4,7 +4,7 @@
 /obj/item/chisel
 	name = "chisel"
 	desc = "Breaking and making art since 4000 BC. This one uses advanced technology to allow the creation of lifelike moving statues."
-	icon = 'icons/obj/art/statue.dmi'
+	icon = 'icons/obj/statue.dmi'
 	icon_state = "chisel"
 	item_state = "screwdriver_nuke"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
@@ -19,8 +19,8 @@
 	custom_materials = list(/datum/material/iron=75)
 	attack_verb_continuous = list("stabs")
 	attack_verb_simple = list("stab")
-	hitsound = 'sound/items/weapons/bladeslice.ogg'
-	usesound = list('sound/effects/pickaxe/picaxe1.ogg', 'sound/effects/pickaxe/picaxe2.ogg', 'sound/effects/pickaxe/picaxe3.ogg')
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	usesound = list('sound/effects/picaxe1.ogg', 'sound/effects/picaxe2.ogg', 'sound/effects/picaxe3.ogg')
 	drop_sound = 'sound/items/handling/screwdriver_drop.ogg'
 	pickup_sound = 'sound/items/handling/screwdriver_pickup.ogg'
 	sharpness = SHARP

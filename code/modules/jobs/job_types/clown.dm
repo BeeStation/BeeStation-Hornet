@@ -20,6 +20,7 @@
 
 	display_order = JOB_DISPLAY_ORDER_CLOWN
 	rpg_title = "Jester"
+	job_flags = JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/honk

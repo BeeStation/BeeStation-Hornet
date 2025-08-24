@@ -107,6 +107,7 @@
 	soulOwner = src
 	martial_art = default_martial_art
 	setup_soul_glimmer()
+	set_assigned_role(SSjob.GetJobType(/datum/job/unassigned)) // Unassigned by default.
 
 /datum/mind/Destroy()
 	SSticker.minds -= src
@@ -337,7 +338,7 @@
 
 		if(uplink_owner)
 			uplink_owner.antag_memory += new_uplink.unlock_note + "<br>"
-			
+
 	else
 		var/obj/item/implant/uplink/starting/new_implant = new(traitor_mob)
 		new_implant.implant(traitor_mob, null, silent = TRUE)
@@ -629,6 +630,29 @@
 	if(G)
 		G.reenter_corpse()
 
+/// Setter for the assigned_role job datum.
+/datum/mind/proc/set_assigned_role(datum/job/new_role)
+	if(assigned_role == new_role)
+		return
+	if(!is_job(new_role))
+		CRASH("set_assigned_role called with invalid role: [isnull(new_role) ? "null" : new_role]")
+	. = assigned_role
+	assigned_role = new_role
+
+/// Sets us to the passed job datum, then greets them to their new job.
+/// Use this one for when you're assigning this mind to a new job for the first time,
+/// or for when someone's recieving a job they'd really want to be greeted to.
+/datum/mind/proc/set_assigned_role_with_greeting(datum/job/new_role, client/incoming_client)
+	. = set_assigned_role(new_role)
+	if(assigned_role != new_role)
+		return
+
+	to_chat(incoming_client || src, span_infoplain("<b>You are the [new_role.title].</b>"))
+
+	//var/related_policy = get_policy(new_role.title)
+	//if(related_policy)
+	//	to_chat(incoming_client || src, related_policy)
+
 /// Sets our can_hijack to the fastest speed our antag datums allow.
 /datum/mind/proc/get_hijack_speed()
 	. = 0
@@ -678,26 +702,20 @@
 	..()
 	last_mind = mind
 
-//HUMAN
-/mob/living/carbon/human/mind_initialize()
-	..()
-	if(!mind.assigned_role)
-		mind.assigned_role = "Unassigned" //default
-
 //AI
 /mob/living/silicon/ai/mind_initialize()
 	..()
-	mind.assigned_role = JOB_NAME_AI
+	mind.set_assigned_role(SSjob.GetJobType(/datum/job/ai))
 
 //BORG
 /mob/living/silicon/robot/mind_initialize()
 	..()
-	mind.assigned_role = JOB_NAME_CYBORG
+	mind.set_assigned_role(SSjob.GetJobType(/datum/job/cyborg))
 
 //PAI
 /mob/living/silicon/pai/mind_initialize()
 	..()
-	mind.assigned_role = ROLE_PAI
+	mind.set_assigned_role(SSjob.GetJobType(/datum/job/personal_ai))
 	mind.special_role = ""
 
 // Quirk Procs //

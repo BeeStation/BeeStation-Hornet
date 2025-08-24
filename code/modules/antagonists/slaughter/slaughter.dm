@@ -1,7 +1,7 @@
 //////////////////The Monster
 
 /mob/living/simple_animal/hostile/imp/slaughter/
-	name = "slaughter demon"
+	name = "\improper Slaughter Demon"
 	real_name = "slaughter demon"
 	desc = "A large, menacing creature covered in armored black scales."
 	speak_emote = list("gurgles")

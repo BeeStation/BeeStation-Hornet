@@ -319,3 +319,9 @@
 #define JOB_CHATCOLOR_NOTCENTCOM "#6D6AEC" // i.e. space police
 #define JOB_CHATCOLOR_PRISONER   "#D38A5C"
 #define JOB_CHATCOLOR_UNKNOWN    "#DDA583" // grey hud icon gets this
+
+/* Job datum job_flags */
+/// Whether the job is considered a regular crew member of the station. Equipment such as AI and cyborgs not included.
+#define JOB_CREW_MEMBER (1<<3)
+/// Whether this job can be joined through the new_player menu.
+#define JOB_NEW_PLAYER_JOINABLE (1<<4)

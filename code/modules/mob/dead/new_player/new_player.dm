@@ -274,7 +274,7 @@
 
 /mob/dead/new_player/authenticated/proc/IsJobUnavailable(rank, latejoin = FALSE)
 	var/datum/job/job = SSjob.GetJob(rank)
-	if(!job)
+	if(!(job.job_flags & JOB_NEW_PLAYER_JOINABLE))
 		return JOB_UNAVAILABLE_GENERIC
 	if(job.lock_flags)
 		return JOB_UNAVAILABLE_LOCKED
@@ -285,8 +285,8 @@
 				return JOB_AVAILABLE
 			// If there are other jobs that this user can select, then the assistant is unavailable
 			// If the user has no other choices, then we will display the assistant
-			for(var/datum/job/J in SSjob.occupations)
-				if(J && J.title != job.title && IsJobUnavailable(J.title, latejoin) == JOB_AVAILABLE)
+			for(var/datum/job/other_job as anything in SSjob.joinable_occupations)
+				if(other_job.title != job.title && IsJobUnavailable(other_job.title, latejoin) == JOB_AVAILABLE)
 					return JOB_UNAVAILABLE_SLOTFULL
 		else
 			return JOB_UNAVAILABLE_SLOTFULL

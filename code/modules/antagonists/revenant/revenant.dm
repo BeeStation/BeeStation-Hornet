@@ -130,7 +130,7 @@
 	to_chat(src, "<b>Be sure to read <a href=\"[(CONFIG_GET(string/wikiurl)) ? (CONFIG_GET(string/wikiurl)) : "https://wiki.beestation13.com/view"]/Revenant\">the wiki page</a> to learn more.</b>")
 	if(!generated_objectives_and_spells)
 		generated_objectives_and_spells = TRUE
-		mind.assigned_role = ROLE_REVENANT
+		mind.set_assigned_role(SSjob.GetJobType(/datum/job/revenant))
 		mind.special_role = ROLE_REVENANT
 		SEND_SOUND(src, sound('sound/effects/ghost.ogg'))
 		mind.add_antag_datum(/datum/antagonist/revenant)

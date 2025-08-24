@@ -105,6 +105,9 @@
 	///A dictionary of species IDs and a path to the outfit.
 	var/list/species_outfits = null
 
+	/// All values = (JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE)
+	var/job_flags = NONE
+
 	///RPG job names, for the memes
 	var/rpg_title
 
@@ -182,7 +185,7 @@
 	var/spawn_group_size = current_positions * dynamic_spawn_group_multiplier
 	// Find all jobs that proxy to the target's spawn group
 	// This will mean that medical will count all of the players in medical
-	for (var/datum/job/group_job in SSjob.occupations)
+	for (var/datum/job/group_job in SSjob.joinable_occupations)
 		// We already counted ourselves
 		if (group_job == src)
 			continue
@@ -242,7 +245,7 @@
 		return max(proxy.total_positions + total_position_delta, 0)
 	// Calculate spawn group size
 	var/spawn_group_minimum = INFINITY
-	for (var/datum/job/other in SSjob.occupations)
+	for (var/datum/job/other in SSjob.joinable_occupations)
 		// Find everything in the same group, doesn't matter if its us
 		if (other.dynamic_spawn_group != proxy.dynamic_spawn_group)
 			continue
@@ -582,7 +585,7 @@
 /datum/outfit/job
 	name = "Standard Gear"
 
-	var/jobtype
+	var/jobtype = /datum/job/unassigned
 
 	uniform = /obj/item/clothing/under/color/grey
 	id = /obj/item/card/id
