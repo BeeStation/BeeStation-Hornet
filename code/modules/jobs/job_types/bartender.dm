@@ -19,6 +19,7 @@
 
 	display_order = JOB_DISPLAY_ORDER_BARTENDER
 	rpg_title = "Tavernkeeper"
+	job_flags = JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/bartender

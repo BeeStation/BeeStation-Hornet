@@ -68,7 +68,7 @@
 		victim.mind.remove_antag_datum(/datum/antagonist/brainwashed)
 
 /datum/antagonist/brainwashed
-	name = "Brainwashed Victim"
+	name = "\improper Brainwashed Victim"
 	banning_key = ROLE_BRAINWASHED
 	roundend_category = "brainwashed victims"
 	show_in_antagpanel = TRUE

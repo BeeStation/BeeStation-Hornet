@@ -24,7 +24,7 @@
 	victim.log_message(rendered, LOG_ATTACK, color="red")
 
 /datum/antagonist/hypnotized
-	name = "Hypnotized Victim"
+	name = "\improper Hypnotized Victim"
 	banning_key = ROLE_HYPNOTIZED
 	roundend_category = "hypnotized victims"
 	show_in_antagpanel = TRUE

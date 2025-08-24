@@ -23,6 +23,7 @@
 
 	display_order = JOB_DISPLAY_ORDER_BRIG_PHYS
 	rpg_title = "Battle Cleric"
+	job_flags = JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/brig_physician
