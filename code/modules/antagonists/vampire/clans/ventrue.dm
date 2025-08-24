@@ -76,7 +76,7 @@
 			log_admin("[vampiredatum.owner] has become a Vampire, and was created by [vampiredatum.owner].")
 			target.mind.add_antag_datum(/datum/antagonist/vampire)
 
-			SEND_SIGNAL(vampiredatum.owner, COMSIG_ADD_MOOD_EVENT, "vampcandle", /datum/mood_event/vampcandle)
+			vampiredatum.owner.current.add_mood_event("vampcandle", /datum/mood_event/vampcandle)
 
 	finalize_spend_rank(vampiredatum, cost_rank, blood_cost)
 	vassaldatum.LevelUpPowers()

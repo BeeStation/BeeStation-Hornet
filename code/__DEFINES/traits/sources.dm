@@ -137,6 +137,8 @@
 /// Trait given to an atom/movable when they orbit something.
 #define ORBITING_TRAIT "orbiting"
 
+#define MOOD_DATUM_TRAIT "mood_datum"
+
 /// This trait comes from when a mob is currently typing.
 #define CURRENTLY_TYPING_TRAIT "currently_typing"
 

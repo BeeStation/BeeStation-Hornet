@@ -102,7 +102,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "paradise surface water"
 	ambientsounds = list('sound/ambience/shore.ogg')
 	mood_bonus = 1
-	mood_message = span_warning("The waves sound nice.\n")
+	mood_message = "The waves sound nice."
 
 /area/paradise/surface/grass
 	name = "paradise surface grass"
@@ -115,7 +115,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/docking
 	ambience_index = AMBIENCE_MAINT
 	mood_bonus = -1
-	mood_message = span_warning("You feel that you shouldn't stay here with such shuttle traffic...\n")
+	mood_message = "You feel that you shouldn't stay here with such shuttle traffic..."
 	lighting_colour_tube = "#1c748a"
 	lighting_colour_bulb = "#1c748a"
 	lights_always_start_on = TRUE
@@ -172,7 +172,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	sound_environment = SOUND_AREA_TUNNEL_ENCLOSED
 	area_flags = BLOBS_ALLOWED | UNIQUE_AREA
 	mood_bonus = -1
-	mood_message = span_warning("It's kind of cramped in here!\n")
+	mood_message = "It's kind of cramped in here!"
 	// assistants are associated with maints, jani closet is in maints, engis have to go into maints often
 	mood_job_allowed = list(JOB_NAME_ASSISTANT, JOB_NAME_JANITOR, JOB_NAME_STATIONENGINEER, JOB_NAME_CHIEFENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN)
 	mood_job_reverse = TRUE
@@ -659,7 +659,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Dormitories"
 	icon_state = "dorms"
 	mood_bonus = 3
-	mood_message = span_nicegreen("There's no place like the dorms!\n")
+	mood_message = "There's no place like the dorms!"
 
 /area/commons
 	area_flags = HIDDEN_STASH_LOCATION | VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
@@ -768,7 +768,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Bar"
 	icon_state = "bar"
 	mood_bonus = 5
-	mood_message = span_nicegreen("I love being in the bar!\n")
+	mood_message = "I love being in the bar!"
 	lights_always_start_on = TRUE
 	lighting_colour_tube = "#fff4d6"
 	lighting_colour_bulb = "#ffebc1"
@@ -950,7 +950,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Engineering Foyer"
 	icon_state = "engine_foyer"
 	mood_bonus = 2
-	mood_message = span_nicegreen("Ahhh, time to take a break.\n")
+	mood_message = "Ahhh, time to take a break."
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/engine/gravity_generator
@@ -1086,7 +1086,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	ambience_index = AMBIENCE_MEDICAL
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	mood_bonus = 2
-	mood_message = span_nicegreen("I feel safe in here!\n")
+	mood_message = "I feel safe in here!"
 	lighting_colour_tube = "#e7f8ff"
 	lighting_colour_bulb = "#d5f2ff"
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
@@ -1166,7 +1166,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	ambience_index = AMBIENCE_SPOOKY
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 	mood_bonus = -2
-	mood_message = span_warning("It smells like death in here!\n")
+	mood_message = "It smells like death in here!"
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_PROTECTED
 
 /area/medical/chemistry
@@ -1248,7 +1248,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	mood_job_allowed = list(JOB_NAME_HEADOFSECURITY,JOB_NAME_WARDEN,JOB_NAME_SECURITYOFFICER,JOB_NAME_BRIGPHYSICIAN,JOB_NAME_DETECTIVE)
 	mood_job_reverse = TRUE
 
-	mood_message = span_warning("I hate cramped brig cells.\n")
+	mood_message = "I hate cramped brig cells."
 
 /area/security/brig/dock
 	name = "Brig Dock"
@@ -1272,7 +1272,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	mood_bonus = -4
 	mood_job_allowed = list(JOB_NAME_HEADOFSECURITY,JOB_NAME_WARDEN, JOB_NAME_SECURITYOFFICER)  // JUSTICE!
 	mood_job_reverse = TRUE
-	mood_message = span_warning("I'm trapped here with little hope of escape!\n")
+	mood_message = "I'm trapped here with little hope of escape!"
 	camera_networks = list(CAMERA_NETWORK_PRISON)
 
 /area/security/prison/shielded
@@ -1350,7 +1350,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/security/execution
 	icon_state = "execution_room"
 	mood_bonus = -5
-	mood_message = span_warning("I feel a sense of impending doom.\n")
+	mood_message = "I feel a sense of impending doom."
 
 /area/security/execution/transfer
 	name = "Transfer Centre"
@@ -1427,7 +1427,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Outer Asteroid Prison Wing Abbandoned maintenance"
 	icon_state = "sec_prison"
 	mood_bonus = -2
-	mood_message = span_warning("This place gives me the creeps...\n")
+	mood_message = "This place gives me the creeps..."
 
 /area/security/prison/asteroid/shielded
 	name = "Outer Asteroid Prison Wing Shielded area"
@@ -1511,7 +1511,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "janitor"
 	flags_1 = NONE
 	mood_bonus = -1
-	mood_message = span_warning("It feels dirty in here!\n")
+	mood_message = "It feels dirty in here!"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_NONE
 	camera_networks = list(CAMERA_NETWORK_STATION)
@@ -1536,7 +1536,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Garden"
 	icon_state = "garden"
 	mood_bonus = 2
-	mood_message = span_nicegreen("It's so peaceful in here!\n")
+	mood_message = "It's so peaceful in here!"
 
 /area/hydroponics/garden/abandoned
 	name = "Abandoned Garden"
@@ -1773,7 +1773,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	ambience_index = AMBIENCE_DANGER
 	mood_job_allowed = list(JOB_NAME_WARDEN)
 	mood_bonus = 1
-	mood_message = span_nicegreen("It's good to be home.")
+	mood_message = "It's good to be home."
 	camera_networks = list(CAMERA_NETWORK_STATION)
 
 /area/ai_monitored/storage/eva
@@ -1799,7 +1799,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 	mood_job_allowed = list(JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_CAPTAIN)
 	mood_bonus = 4
-	mood_message = span_nicegreen("The AI will bend to my will!\n")
+	mood_message = "The AI will bend to my will!"
 	camera_networks = list(CAMERA_NETWORK_MINISAT, CAMERA_NETWORK_AI_UPLOAD)
 
 /area/ai_monitored/turret_protected/ai_upload_foyer
@@ -1874,7 +1874,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	sound_environment = SOUND_AREA_MEDIUM_SOFTFLOOR
 	mood_job_allowed = list(JOB_NAME_CHIEFENGINEER, JOB_NAME_STATIONENGINEER)
 	mood_bonus = 2
-	mood_message = span_nicegreen("It's good to see these in working order.\n")
+	mood_message = "It's good to see these in working order."
 
 /area/tcommsat/server
 	name = "Telecomms Server Room"

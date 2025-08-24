@@ -58,7 +58,7 @@
 			return
 		if(!is_in_torpor())
 			torpor_begin()
-			SEND_SIGNAL(owner.current, COMSIG_ADD_MOOD_EVENT, "vampsleep", /datum/mood_event/coffinsleep)
+			owner.current.add_mood_event("vampsleep", /datum/mood_event/coffinsleep)
 			return
 
 /datum/antagonist/vampire/proc/give_warning(atom/source, danger_level, vampire_warning_message, vassal_warning_message)

@@ -10,7 +10,7 @@
 /datum/reagent/drug/on_mob_end_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
 	if(trippy)
-		SEND_SIGNAL(affected_mob, COMSIG_CLEAR_MOOD_EVENT, "[type]_high")
+		affected_mob.clear_mood_event("[type]_high")
 
 /datum/reagent/drug/space_drugs
 	name = "Space drugs"
@@ -30,7 +30,7 @@
 
 /datum/reagent/drug/space_drugs/overdose_start(mob/living/carbon/affected_mob)
 	to_chat(affected_mob, span_userdanger("You start tripping hard!"))
-	SEND_SIGNAL(affected_mob, COMSIG_ADD_MOOD_EVENT, "[type]_overdose", /datum/mood_event/overdose, name)
+	affected_mob.add_mood_event("[type]_overdose", /datum/mood_event/overdose, name)
 
 /datum/reagent/drug/space_drugs/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -55,7 +55,7 @@
 	if(DT_PROB(0.5, delta_time))
 		to_chat(affected_mob, span_notice(pick("You feel relaxed.", "You feel calmed.", "You feel alert.", "You feel rugged.")))
 
-	SEND_SIGNAL(affected_mob, COMSIG_ADD_MOOD_EVENT, "smoked", /datum/mood_event/smoked, name)
+	affected_mob.add_mood_event("smoked", /datum/mood_event/smoked, name)
 	affected_mob.AdjustStun(-50  * REM * delta_time)
 	affected_mob.AdjustKnockdown(-50 * REM * delta_time)
 	affected_mob.AdjustUnconscious(-50 * REM * delta_time)
@@ -422,11 +422,11 @@
 
 /datum/reagent/drug/happiness/on_mob_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
-	SEND_SIGNAL(affected_mob, COMSIG_ADD_MOOD_EVENT, "happiness_drug", /datum/mood_event/happiness_drug)
+	affected_mob.add_mood_event("happiness_drug", /datum/mood_event/happiness_drug)
 
 /datum/reagent/drug/happiness/on_mob_delete(mob/living/carbon/affected_mob)
 	. = ..()
-	SEND_SIGNAL(affected_mob, COMSIG_CLEAR_MOOD_EVENT, "happiness_drug")
+	affected_mob.clear_mood_event("happiness_drug")
 
 /datum/reagent/drug/happiness/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -441,10 +441,10 @@
 		switch(rand(1, 3))
 			if(1)
 				affected_mob.emote("laugh")
-				SEND_SIGNAL(affected_mob, COMSIG_ADD_MOOD_EVENT, "happiness_drug", /datum/mood_event/happiness_drug_good_od)
+				affected_mob.add_mood_event("happiness_drug", /datum/mood_event/happiness_drug_good_od)
 			if(2)
 				affected_mob.emote("frown")
-				SEND_SIGNAL(affected_mob, COMSIG_ADD_MOOD_EVENT, "happiness_drug", /datum/mood_event/happiness_drug_bad_od)
+				affected_mob.add_mood_event("happiness_drug", /datum/mood_event/happiness_drug_bad_od)
 			if(3)
 				affected_mob.emote("sway")
 				affected_mob.Dizzy(25)
@@ -456,8 +456,7 @@
 	if(prob(20))
 		affected_mob.emote(pick("twitch","laugh","frown"))
 
-	var/datum/component/mood/mood = affected_mob.GetComponent(/datum/component/mood)
-	mood?.setSanity(max(mood.sanity, SANITY_DISTURBED))
+	affected_mob.mob_mood.set_sanity(max(affected_mob.mob_mood.sanity, SANITY_DISTURBED))
 	affected_mob.Jitter(5)
 
 /datum/reagent/drug/happiness/addiction_act_stage2(mob/living/carbon/affected_mob)
@@ -465,8 +464,7 @@
 	if(prob(30))
 		affected_mob.emote(pick("twitch","laugh","frown"))
 
-	var/datum/component/mood/mood = affected_mob.GetComponent(/datum/component/mood)
-	mood?.setSanity(max(mood.sanity, SANITY_UNSTABLE))
+	affected_mob.mob_mood.set_sanity(max(affected_mob.mob_mood.sanity, SANITY_UNSTABLE))
 	affected_mob.Jitter(10)
 
 /datum/reagent/drug/happiness/addiction_act_stage3(mob/living/carbon/affected_mob)
@@ -474,8 +472,7 @@
 	if(prob(40))
 		affected_mob.emote(pick("twitch","laugh","frown"))
 
-	var/datum/component/mood/mood = affected_mob.GetComponent(/datum/component/mood)
-	mood?.setSanity(max(mood.sanity, SANITY_CRAZY))
+	affected_mob.mob_mood.set_sanity(max(affected_mob.mob_mood.sanity, SANITY_CRAZY))
 	affected_mob.Jitter(15)
 
 /datum/reagent/drug/happiness/addiction_act_stage4(mob/living/carbon/affected_mob)
@@ -483,8 +480,7 @@
 	if(prob(50))
 		affected_mob.emote(pick("twitch","laugh","frown"))
 
-	var/datum/component/mood/mood = affected_mob.GetComponent(/datum/component/mood)
-	mood?.setSanity(SANITY_INSANE)
+	affected_mob.mob_mood.set_sanity(SANITY_INSANE)
 	affected_mob.Jitter(20)
 
 //I had to do too much research on this to make this a thing. Hopefully the FBI won't kick my door down.

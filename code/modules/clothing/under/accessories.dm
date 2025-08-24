@@ -422,12 +422,12 @@
 /obj/item/clothing/accessory/poppy_pin/on_uniform_equip(obj/item/clothing/under/U, user)
 	var/mob/living/L = user
 	if(L && L.mind)
-		SEND_SIGNAL(L, COMSIG_ADD_MOOD_EVENT, "poppy_pin", /datum/mood_event/poppy_pin)
+		L.add_mood_event("poppy_pin", /datum/mood_event/poppy_pin)
 
 /obj/item/clothing/accessory/poppy_pin/on_uniform_dropped(obj/item/clothing/under/U, user)
 	var/mob/living/L = user
 	if(L && L.mind)
-		SEND_SIGNAL(L, COMSIG_CLEAR_MOOD_EVENT, "poppy_pin")
+		L.clear_mood_event("poppy_pin")
 
 //Security Badges
 /obj/item/clothing/accessory/badge/officer/det

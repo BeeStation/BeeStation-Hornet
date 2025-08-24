@@ -174,28 +174,28 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 /// Called when an overdose starts
 /datum/reagent/proc/overdose_start(mob/living/carbon/affected_mob)
 	to_chat(affected_mob, span_userdanger("You feel like you took too much of [name]!"))
-	SEND_SIGNAL(affected_mob, COMSIG_ADD_MOOD_EVENT, "[type]_overdose", /datum/mood_event/overdose, name)
+	affected_mob.add_mood_event("[type]_overdose", /datum/mood_event/overdose, name)
 
 /// Called when addiction hits stage1, see [/datum/reagents/proc/metabolize]
 /datum/reagent/proc/addiction_act_stage1(mob/living/carbon/affected_mob)
-	SEND_SIGNAL(affected_mob, COMSIG_ADD_MOOD_EVENT, "[type]_overdose", /datum/mood_event/withdrawal_light, name)
+	affected_mob.add_mood_event("[type]_overdose", /datum/mood_event/withdrawal_light, name)
 	if(prob(30))
 		to_chat(affected_mob, span_notice("You feel like having some [name] right about now."))
 
 /// Called when addiction hits stage2, see [/datum/reagents/proc/metabolize]
 /datum/reagent/proc/addiction_act_stage2(mob/living/carbon/affected_mob)
-	SEND_SIGNAL(affected_mob, COMSIG_ADD_MOOD_EVENT, "[type]_overdose", /datum/mood_event/withdrawal_medium, name)
+	affected_mob.add_mood_event("[type]_overdose", /datum/mood_event/withdrawal_medium, name)
 	if(prob(30))
 		to_chat(affected_mob, span_notice("You feel like you need [name]. You just can't get enough."))
 
 /// Called when addiction hits stage3, see [/datum/reagents/proc/metabolize]
 /datum/reagent/proc/addiction_act_stage3(mob/living/carbon/affected_mob)
-	SEND_SIGNAL(affected_mob, COMSIG_ADD_MOOD_EVENT, "[type]_overdose", /datum/mood_event/withdrawal_severe, name)
+	affected_mob.add_mood_event("[type]_overdose", /datum/mood_event/withdrawal_severe, name)
 	if(prob(30))
 		to_chat(affected_mob, span_danger("You have an intense craving for [name]."))
 
 /// Called when addiction hits stage4, see [/datum/reagents/proc/metabolize]
 /datum/reagent/proc/addiction_act_stage4(mob/living/carbon/affected_mob)
-	SEND_SIGNAL(affected_mob, COMSIG_ADD_MOOD_EVENT, "[type]_overdose", /datum/mood_event/withdrawal_critical, name)
+	affected_mob.add_mood_event("[type]_overdose", /datum/mood_event/withdrawal_critical, name)
 	if(prob(30))
 		to_chat(affected_mob, span_boldannounce("You're not feeling good at all! You really need some [name]."))

@@ -101,8 +101,8 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 
 	Reset()
 
-/obj/machinery/computer/arcade/proc/prizevend(mob/user)
-	SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "arcade", /datum/mood_event/arcade)
+/obj/machinery/computer/arcade/proc/prizevend(mob/living/user)
+	user.add_mood_event("arcade", /datum/mood_event/arcade)
 	var/atom/movable/the_prize
 	if(prob(0.0001)) //1 in a million
 		the_prize = new /obj/item/gun/energy/pulse/prize(drop_location())

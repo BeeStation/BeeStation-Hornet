@@ -191,9 +191,9 @@
 			comforted = TRUE
 			break
 	if(comforted)
-		SEND_SIGNAL(quirk_target, COMSIG_ADD_MOOD_EVENT, "religious_comfort", /datum/mood_event/religiously_comforted)
+		quirk_target.add_mood_event("religious_comfort", /datum/mood_event/religiously_comforted)
 	else
-		SEND_SIGNAL(quirk_target, COMSIG_CLEAR_MOOD_EVENT, "religious_comfort")
+		quirk_target.clear_mood_event("religious_comfort")
 
 /datum/quirk/accent	//base accent is medieval
 	name = "Accent"

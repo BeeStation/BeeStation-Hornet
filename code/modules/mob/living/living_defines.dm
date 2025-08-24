@@ -173,3 +173,6 @@
 
 	//If we are currently leaning on something, and what that object is
 	var/atom/leaned_object
+
+	/// Living mob's mood datum
+	var/datum/mood/mob_mood

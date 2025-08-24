@@ -501,10 +501,10 @@ Arguments:
 	AddComponent(/datum/component/radioactive, 15000 , src)
 	var/turf/reactor_turf = get_turf(src)
 	var/rbmkzlevel = reactor_turf.get_virtual_z_level()
-	for(var/mob/player_mob in GLOB.player_list)
+	for(var/mob/living/player_mob in GLOB.alive_mob_list)
 		if(compare_z(rbmkzlevel, player_mob.get_virtual_z_level()))
 			to_chat(player_mob, span_userdanger("You hear a horrible metallic hissing."))
-			SEND_SIGNAL(player_mob, COMSIG_ADD_MOOD_EVENT, "delam", /datum/mood_event/delam) //Might as well use the same moodlet since its essentialy the same thing happening
+			player_mob.add_mood_event("delam", /datum/mood_event/delam) //Might as well use the same moodlet since its essentialy the same thing happening
 
 	for(var/obj/machinery/power/apc/apc in GLOB.apcs_list)
 		if(prob(70) && compare_z(rbmkzlevel, apc.get_virtual_z_level()))
@@ -532,11 +532,11 @@ Arguments:
 	explosion(get_turf(src), GLOB.MAX_EX_DEVESTATION_RANGE, GLOB.MAX_EX_HEAVY_RANGE, GLOB.MAX_EX_LIGHT_RANGE, GLOB.MAX_EX_FLASH_RANGE)
 	var/turf/reactor_turf = get_turf(src)
 	var/rbmkzlevel = reactor_turf.get_virtual_z_level()
-	for(var/mob/player_mob in GLOB.player_list)
+	for(var/mob/living/player_mob in GLOB.alive_mob_list)
 		if(compare_z(rbmkzlevel, player_mob.get_virtual_z_level()))
 			SEND_SOUND(player_mob, 'sound/effects/rbmk/explode.ogg')
 			to_chat(player_mob, span_userdanger("You hear a horrible metallic explosion."))
-			SEND_SIGNAL(player_mob, COMSIG_ADD_MOOD_EVENT, "delam", /datum/mood_event/delam) //Might as well use the same moodlet since its essentialy the same thing happening
+			player_mob.add_mood_event("delam", /datum/mood_event/delam) //Might as well use the same moodlet since its essentialy the same thing happening
 	for(var/nuclear_sludge_landmark in GLOB.landmarks_list)
 		if(istype(nuclear_sludge_landmark, /obj/modules/power/rbmk/nuclear_sludge_spawner))
 			var/obj/modules/power/rbmk/nuclear_sludge_spawner/nuclear_sludge_spawner = nuclear_sludge_landmark

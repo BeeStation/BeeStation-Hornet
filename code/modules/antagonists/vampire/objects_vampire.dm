@@ -415,7 +415,7 @@
 		if(IS_VASSAL(nearby_people) || IS_VAMPIRE(nearby_people) || IS_CURATOR(nearby_people))
 			continue
 		nearby_people.adjust_hallucinations(10 SECONDS)
-		SEND_SIGNAL(nearby_people, COMSIG_ADD_MOOD_EVENT, "vampcandle", /datum/mood_event/vampcandle)
+		nearby_people.add_mood_event("vampcandle", /datum/mood_event/vampcandle)
 
 /// Blood Throne - Allows Vampires to remotely speak with their Vassals. - Code (Mostly) stolen from comfy chairs (armrests) and chairs (layers)
 /obj/structure/vampire/bloodthrone

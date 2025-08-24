@@ -352,10 +352,10 @@
 		// Warm them up with hugs
 		share_bodytemperature(M)
 		if(bodytemperature > M.bodytemperature)
-			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "hug", /datum/mood_event/warmhug, src) // Hugger got a warm hug
-			SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "hug", /datum/mood_event/hug) // Reciver always gets a mood for being hugged
+			M.add_mood_event("hug", /datum/mood_event/warmhug, src) // Hugger got a warm hug (Unless they hate hugs)
+			add_mood_event("hug", /datum/mood_event/hug) // Receiver always gets a mood for being hugged
 		else
-			SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "hug", /datum/mood_event/warmhug, M) // You got a warm hug
+			add_mood_event("hug", /datum/mood_event/warmhug, M) // You got a warm hug
 
 		// Let people know if they hugged someone really warm or really cold
 		if(M.bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT || M.has_status_effect(/datum/status_effect/vampire_sol))
@@ -369,11 +369,11 @@
 			to_chat(M, span_warning("It feels like [src] is freezing as you hug [p_them()]."))
 
 		if(HAS_TRAIT(M, TRAIT_FRIENDLY))
-			var/datum/component/mood/mood = M.GetComponent(/datum/component/mood)
-			if (mood.sanity >= SANITY_GREAT)
-				SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "friendly_hug", /datum/mood_event/besthug, M)
-			else if (mood.sanity >= SANITY_DISTURBED)
-				SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "friendly_hug", /datum/mood_event/betterhug, M)
+			if (M.mob_mood.sanity >= SANITY_GREAT)
+				new /obj/effect/temp_visual/heart(loc)
+				add_mood_event("friendly_hug", /datum/mood_event/besthug, M)
+			else if (M.mob_mood.sanity >= SANITY_DISTURBED)
+				add_mood_event("friendly_hug", /datum/mood_event/betterhug, M)
 		for(var/datum/brain_trauma/trauma in M.get_traumas())
 			trauma.on_hug(M, src)
 	else if(M.is_zone_selected(BODY_ZONE_HEAD))

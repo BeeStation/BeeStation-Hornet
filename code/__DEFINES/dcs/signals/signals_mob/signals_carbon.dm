@@ -19,6 +19,10 @@
 #define COMSIG_CARBON_EMBED_REMOVAL "item_embed_remove_safe"
 ///Called when someone attempts to cuff a carbon
 #define COMSIG_CARBON_CUFF_ATTEMPTED "carbon_attempt_cuff"
+///Called when a carbon updates their sanity (source = carbon)
+#define COMSIG_CARBON_SANITY_UPDATE "carbon_sanity_update"
+///Called when a carbon updates their mood
+#define COMSIG_CARBON_MOOD_UPDATE "carbon_mood_update"
 
 //! from base of mob/living/carbon/set_species(): (new_race)
 #define COMSIG_CARBON_SPECIESCHANGE "mob_carbon_specieschange"

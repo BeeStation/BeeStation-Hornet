@@ -146,7 +146,7 @@
 	for(var/mob/living/carbon/human/H in C.contents)
 		if(!H.has_status_effect(/datum/status_effect/cocooned))
 			return
-		SEND_SIGNAL(H, COMSIG_CLEAR_MOOD_EVENT, "burnt_wings")
+		H.clear_mood_event("burnt_wings")
 		if(ismoth(H) && HAS_TRAIT(H, TRAIT_MOTH_BURNT))
 			REMOVE_TRAIT(H, TRAIT_MOTH_BURNT, "fire")
 			var/obj/item/organ/wings/moth/W = H.get_organ_by_type(/obj/item/organ/wings/moth)

@@ -22,17 +22,17 @@
 	food_reagents = null //get the unit test off our back
 	foodtypes = VEGETABLES | GROSS
 
-/obj/item/food/grown/flower/equipped(mob/user, slot)
+/obj/item/food/grown/flower/equipped(mob/living/user, slot)
 	. = ..()
 	if(slot == ITEM_SLOT_HEAD)
-		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "flower_worn", /datum/mood_event/flower_worn, src)
+		user.add_mood_event("flower_worn", /datum/mood_event/flower_worn, src)
 
 /obj/item/food/grown/flower/dropped(mob/living/carbon/user)
 	..()
 	if(user.head != src)
 		return
 	else
-		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "flower_worn")
+		user.clear_mood_event("flower_worn")
 
 // Poppy
 /obj/item/seeds/flower/poppy
@@ -211,17 +211,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds/flower/trumpet)
 	throw_speed = 1
 	throw_range = 3
 
-/obj/item/grown/sunflower/equipped(mob/user, slot)
+/obj/item/grown/sunflower/equipped(mob/living/user, slot)
 	. = ..()
 	if(slot == ITEM_SLOT_HEAD)
-		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "flower_worn", /datum/mood_event/flower_worn, src)
+		user.add_mood_event("flower_worn", /datum/mood_event/flower_worn, src)
 
 /obj/item/grown/sunflower/dropped(mob/living/carbon/user)
 	..()
 	if(user.head != src)
 		return
 	else
-		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "flower_worn")
+		user.clear_mood_event("flower_worn")
 
 
 /obj/item/grown/sunflower/attack(mob/M, mob/user)
@@ -319,14 +319,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/grown/novaflower)
 		to_chat(user, span_danger("The [name] burns your bare hand!"))
 		user.adjustFireLoss(rand(1, 5))
 
-/obj/item/grown/novaflower/equipped(mob/user, slot)
+/obj/item/grown/novaflower/equipped(mob/living/user, slot)
 	. = ..()
 	if(slot == ITEM_SLOT_HEAD)
-		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "flower_worn", /datum/mood_event/flower_worn, src)
+		user.add_mood_event("flower_worn", /datum/mood_event/flower_worn, src)
 
 /obj/item/grown/novaflower/dropped(mob/living/carbon/user)
 	..()
 	if(user.head != src)
 		return
 	else
-		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "flower_worn")
+		user.clear_mood_event("flower_worn")

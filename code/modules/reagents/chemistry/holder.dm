@@ -438,7 +438,7 @@
 						if(40 to INFINITY)
 							remove_addiction(R)
 						else
-							SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "[R.type]_overdose")
+							owner.clear_mood_event("[R.type]_overdose")
 		addiction_tick++
 	if(owner && need_mob_update) //some of the metabolized reagents had effects on the mob that requires some updates.
 		owner.updatehealth()
@@ -447,8 +447,11 @@
 
 /// Removes addiction to a specific reagent on [/datum/reagents/var/my_atom]
 /datum/reagents/proc/remove_addiction(datum/reagent/R)
-	to_chat(my_atom, "<span class='notice'>You feel like you've gotten over your need for [R.name].</span>")
-	SEND_SIGNAL(my_atom, COMSIG_CLEAR_MOOD_EVENT, "[R.type]_overdose")
+	if(!isliving(my_atom))
+		CRASH("Addiction removed from non-living mob [src] [my_atom], what the fuck")
+	var/mob/living/living_atom = my_atom
+	to_chat(living_atom, "<span class='notice'>You feel like you've gotten over your need for [R.name].</span>")
+	living_atom.clear_mood_event("[R.type]_overdose")
 	addiction_list.Remove(R)
 	qdel(R)
 

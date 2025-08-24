@@ -23,7 +23,7 @@
 		R.cell?.charge += charge_amt
 		R.visible_message(span_notice("[chap] charges [R] with the power of [GLOB.deity]!"))
 		to_chat(R, span_boldnotice("You are charged by the power of [GLOB.deity]!"))
-		SEND_SIGNAL(R, COMSIG_ADD_MOOD_EVENT, "blessing", /datum/mood_event/blessing)
+		R.add_mood_event("blessing", /datum/mood_event/blessing)
 		playsound(chap, 'sound/effects/bang.ogg', 25, TRUE, -1)
 		return TRUE
 	if(!ishuman(target))
@@ -45,7 +45,7 @@
 		else
 			blessed.visible_message(span_notice("[chap] charges [blessed] with the power of [GLOB.deity]!"))
 			to_chat(blessed, span_boldnotice("You feel charged by the power of [GLOB.deity]!"))
-			SEND_SIGNAL(blessed, COMSIG_ADD_MOOD_EVENT, "blessing", /datum/mood_event/blessing)
+			blessed.add_mood_event("blessing", /datum/mood_event/blessing)
 			playsound(chap, 'sound/machines/synth_yes.ogg', 25, TRUE, -1)
 		return TRUE
 
@@ -56,7 +56,7 @@
 	blessed.visible_message(span_notice("[chap] [did_we_charge ? "repairs" : "repairs and charges"] [blessed] with the power of [GLOB.deity]!"))
 	to_chat(blessed, span_boldnotice("The inner machinations of [GLOB.deity] [did_we_charge ? "repairs" : "repairs and charges"] you!"))
 	playsound(chap, 'sound/effects/bang.ogg', 25, TRUE, -1)
-	SEND_SIGNAL(blessed, COMSIG_ADD_MOOD_EVENT, "blessing", /datum/mood_event/blessing)
+	blessed.add_mood_event("blessing", /datum/mood_event/blessing)
 	return TRUE
 
 /datum/religion_sect/technophile/on_sacrifice(obj/item/I, mob/living/chap)

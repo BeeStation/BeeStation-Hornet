@@ -57,7 +57,8 @@
 	var/areasize = 0 //Size of the area in open turfs, only calculated for indoors areas.
 
 	var/mood_bonus = 0 //Mood for being here
-	var/mood_message = span_nicegreen("This area is pretty nice!\n") //Mood message for being here, only shows up if mood_bonus != 0
+	/// Mood message for being here, only shows up if mood_bonus != 0
+	var/mood_message = "This area is pretty nice!"
 	/// if defined, restricts what jobs get this buff using JOB_NAME defines (-candycane/etherware)
 	var/list/mood_job_allowed = null
 	/// if true, mood_job_allowed will represent jobs exempt from getting the mood.

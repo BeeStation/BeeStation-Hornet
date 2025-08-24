@@ -28,16 +28,16 @@
 	if(method != INGEST || quality && !HAS_TRAIT(exposed_mob, TRAIT_AGEUSIA))
 		return
 	switch(quality)
-		if(DRINK_BAD)
-			SEND_SIGNAL(exposed_mob, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_bad)
-		if(DRINK_NICE)
-			SEND_SIGNAL(exposed_mob, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_nice)
-		if(DRINK_GOOD)
-			SEND_SIGNAL(exposed_mob, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_good)
-		if(DRINK_VERYGOOD)
-			SEND_SIGNAL(exposed_mob, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_verygood)
-		if(DRINK_FANTASTIC)
-			SEND_SIGNAL(exposed_mob, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_fantastic)
+		if (DRINK_BAD)
+			exposed_mob.add_mood_event("quality_drink", /datum/mood_event/quality_bad)
+		if (DRINK_NICE)
+			exposed_mob.add_mood_event("quality_drink", /datum/mood_event/quality_nice)
+		if (DRINK_GOOD)
+			exposed_mob.add_mood_event("quality_drink", /datum/mood_event/quality_good)
+		if (DRINK_VERYGOOD)
+			exposed_mob.add_mood_event("quality_drink", /datum/mood_event/quality_verygood)
+		if (DRINK_FANTASTIC)
+			exposed_mob.add_mood_event("quality_drink", /datum/mood_event/quality_fantastic)
 
 /datum/reagent/consumable/nutriment
 	name = "Nutriment"

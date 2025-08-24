@@ -82,11 +82,6 @@
 
 #define COMSIG_DISEASE_END "disease_end" 						//from the base of /datum/disease/advance/Destroy(): (GetDiseaseID)
 
-//Mood
-
-#define COMSIG_ADD_MOOD_EVENT "add_mood" //! Called when you send a mood event from anywhere in the code.
-#define COMSIG_CLEAR_MOOD_EVENT "clear_mood" //! Called when you clear a mood event from anywhere in the code.
-
 /// Called in /obj/structure/moneybot/add_money(). (to_add)
 #define COMSIG_MONEYBOT_ADD_MONEY "moneybot_add_money"
 

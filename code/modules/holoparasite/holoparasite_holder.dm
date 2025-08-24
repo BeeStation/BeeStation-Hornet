@@ -410,7 +410,7 @@
 		for(var/mob/living/viewer in viewers(world.view, body))
 			if(viewer == body || (viewer in holoparasites) || viewer.is_blind())
 				continue
-			SEND_SIGNAL(viewer, COMSIG_ADD_MOOD_EVENT, "saw_holopara_death", /datum/mood_event/saw_holopara_death, body.real_name || body.name)
+			viewer.add_mood_event("saw_holopara_death", /datum/mood_event/saw_holopara_death, body.real_name || body.name)
 			traumatized++
 		SSblackbox.record_feedback("tally", "holoparasite_traumatized_count", 1, traumatized)
 	playsound(body, 'sound/effects/curseattack.ogg', vol = 75, vary = TRUE, frequency = 0.5)

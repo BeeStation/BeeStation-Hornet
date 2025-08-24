@@ -459,7 +459,8 @@ Behavior that's still missing from this component that original food items had t
 	var/mob/living/carbon/human/human_eater = eater
 	var/obj/item/organ/tongue/tongue = human_eater.get_organ_slot(ORGAN_SLOT_TONGUE)
 	if((foodtypes & BREAKFAST) && world.time - SSticker.round_start_time < STOP_SERVING_BREAKFAST)
-		SEND_SIGNAL(human_eater, COMSIG_ADD_MOOD_EVENT, "breakfast", /datum/mood_event/breakfast)
+		human_eater.add_mood_event("breakfast", /datum/mood_event/breakfast)
+	last_check_time = world.time
 	if(HAS_TRAIT(human_eater, TRAIT_AGEUSIA))
 		if(foodtypes & tongue.toxic_food)
 			to_chat(human_eater, span_warning("You don't feel so good..."))
@@ -468,22 +469,29 @@ Behavior that's still missing from this component that original food items had t
 
 
 	var/food_quality = get_perceived_food_quality(eater)
+
 	if(food_quality <= TOXIC_FOOD_QUALITY_THRESHOLD)
 		to_chat(human_eater,span_warning("What the hell was that thing?!"))
 		human_eater.adjust_disgust(25 + 30 * fraction)
-		SEND_SIGNAL(human_eater, COMSIG_ADD_MOOD_EVENT, "toxic_food", /datum/mood_event/disgusting_food)
-	else if(food_quality < 0)
+		human_eater.add_mood_event("toxic_food", /datum/mood_event/disgusting_food)
+		return
+
+	if(food_quality < 0)
 		to_chat(human_eater,span_notice("That didn't taste very good..."))
 		human_eater.adjust_disgust(11 + 15 * fraction)
-		SEND_SIGNAL(human_eater, COMSIG_ADD_MOOD_EVENT, "gross_food", /datum/mood_event/gross_food)
-	else if(food_quality > 0)
-		food_quality = min(food_quality, FOOD_QUALITY_TOP)
-		var/event = GLOB.food_quality_events[food_quality]
-		human_eater.adjust_disgust(-5 + -2 * food_quality * fraction)
-		var/quality_label = GLOB.food_quality_description[food_quality]
-		to_chat(human_eater, span_notice("That's \an [quality_label] meal."))
-		SEND_SIGNAL(human_eater, COMSIG_ADD_MOOD_EVENT, "quality_food", event)
-	last_check_time = world.time
+		human_eater.add_mood_event("gross_food", /datum/mood_event/gross_food)
+		return
+
+	if(food_quality == 0)
+		return // meh
+
+	food_quality = min(food_quality, FOOD_QUALITY_TOP)
+	var/datum/mood_event/event = GLOB.food_quality_events[food_quality]
+	event = new event.type
+	human_eater.add_mood_event("quality_food", event)
+	human_eater.adjust_disgust(-5 + -2 * food_quality * fraction)
+	var/quality_label = GLOB.food_quality_description[food_quality]
+	to_chat(human_eater, span_notice("That's \an [quality_label] meal."))
 
 /// Get the complexity of the crafted food
 /datum/component/edible/proc/get_recipe_complexity()

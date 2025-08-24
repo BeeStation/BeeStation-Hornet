@@ -23,7 +23,7 @@
 		if(IS_ORGANIC_LIMB(affecting))//Chest is a good indicator for if a carbon is robotic in nature or not.
 			C.emote("scream")
 
-	SEND_SIGNAL(C, COMSIG_ADD_MOOD_EVENT, "dismembered", /datum/mood_event/dismembered)
+	C.add_mood_event("dismembered", /datum/mood_event/dismembered)
 	drop_limb()
 
 	C.update_equipment_speed_mods() // Update in case speed affecting item unequipped by dismemberment
@@ -103,7 +103,7 @@
 		I.forceMove(src)
 	if(!C.has_embedded_objects())
 		C.clear_alert("embeddedobject")
-		SEND_SIGNAL(C, COMSIG_CLEAR_MOOD_EVENT, "embedded")
+		C.clear_mood_event("embedded")
 
 	if(!special)
 		if(C.dna)

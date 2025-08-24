@@ -52,7 +52,7 @@
 		return//so we're not searching everything in view every tick
 	viewing = (owner in oviewers(7, obsession_body))
 	if(viewing)
-		SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "creeping", /datum/mood_event/creeping, obsession.name)
+		owner.add_mood_event("creeping", /datum/mood_event/creeping, obsession.name)
 		total_time_creeping += delta_time SECONDS
 		if(!revealed && (total_time_creeping >= OBSESSION_REVEAL_TIME))
 			reveal()
@@ -65,9 +65,9 @@
 /datum/brain_trauma/special/obsessed/proc/out_of_view()
 	time_spent_away += 2 SECONDS
 	if(time_spent_away > 3 MINUTES) //3 minutes
-		SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "creeping", /datum/mood_event/notcreepingsevere, obsession.name)
+		owner.add_mood_event("creeping", /datum/mood_event/notcreepingsevere, obsession.name)
 	else
-		SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "creeping", /datum/mood_event/notcreeping, obsession.name)
+		owner.add_mood_event("creeping", /datum/mood_event/notcreeping, obsession.name)
 
 /datum/brain_trauma/special/obsessed/on_lose()
 	..()

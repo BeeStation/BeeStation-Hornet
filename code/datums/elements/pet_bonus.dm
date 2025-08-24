@@ -40,4 +40,4 @@
 		pet.manual_emote(emote_message)
 		if(emote_sound)
 			playsound(get_turf(pet), emote_sound, 50, TRUE)
-	SEND_SIGNAL(petter, COMSIG_ADD_MOOD_EVENT, pet, moodlet, pet)
+	petter.add_mood_event("petting_bonus", moodlet, pet)

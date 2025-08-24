@@ -222,17 +222,16 @@
 /datum/reagent/consumable/laughter/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	affected_mob.emote("laugh")
-	SEND_SIGNAL(affected_mob, COMSIG_ADD_MOOD_EVENT, "chemical_laughter", /datum/mood_event/chemical_laughter)
+	affected_mob.add_mood_event("chemical_laughter", /datum/mood_event/chemical_laughter)
 
 /datum/reagent/consumable/laughter/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
 	if(!ishuman(exposed_mob))
 		return
 
 	var/mob/living/carbon/human/human = exposed_mob
-	var/datum/component/mood/mood = human.GetComponent(/datum/component/mood)
-	if(mood.get_event("slipped"))
-		SEND_SIGNAL(human, COMSIG_ADD_MOOD_EVENT, "laughter", /datum/mood_event/funny_prank)
-		SEND_SIGNAL(human, COMSIG_CLEAR_MOOD_EVENT, "slipped")
+	if(human.mob_mood.get_mood_event("slipped"))
+		human.add_mood_event("laughter", /datum/mood_event/funny_prank)
+		human.clear_mood_event("slipped")
 		human.AdjustKnockdown(-20)
 
 /datum/reagent/consumable/superlaughter
@@ -251,7 +250,7 @@
 			span_userdanger("You burst out in a fit of uncontrollable laughter!"),
 		)
 		affected_mob.Stun(5)
-		SEND_SIGNAL(affected_mob, COMSIG_ADD_MOOD_EVENT, "chemical_laughter", /datum/mood_event/chemical_superlaughter)
+		affected_mob.add_mood_event("chemical_laughter", /datum/mood_event/chemical_superlaughter)
 
 /datum/reagent/consumable/potato_juice
 	name = "Potato Juice"
@@ -1304,10 +1303,10 @@
 	var/obj/item/organ/tongue/tongue = affected_mob.get_organ_slot(ORGAN_SLOT_TONGUE)
 	if(tongue.liked_food & MEAT)
 		to_chat(affected_mob, span_notice("That drink was PERFECTLY beefy! It's great!."))
-		SEND_SIGNAL(affected_mob, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_verygood)
+		affected_mob.add_mood_event("quality_drink", /datum/mood_event/quality_verygood)
 	else
 		to_chat(affected_mob, span_warning("That drink was way too beefy! You feel sick."))
-		SEND_SIGNAL(affected_mob, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_bad)
+		affected_mob.add_mood_event("quality_drink", /datum/mood_event/quality_bad)
 		affected_mob.adjust_disgust(30)
 	. = ..()
 
@@ -1343,10 +1342,10 @@
 	var/obj/item/organ/tongue/tongue = affected_mob.get_organ_slot(ORGAN_SLOT_TONGUE)
 	if(tongue.liked_food & MEAT)
 		to_chat(affected_mob, span_notice("That drink was like a liquid steak! It's amazing!."))
-		SEND_SIGNAL(affected_mob, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_fantastic)
+		affected_mob.add_mood_event("quality_drink", /datum/mood_event/quality_fantastic)
 	else
 		to_chat(affected_mob, span_warning("That drink was like drinking a steak! I think i'm gonna puke..."))
-		SEND_SIGNAL(affected_mob, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_bad)
+		affected_mob.add_mood_event("quality_drink", /datum/mood_event/quality_bad)
 		affected_mob.adjust_disgust(35)
 
 /datum/reagent/consumable/beeffizz/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)

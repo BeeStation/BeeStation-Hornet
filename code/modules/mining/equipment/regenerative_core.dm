@@ -100,7 +100,7 @@
 				H.ForceContractDisease(new /datum/disease/transformation/legion())
 				to_chat(H, span_userdanger("You feel the necropolis strengthen its grip on your heart and soul... You're powerless to resist for much longer..."))
 			H.apply_status_effect(/datum/status_effect/regenerative_core)
-			SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "core", /datum/mood_event/healsbadman) //Now THIS is a miner buff (fixed - nerf)
+			H.add_mood_event("core", /datum/mood_event/healsbadman) //Now THIS is a miner buff (fixed - nerf)
 			qdel(src)
 
 /obj/item/organ/regenerative_core/afterattack(atom/target, mob/user, proximity_flag)

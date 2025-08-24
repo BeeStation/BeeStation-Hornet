@@ -1500,9 +1500,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if (H.nutrition > 0 && H.stat != DEAD && !HAS_TRAIT(H, TRAIT_NOHUNGER))
 		// THEY HUNGER
 		var/hunger_rate = HUNGER_FACTOR
-		var/datum/component/mood/mood = H.GetComponent(/datum/component/mood)
-		if(mood && mood.sanity > SANITY_DISTURBED)
-			hunger_rate *= max(1 - 0.002 * mood.sanity, 0.5) //0.85 to 0.75
+		if(H.mob_mood && H.mob_mood.sanity > SANITY_DISTURBED)
+			hunger_rate *= max(1 - 0.002 * H.mob_mood.sanity, 0.5) //0.85 to 0.75
 		// Whether we cap off our satiety or move it towards 0
 		if(H.satiety > MAX_SATIETY)
 			H.satiety = MAX_SATIETY
@@ -2104,8 +2103,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	// Body temperature is too hot, and we do not have resist traits
 	if(bodytemp > bodytemp_heat_damage_limit && !HAS_TRAIT(humi, TRAIT_RESISTHEAT))
 		// Clear cold mood and apply hot mood
-		SEND_SIGNAL(humi, COMSIG_CLEAR_MOOD_EVENT, "cold")
-		SEND_SIGNAL(humi, COMSIG_ADD_MOOD_EVENT, "hot", /datum/mood_event/hot)
+		humi.clear_mood_event("cold")
+		humi.add_mood_event("hot", /datum/mood_event/hot)
 
 		//Remove any slowdown from the cold.
 		humi.remove_movespeed_modifier(/datum/movespeed_modifier/cold)
@@ -2121,8 +2120,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	// Body temperature is too cold, and we do not have resist traits
 	else if(humi.bodytemperature < bodytemp_cold_damage_limit && !HAS_TRAIT(humi, TRAIT_RESISTCOLD))
 		// clear any hot moods and apply cold mood
-		SEND_SIGNAL(humi, COMSIG_CLEAR_MOOD_EVENT, "hot")
-		SEND_SIGNAL(humi, COMSIG_ADD_MOOD_EVENT, "cold", /datum/mood_event/cold)
+		humi.clear_mood_event("hot")
+		humi.add_mood_event("cold", /datum/mood_event/cold)
 		// Apply cold slow down
 		humi.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/cold, multiplicative_slowdown = ((bodytemp_cold_damage_limit - humi.bodytemperature) / COLD_SLOWDOWN_FACTOR))
 		// Display alerts based how cold it is
@@ -2140,8 +2139,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	else if (old_bodytemp > bodytemp_heat_damage_limit || old_bodytemp < bodytemp_cold_damage_limit)
 		humi.clear_alert("temp")
 		humi.remove_movespeed_modifier(/datum/movespeed_modifier/cold)
-		SEND_SIGNAL(humi, COMSIG_CLEAR_MOOD_EVENT, "cold")
-		SEND_SIGNAL(humi, COMSIG_CLEAR_MOOD_EVENT, "hot")
+		humi.clear_mood_event("cold")
+		humi.clear_mood_event("hot")
 
 	// Store the old bodytemp for future checking
 	humi.old_bodytemperature = bodytemp
@@ -2341,7 +2340,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			H.adjust_bodytemperature(5.5 * delta_time)
 		else
 			H.adjust_bodytemperature((BODYTEMP_HEATING_MAX + (H.fire_stacks * 12)) * 0.5 * delta_time)
-			SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "on_fire", /datum/mood_event/on_fire)
+			H.add_mood_event("on_fire", /datum/mood_event/on_fire)
 
 /datum/species/proc/CanIgniteMob(mob/living/carbon/human/H)
 	if(HAS_TRAIT(H, TRAIT_NOFIRE))

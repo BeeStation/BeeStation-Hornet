@@ -149,6 +149,10 @@
 #define VV_HK_DIRECT_CONTROL "direct_control"
 #define VV_HK_GIVE_DIRECT_CONTROL "give_direct_control"
 #define VV_HK_OFFER_GHOSTS "offer_ghosts"
+
+// /mob/living
+#define VV_HK_ADD_MOOD "addmood"
+#define VV_HK_REMOVE_MOOD "removemood"
 #define VV_HK_GIVE_HALLUCINATION "give_hallucination"
 #define VV_HK_GIVE_DELUSION_HALLUCINATION "give_hallucination_delusion"
 

@@ -74,7 +74,7 @@
 
 /datum/quirk/jolly/on_process(delta_time)
 	if(DT_PROB(0.05, delta_time))
-		SEND_SIGNAL(quirk_target, COMSIG_ADD_MOOD_EVENT, "jolly", /datum/mood_event/jolly)
+		quirk_target.add_mood_event("jolly", /datum/mood_event/jolly)
 
 /datum/quirk/light_step
 	name = "Light Step"
