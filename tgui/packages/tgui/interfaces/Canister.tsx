@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Icon, Knob, LabeledControls, LabeledList, RoundGauge, Section, Tooltip } from '../components';
+import { Box, Button, Flex, Icon, Knob, LabeledControls, LabeledList, RoundGauge, Section, Tooltip } from 'tgui-core/components';
 import { toFixed } from 'common/math';
 import { BooleanLike } from 'common/react';
 
@@ -8,7 +8,7 @@ import { Window } from '../layouts';
 
 const formatPressure = (value: number) => {
   if (value < 10000) {
-    return toFixed(value) + ' kPa';
+    return `${toFixed(value)} kPa`;
   }
   return formatSiUnit(value * 1000, 1, 'Pa');
 };
@@ -102,7 +102,7 @@ export const Canister = (props) => {
                       maxValue={maxReleasePressure}
                       step={5}
                       stepPixelSize={1}
-                      onDrag={(e, value) =>
+                      onChange={(e, value) =>
                         act('pressure', {
                           pressure: value,
                         })
@@ -158,7 +158,7 @@ export const Canister = (props) => {
             </Section>
             <Section>
               <LabeledList>
-                <LabeledList.Item label="Cell Charge">{cellCharge > 0 ? cellCharge + '%' : 'Missing Cell'}</LabeledList.Item>
+                <LabeledList.Item label="Cell Charge">{cellCharge > 0 ? `${cellCharge}%` : 'Missing Cell'}</LabeledList.Item>
                 {!!hasHypernobCrystal && (
                   <LabeledList.Item label="Reaction Suppression">
                     <Button

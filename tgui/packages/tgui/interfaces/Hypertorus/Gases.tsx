@@ -1,7 +1,7 @@
 import { filter, sortBy } from 'common/collections';
 import { useBackend } from 'tgui/backend';
 import { getGasColor, getGasLabel } from 'tgui/constants';
-import { Box, Button, LabeledList, NumberInput, ProgressBar, Section } from '../../components';
+import { Box, Button, LabeledList, NumberInput, ProgressBar, Section } from 'tgui-core/components';
 import { toFixed } from 'common/math';
 
 import type { HypertorusFuel, HypertorusGas } from '.';

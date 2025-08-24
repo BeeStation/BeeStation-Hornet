@@ -1,5 +1,5 @@
 import { useBackend } from 'tgui/backend';
-import { Box, Button, Icon, Knob, LabeledControls, LabeledList, NumberInput, Section, Tooltip } from '../../components';
+import { Box, Button, Icon, Knob, LabeledControls, LabeledList, NumberInput, Section, Tooltip } from 'tgui-core/components';
 import { BooleanLike } from 'common/react';
 
 import { HypertorusFilter } from '.';

@@ -1,6 +1,6 @@
 import { useBackend } from 'tgui/backend';
 import { Window } from 'tgui/layouts';
-import { Button, Collapsible, Flex, Section, Stack } from '../../components';
+import { Button, Collapsible, Flex, Section, Stack } from 'tgui-core/components';
 import { BooleanLike } from 'common/react';
 
 import { HypertorusSecondaryControls, HypertorusWasteRemove } from './Controls';
