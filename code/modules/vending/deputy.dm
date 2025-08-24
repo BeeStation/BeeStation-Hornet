@@ -70,8 +70,6 @@
 	if(!user_mob || !user_mob.mind)
 		return
 
-	vend_reply = "Thank you for your service!"
-
 	if(!allowed(usr))
 		if(item_category == "Kit")
 			if(!HAS_MIND_TRAIT(user_mob, TRAIT_SECURITY))
@@ -98,6 +96,8 @@
 		return
 
 	..()
+
+	vend_reply = initial(vend_reply)
 
 /obj/machinery/vending/deputy/Destroy()
 	QDEL_NULL(Radio)
