@@ -400,3 +400,13 @@
 2025-08-24:
   Nakalon:
   - bugfix: Finally actually fixes loadouts and loadout replacements
+  Rukofamicom:
+  - tweak: Xenomorph hunter leap attack now does 110 stamina damage instead of being
+      hardcoded as a 10 second stun. This means armor will potentially mitigate this
+      to less than an immediate takedown
+  - tweak: All xenomorphs now do slightly more stamina damage with right click attack
+  - bugfix: Xenomorph acid no longer instantly annihilates mobs, but has had its cost
+      reduced to 50. This ability was not previously intended to work on mobs at all,
+      so consider this turning a bug into a feature officially.
+  - bugfix: Removed an armor check from acid_processing() proc which was both unnecessary
+      and causing runtimes due to bad args
