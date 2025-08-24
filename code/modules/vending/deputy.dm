@@ -63,17 +63,23 @@
 	Radio.set_frequency(FREQ_COMMON)
 
 /obj/machinery/vending/deputy/vend(list/params, list/greyscale_colors)
-	var/datum/vending_product/item = locate(params["ref"])
-	var/cat_name = item.get_category_name()
+	var/datum/vending_product/item_to_buy = locate(params["ref"]) // Note: this needs href protection apparently
+	var/item_category = item_to_buy.get_category_name()
+
+	var/mob/user_mob = usr
+	if(!user_mob || !user_mob.mind)
+		return
+
+	vend_reply = "Thank you for your service!"
 
 	if(!allowed(usr))
-		if(cat_name == "Kit")
+		if(item_category == "Kit")
 			ADD_TRAIT(usr.mind, TRAIT_SECURITY, JOB_TRAIT)
 			playsound(src, 'sound/effects/startup.ogg', 100, FALSE)
 			vend_reply = "APS thanks you for enlisting in our volunteer program!"
 			Radio.talk_into(src, "[usr.name], [get_area(usr.loc)], has just enlisted for Auri Private Security’s volunteer deputy program! APS thanks you for your service, and reminds all crew members: **Unauthorized enforcement is strictly prohibited!** Remember; Compliance is a team effort! ")
 
-		else if(cat_name == "Contraband" || scan_id == 0)
+		else if(item_category == "Contraband" || scan_id == 0)
 			playsound(src, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 			flick(icon_deny,src)
 			say("ERR-!")
@@ -84,15 +90,13 @@
 			flick(icon_deny,src)
 			return
 
-	else if(cat_name == "Kit")
+	else if(item_category == "Kit")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 		say("ERROR! You are already enlisted. Please purchase spare gear separately.")
 		flick(icon_deny,src)
 		return
 
 	..()
-
-	vend_reply = initial(vend_reply)
 
 /obj/machinery/vending/deputy/Destroy()
 	QDEL_NULL(Radio)

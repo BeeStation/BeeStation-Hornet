@@ -41,9 +41,7 @@
 	var/category
 
 /datum/vending_product/proc/get_category_name()
-	var/name
-	name = category["name"]
-	return name
+	return category["name"] || "UNKNOWN"
 
 /**
   * # vending machines
