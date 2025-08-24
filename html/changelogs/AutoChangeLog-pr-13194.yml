@@ -1,5 +1,0 @@
-author: r1ks-iwnl
-delete-after: true
-changes:
-  - bugfix: Gas analyzer's barometer function works again (Alt-Click the gas analyzer
-      on lavaland to use the barometer function)
