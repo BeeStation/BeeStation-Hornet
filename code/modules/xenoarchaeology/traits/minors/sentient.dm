@@ -87,7 +87,7 @@
 			trait_name = replacetext(trait_name, "Σ", "sigma")
 			trait_name = replacetext(trait_name, "Ω", "omega")
 			trait_dialogue = "[trait_dialogue]\n[trait_name]"
-	sentience.add_memory(trait_dialogue)
+	sentience.mind?.add_memory(/datum/memory/flavor_text, sentience, null, null, trait_dialogue)
 	playsound(get_turf(component_parent?.parent), 'sound/items/haunted/ghostitemattack.ogg', 50, TRUE)
 	//Cleanup
 	QDEL_NULL(mob_spawner)

@@ -63,7 +63,7 @@
 			created_human.mind.add_antag_datum(/datum/antagonist/changeling)
 			created_human.flavor_text += " - Or so's the cover story we've curated to sway the hearts of the hapless souls who, one day, may stumble upon \
 			our miserable, eeked out existence here... And inadvertently begin the hunt anew." //Ditto
-	created_human.mind.store_memory(created_human.flavor_text)
+	created_human.mind.add_memory(/datum/memory/flavor_text, created_human, null, null, created_human.flavor_text)
 	mob_to_recover = created_human
 	//Give them space-worthy suit and other equipment
 	var/turf/open/T = locate() in shuffle(view(1, created_human))

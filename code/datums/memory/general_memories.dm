@@ -818,3 +818,83 @@
 		"[protagonist_name] helping up [deuteragonist_name]",
 		"[deuteragonist_name] taking the hand offered graciously by [protagonist_name] to get up",
 	)
+
+/datum/memory/flavor_text
+	story_value = STORY_VALUE_KEY // or whatever fits
+	var/flavor
+
+/datum/memory/flavor_text/New(
+	datum/mind/memorizer_mind,
+	atom/protagonist,
+	atom/deuteragonist,
+	atom/antagonist,
+	flavor,
+)
+	src.flavor = flavor
+	return ..()
+
+/datum/memory/flavor_text/get_names()
+	return list("Backstory: [flavor]")
+
+/datum/memory/flavor_text/get_starts()
+	return list("[flavor]")
+
+/datum/memory/stash_location
+	story_value = STORY_VALUE_KEY
+	var/location_info
+
+/datum/memory/stash_location/New(
+	datum/mind/memorizer_mind,
+	atom/protagonist,
+	atom/deuteragonist,
+	atom/antagonist,
+	location_info,
+)
+	src.location_info = location_info
+	return ..()
+
+/datum/memory/stash_location/get_names()
+	return list("Secret stash location: [location_info]")
+
+/datum/memory/stash_location/get_starts()
+	return list("[location_info]")
+
+/datum/memory/spider_directive
+	story_value = STORY_VALUE_KEY
+	var/directive_text
+
+/datum/memory/spider_directive/New(
+	datum/mind/memorizer_mind,
+	atom/protagonist,
+	atom/deuteragonist,
+	atom/antagonist,
+	directive_text,
+)
+	src.directive_text = directive_text
+	return ..()
+
+/datum/memory/spider_directive/get_names()
+	return list("Directive: [directive_text]")
+
+/datum/memory/spider_directive/get_starts()
+	return list("[directive_text]")
+
+/datum/memory/spider_master
+	story_value = STORY_VALUE_KEY
+	var/master_name
+
+/datum/memory/spider_master/New(
+	datum/mind/memorizer_mind,
+	atom/protagonist,
+	atom/deuteragonist,
+	atom/antagonist,
+	master_name,
+)
+	src.master_name = master_name
+	return ..()
+
+/datum/memory/spider_master/get_names()
+	return list("Your master is: [master_name]")
+
+/datum/memory/spider_master/get_starts()
+	return list("[master_name]")
