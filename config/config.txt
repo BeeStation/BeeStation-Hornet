@@ -225,6 +225,9 @@ NO_DEAD_VOTE
 ## players' votes default to "No vote" (otherwise,  default to "No change")
 DEFAULT_NO_VOTE
 
+## Determines if permadeath is enabled (cloning)
+PERMADEATH_ENABLED
+
 ## Determines if players can respawn after death
 ## 0 = Cannot respawn (default)
 ## 1 = Can respawn

@@ -135,7 +135,7 @@
 	//We ignore fakedeath, this is technically a tell, but who cares.
 	if(stat == DEAD)
 		var/tdelta = round(world.time - src.timeofdeath)
-		if(tdelta >= (DEFIB_TIME_LIMIT * 1.5))
+		if(tdelta >= (DEFIB_TIME_LIMIT * 1.5) && CONFIG_GET(flag/permadeath_enabled))
 			. += span_deadsay("[t_He] seems cold and distant, likely completely beyond saving.")
 
 
