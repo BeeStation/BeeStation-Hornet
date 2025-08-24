@@ -548,7 +548,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 		scantemp = "Subject's body is too damaged to scan properly."
 		playsound(src, 'sound/machines/terminal_alert.ogg', 50, 0)
 		return FALSE
-	if(tplus > tlimit && CONFIG_GET(flag/permadeath_enabled)) //they are never coming back, unless they are
+	if(tplus > tlimit && CONFIG_GET(flag/permadeath_enabled) && !isnull(mob_occupant.timeofdeath)) //they are never coming back, unless they are
 		scantemp = "Subject's body does not respond to the scanwave. Revival impossible."
 		playsound(src, 'sound/machines/terminal_alert.ogg', 50, 0)
 		return FALSE
