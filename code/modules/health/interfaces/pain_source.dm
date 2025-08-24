@@ -25,9 +25,18 @@
 
 /datum/pain_source/proc/enter_pain_crit()
 	owner.blood.enter_shock(FROM_PAIN_SHOCK)
+	owner.set_stat_source(SOFT_CRIT, FROM_PAIN_SHOCK)
+	to_chat(owner, span_pain(pick(
+		"You collapse from the unbearable pain!",
+		"The pain overwhelms you, and you collapse!",
+		"You fall, barely conscious, the pain completely unbearable.",
+		"The intense pain absorbs your entire body, you feel ready to give up.",
+		"As pain overwhelms your body, your skin goes pale and you collapse."
+	)))
 
 /datum/pain_source/proc/exit_pain_crit()
 	owner.blood.exit_shock(FROM_PAIN_SHOCK)
+	owner.set_stat_source(CONSCIOUS, FROM_PAIN_SHOCK)
 
 /// Update the damage overlay, pain level between:
 /// 0: no pain
@@ -51,6 +60,11 @@
 		owner.overlay_fullscreen("pain", /atom/movable/screen/fullscreen/brute, severity)
 	else
 		owner.clear_fullscreen("pain")
+
+/// Set an active pain source that automatically clears after some time
+/datum/pain_source/proc/set_pain_source_until(amount, source, time)
+	set_pain_source(amount, source, time)
+	addtimer(src, CALLBACK(src, PROC_REF(set_pain_source), 0, source), time)
 
 /// Provide a source of consciousness. Without one consciousness will be 0, which is dead.
 /// Source: The source of the modifier

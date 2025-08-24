@@ -9,6 +9,11 @@
 		/datum/surgery/bone_setting
 	)
 	heal_description = "The victim can be assisted with a splint, but requires bone setting surgery to make a full recovery."
+	pain = 15
+
+/datum/injury/trauma_broken_bone/apply_to_human(mob/living/carbon/human/target)
+	. = ..()
+	target.pain.set_pain_source_until(30, FROM_INJURY(src), 30 SECONDS)
 
 /datum/injury/trauma_broken_bone/on_damage_taken(total_damage, delta_damage, damage_type, damage_flag, is_sharp)
 	if (is_sharp || damage_type != BRUTE)

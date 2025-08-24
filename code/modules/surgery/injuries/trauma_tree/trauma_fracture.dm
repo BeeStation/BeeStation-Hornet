@@ -6,6 +6,12 @@
 	bone_armour_modifier = 0.7
 	healed_type = /datum/injury/trauma_splinted_bone
 	heal_description = "The victim requires a splint to make a full recovery."
+	pain = 10
+
+/datum/injury/trauma_broken_bone/apply_to_human(mob/living/carbon/human/target)
+	. = ..()
+	// Initial pain
+	target.pain.set_pain_source_until(20, FROM_INJURY(src), 30 SECONDS)
 
 /datum/injury/trauma_fracture/apply_to_part(obj/item/bodypart/part)
 	// If we lose the injury, stop the timer

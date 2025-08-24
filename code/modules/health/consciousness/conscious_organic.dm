@@ -31,10 +31,10 @@
 			owner.death()
 			return
 		if(consciousness_value <= HEALTH_THRESHOLD_FULLCRIT && !HAS_TRAIT(owner, TRAIT_NOHARDCRIT))
-			owner.set_stat_from(HARD_CRIT, FROM_CONSCIOUSNESS)
+			owner.set_stat_source(HARD_CRIT, FROM_CONSCIOUSNESS)
 		else if(HAS_TRAIT(owner, TRAIT_KNOCKEDOUT))
-			owner.set_stat_from(UNCONSCIOUS, FROM_CONSCIOUSNESS)
+			owner.set_stat_source(UNCONSCIOUS, FROM_CONSCIOUSNESS)
 		else if(consciousness_value <= HEALTH_THRESHOLD_CRIT && !HAS_TRAIT(owner, TRAIT_NOSOFTCRIT))
-			owner.set_stat_from(HARD_CRIT, FROM_CONSCIOUSNESS)
+			owner.set_stat_source(HARD_CRIT, FROM_CONSCIOUSNESS)
 		else
 			owner.clear_stat(FROM_CONSCIOUSNESS)

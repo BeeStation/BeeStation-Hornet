@@ -761,8 +761,7 @@
 	sharp_damage = current_damage * proportion
 	blunt_damage = (current_damage * (1 - proportion)) * BLUNT_DAMAGE_RATIO
 	// If our bones are destroyed, then they will cause damage to organs when taking blunt hits
-	if (bone_rating <= 0)
-		sharp_damage += blunt_damage
+	sharp_damage += blunt_damage * (1 - bone_rating)
 	if (sharp_damage <= 0)
 		return
 	// Damage organs
@@ -775,11 +774,12 @@
 				continue
 			organ.applyOrganDamage(sharp_damage * ORGAN_DAMAGE_MULTIPLIER)
 			break
-	if (penetration_power <= 0)
-		return
 	// Dismemberment
 	var/dismemberment_chance = (1 - bone_rating) * sharpness
-	if (dismemberment_requires_death && bone_rating > 0)
+	// Can always be dismembered
+	if (HAS_TRAIT(owner, TRAIT_EASYDISMEMBER))
+		dismemberment_chance = sharpness
+	if (dismemberment_requires_death && bone_rating > 0.1)
 		dismemberment_chance = 0
 	if (dismemberable && prob(dismemberment_chance))
 		dismember(damage_type)

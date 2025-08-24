@@ -164,6 +164,7 @@
 #define FROM_CONSCIOUSNESS "consciousness"
 #define FROM_DEAD "dead"
 #define FROM_BZ "bz"
+#define FROM_INJURY(injury) "injury_[injury.type]_[injury.bodypart?.body_zone]"
 
 /// Trait granted by [/mob/living/silicon/robot]
 /// Traits applied to a silicon mob by their module.

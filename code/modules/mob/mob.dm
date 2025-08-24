@@ -1340,12 +1340,16 @@
 	return TRUE
 
 /mob/proc/set_stat_source(new_stat, source)
-	TODO
-	if(new_stat == stat)
+	// Higher the stat level, higher the priority
+	ADD_VALUE_TRAIT(src, TRAIT_VALUE_STAT, source, new_stat, new_stat)
+	var/final_stat = GET_TRAIT_VALUE(src, TRAIT_VALUE_STAT)
+	// Value did not change
+	if (final_stat == stat)
 		return
-	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, new_stat)
+	// Value did change
+	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, final_stat)
 	. = stat
-	stat = new_stat
+	stat = final_stat
 	update_action_buttons_icon(TRUE)
 
 /// Called when a mob's sound scape override trait is updated.

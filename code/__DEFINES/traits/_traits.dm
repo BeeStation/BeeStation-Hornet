@@ -355,7 +355,11 @@ GLOBAL_DATUM_INIT(_trait_located, /datum/trait, null)
 
 // Note: a?:b is used because : alone breaks the terniary operator
 /// Get the value of the specified trait
-#define GET_TRAIT_VALUE(target, trait) (target.status_traits ? (length(target.status_traits[trait]) ? ((GLOB._trait_located = target.status_traits[trait][FROM_TRAIT_QUEUE_HEAD]) && GLOB._trait_located.value) : null) : null)
+#define GET_TRAIT_VALUE(target, trait) (target.status_traits ?\
+	(length(target.status_traits[trait])\
+		? ((GLOB._trait_located = (target.status_traits[trait][FROM_TRAIT_QUEUE_HEAD] || target.status_traits[trait][1])) && GLOB._trait_located.value)\
+		: null)\
+	: null)
 
 /proc/____has_trait_not_from(datum/target, trait, source)
 	var/list/heap

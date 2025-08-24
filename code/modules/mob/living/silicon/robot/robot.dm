@@ -828,7 +828,7 @@
 	. = ..()
 	toggle_headlamp(1)
 
-/mob/living/silicon/robot/set_stat(new_stat)
+/mob/living/silicon/robot/set_stat_source(new_stat, source)
 	. = ..()
 	diag_hud_set_status()
 	diag_hud_set_health()

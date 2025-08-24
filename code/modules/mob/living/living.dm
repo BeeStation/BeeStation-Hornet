@@ -1509,7 +1509,6 @@
 			reset_perspective()
 
 /mob/living/set_stat_source(new_stat, source)
-	TODO
 	. = ..()
 	if(isnull(.))
 		return
