@@ -1,4 +1,0 @@
-author: Nakalon
-delete-after: true
-changes:
-  - bugfix: Finally actually fixes loadouts and loadout replacements
