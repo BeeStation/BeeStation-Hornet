@@ -4,7 +4,7 @@ import { Window } from '../layouts';
 
 export const AtmosGasRig = (props) => {
   return (
-    <Window theme="ntos" width={500} height={425}>
+    <Window theme="ntos" width={525} height={425}>
       <Window.Content>{AtmosGasRigTemplate(props)}</Window.Content>
     </Window>
   );
@@ -17,10 +17,27 @@ const DisplayWarning = (message) => {
   return <Box />;
 };
 
+const DisplayValues = (position, barHeight, data) => {
+  const count = 5;
+  let items = [];
+  for (let i = 0; i <= count; i++) {
+    items.push((data.max_depth / count) * i);
+  }
+  return items.map((item, index) => (
+    <>
+      <text key={item} x={position} y={barHeight * (index / count) + 12} fill="white" fontSize="12px">
+        {item}
+      </text>
+      <rect x="140" width="10" height="1" y={barHeight * (index / count) + 6} fill="grey" />
+    </>
+  ));
+};
+
 export const AtmosGasRigTemplate = (props) => {
   const { act, data } = useBackend();
   const depth = data.depth;
   const barHeight = 300;
+  const barOffset = 6;
   return (
     <Section title="Advanced Gas Rig:" height="100%">
       <Button
@@ -72,8 +89,8 @@ export const AtmosGasRigTemplate = (props) => {
             <NumberInput
               animated
               value={parseFloat(data.set_depth)}
-              width="95px"
-              unit="Meters"
+              width="75px"
+              unit="km"
               minValue={0}
               maxValue={data.max_depth}
               step={10}
@@ -110,11 +127,11 @@ export const AtmosGasRigTemplate = (props) => {
         </Flex.Item>
         <Flex.Item>
           <svg width="400" height="1000">
-            <rect x="140" y="0" width="10" height={barHeight} fill="black" stroke="grey" />
-            <rect x="143" y="0" width="4" height={barHeight * (depth / data.max_depth)} fill="grey" />
+            <rect x="140" y={barOffset} width="10" height={barHeight} fill="black" stroke="grey" />
+            <rect x="143" y={barOffset} width="4" height={barHeight * (depth / data.max_depth)} fill="grey" />
             <rect
               x="125"
-              y={barHeight * (data.o2_constants[0] / data.max_depth)}
+              y={barHeight * (data.o2_constants[0] / data.max_depth) + barOffset}
               width="10"
               height={barHeight * ((data.o2_constants[1] - data.o2_constants[0]) / data.max_depth)}
               fill="blue"
@@ -124,7 +141,7 @@ export const AtmosGasRigTemplate = (props) => {
             </text>
             <rect
               x="115"
-              y={barHeight * (data.n2_constants[0] / data.max_depth)}
+              y={barHeight * (data.n2_constants[0] / data.max_depth) + barOffset}
               width="10"
               height={barHeight * ((data.n2_constants[1] - data.n2_constants[0]) / data.max_depth)}
               fill="red"
@@ -134,7 +151,7 @@ export const AtmosGasRigTemplate = (props) => {
             </text>
             <rect
               x="105"
-              y={barHeight * (data.plas_constants[0] / data.max_depth)}
+              y={barHeight * (data.plas_constants[0] / data.max_depth) + barOffset}
               width="10"
               height={barHeight * ((data.plas_constants[1] - data.plas_constants[0]) / data.max_depth)}
               fill="purple"
@@ -144,7 +161,7 @@ export const AtmosGasRigTemplate = (props) => {
             </text>
             <rect
               x="95"
-              y={barHeight * (data.co2_constants[0] / data.max_depth)}
+              y={barHeight * (data.co2_constants[0] / data.max_depth) + barOffset}
               width="10"
               height={barHeight * ((data.co2_constants[1] - data.co2_constants[0]) / data.max_depth)}
               fill="grey"
@@ -154,7 +171,7 @@ export const AtmosGasRigTemplate = (props) => {
             </text>
             <rect
               x="95"
-              y={barHeight * (data.n2o_constants[0] / data.max_depth)}
+              y={barHeight * (data.n2o_constants[0] / data.max_depth) + barOffset}
               width="10"
               height={barHeight * ((data.n2o_constants[1] - data.n2o_constants[0]) / data.max_depth)}
               fill="white"
@@ -164,14 +181,15 @@ export const AtmosGasRigTemplate = (props) => {
             </text>
             <rect
               x="85"
-              y={barHeight * (data.nob_constants[0] / data.max_depth)}
+              y={barHeight * (data.nob_constants[0] / data.max_depth) + barOffset}
               width="10"
               height={barHeight * ((data.nob_constants[1] - data.nob_constants[0]) / data.max_depth)}
               fill="aqua"
             />
-            <text x="30" y={barHeight * (data.nob_constants[0] / data.max_depth) + 10} fill="white" fontSize="12px">
+            <text x="30" y={barHeight * (data.nob_constants[0] / data.max_depth) + 20} fill="white" fontSize="12px">
               Noblium
             </text>
+            {DisplayValues(155, barHeight, data)}
           </svg>
         </Flex.Item>
       </Flex>
