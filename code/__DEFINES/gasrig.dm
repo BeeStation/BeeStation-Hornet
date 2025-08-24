@@ -28,4 +28,4 @@
 #define GASRIG_PLAS list(300, 1000, 100)
 #define GASRIG_CO2 list(330, 500, 15)
 #define GASRIG_N2O list(700, 1000, 5)
-#define GASRIG_NOB list(925, 1000, 100)
+#define GASRIG_NOB list(925, 1000, 5)
