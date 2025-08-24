@@ -74,7 +74,8 @@
 
 	if(!allowed(usr))
 		if(item_category == "Kit")
-			ADD_TRAIT(usr.mind, TRAIT_SECURITY, JOB_TRAIT)
+			if(!HAS_MIND_TRAIT(user_mob, TRAIT_SECURITY))
+				ADD_TRAIT(usr.mind, TRAIT_SECURITY, JOB_TRAIT)
 			playsound(src, 'sound/effects/startup.ogg', 100, FALSE)
 			vend_reply = "APS thanks you for enlisting in our volunteer program!"
 			Radio.talk_into(src, "[usr.name], [get_area(usr.loc)], has just enlisted for Auri Private Security’s volunteer deputy program! APS thanks you for your service, and reminds all crew members: **Unauthorized enforcement is strictly prohibited!** Remember; Compliance is a team effort! ")
