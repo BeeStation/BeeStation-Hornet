@@ -586,7 +586,7 @@
 /datum/outfit/job
 	name = "Standard Gear"
 
-	var/jobtype = /datum/job/unassigned
+	var/jobtype = null
 
 	uniform = /obj/item/clothing/under/color/grey
 	id = /obj/item/card/id
@@ -638,6 +638,7 @@
 		return
 
 	var/datum/job/J = SSjob.GetJobType(jobtype)
+	
 	if(!J)
 		J = SSjob.GetJob(H.job)
 
