@@ -48,15 +48,6 @@
 			return
 		cmd_show_exp_panel(M.client)
 
-	else if(href_list["toggleexempt"])
-		if(!check_rights(R_ADMIN))
-			return
-		var/client/C = locate(href_list["toggleexempt"]) in GLOB.clients
-		if(!C)
-			to_chat(usr, span_danger("ERROR: Client not found."))
-			return
-		toggle_exempt_status(C)
-
 	else if(href_list["forceevent"])
 		if(!check_rights(R_FUN))
 			return
