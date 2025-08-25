@@ -2800,6 +2800,7 @@
 "aAo" = (
 /obj/structure/closet/secure_closet/engineering_personal,
 /obj/effect/turf_decal/delivery,
+/obj/machinery/incident_display/delam/directional/north,
 /turf/open/floor/iron,
 /area/engine/engineering)
 "aAv" = (
@@ -55246,16 +55247,12 @@
 /area/solar/starboard/fore)
 "pDY" = (
 /obj/machinery/computer/atmos_alert,
-/obj/structure/sign/map/left{
-	desc = "A framed picture of the station. Clockwise from security at the top (red), you see engineering (yellow), science (purple), escape (red and white), medbay (green), arrivals (blue and white), and finally cargo (brown).";
-	icon_state = "map-left-MS";
-	pixel_y = 32
-	},
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = -26
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/incident_display/delam/directional/north,
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
 "pEb" = (
@@ -55807,12 +55804,10 @@
 	},
 /obj/item/wrench,
 /obj/item/multitool,
-/obj/machinery/newscaster{
-	pixel_y = -30
-	},
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
 	},
+/obj/machinery/incident_display/bridge/directional/south,
 /turf/open/floor/iron/dark,
 /area/bridge)
 "pOX" = (
@@ -58529,11 +58524,6 @@
 /area/engine/engineering)
 "qNn" = (
 /obj/machinery/computer/station_alert,
-/obj/structure/sign/map/right{
-	desc = "A framed picture of the station. Clockwise from security at the top (red), you see engineering (yellow), science (purple), escape (red and white), medbay (green), arrivals (blue and white), and finally cargo (brown).";
-	icon_state = "map-right-MS";
-	pixel_y = 32
-	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
@@ -74679,6 +74669,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/machinery/incident_display/delam/directional/south,
 /turf/open/floor/engine,
 /area/engine/engineering)
 "wAq" = (

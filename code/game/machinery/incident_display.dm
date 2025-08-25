@@ -88,7 +88,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/incident_display/delam, 32)
 	return ..()
 
 /obj/machinery/incident_display/process()
-	if(!isnull(configured_advert) && COOLDOWN_FINISHED(src, advert_cooldown))// time to show an advert
+	if(!isnull(configured_advert) && COOLDOWN_FINISHED(src, advert_cooldown)) // time to show an advert
 		show_advert(advert = configured_advert, duration = configured_advert_duration)
 		COOLDOWN_START(src, advert_cooldown, rand(advert_frequency - 5 SECONDS, advert_frequency + 5 SECONDS))
 		return
@@ -172,6 +172,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/incident_display/delam, 32)
 	COOLDOWN_START(src, active_advert, duration)
 	live_display = TRUE
 	update_appearance()
+	sleep(0.1 SECONDS)
 	flick(advert, src)
 
 /obj/machinery/incident_display/update_appearance(updates = ALL)
