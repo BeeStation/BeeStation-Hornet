@@ -37,7 +37,7 @@
 			"icon" = "gun",
 			"products" = list(
 				/obj/item/melee/classic_baton/police/deputy = 4,
-				/obj/item/restraints/handcuffs/cable = 16,
+				/obj/item/restraints/handcuffs/cable/zipties = 16,
 				/obj/item/reagent_containers/peppercloud_deployer = 4,
 				/obj/item/flashlight/seclite = 4,
 			),
