@@ -121,7 +121,8 @@
 
 	// clock cult should be using power through their fabricators
 	// the ark also seems to be the only thing in the game that should never be repairable
-	if(istype(target, /obj/structure/destructible/clockwork))
+	if(istype(interacting_with, /obj/structure/destructible/clockwork))
+		user.balloon_alert(user, "The tape would get caught in the gears if you tried to fix this!")
 		return
 
 	var/obj/item/object_to_repair = interacting_with
