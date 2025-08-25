@@ -15,7 +15,10 @@
 	var/list/conferred_embed = EMBED_HARMLESS
 	var/overwrite_existing = FALSE
 
-/obj/item/stack/sticky_tape/afterattack(obj/item/I, mob/living/user)
+/obj/item/stack/sticky_tape/afterattack(obj/item/I, mob/living/user, proximity_flag)
+	if (proximity_flag != 1)
+		return
+
 	if(!istype(I))
 		return
 
@@ -85,7 +88,12 @@
 	amount = 10
 	max_amount = 10
 
-/obj/item/stack/sticky_tape/duct/afterattack_secondary(atom/interacting_with, mob/user, proximity_flag, click_parameters)
+/obj/item/stack/sticky_tape/duct/afterattack_secondary(atom/interacting_with, mob/user, proximity_flag)
+	. = SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+	if (proximity_flag != 1)
+		return
+
 	if(!object_repair_value)
 		return
 
