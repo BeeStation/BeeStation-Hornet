@@ -1,6 +1,15 @@
-import { useBackend } from '../backend';
-import { Button, Grid, Input, LabeledList, NoticeBox, NumberInput, Section } from '../components';
 import { Dropdown } from 'tgui-core/components';
+
+import { useBackend } from '../backend';
+import {
+  Button,
+  Grid,
+  Input,
+  LabeledList,
+  NoticeBox,
+  NumberInput,
+  Section,
+} from '../components';
 import { Window } from '../layouts';
 
 export const NaniteCodes = (props) => {
@@ -160,7 +169,9 @@ export const NaniteExtraEntry = (props) => {
     type: <NaniteExtraType extra_setting={extra_setting} />,
     boolean: <NaniteExtraBoolean extra_setting={extra_setting} />,
   };
-  return <LabeledList.Item label={name}>{typeComponentMap[type]}</LabeledList.Item>;
+  return (
+    <LabeledList.Item label={name}>{typeComponentMap[type]}</LabeledList.Item>
+  );
 };
 
 export const NaniteExtraNumber = (props) => {
@@ -267,15 +278,29 @@ export const NaniteProgrammerContent = (props) => {
   } = data;
 
   if (!has_disk) {
-    return <NoticeBox textAlign="center">Insert a nanite program disk</NoticeBox>;
+    return (
+      <NoticeBox textAlign="center">Insert a nanite program disk</NoticeBox>
+    );
   }
 
   if (!has_program) {
-    return <Section title="Blank Disk" buttons={<Button icon="eject" content="Eject" onClick={() => act('eject')} />} />;
+    return (
+      <Section
+        title="Blank Disk"
+        buttons={
+          <Button icon="eject" content="Eject" onClick={() => act('eject')} />
+        }
+      />
+    );
   }
 
   return (
-    <Section title={name} buttons={<Button icon="eject" content="Eject" onClick={() => act('eject')} />}>
+    <Section
+      title={name}
+      buttons={
+        <Button icon="eject" content="Eject" onClick={() => act('eject')} />
+      }
+    >
       <Section title="Info" level={2}>
         <Grid>
           <Grid.Column>{desc}</Grid.Column>
@@ -284,8 +309,12 @@ export const NaniteProgrammerContent = (props) => {
               <LabeledList.Item label="Use Rate">{use_rate}</LabeledList.Item>
               {!!can_trigger && (
                 <>
-                  <LabeledList.Item label="Trigger Cost">{trigger_cost}</LabeledList.Item>
-                  <LabeledList.Item label="Trigger Cooldown">{trigger_cooldown}</LabeledList.Item>
+                  <LabeledList.Item label="Trigger Cost">
+                    {trigger_cost}
+                  </LabeledList.Item>
+                  <LabeledList.Item label="Trigger Cooldown">
+                    {trigger_cooldown}
+                  </LabeledList.Item>
                 </>
               )}
             </LabeledList>
@@ -304,7 +333,8 @@ export const NaniteProgrammerContent = (props) => {
             bold
             onClick={() => act('toggle_active')}
           />
-        }>
+        }
+      >
         <Grid>
           <Grid.Column>
             <NaniteCodes />

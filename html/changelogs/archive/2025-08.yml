@@ -410,3 +410,6 @@
       so consider this turning a bug into a feature officially.
   - bugfix: Removed an armor check from acid_processing() proc which was both unnecessary
       and causing runtimes due to bad args
+  r1ks-iwnl:
+  - bugfix: Gas analyzer's barometer function works again (Alt-Click the gas analyzer
+      on lavaland to use the barometer function)

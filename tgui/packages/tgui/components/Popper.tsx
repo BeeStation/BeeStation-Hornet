@@ -1,5 +1,11 @@
 import { Placement } from '@popperjs/core';
-import { PropsWithChildren, ReactNode, useEffect, useRef, useState } from 'react';
+import {
+  PropsWithChildren,
+  ReactNode,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { usePopper } from 'react-popper';
 
 type RequiredProps = {
@@ -26,8 +32,11 @@ type Props = RequiredProps & OptionalProps;
 export function Popper(props: PropsWithChildren<Props>) {
   const { children, content, isOpen, onClickOutside, placement } = props;
 
-  const [referenceElement, setReferenceElement] = useState<HTMLDivElement | null>(null);
-  const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(null);
+  const [referenceElement, setReferenceElement] =
+    useState<HTMLDivElement | null>(null);
+  const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(
+    null,
+  );
 
   // One would imagine we could just use useref here, but it's against react-popper documentation and causes a positioning bug
   // We still need them to call focus and clickoutside events :(
@@ -40,7 +49,10 @@ export function Popper(props: PropsWithChildren<Props>) {
 
   /** Close the popper when the user clicks outside */
   function handleClickOutside(event: MouseEvent) {
-    if (!popperRef.current?.contains(event.target as Node) && !parentRef.current?.contains(event.target as Node)) {
+    if (
+      !popperRef.current?.contains(event.target as Node) &&
+      !parentRef.current?.contains(event.target as Node)
+    ) {
       onClickOutside?.();
     }
   }
@@ -63,7 +75,8 @@ export function Popper(props: PropsWithChildren<Props>) {
         ref={(node) => {
           setReferenceElement(node);
           parentRef.current = node;
-        }}>
+        }}
+      >
         {children}
       </div>
       {isOpen && (
@@ -73,7 +86,8 @@ export function Popper(props: PropsWithChildren<Props>) {
             popperRef.current = node;
           }}
           style={{ ...styles.popper, zIndex: 5 }}
-          {...attributes.popper}>
+          {...attributes.popper}
+        >
           {content}
         </div>
       )}
