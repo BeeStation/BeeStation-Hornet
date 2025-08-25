@@ -413,3 +413,6 @@
   r1ks-iwnl:
   - bugfix: Gas analyzer's barometer function works again (Alt-Click the gas analyzer
       on lavaland to use the barometer function)
+2025-08-25:
+  rkz, jlsnow:
+  - code_imp: updated lints for TGUI
