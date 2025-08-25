@@ -24,8 +24,10 @@
 		return
 
 	user.visible_message(span_notice("[user] begins wrapping [I] with [src]."), span_notice("You begin wrapping [I] with [src]."))
+	playsound(user, 'sound/items/duct_tape/duct_tape_rip.ogg', 50, TRUE)
 
 	if(do_after(user, 30, target=I))
+		playsound(user, 'sound/items/duct_tape/duct_tape_snap.ogg', 50, TRUE)
 		use(1)
 		if(istype(I, /obj/item/clothing/gloves/fingerless))
 			var/obj/item/clothing/gloves/tackler/offbrand/O = new /obj/item/clothing/gloves/tackler/offbrand
