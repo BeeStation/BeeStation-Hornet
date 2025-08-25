@@ -292,9 +292,12 @@
 	// Get a random crewmember
 	else
 		var/list/crew_members = list()
+		// TODO: STUPID shitty temp code, fix when job datums are in
 		for(var/mob/living/carbon/human/potential_crew_member as anything in GLOB.human_list)
-			if(potential_crew_member.mind?.assigned_role.job_flags & JOB_CREW_MEMBER)
-				crew_members += potential_crew_member
+			if(potential_crew_member.mind?.assigned_role)
+				var/datum/job/job = potential_crew_member.mind.assigned_role
+				if(job.departments & DEPT_BITFLAG_CREW)
+					crew_members += potential_crew_member
 
 		crew_member = length(crew_members) ? pick(crew_members) : "an unknown crewmember"
 
@@ -368,9 +371,13 @@
 
 	if(isliving(character))
 		var/mob/living/living_character = character
-		if(living_character.mind && !is_unassigned_job(living_character.mind.assigned_role))
-			character = living_character.mind
-
+		// TODO: UGLIEST SHIT IMAGINABLE, purge this when job datums are in
+		if(living_character.mind && living_character.mind.assigned_role)
+			if(istext(living_character.mind.assigned_role))
+				if(living_character.mind.assigned_role != "Unassigned")
+					character = living_character.mind
+			else if(living_character.mind.assigned_role.title != "Unassigned")
+				character = living_character.mind
 		else if(ishuman(character))
 			// This can slip into memories involving monkey humans.
 			return "the unfamiliar person"
