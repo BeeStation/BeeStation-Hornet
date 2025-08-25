@@ -561,6 +561,14 @@
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 
+/datum/design/duct_tape
+	name = "Duct Tape"
+	id = "duct_tape"
+	build_type = AUTOLATHE
+	materials = list (/datum/material/plastic = 200)
+	build_path = /obj/item/stack/sticky_tape/duct
+	category = list("initial", "Misc")
+
 /datum/design/paper_reader
 	name = "Electronic Paper Reader"
 	desc = "A device to read papers for blind people."
