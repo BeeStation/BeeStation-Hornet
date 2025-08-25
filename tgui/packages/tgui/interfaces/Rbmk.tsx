@@ -55,10 +55,22 @@ export const RbmkContent = (props: RbmkProps) => {
     logged_coolant_output_temp,
   } = props;
 
-  const pressure_data = logged_pressure.map((value, i) => [i, Array.isArray(value) ? value[0] : value]);
-  const power_data = logged_power.map((value, i) => [i, Array.isArray(value) ? value[0] : value]);
-  const coolant_input_data = logged_coolant_input_temp.map((value, i) => [i, Array.isArray(value) ? value[0] : value]);
-  const coolant_output_data = logged_coolant_output_temp.map((value, i) => [i, Array.isArray(value) ? value[0] : value]);
+  const pressure_data = logged_pressure.map((value, i) => [
+    i,
+    Array.isArray(value) ? value[0] : value,
+  ]);
+  const power_data = logged_power.map((value, i) => [
+    i,
+    Array.isArray(value) ? value[0] : value,
+  ]);
+  const coolant_input_data = logged_coolant_input_temp.map((value, i) => [
+    i,
+    Array.isArray(value) ? value[0] : value,
+  ]);
+  const coolant_output_data = logged_coolant_output_temp.map((value, i) => [
+    i,
+    Array.isArray(value) ? value[0] : value,
+  ]);
 
   return (
     <Stack height="100%">
@@ -74,7 +86,8 @@ export const RbmkContent = (props: RbmkProps) => {
                     good: [0.9, Infinity],
                     average: [0.5, 0.9],
                     bad: [-Infinity, 0.5],
-                  }}>
+                  }}
+                >
                   {toFixed(integrity, 2) + ' %'}
                 </ProgressBar>
               }
@@ -91,7 +104,8 @@ export const RbmkContent = (props: RbmkProps) => {
                     good: [20, 75],
                     average: [75, 100],
                     bad: [100, Infinity],
-                  }}>
+                  }}
+                >
                   {toFixed(power, 2) + ' %'}
                 </ProgressBar>
               }
@@ -108,7 +122,8 @@ export const RbmkContent = (props: RbmkProps) => {
                     good: [50, 6500],
                     average: [6500, 10100],
                     bad: [10100, Infinity],
-                  }}>
+                  }}
+                >
                   {toFixed(pressure, 2) + ' kPa'}
                 </ProgressBar>
               }
@@ -125,7 +140,8 @@ export const RbmkContent = (props: RbmkProps) => {
                     good: [273, 600],
                     average: [600, 1200],
                     bad: [1200, Infinity],
-                  }}>
+                  }}
+                >
                   {toFixed(coolant_input_temp, 2) + ' °K'}
                 </ProgressBar>
               }
@@ -142,7 +158,8 @@ export const RbmkContent = (props: RbmkProps) => {
                     good: [273, 600],
                     average: [600, 1200],
                     bad: [1200, Infinity],
-                  }}>
+                  }}
+                >
                   {toFixed(coolant_output_temp, 2) + ' °K'}
                 </ProgressBar>
               }

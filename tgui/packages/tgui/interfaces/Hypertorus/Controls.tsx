@@ -1,5 +1,15 @@
 import { useBackend } from 'tgui/backend';
-import { Box, Button, Icon, Knob, LabeledControls, LabeledList, NumberInput, Section, Tooltip } from 'tgui-core/components';
+import {
+  Box,
+  Button,
+  Icon,
+  Knob,
+  LabeledControls,
+  LabeledList,
+  NumberInput,
+  Section,
+  Tooltip,
+} from 'tgui-core/components';
 import { BooleanLike } from 'common/react';
 
 import { HypertorusFilter } from '.';
@@ -38,7 +48,19 @@ type WasteData = {
  * for generalizing and refactoring.
  */
 const ComboKnob = (props: ComboProps) => {
-  const { color = false, defaultValue, flipIcon, help, icon, maxValue, minValue, parameter, step = 5, value, ...rest } = props;
+  const {
+    color = false,
+    defaultValue,
+    flipIcon,
+    help,
+    icon,
+    maxValue,
+    minValue,
+    parameter,
+    step = 5,
+    value,
+    ...rest
+  } = props;
 
   const { act } = useBackend();
 
@@ -50,7 +72,15 @@ const ComboKnob = (props: ComboProps) => {
   }
 
   const icon_element = icon && (
-    <Icon position="absolute" top="16px" left="-27px" color="label" fontSize="200%" name={icon} {...iconProps} />
+    <Icon
+      position="absolute"
+      top="16px"
+      left="-27px"
+      color="label"
+      fontSize="200%"
+      name={icon}
+      {...iconProps}
+    />
   );
 
   return (
@@ -100,7 +130,13 @@ const ComboKnob = (props: ComboProps) => {
 
 export const HypertorusSecondaryControls = (props) => {
   const { data } = useBackend<ControlsData>();
-  const { cooling_volume, current_damper, heat_output, heating_conductor, magnetic_constrictor } = data;
+  const {
+    cooling_volume,
+    current_damper,
+    heat_output,
+    heating_conductor,
+    magnetic_constrictor,
+  } = data;
 
   return (
     <Section title="Reactor Control">
@@ -172,10 +208,16 @@ export const HypertorusWasteRemove = (props) => {
         <LabeledList.Item
           label={
             <>
-              <HoverHelp content={'Remove waste gases from Fusion,' + ' and any selected gases from the Moderator.'} />
+              <HoverHelp
+                content={
+                  'Remove waste gases from Fusion,' +
+                  ' and any selected gases from the Moderator.'
+                }
+              />
               Waste remove:
             </>
-          }>
+          }
+        >
           <Button
             icon={waste_remove ? 'power-off' : 'times'}
             content={waste_remove ? 'On' : 'Off'}
@@ -189,7 +231,8 @@ export const HypertorusWasteRemove = (props) => {
               <HelpDummy />
               Moderator filtering rate:
             </>
-          }>
+          }
+        >
           <NumberInput
             animated
             value={mod_filtering_rate}
@@ -210,7 +253,8 @@ export const HypertorusWasteRemove = (props) => {
               <HelpDummy />
               Filter from moderator mix:
             </>
-          }>
+          }
+        >
           {filter_types.map(({ gas_id, gas_name, enabled }) => (
             <Button.Checkbox
               key={gas_id}
@@ -219,7 +263,8 @@ export const HypertorusWasteRemove = (props) => {
                 act('filter', {
                   mode: gas_id,
                 })
-              }>
+              }
+            >
               {gas_name}
             </Button.Checkbox>
           ))}

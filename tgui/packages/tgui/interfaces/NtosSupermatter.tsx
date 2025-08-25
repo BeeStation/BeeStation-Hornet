@@ -29,7 +29,14 @@ export const NtosSupermatter = (props) => {
         ) : (
           <Section
             title="Detected Supermatters"
-            buttons={<Button icon="sync" content="Refresh" onClick={() => act('PRG_refresh')} />}>
+            buttons={
+              <Button
+                icon="sync"
+                content="Refresh"
+                onClick={() => act('PRG_refresh')}
+              />
+            }
+          >
             <Table>
               {sm_data.map((sm) => (
                 <Table.Row key={sm.uid}>
@@ -55,7 +62,10 @@ export const NtosSupermatter = (props) => {
                     />
                   </Table.Cell>
                   <Table.Cell collapsing>
-                    <Button content="Details" onClick={() => setActiveUID(sm.uid)} />
+                    <Button
+                      content="Details"
+                      onClick={() => setActiveUID(sm.uid)}
+                    />
                   </Table.Cell>
                 </Table.Row>
               ))}

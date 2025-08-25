@@ -87,7 +87,8 @@ const recipe_effect_structure: Recipe[] = [
     icon: 'thermometer-full',
     override_base: 0.85,
     scale: 1.15,
-    tooltip: (v, d) => `Maximum: ${(d.baseMaxTemperature * v).toExponential()} K`,
+    tooltip: (v, d) =>
+      `Maximum: ${(d.baseMaxTemperature * v).toExponential()} K`,
   },
 ];
 
@@ -110,7 +111,10 @@ const effect_to_icon = (effect_value, effect_scale, base) => {
 const MemoRow = (props) => {
   const { active, children, key, ...rest } = props;
   return (
-    <Table.Row className={`hypertorus-recipes__row${active ? ' hypertorus-recipes__activerow' : ''}`} {...rest}>
+    <Table.Row
+      className={`hypertorus-recipes__row${active ? ' hypertorus-recipes__activerow' : ''}`}
+      {...rest}
+    >
       {children}
     </Table.Row>
   );
@@ -196,18 +200,29 @@ export const HypertorusRecipes = (props: RecipeProps) => {
                 {recipe.product_gases.map((gasid) => (
                   <GasCellItem key={gasid} gasid={gasid} />
                 ))}
-                {recipe_effect_structure.map(({ param, tooltip, scale, override_base }) => {
-                  const value = recipe[param];
-                  // Note that the minus icon is wider than the arrow icons,
-                  // so we set the width to work with both without jumping.
-                  return (
-                    <Table.Cell key={param}>
-                      <Tooltip content={(tooltip || ((v) => `x${v}`))(value, rest)}>
-                        <Icon className="hypertorus-recipes__icon" name={effect_to_icon(value, scale, override_base || 1)} />
-                      </Tooltip>
-                    </Table.Cell>
-                  );
-                })}
+                {recipe_effect_structure.map(
+                  ({ param, tooltip, scale, override_base }) => {
+                    const value = recipe[param];
+                    // Note that the minus icon is wider than the arrow icons,
+                    // so we set the width to work with both without jumping.
+                    return (
+                      <Table.Cell key={param}>
+                        <Tooltip
+                          content={(tooltip || ((v) => `x${v}`))(value, rest)}
+                        >
+                          <Icon
+                            className="hypertorus-recipes__icon"
+                            name={effect_to_icon(
+                              value,
+                              scale,
+                              override_base || 1,
+                            )}
+                          />
+                        </Tooltip>
+                      </Table.Cell>
+                    );
+                  },
+                )}
               </MemoRow>
             );
           })}

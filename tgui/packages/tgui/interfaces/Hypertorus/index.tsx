@@ -1,6 +1,12 @@
 import { useBackend } from 'tgui/backend';
 import { Window } from 'tgui/layouts';
-import { Button, Collapsible, Flex, Section, Stack } from 'tgui-core/components';
+import {
+  Button,
+  Collapsible,
+  Flex,
+  Section,
+  Stack,
+} from 'tgui-core/components';
 import { BooleanLike } from 'common/react';
 
 import { HypertorusSecondaryControls, HypertorusWasteRemove } from './Controls';
@@ -46,7 +52,14 @@ export type HypertorusFuel = {
 
 const HypertorusMainControls = (props) => {
   const { act, data } = useBackend<HypertorusData>();
-  const { start_power, start_cooling, start_fuel, start_moderator, power_level, base_max_temperature } = data;
+  const {
+    start_power,
+    start_cooling,
+    start_fuel,
+    start_moderator,
+    power_level,
+    base_max_temperature,
+  } = data;
 
   return (
     <Section>
@@ -64,7 +77,12 @@ const HypertorusMainControls = (props) => {
         <Stack.Item color="label">
           {'Start cooling: '}
           <Button
-            disabled={start_fuel === 1 || start_moderator === 1 || start_power === 0 || (start_cooling && power_level > 0)}
+            disabled={
+              start_fuel === 1 ||
+              start_moderator === 1 ||
+              start_power === 0 ||
+              (start_cooling && power_level > 0)
+            }
             icon={start_cooling ? 'power-off' : 'times'}
             content={start_cooling ? 'On' : 'Off'}
             selected={start_cooling}
@@ -127,7 +145,11 @@ export const Hypertorus = (props) => {
   const height = Math.min(idealHeight, winHeight * 0.8);
 
   return (
-    <Window title="Hypertorus Fusion Reactor control panel" width={width} height={height}>
+    <Window
+      title="Hypertorus Fusion Reactor control panel"
+      width={width}
+      height={height}
+    >
       <Window.Content scrollable>
         <HypertorusLayout />
       </Window.Content>

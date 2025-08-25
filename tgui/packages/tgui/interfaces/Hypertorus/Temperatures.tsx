@@ -39,7 +39,9 @@ const VerticalBar = (props) => {
   const y = height - progressHeight;
 
   return (
-    <div className="hypertorus-temperatures__vertical-bar">{!!value && <Box backgroundColor={color} top={`${y}px`} />}</div>
+    <div className="hypertorus-temperatures__vertical-bar">
+      {!!value && <Box backgroundColor={color} top={`${y}px`} />}
+    </div>
   );
 };
 
@@ -52,7 +54,11 @@ const BarLabel = (props) => {
       {value > 0 ? (
         <>
           <Box align="center">{`${to_exponential_if_big(value)} K`}</Box>
-          <Box align="center">{delta === 0 ? '-' : `${delta < 0 ? '' : '+'}${to_exponential_if_big(delta)} K/s`}</Box>
+          <Box align="center">
+            {delta === 0
+              ? '-'
+              : `${delta < 0 ? '' : '+'}${to_exponential_if_big(delta)} K/s`}
+          </Box>
         </>
       ) : (
         <>
@@ -86,13 +92,17 @@ export const HypertorusTemperatures = (props) => {
   } = data;
 
   const internal_fusion_temperature_delta =
-    (internal_fusion_temperature - internal_fusion_temperature_archived) / temperature_period;
+    (internal_fusion_temperature - internal_fusion_temperature_archived) /
+    temperature_period;
   const internal_output_temperature_delta =
-    (internal_output_temperature - internal_output_temperature_archived) / temperature_period;
+    (internal_output_temperature - internal_output_temperature_archived) /
+    temperature_period;
   const internal_coolant_temperature_delta =
-    (internal_coolant_temperature - internal_coolant_temperature_archived) / temperature_period;
+    (internal_coolant_temperature - internal_coolant_temperature_archived) /
+    temperature_period;
   const moderator_internal_temperature_delta =
-    (moderator_internal_temperature - moderator_internal_temperature_archived) / temperature_period;
+    (moderator_internal_temperature - moderator_internal_temperature_archived) /
+    temperature_period;
 
   const selected_fuel = selectable_fuel.filter((d) => d.id === selected)[0];
 
@@ -105,7 +115,8 @@ export const HypertorusTemperatures = (props) => {
   } else if (power_level === 1) {
     prev_power_level_temperature = 500;
   } else if (power_level === 6) {
-    next_power_level_temperature = base_max_temperature * (selected_fuel?.temperature_multiplier ?? 1);
+    next_power_level_temperature =
+      base_max_temperature * (selected_fuel?.temperature_multiplier ?? 1);
   }
 
   const temperatures = [
@@ -120,14 +131,19 @@ export const HypertorusTemperatures = (props) => {
   ].map((d) => d);
 
   const maxTemperature = Math.max(...temperatures);
-  const minTemperature = Math.max(2.73, Math.min(20, ...temperatures.filter((d) => d > 0)));
+  const minTemperature = Math.max(
+    2.73,
+    Math.min(20, ...temperatures.filter((d) => d > 0)),
+  );
 
   if (power_level === 6) {
     next_power_level_temperature = 0;
   }
 
   const value_to_y = (value, baseTemp = minTemperature, fromBottom = false) => {
-    const ratio = (Math.log10(value) - Math.log10(baseTemp)) / (Math.log10(maxTemperature) - Math.log10(minTemperature));
+    const ratio =
+      (Math.log10(value) - Math.log10(baseTemp)) /
+      (Math.log10(maxTemperature) - Math.log10(minTemperature));
     return height * (fromBottom ? 1 - ratio : ratio);
   };
 
@@ -136,13 +152,21 @@ export const HypertorusTemperatures = (props) => {
     const y = value_to_y(value);
     const label = (
       <Box className="hypertorus-temperatures__y-axis-label">
-        {icon && <Icon className="hypertorus-temperatures__y-axis-label-icon" name={icon} />}
+        {icon && (
+          <Icon
+            className="hypertorus-temperatures__y-axis-label-icon"
+            name={icon}
+          />
+        )}
         {`${to_exponential_if_big(value)} K`}
       </Box>
     );
     return (
       (!!value || force) && (
-        <Box className="hypertorus-temperatures__y-axis-tick-anchor" top={`${height - y}px`}>
+        <Box
+          className="hypertorus-temperatures__y-axis-tick-anchor"
+          top={`${height - y}px`}
+        >
           <Box className="hypertorus-temperatures__y-axis-tick" />
           {tooltip ? <Tooltip content={tooltip}>{label}</Tooltip> : label}
         </Box>
@@ -172,16 +196,21 @@ export const HypertorusTemperatures = (props) => {
   // Make sure that our labels are legible before displaying them.
   // If two axis labels are too close to one another, don't show them.
   const clutter_threshold = 20;
-  const label_legible = (l, r) => Math.abs(value_to_y(l) - value_to_y(r)) > clutter_threshold;
+  const label_legible = (l, r) =>
+    Math.abs(value_to_y(l) - value_to_y(r)) > clutter_threshold;
 
-  const show_min = label_legible(prev_power_level_temperature, minTemperature) || power_level === 0;
+  const show_min =
+    label_legible(prev_power_level_temperature, minTemperature) ||
+    power_level === 0;
   const show_max = label_legible(next_power_level_temperature, maxTemperature);
 
   return (
     <Section title="Gas Monitoring">
       <Box className="hypertorus-temperatures__container">
         <Box className="hypertorus-temperatures__y-axis-marks">
-          {show_min && <TemperatureLabel key="min_temp" value={minTemperature} force />}
+          {show_min && (
+            <TemperatureLabel key="min_temp" value={minTemperature} force />
+          )}
           <TemperatureLabel
             key="prev_fusion_temp"
             icon="chevron-down"
@@ -194,12 +223,18 @@ export const HypertorusTemperatures = (props) => {
             tooltip="Next Fusion Level"
             value={next_power_level_temperature}
           />
-          {show_max && <TemperatureLabel key="max_temp" value={maxTemperature} />}
+          {show_max && (
+            <TemperatureLabel key="max_temp" value={maxTemperature} />
+          )}
         </Box>
         <Box className="hypertorus-temperatures__y-axis">
           <Box className="hypertorus-temperatures__x-axis" />
         </Box>
-        <Flex overflowY="hidden" className="hypertorus-temperatures__chart" justify="space-around">
+        <Flex
+          overflowY="hidden"
+          className="hypertorus-temperatures__chart"
+          justify="space-around"
+        >
           <TemperatureBar
             label="Fusion"
             value={internal_fusion_temperature}

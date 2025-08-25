@@ -28,11 +28,20 @@ export const NtosRbmk = (props) => {
         ) : (
           <Section
             title="Detected Nuclear Reactors"
-            buttons={<Button icon="sync" content="Refresh" onClick={() => act('PRG_refresh')} />}>
+            buttons={
+              <Button
+                icon="sync"
+                content="Refresh"
+                onClick={() => act('PRG_refresh')}
+              />
+            }
+          >
             <Table>
               {rbmk_data.map((reactor) => (
                 <Table.Row key={reactor.uid}>
-                  <Table.Cell>{reactor.uid + '. ' + reactor.area_name}</Table.Cell>
+                  <Table.Cell>
+                    {reactor.uid + '. ' + reactor.area_name}
+                  </Table.Cell>
                   <Table.Cell collapsing color="label">
                     Integrity:
                   </Table.Cell>
@@ -50,11 +59,16 @@ export const NtosRbmk = (props) => {
                     <Button
                       icon="bell"
                       color={focus_uid === reactor.uid && 'yellow'}
-                      onClick={() => act('PRG_focus', { focus_uid: reactor.uid })}
+                      onClick={() =>
+                        act('PRG_focus', { focus_uid: reactor.uid })
+                      }
                     />
                   </Table.Cell>
                   <Table.Cell collapsing>
-                    <Button content="Details" onClick={() => setActiveUID(reactor.uid)} />
+                    <Button
+                      content="Details"
+                      onClick={() => setActiveUID(reactor.uid)}
+                    />
                   </Table.Cell>
                 </Table.Row>
               ))}

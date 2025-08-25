@@ -23,7 +23,12 @@ export const Electrolyzer = (props) => {
           title="Power"
           buttons={
             <>
-              <Button icon="eject" content="Eject Cell" disabled={!hasPowercell || !open} onClick={() => act('eject')} />
+              <Button
+                icon="eject"
+                content="Eject Cell"
+                disabled={!hasPowercell || !open}
+                onClick={() => act('eject')}
+              />
               <Button
                 icon={on ? 'power-off' : 'times'}
                 content={on ? 'On' : 'Off'}
@@ -32,7 +37,8 @@ export const Electrolyzer = (props) => {
                 onClick={() => act('power')}
               />
             </>
-          }>
+          }
+        >
           <LabeledList>
             <LabeledList.Item label="Cell" color={!hasPowercell ? 'bad' : ''}>
               {(hasPowercell && (

@@ -1,4 +1,11 @@
-import { Box, Button, LabeledList, NumberInput, ProgressBar, Section } from '../components';
+import {
+  Box,
+  Button,
+  LabeledList,
+  NumberInput,
+  ProgressBar,
+  Section,
+} from '../components';
 import { toFixed } from 'common/math';
 import { BooleanLike } from 'common/react';
 
@@ -50,7 +57,12 @@ const Controls = (props) => {
     <Section title="Controls">
       <LabeledList>
         <LabeledList.Item label="Power">
-          <Button icon={on ? 'power-off' : 'times'} content={on ? 'On' : 'Off'} selected={on} onClick={() => act('power')} />
+          <Button
+            icon={on ? 'power-off' : 'times'}
+            content={on ? 'On' : 'Off'}
+            selected={on}
+            onClick={() => act('power')}
+          />
         </LabeledList.Item>
         <LabeledList.Item label="Recipe">
           {selected_recipes.map(({ id, name }) => (
@@ -119,7 +131,8 @@ const Requirements = (props) => {
               good: [logScale(80), logScale(600)],
               average: [logScale(600), logScale(5000)],
               bad: [logScale(5000), Infinity],
-            }}>
+            }}
+          >
             {toFixed(internal_temperature) + ' K'}
           </ProgressBar>
         </LabeledList.Item>
@@ -137,7 +150,12 @@ const Gases = (props) => {
       <LabeledList>
         {internal_gas_data.map(({ id, name, amount }) => (
           <LabeledList.Item key={name} label={name}>
-            <ProgressBar color={getGasColor(id)} value={amount} minValue={0} maxValue={1000}>
+            <ProgressBar
+              color={getGasColor(id)}
+              value={amount}
+              minValue={0}
+              maxValue={1000}
+            >
               {toFixed(amount, 2) + ' moles'}
             </ProgressBar>
           </LabeledList.Item>
