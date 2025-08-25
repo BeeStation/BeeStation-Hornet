@@ -26,19 +26,19 @@
 /datum/pain_source/proc/enter_pain_crit()
 	owner.blood.enter_shock(FROM_PAIN_SHOCK)
 	owner.set_stat_source(SOFT_CRIT, FROM_PAIN_SHOCK)
-	to_chat(owner, span_pain(pick(
-		"You collapse from the unbearable pain!",
-		"The pain overwhelms you, and you collapse!",
-		"You fall, barely conscious, the pain completely unbearable.",
-		"The intense pain absorbs your entire body, you feel ready to give up.",
-		"As pain overwhelms your body, your skin goes pale and you collapse."
+	to_chat(owner, span_pain(pick(\
+		"You collapse from the unbearable pain!",\
+		"The pain overwhelms you, and you collapse!",\
+		"You fall, barely conscious, the pain completely unbearable.",\
+		"The intense pain absorbs your entire body, you feel ready to give up.",\
+		"As pain overwhelms your body, your skin goes pale and you collapse."\
 	)))
 
 /datum/pain_source/proc/exit_pain_crit()
 	owner.blood.exit_shock(FROM_PAIN_SHOCK)
 	owner.set_stat_source(CONSCIOUS, FROM_PAIN_SHOCK)
 
-/// Update the damage overlay, pain level between:
+/// Update the damage overlay, pain level between
 /// 0: no pain
 /// 100: max pain
 /datum/pain_source/proc/update_damage_overlay(pain_level)

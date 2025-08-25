@@ -109,12 +109,27 @@
 				if (removed.type == /datum/trait/add) {\
 					_head.add_cum -= removed.value;\
 				} else {\
-					_head.mult_cum /= removed.value;\
+					if (abs(removed.value) > 0.0001) {\
+						_head.mult_cum /= removed.value;\
+					} else {\
+						_head.add_cum = 0;\
+						_head.mult_cum = 1;\
+						for (var/__j = 2; __j <= length(_target_list); __j++) {\
+							var/__trait_key = _target_list[__j];\
+							var/datum/trait/scanned_trait = _target_list[__trait_key];\
+							if (istype(scanned_trait, /datum/trait/add)) {\
+								_head.add_cum += scanned_trait.value;\
+							} else {\
+								_head.mult_cum *= scanned_trait.value;\
+							}\
+						}\
+					}\
 				}\
 			}\
 			_head.add_cum += _additive_amount;\
 			_head.value = _head.add_cum * _head.mult_cum;\
 			_target_list[_source] = new /datum/trait/add(_source, _additive_amount);\
+			SEND_SIGNAL(_target, SIGNAL_UPDATETRAIT(_trait), _trait); \
 		} else { \
 			_target_list = list(); \
 			_L[_trait] = _target_list;\
@@ -152,29 +167,27 @@
 				if (removed.type == /datum/trait/add) {\
 					_head.add_cum -= removed.value;\
 				} else {\
-					if (removed.value != 0) {\
+					if (abs(removed.value) > 0.0001) {\
 						_head.mult_cum /= removed.value;\
 					} else {\
-						var/datum/trait/value_head/value_head = _target_list[FROM_TRAIT_QUEUE_HEAD];\
-						value_head.add_cum = 0;\
-						value_head.mult_cum = 1;\
+						_head.add_cum = 0;\
+						_head.mult_cum = 1;\
 						for (var/__j = 2; __j <= length(_target_list); __j++) {\
 							var/__trait_key = _target_list[__j];\
 							var/datum/trait/scanned_trait = _target_list[__trait_key];\
 							if (istype(scanned_trait, /datum/trait/add)) {\
-								value_head.add_cum += scanned_trait.value;\
+								_head.add_cum += scanned_trait.value;\
 							} else {\
-								value_head.mult_cum *= scanned_trait.value;\
+								_head.mult_cum *= scanned_trait.value;\
 							}\
 						}\
-						value_head.value = value_head.add_cum * value_head.mult_cum;\
-						SEND_SIGNAL(_target, SIGNAL_UPDATETRAIT(_trait), _trait); \
 					}\
 				}\
 			}\
 			_head.mult_cum *= _multiplicative_amount;\
 			_head.value = _head.add_cum * _head.mult_cum;\
 			_target_list[_source] = new /datum/trait/multiply(_source, _multiplicative_amount);\
+			SEND_SIGNAL(_target, SIGNAL_UPDATETRAIT(_trait), _trait); \
 		} else { \
 			_target_list = list(); \
 			_L[_trait] = _target_list;\
