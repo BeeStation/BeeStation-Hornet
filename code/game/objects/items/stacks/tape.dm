@@ -88,7 +88,7 @@
 	amount = 10
 	max_amount = 10
 
-/obj/item/stack/sticky_tape/duct/afterattack_secondary(atom/interacting_with, mob/user, proximity_flag)
+/obj/item/stack/sticky_tape/duct/afterattack_secondary(atom/interacting_with, mob/living/user, proximity_flag)
 	. = SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 	if (proximity_flag != 1)
