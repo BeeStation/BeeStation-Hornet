@@ -1,5 +1,12 @@
 import { useBackend } from '../backend';
-import { Box, Button, LabeledList, NoticeBox, Section, Tabs } from '../components';
+import {
+  Box,
+  Button,
+  LabeledList,
+  NoticeBox,
+  Section,
+  Tabs,
+} from '../components';
 import { Window } from '../layouts';
 
 export const PsychicPlane = (props) => {
@@ -23,13 +30,18 @@ export const PsychicPlane = (props) => {
                   })
                 }
               />
-            }>
+            }
+          >
             <LabeledList key={hive.hive}>
               <LabeledList.Item>{hive.type}</LabeledList.Item>
               <LabeledList.Item>Vessel Amount: {hive.size}</LabeledList.Item>
               <LabeledList.Item>Charges: {hive.charges}</LabeledList.Item>
-              <LabeledList.Item>Integrations: {hive.Integrations}</LabeledList.Item>
-              <LabeledList.Item>Awakened Vessels: {hive.avessel_number}</LabeledList.Item>
+              <LabeledList.Item>
+                Integrations: {hive.Integrations}
+              </LabeledList.Item>
+              <LabeledList.Item>
+                Awakened Vessels: {hive.avessel_number}
+              </LabeledList.Item>
             </LabeledList>
           </Section>
         ))}

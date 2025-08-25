@@ -91,7 +91,10 @@ export const ShuttleManipulatorTemplates = (props) => {
   const { act, data } = useBackend();
   const templateObject = data.templates || {};
   const selected = data.selected || {};
-  const [selectedTemplateId, setSelectedTemplateId] = useLocalState('templateId', Object.keys(templateObject)[0]);
+  const [selectedTemplateId, setSelectedTemplateId] = useLocalState(
+    'templateId',
+    Object.keys(templateObject)[0],
+  );
   const actualTemplates = templateObject[selectedTemplateId]?.templates;
   return (
     <Section>
@@ -102,7 +105,8 @@ export const ShuttleManipulatorTemplates = (props) => {
               <Tabs.Tab
                 key={templateId}
                 selected={selectedTemplateId === templateId}
-                onClick={() => setSelectedTemplateId(templateId)}>
+                onClick={() => setSelectedTemplateId(templateId)}
+              >
                 {template.port_id}
               </Tabs.Tab>
             ))}
@@ -110,7 +114,8 @@ export const ShuttleManipulatorTemplates = (props) => {
         </Flex.Item>
         <Flex.Item grow={1} basis={0}>
           {actualTemplates.map((actualTemplate) => {
-            const isSelected = actualTemplate.shuttle_id === selected.shuttle_id;
+            const isSelected =
+              actualTemplate.shuttle_id === selected.shuttle_id;
             // Whoever made the structure being sent is an asshole
             return (
               <Section
@@ -127,14 +132,20 @@ export const ShuttleManipulatorTemplates = (props) => {
                       })
                     }
                   />
-                }>
-                {(!!actualTemplate.description || !!actualTemplate.admin_notes) && (
+                }
+              >
+                {(!!actualTemplate.description ||
+                  !!actualTemplate.admin_notes) && (
                   <LabeledList>
                     {!!actualTemplate.description && (
-                      <LabeledList.Item label="Description">{actualTemplate.description}</LabeledList.Item>
+                      <LabeledList.Item label="Description">
+                        {actualTemplate.description}
+                      </LabeledList.Item>
                     )}
                     {!!actualTemplate.admin_notes && (
-                      <LabeledList.Item label="Admin Notes">{actualTemplate.admin_notes}</LabeledList.Item>
+                      <LabeledList.Item label="Admin Notes">
+                        {actualTemplate.admin_notes}
+                      </LabeledList.Item>
                     )}
                   </LabeledList>
                 )}
@@ -158,13 +169,24 @@ export const ShuttleManipulatorModification = (props) => {
           <Section level={2} title={selected.name}>
             {(!!selected.description || !!selected.admin_notes) && (
               <LabeledList>
-                {!!selected.description && <LabeledList.Item label="Description">{selected.description}</LabeledList.Item>}
-                {!!selected.admin_notes && <LabeledList.Item label="Admin Notes">{selected.admin_notes}</LabeledList.Item>}
+                {!!selected.description && (
+                  <LabeledList.Item label="Description">
+                    {selected.description}
+                  </LabeledList.Item>
+                )}
+                {!!selected.admin_notes && (
+                  <LabeledList.Item label="Admin Notes">
+                    {selected.admin_notes}
+                  </LabeledList.Item>
+                )}
               </LabeledList>
             )}
           </Section>
           {existingShuttle ? (
-            <Section level={2} title={'Existing Shuttle: ' + existingShuttle.name}>
+            <Section
+              level={2}
+              title={'Existing Shuttle: ' + existingShuttle.name}
+            >
               <LabeledList>
                 <LabeledList.Item
                   label="Status"
@@ -178,7 +200,8 @@ export const ShuttleManipulatorModification = (props) => {
                         })
                       }
                     />
-                  }>
+                  }
+                >
                   {existingShuttle.status}
                   {!!existingShuttle.timer && <>({existingShuttle.timeleft})</>}
                 </LabeledList.Item>

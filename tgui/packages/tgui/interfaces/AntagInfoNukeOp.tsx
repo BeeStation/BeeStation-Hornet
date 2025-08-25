@@ -17,19 +17,22 @@ const MissionNormal = (_props) => {
   return (
     <BlockQuote>
       <p>
-        Your mission is simple, blow up the station. To achieve this your team must get the Nuclear Authentification Disk. Once
-        you have the disk, it&apos;s only a matter of getting the nuke aboard the station, arming it, starting the timer, and
-        then getting out before it pulverizes you in its blast.
+        Your mission is simple, blow up the station. To achieve this your team
+        must get the Nuclear Authentification Disk. Once you have the disk,
+        it&apos;s only a matter of getting the nuke aboard the station, arming
+        it, starting the timer, and then getting out before it pulverizes you in
+        its blast.
       </p>
       {(!!data.leader && (
         <p>
-          You have been made the leader of this mission, you must coordinate with your team and devise a strategy. If you are
-          not up to the task, you can trade your leader ID card with another team member.
+          You have been made the leader of this mission, you must coordinate
+          with your team and devise a strategy. If you are not up to the task,
+          you can trade your leader ID card with another team member.
         </p>
       )) || (
         <p>
-          Coordination is key, which is why you have been assigned a leader to guide the mission. Listen to them and you&apos;re
-          bound to succeed.
+          Coordination is key, which is why you have been assigned a leader to
+          guide the mission. Listen to them and you&apos;re bound to succeed.
         </p>
       )}
     </BlockQuote>
@@ -40,8 +43,10 @@ const MissionLone = (_props) => {
   return (
     <BlockQuote>
       <p>
-        You have been sent on a solo nuclear mission. The reason you were sent alone is unclear, but your mission is to get the
-        Nuclear Authentification Disk and activate the station&apos;s self-destruct device.
+        You have been sent on a solo nuclear mission. The reason you were sent
+        alone is unclear, but your mission is to get the Nuclear
+        Authentification Disk and activate the station&apos;s self-destruct
+        device.
       </p>
     </BlockQuote>
   );
@@ -55,7 +60,9 @@ const MissionSection = (_props) => {
         <Stack.Item>
           <Stack>
             <Stack.Item>
-              <Section title="Mission">{(!data.lone && <MissionNormal />) || <MissionLone />}</Section>
+              <Section title="Mission">
+                {(!data.lone && <MissionNormal />) || <MissionLone />}
+              </Section>
             </Stack.Item>
             <Stack.Divider />
             <Stack.Item>
@@ -65,7 +72,11 @@ const MissionSection = (_props) => {
                   as="img"
                   src={resolveAsset('nuke.png')}
                   width="64px"
-                  style={{ msInterpolationMode: 'nearest-neighbor', imageRendering: 'pixelated', float: 'left' }}
+                  style={{
+                    msInterpolationMode: 'nearest-neighbor',
+                    imageRendering: 'pixelated',
+                    float: 'left',
+                  }}
                 />
                 <b>Nuke Code</b>: {data.nuke_code}
               </Section>
@@ -83,7 +94,8 @@ const MissionSection = (_props) => {
                 </Box>{' '}
                 in your pocket, in the form of a radio.
                 <br />
-                This uplink allows you to buy a variety of gear to use on your mission.
+                This uplink allows you to buy a variety of gear to use on your
+                mission.
                 <br />
                 Use your telecrystals wisely whenever buying gear!
               </Section>
@@ -116,7 +128,8 @@ const MissionSection = (_props) => {
                   <b>8</b>) Eject disk from nuke and take it.
                 </Box>
                 <Box className="candystripe">
-                  <b>9</b>) Get out of the blast radius — return to the base with your fellow nukies!
+                  <b>9</b>) Get out of the blast radius — return to the base
+                  with your fellow nukies!
                 </Box>
               </Section>
             </Stack.Item>
@@ -135,7 +148,10 @@ export const AntagInfoNukeOp = (_props) => {
       <Window.Content>
         <Stack vertical fill>
           <Stack.Item>
-            <AntagInfoHeader name={antag_name || 'Nuclear Operative'} asset="nukie.png" />
+            <AntagInfoHeader
+              name={antag_name || 'Nuclear Operative'}
+              asset="nukie.png"
+            />
           </Stack.Item>
           <Stack.Item>
             <MissionSection />

@@ -9,7 +9,10 @@ export const OreBox = (props) => {
   return (
     <Window width={335} height={415}>
       <Window.Content scrollable>
-        <Section title="Ores" buttons={<Button content="Empty" onClick={() => act('removeall')} />}>
+        <Section
+          title="Ores"
+          buttons={<Button content="Empty" onClick={() => act('removeall')} />}
+        >
           <Table>
             <Table.Row header>
               <Table.Cell>Ore</Table.Cell>
@@ -31,8 +34,8 @@ export const OreBox = (props) => {
         </Section>
         <Section>
           <Box>
-            All ores will be placed in here when you are wearing a mining stachel on your belt or in a pocket while dragging the
-            ore box.
+            All ores will be placed in here when you are wearing a mining
+            stachel on your belt or in a pocket while dragging the ore box.
             <br />
             Gibtonite is not accepted.
           </Box>

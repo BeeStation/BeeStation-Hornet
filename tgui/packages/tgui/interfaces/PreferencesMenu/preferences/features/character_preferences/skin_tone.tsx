@@ -13,7 +13,8 @@ type HexValue = {
   lightness: number;
 };
 
-const sortHexValues = (array: [string, HexValue][]) => sortBy(array, ([_, hexValue]) => -hexValue.lightness);
+const sortHexValues = (array: [string, HexValue][]) =>
+  sortBy(array, ([_, hexValue]) => -hexValue.lightness);
 
 const StandardizedPalette = (props: {
   choices: string[];
@@ -49,7 +50,9 @@ const StandardizedPalette = (props: {
   return (
     <Dropdown
       buttons
-      displayText={options.find((option) => option.value === value)?.displayText}
+      displayText={
+        options.find((option) => option.value === value)?.displayText
+      }
       onSelected={(selectedValue) => onSetValue(selectedValue)}
       options={options}
       selected={value}
@@ -67,12 +70,19 @@ export const skin_tone: Feature<string, string, SkinToneServerData> = {
       return null;
     }
 
-    const sortedChoices = sortHexValues(Object.entries(serverData.to_hex)).map(([key]) => key);
+    const sortedChoices = sortHexValues(Object.entries(serverData.to_hex)).map(
+      ([key]) => key,
+    );
 
     return (
       <StandardizedPalette
         choices={sortedChoices}
-        choices_to_hex={Object.fromEntries(Object.entries(serverData.to_hex).map(([key, hex]) => [key, hex.value]))}
+        choices_to_hex={Object.fromEntries(
+          Object.entries(serverData.to_hex).map(([key, hex]) => [
+            key,
+            hex.value,
+          ]),
+        )}
         displayNames={serverData.display_names}
         onSetValue={handleSetValue}
         value={value || sortedChoices[0] || ''}

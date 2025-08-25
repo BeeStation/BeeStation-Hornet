@@ -22,7 +22,10 @@ export const ToolSelection = (props) => {
 const DisplayToolSelections = (props) => {
   const { act, data } = useBackend<ToolSelectionData>();
   const { selections } = data;
-  const [current_selection, setSelection] = useSharedState('tab', selections[Object.keys(selections)[0]][0]);
+  const [current_selection, setSelection] = useSharedState(
+    'tab',
+    selections[Object.keys(selections)[0]][0],
+  );
 
   return (
     <>
@@ -38,8 +41,12 @@ const DisplayToolSelections = (props) => {
                       disabled={current_selection === each}
                       onClick={(e) => {
                         setSelection(each);
-                        act('change_selection', { 'chosen_selection': each, 'chosen_category': category });
-                      }}>
+                        act('change_selection', {
+                          chosen_selection: each,
+                          chosen_category: category,
+                        });
+                      }}
+                    >
                       <Flex>
                         <Flex.Item m={-0.5}>
                           <Box className={classes(['tools32x32', each])} />

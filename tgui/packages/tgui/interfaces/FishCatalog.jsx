@@ -24,23 +24,40 @@ export const FishCatalog = (props) => {
                   selected={f === currentFish}
                   onClick={() => {
                     setCurrentFish(f);
-                  }}>
+                  }}
+                >
                   {f.name}
                 </Button>
               ))}
             </Section>
           </Stack.Item>
           <Stack.Item grow basis={0}>
-            <Section fill scrollable title={currentFish ? capitalize(currentFish.name) : sponsored_by + ' Fish Index'}>
+            <Section
+              fill
+              scrollable
+              title={
+                currentFish
+                  ? capitalize(currentFish.name)
+                  : sponsored_by + ' Fish Index'
+              }
+            >
               {currentFish && (
                 <LabeledList>
-                  <LabeledList.Item label="Description">{currentFish.desc}</LabeledList.Item>
-                  <LabeledList.Item label="Water type">{currentFish.fluid}</LabeledList.Item>
+                  <LabeledList.Item label="Description">
+                    {currentFish.desc}
+                  </LabeledList.Item>
+                  <LabeledList.Item label="Water type">
+                    {currentFish.fluid}
+                  </LabeledList.Item>
                   <LabeledList.Item label="Temperature">
                     {currentFish.temp_min} to {currentFish.temp_max}
                   </LabeledList.Item>
-                  <LabeledList.Item label="Feeding">{currentFish.feed}</LabeledList.Item>
-                  <LabeledList.Item label="Acquisition">{currentFish.source}</LabeledList.Item>
+                  <LabeledList.Item label="Feeding">
+                    {currentFish.feed}
+                  </LabeledList.Item>
+                  <LabeledList.Item label="Acquisition">
+                    {currentFish.source}
+                  </LabeledList.Item>
                   <LabeledList.Item label="Illustration">
                     <Box className={classes(['fish32x32', currentFish.icon])} />
                   </LabeledList.Item>

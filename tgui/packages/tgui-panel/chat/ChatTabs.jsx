@@ -19,7 +19,8 @@ const UnreadCountWidget = ({ value }) => (
       lineHeight: '1.55em',
       backgroundColor: 'crimson',
       color: '#fff',
-    }}>
+    }}
+  >
     {Math.min(value, 99)}
   </Box>
 );
@@ -36,14 +37,20 @@ export const ChatTabs = (props) => {
             <Tabs.Tab
               key={page.id}
               selected={page === currentPage}
-              rightSlot={!page.hideUnreadCount && page.unreadCount > 0 && <UnreadCountWidget value={page.unreadCount} />}
+              rightSlot={
+                !page.hideUnreadCount &&
+                page.unreadCount > 0 && (
+                  <UnreadCountWidget value={page.unreadCount} />
+                )
+              }
               onClick={() =>
                 dispatch(
                   changeChatPage({
                     pageId: page.id,
-                  })
+                  }),
                 )
-              }>
+              }
+            >
               {page.name}
             </Tabs.Tab>
           ))}

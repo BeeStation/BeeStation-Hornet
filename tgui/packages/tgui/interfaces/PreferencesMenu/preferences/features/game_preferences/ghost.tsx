@@ -6,8 +6,17 @@ import { classes } from 'tgui-core/react';
 
 import { PreferencesMenuData } from '../../../data';
 import { multiline } from 'common/string';
-import { CheckboxInput, FeatureChoiced, FeatureChoicedServerData, FeatureToggle, FeatureValueProps } from '../base';
-import { FeatureDropdownInput, FeatureButtonedDropdownInput } from '../dropdowns';
+import {
+  CheckboxInput,
+  FeatureChoiced,
+  FeatureChoicedServerData,
+  FeatureToggle,
+  FeatureValueProps,
+} from '../base';
+import {
+  FeatureDropdownInput,
+  FeatureButtonedDropdownInput,
+} from '../dropdowns';
 
 export const ghost_accs: FeatureChoiced = {
   name: 'Ghost accessories',
@@ -26,7 +35,9 @@ type GhostForm = {
 const insertGhostForm = (collection: GhostForm[], value: GhostForm) =>
   binaryInsertWith(collection, value, ({ value }) => value);
 
-const GhostFormInput = (props: FeatureValueProps<string, string, FeatureChoicedServerData>) => {
+const GhostFormInput = (
+  props: FeatureValueProps<string, string, FeatureChoicedServerData>,
+) => {
   const { data } = useBackend<PreferencesMenuData>();
 
   const serverData = props.serverData;
@@ -50,7 +61,10 @@ const GhostFormInput = (props: FeatureValueProps<string, string, FeatureChoicedS
       <Stack>
         <Stack.Item>
           <Box
-            className={classes([`${serverData.icon_sheet}32x32`, serverData.icons![name]])}
+            className={classes([
+              `${serverData.icon_sheet}32x32`,
+              serverData.icons![name],
+            ])}
             style={{ verticalAlign: 'bottom' }}
           />
         </Stack.Item>
@@ -114,10 +128,18 @@ export const ghost_orbit: FeatureChoiced = {
     The shape in which your ghost will orbit.
     Requires BYOND membership.
   `,
-  component: (props: FeatureValueProps<string, string, FeatureChoicedServerData>) => {
+  component: (
+    props: FeatureValueProps<string, string, FeatureChoicedServerData>,
+  ) => {
     const { data } = useBackend<PreferencesMenuData>();
 
-    return <FeatureDropdownInput buttons {...props} disabled={!data.content_unlocked} />;
+    return (
+      <FeatureDropdownInput
+        buttons
+        {...props}
+        disabled={!data.content_unlocked}
+      />
+    );
   },
   important: true,
 };

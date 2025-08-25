@@ -47,9 +47,15 @@ export const CircuitAdminPanel = (props) => {
 
                   <Button onClick={createAct('save_circuit')}>Save</Button>
 
-                  <Button onClick={createAct('duplicate_circuit')}>Duplicate</Button>
+                  <Button onClick={createAct('duplicate_circuit')}>
+                    Duplicate
+                  </Button>
 
-                  {!!circuit.has_inserter && <Button onClick={createAct('open_player_panel')}>Player Panel</Button>}
+                  {!!circuit.has_inserter && (
+                    <Button onClick={createAct('open_player_panel')}>
+                      Player Panel
+                    </Button>
+                  )}
                 </Table.Cell>
               </Table.Row>
             );

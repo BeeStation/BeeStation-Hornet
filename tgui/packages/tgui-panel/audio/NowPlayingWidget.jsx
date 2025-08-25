@@ -21,7 +21,11 @@ export const NowPlayingWidget = (props) => {
     album = audio.meta?.album || 'Unknown Album',
     duration = audio.meta?.duration,
     date = !isNaN(upload_date)
-      ? upload_date?.substring(0, 4) + '-' + upload_date?.substring(4, 6) + '-' + upload_date?.substring(6, 8)
+      ? upload_date?.substring(0, 4) +
+        '-' +
+        upload_date?.substring(4, 6) +
+        '-' +
+        upload_date?.substring(6, 8)
       : upload_date;
 
   return (
@@ -34,7 +38,8 @@ export const NowPlayingWidget = (props) => {
             whiteSpace: 'nowrap',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
-          }}>
+          }}
+        >
           {
             <Collapsible title={title || 'Unknown Track'} color={'blue'}>
               <Section>
@@ -46,21 +51,23 @@ export const NowPlayingWidget = (props) => {
                 <Flex.Item grow={1} color="label">
                   Duration: {duration}
                 </Flex.Item>
-                {artist !== 'Song Artist Hidden' && artist !== 'Unknown Artist' && (
-                  <Flex.Item grow={1} color="label">
-                    Artist: {artist}
-                  </Flex.Item>
-                )}
+                {artist !== 'Song Artist Hidden' &&
+                  artist !== 'Unknown Artist' && (
+                    <Flex.Item grow={1} color="label">
+                      Artist: {artist}
+                    </Flex.Item>
+                  )}
                 {album !== 'Song Album Hidden' && album !== 'Unknown Album' && (
                   <Flex.Item grow={1} color="label">
                     Album: {album}
                   </Flex.Item>
                 )}
-                {upload_date !== 'Song Upload Date Hidden' && upload_date !== 'Unknown Date' && (
-                  <Flex.Item grow={1} color="label">
-                    Uploaded: {date}
-                  </Flex.Item>
-                )}
+                {upload_date !== 'Song Upload Date Hidden' &&
+                  upload_date !== 'Unknown Date' && (
+                    <Flex.Item grow={1} color="label">
+                      Uploaded: {date}
+                    </Flex.Item>
+                  )}
               </Section>
             </Collapsible>
           }

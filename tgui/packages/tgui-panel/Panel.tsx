@@ -37,7 +37,7 @@ export const Panel = (props) => {
     dispatch(
       updateSettings({
         statSize: 40,
-      })
+      }),
     );
     return;
   }
@@ -47,7 +47,7 @@ export const Panel = (props) => {
     dispatch(
       updateSettings({
         statSize: Math.max(Math.min(value, 90), 10),
-      })
+      }),
     );
   };
   return (
@@ -64,10 +64,16 @@ export const Panel = (props) => {
         step={1}
         stepPixelSize={9}
         onDrag={(e, value) => resizeFunction(value)}
-        updateRate={5}>
+        updateRate={5}
+      >
         {(control) => (
           <Box onMouseDown={control.handleDragStart} height="10px">
-            <Box position="relative" height="4px" backgroundColor="grey" top="3px">
+            <Box
+              position="relative"
+              height="4px"
+              backgroundColor="grey"
+              top="3px"
+            >
               <Divider />
               {control.inputElement}
             </Box>
@@ -98,7 +104,9 @@ export const Panel = (props) => {
                 <Button
                   icon={settings.visible ? 'times' : 'cog'}
                   selected={settings.visible}
-                  tooltip={settings.visible ? 'Close settings' : 'Open settings'}
+                  tooltip={
+                    settings.visible ? 'Close settings' : 'Open settings'
+                  }
                   tooltipPosition="bottom-start"
                   onClick={() => settings.toggle()}
                 />
@@ -126,13 +134,14 @@ export const Panel = (props) => {
             <Notifications>
               {game.connectionLostAt && (
                 <Notifications.Item rightSlot={<ReconnectButtons />}>
-                  You are either AFK, experiencing lag or the connection has closed.
+                  You are either AFK, experiencing lag or the connection has
+                  closed.
                 </Notifications.Item>
               )}
               {game.roundRestartedAt && (
                 <Notifications.Item>
-                  The connection has been closed because the server is restarting. Please wait while you automatically
-                  reconnect.
+                  The connection has been closed because the server is
+                  restarting. Please wait while you automatically reconnect.
                 </Notifications.Item>
               )}
             </Notifications>

@@ -66,7 +66,10 @@ class BreacherConsole extends Component {
     this.setState((prev) => ({
       frame: prev.frame + 1,
       progress: nextProg,
-      tipIdx: prev.frame % 120 === 0 ? Math.floor(Math.random() * tips.length) : prev.tipIdx,
+      tipIdx:
+        prev.frame % 120 === 0
+          ? Math.floor(Math.random() * tips.length)
+          : prev.tipIdx,
     }));
   }
 
@@ -79,10 +82,20 @@ class BreacherConsole extends Component {
     const lines = rawLogo.trimEnd().split('\n');
 
     return (
-      <Section fill scrollable backgroundColor="black" style={{ whiteSpace: 'pre-wrap' }}>
+      <Section
+        fill
+        scrollable
+        backgroundColor="black"
+        style={{ whiteSpace: 'pre-wrap' }}
+      >
         <div className="logo-container">
           {lines.map((line, i) => (
-            <Box key={i} className="logo-line" style={{ '--i': i }} fontFamily="monospace">
+            <Box
+              key={i}
+              className="logo-line"
+              style={{ '--i': i }}
+              fontFamily="monospace"
+            >
               {line}
             </Box>
           ))}
@@ -104,7 +117,8 @@ class BreacherConsole extends Component {
               cursor: 'pointer',
               textShadow: '0 0 5px #ff004d',
             }}
-            onClick={() => act('PC_exit')}>
+            onClick={() => act('PC_exit')}
+          >
             Disarm
           </Button>
 
@@ -120,7 +134,8 @@ class BreacherConsole extends Component {
                 cursor: 'pointer',
                 textShadow: '0 0 5px #ffff00',
               }}
-              onClick={() => act('Detonate')}>
+              onClick={() => act('Detonate')}
+            >
               Detonate
             </Button>
           )}

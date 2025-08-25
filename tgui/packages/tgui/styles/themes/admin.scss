@@ -6,8 +6,8 @@ $generic: hsl(252, 9.3%, 31.6%);
 @use '../colors.scss' with (
   $fg-map-keys: (),
   $bg-map-keys: (),
-  $primary: hsl(44.9, 100.0%, 50.0%),
-  $yellow: hsl(44.9, 100.0%, 50.0%)
+  $primary: hsl(44.9, 100%, 50%),
+  $yellow: hsl(44.9, 100%, 50%)
 );
 @use '../base.scss' with (
   $color-bg: color.scale($generic, $lightness: -45%),
@@ -19,11 +19,17 @@ $generic: hsl(252, 9.3%, 31.6%);
   // Components
   @include meta.load-css(
     '../components/Button.scss',
-    $with: ('color-default': color.scale($generic, $lightness: -30%), 'color-transparent-text': rgba(227, 240, 255, 0.75))
+    $with: (
+      'color-default': color.scale($generic, $lightness: -30%),
+      'color-transparent-text': rgba(227, 240, 255, 0.75)
+    )
   );
   @include meta.load-css(
     '../components/ProgressBar.scss',
-    $with: ('color-default-fill': $generic, 'background-color': rgba(0, 0, 0, 0.5))
+    $with: (
+      'color-default-fill': $generic,
+      'background-color': rgba(0, 0, 0, 0.5)
+    )
   );
   @include meta.load-css('../components/Section.scss');
 

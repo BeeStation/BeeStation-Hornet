@@ -40,7 +40,8 @@ export class TguiSay extends Component<{}, State> {
   }
 
   render() {
-    const { onClick, onContextMenu, onEnter, onEscape, onKeyDown, onInput } = this.events;
+    const { onClick, onContextMenu, onEnter, onEscape, onKeyDown, onInput } =
+      this.events;
     const { innerRef, lightMode, maxLength, radioPrefix, value } = this.fields;
     const { buttonContent, channel, edited, size } = this.state;
     const theme = getTheme(lightMode, radioPrefix, channel);
@@ -53,7 +54,8 @@ export class TguiSay extends Component<{}, State> {
           if (isEscape(event.key)) {
             onEscape();
           }
-        }}>
+        }}
+      >
         <div className="top-border" />
         <div className="left-border" />
         <div className="modal__content">
@@ -65,7 +67,8 @@ export class TguiSay extends Component<{}, State> {
                 e.preventDefault();
                 onContextMenu();
               }}
-              type="submit">
+              type="submit"
+            >
               {buttonContent}
             </button>
           )}

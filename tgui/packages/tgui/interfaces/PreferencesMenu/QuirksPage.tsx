@@ -33,7 +33,13 @@ function QuirkList(props: QuirkProps & QuirkListProps) {
     // Stack is not used here for a variety of IE flex bugs
     <Box className="PreferencesMenu__Quirks__QuirkList">
       {quirks.map(([quirkKey, quirk]) => (
-        <QuirkDisplay key={quirkKey} onClick={onClick} quirk={quirk} quirkKey={quirkKey} selected={props.selected} />
+        <QuirkDisplay
+          key={quirkKey}
+          onClick={onClick}
+          quirk={quirk}
+          quirkKey={quirkKey}
+          selected={props.selected}
+        />
       ))}
     </Box>
   );
@@ -64,7 +70,8 @@ function QuirkDisplay(props: QuirkDisplayProps) {
       onClick={(event) => {
         event.stopPropagation();
         onClick(quirkKey, quirk);
-      }}>
+      }}
+    >
       <Stack fill>
         <Stack.Item
           align="center"
@@ -72,7 +79,8 @@ function QuirkDisplay(props: QuirkDisplayProps) {
             minWidth: '15%',
             maxWidth: '15%',
             textAlign: 'center',
-          }}>
+          }}
+        >
           {icon && <Icon color="#333" fontSize={3} name={icon} />}
         </Stack.Item>
 
@@ -90,19 +98,22 @@ function QuirkDisplay(props: QuirkDisplayProps) {
           style={{
             // Fixes an IE bug for text overflowing in Flex boxes
             minWidth: '0%',
-          }}>
+          }}
+        >
           <Stack vertical fill>
             <Stack.Item
               className={`${className}--${getValueClass(value)}`}
               style={{
                 borderBottom: '1px solid black',
                 padding: '2px',
-              }}>
+              }}
+            >
               <Stack
                 fill
                 style={{
                   fontSize: '1.2em',
-                }}>
+                }}
+              >
                 <Stack.Item grow basis="content">
                   <b>{name}</b>
                 </Stack.Item>
@@ -119,7 +130,8 @@ function QuirkDisplay(props: QuirkDisplayProps) {
               mt={0}
               style={{
                 padding: '3px',
-              }}>
+              }}
+            >
               {description}
             </Stack.Item>
           </Stack>
@@ -139,7 +151,14 @@ function StatDisplay(props) {
   const { children } = props;
 
   return (
-    <Box backgroundColor="#eee" bold color="black" fontSize="1.2em" px={3} py={0.5}>
+    <Box
+      backgroundColor="#eee"
+      bold
+      color="black"
+      fontSize="1.2em"
+      px={3}
+      py={0.5}
+    >
       {children}
     </Box>
   );
@@ -157,7 +176,11 @@ export function QuirksPage(props) {
           return <Box>Loading quirks...</Box>;
         }
 
-        const { max_positive_quirks: maxPositiveQuirks, quirk_blacklist: quirkBlacklist, quirk_info: quirkInfo } = data.quirks;
+        const {
+          max_positive_quirks: maxPositiveQuirks,
+          quirk_blacklist: quirkBlacklist,
+          quirk_info: quirkInfo,
+        } = data.quirks;
 
         const quirks = Object.entries(quirkInfo);
         quirks.sort(([_, quirkA], [__, quirkB]) => {
@@ -200,7 +223,10 @@ export function QuirksPage(props) {
             }
 
             for (const incompatibleQuirk of blacklist) {
-              if (incompatibleQuirk !== quirk.name && selectedQuirkNames.indexOf(incompatibleQuirk) !== -1) {
+              if (
+                incompatibleQuirk !== quirk.name &&
+                selectedQuirkNames.indexOf(incompatibleQuirk) !== -1
+              ) {
                 return `This is incompatible with ${incompatibleQuirk}!`;
               }
             }
@@ -274,7 +300,11 @@ export function QuirksPage(props) {
                 <Stack.Item grow width="100%">
                   <QuirkList
                     onClick={(quirkName, quirk) => {
-                      setSelectedQuirks(selectedQuirks.filter((otherQuirk) => quirkName !== otherQuirk));
+                      setSelectedQuirks(
+                        selectedQuirks.filter(
+                          (otherQuirk) => quirkName !== otherQuirk,
+                        ),
+                      );
 
                       act('remove_quirk', { quirk: quirk.name });
                     }}
