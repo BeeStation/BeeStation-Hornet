@@ -1,8 +1,18 @@
 import { useState } from 'react';
+import { Dropdown } from 'tgui-core/components';
 
 import { useBackend } from '../backend';
-import { Section, Box, Button, Input, TextArea, Divider, NumberInput, Tooltip, Knob } from '../components';
-import { Dropdown } from 'tgui-core/components';
+import {
+  Box,
+  Button,
+  Divider,
+  Input,
+  Knob,
+  NumberInput,
+  Section,
+  TextArea,
+  Tooltip,
+} from '../components';
 import { Window } from '../layouts';
 
 export const AdminFax = (props) => {
@@ -43,11 +53,13 @@ export const FaxMainPanel = (props) => {
                 act('follow', {
                   faxName: fax,
                 })
-              }>
+              }
+            >
               Follow
             </Button>
           </Box>
-        }>
+        }
+      >
         <Box fontSize="13px">
           <Dropdown
             textAlign="center"
@@ -69,28 +81,62 @@ export const FaxMainPanel = (props) => {
               act('preview', {
                 faxName: fax,
               })
-            }>
+            }
+          >
             Preview
           </Button>
-        }>
+        }
+      >
         <Box fontSize="14px">
-          <Input mb="5px" placeholder="Paper name..." value={paperName} width="100%" onChange={(_, v) => setPaperName(v)} />
-          <Button color="blue" fluid textAlign="center" onClick={() => setPaperName('Central Command Report')}>
+          <Input
+            mb="5px"
+            placeholder="Paper name..."
+            value={paperName}
+            width="100%"
+            onChange={(_, v) => setPaperName(v)}
+          />
+          <Button
+            color="blue"
+            fluid
+            textAlign="center"
+            onClick={() => setPaperName('Central Command Report')}
+          >
             Central Command Report
           </Button>
-          <Button color="red" fluid textAlign="center" onClick={() => setPaperName('Syndicate Report')}>
+          <Button
+            color="red"
+            fluid
+            textAlign="center"
+            onClick={() => setPaperName('Syndicate Report')}
+          >
             Syndicate Report
           </Button>
         </Box>
         <Divider />
         <Box fontSize="14px" mt="5px">
           <Tooltip content="This is shown in the fax log.">
-            <Input mb="5px" placeholder="From who..." value={fromWho} width="100%" onChange={(_, v) => setFromWho(v)} />
+            <Input
+              mb="5px"
+              placeholder="From who..."
+              value={fromWho}
+              width="100%"
+              onChange={(_, v) => setFromWho(v)}
+            />
           </Tooltip>
-          <Button color="blue" fluid textAlign="center" onClick={() => setFromWho('Central Command')}>
+          <Button
+            color="blue"
+            fluid
+            textAlign="center"
+            onClick={() => setFromWho('Central Command')}
+          >
             Central Command
           </Button>
-          <Button color="red" fluid textAlign="center" onClick={() => setFromWho('Syndicate')}>
+          <Button
+            color="red"
+            fluid
+            textAlign="center"
+            onClick={() => setFromWho('Syndicate')}
+          >
             Syndicate
           </Button>
         </Box>
@@ -171,7 +217,8 @@ export const FaxMainPanel = (props) => {
               act('send', {
                 faxName: fax,
               })
-            }>
+            }
+          >
             Send Fax
           </Button>
           <Button
@@ -190,7 +237,8 @@ export const FaxMainPanel = (props) => {
                 stampAngle: stampAngle,
                 fromWho: fromWho,
               });
-            }}>
+            }}
+          >
             Save Changes
           </Button>
           <Button
@@ -200,7 +248,8 @@ export const FaxMainPanel = (props) => {
               act('createPaper', {
                 faxName: fax,
               })
-            }>
+            }
+          >
             Create Paper
           </Button>
         </Box>
