@@ -119,6 +119,11 @@
 	if(!isobj(interacting_with) || iseffect(interacting_with))
 		return
 
+	// clock cult should be using power through their fabricators
+	// the ark also seems to be the only thing in the game that should never be repairable
+	if(istype(target, /obj/structure/destructible/clockwork))
+		return
+
 	var/obj/item/object_to_repair = interacting_with
 	var/object_is_damaged = object_to_repair.get_integrity() < object_to_repair.max_integrity
 
