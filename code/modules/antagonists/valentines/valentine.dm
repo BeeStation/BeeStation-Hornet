@@ -1,5 +1,5 @@
 /datum/antagonist/valentine
-	name = "\improper Valentine"
+	name = "valentine"
 	roundend_category = "valentines" //there's going to be a ton of them so put them in separate category
 	show_in_antagpanel = FALSE
 	prevent_roundtype_conversion = FALSE

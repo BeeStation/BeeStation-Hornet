@@ -83,7 +83,7 @@
 
 	head_subordinates = list()
 	if(length(head_types))
-		for(var/j in SSjob.joinable_occupations)
+		for(var/j in SSjob.occupations)
 			var/datum/job/job = j
 			for(var/head in head_types)//god why
 				if(head in job.department_head)

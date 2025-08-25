@@ -89,7 +89,7 @@
 /obj/item/antag_spawner/contract/spawn_antag(client/C, turf/T, kind ,datum/mind/user)
 	new /obj/effect/particle_effect/smoke(T)
 	var/mob/living/carbon/human/M = new/mob/living/carbon/human(T)
-	C.prefs.safe_transfer_prefs_to(M, is_antag = TRUE)
+	C.prefs.apply_prefs_to(M)
 	M.key = C.key
 	var/datum/mind/app_mind = M.mind
 
@@ -104,8 +104,10 @@
 		app.wiz_team = master_wizard.wiz_team
 		master_wizard.wiz_team.add_member(app_mind)
 	app_mind.add_antag_datum(app)
-	app_mind.set_assigned_role(SSjob.GetJobType(/datum/job/wizard_apprentice))
-	app_mind.special_role = ROLE_WIZARD_APPRENTICE
+	//TODO Kill these if possible
+	app_mind.assigned_role = "Apprentice"
+	app_mind.special_role = "apprentice"
+	//
 	SEND_SOUND(M, sound('sound/effects/magic.ogg'))
 
 ///////////BORGS AND OPERATIVES
@@ -133,7 +135,7 @@
 
 	to_chat(user, span_notice("You activate [src] and wait for confirmation."))
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
-		check_jobban = ROLE_NUCLEAR_OPERATIVE,
+		check_jobban = ROLE_OPERATIVE,
 		poll_time = 15 SECONDS,
 		jump_target = user,
 		role_name_text = "syndicate [borg_to_spawn ? "[LOWER_TEXT(borg_to_spawn)] cyborg":"operative"]",
@@ -283,10 +285,9 @@
 /obj/item/antag_spawner/slaughter_demon/spawn_antag(client/C, turf/T, kind = "", datum/mind/user)
 	var/mob/living/simple_animal/hostile/imp/slaughter/S = new demon_type(T)
 	new /obj/effect/dummy/phased_mob(T, S)
-
 	S.key = C.key
-	S.mind.set_assigned_role(SSjob.GetJobType(/datum/job/slaughter_demon))
-	S.mind.special_role = ROLE_SLAUGHTER_DEMON
+	S.mind.assigned_role = S.name
+	S.mind.special_role = S.name
 	S.mind.add_antag_datum(antag_type)
 	to_chat(S, ("<span class='bold'>You are currently not currently in the same plane of existence as the station. \
 		Use your Blood Crawl ability near a pool of blood to manifest and wreak havoc.</span>"))

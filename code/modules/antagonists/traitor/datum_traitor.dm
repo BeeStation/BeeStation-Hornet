@@ -1,5 +1,5 @@
 /datum/antagonist/traitor
-	name = "\improper Traitor"
+	name = "Traitor"
 	roundend_category = "traitors"
 	antagpanel_category = "Traitor"
 	banning_key = ROLE_TRAITOR
@@ -27,8 +27,10 @@
 	handle_clown_mutation(owner.current, removing=FALSE)
 
 /datum/antagonist/traitor/on_removal()
+	if(!silent && owner.current)
+		to_chat(owner.current,span_userdanger(" You are no longer the [special_role]! "))
 	owner.special_role = null
-	return ..()
+	..()
 
 /datum/antagonist/traitor/proc/handle_hearing(datum/source, list/hearing_args)
 	SIGNAL_HANDLER

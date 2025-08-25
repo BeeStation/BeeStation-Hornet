@@ -21,7 +21,6 @@
 
 	display_order = JOB_DISPLAY_ORDER_CHAPLAIN
 	rpg_title = "Paladin"
-	job_flags = JOB_CREW_MEMBER
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/chaplain

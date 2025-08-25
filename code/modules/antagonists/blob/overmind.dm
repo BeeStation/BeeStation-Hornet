@@ -213,7 +213,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/blob)
 	. = ..()
 	if(!. || !client)
 		return FALSE
-	to_chat(src, span_big("You are the overmind!"))
+	to_chat(src, span_notice("You are the overmind!"))
 	blob_help()
 	update_health_hud()
 	add_points(0)

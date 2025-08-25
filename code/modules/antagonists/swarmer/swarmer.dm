@@ -735,7 +735,7 @@
 		swarmer_chat(message)
 
 /datum/antagonist/swarmer
-	name = "\improper Swarmer"
+	name = "Swarmer"
 	banning_key = ROLE_SWARMER
 	roundend_category = "Swarmer"
 	antagpanel_category = "Swarmer"

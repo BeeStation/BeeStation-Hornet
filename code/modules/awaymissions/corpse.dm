@@ -223,7 +223,7 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 	var/obj/item/card/id/W = H.wear_id
 	if(W)
 		if(id_access)
-			for(var/datum/job/J in SSjob.joinable_occupations)
+			for(var/datum/job/J in SSjob.occupations)
 				if(J.title == id_access)
 					W.access = J.get_access()
 					break

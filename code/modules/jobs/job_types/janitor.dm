@@ -19,8 +19,6 @@
 
 	display_order = JOB_DISPLAY_ORDER_JANITOR
 	rpg_title = "Groundskeeper"
-	job_flags = JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE
-
 	biohazard = 40//cleaning up hazardous messes puts janitors at extra risk
 
 	species_outfits = list(

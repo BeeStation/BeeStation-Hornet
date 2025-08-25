@@ -1,5 +1,5 @@
 /datum/antagonist/pirate
-	name = "\improper Space Pirate"
+	name = "Space Pirate"
 	banning_key = ROLE_SPACE_PIRATE
 	roundend_category = "space pirates"
 	antagpanel_category = "Pirate"
@@ -16,7 +16,7 @@
 	set_antag_hud(current, "pirate-captain")
 
 /datum/antagonist/pirate/greet()
-	. = ..()
+	to_chat(owner, span_boldannounce("You are a Space Pirate!"))
 	to_chat(owner, "<B>The station refused to pay for your protection, protect the ship, siphon the credits from the station and raid it for even more loot.</B>")
 	owner.announce_objectives()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Space Pirate",

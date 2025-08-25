@@ -1,5 +1,5 @@
 /datum/antagonist/space_dragon
-	name = "\improper Space Dragon"
+	name = "Space Dragon"
 	roundend_category = "space dragons"
 	antagpanel_category = "Space Dragon"
 	banning_key = ROLE_SPACE_DRAGON
@@ -23,7 +23,6 @@
 	var/list/chosen_rift_areas = list()
 
 /datum/antagonist/space_dragon/greet()
-	. = ..()
 	to_chat(owner, "<b>Endless time and space we have moved through. We do not remember from where we came, we do not know where we will go. All space belongs to us.\n\
 					Space is an empty void, of which our kind is the apex predator, and there was little to rival our claim to this title.\n\
 					But now, we find intruders spread out amongst our claim, willing to fight our teeth with magics unimaginable, their dens like lights flicking in the depths of space.\n\
@@ -81,8 +80,6 @@
 
 /datum/antagonist/space_dragon/on_gain()
 	forge_objectives()
-	owner.special_role = ROLE_SPACE_DRAGON
-	owner.set_assigned_role(SSjob.GetJobType(/datum/job/space_dragon))
 	. = ..()
 	rift_ability = new
 	rift_ability.Grant(owner.current)
@@ -98,8 +95,6 @@
 
 /datum/antagonist/space_dragon/on_removal()
 	. = ..()
-	owner.special_role = null
-	owner.set_assigned_role(SSjob.GetJobType(/datum/job/unassigned))
 	rift_ability.Remove(owner.current)
 	owner.current.faction -= FACTION_CARP
 	UnregisterSignal(owner.current, COMSIG_LIVING_LIFE)

@@ -20,7 +20,6 @@
 
 	display_order = JOB_DISPLAY_ORDER_BOTANIST
 	rpg_title = "Gardener"
-	job_flags = JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/botany

@@ -22,8 +22,6 @@
 	payment_per_department = list(ACCOUNT_SEC_ID = PAYCHECK_EASY)
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM, TRAIT_SECURITY)
 
-	job_flags = JOB_CREW_MEMBER
-
 	show_in_prefs = FALSE
 
 /datum/outfit/job/deputy

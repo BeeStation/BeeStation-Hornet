@@ -32,7 +32,6 @@
 
 	display_order = JOB_DISPLAY_ORDER_CHIEF_ENGINEER
 	rpg_title = "High Crystallomancer"
-	job_flags = JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/chief_engineer

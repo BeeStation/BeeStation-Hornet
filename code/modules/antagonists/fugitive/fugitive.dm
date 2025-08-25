@@ -1,5 +1,5 @@
 /datum/antagonist/fugitive
-	name = "\improper Fugitive"
+	name = "Fugitive"
 	roundend_category = "Fugitive"
 	banning_key = ROLE_FUGITIVE
 	show_in_antagpanel = TRUE
@@ -27,7 +27,7 @@
 	return ..()
 
 /datum/antagonist/fugitive/greet()
-	. = ..()
+	to_chat(owner, span_bigbold("You are the Fugitive!"))
 	to_chat(owner, backstory.greet_message)
 	to_chat(owner, span_boldannounce("You should not be killing anyone you please, but you can do anything to avoid being captured."))
 	to_chat(owner, span_bold("Someone was hot on my tail when I managed to get to this space station! I probably have about 10 minutes before they show up..."))

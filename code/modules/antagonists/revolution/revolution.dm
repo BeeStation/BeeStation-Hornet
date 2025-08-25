@@ -7,7 +7,7 @@
 #define HEAD_UPDATE_PERIOD 300
 
 /datum/antagonist/rev
-	name = "\improper Revolutionary"
+	name = "Revolutionary"
 	roundend_category = "revolutionaries" // if by some miracle revolutionaries without revolution happen
 	antagpanel_category = "Revolution"
 	banning_key = ROLE_REV
@@ -50,7 +50,6 @@
 	. = ..()
 
 /datum/antagonist/rev/greet()
-	. = ..()
 	to_chat(owner, span_userdanger("You are now a revolutionary! Help your cause. Do not harm your fellow freedom fighters. You can identify your comrades by the red \"R\" icons, and your leaders by the blue \"R\" icons. Establish a new command structure for the station that will bring fairness to all."))
 	owner.announce_objectives()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Revolution",
@@ -159,7 +158,7 @@
 	demote()
 
 /datum/antagonist/rev/head
-	name = "\improper Head Revolutionary"
+	name = "Head Revolutionary"
 	hud_type = "rev_head"
 	banning_key = ROLE_REV_HEAD
 	required_living_playtime = 4

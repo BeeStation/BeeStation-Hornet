@@ -17,8 +17,6 @@
 
 	display_order = JOB_DISPLAY_ORDER_ASSISTANT
 	rpg_title = "Peasant"
-	job_flags = JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE
-
 	allow_bureaucratic_error = FALSE
 	outfit = /datum/outfit/job/gimmick
 	species_outfits = list(

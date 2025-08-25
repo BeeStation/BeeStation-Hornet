@@ -66,7 +66,7 @@
 	outfit = /datum/outfit/centcom/centcom_official
 
 /datum/antagonist/ert/official/greet()
-	. = ..()
+	to_chat(owner, "<B><font size=3 color=red>You are a CentCom Official.</font></B>")
 	if (ert_team)
 		to_chat(owner, "Central Command is sending you to [station_name()] with the task: [ert_team.mission.explanation_text]")
 	else

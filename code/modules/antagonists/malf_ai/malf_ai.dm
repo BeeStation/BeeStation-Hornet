@@ -2,7 +2,7 @@
 #define PROB_SPECIAL 30
 
 /datum/antagonist/malf_ai
-	name = "\improper Malfunctioning AI"
+	name = "Malfunctioning AI"
 	roundend_category = "traitors"
 	antagpanel_category = "Malfunctioning AI"
 	banning_key = ROLE_MALF
@@ -98,9 +98,9 @@
 			objectives += yandere_two
 
 /datum/antagonist/malf_ai/greet()
-	. = ..()
 	var/list/msg = list()
 
+	msg += span_userdanger("You are the [owner.special_role].")
 	msg += span_warning("Use :t to communicate on a secure channel with Syndicate Agents.")
 	msg += span_warning("Hack APCs to gain processing time which you can use to unlock powerful Malfunction Abilities.")
 

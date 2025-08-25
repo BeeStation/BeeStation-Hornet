@@ -58,13 +58,11 @@
 /datum/element/art/commoner/apply_moodlet(atom/source, mob/living/user, impress)
 	var/msg
 	var/list/haters = list()
-	for(var/datum/department_group/hater_department in SSdepartment.department_datums)
-		if(!(hater_department.dept_bitflag & (DEPT_BITFLAG_SEC | DEPT_BITFLAG_COM)))
-			continue
-		for(var/job_name in hater_department.jobs)
-			var/datum/job/hater_job = SSjob.GetJob(job_name)
+	for(var/hater_department_type as anything in list(/datum/job_department/security, /datum/job_department/command))
+		var/datum/job_department/hater_department = SSjob.get_department_type(hater_department_type)
+		for(var/datum/job/hater_job as anything in hater_department.department_jobs)
 			haters += hater_job.title
-	var/datum/job/quartermaster/fucking_quartermaster = SSjob.GetJob(JOB_NAME_QUARTERMASTER)
+	var/datum/job/quartermaster/fucking_quartermaster = SSjob.get_job_type(/datum/job/quartermaster)
 	haters += fucking_quartermaster.title
 
 	if(!(user.mind.assigned_role.title in haters))
