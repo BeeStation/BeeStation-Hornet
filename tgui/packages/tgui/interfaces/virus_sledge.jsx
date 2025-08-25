@@ -1,8 +1,10 @@
-import { NtosWindow } from '../layouts';
-import { Section, Box, Button } from '../components';
-import { Component } from 'react';
-import { useBackend } from '../backend';
 import '../styles/virus_sledge_animation.scss';
+
+import { Component } from 'react';
+
+import { useBackend } from '../backend';
+import { Box, Button, Section } from '../components';
+import { NtosWindow } from '../layouts';
 
 const asciiLogo = String.raw`
   ________.__                .__
@@ -60,8 +62,9 @@ class VirusSledgeKey extends Component {
       const { frame, deciphered, keyActivated } = prev;
 
       if (deciphered < CODE_LENGTH) {
-        if (frame >= LOCK)
+        if (frame >= LOCK) {
           return { ...prev, deciphered: deciphered + 1, frame: 0 };
+        }
         return { ...prev, frame: frame + 1 };
       }
 

@@ -1,7 +1,7 @@
 import { Dropdown } from 'tgui-core/components';
 
-import { Button, Section, NoticeBox, ProgressBar } from '../components';
 import { useBackend } from '../backend';
+import { Button, NoticeBox, ProgressBar, Section } from '../components';
 import { Window } from '../layouts';
 
 export const ShuttleDesignator = (props) => {

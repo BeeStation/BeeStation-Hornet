@@ -1,6 +1,6 @@
 import { capitalizeFirst } from 'common/string';
 import { useBackend } from 'tgui/backend';
-import { Box, Icon, Flex, Button, Section, Collapsible } from 'tgui/components';
+import { Box, Button, Collapsible, Flex, Icon, Section } from 'tgui/components';
 import { Window } from 'tgui/layouts';
 
 export const Vote = (props) => {

@@ -1,6 +1,7 @@
 // Pure‑CSS scroller (no React timers)
-import { Box } from '../components';
 import '../styles/VirusReadme.scss';
+
+import { Box } from '../components';
 
 /**
  * @param header     – static ASCII banner (string)

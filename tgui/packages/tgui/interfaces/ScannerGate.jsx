@@ -1,7 +1,7 @@
 import { useBackend } from '../backend';
-import { Box, Button, LabeledList, Section, NumberInput } from '../components';
-import { InterfaceLockNoticeBox } from './common/InterfaceLockNoticeBox';
+import { Box, Button, LabeledList, NumberInput, Section } from '../components';
 import { Window } from '../layouts';
+import { InterfaceLockNoticeBox } from './common/InterfaceLockNoticeBox';
 
 const DISEASE_THEASHOLD_LIST = [
   'Positive',

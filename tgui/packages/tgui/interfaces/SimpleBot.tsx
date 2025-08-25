@@ -2,6 +2,7 @@ import { capitalizeAll, multiline } from 'common/string';
 import { useBackend } from 'tgui/backend';
 import {
   Button,
+  Flex,
   Icon,
   LabeledControls,
   NoticeBox,
@@ -9,10 +10,9 @@ import {
   Slider,
   Stack,
   Tooltip,
-  Flex,
 } from 'tgui/components';
-import { Window } from 'tgui/layouts';
 import { getGasLabel } from 'tgui/constants';
+import { Window } from 'tgui/layouts';
 
 type SimpleBotContext = {
   can_hack: number;

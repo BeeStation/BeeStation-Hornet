@@ -1,4 +1,6 @@
 import { sortBy } from 'common/collections';
+import { BooleanLike } from 'common/react';
+
 import { useBackend, useLocalState } from '../backend';
 import {
   BlockQuote,
@@ -12,7 +14,6 @@ import {
   Tabs,
 } from '../components';
 import { Window } from '../layouts';
-import { BooleanLike } from 'common/react';
 
 type Data = {
   records: WarrantRecord[];

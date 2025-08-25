@@ -1,5 +1,5 @@
-import { DmIcon } from 'tgui-core/components';
 import { CSSProperties } from 'react';
+import { DmIcon } from 'tgui-core/components';
 
 import { useBackend } from '../backend';
 import { Box, Flex, Icon } from '../components';

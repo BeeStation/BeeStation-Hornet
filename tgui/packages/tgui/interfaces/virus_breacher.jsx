@@ -1,8 +1,10 @@
-import { NtosWindow } from '../layouts';
-import { Section, Box, Button } from '../components';
-import { Component } from 'react';
-import { useBackend } from '../backend';
 import '../styles/virus_breacher_animation.scss';
+
+import { Component } from 'react';
+
+import { useBackend } from '../backend';
+import { Box, Button, Section } from '../components';
+import { NtosWindow } from '../layouts';
 
 const rawLogo = String.raw`
   ██████╗ ██████╗ ███████╗██╗  ██╗███████╗██████╗

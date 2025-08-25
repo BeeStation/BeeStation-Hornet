@@ -1,17 +1,18 @@
+import { clamp } from 'common/math';
 import { createSearch } from 'common/string';
+import { useState } from 'react';
+
 import { useBackend } from '../backend';
 import {
   Box,
   Button,
+  Collapsible,
   Input,
   NoticeBox,
   Section,
-  Collapsible,
   Table,
 } from '../components';
 import { Window } from '../layouts';
-import { clamp } from 'common/math';
-import { useState } from 'react';
 
 type Recipe = {
   ref: unknown | null;

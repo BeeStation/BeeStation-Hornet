@@ -1,5 +1,5 @@
-import { BooleanLike } from 'common/react';
 import { sortBy } from 'common/collections';
+import { BooleanLike } from 'common/react';
 
 export type StatThreshold = {
   /**
