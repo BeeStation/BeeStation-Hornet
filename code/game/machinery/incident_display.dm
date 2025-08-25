@@ -195,18 +195,18 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/incident_display/delam, 32)
 	if(machine_stat & (NOPOWER|BROKEN))
 		return
 
-	. += emissive_appearance(icon, "display_emissive", src, alpha = DISPLAY_BASE_ALPHA)
+	. += emissive_appearance(icon, "display_emissive", alpha = DISPLAY_BASE_ALPHA)
 
 	if(!COOLDOWN_FINISHED(src, active_advert)) // we don't show the static content during adverts
 		return
 
 	if(sign_features & DISPLAY_DELAM)
 		. += mutable_appearance(icon, "overlay_delam")
-		. += emissive_appearance(icon, "overlay_delam", src, alpha = DISPLAY_PIXEL_ALPHA)
+		. += emissive_appearance(icon, "overlay_delam", alpha = DISPLAY_PIXEL_ALPHA)
 
 		var/delam_pos1 = clamp(last_delam, 0, 199) % 10
 		var/mutable_appearance/delam_pos1_overlay = mutable_appearance(icon, "num_[delam_pos1]")
-		var/mutable_appearance/delam_pos1_emissive = emissive_appearance(icon, "num_[delam_pos1]", src, alpha = DISPLAY_PIXEL_ALPHA)
+		var/mutable_appearance/delam_pos1_emissive = emissive_appearance(icon, "num_[delam_pos1]", alpha = DISPLAY_PIXEL_ALPHA)
 		delam_pos1_overlay.color = delam_display_color
 		delam_pos1_overlay.pixel_w = DISPLAY_PIXEL_1_W
 		delam_pos1_emissive.pixel_w = DISPLAY_PIXEL_1_W
@@ -217,7 +217,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/incident_display/delam, 32)
 
 		var/delam_pos2 = (clamp(last_delam, 0, 199) / 10) % 10
 		var/mutable_appearance/delam_pos2_overlay = mutable_appearance(icon, "num_[delam_pos2]")
-		var/mutable_appearance/delam_pos2_emissive = emissive_appearance(icon, "num_[delam_pos2]", src, alpha = DISPLAY_PIXEL_ALPHA)
+		var/mutable_appearance/delam_pos2_emissive = emissive_appearance(icon, "num_[delam_pos2]", alpha = DISPLAY_PIXEL_ALPHA)
 		delam_pos2_overlay.color = delam_display_color
 		delam_pos2_overlay.pixel_w = DISPLAY_PIXEL_2_W
 		delam_pos2_emissive.pixel_w = DISPLAY_PIXEL_2_W
@@ -228,17 +228,17 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/incident_display/delam, 32)
 
 		if(last_delam >= 100)
 			. += mutable_appearance(icon, "num_100_red")
-			. += emissive_appearance(icon, "num_100_red", src, alpha = DISPLAY_BASE_ALPHA)
+			. += emissive_appearance(icon, "num_100_red", alpha = DISPLAY_BASE_ALPHA)
 
 		if(last_delam == delam_record)
 			var/mutable_appearance/delam_trend_overlay = mutable_appearance(icon, TREND_RISING)
-			var/mutable_appearance/delam_trend_emissive = emissive_appearance(icon, "[TREND_RISING]", src, alpha = DISPLAY_PIXEL_ALPHA)
+			var/mutable_appearance/delam_trend_emissive = emissive_appearance(icon, "[TREND_RISING]", alpha = DISPLAY_PIXEL_ALPHA)
 			delam_trend_overlay.color = COLOR_DISPLAY_GREEN
 			. += delam_trend_overlay
 			. += delam_trend_emissive
 		else
 			var/mutable_appearance/delam_trend_overlay = mutable_appearance(icon, TREND_FALLING)
-			var/mutable_appearance/delam_trend_emissive = emissive_appearance(icon, "[TREND_FALLING]", src, alpha = DISPLAY_PIXEL_ALPHA)
+			var/mutable_appearance/delam_trend_emissive = emissive_appearance(icon, "[TREND_FALLING]", alpha = DISPLAY_PIXEL_ALPHA)
 			delam_trend_overlay.color = COLOR_DISPLAY_RED
 			. += delam_trend_overlay
 			. += delam_trend_emissive
