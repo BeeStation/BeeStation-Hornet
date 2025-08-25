@@ -7,19 +7,40 @@ export const Folder = (props) => {
   const { act, data } = useBackend();
   const { theme, bg_color, folder_name, contents, contents_ref } = data;
   return (
-    <Window title={folder_name || 'Folder'} theme={theme} width={400} height={500}>
+    <Window
+      title={folder_name || 'Folder'}
+      theme={theme}
+      width={400}
+      height={500}
+    >
       <Window.Content backgroundColor={bg_color || '#7f7f7f'} scrollable>
         {contents.length > 0 ? (
           <>
             {contents.map((item, index) => (
               <>
-                <Flex color="black" backgroundColor="white" style={{ padding: '2px 2px 0 2px' }}>
+                <Flex
+                  color="black"
+                  backgroundColor="white"
+                  style={{ padding: '2px 2px 0 2px' }}
+                >
                   <Flex.Item align="center" grow={1}>
                     <Box align="center">{item}</Box>
                   </Flex.Item>
                   <Flex.Item>
-                    {<Button icon="search" onClick={() => act('examine', { ref: contents_ref[index] })} />}
-                    <Button icon="eject" onClick={() => act('remove', { ref: contents_ref[index] })} />
+                    {
+                      <Button
+                        icon="search"
+                        onClick={() =>
+                          act('examine', { ref: contents_ref[index] })
+                        }
+                      />
+                    }
+                    <Button
+                      icon="eject"
+                      onClick={() =>
+                        act('remove', { ref: contents_ref[index] })
+                      }
+                    />
                   </Flex.Item>
                 </Flex>
                 <Box style={{ height: '0.25em' }} />

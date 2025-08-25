@@ -1,4 +1,5 @@
 import { Dropdown } from 'tgui-core/components';
+
 import { RandomSetting } from './data';
 
 const options = [

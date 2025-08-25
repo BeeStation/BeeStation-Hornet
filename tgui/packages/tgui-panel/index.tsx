@@ -87,10 +87,20 @@ const setupApp = () => {
     setupHotReloading();
 
     module.hot.accept(
-      ['./audio', './chat', './game', './Notifications', './Panel', './ping', './settings', './stat', './telemetry'],
+      [
+        './audio',
+        './chat',
+        './game',
+        './Notifications',
+        './Panel',
+        './ping',
+        './settings',
+        './stat',
+        './telemetry',
+      ],
       () => {
         renderApp();
-      }
+      },
     );
   }
 };
