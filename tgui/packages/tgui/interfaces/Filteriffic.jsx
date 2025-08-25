@@ -1,3 +1,8 @@
+import { map } from 'common/collections';
+import { toFixed } from 'common/math';
+import { Dropdown } from 'tgui-core/components';
+
+import { numberOfDecimalDigits } from '../../common/math';
 import { useBackend, useLocalState } from '../backend';
 import {
   Box,
@@ -10,11 +15,7 @@ import {
   NumberInput,
   Section,
 } from '../components';
-import { Dropdown } from 'tgui-core/components';
 import { Window } from '../layouts';
-import { map } from 'common/collections';
-import { toFixed } from 'common/math';
-import { numberOfDecimalDigits } from '../../common/math';
 
 const FilterIntegerEntry = (props) => {
   const { value, name, filterName } = props;

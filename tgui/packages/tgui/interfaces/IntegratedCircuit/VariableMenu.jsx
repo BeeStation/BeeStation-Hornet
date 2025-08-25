@@ -1,7 +1,7 @@
 import { Dropdown } from 'tgui-core/components';
 
 import { useLocalState } from '../../backend';
-import { Box, Stack, Section, Button, Input } from '../../components';
+import { Box, Button, Input, Section, Stack } from '../../components';
 
 export const VariableMenu = (props) => {
   const {

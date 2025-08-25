@@ -1,7 +1,8 @@
-import { Box, Button, Icon, Input, Section, Table } from '../components';
 import { BooleanLike } from 'common/react';
 import { createSearch } from 'common/string';
+
 import { useBackend, useLocalState } from '../backend';
+import { Box, Button, Icon, Input, Section, Table } from '../components';
 import { COLORS } from '../constants';
 import { Window } from '../layouts';
 

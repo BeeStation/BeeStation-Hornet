@@ -1,11 +1,11 @@
 import { binaryInsertWith } from 'common/collections';
+import { multiline } from 'common/string';
 import { ReactNode } from 'react';
 import { useBackend } from 'tgui/backend';
-import { Box, Stack, Dropdown } from 'tgui-core/components';
+import { Box, Dropdown, Stack } from 'tgui-core/components';
 import { classes } from 'tgui-core/react';
 
 import { PreferencesMenuData } from '../../../data';
-import { multiline } from 'common/string';
 import {
   CheckboxInput,
   FeatureChoiced,
@@ -14,8 +14,8 @@ import {
   FeatureValueProps,
 } from '../base';
 import {
-  FeatureDropdownInput,
   FeatureButtonedDropdownInput,
+  FeatureDropdownInput,
 } from '../dropdowns';
 
 export const ghost_accs: FeatureChoiced = {

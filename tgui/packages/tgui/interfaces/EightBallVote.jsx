@@ -1,6 +1,7 @@
-import { useBackend } from '../backend';
-import { Box, Button, Table, Section, NoticeBox } from '../components';
 import { toTitleCase } from 'common/string';
+
+import { useBackend } from '../backend';
+import { Box, Button, NoticeBox, Section, Table } from '../components';
 import { Window } from '../layouts';
 
 export const EightBallVote = (props) => {

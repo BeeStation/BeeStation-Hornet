@@ -1,5 +1,5 @@
-import { Component } from 'react';
 import { hexToRgba } from 'common/color';
+import { Component } from 'react';
 
 const toDegrees = function (rad: number): number {
   return (rad / Math.PI) * 180;

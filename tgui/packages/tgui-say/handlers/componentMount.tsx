@@ -1,4 +1,4 @@
-import { CHANNELS, RADIO_PREFIXES, WINDOW_SIZES } from '../constants';
+import { CHANNELS, RADIO_PREFIXES } from '../constants';
 import { windowClose, windowLoad, windowOpen, windowSet } from '../helpers';
 import { Modal } from '../types';
 

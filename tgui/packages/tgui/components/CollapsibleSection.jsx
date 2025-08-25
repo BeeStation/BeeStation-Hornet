@@ -1,6 +1,6 @@
 import { useLocalState } from '../backend';
-import { Section } from './Section';
 import { Button } from './Button';
+import { Section } from './Section';
 
 export const CollapsibleSection = (props) => {
   const {

@@ -1,3 +1,5 @@
+import { Dropdown } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
 import {
   Button,
@@ -8,7 +10,6 @@ import {
   NumberInput,
   Section,
 } from '../components';
-import { Dropdown } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 export const NaniteCodes = (props) => {

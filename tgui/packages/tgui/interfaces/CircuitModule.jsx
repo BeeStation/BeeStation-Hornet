@@ -1,7 +1,7 @@
 import { Dropdown } from 'tgui-core/components';
 
 import { useBackend } from '../backend';
-import { Stack, Section, Input, Button } from '../components';
+import { Button, Input, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
 export const CircuitModule = (props) => {

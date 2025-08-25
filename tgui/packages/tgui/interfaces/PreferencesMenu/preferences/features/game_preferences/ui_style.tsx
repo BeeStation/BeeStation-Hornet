@@ -1,14 +1,15 @@
 import { classes } from 'common/react';
+import { Dropdown } from 'tgui-core/components';
+
+import { Box, Stack } from '../../../../../components';
 import {
+  CheckboxInput,
   FeatureChoiced,
   FeatureChoicedServerData,
+  FeatureToggle,
   FeatureValueProps,
   sortChoices,
-  FeatureToggle,
-  CheckboxInput,
 } from '../base';
-import { Box, Stack } from '../../../../../components';
-import { Dropdown } from 'tgui-core/components';
 
 const UIStyleInput = (
   props: FeatureValueProps<string, string, FeatureChoicedServerData>,

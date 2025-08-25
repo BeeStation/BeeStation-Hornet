@@ -1,7 +1,7 @@
 import {
-  FeatureValueProps,
-  FeatureChoicedServerData,
   FeatureChoiced,
+  FeatureChoicedServerData,
+  FeatureValueProps,
 } from '../base';
 import { FeatureIconnedDropdownInput } from '../dropdowns';
 

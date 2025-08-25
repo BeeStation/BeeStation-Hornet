@@ -1,12 +1,12 @@
 import { BooleanLike } from 'common/react';
+import { sanitizeText } from 'tgui/sanitize';
+import { DmIcon } from 'tgui-core/components';
+
 import { useBackend, useLocalState } from '../backend';
 import { Box, Icon, Section, Stack, Tabs } from '../components';
 import { Window } from '../layouts';
-import { ObjectivesSection, Objective } from './common/ObjectiveSection';
 import { AntagInfoHeader } from './common/AntagInfoHeader';
-import { sanitizeText } from 'tgui/sanitize';
-
-import { DmIcon } from 'tgui-core/components';
+import { Objective, ObjectivesSection } from './common/ObjectiveSection';
 
 type VampireInformation = {
   clan: ClanInfo[];

@@ -1,8 +1,8 @@
-import { useBackend } from '../backend';
-import { flow } from 'common/fp';
 import { sortBy } from 'common/collections';
-import { map } from 'common/collections';
-import { Button, Section, Box, Tabs } from '../components';
+import { flow } from 'common/fp';
+
+import { useBackend } from '../backend';
+import { Box, Button, Section } from '../components';
 import { Window } from '../layouts';
 
 export const ForbiddenLore = (props) => {

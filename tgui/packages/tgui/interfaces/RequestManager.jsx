@@ -5,7 +5,6 @@
  */
 
 import { decodeHtmlEntities } from 'common/string';
-import { useState } from 'react';
 
 import { useBackend, useLocalState } from '../backend';
 import { Button, Input, Popper, Section, Table } from '../components';

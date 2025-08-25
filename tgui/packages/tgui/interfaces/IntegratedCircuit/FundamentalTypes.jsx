@@ -1,6 +1,7 @@
-import { BasicInput } from './BasicInput';
-import { NumberInput, Button, Stack, Input, Box } from '../../components';
 import { Dropdown } from 'tgui-core/components';
+
+import { Button, Input, NumberInput, Stack } from '../../components';
+import { BasicInput } from './BasicInput';
 
 export const FUNDAMENTAL_DATA_TYPES = {
   string: (props) => {

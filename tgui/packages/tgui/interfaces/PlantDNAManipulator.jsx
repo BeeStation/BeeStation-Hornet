@@ -1,15 +1,13 @@
-import { sortBy } from 'common/collections';
-import { toTitleCase } from 'common/string';
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
 import {
-  Button,
-  Section,
-  Table,
-  Modal,
-  Stack,
-  LabeledList,
-  NoticeBox,
   Box,
+  Button,
+  LabeledList,
+  Modal,
+  NoticeBox,
+  Section,
+  Stack,
+  Table,
   Tooltip,
 } from '../components';
 import { Window } from '../layouts';

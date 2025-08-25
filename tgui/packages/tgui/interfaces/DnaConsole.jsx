@@ -1,6 +1,8 @@
 import { filter, uniqBy } from 'common/collections';
 import { classes } from 'common/react';
 import { capitalize } from 'common/string';
+import { Dropdown } from 'tgui-core/components';
+
 import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
 import {
@@ -16,7 +18,6 @@ import {
   ProgressBar,
   Section,
 } from '../components';
-import { Dropdown } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 const SUBJECT_CONSCIOUS = 0;

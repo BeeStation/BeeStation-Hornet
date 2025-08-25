@@ -1,11 +1,12 @@
+import { isEscape } from 'common/keys';
+import { Component, createRef } from 'react';
 import { TextArea } from 'tgui/components';
-import { WINDOW_SIZES } from '../constants';
 import { dragStartHandler } from 'tgui/drag';
+
+import { WINDOW_SIZES } from '../constants';
 import { eventHandlerMap } from '../handlers';
 import { getCss, getTheme, timers } from '../helpers';
-import { Component, createRef } from 'react';
 import { Modal, State } from '../types';
-import { isEscape } from 'common/keys';
 
 /** Primary class for the TGUI say modal. */
 export class TguiSay extends Component<{}, State> {

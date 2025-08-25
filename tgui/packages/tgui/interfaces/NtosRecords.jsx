@@ -1,4 +1,5 @@
 import { createSearch } from 'common/string';
+
 import { useBackend, useLocalState } from '../backend';
 import { Box, Icon, Input, Section } from '../components';
 import { NtosWindow } from '../layouts';

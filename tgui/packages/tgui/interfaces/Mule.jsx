@@ -1,14 +1,14 @@
+import { Dropdown } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
 import {
   Button,
-  Grid,
+  Flex,
   Input,
   LabeledList,
   ProgressBar,
   Section,
-  Flex,
 } from '../components';
-import { Dropdown } from 'tgui-core/components';
 import { Window } from '../layouts';
 import { InterfaceLockNoticeBox } from './common/InterfaceLockNoticeBox';
 

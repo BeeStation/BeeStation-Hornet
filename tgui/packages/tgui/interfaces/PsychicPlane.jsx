@@ -1,12 +1,5 @@
 import { useBackend } from '../backend';
-import {
-  Box,
-  Button,
-  LabeledList,
-  NoticeBox,
-  Section,
-  Tabs,
-} from '../components';
+import { Button, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
 export const PsychicPlane = (props) => {

@@ -1,9 +1,10 @@
 import { sortBy } from 'common/collections';
 import { classes } from 'common/react';
 import { PropsWithChildren, ReactNode } from 'react';
-import { useBackend } from '../../backend';
-import { Box, Button, Stack, Flex, Tooltip } from '../../components';
 import { Dropdown } from 'tgui-core/components';
+
+import { useBackend } from '../../backend';
+import { Box, Button, Flex, Stack, Tooltip } from '../../components';
 import {
   createSetPreference,
   Job,

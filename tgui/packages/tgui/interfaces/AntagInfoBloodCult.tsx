@@ -1,9 +1,9 @@
+import { resolveAsset } from '../assets';
 import { useBackend, useLocalState } from '../backend';
 import { Box, Section, Stack, Tabs } from '../components';
 import { Window } from '../layouts';
-import { ObjectivesSection, Objective } from './common/ObjectiveSection';
-import { resolveAsset } from '../assets';
 import { AntagInfoHeader } from './common/AntagInfoHeader';
+import { Objective, ObjectivesSection } from './common/ObjectiveSection';
 
 type Info = {
   objectives: Objective[];

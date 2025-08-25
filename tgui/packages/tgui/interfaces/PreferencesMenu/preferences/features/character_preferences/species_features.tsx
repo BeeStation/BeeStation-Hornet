@@ -1,7 +1,7 @@
 import {
-  FeatureColorInput,
   Feature,
   FeatureChoiced,
+  FeatureColorInput,
   FeatureValueProps,
 } from '../base';
 import {

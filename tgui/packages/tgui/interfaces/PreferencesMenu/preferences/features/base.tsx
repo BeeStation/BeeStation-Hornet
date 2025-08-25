@@ -1,10 +1,10 @@
 import { sortBy } from 'common/collections';
 import { BooleanLike } from 'common/react';
 import { ComponentType, createElement, ReactNode } from 'react';
+import { Dropdown } from 'tgui-core/components';
 
 import { sendAct, useBackend, useLocalState } from '../../../../backend';
 import { Box, Button, Input, NumberInput, Stack } from '../../../../components';
-import { Dropdown } from 'tgui-core/components';
 import { createSetPreference, PreferencesMenuData } from '../../data';
 import { ServerPreferencesFetcher } from '../../ServerPreferencesFetcher';
 import features from '.';
@@ -44,14 +44,14 @@ export type FeatureValueProps<
   TReceiving,
   TSending = TReceiving,
   TServerData = undefined,
-> = {
+> = Readonly<{
   act: typeof sendAct;
   featureId: string;
   handleSetValue: (newValue: TSending) => void;
   serverData: TServerData | undefined;
   shrink?: boolean;
   value?: TReceiving;
-};
+}>;
 
 export const FeatureColorInput = (props: FeatureValueProps<string>) => {
   return (

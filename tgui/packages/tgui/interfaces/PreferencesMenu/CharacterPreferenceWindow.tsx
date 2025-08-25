@@ -1,17 +1,18 @@
 import { exhaustiveCheck } from 'common/exhaustive';
-import { useBackend, useLocalState } from '../../backend';
-import { Button, Flex, Stack, Divider } from '../../components';
-import { Window } from '../../layouts';
-import { PreferencesMenuData } from './data';
-import { PageButton } from './PageButton';
-import { AntagsPage } from './AntagsPage';
-import { JobsPage } from './JobsPage';
-import { MainPage } from './MainPage';
-import { SpeciesPage } from './SpeciesPage';
-import { QuirksPage } from './QuirksPage';
-import { LoadoutPage } from './LoadoutPage';
 import { BooleanLike } from 'common/react';
+
+import { useBackend, useLocalState } from '../../backend';
+import { Button, Divider, Flex, Stack } from '../../components';
+import { Window } from '../../layouts';
+import { AntagsPage } from './AntagsPage';
+import { PreferencesMenuData } from './data';
+import { JobsPage } from './JobsPage';
+import { LoadoutPage } from './LoadoutPage';
+import { MainPage } from './MainPage';
+import { PageButton } from './PageButton';
+import { QuirksPage } from './QuirksPage';
 import { SaveStatus } from './SaveStatus';
+import { SpeciesPage } from './SpeciesPage';
 
 enum Page {
   Antags,

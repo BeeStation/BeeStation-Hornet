@@ -1,12 +1,12 @@
+import { useBackend } from '../backend';
 import {
-  Button,
-  TextArea,
-  Section,
   BlockQuote,
+  Button,
   NoticeBox,
+  Section,
+  TextArea,
 } from '../components';
 import { Window } from '../layouts';
-import { useBackend } from '../backend';
 
 export const Interview = (props) => {
   const { act, data } = useBackend();

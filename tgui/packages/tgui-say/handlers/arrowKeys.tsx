@@ -1,4 +1,5 @@
 import { KEY_DOWN, KEY_UP } from 'common/keycodes';
+
 import { getHistoryLength } from '../helpers';
 import { Modal } from '../types';
 

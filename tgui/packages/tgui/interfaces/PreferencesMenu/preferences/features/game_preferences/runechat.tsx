@@ -1,6 +1,6 @@
 import {
-  Feature,
   CheckboxInput,
+  Feature,
   FeatureNumberInput,
   FeatureNumeric,
   FeatureToggle,

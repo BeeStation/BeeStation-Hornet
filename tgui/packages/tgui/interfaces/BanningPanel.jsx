@@ -1,18 +1,19 @@
 /* eslint-disable react/prefer-stateless-function */
+import { Dropdown } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
 import {
-  Button,
-  Input,
-  TextArea,
-  LabeledList,
-  Section,
   Box,
-  Stack,
+  Button,
   Collapsible,
   Flex,
+  Input,
+  LabeledList,
   NumberInput,
+  Section,
+  Stack,
+  TextArea,
 } from '../components';
-import { Dropdown } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 const KEY_REGEX =

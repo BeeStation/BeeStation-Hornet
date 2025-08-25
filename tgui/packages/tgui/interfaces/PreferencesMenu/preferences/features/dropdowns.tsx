@@ -1,10 +1,10 @@
 import { classes } from 'common/react';
 import { capitalizeFirst } from 'common/string';
 import { ReactNode } from 'react';
-import { sendAct } from '../../../../backend';
 import { Dropdown } from 'tgui-core/components';
 
-import { Box, Button, Stack, Flex, Tooltip } from '../../../../components';
+import { sendAct } from '../../../../backend';
+import { Box, Button, Flex, Stack, Tooltip } from '../../../../components';
 import { Feature, FeatureChoicedServerData, FeatureValueProps } from './base';
 
 type DropdownInputProps = FeatureValueProps<

@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Collapsible, Table, Section } from '../components';
+import { Collapsible, Section, Table } from '../components';
 import { Window } from '../layouts';
 
 type Data = {

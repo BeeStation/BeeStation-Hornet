@@ -9,8 +9,8 @@ import {
   forwardRef,
   ReactNode,
   RefObject,
-  useEffect,
   UIEventHandler,
+  useEffect,
 } from 'react';
 
 import { addScrollableNode, removeScrollableNode } from '../events';

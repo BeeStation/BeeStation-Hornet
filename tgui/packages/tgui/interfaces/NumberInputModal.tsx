@@ -1,11 +1,12 @@
-import { Loader } from './common/Loader';
-import { InputButtons } from './common/InputButtons';
 import { isEscape, KEY } from 'common/keys';
-import { useState, useEffect } from 'react';
 import { clamp } from 'common/math';
+import { useEffect, useState } from 'react';
+
 import { useBackend } from '../backend';
 import { Box, Button, RestrictedInput, Section, Stack } from '../components';
 import { Window } from '../layouts';
+import { InputButtons } from './common/InputButtons';
+import { Loader } from './common/Loader';
 
 type NumberInputData = {
   init_value: number;

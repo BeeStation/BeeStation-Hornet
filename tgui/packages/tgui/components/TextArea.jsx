@@ -5,11 +5,12 @@
  * @license MIT
  */
 
+import { isEscape, KEY } from 'common/keys';
 import { classes } from 'common/react';
 import { Component, createRef } from 'react';
+
 import { Box } from './Box';
 import { toInputValue } from './Input';
-import { isEscape, KEY } from 'common/keys';
 
 export class TextArea extends Component {
   constructor(props) {

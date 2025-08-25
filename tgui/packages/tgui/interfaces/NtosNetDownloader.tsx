@@ -1,18 +1,19 @@
 import { filter, sortBy } from 'common/collections';
-import { useState } from 'react';
 import { scale, toFixed } from 'common/math';
 import { BooleanLike } from 'common/react';
 import { createSearch } from 'common/string';
+import { useState } from 'react';
+
 import { useBackend } from '../backend';
 import {
   Box,
   Button,
-  Stack,
   Icon,
   LabeledList,
   NoticeBox,
   ProgressBar,
   Section,
+  Stack,
   Tabs,
 } from '../components';
 import { NtosWindow } from '../layouts';

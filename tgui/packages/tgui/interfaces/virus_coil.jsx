@@ -1,8 +1,10 @@
-import { NtosWindow } from '../layouts';
-import { Section, Box, Button } from '../components';
-import { Component } from 'react';
-import { useBackend } from '../backend';
 import '../styles/virus_coil_animation.scss';
+
+import { Component } from 'react';
+
+import { useBackend } from '../backend';
+import { Box, Button, Section } from '../components';
+import { NtosWindow } from '../layouts';
 
 const asciiLogo = String.raw`
    _____         _  _

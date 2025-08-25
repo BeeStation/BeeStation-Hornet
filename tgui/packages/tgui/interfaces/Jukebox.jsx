@@ -1,14 +1,15 @@
 import { sortBy } from 'common/collections';
+import { Dropdown } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
 import {
   Box,
   Button,
-  Section,
   Knob,
   LabeledControls,
   LabeledList,
+  Section,
 } from '../components';
-import { Dropdown } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 export const Jukebox = (props) => {

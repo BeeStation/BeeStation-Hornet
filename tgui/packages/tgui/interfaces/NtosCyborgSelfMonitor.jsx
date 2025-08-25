@@ -5,10 +5,10 @@ import {
   Button,
   Flex,
   Fragment,
+  LabeledList,
+  ProgressBar,
   Section,
   Slider,
-  ProgressBar,
-  LabeledList,
   Tabs,
 } from '../components';
 import { NtosWindow } from '../layouts';

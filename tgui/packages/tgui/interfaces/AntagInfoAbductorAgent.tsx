@@ -1,8 +1,8 @@
-import { useBackend } from '../backend';
-import { Box, BlockQuote, Section, Stack } from '../components';
-import { Window } from '../layouts';
-import { ObjectivesSection, Objective } from './common/ObjectiveSection';
 import { resolveAsset } from '../assets';
+import { useBackend } from '../backend';
+import { BlockQuote, Box, Section, Stack } from '../components';
+import { Window } from '../layouts';
+import { Objective, ObjectivesSection } from './common/ObjectiveSection';
 
 type Info = {
   members: string[];

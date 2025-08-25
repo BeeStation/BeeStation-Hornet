@@ -1,19 +1,19 @@
+import { exhaustiveCheck } from 'common/exhaustive';
+import { BooleanLike } from 'common/react';
+import { Dropdown } from 'tgui-core/components';
+
+import { useBackend, useLocalState } from '../backend';
 import {
   Box,
   Button,
-  Divider,
-  Tabs,
   Chart,
-  Section,
+  Divider,
   Flex,
   LabeledList,
   NumberInput,
+  Section,
+  Tabs,
 } from '../components';
-import { Dropdown } from 'tgui-core/components';
-import { exhaustiveCheck } from 'common/exhaustive';
-import { BooleanLike } from 'common/react';
-
-import { useBackend, useLocalState } from '../backend';
 import { Window } from '../layouts';
 
 type Data = {

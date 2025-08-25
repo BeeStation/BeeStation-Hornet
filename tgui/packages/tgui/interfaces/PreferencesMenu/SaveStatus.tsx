@@ -1,6 +1,6 @@
+import { useBackend } from '../../backend';
 import { Box, Tooltip } from '../../components';
 import { PreferencesMenuData } from './data';
-import { useBackend } from '../../backend';
 
 export const SaveStatus = (props) => {
   const { data } = useBackend<PreferencesMenuData>();

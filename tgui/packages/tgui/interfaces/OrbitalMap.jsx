@@ -2,24 +2,25 @@
 
 // Made by powerfulbacon
 
+import { useState } from 'react';
+import { useRef } from 'react';
+import { Dropdown } from 'tgui-core/components';
+
+import { useBackend } from '../backend';
 import {
   Box,
   Button,
-  Section,
-  Table,
-  DraggableClickableControl,
   Divider,
-  NoticeBox,
-  ProgressBar,
+  DraggableClickableControl,
   Flex,
+  NoticeBox,
   OrbitalMapComponent,
   OrbitalMapSvg,
+  ProgressBar,
+  Section,
+  Table,
 } from '../components';
-import { Dropdown } from 'tgui-core/components';
-import { useBackend } from '../backend';
-import { useState } from 'react';
 import { Window } from '../layouts';
-import { useRef } from 'react';
 
 export const OrbitalMap = (props) => {
   const { act, data } = useBackend();

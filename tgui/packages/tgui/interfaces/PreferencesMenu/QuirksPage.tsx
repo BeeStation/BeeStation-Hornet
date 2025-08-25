@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { Box, Icon, Stack, Tooltip } from '../../components';
-import { PreferencesMenuData, Quirk, ServerData } from './data';
-import { useBackend } from '../../backend';
-import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
 import { logger } from 'tgui/logging';
+
+import { useBackend } from '../../backend';
+import { Box, Icon, Stack, Tooltip } from '../../components';
+import { PreferencesMenuData, Quirk } from './data';
+import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
 
 function getValueClass(value: number) {
   if (value > 0) {

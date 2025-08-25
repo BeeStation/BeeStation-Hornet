@@ -1,4 +1,4 @@
-import { FeatureToggle, CheckboxInput } from '../base';
+import { CheckboxInput, FeatureToggle } from '../base';
 
 export const glasses_color: FeatureToggle = {
   name: 'Enable glasses tint',

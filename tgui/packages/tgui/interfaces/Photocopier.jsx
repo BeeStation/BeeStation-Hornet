@@ -1,6 +1,6 @@
+import { sortBy } from 'common/collections';
 import { Dropdown } from 'tgui-core/components';
 
-import { sortBy } from 'common/collections';
 import { useBackend } from '../backend';
 import {
   Box,

@@ -1,15 +1,16 @@
 import { createSearch } from 'common/string';
+
 import { useBackend, useLocalState } from '../backend';
-import { Window } from '../layouts';
 import {
-  Input,
+  Box,
   Button,
+  Icon,
+  Input,
+  LabeledList,
   Section,
   Tabs,
-  LabeledList,
-  Box,
-  Icon,
 } from '../components';
+import { Window } from '../layouts';
 
 export const Morph = () => {
   return (

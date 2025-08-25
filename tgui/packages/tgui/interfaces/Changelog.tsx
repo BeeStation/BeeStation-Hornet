@@ -1,6 +1,11 @@
 import { classes } from 'common/react';
-import { useBackend } from '../backend';
+import dateformat from 'dateformat';
+import yaml from 'js-yaml';
 import { Component, Fragment } from 'react';
+import { Dropdown } from 'tgui-core/components';
+
+import { resolveAsset } from '../assets';
+import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -10,11 +15,7 @@ import {
   Stack,
   Table,
 } from '../components';
-import { Dropdown } from 'tgui-core/components';
 import { Window } from '../layouts';
-import { resolveAsset } from '../assets';
-import dateformat from 'dateformat';
-import yaml from 'js-yaml';
 
 const icons = {
   add: { icon: 'check-circle', color: 'green' },
