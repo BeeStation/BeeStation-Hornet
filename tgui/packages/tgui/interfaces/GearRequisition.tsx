@@ -49,8 +49,6 @@ interface ProductDisplayProps {
   stockSearch: string;
   setStockSearch: (search: string) => void;
   selectedCategory: string;
-  setSelectedCategory: (category: string) => void;
-  filteredCategories: Record<string, Category>;
 }
 
 interface ProductProps {
@@ -111,8 +109,6 @@ export const GearRequisition = () => {
               stockSearch={stockSearch}
               setStockSearch={setStockSearch}
               selectedCategory={selectedCategory}
-              setSelectedCategory={setSelectedCategory}
-              filteredCategories={filteredCategories}
             />
           </Stack.Item>
           {stockSearch.length < 2 &&

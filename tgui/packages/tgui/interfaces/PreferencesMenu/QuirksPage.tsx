@@ -28,7 +28,7 @@ type QuirkProps = {
 };
 
 function QuirkList(props: QuirkProps & QuirkListProps) {
-  const { quirks = [], onClick } = props;
+  const { quirks = [], selected, onClick } = props;
 
   return (
     // Stack is not used here for a variety of IE flex bugs
@@ -39,7 +39,7 @@ function QuirkList(props: QuirkProps & QuirkListProps) {
           onClick={onClick}
           quirk={quirk}
           quirkKey={quirkKey}
-          selected={props.selected}
+          selected={selected}
         />
       ))}
     </Box>
@@ -54,7 +54,7 @@ type QuirkDisplayProps = {
 } & QuirkProps;
 
 function QuirkDisplay(props: QuirkDisplayProps) {
-  const { quirk, quirkKey, onClick } = props;
+  const { quirk, quirkKey, onClick, selected } = props;
   const { icon, value, name, description, failTooltip } = quirk;
 
   const className = 'PreferencesMenu__Quirks__QuirkList__quirk';
@@ -70,6 +70,9 @@ function QuirkDisplay(props: QuirkDisplayProps) {
       tabIndex="1"
       onClick={(event) => {
         event.stopPropagation();
+        if (selected) {
+        }
+
         onClick(quirkKey, quirk);
       }}
     >
