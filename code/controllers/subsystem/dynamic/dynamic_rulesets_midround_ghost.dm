@@ -340,14 +340,17 @@
 	player_mind.active = TRUE
 
 	var/mob/living/carbon/human/nightmare_body = new(pick(spawn_locations))
-	player_mind.set_assigned_role(SSjob.GetJobType(/datum/job/nightmare))
-	player_mind.special_role = ROLE_NIGHTMARE
+	player_mind.add_antag_datum(/datum/antagonist/nightmare)
 	nightmare_body.set_species(/datum/species/shadow/nightmare)
 	player_mind.transfer_to(nightmare_body)
 
 	playsound(nightmare_body, 'sound/magic/ethereal_exit.ogg', 50, TRUE, -1)
 
 	return nightmare_body
+
+/datum/dynamic_ruleset/midround/ghost/nightmare/finish_setup(mob/new_character)
+	new_character.mind.set_assigned_role(SSjob.GetJobType(/datum/job/nightmare))
+	new_character.mind.special_role = ROLE_NIGHTMARE
 
 //////////////////////////////////////////////
 //                                          //
@@ -371,12 +374,11 @@
 	return /obj/item/melee/baton/abductor
 
 /datum/dynamic_ruleset/midround/ghost/abductors/finish_setup(mob/new_character)
-	new_character.mind.special_role = ROLE_ABDUCTOR
-	new_character.mind.assigned_role = ROLE_ABDUCTOR
-
 	if(!has_made_leader)
 		has_made_leader = TRUE
 		team = new
+		if(team.team_number > ABDUCTOR_MAX_TEAMS)
+			return MAP_ERROR
 
 		new_character.mind.add_antag_datum(/datum/antagonist/abductor/scientist, team)
 	else
@@ -402,8 +404,8 @@
 	return /obj/item/melee/baton/abductor
 
 /datum/dynamic_ruleset/midround/ghost/lone_abductor/finish_setup(mob/new_character)
+	new_character.mind.set_assigned_role(SSjob.GetJobType(/datum/job/abductor_solo))
 	new_character.mind.special_role = ROLE_ABDUCTOR
-	new_character.mind.assigned_role = ROLE_ABDUCTOR
 
 	team = new
 	new_character.mind.add_antag_datum(antag_datum, team)
