@@ -73,8 +73,6 @@
 
 	var/saved_screen //for saving the screen when they die
 	var/datum/action/innate/change_screen/change_screen
-	//Shitcode conditional
-	var/reviving = FALSE
 
 	speak_no_tongue = FALSE  // who stole my soundblaster?! (-candy/etherware)
 
@@ -235,10 +233,6 @@
 	return
 
 /datum/species/ipc/proc/mechanical_revival(mob/living/carbon/human/H)
-	//Check to prevent multiple calls from the same revive
-	if(reviving)
-		return
-	reviving = TRUE
 
 	H.notify_ghost_cloning("You have been repaired!")
 	H.grab_ghost()
@@ -248,7 +242,6 @@
 
 /datum/species/ipc/proc/declare_revival(mob/living/carbon/human/H)
 	H.say("Reactivating [pick("core systems", "central subroutines", "key functions")]...")
-	reviving = FALSE
 	sleep(3 SECONDS)
 	if(H.stat == DEAD)
 		return
