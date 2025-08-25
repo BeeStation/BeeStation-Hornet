@@ -377,8 +377,6 @@
 	if(!has_made_leader)
 		has_made_leader = TRUE
 		team = new
-		if(team.team_number > ABDUCTOR_MAX_TEAMS)
-			return MAP_ERROR
 
 		new_character.mind.add_antag_datum(/datum/antagonist/abductor/scientist, team)
 	else
