@@ -1,10 +1,27 @@
 import { useBackend } from '../backend';
-import { Box, Button, LabeledList, NoticeBox, ProgressBar, Section, Stack } from '../components';
+import {
+  Box,
+  Button,
+  NoticeBox,
+  ProgressBar,
+  Section,
+  Stack,
+} from '../components';
 import { Window } from '../layouts';
 
 export const BluespaceArtillery = (props) => {
   const { act, data } = useBackend();
-  const { notice, connected, unlocked, target_ref, target_name, charge, max_charge, formatted_charge, targets } = data;
+  const {
+    notice,
+    connected,
+    unlocked,
+    target_ref,
+    target_name,
+    charge,
+    max_charge,
+    formatted_charge,
+    targets,
+  } = data;
   return (
     <Window width={600} height={280}>
       <Window.Content>
@@ -23,7 +40,8 @@ export const BluespaceArtillery = (props) => {
                     good: [max_charge, Infinity],
                     average: [max_charge * 0.2, max_charge * 0.99],
                     bad: [-Infinity, max_charge * 0.2],
-                  }}>
+                  }}
+                >
                   {formatted_charge}
                 </ProgressBar>
               </Section>
@@ -51,7 +69,10 @@ export const BluespaceArtillery = (props) => {
                     <Box color="bad" fontSize="18px">
                       Bluespace artillery is currently locked.
                     </Box>
-                    <Box mt={1}>Awaiting authorization via keycard reader from at minimum two station heads.</Box>
+                    <Box mt={1}>
+                      Awaiting authorization via keycard reader from at minimum
+                      two station heads.
+                    </Box>
                   </>
                 )}
               </Section>
@@ -63,9 +84,13 @@ export const BluespaceArtillery = (props) => {
                     <Box key={`${key}-${index}`} mb={1}>
                       <Button
                         fluid
-                        color={target_ref && key === target_ref ? 'bad' : 'blue'}
+                        color={
+                          target_ref && key === target_ref ? 'bad' : 'blue'
+                        }
                         content={value}
-                        onClick={() => act('set_target', { chosen_target: key })}
+                        onClick={() =>
+                          act('set_target', { chosen_target: key })
+                        }
                       />
                     </Box>
                   ))}
@@ -76,7 +101,11 @@ export const BluespaceArtillery = (props) => {
         ) : (
           <Section>
             <Box>
-              <Button icon="wrench" content="Complete Deployment" onClick={() => act('build')} />
+              <Button
+                icon="wrench"
+                content="Complete Deployment"
+                onClick={() => act('build')}
+              />
             </Box>
           </Section>
         )}

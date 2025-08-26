@@ -842,8 +842,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	if(isliving(arrived) && holder_animal)
 		var/mob/living/L = arrived
 		L.notransform = 1
-		ADD_TRAIT(L, TRAIT_MUTE, STASIS_MUTE)
-		L.status_flags |= GODMODE
+		L.add_traits(list(TRAIT_MUTE, TRAIT_GODMODE), STASIS_MUTE)
 		L.mind.transfer_to(holder_animal)
 		var/datum/action/exit_possession/P = new /datum/action/exit_possession
 		P.Grant(holder_animal)
@@ -852,8 +851,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 /obj/structure/closet/stasis/dump_contents(kill = TRUE)
 	STOP_PROCESSING(SSobj, src)
 	for(var/mob/living/L in src)
-		REMOVE_TRAIT(L, TRAIT_MUTE, STASIS_MUTE)
-		L.status_flags &= ~GODMODE
+		L.remove_traits(list(TRAIT_MUTE, TRAIT_GODMODE), STASIS_MUTE)
 		L.notransform = 0
 		if(holder_animal)
 			var/datum/action/exit_possession/P = new /datum/action/exit_possession

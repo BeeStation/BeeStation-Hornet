@@ -9,18 +9,19 @@ const Story = () => {
   return (
     <>
       <Popper
-        popperContent={
+        isOpen
+        content={
           <Box
             style={{
               background: 'white',
               border: '2px solid blue',
-            }}>
+            }}
+          >
             Loogatme!
           </Box>
         }
-        options={{
-          placement: 'bottom',
-        }}>
+        placement="bottom"
+      >
         <Box
           style={{
             border: '5px solid white',
@@ -31,18 +32,19 @@ const Story = () => {
       </Popper>
 
       <Popper
-        popperContent={
+        isOpen
+        content={
           <Box
             style={{
               background: 'white',
               border: '2px solid blue',
-            }}>
+            }}
+          >
             I am on the right!
           </Box>
         }
-        options={{
-          placement: 'right',
-        }}>
+        placement="right"
+      >
         <Box
           style={{
             border: '5px solid white',

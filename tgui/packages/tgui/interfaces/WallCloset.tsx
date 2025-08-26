@@ -1,5 +1,8 @@
+import { CSSProperties } from 'react';
+import { DmIcon } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Box, Flex, DmIcon, Icon } from '../components';
+import { Box, Flex, Icon } from '../components';
 import { Window } from '../layouts';
 
 type WallClosetData = {
@@ -80,10 +83,11 @@ const Cell = (props) => {
                   height="100%"
                   width="100%"
                   backgroundColor="red"
-                  style={{
-                    imageRendering: 'pixelated',
-                    msInterpolationMode: 'nearest-neighbor',
-                  }}
+                  style={
+                    {
+                      imageRendering: 'pixelated',
+                    } as CSSProperties
+                  }
                 />
               ) : (
                 <Box
@@ -101,7 +105,10 @@ const Cell = (props) => {
               )}
             </Box>
           )}
-          <Box className="WallCloset_Slot" onClick={() => act('ItemClick', { 'SlotKey': props.index + 1 })}>
+          <Box
+            className="WallCloset_Slot"
+            onClick={() => act('ItemClick', { SlotKey: props.index + 1 })}
+          >
             {props.name}
           </Box>
         </Box>
