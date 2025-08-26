@@ -648,6 +648,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/narsie)
 		revives_used += SOULS_TO_REVIVE
 		mob_to_revive.revive(ADMIN_HEAL_ALL) //This does remove traits and such, but the rune might actually see some use because of it! //Why did you think this was a good idea
 		mob_to_revive.grab_ghost()
+		
 	if(!mob_to_revive.client || mob_to_revive.client.is_afk())
 		set waitfor = FALSE
 		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(
