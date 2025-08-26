@@ -825,7 +825,7 @@
 	sync_lighting_plane_alpha()
 
 /mob/living/silicon/robot/update_stat()
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	if(stat != DEAD)
 		if(health <= 0) //die only once

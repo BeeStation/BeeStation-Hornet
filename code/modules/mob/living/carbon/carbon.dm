@@ -539,7 +539,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 //Updates the mob's health from bodyparts and mob damage variables
 /mob/living/carbon/updatehealth()
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	var/total_burn	= 0
 	var/total_brute	= 0
@@ -842,7 +842,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 			REMOVE_TRAIT(src, TRAIT_SIXTHSENSE, "near-death")
 
 /mob/living/carbon/update_stat()
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	if(stat != DEAD)
 		if(health <= HEALTH_THRESHOLD_DEAD && !HAS_TRAIT(src, TRAIT_NODEATH))
