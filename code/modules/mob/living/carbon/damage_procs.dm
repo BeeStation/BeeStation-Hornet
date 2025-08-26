@@ -124,7 +124,7 @@
 	if(O && !(status_flags & GODMODE))
 		if(required_status && O.status != required_status)
 			return FALSE
-		O.applyOrganDamage(amount, maximum)
+		O.apply_organ_damage(amount, maximum)
 
 /** setOrganLoss
   * inputs: slot (organ slot, like ORGAN_SLOT_HEART), amount(damage to be set to)
