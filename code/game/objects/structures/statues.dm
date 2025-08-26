@@ -289,11 +289,3 @@
 	max_integrity = 350
 	material_drop_type = /obj/item/stack/sheet/mineral/copper
 	desc = "This is a statue made from copper."
-
-/obj/structure/statue/copper/dimas
-	name = "statue of the quartermaster"
-	desc = "This is a statue of the legendary Quartermaster, Lord of Cargonia the land of stolen things."
-	max_integrity = 300
-	icon_state = "dimas"
-	oreAmount = 10 //dimas b dense
-	impressiveness = -5 // A testament to one's pride isnt particularly impressive
