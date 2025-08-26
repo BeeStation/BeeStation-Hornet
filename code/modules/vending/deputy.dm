@@ -97,12 +97,6 @@
 			flick(icon_deny,src)
 			return
 
-	else if(item_category == "Kit")
-		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
-		say("ERROR! You are already enlisted. Please purchase spare gear separately.")
-		flick(icon_deny,src)
-		return
-
 	..()
 
 	vend_reply = initial(vend_reply)
