@@ -180,6 +180,18 @@
 	REMOVE_TRAIT(target, TEST_TRAIT, SOURCE_A)
 	TEST_ASSERT_NULL(GET_TRAIT_VALUE(target, TEST_TRAIT), "test failed")
 
+/datum/unit_test/multiplicative_trait_reset/Run()
+	var/atom/target = allocate(/atom/movable)
+	// Start at 1
+	ADD_CUMULATIVE_TRAIT(target, TEST_TRAIT, SOURCE_A, 1)
+	TEST_ASSERT_EQUAL(GET_TRAIT_VALUE(target, TEST_TRAIT), 1, "test failed")
+	// Multiply to 0
+	ADD_MULTIPLICATIVE_TRAIT(target, TEST_TRAIT, SOURCE_B, 0)
+	TEST_ASSERT_EQUAL(GET_TRAIT_VALUE(target, TEST_TRAIT), 0, "test failed")
+	// Reset back to 1
+	ADD_MULTIPLICATIVE_TRAIT(target, TEST_TRAIT, SOURCE_B, 1)
+	TEST_ASSERT_EQUAL(GET_TRAIT_VALUE(target, TEST_TRAIT), 1, "test failed")
+
 #undef TEST_TRAIT
 #undef TEST_TRAIT_B
 #undef TEST_TRAIT_C
