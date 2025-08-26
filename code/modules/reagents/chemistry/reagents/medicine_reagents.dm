@@ -43,49 +43,15 @@
 	color = "#E0BB00" //golden for the gods
 	chemical_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
 	taste_description = "badmins"
+	/// Flags to fullheal every metabolism tick
+	var/full_heal_flags = ~(HEAL_BRUTE|HEAL_BURN|HEAL_TOX|HEAL_RESTRAINTS|HEAL_ORGANS)
 
 /datum/reagent/medicine/adminordrazine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
-	. = ..()
 	affected_mob.heal_bodypart_damage(5 * REM * delta_time, 5 * REM * delta_time, updating_health = FALSE)
 	affected_mob.adjustToxLoss(-5 * REM * delta_time, updating_health = FALSE, forced = TRUE)
-	affected_mob.setOxyLoss(0, updating_health = FALSE)
-	affected_mob.setCloneLoss(0, updating_health = FALSE)
-
-	affected_mob.set_blurriness(0)
-	affected_mob.set_blindness(0)
-	affected_mob.SetKnockdown(0)
-	affected_mob.SetStun(0)
-	affected_mob.SetUnconscious(0)
-	affected_mob.SetParalyzed(0)
-	affected_mob.SetImmobilized(0)
-	affected_mob.confused = 0
-	affected_mob.SetSleeping(0)
-
-	affected_mob.silent = FALSE
-	affected_mob.dizziness = 0
-	affected_mob.disgust = 0
-	affected_mob.drowsyness = 0
-	affected_mob.stuttering = 0
-	affected_mob.slurring = 0
-	affected_mob.jitteriness = 0
-	affected_mob.remove_status_effect(/datum/status_effect/hallucination)
-	affected_mob.radiation = 0
-
-	REMOVE_TRAITS_NOT_IN(affected_mob, list(SPECIES_TRAIT, ROUNDSTART_TRAIT, ORGAN_TRAIT))
-	affected_mob.reagents.remove_all_type(/datum/reagent/toxin, 5 * REM * delta_time, FALSE, TRUE)
-	if(affected_mob.blood_volume < BLOOD_VOLUME_NORMAL)
-		affected_mob.blood_volume = BLOOD_VOLUME_NORMAL
-
-	affected_mob.cure_all_traumas(TRAUMA_RESILIENCE_MAGIC)
-	for(var/obj/item/organ/organ as anything in affected_mob.internal_organs)
-		organ.set_organ_damage(0)
-
-	for(var/datum/disease/disease in affected_mob.diseases)
-		if(disease.danger == DISEASE_BENEFICIAL || disease.danger == DISEASE_POSITIVE)
-			continue
-		disease.cure()
-
-	return UPDATE_MOB_HEALTH
+	// Heal everything! That we want to. But really don't heal reagents. Otherwise we'll lose ... us.
+	affected_mob.fully_heal(full_heal_flags & ~HEAL_ALL_REAGENTS)
+	return ..()
 
 /datum/reagent/medicine/adminordrazine/quantum_heal
 	name = "Quantum Medicine"

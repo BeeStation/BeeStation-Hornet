@@ -85,14 +85,6 @@
 
 /datum/species/ipc/on_species_gain(mob/living/carbon/C)
 	. = ..()
-	var/obj/item/organ/appendix/A = C.get_organ_slot("appendix") //See below.
-	if(A)
-		A.Remove(C)
-		QDEL_NULL(A)
-	var/obj/item/organ/lungs/L = C.get_organ_slot("lungs") //Hacky and bad. Will be rewritten entirely in KapuCarbons anyway.
-	if(L)
-		L.Remove(C)
-		QDEL_NULL(L)
 	if(ishuman(C) && !change_screen)
 		change_screen = new
 		change_screen.Grant(C)
@@ -100,6 +92,7 @@
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
 		H.physiology.bleed_mod *= 0.1
+	RegisterSignal(C, COMSIG_LIVING_REVIVE, PROC_REF(mechanical_revival))
 
 /datum/species/ipc/on_species_loss(mob/living/carbon/C)
 	. = ..()
@@ -109,6 +102,7 @@
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
 		H.physiology.bleed_mod *= 10
+	UnregisterSignal(C, COMSIG_LIVING_REVIVE)
 
 /datum/species/ipc/proc/handle_speech(datum/source, list/speech_args)
 	speech_args[SPEECH_SPANS] |= SPAN_ROBOT //beep
@@ -238,7 +232,8 @@
 	H.visible_message(span_notice("[H] unplugs from the [target]."), span_notice("You unplug from the [target]."))
 	return
 
-/datum/species/ipc/spec_revival(mob/living/carbon/human/H)
+/datum/species/ipc/proc/mechanical_revival(mob/living/carbon/human/H)
+
 	H.notify_ghost_cloning("You have been repaired!")
 	H.grab_ghost()
 	H.dna.features["ipc_screen"] = "BSOD"
