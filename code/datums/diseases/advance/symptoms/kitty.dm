@@ -51,7 +51,7 @@
 			var/obj/item/organ/ears/cat/ears = M.get_organ_by_type(/obj/item/organ/ears/cat)
 			var/obj/item/organ/tail/tail = M.get_organ_by_type(/obj/item/organ/tail)
 			if(tail && !istype(tail, /obj/item/organ/tail/cat))
-				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "toxoplasmosis", /datum/mood_event/feline_dysmorphia)
+				M.add_mood_event("toxoplasmosis", /datum/mood_event/feline_dysmorphia)
 				M.adjustOrganLoss(ORGAN_SLOT_TAIL, 30, 200)
 				M.visible_message(span_hypnophrase("This tail is disgusting! you have to get rid of it!"), span_warning("[M] pulls viciously at their own tail!"))
 				if(tail.organ_flags & ORGAN_FAILING)
@@ -63,7 +63,7 @@
 					M.emote("laugh")
 					playsound(M, 'sound/misc/desecration-01.ogg', 50, 1)
 			else if(!ears || !tail)
-				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "toxoplasmosis", /datum/mood_event/feline_dysmorphia)
+				M.add_mood_event("toxoplasmosis", /datum/mood_event/feline_dysmorphia)
 				if(dnacounter >= 5)
 					if(!tail)
 						var/obj/item/organ/tail/cat/cattail = new()
@@ -84,9 +84,9 @@
 						M.visible_message(span_warning("[M] sits back, staring at [cat] with a manic gleam in their eyes."), span_hypnophrase("You prepare to glomp on [cat]!"))
 						addtimer(CALLBACK(src, PROC_REF(Pounce), cat, M), 20)
 			else
-				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "toxoplasmosis", /datum/mood_event/feline_mania)
+				M.add_mood_event("toxoplasmosis", /datum/mood_event/feline_mania)
 		else if(findcat(M))
-			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "toxoplasmosis", /datum/mood_event/toxoplasmosis)
+			M.add_mood_event("toxoplasmosis", /datum/mood_event/toxoplasmosis)
 
 /datum/symptom/toxoplasmosis/proc/Pounce(mob/living/cat, mob/living/carbon/human/H)
 	if(istype(cat, /mob/living/simple_animal/pet/cat))
@@ -148,7 +148,7 @@
 	. = ..()
 	if(uwu)
 		UnregisterSignal(A.affected_mob, COMSIG_MOB_SAY)
-	SEND_SIGNAL(A.affected_mob, COMSIG_CLEAR_MOOD_EVENT, "toxoplasmosis")
+	A.affected_mob.clear_mood_event("toxoplasmosis")
 
 /datum/symptom/toxoplasmosis/proc/findcat(mob/living/carbon/human/M, requiresears = TRUE, requirestail = TRUE) //return a cat, or someone with cat ears and a tail
 	for(var/mob/living/L in oviewers(7, M))

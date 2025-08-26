@@ -151,4 +151,4 @@
 
 	if(!head?.max_heat_protection_temperature || head.max_heat_protection_temperature < FIRE_IMMUNITY_MAX_TEMP_PROTECT)
 		adjust_bodytemperature(BODYTEMP_HEATING_MAX)
-		SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "on_fire", /datum/mood_event/on_fire)
+		src.add_mood_event("on_fire", /datum/mood_event/on_fire)

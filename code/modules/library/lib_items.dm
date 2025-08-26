@@ -236,14 +236,14 @@
 	var/window_size = null // Specific window size for the book, i.e: "1920x1080", Size x Width
 
 
-/obj/item/book/attack_self(mob/user)
+/obj/item/book/attack_self(mob/living/user)
 	if(!user.can_read(src))
 		return
 	user.visible_message(span_notice("[user] opens a book titled \"[title]\" and begins reading intently."))
-	SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "book_nerd", /datum/mood_event/book_nerd)
+	user.add_mood_event("book_nerd", /datum/mood_event/book_nerd)
 	on_read(user)
 
-/obj/item/book/proc/on_read(mob/user)
+/obj/item/book/proc/on_read(mob/living/user)
 	if(dat)
 		user << browse(HTML_SKELETON_TITLE(title, "<TT><I>Penned by [author].</I></TT> <BR>" + "[dat]"), "window=book[window_size != null ? ";size=[window_size]" : ""]")
 		onclose(user, "book")

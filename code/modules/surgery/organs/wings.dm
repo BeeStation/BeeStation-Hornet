@@ -142,7 +142,7 @@
 				var/datum/species/S = H.dna.species
 				S.toggle_flight(H)
 			to_chat(H, span_danger("Your precious wings burn to a crisp!"))
-			SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "burnt_wings", /datum/mood_event/burnt_wings)
+			H.add_mood_event("burnt_wings", /datum/mood_event/burnt_wings)
 			ADD_TRAIT(H, TRAIT_MOTH_BURNT, "fire")
 			H.dna.species.handle_mutant_bodyparts(H)
 			H.dna.species.handle_body(H)

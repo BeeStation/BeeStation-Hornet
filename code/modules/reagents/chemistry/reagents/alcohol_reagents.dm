@@ -90,6 +90,7 @@
 	nutriment_factor = 1 * REAGENTS_METABOLISM
 	boozepwr = 25
 	taste_description = "mild carbonated malt"
+	glass_price = DRINK_PRICE_STOCK
 
 /datum/glass_style/drinking_glass/beer
 	required_drink_type = /datum/reagent/consumable/ethanol/beer
@@ -164,6 +165,7 @@
 	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 75
 	taste_description = "molasses"
+	glass_price = DRINK_PRICE_STOCK
 
 /datum/glass_style/shot_glass/whiskey
 	required_drink_type = /datum/reagent/consumable/ethanol/whiskey
@@ -1007,6 +1009,7 @@
 	boozepwr = 30
 	quality = DRINK_NICE
 	taste_description = "mild dryness"
+	glass_price = DRINK_PRICE_EASY
 
 /datum/glass_style/drinking_glass/manhattan
 	required_drink_type = /datum/reagent/consumable/ethanol/manhattan
@@ -3058,11 +3061,11 @@
 	. = ..()
 	if(is_species(affected_mob, /datum/species/apid))
 		to_chat(affected_mob, span_notice("What a good drink! Reminds you of the honey back home."))
-		SEND_SIGNAL(affected_mob, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_fantastic)
+		affected_mob.add_mood_event("quality_drink", /datum/mood_event/quality_fantastic)
 	else
 		to_chat(affected_mob, span_warning("That drink was way too sweet! You feel sick."))
 		affected_mob.adjust_disgust(10)
-		SEND_SIGNAL(affected_mob, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_bad)
+		affected_mob.add_mood_event("quality_drink", /datum/mood_event/quality_bad)
 
 /datum/reagent/consumable/ethanol/beesknees/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()

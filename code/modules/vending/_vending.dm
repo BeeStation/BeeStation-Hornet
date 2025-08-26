@@ -716,7 +716,8 @@
 			L.emote("scream")
 			playsound(L, 'sound/effects/blobattack.ogg', 40, TRUE)
 			playsound(L, 'sound/effects/splat.ogg', 50, TRUE)
-
+			add_memory_in_range(L, 7, /datum/memory/witness_vendor_crush, protagonist = L, antagonist = src)
+			
 	var/matrix/M = matrix()
 	M.Turn(pick(90, 270))
 	transform = M

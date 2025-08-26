@@ -38,6 +38,7 @@
 	tastes = list("tortilla" = 2, "beans" = 3, "cheese" = 1)
 	foodtypes = GRAIN | DAIRY
 	w_class = WEIGHT_CLASS_SMALL
+	venue_value = FOOD_PRICE_EXOTIC
 	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/carneburrito
@@ -53,6 +54,7 @@
 	tastes = list("tortilla" = 2, "meat" = 4)
 	foodtypes = GRAIN | MEAT
 	w_class = WEIGHT_CLASS_SMALL
+	venue_value = FOOD_PRICE_EXOTIC
 	crafting_complexity = FOOD_COMPLEXITY_4
 
 /obj/item/food/fuegoburrito
@@ -98,6 +100,7 @@
 	tastes = list("nachos" = 2, "cheese" = 1)
 	foodtypes = GRAIN | FRIED | DAIRY
 	w_class = WEIGHT_CLASS_SMALL
+	venue_value = FOOD_PRICE_CHEAP
 	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/cubannachos

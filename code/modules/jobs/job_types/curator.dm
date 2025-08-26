@@ -47,7 +47,7 @@
 	accessory = /obj/item/clothing/accessory/pocketprotector/full
 	backpack_contents = list(
 		/obj/item/choice_beacon/radial/hero = 1,
-		/obj/item/soapstone = 1,
+		/obj/item/chisel = 1,
 		/obj/item/barcodescanner = 1
 	)
 

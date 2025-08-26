@@ -37,6 +37,8 @@
 	var/trash_type
 	///How much junkiness this food has? God I should remove junkiness soon
 	var/junkiness
+	///Price of this food if sold in a venue
+	var/venue_value
 	///Food that's immune to decomposition.
 	var/preserved_food = FALSE
 	///Does our food normally attract ants?

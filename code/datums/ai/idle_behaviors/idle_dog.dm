@@ -27,5 +27,5 @@
 		living_pawn.manual_emote(pick("dances around.", "chases [living_pawn.p_their()] tail!"))
 		for(var/mob/living/carbon/human/H in oviewers(living_pawn))
 			if(H.mind)
-				SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "animal_play", /datum/mood_event/animal_play, living_pawn)
+				H.add_mood_event("animal_play", /datum/mood_event/animal_play, living_pawn)
 

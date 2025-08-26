@@ -104,6 +104,7 @@
 	desc = "I have a mouth and I must eat."
 	trash_type = /obj/item/trash/canned/peaches/maint
 	tastes = list("peaches" = 1, "tin" = 7)
+	venue_value = FOOD_PRICE_EXOTIC
 
 /obj/item/food/canned/beefbroth/maint
 	desc = "Really old beef on a pinch, a gamble really."

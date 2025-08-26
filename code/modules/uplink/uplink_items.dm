@@ -1795,9 +1795,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 		U.failsafe_code = U.generate_code()
 	while(islist(U.failsafe_code) ? compare_list(U.failsafe_code, U.unlock_code) : U.failsafe_code == U.unlock_code)
 	var/code = "[islist(U.failsafe_code) ? english_list(U.failsafe_code) : U.failsafe_code]"
-	to_chat(user, span_warning("The new failsafe code for this uplink is now : [code]."))
-	if(user.mind)
-		user.mind.store_memory("Failsafe code for [U.parent] : [code]")
+	to_chat(user, span_warning("The new failsafe code for this uplink is now : [code]. You may check your antagonist info to recall this."))
 	return U.parent //For log icon
 
 /datum/uplink_item/device_tools/toolbox

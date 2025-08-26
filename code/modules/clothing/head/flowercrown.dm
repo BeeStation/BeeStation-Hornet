@@ -8,17 +8,17 @@
 	attack_verb_continuous = list("crowns")
 	attack_verb_simple = list("crown")
 
-/obj/item/clothing/head/flowercrown/equipped(mob/user, slot)
+/obj/item/clothing/head/flowercrown/equipped(mob/living/user, slot)
 	. = ..()
 	if(slot == ITEM_SLOT_HEAD)
-		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "flower_crown_worn", /datum/mood_event/flower_crown_worn, src)
+		user.add_mood_event("flower_crown_worn", /datum/mood_event/flower_crown_worn, src)
 
 /obj/item/clothing/head/flowercrown/dropped(mob/living/carbon/user)
 	..()
 	if(user.head != src)
 		return
 	else
-		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "flower_crown_worn")
+		user.clear_mood_event("flower_crown_worn")
 
 /obj/item/clothing/head/flowercrown/rainbowbunch
 	name = "rainbow flower crown"

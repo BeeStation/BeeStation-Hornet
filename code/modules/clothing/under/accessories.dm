@@ -140,6 +140,7 @@
 							desc += "<br>The inscription reads: [input] - [user.real_name]"
 							log_game("<b>[key_name(M)]</b> was given the following commendation by <b>[key_name(user)]</b>: [input]")
 							message_admins("<b>[key_name_admin(M)]</b> was given the following commendation by <b>[key_name_admin(user)]</b>: [input]")
+							add_memory_in_range(M, 7, /datum/memory/received_medal, protagonist = M, deuteragonist = user, medal_type = src, medal_text = input)
 
 		else
 			to_chat(user, span_warning("Medals can only be pinned on jumpsuits!"))
@@ -422,12 +423,12 @@
 /obj/item/clothing/accessory/poppy_pin/on_uniform_equip(obj/item/clothing/under/U, user)
 	var/mob/living/L = user
 	if(L && L.mind)
-		SEND_SIGNAL(L, COMSIG_ADD_MOOD_EVENT, "poppy_pin", /datum/mood_event/poppy_pin)
+		L.add_mood_event("poppy_pin", /datum/mood_event/poppy_pin)
 
 /obj/item/clothing/accessory/poppy_pin/on_uniform_dropped(obj/item/clothing/under/U, user)
 	var/mob/living/L = user
 	if(L && L.mind)
-		SEND_SIGNAL(L, COMSIG_CLEAR_MOOD_EVENT, "poppy_pin")
+		L.clear_mood_event("poppy_pin")
 
 //Security Badges
 /obj/item/clothing/accessory/badge/officer/det

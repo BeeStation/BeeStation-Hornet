@@ -312,7 +312,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 //Many  hats added, Some will probably be removed, just want to see which ones are popular.
 // > some will probably be removed
 
-/mob/living/basic/pet/dog/corgi/proc/place_on_head(obj/item/item_to_add, mob/user, drop = TRUE)
+/mob/living/basic/pet/dog/corgi/proc/place_on_head(obj/item/item_to_add, mob/living/user, drop = TRUE)
 	if(inventory_head)
 		if(user)
 			to_chat(user, span_warning("You can't put more than one hat on [src]!"))
@@ -321,12 +321,12 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 		user.visible_message("[user] pets [src].",span_notice("You rest your hand on [src]'s head for a moment."))
 		if(flags_1 & HOLOGRAM_1)
 			return
-		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, src, /datum/mood_event/pet_animal, src)
+		user.add_mood_event(REF(src), /datum/mood_event/pet_animal, src)
 		return
 
 	if(user && !user.temporarilyRemoveItemFromInventory(item_to_add))
 		to_chat(user, span_warning("\The [item_to_add] is stuck to your hand, you cannot put it on [src]'s head!"))
-		return 0
+		return
 
 	var/valid = FALSE
 	if(ispath(item_to_add.dog_fashion, /datum/dog_fashion/head))

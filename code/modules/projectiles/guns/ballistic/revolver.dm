@@ -258,16 +258,28 @@
 
 		spun = FALSE
 
+		var/zone = check_zone(user.get_combat_bodyzone(target))
+		var/obj/item/bodypart/affecting = H.get_bodypart(zone)
+		var/is_target_face = zone == BODY_ZONE_HEAD || zone == BODY_ZONE_PRECISE_EYES || zone == BODY_ZONE_PRECISE_MOUTH
+		var/loaded_rounds = get_ammo(FALSE, FALSE) // check before it is fired
+
+		if(loaded_rounds && is_target_face)
+			add_memory_in_range(user, 7, /datum/memory/witnessed_russian_roulette, \
+				protagonist = user, \
+				antagonist = src, \
+				rounds_loaded = loaded_rounds, \
+				aimed_at =  affecting.name, \
+				result = (chambered ? "lost" : "won"), \
+			)
+
 		if(chambered)
 			var/obj/item/ammo_casing/AC = chambered
 			if(AC.fire_casing(user, user))
 				playsound(user, fire_sound, fire_sound_volume, vary_fire_sound)
-				var/zone = check_zone(user.get_combat_bodyzone(target))
-				var/obj/item/bodypart/affecting = H.get_bodypart(zone)
-				if(zone == BODY_ZONE_HEAD || zone == BODY_ZONE_PRECISE_EYES || zone == BODY_ZONE_PRECISE_MOUTH)
+				if(is_target_face)
 					shoot_self(user, affecting)
 				else
-					user.visible_message(span_danger("[user.name] cowardly fires [src] at [user.p_their()] [affecting.name]!"), span_userdanger("You cowardly fire [src] at your [affecting.name]!"), span_italics("You hear a gunshot!"))
+					user.visible_message(span_danger("[user.name] cowardly fires [src] at [user.p_their()] [affecting.name]!"), span_userdanger("You cowardly fire [src] at your [affecting.name]!"), span_hear("You hear a gunshot!"))
 				chambered = null
 				return
 
@@ -281,7 +293,7 @@
 
 /obj/item/gun/ballistic/revolver/russian/proc/shoot_self(mob/living/carbon/human/user, affecting = BODY_ZONE_HEAD)
 	user.apply_damage(300, BRUTE, affecting)
-	user.visible_message(span_danger("[user.name] fires [src] at [user.p_their()] head!"), span_userdanger("You fire [src] at your head!"), span_italics("You hear a gunshot!"))
+	user.visible_message(span_danger("[user.name] fires [src] at [user.p_their()] head!"), span_userdanger("You fire [src] at your head!"), span_hear("You hear a gunshot!"))
 
 /obj/item/gun/ballistic/revolver/russian/soul
 	name = "cursed Russian revolver"

@@ -96,7 +96,7 @@
 		if (user.client)
 			user.client.give_award(/datum/award/achievement/misc/weights, user)
 		if(ishuman(user))
-			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "exercise", /datum/mood_event/exercise)
+			user.add_mood_event("exercise", /datum/mood_event/exercise)
 			user.apply_status_effect(/datum/status_effect/exercised, 40)
 	end_workout()
 
@@ -105,7 +105,7 @@
 	STOP_PROCESSING(SSobj, src)
 	icon_state = initial(icon_state)
 
-/obj/structure/weightmachine/process(seconds_per_tick)
+/obj/structure/weightmachine/process(delta_time)
 	if(!has_buckled_mobs())
 		end_workout()
 		return FALSE

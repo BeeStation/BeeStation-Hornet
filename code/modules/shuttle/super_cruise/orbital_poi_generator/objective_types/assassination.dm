@@ -64,8 +64,8 @@
 			created_human.flavor_text = "Slip, slip, slip! Your PDA's brought a lot of laughs to this crew, but now that they're - and it's - gone, the Head Of Security's threats are \
 			echoing in your mind..."
 			created_human.equipOutfit(/datum/outfit/vip_target/clown)
-	created_human.mind.store_memory("[created_human.flavor_text] - Someone is out to assassinate you... Stay alive.")
-	created_human.mind.add_antag_datum(/datum/antagonist/survivalist)
+	created_human.mind?.add_memory(/datum/memory/flavor_text, created_human, null, null, "[created_human.flavor_text] - Someone is out to assassinate you... Stay alive.")
+	created_human.mind?.add_antag_datum(/datum/antagonist/survivalist)
 	mob_to_kill = created_human
 	//Give them space-worthy suit and other equipment
 	var/turf/open/T = locate() in shuffle(view(1, created_human))

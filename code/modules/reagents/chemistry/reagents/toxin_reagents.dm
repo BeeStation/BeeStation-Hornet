@@ -227,11 +227,11 @@
 
 /datum/reagent/toxin/mindbreaker/on_mob_metabolize(mob/living/metabolizer)
 	. = ..()
-	ADD_TRAIT(metabolizer, TRAIT_HALLUCINATION_SUPPRESSED, type)
+	ADD_TRAIT(metabolizer, TRAIT_RDS_SUPPRESSED, type)
 
 /datum/reagent/toxin/mindbreaker/on_mob_end_metabolize(mob/living/metabolizer)
 	. = ..()
-	REMOVE_TRAIT(metabolizer, TRAIT_HALLUCINATION_SUPPRESSED, type)
+	REMOVE_TRAIT(metabolizer, TRAIT_RDS_SUPPRESSED, type)
 
 /datum/reagent/toxin/mindbreaker/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()

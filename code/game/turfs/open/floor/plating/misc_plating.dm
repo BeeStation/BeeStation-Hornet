@@ -229,7 +229,7 @@
 		splash(dropping)
 
 
-/turf/open/floor/plating/beach/water/proc/splash(mob/user)
+/turf/open/floor/plating/beach/water/proc/splash(mob/living/user)
 	user.forceMove(src)
 	playsound(src, 'sound/effects/splosh.ogg', 100, 1) //Credit to hippiestation for this sound file!
 	user.visible_message(span_boldwarning("SPLASH!"))
@@ -254,12 +254,12 @@
 		user.emote("scream") //Chad coders use M.say("*scream")
 		do_sparks(zap, TRUE, user)
 		to_chat(user, span_userdanger("WARNING: WATER DAMAGE DETECTED!"))
-		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "robotpool", /datum/mood_event/robotpool)
+		user.add_mood_event("robotpool", /datum/mood_event/robotpool)
 	else
 		if(!check_clothes(user))
-			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "pool", /datum/mood_event/poolparty)
+			user.add_mood_event("pool", /datum/mood_event/poolparty)
 			return
-		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "pool", /datum/mood_event/poolwet)
+		user.add_mood_event("pool", /datum/mood_event/poolwet)
 
 //Largely a copypaste from shower.dm. Checks if the mob was stupid enough to enter a pool fully clothed. We allow masks as to not discriminate against clown and mime players.
 /turf/open/floor/plating/beach/water/proc/check_clothes(mob/living/carbon/human/H)

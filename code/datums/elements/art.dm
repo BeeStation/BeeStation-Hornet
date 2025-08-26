@@ -14,22 +14,22 @@
 	UnregisterSignal(target, COMSIG_ATOM_EXAMINE)
 	return ..()
 
-/datum/element/art/proc/apply_moodlet(atom/source, mob/user, impress)
+/datum/element/art/proc/apply_moodlet(atom/source, mob/living/user, impress)
 	SIGNAL_HANDLER
 
 	var/msg
 	switch(impress)
 		if(GREAT_ART to INFINITY)
-			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "artgreat", /datum/mood_event/artgreat)
+			user.add_mood_event("artgreat", /datum/mood_event/artgreat)
 			msg = "What \a [pick("masterpiece", "chef-d'oeuvre")] [source.p_theyre()]. So [pick("trascended", "awe-inspiring", "bewitching", "impeccable")]!"
 		if (GOOD_ART to GREAT_ART)
-			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "artgood", /datum/mood_event/artgood)
+			user.add_mood_event("artgood", /datum/mood_event/artgood)
 			msg = "[source.p_theyre(TRUE)] a [pick("respectable", "commendable", "laudable")] art piece, easy on the keen eye."
 		if (BAD_ART to GOOD_ART)
-			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "artok", /datum/mood_event/artok)
+			user.add_mood_event("artok", /datum/mood_event/artok)
 			msg = "[source.p_theyre(TRUE)] fair to middling, enough to be called an \"art object\"."
 		if (0 to BAD_ART)
-			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "artbad", /datum/mood_event/artbad)
+			user.add_mood_event("artbad", /datum/mood_event/artbad)
 			msg = "Wow, [source.p_they()] sucks."
 
 	user.visible_message(span_notice("[user] stops and looks intently at [source]."), \
@@ -52,3 +52,27 @@
 		mult = art_piece.get_integrity() / art_piece.max_integrity
 
 	apply_moodlet(source, user, impressiveness * mult)
+
+/datum/element/art/commoner
+
+/datum/element/art/commoner/apply_moodlet(atom/source, mob/living/user, impress)
+	var/msg
+	var/list/haters = list()
+	for(var/datum/department_group/hater_department in SSdepartment.department_datums)
+		if(!(hater_department.dept_bitflag & (DEPT_BITFLAG_SEC | DEPT_BITFLAG_COM)))
+			continue
+		for(var/job_name in hater_department.jobs)
+			var/datum/job/hater_job = SSjob.GetJob(job_name)
+			haters += hater_job.title
+	var/datum/job/quartermaster/fucking_quartermaster = SSjob.GetJob(JOB_NAME_QUARTERMASTER)
+	haters += fucking_quartermaster.title
+
+	if(!(user.mind.assigned_role.title in haters))
+		user.add_mood_event("artgreat", /datum/mood_event/artgreat)
+		msg = "What \a [pick("masterpiece", "chef-d'oeuvre")] [source.p_theyre()]. So [pick("relatable", "down to earth", "true", "real")]!"
+	else
+		user.add_mood_event("artbad", /datum/mood_event/artbad)
+		msg = "Wow, [source.p_they()] sucks."
+
+	user.visible_message(span_notice("[user] stops to inspect [source]."), \
+		span_notice("You appraise [source], inspecting the fine craftsmanship of the proletariat... [msg]"))

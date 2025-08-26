@@ -147,10 +147,16 @@ GLOBAL_LIST_INIT(ai_employers, list(
 #define IS_MALF_AI(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/malf_ai))
 /// Checks if the given mob is a nuclear operative
 #define IS_NUCLEAR_OPERATIVE(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/nukeop))
+/// Checks if the given mind is a nuclear operative mind
+#define IS_NUCLEAR_OPERATIVE_MIND(mind) (mind?.has_antag_datum(/datum/antagonist/nukeop))
 /// Checks if the given mob is a blood cultist
 #define IS_CULTIST(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/cult))
+/// Checks if the given mind is a blood cultist mind
+#define IS_CULTIST_MIND(mind) (mind?.has_antag_datum(/datum/antagonist/cult))
 /// Checks if the given mob is a clock cultist
 #define IS_SERVANT_OF_RATVAR(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/servant_of_ratvar))
+/// Checks if the given mind is a clock cultist mind
+#define IS_SERVANT_OF_RATVAR_MIND(mind) (mind?.has_antag_datum(/datum/antagonist/servant_of_ratvar))
 /// Checks if the given mob is a changeling
 #define IS_CHANGELING(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/changeling))
 /// Checks if the given mob is a heretic
@@ -159,6 +165,9 @@ GLOBAL_LIST_INIT(ai_employers, list(
 #define IS_HERETIC_OR_MONSTER(mob) (IS_HERETIC(mob) || IS_HERETIC_MONSTER(mob))
 /// Checks if the given mob is a revolutionary
 #define IS_REVOLUTIONARY(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/rev))
+/// Checks if the given mind is a revolutionary mind
+#define IS_REVOLUTIONARY_MIND(mind) (mind?.has_antag_datum(/datum/antagonist/rev))
+/// Checks if the given mob is a head revolutionary
 #define IS_HEAD_REVOLUTIONARY(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/rev/head))
 
 //Tells whether or not someone is a space ninja

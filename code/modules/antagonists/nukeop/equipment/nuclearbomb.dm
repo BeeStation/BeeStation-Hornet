@@ -439,13 +439,23 @@ GLOBAL_VAR_INIT(nuke_off_station, 0)
 		return
 	timing = !timing
 	if(timing)
+		//var/turf/our_turf = get_turf(src)
+		//message_admins("\The [src] was armed at [ADMIN_VERBOSEJMP(our_turf)] by [armer ? ADMIN_LOOKUPFLW(armer) : "an unknown user"].")
+		//armer.log_message("armed \the [src].", LOG_GAME)
+		//armer.add_mob_memory(/datum/memory/bomb_planted/nuke, antagonist = src)
 		previous_level = SSsecurity_level.get_current_level_as_number()
 		detonation_timer = world.time + (timer_set * 10)
 		for(var/obj/item/pinpointer/nuke/syndicate/S in GLOB.pinpointer_list)
 			S.switch_mode_to(TRACK_INFILTRATOR)
-		countdown.start()
-		SSsecurity_level.set_level(SEC_LEVEL_DELTA)
 
+		countdown.start()
+
+		SSsecurity_level.set_level(SEC_LEVEL_DELTA)
+		notify_ghosts(
+			"A nuclear device has been armed in [get_area_name(src)]!",
+			source = src,
+			header = "Nuke Armed",
+		)
 		if(proper_bomb) // Why does this exist
 			countdown_music = play_soundtrack_music(/datum/soundtrack_song/bee/countdown)
 	else

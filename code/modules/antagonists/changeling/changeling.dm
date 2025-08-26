@@ -60,6 +60,9 @@
 	/// A reference to our cellular emporium action (which opens the UI for the datum).
 	var/datum/action/innate/cellular_emporium/emporium_action
 
+	/// The name of our "hive" that our ling came from. Flavor.
+	var/hive_name
+
 	/// Static typecache of all changeling powers that are usable.
 	var/static/list/all_powers = typecacheof(/datum/action/changeling, TRUE)
 
@@ -83,11 +86,15 @@
 		"s_store" = /obj/item/changeling,
 	)
 
+	/// A list of all memories we've stolen through absorbs.
+	var/list/stolen_memories = list()
+
 	///	Keeps track of the currently selected profile.
 	var/datum/changeling_profile/current_profile
 
 /datum/antagonist/changeling/New()
 	. = ..()
+	hive_name = hive_name()
 	for(var/datum/antagonist/changeling/other_ling in GLOB.antagonists)
 		if(!other_ling.owner || other_ling.owner == owner)
 			continue
@@ -107,7 +114,6 @@
 	create_initial_profile()
 	if(give_objectives)
 		forge_objectives()
-	handle_clown_mutation(owner.current, "You have evolved beyond your clownish nature, allowing you to wield weapons without harming yourself.")
 	owner.current.get_language_holder().omnitongue = TRUE
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ling_aler.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 	return ..()
@@ -535,16 +541,6 @@
 
 	add_new_profile(owner.current)
 
-
-/datum/antagonist/changeling/greet()
-	to_chat(owner.current, "<b>You must complete the following tasks:</b>")
-	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ling_aler.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
-
-	owner.announce_objectives()
-
-	owner.current.client?.tgui_panel?.give_antagonist_popup("Changeling",
-		"You have absorbed the form of [owner.current] and have infiltrated the station. Use your changeling powers to complete your objectives.")
-
 /datum/antagonist/changeling/farewell()
 	to_chat(owner.current, span_userdanger("You grow weak and lose your powers! You are no longer a changeling and are stuck in your current form!"))
 
@@ -638,10 +634,6 @@
 	var/datum/atom_hud/antag/hud = GLOB.huds[ANTAG_HUD_CHANGELING]
 	hud.leave_hud(owner.current)
 	set_antag_hud(owner.current, null)
-
-/datum/antagonist/changeling/admin_add(datum/mind/new_owner,mob/admin)
-	. = ..()
-	to_chat(new_owner.current, span_boldannounce("Our powers have awoken. A flash of memory returns to us...we are a changeling!"))
 
 /datum/antagonist/changeling/get_admin_commands()
 	. = ..()
@@ -861,6 +853,30 @@
 
 	return parts.Join("<br>")
 
+/datum/antagonist/changeling/ui_data(mob/user)
+	var/list/data = list()
+	var/list/memories = list()
+
+	for(var/memory_key in stolen_memories)
+		memories += list(list("name" = memory_key, "story" = stolen_memories[memory_key]))
+
+	data["memories"] = memories
+	data["true_name"] = changelingID
+	data["hive_name"] = hive_name
+	data["stolen_antag_info"] = antag_memory
+	data["objectives"] = get_objectives()
+	return data
+
+/datum/memory_panel/ui_data(mob/user)
+	var/list/data = list()
+	var/list/memories = list()
+
+	for(var/memory_key as anything in user?.mind.memories)
+		var/datum/memory/memory =  user.mind.memories[memory_key]
+		memories += list(list("name" = memory.name, "quality" = memory.story_value))
+
+	data["memories"] = memories
+	return data
 
 ///a changeling that has lost their powers. does nothing, other than signify they suck
 /datum/antagonist/fallen_changeling

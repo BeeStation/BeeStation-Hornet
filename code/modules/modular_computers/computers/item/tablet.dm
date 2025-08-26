@@ -20,6 +20,8 @@
 	var/obj/item/insert_type = /obj/item/pen
 	//This is the currently inserted item
 	var/obj/item/inserted_item
+	///account id of the ID held
+	var/account_id
 	can_store_pai = TRUE
 
 	/// The note used by the notekeeping app, stored here for convenience.

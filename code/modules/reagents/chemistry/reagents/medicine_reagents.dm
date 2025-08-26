@@ -288,7 +288,7 @@
 			if(show_message)
 				to_chat(exposed_mob, span_danger("You feel your burns healing! It stings like hell!"))
 			exposed_mob.emote("scream")
-			SEND_SIGNAL(exposed_mob, COMSIG_ADD_MOOD_EVENT, "painful_medicine", /datum/mood_event/painful_medicine)
+			exposed_mob.add_mood_event("painful_medicine", /datum/mood_event/painful_medicine)
 
 /datum/reagent/medicine/silver_sulfadiazine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -347,7 +347,7 @@
 			if(show_message)
 				to_chat(exposed_mob, span_danger("You feel your bruises healing! It stings like hell!"))
 			exposed_mob.emote("scream")
-			SEND_SIGNAL(exposed_mob, COMSIG_ADD_MOOD_EVENT, "painful_medicine", /datum/mood_event/painful_medicine)
+			exposed_mob.add_mood_event("painful_medicine", /datum/mood_event/painful_medicine)
 
 /datum/reagent/medicine/styptic_powder/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -460,7 +460,7 @@
 			exposed_mob.adjustStaminaLoss(reac_volume*2)
 			if(show_message)
 				to_chat(exposed_mob, span_danger("You feel your burns and bruises healing! It stings like hell!"))
-			SEND_SIGNAL(exposed_mob, COMSIG_ADD_MOOD_EVENT, "painful_medicine", /datum/mood_event/painful_medicine)
+			exposed_mob.add_mood_event("painful_medicine", /datum/mood_event/painful_medicine)
 			exposed_mob.emote("scream")
 			//Has to be at less than THRESHOLD_UNHUSK burn damage and have at least 100 synthflesh (currently inside the body + amount now being applied). Corpses dont metabolize.
 			if(HAS_TRAIT_FROM(exposed_mob, TRAIT_HUSK, "burn") && exposed_mob.getFireLoss() < THRESHOLD_UNHUSK && (exposed_mob.reagents.get_reagent_amount(/datum/reagent/medicine/synthflesh) + reac_volume) >= 100)
@@ -1002,7 +1002,7 @@
 /datum/reagent/medicine/mannitol/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(HAS_TRAIT(affected_mob, TRAIT_BRAIN_TUMOR)) // to brain tumor quirk holder
-		SEND_SIGNAL(affected_mob, COMSIG_ADD_MOOD_EVENT, "brain_tumor", /datum/mood_event/brain_tumor_mannitol)
+		affected_mob.add_mood_event("brain_tumor", /datum/mood_event/brain_tumor_mannitol)
 		if(!overdosed)
 			affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, -0.5 * REM * delta_time)
 	else // to ordinary people
@@ -1616,9 +1616,8 @@
 	affected_mob.dizziness = max(affected_mob.dizziness - (6 * REM * delta_time), 0)
 	affected_mob.confused = max(affected_mob.confused - (6 * REM * delta_time), 0)
 	affected_mob.disgust = max(affected_mob.disgust - (6 * REM * delta_time), 0)
-	var/datum/component/mood/mood = affected_mob.GetComponent(/datum/component/mood)
-	if(mood?.sanity <= SANITY_NEUTRAL) // only take effect if in negative sanity and then...
-		mood.setSanity(min(mood.sanity + (5 * REM * delta_time), SANITY_NEUTRAL)) // set minimum to prevent unwanted spiking over neutral
+	if(affected_mob.mob_mood != null && affected_mob.mob_mood.sanity <= SANITY_NEUTRAL) // only take effect if in negative sanity and then...
+		affected_mob.mob_mood.set_sanity(min(affected_mob.mob_mood.sanity + (5 * REM * delta_time), SANITY_NEUTRAL)) // set minimum to prevent unwanted spiking over neutral
 
 /datum/reagent/medicine/psicodine/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()

@@ -1443,7 +1443,7 @@
 		for(var/obj/effect/dummy/lighting_obj/moblight/fire/F in src)
 			qdel(F)
 		clear_alert("fire")
-		SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "on_fire")
+		clear_mood_event("on_fire")
 		SEND_SIGNAL(src, COMSIG_LIVING_EXTINGUISHED, src)
 		update_fire()
 
@@ -1730,6 +1730,8 @@
 /mob/living/vv_get_dropdown()
 	. = ..()
 	VV_DROPDOWN_OPTION("", "---------")
+	VV_DROPDOWN_OPTION(VV_HK_ADD_MOOD, "Add Mood Event")
+	VV_DROPDOWN_OPTION(VV_HK_REMOVE_MOOD, "Remove Mood Event")
 	VV_DROPDOWN_OPTION(VV_HK_GIVE_HALLUCINATION, "Give Hallucination")
 	VV_DROPDOWN_OPTION(VV_HK_GIVE_DELUSION_HALLUCINATION, "Give Delusion Hallucination")
 
@@ -1738,6 +1740,11 @@
 
 	if(!.)
 		return
+
+	if (href_list[VV_HK_ADD_MOOD])
+		admin_add_mood_event(usr)
+	if (href_list[VV_HK_REMOVE_MOOD])
+		admin_remove_mood_event(usr)
 
 	if(href_list[VV_HK_GIVE_HALLUCINATION])
 		if(!check_rights(NONE))
@@ -2073,6 +2080,52 @@
 	target.do_jitter_animation(10)
 	addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living, do_jitter_animation), 10), 5 SECONDS)
 	addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living, revive), TRUE, TRUE), 10 SECONDS)
+
+/mob/living/proc/admin_add_mood_event(mob/admin)
+	if (!admin || !check_rights(NONE))
+		return
+
+	var/list/mood_events = typesof(/datum/mood_event)
+
+	var/chosen = tgui_input_list(admin, "What mood event?", "Add Mood Event", mood_events)
+	if (!chosen || QDELETED(src) || !check_rights(NONE))
+		return
+
+	mob_mood.add_mood_event("[rand(1, 50)]", chosen)
+
+/mob/living/proc/admin_remove_mood_event(mob/admin)
+	if (!admin || !check_rights(NONE))
+		return
+
+	var/list/mood_events = list()
+	for (var/category in mob_mood.mood_events)
+		var/datum/mood_event/event = mob_mood.mood_events[category]
+		mood_events[event] = category
+
+
+	var/datum/mood_event/chosen = tgui_input_list(admin, "What mood event?", "Remove Mood Event", mood_events)
+	if (!chosen || QDELETED(src) || !check_rights(NONE))
+		return
+
+	mob_mood.clear_mood_event(mood_events[chosen])
+
+/// Adds a mood event to the mob
+/mob/living/proc/add_mood_event(category, type, ...)
+	if(QDELETED(mob_mood))
+		return
+	mob_mood.add_mood_event(arglist(args))
+
+/// Clears a mood event from the mob
+/mob/living/proc/clear_mood_event(category)
+	if(QDELETED(mob_mood))
+		return
+	mob_mood.clear_mood_event(category)
+
+/*
+/mob/living/played_game()
+	. = ..()
+	add_mood_event("gaming", /datum/mood_event/gaming)
+*/
 
 /// Admin only proc for making the mob hallucinate a certain thing
 /mob/living/proc/admin_give_hallucination(mob/admin)

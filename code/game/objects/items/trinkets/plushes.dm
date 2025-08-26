@@ -830,14 +830,14 @@
 	icon_state = "cuteswedishsharkplush"
 	squeak_override = list('sound/weapons/bite.ogg' = 1)
 
-/obj/item/toy/plush/shark/equipped(mob/user, slot)
+/obj/item/toy/plush/shark/equipped(mob/living/user, slot)
 	. = ..()
 	if(slot == ITEM_SLOT_HANDS)
-		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "big_plush", /datum/mood_event/bigplush, src)
+		user.add_mood_event("big_plush", /datum/mood_event/bigplush, src)
 
 /obj/item/toy/plush/shark/dropped(mob/living/carbon/user)
 	..()
-	SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "big_plush")
+	user.clear_mood_event("big_plush")
 
 /obj/item/toy/plush/flushed/rainbow
 	name = "rainbow flushed plushie"

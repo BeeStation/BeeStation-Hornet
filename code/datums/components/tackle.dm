@@ -443,8 +443,8 @@
 
 		if(human_sacker.dna.current_body_size <= BODY_SIZE_SHORT) //JUST YOU WAIT TILL I FIND A CHAIR, BUDDY, THEN YOU'LL BE SORRY
 			attack_mod -= 2
-		var/datum/component/mood/human_sacker_sanity = human_sacker.GetComponent(/datum/component/mood)
-		if(human_sacker_sanity.sanity == SANITY_INSANE) //I've gone COMPLETELY INSANE
+
+		if(human_sacker.mob_mood.sanity_level == SANITY_LEVEL_INSANE) //I've gone COMPLETELY INSANE
 			attack_mod += 5
 			human_sacker.adjustStaminaLoss(150) //AHAHAHAHAHAHAHAHA
 

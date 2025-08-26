@@ -122,7 +122,7 @@
 				brain_owner.mind.transfer_to(brainmob)
 		to_chat(brainmob, span_notice("You feel slightly disoriented. That's normal when you're just a brain."))
 	brain_owner.update_hair()
-	SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "brain_damage")
+	brain_owner.clear_mood_event("brain_damage")
 
 /obj/item/organ/brain/set_organ_damage(d)
 	. = ..()

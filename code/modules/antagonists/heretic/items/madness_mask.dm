@@ -58,7 +58,7 @@
 		if(HAS_TRAIT(human_in_range, TRAIT_BLIND))
 			continue
 
-		SEND_SIGNAL(human_in_range, COMSIG_HERETIC_MASK_ACT, rand(-2, -20) * delta_time)
+		human_in_range.mob_mood.direct_sanity_drain(rand(-2, -20) * delta_time)
 
 		if(DT_PROB(60, delta_time))
 			human_in_range.adjust_hallucinations_up_to(10 SECONDS, 240 SECONDS)

@@ -635,29 +635,46 @@ h2.alert {
   padding: 10px;
   margin: 10px 20px;
 }
+
 .unconscious {
   color: hsl(240, 100%, 50%);
   font-weight: bold;
 }
+
 .suicide {
   color: hsl(0, 100%, 65.7%);
   font-style: italic;
 }
+
 .green {
   color: hsl(132.9, 100%, 50.6%);
 }
+
+.grey {
+  color: hsl(0, 0%, 51.4%);
+}
+
 .red {
   color: hsl(0, 100%, 50%);
 }
+
 .blue {
   color: hsl(240, 100%, 50%);
 }
+
 .nicegreen {
   color: hsl(132.6, 78.7%, 36.9%);
 }
+
 .shadowling {
   color: hsl(258.2, 45.8%, 28.2%);
 }
+
+.boldnicegreen {
+  color: #14a833;
+  font-weight: bold;
+}
+
 .cult {
   color: hsl(2, 43.8%, 41.2%);
 }
@@ -666,6 +683,7 @@ h2.alert {
   color: hsl(2, 43.8%, 41.2%);
   font-style: italic;
 }
+
 .cultbold {
   color: hsl(2, 43.8%, 41.2%);
   font-style: italic;

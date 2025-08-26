@@ -22,10 +22,14 @@
 #define DEPT_NAME_UNASSIGNED "Misc"
 #define DEPT_BITFLAG_UNASSIGNED (1<<10)
 
+//Shitty method to check crew, delete when job datums are finished
+#define DEPT_BITFLAG_CREW (DEPT_BITFLAG_COM | DEPT_BITFLAG_CIV | DEPT_BITFLAG_SRV | DEPT_BITFLAG_CAR | DEPT_BITFLAG_SCI | DEPT_BITFLAG_ENG | DEPT_BITFLAG_MED | DEPT_BITFLAG_SEC | DEPT_BITFLAG_VIP)
+
 #define DEPT_NAME_CENTCOM "CentCom"
 #define DEPT_BITFLAG_CENTCOM (1<<11)
 #define DEPT_NAME_OTHER "Other"
 #define DEPT_BITFLAG_OTHER (1<<12)
+
 
 // not real department. These exist for pref grouping
 #define DEPT_NAME_ASSISTANT "Assistant"

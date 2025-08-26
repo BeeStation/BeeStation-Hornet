@@ -14,9 +14,9 @@
 /datum/quirk/badback/on_process()
 	var/mob/living/carbon/human/H = quirk_target
 	if(H.back && istype(H.back, /obj/item/storage/backpack))
-		SEND_SIGNAL(quirk_target, COMSIG_ADD_MOOD_EVENT, "back_pain", /datum/mood_event/back_pain)
+		quirk_target.add_mood_event("back_pain", /datum/mood_event/back_pain)
 	else
-		SEND_SIGNAL(quirk_target, COMSIG_CLEAR_MOOD_EVENT, "back_pain")
+		quirk_target.clear_mood_event("back_pain")
 
 /datum/quirk/blooddeficiency
 	name = "Blood Deficiency"
@@ -126,7 +126,7 @@
 
 /datum/quirk/depression/on_process(delta_time)
 	if(DT_PROB(0.05, delta_time))
-		SEND_SIGNAL(quirk_target, COMSIG_ADD_MOOD_EVENT, "depression", /datum/mood_event/depression)
+		quirk_target.add_mood_event("depression", /datum/mood_event/depression)
 
 /datum/quirk/family_heirloom
 	name = "Family Heirloom"
@@ -250,11 +250,11 @@
 
 /datum/quirk/family_heirloom/on_process()
 	if(heirloom in quirk_target.GetAllContents())
-		SEND_SIGNAL(quirk_target, COMSIG_CLEAR_MOOD_EVENT, "family_heirloom_missing")
-		SEND_SIGNAL(quirk_target, COMSIG_ADD_MOOD_EVENT, "family_heirloom", /datum/mood_event/family_heirloom)
+		quirk_target.clear_mood_event("family_heirloom_missing")
+		quirk_target.add_mood_event("family_heirloom", /datum/mood_event/family_heirloom)
 	else
-		SEND_SIGNAL(quirk_target, COMSIG_CLEAR_MOOD_EVENT, "family_heirloom")
-		SEND_SIGNAL(quirk_target, COMSIG_ADD_MOOD_EVENT, "family_heirloom_missing", /datum/mood_event/family_heirloom_missing)
+		quirk_target.clear_mood_event("family_heirloom")
+		quirk_target.add_mood_event("family_heirloom_missing", /datum/mood_event/family_heirloom_missing)
 
 /datum/quirk/frail
 	name = "Frail"
@@ -345,9 +345,9 @@
 		if(quirk_target.m_intent == MOVE_INTENT_RUN)
 			to_chat(quirk_target, span_warning("Easy, easy, take it slow... you're in the dark..."))
 			quirk_target.toggle_move_intent()
-		SEND_SIGNAL(quirk_target, COMSIG_ADD_MOOD_EVENT, "nyctophobia", /datum/mood_event/nyctophobia)
+		quirk_target.add_mood_event("nyctophobia", /datum/mood_event/nyctophobia)
 	else
-		SEND_SIGNAL(quirk_target, COMSIG_CLEAR_MOOD_EVENT, "nyctophobia")
+		quirk_target.clear_mood_event("nyctophobia")
 
 /datum/quirk/nonviolent
 	name = "Pacifist"
@@ -454,6 +454,8 @@
 	gain_text = span_userdanger("...")
 	lose_text = span_notice("You feel in tune with the world again.")
 	medical_record_text = "Patient suffers from acute Reality Dissociation Syndrome and experiences vivid hallucinations."
+	/// Weakref to the trauma we give out
+	var/datum/weakref/added_trauma_ref
 
 /datum/quirk/insanity/add()
 	if(!iscarbon(quirk_holder))
@@ -472,6 +474,7 @@
 	added_trauma.lose_text = null
 
 	carbon_quirk_holder.gain_trauma(added_trauma)
+	added_trauma_ref = WEAKREF(added_trauma)
 
 /datum/quirk/insanity/post_spawn()
 	if(!quirk_holder || quirk_holder.special_role)
@@ -480,6 +483,9 @@
 	// it's probably a good thing to have.
 	to_chat(quirk_holder, "<span class='big bold info'>Please note that your [LOWER_TEXT(name)] does NOT give you the right to attack people or otherwise cause any interference to \
 		the round. You are not an antagonist, and the rules will treat you the same as other crewmembers.</span>")
+
+/datum/quirk/insanity/remove()
+	QDEL_NULL(added_trauma_ref)
 
 /datum/quirk/social_anxiety
 	name = "Social Anxiety"
@@ -500,15 +506,15 @@
 	var/mob/living/carbon/human/H = quirk_target
 	if(DT_PROB(2 + nearby_people, delta_time))
 		H.stuttering = max(3, H.stuttering)
-		SEND_SIGNAL(quirk_target, COMSIG_ADD_MOOD_EVENT, "anxiety", /datum/mood_event/anxiety)
+		quirk_target.add_mood_event("anxiety", /datum/mood_event/anxiety)
 	else if(DT_PROB(min(3, nearby_people), delta_time) && !H.silent)
 		to_chat(H, span_danger("You retreat into yourself. You <i>really</i> don't feel up to talking."))
 		H.silent = max(10, H.silent)
-		SEND_SIGNAL(quirk_target, COMSIG_ADD_MOOD_EVENT, "anxiety_mute", /datum/mood_event/anxiety_mute)
+		quirk_target.add_mood_event("anxiety_mute", /datum/mood_event/anxiety_mute)
 	else if(DT_PROB(0.5, delta_time) && dumb_thing)
 		to_chat(H, span_userdanger("You think of a dumb thing you said a long time ago and scream internally."))
 		dumb_thing = FALSE //only once per life
-		SEND_SIGNAL(quirk_target, COMSIG_ADD_MOOD_EVENT, "anxiety_dumb", /datum/mood_event/anxiety_dumb)
+		quirk_target.add_mood_event("anxiety_dumb", /datum/mood_event/anxiety_dumb)
 		if(prob(1))
 			new/obj/item/food/spaghetti/pastatomato(get_turf(H)) //now that's what I call spaghetti code
 
@@ -612,9 +618,9 @@
 	if (istype(I, /obj/item/clothing/mask/cigarette))
 		var/obj/item/storage/fancy/cigarettes/C = drug_container_type
 		if(istype(I, initial(C.spawn_type)))
-			SEND_SIGNAL(quirk_target, COMSIG_CLEAR_MOOD_EVENT, "wrong_cigs")
+			quirk_target.clear_mood_event("wrong_cigs")
 			return
-		SEND_SIGNAL(quirk_target, COMSIG_ADD_MOOD_EVENT, "wrong_cigs", /datum/mood_event/wrong_brand)
+		quirk_target.add_mood_event("wrong_cigs", /datum/mood_event/wrong_brand)
 
 /datum/quirk/alcoholic
 	name = "Alcoholic"
@@ -660,23 +666,23 @@
 
 		switch(need)
 			if(1 to 10)
-				SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "alcoholic", /datum/mood_event/withdrawal_light, "alcohol")
+				H.add_mood_event("alcoholic", /datum/mood_event/withdrawal_light, "alcohol")
 				if(prob(5))
 					to_chat(H, span_notice("You could go for a drink right about now."))
 			if(10 to 20)
-				SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "alcoholic", /datum/mood_event/withdrawal_medium, "alcohol")
+				H.add_mood_event("alcoholic", /datum/mood_event/withdrawal_medium, "alcohol")
 				if(prob(5))
 					to_chat(H, span_notice("You feel like you need alcohol. You just can't stand being sober."))
 			if(20 to 30)
-				SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "alcoholic", /datum/mood_event/withdrawal_severe, "alcohol")
+				H.add_mood_event("alcoholic", /datum/mood_event/withdrawal_severe, "alcohol")
 				if(prob(5))
 					to_chat(H, span_danger("You have an intense craving for a drink."))
 			if(30 to INFINITY)
-				SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "alcoholic", /datum/mood_event/withdrawal_critical, "Alcohol")
+				H.add_mood_event("alcoholic", /datum/mood_event/withdrawal_critical, "Alcohol")
 				if(prob(5))
 					to_chat(H, span_boldannounce("You're not feeling good at all! You really need some alcohol."))
 			else
-				SEND_SIGNAL(H, COMSIG_CLEAR_MOOD_EVENT, "alcoholic")
+				H.clear_mood_event("alcoholic")
 	tick_number++
 
 /datum/quirk/unstable

@@ -96,13 +96,13 @@
 		victim.throw_alert("embeddedobject", /atom/movable/screen/alert/embeddedobject)
 		playsound(victim,'sound/weapons/bladeslice.ogg', 40)
 		weapon.add_mob_blood(victim)//it embedded itself in you, of course it's bloody!
-		SEND_SIGNAL(victim, COMSIG_ADD_MOOD_EVENT, "embedded", /datum/mood_event/embedded)
+		victim.add_mood_event("embedded", /datum/mood_event/embedded)
 
 /datum/component/embedded/Destroy()
 	var/mob/living/carbon/victim = parent
 	if(victim && !victim.has_embedded_objects())
 		victim.clear_alert("embeddedobject")
-		SEND_SIGNAL(victim, COMSIG_CLEAR_MOOD_EVENT, "embedded")
+		victim.clear_mood_event("embedded")
 	if(weapon)
 		UnregisterSignal(weapon, list(COMSIG_MOVABLE_MOVED, COMSIG_QDELETING))
 	weapon = null

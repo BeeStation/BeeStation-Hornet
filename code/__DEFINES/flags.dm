@@ -121,6 +121,8 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define REMOTE_APC					(1<<11)
 /// This area is prevented from having gravity (ie. space, nearstation, or outside solars)
 #define NO_GRAVITY 					(1<<12)
+/// If engravings are persistent in this area
+#define PERSISTENT_ENGRAVINGS (1<<15)
 /*
 	These defines are used specifically with the atom/pass_flags bitmask
 	the atom/checkpass() proc uses them (tables will call movable atom checkpass(PASSTABLE) for example)

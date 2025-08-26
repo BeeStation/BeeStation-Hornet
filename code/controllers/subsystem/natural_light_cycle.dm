@@ -20,7 +20,7 @@ SUBSYSTEM_DEF(natural_light_cycle)
 
 /datum/controller/subsystem/natural_light_cycle/fire(resumed)
 	var/time = station_time()
-	var/next_proportion = min((((time + wait) % DECISECONDS_IN_DAY) / DECISECONDS_IN_DAY) * length(cycle_colours) + 1, length(cycle_colours))
+	var/next_proportion = min((((time + wait) % MIDNIGHT_ROLLOVER) / MIDNIGHT_ROLLOVER) * length(cycle_colours) + 1, length(cycle_colours))
 	var/next_index = FLOOR(next_proportion, 1)
 	var/next_offset = next_proportion - next_index
 	var/lower_colour = cycle_colours[next_index]

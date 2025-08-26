@@ -151,21 +151,21 @@
 	righthand_file = 'icons/mob/inhands/antag/balloons_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 
-/obj/item/toy/syndicateballoon/pickup(mob/user)
+/obj/item/toy/syndicateballoon/pickup(mob/living/user)
 	..()
 	if(user?.mind && user.mind.has_antag_datum(/datum/antagonist, TRUE))
-		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "badass_antag", /datum/mood_event/badass_antag)
+		user.add_mood_event("badass_antag", /datum/mood_event/badass_antag)
 
-/obj/item/toy/syndicateballoon/dropped(mob/user)
+/obj/item/toy/syndicateballoon/dropped(mob/living/user)
 	..()
 	if(user)
-		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "badass_antag", /datum/mood_event/badass_antag)
+		user.clear_mood_event("badass_antag")
 
 
 /obj/item/toy/syndicateballoon/Destroy()
 	if(ismob(loc))
-		var/mob/M = loc
-		SEND_SIGNAL(M, COMSIG_CLEAR_MOOD_EVENT, "badass_antag", /datum/mood_event/badass_antag)
+		var/mob/living/M = loc
+		M.clear_mood_event("badass_antag")
 	. = ..()
 
 

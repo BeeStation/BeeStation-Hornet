@@ -7,6 +7,7 @@
 
 	if(!gibbed)
 		INVOKE_ASYNC(src, PROC_REF(emote), "deathgasp")
+		add_memory_in_range(src, 7, /datum/memory/witnessed_death, protagonist = src)
 
 	. = ..()
 
@@ -15,6 +16,7 @@
 		BT.on_death()
 
 /mob/living/carbon/gib(no_brain, no_organs, no_bodyparts)
+	add_memory_in_range(src, 7, /datum/memory/witness_gib, protagonist = src)
 	var/atom/Tsec = drop_location()
 	for(var/mob/M in src)
 		M.forceMove(Tsec)

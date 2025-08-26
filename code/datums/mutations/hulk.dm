@@ -23,7 +23,7 @@
 /datum/mutation/hulk/on_acquiring(mob/living/carbon/human/owner)
 	if(..())
 		return
-	SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "hulk", /datum/mood_event/hulk)
+	owner.add_mood_event("hulk", /datum/mood_event/hulk)
 	RegisterSignal(owner, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 	ADD_TRAIT(owner, TRAIT_HULK, SOURCE_HULK)
 	for(var/obj/item/bodypart/part as anything in owner.bodyparts)
@@ -43,7 +43,7 @@
 /datum/mutation/hulk/on_losing(mob/living/carbon/human/owner)
 	if(..())
 		return
-	SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "hulk")
+	owner.clear_mood_event("hulk")
 	REMOVE_TRAIT(owner, TRAIT_CHUNKYFINGERS, TRAIT_HULK)
 	UnregisterSignal(owner, COMSIG_MOB_SAY)
 	REMOVE_TRAIT(owner, TRAIT_HULK, SOURCE_HULK)

@@ -207,11 +207,11 @@
 
 	// Mood events
 	if(vampiredatum_power.my_clan?.blood_drink_type == VAMPIRE_DRINK_SNOBBY && !feed_target.mind) // Snobby
-		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "drankblood", /datum/mood_event/drankblood_bad)
+		user.add_mood_event("drankblood", /datum/mood_event/drankblood_bad)
 	else if(feed_target.stat == DEAD) // Dead
-		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "drankblood", /datum/mood_event/drankblood_bad)
+		user.add_mood_event("drankblood", /datum/mood_event/drankblood_bad)
 	else // Normal
-		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "drankblood", /datum/mood_event/drankblood)
+		user.add_mood_event("drankblood", /datum/mood_event/drankblood)
 
 	// Alert the vampire to the target's blood level
 	if(feed_target.blood_volume <= BLOOD_VOLUME_BAD && warning_target_bloodvol > BLOOD_VOLUME_BAD)
@@ -256,7 +256,8 @@
 			to_chat(feed_target, span_bighypnophrase("You don't remember how you got here..."))
 
 		if(feed_target.stat == DEAD)
-			SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "drankkilled", /datum/mood_event/drankkilled)
+			var/mob/living/living_owner = owner
+			living_owner.add_mood_event("drankkilled", /datum/mood_event/drankkilled)
 	target_ref = null
 
 	warning_target_bloodvol = BLOOD_VOLUME_MAXIMUM

@@ -9,17 +9,17 @@
 	foodtypes = VEGETABLES
 	tastes = list("ambrosia" = 1)
 
-/obj/item/food/grown/ambrosia/equipped(mob/user, slot)
+/obj/item/food/grown/ambrosia/equipped(mob/living/user, slot)
 	. = ..()
 	if(slot == ITEM_SLOT_HEAD)
-		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "flower_worn", /datum/mood_event/flower_worn, src)
+		user.add_mood_event("flower_worn", /datum/mood_event/flower_worn, src)
 
 /obj/item/food/grown/ambrosia/dropped(mob/living/carbon/user)
 	..()
 	if(user.head != src)
 		return
 	else
-		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "flower_worn")
+		user.clear_mood_event("flower_worn")
 
 // Ambrosia Vulgaris
 /obj/item/seeds/ambrosia

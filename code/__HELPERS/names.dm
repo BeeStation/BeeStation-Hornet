@@ -263,6 +263,9 @@ GLOBAL_DATUM(syndicate_code_response_regex, /regex)
 		else
 			return "something... but the gods didn't set this up right (Please report this bug)"
 
+/proc/hive_name()
+	return "[pick(GLOB.hive_names)]-hive"
+
 /**
  * Generate a name devices
  *

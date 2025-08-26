@@ -14,7 +14,7 @@
 /datum/brain_trauma/mild/hallucinations/on_life(delta_time, times_fired)
 	if(owner.stat != CONSCIOUS || owner.IsSleeping() || owner.IsUnconscious())
 		return
-	if(HAS_TRAIT(owner, TRAIT_HALLUCINATION_SUPPRESSED))
+	if(HAS_TRAIT(owner, TRAIT_RDS_SUPPRESSED))
 		return
 
 	owner.adjust_hallucinations_up_to(10 SECONDS * delta_time, 100 SECONDS)
@@ -47,7 +47,7 @@
 
 /datum/brain_trauma/mild/dumbness/on_gain()
 	ADD_TRAIT(owner, TRAIT_DUMB, TRAUMA_TRAIT)
-	SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "dumb", /datum/mood_event/oblivious)
+	owner.add_mood_event("dumb", /datum/mood_event/oblivious)
 	..()
 
 /datum/brain_trauma/mild/dumbness/on_life(delta_time, times_fired)
@@ -61,7 +61,7 @@
 /datum/brain_trauma/mild/dumbness/on_lose()
 	REMOVE_TRAIT(owner, TRAIT_DUMB, TRAUMA_TRAIT)
 	owner.derpspeech = 0
-	SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "dumb")
+	owner.clear_mood_event("dumb")
 	..()
 
 /datum/brain_trauma/mild/speech_impediment

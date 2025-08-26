@@ -231,11 +231,11 @@ CREATION_TEST_IGNORE_SELF(/turf/open)
 				return 0
 			if(slipper.m_intent == MOVE_INTENT_WALK && (lube&NO_SLIP_WHEN_WALKING))
 				return 0
-		if(!(lube&SLIDE_ICE))
+		if(!(lube & SLIDE_ICE))
 			to_chat(slipper, span_notice("You slipped[ O ? " on the [O.name]" : ""]!"))
 			playsound(slipper.loc, 'sound/misc/slip.ogg', 50, 1, -3)
 
-		SEND_SIGNAL(slipper, COMSIG_ADD_MOOD_EVENT, "slipped", /datum/mood_event/slipped)
+		slipper.add_mood_event("slipped", /datum/mood_event/slipped)
 		if(force_drop)
 			for(var/obj/item/I in slipper.held_items)
 				slipper.accident(I)

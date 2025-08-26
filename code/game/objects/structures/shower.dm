@@ -130,14 +130,15 @@
 	if(on)
 		INVOKE_ASYNC(src, PROC_REF(wash_atom), AM)
 
-/obj/machinery/shower/proc/wash_atom(atom/A)
-	A.wash(CLEAN_RAD | CLEAN_TYPE_WEAK) // Clean radiation non-instantly
-	A.wash(CLEAN_WASH)
-	SEND_SIGNAL(A, COMSIG_ADD_MOOD_EVENT, "shower", /datum/mood_event/nice_shower)
-	reagents.expose(A, TOUCH, reaction_volume)
+/obj/machinery/shower/proc/wash_atom(atom/target)
+	target.wash(CLEAN_RAD | CLEAN_TYPE_WEAK) // Clean radiation non-instantly
+	target.wash(CLEAN_WASH)
+	reagents.expose(target, TOUCH, reaction_volume)
 
-	if(isliving(A))
-		check_heat(A)
+	if(isliving(target))
+		var/mob/living/living_target = target
+		check_heat(living_target)
+		living_target.add_mood_event("shower", /datum/mood_event/nice_shower)
 
 /obj/machinery/shower/process()
 	if(on)

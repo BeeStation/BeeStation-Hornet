@@ -53,7 +53,9 @@
 		if(M.get_virtual_z_level() == supermatter_z)
 			SEND_SOUND(M, 'sound/magic/charge.ogg')
 			to_chat(M, span_boldannounce("You feel reality distort for a moment..."))
-			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "delam", /datum/mood_event/delam)
+			if (isliving(M))
+				var/mob/living/living_victim = M
+				living_victim.add_mood_event("delam", /datum/mood_event/delam)
 
 
 /datum/supermatter_delamination/proc/setup_delamination_type()
