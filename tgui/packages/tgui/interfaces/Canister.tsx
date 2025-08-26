@@ -1,3 +1,5 @@
+import { toFixed } from 'common/math';
+import { BooleanLike } from 'common/react';
 import {
   Box,
   Button,
@@ -10,8 +12,6 @@ import {
   Section,
   Tooltip,
 } from 'tgui-core/components';
-import { toFixed } from 'common/math';
-import { BooleanLike } from 'common/react';
 
 import { useBackend } from '../backend';
 import { formatSiUnit } from '../format';

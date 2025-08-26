@@ -1,3 +1,4 @@
+import { toFixed } from 'common/math';
 import { useBackend } from 'tgui/backend';
 import {
   Flex,
@@ -5,8 +6,8 @@ import {
   RoundGauge,
   Section,
 } from 'tgui-core/components';
+
 import { formatSiUnit } from '../../format';
-import { toFixed } from 'common/math';
 
 type Data = {
   apc_energy: number;

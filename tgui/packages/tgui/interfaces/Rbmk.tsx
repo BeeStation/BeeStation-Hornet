@@ -1,8 +1,8 @@
-import { ReactNode } from 'react';
-import { ProgressBar, Section, Stack, Chart } from '../components';
 import { toFixed } from 'common/math';
+import { ReactNode } from 'react';
 
 import { useBackend } from '../backend';
+import { Chart, ProgressBar, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
 type RbmkProps = {

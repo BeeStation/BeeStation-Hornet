@@ -1,4 +1,5 @@
 import { filter, sortBy } from 'common/collections';
+import { toFixed } from 'common/math';
 import { useBackend } from 'tgui/backend';
 import { getGasColor, getGasLabel } from 'tgui/constants';
 import {
@@ -9,7 +10,6 @@ import {
   ProgressBar,
   Section,
 } from 'tgui-core/components';
-import { toFixed } from 'common/math';
 
 import type { HypertorusFuel, HypertorusGas } from '.';
 import { HelpDummy, HoverHelp } from './helpers';

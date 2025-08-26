@@ -1,5 +1,9 @@
-import { sortBy, filter } from 'common/collections';
+import { filter, sortBy } from 'common/collections';
+import { toFixed } from 'common/math';
+import type { BooleanLike } from 'common/react';
 import { ReactNode, useState } from 'react';
+
+import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -8,10 +12,6 @@ import {
   Section,
   Stack,
 } from '../components';
-import { toFixed } from 'common/math';
-import type { BooleanLike } from 'common/react';
-
-import { useBackend } from '../backend';
 import { getGasFromPath } from '../constants';
 import { Window } from '../layouts';
 
@@ -162,9 +162,9 @@ export const SupermatterContent = (props: SupermatterProps) => {
                         label={`${name} (∆)`}
                         labelWrap
                       >
-                        <Box
-                          color={amount > 0 ? 'green' : 'red'}
-                        >{`${toFixed(amount, 2)} %`}</Box>
+                        <Box color={amount > 0 ? 'green' : 'red'}>
+                          {`${toFixed(amount, 2)} %`}
+                        </Box>
                       </LabeledList.Item>
                     ))}
                   </LabeledList>
@@ -284,9 +284,9 @@ export const SupermatterContent = (props: SupermatterProps) => {
                   <LabeledList>
                     {temp_limit_factors.map(({ name, amount }) => (
                       <LabeledList.Item key={name} label={name} labelWrap>
-                        <Box
-                          color={amount > 0 ? 'green' : 'red'}
-                        >{`${toFixed(amount, 2)} K`}</Box>
+                        <Box color={amount > 0 ? 'green' : 'red'}>
+                          {`${toFixed(amount, 2)} K`}
+                        </Box>
                       </LabeledList.Item>
                     ))}
                   </LabeledList>
@@ -315,9 +315,9 @@ export const SupermatterContent = (props: SupermatterProps) => {
                   <LabeledList>
                     {waste_multiplier_factors.map(({ name, amount }) => (
                       <LabeledList.Item key={name} label={name} labelWrap>
-                        <Box
-                          color={amount < 0 ? 'green' : 'red'}
-                        >{`${toFixed(amount, 2)} x`}</Box>
+                        <Box color={amount < 0 ? 'green' : 'red'}>
+                          {`${toFixed(amount, 2)} x`}
+                        </Box>
                       </LabeledList.Item>
                     ))}
                   </LabeledList>

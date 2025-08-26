@@ -1,8 +1,8 @@
 import {
   getGasColor,
-  getGasLabel,
   getGasFromId,
   getGasFromPath,
+  getGasLabel,
 } from './constants';
 
 describe('gas helper functions', () => {

@@ -1,3 +1,7 @@
+import { toFixed } from 'common/math';
+import { BooleanLike } from 'common/react';
+
+import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -6,10 +10,6 @@ import {
   ProgressBar,
   Section,
 } from '../components';
-import { toFixed } from 'common/math';
-import { BooleanLike } from 'common/react';
-
-import { useBackend } from '../backend';
 import { getGasColor } from '../constants';
 import { Window } from '../layouts';
 
