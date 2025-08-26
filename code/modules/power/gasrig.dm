@@ -12,7 +12,8 @@
 	/// Power draw when harvesting gas (increases according to depth at Y x Depth / 200) (This will always be power usage at 200 depth)
 	active_power_usage = 25 KILOWATT
 	layer = HIGH_OBJ_LAYER
-	resistance_flags = INDESTRUCTIBLE|ACID_PROOF|FIRE_PROOF
+	move_resist = INFINITY
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	density = TRUE
 
 	var/depth = 0
@@ -174,31 +175,21 @@
 
 /obj/machinery/atmospherics/gasrig/core/proc/produce_gases(datum/gas_mixture/air)
 	var/efficiency = get_fracking_efficiency(fracking_input.airs[1])
-	var/temp_depth = get_depth()
-
 	if (air.return_pressure() > get_output_pressure(efficiency))
 		overpressure = TRUE
 		return
 
 	overpressure = FALSE
 	calculate_power_use()
-	if((temp_depth >= GASRIG_O2[1]) && (temp_depth <= GASRIG_O2[2]))
-		calculate_gas_to_output(GASRIG_O2, /datum/gas/oxygen, air, efficiency)
 
-	if((temp_depth >= GASRIG_N2[1]) && (temp_depth <= GASRIG_N2[2]))
-		calculate_gas_to_output(GASRIG_N2, /datum/gas/nitrogen, air, efficiency)
-
-	if((temp_depth >= GASRIG_PLAS[1]) && (temp_depth <= GASRIG_PLAS[2]))
-		calculate_gas_to_output(GASRIG_PLAS, /datum/gas/plasma, air, efficiency)
-
-	if((temp_depth >= GASRIG_CO2[1]) && (temp_depth <= GASRIG_CO2[2]))
-		calculate_gas_to_output(GASRIG_CO2, /datum/gas/carbon_dioxide, air, efficiency)
-
-	if((temp_depth >= GASRIG_N2O[1]) && (temp_depth <= GASRIG_N2O[2]))
-		calculate_gas_to_output(GASRIG_N2O, /datum/gas/nitrous_oxide, air, efficiency)
-
-	if((temp_depth >= GASRIG_NOB[1]) && (temp_depth <= GASRIG_NOB[2]))
-		calculate_gas_to_output(GASRIG_NOB, /datum/gas/hypernoblium, air, efficiency)
+	calculate_gas_to_output(GASRIG_O2, /datum/gas/oxygen, air, efficiency)
+	calculate_gas_to_output(GASRIG_N2, /datum/gas/nitrogen, air, efficiency)
+	calculate_gas_to_output(GASRIG_PLAS, /datum/gas/plasma, air, efficiency)
+	calculate_gas_to_output(GASRIG_CO2, /datum/gas/carbon_dioxide, air, efficiency)
+	calculate_gas_to_output(GASRIG_N2O, /datum/gas/nitrous_oxide, air, efficiency)
+	calculate_gas_to_output(GASRIG_BZ, /datum/gas/bz, air, efficiency)
+	calculate_gas_to_output(GASRIG_PLOX, /datum/gas/pluoxium, air, efficiency)
+	calculate_gas_to_output(GASRIG_NOB, /datum/gas/hypernoblium, air, efficiency)
 
 /obj/machinery/atmospherics/gasrig/core/proc/calculate_power_use()
 	var/depth = get_depth()
@@ -358,6 +349,8 @@
 	data["co2_constants"] = GASRIG_CO2
 	data["n2o_constants"] = GASRIG_N2O
 	data["nob_constants"] = GASRIG_NOB
+	data["bz_constants"] =  GASRIG_BZ
+	data["plox_constants"] = GASRIG_PLOX
 	data["warning_message"] = get_warning()
 	return data
 
@@ -395,6 +388,8 @@
 	air.merge(merger)
 
 /obj/machinery/atmospherics/gasrig/core/proc/calculate_gas_to_output(gas_constant, gas_type, var/datum/gas_mixture/air, efficiency)
+	if(!((get_depth() >= gas_constant[1]) && (get_depth() <= gas_constant[2])))
+		return
 	var/difference = gas_constant[2] - gas_constant[1]
 	var/percent_rising = ((get_depth() - gas_constant[1]) / (difference/2))
 	var/percent_falling = ((gas_constant[2] - get_depth()) / (difference/2))
@@ -407,8 +402,9 @@
 	gas_output.update_parents()
 
 /obj/machinery/atmospherics/components/unary/gasrig/
-	resistance_flags = INDESTRUCTIBLE|ACID_PROOF|FIRE_PROOF
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	density = TRUE
+	move_resist = INFINITY
 	var/obj/machinery/atmospherics/gasrig/core/parent
 
 /obj/machinery/atmospherics/components/unary/gasrig/New(loc, booled, var/obj/machinery/atmospherics/gasrig/core/C)
@@ -474,6 +470,8 @@
 	icon = 'icons/obj/machines/gasrig.dmi'
 	layer = HIGH_OBJ_LAYER
 	var/obj/machinery/atmospherics/gasrig/core/parent
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	move_resist = INFINITY
 
 /obj/machinery/atmospherics/gasrig/dummy/New(loc, var/obj/machinery/atmospherics/gasrig/core/gasrig, iconstate)
 	..(loc)
