@@ -888,7 +888,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 			if(organ.organ_flags & ORGAN_SYNTHETIC)
 				continue
 
-			organ.applyOrganDamage(excess_healing * -1) //1 excess = 5 organ damage healed
+			organ.apply_organ_damage(excess_healing * -1) //1 excess = 5 organ damage healed
 
 	return ..()
 

@@ -5,7 +5,7 @@
 	var/mob/living/carbon/human/dummy = allocate(/mob/living/carbon/human/consistent)
 
 	for(var/obj/item/organ/organ in dummy.internal_organs)
-		organ.applyOrganDamage(50)
+		organ.apply_organ_damage(50)
 
 	dummy.fully_heal(HEAL_ORGANS)
 
