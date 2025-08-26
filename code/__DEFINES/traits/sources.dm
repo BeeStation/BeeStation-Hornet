@@ -156,6 +156,7 @@
 #define FROM_HITPOINTS "hitpoints"
 #define FROM_HEART "heart"
 #define FROM_BREATH "breath"
+#define FROM_CARBON_DIOXIDE "carbon_dioxide"
 #define FROM_BRAIN "brain"
 #define FROM_CHEST_DAMAGE "chest damage"
 #define FROM_HEAD_DAMAGE "head damage"

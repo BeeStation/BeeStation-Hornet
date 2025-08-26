@@ -96,7 +96,7 @@
 		losebreath--
 		if(prob(10))
 			emote("gasp")
-		if(istype(loc, /obj/))
+		if(istype(loc, /obj))
 			var/obj/loc_as_obj = loc
 			loc_as_obj.handle_internal_lifeform(src,0)
 	else
@@ -140,15 +140,19 @@
 	if(HAS_TRAIT(src, TRAIT_NOBREATH))
 		return
 
+	blood.multiply_circulation_rating(1, FROM_BREATH)
+	blood.multiply_circulation_rating(1, FROM_CARBON_DIOXIDE)
+
 	var/obj/item/organ/lungs = get_organ_slot(ORGAN_SLOT_LUNGS)
 	if(!lungs)
-		adjustOxyLoss(2)
+		blood.multiply_circulation_rating(0, FROM_BREATH)
+		return
 
 	//CRIT
 	if(!breath || (breath.total_moles() == 0) || !lungs)
 		if(reagents.has_reagent(/datum/reagent/medicine/epinephrine, needs_metabolizing = TRUE) && lungs)
 			return
-		adjustOxyLoss(1)
+		blood.multiply_circulation_rating(0.5, FROM_BREATH)
 
 		failed_last_breath = 1
 		throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
@@ -172,19 +176,17 @@
 		if(prob(20))
 			emote("gasp")
 		if(O2_partialpressure > 0)
-			var/ratio = 1 - O2_partialpressure/safe_oxy_min
-			adjustOxyLoss(min(5*ratio, 3))
+			var/ratio = O2_partialpressure/safe_oxy_min
+			blood.multiply_circulation_rating(ratio * 0.5, FROM_BREATH)
 			failed_last_breath = 1
 			oxygen_used = GET_MOLES(/datum/gas/oxygen, breath)*ratio
 		else
-			adjustOxyLoss(3)
+			blood.multiply_circulation_rating(0, FROM_BREATH)
 			failed_last_breath = 1
 		throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
 
 	else //Enough oxygen
 		failed_last_breath = 0
-		if(health >= crit_threshold)
-			adjustOxyLoss(-5)
 		oxygen_used = GET_MOLES(/datum/gas/oxygen, breath)
 		clear_alert("not_enough_oxy")
 
@@ -197,9 +199,9 @@
 			co2overloadtime = world.time
 		else if(world.time - co2overloadtime > 120)
 			Unconscious(60)
-			adjustOxyLoss(3)
+			blood.multiply_circulation_rating(0.5, FROM_CARBON_DIOXIDE)
 			if(world.time - co2overloadtime > 300)
-				adjustOxyLoss(8)
+				blood.multiply_circulation_rating(0, FROM_CARBON_DIOXIDE)
 		if(prob(20))
 			emote("cough")
 

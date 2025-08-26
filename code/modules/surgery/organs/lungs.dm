@@ -25,6 +25,8 @@
 	//Breath damage
 	//These thresholds are checked against what amounts to total_mix_pressure * (gas_type_mols/total_mols)
 
+	var/breath_multiplier = 1
+
 	var/breathing_class = BREATH_OXY // can be a gas instead of a breathing class
 	var/safe_breath_min = 16
 	var/safe_breath_max = 50
@@ -131,7 +133,8 @@
 
 /obj/item/organ/lungs/proc/check_breath(datum/gas_mixture/breath, mob/living/carbon/human/H)
 	//TODO: add lung damage = less oxygen gains
-	var/breathModifier = (5-(5*(damage/maxHealth)/2)) //range 2.5 - 5
+	var/breathModifier = (1 - (damage/maxHealth)) * breath_multiplier
+	H.blood.multiply_circulation_rating(breathModifier, FROM_BREATH)
 	if(H.status_flags & GODMODE)
 		return
 	if(HAS_TRAIT(H, TRAIT_NOBREATH))
@@ -140,10 +143,7 @@
 	if(!breath || (breath.total_moles() == 0))
 		if(H.reagents.has_reagent(crit_stabilizing_reagent))
 			return
-		if(H.health >= H.crit_threshold)
-			H.adjustOxyLoss(HUMAN_MAX_OXYLOSS)
-		else if(!HAS_TRAIT(H, TRAIT_NOCRITDAMAGE))
-			H.adjustOxyLoss(HUMAN_CRIT_MAX_OXYLOSS)
+		H.blood.multiply_circulation_rating(0, FROM_BREATH)
 
 		H.failed_last_breath = TRUE
 		var/alert_category
@@ -212,8 +212,6 @@
 			throw_alert_for(H, alert_category, alert_type)
 		else
 			H.failed_last_breath = FALSE
-			if(H.health >= H.crit_threshold)
-				H.adjustOxyLoss(-breathModifier)
 			clear_alert_for(H, alert_category)
 	for(var/entry in gas_max)
 		var/found_pp = 0
@@ -378,6 +376,7 @@
 	organ_flags = ORGAN_SYNTHETIC
 	status = ORGAN_ROBOTIC
 	maxHealth = 1.1 * STANDARD_ORGAN_THRESHOLD
+	breath_multiplier = 1.1
 	safe_breath_min = 13
 	safe_breath_max = 100
 
@@ -400,6 +399,7 @@
 		/datum/gas/carbon_dioxide = 30
 	)
 	maxHealth = 2 * STANDARD_ORGAN_THRESHOLD
+	breath_multiplier = 1.2
 
 	cold_level_1_threshold = 200
 	cold_level_2_threshold = 140
