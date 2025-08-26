@@ -925,7 +925,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if (!eyes)
 		return
 	M.adjust_blurriness(3)
-	eyes.apply_organ_damage(3)
+	eyes.applyOrganDamage(3)
 	if(eyes.damage >= 10)
 		M.adjust_blurriness(15)
 		if(M.stat != DEAD)

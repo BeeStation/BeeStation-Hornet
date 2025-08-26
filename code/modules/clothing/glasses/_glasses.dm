@@ -71,7 +71,7 @@
 				H.flash_act(visual = 1)
 				H.adjust_blindness(3)
 				H.blur_eyes(5)
-				eyes.apply_organ_damage(5)
+				eyes.applyOrganDamage(5)
 
 /obj/item/clothing/glasses/meson
 	name = "optical meson scanner"

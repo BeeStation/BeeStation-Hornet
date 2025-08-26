@@ -727,7 +727,7 @@
 		var/obj/item/organ/O = organ
 		if(!istype(O))
 			return
-		O.apply_organ_damage(-repair_rate * delta_time)
+		O.applyOrganDamage(-repair_rate * delta_time)
 
 /obj/machinery/smartfridge/organ/Exited(atom/movable/gone, direction)
 	. = ..()

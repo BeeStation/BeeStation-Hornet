@@ -104,7 +104,7 @@
 				M.set_blindness(0)
 				M.set_blurriness(0)
 			else if(eyes.damage > 0)
-				eyes.apply_organ_damage(-1)
+				eyes.applyOrganDamage(-1)
 		else
 			if(prob(base_message_chance) && M.stat != DEAD)
 				to_chat(M, span_notice("[pick("Your eyes feel great.","You feel like your eyes can focus more clearly.", "You don't feel the need to blink.","Your ears feel great.","Your healing feels more acute.")]"))
