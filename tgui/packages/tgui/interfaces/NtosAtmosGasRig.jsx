@@ -1,6 +1,6 @@
-import { AtmosGasRigTemplate } from './AtmosGasRig';
 import { Box } from '../components';
 import { NtosWindow } from '../layouts';
+import { AtmosGasRigTemplate } from './AtmosGasRig';
 
 export const NtosAtmosGasRig = (props) => {
   return (
