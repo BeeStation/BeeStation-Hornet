@@ -112,6 +112,7 @@
 					if (abs(removed.value) > 0.0001) {\
 						_head.mult_cum /= removed.value;\
 					} else {\
+						removed.value = 1;\
 						_head.add_cum = 0;\
 						_head.mult_cum = 1;\
 						for (var/__j = 2; __j <= length(_target_list); __j++) {\
@@ -170,6 +171,7 @@
 					if (abs(removed.value) > 0.0001) {\
 						_head.mult_cum /= removed.value;\
 					} else {\
+						removed.value = 1;\
 						_head.add_cum = 0;\
 						_head.mult_cum = 1;\
 						for (var/__j = 2; __j <= length(_target_list); __j++) {\
