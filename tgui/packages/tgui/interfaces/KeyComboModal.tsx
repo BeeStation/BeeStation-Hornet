@@ -17,7 +17,12 @@ type KeyInputData = {
 };
 
 function isStandardKey(event: React.KeyboardEvent<HTMLDivElement>): boolean {
-  return event.key !== KEY.Alt && event.key !== KEY.Control && event.key !== KEY.Shift && !isEscape(event.key);
+  return (
+    event.key !== KEY.Alt &&
+    event.key !== KEY.Control &&
+    event.key !== KEY.Shift &&
+    !isEscape(event.key)
+  );
 }
 
 const KEY_CODE_TO_BYOND: Record<string, string> = {
@@ -36,7 +41,9 @@ const KEY_CODE_TO_BYOND: Record<string, string> = {
 
 const DOM_KEY_LOCATION_NUMPAD = 3;
 
-function formatKeyboardEvent(event: React.KeyboardEvent<HTMLDivElement>): string {
+function formatKeyboardEvent(
+  event: React.KeyboardEvent<HTMLDivElement>,
+): string {
   let text = '';
 
   if (event.altKey) {
@@ -102,7 +109,9 @@ export function KeyComboModal(props) {
 
   // Dynamically changes the window height based on the message.
   const windowHeight =
-    130 + (message.length > 30 ? Math.ceil(message.length / 3) : 0) + (message.length && large_buttons ? 5 : 0);
+    130 +
+    (message.length > 30 ? Math.ceil(message.length / 3) : 0) +
+    (message.length && large_buttons ? 5 : 0);
 
   return (
     <Window title={title} width={240} height={windowHeight}>
@@ -122,7 +131,8 @@ export function KeyComboModal(props) {
                 onClick={() => {
                   setValue(init_value);
                   setBinding(true);
-                }}>
+                }}
+              >
                 {binding ? 'Awaiting input...' : `${input}`}
               </Button>
             </Stack.Item>
