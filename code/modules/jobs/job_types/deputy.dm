@@ -51,4 +51,6 @@
 
 /obj/item/card/id/pass/afterattack(atom/target, mob/user, proximity)
 	. = ..()
+	if (!proximity)
+		return .
 	ADD_TRAIT(usr.mind, TRAIT_SECURITY, JOB_TRAIT)
