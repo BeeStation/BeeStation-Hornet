@@ -43,7 +43,6 @@
 		// The status effect calls on_remove when its mob is deleted
 		if(effect.on_remove_on_mob_delete)
 			qdel(effect)
-
 		else
 			effect.be_replaced()
 
