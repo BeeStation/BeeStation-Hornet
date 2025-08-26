@@ -76,9 +76,12 @@
 	A.adjustFireLoss(-1, 0)
 	A.adjustToxLoss(-1, 0)
 	A.adjustBruteLoss(-1, 0)
+
 	A.updatehealth()
 	if(A.health >= 0 && A.stat == DEAD)
 		A.revive()
+		cardhold.update_appearance()
+
 	// Finished restoring
 	if(A.health >= 100)
 		ai_slot.locked = FALSE

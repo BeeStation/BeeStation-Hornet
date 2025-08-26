@@ -233,7 +233,8 @@
 			respawn_progress += delta_time SECONDS
 			playsound(owner,'sound/effects/singlebeat.ogg',40,1)
 	if(respawn_progress >= HEART_RESPAWN_THRESHOLD)
-		owner.revive(full_heal = TRUE)
+		owner.revive(HEAL_ALL)
+
 		if(!(owner.dna.species.id == "shadow" || owner.dna.species.id == "nightmare"))
 			var/mob/living/carbon/old_owner = owner
 			Remove(owner, HEART_SPECIAL_SHADOWIFY)
@@ -540,7 +541,7 @@
 			respawn_progress += 0.75 * delta_time SECONDS
 			playsound(owner,'sound/effects/singlebeat.ogg',40,1)
 	if(respawn_progress >= HEART_RESPAWN_THRESHOLD)
-		owner.revive(full_heal = TRUE)
+		owner.revive(HEAL_ALL)
 		if(!isshadow(owner))
 			var/mob/living/carbon/old_owner = owner
 			old_owner.set_species(/datum/species/shadow/blessed)

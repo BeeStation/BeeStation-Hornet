@@ -1,4 +1,0 @@
-author: mrmanlikesbt, Ghommie
-delete-after: true
-changes:
-  - code_imp: replaced the GODMODE bitflag with a trait

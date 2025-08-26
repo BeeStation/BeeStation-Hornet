@@ -416,3 +416,6 @@
 2025-08-25:
   rkz, jlsnow:
   - code_imp: updated lints for TGUI
+2025-08-26:
+  mrmanlikesbt, Ghommie:
+  - code_imp: replaced the GODMODE bitflag with a trait
