@@ -358,9 +358,7 @@ ROUNDSTART_RACES plasmaman
 
 #ROUNDSTART_RACES abductor
 #ROUNDSTART_RACES shadow
-#ROUNDSTART_RACES dullahan
 #ROUNDSTART_RACES pumpkin_man
-#ROUNDSTART_RACES vampire
 
 ## OP Halloween races:
 #ROUNDSTART_RACES skeleton

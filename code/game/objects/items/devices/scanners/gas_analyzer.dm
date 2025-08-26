@@ -39,7 +39,7 @@
 /obj/item/analyzer/AltClick(mob/user) //Barometer output for measuring when the next storm happens
 	..()
 
-	if(user.canUseTopic(src, BE_CLOSE))
+	if(!user.canUseTopic(src, BE_CLOSE))
 		return
 
 	if(cooldown)
@@ -60,7 +60,7 @@
 
 	for(var/V in SSweather.processing)
 		var/datum/weather/W = V
-		if(W.barometer_predictable && (T.z in W.impacted_z_levels) && W.area_type == user_area.type && !(W.stage == END_STAGE))
+		if(W.barometer_predictable && (T.z in W.impacted_z_levels) && !(W.stage == END_STAGE))
 			ongoing_weather = W
 			break
 

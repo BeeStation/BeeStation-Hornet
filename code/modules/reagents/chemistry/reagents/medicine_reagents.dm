@@ -43,49 +43,15 @@
 	color = "#E0BB00" //golden for the gods
 	chemical_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
 	taste_description = "badmins"
+	/// Flags to fullheal every metabolism tick
+	var/full_heal_flags = ~(HEAL_BRUTE|HEAL_BURN|HEAL_TOX|HEAL_RESTRAINTS|HEAL_ORGANS)
 
 /datum/reagent/medicine/adminordrazine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
-	. = ..()
 	affected_mob.heal_bodypart_damage(5 * REM * delta_time, 5 * REM * delta_time, updating_health = FALSE)
 	affected_mob.adjustToxLoss(-5 * REM * delta_time, updating_health = FALSE, forced = TRUE)
-	affected_mob.setOxyLoss(0, updating_health = FALSE)
-	affected_mob.setCloneLoss(0, updating_health = FALSE)
-
-	affected_mob.set_blurriness(0)
-	affected_mob.set_blindness(0)
-	affected_mob.SetKnockdown(0)
-	affected_mob.SetStun(0)
-	affected_mob.SetUnconscious(0)
-	affected_mob.SetParalyzed(0)
-	affected_mob.SetImmobilized(0)
-	affected_mob.confused = 0
-	affected_mob.SetSleeping(0)
-
-	affected_mob.silent = FALSE
-	affected_mob.dizziness = 0
-	affected_mob.disgust = 0
-	affected_mob.drowsyness = 0
-	affected_mob.stuttering = 0
-	affected_mob.slurring = 0
-	affected_mob.jitteriness = 0
-	affected_mob.hallucination = 0
-	affected_mob.radiation = 0
-
-	REMOVE_TRAITS_NOT_IN(affected_mob, list(SPECIES_TRAIT, ROUNDSTART_TRAIT, ORGAN_TRAIT))
-	affected_mob.reagents.remove_all_type(/datum/reagent/toxin, 5 * REM * delta_time, FALSE, TRUE)
-	if(affected_mob.blood_volume < BLOOD_VOLUME_NORMAL)
-		affected_mob.blood_volume = BLOOD_VOLUME_NORMAL
-
-	affected_mob.cure_all_traumas(TRAUMA_RESILIENCE_MAGIC)
-	for(var/obj/item/organ/organ as anything in affected_mob.internal_organs)
-		organ.set_organ_damage(0)
-
-	for(var/datum/disease/disease in affected_mob.diseases)
-		if(disease.danger == DISEASE_BENEFICIAL || disease.danger == DISEASE_POSITIVE)
-			continue
-		disease.cure()
-
-	return UPDATE_MOB_HEALTH
+	// Heal everything! That we want to. But really don't heal reagents. Otherwise we'll lose ... us.
+	affected_mob.fully_heal(full_heal_flags & ~HEAL_ALL_REAGENTS)
+	return ..()
 
 /datum/reagent/medicine/adminordrazine/quantum_heal
 	name = "Quantum Medicine"
@@ -110,7 +76,7 @@
 	if(affected_mob.reagents.has_reagent(/datum/reagent/toxin/mindbreaker))
 		affected_mob.reagents.remove_reagent(/datum/reagent/toxin/mindbreaker, 5 * REM * delta_time)
 
-	affected_mob.hallucination = max(affected_mob.hallucination - (10 * REM * delta_time), 0)
+	affected_mob.adjust_hallucinations(-20 SECONDS * REM * delta_time)
 	if(DT_PROB(16, delta_time))
 		affected_mob.adjustToxLoss(1, updating_health = FALSE)
 		return UPDATE_MOB_HEALTH
@@ -124,7 +90,7 @@
 /datum/reagent/medicine/synaphydramine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	affected_mob.drowsyness = max(affected_mob.drowsyness - (5 * REM * delta_time), 0)
-	affected_mob.hallucination = max(affected_mob.hallucination - (10 * REM * delta_time), 0)
+	affected_mob.adjust_hallucinations(-20 SECONDS * REM * delta_time)
 
 	if(affected_mob.reagents.has_reagent(/datum/reagent/toxin/mindbreaker))
 		affected_mob.reagents.remove_reagent(/datum/reagent/toxin/mindbreaker, 5 * REM * delta_time)
@@ -411,7 +377,6 @@
 
 /datum/reagent/medicine/mine_salve/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.hal_screwyhud = SCREWYHUD_HEALTHY
 	affected_mob.adjustBruteLoss(-0.25 * REM * delta_time, updating_health = FALSE)
 	affected_mob.adjustFireLoss(-0.25 * REM * delta_time, updating_health = FALSE)
 	return UPDATE_MOB_HEALTH
@@ -432,9 +397,13 @@
 			if(show_message)
 				to_chat(exposed_carbon, span_danger("You feel your wounds fade away to nothing!") )
 
-/datum/reagent/medicine/mine_salve/on_mob_end_metabolize(mob/living/carbon/affected_mob)
+/datum/reagent/medicine/mine_salve/on_mob_metabolize(mob/living/affected_mob)
 	. = ..()
-	affected_mob.hal_screwyhud = SCREWYHUD_NONE
+	affected_mob.apply_status_effect(/datum/status_effect/grouped/screwy_hud/fake_healthy, type)
+
+/datum/reagent/medicine/mine_salve/on_mob_end_metabolize(mob/living/affected_mob)
+	. = ..()
+	affected_mob.remove_status_effect(/datum/status_effect/grouped/screwy_hud/fake_healthy, type)
 
 /datum/reagent/medicine/synthflesh
 	name = "Synthflesh"
@@ -526,7 +495,7 @@
 /datum/reagent/medicine/liquid_solder/on_mob_life(mob/living/carbon/affected_mob)
 	. = ..()
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, -3 * REM)
-	affected_mob.hallucination = max(0, affected_mob.hallucination - 10)
+	affected_mob.adjust_hallucinations(-20 SECONDS)
 
 	if(prob(30) && affected_mob.has_trauma_type(BRAIN_TRAUMA_SPECIAL))
 		affected_mob.cure_trauma_type(BRAIN_TRAUMA_SPECIAL)
@@ -1408,7 +1377,7 @@
 
 /datum/reagent/medicine/earthsblood/overdose_process(mob/living/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.hallucination = clamp(affected_mob.hallucination + (5 * REM * delta_time), 0, 60)
+	affected_mob.adjust_hallucinations_up_to(10 SECONDS * REM * delta_time, 120 SECONDS)
 	affected_mob.adjustToxLoss(5 * REM * delta_time, updating_health = FALSE)
 	return UPDATE_MOB_HEALTH
 
@@ -1429,8 +1398,9 @@
 		affected_mob.reagents.remove_reagent(drug.type, 5 * REM * delta_time)
 	if(affected_mob.jitteriness >= 3)
 		affected_mob.jitteriness -= 3 * REM * delta_time
-	if(affected_mob.hallucination >= 5)
-		affected_mob.hallucination -= 5 * REM * delta_time
+	if (affected_mob.get_timed_status_effect_duration(/datum/status_effect/hallucination) >= 10 SECONDS)
+		affected_mob.adjust_hallucinations(-10 SECONDS * REM * delta_time)
+
 	if(DT_PROB(10, delta_time))
 		affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1, 50)
 
@@ -1618,7 +1588,7 @@
 
 /datum/reagent/medicine/psicodine/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.hallucination = clamp(affected_mob.hallucination + (5 * REM * delta_time), 0, 60)
+	affected_mob.adjust_hallucinations_up_to(10 SECONDS * REM * delta_time, 120 SECONDS)
 	affected_mob.adjustToxLoss(1 * REM * delta_time, updating_health = FALSE)
 	return UPDATE_MOB_HEALTH
 

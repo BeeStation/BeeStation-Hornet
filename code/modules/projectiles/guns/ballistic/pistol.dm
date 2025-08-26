@@ -19,7 +19,7 @@
 
 /obj/item/gun/ballistic/automatic/pistol/no_mag
 	spawnwithmagazine = FALSE
-	caliber = "10mm"
+	caliber = list("10mm")
 
 /obj/item/gun/ballistic/automatic/pistol/locker
 	desc = "A small, easily concealable 10mm handgun. Has a threaded barrel for suppressors. This one is rusted from being inside of a locker for so long."
@@ -65,7 +65,7 @@
 
 /obj/item/gun/ballistic/automatic/pistol/m1911/no_mag
 	spawnwithmagazine = FALSE
-	caliber = ".45"
+	caliber = list(".45")
 
 /obj/item/gun/ballistic/automatic/pistol/deagle
 	name = "\improper Desert Eagle"

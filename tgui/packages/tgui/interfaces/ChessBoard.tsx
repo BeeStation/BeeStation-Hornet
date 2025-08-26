@@ -1,5 +1,7 @@
+import { DmIcon } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Box, Flex, DmIcon, Icon } from '../components';
+import { Box, Flex, Icon } from '../components';
 import { Window } from '../layouts';
 
 type ChessBoardData = {
@@ -19,10 +21,22 @@ export const ChessBoard = () => {
   return (
     <Window theme="generic" width={612} height={644}>
       <Window.Content backgroundColor="#663931">
-        <Box backgroundColor="#fefff2" width="600px" height="600px" position="fixed" />
+        <Box
+          backgroundColor="#fefff2"
+          width="600px"
+          height="600px"
+          position="fixed"
+        />
         <Flex wrap width="600px">
           {contents.map((item, index) => (
-            <Cell show={item.show} index={index} key={index} icon={item.icon} icon_state={item.icon_state} name={item.name} />
+            <Cell
+              show={item.show}
+              index={index}
+              key={index}
+              icon={item.icon}
+              icon_state={item.icon_state}
+              name={item.name}
+            />
           ))}
         </Flex>
       </Window.Content>
@@ -45,7 +59,8 @@ const Cell = (props) => {
               : props.index % 2
                 ? '#2f3336'
                 : '#fefff2'
-          }>
+          }
+        >
           {props.show && (
             <Box className="ChessBoard_Icon">
               <DmIcon
@@ -56,21 +71,27 @@ const Cell = (props) => {
                 height="170%"
                 width="170%"
                 backgroundColor="red"
-                style={{
-                  imageRendering: 'pixelated',
-                  msInterpolationMode: 'nearest-neighbor',
-                }}
+                style={
+                  {
+                    imageRendering: 'pixelated',
+                    msInterpolationMode: 'nearest-neighbor',
+                  } as any
+                }
               />
             </Box>
           )}
           <Box className="ChessBoard_Outline" />
-          <Box className="ChessBoard_Slot" onClick={() => act('ItemClick', { 'SlotKey': props.index + 1 })}>
+          <Box
+            className="ChessBoard_Slot"
+            onClick={() => act('ItemClick', { SlotKey: props.index + 1 })}
+          >
             <Box
               className="ChessBoard_Text"
               style={{
                 bottom: Math.trunc(props.index / 8) === 0 ? 'auto' : '110%',
                 top: Math.trunc(props.index / 8) === 0 ? '110%' : 'auto',
-              }}>
+              }}
+            >
               {props.name}
             </Box>
           </Box>

@@ -271,7 +271,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 		return
 
 	M.set_species(/datum/species/skeleton, icon_update=0)
-	M.revive(full_heal = 1, admin_revive = 1)
+	M.revive(ADMIN_HEAL_ALL)
 	spooky_scaries |= M
 	to_chat(M, "[span_userdanger("You have been revived by ")]<B>[user.real_name]!</B>")
 	to_chat(M, span_userdanger("[user.p_theyre(TRUE)] your master now, assist [user.p_them()] even if it costs you your new life!"))
@@ -469,8 +469,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 
 /obj/item/warpwhistle/proc/end_effect(mob/living/carbon/user)
 	user.invisibility = initial(user.invisibility)
-	user.status_flags &= ~GODMODE
-	REMOVE_TRAIT(user, TRAIT_IMMOBILIZED, WARPWHISTLE_TRAIT)
+	user.remove_traits(list(TRAIT_GODMODE, TRAIT_IMMOBILIZED), WARPWHISTLE_TRAIT)
 
 /obj/item/warpwhistle/attack_self(mob/living/carbon/user)
 	if(!istype(user) || on_cooldown)
@@ -486,7 +485,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 		REMOVE_TRAIT(user, TRAIT_IMMOBILIZED, WARPWHISTLE_TRAIT)
 		return
 	user.invisibility = INVISIBILITY_MAXIMUM
-	user.status_flags |= GODMODE
+	ADD_TRAIT(user, TRAIT_GODMODE, WARPWHISTLE_TRAIT)
 	sleep(20)
 	if(interrupted(user))
 		end_effect(user)

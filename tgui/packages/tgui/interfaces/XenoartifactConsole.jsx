@@ -1,5 +1,14 @@
 import { useBackend, useSharedState } from '../backend';
-import { Box, Tabs, Section, Button, BlockQuote, Icon, Collapsible, AnimatedNumber, ProgressBar, Flex, Divider, Table } from '../components';
+import {
+  BlockQuote,
+  Button,
+  Divider,
+  Flex,
+  Icon,
+  Section,
+  Table,
+  Tabs,
+} from '../components';
 import { formatMoney } from '../format';
 import { Window } from '../layouts';
 
@@ -34,13 +43,22 @@ export const XenoartifactConsole = (props) => {
         </Section>
         <Divider />
         <Tabs>
-          <Tabs.Tab onClick={() => setTab('listings')} selected={tab === 'listings'}>
+          <Tabs.Tab
+            onClick={() => setTab('listings')}
+            selected={tab === 'listings'}
+          >
             <Icon name="shopping-cart" /> Listings
           </Tabs.Tab>
-          <Tabs.Tab onClick={() => setTab('requests')} selected={tab === 'requests'}>
+          <Tabs.Tab
+            onClick={() => setTab('requests')}
+            selected={tab === 'requests'}
+          >
             <Icon name="list" /> Requests
           </Tabs.Tab>
-          <Tabs.Tab onClick={() => setTab('history')} selected={tab === 'history'}>
+          <Tabs.Tab
+            onClick={() => setTab('history')}
+            selected={tab === 'history'}
+          >
             <Icon name="search" /> History
           </Tabs.Tab>
         </Tabs>
@@ -83,11 +101,18 @@ const XenoartifactConsoleSellerEntry = (props) => {
             buttons={
               <Button
                 icon={'shopping-cart'}
-                onClick={() => act(`stock_purchase`, { item_id: stock_list['id'], seller_id: value['id'] })}>
+                onClick={() =>
+                  act(`stock_purchase`, {
+                    item_id: stock_list['id'],
+                    seller_id: value['id'],
+                  })
+                }
+              >
                 {`$${stock_list['cost']}`}
               </Button>
             }
-            key={stock_list}>
+            key={stock_list}
+          >
             <BlockQuote>{`${stock_list['description']}`}</BlockQuote>
             <Divider />
           </Section>
