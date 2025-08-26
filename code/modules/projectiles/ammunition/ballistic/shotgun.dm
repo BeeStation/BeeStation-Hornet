@@ -136,6 +136,7 @@
 	icon_state = "dtshell"
 	high_power = FALSE
 	projectile_type = /obj/projectile/bullet/dart
+	custom_materials = list(/datum/material/iron=4000, /datum/material/silver=2000)
 	var/reagent_amount = 30
 
 /obj/item/ammo_casing/shotgun/dart/Initialize(mapload)

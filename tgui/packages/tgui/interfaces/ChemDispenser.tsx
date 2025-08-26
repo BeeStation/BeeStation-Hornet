@@ -1,12 +1,25 @@
 import { toFixed } from 'common/math';
-import { toTitleCase } from 'common/string';
-import { useBackend, useLocalState, useSharedState } from '../backend';
-import { AnimatedNumber, Box, Button, Dimmer, Divider, Flex, Icon, Input, LabeledList, Popper, ProgressBar, Section, Stack, Table, TextArea, Tooltip } from '../components';
-import { Window } from '../layouts';
 import { classes } from 'common/react';
-import { require } from 'tgui-dev-server/require';
-import { createLogger } from 'tgui/logging';
 import { storage } from 'common/storage';
+import { createLogger } from 'tgui/logging';
+
+import { useBackend, useLocalState, useSharedState } from '../backend';
+import {
+  AnimatedNumber,
+  Box,
+  Button,
+  Divider,
+  Icon,
+  Input,
+  LabeledList,
+  Popper,
+  ProgressBar,
+  Section,
+  Stack,
+  Table,
+  Tooltip,
+} from '../components';
+import { Window } from '../layouts';
 
 type Reagent = {
   name: string;
@@ -112,7 +125,10 @@ const needs_update = (after: { path: string; volume: number }[]) => {
     return true;
   }
   for (let i = 0; i < last_contents.length; i++) {
-    if (last_contents[i].path !== after[i].path || last_contents[i].volume !== after[i].volume) {
+    if (
+      last_contents[i].path !== after[i].path ||
+      last_contents[i].volume !== after[i].volume
+    ) {
       return true;
     }
   }
@@ -128,16 +144,22 @@ const needs_update = (after: { path: string; volume: number }[]) => {
 const compile_recipes = (
   contents: { path: string; volume: number }[],
   recipes: Recipe[],
-  favourites: { [id: string]: boolean }
+  favourites: { [id: string]: boolean },
 ): SatisfiedRecipe[] => {
   if (recipe_list.length && !needs_update(contents)) {
     return recipe_list;
   }
   const { act, data } = useBackend<ChemDispenserData>();
   let result: SatisfiedRecipe[] = [];
-  const [unlocked_recipes, set_unlocked_recipes] = useSharedState('unlocked_recipes', {});
+  const [unlocked_recipes, set_unlocked_recipes] = useSharedState(
+    'unlocked_recipes',
+    {},
+  );
   const [search_term] = useSharedState('search_term', '');
-  const [selected_recipe] = useSharedState<Recipe | null>('selected_recipe', null);
+  const [selected_recipe] = useSharedState<Recipe | null>(
+    'selected_recipe',
+    null,
+  );
   const [filters] = useSharedState('filters', 0);
   let initial_length = Object.keys(unlocked_recipes).length;
   if (selected_recipe !== null) {
@@ -166,7 +188,10 @@ const compile_recipes = (
       }
       used_recipes[head!.name] = true;
       // If our result is a base reagent, don't show it
-      if (head?.results.length === 1 && data.chemicals.some((x) => x.title === head?.results[0].name)) {
+      if (
+        head?.results.length === 1 &&
+        data.chemicals.some((x) => x.title === head?.results[0].name)
+      ) {
         continue;
       }
       for (const requirement of head!.required_reagents) {
@@ -216,7 +241,11 @@ const compile_recipes = (
       // Gain points if we have the reagent already
       if (contents.length > 0) {
         for (const required of recipe.required_reagents) {
-          if (contents.some((x) => x.path === required.path && x.volume >= required.volume)) {
+          if (
+            contents.some(
+              (x) => x.path === required.path && x.volume >= required.volume,
+            )
+          ) {
             matches += 2;
             unlocked = true;
             continue;
@@ -237,7 +266,12 @@ const compile_recipes = (
         negative_score_cache[recipe.id] = negativePoints;
         matches -= negativePoints;
       }
-      if (!unlocked && !unlocked_recipes[recipe.name] && filters === 0 && !favourites[recipe.id]) {
+      if (
+        !unlocked &&
+        !unlocked_recipes[recipe.name] &&
+        filters === 0 &&
+        !favourites[recipe.id]
+      ) {
         continue;
       }
       result.push({ rating: matches, ...recipe });
@@ -254,7 +288,10 @@ const compile_recipes = (
   return result;
 };
 
-const render_hint = (hint_type: RecipeHintTypes, message: string | number[]) => {
+const render_hint = (
+  hint_type: RecipeHintTypes,
+  message: string | number[],
+) => {
   let hint_icon: string;
   let colour: string;
   let tooltip: any = message;
@@ -313,8 +350,13 @@ export const ChemDispenser = (_props) => {
   const beakerContents = data.beakerContents || [];
   const [unlocked_recipes] = useSharedState('unlocked_recipes', {});
   const [search_term, set_search_term] = useSharedState('search_term', '');
-  const [selected_recipe, set_selected_recipe] = useSharedState<Recipe | null>('selected_recipe', null);
-  const [favourites, setFavourites] = useLocalState<{ [id: string]: boolean } | undefined>('favourites', undefined);
+  const [selected_recipe, set_selected_recipe] = useSharedState<Recipe | null>(
+    'selected_recipe',
+    null,
+  );
+  const [favourites, setFavourites] = useLocalState<
+    { [id: string]: boolean } | undefined
+  >('favourites', undefined);
   const [filters, setFilters] = useSharedState('filters', 0);
   const [showFilters, setShowFilters] = useLocalState('show_filters', false);
 
@@ -328,7 +370,11 @@ export const ChemDispenser = (_props) => {
       if (result === undefined) {
         return;
       }
-      if (typeof result === 'object' && !Array.isArray(result) && result !== null) {
+      if (
+        typeof result === 'object' &&
+        !Array.isArray(result) &&
+        result !== null
+      ) {
         // Good enough
         recipe_list = [];
         setFavourites(result);
@@ -340,9 +386,11 @@ export const ChemDispenser = (_props) => {
     usedFavourites = {};
   }
 
-  const shown_recipes = compile_recipes(data.beakerContents, data.reactions_list, usedFavourites).sort(
-    (a, b) => b.rating - a.rating
-  );
+  const shown_recipes = compile_recipes(
+    data.beakerContents,
+    data.reactions_list,
+    usedFavourites,
+  ).sort((a, b) => b.rating - a.rating);
 
   return (
     <Window width={695} height={720}>
@@ -352,13 +400,21 @@ export const ChemDispenser = (_props) => {
             title="Status"
             buttons={
               <div className="discover_count">
-                Discovered <AnimatedNumber initial={0} value={Object.keys(unlocked_recipes).length} /> recipe
+                Discovered{' '}
+                <AnimatedNumber
+                  initial={0}
+                  value={Object.keys(unlocked_recipes).length}
+                />{' '}
+                recipe
                 {Object.keys(unlocked_recipes).length !== 1 && 's'}
               </div>
-            }>
+            }
+          >
             <LabeledList>
               <LabeledList.Item label="Energy">
-                <ProgressBar value={data.energy / data.maxEnergy}>{toFixed(data.energy) + ' units'}</ProgressBar>
+                <ProgressBar value={data.energy / data.maxEnergy}>
+                  {toFixed(data.energy) + ' units'}
+                </ProgressBar>
               </LabeledList.Item>
             </LabeledList>
           </Section>
@@ -393,13 +449,24 @@ export const ChemDispenser = (_props) => {
                       }
                     }}
                   />
-                  <Popper
-                    options={{
-                      placement: 'left-start',
+                  <Button
+                    icon="arrow-down-short-wide"
+                    color={filters !== 0 && 'green'}
+                    ml={0.5}
+                    onClick={() => {
+                      setShowFilters(!showFilters);
                     }}
-                    popperContent={
-                      (showFilters && (
-                        <div className="chem_dispenser_filter_modal">
+                  />
+                  {showFilters && (
+                    <Popper
+                      isOpen={showFilters}
+                      onClickOutside={() => setShowFilters(false)}
+                      placement="bottom-start"
+                      content={
+                        <div
+                          className="chem_dispenser_filter_modal"
+                          style={{ maxHeight: '400px', overflowY: 'auto' }}
+                        >
                           <Stack vertical>
                             <Button
                               content={'Clear Filters'}
@@ -410,7 +477,11 @@ export const ChemDispenser = (_props) => {
                               }}
                             />
                             <Button
-                              color={filters & ReactionTags.BRUTE ? 'orange' : 'transparent'}
+                              color={
+                                filters & ReactionTags.BRUTE
+                                  ? 'orange'
+                                  : 'transparent'
+                              }
                               icon="hand-fist"
                               content="Brute"
                               onClick={() => {
@@ -419,7 +490,11 @@ export const ChemDispenser = (_props) => {
                               }}
                             />
                             <Button
-                              color={filters & ReactionTags.BURN ? 'orange' : 'transparent'}
+                              color={
+                                filters & ReactionTags.BURN
+                                  ? 'orange'
+                                  : 'transparent'
+                              }
                               icon="fire"
                               content="Burn"
                               onClick={() => {
@@ -428,7 +503,11 @@ export const ChemDispenser = (_props) => {
                               }}
                             />
                             <Button
-                              color={filters & ReactionTags.TOXIN ? 'orange' : 'transparent'}
+                              color={
+                                filters & ReactionTags.TOXIN
+                                  ? 'orange'
+                                  : 'transparent'
+                              }
                               icon="radiation"
                               content="Toxin"
                               onClick={() => {
@@ -437,7 +516,11 @@ export const ChemDispenser = (_props) => {
                               }}
                             />
                             <Button
-                              color={filters & ReactionTags.OXY ? 'orange' : 'transparent'}
+                              color={
+                                filters & ReactionTags.OXY
+                                  ? 'orange'
+                                  : 'transparent'
+                              }
                               icon="wind"
                               content="Suffocation"
                               onClick={() => {
@@ -446,7 +529,11 @@ export const ChemDispenser = (_props) => {
                               }}
                             />
                             <Button
-                              color={filters & ReactionTags.CLONE ? 'orange' : 'transparent'}
+                              color={
+                                filters & ReactionTags.CLONE
+                                  ? 'orange'
+                                  : 'transparent'
+                              }
                               icon="person"
                               content="Clone"
                               onClick={() => {
@@ -455,7 +542,11 @@ export const ChemDispenser = (_props) => {
                               }}
                             />
                             <Button
-                              color={filters & ReactionTags.ORGAN ? 'orange' : 'transparent'}
+                              color={
+                                filters & ReactionTags.ORGAN
+                                  ? 'orange'
+                                  : 'transparent'
+                              }
                               icon="lungs"
                               content="Organ"
                               onClick={() => {
@@ -465,7 +556,11 @@ export const ChemDispenser = (_props) => {
                             />
                             <Divider />
                             <Button
-                              color={filters & ReactionTags.HEALING ? 'green' : 'transparent'}
+                              color={
+                                filters & ReactionTags.HEALING
+                                  ? 'green'
+                                  : 'transparent'
+                              }
                               icon="kit-medical"
                               content="Healing"
                               onClick={() => {
@@ -474,7 +569,11 @@ export const ChemDispenser = (_props) => {
                               }}
                             />
                             <Button
-                              color={filters & ReactionTags.DAMAGING ? 'green' : 'transparent'}
+                              color={
+                                filters & ReactionTags.DAMAGING
+                                  ? 'green'
+                                  : 'transparent'
+                              }
                               icon="book-skull"
                               content="Damaging"
                               onClick={() => {
@@ -483,7 +582,11 @@ export const ChemDispenser = (_props) => {
                               }}
                             />
                             <Button
-                              color={filters & ReactionTags.EXPLOSIVE ? 'green' : 'transparent'}
+                              color={
+                                filters & ReactionTags.EXPLOSIVE
+                                  ? 'green'
+                                  : 'transparent'
+                              }
                               icon="explosion"
                               content="Explosive"
                               onClick={() => {
@@ -493,7 +596,11 @@ export const ChemDispenser = (_props) => {
                             />
                             <Divider />
                             <Button
-                              color={filters & ReactionTags.DRINK ? 'blue' : 'transparent'}
+                              color={
+                                filters & ReactionTags.DRINK
+                                  ? 'blue'
+                                  : 'transparent'
+                              }
                               icon="mug-saucer"
                               content="Drink"
                               onClick={() => {
@@ -502,7 +609,11 @@ export const ChemDispenser = (_props) => {
                               }}
                             />
                             <Button
-                              color={filters & ReactionTags.FOOD ? 'blue' : 'transparent'}
+                              color={
+                                filters & ReactionTags.FOOD
+                                  ? 'blue'
+                                  : 'transparent'
+                              }
                               icon="bacon"
                               content="Food"
                               onClick={() => {
@@ -511,7 +622,11 @@ export const ChemDispenser = (_props) => {
                               }}
                             />
                             <Button
-                              color={filters & ReactionTags.SLIME ? 'blue' : 'transparent'}
+                              color={
+                                filters & ReactionTags.SLIME
+                                  ? 'blue'
+                                  : 'transparent'
+                              }
                               icon="droplet"
                               content="Slime"
                               onClick={() => {
@@ -520,7 +635,11 @@ export const ChemDispenser = (_props) => {
                               }}
                             />
                             <Button
-                              color={filters & ReactionTags.DRUG ? 'blue' : 'transparent'}
+                              color={
+                                filters & ReactionTags.DRUG
+                                  ? 'blue'
+                                  : 'transparent'
+                              }
                               icon="joint"
                               content="Drug"
                               onClick={() => {
@@ -529,7 +648,11 @@ export const ChemDispenser = (_props) => {
                               }}
                             />
                             <Button
-                              color={filters & ReactionTags.CHEMICAL ? 'blue' : 'transparent'}
+                              color={
+                                filters & ReactionTags.CHEMICAL
+                                  ? 'blue'
+                                  : 'transparent'
+                              }
                               icon="flask"
                               content="Chemical"
                               onClick={() => {
@@ -538,7 +661,11 @@ export const ChemDispenser = (_props) => {
                               }}
                             />
                             <Button
-                              color={filters & ReactionTags.PLANT ? 'blue' : 'transparent'}
+                              color={
+                                filters & ReactionTags.PLANT
+                                  ? 'blue'
+                                  : 'transparent'
+                              }
                               icon="seedling"
                               content="Plant"
                               onClick={() => {
@@ -547,7 +674,11 @@ export const ChemDispenser = (_props) => {
                               }}
                             />
                             <Button
-                              color={filters & ReactionTags.OTHER ? 'blue' : 'transparent'}
+                              color={
+                                filters & ReactionTags.OTHER
+                                  ? 'blue'
+                                  : 'transparent'
+                              }
                               icon="ellipsis"
                               content="Other"
                               onClick={() => {
@@ -557,44 +688,48 @@ export const ChemDispenser = (_props) => {
                             />
                           </Stack>
                         </div>
-                      )) as any
-                    }>
-                    <Button
-                      icon="arrow-down-short-wide"
-                      color={filters !== 0 && 'green'}
-                      ml={0.5}
-                      onClick={() => {
-                        setShowFilters(!showFilters);
-                      }}
+                      }
                     />
-                  </Popper>
+                  )}
                 </>
               )
-            }>
+            }
+          >
             <Box className="recipe_container" mr={-1}>
               {shown_recipes.map((recipe) => (
                 <div
                   className={classes([
                     'recipe_box',
                     recipe.required_reagents.every(
-                      (x) => beakerContents.some((y) => y.path === x.path) || data.chemicals.some((y) => x.name === y.title)
+                      (x) =>
+                        beakerContents.some((y) => y.path === x.path) ||
+                        data.chemicals.some((y) => x.name === y.title),
                     ) && 'craftable',
                   ])}
                   key={recipe.id}
                   onClick={() => {
                     if (
                       recipe.required_reagents.every(
-                        (x) => beakerContents.some((y) => y.path === x.path) || data.chemicals.some((y) => x.name === y.title)
+                        (x) =>
+                          beakerContents.some((y) => y.path === x.path) ||
+                          data.chemicals.some((y) => x.name === y.title),
                       )
                     ) {
                       let has_all = true;
                       for (const chem of recipe.required_reagents) {
                         // we already have this component
-                        if (beakerContents.some((y) => y.path === chem.path && y.volume >= chem.volume)) {
+                        if (
+                          beakerContents.some(
+                            (y) =>
+                              y.path === chem.path && y.volume >= chem.volume,
+                          )
+                        ) {
                           continue;
                         }
                         has_all = false;
-                        const printable_chem = data.chemicals.filter((x) => x.title === chem.name)[0];
+                        const printable_chem = data.chemicals.filter(
+                          (x) => x.title === chem.name,
+                        )[0];
                         if (!printable_chem) {
                           continue;
                         }
@@ -606,7 +741,9 @@ export const ChemDispenser = (_props) => {
                       // If we have all the reagents already, make it again anyway
                       if (has_all) {
                         for (const chem of recipe.required_reagents) {
-                          const printable_chem = data.chemicals.filter((x) => x.title === chem.name)[0];
+                          const printable_chem = data.chemicals.filter(
+                            (x) => x.title === chem.name,
+                          )[0];
                           if (!printable_chem) {
                             continue;
                           }
@@ -623,9 +760,13 @@ export const ChemDispenser = (_props) => {
                     }
                     recipe_list = [];
                     set_selected_recipe(recipe);
-                  }}>
+                  }}
+                >
                   <div
-                    className={classes(['favourite', !usedFavourites[recipe.id] && 'unfavourited'])}
+                    className={classes([
+                      'favourite',
+                      !usedFavourites[recipe.id] && 'unfavourited',
+                    ])}
                     onClick={(e) => {
                       e.stopPropagation();
                       if (usedFavourites[recipe.id]) {
@@ -639,19 +780,28 @@ export const ChemDispenser = (_props) => {
                         waitingForSave = true;
                         window.setTimeout(() => {
                           waitingForSave = false;
-                          storage.set('chem_dispenser_favourites', usedFavourites);
+                          storage.set(
+                            'chem_dispenser_favourites',
+                            usedFavourites,
+                          );
                         }, 5000);
                       }
-                    }}>
-                    <Icon name={usedFavourites[recipe.id] ? 'star' : 'star-o'} />
+                    }}
+                  >
+                    <Icon
+                      name={usedFavourites[recipe.id] ? 'star' : 'star-o'}
+                    />
                   </div>
                   <div
                     className={classes([
                       'recipe_title',
                       !!recipe.required_reagents.every(
-                        (x) => beakerContents.some((y) => y.path === x.path) || data.chemicals.some((y) => x.name === y.title)
+                        (x) =>
+                          beakerContents.some((y) => y.path === x.path) ||
+                          data.chemicals.some((y) => x.name === y.title),
                       ) && 'create',
-                    ])}>
+                    ])}
+                  >
                     {Object.entries(recipe.hints).map((x) => {
                       return render_hint(x[0] as RecipeHintTypes, x[1]);
                     })}
@@ -659,29 +809,79 @@ export const ChemDispenser = (_props) => {
                       <>
                         {!!x.description && (
                           <Tooltip content={x.description}>
-                            <Icon name="info" color="white" pt={0.8} pl={1} pr={2} />
+                            <Icon
+                              name="info"
+                              color="white"
+                              pt={0.8}
+                              pl={1}
+                              pr={2}
+                            />
                           </Tooltip>
                         )}
                         {!!x.addiction && (
-                          <Tooltip content={'Causes addictions when more than ' + x.addiction + 'u is ingested.'}>
-                            <Icon name="pills" color="red" pt={0.8} pl={1} pr={2} />
+                          <Tooltip
+                            content={
+                              'Causes addictions when more than ' +
+                              x.addiction +
+                              'u is ingested.'
+                            }
+                          >
+                            <Icon
+                              name="pills"
+                              color="red"
+                              pt={0.8}
+                              pl={1}
+                              pr={2}
+                            />
                           </Tooltip>
                         )}
                         {!!x.overdose && (
-                          <Tooltip content={'Causes an overdose when more than ' + x.overdose + 'u is ingested.'}>
-                            <Icon name="syringe" color="red" pt={0.8} pl={1} pr={2} />
+                          <Tooltip
+                            content={
+                              'Causes an overdose when more than ' +
+                              x.overdose +
+                              'u is ingested.'
+                            }
+                          >
+                            <Icon
+                              name="syringe"
+                              color="red"
+                              pt={0.8}
+                              pl={1}
+                              pr={2}
+                            />
                           </Tooltip>
                         )}
                       </>
                     ))}
                     {recipe.required_temp > 0 &&
                       (recipe.is_cold_recipe ? (
-                        <Tooltip content={'Maximum temp: ' + recipe.required_temp + 'K'}>
-                          <Icon name="snowflake" color="blue" pt={0.8} pl={1} pr={2} />
+                        <Tooltip
+                          content={
+                            'Maximum temp: ' + recipe.required_temp + 'K'
+                          }
+                        >
+                          <Icon
+                            name="snowflake"
+                            color="blue"
+                            pt={0.8}
+                            pl={1}
+                            pr={2}
+                          />
                         </Tooltip>
                       ) : (
-                        <Tooltip content={'Minimum temp: ' + recipe.required_temp + 'K'}>
-                          <Icon name="fire-flame-curved" color="orange" pt={0.8} pl={1} pr={2} />
+                        <Tooltip
+                          content={
+                            'Minimum temp: ' + recipe.required_temp + 'K'
+                          }
+                        >
+                          <Icon
+                            name="fire-flame-curved"
+                            color="orange"
+                            pt={0.8}
+                            pl={1}
+                            pr={2}
+                          />
                         </Tooltip>
                       ))}
                     {recipe.name}
@@ -691,15 +891,22 @@ export const ChemDispenser = (_props) => {
                       <div
                         className={classes([
                           'recipe_ingredient',
-                          !!beakerContents.some((y) => y.name === x.name && y.volume >= x.volume) && 'satisfied',
-                          !!data.chemicals.some((y) => y.title === x.name) && 'insertable',
+                          !!beakerContents.some(
+                            (y) => y.name === x.name && y.volume >= x.volume,
+                          ) && 'satisfied',
+                          !!data.chemicals.some((y) => y.title === x.name) &&
+                            'insertable',
                         ])}
-                        key={x.path}>
+                        key={x.path}
+                      >
                         {x.volume} {x.name}
                       </div>
                     ))}
                     {Object.entries(recipe.required_catalysts).map((x) => (
-                      <Tooltip key={x[0]} content={'Catalyst: Not consumed by the reaction'}>
+                      <Tooltip
+                        key={x[0]}
+                        content={'Catalyst: Not consumed by the reaction'}
+                      >
                         <div className="recipe_ingredient catalyst" key={x[0]}>
                           {x[0].substring(x[0].lastIndexOf('/') + 1)}
                         </div>
@@ -710,28 +917,39 @@ export const ChemDispenser = (_props) => {
               ))}
               {shown_recipes.length === 0 && !!search_term && (
                 <div className="no_recipes">
-                  <div>No discovered recipes matching the search term &apos;{search_term}&apos;.</div>
+                  <div>
+                    No discovered recipes matching the search term &apos;
+                    {search_term}&apos;.
+                  </div>
                   <br />
                   <div>Add or create new reagents to unlock more.</div>
                 </div>
               )}
-              {shown_recipes.length === 0 && Object.keys(unlocked_recipes).length === 0 && !search_term && (
-                <div className="no_recipes">
-                  <div>No recipes discovered.</div>
-                  <br />
-                  <div>Add some reagents to the beaker to start unlocking recipes.</div>
-                </div>
-              )}
-              {shown_recipes.length === 0 && Object.keys(unlocked_recipes).length > 0 && !search_term && (
-                <div className="no_recipes">
-                  <div>No recipes to show.</div>
-                  <br />
-                  <div>
-                    Only recipes that can be made from components in the beaker will be shown. Use the search function to find
-                    more, or empty the beaker to start again.
+              {shown_recipes.length === 0 &&
+                Object.keys(unlocked_recipes).length === 0 &&
+                !search_term && (
+                  <div className="no_recipes">
+                    <div>No recipes discovered.</div>
+                    <br />
+                    <div>
+                      Add some reagents to the beaker to start unlocking
+                      recipes.
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
+              {shown_recipes.length === 0 &&
+                Object.keys(unlocked_recipes).length > 0 &&
+                !search_term && (
+                  <div className="no_recipes">
+                    <div>No recipes to show.</div>
+                    <br />
+                    <div>
+                      Only recipes that can be made from components in the
+                      beaker will be shown. Use the search function to find
+                      more, or empty the beaker to start again.
+                    </div>
+                  </div>
+                )}
             </Box>
           </Section>
           <Section
@@ -748,7 +966,8 @@ export const ChemDispenser = (_props) => {
                   })
                 }
               />
-            ))}>
+            ))}
+          >
             <Box mr={-1}>
               {data.chemicals.map((chemical) => (
                 <Button
@@ -769,31 +988,53 @@ export const ChemDispenser = (_props) => {
           <Section
             title="Beaker"
             buttons={beakerTransferAmounts.map((amount) => (
-              <Button key={amount} icon="minus" content={amount} onClick={() => act('remove', { amount })} />
+              <Button
+                key={amount}
+                icon="minus"
+                content={amount}
+                onClick={() => act('remove', { amount })}
+              />
             ))}
-            className="beaker_section">
+            className="beaker_section"
+          >
             <div className="beaker_labelled_part">
               <div className="beaker_label beaker_label_part">Beaker</div>
               <div className="beaker_content_part">
                 {(data.isBeakerLoaded && (
                   <>
-                    <AnimatedNumber initial={0} value={data.beakerCurrentVolume} />/{data.beakerMaxVolume} units
+                    <AnimatedNumber
+                      initial={0}
+                      value={data.beakerCurrentVolume}
+                    />
+                    /{data.beakerMaxVolume} units
                   </>
                 )) ||
                   'No beaker'}
               </div>
               {!!data.isBeakerLoaded && (
-                <Button icon="eject" content="Eject" disabled={!data.isBeakerLoaded} onClick={() => act('eject')} />
+                <Button
+                  icon="eject"
+                  content="Eject"
+                  disabled={!data.isBeakerLoaded}
+                  onClick={() => act('eject')}
+                />
               )}
             </div>
             <div className="beaker_labelled_part">
               <div className="beaker_label beaker_label_part">Contents</div>
               <div className="beaker_contents beaker_content_part">
-                <Box color="label">{(!data.isBeakerLoaded && 'N/A') || (beakerContents.length === 0 && 'Nothing')}</Box>
+                <Box color="label">
+                  {(!data.isBeakerLoaded && 'N/A') ||
+                    (beakerContents.length === 0 && 'Nothing')}
+                </Box>
 
                 {beakerContents.map((chemical) => (
-                  <div className="beaker_chemical beaker_label" key={chemical.path}>
-                    <AnimatedNumber initial={0} value={chemical.volume} /> units of {chemical.name}
+                  <div
+                    className="beaker_chemical beaker_label"
+                    key={chemical.path}
+                  >
+                    <AnimatedNumber initial={0} value={chemical.volume} /> units
+                    of {chemical.name}
                   </div>
                 ))}
               </div>

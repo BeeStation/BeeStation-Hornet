@@ -1,11 +1,22 @@
-import { multiline } from 'common/string';
-import { CheckboxInput, FeatureChoiced, FeatureChoicedServerData, FeatureDropdownInput, FeatureButtonedDropdownInput, FeatureToggle, FeatureValueProps } from '../base';
-import { Box, Dropdown, Stack } from '../../../../../components';
-import { classes } from 'common/react';
-import { ReactNode } from 'react';
 import { binaryInsertWith } from 'common/collections';
-import { useBackend } from '../../../../../backend';
+import { multiline } from 'common/string';
+import { ReactNode } from 'react';
+import { useBackend } from 'tgui/backend';
+import { Box, Dropdown, Stack } from 'tgui-core/components';
+import { classes } from 'tgui-core/react';
+
 import { PreferencesMenuData } from '../../../data';
+import {
+  CheckboxInput,
+  FeatureChoiced,
+  FeatureChoicedServerData,
+  FeatureToggle,
+  FeatureValueProps,
+} from '../base';
+import {
+  FeatureButtonedDropdownInput,
+  FeatureDropdownInput,
+} from '../dropdowns';
 
 export const ghost_accs: FeatureChoiced = {
   name: 'Ghost accessories',
@@ -24,7 +35,9 @@ type GhostForm = {
 const insertGhostForm = (collection: GhostForm[], value: GhostForm) =>
   binaryInsertWith(collection, value, ({ value }) => value);
 
-const GhostFormInput = (props: FeatureValueProps<string, string, FeatureChoicedServerData>) => {
+const GhostFormInput = (
+  props: FeatureValueProps<string, string, FeatureChoicedServerData>,
+) => {
   const { data } = useBackend<PreferencesMenuData>();
 
   const serverData = props.serverData;
@@ -48,7 +61,10 @@ const GhostFormInput = (props: FeatureValueProps<string, string, FeatureChoicedS
       <Stack>
         <Stack.Item>
           <Box
-            className={classes([`${serverData.icon_sheet}32x32`, serverData.icons![name]])}
+            className={classes([
+              `${serverData.icon_sheet}32x32`,
+              serverData.icons![name],
+            ])}
             style={{ verticalAlign: 'bottom' }}
           />
         </Stack.Item>
@@ -76,14 +92,13 @@ const GhostFormInput = (props: FeatureValueProps<string, string, FeatureChoicedS
 
   return (
     <Dropdown
+      autoScroll={false}
       disabled={!data.content_unlocked}
       selected={props.value}
-      displayText={props.value ? displayTexts[props.value] : null}
-      displayTextFirst
+      placeholder={props.value ? displayTexts[props.value] : null}
       clipSelectedText={false}
       onSelected={props.handleSetValue}
       width="100%"
-      displayHeight="32px"
       options={options}
       buttons
     />
@@ -113,10 +128,18 @@ export const ghost_orbit: FeatureChoiced = {
     The shape in which your ghost will orbit.
     Requires BYOND membership.
   `,
-  component: (props: FeatureValueProps<string, string, FeatureChoicedServerData>) => {
+  component: (
+    props: FeatureValueProps<string, string, FeatureChoicedServerData>,
+  ) => {
     const { data } = useBackend<PreferencesMenuData>();
 
-    return <FeatureDropdownInput buttons {...props} disabled={!data.content_unlocked} />;
+    return (
+      <FeatureDropdownInput
+        buttons
+        {...props}
+        disabled={!data.content_unlocked}
+      />
+    );
   },
   important: true,
 };

@@ -10,9 +10,9 @@
 
 @use '~tgui/styles/colors.scss';
 @use '~tgui/styles/base.scss' with (
-  $color-bg: hsl(0.0, 0.0%, 12.5%),
-  $color-bg-section: color.adjust(hsl(0.0, 0.0%, 12.5%), $lightness: -5%),
-  $color-bg-grad-spread: 0%,
+  $color-bg: hsl(0, 0%, 12.5%),
+  $color-bg-section: color.adjust(hsl(0, 0%, 12.5%), $lightness: -5%),
+  $color-bg-grad-spread: 0%
 );
 
 // Core styles
@@ -27,11 +27,13 @@
 
 // Components
 @include meta.load-css('~tgui/styles/components/BlockQuote.scss');
-@include meta.load-css('~tgui/styles/components/Button.scss', $with: ('color-transparent-text': rgba(255, 255, 255, 0.6)));
+@include meta.load-css(
+  '~tgui/styles/components/Button.scss',
+  $with: ('color-transparent-text': rgba(255, 255, 255, 0.6))
+);
 @include meta.load-css('~tgui/styles/components/ColorBox.scss');
 @include meta.load-css('~tgui/styles/components/Dimmer.scss');
 @include meta.load-css('~tgui/styles/components/Divider.scss');
-@include meta.load-css('~tgui/styles/components/Dropdown.scss');
 @include meta.load-css('~tgui/styles/components/Flex.scss');
 @include meta.load-css('~tgui/styles/components/Input.scss');
 @include meta.load-css('~tgui/styles/components/Knob.scss');

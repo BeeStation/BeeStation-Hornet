@@ -1585,11 +1585,17 @@ $border-width-px: $border-width * 1px;
   }
 
   .chat_alert_#{$color-name} .minor_announcement_text {
-    background-color: lighten(map.get($alert-stripe-alternate-colors, $color-name), 5);
+    background-color: lighten(
+      map.get($alert-stripe-alternate-colors, $color-name),
+      5
+    );
   }
 
   .chat_alert_#{$color-name} .major_announcement_text {
-    background-color: lighten(map.get($alert-stripe-alternate-colors, $color-name), 5);
+    background-color: lighten(
+      map.get($alert-stripe-alternate-colors, $color-name),
+      5
+    );
   }
 }
 
