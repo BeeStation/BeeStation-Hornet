@@ -1,4 +1,4 @@
-import { AtmosGasRig, AtmosGasRigTemplate } from './AtmosGasRig';
+import { AtmosGasRigTemplate } from './AtmosGasRig';
 import { Box } from '../components';
 import { NtosWindow } from '../layouts';
 
