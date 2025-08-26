@@ -10,7 +10,7 @@
 	var/mob/living/carbon/C = owner
 	if(!dismemberable)
 		return FALSE
-	if(C.status_flags & GODMODE)
+	if(HAS_TRAIT(C, TRAIT_GODMODE))
 		return FALSE
 	if(HAS_TRAIT(C, TRAIT_NODISMEMBER))
 		return FALSE

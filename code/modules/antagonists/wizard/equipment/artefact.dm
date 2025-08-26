@@ -469,8 +469,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 
 /obj/item/warpwhistle/proc/end_effect(mob/living/carbon/user)
 	user.invisibility = initial(user.invisibility)
-	user.status_flags &= ~GODMODE
-	REMOVE_TRAIT(user, TRAIT_IMMOBILIZED, WARPWHISTLE_TRAIT)
+	user.remove_traits(list(TRAIT_GODMODE, TRAIT_IMMOBILIZED), WARPWHISTLE_TRAIT)
 
 /obj/item/warpwhistle/attack_self(mob/living/carbon/user)
 	if(!istype(user) || on_cooldown)
@@ -486,7 +485,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 		REMOVE_TRAIT(user, TRAIT_IMMOBILIZED, WARPWHISTLE_TRAIT)
 		return
 	user.invisibility = INVISIBILITY_MAXIMUM
-	user.status_flags |= GODMODE
+	ADD_TRAIT(user, TRAIT_GODMODE, WARPWHISTLE_TRAIT)
 	sleep(20)
 	if(interrupted(user))
 		end_effect(user)
