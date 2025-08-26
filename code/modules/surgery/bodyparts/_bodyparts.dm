@@ -378,8 +378,8 @@
 		if(updating_health)
 			owner.updatehealth()
 		if(owner.dna?.species && (REVIVESBYHEALING in owner.dna.species.species_traits))
-			if(owner.health > 0 && !owner.ishellbound())
-				owner.revive(0)
+			if(owner.health > 0 && owner.stat == DEAD)
+				owner.revive()
 				owner.cure_husk(0) // If it has REVIVESBYHEALING, it probably can't be cloned. No husk cure.
 	return update_bodypart_damage_state()
 
