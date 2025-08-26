@@ -1,4 +1,6 @@
 /**
+ * Used for bindable action buttons.
+ *
  * Creates a TGUI window with a key input. Returns the user's response as a full key with modifiers, eg ShiftK.
  *
  * This proc should be used to create windows for key entry that the caller will wait for a response from.
