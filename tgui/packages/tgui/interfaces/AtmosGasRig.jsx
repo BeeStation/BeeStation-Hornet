@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Section, ProgressBar, NumberInput, Box, Button, Table, Flex, BlockQuote, NoticeBox, Tooltip } from '../components';
+import { Section, ProgressBar, NumberInput, Box, Button, Flex, BlockQuote, NoticeBox, Tooltip } from '../components';
 import { Window } from '../layouts';
 
 export const AtmosGasRig = (props) => {
@@ -120,18 +120,18 @@ export const AtmosGasRigTemplate = (props) => {
             <Box mb={2} mt={2}>
               Shielding Strength:
               <br />
-              {data.shield_strength_change}
+              {data.shield_strength_change.toFixed(2)}
               <br />
               <BlockQuote color="">
-                Gas Power: {data.gas_power}
+                Gas Power: {data.gas_power.toFixed(2)}
                 <br />
-                Specific Heat: {data.specific_heat}
+                Specific Heat: {data.specific_heat.toFixed(2)}
                 <br />
               </BlockQuote>
             </Box>
             Fracking Efficiency:
             <br />
-            {data.fracking_eff}
+            {data.fracking_eff.toFixed(2)}
             <br />
             <br />
             <br />
