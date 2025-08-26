@@ -154,7 +154,7 @@
 	var/specific_heat = 0 //To encourage balancing a mix rather then just getting the gas with the most gas power
 	var/total_moles = 1 //so the log doesnt start negative
 	for (var/datum/gas/gas_id as anything in temp_air.gases)
-		gas_power += initial(gas_id.fusion_power)*temp_air.gases[gas_id][MOLES]
+		gas_power += initial(gas_id.gasrig_shielding_power)*temp_air.gases[gas_id][MOLES]
 		specific_heat += initial(gas_id.specific_heat)*temp_air.gases[gas_id][MOLES]
 		total_moles += temp_air.gases[gas_id][MOLES]
 
@@ -168,7 +168,7 @@
 	display_gas_power = aver_gas_power
 	display_gas_specific_heat = aver_specific_heat
 
-	var/temp_shield = (((aver_gas_power + 1) * aver_specific_heat) * log(10, total_moles * GASRIG_SHIELD_MOL_LOG_MULTIPLER)) + GASRIG_NATURAL_SHIELD_RECOVERY
+	var/temp_shield = (((aver_gas_power) * aver_specific_heat) * log(10, total_moles * GASRIG_SHIELD_MOL_LOG_MULTIPLER)) + GASRIG_NATURAL_SHIELD_RECOVERY
 	display_shield_efficiency = temp_shield
 	shield_strength_change = temp_shield - (get_depth() * GASRIG_DEPTH_SHIELD_DAMAGE_MULTIPLIER)
 	shield_strength = max(min(shield_strength + shield_strength_change, GASRIG_MAX_SHIELD_STRENGTH), 0)
