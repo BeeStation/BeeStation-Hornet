@@ -362,7 +362,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 /datum/battle_royale_controller/proc/end_grace()
 	for(var/mob/M in GLOB.player_list)
 		knock.Remove(M)
-		M.remove_traits(list(TRAIT_PACIFISM, TRAIT_GODMODE), BATTLE_ROYALE_TRAIT)
+		M.remove_traits(list(TRAIT_PACIFISM, TRAIT_DROPS_ITEMS_ON_DEATH, TRAIT_GODMODE), BATTLE_ROYALE_TRAIT)
 		to_chat(M, span_greenannounce("You are no longer a pacifist. Be the last [M.gender == MALE ? "man" : "woman"] standing."))
 
 //==================================

@@ -533,7 +533,7 @@
 		var/mob/living/simple_animal/shade/S = new(src)
 		S.ckey = candidate.ckey
 		S.fully_replace_character_name(null, "The spirit of [name]")
-		ADD_TRAIT(S, TRAIT_GODMODE, ROUNDSTART_TRAIT)
+		ADD_TRAIT(S, TRAIT_GODMODE, TRAIT_GENERIC)
 		S.copy_languages(user, LANGUAGE_MASTER)	//Make sure the sword can understand and communicate with the user.
 		S.get_language_holder().omnitongue = TRUE //Grants omnitongue
 		var/input = sanitize_name(stripped_input(S,"What are you named?", ,"", MAX_NAME_LEN))

@@ -115,7 +115,7 @@
 	our_wizard = WEAKREF(wizard)
 	wizard.forceMove(src)
 	wizard.notransform = TRUE
-	wizard.add_traits(list(TRAIT_GODMODE, TRAIT_MAGICALLY_PHASED), REF(src))
+	wizard.add_traits(list(TRAIT_GODMODE, TRAIT_MAGICALLY_PHASED), "[type]")
 
 /**
  * Eject our current wizard, removing them from the rod
@@ -128,6 +128,6 @@
 	wizard.notransform = FALSE
 	wizard.forceMove(get_turf(src))
 	our_wizard = null
-	wizard.remove_traits(list(TRAIT_GODMODE, TRAIT_MAGICALLY_PHASED), REF(src))
+	wizard.remove_traits(list(TRAIT_GODMODE, TRAIT_MAGICALLY_PHASED), "[type]")
 
 #undef BASE_WIZ_ROD_RANGE

@@ -5,6 +5,7 @@
 	density = FALSE
 	move_force = INFINITY
 	move_resist = INFINITY
+	status_flags = NONE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	see_in_dark = 7
 	invisibility = INVISIBILITY_ABSTRACT // No one can see us. Use 'INVISIBILITY_OBSERVER' for subtypes

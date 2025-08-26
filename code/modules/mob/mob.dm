@@ -1266,6 +1266,9 @@
 	if(href_list[VV_HK_GIVE_SPELL] && check_rights(R_FUN))
 		usr.client.give_spell(src)
 
+	if(href_list[VV_HK_GODMODE] && check_rights(R_FUN))
+		usr.client.cmd_admin_godmode(src)
+
 	if(href_list[VV_HK_REMOVE_SPELL] && check_rights(R_FUN))
 		usr.client.remove_spell(src)
 

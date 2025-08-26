@@ -136,19 +136,21 @@
 	laws = "1. Serve drinks.\n\
 		2. Talk to patrons.\n\
 		3. Don't get messed up in their affairs."
+	status_flags = NONE
 	unique_name = FALSE // disables the (123) number suffix
 	initial_language_holder = /datum/language_holder/universal
 
 /mob/living/simple_animal/drone/snowflake/bardrone/Initialize(mapload)
 	. = ..()
 	access_card.access |= ACCESS_CENT_BAR
-	add_traits(list(TRAIT_BARMASTER, TRAIT_SOMMELIER, TRAIT_GODMODE), ROUNDSTART_TRAIT)
+	add_traits(list(TRAIT_BARMASTER, TRAIT_SOMMELIER, TRAIT_GODMODE), ROUNDSTART_TRAIT) // Please don't punch the barkeeper
 
 /mob/living/simple_animal/hostile/alien/maid/barmaid
 	gold_core_spawnable = NO_SPAWN
 	name = "Barmaid"
 	desc = "A barmaid, a maiden found in a bar."
 	pass_flags = PASSTABLE
+	status_flags = NONE
 	unique_name = FALSE
 	AIStatus = AI_OFF
 	stop_automated_movement = TRUE
@@ -160,7 +162,6 @@
 	access_card.access = get_all_accesses()
 	access_card.access |= ACCESS_CENT_BAR
 	ADD_TRAIT(access_card, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
-
 	add_traits(list(TRAIT_BARMASTER, TRAIT_SOMMELIER, TRAIT_GODMODE), ROUNDSTART_TRAIT)
 
 /mob/living/simple_animal/hostile/alien/maid/barmaid/Destroy()

@@ -10,7 +10,7 @@
 	var/originalcolor
 
 /datum/status_effect/rainbow_protection/on_apply()
-	owner.add_traits(list(TRAIT_GODMODE, TRAIT_PACIFISM), /datum/status_effect/rainbow_protection)
+	owner.add_traits(list(TRAIT_GODMODE, TRAIT_PACIFISM), "[type]")
 	owner.visible_message(
 		span_warning("[owner] shines with a brilliant rainbow light."),
 		span_notice("You feel protected by an unknown force!"),
@@ -23,12 +23,12 @@
 	return ..()
 
 /datum/status_effect/rainbow_protection/on_remove()
-	owner.color = originalcolor
-	owner.remove_traits(list(TRAIT_GODMODE, TRAIT_PACIFISM), /datum/status_effect/rainbow_protection)
+	owner.remove_traits(list(TRAIT_GODMODE, TRAIT_PACIFISM), "[type]")
 	owner.visible_message(
 		span_notice("[owner] stops glowing, the rainbow light fading away."),
 		span_warning("You no longer feel protected..."),
 	)
+	owner.color = originalcolor
 
 /atom/movable/screen/alert/status_effect/slimeskin
 	name = "Adamantine Slimeskin"
@@ -107,7 +107,7 @@
 	RegisterSignal(owner, COMSIG_LIVING_RESIST, PROC_REF(breakCube))
 	cube = new /obj/structure/ice_stasis(get_turf(owner))
 	owner.forceMove(cube)
-	ADD_TRAIT(owner, TRAIT_GODMODE, type)
+	ADD_TRAIT(owner, TRAIT_GODMODE, "[type]")
 	return ..()
 
 /datum/status_effect/frozenstasis/tick()
@@ -122,7 +122,7 @@
 /datum/status_effect/frozenstasis/on_remove()
 	if(cube)
 		qdel(cube)
-	REMOVE_TRAIT(owner, TRAIT_GODMODE, type)
+	REMOVE_TRAIT(owner, TRAIT_GODMODE, "[type]")
 	UnregisterSignal(owner, COMSIG_LIVING_RESIST)
 
 /datum/status_effect/slime_clone
