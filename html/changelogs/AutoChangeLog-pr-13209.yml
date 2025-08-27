@@ -1,7 +1,0 @@
-author: r1ks-iwnl
-delete-after: true
-changes:
-  - bugfix: Fixes many interactions for thrown items
-  - bugfix: Fixes items not doing thrown damage to objects and turfs
-  - bugfix: Fixes items not burning in lava when thrown
-  - bugfix: Fixes items not entering disposals when thrown

@@ -428,3 +428,8 @@
 2025-08-27:
   Mc-oofert, Bieyes:
   - rscadd: Added the ability to bind buttons to keys.
+  r1ks-iwnl:
+  - bugfix: Fixes many interactions for thrown items
+  - bugfix: Fixes items not doing thrown damage to objects and turfs
+  - bugfix: Fixes items not burning in lava when thrown
+  - bugfix: Fixes items not entering disposals when thrown
