@@ -125,7 +125,7 @@
 	var/list/coin_records = list()
 	var/list/slogan_list = list()
 	///Message sent post vend (Thank you for shopping!)
-	var/vend_reply
+	var/vend_reply = "Thank you for shopping with us!"
 	///Last world tick we sent a vent reply
 	var/last_reply = 0
 	///Last world tick we sent a slogan message out
