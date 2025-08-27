@@ -70,10 +70,10 @@
 	if(!user_mob || !user_mob.mind)
 		return
 
-	if(!allowed(usr))
+	if(!allowed(user_mob))
 		if(item_category == "Kit")
 			var/obj/item/card/id/card
-			card = usr.get_idcard(TRUE)
+			card = user_mob.get_idcard(TRUE)
 			var/buyer = card?.registered_account?.account_holder
 
 			vend_reply = "APS thanks you for enlisting in our volunteer program!"
