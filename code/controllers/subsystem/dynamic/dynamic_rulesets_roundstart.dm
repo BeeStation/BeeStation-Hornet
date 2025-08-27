@@ -146,13 +146,13 @@
 /datum/dynamic_ruleset/roundstart/wizard/choose_candidates()
 	. = ..()
 	for(var/datum/mind/chosen_mind in chosen_candidates)
-		chosen_mind.set_assigned_role(SSjob.GetJobType(/datum/job/space_wizard))
+		chosen_mind.set_assigned_role(/datum/job/space_wizard)
 
 /datum/dynamic_ruleset/roundstart/wizard/execute()
 	. = ..()
 	for(var/datum/mind/chosen_mind in chosen_candidates)
 		chosen_mind.current.forceMove(pick(GLOB.wizardstart))
-		chosen_mind.set_assigned_role(SSjob.GetJobType(/datum/job/space_wizard))
+		chosen_mind.set_assigned_role(/datum/job/space_wizard)
 
 //////////////////////////////////////////
 //                                      //
@@ -389,7 +389,7 @@
 			qdel(nuke)
 
 	//for(var/datum/mind/clowns in assigned)
-	//	clowns.set_assigned_role(SSjob.GetJobType(/datum/job/clown_operative))
+	//	clowns.set_assigned_role(/datum/job/clown_operative)
 	//	clowns.special_role = ROLE_CLOWN_OPERATIVE
 
 //////////////////////////////////////////////

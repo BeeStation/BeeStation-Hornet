@@ -16,7 +16,7 @@
 	if(visualsOnly)
 		return
 	user.fully_replace_character_name(user.real_name, "Santa Claus")
-	user.mind.set_assigned_role(SSjob.GetJobType(/datum/job/santa))
+	user.mind.set_assigned_role(/datum/job/santa)
 	user.mind.special_role = ROLE_SANTA
 
 	user.hair_style = "Long Hair 3"

@@ -82,7 +82,7 @@
 /datum/antagonist/space_dragon/on_gain()
 	forge_objectives()
 	owner.special_role = ROLE_SPACE_DRAGON
-	owner.set_assigned_role(SSjob.GetJobType(/datum/job/space_dragon))
+	owner.set_assigned_role(/datum/job/space_dragon)
 	. = ..()
 	rift_ability = new
 	rift_ability.Grant(owner.current)
@@ -99,7 +99,7 @@
 /datum/antagonist/space_dragon/on_removal()
 	. = ..()
 	owner.special_role = null
-	owner.set_assigned_role(SSjob.GetJobType(/datum/job/unassigned))
+	owner.set_assigned_role(/datum/job/unassigned)
 	rift_ability.Remove(owner.current)
 	owner.current.faction -= FACTION_CARP
 	UnregisterSignal(owner.current, COMSIG_LIVING_LIFE)

@@ -59,7 +59,7 @@
 	if(!mind.has_antag_datum(/datum/antagonist/xeno))
 		mind.add_antag_datum(/datum/antagonist/xeno)
 
-	mind.set_assigned_role(SSjob.GetJobType(/datum/job/xenomorph))
+	mind.set_assigned_role(/datum/job/xenomorph)
 	mind.special_role = ROLE_ALIEN
 
 /mob/living/carbon/alien/on_wabbajacked(mob/living/new_mob)
@@ -69,5 +69,5 @@
 	if(isalien(new_mob))
 		return
 	mind.remove_antag_datum(/datum/antagonist/xeno)
-	mind.set_assigned_role(SSjob.GetJobType(/datum/job/unassigned))
+	mind.set_assigned_role(/datum/job/unassigned)
 	mind.special_role = null

@@ -173,7 +173,7 @@
 	return /obj/machinery/nuclearbomb
 
 /datum/dynamic_ruleset/midround/ghost/nuclear_assault/finish_setup(mob/new_character)
-	new_character.mind.set_assigned_role(SSjob.GetJobType(/datum/job/nuclear_operative))
+	new_character.mind.set_assigned_role(/datum/job/nuclear_operative)
 	new_character.mind.special_role = ROLE_NUCLEAR_OPERATIVE
 
 	if(has_made_leader)
@@ -349,7 +349,7 @@
 
 /datum/dynamic_ruleset/midround/ghost/nightmare/finish_setup(mob/new_character)
 	. = ..()
-	new_character.mind.set_assigned_role(SSjob.GetJobType(/datum/job/nightmare))
+	new_character.mind.set_assigned_role(/datum/job/nightmare)
 
 //////////////////////////////////////////////
 //                                          //
@@ -401,7 +401,7 @@
 	return /obj/item/melee/baton/abductor
 
 /datum/dynamic_ruleset/midround/ghost/lone_abductor/finish_setup(mob/new_character)
-	new_character.mind.set_assigned_role(SSjob.GetJobType(/datum/job/abductor_solo))
+	new_character.mind.set_assigned_role(/datum/job/abductor_solo)
 	new_character.mind.special_role = ROLE_ABDUCTOR
 
 	team = new

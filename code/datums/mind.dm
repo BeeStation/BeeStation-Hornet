@@ -103,7 +103,7 @@
 	soulOwner = src
 	martial_art = default_martial_art
 	setup_soul_glimmer()
-	set_assigned_role(SSjob.GetJobType(/datum/job/unassigned)) // Unassigned by default.
+	set_assigned_role(/datum/job/unassigned) // Unassigned by default.
 
 /datum/mind/Destroy()
 	SSticker.minds -= src
@@ -656,6 +656,8 @@
 
 /// Setter for the assigned_role job datum.
 /datum/mind/proc/set_assigned_role(datum/job/new_role)
+	if(!istype(new_role))
+		new_role = SSjob.GetJobType(new_role)
 	if(assigned_role == new_role)
 		return
 	if(!is_job(new_role))
@@ -729,17 +731,17 @@
 //AI
 /mob/living/silicon/ai/mind_initialize()
 	..()
-	mind.set_assigned_role(SSjob.GetJobType(/datum/job/ai))
+	mind.set_assigned_role(/datum/job/ai)
 
 //BORG
 /mob/living/silicon/robot/mind_initialize()
 	..()
-	mind.set_assigned_role(SSjob.GetJobType(/datum/job/cyborg))
+	mind.set_assigned_role(/datum/job/cyborg)
 
 //PAI
 /mob/living/silicon/pai/mind_initialize()
 	..()
-	mind.set_assigned_role(SSjob.GetJobType(/datum/job/personal_ai))
+	mind.set_assigned_role(/datum/job/personal_ai)
 	mind.special_role = ""
 
 // Quirk Procs //

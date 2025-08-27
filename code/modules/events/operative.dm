@@ -37,7 +37,7 @@
 	operative.dna.update_dna_identity()
 
 	var/datum/mind/new_mind = new /datum/mind(candidate.key)
-	new_mind.set_assigned_role(SSjob.GetJobType(/datum/job/lone_operative))
+	new_mind.set_assigned_role(/datum/job/lone_operative)
 	new_mind.special_role = ROLE_LONE_OPERATIVE
 	new_mind.active = TRUE
 	new_mind.transfer_to(operative)
