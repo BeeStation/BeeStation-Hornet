@@ -349,8 +349,8 @@
 	return nightmare_body
 
 /datum/dynamic_ruleset/midround/ghost/nightmare/finish_setup(mob/new_character)
+	. = ..()
 	new_character.mind.set_assigned_role(SSjob.GetJobType(/datum/job/nightmare))
-	new_character.mind.special_role = ROLE_NIGHTMARE
 
 //////////////////////////////////////////////
 //                                          //
