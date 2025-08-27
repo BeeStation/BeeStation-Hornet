@@ -1,0 +1,4 @@
+author: Mc-oofert, Bieyes
+delete-after: true
+changes:
+  - rscadd: Added the ability to bind buttons to keys.
