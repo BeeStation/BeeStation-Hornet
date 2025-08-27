@@ -457,11 +457,9 @@ export const ChemDispenser = (_props) => {
                       setShowFilters(!showFilters);
                     }}
                   />
-                  {showFilters && (
                     <Popper
                       isOpen={showFilters}
-                      onClickOutside={() => setShowFilters(false)}
-                      placement="bottom-start"
+                      placement="bottom-end"
                       content={
                         <div
                           className="chem_dispenser_filter_modal"
@@ -690,7 +688,6 @@ export const ChemDispenser = (_props) => {
                         </div>
                       }
                     />
-                  )}
                 </>
               )
             }
