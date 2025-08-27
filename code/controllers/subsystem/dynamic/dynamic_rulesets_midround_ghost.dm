@@ -340,7 +340,6 @@
 	player_mind.active = TRUE
 
 	var/mob/living/carbon/human/nightmare_body = new(pick(spawn_locations))
-	player_mind.add_antag_datum(/datum/antagonist/nightmare)
 	nightmare_body.set_species(/datum/species/shadow/nightmare)
 	player_mind.transfer_to(nightmare_body)
 
