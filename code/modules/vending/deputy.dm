@@ -8,7 +8,7 @@
 	vend_reply = "Thank you for your service!"
 	req_access = list(ACCESS_BRIG)
 	light_color = "#ff2466"
-	var/obj/item/radio/Radio
+	var/obj/item/radio/radio
 
 	// The deputisation kit
 	product_categories = list(
@@ -58,9 +58,9 @@
 /obj/machinery/vending/deputy/Initialize(mapload)
 	. = ..()
 
-	Radio = new/obj/item/radio(src)
-	Radio.set_listening(FALSE)
-	Radio.set_frequency(FREQ_COMMON)
+	radio = new/obj/item/radio(src)
+	radio.set_listening(FALSE)
+	radio.set_frequency(FREQ_COMMON)
 
 /obj/machinery/vending/deputy/vend(list/params, list/greyscale_colors)
 	var/datum/vending_product/item_to_buy = locate(params["ref"]) in src.product_records + src.coin_records + src.hidden_records // Note: this needs href protection apparently
@@ -84,7 +84,7 @@
 
 			playsound(src, 'sound/effects/startup.ogg', 100, FALSE)
 			vend_reply = "APS thanks you for enlisting in our volunteer program!"
-			Radio.talk_into(src, "[buyer], [get_area(buyer)], has just enlisted for Auri Private Security’s volunteer deputy program! APS thanks you for your service, and reminds all crew members: **Unauthorized enforcement is strictly prohibited!** Remember; Compliance is a team effort!")
+			radio.talk_into(src, "[buyer], [get_area(buyer)], has just enlisted for Auri Private Security’s volunteer deputy program! APS thanks you for your service, and reminds all crew members: **Unauthorized enforcement is strictly prohibited!** Remember; Compliance is a team effort!")
 
 		else if(item_category == "Contraband" || scan_id == 0)
 			playsound(src, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
@@ -102,7 +102,7 @@
 	vend_reply = initial(vend_reply)
 
 /obj/machinery/vending/deputy/Destroy()
-	QDEL_NULL(Radio)
+	QDEL_NULL(radio)
 	return ..()
 
 /obj/item/vending_refill/deputy
