@@ -140,12 +140,10 @@ const FilterPanel = (_) => {
   return (
     <Popper
       placement="bottom-end"
+      isOpen={filterVisible}
       content={
         <div
           className="RequestManager__filterPanel"
-          style={{
-            display: filterVisible ? 'block' : 'none',
-          }}
         >
           <Table width="0">
             {Object.keys(displayTypeMap).map((type) => {

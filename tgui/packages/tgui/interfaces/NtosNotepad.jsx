@@ -20,11 +20,10 @@ export const NtosNotepad = (props) => {
           title={'Notes'}
           buttons={
             <Popper
-              options={{
-                placement: 'bottom-start',
-              }}
-              popperContent={
-                (showOptions && (
+              isOpen={showOptions}
+              placement="bottom-start"
+              content={
+                ((
                   <div className="options_modal">
                     <Stack vertical>
                       <Button.Input
