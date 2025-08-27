@@ -76,20 +76,30 @@
 			card = usr.get_idcard(TRUE)
 			var/buyer = card?.registered_account?.account_holder
 
-			if(!card?.registered_account)
-				playsound(src, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
-				say("No valid account found!")
-				flick(icon_deny,src)
-				return
-
-			playsound(src, 'sound/effects/startup.ogg', 100, FALSE)
 			vend_reply = "APS thanks you for enlisting in our volunteer program!"
-			radio.talk_into(src, "[buyer], [get_area(buyer)], has just enlisted for Auri Private Security’s volunteer deputy program! APS thanks you for your service, and reminds all crew members: **Unauthorized enforcement is strictly prohibited!** Remember; Compliance is a team effort!")
+
+			if(..())
+				if(!card?.registered_account)
+					playsound(src, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
+					flick(icon_deny,src)
+					return
+
+				playsound(src, 'sound/effects/startup.ogg', 100, FALSE)
+				radio.talk_into(src, "[buyer], [get_area(src)], has just enlisted for Auri Private Security’s volunteer deputy program! APS thanks you for your service, and reminds all crew members: **Unauthorized enforcement is strictly prohibited!** Remember; Compliance is a team effort!")
+
+			vend_reply = initial(vend_reply)
+			return
 
 		else if(item_category == "Contraband" || scan_id == 0)
-			playsound(src, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
-			flick(icon_deny,src)
-			say("ERR-!")
+
+			vend_reply = "ERR-!"
+
+			if(..())
+				playsound(src, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
+				flick(icon_deny,src)
+
+			vend_reply = initial(vend_reply)
+			return
 
 		else
 			playsound(src, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
@@ -108,3 +118,4 @@
 /obj/item/vending_refill/deputy
 	machine_name = "DepVend"
 	icon_state = "refill_sec"
+
