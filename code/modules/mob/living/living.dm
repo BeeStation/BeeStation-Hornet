@@ -682,7 +682,6 @@
 		return
 	set_health(maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss())
 	staminaloss = getStaminaLoss()
-	consciousness.update_stat()
 	med_hud_set_health()
 	med_hud_set_status()
 	update_health_hud()
@@ -690,7 +689,7 @@
 
 /mob/living/update_health_hud()
 	var/severity = 0
-	var/healthpercent = consciousness.value / consciousness.max_value
+	var/healthpercent = min(consciousness.value / consciousness.max_value, 1 - (pain.pain / 100))
 	if(hud_used?.healthdoll) //to really put you in the boots of a simplemob
 		var/atom/movable/screen/healthdoll/living/livingdoll = hud_used.healthdoll
 		switch(healthpercent)

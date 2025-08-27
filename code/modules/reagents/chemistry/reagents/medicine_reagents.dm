@@ -435,6 +435,14 @@
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.4 * REAGENTS_METABOLISM
 
+/datum/reagent/medicine/mine_salve/on_mob_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	affected_mob.pain.set_pain_modifier(0.5, FROM_MORPHINE)
+
+/datum/reagent/medicine/mine_salve/on_mob_end_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	affected_mob.pain.set_pain_modifier(1, FROM_MORPHINE)
+
 /datum/reagent/medicine/mine_salve/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	affected_mob.hal_screwyhud = SCREWYHUD_HEALTHY
@@ -822,10 +830,12 @@
 /datum/reagent/medicine/morphine/on_mob_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
 	affected_mob.add_movespeed_mod_immunities(type, /datum/movespeed_modifier/damage_slowdown)
+	affected_mob.pain.set_pain_modifier(0.5, FROM_MORPHINE)
 
 /datum/reagent/medicine/morphine/on_mob_end_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
 	affected_mob.remove_movespeed_mod_immunities(type, /datum/movespeed_modifier/damage_slowdown)
+	affected_mob.pain.set_pain_modifier(1, FROM_MORPHINE)
 
 /datum/reagent/medicine/morphine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()

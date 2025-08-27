@@ -107,7 +107,8 @@
 	var/maxi_health = M.maxHealth
 	if(iscarbon(M) && M.health < 0)
 		maxi_health = 100 //so crit shows up right for aliens and other high-health carbon mobs; noncarbons don't have crit.
-	var/resulthealth = (M.health / maxi_health) * 100
+	var/health_level = min(M.consciousness.value, (100 - M.pain.pain) / 100 * maxi_health)
+	var/resulthealth = (health_level / maxi_health) * 100
 	switch(resulthealth)
 		if(100 to INFINITY)
 			return "health100"
@@ -166,10 +167,6 @@
 		holder.pixel_y = I.Height() - world.icon_size
 	else
 		CRASH("[src] does not have a HEALTH_HUD but updates it!")
-
-//for carbon suit sensors
-/mob/living/carbon/med_hud_set_health()
-	..()
 
 //called when a carbon changes stat, virus or XENO_HOST
 /mob/living/proc/med_hud_set_status()

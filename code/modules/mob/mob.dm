@@ -1346,11 +1346,11 @@
 	// Value did not change
 	if (final_stat == stat)
 		return
-	// Value did change
-	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, final_stat)
 	. = stat
 	stat = final_stat
 	update_action_buttons_icon(TRUE)
+	// Value did change
+	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, final_stat)
 
 /// Called when a mob's sound scape override trait is updated.
 /mob/proc/on_sound_scape_updated(datum/source, trait)

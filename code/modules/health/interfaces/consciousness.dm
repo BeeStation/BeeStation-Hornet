@@ -19,6 +19,7 @@
 	SHOULD_CALL_PARENT(TRUE)
 	RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_IGNOREDAMAGESLOWDOWN), PROC_REF(update_movespeed))
 	RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_IGNOREDAMAGESLOWDOWN), PROC_REF(update_movespeed))
+	RegisterSignal(owner, COMSIG_MOB_STATCHANGE, PROC_REF(update_stat))
 
 /// Called every life tick
 /datum/consciousness/proc/consciousness_tick(delta_time)
@@ -31,6 +32,7 @@
 	update_consciousness_overlay()
 	update_death_overlay()
 	owner.update_health_hud()
+	owner.med_hud_set_health()
 
 /datum/consciousness/proc/update_death_overlay()
 	if(owner.stat >= SOFT_CRIT)
