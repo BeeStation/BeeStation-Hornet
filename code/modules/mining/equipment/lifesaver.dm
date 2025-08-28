@@ -58,7 +58,7 @@
 
 /obj/item/clothing/neck/necklace/lifesaver/proc/enable_alert()
 	if(active)
-		radio.talk_into(src, "Alert - Rescue required at [get_area(src)]!")
+		radio.talk_into(src, "Alert - Rescue required! GPS beacon active!")
 		say("ALERT - LIFESIGNS CRITICAL - DEPLOYING")
 
 		playsound(src, 'sound/effects/lifesaver.ogg', 150, FALSE, 10)
@@ -78,7 +78,7 @@
 	if(active)
 		// Periodic unhelpful radio announcements
 		if(radio_counter >= 100)
-			radio.talk_into(src, "Alert - Rescue required at [get_area(src)]!")
+			radio.talk_into(src, "Alert - Rescue required! GPS beacon active!")
 			say("ALERT - RESCUE REQUIRED")
 			radio_counter = 0
 		else
