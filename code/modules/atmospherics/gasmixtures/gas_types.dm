@@ -132,7 +132,6 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	gas_overlay = "freon"
 	moles_visible = MOLES_GAS_VISIBLE
 	fusion_power = 10
-	gasrig_shielding_power = 15
 	rarity = 50
 	base_value = 5
 	desc = "The most noble gas of them all. High quantities of hyper-noblium actively prevents reactions from occurring."
