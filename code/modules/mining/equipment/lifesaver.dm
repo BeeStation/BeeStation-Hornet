@@ -28,12 +28,13 @@
 	if(slot == ITEM_SLOT_NECK)
 		active_owner = user
 		say("User detected. Monitor process started.")
-		RegisterSignal(active_owner, COMSIG_MOB_DEATH, PROC_REF(enable_alert))
+		RegisterSignal(active_owner, COMSIG_MOB_DEATH, PROC_REF(pre_enable_alert))
 		return
 	else if(slot != ITEM_SLOT_POCKETS && slot != ITEM_SLOT_BACKPACK)
 		say("Biomonitor error.")
 
-	UnregisterSignal(active_owner, COMSIG_MOB_DEATH)
+	if(active_owner)
+		UnregisterSignal(active_owner, COMSIG_MOB_DEATH)
 	active_owner = null
 
 /obj/item/clothing/neck/necklace/lifesaver/attack_self(mob/user)
@@ -42,18 +43,27 @@
 	to_chat(user, span_notice("You press your finger on the touch-button, disarming the necklace's alert state."))
 	disable_alert()
 
-/obj/item/clothing/neck/necklace/lifesaver/proc/enable_alert()
+//Just to give a fella some time to rip it off and disable it.
+/obj/item/clothing/neck/necklace/lifesaver/proc/pre_enable_alert()
 	icon_state = "lifesaver_active"
 	worn_icon_state = "lifesaver_active"
 	active_owner.regenerate_icons()
 
-	radio.talk_into(src, "ALERT - RESCUE REQUIRED")
-	say("ALERT - LIFESIGNS CRITICAL - DEPLOYING")
-
-	playsound(src, 'sound/effects/lifesaver.ogg', 150, FALSE, 10)
+	say("ALERT - LIFESIGNS CRITICAL - DEPLOYING IN: 15 SECONDS.")
+	playsound(src, 'sound/machines/triple_beep.ogg', 80, FALSE)
 	active = TRUE
-	AddComponent(/datum/component/gps, "#ACTIVE LIFESAVER - RESCUE REQUIRED#")
-	addtimer(CALLBACK(src, PROC_REF(alertRoutine)), 5 SECONDS)
+
+	addtimer(CALLBACK(src, PROC_REF(enable_alert)), 15 SECONDS)
+
+/obj/item/clothing/neck/necklace/lifesaver/proc/enable_alert()
+	if(active)
+		radio.talk_into(src, "Alert - Rescue required at [get_area(src)]!")
+		say("ALERT - LIFESIGNS CRITICAL - DEPLOYING")
+
+		playsound(src, 'sound/effects/lifesaver.ogg', 150, FALSE, 10)
+
+		AddComponent(/datum/component/gps, "#ACTIVE LIFESAVER - RESCUE REQUIRED#")
+		addtimer(CALLBACK(src, PROC_REF(alertRoutine)), 5 SECONDS)
 
 /obj/item/clothing/neck/necklace/lifesaver/proc/disable_alert()
 	icon_state = "lifesaver"
