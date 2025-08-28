@@ -45,15 +45,16 @@
 
 //Just to give a fella some time to rip it off and disable it.
 /obj/item/clothing/neck/necklace/lifesaver/proc/pre_enable_alert()
-	icon_state = "lifesaver_active"
-	worn_icon_state = "lifesaver_active"
-	active_owner.regenerate_icons()
+	if(is_mining_level(src.z))
+		icon_state = "lifesaver_active"
+		worn_icon_state = "lifesaver_active"
+		active_owner.regenerate_icons()
 
-	say("ALERT - LIFESIGNS CRITICAL - DEPLOYING IN: 15 SECONDS.")
-	playsound(src, 'sound/machines/triple_beep.ogg', 80, FALSE)
-	active = TRUE
+		say("ALERT - LIFESIGNS CRITICAL - DEPLOYING IN: 15 SECONDS.")
+		playsound(src, 'sound/machines/triple_beep.ogg', 80, FALSE)
+		active = TRUE
 
-	addtimer(CALLBACK(src, PROC_REF(enable_alert)), 15 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(enable_alert)), 15 SECONDS)
 
 /obj/item/clothing/neck/necklace/lifesaver/proc/enable_alert()
 	if(active)
