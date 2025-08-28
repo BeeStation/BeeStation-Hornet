@@ -154,7 +154,7 @@ export const AtmosGasRigTemplate = (props) => {
               <BlockQuote color="">
                 Gas Power: {data.gas_power.toFixed(2)}
                 <br />
-                Specific Heat: {data.specific_heat.toFixed(2)}
+                Gas Modifier: {data.gas_modifier.toFixed(2)}
                 <br />
               </BlockQuote>
             </Box>
@@ -206,7 +206,7 @@ export const AtmosGasRigTemplate = (props) => {
             )}{' '}
             {/* N2 */}
             {DisplayGasBar(
-              105 + svgOffset,
+              125 + svgOffset,
               data.plas_constants,
               data,
               barHeight,
@@ -215,7 +215,7 @@ export const AtmosGasRigTemplate = (props) => {
             )}{' '}
             {/* Plasma */}
             {DisplayGasBar(
-              125 + svgOffset,
+              105 + svgOffset,
               data.co2_constants,
               data,
               barHeight,
@@ -224,7 +224,7 @@ export const AtmosGasRigTemplate = (props) => {
             )}{' '}
             {/* CO2 */}
             {DisplayGasBar(
-              125 + svgOffset,
+              115 + svgOffset,
               data.n2o_constants,
               data,
               barHeight,
@@ -233,7 +233,7 @@ export const AtmosGasRigTemplate = (props) => {
             )}{' '}
             {/* N2O */}
             {DisplayGasBar(
-              115 + svgOffset,
+              125 + svgOffset,
               data.nob_constants,
               data,
               barHeight,
@@ -242,7 +242,7 @@ export const AtmosGasRigTemplate = (props) => {
             )}{' '}
             {/* Hypernoblium */}
             {DisplayGasBar(
-              125 + svgOffset,
+              115 + svgOffset,
               data.bz_constants,
               data,
               barHeight,
@@ -251,7 +251,7 @@ export const AtmosGasRigTemplate = (props) => {
             )}{' '}
             {/* BZ */}
             {DisplayGasBar(
-              115 + svgOffset,
+              105 + svgOffset,
               data.plox_constants,
               data,
               barHeight,

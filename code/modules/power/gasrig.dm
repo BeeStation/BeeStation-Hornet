@@ -35,7 +35,7 @@
 	var/display_shield_efficiency = 0
 
 	var/display_gas_power = 0
-	var/display_gas_specific_heat = 0
+	var/display_gasrig_gas_modifier = 0
 
 	init_processing = TRUE
 
@@ -151,24 +151,24 @@
 	var/datum/gas_mixture/temp_air = new
 	air.pump_gas_to(temp_air, 4500)
 	var/gas_power = 0 //Gases with no gas power dont provide much for shielding
-	var/specific_heat = 0 //To encourage balancing a mix rather then just getting the gas with the most gas power
+	var/gas_modifier = 0 //To encourage balancing a mix rather then just getting the gas with the most gas power
 	var/total_moles = 1 //so the log doesnt start negative
 	for (var/datum/gas/gas_id as anything in temp_air.gases)
 		gas_power += initial(gas_id.gasrig_shielding_power)*temp_air.gases[gas_id][MOLES]
-		specific_heat += initial(gas_id.specific_heat)*temp_air.gases[gas_id][MOLES]
+		gas_modifier += initial(gas_id.gasrig_shielding_modifier)*temp_air.gases[gas_id][MOLES]
 		total_moles += temp_air.gases[gas_id][MOLES]
 
-	var/aver_gas_power = 0
-	var/aver_specific_heat = 0
+	var/aver_gas_modifier = 0
 
 	if (total_moles > 0)
-		aver_gas_power = gas_power / total_moles
-		aver_specific_heat = specific_heat / total_moles
+		aver_gas_modifier = gas_modifier / total_moles
 
-	display_gas_power = aver_gas_power
-	display_gas_specific_heat = aver_specific_heat
+	display_gas_power = gas_power
+	display_gasrig_gas_modifier = aver_gas_modifier
 
-	var/temp_shield = (((aver_gas_power) * aver_specific_heat) * log(10, total_moles * GASRIG_SHIELD_MOL_LOG_MULTIPLER)) + GASRIG_NATURAL_SHIELD_RECOVERY
+	aver_gas_modifier = max(0.1, min(aver_gas_modifier, 1)) //clamp the gas modifier so shielding power of a gas is never zero
+
+	var/temp_shield = (((gas_power) * log(10, total_moles * GASRIG_SHIELD_MOL_LOG_MULTIPLER)) * aver_gas_modifier) + GASRIG_NATURAL_SHIELD_RECOVERY
 	display_shield_efficiency = temp_shield
 	shield_strength_change = temp_shield - (get_depth() * GASRIG_DEPTH_SHIELD_DAMAGE_MULTIPLIER)
 	shield_strength = max(min(shield_strength + shield_strength_change, GASRIG_MAX_SHIELD_STRENGTH), 0)
@@ -339,7 +339,7 @@
 	data["fracking_eff"] = display_efficiency
 	data["shield_eff"] = display_shield_efficiency
 	data["gas_power"] = display_gas_power
-	data["specific_heat"] = display_gas_specific_heat
+	data["gas_modifier"] = display_gasrig_gas_modifier
 	data["max_health"] = GASRIG_MAX_HEALTH
 	data["health"] = health
 	data["active"] = active
