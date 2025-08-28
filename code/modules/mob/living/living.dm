@@ -1507,7 +1507,7 @@
 		if(client)
 			reset_perspective()
 
-/mob/living/set_stat_source(new_stat, source)
+/mob/living/update_stat()
 	. = ..()
 	if(isnull(.))
 		return

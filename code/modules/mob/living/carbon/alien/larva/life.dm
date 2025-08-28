@@ -10,7 +10,7 @@
 	amount_grown = min(amount_grown + (0.5 * delta_time), max_grown)
 	update_icons()
 
-/mob/living/carbon/alien/larva/set_stat_source(new_stat, source)
+/mob/living/carbon/alien/larva/update_stat()
 	. = ..()
 	if(stat == UNCONSCIOUS)
 		set_resting(FALSE)

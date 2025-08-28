@@ -244,19 +244,13 @@
 //////////////////UNCONSCIOUS
 
 /mob/living/proc/IsUnconscious()
-	var/datum/component/conscious/consciousness = GetComponent(/datum/component/conscious)
-	if(consciousness)
-		return consciousness.is_unconscious
 	return has_status_effect(/datum/status_effect/incapacitating/unconscious)
 
 /mob/living/proc/AmountUnconscious()
-	var/datum/component/conscious/consciousness = GetComponent(/datum/component/conscious)
 	var/datum/status_effect/incapacitating/unconscious/U = IsUnconscious()
 	. = 0
 	if(U)
 		. = max(., U.duration - world.time)
-	if(consciousness)
-		. = max(., max(0, consciousness.unconscious_time - world.time))
 	return .
 
 /mob/living/proc/Unconscious(amount, ignore_canstun = FALSE) //Can't go below remaining duration

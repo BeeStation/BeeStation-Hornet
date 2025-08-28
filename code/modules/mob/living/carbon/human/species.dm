@@ -472,7 +472,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		C.blood = new /datum/blood_source/organic()
 		previous_blood.transfer_to(C.blood)
 		C.blood.Initialize(C)
+	qdel(previous_blood)
 
+	if (C.consciousness)
+		qdel(C.consciousness)
 	C.consciousness = new consciousness_type(C)
 
 	if(exotic_bloodtype && C.dna.blood_type != exotic_bloodtype)

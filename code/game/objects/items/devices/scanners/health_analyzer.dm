@@ -380,7 +380,7 @@
 				render_list += "<span class='alert ml-1'>Blood level: <b>CRITICAL [blood_percent] %</b>, [carbontarget.blood.volume] cl,</span> [span_info("type: [blood_type]")]\n"
 			else
 				render_list += "<span class='info ml-1'>Blood level: [blood_percent] %, [carbontarget.blood.volume] cl, type: [blood_type]</span>\n"
-		render_list += "Blood Saturation Ratio: [carbontarget.blood.get_circulation_proportion() * 100]%"
+		render_list += "<span class='info ml-1'>Blood Saturation Ratio: [carbontarget.blood.get_circulation_proportion() * 100]%</span>\n"
 
 	// Cybernetics
 	if(iscarbon(target))

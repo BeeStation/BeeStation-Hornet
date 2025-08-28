@@ -63,7 +63,7 @@
 	disconnect_shell()
 	SEND_SIGNAL(src, COMSIG_LIVING_HEALTH_UPDATE)
 
-/mob/living/silicon/ai/set_stat_source(new_stat, source)
+/mob/living/silicon/ai/update_stat()
 	. = ..()
 	diag_hud_set_status()
 

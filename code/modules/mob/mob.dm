@@ -1339,10 +1339,19 @@
 /mob/proc/hears_radio()
 	return TRUE
 
+/mob/proc/clear_stat(source)
+	SHOULD_NOT_OVERRIDE(TRUE)
+	REMOVE_TRAIT(src, TRAIT_VALUE_STAT, source)
+	return update_stat()
+
 /mob/proc/set_stat_source(new_stat, source)
+	SHOULD_NOT_OVERRIDE(TRUE)
 	// Higher the stat level, higher the priority
 	ADD_VALUE_TRAIT(src, TRAIT_VALUE_STAT, source, new_stat, new_stat)
-	var/final_stat = GET_TRAIT_VALUE(src, TRAIT_VALUE_STAT)
+	return update_stat()
+
+/mob/proc/update_stat()
+	var/final_stat = GET_TRAIT_VALUE(src, TRAIT_VALUE_STAT) || CONSCIOUS
 	// Value did not change
 	if (final_stat == stat)
 		return
@@ -1351,6 +1360,8 @@
 	update_action_buttons_icon(TRUE)
 	// Value did change
 	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, final_stat)
+	if(.)
+		remove_all_indicators()
 
 /// Called when a mob's sound scape override trait is updated.
 /mob/proc/on_sound_scape_updated(datum/source, trait)
