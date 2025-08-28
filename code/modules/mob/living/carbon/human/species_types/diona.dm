@@ -2,12 +2,27 @@
 	name = "\improper Diona"
 	plural_form = "Dionae"
 	id = SPECIES_DIONA
-	sexes = 0
+	sexes = 0 //no sex for bug/plant people!
 	bodyflag = FLAG_DIONA
-	default_color = "59CE00"
-	species_traits = list(MUTCOLORS,EYECOLOR,AGENDER,NOHUSK,NO_DNA_COPY,NO_UNDERWEAR,NOSOCKS,NOTRANSSTING,NOEYESPRITES)
-	inherent_traits = list(TRAIT_ALWAYS_CLEAN, TRAIT_BEEFRIEND, TRAIT_NONECRODISEASE, TRAIT_RESISTLOWPRESSURE, TRAIT_RESISTCOLD, TRAIT_NORADDAMAGE)
-	inherent_biotypes = list(MOB_HUMANOID, MOB_BUG)
+	species_traits = list(
+		MUTCOLORS,
+		EYECOLOR,
+		AGENDER,
+		NOHUSK,
+		NO_DNA_COPY,
+		NO_UNDERWEAR,
+		NOSOCKS,
+		NOTRANSSTING,
+		NOEYESPRITES
+	)
+	inherent_traits = list(
+		TRAIT_BEEFRIEND,
+		TRAIT_NONECRODISEASE,
+		TRAIT_RESISTLOWPRESSURE,
+		TRAIT_RESISTCOLD,
+		TRAIT_NORADDAMAGE
+	)
+	inherent_biotypes = list(MOB_HUMANOID, MOB_ORGANIC, MOB_BUG)
 	mutant_bodyparts = list("diona_leaves", "diona_thorns", "diona_flowers", "diona_moss", "diona_mushroom", "diona_antennae", "diona_eyes", "diona_pbody")
 	mutant_organs = list(/obj/item/organ/nymph_organ/r_arm, /obj/item/organ/nymph_organ/l_arm, /obj/item/organ/nymph_organ/l_leg, /obj/item/organ/nymph_organ/r_leg, /obj/item/organ/nymph_organ/chest)
 	inherent_factions = list(FACTION_PLANTS, FACTION_VINES, FACTION_DIONA)
@@ -26,7 +41,7 @@
 	speedmod = 1.2 // Dionae are slow.
 	species_height = SPECIES_HEIGHTS(0, -1, -2) //Naturally tall.
 	swimming_component = /datum/component/swimming/diona
-	inert_mutation = DRONE
+	inert_mutation = /datum/mutation/drone
 	deathsound = "sound/emotes/diona/death.ogg"
 	species_bitflags = NOT_TRANSMORPHIC
 
@@ -38,13 +53,16 @@
 	mutantstomach = /obj/item/organ/stomach/diona //SS14 sprite
 	mutantears = /obj/item/organ/ears/diona //SS14 sprite
 	mutantheart = /obj/item/organ/heart/diona //Dungeon's sprite
+	mutantappendix = null
 
-	species_chest = /obj/item/bodypart/chest/diona
-	species_head = /obj/item/bodypart/head/diona
-	species_l_arm = /obj/item/bodypart/l_arm/diona
-	species_r_arm = /obj/item/bodypart/r_arm/diona
-	species_l_leg = /obj/item/bodypart/l_leg/diona
-	species_r_leg = /obj/item/bodypart/r_leg/diona
+	bodypart_overrides = list(
+		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/diona,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/diona,
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/diona,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/diona,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/diona,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/diona,
+	)
 
 	var/datum/action/diona/split/split_ability //All dionae start with this, this is for splitting apart completely.
 	var/datum/action/diona/partition/partition_ability //All dionae start with this as well, this is for splitting off a nymph from food.
@@ -59,7 +77,7 @@
 	if(H.nutrition < NUTRITION_LEVEL_STARVING)
 		H.take_overall_damage(1,0)
 	if(H.stat != CONSCIOUS)
-		H.remove_status_effect(STATUS_EFFECT_PLANTHEALING)
+		H.remove_status_effect(/datum/status_effect/planthealing)
 	if((H.health <= H.crit_threshold)) //Shit, we're dying! Scatter!
 		split_ability.split(FALSE, H)
 	if(H.nutrition > NUTRITION_LEVEL_WELL_FED && !informed_nymph)
@@ -71,7 +89,7 @@
 		H.set_nutrition(NUTRITION_LEVEL_ALMOST_FULL)
 	var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
 	if(!isturf(H.loc)) //else, there's considered to be no light
-		H.remove_status_effect(STATUS_EFFECT_PLANTHEALING)
+		H.remove_status_effect(/datum/status_effect/planthealing)
 		time_spent_in_light = 0  //No light? Reset the timer.
 		return
 	var/turf/T = H.loc
@@ -81,9 +99,9 @@
 		time_spent_in_light++  //If so, how long have we been somewhere with light?
 		if(time_spent_in_light > 5) //More than 5 seconds spent in the light
 			if(H.stat != CONSCIOUS)
-				H.remove_status_effect(STATUS_EFFECT_PLANTHEALING)
+				H.remove_status_effect(/datum/status_effect/planthealing)
 				return
-			H.apply_status_effect(STATUS_EFFECT_PLANTHEALING)
+			H.apply_status_effect(/datum/status_effect/planthealing)
 
 /datum/species/diona/spec_updatehealth(mob/living/carbon/human/H)
 	var/mob/living/simple_animal/hostile/retaliate/nymph/drone = drone_ref?.resolve()
@@ -136,10 +154,6 @@
 
 /datum/species/diona/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
-	var/obj/item/organ/appendix/appendix = H.getorganslot("appendix") //No appendixes for plant people
-	if(appendix)
-		appendix.Remove(H)
-		QDEL_NULL(appendix)
 	split_ability = new
 	split_ability.Grant(H)
 	partition_ability = new
@@ -155,8 +169,8 @@
 	REMOVE_TRAIT(H, TRAIT_MOBILE, "diona")
 	qdel(drone_ref)
 	for(var/status_effect as anything in H.status_effects)
-		if(status_effect == STATUS_EFFECT_PLANTHEALING)
-			H.remove_status_effect(STATUS_EFFECT_PLANTHEALING)
+		if(status_effect == /datum/status_effect/planthealing)
+			H.remove_status_effect(/datum/status_effect/planthealing)
 
 /datum/species/diona/random_name(gender, unique, lastname, attempts)
 	. = "[pick(GLOB.diona_names)]"

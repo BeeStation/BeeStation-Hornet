@@ -83,6 +83,8 @@
 	var/list/recording_recipe
 
 	var/list/saved_recipes = list()
+	/// The default filters for recipes that are shown in the UI
+	var/default_filters = ALL & ~(REACTION_TAG_DRINK | REACTION_TAG_FOOD | REACTION_TAG_SLIME)
 
 /obj/machinery/chem_dispenser/Initialize(mapload)
 	. = ..()
@@ -194,7 +196,7 @@
 	var/beakerCurrentVolume = 0
 	if(beaker && beaker.reagents && beaker.reagents.reagent_list.len)
 		for(var/datum/reagent/R in beaker.reagents.reagent_list)
-			beakerContents.Add(list(list("name" = R.name, "volume" = R.volume))) // list in a list because Byond merges the first list...
+			beakerContents.Add(list(list("name" = R.name, "volume" = R.volume, "path" = R.type))) // list in a list because Byond merges the first list...
 			beakerCurrentVolume += R.volume
 	data["beakerContents"] = beakerContents
 
@@ -206,6 +208,7 @@
 		data["beakerCurrentVolume"] = null
 		data["beakerMaxVolume"] = null
 		data["beakerTransferAmounts"] = null
+	data["containerType"] = beaker?.type
 
 	var/chemicals[0]
 	var/is_hallucinating = FALSE
@@ -222,6 +225,58 @@
 	data["recipes"] = saved_recipes
 
 	data["recordingRecipe"] = recording_recipe
+	return data
+
+/obj/machinery/chem_dispenser/ui_static_data(mob/user)
+	var/list/data = list()
+	var/list/reactions = list()
+	for(var/i in GLOB.chemical_reactions_list_reactant_index)
+		for(var/datum/chemical_reaction/reaction as anything in GLOB.chemical_reactions_list_reactant_index[i])
+			var/list/required_reagents = list()
+			var/display_name = reaction::name
+			if (ispath(display_name, /datum/reagent))
+				var/datum/reagent/reagent_path = display_name
+				display_name = reagent_path::name
+			for (var/datum/reagent/reagent as anything in reaction.required_reagents)
+				required_reagents += list(list(
+					"name" = reagent::name,
+					"volume" = reaction.required_reagents[reagent],
+					"path" = reagent
+				))
+			//if (!required_reagents.len)
+			//	CRASH("Reactions list is empty on [src]!")
+			var/list/results = list()
+			for (var/datum/reagent/result_path as anything in reaction.results)
+				var/created_amount = reaction.results[result_path]
+				results += list(list(
+					"name" = result_path::name,
+					"volume" = created_amount,
+					"path" = result_path,
+					"description" = result_path::description,
+					"addiction" = result_path::addiction_threshold,
+					"overdose" = result_path::overdose_threshold,
+				))
+			//if (!results.len)
+			//	CRASH("Reactions list is empty on [src]!")
+			reactions += list(list(
+				name = display_name,
+				results = results,
+				required_reagents = required_reagents,
+				required_catalysts = reaction.required_catalysts,
+				required_container = reaction.required_container,
+				required_other = reaction.required_other,
+				is_cold_recipe = reaction.is_cold_recipe,
+				required_temp = reaction.required_temp,
+				id = reaction.type,
+				hints = reaction.hints,
+				reaction_tags = reaction.reaction_tags
+				))
+
+	//if (!reactions.len)
+	//	CRASH("Reactions list is empty on [src]!")
+
+	data["reactions_list"] = reactions
+	data["default_filters"] = default_filters
 	return data
 
 /obj/machinery/chem_dispenser/ui_act(action, params)
@@ -250,12 +305,13 @@
 			if(QDELETED(cell))
 				return
 			var/reagent_name = params["reagent"]
+			var/multiplier = floor(params["multiplier"] || 1)
 			if(!recording_recipe)
 				var/reagent = GLOB.name2reagent[reagent_name]
 				if(beaker && dispensable_reagents.Find(reagent))
 					var/datum/reagents/R = beaker.reagents
 					var/free = R.maximum_volume - R.total_volume
-					var/actual = min(amount, (cell.charge * powerefficiency)*10, free)
+					var/actual = min(amount * multiplier, (cell.charge * powerefficiency)*10, free)
 					if(!cell.use(actual / powerefficiency))
 						say("Not enough energy to complete operation!")
 						return
@@ -273,64 +329,6 @@
 				beaker.reagents.remove_all(amount)
 				work_animation()
 				. = TRUE
-		if("dispense_recipe")
-			if(QDELETED(cell))
-				return
-			var/list/chemicals_to_dispense = saved_recipes[params["recipe"]]
-			if(!LAZYLEN(chemicals_to_dispense))
-				return
-			for(var/key in chemicals_to_dispense)
-				var/reagent = GLOB.name2reagent[translate_legacy_chem_id(key)]
-				var/dispense_amount = chemicals_to_dispense[key]
-				if(!dispensable_reagents.Find(reagent))
-					return
-				if(!recording_recipe)
-					if(!beaker)
-						return
-					var/datum/reagents/R = beaker.reagents
-					var/free = R.maximum_volume - R.total_volume
-					var/actual = min(dispense_amount, (cell.charge * powerefficiency)*10, free)
-					if(actual)
-						if(!cell.use(actual / powerefficiency))
-							say("Not enough energy to complete operation!")
-							return
-						R.add_reagent(reagent, actual)
-						work_animation()
-				else
-					recording_recipe[key] += dispense_amount
-			. = TRUE
-		if("delete_recipe")
-			var/recipe_name = params["recipe"]
-			if(!recipe_name || !saved_recipes[recipe_name])
-				return
-			saved_recipes -= recipe_name
-			. = TRUE
-		if("clear_all_recipes")
-			saved_recipes.Cut()
-			. = TRUE
-		if("record_recipe")
-			recording_recipe = list()
-			. = TRUE
-		if("save_recording")
-			var/name = stripped_input(usr,"Name","What do you want to name this recipe?", "Recipe", MAX_NAME_LEN)
-			if(!usr.canUseTopic(src, !issilicon(usr)))
-				return
-			if(saved_recipes[name] && alert("\"[name]\" already exists, do you want to overwrite it?",, "Yes", "No") != "Yes")
-				return
-			if(name && recording_recipe)
-				for(var/reagent in recording_recipe)
-					var/reagent_id = GLOB.name2reagent[translate_legacy_chem_id(reagent)]
-					if(!dispensable_reagents.Find(reagent_id))
-						visible_message(span_warning("[src] buzzes."), span_italics("You hear a faint buzz."))
-						to_chat(usr, span_danger("[src] cannot find <b>[reagent]</b>!"))
-						playsound(src, 'sound/machines/buzz-two.ogg', 50, 1)
-						return
-				saved_recipes[name] = recording_recipe
-				recording_recipe = null
-				. = TRUE
-		if("cancel_recording")
-			recording_recipe = null
-			. = TRUE
 
 /obj/machinery/chem_dispenser/wrench_act(mob/living/user, obj/item/tool)
 	. = ..()
@@ -477,6 +475,7 @@
 		/datum/reagent/toxin/mindbreaker,
 		/datum/reagent/toxin/staminatoxin
 	)
+	default_filters = REACTION_TAG_DRINK | REACTION_TAG_FOOD
 
 /obj/machinery/chem_dispenser/drinks/Initialize(mapload)
 	. = ..()
@@ -551,6 +550,7 @@
 		/datum/reagent/consumable/ethanol/atomicbomb,
 		/datum/reagent/consumable/ethanol/fernet
 	)
+	default_filters = REACTION_TAG_DRINK | REACTION_TAG_FOOD
 
 /obj/machinery/chem_dispenser/drinks/beer/fullupgrade //fully ugpraded stock parts, emagged
 	desc = "Contains a large reservoir of the good stuff. This model has had its safeties shorted out."
@@ -568,7 +568,7 @@
 	dispensable_reagents = list(/datum/reagent/toxin/mutagen)
 	upgrade_reagents = null
 	emagged_reagents = list(/datum/reagent/toxin/plasma)
-
+	default_filters = REACTION_TAG_CHEMICAL | REACTION_TAG_PLANT
 
 /obj/machinery/chem_dispenser/mutagensaltpeter
 	name = "botanical chemical dispenser"
@@ -592,6 +592,7 @@
 		/datum/reagent/ash,
 		/datum/reagent/diethylamine)
 	upgrade_reagents = null
+	default_filters = REACTION_TAG_CHEMICAL | REACTION_TAG_PLANT
 
 /obj/machinery/chem_dispenser/mutagensaltpetersmall
 	name = "minor botanical chemical dispenser"
@@ -610,6 +611,7 @@
 		/datum/reagent/toxin/plantbgone/weedkiller,
 		/datum/reagent/toxin/pestkiller,
 		/datum/reagent/diethylamine)
+	default_filters = REACTION_TAG_CHEMICAL | REACTION_TAG_PLANT
 
 /obj/machinery/chem_dispenser/mutagensaltpetersmall/display_beaker()
 	var/mutable_appearance/b_o = beaker_overlay || mutable_appearance(icon, "disp_beaker")

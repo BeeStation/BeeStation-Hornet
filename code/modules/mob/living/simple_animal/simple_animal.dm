@@ -39,6 +39,10 @@
 	///Harm-intent verb in present simple tense.
 	var/response_harm_simple = "hit"
 	var/force_threshold = 0 //Minimum force required to deal any damage
+	///Maximum amount of stamina damage the mob can be inflicted with total
+	var/max_staminaloss = 200
+	///How much stamina the mob recovers per second
+	var/stamina_recovery = 5
 
 	//Temperature effect
 	var/minbodytemp = 250
@@ -49,7 +53,8 @@
 
 	//Atmos effect - Yes, you can make creatures that require plasma or co2 to survive. N2O is a trace gas and handled separately, hence why it isn't here. It'd be hard to add it. Hard and me don't mix (Yes, yes make all the dick jokes you want with that.) - Errorage
 	var/list/atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0) //Leaving something at 0 means it's off - has no maximum
-	var/unsuitable_atmos_damage = 2	//This damage is taken when atmos doesn't fit all the requirements above
+	///This damage is taken when atmos doesn't fit all the requirements above.
+	var/unsuitable_atmos_damage = 1
 
 	///how much damage this simple animal does to objects, if any.
 	var/obj_damage = 0
@@ -161,6 +166,13 @@
 	if(discovery_points)
 		AddComponent(/datum/component/discoverable, discovery_points, get_discover_id = CALLBACK(src, PROC_REF(get_discovery_id)))
 
+/*
+/mob/living/simple_animal/Life(delta_time = SSMOBS_DT, times_fired)
+	. = ..()
+	if(staminaloss > 0)
+		adjustStaminaLoss(-stamina_recovery * delta_time, FALSE, TRUE)
+*/
+
 /mob/living/simple_animal/Destroy()
 	GLOB.simple_animals[AIStatus] -= src
 	if (SSnpcpool.state == SS_PAUSED && LAZYLEN(SSnpcpool.currentrun))
@@ -211,7 +223,7 @@
 	med_hud_set_status()
 
 
-/mob/living/simple_animal/handle_status_effects(delta_time)
+/mob/living/simple_animal/handle_status_effects(delta_time, times_fired)
 	..()
 	if(stuttering)
 		stuttering = 0
@@ -308,27 +320,31 @@
 	if((areatemp < minbodytemp) || (areatemp > maxbodytemp))
 		. = FALSE
 
-/mob/living/simple_animal/handle_environment(datum/gas_mixture/environment)
+/mob/living/simple_animal/handle_environment(datum/gas_mixture/environment, delta_time, times_fired)
 	var/atom/A = loc
 	if(isturf(A))
 		var/areatemp = get_temperature(environment)
-		if(abs(areatemp - bodytemperature) > 5)
-			var/diff = areatemp - bodytemperature
-			diff = diff / 5
-			adjust_bodytemperature(diff)
+		var/temp_delta = areatemp - bodytemperature
+		if(abs(temp_delta) > 5)
+			if(temp_delta < 0)
+				if(!on_fire)
+					adjust_bodytemperature(clamp(temp_delta * delta_time / 10, temp_delta, 0))
+			else
+				adjust_bodytemperature(clamp(temp_delta * delta_time / 10, 0, temp_delta))
 
-	if(!environment_air_is_safe())
-		adjustHealth(unsuitable_atmos_damage)
+	if(!environment_air_is_safe() && unsuitable_atmos_damage)
+		adjustHealth(unsuitable_atmos_damage * delta_time)
 		if(unsuitable_atmos_damage > 0)
 			throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
 	else
 		clear_alert("not_enough_oxy")
 
-	handle_temperature_damage()
+	handle_temperature_damage(delta_time, times_fired)
 
-/mob/living/simple_animal/proc/handle_temperature_damage()
-	if(bodytemperature < minbodytemp)
-		adjustHealth(unsuitable_atmos_damage)
+/mob/living/simple_animal/proc/handle_temperature_damage(delta_time, times_fired)
+	. = FALSE
+	if((bodytemperature < minbodytemp) && unsuitable_atmos_damage)
+		adjustHealth(unsuitable_atmos_damage * delta_time)
 		switch(unsuitable_atmos_damage)
 			if(1 to 5)
 				throw_alert("temp", /atom/movable/screen/alert/cold, 1)
@@ -336,8 +352,10 @@
 				throw_alert("temp", /atom/movable/screen/alert/cold, 2)
 			if(10 to INFINITY)
 				throw_alert("temp", /atom/movable/screen/alert/cold, 3)
-	else if(bodytemperature > maxbodytemp)
-		adjustHealth(unsuitable_atmos_damage)
+		. = TRUE
+
+	if((bodytemperature > maxbodytemp) && unsuitable_atmos_damage)
+		adjustHealth(unsuitable_atmos_damage * delta_time)
 		switch(unsuitable_atmos_damage)
 			if(1 to 5)
 				throw_alert("temp", /atom/movable/screen/alert/hot, 1)
@@ -345,7 +363,9 @@
 				throw_alert("temp", /atom/movable/screen/alert/hot, 2)
 			if(10 to INFINITY)
 				throw_alert("temp", /atom/movable/screen/alert/hot, 3)
-	else
+		. = TRUE
+
+	if(!.)
 		clear_alert("temp")
 
 /mob/living/simple_animal/gib()
@@ -445,7 +465,7 @@
 			return FALSE
 	return TRUE
 
-/mob/living/simple_animal/handle_fire()
+/mob/living/simple_animal/handle_fire(delta_time, times_fired)
 	return TRUE
 
 /mob/living/simple_animal/IgniteMob()
@@ -600,6 +620,7 @@
 		H = hud_used.hand_slots["[oindex]"]
 		if(H)
 			H.update_icon()
+	refresh_self_screentips()
 
 /mob/living/simple_animal/put_in_hands(obj/item/I, del_on_fail = FALSE, merge_stacks = TRUE)
 	. = ..(I, del_on_fail, merge_stacks)
@@ -621,24 +642,13 @@
 //ANIMAL RIDING
 
 /mob/living/simple_animal/user_buckle_mob(mob/living/M, mob/user, check_loc = TRUE)
-	var/datum/component/riding/riding_datum = GetComponent(/datum/component/riding)
-	if(riding_datum)
-		if(user.incapacitated())
+	if(user.incapacitated())
+		return
+	for(var/atom/movable/A in get_turf(src))
+		if(A != src && A != M && A.density)
 			return
-		for(var/atom/movable/A in get_turf(src))
-			if(A != src && A != M && A.density)
-				return
-		M.forceMove(get_turf(src))
-		return ..()
 
-/mob/living/simple_animal/relaymove(mob/living/user, direction)
-	var/datum/component/riding/riding_datum = GetComponent(/datum/component/riding)
-	if(tame && riding_datum)
-		riding_datum.handle_ride(user, direction)
-
-/mob/living/simple_animal/buckle_mob(mob/living/buckled_mob, force = 0, check_loc = 1)
-	. = ..()
-	LoadComponent(/datum/component/riding)
+	return ..()
 
 /mob/living/simple_animal/proc/toggle_ai(togglestatus)
 	if(!can_have_ai && (togglestatus != AI_OFF))
@@ -718,3 +728,11 @@
 		hunted = null
 		COOLDOWN_START(src, emote_cooldown, 1 MINUTES)
 		return
+
+/mob/living/simple_animal/relaymove(mob/living/user, direction)
+	if(user.incapacitated())
+		return
+	return relaydrive(user, direction)
+
+/mob/living/simple_animal/compare_sentience_type(compare_type)
+	return sentience_type == compare_type

@@ -24,6 +24,7 @@
 		/obj/item/restraints/handcuffs
 		)
 	slowdown = 0
+	clothing_flags = THICKMATERIAL
 	var/mode = VEST_STEALTH
 	var/stealth_active = FALSE
 	/// Cooldown in seconds
@@ -165,6 +166,13 @@
 			break
 	. = ..()
 
+//backpack with mildly more slots to accomodate outfit spawning
+/obj/item/storage/backpack/abductor
+
+/obj/item/storage/backpack/abductor/Initialize(mapload)
+	. = ..()
+	atom_storage.max_slots = 30
+	atom_storage.max_total_storage = 30
 
 /obj/item/abductor
 	icon = 'icons/obj/abductor.dmi'
@@ -172,25 +180,19 @@
 	righthand_file = 'icons/mob/inhands/antag/abductor_righthand.dmi'
 
 /obj/item/proc/AbductorCheck(mob/user)
-	if (HAS_TRAIT(user, TRAIT_ABDUCTOR_TRAINING))
-		return TRUE
-	if (istype(user) && user.mind && HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_TRAINING))
+	if(HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_TRAINING))
 		return TRUE
 	to_chat(user, span_warning("You can't figure out how this works!"))
 	return FALSE
 
 /obj/item/abductor/proc/ScientistCheck(mob/user)
-	var/training = HAS_TRAIT(user, TRAIT_ABDUCTOR_TRAINING) || (user.mind && HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_TRAINING))
-	var/sci_training = HAS_TRAIT(user, TRAIT_ABDUCTOR_SCIENTIST_TRAINING) || (user.mind && HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_SCIENTIST_TRAINING))
-
-	if(training && !sci_training)
-		to_chat(user, span_warning("You're not trained to use this!"))
-		. = FALSE
-	else if(!training && !sci_training)
+	if(!HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_TRAINING))
 		to_chat(user, span_warning("You can't figure out how this works!"))
-		. = FALSE
-	else
-		. = TRUE
+		return FALSE
+	if(!HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_SCIENTIST_TRAINING))
+		to_chat(user, span_warning("You're not trained to use this!"))
+		return FALSE
+	return TRUE
 
 /obj/item/abductor/gizmo
 	name = "science tool"
@@ -214,7 +216,7 @@
 	else
 		mode = GIZMO_SCAN
 		icon_state = "gizmo_scan"
-	to_chat(user, span_notice("You switch the device to [mode==GIZMO_SCAN? "SCAN": "MARK"] MODE"))
+	to_chat(user, span_notice("You switch the device to [mode == GIZMO_SCAN ? "SCAN" : "MARK"] MODE"))
 
 /obj/item/abductor/gizmo/attack(mob/living/M, mob/user)
 	if(!ScientistCheck(user))
@@ -265,7 +267,7 @@
 		prepare(target,user)
 
 /obj/item/abductor/gizmo/proc/prepare(atom/target, mob/living/user)
-	if(get_dist(target,user)>1)
+	if(get_dist(target,user) > 1)
 		to_chat(user, span_warning("You need to be next to the specimen to prepare it for transport!"))
 		return
 	to_chat(user, span_notice("You begin preparing [target] for transport..."))
@@ -274,8 +276,7 @@
 		to_chat(user, span_notice("You finish preparing [target] for transport."))
 
 /obj/item/abductor/gizmo/Destroy()
-	if(console)
-		console.gizmo = null
+	console?.gizmo = null
 	. = ..()
 
 
@@ -326,7 +327,7 @@
 /obj/item/abductor/mind_device/proc/mind_control(atom/target, mob/living/user)
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target
-		var/obj/item/organ/heart/gland/G = C.getorganslot("heart")
+		var/obj/item/organ/heart/gland/G = C.get_organ_slot("heart")
 		if(!istype(G))
 			to_chat(user, span_warning("Your target does not have an experimental gland!"))
 			return
@@ -339,13 +340,10 @@
 
 		var/command = stripped_input(user, "Enter the command for your target to follow.\
 											Uses Left: [G.mind_control_uses], Duration: [DisplayTimeText(G.mind_control_duration)]","Enter command")
-
 		if(!command)
 			return
-
 		if(QDELETED(user) || user.get_active_held_item() != src || loc != user)
 			return
-
 		if(QDELETED(G))
 			return
 
@@ -399,6 +397,7 @@
 	icon_state = "alienpistol"
 	item_state = "alienpistol"
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/paper/guides/antag/abductor
 	name = "Dissection Guide"
@@ -629,7 +628,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		if(temp)
 			helptext = span_warning("Experimental gland detected!")
 		else
-			if (L.getorganslot(ORGAN_SLOT_HEART))
+			if (L.get_organ_slot(ORGAN_SLOT_HEART))
 				helptext = span_notice("Subject suitable for experiments.")
 			else
 				helptext = span_warning("Subject unsuitable for experiments.")
@@ -918,7 +917,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "The most advanced form of jumpsuit known to reality, looks uncomfortable."
 	name = "alien jumpsuit"
 	icon = 'icons/obj/clothing/under/syndicate.dmi'
-	icon_state = "abductor-suit"
+	icon_state = "abductor"
 	item_state = "bl_suit"
 	worn_icon = 'icons/mob/clothing/under/syndicate.dmi'
 	armor_type = /datum/armor/under_abductor

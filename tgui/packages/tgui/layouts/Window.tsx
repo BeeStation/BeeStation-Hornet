@@ -75,7 +75,7 @@ export const Window = (props: Props) => {
   const showDimmer = config.user && (config.user.observer ? config.status < UI_DISABLED : config.status < UI_INTERACTIVE);
 
   return suspended ? null : (
-    <Layout className="Window" theme={theme} style={override_bg ? { backgroundColor: `${override_bg} !important` } : null}>
+    <Layout className="Window" theme={theme} backgroundColor={override_bg}>
       <TitleBar
         className="Window__titleBar"
         title={title || decodeHtmlEntities(config.title)}

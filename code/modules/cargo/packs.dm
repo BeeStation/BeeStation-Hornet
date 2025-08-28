@@ -19,6 +19,7 @@
 	var/DropPodOnly = FALSE//only usable by the Bluespace Drop Pod via the express cargo console
 	var/admin_spawned = FALSE
 	var/small_item = FALSE //Small items can be grouped into a single crate.
+	var/can_secure = TRUE //Can this order be secured
 
 /datum/supply_pack/New()
 	. = ..()
@@ -27,7 +28,7 @@
 
 /datum/supply_pack/proc/generate(atom/A, datum/bank_account/paying_account)
 	var/obj/structure/closet/crate/C
-	if(paying_account)
+	if(paying_account && can_secure)
 		C = new /obj/structure/closet/crate/secure/owned(A, paying_account)
 		C.name = "[crate_name] - Purchased by [paying_account.account_holder]"
 	else
@@ -55,7 +56,11 @@
 			A.flags_1 |= ADMIN_SPAWNED_1
 	else
 		for(var/item in contains)
-			new item(C)
+			if(ispath(item))
+				new item(C)
+			else if(ismovable(item))
+				var/atom/movable/MA = item
+				MA.forceMove(C)
 
 // If you add something to this list, please group it by type and sort it alphabetically instead of just jamming it in like an animal
 
@@ -72,12 +77,14 @@
 	cost = 1500
 	contraband = TRUE
 	max_supply = 2
-	contains = list(/obj/vehicle/ridden/atv,
-					/obj/item/key,
-					/obj/item/clothing/suit/jacket/leather/overcoat,
-					/obj/item/clothing/gloves/color/black,
-					/obj/item/clothing/head/soft/cargo,
-					/obj/item/clothing/mask/bandana/skull/black)//so you can properly #cargoniabikergang
+	contains = list(
+		/obj/vehicle/ridden/atv,
+		/obj/item/key/atv,
+		/obj/item/clothing/suit/jacket/leather/overcoat,
+		/obj/item/clothing/gloves/color/black,
+		/obj/item/clothing/head/soft/cargo,
+		/obj/item/clothing/mask/bandana/skull/black,//so you can properly #cargoniabikergang
+	)
 	crate_name = "Biker Kit"
 	crate_type = /obj/structure/closet/crate/large
 
@@ -201,6 +208,15 @@
 	crate_name = "internals crate"
 	crate_type = /obj/structure/closet/crate/internals
 
+/datum/supply_pack/emergency/lawnmower
+	name = "Lawnmower Crate"
+	desc = "Contains an unstable and slow lawnmower. Use with caution!"
+	cost = 3000
+	max_supply = 3
+	contains = list(/obj/vehicle/ridden/lawnmower)
+	crate_name = "lawnmower crate"
+	contraband = TRUE
+
 /datum/supply_pack/emergency/metalfoam
 	name = "Metal Foam Grenade Crate"
 	desc = "Seal up those pesky hull breaches with 7 Metal Foam Grenades."
@@ -312,9 +328,9 @@
 					/obj/item/clothing/mask/balaclava,
 					/obj/item/clothing/mask/balaclava,
 					/obj/item/clothing/mask/balaclava,
-					/obj/item/clothing/gloves/combat,
-					/obj/item/clothing/gloves/combat,
-					/obj/item/clothing/gloves/combat,
+					/obj/item/clothing/gloves/tackler/combat,
+					/obj/item/clothing/gloves/tackler/combat,
+					/obj/item/clothing/gloves/tackler/combat,
 					/obj/item/clothing/head/hats/hos/beret/syndicate,
 					/obj/item/clothing/head/hats/hos/beret/syndicate,
 					/obj/item/clothing/head/hats/hos/beret/syndicate,
@@ -438,7 +454,7 @@
 					/obj/item/clothing/head/beret/sec/navywarden,
 					/obj/item/clothing/under/rank/security/head_of_security/formal,
 					/obj/item/clothing/suit/jacket/hos/blue,
-					/obj/item/clothing/head/beret/sec/navyhos)
+					/obj/item/clothing/head/hats/hos/beret/navyhos)
 	crate_name = "security clothing crate"
 
 /datum/supply_pack/security/stingpack
@@ -793,7 +809,7 @@
 		/obj/item/clothing/suit/armor/vest/russian,
 		/obj/item/clothing/head/helmet/rus_helmet,
 		/obj/item/clothing/shoes/russian,
-		/obj/item/clothing/gloves/combat,
+		/obj/item/clothing/gloves/tackler/combat,
 		/obj/item/clothing/under/syndicate/rus_army,
 		/obj/item/clothing/under/costume/soviet,
 		/obj/item/clothing/mask/russian_balaclava,
@@ -903,8 +919,8 @@
 					/obj/item/clothing/mask/gas/sechailer/swat,
 					/obj/item/storage/belt/military/assault,
 					/obj/item/storage/belt/military/assault,
-					/obj/item/clothing/gloves/combat,
-					/obj/item/clothing/gloves/combat)
+					/obj/item/clothing/gloves/tackler/combat,
+					/obj/item/clothing/gloves/tackler/combat)
 	crate_name = "swat crate"
 
 /datum/supply_pack/security/armory/wt550_single
@@ -2059,7 +2075,7 @@
 /datum/supply_pack/science/modularpc
 	name = "Deluxe Silicate Selections restocking unit"
 	desc = "What's a computer? Contains Deluxe Silicate Selections restocking unit."
-	cost = 1200
+	cost = 5500
 	max_supply = 4
 	contains = list(/obj/item/vending_refill/modularpc)
 	crate_name = "computer supply crate"
@@ -2299,13 +2315,13 @@
 	crate_type = /obj/structure/closet/crate
 
 /datum/supply_pack/service/vending/dinnerware
-	name = "Dinnerware Supply Crate"
-	desc = "More knives for the chef."
-	cost = 800
+	name = "Kitchen Supply Crate"
+	desc = "More knives and ingredients for the chef."
+	cost = 500
 	max_supply = 6
 	access_budget = ACCESS_KITCHEN
 	contains = list(/obj/item/vending_refill/dinnerware)
-	crate_name = "dinnerware supply crate"
+	crate_name = "kitchen supply crate"
 
 /datum/supply_pack/service/vending/games
 	name = "Games Supply Crate"
@@ -2805,23 +2821,23 @@
 	name = "Corgi Crate"
 	desc = "Considered the optimal dog breed by thousands of research scientists, this Corgi is but one dog from the millions of Ian's noble bloodline. Comes with a cute collar!"
 	cost = 5000
-	contains = list(/mob/living/simple_animal/pet/dog/corgi,
+	contains = list(/mob/living/basic/pet/dog/corgi,
 					/obj/item/clothing/neck/petcollar)
 	crate_name = "corgi crate"
 
 /datum/supply_pack/critter/corgi/generate()
 	. = ..()
 	if(prob(50))
-		var/mob/living/simple_animal/pet/dog/corgi/D = locate() in .
+		var/mob/living/basic/pet/dog/corgi/D = locate() in .
 		if(D.gender == FEMALE)
 			qdel(D)
-			new /mob/living/simple_animal/pet/dog/corgi/Lisa(.)
+			new /mob/living/basic/pet/dog/corgi/Lisa(.)
 
 /datum/supply_pack/critter/cow
 	name = "Cow Crate"
 	desc = "The cow goes moo!"
 	cost = 3000
-	contains = list(/mob/living/simple_animal/cow)
+	contains = list(/mob/living/basic/cow)
 	crate_name = "cow crate"
 
 /datum/supply_pack/critter/crab
@@ -2841,7 +2857,7 @@
 	name = "Exotic Corgi Crate"
 	desc = "Corgis fit for a king, these corgis come in a unique color to signify their superiority. Comes with a cute collar!"
 	cost = 5500
-	contains = list(/mob/living/simple_animal/pet/dog/corgi/exoticcorgi,
+	contains = list(/mob/living/basic/pet/dog/corgi/exoticcorgi,
 					/obj/item/clothing/neck/petcollar)
 	crate_name = "exotic corgi crate"
 
@@ -2880,7 +2896,7 @@
 	name = "Pug Crate"
 	desc = "Like a normal dog, but... squished. Comes with a nice collar!"
 	cost = 5000
-	contains = list(/mob/living/simple_animal/pet/dog/pug,
+	contains = list(/mob/living/basic/pet/dog/pug,
 					/obj/item/clothing/neck/petcollar)
 	crate_name = "pug crate"
 
@@ -2888,7 +2904,7 @@
 	name = "Bull Terrier Crate"
 	desc = "Like a normal dog, but with a head the shape of an egg. Comes with a nice collar!"
 	cost = 5000
-	contains = list(/mob/living/simple_animal/pet/dog/bullterrier,
+	contains = list(/mob/living/basic/pet/dog/bullterrier,
 					/obj/item/clothing/neck/petcollar)
 	crate_name = "bull terrier crate"
 
@@ -2906,7 +2922,7 @@
 	name = "Capybara Crate"
 	desc = "Coconut doggy"
 	cost = 10000
-	contains = list(/mob/living/simple_animal/pet/dog/corgi/capybara)
+	contains = list(/mob/living/basic/pet/dog/corgi/capybara)
 	crate_name = "capybara crate"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -3164,22 +3180,22 @@
 	cost = 800
 	max_supply = 3
 	contains = list(
-		/obj/item/cardboard_cutout/adaptive/chess/king,
-		/obj/item/cardboard_cutout/adaptive/chess/queen,
-		/obj/item/cardboard_cutout/adaptive/chess/rook,
-		/obj/item/cardboard_cutout/adaptive/chess/rook,
-		/obj/item/cardboard_cutout/adaptive/chess/knight,
-		/obj/item/cardboard_cutout/adaptive/chess/knight,
-		/obj/item/cardboard_cutout/adaptive/chess/bishop,
-		/obj/item/cardboard_cutout/adaptive/chess/bishop,
-		/obj/item/cardboard_cutout/adaptive/chess/pawn,
-		/obj/item/cardboard_cutout/adaptive/chess/pawn,
-		/obj/item/cardboard_cutout/adaptive/chess/pawn,
-		/obj/item/cardboard_cutout/adaptive/chess/pawn,
-		/obj/item/cardboard_cutout/adaptive/chess/pawn,
-		/obj/item/cardboard_cutout/adaptive/chess/pawn,
-		/obj/item/cardboard_cutout/adaptive/chess/pawn,
-		/obj/item/cardboard_cutout/adaptive/chess/pawn,
+		/obj/structure/chess/whiteking,
+		/obj/structure/chess/whitequeen,
+		/obj/structure/chess/whiterook,
+		/obj/structure/chess/whiterook,
+		/obj/structure/chess/whiteknight,
+		/obj/structure/chess/whiteknight,
+		/obj/structure/chess/whitebishop,
+		/obj/structure/chess/whitebishop,
+		/obj/structure/chess/whitepawn,
+		/obj/structure/chess/whitepawn,
+		/obj/structure/chess/whitepawn,
+		/obj/structure/chess/whitepawn,
+		/obj/structure/chess/whitepawn,
+		/obj/structure/chess/whitepawn,
+		/obj/structure/chess/whitepawn,
+		/obj/structure/chess/whitepawn,
 	)
 	crate_type = /obj/structure/closet/crate/wooden
 
@@ -3189,22 +3205,22 @@
 	cost = 800
 	max_supply = 3
 	contains = list(
-		/obj/item/cardboard_cutout/adaptive/chess/black/king,
-		/obj/item/cardboard_cutout/adaptive/chess/black/queen,
-		/obj/item/cardboard_cutout/adaptive/chess/black/rook,
-		/obj/item/cardboard_cutout/adaptive/chess/black/rook,
-		/obj/item/cardboard_cutout/adaptive/chess/black/knight,
-		/obj/item/cardboard_cutout/adaptive/chess/black/knight,
-		/obj/item/cardboard_cutout/adaptive/chess/black/bishop,
-		/obj/item/cardboard_cutout/adaptive/chess/black/bishop,
-		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
-		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
-		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
-		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
-		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
-		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
-		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
-		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
+		/obj/structure/chess/blackking,
+		/obj/structure/chess/blackqueen,
+		/obj/structure/chess/blackrook,
+		/obj/structure/chess/blackrook,
+		/obj/structure/chess/blackknight,
+		/obj/structure/chess/blackknight,
+		/obj/structure/chess/blackbishop,
+		/obj/structure/chess/blackbishop,
+		/obj/structure/chess/blackpawn,
+		/obj/structure/chess/blackpawn,
+		/obj/structure/chess/blackpawn,
+		/obj/structure/chess/blackpawn,
+		/obj/structure/chess/blackpawn,
+		/obj/structure/chess/blackpawn,
+		/obj/structure/chess/blackpawn,
+		/obj/structure/chess/blackpawn,
 	)
 	crate_type = /obj/structure/closet/crate/wooden
 
@@ -3358,7 +3374,8 @@
 					/obj/item/canvas/twentythree_twentythree,
 					/obj/item/canvas/twentythree_twentythree,
 					/obj/item/toy/crayon/rainbow,
-					/obj/item/toy/crayon/rainbow)
+					/obj/item/toy/crayon/rainbow,
+					/obj/item/vending_refill/sticker)
 	crate_name = "art supply crate"
 	crate_type = /obj/structure/closet/crate/wooden
 
@@ -3456,7 +3473,8 @@
 					/obj/item/clipboard,
 					/obj/item/stamp,
 					/obj/item/stamp/denied,
-					/obj/item/laser_pointer/purple)
+					/obj/item/laser_pointer/purple,
+					/obj/item/sticky_note_pile)
 	crate_name = "bureaucracy crate"
 
 /datum/supply_pack/misc/bulk_paper

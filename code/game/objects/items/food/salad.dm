@@ -97,9 +97,12 @@
 	foodtypes = GRAIN | RAW
 	microwaved_type = /obj/item/food/boiledrice
 
+/obj/item/food/uncooked_rice/make_bakeable()
+	AddComponent(/datum/component/bakeable, /obj/item/food/boiledrice, rand(15 SECONDS, 20 SECONDS), TRUE, TRUE)
+
 /*
-/obj/item/food/salad/ricebowl/make_microwaveable()
-	AddElement(/datum/element/microwavable, /obj/item/food/salad/boiledrice)
+/obj/item/food/uncooked_rice/make_microwaveable()
+	AddElement(/datum/element/microwavable, /obj/item/food/boiledrice)
 */
 
 /obj/item/food/boiledrice
@@ -161,7 +164,7 @@
 	reagent_flags = OPENCONTAINER
 	custom_materials = list(/datum/material/glass = 500)
 	w_class = WEIGHT_CLASS_NORMAL
-	custom_price = PAYCHECK_EASY * 0.6
+	custom_price = 5 /// Will use this form upon economy rebalance! PAYCHECK_EASY * 0.6
 
 /obj/item/reagent_containers/cup/bowl/Initialize(mapload)
 	. = ..()

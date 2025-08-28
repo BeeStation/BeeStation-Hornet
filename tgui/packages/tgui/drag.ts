@@ -177,7 +177,6 @@ const constraintPosition = (pos: [number, number], size: [number, number]): [boo
 export const dragStartHandler = (event) => {
   logger.log('drag start');
   dragging = true;
-  let windowPosition = getWindowPosition();
   dragPointOffset = vecSubtract([event.screenX, event.screenY], getWindowPosition());
   // Focus click target
   (event.target as HTMLElement)?.focus();

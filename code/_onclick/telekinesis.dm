@@ -86,6 +86,7 @@
 	w_class = WEIGHT_CLASS_GIGANTIC
 
 	plane = ABOVE_HUD_PLANE
+	layer = HUD_LAYER
 
 	var/atom/movable/focus = null
 	var/mob/living/carbon/tk_user = null
@@ -194,7 +195,7 @@
 	return TRUE
 
 /obj/item/tk_grab/proc/check_if_focusable(obj/target)
-	if(!tk_user || !istype(tk_user) || QDELETED(target) || !istype(target) || !tk_user.dna.check_mutation(TK))
+	if(!tk_user || !istype(tk_user) || QDELETED(target) || !istype(target) || !tk_user.dna.check_mutation(/datum/mutation/telekinesis))
 		qdel(src)
 		return
 	if(!tkMaxRangeCheck(tk_user, target) || target.anchored || !isturf(target.loc))

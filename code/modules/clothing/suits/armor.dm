@@ -12,7 +12,6 @@
 	max_integrity = 250
 	resistance_flags = NONE
 	armor_type = /datum/armor/suit_armor
-	clothing_flags = THICKMATERIAL
 	slowdown = 0.08
 
 
@@ -38,7 +37,7 @@
 	icon_state = "armoralt"
 	item_state = "armor"
 	blood_overlay_type = "armor"
-	dog_fashion = /datum/dog_fashion/back
+	dog_fashion = /datum/dog_fashion/back/armorvest
 
 /obj/item/clothing/suit/armor/vest/alt
 	desc = "An alternate style Type I-B armored vest that provides decent protection against most types of damage. They perform identically in the field."
@@ -71,27 +70,6 @@
 	fire = 50
 	acid = 50
 	stamina = 40
-
-/obj/item/clothing/suit/armor/vest/corporate
-	name = "corporate Jacket"
-	desc = "A Stylish Corporate Jacket which also provides Protection."
-	icon_state = "secjacket"
-	item_state = "secjacket"
-	body_parts_covered = CHEST|ARMS
-	armor_type = /datum/armor/vest_corporate
-	slowdown = 0.02
-
-
-/datum/armor/vest_corporate
-	melee = 25
-	bullet = 25
-	laser = 25
-	energy = 35
-	bomb = 20
-	fire = 45
-	acid = 45
-	stamina = 30
-	bleed = 20
 
 /obj/item/clothing/suit/armor/hos
 	name = "armored greatcoat"
@@ -165,6 +143,7 @@
 	armor_type = /datum/armor/vest_capcarapace
 	dog_fashion = null
 	resistance_flags = FIRE_PROOF
+	clothing_flags = THICKMATERIAL
 
 
 /datum/armor/vest_capcarapace
@@ -189,6 +168,7 @@
 	icon_state = "capformal"
 	item_state = null
 	body_parts_covered = CHEST|GROIN|ARMS
+	clothing_flags = NONE
 
 /obj/item/clothing/suit/armor/vest/capcarapace/jacket
 	name = "captain's jacket"
@@ -197,6 +177,7 @@
 	item_state = null
 	body_parts_covered = CHEST|ARMS
 	armor_type = /datum/armor/capcarapace_jacket
+	clothing_flags = NONE
 
 
 /datum/armor/capcarapace_jacket
@@ -224,6 +205,7 @@
 	equip_delay_other = 60
 	slowdown = 0.15
 	move_sound = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
+	clothing_flags = THICKMATERIAL
 
 
 /datum/armor/armor_riot
@@ -245,6 +227,7 @@
 	armor_type = /datum/armor/armor_bone
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS
 	slowdown = 0.1
+	clothing_flags = THICKMATERIAL
 
 
 /datum/armor/armor_bone
@@ -267,6 +250,7 @@
 	armor_type = /datum/armor/armor_bulletproof
 	strip_delay = 70
 	equip_delay_other = 50
+	clothing_flags = THICKMATERIAL
 
 
 /datum/armor/armor_bulletproof
@@ -332,6 +316,7 @@
 	armor_type = /datum/armor/armor_heavy
 	move_sound = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
 	slowdown = 0.3
+	clothing_flags = THICKMATERIAL
 
 
 /datum/armor/armor_heavy
@@ -430,6 +415,8 @@
 	max_integrity = 200
 	resistance_flags = FLAMMABLE
 	armor_type = /datum/armor/vest_durathread
+	dog_fashion = null
+	clothing_flags = THICKMATERIAL
 
 
 /datum/armor/vest_durathread
@@ -450,6 +437,7 @@
 	item_state = "rus_armor"
 	armor_type = /datum/armor/vest_russian
 	slowdown = 0.05
+	dog_fashion = null
 
 
 /datum/armor/vest_russian
@@ -472,6 +460,7 @@
 	cold_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	armor_type = /datum/armor/vest_russian_coat
+	dog_fashion = null
 
 
 /datum/armor/vest_russian_coat

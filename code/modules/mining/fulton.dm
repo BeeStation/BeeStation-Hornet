@@ -31,7 +31,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 	else
 		var/A
 
-		A = input("Select a beacon to connect to", "Balloon Extraction Pack", A) as null|anything in sort_names(possible_beacons)
+		A = tgui_input_list(user, "Select a beacon to connect to", "Balloon Extraction Pack", sort_names(possible_beacons))
 
 		if(!A)
 			return
@@ -71,7 +71,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 			to_chat(user, span_notice("You attach the pack to [A] and activate it."))
 			if(loc == user && istype(user.back, /obj/item/storage/backpack))
 				var/obj/item/storage/backpack/B = user.back
-				SEND_SIGNAL(B, COMSIG_TRY_STORAGE_INSERT, src, user, FALSE, FALSE)
+				B.atom_storage?.attempt_insert(src, user)
 			uses_left--
 			if(uses_left <= 0)
 				user.transferItemToLoc(src, A, TRUE)

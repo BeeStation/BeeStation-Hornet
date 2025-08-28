@@ -1,8 +1,9 @@
 /obj/item/food/pancakes
 	name = "pancake"
 	desc = "A fluffy pancake. The softer, superior relative of the waffle."
+	icon = 'icons/obj/food/pancakes.dmi'
 	icon_state = "pancakes_1"
-	item_state = "pancakes"
+	item_state = null
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 4,
 		/datum/reagent/consumable/nutriment/vitamin = 2
@@ -13,6 +14,46 @@
 	///Used as a base name while generating the icon states when stacked
 	var/stack_name = "pancakes"
 	crafting_complexity = FOOD_COMPLEXITY_2
+
+/obj/item/food/pancakes/raw
+	name = "goopy pancake"
+	desc = "A barely cooked mess that some may mistake for a pancake. It longs for the griddle."
+	icon_state = "rawpancakes_1"
+	food_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 1)
+	tastes = list("milky batter" = 1)
+	stack_name = "rawpancakes"
+	crafting_complexity = FOOD_COMPLEXITY_1
+
+/obj/item/food/pancakes/raw/make_grillable()
+	AddComponent(/datum/component/grillable,\
+				cook_result = /obj/item/food/pancakes,\
+				required_cook_time = rand(30 SECONDS, 40 SECONDS),\
+				positive_result = TRUE,\
+				use_large_steam_sprite = TRUE)
+
+/obj/item/food/pancakes/raw/attackby(obj/item/garnish, mob/living/user, params)
+	var/newresult
+	if(istype(garnish, /obj/item/food/grown/berries))
+		newresult = /obj/item/food/pancakes/blueberry
+		name = "raw blueberry pancake"
+		icon_state = "rawbbpancakes_1"
+		stack_name = "rawbbpancakes"
+	else if(istype(garnish, /obj/item/food/chocolatebar))
+		newresult = /obj/item/food/pancakes/chocolatechip
+		name = "raw chocolate chip pancake"
+		icon_state = "rawccpancakes_1"
+		stack_name = "rawccpancakes"
+	else
+		return ..()
+	if(newresult)
+		qdel(garnish)
+		to_chat(user, span_notice("You add [garnish] to [src]."))
+		AddComponent(/datum/component/grillable, cook_result = newresult)
+
+/obj/item/food/pancakes/raw/examine(mob/user)
+	. = ..()
+	if(name == initial(name))
+		. += "<span class='notice'>You can modify the pancake by adding <b>blueberries</b> or <b>chocolate</b> before finishing the griddle."
 
 /obj/item/food/pancakes/blueberry
 	name = "blueberry pancake"

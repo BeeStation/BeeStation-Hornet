@@ -15,7 +15,7 @@
 	w_class = WEIGHT_CLASS_GIGANTIC
 	item_flags = ISWEAPON
 	force = 12
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	attack_verb_continuous = list("robusts")
 	attack_verb_simple = list("robust")
 	hitsound = 'sound/weapons/smash.ogg'
@@ -93,13 +93,13 @@
 				master.visible_message(span_boldwarning("[src] turns on [master]!"), "[span_hisgracebigbold("[src] turns on you!")]")
 				do_attack_animation(master, null, src)
 				master.emote("scream")
-				master.remove_status_effect(STATUS_EFFECT_HISGRACE)
+				master.remove_status_effect(/datum/status_effect/his_grace)
 				REMOVE_TRAIT(src, TRAIT_NODROP, HIS_GRACE_TRAIT)
 				master.Paralyze(60)
 				master.adjustBruteLoss(master.maxHealth)
 				playsound(master, 'sound/effects/splat.ogg', 100, 0)
 			else
-				master.apply_status_effect(STATUS_EFFECT_HISGRACE)
+				master.apply_status_effect(/datum/status_effect/his_grace)
 		return
 	forceMove(get_turf(src)) //no you can't put His Grace in a locker you just have to deal with Him
 	if(bloodthirst < HIS_GRACE_CONSUME_OWNER)

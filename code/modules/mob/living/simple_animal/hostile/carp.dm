@@ -98,6 +98,11 @@
 		update_greyscale()
 		update_icon()
 
+/mob/living/simple_animal/hostile/carp/proc/tamed(mob/living/tamer)
+	can_buckle = TRUE
+	buckle_lying = 0
+	AddElement(/datum/element/ridable, /datum/component/riding/creature/carp)
+
 /mob/living/simple_animal/hostile/carp/holocarp
 	icon_state = "holocarp"
 	icon_living = "holocarp"
@@ -139,10 +144,19 @@
 	if(.)
 		regen_cooldown = world.time + REGENERATION_DELAY
 
-/mob/living/simple_animal/hostile/carp/megacarp/Life()
+/mob/living/simple_animal/hostile/carp/megacarp/Login()
+	. = ..()
+	if(!. || !client)
+		return FALSE
+
+	AddElement(/datum/element/ridable, /datum/component/riding/creature/megacarp)
+	can_buckle = TRUE
+	buckle_lying = 0
+
+/mob/living/simple_animal/hostile/carp/megacarp/Life(delta_time = SSMOBS_DT, times_fired)
 	. = ..()
 	if(regen_cooldown < world.time)
-		heal_overall_damage(4)
+		heal_overall_damage(2 * delta_time)
 
 /mob/living/simple_animal/hostile/carp/cayenne
 	name = "Cayenne"

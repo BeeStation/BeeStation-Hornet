@@ -116,7 +116,7 @@
 					morph.throwatom = null
 				to_chat(morph, span_danger("You begin digesting [span_name("[living_target]")]"))
 				if(do_after(morph, living_target.maxHealth))
-					if(ishuman(living_target) || ismonkey(living_target) || isalienadult(living_target) || istype(living_target, /mob/living/simple_animal/pet/dog) || istype(living_target, /mob/living/simple_animal/parrot))
+					if(ishuman(living_target) || ismonkey(living_target) || isalienadult(living_target) || istype(living_target, /mob/living/basic/pet/dog) || istype(living_target, /mob/living/simple_animal/parrot))
 						var/list/turfs_to_throw = view(2, morph)
 						for(var/obj/item/item in living_target.contents)
 							living_target.dropItemToGround(item, TRUE)

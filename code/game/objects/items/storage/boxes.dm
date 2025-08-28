@@ -26,7 +26,7 @@
 	name = "box"
 	desc = "It's just an ordinary box."
 	icon = 'icons/obj/storage/box.dmi'
-	w_class = WEIGHT_CLASS_LARGE
+	w_class = WEIGHT_CLASS_MEDIUM
 	icon_state = "box"
 	item_state = "syringe_kit"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
@@ -39,9 +39,9 @@
 
 /obj/item/storage/box/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 8
-	STR.max_combined_w_class = 8
+	atom_storage.max_slots = 8
+	atom_storage.max_total_storage = 8
+	atom_storage.max_specific_storage = WEIGHT_CLASS_NORMAL
 	update_icon()
 
 /obj/item/storage/box/suicide_act(mob/living/carbon/user)
@@ -168,10 +168,9 @@
 
 /obj/item/storage/box/survival/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 5
-	STR.max_combined_w_class = 21
-	STR.max_w_class = WEIGHT_CLASS_TINY
+	atom_storage.max_slots = 5
+	atom_storage.max_total_storage = 21
+	atom_storage.max_specific_storage = WEIGHT_CLASS_TINY
 	var/static/list/exception_hold = typecacheof(list(
 		/obj/item/flashlight/flare,
 		/obj/item/radio,
@@ -181,7 +180,7 @@
 		/obj/item/tank/internals/emergency_oxygen,
 		/obj/item/tank/internals/plasmaman/belt
 		))
-	STR.exception_hold = exception_hold
+	atom_storage.exception_hold = exception_hold
 
 /obj/item/storage/box/survival/PopulateContents()
 	if(!isplasmaman(loc))
@@ -529,16 +528,15 @@
 
 /obj/item/storage/box/donkpockets
 	name = "box of donk-pockets"
-	desc = "<B>Instructions:</B> <I>Heat in microwave. Product will cool if not eaten within seven minutes.</I>"
+	desc = "Instructions: Heat in microwave. Product will stay perpetually warmed with cutting edge Donk Co. technology."
 	icon_state = "donkpocketbox"
 	illustration=null
 	var/donktype = /obj/item/food/donkpocket
 	donktype = /obj/item/food/donkpocket
 
-/obj/item/storage/box/donkpockets/ComponentInitialize()
+/obj/item/storage/box/donkpockets/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.set_holdable(list(/obj/item/food/donkpocket))
+	atom_storage.set_holdable(list(/obj/item/food/donkpocket))
 
 /obj/item/storage/box/donkpockets/donkpocketspicy
 	name = "box of spicy-flavoured donk-pockets"
@@ -583,11 +581,10 @@
 	illustration = null
 	var/cube_type = /obj/item/food/monkeycube
 
-/obj/item/storage/box/monkeycubes/ComponentInitialize()
+/obj/item/storage/box/monkeycubes/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 7
-	STR.set_holdable(list(/obj/item/food/monkeycube))
+	atom_storage.max_slots = 7
+	atom_storage.set_holdable(list(/obj/item/food/monkeycube))
 
 /obj/item/storage/box/monkeycubes/PopulateContents()
 	for(var/i in 1 to 5)
@@ -603,11 +600,10 @@
 	icon_state = "monkeycubebox"
 	illustration = null
 
-/obj/item/storage/box/gorillacubes/ComponentInitialize()
+/obj/item/storage/box/gorillacubes/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 3
-	STR.set_holdable(list(/obj/item/food/monkeycube))
+	atom_storage.max_slots = 3
+	atom_storage.set_holdable(list(/obj/item/food/monkeycube))
 
 /obj/item/storage/box/gorillacubes/PopulateContents()
 	for(var/i in 1 to 3)
@@ -769,14 +765,14 @@
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "spbox"
 
-/obj/item/storage/box/snappops/ComponentInitialize()
+/obj/item/storage/box/snappops/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.set_holdable(list(/obj/item/toy/snappop))
-	STR.max_items = 8
+	atom_storage.set_holdable(list(/obj/item/toy/snappop))
+	atom_storage.max_slots = 8
 
 /obj/item/storage/box/snappops/PopulateContents()
-	SEND_SIGNAL(src, COMSIG_TRY_STORAGE_FILL_TYPE, /obj/item/toy/snappop)
+	for(var/i in 1 to 8)
+		new /obj/item/toy/snappop(src)
 
 /obj/item/storage/box/matches
 	name = "matchbox"
@@ -790,14 +786,14 @@
 	drop_sound = 'sound/items/handling/matchbox_drop.ogg'
 	pickup_sound =  'sound/items/handling/matchbox_pickup.ogg'
 
-/obj/item/storage/box/matches/ComponentInitialize()
+/obj/item/storage/box/matches/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 10
-	STR.set_holdable(list(/obj/item/match))
+	atom_storage.max_slots = 10
+	atom_storage.set_holdable(list(/obj/item/match))
 
 /obj/item/storage/box/matches/PopulateContents()
-	SEND_SIGNAL(src, COMSIG_TRY_STORAGE_FILL_TYPE, /obj/item/match)
+	for(var/i in 1 to 10)
+		new /obj/item/match(src)
 
 /obj/item/storage/box/matches/attackby(obj/item/match/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/match))
@@ -815,11 +811,10 @@
 
 /obj/item/storage/box/lights/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 21
-	STR.set_holdable(list(/obj/item/light/tube, /obj/item/light/bulb))
-	STR.max_combined_w_class = 21
-	STR.click_gather = FALSE //temp workaround to re-enable filling the light replacer with the box
+	atom_storage.max_slots = 21
+	atom_storage.set_holdable(list(/obj/item/light/tube, /obj/item/light/bulb))
+	atom_storage.max_total_storage = 21
+	atom_storage.allow_quick_gather = FALSE //temp workaround to re-enable filling the light replacer with the box
 
 /obj/item/storage/box/lights/bulbs/PopulateContents()
 	for(var/i in 1 to 21)
@@ -966,145 +961,141 @@
 		new randomFigure(src)
 
 /obj/item/storage/box/ingredients //This box is for the randomely chosen version the chef spawns with, it shouldn't actually exist.
-	name = "ingredients box"
+	name = "ingredient box"
 	illustration = "fruit"
 	var/theme_name
+	var/list/possible_themes = list("wildcard", "fiesta", "italian", "vegetarian", "american", "fruity", "sweets", "delights", "grains", "carnivore", "exotic")
 
 /obj/item/storage/box/ingredients/Initialize(mapload)
 	. = ..()
-	if(theme_name)
-		name = "[name] ([theme_name])"
-		desc = "A box containing supplementary ingredients for the aspiring chef. The box's theme is '[theme_name]'."
-		item_state = "syringe_kit"
+	if(!theme_name)
+		theme_name = pick(possible_themes)
+		PopulateContents()
+	name = "[name] ([theme_name])"
+	desc = "A box containing supplementary ingredients for the aspiring chef. The box's theme is '[theme_name]'."
+	item_state = "syringe_kit"
+
+/obj/item/storage/box/ingredients/PopulateContents()
+	switch(theme_name)
+		if("wildcard")
+			var/list/randomfood = list(
+				/obj/item/food/grown/chili,
+				/obj/item/food/grown/tomato,
+				/obj/item/food/grown/carrot,
+				/obj/item/food/grown/potato,
+				/obj/item/food/grown/potato/sweet,
+				/obj/item/food/grown/apple,
+				/obj/item/food/chocolatebar,
+				/obj/item/food/grown/cherries,
+				/obj/item/food/grown/banana,
+				/obj/item/food/grown/cabbage,
+				/obj/item/food/grown/soybeans,
+				/obj/item/food/grown/corn,
+				/obj/item/food/grown/mushroom/plumphelmet,
+				/obj/item/food/grown/mushroom/chanterelle)
+			for(var/i in 1 to 7)
+				var/food = pick(randomfood)
+				new food(src)
+		if("fiesta")
+			new /obj/item/food/tortilla(src)
+			for(var/i in 1 to 2)
+				new /obj/item/food/grown/corn(src)
+				new /obj/item/food/grown/soybeans(src)
+				new /obj/item/food/grown/chili(src)
+		if("italian")
+			new /obj/item/reagent_containers/cup/glass/bottle/wine(src)
+			for(var/i in 1 to 3)
+				new /obj/item/food/grown/tomato(src)
+				new /obj/item/food/meatball(src)
+		if("vegetarian")
+			new /obj/item/food/grown/eggplant(src)
+			new /obj/item/food/grown/potato(src)
+			new /obj/item/food/grown/apple(src)
+			new /obj/item/food/grown/corn(src)
+			new /obj/item/food/grown/tomato(src)
+			for(var/i in 1 to 2)
+				new /obj/item/food/grown/carrot(src)
+		if("american")
+			new /obj/item/food/meatball(src)
+			for(var/i in 1 to 2)
+				new /obj/item/food/grown/potato(src)
+				new /obj/item/food/grown/tomato(src)
+				new /obj/item/food/grown/corn(src)
+		if("fruity")
+			new /obj/item/food/grown/citrus/lemon(src)
+			new /obj/item/food/grown/citrus/lime(src)
+			new /obj/item/food/grown/watermelon(src)
+			for(var/i in 1 to 2)
+				new /obj/item/food/grown/apple(src)
+				new /obj/item/food/grown/citrus/orange(src)
+		if("sweets")
+			new /obj/item/food/chocolatebar(src)
+			new /obj/item/food/grown/cocoapod(src)
+			new /obj/item/food/grown/apple(src)
+			for(var/i in 1 to 2)
+				new/obj/item/food/grown/cherries(src)
+				new /obj/item/food/grown/banana(src)
+		if("delights")
+			new /obj/item/food/grown/vanillapod(src)
+			new /obj/item/food/grown/cocoapod(src)
+			new /obj/item/food/grown/berries(src)
+			for(var/i in 1 to 2)
+				new /obj/item/food/grown/potato/sweet(src)
+				new /obj/item/food/grown/bluecherries(src)
+		if("grains")
+			new /obj/item/food/grown/wheat(src)
+			new /obj/item/food/grown/cocoapod(src)
+			new /obj/item/food/honeycomb(src)
+			new /obj/item/seeds/flower/poppy(src)
+			for(var/i in 1 to 3)
+				new /obj/item/food/grown/oat(src)
+		if("carnivore")
+			new /obj/item/food/meat/slab/bear(src)
+			new /obj/item/food/meat/slab/spider(src)
+			new /obj/item/food/spidereggs(src)
+			new /obj/item/food/fishmeat/carp(src)
+			new /obj/item/food/meat/slab/xeno(src)
+			new /obj/item/food/meat/slab/corgi(src)
+			new /obj/item/food/meatball(src)
+		if("exotic")
+			new /obj/item/food/grown/chili(src)
+			for(var/i in 1 to 2)
+				new /obj/item/food/fishmeat/carp(src)
+				new /obj/item/food/grown/soybeans(src)
+				new /obj/item/food/grown/cabbage(src)
 
 /obj/item/storage/box/ingredients/wildcard
 	theme_name = "wildcard"
 
-/obj/item/storage/box/ingredients/wildcard/PopulateContents()
-	for(var/i in 1 to 7)
-		var/randomFood = pick(
-			/obj/item/food/grown/chili,
-			/obj/item/food/grown/tomato,
-			/obj/item/food/grown/carrot,
-			/obj/item/food/grown/potato,
-			/obj/item/food/grown/potato/sweet,
-			/obj/item/food/grown/apple,
-			/obj/item/food/chocolatebar,
-			/obj/item/food/grown/cherries,
-			/obj/item/food/grown/banana,
-			/obj/item/food/grown/cabbage,
-			/obj/item/food/grown/soybeans,
-			/obj/item/food/grown/corn,
-			/obj/item/food/grown/mushroom/plumphelmet,
-			/obj/item/food/grown/mushroom/chanterelle,)
-		new randomFood(src)
-
 /obj/item/storage/box/ingredients/fiesta
 	theme_name = "fiesta"
-
-/obj/item/storage/box/ingredients/fiesta/PopulateContents()
-	new /obj/item/food/tortilla(src)
-	for(var/i in 1 to 2)
-		new /obj/item/food/grown/corn(src)
-		new /obj/item/food/grown/soybeans(src)
-		new /obj/item/food/grown/chili(src)
 
 /obj/item/storage/box/ingredients/italian
 	theme_name = "italian"
 
-/obj/item/storage/box/ingredients/italian/PopulateContents()
-	for(var/i in 1 to 3)
-		new /obj/item/food/grown/tomato(src)
-		new /obj/item/food/meatball(src)
-	new /obj/item/reagent_containers/cup/glass/bottle/wine(src)
-
 /obj/item/storage/box/ingredients/vegetarian
 	theme_name = "vegetarian"
-
-/obj/item/storage/box/ingredients/vegetarian/PopulateContents()
-	for(var/i in 1 to 2)
-		new /obj/item/food/grown/carrot(src)
-	new /obj/item/food/grown/eggplant(src)
-	new /obj/item/food/grown/potato(src)
-	new /obj/item/food/grown/apple(src)
-	new /obj/item/food/grown/corn(src)
-	new /obj/item/food/grown/tomato(src)
 
 /obj/item/storage/box/ingredients/american
 	theme_name = "american"
 
-/obj/item/storage/box/ingredients/american/PopulateContents()
-	for(var/i in 1 to 2)
-		new /obj/item/food/grown/potato(src)
-		new /obj/item/food/grown/tomato(src)
-		new /obj/item/food/grown/corn(src)
-	new /obj/item/food/meatball(src)
-
 /obj/item/storage/box/ingredients/fruity
 	theme_name = "fruity"
-
-/obj/item/storage/box/ingredients/fruity/PopulateContents()
-	for(var/i in 1 to 2)
-		new /obj/item/food/grown/apple(src)
-		new /obj/item/food/grown/citrus/orange(src)
-	new /obj/item/food/grown/citrus/lemon(src)
-	new /obj/item/food/grown/citrus/lime(src)
-	new /obj/item/food/grown/watermelon(src)
 
 /obj/item/storage/box/ingredients/sweets
 	theme_name = "sweets"
 
-/obj/item/storage/box/ingredients/sweets/PopulateContents()
-	for(var/i in 1 to 2)
-		new/obj/item/food/grown/cherries(src)
-		new /obj/item/food/grown/banana(src)
-	new /obj/item/food/chocolatebar(src)
-	new /obj/item/food/grown/cocoapod(src)
-	new /obj/item/food/grown/apple(src)
-
 /obj/item/storage/box/ingredients/delights
 	theme_name = "delights"
-
-/obj/item/storage/box/ingredients/delights/PopulateContents()
-	for(var/i in 1 to 2)
-		new /obj/item/food/grown/potato/sweet(src)
-		new /obj/item/food/grown/bluecherries(src)
-	new /obj/item/food/grown/vanillapod(src)
-	new /obj/item/food/grown/cocoapod(src)
-	new /obj/item/food/grown/berries(src)
 
 /obj/item/storage/box/ingredients/grains
 	theme_name = "grains"
 
-/obj/item/storage/box/ingredients/grains/PopulateContents()
-	for(var/i in 1 to 3)
-		new /obj/item/food/grown/oat(src)
-	new /obj/item/food/grown/wheat(src)
-	new /obj/item/food/grown/cocoapod(src)
-	new /obj/item/reagent_containers/cup/glass/honeycomb(src)
-	new /obj/item/seeds/flower/poppy(src)
-
 /obj/item/storage/box/ingredients/carnivore
 	theme_name = "carnivore"
 
-/obj/item/storage/box/ingredients/carnivore/PopulateContents()
-	new /obj/item/food/meat/slab/bear(src)
-	new /obj/item/food/meat/slab/spider(src)
-	new /obj/item/food/spidereggs(src)
-	new /obj/item/food/fishmeat/carp(src)
-	new /obj/item/food/meat/slab/xeno(src)
-	new /obj/item/food/meat/slab/corgi(src)
-	new /obj/item/food/meatball(src)
-
 /obj/item/storage/box/ingredients/exotic
 	theme_name = "exotic"
-
-/obj/item/storage/box/ingredients/exotic/PopulateContents()
-	for(var/i in 1 to 2)
-		new /obj/item/food/fishmeat/carp(src)
-		new /obj/item/food/grown/soybeans(src)
-		new /obj/item/food/grown/cabbage(src)
-	new /obj/item/food/grown/chili(src)
 
 /obj/item/storage/box/emptysandbags
 	name = "box of empty sandbags"
@@ -1198,14 +1189,13 @@
 	name = "box of materials"
 	illustration = "implant"
 
-/obj/item/storage/box/material/ComponentInitialize()
+/obj/item/storage/box/material/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/rad_insulation, _amount = RAD_FULL_INSULATION, contamination_proof = TRUE) //please datum mats no more cancer
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_combined_w_class = 1000
-	STR.max_w_class = WEIGHT_CLASS_GIGANTIC
-	STR.max_items = 1000
-	STR.allow_big_nesting = TRUE
+	atom_storage.max_specific_storage = 1000
+	atom_storage.max_specific_storage = WEIGHT_CLASS_GIGANTIC
+	atom_storage.max_slots = 1000
+	atom_storage.allow_big_nesting = TRUE
 
 /obj/item/storage/box/material/PopulateContents()
 	var/static/items_inside = list(
@@ -1323,3 +1313,63 @@
 	new /obj/item/encryptionkey/heads/ce/fake(src)
 	new /obj/item/encryptionkey/heads/cmo/fake(src)
 	new /obj/item/encryptionkey/heads/hop/fake(src)
+
+//TABLET COLORIZER BOX
+/obj/item/storage/box/tabletcolorizer
+	name = "colorizer box"
+	desc = "A box full of Tablet Colorizers. Unleash your inner child and play around with a vast array of colors!"
+	icon_state = "tabletcbox"
+	custom_price = PAYCHECK_MEDIUM * 4
+
+/obj/item/storage/box/tabletcolorizer/PopulateContents()
+	new /obj/item/colorizer/tablet(src)
+	new /obj/item/colorizer/tablet/pink(src)
+	new /obj/item/colorizer/tablet/sand(src)
+	new /obj/item/colorizer/tablet/green(src)
+	new /obj/item/colorizer/tablet/olive(src)
+	new /obj/item/colorizer/tablet/teal(src)
+	new /obj/item/colorizer/tablet/purple(src)
+	new /obj/item/colorizer/tablet/black(src)
+	new /obj/item/colorizer/tablet/white(src)
+
+/obj/item/storage/box/tablet4dummies
+	name = "'Tablets For Dummies'"
+	desc = "First Edition 'Tablets for Dummies' kit. Complete with body, components, and instructions for assembly."
+	icon_state = "radiobox"
+	custom_price = 150
+
+/obj/item/storage/box/tablet4dummies/PopulateContents()
+	new /obj/item/modular_computer/tablet(src)
+	new /obj/item/computer_hardware/battery(src)
+	new /obj/item/stock_parts/cell/computer/nano(src)
+	new /obj/item/computer_hardware/processor_unit/small(src)
+	new /obj/item/computer_hardware/hard_drive/micro(src)
+	new /obj/item/computer_hardware/identifier(src)
+	new /obj/item/computer_hardware/network_card(src)
+	new /obj/item/computer_hardware/card_slot(src)
+	new /obj/item/screwdriver(src)
+	new /obj/item/paper/tablet_guide(src)
+
+/obj/item/storage/box/hacking4dummies
+	name = "'Hacking For Dummies'"
+	desc = "Hacking for Dummies kit, made by the HELLRAISER Crack team. Meant to teach you how to stick it to the man! (metaphorically)."
+	icon_state = "syndiebox"
+	illustration = "disk_kit"
+	custom_price = 200
+
+/obj/item/storage/box/hacking4dummies/PopulateContents()
+	new /obj/item/screwdriver(src)
+	new /obj/item/multitool(src)
+	new /obj/item/computer_hardware/hard_drive/portable(src)
+	new /obj/item/computer_hardware/hard_drive/portable/advanced(src)
+	new /obj/item/computer_hardware/hard_drive/portable/super(src)
+	new /obj/item/paper/manualhacking_guide(src)
+
+/obj/item/storage/box/locker
+	name = "locker box"
+	desc = "A solution to locker clutter. A box. Science's best achievement."
+	w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/storage/box/locker/security
+	name = "security locker box"
+	icon_state = "secbox"

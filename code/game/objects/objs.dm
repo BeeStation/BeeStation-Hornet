@@ -8,6 +8,13 @@ CREATION_TEST_IGNORE_SELF(/obj)
 	/// ONLY FOR MAPPING: Sets flags from a string list, handled in Initialize. Usage: set_obj_flags = "EMAGGED;!CAN_BE_HIT" to set EMAGGED and clear CAN_BE_HIT.
 	var/set_obj_flags
 
+	/// Extra examine line to describe controls, such as right-clicking, left-clicking, etc.
+	var/desc_controls
+
+	/// Icon to use as a 32x32 preview in crafting menus and such
+	var/icon_preview
+	var/icon_state_preview
+
 	var/damtype = BRUTE
 	var/force = 0
 	/// How much bleeding damage do we cause, see __DEFINES/mobs.dm
@@ -169,7 +176,7 @@ GLOBAL_LIST_EMPTY(objects_by_id_tag)
 			var/mob/living/carbon/C = usr
 			if(!(usr in nearby))
 				if(usr.client && usr.machine==src)
-					if(C.dna.check_mutation(TK))
+					if(C.dna.check_mutation(/datum/mutation/telekinesis))
 						is_in_use = TRUE
 						ui_interact(usr)
 		if (is_in_use)
@@ -232,7 +239,7 @@ GLOBAL_LIST_EMPTY(objects_by_id_tag)
 	if(!anchored || current_size >= STAGE_FIVE)
 		step_towards(src,S)
 
-/obj/get_dumping_location(datum/component/storage/source,mob/user)
+/obj/get_dumping_location(datum/storage/source, mob/user)
 	return get_turf(src)
 
 /**
@@ -244,10 +251,10 @@ GLOBAL_LIST_EMPTY(objects_by_id_tag)
  * Arguments:
  * * ID- An ID card representing what access we have (and thus if we can open things like airlocks or windows to pass through them). The ID card's physical location does not matter, just the reference
  * * to_dir- What direction we're trying to move in, relevant for things like directional windows that only block movement in certain directions
- * * caller- The movable we're checking pass flags for, if we're making any such checks
+ * * pathfinding_atom- The movable we're checking pass flags for, if we're making any such checks
  **/
-/obj/proc/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/caller)
-	if(istype(caller) && (caller.pass_flags & pass_flags_self))
+/obj/proc/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/passing_atom)
+	if(istype(passing_atom) && (passing_atom.pass_flags & pass_flags_self))
 		return TRUE
 	. = !density
 
@@ -308,10 +315,15 @@ GLOBAL_LIST_EMPTY(objects_by_id_tag)
 
 /obj/examine(mob/user)
 	. = ..()
-	if(obj_flags & UNIQUE_RENAME)
-		. += span_notice("Use a pen on it to rename it or change its description.")
+	if(desc_controls)
+		. += span_notice(desc_controls)
 	if(unique_reskin_icon && !current_skin)
 		. += span_notice("Alt-click it to reskin it.")
+
+/obj/examine_tags(mob/user)
+	. = ..()
+	if(obj_flags & UNIQUE_RENAME)
+		.["renameable"] = "Use a pen on it to rename it or change its description."
 
 /obj/AltClick(mob/user)
 	. = ..()

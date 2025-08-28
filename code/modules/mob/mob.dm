@@ -29,6 +29,8 @@
 	remove_from_dead_mob_list()
 	remove_from_alive_mob_list()
 	remove_from_mob_suicide_list()
+	remove_from_disconnected_mob_list()
+
 	focus = null
 	if(length(progressbars))
 		stack_trace("[src] destroyed with elements in its progressbars list")
@@ -229,7 +231,7 @@
 	if(length(show_to))
 		create_chat_message(src, null, show_to, raw_msg, null, visible_message_flags)
 
-/mob/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, list/visible_message_flags, separation = " ")
+/mob/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, list/visible_message_flags, allow_inside_usr = FALSE, separation = " ")
 	. = ..()
 	if(!self_message)
 		return
@@ -465,9 +467,8 @@
 				if(!put_in_hands(B))
 					return // box could not be placed in players hands.  I don't know what to do here...
 			//Now, B represents a container we can insert W into.
-			var/datum/component/storage/STR = B.GetComponent(/datum/component/storage)
-			if(STR.can_be_inserted(W, stop_messages=TRUE))
-				STR.handle_item_insertion(W,1)
+			if(B.atom_storage.can_insert(W))
+				B.atom_storage.attempt_insert(W)
 			return B
 
 /**
@@ -523,22 +524,41 @@
   * [this byond forum post](https://secure.byond.com/forum/?post=1326139&page=2#comment8198716)
   * for why this isn't atom/verb/examine()
   */
-/mob/verb/examinate(atom/A as mob|obj|turf in view()) //It used to be oview(12), but I can't really say why
+/mob/verb/examinate(atom/examinify as mob|obj|turf in view()) //It used to be oview(12), but I can't really say why
 	set name = "Examine"
 	set category = "IC"
 
-	if(isturf(A) && !(sight & SEE_TURFS) && !(A in view(client ? client.view : world.view, src)))
+	if(isturf(examinify) && !(sight & SEE_TURFS) && !(examinify in view(client ? client.view : world.view, src)))
 		// shift-click catcher may issue examinate() calls for out-of-sight turfs
 		return
 
-	if(is_blind(src) && !blind_examine_check(A))
+	if(is_blind(src) && !blind_examine_check(examinify))
 		return
 
-	face_atom(A)
-	var/list/result = A.examine(src)
+	face_atom(examinify)
+	var/list/result
+	if(client)
+		LAZYINITLIST(client.recent_examines)
+		var/ref_to_atom = ref(examinify)
+		var/examine_time = client.recent_examines[ref_to_atom]
+		if(examine_time && (world.time - examine_time < EXAMINE_MORE_WINDOW))
+			result = examinify.examine_more(src)
+			if(!length(result))
+				result += span_notice("<i>You examine [examinify] closer, but find nothing of interest...</i>")
+		else
+			result = examinify.examine(src)
+			SEND_SIGNAL(src, COMSIG_MOB_EXAMINING, examinify, result)
+			client.recent_examines[ref_to_atom] = world.time // set to when we last normal examine'd them
+			addtimer(CALLBACK(src, PROC_REF(clear_from_recent_examines), ref_to_atom), RECENT_EXAMINE_MAX_WINDOW)
+	else
+		result = examinify.examine(src) // if a tree is examined but no client is there to see it, did the tree ever really exist?
 
-	to_chat(src, EXAMINE_BLOCK(jointext(result, "\n")))
-	SEND_SIGNAL(src, COMSIG_MOB_EXAMINATE, A)
+	if(result.len)
+		for(var/i in 1 to (length(result) - 1))
+			result[i] += "\n"
+
+	to_chat(src, examine_block("<span class='infoplain'>[result.Join()]</span>"))
+	SEND_SIGNAL(src, COMSIG_MOB_EXAMINATE, examinify)
 
 /mob/proc/blind_examine_check(atom/examined_thing)
 	return TRUE
@@ -570,7 +590,9 @@
 
 	/// how long it takes for the blind person to find the thing they're examining
 	var/examine_delay_length = rand(1 SECONDS, 2 SECONDS)
-	if(isobj(examined_thing))
+	if(client?.recent_examines && client?.recent_examines[ref(examined_thing)]) //easier to find things we just touched
+		examine_delay_length = 0.33 SECONDS
+	else if(isobj(examined_thing))
 		examine_delay_length *= 1.5
 	else if(ismob(examined_thing) && examined_thing != src)
 		examine_delay_length *= 2
@@ -586,6 +608,12 @@
 	examined_thing.attack_hand(src)
 	set_combat_mode(previous_combat_mode)
 	return TRUE
+
+/mob/proc/clear_from_recent_examines(ref_to_clear)
+	SIGNAL_HANDLER
+	if(!client)
+		return
+	LAZYREMOVE(client.recent_examines, ref_to_clear)
 
 /**
   * Called by using Activate Held Object with an empty hand/limb
@@ -638,6 +666,9 @@
 	set name = "Activate Held Object"
 	set category = "Object"
 	set src = usr
+
+	if(isnewplayer(src))
+		return
 
 	if(ismecha(loc))
 		return
@@ -695,6 +726,8 @@
 /mob/verb/abandon_mob()
 	set name = "Respawn"
 	set category = "OOC"
+	if(isnewplayer(src))
+		return
 	var/alert_yes
 
 	if (CONFIG_GET(flag/norespawn))
@@ -987,22 +1020,20 @@
 	return restrict_magic_flags == NONE
 
 ///Return any anti artifact atom on this mob
-/mob/proc/anti_artifact_check(self = FALSE)
+/mob/proc/anti_artifact_check(self = FALSE, slot)
 	var/list/protection_sources = list()
-	if(SEND_SIGNAL(src, COMSIG_MOB_RECEIVE_ARTIFACT, src, self, protection_sources) & COMPONENT_BLOCK_ARTIFACT)
+	if(SEND_SIGNAL(src, COMSIG_MOB_RECEIVE_ARTIFACT, src, self, protection_sources, slot) & COMPONENT_BLOCK_ARTIFACT)
 		if(protection_sources.len)
 			return pick(protection_sources)
 		else
 			return src
 
 /**
-  * Buckle a living mob to this mob
-  *
-  * You can buckle on mobs if you're next to them since most are dense
-  *
-  * Turns you to face the other mob too
-  */
-/mob/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
+ * Buckle a living mob to this mob. Also turns you to face the other mob
+ *
+ * You can buckle on mobs if you're next to them since most are dense
+ */
+/mob/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE, buckle_mob_flags= NONE)
 	if(M.buckled && !force)
 		return FALSE
 	var/turf/T = get_turf(src)
@@ -1039,7 +1070,7 @@
 	if(IsAdminGhost(src))
 		return TRUE
 	var/datum/dna/mob_dna = has_dna()
-	if(mob_dna?.check_mutation(TK) && tkMaxRangeCheck(src, A))
+	if(mob_dna?.check_mutation(/datum/mutation/telekinesis) && tkMaxRangeCheck(src, A))
 		return TRUE
 	if(treat_mob_as_adjacent && src == A.loc)
 		return TRUE
@@ -1142,8 +1173,8 @@
 					break
 				search_id = 0
 
-		else if(search_pda && istype(A, /obj/item/modular_computer/tablet/pda))
-			var/obj/item/modular_computer/tablet/pda/PDA = A
+		else if(search_pda && istype(A, /obj/item/modular_computer/tablet))
+			var/obj/item/modular_computer/tablet/PDA = A
 			if(PDA.saved_identification == oldname)
 				PDA.saved_identification = newname
 				PDA.update_id_display()
@@ -1316,7 +1347,8 @@
 /mob/verb/open_language_menu_verb()
 	set name = "Open Language Menu"
 	set category = "IC"
-
+	if(isnewplayer(src))
+		return
 	get_language_holder().open_language_menu(usr)
 
 ///Adjust the nutrition of a mob
@@ -1352,16 +1384,5 @@
 	. = stat
 	stat = new_stat
 	update_action_buttons_icon(TRUE)
-
-/mob/proc/set_active_storage(new_active_storage)
-	if(active_storage)
-		UnregisterSignal(active_storage, COMSIG_PARENT_QDELETING)
-	active_storage = new_active_storage
-	if(active_storage)
-		RegisterSignal(active_storage, COMSIG_PARENT_QDELETING, PROC_REF(active_storage_deleted))
-
-/mob/proc/active_storage_deleted(datum/source)
-	SIGNAL_HANDLER
-	set_active_storage(null)
 
 #undef MOB_FACE_DIRECTION_DELAY

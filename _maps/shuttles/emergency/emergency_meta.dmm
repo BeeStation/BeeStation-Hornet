@@ -2,10 +2,6 @@
 "aa" = (
 /turf/template_noop,
 /area/template_noop)
-"ac" = (
-/obj/effect/spawner/structure/window/shuttle,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "ad" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
@@ -88,7 +84,7 @@
 	dir = 8;
 	pixel_x = 32
 	},
-/turf/open/floor/iron,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "au" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -275,7 +271,9 @@
 	name = "Emergency Recovery Airlock"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron,
+/obj/structure/fans/tiny,
+/obj/effect/turf_decal/stripes/closeup,
+/turf/open/floor/iron/white,
 /area/shuttle/escape)
 "bh" = (
 /obj/structure/chair/fancy/shuttle{
@@ -1040,6 +1038,10 @@
 	dir = 8
 	},
 /area/shuttle/escape)
+"Li" = (
+/obj/effect/spawner/structure/window/shuttle,
+/turf/open/floor/plating,
+/area/shuttle/escape)
 "Ls" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
@@ -1296,21 +1298,21 @@ aa
 ad
 ad
 ad
-ac
-ac
-ac
+Li
+Li
+Li
 ad
 ad
 ad
-ac
-ac
-ac
+Li
+Li
+Li
 ad
 ad
 ad
 "}
 (4,1,1) = {"
-ac
+Li
 EG
 al
 aw
@@ -1324,10 +1326,10 @@ RM
 RM
 bd
 DK
-ac
+Li
 "}
 (5,1,1) = {"
-ac
+Li
 TI
 am
 aq
@@ -1344,7 +1346,7 @@ bQ
 bf
 "}
 (6,1,1) = {"
-ac
+Li
 Qj
 an
 ax
@@ -1361,7 +1363,7 @@ bQ
 bf
 "}
 (7,1,1) = {"
-ac
+Li
 Rg
 ao
 bZ
@@ -1375,7 +1377,7 @@ ad
 ZQ
 by
 by
-ac
+Li
 "}
 (8,1,1) = {"
 ad
@@ -1412,7 +1414,7 @@ bD
 ad
 "}
 (10,1,1) = {"
-ac
+Li
 cO
 bY
 LY
@@ -1426,7 +1428,7 @@ cl
 df
 bU
 bE
-ac
+Li
 "}
 (11,1,1) = {"
 ad
@@ -1437,13 +1439,13 @@ aE
 aT
 ar
 bN
-ac
+Li
 bi
 nd
 SV
 bU
 bF
-ac
+Li
 "}
 (12,1,1) = {"
 rl
@@ -1505,16 +1507,16 @@ ph
 aT
 ar
 bN
-ac
+Li
 sb
 bk
 Vs
 bl
 bI
-ac
+Li
 "}
 (16,1,1) = {"
-ac
+Li
 aT
 bV
 aP
@@ -1528,10 +1530,10 @@ bl
 ve
 jb
 bJ
-ac
+Li
 "}
 (17,1,1) = {"
-ac
+Li
 aT
 bV
 bN
@@ -1539,7 +1541,7 @@ MO
 aT
 ar
 bN
-ac
+Li
 cW
 mV
 wj
@@ -1548,7 +1550,7 @@ bK
 ad
 "}
 (18,1,1) = {"
-ac
+Li
 aT
 bV
 bN
@@ -1556,13 +1558,13 @@ bL
 aT
 ar
 bN
-ac
+Li
 bj
 wu
 bl
 bl
 Eg
-ac
+Li
 "}
 (19,1,1) = {"
 ad
@@ -1579,7 +1581,7 @@ wu
 bl
 bl
 bM
-ac
+Li
 "}
 (20,1,1) = {"
 Vh
@@ -1592,7 +1594,7 @@ ar
 uw
 ba
 ad
-ac
+Li
 Sy
 Sy
 ba
@@ -1630,14 +1632,14 @@ bw
 as
 be
 ca
-ac
+Li
 "}
 (23,1,1) = {"
 ad
 LY
 LY
 LY
-cO
+LY
 LY
 LY
 LY
@@ -1647,7 +1649,7 @@ be
 re
 be
 bP
-ac
+Li
 "}
 (24,1,1) = {"
 ad
@@ -1669,17 +1671,17 @@ ad
 (25,1,1) = {"
 ad
 ad
-ac
-ac
+Li
+Li
 ad
-ac
-ac
+Li
+Li
 ad
 ad
 ad
-ac
-ac
-ac
+Li
+Li
+Li
 ad
 ad
 "}

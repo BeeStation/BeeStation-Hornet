@@ -100,10 +100,13 @@
 	if(now_pushing)
 		return TRUE
 
-	var/they_can_move = TRUE
+	var/target_can_move = TRUE
+	var/target_combat_mode = FALSE
+
 	if(isliving(M))
 		var/mob/living/L = M
-		they_can_move = L.mobility_flags & MOBILITY_MOVE
+		target_combat_mode = L.combat_mode
+		target_can_move = L.mobility_flags & MOBILITY_MOVE
 		//Also spread diseases
 		for(var/thing in diseases)
 			var/datum/disease/D = thing
@@ -135,7 +138,7 @@
 	if(!M.buckled && !M.has_buckled_mobs())
 		var/mob_swap = FALSE
 		var/too_strong = (M.move_resist > move_force) //can't swap with immovable objects unless they help us
-		if(!they_can_move) //we have to physically move them
+		if(!target_can_move) //we have to physically move them
 			if(!too_strong)
 				mob_swap = TRUE
 		else
@@ -143,8 +146,8 @@
 			if(M.pulledby == src && !too_strong)
 				mob_swap = TRUE
 			else if(
-				!(HAS_TRAIT(M, TRAIT_NOMOBSWAP) || HAS_TRAIT(src, TRAIT_NOMOBSWAP))&&\
-				((HAS_TRAIT(M, TRAIT_RESTRAINED) && !too_strong) || !combat_mode) &&\
+				!(HAS_TRAIT(M, TRAIT_NOMOBSWAP) || HAS_TRAIT(src, TRAIT_NOMOBSWAP)) &&\
+				((HAS_TRAIT(M, TRAIT_RESTRAINED) && !too_strong) || !target_combat_mode) &&\
 				(HAS_TRAIT(src, TRAIT_RESTRAINED) || !combat_mode)
 			)
 				mob_swap = TRUE
@@ -152,7 +155,7 @@
 			//switch our position with M
 			if(loc && !loc.Adjacent(M.loc))
 				return TRUE
-			now_pushing = 1
+			now_pushing = TRUE
 			var/oldloc = loc
 			var/oldMloc = M.loc
 
@@ -172,7 +175,7 @@
 			if(!M_passmob)
 				M.pass_flags &= ~PASSMOB
 
-			now_pushing = 0
+			now_pushing = FALSE
 
 			if(!move_failed)
 				return TRUE
@@ -327,7 +330,7 @@
 		log_combat(src, M, "grabbed", addition="passive grab")
 		if(!supress_message && !(iscarbon(AM) && HAS_TRAIT(src, TRAIT_STRONG_GRABBER))) //Everything in this if statement handles chat messages for grabbing
 			var/mob/living/L = M
-			if (L.getorgan(/obj/item/organ/tail) && (is_zone_selected(BODY_ZONE_PRECISE_GROIN, precise_only = TRUE) || is_group_selected(BODY_GROUP_LEGS))) //Does the target have a tail?
+			if (L.get_organ_by_type(/obj/item/organ/tail) && (is_zone_selected(BODY_ZONE_PRECISE_GROIN, precise_only = TRUE) || is_group_selected(BODY_GROUP_LEGS))) //Does the target have a tail?
 				M.visible_message(span_warning("[src] grabs [L] by [L.p_their()] tail!"),\
 								span_warning(" [src] grabs you by the tail!"), null, null, src) //Message sent to area, Message sent to grabbee
 				to_chat(src, span_notice("You grab [L] by [L.p_their()] tail!"))  //Message sent to grabber
@@ -399,7 +402,11 @@
 
 	if(istype(AM) && Adjacent(AM))
 		start_pulling(AM)
-	else if(!combat_mode) //Don;'t cancel pulls if misclicking in combat mode.
+	else
+		// If we click on a turf adjacent to a target while we have them in an aggro-grab
+		// then we won't cancel the grab
+		if (ismob(pulling) && grab_state >= GRAB_AGGRESSIVE && isturf(AM) && get_dist(AM, pulling) <= 1)
+			return
 		stop_pulling()
 
 /mob/living/stop_pulling()
@@ -554,8 +561,8 @@
 				to_chat(src, span_notice("You stand up."))
 			get_up(instant)
 
+	SEND_SIGNAL(src, COMSIG_LIVING_RESTING, new_resting, silent, instant)
 	update_resting()
-
 
 /// Proc to append and redefine behavior to the change of the [/mob/living/var/resting] variable.
 /mob/living/proc/update_resting()
@@ -590,7 +597,7 @@
 		layer = LYING_MOB_LAYER //so mob lying always appear behind standing mobs
 	ADD_TRAIT(src, TRAIT_UI_BLOCKED, LYING_DOWN_TRAIT)
 	ADD_TRAIT(src, TRAIT_PULL_BLOCKED, LYING_DOWN_TRAIT)
-	density = FALSE // We lose density and stop bumping passable dense things.
+	ADD_TRAIT(src, TRAIT_UNDENSE, LYING_DOWN_TRAIT)
 	if(HAS_TRAIT(src, TRAIT_FLOORED) && !(dir & (NORTH|SOUTH)))
 		setDir(pick(NORTH, SOUTH)) // We are and look helpless.
 
@@ -602,15 +609,21 @@
 	density = initial(density) // We were prone before, so we become dense and things can bump into us again.
 	REMOVE_TRAIT(src, TRAIT_UI_BLOCKED, LYING_DOWN_TRAIT)
 	REMOVE_TRAIT(src, TRAIT_PULL_BLOCKED, LYING_DOWN_TRAIT)
+	REMOVE_TRAIT(src, TRAIT_UNDENSE, LYING_DOWN_TRAIT)
 
+/mob/living/proc/update_density()
+	if(HAS_TRAIT(src, TRAIT_UNDENSE))
+		set_density(FALSE)
+	else
+		set_density(TRUE)
 
 //Recursive function to find everything a mob is holding. Really shitty proc tbh.
 /mob/living/get_contents()
 	var/list/ret = list()
-	ret |= contents						//add our contents
-	for(var/i in ret.Copy())			//iterate storage objects
+	ret |= contents //add our contents
+	for(var/i in ret.Copy()) //iterate storage objects
 		var/atom/A = i
-		SEND_SIGNAL(A, COMSIG_TRY_STORAGE_RETURN_INVENTORY, ret)
+		A.atom_storage?.return_inv(ret)
 	for(var/obj/item/folder/F in ret.Copy())		//very snowflakey-ly iterate folders
 		ret |= F.contents
 	return ret
@@ -645,7 +658,7 @@
  *   Check __DEFINES/injection.dm for more details. Unlike can_inject, the INJECT_TRY_* defines will behave differently.
  */
 /mob/living/proc/try_inject(mob/user, target_zone, injection_flags)
-	return can_inject(user, target_zone, injection_flags)
+	return can_inject(user, target_zone, injection_flags & ~(INJECT_TRY_SHOW_ERROR_MESSAGE))
 
 /mob/living/is_injectable(mob/user, allowmobs = TRUE)
 	return (allowmobs && reagents && can_inject(user))
@@ -667,7 +680,7 @@
 	med_hud_set_health()
 	med_hud_set_status()
 	update_health_hud()
-	SEND_SIGNAL(src, COMSIG_LIVING_UPDATE_HEALTH)
+	SEND_SIGNAL(src, COMSIG_LIVING_HEALTH_UPDATE)
 
 /mob/living/update_health_hud()
 	var/severity = 0
@@ -795,7 +808,7 @@
 	set_dizziness(0)
 	cure_nearsighted()
 	//Some eye logic
-	var/obj/item/organ/eyes/eyes = getorganslot(ORGAN_SLOT_EYES)
+	var/obj/item/organ/eyes/eyes = get_organ_slot(ORGAN_SLOT_EYES)
 	cure_blind(null, eyes?.can_see)
 	cure_husk()
 	hallucination = 0
@@ -844,8 +857,8 @@
 			var/mob/living/L = pulledby
 			L.set_pull_offsets(src, pulledby.grab_state)
 
-	if(active_storage && !(CanReach(active_storage.parent,view_only = TRUE)))
-		active_storage.close(src)
+	if(active_storage && !((active_storage.parent?.resolve() in important_recursive_contents?[RECURSIVE_CONTENTS_ACTIVE_STORAGE]) || CanReach(active_storage.parent?.resolve(),view_only = TRUE)))
+		active_storage.hide_contents(src)
 
 	if(body_position == LYING_DOWN && !buckled && prob(getBruteLoss()*200/maxHealth))
 		makeTrail(newloc, T, old_direction)
@@ -896,7 +909,7 @@
 							TH.color = spec_color
 
 /mob/living/carbon/human/makeTrail(turf/T, turf/start, direction, spec_color)
-	if((NOBLOOD in dna.species.species_traits) || !is_bleeding())
+	if(HAS_TRAIT(src, TRAIT_NOBLOOD) || !is_bleeding())
 		return
 	spec_color = dna.species.blood_color
 	..()
@@ -946,6 +959,9 @@
 	set name = "Resist"
 	set category = "IC"
 
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/mob/living, execute_resist))
+
+/mob/living/proc/execute_resist()
 	if(!can_resist())
 		return
 	changeNext_move(CLICK_CD_RESIST)
@@ -1196,7 +1212,7 @@
 			to_chat(src, "<span class='warning'>You are too far away!</span>")
 			return FALSE
 		var/datum/dna/D = has_dna()
-		if(!D || !D.check_mutation(TK) || !tkMaxRangeCheck(src, M))
+		if(!D || !D.check_mutation(/datum/mutation/telekinesis) || !tkMaxRangeCheck(src, M))
 			to_chat(src, "<span class='warning'>You are too far away!</span>")
 			return FALSE
 	if(need_hands && !can_hold_items(isitem(M) ? M : null)) //almost redundant if it weren't for mobs,
@@ -1224,23 +1240,212 @@
 		return mind.soulOwner == mind
 	return TRUE
 
-/mob/living/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force = MOVE_FORCE_STRONG, quickstart = TRUE)
+/mob/living/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, gentle = FALSE, quickstart = TRUE)
 	stop_pulling()
 	. = ..()
 
+// Used in polymorph code to shapeshift mobs into other creatures
+/**
+ * Polymorphs our mob into another mob.
+ * If successful, our current mob is qdeleted!
+ *
+ * what_to_randomize - what are we randomizing the mob into? See the defines for valid options.
+ * change_flags - only used for humanoid randomization (currently), what pool of changeflags should we draw from?
+ *
+ * Returns a mob (what our mob turned into) or null (if we failed).
+ */
+/mob/living/proc/wabbajack(what_to_randomize, change_flags = WABBAJACK)
+	if(stat == DEAD || notransform || (GODMODE & status_flags))
+		return
+
+	if(SEND_SIGNAL(src, COMSIG_LIVING_PRE_WABBAJACKED, what_to_randomize) & STOP_WABBAJACK)
+		return
+
+	notransform = TRUE
+	ADD_TRAIT(src, TRAIT_IMMOBILIZED, MAGIC_TRAIT)
+	ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, MAGIC_TRAIT)
+	icon = null
+	cut_overlays()
+	invisibility = INVISIBILITY_ABSTRACT
+
+	var/list/item_contents = list()
+
+	if(iscyborg(src))
+		var/mob/living/silicon/robot/Robot = src
+		// Disconnect AI's in shells
+		if(Robot.connected_ai)
+			Robot.undeploy() // disconnect any AI shells first
+		if(Robot.mmi)
+			qdel(Robot.mmi)
+		Robot.notify_ai(NEW_BORG)
+	else
+		for(var/obj/item/item in src)
+			if(!dropItemToGround(item))
+				qdel(item)
+				continue
+			item_contents += item
+
+	var/mob/living/new_mob
+
+	var/static/list/possible_results = list(
+		WABBAJACK_MONKEY,
+		WABBAJACK_ROBOT,
+		WABBAJACK_SLIME,
+		WABBAJACK_XENO,
+		WABBAJACK_HUMAN,
+		WABBAJACK_ANIMAL,
+	)
+
+	// If we weren't passed one, pick a default one
+	what_to_randomize ||= pick(possible_results)
+
+	switch(what_to_randomize)
+		if(WABBAJACK_MONKEY)
+			new_mob = new /mob/living/carbon/monkey(loc)
+
+		if(WABBAJACK_ROBOT)
+			var/static/list/robot_options = list(
+				/mob/living/silicon/robot = 200,
+				/mob/living/simple_animal/drone/polymorphed = 200,
+				/mob/living/silicon/robot/model/syndicate = 1,
+				/mob/living/silicon/robot/model/syndicate/medical = 1,
+				/mob/living/silicon/robot/model/syndicate/saboteur = 1,
+			)
+
+			var/picked_robot = pick(robot_options)
+			new_mob = new picked_robot(loc)
+			if(issilicon(new_mob))
+				var/mob/living/silicon/robot/created_robot = new_mob
+				new_mob.gender = gender
+				new_mob.invisibility = 0
+				new_mob.job = JOB_NAME_CYBORG
+				created_robot.lawupdate = FALSE
+				created_robot.connected_ai = null
+				created_robot.mmi.transfer_identity(src) //Does not transfer key/client.
+				created_robot.clear_inherent_laws(announce = FALSE)
+				created_robot.clear_zeroth_law(announce = FALSE)
+
+		if(WABBAJACK_SLIME)
+			new_mob = new /mob/living/simple_animal/slime/random(loc)
+
+		if(WABBAJACK_XENO)
+			var/picked_xeno_type
+
+			if(ckey)
+				picked_xeno_type = pick(
+					/mob/living/carbon/alien/humanoid/hunter,
+					/mob/living/carbon/alien/humanoid/sentinel,
+				)
+			else
+				picked_xeno_type = pick(
+					/mob/living/carbon/alien/humanoid/hunter,
+					/mob/living/simple_animal/hostile/alien/sentinel,
+				)
+			new_mob = new picked_xeno_type(loc)
+
+		if(WABBAJACK_ANIMAL)
+			var/picked_animal = pick(
+				/mob/living/simple_animal/hostile/carp,
+				/mob/living/simple_animal/hostile/bear,
+				/mob/living/simple_animal/hostile/mushroom,
+				/mob/living/simple_animal/hostile/statue,
+				/mob/living/simple_animal/hostile/retaliate/bat,
+				/mob/living/simple_animal/hostile/retaliate/goat,
+				/mob/living/simple_animal/hostile/killertomato,
+				/mob/living/simple_animal/hostile/poison/giant_spider,
+				/mob/living/simple_animal/hostile/poison/giant_spider/hunter,
+				/mob/living/simple_animal/hostile/blob/blobbernaut/independent,
+				/mob/living/simple_animal/hostile/carp/ranged,
+				/mob/living/simple_animal/hostile/carp/ranged/chaos,
+				/mob/living/simple_animal/hostile/asteroid/basilisk/watcher,
+				/mob/living/simple_animal/hostile/asteroid/goliath/beast,
+				/mob/living/simple_animal/hostile/headcrab,
+				/mob/living/simple_animal/hostile/morph,
+				/mob/living/simple_animal/hostile/stickman,
+				/mob/living/simple_animal/hostile/stickman/dog,
+				/mob/living/simple_animal/hostile/megafauna/dragon/lesser,
+				/mob/living/simple_animal/hostile/gorilla,
+				/mob/living/simple_animal/parrot,
+				/mob/living/basic/pet/dog/corgi,
+				/mob/living/simple_animal/crab,
+				/mob/living/basic/pet/dog/pug,
+				/mob/living/simple_animal/pet/cat,
+				/mob/living/simple_animal/mouse,
+				/mob/living/simple_animal/chicken,
+				/mob/living/basic/cow,
+				/mob/living/simple_animal/hostile/lizard,
+				/mob/living/simple_animal/pet/fox,
+				/mob/living/simple_animal/butterfly,
+				/mob/living/simple_animal/pet/cat/cak,
+				/mob/living/simple_animal/chick,
+				)
+			new_mob = new picked_animal(loc)
+
+		if(WABBAJACK_HUMAN)
+			var/mob/living/carbon/human/new_human = new(loc)
+
+			// 50% chance that we'll also randomice race
+			if(prob(50))
+				var/list/chooseable_races = list()
+				for(var/datum/species/species_type as anything in subtypesof(/datum/species))
+					if(initial(species_type.changesource_flags) & change_flags)
+						chooseable_races += species_type
+
+				if(length(chooseable_races))
+					new_human.set_species(pick(chooseable_races))
+
+			// Randomize everything but the species, which was already handled above.
+			new_human.randomize_human_appearance(~RANDOMIZE_SPECIES)
+			new_human.update_hair()
+			new_human.update_body() // is_creating = TRUE
+			new_human.dna.update_dna_identity()
+			new_mob = new_human
+
+		else
+			stack_trace("wabbajack() was called without an invalid randomization choice. ([what_to_randomize])")
+
+	if(!new_mob)
+		return
+
+	to_chat(src, span_hypnophrase(span_big("Your form morphs into that of a [what_to_randomize]!")))
+
+	// And of course, make sure they get policy for being transformed
+	//var/poly_msg = get_policy(POLICY_POLYMORPH)
+	//if(poly_msg)
+	//	to_chat(src, poly_msg)
+
+	new_mob.grant_language(/datum/language/common)
+
+	// Some forms can still wear some items
+	for(var/obj/item/item as anything in item_contents)
+		new_mob.equip_to_appropriate_slot(item)
+
+	// I don't actually know why we do this
+	new_mob.set_combat_mode(TRUE)
+
+	// on_wabbajack is where we handle setting up the name,
+	// transfering the mind and observerse, and other miscellaneous
+	// actions that should be done before we delete the original mob.
+	on_wabbajacked(new_mob)
+
+	qdel(src)
+	return new_mob
+
 // Called when we are hit by a bolt of polymorph and changed
 // Generally the mob we are currently in is about to be deleted
-/mob/living/proc/wabbajack_act(mob/living/new_mob)
+/mob/living/proc/on_wabbajacked(mob/living/new_mob)
+	log_message("became [new_mob.name] ([new_mob.type])", LOG_ATTACK, color = "orange")
+	SEND_SIGNAL(src, COMSIG_LIVING_ON_WABBAJACKED, new_mob)
 	new_mob.name = real_name
 	new_mob.real_name = real_name
 
+	// Transfer mind to the new mob (also handles actions and observers and stuff)
 	if(mind)
 		mind.transfer_to(new_mob)
-	else
-		new_mob.key = key
 
-	for(var/holopara in holoparasites())
-		to_chat(holopara, span_holoparasite("Your summoner has changed form!"))
+	// Well, no mmind, guess we should try to move a key over
+	else if(key)
+		new_mob.key = key
 
 /mob/living/rad_act(amount)
 	. = ..()
@@ -1576,13 +1781,13 @@
 	. += {"
 		<br><font size='1'>[VV_HREF_TARGETREF(refid, VV_HK_GIVE_DIRECT_CONTROL, "[ckey || "no ckey"]")] / [VV_HREF_TARGETREF_1V(refid, VV_HK_BASIC_EDIT, "[real_name || "no real name"]", NAMEOF(src, real_name))]</font>
 		<br><font size='1'>
-			BRUTE:<font size='1'><a href='?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=brute' id='brute'>[getBruteLoss()]</a>
-			FIRE:<font size='1'><a href='?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=fire' id='fire'>[getFireLoss()]</a>
-			TOXIN:<font size='1'><a href='?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=toxin' id='toxin'>[getToxLoss()]</a>
-			OXY:<font size='1'><a href='?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=oxygen' id='oxygen'>[getOxyLoss()]</a>
-			CLONE:<font size='1'><a href='?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=clone' id='clone'>[getCloneLoss()]</a>
-			BRAIN:<font size='1'><a href='?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=brain' id='brain'>[getOrganLoss(ORGAN_SLOT_BRAIN)]</a>
-			STAMINA:<font size='1'><a href='?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=stamina' id='stamina'>[getStaminaLoss()]</a>
+			BRUTE:<font size='1'><a href='byond://?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=brute' id='brute'>[getBruteLoss()]</a>
+			FIRE:<font size='1'><a href='byond://?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=fire' id='fire'>[getFireLoss()]</a>
+			TOXIN:<font size='1'><a href='byond://?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=toxin' id='toxin'>[getToxLoss()]</a>
+			OXY:<font size='1'><a href='byond://?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=oxygen' id='oxygen'>[getOxyLoss()]</a>
+			CLONE:<font size='1'><a href='byond://?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=clone' id='clone'>[getCloneLoss()]</a>
+			BRAIN:<font size='1'><a href='byond://?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=brain' id='brain'>[getOrganLoss(ORGAN_SLOT_BRAIN)]</a>
+			STAMINA:<font size='1'><a href='byond://?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=stamina' id='stamina'>[getStaminaLoss()]</a>
 		</font>
 	"}
 
@@ -1663,6 +1868,14 @@
 		return BODYTEMP_NORMAL
 	return BODYTEMP_NORMAL + get_body_temp_normal_change()
 
+///Returns the body temperature at which this mob will start taking heat damage.
+/mob/living/proc/get_body_temp_heat_damage_limit()
+	return BODYTEMP_HEAT_DAMAGE_LIMIT
+
+///Returns the body temperature at which this mob will start taking cold damage.
+/mob/living/proc/get_body_temp_cold_damage_limit()
+	return BODYTEMP_COLD_DAMAGE_LIMIT
+
 //Used for applying color correction
 /mob/living/proc/apply_color_correction(datum/source, area/entered)
 	SIGNAL_HANDLER
@@ -1725,6 +1938,25 @@
 	else if(!(movement_type & (FLYING | FLOATING)) && !usable_hands && !usable_legs) //Lost a hand, not flying, no hands left, no legs.
 		ADD_TRAIT(src, TRAIT_IMMOBILIZED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
 
+/// Sets the mob's hunger levels to a safe overall level. Useful for TRAIT_NOHUNGER species changes.
+/mob/living/proc/set_safe_hunger_level()
+	// Nutrition reset and alert clearing.
+	nutrition = NUTRITION_LEVEL_FED
+	clear_alert("nutrition")
+	satiety = 0
+
+	// Trait removal if obese
+	if(HAS_TRAIT_FROM(src, TRAIT_FAT, OBESITY))
+		if(overeatduration >= (200 SECONDS))
+			to_chat(src, span_notice("Your transformation restores your body's natural fitness!"))
+
+		REMOVE_TRAIT(src, TRAIT_FAT, OBESITY)
+		remove_movespeed_modifier(/datum/movespeed_modifier/obesity)
+		update_inv_w_uniform()
+		update_inv_wear_suit()
+
+	// Reset overeat duration.
+	overeatduration = 0
 
 /// Changes the value of the [living/body_position] variable.
 /mob/living/proc/set_body_position(new_value)
@@ -1732,6 +1964,7 @@
 		return
 	. = body_position
 	body_position = new_value
+	SEND_SIGNAL(src, COMSIG_LIVING_SET_BODY_POSITION)
 	if(new_value == LYING_DOWN) // From standing to lying down.
 		on_lying_down()
 	else // From lying down to standing up.
@@ -1792,3 +2025,93 @@
 			return FALSE
 		return style.harm_act(src, target)
 	return style.help_act(src, target)
+
+/// Actually does the shapeshift
+/mob/living/proc/do_shapeshift(shapeshift_type = /mob/living/basic/pet/dog/corgi)
+	// Spawn the new mob
+	var/mob/living/new_shape = new shapeshift_type(src.loc)
+
+	// Apply the shapechange_mob status effect to handle the transformation
+	var/datum/status_effect/shapechange_mob/shapechange = new_shape.apply_status_effect(/datum/status_effect/shapechange_mob, src)
+	if(!shapechange)
+		// If the status effect fails, clean up and return
+		to_chat(src, span_warning("You can't shapeshift in this form!"))
+		stack_trace("[type] do_shapeshift was called when the mob was already shapeshifted.")
+		qdel(new_shape)
+		return
+
+	// Transfer the mind of the original mob to the new mob
+	mind?.transfer_to(new_shape)
+
+	// Move the original mob into stasis
+	forceMove(new_shape)
+	notransform = TRUE
+	apply_status_effect(/datum/status_effect/grouped/stasis, STASIS_SHAPECHANGE_EFFECT)
+
+	// Return the new mob
+	return new_shape
+
+/mob/living/proc/do_unshapeshift()
+	var/datum/status_effect/shapechange_mob/shapechange = has_status_effect(/datum/status_effect/shapechange_mob)
+	if(!shapechange)
+		// We made it to do_unshapeshift without having a shapeshift status effect, this shouldn't happen.
+		to_chat(src, span_warning("You can't un-shapeshift from this form!"))
+		stack_trace("[type] do_unshapeshift was called when the mob wasn't even shapeshifted.")
+		return
+
+	var/mob/living/unshapeshifted_mob = shapechange.caster_mob
+	remove_status_effect(/datum/status_effect/shapechange_mob)
+	return unshapeshifted_mob
+/**
+ * Helper proc for basic and simple animals to return true if the passed sentience type matches theirs
+ * Living doesn't have a sentience type though so it always returns false if not a basic or simple mob
+ */
+/mob/living/proc/compare_sentience_type(compare_type)
+	return FALSE
+
+/// Proc called when targetted by a lazarus injector
+/mob/living/proc/lazarus_revive(mob/living/reviver, malfunctioning)
+	if(mind)
+		if(suiciding || ishellbound())
+			reviver.visible_message(span_notice("[reviver] injects [src], but nothing happened."))
+			return
+		process_revival(src)
+		//befriend(reviver)
+		//Try to notify the ghost that they are being revived, but also that they are not loyal to the reviver
+		var/mob/ghostmob = notify_ghost_cloning("Your body is revived by [reviver] with a lazarus injector!", source=src)
+		if(ghostmob)
+			to_chat(ghostmob, span_userdanger("Lazarus does not change your loyalties or force obedience to [reviver] if you weren't already under their control."))
+		log_game("[key_name(reviver)] has revived a player mob [key_name(src)] with a lazarus injector")
+
+	else // only do this to mindless mobs
+		process_revival(src)
+		//befriend(reviver)
+		faction = (malfunctioning) ? list("[REF(reviver)]") : list(FACTION_NEUTRAL) //Neutral includes crew and entirely passive mobs
+		if(!ishostile(src))
+			return
+		var/mob/living/simple_animal/hostile/target_hostile = src
+		target_hostile.robust_searching = TRUE
+		target_hostile.friends += reviver
+		if(malfunctioning)
+			target_hostile.attack_same = TRUE //Will attack all other mobs and crew, but not the person who revived
+			reviver.log_message("has revived mob [key_name(src)] with a malfunctioning lazarus injector.", LOG_GAME)
+		else
+			target_hostile.attack_same = FALSE //Will only attack non-passive mobs
+			if(prob(10)) //chance of sentience without loyaltyAdd commentMore actions
+				var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
+					question = "Do you want to play as \a [src] being revived by [reviver]?",
+					check_jobban = ROLE_SENTIENCE,
+					poll_time = 15 SECONDS,
+					jump_target = src,
+					role_name_text = "lazarus revived mob",
+					alert_pic = src,
+					)
+				if(candidate)
+					src.key = candidate.key
+					target_hostile.sentience_act()
+					to_chat(target_hostile, span_userdanger("In a striking moment of clarity you have gained greater intellect. You feel no strong sense of loyalty to anyone or anything, you simply feel... free"))
+
+/mob/living/proc/process_revival(mob/living/simple_animal/target)
+	target.do_jitter_animation(10)
+	addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living, do_jitter_animation), 10), 5 SECONDS)
+	addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living, revive), TRUE, TRUE), 10 SECONDS)

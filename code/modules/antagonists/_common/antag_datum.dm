@@ -147,16 +147,22 @@ GLOBAL_LIST(admin_antag_list)
 /datum/antagonist/proc/replace_banned_player()
 	set waitfor = FALSE
 
-	var/list/mob/dead/observer/candidates = poll_candidates_for_mob("Do you want to play as a [name]?", banning_key, null, 7.5 SECONDS, owner.current, ignore_category = FALSE)
-	if(LAZYLEN(candidates))
-		var/mob/dead/observer/C = pick(candidates)
-		to_chat(owner, "Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!")
-		message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(owner)]) to replace a jobbanned player.")
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(
+		check_jobban = banning_key,
+		poll_time = 10 SECONDS,
+		checked_target = owner.current,
+		jump_target = owner.current,
+		role_name_text = name,
+	)
+	if(candidate)
 		owner.current.ghostize(FALSE)
-		owner.current.key = C.key
+		owner.current.key = candidate.key
+
+		to_chat(owner, "Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!")
+		message_admins("[key_name_admin(candidate)] has taken control of ([key_name_admin(owner)]) to replace a jobbanned player.")
 	else
 		owner.current.playable_bantype = banning_key
-		owner.current.ghostize(FALSE,SENTIENCE_FORCE)
+		owner.current.ghostize(FALSE, SENTIENCE_FORCE)
 
 ///Called by the remove_antag_datum() and remove_all_antag_datums() mind procs for the antag datum to handle its own removal and deletion.
 /datum/antagonist/proc/on_removal()
@@ -349,7 +355,7 @@ GLOBAL_LIST(admin_antag_list)
 	return custom_team
 
 /datum/antagonist/custom/admin_add(datum/mind/new_owner,mob/admin)
-	var/custom_name = stripped_input(admin, "Custom antagonist name:", "Custom antag", "Antagonist")
+	var/custom_name = tgui_input_text(admin, "Custom antagonist name:", "Custom antag", "Antagonist")
 	if(custom_name)
 		name = custom_name
 	else
@@ -390,11 +396,11 @@ GLOBAL_LIST(admin_antag_list)
 	var/mob/living/carbon/C = mob_override
 	if(C && istype(C) && C.has_dna() && owner.assigned_role == JOB_NAME_CLOWN)
 		if(removing) // They're a clown becoming an antag, remove clumsy
-			C.dna.remove_mutation(CLOWNMUT)
+			C.dna.remove_mutation(/datum/mutation/clumsy)
 			if(!silent && message)
 				to_chat(C, span_boldnotice("[message]"))
 		else
-			C.dna.add_mutation(CLOWNMUT) // We're removing their antag status, add back clumsy
+			C.dna.add_mutation(/datum/mutation/clumsy) // We're removing their antag status, add back clumsy
 
 //button for antags to review their descriptions/info
 /datum/action/antag_info

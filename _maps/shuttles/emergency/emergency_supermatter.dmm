@@ -6,10 +6,6 @@
 /obj/structure/sign/warning/radiation,
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
-"ad" = (
-/obj/effect/spawner/structure/window/shuttle,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "ae" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
@@ -283,6 +279,10 @@
 /obj/structure/lattice/catwalk,
 /turf/open/space,
 /area/shuttle/escape)
+"lT" = (
+/obj/effect/spawner/structure/window/shuttle,
+/turf/open/floor/plating,
+/area/shuttle/escape)
 "my" = (
 /obj/machinery/door/airlock/titanium{
 	name = "Emergency Shuttle Airlock"
@@ -362,10 +362,10 @@ aa
 (2,1,1) = {"
 aw
 ae
-ad
+lT
 ac
 ae
-ad
+lT
 aw
 ai
 aD
@@ -394,7 +394,7 @@ ag
 ai
 ai
 ai
-ad
+lT
 aa
 aa
 aM
@@ -408,7 +408,7 @@ bc
 be
 "}
 (4,1,1) = {"
-ad
+lT
 ah
 ai
 al
@@ -432,7 +432,7 @@ aa
 aa
 "}
 (5,1,1) = {"
-ad
+lT
 ag
 aj
 am
@@ -443,7 +443,7 @@ bg
 as
 as
 bk
-ad
+lT
 aM
 aO
 aa
@@ -456,7 +456,7 @@ aU
 aX
 "}
 (6,1,1) = {"
-ad
+lT
 ag
 aj
 an
@@ -480,7 +480,7 @@ bd
 aY
 "}
 (7,1,1) = {"
-ad
+lT
 ag
 aj
 ao
@@ -491,7 +491,7 @@ bh
 au
 au
 bl
-ad
+lT
 aM
 aP
 aa
@@ -504,7 +504,7 @@ aW
 aZ
 "}
 (8,1,1) = {"
-ad
+lT
 ah
 ai
 ap
@@ -538,7 +538,7 @@ ag
 ai
 ai
 ai
-ad
+lT
 aa
 aa
 aM
@@ -554,10 +554,10 @@ be
 (10,1,1) = {"
 aw
 ae
-ad
+lT
 ac
 ae
-ad
+lT
 aw
 ai
 aE

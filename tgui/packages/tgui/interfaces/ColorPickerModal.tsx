@@ -374,7 +374,7 @@ const SaturationValue = ({ hsva, onChange }) => {
   };
 
   const containerStyle = {
-    backgroundColor: `${hsvaToHslString({ h: hsva.h, s: 100, v: 100, a: 1 })} !important`,
+    backgroundColor: hsvaToHslString({ h: hsva.h, s: 100, v: 100, a: 1 }),
   };
 
   return (

@@ -27,6 +27,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/turf/open/openspace)
 /turf/open/openspace/cold
 	initial_gas_mix = FROZEN_ATMOS
 
+/turf/open/openspace/planetary
+	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
+	planetary_atmos = TRUE
+
 /turf/open/openspace/airless
 	initial_gas_mix = AIRLESS_ATMOS
 
@@ -40,7 +44,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/turf/open/openspace)
 /turf/open/openspace/can_have_cabling()
 	if(locate(/obj/structure/lattice/catwalk, src))
 		return TRUE
-	var/turf/B = below()
+	var/turf/B = GET_TURF_BELOW(src)
 	if(B)
 		return B.can_lay_cable()
 	return FALSE
@@ -156,7 +160,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/turf/open/openspace)
 
 //Returns FALSE if gravity is force disabled. True if grav is possible
 /turf/open/openspace/check_gravity()
-	var/turf/T = below()
+	var/turf/T = GET_TURF_BELOW(src)
 	if(!T)
 		return TRUE
 	if(isspaceturf(T))
@@ -165,7 +169,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/turf/open/openspace)
 
 /turf/open/openspace/examine(mob/user)
 	SHOULD_CALL_PARENT(FALSE)
-	return below.examine(user)
+	return below?.examine(user)
 
 /turf/open/openspace/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	..()

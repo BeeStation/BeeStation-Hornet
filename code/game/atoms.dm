@@ -33,10 +33,10 @@
 	var/explosion_block = 0
 
 	/**
-	  * used to store the different colors on an atom
-	  *
-	  * its inherent color, the colored paint applied on it, special color effect etc...
-	  */
+	 * used to store the different colors on an atom
+	 *
+	 * its inherent color, the colored paint applied on it, special color effect etc...
+	 */
 	var/list/atom_colours
 
 
@@ -141,6 +141,9 @@
 
 	var/resistance_flags = NONE // INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ON_FIRE | UNACIDABLE | ACID_PROOF
 
+	/// the datum handler for our contents - see create_storage() for creation method
+	var/datum/storage/atom_storage
+
 	/// Lazylist of all messages currently on this atom
 	var/list/chat_messages
 
@@ -166,6 +169,9 @@
 
 	/// list of clients that using this atom as their eye. SHOULD BE USED CAREFULLY
 	var/list/eye_users
+
+	/// Amount of users hovering us, if this is greater than 1 we need to clear references on destroy
+	var/hovered_user_count = 0
 
 /**
   * Called when an atom is created in byond (built in engine proc)
@@ -228,6 +234,9 @@
   */
 
 /atom/proc/Initialize(mapload, ...)
+	//SHOULD_NOT_SLEEP(TRUE) //TODO: We shouldn't be sleeping initialize
+	SHOULD_CALL_PARENT(TRUE)
+
 	if(flags_1 & INITIALIZED_1)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	flags_1 |= INITIALIZED_1
@@ -325,6 +334,9 @@
 	if(reagents)
 		QDEL_NULL(reagents)
 
+	if(atom_storage)
+		QDEL_NULL(atom_storage)
+
 	orbit_datum = null // The component is attached to us normaly and will be deleted elsewhere
 
 	// Checking length(overlays) before cutting has significant speed benefits
@@ -337,7 +349,51 @@
 	if(light)
 		QDEL_NULL(light)
 
+	if (hovered_user_count)
+		SSscreentips.deleted_hovered_atoms ++
+		for (var/client/client in GLOB.clients_unsafe)
+			if (client.hovered_atom == src)
+				client.hovered_atom = null
+		hovered_user_count = 0
+
 	return ..()
+
+/// A quick and easy way to create a storage datum for an atom
+/atom/proc/create_storage(
+	max_slots,
+	max_specific_storage,
+	max_total_storage,
+	numerical_stacking = FALSE,
+	allow_quick_gather = FALSE,
+	allow_quick_empty = FALSE,
+	collection_mode = COLLECT_ONE,
+	attack_hand_interact = TRUE,
+	list/canhold,
+	list/canthold,
+	storage_type = /datum/storage,
+)
+
+	if(atom_storage)
+		QDEL_NULL(atom_storage)
+
+	atom_storage = new storage_type(src, max_slots, max_specific_storage, max_total_storage, numerical_stacking, allow_quick_gather, collection_mode, attack_hand_interact)
+
+	if(canhold || canthold)
+		atom_storage.set_holdable(canhold, canthold)
+
+	return atom_storage
+
+/// A quick and easy way to /clone/ a storage datum for an atom (does not copy over contents, only the datum details)
+/atom/proc/clone_storage(datum/storage/cloning)
+	if(atom_storage)
+		QDEL_NULL(atom_storage)
+
+	atom_storage = new cloning.type(src, cloning.max_slots, cloning.max_specific_storage, cloning.max_total_storage, cloning.numerical_stacking, cloning.allow_quick_gather, cloning.collection_mode, cloning.attack_hand_interact)
+
+	if(cloning.can_hold || cloning.cant_hold)
+		atom_storage.set_holdable(cloning.can_hold, cloning.cant_hold)
+
+	return atom_storage
 
 /atom/proc/handle_ricochet(obj/projectile/P)
 	var/turf/p_turf = get_turf(P)
@@ -617,10 +673,10 @@
   * COMSIG_ATOM_GET_EXAMINE_NAME signal
   */
 /atom/proc/get_examine_name(mob/user)
-	. = "\a [src]"
+	. = "\a <b>[src]</b>"
 	var/list/override = list(gender == PLURAL ? "some" : "a", " ", "[name]")
 	if(article)
-		. = "[article] [src]"
+		. = "[article] <b>[src]</b>"
 		override[EXAMINE_POSITION_ARTICLE] = article
 	if(SEND_SIGNAL(src, COMSIG_ATOM_GET_EXAMINE_NAME, user, override) & COMPONENT_EXNAME_CHANGED)
 		. = override.Join("")
@@ -651,49 +707,53 @@
 		var/diff = abs(user.z - z)
 		. += span_boldnotice("[p_theyre(TRUE)] [diff] level\s below you.")
 
-	if(custom_materials && material_flags & MATERIAL_EFFECTS) //Only runs if custom materials existed at first and affected src.
-		for(var/i in custom_materials)
-			var/datum/material/M = i
-			. += "<u>It is made out of [M.name]</u>."
+	var/list/tags_list = examine_tags(user)
+	if (length(tags_list))
+		var/tag_string = list()
+		for (var/atom_tag in tags_list)
+			tag_string += (isnull(tags_list[atom_tag]) ? atom_tag : span_tooltip(tags_list[atom_tag], atom_tag))
+		// Weird bit but ensures that if the final element has its own "and" we don't add another one
+		tag_string = english_list(tag_string, and_text = (findtext(tag_string[length(tag_string)], " and ")) ? ", " : " and ")
+		var/post_descriptor = examine_post_descriptor(user)
+		. += "[p_They()] [p_are()] a [tag_string] [examine_descriptor(user)][length(post_descriptor) ? " [jointext(post_descriptor, " ")]" : ""]."
+
 	if(reagents)
-		if(reagents.flags & TRANSPARENT)
-			. += "It contains:"
-			if(length(reagents.reagent_list))
-				//-------- Reagent checks ---------
-				if(user.can_see_reagents()) //Show each individual reagent
-					for(var/datum/reagent/R in reagents.reagent_list)
-						. += "[R.volume] units of [R.name]"
-				else //Otherwise, just show the total volume
-					var/total_volume = 0
-					for(var/datum/reagent/R in reagents.reagent_list)
-						total_volume += R.volume
-					. += "[total_volume] units of various reagents"
-				//-------- Beer goggles ---------
-				if(user.can_see_boozepower())
-					var/total_boozepower = 0
-					var/list/taste_list = list()
+		var/user_sees_reagents = user.can_see_reagents()
+		var/reagent_sigreturn = SEND_SIGNAL(src, COMSIG_PARENT_REAGENT_EXAMINE, user, ., user_sees_reagents)
+		if(!(reagent_sigreturn & STOP_GENERIC_REAGENT_EXAMINE))
+			if(reagents.flags & TRANSPARENT)
+				if(reagents.total_volume > 0)
+					. += "It contains <b>[round(reagents.total_volume, 0.01)]</b> units of various reagents[user_sees_reagents ? ":" : "."]"
+					if(user_sees_reagents) //Show each individual reagent
+						for(var/datum/reagent/current_reagent as anything in reagents.reagent_list)
+							. += "&bull; [round(current_reagent.volume, 0.01)] units of [current_reagent.name]"
 
-					// calculates the total booze power from all 'ethanol' reagents
-					for(var/datum/reagent/consumable/ethanol/B in reagents.reagent_list)
-						total_boozepower += B.volume * max(B.boozepwr, 0) // minus booze power is reversed to light drinkers, but is actually 0 to normal drinkers.
+					//-------- Beer goggles ---------
+					if(user.can_see_boozepower())
+						var/total_boozepower = 0
+						var/list/taste_list = list()
 
-					// gets taste results from all reagents
-					for(var/datum/reagent/R in reagents.reagent_list)
-						if(istype(R, /datum/reagent/consumable/ethanol/fruit_wine) && !(user.stat == DEAD) && !(HAS_TRAIT(src, TRAIT_BARMASTER)) ) // taste of fruit wine is mysterious, but can be known by ghosts/some special bar master trait holders
-							taste_list += "<br/>   - unexplored taste of the winery (from [R.name])"
-						else
-							taste_list += "<br/>   - [R.taste_description] (from [R.name])"
-					if(reagents.total_volume)
-						. += span_notice("Booze Power: total [total_boozepower], average [round(total_boozepower/reagents.total_volume, 0.1)] ([get_boozepower_text(total_boozepower/reagents.total_volume, user)])")
-						. += span_notice("It would taste like: [english_list(taste_list, comma_text="", and_text="")].")
-				//-------------------------------
-			else
-				. += "Nothing."
-		else if(reagents.flags & AMOUNT_VISIBLE)
-			if(reagents.total_volume)
-				. += span_notice("It has [reagents.total_volume] unit\s left.")
-			else
-				. += span_danger("It's empty.")
+						// calculates the total booze power from all 'ethanol' reagents
+						for(var/datum/reagent/consumable/ethanol/B in reagents.reagent_list)
+							total_boozepower += B.volume * max(B.boozepwr, 0) // minus booze power is reversed to light drinkers, but is actually 0 to normal drinkers.
+
+						// gets taste results from all reagents
+						for(var/datum/reagent/R in reagents.reagent_list)
+							if(istype(R, /datum/reagent/consumable/ethanol/fruit_wine) && !(user.stat == DEAD) && !(HAS_TRAIT(src, TRAIT_BARMASTER)) ) // taste of fruit wine is mysterious, but can be known by ghosts/some special bar master trait holders
+								taste_list += "<br/>   - unexplored taste of the winery (from [R.name])"
+							else
+								taste_list += "<br/>   - [R.taste_description] (from [R.name])"
+						if(reagents.total_volume)
+							. += span_notice("Booze Power: total [total_boozepower], average [round(total_boozepower/reagents.total_volume, 0.1)] ([get_boozepower_text(total_boozepower/reagents.total_volume, user)])")
+							. += span_notice("It would taste like: [english_list(taste_list, comma_text="", and_text="")].")
+					//-------------------------------
+				else
+					. += "It contains:<br>Nothing."
+			else if(reagents.flags & AMOUNT_VISIBLE)
+				if(reagents.total_volume)
+					. += span_notice("It has [reagents.total_volume] unit\s left.")
+				else
+					. += span_danger("It's empty.")
 
 	if(HAS_TRAIT(user, TRAIT_PSYCHIC_SENSE))
 		var/list/souls = return_souls()
@@ -712,20 +772,49 @@
 
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
+/*
+ * A list of "tags" displayed after atom's description in examine.
+ * This should return an assoc list of tags -> tooltips for them. If item if null, then no tooltip is assigned.
+ * For example:
+ * list("small" = "This is a small size class item.", "fireproof" = "This item is impervious to fire.")
+ * will result in
+ * This is a small, fireproof item.
+ * where "item" is pulled from examine_descriptor() proc
+ */
+/atom/proc/examine_tags(mob/user)
+	. = list()
+	SEND_SIGNAL(src, COMSIG_ATOM_EXAMINE_TAGS, user, .)
+
+/// What this atom should be called in examine tags
+/atom/proc/examine_descriptor(mob/user)
+	return "object"
+
+/// Returns a list of strings to be displayed after the descriptor
+/atom/proc/examine_post_descriptor(mob/user)
+	. = list()
+	if(!custom_materials)
+		return
+	var/mats_list = list()
+	for(var/custom_material in custom_materials)
+		var/datum/material/current_material = SSmaterials.GetMaterialRef(custom_material)
+		mats_list += span_tooltip("It is made out of [current_material.name].", current_material.name)
+	. += "made of [english_list(mats_list)]"
+
 /**
  * Called when a mob examines (shift click or verb) this atom twice (or more) within EXAMINE_MORE_WINDOW (default 1 second)
  *
  * This is where you can put extra information on something that may be superfluous or not important in critical gameplay
  * moments, while allowing people to manually double-examine to take a closer look
  *
- * Produces a signal [COMSIG_PARENT_EXAMINE_MORE]
+ * Produces a signal [COMSIG_ATOM_EXAMINE_MORE]
  */
 /atom/proc/examine_more(mob/user)
 	SHOULD_CALL_PARENT(TRUE)
 	RETURN_TYPE(/list)
 
 	. = list()
-	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE_MORE, user, .)
+	SEND_SIGNAL(src, COMSIG_ATOM_EXAMINE_MORE, user, .)
+	SEND_SIGNAL(user, COMSIG_MOB_EXAMINING_MORE, src, .)
 
 /**
  * Updates the appearance of the icon
@@ -806,6 +895,15 @@
 	. = list()
 	SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_OVERLAYS, .)
 
+/atom/proc/update_inhand_icon(mob/target = loc)
+	SHOULD_CALL_PARENT(TRUE)
+	if(!istype(target))
+		return
+
+	target.update_inv_hands()
+
+	//SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_INHAND_ICON, target)
+
 /// Handles updates to greyscale value updates.
 /// The colors argument can be either a list or the full color string.
 /// Child procs should call parent last so the update happens after all changes.
@@ -843,6 +941,16 @@
 		buckle_message_cooldown = world.time + 50
 		to_chat(user, span_warning("You can't move while buckled to [src]!"))
 	return
+
+/**
+ * A special case of relaymove() in which the person relaying the move may be "driving" this atom
+ *
+ * This is a special case for vehicles and ridden animals where the relayed movement may be handled
+ * by the riding component attached to this atom. Returns TRUE as long as there's nothing blocking
+ * the movement, or FALSE if the signal gets a reply that specifically blocks the movement
+ */
+/atom/proc/relaydrive(mob/living/user, direction)
+	return !(SEND_SIGNAL(src, COMSIG_RIDDEN_DRIVER_MOVE, user, direction) & COMPONENT_DRIVER_BLOCK_MOVE)
 
 /// Handle what happens when your contents are exploded by a bomb
 /atom/proc/contents_explosion(severity, target)
@@ -886,6 +994,7 @@
 	SEND_SIGNAL(src, COMSIG_ATOM_HITBY, AM, skipcatch, hitpush, blocked, throwingdatum)
 	if(density && !has_gravity(AM)) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
 		addtimer(CALLBACK(src, PROC_REF(hitby_react), AM), 2)
+	return FALSE
 
 /**
   * We have have actually hit the passed in atom
@@ -1089,46 +1198,11 @@
 	SEND_SIGNAL(src, COMSIG_ATOM_EXTRAPOLATOR_ACT, user, extrapolator, dry_run, .)
 
 /**
-  * Implement the behaviour for when a user click drags a storage object to your atom
-  *
-  * This behaviour is usually to mass transfer, but this is no longer a used proc as it just
-  * calls the underyling /datum/component/storage dump act if a component exists
-  *
-  * TODO these should be purely component items that intercept the atom clicks higher in the
-  * call chain
-  */
-/atom/proc/storage_contents_dump_act(obj/item/storage/src_object, mob/user)
-	if(GetComponent(/datum/component/storage))
-		return component_storage_contents_dump_act(src_object, user)
-	return FALSE
-
-/**
-  * Implement the behaviour for when a user click drags another storage item to you
-  *
-  * In this case we get as many of the tiems from the target items compoent storage and then
-  * put everything into ourselves (or our storage component)
-  *
-  * TODO these should be purely component items that intercept the atom clicks higher in the
-  * call chain
-  */
-/atom/proc/component_storage_contents_dump_act(datum/component/storage/src_object, mob/user)
-	var/list/things = src_object.contents()
-	var/datum/progressbar/progress = new(user, things.len, src)
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	while (do_after(user, 1 SECONDS, src, NONE, FALSE, CALLBACK(STR, TYPE_PROC_REF(/datum/component/storage, handle_mass_item_insertion), things, src_object, user, progress)))
-		stoplag(1)
-	progress.end_progress()
-	to_chat(user, span_notice("You dump as much of [src_object.parent]'s contents into [STR.insert_preposition]to [src] as you can."))
-	STR.orient2hud(user)
-	src_object.orient2hud(user)
-	if(user.active_storage) //refresh the HUD to show the transfered contents
-		user.active_storage.close(user)
-		user.active_storage.show_to(user)
-	src_object.update_icon()
-	return TRUE
-
-///Get the best place to dump the items contained in the source storage item?
-/atom/proc/get_dumping_location(obj/item/storage/source,mob/user)
+ * If someone's trying to dump items onto our atom, where should they be dumped to?
+ *
+ * Return a loc to place objects, or null to stop dumping.
+ */
+/atom/proc/get_dumping_location()
 	return null
 
 /**
@@ -1310,7 +1384,7 @@
 	if(!ismovable(src))
 		var/turf/curturf = get_turf(src)
 		if(curturf)
-			. += "<option value='?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[curturf.x];Y=[curturf.y];Z=[curturf.z]'>Jump To</option>"
+			. += "<option value='byond://?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[curturf.x];Y=[curturf.y];Z=[curturf.z]'>Jump To</option>"
 	VV_DROPDOWN_OPTION(VV_HK_MODIFY_TRANSFORM, "Modify Transform")
 	VV_DROPDOWN_OPTION(VV_HK_ADD_REAGENT, "Add Reagent")
 	VV_DROPDOWN_OPTION(VV_HK_TRIGGER_EMP, "EMP Pulse")
@@ -1443,7 +1517,7 @@
 	. = ..()
 	var/refid = REF(src)
 	. += "[VV_HREF_TARGETREF(refid, VV_HK_AUTO_RENAME, "<b id='name'>[src]</b>")]"
-	. += "<br><font size='1'><a href='?_src_=vars;[HrefToken()];rotatedatum=[refid];rotatedir=left'><<</a> <a href='?_src_=vars;[HrefToken()];datumedit=[refid];varnameedit=dir' id='dir'>[dir2text(dir) || dir]</a> <a href='?_src_=vars;[HrefToken()];rotatedatum=[refid];rotatedir=right'>>></a></font>"
+	. += "<br><font size='1'><a href='byond://?_src_=vars;[HrefToken()];rotatedatum=[refid];rotatedir=left'><<</a> <a href='byond://?_src_=vars;[HrefToken()];datumedit=[refid];varnameedit=dir' id='dir'>[dir2text(dir) || dir]</a> <a href='byond://?_src_=vars;[HrefToken()];rotatedatum=[refid];rotatedir=right'>>></a></font>"
 
 ///Where atoms should drop if taken from this atom
 /atom/proc/drop_location()
@@ -1914,6 +1988,7 @@
 		return
 	. = density
 	density = new_value
+	SEND_SIGNAL(src, COMSIG_ATOM_DENSITY_CHANGED)
 
 /**
   * Causes effects when the atom gets hit by a rust effect from heretics

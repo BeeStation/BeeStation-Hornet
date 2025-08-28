@@ -6,7 +6,6 @@
 	supervisors = "the head of personnel"
 	faction = "Station"
 	total_positions = 1
-	spawn_positions = 1
 	selection_color = "#dddddd"
 
 	outfit = /datum/outfit/job/clown
@@ -53,6 +52,8 @@
 		/obj/item/reagent_containers/spray/waterflower = 1,
 		/obj/item/food/grown/banana = 1,
 		/obj/item/instrument/bikehorn = 1,
+		/obj/item/food/pie/cream = 1,
+		/obj/item/megaphone/clown = 1,
 		)
 
 	implants = list(/obj/item/implant/sad_trombone)
@@ -76,6 +77,6 @@
 		return
 
 	H.fully_replace_character_name(H.real_name, pick(GLOB.clown_names)) //rename the mob AFTER they're equipped so their ID gets updated properly.
-	H.dna.add_mutation(CLOWNMUT)
+	H.dna.add_mutation(/datum/mutation/clumsy)
 	ADD_TRAIT(H, TRAIT_NAIVE, JOB_TRAIT)
 	H.faction |= FACTION_CLOWN

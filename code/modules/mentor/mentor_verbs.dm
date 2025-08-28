@@ -38,7 +38,7 @@ GLOBAL_PROTECT(mentor_verbs)
 		to_chat(src, span_notice("You already have or are requesting a mentor!"))
 		return
 
-	var/alertresult = alert(M, "This will create an imaginary form visible only to you that a mentor can possess to guide you in person. Do you wish to continue?", null,"Yes", "No")
+	var/alertresult = tgui_alert(M, "This will create an imaginary form visible only to you that a mentor can possess to guide you in person. Do you wish to continue?", null, list("Yes", "No"))
 	if(alertresult == "No" || QDELETED(M) || !istype(M) || !M.key)
 		return
 

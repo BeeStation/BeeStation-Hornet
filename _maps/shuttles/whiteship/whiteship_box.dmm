@@ -262,9 +262,9 @@
 /area/shuttle/abandoned/engine)
 "aV" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/airalarm/directional/north,
 /obj/effect/mapping_helpers/airalarm/all_access,
 /obj/machinery/light/small/built,
+/obj/machinery/airalarm/directional/south,
 /turf/open/floor/plating,
 /area/shuttle/abandoned/engine)
 "aW" = (
@@ -509,11 +509,11 @@
 /obj/structure/closet/firecloset{
 	anchored = 1
 	},
-/obj/machinery/airalarm/directional/east,
 /obj/effect/mapping_helpers/airalarm/all_access,
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
+/obj/machinery/airalarm/directional/west,
 /turf/open/floor/iron/white/corner{
 	dir = 8
 	},
@@ -1477,7 +1477,6 @@
 /obj/machinery/light/small/built{
 	dir = 8
 	},
-/obj/machinery/airalarm/directional/east,
 /obj/effect/mapping_helpers/airalarm/all_access,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
@@ -1491,6 +1490,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
+/obj/machinery/airalarm/directional/west,
 /turf/open/floor/iron,
 /area/shuttle/abandoned/bridge)
 "dw" = (
@@ -1875,11 +1875,11 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/closet/crate/bin,
 /obj/item/trash/pistachios,
-/obj/machinery/airalarm/directional/north,
 /obj/effect/mapping_helpers/airalarm/all_access,
 /obj/item/trash/can,
 /obj/item/light/bulb/broken,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
+/obj/machinery/airalarm/directional/east,
 /turf/open/floor/iron,
 /area/shuttle/abandoned/crew)
 "Tm" = (

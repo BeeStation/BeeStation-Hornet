@@ -182,7 +182,7 @@
 	return finish_preview_icon(morph_icon)
 
 /datum/role_preference/midround_ghost/prisoner
-	name = "prisoner"
+	name = "Prisoner"
 	description = "You are a Prisoner, sent to the station brig by Nanotrasen. \
 	You have a chance to escape, but be careful, the security officers are on high alert."
 	antag_datum = /datum/antagonist/prisoner
@@ -239,28 +239,9 @@
 	name = "Slaughter Demon"
 	description = "Use your blood jaunt to terrorize the crew, and drag them all to hell."
 	antag_datum = /datum/antagonist/slaughter
-	category = ROLE_PREFERENCE_CATEGORY_MIDROUND_GHOST
 
 /datum/role_preference/midround_ghost/slaughter_demon/get_preview_icon()
 	return finish_preview_icon(icon('icons/mob/mob.dmi', "daemon"))
-
-/datum/role_preference/midround_living/malfunctioning_ai
-	name = "Malfunctioning AI"
-	description = "With a law zero to complete your objectives at all costs, combine your \
-	omnipotence and malfunction modules to wreak havoc across the station. \
-	Go delta to destroy the station and all those who opposed you."
-	// Yes, it's under traitor.
-	antag_datum = /datum/antagonist/traitor
-
-/datum/role_preference/midround_living/malfunctioning_ai/get_preview_icon()
-	var/icon/malf_ai_icon = icon('icons/mob/ai.dmi', "ai-red")
-
-	// Crop out the borders of the AI, just the face
-	malf_ai_icon.Crop(5, 27, 28, 6)
-
-	malf_ai_icon.Scale(ANTAGONIST_PREVIEW_ICON_SIZE, ANTAGONIST_PREVIEW_ICON_SIZE)
-
-	return malf_ai_icon
 
 /datum/role_preference/midround_living/obsessed
 	name = "Obsessed"

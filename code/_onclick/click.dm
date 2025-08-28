@@ -42,6 +42,8 @@
 		SEND_SIGNAL(src, COMSIG_CLICK, location, control, params, usr)
 
 		usr.ClickOn(src, params)
+		// Refresh the screentips
+		refresh_screentips()
 
 /atom/DblClick(location,control,params)
 	if(flags_1 & INITIALIZED_1)
@@ -151,6 +153,12 @@
 	if(!loc.AllowClick())
 		return
 
+	// In a storage item with a disassociated storage parent
+	var/obj/item/item_atom = A
+	if(istype(item_atom))
+		if((item_atom.item_flags & IN_STORAGE) && (item_atom.loc.flags_1 & HAS_DISASSOCIATED_STORAGE_1))
+			UnarmedAttack(item_atom, TRUE, modifiers)
+
 	//Standard reach turf to turf or reaching inside storage
 	if(CanReach(A,W))
 		if(W)
@@ -211,7 +219,7 @@
 			if(closed[target] || isarea(target))  // avoid infinity situations
 				continue
 
-			if(isturf(target) || isturf(target.loc) || HasDirectAccess(target) || (ismovable(target) && target.flags_1 & IS_ONTOP_1)) //Directly accessible atoms
+			if(isturf(target) || isturf(target.loc) || HasDirectAccess(target) || (ismovable(target) && target.flags_1 & IS_ONTOP_1) || target.loc?.atom_storage) //Directly accessible atoms
 				if(Adjacent(target) || (tool && CheckToolReach(src, target, tool.reach))) //Adjacent or reaching attacks
 					return TRUE
 
@@ -221,7 +229,7 @@
 				continue
 
 			//Storage and things with reachable internal atoms need add to next here. Or return COMPONENT_ALLOW_REACH.
-			if(SEND_SIGNAL(target.loc, COMSIG_ATOM_CANREACH, next) & COMPONENT_ALLOW_REACH)
+			if(target.loc.atom_storage)
 				next += target.loc
 
 		checking = next

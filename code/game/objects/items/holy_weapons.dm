@@ -149,7 +149,7 @@
 	item_state = "nullrod"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	force = 18
 	throw_speed = 3
 	throw_range = 4
@@ -291,7 +291,7 @@
 	damtype = BURN
 	attack_verb_continuous = list("punches", "cross counters", "pummels")
 	attack_verb_simple = list("punch", "cross counter", "pummel")
-	block_upgrade_walk = 0
+	block_upgrade_walk = FALSE
 
 /obj/item/nullrod/godhand/Initialize(mapload)
 	. = ..()
@@ -364,7 +364,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	attack_verb_continuous = list("saws", "tears", "lacerates", "cuts", "chops", "dices")
 	attack_verb_simple = list("saw", "tear", "lacerate", "cut", "chop", "dice")
-	hitsound = 'sound/weapons/chainsawhit.ogg'
+	hitsound = 'sound/weapons/chainsaw_hit.ogg'
 	tool_behaviour = TOOL_SAW
 	toolspeed = 1.5 //slower than a real saw
 
@@ -402,8 +402,8 @@
 	name = "light energy sword"
 	desc = "If you strike me down, I shall become more robust than you can possibly imagine."
 	icon = 'icons/obj/transforming_energy.dmi'
-	icon_state = "swordblue"
-	item_state = "swordblue"
+	icon_state = "e_sword_on_blue"
+	item_state = "e_sword_on_blue"
 	worn_icon_state = "swordblue"
 	slot_flags = ITEM_SLOT_BELT
 	hitsound = 'sound/weapons/blade1.ogg'
@@ -411,16 +411,16 @@
 /obj/item/nullrod/claymore/saber/red
 	name = "dark energy sword"
 	desc = "Woefully ineffective when used on steep terrain." //Anakin used his BLUE lightsaber in episode IV, FOOL
-	icon_state = "swordred"
-	item_state = "swordred"
+	icon_state = "e_sword_on_red"
+	item_state = "e_sword_on_red"
 	worn_icon_state = "swordred"
 
 /obj/item/nullrod/claymore/saber/pirate
 	name = "nautical energy sword"
-	icon_state = "cutlass1"
-	item_state = "cutlass1"
-	worn_icon_state = "swordred"
 	desc = "Convincing HR that your religion involved piracy was no mean feat."
+	icon_state = "e_cutlass_on"
+	item_state = "e_cutlass_on"
+	worn_icon_state = "swordred"
 
 /obj/item/nullrod/sord
 	name = "\improper UNREAL SORD"
@@ -518,12 +518,20 @@
 
 	possessed = TRUE
 
-	var/list/mob/dead/observer/candidates = poll_ghost_candidates("Do you want to play as the spirit of [user.real_name]'s blade?", ROLE_SPECTRAL_BLADE, null, 10 SECONDS, ignore_category = POLL_IGNORE_SPECTRAL_BLADE)
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(
+		question = "Do you want to play as the spirit of [user.real_name]'s blade?",
+		check_jobban = ROLE_SPECTRAL_BLADE,
+		poll_time = 10 SECONDS,
+		checked_target = user,
+		ignore_category = POLL_IGNORE_SPECTRAL_BLADE,
+		jump_target = user,
+		role_name_text = "blade spirit",
+		alert_pic = user,
+	)
 
-	if(LAZYLEN(candidates))
-		var/mob/dead/observer/C = pick(candidates)
+	if(candidate)
 		var/mob/living/simple_animal/shade/S = new(src)
-		S.ckey = C.ckey
+		S.ckey = candidate.ckey
 		S.fully_replace_character_name(null, "The spirit of [name]")
 		S.status_flags |= GODMODE
 		S.copy_languages(user, LANGUAGE_MASTER)	//Make sure the sword can understand and communicate with the user.
@@ -554,7 +562,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	attack_verb_continuous = list("saws", "tears", "lacerates", "cuts", "chops", "dices")
 	attack_verb_simple = list("saw", "tear", "lacerate", "cut", "chop", "dice")
-	hitsound = 'sound/weapons/chainsawhit.ogg'
+	hitsound = 'sound/weapons/chainsaw_hit.ogg'
 	tool_behaviour = TOOL_SAW
 	toolspeed = 0.5 //faster than normal saw
 
@@ -585,11 +593,11 @@
 	bleed_force = BLEED_CUT
 	attack_verb_continuous = list("saws", "tears", "lacerates", "cuts", "chops", "dices")
 	attack_verb_simple = list("saw", "tear", "lacerate", "cut", "chop", "dice")
-	hitsound = 'sound/weapons/chainsawhit.ogg'
+	hitsound = 'sound/weapons/chainsaw_hit.ogg'
 	tool_behaviour = TOOL_SAW
 	toolspeed = 2 //slower than a real saw
 	attack_weight = 2
-	block_upgrade_walk = 0
+	block_upgrade_walk = FALSE
 
 
 /obj/item/nullrod/chainsaw/Initialize(mapload)
@@ -851,8 +859,8 @@
 			attack_verb_simple = list("slash", "slice", "cut")
 		if(BURN)
 			hitsound = 'sound/weapons/sear.ogg'
-			attack_verb_continuous = list("burns", "sings", "heats")
-			attack_verb_simple = list("burn", "sing", "heat")
+			attack_verb_continuous = list("burns", "singes", "heats")
+			attack_verb_simple = list("burn", "singe", "heat")
 		if(TOX)
 			hitsound = 'sound/weapons/pierce.ogg'
 			attack_verb_continuous = list("poisons", "doses", "toxifies")

@@ -281,7 +281,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/storage/box/syndie_kit/contract_kit
 	cost = 20
 	player_minimum = 15
-	purchasable_from = ~(UPLINK_INCURSION | UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
+	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 
 /datum/uplink_item/bundles_TC/bundle_A
 	name = "Syndi-kit Tactical"
@@ -350,7 +350,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 			With their all new kit, codenamed 'scam' the syndicate attempted to extract the energy of the die of fate to \
 			make a loot-box style system but failed, so instead just fake their randomness using a corgi to sniff out the items to shove in it.\
 			Item price not guaranteed. Can contain normally unobtainable items."
-	purchasable_from = ~(UPLINK_INCURSION | UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
+	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 	uplink_contents = (UPLINK_TRAITORS | UPLINK_NUKE_OPS)
 	player_minimum = 30
 
@@ -421,66 +421,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/stack/sheet/telecrystal/twenty
 	cost = 20
 
-/datum/uplink_item/bundles_TC/crate
-	name = "Bulk Hardsuit Bundle"
-	desc = "A crate containing 4 valueable syndicate hardsuits."
-	cost = 18
-	purchasable_from = UPLINK_INCURSION
-	item = /obj/effect/gibspawner/generic
-	var/list/contents = list(
-		/obj/item/clothing/suit/space/hardsuit/syndi = 4,
-		/obj/item/clothing/mask/gas/syndicate = 4,
-		/obj/item/tank/internals/oxygen = 4
-	)
-
-/datum/uplink_item/bundles_TC/crate/purchase(mob/user, datum/component/uplink/U)
-	var/obj/structure/closet/crate/C = spawn_item(/obj/structure/closet/crate, user, U)
-	if(U.purchase_log)
-		U.purchase_log.LogPurchase(C, src, cost)
-	for(var/I in contents)
-		var/count = contents[I]
-		for(var/index in 1 to count)
-			new I(C)
-	return C
-
-/datum/uplink_item/bundles_TC/crate/medical
-	name = "Syndicate Medical Bundle"
-	desc = "Contains an assortment of syndicate medical equipment for you and your team.\
-			Comes with a variety of first-aid kits, pill bottles, a compact defibrillator and 4 stimpacks."
-	cost = 12
-	contents = list(
-		/obj/item/storage/firstaid/tactical = 2,	//8 TC
-		/obj/item/storage/firstaid/brute = 2,
-		/obj/item/storage/firstaid/fire = 2,
-		/obj/item/storage/firstaid/toxin = 1,
-		/obj/item/storage/firstaid/o2 = 1,
-		/obj/item/storage/pill_bottle/mutadone = 1,
-		/obj/item/storage/pill_bottle/neurine = 1,
-		/obj/item/reagent_containers/hypospray/medipen/stimpack/traitor = 4
-	)
-
-/datum/uplink_item/bundles_TC/crate/shuttle
-	name = "Stolen Shuttle Creation Kit"
-	desc = "Every syndicate team needs their own shuttle. It's a shame you weren't supplied with one, but thats not a problem\
-			if you can spare some TC! The all new shuttle creation kit (produced by the syndicate) contains everything you need\
-			to get flying! All syndicate agents are advised to ignore the Nanotrasen labels on products. Space proof suits not included."
-	cost = 15	//There are multiple uses for the RCD and plasma canister, but both are easilly accessible for items that cost less than all of their TC.
-	contents = list(
-		/obj/machinery/portable_atmospherics/canister/plasma = 1,
-		/obj/item/construction/rcd/combat = 1,
-		/obj/item/rcd_ammo/large = 2,
-		/obj/item/shuttle_creator = 1,
-		/obj/item/pipe_dispenser = 2,
-		/obj/item/storage/toolbox/syndicate = 2,
-		/obj/item/storage/toolbox/electrical = 1,
-		/obj/item/circuitboard/computer/shuttle/flight_control = 1,
-		/obj/item/circuitboard/machine/shuttle/engine/plasma = 2,
-		/obj/item/circuitboard/machine/shuttle/heater = 2,
-		/obj/item/storage/part_replacer/cargo = 1,
-		/obj/item/electronics/apc = 1,
-		/obj/item/wallframe/apc = 1
-	)
-
 // Dangerous Items
 /datum/uplink_item/dangerous
 	category = "Conspicuous Weapons"
@@ -530,7 +470,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	name = "Bananium Energy Sword"
 	desc = "An energy sword that deals no damage, but will slip anyone it contacts, be it by melee attack, thrown \
 	impact, or just stepping on it. Beware friendly fire, as even anti-slip shoes will not protect against it."
-	item = /obj/item/melee/transforming/energy/sword/bananium
+	item = /obj/item/melee/energy/sword/bananium
 	cost = 3
 	surplus = 0
 	purchasable_from = UPLINK_CLOWN_OPS
@@ -593,7 +533,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	name = "Energy Sword"
 	desc = "The energy sword is an edged weapon with a blade of pure energy. The sword is small enough to be \
 			pocketed when inactive. Activating it produces a loud, distinctive noise."
-	item = /obj/item/melee/transforming/energy/sword/saber
+	item = /obj/item/melee/energy/sword/saber
 	cost = 8
 	purchasable_from = ~UPLINK_CLOWN_OPS
 
@@ -840,7 +780,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 16
 	player_minimum = 20
 	surplus = 10
-	purchasable_from = ~(UPLINK_INCURSION | UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
+	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 
 /datum/uplink_item/stealthy_weapons/radbow
 	name = "Gamma-Bow"
@@ -1422,6 +1362,14 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 1
 	surplus = 8
 
+/datum/uplink_item/explosives/hellfirecandle
+	name = "Portable Hellfire"
+	desc = "This modified oxygen candle is delivered fresh directly off the conveyor at one of our signature warcrime factories. \
+			Pull the tab and watch in glee as a solid quarter of the station becomes uninhabitable."
+	item = /obj/item/flashlight/oxycandle/hellfire
+	player_minimum = 15
+	cost = 10
+
 //Support and Mechs
 /datum/uplink_item/support
 	category = "Support and Exosuits"
@@ -1724,7 +1672,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 			This innovative shuttle can seat up to 4 passengers, willing or not! Shuttle must be deployed in space or on lavaland, space suits not included."
 	item = /obj/item/survivalcapsule/shuttle/traitor
 	cost = 8
-	purchasable_from = (UPLINK_INCURSION | UPLINK_TRAITORS)
+	purchasable_from = (UPLINK_TRAITORS)
 
 /datum/uplink_item/device_tools/magboots
 	name = "Blood-Red Magboots"
@@ -1835,7 +1783,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	name = "Hacked AI Law Upload Module"
 	desc = "When used with an upload console, this module allows you to upload priority laws to an artificial intelligence. \
 			Be careful with wording, as artificial intelligences may look for loopholes to exploit."
-	item = /obj/item/aiModule/syndicate
+	item = /obj/item/ai_module/syndicate
 	cost = 3
 
 /datum/uplink_item/device_tools/hypnotic_flash
@@ -1919,7 +1867,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/encryptionkey/syndicate
 	cost = 2
 	surplus = 75
-	purchasable_from = ~(UPLINK_INCURSION | UPLINK_EXCOMMUNICATE)
 	restricted = TRUE
 
 /datum/uplink_item/device_tools/syndietome
@@ -1955,6 +1902,14 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 			emitted as heat and light by objects. Hotter objects, such as warm bodies, cybernetic organisms \
 			and artificial intelligence cores emit more of this light than cooler objects like walls and airlocks."
 	item = /obj/item/clothing/glasses/thermal/syndi
+	cost = 2
+
+
+/datum/uplink_item/device_tools/guerrillagloves
+	name = "Guerrilla Gloves"
+	desc = "A pair of highly robust combat gripper gloves that excels at performing takedowns at close range, with an added lining of insulation. Careful not to hit a wall!"
+	item = /obj/item/clothing/gloves/tackler/combat/insulated
+	purchasable_from = (UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 	cost = 2
 
 // Implants
@@ -2009,7 +1964,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 			Used just like a regular headset, but can be disabled to use external headsets normally and to avoid detection."
 	item = /obj/item/storage/box/syndie_kit/imp_radio
 	cost = 4
-	purchasable_from = ~(UPLINK_INCURSION | UPLINK_EXCOMMUNICATE) //To prevent traitors from immediately outing the hunters to security.
 	restricted = TRUE
 
 /datum/uplink_item/implants/reviver
@@ -2236,7 +2190,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/vehicle/sealed/car/clowncar
 	cost = 20
 	restricted_roles = list(JOB_NAME_CLOWN)
-	purchasable_from = ~UPLINK_INCURSION
 
 /datum/uplink_item/role_restricted/taeclowndo_shoes
 	name = "Tae-clown-do Shoes"
@@ -2259,7 +2212,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	name = "Bananium Energy Sword"
 	desc = "An energy sword that deals no damage, but will slip anyone it contacts, be it by melee attack, thrown \
 	impact, or just stepping on it. Beware friendly fire, as even anti-slip shoes will not protect against it."
-	item = /obj/item/melee/transforming/energy/sword/bananium
+	item = /obj/item/melee/energy/sword/bananium
 	cost = 5
 	surplus = 0
 	restricted_roles = list(JOB_NAME_CLOWN)
@@ -2312,6 +2265,13 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/prisoncube
 	cost = 6
 	restricted_roles = list(JOB_NAME_CURATOR)
+
+/datum/uplink_item/role_restricted/rewind_camera
+	name = "Sepia-toned Camera"
+	desc = "A camera that rewinds subjects to the time that their photograph was taken after a while. It won't revive them, but wounds will close and limbs will re-attach. Can be refilled with any old film."
+	item = /obj/item/camera/rewind
+	cost = 7
+	restricted_roles = list(JOB_NAME_CURATOR, JOB_NAME_CHAPLAIN)
 
 /datum/uplink_item/role_restricted/his_grace
 	name = "His Grace"
@@ -2424,7 +2384,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	name = "Energy Saw"
 	desc = "A deadly energy saw. Comes in a slick black finish."
 	cost = 5
-	item = /obj/item/melee/transforming/energy/sword/esaw
+	item = /obj/item/melee/energy/sword/esaw
 	restricted_roles = list("Medical Doctor", "Chief Medical Officer", "Paramedic", "Brig Physician")
 
 /datum/uplink_item/role_restricted/esaw_arm
@@ -2479,16 +2439,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 12
 	item = /obj/item/autosurgeon/syndicate/laser_arm
 	restricted_roles = list(JOB_NAME_ROBOTICIST, JOB_NAME_RESEARCHDIRECTOR)
-
-/datum/uplink_item/role_restricted/tc_rod
-	name = "Telecrystal Fuel Rod"
-	desc = "This special fuel rod has eight material slots that can be inserted with telecrystals, \
-			once the rod has been fully depleted, you will be able to harvest the extra telecrystals. \
-			Please note: This Rod fissiles much faster than it's nanotrasen counterpart, it doesn't take \
-			much to overload the reactor with these..."
-	item = /obj/item/fuel_rod/material/telecrystal
-	cost = 7
-	restricted_roles = list(JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN, JOB_NAME_CHIEFENGINEER)
 
 // Pointless
 /datum/uplink_item/badass
@@ -2604,3 +2554,10 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	surplus = 0
 	disabled = TRUE	// #11346 Currently in a broken state, lasso'd mobs will never unregister a target once they have locked onto one, making them unusable.
 
+/datum/uplink_item/support/nukielawnmower
+	name = "Syndicate Organism Shredder"
+	desc = "An armoured and modified lawn mower that can mow down any organic in its path. It is a fast and armoured to melee and ranged weaponry, but it's extremely vunerable to: bombs, fire, and form of acid"
+	item = /obj/vehicle/ridden/lawnmower/nukie
+	cost = 30
+	surplus = 0
+	purchasable_from = UPLINK_NUKE_OPS

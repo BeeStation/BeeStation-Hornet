@@ -3,7 +3,6 @@
 	name = "\improper Apid"
 	id = SPECIES_APID
 	bodyflag = FLAG_APID
-	default_color = "FFE800"
 	species_traits = list(LIPS,NOEYESPRITES,MUTCOLORS)
 	inherent_traits = list(TRAIT_BEEFRIEND)
 	inherent_biotypes = list(MOB_ORGANIC,MOB_HUMANOID,MOB_BUG)
@@ -22,15 +21,17 @@
 	staminamod = 1.25
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/apid
-	inert_mutation = WAXSALIVA
+	inert_mutation = /datum/mutation/wax_saliva
 	var/cold_cycle = 0
 
-	species_chest = /obj/item/bodypart/chest/apid
-	species_head = /obj/item/bodypart/head/apid
-	species_l_arm = /obj/item/bodypart/l_arm/apid
-	species_r_arm = /obj/item/bodypart/r_arm/apid
-	species_l_leg = /obj/item/bodypart/l_leg/apid
-	species_r_leg = /obj/item/bodypart/r_leg/apid
+	bodypart_overrides = list(
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/apid,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/apid,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/apid,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/apid,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/apid,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/apid
+	)
 
 	species_height = SPECIES_HEIGHTS(2, 1, 0)
 

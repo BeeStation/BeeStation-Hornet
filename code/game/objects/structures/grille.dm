@@ -12,6 +12,7 @@
 	flags_1 = CONDUCT_1
 	pass_flags_self = PASSGRILLE
 	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
+	obj_flags = CAN_BE_HIT | IGNORE_DENSITY
 	pressure_resistance = 5*ONE_ATMOSPHERE
 	layer = BELOW_OBJ_LAYER
 	armor_type = /datum/armor/structure_grille
@@ -100,7 +101,7 @@
 			if(!ispath(the_rcd.window_type, /obj/structure/window))
 				CRASH("Invalid window path type in RCD: [the_rcd.window_type]")
 			var/obj/structure/window/window_path = the_rcd.window_type
-			if(!valid_window_location(local_turf, user.dir, is_fulltile = initial(window_path.fulltile)))
+			if(!valid_build_direction(local_turf, user.dir, is_fulltile = initial(window_path.fulltile)))
 				to_chat(user, span_notice("Already a window in this direction!."))
 				return FALSE
 			to_chat(user, span_notice("You construct the window."))
@@ -190,10 +191,10 @@
 	if(!. && istype(mover, /obj/projectile))
 		return prob(30)
 
-/obj/structure/grille/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/caller)
+/obj/structure/grille/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/passing_atom)
 	. = !density
-	if(istype(caller))
-		. = . || (caller.pass_flags & PASSGRILLE)
+	if(istype(passing_atom))
+		. = . || (passing_atom.pass_flags & PASSGRILLE)
 
 /obj/structure/grille/attackby(obj/item/W, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -358,7 +359,7 @@
 					C.add_delayedload(C.newavail() * 0.0375) // you can gain up to 3.5 via the 4x upgrades power is halved by the pole so thats 2x then 1X then .5X for 3.5x the 3 bounces shock.
 	return ..()
 
-/obj/structure/grille/get_dumping_location(datum/component/storage/source,mob/user)
+/obj/structure/grille/get_dumping_location(datum/storage/source, mob/user)
 	return null
 
 /obj/structure/grille/broken // Pre-broken grilles for map placement

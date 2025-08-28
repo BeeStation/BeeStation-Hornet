@@ -131,6 +131,16 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 	GLOB.air_alarms += src
 	check_enviroment()
 
+/obj/machinery/airalarm/add_context_self(datum/screentip_context/context, mob/user)
+	if(buildstage == AIR_ALARM_BUILD_NO_WIRES)
+		context.add_left_click_tool_action("Pry out Electronics", TOOL_CROWBAR)
+	if(buildstage == AIR_ALARM_BUILD_COMPLETE)
+		context.add_left_click_tool_action("[panel_open ? "Expose wires" : "Unexpose wires"]", TOOL_SCREWDRIVER)
+	if (panel_open)
+		context.add_left_click_tool_action("Manipulate wires", TOOL_WIRECUTTER)
+	if(buildstage == AIR_ALARM_BUILD_NO_CIRCUIT)
+		context.add_left_click_tool_action("Detatch Alarm", TOOL_WRENCH)
+
 /obj/machinery/airalarm/process()
 	if(!COOLDOWN_FINISHED(src, warning_cooldown) || (machine_stat & (NOPOWER|BROKEN)) || shorted || (buildstage != AIR_ALARM_BUILD_COMPLETE))
 		return

@@ -96,11 +96,11 @@
 /datum/holoparasite_ability/major/explosive/register_signals()
 	..()
 	RegisterSignal(owner, COMSIG_HOLOPARA_SETUP_HUD, PROC_REF(on_hud_setup))
-	RegisterSignal(owner, COMSIG_HOSTILE_ATTACKINGTARGET, PROC_REF(on_attack))
+	RegisterSignal(owner, COMSIG_HOSTILE_PRE_ATTACKINGTARGET, PROC_REF(on_attack))
 
 /datum/holoparasite_ability/major/explosive/unregister_signals()
 	..()
-	UnregisterSignal(owner, list(COMSIG_HOLOPARA_SETUP_HUD, COMSIG_HOSTILE_ATTACKINGTARGET))
+	UnregisterSignal(owner, list(COMSIG_HOLOPARA_SETUP_HUD, COMSIG_HOSTILE_PRE_ATTACKINGTARGET))
 
 /datum/holoparasite_ability/major/explosive/proc/on_hud_setup(datum/_source, datum/hud/holoparasite/hud, list/huds_to_add)
 	SIGNAL_HANDLER

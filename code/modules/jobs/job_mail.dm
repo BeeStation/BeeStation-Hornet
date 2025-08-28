@@ -6,7 +6,8 @@
 	mail_goodies = list(
 		/obj/item/food/donkpocket/random = 10,
 		/obj/item/clothing/mask/gas/old = 10,
-		/obj/item/clothing/gloves/color/fyellow = 7,
+		/obj/item/clothing/gloves/color/fyellow = 5,
+		/obj/item/clothing/gloves/color/yellow = 8,
 		/obj/item/choice_beacon/radial/music = 5,
 		/obj/item/toy/crayon/spraycan = 3,
 		/obj/item/crowbar/large = 2,
@@ -27,6 +28,9 @@
 /datum/job/bartender
 	mail_goodies = list(
 		/obj/item/storage/box/rubbershot = 30,
+		/obj/item/storage/box/lethalshot = 10,
+		/obj/item/storage/box/beanbag = 20,
+		/obj/item/storage/box/breacherslug = 5,
 		/obj/item/reagent_containers/cup/bottle/clownstears = 10,
 		/obj/item/stack/sheet/mineral/plasma = 5,
 		/obj/item/stack/sheet/mineral/uranium = 5,
@@ -42,9 +46,9 @@
 		/obj/item/reagent_containers/cup/bottle/diethylamine = 15,
 		/obj/item/reagent_containers/cup/bottle/toxin/mutagen = 12,
 		/obj/item/grenade/chem_grenade/antiweed = 10,
-		/obj/item/gun/energy/floragun = 5,
-		// These are strong, rare seeds, so use sparingly.
-		/obj/item/seeds/random = 2,
+		/obj/item/gun/energy/floragun = 10,
+		/obj/item/seeds/random = 10,
+		/obj/item/scythe = 10
 	)
 
 //BRIG PHYSICIAN
@@ -57,18 +61,24 @@
 		//The ultimate validhunter tool
 		/obj/item/clothing/glasses/hud/medsec = 2,
 		/obj/item/healthanalyzer/advanced = 2,
+		/obj/item/reagent_containers/hypospray/medipen/pumpup = 3,
+		/obj/item/reagent_containers/hypospray/medipen/morphine = 5,
+		/obj/item/reagent_containers/hypospray/medipen/dexalin = 2,
 	)
 
 //CAPTAIN
 /datum/job/captain
 	mail_goodies = list(
-		/obj/item/clothing/mask/cigarette/cigar/havana = 15,
+		/obj/item/clothing/mask/cigarette/cigar/havana = 10,
 		/obj/item/pen/fountain/captain = 10,
 		/obj/item/coin/plasma = 7,
 		/obj/item/storage/fancy/cigarettes/cigars/havana = 5,
 		/obj/item/reagent_containers/cup/glass/bottle/champagne = 5,
 		/obj/item/ammo_box/n762 = 2,
 		/obj/item/gun/ballistic/revolver/nagant = 1,
+		/obj/item/gun/ballistic/automatic/pistol/deagle/gold = 1,
+		/obj/item/gun/ballistic/automatic/pistol/deagle/camo = 1,
+		/obj/item/stack/ore/diamond = 5,
 	)
 
 //CARGO TECH
@@ -90,6 +100,8 @@
 		/obj/item/toy/plush/awakenedplushie = 3,
 		/obj/item/toy/plush/narplush = 2,
 		/obj/item/toy/plush/plushvar = 2,
+		/obj/item/book/granter/action/spell/summonitem = 1,
+		/obj/item/book/granter/action/spell/knock = 1,
 	)
 
 //CHEMIST

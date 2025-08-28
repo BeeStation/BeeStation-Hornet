@@ -2,7 +2,16 @@
 	icon = 'icons/hud/screen_ghost.dmi'
 
 /atom/movable/screen/ghost/MouseEntered()
+	..()
 	flick(icon_state + "_anim", src)
+
+/atom/movable/screen/ghost/observe
+	name = "Observe"
+	icon_state = "observe"
+
+/atom/movable/screen/ghost/observe/Click()
+	var/mob/dead/observer/G = usr
+	G.observe()
 
 /atom/movable/screen/ghost/jumptomob
 	name = "Jump to mob"
@@ -56,6 +65,11 @@
 	..()
 	var/atom/movable/screen/using
 
+	using = new /atom/movable/screen/ghost/observe()
+	using.screen_loc = ui_ghost_observe
+	using.hud = src
+	static_inventory += using
+
 	using = new /atom/movable/screen/ghost/jumptomob()
 	using.screen_loc = ui_ghost_jumptomob
 	using.hud = src
@@ -103,7 +117,7 @@
 	if(!.)
 		return
 	var/mob/screenmob = viewmob || mymob
-	if(screenmob.client.prefs.read_player_preference(/datum/preference/toggle/ghost_hud))
+	if(isnull(screenmob.client.prefs) || screenmob.client.prefs.read_player_preference(/datum/preference/toggle/ghost_hud))
 		screenmob.client.screen += static_inventory
 	else
 		screenmob.client.screen -= static_inventory

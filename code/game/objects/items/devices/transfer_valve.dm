@@ -170,7 +170,7 @@
 		if(attached_device)
 			var/obj/item/assembly/signaler/attached = attached_device
 			if(istype(attached))
-				attachment = "<A HREF='?_src_=holder;[HrefToken()];secrets=list_signalers'>[attached]</A> (frequency: [format_frequency(attached.frequency)]/[attached.code])"
+				attachment = "<A HREF='BYOND://?_src_=holder;[HrefToken()];secrets=list_signalers'>[attached]</A> (frequency: [format_frequency(attached.frequency)]/[attached.code])"
 			else
 				attachment = attached_device
 

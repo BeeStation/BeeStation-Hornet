@@ -43,7 +43,7 @@
 	//handle DNA and other attributes
 	dna.transfer_identity(O, tr_flags & TR_KEEPSE)
 	O.set_species(/datum/species/monkey)
-	O.dna.set_se(TRUE, GET_INITIALIZED_MUTATION(RACEMUT))
+	O.dna.set_se(TRUE, GET_INITIALIZED_MUTATION(/datum/mutation/race))
 	O.updateappearance(icon_update=0)
 
 	//store original species
@@ -201,7 +201,7 @@
 
 	if(tr_flags & TR_KEEPSE)
 		O.dna.mutation_index = dna.mutation_index
-		O.dna.set_se(1, GET_INITIALIZED_MUTATION(RACEMUT))
+		O.dna.set_se(1, GET_INITIALIZED_MUTATION(/datum/mutation/race))
 
 	if(suiciding)
 		O.set_suicide(suiciding)
@@ -338,7 +338,7 @@
 		O.equip_to_appropriate_slot(C)
 
 	dna.transfer_identity(O, tr_flags & TR_KEEPSE)
-	O.dna.set_se(FALSE, GET_INITIALIZED_MUTATION(RACEMUT))
+	O.dna.set_se(FALSE, GET_INITIALIZED_MUTATION(/datum/mutation/race))
 	//Reset offsets to match human settings, in-case they have been changed
 	O.dna.species.offset_features = list(OFFSET_UNIFORM = list(0,0), OFFSET_ID = list(0,0), OFFSET_GLOVES = list(0,0), OFFSET_GLASSES = list(0,0), OFFSET_EARS = list(0,0), OFFSET_SHOES = list(0,0), OFFSET_S_STORE = list(0,0), OFFSET_FACEMASK = list(0,0), OFFSET_HEAD = list(0,0), OFFSET_FACE = list(0,0), OFFSET_BELT = list(0,0), OFFSET_BACK = list(0,0), OFFSET_SUIT = list(0,0), OFFSET_NECK = list(0,0), OFFSET_RIGHT_HAND = list(0,0), OFFSET_LEFT_HAND = list(0,0))
 	O.updateappearance(mutcolor_update=1)
@@ -553,11 +553,16 @@
 	to_chat(src, span_userdanger("You are job banned from cyborg! Appeal your job ban if you want to avoid this in the future!"))
 	ghostize(FALSE)
 
-	var/list/mob/dead/observer/candidates = poll_candidates_for_mob("Do you want to play as [src]?", JOB_NAME_CYBORG, null, 7.5 SECONDS, src, ignore_category = FALSE)
-	if(LAZYLEN(candidates))
-		var/mob/dead/observer/chosen_candidate = pick(candidates)
-		message_admins("[key_name_admin(chosen_candidate)] has taken control of ([key_name_admin(src)]) to replace a jobbanned player.")
-		key = chosen_candidate.key
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
+		check_jobban = JOB_NAME_CYBORG,
+		poll_time = 10 SECONDS,
+		jump_target = src,
+		role_name_text = name,
+		alert_pic = src,
+	)
+	if(candidate)
+		message_admins("[key_name_admin(candidate)] has taken control of ([key_name_admin(src)]) to replace a jobbanned player.")
+		key = candidate.key
 	else
 		set_playable(JOB_NAME_CYBORG)
 
@@ -617,7 +622,7 @@
 	if(pre_transform())
 		return
 
-	var/mob/living/simple_animal/pet/dog/corgi/new_corgi = new /mob/living/simple_animal/pet/dog/corgi (loc)
+	var/mob/living/basic/pet/dog/corgi/new_corgi = new /mob/living/basic/pet/dog/corgi (loc)
 	new_corgi.set_combat_mode(TRUE)
 	new_corgi.key = key
 

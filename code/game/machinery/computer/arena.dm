@@ -336,8 +336,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/arena)
 /obj/machinery/computer/arena/ui_interact(mob/user, ui_key, datum/tgui/ui, force_open, datum/tgui/master_ui, datum/ui_state/state)
 	. = ..()
 	var/list/dat = list()
-	dat += "<div>Spawning is currently [ready_to_spawn ? span_good("enabled") : span_bad("disabled")] <a href='?src=[REF(src)];toggle_spawn=1'>Toggle</a></div>"
-	dat += "<div><a href='?src=[REF(src)];start=1'>[start_time ? "Stop countdown" : "Start!"]</a></div>"
+	dat += "<div>Spawning is currently [ready_to_spawn ? span_good("enabled") : span_bad("disabled")] <a href='byond://?src=[REF(src)];toggle_spawn=1'>Toggle</a></div>"
+	dat += "<div><a href='byond://?src=[REF(src)];start=1'>[start_time ? "Stop countdown" : "Start!"]</a></div>"
 	for(var/team in teams)
 		dat += "<h2>[capitalize(team)] team:</h2>"
 		dat += "<ul>"
@@ -351,28 +351,28 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/arena)
 				else
 					player_status = M.stat == DEAD ? "Dead" : "Alive"
 				dat += "<li>[ckey] - [player_status] - "
-				dat += "<a href='?src=[REF(src)];follow=[REF(M)]'>FLW</a>"
-				dat += "<a href='?src=[REF(src)];member_action=remove;team=[team];ckey=[ckey]'>Remove</a>"
+				dat += "<a href='byond://?src=[REF(src)];follow=[REF(M)]'>FLW</a>"
+				dat += "<a href='byond://?src=[REF(src)];member_action=remove;team=[team];ckey=[ckey]'>Remove</a>"
 				//Add more per player features here
 				dat += "</li>"
 		dat += "</ul>"
 		dat += "<div> Team Outfit : [outfits[team] ? outfits[team] : default_outfit]</div>"
-		dat += "<a href='?src=[REF(src)];team_action=loadteam;team=[team]'>Load team</a>"
-		dat += "<a href='?src=[REF(src)];team_action=addmember;team=[team]'>Add member</a>"
-		dat += "<a href='?src=[REF(src)];team_action=outfit;team=[team]'>Change Outfit</a>"
+		dat += "<a href='byond://?src=[REF(src)];team_action=loadteam;team=[team]'>Load team</a>"
+		dat += "<a href='byond://?src=[REF(src)];team_action=addmember;team=[team]'>Add member</a>"
+		dat += "<a href='byond://?src=[REF(src)];team_action=outfit;team=[team]'>Change Outfit</a>"
 		//Add more per team features here
 
 	dat += "Current arena: [current_arena_template]"
 	dat += "<h2>Arena List:</h2>"
 	for(var/A in arena_templates)
-		dat += "<a href='?src=[REF(src)];change_arena=[rustg_url_encode(A)]'>[A]</a><br>"
+		dat += "<a href='byond://?src=[REF(src)];change_arena=[rustg_url_encode(A)]'>[A]</a><br>"
 	dat += "<hr>"
-	dat += "<a href='?src=[REF(src)];upload=1'>Upload new arena</a><br>"
+	dat += "<a href='byond://?src=[REF(src)];upload=1'>Upload new arena</a><br>"
 	dat += "<hr>"
 	//Special actions
-	dat += "<a href='?src=[REF(src)];special=reset'>Reset Arena.</a><br>"
-	dat += "<a href='?src=[REF(src)];special=randomarena'>Load random arena.</a><br>"
-	dat += "<a href='?src=[REF(src)];special=spawntrophy'>Spawn trophies for survivors.</a><br>"
+	dat += "<a href='byond://?src=[REF(src)];special=reset'>Reset Arena.</a><br>"
+	dat += "<a href='byond://?src=[REF(src)];special=randomarena'>Load random arena.</a><br>"
+	dat += "<a href='byond://?src=[REF(src)];special=spawntrophy'>Spawn trophies for survivors.</a><br>"
 
 	var/datum/browser/popup = new(user, "arena controller", "Arena Controller", 500, 600)
 	popup.set_content(dat.Join())

@@ -544,11 +544,11 @@
 			if("runtime")
 				M.change_mob_type( /mob/living/simple_animal/pet/cat/Runtime , null, null, delmob )
 			if("corgi")
-				M.change_mob_type( /mob/living/simple_animal/pet/dog/corgi , null, null, delmob )
+				M.change_mob_type( /mob/living/basic/pet/dog/corgi , null, null, delmob )
 			if("ian")
-				M.change_mob_type( /mob/living/simple_animal/pet/dog/corgi/Ian , null, null, delmob )
+				M.change_mob_type( /mob/living/basic/pet/dog/corgi/Ian , null, null, delmob )
 			if("pug")
-				M.change_mob_type( /mob/living/simple_animal/pet/dog/pug , null, null, delmob )
+				M.change_mob_type( /mob/living/basic/pet/dog/pug , null, null, delmob )
 			if("crab")
 				M.change_mob_type( /mob/living/simple_animal/crab , null, null, delmob )
 			if("coffee")
@@ -885,7 +885,7 @@
 		log_admin("[key_name(src.owner)] has sent [key_name(M)] back to the Lobby.")
 		message_admins("[key_name(src.owner)] has sent [key_name(M)] back to the Lobby.")
 
-		var/mob/dead/new_player/NP = new()
+		var/mob/dead/new_player/authenticated/NP = new()
 		NP.ckey = M.ckey
 		qdel(M)
 
@@ -1181,7 +1181,7 @@
 		var/Remove = href_list["removejobslot"]
 
 		for(var/datum/job/job in SSjob.occupations)
-			if(job.title == Remove && job.total_positions - job.current_positions > 0)
+			if(job.title == Remove && job.get_spawn_position_count() - job.current_positions > 0)
 				job.total_positions -= 1
 				break
 
@@ -1487,10 +1487,10 @@
 								var/obj/item/I = O
 								L.put_in_hands(I)
 								if(iscyborg(L))
-									var/mob/living/silicon/robot/R = L
-									if(R.module)
-										R.module.add_module(I, TRUE, TRUE)
-										R.activate_module(I)
+									var/mob/living/silicon/robot/robot = L
+									if(robot.model)
+										robot.model.add_module(I, TRUE, TRUE)
+										robot.activate_module(I)
 
 		if(pod)
 			new /obj/effect/pod_landingzone(target, pod)
@@ -1578,7 +1578,7 @@
 	else if(href_list["showrelatedacc"])
 		if(!check_rights(R_ADMIN))
 			return
-		var/client/C = locate(href_list["client"]) in GLOB.clients
+		var/client/C = locate(href_list["client"]) in GLOB.clients_unsafe
 		var/thing_to_check
 		if(href_list["showrelatedacc"] == "cid")
 			thing_to_check = C.related_accounts_cid
@@ -1590,7 +1590,9 @@
 		var/list/dat = list("Related accounts by [uppertext(href_list["showrelatedacc"])]:")
 		dat += thing_to_check
 
-		usr << browse(dat.Join("<br>"), "window=related_[C];size=420x300")
+		var/datum/browser/browser = new(usr, "related_[C]", "[C.ckey] Related Accounts", 420, 300)
+		browser.set_content(dat.Join("<br>"))
+		browser.open()
 
 	else if(href_list["centcomlookup"])
 		if(!check_rights(R_ADMIN))
@@ -1959,11 +1961,11 @@
 
 	var/dat = {"<B>What mode do you wish to play?</B><HR>"}
 	for(var/mode in config.modes)
-		dat += {"<A href='?src=[REF(src)];[HrefToken()];c_mode2=[mode]'>[config.mode_names[mode]]</A><br>"}
-	dat += {"<A href='?src=[REF(src)];[HrefToken()];c_mode2=secret'>Secret</A><br>"}
-	dat += {"<A href='?src=[REF(src)];[HrefToken()];c_mode2=random'>Random</A><br>"}
+		dat += {"<A href='byond://?src=[REF(src)];[HrefToken()];c_mode2=[mode]'>[config.mode_names[mode]]</A><br>"}
+	dat += {"<A href='byond://?src=[REF(src)];[HrefToken()];c_mode2=secret'>Secret</A><br>"}
+	dat += {"<A href='byond://?src=[REF(src)];[HrefToken()];c_mode2=random'>Random</A><br>"}
 	dat += {"Now: [GLOB.master_mode]"}
-	usr << browse(dat, "window=c_mode")
+	usr << browse(HTML_SKELETON(dat), "window=c_mode")
 
 /datum/admins/proc/HandleFSecret()
 	if(!check_rights(R_ADMIN))
@@ -1975,7 +1977,7 @@
 		return tgui_alert(usr, "The game mode has to be secret!")
 	var/dat = {"<B>What game mode do you want to force secret to be? Use this if you want to change the game mode, but want the players to believe it's secret. This will only work if the current game mode is secret.</B><HR>"}
 	for(var/mode in config.modes)
-		dat += {"<A href='?src=[REF(src)];[HrefToken()];f_secret2=[mode]'>[config.mode_names[mode]]</A><br>"}
-	dat += {"<A href='?src=[REF(src)];[HrefToken()];f_secret2=secret'>Random (default)</A><br>"}
+		dat += {"<A href='byond://?src=[REF(src)];[HrefToken()];f_secret2=[mode]'>[config.mode_names[mode]]</A><br>"}
+	dat += {"<A href='byond://?src=[REF(src)];[HrefToken()];f_secret2=secret'>Random (default)</A><br>"}
 	dat += {"Now: [GLOB.secret_force_mode]"}
-	usr << browse(dat, "window=f_secret")
+	usr << browse(HTML_SKELETON(dat), "window=f_secret")

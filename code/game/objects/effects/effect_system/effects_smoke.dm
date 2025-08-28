@@ -38,7 +38,7 @@
 	START_PROCESSING(SSobj, src)
 	// Smoke out any mobs on initialise
 	for (var/mob/living/target in loc)
-		target.apply_status_effect(STATUS_EFFECT_SMOKE)
+		target.apply_status_effect(/datum/status_effect/smoke)
 
 /obj/effect/particle_effect/smoke/ComponentInitialize()
 	. = ..()
@@ -67,7 +67,7 @@
 	if (!istype(target))
 		return
 	// Mobs inside the smoke get slowed if they can't see through it
-	target.apply_status_effect(STATUS_EFFECT_SMOKE)
+	target.apply_status_effect(/datum/status_effect/smoke)
 
 /obj/effect/particle_effect/smoke/proc/smoke_mob(mob/living/carbon/C)
 	if(!istype(C))

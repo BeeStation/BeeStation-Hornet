@@ -112,7 +112,7 @@
 		/obj/item/bedsheet/syndie = 2,
 		/obj/item/bedsheet/cult = 2,
 		/obj/item/bedsheet/wiz = 2,
-		/obj/item/clothing/gloves/combat = 5
+		/obj/item/clothing/gloves/tackler/combat = 5
 	)
 
 /obj/effect/spawner/lootdrop/bluespace_tap/organic
@@ -125,9 +125,9 @@
 		/obj/item/dnainjector/telemut = 5,
 		/obj/item/dnainjector/chameleonmut = 5,
 		/obj/item/dnainjector/dwarf = 5,
-		/mob/living/simple_animal/pet/dog/corgi/ = 5,
+		/mob/living/basic/pet/dog/corgi/ = 5,
 		/mob/living/simple_animal/pet/cat = 5,
-		/mob/living/simple_animal/pet/dog/bullterrier = 5,
+		/mob/living/basic/pet/dog/bullterrier = 5,
 		/mob/living/simple_animal/pet/penguin = 5,
 		/mob/living/simple_animal/parrot = 5,
 		/obj/item/slimepotion/slime/sentience = 5,

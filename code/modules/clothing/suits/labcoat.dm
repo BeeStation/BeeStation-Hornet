@@ -10,7 +10,7 @@
 	allowed = list(
 		/obj/item/analyzer,
 		/obj/item/stack/medical,
-		/obj/item/storage/firstaid/medical,
+		/obj/item/storage/firstaid,
 		/obj/item/dnainjector,
 		/obj/item/reagent_containers/dropper,
 		/obj/item/reagent_containers/syringe,
@@ -93,6 +93,6 @@
 
 /obj/item/clothing/suit/toggle/labcoat/research_director
 	name = "research director's labcoat"
-	desc = "Popped collar, ancient science fair medal from middle school.. worn out buttons that barely keep the coat closed? Oh yeah, its plasma research time. Has a legacy purple U stripe along the back."
+	desc = "Popped collar, ancient science fair medal, worn out buttons that barely keep the coat closed? Oh yeah, it's research time. Has expensive plasma-imbued fabric, making it resistant to spills."
 	icon_state = "labcoat_rd"
 	item_state = "labcoat_tox"

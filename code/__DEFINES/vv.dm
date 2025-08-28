@@ -40,24 +40,24 @@
 //General helpers
 #define VV_HREF_TARGET_INTERNAL(target, href_key) "?_src_=vars;[HrefToken()];[href_key]=TRUE;[VV_HK_TARGET]=[REF(target)]"
 #define VV_HREF_TARGETREF_INTERNAL(targetref, href_key) "?_src_=vars;[HrefToken()];[href_key]=TRUE;[VV_HK_TARGET]=[targetref]"
-#define VV_HREF_TARGET(target, href_key, text) "<a href='[VV_HREF_TARGET_INTERNAL(target, href_key)]'>[text]</a>"
-#define VV_HREF_TARGETREF(targetref, href_key, text) "<a href='[VV_HREF_TARGETREF_INTERNAL(targetref, href_key)]'>[text]</a>"
-#define VV_HREF_TARGET_1V(target, href_key, text, varname) "<a href='[VV_HREF_TARGET_INTERNAL(target, href_key)];[VV_HK_VARNAME]=[varname]'>[text]</a>"		//for stuff like basic varedits, one variable
-#define VV_HREF_TARGETREF_1V(targetref, href_key, text, varname) "<a href='[VV_HREF_TARGETREF_INTERNAL(targetref, href_key)];[VV_HK_VARNAME]=[varname]'>[text]</a>"
+#define VV_HREF_TARGET(target, href_key, text) "<a href='byond://[VV_HREF_TARGET_INTERNAL(target, href_key)]'>[text]</a>"
+#define VV_HREF_TARGETREF(targetref, href_key, text) "<a href='byond://[VV_HREF_TARGETREF_INTERNAL(targetref, href_key)]'>[text]</a>"
+#define VV_HREF_TARGET_1V(target, href_key, text, varname) "<a href='byond://[VV_HREF_TARGET_INTERNAL(target, href_key)];[VV_HK_VARNAME]=[varname]'>[text]</a>"		//for stuff like basic varedits, one variable
+#define VV_HREF_TARGETREF_1V(targetref, href_key, text, varname) "<a href='byond://[VV_HREF_TARGETREF_INTERNAL(targetref, href_key)];[VV_HK_VARNAME]=[varname]'>[text]</a>"
 //! Non-standard helper for special list vv. this doesn't use VV_HK_TARGET and REF because special list doesn't work in a sane sense.
-#define VV_HREF_SPECIAL(dmlist_origin_ref, href_action, text, list_index, dmlist_varname) "<a href='?_src_=vars;[HrefToken()];[href_action]=TRUE;dmlist_origin_ref=[dmlist_origin_ref];dmlist_varname=[dmlist_varname];[VV_HK_VARNAME]=[list_index]'>[text]</a>"
-#define VV_HREF_SPECIAL_MENU(dmlist_origin_ref, href_action, dmlist_varname) "?_src_=vars;[HrefToken()];[href_action]=TRUE;[VV_HK_DO_LIST_EDIT]=TRUE;dmlist_origin_ref=[dmlist_origin_ref];dmlist_varname=[dmlist_varname]"
+#define VV_HREF_SPECIAL(dmlist_origin_ref, href_action, text, list_index, dmlist_varname) "<a href='byond://?_src_=vars;[HrefToken()];[href_action]=TRUE;dmlist_origin_ref=[dmlist_origin_ref];dmlist_varname=[dmlist_varname];[VV_HK_VARNAME]=[list_index]'>[text]</a>"
+#define VV_HREF_SPECIAL_MENU(dmlist_origin_ref, href_action, dmlist_varname) "byond://?_src_=vars;[HrefToken()];[href_action]=TRUE;[VV_HK_DO_LIST_EDIT]=TRUE;dmlist_origin_ref=[dmlist_origin_ref];dmlist_varname=[dmlist_varname]"
 
 #define GET_VV_TARGET locate(href_list[VV_HK_TARGET])
 #define GET_VV_VAR_TARGET href_list[VV_HK_VARNAME]
 
 //Helper for getting something to vv_do_topic in general
-#define VV_TOPIC_LINK(datum, href_key, text) "<a href='?_src_=vars;[HrefToken()];[href_key]=TRUE;target=[REF(datum)]'>text</a>"
+#define VV_TOPIC_LINK(datum, href_key, text) "<a href='byond://?_src_=vars;[HrefToken()];[href_key]=TRUE;target=[REF(datum)]'>text</a>"
 
 //Helpers for vv_get_dropdown()
-#define VV_DROPDOWN_OPTION(href_key, name) . += "<option value='?_src_=vars;[HrefToken()];[href_key]=TRUE;target=[REF(src)]'>[name]</option>"
+#define VV_DROPDOWN_OPTION(href_key, name) . += "<option value='byond://?_src_=vars;[HrefToken()];[href_key]=TRUE;target=[REF(src)]'>[name]</option>"
 //Same with VV_DROPDOWN_OPTION, but global proc doesn't have src
-#define VV_DROPDOWN_OPTION_APPEARANCE(thing, href_key, name) . += "<option value='?_src_=vars;[HrefToken()];[href_key]=TRUE;target=[REF(thing)]'>[name]</option>"
+#define VV_DROPDOWN_OPTION_APPEARANCE(thing, href_key, name) . += "<option value='byond://?_src_=vars;[HrefToken()];[href_key]=TRUE;target=[REF(thing)]'>[name]</option>"
 
 // VV HREF KEYS
 #define VV_HK_TARGET "target"

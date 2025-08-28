@@ -37,7 +37,9 @@
 	LAZYINITLIST(occupant_actions[m])
 	if(occupant_actions[m][actiontype])
 		var/datum/action/action = occupant_actions[m][actiontype]
-		action.Remove(m)
+		// Actions don't dissipate on removal, they just sit around assuming they'll be reusued
+		// Gotta qdel
+		qdel(action)
 		occupant_actions[m] -= actiontype
 	return TRUE
 
@@ -97,9 +99,17 @@
 	button_icon_state = null
 	var/obj/vehicle/vehicle_target
 
+/datum/action/vehicle/Destroy()
+	vehicle_target = null
+	return ..()
+
 /datum/action/vehicle/sealed
 	check_flags = AB_CHECK_INCAPACITATED | AB_CHECK_CONSCIOUS
 	var/obj/vehicle/sealed/vehicle_entered_target
+
+/datum/action/vehicle/sealed/Destroy()
+	vehicle_entered_target = null
+	return ..()
 
 /datum/action/vehicle/sealed/climb_out
 	name = "Climb Out"

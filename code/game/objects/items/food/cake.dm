@@ -23,7 +23,7 @@
 
 /obj/item/food/cake/make_processable()
 	if (slice_type)
-		AddElement(/datum/element/processable, TOOL_KNIFE, slice_type, yield, 3 SECONDS, table_required = TRUE)
+		AddElement(/datum/element/processable, TOOL_KNIFE, slice_type, yield, 3 SECONDS, table_required = TRUE, screentip_verb = "Slice")
 
 /obj/item/food/cakeslice
 	name = "Cakeslice Parent"
@@ -584,7 +584,6 @@
 	icon_state = "briochecake_slice"
 	crafting_complexity = FOOD_COMPLEXITY_2
 
-/*
 /obj/item/food/cake/pavlova
 	name = "pavlova"
 	desc = "A sweet berry pavlova. Invented in New Zealand, but named after a Russian ballerina... And scientifically proven to be the best at dinner parties!"
@@ -594,11 +593,13 @@
 	slice_type = /obj/item/food/cakeslice/pavlova
 	crafting_complexity = FOOD_COMPLEXITY_3
 
+/*
 /obj/item/food/cake/pavlova/nuts
 	name = "pavlova with nuts"
 	foodtypes = NUTS | FRUIT | SUGAR
 	slice_type = /obj/item/food/cakeslice/pavlova/nuts
 	crafting_complexity = FOOD_COMPLEXITY_4
+*/
 
 /obj/item/food/cakeslice/pavlova
 	name = "pavlova slice"
@@ -609,9 +610,11 @@
 	foodtypes = DAIRY | FRUIT | SUGAR
 	crafting_complexity = FOOD_COMPLEXITY_3
 
+/*
 /obj/item/food/cakeslice/pavlova/nuts
 	foodtypes = NUTS | FRUIT | SUGAR
 	crafting_complexity = FOOD_COMPLEXITY_4
+
 
 /obj/item/food/cake/fruit
 	name = "english fruitcake"

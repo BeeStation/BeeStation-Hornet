@@ -1,6 +1,7 @@
 /obj/item/energy_katana
 	name = "energy katana"
-	desc = "A katana infused with strong energy. Right-click to dash."
+	desc = "A katana infused with strong energy."
+	desc_controls = "Right-click to dash."
 	icon_state = "energy_katana"
 	item_state = "energy_katana"
 	worn_icon_state = "energy_katana"
@@ -10,7 +11,7 @@
 	throwforce = 20
 	block_power = 50
 	block_level = 1
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
 	armour_penetration = 50
 	w_class = WEIGHT_CLASS_LARGE

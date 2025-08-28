@@ -8,7 +8,7 @@
 	item_flags = ABSTRACT
 	block_flags = BLOCKING_NASTY | BLOCKING_ACTIVE
 	block_level = 1	//God blocking is actual aids to deal with, I am sorry for putting this here
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
 	item_flags = ISWEAPON
@@ -173,7 +173,7 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/bow/clockcult
 	var/recharge_time = 15
 
-/obj/item/gun/ballistic/bow/clockwork/shoot_live_shot(mob/living/user, pointblank, atom/pbtarget, message)
+/obj/item/gun/ballistic/bow/clockwork/after_live_shot_fired(mob/living/user, pointblank, atom/pbtarget, message)
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(recharge_bolt)), recharge_time)
 

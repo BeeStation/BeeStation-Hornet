@@ -82,7 +82,7 @@
 	name = "grey slime extract"
 	icon_state = "grey slime extract"
 	effectmod = "reproductive"
-	color_slime = "grey"
+	color_slime = SLIME_TYPE_GREY
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/water)
 
 /obj/item/slime_extract/grey/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
@@ -96,7 +96,7 @@
 		if(SLIME_ACTIVATE_MAJOR)
 			to_chat(user, span_notice("Your [name] starts pulsing..."))
 			if(do_after(user, 4 SECONDS, target = user))
-				var/mob/living/simple_animal/slime/S = new(get_turf(user), "grey")
+				var/mob/living/simple_animal/slime/S = new(get_turf(user), SLIME_TYPE_GREY)
 				playsound(user, 'sound/effects/splat.ogg', 50, 1)
 				to_chat(user, span_notice("You spit out [S]."))
 				return 35 SECONDS
@@ -107,7 +107,7 @@
 	name = "gold slime extract"
 	icon_state = "gold slime extract"
 	effectmod = "symbiont"
-	color_slime = "gold"
+	color_slime = SLIME_TYPE_GOLD
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/water)
 
 /obj/item/slime_extract/gold/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
@@ -137,7 +137,7 @@
 	name = "silver slime extract"
 	icon_state = "silver slime extract"
 	effectmod = "consuming"
-	color_slime = "silver"
+	color_slime = SLIME_TYPE_SILVER
 	activate_reagents = list(/datum/reagent/toxin/plasma,/datum/reagent/water)
 
 /obj/item/slime_extract/silver/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
@@ -161,7 +161,7 @@
 	name = "metal slime extract"
 	icon_state = "metal slime extract"
 	effectmod = "industrial"
-	color_slime = "metal"
+	color_slime = SLIME_TYPE_METAL
 	activate_reagents = list(/datum/reagent/toxin/plasma,/datum/reagent/water)
 
 /obj/item/slime_extract/metal/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
@@ -184,7 +184,7 @@
 	name = "purple slime extract"
 	icon_state = "purple slime extract"
 	effectmod = "regenerative"
-	color_slime = "purple"
+	color_slime = SLIME_TYPE_PURPLE
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma)
 
 /obj/item/slime_extract/purple/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
@@ -204,7 +204,7 @@
 	name = "dark purple slime extract"
 	icon_state = "dark purple slime extract"
 	effectmod = "self-sustaining"
-	color_slime = "darkpurple"
+	color_slime = SLIME_TYPE_DARK_PURPLE
 	activate_reagents = list(/datum/reagent/toxin/plasma)
 
 /obj/item/slime_extract/darkpurple/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
@@ -227,7 +227,7 @@
 	name = "orange slime extract"
 	icon_state = "orange slime extract"
 	effectmod = "burning"
-	color_slime = "orange"
+	color_slime = SLIME_TYPE_ORANGE
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/water)
 
 /obj/item/slime_extract/orange/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
@@ -248,7 +248,7 @@
 	name = "yellow slime extract"
 	icon_state = "yellow slime extract"
 	effectmod = "charged"
-	color_slime = "yellow"
+	color_slime = SLIME_TYPE_YELLOW
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/water)
 
 /obj/item/slime_extract/yellow/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
@@ -280,7 +280,7 @@
 	name = "red slime extract"
 	icon_state = "red slime extract"
 	effectmod = "sanguine"
-	color_slime = "red"
+	color_slime = SLIME_TYPE_RED
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/water)
 
 /obj/item/slime_extract/red/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
@@ -301,7 +301,7 @@
 	name = "blue slime extract"
 	icon_state = "blue slime extract"
 	effectmod = "stabilized"
-	color_slime = "blue"
+	color_slime = SLIME_TYPE_BLUE
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/water)
 
 /obj/item/slime_extract/blue/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
@@ -326,7 +326,7 @@
 	name = "dark blue slime extract"
 	icon_state = "dark blue slime extract"
 	effectmod = "chilling"
-	color_slime = "darkblue"
+	color_slime = SLIME_TYPE_DARK_BLUE
 	activate_reagents = list(/datum/reagent/toxin/plasma,/datum/reagent/water)
 
 /obj/item/slime_extract/darkblue/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
@@ -350,7 +350,7 @@
 	name = "pink slime extract"
 	icon_state = "pink slime extract"
 	effectmod = "gentle"
-	color_slime = "pink"
+	color_slime = SLIME_TYPE_PINK
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma)
 
 /obj/item/slime_extract/pink/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
@@ -373,7 +373,7 @@
 	name = "green slime extract"
 	icon_state = "green slime extract"
 	effectmod = "mutative"
-	color_slime = "green"
+	color_slime = SLIME_TYPE_GREEN
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/uranium/radium)
 
 /obj/item/slime_extract/green/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
@@ -398,7 +398,7 @@
 	name = "light pink slime extract"
 	icon_state = "light pink slime extract"
 	effectmod = "loyal"
-	color_slime = "lightpink"
+	color_slime = SLIME_TYPE_LIGHT_PINK
 	activate_reagents = list(/datum/reagent/toxin/plasma)
 
 /obj/item/slime_extract/lightpink/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
@@ -421,7 +421,7 @@
 	name = "black slime extract"
 	icon_state = "black slime extract"
 	effectmod = "transformative"
-	color_slime = "black"
+	color_slime = SLIME_TYPE_BLACK
 	activate_reagents = list(/datum/reagent/toxin/plasma)
 
 /obj/item/slime_extract/black/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
@@ -443,7 +443,7 @@
 	name = "oil slime extract"
 	icon_state = "oil slime extract"
 	effectmod = "detonating"
-	color_slime = "oil"
+	color_slime = SLIME_TYPE_OIL
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma)
 
 /obj/item/slime_extract/oil/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
@@ -468,7 +468,7 @@
 	name = "adamantine slime extract"
 	icon_state = "adamantine slime extract"
 	effectmod = "crystalline"
-	color_slime = "adamantine"
+	color_slime = SLIME_TYPE_ADAMANTINE
 	activate_reagents = list(/datum/reagent/toxin/plasma)
 
 /obj/item/slime_extract/adamantine/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
@@ -498,7 +498,7 @@
 	name = "bluespace slime extract"
 	icon_state = "bluespace slime extract"
 	effectmod = "warping"
-	color_slime = "bluespace"
+	color_slime = SLIME_TYPE_BLUESPACE
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma)
 	var/teleport_ready = FALSE
 	var/teleport_x = 0
@@ -547,24 +547,24 @@
 	name = "pyrite slime extract"
 	icon_state = "pyrite slime extract"
 	effectmod = "prismatic"
-	color_slime = "pyrite"
+	color_slime = SLIME_TYPE_PYRITE
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma)
 
 /obj/item/slime_extract/pyrite/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			var/chosen = pick(list(
-									/obj/item/toy/crayon/red,
-									/obj/item/toy/crayon/orange,
-									/obj/item/toy/crayon/yellow,
-									/obj/item/toy/crayon/green,
-									/obj/item/toy/crayon/blue,
-									/obj/item/toy/crayon/purple,
-									/obj/item/toy/crayon/black,
-									/obj/item/toy/crayon/white,
-									/obj/item/toy/crayon/mime,
-									/obj/item/toy/crayon/rainbow
-								))
+				/obj/item/toy/crayon/red,
+				/obj/item/toy/crayon/orange,
+				/obj/item/toy/crayon/yellow,
+				/obj/item/toy/crayon/green,
+				/obj/item/toy/crayon/blue,
+				/obj/item/toy/crayon/purple,
+				/obj/item/toy/crayon/black,
+				/obj/item/toy/crayon/white,
+				/obj/item/toy/crayon/mime,
+				/obj/item/toy/crayon/rainbow,
+			))
 			var/obj/item/O = new chosen(user.drop_location())
 			user.put_in_active_hand(O)
 			playsound(user, 'sound/effects/splat.ogg', 50, 1)
@@ -573,11 +573,11 @@
 
 		if(SLIME_ACTIVATE_MAJOR)
 			var/chosen = pick(list(
-									/obj/item/toy/crayon/spraycan,
-									/obj/item/toy/crayon/spraycan/hellcan,
-									/obj/item/toy/crayon/spraycan/lubecan,
-									/obj/item/toy/crayon/spraycan/mimecan
-								))
+				/obj/item/toy/crayon/spraycan,
+				/obj/item/toy/crayon/spraycan/hellcan,
+				/obj/item/toy/crayon/spraycan/lubecan,
+				/obj/item/toy/crayon/spraycan/mimecan,
+			))
 			var/obj/item/O = new chosen(user.drop_location())
 			user.put_in_active_hand(O)
 			playsound(user, 'sound/effects/splat.ogg', 50, 1)
@@ -588,7 +588,7 @@
 	name = "cerulean slime extract"
 	icon_state = "cerulean slime extract"
 	effectmod = "recurring"
-	color_slime = "cerulean"
+	color_slime = SLIME_TYPE_CERULEAN
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma)
 
 /obj/item/slime_extract/cerulean/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
@@ -609,7 +609,7 @@
 	name = "sepia slime extract"
 	icon_state = "sepia slime extract"
 	effectmod = "lengthened"
-	color_slime = "sepia"
+	color_slime = SLIME_TYPE_SEPIA
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/water)
 
 /obj/item/slime_extract/sepia/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
@@ -630,7 +630,7 @@
 	name = "rainbow slime extract"
 	icon_state = "rainbow slime extract"
 	effectmod = "hyperchromatic"
-	color_slime = "rainbow"
+	color_slime = SLIME_TYPE_RAINBOW
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,"lesser plasma",/datum/reagent/toxin/slimejelly,"holy water and uranium") //Curse this snowflake reagent list.
 
 /obj/item/slime_extract/rainbow/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
@@ -646,33 +646,63 @@
 
 		if(SLIME_ACTIVATE_MAJOR)
 			var/chosen = pick(list(
-								/obj/item/slime_extract/grey,
-								/obj/item/slime_extract/gold,
-								/obj/item/slime_extract/silver,
-								/obj/item/slime_extract/metal,
-								/obj/item/slime_extract/purple,
-								/obj/item/slime_extract/darkpurple,
-								/obj/item/slime_extract/orange,
-								/obj/item/slime_extract/yellow,
-								/obj/item/slime_extract/red,
-								/obj/item/slime_extract/blue,
-								/obj/item/slime_extract/darkblue,
-								/obj/item/slime_extract/pink,
-								/obj/item/slime_extract/green,
-								/obj/item/slime_extract/lightpink,
-								/obj/item/slime_extract/black,
-								/obj/item/slime_extract/oil,
-								/obj/item/slime_extract/adamantine,
-								/obj/item/slime_extract/bluespace,
-								/obj/item/slime_extract/pyrite,
-								/obj/item/slime_extract/cerulean,
-								/obj/item/slime_extract/sepia
-								))
+				/obj/item/slime_extract/grey,
+				/obj/item/slime_extract/gold,
+				/obj/item/slime_extract/silver,
+				/obj/item/slime_extract/metal,
+				/obj/item/slime_extract/purple,
+				/obj/item/slime_extract/darkpurple,
+				/obj/item/slime_extract/orange,
+				/obj/item/slime_extract/yellow,
+				/obj/item/slime_extract/red,
+				/obj/item/slime_extract/blue,
+				/obj/item/slime_extract/darkblue,
+				/obj/item/slime_extract/pink,
+				/obj/item/slime_extract/green,
+				/obj/item/slime_extract/lightpink,
+				/obj/item/slime_extract/black,
+				/obj/item/slime_extract/oil,
+				/obj/item/slime_extract/adamantine,
+				/obj/item/slime_extract/bluespace,
+				/obj/item/slime_extract/pyrite,
+				/obj/item/slime_extract/cerulean,
+				/obj/item/slime_extract/sepia,
+			))
 			var/obj/item/O = new chosen(user.drop_location())
 			user.put_in_active_hand(O)
 			playsound(user, 'sound/effects/splat.ogg', 50, 1)
 			user.visible_message(span_warning("[user] spits out [O]!"), span_notice("You spit out [O]!"))
 			return 15 SECONDS
+
+//special mutation slimes
+
+/obj/item/slime_extract/darkgreen
+	name = "dark green slime extract"
+	icon_state = "dark green slime extract"
+	effectmod = "verdant"
+	color_slime = SLIME_TYPE_DARK_GREEN
+	activate_reagents = list(/datum/reagent/water,/datum/reagent/medicine/earthsblood)
+
+/obj/item/slime_extract/cobalt
+	name = "cobalt slime extract"
+	icon_state = "cobalt slime extract"
+	effectmod = "hypercompressed"
+	color_slime = SLIME_TYPE_COBALT
+	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma)
+
+/obj/item/slime_extract/darkgrey
+	name = "dark grey slime extract"
+	icon_state = "dark grey slime extract"
+	effectmod = "multitudinous"
+	color_slime = SLIME_TYPE_DARK_GREY
+	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma)
+
+/obj/item/slime_extract/crimson
+	name = "crimson slime extract"
+	icon_state = "crimson slime extract"
+	effectmod = "furious"
+	color_slime = SLIME_TYPE_CRIMSON
+	activate_reagents = list(/datum/reagent/blood,/datum/reagent/blackpowder)
 
 ////Slime-derived potions///
 
@@ -724,65 +754,74 @@
 	desc = "A miraculous chemical mix that grants human like intelligence to living beings."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "potpink"
-	var/list/not_interested = list()
+	/// Are we being offered to a mob, and therefore is a ghost poll currently in progress for the sentient mob?
 	var/being_used = FALSE
 	var/sentience_type = SENTIENCE_ORGANIC
 
-/obj/item/slimepotion/slime/sentience/attack(mob/living/M, mob/user)
-	if(being_used || !ismob(M))
+/obj/item/slimepotion/slime/sentience/attack(mob/living/dumb_mob, mob/user)
+	if(being_used || !isliving(dumb_mob))
 		return
-	if(!(GLOB.ghost_role_flags & GHOSTROLE_SPAWNER))
-		to_chat(user, span_warning("[src] seems to fizzle out of existence. Guess the universe is unable to support more intelligence right now."))
-		do_sparks(5, FALSE, get_turf(src))
-		qdel(src)
+	if(dumb_mob.ckey) //only works on animals that aren't player controlled
+		balloon_alert(user, "already sentient!")
 		return
-	if(!isanimal(M) || M.ckey) //only works on animals that aren't player controlled
-		to_chat(user, span_warning("[M] is already too intelligent for this to work!"))
+	if(dumb_mob.stat)
+		balloon_alert(user, "it's dead!")
 		return
-	if(M.stat)
-		to_chat(user, span_warning("[M] is dead!"))
-		return
-	var/mob/living/simple_animal/SM = M
-	if(SM.sentience_type != sentience_type)
-		to_chat(user, span_warning("[src] won't work on [SM]."))
+	if(!dumb_mob.compare_sentience_type(sentience_type)) // Will also return false if not a basic or simple mob, which are the only two we want anyway
+		balloon_alert(user, "invalid creature!")
 		return
 
-	to_chat(user, span_notice("You offer [src] to [SM]..."))
+	balloon_alert(user, "offering...")
 	being_used = TRUE
+	var/mob/chosen_one = SSpolling.poll_ghosts_for_target(
+		question = "[span_danger(user.name)] is offering [span_notice(dumb_mob.name)] an intelligence potion!",
+		check_jobban = ROLE_SENTIENCE,
+		poll_time = 10 SECONDS,
+		checked_target = dumb_mob,
+		ignore_category = POLL_IGNORE_SENTIENCE_POTION,
+		alert_pic = dumb_mob,
+		role_name_text = "intelligence potion",
+		chat_text_border_icon = src,
+	)
+	on_poll_concluded(user, dumb_mob, chosen_one)
 
-	var/list/candidates = poll_candidates_for_mob("Do you want to play as [SM.name]? (Sentience Potion)", ROLE_SENTIENCE, null, 5 SECONDS, SM)
-	if(length(candidates))
-		var/mob/dead/observer/C = pick(candidates)
-		SM.key = C.key
-		SM.mind.enslave_mind_to_creator(user)
-		SM.sentience_act(user)
-		to_chat(SM, span_warning("All at once it makes sense: you know what you are and who you are! Self awareness is yours!"))
-		to_chat(SM, span_userdanger("You are grateful to be self aware and owe [user.real_name] a great debt. Serve [user.real_name], and assist [user.p_them()] in completing [user.p_their()] goals at any cost."))
-		if(SM.flags_1 & HOLOGRAM_1) //Check to see if it's a holodeck creature
-			to_chat(SM, span_userdanger("You also become depressingly aware that you are not a real creature, but instead a holoform. Your existence is limited to the parameters of the holodeck."))
-		to_chat(user, span_notice("[SM] accepts [src] and suddenly becomes attentive and aware. It worked!"))
-		SM.copy_languages(user, blocked=TRUE) // source_override does not exist. we follow 'blocked=TRUE' rule in the proc.
-		after_success(user, SM)
-		qdel(src)
-	else
-		to_chat(user, span_notice("[SM] looks interested for a moment, but then looks back down. Maybe you should try again later."))
+/// Assign the chosen ghost to the mob
+/obj/item/slimepotion/slime/sentience/proc/on_poll_concluded(mob/user, mob/living/dumb_mob, mob/dead/observer/ghost)
+	if(isnull(ghost))
+		balloon_alert(user, "try again later!")
 		being_used = FALSE
-		..()
+		return
 
-/obj/item/slimepotion/slime/sentience/proc/after_success(mob/living/user, mob/living/simple_animal/SM)
-	SM.faction = user.faction.Copy()
+	dumb_mob.key = ghost.key
+	dumb_mob.mind.enslave_mind_to_creator(user)
+	SEND_SIGNAL(dumb_mob, COMSIG_SIMPLEMOB_SENTIENCEPOTION, user)
+
+	if(isanimal(dumb_mob))
+		var/mob/living/simple_animal/smart_animal = dumb_mob
+		smart_animal.sentience_act()
+
+	to_chat(dumb_mob, span_warning("All at once it makes sense: you know what you are and who you are! Self awareness is yours!"))
+	to_chat(dumb_mob, span_userdanger("You are grateful to be self aware and owe [user.real_name] a great debt. Serve [user.real_name], and assist [user.p_them()] in completing [user.p_their()] goals at any cost."))
+	if(dumb_mob.flags_1 & HOLOGRAM_1) //Check to see if it's a holodeck creature
+		to_chat(dumb_mob, span_userdanger("You also become depressingly aware that you are not a real creature, but instead a holoform. Your existence is limited to the parameters of the holodeck."))
+
+	dumb_mob.copy_languages(user)
+	balloon_alert(user, "success")
+	after_success(user, dumb_mob)
+	qdel(src)
+
+/obj/item/slimepotion/slime/sentience/proc/after_success(mob/living/user, mob/living/smart_mob)
+	smart_mob.faction = user.faction.Copy()
 
 /obj/item/slimepotion/slime/sentience/nuclear
 	name = "syndicate intelligence potion"
 	desc = "A miraculous chemical mix that grants human like intelligence to living beings. It has been modified with Syndicate technology to also grant an internal radio implant to the target and authenticate with identification systems."
 
-/obj/item/slimepotion/slime/sentience/nuclear/after_success(mob/living/user, mob/living/simple_animal/SM)
+/obj/item/slimepotion/slime/sentience/nuclear/after_success(mob/living/user, mob/living/smart_mob)
 	..()
 	var/obj/item/implant/radio/syndicate/imp = new(src)
-	imp.implant(SM, user)
-
-	SM.access_card = new /obj/item/card/id/syndicate(SM)
-	ADD_TRAIT(SM.access_card, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
+	imp.implant(smart_mob, user)
+	smart_mob.AddComponent(/datum/component/simple_access, list(ACCESS_SYNDICATE, ACCESS_MAINT_TUNNELS))
 
 /obj/item/slimepotion/transference
 	name = "consciousness transference potion"
@@ -792,43 +831,46 @@
 	var/prompted = 0
 	var/animal_type = SENTIENCE_ORGANIC
 
-/obj/item/slimepotion/transference/afterattack(mob/living/M, mob/user)
-	if(prompted || !ismob(M))
+/obj/item/slimepotion/transference/afterattack(mob/living/switchy_mob, mob/user, proximity)
+	if(!proximity)
 		return
-	if(!isanimal(M) || M.ckey) //much like sentience, these will not work on something that is already player controlled
-		to_chat(user, span_warning("[M] already has a higher consciousness!"))
+	if(prompted || !isliving(switchy_mob))
+		return
+	if(switchy_mob.ckey) //much like sentience, these will not work on something that is already player controlled
+		balloon_alert(user, "already sentient!")
 		return ..()
-	if(M.stat)
-		to_chat(user, span_warning("[M] is dead!"))
+	if(switchy_mob.stat)
+		balloon_alert(user, "it's dead!")
 		return ..()
-	var/mob/living/simple_animal/SM = M
-	if(SM.sentience_type != animal_type)
-		to_chat(user, span_warning("You cannot transfer your consciousness to [SM].") )
+	if(!switchy_mob.compare_sentience_type(animal_type))
+		balloon_alert(user, "invalid creature!")
 		return ..()
-	var/jb = is_banned_from(user.ckey, ROLE_MIND_TRANSFER)
-	if(QDELETED(src) || QDELETED(M) || QDELETED(user))
+
+	var/job_banned = is_banned_from(user.ckey, ROLE_MIND_TRANSFER)
+	if(QDELETED(src) || QDELETED(switchy_mob) || QDELETED(user))
 		return
 
-	if(jb)
-		to_chat(user, span_warning("Your mind goes blank as you attempt to use the potion."))
+	if(job_banned)
+		balloon_alert(user, "you're banned!")
 		return
 
 	prompted = 1
-	if(alert("This will permanently transfer your consciousness to [SM]. Are you sure you want to do this?",,"Yes","No")=="No")
+	if(tgui_alert(usr,"This will permanently transfer your consciousness to [switchy_mob]. Are you sure you want to do this?",,list("Yes","No"))=="No")
 		prompted = 0
 		return
 
-	to_chat(user, span_notice("You drink the potion then place your hands on [SM]..."))
+	to_chat(user, span_notice("You drink the potion then place your hands on [switchy_mob]..."))
 
-
-	user.mind.transfer_to(SM)
-	SM.faction = user.faction.Copy()
-	SM.sentience_act(user) //Same deal here as with sentience
+	user.mind.transfer_to(switchy_mob)
+	switchy_mob.faction = user.faction.Copy()
 	user.death()
-	to_chat(SM, span_notice("In a quick flash, you feel your consciousness flow into [SM]!"))
-	to_chat(SM, span_warning("You are now [SM]. Your allegiances, alliances, and role is still the same as it was prior to consciousness transfer!"))
-	SM.name = "[user.real_name]"
+	to_chat(switchy_mob, span_notice("In a quick flash, you feel your consciousness flow into [switchy_mob]!"))
+	to_chat(switchy_mob, span_warning("You are now [switchy_mob]. Your allegiances, alliances, and role is still the same as it was prior to consciousness transfer!"))
+	switchy_mob.name = "[user.real_name]"
 	qdel(src)
+	if(isanimal(switchy_mob))
+		var/mob/living/simple_animal/switchy_animal= switchy_mob
+		switchy_animal.sentience_act()
 
 /obj/item/slimepotion/slime/steroid
 	name = "slime steroid"
@@ -1092,8 +1134,8 @@
 	icon_state = "potgrey"
 
 /obj/item/slimepotion/slime/slimeradio/attack(mob/living/target, mob/user)
-	if(!isanimal(target))
-		to_chat(user, span_warning("[span_name("[target]")] is too complex for the potion!"))
+	if(!isanimal_or_basicmob(target))
+		to_chat(user, span_warning("[target] is too complex for the potion!"))
 		return
 	if(target.stat == DEAD)
 		to_chat(user, span_warning("[span_name("[target]")] is dead!"))
@@ -1102,6 +1144,32 @@
 	to_chat(target, span_notice("Your mind tingles as you are fed the potion. You can hear radio waves now!"))
 	var/obj/item/implant/radio/slime/imp = new(src)
 	imp.implant(target, user)
+	qdel(src)
+
+/obj/item/slimepotion/slime/lavasteroid
+	name = "lavaland steroid"
+	desc = "A chemical concoction that changes the makeup of certain fauna native to lavaland, bringing rare mutations to the surface."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "potred"
+
+/obj/item/slimepotion/slime/lavasteroid/attack(mob/living/target, mob/user)
+	var/new_monster = null
+	if(istype(target, /mob/living/simple_animal/hostile/asteroid/goliath/beast))
+		new_monster = new /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient(target.loc)
+	if(istype(target, /mob/living/simple_animal/hostile/asteroid/basilisk/watcher))
+		if(prob(50))
+			new_monster = new /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing(target.loc)
+		else
+			new_monster = new /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing(target.loc)
+	if(istype(target, /mob/living/simple_animal/hostile/asteroid/hivelord/legion))
+		new_monster = new /mob/living/simple_animal/hostile/asteroid/hivelord/legion/dwarf(target.loc)
+	if(new_monster == null)
+		user.visible_message(span_danger("This creature won't respond to the potion."))
+		return
+	if(target.mind)
+		target.mind.transfer_to(new_monster)
+	user.visible_message(span_danger("[target] sheds its form, emerging from a pile of gibs with new and fresh limbs!"))
+	target.gib()
 	qdel(src)
 
 /obj/item/stack/tile/bluespace

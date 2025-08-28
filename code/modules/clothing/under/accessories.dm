@@ -8,13 +8,8 @@
 	w_class = WEIGHT_CLASS_SMALL
 	var/above_suit = FALSE
 	var/minimize_when_attached = TRUE // TRUE if shown as a small icon in corner, FALSE if overlayed
-	var/datum/component/storage/detached_pockets
 	var/attachment_slot = CHEST
 	appearance_flags = TILE_BOUND | RESET_COLOR
-
-/obj/item/clothing/accessory/Destroy()
-	set_detached_pockets(null)
-	return ..()
 
 /obj/item/clothing/accessory/proc/can_attach_accessory(obj/item/clothing/U, mob/user)
 	if(!attachment_slot || (U && U.body_parts_covered & attachment_slot))
@@ -23,12 +18,11 @@
 		to_chat(user, span_warning("There doesn't seem to be anywhere to put [src]..."))
 
 /obj/item/clothing/accessory/proc/attach(obj/item/clothing/under/U, user)
-	var/datum/component/storage/storage = GetComponent(/datum/component/storage)
-	if(storage)
-		if(SEND_SIGNAL(U, COMSIG_CONTAINS_STORAGE))
+	if(atom_storage)
+		if(U.atom_storage)
 			return FALSE
-		U.TakeComponent(storage)
-		set_detached_pockets(storage)
+		U.clone_storage(atom_storage)
+		U.atom_storage.set_real_location(src)
 	U.attached_accessory = src
 	forceMove(U)
 	layer = FLOAT_LAYER
@@ -47,8 +41,8 @@
 	return TRUE
 
 /obj/item/clothing/accessory/proc/detach(obj/item/clothing/under/U, user)
-	if(detached_pockets && detached_pockets.parent == U)
-		TakeComponent(detached_pockets)
+	if(U.atom_storage && U.atom_storage.real_location?.resolve() == src)
+		QDEL_NULL(U.atom_storage)
 
 	U.set_armor(U.get_armor().subtract_other_armor(get_armor()))
 
@@ -64,17 +58,6 @@
 	U.cut_overlays()
 	U.attached_accessory = null
 	U.accessory_overlay = null
-
-/obj/item/clothing/accessory/proc/set_detached_pockets(new_pocket)
-	if(detached_pockets)
-		UnregisterSignal(detached_pockets, COMSIG_PARENT_QDELETING)
-	detached_pockets = new_pocket
-	if(detached_pockets)
-		RegisterSignal(detached_pockets, COMSIG_PARENT_QDELETING, PROC_REF(handle_pockets_del))
-
-/obj/item/clothing/accessory/proc/handle_pockets_del(datum/source)
-	SIGNAL_HANDLER
-	set_detached_pockets(null)
 
 /obj/item/clothing/accessory/proc/on_uniform_equip(obj/item/clothing/under/U, user)
 	return
@@ -349,10 +332,12 @@
 	name = "pocket protector"
 	desc = "Can protect your clothing from ink stains, but you'll look like a nerd if you're using one."
 	icon_state = "pocketprotector"
-	pocket_storage_component_path = /datum/component/storage/concrete/pockets/pocketprotector
 
 /obj/item/clothing/accessory/pocketprotector/full/Initialize(mapload)
 	. = ..()
+
+	create_storage(storage_type = /datum/storage/pockets/pocketprotector)
+
 	new /obj/item/pen/red(src)
 	new /obj/item/pen(src)
 	new /obj/item/pen/blue(src)
@@ -413,12 +398,16 @@
 	icon_state = "holster"
 	item_state = "holster"
 	worn_icon_state = "holster"
-	pocket_storage_component_path = /datum/component/storage/concrete/pockets/holster
 	slot_flags = ITEM_SLOT_SUITSTORE|ITEM_SLOT_BELT
+	var/holstertype = /datum/storage/pockets/holster
+
+/obj/item/clothing/accessory/holster/Initialize(mapload)
+	. = ..()
+	create_storage(storage_type = holstertype)
 
 /obj/item/clothing/accessory/holster/detective
 	name = "detective's shoulder holster"
-	pocket_storage_component_path = /datum/component/storage/concrete/pockets/holster/detective
+	holstertype = /datum/storage/pockets/holster/detective
 
 /obj/item/clothing/accessory/holster/detective/Initialize(mapload)
 	. = ..()

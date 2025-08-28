@@ -49,8 +49,8 @@
 	return team
 
 /datum/antagonist/abductor/on_gain()
-	owner.special_role = "[name]"
-	owner.assigned_role = "[name]"
+	owner.special_role = ROLE_ABDUCTOR
+	owner.assigned_role = ROLE_ABDUCTOR
 	objectives += team.objectives
 	for(var/datum/objective/O in objectives)
 		log_objective(owner.current, O.explanation_text)
@@ -83,7 +83,7 @@
 	//Equip
 	var/mob/living/carbon/human/H = owner.current
 	H.set_species(/datum/species/abductor)
-	var/obj/item/organ/tongue/abductor/T = H.getorganslot(ORGAN_SLOT_TONGUE)
+	var/obj/item/organ/tongue/abductor/T = H.get_organ_slot(ORGAN_SLOT_TONGUE)
 	T.mothership = "[team.name]"
 
 	H.real_name = "[team.name] [sub_role]"

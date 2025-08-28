@@ -22,6 +22,9 @@
 	player_ckey = ckey(player_ckey)
 	var/client/player_client = GLOB.directory[player_ckey]
 	if(player_client)
+		// Unauthenticated users can't be banned
+		if(!player_client.logged_in)
+			return FALSE
 		var/list/ban_cache = retrieve_ban_cache(player_client)
 		if(!islist(ban_cache))
 			return // Disconnected while building the list.
@@ -76,6 +79,9 @@
 //returns an associative nested list of each matching row's ban id, bantime, ban round id, expiration time, ban duration, applies to admins, reason, key, ip, cid and banning admin's key in that order
 /proc/is_banned_from_with_details(player_ckey, player_ip, player_cid, role)
 	if(!player_ckey && !player_ip && !player_cid)
+		return
+	// pre-auth users can't be banned
+	if(IS_PREAUTH_CKEY(player_ckey))
 		return
 	var/ssqlname = CONFIG_GET(string/serversqlname)
 	var/server_check
@@ -147,6 +153,9 @@
 	if(!SSdbcore.Connect())
 		return
 	if(QDELETED(player_client))
+		return
+	// Gotta be authenticated for this to work
+	if(!player_client.logged_in)
 		return
 	var/current_time = REALTIMEOFDAY
 	player_client.ban_cache_start = current_time
@@ -572,6 +581,14 @@
 			return
 		if(query_create_ban_get_player.NextRow())
 			player_key = query_create_ban_get_player.item[1]
+			for(var/method_id in GLOB.login_methods)
+				var/datum/external_login_method/method = GLOB.login_methods[method_id]
+				if(!istype(method))
+					continue
+				if(method.is_fake_key(player_ckey))
+					// this is only used for display purposes, so we can put html and stuff
+					player_key = "<span class='chat16x16 badge-badge_[method.get_badge_id()]' style='vertical-align: -3px;'></span>[player_ckey]"
+					break
 			if(use_last_connection)
 				if(ip_check)
 					player_ip = query_create_ban_get_player.item[2]
@@ -620,7 +637,7 @@
 				qdel(query_check_adminban_count)
 				return
 		qdel(query_check_adminban_count)
-	var/admin_ip = usr.client.address
+	var/admin_ip = usr.client.is_localhost() ? "127.0.0.1" : usr.client.address
 	var/admin_cid = usr.client.computer_id
 	duration = text2num(duration)
 	if (!(interval in list("SECOND", "MINUTE", "HOUR", "DAY", "WEEK", "MONTH", "YEAR")))
@@ -629,7 +646,7 @@
 	if(duration > 1) //pluralize the interval if necessary
 		time_message += "s"
 	var/note_reason = "Banned from [roles_to_ban[1] == "Server" ? "the server" : " Roles: [roles_to_ban.Join(", ")]"] [isnull(duration) ? "permanently" : "for [time_message]"] - [reason]"
-	var/list/clients_online = GLOB.clients.Copy()
+	var/list/clients_online = GLOB.clients_unsafe.Copy()
 	var/list/admins_online = list()
 	for(var/client/C in clients_online)
 		if(C.holder) //deadmins aren't included since they wouldn't show up on adminwho
@@ -715,7 +732,7 @@
 			qdel(C)
 	if(roles_to_ban[1] == "Server" && AH)
 		AH.Resolve()
-	for(var/client/i in GLOB.clients - C)
+	for(var/client/i in GLOB.clients_unsafe - C)
 		if(i.address == player_ip || i.computer_id == player_cid)
 			build_ban_cache(i)
 			to_chat(i, "[span_boldannounce("You have been [special_prefix]banned by [usr.client.key] from [roles_to_ban[1] == "Server" ? "the server" : " Roles: [roles_to_ban.Join(", ")]"].\nReason: [reason]")]<br>[span_danger("This ban is [isnull(duration) ? "permanent." : "temporary, it will be removed in [time_message]."] [global_ban ? "This ban applies to all of our servers." : "This is a single-server ban, and only applies to this server."] The round ID is [GLOB.round_id].")]<br>[span_danger("To appeal this ban go to [appeal_url]")]")
@@ -735,7 +752,7 @@
 	var/datum/browser/unban_panel = new(usr, "unbanpanel", "Unbanning Panel", 850, 600)
 	unban_panel.add_stylesheet("unbanpanelcss", 'html/admin/unbanpanel.css')
 	var/list/output = list("<div class='searchbar'>")
-	output += {"<form method='get' action='?src=[REF(src)]'>[HrefTokenFormField()]
+	output += {"<form method='get' action='byond://?src=[REF(src)]'>[HrefTokenFormField()]
 	<input type='hidden' name='src' value='[REF(src)]'>
 	Key:<input type='text' name='searchunbankey' size='18' value='[player_key]'>
 	Admin Key:<input type='text' name='searchunbanadminkey' size='18' value='[admin_key]'>
@@ -776,7 +793,7 @@
 			var/pagecount = 1
 			var/list/pagelist = list()
 			while(bancount > 0)
-				pagelist += "<a href='?_src_=holder;[HrefToken()];unbanpagecount=[pagecount - 1];unbankey=[player_key];unbanadminkey=[admin_key];unbanip=[player_ip];unbancid=[player_cid]'>[pagecount == (page + 1) ? "<b>\[[pagecount]\]</b>" : "\[[pagecount]\]"]</a>"
+				pagelist += "<a href='byond://?_src_=holder;[HrefToken()];unbanpagecount=[pagecount - 1];unbankey=[player_key];unbanadminkey=[admin_key];unbanip=[player_ip];unbancid=[player_cid]'>[pagecount == (page + 1) ? "<b>\[[pagecount]\]</b>" : "\[[pagecount]\]"]</a>"
 				bancount -= bansperpage
 				pagecount++
 			output += pagelist.Join(" | ")
@@ -837,7 +854,7 @@
 			var/ban_round_id  = query_unban_search_bans.item[3]
 			var/role = query_unban_search_bans.item[4]
 			//make the href for unban here so only the search parameters are passed
-			var/unban_href = "<a href='?_src_=holder;[HrefToken()];unbanid=[ban_id];unbankey=[player_key];unbanadminkey=[admin_key];unbanip=[player_ip];unbancid=[player_cid];unbanrole=[role];unbanpage=[page]'>Unban</a>"
+			var/unban_href = "<a href='byond://?_src_=holder;[HrefToken()];unbanid=[ban_id];unbankey=[player_key];unbanadminkey=[admin_key];unbanip=[player_ip];unbancid=[player_cid];unbanrole=[role];unbanpage=[page]'>Unban</a>"
 			var/expiration_time = query_unban_search_bans.item[5]
 			//we don't cast duration as num because if the duration is large enough to be converted to scientific notation by byond then the + character gets lost when passed through href causing SQL to interpret '4.321e 007' as '4'
 			var/duration = query_unban_search_bans.item[6]
@@ -861,9 +878,9 @@
 			if(unban_datetime)
 				output += "<br>Unbanned by <b>[unban_key]</b> on <b>[unban_datetime]</b> during round <b>#[unban_round_id]</b>."
 			output += "</div><div class='container'><div class='reason'>[reason]</div><div class='edit'>"
-			output += "<a href='?_src_=holder;[HrefToken()];editbanid=[ban_id];editbankey=[player_key];editbanip=[player_ip];editbancid=[player_cid];editbanrole=[role];editbanduration=[duration];editbanadmins=[applies_to_admins];editbanreason=[rustg_url_encode(reason)];editbanpage=[page];editbanadminkey=[admin_key]'>Edit</a><br>[unban_href]"
+			output += "<a href='byond://?_src_=holder;[HrefToken()];editbanid=[ban_id];editbankey=[player_key];editbanip=[player_ip];editbancid=[player_cid];editbanrole=[role];editbanduration=[duration];editbanadmins=[applies_to_admins];editbanreason=[rustg_url_encode(reason)];editbanpage=[page];editbanadminkey=[admin_key]'>Edit</a><br>[unban_href]"
 			if(edits)
-				output += "<br><a href='?_src_=holder;[HrefToken()];unbanlog=[ban_id]'>Edit log</a>"
+				output += "<br><a href='byond://?_src_=holder;[HrefToken()];unbanlog=[ban_id]'>Edit log</a>"
 			output += "</div></div></div>"
 		qdel(query_unban_search_bans)
 		output += "</div>"
@@ -900,7 +917,7 @@
 	if(C)
 		build_ban_cache(C)
 		to_chat(C, span_boldannounce("[usr.client.key] has removed a ban from [role] for your key."))
-	for(var/client/i in GLOB.clients - C)
+	for(var/client/i in GLOB.clients_unsafe - C)
 		if(i.address == player_ip || i.computer_id == player_cid)
 			build_ban_cache(i)
 			to_chat(i, span_boldannounce("[usr.client.key] has removed a ban from [role] for your IP or CID."))
@@ -1044,7 +1061,7 @@
 	if(C)
 		build_ban_cache(C)
 		to_chat(C, span_boldannounce("[usr.client.key] has edited the [changes_keys_text] of a ban for your key."))
-	for(var/client/i in GLOB.clients - C)
+	for(var/client/i in GLOB.clients_unsafe - C)
 		if(i.address == old_ip || i.computer_id == old_cid)
 			build_ban_cache(i)
 			to_chat(i, span_boldannounce("[usr.client.key] has edited the [changes_keys_text] of a ban for your IP or CID."))
@@ -1098,7 +1115,7 @@
 	if(tgui_fancy) //some browsers (IE8) have trouble with unsupported css3 elements and DOM methods that break the panel's functionality, so we won't load those if a user is in no frills tgui mode since that's for similar compatability support
 		panel.add_stylesheet("admin_panelscss3", 'html/admin/admin_panels_css3.css')
 		panel.add_script("banpaneljs", 'html/admin/banpanel.js')
-	var/list/output = list("<form method='get' action='?src=[REF(src)]'>[HrefTokenFormField()]")
+	var/list/output = list("<form method='get' action='byond://?src=[REF(src)]'>[HrefTokenFormField()]")
 	output += {"<input type='hidden' name='src' value='[REF(src)]'>
 	<label class='inputlabel checkbox'>Key:
 	<input type='checkbox' id='keycheck' name='keycheck' value='1'[player_key ? " checked": ""]>

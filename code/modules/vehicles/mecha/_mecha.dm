@@ -28,7 +28,6 @@
 	force = 5
 	move_force = MOVE_FORCE_VERY_STRONG
 	move_resist = MOVE_FORCE_EXTREMELY_STRONG
-	emulate_door_bumps = TRUE
 	COOLDOWN_DECLARE(mecha_bump_smash)
 	light_system = MOVABLE_LIGHT
 	light_on = FALSE
@@ -208,8 +207,8 @@
 	cabin_air = new
 	cabin_air.temperature = T20C
 	cabin_air.volume = 200
-	SET_MOLES(/datum/gas/oxygen, cabin_air, O2STANDARD*cabin_air.return_volume()/(R_IDEAL_GAS_EQUATION*cabin_air.return_temperature()))
-	SET_MOLES(/datum/gas/nitrogen, cabin_air, N2STANDARD*cabin_air.return_volume()/(R_IDEAL_GAS_EQUATION*cabin_air.return_temperature()))
+	SET_MOLES(/datum/gas/oxygen, cabin_air, O2STANDARD*ONE_ATMOSPHERE*cabin_air.return_volume()/(R_IDEAL_GAS_EQUATION*cabin_air.return_temperature()))
+	SET_MOLES(/datum/gas/nitrogen, cabin_air, N2STANDARD*ONE_ATMOSPHERE*cabin_air.return_volume()/(R_IDEAL_GAS_EQUATION*cabin_air.return_temperature()))
 
 	add_cell()
 	add_scanmod()
@@ -435,6 +434,20 @@
 			var/delta = cabin_air.return_temperature() - T20C
 			cabin_air.temperature = (cabin_air.return_temperature() - clamp(round(delta / 8, 0.1), -5, 5) * delta_time)
 
+	if(internal_tank)
+		var/datum/gas_mixture/tank_air = internal_tank.return_air()
+
+		var/release_pressure = internal_tank_valve
+		var/cabin_pressure = cabin_air.return_pressure()
+		var/pressure_delta = min(release_pressure - cabin_pressure, (tank_air.return_pressure() - cabin_pressure)/2)
+		if(pressure_delta > 0) //cabin pressure lower than release pressure
+			if(tank_air.return_temperature() > 0)
+				tank_air.pump_gas_to(cabin_air, release_pressure)
+		else if(pressure_delta < 0) //cabin pressure higher than release pressure
+			var/datum/gas_mixture/t_air = return_air()
+			if(pressure_delta > 0) //if location pressure is lower than cabin pressure
+				cabin_air.pump_gas_to(t_air, cabin_pressure)
+
 	for(var/mob/living/occupant as anything in occupants)
 		if(!enclosed && occupant?.incapacitated())  //no sides mean it's easy to just sorta fall out if you're incapacitated.
 			visible_message(span_warning("[occupant] tumbles out of the cockpit!"))
@@ -613,6 +626,11 @@
 		return TRUE
 	return FALSE
 
+/obj/vehicle/sealed/mecha/relaymove(mob/living/user, direction)
+	if(canmove)
+		vehicle_move(direction)
+	return TRUE
+
 /obj/vehicle/sealed/mecha/vehicle_move(direction, forcerotate = FALSE)
 	if(!COOLDOWN_FINISHED(src, cooldown_vehicle_move))
 		return FALSE
@@ -688,14 +706,14 @@
 			return TRUE
 
 
-	//set_glide_size(DELAY_TO_GLIDE_SIZE(movedelay))
+	set_glide_size(DELAY_TO_GLIDE_SIZE(movedelay))
 	//Otherwise just walk normally
 	. = step(src,direction, dir)
 	if(phasing)
 		use_power(phasing_energy_drain)
 	if(strafe)
 		setDir(olddir)
-
+	after_move(direction)
 
 /obj/vehicle/sealed/mecha/Bump(atom/obstacle)
 	. = ..()
@@ -778,7 +796,7 @@
 			to_chat(user, "[B.get_mecha_info()]")
 			break
 		//Nothing like a big, red link to make the player feel powerful!
-		to_chat(user, "<a href='?src=[REF(user)];ai_take_control=[REF(src)]'>[span_userdanger("ASSUME DIRECT CONTROL?")]</a><br>")
+		to_chat(user, "<a href='byond://?src=[REF(user)];ai_take_control=[REF(src)]'>[span_userdanger("ASSUME DIRECT CONTROL?")]</a><br>")
 		return
 	examine(user)
 	if(length(return_drivers()) > 0)
@@ -792,7 +810,7 @@
 	if(!can_control_mech)
 		to_chat(user, span_warning("You cannot control exosuits without AI control beacons installed."))
 		return
-	to_chat(user, "<a href='?src=[REF(user)];ai_take_control=[REF(src)]'>[span_boldnotice("Take control of exosuit?")]</a><br>")
+	to_chat(user, "<a href='byond://?src=[REF(user)];ai_take_control=[REF(src)]'>[span_boldnotice("Take control of exosuit?")]</a><br>")
 
 /obj/vehicle/sealed/mecha/transfer_ai(interaction, mob/user, mob/living/silicon/ai/AI, obj/item/aicard/card)
 	. = ..()
@@ -841,7 +859,6 @@
 				to_chat(occupants, span_danger("You have been forcibly ejected!"))
 				for(var/ejectee in occupants)
 					mob_exit(ejectee, TRUE, TRUE) //IT IS MINE, NOW. SUCK IT, RD!
-				AI.can_shunt = FALSE //ONE AI ENTERS. NO AI LEAVES.
 
 		if(AI_TRANS_FROM_CARD) //Using an AI card to upload to a mech.
 			AI = card.AI
@@ -998,11 +1015,6 @@
 	return TRUE
 
 /obj/vehicle/sealed/mecha/container_resist(mob/living/user)
-	if(isAI(user))
-		var/mob/living/silicon/ai/AI = user
-		if(!AI.can_shunt)
-			to_chat(AI, span_notice("You can't leave a mech after dominating it!."))
-			return FALSE
 	to_chat(user, span_notice("You begin the ejection procedure. Equipment is disabled during this process. Hold still to finish ejecting."))
 	is_currently_ejecting = TRUE
 	if(do_after(user, has_gravity() ? exit_delay : 0 , target = src))

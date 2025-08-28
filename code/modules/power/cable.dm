@@ -120,7 +120,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 				R = locate(/obj/item/stack/cable_coil) in T
 			if(R)
 				transfer_fingerprints_to(R)
-		var/turf/T_below = T.below()
+		var/turf/T_below = GET_TURF_BELOW(T)
 		if((d1 == DOWN || d2 == DOWN) && T_below)
 			for(var/obj/structure/cable/C in T_below)
 				if(C.d1 == UP || C.d2 == UP)
@@ -474,7 +474,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 // Definitions
 ////////////////////////////////
 
-GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restraints", /obj/item/restraints/handcuffs/cable, 15), new/datum/stack_recipe("noose", /obj/structure/chair/noose, 30, time = 80, one_per_turf = 1, on_floor = 1)))
+GLOBAL_LIST_INIT(cable_coil_recipes, list (
+	new/datum/stack_recipe("cable restraints", /obj/item/restraints/handcuffs/cable, 15, category = CAT_EQUIPMENT),
+	new/datum/stack_recipe("noose", /obj/structure/chair/noose, 30, time = 80, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND),
+))
 
 /obj/item/stack/cable_coil
 	name = "cable coil"
@@ -621,7 +624,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 			new /obj/item/stack/cable_coil(get_turf(C), 1, C.color)
 			C.deconstruct()
 	else if(d2 == DOWN)
-		place_cable(T.below(), user, 0, UP)
+		place_cable(GET_TURF_BELOW(T), user, 0, UP)
 		to_chat(user, span_notice("You slide the cable downward."))
 
 	return C
@@ -677,7 +680,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 		return
 
 	var/dirn = get_dir(C, user)
-	if(T.allow_z_travel && T.below() && !locate(/obj/structure/lattice/catwalk, T))
+	if(T.allow_z_travel && GET_TURF_BELOW(T) && !locate(/obj/structure/lattice/catwalk, T))
 		dirn = DOWN
 	if(forceddir)
 		dirn = forceddir

@@ -141,7 +141,7 @@
 	var/response_href = ""
 	if(can_respond(target, check_time = FALSE, silent = TRUE))
 		can_respond_until[target] = world.time + HOLOPARA_TELEPATHY_RESPONSE_TIME
-		response_href = "<a href=?src=[REF(src)];respond=1><b>\[[span_hypnophrase("RESPOND")]\]</b></a> "
+		response_href = "<a href='byond://?src=[REF(src)];respond=1'><b>\[[span_hypnophrase("RESPOND")]\]</b></a> "
 	SSblackbox.record_feedback("amount", "holoparasite_telepathy_sent", 1)
 	to_chat(owner, span_holoparasite("You telepathically said: \"[span_message(message)]\" to [span_name(target)]."), type = MESSAGE_TYPE_RADIO, avoid_highlighting = TRUE)
 	to_chat(target, span_holoparasite("[response_href][span_notice("You hear a strange, resonating voice in your head...")] [span_message("[COLOR_TEXT(owner.accent_color, message)]")]"), type = MESSAGE_TYPE_RADIO)
@@ -203,7 +203,7 @@
 				if(isstargazer(carbon_responder))
 					return TRUE
 				// As can anyone with the telepathy mutation.
-				if(carbon_responder.dna.check_mutation(TELEPATHY))
+				if(carbon_responder.dna.check_mutation(/datum/mutation/telepathy))
 					return TRUE
 		return FALSE
 

@@ -102,6 +102,10 @@
 				if(mark_loc.item_flags & ABSTRACT)
 					break
 
+			//mjolnir is funky so it gets a bypass
+			if(istype(item_to_retrieve.loc, /obj/structure/anchored_mjolnir))
+				break
+
 			// If its on someone, properly drop it
 			if(ismob(item_to_retrieve.loc))
 				var/mob/holding_mark = item_to_retrieve.loc

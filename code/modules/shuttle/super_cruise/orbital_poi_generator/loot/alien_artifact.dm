@@ -157,6 +157,7 @@
 CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/proximity_monitor_holder)
 
 /atom/movable/proximity_monitor_holder/Initialize(mapload, datum/proximity_monitor/_monitor, datum/callback/_callback)
+	SHOULD_CALL_PARENT(FALSE)
 	monitor = _monitor
 	callback = _callback
 	monitor?.hasprox_receiver = src
@@ -402,7 +403,7 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 		/datum/gas/hypernoblium = 1,
 		/datum/gas/plasma = 3,
 		/datum/gas/tritium = 2,
-		/datum/gas/nitryl = 1
+		/datum/gas/nitrium = 1
 	)
 	var/datum/gas/input
 	var/datum/gas/output

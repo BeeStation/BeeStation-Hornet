@@ -77,7 +77,7 @@
 	if(chassis.selected == src)
 		txt += "<b>[src]</b>"
 	else if(selectable)
-		txt += "<a href='?src=[REF(chassis)];select_equip=[REF(src)]'>[src]</a>"
+		txt += "<a href='byond://?src=[REF(chassis)];select_equip=[REF(src)]'>[src]</a>"
 	else
 		txt += "[src]"
 

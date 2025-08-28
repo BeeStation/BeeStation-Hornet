@@ -97,7 +97,7 @@
 			put_in_hands(I)
 			update_inv_hands()
 		if(ITEM_SLOT_BACKPACK)
-			if(!back || !SEND_SIGNAL(back, COMSIG_TRY_STORAGE_INSERT, I, src, TRUE))
+			if(!back || !back.atom_storage?.attempt_insert(I, src, override = TRUE))
 				not_handled = TRUE
 		else
 			not_handled = TRUE
@@ -158,7 +158,7 @@
 
 /// Returns TRUE if a breathing tube is equipped.
 /mob/living/carbon/proc/can_breathe_tube()
-	if (getorganslot(ORGAN_SLOT_BREATHING_TUBE))
+	if (get_organ_slot(ORGAN_SLOT_BREATHING_TUBE))
 		return TRUE
 
 /// Returns TRUE if an air tank compatible mask or breathing tube is equipped.

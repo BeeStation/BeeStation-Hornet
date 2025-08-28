@@ -78,14 +78,18 @@ HUMANS_NEED_SURNAMES
 
 
 ## ALERT LEVELS ###
-ALERT_GREEN All threats to the station have passed. Security may not have weapons visible, privacy laws are once again fully enforced.
+ALERT_GREEN All threats to the station have passed. Security may not have weapons visible, privacy laws are now in effect.
 ALERT_BLUE_UPTO The station has received reliable information about possible hostile activity on the station. Security staff may have weapons visible, random searches are permitted.
 ALERT_BLUE_DOWNTO The immediate threat has passed. Security may no longer have weapons drawn at all times, but may continue to have them visible. Random searches are still allowed.
-ALERT_RED_UPTO There is an immediate serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised. Additionally, access requirements on some doors have been lifted.
-ALERT_RED_DOWNTO The station's destruction has been averted. There is still however an immediate serious threat to the station. Security may have weapons unholstered at all times, random searches are allowed and advised.
-ALERT_DELTA Destruction of the station is imminent. All crew are instructed to obey all instructions given by heads of staff. Any violations of these orders can be punished by death. This is not a drill.
-
-
+ALERT_RED_UPTO The station is now under martial law. There is an immediate serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised.
+ALERT_RED_DOWNTO There is still an immediate serious threat to the station. Security may have weapons unholstered at all times, random searches are allowed and advised.
+ALERT_DELTA Destruction of the station is imminent. Prepare for immediate evacuation. Any violations of orders from Heads of Staff or security are punishable by death.
+ALERT_ENGINEERING The security alert is now Yellow(Engineering). A critical engineering issue is present on the station. Don protective gear and personal oxygen systems. Command authority is transferred to the Chief Engineer for the duration of this alert.
+ALERT_MEDICAL The security alert is now Yellow(Medical). A C-B-R-N threat is present aboard the station. Don protective gear and personal oxygen systems. Command authority is transferred to the Chief Medical Officer for the duration of this alert.
+ALERT_BLACK Command staff has activated "BLACK" security level on the station. All hands are to prepare for combat. Any violations of orders from Heads of Staff or security are punishable by death.
+ALERT_GAMMA Central Command has ordered "GAMMA" security level on the station. The station is now under direct central command control. All central command staff are to be obeyed at all costs.
+ALERT_LAMBDA Central Command has ordered "LAMBDA" security level on the station. Any violations of orders from Heads of Staff or security are punishable by death. All hands, prepare for evacuation.
+ALERT_EPSILON Central Command has ordered "EPSILON" security level on the station. Your station is designated as a lost asset. Consider your contracts with Nanotrasen terminated.
 
 ## GAME MODES ###
 
@@ -105,7 +109,6 @@ PROBABILITY CULT 0
 PROBABILITY TRAITORCHAN 0
 PROBABILITY CHANGELING 0
 PROBABILITY ASSIMILATION 0
-PROBABILITY INCURSION 0
 PROBABILITY NUCLEAR 0
 PROBABILITY CLOCKCULT 0
 PROBABILITY SECRET_EXTENDED 0
@@ -136,7 +139,6 @@ REPEATED_MODE_ADJUST 45 30 10
 CONTINUOUS TRAITOR
 CONTINUOUS TRAITORBRO
 CONTINUOUS TRAITORCHAN
-CONTINUOUS INCURSION
 CONTINUOUS INTERNAL_AFFAIRS
 #CONTINUOUS NUCLEAR
 #CONTINUOUS REVOLUTION
@@ -163,7 +165,6 @@ CONTINUOUS SECRET_EXTENDED
 ## In modes that are continuous, if all antagonists should die then a new set of antagonists will be created.
 
 MIDROUND_ANTAG TRAITOR
-MIDROUND_ANTAG INCURSION
 #MIDROUND_ANTAG TRAITORBRO
 MIDROUND_ANTAG TRAITORCHAN
 MIDROUND_ANTAG INTERNAL_AFFAIRS
@@ -215,9 +216,6 @@ MAX_POP DEVIL -1
 MIN_POP DEVIL_AGENTS 25
 MAX_POP DEVIL_AGENTS -1
 
-MIN_POP INCURSION 22
-MAX_POP INCURSION -1
-
 ## Setting at least one mode to be playable at 0/1 players is required.
 #MIN_POP EXTENDED 0
 #MAX_POP EXTENDED -1
@@ -242,11 +240,6 @@ BROTHER_SCALING_COEFF 6
 CHANGELING_SCALING_COEFF 6
 ECULT_SCALING_COEFF 6
 
-## Variables calculate how number of open security officer positions will scale to population.
-## Used as (Officers = Population / Coeff)
-## Set to 0 to disable scaling and use default numbers instead.
-SECURITY_SCALING_COEFF 10
-
 ## The number of objectives traitors get.
 ## Not including escaping/hijacking.
 TRAITOR_OBJECTIVES_AMOUNT 2
@@ -267,19 +260,6 @@ PROTECT_HEADS_FROM_ANTAGONIST
 
 ## If late-joining players have a chance to become a traitor/changeling
 ALLOW_LATEJOIN_ANTAGONISTS
-
-## The minimum amount of players for malfunctioning AI to be occur.
-MALF_AI_MINIMUM_POP 30
-
-## Incursion Rules
-## The more incursion-traitors spawn, the most pop is required to spawn the next
-## Values of 6 and 2 will be 6 for 1 then (6) + (6 + 2) for 2
-## 6, 14, 24, 36, 50, 66, 84
-INCURSION_COST_BASE 6
-INCURSION_COST_INCREMENT 0.25
-INCURSION_COUNT_MAX 6
-INCURSION_COUNT_MIN 2
-INCURSION_OBJECTIVE_AMOUNT 4
 
 ## Comment this out to disable the antagonist reputation system. This system rewards players who participate in the game instead of greytiding by giving them slightly higher odds to
 ## roll antagonist in subsequent rounds until they get it.
@@ -330,11 +310,11 @@ ALLOW_AI
 ALLOW_AI_MULTICAM
 
 ## Secborg ###
-## Uncomment to prevent the security cyborg module from being chosen
+## Uncomment to prevent the security cyborg model from being chosen
 DISABLE_SECBORG
 
 ## Peacekeeper Borg ###
-## Uncomment to prevent the peacekeeper cyborg module from being chosen
+## Uncomment to prevent the peacekeeper cyborg model from being chosen
 #DISABLE_PEACEBORG
 
 ## AWAY MISSIONS ###
@@ -348,17 +328,6 @@ GATEWAY_DELAY 18000
 
 
 ## ACCESS ###
-
-## If the number of players ready at round starts exceeds this threshold, JOBS_HAVE_MINIMAL_ACCESS will automatically be enabled. Otherwise, it will be disabled.
-## This is useful for accomodating both low and high population rounds on the same server.
-## Comment this out or set to 0 to disable this automatic toggle.
-MINIMAL_ACCESS_THRESHOLD 20
-
-## Comment this out this if you wish to use the setup where jobs have more access.
-## This is intended for servers with low populations - where there are not enough
-## players to fill all roles, so players need to do more than just one job.
-## This option is ignored if MINIMAL_ACCESS_THRESHOLD is used.
-#JOBS_HAVE_MINIMAL_ACCESS
 
 ## Uncomment to give assistants maint access.
 #ASSISTANTS_HAVE_MAINT_ACCESS
@@ -398,7 +367,8 @@ NEAR_DEATH_EXPERIENCE
 ## Set to 0/commented out for "off", silicons will just start with Asimov.
 ## Set to 1 for "custom", silicons will start with the custom laws defined in silicon_laws.txt. (If silicon_laws.txt is empty, the AI will spawn with asimov and Custom boards will auto-delete.)
 ## Set to 2 for "random", silicons will start with a random lawset picked from random laws specified below.
-## Set to 3 for "weighted random", using values in "silicon_weights.txt", a law will be selected, with weights specifed in that file.
+## Set to 3 for "weighted random", using values in "silicon_weights.txt", a law will be selected, with weights specified in that file.
+## Set to 4 for "specified", silicons will start with an existing lawset. (If no specified lawset is identified, the AI will spawn with asimov.)
 DEFAULT_LAWS 2
 
 ## RANDOM LAWS ##
@@ -411,18 +381,17 @@ RANDOM_LAWS asimov
 RANDOM_LAWS asimovpp
 RANDOM_LAWS crewsimov
 RANDOM_LAWS corporate
-RANDOM_LAWS maintain
+RANDOM_LAWS efficiency
 
 ## Quirky laws. Shouldn't cause too much harm
 #RANDOM_LAWS hippocratic
-#RANDOM_LAWS maintain
-#RANDOM_LAWS drone
 #RANDOM_LAWS liveandletlive
 #RANDOM_LAWS peacekeeper
 #RANDOM_LAWS reporter
 #RANDOM_LAWS hulkamania
-#RANDOM_LAWS paladin
-#RANDOM_LAWS robocop
+#RANDOM_LAWS ten_commandments
+#RANDOM_LAWS yesman
+#RANDOM_LAWS thinkermov
 
 ## Bad idea laws. Probably shouldn't enable these
 #RANDOM_LAWS syndie
@@ -430,9 +399,6 @@ RANDOM_LAWS maintain
 #RANDOM_LAWS antimov
 #RANDOM_LAWS thermodynamic
 #RANDOM_LAWS ratvar
-
-## meme laws. Honk
-#RANDOM_LAWS buildawall
 
 ## If weighted laws are selected (DEFAULT_LAWS = 3),
 ## then an AI's starting laws will be determined by the weights of these values
@@ -442,28 +408,40 @@ RANDOM_LAWS maintain
 LAW_WEIGHT custom,0
 
 ## standard-ish laws. These are fairly ok to run
-LAW_WEIGHT asimov,32
-LAW_WEIGHT asimovpp,12
-LAW_WEIGHT paladin,12
-LAW_WEIGHT robocop,12
-LAW_WEIGHT corporate,12
+## Unique AI station trait uses weights so we don't want asimov
+LAW_WEIGHT asimov,0
+LAW_WEIGHT asimovpp,0
+LAW_WEIGHT crewsimov,0
+LAW_WEIGHT corporate,0
+LAW_WEIGHT efficiency,0
+LAW_WEIGHT paladin,5
+LAW_WEIGHT paladin5,5
+LAW_WEIGHT robocop,5
+LAW_WEIGHT hippocratic,5
+LAW_WEIGHT liveandletlive,5
+LAW_WEIGHT peacekeeper,5
+LAW_WEIGHT ten_commandments,5
+LAW_WEIGHT nutimov,5
 
 ## Quirky laws. Shouldn't cause too much harm
-LAW_WEIGHT hippocratic,3
-LAW_WEIGHT maintain,4
+LAW_WEIGHT reporter,3
+LAW_WEIGHT hulkamania,3
+LAW_WEIGHT painter,3
+LAW_WEIGHT dungeon_master,3
+LAW_WEIGHT thinkermov,3
 LAW_WEIGHT drone,3
-LAW_WEIGHT liveandletlive,3
-LAW_WEIGHT peacekeeper,3
-LAW_WEIGHT reporter,4
-LAW_WEIGHT hulkamania,4
+LAW_WEIGHT ert,3
+LAW_WEIGHT paternal,3
 
 ## Bad idea laws. Probably shouldn't enable these
 LAW_WEIGHT syndie,0
 LAW_WEIGHT ninja,0
 LAW_WEIGHT antimov,0
+LAW_WEIGHT balance,0
 LAW_WEIGHT thermodynamic,0
-LAW_WEIGHT ratvar,0
-LAW_WEIGHT buildawall,0
+LAW_WEIGHT deathsquad,0
+LAW_WEIGHT tyrant,0
+LAW_WEIGHT overlord,0
 
 ##------------------------------------------------
 

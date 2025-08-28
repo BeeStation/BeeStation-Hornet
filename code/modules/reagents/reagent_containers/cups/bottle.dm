@@ -10,12 +10,59 @@
 	volume = 30
 	fill_icon_thresholds = list(1, 10, 20, 40, 60, 80, 100)
 	label_icon = "label_bottle"
+	isGlass = TRUE
+	throwforce = 10
 
 /obj/item/reagent_containers/cup/bottle/Initialize(mapload)
 	. = ..()
 	if(!icon_state)
 		icon_state = "bottle"
 	update_appearance()
+
+/obj/item/reagent_containers/cup/bottle/throw_impact(mob/living/target, mob/thrower)
+	SplashReagents(target, TRUE, override_spillable = TRUE)
+	if(isGlass)
+		var/obj/item/shard/B = new(loc)
+		target.Bumped(B)
+		playsound(loc, "shatter", 100, 1)
+		qdel(src)
+	else
+		target.Bumped(src)
+
+	return TRUE
+
+/obj/item/reagent_containers/cup/bottle/vial
+	name = "vial"
+	desc = "A very small recipent for the strongest potions for going into battle."
+	icon_state = "vial_potion"
+	fill_icon_state = null
+	custom_materials = list(/datum/material/glass=2500)
+	volume = 15
+	amount_per_transfer_from_this = 10
+	possible_transfer_amounts = list(5,10,15)
+	label_icon = "label_vial_potion"
+
+/obj/item/reagent_containers/cup/bottle/small_potion
+	name = "small potion"
+	desc = "A small recipent for the strongest potions for going into battle."
+	icon_state = "small_potion"
+	fill_icon_state = null
+	custom_materials = list(/datum/material/glass=2500)
+	volume = 30
+	amount_per_transfer_from_this = 10
+	possible_transfer_amounts = list(5,10,15,20,25,30)
+	label_icon = "label_small_potion"
+
+/obj/item/reagent_containers/cup/bottle/big_potion
+	name = "potion"
+	desc = "A recipent for the strongest potions for going into battle." ///https://www.youtube.com/watch?v=R_FQU4KzN7A
+	icon_state = "potion"
+	fill_icon_state = null
+	custom_materials = list(/datum/material/glass=2500)
+	volume = 75
+	amount_per_transfer_from_this = 10
+	possible_transfer_amounts = list(5,10,15,20,25,30,50,75)
+	label_icon = "label_potion"
 
 /obj/item/reagent_containers/cup/bottle/epinephrine
 	name = "epinephrine bottle"
@@ -157,15 +204,6 @@
 	label_name = "Fluorosulfuric Acid"
 	desc = "A small bottle. Contains a small amount of fluorosulfuric acid."
 	list_reagents = list(/datum/reagent/toxin/acid/fluacid = 30)
-
-/obj/item/reagent_containers/cup/bottle/adminordrazine
-	name = "Adminordrazine bottle"
-	label_name = "Adminordrazine"
-	desc = "A small bottle. Contains the liquid essence of the gods."
-	icon = 'icons/obj/drinks.dmi'
-	icon_state = "holyflask"
-	list_reagents = list(/datum/reagent/medicine/adminordrazine = 30)
-	label_icon = null
 
 /obj/item/reagent_containers/cup/bottle/viralbase
 	name = "Highly potent Viral Base bottle"

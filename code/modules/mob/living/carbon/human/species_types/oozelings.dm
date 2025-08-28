@@ -2,16 +2,25 @@
 	name = "\improper Oozeling"
 	id = SPECIES_OOZELING
 	bodyflag = FLAG_OOZELING
-	default_color = "00FF90"
-	species_traits = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR)
-	inherent_traits = list(TRAIT_TOXINLOVER,TRAIT_NOHAIRLOSS,TRAIT_NOFIRE,TRAIT_ALWAYS_CLEAN,TRAIT_EASYDISMEMBER)
+	species_traits = list(
+		MUTCOLORS,
+		EYECOLOR,
+		HAIR,
+		FACEHAIR,
+		NOAUGMENTS
+	)
+	inherent_traits = list(
+		TRAIT_TOXINLOVER,
+		TRAIT_NOHAIRLOSS,
+		TRAIT_NOFIRE,
+		TRAIT_EASYDISMEMBER,
+	)
 	hair_color = "mutcolor"
 	hair_alpha = 150
 	mutantlungs = /obj/item/organ/lungs/slime
 	mutanttongue = /obj/item/organ/tongue/slime
 	meat = /obj/item/food/meat/slab/human/mutant/slime
 	exotic_blood = /datum/reagent/toxin/slimejelly
-	damage_overlay_type = ""
 	var/datum/action/innate/regenerate_limbs/regenerate_limbs
 	coldmod = 6   // = 3x cold damage
 	heatmod = 0.5 // = 1/4x heat damage
@@ -19,14 +28,16 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/oozeling
 	swimming_component = /datum/component/swimming/dissolve
-	//inert_mutation = ACIDOOZE
+	inert_mutation = /datum/mutation/acidooze
 
-	species_chest = /obj/item/bodypart/chest/oozeling
-	species_head = /obj/item/bodypart/head/oozeling
-	species_l_arm = /obj/item/bodypart/l_arm/oozeling
-	species_r_arm = /obj/item/bodypart/r_arm/oozeling
-	species_l_leg = /obj/item/bodypart/l_leg/oozeling
-	species_r_leg = /obj/item/bodypart/r_leg/oozeling
+	bodypart_overrides = list(
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/oozeling,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/oozeling,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/oozeling,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/oozeling,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/oozeling,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/oozeling
+	)
 
 /datum/species/oozeling/random_name(gender, unique, lastname, attempts)
 	. = "[pick(GLOB.oozeling_first_names)]"
@@ -50,28 +61,29 @@
 		regenerate_limbs = new
 		regenerate_limbs.Grant(C)
 
-/datum/species/oozeling/spec_life(mob/living/carbon/human/H)
+/datum/species/oozeling/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
 	..()
 	if(H.stat == DEAD) //can't farm slime jelly from a dead slime/jelly person indefinitely
 		return
+
 	if(!H.blood_volume)
-		H.blood_volume += 5
-		H.adjustBruteLoss(5)
+		H.blood_volume += 2.5 * delta_time
+		H.adjustBruteLoss(2.5 * delta_time)
 		to_chat(H, span_danger("You feel empty!"))
 	if(H.nutrition >= NUTRITION_LEVEL_WELL_FED && H.blood_volume <= 672)
 		if(H.nutrition >= NUTRITION_LEVEL_ALMOST_FULL)
-			H.adjust_nutrition(-5)
-			H.blood_volume += 10
+			H.blood_volume += 5 * delta_time
+			H.adjust_nutrition(-2.5 * delta_time)
 		else
-			H.blood_volume += 8
+			H.blood_volume += 4 * delta_time
 	if(H.nutrition <= NUTRITION_LEVEL_HUNGRY)
 		if(H.nutrition <= NUTRITION_LEVEL_STARVING)
-			H.blood_volume -= 8
-			if(prob(5))
+			H.blood_volume -= 4 * delta_time
+			if(DT_PROB(2.5, delta_time))
 				to_chat(H, span_info("You're starving! Get some food!"))
 		else
-			if(prob(35))
-				H.blood_volume -= 2
+			if(DT_PROB(17.5, delta_time))
+				H.blood_volume -= 1 * delta_time
 				if(prob(5))
 					to_chat(H, span_danger("You're feeling pretty hungry..."))
 	var/atmos_sealed = FALSE

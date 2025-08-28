@@ -14,16 +14,16 @@
 /datum/admins/proc/one_click_antag()
 
 	var/dat = {"
-		<a href='?src=[REF(src)];[HrefToken()];makeAntag=traitors'>Make Traitors</a><br>
-		<a href='?src=[REF(src)];[HrefToken()];makeAntag=changelings'>Make Changelings</a><br>
-		<a href='?src=[REF(src)];[HrefToken()];makeAntag=revs'>Make Revs</a><br>
-		<a href='?src=[REF(src)];[HrefToken()];makeAntag=cult'>Make Cult</a><br>
-		<a href='?src=[REF(src)];[HrefToken()];makeAntag=blob'>Make Blob</a><br>
-		<a href='?src=[REF(src)];[HrefToken()];makeAntag=wizard'>Make Wizard (Requires Ghosts)</a><br>
-		<a href='?src=[REF(src)];[HrefToken()];makeAntag=nukeops'>Make Nuke Team (Requires Ghosts)</a><br>
-		<a href='?src=[REF(src)];[HrefToken()];makeAntag=centcom'>Make CentCom Response Team (Requires Ghosts)</a><br>
-		<a href='?src=[REF(src)];[HrefToken()];makeAntag=abductors'>Make Abductor Team (Requires Ghosts)</a><br>
-		<a href='?src=[REF(src)];[HrefToken()];makeAntag=revenant'>Make Revenant (Requires Ghost)</a><br>
+		<a href='byond://?src=[REF(src)];[HrefToken()];makeAntag=traitors'>Make Traitors</a><br>
+		<a href='byond://?src=[REF(src)];[HrefToken()];makeAntag=changelings'>Make Changelings</a><br>
+		<a href='byond://?src=[REF(src)];[HrefToken()];makeAntag=revs'>Make Revs</a><br>
+		<a href='byond://?src=[REF(src)];[HrefToken()];makeAntag=cult'>Make Cult</a><br>
+		<a href='byond://?src=[REF(src)];[HrefToken()];makeAntag=blob'>Make Blob</a><br>
+		<a href='byond://?src=[REF(src)];[HrefToken()];makeAntag=wizard'>Make Wizard (Requires Ghosts)</a><br>
+		<a href='byond://?src=[REF(src)];[HrefToken()];makeAntag=nukeops'>Make Nuke Team (Requires Ghosts)</a><br>
+		<a href='byond://?src=[REF(src)];[HrefToken()];makeAntag=centcom'>Make CentCom Response Team (Requires Ghosts)</a><br>
+		<a href='byond://?src=[REF(src)];[HrefToken()];makeAntag=abductors'>Make Abductor Team (Requires Ghosts)</a><br>
+		<a href='byond://?src=[REF(src)];[HrefToken()];makeAntag=revenant'>Make Revenant (Requires Ghost)</a><br>
 		"}
 
 	var/datum/browser/popup = new(usr, "oneclickantag", "Quick-Create Antagonist", 400, 400)
@@ -141,12 +141,17 @@
 	return FALSE
 
 /datum/admins/proc/makeWizard()
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
+		question = "Do you wish to be considered for the position of a Wizard Federation 'diplomat'?",
+		role = /datum/role_preference/midround_ghost/wizard,
+		check_jobban = ROLE_WIZARD,
+		poll_time = 30 SECONDS,
+		ignore_category = POLL_IGNORE_WIZARD_HELPER,
+		role_name_text = "wizard",
+		alert_pic = /obj/item/clothing/head/wizard,
+	)
 
-	var/list/mob/dead/observer/candidates = poll_ghost_candidates("Do you wish to be considered for the position of a Wizard Federation 'diplomat'?", ROLE_WIZARD, /datum/role_preference/midround_ghost/wizard, ignore_category = POLL_IGNORE_WIZARD_HELPER)
-
-	var/mob/dead/observer/selected = pick_n_take(candidates)
-
-	var/mob/living/carbon/human/new_character = makeBody(selected)
+	var/mob/living/carbon/human/new_character = makeBody(candidate)
 	new_character.mind.make_Wizard()
 	return TRUE
 
@@ -185,7 +190,15 @@
 
 
 /datum/admins/proc/makeNukeTeam(maxCount = 5)
-	var/list/mob/dead/observer/candidates = poll_ghost_candidates("Do you wish to be considered for a nuke team being sent in?", ROLE_OPERATIVE, /datum/role_preference/midround_ghost/nuclear_operative)
+	var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates(
+		question = "Do you wish to be considered for a nuke team being sent in?",
+		role = /datum/role_preference/midround_ghost/nuclear_operative,
+		check_jobban = ROLE_OPERATIVE,
+		poll_time = 30 SECONDS,
+		role_name_text = "nuclear operative",
+		alert_pic = /obj/machinery/nuclearbomb,
+	)
+
 	var/list/mob/dead/observer/chosen = list()
 	var/mob/dead/observer/theghost = null
 
@@ -369,11 +382,17 @@
 			else
 				to_chat(usr, span_warning("Could not spawn you in as briefing officer as you are not a ghost!"))
 
-		var/list/mob/dead/observer/candidates = poll_ghost_candidates("Do you wish to be considered for [ertemplate.polldesc] ?", ROLE_ERT, req_hours = 50)
-		var/teamSpawned = FALSE
-
-		if(candidates.len == 0)
+		var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates(
+			question = "Do you wish to be considered for [ertemplate.polldesc]?",
+			check_jobban = ROLE_ERT,
+			poll_time = 30 SECONDS,
+			role_name_text = "emergency response team",
+			alert_pic = /obj/item/card/id/ert,
+		)
+		if(!length(candidates))
 			return FALSE
+
+		var/teamSpawned = FALSE
 
 		//Pick the (un)lucky players
 		var/numagents = min(ertemplate.teamsize,candidates.len)

@@ -26,6 +26,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	var/smoketime = 10
 	w_class = WEIGHT_CLASS_TINY
 	heat = 1000
+	throw_verb = "flick"
 	grind_results = list(/datum/reagent/phosphorus = 2)
 	item_flags = ISWEAPON
 
@@ -50,8 +51,8 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		item_state = "cigon"
 		name = "lit [initial(name)]"
 		desc = "A [initial(name)]. This one is lit."
-		attack_verb_continuous = list("burns", "sings")
-		attack_verb_simple = list("burn", "sing")
+		attack_verb_continuous = list("burns", "singes")
+		attack_verb_simple = list("burn", "singe")
 		START_PROCESSING(SSobj, src)
 		update_icon()
 
@@ -234,8 +235,8 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 
 	lit = TRUE
 	name = "lit [name]"
-	attack_verb_continuous = list("burns", "sings")
-	attack_verb_simple = list("burn", "sing")
+	attack_verb_continuous = list("burns", "singes")
+	attack_verb_simple = list("burn", "singe")
 	hitsound = 'sound/items/welder.ogg'
 	damtype = BURN
 	force = 4
@@ -689,8 +690,8 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		force = 5
 		damtype = BURN
 		hitsound = 'sound/items/welder.ogg'
-		attack_verb_continuous = list("burns", "sings")
-		attack_verb_simple = list("burn", "sing")
+		attack_verb_continuous = list("burns", "singes")
+		attack_verb_simple = list("burn", "singe")
 		START_PROCESSING(SSobj, src)
 	else
 		hitsound = "swing_hit"

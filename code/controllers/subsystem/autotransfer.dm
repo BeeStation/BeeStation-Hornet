@@ -9,6 +9,8 @@ SUBSYSTEM_DEF(autotransfer)
 	var/decay_count = 0
 	var/connected_votes_to_leave = 0
 	var/required_votes_to_leave = 0
+	///Total players currently in the game, dead or observing. Explicitly excludes lobby players
+	var/active_playercount = 0
 
 /datum/controller/subsystem/autotransfer/Initialize()
 	reminder_time = REALTIMEOFDAY + CONFIG_GET(number/autotransfer_decay_start)
@@ -25,15 +27,21 @@ SUBSYSTEM_DEF(autotransfer)
 	// Alternatively this could just hook into client/new and client/destroy, but
 	// it doesn't matter that much if we lose count for a bit
 	connected_votes_to_leave = 0
+	active_playercount = 0
+
 	for(var/client/c in GLOB.clients)
+		if(isnewplayer(c.mob))
+			continue //We don't count them or their votes
 		if (c.player_details.voted_to_leave)
 			connected_votes_to_leave ++
+		active_playercount ++
 
 	if(REALTIMEOFDAY > checkvotes_time)
 		if(decay_start)
 			decay_count++
 
-		required_votes_to_leave = length(GLOB.clients) * (CONFIG_GET(number/autotransfer_percentage) - CONFIG_GET(number/autotransfer_decay_amount) * decay_count)
+		required_votes_to_leave = max(active_playercount * (CONFIG_GET(number/autotransfer_percentage) - CONFIG_GET(number/autotransfer_decay_amount) * decay_count), 1)
+
 		if(connected_votes_to_leave >= required_votes_to_leave)
 			if(SSshuttle.canEvac() == TRUE) //This must include the == TRUE because all returns for this proc have a value, we specifically want to check for TRUE
 				SSshuttle.requestEvac(null, "Crew Transfer Requested.")

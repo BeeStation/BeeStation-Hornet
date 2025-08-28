@@ -98,7 +98,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/statue/petrified)
 	S.icon_state = "monkey"
 	return 1
 
-/mob/living/simple_animal/pet/dog/corgi/petrify(statue_timer)
+/mob/living/basic/pet/dog/corgi/petrify(statue_timer)
 	if(!isturf(loc))
 		return 0
 	var/obj/structure/statue/petrified/S = new (loc, src, statue_timer)

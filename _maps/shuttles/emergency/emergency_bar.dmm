@@ -5,10 +5,6 @@
 "ab" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
-"ac" = (
-/obj/effect/spawner/structure/window/shuttle,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "ae" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/escape)
@@ -798,6 +794,10 @@
 	},
 /turf/open/floor/iron,
 /area/shuttle/escape)
+"Zp" = (
+/obj/effect/spawner/structure/window/shuttle,
+/turf/open/floor/plating,
+/area/shuttle/escape)
 "Zq" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/machinery/holopad,
@@ -825,9 +825,9 @@ LQ
 ab
 Py
 ab
-ac
-ac
-ac
+Zp
+Zp
+Zp
 ab
 kK
 ab
@@ -886,7 +886,7 @@ bC
 bE
 "}
 (4,1,1) = {"
-ac
+Zp
 af
 am
 ar
@@ -910,14 +910,14 @@ bC
 bE
 "}
 (5,1,1) = {"
-ac
+Zp
 ag
 an
 as
 ab
-ac
+Zp
 Rk
-ac
+Zp
 ae
 kS
 gl
@@ -934,7 +934,7 @@ bC
 bE
 "}
 (6,1,1) = {"
-ac
+Zp
 ah
 an
 at
@@ -958,7 +958,7 @@ bC
 bE
 "}
 (7,1,1) = {"
-ac
+Zp
 ag
 mB
 Gr
@@ -982,7 +982,7 @@ bC
 bE
 "}
 (8,1,1) = {"
-ac
+Zp
 ai
 ao
 NU
@@ -1046,7 +1046,7 @@ hS
 Zw
 xh
 kj
-ac
+Zp
 br
 cb
 bU
@@ -1059,21 +1059,21 @@ aa
 aa
 aa
 ab
-ac
+Zp
 ab
-ac
-ab
-ab
-ab
-ac
-ac
-ac
+Zp
 ab
 ab
 ab
-ac
+Zp
+Zp
+Zp
 ab
-ac
+ab
+ab
+Zp
+ab
+Zp
 ab
 aa
 "}

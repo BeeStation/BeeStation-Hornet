@@ -153,17 +153,17 @@ const stringStyleMap = {
     }
   },
   // Margin
-  m: mapDirectionalUnitPropTo('margin', halfUnit, ['Top', 'Bottom', 'Left', 'Right']),
-  mx: mapDirectionalUnitPropTo('margin', halfUnit, ['Left', 'Right']),
-  my: mapDirectionalUnitPropTo('margin', halfUnit, ['Top', 'Bottom']),
+  m: mapDirectionalUnitPropTo('margin', halfUnit, ['top', 'bottom', 'left', 'right']),
+  mx: mapDirectionalUnitPropTo('margin', halfUnit, ['left', 'right']),
+  my: mapDirectionalUnitPropTo('margin', halfUnit, ['top', 'bottom']),
   mt: mapUnitPropTo('marginTop', halfUnit),
   mb: mapUnitPropTo('marginBottom', halfUnit),
   ml: mapUnitPropTo('marginLeft', halfUnit),
   mr: mapUnitPropTo('marginRight', halfUnit),
   // Padding
-  p: mapDirectionalUnitPropTo('padding', halfUnit, ['Top', 'Bottom', 'Left', 'Right']),
-  px: mapDirectionalUnitPropTo('padding', halfUnit, ['Left', 'Right']),
-  py: mapDirectionalUnitPropTo('padding', halfUnit, ['Top', 'Bottom']),
+  p: mapDirectionalUnitPropTo('padding', halfUnit, ['top', 'bottom', 'left', 'right']),
+  px: mapDirectionalUnitPropTo('padding', halfUnit, ['left', 'right']),
+  py: mapDirectionalUnitPropTo('padding', halfUnit, ['top', 'bottom']),
   pt: mapUnitPropTo('paddingTop', halfUnit),
   pb: mapUnitPropTo('paddingBottom', halfUnit),
   pl: mapUnitPropTo('paddingLeft', halfUnit),
