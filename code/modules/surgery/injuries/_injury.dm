@@ -95,7 +95,6 @@
 /// Transition to a new type of injury state.
 /datum/injury/proc/transition_to(new_type)
 	SHOULD_NOT_OVERRIDE(TRUE)
-	message_admins("[type] converted to [new_type]")
 	bodypart.remove_injury_tree(src)
 	bodypart.apply_injury_tree(new_type, base_type)
 
