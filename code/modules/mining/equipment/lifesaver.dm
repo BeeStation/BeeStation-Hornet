@@ -1,7 +1,6 @@
 /obj/item/clothing/neck/necklace/lifesaver
 	name = "Acrux-brand life-saving necklace"
 	desc = "You won't be getting any style points with this boring plastitanium box around your neck, but at least you will get rescued in time after it detects your untimely demise and begins causing a massive ruckus over it."
-	icon = 'icons/obj/clothing/neck.dmi'
 	icon_state = "lifesaver"
 	worn_icon_state = "lifesaver"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF // We want this thing to SURVIVE
@@ -10,12 +9,12 @@
 	var/mob/living/carbon/human/active_owner
 	var/active = FALSE
 
-	var/radioCounter
+	var/radio_counter
 
 /obj/item/clothing/neck/necklace/lifesaver/Initialize(mapload)
 	. = ..()
 
-	radio = new/obj/item/radio(src)
+	radio = new /obj/item/radio(src)
 	radio.set_listening(FALSE)
 	radio.set_frequency(FREQ_COMMON)
 	radio.canhear_range = 0
@@ -29,7 +28,7 @@
 	if(slot == ITEM_SLOT_NECK)
 		active_owner = user
 		say("User detected. Monitor process started.")
-		RegisterSignal(active_owner, COMSIG_MOB_DEATH, PROC_REF(enableAlert))
+		RegisterSignal(active_owner, COMSIG_MOB_DEATH, PROC_REF(enable_alert))
 		return
 	else if(slot != ITEM_SLOT_POCKETS && slot != ITEM_SLOT_BACKPACK)
 		say("Biomonitor error.")
@@ -40,10 +39,10 @@
 /obj/item/clothing/neck/necklace/lifesaver/attack_self(mob/user)
 	if(!active)
 		return
-	to_chat(user, "You press your finger on the touch-button, disarming the necklace's alert state.")
-	disableAlert()
+	to_chat(user, span_notice("You press your finger on the touch-button, disarming the necklace's alert state."))
+	disable_alert()
 
-/obj/item/clothing/neck/necklace/lifesaver/proc/enableAlert()
+/obj/item/clothing/neck/necklace/lifesaver/proc/enable_alert()
 	icon_state = "lifesaver_active"
 	worn_icon_state = "lifesaver_active"
 	active_owner.regenerate_icons()
@@ -56,24 +55,23 @@
 	AddComponent(/datum/component/gps, "#ACTIVE LIFESAVER - RESCUE REQUIRED#")
 	addtimer(CALLBACK(src, PROC_REF(alertRoutine)), 5 SECONDS)
 
-/obj/item/clothing/neck/necklace/lifesaver/proc/disableAlert()
+/obj/item/clothing/neck/necklace/lifesaver/proc/disable_alert()
 	icon_state = "lifesaver"
 	worn_icon_state = "lifesaver"
 
-	qdel(src.GetComponent(/datum/component/gps))
+	qdel(GetComponent(/datum/component/gps))
 	active = FALSE
 
 //Loops every few seconds
 /obj/item/clothing/neck/necklace/lifesaver/proc/alertRoutine()
 	if(active)
-
 		// Periodic unhelpful radio announcements
-		if(radioCounter >= 20)
-			radio.talk_into(src, "ALERT - RESCUE REQUIRED")
+		if(radio_counter >= 100)
+			radio.talk_into(src, "Alert - Rescue required at [get_area(src)]!")
 			say("ALERT - RESCUE REQUIRED")
-			radioCounter = 0
+			radio_counter = 0
 		else
-			radioCounter += 1
+			radio_counter++
 
 		playsound(src, 'sound/effects/ping_hit.ogg', 100, FALSE, 5)
 		addtimer(CALLBACK(src, PROC_REF(alertRoutine)), 3 SECONDS)
