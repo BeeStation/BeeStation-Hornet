@@ -457,237 +457,237 @@ export const ChemDispenser = (_props) => {
                       setShowFilters(!showFilters);
                     }}
                   />
-                    <Popper
-                      isOpen={showFilters}
-                      placement="bottom-end"
-                      content={
-                        <div
-                          className="chem_dispenser_filter_modal"
-                          style={{ maxHeight: '400px', overflowY: 'auto' }}
-                        >
-                          <Stack vertical>
-                            <Button
-                              content={'Clear Filters'}
-                              onClick={() => {
-                                recipe_list = [];
-                                setFilters(ReactionTags.None);
-                                setShowFilters(false);
-                              }}
-                            />
-                            <Button
-                              color={
-                                filters & ReactionTags.BRUTE
-                                  ? 'orange'
-                                  : 'transparent'
-                              }
-                              icon="hand-fist"
-                              content="Brute"
-                              onClick={() => {
-                                recipe_list = [];
-                                setFilters(filters ^ ReactionTags.BRUTE);
-                              }}
-                            />
-                            <Button
-                              color={
-                                filters & ReactionTags.BURN
-                                  ? 'orange'
-                                  : 'transparent'
-                              }
-                              icon="fire"
-                              content="Burn"
-                              onClick={() => {
-                                recipe_list = [];
-                                setFilters(filters ^ ReactionTags.BURN);
-                              }}
-                            />
-                            <Button
-                              color={
-                                filters & ReactionTags.TOXIN
-                                  ? 'orange'
-                                  : 'transparent'
-                              }
-                              icon="radiation"
-                              content="Toxin"
-                              onClick={() => {
-                                recipe_list = [];
-                                setFilters(filters ^ ReactionTags.TOXIN);
-                              }}
-                            />
-                            <Button
-                              color={
-                                filters & ReactionTags.OXY
-                                  ? 'orange'
-                                  : 'transparent'
-                              }
-                              icon="wind"
-                              content="Suffocation"
-                              onClick={() => {
-                                recipe_list = [];
-                                setFilters(filters ^ ReactionTags.OXY);
-                              }}
-                            />
-                            <Button
-                              color={
-                                filters & ReactionTags.CLONE
-                                  ? 'orange'
-                                  : 'transparent'
-                              }
-                              icon="person"
-                              content="Clone"
-                              onClick={() => {
-                                recipe_list = [];
-                                setFilters(filters ^ ReactionTags.CLONE);
-                              }}
-                            />
-                            <Button
-                              color={
-                                filters & ReactionTags.ORGAN
-                                  ? 'orange'
-                                  : 'transparent'
-                              }
-                              icon="lungs"
-                              content="Organ"
-                              onClick={() => {
-                                recipe_list = [];
-                                setFilters(filters ^ ReactionTags.ORGAN);
-                              }}
-                            />
-                            <Divider />
-                            <Button
-                              color={
-                                filters & ReactionTags.HEALING
-                                  ? 'green'
-                                  : 'transparent'
-                              }
-                              icon="kit-medical"
-                              content="Healing"
-                              onClick={() => {
-                                recipe_list = [];
-                                setFilters(filters ^ ReactionTags.HEALING);
-                              }}
-                            />
-                            <Button
-                              color={
-                                filters & ReactionTags.DAMAGING
-                                  ? 'green'
-                                  : 'transparent'
-                              }
-                              icon="book-skull"
-                              content="Damaging"
-                              onClick={() => {
-                                recipe_list = [];
-                                setFilters(filters ^ ReactionTags.DAMAGING);
-                              }}
-                            />
-                            <Button
-                              color={
-                                filters & ReactionTags.EXPLOSIVE
-                                  ? 'green'
-                                  : 'transparent'
-                              }
-                              icon="explosion"
-                              content="Explosive"
-                              onClick={() => {
-                                recipe_list = [];
-                                setFilters(filters ^ ReactionTags.EXPLOSIVE);
-                              }}
-                            />
-                            <Divider />
-                            <Button
-                              color={
-                                filters & ReactionTags.DRINK
-                                  ? 'blue'
-                                  : 'transparent'
-                              }
-                              icon="mug-saucer"
-                              content="Drink"
-                              onClick={() => {
-                                recipe_list = [];
-                                setFilters(filters ^ ReactionTags.DRINK);
-                              }}
-                            />
-                            <Button
-                              color={
-                                filters & ReactionTags.FOOD
-                                  ? 'blue'
-                                  : 'transparent'
-                              }
-                              icon="bacon"
-                              content="Food"
-                              onClick={() => {
-                                recipe_list = [];
-                                setFilters(filters ^ ReactionTags.FOOD);
-                              }}
-                            />
-                            <Button
-                              color={
-                                filters & ReactionTags.SLIME
-                                  ? 'blue'
-                                  : 'transparent'
-                              }
-                              icon="droplet"
-                              content="Slime"
-                              onClick={() => {
-                                recipe_list = [];
-                                setFilters(filters ^ ReactionTags.SLIME);
-                              }}
-                            />
-                            <Button
-                              color={
-                                filters & ReactionTags.DRUG
-                                  ? 'blue'
-                                  : 'transparent'
-                              }
-                              icon="joint"
-                              content="Drug"
-                              onClick={() => {
-                                recipe_list = [];
-                                setFilters(filters ^ ReactionTags.DRUG);
-                              }}
-                            />
-                            <Button
-                              color={
-                                filters & ReactionTags.CHEMICAL
-                                  ? 'blue'
-                                  : 'transparent'
-                              }
-                              icon="flask"
-                              content="Chemical"
-                              onClick={() => {
-                                recipe_list = [];
-                                setFilters(filters ^ ReactionTags.CHEMICAL);
-                              }}
-                            />
-                            <Button
-                              color={
-                                filters & ReactionTags.PLANT
-                                  ? 'blue'
-                                  : 'transparent'
-                              }
-                              icon="seedling"
-                              content="Plant"
-                              onClick={() => {
-                                recipe_list = [];
-                                setFilters(filters ^ ReactionTags.PLANT);
-                              }}
-                            />
-                            <Button
-                              color={
-                                filters & ReactionTags.OTHER
-                                  ? 'blue'
-                                  : 'transparent'
-                              }
-                              icon="ellipsis"
-                              content="Other"
-                              onClick={() => {
-                                recipe_list = [];
-                                setFilters(filters ^ ReactionTags.OTHER);
-                              }}
-                            />
-                          </Stack>
-                        </div>
-                      }
-                    />
+                  <Popper
+                    isOpen={showFilters}
+                    placement="bottom-end"
+                    content={
+                      <div
+                        className="chem_dispenser_filter_modal"
+                        style={{ maxHeight: '400px', overflowY: 'auto' }}
+                      >
+                        <Stack vertical>
+                          <Button
+                            content={'Clear Filters'}
+                            onClick={() => {
+                              recipe_list = [];
+                              setFilters(ReactionTags.None);
+                              setShowFilters(false);
+                            }}
+                          />
+                          <Button
+                            color={
+                              filters & ReactionTags.BRUTE
+                                ? 'orange'
+                                : 'transparent'
+                            }
+                            icon="hand-fist"
+                            content="Brute"
+                            onClick={() => {
+                              recipe_list = [];
+                              setFilters(filters ^ ReactionTags.BRUTE);
+                            }}
+                          />
+                          <Button
+                            color={
+                              filters & ReactionTags.BURN
+                                ? 'orange'
+                                : 'transparent'
+                            }
+                            icon="fire"
+                            content="Burn"
+                            onClick={() => {
+                              recipe_list = [];
+                              setFilters(filters ^ ReactionTags.BURN);
+                            }}
+                          />
+                          <Button
+                            color={
+                              filters & ReactionTags.TOXIN
+                                ? 'orange'
+                                : 'transparent'
+                            }
+                            icon="radiation"
+                            content="Toxin"
+                            onClick={() => {
+                              recipe_list = [];
+                              setFilters(filters ^ ReactionTags.TOXIN);
+                            }}
+                          />
+                          <Button
+                            color={
+                              filters & ReactionTags.OXY
+                                ? 'orange'
+                                : 'transparent'
+                            }
+                            icon="wind"
+                            content="Suffocation"
+                            onClick={() => {
+                              recipe_list = [];
+                              setFilters(filters ^ ReactionTags.OXY);
+                            }}
+                          />
+                          <Button
+                            color={
+                              filters & ReactionTags.CLONE
+                                ? 'orange'
+                                : 'transparent'
+                            }
+                            icon="person"
+                            content="Clone"
+                            onClick={() => {
+                              recipe_list = [];
+                              setFilters(filters ^ ReactionTags.CLONE);
+                            }}
+                          />
+                          <Button
+                            color={
+                              filters & ReactionTags.ORGAN
+                                ? 'orange'
+                                : 'transparent'
+                            }
+                            icon="lungs"
+                            content="Organ"
+                            onClick={() => {
+                              recipe_list = [];
+                              setFilters(filters ^ ReactionTags.ORGAN);
+                            }}
+                          />
+                          <Divider />
+                          <Button
+                            color={
+                              filters & ReactionTags.HEALING
+                                ? 'green'
+                                : 'transparent'
+                            }
+                            icon="kit-medical"
+                            content="Healing"
+                            onClick={() => {
+                              recipe_list = [];
+                              setFilters(filters ^ ReactionTags.HEALING);
+                            }}
+                          />
+                          <Button
+                            color={
+                              filters & ReactionTags.DAMAGING
+                                ? 'green'
+                                : 'transparent'
+                            }
+                            icon="book-skull"
+                            content="Damaging"
+                            onClick={() => {
+                              recipe_list = [];
+                              setFilters(filters ^ ReactionTags.DAMAGING);
+                            }}
+                          />
+                          <Button
+                            color={
+                              filters & ReactionTags.EXPLOSIVE
+                                ? 'green'
+                                : 'transparent'
+                            }
+                            icon="explosion"
+                            content="Explosive"
+                            onClick={() => {
+                              recipe_list = [];
+                              setFilters(filters ^ ReactionTags.EXPLOSIVE);
+                            }}
+                          />
+                          <Divider />
+                          <Button
+                            color={
+                              filters & ReactionTags.DRINK
+                                ? 'blue'
+                                : 'transparent'
+                            }
+                            icon="mug-saucer"
+                            content="Drink"
+                            onClick={() => {
+                              recipe_list = [];
+                              setFilters(filters ^ ReactionTags.DRINK);
+                            }}
+                          />
+                          <Button
+                            color={
+                              filters & ReactionTags.FOOD
+                                ? 'blue'
+                                : 'transparent'
+                            }
+                            icon="bacon"
+                            content="Food"
+                            onClick={() => {
+                              recipe_list = [];
+                              setFilters(filters ^ ReactionTags.FOOD);
+                            }}
+                          />
+                          <Button
+                            color={
+                              filters & ReactionTags.SLIME
+                                ? 'blue'
+                                : 'transparent'
+                            }
+                            icon="droplet"
+                            content="Slime"
+                            onClick={() => {
+                              recipe_list = [];
+                              setFilters(filters ^ ReactionTags.SLIME);
+                            }}
+                          />
+                          <Button
+                            color={
+                              filters & ReactionTags.DRUG
+                                ? 'blue'
+                                : 'transparent'
+                            }
+                            icon="joint"
+                            content="Drug"
+                            onClick={() => {
+                              recipe_list = [];
+                              setFilters(filters ^ ReactionTags.DRUG);
+                            }}
+                          />
+                          <Button
+                            color={
+                              filters & ReactionTags.CHEMICAL
+                                ? 'blue'
+                                : 'transparent'
+                            }
+                            icon="flask"
+                            content="Chemical"
+                            onClick={() => {
+                              recipe_list = [];
+                              setFilters(filters ^ ReactionTags.CHEMICAL);
+                            }}
+                          />
+                          <Button
+                            color={
+                              filters & ReactionTags.PLANT
+                                ? 'blue'
+                                : 'transparent'
+                            }
+                            icon="seedling"
+                            content="Plant"
+                            onClick={() => {
+                              recipe_list = [];
+                              setFilters(filters ^ ReactionTags.PLANT);
+                            }}
+                          />
+                          <Button
+                            color={
+                              filters & ReactionTags.OTHER
+                                ? 'blue'
+                                : 'transparent'
+                            }
+                            icon="ellipsis"
+                            content="Other"
+                            onClick={() => {
+                              recipe_list = [];
+                              setFilters(filters ^ ReactionTags.OTHER);
+                            }}
+                          />
+                        </Stack>
+                      </div>
+                    }
+                  />
                 </>
               )
             }

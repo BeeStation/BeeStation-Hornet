@@ -142,9 +142,7 @@ const FilterPanel = (_) => {
       placement="bottom-end"
       isOpen={filterVisible}
       content={
-        <div
-          className="RequestManager__filterPanel"
-        >
+        <div className="RequestManager__filterPanel">
           <Table width="0">
             {Object.keys(displayTypeMap).map((type) => {
               return (

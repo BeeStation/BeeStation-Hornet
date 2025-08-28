@@ -23,7 +23,7 @@ export const NtosNotepad = (props) => {
               isOpen={showOptions}
               placement="bottom-start"
               content={
-                ((
+                (
                   <div className="options_modal">
                     <Stack vertical>
                       <Button.Input
@@ -57,8 +57,7 @@ export const NtosNotepad = (props) => {
                       )}
                     </Stack>
                   </div>
-                )) ||
-                null
+                ) || null
               }
             >
               <Button

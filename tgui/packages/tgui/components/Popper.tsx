@@ -80,19 +80,20 @@ export function Popper(props: PropsWithChildren<Props>) {
       >
         {children}
       </div>
-      {isOpen && (
-        createPortal(<div
-          ref={(node) => {
-            setPopperElement(node);
-            popperRef.current = node;
-          }}
-          style={{ ...styles.popper, zIndex: 5 }}
-          {...attributes.popper}
-        >
-          {content}
-                     </div>
-      , document.body
-      ))}
+      {isOpen &&
+        createPortal(
+          <div
+            ref={(node) => {
+              setPopperElement(node);
+              popperRef.current = node;
+            }}
+            style={{ ...styles.popper, zIndex: 5 }}
+            {...attributes.popper}
+          >
+            {content}
+          </div>,
+          document.body,
+        )}
     </>
   );
 }
