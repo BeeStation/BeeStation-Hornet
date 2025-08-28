@@ -199,25 +199,25 @@
 /datum/antagonist/abductee/proc/give_objective()
 	var/mob/living/carbon/human/H = owner.current
 
-	// Give the base one
-	var/datum/objective/abductee/base = new /datum/objective/abductee
-	objectives += base
-	var/objtype
-	//pick flavor one
-	switch(rand(100))
-		// Fearful
-		if(51 to 100)
-			objtype = /datum/objective/abductee/fearful
-		// Violent
-		if(21 to 50)
-			objtype = /datum/objective/abductee/violent
-		// Paranoid
-		if(0 to 20)
-			objtype = /datum/objective/abductee/paranoid
+	// Give the base objective
+	var/datum/objective/abductee/base_objective = new()
+	base_objective.owner = owner
+	objectives += base_objective
 
-	var/datum/objective/abductee/O = new objtype()
-	objectives += O
-	log_objective(H, O.explanation_text)
+
+	//pick flavor objective
+	var/datum/objective/abductee/extra_objective
+	switch(rand(100))
+		if(51 to 100)
+			extra_objective = /datum/objective/abductee/fearful
+		if(21 to 50)
+			extra_objective = /datum/objective/abductee/violent
+		if(0 to 20)
+			extra_objective = /datum/objective/abductee/paranoid
+
+	extra_objective.owner = owner
+	objectives += extra_objective
+	log_objective(H, extra_objective.explanation_text)
 
 /datum/antagonist/abductee/apply_innate_effects(mob/living/mob_override)
 	update_abductor_icons_added(mob_override ? mob_override.mind : owner,"abductee")
