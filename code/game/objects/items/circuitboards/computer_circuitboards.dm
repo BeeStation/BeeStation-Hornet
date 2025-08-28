@@ -410,7 +410,7 @@
 /obj/item/circuitboard/computer/rdconsole/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		if(build_path == /obj/machinery/computer/rdconsole/core)
-			name = "R&D Console - production only (Computer Board)"
+			name = "R&D Console - Robotics (Computer Board)"
 			build_path = /obj/machinery/computer/rdconsole/robotics
 			to_chat(user, span_notice("Access protocols successfully updated."))
 		else
