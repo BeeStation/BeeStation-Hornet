@@ -30,8 +30,6 @@
 		say("User detected. Monitor process started.")
 		RegisterSignal(active_owner, COMSIG_MOB_DEATH, PROC_REF(pre_enable_alert), override = TRUE)
 		return
-	else if(slot != ITEM_SLOT_POCKETS && slot != ITEM_SLOT_BACKPACK)
-		say("Biomonitor error.")
 
 	if(active_owner)
 		UnregisterSignal(active_owner, COMSIG_MOB_DEATH)
