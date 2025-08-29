@@ -92,11 +92,13 @@
 		our_color = pick(carp_colors)
 		set_greyscale(colors=list(carp_colors[our_color]))
 
-/mob/living/simple_animal/hostile/carp/revive(full_heal = FALSE, admin_revive = FALSE)
+/mob/living/simple_animal/hostile/carp/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE)
 	. = ..()
-	if(.)
-		update_greyscale()
-		update_icon()
+	if(!.)
+		return
+
+	update_greyscale()
+	update_icon()
 
 /mob/living/simple_animal/hostile/carp/proc/tamed(mob/living/tamer)
 	can_buckle = TRUE

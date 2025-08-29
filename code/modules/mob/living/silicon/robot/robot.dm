@@ -836,15 +836,19 @@
 	update_health_hud()
 	update_icons() //Updates eye_light overlay
 
-/mob/living/silicon/robot/revive(full_heal = 0, admin_revive = 0)
-	if(..()) //successfully ressuscitated from death
-		if(!QDELETED(builtInCamera) && !wires.is_cut(WIRE_CAMERA))
-			builtInCamera.toggle_cam(src,0)
-		if(admin_revive)
-			locked = TRUE
-		notify_ai(NEW_BORG)
-		wires.ui_update()
-		. = 1
+/mob/living/silicon/robot/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE)
+	. = ..()
+	if(!.)
+		return
+
+	if(!QDELETED(builtInCamera) && !wires.is_cut(WIRE_CAMERA))
+		builtInCamera.toggle_cam(src, 0)
+	if(full_heal_flags & HEAL_ADMIN)
+		locked = TRUE
+	notify_ai(NEW_BORG)
+	toggle_headlamp(FALSE, TRUE) //This will reenable borg headlamps if doomsday is currently going on still.
+	wires.ui_update()
+	return TRUE
 
 /mob/living/silicon/robot/fully_replace_character_name(oldname, newname)
 	..()

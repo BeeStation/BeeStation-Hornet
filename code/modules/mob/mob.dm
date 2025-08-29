@@ -1262,11 +1262,11 @@
 	if(href_list[VV_HK_PLAYER_PANEL] && check_rights(R_ADMIN))
 		usr.client.holder.show_player_panel(src)
 
-	if(href_list[VV_HK_GODMODE] && check_rights(R_FUN))
-		usr.client.cmd_admin_godmode(src)
-
 	if(href_list[VV_HK_GIVE_SPELL] && check_rights(R_FUN))
 		usr.client.give_spell(src)
+
+	if(href_list[VV_HK_GODMODE] && check_rights(R_FUN))
+		usr.client.cmd_admin_godmode(src)
 
 	if(href_list[VV_HK_REMOVE_SPELL] && check_rights(R_FUN))
 		usr.client.remove_spell(src)
@@ -1369,5 +1369,9 @@
 	sound_environment_override = GET_TRAIT_VALUE(src, TRAIT_VALUE_SOUND_SCAPE)
 	if (!sound_environment_override)
 		sound_environment_override = SOUND_ENVIRONMENT_NONE
+
+/mob/key_down(key, client/client, full_key)
+	..()
+	SEND_SIGNAL(src, COMSIG_MOB_KEYDOWN, key, client, full_key)
 
 #undef MOB_FACE_DIRECTION_DELAY

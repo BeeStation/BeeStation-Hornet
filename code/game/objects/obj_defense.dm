@@ -120,9 +120,6 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 /obj/proc/acid_processing()
 	. = 1
 	if(!(resistance_flags & ACID_PROOF))
-		for(var/armour_value in get_armor_rating())
-			if(armour_value != DAMAGE_ACID && armour_value != DAMAGE_FIRE)
-				set_armor(get_armor().generate_new_with_modifiers(list(0 - round(sqrt(acid_level)*0.1))))
 		if(prob(33))
 			playsound(loc, 'sound/items/welder.ogg', 150, 1)
 		deal_damage(min(1 + round(sqrt(acid_level)*0.3), 300), 0, BURN, DAMAGE_ACID, sound = FALSE)

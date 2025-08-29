@@ -222,12 +222,6 @@ CREATION_TEST_IGNORE_SELF(/mob)
 	///Do not set this directly, use ADD_VALUE_TRAIT(src, TRAIT_VALUE_SOUND_SCAPE, TRAIT_SOURCE, SOUND_ENVIRONMENT, SOUND_PRIORITY)
 	var/sound_environment_override = SOUND_ENVIRONMENT_NONE
 
-	///Is the mob pixel shifted?
-	var/is_shifted
-
-	///Is the mob actively shifting?
-	var/shifting
-
 	///the icon currently used for the typing indicator's bubble
 	var/active_typing_indicator
 	///the icon currently used for the thinking indicator's bubble

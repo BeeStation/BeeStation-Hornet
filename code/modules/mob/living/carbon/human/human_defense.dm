@@ -274,10 +274,9 @@
 			to_chat(user, span_danger("You disarm [src]!"))
 		else
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, TRUE, -1)
-			Knockdown(20)
 			log_combat(user, src, "tackled")
 			var/zone = ran_zone(user.get_combat_bodyzone(src))
-			deal_damage(30, 0, STAMINA, DAMAGE_STANDARD, zone = zone)
+			deal_damage(45, 0, STAMINA, DAMAGE_STANDARD, zone = zone)
 			visible_message(span_danger("[user] tackles [src] down!"), \
 					span_userdanger("[user] tackles you down!"), span_hear("You hear aggressive shuffling followed by a loud thud!"), null, user)
 			to_chat(user, span_danger("You tackle [src] down!"))
@@ -654,93 +653,11 @@
 
 	var/list/missing = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 	var/list/whole_body_issues = list()
-	for(var/obj/item/bodypart/LB as() in bodyparts)
-		missing -= LB.body_zone
-		if(LB.is_pseudopart) //don't show injury text for fake bodyparts; ie chainsaw arms or synthetic armblades
+	for(var/obj/item/bodypart/body_part as anything in bodyparts)
+		missing -= body_part.body_zone
+		if(body_part.is_pseudopart) //don't show injury text for fake bodyparts; ie chainsaw arms or synthetic armblades
 			continue
-		var/self_aware = FALSE
-		if(HAS_TRAIT(src, TRAIT_SELF_AWARE))
-			self_aware = TRUE
-		var/limb_max_damage = LB.max_damage
-		var/status = ""
-		var/brutedamage = LB.brute_dam
-		var/burndamage = LB.burn_dam
-		if(hallucination)
-			if(prob(30))
-				brutedamage += rand(30,40)
-			if(prob(30))
-				burndamage += rand(30,40)
-
-		if(HAS_TRAIT(src, TRAIT_SELF_AWARE))
-			status = "[brutedamage] brute damage and [burndamage] burn damage"
-			if(!brutedamage && !burndamage)
-				status = "no damage"
-
-		else
-			if(brutedamage > 0)
-				status = LB.light_brute_msg
-			if(brutedamage > (limb_max_damage*0.4))
-				status = LB.medium_brute_msg
-			if(brutedamage > (limb_max_damage*0.8))
-				status = LB.heavy_brute_msg
-			if(brutedamage > 0 && burndamage > 0)
-				status += " and "
-
-			if(burndamage > (limb_max_damage*0.8))
-				status += LB.heavy_burn_msg
-			else if(burndamage > (limb_max_damage*0.2))
-				status += LB.medium_burn_msg
-			else if(burndamage > 0)
-				status += LB.light_burn_msg
-
-			if(status == "")
-				status = "OK"
-		// Get the injury texts for our injuries
-		var/list/injury_texts = list()
-		for (var/datum/injury/injuries in LB.injuries)
-			if (injuries.examine_description)
-				var/tooltip_desc = injuries.examine_description
-				// TODO: When we merge to master, add tooltips for limb effectiveness here
-				if (injuries.whole_body)
-					whole_body_issues |= tooltip_desc
-				else
-					injury_texts += tooltip_desc
-		var/no_damage
-		if(status == "OK" || status == "no damage")
-			no_damage = TRUE
-		// Put it into a list
-		var/stringified_injuries = null
-		if (length(injury_texts))
-			stringified_injuries = injury_texts[1]
-		for (var/i in 2 to length(injury_texts) - 1)
-			stringified_injuries += ", [injury_texts[i]]"
-		if (length(injury_texts) > 1)
-			stringified_injuries += ", and [injury_texts[length(injury_texts)]]"
-		var/auxiliary_verb = self_aware ? "has" : "is"
-		if (no_damage && stringified_injuries)
-			status = stringified_injuries
-			stringified_injuries = null
-			no_damage = FALSE
-			auxiliary_verb = "has"
-		var/isdisabled = ""
-		if(LB.bodypart_disabled)
-			isdisabled = " is disabled"
-			if(no_damage)
-				isdisabled += " but otherwise"
-			else if (stringified_injuries)
-				isdisabled += ","
-			else
-				isdisabled += " and"
-		if (LB.destroyed)
-			combined_msg += "\t <span class='[no_damage ? "notice" : "warning"]'>Your [LB.name] is injured beyond treatment.</span>"
-		else
-			combined_msg += "\t <span class='[no_damage ? "notice" : "warning"]'>Your [LB.name][isdisabled] [auxiliary_verb] [status][stringified_injuries ? " and has " : ""][stringified_injuries].</span>"
-
-		for(var/obj/item/I in LB.embedded_objects)
-			if(I.isEmbedHarmless())
-				combined_msg += "\t <a href='byond://?src=[REF(src)];embedded_object=[REF(I)];embedded_limb=[REF(LB)]' class='warning'>There is \a [I] stuck to your [LB.name]!</a>"
-			else
-				combined_msg += "\t <a href='byond://?src=[REF(src)];embedded_object=[REF(I)];embedded_limb=[REF(LB)]' class='warning'>There is \a [I] embedded in your [LB.name]!</a>"
+		body_part.check_for_injuries(src, combined_msg)
 
 	// Put it into a list
 	var/stringified_body_injuries = null

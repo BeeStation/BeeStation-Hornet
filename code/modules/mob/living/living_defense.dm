@@ -460,7 +460,7 @@
 	return 20 //20 points goes to our lucky winner Mr. Singulo!~
 
 /mob/living/narsie_act()
-	if(status_flags & GODMODE || QDELETED(src))
+	if(HAS_TRAIT(src, TRAIT_GODMODE) || QDELETED(src))
 		return
 	if(GLOB.narsie && GLOB.narsie.souls_needed[src])
 		GLOB.narsie.souls_needed -= src

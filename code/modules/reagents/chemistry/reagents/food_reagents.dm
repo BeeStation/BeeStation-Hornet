@@ -412,7 +412,7 @@
 
 /datum/reagent/consumable/garlic/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(isvampire(affected_mob)) //incapacitating but not lethal. Unfortunately, vampires cannot vomit.
+	if(IS_VAMPIRE(affected_mob)) //incapacitating but not lethal. Unfortunately, vampires cannot vomit.
 		if(DT_PROB(min(current_cycle / 2, 12.5), delta_time))
 			to_chat(affected_mob, span_danger("You can't get the scent of garlic out of your nose! You can barely think..."))
 			affected_mob.Paralyze(10)

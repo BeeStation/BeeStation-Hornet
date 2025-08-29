@@ -225,10 +225,23 @@
 	toxpwr = 0
 	taste_description = "sourness"
 
+/datum/reagent/toxin/mindbreaker/on_mob_metabolize(mob/living/metabolizer)
+	. = ..()
+	ADD_TRAIT(metabolizer, TRAIT_HALLUCINATION_SUPPRESSED, type)
+
+/datum/reagent/toxin/mindbreaker/on_mob_end_metabolize(mob/living/metabolizer)
+	. = ..()
+	REMOVE_TRAIT(metabolizer, TRAIT_HALLUCINATION_SUPPRESSED, type)
+
 /datum/reagent/toxin/mindbreaker/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(!affected_mob.has_quirk(/datum/quirk/insanity))
-		affected_mob.hallucination += 5 * REM * delta_time
+	// mindbreaker toxin assuages hallucinations in those plagued with it, mentally
+	if(affected_mob.has_trauma_type(/datum/brain_trauma/mild/hallucinations))
+		affected_mob.remove_status_effect(/datum/status_effect/hallucination)
+
+	// otherwise it creates hallucinations. truly a miracle medicine.
+	else
+		affected_mob.adjust_hallucinations(10 SECONDS * REM * delta_time)
 
 /datum/reagent/toxin/plantbgone
 	name = "Plant-B-Gone"

@@ -215,6 +215,9 @@
 /mob/living/simple_animal/get_attack_sharpness()
 	return sharpness
 
+/mob/living/simple_animal/update_stat()
+	med_hud_set_status()
+
 /mob/living/simple_animal/handle_status_effects(delta_time, times_fired)
 	..()
 	if(stuttering)
@@ -445,7 +448,7 @@
 		return FALSE
 	if(ismob(the_target))
 		var/mob/M = the_target
-		if(M.status_flags & GODMODE)
+		if(HAS_TRAIT(M, TRAIT_GODMODE))
 			return FALSE
 	if (isliving(the_target))
 		var/mob/living/L = the_target
@@ -467,7 +470,7 @@
 	return
 
 
-/mob/living/simple_animal/revive(full_heal = 0, admin_revive = 0)
+/mob/living/simple_animal/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE)
 	. = ..()
 	if(!.)
 		return

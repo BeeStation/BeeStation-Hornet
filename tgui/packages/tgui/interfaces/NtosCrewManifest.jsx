@@ -1,6 +1,7 @@
+import { map } from 'common/collections';
+
 import { useBackend } from '../backend';
 import { Button, Section, Table } from '../components';
-import { map } from 'common/collections';
 import { NtosWindow } from '../layouts';
 
 export const NtosCrewManifest = (props) => {
@@ -13,7 +14,15 @@ export const NtosCrewManifest = (props) => {
       <NtosWindow.Content scrollable>
         <Section
           title="Crew Manifest"
-          buttons={<Button icon="print" content="Print" disabled={!have_printer} onClick={() => act('PRG_print')} />}>
+          buttons={
+            <Button
+              icon="print"
+              content="Print"
+              disabled={!have_printer}
+              onClick={() => act('PRG_print')}
+            />
+          }
+        >
           {map(manifest, (entries, department) => (
             <Section key={department} level={2} title={department}>
               <Table>

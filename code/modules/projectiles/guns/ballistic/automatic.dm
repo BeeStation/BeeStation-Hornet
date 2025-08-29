@@ -310,7 +310,7 @@
 	item_state = "arg"
 	mag_type = /obj/item/ammo_box/magazine/pipem9mm
 	special_mags = TRUE
-	caliber = "9mm"
+	caliber = list("9mm")
 	tac_reloads = FALSE
 	bolt_type = BOLT_TYPE_OPEN
 	no_pin_required = TRUE

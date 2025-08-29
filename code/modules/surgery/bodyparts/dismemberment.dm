@@ -10,7 +10,7 @@
 	var/mob/living/carbon/C = owner
 	if(!dismemberable)
 		return FALSE
-	if(C.status_flags & GODMODE)
+	if(HAS_TRAIT(C, TRAIT_GODMODE))
 		return FALSE
 	if(HAS_TRAIT(C, TRAIT_NODISMEMBER))
 		return FALSE
@@ -381,22 +381,15 @@
 
 	carbon_owner.dna.species.bodytype = all_limb_flags
 
-//Regenerates all limbs. Returns amount of limbs regenerated
-/mob/living/proc/regenerate_limbs(noheal = FALSE, list/excluded_zones = list())
-	SEND_SIGNAL(src, COMSIG_LIVING_REGENERATE_LIMBS, noheal, excluded_zones)
-
-/mob/living/carbon/regenerate_limbs(noheal = FALSE, list/excluded_zones = list())
-	SEND_SIGNAL(src, COMSIG_LIVING_REGENERATE_LIMBS, excluded_zones)
+/mob/living/carbon/proc/regenerate_limbs(list/excluded_zones = list())
+	SEND_SIGNAL(src, COMSIG_CARBON_REGENERATE_LIMBS, excluded_zones)
 	var/list/zone_list = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG)
 	if(length(excluded_zones))
 		zone_list -= excluded_zones
 	for(var/limb_zone in zone_list)
 		regenerate_limb(limb_zone)
 
-/mob/living/proc/regenerate_limb(limb_zone, noheal)
-	return
-
-/mob/living/carbon/regenerate_limb(limb_zone, noheal)
+/mob/living/carbon/proc/regenerate_limb(limb_zone)
 	var/obj/item/bodypart/limb
 	if(get_bodypart(limb_zone))
 		return FALSE

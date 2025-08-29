@@ -8,6 +8,14 @@
 	. = ..()
 	handle_emp_damage(delta_time, times_fired)
 
+/mob/living/brain/update_stat()
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
+		return
+	if(health > HEALTH_THRESHOLD_DEAD)
+		return
+	if(stat != DEAD)
+		death()
+
 /// If the brain mob manages to die, we are super dead
 /mob/living/brain/death(gibbed)
 	. = ..()

@@ -47,6 +47,9 @@
 /obj/projectile/beam/weak
 	damage = 12
 
+/obj/projectile/beam/weak/shotgun
+	damage = 18
+
 /obj/projectile/beam/weak/penetrator //laser gatling and centcom shuttle turret
 	damage = 15
 	sharpness = SHARP_IIX
@@ -116,7 +119,7 @@
 			SSexplosions.medturf += target
 
 /obj/projectile/beam/pulse/shotgun
-	damage = 40
+	damage = 35
 
 /obj/projectile/beam/pulse/heavy
 	name = "heavy pulse laser"

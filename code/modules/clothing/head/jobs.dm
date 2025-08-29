@@ -285,7 +285,7 @@
 				message = replacetextEx(message, ".", "!!", length(message))
 			if(DRILL_CANADIAN)
 				message = "[message]"
-				var/list/canadian_words = strings(CANADIAN_TALK_FILE, "canadian")
+				var/list/canadian_words = strings(CANADIAN_TALK_FILE, "words")
 
 				for(var/key in canadian_words)
 					var/value = canadian_words[key]
