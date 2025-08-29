@@ -29,5 +29,5 @@
 #define GASRIG_CO2 list(330, 500, 15)
 #define GASRIG_N2O list(700, 950, 5)
 #define GASRIG_BZ list(950, 2000, 25)
-#define GASRIG_PLOX list(1555, 1875)
+#define GASRIG_PLOX list(1555, 1875, 30)
 #define GASRIG_NOB list(1925, 2000, 25)
