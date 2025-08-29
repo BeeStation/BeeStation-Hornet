@@ -2,7 +2,7 @@ import { toFixed } from 'common/math';
 import { classes } from 'common/react';
 import { storage } from 'common/storage';
 import { createLogger } from 'tgui/logging';
-import { formatSiUnit } from 'tgui-core/format';
+import { formatSiUnit } from '../format';
 import { useBackend, useLocalState, useSharedState } from '../backend';
 import {
   AnimatedNumber,
@@ -144,7 +144,7 @@ const needs_update = (after: { path: string; volume: number }[]) => {
 const compile_recipes = (
   contents: { path: string; volume: number }[],
   recipes: Recipe[],
-  favourites: { [id: string]: boolean },
+  favourites: { [id: string]: boolean }
 ): SatisfiedRecipe[] => {
   if (recipe_list.length && !needs_update(contents)) {
     return recipe_list;
@@ -153,12 +153,12 @@ const compile_recipes = (
   let result: SatisfiedRecipe[] = [];
   const [unlocked_recipes, set_unlocked_recipes] = useSharedState(
     'unlocked_recipes',
-    {},
+    {}
   );
   const [search_term] = useSharedState('search_term', '');
   const [selected_recipe] = useSharedState<Recipe | null>(
     'selected_recipe',
-    null,
+    null
   );
   const [filters] = useSharedState('filters', 0);
   let initial_length = Object.keys(unlocked_recipes).length;
@@ -243,7 +243,7 @@ const compile_recipes = (
         for (const required of recipe.required_reagents) {
           if (
             contents.some(
-              (x) => x.path === required.path && x.volume >= required.volume,
+              (x) => x.path === required.path && x.volume >= required.volume
             )
           ) {
             matches += 2;
@@ -290,7 +290,7 @@ const compile_recipes = (
 
 const render_hint = (
   hint_type: RecipeHintTypes,
-  message: string | number[],
+  message: string | number[]
 ) => {
   let hint_icon: string;
   let colour: string;
@@ -352,7 +352,7 @@ export const ChemDispenser = (_props) => {
   const [search_term, set_search_term] = useSharedState('search_term', '');
   const [selected_recipe, set_selected_recipe] = useSharedState<Recipe | null>(
     'selected_recipe',
-    null,
+    null
   );
   const [favourites, setFavourites] = useLocalState<
     { [id: string]: boolean } | undefined
@@ -389,7 +389,7 @@ export const ChemDispenser = (_props) => {
   const shown_recipes = compile_recipes(
     data.beakerContents,
     data.reactions_list,
-    usedFavourites,
+    usedFavourites
   ).sort((a, b) => b.rating - a.rating);
 
   return (
@@ -412,7 +412,9 @@ export const ChemDispenser = (_props) => {
           >
             <LabeledList>
               <LabeledList.Item label="Energy">
-                <ProgressBar value={data.energy / data.maxEnergy}>{formatSiUnit(data.energy, 0, 'W')}</ProgressBar>
+                <ProgressBar value={data.energy / data.maxEnergy}>
+                  {formatSiUnit(data.energy, 0, 'W')}
+                </ProgressBar>
               </LabeledList.Item>
             </LabeledList>
           </Section>
@@ -698,7 +700,7 @@ export const ChemDispenser = (_props) => {
                     recipe.required_reagents.every(
                       (x) =>
                         beakerContents.some((y) => y.path === x.path) ||
-                        data.chemicals.some((y) => x.name === y.title),
+                        data.chemicals.some((y) => x.name === y.title)
                     ) && 'craftable',
                   ])}
                   key={recipe.id}
@@ -707,7 +709,7 @@ export const ChemDispenser = (_props) => {
                       recipe.required_reagents.every(
                         (x) =>
                           beakerContents.some((y) => y.path === x.path) ||
-                          data.chemicals.some((y) => x.name === y.title),
+                          data.chemicals.some((y) => x.name === y.title)
                       )
                     ) {
                       let has_all = true;
@@ -716,14 +718,14 @@ export const ChemDispenser = (_props) => {
                         if (
                           beakerContents.some(
                             (y) =>
-                              y.path === chem.path && y.volume >= chem.volume,
+                              y.path === chem.path && y.volume >= chem.volume
                           )
                         ) {
                           continue;
                         }
                         has_all = false;
                         const printable_chem = data.chemicals.filter(
-                          (x) => x.title === chem.name,
+                          (x) => x.title === chem.name
                         )[0];
                         if (!printable_chem) {
                           continue;
@@ -737,7 +739,7 @@ export const ChemDispenser = (_props) => {
                       if (has_all) {
                         for (const chem of recipe.required_reagents) {
                           const printable_chem = data.chemicals.filter(
-                            (x) => x.title === chem.name,
+                            (x) => x.title === chem.name
                           )[0];
                           if (!printable_chem) {
                             continue;
@@ -777,7 +779,7 @@ export const ChemDispenser = (_props) => {
                           waitingForSave = false;
                           storage.set(
                             'chem_dispenser_favourites',
-                            usedFavourites,
+                            usedFavourites
                           );
                         }, 5000);
                       }
@@ -793,7 +795,7 @@ export const ChemDispenser = (_props) => {
                       !!recipe.required_reagents.every(
                         (x) =>
                           beakerContents.some((y) => y.path === x.path) ||
-                          data.chemicals.some((y) => x.name === y.title),
+                          data.chemicals.some((y) => x.name === y.title)
                       ) && 'create',
                     ])}
                   >
@@ -887,7 +889,7 @@ export const ChemDispenser = (_props) => {
                         className={classes([
                           'recipe_ingredient',
                           !!beakerContents.some(
-                            (y) => y.name === x.name && y.volume >= x.volume,
+                            (y) => y.name === x.name && y.volume >= x.volume
                           ) && 'satisfied',
                           !!data.chemicals.some((y) => y.title === x.name) &&
                             'insertable',
