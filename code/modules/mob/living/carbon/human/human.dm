@@ -692,7 +692,7 @@
 		// Add injuries
 		var/highest_injury_level = 0
 		injury_list.Cut()
-		for (var/datum/injury/injury in BP.injuries)
+		for (var/datum/injury/injury in body_part.injuries)
 			if (injury.severity_level <= 0 || !injury.health_doll_icon || injury.severity_level < highest_injury_level)
 				continue
 			if (injury.severity_level > highest_injury_level)
@@ -712,7 +712,7 @@
 			MA.alpha = (body_part.stamina_dam / body_part.max_stamina_damage) * 70 + 30
 			hud_used.healthdoll.add_overlay(MA)
 		for (var/injury_icon in injury_list)
-			hud_used.healthdoll.add_overlay(mutable_appearance('icons/hud/screen_gen.dmi', "[BP.body_zone]_[injury_icon]"))
+			hud_used.healthdoll.add_overlay(mutable_appearance('icons/hud/screen_gen.dmi', "[body_part.body_zone]_[injury_icon]"))
 	for(var/t in get_missing_limbs()) //Missing limbs
 		hud_used.healthdoll.add_overlay(mutable_appearance('icons/hud/screen_gen.dmi', "[t]6"))
 	for(var/t in get_disabled_limbs()) //Disabled limbs

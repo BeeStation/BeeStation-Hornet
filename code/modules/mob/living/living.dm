@@ -823,9 +823,6 @@
  */
 /mob/living/proc/fully_heal(heal_flags = HEAL_ALL)
 	SHOULD_CALL_PARENT(TRUE)
-
-//proc used to completely heal a mob.
-/mob/living/proc/fully_heal(admin_revive = FALSE)
 	if(heal_flags & HEAL_TOX)
 		setToxLoss(0, FALSE, TRUE)
 	if(heal_flags & HEAL_OXY)

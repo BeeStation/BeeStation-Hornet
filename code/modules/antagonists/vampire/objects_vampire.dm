@@ -310,7 +310,7 @@
 
 		INVOKE_ASYNC(target, TYPE_PROC_REF(/mob, emote), "scream")
 		target.Jitter(5 SECONDS)
-		target.apply_damage(held_item ? held_item.force / 4 : 2, held_item ? held_item.damtype : BRUTE, selected_bodypart)
+		target.deal_damage(held_item ? held_item.force / 4 : 2, min(held_item?.sharpness, SHARP_III), held_item ? held_item.damtype : BRUTE, zone = selected_bodypart)
 		return TRUE
 	else
 		balloon_alert(user, "interrupted!")

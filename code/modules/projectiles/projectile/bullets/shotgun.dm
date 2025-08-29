@@ -21,7 +21,6 @@
 	icon_state = "banana"
 	damage = 1 // 1 damage because comedy.
 	knockdown = 100
-	armour_penetration = -5
 	sharpness = SHARP_I
 
 /obj/projectile/bullet/shotgun_beanbag
@@ -62,7 +61,7 @@
 	name = "armour-piercing buckshot pellet"
 	damage = 6
 	tile_dropoff = 0.5
-	armour_penetration = 60
+	sharpness = SHARP_X
 
 /obj/projectile/bullet/pellet/shotgun_buckshot // Seperated to AP and normal buckshot
 	name = "buckshot pellet"

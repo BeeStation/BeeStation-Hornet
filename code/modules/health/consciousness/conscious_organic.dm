@@ -24,7 +24,7 @@
 
 /datum/consciousness/organic/update_consciousness(consciousness_value)
 	..()
-	if (owner.status_flags & GODMODE)
+	if (HAS_TRAIT(owner, TRAIT_GODMODE))
 		return
 	if (owner.stat != DEAD)
 		if(consciousness_value <= HEALTH_THRESHOLD_DEAD && !HAS_TRAIT(owner, TRAIT_NODEATH))

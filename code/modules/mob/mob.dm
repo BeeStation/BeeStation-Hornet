@@ -1352,12 +1352,22 @@
 
 /mob/proc/update_stat()
 	var/final_stat = GET_TRAIT_VALUE(src, TRAIT_VALUE_STAT) || CONSCIOUS
+	// God mode cannot be unconscious
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
+		final_stat = CONSCIOUS
 	// Value did not change
 	if (final_stat == stat)
 		return
 	. = stat
 	stat = final_stat
 	update_action_buttons_icon(TRUE)
+	// Handle mob list updates
+	if (. == DEAD)
+		remove_from_dead_mob_list()
+		add_to_alive_mob_list()
+	if (stat == DEAD)
+		remove_from_alive_mob_list()
+		add_to_dead_mob_list()
 	// Value did change
 	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, final_stat)
 	if(.)

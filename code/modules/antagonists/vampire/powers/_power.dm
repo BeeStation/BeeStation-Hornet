@@ -95,7 +95,7 @@
 		return FALSE
 	if(!vampiredatum_power)
 		var/mob/living/living_owner = owner
-		if(!HAS_TRAIT(living_owner, TRAIT_NO_BLOOD) && living_owner.blood_volume < bloodcost)
+		if(!HAS_TRAIT(living_owner, TRAIT_NO_BLOOD) && living_owner.blood.volume < bloodcost)
 			to_chat(owner, span_warning("You need at least [bloodcost] blood to activate [name]"))
 			return FALSE
 		return TRUE
@@ -153,7 +153,7 @@
 	if(!vampiredatum_power)
 		var/mob/living/living_owner = owner
 		if(!HAS_TRAIT(living_owner, TRAIT_NO_BLOOD))
-			living_owner.blood_volume -= bloodcost
+			living_owner.blood.volume -= bloodcost
 		return
 
 	// Vampires in a Frenzy don't have enough Blood to pay it, so just don't.
@@ -195,7 +195,7 @@
 		else
 			var/mob/living/living_owner = owner
 			if(!HAS_TRAIT(living_owner, TRAIT_NO_BLOOD))
-				living_owner.blood_volume -= constant_bloodcost
+				living_owner.blood.volume -= constant_bloodcost
 
 	return TRUE
 

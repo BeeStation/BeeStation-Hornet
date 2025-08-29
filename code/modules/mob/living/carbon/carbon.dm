@@ -747,7 +747,6 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		if(!is_blind())
 			var/datum/component/blind_sense/B = GetComponent(/datum/component/blind_sense)
 			B?.ClearFromParent()
-	update_damage_hud()
 	update_health_hud()
 	update_stamina_hud()
 	med_hud_set_status()
@@ -769,8 +768,8 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 /mob/living/carbon/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE)
 	if(excess_healing)
-		if(dna && !HAS_TRAIT(src, TRAIT_NOBLOOD))
-			blood_volume += (excess_healing * 2) //1 excess = 10 blood
+		if(dna && !HAS_TRAIT(src, TRAIT_NO_BLOOD))
+			blood.volume += (excess_healing * 2) //1 excess = 10 blood
 
 		for(var/obj/item/organ/organ as anything in internal_organs)
 			if(organ.organ_flags & ORGAN_SYNTHETIC)

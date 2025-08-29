@@ -9,11 +9,6 @@
 /mob/living/carbon/human/take_sharpness_damage(amount, type, flag, zone, sharpness)
 	. = ..(amount * (100 - physiology.damage_resistance) / 100, type, flag, zone, sharpness)
 
-/mob/living/carbon/human/revive(full_heal = 0, admin_revive = 0)
-	if(..())
-		if(dna && dna.species)
-			dna.species.spec_revival(src)
-
 /mob/living/carbon/human/get_bodyzone_armor_flag(bodyzone = null, armour_flag = ARMOUR_BLUNT)
 	var/armorval = 0
 	var/organnum = 0
@@ -657,7 +652,7 @@
 		missing -= body_part.body_zone
 		if(body_part.is_pseudopart) //don't show injury text for fake bodyparts; ie chainsaw arms or synthetic armblades
 			continue
-		body_part.check_for_injuries(src, combined_msg)
+		body_part.check_for_injuries(src, combined_msg, whole_body_issues)
 
 	// Put it into a list
 	var/stringified_body_injuries = null

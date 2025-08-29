@@ -23,43 +23,44 @@
 
 /// Every tick update ourselves
 /datum/blood_source/organic/blood_tick(mob/living/source, delta_time)
-	if(source.bodytemperature >= TCRYO && !(HAS_TRAIT(src, TRAIT_HUSK))) //cryosleep or husked people do not pump the blood.
-		//Blood regeneration if there is some space
-		if(!source.is_bleeding() && volume < BLOOD_VOLUME_NORMAL && !HAS_TRAIT(src, TRAIT_NOHUNGER) && !HAS_TRAIT(src, TRAIT_POWERHUNGRY))
-			var/nutrition_ratio = 0
-			switch(source.nutrition)
-				if(0 to NUTRITION_LEVEL_STARVING)
-					nutrition_ratio = 0.2
-				if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
-					nutrition_ratio = 0.4
-				if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
-					nutrition_ratio = 0.6
-				if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
-					nutrition_ratio = 0.8
-				else
-					nutrition_ratio = 1
-			if(source.satiety > 80)
-				nutrition_ratio *= 1.25
-			source.adjust_nutrition(-nutrition_ratio * HUNGER_FACTOR * delta_time)
-			volume = min(volume + (BLOOD_REGEN_FACTOR * nutrition_ratio * delta_time), BLOOD_VOLUME_NORMAL)
+	if(source.bodytemperature < TCRYO || HAS_TRAIT(src, TRAIT_HUSK)) //cryosleep or husked people do not pump the blood.
+		return
+	//Blood regeneration if there is some space
+	if(!source.is_bleeding() && volume < BLOOD_VOLUME_NORMAL && !HAS_TRAIT(src, TRAIT_NOHUNGER) && !HAS_TRAIT(src, TRAIT_POWERHUNGRY))
+		var/nutrition_ratio = 0
+		switch(source.nutrition)
+			if(0 to NUTRITION_LEVEL_STARVING)
+				nutrition_ratio = 0.2
+			if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
+				nutrition_ratio = 0.4
+			if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
+				nutrition_ratio = 0.6
+			if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
+				nutrition_ratio = 0.8
+			else
+				nutrition_ratio = 1
+		if(source.satiety > 80)
+			nutrition_ratio *= 1.25
+		source.adjust_nutrition(-nutrition_ratio * HUNGER_FACTOR * delta_time)
+		volume = min(volume + (BLOOD_REGEN_FACTOR * nutrition_ratio * delta_time), BLOOD_VOLUME_NORMAL)
 
-		//Effects of bloodloss
-		var/word = pick("dizzy","woozy","faint")
+	//Effects of bloodloss
+	var/word = pick("dizzy","woozy","faint")
 
-		switch(volume)
-			if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)
-				if(DT_PROB(2.5, delta_time))
-					to_chat(src, span_warning("You feel [word]."))
-			if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY)
-				if(DT_PROB(2.5, delta_time))
-					source.blur_eyes(6)
-					to_chat(src, span_warning("You feel very [word]."))
-			if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD)
-				//adjustOxyLoss(2.5 * delta_time)
-				if(DT_PROB(15, delta_time))
-					source.blur_eyes(6)
-					source.Unconscious(rand(3,6))
-					to_chat(src, span_warning("You feel extremely [word]."))
+	switch(volume)
+		if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)
+			if(DT_PROB(2.5, delta_time))
+				to_chat(src, span_warning("You feel [word]."))
+		if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY)
+			if(DT_PROB(2.5, delta_time))
+				source.blur_eyes(6)
+				to_chat(src, span_warning("You feel very [word]."))
+		if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD)
+			//adjustOxyLoss(2.5 * delta_time)
+			if(DT_PROB(15, delta_time))
+				source.blur_eyes(6)
+				source.Unconscious(rand(3,6))
+				to_chat(src, span_warning("You feel extremely [word]."))
 
 /// Bleed out of the mob
 /datum/blood_source/organic/bleed(amount)

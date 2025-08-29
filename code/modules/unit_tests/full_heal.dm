@@ -43,7 +43,12 @@
 /datum/unit_test/full_heal_damage_types/Run()
 	var/mob/living/carbon/human/dummy = allocate(/mob/living/carbon/human/consistent)
 
-	dummy.apply_damages(brute = 10, burn = 10, tox = 10, oxy = 10, clone = 10, stamina = 10)
+	dummy.take_direct_damage(10, BRUTE)
+	dummy.take_direct_damage(10, BURN)
+	dummy.take_direct_damage(10, TOX)
+	dummy.take_direct_damage(10, OXY)
+	dummy.take_direct_damage(10, CLONE)
+	dummy.take_direct_damage(10, STAMINA)
 	dummy.fully_heal(HEAL_DAMAGE)
 
 	if(dummy.getBruteLoss())

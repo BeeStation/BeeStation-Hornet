@@ -177,11 +177,6 @@
 	..()
 
 /mob/living/basic/update_stat()
-	if(stat != DEAD)
-		if(health <= 0)
-			death()
-		else
-			set_stat(CONSCIOUS)
 	med_hud_set_status()
 
 /mob/living/basic/emp_act(severity)

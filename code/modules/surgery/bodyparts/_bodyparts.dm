@@ -185,7 +185,7 @@
  *
  * Modifies the check_list list with the resulting report of the limb's status.
  */
-/obj/item/bodypart/proc/check_for_injuries(mob/living/carbon/human/examiner, list/check_list)
+/obj/item/bodypart/proc/check_for_injuries(mob/living/carbon/human/examiner, list/check_list, list/whole_body_issues)
 
 	var/list/limb_damage = list(BRUTE = brute_dam, BURN = burn_dam)
 
@@ -224,32 +224,47 @@
 		if(status == "")
 			status = "OK"
 
+	// Get the injury texts for our injuries
+	var/list/injury_texts = list()
+	for (var/datum/injury/injuries in injuries)
+		if (injuries.examine_description)
+			var/tooltip_desc = injuries.examine_description
+			// TODO: When we merge to master, add tooltips for limb effectiveness here
+			if (injuries.whole_body)
+				whole_body_issues |= tooltip_desc
+			else
+				injury_texts += tooltip_desc
 	var/no_damage
 	if(status == "OK" || status == "no damage")
 		no_damage = TRUE
-
-	var/is_disabled = ""
+	// Put it into a list
+	var/stringified_injuries = null
+	if (length(injury_texts))
+		stringified_injuries = injury_texts[1]
+	for (var/i in 2 to length(injury_texts) - 1)
+		stringified_injuries += ", [injury_texts[i]]"
+	if (length(injury_texts) > 1)
+		stringified_injuries += ", and [injury_texts[length(injury_texts)]]"
+	var/auxiliary_verb = self_aware ? "has" : "is"
+	if (no_damage && stringified_injuries)
+		status = stringified_injuries
+		stringified_injuries = null
+		no_damage = FALSE
+		auxiliary_verb = "has"
+	var/isdisabled = ""
 	if(bodypart_disabled)
-		is_disabled = " is disabled"
+		isdisabled = " is disabled"
 		if(no_damage)
-			is_disabled += " but otherwise"
+			isdisabled += " but otherwise"
+		else if (stringified_injuries)
+			isdisabled += ","
 		else
-			is_disabled += " and"
+			isdisabled += " and"
+	if (destroyed)
+		check_list += "\t <span class='[no_damage ? "notice" : "warning"]'>Your [name] is injured beyond treatment.</span>"
+	else
+		check_list += "\t <span class='[no_damage ? "notice" : "warning"]'>Your [name][isdisabled] [auxiliary_verb] [status][stringified_injuries ? " and has " : ""][stringified_injuries].</span>"
 
-	check_list += "\t <span class='[no_damage ? "notice" : "warning"]'>Your [name][is_disabled][self_aware ? " has " : " is "][status].</span>"
-
-	/*
-	for(var/datum/wound/wound as anything in wounds)
-		switch(wound.severity)
-			if(WOUND_SEVERITY_TRIVIAL)
-				check_list += "\t [span_danger("Your [name] is suffering [wound.a_or_from] [LOWER_TEXT(wound.name)].")]"
-			if(WOUND_SEVERITY_MODERATE)
-				check_list += "\t [span_warning("Your [name] is suffering [wound.a_or_from] [LOWER_TEXT(wound.name)]!")]"
-			if(WOUND_SEVERITY_SEVERE)
-				check_list += "\t [span_boldwarning("Your [name] is suffering [wound.a_or_from] [LOWER_TEXT(wound.name)]!")]"
-			if(WOUND_SEVERITY_CRITICAL)
-				check_list += "\t [span_boldwarning("Your [name] is suffering [wound.a_or_from] [LOWER_TEXT(wound.name)]!!")]"
-	*/
 
 	for(var/obj/item/embedded_thing in embedded_objects)
 		var/stuck_word = embedded_thing.isEmbedHarmless() ? "stuck" : "embedded"

@@ -153,6 +153,10 @@
 
 	setup_tracker(current_mob)
 
+	// Convert to vampiric blood
+	mob_override.blood = new /datum/blood_source/organic/vampire()
+	mob_override.blood.Initialize(mob_override)
+
 #ifdef VAMPIRE_TESTING
 	var/turf/user_loc = get_turf(current_mob)
 	new /obj/structure/closet/crate/coffin(user_loc)
@@ -304,8 +308,7 @@
 /datum/antagonist/vampire/farewell()
 	to_chat(owner.current, span_userdanger("With a snap, your curse has ended. You are no longer a Vampire. You live once more!"))
 	// Refill with Blood so they don't instantly die.
-	if(!HAS_TRAIT(owner.current, TRAIT_NO_BLOOD))
-		owner.current.blood_volume = max(owner.current.blood_volume, BLOOD_VOLUME_NORMAL)
+	owner.current.blood.restore_blood()
 
 // Called when using admin tools to give antag status
 /datum/antagonist/vampire/admin_add(datum/mind/new_owner, mob/admin)
@@ -527,8 +530,9 @@
 
 // Taken directly from changeling.dm
 /datum/antagonist/vampire/proc/check_blacklisted_species()
-	var/mob/living/carbon/carbon_owner = owner.current	//only carbons have dna now, so we have to typecaste
-	if(carbon_owner.dna.species.species_bitflags & NOT_TRANSMORPHIC)
+	var/mob/living/carbon/carbon_owner = owner.current
+	// Must have standard blood
+	if((carbon_owner.dna.species.species_bitflags & NOT_TRANSMORPHIC) || !istype(carbon_owner.blood, /datum/blood_source/organic))
 		carbon_owner.set_species(/datum/species/human)
 		carbon_owner.fully_replace_character_name(carbon_owner.real_name, carbon_owner.client.prefs.read_character_preference(/datum/preference/name/backup_human))
 

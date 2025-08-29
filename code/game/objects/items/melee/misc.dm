@@ -1028,7 +1028,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb_continuous = list("staked", "stabbed", "tore into")
 	attack_verb_simple = list("staked", "stabbed", "tore into")
-	sharpness = SHARP
+	sharpness = SHARP_V
 	force = 6
 	throwforce = 10
 	max_integrity = 30
@@ -1086,7 +1086,8 @@
 	if(!tryEmbed(target.get_bodypart(BODY_ZONE_CHEST), TRUE, TRUE))
 		return
 
-	target.apply_damage(force * 5, BRUTE, BODY_ZONE_CHEST)
+	// Ultimate penetration
+	target.deal_damage(force * 5, sharpness, BRUTE, zone = BODY_ZONE_CHEST)
 
 	playsound(target, 'sound/effects/splat.ogg', 40, 1)
 	user.visible_message(
@@ -1113,7 +1114,7 @@
 	icon_state = "hardened"
 	force = 8
 	throwforce = 12
-	armour_penetration = 10
+	sharpness = SHARP_VII
 	staketime = 8 SECONDS
 
 /obj/item/stake/hardened/silver
@@ -1123,5 +1124,5 @@
 	item_state = "silver"
 	siemens_coefficient = 1
 	force = 9
-	armour_penetration = 25
+	sharpness = SHARP_X
 	staketime = 6 SECONDS
