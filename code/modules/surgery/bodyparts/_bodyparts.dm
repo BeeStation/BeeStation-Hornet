@@ -135,6 +135,9 @@
 	/// How much pain does this limb feel?
 	var/pain_multiplier = 0.4
 
+	/// Damage taken per second
+	var/decay_rate = STANDARD_ORGAN_DECAY
+
 /obj/item/bodypart/Initialize(mapload)
 	. = ..()
 	if(can_be_disabled)
@@ -145,6 +148,9 @@
 		limb_gender = pick("m", "f")
 	update_icon_dropped()
 	setup_injury_trees()
+	// Start processing decay
+	if (!owner && !destroyed)
+		START_PROCESSING(SSinjuries, src)
 
 /// Not all bodyparts have the same injury trees
 /// Allow them to be overriden
@@ -157,14 +163,15 @@
 	if(owner)
 		owner.remove_bodypart(src)
 		set_owner(null)
-	/*
-	for(var/wound in wounds)
-		qdel(wound) // wounds is a lazylist, and each wound removes itself from it on deletion.
-	if(length(wounds))
-		stack_trace("[type] qdeleted with [length(wounds)] uncleared wounds")
-		wounds.Cut()
-	*/
 	return ..()
+
+/obj/item/bodypart/process(delta_time)
+	// Decay
+	receive_damage(decay_rate)
+	if (get_damage() >= max_damage)
+		destroyed = TRUE
+		update_disabled()
+		return STOP_PROCESSING
 
 /obj/item/bodypart/forceMove(atom/destination) //Please. Never forcemove a limb if its's actually in use. This is only for borgs.
 	. = ..()
@@ -529,6 +536,10 @@
 		return FALSE //`null` is a valid option, so we need to use a num var to make it clear no change was made.
 	var/mob/living/carbon/old_owner = owner
 	owner = new_owner
+	if (owner || destroyed)
+		STOP_PROCESSING(SSinjuries, src)
+	else
+		START_PROCESSING(SSinjuries, src)
 	var/needs_update_disabled = FALSE //Only really relevant if there's an owner
 	if(old_owner)
 		if(initial(can_be_disabled))

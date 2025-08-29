@@ -24,6 +24,7 @@
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+	decay_rate = 0
 	change_exempt_flags = BP_BLOCK_CHANGE_SPECIES
 	dmg_overlay_type = "robotic"
 	circulation_flags = CIRCULATION_BLOOD | CIRCULATION_COOLANT
@@ -58,6 +59,7 @@
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+	decay_rate = 0
 	change_exempt_flags = BP_BLOCK_CHANGE_SPECIES
 	dmg_overlay_type = "robotic"
 	circulation_flags = CIRCULATION_BLOOD | CIRCULATION_COOLANT
@@ -92,6 +94,7 @@
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+	decay_rate = 0
 	change_exempt_flags = BP_BLOCK_CHANGE_SPECIES
 	dmg_overlay_type = "robotic"
 	circulation_flags = CIRCULATION_BLOOD | CIRCULATION_COOLANT
@@ -126,6 +129,7 @@
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+	decay_rate = 0
 	change_exempt_flags = BP_BLOCK_CHANGE_SPECIES
 	dmg_overlay_type = "robotic"
 	circulation_flags = CIRCULATION_BLOOD | CIRCULATION_COOLANT
@@ -158,6 +162,7 @@
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+	decay_rate = 0
 	change_exempt_flags = BP_BLOCK_CHANGE_SPECIES
 	dmg_overlay_type = "robotic"
 	circulation_flags = CIRCULATION_BLOOD | CIRCULATION_COOLANT
@@ -272,6 +277,7 @@
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+	decay_rate = 0
 	change_exempt_flags = BP_BLOCK_CHANGE_SPECIES
 	w_class = WEIGHT_CLASS_NORMAL
 	dmg_overlay_type = "robotic"
