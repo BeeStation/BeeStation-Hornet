@@ -508,11 +508,15 @@
 		failure_timer--
 		force_update = TRUE
 		return
+	// Vars for the power usage of the different channels
+	var/light_power_req = area.power_usage[AREA_USAGE_LIGHT] + area.power_usage[AREA_USAGE_STATIC_LIGHT]
+	var/equip_power_req = area.power_usage[AREA_USAGE_EQUIP] + area.power_usage[AREA_USAGE_STATIC_EQUIP]
+	var/environ_power_req = area.power_usage[AREA_USAGE_ENVIRON] + area.power_usage[AREA_USAGE_STATIC_ENVIRON]
 
 	//dont use any power from that channel if we shut that power channel off
-	lastused_light = APC_CHANNEL_IS_ON(lighting) ? area.power_usage[AREA_USAGE_LIGHT] + area.power_usage[AREA_USAGE_STATIC_LIGHT] : 0
-	lastused_equip = APC_CHANNEL_IS_ON(equipment) ? area.power_usage[AREA_USAGE_EQUIP] + area.power_usage[AREA_USAGE_STATIC_EQUIP] : 0
-	lastused_environ = APC_CHANNEL_IS_ON(environ) ? area.power_usage[AREA_USAGE_ENVIRON] + area.power_usage[AREA_USAGE_STATIC_ENVIRON] : 0
+	lastused_light = APC_CHANNEL_IS_ON(lighting) ? light_power_req : 0
+	lastused_equip = APC_CHANNEL_IS_ON(equipment) ? equip_power_req : 0
+	lastused_environ = APC_CHANNEL_IS_ON(environ) ? environ_power_req : 0
 	area.clear_usage()
 
 	lastused_total = lastused_light + lastused_equip + lastused_environ
@@ -529,6 +533,23 @@
 	if(!avail())
 		main_status = APC_NO_POWER
 
+	// The following math salad handles channel activation based on cell percent and if its charge plus surplus can meet the channels demand
+	// TODO: Not having it require cell
+	if(cell.percent() > 65 && (surplus() + cell.charge - (environ_power_req + equip_power_req)) > light_power_req)
+		lighting = autoset(lighting, AUTOSET_ON)
+		alarm_manager.clear_alarm(ALARM_POWER)
+	else
+		lighting = autoset(lighting, AUTOSET_FORCE_OFF)
+		alarm_manager.send_alarm(ALARM_POWER)
+	if(cell.percent() >= 50 && (surplus() + cell.charge - environ_power_req) > equip_power_req)
+		equipment = autoset(equipment, AUTOSET_ON)
+	else
+		equipment = autoset(equipment, AUTOSET_FORCE_OFF)
+	if(cell.percent() > 15 && (surplus() + cell.charge) > environ_power_req)
+		environ = autoset(environ, AUTOSET_ON)
+	else
+		environ = autoset(environ, AUTOSET_FORCE_OFF)
+
 	if(cell && !shorted) //need to check to make sure the cell is still there since rigged cells can randomly explode after use().
 		var/surplus_used = min(surplus(), lastused_total)	//Here we're using the powernet to meet demand
 		var/remaining_load = lastused_total - surplus_used
@@ -539,25 +560,11 @@
 			charging = APC_NOT_CHARGING
 			main_status = APC_LOW_POWER
 			cell.use(min(remaining_load, cell.charge))
-			if(cell.percent() < 50)	// below 50 things get depowered
-				lighting = autoset(lighting, AUTOSET_FORCE_OFF)
-				alarm_manager.send_alarm(ALARM_POWER)
-			if(cell.percent() < 25)
-				equipment = autoset(equipment, AUTOSET_FORCE_OFF)
-			if(cell.charge < remaining_load)	// If battery cannot meet demand shut everything off
-				environ = autoset(environ, AUTOSET_FORCE_OFF)
 
 		else if(surplus() >= cell.chargerate && cell.charge != cell.maxcharge && chargemode) // Here we're charging the cell (if theres enough power to do so)
 			charging = APC_CHARGING
 			cell.give(cell.chargerate)
 			add_load(cell.chargerate) // add the load used to recharge the cell
-			if(cell.percent() > 15 && cell.charge > lastused_environ)	// If cell charge is above 15% and can handle environ, turn it ON.
-				environ = autoset(environ, AUTOSET_ON)
-			if(cell.percent() >= 50)	// After 50% things will start repowering
-				equipment = autoset(equipment, AUTOSET_ON)
-			if(cell.percent() > 75)
-				lighting = autoset(lighting, AUTOSET_ON)
-				alarm_manager.clear_alarm(ALARM_POWER)
 		update_appearance()
 
 	if(cell && !shorted) //need to check to make sure the cell is still there since rigged cells can randomly explode after give().
