@@ -83,7 +83,7 @@
 	/// Should we warn about dangerous clothing?
 	var/warn_dangerous_clothing = TRUE
 
-/datum/strippable_item/proc/can_interact(mob/user)
+/datum/strippable_item/proc/can_interact(mob/user)	// If mobs shouldn't be able to strip we need to do it here, man
 	if(isliving(user))
 		var/mob/living/L = user
 		if(L.incorporeal_move) // Mobs that can walk through walls cannot grasp items to strip
@@ -163,6 +163,8 @@
 /datum/strippable_item/proc/start_unequip(atom/source, mob/user)
 
 	var/obj/item/item = get_item(source)
+	var/mob/living/carbon/source_pocket = source
+
 	if(isnull(item))
 		return FALSE
 
@@ -180,6 +182,9 @@
 	source.log_message("[key_name(source)] is being stripped of [item.name] by [key_name(user)]", LOG_ATTACK, color="red")
 	user.log_message("[key_name(source)] is being stripped of [item.name] by [key_name(user)]", LOG_ATTACK, color="red", log_globally=FALSE)
 	item.add_fingerprint(src)
+
+	if(item.on_start_stripping(source, user, source_pocket.get_slot_by_item(item)))
+		return FALSE
 
 	return TRUE
 
@@ -314,7 +319,7 @@
 
 /// A utility function for `/datum/strippable_item`s to start unequipping an item from a mob.
 /proc/start_unequip_mob(obj/item/item, mob/source, mob/user, strip_delay, hidden = FALSE)
-	if(!do_after(user, strip_delay || item.strip_delay, source, interaction_key = REF(item), hidden = hidden))
+	if(!do_after(user, strip_delay || item.strip_delay, source, interaction_key = REF(item), hidden = hidden, timed_action_flags = IGNORE_HELD_ITEM))
 		return FALSE
 
 	return TRUE

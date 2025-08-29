@@ -60,16 +60,17 @@ GLOBAL_VAR(round_default_lawset)
 		if(CONFIG_CUSTOM)
 			return /datum/ai_laws/custom
 		if(CONFIG_RANDOM)
-			var/list/randlaws = list()
-			for(var/lpath in subtypesof(/datum/ai_laws))
-				var/datum/ai_laws/L = lpath
-				if(initial(L.id) in law_ids)
-					randlaws += lpath
 			var/datum/ai_laws/lawtype
-			if(length(randlaws))
-				lawtype = pick(randlaws)
-			else
-				lawtype = pick(subtypesof(/datum/ai_laws/default))
+			while(!lawtype && length(law_ids))
+				var/possible_id = pick_weight(law_ids)
+				lawtype = lawid_to_type(possible_id)
+				if(!lawtype)
+					law_ids -= possible_id
+					WARNING("Bad lawid in game_options.txt: [possible_id]")
+
+			if(!lawtype)
+				WARNING("No LAW_WEIGHT entries.")
+				lawtype = /datum/ai_laws/default/asimov
 
 			return lawtype
 		if(CONFIG_WEIGHTED)

@@ -1,5 +1,17 @@
+import { Dropdown } from 'tgui-core/components';
+
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Collapsible, Dropdown, Grid, LabeledList, NoticeBox, NumberInput, Section, Stack } from '../components';
+import {
+  Box,
+  Button,
+  Collapsible,
+  Grid,
+  LabeledList,
+  NoticeBox,
+  NumberInput,
+  Section,
+  Stack,
+} from '../components';
 import { Window } from '../layouts';
 
 export const NaniteDiskBox = (props) => {
@@ -48,7 +60,8 @@ export const NaniteInfoBox = (props) => {
         <Box inline bold color={activated ? 'good' : 'bad'}>
           {activated ? 'Activated' : 'Deactivated'}
         </Box>
-      }>
+      }
+    >
       <Grid>
         <Grid.Column mr={1}>{desc}</Grid.Column>
         <Grid.Column size={0.5}>
@@ -56,8 +69,12 @@ export const NaniteInfoBox = (props) => {
             <LabeledList.Item label="Use Rate">{use_rate}</LabeledList.Item>
             {!!can_trigger && (
               <>
-                <LabeledList.Item label="Trigger Cost">{trigger_cost}</LabeledList.Item>
-                <LabeledList.Item label="Trigger Cooldown">{trigger_cooldown}</LabeledList.Item>
+                <LabeledList.Item label="Trigger Cost">
+                  {trigger_cost}
+                </LabeledList.Item>
+                <LabeledList.Item label="Trigger Cooldown">
+                  {trigger_cooldown}
+                </LabeledList.Item>
               </>
             )}
           </LabeledList>
@@ -67,22 +84,38 @@ export const NaniteInfoBox = (props) => {
         <Grid.Column>
           <Section title="Codes" level={3} mr={1}>
             <LabeledList>
-              <LabeledList.Item label="Activation">{activation_code}</LabeledList.Item>
-              <LabeledList.Item label="Deactivation">{deactivation_code}</LabeledList.Item>
+              <LabeledList.Item label="Activation">
+                {activation_code}
+              </LabeledList.Item>
+              <LabeledList.Item label="Deactivation">
+                {deactivation_code}
+              </LabeledList.Item>
               <LabeledList.Item label="Kill">{kill_code}</LabeledList.Item>
-              {!!can_trigger && <LabeledList.Item label="Trigger">{trigger_code}</LabeledList.Item>}
+              {!!can_trigger && (
+                <LabeledList.Item label="Trigger">
+                  {trigger_code}
+                </LabeledList.Item>
+              )}
             </LabeledList>
           </Section>
         </Grid.Column>
         <Grid.Column>
           <Section title="Delays" level={3} mr={1}>
             <LabeledList>
-              <LabeledList.Item label="Restart">{timer_restart} s</LabeledList.Item>
-              <LabeledList.Item label="Shutdown">{timer_shutdown} s</LabeledList.Item>
+              <LabeledList.Item label="Restart">
+                {timer_restart} s
+              </LabeledList.Item>
+              <LabeledList.Item label="Shutdown">
+                {timer_shutdown} s
+              </LabeledList.Item>
               {!!can_trigger && (
                 <>
-                  <LabeledList.Item label="Trigger">{timer_trigger} s</LabeledList.Item>
-                  <LabeledList.Item label="Trigger Delay">{timer_trigger_delay} s</LabeledList.Item>
+                  <LabeledList.Item label="Trigger">
+                    {timer_trigger} s
+                  </LabeledList.Item>
+                  <LabeledList.Item label="Trigger Delay">
+                    {timer_trigger_delay} s
+                  </LabeledList.Item>
                 </>
               )}
             </LabeledList>
@@ -136,7 +169,10 @@ export const NaniteCloudBackupList = (props) => {
 export const NaniteCloudBackupDetails = (_props) => {
   const { act, data } = useBackend();
   const { current_view, disk, has_program, cloud_backup } = data;
-  const [combineSelection, setCombineSelection] = useLocalState('combineSelection', false);
+  const [combineSelection, setCombineSelection] = useLocalState(
+    'combineSelection',
+    false,
+  );
   const [toCombine, setToCombine] = useLocalState('toCombine', []);
   const [combineOp, setCombineOp] = useLocalState('combineOp', 'AND');
 
@@ -153,8 +189,16 @@ export const NaniteCloudBackupDetails = (_props) => {
       title={'Backup #' + current_view}
       level={2}
       buttons={
-        !!has_program && <Button icon="upload" content="Upload From Disk" color="good" onClick={() => act('upload_program')} />
-      }>
+        !!has_program && (
+          <Button
+            icon="upload"
+            content="Upload From Disk"
+            color="good"
+            onClick={() => act('upload_program')}
+          />
+        )
+      }
+    >
       {cloud_programs.map((program) => {
         const rules = program.rules || [];
         return (
@@ -171,7 +215,8 @@ export const NaniteCloudBackupDetails = (_props) => {
                   })
                 }
               />
-            }>
+            }
+          >
             <Section>
               <NaniteInfoBox program={program} />
               {!!(can_rule || program.has_rules) && (
@@ -227,7 +272,8 @@ export const NaniteCloudBackupDetails = (_props) => {
                         </Stack.Item>
                       </Stack>
                     )
-                  }>
+                  }
+                >
                   {program.has_rules ? (
                     rules.map((rule, index) => (
                       <Box key={rule.display} color={index >= 5 && 'bad'}>
@@ -280,7 +326,15 @@ export const NaniteCloudControl = (props) => {
       <Window.Content scrollable>
         <Section
           title="Program Disk"
-          buttons={<Button icon="eject" content="Eject" disabled={!has_disk} onClick={() => act('eject')} />}>
+          buttons={
+            <Button
+              icon="eject"
+              content="Eject"
+              disabled={!has_disk}
+              onClick={() => act('eject')}
+            />
+          }
+        >
           <NaniteDiskBox />
         </Section>
         <Section
@@ -315,8 +369,13 @@ export const NaniteCloudControl = (props) => {
                 <Button icon="plus" onClick={() => act('create_backup')} />
               </>
             )
-          }>
-          {!data.current_view ? <NaniteCloudBackupList /> : <NaniteCloudBackupDetails />}
+          }
+        >
+          {!data.current_view ? (
+            <NaniteCloudBackupList />
+          ) : (
+            <NaniteCloudBackupDetails />
+          )}
         </Section>
       </Window.Content>
     </Window>

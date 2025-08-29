@@ -1,13 +1,21 @@
 import { sortBy } from 'common/collections';
-import { flow } from 'common/fp';
+import { Dropdown } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Box, Button, Dropdown, Section, Knob, LabeledControls, LabeledList } from '../components';
+import {
+  Box,
+  Button,
+  Knob,
+  LabeledControls,
+  LabeledList,
+  Section,
+} from '../components';
 import { Window } from '../layouts';
 
 export const Jukebox = (props) => {
   const { act, data } = useBackend();
   const { active, track_selected, track_length, track_beat, volume } = data;
-  const songs = flow([sortBy((song) => song.name)])(data.songs || []);
+  const songs = sortBy(songs, (song) => song.name);
   return (
     <Window width={370} height={313}>
       <Window.Content>
@@ -20,11 +28,11 @@ export const Jukebox = (props) => {
               selected={active}
               onClick={() => act('toggle')}
             />
-          }>
+          }
+        >
           <LabeledList>
             <LabeledList.Item label="Track Selected">
               <Dropdown
-                overflow-y="scroll"
                 width="240px"
                 options={songs.map((song) => song.name)}
                 disabled={active}
@@ -36,7 +44,9 @@ export const Jukebox = (props) => {
                 }
               />
             </LabeledList.Item>
-            <LabeledList.Item label="Track Length">{track_selected ? track_length : 'No Track Selected'}</LabeledList.Item>
+            <LabeledList.Item label="Track Length">
+              {track_selected ? track_length : 'No Track Selected'}
+            </LabeledList.Item>
             <LabeledList.Item label="Track Beat">
               {track_selected ? track_beat : 'No Track Selected'}
               {track_beat === 1 ? ' beat' : ' beats'}

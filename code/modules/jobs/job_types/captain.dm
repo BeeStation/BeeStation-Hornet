@@ -51,7 +51,7 @@
 	jobtype = /datum/job/captain
 
 	id = /obj/item/card/id/job/captain
-	belt = /obj/item/modular_computer/tablet/pda/heads/captain
+	belt = /obj/item/modular_computer/tablet/pda/preset/heads/captain
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced
 	ears = /obj/item/radio/headset/heads/captain/alt
 	gloves = /obj/item/clothing/gloves/color/captain
@@ -70,9 +70,11 @@
 
 	chameleon_extras = list(/obj/item/gun/energy/e_gun, /obj/item/stamp/captain)
 
-/datum/outfit/job/captain/hardsuit
-	name = "Captain (Hardsuit)"
+/datum/outfit/job/captain/mod
+	name = "Captain (MODsuit)"
 
-	mask = /obj/item/clothing/mask/gas/sechailer
-	suit = /obj/item/clothing/suit/space/hardsuit/swat/captain
 	suit_store = /obj/item/tank/internals/oxygen
+	back = /obj/item/mod/control/pre_equipped/magnate
+	suit = null
+	head = null
+	mask = /obj/item/clothing/mask/gas/atmos

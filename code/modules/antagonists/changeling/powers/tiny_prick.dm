@@ -1,4 +1,4 @@
-#define TRANSFORM_STING_COOLDOWN	2 MINUTES
+#define TRANSFORM_STING_COOLDOWN 2 MINUTES
 
 /datum/action/changeling/sting//parent path, not meant for users afaik
 	name = "Tiny Prick"
@@ -64,35 +64,41 @@
 /datum/action/changeling/sting/transformation
 	name = "Transformation Sting"
 	desc = "We silently sting a human, injecting a retrovirus that forces them to transform. Costs 20 chemicals, and can only be used once every two minutes."
-	helptext = "The victim will transform much like a changeling would. Does not provide a warning to others. Mutations will not be transferred, and monkeys will become human. The transformation can be reversed through being exposed to clonexadone for about a minute."
+	helptext = "The victim will transform much like a changeling would. \
+		Does not provide a warning to others. Mutations will not be transferred, and monkeys will become human. \
+		The transformation can be reversed through being exposed to clonexadone for about a minute."
 	button_icon_state = "sting_transform"
 	chemical_cost = 20
 	dna_cost = 3
-	cooldown_time = TRANSFORM_STING_COOLDOWN
-	var/datum/changelingprofile/selected_dna = null
+	/// A reference to our active profile, which we grab DNA from
+	VAR_FINAL/datum/changeling_profile/selected_dna
+	COOLDOWN_DECLARE(next_sting)
 
 /datum/action/changeling/sting/transformation/is_available()
 	return ..() && owner.mind.has_antag_datum(/datum/antagonist/changeling)
 
 /datum/action/changeling/sting/transformation/on_activate(mob/user, atom/target)
 	var/datum/antagonist/changeling/changeling = user.mind.has_antag_datum(/datum/antagonist/changeling)
-	selected_dna = changeling.select_dna("Select the target DNA: ", "Target DNA")
+	selected_dna = changeling.select_dna()
 	if(!selected_dna)
 		return
-	if(NOTRANSSTING in selected_dna.dna.species.species_traits)
-		to_chat(user, span_notice("That DNA is not compatible with changeling retrovirus!"))
+	if(HAS_TRAIT(user, TRAIT_NO_TRANSFORMATION_STING))
+		user.balloon_alert(user, "incompatible DNA!")
 		return
-	..()
+	return ..()
 
 /datum/action/changeling/sting/transformation/can_sting(mob/user, mob/living/carbon/target)
 	if(!..())
 		return
-	if((HAS_TRAIT(target, TRAIT_HUSK)) || !iscarbon(target) || (NOTRANSSTING in target.dna.species.species_traits))
-		to_chat(user, span_warning("Our sting appears ineffective against its DNA."))
+	if(!iscarbon(target) || HAS_TRAIT(target, TRAIT_HUSK) || HAS_TRAIT(target, TRAIT_NO_TRANSFORMATION_STING))
+		user.balloon_alert(user, "incompatible DNA!")
+		return FALSE
+	if(!COOLDOWN_FINISHED(src, next_sting))
+		to_chat(user, span_warning("Our retrovirus is not ready yet!"))
 		return FALSE
 	return TRUE
 
-/datum/action/changeling/sting/transformation/sting_action(mob/user, mob/target)
+/datum/action/changeling/sting/transformation/sting_action(mob/living/user, mob/living/target)
 	log_combat(user, target, "stung", "transformation sting", " new identity is '[selected_dna.dna.real_name]'")
 	var/datum/dna/new_dna = selected_dna.dna
 	if(ismonkey(target))
@@ -180,7 +186,7 @@
 /datum/action/changeling/sting/extract_dna/sting_action(mob/user, mob/living/carbon/human/target)
 	log_combat(user, target, "stung", "extraction sting")
 	var/datum/antagonist/changeling/changeling = user.mind.has_antag_datum(/datum/antagonist/changeling)
-	if(!(changeling.has_dna(target.dna)))
+	if(!changeling.has_profile_with_dna(target.dna))
 		changeling.add_new_profile(target)
 	return TRUE
 
@@ -224,12 +230,13 @@
 
 /datum/action/changeling/sting/LSD/sting_action(mob/user, mob/living/carbon/target)
 	log_combat(user, target, "stung", "LSD sting")
-	addtimer(CALLBACK(src, PROC_REF(hallucination_time), target), rand(300,600))
+	addtimer(CALLBACK(src, PROC_REF(hallucination_time), target), rand(30 SECONDS, 60 SECONDS))
 	return TRUE
 
 /datum/action/changeling/sting/LSD/proc/hallucination_time(mob/living/carbon/target)
-	if(target)
-		target.hallucination = max(90, target.hallucination)
+	if(QDELETED(src) || QDELETED(target))
+		return
+	target.adjust_hallucinations(180 SECONDS)
 
 /datum/action/changeling/sting/cryo
 	name = "Cryogenic Sting"

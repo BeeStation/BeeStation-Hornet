@@ -1,4 +1,5 @@
 import { BooleanLike, classes } from 'common/react';
+
 import { useBackend } from '../backend';
 import { Button, Flex, Table } from '../components';
 import { Window } from '../layouts';
@@ -36,27 +37,27 @@ type Unavailable = {
 };
 
 const SLOTS: Record<string, string> = {
-  'left_hand': 'Left hand',
-  'right_hand': 'Right hand',
-  'back': 'Backpack',
-  'head': 'Headwear',
-  'mask': 'Mask',
-  'neck': 'Neckwear',
-  'corgi_collar': 'Collar',
-  'parrot_headset': 'Headset',
-  'eyes': 'Eyewear',
-  'ears': 'Earwear',
-  'suit': 'Suit',
-  'suit_storage': 'Suit storage',
-  'shoes': 'Shoes',
-  'gloves': 'Gloves',
-  'jumpsuit': 'Uniform',
-  'belt': 'Belt',
-  'left_pocket': 'Left pocket',
-  'right_pocket': 'Right pocket',
-  'id': 'ID',
-  'handcuffs': 'Handcuffs',
-  'legcuffs': 'Legcuffs',
+  left_hand: 'Left hand',
+  right_hand: 'Right hand',
+  back: 'Backpack',
+  head: 'Headwear',
+  mask: 'Mask',
+  neck: 'Neckwear',
+  corgi_collar: 'Collar',
+  parrot_headset: 'Headset',
+  eyes: 'Eyewear',
+  ears: 'Earwear',
+  suit: 'Suit',
+  suit_storage: 'Suit storage',
+  shoes: 'Shoes',
+  gloves: 'Gloves',
+  jumpsuit: 'Uniform',
+  belt: 'Belt',
+  left_pocket: 'Left pocket',
+  right_pocket: 'Right pocket',
+  id: 'ID',
+  handcuffs: 'Handcuffs',
+  legcuffs: 'Legcuffs',
 };
 
 type Layout = Array<
@@ -200,7 +201,11 @@ interface StripMenuRowProps {
 const StripMenuRow = (props: StripMenuRowProps) => {
   const { act, data } = useBackend<StripMenuData>();
 
-  const name = props.obscured ? 'Obscured' : props.empty ? 'Empty' : props.itemName;
+  const name = props.obscured
+    ? 'Obscured'
+    : props.empty
+      ? 'Empty'
+      : props.itemName;
 
   return (
     <Table.Row
@@ -210,7 +215,8 @@ const StripMenuRow = (props: StripMenuRowProps) => {
         props.obscured === ObscuringLevel.Hidden && 'obscured-hidden',
         props.unavailable && 'unavailable',
         props.empty && 'empty',
-      ])}>
+      ])}
+    >
       <Table.Cell pl={1.5}>{props.slotName}:</Table.Cell>
       <Table.Cell pr={1.5} position="relative">
         <Flex direction="column">
@@ -231,7 +237,11 @@ const StripMenuRow = (props: StripMenuRowProps) => {
           )}
           {props.alternates?.map((alternate) => (
             <Flex.Item key={alternate.text}>
-              <Button compact content={alternate.text} onClick={() => act('alt', { key: props.slotID })} />
+              <Button
+                compact
+                content={alternate.text}
+                onClick={() => act('alt', { key: props.slotID })}
+              />
             </Flex.Item>
           ))}
           {props.extra_actions?.map((alternate) => (
@@ -241,7 +251,12 @@ const StripMenuRow = (props: StripMenuRowProps) => {
                 content={alternate.action_name}
                 color={alternate.action_color || 'default'}
                 icon={alternate.action_icon}
-                onClick={() => act('extra_act', { key: props.slotID, action: alternate.action_key })}
+                onClick={() =>
+                  act('extra_act', {
+                    key: props.slotID,
+                    action: alternate.action_key,
+                  })
+                }
               />
             </Flex.Item>
           ))}
@@ -273,7 +288,10 @@ export const StripMenu = (props) => {
           name = item['name'];
         }
 
-        const extra_interactions = item && item['extra_actions'] !== undefined ? item['extra_actions'] : [];
+        const extra_interactions =
+          item && item['extra_actions'] !== undefined
+            ? item['extra_actions']
+            : [];
 
         return (
           <StripMenuRow
@@ -299,7 +317,7 @@ export const StripMenu = (props) => {
         <Table.Row className="spacer">
           <Table.Cell />
           <Table.Cell />
-        </Table.Row>
+        </Table.Row>,
       );
     }
 
@@ -313,12 +331,14 @@ export const StripMenu = (props) => {
       width={400}
       // Enough height to fit human with internals,
       // jumpsuit, handcuffs and legcuffs
-      height={580}>
+      height={580}
+    >
       <Window.Content
         scrollable
         fitted
         // Remove the nanotrasen logo from the window
-        style={{ backgroundImage: 'none' }}>
+        style={{ backgroundImage: 'none' }}
+      >
         <Table mt={1} className="strip-menu-table" fontSize="1.1em">
           {contents}
         </Table>

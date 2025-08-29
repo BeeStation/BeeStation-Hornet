@@ -1,8 +1,10 @@
-import { NtosWindow } from '../layouts';
-import { Section, Box, Button } from '../components';
-import { Component } from 'react';
-import { useBackend } from '../backend';
 import '../styles/virus_sledge_animation.scss';
+
+import { Component } from 'react';
+
+import { useBackend } from '../backend';
+import { Box, Button, Section } from '../components';
+import { NtosWindow } from '../layouts';
 
 const asciiLogo = String.raw`
   ________.__                .__
@@ -60,7 +62,9 @@ class VirusSledgeKey extends Component {
       const { frame, deciphered, keyActivated } = prev;
 
       if (deciphered < CODE_LENGTH) {
-        if (frame >= LOCK) return { ...prev, deciphered: deciphered + 1, frame: 0 };
+        if (frame >= LOCK) {
+          return { ...prev, deciphered: deciphered + 1, frame: 0 };
+        }
         return { ...prev, frame: frame + 1 };
       }
 
@@ -74,13 +78,21 @@ class VirusSledgeKey extends Component {
 
     /* build letter spans */
     const letters = Array.from({ length: CODE_LENGTH }, (_, i) => (
-      <span key={i} className={`virus-code-letter ${i < deciphered ? 'decoded' : 'decoding'}`}>
+      <span
+        key={i}
+        className={`virus-code-letter ${i < deciphered ? 'decoded' : 'decoding'}`}
+      >
         {i < deciphered ? finalCode[i] : randChar()}
       </span>
     ));
 
     return (
-      <Section fill scrollable backgroundColor="black" style={{ whiteSpace: 'pre-wrap' }}>
+      <Section
+        fill
+        scrollable
+        backgroundColor="black"
+        style={{ whiteSpace: 'pre-wrap' }}
+      >
         {/* logo lines – CSS handles colour & bobbing */}
         {asciiLogo.split('\n').map((ln, idx) => (
           <Box key={idx} className="virus-logo-line">
@@ -96,7 +108,10 @@ class VirusSledgeKey extends Component {
           </Box>
         )}
 
-        <Box mb={1} style={{ display: 'flex', justifyContent: 'center', gap: '0.2rem' }}>
+        <Box
+          mb={1}
+          style={{ display: 'flex', justifyContent: 'center', gap: '0.2rem' }}
+        >
           {letters}
         </Box>
 
@@ -109,7 +124,8 @@ class VirusSledgeKey extends Component {
                 onClick={() => {
                   this.props.act('Detonate');
                   this.setState({ detonateSent: true });
-                }}>
+                }}
+              >
                 PURGE
               </Button>
             )}

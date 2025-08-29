@@ -37,7 +37,7 @@
 	var/alarmed = FALSE
 	//Additional info related to the actual chambering, and to allow loading bullets directly into battery / into var/chambered
 	//Copies the caliber of the magazine in the gun during Initialize() | Must be explicitly set on the gun if it spawns without a magazine ;)
-	var/caliber = null
+	var/list/caliber = list()
 	var/direct_loading = FALSE //A gun with this allows the internal magazine to be loaded without removing, ontop of directly chambering rounds
 	//Six bolt types:
 	//BOLT_TYPE_STANDARD: Gun has a bolt, it stays closed while not cycling. The gun must be racked to have a bullet chambered when a mag is inserted.

@@ -1,11 +1,12 @@
-import { Loader } from './common/Loader';
-import { InputButtons } from './common/InputButtons';
 import { isEscape, KEY } from 'common/keys';
-import { useBackend, useLocalState } from '../backend';
+import { clamp } from 'common/math';
+import { useEffect, useState } from 'react';
+
+import { useBackend } from '../backend';
 import { Box, Button, RestrictedInput, Section, Stack } from '../components';
 import { Window } from '../layouts';
-import { useState, useEffect } from 'react';
-import { clamp } from 'common/math';
+import { InputButtons } from './common/InputButtons';
+import { Loader } from './common/Loader';
 
 type NumberInputData = {
   init_value: number;
@@ -20,16 +21,21 @@ type NumberInputData = {
 
 export const NumberInputModal = (_) => {
   const { act, data } = useBackend<NumberInputData>();
-  const { init_value, large_buttons, message = '', timeout, title, min_value, max_value } = data;
-  const [input, setInput] = useLocalState('input', init_value);
-  const [clampedInput, setClampedInput] = useState(clamp(input, min_value, max_value));
-  const onChange = (value: number) => {
-    if (value === input) {
-      return;
-    }
-    setInput(value);
-  };
-  const onClick = (value: number) => {
+  const {
+    init_value,
+    large_buttons,
+    message = '',
+    timeout,
+    title,
+    min_value,
+    max_value,
+  } = data;
+  const [input, setInput] = useState(init_value);
+
+  const [clampedInput, setClampedInput] = useState(
+    clamp(input, min_value, max_value),
+  );
+  const setValue = (value: number) => {
     if (value === input) {
       return;
     }
@@ -42,7 +48,9 @@ export const NumberInputModal = (_) => {
 
   // Dynamically changes the window height based on the message.
   const windowHeight =
-    140 + (message.length > 30 ? Math.ceil(message.length / 3) : 0) + (message.length && large_buttons ? 5 : 0);
+    140 +
+    (message.length > 30 ? Math.ceil(message.length / 3) : 0) +
+    (message.length && large_buttons ? 5 : 0);
 
   return (
     <Window title={title} width={270} height={windowHeight} theme="generic">
@@ -55,14 +63,15 @@ export const NumberInputModal = (_) => {
           if (isEscape(event.key)) {
             act('cancel');
           }
-        }}>
+        }}
+      >
         <Section fill>
           <Stack fill vertical>
             <Stack.Item grow>
               <Box color="label">{message}</Box>
             </Stack.Item>
             <Stack.Item>
-              <InputArea input={input} onClick={onClick} onChange={onChange} />
+              <InputArea input={input} onClick={setValue} onChange={setValue} />
             </Stack.Item>
             <Stack.Item>
               <InputButtons input={clampedInput} />

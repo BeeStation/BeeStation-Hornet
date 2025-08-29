@@ -41,7 +41,7 @@
 
 	id = /obj/item/card/id/job/roboticist
 	belt = /obj/item/storage/belt/utility/full
-	l_pocket = /obj/item/modular_computer/tablet/pda/roboticist
+	l_pocket = /obj/item/modular_computer/tablet/pda/preset/roboticist
 	ears = /obj/item/radio/headset/headset_sci
 	uniform = /obj/item/clothing/under/rank/rnd/roboticist
 	suit = /obj/item/clothing/suit/toggle/labcoat
@@ -51,3 +51,11 @@
 	duffelbag = /obj/item/storage/backpack/duffelbag/science
 
 	pda_slot = ITEM_SLOT_LPOCKET
+
+/datum/outfit/job/roboticist/mod
+	name = "Roboticist (MODsuit)"
+	suit_store = /obj/item/tank/internals/oxygen
+	back = /obj/item/mod/control/pre_equipped/standard
+	suit = null
+	mask = /obj/item/clothing/mask/breath
+	internals_slot = ITEM_SLOT_SUITSTORE

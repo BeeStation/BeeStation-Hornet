@@ -146,7 +146,6 @@
 	B.naut = TRUE	//temporary placeholder to prevent creation of more than one per factory.
 	to_chat(src, span_notice("You attempt to produce a blobbernaut."))
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
-		role = /datum/role_preference/midround_ghost/blob,
 		check_jobban = ROLE_BLOB,
 		poll_time = 10 SECONDS,
 		ignore_category = POLL_IGNORE_BLOB_HELPER,

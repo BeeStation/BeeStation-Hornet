@@ -126,14 +126,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/blob/blobspore)
 		factory.spores += src
 	. = ..()
 
-/mob/living/simple_animal/hostile/blob/blobspore/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
-	. = ..()
-	if(!dry_run && !EXTRAPOLATOR_ACT_CHECK(., EXTRAPOLATOR_ACT_PRIORITY_SPECIAL) && extrapolator.create_culture(user, spore_diseases))
-		user.visible_message(span_danger("[user] stabs [src] with [extrapolator], sucking it up!"), \
-				span_danger("You stab [src] with [extrapolator]'s probe, destroying it!"))
-		dust()
-		EXTRAPOLATOR_ACT_SET(., EXTRAPOLATOR_ACT_PRIORITY_SPECIAL)
-
 /mob/living/simple_animal/hostile/blob/blobspore/Life(delta_time = SSMOBS_DT, times_fired)
 	if(!is_zombie && isturf(src.loc))
 		for(var/mob/living/carbon/human/H in hearers(1, src)) //Only for corpse right next to/on same tile

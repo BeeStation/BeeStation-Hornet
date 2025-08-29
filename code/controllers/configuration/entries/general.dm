@@ -56,6 +56,8 @@
 
 /datum/config_entry/flag/log_game	// log game events
 
+/datum/config_entry/flag/log_dynamic	// log what dynamic is doing
+
 /datum/config_entry/flag/log_objective	// log antag objectives
 
 /datum/config_entry/flag/log_mecha	// log mech data
@@ -103,8 +105,6 @@
 /datum/config_entry/flag/allow_admin_asaycolor //Allows admins with relevant permissions to have a personalized asay color
 
 /datum/config_entry/flag/allow_vote_restart	// allow votes to restart
-
-/datum/config_entry/flag/allow_vote_mode	// allow votes to change mode
 
 /datum/config_entry/flag/allow_vote_map	// allow votes to change map
 

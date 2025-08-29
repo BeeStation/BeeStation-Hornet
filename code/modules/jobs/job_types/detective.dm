@@ -21,7 +21,7 @@
 	departments = DEPT_BITFLAG_SEC
 	bank_account_department = ACCOUNT_SEC_BITFLAG
 	payment_per_department = list(ACCOUNT_SEC_ID = PAYCHECK_MEDIUM)
-	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
+	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM, TRAIT_SECURITY)
 
 	display_order = JOB_DISPLAY_ORDER_DETECTIVE
 	rpg_title = "Thiefcatcher"
@@ -46,7 +46,7 @@
 	suit_store = /obj/item/melee/classic_baton/police
 	gloves = /obj/item/clothing/gloves/color/black
 	head = /obj/item/clothing/head/fedora/det_hat
-	l_pocket = /obj/item/modular_computer/tablet/pda/detective
+	l_pocket = /obj/item/modular_computer/tablet/pda/preset/detective
 	r_pocket = /obj/item/clothing/accessory/badge/officer/det
 
 	mask = /obj/item/clothing/mask/cigarette

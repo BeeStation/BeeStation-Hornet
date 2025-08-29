@@ -16,9 +16,6 @@
 	flags_cover = HEADCOVERSEYES
 	flags_inv = HIDEHAIR
 	bang_protect = 1
-	// Much thicker and more rigid than body armour, able to block even piercing syringes
-	clothing_flags = THICKMATERIAL
-
 
 /datum/armor/head_helmet
 	melee = 35

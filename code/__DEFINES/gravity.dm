@@ -10,7 +10,7 @@
 /// Singularity is stage 5 (9x9)
 #define STAGE_FIVE 9
 /// Singularity is stage 6 (11x11)
-#define STAGE_SIX 11 //! From supermatter shard
+#define STAGE_SIX 11 //From supermatter shard
 
 /**
  * The point where gravity is negative enough to pull you upwards.
