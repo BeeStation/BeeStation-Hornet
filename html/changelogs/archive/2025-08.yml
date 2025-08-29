@@ -433,3 +433,8 @@
   - bugfix: Fixes items not doing thrown damage to objects and turfs
   - bugfix: Fixes items not burning in lava when thrown
   - bugfix: Fixes items not entering disposals when thrown
+2025-08-29:
+  PowerfulBacon:
+  - bugfix: Fixes the chem dispenser filters not being usable.
+  - bugfix: Fixes log button on the NTOS notepad not working.
+  - bugfix: Fixes the filter button on the admin requests panel not working.
