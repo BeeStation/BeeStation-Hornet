@@ -63,7 +63,25 @@
 	radio.set_frequency(FREQ_COMMON)
 
 /obj/machinery/vending/deputy/vend(list/params, list/greyscale_colors)
-	var/datum/vending_product/item_to_buy = locate(params["ref"]) in src.product_records + src.coin_records + src.hidden_records // Note: this needs href protection apparently
+
+	var/datum/vending_product/item_to_buy = locate(params["ref"]) in src.product_records + src.coin_records + src.hidden_records
+
+	var/list/record_to_check = product_records + coin_records
+
+	if(extended_inventory)
+		record_to_check = product_records + coin_records + hidden_records
+
+	if(!item_to_buy || !istype(item_to_buy) || !item_to_buy.product_path)
+		return
+
+	if(item_to_buy in hidden_records)
+		if(!extended_inventory)
+			return
+
+	else if (!(item_to_buy in record_to_check))
+		message_admins("Vending machine exploit attempted by [ADMIN_LOOKUPFLW(usr)]!")
+		return
+
 	var/item_category = item_to_buy.get_category_name()
 
 	var/mob/user_mob = usr
