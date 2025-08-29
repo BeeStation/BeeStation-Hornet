@@ -1,6 +1,6 @@
 /obj/item/clothing/neck/necklace/lifesaver
 	name = "Acrux-brand life-saving necklace"
-	desc = "You won't be getting any style points with this boring plastitanium box around your neck, but at least you will get rescued in time after it detects your untimely demise and begins causing a massive ruckus over it."
+	desc = "You won't be getting any style points with this boring plastitanium box around your neck, but at least you will get rescued in time after it detects your untimely demise and begins causing a massive ruckus over it. Since it uses the satellite array over lavaland to locate, It won't function in space."
 	icon_state = "lifesaver"
 	worn_icon_state = "lifesaver"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF // We want this thing to SURVIVE
