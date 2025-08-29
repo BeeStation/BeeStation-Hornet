@@ -49,8 +49,6 @@
 	assignment = JOB_NAME_DEPUTY
 	access = list(ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_BRIG, ACCESS_WEAPONS)
 
-/obj/item/card/id/pass/afterattack(atom/target, mob/user, proximity)
-	. = ..()
-	if (!proximity)
-		return .
+/obj/item/card/id/pass/deputy/on_applied()
 	ADD_TRAIT(usr.mind, TRAIT_SECURITY, JOB_TRAIT)
+	..()
