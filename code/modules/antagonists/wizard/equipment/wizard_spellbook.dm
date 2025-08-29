@@ -10,10 +10,8 @@
 
 	/// The number of book charges we have to buy spells
 	var/uses = 10
-	/// The bonus that you get from going semi-random.
-	var/semi_random_bonus = 2
-	/// The bonus that you get from going full random.
-	var/full_random_bonus = 5
+	/// The number of book charges add on randomization
+	var/random_bonus = 6
 	/// Determines if this spellbook can refund anything.
 	var/refunds_allowed = TRUE
 	/// The mind that first used the book. Automatically assigned when a wizard spawns.
@@ -148,8 +146,6 @@
 	var/list/data = list()
 	data["owner"] = owner
 	data["points"] = uses
-	data["semi_random_bonus"] = initial(uses) + semi_random_bonus
-	data["full_random_bonus"] = initial(uses) + full_random_bonus
 	return data
 
 //This is a MASSIVE amount of data, please be careful if you remove it from static.
@@ -210,12 +206,8 @@
 
 	// Actions that are only available if you have full spell points
 	switch(action)
-		if("semirandomize")
-			semirandomize(wizard, semi_random_bonus)
-			return TRUE
-
 		if("randomize")
-			randomize(wizard, full_random_bonus)
+			randomize(wizard)
 			return TRUE
 
 		if("purchase_loadout")
@@ -293,39 +285,21 @@
 				message_admins("Wizard [wizard] purchased Loadout \"[loadout]\" but was unable to purchase one of the entries ([to_buy]) for some reason.")
 				break
 
-	refunds_allowed = FALSE
-
 	if(uses > 0)
 		stack_trace("Wizard Loadout \"[loadout]\" does not use 10 wizard spell slots (used: [initial(uses) - uses]). Stop scamming players out.")
 
-/// Purchases a semi-random wizard loadout for [wizard]
-/// If passed a number [bonus_to_give], the wizard is given additional uses on their spellbook, used in randomization.
-/obj/item/spellbook/proc/semirandomize(mob/living/carbon/human/wizard, bonus_to_give = 0)
-	var/list/needed_cats = list("Offensive", "Mobility")
-	var/list/shuffled_entries = shuffle(entries)
-	for(var/i in 1 to 2)
-		for(var/datum/spellbook_entry/entry as anything in shuffled_entries)
-			if(!(entry.category in needed_cats))
-				continue
-			if(!purchase_entry(entry, wizard))
-				continue
-			needed_cats -= entry.category //so the next loop doesn't find another offense spell
-			break
-
-	refunds_allowed = FALSE
-	//we have given two specific category spells to the wizard. the rest are completely random!
-	randomize(wizard, bonus_to_give = bonus_to_give)
-
-/// Purchases a fully random wizard loadout for [wizard], with a point bonus [bonus_to_give].
-/// If passed a number [bonus_to_give], the wizard is given additional uses on their spellbook, used in randomization.
-/obj/item/spellbook/proc/randomize(mob/living/carbon/human/wizard, bonus_to_give = 0)
+/// Purchases a fully random wizard loadout for [wizard].
+/obj/item/spellbook/proc/randomize(mob/living/carbon/human/wizard)
 	var/list/entries_copy = entries.Copy()
-	uses += bonus_to_give
+	uses += random_bonus
 	while(uses > 0 && length(entries_copy))
 		var/datum/spellbook_entry/entry = pick(entries_copy)
+		if(!entry.refundable)
+			continue
 		if(!purchase_entry(entry, wizard))
 			continue
 		entries_copy -= entry
+
 	refunds_allowed = FALSE
 
 /obj/item/spellbook/debug

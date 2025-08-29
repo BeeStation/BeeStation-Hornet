@@ -95,6 +95,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_PIERCEIMMUNE		"pierce_immunity"
 #define TRAIT_NODISMEMBER "dismember_immunity"
 #define TRAIT_NOFIRE "nonflammable"
+/// Are we expected to fight antags?
+#define TRAIT_SECURITY "security_member"
 /// Prevents plasmamen from self-igniting
 #define TRAIT_NOSELFIGNITION "no_selfignition"
 #define TRAIT_NOGUNS			"no_guns"
@@ -203,6 +205,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_WARDED       		"curse_immune"
 #define TRAIT_NONECRODISEASE	"nonecrodisease"
 #define TRAIT_NICE_SHOT			"nice_shot" //hnnnnnnnggggg..... you're pretty good....
+/// Prevents hallucinations from the hallucination brain trauma (RDS)
+#define TRAIT_HALLUCINATION_SUPPRESSED "hallucination_suppressed"
 #define TRAIT_ALWAYS_STUBS      "always_stubs_toe" //you will always stub your toe on tables, even if you're wearing shoes
 #define TRAIT_NAIVE				"naive" //All dead people will appear as sleeping.
 #define TRAIT_DROPS_ITEMS_ON_DEATH "drops_items_on_death" //used for battle royale

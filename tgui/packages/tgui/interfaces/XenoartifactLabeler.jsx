@@ -1,5 +1,7 @@
+import { Dropdown } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Button, Section, Box, Flex, Input, BlockQuote, Icon, Divider, Dropdown, Collapsible } from '../components';
+import { Button, Section, Box, Flex, Input, BlockQuote, Icon, Divider, Collapsible } from '../components';
 import { Window } from '../layouts';
 
 export const XenoartifactLabeler = (props) => {

@@ -1,6 +1,7 @@
 import { sortBy } from 'common/collections';
 import { useBackend } from '../backend';
-import { Box, Button, Dropdown, Section, Knob, LabeledControls, LabeledList } from '../components';
+import { Box, Button, Section, Knob, LabeledControls, LabeledList } from '../components';
+import { Dropdown } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 export const Jukebox = (props) => {
@@ -23,7 +24,6 @@ export const Jukebox = (props) => {
           <LabeledList>
             <LabeledList.Item label="Track Selected">
               <Dropdown
-                overflow-y="scroll"
                 width="240px"
                 options={songs.map((song) => song.name)}
                 disabled={active}

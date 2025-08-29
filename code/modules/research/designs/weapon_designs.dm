@@ -49,36 +49,49 @@
 	build_type = PROTOLATHE
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+	materials = list(/datum/material/iron = 4000, /datum/material/copper = 500)
 
 /datum/design/beanbag_slug/sec
 	id = "sec_beanbag_slug"
 	build_type = PROTOLATHE
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+	materials = list(/datum/material/iron = 4000, /datum/material/copper = 500)
 
 /datum/design/shotgun_slug/sec
 	id = "sec_slug"
 	build_type = PROTOLATHE
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+	materials = list(/datum/material/iron = 4000, /datum/material/gold = 500)
+
+/datum/design/buckshot_armour_shell/sec
+	id = "sec_bapshot"
+	build_type = PROTOLATHE
+	category = list("Ammo")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+	materials = list(/datum/material/iron = 4000, /datum/material/gold = 500)
 
 /datum/design/buckshot_shell/sec
 	id = "sec_bshot"
 	build_type = PROTOLATHE
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+	materials = list(/datum/material/iron = 4000, /datum/material/copper = 500)
 
 /datum/design/shotgun_dart/sec
 	id = "sec_dart"
 	build_type = PROTOLATHE
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+	materials = list(/datum/material/iron = 4000, /datum/material/silver = 2000)
 
 /datum/design/incendiary_slug/sec
 	id = "sec_Islug"
 	build_type = PROTOLATHE
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+	materials = list(/datum/material/iron = 4000, /datum/material/plasma = 500)
 
 /datum/design/breaching_slug/sec
 	name = "Breaching Slug"
@@ -345,7 +358,7 @@
 	desc = "A stunning shell for a shotgun."
 	id = "stunshell"
 	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 200)
+	materials = list(/datum/material/iron=3000, /datum/material/uranium=2000, /datum/material/copper=2000, /datum/material/diamond=2000)
 	build_path = /obj/item/ammo_casing/shotgun/stunslug
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
@@ -355,7 +368,7 @@
 	desc = "A high-tech shotgun shell which can be loaded with materials to produce unique effects."
 	id = "techshotshell"
 	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 1000, /datum/material/glass = 200)
+	materials = list(/datum/material/iron = 2000, /datum/material/diamond = 2000, /datum/material/bluespace = 2000)
 	build_path = /obj/item/ammo_casing/shotgun/techshell
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY | DEPARTMENTAL_FLAG_SCIENCE
@@ -395,10 +408,40 @@
 	desc = "A shotgun dart designed with similar internals to that of a cryostasis beaker, allowing reagents to not react when inside."
 	id = "shotgundartcryostasis"
 	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 3500)
+	materials = list(/datum/material/iron = 4000, /datum/material/diamond=2000)
 	build_path = /obj/item/ammo_casing/shotgun/dart/noreact
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
+/datum/design/shotgun_gold_slug
+	name = "Gold shotgun slug"
+	desc = "A premium version of the standard shotgun slug, all that gold made the slug less powerful."
+	id = "shotgunsluggold"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/gold = 2000)
+	build_path = /obj/item/ammo_casing/shotgun/gold
+	category = list("Ammo")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
+/datum/design/shotgun_bronze_slug
+	name = "Bronze shotgun slug"
+	desc = "A mostly cosmetic weak version of a beanbag slug made out of bronze, or is that copper."
+	id = "shotgunslugbronze"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/copper = 2000)
+	build_path = /obj/item/ammo_casing/shotgun/bronze
+	category = list("Ammo")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
+/datum/design/shotgun_honk_slug
+	name = "Banana shotgun slug"
+	desc = "A slug that looks like a banana, it is not edible."
+	id = "shotgunslughonk"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 2000, /datum/material/bananium = 500)
+	build_path = /obj/item/ammo_casing/shotgun/honk
+	category = list("Ammo")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY | DEPARTMENTAL_FLAG_SERVICE
 
 /datum/design/flashbulb
 	name = "Security Flashbulb"
