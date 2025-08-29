@@ -5,6 +5,7 @@ import { AnimatedNumber, Box, Button, Dimmer, Divider, Flex, Icon, Input, Labele
 import { Window } from '../layouts';
 import { classes } from 'common/react';
 import { require } from 'tgui-dev-server/require';
+import { formatSiUnit } from 'tgui-core/format';
 import { createLogger } from 'tgui/logging';
 import { storage } from 'common/storage';
 
@@ -358,7 +359,7 @@ export const ChemDispenser = (_props) => {
             }>
             <LabeledList>
               <LabeledList.Item label="Energy">
-                <ProgressBar value={data.energy / data.maxEnergy}>{toFixed(data.energy) + ' units'}</ProgressBar>
+                <ProgressBar value={data.energy / data.maxEnergy}>{formatSiUnit(data.energy, 0, 'W')}</ProgressBar>
               </LabeledList.Item>
             </LabeledList>
           </Section>
