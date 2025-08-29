@@ -122,6 +122,7 @@
 	if(needs_repairs && active)	//when repairs are needed leak gases into the turf instead of gas_output
 		produce_gases(src.loc.return_air())
 		src.air_update_turf(FALSE, FALSE)
+	calculate_power_use()
 	approach_set_depth(delta_time)
 	update_pipenets()
 
@@ -180,7 +181,6 @@
 		return
 
 	overpressure = FALSE
-	calculate_power_use()
 
 	calculate_gas_to_output(GASRIG_O2, /datum/gas/oxygen, air, efficiency)
 	calculate_gas_to_output(GASRIG_N2, /datum/gas/nitrogen, air, efficiency)
@@ -193,7 +193,10 @@
 
 /obj/machinery/atmospherics/gasrig/core/proc/calculate_power_use()
 	var/depth = get_depth()
-	active_power_usage = max(initial(active_power_usage) * (depth / 200), 2 KILOWATT) // 100 depth is 12.5 kW/s 200 depth is 25 300 is 37.5, 1000 is 125 kW.
+	var/temp_power_usage = max(initial(active_power_usage) * (depth / 200), 2 KILOWATT)
+	if (active_power_usage != temp_power_usage)
+		active_power_usage = temp_power_usage // 100 depth is 12.5 kW/s 200 depth is 25 300 is 37.5, 1000 is 125 kW.
+		update_current_power_usage()
 
 /obj/machinery/atmospherics/gasrig/core/proc/get_fracking_efficiency(datum/gas_mixture/air)
 	var/datum/gas_mixture/temp_air = new
