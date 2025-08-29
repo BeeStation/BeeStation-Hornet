@@ -1,5 +1,21 @@
 import { useState } from 'react';
-import { AnimatedNumber, Box, Button, Collapsible, ColorBox, Dimmer, Dropdown, Icon, LabeledList, NoticeBox, NumberInput, ProgressBar, Section, Stack, Table } from 'tgui-core/components';
+import {
+  AnimatedNumber,
+  Box,
+  Button,
+  Collapsible,
+  ColorBox,
+  Dimmer,
+  Dropdown,
+  Icon,
+  LabeledList,
+  NoticeBox,
+  NumberInput,
+  ProgressBar,
+  Section,
+  Stack,
+  Table,
+} from 'tgui-core/components';
 import { formatSiUnit } from 'tgui-core/format';
 import { BooleanLike } from 'tgui-core/react';
 
@@ -104,7 +120,12 @@ export const MODsuit = (props) => {
   const { ui_theme } = data;
   const { interface_break } = data.suit_status;
   return (
-    <Window width={600} height={600} theme={ui_theme} title="MOD Interface Panel">
+    <Window
+      width={600}
+      height={600}
+      theme={ui_theme}
+      title="MOD Interface Panel"
+    >
       <Window.Content scrollable={!interface_break}>
         <MODsuitContent />
       </Window.Content>
@@ -222,7 +243,12 @@ const ConfigureListEntry = (props) => {
 const ConfigureButtonEntry = (props) => {
   const { name, value, module_ref } = props;
   const { act } = useBackend();
-  return <Button onClick={() => act('configure', { key: name, ref: module_ref })} icon={value} />;
+  return (
+    <Button
+      onClick={() => act('configure', { key: name, ref: module_ref })}
+      icon={value}
+    />
+  );
 };
 
 const ConfigureDataEntry = (props) => {
@@ -234,7 +260,11 @@ const ConfigureDataEntry = (props) => {
     list: <ConfigureListEntry {...props} />,
     button: <ConfigureButtonEntry {...props} />,
   };
-  return <LabeledList.Item label={display_name}>{configureEntryTypes[type]}</LabeledList.Item>;
+  return (
+    <LabeledList.Item label={display_name}>
+      {configureEntryTypes[type]}
+    </LabeledList.Item>
+  );
 };
 
 const LockedInterface = () => (
@@ -324,16 +354,28 @@ const SuitStatusSection = (props) => {
     is_ai,
   } = data.suit_status;
   const { display_time, shift_time, shift_id } = data.module_custom_status;
-  const status = malfunctioning ? 'Malfunctioning' : active ? 'Active' : 'Inactive';
-  const charge_percent = Math.round((100 * cell_charge_current) / cell_charge_max);
+  const status = malfunctioning
+    ? 'Malfunctioning'
+    : active
+      ? 'Active'
+      : 'Inactive';
+  const charge_percent = Math.round(
+    (100 * cell_charge_current) / cell_charge_max,
+  );
 
   return (
     <Section
       title="Suit Status"
       fill
       buttons={
-        <Button icon="power-off" color={active ? 'good' : 'default'} content={status} onClick={() => act('activate')} />
-      }>
+        <Button
+          icon="power-off"
+          color={active ? 'good' : 'default'}
+          content={status}
+          onClick={() => act('activate')}
+        />
+      }
+    >
       <LabeledList>
         <LabeledList.Item label="Charge">
           <ProgressBar
@@ -345,7 +387,8 @@ const SuitStatusSection = (props) => {
             }}
             style={{
               textShadow: '1px 1px 0 black',
-            }}>
+            }}
+          >
             {!core_name
               ? 'No Core Detected'
               : cell_charge_max === 1
@@ -379,15 +422,26 @@ const SuitStatusSection = (props) => {
         )}
         {!!ai_name && (
           <LabeledList.Item label="pAI Control">
-            {has_pai && <Button icon="eject" content="Eject pAI" disabled={is_ai} onClick={() => act('eject_pai')} />}
+            {has_pai && (
+              <Button
+                icon="eject"
+                content="Eject pAI"
+                disabled={is_ai}
+                onClick={() => act('eject_pai')}
+              />
+            )}
           </LabeledList.Item>
         )}
       </LabeledList>
 
       {!!display_time && (
         <Section title="Operation" mt={2}>
-          <LabeledList.Item label="Time">{active ? shift_time : '00:00:00'}</LabeledList.Item>
-          <LabeledList.Item label="Number">{active && shift_id ? shift_id : '???'}</LabeledList.Item>
+          <LabeledList.Item label="Time">
+            {active ? shift_time : '00:00:00'}
+          </LabeledList.Item>
+          <LabeledList.Item label="Number">
+            {active && shift_id ? shift_id : '???'}
+          </LabeledList.Item>
         </Section>
       )}
     </Section>
@@ -402,9 +456,13 @@ const HardwareSection = (props) => {
     <Section title="Hardware" style={{ textTransform: 'capitalize' }}>
       <LabeledList>
         <LabeledList.Item label="Control Unit">{control}</LabeledList.Item>
-        <LabeledList.Item label="Core">{core_name || 'No Core Detected'}</LabeledList.Item>
+        <LabeledList.Item label="Core">
+          {core_name || 'No Core Detected'}
+        </LabeledList.Item>
         <ModParts />
-        <LabeledList.Item label="AI Assistant">{ai_name || 'No AI Detected'}</LabeledList.Item>
+        <LabeledList.Item label="AI Assistant">
+          {ai_name || 'No AI Detected'}
+        </LabeledList.Item>
       </LabeledList>
     </Section>
   );
@@ -427,7 +485,8 @@ const ModParts = (props) => {
                 content={part.deployed ? 'Retract' : 'Deploy'}
                 onClick={() => act('deploy', { ref: part.ref })}
               />
-            }>
+            }
+          >
             {part.name}
           </LabeledList.Item>
         );
@@ -467,7 +526,8 @@ const UserStatusSection = (props) => {
                 good: [0.5, Infinity],
                 average: [0.2, 0.5],
                 bad: [-Infinity, 0.2],
-              }}>
+              }}
+            >
               <AnimatedNumber value={active ? health : 0} />
             </ProgressBar>
           </LabeledList.Item>
@@ -480,7 +540,8 @@ const UserStatusSection = (props) => {
                 good: [-Infinity, 0.2],
                 average: [0.2, 0.5],
                 bad: [0.5, Infinity],
-              }}>
+              }}
+            >
               <AnimatedNumber value={active ? loss_brute : 0} />
             </ProgressBar>
           </LabeledList.Item>
@@ -493,7 +554,8 @@ const UserStatusSection = (props) => {
                 good: [-Infinity, 0.2],
                 average: [0.2, 0.5],
                 bad: [0.5, Infinity],
-              }}>
+              }}
+            >
               <AnimatedNumber value={active ? loss_fire : 0} />
             </ProgressBar>
           </LabeledList.Item>
@@ -506,7 +568,8 @@ const UserStatusSection = (props) => {
                 good: [-Infinity, 0.2],
                 average: [0.2, 0.5],
                 bad: [0.5, Infinity],
-              }}>
+              }}
+            >
               <AnimatedNumber value={active ? loss_oxy : 0} />
             </ProgressBar>
           </LabeledList.Item>
@@ -519,7 +582,8 @@ const UserStatusSection = (props) => {
                 good: [-Infinity, 0.2],
                 average: [0.2, 0.5],
                 bad: [0.5, Infinity],
-              }}>
+              }}
+            >
               <AnimatedNumber value={active ? loss_tox : 0} />
             </ProgressBar>
           </LabeledList.Item>
@@ -544,14 +608,17 @@ const UserStatusSection = (props) => {
           <LabeledList.Item label="Satiety Level">{`${active ? Math.round(nutrition) : 0}`}</LabeledList.Item>
         )}
         <LabeledList.Item label="Name">{user_name}</LabeledList.Item>
-        <LabeledList.Item label="Assignment">{user_assignment}</LabeledList.Item>
+        <LabeledList.Item label="Assignment">
+          {user_assignment}
+        </LabeledList.Item>
         {dna_unique_identity !== undefined && (
           <LabeledList.Item label="Fingerprints">
             <Box
               style={{
                 wordBreak: 'break-all',
                 wordWrap: 'break-word',
-              }}>
+              }}
+            >
               {active ? dna_unique_identity : '???'}
             </Box>
           </LabeledList.Item>
@@ -562,7 +629,8 @@ const UserStatusSection = (props) => {
               style={{
                 wordBreak: 'break-all',
                 wordWrap: 'break-word',
-              }}>
+              }}
+            >
               {active ? dna_unique_enzymes : '???'}
             </Box>
           </LabeledList.Item>
@@ -574,7 +642,9 @@ const UserStatusSection = (props) => {
             return (
               <Collapsible title={virus.name} key={virus.name}>
                 <LabeledList>
-                  <LabeledList.Item label="Spread">{virus.type}</LabeledList.Item>
+                  <LabeledList.Item label="Spread">
+                    {virus.type}
+                  </LabeledList.Item>
                   <LabeledList.Item label="Stage">
                     {virus.stage}/{virus.maxstage}
                   </LabeledList.Item>
@@ -596,7 +666,11 @@ const ModuleSection = (props) => {
   const [configureState, setConfigureState] = useState('');
 
   return (
-    <Section title="Modules" fill buttons={`${complexity} of ${complexity_max} complexity used`}>
+    <Section
+      title="Modules"
+      fill
+      buttons={`${complexity} of ${complexity_max} complexity used`}
+    >
       {!module_info.length ? (
         <NoticeBox>No Modules Detected</NoticeBox>
       ) : (
@@ -605,16 +679,36 @@ const ModuleSection = (props) => {
             <Table.Cell colSpan={3}>Actions</Table.Cell>
             <Table.Cell>Name</Table.Cell>
             <Table.Cell width={1} textAlign="center">
-              <Button color="transparent" icon="plug" tooltip="Idle Power Cost (Watts)" tooltipPosition="top" />
+              <Button
+                color="transparent"
+                icon="plug"
+                tooltip="Idle Power Cost (Watts)"
+                tooltipPosition="top"
+              />
             </Table.Cell>
             <Table.Cell width={1} textAlign="center">
-              <Button color="transparent" icon="lightbulb" tooltip="Active Power Cost (Watts)" tooltipPosition="top" />
+              <Button
+                color="transparent"
+                icon="lightbulb"
+                tooltip="Active Power Cost (Watts)"
+                tooltipPosition="top"
+              />
             </Table.Cell>
             <Table.Cell width={1} textAlign="center">
-              <Button color="transparent" icon="bolt" tooltip="Use Power Cost (Joules)" tooltipPosition="top" />
+              <Button
+                color="transparent"
+                icon="bolt"
+                tooltip="Use Power Cost (Joules)"
+                tooltipPosition="top"
+              />
             </Table.Cell>
             <Table.Cell width={1} textAlign="center">
-              <Button color="transparent" icon="save" tooltip="Complexity" tooltipPosition="top" />
+              <Button
+                color="transparent"
+                icon="save"
+                tooltip="Complexity"
+                tooltipPosition="top"
+              />
             </Table.Cell>
           </Table.Row>
           {module_info.map((module) => {
@@ -622,8 +716,14 @@ const ModuleSection = (props) => {
               <Table.Row key={module.ref}>
                 <Table.Cell width={1}>
                   <Button
-                    onClick={() => act('select', { 'ref': module.ref })}
-                    icon={module.module_type === 3 ? (module.module_active ? 'check-square-o' : 'square-o') : 'power-off'}
+                    onClick={() => act('select', { ref: module.ref })}
+                    icon={
+                      module.module_type === 3
+                        ? module.module_active
+                          ? 'check-square-o'
+                          : 'square-o'
+                        : 'power-off'
+                    }
                     selected={module.module_active}
                     tooltip={moduleTypeAction(module.module_type)}
                     tooltipPosition="left"
@@ -632,7 +732,11 @@ const ModuleSection = (props) => {
                 </Table.Cell>
                 <Table.Cell width={1}>
                   <Button
-                    onClick={() => setConfigureState(configureState === module.ref ? '' : module.ref)}
+                    onClick={() =>
+                      setConfigureState(
+                        configureState === module.ref ? '' : module.ref,
+                      )
+                    }
                     icon="cog"
                     selected={configureState === module.ref}
                     tooltip="Configure"
@@ -642,7 +746,7 @@ const ModuleSection = (props) => {
                 </Table.Cell>
                 <Table.Cell width={1}>
                   <Button
-                    onClick={() => act('pin', { 'ref': module.ref })}
+                    onClick={() => act('pin', { ref: module.ref })}
                     icon="thumbtack"
                     selected={module.pinned}
                     tooltip="Pin"
@@ -651,7 +755,10 @@ const ModuleSection = (props) => {
                   />
                 </Table.Cell>
                 <Table.Cell>
-                  <Collapsible title={module.module_name} color={module.module_active ? 'green' : 'default'}>
+                  <Collapsible
+                    title={module.module_name}
+                    color={module.module_active ? 'green' : 'default'}
+                  >
                     <Section mr={-19}>{module.description}</Section>
                   </Collapsible>
                   {configureState === module.ref && (
@@ -662,10 +769,18 @@ const ModuleSection = (props) => {
                     />
                   )}
                 </Table.Cell>
-                <Table.Cell textAlign="center">{formatSiUnit(module.idle_power, 0)}</Table.Cell>
-                <Table.Cell textAlign="center">{formatSiUnit(module.active_power, 0)}</Table.Cell>
-                <Table.Cell textAlign="center">{formatSiUnit(module.use_power, 0)}</Table.Cell>
-                <Table.Cell textAlign="center">{module.module_complexity}</Table.Cell>
+                <Table.Cell textAlign="center">
+                  {formatSiUnit(module.idle_power, 0)}
+                </Table.Cell>
+                <Table.Cell textAlign="center">
+                  {formatSiUnit(module.active_power, 0)}
+                </Table.Cell>
+                <Table.Cell textAlign="center">
+                  {formatSiUnit(module.use_power, 0)}
+                </Table.Cell>
+                <Table.Cell textAlign="center">
+                  {module.module_complexity}
+                </Table.Cell>
               </Table.Row>
             );
           })}

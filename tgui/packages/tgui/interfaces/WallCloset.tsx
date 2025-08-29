@@ -1,5 +1,5 @@
-import { DmIcon } from 'tgui-core/components';
 import { CSSProperties } from 'react';
+import { DmIcon } from 'tgui-core/components';
 
 import { useBackend } from '../backend';
 import { Box, Flex, Icon } from '../components';
@@ -105,7 +105,10 @@ const Cell = (props) => {
               )}
             </Box>
           )}
-          <Box className="WallCloset_Slot" onClick={() => act('ItemClick', { 'SlotKey': props.index + 1 })}>
+          <Box
+            className="WallCloset_Slot"
+            onClick={() => act('ItemClick', { SlotKey: props.index + 1 })}
+          >
             {props.name}
           </Box>
         </Box>

@@ -8,7 +8,7 @@
  *	Level 5 - Cloak of Darkness until clicking an area, teleports the user to the selected area, causes nearby people to fall asleep.
  */
 
-// Look to /datum/action/cooldown/spell/pointed/void_phase for help.
+// Look to /datum/action/spell/pointed/void_phase for help.
 
 /datum/action/vampire/targeted/tremere/auspex
 	name = "Level 1: Auspex"

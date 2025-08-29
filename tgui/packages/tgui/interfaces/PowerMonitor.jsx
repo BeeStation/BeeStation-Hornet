@@ -1,8 +1,20 @@
 import { map, sortBy } from 'common/collections';
 import { flow } from 'common/fp';
 import { toFixed } from 'common/math';
+
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Chart, ColorBox, Flex, Icon, LabeledList, ProgressBar, Section, Table, Dimmer, Stack } from '../components';
+import {
+  Box,
+  Button,
+  Chart,
+  ColorBox,
+  Flex,
+  Icon,
+  LabeledList,
+  ProgressBar,
+  Section,
+  Table,
+} from '../components';
 import { Window } from '../layouts';
 
 const PEAK_DRAW = 500000;
@@ -41,13 +53,14 @@ export const PowerMonitorContent = (props) => {
         id: area.name + i,
       })),
     sortByField === 'name' && ((areas) => sortBy(areas, (area) => area.name)),
-    sortByField === 'charge' && ((areas) => sortBy(areas, (area) => -area.charge)),
+    sortByField === 'charge' &&
+      ((areas) => sortBy(areas, (area) => -area.charge)),
     sortByField === 'draw' &&
       ((areas) =>
         sortBy(
           areas,
           (area) => -powerRank(area.load),
-          (area) => -parseFloat(area.load)
+          (area) => -parseFloat(area.load),
         )),
   ])(data.areas);
   return (
@@ -132,7 +145,9 @@ export const PowerMonitorContent = (props) => {
               <td className="Table__cell text-right text-nowrap">
                 <AreaCharge charging={area.charging} charge={area.charge} />
               </td>
-              <td className="Table__cell text-right text-nowrap">{area.load}</td>
+              <td className="Table__cell text-right text-nowrap">
+                {area.load}
+              </td>
               <td className="Table__cell text-center text-nowrap">
                 <AreaStatusColorBox status={area.eqp} />
               </td>
@@ -158,12 +173,15 @@ const AreaCharge = (props) => {
         width="18px"
         textAlign="center"
         name={
-          (charging === 0 && (charge > 50 ? 'battery-half' : 'battery-quarter')) ||
+          (charging === 0 &&
+            (charge > 50 ? 'battery-half' : 'battery-quarter')) ||
           (charging === 1 && 'bolt') ||
           (charging === 2 && 'battery-full')
         }
         color={
-          (charging === 0 && (charge > 50 ? 'yellow' : 'red')) || (charging === 1 && 'yellow') || (charging === 2 && 'green')
+          (charging === 0 && (charge > 50 ? 'yellow' : 'red')) ||
+          (charging === 1 && 'yellow') ||
+          (charging === 2 && 'green')
         }
       />
       <Box inline width="36px" textAlign="right">
@@ -178,5 +196,11 @@ const AreaStatusColorBox = (props) => {
   const power = Boolean(status & 2);
   const mode = Boolean(status & 1);
   const tooltipText = (power ? 'On' : 'Off') + ` [${mode ? 'auto' : 'manual'}]`;
-  return <ColorBox color={power ? 'good' : 'bad'} content={mode ? undefined : 'M'} title={tooltipText} />;
+  return (
+    <ColorBox
+      color={power ? 'good' : 'bad'}
+      content={mode ? undefined : 'M'}
+      title={tooltipText}
+    />
+  );
 };

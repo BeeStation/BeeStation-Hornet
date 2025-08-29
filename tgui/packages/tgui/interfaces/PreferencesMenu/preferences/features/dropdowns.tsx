@@ -1,19 +1,27 @@
 import { classes } from 'common/react';
 import { capitalizeFirst } from 'common/string';
 import { ReactNode } from 'react';
-import { sendAct } from '../../../../backend';
 import { Dropdown } from 'tgui-core/components';
 
-import { Box, Button, Stack, Flex, Tooltip } from '../../../../components';
+import { sendAct } from '../../../../backend';
+import { Box, Button, Flex, Stack, Tooltip } from '../../../../components';
 import { Feature, FeatureChoicedServerData, FeatureValueProps } from './base';
 
-type DropdownInputProps = FeatureValueProps<string, string, FeatureChoicedServerData> &
+type DropdownInputProps = FeatureValueProps<
+  string,
+  string,
+  FeatureChoicedServerData
+> &
   Partial<{
     disabled: boolean;
     buttons: boolean;
   }>;
 
-type IconnedDropdownInputProps = FeatureValueProps<string, string, FeatureChoicedServerData>;
+type IconnedDropdownInputProps = FeatureValueProps<
+  string,
+  string,
+  FeatureChoicedServerData
+>;
 
 export type FeatureWithIcons<T> = Feature<string, T, FeatureChoicedServerData>;
 
@@ -27,7 +35,9 @@ export function FeatureDropdownInput(props: DropdownInputProps) {
   const { choices, display_names } = serverData;
 
   const dropdownOptions = choices.map((choice) => {
-    let displayText: ReactNode = display_names ? display_names[choice] : capitalizeFirst(choice);
+    let displayText: ReactNode = display_names
+      ? display_names[choice]
+      : capitalizeFirst(choice);
 
     return {
       displayText,
@@ -64,7 +74,7 @@ export function FeatureDropdownInput(props: DropdownInputProps) {
 export const FeatureButtonedDropdownInput = (
   props: FeatureValueProps<string, string, FeatureChoicedServerData> & {
     disabled?: boolean;
-  }
+  },
 ) => {
   return <FeatureDropdownInput disabled={props.disabled} buttons {...props} />;
 };
@@ -79,13 +89,18 @@ export function FeatureIconnedDropdownInput(props: IconnedDropdownInputProps) {
   const { choices, display_names, icons } = serverData;
 
   const dropdownOptions = choices.map((choice) => {
-    let displayText: ReactNode = display_names ? display_names[choice] : capitalizeFirst(choice);
+    let displayText: ReactNode = display_names
+      ? display_names[choice]
+      : capitalizeFirst(choice);
 
     if (icons?.[choice]) {
       displayText = (
         <Stack>
           <Stack.Item>
-            <Box className={classes(['preferences32x32', icons[choice]])} style={{ transform: 'scale(0.8)' }} />
+            <Box
+              className={classes(['preferences32x32', icons[choice]])}
+              style={{ transform: 'scale(0.8)' }}
+            />
           </Stack.Item>
           <Stack.Item grow>{displayText}</Stack.Item>
         </Stack>
@@ -171,7 +186,9 @@ export const StandardizedPalette = (props: {
     includeHex = false,
     height = 16,
   } = props;
-  const choices_to_hex = hex_values ? Object.fromEntries(choices.map((v) => [v, v])) : props.choices_to_hex!;
+  const choices_to_hex = hex_values
+    ? Object.fromEntries(choices.map((v) => [v, v]))
+    : props.choices_to_hex!;
   const safeHex = (v: string) => {
     if (v.length === 3) {
       // sanitize short colors
@@ -181,32 +198,53 @@ export const StandardizedPalette = (props: {
     }
     return (v.startsWith('#') ? v : `#${v}`).toLowerCase();
   };
-  const safeValue = hex_values ? props.value && safeHex(props.value) : props.value;
+  const safeValue = hex_values
+    ? props.value && safeHex(props.value)
+    : props.value;
   return (
-    <Flex className="Preferences__standard-palette" style={{ alignItems: 'baseline', maxWidth: maxWidth }}>
+    <Flex
+      className="Preferences__standard-palette"
+      style={{ alignItems: 'baseline', maxWidth: maxWidth }}
+    >
       <Flex.Item
         shrink
-        style={{ borderRadius: '0.16em', maxWidth: maxWidth, paddingBottom: '-5px' }}
+        style={{
+          borderRadius: '0.16em',
+          maxWidth: maxWidth,
+          paddingBottom: '-5px',
+        }}
         className="section-background"
         backgroundColor={backgroundColor}
-        p={0.5}>
+        p={0.5}
+      >
         <Flex style={{ flexWrap: 'wrap', maxWidth: maxWidth }}>
           {choices.map((choice) => (
             <Flex.Item key={choice} ml={0}>
-              <Tooltip content={`${displayNames[choice]}${includeHex ? ` (${safeHex(choice)})` : ''}`} position="bottom">
+              <Tooltip
+                content={`${displayNames[choice]}${includeHex ? ` (${safeHex(choice)})` : ''}`}
+                position="bottom"
+              >
                 <Box
                   className={classes([
                     'ColorSelectBox',
-                    (hex_values ? safeHex(choice) : choice) === safeValue && 'ColorSelectBox--selected',
+                    (hex_values ? safeHex(choice) : choice) === safeValue &&
+                      'ColorSelectBox--selected',
                     disabled && 'ColorSelectBox--disabled',
                   ])}
-                  onClick={disabled ? null : () => onSetValue(hex_values ? safeHex(choice) : choice)}
+                  onClick={
+                    disabled
+                      ? null
+                      : () => onSetValue(hex_values ? safeHex(choice) : choice)
+                  }
                   width={height + 'px'}
-                  height={height + 'px'}>
+                  height={height + 'px'}
+                >
                   <Box
                     className="ColorSelectBox--inner"
                     style={{
-                      backgroundColor: hex_values ? choice : choices_to_hex[choice],
+                      backgroundColor: hex_values
+                        ? choice
+                        : choices_to_hex[choice],
                     }}
                   />
                 </Box>
@@ -220,11 +258,18 @@ export const StandardizedPalette = (props: {
                 .map(safeHex)
                 .includes(safeValue!) && (
                 <Flex.Item>
-                  <Tooltip content={`Your Custom Selection (${safeValue})`} position="bottom">
+                  <Tooltip
+                    content={`Your Custom Selection (${safeValue})`}
+                    position="bottom"
+                  >
                     <Box
-                      className={classes(['ColorSelectBox', 'ColorSelectBox--selected'])}
+                      className={classes([
+                        'ColorSelectBox',
+                        'ColorSelectBox--selected',
+                      ])}
                       width={height + 'px'}
-                      height={height + 'px'}>
+                      height={height + 'px'}
+                    >
                       <Box
                         className="ColorSelectBox--inner"
                         style={{

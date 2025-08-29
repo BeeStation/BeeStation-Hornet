@@ -10,20 +10,24 @@ $title-bar-height: 48px;
 @use '../colors.scss' with (
   $fg-map-keys: (),
   $bg-map-keys: (),
-  $primary: $accent,
+  $primary: $accent
 );
 @use '../base.scss' with (
   $color-bg: #333333,
   $color-bg-section: #1a1a1a,
   $color-bg-grad-spread: 0%,
-  $border-radius: 0px,
+  $border-radius: 0px
 );
 
 .theme-login {
   // Components
   @include meta.load-css(
     '../components/Button.scss',
-    $with: ('color-default': black, 'border-radius': 0.16em, 'color-transparent-text': rgba(227, 240, 255, 0.75))
+    $with: (
+      'color-default': black,
+      'border-radius': 0.16em,
+      'color-transparent-text': rgba(227, 240, 255, 0.75)
+    )
   );
   .Button--color--default {
     box-sizing: content-box;
@@ -31,14 +35,23 @@ $title-bar-height: 48px;
   }
   .Button--color--default:focus {
     border: 1px solid #404040;
-    transition: color 100ms, background-color 100ms, border 100ms;
+    transition:
+      color 100ms,
+      background-color 100ms,
+      border 100ms;
   }
   @include meta.load-css(
     '../components/ColorSelectBox.scss',
     $with: ('color-default': color.scale($generic, $lightness: -20%))
   );
-  @include meta.load-css('../components/ProgressBar.scss', $with: ('color-default-fill': $accent-2, 'background-color': black));
-  @include meta.load-css('../components/Section.scss', $with: ('title-background-color': black, 'title-text-color': $accent-2));
+  @include meta.load-css(
+    '../components/ProgressBar.scss',
+    $with: ('color-default-fill': $accent-2, 'background-color': black)
+  );
+  @include meta.load-css(
+    '../components/Section.scss',
+    $with: ('title-background-color': black, 'title-text-color': $accent-2)
+  );
   .Section__title {
     text-transform: uppercase;
     font-weight: bold;
@@ -52,7 +65,12 @@ $title-bar-height: 48px;
 
   @include meta.load-css(
     '../components/Input.scss',
-    $with: ('border-color': #100f0edd, 'background-color': black, 'input-height': 30px, 'font-size': 12px)
+    $with: (
+      'border-color': #100f0edd,
+      'background-color': black,
+      'input-height': 30px,
+      'font-size': 12px
+    )
   );
   .Input {
     transition: border-color 0.05s linear;
@@ -63,7 +81,10 @@ $title-bar-height: 48px;
 
   // Layouts
   @include meta.load-css('../layouts/Layout.scss');
-  @include meta.load-css('../layouts/Window.scss', $with: ('title-bar-height': $title-bar-height));
+  @include meta.load-css(
+    '../layouts/Window.scss',
+    $with: ('title-bar-height': $title-bar-height)
+  );
   @include meta.load-css(
     '../layouts/TitleBar.scss',
     $with: (
@@ -87,14 +108,20 @@ $title-bar-height: 48px;
   }
 
   .Button--color--blurple {
-    transition: color 50ms, background-color 50ms;
+    transition:
+      color 50ms,
+      background-color 50ms;
     background-color: #5865f2;
     color: white;
     &:hover {
-      transition: color 0ms, background-color 0ms;
+      transition:
+        color 0ms,
+        background-color 0ms;
     }
     &:focus {
-      transition: color 100ms, background-color 100ms;
+      transition:
+        color 100ms,
+        background-color 100ms;
     }
     &:hover {
       background-color: lighten(#5865f2, 30%);
