@@ -396,10 +396,10 @@ const SuitStatusSection = (props) => {
                 : cell_charge_current === 1e31
                   ? 'Infinite'
                   : `${formatSiUnit(cell_charge_current, 0, 'W')} of ${formatSiUnit(
-                    cell_charge_max,
-                    0,
-                    'W'
-                  )} (${charge_percent}%)`}
+                      cell_charge_max,
+                      0,
+                      'W',
+                    )} (${charge_percent}%)`}
           </ProgressBar>
         </LabeledList.Item>
         <LabeledList.Item label="ID Lock">

@@ -110,7 +110,9 @@ const ApcContent = (props) => {
             [ {externalPowerStatus.externalPowerText} ]
           </LabeledList.Item>
 
-          <LabeledList.Item label="Cell Capacity">{data.cellcharge}</LabeledList.Item>
+          <LabeledList.Item label="Cell Capacity">
+            {data.cellcharge}
+          </LabeledList.Item>
 
           <LabeledList.Item label="Power Cell">
             <ProgressBar color="good" value={adjustedCellChange} />

@@ -70,12 +70,22 @@ export const PowerMonitorContent = (props) => {
           <Section>
             <LabeledList>
               <LabeledList.Item label="Supply">
-                <ProgressBar value={supply} minValue={0} maxValue={maxValue} color="teal">
+                <ProgressBar
+                  value={supply}
+                  minValue={0}
+                  maxValue={maxValue}
+                  color="teal"
+                >
                   {data.supply}
                 </ProgressBar>
               </LabeledList.Item>
               <LabeledList.Item label="Draw">
-                <ProgressBar value={demand} minValue={0} maxValue={maxValue} color="pink">
+                <ProgressBar
+                  value={demand}
+                  minValue={0}
+                  maxValue={maxValue}
+                  color="pink"
+                >
                   {data.demand}
                 </ProgressBar>
               </LabeledList.Item>
