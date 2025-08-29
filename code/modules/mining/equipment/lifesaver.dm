@@ -43,7 +43,7 @@
 
 //Just to give a fella some time to rip it off and disable it.
 /obj/item/clothing/neck/necklace/lifesaver/proc/pre_enable_alert()
-	if(is_mining_level(src.z))
+	if(is_mining_level(active_owner.z))
 		icon_state = "lifesaver_active"
 		worn_icon_state = "lifesaver_active"
 		active_owner.regenerate_icons()
