@@ -202,7 +202,7 @@
 /obj/item/circuitboard/machine/emitter
 	name = "emitter (Machine Board)"
 	icon_state = "engineering"
-	desc = "It seems like you can change it's modulator with a scredriver"
+	desc = "You can change its laser configuration with a screwdriver"
 	build_path = /obj/machinery/power/emitter
 	req_components = list(
 		/obj/item/stock_parts/micro_laser = 1,
@@ -224,11 +224,11 @@
 		if(build_path == /obj/machinery/power/emitter)
 			name = "emitter - driling mode (Machine Board)"
 			build_path = /obj/machinery/power/emitter/drill
-			to_chat(user, span_notice("Emitter's laser modulator was overclocked."))
+			to_chat(user, span_notice("You change the Emitter's laser configuration to: [span_italics("DRILL")]"))
 		else
 			name = "emitter (Machine Board)"
 			build_path = /obj/machinery/power/emitter
-			to_chat(user, span_notice("Emiters's laser modulator was returned to default state."))
+			to_chat(user, span_notice("You change the Emitter's laser configuration to:  [span_italics("NORMAL")]"))
 	else
 		return ..()
 
