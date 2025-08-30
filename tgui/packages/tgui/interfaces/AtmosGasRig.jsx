@@ -147,14 +147,18 @@ export const AtmosGasRigTemplate = (props) => {
             />
             <br />
             <Box mb={2} mt={2}>
-              Shielding Strength:
-              <br />
-              {data.shield_strength_change.toFixed(2)}
-              <br />
+              <Tooltip content="Power * Modifier">
+                <Box>
+                  Shielding Strength:
+                  {' ' + data.shield_strength_change.toFixed(2)}
+                  <br />
+                </Box>
+              </Tooltip>
+
               <BlockQuote color="">
-                Gas Power: {data.gas_power.toFixed(2)}
+                Total Gas Power: {data.gas_power.toFixed(2)}
                 <br />
-                Gas Modifier: {data.gas_modifier.toFixed(2)}
+                Average Gas Modifier: {data.gas_modifier.toFixed(2)}
                 <br />
               </BlockQuote>
             </Box>

@@ -23,7 +23,7 @@
 
 /// Gas depths
 /// Defines are ordered as (gas starting depth, gas ending depth, maximium production multipler)
-#define GASRIG_O2 list(10, 250, 50)
+#define GASRIG_O2 list(10, 250, 75)
 #define GASRIG_N2 list(115, 400, 25)
 #define GASRIG_PLAS list(300, 1750, 100)
 #define GASRIG_CO2 list(330, 500, 15)

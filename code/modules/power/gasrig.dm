@@ -290,16 +290,17 @@
 /obj/machinery/atmospherics/gasrig/core/welder_act(mob/living/user, obj/item/tool)
 	if(health >= GASRIG_MAX_HEALTH)
 		balloon_alert(user, "No repairs needed!")
-		return
+		return TRUE
 	if(get_depth() > 0)
 		balloon_alert(user, "The rig needs to be raised to repair it!")
-		return
+		return TRUE
 	if(needs_repairs)
 		balloon_alert(user, "Repair with plasteel first!")
-		return
+		return TRUE
 	if(tool.use_tool(src, user, 0, volume=50, amount=2))
 		change_health(10)
 		balloon_alert(user, "You repair the rig's damage!")
+		return TRUE
 
 /obj/machinery/atmospherics/gasrig/core/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/sheet/plasteel))
@@ -415,7 +416,8 @@
 	..(loc, booled)
 
 /obj/machinery/atmospherics/components/unary/gasrig/welder_act(mob/living/user, obj/item/tool)
-	parent.welder_act(user, tool)
+	if(parent.welder_act(user, tool))
+		return TRUE
 
 /obj/machinery/atmospherics/components/unary/gasrig/attackby(obj/item/I, mob/user, params)
 	parent.attackby(I, user, params)
@@ -482,7 +484,8 @@
 	icon_state = iconstate
 
 /obj/machinery/atmospherics/gasrig/dummy/welder_act(mob/living/user, obj/item/tool)
-	parent.welder_act(user, tool)
+	if(parent.welder_act(user, tool))
+		return TRUE
 
 /obj/machinery/atmospherics/gasrig/dummy/attackby(obj/item/I, mob/user, params)
 	parent.attackby(I, user, params)
