@@ -76,6 +76,8 @@ GLOBAL_LIST_EMPTY(gas_handbook)
 		gas_info["name"] = meta_information[META_GAS_NAME]
 		gas_info["description"] = meta_information[META_GAS_DESC]
 		gas_info["specific_heat"] = meta_information[META_GAS_SPECIFIC_HEAT]
+		gas_info["gasrig_shielding_power"] = meta_information[META_GAS_RIG_SHIELDING_POWER]
+		gas_info["gasrig_shielding_modifier"] = meta_information[META_GAS_RIG_SHIELDING_MODIFIER]
 		gas_info["reactions"] = list()
 		momentary_gas_list[gas_path] = gas_info
 
