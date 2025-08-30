@@ -256,9 +256,9 @@ export const AtmosGasRigTemplate = (props) => {
               data,
               barHeight,
               'yellow',
-              'Plouxium',
+              'Pluoxium',
             )}{' '}
-            {/* Plouxium */}
+            {/* Pluoxium */}
             {DisplayValues(155 + svgOffset, barHeight, data)}
           </svg>
         </Flex.Item>
