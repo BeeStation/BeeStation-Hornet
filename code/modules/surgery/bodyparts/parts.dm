@@ -31,7 +31,7 @@
 		ORGAN_SLOT_RESIN_SPINNER,
 		ORGAN_SLOT_ACID_GLAND
 	)
-	pain_multiplier = 0.6
+	pain_multiplier = 0.8
 	///The bodytype(s) allowed to attach to this chest.
 	var/acceptable_bodytype = BODYTYPE_HUMANOID
 

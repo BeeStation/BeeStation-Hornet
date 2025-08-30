@@ -133,7 +133,7 @@
 	var/destroyed = FALSE
 
 	/// How much pain does this limb feel?
-	var/pain_multiplier = 0.4
+	var/pain_multiplier = 0.6
 
 	/// Damage taken per second
 	var/decay_rate = STANDARD_ORGAN_DECAY
