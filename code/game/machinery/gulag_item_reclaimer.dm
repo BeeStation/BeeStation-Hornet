@@ -2,7 +2,7 @@
 	name = "equipment reclaimer station"
 	desc = "Used to reclaim your items after you finish your sentence at the labor camp."
 	icon = 'icons/obj/terminals.dmi'
-	icon_state = "dorm_taken"
+	icon_state = "gulag_off"
 	req_access = list(ACCESS_SECURITY) //REQACCESS TO ACCESS ALL STORED ITEMS
 	density = FALSE
 	use_power = IDLE_POWER_USE
@@ -10,6 +10,16 @@
 	active_power_usage = 2500
 	var/list/stored_items = list()
 	var/obj/machinery/gulag_teleporter/linked_teleporter
+	///Icon of the current screen status
+	var/screen_icon = "gulag_on"
+
+/obj/machinery/gulag_item_reclaimer/update_overlays()
+	. = ..()
+	if(machine_stat & (NOPOWER|BROKEN))
+		return
+
+	. += mutable_appearance(icon, screen_icon)
+	. += emissive_appearance(icon, screen_icon)
 
 /obj/machinery/gulag_item_reclaimer/Destroy()
 	for(var/i in contents)
@@ -17,6 +27,7 @@
 		I.forceMove(get_turf(src))
 	if(linked_teleporter)
 		linked_teleporter.linked_reclaimer = null
+	linked_teleporter = null
 	return ..()
 
 /obj/machinery/gulag_item_reclaimer/on_emag(mob/user)
@@ -24,9 +35,9 @@
 	// emagging lets anyone reclaim all the items
 	req_access = list()
 	ui_update()
-
-/obj/machinery/gulag_item_reclaimer/ui_state(mob/user)
-	return GLOB.default_state
+	screen_icon = "emagged_general"
+	update_appearance()
+	balloon_alert(user, "id checker scrambled")
 
 /obj/machinery/gulag_item_reclaimer/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -64,8 +75,9 @@
 
 	return data
 
-/obj/machinery/gulag_item_reclaimer/ui_act(action, params)
-	if(..())
+/obj/machinery/gulag_item_reclaimer/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	. = ..()
+	if(.)
 		return
 
 	switch(action)

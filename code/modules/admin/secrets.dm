@@ -103,6 +103,9 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 	return data
 
 /datum/admin_secrets/ui_act(action, params)
+	. = ..()
+	if(.)
+		return
 	var/datum/admins/admin_datum = GLOB.admin_datums[usr.ckey]
 	if(!admin_datum) // Should have already been blocked by ui_state, but juuust in case
 		message_admins("[usr] sent a request to interact with the secrets panel without sufficient rights.")

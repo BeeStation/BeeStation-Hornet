@@ -110,6 +110,9 @@
 	return
 
 /datum/help_ui/ui_act(action, params)
+	. = ..()
+	if(.)
+		return
 	if(!check_permission(usr))
 		message_admins("[usr] sent a request to interact with the ticket browser without sufficient rights.")
 		log_admin_private("[usr] sent a request to interact with the ticket browser without sufficient rights.")
@@ -506,6 +509,9 @@
 	return
 
 /datum/help_ticket/ui_act(action, params)
+	. = ..()
+	if(.)
+		return
 	if(!check_permission_act(usr))
 		message_admins("[usr] sent a request to interact with the ticket window without sufficient rights.")
 		log_admin_private("[usr] sent a request to interact with the ticket window without sufficient rights.")

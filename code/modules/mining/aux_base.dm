@@ -14,7 +14,9 @@
 /obj/machinery/computer/auxillary_base
 	name = "auxillary base management console"
 	icon = 'icons/obj/terminals.dmi'
-	icon_state = "dorm_available"
+	icon_state = "pod_off"
+	icon_keyboard = null
+	icon_screen = "pod_on"
 	base_icon_state = null
 	smoothing_flags = NONE
 	smoothing_groups = null

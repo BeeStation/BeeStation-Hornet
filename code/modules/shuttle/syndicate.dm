@@ -43,7 +43,9 @@
 	smoothing_groups = null
 	canSmoothWith = null
 
-	icon_state = "dorm_available"
+	icon_state = "pod_off"
+	icon_keyboard = null
+	icon_screen = "pod_on"
 	light_color = LIGHT_COLOR_BLUE
 	req_access = list(ACCESS_SYNDICATE)
 	shuttleId = "steel_rain"
