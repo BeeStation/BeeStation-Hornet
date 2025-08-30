@@ -91,8 +91,7 @@ Slimecrossing Items
 	name = "hypercharged slime core"
 	desc = "A charged yellow slime extract, infused with even more plasma. It almost hurts to touch."
 	rating = 7 //Roughly 1.5 times the original.
-	maxcharge = 10000 //5 times the normal one.
-	chargerate = 300 //3 times the normal one.
+	maxcharge = 100 KILOWATT //5 times the normal one.
 
 //Barrier cube - Chilling Grey
 /obj/item/barriercube

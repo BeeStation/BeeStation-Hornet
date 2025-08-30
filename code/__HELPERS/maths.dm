@@ -96,33 +96,25 @@
 /proc/anyprob(value)
 	return (rand(1,value)==value)
 
-/// Format a power value in W, kW, MW, or GW.
+/// Format a power value in W, kW, MW, GW.
 /proc/display_power(powerused)
-	if(powerused < 1000) //Less than a kW
-		return "[powerused] W"
-	else if(powerused < 1000000) //Less than a MW
-		return "[round((powerused * 0.001),0.01)] kW"
-	else if(powerused < 1000000000) //Less than a GW
-		return "[round((powerused * 0.000001),0.001)] MW"
-	return "[round((powerused * 0.000000001),0.0001)] GW"
+	if(powerused < 1000)
+		return "[powerused] W"	//Watt equivalent
+	else if(powerused < 1000000)
+		return "[round((powerused * 0.001), 0.1)] kW"	//KiloWatt equivalent
+	else if(powerused < 1000000000)
+		return "[round((powerused * 0.000001), 0.1)] MW"	//MegaWatt equivalent
+	return "[round((powerused * 0.000000001), 0.1)] GW"	//Gigawatt equivalent
 
-/// Format an energy value in J, kJ, MJ, or GJ. 1W = 1J/s.
-/proc/display_joules(units)
-	if (units < 1000) // Less than a kJ
-		return "[round(units, 0.1)] J"
-	else if (units < 1000000) // Less than a MJ
-		return "[round(units * 0.001, 0.01)] kJ"
-	else if (units < 1000000000) // Less than a GJ
-		return "[round(units * 0.000001, 0.001)] MJ"
-	return "[round(units * 0.000000001, 0.0001)] GJ"
-
-/// Format an energy value measured in Power Cell units.
-/proc/display_energy(units)
-	// APCs process every (SSmachines.wait * 0.1) seconds, and turn 1 W of
-	// excess power into GLOB.CELLRATE energy units when charging cells.
-	// With the current configuration of wait=20 and CELLRATE=0.002, this
-	// means that one unit is 1 kJ.
-	return display_joules(units * SSmachines.wait * 0.1 / GLOB.CELLRATE)
+/// Format power value per second
+/proc/display_power_persec(powerused)
+	if(powerused < 1000)
+		return "[powerused] W/s"	//Watt/s equivalent
+	else if(powerused < 1000000)
+		return "[round((powerused * 0.001), 0.1)] kW/s"	//KiloWatt/s equivalent
+	else if(powerused < 1000000000)
+		return "[round((powerused * 0.000001), 0.1)] MW/s"	//MegaWatt/s equivalent
+	return "[round((powerused * 0.000000001), 0.1)] GW/s"	//GigaWatt/s equivalent
 
 ///counts the number of bits in Byond's 16-bit width field, in constant time and memory!
 /proc/bit_count(bit_field)

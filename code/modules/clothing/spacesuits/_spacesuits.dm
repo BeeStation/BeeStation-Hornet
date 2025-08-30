@@ -1,4 +1,4 @@
-#define THERMAL_REGULATOR_COST 18 // the cost per tick for the thermal regulator
+#define THERMAL_REGULATOR_COST 25 WATT // the cost per tick for the thermal regulator
 
 //Note:	Everything in modules/clothing/spacesuits should have the entire suit grouped together.
 //		Meaning the the suit is defined directly after the corrisponding helmet. Just like below!
@@ -136,7 +136,7 @@
 	actions_types = list(/datum/action/item_action/toggle_spacesuit)
 	pockets = FALSE
 	var/temperature_setting = BODYTEMP_NORMAL /// The default temperature setting
-	var/obj/item/stock_parts/cell/cell = /obj/item/stock_parts/cell/high /// If this is a path, this gets created as an object in Initialize.
+	var/obj/item/stock_parts/cell/cell = /obj/item/stock_parts/cell /// If this is a path, this gets created as an object in Initialize.
 	var/cell_cover_open = FALSE /// Status of the cell cover on the suit
 	var/thermal_on = FALSE /// Status of the thermal regulator
 	var/show_hud = TRUE /// If this is FALSE the battery status UI will be disabled. This is used for suits that don't use batteries like the changeling's flesh suit mutation.
