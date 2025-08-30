@@ -50,7 +50,7 @@
 			affected_mob.client?.give_award(/datum/award/achievement/misc/drunk, affected_mob)
 		var/obj/item/organ/liver/liver = affected_mob.get_organ_slot(ORGAN_SLOT_LIVER)
 		if(istype(liver))
-			liver.applyOrganDamage(((max(sqrt(volume) * (boozepwr ** ALCOHOL_EXPONENT) * liver.alcohol_tolerance * delta_time, 0)) / 150))
+			liver.apply_organ_damage(((max(sqrt(volume) * (boozepwr ** ALCOHOL_EXPONENT) * liver.alcohol_tolerance * delta_time, 0)) / 150))
 
 /datum/reagent/consumable/ethanol/expose_obj(obj/exposed_obj, reac_volume)
 	. = ..()
@@ -230,7 +230,7 @@
 				affected_mob.adjustBruteLoss(15)
 		else
 			to_chat(affected_mob, span_userdanger("You scream in terror as you go blind!"))
-			eyes.applyOrganDamage(eyes.maxHealth)
+			eyes.apply_organ_damage(eyes.maxHealth)
 			affected_mob.emote("scream")
 
 	if(DT_PROB(1.5, delta_time))
@@ -655,6 +655,7 @@
 	boozepwr = 55
 	quality = DRINK_NICE
 	taste_description = "oranges"
+	metabolized_traits = list(TRAIT_HALT_RADIATION_EFFECTS)
 
 /datum/glass_style/drinking_glass/screwdrivercocktail
 	name = "Screwdriver"
@@ -666,7 +667,8 @@
 /datum/reagent/consumable/ethanol/screwdrivercocktail/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(affected_mob.mind?.assigned_role in list(JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN, JOB_NAME_CHIEFENGINEER))
-		affected_mob.radiation = max(affected_mob.radiation - (25 * REM * delta_time), 0)
+		if(HAS_TRAIT(affected_mob, TRAIT_IRRADIATED))
+			affected_mob.adjustToxLoss(-2 * REM * delta_time, updating_health = FALSE)
 
 /datum/reagent/consumable/ethanol/booger
 	name = "Booger"

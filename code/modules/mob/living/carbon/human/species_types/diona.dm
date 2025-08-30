@@ -109,16 +109,6 @@
 	if(H.stat != CONSCIOUS && !H.mind && drone) //If the home body is not fully conscious, they dont have a mind and have a drone
 		drone.switch_ability.trigger() //Bring them home.
 
-/datum/species/diona/handle_mutations_and_radiation(mob/living/carbon/human/H)
-	. = FALSE
-	var/radiation = H.radiation
-	//Dionae heal and eat radiation for a living.
-	H.adjust_nutrition(clamp(radiation, 0, 7))
-	if(radiation > 50)
-		H.heal_overall_damage(1,1, 0, BODYTYPE_ORGANIC)
-		H.adjustToxLoss(-2)
-		H.adjustOxyLoss(-1)
-
 /datum/species/diona/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	if(chem.type == /datum/reagent/toxin/plantbgone)
 		H.adjustToxLoss(3)

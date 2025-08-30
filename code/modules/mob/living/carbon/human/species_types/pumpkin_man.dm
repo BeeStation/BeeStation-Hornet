@@ -83,7 +83,6 @@
 	switch(P.type)
 		if(/obj/projectile/energy/floramut)
 			if(prob(15))
-				H.rad_act(rand(30,80))
 				H.Paralyze(100)
 				H.visible_message(span_warning("[H] writhes in pain as [H.p_their()] vacuoles boil."), span_userdanger("You writhe in pain as your vacuoles boil!"), span_italics("You hear the crunching of leaves."))
 				if(prob(80))

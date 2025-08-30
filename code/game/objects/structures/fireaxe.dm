@@ -21,7 +21,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/fireaxecabinet, 32)
 	bullet = 20
 	energy = 100
 	bomb = 10
-	rad = 100
 	fire = 90
 	acid = 50
 
