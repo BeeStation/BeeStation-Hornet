@@ -448,8 +448,8 @@
 
 /datum/outfit/chrono_agent
 	name = "Timeline Eradication Agent"
-	uniform = /obj/item/clothing/under/color/white
-	suit_store = /obj/item/tank/internals/oxygen
+	uniform = /obj/item/clothing/under/costume/mech_suit/white
+	r_pocket = /obj/item/tank/internals/emergency_oxygen/double
 	mask = /obj/item/clothing/mask/breath
 	back = /obj/item/mod/control/pre_equipped/chrono
 
