@@ -189,6 +189,21 @@
 	template_id = "plush"
 	mappath = "_maps/holodeck/workshop/plush.dmm"
 
+/datum/map_template/holodeck/prison/basketball
+	name = "Workshop - Basketball Court"
+	template_id = "basketball"
+	mappath = "_maps/holodeck/workshop/basketball.dmm"
+
+/datum/map_template/holodeck/prison/boxing
+	name = "Workshop - Boxing Arena"
+	template_id = "boxing"
+	mappath = "_maps/holodeck/workshop/boxing.dmm"
+
+/datum/map_template/holodeck/prison/theatre
+	name = "Workshop - Theatre Hall"
+	template_id = "theatre"
+	mappath = "_maps/holodeck/workshop/theatre.dmm"
+
 //   ------------------------------
 // -- SMALL HOLODECK TEMPLATES 7x7 --
 //   ------------------------------

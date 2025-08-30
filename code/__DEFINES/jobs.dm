@@ -77,6 +77,7 @@
 #define JOB_DISPLAY_ORDER_BRIG_PHYS 32
 #define JOB_DISPLAY_ORDER_AI 33
 #define JOB_DISPLAY_ORDER_CYBORG 34
+#define JOB_DISPLAY_ORDER_PRISONER 35
 
 // should check the ones in `\_DEFINES\economy.dm`
 // It's true that bitflags shouldn't be separated in two DEFINES if these are same, but just in case the system can be devided, it's remained separated.

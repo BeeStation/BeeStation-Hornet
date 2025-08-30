@@ -61,6 +61,7 @@
 #define span_deadsaybold(str) ("<span class='deadsay bold'>" + (str) + "</span>")
 #define span_deadsayitalicsbold(str) ("<span class='deadsay italics bold'>" + (str) + "</span>")
 #define span_deathmessage(str) ("<span class='death_message'>" + (str) + "</span>")
+#define span_prisonermessage(str) ("<span class='prisoner_message'>" + (str) + "</span>")
 #define span_deconversionmessage(str) ("<span class='deconversion_message'>" + (str) + "</span>")
 #define span_deconversionmessagebold(str) ("<span class='deconversion_message bold'>" + (str) + "</span>")
 #define span_deptradio(str) ("<span class='deptradio'>" + (str) + "</span>")

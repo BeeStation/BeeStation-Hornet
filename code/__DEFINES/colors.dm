@@ -25,7 +25,7 @@
 #define COLOR_DARKMODE_TEXT "#a4bad6"
 
 #define COLOR_WHITE "#FFFFFF"
-#define COLOR_OFF_WHITE "#FFF5ED"
+#define COLOR_OFF_WHITE "#fff5ed"
 #define COLOR_VERY_LIGHT_GRAY "#EEEEEE"
 #define COLOR_SILVER "#C0C0C0"
 #define COLOR_GRAY "#808080"
