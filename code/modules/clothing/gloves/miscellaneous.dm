@@ -24,14 +24,8 @@
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	armor_type = /datum/armor/gloves_botanic_leather
+	armor_type = /datum/armor/security_padded
 	clothing_flags = THICKMATERIAL
-
-
-/datum/armor/gloves_botanic_leather
-	bio = 50
-	fire = 70
-	acid = 30
 
 /obj/item/clothing/gloves/combat
 	name = "combat gloves"
@@ -46,15 +40,8 @@
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	armor_type = /datum/armor/gloves_combat
+	armor_type = /datum/armor/military_padded
 	clothing_flags = THICKMATERIAL
-
-/datum/armor/gloves_combat
-	bio = 90
-	fire = 80
-	acid = 50
-	stamina = 20
-	bleed = 10
 
 /obj/item/clothing/gloves/bracer
 	name = "bone bracers"
@@ -70,19 +57,7 @@
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	armor_type = /datum/armor/gloves_bracer
-
-
-/datum/armor/gloves_bracer
-	melee = 15
-	bullet = 35
-	laser = 35
-	energy = 20
-	bomb = 35
-	bio = 35
-	rad = 35
-	stamina = 20
-	bleed = 20
+	armor_type = /datum/armor/security_chitin
 
 /obj/item/clothing/gloves/rapid
 	name = "Gloves of the North Star"

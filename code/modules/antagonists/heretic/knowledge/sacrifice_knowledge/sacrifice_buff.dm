@@ -69,7 +69,7 @@
 	owner.resting = FALSE
 	owner.setStaminaLoss(0)
 	owner.SetSleeping(0)
-	owner.SetUnconscious(0)
+	owner.take_consciousness_damage(-INFINITY)
 	owner.SetAllImmobility(0, TRUE)
 
 /*
@@ -84,6 +84,7 @@
 	owner.adjustOxyLoss(-amount, FALSE)
 	owner.adjustBruteLoss(-amount, FALSE)
 	owner.adjustFireLoss(-amount)
+	owner.take_consciousness_damage(-amount)
 
 /*
  * Adjust the owner's temperature up or down to standard body temperatures.
@@ -99,8 +100,8 @@
  * Slow and stop any blood loss the owner's experiencing.
  */
 /datum/status_effect/unholy_determination/proc/adjust_bleed_wounds()
-	if(!iscarbon(owner) || !owner.blood_volume)
+	if(!iscarbon(owner) || !owner.blood.volume)
 		return
 
-	if(owner.blood_volume < BLOOD_VOLUME_NORMAL)
-		owner.blood_volume = owner.blood_volume + 2
+	if(owner.blood.volume < BLOOD_VOLUME_NORMAL)
+		owner.blood.volume = owner.blood.volume + 2

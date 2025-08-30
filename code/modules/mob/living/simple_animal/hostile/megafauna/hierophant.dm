@@ -49,7 +49,7 @@ Difficulty: Hard
 	icon = 'icons/mob/lavaland/hierophant_new.dmi'
 	faction = list(FACTION_BOSS) //asteroid mobs? get that shit out of my beautiful square house
 	speak_emote = list("preaches")
-	armour_penetration = 50
+	sharpness = SHARP_NONE
 	melee_damage = 15
 	speed = 10
 	move_to_delay = 10
@@ -403,7 +403,7 @@ Difficulty: Hard
 	if(health > 0 || stat == DEAD)
 		return
 	else
-		set_stat(DEAD)
+		set_stat_source(DEAD, FROM_DEAD)
 		blinking = TRUE //we do a fancy animation, release a huge burst(), and leave our staff.
 		visible_message(span_hierophant("\"Mrmxmexmrk wipj-hiwxvygx wiuyirgi...\""))
 		visible_message("[span_hierophantwarning("[src] shrinks, releasing a massive burst of energy!")]")
@@ -411,7 +411,7 @@ Difficulty: Hard
 		for(var/mob/living/L in oviewers(7,src))
 			stored_nearby += L // store the people to grant the achievements to once we die
 		hierophant_burst(null, get_turf(src), 10)
-		set_stat(CONSCIOUS) // deathgasp wont run if dead, stupid
+		clear_stat(FROM_DEAD) // deathgasp wont run if dead, stupid
 		..(force_grant = stored_nearby)
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/CanAttack(atom/the_target)
@@ -673,9 +673,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/hierophant/blast)
 			flash_color(L.client, "#660099", 1)
 		playsound(L,'sound/weapons/sear.ogg', 50, 1, -4)
 		to_chat(L, span_userdanger("You're struck by a [name]!"))
-		var/limb_to_hit = L.get_bodypart(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
-		var/armor = L.run_armor_check(limb_to_hit, MELEE, "Your armor absorbs [src]!", "Your armor blocks part of [src]!", 50, "Your armor was penetrated by [src]!")
-		L.apply_damage(damage, BURN, limb_to_hit, armor)
+		var/zone_to_hit = pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG)
+		L.deal_damage(damage, 0, BURN, zone = zone_to_hit)
 		if(ishostile(L))
 			var/mob/living/simple_animal/hostile/H = L //mobs find and damage you...
 			if(H.stat == CONSCIOUS && !H.target && H.AIStatus != AI_OFF && !H.client)
@@ -696,7 +695,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/hierophant/blast)
 				continue
 			to_chat(occupant, span_userdanger("Your [M.name] is struck by a [name]!"))
 			playsound(M,'sound/weapons/sear.ogg', 50, TRUE, -4)
-			M.take_damage(damage, BURN, 0, 0)
+			M.deal_damage(damage, 0, BURN, DAMAGE_LASER, sound = 0)
 
 /obj/effect/temp_visual/hierophant/blast/vortex
 	damage = 25

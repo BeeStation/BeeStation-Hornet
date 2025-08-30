@@ -1,12 +1,12 @@
 /obj/projectile/bullet/shotgun_slug
 	name = "12g shotgun slug"
 	damage = 35 // single slug, high damage, low armour penetration, 3 slugs to crit unarmoured
-	armour_penetration = 25
+	sharpness = SHARP_VI
 
 /obj/projectile/bullet/shotgun_gold
 	name = "golden shotgun slug"
 	damage = 28
-	armour_penetration = 20
+	sharpness = SHARP_VI
 
 /obj/projectile/bullet/shotgun_bronze
 	name = "bronze shotgun slug"
@@ -14,23 +14,21 @@
 	paralyze = 10
 	stamina = 15
 	stutter = 5
-	armour_penetration = -15
+	sharpness = SHARP_IV
 
 /obj/projectile/bullet/shotgun_honk
 	name = "honk shotgun slug"
 	icon_state = "banana"
 	damage = 1 // 1 damage because comedy.
 	knockdown = 100
-	armour_penetration = -5
-	bleed_force = 0
+	sharpness = SHARP_I
 
 /obj/projectile/bullet/shotgun_beanbag
 	name = "beanbag slug"
 	damage = 5
 	stamina = 40
 	jitter = 5
-	armour_penetration = -10
-	bleed_force = BLEED_TINY
+	sharpness = SHARP_III
 
 /obj/projectile/bullet/incendiary/shotgun
 	name = "incendiary slug"
@@ -57,19 +55,18 @@
 	ricochets_max = 1
 	ricochet_chance = 50
 	ricochet_decay_chance = 0.9
-	bleed_force = BLEED_SCRATCH
+	sharpness = SHARP_III
 
 /obj/projectile/bullet/pellet/shotgun_buckshot/armour_piercing
 	name = "armour-piercing buckshot pellet"
 	damage = 6
 	tile_dropoff = 0.5
-	armour_penetration = 60
+	sharpness = SHARP_X
 
 /obj/projectile/bullet/pellet/shotgun_buckshot // Seperated to AP and normal buckshot
 	name = "buckshot pellet"
 	damage = 8
 	tile_dropoff = 0.5
-	armour_penetration = 20
 
 /obj/projectile/bullet/pellet/shotgun_rubbershot
 	name = "rubbershot pellet"
@@ -81,8 +78,7 @@
 	ricochet_chance = 80
 	ricochet_incidence_leeway = 60
 	ricochet_decay_chance = 0.75
-	armour_penetration = -15
-	bleed_force = BLEED_TINY
+	sharpness = NONE
 
 /obj/projectile/bullet/pellet/shotgun_rubbershot/Range()
 	if(damage <= 0 && tile_dropoff_s == 0)
@@ -118,6 +114,7 @@
 	range = 8
 	ricochets_max = 0
 	shrapnel_type = /obj/item/shrapnel/bullet/shotgun/glass
+	sharpness = SHARP_VII
 
 /obj/projectile/bullet/pellet/shotgun_glass/Initialize(mapload)
 	. = ..()
@@ -129,7 +126,7 @@
 
 /obj/projectile/bullet/scattershot
 	damage = 18
-	bleed_force = BLEED_SURFACE
+	sharpness = SHARP_IV
 
 //Breaching Ammo
 
@@ -138,7 +135,7 @@
 	desc = "A breaching round designed to destroy minor objects and windows with only a few shots, but is ineffective against other targets."
 	hitsound = 'sound/weapons/sonic_jackhammer.ogg'
 	damage = 10 //does shit damage to everything except doors and windows
-	bleed_force = BLEED_SURFACE
+	sharpness = SHARP_X
 
 /obj/projectile/bullet/shotgun_breaching/on_hit(atom/target)
 	if(isstructure(target) || ismachinery(target))

@@ -402,7 +402,7 @@
 	fire_sound = 'sound/weapons/batonextend.ogg'
 	max_charges = 1
 	item_flags = NEEDS_PERMIT | ISWEAPON
-	sharpness = SHARP
+	sharpness = SHARP_IV
 	force = 15
 	attack_weight = 2
 
@@ -422,11 +422,10 @@
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	pass_flags = PASSTABLE
 	damage = 10
-	armour_penetration = 100
+	sharpness = SHARP_VI
 	damage_type = BRUTE
 	hitsound = 'sound/effects/splat.ogg'
 	knockdown = 30
-	bleed_force = BLEED_SURFACE
 	var/chain
 
 /obj/projectile/hook/fire(setAngle)
@@ -687,19 +686,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = LAVA_PROOF | FIRE_PROOF //they are from lavaland after all
-	armor_type = /datum/armor/gloves_concussive_gauntlets
-
-
-/datum/armor/gloves_concussive_gauntlets
-	melee = 15
-	bullet = 35
-	laser = 35
-	energy = 20
-	bomb = 35
-	bio = 35
-	rad = 35
-	stamina = 20
-	bleed = 20
+	armor_type = /datum/armor/civilian_metal
 
 /obj/item/clothing/gloves/concussive_gauntlets/equipped(mob/user, slot)
 	. = ..()
@@ -765,8 +752,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	slot_flags = ITEM_SLOT_BELT
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	w_class = WEIGHT_CLASS_BULKY
-	sharpness = SHARP_DISMEMBER
-	bleed_force = BLEED_CUT
+	sharpness = SHARP_IV
 	/// List of factions we deal bonus damage to
 	var/list/nemesis_factions = list(FACTION_MINING, FACTION_BOSS)
 	/// Amount of damage we deal to the above factions
@@ -892,8 +878,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	flags_1 = CONDUCT_1
-	sharpness = SHARP_DISMEMBER
-	bleed_force = BLEED_CUT
+	sharpness = SHARP_IV
 	w_class = WEIGHT_CLASS_BULKY
 	force = 1
 	throwforce = 1

@@ -12,7 +12,6 @@
 	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE)
 	max_integrity = 250
 	integrity_failure = 0.33
-	armor_type = /datum/armor/machinery_airalarm
 	resistance_flags = FIRE_PROOF
 	clicksound = 'sound/machines/terminal_select.ogg'
 	layer = ABOVE_WINDOW_LAYER
@@ -82,11 +81,6 @@
 	var/allow_link_change = TRUE
 
 GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
-
-/datum/armor/machinery_airalarm
-	energy = 100
-	fire = 90
-	acid = 30
 
 /obj/machinery/airalarm/Initialize(mapload, ndir, nbuild)
 	. = ..()

@@ -40,7 +40,7 @@
 			else
 				return 0
 	mecha_attacker.visible_message(span_danger("[mecha_attacker.name] hits [src]!"), span_danger("You hit [src]!"), null, COMBAT_MESSAGE_RANGE)
-	return take_damage(mecha_attacker.force * 3, mech_damtype, "melee", play_soundeffect, get_dir(src, mecha_attacker)) // multiplied by 3 so we can hit objs hard but not be overpowered against mobs.
+	return deal_damage(mecha_attacker.force * 3, 0, mech_damtype, dir = get_dir(src, mecha_attacker), sound = play_soundeffect) // multiplied by 3 so we can hit objs hard but not be overpowered against mobs.
 
 /obj/structure/window/mech_melee_attack(obj/vehicle/sealed/mecha/mecha_attacker)
 	if(!can_be_reached())
@@ -99,9 +99,11 @@
 					if(mecha_attacker.force > 35) // durand and other heavy mechas
 						Knockdown(20)
 					update |= temp.receive_damage(dmg, 0)
+					temp.run_limb_injuries(dmg, mecha_attacker.damtype, DAMAGE_STANDARD, 0)
 					playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
-				if(FIRE)
+				if(BURN)
 					update |= temp.receive_damage(0, dmg)
+					temp.run_limb_injuries(dmg, mecha_attacker.damtype, DAMAGE_FIRE, 0)
 					playsound(src, 'sound/items/welder.ogg', 50, TRUE)
 				if(TOX)
 					mecha_attacker.mech_toxin_damage(src)

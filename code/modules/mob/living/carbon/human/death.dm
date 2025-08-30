@@ -83,7 +83,7 @@
 		investigate_log("has died at [loc_name(src)].<br>\
 			BRUTE: [src.getBruteLoss()] BURN: [src.getFireLoss()] TOX: [src.getToxLoss()] OXY: [src.getOxyLoss()] CLONE: [src.getCloneLoss()] STAM: [src.getStaminaLoss()]<br>\
 			<b>Brain damage</b>: [src.getOrganLoss(ORGAN_SLOT_BRAIN) || "0"]<br>\
-			<b>Blood volume</b>: [src.blood_volume]cl ([round((src.blood_volume / BLOOD_VOLUME_NORMAL) * 100, 0.1)]%)<br>\
+			<b>Blood volume</b>: [src.blood.volume]cl ([round((src.blood.volume / BLOOD_VOLUME_NORMAL) * 100, 0.1)]%)<br>\
 			<b>Reagents</b>:<br>[reagents_readout()]", INVESTIGATE_DEATHS)
 	var/death_message = CONFIG_GET(string/death_message)
 	if (death_message)
@@ -116,10 +116,10 @@
 /mob/living/carbon/proc/Drain()
 	become_husk(CHANGELING_DRAIN)
 	ADD_TRAIT(src, TRAIT_BADDNA, CHANGELING_DRAIN)
-	blood_volume = 0
+	blood.volume = 0
 	return TRUE
 
 /mob/living/carbon/proc/makeUncloneable()
 	ADD_TRAIT(src, TRAIT_BADDNA, MADE_UNCLONEABLE)
-	blood_volume = 0
+	blood.volume = 0
 	return TRUE

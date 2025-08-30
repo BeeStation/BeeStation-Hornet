@@ -15,6 +15,10 @@
 		return
 	if(stat != DEAD)
 		death()
+
+/// If the brain mob manages to die, we are super dead
+/mob/living/brain/death(gibbed)
+	. = ..()
 	var/obj/item/organ/brain/BR
 	if(container?.brain)
 		BR = container.brain

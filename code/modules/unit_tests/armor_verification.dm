@@ -9,10 +9,10 @@
 	TEST_ASSERT_NOTNULL(armor, "armor didn't populate correctly when needed")
 	TEST_ASSERT_EQUAL(armor_totals(armor), 0, "none armor type had armor values")
 
-	armor = armor.generate_new_with_specific(list(FIRE = 20))
+	armor = armor.generate_new_with_specific(list(ARMOUR_HEAT = 20))
 	TEST_ASSERT_EQUAL(armor_totals(armor), 20, "modified armor type had incorrect values")
 
-	armor = armor.generate_new_with_specific(list(ACID = 20))
+	armor = armor.generate_new_with_specific(list(ARMOUR_ABSORPTION = 20))
 	TEST_ASSERT_EQUAL(armor_totals(armor), 40, "modified armor type had incorrect values")
 
 	armor = get_armor_by_type(/datum/armor/immune)
@@ -22,8 +22,8 @@
 
 	var/wanted = 40
 	dummy.set_armor(/datum/armor/none)
-	dummy.set_armor_rating(ENERGY, wanted * 0.5)
-	dummy.set_armor_rating(FIRE, wanted * 0.5)
+	dummy.set_armor_rating(ARMOUR_ABSORPTION, wanted * 0.5)
+	dummy.set_armor_rating(ARMOUR_HEAT, wanted * 0.5)
 	TEST_ASSERT_EQUAL(armor_totals(dummy.get_armor()), wanted, "modified armor type had incorrect values")
 
 /datum/unit_test/armor_verification/proc/armor_totals(datum/armor/armor)

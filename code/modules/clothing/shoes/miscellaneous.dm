@@ -6,21 +6,9 @@
 	item_state = "jackboots"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
-	armor_type = /datum/armor/shoes_combat
+	armor_type = /datum/armor/security_light_armor
 	strip_delay = 40
 	resistance_flags = NONE
-
-/datum/armor/shoes_combat
-	melee = 25
-	bullet = 25
-	laser = 25
-	energy = 25
-	bomb = 50
-	bio = 90
-	fire = 70
-	acid = 50
-	stamina = 30
-	bleed = 20
 
 /obj/item/clothing/shoes/combat/Initialize(mapload)
 	. = ..()
@@ -31,21 +19,7 @@
 	name = "\improper SWAT boots"
 	desc = "High speed, no drag combat boots."
 	clothing_flags = NOSLIP
-	armor_type = /datum/armor/combat_swat
-
-
-/datum/armor/combat_swat
-	melee = 40
-	bullet = 30
-	laser = 25
-	energy = 25
-	bomb = 50
-	bio = 100
-	rad = 30
-	fire = 90
-	acid = 50
-	stamina = 30
-	bleed = 20
+	armor_type = /datum/armor/military_light_armor
 
 /obj/item/clothing/shoes/sandal
 	desc = "A pair of rather plain wooden sandals."
@@ -54,12 +28,7 @@
 	custom_materials = list(/datum/material/wood = MINERAL_MATERIAL_AMOUNT * 0.5)
 	strip_delay = 50
 	equip_delay_other = 50
-	armor_type = /datum/armor/shoes_sandal
 	strip_delay = 5
-
-
-/datum/armor/shoes_sandal
-	bio = 10
 
 /obj/item/clothing/shoes/sandal/alt
 	desc = "A pair of shiny black wooden sandals."
@@ -81,15 +50,9 @@
 	strip_delay = 30
 	equip_delay_other = 50
 	resistance_flags = NONE
-	armor_type = /datum/armor/shoes_galoshes
+	armor_type = /datum/armor/civilian_padded
 	can_be_bloody = FALSE
 	custom_price = 100
-
-
-/datum/armor/shoes_galoshes
-	bio = 100
-	fire = 40
-	acid = 75
 
 /obj/item/clothing/shoes/galoshes/dry
 	name = "absorbent galoshes"
@@ -164,15 +127,12 @@
 	strip_delay = 30
 	equip_delay_other = 50
 	resistance_flags = NONE
-	armor_type = /datum/armor/shoes_jackboots
-
-/datum/armor/shoes_jackboots
-	bio = 90
 
 /obj/item/clothing/shoes/jackboots/Initialize(mapload)
 	. = ..()
 
 	create_storage(storage_type = /datum/storage/pockets/shoes)
+
 /obj/item/clothing/shoes/jackboots/fast
 	name = "modified jackboots"
 	desc = "Security combat boots for combat scenarios or combat situations. This pair seems to be modified with lighter materials."
@@ -199,14 +159,10 @@
 	desc = "Boots lined with 'synthetic' animal fur."
 	icon_state = "winterboots"
 	item_state = "winterboots"
-	armor_type = /datum/armor/shoes_winterboots
 	cold_protection = FEET|LEGS
 	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT
 	heat_protection = FEET|LEGS
 	max_heat_protection_temperature = SHOES_MAX_TEMP_PROTECT
-
-/datum/armor/shoes_winterboots
-	bio = 80
 
 /obj/item/clothing/shoes/winterboots/Initialize(mapload)
 	. = ..()
@@ -233,13 +189,8 @@
 	item_state = "jackboots"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
-	armor_type = /datum/armor/shoes_workboots
 	strip_delay = 20
 	equip_delay_other = 40
-
-
-/datum/armor/shoes_workboots
-	bio = 80
 
 /obj/item/clothing/shoes/workboots/Initialize(mapload)
 	. = ..()
@@ -286,11 +237,6 @@
 	item_state = "roman"
 	strip_delay = 100
 	equip_delay_other = 100
-	armor_type = /datum/armor/shoes_roman
-
-
-/datum/armor/shoes_roman
-	bio = 10
 
 /obj/item/clothing/shoes/griffin
 	name = "griffon boots"
@@ -310,16 +256,11 @@
 	item_state = "jetboots"
 	resistance_flags = FIRE_PROOF
 	actions_types = list(/datum/action/item_action/bhop)
-	armor_type = /datum/armor/shoes_bhop
 	strip_delay = 30
 	var/jumpdistance = 5 //-1 from to see the actual distance, e.g 4 goes over 3 tiles
 	var/jumpspeed = 3
 	var/recharging_rate = 60 //default 6 seconds between each dash
 	var/recharging_time = 0 //time until next dash
-
-
-/datum/armor/shoes_bhop
-	bio = 90
 
 /obj/item/clothing/shoes/bhop/Initialize(mapload)
 	. = ..()

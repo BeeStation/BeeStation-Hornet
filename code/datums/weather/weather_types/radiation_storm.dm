@@ -22,15 +22,13 @@
 	/area/security/prison/asteroid/service, /area/space/nearstation, /area/solar, /area/security/prison, /area/holodeck/prison, /area/holodeck/debug)
 	target_trait = ZTRAIT_STATION
 
-	immunity_type = RAD
-
 /datum/weather/rad_storm/telegraph()
 	..()
 	status_alarm(TRUE)
 
 
 /datum/weather/rad_storm/weather_act(mob/living/L)
-	var/resist = L.getarmor(null, RAD)
+	var/resist = L.get_radiation_protection()
 	if(!prob(40))
 		return
 
@@ -41,7 +39,7 @@
 	if(!H.can_mutate() || HAS_TRAIT(H, TRAIT_GODMODE) || isdiona(H))
 		return
 
-	if(HAS_TRAIT(H, TRAIT_RADIMMUNE))
+	if(HAS_TRAIT(H, TRAIT_RADIMMUNE) && !HAS_TRAIT(H, TRAIT_NORADDAMAGE))
 		return
 
 	if(prob(max(0,100-resist)))

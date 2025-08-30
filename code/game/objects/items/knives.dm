@@ -18,18 +18,12 @@
 	custom_materials = list(/datum/material/iron=12000)
 	attack_verb_continuous = list("slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	attack_verb_simple = list("slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
-	sharpness = SHARP
-	bleed_force = BLEED_CUT
-	armor_type = /datum/armor/item_knife
+	sharpness = SHARP_III
+	armor_type = /datum/armor/civilian_metal
 	var/bayonet = FALSE //Can this be attached to a gun?
 	//wound_bonus = 5
 	//bare_wound_bonus = 15
 	tool_behaviour = TOOL_KNIFE
-
-
-/datum/armor/item_knife
-	fire = 50
-	acid = 50
 
 /obj/item/knife/Initialize(mapload)
 	. = ..()
@@ -76,7 +70,7 @@
 	attack_verb_simple = list("cleave", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	w_class = WEIGHT_CLASS_NORMAL
 	custom_price = 60
-	sharpness = SHARP_DISMEMBER //This is a big boy knife
+	sharpness = SHARP_IV //This is a big boy knife
 
 /obj/item/knife/hunting
 	name = "hunting knife"
@@ -205,7 +199,7 @@
 	force = 8 // 3 more than base glass shard
 	throwforce = 8
 	throw_speed = 5 //yeets
-	armour_penetration = 10 //spear has 10 armour pen, I think its fitting another glass tipped item should have it too
+	sharpness = SHARP_II
 	embedding = list("embedded_pain_multiplier" = 6, "embed_chance" = 40, "embedded_fall_chance" = 5, "armour_block" = 30) // Incentive to disengage/stop chasing when stuck
 	attack_verb_continuous = list("sticks", "shanks")
 	attack_verb_simple = list("stuck", "shank")

@@ -120,7 +120,7 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 			brainmob.stored_dna = new /datum/dna/stored(brainmob)
 		C.dna.copy_dna(brainmob.stored_dna)
 	brainmob.timeofhostdeath = C.timeofdeath
-	brainmob.set_stat(CONSCIOUS)
+	brainmob.clear_stat(FROM_DEAD)
 	if(brainmob.mind)
 		brainmob.mind.assigned_role = new_role
 	if(C.mind)
@@ -144,7 +144,7 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 	name = "[initial(name)] ([brainmob.name])"
 	to_chat(brainmob, welcome_message)
 	brainmob.mind.assigned_role = new_role
-	brainmob.set_stat(CONSCIOUS)
+	brainmob.clear_stat(FROM_DEAD)
 	brainmob.remove_from_dead_mob_list()
 	brainmob.add_to_alive_mob_list()
 

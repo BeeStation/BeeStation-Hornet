@@ -41,10 +41,10 @@
 		return
 
 	if(HAS_TRAIT(owner.current, TRAIT_MASQUERADE))
-		owner.current.blood_volume = BLOOD_VOLUME_NORMAL
+		owner.current.blood.restore_blood()
 		return
 
-	owner.current.blood_volume = vampire_blood_volume
+	owner.current.blood.volume = vampire_blood_volume
 
 /**
  * Pretty simple, add a value to the vampire's blood volume

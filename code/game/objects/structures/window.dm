@@ -11,7 +11,6 @@
 	max_integrity = 50
 	can_be_unanchored = TRUE
 	resistance_flags = ACID_PROOF
-	armor_type = /datum/armor/structure_window
 	can_atmos_pass = ATMOS_PASS_PROC
 	rad_insulation = RAD_VERY_LIGHT_INSULATION
 	rad_flags = RAD_PROTECT_CONTENTS
@@ -36,12 +35,6 @@
 	ricochet_chance_mod = 0.4
 	/// If we added a leaning component to ourselves
 	var/added_leaning = FALSE
-
-
-
-/datum/armor/structure_window
-	fire = 80
-	acid = 100
 
 /obj/structure/window/corner
 	icon_state = "window_corner"
@@ -309,10 +302,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 			return FALSE
 	return TRUE
 
-/obj/structure/window/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
-	. = ..()
-	if(.) //received damage
-		update_nearby_icons()
+/obj/structure/window/take_direct_damage(amount, type = BRUTE, flag = DAMAGE_STANDARD, zone = null)
+	..()
+	//received damage
+	update_nearby_icons()
 
 /obj/structure/window/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -394,7 +387,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	return exposed_temperature > T0C + heat_resistance
 
 /obj/structure/window/atmos_expose(datum/gas_mixture/air, exposed_temperature)
-	take_damage(round(air.return_volume() / 100), BURN, 0, 0)
+	deal_damage(round(air.return_volume() / 100), 0, BURN, DAMAGE_FIRE, sound = FALSE)
 
 /obj/structure/window/get_dumping_location()
 	return null
@@ -428,20 +421,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	icon_state = "rwindow"
 	reinf = TRUE
 	heat_resistance = 1600
-	armor_type = /datum/armor/window_reinforced
 	max_integrity = 100
 	explosion_block = 1
 	glass_type = /obj/item/stack/sheet/rglass
 	rad_insulation = RAD_HEAVY_INSULATION
 	ricochet_chance_mod = 0.8
-
-
-/datum/armor/window_reinforced
-	melee = 50
-	bomb = 25
-	rad = 100
-	fire = 80
-	acid = 100
 
 /obj/structure/window/reinforced/spawner/east
 	dir = EAST
@@ -468,7 +452,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	icon_state = "plasmawindow"
 	reinf = FALSE
 	heat_resistance = 25000
-	armor_type = /datum/armor/window_plasma
 	max_integrity = 300
 	glass_type = /obj/item/stack/sheet/plasmaglass
 	rad_insulation = RAD_NO_INSULATION
@@ -476,15 +459,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 /obj/structure/window/plasma/ComponentInitialize()
 	. = ..()
 	RemoveElement(/datum/element/atmos_sensitive)
-
-
-/datum/armor/window_plasma
-	melee = 75
-	bullet = 5
-	bomb = 45
-	rad = 100
-	fire = 99
-	acid = 100
 
 /obj/structure/window/plasma/spawnDebris(location)
 	. = list()
@@ -520,18 +494,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	icon_state = "plasmarwindow"
 	reinf = TRUE
 	heat_resistance = 50000
-	armor_type = /datum/armor/plasma_reinforced
 	max_integrity = 500
 	explosion_block = 2
 	glass_type = /obj/item/stack/sheet/plasmarglass
-
-/datum/armor/plasma_reinforced
-	melee = 85
-	bullet = 20
-	bomb = 60
-	rad = 100
-	fire = 99
-	acid = 100
 
 /obj/structure/window/plasma/reinforced/spawner/east
 	dir = EAST
@@ -571,20 +536,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	icon_state = "duwindow"
 	reinf = TRUE
 	heat_resistance = 50000
-	armor_type = /datum/armor/window_depleteduranium
 	max_integrity = 500
 	explosion_block = 2
 	glass_type = /obj/item/stack/sheet/mineral/uranium
 	rad_insulation = RAD_FULL_INSULATION
-
-
-/datum/armor/window_depleteduranium
-	melee = 45
-	bullet = 20
-	bomb = 60
-	rad = 100
-	fire = 100
-	acid = 100
 
 /obj/structure/window/depleteduranium/spawner/east
 	dir = EAST
@@ -734,19 +689,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	obj_flags = CAN_BE_HIT
 	reinf = TRUE
 	heat_resistance = 1600
-	armor_type = /datum/armor/window_shuttle
 	explosion_block = 3
 	glass_type = /obj/item/stack/sheet/titaniumglass
 	glass_amount = 2
 	ricochet_chance_mod = 0.9
-
-
-/datum/armor/window_shuttle
-	melee = 50
-	bomb = 50
-	rad = 100
-	fire = 80
-	acid = 100
 
 /obj/structure/window/shuttle/narsie_act()
 	add_atom_colour("#3C3434", FIXED_COLOUR_PRIORITY)
@@ -773,18 +719,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	obj_flags = CAN_BE_HIT
 	reinf = TRUE
 	heat_resistance = 1600
-	armor_type = /datum/armor/window_plastitanium
 	explosion_block = 3
 	glass_type = /obj/item/stack/sheet/plastitaniumglass
 	glass_amount = 2
-
-
-/datum/armor/window_plastitanium
-	melee = 50
-	bomb = 50
-	rad = 100
-	fire = 80
-	acid = 100
 
 /obj/structure/window/plastitanium/unanchored
 	anchored = FALSE
@@ -809,7 +746,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	decon_speed = 10
 	can_atmos_pass = ATMOS_PASS_YES
 	resistance_flags = FLAMMABLE
-	armor_type = /datum/armor/none
 	knocksound = "pageturn"
 	bashsound = 'sound/weapons/slashmiss.ogg'
 	breaksound = 'sound/items/poster_ripped.ogg'
@@ -837,7 +773,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 		return
 	add_fingerprint(user)
 	if(user.combat_mode)
-		take_damage(4,BRUTE,MELEE, 0)
+		deal_damage(4, user.get_attack_sharpness(), BRUTE, sound = 0)
 		if(!QDELETED(src))
 			update_appearance()
 

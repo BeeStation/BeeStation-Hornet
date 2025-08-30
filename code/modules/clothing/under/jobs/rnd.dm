@@ -7,16 +7,8 @@
 	desc = "It's a jumpsuit worn by those with the know-how to achieve the position of \"Research Director\". Its fabric provides minor protection from biological contaminants."
 	icon_state = "director"
 	item_state = "w_suit"
-	armor_type = /datum/armor/rnd_research_director
 	can_adjust = TRUE
 	alt_covers_chest = TRUE
-
-
-/datum/armor/rnd_research_director
-	bomb = 10
-	bio = 10
-	acid = 35
-	bleed = 10
 
 /obj/item/clothing/under/rank/rnd/research_director/skirt
 	name = "research director's jumpskirt"
@@ -34,15 +26,8 @@
 	name = "research director's tan suit"
 	icon_state = "rdwhimsy"
 	item_state = "rdwhimsy"
-	armor_type = /datum/armor/research_director_alt
 	can_adjust = TRUE
 	alt_covers_chest = TRUE
-
-
-/datum/armor/research_director_alt
-	bomb = 10
-	bio = 10
-	bleed = 10
 
 /obj/item/clothing/under/rank/rnd/research_director/alt/skirt
 	name = "research director's tan suitskirt"
@@ -60,15 +45,8 @@
 	name = "research director's turtleneck"
 	icon_state = "rdturtle"
 	item_state = "p_suit"
-	armor_type = /datum/armor/research_director_turtleneck
 	can_adjust = TRUE
 	alt_covers_chest = TRUE
-
-
-/datum/armor/research_director_turtleneck
-	bomb = 10
-	bio = 10
-	bleed = 10
 
 /obj/item/clothing/under/rank/rnd/research_director/turtleneck/skirt
 	name = "research director's turtleneck skirt"
@@ -94,13 +72,6 @@
 	icon_state = "toxinswhite"
 	item_state = "w_suit"
 	worn_icon_state = "toxinswhite"
-	armor_type = /datum/armor/rnd_scientist
-
-
-/datum/armor/rnd_scientist
-	bomb = 10
-	bio = 50
-	bleed = 10
 
 /obj/item/clothing/under/rank/rnd/scientist/skirt
 	name = "scientist's jumpskirt"

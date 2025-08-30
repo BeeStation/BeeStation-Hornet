@@ -1,48 +1,17 @@
-
-/*
-	apply_damage(a,b,c)
-	args
-	a:damage - How much damage to take
-	b:damage_type - What type of damage to take, brute, burn
-	c:def_zone - Where to take the damage if its brute or burn
-	Returns
-	standard 0 if fail
-*/
-/mob/living/proc/apply_damage(damage = 0,damagetype = BRUTE, def_zone = null, blocked = FALSE, forced = FALSE, spread_damage = FALSE)
-	SEND_SIGNAL(src, COMSIG_MOB_APPLY_DAMGE, damage, damagetype, def_zone)
-	var/hit_percent = (100-blocked)/100
-	if(!damage || (!forced && hit_percent <= 0))
-		return 0
-	var/damage_amount =  forced ? damage : damage * hit_percent
-	switch(damagetype)
+/mob/living/take_direct_damage(amount, type = BRUTE, flag = DAMAGE_STANDARD, zone = null)
+	switch(type)
 		if(BRUTE)
-			adjustBruteLoss(damage_amount, forced = forced)
+			adjustBruteLoss(amount)
 		if(BURN)
-			adjustFireLoss(damage_amount, forced = forced)
+			adjustFireLoss(amount)
 		if(TOX)
-			adjustToxLoss(damage_amount, forced = forced)
+			adjustToxLoss(amount)
 		if(OXY)
-			adjustOxyLoss(damage_amount, forced = forced)
+			adjustOxyLoss(amount)
 		if(CLONE)
-			adjustCloneLoss(damage_amount, forced = forced)
+			adjustCloneLoss(amount)
 		if(STAMINA)
-			adjustStaminaLoss(damage_amount, forced = forced)
-	return 1
-
-/mob/living/proc/apply_damage_type(damage = 0, damagetype = BRUTE, forced = FALSE) //like apply damage except it always uses the damage procs
-	switch(damagetype)
-		if(BRUTE)
-			return adjustBruteLoss(damage, forced = forced)
-		if(BURN)
-			return adjustFireLoss(damage, forced = forced)
-		if(TOX)
-			return adjustToxLoss(damage, forced = forced)
-		if(OXY)
-			return adjustOxyLoss(damage, forced = forced)
-		if(CLONE)
-			return adjustCloneLoss(damage, forced = forced)
-		if(STAMINA)
-			return adjustStaminaLoss(damage, forced = forced)
+			adjustStaminaLoss(amount)
 
 /mob/living/proc/get_damage_amount(damagetype = BRUTE)
 	switch(damagetype)
@@ -62,27 +31,6 @@
 /// return the total damage of all types which update your health
 /mob/living/proc/get_total_damage(precision = DAMAGE_PRECISION)
 	return round(getBruteLoss() + getFireLoss() + getToxLoss() + getOxyLoss() + getCloneLoss(), precision)
-
-/mob/living/proc/apply_damages(brute = 0, burn = 0, tox = 0, oxy = 0, clone = 0, def_zone = null, blocked = FALSE, stamina = 0, brain = 0)
-	if(blocked >= 100)
-		return 0
-	if(brute)
-		apply_damage(brute, BRUTE, def_zone, blocked)
-	if(burn)
-		apply_damage(burn, BURN, def_zone, blocked)
-	if(tox)
-		apply_damage(tox, TOX, def_zone, blocked)
-	if(oxy)
-		apply_damage(oxy, OXY, def_zone, blocked)
-	if(clone)
-		apply_damage(clone, CLONE, def_zone, blocked)
-	if(stamina)
-		apply_damage(stamina, STAMINA, def_zone, blocked)
-	if(brain)
-		apply_damage(brain, BRAIN, def_zone, blocked)
-	return 1
-
-
 
 /mob/living/proc/apply_effect(effect = 0,effecttype = EFFECT_STUN, blocked = FALSE)
 	var/hit_percent = (100-blocked)/100
@@ -140,7 +88,7 @@
 	if(drowsy)
 		apply_effect(drowsy, EFFECT_DROWSY, blocked)
 	if(stamina)
-		apply_damage(stamina, STAMINA, null, blocked)
+		take_direct_damage(stamina, STAMINA)
 	if(jitter)
 		apply_effect(jitter, EFFECT_JITTER, blocked)
 	return BULLET_ACT_HIT
@@ -267,7 +215,7 @@
 		update_stamina()
 
 // damage ONE external organ, organ gets randomly selected from damaged ones.
-/mob/living/proc/take_bodypart_damage(brute = 0, burn = 0, stamina = 0, updating_health = TRUE, required_status, check_armor = FALSE)
+/mob/living/proc/take_bodypart_damage(brute = 0, burn = 0, stamina = 0, updating_health = TRUE, required_status)
 	adjustBruteLoss(brute, FALSE) //zero as argument for no instant health update
 	adjustFireLoss(burn, FALSE)
 	adjustStaminaLoss(stamina, FALSE)
@@ -299,7 +247,7 @@
 	for(var/i in damage_types)
 		var/amount_to_heal = min(amount, get_damage_amount(i)) //heal only up to the amount of damage we have
 		if(amount_to_heal)
-			apply_damage_type(-amount_to_heal, i)
+			take_direct_damage(-amount_to_heal, i)
 			amount -= amount_to_heal //remove what we healed from our current amount
 		if(!amount)
 			break

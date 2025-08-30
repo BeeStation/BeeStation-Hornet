@@ -45,7 +45,7 @@
 	mob_size = MOB_SIZE_LARGE
 	see_in_dark = NIGHTVISION_FOV_RANGE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	armour_penetration = 30
+	sharpness = SHARP_VI
 	pixel_x = -16
 	turns_per_move = 5
 	ranged = TRUE
@@ -156,7 +156,7 @@
 	. = ..()
 	if(istype(target, /obj/vehicle/sealed/mecha))
 		var/obj/vehicle/sealed/mecha/M = target
-		M.take_damage(50, BRUTE, MELEE, 1)
+		M.deal_damage(50, sharpness, BRUTE)
 
 /mob/living/simple_animal/hostile/space_dragon/Move()
 	if(!using_special)
@@ -185,7 +185,7 @@
 	contents_explosion(severity, target)
 	SEND_SIGNAL(src, COMSIG_ATOM_EX_ACT, severity, target)
 	// Run bomb armour
-	var/bomb_armor = (100 - getarmor(null, BOMB)) / 100
+	var/bomb_armor = (100 - damage_flag_to_armour_rating(DAMAGE_BOMB)) / 100
 	switch (severity)
 		if (EXPLODE_DEVASTATE)
 			adjustBruteLoss(180 * bomb_armor)
@@ -328,7 +328,7 @@
 		if(M in hit_list)
 			continue
 		hit_list += M
-		M.take_damage(50, BRUTE, MELEE, 1)
+		M.deal_damage(50, sharpness, BRUTE)
 
 /**
   * Handles consuming and storing consumed things inside Space Dragon

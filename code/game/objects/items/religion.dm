@@ -69,7 +69,7 @@
 	H.AdjustKnockdown(-40)
 	H.AdjustImmobilized(-40)
 	H.AdjustParalyzed(-40)
-	H.AdjustUnconscious(-40)
+	H.take_consciousness_damage(-40)
 	playsound(H, 'sound/magic/staff_healing.ogg', 25, FALSE)
 
 /obj/item/banner/proc/special_inspiration(mob/living/carbon/human/H) //Any banner-specific inspiration effects go here
@@ -249,25 +249,12 @@
 	desc = "Metal boots, they look heavy."
 	icon_state = "crusader"
 	w_class = WEIGHT_CLASS_NORMAL
-	armor_type = /datum/armor/shoes_plate
+	armor_type = /datum/armor/security_metal
 	clothing_flags = NOSLIP
 	cold_protection = FEET
 	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT
 	heat_protection = FEET
 	max_heat_protection_temperature = SHOES_MAX_TEMP_PROTECT
-
-
-
-/datum/armor/shoes_plate
-	melee = 50
-	bullet = 50
-	laser = 50
-	energy = 40
-	bomb = 60
-	fire = 60
-	acid = 60
-	stamina = 30
-	bleed = 60
 
 /obj/item/clothing/shoes/plate/red
 	icon_state = "crusader-red"
@@ -301,13 +288,13 @@
 	block_level = 1
 	block_upgrade_walk = TRUE
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
-	armour_penetration = 15
+	sharpness = SHARP_III
 
 /obj/item/claymore/weak/ceremonial
 	desc = "A rusted claymore, once at the heart of a powerful scottish clan struck down and oppressed by tyrants, it has been passed down the ages as a symbol of defiance."
 	force = 15
 	block_power = 30
-	armour_penetration = 5
+	sharpness = SHARP_IV
 
 /obj/item/katana/weak/curator
 	desc = "An ancient Katana. Forged by... Well, it doesn't really say, but surely it's authentic! And sharp to boot!"

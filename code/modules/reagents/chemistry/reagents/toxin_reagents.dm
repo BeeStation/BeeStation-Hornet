@@ -255,7 +255,7 @@
 	. = ..()
 	if(istype(exposed_obj, /obj/structure/alien/weeds))
 		var/obj/structure/alien/weeds/weeds = exposed_obj
-		weeds.take_damage(rand(15, 35), BRUTE, 0)
+		weeds.deal_damage(rand(15,35), 0, BRUTE, sound = 0) // Kills alien weeds pretty fast
 	else if(istype(exposed_obj, /obj/structure/glowshroom))
 		qdel(exposed_obj)
 	else if(istype(exposed_obj, /obj/structure/spacevine))
@@ -296,7 +296,6 @@
 /datum/reagent/toxin/spore/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	affected_mob.damageoverlaytemp = 60
-	affected_mob.update_damage_hud()
 	affected_mob.blur_eyes(3 * REM * delta_time)
 
 /datum/reagent/toxin/spore_burning

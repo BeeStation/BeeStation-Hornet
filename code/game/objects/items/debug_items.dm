@@ -9,6 +9,7 @@
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	var/datum/species/selected_species
+	var/datum/outfit/selected_outfit = null
 
 /obj/item/debug/human_spawner/afterattack(atom/target, mob/user, proximity)
 	..()
@@ -16,11 +17,21 @@
 		var/mob/living/carbon/human/H = new /mob/living/carbon/human(target)
 		if(selected_species)
 			H.set_species(selected_species)
+		if (selected_outfit)
+			H.equipOutfit(selected_outfit)
+
+/obj/item/debug/human_spawner/afterattack_secondary(atom/target, mob/user, proximity_flag, click_parameters)
+	var/datum/select_equipment/ui = new(usr, CALLBACK(src, PROC_REF(set_outfit)))
+	ui.ui_interact(usr)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 /obj/item/debug/human_spawner/attack_self(mob/user)
 	..()
 	var/choice = tgui_input_list(user, "Select a species", "Human Spawner", GLOB.species_list)
 	selected_species = GLOB.species_list[choice]
+
+/obj/item/debug/human_spawner/proc/set_outfit(datum/outfit/outfit)
+	selected_outfit = outfit
 
 /obj/item/debug/omnitool
 	name = "omnitool"
@@ -190,25 +201,19 @@
 	desc = "very powerful."
 	icon_state = "hardsuit0-syndielite"
 	hardsuit_type = "syndielite"
-	armor_type = /datum/armor/hardsuit_debug
+	armor_type = /datum/armor/debug
 	strip_delay = 6000
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	geiger_counter = FALSE
 
-
-/datum/armor/hardsuit_debug
-	melee = 300
-	bullet = 300
-	laser = 300
-	energy = 300
-	bomb = 300
-	bio = 300
-	rad = 300
-	fire = 300
-	acid = 300
-	stamina = 300
+/datum/armor/debug
+	penetration = 300
+	blunt = 300
+	absorption = 300
+	reflectivity = 300
+	heat = 300
 
 /obj/item/clothing/suit/space/hardsuit/debug
 	name = "\improper Central Command black hardsuit"
@@ -217,18 +222,15 @@
 	hardsuit_type = "syndielite"
 	w_class = WEIGHT_CLASS_TINY
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/debug
-	armor_type = /datum/armor/hardsuit_debug
+	armor_type = /datum/armor/misc_adminsuit
 	gas_transfer_coefficient = 0
 	siemens_coefficient = 0
-	slowdown = -1
-	equip_delay_other = 6000 // stripping an admin for 10 minutes
 	cold_protection = FULL_BODY
 	heat_protection = FULL_BODY
 	body_parts_covered = FULL_BODY
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-
 
 // debug bag
 
@@ -239,19 +241,7 @@
 	item_state = "holdingpack"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	item_flags = NO_MAT_REDEMPTION
-	armor_type = /datum/armor/backpack_debug
-
-
-/datum/armor/backpack_debug
-	melee = 100
-	bullet = 100
-	laser = 100
-	energy = 100
-	bomb = 100
-	bio = 100
-	rad = 100
-	fire = 100
-	acid = 100
+	armor_type = /datum/armor/debug
 
 /obj/item/storage/backpack/debug/Initialize(mapload)
 	. = ..()
@@ -343,8 +333,11 @@
 	)
 	var/spacewalk_initial
 
-/obj/item/debug/orb_of_power/pickup(mob/user)
+/obj/item/debug/orb_of_power/equipped(mob/user, slot, initial)
 	. = ..()
+	if (slot != ITEM_SLOT_HANDS && slot != ITEM_SLOT_POCKETS)
+		dropped(user)
+		return
 	for(var/each in traits_to_give)
 		ADD_TRAIT(user, each, "debug")
 	grant_all_languages(source = "debug")

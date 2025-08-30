@@ -6,7 +6,7 @@
 	damage_type = BURN
 	hitsound = 'sound/weapons/sear.ogg'
 	hitsound_wall = 'sound/weapons/effects/searwall.ogg'
-	armor_flag = LASER
+	damage_flag = DAMAGE_LASER
 	eyeblur = 2
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
 	light_system = MOVABLE_LIGHT
@@ -52,7 +52,7 @@
 
 /obj/projectile/beam/weak/penetrator //laser gatling and centcom shuttle turret
 	damage = 15
-	armour_penetration = 50
+	sharpness = SHARP_IIX
 
 /obj/projectile/beam/practice
 	name = "practice laser"
@@ -71,7 +71,7 @@
 	damage = 15
 	irradiate = 300
 	range = 15
-	armour_penetration = 60
+	sharpness = SHARP_IIX
 	pass_flags = PASSTABLE | PASSTRANSPARENT | PASSGRILLE | PASSCLOSEDTURF | PASSMACHINE | PASSSTRUCTURE | PASSDOORS
 
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
@@ -85,7 +85,7 @@
 	icon_state = "omnilaser"
 	damage = 28
 	damage_type = STAMINA
-	armor_flag = ENERGY
+	damage_flag = DAMAGE_ENERGY
 	hitsound = 'sound/weapons/tap.ogg'
 	eyeblur = 0
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
@@ -185,7 +185,7 @@
 	hitsound = null
 	damage = 0
 	damage_type = STAMINA
-	armor_flag = ENERGY
+	damage_flag = DAMAGE_ENERGY
 	var/suit_types = list(/obj/item/clothing/suit/redtag, /obj/item/clothing/suit/bluetag)
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_BLUE

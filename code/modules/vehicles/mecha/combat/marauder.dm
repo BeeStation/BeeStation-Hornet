@@ -20,14 +20,7 @@
 
 
 /datum/armor/combat_marauder
-	melee = 50
-	bullet = 55
-	laser = 40
-	energy = 30
-	bomb = 30
-	rad = 60
-	fire = 100
-	acid = 100
+	penetration = 170
 
 /obj/vehicle/sealed/mecha/combat/marauder/generate_actions()
 	. = ..()

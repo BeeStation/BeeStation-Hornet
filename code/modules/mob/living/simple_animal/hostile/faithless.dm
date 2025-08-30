@@ -20,7 +20,6 @@
 	maxHealth = 80
 	health = 80
 	spacewalk = TRUE
-	stat_attack = HARD_CRIT
 	robust_searching = 1
 
 	obj_damage = 50

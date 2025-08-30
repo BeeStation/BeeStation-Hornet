@@ -100,6 +100,7 @@ GLOBAL_LIST_INIT(crafting_category_food, list(
 #define CAT_ENTERTAINMENT "Entertainment"
 #define CAT_TOOLS "Tools"
 #define CAT_CULT "Blood Cult"
+#define CAT_MEDICAL "Medical"
 
 GLOBAL_LIST_INIT(crafting_category, list(
 	CAT_WEAPON_RANGED,
@@ -107,6 +108,7 @@ GLOBAL_LIST_INIT(crafting_category, list(
 	CAT_WEAPON_AMMO,
 	CAT_ROBOT,
 	CAT_MISC,
+	CAT_MEDICAL,
 	CAT_CLOTHING,
 	CAT_CHEMISTRY,
 	CAT_ATMOSPHERIC,

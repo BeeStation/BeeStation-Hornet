@@ -1,8 +1,5 @@
 CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
-/mob/living/carbon
-	blood_volume = BLOOD_VOLUME_NORMAL
-
 /mob/living/carbon/Initialize(mapload)
 	. = ..()
 	create_reagents(1000)
@@ -123,8 +120,8 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 				log_combat(victim, src, "caught [src]")
 				return
 			if(hurt)
-				victim.take_bodypart_damage(10,check_armor = TRUE)
-				take_bodypart_damage(10,check_armor = TRUE)
+				victim.deal_damage(10, SHARP_NONE, zone = ran_zone())
+				deal_damage(10, SHARP_NONE, zone = ran_zone())
 				victim.Paralyze(20)
 				Paralyze(20)
 				visible_message(span_danger("[src] crashes into [victim], knocking them both over!"),\
@@ -142,7 +139,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	if(hit_atom.density && isturf(hit_atom))
 		if(hurt)
 			Paralyze(20)
-			take_bodypart_damage(10,check_armor = TRUE)
+			deal_damage(10, SHARP_NONE, zone = ran_zone())
 
 //Throwing stuff
 /mob/living/carbon/proc/toggle_throw_mode()
@@ -550,7 +547,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		total_stamina += (BP.stamina_dam * BP.stam_damage_coeff)
 	set_health(round(maxHealth - getOxyLoss() - getToxLoss() - getCloneLoss() - total_burn - total_brute, DAMAGE_PRECISION))
 	staminaloss = round(total_stamina, DAMAGE_PRECISION)
-	update_stat()
+	consciousness.update_stat()
 	if(((maxHealth - total_burn) < HEALTH_THRESHOLD_DEAD*2) && stat == DEAD )
 		become_husk(BURN)
 	med_hud_set_health()
@@ -664,101 +661,6 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	else
 		. += INFINITY
 
-//this handles hud updates
-/mob/living/carbon/update_damage_hud()
-
-	if(!client)
-		return
-
-	if(health <= crit_threshold && !HAS_TRAIT(src,TRAIT_NOSOFTCRIT))
-		var/severity = 0
-		switch(health)
-			if(-20 to -10)
-				severity = 1
-			if(-30 to -20)
-				severity = 2
-			if(-40 to -30)
-				severity = 3
-			if(-50 to -40)
-				severity = 4
-			if(-50 to -40)
-				severity = 5
-			if(-60 to -50)
-				severity = 6
-			if(-70 to -60)
-				severity = 7
-			if(-90 to -70)
-				severity = 8
-			if(-95 to -90)
-				severity = 9
-			if(-INFINITY to -95)
-				severity = 10
-		if(stat != HARD_CRIT && !HAS_TRAIT(src,TRAIT_NOHARDCRIT))
-			var/visionseverity = 4
-			switch(health)
-				if(-8 to -4)
-					visionseverity = 5
-				if(-12 to -8)
-					visionseverity = 6
-				if(-16 to -12)
-					visionseverity = 7
-				if(-20 to -16)
-					visionseverity = 8
-				if(-24 to -20)
-					visionseverity = 9
-				if(-INFINITY to -24)
-					visionseverity = 10
-			overlay_fullscreen("critvision", /atom/movable/screen/fullscreen/crit/vision, visionseverity)
-		else
-			clear_fullscreen("critvision")
-		overlay_fullscreen("crit", /atom/movable/screen/fullscreen/crit, severity)
-	else
-		clear_fullscreen("crit")
-		clear_fullscreen("critvision")
-
-	//Oxygen damage overlay
-	if(oxyloss)
-		var/severity = 0
-		switch(oxyloss)
-			if(10 to 20)
-				severity = 1
-			if(20 to 25)
-				severity = 2
-			if(25 to 30)
-				severity = 3
-			if(30 to 35)
-				severity = 4
-			if(35 to 40)
-				severity = 5
-			if(40 to 45)
-				severity = 6
-			if(45 to INFINITY)
-				severity = 7
-		overlay_fullscreen("oxy", /atom/movable/screen/fullscreen/oxy, severity)
-	else
-		clear_fullscreen("oxy")
-
-	//Fire and Brute damage overlay (BSSR)
-	var/hurtdamage = getBruteLoss() + getFireLoss() + damageoverlaytemp
-	if(hurtdamage)
-		var/severity = 0
-		switch(hurtdamage)
-			if(5 to 15)
-				severity = 1
-			if(15 to 30)
-				severity = 2
-			if(30 to 45)
-				severity = 3
-			if(45 to 70)
-				severity = 4
-			if(70 to 85)
-				severity = 5
-			if(85 to INFINITY)
-				severity = 6
-		overlay_fullscreen("brute", /atom/movable/screen/fullscreen/brute, severity)
-	else
-		clear_fullscreen("brute")
-
 /mob/living/carbon/update_health_hud(shown_health_amount)
 	if(!client || !hud_used?.healths)
 		return
@@ -771,7 +673,10 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		return
 
 	if(shown_health_amount == null)
-		shown_health_amount = health
+		shown_health_amount = consciousness.value
+
+	if (undergoing_cardiac_arrest())
+		shown_health_amount = 0
 
 	if(shown_health_amount >= maxHealth)
 		hud_used.healths.icon_state = "health0"
@@ -829,11 +734,6 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 /mob/living/carbon/set_health(new_value)
 	. = ..()
-	if(. > hardcrit_threshold)
-		if(health <= hardcrit_threshold && !HAS_TRAIT(src, TRAIT_NOHARDCRIT))
-			ADD_TRAIT(src, TRAIT_KNOCKEDOUT, CRIT_HEALTH_TRAIT)
-	else if(health > hardcrit_threshold)
-		REMOVE_TRAIT(src, TRAIT_KNOCKEDOUT, CRIT_HEALTH_TRAIT)
 	if(CONFIG_GET(flag/near_death_experience))
 		if(. > HEALTH_THRESHOLD_NEARDEATH)
 			if(health <= HEALTH_THRESHOLD_NEARDEATH && !HAS_TRAIT(src, TRAIT_NODEATH))
@@ -842,24 +742,11 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 			REMOVE_TRAIT(src, TRAIT_SIXTHSENSE, "near-death")
 
 /mob/living/carbon/update_stat()
-	if(HAS_TRAIT(src, TRAIT_GODMODE))
-		return
-	if(stat != DEAD)
-		if(health <= HEALTH_THRESHOLD_DEAD && !HAS_TRAIT(src, TRAIT_NODEATH))
-			death()
-			return
-		if(health <= hardcrit_threshold && !HAS_TRAIT(src, TRAIT_NOHARDCRIT))
-			set_stat(HARD_CRIT)
-		else if(HAS_TRAIT(src, TRAIT_KNOCKEDOUT))
-			set_stat(UNCONSCIOUS)
-		else if(health <= crit_threshold && !HAS_TRAIT(src, TRAIT_NOSOFTCRIT))
-			set_stat(SOFT_CRIT)
-		else
-			set_stat(CONSCIOUS)
-			if(!is_blind())
-				var/datum/component/blind_sense/B = GetComponent(/datum/component/blind_sense)
-				B?.ClearFromParent()
-	update_damage_hud()
+	. = ..()
+	if (stat == CONSCIOUS)
+		if(!is_blind())
+			var/datum/component/blind_sense/B = GetComponent(/datum/component/blind_sense)
+			B?.ClearFromParent()
 	update_health_hud()
 	update_stamina_hud()
 	med_hud_set_status()
@@ -881,8 +768,8 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 /mob/living/carbon/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE)
 	if(excess_healing)
-		if(dna && !HAS_TRAIT(src, TRAIT_NOBLOOD))
-			blood_volume += (excess_healing * 2) //1 excess = 10 blood
+		if(dna && !HAS_TRAIT(src, TRAIT_NO_BLOOD))
+			blood.volume += (excess_healing * 2) //1 excess = 10 blood
 
 		for(var/obj/item/organ/organ as anything in internal_organs)
 			if(organ.organ_flags & ORGAN_SYNTHETIC)

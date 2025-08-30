@@ -334,7 +334,7 @@
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	set_health(maxHealth - getBruteLoss() - getFireLoss())
-	update_stat()
+	consciousness.update_stat()
 	SEND_SIGNAL(src, COMSIG_LIVING_HEALTH_UPDATE)
 
 /mob/living/silicon/pai/process(delta_time)

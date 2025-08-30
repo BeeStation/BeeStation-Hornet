@@ -9,17 +9,10 @@
 	idle_power_usage = 2
 	active_power_usage = 9
 	max_integrity = 150
-	armor_type = /datum/armor/machinery_meter
 	greyscale_config = /datum/greyscale_config/meter
 	greyscale_colors = COLOR_GRAY
 	var/obj/machinery/atmospherics/pipe/target
 	var/target_layer = PIPING_LAYER_DEFAULT
-
-
-/datum/armor/machinery_meter
-	energy = 100
-	rad = 100
-	fire = 40
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/meter)
 

@@ -6,13 +6,12 @@
 	icon_state = "liver"
 	visual = FALSE
 	w_class = WEIGHT_CLASS_SMALL
-	zone = BODY_ZONE_CHEST
 	slot = ORGAN_SLOT_LIVER
 	desc = "Pairing suggestion: chianti and fava beans."
 
 	maxHealth = STANDARD_ORGAN_THRESHOLD
 	healing_factor = STANDARD_ORGAN_HEALING
-	decay_factor = STANDARD_ORGAN_DECAY
+	decay_factor = STANDARD_ORGAN_DECAY * 4
 
 	food_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/iron = 5)
 
@@ -62,7 +61,7 @@
 #undef HAS_PAINFUL_TOXIN
 
 /obj/item/organ/liver/get_availability(datum/species/owner_species, mob/living/owner_mob)
-	return owner_species.mutantliver
+	return owner_species.mutantliver && ..()
 
 /obj/item/organ/liver/fly
 	name = "insectoid liver"

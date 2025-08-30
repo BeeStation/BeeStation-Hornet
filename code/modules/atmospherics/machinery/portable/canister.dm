@@ -12,7 +12,6 @@
 	greyscale_colors = "#ffff00#000000"
 	density = TRUE
 	volume = 2000
-	armor_type = /datum/armor/portable_atmospherics_canister
 	max_integrity = 300
 	integrity_failure = 0.4
 	pressure_resistance = 7 * ONE_ATMOSPHERE
@@ -38,17 +37,6 @@
 	var/obj/item/stock_parts/cell/internal_cell
 	///used while processing to update appearance only when its pressure state changes
 	var/current_pressure_state
-
-/datum/armor/portable_atmospherics_canister
-	melee = 50
-	bullet = 50
-	laser = 50
-	energy = 100
-	bomb = 10
-	rad = 100
-	fire = 80
-	acid = 50
-
 
 /obj/machinery/portable_atmospherics/canister/Initialize(mapload, datum/gas_mixture/existing_mixture)
 	. = ..()
@@ -141,7 +129,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 	return (exposed_temperature > TEMPERATURE_RESISTANCE && !shielding_powered)
 
 /obj/machinery/portable_atmospherics/canister/atmos_expose(datum/gas_mixture/air, exposed_temperature)
-	take_damage(5, BURN, 0)
+	deal_damage(5, 0, BURN, DAMAGE_FIRE, sound = 0)
 
 /obj/machinery/portable_atmospherics/canister/on_deconstruction(disassembled = TRUE)
 	if(!(machine_stat & BROKEN))
@@ -221,9 +209,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 	if(gone == internal_cell)
 		internal_cell = null
 
-/obj/machinery/portable_atmospherics/canister/take_damage(damage_amount, damage_type = BRUTE, damage_flag = "", sound_effect = TRUE, attack_dir, armour_penetration = 0)
-	. = ..()
-	if(!. || QDELETED(src))
+/obj/machinery/portable_atmospherics/canister/take_direct_damage(amount, type = BRUTE, flag = DAMAGE_STANDARD, zone = null)
+	..()
+	if (QDELETED(src))
 		return
 	SSair.start_processing_machine(src)
 

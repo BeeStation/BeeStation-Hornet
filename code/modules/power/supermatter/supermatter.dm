@@ -628,7 +628,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		return FALSE
 	if(!istype(Proj.firer, /obj/machinery/power/emitter))
 		investigate_log("has been hit by [Proj] fired by [key_name(Proj.firer)]", INVESTIGATE_ENGINES)
-	if(Proj.armor_flag != BULLET)
+	if(Proj.damage_flag != DAMAGE_STANDARD)
 		if(is_power_processing()) //This needs to be here I swear //Okay bro, but I'm taking the other check because it definitely doesn't.
 			power += Proj.damage * config_bullet_energy
 			if(!has_been_powered)
@@ -659,7 +659,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	if(blob.get_integrity() > 100)
 		blob.visible_message(span_danger("\The [blob] strikes at \the [src] and flinches away!"),\
 		span_italics("You hear a loud crack as you are washed with a wave of heat."))
-		blob.take_damage(100, BURN)
+		blob.take_direct_damage(100, 0, BURN)
 	else
 		blob.visible_message(span_danger("\The [blob] strikes at \the [src] and rapidly flashes to ash."),\
 		span_italics("You hear a loud crack as you are washed with a wave of heat."))

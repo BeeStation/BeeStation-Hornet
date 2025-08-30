@@ -178,7 +178,7 @@
 			// Time to start bleeding
 			if(iscarbon(feed_target))
 				var/mob/living/carbon/carbon_target = feed_target
-				carbon_target.bleed(15)
+				carbon_target.blood.bleed(15)
 			playsound(get_turf(feed_target), 'sound/effects/splat.ogg', 40, TRUE)
 			if(ishuman(feed_target))
 				var/mob/living/carbon/human/target_user = feed_target
@@ -190,7 +190,7 @@
 			feed_target.add_mob_blood(feed_target)
 
 			// Ow
-			feed_target.apply_damage(10, BRUTE, BODY_ZONE_HEAD)
+			feed_target.deal_damage(10, SHARP_IV, BRUTE, zone = BODY_ZONE_HEAD)
 			INVOKE_ASYNC(feed_target, TYPE_PROC_REF(/mob, emote), "scream")
 
 		power_activated_sucessfully()
@@ -214,13 +214,13 @@
 		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "drankblood", /datum/mood_event/drankblood)
 
 	// Alert the vampire to the target's blood level
-	if(feed_target.blood_volume <= BLOOD_VOLUME_BAD && warning_target_bloodvol > BLOOD_VOLUME_BAD)
+	if(feed_target.blood.volume <= BLOOD_VOLUME_BAD && warning_target_bloodvol > BLOOD_VOLUME_BAD)
 		owner.balloon_alert(owner, "your victim's blood is fatally low!")
-	else if(feed_target.blood_volume <= BLOOD_VOLUME_OKAY && warning_target_bloodvol > BLOOD_VOLUME_OKAY)
+	else if(feed_target.blood.volume <= BLOOD_VOLUME_OKAY && warning_target_bloodvol > BLOOD_VOLUME_OKAY)
 		owner.balloon_alert(owner, "your victim's blood is dangerously low.")
-	else if(feed_target.blood_volume <= BLOOD_VOLUME_SAFE && warning_target_bloodvol > BLOOD_VOLUME_SAFE)
+	else if(feed_target.blood.volume <= BLOOD_VOLUME_SAFE && warning_target_bloodvol > BLOOD_VOLUME_SAFE)
 		owner.balloon_alert(owner, "your victim's blood is at an unsafe level.")
-	warning_target_bloodvol = feed_target.blood_volume
+	warning_target_bloodvol = feed_target.blood.volume
 
 	// Check if full on blood
 	if(vampiredatum_power.vampire_blood_volume >= vampiredatum_power.max_blood_volume)
@@ -229,7 +229,7 @@
 		return
 
 	// Check if target has an acceptable amount of blood left
-	if(feed_target.blood_volume <= 10)
+	if(feed_target.blood.volume <= 10)
 		user.balloon_alert(owner, "no blood left!")
 		power_activated_sucessfully()
 		return
@@ -264,10 +264,10 @@
 
 /datum/action/vampire/targeted/feed/proc/handle_feeding(mob/living/carbon/target, mult = 1)
 	var/feed_amount = 15 + (level_current * 2)
-	var/blood_to_take = min(feed_amount * mult, target.blood_volume)
+	var/blood_to_take = min(feed_amount * mult, target.blood.volume)
 
 	// Remove target's blood
-	target.blood_volume -= blood_to_take
+	target.blood.volume -= blood_to_take
 
 	// Shift body temperature (toward target's temp, by volume taken)
 	// ((vamp_blood_volume * vamp_temp) + (target_blood_volume * target_temp)) / (vamp_blood_volume + blood_to_take)

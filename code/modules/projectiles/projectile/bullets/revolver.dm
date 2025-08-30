@@ -3,13 +3,14 @@
 /obj/projectile/bullet/n762
 	name = "7.62x38mmR bullet"
 	damage = 55
-	armour_penetration = 12
+	sharpness = 120
 
 // .50AE (Desert Eagle)
 
 /obj/projectile/bullet/a50AE
 	name = ".50AE bullet"
 	damage = 60
+	sharpness = 140
 
 // .38 (Detective's Gun)
 
@@ -20,6 +21,7 @@
 	ricochet_chance = 50
 	ricochet_auto_aim_angle = 10
 	ricochet_auto_aim_range = 3
+	sharpness = 90
 
 /obj/projectile/bullet/c38/match
 	name = ".38 Match bullet"
@@ -35,17 +37,16 @@
 	name = ".38 Bouncy Rubber bullet"
 	damage = 7
 	stamina = 27
-	bleed_force = BLEED_SCRATCH
 	ricochets_max = 5
 	ricochet_incidence_leeway = 70
 	ricochet_chance = 130
 	ricochet_decay_damage = 0.9
-	armour_penetration = -20
+	sharpness = SHARP_III
 
 /obj/projectile/bullet/c38/dumdum
 	name = ".38 DumDum bullet"
 	damage = 15
-	armour_penetration = -30
+	sharpness = SHARP_III
 	ricochets_max = 0
 	shrapnel_type = /obj/item/shrapnel/bullet/c38/dumdum
 
@@ -95,14 +96,13 @@
 	damage = 0
 	nodamage = TRUE
 	martial_arts_no_deflect = TRUE
-	bleed_force = 0
 
 /obj/projectile/bullet/c38/mime/on_hit(atom/target, blocked = FALSE)
 	if(isliving(target))
 		var/mob/living/carbon/human/M = target
 		if(M.job == JOB_NAME_MIME)
-			var/defense = M.getarmor(CHEST, BULLET, armour_penetration)
-			M.apply_damage(5, BRUTE, CHEST, defense)
+			// It's piercing all your internal organs
+			M.deal_damage(5, SHARP_X, BRUTE, zone = CHEST)
 			M.visible_message(span_danger("A bullet wound appears in [M]'s chest!"), \
 							span_userdanger("You get hit with a .38 bullet from a finger gun! Those hurt!..."))
 		else
@@ -123,6 +123,7 @@
 /obj/projectile/bullet/a357
 	name = ".357 bullet"
 	damage = 60
+	sharpness = SHARP_X
 
 // admin only really, for ocelot memes
 /obj/projectile/bullet/a357/match

@@ -8,8 +8,6 @@
 	density = TRUE
 	anchored = TRUE
 	pass_flags_self = LETPASSTHROW|PASSSTRUCTURE
-	/// armor more or less consistent with grille. max_integrity about one time and a half that of a grille.
-	armor_type = /datum/armor/structure_railing
 	max_integrity = 75
 	var/drop_type = /obj/item/stack/rods
 	var/diagonals_possible = TRUE //for in-game rotating
@@ -18,14 +16,6 @@
 
 	var/reverse = FALSE //for end pieces which block all but one dir of movement
 	var/blocking_dir
-
-/datum/armor/structure_railing
-	melee = 50
-	bullet = 70
-	laser = 70
-	energy = 100
-	bomb = 10
-	rad = 100
 
 /obj/structure/railing/corner //aesthetic corner sharp edges hurt oof ouch
 	icon_state = "railing_corner"

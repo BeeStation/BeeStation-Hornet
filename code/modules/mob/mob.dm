@@ -91,6 +91,7 @@
 	//Give verbs to stat
 	add_verb(verbs, TRUE)
 	become_hearing_sensitive()
+	RegisterSignal(src, SIGNAL_UPDATETRAIT(TRAIT_VALUE_SOUND_SCAPE), PROC_REF(on_sound_scape_updated))
 
 /**
   * Generate the tag for this mob
@@ -1146,9 +1147,6 @@
 					break
 				search_pda = 0
 
-/mob/proc/update_stat()
-	return
-
 /mob/proc/update_health_hud()
 	return
 
@@ -1341,13 +1339,46 @@
 /mob/proc/hears_radio()
 	return TRUE
 
-/mob/proc/set_stat(new_stat)
-	if(new_stat == stat)
+/mob/proc/clear_stat(source)
+	SHOULD_NOT_OVERRIDE(TRUE)
+	REMOVE_TRAIT(src, TRAIT_VALUE_STAT, source)
+	return update_stat()
+
+/mob/proc/set_stat_source(new_stat, source)
+	SHOULD_NOT_OVERRIDE(TRUE)
+	// Higher the stat level, higher the priority
+	ADD_VALUE_TRAIT(src, TRAIT_VALUE_STAT, source, new_stat, new_stat)
+	return update_stat()
+
+/mob/proc/update_stat()
+	var/final_stat = GET_TRAIT_VALUE(src, TRAIT_VALUE_STAT) || CONSCIOUS
+	// God mode cannot be unconscious
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
+		final_stat = CONSCIOUS
+	// Value did not change
+	if (final_stat == stat)
 		return
-	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, new_stat)
 	. = stat
-	stat = new_stat
+	stat = final_stat
 	update_action_buttons_icon(TRUE)
+	// Handle mob list updates
+	if (. == DEAD)
+		remove_from_dead_mob_list()
+		add_to_alive_mob_list()
+	if (stat == DEAD)
+		remove_from_alive_mob_list()
+		add_to_dead_mob_list()
+	// Value did change
+	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, final_stat)
+	if(.)
+		remove_all_indicators()
+
+/// Called when a mob's sound scape override trait is updated.
+/mob/proc/on_sound_scape_updated(datum/source, trait)
+	SIGNAL_HANDLER
+	sound_environment_override = GET_TRAIT_VALUE(src, TRAIT_VALUE_SOUND_SCAPE)
+	if (!sound_environment_override)
+		sound_environment_override = SOUND_ENVIRONMENT_NONE
 
 /mob/key_down(key, client/client, full_key)
 	..()

@@ -1,3 +1,104 @@
+/// Replace the logic of standard damage to add a damage multiplier if being
+/// hit with a penetrating attack and no penetration armour
+/mob/living/carbon/run_armour_damage(amount, penetration, type, flag, dir, zone)
+	if (flag == DAMAGE_STANDARD)
+		var/penetration_rating = get_bodyzone_armor_flag(zone, ARMOUR_PENETRATION)
+		// Calculate how much damage is taken as penetration
+		// If we have 0 penetration armour, then 100% of damage is always
+		// taken as penetration damage.
+		// If we have the same penetration armour as the penetration damage,
+		// then 100% is absorbed into blunt damage.
+		// In between the 2 values (armour rating between 0 and penetration),
+		// then we have a linear amount of penetration damage being blocked
+		var/penetration_proportion = penetration <= 0 ? 0 : CLAMP01((penetration - penetration_rating) / penetration)
+		var/penetration_damage = amount * penetration_proportion
+		// Penetration multiplier
+		penetration_damage += max(0, (min(penetration, UNPROTECTED_ARMOUR_RATING) - penetration_rating) / UNPROTECTED_ARMOUR_RATING * (UNPROTECTED_SHARPNESS_DAMAGE_MULTIPLIER - 1) * penetration_damage)
+		// Unprotected damage
+		take_sharpness_damage(penetration_damage, type, flag, zone, penetration)
+		// Protected damage
+		var/blunt_damage = amount * (1 - penetration_proportion)
+		var/blunt_rating = 1 - (get_bodyzone_armor_flag(zone, ARMOUR_BLUNT) / 100)
+		var/absorbed_damage = blunt_damage * (1 - blunt_rating)
+		var/taken_damage = blunt_damage * blunt_rating
+		absorb_damage_amount(absorbed_damage, type)
+		// Blunt multiplier for low protection
+		// If we have low protection, then we take full damage from attacks +50% conciousness damage.
+		var/base_blunt_damage = taken_damage + max(0, (min(penetration, UNPROTECTED_ARMOUR_RATING) - penetration_rating) / UNPROTECTED_ARMOUR_RATING * (UNPROTECTED_BLUNT_DAMAGE_MULTIPLIER - 1) * taken_damage)
+		// Blunt damage splits into 50% consciousness and 50% actual damage, if brute
+		// stamina and burn damage doesn't result in blunt force trauma
+		if (type == BRUTE)
+			take_direct_damage(base_blunt_damage * BLUNT_DAMAGE_APPLIED_MULTIPLIER, type, flag, zone)
+			if (zone == BODY_ZONE_HEAD)
+				take_direct_damage(taken_damage * BLUNT_DAMAGE_CONSCIOUSNESS_HEAD_MULTIPLIER, CONSCIOUSNESS, flag, zone)
+			else
+				take_direct_damage(taken_damage * BLUNT_DAMAGE_CONSCIOUSNESS_MULTIPLIER, CONSCIOUSNESS, flag, zone)
+		else
+			take_direct_damage(taken_damage, type, flag, zone)
+		return
+	..()
+
+/mob/living/carbon/take_direct_damage(amount, type = BRUTE, flag = DAMAGE_STANDARD, zone = null)
+	if (type == CONSCIOUSNESS)
+		take_consciousness_damage(amount)
+		return
+	// Handle with adjust loss procs
+	if (!zone)
+		..()
+		// If the coder didn't specify a zone, everywhere gets hurt. Thats just how it works in this world.
+		for (var/obj/item/bodypart/part in bodyparts)
+			part.run_limb_injuries(rand(0, amount), type, flag, 0)
+		return
+	// Handle with body zone damage
+	var/obj/item/bodypart/part = get_bodypart(zone)
+	if (!part)
+		return
+	switch (type)
+		if (BRUTE)
+			part.receive_damage(amount, 0, 0)
+			part.run_limb_injuries(amount, type, flag, 0)
+			update_damage_overlays()
+		if (BURN)
+			part.receive_damage(0, amount, 0)
+			part.run_limb_injuries(amount, type, flag, 0)
+			update_damage_overlays()
+		if (STAMINA)
+			part.receive_damage(0, 0, amount)
+		if (TOX)
+			adjustToxLoss(amount)
+		if (OXY)
+			adjustOxyLoss(amount)
+		if (CLONE)
+			adjustCloneLoss(amount)
+		else
+			..()
+
+/mob/living/carbon/take_sharpness_damage(amount, type, flag = DAMAGE_STANDARD, zone = null, sharpness = 0)
+	// Healed damage should always be direct
+	if (amount <= 0)
+		return
+	// Start bleeding
+	if (amount > 5)
+		add_bleeding(amount / 10)
+	// Handle with adjust loss procs
+	if (!zone)
+		..()
+		return
+	// Handle with body zone damage
+	var/obj/item/bodypart/part = get_bodypart(zone)
+	if (!part)
+		return
+	switch (type)
+		if (BRUTE)
+			part.receive_damage(amount, 0, 0)
+			part.run_limb_injuries(amount, type, flag, sharpness)
+		if (BURN)
+			part.receive_damage(0, amount, 0)
+			part.run_limb_injuries(amount, type, flag, sharpness)
+		if (STAMINA)
+			part.receive_damage(0, 0, amount)
+		else
+			..()
 
 /mob/living/carbon/get_eye_protection()
 	. = ..()
@@ -65,22 +166,16 @@
 				return TRUE
 	..(AM, skipcatch, hitpush, blocked, throwingdatum)
 
-
 /mob/living/carbon/attacked_by(obj/item/I, mob/living/user)
 	var/obj/item/bodypart/affecting
-	affecting = get_bodypart(check_zone(user.get_combat_bodyzone(src)))
+	var/zone = check_zone(user.get_combat_bodyzone(src))
+	affecting = get_bodypart(zone)
 	if(!affecting) //missing limb? we select the first bodypart (you can never have zero, because of chest)
 		affecting = bodyparts[1]
 	SEND_SIGNAL(I, COMSIG_ITEM_ATTACK_ZONE, src, user, affecting)
 	send_item_attack_message(I, user, parse_zone(affecting.body_zone))
-	if (I.bleed_force)
-		var/armour_block = run_armor_check(affecting, BLEED, armour_penetration = I.armour_penetration, silent = (I.force > 0))
-		var/hit_amount = (100 - armour_block) / 100
-		add_bleeding(I.bleed_force * hit_amount)
 	if(I.force)
-		var/limb_damage = affecting.get_damage() //We need to save this for later to simplify dismemberment
-		var/armour_block = run_armor_check(affecting, MELEE, armour_penetration = I.armour_penetration)
-		apply_damage(I.force, I.damtype, affecting, armour_block)
+		deal_damage(I.force, I.sharpness, I.damtype, DAMAGE_STANDARD, get_dir(user, src), TRUE, zone)
 		if(I.damtype == BRUTE && (IS_ORGANIC_LIMB(affecting)))
 			if(I.is_sharp() || I.force >= 10)
 				I.add_mob_blood(src)
@@ -88,7 +183,7 @@
 				add_splatter_floor(location)
 				if(get_dist(user, src) <= 1)	//people with TK won't get smeared with blood
 					user.add_mob_blood(src)
-				if(affecting.body_zone == BODY_ZONE_HEAD)
+				if(zone == BODY_ZONE_HEAD)
 					if(wear_mask)
 						wear_mask.add_mob_blood(src)
 						update_inv_wear_mask()
@@ -102,26 +197,6 @@
 			cauterise_wounds(AMOUNT_TO_BLEED_INTENSITY(I.force / 3))
 			to_chat(src, span_userdanger("The heat from [I] cauterizes your bleeding!"))
 			playsound(src, 'sound/surgery/cautery2.ogg', 70)
-
-		var/dismember_limb = FALSE
-		var/weapon_sharpness = I.is_sharp()
-
-		if(((HAS_TRAIT(src, TRAIT_EASYDISMEMBER) && limb_damage) || (weapon_sharpness == SHARP_DISMEMBER_EASY)) && prob(I.force))
-			dismember_limb = TRUE
-			//Easy dismemberment on the mob allows even blunt weapons to potentially delimb, but only if the limb is already damaged
-			//Certain weapons are so sharp/strong they have a chance to cleave right through a limb without following the normal restrictions
-
-		else if(weapon_sharpness > SHARP || (weapon_sharpness == SHARP && stat == DEAD))
-			//Delimbing cannot normally occur with blunt weapons
-			//You also aren't cutting someone's arm off with a scalpel unless they're already dead
-
-			if(limb_damage >= affecting.max_damage)
-				dismember_limb = TRUE
-				//You can only cut a limb off if it is already damaged enough to be fully disabled
-
-		if(dismember_limb && ((affecting.body_zone != BODY_ZONE_HEAD && affecting.body_zone != BODY_ZONE_CHEST) || stat != CONSCIOUS) && affecting.dismember(I.damtype))
-			I.add_mob_blood(src)
-			playsound(get_turf(src), I.get_dismember_sound(), 80, 1)
 
 		return TRUE //successful attack
 
@@ -391,7 +466,7 @@
 		to_chat(M, span_warning("ERP is not allowed on this server!"))
 	AdjustStun(-60)
 	AdjustKnockdown(-60)
-	AdjustUnconscious(-60)
+	take_consciousness_damage(-5)
 	AdjustSleeping(-100)
 	AdjustParalyzed(-60)
 	AdjustImmobilized(-60)
@@ -514,7 +589,7 @@
 		if(head)
 			hit_clothes = head
 		if(hit_clothes)
-			hit_clothes.take_damage(damage_amount, damage_type, damage_flag, 0)
+			hit_clothes.deal_damage(damage_amount, 0, damage_type, damage_flag, sound = 0)
 
 /mob/living/carbon/can_hear()
 	. = FALSE
@@ -547,10 +622,6 @@
 	var/obj/item/bodypart/affecting = get_bodypart(check_zone(def_zone))
 	if(!affecting) //missing limb? we select the first bodypart (you can never have zero, because of chest)
 		affecting = bodyparts[1]
-	if (P.bleed_force)
-		var/armour_block = run_armor_check(affecting, BLEED, armour_penetration = P.armour_penetration, silent = TRUE)
-		var/hit_amount = (100 - armour_block) / 100
-		add_bleeding(P.bleed_force * hit_amount)
 	if (P.damage_type == BURN && is_bleeding() && IS_ORGANIC_LIMB(affecting))
 		cauterise_wounds(AMOUNT_TO_BLEED_INTENSITY(P.damage / 3))
 		playsound(src, 'sound/surgery/cautery2.ogg', 70)
@@ -566,16 +637,7 @@
 	var/dam_zone = dismembering_strike(user, affected_zone)
 	if(!dam_zone) //Dismemberment successful
 		return TRUE
-	var/obj/item/bodypart/affecting = get_bodypart(affected_zone)
-	if(!affecting)
-		affecting = get_bodypart(BODY_ZONE_CHEST)
-	var/armor = run_armor_check(affecting, MELEE, armour_penetration = user.armour_penetration)
-	apply_damage(user.melee_damage, user.melee_damage_type, affecting, armor)
-	// Apply bleeding
-	if (user.melee_damage_type == BRUTE)
-		var/armour_block = run_armor_check(dam_zone, BLEED, armour_penetration = user.armour_penetration, silent = TRUE)
-		var/hit_amount = (100 - armour_block) / 100
-		add_bleeding(user.melee_damage * 0.1 * hit_amount)
+	deal_damage(user.melee_damage, user.sharpness, user.melee_damage_type, DAMAGE_STANDARD, get_dir(user, src), TRUE, affected_zone)
 
 /mob/living/carbon/attack_animal(mob/living/simple_animal/M)
 	. = ..()
@@ -585,16 +647,7 @@
 	var/dam_zone = dismembering_strike(M, affected_zone)
 	if(!dam_zone) //Dismemberment successful
 		return TRUE
-	var/obj/item/bodypart/affecting = get_bodypart(affected_zone)
-	if(!affecting)
-		affecting = get_bodypart(BODY_ZONE_CHEST)
-	var/armor = run_armor_check(affecting, MELEE, armour_penetration = M.armour_penetration)
-	apply_damage(M.melee_damage, M.melee_damage_type, affecting, armor)
-	// Apply bleeding
-	if (M.melee_damage_type == BRUTE)
-		var/armour_block = run_armor_check(dam_zone, BLEED, armour_penetration = M.armour_penetration, silent = TRUE)
-		var/hit_amount = (100 - armour_block) / 100
-		add_bleeding(M.melee_damage * 0.1 * hit_amount)
+	deal_damage(M.melee_damage, M.sharpness, M.melee_damage_type, DAMAGE_STANDARD, get_dir(M, src), TRUE, affected_zone)
 
 /mob/living/carbon/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(target.check_block())

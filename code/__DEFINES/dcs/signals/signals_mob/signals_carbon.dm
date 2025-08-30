@@ -64,7 +64,11 @@
 ///from /mob/living/carbon/human/get_id_name; only returns if the mob has TRAIT_UNKNOWN and it's being overriden: (identity)
 #define COMSIG_HUMAN_GET_FORCED_NAME "human_get_forced_name"
 
+/// Called when wounds are cauterised (mob/living/carbon/source, amount)
+#define COMSIG_CARBON_CAUTERISE_WOUNDS "carbon_cauterise_wounds"
+
 ///Called when a carbon's health hud is updated. (source = carbon, shown_health_amount)
 #define COMSIG_CARBON_UPDATING_HEALTH_HUD "carbon_health_hud_update"
 	/// Return if you override the carbon's health hud with something else
 	#define COMPONENT_OVERRIDE_HEALTH_HUD (1<<0)
+

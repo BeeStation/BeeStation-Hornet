@@ -1,4 +1,6 @@
 /mob/living/simple_animal/slime
+	// Supports crit
+	consciousness = /datum/consciousness/point
 	var/Discipline = 0 // if a slime has been hit with a freeze gun, or wrestled/attacked off a human, they become disciplined and don't attack anymore for a while
 	var/SStun = 0 // stun variable
 
@@ -36,14 +38,6 @@
 		special_mutation_type = SLIME_TYPE_CRIMSON
 		visible_message(span_danger("[src] shudders, their red core deepening into an abyssal crimson."))
 	burn_damage_stored = 0
-
-// Unlike most of the simple animals, slimes support UNCONSCIOUS. This is an ugly hack.
-/mob/living/simple_animal/slime/update_stat()
-	switch(stat)
-		if(UNCONSCIOUS, HARD_CRIT)
-			if(health > 0)
-				return
-	return ..()
 
 /mob/living/simple_animal/slime/process()
 	if(stat == DEAD || !Target || client || buckled)
@@ -119,14 +113,14 @@
 			if(CONSCIOUS)
 				if(stasis)
 					to_chat(src, span_danger("Nerve gas in the air has put you in stasis!"))
-					set_stat(UNCONSCIOUS)
+					set_stat_source(UNCONSCIOUS, FROM_BZ)
 					powerlevel = 0
 					rabid = FALSE
 					regenerate_icons()
 			if(UNCONSCIOUS, HARD_CRIT)
 				if(!stasis)
 					to_chat(src, span_notice("You wake up from the stasis."))
-					set_stat(CONSCIOUS)
+					clear_stat(FROM_BZ)
 					regenerate_icons()
 
 	updatehealth()

@@ -115,7 +115,7 @@
 			mmi.forceMove(T)
 		if(mmi.brainmob)
 			if(mmi.brainmob.stat == DEAD)
-				mmi.brainmob.set_stat(CONSCIOUS)
+				mmi.brainmob.clear_stat(FROM_DEAD)
 				mmi.brainmob.remove_from_dead_mob_list()
 				mmi.brainmob.add_to_alive_mob_list()
 			mind.transfer_to(mmi.brainmob)
@@ -824,18 +824,12 @@
 		see_invisible = see_override
 	sync_lighting_plane_alpha()
 
+/mob/living/silicon/robot/death(gibbed)
+	. = ..()
+	toggle_headlamp(1)
+
 /mob/living/silicon/robot/update_stat()
-	if(HAS_TRAIT(src, TRAIT_GODMODE))
-		return
-	if(stat != DEAD)
-		if(health <= 0) //die only once
-			death()
-			toggle_headlamp(1)
-			return
-		if(HAS_TRAIT(src, TRAIT_KNOCKEDOUT) || IsStun() || IsKnockdown() || IsParalyzed())
-			set_stat(UNCONSCIOUS)
-		else
-			set_stat(CONSCIOUS)
+	. = ..()
 	diag_hud_set_status()
 	diag_hud_set_health()
 	diag_hud_set_aishell()

@@ -10,12 +10,6 @@
 	explosion_block = 3
 	point_return = BLOB_REFUND_STRONG_COST
 	atmosblock = TRUE
-	armor_type = /datum/armor/blob_shield
-
-
-/datum/armor/blob_shield
-	fire = 90
-	acid = 90
 
 /obj/structure/blob/shield/scannerreport()
 	if(atmosblock)
@@ -33,7 +27,7 @@
 	. = ..()
 	desc = (atom_integrity < (max_integrity * 0.5)) ? "[damaged_desc]" : initial(desc)
 
-/obj/structure/blob/shield/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
+/obj/structure/blob/shield/take_direct_damage(amount, type = BRUTE, flag = DAMAGE_STANDARD, zone = null)
 	. = ..()
 	if(. && atom_integrity > 0)
 		atmosblock = atom_integrity < (max_integrity * 0.5)

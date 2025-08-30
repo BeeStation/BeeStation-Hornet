@@ -299,7 +299,6 @@
 		if(HAS_TRAIT(H, TRAIT_CLUMSY) && prob(25))
 			to_chat(H, span_warning("You cut yourself on the paper! Ahhhh! Ahhhhh!"))
 			H.damageoverlaytemp = 9001
-			H.update_damage_hud()
 			return
 	var/n_name = stripped_input(usr, "What would you like to label the paper?", "Paper Labelling", null, MAX_NAME_LEN)
 	if(((loc == usr || istype(loc, /obj/item/clipboard)) && usr.stat == CONSCIOUS))

@@ -160,11 +160,10 @@
 /datum/spacevine_mutation/aggressive_spread/aggrospread_act(obj/structure/spacevine/S, mob/living/M)
 	var/mob/living/carbon/C = M //If the mob is carbon then it now also exists as a "C", and not just an M.
 	if(istype(C)) //If the mob (M) is a carbon subtype (C) we move on to pick a more complex damage proc, with damage zones, wounds and armor mitigation.
-		var/obj/item/bodypart/limb = pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_HEAD, BODY_ZONE_CHEST) //Picks a random bodypart. Does not runtime even if it's missing.
-		var/armor = C.run_armor_check(limb, MELEE, null, null) //armor = the armor value of that randomly chosen bodypart. Nulls to not print a message, because it would still print on pierce.
+		var/limb = pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_HEAD, BODY_ZONE_CHEST) //Picks a random bodypart. Does not runtime even if it's missing.
 		var/datum/spacevine_mutation/thorns/T = locate() in S.mutations //Searches for the thorns mutation in the "mutations"-list inside obj/structure/spacevine, and defines T if it finds it.
 		if(T && (prob(40))) //If we found the thorns mutation there is now a chance to get stung instead of lashed or smashed.
-			C.apply_damage(50, BRUTE, def_zone = limb) //This one gets a bit lower damage because it ignores armor.
+			C.deal_damage(50, SHARP_III, BRUTE, zone = limb) //This one gets a bit lower damage because it ignores armor.
 			C.Stun(1 SECONDS) //Stopped in place for a moment.
 			playsound(M, 'sound/weapons/pierce.ogg', 50, TRUE, -1)
 			M.visible_message(span_danger("[M] is nailed by a sharp thorn!"), \
@@ -172,14 +171,14 @@
 			log_combat(S, M, "aggressively pierced") //"Aggressively" for easy ctrl+F'ing in the attack logs.
 		else
 			if(prob(80))
-				C.apply_damage(60, BRUTE, def_zone = limb, blocked = armor)
+				C.deal_damage(60, SHARP_VI, zone = limb)
 				C.Knockdown(2 SECONDS)
 				playsound(M, 'sound/weapons/whip.ogg', 50, TRUE, -1)
 				M.visible_message(span_danger("[M] is lacerated by an outburst of vines!"), \
 				span_userdanger("You are lacerated by an outburst of vines!"))
 				log_combat(S, M, "aggressively lacerated")
 			else
-				C.apply_damage(60, BRUTE, def_zone = limb, blocked = armor)
+				C.deal_damage(60, SHARP_I, zone = limb)
 				C.Knockdown(3 SECONDS)
 				var/atom/throw_target = get_edge_target_turf(C, get_dir(S, get_step_away(C, S)))
 				C.throw_at(throw_target, 3, 6)
@@ -372,7 +371,7 @@
 
 	for(var/datum/spacevine_mutation/SM in mutations)
 		damage_dealt = SM.on_hit(src, user, I, damage_dealt) //on_hit now takes override damage as arg and returns new value for other mutations to permutate further
-	take_damage(damage_dealt, I.damtype, MELEE, 1)
+	deal_damage(damage_dealt, I.sharpness, I.damtype)
 
 /obj/structure/spacevine/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -560,10 +559,10 @@
 	if(locate(/obj/structure, stepturf) || locate(/obj/machinery, stepturf))//if we can't grow into a turf, we'll start digging into it
 		for(var/obj/structure/S in stepturf)
 			if(S.density && !istype(S, /obj/structure/alien/resin/flower_bud) && !istype(S, /obj/structure/reagent_dispensers/fueltank)) //don't breach the station!
-				S.take_damage(25)
+				S.deal_damage(25, SHARP_I)
 		for(var/obj/machinery/M in stepturf)
 			if(M.density && !istype(M, /obj/machinery/power/smes) && !istype(M, /obj/machinery/door/airlock/external) && !istype(M, /obj/machinery/door/firedoor)) //please don't sabotage power or cause a hullbreach!
-				M.take_damage(40) //more damage, because machines are more commonplace and tend to be more durable
+				M.deal_damage(40, SHARP_I) //more damage, because machines are more commonplace and tend to be more durable
 	if(!isspaceturf(stepturf) && stepturf.Enter(src))
 		var/obj/structure/spacevine/spot_taken = locate() in stepturf //Locates any vine on target turf. Calls that vine "spot_taken".
 		var/datum/spacevine_mutation/vine_eating/E = locate() in mutations //Locates the vine eating trait in our own seed and calls it E.

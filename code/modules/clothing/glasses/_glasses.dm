@@ -110,8 +110,7 @@
 	attack_verb_continuous = list("slices")
 	attack_verb_simple = list("slice")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	sharpness = SHARP
-	bleed_force = BLEED_SURFACE
+	sharpness = SHARP_III
 
 /obj/item/clothing/glasses/meson/prescription
 	name = "prescription meson scanner"
@@ -130,13 +129,7 @@
 	actions_types = list(/datum/action/item_action/toggle_research_scanner)
 	glass_colour_type = /datum/client_colour/glass_colour/purple
 	resistance_flags = ACID_PROOF
-	armor_type = /datum/armor/glasses_science
 	clothing_traits = list(TRAIT_REAGENT_SCANNER)
-
-
-/datum/armor/glasses_science
-	fire = 80
-	acid = 100
 
 /obj/item/clothing/glasses/science/item_action_slot_check(slot)
 	if(slot == ITEM_SLOT_EYES)
@@ -148,13 +141,7 @@
 	icon_state = "prescscihud"
 	emissive_state = "prehud_emissive"
 	resistance_flags = NONE
-	armor_type = /datum/armor/science_prescription
 	vision_correction = 1
-
-
-/datum/armor/science_prescription
-	fire = 20
-	acid = 40
 
 /obj/item/clothing/glasses/science/sciencesun
 	name = "science sunglasses"
@@ -231,8 +218,7 @@
 	attack_verb_continuous = list("slices")
 	attack_verb_simple = list("slice")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	sharpness = SHARP
-	bleed_force = BLEED_SURFACE
+	sharpness = SHARP_III
 	glass_colour_type = /datum/client_colour/glass_colour/lightgreen
 
 /obj/item/clothing/glasses/regular
@@ -316,8 +302,7 @@
 	attack_verb_continuous = list("slices")
 	attack_verb_simple = list("slice")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	sharpness = SHARP
-	bleed_force = BLEED_SURFACE
+	sharpness = SHARP_III
 
 /obj/item/clothing/glasses/sunglasses/advanced/garb/supergarb
 	name = "black giga gar glasses"
@@ -338,8 +323,7 @@
 	attack_verb_continuous = list("slices")
 	attack_verb_simple = list("slice")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	sharpness = SHARP
-	bleed_force = BLEED_SURFACE
+	sharpness = SHARP_III
 	glass_colour_type = /datum/client_colour/glass_colour/orange
 
 /obj/item/clothing/glasses/sunglasses/advanced/gar/supergar

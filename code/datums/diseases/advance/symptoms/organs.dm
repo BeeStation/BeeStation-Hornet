@@ -188,7 +188,7 @@
 					O.Insert(M, drop_if_replaced = FALSE)
 					M.adjustOrganLoss(ORGAN_SLOT_LUNGS, 200)
 					return
-				if(!M.get_organ_by_type(/obj/item/organ/heart) && !HAS_TRAIT(S, TRAIT_NOBLOOD))
+				if(!M.get_organ_by_type(/obj/item/organ/heart) && !HAS_TRAIT(S, TRAIT_NO_BLOOD))
 					var/obj/item/organ/heart/O = new()
 					O.Insert(M, drop_if_replaced = FALSE)
 					M.adjustOrganLoss(ORGAN_SLOT_HEART, 200)

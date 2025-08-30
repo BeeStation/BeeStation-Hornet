@@ -266,7 +266,7 @@
 	if(SEND_SIGNAL(infectee, COMSIG_HAS_NANITES))
 		COOLDOWN_START(src, spread_cooldown, 2 SECONDS)
 		return
-	if(prob(100 - (infectee.getarmor(null, BIO))))
+	if(prob(100 - infectee.get_biological_seal_rating() * 100))
 		COOLDOWN_START(src, spread_cooldown, 7.5 SECONDS)
 		infectee.AddComponent(/datum/component/nanites, 10)
 		SEND_SIGNAL(infectee, COMSIG_NANITE_SYNC, nanites)
@@ -294,7 +294,7 @@
 		consume_nanites(-5)
 		return
 	var/mob/living/infectee = pick(target_hosts)
-	if(prob(100 - (infectee.getarmor(null, BIO))))
+	if(prob(100 - infectee.get_biological_seal_rating() * 100))
 		infectee.AddComponent(/datum/component/nanites, 5)
 		SEND_SIGNAL(infectee, COMSIG_NANITE_SYNC, nanites)
 		infectee.investigate_log("was infected by a nanite cluster by [key_name(host_mob)] at [AREACOORD(infectee)].", INVESTIGATE_NANITES)
@@ -430,12 +430,12 @@
 		return FALSE
 	if(!iscarbon(host_mob))
 		return FALSE
-	if(host_mob.blood_volume <= 0)
+	if(host_mob.blood.volume <= 0)
 		return FALSE
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/host_human = host_mob
-		if(HAS_TRAIT(host_human, TRAIT_NOBLOOD))
+		if(HAS_TRAIT(host_human, TRAIT_NO_BLOOD))
 			return FALSE
 
 /datum/nanite_program/vampire/active_effect()
-	host_mob.blood_volume = max(host_mob.blood_volume - 1.5, 0)
+	host_mob.blood.volume = max(host_mob.blood.volume - 1.5, 0)

@@ -35,16 +35,8 @@
 	resistance_flags = NONE
 	material_drop = /obj/item/stack/sheet/iron
 	material_drop_amount = 2
-	armor_type = /datum/armor/blackcoffin
 	door_anim_time = 0
-
-/datum/armor/blackcoffin
-	melee = 50
-	bullet = 20
-	laser = 30
-	bomb = 50
-	fire = 70
-	acid = 60
+	max_integrity = 120
 
 /obj/structure/closet/crate/coffin/securecoffin
 	name = "secure coffin"
@@ -63,14 +55,12 @@
 	azimuth_angle_2 = 180
 	door_anim_time = 5
 	door_hinge = 5
+	max_integrity = 150
 
 /datum/armor/securecoffin
-	melee = 35
-	bullet = 20
-	laser = 20
-	bomb = 100
-	fire = 100
-	acid = 100
+	blunt = 50
+	absorption = 100
+	heat = 100
 
 /obj/structure/closet/crate/coffin/meatcoffin
 	name = "meat coffin"
@@ -86,14 +76,14 @@
 	material_drop_amount = 3
 	armor_type = /datum/armor/meatcoffin
 	door_anim_time = 0
+	max_integrity = 90
 
 /datum/armor/meatcoffin
-	melee = 70
-	bullet = 10
-	laser = 10
-	bomb = 70
-	fire = 70
-	acid = 60
+	blunt = 70
+	heat = 70
+	absorption = 70
+	penetration = 10
+	reflectivity = 10
 
 /obj/structure/closet/crate/coffin/metalcoffin
 	name = "metal coffin"
@@ -107,19 +97,12 @@
 	pry_lid_timer = 30 SECONDS
 	material_drop = /obj/item/stack/sheet/iron
 	material_drop_amount = 5
-	armor_type = /datum/armor/metalcoffin
+	armor_type = /datum/armor/military_metal
 	door_anim_angle = 140
 	azimuth_angle_2 = 180
 	door_anim_time = 5
 	door_hinge = 5
-
-/datum/armor/metalcoffin
-	melee = 40
-	bullet = 15
-	laser = 50
-	bomb = 10
-	fire = 70
-	acid = 60
+	max_integrity = 160
 
 /// NOTE: This can be any coffin that you are resting AND inside of.
 /obj/structure/closet/crate/coffin/proc/claim_coffin(mob/living/claimer)

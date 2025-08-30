@@ -28,7 +28,7 @@
 	maxHealth = 400
 	health = 400
 	melee_damage = 30
-	armour_penetration = 30
+	sharpness = SHARP_IV
 	attack_sound = 'sound/weapons/punch1.ogg'
 	throw_message = "does nothing to the rocky hide of the"
 	speed = 2

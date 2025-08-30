@@ -596,12 +596,10 @@
 
 //Aside from bomb and acid, not actually a lot of armor
 /datum/armor/cyborg
-	melee = 30
-	bullet = 30
-	laser = 30
-	energy = 30
-	bomb = 50
-	acid = 100
+	penetration = 30
+	blunt = 30
+	reflectivity = 30
+	heat = 30
 
 /obj/item/robot_model/guard/be_transformed_to(obj/item/robot_model/old_module)
 	var/mob/living/silicon/robot/cyborg = loc

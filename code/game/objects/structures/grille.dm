@@ -15,7 +15,6 @@
 	obj_flags = CAN_BE_HIT | IGNORE_DENSITY
 	pressure_resistance = 5*ONE_ATMOSPHERE
 	layer = BELOW_OBJ_LAYER
-	armor_type = /datum/armor/structure_grille
 	max_integrity = 50
 	integrity_failure = 0.4
 	var/rods_type = /obj/item/stack/rods
@@ -30,17 +29,8 @@
 	. = ..()
 	AddElement(/datum/element/atmos_sensitive)
 
-
-/datum/armor/structure_grille
-	melee = 50
-	bullet = 70
-	laser = 70
-	energy = 100
-	bomb = 10
-	rad = 100
-
-/obj/structure/grille/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armour_penetration)
-	. = ..()
+/obj/structure/grille/take_direct_damage(amount, type = BRUTE, flag = DAMAGE_STANDARD, zone = null)
+	..()
 	update_appearance()
 
 /obj/structure/grille/update_appearance(updates)
@@ -147,14 +137,14 @@
 	var/mob/M = AM
 	shock(M, 70)
 	if(prob(50))
-		take_damage(1, BRUTE, MELEE, FALSE)
+		deal_damage(1, 0, BRUTE, sound = FALSE)
 
 /obj/structure/grille/attack_animal(mob/user)
 	. = ..()
 	if(!.)
 		return
 	if(!shock(user, 70) && !QDELETED(src)) //Last hit still shocks but shouldn't deal damage to the grille
-		take_damage(rand(5,10), BRUTE, MELEE, 1)
+		deal_damage(rand(5,10), 0, BRUTE)
 
 /obj/structure/grille/attack_paw(mob/user)
 	return attack_hand(user)
@@ -177,14 +167,14 @@
 	user.visible_message(span_warning("[user] hits [src]."), null, null, COMBAT_MESSAGE_RANGE)
 	log_combat(user, src, "hit", important = FALSE)
 	if(!shock(user, 70))
-		take_damage(rand(5,10), BRUTE, MELEE, 1)
+		deal_damage(rand(5,10), 0, BRUTE)
 
 /obj/structure/grille/attack_alien(mob/living/user)
 	user.do_attack_animation(src)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.visible_message(span_warning("[user] mangles [src]."), null, null, COMBAT_MESSAGE_RANGE)
 	if(!shock(user, 70))
-		take_damage(20, BRUTE, MELEE, 1)
+		deal_damage(20, 0, BRUTE)
 
 /obj/structure/grille/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
@@ -344,7 +334,7 @@
 	return exposed_temperature > T0C + 1500 && !broken
 
 /obj/structure/grille/atmos_expose(datum/gas_mixture/air, exposed_temperature)
-	take_damage(1, BURN, 0, 0)
+	deal_damage(1, 0, BURN, DAMAGE_FIRE, sound = 0)
 
 /obj/structure/grille/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(isobj(AM))
@@ -371,7 +361,7 @@
 
 /obj/structure/grille/broken/Initialize(mapload)
 	. = ..()
-	take_damage(max_integrity * 0.6)
+	deal_damage(max_integrity * 0.6, 0)
 
 /obj/structure/grille/prison //grilles that trigger prison lockdown under some circumstances
 	name = "prison grille"

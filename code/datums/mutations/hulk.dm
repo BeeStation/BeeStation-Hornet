@@ -27,7 +27,7 @@
 	RegisterSignal(owner, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 	ADD_TRAIT(owner, TRAIT_HULK, SOURCE_HULK)
 	for(var/obj/item/bodypart/part as anything in owner.bodyparts)
-		part.variable_color = "#00aa00"
+		ADD_VALUE_TRAIT(part, TRAIT_OVERRIDE_SKIN_COLOUR, TRAIT_HULK, "#00aa00", SKIN_PRIORITY_HULK)
 	ADD_TRAIT(owner, TRAIT_CHUNKYFINGERS, TRAIT_HULK)
 	owner.update_body_parts()
 
@@ -48,7 +48,7 @@
 	UnregisterSignal(owner, COMSIG_MOB_SAY)
 	REMOVE_TRAIT(owner, TRAIT_HULK, SOURCE_HULK)
 	for(var/obj/item/bodypart/part as anything in owner.bodyparts)
-		part.variable_color = null
+		REMOVE_TRAIT(part, TRAIT_OVERRIDE_SKIN_COLOUR, TRAIT_HULK)
 	owner.update_body_parts()
 
 /datum/mutation/hulk/proc/handle_speech(datum/source, list/speech_args)

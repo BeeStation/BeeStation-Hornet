@@ -73,9 +73,7 @@
 					blocked = TRUE
 			if(!blocked)
 				L.visible_message(span_danger("[src] pounces on [L]!"), span_userdanger("[src] pounces on you!"))
-				var/obj/item/bodypart/chest = L.get_bodypart(BODY_ZONE_CHEST)
-				var/armor_block = L.run_armor_check(chest, MELEE, "", "")
-				L.apply_damage(110, STAMINA, chest, armor_block)
+				L.deal_damage(110, 0, STAMINA, zone = BODY_ZONE_CHEST)
 				sleep(0.2 SECONDS)//Runtime prevention (infinite bump() calls on hulks)
 				step_towards(src, L)
 			else

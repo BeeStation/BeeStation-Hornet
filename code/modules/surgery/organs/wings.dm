@@ -3,7 +3,6 @@
 	desc = "A pair of wings. They look skinny and useless"
 	icon_state = "angelwings"
 	visual = TRUE
-	zone = BODY_ZONE_CHEST
 	slot = ORGAN_SLOT_WINGS
 	var/flight_level = WINGS_COSMETIC
 	var/basewings = "wings" //right now, this just determines whether the wings are normal wings or moth wings
@@ -224,7 +223,7 @@
 /datum/action/item_action/organ_action/use/bee_dash/proc/crash_into_table(turf/tableturf)
 	if(owner.loc == tableturf)
 		var/mob/living/carbon/L = owner
-		L.take_bodypart_damage(10,check_armor = TRUE)
+		L.deal_damage(10, 0)
 		L.Paralyze(40)
 		L.visible_message(span_danger("[L] crashes into a table, falling over!"),\
 			span_userdanger("You violently crash into a table!"))

@@ -28,15 +28,7 @@
 		/obj/item/tank/internals/emergency_oxygen,
 		/obj/item/tank/internals/plasmaman
 		)
-	armor_type = /datum/armor/toggle_labcoat
 	species_exception = list(/datum/species/golem)
-
-
-/datum/armor/toggle_labcoat
-	bio = 50
-	fire = 50
-	acid = 50
-	bleed = 5
 
 /obj/item/clothing/suit/toggle/labcoat/cmo
 	name = "chief medical officer's labcoat"
@@ -54,16 +46,7 @@
 	name = "security medic's labcoat"
 	icon_state = "labcoat_sec"
 	item_state = "labcoat_sec"
-	armor_type = /datum/armor/labcoat_brig_physician
-
-
-/datum/armor/labcoat_brig_physician
-	melee = 10
-	bio = 10
-	fire = 50
-	acid = 50
-	stamina = 30
-	bleed = 10
+	armor_type = /datum/armor/civilian_light_armor
 
 /obj/item/clothing/suit/toggle/labcoat/mad
 	name = "\proper The Mad's labcoat"

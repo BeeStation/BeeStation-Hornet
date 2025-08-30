@@ -20,12 +20,13 @@
 	/// DO NOT MODIFY DIRECTLY. Use set_owner()
 	var/mob/living/carbon/owner
 	var/datum/weakref/original_owner
-	var/needs_processing = FALSE
+	var/needs_processing = TRUE
 	///A bitfield of bodytypes for clothing, surgery, and misc information
 	var/bodytype = BODYTYPE_HUMANOID | BODYTYPE_ORGANIC
+	/// Flags that represent how this bodypart cirulates blood
+	var/circulation_flags = CIRCULATION_BLOOD
 	///Defines when a bodypart should not be changed. Example: BP_BLOCK_CHANGE_SPECIES prevents the limb from being overwritten on species gain
 	var/change_exempt_flags
-
 	///Whether the bodypart (and the owner) is husked.
 	var/is_husked = FALSE
 	///The ID of a species used to generate the icon. Needs to match the icon_state portion in the limbs file!
@@ -83,11 +84,15 @@
 	var/species_color = ""
 	///Limbs need this information as a back-up incase they are generated outside of a carbon (limbgrower)
 	var/should_draw_greyscale = TRUE
-	///An "override" color that can be applied to ANY limb, greyscale or not.
-	var/variable_color = ""
 
 	///whether it can be dismembered with a weapon.
 	var/dismemberable = TRUE
+	/// Does dismemberment require the mob to be dead?
+	var/dismemberment_requires_death = FALSE
+
+	/// Effectiveness of the limb
+	/// Pairs of limbs together make up 100%
+	var/effectiveness = 50
 
 	var/px_x = 0
 	var/px_y = 0
@@ -102,11 +107,36 @@
 	var/heavy_brute_msg = "mangled"
 
 	var/light_burn_msg = "numb"
-	var/medium_burn_msg = "blistered"
+	var/medium_burn_msg = "burnt"
 	var/heavy_burn_msg = "peeling away"
 
 	/// So we know if we need to scream if this limb hits max damage
 	var/last_maxed
+
+	/// List of organs contained by this bodypart.
+	var/list/organ_slots = null
+
+	/// Amount of penetration that the skin will reduce an attack by
+	var/skin_penetration_resistance = 5
+	// The amount of damage that will be deleted when the damage reaches bones
+	var/bone_deflection = 0
+	/// The amount of penetration that the bones reduce an attack by
+	var/bone_penetration_resistance = 15
+	/// Amount of blunt armour provided by the skin
+	var/skin_blunt_armour = 5
+	/// Amount of blunt armour provided by the bones
+	var/bone_blunt_armour = 15
+	/// Injury status effects applied to this limb
+	var/list/injuries = list()
+
+	/// If the bodypart is permanently destroyed
+	var/destroyed = FALSE
+
+	/// How much pain does this limb feel?
+	var/pain_multiplier = 0.4
+
+	/// Damage taken per second
+	var/decay_rate = STANDARD_ORGAN_DECAY
 
 /obj/item/bodypart/Initialize(mapload)
 	. = ..()
@@ -117,19 +147,31 @@
 	if(is_dimorphic)
 		limb_gender = pick("m", "f")
 	update_icon_dropped()
+	setup_injury_trees()
+	// Start processing decay
+	if (!owner && !destroyed)
+		START_PROCESSING(SSinjuries, src)
+
+/// Not all bodyparts have the same injury trees
+/// Allow them to be overriden
+/obj/item/bodypart/proc/setup_injury_trees()
+	apply_injury_tree(/datum/injury/healthy_skin_burn)
+	apply_injury_tree(/datum/injury/cut_healthy)
+	apply_injury_tree(/datum/injury/trauma_healthy)
 
 /obj/item/bodypart/Destroy()
 	if(owner)
 		owner.remove_bodypart(src)
 		set_owner(null)
-	/*
-	for(var/wound in wounds)
-		qdel(wound) // wounds is a lazylist, and each wound removes itself from it on deletion.
-	if(length(wounds))
-		stack_trace("[type] qdeleted with [length(wounds)] uncleared wounds")
-		wounds.Cut()
-	*/
 	return ..()
+
+/obj/item/bodypart/process(delta_time)
+	// Decay
+	receive_damage(decay_rate)
+	if (get_damage() >= max_damage)
+		destroyed = TRUE
+		update_disabled()
+		return PROCESS_KILL
 
 /obj/item/bodypart/forceMove(atom/destination) //Please. Never forcemove a limb if its's actually in use. This is only for borgs.
 	. = ..()
@@ -150,7 +192,7 @@
  *
  * Modifies the check_list list with the resulting report of the limb's status.
  */
-/obj/item/bodypart/proc/check_for_injuries(mob/living/carbon/human/examiner, list/check_list)
+/obj/item/bodypart/proc/check_for_injuries(mob/living/carbon/human/examiner, list/check_list, list/whole_body_issues)
 
 	var/list/limb_damage = list(BRUTE = brute_dam, BURN = burn_dam)
 
@@ -189,39 +231,54 @@
 		if(status == "")
 			status = "OK"
 
+	// Get the injury texts for our injuries
+	var/list/injury_texts = list()
+	for (var/datum/injury/injuries in injuries)
+		if (injuries.examine_description)
+			var/tooltip_desc = injuries.examine_description
+			// TODO: When we merge to master, add tooltips for limb effectiveness here
+			if (injuries.whole_body)
+				whole_body_issues |= tooltip_desc
+			else
+				injury_texts += tooltip_desc
 	var/no_damage
 	if(status == "OK" || status == "no damage")
 		no_damage = TRUE
-
-	var/is_disabled = ""
+	// Put it into a list
+	var/stringified_injuries = null
+	if (length(injury_texts))
+		stringified_injuries = injury_texts[1]
+	for (var/i in 2 to length(injury_texts) - 1)
+		stringified_injuries += ", [injury_texts[i]]"
+	if (length(injury_texts) > 1)
+		stringified_injuries += ", and [injury_texts[length(injury_texts)]]"
+	var/auxiliary_verb = self_aware ? "has" : "is"
+	if (no_damage && stringified_injuries)
+		status = stringified_injuries
+		stringified_injuries = null
+		no_damage = FALSE
+		auxiliary_verb = "has"
+	var/isdisabled = ""
 	if(bodypart_disabled)
-		is_disabled = " is disabled"
+		isdisabled = " is disabled"
 		if(no_damage)
-			is_disabled += " but otherwise"
+			isdisabled += " but otherwise"
+		else if (stringified_injuries)
+			isdisabled += ","
 		else
-			is_disabled += " and"
+			isdisabled += " and"
+	if (destroyed)
+		check_list += "\t <span class='[no_damage ? "notice" : "warning"]'>Your [name] is injured beyond treatment.</span>"
+	else
+		check_list += "\t <span class='[no_damage ? "notice" : "warning"]'>Your [name][isdisabled] [auxiliary_verb] [status][stringified_injuries ? " and has " : ""][stringified_injuries].</span>"
 
-	check_list += "\t <span class='[no_damage ? "notice" : "warning"]'>Your [name][is_disabled][self_aware ? " has " : " is "][status].</span>"
-
-	/*
-	for(var/datum/wound/wound as anything in wounds)
-		switch(wound.severity)
-			if(WOUND_SEVERITY_TRIVIAL)
-				check_list += "\t [span_danger("Your [name] is suffering [wound.a_or_from] [LOWER_TEXT(wound.name)].")]"
-			if(WOUND_SEVERITY_MODERATE)
-				check_list += "\t [span_warning("Your [name] is suffering [wound.a_or_from] [LOWER_TEXT(wound.name)]!")]"
-			if(WOUND_SEVERITY_SEVERE)
-				check_list += "\t [span_boldwarning("Your [name] is suffering [wound.a_or_from] [LOWER_TEXT(wound.name)]!")]"
-			if(WOUND_SEVERITY_CRITICAL)
-				check_list += "\t [span_boldwarning("Your [name] is suffering [wound.a_or_from] [LOWER_TEXT(wound.name)]!!")]"
-	*/
 
 	for(var/obj/item/embedded_thing in embedded_objects)
 		var/stuck_word = embedded_thing.isEmbedHarmless() ? "stuck" : "embedded"
 		check_list += "\t<a href='byond://?src=[REF(src)];embedded_object=[REF(embedded_thing)];embedded_limb=[REF(body_part)]' class='warning'>There is \a [embedded_thing] [stuck_word] in your [name]!</a>"
 
 /obj/item/bodypart/blob_act()
-	receive_damage(max_damage)
+	take_direct_damage(max_damage)
 
 /obj/item/bodypart/attack(mob/living/carbon/C, mob/user)
 	SHOULD_CALL_PARENT(TRUE)
@@ -269,8 +326,6 @@
 
 //empties the bodypart from its organs and other things inside it
 /obj/item/bodypart/proc/drop_organs(mob/user, violent_removal)
-	SHOULD_CALL_PARENT(TRUE)
-
 	var/turf/T = get_turf(src)
 	if(IS_ORGANIC_LIMB(src))
 		playsound(T, 'sound/misc/splort.ogg', 50, 1, -1)
@@ -282,15 +337,7 @@
 	SHOULD_CALL_PARENT(TRUE)
 	RETURN_TYPE(/list)
 
-	if(!owner)
-		return FALSE
-
-	var/list/bodypart_organs
-	for(var/obj/item/organ/organ_check as anything in owner.internal_organs) //internal organs inside the dismembered limb are dropped.
-		if(check_zone(organ_check.zone) == body_zone)
-			LAZYADD(bodypart_organs, organ_check) // this way if we don't have any, it'll just return null
-
-	return bodypart_organs
+	return contents
 
 //Return TRUE to get whatever mob this is in to update health.
 /obj/item/bodypart/proc/on_life(delta_time, times_fired, stam_regen)
@@ -299,6 +346,19 @@
 	if(stamina_dam >= DAMAGE_PRECISION && stam_regen)
 		heal_damage(0, 0, stam_regen, null, FALSE)
 		. |= BODYPART_LIFE_UPDATE_HEALTH
+	var/circulation_disruption = 1
+	if (!(owner.blood.circulation_type_provided & circulation_flags))
+		circulation_disruption = 0
+	else
+		circulation_disruption = owner.blood.get_circulation_proportion()
+	// Organ damage due to lack of blood circulation
+	if (circulation_disruption < 1)
+		var/damage_applied = (1 - circulation_disruption) * delta_time
+		// Organic bodyparts that need blood and nothing else die without it
+		if (circulation_flags == CIRCULATION_BLOOD)
+			var/circulation_rating = owner.blood.get_circulation_proportion()
+			var/desired_hypoxia_damage = max(0, (max_damage * 3) - (((CLAMP01(circulation_rating) * (max_damage * 3)) ** 0.3) / ((max_damage * 3) ** (-0.7))))
+			receive_damage(clamp(damage_applied * 0.1, 0, desired_hypoxia_damage - damage_applied * 0.1))
 
 //Applies brute and burn damage to the organ. Returns 1 if the damage-icon states changed at all.
 //Damage will not exceed max_damage using this proc
@@ -342,7 +402,7 @@
 		set_burn_dam(burn_dam + burn)
 
 	//We've dealt the physical damages, if there's room lets apply the stamina damage.
-	if(stamina)
+	if(stamina && !HAS_TRAIT(src, TRAIT_BODYPART_NO_STAMINA_REGENERATION))
 		set_stamina_dam(stamina_dam + round(clamp(stamina, 0, max_stamina_damage - stamina_dam), DAMAGE_PRECISION))
 
 	if(owner)
@@ -369,7 +429,7 @@
 		set_brute_dam(round(max(brute_dam - brute, 0), DAMAGE_PRECISION))
 	if(burn)
 		set_burn_dam(round(max(burn_dam - burn, 0), DAMAGE_PRECISION))
-	if(stamina)
+	if(stamina && !HAS_TRAIT(src, TRAIT_BODYPART_NO_STAMINA_REGENERATION))
 		set_stamina_dam(round(max(stamina_dam - stamina, 0), DAMAGE_PRECISION))
 
 	if(owner)
@@ -385,8 +445,6 @@
 
 ///Proc to hook behavior associated to the change of the brute_dam variable's value.
 /obj/item/bodypart/proc/set_brute_dam(new_value)
-	PROTECTED_PROC(TRUE)
-
 	if(brute_dam == new_value)
 		return
 	. = brute_dam
@@ -395,8 +453,6 @@
 
 ///Proc to hook behavior associated to the change of the burn_dam variable's value.
 /obj/item/bodypart/proc/set_burn_dam(new_value)
-	PROTECTED_PROC(TRUE)
-
 	if(burn_dam == new_value)
 		return
 	. = burn_dam
@@ -411,10 +467,6 @@
 		return
 	. = stamina_dam
 	stamina_dam = new_value
-	if(stamina_dam > DAMAGE_PRECISION)
-		needs_processing = TRUE
-	else
-		needs_processing = FALSE
 
 //Returns total damage.
 /obj/item/bodypart/proc/get_damage(include_stamina = FALSE)
@@ -432,6 +484,10 @@
 	SHOULD_CALL_PARENT(TRUE)
 
 	if(!owner)
+		return
+
+	if (destroyed)
+		set_disabled(TRUE)
 		return
 
 	if(!can_be_disabled)
@@ -480,6 +536,10 @@
 		return FALSE //`null` is a valid option, so we need to use a num var to make it clear no change was made.
 	var/mob/living/carbon/old_owner = owner
 	owner = new_owner
+	if (owner || destroyed)
+		STOP_PROCESSING(SSinjuries, src)
+	else
+		START_PROCESSING(SSinjuries, src)
 	var/needs_update_disabled = FALSE //Only really relevant if there's an owner
 	if(old_owner)
 		if(initial(can_be_disabled))
@@ -491,6 +551,9 @@
 				SIGNAL_REMOVETRAIT(TRAIT_NOLIMBDISABLE),
 				SIGNAL_ADDTRAIT(TRAIT_NOLIMBDISABLE),
 				))
+		// Remove all injuries
+		for (var/datum/injury/injury in injuries)
+			injury.remove_from_human(old_owner)
 	if(owner)
 		if(initial(can_be_disabled))
 			if(HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE))
@@ -501,6 +564,10 @@
 
 		if(needs_update_disabled)
 			update_disabled()
+
+		// Apply all injuries
+		for (var/datum/injury/injury in injuries)
+			injury.apply_to_human(owner)
 
 	return old_owner
 
@@ -606,8 +673,8 @@
 			dmg_overlay_type = initial(dmg_overlay_type)
 			is_husked = FALSE
 
-	if(variable_color)
-		draw_color = variable_color
+	if(HAS_TRAIT(src, TRAIT_OVERRIDE_SKIN_COLOUR))
+		draw_color = GET_TRAIT_VALUE(src, TRAIT_OVERRIDE_SKIN_COLOUR)
 	else if(should_draw_greyscale)
 		draw_color = (species_color) || (skin_tone && skintone2hex(skin_tone, include_tag = FALSE))
 	else
@@ -636,7 +703,7 @@
 	else
 		species_color = null
 
-	draw_color = variable_color
+	draw_color = GET_TRAIT_VALUE(src, TRAIT_OVERRIDE_SKIN_COLOUR)
 	if(should_draw_greyscale) //Should the limb be colored?
 		draw_color ||= (species_color) || (skin_tone && skintone2hex(skin_tone, include_tag = FALSE))
 
@@ -708,7 +775,7 @@
 		. += aux
 		. += emissive_blocker(limb.icon, "[limb_id]_[aux_zone]", CALCULATE_MOB_OVERLAY_LAYER(aux_layer), image_dir)
 
-	draw_color = variable_color
+	draw_color = GET_TRAIT_VALUE(src, TRAIT_OVERRIDE_SKIN_COLOUR)
 	if(should_draw_greyscale) //Should the limb be colored?
 		draw_color ||= (species_color) || (skin_tone && skintone2hex(skin_tone, include_tag = FALSE))
 
@@ -722,6 +789,180 @@
 
 	drop_organs()
 	return ..()
+
+/obj/item/bodypart/proc/run_limb_injuries(damage, damage_type, damage_flag, penetration_power)
+	var/current_damage = damage
+	if (!owner || damage <= 0)
+		return
+	// =====================================
+	// Calculate skin and bone strength
+	// =====================================
+	var/skin_rating = 1
+	var/bone_rating = 1
+	for (var/datum/injury/injury_graph as anything in injuries)
+		skin_rating *= injury_graph.skin_armour_modifier
+		bone_rating *= injury_graph.bone_armour_modifier
+	// =====================================
+	// Account for armour resistance
+	// =====================================
+	// Deal with armour, the penetration power gets flat reduced by the relevant armour stat
+	var/armour = owner.get_bodyzone_armor_flag(body_zone, ARMOUR_PENETRATION)
+	// Blunt armour from clothing is applied before we ever touch this proc
+	var/blunt_armour = 0
+	penetration_power -= armour
+	// Damage multiplier if unarmoured and taking penetration damage
+	damage += max(0, max(clamp(penetration_power, 0, 30) - blunt_armour, 0) / 30 * (UNPROTECTED_SHARPNESS_INJURY_MULTIPLIER - 1) * damage)
+	// Deal with base damage
+	current_damage = damage
+	// Innate resistance to injury damage when dead, prevent being completely impossible to revive
+	// due to so many injuries.
+	if (owner && owner.stat == DEAD)
+		current_damage *= 0.2
+	// If the penetration delta falls below -30, then we deal no blunt damage at all
+	if (current_damage < 0)
+		return
+	// Add in blunt armour from skin
+	blunt_armour += skin_rating * skin_blunt_armour
+	blunt_armour = clamp(blunt_armour, 0, 100)
+	// Calculate damages
+	var/proportion = CLAMP01(penetration_power / BLUNT_DAMAGE_START)
+	var/blunt_damage = (current_damage * (1 - proportion)) * BLUNT_DAMAGE_RATIO * ((100 - blunt_armour) / 100)
+	var/sharp_damage = current_damage * proportion
+	// Take sharp & blunt damage
+	for (var/datum/injury/injury_graph as anything in injuries)
+		injury_graph.apply_damage(sharp_damage, damage_type, damage_flag, TRUE)
+		// Burn damage affects the skin, not the bones
+		if (damage_type == BURN)
+			injury_graph.apply_damage(blunt_damage, damage_type, damage_flag, FALSE)
+	// =====================================
+	// Account for skin resistance
+	// =====================================
+	penetration_power -= rand(0, skin_penetration_resistance * skin_rating)
+	// Deflection - Permanently reduces damage
+	damage -= bone_deflection * bone_rating
+	current_damage = damage
+	if (current_damage <= 0)
+		return
+	// Add in blunt armour from bones
+	blunt_armour += bone_rating * bone_blunt_armour
+	blunt_armour = clamp(blunt_armour, 0, 100)
+	// Bone health
+	proportion = CLAMP01(penetration_power / BLUNT_DAMAGE_START)
+	blunt_damage = (current_damage * (1 - proportion)) * BLUNT_DAMAGE_RATIO * ((100 - blunt_armour) / 100)
+	if (damage_type != BURN)
+		for (var/datum/injury/injury_graph as anything in injuries)
+			injury_graph.apply_damage(blunt_damage, damage_type, damage_flag, FALSE)
+	// =====================================
+	// Account for bone resistance
+	// =====================================
+	penetration_power -= rand(0, bone_penetration_resistance * bone_rating)
+	current_damage = damage
+	// Organ damage
+	proportion = CLAMP01(penetration_power / BLUNT_DAMAGE_START)
+	sharp_damage = current_damage * proportion
+	blunt_damage = (current_damage * (1 - proportion)) * BLUNT_DAMAGE_RATIO
+	// If our bones are destroyed, then they will cause damage to organs when taking blunt hits
+	sharp_damage += blunt_damage * (1 - bone_rating)
+	if (sharp_damage <= 0)
+		return
+	// Damage organs
+	if (!HAS_TRAIT(owner, TRAIT_NO_ORGAN_PENETRATION))
+		for (var/slot in shuffle(organ_slots))
+			var/obj/item/organ/organ = owner.get_organ_slot(slot)
+			if (!organ)
+				continue
+			if (!prob(organ.organ_size))
+				continue
+			organ.applyOrganDamage(sharp_damage * ORGAN_DAMAGE_MULTIPLIER)
+			break
+	// Dismemberment
+	var/dismemberment_chance = (1 - bone_rating) * sharpness
+	// Can always be dismembered
+	if (HAS_TRAIT(owner, TRAIT_EASYDISMEMBER))
+		dismemberment_chance = sharpness
+	if (dismemberment_requires_death && bone_rating > 0.1)
+		dismemberment_chance = 0
+	if (dismemberable && prob(dismemberment_chance))
+		dismember(damage_type)
+
+/// Internal, do not move to transition injuries to another type
+/// since this completely removes the entire damage tree and the
+/// ability to be injured by that type of damage.
+/obj/item/bodypart/proc/remove_injury_tree(datum/injury/injury)
+	injuries -= injury
+	injury.remove_from_part(src)
+	if (owner && ishuman(owner))
+		injury.remove_from_human(owner)
+	qdel(injury)
+	check_effectiveness()
+
+/obj/item/bodypart/proc/get_injury_by_base(base_path)
+	for (var/datum/injury/injury in injuries)
+		if (injury.base_type == base_path)
+			return injury
+	return null
+
+/// Add a new injury to the set of injury trees on this bodypart
+/// Do not use this to set an injury, as the previous injury tree
+/// node has to be removed first, simply adding a new injury due
+/// to damage will result in multiple trees of that damage type.
+/obj/item/bodypart/proc/apply_injury_tree(injury_path, injury_base_path)
+	for (var/datum/injury/injury in injuries)
+		if (injury.type == injury_path)
+			return
+	var/datum/injury/injury = new injury_path()
+	injury.base_type = injury_base_path || injury_path
+	injuries += injury
+	injury.bodypart = src
+	injury.gained_time = world.time
+	injury.apply_to_part(src)
+	if (owner && ishuman(owner))
+		injury.apply_to_human(owner)
+	check_effectiveness()
+
+/obj/item/bodypart/proc/get_skin_multiplier()
+	var/rate = 1
+	for (var/datum/injury/injury in injuries)
+		rate *= injury.skin_armour_modifier
+	return rate
+
+/obj/item/bodypart/proc/get_bone_multiplier()
+	var/rate = 1
+	for (var/datum/injury/injury in injuries)
+		rate *= injury.bone_armour_modifier
+	return rate
+
+/obj/item/bodypart/proc/check_effectiveness()
+	check_destroyed()
+	if (destroyed)
+		effectiveness = 0
+		clear_effectiveness_modifiers()
+		update_effectiveness()
+		return
+	effectiveness = initial(effectiveness)
+	for (var/datum/injury/injury in injuries)
+		effectiveness *= injury.effectiveness_modifier
+	if (!owner)
+		return
+	clear_effectiveness_modifiers()
+	update_effectiveness()
+
+/obj/item/bodypart/proc/update_effectiveness()
+	return
+
+/obj/item/bodypart/proc/clear_effectiveness_modifiers()
+	return
+
+/obj/item/bodypart/proc/check_destroyed()
+	if (destroyed)
+		return
+	for (var/datum/injury/injury_graph as anything in injuries)
+		if (injury_graph.skin_armour_modifier && injury_graph.bone_armour_modifier)
+			continue
+		destroyed = TRUE
+		if (owner)
+			to_chat(owner, span_userdanger("Your [name] falls limp and unresponsive!"))
+		update_disabled()
 
 ///A multi-purpose setter for all things immediately important to the icon and iconstate of the limb.
 /obj/item/bodypart/proc/change_appearance(icon, id, greyscale, dimorphic)

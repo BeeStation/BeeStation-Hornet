@@ -6,20 +6,24 @@
 	throw_speed = 3
 	throw_range = 5
 	layer = ABOVE_MOB_LAYER
-	zone = BODY_ZONE_HEAD
 	slot = ORGAN_SLOT_BRAIN
 	organ_flags = ORGAN_VITAL|ORGAN_EDIBLE
 	attack_verb_continuous = list("attacks", "slaps", "whacks")
 	attack_verb_simple = list("attack", "slap", "whack")
 
-	///The brain's organ variables are significantly more different than the other organs, with half the decay rate for balance reasons, and twice the maxHealth
-	decay_factor = STANDARD_ORGAN_DECAY	/ 2		//30 minutes of decaying to result in a fully damaged brain, since a fast decay rate would be unfun gameplay-wise
+	healing_factor = 0
+
+	// 10 minutes of survival time before total brain death
+	decay_factor = STANDARD_ORGAN_DECAY
 
 	maxHealth	= BRAIN_DAMAGE_DEATH
 	low_threshold = 45
 	high_threshold = 120
 
 	organ_traits = list(TRAIT_ADVANCEDTOOLUSER)
+
+	/// Amount of consciousness provided by this brain
+	var/consciousness_rating = 100
 
 	var/suicided = FALSE
 	var/mob/living/brain/brainmob = null
@@ -225,12 +229,21 @@
 	return FALSE
 
 /obj/item/organ/brain/on_life(delta_time, times_fired)
-	SHOULD_CALL_PARENT(FALSE)
+	..()
 	if(damage >= BRAIN_DAMAGE_DEATH) //rip
 		to_chat(owner, span_userdanger("The last spark of life in your brain fizzles out."))
 		owner.investigate_log("has been killed by brain damage.", INVESTIGATE_DEATHS)
 		owner.death()
 		brain_death = TRUE
+
+/obj/item/organ/brain/update_hypoxia(hypoxia)
+	// Effects of hypoxia on the brain:
+	// - Headache
+	// - Light-headedness
+	// - Confusion
+	consciousness_rating = (initial(consciousness_rating) - HEALTH_THRESHOLD_DEAD) * (1 - (hypoxia / maxHealth)) + HEALTH_THRESHOLD_DEAD
+	if (owner)
+		SEND_SIGNAL(owner, COMSIG_MOB_BRAIN_CONSCIOUSNESS_UPDATE, consciousness_rating)
 
 /obj/item/organ/brain/check_damage_thresholds(mob/M)
 	. = ..()
@@ -276,6 +289,45 @@
 		remove_trauma_from_traumas(trauma)
 		replacement_brain.add_trauma_to_traumas(trauma)
 
+/obj/item/organ/brain/proc/stat_conscious(previous_stat)
+	REMOVE_TRAIT(owner, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, STAT_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, STAT_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_FLOORED, STAT_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_INCAPACITATED, STAT_TRAIT)
+	owner.cure_blind(UNCONSCIOUS_TRAIT)
+	owner.remove_status_effect(/datum/status_effect/critical_condition)
+
+/obj/item/organ/brain/proc/stat_crit(previous_stat)
+	// As soon as we fall unconscious, we instantly take the maximum amount of consciousness damage
+	if (previous_stat == CONSCIOUS)
+		owner.take_consciousness_damage(INFINITY)
+	REMOVE_TRAIT(owner, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, STAT_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, STAT_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_FLOORED, STAT_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_INCAPACITATED, STAT_TRAIT)
+	owner.cure_blind(UNCONSCIOUS_TRAIT)
+	owner.apply_status_effect(/datum/status_effect/critical_condition)
+
+/obj/item/organ/brain/proc/stat_hard_crit(previous_stat)
+	owner.remove_status_effect(/datum/status_effect/critical_condition)
+	ADD_TRAIT(owner, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, STAT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, STAT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_FLOORED, STAT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_INCAPACITATED, STAT_TRAIT)
+	owner.become_blind(UNCONSCIOUS_TRAIT)
+
+/obj/item/organ/brain/proc/stat_dead(previous_stat)
+	owner.remove_status_effect(/datum/status_effect/critical_condition)
+	REMOVE_TRAIT(owner, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, STAT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, STAT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_FLOORED, STAT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_INCAPACITATED, STAT_TRAIT)
+	owner.become_blind(UNCONSCIOUS_TRAIT)
+
 /obj/item/organ/brain/alien
 	name = "alien brain"
 	desc = "We barely understand the brains of terrestial animals. Who knows what we may find in the brain of such an advanced species?"
@@ -298,7 +350,6 @@
 /obj/item/organ/brain/positron
 	name = "positronic brain"
 	slot = ORGAN_SLOT_BRAIN
-	zone = BODY_ZONE_CHEST
 	status = ORGAN_ROBOTIC
 	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves. It has an IPC serial number engraved on the top. In order for this Posibrain to be used as a newly built Positronic Brain, it must be coupled with an MMI."
 	icon = 'icons/obj/assemblies.dmi'
@@ -318,6 +369,38 @@
 /obj/item/organ/brain/positron/emp_act(severity)
 	owner.apply_status_effect(/datum/status_effect/ipc/emp)
 	to_chat(owner, span_warning("Alert: Posibrain function disrupted."))
+
+/obj/item/organ/brain/positron/stat_conscious(previous_stat)
+	REMOVE_TRAIT(owner, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, STAT_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, STAT_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_FLOORED, STAT_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_INCAPACITATED, STAT_TRAIT)
+	owner.cure_blind(UNCONSCIOUS_TRAIT)
+
+/obj/item/organ/brain/positron/stat_crit(previous_stat)
+	ADD_TRAIT(owner, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, STAT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_FLOORED, STAT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_INCAPACITATED, STAT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, STAT_TRAIT)
+	owner.cure_blind(UNCONSCIOUS_TRAIT)
+
+/obj/item/organ/brain/positron/stat_hard_crit(previous_stat)
+	ADD_TRAIT(owner, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, STAT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, STAT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_FLOORED, STAT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_INCAPACITATED, STAT_TRAIT)
+	owner.become_blind(UNCONSCIOUS_TRAIT)
+
+/obj/item/organ/brain/positron/stat_dead(previous_stat)
+	REMOVE_TRAIT(owner, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, STAT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, STAT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_FLOORED, STAT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_INCAPACITATED, STAT_TRAIT)
+	owner.become_blind(UNCONSCIOUS_TRAIT)
 
 ////////////////////////////////////TRAUMAS////////////////////////////////////////
 
