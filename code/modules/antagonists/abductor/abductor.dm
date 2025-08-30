@@ -1,5 +1,5 @@
 /datum/antagonist/abductor
-	name = "Abductor"
+	name = "\improper Abductor"
 	roundend_category = "abductors"
 	antagpanel_category = "Abductor"
 	banning_key = ROLE_ABDUCTOR
@@ -11,9 +11,11 @@
 	var/outfit
 	var/landmark_type
 	var/greet_text
+	/// Type path for the associated job datum.
+	var/role_job = /datum/job/abductor_agent
 
 /datum/antagonist/abductor/agent
-	name = "Abductor Agent"
+	name = "\improper Abductor Agent"
 	sub_role = "Agent"
 	outfit = /datum/outfit/abductor/agent
 	landmark_type = /obj/effect/landmark/abductor/agent
@@ -22,17 +24,19 @@
 	ui_name = "AntagInfoAbductorAgent"
 
 /datum/antagonist/abductor/scientist
-	name = "Abductor Scientist"
+	name = "\improper Abductor Scientist"
 	sub_role = "Scientist"
 	outfit = /datum/outfit/abductor/scientist
 	landmark_type = /obj/effect/landmark/abductor/scientist
 	greet_text = "Use your experimental console and surgical equipment to monitor your agent and experiment upon abducted humans."
 	show_in_antagpanel = TRUE
 	ui_name = "AntagInfoAbductorScientist"
+	role_job = /datum/job/abductor_scientist
 
 /datum/antagonist/abductor/scientist/solo
-	name = "Lone Abductor"
+	name = "\improper Lone Abductor"
 	outfit = /datum/outfit/abductor/scientist/solo
+	role_job = /datum/job/abductor_solo
 
 /datum/antagonist/abductor/create_team(datum/team/abductor_team/new_team)
 	if(!new_team)
@@ -45,8 +49,8 @@
 	return team
 
 /datum/antagonist/abductor/on_gain()
+	owner.set_assigned_role(SSjob.GetJobType(role_job))
 	owner.special_role = ROLE_ABDUCTOR
-	owner.assigned_role = ROLE_ABDUCTOR
 	objectives += team.objectives
 	for(var/datum/objective/O in objectives)
 		log_objective(owner.current, O.explanation_text)
@@ -55,14 +59,12 @@
 	return ..()
 
 /datum/antagonist/abductor/on_removal()
-	if(owner.current)
-		to_chat(owner.current,span_userdanger("You are no longer the [owner.special_role]!"))
 	owner.special_role = null
 	REMOVE_TRAIT(owner, TRAIT_ABDUCTOR_TRAINING, ABDUCTOR_ANTAGONIST)
 	return ..()
 
 /datum/antagonist/abductor/greet()
-	to_chat(owner.current, span_notice("You are the [owner.special_role]!"))
+	. = ..()
 	to_chat(owner.current, span_notice("With the help of your teammate, kidnap and experiment on station crew members!"))
 	to_chat(owner.current, span_notice("There are two of you! One can monitor cameras while the other infiltrates the station."))
 	to_chat(owner.current, span_notice("Choose a worthy disguise and plan your targets carefully! Humans will kill you on sight."))
@@ -180,7 +182,7 @@
 	return "<div class='panel redborder'>[result.Join("<br>")]</div>"
 
 /datum/antagonist/abductee
-	name = "Abductee"
+	name = "\improper Abductee"
 	roundend_category = "abductees"
 	antagpanel_category = "Abductee"
 	banning_key = UNBANNABLE_ANTAGONIST

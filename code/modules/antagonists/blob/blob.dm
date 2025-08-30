@@ -1,5 +1,5 @@
 /datum/antagonist/blob
-	name = "Blob"
+	name = "\improper Blob"
 	roundend_category = "blobs"
 	antagpanel_category = "Blob"
 	show_to_ghosts = TRUE

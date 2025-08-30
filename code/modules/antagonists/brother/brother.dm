@@ -1,5 +1,5 @@
 /datum/antagonist/brother
-	name = "Brother"
+	name = "\improper Brother"
 	antagpanel_category = "Brother"
 	banning_key = ROLE_BROTHER
 	required_living_playtime = 4
@@ -27,8 +27,6 @@
 	return ..()
 
 /datum/antagonist/brother/on_removal()
-	if(owner.current)
-		to_chat(owner.current,span_userdanger("You are no longer the Blood Brother!"))
 	owner.special_role = null
 	return ..()
 

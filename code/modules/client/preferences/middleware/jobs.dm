@@ -40,7 +40,7 @@
 	var/list/departments = list()
 	var/list/jobs = list()
 
-	for (var/datum/job/job as anything in SSjob.occupations)
+	for (var/datum/job/job as anything in SSjob.joinable_occupations)
 		if(!job.show_in_prefs)
 			continue
 		if(job.lock_flags & ~JOB_LOCK_REASON_MAP) // anything but map reason shouldn't be visible
@@ -105,7 +105,7 @@
 	var/list/job_days_left = list()
 	var/list/job_required_experience = list()
 
-	for (var/datum/job/job as anything in SSjob.occupations)
+	for (var/datum/job/job as anything in SSjob.all_occupations)
 		if(!job.show_in_prefs)
 			continue
 		var/required_playtime_remaining = job.required_playtime_remaining(user.client)
@@ -131,7 +131,7 @@
 /datum/preference_middleware/jobs/proc/get_job_bans(mob/user)
 	var/list/data = list()
 
-	for (var/datum/job/job as anything in SSjob.occupations)
+	for (var/datum/job/job as anything in SSjob.all_occupations)
 		if (is_banned_from(user.client?.ckey, job.title))
 			data += job.title
 

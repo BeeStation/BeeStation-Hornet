@@ -636,8 +636,7 @@
 
 	dat += "<table>"
 
-	for(var/j in SSjob.occupations)
-		var/datum/job/job = j
+	for(var/datum/job/job as anything in SSjob.joinable_occupations)
 		count++
 		var/J_title = html_encode(job.title)
 		var/job_positions = job.get_spawn_position_count()

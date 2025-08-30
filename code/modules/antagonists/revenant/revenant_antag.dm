@@ -1,5 +1,5 @@
 /datum/antagonist/revenant
-	name = "Revenant"
+	name = "\improper Revenant"
 	show_in_antagpanel = FALSE
 	show_name_in_check_antagonists = TRUE
 	show_to_ghosts = TRUE
@@ -8,6 +8,7 @@
 	required_living_playtime = 4
 
 /datum/antagonist/revenant/greet()
+	. = ..()
 	owner.announce_objectives()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Revenant",
 		"You are a spirit that has managed to stay in the mortal realm. Take vengance on those that walk this plane without you.")

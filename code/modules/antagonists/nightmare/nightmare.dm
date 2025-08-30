@@ -1,5 +1,5 @@
 /datum/antagonist/nightmare
-	name = "Nightmare"
+	name = "\improper Nightmare"
 	show_in_antagpanel = TRUE
 	show_to_ghosts = TRUE
 	banning_key = ROLE_NIGHTMARE

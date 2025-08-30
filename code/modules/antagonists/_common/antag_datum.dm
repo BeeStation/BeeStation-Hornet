@@ -3,7 +3,7 @@ GLOBAL_LIST(admin_antag_list)
 
 /datum/antagonist
 	var/tips
-	var/name = "Antagonist"
+	var/name = "\improper Antagonist"
 	var/roundend_category = "other antagonists"				//Section of roundend report, datums with same category will be displayed together, also default header for the section
 	var/show_in_roundend = TRUE								//Set to false to hide the antagonists from roundend report
 	var/prevent_roundtype_conversion = TRUE		//If false, the roundtype will still convert with this antag active
@@ -183,10 +183,16 @@ GLOBAL_LIST(admin_antag_list)
 	qdel(src)
 
 /datum/antagonist/proc/greet()
-	return
+	if(!silent)
+		to_chat(owner.current, span_big("You are \the [src]."))
 
+/**
+ * Proc that sends fluff or instructional messages to the player when they lose this antag datum.
+ * Use this proc for playing sounds, sending alerts, or otherwise informing the player that they're no longer a specific antagonist type.
+ */
 /datum/antagonist/proc/farewell()
-	return
+	if(!silent)
+		to_chat(owner.current, span_userdanger("You are no longer \the [src]!"))
 
 /// gets antag name for orbit category. Reasoning is described in each subtype
 /datum/antagonist/proc/get_antag_name()

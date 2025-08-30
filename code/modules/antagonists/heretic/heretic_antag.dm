@@ -139,6 +139,7 @@
 	return ..()
 
 /datum/antagonist/heretic/greet()
+	. = ..()
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/heretic/heretic_gain.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)//subject to change
 	var/list/msg = list()
 	msg += span_big("You are the [span_boldumbra("Heretic")]!")

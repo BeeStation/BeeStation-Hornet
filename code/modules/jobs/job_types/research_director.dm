@@ -32,6 +32,7 @@
 
 	display_order = JOB_DISPLAY_ORDER_RESEARCH_DIRECTOR
 	rpg_title = "Archmagister"
+	job_flags = JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/rd

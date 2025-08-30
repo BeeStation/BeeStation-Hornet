@@ -173,8 +173,8 @@
 	return /obj/machinery/nuclearbomb
 
 /datum/dynamic_ruleset/midround/ghost/nuclear_assault/finish_setup(mob/new_character)
-	new_character.mind.special_role = ROLE_OPERATIVE
-	new_character.mind.assigned_role = ROLE_OPERATIVE
+	new_character.mind.set_assigned_role(/datum/job/nuclear_operative)
+	new_character.mind.special_role = ROLE_NUCLEAR_OPERATIVE
 
 	if(has_made_leader)
 		return ..()
@@ -347,6 +347,10 @@
 
 	return nightmare_body
 
+/datum/dynamic_ruleset/midround/ghost/nightmare/finish_setup(mob/new_character)
+	. = ..()
+	new_character.mind.set_assigned_role(/datum/job/nightmare)
+
 //////////////////////////////////////////////
 //                                          //
 //            ABDUCTORS (MEDIUM)            //
@@ -369,9 +373,6 @@
 	return /obj/item/melee/baton/abductor
 
 /datum/dynamic_ruleset/midround/ghost/abductors/finish_setup(mob/new_character)
-	new_character.mind.special_role = ROLE_ABDUCTOR
-	new_character.mind.assigned_role = ROLE_ABDUCTOR
-
 	if(!has_made_leader)
 		has_made_leader = TRUE
 		team = new
@@ -400,8 +401,8 @@
 	return /obj/item/melee/baton/abductor
 
 /datum/dynamic_ruleset/midround/ghost/lone_abductor/finish_setup(mob/new_character)
+	new_character.mind.set_assigned_role(/datum/job/abductor_solo)
 	new_character.mind.special_role = ROLE_ABDUCTOR
-	new_character.mind.assigned_role = ROLE_ABDUCTOR
 
 	team = new
 	new_character.mind.add_antag_datum(antag_datum, team)

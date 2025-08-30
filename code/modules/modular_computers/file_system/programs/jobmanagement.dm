@@ -105,8 +105,7 @@
 	data["authed"] = authed
 
 	var/list/pos = list()
-	for(var/j in SSjob.occupations)
-		var/datum/job/job = j
+	for(var/datum/job/job as anything in SSjob.joinable_occupations)
 		if(job_blacklisted(job.title))
 			continue
 

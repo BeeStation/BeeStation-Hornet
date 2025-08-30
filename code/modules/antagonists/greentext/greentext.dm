@@ -1,5 +1,5 @@
 /datum/antagonist/greentext
-	name = "winner"
+	name = "\improper winner"
 	show_in_antagpanel = FALSE
 	show_name_in_check_antagonists = TRUE //Not that it will be there for long
 	banning_key = UNBANNABLE_ANTAGONIST
