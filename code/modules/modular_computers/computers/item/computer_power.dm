@@ -47,7 +47,7 @@
 
 /obj/item/modular_computer/proc/battery_explosion()
 	var/obj/item/computer_hardware/battery/controler = all_components[MC_CELL]
-	if(controler.battery)	// If the battery controler is hacked the battery just fucking explodes
+	if(controler.battery)	// If the battery controler is hacked it just fucking explodes
 		var/turf/current_turf = get_turf(src)
 		if(ismob(loc))
 			var/mob/victim = loc
@@ -58,7 +58,7 @@
 		playsound(src, "sparks", 50, 1)
 		if(current_turf)
 			current_turf.hotspot_expose(700, 125)
-		switch(controler.battery.rating)
+		switch(controler.rating)
 			if(PART_TIER_1)
 				explosion(src, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 2, flash_range = 1)
 			if(PART_TIER_2)
@@ -69,7 +69,6 @@
 				explosion(src, devastation_range = -1, heavy_impact_range = 1, light_impact_range = 2, flash_range = 3, flame_range = 2)
 			if(PART_TIER_5)
 				explosion(src, devastation_range = -1, heavy_impact_range = 2, light_impact_range = 3, flash_range = 4, flame_range = 3)
-		qdel(controler.battery)
 		controler.component_qdel()
 		update_appearance()
 

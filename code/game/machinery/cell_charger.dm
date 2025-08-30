@@ -14,6 +14,7 @@
 	var/charge_rate = 250
 	var/static/list/allowed_items = list(
 		/obj/item/stock_parts/cell,
+		/obj/item/computer_hardware/battery,
 		/obj/item/modular_computer/tablet)
 
 /obj/machinery/cell_charger/update_overlays()
