@@ -3,13 +3,15 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 /proc/meta_gas_list()
 	. = subtypesof(/datum/gas)
 	for(var/gas_path in .)
-		var/list/gas_info = new(13)
+		var/list/gas_info = new(15)
 		var/datum/gas/gas = gas_path
 
 		gas_info[META_GAS_SPECIFIC_HEAT] = initial(gas.specific_heat)
 		gas_info[META_GAS_NAME] = initial(gas.name)
 
 		gas_info[META_GAS_MOLES_VISIBLE] = initial(gas.moles_visible)
+		gas_info[META_GAS_RIG_SHIELDING_POWER] = initial(gas.gasrig_shielding_power)
+		gas_info[META_GAS_RIG_SHIELDING_MODIFIER] = initial(gas.gasrig_shielding_modifier)
 		if(initial(gas.moles_visible) != null)
 			gas_info[META_GAS_OVERLAY] = generate_gas_overlay(gas)
 
