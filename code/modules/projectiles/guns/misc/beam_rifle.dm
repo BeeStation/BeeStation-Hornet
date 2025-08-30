@@ -291,25 +291,19 @@
 	process_aim()
 	if(aiming_time_left <= aiming_time_fire_threshold && check_user())
 		sync_ammo()
-		afterattack(object, M, FALSE, params, passthrough = TRUE)
+		pull_trigger(object, M, params, passthrough = TRUE)
 	stop_aiming()
 	QDEL_LIST(current_tracers)
 	return ..()
 
-/obj/item/gun/energy/beam_rifle/afterattack(atom/target, mob/living/user, flag, params, passthrough = FALSE)
-	if(flag) //It's adjacent, is the user, or is on the user's person
-		if(target in user.contents) //can't shoot stuff inside us.
-			return
-		if(!ismob(target) || user.combat_mode) //melee attack
-			return
-		if(target == user && !user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH)) //so we can't shoot ourselves (unless mouth selected)
-			return
+/obj/item/gun/energy/beam_rifle/pull_trigger(atom/target, mob/living/user, params, aimed, passthrough = FALSE)
 	if(!passthrough && (aiming_time > aiming_time_fire_threshold))
-		return
+		return FALSE
 	if(lastfire > world.time + delay)
-		return
+		return FALSE
 	lastfire = world.time
-	. = ..()
+	if (!..())
+		return FALSE
 	stop_aiming()
 
 /obj/item/gun/energy/beam_rifle/proc/sync_ammo()
