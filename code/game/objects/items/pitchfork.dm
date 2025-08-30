@@ -6,8 +6,9 @@
 	desc = "A simple tool used for moving hay."
 	force = 7
 	throwforce = 15
-	block_level = 1
-	block_upgrade_walk = TRUE
+	canblock = TRUE
+	block_flags = BLOCKING_ACTIVE | BLOCKING_COUNTERATTACK
+
 	w_class = WEIGHT_CLASS_BULKY
 	item_flags = ISWEAPON
 	attack_verb_continuous = list("attacks", "impales", "pierces")
@@ -31,3 +32,8 @@
 /obj/item/pitchfork/update_icon()
 	icon_state = "pitchfork0"
 	..()
+
+/obj/item/pitchfork/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
+	if(ISWIELDED(src))
+		return ..()
+	return FALSE

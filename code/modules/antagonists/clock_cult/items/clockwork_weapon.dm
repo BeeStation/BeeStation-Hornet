@@ -7,8 +7,8 @@
 	worn_icon_state = "baguette"
 	item_flags = ABSTRACT
 	block_flags = BLOCKING_NASTY | BLOCKING_ACTIVE
-	block_level = 1	//God blocking is actual aids to deal with, I am sorry for putting this here
-	block_upgrade_walk = TRUE
+	canblock = TRUE	//God blocking is actual aids to deal with, I am sorry for putting this here
+
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
 	item_flags = ISWEAPON

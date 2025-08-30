@@ -180,9 +180,10 @@
 	)
 	force = 30
 	throwforce = 15
-	block_level = 2
-	block_upgrade_walk = TRUE
-	block_power = 55
+	canblock = TRUE
+	block_power = 0
+	block_flags = BLOCKING_ACTIVE | BLOCKING_UNBLOCKABLE
+
 	attack_weight = 2
 	armour_penetration = 80
 	//wound_bonus = -50
