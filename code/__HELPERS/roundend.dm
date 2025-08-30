@@ -297,7 +297,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 	SSdbcore.SetRoundEnd()
 
 	//Collects persistence features
-	SSpersistence.CollectData()
+	SSpersistence.collect_data()
 	SSpersistent_paintings.save_paintings()
 
 	//stop collecting feedback during grifftime
