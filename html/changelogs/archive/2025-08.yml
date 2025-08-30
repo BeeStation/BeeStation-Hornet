@@ -433,3 +433,17 @@
   - bugfix: Fixes items not doing thrown damage to objects and turfs
   - bugfix: Fixes items not burning in lava when thrown
   - bugfix: Fixes items not entering disposals when thrown
+2025-08-29:
+  PowerfulBacon:
+  - bugfix: Fixes the chem dispenser filters not being usable.
+  - bugfix: Fixes log button on the NTOS notepad not working.
+  - bugfix: Fixes the filter button on the admin requests panel not working.
+  - bugfix: Fixes the behaviour of manually racking guns.
+  wikimody:
+  - rscadd: Added new drill emiter, made by using screwdriver on emiter circuit board
+  - balance: Emitters now have higher damage with higher tier micro laser parts (guns
+      inside them get the damage increase to)
+  - balance: Under Ruko orders both emitters deal 75% reduced damage against blob
+  - rscdel: Removed proto emitter do to being unused
+  - tweak: Non hitscan emitter projectiles are now removed, this in practice only
+      changes anomalius crystal one interaction
