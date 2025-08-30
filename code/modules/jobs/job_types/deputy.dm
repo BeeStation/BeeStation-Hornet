@@ -48,3 +48,7 @@
 	desc = "A small card, that when used on an ID, will grant basic security access, and the job title of 'Deputy.'"
 	assignment = JOB_NAME_DEPUTY
 	access = list(ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_BRIG, ACCESS_WEAPONS)
+
+/obj/item/card/id/pass/deputy/on_applied()
+	ADD_TRAIT(usr.mind, TRAIT_SECURITY, JOB_TRAIT)
+	..()

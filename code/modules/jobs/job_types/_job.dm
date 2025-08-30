@@ -500,11 +500,6 @@
 		if (SSjob.is_job_empty(JOB_NAME_CAPTAIN))
 			. |= ACCESS_HEADS
 			. |= ACCESS_KEYCARD_AUTH
-		// Access to security basics (get captain for guns)
-		if (SSjob.is_job_empty(JOB_NAME_SECURITYOFFICER))
-			. |= list(
-				ACCESS_SECURITY, ACCESS_BRIG, ACCESS_SEC_DOORS
-			)
 		// Access to science
 		if (SSjob.is_job_empty(JOB_NAME_SCIENTIST))
 			. |= list(
