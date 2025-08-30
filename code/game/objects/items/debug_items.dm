@@ -9,6 +9,7 @@
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	var/datum/species/selected_species
+	var/datum/outfit/selected_outfit = null
 
 /obj/item/debug/human_spawner/afterattack(atom/target, mob/user, proximity)
 	..()
@@ -16,11 +17,21 @@
 		var/mob/living/carbon/human/H = new /mob/living/carbon/human(target)
 		if(selected_species)
 			H.set_species(selected_species)
+		if (selected_outfit)
+			H.equipOutfit(selected_outfit)
+
+/obj/item/debug/human_spawner/afterattack_secondary(atom/target, mob/user, proximity_flag, click_parameters)
+	var/datum/select_equipment/ui = new(usr, CALLBACK(src, PROC_REF(set_outfit)))
+	ui.ui_interact(usr)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 /obj/item/debug/human_spawner/attack_self(mob/user)
 	..()
 	var/choice = tgui_input_list(user, "Select a species", "Human Spawner", GLOB.species_list)
 	selected_species = GLOB.species_list[choice]
+
+/obj/item/debug/human_spawner/proc/set_outfit(datum/outfit/outfit)
+	selected_outfit = outfit
 
 /obj/item/debug/omnitool
 	name = "omnitool"

@@ -21,6 +21,7 @@
 /datum/select_equipment
 	var/client/user
 	var/mob/target_mob
+	var/datum/callback/after_selected
 
 	var/dummy_key
 	var/mob/living/carbon/human/dummy/dummy
@@ -34,13 +35,19 @@
 	//serializable string for the UI to keep track of which outfit is selected
 	var/selected_identifier = "/datum/outfit"
 
-/datum/select_equipment/New(_user, mob/target)
+/datum/select_equipment/New(_user, handler)
 	user = CLIENT_FROM_VAR(_user)
 
-	if(!ishuman(target) && !isobserver(target))
-		tgui_alert(usr,"Invalid mob")
-		return
-	target_mob = target
+	var/mob/target = handler
+	if (istype(target))
+		if(!ishuman(target) && !isobserver(target))
+			tgui_alert(usr,"Invalid mob")
+			return
+		target_mob = target
+	else if (istype(handler, /datum/callback))
+		after_selected = handler
+	else
+		CRASH("Invalid call to select equipment, must pass either a mob or a callback.")
 
 /datum/select_equipment/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -53,7 +60,7 @@
 	return GLOB.admin_state
 
 /datum/select_equipment/ui_status(mob/user, datum/ui_state/state)
-	if(QDELETED(target_mob))
+	if(QDELETED(target_mob) && !after_selected)
 		return UI_CLOSE
 	return ..()
 
@@ -62,8 +69,8 @@
 	qdel(src)
 
 /datum/select_equipment/proc/init_dummy()
-	dummy_key = "selectequipmentUI_[target_mob]"
-	generate_dummy_lookalike(dummy_key, target_mob)
+	dummy_key = "selectequipmentUI_[target_mob || user.ckey]"
+	generate_dummy_lookalike(dummy_key, target_mob || user.mob)
 	unset_busy_human_dummy(dummy_key)
 	return
 
@@ -114,7 +121,7 @@
 		dummy_key = dummy_key,
 		outfit_override = selected_outfit)
 	data["icon64"] = icon2base64(dummysprite)
-	data["name"] = target_mob
+	data["name"] = target_mob || user
 
 	var/datum/preferences/prefs = user?.client?.prefs
 	data["favorites"] = list()
@@ -179,7 +186,10 @@
 				new_outfit = new new_outfit
 			if(!istype(new_outfit))
 				return
-			user.admin_apply_outfit(target_mob, new_outfit)
+			if (after_selected)
+				after_selected.Invoke(new_outfit)
+			else
+				user.admin_apply_outfit(target_mob, new_outfit)
 
 		if("customoutfit")
 			user.outfit_manager()

@@ -171,7 +171,7 @@
 	if (get_damage() >= max_damage)
 		destroyed = TRUE
 		update_disabled()
-		return STOP_PROCESSING
+		return PROCESS_KILL
 
 /obj/item/bodypart/forceMove(atom/destination) //Please. Never forcemove a limb if its's actually in use. This is only for borgs.
 	. = ..()
