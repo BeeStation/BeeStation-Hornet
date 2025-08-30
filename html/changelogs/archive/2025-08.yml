@@ -447,3 +447,6 @@
   - rscdel: Removed proto emitter do to being unused
   - tweak: Non hitscan emitter projectiles are now removed, this in practice only
       changes anomalius crystal one interaction
+2025-08-30:
+  NanoTrasen-Inc, JackieOTheWisp:
+  - rscadd: Added 2 new options on the synthesizer's fun tab! The Meowsyth and Spaceman!
