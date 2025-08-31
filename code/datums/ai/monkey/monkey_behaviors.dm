@@ -114,7 +114,7 @@
 
 	var/mob/living/living_pawn = controller.pawn
 
-	if(living_pawn.health >= MONKEY_FLEE_HEALTH)
+	if(living_pawn.consciousness.value >= MONKEY_FLEE_HEALTH)
 		finish_action(controller, TRUE) //we're back in bussiness
 		return
 

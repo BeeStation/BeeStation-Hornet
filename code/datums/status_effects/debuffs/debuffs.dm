@@ -11,15 +11,7 @@
 /datum/status_effect/incapacitating/on_creation(mob/living/new_owner, set_duration)
 	if(isnum_safe(set_duration))
 		duration = set_duration
-	. = ..()
-	if(. && (needs_update_stat || issilicon(owner)))
-		owner.update_stat()
-
-/datum/status_effect/incapacitating/on_remove()
-	if(needs_update_stat || issilicon(owner)) //silicons need stat updates in addition to normal canmove updates
-		owner.update_stat()
 	return ..()
-
 
 //STUN
 /datum/status_effect/incapacitating/stun
@@ -88,7 +80,6 @@
 	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
 	return ..()
 
-
 //UNCONSCIOUS
 /datum/status_effect/incapacitating/unconscious
 	id = "unconscious"
@@ -107,7 +98,6 @@
 /datum/status_effect/incapacitating/unconscious/tick()
 	if(owner.getStaminaLoss())
 		owner.adjustStaminaLoss(-0.3) //reduce stamina loss by 0.3 per tick, 6 per 2 seconds
-
 
 //SLEEPING
 /datum/status_effect/incapacitating/sleeping
@@ -142,7 +132,7 @@
 
 /datum/status_effect/incapacitating/sleeping/tick()
 	if(owner.maxHealth)
-		var/health_ratio = owner.health / owner.maxHealth
+		var/health_ratio = owner.consciousness.value / owner.consciousness.max_value
 		if(health_ratio > 0.8)
 			var/healing = -0.2
 			if((locate(/obj/structure/bed) in owner.loc))
@@ -159,7 +149,7 @@
 	if(prob(20))
 		if(carbon_owner)
 			carbon_owner.handle_dreams()
-		if(prob(10) && owner.health > owner.crit_threshold)
+		if(prob(10) && owner.consciousness.value > owner.crit_threshold)
 			owner.emote("snore")
 
 /atom/movable/screen/alert/status_effect/asleep
@@ -908,7 +898,7 @@
 		// And roughly 75% of their items will take a smack, too
 		for(var/obj/item/thing in carbon_owner.get_all_gear())
 			if(!QDELETED(thing) && prob(75) && !istype(thing, /obj/item/grenade))
-				thing.take_damage(100)
+				thing.deal_damage(100, 0, BRUTE, DAMAGE_ACID)
 	return ..()
 
 /datum/status_effect/corrosion_curse

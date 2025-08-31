@@ -9,7 +9,6 @@
 	damage_coeff = list(BRUTE = 1, BURN = 2, TOX = -1, CLONE = 0, STAMINA = 0, OXY = 0) //can't be eaten by slimes, and healed by toxin damage
 	turns_per_move = 5
 	maxHealth = 4
-	health = 4
 	melee_damage = 3
 	obj_damage = 0
 	attack_verb_continuous = "bites"

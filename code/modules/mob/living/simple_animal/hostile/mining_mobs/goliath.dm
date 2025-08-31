@@ -19,7 +19,6 @@
 	vision_range = 4
 	speed = 3
 	maxHealth = 150
-	health = 150
 	obj_damage = 100
 	melee_damage = 25
 	attack_verb_continuous = "pulverizes"
@@ -101,7 +100,6 @@
 	butcher_results = list(/obj/item/food/meat/slab/goliath = 2, /obj/item/stack/sheet/bone = 2)
 	guaranteed_butcher_results = list(/obj/item/stack/sheet/animalhide/goliath_hide = 1)
 	loot = list()
-	stat_attack = HARD_CRIT
 	robust_searching = 1
 
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/random/Initialize(mapload)
@@ -118,7 +116,6 @@
 	icon_aggro = "Goliath_alert"
 	icon_dead = "Goliath_dead"
 	maxHealth = 200
-	health = 200
 	speed = 4
 	pre_attack_icon = "Goliath_preattack"
 	throw_message = "does nothing to the rocky hide of the"

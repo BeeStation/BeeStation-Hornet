@@ -1,7 +1,6 @@
 /mob/living/simple_animal
 	name = "animal"
 	icon = 'icons/mob/animal.dmi'
-	health = 20
 	maxHealth = 20
 	gender = PLURAL //placeholder
 	living_flags = MOVES_ON_ITS_OWN
@@ -59,7 +58,7 @@
 	///how much damage this simple animal does to objects, if any.
 	var/obj_damage = 0
 	///How much armour they ignore, as a flat reduction from the targets armour value.
-	var/armour_penetration = 0
+	var/sharpness = 0
 	///Damage type of a simple mob's melee attack, should it do damage.
 	var/melee_damage_type = BRUTE
 	/// 1 for full damage , 0 for none , -1 for 1:1 heal from that source.
@@ -208,20 +207,11 @@
 	if(stat == DEAD)
 		. += span_deadsay("Upon closer examination, [p_they()] appear[p_s()] to be dead.")
 
-/mob/living/simple_animal/updatehealth()
-	. = ..()
-	health = clamp(health, 0, maxHealth)
+/mob/living/simple_animal/get_attack_sharpness()
+	return sharpness
 
-/mob/living/simple_animal/update_stat()
-	if(HAS_TRAIT(src, TRAIT_GODMODE))
-		return
-	if(stat != DEAD)
-		if(health <= 0)
-			death()
-		else
-			set_stat(CONSCIOUS)
+/mob/living/simple_animal/update_stat(forced = FALSE)
 	med_hud_set_status()
-
 
 /mob/living/simple_animal/handle_status_effects(delta_time, times_fired)
 	..()
@@ -409,7 +399,7 @@
 		return ..()
 
 	var/list/tab_data = ..()
-	tab_data["Health"] = GENERATE_STAT_TEXT("[round((health / maxHealth) * 100)]%")
+	tab_data["Consciousness"] = GENERATE_STAT_TEXT("[round((consciousness.value / consciousness.max_value) * 100)]%")
 	return tab_data
 
 /mob/living/simple_animal/proc/drop_loot()
@@ -441,7 +431,6 @@
 			REMOVE_TRAIT(src, TRAIT_MOVE_FLYING, ROUNDSTART_TRAIT)
 		if(no_flying_animation)
 			REMOVE_TRAIT(src, TRAIT_NO_FLOATING_ANIM, ROUNDSTART_TRAIT)
-		health = 0
 		icon_state = icon_dead
 		if(flip_on_death)
 			transform = transform.Turn(180)

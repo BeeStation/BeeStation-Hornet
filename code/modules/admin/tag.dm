@@ -42,8 +42,8 @@
 /// Quick define for readability
 #define TAG_DEL(X) "<b>(<a href='byond://?_src_=holder;[HrefToken(forceGlobal = TRUE)];del_tag=[REF(X)]'>UNTAG</a>)</b>"
 #define TAG_MARK(X) "<b>(<a href='byond://?_src_=holder;[HrefToken(forceGlobal = TRUE)];mark_datum=[REF(X)]'>MARK</a>)</b>"
-#define TAG_SIMPLE_HEALTH(X) "<font color='#ff0000'><b>Health: [X.health]</b></font>"
-#define TAG_CARBON_HEALTH(X) "<font color='#ff0000'><b>Health: [X.health]</b></font> (\
+#define TAG_SIMPLE_HEALTH(X) "<font color='#ff0000'><b>Consciousness: [X.consciousness.value]%</b></font>"
+#define TAG_CARBON_HEALTH(X) "<font color='#ff0000'><b>Consciousness: [X.consciousness.value]%</b></font> (\
 					<font color='#ff3333'>[X.getBruteLoss()]</font> \
 					<font color='#ff9933'>[X.getFireLoss()]</font> \
 					<font color='#00cc66'>[X.getToxLoss()]</font> \

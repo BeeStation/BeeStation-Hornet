@@ -75,7 +75,7 @@
 	if(AI)
 		data["name"] = AI.name
 		data["laws"] = AI.laws.get_law_list(include_zeroth = 1)
-		data["health"] = (AI.health + 100) / 2
+		data["health"] = (AI.consciousness.value + 100) / 2
 		data["wireless"] = !AI.control_disabled //todo disabled->enabled
 		data["radio"] = AI.radio_enabled
 		data["isDead"] = AI.stat == DEAD

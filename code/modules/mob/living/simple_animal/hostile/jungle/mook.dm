@@ -16,13 +16,11 @@
 	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
 	SET_BASE_PIXEL(-16, -8)
 	maxHealth = 45
-	health = 45
 	melee_damage = 30
 	ranged = TRUE
 	ranged_cooldown_time = 10
 	pass_flags_self = LETPASSTHROW
 	robust_searching = TRUE
-	stat_attack = HARD_CRIT
 	attack_sound = 'sound/weapons/rapierhit.ogg'
 	deathsound = 'sound/voice/mook_death.ogg'
 	aggro_vision_range = 15 //A little more aggressive once in combat to balance out their really low HP

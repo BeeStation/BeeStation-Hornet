@@ -20,6 +20,10 @@
 	if(!loc)
 		return
 
+	if (stat != DEAD)
+		blood.blood_tick(src, delta_time)
+		consciousness.consciousness_tick(delta_time)
+
 	if(!has_status_effect(/datum/status_effect/grouped/stasis))
 
 		if(stat != DEAD)
@@ -118,9 +122,6 @@
 			adjust_blindness(-0.5 * delta_time)
 	else if(eye_blurry) //blurry eyes heal slowly
 		adjust_blurriness(-0.5 * delta_time)
-
-/mob/living/proc/update_damage_hud()
-	return
 
 /mob/living/proc/handle_gravity(seconds_per_tick, times_fired)
 	if(gravity_state > STANDARD_GRAVITY)

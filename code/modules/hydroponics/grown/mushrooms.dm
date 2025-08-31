@@ -165,7 +165,6 @@
 	M.maxHealth += round(seed.endurance / 4)
 	M.melee_damage += round(seed.potency / 20)
 	M.move_to_delay -= round(seed.production / 50)
-	M.health = M.maxHealth
 	qdel(src)
 	to_chat(user, span_notice("You plant the walking mushroom."))
 

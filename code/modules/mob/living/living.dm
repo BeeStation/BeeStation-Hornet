@@ -1,10 +1,9 @@
-/mob/living
-	///Used for tracking poking data
-	var/time_of_last_poke = 0
-	///Used for tracking accidental attacks
-	var/time_of_last_attack_dealt = 0
-	///Used for tracking accidental attacks
-	var/time_of_last_attack_received = 0
+///Used for tracking poking data
+/mob/living/var/time_of_last_poke = 0
+///Used for tracking accidental attacks
+/mob/living/var/time_of_last_attack_dealt = 0
+///Used for tracking accidental attacks
+/mob/living/var/time_of_last_attack_received = 0
 
 /mob/living/Initialize(mapload)
 	. = ..()
@@ -25,6 +24,11 @@
 	//color correction
 	RegisterSignal(src, COMSIG_MOVABLE_ENTERED_AREA, PROC_REF(apply_color_correction))
 	gravity_setup()
+	// Blood init
+	blood.Initialize(src)
+	pain.Initialize(src)
+	if (!istype(consciousness))
+		consciousness = new consciousness(src)
 
 /mob/living/ComponentInitialize()
 	. = ..()
@@ -68,7 +72,7 @@
 		if(prob(10))
 			playsound(get_turf(src), "punch", 25, 1, -1)
 			visible_message(span_warning("[src] [pick("ran", "slammed")] into \the [A]!"))
-			apply_damage(5, BRUTE)
+			take_direct_damage(5, BRUTE)
 			Paralyze(40)
 			addtimer(CALLBACK(src, PROC_REF(can_bumpslam)), 200)
 		else
@@ -216,7 +220,7 @@
 				holding += ", and \a [I]."
 			else
 				holding += ", \a [I]"
-	return "You can also see [src] on the photo[health < (maxHealth * 0.75) ? ", looking a bit hurt":""].[length(holding) ? " [holding.Join("")].":""]"
+	return "You can also see [src] on the photo[get_total_damage() > (maxHealth * 0.25) ? ", looking a bit hurt":""].[length(holding) ? " [holding.Join("")].":""]"
 
 //Called when we bump onto an obj
 /mob/living/proc/ObjBump(obj/O)
@@ -437,8 +441,8 @@
 	if (!CAN_SUCCUMB(src))
 		return
 
-	log_message("Has [whispered ? "whispered his final words" : "succumbed to death"] with [round(health, 0.1)] points of health!", LOG_ATTACK)
-	adjustOxyLoss(health - HEALTH_THRESHOLD_DEAD)
+	log_message("Has [whispered ? "whispered his final words" : "succumbed to death"] with [round(consciousness.value, 0.1)] points of health!", LOG_ATTACK)
+	adjustOxyLoss(consciousness.value - HEALTH_THRESHOLD_DEAD)
 	updatehealth()
 	if(!whispered)
 		to_chat(src, span_notice("You have given up life and succumbed to death."))
@@ -667,25 +671,18 @@
 /mob/living/is_drawable(mob/user, allowmobs = TRUE)
 	return (allowmobs && reagents && can_inject(user))
 
-///Sets the current mob's health value. Do not call directly if you don't know what you are doing, use the damage procs, instead.
-/mob/living/proc/set_health(new_value)
-	. = health
-	health = new_value
-
 /mob/living/proc/updatehealth()
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
-	set_health(maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss())
 	staminaloss = getStaminaLoss()
-	update_stat()
+	SEND_SIGNAL(src, COMSIG_LIVING_HEALTH_UPDATE)
 	med_hud_set_health()
 	med_hud_set_status()
 	update_health_hud()
-	SEND_SIGNAL(src, COMSIG_LIVING_HEALTH_UPDATE)
 
 /mob/living/update_health_hud()
 	var/severity = 0
-	var/healthpercent = (health/maxHealth) * 100
+	var/healthpercent = consciousness.value / consciousness.max_value
 	if(hud_used?.healthdoll) //to really put you in the boots of a simplemob
 		var/atom/movable/screen/healthdoll/living/livingdoll = hud_used.healthdoll
 		switch(healthpercent)
@@ -743,7 +740,7 @@
 
 	if(stat == DEAD && can_be_revived()) //in some cases you can't revive (e.g. no brain)
 		set_suicide(FALSE)
-		set_stat(UNCONSCIOUS) //the mob starts unconscious,
+		clear_stat(FROM_DEAD) //the mob starts unconscious,
 		updatehealth() //then we check if the mob should wake up.
 		if(full_heal_flags & HEAL_ADMIN)
 			get_up(TRUE)
@@ -819,7 +816,6 @@
  */
 /mob/living/proc/fully_heal(heal_flags = HEAL_ALL)
 	SHOULD_CALL_PARENT(TRUE)
-
 	if(heal_flags & HEAL_TOX)
 		setToxLoss(0, FALSE, TRUE)
 	if(heal_flags & HEAL_OXY)
@@ -847,7 +843,8 @@
 	if(heal_flags & HEAL_TEMP)
 		bodytemperature = get_body_temp_normal(apply_change = FALSE)
 	if(heal_flags & HEAL_BLOOD)
-		restore_blood()
+		blood.restore_blood()
+		cauterise_wounds()
 	if(reagents && (heal_flags & HEAL_ALL_REAGENTS))
 		reagents.clear_reagents()
 
@@ -880,7 +877,7 @@
 /// Checks if we are actually able to ressuscitate this mob.
 /// (We don't want to revive then to have them instantly die again)
 /mob/living/proc/can_be_revived()
-	if(health <= HEALTH_THRESHOLD_DEAD)
+	if(consciousness.value <= HEALTH_THRESHOLD_DEAD)
 		return FALSE
 	return TRUE
 
@@ -939,8 +936,8 @@
 		var/trail_type = getTrail()
 		if(trail_type)
 			var/brute_ratio = round(getBruteLoss() / maxHealth, 0.1)
-			if(blood_volume && blood_volume > max(BLOOD_VOLUME_NORMAL*(1 - brute_ratio * 0.25), 0))//don't leave trail if blood volume below a threshold
-				blood_volume = max(blood_volume - max(1, brute_ratio * 2), 0) 					//that depends on our brute damage.
+			if(blood.volume && blood.volume > max(BLOOD_VOLUME_NORMAL*(1 - brute_ratio * 0.25), 0))//don't leave trail if blood volume below a threshold
+				blood.volume = max(blood.volume - max(1, brute_ratio * 2), 0) 					//that depends on our brute damage.
 				var/newdir = get_dir(target_turf, start)
 				if(newdir != direction)
 					newdir = newdir | direction
@@ -963,7 +960,7 @@
 							TH.color = spec_color
 
 /mob/living/carbon/human/makeTrail(turf/T, turf/start, direction, spec_color)
-	if(HAS_TRAIT(src, TRAIT_NOBLOOD) || !is_bleeding())
+	if(HAS_TRAIT(src, TRAIT_NO_BLOOD) || !is_bleeding())
 		return
 	spec_color = dna.species.blood_color
 	..()
@@ -1455,10 +1452,10 @@
 
 	amount -= RAD_BACKGROUND_RADIATION // This will always be at least 1 because of how skin protection is calculated
 
-	var/blocked = getarmor(null, RAD)
+	var/blocked = get_radiation_protection() * 100
 
 	if(amount > RAD_BURN_THRESHOLD)
-		apply_damage((amount-RAD_BURN_THRESHOLD)/RAD_BURN_THRESHOLD, BURN, null, blocked)
+		take_overall_damage(0, (amount-RAD_BURN_THRESHOLD)/RAD_BURN_THRESHOLD * (blocked / 100))
 
 	apply_effect((amount*RAD_MOB_COEFFICIENT)/max(1, (radiation**2)*RAD_OVERDOSE_REDUCTION), EFFECT_IRRADIATE, blocked)
 
@@ -1555,61 +1552,54 @@
 		if(client)
 			reset_perspective()
 
-
-/mob/living/set_stat(new_stat)
+/mob/living/update_stat(forced = FALSE)
 	. = ..()
-	if(isnull(.))
+	if(isnull(.) && !forced)
 		return
-	switch(.) //Previous stat.
-		if(CONSCIOUS)
-			if(stat >= UNCONSCIOUS)
-				ADD_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_KNOCKEDOUT)
+	if (stat >= SOFT_CRIT && pulledby)
+		ADD_TRAIT(src, TRAIT_IMMOBILIZED, PULLED_WHILE_SOFTCRIT_TRAIT)
+	else
+		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, PULLED_WHILE_SOFTCRIT_TRAIT)
+	if (. == stat)
+		return
+	var/obj/item/organ/brain/brain = get_organ_slot(ORGAN_SLOT_BRAIN)
+	// Default crit behaviour, just enter hard-crit
+	if (!brain)
+		if (stat >= SOFT_CRIT)
+			ADD_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
 			ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, STAT_TRAIT)
-			ADD_TRAIT(src, TRAIT_INCAPACITATED, STAT_TRAIT)
+			ADD_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_KNOCKEDOUT)
 			ADD_TRAIT(src, TRAIT_FLOORED, STAT_TRAIT)
-		if(SOFT_CRIT)
-			if(stat >= UNCONSCIOUS)
-				ADD_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_KNOCKEDOUT) //adding trait sources should come before removing to avoid unnecessary updates
-			if(pulledby)
-				REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, PULLED_WHILE_SOFTCRIT_TRAIT)
-		if(UNCONSCIOUS)
-			if(stat != HARD_CRIT)
-				cure_blind(UNCONSCIOUS_TRAIT)
-		if(HARD_CRIT)
-			if(stat != UNCONSCIOUS)
-				cure_blind(UNCONSCIOUS_TRAIT)
-		if(DEAD)
-			remove_from_dead_mob_list()
-			add_to_alive_mob_list()
-	switch(stat) //Current stat.
-		if(CONSCIOUS)
-			if(. >= UNCONSCIOUS)
-				REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_KNOCKEDOUT)
+			ADD_TRAIT(src, TRAIT_INCAPACITATED, STAT_TRAIT)
+			become_blind(UNCONSCIOUS_TRAIT)
+		else
+			REMOVE_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
 			REMOVE_TRAIT(src, TRAIT_HANDS_BLOCKED, STAT_TRAIT)
-			REMOVE_TRAIT(src, TRAIT_INCAPACITATED, STAT_TRAIT)
+			REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_KNOCKEDOUT)
 			REMOVE_TRAIT(src, TRAIT_FLOORED, STAT_TRAIT)
-			REMOVE_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
-		if(SOFT_CRIT)
-			if(pulledby)
-				ADD_TRAIT(src, TRAIT_IMMOBILIZED, PULLED_WHILE_SOFTCRIT_TRAIT) //adding trait sources should come before removing to avoid unnecessary updates
-			if(. >= UNCONSCIOUS)
-				REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_KNOCKEDOUT)
-			ADD_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
-		if(UNCONSCIOUS)
-			if(. != HARD_CRIT)
-				become_blind(UNCONSCIOUS_TRAIT)
-			if(health <= crit_threshold && !HAS_TRAIT(src, TRAIT_NOSOFTCRIT))
-				ADD_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
+			REMOVE_TRAIT(src, TRAIT_INCAPACITATED, STAT_TRAIT)
+			cure_blind(UNCONSCIOUS_TRAIT)
+		return
+	switch (stat)
+		if (CONSCIOUS)
+			brain.stat_conscious(.)
+		if (SOFT_CRIT)
+			if (HAS_TRAIT(src, TRAIT_NOSOFTCRIT))
+				brain.stat_conscious(.)
 			else
-				REMOVE_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
-		if(HARD_CRIT)
-			if(. != UNCONSCIOUS)
-				become_blind(UNCONSCIOUS_TRAIT)
-			ADD_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
-		if(DEAD)
-			REMOVE_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
-			remove_from_alive_mob_list()
-			add_to_dead_mob_list()
+				brain.stat_crit(.)
+		if (UNCONSCIOUS, HARD_CRIT)
+			if (HAS_TRAIT(src, TRAIT_NOHARDCRIT))
+				if (HAS_TRAIT(src, TRAIT_NOSOFTCRIT))
+					brain.stat_conscious(.)
+				else
+					brain.stat_crit(.)
+			else
+				brain.stat_hard_crit(.)
+		if (DEAD)
+			brain.stat_dead(.)
+	// Update the status when stat changes
+	med_hud_set_status()
 
 ///Reports the event of the change in value of the buckled variable.
 /mob/living/proc/set_buckled(new_buckled)
@@ -1748,8 +1738,6 @@
 		if (NAMEOF(src, maxHealth))
 			if (!isnum(var_value) || var_value <= 0)
 				return FALSE
-		if(NAMEOF(src, health)) //this doesn't work. gotta use procs instead.
-			return FALSE
 		if(NAMEOF(src, resting))
 			set_resting(var_value)
 			. = TRUE
@@ -1945,14 +1933,6 @@
 			if(!usable_hands)
 				ADD_TRAIT(src, TRAIT_IMMOBILIZED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
 
-	if(usable_legs < default_num_legs)
-		var/limbless_slowdown = (default_num_legs - usable_legs) * 3
-		if(!usable_legs && usable_hands < default_num_hands)
-			limbless_slowdown += (default_num_hands - usable_hands) * 3
-		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/limbless, multiplicative_slowdown = limbless_slowdown)
-	else
-		remove_movespeed_modifier(/datum/movespeed_modifier/limbless)
-
 
 ///Proc to modify the value of num_hands and hook behavior associated to this event.
 /mob/living/proc/set_num_hands(new_value)
@@ -2037,6 +2017,8 @@
 /mob/living/proc/get_attack_type()
 	return BRUTE
 
+/mob/living/proc/get_attack_sharpness()
+	return SHARP_NONE
 
 /**
  * Apply a martial art move from src to target.

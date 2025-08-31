@@ -12,7 +12,6 @@
 	pass_flags_self = PASSDOORS
 	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 	max_integrity = 350
-	armor_type = /datum/armor/machinery_door
 	can_atmos_pass = ATMOS_PASS_DENSITY
 	flags_1 = PREVENT_CLICK_UNDER_1
 	ricochet_chance_mod = 0.8
@@ -37,17 +36,6 @@
 	var/red_alert_access = FALSE //if TRUE, this door will always open on red alert
 	var/unres_sides = 0 //Unrestricted sides. A bitflag for which direction (if any) can open the door with no access
 	var/open_speed = 5
-
-
-/datum/armor/machinery_door
-	melee = 30
-	bullet = 30
-	laser = 20
-	energy = 20
-	bomb = 10
-	rad = 100
-	fire = 80
-	acid = 70
 
 /obj/machinery/door/Initialize(mapload)
 	. = ..()
@@ -238,10 +226,9 @@
 	try_to_crowbar(tool, user, forced_open)
 	return TOOL_ACT_TOOLTYPE_SUCCESS
 
-/obj/machinery/door/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
-	. = ..()
-	if(. && atom_integrity > 0)
-		if(damage_amount >= 10 && prob(30))
+/obj/machinery/door/take_direct_damage(amount, type = BRUTE, flag = DAMAGE_STANDARD, zone = null)
+	if(atom_integrity > 0)
+		if(amount >= 10 && prob(30))
 			spark_system.start()
 
 /obj/machinery/door/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
@@ -354,9 +341,7 @@
 			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE * 1.5) //Xenos go into crit after aproximately the same amount of crushes as humans.
 			L.emote("roar")
 		else if(ishuman(L)) //For humans
-			var/armour = L.run_armor_check(BODY_ZONE_CHEST, MELEE)
-			var/multiplier = clamp(1 - (armour * 0.01), 0, 1)
-			L.adjustBruteLoss(multiplier * DOOR_CRUSH_DAMAGE)
+			L.deal_damage(DOOR_CRUSH_DAMAGE, 0, zone = BODY_ZONE_CHEST)
 			L.emote("scream")
 			if(!L.IsParalyzed())
 				L.Paralyze(60)
@@ -371,7 +356,7 @@
 		L.add_splatter_floor(location)
 		log_combat(src, L, "crushed", src)
 	for(var/obj/vehicle/sealed/mecha/M in get_turf(src))
-		M.take_damage(DOOR_CRUSH_DAMAGE)
+		M.take_direct_damage(DOOR_CRUSH_DAMAGE)
 		log_combat(src, M, "crushed", src)
 /obj/machinery/door/proc/autoclose()
 	if(!QDELETED(src) && !density && !operating && !locked && !welded && autoclose)

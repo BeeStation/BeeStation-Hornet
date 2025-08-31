@@ -63,7 +63,7 @@
 	one_use = TRUE
 
 /obj/item/borg/upgrade/restart/action(mob/living/silicon/robot/robot, user = usr)
-	if(robot.health < 0)
+	if(robot.consciousness.value < 0)
 		to_chat(user, span_warning("You have to repair the cyborg before using this module!"))
 		return FALSE
 
@@ -384,13 +384,13 @@
 			deactivate_sr()
 			return
 
-		if(cyborg.health < cyborg.maxHealth)
-			if(cyborg.health < cyborg.maxHealth / 2 && mode == STANDARD)
+		if(cyborg.consciousness.value < cyborg.consciousness.max_value)
+			if(cyborg.consciousness.value < cyborg.consciousness.max_value / 2 && mode == STANDARD)
 				mode = CRITICAL
 				to_chat(cyborg, span_notice("[src] now operating in [span_boldnotice("[mode]")] mode."))
 				repair_amount = initial(repair_amount) * 2
 				powercost = initial(repair_amount) * 3
-			else if (cyborg.health >= cyborg.maxHealth / 2 && mode == CRITICAL)
+			else if (cyborg.consciousness.value >= cyborg.consciousness.max_value / 2 && mode == CRITICAL)
 				mode = STANDARD
 				to_chat(cyborg, span_notice("[src] now operating in [span_boldnotice("[mode]")] mode."))
 				repair_amount = initial(repair_amount)

@@ -7,7 +7,6 @@
 	speak_chance = 0
 	turns_per_move = 1
 	maxHealth = 10
-	health = 10
 	butcher_results = list(/obj/item/food/hugemushroomslice = 1)
 	response_help_continuous = "pets"
 	response_help_simple = "pet"
@@ -23,7 +22,6 @@
 	attack_sound = 'sound/weapons/bite.ogg'
 	faction = list(FACTION_MUSHROOM)
 	environment_smash = ENVIRONMENT_SMASH_NONE
-	stat_attack = DEAD
 	mouse_opacity = MOUSE_OPACITY_ICON
 	speed = 1
 	ventcrawler = VENTCRAWLER_ALWAYS
@@ -41,7 +39,7 @@
 
 /mob/living/simple_animal/hostile/mushroom/examine(mob/user)
 	. = ..()
-	if(health >= maxHealth)
+	if(get_total_damage() == 0)
 		. += span_info("It looks healthy.")
 	else
 		. += span_info("It looks like it's been roughed up.")
@@ -60,7 +58,6 @@
 
 	cap_color = rgb(rand(0, 255), rand(0, 255), rand(0, 255))
 	UpdateMushroomCap()
-	health = maxHealth
 	. = ..()
 
 /mob/living/simple_animal/hostile/mushroom/CanAttack(atom/the_target) // Mushroom-specific version of CanAttack to handle stupid attack_same = 2 crap so we don't have to do it for literally every single simple_animal/hostile because this shit never gets spawned
@@ -125,7 +122,7 @@
 	cut_overlays()
 	cap_living.color = cap_color
 	cap_dead.color = cap_color
-	if(health == 0)
+	if(stat == DEAD)
 		add_overlay(cap_dead)
 	else
 		add_overlay(cap_living)

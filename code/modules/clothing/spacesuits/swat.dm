@@ -13,20 +13,7 @@
 		/obj/item/tank/internals,
 		/obj/item/knife/combat
 	)
-	armor_type = /datum/armor/space_swat
+	armor_type = /datum/armor/security_light_armor
 	strip_delay = 120
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	move_sound = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
-
-
-/datum/armor/space_swat
-	melee = 40
-	bullet = 30
-	laser = 30
-	energy = 30
-	bomb = 50
-	bio = 90
-	rad = 20
-	fire = 100
-	acid = 100
-	stamina = 60

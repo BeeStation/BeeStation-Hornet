@@ -37,10 +37,9 @@
 	if(isliving(target))
 		if(ishuman(target))
 			var/mob/living/carbon/human/H = target
-			var/flesh_wound = ran_zone(user.get_combat_bodyzone(target))
 			if(H.check_shields(src, 0))
 				return
-			if(prob(base_infection_chance-H.getarmor(flesh_wound, MELEE, armour_penetration)))
+			if (!H.is_biologically_sealed() && prob(base_infection_chance - H.get_average_armor_flag(ARMOUR_PENETRATION)))
 				if(viral && isliving(user))
 					var/mob/living/L = user
 					var/mob/living/T = target
@@ -54,7 +53,7 @@
 			check_feast(target, user)
 	if((istype(target, /obj/structure) || istype(target, /obj/machinery)) && viral)
 		var/obj/O = target
-		O.take_damage(21, BRUTE, MELEE, 0)
+		O.deal_damage(21, sharpness, BRUTE, sound = 0)
 
 /proc/try_to_zombie_infect(mob/living/carbon/human/target)
 	CHECK_DNA_AND_SPECIES(target)

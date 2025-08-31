@@ -315,7 +315,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table/wood/bar)
 	. = ..()
 	var/multiplier = max(round(length(SSdynamic.current_players[CURRENT_LIVING_PLAYERS]) / BASE_BEAR_DIVISOR, 0.1), 1)
 	maxHealth *= multiplier
-	health *= multiplier
 	melee_damage *= multiplier
 
 /obj/effect/decal/hammerandsickle

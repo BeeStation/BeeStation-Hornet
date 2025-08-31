@@ -9,7 +9,6 @@
 	speak_chance = 0
 	turns_per_move = 5
 	maxHealth = 30
-	health = 30
 	see_in_dark = 3
 	butcher_results = list(/obj/item/food/breadslice/plain = 2)
 	melee_damage = 10
@@ -36,7 +35,6 @@
 	if(mutations <= mutationcap)
 		resize = 1.1
 		maxHealth += 5
-		health = maxHealth += 1
 		melee_damage += 2
 		mutations++
 
@@ -50,6 +48,5 @@
 	butcher_results = null
 	melee_damage = 8
 	maxHealth = 20
-	health = 20
 	stability = 15
 	mutability = 30

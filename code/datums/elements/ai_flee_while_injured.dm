@@ -31,7 +31,7 @@
 	if (!source.ai_controller)
 		return
 
-	var/current_health_percentage = source.health / source.maxHealth
+	var/current_health_percentage = source.consciousness.value / source.consciousness.max_value
 	if (source.ai_controller.blackboard[BB_BASIC_MOB_FLEEING])
 		if (current_health_percentage < stop_fleeing_at)
 			return

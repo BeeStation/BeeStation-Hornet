@@ -8,7 +8,6 @@
 	speak_chance = 0
 	stat_attack = HARD_CRIT //braains
 	maxHealth = 100
-	health = 100
 	melee_damage = 21
 	attack_verb_continuous = "bites"
 	attack_verb_simple = "bite"

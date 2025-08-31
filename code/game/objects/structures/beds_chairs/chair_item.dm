@@ -70,7 +70,7 @@
 		user.visible_message(span_danger("[user] smashes \the [src] to pieces against \the [target]"))
 		if(iscarbon(target))
 			var/mob/living/carbon/C = target
-			if(C.health < C.maxHealth*0.5)
+			if(C.consciousness.value < C.consciousness.max_value*0.5)
 				C.Paralyze(20)
 		smash(user)
 

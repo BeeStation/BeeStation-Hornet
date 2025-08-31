@@ -18,14 +18,7 @@
 
 
 /datum/armor/combat_phazon
-	melee = 30
-	bullet = 30
-	laser = 30
-	energy = 30
-	bomb = 30
-	rad = 50
-	fire = 100
-	acid = 100
+	penetration = 140
 
 /obj/vehicle/sealed/mecha/combat/phazon/generate_actions()
 	. = ..()

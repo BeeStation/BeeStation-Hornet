@@ -19,7 +19,6 @@
 	taunt_chance = 30
 	speed = 0
 	maxHealth = 25
-	health = 25
 	combat_mode = TRUE
 	spacewalk = TRUE
 

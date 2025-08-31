@@ -50,7 +50,7 @@
 
 /mob/living/death(gibbed)
 	var/was_dead_before = stat == DEAD
-	set_stat(DEAD)
+	set_stat_source(DEAD, FROM_DEAD)
 	SEND_SIGNAL(src, COMSIG_LIVING_DEATH, gibbed, was_dead_before)
 	unset_machine()
 	timeofdeath = world.time
@@ -110,7 +110,6 @@
 
 	set_drugginess(0)
 	set_disgust(0)
-	update_damage_hud()
 
 	if(!gibbed && !QDELETED(src))
 		addtimer(CALLBACK(src, PROC_REF(med_hud_set_status)), (DEFIB_TIME_LIMIT * 10) + 10)

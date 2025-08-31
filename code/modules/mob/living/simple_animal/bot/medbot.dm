@@ -22,7 +22,6 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	icon_state = "medibot0"
 	density = FALSE
 	anchored = FALSE
-	health = 20
 	maxHealth = 20
 	pass_flags = PASSMOB
 
@@ -84,7 +83,6 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	name = "\improper Oppenheimer"
 	desc = "A medibot stolen from a Nanotrasen station and upgraded by the Syndicate."
 	skin = MEDBOT_SKIN_BEZERK
-	health = 40
 	maxHealth = 40
 	radio_key = /obj/item/encryptionkey/syndicate
 	radio_channel = RADIO_CHANNEL_SYNDICATE
@@ -273,9 +271,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 		reskin(user)
 
 	else
-		var/current_health = health
+		var/current_damage = get_total_damage()
 		..()
-		if(health < current_health) //if medbot took some damage
+		if(get_total_damage() > current_damage) //if medbot took some damage
 			step_to(src, (get_step_away(src,user)))
 
 /mob/living/simple_animal/bot/medbot/proc/reskin(mob/M)
@@ -551,7 +549,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 		if(H.is_bleeding())
 			return TRUE
 
-	if(declare_crit && C.health <= 0) //Critical condition! Call for help!
+	if(declare_crit && C.consciousness.value <= 0) //Critical condition! Call for help!
 		declare(C)
 
 
@@ -562,7 +560,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 		if(C.reagents.has_reagent(R.type))
 			return FALSE
 
-	if(C.maxHealth - C.health >= heal_threshold) // a true patient
+	if(C.get_total_damage() >= heal_threshold) // a true patient
 		return TRUE
 
 	return FALSE // we shouldn't get random TRUE cases
@@ -627,7 +625,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 					break
 
 		if(!treat_behaviour) //If they don't need any of that they're probably cured!
-			if(C.maxHealth - C.health < heal_threshold)
+			if(C.get_total_damage() < heal_threshold)
 				to_chat(src, span_notice("[C] is healthy! Your programming prevents you from injecting anyone without at least [heal_threshold] damage of any one type ([heal_threshold + 15] for oxygen damage.)"))
 			var/list/messagevoice = list("All patched up!" = 'sound/voice/medbot/patchedup.ogg',"An apple a day keeps me away." = 'sound/voice/medbot/apple.ogg',"Feel better soon!" = 'sound/voice/medbot/feelbetter.ogg')
 			var/message = pick(messagevoice)

@@ -5,7 +5,6 @@
 	icon_state = "secbot"
 	density = FALSE
 	anchored = FALSE
-	health = 25
 	maxHealth = 25
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	pass_flags = PASSMOB
@@ -182,7 +181,7 @@
 /mob/living/simple_animal/bot/secbot/bullet_act(obj/projectile/Proj)
 	if(istype(Proj , /obj/projectile/beam)||istype(Proj, /obj/projectile/bullet))
 		if((Proj.damage_type == BURN) || (Proj.damage_type == BRUTE))
-			if(!Proj.nodamage && Proj.damage < src.health && ishuman(Proj.firer))
+			if(!Proj.nodamage && get_total_damage() + Proj.damage < maxHealth && ishuman(Proj.firer))
 				retaliate(Proj.firer)
 	return ..()
 
@@ -204,7 +203,7 @@
 	if(istype(AM, /obj/item))
 		var/obj/item/I = AM
 		var/mob/thrown_by = I.thrownby?.resolve()
-		if(I.throwforce < src.health && thrown_by && ishuman(thrown_by))
+		if(get_total_damage() + I.throwforce < maxHealth && thrown_by && ishuman(thrown_by))
 			var/mob/living/carbon/human/H = thrown_by
 			retaliate(H)
 	..()
@@ -239,8 +238,7 @@
 		var/area/location = get_area(src)
 		speak("[arrest_type ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
 
-	var/armor_block = C.run_armor_check(BODY_ZONE_CHEST, "stamina")
-	C.apply_damage(60, STAMINA, BODY_ZONE_CHEST, armor_block)
+	C.deal_damage(60, 0, STAMINA, DAMAGE_SHOCK, zone = BODY_ZONE_CHEST)
 	C.apply_effect(EFFECT_STUTTER, 50)
 	C.visible_message(
 		span_danger("[src] has stunned [C]!"),\

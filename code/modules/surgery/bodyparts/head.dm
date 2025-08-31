@@ -3,7 +3,7 @@
 	desc = "Didn't make sense not to live for fun, your brain gets smart but your head gets dumb."
 	icon = 'icons/mob/species/human/bodyparts.dmi'
 	icon_state = "default_human_head"
-	max_damage = 200
+	max_damage = 80
 	body_zone = BODY_ZONE_HEAD
 	body_part = HEAD
 	plaintext_zone = "head"
@@ -15,6 +15,22 @@
 	stam_damage_coeff = 1
 	max_stamina_damage = 100
 	is_dimorphic = TRUE
+	dismemberment_requires_death = TRUE
+	organ_slots = list(
+		ORGAN_SLOT_BRAIN,
+		ORGAN_SLOT_EARS,
+		ORGAN_SLOT_BREATHING_TUBE,
+		ORGAN_SLOT_EYES,
+		ORGAN_SLOT_HUD,
+		ORGAN_SLOT_TONGUE,
+		ORGAN_SLOT_VOICE,
+		ORGAN_SLOT_ADAMANTINE_RESONATOR,
+		ORGAN_SLOT_BRAIN_ANTIDROP,
+		ORGAN_SLOT_BRAIN_ANTISTUN,
+		ORGAN_SLOT_BRAIN_SURGICAL_IMPLANT
+	)
+	// Contains the squishy head, which the body wants to protect, so you feel more pain
+	pain_multiplier = 0.9
 
 	var/mob/living/brain/brainmob //The current occupant.
 	var/obj/item/organ/brain/brain //The brain organ
@@ -75,7 +91,7 @@
 			. += span_info("The brain has been removed from [src].")
 		else if(brain.suicided || brainmob?.suiciding)
 			. += span_info("There's a pretty dumb expression on [real_name]'s face; they must have really hated life. There is no hope of recovery.")
-		else if(brain.brain_death || brainmob?.health <= HEALTH_THRESHOLD_DEAD)
+		else if(brain.brain_death || brainmob?.get_total_damage() > brainmob?.maxHealth - HEALTH_THRESHOLD_DEAD)
 			. += span_info("It seems to be leaking some kind of... clear fluid? The brain inside must be in pretty bad shape... There is no coming back from that.")
 		else if(brainmob)
 			if(!brainmob.soul_departed())
@@ -219,7 +235,7 @@
 				else if(bodytype & BODYTYPE_LARVA_PLACEHOLDER)
 					debrain_overlay.icon = 'icons/mob/animal_parts.dmi'
 					debrain_overlay.icon_state = "debrained_larva"
-				else if(!(TRAIT_NOBLOOD in species_flags_list))
+				else if(!(TRAIT_NO_BLOOD in species_flags_list))
 					debrain_overlay.icon = 'icons/mob/species/human/human_face.dmi'
 					debrain_overlay.icon_state = "debrained"
 				. += debrain_overlay
@@ -257,6 +273,15 @@
 
 /obj/item/bodypart/head/GetVoice()
 	return "The head of [real_name]"
+
+/obj/item/bodypart/head/update_effectiveness()
+	var/modifier = effectiveness / 50
+	// Ranges from 1 down to 0.5
+	modifier = clamp(modifier * 0.5 + 0.5, 0.5, 1)
+	owner.consciousness.set_consciousness_modifier(modifier, FROM_HEAD_DAMAGE)
+
+/obj/item/bodypart/head/clear_effectiveness_modifiers()
+	owner.consciousness.set_consciousness_modifier(1, FROM_HEAD_DAMAGE)
 
 /obj/item/bodypart/head/monkey
 	icon = 'icons/mob/animal_parts.dmi'

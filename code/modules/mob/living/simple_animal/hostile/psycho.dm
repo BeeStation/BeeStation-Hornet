@@ -16,7 +16,6 @@
 	speak = list("I'm not mad!","What insanity?","Kill")
 	speed = -2
 	maxHealth = 100
-	health = 100
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 2.5
 	faction = list(FACTION_HOSTILE)
@@ -66,7 +65,6 @@
 	move_to_delay = 2
 	speed = -5
 	maxHealth = 70
-	health = 70
 
 /mob/living/simple_animal/hostile/psycho/muzzle
 	icon_state = "psychomuzzle"
@@ -141,7 +139,7 @@
 	if(prob(20))
 		var/chosen_sound = pick(idle_sounds)
 		playsound(src, chosen_sound, 50, FALSE)
-	if(health < maxHealth)
+	if(get_total_damage())
 		playsound(src, 'sound/machines/beep.ogg', 80, FALSE)
 		addtimer(CALLBACK(src, PROC_REF(death)), 200)
 

@@ -17,7 +17,6 @@
 	vision_range = 5
 	speed = 0
 	maxHealth = 50
-	health = 50
 	pixel_x = -16
 	base_pixel_x = -16
 	obj_damage = 0
@@ -139,7 +138,6 @@
 			return
 		A.buffed++
 		A.maxHealth *= 1.5
-		A.health = min(A.maxHealth,A.health*1.5)
 		A.melee_damage = max((A.melee_damage * 2), 10)
 		A.transform *= 2
 		A.environment_smash |= ENVIRONMENT_SMASH_STRUCTURES | ENVIRONMENT_SMASH_RWALLS

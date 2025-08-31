@@ -115,7 +115,7 @@
 			mmi.forceMove(T)
 		if(mmi.brainmob)
 			if(mmi.brainmob.stat == DEAD)
-				mmi.brainmob.set_stat(CONSCIOUS)
+				mmi.brainmob.clear_stat(FROM_DEAD)
 				mmi.brainmob.remove_from_dead_mob_list()
 				mmi.brainmob.add_to_alive_mob_list()
 			mind.transfer_to(mmi.brainmob)
@@ -757,25 +757,21 @@
 
 /mob/living/silicon/robot/updatehealth()
 	..()
-	if(health < maxHealth * 0.75) //Gradual break down of modules as more damage is sustained
-		var/speedpenalty = (maxHealth - health) / 150
-		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown, multiplicative_slowdown = speedpenalty)
+	if(consciousness.value < consciousness.max_value * 0.75) //Gradual break down of modules as more damage is sustained
 		if(uneq_module(held_items[3]))
 			playsound(loc, 'sound/machines/warning-buzzer.ogg', 50, 1, 1)
 			audible_message(span_warning("[src] sounds an alarm! \"SYSTEM ERROR: Module 3 OFFLINE.\""))
 			to_chat(src, span_userdanger("SYSTEM ERROR: Module 3 OFFLINE."))
-		if(health < maxHealth*0.5)
+		if(consciousness.value < consciousness.max_value*0.5)
 			if(uneq_module(held_items[2]))
 				audible_message(span_warning("[src] sounds an alarm! \"SYSTEM ERROR: Module 2 OFFLINE.\""))
 				to_chat(src, span_userdanger("SYSTEM ERROR: Module 2 OFFLINE."))
 				playsound(loc, 'sound/machines/warning-buzzer.ogg', 60, 1, 1)
-			if(health < maxHealth*0.25)
+			if(consciousness.value < consciousness.max_value*0.25)
 				if(uneq_module(held_items[1]))
 					audible_message(span_warning("[src] sounds an alarm! \"CRITICAL ERROR: All modules OFFLINE.\""))
 					to_chat(src, span_userdanger("CRITICAL ERROR: All modules OFFLINE."))
 					playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, 1, 1)
-	else
-		remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown)
 
 /mob/living/silicon/robot/update_sight()
 	if(!client)
@@ -824,18 +820,12 @@
 		see_invisible = see_override
 	sync_lighting_plane_alpha()
 
-/mob/living/silicon/robot/update_stat()
-	if(HAS_TRAIT(src, TRAIT_GODMODE))
-		return
-	if(stat != DEAD)
-		if(health <= 0) //die only once
-			death()
-			toggle_headlamp(1)
-			return
-		if(HAS_TRAIT(src, TRAIT_KNOCKEDOUT) || IsStun() || IsKnockdown() || IsParalyzed())
-			set_stat(UNCONSCIOUS)
-		else
-			set_stat(CONSCIOUS)
+/mob/living/silicon/robot/death(gibbed)
+	. = ..()
+	toggle_headlamp(1)
+
+/mob/living/silicon/robot/update_stat(forced = FALSE)
+	. = ..()
 	diag_hud_set_status()
 	diag_hud_set_health()
 	diag_hud_set_aishell()

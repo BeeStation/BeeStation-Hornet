@@ -66,10 +66,11 @@
 
 	SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user, modifiers)
 
-/turf/open/floor/after_damage(damage_amount, damage_type, damage_flag)
+/turf/open/floor/take_direct_damage(amount, type, flag)
+	..()
 	if (broken || burnt)
 		return
-	if (damage_flag == BURN)
+	if (flag == BURN)
 		if (integrity < max_integrity * 0.5)
 			burn_tile()
 	else

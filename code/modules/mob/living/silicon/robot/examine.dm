@@ -18,7 +18,7 @@
 			. += span_warning("It looks slightly charred.")
 		else
 			. += span_warning("<B>It looks severely burnt and heat-warped!</B>")
-	if (health < -maxHealth*0.5)
+	if (consciousness.value < -maxHealth*0.5)
 		. += span_warning("It looks barely operational.")
 	if (fire_stacks < 0)
 		. += span_warning("It's covered in water.")

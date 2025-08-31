@@ -48,7 +48,7 @@
 		data["AI_present"] = TRUE
 		data["name"] = occupier.name
 		data["restoring"] = restoring
-		data["health"] = (occupier.health + 100) / 2
+		data["health"] = (occupier.consciousness.value + 100) / 2
 		data["isDead"] = occupier.stat == DEAD
 		data["laws"] = occupier.laws.get_law_list(include_zeroth = 1)
 
@@ -62,7 +62,7 @@
 
 	switch(action)
 		if("PRG_beginReconstruction")
-			if(occupier?.health < 100)
+			if(occupier?.consciousness.value < 100)
 				to_chat(usr, span_notice("Reconstruction in progress. This will take several minutes."))
 				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 25, FALSE)
 				restoring = TRUE
@@ -76,12 +76,12 @@
 	occupier.adjustToxLoss(-5, 0)
 	occupier.adjustBruteLoss(-5, 0)
 	occupier.updatehealth()
-	if(occupier.health >= 0 && occupier.stat == DEAD)
+	if(occupier.consciousness.value >= 0 && occupier.stat == DEAD)
 		occupier.revive()
 		if(!occupier.radio_enabled)
 			occupier.radio_enabled = TRUE
 			to_chat(occupier, span_warning("Your Subspace Transceiver has been enabled!"))
-	return occupier.health < 100
+	return occupier.consciousness.value < 100
 
 /obj/machinery/computer/aifixer/process()
 	if(..())

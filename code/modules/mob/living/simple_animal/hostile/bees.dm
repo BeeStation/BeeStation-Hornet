@@ -32,7 +32,6 @@
 	response_harm_continuous = "squashes"
 	response_harm_simple = "squash"
 	maxHealth = 6
-	health = 6
 	spacewalk = TRUE
 	faction = list(FACTION_HOSTILE)
 	move_to_delay = 0
@@ -184,7 +183,8 @@
 	Hydro.recent_bee_visit = TRUE
 	addtimer(VARSET_CALLBACK(Hydro, recent_bee_visit, FALSE), BEE_TRAY_RECENT_VISIT)
 
-	var/growth = health //Health also means how many bees are in the swarm, roughly.
+	//Health also means how many bees are in the swarm, roughly.
+	var/growth = maxHealth - get_total_damage()
 	//better healthier plants!
 	Hydro.adjustHealth(growth*0.5)
 	if(prob(BEE_POLLINATE_PEST_CHANCE))

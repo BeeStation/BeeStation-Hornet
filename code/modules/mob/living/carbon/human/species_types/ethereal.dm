@@ -106,7 +106,7 @@
 		g1 = GETGREENPART(new_color)
 		b1 = GETBLUEPART(new_color)
 	if(ethereal.stat != DEAD && !EMPeffect)
-		var/healthpercent = max(ethereal.health, 0) / 100
+		var/healthpercent = max(ethereal.consciousness.value, 0) / ethereal.consciousness.max_value
 		if(!emageffect)
 			current_color = rgb(r2 + ((r1-r2)*healthpercent), g2 + ((g1-g2)*healthpercent), b2 + ((b1-b2)*healthpercent))
 		ethereal_light.set_light_range_power_color(1 + (2 * healthpercent), 1 + (1 * healthpercent), current_color)
@@ -180,13 +180,13 @@
 			brutemod = 1.5
 		if(1 to NUTRITION_LEVEL_STARVING)
 			H.throw_alert("nutrition", /atom/movable/screen/alert/etherealcharge, 2)
-			if(H.health > 10.5)
-				apply_damage(0.65, TOX, null, null, H)
+			if(H.get_total_damage() < H.maxHealth - 10.5)
+				H.take_direct_damage(0.65, TOX)
 			brutemod = 1.75
 		else
 			H.throw_alert("nutrition", /atom/movable/screen/alert/etherealcharge, 3)
-			if(H.health > 10.5)
-				apply_damage(1, TOX, null, null, H)
+			if(H.get_total_damage() < H.maxHealth - 10.5)
+				H.take_direct_damage(1, TOX)
 			brutemod = 2
 
 /datum/species/ethereal/get_cough_sound(mob/living/carbon/user)

@@ -179,7 +179,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/clonepod, "Examine")
 	. = FALSE
 	var/mob/living/mob_occupant = occupant
 	if(mob_occupant)
-		. = (100 * ((mob_occupant.health + 100) / (heal_level + 100)))
+		. = (100 * ((mob_occupant.consciousness.value + 100) / (heal_level + 100)))
 
 //Start growing a human clone in the pod!
 /obj/machinery/clonepod/proc/growclone(clonename, ui, mutation_index, given_mind, last_death, datum/species/mrace, list/features, factions, datum/bank_account/insurance, list/traumas, body_only, experimental)

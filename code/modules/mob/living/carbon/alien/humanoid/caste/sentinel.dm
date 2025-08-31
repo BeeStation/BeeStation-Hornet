@@ -2,7 +2,6 @@
 	name = "alien sentinel"
 	caste = "s"
 	maxHealth = 225
-	health = 225
 	icon_state = "aliens"
 
 /mob/living/carbon/alien/humanoid/sentinel/Initialize(mapload)

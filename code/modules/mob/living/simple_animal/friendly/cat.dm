@@ -243,7 +243,6 @@
 	icon_state = "cak"
 	icon_living = "cak"
 	icon_dead = "cak_dead"
-	health = 50
 	maxHealth = 50
 	gender = FEMALE
 	butcher_results = list(/obj/item/organ/brain = 1, /obj/item/organ/heart = 1, /obj/item/food/cakeslice/birthday = 3,  \
@@ -273,7 +272,7 @@
 	..()
 	if(stat)
 		return
-	if(health < maxHealth)
+	if(get_total_damage() > 0)
 		adjustBruteLoss(-4 * delta_time) //Fast life regen
 
 /mob/living/simple_animal/pet/cat/cak/Move()

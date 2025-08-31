@@ -43,12 +43,12 @@
 		return FALSE
 	var/acid_volume = base_acid_volume
 	var/blood_cost = base_blood_cost
-	if(user.blood_volume < (blood_cost * 2))
+	if(user.blood.volume < (blood_cost * 2))
 		to_chat(user, "<span class='warning'>You don't have enough blood to do that!</span>")
 		return FALSE
 	if(target.acid_act(50, acid_volume))
 		user.visible_message("<span class='warning'>[user] rubs globs of vile stuff all over [target].</span>")
-		user.blood_volume = max(user.blood_volume - blood_cost, 0)
+		user.blood.volume = max(user.blood.volume - blood_cost, 0)
 		return ..()
 	else
 		to_chat(user, "<span class='notice'>You cannot dissolve this object.</span>")

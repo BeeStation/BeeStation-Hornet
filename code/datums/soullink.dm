@@ -1,8 +1,7 @@
 
 
-/mob/living
-	var/list/ownedSoullinks //soullinks we are the owner of
-	var/list/sharedSoullinks //soullinks we are a/the sharer of
+/mob/living/var/list/ownedSoullinks //soullinks we are the owner of
+/mob/living/var/list/sharedSoullinks //soullinks we are a/the sharer of
 
 /mob/living/Destroy()
 	if(playable)

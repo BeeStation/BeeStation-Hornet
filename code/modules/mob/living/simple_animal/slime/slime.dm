@@ -28,7 +28,6 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 
 	maxHealth = 150
-	health = 150
 	healable = 0
 	gender = NEUTER
 
@@ -137,7 +136,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 	if(is_adult)
 		var/datum/action/innate/slime/reproduce/R = new
 		R.Grant(src)
-		health = 200
 		maxHealth = 200
 	else
 		var/datum/action/innate/slime/evolve/E = new
@@ -196,18 +194,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 		amount = 5
 	if(amount)
 		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/slime_reagentmod, multiplicative_slowdown = amount)
-
-/mob/living/simple_animal/slime/updatehealth()
-	. = ..()
-	remove_movespeed_modifier(/datum/movespeed_modifier/slime_healthmod)
-	var/health_deficiency = (100 - health)
-	var/mod = 0
-	if(!HAS_TRAIT(src, TRAIT_IGNOREDAMAGESLOWDOWN))
-		if(health_deficiency >= 45)
-			mod += (health_deficiency / 25)
-		if(health <= 0)
-			mod += 2
-	add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/slime_healthmod, multiplicative_slowdown = mod)
 
 /mob/living/simple_animal/slime/adjust_bodytemperature()
 	. = ..()
@@ -321,7 +307,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 		if(nutrition >= 100) //steal some nutrition. negval handled in life()
 			adjust_nutrition(-(50 + (40 * M.is_adult)))
 			M.add_nutrition(25 + (20 * M.is_adult))
-		if(health > 0)
+		if(stat == CONSCIOUS)
 			M.adjustBruteLoss(-10 + (-10 * M.is_adult))
 			M.updatehealth()
 
@@ -545,10 +531,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime/random)
 /mob/living/simple_animal/slime/random/Initialize(mapload, new_colour, new_is_adult)
 	. = ..(mapload, pick(slime_colours), prob(50))
 
-/mob/living/simple_animal/slime/apply_damage(damage = 0,damagetype = BRUTE, def_zone = null, blocked = FALSE, forced = FALSE, spread_damage = FALSE)
-	if(damage && damagetype == BRUTE && !forced && (transformeffects & SLIME_EFFECT_ADAMANTINE))
-		blocked += 50
-	. = ..(damage, damagetype, def_zone, blocked, forced, spread_damage)
+/mob/living/simple_animal/slime/deal_damage(amount, penetration, type, flag, dir, sound, zone)
+	if(type == BRUTE && (transformeffects & SLIME_EFFECT_ADAMANTINE))
+		amount *= 0.5
+	return ..()
 
 /mob/living/simple_animal/slime/get_discovery_id()
 	return "[colour] slime"

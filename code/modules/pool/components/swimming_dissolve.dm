@@ -16,7 +16,7 @@
 			if (CH.clothing_flags & THICKMATERIAL)
 				return
 	L.adjustCloneLoss(1)
-	L.alpha = ((L.health-HEALTH_THRESHOLD_DEAD) / (L.maxHealth - HEALTH_THRESHOLD_DEAD)) * 255
+	L.alpha = ((L.consciousness.value-HEALTH_THRESHOLD_DEAD) / (L.consciousness.max_value - HEALTH_THRESHOLD_DEAD)) * 255
 	if(L.stat == DEAD)
 		L.visible_message(span_warning("[L] dissolves into the pool!"))
 		var/obj/item/organ/brain = L.get_organ_by_type(/obj/item/organ/brain)

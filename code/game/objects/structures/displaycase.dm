@@ -6,7 +6,6 @@
 	density = TRUE
 	anchored = TRUE
 	resistance_flags = ACID_PROOF
-	armor_type = /datum/armor/structure_displaycase
 	max_integrity = 200
 	integrity_failure = 0.25
 	var/obj/item/showpiece = null
@@ -30,13 +29,6 @@
 	var/glass_fix = TRUE
 	///Represents a signal source of screaming when broken
 	var/datum/alarm_handler/alarm_manager
-
-
-/datum/armor/structure_displaycase
-	melee = 30
-	bomb = 10
-	fire = 70
-	acid = 100
 
 /obj/structure/displaycase/Initialize(mapload)
 	. = ..()
@@ -230,7 +222,7 @@
 		user.visible_message(span_danger("[user] kicks the display case."), null, null, COMBAT_MESSAGE_RANGE)
 		log_combat(user, src, "kicks", important = FALSE)
 		user.do_attack_animation(src, ATTACK_EFFECT_KICK)
-		take_damage(2)
+		deal_damage(2, 0)
 
 /obj/structure/displaycase_chassis
 	name = "display case chassis"

@@ -20,7 +20,6 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	icon_living = "cluwne"
 	icon_gib = "clown_gib"
 	maxHealth = 250
-	health = 250
 	speed = -1
 	attack_sound = 'sound/items/bikehorn.ogg'
 	del_on_death = TRUE
@@ -484,7 +483,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	if(!sac_target.heal_and_revive(50, span_danger("[sac_target]'s heart begins to beat with an unholy force as they return from death!")))
 		return
 
-	if(sac_target.AdjustUnconscious(SACRIFICE_SLEEP_DURATION))
+	if(sac_target.Unconscious(SACRIFICE_SLEEP_DURATION))
 		to_chat(sac_target, span_hypnophrase("Your mind feels torn apart as you fall into a shallow slumber..."))
 	else
 		to_chat(sac_target, span_hypnophrase("Your mind begins to tear apart as you watch dark tendrils envelop you."))

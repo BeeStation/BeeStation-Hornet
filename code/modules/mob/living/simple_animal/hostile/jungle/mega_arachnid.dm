@@ -10,7 +10,6 @@
 	mob_biotypes = list(MOB_ORGANIC, MOB_BUG)
 	melee_damage = 30
 	maxHealth = 300
-	health = 300
 	speed = 1
 	ranged = 1
 	pixel_x = -16
@@ -31,7 +30,7 @@
 	..()
 	if(target && ranged_cooldown > world.time && iscarbon(target))
 		var/mob/living/carbon/C = target
-		if(!C.legcuffed && C.health < 50)
+		if(!C.legcuffed && C.consciousness.value < 50)
 			retreat_distance = 9
 			minimum_distance = 9
 			alpha = 125

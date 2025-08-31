@@ -71,7 +71,7 @@
 
 /obj/item/organ/regenerative_core/on_life(delta_time, times_fired)
 	..()
-	if(owner.health <= owner.crit_threshold)
+	if(owner.consciousness.value <= owner.crit_threshold)
 		ui_action_click()
 
 ///Handles applying the core, logging and status/mood events.

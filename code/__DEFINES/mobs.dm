@@ -108,6 +108,12 @@
 ///The limb is from a xenomorph.
 #define BODYTYPE_ALIEN (1<<7)
 
+// Circulation types
+/// The limb circulates coolant
+#define CIRCULATION_COOLANT (1 << 0)
+/// The limb circulates blood
+#define CIRCULATION_BLOOD (1 << 1)
+
 //Species gib types
 #define GIB_TYPE_HUMAN "human"
 #define GIB_TYPE_ROBOTIC "robotic"
@@ -162,9 +168,9 @@
 #define COLD_GAS_DAMAGE_LEVEL_3 3 //! Amount of damage applied when the current breath's temperature passes the 120K point
 
 //Brain Damage defines
-#define BRAIN_DAMAGE_MILD 20
-#define BRAIN_DAMAGE_SEVERE 100
-#define BRAIN_DAMAGE_DEATH 200
+#define BRAIN_DAMAGE_MILD 15
+#define BRAIN_DAMAGE_SEVERE 40
+#define BRAIN_DAMAGE_DEATH 100
 
 #define BRAIN_TRAUMA_MILD /datum/brain_trauma/mild
 #define BRAIN_TRAUMA_SEVERE /datum/brain_trauma/severe

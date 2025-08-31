@@ -70,7 +70,6 @@
 	carp.key = candidate.key
 	carp.sentience_act()
 	carp.maxHealth += 100
-	carp.health += 100
 	M.transfer_to(carp)
 	if(GLOB.religion)
 		carp.mind?.holy_role = HOLY_ROLE_PRIEST

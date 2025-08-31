@@ -19,13 +19,13 @@
 		else
 			target_turf.break_tile()
 
-	if (target.health <= 1)
+	if (target.consciousness.value <= 1)
 		target.gib(
 			/* no_brain = */ TRUE,
 			/* no_organs = */ TRUE,
 		)
 	else
-		target.adjustBruteLoss(min(BSA_MAX_DAMAGE, target.health - 1))
+		target.adjustBruteLoss(min(BSA_MAX_DAMAGE, target.consciousness.value - 1))
 		target.Paralyze(BSA_PARALYZE_TIME)
 		target.stuttering = BSA_STUTTER_TIME
 

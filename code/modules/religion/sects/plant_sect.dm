@@ -58,7 +58,7 @@
 	if(last_heal <= world.time)
 		last_heal = world.time + heal_delay
 		for(var/mob/living/L in range(5, src))
-			if(L.health == L.maxHealth)
+			if(!L.get_total_damage())
 				continue
 			if(!isdiona(L) && !L.mind?.holy_role)
 				continue
@@ -70,8 +70,8 @@
 				L.adjustFireLoss(-2*delta_time, 0)
 				L.adjustCloneLoss(-2*delta_time, 0)
 				L.updatehealth()
-				if(L.blood_volume < BLOOD_VOLUME_NORMAL)
-					L.blood_volume += 1.0
+				if(L.blood.volume < BLOOD_VOLUME_NORMAL)
+					L.blood.volume += 1.0
 
 	if(last_spread <= world.time)
 		var/list/validturfs = list()

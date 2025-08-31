@@ -13,22 +13,15 @@
 	throwforce = 20
 	throw_speed = 4
 	embedding = list("armour_block" = 60, "max_damage_mult" = 0.5)
-	armour_penetration = 10
 	custom_materials = list(/datum/material/iron=1150, /datum/material/glass=2075)
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb_continuous = list("attacks", "pokes", "jabs", "tears", "lacerates", "gores")
 	attack_verb_simple = list("attack", "poke", "jab", "tear", "lacerate", "gore")
-	sharpness = SHARP
-	bleed_force = BLEED_CUT
+	sharpness = SHARP_IV
 	max_integrity = 200
-	armor_type = /datum/armor/item_spear
+	armor_type = /datum/armor/civilian_metal
 	var/war_cry = "AAAAARGH!!!"
 	var/icon_prefix = "spearglass"
-
-
-/datum/armor/item_spear
-	fire = 50
-	acid = 30
 
 /obj/item/spear/ComponentInitialize()
 	. = ..()
@@ -169,7 +162,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/spear/explosive)
 		if(!L.stat && prob(50))
 			var/mob/living/simple_animal/hostile/illusion/M = new(user.loc)
 			M.faction = user.faction.Copy()
-			M.Copy_Parent(user, 100, user.health/2.5, 12, 30)
+			M.Copy_Parent(user, 100, user.consciousness.value/2.5, 12, 30)
 			M.GiveTarget(L)
 
 /*
@@ -182,7 +175,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/spear/explosive)
 	desc = "A haphazardly-constructed yet still deadly weapon. The pinnacle of modern technology."
 	force = 12
 	throwforce = 22
-	armour_penetration = 15				//Enhanced armor piercing
+	sharpness = SHARP_III
 
 /obj/item/spear/bonespear/ComponentInitialize()
 	. = ..()
@@ -202,12 +195,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/spear/explosive)
 	throwforce = 22
 	throw_speed = 4
 	embedding = list("armour_block" = 30, "max_damage_mult" = 0.5)
-	armour_penetration = 10
+	sharpness = SHARP_I
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb_continuous = list("attacks", "pokes", "jabs", "tears", "lacerates", "gores")
 	attack_verb_simple = list("attack", "poke", "jab", "tear", "lacerate", "gore")
-	sharpness = SHARP
-	bleed_force = BLEED_CUT
+	sharpness = SHARP_V
 
 /obj/item/spear/bamboospear/ComponentInitialize()
 	. = ..()

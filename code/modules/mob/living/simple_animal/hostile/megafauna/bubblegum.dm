@@ -1,4 +1,4 @@
-#define BUBBLEGUM_SMASH (health <= maxHealth*0.5) // angery
+#define BUBBLEGUM_SMASH (get_total_damage() > maxHealth*0.5) // angery
 #define BUBBLEGUM_CAN_ENRAGE (enrage_till + (enrage_time * 2) <= world.time)
 #define BUBBLEGUM_IS_ENRAGED (enrage_till > world.time)
 
@@ -27,7 +27,6 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/bubblegum
 	name = "bubblegum"
 	desc = "In what passes for a hierarchy among slaughter demons, this one is king."
-	health = 1250
 	maxHealth = 1250
 	attack_verb_continuous = "rends"
 	attack_verb_simple = "rend"
@@ -39,7 +38,7 @@ Difficulty: Hard
 	friendly_verb_simple = "stare down"
 	icon = 'icons/mob/lavaland/96x96megafauna.dmi'
 	speak_emote = list("gurgles")
-	armour_penetration = 40
+	sharpness = SHARP_IIX
 	melee_damage = 40
 	speed = 5
 	move_to_delay = 5
@@ -52,7 +51,7 @@ Difficulty: Hard
 	base_pixel_x = -32
 	del_on_death = TRUE
 	loot = list(/obj/effect/spawner/lootdrop/megafaunaore, /obj/structure/closet/crate/necropolis/bubblegum)
-	blood_volume = BLOOD_VOLUME_MAXIMUM //BLEED FOR ME
+	blood = new /datum/blood_source/organic
 	var/charging = FALSE
 	var/enrage_till = 0
 	var/enrage_time = 70
@@ -108,7 +107,7 @@ Difficulty: Hard
 	if(charging)
 		return
 
-	anger_modifier = clamp(((maxHealth - health)/30),0,20)
+	anger_modifier = clamp(((get_total_damage())/30),0,20)
 	enrage_time = initial(enrage_time) * clamp(anger_modifier / 20, 0.5, 1)
 	ranged_cooldown = world.time + 50
 
@@ -248,8 +247,8 @@ Difficulty: Hard
 		if(!faction_check_mob(L))
 			to_chat(L, span_userdanger("[src] rends you!"))
 			playsound(T, attack_sound, 100, 1, -1)
-			var/limb_to_hit = L.get_bodypart(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
-			L.apply_damage(10, BRUTE, limb_to_hit, L.run_armor_check(limb_to_hit, MELEE, null, null, armour_penetration))
+			var/zone_to_hit = pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG)
+			L.deal_damage(10, SHARP_III, BRUTE, zone = zone_to_hit)
 	SLEEP_CHECK_DEATH(3)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/bloodgrab(turf/T, handedness)
@@ -474,7 +473,7 @@ Difficulty: Hard
 			var/mob/living/L = A
 			L.visible_message(span_danger("[src] slams into [L]!"), span_userdanger("[src] tramples you into the ground!"))
 			src.forceMove(get_turf(L))
-			L.apply_damage(istype(src, /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination) ? 15 : 30, BRUTE)
+			L.deal_damage(istype(src, /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination) ? 15 : 30, sharpness, BRUTE)
 			playsound(get_turf(L), 'sound/effects/meteorimpact.ogg', 100, 1)
 			shake_camera(L, 4, 3)
 			shake_camera(src, 2, 3)
@@ -510,7 +509,6 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination
 	name = "bubblegum's hallucination"
 	desc = "Is that really just a hallucination?"
-	health = 1
 	maxHealth = 1
 	alpha = 127.5
 	loot = null

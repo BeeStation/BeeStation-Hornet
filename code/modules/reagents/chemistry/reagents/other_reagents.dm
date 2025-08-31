@@ -33,11 +33,11 @@
 
 	if(iscarbon(exposed_mob))
 		var/mob/living/carbon/exposed_carbon = exposed_mob
-		if(exposed_carbon.get_blood_id() == /datum/reagent/blood && (method == INJECT || (method == INGEST && HAS_TRAIT(exposed_carbon, TRAIT_DRINKSBLOOD))))
+		if(exposed_carbon.blood.get_blood_id() == /datum/reagent/blood && (method == INJECT || (method == INGEST && HAS_TRAIT(exposed_carbon, TRAIT_DRINKSBLOOD))))
 			if(!data || !(data["blood_type"] in get_safe_blood(exposed_carbon.dna.blood_type)))
 				exposed_carbon.reagents.add_reagent(/datum/reagent/toxin, reac_volume * 0.5)
 			else
-				exposed_carbon.blood_volume = min(exposed_carbon.blood_volume + round(reac_volume, 0.1), BLOOD_VOLUME_MAXIMUM)
+				exposed_carbon.blood.volume = min(exposed_carbon.blood.volume + round(reac_volume, 0.1), BLOOD_VOLUME_MAXIMUM)
 
 
 /datum/reagent/blood/on_new(list/data)
@@ -230,8 +230,8 @@
 	if(isoozeling(exposed_mob))
 		var/touch_mod = 0
 		if(method in list(TOUCH, VAPOR)) // No melting if you have skin protection
-			touch_mod = exposed_mob.getarmor(null, BIO) * 0.01
-		exposed_mob.blood_volume = max(exposed_mob.blood_volume - 30 * (1 - touch_mod), 0)
+			touch_mod = exposed_mob.get_biological_seal_rating()
+		exposed_mob.blood.volume = max(exposed_mob.blood.volume - 30 * (1 - touch_mod), 0)
 		if(touch_mod < 0.9)
 			to_chat(exposed_mob, span_warning("The water causes you to melt away!"))
 	if(method == TOUCH)
@@ -330,18 +330,26 @@
 		return
 	return ..()
 
+/datum/reagent/fuel/unholywater/on_mob_metabolize(mob/living/affected_mob)
+	..()
+	ADD_TRAIT(affected_mob, TRAIT_NO_BLEEDING, type)
+
+/datum/reagent/fuel/unholywater/on_mob_end_metabolize(mob/living/affected_mob)
+	..()
+	REMOVE_TRAIT(affected_mob, TRAIT_NO_BLEEDING, type)
+
 /datum/reagent/fuel/unholywater/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
-	. = ..()
+	..()
 	if(IS_CULTIST(affected_mob))
-		affected_mob.drowsyness = max(affected_mob.drowsyness - 5 * REM * delta_time, 0)
-		affected_mob.AdjustAllImmobility(-40 * REM* REM * delta_time)
-		affected_mob.adjustStaminaLoss(-10 * REM * delta_time, updating_health = FALSE)
-		affected_mob.adjustToxLoss(-2 * REM * delta_time, updating_health = FALSE, forced = TRUE)
-		affected_mob.adjustOxyLoss(-2 * REM * delta_time, updating_health = FALSE)
-		affected_mob.adjustBruteLoss(-2 * REM * delta_time, updating_health = FALSE)
-		affected_mob.adjustFireLoss(-2 * REM * delta_time, updating_health = FALSE)
-		if(affected_mob.blood_volume < BLOOD_VOLUME_NORMAL)
-			affected_mob.blood_volume += 3 * REM * delta_time
+		affected_mob.drowsyness = max(affected_mob.drowsyness - (5* REM * delta_time), 0)
+		affected_mob.AdjustAllImmobility(-40 *REM* REM * delta_time)
+		affected_mob.adjustStaminaLoss(-10 * REM * delta_time, 0)
+		affected_mob.adjustToxLoss(-2 * REM * delta_time, 0)
+		affected_mob.adjustOxyLoss(-2 * REM * delta_time, 0)
+		affected_mob.adjustBruteLoss(-2 * REM * delta_time, 0)
+		affected_mob.adjustFireLoss(-2 * REM * delta_time, 0)
+		if(ishuman(affected_mob) && affected_mob.blood.volume < BLOOD_VOLUME_NORMAL)
+			affected_mob.blood.volume += 3 * REM * delta_time
 	else  // Will deal about 90 damage when 50 units are thrown
 		affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3 * REM * delta_time, 150)
 		affected_mob.adjustToxLoss(1 * REM * delta_time, updating_health = FALSE, forced = TRUE)
@@ -1010,9 +1018,9 @@
 
 
 /datum/reagent/iron/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
-	. = ..()
-	if(affected_mob.blood_volume < BLOOD_VOLUME_NORMAL)
-		affected_mob.blood_volume += 0.25 * delta_time
+	if(affected_mob.blood.volume < BLOOD_VOLUME_NORMAL)
+		affected_mob.blood.volume += 0.25 * delta_time
+	..()
 
 /datum/reagent/gold
 	name = "Gold"
@@ -1991,7 +1999,7 @@
 
 /datum/reagent/peaceborg/tire/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	var/healthcomp = (100 - affected_mob.health) //DOES NOT ACCOUNT FOR ADMINBUS THINGS THAT MAKE YOU HAVE MORE THAN 200/210 HEALTH, OR SOMETHING OTHER THAN A HUMAN PROCESSING THIS.
+	var/healthcomp = affected_mob.get_total_damage()
 	if(affected_mob.getStaminaLoss() < (45 - healthcomp))	//At 50 health you would have 200 - 150 health meaning 50 compensation. 60 - 50 = 10, so would only do 10-19 stamina.)
 		affected_mob.adjustStaminaLoss(10 * REM * delta_time)
 	if(DT_PROB(16, delta_time))
@@ -2046,8 +2054,8 @@
 		affected_mob.adjustOxyLoss(-2 * REM * delta_time, updating_health = FALSE)
 		affected_mob.adjustBruteLoss(-2 * REM * delta_time, updating_health = FALSE)
 		affected_mob.adjustFireLoss(-2 * REM * delta_time, updating_health = FALSE)
-		if(ishuman(affected_mob) && affected_mob.blood_volume < BLOOD_VOLUME_NORMAL)
-			affected_mob.blood_volume += 3 * REM * delta_time
+		if(ishuman(affected_mob) && affected_mob.blood.volume < BLOOD_VOLUME_NORMAL)
+			affected_mob.blood.volume += 3 * REM * delta_time
 	else
 		affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3 * REM * delta_time, 150)
 		affected_mob.adjustToxLoss(2 * REM * delta_time, updating_health = FALSE)
@@ -2167,7 +2175,7 @@ Basically, we fill the time between now and 2s from now with hands based off the
 	. = ..()
 	affected_mob.losebreath = 0
 
-	if(affected_mob.health <= 20)
+	if(affected_mob.get_total_damage() > 80)
 		affected_mob.adjustToxLoss(-4 * REM * delta_time, updating_health = FALSE, forced = TRUE) // forced makes it heal toxinlovers
 		affected_mob.adjustBruteLoss(-4 * REM * delta_time, updating_health = FALSE)
 		affected_mob.adjustFireLoss(-4 * REM * delta_time, updating_health = FALSE)

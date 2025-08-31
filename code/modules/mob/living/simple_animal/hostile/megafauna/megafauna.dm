@@ -1,7 +1,6 @@
 /mob/living/simple_animal/hostile/megafauna
 	name = "boss of this gym"
 	desc = "Attack the weak point for massive damage."
-	health = 500
 	maxHealth = 500
 	spacewalk = TRUE
 	combat_mode = TRUE
@@ -16,7 +15,6 @@
 	no_flying_animation = TRUE
 	robust_searching = TRUE
 	ranged_ignores_vision = TRUE
-	stat_attack = HARD_CRIT
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	damage_coeff = list(BRUTE = 1, BURN = 0.5, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
 	minbodytemp = 0
@@ -74,7 +72,7 @@
 	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/death(gibbed, var/list/force_grant)
-	if(health > 0)
+	if(consciousness.value > 0)
 		return
 	else
 		var/datum/status_effect/crusher_damage/C = has_status_effect(/datum/status_effect/crusher_damage)
@@ -91,13 +89,13 @@
 		..()
 
 /mob/living/simple_animal/hostile/megafauna/gib()
-	if(health > 0)
+	if(consciousness.value > 0)
 		return
 	else
 		..()
 
 /mob/living/simple_animal/hostile/megafauna/dust(just_ash, drop_items, force)
-	if(!force && health > 0)
+	if(!force && consciousness.value > 0)
 		return
 	else
 		..()

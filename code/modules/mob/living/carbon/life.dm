@@ -6,7 +6,6 @@
 
 	if(damageoverlaytemp)
 		damageoverlaytemp = 0
-		update_damage_hud()
 
 	if(IS_IN_STASIS(src))
 		. = ..()
@@ -26,9 +25,6 @@
 		if(QDELETED(src))
 			return
 
-		if(.) //not dead
-			handle_blood(delta_time, times_fired)
-
 		if(stat != DEAD) //Handle brain damage
 			for(var/T in get_traumas())
 				var/datum/brain_trauma/BT = T
@@ -41,7 +37,7 @@
 	if(stat == DEAD)
 		stop_sound_channel(CHANNEL_HEARTBEAT)
 	else
-		var/bprv = handle_bodyparts()
+		var/bprv = handle_bodyparts(delta_time, times_fired)
 		if(bprv & BODYPART_LIFE_UPDATE_HEALTH)
 			update_stamina() //needs to go before updatehealth to remove stamcrit
 			updatehealth()
@@ -89,10 +85,10 @@
 	var/datum/gas_mixture/breath
 
 	if(!get_organ_slot(ORGAN_SLOT_BREATHING_TUBE))
-		if(health <= HEALTH_THRESHOLD_FULLCRIT || (pulledby && pulledby.grab_state >= GRAB_KILL) || HAS_TRAIT(src, TRAIT_MAGIC_CHOKE) || !lungs || lungs.organ_flags & ORGAN_FAILING)
+		if(stat >= HARD_CRIT || (pulledby && pulledby.grab_state >= GRAB_KILL) || HAS_TRAIT(src, TRAIT_MAGIC_CHOKE) || !lungs || lungs.organ_flags & ORGAN_FAILING)
 			losebreath++  //You can't breath at all when in critical or when being choked, so you're going to miss a breath
 
-		else if(health <= crit_threshold)
+		else if(stat >= SOFT_CRIT)
 			losebreath += 0.25 //You're having trouble breathing in soft crit, so you'll miss a breath one in four times
 
 	//Suffocate
@@ -100,7 +96,7 @@
 		losebreath--
 		if(prob(10))
 			emote("gasp")
-		if(istype(loc, /obj/))
+		if(istype(loc, /obj))
 			var/obj/loc_as_obj = loc
 			loc_as_obj.handle_internal_lifeform(src,0)
 	else
@@ -144,15 +140,19 @@
 	if(HAS_TRAIT(src, TRAIT_NOBREATH))
 		return
 
+	blood.multiply_circulation_rating(1, FROM_BREATH)
+	blood.multiply_circulation_rating(1, FROM_CARBON_DIOXIDE)
+
 	var/obj/item/organ/lungs = get_organ_slot(ORGAN_SLOT_LUNGS)
 	if(!lungs)
-		adjustOxyLoss(2)
+		blood.multiply_circulation_rating(0, FROM_BREATH)
+		return
 
 	//CRIT
 	if(!breath || (breath.total_moles() == 0) || !lungs)
 		if(reagents.has_reagent(/datum/reagent/medicine/epinephrine, needs_metabolizing = TRUE) && lungs)
 			return
-		adjustOxyLoss(1)
+		blood.multiply_circulation_rating(0.5, FROM_BREATH)
 
 		failed_last_breath = 1
 		throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
@@ -176,19 +176,17 @@
 		if(prob(20))
 			emote("gasp")
 		if(O2_partialpressure > 0)
-			var/ratio = 1 - O2_partialpressure/safe_oxy_min
-			adjustOxyLoss(min(5*ratio, 3))
+			var/ratio = O2_partialpressure/safe_oxy_min
+			blood.multiply_circulation_rating(ratio * 0.5, FROM_BREATH)
 			failed_last_breath = 1
 			oxygen_used = GET_MOLES(/datum/gas/oxygen, breath)*ratio
 		else
-			adjustOxyLoss(3)
+			blood.multiply_circulation_rating(0, FROM_BREATH)
 			failed_last_breath = 1
 		throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
 
 	else //Enough oxygen
 		failed_last_breath = 0
-		if(health >= crit_threshold)
-			adjustOxyLoss(-5)
 		oxygen_used = GET_MOLES(/datum/gas/oxygen, breath)
 		clear_alert("not_enough_oxy")
 
@@ -201,9 +199,9 @@
 			co2overloadtime = world.time
 		else if(world.time - co2overloadtime > 120)
 			Unconscious(60)
-			adjustOxyLoss(3)
+			blood.multiply_circulation_rating(0.5, FROM_CARBON_DIOXIDE)
 			if(world.time - co2overloadtime > 300)
-				adjustOxyLoss(8)
+				blood.multiply_circulation_rating(0, FROM_CARBON_DIOXIDE)
 		if(prob(20))
 			emote("cough")
 
@@ -280,9 +278,6 @@
 		return
 	// To differentiate between no internals and active, but empty internals.
 	return . || FALSE
-
-/mob/living/carbon/proc/handle_blood(delta_time, times_fired)
-	return
 
 /mob/living/carbon/proc/handle_bodyparts(delta_time, times_fired)
 	var/stam_regen = FALSE
@@ -475,7 +470,6 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 			throw_alert("drunk", /atom/movable/screen/alert/drunk)
 		else
 			SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "drunk")
-			sound_environment_override = SOUND_ENVIRONMENT_NONE
 			clear_alert("drunk")
 
 		if(drunkenness >= 11 && slurring < 5)
@@ -695,7 +689,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 //MONKEYS WITH TOO MUCH CHOLOESTROL//
 /////////////////////////////////////
 
-/mob/living/carbon/proc/can_heartattack()
+/mob/living/proc/can_heartattack()
 	if(!needs_heart())
 		return FALSE
 	var/obj/item/organ/heart/heart = get_organ_slot(ORGAN_SLOT_HEART)
@@ -703,10 +697,13 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 		return FALSE
 	return TRUE
 
-/mob/living/carbon/proc/needs_heart()
+/mob/living/proc/needs_heart()
+	return FALSE
+
+/mob/living/carbon/needs_heart()
 	if(HAS_TRAIT(src, TRAIT_STABLEHEART))
 		return FALSE
-	if(dna && dna.species && (HAS_TRAIT(src, TRAIT_NOBLOOD) || isnull(dna.species.mutantheart))) //not all carbons have species!
+	if(dna && dna.species && (HAS_TRAIT(src, TRAIT_NO_BLOOD) || isnull(dna.species.mutantheart))) //not all carbons have species!
 		return FALSE
 	return TRUE
 
@@ -717,7 +714,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
  * you are meant to use it in combination with can_heartattack for heart attack
  * related situations (i.e not just cardiac arrest)
  */
-/mob/living/carbon/proc/undergoing_cardiac_arrest()
+/mob/living/proc/undergoing_cardiac_arrest()
 	var/obj/item/organ/heart/heart = get_organ_slot(ORGAN_SLOT_HEART)
 	if(istype(heart) && heart.beating)
 		return FALSE
@@ -725,7 +722,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 		return FALSE
 	return TRUE
 
-/mob/living/carbon/proc/set_heartattack(status)
+/mob/living/proc/set_heartattack(status)
 	if(!can_heartattack())
 		return FALSE
 

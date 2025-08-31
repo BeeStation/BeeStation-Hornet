@@ -6,7 +6,6 @@
 	density = FALSE
 	mob_biotypes = list(MOB_ORGANIC, MOB_BUG)
 	mob_size = MOB_SIZE_TINY
-	health = 1
 	maxHealth = 1
 	speed = 1.25
 	can_be_held = TRUE

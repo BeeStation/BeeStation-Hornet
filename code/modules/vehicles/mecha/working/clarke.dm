@@ -23,14 +23,7 @@
 	var/slow_pressure_step_in = 3.5
 
 /datum/armor/working_clarke
-	melee = 20
-	bullet = 10
-	laser = 20
-	energy = 10
-	bomb = 60
-	rad = 70
-	fire = 100
-	acid = 100
+	penetration = 40
 
 /obj/vehicle/sealed/mecha/working/clarke/Initialize(mapload)
 	. = ..()

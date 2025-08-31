@@ -25,7 +25,7 @@
 
 /obj/item/mod/module/health_analyzer/add_ui_data()
 	. = ..()
-	.["health"] = mod.wearer?.health || 0
+	.["health"] = mod.wearer?.consciousness.value || 0
 	.["health_max"] = mod.wearer?.getMaxHealth() || 0
 	.["loss_brute"] = mod.wearer?.getBruteLoss() || 0
 	.["loss_fire"] = mod.wearer?.getFireLoss() || 0
@@ -197,7 +197,7 @@
 	var/succeed = FALSE
 	if(organ_receiver.surgeries.len)
 		for(var/datum/surgery/procedure as anything in organ_receiver.surgeries)
-			if(procedure.location != organ.zone)
+			if(!(organ.slot in procedure.operated_bodypart.organ_slots))
 				continue
 			if(!istype(procedure, /datum/surgery/organ_manipulation))
 				continue

@@ -12,7 +12,6 @@
 	icon_dead = "leaper_dead"
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	maxHealth = 300
-	health = 300
 	ranged = TRUE
 	projectiletype = /obj/projectile/leaper
 	projectilesound = 'sound/weapons/pierce.ogg'
@@ -21,7 +20,6 @@
 	base_pixel_x = -16
 	layer = LARGE_MOB_LAYER
 	speed = 10
-	stat_attack = HARD_CRIT
 	robust_searching = 1
 	var/hopping = FALSE
 	var/hop_cooldown = 0 //Strictly for player controlled leapers

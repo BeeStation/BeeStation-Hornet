@@ -7,7 +7,7 @@
 	playsound(src, projectilesound, vol = 75, vary = TRUE)
 	holopara_projectile.add_atom_colour(accent_color, FIXED_COLOUR_PRIORITY)
 	holopara_projectile.damage = stats.damage * 1.5
-	holopara_projectile.armour_penetration = max(stats.potential - 1, 0) * 12.5
+	holopara_projectile.sharpness = max(stats.potential - 1, 0) * 12.5
 	holopara_projectile.starting = start_loc
 	holopara_projectile.firer = src
 	holopara_projectile.fired_from = src

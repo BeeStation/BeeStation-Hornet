@@ -25,7 +25,6 @@
 	icon_dead = "legionnaire_dead"
 	icon_gib = "syndicate_gib"
 	maxHealth = 400
-	health = 400
 	melee_damage = 30
 	attack_verb_continuous = "slashes at"
 	attack_verb_simple = "slash at"
@@ -150,9 +149,9 @@
 		newhead.faction = faction.Copy()
 		myhead = newhead
 		myhead.body = src
-		if(health < maxHealth * 0.25)
+		if(get_total_damage() > maxHealth * 0.75)
 			myhead.melee_damage = 30
-		else if(health < maxHealth * 0.5)
+		else if(get_total_damage() > maxHealth * 0.5)
 			myhead.melee_damage = 20
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/onHeadDeath()
@@ -181,7 +180,7 @@
 		var/turf/legionturf = get_turf(src)
 		var/turf/pileturf = get_turf(mypile)
 		if(legionturf == pileturf)
-			mypile.take_damage(100)
+			mypile.take_direct_damage(100)
 			mypile = null
 			return
 		playsound(pileturf,'sound/items/fultext_deploy.ogg', 200, 1)
@@ -218,7 +217,6 @@
 	icon_dead = "legionnaire_dead"
 	icon_gib = "syndicate_gib"
 	maxHealth = 40
-	health = 40
 	melee_damage = 10
 	attack_verb_continuous = "bites"
 	attack_verb_simple = "bite"

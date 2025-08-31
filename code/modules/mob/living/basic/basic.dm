@@ -2,7 +2,6 @@
 /mob/living/basic
 	name = "basic mob"
 	icon = 'icons/mob/animal.dmi'
-	health = 20
 	maxHealth = 20
 	gender = PLURAL
 	status_flags = CANPUSH
@@ -16,8 +15,6 @@
 
 	///how much damage this basic mob does to objects, if any.
 	var/obj_damage = 0
-	///How much armour they ignore, as a flat reduction from the targets armour value.
-	var/armour_penetration = 0
 	///Damage type of a simple mob's melee attack, should it do damage.
 	var/melee_damage_type = BRUTE
 	///How much wounding power it has
@@ -139,7 +136,6 @@
 	if(basic_mob_flags & DEL_ON_DEATH)
 		qdel(src)
 	else
-		health = 0
 		look_dead()
 
 /**
@@ -198,6 +194,9 @@
 		remove_movespeed_modifier(/datum/movespeed_modifier/simplemob_varspeed)
 	add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/simplemob_varspeed, multiplicative_slowdown = speed)
 	SEND_SIGNAL(src, POST_BASIC_MOB_UPDATE_VARSPEED)
+
+/mob/living/basic/get_attack_sharpness()
+	return sharpness
 
 /mob/living/basic/relaymove(mob/living/user, direction)
 	if(user.incapacitated())

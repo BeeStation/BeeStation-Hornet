@@ -137,8 +137,7 @@
 
 		carbon_owner.do_attack_animation(living_target, ATTACK_EFFECT_SMASH)
 
-		var/obj/item/bodypart/affecting = living_target.get_bodypart(ran_zone(living_target.get_combat_bodyzone()))
-		living_target.apply_damage(hit_strength, BRUTE, affecting)
+		living_target.deal_damage(hit_strength, 0, BRUTE, zone = ran_zone(living_target.get_combat_bodyzone()))
 
 		// Knockback
 		var/send_dir = get_dir(owner, living_target)

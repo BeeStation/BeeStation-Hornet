@@ -22,7 +22,7 @@
 
 	max_integrity = 160
 	integrity_failure = 0.5
-	armor_type = /datum/armor/machinery_porta_turret
+	armor_type = /datum/armor/security_metal
 
 	/// If TRUE, this will cause the turret to stop working if the stored_gun var is null in process()
 	var/uses_stored = TRUE
@@ -104,19 +104,9 @@
 	var/datum/action/turret_quit/quit_action
 	var/datum/action/turret_toggle/toggle_action
 	var/mob/remote_controller
-
 	/// The delay between shots
 	var/shot_delay = 1.5 SECONDS
 	COOLDOWN_DECLARE(shooting_cooldown)
-
-/datum/armor/machinery_porta_turret
-	melee = 50
-	bullet = 30
-	laser = 30
-	energy = 30
-	bomb = 30
-	fire = 90
-	acid = 90
 
 /obj/machinery/porta_turret/Initialize(mapload)
 	. = ..()
@@ -395,9 +385,9 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 
 		addtimer(CALLBACK(src, PROC_REF(toggle_on), TRUE), rand(6 SECONDS, 60 SECONDS))
 
-/obj/machinery/porta_turret/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
-	. = ..()
-	if(. && atom_integrity > 0) //damage received
+/obj/machinery/porta_turret/take_direct_damage(amount, type = BRUTE, flag = DAMAGE_STANDARD, zone = null)
+	..()
+	if(atom_integrity > 0) //damage received
 		if(prob(30))
 			spark_system.start()
 		if(on && !attacked && !(obj_flags & EMAGGED))
@@ -788,17 +778,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	lethal_projectile = /obj/projectile/bullet/p50/penetrator/shuttle
 	lethal_projectile_sound = 'sound/weapons/gunshot_smg.ogg'
 	stun_projectile_sound = 'sound/weapons/gunshot_smg.ogg'
-	armor_type = /datum/armor/syndicate_shuttle
-
-
-/datum/armor/syndicate_shuttle
-	melee = 50
-	bullet = 30
-	laser = 30
-	energy = 30
-	bomb = 80
-	fire = 90
-	acid = 90
+	armor_type = /datum/armor/military_light_armor
 
 /obj/machinery/porta_turret/syndicate/shuttle/target(atom/movable/target)
 	if(target)

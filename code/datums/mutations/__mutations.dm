@@ -61,7 +61,7 @@
 		return TRUE
 	if(length(species_allowed) && !species_allowed.Find(C.dna.species.id))
 		return TRUE
-	if(health_req && C.health < health_req)
+	if(health_req && C.consciousness.value < health_req)
 		return TRUE
 	if(limb_req && !C.get_bodypart(limb_req))
 		return TRUE

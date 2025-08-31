@@ -15,7 +15,6 @@
 	icon_state = "drone_synd"
 	icon_living = "drone_synd"
 	picked = TRUE //the appearance of syndrones is static, you don't get to change it.
-	health = 30
 	maxHealth = 120 //If you murder other drones and cannibalize them you can get much stronger
 	initial_language_holder = /datum/language_holder/drone/syndicate
 	faction = list(FACTION_SYNDICATE)

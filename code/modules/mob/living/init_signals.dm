@@ -1,8 +1,5 @@
 ///Called on /mob/living/Initialize(), for the mob to register to relevant signals.
 /mob/living/proc/register_init_signals()
-	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_KNOCKEDOUT), PROC_REF(on_knockedout_trait_gain))
-	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_KNOCKEDOUT), PROC_REF(on_knockedout_trait_loss))
-
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_DEATHCOMA), PROC_REF(on_deathcoma_trait_gain))
 	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_DEATHCOMA), PROC_REF(on_deathcoma_trait_loss))
 
@@ -33,7 +30,11 @@
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_NIGHT_VISION), PROC_REF(on_night_vision_trait_gain))
 	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_NIGHT_VISION), PROC_REF(on_night_vision_trait_loss))
 
+	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_HUSK), PROC_REF(on_husk_gained))
+	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_HUSK), PROC_REF(on_husk_lost))
 
+	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_NO_BLOOD), PROC_REF(on_no_blood_gain))
+	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_NO_BLOOD), PROC_REF(on_no_blood_loss))
 
 	RegisterSignals(src, list(
 		SIGNAL_ADDTRAIT(TRAIT_CRITICAL_CONDITION),
@@ -57,18 +58,6 @@
 		SIGNAL_REMOVETRAIT(TRAIT_FORCED_GRAVITY) = PROC_REF(on_loc_force_gravity),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
-
-///Called when TRAIT_KNOCKEDOUT is added to the mob.
-/mob/living/proc/on_knockedout_trait_gain(datum/source)
-	SIGNAL_HANDLER
-	if(stat < UNCONSCIOUS)
-		set_stat(UNCONSCIOUS)
-
-///Called when TRAIT_KNOCKEDOUT is removed from the mob.
-/mob/living/proc/on_knockedout_trait_loss(datum/source)
-	SIGNAL_HANDLER
-	if(stat <= UNCONSCIOUS)
-		update_stat()
 
 ///Called when TRAIT_DEATHCOMA is added to the mob.
 /mob/living/proc/on_deathcoma_trait_gain(datum/source)
@@ -260,3 +249,30 @@
 /mob/living/proc/on_movement_type_flag_disabled(datum/source, trait, flag, old_movement_type)
 	SIGNAL_HANDLER
 	update_movespeed(FALSE)
+
+/// Called when a mob gains the husk trait
+/mob/living/proc/on_husk_gained()
+	SIGNAL_HANDLER
+	ADD_TRAIT(src, TRAIT_NO_BLOOD, TRAIT_HUSK)
+
+/// Called when a mob gains the husk trait
+/mob/living/proc/on_husk_lost()
+	SIGNAL_HANDLER
+	REMOVE_TRAIT(src, TRAIT_NO_BLOOD, TRAIT_HUSK)
+
+/// Called when a mob gains the no blood trait
+/mob/living/proc/on_no_blood_gain()
+	SIGNAL_HANDLER
+	var/datum/blood_source/previous_blood = blood
+	blood = new /datum/blood_source/none()
+	previous_blood.transfer_to(blood)
+	blood.Initialize(src)
+
+/// Called when a mob gains the no blood trait
+/mob/living/proc/on_no_blood_loss()
+	SIGNAL_HANDLER
+	var/datum/blood_source/previous_blood = blood
+	var/blood_source_type = initial(blood)
+	blood = new blood_source_type()
+	previous_blood.transfer_to(blood)
+	blood.Initialize(src)

@@ -26,8 +26,7 @@
 	var/netdamage = spikedamage * damage_mod
 	if(istype(C) && cooldown <= world.time)
 		var/atom/movable/P = parent
-		var/def_check = C.getarmor(type = MELEE)
-		C.apply_damage(netdamage, BRUTE, blocked = def_check)
+		C.deal_damage(netdamage, 0, BRUTE)
 		P.visible_message(span_warning("[C.name] is pricked on [P.name]'s spikes."))
 		playsound(get_turf(P), 'sound/weapons/slice.ogg', 50, 1)
 		cooldown = (world.time + 8) //spike cooldown is equal to default unarmed attack speed

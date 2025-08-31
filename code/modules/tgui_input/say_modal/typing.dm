@@ -22,11 +22,6 @@ GLOBAL_DATUM_INIT(blind_typing_indicator, /mutable_appearance, mutable_appearanc
 /mob/proc/remove_all_indicators()
 	return
 
-/mob/set_stat(new_stat)
-	. = ..()
-	if(.)
-		remove_all_indicators()
-
 /mob/Logout()
 	remove_all_indicators()
 	return ..()

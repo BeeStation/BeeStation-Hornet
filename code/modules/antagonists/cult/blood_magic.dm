@@ -60,7 +60,7 @@
 	if(do_after(owner, 100 - rune*60, target = owner))
 		if(ishuman(owner))
 			var/mob/living/carbon/human/H = owner
-			H.bleed(40 - rune*32)
+			H.blood.bleed(40 - rune*32)
 		var/datum/action/innate/cult/blood_spell/new_spell = new BS(owner)
 		new_spell.Grant(owner, src)
 		spells += new_spell
@@ -361,9 +361,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 		user.whisper(invocation, language = /datum/language/common)
 	if(health_cost)
 		if(user.active_hand_index == 1)
-			user.apply_damage(health_cost, BRUTE, BODY_ZONE_L_ARM)
+			user.take_direct_damage(health_cost, BRUTE, BODY_ZONE_L_ARM)
 		else
-			user.apply_damage(health_cost, BRUTE, BODY_ZONE_R_ARM)
+			user.take_direct_damage(health_cost, BRUTE, BODY_ZONE_R_ARM)
 	if(uses <= 0)
 		qdel(src)
 	else if(source)
@@ -659,22 +659,22 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 	if(proximity)
 		if(ishuman(target))
 			var/mob/living/carbon/human/H = target
-			if(HAS_TRAIT(H, TRAIT_NOBLOOD) || HAS_TRAIT(H, TRAIT_NO_BLOOD))
+			if(HAS_TRAIT(H, TRAIT_NO_BLOOD) || HAS_TRAIT(H, TRAIT_NO_BLOOD))
 				to_chat(user,span_warning("Blood rites do not work on species with no blood!"))
 				return
 			if(IS_CULTIST(H))
 				if(H.stat == DEAD)
 					to_chat(user,span_warning("Only a revive rune can bring back the dead!"))
 					return
-				if(H.blood_volume < BLOOD_VOLUME_SAFE)
-					var/restore_blood = BLOOD_VOLUME_SAFE - H.blood_volume
+				if(H.blood.volume < BLOOD_VOLUME_SAFE)
+					var/restore_blood = BLOOD_VOLUME_SAFE - H.blood.volume
 					if(uses*2 < restore_blood)
-						H.blood_volume += uses*2
+						H.blood.volume += uses*2
 						to_chat(user,span_danger("You use the last of your blood rites to restore what blood you could!"))
 						uses = 0
 						return ..()
 					else
-						H.blood_volume = BLOOD_VOLUME_SAFE
+						H.blood.volume = BLOOD_VOLUME_SAFE
 						uses -= round(restore_blood/2)
 						to_chat(user,span_warning("Your blood rites have restored [H == user ? "your" : "[H.p_their()]"] blood to safe levels!"))
 				var/overall_damage = H.getBruteLoss() + H.getFireLoss() + H.getToxLoss() + H.getOxyLoss()
@@ -709,8 +709,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 				if(H.cultslurring)
 					to_chat(user,span_danger("[H.p_their(TRUE)] blood has been tainted by an even stronger form of blood magic, it's no use to us like this!"))
 					return
-				if(H.blood_volume > BLOOD_VOLUME_SAFE)
-					H.blood_volume -= 100
+				if(H.blood.volume > BLOOD_VOLUME_SAFE)
+					H.blood.volume -= 100
 					uses += 50
 					user.Beam(H, icon_state="drainbeam", time = 1 SECONDS)
 					playsound(get_turf(H), 'sound/magic/enter_blood.ogg', 50)
@@ -722,7 +722,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 					return
 		if(isconstruct(target))
 			var/mob/living/simple_animal/M = target
-			var/missing = M.maxHealth - M.health
+			var/missing = M.get_total_damage()
 			if(missing)
 				if(uses > missing)
 					M.adjustHealth(-missing)

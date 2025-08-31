@@ -11,7 +11,6 @@
 	icon_state = "pod-off"
 	density = TRUE
 	max_integrity = 350
-	armor_type = /datum/armor/unary_cryo_cell
 	layer = ABOVE_WINDOW_LAYER
 	state_open = FALSE
 	circuit = /obj/item/circuitboard/machine/cryo_tube
@@ -46,13 +45,6 @@
 	var/datum/gas_machine_connector/internal_connector
 	/// Check if the machine has been turned on
 	var/on = FALSE
-
-
-/datum/armor/unary_cryo_cell
-	energy = 100
-	rad = 100
-	fire = 30
-	acid = 30
 
 /obj/machinery/cryo_cell/Initialize(mapload)
 	. = ..()
@@ -227,7 +219,7 @@
 	if(mob_occupant.stat == DEAD) // We don't bother with dead people.
 		return
 
-	if(mob_occupant.health >= mob_occupant.getMaxHealth()) // Don't bother with fully healed people.
+	if(mob_occupant.get_total_damage() == 0) // Don't bother with fully healed people.
 		on = FALSE
 		update_icon()
 		playsound(src, 'sound/machines/cryo_warning.ogg', volume) // Bug the doctors.
@@ -441,7 +433,7 @@
 			if(DEAD)
 				data["occupant"]["stat"] = "Dead"
 				data["occupant"]["statstate"] = "bad"
-		data["occupant"]["health"] = round(mob_occupant.health, 1)
+		data["occupant"]["health"] = round(mob_occupant.maxHealth - mob_occupant.get_total_damage(), 1)
 		data["occupant"]["maxHealth"] = mob_occupant.maxHealth
 		data["occupant"]["minHealth"] = HEALTH_THRESHOLD_DEAD
 		data["occupant"]["bruteLoss"] = round(mob_occupant.getBruteLoss(), 1)

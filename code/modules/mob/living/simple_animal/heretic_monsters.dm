@@ -48,7 +48,6 @@
 	status_flags = CANPUSH
 	melee_damage = 10
 	maxHealth = 50
-	health = 50
 	sight = SEE_MOBS|SEE_OBJS|SEE_TURFS
 	actions_to_add = list(
 		/datum/action/spell/jaunt/ethereal_jaunt/ash/long,
@@ -96,7 +95,6 @@
 	icon_state = "armsy_start"
 	icon_living = "armsy_start"
 	maxHealth = 200
-	health = 200
 	melee_damage = 15
 	move_force = MOVE_FORCE_OVERPOWERING
 	move_resist = MOVE_FORCE_OVERPOWERING
@@ -147,7 +145,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/heretic_summon/a
 	allow_pulling = TRUE
 	// Sets the hp of the head to be exactly the (length * hp), so the head is de facto the hardest to destroy.
 	maxHealth = worm_length * maxHealth
-	health = maxHealth
 
 	// The previous link in the chain
 	var/mob/living/simple_animal/hostile/heretic_summon/armsy/prev = src
@@ -250,7 +247,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/heretic_summon/a
 	adjustBruteLoss(-maxHealth * 0.5, FALSE)
 	adjustFireLoss(-maxHealth * 0.5, FALSE)
 
-	if(health < maxHealth * 0.8)
+	if(get_total_damage() > maxHealth * 0.2)
 		return
 
 	if(++current_stacks < stacks_to_grow)
@@ -305,7 +302,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/heretic_summon/a
 	name = "Lord of the Night"
 	real_name = "Master of Decay"
 	maxHealth = 400
-	health = 400
 	melee_damage = 50
 
 CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/heretic_summon/armsy/prime)
@@ -324,7 +320,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/heretic_summon/a
 	icon_living = "rust_walker_s"
 	status_flags = CANPUSH
 	maxHealth = 75
-	health = 75
 	melee_damage = 20
 	sight = SEE_TURFS
 	actions_to_add = list(
@@ -362,7 +357,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/heretic_summon/a
 	icon_living = "ash_walker"
 	status_flags = CANPUSH
 	maxHealth = 75
-	health = 75
 	melee_damage = 20
 	sight = SEE_TURFS
 	actions_to_add = list(
@@ -379,7 +373,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/heretic_summon/a
 	icon_living = "stalker"
 	status_flags = CANPUSH
 	maxHealth = 150
-	health = 150
 	melee_damage = 20
 	sight = SEE_MOBS
 	actions_to_add = list(

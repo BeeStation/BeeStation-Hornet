@@ -121,7 +121,7 @@
 		actual_heal_amt = CEILING(heal_amt * 1.25, 0.5)
 		actual_effect_heal_amt = CEILING(heal_amt * 1.25, 1)
 		actual_purge_amt = CEILING(purge_amt * 1.25, 0.5)
-	var/old_health = target.health
+	var/old_damage = target.get_total_damage()
 	var/old_brute = target.getBruteLoss()
 	var/old_burn = target.getFireLoss()
 	var/old_oxy = target.getOxyLoss()
@@ -133,8 +133,8 @@
 
 	if(iscarbon(target))
 		var/mob/living/carbon/carbon_target = target
-		if((!carbon_target.dna?.species || !HAS_TRAIT(src, TRAIT_NOBLOOD)) && carbon_target.blood_volume < HOLOPARA_MAX_BLOOD_VOLUME_HEAL)
-			carbon_target.blood_volume = min(carbon_target.blood_volume + actual_heal_amt, HOLOPARA_MAX_BLOOD_VOLUME_HEAL)
+		if((!carbon_target.dna?.species || !HAS_TRAIT(src, TRAIT_NO_BLOOD)) && carbon_target.blood.volume < HOLOPARA_MAX_BLOOD_VOLUME_HEAL)
+			carbon_target.blood.volume = min(carbon_target.blood.volume + actual_heal_amt, HOLOPARA_MAX_BLOOD_VOLUME_HEAL)
 		if(ishuman(carbon_target))
 			var/mob/living/carbon/human/human_target = carbon_target
 			human_target.cauterise_wounds(actual_heal_amt * 0.2)
@@ -170,7 +170,7 @@
 	if(heal_clone)
 		target.adjustCloneLoss(-max(CEILING(actual_heal_amt * 0.75, 0.5), 1), updating_health = FALSE)
 	target.updatehealth()
-	if(old_health > target.health)
+	if(old_damage < target.get_total_damage())
 		SSblackbox.record_feedback("associative", "holoparasite_mob_damage_healed", 1, list(
 			"target" = replacetext("[target.type]", "/mob/living/", ""),
 			"brute" = max(old_brute - target.getBruteLoss(), 0),
@@ -178,7 +178,7 @@
 			"oxy" = max(old_oxy - target.getOxyLoss(), 0),
 			"tox" = max(old_tox - target.getToxLoss(), 0),
 			"clone" = heal_clone ? max(old_clone - target.getCloneLoss(), 0) : 0,
-			"total" = max(old_health - target.health, 0),
+			"total" = max(target.get_total_damage() - old_damage, 0),
 			"self" = target == owner.summoner.current
 		))
 

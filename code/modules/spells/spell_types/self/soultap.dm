@@ -41,7 +41,6 @@
 /datum/action/spell/tap/on_cast(mob/living/user, atom/target)
 	. = ..()
 	user.maxHealth -= tap_health_taken
-	user.health = min(user.health, user.maxHealth)
 
 	for(var/datum/action/spell/spell in user.actions)
 		spell.reset_spell_cooldown()

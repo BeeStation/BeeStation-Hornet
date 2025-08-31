@@ -32,10 +32,10 @@ In all, this is a lot like the monkey code. /N
 		AdjustKnockdown(-60)
 		AdjustImmobilized(-60)
 		AdjustParalyzed(-60)
-		AdjustUnconscious(-60)
+		take_consciousness_damage(-60)
 		AdjustSleeping(-100)
 		visible_message("<span class='notice'>[user.name] nuzzles [src] trying to wake [p_them()] up!</span>")
-	else if(health > 1)
+	else if(get_total_damage() < maxHealth)
 		user.do_attack_animation(src, ATTACK_EFFECT_BITE)
 		playsound(loc, 'sound/weapons/bite.ogg', 50, TRUE, -1)
 		visible_message("<span class='danger'>[user.name] playfully bites [src]!</span>", \
@@ -55,8 +55,7 @@ In all, this is a lot like the monkey code. /N
 	if(!..())
 		return
 	if(stat != DEAD)
-		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(M.get_combat_bodyzone(src)))
-		apply_damage(rand(3), BRUTE, affecting)
+		deal_damage(rand(3), SHARP_III, BRUTE, zone = ran_zone(M.get_combat_bodyzone(src)))
 
 /mob/living/carbon/alien/attack_hand(mob/living/carbon/human/user, list/modifiers)
 	. = ..()
@@ -76,9 +75,8 @@ In all, this is a lot like the monkey code. /N
 			return
 		playsound(loc, "punch", 25, 1, -1)
 		visible_message(span_danger("[user] punches [src]!"), \
-				span_userdanger("[user] punches you!"), null, COMBAT_MESSAGE_RANGE)
-		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(user.get_combat_bodyzone(src)))
-		apply_damage(user.dna.species.punchdamage, BRUTE, affecting)
+		span_userdanger("[user] punches you!"), null, COMBAT_MESSAGE_RANGE)
+		deal_damage(user.dna.species.punchdamage, user.dna.species.attack_sharpness, BRUTE, zone = ran_zone(user.get_combat_bodyzone(src)))
 		log_combat(user, src, "attacked", user)
 		user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 		return TRUE

@@ -24,11 +24,18 @@
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+	decay_rate = 0
 	change_exempt_flags = BP_BLOCK_CHANGE_SPECIES
 	dmg_overlay_type = "robotic"
+	circulation_flags = CIRCULATION_BLOOD | CIRCULATION_COOLANT
+	pain_multiplier = 0.5
+	// Because IPCs can use these and don't feel pain, we need to take organ
+	// damage from normal attacks.
+	internal_protection_rating = 0.5
 
 	brute_reduction = 5
 	burn_reduction = 4
+	effectiveness = 60
 
 	light_brute_msg = ROBOTIC_LIGHT_BRUTE_MSG
 	medium_brute_msg = ROBOTIC_MEDIUM_BRUTE_MSG
@@ -37,6 +44,9 @@
 	light_burn_msg = ROBOTIC_LIGHT_BURN_MSG
 	medium_burn_msg = ROBOTIC_MEDIUM_BURN_MSG
 	heavy_burn_msg = ROBOTIC_HEAVY_BURN_MSG
+
+/obj/item/bodypart/l_arm/robot/setup_injury_trees()
+	return // TODO: Robot injury trees. Progress through damage slowly, but have no way to be healed without replacement.
 
 /obj/item/bodypart/r_arm/robot
 	name = "cyborg right arm"
@@ -52,11 +62,18 @@
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+	decay_rate = 0
 	change_exempt_flags = BP_BLOCK_CHANGE_SPECIES
 	dmg_overlay_type = "robotic"
+	circulation_flags = CIRCULATION_BLOOD | CIRCULATION_COOLANT
+	pain_multiplier = 0.5
+	// Because IPCs can use these and don't feel pain, we need to take organ
+	// damage from normal attacks.
+	internal_protection_rating = 0.5
 
 	brute_reduction = 5
 	burn_reduction = 4
+	effectiveness = 60
 
 	light_brute_msg = ROBOTIC_LIGHT_BRUTE_MSG
 	medium_brute_msg = ROBOTIC_MEDIUM_BRUTE_MSG
@@ -65,6 +82,9 @@
 	light_burn_msg = ROBOTIC_LIGHT_BURN_MSG
 	medium_burn_msg = ROBOTIC_MEDIUM_BURN_MSG
 	heavy_burn_msg = ROBOTIC_HEAVY_BURN_MSG
+
+/obj/item/bodypart/r_arm/robot/setup_injury_trees()
+	return // TODO: Robot injury trees. Progress through damage slowly, but have no way to be healed without replacement.
 
 /obj/item/bodypart/l_leg/robot
 	name = "cyborg left leg"
@@ -80,11 +100,18 @@
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+	decay_rate = 0
 	change_exempt_flags = BP_BLOCK_CHANGE_SPECIES
 	dmg_overlay_type = "robotic"
+	circulation_flags = CIRCULATION_BLOOD | CIRCULATION_COOLANT
+	pain_multiplier = 0.5
+	// Because IPCs can use these and don't feel pain, we need to take organ
+	// damage from normal attacks.
+	internal_protection_rating = 0.5
 
 	brute_reduction = 5
 	burn_reduction = 4
+	effectiveness = 60
 
 	light_brute_msg = ROBOTIC_LIGHT_BRUTE_MSG
 	medium_brute_msg = ROBOTIC_MEDIUM_BRUTE_MSG
@@ -93,6 +120,9 @@
 	light_burn_msg = ROBOTIC_LIGHT_BURN_MSG
 	medium_burn_msg = ROBOTIC_MEDIUM_BURN_MSG
 	heavy_burn_msg = ROBOTIC_HEAVY_BURN_MSG
+
+/obj/item/bodypart/l_leg/robot/setup_injury_trees()
+	return // TODO: Robot injury trees. Progress through damage slowly, but have no way to be healed without replacement.
 
 /obj/item/bodypart/r_leg/robot
 	name = "cyborg right leg"
@@ -108,11 +138,18 @@
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+	decay_rate = 0
 	change_exempt_flags = BP_BLOCK_CHANGE_SPECIES
 	dmg_overlay_type = "robotic"
+	circulation_flags = CIRCULATION_BLOOD | CIRCULATION_COOLANT
+	pain_multiplier = 0.5
+	// Because IPCs can use these and don't feel pain, we need to take organ
+	// damage from normal attacks.
+	internal_protection_rating = 0.5
 
 	brute_reduction = 5
 	burn_reduction = 4
+	effectiveness = 60
 
 	light_brute_msg = ROBOTIC_LIGHT_BRUTE_MSG
 	medium_brute_msg = ROBOTIC_MEDIUM_BRUTE_MSG
@@ -121,6 +158,9 @@
 	light_burn_msg = ROBOTIC_LIGHT_BURN_MSG
 	medium_burn_msg = ROBOTIC_MEDIUM_BURN_MSG
 	heavy_burn_msg = ROBOTIC_HEAVY_BURN_MSG
+
+/obj/item/bodypart/r_leg/robot/setup_injury_trees()
+	return // TODO: Robot injury trees. Progress through damage slowly, but have no way to be healed without replacement.
 
 /obj/item/bodypart/chest/robot
 	name = "cyborg torso"
@@ -134,11 +174,18 @@
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+	decay_rate = 0
 	change_exempt_flags = BP_BLOCK_CHANGE_SPECIES
 	dmg_overlay_type = "robotic"
+	circulation_flags = CIRCULATION_BLOOD | CIRCULATION_COOLANT
+	pain_multiplier = 0.5
+	// Because IPCs can use these and don't feel pain, we need to take organ
+	// damage from normal attacks.
+	internal_protection_rating = 0.5
 
 	brute_reduction = 5
 	burn_reduction = 4
+	effectiveness = 60
 
 	light_brute_msg = ROBOTIC_LIGHT_BRUTE_MSG
 	medium_brute_msg = ROBOTIC_MEDIUM_BRUTE_MSG
@@ -150,6 +197,9 @@
 
 	var/wired = FALSE
 	var/obj/item/stock_parts/cell/cell = null
+
+/obj/item/bodypart/chest/robot/setup_injury_trees()
+	return // TODO: Robot injury trees. Progress through damage slowly, but have no way to be healed without replacement.
 
 /obj/item/bodypart/chest/robot/get_cell()
 	return cell
@@ -242,9 +292,15 @@
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+	decay_rate = 0
 	change_exempt_flags = BP_BLOCK_CHANGE_SPECIES
 	w_class = WEIGHT_CLASS_NORMAL
 	dmg_overlay_type = "robotic"
+	circulation_flags = CIRCULATION_BLOOD | CIRCULATION_COOLANT
+	pain_multiplier = 0.5
+	// Because IPCs can use these and don't feel pain, we need to take organ
+	// damage from normal attacks.
+	internal_protection_rating = 0.5
 
 	brute_reduction = 5
 	burn_reduction = 4
@@ -260,6 +316,8 @@
 	var/obj/item/assembly/flash/handheld/flash1 = null
 	var/obj/item/assembly/flash/handheld/flash2 = null
 
+/obj/item/bodypart/head/robot/setup_injury_trees()
+	return // TODO: Robot injury trees. Progress through damage slowly, but have no way to be healed without replacement.
 
 /obj/item/bodypart/head/robot/handle_atom_del(atom/A)
 	if(A == flash1)
@@ -340,6 +398,7 @@
 	icon_static = 'icons/mob/augmentation/surplus_augments.dmi'
 	brute_reduction = 0
 	burn_reduction = 0
+	effectiveness = 40
 	max_damage = 20
 
 /obj/item/bodypart/r_arm/robot/surplus
@@ -348,6 +407,7 @@
 	icon_static = 'icons/mob/augmentation/surplus_augments.dmi'
 	brute_reduction = 0
 	burn_reduction = 0
+	effectiveness = 40
 	max_damage = 20
 
 /obj/item/bodypart/l_leg/robot/surplus
@@ -356,6 +416,7 @@
 	icon_static = 'icons/mob/augmentation/surplus_augments.dmi'
 	brute_reduction = 0
 	burn_reduction = 0
+	effectiveness = 40
 	max_damage = 20
 
 /obj/item/bodypart/r_leg/robot/surplus
@@ -364,9 +425,8 @@
 	icon_static = 'icons/mob/augmentation/surplus_augments.dmi'
 	brute_reduction = 0
 	burn_reduction = 0
+	effectiveness = 40
 	max_damage = 20
-
-
 
 /obj/item/bodypart/head/robot/android
 	change_exempt_flags = null

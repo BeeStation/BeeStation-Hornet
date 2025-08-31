@@ -85,6 +85,7 @@
 	to_chat(user, span_userdanger("Holy magics residing in \the [src] burn your hand!"))
 	var/obj/item/bodypart/affecting = user.get_bodypart("[(user.active_hand_index % 2 == 0) ? "r" : "l" ]_arm")
 	affecting.receive_damage( 0, 10 )	// 10 burn damage
+	affecting.run_limb_injuries(10, BURN, DAMAGE_FIRE, 0)
 	user.emote("scream")
 	user.update_damage_overlays()
 	user.dropItemToGround(src)
@@ -236,7 +237,6 @@
 				T.forceMove(src) //put shade in stone
 				ADD_TRAIT(T, TRAIT_GODMODE, SOULSTONE_TRAIT)
 				T.mobility_flags = NONE
-				T.health = T.maxHealth
 				if(theme == THEME_HOLY)
 					icon_state = "purified_soulstone2"
 					if(IS_CULTIST(T))

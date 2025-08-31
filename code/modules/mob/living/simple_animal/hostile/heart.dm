@@ -11,7 +11,7 @@
 	emote_see = list("beats")
 	combat_mode = TRUE
 	maxHealth = 24
-	health = 24
+
 	speed = -1
 	melee_damage = 15
 	response_help_continuous = "touches"

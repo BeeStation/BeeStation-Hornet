@@ -15,7 +15,6 @@
 	vision_range = 6
 	aggro_vision_range = 18
 	environment_smash = ENVIRONMENT_SMASH_NONE  //This is to prevent elites smashing up the mining station, we'll make sure they can smash minerals fine below.
-	stat_attack = HARD_CRIT
 	layer = LARGE_MOB_LAYER
 	sentience_type = SENTIENCE_BOSS
 	var/chosen_attack = 1
@@ -86,7 +85,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 /obj/structure/elite_tumor
 	name = "pulsing tumor"
 	desc = "An odd, pulsing tumor sticking out of the ground.  You feel compelled to reach out and touch it..."
-	armor_type = /datum/armor/structure_elite_tumor
 	resistance_flags = INDESTRUCTIBLE
 	icon = 'icons/obj/lavaland/tumor.dmi'
 	icon_state = "tumor"
@@ -105,18 +103,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 								/mob/living/simple_animal/hostile/asteroid/elite/pandora,
 								/mob/living/simple_animal/hostile/asteroid/elite/legionnaire,
 								/mob/living/simple_animal/hostile/asteroid/elite/herald)
-
-
-/datum/armor/structure_elite_tumor
-	melee = 100
-	bullet = 100
-	laser = 100
-	energy = 100
-	bomb = 100
-	bio = 100
-	rad = 100
-	fire = 100
-	acid = 100
 
 /obj/structure/elite_tumor/attack_hand(mob/user, list/modifiers)
 	. = ..()
@@ -177,7 +163,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	mychild.revive(HEAL_ALL)
 	if(boosted)
 		mychild.maxHealth = mychild.maxHealth * 2
-		mychild.health = mychild.maxHealth
 		notify_ghosts("\A [mychild] has been challenged in \the [get_area(src)]!", source = mychild, action = NOTIFY_ORBIT, flashwindow = FALSE, header = "Lavaland Elite challenged")
 	mychild.log_message("has been challenged by [key_name(activator)]!", LOG_GAME, color="#960000")
 
@@ -276,7 +261,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	if(boosted)
 		times_won++
 		mychild.maxHealth = mychild.maxHealth * 0.5
-		mychild.health = mychild.maxHealth
 	if(times_won == 1)
 		mychild.playsound_local(get_turf(mychild), 'sound/effects/magic.ogg', 40, 0)
 		to_chat(mychild, span_boldwarning("As the life in the activator's eyes fade, the forcefield around you dies out and you feel your power subside.\nDespite this inferno being your home, you feel as if you aren't welcome here anymore.\nWithout any guidance, your purpose is now for you to decide."))
@@ -327,7 +311,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		to_chat(E, span_userdanger("You have been revived by [user].  While you can't speak to them, you owe [user] a great debt.  Assist [user.p_them()] in achieving [user.p_their()] goals, regardless of risk."))
 		to_chat(E, span_bigbold("Note that you now share the loyalties of [user].  You are expected not to intentionally sabotage their faction unless commanded to!"))
 		E.maxHealth = E.maxHealth * 0.5
-		E.health = E.maxHealth
 		E.desc = "[E.desc]  However, this one appears appears less wild in nature, and calmer around people."
 		E.sentience_type = SENTIENCE_ORGANIC
 		qdel(src)

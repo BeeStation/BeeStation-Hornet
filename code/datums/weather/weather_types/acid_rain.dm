@@ -21,12 +21,10 @@
 	protect_indoors = TRUE
 	target_trait = ZTRAIT_ACIDRAIN
 
-	immunity_type = ACID // temp
-
 	barometer_predictable = TRUE
 
 
 /datum/weather/acid_rain/weather_act(mob/living/L)
-	var/resist = L.getarmor(null, ACID)
+	var/resist = L.get_average_armor_flag(ARMOUR_ABSORPTION)
 	if(prob(max(0,100-resist)))
 		L.acid_act(20,20)

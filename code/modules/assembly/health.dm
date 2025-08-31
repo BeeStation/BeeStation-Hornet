@@ -52,7 +52,7 @@
 	var/mob/living/M = A
 
 	if(M)
-		health_scan = M.health
+		health_scan = M.consciousness.value
 		if(health_scan <= alarm_health)
 			pulse()
 			audible_message("[icon2html(src, hearers(src))] *beep* *beep* *beep*")

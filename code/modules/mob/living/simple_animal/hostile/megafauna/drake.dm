@@ -29,7 +29,6 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/dragon
 	name = "ash drake"
 	desc = "Guardians of the necropolis."
-	health = 1250
 	maxHealth = 1250
 	attack_verb_continuous = "chomps"
 	attack_verb_simple = "chomp"
@@ -41,7 +40,7 @@ Difficulty: Medium
 	friendly_verb_continuous = "stares down"
 	friendly_verb_simple = "stare down"
 	speak_emote = list("roars")
-	armour_penetration = 40
+	sharpness = SHARP_IV
 	melee_damage = 40
 	speed = 5
 	move_to_delay = 5
@@ -98,7 +97,7 @@ Difficulty: Medium
 	if(swooping)
 		return
 
-	anger_modifier = clamp(((maxHealth - health)/25),0,20)
+	anger_modifier = clamp((get_total_damage()/25),0,20)
 	ranged_cooldown = world.time + ranged_cooldown_time
 
 	if(client)
@@ -122,7 +121,7 @@ Difficulty: Medium
 		fire_cone()
 
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/shoot_fire_attack()
-	if(health < maxHealth*0.5)
+	if(get_total_damage() > maxHealth*0.5)
 		mass_fire()
 	else
 		fire_cone()
@@ -148,13 +147,13 @@ Difficulty: Medium
 		SLEEP_CHECK_DEATH(delay)
 
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/lava_swoop(var/amount = 30)
-	if(health < maxHealth * 0.5)
+	if(get_total_damage() > maxHealth * 0.5)
 		return swoop_attack(lava_arena = TRUE, swoop_cooldown = 60)
 	INVOKE_ASYNC(src, PROC_REF(lava_pools), amount)
 	swoop_attack(FALSE, target, 1000) // longer cooldown until it gets reset below
 	SLEEP_CHECK_DEATH(0)
 	fire_cone()
-	if(health < maxHealth*0.5)
+	if(get_total_damage() > maxHealth*0.5)
 		SLEEP_CHECK_DEATH(10)
 		fire_cone()
 		SLEEP_CHECK_DEATH(10)
@@ -282,7 +281,7 @@ Difficulty: Medium
 			if(M in hit_list)
 				continue
 			hit_list += M
-			M.take_damage(45, BRUTE, MELEE, 1)
+			M.deal_damage(45, 0, BRUTE, DAMAGE_FIRE)
 		sleep(1.5)
 
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/swoop_attack(lava_arena = FALSE, atom/movable/manual_target, var/swoop_cooldown = 30)
@@ -364,7 +363,7 @@ Difficulty: Medium
 			L.throw_at(throwtarget, 3)
 			visible_message(span_warning("[L] is thrown clear of [src]!"))
 	for(var/obj/vehicle/sealed/mecha/M in orange(1, src))
-		M.take_damage(75, BRUTE, MELEE, 1)
+		M.deal_damage(75, 0, BRUTE, DAMAGE_STANDARD)
 
 	for(var/mob/M in range(7, src))
 		shake_camera(M, 15, 1)
@@ -435,7 +434,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/lava_warning)
 
 	// deals damage to mechs
 	for(var/obj/vehicle/sealed/mecha/M in T.contents)
-		M.take_damage(45, BRUTE, MELEE, 1)
+		M.deal_damage(45, 0, BRUTE, DAMAGE_FIRE)
 
 	// changes turf to lava temporarily
 	if(!istype(T, /turf/closed) && !istype(T, /turf/open/lava))
@@ -564,7 +563,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/target)
 /mob/living/simple_animal/hostile/megafauna/dragon/lesser
 	name = "lesser ash drake"
 	maxHealth = 200
-	health = 200
 	faction = list(FACTION_NEUTRAL)
 	obj_damage = 80
 	melee_damage = 30

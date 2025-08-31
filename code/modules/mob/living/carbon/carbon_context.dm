@@ -23,7 +23,7 @@
 					context.add_left_click_action("Headpat")
 				else
 					context.add_left_click_action("Hug")
-			else if (health >= 0 && !HAS_TRAIT(src, TRAIT_FAKEDEATH))
+			else if (stat <= SOFT_CRIT && !HAS_TRAIT(src, TRAIT_FAKEDEATH))
 				context.add_left_click_action("Shake")
 			else
 				context.add_left_click_action("CPR")

@@ -61,10 +61,9 @@
 	var/turf/T = get_turf(C)
 	C.add_bleeding(BLEED_CRITICAL)
 	playsound(get_turf(C), 'sound/misc/splort.ogg', 80, 1)
-	for(var/X in C.internal_organs)
-		var/obj/item/organ/O = X
-		var/org_zone = check_zone(O.zone)
-		if(org_zone != BODY_ZONE_CHEST)
+	for(var/X in organ_slots)
+		var/obj/item/organ/O = C.get_organ_slot(X)
+		if(!O)
 			continue
 		O.Remove(C)
 		O.forceMove(T)
@@ -84,6 +83,7 @@
 	SEND_SIGNAL(src, COMSIG_BODYPART_REMOVED, owner, dismembered)
 	update_limb(TRUE)
 	C.remove_bodypart(src)
+	clear_effectiveness_modifiers()
 
 	if(held_index)
 		C.dropItemToGround(owner.get_item_for_held_index(held_index), 1)
@@ -111,10 +111,9 @@
 				if(MT.limb_req && MT.limb_req == body_zone)
 					C.dna.force_lose(MT)
 
-		for(var/X in C.internal_organs) //internal organs inside the dismembered limb are dropped.
-			var/obj/item/organ/O = X
-			var/org_zone = check_zone(O.zone)
-			if(org_zone != body_zone)
+		for(var/X in organ_slots) //internal organs inside the dismembered limb are dropped.
+			var/obj/item/organ/O = C.get_organ_slot(X)
+			if (!O)
 				continue
 			O.transfer_to_limb(src, C)
 
@@ -152,7 +151,7 @@
 		LB.brainmob = brainmob
 		brainmob = null
 		LB.brainmob.forceMove(LB)
-		LB.brainmob.set_stat(DEAD)
+		LB.brainmob.set_stat_source(DEAD, FROM_DEAD)
 
 /obj/item/organ/eyes/transfer_to_limb(obj/item/bodypart/head/LB, mob/living/carbon/human/C)
 	LB.eyes = src
@@ -280,6 +279,7 @@
 	SEND_SIGNAL(new_limb_owner, COMSIG_CARBON_ATTACH_LIMB, src, special)
 	moveToNullspace()
 	set_owner(new_limb_owner)
+	update_effectiveness()
 	new_limb_owner.add_bodypart(src)
 	if(held_index)
 		if(held_index > new_limb_owner.hand_bodyparts.len)
@@ -303,6 +303,8 @@
 
 	for(var/obj/item/organ/limb_organ in contents)
 		limb_organ.Insert(new_limb_owner)
+
+	synchronize_bodytypes(new_limb_owner)
 
 	update_bodypart_damage_state()
 	if(can_be_disabled)

@@ -11,7 +11,6 @@
 
 	density = TRUE
 	max_integrity = 300
-	armor_type = /datum/armor/unary_thermomachine
 	layer = OBJ_LAYER
 	circuit = /obj/item/circuitboard/machine/thermomachine
 
@@ -32,13 +31,6 @@
 	var/base_heating = 140
 	var/base_cooling = 170
 	var/color_index = 1
-
-
-/datum/armor/unary_thermomachine
-	energy = 100
-	rad = 100
-	fire = 80
-	acid = 30
 
 /obj/machinery/atmospherics/components/unary/thermomachine/Initialize(mapload)
 	. = ..()

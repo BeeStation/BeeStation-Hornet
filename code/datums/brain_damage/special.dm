@@ -15,7 +15,7 @@
 	if(DT_PROB(2, delta_time))
 		if(prob(33) && (owner.IsStun() || owner.IsParalyzed() || owner.IsUnconscious()))
 			speak("unstun", TRUE)
-		else if(prob(60) && owner.health <= owner.crit_threshold)
+		else if(prob(60) && owner.consciousness.value <= owner.crit_threshold)
 			speak("heal", TRUE)
 		else if(prob(30) && owner.combat_mode)
 			speak("aggressive")

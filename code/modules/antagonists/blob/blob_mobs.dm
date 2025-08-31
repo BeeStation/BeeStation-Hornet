@@ -43,7 +43,7 @@
 	return ..()
 
 /mob/living/simple_animal/hostile/blob/blob_act(obj/structure/blob/B)
-	if(stat != DEAD && health < maxHealth)
+	if(stat != DEAD && consciousness.value < consciousness.max_value)
 		for(var/i in 1 to 2)
 			var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal(get_turf(src)) //hello yes you are being healed
 			if(overmind)
@@ -95,7 +95,6 @@
 	desc = "A floating, fragile spore."
 	icon_state = "blobpod"
 	icon_living = "blobpod"
-	health = BLOBMOB_SPORE_HEALTH
 	maxHealth = BLOBMOB_SPORE_HEALTH
 	verb_say = "psychically pulses"
 	verb_ask = "psychically probes"
@@ -139,9 +138,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/blob/blobspore)
 /mob/living/simple_animal/hostile/blob/blobspore/proc/Zombify(mob/living/carbon/human/H)
 	is_zombie = 1
 	if(H.wear_suit)
-		maxHealth += H.get_armor_rating(MELEE)
+		maxHealth += H.get_average_armor_flag(ARMOUR_BLUNT)
+		maxHealth += H.get_average_armor_flag(ARMOUR_PENETRATION)
 	maxHealth += 40
-	health = maxHealth
 	name = "blob zombie"
 	desc = "A shambling corpse animated by the blob."
 	mob_biotypes += MOB_HUMANOID
@@ -214,7 +213,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/blob/blobspore)
 
 /mob/living/simple_animal/hostile/blob/blobspore/weak
 	name = "fragile blob spore"
-	health = 15
 	maxHealth = 15
 	melee_damage = 2
 	death_cloud_size = 0
@@ -229,7 +227,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/blob/blobspore)
 	icon_state = "blobbernaut"
 	icon_living = "blobbernaut"
 	icon_dead = "blobbernaut_dead"
-	health = BLOBMOB_BLOBBERNAUT_HEALTH
 	maxHealth = BLOBMOB_BLOBBERNAUT_HEALTH
 	damage_coeff = list(BRUTE = 0.5, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
 	melee_damage = BLOBMOB_BLOBBERNAUT_DMG_SOLO
@@ -291,14 +288,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/blob/blobspore)
 
 	flick_overlay_view(I, src, 8)
 
-/mob/living/simple_animal/hostile/blob/blobbernaut/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
-	. = ..()
-	if(updating_health)
-		update_health_hud()
-
 /mob/living/simple_animal/hostile/blob/blobbernaut/update_health_hud()
 	if(hud_used)
-		hud_used.healths.maptext = MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#e36600'>[round((health / maxHealth) * 100, 0.5)]%</font></div>")
+		hud_used.healths.maptext = MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#e36600'>[round((consciousness.value / consciousness.max_value) * 100, 0.5)]%</font></div>")
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/AttackingTarget()
 	. = ..()

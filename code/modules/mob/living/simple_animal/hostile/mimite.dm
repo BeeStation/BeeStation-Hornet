@@ -19,14 +19,13 @@
 
 	speed = 3
 	maxHealth = 50
-	health = 50
 	gender = NEUTER
 	mob_biotypes = list(MOB_INORGANIC)
 	wander = FALSE
 
 	vision_range = 4
 	aggro_vision_range = 4
-	armour_penetration = 10
+	sharpness = SHARP_IV
 	rapid_melee = 2
 	attack_sound = 'sound/effects/meatslap.ogg'
 	emote_taunt = list("growls")

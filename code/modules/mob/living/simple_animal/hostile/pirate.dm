@@ -12,7 +12,6 @@
 	response_help_simple = "push"
 	speed = 0
 	maxHealth = 100
-	health = 100
 	melee_damage = 10
 	attack_verb_continuous = "punches"
 	attack_verb_simple = "punch"
@@ -34,7 +33,7 @@
 	icon_living = "piratemelee"
 	icon_dead = "piratemelee_dead"
 	melee_damage = 30
-	armour_penetration = 35
+	sharpness = SHARP_VII
 	attack_verb_continuous = "slashes"
 	attack_verb_simple = "slash"
 	attack_sound = 'sound/weapons/blade1.ogg'

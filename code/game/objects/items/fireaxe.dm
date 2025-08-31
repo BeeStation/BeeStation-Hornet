@@ -15,18 +15,12 @@
 	attack_verb_continuous = list("attacks", "chops", "cleaves", "tears", "lacerates", "cuts")
 	attack_verb_simple = list("attack", "chop", "cleave", "tear", "lacerate", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	sharpness = SHARP_DISMEMBER
-	bleed_force = BLEED_CUT
+	sharpness = SHARP_V
 	max_integrity = 200
-	armor_type = /datum/armor/item_fireaxe
+	armor_type = /datum/armor/civilian_metal
 	resistance_flags = FIRE_PROOF
 	item_flags = ISWEAPON
 	var/icon_prefix = "fireaxe"
-
-
-/datum/armor/item_fireaxe
-	fire = 100
-	acid = 30
 
 /obj/item/fireaxe/Initialize(mapload)
 	. = ..()
@@ -51,14 +45,14 @@
 	if(ISWIELDED(src)) //destroys windows, and grilles in one hit
 		if(istype(A, /obj/structure/window))
 			var/obj/structure/window/W = A
-			W.take_damage(200, BRUTE, MELEE, 0)
+			W.deal_damage(200, sharpness, BRUTE, sound = 0)
 		else if(istype(A, /obj/machinery/door/window) || istype(A, /obj/structure/windoor_assembly)\
 				|| istype(A, /obj/structure/table/glass))
 			var/obj/WD = A
-			WD.take_damage(80, BRUTE, MELEE, 0) //Destroy glass tables in one hit, windoors in two hits.
+			WD.deal_damage(80, sharpness, BRUTE, sound = 0) //Destroy glass tables in one hit, windoors in two hits.
 		else if(istype(A, /obj/structure/grille))
 			var/obj/structure/grille/G = A
-			G.take_damage(40, BRUTE, MELEE, 0)
+			G.deal_damage(40, sharpness, BRUTE, sound = 0)
 
 /*
  * Bone Axe

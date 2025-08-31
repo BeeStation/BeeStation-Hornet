@@ -20,7 +20,7 @@
 	taunt_chance = 30
 	speed = 0
 	maxHealth = 25
-	health = 25
+
 	melee_damage = 5
 	attack_verb_continuous = "pecks"
 	attack_verb_simple = "peck"

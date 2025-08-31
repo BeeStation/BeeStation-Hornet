@@ -10,7 +10,6 @@ GLOBAL_LIST_EMPTY(clockwork_marauders)
 	icon_state = "clockwork_marauder"
 	icon_dead = "anime_fragment"
 	combat_mode = TRUE
-	health = 140
 	maxHealth = 140
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -65,7 +64,7 @@ GLOBAL_LIST_EMPTY(clockwork_marauders)
 
 /mob/living/simple_animal/hostile/clockwork_marauder/attacked_by(obj/item/I, mob/living/user)
 	if(istype(I, /obj/item/nullrod))
-		apply_damage(15, BURN)
+		take_direct_damage(15, BURN)
 		if(shield_health > 0)
 			damage_shield()
 		playsound(src,'sound/hallucinations/veryfar_noise.ogg',40,1)
@@ -91,7 +90,7 @@ GLOBAL_LIST_EMPTY(clockwork_marauders)
 
 /mob/living/simple_animal/hostile/clockwork_marauder/welder_act(mob/living/user, obj/item/I)
 	if(do_after(user, 25, target=src))
-		health = min(health + 10, maxHealth)
+		heal_ordered_damage(10, list(BRUTE, BURN))
 		to_chat(user, span_notice("You repair some of [src]'s damage."))
 		if(shield_health < MARAUDER_SHIELD_MAX)
 			shield_health ++

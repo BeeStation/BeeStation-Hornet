@@ -193,7 +193,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			if(invocation)
 				L.say(invocation, language = /datum/language/common, ignore_spam = TRUE, forced = "cult invocation")
 			if(invoke_damage)
-				L.apply_damage(invoke_damage, BRUTE)
+				L.take_direct_damage(invoke_damage, BRUTE)
 				to_chat(L, span_cultitalic("[src] saps your strength!"))
 		else if(istype(M, /obj/item/toy/plush/narplush))
 			var/obj/item/toy/plush/narplush/P = M
@@ -648,7 +648,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/narsie)
 		revives_used += SOULS_TO_REVIVE
 		mob_to_revive.revive(ADMIN_HEAL_ALL) //This does remove traits and such, but the rune might actually see some use because of it! //Why did you think this was a good idea
 		mob_to_revive.grab_ghost()
-		
+
 	if(!mob_to_revive.client || mob_to_revive.client.is_afk())
 		set waitfor = FALSE
 		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(
@@ -738,7 +738,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 						span_cultitalic("You channel [carbon_user ? "your life ":""]energy into [src], [density ? "temporarily preventing" : "allowing"] passage above it."))
 	if(carbon_user)
 		var/mob/living/carbon/C = user
-		C.apply_damage(2, BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
+		C.take_direct_damage(2, BRUTE, zone = pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 
 /obj/effect/rune/wall/proc/spread_density()
 	for(var/R in GLOB.wall_runes)
@@ -862,7 +862,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 	color = "#FC9B54"
 	set_light(6, 1, color)
 	for(var/mob/living/L in viewers(T))
-		if(!IS_CULTIST(L) && L.blood_volume)
+		if(!IS_CULTIST(L) && L.blood.volume)
 			var/atom/I = L.can_block_magic(MAGIC_RESISTANCE_HOLY)
 			if(I)
 				if(isitem(I))
@@ -890,7 +890,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 /obj/effect/rune/blood_boil/proc/do_area_burn(turf/T, multiplier)
 	set_light(6, 1, color)
 	for(var/mob/living/L in viewers(T))
-		if(!IS_CULTIST(L) && L.blood_volume)
+		if(!IS_CULTIST(L) && L.blood.volume)
 			if(L.can_block_magic(MAGIC_RESISTANCE_HOLY))
 				continue
 			L.take_overall_damage(tick_damage*multiplier, tick_damage*multiplier)
@@ -969,7 +969,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 		while(!QDELETED(src) && !QDELETED(user) && !QDELETED(new_human) && (user in T))
 			if(user.stat != CONSCIOUS || HAS_TRAIT(new_human, TRAIT_CRITICAL_CONDITION))
 				break
-			user.apply_damage(0.1, BRUTE)
+			user.take_direct_damage(0.1, BRUTE)
 			sleep(1)
 
 		qdel(N)
@@ -1002,7 +1002,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 									span_danger("You are re-united with your physical form. [src] releases its hold over you."))
 				affecting.Paralyze(40)
 				break
-			if(affecting.health <= 10)
+			if(affecting.consciousness.value <= 10)
 				to_chat(G, span_cultitalic("Your body can no longer sustain the connection!"))
 				break
 			sleep(5)
@@ -1021,7 +1021,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 	no_brain = TRUE
 	. = ..()
 
-/mob/living/carbon/human/cult_ghost/get_organs_for_zone(zone, include_children)
+/mob/living/carbon/human/cult_ghost/get_organs_for_zone(zone)
 	. = ..()
 	for(var/obj/item/organ/brain/B in .) //they're not that smart, really
 		. -= B

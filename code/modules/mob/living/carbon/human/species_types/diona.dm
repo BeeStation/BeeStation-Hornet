@@ -25,7 +25,6 @@
 	)
 	inherent_biotypes = list(MOB_HUMANOID, MOB_ORGANIC, MOB_BUG)
 	mutant_bodyparts = list("diona_leaves", "diona_thorns", "diona_flowers", "diona_moss", "diona_mushroom", "diona_antennae", "diona_eyes", "diona_pbody")
-	mutant_organs = list(/obj/item/organ/nymph_organ/r_arm, /obj/item/organ/nymph_organ/l_arm, /obj/item/organ/nymph_organ/l_leg, /obj/item/organ/nymph_organ/r_leg, /obj/item/organ/nymph_organ/chest)
 	inherent_factions = list(FACTION_PLANTS, FACTION_VINES, FACTION_DIONA)
 	attack_verb = "slash"
 	attack_sound = 'sound/emotes/diona/hit.ogg'
@@ -79,7 +78,7 @@
 		H.take_overall_damage(1,0)
 	if(H.stat != CONSCIOUS)
 		H.remove_status_effect(/datum/status_effect/planthealing)
-	if((H.health <= H.crit_threshold)) //Shit, we're dying! Scatter!
+	if(H.stat >= SOFT_CRIT) //Shit, we're dying! Scatter!
 		split_ability.split(FALSE, H)
 	if(H.nutrition > NUTRITION_LEVEL_WELL_FED && !informed_nymph)
 		informed_nymph = TRUE
@@ -277,54 +276,6 @@
 		if(H.nutrition >= NUTRITION_LEVEL_WELL_FED)
 			return TRUE
 		return FALSE
-
-/////////////////////////////////// Dionae organs down here, special behavior stuffs ///////////////////////////////////////
-/obj/item/organ/nymph_organ
-	name = "diona nymph"
-	desc = "You should not be seeing this, if you are, please contact a coder."
-	icon = 'icons/mob/animal.dmi'
-	icon_state = "nymph"
-
-/obj/item/organ/nymph_organ/Remove(mob/living/carbon/organ_owner, special, pref_load)
-	. = ..()
-	if(istype(organ_owner, /mob/living/carbon/human/dummy) || special)
-		return
-	var/obj/item/bodypart/body_part = organ_owner.get_bodypart(zone)
-	for(var/datum/surgery/organ_manipulation/surgery in organ_owner.surgeries)
-		surgery.Destroy()
-	if(istype(body_part, /obj/item/bodypart/chest)) //Does the same things as removing the brain would, since the torso is what keeps the diona together.
-		organ_owner.dna.species.spec_death(FALSE, src)
-		QDEL_NULL(src)
-		return
-	new /mob/living/simple_animal/hostile/retaliate/nymph(organ_owner.loc)
-	QDEL_NULL(body_part)
-	QDEL_NULL(src)
-	organ_owner.update_body()
-
-/obj/item/organ/nymph_organ/transfer_to_limb(obj/item/bodypart/LB, mob/living/carbon/C)
-	Remove(C, FALSE)
-	forceMove(LB)
-
-/obj/item/organ/nymph_organ/r_arm
-	zone = BODY_ZONE_R_ARM
-	slot = ORGAN_SLOT_R_ARM_NYMPH
-
-/obj/item/organ/nymph_organ/l_arm
-	zone = BODY_ZONE_L_ARM
-	slot = ORGAN_SLOT_L_ARM_NYMPH
-
-/obj/item/organ/nymph_organ/r_leg
-	zone = BODY_ZONE_R_LEG
-	slot = ORGAN_SLOT_R_LEG_NYMPH
-
-/obj/item/organ/nymph_organ/l_leg
-	zone = BODY_ZONE_L_LEG
-	slot = ORGAN_SLOT_L_LEG_NYMPH
-
-/obj/item/organ/nymph_organ/chest
-	zone = BODY_ZONE_CHEST
-	slot = ORGAN_SLOT_CHEST_NYMPH
-
 
 ////////////////////////////////////// Preferences menu stuffs ////////////////////////////////////////////////////////////
 /datum/species/diona/get_species_description()

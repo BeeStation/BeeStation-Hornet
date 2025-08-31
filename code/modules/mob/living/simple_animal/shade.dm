@@ -8,7 +8,6 @@
 	icon_living = "shade_cult"
 	mob_biotypes = list(MOB_SPIRIT)
 	maxHealth = 40
-	health = 40
 	spacewalk = TRUE
 	healable = 0
 	speak_emote = list("hisses")
@@ -52,11 +51,11 @@
 		var/mob/living/simple_animal/hostile/construct/C = M
 		if(!C.can_repair_constructs)
 			return
-		if(health < maxHealth)
+		if(get_total_damage() > 0)
 			adjustHealth(-25)
 			Beam(M, icon_state="sendbeam", time= 4)
 			M.visible_message(span_danger("[M] heals \the <b>[src]</b>."), \
-					   span_cult("You heal <b>[src]</b>, leaving <b>[src]</b> at <b>[health]/[maxHealth]</b> health."))
+					   span_cult("You heal <b>[src]</b>, leaving <b>[src]</b> with <b>[get_total_damage()]</b> damage."))
 		else
 			to_chat(M, span_cult("You cannot heal <b>[src]</b>, as [p_theyre()] unharmed!"))
 	else if(src != M)

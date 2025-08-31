@@ -37,7 +37,6 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/hierophant
 	name = "hierophant"
 	desc = "A massive metal club that hangs in the air as though waiting. It'll make you dance to its beat."
-	health = 1250
 	maxHealth = 1250
 	attack_verb_continuous = "clubs"
 	attack_verb_simple = "club"
@@ -49,7 +48,7 @@ Difficulty: Hard
 	icon = 'icons/mob/lavaland/hierophant_new.dmi'
 	faction = list(FACTION_BOSS) //asteroid mobs? get that shit out of my beautiful square house
 	speak_emote = list("preaches")
-	armour_penetration = 50
+	sharpness = SHARP_NONE
 	melee_damage = 15
 	speed = 10
 	move_to_delay = 10
@@ -191,7 +190,7 @@ Difficulty: Hard
 		blink(target)
 
 	else if(prob(70 - anger_modifier)) //a cross blast of some type
-		if(prob(anger_modifier * (2 / target_slowness)) && health < maxHealth * 0.5) //we're super angry do it at all dirs
+		if(prob(anger_modifier * (2 / target_slowness)) && get_total_damage() > maxHealth * 0.5) //we're super angry do it at all dirs
 			INVOKE_ASYNC(src, PROC_REF(blasts), target, GLOB.alldirs)
 		else if(prob(60))
 			INVOKE_ASYNC(src, PROC_REF(blasts), target, GLOB.cardinals)
@@ -202,7 +201,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/proc/blink_spam(var/blink_counter, var/target_slowness, var/cross_counter)
 	ranged_cooldown = world.time + max(5, major_attack_cooldown - anger_modifier * 0.75)
-	if(health < maxHealth * 0.5 && blink_counter > 1)
+	if(get_total_damage() > maxHealth * 0.5 && blink_counter > 1)
 		visible_message(span_hierophant("\"Mx ampp rsx iwgeti.\""))
 		var/oldcolor = color
 		animate(src, color = "#660099", time = 6)
@@ -392,18 +391,18 @@ Difficulty: Hard
 			did_reset = TRUE
 			visible_message("[span_hierophantwarning("\"Vixyvrmrk xs fewi...\"")]")
 			blink(spawned_beacon)
-			adjustHealth(min((health - maxHealth) * 0.5, -250)) //heal for 50% of our missing health, minimum 10% of maximum health
+			adjustHealth(min(-get_total_damage() * 0.5, -250)) //heal for 50% of our missing health, minimum 10% of maximum health
 			wander = FALSE
-			if(health > maxHealth * 0.9)
+			if(consciousness.value > maxHealth * 0.9)
 				visible_message(span_hierophant("\"Vitemvw gsqtpixi. Stivexmrk ex qebmqyq ijjmgmirgc.\""))
 			else
 				visible_message(span_hierophant("\"Vitemvw gsqtpixi. Stivexmsrep ijjmgmirgc gsqtvsqmwih.\""))
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/death()
-	if(health > 0 || stat == DEAD)
+	if(stat == DEAD)
 		return
 	else
-		set_stat(DEAD)
+		set_stat_source(DEAD, FROM_DEAD)
 		blinking = TRUE //we do a fancy animation, release a huge burst(), and leave our staff.
 		visible_message(span_hierophant("\"Mrmxmexmrk wipj-hiwxvygx wiuyirgi...\""))
 		visible_message("[span_hierophantwarning("[src] shrinks, releasing a massive burst of energy!")]")
@@ -411,7 +410,7 @@ Difficulty: Hard
 		for(var/mob/living/L in oviewers(7,src))
 			stored_nearby += L // store the people to grant the achievements to once we die
 		hierophant_burst(null, get_turf(src), 10)
-		set_stat(CONSCIOUS) // deathgasp wont run if dead, stupid
+		clear_stat(FROM_DEAD) // deathgasp wont run if dead, stupid
 		..(force_grant = stored_nearby)
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/CanAttack(atom/the_target)
@@ -474,7 +473,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/proc/calculate_rage() //how angry we are overall
 	did_reset = FALSE //oh hey we're doing SOMETHING, clearly we might need to heal if we recall
-	anger_modifier = clamp(((maxHealth - health) / 21),0,50)
+	anger_modifier = clamp((get_total_damage() / 21),0,50)
 	burst_range = initial(burst_range) + round(anger_modifier * 0.08)
 	beam_range = initial(beam_range) + round(anger_modifier * 0.12)
 
@@ -673,9 +672,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/hierophant/blast)
 			flash_color(L.client, "#660099", 1)
 		playsound(L,'sound/weapons/sear.ogg', 50, 1, -4)
 		to_chat(L, span_userdanger("You're struck by a [name]!"))
-		var/limb_to_hit = L.get_bodypart(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
-		var/armor = L.run_armor_check(limb_to_hit, MELEE, "Your armor absorbs [src]!", "Your armor blocks part of [src]!", 50, "Your armor was penetrated by [src]!")
-		L.apply_damage(damage, BURN, limb_to_hit, armor)
+		var/zone_to_hit = pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG)
+		L.deal_damage(damage, 0, BURN, zone = zone_to_hit)
 		if(ishostile(L))
 			var/mob/living/simple_animal/hostile/H = L //mobs find and damage you...
 			if(H.stat == CONSCIOUS && !H.target && H.AIStatus != AI_OFF && !H.client)
@@ -696,7 +694,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/hierophant/blast)
 				continue
 			to_chat(occupant, span_userdanger("Your [M.name] is struck by a [name]!"))
 			playsound(M,'sound/weapons/sear.ogg', 50, TRUE, -4)
-			M.take_damage(damage, BURN, 0, 0)
+			M.deal_damage(damage, 0, BURN, DAMAGE_LASER, sound = 0)
 
 /obj/effect/temp_visual/hierophant/blast/vortex
 	damage = 25

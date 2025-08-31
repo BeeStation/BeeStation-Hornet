@@ -46,7 +46,7 @@
 		return FALSE
 	if(IS_SERVANT_OF_RATVAR(M))
 		if(M.stat == DEAD)
-			var/damage_healed = 20 + ((M.maxHealth - M.health) * 0.6)
+			var/damage_healed = 20 + ((M.get_total_damage()) * 0.6)
 			if(GLOB.clockcult_vitality >= damage_healed)
 				GLOB.clockcult_vitality -= damage_healed
 				M.revive(HEAL_ALL)
@@ -69,7 +69,7 @@
 			else
 				visible_message(span_neovgre("\The [src] fails to revive [M]!"))
 			return
-		var/healing_performed = clamp(M.maxHealth - M.health, 0, 5)	//5 Vitality to heal 5 of all damage types at once
+		var/healing_performed = clamp(M.get_total_damage(), 0, 5)	//5 Vitality to heal 5 of all damage types at once
 		if(GLOB.clockcult_vitality >= healing_performed * 0.3)
 			GLOB.clockcult_vitality -= healing_performed * 0.3
 			//Do healing

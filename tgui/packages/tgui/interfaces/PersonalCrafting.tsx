@@ -51,6 +51,7 @@ const CATEGORY_ICONS_CRAFTING = {
   Robotics: 'robot',
   Misc: 'shapes',
   Tribal: 'campground',
+  Medical: 'kit-medical',
   Clothing: 'shirt',
   Drinks: 'wine-bottle',
   Chemistry: 'microscope',

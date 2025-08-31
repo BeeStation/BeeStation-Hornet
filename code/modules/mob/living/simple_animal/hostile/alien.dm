@@ -11,7 +11,6 @@
 	butcher_results = list(/obj/item/food/meat/slab/xeno = 4,
 							/obj/item/stack/sheet/animalhide/xeno = 1)
 	maxHealth = 125
-	health = 125
 	obj_damage = 60
 	melee_damage = 25
 	attack_verb_continuous = "slashes"
@@ -60,7 +59,6 @@
 	icon_state = "aliens"
 	icon_living = "aliens"
 	icon_dead = "aliens_dead"
-	health = 150
 	maxHealth = 150
 	melee_damage = 15
 	ranged = 1
@@ -75,7 +73,6 @@
 	icon_state = "alienq"
 	icon_living = "alienq"
 	icon_dead = "alienq_dead"
-	health = 250
 	maxHealth = 250
 	melee_damage = 15
 	ranged = 1
@@ -131,7 +128,6 @@
 	bubble_icon = "alienroyal"
 	move_to_delay = 4
 	maxHealth = 400
-	health = 400
 	butcher_results = list(/obj/item/food/meat/slab/xeno = 10,
 							/obj/item/stack/sheet/animalhide/xeno = 2)
 	mob_size = MOB_SIZE_LARGE

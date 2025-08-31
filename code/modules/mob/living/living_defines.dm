@@ -8,13 +8,24 @@
 
 	hud_type = /datum/hud/living
 
+	// Doesn't use atom_integrity, but accepts the atom damage procs
+	// which get converted into health based damage.
+	uses_integrity = TRUE
+
 	var/resize = 1 //Badminnery resize
 	var/lastattacker = null
 	var/lastattackerckey = null
 
 	//Health and life related vars
 	var/maxHealth = 100 //Maximum health that should be possible.
-	var/health = 100 	//A mob's health
+
+	/// Consciousness rating for the mob.
+	/// Essentially how awake and aware the mob is, entirely responsible for
+	/// death and critical condition.
+	var/datum/consciousness/consciousness = /datum/consciousness/point/nocrit
+
+	/// Pain rating for the mob
+	var/datum/pain_source/pain = new /datum/pain_source
 
 	//Damage related vars, NOTE: THESE SHOULD ONLY BE MODIFIED BY PROCS
 	var/bruteloss = 0	//Brutal damage caused by brute force (punching, being clubbed by a toolbox ect... this also accounts for pressure damage)
@@ -107,7 +118,8 @@
 
 	var/stun_absorption = null //converted to a list of stun absorption sources this mob has when one is added
 
-	var/blood_volume = 0 //how much blood the mob has
+	/// If the mob uses blood, then the information about that blood is stored here.
+	var/datum/blood_source/blood = new /datum/blood_source/none
 
 	var/see_override = 0 //0 for no override, sets see_invisible = see_override in silicon & carbon life process via update_sight()
 

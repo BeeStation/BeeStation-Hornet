@@ -266,6 +266,32 @@
 	affected_mob.adjustOxyLoss(1 * REM * delta_time, updating_health = FALSE)
 	return UPDATE_MOB_HEALTH
 
+/datum/reagent/medicine/advanced_burn_gel
+	name = "Advanced Burn Gel"
+	description = "A high-tier burn medicine made from the sap of Ambrosia Vulgaris plants. Capable of treating second-degree burns when applied to the skin, but causes liver damage if ingested."
+	reagent_state = LIQUID
+	color = "#f78400"
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
+	metabolization_rate = 2.5 * REAGENTS_METABOLISM
+
+/datum/reagent/medicine/advanced_burn_gel/on_mob_life(mob/living/carbon/M)
+	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 1 * REM)
+	. = ..()
+	. = 1
+
+/datum/reagent/medicine/coagen
+	name = "Coagen"
+	description = "A high-tier medicine which causes rapid coagulation of open wounds. Produced from the sap of Amborsia Vulgaris plants."
+	reagent_state = LIQUID
+	color = "#a61010"
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
+	metabolization_rate = 2.5 * REAGENTS_METABOLISM
+
+/datum/reagent/medicine/coagen/on_mob_life(mob/living/carbon/M)
+	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 1 * REM)
+	. = ..()
+	. = 1
+
 /datum/reagent/medicine/oxandrolone
 	name = "Oxandrolone"
 	description = "Stimulates the healing of severe burns. Overdosing will double the effectiveness of healing the burns while also dealing toxin and liver damage"
@@ -340,13 +366,13 @@
 /datum/reagent/medicine/salglu_solution/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(last_added)
-		affected_mob.blood_volume -= last_added
+		affected_mob.blood.volume -= last_added
 		last_added = 0
-	if(affected_mob.blood_volume < maximum_reachable)	//Can only up to double your effective blood level.
-		var/amount_to_add = min(affected_mob.blood_volume, 5 * volume)
-		var/new_blood_level = min(affected_mob.blood_volume + amount_to_add, maximum_reachable)
-		last_added = new_blood_level - affected_mob.blood_volume
-		affected_mob.blood_volume = new_blood_level
+	if(affected_mob.blood.volume < maximum_reachable)	//Can only up to double your effective blood level.
+		var/amount_to_add = min(affected_mob.blood.volume, 5 * volume)
+		var/new_blood_level = min(affected_mob.blood.volume + amount_to_add, maximum_reachable)
+		last_added = new_blood_level - affected_mob.blood.volume
+		affected_mob.blood.volume = new_blood_level
 	if(DT_PROB(18, delta_time))
 		affected_mob.adjustBruteLoss(-0.5, updating_health = FALSE)
 		affected_mob.adjustFireLoss(-0.5, updating_health = FALSE)
@@ -374,6 +400,14 @@
 	color = "#6D6374"
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.4 * REAGENTS_METABOLISM
+
+/datum/reagent/medicine/mine_salve/on_mob_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	affected_mob.pain.set_pain_modifier(0.5, FROM_MORPHINE)
+
+/datum/reagent/medicine/mine_salve/on_mob_end_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	affected_mob.pain.set_pain_modifier(1, FROM_MORPHINE)
 
 /datum/reagent/medicine/mine_salve/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -544,7 +578,7 @@
 			continue
 		affected_mob.reagents.remove_reagent(reagent.type, 2.5 * REM * delta_time)
 
-	if(affected_mob.health > 20)
+	if(affected_mob.get_total_damage() < affected_mob.maxHealth - 20)
 		affected_mob.adjustToxLoss(2.5 * REM * delta_time, updating_health = FALSE)
 		return UPDATE_MOB_HEALTH
 
@@ -765,10 +799,12 @@
 /datum/reagent/medicine/morphine/on_mob_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
 	affected_mob.add_movespeed_mod_immunities(type, /datum/movespeed_modifier/damage_slowdown)
+	affected_mob.pain.set_pain_modifier(0.5, FROM_MORPHINE)
 
 /datum/reagent/medicine/morphine/on_mob_end_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
 	affected_mob.remove_movespeed_mod_immunities(type, /datum/movespeed_modifier/damage_slowdown)
+	affected_mob.pain.set_pain_modifier(1, FROM_MORPHINE)
 
 /datum/reagent/medicine/morphine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -868,7 +904,7 @@
 		affected_mob.Jitter(5)
 		affected_mob.drop_all_held_items()
 
-	if(affected_mob.health <= 20)
+	if(affected_mob.get_total_damage() > 80)
 		affected_mob.adjustToxLoss(-4* REM * delta_time, 0)
 		affected_mob.adjustBruteLoss(-4* REM * delta_time, 0)
 		affected_mob.adjustFireLoss(-4* REM * delta_time, 0)
@@ -896,7 +932,7 @@
 	. = ..()
 	affected_mob.adjustStaminaLoss(-0.5 * REM * delta_time, updating_health = FALSE)
 
-	if(affected_mob.health <= affected_mob.crit_threshold)
+	if(affected_mob.stat >= SOFT_CRIT)
 		affected_mob.adjustToxLoss(-0.5 * REM * delta_time, updating_health = FALSE)
 		affected_mob.adjustBruteLoss(-0.5 * REM * delta_time, updating_health = FALSE)
 		affected_mob.adjustFireLoss(-0.5 * REM * delta_time, updating_health = FALSE)
@@ -1049,7 +1085,7 @@
 	affected_mob.AdjustAllImmobility(-60 * REM * delta_time)
 	affected_mob.adjustStaminaLoss(-35 * REM * delta_time, updating_health = FALSE)
 
-	if(affected_mob.health < 50 && affected_mob.health > 0)
+	if(affected_mob.get_total_damage() > 50 && affected_mob.stat == CONSCIOUS)
 		affected_mob.adjustOxyLoss(-1 * REM * delta_time, updating_health = FALSE)
 		affected_mob.adjustToxLoss(-1 * REM * delta_time, updating_health = FALSE)
 		affected_mob.adjustBruteLoss(-1 * REM * delta_time, updating_health = FALSE)
@@ -1343,8 +1379,8 @@
 	affected_mob.adjustCloneLoss(-3 * REM * delta_time, updating_health = FALSE)
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, -15 * REM * delta_time)
 
-	if(affected_mob.blood_volume < BLOOD_VOLUME_NORMAL)
-		affected_mob.blood_volume = max(affected_mob.blood_volume, min(affected_mob.blood_volume + 4, BLOOD_VOLUME_NORMAL))
+	if(affected_mob.blood.volume < BLOOD_VOLUME_NORMAL)
+		affected_mob.blood.volume = max(affected_mob.blood.volume, min(affected_mob.blood.volume + 4, BLOOD_VOLUME_NORMAL))
 
 	return UPDATE_MOB_HEALTH
 
@@ -1354,6 +1390,18 @@
 	if(DT_PROB(13, delta_time))
 		affected_mob.reagents.remove_reagent(type, metabolization_rate * 15) // ~5 units at a rate of 0.4 but i wanted a nice number in code
 		affected_mob.vomit(20) // nanite safety protocols make your body expel them to prevent harmies
+
+/datum/reagent/medicine/terranol
+	name = "Terranol"
+	description = "A potent base chemical used in the production of high-tier medicine. Causes liver damage if ingested without further processing."
+	color = "#82cdb0"
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
+
+/datum/reagent/medicine/terranol/on_mob_life(mob/living/carbon/M)
+	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 2 * REM)
+	M.jitteriness = min(max(0, M.jitteriness + 3), 30)
+	..()
+	return TRUE
 
 /datum/reagent/medicine/earthsblood //Created by ambrosia gaia plants
 	name = "Earthsblood"
@@ -1651,7 +1699,7 @@
 	. = ..()
 	affected_mob.losebreath = 0
 
-	if(affected_mob.health <= 80)
+	if(affected_mob.get_total_damage() > 20)
 		affected_mob.adjustToxLoss(-4 * REM * delta_time, updating_health = FALSE)
 		affected_mob.adjustBruteLoss(-4 * REM * delta_time, updating_health = FALSE)
 		affected_mob.adjustFireLoss(-4 * REM * delta_time, updating_health = FALSE)
@@ -1661,5 +1709,5 @@
 	if(DT_PROB(10, delta_time))
 		affected_mob.Jitter(5)
 
-	if(affected_mob.blood_volume < BLOOD_VOLUME_SAFE)
-		affected_mob.blood_volume = max(affected_mob.blood_volume, (min(affected_mob.blood_volume + 4, BLOOD_VOLUME_SAFE) * REM * delta_time))
+	if(affected_mob.blood.volume < BLOOD_VOLUME_SAFE)
+		affected_mob.blood.volume = max(affected_mob.blood.volume, (min(affected_mob.blood.volume + 4, BLOOD_VOLUME_SAFE) * REM * delta_time))

@@ -8,7 +8,6 @@
 	name = "lungs"
 	icon_state = "lungs"
 	visual = FALSE
-	zone = BODY_ZONE_CHEST
 	slot = ORGAN_SLOT_LUNGS
 	gender = PLURAL
 	w_class = WEIGHT_CLASS_SMALL
@@ -25,6 +24,8 @@
 
 	//Breath damage
 	//These thresholds are checked against what amounts to total_mix_pressure * (gas_type_mols/total_mols)
+
+	var/breath_multiplier = 1
 
 	var/breathing_class = BREATH_OXY // can be a gas instead of a breathing class
 	var/safe_breath_min = 16
@@ -132,7 +133,8 @@
 
 /obj/item/organ/lungs/proc/check_breath(datum/gas_mixture/breath, mob/living/carbon/human/H)
 	//TODO: add lung damage = less oxygen gains
-	var/breathModifier = (5-(5*(damage/maxHealth)/2)) //range 2.5 - 5
+	var/breathModifier = (1 - (damage/maxHealth)) * breath_multiplier
+	H.blood.multiply_circulation_rating(breathModifier, FROM_BREATH)
 	if(HAS_TRAIT(H, TRAIT_GODMODE))
 		return
 	if(HAS_TRAIT(H, TRAIT_NOBREATH))
@@ -141,10 +143,7 @@
 	if(!breath || (breath.total_moles() == 0))
 		if(H.reagents.has_reagent(crit_stabilizing_reagent))
 			return
-		if(H.health >= H.crit_threshold)
-			H.adjustOxyLoss(HUMAN_MAX_OXYLOSS)
-		else if(!HAS_TRAIT(H, TRAIT_NOCRITDAMAGE))
-			H.adjustOxyLoss(HUMAN_CRIT_MAX_OXYLOSS)
+		H.blood.multiply_circulation_rating(0, FROM_BREATH)
 
 		H.failed_last_breath = TRUE
 		var/alert_category
@@ -213,8 +212,6 @@
 			throw_alert_for(H, alert_category, alert_type)
 		else
 			H.failed_last_breath = FALSE
-			if(H.health >= H.crit_threshold)
-				H.adjustOxyLoss(-breathModifier)
 			clear_alert_for(H, alert_category)
 	for(var/entry in gas_max)
 		var/found_pp = 0
@@ -239,7 +236,7 @@
 				H.reagents.add_reagent(danger_reagent,1)
 			var/list/damage_info = (entry in gas_damage) ? gas_damage[entry] : gas_damage["default"]
 			var/dam = found_pp / gas_max[entry] * 10
-			H.apply_damage_type(clamp(dam, damage_info["min"], damage_info["max"]), damage_info["damage_type"])
+			H.take_direct_damage(clamp(dam, damage_info["min"], damage_info["max"]), damage_info["damage_type"])
 			throw_alert_for(H, alert_category, alert_type)
 		else
 			clear_alert_for(H, alert_category)
@@ -309,14 +306,10 @@
 
 	if(prob(20))
 		H.emote("gasp")
-	if(breath_pp > 0)
-		var/ratio = safe_breath_min/breath_pp
-		H.adjustOxyLoss(min(5*ratio, HUMAN_MAX_OXYLOSS)) // Don't fuck them up too fast (space only does HUMAN_MAX_OXYLOSS after all!
-		H.failed_last_breath = TRUE
-		. = true_pp*ratio/6
-	else
-		H.adjustOxyLoss(HUMAN_MAX_OXYLOSS)
-		H.failed_last_breath = TRUE
+	var/ratio = breath_pp/safe_breath_min
+	H.blood.multiply_circulation_rating(ratio, FROM_BREATH)
+	H.failed_last_breath = TRUE
+	. = true_pp*ratio/6
 
 /obj/item/organ/lungs/proc/handle_breath_temperature(datum/gas_mixture/breath, mob/living/carbon/human/H) // called by human/life, handles temperatures
 	var/breath_temperature = breath.return_temperature()
@@ -324,11 +317,11 @@
 	if(!HAS_TRAIT(H, TRAIT_RESISTCOLD)) // COLD DAMAGE
 		var/cold_modifier = H.dna.species.coldmod
 		if(breath_temperature < cold_level_3_threshold)
-			H.apply_damage_type(cold_level_3_damage*cold_modifier, cold_damage_type)
+			H.take_direct_damage(cold_level_3_damage*cold_modifier, cold_damage_type)
 		if(breath_temperature > cold_level_3_threshold && breath_temperature < cold_level_2_threshold)
-			H.apply_damage_type(cold_level_2_damage*cold_modifier, cold_damage_type)
+			H.take_direct_damage(cold_level_2_damage*cold_modifier, cold_damage_type)
 		if(breath_temperature > cold_level_2_threshold && breath_temperature < cold_level_1_threshold)
-			H.apply_damage_type(cold_level_1_damage*cold_modifier, cold_damage_type)
+			H.take_direct_damage(cold_level_1_damage*cold_modifier, cold_damage_type)
 		if(breath_temperature < cold_level_1_threshold)
 			if(prob(20))
 				to_chat(H, span_warning("You feel [cold_message] in your [name]!"))
@@ -336,11 +329,11 @@
 	if(!HAS_TRAIT(H, TRAIT_RESISTHEAT)) // HEAT DAMAGE
 		var/heat_modifier = H.dna.species.heatmod
 		if(breath_temperature > heat_level_1_threshold && breath_temperature < heat_level_2_threshold)
-			H.apply_damage_type(heat_level_1_damage*heat_modifier, heat_damage_type)
+			H.take_direct_damage(heat_level_1_damage*heat_modifier, heat_damage_type)
 		if(breath_temperature > heat_level_2_threshold && breath_temperature < heat_level_3_threshold)
-			H.apply_damage_type(heat_level_2_damage*heat_modifier, heat_damage_type)
+			H.take_direct_damage(heat_level_2_damage*heat_modifier, heat_damage_type)
 		if(breath_temperature > heat_level_3_threshold)
-			H.apply_damage_type(heat_level_3_damage*heat_modifier, heat_damage_type)
+			H.take_direct_damage(heat_level_3_damage*heat_modifier, heat_damage_type)
 		if(breath_temperature > heat_level_1_threshold)
 			if(prob(20))
 				to_chat(H, span_warning("You feel [hot_message] in your [name]!"))
@@ -359,7 +352,7 @@
 	return
 
 /obj/item/organ/lungs/get_availability(datum/species/owner_species, mob/living/owner_mob)
-	return owner_species.mutantlungs
+	return owner_species.mutantlungs && ..()
 
 /obj/item/organ/lungs/plasmaman
 	name = "plasma filter"
@@ -383,6 +376,7 @@
 	organ_flags = ORGAN_SYNTHETIC
 	status = ORGAN_ROBOTIC
 	maxHealth = 1.1 * STANDARD_ORGAN_THRESHOLD
+	breath_multiplier = 1.1
 	safe_breath_min = 13
 	safe_breath_max = 100
 
@@ -405,6 +399,7 @@
 		/datum/gas/carbon_dioxide = 30
 	)
 	maxHealth = 2 * STANDARD_ORGAN_THRESHOLD
+	breath_multiplier = 1.2
 
 	cold_level_1_threshold = 200
 	cold_level_2_threshold = 140

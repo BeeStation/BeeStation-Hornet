@@ -69,12 +69,10 @@
 
 			switch(rand(1, 100)) // for 30% chance, they're stronger
 				if(1 to 70) // these are usually weak
-					var/adjusted_health = max(M.health-20, 20) // don't make it negative-health
-					M.health = adjusted_health
+					var/adjusted_health = max(M.maxHealth-20, 20) // don't make it negative-health
 					M.maxHealth = adjusted_health
 				if(71 to 80) // has more health
 					var/bonus_health = 15+rand(1, 7)*5
-					M.health += bonus_health
 					M.maxHealth += bonus_health
 					M.desc += " This one seems extra robust..."
 				if(81 to 90) // does stronger damage

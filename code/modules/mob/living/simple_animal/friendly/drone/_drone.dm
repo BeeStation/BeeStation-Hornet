@@ -21,7 +21,6 @@
 	icon_state = "drone_maint_grey"
 	icon_living = "drone_maint_grey"
 	icon_dead = "drone_maint_dead"
-	health = 30
 	maxHealth = 30
 	unsuitable_atmos_damage = 0
 	wander = FALSE
@@ -114,7 +113,7 @@
 	var/image/holder = hud_list[DIAG_HUD]
 	var/icon/I = icon(icon, icon_state, dir)
 	holder.pixel_y = I.Height() - world.icon_size
-	holder.icon_state = "huddiag[RoundDiagBar(health/maxHealth)]"
+	holder.icon_state = "huddiag[RoundDiagBar(consciousness.value/consciousness.max_value)]"
 
 /mob/living/simple_animal/drone/med_hud_set_status()
 	var/image/holder = hud_list[DIAG_STAT_HUD]
@@ -190,8 +189,8 @@
 		. += span_warning("Its display is glowing red!")
 
 	//Damaged
-	if(health != maxHealth)
-		if(health > maxHealth * 0.33) //Between maxHealth and about a third of maxHealth, between 30 and 10 for normal drones
+	if(get_total_damage())
+		if(get_total_damage() < maxHealth * 0.66) //Between maxHealth and about a third of maxHealth, between 30 and 10 for normal drones
 			. += span_warning("Its screws are slightly loose.")
 		else //otherwise, below about 33%
 			. += span_boldwarning("Its screws are very loose!")

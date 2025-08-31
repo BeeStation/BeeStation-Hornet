@@ -14,7 +14,6 @@
 	icon_living = "seedling"
 	icon_dead = "seedling_dead"
 	maxHealth = 100
-	health = 100
 	melee_damage = 30
 	SET_BASE_PIXEL(-16, -14)
 	minimum_distance = 3
@@ -26,7 +25,6 @@
 	projectiletype = /obj/projectile/seedling
 	projectilesound = 'sound/weapons/pierce.ogg'
 	robust_searching = TRUE
-	stat_attack = HARD_CRIT
 	move_resist = MOVE_FORCE_EXTREMELY_STRONG
 	var/combatant_state = SEEDLING_STATE_NEUTRAL
 	var/obj/seedling_weakpoint/weak_point
@@ -39,7 +37,7 @@
 	damage = 10
 	damage_type = BURN
 	light_range = 2
-	armor_flag = ENERGY
+	damage_flag = DAMAGE_ENERGY
 	light_color = LIGHT_COLOR_DIM_YELLOW
 	hitsound = 'sound/weapons/sear.ogg'
 	hitsound_wall = 'sound/weapons/effects/searwall.ogg'

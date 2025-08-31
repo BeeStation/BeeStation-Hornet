@@ -13,7 +13,6 @@
 	response_harm_simple = "squash"
 	speak_emote = list("flutters")
 	maxHealth = 2
-	health = 2
 	friendly_verb_continuous = "nudges"
 	friendly_verb_simple = "nudge"
 	density = FALSE

@@ -21,7 +21,6 @@
 	taunt_chance = 30
 	speed = 0
 	maxHealth = 25
-	health = 25
 	spacewalk = TRUE
 
 	obj_damage = 50
@@ -123,7 +122,6 @@
 	icon_dead = "megacarp_dead"
 	icon_gib = "megacarp_gib"
 	maxHealth = 20
-	health = 20
 	pixel_x = -16
 	base_pixel_x = -16
 	mob_size = MOB_SIZE_LARGE
@@ -247,7 +245,6 @@
 	speak_emote = list("squeaks")
 	gold_core_spawnable = NO_SPAWN
 	faction = list(FACTION_NEUTRAL)
-	health = 200
 	icon_dead = "magicarp_dead"
 	icon_gib = "magicarp_gib"
 	icon_living = "magicarp"
@@ -260,7 +257,6 @@
 	name = "advanced space carp"
 	desc = "A ferocious, fang-bearing creature that resembles a fish."
 	maxHealth = 80
-	health = 80
 	gold_core_spawnable = NO_SPAWN
 	obj_damage = 25
 

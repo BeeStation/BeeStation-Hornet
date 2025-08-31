@@ -15,7 +15,7 @@
 					try_reactivate(D)
 
 				if("Cannibalize")
-					if(D.health < D.maxHealth)
+					if(D.get_total_damage())
 						D.visible_message(span_notice("[D] begins to cannibalize parts from [src]."), span_notice("You begin to cannibalize parts from [src]..."))
 						if(do_after(D, 60, 0, target = src))
 							D.visible_message(span_notice("[D] repairs itself using [src]'s remains!"), span_notice("You repair yourself using [src]'s remains."))
@@ -83,7 +83,7 @@
 
 /mob/living/simple_animal/drone/attackby(obj/item/I, mob/user)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER && stat != DEAD)
-		if(health < maxHealth)
+		if(get_total_damage() > 0)
 			to_chat(user, span_notice("You start to tighten loose screws on [src]..."))
 			if(I.use_tool(src, user, 80))
 				adjustBruteLoss(-getBruteLoss())
@@ -104,11 +104,11 @@
 	else
 		..()
 
-/mob/living/simple_animal/drone/getarmor(def_zone, type, penetration)
+/mob/living/simple_animal/drone/get_bodyzone_armor_flag(bodyzone = null, armour_flag = ARMOUR_BLUNT)
 	var/armorval = 0
 
 	if(head)
-		armorval = ((head.get_armor_rating(type) / 100) * (1 - penetration / 100)) * 100
+		armorval = ((head.get_armor_rating(type) / 100)) * 100
 	return (armorval * get_armor_effectiveness()) //armor is reduced for tiny fragile drones
 
 /mob/living/simple_animal/drone/proc/get_armor_effectiveness()

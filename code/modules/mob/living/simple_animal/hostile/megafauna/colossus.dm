@@ -24,7 +24,6 @@ Difficulty: Very Hard
 /mob/living/simple_animal/hostile/megafauna/colossus
 	name = "colossus"
 	desc = "A monstrous creature protected by heavy shielding."
-	health = 1250
 	maxHealth = 1250
 	attack_verb_continuous = "judges"
 	attack_verb_simple = "judge"
@@ -36,7 +35,7 @@ Difficulty: Very Hard
 	friendly_verb_simple = "stare down"
 	icon = 'icons/mob/lavaland/96x96megafauna.dmi'
 	speak_emote = list("roars")
-	armour_penetration = 40
+	sharpness = SHARP_VI
 	melee_damage = 40
 	speed = 10
 	move_to_delay = 10
@@ -92,12 +91,12 @@ Difficulty: Very Hard
 
 /mob/living/simple_animal/hostile/megafauna/colossus/OpenFire()
 	ranged_cooldown = world.time + 600 //prevents abilities from being spammed by AttackingTarget() while an attack is already underway.
-	anger_modifier = clamp(((maxHealth - health)/20),0,20)
+	anger_modifier = clamp((get_total_damage()/20),0,20)
 
 	if(client) //Player controlled handled a bit differently.
 		switch(chosen_attack)
 			if(1)
-				if(health <= maxHealth/10)
+				if(get_total_damage() > maxHealth * 0.9)
 					final_attack()
 				else
 					telegraph()
@@ -147,7 +146,7 @@ Difficulty: Very Hard
 		if(5)
 			final_attack()
 
-	if(health <= maxHealth/10) 					//Ultimate attack guaranteed at below 10% HP
+	if(get_total_damage() > maxHealth * 0.9) 					//Ultimate attack guaranteed at below 10% HP
 		say("Die..")
 		visible_message(span_colossus("\"<b>Die..</b>\""))
 		random_attack_num = 5
@@ -189,7 +188,7 @@ Difficulty: Very Hard
 	dir_shots(GLOB.cardinals)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/select_spiral_attack()
-	if(health <= maxHealth/3)
+	if(get_total_damage() > maxHealth * 0.66)
 		return double_spiral()
 	return spiral_shoot()
 
@@ -320,7 +319,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/at_shield)
 	name ="death bolt"
 	icon_state= "chronobolt"
 	damage = 25
-	armour_penetration = 100
+	sharpness = SHARP_X
 	speed = 2
 	eyeblur = 0
 	damage_type = BRUTE
@@ -511,7 +510,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	if(istype(P, /obj/projectile/magic))
 		ActivationReaction(P.firer, ACTIVATE_MAGIC, P.damage_type)
 		return
-	ActivationReaction(P.firer, P.armor_flag, P.damage_type)
+	ActivationReaction(P.firer, P.damage_flag, P.damage_type)
 
 /obj/machinery/anomalous_crystal/proc/ActivationReaction(mob/user, method, damtype)
 	if(world.time < last_use_timer)
@@ -716,7 +715,6 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	response_harm_simple = "disrupt"
 	speak_emote = list("oscillates")
 	maxHealth = 2
-	health = 2
 	friendly_verb_continuous = "mends"
 	friendly_verb_simple = "mend"
 	density = FALSE

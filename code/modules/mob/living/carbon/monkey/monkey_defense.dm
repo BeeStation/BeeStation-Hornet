@@ -1,5 +1,5 @@
 /mob/living/carbon/monkey/help_shake_act(mob/living/carbon/M)
-	if(health < 0 && ishuman(M))
+	if(stat >= SOFT_CRIT && body_position == LYING_DOWN && ishuman(M))
 		var/mob/living/carbon/human/H = M
 		H.do_cpr(src)
 	else
@@ -15,7 +15,7 @@
 			dismembering_strike(M, affecting.body_zone)
 		if(stat != DEAD)
 			var/dmg = rand(1, 5)
-			apply_damage(dmg, BRUTE, affecting)
+			deal_damage(dmg, SHARP_III, BRUTE, affecting)
 
 /mob/living/carbon/monkey/attack_larva(mob/living/carbon/alien/larva/L)
 	if(..()) //successful larva bite.
@@ -25,7 +25,7 @@
 			var/obj/item/bodypart/affecting = get_bodypart(ran_zone(L.get_combat_bodyzone(src)))
 			if(!affecting)
 				affecting = get_bodypart(BODY_ZONE_CHEST)
-			apply_damage(damage, BRUTE, affecting)
+			deal_damage(damage, SHARP_I, BRUTE, affecting)
 
 /mob/living/carbon/monkey/attack_hand(mob/living/carbon/human/M, list/modifiers)
 	if(..())	//To allow surgery to return properly.
@@ -44,7 +44,7 @@
 		var/obj/item/bodypart/affecting = get_bodypart(check_zone(M.get_combat_bodyzone(src)))
 		if(!affecting)
 			affecting = get_bodypart(BODY_ZONE_CHEST)
-		apply_damage(damage, BRUTE, affecting)
+		deal_damage(damage, M.dna.species.attack_sharpness, BRUTE, affecting)
 		log_combat(M, src, "attacked", "harm")
 	else
 		help_shake_act(M)
@@ -52,7 +52,7 @@
 /mob/living/carbon/monkey/attack_alien(mob/living/carbon/alien/humanoid/M, modifiers)
 	if(..()) //if harm or disarm intent.
 		if (M.combat_mode)
-			if ((prob(95) && health > 0))
+			if (prob(95) && stat == CONSCIOUS)
 				playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
 				var/damage = rand(15, 30)
 				if (damage >= 25)
@@ -73,7 +73,7 @@
 					affecting = get_bodypart(BODY_ZONE_CHEST)
 				if(!dismembering_strike(M, affecting.body_zone)) //Dismemberment successful
 					return 1
-				apply_damage(damage, BRUTE, affecting)
+				deal_damage(damage, SHARP_III, BRUTE, affecting)
 
 			else
 				playsound(loc, 'sound/weapons/slashmiss.ogg', 25, 1, -1)
@@ -111,7 +111,7 @@
 		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(dam_zone))
 		if(!affecting)
 			affecting = get_bodypart(BODY_ZONE_CHEST)
-		apply_damage(damage, M.melee_damage_type, affecting)
+		deal_damage(damage, M.sharpness, M.melee_damage_type, affecting)
 
 /mob/living/carbon/monkey/attack_slime(mob/living/simple_animal/slime/M)
 	if(..()) //successful slime attack
@@ -126,7 +126,7 @@
 		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(dam_zone))
 		if(!affecting)
 			affecting = get_bodypart(BODY_ZONE_CHEST)
-		apply_damage(damage, BRUTE, affecting)
+		deal_damage(damage, M.sharpness, BRUTE, affecting)
 
 /mob/living/carbon/monkey/acid_act(acidpwr, acid_volume, bodyzone_hit)
 	. = 1
@@ -159,13 +159,13 @@
 
 		if (EXPLODE_HEAVY)
 			take_overall_damage(60, 60)
-			damage_clothes(200, BRUTE, BOMB)
+			damage_clothes(200, BRUTE, DAMAGE_BOMB)
 			adjustEarDamage(30, 120)
 			Unconscious(200)
 
 		if(EXPLODE_LIGHT)
 			take_overall_damage(30, 0)
-			damage_clothes(50, BRUTE, BOMB)
+			damage_clothes(50, BRUTE, DAMAGE_BOMB)
 			adjustEarDamage(15,60)
 			Unconscious(160)
 
@@ -175,7 +175,7 @@
 		var/max_limb_loss = round(4/severity) //so you don't lose four limbs at severity 3.
 		for(var/obj/item/bodypart/BP as() in bodyparts)
 			if(prob(50/severity) && BP.body_zone != BODY_ZONE_CHEST)
-				BP.brute_dam = BP.max_damage
+				BP.set_brute_dam(BP.max_damage)
 				BP.dismember()
 				max_limb_loss--
 				if(!max_limb_loss)

@@ -2,7 +2,7 @@
 	icon = 'icons/mob/pets.dmi'
 	mob_size = MOB_SIZE_SMALL
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
-	blood_volume = BLOOD_VOLUME_NORMAL
+	blood = new /datum/blood_source/organic
 
 	/// if the mob is protected from being renamed by collars.
 	var/unique_pet = FALSE
@@ -79,9 +79,8 @@
 
 	update_icon(UPDATE_OVERLAYS)
 
-/mob/living/basic/pet/update_stat()
+/mob/living/basic/pet/update_stat(forced = FALSE)
 	. = ..()
-
 	update_icon(UPDATE_OVERLAYS)
 
 /mob/living/basic/pet/set_resting(new_resting, silent, instant)

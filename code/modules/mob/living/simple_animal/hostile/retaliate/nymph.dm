@@ -26,7 +26,6 @@
 
 	var/brute_damage = 0
 	var/fire_damage = 0
-	health = 50
 	maxHealth = 50
 	melee_damage = 1.5
 	obj_damage = 10
@@ -69,7 +68,7 @@
 
 /mob/living/simple_animal/hostile/retaliate/nymph/get_stat_tab_status()
 	var/list/tab_data = ..()
-	tab_data["Health"] = GENERATE_STAT_TEXT("[round((health / maxHealth) * 100)]%")
+	tab_data["Consciousness"] = GENERATE_STAT_TEXT("[round((consciousness.value / consciousness.max_value) * 100)]%")
 	if(!is_drone)
 		tab_data["Growth"] = GENERATE_STAT_TEXT("[(round(amount_grown / max_grown * 100))]%")
 	return tab_data
@@ -191,8 +190,8 @@
 		arrived_diona.regenerate_limb(healed_limb)
 		for(var/obj/item/bodypart/body_part in arrived_diona.bodyparts)
 			if(body_part.body_zone == healed_limb)
-				body_part.brute_dam = brute_damage
-				body_part.burn_dam = fire_damage
+				body_part.set_brute_dam(brute_damage)
+				body_part.set_burn_dam(fire_damage)
 		balloon_alert(arrived_diona, "[arrived_diona] assimilates [src]")
 		QDEL_NULL(src)
 
@@ -221,14 +220,12 @@
 
 	for(var/obj/item/bodypart/body_part in adult.bodyparts) //No limbs for you, small diona.
 		if(istype(body_part, /obj/item/bodypart/chest))
-			body_part.brute_dam = helpers.brute_damage
-			body_part.burn_dam = helpers.fire_damage
+			body_part.set_brute_dam(helpers.brute_damage)
+			body_part.set_burn_dam(helpers.fire_damage)
 		else if(istype(body_part, /obj/item/bodypart/head))
-			body_part.brute_dam = brute_damage
-			body_part.burn_dam = fire_damage
+			body_part.set_brute_dam(brute_damage)
+			body_part.set_burn_dam(fire_damage)
 		else // If its not a chest AND not a head
-			for(var/obj/item/organ/nymph_organ/I in body_part)
-				QDEL_NULL(I)
 			body_part.drop_limb(TRUE)
 
 	if(!("neutral" in src.faction))

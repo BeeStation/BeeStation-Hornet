@@ -5,7 +5,6 @@
 	icon_living = "lizard"
 	icon_dead = "lizard_dead"
 	speak_emote = list("hisses")
-	health = 5
 	maxHealth = 5
 	faction = list(FACTION_NEUTRAL)
 	attack_verb_continuous = "bites"

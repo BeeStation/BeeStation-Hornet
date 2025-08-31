@@ -9,7 +9,7 @@
 	COOLDOWN_DECLARE(next_stage_time)
 	var/bursting = FALSE
 
-/obj/item/organ/body_egg/alien_embryo/on_find(mob/living/finder)
+/obj/item/organ/body_egg/alien_embryo/on_find(mob/living/finder, zone_found)
 	. = ..()
 	if(stage < 4)
 		to_chat(finder, "It's small and weak, barely the size of a foetus.")
@@ -134,7 +134,7 @@
 			BP.receive_damage(brute = 200) // Kill them dead
 			BP.dismember()
 		else
-			owner.apply_damage(200)
+			owner.take_direct_damage(200)
 	else
 		new_xeno.visible_message(span_danger("[new_xeno] wriggles out of [owner]!"), span_userdanger("You exit [owner], your previous host."))
 		owner.adjustBruteLoss(40)

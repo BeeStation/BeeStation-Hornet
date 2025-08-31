@@ -6,26 +6,12 @@
 	icon_state = "wizard"
 	item_state = "wizhat"
 	gas_transfer_coefficient = 0.01 // IT'S MAGICAL OKAY JEEZ +1 TO NOT DIE
-	armor_type = /datum/armor/head_wizard
+	armor_type = /datum/armor/security_light_armor
 	strip_delay = 50
 	equip_delay_other = 50
 	clothing_flags = SNUG_FIT | THICKMATERIAL | CASTING_CLOTHES
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	dog_fashion = /datum/dog_fashion/head/blue_wizard
-
-
-/datum/armor/head_wizard
-	melee = 30
-	bullet = 20
-	laser = 20
-	energy = 20
-	bomb = 20
-	bio = 100
-	rad = 20
-	fire = 100
-	acid = 100
-	stamina = 50
-	bleed = 60
 
 /obj/item/clothing/head/wizard/red
 	name = "red wizard hat"
@@ -85,27 +71,13 @@
 	item_state = "wizrobe"
 	gas_transfer_coefficient = 0.01
 	body_parts_covered = CHEST|GROIN|ARMS|LEGS
-	armor_type = /datum/armor/suit_wizrobe
+	armor_type = /datum/armor/security_light_armor
 	allowed = list(/obj/item/teleportation_scroll)
 	flags_inv = HIDEJUMPSUIT
 	strip_delay = 50
 	equip_delay_other = 50
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	clothing_flags = THICKMATERIAL | CASTING_CLOTHES
-
-
-/datum/armor/suit_wizrobe
-	melee = 30
-	bullet = 20
-	laser = 20
-	energy = 20
-	bomb = 20
-	bio = 100
-	rad = 20
-	fire = 100
-	acid = 100
-	stamina = 50
-	bleed = 60
 
 /obj/item/clothing/suit/wizrobe/ComponentInitialize()
 	. = ..()
@@ -223,7 +195,6 @@
 	sleep(30)
 	src.robe_charge = TRUE
 	to_chat(usr, span_notice("The robe hums, its internal magic supply restored."))
-
 
 // The actual code for this is handled in the shielded component, see [/datum/component/shielded/proc/check_recharge_rune]
 /obj/item/wizard_armour_charge

@@ -152,7 +152,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 				message_mods -= RADIO_EXTENSION
 			message_range = 1
 			if(stat == HARD_CRIT)
-				var/health_diff = round(-HEALTH_THRESHOLD_DEAD + health)
+				var/health_diff = round(-HEALTH_THRESHOLD_DEAD + consciousness.value)
 				// If we cut our message short, abruptly end it with a-..
 				var/message_len = length_char(message)
 				message = copytext_char(message, 1, health_diff) + "[message_len > health_diff ? "-.." : "..."]"

@@ -278,7 +278,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 /mob/living/silicon/ai/get_stat_tab_status()
 	var/list/tab_data = ..()
 	if(!stat)
-		tab_data["System integrity"] = GENERATE_STAT_TEXT("[(health+100)/2]%")
+		tab_data["System integrity"] = GENERATE_STAT_TEXT("[(consciousness.value+100)/2]%")
 		if(isturf(loc)) //only show if we're "in" a core
 			tab_data["Backup Power"] = GENERATE_STAT_TEXT("[battery/2]%")
 		tab_data["Connected cyborgs"] = GENERATE_STAT_TEXT("[connected_robots.len]")
@@ -294,7 +294,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 			//Name, Health, Battery, Model, Area, and Status! Everything an AI wants to know about its borgies!
 			index++
 			tab_data["[R.name] (Connection [index])"] = list(
-				text="S.Integrity: [R.health]% | Cell: [R.cell ? "[R.cell.charge]/[R.cell.maxcharge]" : "Empty"] | \
+				text="S.Integrity: [R.consciousness.value]% | Cell: [R.cell ? "[R.cell.charge]/[R.cell.maxcharge]" : "Empty"] | \
 					Model: [R.designation] | Loc: [get_area_name(R, TRUE)] | Status: [robot_status]", type = STAT_TEXT)
 		tab_data["AI shell beacons detected"] = GENERATE_STAT_TEXT("[LAZYLEN(GLOB.available_ai_shells)]") //Count of total AI shells
 	else
@@ -924,7 +924,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 
 					switch(crit_case) // only carbons can have the fun crits
 						if(1) // shatter their legs and bleed 'em
-							carbon_target.bleed(150)
+							carbon_target.blood.bleed(150)
 							var/obj/item/bodypart/l_leg/l = carbon_target.get_bodypart(BODY_ZONE_L_LEG)
 							if(l)
 								l.receive_damage(brute=200, updating_health=TRUE)
@@ -948,9 +948,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 								qdel(head)
 								new /obj/effect/gibspawner/human/bodypartless(get_turf(target))
 
-					carbon_target.apply_damage(damage, forced = TRUE)
+					carbon_target.take_direct_damage(damage)
 				else
-					living_target.apply_damage(damage, forced = TRUE)
+					living_target.take_direct_damage(damage)
 
 				living_target.Paralyze(paralyze_time)
 				living_target.emote("scream")
