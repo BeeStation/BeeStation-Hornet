@@ -4,16 +4,10 @@ import { ComponentType, createElement, ReactNode, useState } from 'react';
 import { Dropdown } from 'tgui-core/components';
 
 import { sendAct, useBackend } from '../../../../backend';
-import {
-  Box,
-  Button,
-  Input,
-  NumberInput,
-  Slider,
-  Stack,
-} from '../../../../components';
+import { Box, Button, Input, NumberInput, Stack } from '../../../../components';
 import { createSetPreference, PreferencesMenuData } from '../../data';
 import { ServerPreferencesFetcher } from '../../ServerPreferencesFetcher';
+import features from '.';
 
 export const sortChoices = (array: [string, ReactNode][]) =>
   sortBy(array, ([name]) => name);
