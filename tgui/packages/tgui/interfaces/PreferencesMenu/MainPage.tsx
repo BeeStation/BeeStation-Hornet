@@ -1,35 +1,36 @@
+import { filter, map, sortBy } from 'common/collections';
 import { classes } from 'common/react';
+import { createSearch } from 'common/string';
 import { useState } from 'react';
+
 import { sendAct, useBackend, useLocalState } from '../../backend';
 import {
   Box,
   Button,
+  FitText,
   Flex,
+  Icon,
+  Input,
   LabeledList,
   Popper,
   Stack,
-  Input,
-  Icon,
-  FitText,
 } from '../../components';
+import { CharacterPreview } from '../common/CharacterPreview';
 import {
   createSetPreference,
   PreferencesMenuData,
   RandomSetting,
 } from './data';
-import { CharacterPreview } from '../common/CharacterPreview';
-import { RandomizationButton } from './RandomizationButton';
-import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
 import { MultiNameInput, NameInput } from './names';
-import { Gender, GENDERS } from './preferences/gender';
 import features from './preferences/features';
 import {
   FeatureChoicedServerData,
   FeatureValueInput,
 } from './preferences/features/base';
-import { filter, map, sortBy } from 'common/collections';
+import { Gender, GENDERS } from './preferences/gender';
+import { RandomizationButton } from './RandomizationButton';
+import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
 import { useRandomToggleState } from './useRandomToggleState';
-import { createSearch } from 'common/string';
 
 const CLOTHING_CELL_SIZE = 64;
 const CLOTHING_SIDEBAR_ROWS = 10;
