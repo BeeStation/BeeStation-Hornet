@@ -84,6 +84,7 @@ ENABLE_LOCALHOST_RANK
 #USE_AGE_RESTRICTION_FOR_JOBS
 
 ## Uncomment this to have the job system use the player's account creation date, rather than the when they first joined the server for job timers.
+## This option is ignored if BYOND authentication is disabled at compile-time, or if the user is authenticated with a non-BYOND key
 #USE_ACCOUNT_AGE_FOR_JOBS
 
 ## Unhash this to track player playtime in the database. Requires database to be enabled.
@@ -117,6 +118,9 @@ LOG_ACCESS
 
 ## log game actions (start of round, results, etc.)
 LOG_GAME
+
+## log dynamic
+LOG_DYNAMIC
 
 ## log antag objectives
 LOG_OBJECTIVE
@@ -236,6 +240,26 @@ HOSTEDBY Crossedfall
 
 ## Uncomment this to stop people connecting to your server without a registered ckey. (i.e. guest-* are all blocked from connecting)
 GUEST_BAN
+
+## Uncomment this to allow guest users to authenticate using external authentication sources.
+## This overrides GUEST_BAN. Guests may connect but will not be able to play without authenticating.
+## If the DISABLE_BYOND_AUTH compile flag is set, all connecting CKEYs will be forced to authorize.
+## Disable LOCALHOST_AUTH_BYPASS to test this on localhost.
+# ENABLE_GUEST_EXTERNAL_AUTH
+
+## Uncomment this to force authenticated BYOND users to use external auth (while also linking their CKEY to their external ID)
+## This does nothing if ENABLE_GUEST_EXTERNAL_AUTH is not enabled.
+# FORCE_BYOND_EXTERNAL_AUTH
+
+## Comment this out to require locally connected clients to go through the same authorization checks as any user.
+## This can be used to test external auth on localhost.
+LOCALHOST_AUTH_BYPASS
+
+## All external authentication methods and their URLs. Multiple entries of this config are supported.
+## All IDs should correspond to /datum/external_login_method subtype IDs
+## ?ip=[client.address]&seeker_port=[client.seeker_port] will be appended to the URL by the client.
+## Must use https:// unless localhost
+# EXTERNAL_AUTH_METHOD discord https://api.beestation13.com/discord/auth
 
 ## Comment this out to disable checking for the cid randomizer dll. (disabled if database isn't enabled or connected)
 CHECK_RANDOMIZER
@@ -396,11 +420,13 @@ NOTIFY_NEW_PLAYER_ACCOUNT_AGE 1
 #IRC_FIRST_CONNECTION_ALERT
 
 ## Deny all new connections by ckeys we haven't seen before (exempts admins and only denies the connection if the database is enabled and connected)
+## If PANIC_BUNKER_INTERVIEW and ENABLE_GUEST_EXTERNAL_AUTH are both enabled, guests will be allowed to connect and attempt authentication, but if they authenticate and fail interview, they will be blocked.
 ##	Requires database
 #PANIC_BUNKER
 
 ## Uncomment to enable the interview system for players who are below the living hour requirement instead of explicitly blocking them from the server
 ## Note this requires the PANIC_BUNKER to be enabled to do anything.
+## If this is enabled alongside ENABLE_GUEST_EXTERNAL_AUTH, guests will be allowed to connect, but are subject to the interview system after authenticating
 #PANIC_BUNKER_INTERVIEW
 
 ## Uncomment to allow players to try interviewing again instead of being removed for the duration of the round
@@ -610,7 +636,7 @@ AUTOTRANSFER_DECAY_START 24000
 AUTOTRANSFER_DECAY_AMOUNT 0.025
 
 ## Ghost role cooldown time after death (In deciseconds)
-GHOST_ROLE_COOLDOWN 3000
+GHOST_ROLE_COOLDOWN 600
 
 ## Enable/disable roundstart station traits
 #STATION_TRAITS

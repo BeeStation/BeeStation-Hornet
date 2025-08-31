@@ -21,10 +21,10 @@
 /datum/component/simple_rotation/proc/AddSignals()
 	RegisterSignal(parent, COMSIG_CLICK_ALT, PROC_REF(RotateLeft))
 	RegisterSignal(parent, COMSIG_CLICK_ALT_SECONDARY, PROC_REF(RotateRight))
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(ExamineMessage))
+	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(ExamineMessage))
 
 /datum/component/simple_rotation/proc/RemoveSignals()
-	UnregisterSignal(parent, list(COMSIG_CLICK_ALT, COMSIG_CLICK_ALT_SECONDARY, COMSIG_PARENT_EXAMINE))
+	UnregisterSignal(parent, list(COMSIG_CLICK_ALT, COMSIG_CLICK_ALT_SECONDARY, COMSIG_ATOM_EXAMINE))
 
 /datum/component/simple_rotation/RegisterWithParent()
 	AddSignals()
@@ -56,11 +56,17 @@
 
 /datum/component/simple_rotation/proc/RotateRight(datum/source, mob/user)
 	SIGNAL_HANDLER
-	Rotate(user, ROTATION_CLOCKWISE)
+	if(rotation_flags & ROTATION_DIAGONAL)
+		Rotate(user, ROTATION_CLOCKWISE_DIAGONAL)
+	else
+		Rotate(user, ROTATION_CLOCKWISE)
 
 /datum/component/simple_rotation/proc/RotateLeft(datum/source, mob/user)
 	SIGNAL_HANDLER
-	Rotate(user, ROTATION_COUNTERCLOCKWISE)
+	if(rotation_flags & ROTATION_DIAGONAL)
+		Rotate(user, ROTATION_COUNTERCLOCKWISE_DIAGONAL)
+	else
+		Rotate(user, ROTATION_COUNTERCLOCKWISE)
 
 /datum/component/simple_rotation/proc/Rotate(mob/user, degrees)
 	if(QDELETED(user))

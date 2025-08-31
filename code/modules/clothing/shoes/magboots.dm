@@ -51,9 +51,6 @@
 	user.refresh_gravity()
 	update_action_buttons()
 
-/obj/item/clothing/shoes/magboots/negates_gravity()
-	return isspaceturf(get_turf(src)) ? FALSE : magpulse //We don't mimick gravity on space turfs
-
 /obj/item/clothing/shoes/magboots/examine(mob/user)
 	. = ..()
 	. += "Its mag-pulse traction system appears to be [magpulse ? "enabled" : "disabled"]."

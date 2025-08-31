@@ -249,7 +249,7 @@
 /turf/open/floor/clockwork/reebe/Entered(atom/movable/A)
 	. = ..()
 	var/mob/living/M = A
-	if(istype(M) && is_servant_of_ratvar(M))
+	if(istype(M) && IS_SERVANT_OF_RATVAR(M))
 		if(!LAZYLEN(heal_people))
 			START_PROCESSING(SSprocessing, src)
 		LAZYADD(heal_people, M)
@@ -385,7 +385,7 @@
 		return ..()
 
 /obj/machinery/door/airlock/clockwork/allowed(mob/M)
-	if(is_servant_of_ratvar(M))
+	if(IS_SERVANT_OF_RATVAR(M))
 		return TRUE
 	return FALSE
 
@@ -461,10 +461,10 @@
 /obj/effect/clockwork/servant_blocker/CanPass(atom/movable/mover, turf/target)
 	if(ismob(mover))
 		var/mob/M = mover
-		if(is_servant_of_ratvar(M))
+		if(IS_SERVANT_OF_RATVAR(M))
 			return FALSE
 	for(var/mob/M in mover.contents)
-		if(is_servant_of_ratvar(M))
+		if(IS_SERVANT_OF_RATVAR(M))
 			return FALSE
 	return ..()
 
@@ -563,6 +563,13 @@
 	rad = 100
 	fire = 80
 	acid = 100
+
+/obj/structure/window/reinforced/clockwork/corner
+	icon_state = "clockwork_window_single_corner"
+	density = FALSE
+
+/obj/structure/window/reinforced/clockwork/corner/unanchored
+	anchored = FALSE
 
 /obj/structure/window/reinforced/clockwork/spawnDebris(location)
 	. = list()

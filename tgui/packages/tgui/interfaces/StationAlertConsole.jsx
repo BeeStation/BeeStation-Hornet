@@ -1,5 +1,5 @@
 import { sortBy } from 'common/collections';
-import { flow } from 'common/fp';
+
 import { useBackend } from '../backend';
 import { Button, Section, Stack } from '../components';
 import { Window } from '../layouts';
@@ -21,27 +21,35 @@ export const StationAlertConsoleContent = (props) => {
   const { cameraView } = data;
 
   const sortingKey = {
-    'Fire': 0,
-    'Atmosphere': 1,
-    'Power': 2,
-    'Burglar': 3,
-    'Motion': 4,
-    'Camera': 5,
+    Fire: 0,
+    Atmosphere: 1,
+    Power: 2,
+    Burglar: 3,
+    Motion: 4,
+    Camera: 5,
   };
 
-  const sortedAlarms = flow([sortBy((alarm) => sortingKey[alarm.name])])(data.alarms || []);
+  const sortedAlarms = sortBy(
+    data.alarms || [],
+    (alarm) => sortingKey[alarm.name],
+  );
 
   return (
     <>
       {sortedAlarms.map((category) => (
         <Section key={category.name} title={category.name + ' Alarms'}>
           <ul>
-            {category.alerts?.length === 0 && <li className="color-good">Systems Nominal</li>}
+            {category.alerts?.length === 0 && (
+              <li className="color-good">Systems Nominal</li>
+            )}
             {category.alerts.map((alert) => (
               <Stack key={alert.name} height="30px" align="baseline">
                 <Stack.Item grow>
                   <li className="color-average">
-                    {alert.name} {!!cameraView && alert?.sources > 1 ? ' (' + alert.sources + ' sources)' : ''}
+                    {alert.name}{' '}
+                    {!!cameraView && alert?.sources > 1
+                      ? ' (' + alert.sources + ' sources)'
+                      : ''}
                   </li>
                 </Stack.Item>
                 {!!cameraView && (

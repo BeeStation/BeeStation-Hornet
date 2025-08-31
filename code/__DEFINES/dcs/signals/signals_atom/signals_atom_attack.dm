@@ -3,9 +3,9 @@
 // All signals send the source datum of the signal as the first argument
 
 ///from base of atom/attackby(): (/obj/item, /mob/living, params)
-#define COMSIG_PARENT_ATTACKBY "atom_attackby"
+#define COMSIG_ATOM_ATTACKBY "atom_attackby"
 /// From base of [atom/proc/attacby_secondary()]: (/obj/item/weapon, /mob/user, params)
-#define COMSIG_PARENT_ATTACKBY_SECONDARY "atom_attackby_secondary"
+#define COMSIG_ATOM_ATTACKBY_SECONDARY "atom_attackby_secondary"
 /// From base of [/atom/proc/attack_hand_secondary]: (mob/user, list/modifiers) - Called when the atom receives a secondary unarmed attack.
 #define COMSIG_ATOM_ATTACK_HAND_SECONDARY "atom_attack_hand_secondary"
 ///Return this in response if you don't want afterattack to be called

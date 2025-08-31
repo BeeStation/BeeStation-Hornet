@@ -351,7 +351,7 @@
 
 	if (hovered_user_count)
 		SSscreentips.deleted_hovered_atoms ++
-		for (var/client/client in GLOB.clients)
+		for (var/client/client in GLOB.clients_unsafe)
 			if (client.hovered_atom == src)
 				client.hovered_atom = null
 		hovered_user_count = 0
@@ -440,7 +440,7 @@
   *
   * You can also be in a shuttleshuttle during endgame transit
   *
-  * Used in gamemode to identify mobs who have escaped and for some other areas of the code
+  * Used in objectives to identify mobs who have escaped and for some other areas of the code
   * who don't want atoms where they shouldn't be
   */
 /atom/proc/onCentCom()
@@ -486,7 +486,7 @@
   *
   * Either in the syndie base on centcom, or any of their shuttles
   *
-  * Also used in gamemode code for win conditions
+  * Also used in objective code for win conditions
   */
 /atom/proc/onSyndieBase()
 	var/turf/T = get_turf(src)
@@ -673,10 +673,10 @@
   * COMSIG_ATOM_GET_EXAMINE_NAME signal
   */
 /atom/proc/get_examine_name(mob/user)
-	. = "\a [src]"
+	. = "\a <b>[src]</b>"
 	var/list/override = list(gender == PLURAL ? "some" : "a", " ", "[name]")
 	if(article)
-		. = "[article] [src]"
+		. = "[article] <b>[src]</b>"
 		override[EXAMINE_POSITION_ARTICLE] = article
 	if(SEND_SIGNAL(src, COMSIG_ATOM_GET_EXAMINE_NAME, user, override) & COMPONENT_EXNAME_CHANGED)
 		. = override.Join("")
@@ -691,7 +691,7 @@
   * Default behaviour is to get the name and icon of the object and it's reagents where
   * the TRANSPARENT flag is set on the reagents holder
   *
-  * Produces a signal COMSIG_PARENT_EXAMINE
+  * Produces a signal COMSIG_ATOM_EXAMINE
   */
 /atom/proc/examine(mob/user)
 	var/examine_string = get_examine_string(user, thats = TRUE)
@@ -770,7 +770,7 @@
 				continue
 			to_chat(user, "\t[span_notice("<span class='[GLOB.soul_glimmer_cfc_list[soul]]'>[soul]")], [present_souls[soul] > 1 ? "[present_souls[soul]] times" : "once"].</span>")
 
-	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
+	SEND_SIGNAL(src, COMSIG_ATOM_EXAMINE, user, .)
 
 /*
  * A list of "tags" displayed after atom's description in examine.
@@ -806,14 +806,15 @@
  * This is where you can put extra information on something that may be superfluous or not important in critical gameplay
  * moments, while allowing people to manually double-examine to take a closer look
  *
- * Produces a signal [COMSIG_PARENT_EXAMINE_MORE]
+ * Produces a signal [COMSIG_ATOM_EXAMINE_MORE]
  */
 /atom/proc/examine_more(mob/user)
 	SHOULD_CALL_PARENT(TRUE)
 	RETURN_TYPE(/list)
 
 	. = list()
-	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE_MORE, user, .)
+	SEND_SIGNAL(src, COMSIG_ATOM_EXAMINE_MORE, user, .)
+	SEND_SIGNAL(user, COMSIG_MOB_EXAMINING_MORE, src, .)
 
 /**
  * Updates the appearance of the icon
@@ -1731,11 +1732,11 @@
 	return
 
 ///Connect this atom to a shuttle
-/atom/proc/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
+/atom/proc/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override = FALSE)
 	return
 
 /// Generic logging helper
-/atom/proc/log_message(message, message_type, color=null, log_globally=TRUE)
+/atom/proc/log_message(message, message_type, color, log_globally = TRUE)
 	if(!log_globally)
 		return
 

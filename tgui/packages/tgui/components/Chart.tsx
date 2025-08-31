@@ -4,8 +4,9 @@
  * @license MIT
  */
 
-import { map, zipWith } from 'common/collections';
+import { map, zip } from 'common/collections';
 import { Component, createRef, RefObject } from 'react';
+
 import { Box, BoxProps } from './Box';
 
 type Props = {
@@ -26,13 +27,18 @@ type State = {
 type Point = number[];
 type Range = [number, number];
 
-const normalizeData = (data: Point[], scale: number[], rangeX?: Range, rangeY?: Range) => {
+const normalizeData = (
+  data: Point[],
+  scale: number[],
+  rangeX?: Range,
+  rangeY?: Range,
+) => {
   if (data.length === 0) {
     return [];
   }
 
-  const min = zipWith(Math.min)(...data);
-  const max = zipWith(Math.max)(...data);
+  const min = map(zip(...data), (p) => Math.min(...p));
+  const max = map(zip(...data), (p) => Math.max(...p));
 
   if (rangeX !== undefined) {
     min[0] = rangeX[0];
@@ -44,11 +50,12 @@ const normalizeData = (data: Point[], scale: number[], rangeX?: Range, rangeY?: 
     max[1] = rangeY[1];
   }
 
-  const normalized = map((point: Point) => {
-    return zipWith((value: number, min: number, max: number, scale: number) => {
-      return ((value - min) / (max - min)) * scale;
-    })(point, min, max, scale);
-  })(data);
+  const normalized = map(data, (point) =>
+    map(
+      zip(point, min, max, scale),
+      ([value, min, max, scale]) => ((value - min) / (max - min)) * scale,
+    ),
+  );
 
   return normalized;
 };
@@ -96,7 +103,15 @@ class LineChart extends Component<Props> {
   };
 
   render() {
-    const { data = [], rangeX, rangeY, fillColor = 'none', strokeColor = '#ffffff', strokeWidth = 2, ...rest } = this.props;
+    const {
+      data = [],
+      rangeX,
+      rangeY,
+      fillColor = 'none',
+      strokeColor = '#ffffff',
+      strokeWidth = 2,
+      ...rest
+    } = this.props;
     const { viewBox } = this.state;
     const normalized = normalizeData(data, viewBox, rangeX, rangeY);
     // Push data outside viewBox and form a fillable polygon
@@ -124,7 +139,8 @@ class LineChart extends Component<Props> {
               right: 0,
               bottom: 0,
               overflow: 'hidden',
-            }}>
+            }}
+          >
             <polyline
               transform={`scale(1, -1) translate(0, -${viewBox[1]})`}
               fill={fillColor}

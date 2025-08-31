@@ -70,7 +70,7 @@
 	switch(mode)
 		if(0)
 			if(M.health >= 0)
-				if(isanimal(M))
+				if(isanimal_or_basicmob(M))
 					var/list/modifiers = params2list(params)
 					if (!user.combat_mode && !LAZYACCESS(modifiers, RIGHT_CLICK))
 						M.attack_hand(user, modifiers) //This enables borgs to get the floating heart icon and mob emote from simple_animal's that have petbonus == true.
@@ -634,7 +634,7 @@
 		S.change_head_color(color2)
 		dropped = TRUE
 
-#define PKBORG_DAMPEN_CYCLE_DELAY 20
+#define PKBORG_DAMPEN_CYCLE_DELAY 2 SECONDS
 
 //Peacekeeper Cyborg Projectile Dampenening Field
 /obj/item/borg/projectile_dampen
@@ -650,7 +650,7 @@
 	var/energy_recharge_cyborg_drain_coefficient = 0.4
 	var/cyborg_cell_critical_percentage = 0.05
 	var/mob/living/silicon/robot/host = null
-	var/datum/proximity_monitor/advanced/peaceborg_dampener/dampening_field
+	var/datum/proximity_monitor/advanced/projectile_dampener/peaceborg/dampening_field
 	var/projectile_damage_coefficient = 0.5
 	/// Energy cost per tracked projectile damage amount per second
 	var/projectile_damage_tick_ecost_coefficient = 10
@@ -703,7 +703,9 @@
 		QDEL_NULL(dampening_field)
 	var/mob/living/silicon/robot/owner = get_host()
 	dampening_field = new(owner, field_radius, TRUE, src)
-	owner?.module.allow_riding = FALSE
+	RegisterSignal(dampening_field, COMSIG_DAMPENER_CAPTURE,  PROC_REF(dampen_projectile))
+	RegisterSignal(dampening_field, COMSIG_DAMPENER_RELEASE,  PROC_REF(restore_projectile))
+	owner?.model.allow_riding = FALSE
 	active = TRUE
 
 /obj/item/borg/projectile_dampen/proc/deactivate_field()
@@ -716,7 +718,7 @@
 
 	var/mob/living/silicon/robot/owner = get_host()
 	if(owner)
-		owner.module.allow_riding = TRUE
+		owner.model.allow_riding = TRUE
 
 /obj/item/borg/projectile_dampen/proc/get_host()
 	if(istype(host))
@@ -773,14 +775,11 @@
 		host.cell.use(energy_recharge * delta_time * energy_recharge_cyborg_drain_coefficient)
 		energy += energy_recharge * delta_time
 
-/obj/item/borg/projectile_dampen/proc/dampen_projectile(obj/projectile/P, track_projectile = TRUE)
-	if(tracked[P])
-		return
-	if(track_projectile)
-		tracked[P] = P.damage
-	P.damage *= projectile_damage_coefficient
-	P.speed *= projectile_speed_coefficient
-	P.add_overlay(projectile_effect)
+/obj/item/borg/projectile_dampen/proc/dampen_projectile(obj/projectile/projectile)
+	tracked[projectile] = projectile.damage
+	projectile.damage *= projectile_damage_coefficient
+	projectile.speed *= projectile_speed_coefficient
+	projectile.add_overlay(projectile_effect)
 
 /obj/item/borg/projectile_dampen/proc/restore_projectile(obj/projectile/P)
 	tracked -= P
@@ -1034,7 +1033,7 @@
 
 /obj/item/borg/apparatus/circuit/pre_attack(atom/A, mob/living/user, params)
 	. = ..()
-	if(istype(A, /obj/item/aiModule) && !stored) //If an admin wants a borg to upload laws, who am I to stop them? Otherwise, we can hint that it fails
+	if(istype(A, /obj/item/ai_module) && !stored) //If an admin wants a borg to upload laws, who am I to stop them? Otherwise, we can hint that it fails
 		to_chat(user, span_warning("This circuit board doesn't seem to have standard robot apparatus pin holes. You're unable to pick it up."))
 
 ////////////////////

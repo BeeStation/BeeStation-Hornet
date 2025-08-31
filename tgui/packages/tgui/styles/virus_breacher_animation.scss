@@ -1,0 +1,60 @@
+/* ────── intense but continuous colour pulse ─────── */
+@keyframes logoHue {
+  0% {
+    color: #ff0055;
+  }
+  20% {
+    color: #ff3377;
+  }
+  40% {
+    color: #ff6699;
+  }
+  60% {
+    color: #ff3377;
+  }
+  80% {
+    color: #ff0055;
+  }
+  100% {
+    color: #ff0055;
+  }
+}
+
+/* ────── smooth but chaotic horizontal sway ─────── */
+@keyframes sway {
+  0% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-5px);
+  }
+  40% {
+    transform: translateX(0);
+  }
+  60% {
+    transform: translateX(5px);
+  }
+  80% {
+    transform: translateX(0);
+  }
+  90% {
+    transform: translateX(-3px);
+  }
+  100% {
+    transform: translateX(3);
+  }
+}
+
+/* container drives the pulse */
+.logo-container {
+  animation: logoHue 4s ease-in-out infinite;
+  will-change: color;
+}
+
+/* each line sways continuously with stagger */
+.logo-line {
+  display: block;
+  animation: sway 2.4s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 120ms);
+  will-change: transform;
+}

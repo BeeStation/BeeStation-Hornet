@@ -73,11 +73,14 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf
 	///every holo object created by the holodeck goes in here to track it
 	var/list/spawned = list()
 	var/list/effects = list() //like above, but for holo effects
+	var/list/from_spawner = list() // spawner-created atoms aren't working well that they don't go into 'spawned' list
 
 	///TRUE if the holodeck is using extra power because of a program, FALSE otherwise
 	var/active = FALSE
 	///increases the holodeck cooldown if TRUE, causing the holodeck to take longer to allow loading new programs
 	var/damaged = FALSE
+	///TRUE if this is meant for debugging
+	var/debug_holodeck = FALSE
 
 	//creates the timer that determines if another program can be manually loaded
 	COOLDOWN_DECLARE(holodeck_cooldown)
@@ -208,7 +211,9 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf
 	if(spawning_simulation)
 		return
 
-	if (add_delay)
+	if(debug_holodeck)
+		COOLDOWN_START(src, holodeck_cooldown, 1 SECONDS)
+	else if (add_delay)
 		COOLDOWN_START(src, holodeck_cooldown, (damaged ? HOLODECK_CD + HOLODECK_DMG_CD : HOLODECK_CD))
 		if (damaged && floorcheck())
 			damaged = FALSE
@@ -248,14 +253,16 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf
 		say("Special note from \"1218 AD\" developer: I see you too are interested in the REAL dark ages of humanity! I've made this program also unlock some interesting shuttle designs on any communication console around. Have fun!")
 		SSshuttle.shuttle_purchase_requirements_met[SHUTTLE_UNLOCK_MEDISIM] = TRUE
 
-	nerf(!(obj_flags & EMAGGED))
+	if(!debug_holodeck)
+		nerf(!(obj_flags & EMAGGED))
 
+	spawned += from_spawner
 	for(var/atom/holo_atom as anything in spawned)
 		if(QDELETED(holo_atom))
 			spawned -= holo_atom
 			continue
 
-		RegisterSignal(holo_atom, COMSIG_PARENT_PREQDELETED, PROC_REF(remove_from_holo_lists))
+		RegisterSignal(holo_atom, COMSIG_PREQDELETED, PROC_REF(remove_from_holo_lists))
 		holo_atom.flags_1 |= HOLOGRAM_1
 
 		if(isholoeffect(holo_atom))//activates holo effects and transfers them from the spawned list into the effects list
@@ -265,29 +272,33 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf
 			var/atom/holo_effect_product = holo_effect.activate(src)//change name
 			if(istype(holo_effect_product))
 				spawned += holo_effect_product // we want mobs or objects spawned via holoeffects to be tracked as objects
-				RegisterSignal(holo_effect_product, COMSIG_PARENT_PREQDELETED, PROC_REF(remove_from_holo_lists))
+				RegisterSignal(holo_effect_product, COMSIG_PREQDELETED, PROC_REF(remove_from_holo_lists))
 			if(islist(holo_effect_product))
 				for(var/atom/atom_product as anything in holo_effect_product)
-					RegisterSignal(atom_product, COMSIG_PARENT_PREQDELETED, PROC_REF(remove_from_holo_lists))
+					RegisterSignal(atom_product, COMSIG_PREQDELETED, PROC_REF(remove_from_holo_lists))
 			continue
 
 		if(isobj(holo_atom))
 			var/obj/holo_object = holo_atom
-			holo_object.resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+			if(!debug_holodeck)
+				holo_object.resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 			if(isstructure(holo_object))
-				holo_object.flags_1 |= NODECONSTRUCT_1
+				if(!debug_holodeck)
+					holo_object.flags_1 |= NODECONSTRUCT_1
 				continue
 
 			if(ismachinery(holo_object))
 				var/obj/machinery/holo_machine = holo_object
-				holo_machine.flags_1 |= NODECONSTRUCT_1
+				if(!debug_holodeck)
+					holo_machine.flags_1 |= NODECONSTRUCT_1
 				holo_machine.power_change()
 
 				if(istype(holo_machine, /obj/machinery/button))
 					var/obj/machinery/button/holo_button = holo_machine
 					holo_button.setup_device()
 
+	from_spawner.Cut()
 	spawning_simulation = FALSE
 
 ///this qdels holoitems that should no longer exist for whatever reason
@@ -295,7 +306,7 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf
 	spawned -= holo_atom
 	if(!holo_atom)
 		return
-	UnregisterSignal(holo_atom, COMSIG_PARENT_PREQDELETED)
+	UnregisterSignal(holo_atom, COMSIG_PREQDELETED)
 	var/turf/target_turf = get_turf(holo_atom)
 	for(var/atom/movable/atom_contents as anything in holo_atom) //make sure that things inside of a holoitem are moved outside before destroying it
 		atom_contents.forceMove(target_turf)
@@ -309,9 +320,11 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf
 	SIGNAL_HANDLER
 
 	spawned -= to_remove
-	UnregisterSignal(to_remove, COMSIG_PARENT_PREQDELETED)
+	UnregisterSignal(to_remove, COMSIG_PREQDELETED)
 
 /obj/machinery/computer/holodeck/process(delta_time=2)
+	if(debug_holodeck)
+		return ..()
 	if(damaged && DT_PROB(10, delta_time))
 		for(var/turf/holo_turf in linked)
 			if(DT_PROB(5, delta_time))
@@ -375,6 +388,9 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf
 		return FALSE
 	return TRUE
 
+/obj/machinery/computer/holodeck/debug/floorcheck()
+	return TRUE
+
 ///changes all weapons in the holodeck to do stamina damage if set
 /obj/machinery/computer/holodeck/proc/nerf(nerf_this, is_loading = TRUE)
 	if (!nerf_this && is_loading)
@@ -429,6 +445,23 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf
 
 /obj/machinery/computer/holodeck/small/LateInitialize()
 	..()
+
+// ---------------------------------------------
+//                DEBUG Holodeck
+// ---------------------------------------------
+/obj/machinery/computer/holodeck/debug
+	name = "CentCom holodeck console"
+	desc = "This seems to be a proof of a suspicion that our shifts are not real... Nevermind, I was joking."
+	debug_holodeck = TRUE
+
+	mapped_start_area = /area/holodeck/debug
+	program_type = /datum/map_template/holodeck/debug
+	offline_program = "debug-offline"
+	req_access = list(ACCESS_CENT_GENERAL)
+
+	idle_power_usage = 0
+	active_power_usage = 0
+
 
 #undef HOLODECK_CD
 #undef HOLODECK_DMG_CD

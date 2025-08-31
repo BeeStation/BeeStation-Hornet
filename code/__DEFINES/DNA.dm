@@ -90,10 +90,8 @@
 #define FACEHAIR 3
 #define EYECOLOR 4
 #define LIPS 5
-#define NOTRANSSTING 6
 #define NOZOMBIE 8
 #define NO_UNDERWEAR 9
-#define NO_DNA_COPY 10
 //Flashing has no effect
 #define NOFLASH 11
 // Use this if you want to change the race's color without the player being able to pick their own color. AKA special color shifting TRANSLATION: AWFUL.
@@ -113,6 +111,8 @@
 #define NOSOCKS 19
 // spawns with an envirosuit
 #define ENVIROSUIT 20
+//No augments
+#define NOAUGMENTS 21
 
 /// Used for determining which wounds are applicable to this species.
 /// if we have flesh (can suffer slash/piercing/burn wounds, requires they don't have NOBLOOD)

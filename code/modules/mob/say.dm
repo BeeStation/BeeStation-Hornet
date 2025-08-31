@@ -4,6 +4,8 @@
 /mob/verb/say_verb(message as text)
 	set name = "Say"
 	set category = "IC"
+	if(isnewplayer(src))
+		return
 
 	if(GLOB.say_disabled)	//This is here to try to identify lag problems
 		to_chat(usr, span_danger("Speech is currently admin-disabled."))
@@ -15,6 +17,8 @@
 /mob/verb/whisper_verb(message as text)
 	set name = "Whisper"
 	set category = "IC"
+	if(isnewplayer(src))
+		return
 	if(GLOB.say_disabled)	//This is here to try to identify lag problems
 		to_chat(usr, span_danger("Speech is currently admin-disabled."))
 		return
@@ -35,7 +39,8 @@
 	set name = "Me"
 	set category = "IC"
 	set desc = "Perform a custom emote. Leave blank to pick between an audible or a visible emote (Defaults to visible)."
-
+	if(isnewplayer(src))
+		return
 	if(GLOB.say_disabled)	//This is here to try to identify lag problems
 		to_chat(usr, span_danger("Speech is currently admin-disabled."))
 		return
@@ -102,10 +107,6 @@
 /mob/proc/hivecheck()
 	return 0
 
-///Check if the mob has a ling hivemind
-/mob/proc/lingcheck()
-	return LINGHIVE_NONE
-
 ///The amount of items we are looking for in the message
 #define MESSAGE_MODS_LENGTH 6
 
@@ -152,7 +153,7 @@
 	for(var/I in 1 to MESSAGE_MODS_LENGTH)
 		var/key = message[1]
 		var/chop_to = 2 //By default we just take off the first char
-		if(key == "#" && !mods[WHISPER_MODE])
+		if((key == "#" && !mods[WHISPER_MODE]))
 			mods[WHISPER_MODE] = MODE_WHISPER
 		else if(key == "%" && !mods[MODE_SING])
 			mods[MODE_SING] = TRUE

@@ -36,7 +36,7 @@
 				if(we_breath)
 					adjustOxyLoss(4 * delta_time)
 					Unconscious(80)
-				
+
 				// Tissues die without blood circulation, machines burn without coolant circulation
 				if (HAS_TRAIT(src, TRAIT_BLOOD_COOLANT))
 					adjustFireLoss(0.5 * delta_time)
@@ -101,8 +101,8 @@
 
 		if(S.breathid == GAS_O2)
 			throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
-		else if(S.breathid == "tox")
-			throw_alert("not_enough_tox", /atom/movable/screen/alert/not_enough_tox)
+		else if(S.breathid == GAS_PLASMA)
+			throw_alert("not_enough_tox", /atom/movable/screen/alert/not_enough_plas)
 		else if(S.breathid == "co2")
 			throw_alert("not_enough_co2", /atom/movable/screen/alert/not_enough_co2)
 		else if(S.breathid == "n2")
@@ -147,6 +147,12 @@
 		return dna.species.bodytemp_normal
 	return dna.species.bodytemp_normal + get_body_temp_normal_change()
 
+/mob/living/carbon/human/get_body_temp_heat_damage_limit()
+	return dna.species.bodytemp_heat_damage_limit
+
+/mob/living/carbon/human/get_body_temp_cold_damage_limit()
+	return dna.species.bodytemp_cold_damage_limit
+
 ///FIRE CODE
 /mob/living/carbon/human/handle_fire(delta_time, times_fired)
 	. = ..()
@@ -166,11 +172,11 @@
 /mob/living/carbon/human/proc/get_thermal_protection()
 	var/thermal_protection = 0 //Simple check to estimate how protected we are against multiple temperatures
 	if(wear_suit)
-		if(wear_suit.max_heat_protection_temperature >= FIRE_SUIT_MAX_TEMP_PROTECT)
-			thermal_protection += (wear_suit.max_heat_protection_temperature*0.7)
+		if((wear_suit.heat_protection & CHEST) && (wear_suit.max_heat_protection_temperature >= FIRE_SUIT_MAX_TEMP_PROTECT))
+			thermal_protection += (wear_suit.max_heat_protection_temperature * 0.7)
 	if(head)
-		if(head.max_heat_protection_temperature >= FIRE_HELM_MAX_TEMP_PROTECT)
-			thermal_protection += (head.max_heat_protection_temperature*THERMAL_PROTECTION_HEAD)
+		if((head.heat_protection & HEAD) && (head.max_heat_protection_temperature >= FIRE_HELM_MAX_TEMP_PROTECT))
+			thermal_protection += (head.max_heat_protection_temperature * THERMAL_PROTECTION_HEAD)
 	thermal_protection = round(thermal_protection)
 	return thermal_protection
 

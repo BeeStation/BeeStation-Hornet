@@ -2,12 +2,28 @@
 	name = "\improper Diona"
 	plural_form = "Dionae"
 	id = SPECIES_DIONA
-	sexes = 0
+	sexes = 0 //no sex for bug/plant people!
 	bodyflag = FLAG_DIONA
-	default_color = "59CE00"
-	species_traits = list(MUTCOLORS,EYECOLOR,AGENDER,NOHUSK,NO_DNA_COPY,NO_UNDERWEAR,NOSOCKS,NOTRANSSTING,NOEYESPRITES)
-	inherent_traits = list(TRAIT_ALWAYS_CLEAN, TRAIT_BEEFRIEND, TRAIT_NONECRODISEASE, TRAIT_RESISTLOWPRESSURE, TRAIT_RESISTCOLD, TRAIT_NORADDAMAGE)
-	inherent_biotypes = list(MOB_HUMANOID, MOB_BUG)
+	species_traits = list(
+		MUTCOLORS,
+		EYECOLOR,
+		AGENDER,
+		NOHUSK,
+		NO_UNDERWEAR,
+		NOSOCKS,
+		NOEYESPRITES,
+	)
+	inherent_traits = list(
+		TRAIT_BEEFRIEND,
+		TRAIT_NONECRODISEASE,
+		TRAIT_RESISTLOWPRESSURE,
+		TRAIT_RESISTCOLD,
+		TRAIT_NORADDAMAGE,
+		TRAIT_NOBREATH,
+		TRAIT_NO_DNA_COPY,
+		TRAIT_NO_TRANSFORMATION_STING,
+	)
+	inherent_biotypes = list(MOB_HUMANOID, MOB_ORGANIC, MOB_BUG)
 	mutant_bodyparts = list("diona_leaves", "diona_thorns", "diona_flowers", "diona_moss", "diona_mushroom", "diona_antennae", "diona_eyes", "diona_pbody")
 	mutant_organs = list(/obj/item/organ/nymph_organ/r_arm, /obj/item/organ/nymph_organ/l_arm, /obj/item/organ/nymph_organ/l_leg, /obj/item/organ/nymph_organ/r_leg, /obj/item/organ/nymph_organ/chest)
 	inherent_factions = list(FACTION_PLANTS, FACTION_VINES, FACTION_DIONA)
@@ -40,12 +56,14 @@
 	mutantheart = /obj/item/organ/heart/diona //Dungeon's sprite
 	mutantappendix = null
 
-	species_chest = /obj/item/bodypart/chest/diona
-	species_head = /obj/item/bodypart/head/diona
-	species_l_arm = /obj/item/bodypart/l_arm/diona
-	species_r_arm = /obj/item/bodypart/r_arm/diona
-	species_l_leg = /obj/item/bodypart/l_leg/diona
-	species_r_leg = /obj/item/bodypart/r_leg/diona
+	bodypart_overrides = list(
+		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/diona,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/diona,
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/diona,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/diona,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/diona,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/diona,
+	)
 
 	var/datum/action/diona/split/split_ability //All dionae start with this, this is for splitting apart completely.
 	var/datum/action/diona/partition/partition_ability //All dionae start with this as well, this is for splitting off a nymph from food.
@@ -137,10 +155,6 @@
 
 /datum/species/diona/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
-	var/obj/item/organ/appendix/appendix = H.get_organ_slot("appendix") //No appendixes for plant people
-	if(appendix)
-		appendix.Remove(H)
-		QDEL_NULL(appendix)
 	split_ability = new
 	split_ability.Grant(H)
 	partition_ability = new
@@ -237,8 +251,8 @@
 		I.pixel_y = rand(-10, 10)
 	nymph.old_name = H.real_name
 	nymph.features = H.dna.features
-	H.mind.transfer_to(nymph) //Move the player's mind datum to the player nymph
-	H.mind.grab_ghost() // Throw the fucking ghost back into the nymph.
+	H.mind?.transfer_to(nymph) //Move the player's mind datum to the player nymph
+	H.mind?.grab_ghost() // Throw the fucking ghost back into the nymph.
 	H.gib(TRUE, TRUE, TRUE)  //Gib the old corpse with nothing left of use
 
 /datum/action/diona/partition

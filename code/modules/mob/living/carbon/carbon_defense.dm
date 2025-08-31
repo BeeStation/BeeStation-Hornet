@@ -210,7 +210,7 @@
 		help_shake_act(M)
 		return FALSE
 
-	if(..() && can_inject(M, TRUE)) //successful monkey bite.
+	if(..() && can_inject(M, get_combat_bodyzone(), INJECT_CHECK_PENETRATE_THICK | INJECT_TRY_SHOW_ERROR_MESSAGE)) //successful monkey bite.
 		for(var/thing in M.diseases)
 			var/datum/disease/D = thing
 			ForceContractDisease(D)
@@ -260,6 +260,7 @@
  * Attempt to disarm the target mob.
  * Will shove the target mob back, and drop them if they're in front of something dense
  * or another carbon.
+ * src is the attacker
 */
 /mob/living/carbon/proc/disarm(mob/living/carbon/target)
 	do_attack_animation(target, ATTACK_EFFECT_DISARM)
@@ -273,7 +274,7 @@
 
 /mob/living/carbon/is_shove_knockdown_blocked() //If you want to add more things that block shove knockdown, extend this
 	for (var/obj/item/clothing/clothing in get_equipped_items())
-		if(clothing.blocks_shove_knockdown)
+		if(clothing.clothing_flags & BLOCKS_SHOVE_KNOCKDOWN)
 			return TRUE
 	return FALSE
 
@@ -357,12 +358,12 @@
 			SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "hug", /datum/mood_event/warmhug, M) // You got a warm hug
 
 		// Let people know if they hugged someone really warm or really cold
-		if(M.bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT)
+		if(M.bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT || M.has_status_effect(/datum/status_effect/vampire_sol))
 			to_chat(src, span_warning("It feels like [M] is over heating as [M.p_they()] hug[M.p_s()] you."))
 		else if(M.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT)
 			to_chat(src, span_warning("It feels like [M] is freezing as [M.p_they()] hug[M.p_s()] you."))
 
-		if(bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT)
+		if(bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT || has_status_effect(/datum/status_effect/vampire_sol))
 			to_chat(M, span_warning("It feels like [src] is over heating as you hug [p_them()]."))
 		else if(bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT)
 			to_chat(M, span_warning("It feels like [src] is freezing as you hug [p_them()]."))

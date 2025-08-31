@@ -1,9 +1,10 @@
-GLOBAL_LIST_EMPTY(clients)							//all clients
+GLOBAL_LIST_EMPTY(clients)							//all clients who have authenticated
+GLOBAL_LIST_EMPTY(clients_unsafe)					//all clients, including unauthenticated ones
 GLOBAL_LIST_EMPTY(admins)							//all clients whom are admins
 GLOBAL_PROTECT(admins)
 GLOBAL_LIST_EMPTY(deadmins)							//all ckeys who have used the de-admin verb.
 
-GLOBAL_LIST_EMPTY(directory)							//all ckeys with associated client
+GLOBAL_LIST_EMPTY(directory)							//all ckeys with associated client (including unauthenticated ones)
 GLOBAL_LIST_EMPTY(stealthminID)						//reference list with IDs that store ckeys, for stealthmins
 
 
@@ -26,8 +27,8 @@ GLOBAL_LIST_EMPTY(suicided_mob_list)		//contains a list of all mobs that suicide
 GLOBAL_LIST_EMPTY(drones_list)
 GLOBAL_LIST_EMPTY(dead_mob_list)			//all dead mobs, including clientless. Excludes /mob/dead/new_player
 GLOBAL_LIST_EMPTY(joined_player_list)		//all clients that have joined the game at round-start or as a latejoin.
-GLOBAL_LIST_EMPTY(new_player_list)			//all /mob/dead/new_player, in theory all should have clients and those that don't are in the process of spawning and get deleted when done.
-GLOBAL_LIST_EMPTY(pre_setup_antags)			//minds that have been picked as antag by the gamemode. removed as antag datums are set.
+GLOBAL_LIST_EMPTY(auth_new_player_list)		//all /mob/dead/new_player/authenticated, in theory all should have clients and those that don't are in the process of spawning and get deleted when done.
+GLOBAL_LIST_EMPTY(pre_setup_antags)			//minds that have been picked as antag by dynamic. removed as antag datums are set.
 GLOBAL_LIST_EMPTY(mob_living_list)			//all instances of /mob/living and subtypes
 GLOBAL_LIST_EMPTY(carbon_list)				//all instances of /mob/living/carbon and subtypes, notably does not contain brains or simple animals
 GLOBAL_LIST_EMPTY(human_list) //all instances of /mob/living/carbon/human and subtypes
@@ -97,3 +98,11 @@ GLOBAL_LIST_INIT(construct_radial_images, list(
 				.[E.key_third_person] = list(E)
 			else
 				.[E.key_third_person] |= E
+
+/proc/get_crewmember_minds()
+	var/list/minds = list()
+	for(var/datum/record/locked/target in GLOB.manifest.locked)
+		var/datum/mind/mind = target.weakref_mind.resolve()
+		if(mind)
+			minds += mind
+	return minds

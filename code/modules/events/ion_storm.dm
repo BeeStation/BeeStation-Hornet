@@ -6,23 +6,23 @@
 	can_malf_fake_alert = TRUE
 
 /datum/round_event/ion_storm
-	var/replaceLawsetChance = 25 //chance the AI's lawset is completely replaced with something else per config weights
-	var/removeRandomLawChance = 10 //chance the AI has one random supplied or inherent law removed
-	var/removeDontImproveChance = 10 //chance the randomly created law replaces a random law instead of simply being added
-	var/shuffleLawsChance = 10 //chance the AI's laws are shuffled afterwards
-	var/botEmagChance = 1
-	var/ionMessage = null
-	var/lawsource = "Ion Storm"
-	announceWhen	= 1
+	var/replace_lawset_prob = 25 //chance the AI's lawset is completely replaced with something else per config weights
+	var/remove_random_law_prob = 10 //chance the AI has one random supplied or inherent law removed
+	var/replace_law_prob = 10 //chance the randomly created law replaces a random law instead of simply being added
+	var/shuffle_laws_prob = 10 //chance the AI's laws are shuffled afterwards
+	var/bot_emag_prob = 1
+	var/law_source = "Ion Storm"
+	var/ion_message = null
+	announceWhen = 1
 	announceChance = 33
 
 /datum/round_event/ion_storm/add_law_only // special subtype that adds a law only
-	lawsource = "unspecified, please report this to coders"
-	replaceLawsetChance = 0
-	removeRandomLawChance = 0
-	removeDontImproveChance = 0
-	shuffleLawsChance = 0
-	botEmagChance = 0
+	law_source = "unspecified, please report this to coders"
+	replace_lawset_prob = 0
+	remove_random_law_prob = 0
+	replace_law_prob = 0
+	shuffle_laws_prob = 0
+	bot_emag_prob = 0
 
 /datum/round_event/ion_storm/announce(fake)
 	if(prob(announceChance) || fake)
@@ -34,31 +34,36 @@
 	for(var/mob/living/silicon/ai/M in GLOB.alive_mob_list)
 		M.laws_sanity_check()
 		if(M.stat != DEAD && M.see_in_dark != 0)
-			if(prob(replaceLawsetChance))
-				M.laws.pick_weighted_lawset()
+			if(prob(replace_lawset_prob))
+				var/ion_lawset_type = pick_weighted_lawset()
+				var/datum/ai_laws/ion_lawset = new ion_lawset_type()
+				// our inherent laws now becomes the picked lawset's laws!
+				M.laws.inherent = ion_lawset.inherent.Copy()
+				// and clean up after.
+				qdel(ion_lawset)
 
-			if(prob(removeRandomLawChance))
+			if(prob(remove_random_law_prob))
 				M.remove_law(rand(1, M.laws.get_law_amount(list(LAW_INHERENT, LAW_SUPPLIED))))
 
-			var/message = ionMessage || generate_ion_law()
+			var/message = ion_message || generate_ion_law()
 			if(message)
-				if(prob(removeDontImproveChance))
+				if(prob(replace_law_prob))
 					M.replace_random_law(message, list(LAW_INHERENT, LAW_SUPPLIED, LAW_ION))
 				else
 					M.add_ion_law(message)
-					log_law("[M.key]/([M.name]) had an ion law added, as follows:\"[message]\". Source: [lawsource].")
+					log_law("[key_name(M)] had an ion law added, as follows:\"[message]\". Source: [law_source].")
 					var/time = time2text(world.realtime,"hh:mm:ss")
-					GLOB.lawchanges.Add("[time] <B>:</B> [M.key]/([M.name]) had an ion law added, as follows:\"[message]\". Source: [lawsource].")
+					GLOB.lawchanges.Add("[time] <B>:</B> [key_name(M)] had an ion law added, as follows:\"[message]\". Source: [law_source].")
 
-			if(prob(shuffleLawsChance))
+			if(prob(shuffle_laws_prob))
 				M.shuffle_laws(list(LAW_INHERENT, LAW_SUPPLIED, LAW_ION))
 
 			log_game("Ion storm changed laws of [key_name(M)] to [english_list(M.laws.get_law_list(TRUE, TRUE))]")
 			M.post_lawchange()
 
-	if(botEmagChance)
+	if(bot_emag_prob)
 		for(var/mob/living/simple_animal/bot/bot in GLOB.alive_mob_list)
-			if(prob(botEmagChance))
+			if(prob(bot_emag_prob))
 				bot.use_emag(null)
 
 /proc/generate_ion_law()

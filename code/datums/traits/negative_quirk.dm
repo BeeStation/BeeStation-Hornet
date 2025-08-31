@@ -413,7 +413,6 @@
 /datum/quirk/prosthetic_limb/on_spawn()
 	var/limb_slot = read_choice_preference(/datum/preference/choiced/quirk/prosthetic_limb_location) || pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG) // default to random
 	var/mob/living/carbon/human/H = quirk_target
-	var/obj/item/bodypart/old_part = H.get_bodypart(limb_slot)
 	var/obj/item/bodypart/prosthetic
 	switch(limb_slot)
 		if(BODY_ZONE_L_ARM)
@@ -428,9 +427,7 @@
 		if(BODY_ZONE_R_LEG)
 			prosthetic = new/obj/item/bodypart/r_leg/robot/surplus(quirk_target)
 			slot_string = "right leg"
-	prosthetic.replace_limb(H)
-	qdel(old_part)
-	H.regenerate_icons()
+	H.del_and_replace_bodypart(prosthetic)
 	medical_record_text = "Patient uses a low-budget prosthetic on the [prosthetic.name]."
 
 /datum/quirk/prosthetic_limb/post_spawn()
@@ -449,30 +446,40 @@
 
 /datum/quirk/insanity
 	name = "Reality Dissociation Syndrome"
-	desc = "You suffer from a severe disorder that causes very vivid hallucinations. Mindbreaker toxin can suppress its effects, and you are immune to mindbreaker's hallucinogenic properties. This is NOT a license to grief."
+	desc = "You suffer from a severe disorder that causes very vivid hallucinations. \
+		Mindbreaker toxin can suppress its effects, and you are immune to mindbreaker's hallucinogenic properties. \
+		THIS IS NOT A LICENSE TO GRIEF."
 	icon = "grin-tongue-wink"
 	quirk_value = -1
-	//no mob trait because it's handled uniquely
 	gain_text = span_userdanger("...")
 	lose_text = span_notice("You feel in tune with the world again.")
 	medical_record_text = "Patient suffers from acute Reality Dissociation Syndrome and experiences vivid hallucinations."
-	process = TRUE
 
-/datum/quirk/insanity/on_process(delta_time)
-	if(quirk_target.reagents.has_reagent(/datum/reagent/toxin/mindbreaker, needs_metabolizing = TRUE))
-		quirk_target.hallucination = 0
+/datum/quirk/insanity/add()
+	if(!iscarbon(quirk_holder))
 		return
-	if(DT_PROB(2, delta_time)) //we'll all be mad soon enough
-		madness()
+	var/mob/living/carbon/carbon_quirk_holder = quirk_holder
 
-/datum/quirk/insanity/proc/madness()
-	quirk_target.hallucination += rand(10, 25)
+	// Setup our special RDS mild hallucination.
+	// Not a unique subtype so not to plague subtypesof,
+	// also as we inherit the names and values from our quirk.
+	var/datum/brain_trauma/mild/hallucinations/added_trauma = new()
+	added_trauma.resilience = TRAUMA_RESILIENCE_ABSOLUTE
+	added_trauma.name = name
+	added_trauma.desc = medical_record_text
+	added_trauma.scan_desc = LOWER_TEXT(name)
+	added_trauma.gain_text = null
+	added_trauma.lose_text = null
 
-/datum/quirk/insanity/post_spawn() //I don't /think/ we'll need this but for newbies who think "roleplay as insane" = "license to kill" it's probably a good thing to have
-	if(quirk_holder.special_role)
+	carbon_quirk_holder.gain_trauma(added_trauma)
+
+/datum/quirk/insanity/post_spawn()
+	if(!quirk_holder || quirk_holder.special_role)
 		return
-	to_chat(quirk_target, span_bigboldinfo("Please note that your dissociation syndrome does NOT give you the right to attack people or otherwise cause any interference to \
-	the round. You are not an antagonist, and the rules will treat you the same as other crewmembers."))
+	// I don't /think/ we'll need this, but for newbies who think "roleplay as insane" = "license to kill",
+	// it's probably a good thing to have.
+	to_chat(quirk_holder, "<span class='big bold info'>Please note that your [LOWER_TEXT(name)] does NOT give you the right to attack people or otherwise cause any interference to \
+		the round. You are not an antagonist, and the rules will treat you the same as other crewmembers.</span>")
 
 /datum/quirk/social_anxiety
 	name = "Social Anxiety"

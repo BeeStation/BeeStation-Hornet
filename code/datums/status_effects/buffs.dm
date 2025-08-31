@@ -125,7 +125,7 @@
 	return ..()
 
 /datum/status_effect/wish_granters_gift/on_remove()
-	owner.revive(full_heal = TRUE, admin_revive = TRUE)
+	owner.revive(ADMIN_HEAL_ALL)
 	owner.visible_message(span_warning("[owner] appears to wake from the dead, having healed all wounds!"), span_notice("You have regenerated."))
 
 /atom/movable/screen/alert/status_effect/wish_granters_gift
@@ -141,14 +141,14 @@
 	var/alive = TRUE
 
 /datum/status_effect/cult_master/proc/deathrattle()
-	if(!QDELETED(GLOB.cult_narsie))
+	if(!QDELETED(GLOB.narsie))
 		return //if Nar'Sie is alive, don't even worry about it
-	var/area/A = get_area(owner)
-	for(var/datum/mind/B in SSticker.mode.cult)
-		if(isliving(B.current))
-			var/mob/living/M = B.current
-			SEND_SOUND(M, sound('sound/hallucinations/veryfar_noise.ogg'))
-			to_chat(M, span_cultlarge("The Cult's Master, [owner], has fallen in \the [A]!"))
+	var/area/area = get_area(owner)
+	for(var/datum/antagonist/cult/cultist in GLOB.antagonists)
+		if(isliving(cultist.owner))
+			var/mob/living/cultist_body = cultist.owner.current
+			SEND_SOUND(cultist_body, sound('sound/hallucinations/veryfar_noise.ogg'))
+			to_chat(cultist_body, span_cultlarge("The Cult's Master, [owner], has fallen in \the [area]!"))
 
 /datum/status_effect/cult_master/tick()
 	if(owner.stat != DEAD && !alive)
@@ -326,13 +326,19 @@
 	duration = 32 SECONDS
 	var/ticks_passed = 0
 
+/datum/status_effect/fleshmend/on_apply()
+	. = ..()
+
+	RegisterSignal(owner, COMSIG_LIVING_IGNITED, PROC_REF(on_ignited))
+	RegisterSignal(owner, COMSIG_LIVING_EXTINGUISHED, PROC_REF(on_extinguished))
+
+/datum/status_effect/fleshmend/on_remove()
+	UnregisterSignal(owner, list(COMSIG_LIVING_IGNITED, COMSIG_LIVING_EXTINGUISHED))
+
 /datum/status_effect/fleshmend/tick()
 	ticks_passed ++
 	if(owner.on_fire)
-		linked_alert.icon_state = "fleshmend_fire"
 		return
-	else
-		linked_alert.icon_state = "fleshmend"
 	if(ticks_passed < 2)
 		return
 	else if(ticks_passed == 2)
@@ -346,6 +352,16 @@
 	//Heals 0.5 cloneloss per second for a total of 15
 	owner.adjustCloneLoss(-0.5, TRUE, TRUE)
 
+/datum/status_effect/fleshmend/proc/on_ignited(datum/source)
+	SIGNAL_HANDLER
+
+	linked_alert?.icon_state = "fleshmend_fire"
+
+/datum/status_effect/fleshmend/proc/on_extinguished(datum/source)
+	SIGNAL_HANDLER
+
+	linked_alert?.icon_state = "fleshmend"
+
 /atom/movable/screen/alert/status_effect/fleshmend
 	name = "Fleshmend"
 	desc = "Our wounds are rapidly healing. <i>This effect is prevented if we are on fire.</i>"
@@ -356,7 +372,7 @@
 	var/chem_per_tick = 1
 
 /datum/status_effect/changeling/on_apply()
-	ling = is_changeling(owner)
+	ling = IS_CHANGELING(owner)
 	if(!ling)
 		return FALSE
 	return TRUE
@@ -483,11 +499,11 @@
 					//If user does not have the corresponding hand anymore, give them one and return the rod to their hand
 					if(((hand % 2) == 0))
 						var/obj/item/bodypart/L = itemUser.newBodyPart(BODY_ZONE_R_ARM, FALSE, FALSE)
-						L.attach_limb(itemUser)
+						L.try_attach_limb(itemUser)
 						itemUser.put_in_hand(newRod, hand, forced = TRUE)
 					else
 						var/obj/item/bodypart/L = itemUser.newBodyPart(BODY_ZONE_L_ARM, FALSE, FALSE)
-						L.attach_limb(itemUser)
+						L.try_attach_limb(itemUser)
 						itemUser.put_in_hand(newRod, hand, forced = TRUE)
 					to_chat(itemUser, span_notice("Your arm suddenly grows back with the Rod of Asclepius still attached!"))
 				else

@@ -14,7 +14,10 @@
 	var/list/internal_organs_slot = list()
 	var/silent = FALSE 		//Can't talk. Value goes down every life proc. //NOTE TO FUTURE CODERS: DO NOT INITIALIZE NUMERICAL VARS AS NULL OR I WILL MURDER YOU.
 	var/dreaming = 0 //How many dream images we have left to send
-	var/obj/item/handcuffed = null //Whether or not the mob is handcuffed
+	///Whether or not the mob is currently handcuffed, defined as the handcuff item restraining them
+	var/obj/item/restraints/handcuffs/handcuffed = null
+	///used to track how many times the mob has tried breaking away from their handcuffs since being cuffed. Reset to zero in update_handcuffed()
+	var/cuff_breakout_attempts = 0
 	var/obj/item/legcuffed = null  //Same as handcuffs but for legs. Bear traps use this.
 
 	var/disgust = 0
@@ -66,9 +69,10 @@
 
 	var/static/list/limb_icon_cache = list()
 
-	//halucination vars
-	var/hal_screwyhud = SCREWYHUD_NONE
-	var/next_hallucination = 0
+	/// Used to temporarily increase severity of / apply a new damage overlay (the red ring around the ui / screen).
+	/// This number will translate to equivalent brute or burn damage taken. Handled in [mob/living/proc/update_damage_hud].
+	/// (For example, setting damageoverlaytemp = 20 will add 20 "damage" to the overlay the next time it updates.)
+	/// This number is also reset to 0 every tick of carbon Life(). Pain.
 	var/damageoverlaytemp = 0
 
 	var/drunkenness = 0 //Overall drunkenness - check handle_alcohol() in life.dm for effects

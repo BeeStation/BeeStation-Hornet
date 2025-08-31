@@ -1,0 +1,408 @@
+2023-12-01:
+  Absolucy:
+  - bugfix: Fixed HTML encoding issues with some inputs, mainly admin PMs.
+  - bugfix: Fixed a runtime error related to holoparasites with ID cards.
+  - tweak: Whenever a mob's access is checked (i.e for doors), it will now also take
+      into account the access of any mobs buckled to them. Basically, your ID now
+      works properly when bumping into doors if you're riding a carp or goliath or
+      something.
+  BeeBot:
+  - server: Bumps TGS DMAPI to 6.7.0
+  ClownMoff:
+  - rscadd: Barber's Afro Mania, Barber's Shaving Aid.
+  EvilDragonfiend:
+  - code_imp: Holopara color check no longer throws runtime
+  PowerfulBacon:
+  - tweak: Light explosions will no longer destroy undamaged plating and now only
+      acid, bombs and heat will propogate their damage to the baseturfs.
+  - balance: Shotguns now require a minimum of 3 shots to kill unarmoured targets
+      with slugs, buckshot and improvied buckshot.
+  - balance: Improvised shotgun shells are now less consistent and more reliable.
+  Programs-The-Station:
+  - bugfix: NT Atmospherics Division have corrected the lack of atmospheric devices
+      within the MetaStation Chapel.
+  Rukofamicom:
+  - bugfix: Boxes of lights are now able to store the right number of lights again
+      before saying they are full.
+  rkz, MrStonedOne:
+  - server: Fixes being unable to postpone a subsystem whilst its firing
+2023-12-02:
+  EvilDragonfiend:
+  - code_imp: datum/component/jam_receiver no longer throws a runtime
+  HowToLoLu:
+  - bugfix: The Botany Minidispenser no longer looks big when idle
+2023-12-04:
+  Crossedfall:
+  - bugfix: Adds missing authors into the changelog
+  PowerfulBacon:
+  - refactor: Refactors emissive lighting and emissive blockers.
+  - rscadd: Adds in emissive overlays for energy weapons.
+  - rscadd: IPC screens are now emissive.
+  - rscadd: Cult halos are now emissive.
+  - rscadd: HUD glasses are now emissive.
+2023-12-06:
+  theoctopusempress:
+  - rscadd: Cargo crate containing five paper trays for 500 credits
+2023-12-07:
+  rkz:
+  - rscadd: converts 4 canned items to newfood
+2023-12-08:
+  EvilDragonfiend:
+  - bugfix: bookcase no longer throws a runtime from swap sort list proc.
+2023-12-09:
+  EvilDragonfiend:
+  - bugfix: Insanity anomaly now properly works
+  - tweak: insanity pulse anomaly event now less requires player pop (15)
+  itsmeow:
+  - tweak: Edited description of Anxiety virus culture bottle in the uplink.
+  - tweak: Fixed spaces missing from virus cultures in uplink.
+  rkz:
+  - rscadd: converted sandwiches to newfood
+  - tweak: added protein values to sandwiches
+  - tweak: modified sandwich foodtypes
+2023-12-10:
+  Kapu1178, itsmeow:
+  - rscadd: Added bloom, an effect that adds a 'whiteout' around bright light sources,
+      making rooms appear bright overall and have more texture.
+  - rscadd: Added "Bloom Level" preference under Graphics, defaulting at 50%.
+  - tweak: Slightly reduced the lighting power of APCs, as they were causing too much
+      bloom.
+  - code_imp: Removed some unused lighting code.
+  rkz:
+  - rscadd: Converts Eggs to Newfood
+  rkz, Sparkezel, helg2:
+  - rscadd: Adds advanced TGUI menu to Reflectors, from Aetherstation. Determine rotation
+      with no flaws or guesswork!
+2023-12-12:
+  BeeLover66:
+  - bugfix: Icewing watchers no longer freeze their targets indefinitely
+  - tweak: Changed the duration of the icewing watcher's freezing blast from 0.8 seconds
+      to 8 seconds
+  - bugfix: You can now resist being frozen by clicking the status icon in the top
+      right
+2023-12-14:
+  PinkSuzuki:
+  - bugfix: Flypeople will no longer be permanently locked in vomiting. They also
+      now feed by drinking vomit as intended.
+  - tweak: Vomiting will now cause flypeople to lose nutrition.
+  PowerfulBacon:
+  - bugfix: The codebase now compiles against due to a bad switch statement.
+  RKz, nightred:
+  - rscadd: Species body temperature handling
+  - balance: Plasmamen, Lizardpeople, Ethereal have custom body temperatures to deal
+      with
+  - bugfix: natural body temp stabilization now returns proper values
+  - refactor: clean up of the environment handles for mobs and species
+  - rscadd: Hugs transfer heat between the two participants and give a moodlet for
+      someone who is cold. Hug your local walking light bulb to heat up!
+  Timberpoes, BeeLover:
+  - bugfix: Supply Consoles and Express Supply Consoles will once again be built pre-emagged
+      if their boards used to build them are emagged.
+  - bugfix: Supply Consoles will now once again allow Cargonia to buy contraband when
+      their circuit boards are appropriately configured with a multitool.
+  ? rkz, JohnFulpWillard, RandomGamer123, IndieanaJones, itseasytosee, Fikou, actioninja,
+    /vg/ spriters(DeityLink!), ArcaneMusic, AnturK
+  : - rscadd: New makeup & sprites on Nar'sie. Tell her how fashionable she looks
+        next time she ~~invades~~ liberates your local plane of existence!
+    - rscadd: New sprites for constructs. Dismember heathens, without the SOVL!
+    - refactor: minor refactor of cult and holy versions of constructs, no ingame
+        changes.
+    - bugfix: Soulstones have an extra check that should mitigate instances where
+        spaghetti would send players to the lobby
+    - bugfix: fixes AI shells getting erroneously instantly converted by Twisted Construction
+        spell
+    - bugfix: fixes Cyborgs getting round removed by the Offer rune. They will properly
+        transfer.
+    - bugfix: fixes dead Cyborgs that are converted from being catatonic for the rest
+        of the shift, ghosts will be yanked back inside during conversion
+    - rscadd: makes all cult construction gear (forge, etcetera) use radial menus,
+        instead of lists
+    - rscadd: new minor construct, the Proteon! This is a weaker, but more agile construct
+        that will be brought forth from the veil when Nar'Sie arrives, to hunt down
+        the errant subjects of her new dominion!
+  rkz, PowerfulBacon:
+  - code_imp: renamed the shuttle/ruin mapgen datum & subsystem
+2023-12-15:
+  '@kit-katz (Sprites) @DrDuckedGoose (Code) @HowToLoLu (Code)':
+  - rscadd: Add blind sense (``blind_send.dm``), a component that allows blind players
+      to see noises
+  - rscadd: Add Sonus language (``sonus.dm``, ``language_holder.dm``)
+  - rscadd: Add Psyphoza species (``psypohza.dm``, ``_DEFINES/mobs.dm``, ``human.dm``)
+  - rscadd: Add Psyphoza limbs, organs & accessories (``psyphoza_bodyparts.dm``,  ``global_lists.dm``,
+      ``_HELPERS/mobs.dm``, ``flavor_misc.dm``, ``create_mob.dm``, ``preferences.dm``,
+      ``character_save.dm``, ``meat.dm``, ``character_parser.dm``, ``tongue.dm``,
+      ``eyes.dm``, ``species.dm``, ``sprite_accessories.dm``)
+  - rscadd: Add global signal for played sounds (``global_signals.dm``, ``sound.dm``)
+  - rscadd: Add dedicated plane for the 'psychic plane' (``layers.dm``, ``plane_master_controller.dm``)
+      plane used for highlighting psyphoza pings
+  - rscadd: Add new forensic category, 'souls'. Only accessible by Psyphoza.
+  - rscadd: Add electronic paper reader to maint loot & head's lockers
+  - tweak: Tweak plane layer values to make room for psychic plane  (``layers.dm``)
+  - tweak: Tweak runechat plane to a higher value, rendering above the blind plane
+      / layer (``layers.dm``)
+  - tweak: Tweak footsteps sounds to play from the respective mob, instead of tiles
+      (``footstep.dm``)
+  - tweak: Tweak species restrictions on helmets and select space suits (``helmet.dm``,
+      ``miscellaneous.dm``)
+  - tweak: Tweak blind accessibility for items like med-scanners (``shuttle_creator_console.dm``,
+      ``scanners.dm``)
+  - tweak: tweak blind overlay options / control (``status_procs.dm``)
+  - tweak: Tweak some mob's starting sprite to interface with blind sense (``monkey.dm``,
+      ``human.dm``)
+  Absolucy:
+  - config: Set the max population for Kilo Station to appear in the roundend vote
+      as 20 players.
+  DrDuckedGoose:
+  - tweak: Tweaks psyphoza lore
+  - bugfix: Fix psyphoza psychic overlay alpha
+  Tsar-Salat:
+  - rscadd: converts sweets to newfood
+  - tweak: spiderlolipop uses protein reagent
+  rkz, tralezab:
+  - bugfix: fixes anchoring and holding code with CTF flags
+  - code_imp: allows for redefining of CTF area, for making custom maps, or admin
+      shittery
+  - code_imp: cleaned up ctf code in general
+  - code_imp: very rudimentary code to make more than a blue & red team in ctf, not
+      fully implemented
+  - code_imp: rudimentary CTF class code
+  - admin: better CTF logging
+2023-12-17:
+  Absolucy:
+  - bugfix: You can no longer use a hand tele to enter and promptly trap yourself
+      in the heretic touhou shadow realm.
+  ClownMoff:
+  - rscadd: spare full clown and mime outfit to the AutoDrobe.
+  - tweak: rearranges the organization of the autodrobe
+  DrDuckedGoose, PowerfulBacon:
+  - bugfix: Fixes filters being applied multiple times to pscyhozia plane masters,
+  Varo, Naevi for helping me make the bluespace wings, PapaporoPaprito for the ported wings from Fulp:
+  - rscadd: 'Added 4 new Moth wings and antennae: Rosy, Plasmafire, Brown, and Bluespace.'
+  - bugfix: Fixed Luna moth's open wing sprites having the fluf misplaced.
+  rkz:
+  - rscadd: converted meat, monkeycubes to newfood
+  - tweak: moved meatbun from Bread recipes to Meat recipes
+  - rscadd: Adjusted meatdish & meatslab values to account for protein reagent
+  - tweak: converted a few extraneous meats to follow proper subtyping. Dolphin meat
+      is now a meatslab instead of snowflake. Carp meat is now a subtype of fishmeat,
+      rather than regular fishmeat being a subtype of carp meat
+  - bugfix: fixes psyphoza meat using the wrong typepath and stats
+2023-12-18:
+  EvilDragonfiend:
+  - code_imp: Machines (and computers) will not needlessly create parts and circuit
+      at Initialized() when it's made by a player.
+  - rscadd: Fake computer circuit board. Available from Arcade rewards. Use multitool
+      to adjust the fake info.
+  MarkusLarsson421:
+  - rscadd: 'Meta: Added BZ Canister to Xenobio.'
+  - tweak: 'Meta: Changed Xenobio cold room door to have a glass window.'
+  - tweak: 'Meta: Changed Science break room door to be Science themed.'
+  - tweak: 'Meta: Changed access of the southern Exploration door to be the same as
+      the north maintenance door.'
+  - bugfix: 'Meta: Fixed weird light placement in Medbay-Chapel Maints.'
+  - rscadd: 'Meta: Added an O2 canister in Aux base for the purpose of refilling oxygen
+      tanks once on lavaland, welding tank was moved to Aux base maintenance.'
+  - rscadd: 'Meta: Added intercom to toxin testing room.'
+  - tweak: 'Meta: Replaced Robotics Medical tools with a Medical Duffel bag.'
+  - rscadd: 'Meta: Added welding tool, welding goggles and floor tiles to the janitor.'
+  - tweak: 'Meta: Changed the flooring in maintenance areas on the station to be consistent
+      with Medbay maintenance.'
+  - balance: 'Meta: Replaced Brig Phys back walls with regular non-reinforced walls
+      to allow break ins/outs and allow them to expand easier.'
+  - rscadd: 'Meta: Added camera to toxins to allow AI to see the inner door.'
+  - bugfix: 'Meta: Moved a useless box and closet out of the way in Exploration maints.'
+  PestoVerde322, JohnFulpWillard:
+  - rscdel: Removed the grand majority of the Goon icon
+  - soundadd: Replaced some sounds with non-goon variants
+  - imageadd: added new icons for the marijuana, gym equipement, dish driver and vault
+      terminal
+  - refactor: Gym equipment was reworked. You now buckle yourself to weight machines
+      to use them, rather than clicking on it and getting stunned for a few seconds.
+      It also means it works like a chair now.
+  - tweak: Gym equipment no longer breaks a sweat in no gravity.
+2023-12-19:
+  EvilDragonfiend:
+  - rscadd: More soul glimmer colours are added to Psyphoza. If a round started with
+      more player clients, the round will have more colour pool. Max size 10, max
+      pop size +91.
+  - bugfix: Soul glimmer colour is now TGUI chat reactive.
+  Horatio22,CydiaLamiales:
+  - imageadd: Added new icons for the ventriloquist dummy
+  Impish_Delights:
+  - balance: Lower damage for Shotgun Rubbershot (54 PB down from 72 PB). Additional
+      pellet ricochets, slightly reduced spread, damage drop-off now equal to buckshot.
+      Adds -20 AP.
+  - balance: Beanbag Slugs now deal 10 brute and 50 stamina, instead of 5 brute and
+      55 stamina. Adds -20 AP.
+  - balance: Lower damage for .38 rubber (34 down from 40). 1 less possible ricochet,
+      reduced damage decay from ricochet. Reduces negative AP to -15 (from -30).
+  - balance: WT-550 rubber bullets are now less-than-lethal (4 brute + 18 stamina)
+      and ricochet similar to other rubber ballistic rounds. Adds -20 AP.
+  PinkSuzuky:
+  - rscadd: Added 5 Winter Coats, Virologist, Geneticist, Chemist, Brig Physician
+      and Detective. Made them available on the relevant vendors, with the exception
+      of the Brig Physician Coat which can be acquired from the Brig Physician Locker.
+  - imageadd: Updated the sprites of the Miner Winter Coat and Cargo Winter coat.
+  - tweak: Changed some values on the Miner Winter Coat to make usable for mining.
+  - tweak: Made the Miner Winter Coat available inside the mining equipment lockers.
+  - tweak: Cargo Winter Coat now accepts Cargo related items in its item slot.
+  - code_imp: reorganized some lists on wintercoat code for readeability.
+  PowerfulBacon:
+  - rscadd: Adds in a preference for simplified bodyzone targetting, which makes the
+      bodyzone targetting system easier to use and usable without a numpad.
+  - tweak: You can now only start 1 surgery per mob.
+  - rscadd: Keybindings can now be hidden based on the value of preferences.
+  - bugfix: Fixes some incorrect logic inside of technophile bible healing.
+  - rscadd: Adds a day/night cycle config setting for maps.
+  Rukofamicom:
+  - bugfix: Bluespace compression kit can now shrink items properly again, without
+      returning an error.
+  XeonMations:
+  - rscadd: Added the ability for health analyzers to see embedded items inside of
+      a person.4
+  - bugfix: Fixed embeds not properly being blocked by shields.
+  rkz:
+  - bugfix: Fixes Dish-drives dispensing their stock parts upon attack_hand
+  rkz, Mothblocks, Kylerace:
+  - refactor: speeds up init by ~0.8s by splitting registering lists of signals
+  - code_imp: documents component code
+  rkz, dragomagol:
+  - code_imp: Cleaned up the way ckeys are attributed in investigate logs
+  - code_imp: cleaned up singularity_act and passing gain values
+  - admin: All investigate logs will now contain dates
+  rkz, kitz-katz, willox, ninjanomnom, haukeschaumann, Qustinnus, TemporalOroborous:
+  - rscadd: Adds additional framework to basemats, Materials under the label 'basemat'
+      include Iron, Titanium, Plastic, Uranium, Plasma, Silver and Gold.
+  - rscadd: Adds ability to craft chairs and tables out of any basemat material.
+  - tweak: Miner satchels now provide minor radiation protection from their contents,
+      this is to prevent uranium ore from giving you cancer just for existing.
+  - refactor: lazy initializes the basemats subsystem to cut down on processing
+  - refactor: reduces overall unecessary lists in the basemats & custom_materials
+      code
+  - bugfix: fixes a bug relating to duplicating materials
+  - bugfix: fixes a bug where basemats would exagerrate their material properties.
+  - bugfix: fixes a bug where basemats properties would be inherited by anything crafted
+      with them in an auto/protolathe
+  rkz, qustinnus, Timberpoes, ShizCalev, cacogen, WeSoda25:
+  - tweak: chaplains enjoy the taste of Holy Melons, and get a mood event for it.
+  - rscadd: converts grown food to newfood
+  - code_imp: unit tests to check food edibility & icons
+  - code_imp: establishes junkiness framework for snacks
+  - bugfix: fixes incorrect microwave cooking paths for some meats
+  - bugfix: makes processors, microwaves, drying racks accept all food again
+2023-12-20:
+  Absolucy:
+  - bugfix: Fixed some 515-specific runtimes.
+  rkz, EvilDragonFiend:
+  - bugfix: fixes material stacks not consuming properly in crafting/machine frames
+2023-12-21:
+  Absolucy:
+  - bugfix: Fix roundstart light behavior not working as expected.
+2023-12-22:
+  EvilDragonfiend:
+  - bugfix: fixed ImmediateInvokeAsync() proc that's called by KillEveryoneOnZLevel
+      signal
+2023-12-23:
+  Absolucy:
+  - rscadd: Heretics with an objective to sacrifice a head of staff can now sacrifice
+      ANY head of staff, even non-living heart targets, if they haven't met that goal
+      already.
+  - tweak: Ghouls and voiceless dead now count towards the "summon X monsters from
+      the Mansus" objective for flesh heretics.
+  - tweak: Heretic sacrifice now grabs the ghost of the victim during revival.
+  - tweak: Heretic living heart tracking now specifies if the target is catatonic
+      or currently on a moving shuttle.
+  - tweak: If a heretic's sacrifice target enters cryo, it will try to roll a new
+      sacrifice target for them.
+  - bugfix: Fixed text formatting when tracking dead living heart targets.
+  EvilDragonfiend:
+  - code_imp: 'Reverted "Minor refactor to machine construction + Fake Computer Toy
+      #10146"'
+  Impish_Delights, OceanFish1:
+  - rscadd: New craftable a7.62, shotgun, 9mm, 10mm, .38, and .357 ammo types. Lever
+      action rifle, craftable pipe rifle and pipe pistol, craftable pipe SMG and magazines.
+  - rscadd: Two-step bolt guns (Sniper & Mosin) can have ammo directly chambered,
+      allowing loading a single shot without a magazine.
+  - rscadd: Pump-action guns can be half-cocked, locking them open to allow directly
+      chambering rounds as well.
+  - rscadd: Hacksaws are now available from hacked autolathes, very slow manual saw
+      for surgery and cutting down guns. The Russian Smuggler hunter shuttle spawns
+      with one as well.
+  - soundadd: Sawing noise for use with new hacksaw item. Original sound by larryblag
+      on freesound.org
+  - imageadd: Sprites for new ammo types, guns and accessories. Custom in-hand sprites
+      for improv shotgun and pipe rifle. Original lever action shotgun sprite made
+      by OceanFish1.
+  - balance: Improvised shotguns have an incremental chance to explode when firing
+      high-power ammo (buckshot, slugs, most tech shells). No danger with improv ammo
+      and all other ammo types (incen, dart, rubbershot, beanbag, improv, breacher,
+      dragonsbreath).
+  - balance: The Sniper Rifle now uses the same bolt type as the Mosin Nagant. Fire
+      rate is marginally slower as a result, and requires two interactions to cycle
+      a new cartridge.
+  - balance: Sawing adds 1 recoil instead of setting recoil to 1. Sawn-off shotguns
+      have higher recoil across the board as a result. Slightly lowers Improv shotgun's
+      base recoil as it would be absurd otherwise.
+  - balance: The derringer has weapon weight 0.5 instead of 1, and no longer has hard-defined
+      unwielded spread to bring it in line with the changes from high speed gun accuracy
+  - balance: Improvised guns no longer require firing pins, and longer give free ammo
+      when crafted.
+  - balance: Improvised shotgun shells have better minimum range.
+  - balance: All ammo boxes and external magazines are size SMALL instead of size
+      TINY now. Magazines now load 1 bullet at a time, and no longer vacuum up bullets.
+  - tweak: Due to rising safety concerns, guns are no longer shipped with a chambered
+      round, and must be manually cycled before use.
+  - tweak: Improvised weapons require an igniter, and a welder to construct now.
+  - tweak: The admin-only trait "NICE_SHOT" now allows the user to cycle PUMP and
+      TWO_STEP bolt firearms with a single hand, instead of requiring both.
+  - refactor: Changes mosin/boltaction rifle code to be a new bolt type instead of
+      bespoke code for the rifle parent type.
+2023-12-24:
+  Absolucy:
+  - rscadd: The viral extrapolator will now show if a disease is immutable, faltered,
+      and/or a carrier.
+  - tweak: The PanD.E.M.I.C will now copy properties such as faltering and immutability
+      to newly made cultures.
+  - tweak: Virus mixing reactions (i.e virus food, mutagen, spaceacillin, etc) won't
+      occur if there's no mutable virus in the blood its mixing with.
+  - code_imp: Cleaned up the PANDEMIC code a bit.
+  - bugfix: Fix stacked client colors not being removed, hopefully fixing the perma-monochrome
+      bug.
+  Pink Suzuker:
+  - rscadd: Made all standard existing sneaker colours aviable on the ClothesMate
+      vendor
+  PowerfulBacon:
+  - balance: Bluespace launchpad can no longer pull objects (but can send it). Bluespace
+      launch pad will now play an effect when pulling.
+2023-12-25:
+  Tyranicranger4:
+  - bugfix: Returning from the Ninja Dojo now accounts for (most) unsafe atmospheric
+      conditions
+  - bugfix: SecTech vendor restocker now has an actual name instead of being 'Generic'
+2023-12-27:
+  HowToLoLu:
+  - bugfix: Made the fullbright on Reebe actually fullbright
+  PowerfulBacon:
+  - tweak: Default bloom level lowered from 50% to 30%.
+2023-12-28:
+  EvilDragonfiend:
+  - bugfix: is_station_level(z) macro now has a 0 index failproof
+  - bugfix: alien artifact explo mission no longer throws is_station_level() runtime
+      with 0z index with minor code change.
+  - bugfix: area_sound_manager no longer throws runtime
+  That0nePerson, Absolucy:
+  - rscadd: You can now customize the prosthetic limb, phobia, junkie, multilingual,
+      alcoholic, and smoker quirks!
+  Varo:
+  - rscadd: rosy moth plushie, bluespace moth plushie, plasmafire moth plushie, brown
+      moth plushie, witchwing moth plushie
+2023-12-29:
+  RKz, Ghommie, Harmonym, haukeschuemann:
+  - rscadd: Examining art in the form of paintings or statues will allow your character
+      to render judgment. Be warned, the quality of the art will affect you emotionally,
+      whether in beauty or its utter trashiness.
+  itsmeow:
+  - code_imp: Updated rust-g to v3.1.1
+2023-12-31:
+  Miliviu:
+  - bugfix: Fixed Agent Identification Card not accepting numbers

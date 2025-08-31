@@ -15,7 +15,6 @@
 	var/has_codewords = FALSE
 
 /datum/antagonist/traitor/on_gain()
-	SSticker.mode.traitors += owner
 	owner.special_role = special_role
 	if(give_objectives)
 		forge_objectives()
@@ -28,7 +27,6 @@
 	handle_clown_mutation(owner.current, removing=FALSE)
 
 /datum/antagonist/traitor/on_removal()
-	SSticker.mode.traitors -= owner
 	if(!silent && owner.current)
 		to_chat(owner.current,span_userdanger(" You are no longer the [special_role]! "))
 	owner.special_role = null
@@ -104,45 +102,6 @@
 	var/datum/component/uplink/uplink = uplink_loc?.GetComponent(/datum/component/uplink)
 	if(uplink)
 		uplink_ref = WEAKREF(uplink)
-
-/datum/antagonist/traitor/proc/assign_exchange_role()
-	//set faction
-	var/faction = "red"
-	if(owner == SSticker.mode.exchange_blue)
-		faction = "blue"
-
-	//Assign objectives
-	var/datum/objective/steal/exchange/exchange_objective = new
-	exchange_objective.set_faction(faction,((faction == "red") ? SSticker.mode.exchange_blue : SSticker.mode.exchange_red))
-	exchange_objective.owner = owner
-	add_objective(exchange_objective)
-
-	if(prob(20))
-		var/datum/objective/steal/exchange/backstab/backstab_objective = new
-		backstab_objective.set_faction(faction)
-		backstab_objective.owner = owner
-		add_objective(backstab_objective)
-
-	//Spawn and equip documents
-	var/mob/living/carbon/human/mob = owner.current
-
-	var/obj/item/folder/syndicate/folder
-	if(owner == SSticker.mode.exchange_red)
-		folder = new/obj/item/folder/syndicate/red(mob.loc)
-	else
-		folder = new/obj/item/folder/syndicate/blue(mob.loc)
-
-	var/list/slots = list (
-		"backpack" = ITEM_SLOT_BACKPACK,
-		"left pocket" = ITEM_SLOT_LPOCKET,
-		"right pocket" = ITEM_SLOT_RPOCKET
-	)
-
-	var/where = "At your feet"
-	var/equipped_slot = mob.equip_in_one_of_slots(folder, slots)
-	if (equipped_slot)
-		where = "In your [equipped_slot]"
-	to_chat(mob, "<BR><BR>[span_info("[where] is a folder containing <b>secret documents</b> that another Syndicate group wants. We have set up a meeting with one of their agents on station to make an exchange. Exercise extreme caution as they cannot be trusted and may be hostile.")]<BR>")
 
 /datum/antagonist/traitor/antag_panel_data()
 	// Traitor Backstory
@@ -241,7 +200,7 @@
 		/// Special case for reinforcements, we want to show their ckey and name on round end.
 		if (istype(contractor_purchase, /datum/contractor_item/contractor_partner))
 			var/datum/contractor_item/contractor_partner/partner = contractor_purchase
-			contractor_support_unit += "<br><b>[partner.partner_mind.key]</b> played <b>[partner.partner_mind.current.name]</b>, their contractor support unit."
+			contractor_support_unit += "<br><b>[partner.partner_mind.current.name]</b>, their contractor support unit."
 
 	if (contractor_hub.purchased_items.len)
 		result += "<br>(used [total_spent_rep] Rep) "
@@ -265,7 +224,3 @@
 					<b>The code responses were:</b> [span_redtext("[responses]")]<br>"
 
 	return message
-
-
-/datum/antagonist/traitor/is_gamemode_hero()
-	return SSticker.mode.name == "traitor"

@@ -2,19 +2,18 @@
 	name = "\improper Oozeling"
 	id = SPECIES_OOZELING
 	bodyflag = FLAG_OOZELING
-	default_color = "00FF90"
 	species_traits = list(
 		MUTCOLORS,
 		EYECOLOR,
 		HAIR,
-		FACEHAIR
+		FACEHAIR,
+		NOAUGMENTS
 	)
 	inherent_traits = list(
 		TRAIT_TOXINLOVER,
 		TRAIT_NOHAIRLOSS,
 		TRAIT_NOFIRE,
-		TRAIT_ALWAYS_CLEAN,
-		TRAIT_EASYDISMEMBER
+		TRAIT_EASYDISMEMBER,
 	)
 	hair_color = "mutcolor"
 	hair_alpha = 150
@@ -22,7 +21,6 @@
 	mutanttongue = /obj/item/organ/tongue/slime
 	meat = /obj/item/food/meat/slab/human/mutant/slime
 	exotic_blood = /datum/reagent/toxin/slimejelly
-	damage_overlay_type = ""
 	var/datum/action/innate/regenerate_limbs/regenerate_limbs
 	coldmod = 6   // = 3x cold damage
 	heatmod = 0.5 // = 1/4x heat damage
@@ -32,12 +30,14 @@
 	swimming_component = /datum/component/swimming/dissolve
 	inert_mutation = /datum/mutation/acidooze
 
-	species_chest = /obj/item/bodypart/chest/oozeling
-	species_head = /obj/item/bodypart/head/oozeling
-	species_l_arm = /obj/item/bodypart/l_arm/oozeling
-	species_r_arm = /obj/item/bodypart/r_arm/oozeling
-	species_l_leg = /obj/item/bodypart/l_leg/oozeling
-	species_r_leg = /obj/item/bodypart/r_leg/oozeling
+	bodypart_overrides = list(
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/oozeling,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/oozeling,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/oozeling,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/oozeling,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/oozeling,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/oozeling
+	)
 
 /datum/species/oozeling/random_name(gender, unique, lastname, attempts)
 	. = "[pick(GLOB.oozeling_first_names)]"
@@ -114,12 +114,14 @@
 		regenerate_limbs.update_buttons()
 
 /datum/species/oozeling/proc/Cannibalize_Body(mob/living/carbon/human/H)
+	if(HAS_TRAIT(H, TRAIT_OOZELING_NO_CANNIBALIZE))
+		return
 	var/list/limbs_to_consume = list(BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG) - H.get_missing_limbs()
 	var/obj/item/bodypart/consumed_limb
 	for(var/L in limbs_to_consume) //Check every bodypart the oozeling has, see if they're organic or not
 		if(!IS_ORGANIC_LIMB(H.get_bodypart(L))) //Get actual limb, list only has body zone
 			limbs_to_consume -= L //If it's inorganic, remove it from the consumption list
-	if(!limbs_to_consume.len)
+	if(!length(limbs_to_consume))
 		H.losebreath++
 		return
 	if((BODY_ZONE_L_LEG in limbs_to_consume) || (BODY_ZONE_R_LEG in limbs_to_consume)) //Check if there are any organic legs left

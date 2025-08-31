@@ -97,7 +97,7 @@
 				if(ORGAN_SLOT_EYES)
 					var/obj/item/organ/eyes/robotic/clockwork/organ = new()
 					if(robustbits)
-						organ.flash_protect = 1
+						organ.flash_protect = FLASH_PROTECTION_FLASH
 					organ.Insert(H, TRUE, FALSE)
 					if(prob(40) && H.stat != DEAD)
 						to_chat(H, span_userdanger("You feel a stabbing pain in your eyeballs!"))
@@ -359,41 +359,41 @@
 /obj/item/bodypart/l_arm/robot/clockwork
 	name = "clockwork left arm"
 	desc = "An odd metal arm with fingers driven by blood-based hydraulics."
-	static_icon = 'icons/mob/augmentation/augments_clockwork.dmi'
+	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
 	brute_reduction = 0
 	burn_reduction = 0
 
 /obj/item/bodypart/r_arm/robot/clockwork
 	name = "clockwork right arm"
 	desc = "An odd metal arm with fingers driven by blood-based hydraulics."
-	static_icon = 'icons/mob/augmentation/augments_clockwork.dmi'
+	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
 	brute_reduction = 0
 	burn_reduction = 0
 
 /obj/item/bodypart/l_leg/robot/clockwork
 	name = "clockwork left leg"
 	desc = "An odd metal leg full of intricate mechanisms."
-	static_icon = 'icons/mob/augmentation/augments_clockwork.dmi'
+	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
 	brute_reduction = 0
 	burn_reduction = 0
 
 /obj/item/bodypart/r_leg/robot/clockwork
 	name = "clockwork right leg"
 	desc = "An odd metal leg full of intricate mechanisms."
-	static_icon = 'icons/mob/augmentation/augments_clockwork.dmi'
+	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
 	brute_reduction = 0
 	burn_reduction = 0
 
 /obj/item/bodypart/head/robot/clockwork
 	name = "clockwork head"
 	desc = "An odd metal head that still feels warm to the touch."
-	static_icon = 'icons/mob/augmentation/augments_clockwork.dmi'
+	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
 	brute_reduction = 0
 	burn_reduction = 0
 
 /obj/item/bodypart/chest/robot/clockwork
 	name = "clockwork torso"
 	desc = "An odd metal body full of gears and pipes. It still seems alive."
-	static_icon = 'icons/mob/augmentation/augments_clockwork.dmi'
+	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
 	brute_reduction = 0
 	burn_reduction = 0

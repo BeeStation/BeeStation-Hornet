@@ -8,9 +8,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/modular_computer/processor)
 	desc = "You shouldn't see this. If you do, report it."
 	icon = null
 	icon_state = null
-	icon_state_unpowered = null
 	icon_state_menu = null
-	hardware_flag = 0
 	max_bays = 4
 
 	var/obj/machinery/modular_computer/machinery_computer = null
@@ -32,7 +30,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/modular_computer/processor)
 	idle_threads = list()
 	machinery_computer = comp
 	machinery_computer.cpu = src
-	hardware_flag = machinery_computer.hardware_flag
 	max_hardware_size = machinery_computer.max_hardware_size
 	steel_sheet_cost = machinery_computer.steel_sheet_cost
 	update_integrity(machinery_computer.get_integrity())

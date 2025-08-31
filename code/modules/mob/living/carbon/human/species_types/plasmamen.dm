@@ -6,14 +6,15 @@
 	sexes = 0
 	meat = /obj/item/stack/sheet/mineral/plasma
 	species_traits = list(
-		NOTRANSSTING,
 		ENVIROSUIT
 	)
 	inherent_traits = list(
+		TRAIT_GENELESS,
 		TRAIT_RESISTCOLD,
 		TRAIT_RADIMMUNE,
 		TRAIT_NOHUNGER,
 		TRAIT_NOBLOOD,
+		TRAIT_NO_TRANSFORMATION_STING,
 	)
 	inherent_biotypes = list(MOB_INORGANIC, MOB_HUMANOID)
 	mutantlungs = /obj/item/organ/lungs/plasmaman
@@ -25,9 +26,7 @@
 	burnmod = 1.5
 	heatmod = 1.5
 	brutemod = 1.5
-	breathid = "tox"
-	damage_overlay_type = ""//let's not show bloody wounds or burns over bones.
-	var/internal_fire = FALSE //If the bones themselves are burning clothes won't help you much
+	breathid = GAS_PLASMA
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC
 	outfit_important_for_life = /datum/outfit/plasmaman
 	species_language_holder = /datum/language_holder/skeleton
@@ -41,12 +40,20 @@
 	// This effects how fast body temp stabilizes, also if cold resit is lost on the mob
 	bodytemp_cold_damage_limit = (BODYTEMP_COLD_DAMAGE_LIMIT - 50) // about -50c
 
-	species_chest = /obj/item/bodypart/chest/plasmaman
-	species_head = /obj/item/bodypart/head/plasmaman
-	species_l_arm = /obj/item/bodypart/l_arm/plasmaman
-	species_r_arm = /obj/item/bodypart/r_arm/plasmaman
-	species_l_leg = /obj/item/bodypart/l_leg/plasmaman
-	species_r_leg = /obj/item/bodypart/r_leg/plasmaman
+	bodypart_overrides = list(
+		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/plasmaman,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/plasmaman,
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/plasmaman,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/plasmaman,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/plasmaman,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/plasmaman,
+	)
+
+	var/internal_fire = FALSE //If the bones themselves are burning clothes won't help you much
+
+/datum/species/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
+	. = ..()
+	C.set_safe_hunger_level()
 
 /datum/species/plasmaman/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
 	var/atmos_sealed = FALSE
@@ -63,12 +70,13 @@
 	if(!atmos_sealed && (!istype(H.w_uniform, /obj/item/clothing/under/plasmaman) || !istype(H.head, /obj/item/clothing/head/helmet/space/plasmaman) || !istype(H.gloves, /obj/item/clothing/gloves)))
 		var/datum/gas_mixture/environment = H.loc.return_air()
 		if(environment?.total_moles())
-			if(GET_MOLES(/datum/gas/oxygen, environment) >= 1) //Same threshold that extinguishes fire
-				H.adjust_fire_stacks(0.5)
-				if(!H.on_fire && H.fire_stacks > 0)
-					H.visible_message(span_danger("[H]'s body reacts with the atmosphere and bursts into flames!"),span_userdanger("Your body reacts with the atmosphere and bursts into flame!"))
-				H.IgniteMob()
-				internal_fire = TRUE
+			if(!HAS_TRAIT(H, TRAIT_NOFIRE) && !HAS_TRAIT(H, TRAIT_NOSELFIGNITION))
+				if(GET_MOLES(/datum/gas/oxygen, environment) >= 1) //Same threshold that extinguishes fire
+					H.adjust_fire_stacks(0.5)
+					if(!H.on_fire && H.fire_stacks > 0)
+						H.visible_message(span_danger("[H]'s body reacts with the atmosphere and bursts into flames!"),span_userdanger("Your body reacts with the atmosphere and bursts into flame!"))
+					H.IgniteMob()
+					internal_fire = TRUE
 	else if(H.fire_stacks)
 		var/obj/item/clothing/under/plasmaman/P = H.w_uniform
 		if(istype(P))
@@ -148,6 +156,13 @@
 					H.emote("sigh")
 		H.reagents.remove_reagent(chem.type, chem.metabolization_rate * delta_time)
 		return TRUE
+
+	if(istype(chem, /datum/reagent/blackpowder))
+		H.set_drugginess(7.5 * delta_time)
+		if(H.get_timed_status_effect_duration(/datum/status_effect/hallucination) / 10 < chem.volume)
+			H.adjust_hallucinations(2.5 SECONDS * delta_time)
+		// Do normal metabolism
+		return FALSE
 	return ..()
 
 /datum/species/plasmaman/get_scream_sound(mob/living/carbon/user)

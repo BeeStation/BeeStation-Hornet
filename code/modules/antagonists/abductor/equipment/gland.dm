@@ -29,7 +29,7 @@
 
 /obj/item/organ/heart/gland/examine(mob/user)
 	. = ..()
-	if(HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_SCIENTIST_TRAINING) || isobserver(user))
+	if(HAS_MIND_TRAIT(user, TRAIT_ABDUCTOR_SCIENTIST_TRAINING) || isobserver(user))
 		. += span_notice("It is \a [true_name].")
 
 /obj/item/organ/heart/gland/proc/ownerCheck()
@@ -186,7 +186,7 @@
 				H.confused += 15
 				H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10, 160)
 			if(3)
-				H.hallucination += 60
+				H.adjust_hallucinations(120 SECONDS)
 
 /obj/item/organ/heart/gland/pop
 	true_name = "anthropmorphic translocator"

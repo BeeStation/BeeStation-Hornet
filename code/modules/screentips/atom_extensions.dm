@@ -73,12 +73,6 @@
 					client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][MAPTEXT("<span style='color:[SCREEN_TIP_NORMAL]'>[CENTER("[cache.attack_hand][cache.message]")]</span>")]</span>"
 				else
 					client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][MAPTEXT("<span style='color:[SCREEN_TIP_NORMAL]'>[CENTER("[cache.message]")]</span>")]</span>"
-			// Temp: 516 bug
-			if (client.byond_version == 516)
-				client.mob.hud_used.screentip.maptext = replacetext(client.mob.hud_used.screentip.maptext, GLOB.lmb_icon, GLOB.lmb_icon_516)
-				client.mob.hud_used.screentip.maptext = replacetext(client.mob.hud_used.screentip.maptext, GLOB.rmb_icon, GLOB.rmb_icon_516)
-				client.mob.hud_used.screentip.maptext = replacetext(client.mob.hud_used.screentip.maptext, "<span valign='top'>", "<span valign='top' style='line-height: 0.8'>")
-			// End Temp
 			return
 	// =====================================================
 	// Build the context
@@ -125,25 +119,21 @@
 		screen_tip_message += "<br>[context.ctrl_shift_left_mouse_context][context.ctrl_shift_right_mouse_context]"
 	var/tool_message = ""
 	if (context.wirecutter)
-		tool_message += "<br>[HINT_WIRECUTTERS] [context.wirecutter]"
+		tool_message += "<br>[GLOB.hint_wirecutters] [context.wirecutter]"
 	if (context.screwdriver)
-		tool_message += "<br>[HINT_SCREWDRIVER] [context.screwdriver]"
+		tool_message += "<br>[GLOB.hint_screwdriver] [context.screwdriver]"
 	if (context.wrench)
-		tool_message += "<br>[HINT_WRENCH] [context.wrench]"
+		tool_message += "<br>[GLOB.hint_wrench] [context.wrench]"
 	if (context.welder)
-		tool_message += "<br>[HINT_WELDER] [context.welder]"
+		tool_message += "<br>[GLOB.hint_welder] [context.welder]"
 	if (context.crowbar)
-		tool_message += "<br>[HINT_CROWBAR] [context.crowbar]"
+		tool_message += "<br>[GLOB.hint_crowbar] [context.crowbar]"
 	if (context.multitool)
-		tool_message += "<br>[HINT_MULTITOOL] [context.multitool]"
+		tool_message += "<br>[GLOB.hint_multitool] [context.multitool]"
 	if (context.knife)
-		tool_message += "<br>[HINT_KNIFE] [context.knife]"
+		tool_message += "<br>[GLOB.hint_knife] [context.knife]"
 	if (context.rolling_pin)
-		tool_message += "<br>[HINT_ROLLING_PIN] [context.rolling_pin]"
-	// Temp: 516 bug
-	if (tool_message)
-		context.cache_force_disabled = TRUE
-	// End Temp
+		tool_message += "<br>[GLOB.hint_rolling_pin] [context.rolling_pin]"
 
 	// =====================================================
 	// Set the screentip UI
@@ -156,12 +146,6 @@
 			client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][MAPTEXT("<span style='color:[SCREEN_TIP_NORMAL]'>[CENTER(screen_tip_message)]</span>")]</span>"
 	else
 		client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message]</span>"
-	// Temp: 516 bug
-	if (client.byond_version == 516)
-		client.mob.hud_used.screentip.maptext = replacetext(client.mob.hud_used.screentip.maptext, GLOB.lmb_icon, GLOB.lmb_icon_516)
-		client.mob.hud_used.screentip.maptext = replacetext(client.mob.hud_used.screentip.maptext, GLOB.rmb_icon, GLOB.rmb_icon_516)
-		client.mob.hud_used.screentip.maptext = replacetext(client.mob.hud_used.screentip.maptext, "<span valign='top'>", "<span valign='top' style='line-height: 0.8'>")
-	// End Temp
 	// =====================================================
 	// Populate the screentip cache to prevent unnecessary re-generation
 	// =====================================================
@@ -194,7 +178,7 @@
 /atom/proc/refresh_screentips()
 	if (hovered_user_count == 0)
 		return
-	for (var/client/client in GLOB.clients)
+	for (var/client/client in GLOB.clients_unsafe)
 		if (client.hovered_atom != src)
 			continue
 		if (client.hover_queued)

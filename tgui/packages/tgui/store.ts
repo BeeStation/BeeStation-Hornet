@@ -4,13 +4,20 @@
  * @license MIT
  */
 
-import { Middleware, Reducer, Store, applyMiddleware, combineReducers, createStore } from 'common/redux';
-import { backendMiddleware, backendReducer } from './backend';
-import { debugMiddleware, debugReducer, relayMiddleware } from './debug';
+import { flow } from 'common/fp';
+import {
+  applyMiddleware,
+  combineReducers,
+  createStore,
+  Middleware,
+  Reducer,
+  Store,
+} from 'common/redux';
 
 import { assetMiddleware } from './assets';
+import { backendMiddleware, backendReducer } from './backend';
+import { debugMiddleware, debugReducer, relayMiddleware } from './debug';
 import { createLogger } from './logging';
-import { flow } from 'common/fp';
 
 type ConfigureStoreOptions = {
   sideEffects?: boolean;
@@ -37,12 +44,17 @@ export const configureStore = (options: ConfigureStoreOptions = {}): Store => {
       debug: debugReducer,
       backend: backendReducer,
     }),
-    reducer,
+    reducer as any,
   ]);
 
   const middlewares: Middleware[] = !sideEffects
     ? []
-    : [...(middleware?.pre || []), assetMiddleware, backendMiddleware, ...(middleware?.post || [])];
+    : [
+        ...(middleware?.pre || []),
+        assetMiddleware,
+        backendMiddleware,
+        ...(middleware?.post || []),
+      ];
 
   if (process.env.NODE_ENV !== 'production') {
     // We are using two if statements because Webpack is capable of
@@ -64,7 +76,10 @@ export const configureStore = (options: ConfigureStoreOptions = {}): Store => {
 
 const loggingMiddleware: Middleware = (store) => (next) => (action) => {
   const { type } = action;
-  logger.debug('action', type === 'update' || type === 'backend/update' ? { type } : action);
+  logger.debug(
+    'action',
+    type === 'update' || type === 'backend/update' ? { type } : action,
+  );
   return next(action);
 };
 

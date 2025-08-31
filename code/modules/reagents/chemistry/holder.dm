@@ -245,7 +245,7 @@
 		var/part = amount / src.total_volume
 		for(var/reagent in cached_reagents)
 			var/datum/reagent/T = reagent
-			if(remove_blacklisted && (T.chem_flags & CHEMICAL_NOT_SYNTH))
+			if(remove_blacklisted && (T.chemical_flags & CHEMICAL_NOT_SYNTH))
 				continue
 			var/transfer_amount = T.volume * part
 			if(preserve_data)
@@ -263,7 +263,7 @@
 			if(!to_transfer)
 				break
 			var/datum/reagent/T = reagent
-			if(remove_blacklisted && (T.chem_flags & CHEMICAL_NOT_SYNTH))
+			if(remove_blacklisted && (T.chemical_flags & CHEMICAL_NOT_SYNTH))
 				continue
 			if(preserve_data)
 				trans_data = copy_data(T)
@@ -392,31 +392,32 @@
 			owner = R.holder.my_atom
 
 		if(owner && R)
-			if(owner.reagent_check(R, delta_time, times_fired) != TRUE) //Most relevant to Humans, this handles species-specific chem interactions.
-				if(liverless && !R.self_consuming) //need to be metabolized
-					continue
-				if(!R.metabolizing)
-					R.metabolizing = TRUE
-					R.on_mob_metabolize(owner)
-				if(can_overdose)
-					if(R.overdose_threshold)
-						if(R.volume >= R.overdose_threshold && !R.overdosed)
-							R.overdosed = TRUE
-							need_mob_update += R.overdose_start(owner)
-							log_game("[key_name(owner)] has started overdosing on [R.name] at [R.volume] units.")
-					if(R.addiction_threshold)
-						if(R.volume >= R.addiction_threshold && !is_type_in_list(R, cached_addictions))
-							var/datum/reagent/new_reagent = new R.type()
-							cached_addictions.Add(new_reagent)
-							log_game("[key_name(owner)] has become addicted to [R.name] at [R.volume] units.")
-					if(R.overdosed)
-						need_mob_update += R.overdose_process(owner, delta_time, times_fired)
-					if(is_type_in_list(R,cached_addictions))
-						for(var/addiction in cached_addictions)
-							var/datum/reagent/A = addiction
-							if(istype(R, A))
-								A.addiction_stage = -15 // you're satisfied for a good while.
-				need_mob_update += R.on_mob_life(owner, delta_time, times_fired)
+			if(owner.reagent_check(R, delta_time, times_fired)) //Most relevant to Humans, this handles species-specific chem interactions.
+				return
+			if(liverless && !R.self_consuming) //need to be metabolized
+				continue
+			if(!R.metabolizing)
+				R.metabolizing = TRUE
+				R.on_mob_metabolize(owner)
+			if(can_overdose)
+				if(R.overdose_threshold)
+					if(R.volume >= R.overdose_threshold && !R.overdosed)
+						R.overdosed = TRUE
+						need_mob_update += R.overdose_start(owner)
+						log_game("[key_name(owner)] has started overdosing on [R.name] at [R.volume] units.")
+				if(R.addiction_threshold)
+					if(R.volume >= R.addiction_threshold && !is_type_in_list(R, cached_addictions))
+						var/datum/reagent/new_reagent = new R.type()
+						cached_addictions.Add(new_reagent)
+						log_game("[key_name(owner)] has become addicted to [R.name] at [R.volume] units.")
+				if(R.overdosed)
+					need_mob_update += R.overdose_process(owner, delta_time, times_fired)
+				if(is_type_in_list(R,cached_addictions))
+					for(var/addiction in cached_addictions)
+						var/datum/reagent/A = addiction
+						if(istype(R, A))
+							A.addiction_stage = -15 // you're satisfied for a good while.
+			need_mob_update += R.on_mob_life(owner, delta_time, times_fired)
 
 	if(can_overdose)
 		if(addiction_tick == 6)
@@ -859,7 +860,7 @@
 	R.on_new(data)
 
 	if(isliving(my_atom))
-		R.on_mob_add(my_atom) //Must occur before it could possibly run on_mob_delete
+		R.on_mob_add(my_atom, amount) //Must occur before it could possibly run on_mob_delete
 
 	update_total()
 	if(my_atom)
@@ -893,14 +894,12 @@
 		stack_trace("invalid reagent passed to remove reagent [reagent]")
 		return FALSE
 
-	if(isnull(amount))
-		amount = 0
-		CRASH("null amount passed to reagent code")
-
-	if(!isnum_safe(amount))
+	if(!IS_FINITE(amount))
+		stack_trace("invalid number passed to remove_reagent [amount]")
 		return FALSE
 
-	if(amount < 0)
+	amount = round(amount, CHEMICAL_QUANTISATION_LEVEL)
+	if(amount <= 0)
 		return FALSE
 
 	var/list/cached_reagents = reagent_list
@@ -1190,7 +1189,7 @@
 			for(var/each_define in chem_defines)
 				i += 1
 				var/datum/reagent/R = thing
-				if(initial(R.chem_flags) & each_define)
+				if(initial(R.chemical_flags) & each_define)
 					random_reagent[i] += R
 
 	// returns a pick from a static before making a list - saving memory
@@ -1226,3 +1225,14 @@
 		var/datum/reagent/R = GLOB.chemical_reagents_list[X]
 		if(ckey(chem_name) == ckey(LOWER_TEXT(R.name)))
 			return X
+
+/datum/reagents/proc/get_reagent_log_string()
+	if(!length(reagent_list))
+		return "no reagents"
+
+	var/list/data = list()
+
+	for(var/datum/reagent/reagent as anything in reagent_list)
+		data += "[reagent.name] [reagent.volume]u)"
+
+	return english_list(data)

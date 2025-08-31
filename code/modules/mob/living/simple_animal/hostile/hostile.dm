@@ -197,7 +197,7 @@
 
 	if(ismob(the_target)) //Target is in godmode, ignore it.
 		var/mob/M = the_target
-		if(M.status_flags & GODMODE)
+		if(HAS_TRAIT(M, TRAIT_GODMODE))
 			return FALSE
 
 	if(see_invisible < the_target.invisibility)//Target's invisible to us, forget it
@@ -600,15 +600,26 @@
 /mob/living/simple_animal/hostile/proc/handle_target_del(datum/source)
 	SIGNAL_HANDLER
 
-	UnregisterSignal(target, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(target, COMSIG_QDELETING)
 	target = null
 	LoseTarget()
 
 /mob/living/simple_animal/hostile/proc/add_target(new_target)
 	if(target)
-		UnregisterSignal(target, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(target, COMSIG_QDELETING)
 	target = new_target
 	if(target)
-		RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(handle_target_del))
+		RegisterSignal(target, COMSIG_QDELETING, PROC_REF(handle_target_del))
+
+/mob/living/simple_animal/hostile/Login(mob/user) // We add a LosetTarget() here to stop the mob from chasing down targets after it has been given over to a player
+	..()
+	LoseTarget()
+	return TRUE
 
 
+/mob/living/simple_animal/hostile/lazarus_revive(mob/living/reviver, malfunctioning)
+	. = ..()
+	if (malfunctioning)
+		robust_searching = TRUE // enables friends list check
+		return
+	robust_searching = initial(robust_searching)

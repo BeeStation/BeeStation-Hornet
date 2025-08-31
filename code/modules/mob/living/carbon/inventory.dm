@@ -38,6 +38,16 @@
 
 	return ..()
 
+/mob/living/carbon/proc/get_all_worn_items()
+	return list(
+		back,
+		wear_mask,
+		wear_neck,
+		head,
+		handcuffed,
+		legcuffed,
+	)
+
 /mob/living/carbon/proc/equip_in_one_of_slots(obj/item/I, list/slots, qdel_on_fail = TRUE)
 	for(var/slot in slots)
 		if(equip_to_slot_if_possible(I, slots[slot], qdel_on_fail = FALSE, disable_warning = TRUE))
@@ -115,6 +125,7 @@
 	if(!. || !I) //We don't want to set anything to null if the parent returned 0.
 		return
 
+	var/not_handled = FALSE //if we actually unequipped an item, this is because we dont want to run this proc twice, once for carbons and once for humans
 	if(I == head)
 		head = null
 		if(!QDELETED(src))
@@ -141,10 +152,20 @@
 		legcuffed = null
 		if(!QDELETED(src))
 			update_inv_legcuffed()
+	else
+		not_handled = TRUE
+
+
 	if(I == internal && (QDELETED(src) || QDELETED(I) || I.loc != src))
 		cutoff_internals()
 		if(!QDELETED(src))
 			update_action_buttons_icon(status_only = TRUE)
+
+	if(not_handled)
+		return
+
+	update_equipment_speed_mods()
+	update_obscured_slots(I.flags_inv)
 
 /// Returns TRUE if an air tank compatible helmet is equipped.
 /mob/living/carbon/proc/can_breathe_helmet()
@@ -342,15 +363,15 @@
 
 	if(offered)
 		if(IS_DEAD_OR_INCAP(offered))
-			to_chat(src, "<span class='warning'>They're unable to take anything in their current state!</span>")
+			to_chat(src, span_warning("They're unable to take anything in their current state!"))
 			return
 
 		if(!CanReach(offered))
-			to_chat(src, "<span class='warning'>You have to be adjacent to offer things!</span>")
+			to_chat(src, span_warning("You have to be adjacent to offer things!"))
 			return
 	else
 		if(!(locate(/mob/living/carbon) in orange(1, src)))
-			to_chat(src, "<span class='warning'>There's nobody adjacent to offer it to!</span>")
+			to_chat(src, span_warning("There's nobody adjacent to offer it to!"))
 			return
 
 	if(offered_item.on_offered(src)) // see if the item interrupts with its own behavior
@@ -376,7 +397,7 @@
 /mob/living/carbon/proc/take(mob/living/carbon/offerer, obj/item/I)
 	clear_alert("[offerer]")
 	if(IS_DEAD_OR_INCAP(src))
-		to_chat(src,  "<span class='warning'>You're unable to take anything in your current state!</span>")
+		to_chat(src,  span_warning("You're unable to take anything in your current state!"))
 		return
 	if(get_dist(src, offerer) > 1)
 		to_chat(src, span_warning("[offerer] is out of range!"))

@@ -2,14 +2,14 @@
 
 /datum/objective/absorb
 	name = "absorb"
-	var/absorbedcount = 0
+	var/absorbed_count = 0
 
 /datum/objective/absorb/proc/gen_amount_goal(lowbound = 4, highbound = 6)
 	target_amount = rand (lowbound,highbound)
 	var/n_p = 1 //autowin
 	var/list/datum/mind/owners = get_owners()
 	if (SSticker.current_state == GAME_STATE_SETTING_UP)
-		for(var/mob/dead/new_player/P in GLOB.player_list)
+		for(var/mob/dead/new_player/authenticated/P in GLOB.player_list)
 			if(P.client && P.ready == PLAYER_READY_TO_PLAY && !(P.mind in owners))
 				n_p ++
 	else if (SSticker.IsRoundInProgress())
@@ -32,36 +32,36 @@
 	update_explanation_text()
 
 /datum/objective/absorb/check_completion()
-	absorbedcount = 0
+	absorbed_count = 0
 	for(var/datum/mind/M as() in get_owners())
 		if(!M)
 			continue
 		var/datum/antagonist/changeling/changeling = M.has_antag_datum(/datum/antagonist/changeling)
 		if(!changeling || !changeling.stored_profiles)
 			continue
-		absorbedcount += changeling.absorbedcount
-	return (absorbedcount >= target_amount) || ..()
+		absorbed_count += changeling.absorbed_count
+	return (absorbed_count >= target_amount) || ..()
 
 /datum/objective/absorb/get_completion_message()
 	var/span = check_completion() ? "grentext" : "redtext"
-	return "[explanation_text] <span class='[span]'>[absorbedcount] lifeform\s absorbed!</span>"
+	return "[explanation_text] <span class='[span]'>[absorbed_count] lifeform\s absorbed!</span>"
 
 /datum/objective/absorb_most
 	name = "absorb most"
 	explanation_text = "Extract more compatible genomes than any other Changeling."
 
 /datum/objective/absorb_most/check_completion()
-	var/absorbedcount = 0
+	var/absorbed_count = 0
 	for(var/datum/mind/M as() in get_owners())
 		if(!M)
 			continue
 		var/datum/antagonist/changeling/changeling = M.has_antag_datum(/datum/antagonist/changeling)
 		if(!changeling || !changeling.stored_profiles)
 			continue
-		absorbedcount += changeling.absorbedcount
+		absorbed_count += changeling.absorbed_count
 
 	for(var/datum/antagonist/changeling/changeling2 in GLOB.antagonists)
-		if(!changeling2.owner || changeling2.owner == owner || !changeling2.stored_profiles || changeling2.absorbedcount < absorbedcount)
+		if(!changeling2.owner || changeling2.owner == owner || !changeling2.stored_profiles || changeling2.absorbed_count < absorbed_count)
 			continue
 		return ..()
 	return TRUE

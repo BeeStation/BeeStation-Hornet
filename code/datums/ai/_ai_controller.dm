@@ -7,8 +7,18 @@ multiple modular subtrees with behaviors
 /datum/ai_controller
 	///The atom this controller is controlling
 	var/atom/pawn
+	/**
+	 * This is a list of variables the AI uses and can be mutated by actions.
+	 *
+	 * When an action is performed you pass this list and any relevant keys for the variables it can mutate.
+	 *
+	 * DO NOT set values in the blackboard directly, and especially not if you're adding a datum reference to this!
+	 * Use the setters, this is important for reference handing.
+	 */
+	var/list/blackboard = list()
+
 	///Bitfield of traits for this AI to handle extra behavior
-	var/ai_traits
+	var/ai_traits = NONE
 	///Current actions planned to be performed by the AI in the upcoming plan
 	var/list/planned_behaviors
 	///Current actions being performed by the AI.
@@ -19,8 +29,8 @@ multiple modular subtrees with behaviors
 	var/ai_status
 	///Current movement target of the AI, generally set by decision making.
 	var/atom/current_movement_target
-	///This is a list of variables the AI uses and can be mutated by actions. When an action is performed you pass this list and any relevant keys for the variables it can mutate.
-	var/list/blackboard = list()
+	///Identifier for what last touched our movement target, so it can be cleared conditionally
+	var/movement_target_source
 	///Stored arguments for behaviors given during their initial creation
 	var/list/behavior_args = list()
 	///Tracks recent pathing attempts, if we fail too many in a row we fail our current plans.
@@ -34,7 +44,7 @@ multiple modular subtrees with behaviors
 	///All subtrees this AI has available, will run them in order, so make sure they're in the order you want them to run. On initialization of this type, it will start as a typepath(s) and get converted to references of ai_subtrees found in SSai_controllers when init_subtrees() is called
 	var/list/planning_subtrees
 
-	///The idle behavior this AI preforms when it has no actions.
+	///The idle behavior this AI performs when it has no actions.
 	var/datum/idle_behavior/idle_behavior = null
 
 	// Movement related things here
@@ -62,6 +72,13 @@ multiple modular subtrees with behaviors
 	set_ai_status(AI_STATUS_OFF)
 	UnpossessPawn(FALSE)
 	return ..()
+
+///Sets the current movement target, with an optional param to override the movement behavior
+/datum/ai_controller/proc/set_movement_target(source, atom/target, datum/ai_movement/new_movement)
+	movement_target_source = source
+	current_movement_target = target
+	if(new_movement)
+		change_ai_movement_type(new_movement)
 
 ///Overrides the current ai_movement of this controller with a new one
 /datum/ai_controller/proc/change_ai_movement_type(datum/ai_movement/new_movement)
@@ -97,16 +114,35 @@ multiple modular subtrees with behaviors
 	pawn = new_pawn
 	pawn.ai_controller = src
 
-	if(!continue_processing_when_client && istype(new_pawn, /mob))
-		var/mob/possible_client_holder = new_pawn
-		if(possible_client_holder.client)
-			set_ai_status(AI_STATUS_OFF)
-		else
-			set_ai_status(AI_STATUS_ON)
-	else
-		set_ai_status(AI_STATUS_ON)
+	SEND_SIGNAL(src, COMSIG_AI_CONTROLLER_POSSESSED_PAWN)
 
+	reset_ai_status()
+	RegisterSignal(pawn, COMSIG_MOB_STATCHANGE, PROC_REF(on_stat_changed))
 	RegisterSignal(pawn, COMSIG_MOB_LOGIN, PROC_REF(on_sentience_gained))
+
+/// Sets the AI on or off based on current conditions, call to reset after you've manually disabled it somewhere
+/datum/ai_controller/proc/reset_ai_status()
+	set_ai_status(get_expected_ai_status())
+
+/// Returns what the AI status should be based on current conditions.
+/datum/ai_controller/proc/get_expected_ai_status()
+	var/final_status = AI_STATUS_ON
+
+	if (!ismob(pawn))
+		return final_status
+
+	var/mob/living/mob_pawn = pawn
+
+	if(!continue_processing_when_client && mob_pawn.client)
+		final_status = AI_STATUS_OFF
+
+	if(ai_traits & CAN_ACT_WHILE_DEAD)
+		return final_status
+
+	if(mob_pawn.stat == DEAD)
+		final_status = AI_STATUS_OFF
+
+	return final_status
 
 ///Abstract proc for initializing the pawn to the new controller
 /datum/ai_controller/proc/TryPossessPawn(atom/new_pawn)
@@ -114,7 +150,7 @@ multiple modular subtrees with behaviors
 
 ///Proc for deinitializing the pawn to the old controller
 /datum/ai_controller/proc/UnpossessPawn(destroy)
-	UnregisterSignal(pawn, list(COMSIG_MOB_LOGIN, COMSIG_MOB_LOGOUT))
+	UnregisterSignal(pawn, list(COMSIG_MOB_LOGIN, COMSIG_MOB_LOGOUT, COMSIG_MOB_STATCHANGE))
 	if(ai_movement.moving_controllers[src])
 		ai_movement.stop_moving_towards(src)
 	pawn.ai_controller = null
@@ -150,8 +186,8 @@ multiple modular subtrees with behaviors
 			CancelActions()
 			return
 
-	for(var/datum/ai_behavior/current_behavior as anything in current_behaviors)
 
+	for(var/datum/ai_behavior/current_behavior as anything in current_behaviors)
 
 		// Convert the current behaviour action cooldown to realtime seconds from deciseconds.current_behavior
 		// Then pick the max of this and the delta_time passed to ai_controller.process()
@@ -162,7 +198,10 @@ multiple modular subtrees with behaviors
 			if(!current_movement_target)
 				stack_trace("[pawn] wants to perform action type [current_behavior.type] which requires movement, but has no current movement target!")
 				return //This can cause issues, so don't let these slide.
-			if(current_behavior.required_distance >= get_dist(pawn, current_movement_target)) ///Are we close enough to engage?
+			///Stops pawns from performing such actions that should require the target to be adjacent.
+			var/atom/movable/moving_pawn = pawn
+			var/can_reach = !(current_behavior.behavior_flags & AI_BEHAVIOR_REQUIRE_REACH) || moving_pawn.CanReach(current_movement_target)
+			if(can_reach && current_behavior.required_distance >= get_dist(moving_pawn, current_movement_target)) ///Are we close enough to engage?
 				if(ai_movement.moving_controllers[src] == current_movement_target) //We are close enough, if we're moving stop.
 					ai_movement.stop_moving_towards(src)
 
@@ -200,6 +239,7 @@ multiple modular subtrees with behaviors
 		return FALSE
 
 	LAZYINITLIST(current_behaviors)
+	LAZYCLEARLIST(planned_behaviors)
 
 	if(LAZYLEN(planning_subtrees))
 		for(var/datum/ai_planning_subtree/subtree as anything in planning_subtrees)
@@ -240,9 +280,14 @@ multiple modular subtrees with behaviors
 		CRASH("Behavior [behavior_type] not found.")
 	var/list/arguments = args.Copy()
 	arguments[1] = src
+
+	if(LAZYACCESS(current_behaviors, behavior)) ///It's still in the plan, don't add it again to current_behaviors but do keep it in the planned behavior list so its not cancelled
+		LAZYADDASSOC(planned_behaviors, behavior, TRUE)
+		return
+
 	if(!behavior.setup(arglist(arguments)))
 		return
-	LAZYADD(current_behaviors, behavior)
+	LAZYADDASSOC(current_behaviors, behavior, TRUE)
 	LAZYADDASSOC(planned_behaviors, behavior, TRUE)
 	arguments.Cut(1, 2)
 	if(length(arguments))
@@ -267,6 +312,11 @@ multiple modular subtrees with behaviors
 		if(stored_arguments)
 			arguments += stored_arguments
 		current_behavior.finish_action(arglist(arguments))
+
+/// Turn the controller on or off based on if you're alive, we only register to this if the flag is present so don't need to check again
+/datum/ai_controller/proc/on_stat_changed(mob/living/source, new_stat)
+	SIGNAL_HANDLER
+	reset_ai_status()
 
 /datum/ai_controller/proc/on_sentience_gained()
 	SIGNAL_HANDLER
@@ -295,3 +345,253 @@ multiple modular subtrees with behaviors
 		if(iter_behavior.required_distance < minimum_distance)
 			minimum_distance = iter_behavior.required_distance
 	return minimum_distance
+
+/**
+ * Used to manage references to datum by AI controllers
+ *
+ * * tracked_datum - something being added to an ai blackboard
+ * * key - the associated key
+ */
+#define TRACK_AI_DATUM_TARGET(tracked_datum, key) do { \
+	if(isweakref(tracked_datum)) { \
+		var/datum/weakref/_bad_weakref = tracked_datum; \
+		stack_trace("Weakref (Actual datum: [_bad_weakref.resolve()]) found in ai datum blackboard! \
+			This is an outdated method of ai reference handling, please remove it."); \
+	}; \
+	else if(isdatum(tracked_datum)) { \
+		var/datum/_tracked_datum = tracked_datum; \
+		if(QDELETED(_tracked_datum)) { \
+			stack_trace("Tried to track a qdeleted datum ([_tracked_datum]) in ai datum blackboard (key: [key])! \
+				Please ensure that we are not doing this by adding handling where necessary."); \
+			return; \
+		}; \
+		else if(!HAS_TRAIT_FROM(_tracked_datum, TRAIT_AI_TRACKING, "[REF(src)]_[key]")) { \
+			RegisterSignal(_tracked_datum, COMSIG_QDELETING, PROC_REF(sig_remove_from_blackboard), override = TRUE); \
+			ADD_TRAIT(_tracked_datum, TRAIT_AI_TRACKING, "[REF(src)]_[key]"); \
+		}; \
+	}; \
+} while(FALSE)
+
+/**
+ * Used to clear previously set reference handing by AI controllers
+ *
+ * * tracked_datum - something being removed from an ai blackboard
+ * * key - the associated key
+ */
+#define CLEAR_AI_DATUM_TARGET(tracked_datum, key) do { \
+	if(isdatum(tracked_datum)) { \
+		var/datum/_tracked_datum = tracked_datum; \
+		REMOVE_TRAIT(_tracked_datum, TRAIT_AI_TRACKING, "[REF(src)]_[key]"); \
+		if(!HAS_TRAIT(_tracked_datum, TRAIT_AI_TRACKING)) { \
+			UnregisterSignal(_tracked_datum, COMSIG_QDELETING); \
+		}; \
+	}; \
+} while(FALSE)
+
+/// Used for above to track all the keys that have registered a signal
+#define TRAIT_AI_TRACKING "tracked_by_ai"
+
+/**
+ * Sets the key to the passed "thing".
+ *
+ * * key - A blackboard key
+ * * thing - a value to set the blackboard key to.
+ */
+/datum/ai_controller/proc/set_blackboard_key(key, thing)
+	// Assume it is an error when trying to set a value overtop a list
+	if(islist(blackboard[key]))
+		CRASH("set_blackboard_key attempting to set a blackboard value to key [key] when it's a list!")
+
+	// Clear existing values
+	if(!isnull(blackboard[key]))
+		clear_blackboard_key(key)
+
+	TRACK_AI_DATUM_TARGET(thing, key)
+	blackboard[key] = thing
+
+/**
+ * Sets the key at index thing to the passed value
+ *
+ * Assumes the key value is already a list, if not throws an error.
+ *
+ * * key - A blackboard key, with its value set to a list
+ * * thing - a value which becomes the inner list value's key
+ * * value - what to set the inner list's value to
+ */
+/datum/ai_controller/proc/set_blackboard_key_assoc(key, thing, value)
+	if(!islist(blackboard[key]))
+		CRASH("set_blackboard_key_assoc called on non-list key [key]!")
+	TRACK_AI_DATUM_TARGET(thing, key)
+	TRACK_AI_DATUM_TARGET(value, key)
+	blackboard[key][thing] = value
+
+/**
+ * Similar to [proc/set_blackboard_key_assoc] but operates under the assumption the key is a lazylist (so it will create a list)
+ * More dangerous / easier to override values, only use when you want to use a lazylist
+ *
+ * * key - A blackboard key, with its value set to a list
+ * * thing - a value which becomes the inner list value's key
+ * * value - what to set the inner list's value to
+ */
+/datum/ai_controller/proc/set_blackboard_key_assoc_lazylist(key, thing, value)
+	LAZYINITLIST(blackboard[key])
+	TRACK_AI_DATUM_TARGET(thing, key)
+	TRACK_AI_DATUM_TARGET(value, key)
+	blackboard[key][thing] = value
+
+/**
+ * Adds the passed "thing" to the associated key
+ *
+ * Works with lists or numbers, but not lazylists.
+ *
+ * * key - A blackboard key
+ * * thing - a value to set the blackboard key to.
+ */
+/datum/ai_controller/proc/add_blackboard_key(key, thing)
+	TRACK_AI_DATUM_TARGET(thing, key)
+	blackboard[key] += thing
+
+/**
+ * Similar to [proc/add_blackboard_key], but performs an insertion rather than an add
+ * Throws an error if the key is not a list already, intended only for use with lists
+ *
+ * * key - A blackboard key, with its value set to a list
+ * * thing - a value to set the blackboard key to.
+ */
+/datum/ai_controller/proc/insert_blackboard_key(key, thing)
+	if(!islist(blackboard[key]))
+		CRASH("insert_blackboard_key called on non-list key [key]!")
+	TRACK_AI_DATUM_TARGET(thing, key)
+	blackboard[key] |= thing
+
+/**
+ * Adds the passed "thing" to the associated key, assuming key is intended to be a lazylist (so it will create a list)
+ * More dangerous / easier to override values, only use when you want to use a lazylist
+ *
+ * * key - A blackboard key
+ * * thing - a value to set the blackboard key to.
+ */
+/datum/ai_controller/proc/add_blackboard_key_lazylist(key, thing)
+	LAZYINITLIST(blackboard[key])
+	TRACK_AI_DATUM_TARGET(thing, key)
+	blackboard[key] += thing
+
+/**
+ * Similar to [proc/insert_blackboard_key_lazylist], but performs an insertion / or rather than an add
+ *
+ * * key - A blackboard key
+ * * thing - a value to set the blackboard key to.
+ */
+/datum/ai_controller/proc/insert_blackboard_key_lazylist(key, thing)
+	LAZYINITLIST(blackboard[key])
+	TRACK_AI_DATUM_TARGET(thing, key)
+	blackboard[key] |= thing
+
+/**
+ * Adds the value to the inner list at key with the inner key set to "thing"
+ * Throws an error if the key is not a list already, intended only for use with lists
+ *
+ * * key - A blackboard key, with its value set to a list
+ * * thing - a value which becomes the inner list value's key
+ * * value - what to set the inner list's value to
+ */
+/datum/ai_controller/proc/add_blackboard_key_assoc(key, thing, value)
+	if(!islist(blackboard[key]))
+		CRASH("add_blackboard_key_assoc called on non-list key [key]!")
+	TRACK_AI_DATUM_TARGET(thing, key)
+	TRACK_AI_DATUM_TARGET(value, key)
+	blackboard[key][thing] += value
+
+
+/**
+ * Similar to [proc/add_blackboard_key_assoc], assuming key is intended to be a lazylist (so it will create a list)
+ * More dangerous / easier to override values, only use when you want to use a lazylist
+ *
+ * * key - A blackboard key, with its value set to a list
+ * * thing - a value which becomes the inner list value's key
+ * * value - what to set the inner list's value to
+ */
+/datum/ai_controller/proc/add_blackboard_key_assoc_lazylist(key, thing, value)
+	LAZYINITLIST(blackboard[key])
+	TRACK_AI_DATUM_TARGET(thing, key)
+	TRACK_AI_DATUM_TARGET(value, key)
+	blackboard[key][thing] += value
+
+/**
+ * Clears the passed key, resetting it to null
+ *
+ * Not intended for use with list keys - use [proc/remove_thing_from_blackboard_key] if you are removing a value from a list at a key
+ *
+ * * key - A blackboard key
+ */
+/datum/ai_controller/proc/clear_blackboard_key(key)
+	CLEAR_AI_DATUM_TARGET(blackboard[key], key)
+	blackboard[key] = null
+
+/**
+ * Remove the passed thing from the associated blackboard key
+ *
+ * Intended for use with lists, if you're just clearing a reference from a key use [proc/clear_blackboard_key]
+ *
+ * * key - A blackboard key
+ * * thing - a value to set the blackboard key to.
+ */
+/datum/ai_controller/proc/remove_thing_from_blackboard_key(key, thing)
+	var/associated_value = blackboard[key]
+	if(thing == associated_value)
+		stack_trace("remove_thing_from_blackboard_key was called un-necessarily in a situation where clear_blackboard_key would suffice. ")
+		clear_blackboard_key(key)
+		return
+
+	if(!islist(associated_value))
+		CRASH("remove_thing_from_blackboard_key called with an invalid \"thing\" argument ([thing]). \
+			(The associated value of the passed key is not a list and is also not the passed thing, meaning it is clearing an unintended value.)")
+
+	for(var/inner_key in associated_value)
+		if(inner_key == thing)
+			// flat list
+			CLEAR_AI_DATUM_TARGET(thing, key)
+			associated_value -= thing
+			return
+		else if(associated_value[inner_key] == thing)
+			// assoc list
+			CLEAR_AI_DATUM_TARGET(thing, key)
+			associated_value -= inner_key
+			return
+
+	CRASH("remove_thing_from_blackboard_key called with an invalid \"thing\" argument ([thing]). \
+		(The passed value is not tracked in the passed list.)")
+
+/// Signal proc to go through every key and remove the datum from all keys it finds
+/datum/ai_controller/proc/sig_remove_from_blackboard(datum/source)
+	SIGNAL_HANDLER
+
+	var/list/list/remove_queue = list(blackboard)
+	var/index = 1
+	while(index <= length(remove_queue))
+		var/list/next_to_clear = remove_queue[index]
+		for(var/inner_value in next_to_clear)
+			var/associated_value = next_to_clear[inner_value]
+			// We are a lists of lists, add the next value to the queue so we can handle references in there
+			// (But we only need to bother checking the list if it's not empty.)
+			if(islist(inner_value) && length(inner_value))
+				UNTYPED_LIST_ADD(remove_queue, inner_value)
+
+			// We found the value that's been deleted. Clear it out from this list
+			else if(inner_value == source)
+				next_to_clear -= inner_value
+
+			// We are an assoc lists of lists, the list at the next value so we can handle references in there
+			// (But again, we only need to bother checking the list if it's not empty.)
+			if(islist(associated_value) && length(associated_value))
+				UNTYPED_LIST_ADD(remove_queue, associated_value)
+
+			// We found the value that's been deleted, it was an assoc value. Clear it out entirely
+			else if(associated_value == source)
+				next_to_clear -= inner_value
+
+		index += 1
+
+#undef TRACK_AI_DATUM_TARGET
+#undef CLEAR_AI_DATUM_TARGET
+#undef TRAIT_AI_TRACKING

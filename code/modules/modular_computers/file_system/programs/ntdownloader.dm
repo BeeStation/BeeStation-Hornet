@@ -3,12 +3,11 @@
 	filedesc = "Software Download Tool"
 	program_icon_state = "generic"
 	extended_desc = "This program allows downloads of software from official NT repositories"
-	unsendable = 1
-	undeletable = 1
+	undeletable = TRUE
 	size = 4
-	requires_ntnet = 1
+	requires_ntnet = TRUE
 	requires_ntnet_feature = NTNET_SOFTWAREDOWNLOAD
-	available_on_ntnet = 0
+	available_on_ntnet = FALSE
 	ui_header = "downloader_finished.gif"
 	tgui_id = "NtosNetDownloader"
 	program_icon = "download"
@@ -66,14 +65,9 @@
 
 	ui_header = "downloader_running.gif"
 
-	if(PRG in main_repo)
-		generate_network_log("Began downloading file [PRG.filename].[PRG.filetype] from NTNet Software Repository.")
-		hacked_download = 0
-	else if(PRG in antag_repo)
-		generate_network_log("Began downloading file **ENCRYPTED**.[PRG.filetype] from unspecified server.")
+	if(PRG in antag_repo)
 		hacked_download = 1
 	else
-		generate_network_log("Began downloading file [PRG.filename].[PRG.filetype] from unspecified server.")
 		hacked_download = 0
 
 	downloaded_file = PRG.clone()
@@ -81,7 +75,6 @@
 /datum/computer_file/program/ntnetdownload/proc/abort_file_download()
 	if(!downloaded_file)
 		return
-	generate_network_log("Aborted download of file [hacked_download ? "**ENCRYPTED**" : "[downloaded_file.filename].[downloaded_file.filetype]"].")
 	downloaded_file = null
 	download_completion = 0
 	ui_header = "downloader_finished.gif"
@@ -89,7 +82,9 @@
 /datum/computer_file/program/ntnetdownload/proc/complete_file_download()
 	if(!downloaded_file)
 		return
-	generate_network_log("Completed download of file [hacked_download ? "**ENCRYPTED**" : "[downloaded_file.filename].[downloaded_file.filetype]"].")
+	var/obj/item/computer_hardware/network_card/network_card = computer.all_components[MC_NET]
+		// The following will be our only log for the downloading of files. Else it could flood the logger, which is now much more useful than it was before.
+	computer.add_log("Completed download of file [hacked_download ? "**ENCRYPTED**" : "[downloaded_file.filename].[downloaded_file.filetype]"].", TRUE, network_card)
 	var/obj/item/computer_hardware/hard_drive/hard_drive = computer.all_components[MC_HDD]
 	if(!computer || !hard_drive || !hard_drive.store_file(downloaded_file))
 		// The download failed
@@ -107,11 +102,13 @@
 	download_netspeed = 0
 	// Speed defines are found in misc.dm
 	switch(ntnet_status)
-		if(1)
+		if(SIGNAL_LOW)
 			download_netspeed = NTNETSPEED_LOWSIGNAL
-		if(2)
+		if(SIGNAL_HIGH)
 			download_netspeed = NTNETSPEED_HIGHSIGNAL
-		if(3)
+		if(SIGNAL_NO_RELAY)
+			download_netspeed = NTNETSPEED_ETHERNET
+		if(SIGNAL_HACKED)
 			download_netspeed = NTNETSPEED_ETHERNET
 	download_completion += download_netspeed
 
@@ -173,22 +170,16 @@
 			"fileinfo" = P.extended_desc,
 			"category" = P.category,
 			"installed" = !!hard_drive.find_file_by_name(P.filename),
-			"compatible" = check_compatibility(P),
 			"size" = P.size,
-			"access" = emagged && P.available_on_syndinet ? TRUE : P.can_run(user,transfer = 1, access = access),
+			"access" = emagged && P.available_on_syndinet ? TRUE : P.can_download(user, access = access),
+			"compatible" = P.is_supported_by_hardware(computer, user, loud = FALSE),
+			"requiredhardware" = P.hardware_requirement,
 			"verifiedsource" = P.available_on_ntnet,
 		))
 
 	data["categories"] = show_categories & program_categories
 
 	return data
-
-/datum/computer_file/program/ntnetdownload/proc/check_compatibility(datum/computer_file/program/P)
-	var/hardflag = computer.hardware_flag
-
-	if(P?.is_supported_by_hardware(hardflag,0))
-		return TRUE
-	return FALSE
 
 /datum/computer_file/program/ntnetdownload/kill_program(forced)
 	abort_file_download()
@@ -205,7 +196,6 @@
 	filedesc = "Software Download Tool"
 	program_icon_state = "generic"
 	extended_desc = "This program allows downloads of software from shared Syndicate repositories"
-	requires_ntnet = 0
 	ui_header = "downloader_finished.gif"
 	tgui_id = "NtosNetDownloader"
 	emagged = TRUE

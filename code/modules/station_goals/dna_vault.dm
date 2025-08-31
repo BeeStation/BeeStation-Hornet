@@ -73,16 +73,19 @@
 	var/list/animals = list()
 	var/list/plants = list()
 	var/list/dna = list()
+	///weak ref to the dna vault
+	var/datum/weakref/dna_vault_ref
 
 /obj/item/dna_probe/proc/clear_data()
 	animals = list()
 	plants = list()
 	dna = list()
 
-/obj/item/dna_probe/afterattack(atom/target, mob/user, proximity)
+/obj/item/dna_probe/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	if(!proximity || !target)
+	if(!proximity_flag || !target)
 		return
+
 	//tray plants
 	if(istype(target, /obj/machinery/hydroponics))
 		var/obj/machinery/hydroponics/H = target
@@ -98,18 +101,21 @@
 		to_chat(user, span_notice("Plant data added to local storage."))
 
 	//animals
-	var/static/list/non_simple_animals = typecacheof(list(/mob/living/carbon/monkey, /mob/living/carbon/alien))
-	if(isanimal(target) || is_type_in_typecache(target,non_simple_animals))
-		if(isanimal(target))
-			var/mob/living/simple_animal/A = target
-			if(!A.healable || (A.flags_1 & HOLOGRAM_1)) //simple approximation of being animal not a robot or similar. Also checking if holographic
-				to_chat(user, span_warning("No compatible DNA detected."))
-				return
-		if(animals[target.type])
+	var/obj/machinery/dna_vault/our_vault = dna_vault_ref?.resolve()
+	var/static/list/non_simple_animals = typecacheof(list(/mob/living/carbon/alien))
+	if(isanimal_or_basicmob(target) || is_type_in_typecache(target, non_simple_animals) || ismonkey(target))
+		var/mob/living/living_target = target
+		if(our_vault.animals[living_target.type])
+			to_chat(user, span_notice("Animal data already present in vault storage."))
+			return
+		if(animals[living_target.type])
 			to_chat(user, span_notice("Animal data already present in local storage."))
 			return
-		animals[target.type] = 1
-		to_chat(user, span_notice("Animal data added to local storage."))
+		if(!(MOB_ORGANIC in living_target.mob_biotypes))
+			to_chat(user, span_alert("No compatible DNA detected."))
+			return .
+		animals[living_target.type] = 1
+		balloon_alert(user, "data added")
 
 	//humans
 	if(ishuman(target))
@@ -163,12 +169,11 @@
 		F.parent = src
 		fillers += F
 
-	if(SSticker.mode)
-		for(var/datum/station_goal/dna_vault/G in SSticker.mode.station_goals)
-			animals_max = G.animal_count
-			plants_max = G.plant_count
-			dna_max = G.human_count
-			break
+	var/datum/station_goal/dna_vault/dna_vault_goal = SSstation.get_station_goal(/datum/station_goal/dna_vault)
+	if(dna_vault_goal)
+		animals_max = dna_vault_goal.animal_count
+		plants_max = dna_vault_goal.plant_count
+		dna_max = dna_vault_goal.human_count
 	. = ..()
 
 /obj/machinery/dna_vault/Destroy()

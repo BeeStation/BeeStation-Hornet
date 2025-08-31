@@ -5,26 +5,25 @@
 // /atom signals
 ///from base of atom/proc/Initialize(mapload): sent any time a new atom is created
 #define COMSIG_ATOM_CREATED "atom_created"
-/// from base of atom/examine(): (/mob, list/examine_text)
-#define COMSIG_PARENT_EXAMINE "atom_examine"
-/// from base of atom/get_examine_name(): (/mob, list/overrides)
-#define COMSIG_ATOM_GET_EXAMINE_NAME "atom_examine_name"
-///from base of atom/examine_more(): (/mob)
-///from base of atom/examine(): (/mob, list/examine_text, can_see_inside)
-#define COMSIG_PARENT_REAGENT_EXAMINE "atom_reagent_examine"
-	/// Stop the generic reagent examine text
-	#define STOP_GENERIC_REAGENT_EXAMINE (1<<0)
-///from base of atom/examine_more(): (/mob)
-#define COMSIG_PARENT_EXAMINE_MORE "atom_examine_more"
-	//Positions for overrides list
-	#define EXAMINE_POSITION_ARTICLE (1<<0)
-	#define EXAMINE_POSITION_BEFORE (1<<1)
 ///from base of atom/examine(): (/mob, list/examine_text)
 #define COMSIG_ATOM_EXAMINE "atom_examine"
 ///from base of atom/examine_tags(): (/mob, list/examine_tags)
 #define COMSIG_ATOM_EXAMINE_TAGS "atom_examine_tags"
-	//End positions
-	#define COMPONENT_EXNAME_CHANGED (1<<0)
+///from base of atom/get_examine_name(): (/mob, list/overrides)
+#define COMSIG_ATOM_GET_EXAMINE_NAME "atom_examine_name"
+	//Positions for overrides list
+	#define EXAMINE_POSITION_ARTICLE (1<<0)
+	#define EXAMINE_POSITION_BEFORE (1<<1)
+///from base of atom/examine(): (/mob, list/examine_text, can_see_inside)
+#define COMSIG_PARENT_REAGENT_EXAMINE "atom_reagent_examine"
+	/// Stop the generic reagent examine text
+	#define STOP_GENERIC_REAGENT_EXAMINE (1<<0)
+///from base of atom/examine_more(): (/mob, examine_list)
+#define COMSIG_ATOM_EXAMINE_MORE "atom_examine_more"
+/// from atom/examine_more(): (/atom/examining, examine_list)
+#define COMSIG_MOB_EXAMINING_MORE "mob_examining_more"
+//End positions
+#define COMPONENT_EXNAME_CHANGED (1<<0)
 
 ///	from base of [/atom/proc/update_appearance]: (updates)
 #define COMSIG_ATOM_UPDATE_APPEARANCE "atom_update_appearance"
@@ -179,3 +178,11 @@
 
 // From /atom/proc/set_density(new_value) for when an atom changes density
 #define COMSIG_ATOM_DENSITY_CHANGED "atom_density_change"
+// Atom movement signals. Format:
+// When the signal is called: (signal arguments)
+// All signals send the source datum of the signal as the first argument
+
+///signal sent out by an atom when it is no longer being pulled by something else : (atom/puller)
+#define COMSIG_ATOM_NO_LONGER_PULLED "movable_no_longer_pulled"
+///signal sent out by an atom when it is no longer pulling something : (atom/pulling)
+//#define COMSIG_ATOM_NO_LONGER_PULLING "movable_no_longer_pulling"

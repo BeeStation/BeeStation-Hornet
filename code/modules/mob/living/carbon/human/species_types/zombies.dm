@@ -2,31 +2,34 @@
 
 /datum/species/zombie
 	// 1spooky
-	name = "\improper High-Functioning Zombie"
-	id = "zombie"
+	name = "High-Functioning Zombie"
+	id = SPECIES_ZOMBIE
 	sexes = 0
 	meat = /obj/item/food/meat/slab/human/mutant/zombie
 	mutanttongue = /obj/item/organ/tongue/zombie
 	species_traits = list(
 		NOZOMBIE,
-		NOTRANSSTING
 	)
 	inherent_traits = list(
+		// SHARED WITH ALL ZOMBIES
 		TRAIT_EASYDISMEMBER,
 		TRAIT_FAKEDEATH,
 		TRAIT_FAST_CUFF_REMOVAL,
 		TRAIT_LIMBATTACHMENT,
 		TRAIT_NOBREATH,
 		TRAIT_NOCLONELOSS,
+		TRAIT_NO_TRANSFORMATION_STING,
 		TRAIT_NODEATH,
 		TRAIT_NOHUNGER,
 		TRAIT_NOMETABOLISM,
+		TRAIT_NOSTASIS,
 		TRAIT_RADIMMUNE,
 		TRAIT_RESISTCOLD,
 		TRAIT_RESISTHIGHPRESSURE,
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_TOXIMMUNE,
 		TRAIT_NOSTASIS,
+		// HIGH FUNCTIONING UNIQUE
 		TRAIT_NOBLOOD,
 	)
 	mutantstomach = null
@@ -39,12 +42,14 @@
 	bodytemp_heat_damage_limit = FIRE_MINIMUM_TEMPERATURE_TO_EXIST // Take damage at fire temp
 	bodytemp_cold_damage_limit = MINIMUM_TEMPERATURE_TO_MOVE // take damage below minimum movement temp
 
-	species_chest = /obj/item/bodypart/chest/zombie
-	species_head = /obj/item/bodypart/head/zombie
-	species_l_arm = /obj/item/bodypart/l_arm/zombie
-	species_r_arm = /obj/item/bodypart/r_arm/zombie
-	species_l_leg = /obj/item/bodypart/l_leg/zombie
-	species_r_leg = /obj/item/bodypart/r_leg/zombie
+	bodypart_overrides = list(
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/zombie,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/zombie,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/zombie,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/zombie,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/zombie,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/zombie
+	)
 
 	var/static/list/spooks = list(
 		'sound/hallucinations/growl1.ogg',
@@ -70,17 +75,40 @@
 	return list("Zombies have long lasting beef with Botanists. Their last incident involving a lawn with defensive plants has left them very unhinged.")
 
 /datum/species/zombie/infectious
-	name = "\improper Infectious Zombie"
-	id = "memezombies"
-	examine_limb_id = "zombie"
-	mutanthands = /obj/item/zombie_hand
+	name = "Infectious Zombie"
+	id = SPECIES_ZOMBIE_INFECTIOUS
+	examine_limb_id = SPECIES_ZOMBIE
 	armor = 20 // 120 damage to KO a zombie, which kills it
 	speedmod = 1.6
 	mutanteyes = /obj/item/organ/eyes/night_vision/zombie
+	mutanthands = /obj/item/zombie_hand
+	changesource_flags = MIRROR_BADMIN | WABBAJACK | ERT_SPAWN
 	/// The rate the zombies regenerate at
 	var/heal_rate = 0.5
 	/// The cooldown before the zombie can start regenerating
 	COOLDOWN_DECLARE(regen_cooldown)
+
+	inherent_traits = list(
+		// SHARED WITH ALL ZOMBIES
+		TRAIT_EASYDISMEMBER,
+		TRAIT_FAKEDEATH,
+		TRAIT_FAST_CUFF_REMOVAL,
+		TRAIT_LIMBATTACHMENT,
+		TRAIT_NOBREATH,
+		TRAIT_NOCLONELOSS,
+		TRAIT_NODEATH,
+		TRAIT_NOHUNGER,
+		TRAIT_NOMETABOLISM,
+		TRAIT_NOSTASIS,
+		TRAIT_RADIMMUNE,
+		TRAIT_RESISTCOLD,
+		TRAIT_RESISTHIGHPRESSURE,
+		TRAIT_RESISTLOWPRESSURE,
+		TRAIT_TOXIMMUNE,
+		// INFECTIOUS UNIQUE
+		TRAIT_STABLEHEART, // Replacement for noblood. Infectious zombies can bleed but don't need their heart.
+		TRAIT_STABLELIVER, // Not necessary but for consistency with above
+	)
 
 /datum/species/zombie/infectious/check_roundstart_eligible()
 	return FALSE
@@ -141,19 +169,22 @@
 // Your skin falls off
 /datum/species/human/krokodil_addict
 	name = "\improper Human"
-	id = "goofzombies"
+	id = SPECIES_ZOMBIE_KROKODIL
+	examine_limb_id = SPECIES_HUMAN
 	meat = /obj/item/food/meat/slab/human/mutant/zombie
 	mutanttongue = /obj/item/organ/tongue/zombie
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | ERT_SPAWN
 
 	examine_limb_id = SPECIES_HUMAN
 
-	species_chest = /obj/item/bodypart/chest/zombie
-	species_head = /obj/item/bodypart/head/zombie
-	species_l_arm = /obj/item/bodypart/l_arm/zombie
-	species_r_arm = /obj/item/bodypart/r_arm/zombie
-	species_l_leg = /obj/item/bodypart/l_leg/zombie
-	species_r_leg = /obj/item/bodypart/r_leg/zombie
+	bodypart_overrides = list(
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/zombie,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/zombie,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/zombie,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/zombie,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/zombie,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/zombie
+	)
 
 /datum/species/human/krokodil_addict/replace_body(mob/living/carbon/C, datum/species/new_species)
 	..()

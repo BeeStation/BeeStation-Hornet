@@ -71,7 +71,6 @@ GLOBAL_LIST_INIT(summoned_magic, list(
 	/obj/item/scrying,
 	/obj/item/voodoo,
 	/obj/item/warpwhistle,
-	/obj/item/clothing/suit/space/hardsuit/shielded/wizard,
 	/obj/item/immortality_talisman,
 	/obj/item/melee/ghost_sword))
 
@@ -88,7 +87,6 @@ GLOBAL_LIST_INIT(summoned_special_magic, list(
 GLOBAL_LIST_INIT(summoned_magic_objectives, list(
 	/obj/item/antag_spawner/contract,
 	/obj/item/blood_contract,
-	/obj/item/clothing/suit/space/hardsuit/shielded/wizard,
 	/obj/item/gun/magic,
 	/obj/item/immortality_talisman,
 	/obj/item/melee/ghost_sword,
@@ -107,12 +105,10 @@ GLOBAL_VAR_INIT(summon_magic_triggered, FALSE)
 	if(H.stat == DEAD || !(H.client))
 		return
 	if(H.mind)
-		if(iswizard(H) || H.mind.has_antag_datum(/datum/antagonist/survivalist/guns))
+		if(IS_WIZARD(H) || H.mind.has_antag_datum(/datum/antagonist/survivalist/guns))
 			return
 
 	if(prob(GLOB.summon_guns_triggered) && !(H.mind.has_antag_datum(/datum/antagonist)))
-		SSticker.mode.traitors += H.mind
-
 		H.mind.add_antag_datum(/datum/antagonist/survivalist/guns)
 		H.log_message("was made into a survivalist, and trusts no one!", LOG_ATTACK, color="red")
 
@@ -130,7 +126,7 @@ GLOBAL_VAR_INIT(summon_magic_triggered, FALSE)
 	if(H.stat == DEAD || !(H.client))
 		return
 	if(H.mind)
-		if(iswizard(H) || H.mind.has_antag_datum(/datum/antagonist/survivalist/magic))
+		if(IS_WIZARD(H) || H.mind.has_antag_datum(/datum/antagonist/survivalist/magic))
 			return
 
 	if(prob(GLOB.summon_magic_triggered) && !(H.mind.has_antag_datum(/datum/antagonist)))

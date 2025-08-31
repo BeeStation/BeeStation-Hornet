@@ -34,7 +34,8 @@ export const GasmixParser = (props: GasmixParserProps) => {
     ...rest
   } = props;
 
-  const { gases, temperature, volume, pressure, total_moles, reactions } = gasmix;
+  const { gases, temperature, volume, pressure, total_moles, reactions } =
+    gasmix;
 
   return !total_moles ? (
     <Box nowrap italic mb="10px">
@@ -44,20 +45,55 @@ export const GasmixParser = (props: GasmixParserProps) => {
     <LabeledList {...rest}>
       {gases.map((gas) => (
         <LabeledList.Item
-          label={gasesOnClick ? <Button content={gas[1]} onClick={() => gasesOnClick(gas[0])} /> : gas[1]}
-          key={gas[1]}>
-          {gas[2].toFixed(2) + ' mol (' + ((gas[2] / total_moles) * 100).toFixed(2) + ' %)'}
+          label={
+            gasesOnClick ? (
+              <Button content={gas[1]} onClick={() => gasesOnClick(gas[0])} />
+            ) : (
+              gas[1]
+            )
+          }
+          key={gas[1]}
+        >
+          {gas[2].toFixed(2) +
+            ' mol (' +
+            ((gas[2] / total_moles) * 100).toFixed(2) +
+            ' %)'}
         </LabeledList.Item>
       ))}
       <LabeledList.Item
-        label={temperatureOnClick ? <Button content={'Temperature'} onClick={() => temperatureOnClick()} /> : 'Temperature'}>
+        label={
+          temperatureOnClick ? (
+            <Button
+              content={'Temperature'}
+              onClick={() => temperatureOnClick()}
+            />
+          ) : (
+            'Temperature'
+          )
+        }
+      >
         {(total_moles ? temperature.toFixed(2) : '-') + ' K'}
       </LabeledList.Item>
-      <LabeledList.Item label={volumeOnClick ? <Button content={'Volume'} onClick={() => volumeOnClick()} /> : 'Volume'}>
+      <LabeledList.Item
+        label={
+          volumeOnClick ? (
+            <Button content={'Volume'} onClick={() => volumeOnClick()} />
+          ) : (
+            'Volume'
+          )
+        }
+      >
         {(total_moles ? volume.toFixed(2) : '-') + ' L'}
       </LabeledList.Item>
       <LabeledList.Item
-        label={pressureOnClick ? <Button content={'Pressure'} onClick={() => pressureOnClick()} /> : 'Pressure'}>
+        label={
+          pressureOnClick ? (
+            <Button content={'Pressure'} onClick={() => pressureOnClick()} />
+          ) : (
+            'Pressure'
+          )
+        }
+      >
         {(total_moles ? pressure.toFixed(2) : '-') + ' kPa'}
       </LabeledList.Item>
       {detailedReactions ? (
@@ -65,8 +101,16 @@ export const GasmixParser = (props: GasmixParserProps) => {
           <LabeledList.Item
             key={`${gasmix.reference}-${reaction[0]}`}
             label={
-              reactionOnClick ? <Button content={reaction[1]} onClick={() => reactionOnClick(reaction[0])} /> : reaction[1]
-            }>
+              reactionOnClick ? (
+                <Button
+                  content={reaction[1]}
+                  onClick={() => reactionOnClick(reaction[0])}
+                />
+              ) : (
+                reaction[1]
+              )
+            }
+          >
             {reaction[2]}
           </LabeledList.Item>
         ))
@@ -74,14 +118,17 @@ export const GasmixParser = (props: GasmixParserProps) => {
         <LabeledList.Item label="Gas Reactions">
           {reactions.length
             ? reactions.map((reaction, index) =>
-              reactionOnClick ? (
-                <Box key={reaction[1]} mb="0.5em">
-                  <Button content={reaction[1]} onClick={() => reactionOnClick(reaction[0])} />
-                </Box>
-              ) : (
-                <div key={reaction[1]}>{reaction[1]}</div>
+                reactionOnClick ? (
+                  <Box key={reaction[1]} mb="0.5em">
+                    <Button
+                      content={reaction[1]}
+                      onClick={() => reactionOnClick(reaction[0])}
+                    />
+                  </Box>
+                ) : (
+                  <div key={reaction[1]}>{reaction[1]}</div>
+                ),
               )
-            )
             : 'No reactions detected'}
         </LabeledList.Item>
       )}

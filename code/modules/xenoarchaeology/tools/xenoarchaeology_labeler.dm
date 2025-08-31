@@ -245,11 +245,11 @@
 				target.custom_price *= XENOA_LABEL_REWARD
 			else
 				target.custom_price *= XENOA_LABEL_PUNISHMENT
-	RegisterSignal(target, COMSIG_PARENT_EXAMINE, PROC_REF(parent_examine))
+	RegisterSignal(target, COMSIG_ATOM_EXAMINE, PROC_REF(parent_examine))
 
-/obj/item/sticker/xenoartifact_label/attack_hand(mob/user)
+/obj/item/sticker/xenoartifact_label/unstick(atom/override)
 	if(sticker_state == STICKER_STATE_STUCK)
-		UnregisterSignal(loc, COMSIG_PARENT_EXAMINE)
+		UnregisterSignal(loc, COMSIG_ATOM_EXAMINE)
 	//Set custom price back
 	var/datum/component/xenoartifact/artifact = loc.GetComponent(/datum/component/xenoartifact)
 	if(artifact)
