@@ -137,7 +137,7 @@
 	if(. & EMP_PROTECT_SELF)
 		return
 	if(get_total_damage() < maxHealth - 1)
-		set_health(1)
+		adjustBruteLoss(maxHealth - 1 - get_total_damage())
 	else
 		death()
 

@@ -57,11 +57,9 @@
 /mob/living/silicon/ai/updatehealth()
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
-	set_health(maxHealth - getOxyLoss() - getToxLoss() - getBruteLoss() - getFireLoss())
-	consciousness.update_stat()
+	SEND_SIGNAL(src, COMSIG_LIVING_HEALTH_UPDATE)
 	diag_hud_set_health()
 	disconnect_shell()
-	SEND_SIGNAL(src, COMSIG_LIVING_HEALTH_UPDATE)
 
 /mob/living/silicon/ai/update_stat()
 	. = ..()

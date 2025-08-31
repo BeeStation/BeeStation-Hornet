@@ -772,8 +772,6 @@
 					audible_message(span_warning("[src] sounds an alarm! \"CRITICAL ERROR: All modules OFFLINE.\""))
 					to_chat(src, span_userdanger("CRITICAL ERROR: All modules OFFLINE."))
 					playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, 1, 1)
-	else
-		remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown)
 
 /mob/living/silicon/robot/update_sight()
 	if(!client)

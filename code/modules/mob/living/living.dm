@@ -674,12 +674,11 @@
 /mob/living/proc/updatehealth()
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
-	set_health(maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss())
 	staminaloss = getStaminaLoss()
+	SEND_SIGNAL(src, COMSIG_LIVING_HEALTH_UPDATE)
 	med_hud_set_health()
 	med_hud_set_status()
 	update_health_hud()
-	SEND_SIGNAL(src, COMSIG_LIVING_HEALTH_UPDATE)
 
 /mob/living/update_health_hud()
 	var/severity = 0
@@ -878,7 +877,7 @@
 /// Checks if we are actually able to ressuscitate this mob.
 /// (We don't want to revive then to have them instantly die again)
 /mob/living/proc/can_be_revived()
-	if(health <= HEALTH_THRESHOLD_DEAD)
+	if(consciousness.value <= HEALTH_THRESHOLD_DEAD)
 		return FALSE
 	return TRUE
 

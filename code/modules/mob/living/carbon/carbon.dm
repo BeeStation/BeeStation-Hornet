@@ -543,9 +543,9 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		total_brute	+= (BP.brute_dam * BP.body_damage_coeff)
 		total_burn	+= (BP.burn_dam * BP.body_damage_coeff)
 		total_stamina += (BP.stamina_dam * BP.stam_damage_coeff)
-	set_health(round(maxHealth - getOxyLoss() - getToxLoss() - getCloneLoss() - total_burn - total_brute, DAMAGE_PRECISION))
 	staminaloss = round(total_stamina, DAMAGE_PRECISION)
-	consciousness.update_stat()
+	// Send the signal here in case our stat changes as the result of a signal call
+	SEND_SIGNAL(src, COMSIG_LIVING_HEALTH_UPDATE)
 	if(((maxHealth - total_burn) < HEALTH_THRESHOLD_DEAD*2) && stat == DEAD )
 		become_husk(BURN)
 	med_hud_set_health()
@@ -553,8 +553,6 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		add_movespeed_modifier(/datum/movespeed_modifier/carbon_softcrit)
 	else
 		remove_movespeed_modifier(/datum/movespeed_modifier/carbon_softcrit)
-	SEND_SIGNAL(src, COMSIG_LIVING_HEALTH_UPDATE)
-
 
 /mob/living/carbon/update_stamina(extend_stam_crit = FALSE)
 	var/stam = getStaminaLoss()

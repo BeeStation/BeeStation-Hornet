@@ -27,12 +27,12 @@
 		death()
 
 
-/mob/living/simple_animal/hostile/illusion/proc/Copy_Parent(mob/living/original, life = 50, hp = 100, damage = 0, replicate = 0 )
+/mob/living/simple_animal/hostile/illusion/proc/Copy_Parent(mob/living/original, life = 50, total_damage = 0, damage = 0, replicate = 0 )
 	appearance = original.appearance
 	parent_mob = original
 	setDir(original.dir)
 	life_span = world.time+life
-	health = hp
+	adjustBruteLoss(total_damage, forced = TRUE)
 	melee_damage = damage
 	multiply_chance = replicate
 	faction -= FACTION_NEUTRAL
@@ -55,7 +55,7 @@
 			return
 		var/mob/living/simple_animal/hostile/illusion/M = new(loc)
 		M.faction = faction.Copy()
-		M.Copy_Parent(parent_mob, 80, health/2, melee_damage, multiply_chance/2)
+		M.Copy_Parent(parent_mob, 80, get_total_damage()/2, melee_damage, multiply_chance/2)
 		M.GiveTarget(L)
 
 ///////Actual Types/////////

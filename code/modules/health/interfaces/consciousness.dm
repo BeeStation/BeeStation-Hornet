@@ -20,6 +20,7 @@
 	RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_IGNOREDAMAGESLOWDOWN), PROC_REF(update_movespeed))
 	RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_IGNOREDAMAGESLOWDOWN), PROC_REF(update_movespeed))
 	RegisterSignal(owner, COMSIG_MOB_STATCHANGE, PROC_REF(update_stat))
+	RegisterSignal(owner, COMSIG_LIVING_HEALTH_UPDATE, PROC_REF(update_stat))
 
 /// Called every life tick
 /datum/consciousness/proc/consciousness_tick(delta_time)
