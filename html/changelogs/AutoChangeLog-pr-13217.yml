@@ -1,5 +1,0 @@
-author: Aramix
-delete-after: true
-changes:
-  - bugfix: fixed Transcendent Olfaction mutation ability not activating at all
-  - bugfix: fixed missing background sprite for mutation abilities action button

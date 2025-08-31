@@ -450,3 +450,7 @@
 2025-08-30:
   NanoTrasen-Inc, JackieOTheWisp:
   - rscadd: Added 2 new options on the synthesizer's fun tab! The Meowsyth and Spaceman!
+2025-08-31:
+  Aramix:
+  - bugfix: fixed Transcendent Olfaction mutation ability not activating at all
+  - bugfix: fixed missing background sprite for mutation abilities action button
