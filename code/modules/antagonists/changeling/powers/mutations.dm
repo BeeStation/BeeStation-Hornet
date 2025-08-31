@@ -41,6 +41,9 @@
 	if(held && !user.dropItemToGround(held))
 		to_chat(user, span_warning("[held] is stuck to your hand, you cannot grow a [weapon_name_simple] over it!"))
 		return
+	if(!istype(user))
+		to_chat(user, span_warning("You can't do that in this state!"))
+		return
 	..()
 	var/limb_regen = 0
 	if(user.active_hand_index % 2 == 0) //we regen the arm before changing it into the weapon

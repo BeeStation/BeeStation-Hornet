@@ -260,6 +260,11 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		for(var/obj/item/organ/organ as anything in organs)
 			organ.set_organ_damage(0)
 		set_heartattack(FALSE)
+
+		// Ears have aditional vаr "deaf", need to update it too
+		var/obj/item/organ/ears/ears = get_organ_slot(ORGAN_SLOT_EARS)
+		ears?.adjustEarDamage(0, -INFINITY) // full heal ears deafness
+
 		return
 
 	// Default organ fixing handling
@@ -294,7 +299,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 	if(!ears)
 		ears = new()
 		ears.Insert(src)
-	ears.set_organ_damage(0)
+	ears.adjustEarDamage(-INFINITY, -INFINITY)
 
 /obj/item/organ/proc/handle_failing_organs(delta_time)
 	return

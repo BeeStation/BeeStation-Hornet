@@ -183,7 +183,7 @@
 				H.confused += 15
 				H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10, 160)
 			if(3)
-				H.hallucination += 60
+				H.adjust_hallucinations(120 SECONDS)
 
 /obj/item/organ/heart/gland/pop
 	true_name = "anthropmorphic translocator"

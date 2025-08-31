@@ -108,12 +108,14 @@
 		regenerate_limbs.update_buttons()
 
 /datum/species/oozeling/proc/Cannibalize_Body(mob/living/carbon/human/H)
+	if(HAS_TRAIT(H, TRAIT_OOZELING_NO_CANNIBALIZE))
+		return
 	var/list/limbs_to_consume = list(BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG) - H.get_missing_limbs()
 	var/obj/item/bodypart/consumed_limb
 	for(var/L in limbs_to_consume) //Check every bodypart the oozeling has, see if they're organic or not
 		if(!IS_ORGANIC_LIMB(H.get_bodypart(L))) //Get actual limb, list only has body zone
 			limbs_to_consume -= L //If it's inorganic, remove it from the consumption list
-	if(!limbs_to_consume.len)
+	if(!length(limbs_to_consume))
 		H.losebreath++
 		return
 	if((BODY_ZONE_L_LEG in limbs_to_consume) || (BODY_ZONE_R_LEG in limbs_to_consume)) //Check if there are any organic legs left

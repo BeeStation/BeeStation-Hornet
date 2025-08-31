@@ -47,10 +47,18 @@
 	blocked += dna?.species?.damage_modifier
 	return ..()
 
-/mob/living/carbon/human/revive(full_heal = 0, admin_revive = 0)
-	if(..())
-		if(dna && dna.species)
-			dna.species.spec_revival(src)
+/mob/living/carbon/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE)
+	if(excess_healing)
+		if(dna && !HAS_TRAIT(src, TRAIT_NOBLOOD))
+			blood_volume += (excess_healing * 2) //1 excess = 10 blood
+
+		for(var/obj/item/organ/target_organ as anything in organs)
+			if(!target_organ.damage)
+				continue
+
+			target_organ.applyOrganDamage(excess_healing * -1, required_organ_flag = ORGAN_ORGANIC) //1 excess = 5 organ damage healed
+
+	return ..()
 
 /mob/living/carbon/human/get_incoming_damage_modifier(
 	damage = 0,
@@ -106,7 +114,7 @@
 		. = heal_overall_damage(brute = abs(amount), required_bodytype = required_bodytype, updating_health = updating_health, forced = forced)
 
 /mob/living/carbon/setBruteLoss(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
-	if(!forced && (status_flags & GODMODE))
+	if(!forced && HAS_TRAIT(src, TRAIT_GODMODE))
 		return FALSE
 	var/current = getBruteLoss()
 	var/diff = amount - current
@@ -125,7 +133,7 @@
 		. = heal_overall_damage(burn = abs(amount), required_bodytype = required_bodytype, updating_health = updating_health, forced = forced)
 
 /mob/living/carbon/setFireLoss(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
-	if(!forced && (status_flags & GODMODE))
+	if(!forced && HAS_TRAIT(src, TRAIT_GODMODE))
 		return FALSE
 	var/current = getFireLoss()
 	var/diff = amount - current
@@ -154,7 +162,7 @@
 		. += round(BP.stamina_dam * BP.stam_damage_coeff, DAMAGE_PRECISION)
 
 /mob/living/carbon/adjustStaminaLoss(amount, updating_stamina = TRUE, forced = FALSE, required_biotype)
-	if(!forced && (status_flags & GODMODE))
+	if(!forced && HAS_TRAIT(src, TRAIT_GODMODE))
 		return FALSE
 	if(amount > 0)
 		. = take_overall_damage(stamina = amount, updating_health = updating_stamina)
@@ -162,7 +170,7 @@
 		. = heal_overall_damage(0, 0, abs(amount), null, updating_stamina)
 
 /mob/living/carbon/setStaminaLoss(amount, updating_stamina = TRUE, forced = FALSE, required_biotype)
-	if(!forced && (status_flags & GODMODE))
+	if(!forced && HAS_TRAIT(src, TRAIT_GODMODE))
 		return FALSE
 	var/current = getStaminaLoss()
 	var/diff = amount - current
@@ -180,7 +188,7 @@
  */
 /mob/living/carbon/adjustOrganLoss(slot, amount, maximum = INFINITY, required_organ_flag = NONE)
 	var/obj/item/organ/affected_organ = get_organ_slot(slot)
-	if(!affected_organ || (status_flags & GODMODE))
+	if(!affected_organ || HAS_TRAIT(src, TRAIT_GODMODE))
 		return FALSE
 	if(required_organ_flag && !(affected_organ.organ_flags & required_organ_flag))
 		return FALSE
@@ -199,7 +207,7 @@
  */
 /mob/living/carbon/setOrganLoss(slot, amount, required_organ_flag = NONE)
 	var/obj/item/organ/affected_organ = get_organ_slot(slot)
-	if(!affected_organ || (status_flags & GODMODE))
+	if(!affected_organ || HAS_TRAIT(src, TRAIT_GODMODE))
 		return FALSE
 	if(required_organ_flag && !(affected_organ.organ_flags & required_organ_flag))
 		return FALSE
@@ -267,7 +275,7 @@
  */
 /mob/living/carbon/take_bodypart_damage(brute = 0, burn = 0, stamina = 0, updating_health = TRUE, required_bodytype, check_armor = FALSE)
 	. = FALSE
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	var/list/obj/item/bodypart/parts = get_damageable_bodyparts(required_bodytype)
 	if(!parts.len)
@@ -317,7 +325,7 @@
 
 /mob/living/carbon/take_overall_damage(brute = 0, burn = 0, stamina = 0, updating_health = TRUE, forced = FALSE, required_bodytype)
 	. = FALSE
-	if(!forced && (status_flags & GODMODE))
+	if(!forced && HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	// treat negative args as positive
 	brute = abs(brute)

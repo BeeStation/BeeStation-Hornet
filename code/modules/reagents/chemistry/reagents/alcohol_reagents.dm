@@ -451,10 +451,10 @@
 	desc = "It's as strong as it smells."
 	icon_state = "absinthe"
 
-/datum/reagent/consumable/ethanol/absinthe/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+/datum/reagent/consumable/ethanol/absinthe/on_mob_life(mob/living/carbon/drinker, delta_time, times_fired)
 	. = ..()
-	if(DT_PROB(5, delta_time) && !HAS_TRAIT(affected_mob, TRAIT_ALCOHOL_TOLERANCE))
-		affected_mob.hallucination += 4 //Reference to the urban myth
+	if(DT_PROB(5, delta_time) && !HAS_TRAIT(drinker, TRAIT_ALCOHOL_TOLERANCE))
+		drinker.adjust_hallucinations(8 SECONDS) //Reference to the urban myth
 
 /datum/reagent/consumable/ethanol/hooch
 	name = "Hooch"
@@ -814,7 +814,7 @@
 	overdose_threshold = 40
 	metabolized_traits = list(TRAIT_NOBLOCK)
 
-	var/datum/brain_trauma/special/beepsky/beepsky
+	var/datum/brain_trauma/special/beepsky/beepsky_hallucination
 
 /datum/glass_style/drinking_glass/beepsky_smash
 	required_drink_type = /datum/reagent/consumable/ethanol/beepsky_smash
@@ -828,24 +828,23 @@
 	if(HAS_TRAIT(affected_mob, TRAIT_ALCOHOL_TOLERANCE))
 		metabolization_rate = 0.8
 	if(!HAS_MIND_TRAIT(affected_mob, TRAIT_LAW_ENFORCEMENT_METABOLISM))
-		beepsky = new()
-		affected_mob.gain_trauma(beepsky, TRAUMA_RESILIENCE_ABSOLUTE)
+		beepsky_hallucination = new()
+		affected_mob.gain_trauma(beepsky_hallucination, TRAUMA_RESILIENCE_ABSOLUTE)
 
-/datum/reagent/consumable/ethanol/beepsky_smash/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+/datum/reagent/consumable/ethanol/beepsky_smash/on_mob_life(mob/living/carbon/drinker, delta_time, times_fired)
 	. = ..()
-	affected_mob.Jitter(2)
-	if(HAS_MIND_TRAIT(affected_mob, TRAIT_LAW_ENFORCEMENT_METABOLISM))
-		affected_mob.adjustStaminaLoss(-10 * REM * delta_time, updating_stamina = FALSE)
+	drinker.Jitter(2)
+	if(HAS_MIND_TRAIT(drinker, TRAIT_LAW_ENFORCEMENT_METABOLISM))
+		drinker.adjustStaminaLoss(-10 * REM * delta_time, updating_stamina = FALSE)
 		if(DT_PROB(10, delta_time))
-			new /datum/hallucination/items_other(affected_mob)
+			drinker.cause_hallucination(get_random_valid_hallucination_subtype(/datum/hallucination/nearby_fake_item), name)
 		if(DT_PROB(5, delta_time))
-			new /datum/hallucination/stray_bullet(affected_mob)
-
-		return UPDATE_MOB_HEALTH
+			drinker.cause_hallucination(/datum/hallucination/stray_bullet, name)
 
 /datum/reagent/consumable/ethanol/beepsky_smash/on_mob_end_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
-	QDEL_NULL(beepsky)
+	if(beepsky_hallucination)
+		QDEL_NULL(beepsky_hallucination)
 
 /datum/reagent/consumable/ethanol/beepsky_smash/overdose_start(mob/living/carbon/affected_mob)
 	if(!HAS_MIND_TRAIT(affected_mob, TRAIT_LAW_ENFORCEMENT_METABOLISM))

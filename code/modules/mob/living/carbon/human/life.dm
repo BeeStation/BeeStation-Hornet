@@ -103,7 +103,7 @@
 		if(GAS_O2)
 			throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
 		if(GAS_PLASMA)
-			throw_alert("not_enough_tox", /atom/movable/screen/alert/not_enough_tox)
+			throw_alert("not_enough_tox", /atom/movable/screen/alert/not_enough_plas)
 		if(GAS_CO2)
 			throw_alert("not_enough_co2", /atom/movable/screen/alert/not_enough_co2)
 		if(GAS_N2)

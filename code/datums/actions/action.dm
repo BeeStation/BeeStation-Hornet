@@ -32,6 +32,8 @@
 	/// If toggleable, deactivate will be called when the action button is pressed after
 	/// being activated.
 	var/toggleable = FALSE
+	/// full key we are bound to
+	var/full_key
 	// =====================================
 	// Action Appearance
 	// =====================================
@@ -129,6 +131,7 @@
 	SEND_SIGNAL(src, COMSIG_ACTION_GRANTED, owner)
 	//SEND_SIGNAL(owner, COMSIG_MOB_GRANTED_ACTION, src)
 	RegisterSignal(owner, COMSIG_QDELETING, PROC_REF(clear_ref), override = TRUE)
+	RegisterSignal(owner, COMSIG_MOB_KEYDOWN, PROC_REF(keydown), override = TRUE)
 
 	// Register some signals based on our check_flags
 	// so that our button icon updates when relevant
@@ -168,6 +171,7 @@
 	SEND_SIGNAL(src, COMSIG_ACTION_REMOVED, owner)
 	//SEND_SIGNAL(owner, COMSIG_MOB_REMOVED_ACTION, src)
 	UnregisterSignal(owner, COMSIG_QDELETING)
+	UnregisterSignal(owner, COMSIG_MOB_KEYDOWN)
 
 	// Clean up our check_flag signals
 	UnregisterSignal(owner, list(
@@ -371,6 +375,7 @@
 		QDEL_NULL(timer_overlay)
 
 	var/available = is_available()
+	button.update_keybind_maptext(full_key)
 	if(available)
 		button.color = rgb(255,255,255,255)
 	else
@@ -544,6 +549,16 @@
 /datum/action/proc/is_active()
 	return active
 
+/datum/action/proc/begin_creating_bind(atom/movable/screen/movable/action_button/current_button, mob/user)
+	if(!current_button || user != owner)
+		return
+	if(!isnull(full_key))
+		full_key = null
+		update_button(current_button)
+		return
+	full_key = tgui_input_keycombo(user, "Please bind a key for this action.")
+	update_button(current_button)
+
 //Exists to keep master private
 /datum/action/proc/get_master()
 	SHOULD_BE_PURE(TRUE)
@@ -552,3 +567,14 @@
 //Exists to keep next_use_time private
 /datum/action/proc/reset_next_use_time()
 	next_use_time = initial(next_use_time)
+
+/datum/action/proc/keydown(mob/source, key, client/client, full_key)
+	SIGNAL_HANDLER
+	if(isnull(full_key) || full_key != src.full_key)
+		return
+	if(istype(source))
+		if(source.next_click > world.time)
+			return
+		else
+			source.next_click = world.time + CLICK_CD_HYPER_RAPID
+	INVOKE_ASYNC(src, PROC_REF(trigger))

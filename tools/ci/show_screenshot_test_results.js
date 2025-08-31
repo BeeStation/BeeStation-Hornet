@@ -4,23 +4,8 @@ import path from "path";
 import process from "process";
 
 const createComment = (screenshotFailures, zipFileUrl) => {
-	const formatScreenshotFailure = ({
-		directory,
-		diffUrl,
-		newUrl,
-		oldUrl,
-	}) => {
-		const img = (url) => {
-			if (url) {
-				return `![](${url})`;
-			} else {
-				return "None produced.";
-			}
-		};
-
-		return `| ${directory} | ${img(oldUrl)} | ${img(newUrl)} | ${img(
-			diffUrl
-		)} |`;
+	const formatScreenshotFailure = ({ directory }) => {
+		return `| ${directory} |`;
 	};
 
 	return `
@@ -34,10 +19,10 @@ const createComment = (screenshotFailures, zipFileUrl) => {
 
 		## Diffs
 		<details>
-			<summary>See snapshot diffs</summary>
+			<summary>See failing tests</summary>
 
-			| Name | Expected image | Produced image | Diff |
-			| :--: | :------------: | :------------: | :--: |
+			| Name |
+			| :--: |
 			${screenshotFailures.map(formatScreenshotFailure).join("\n")}
 		</details>
 
@@ -126,50 +111,50 @@ export async function showScreenshotTestResults({ github, context, exec }) {
 
 	fs.rmSync(prNumberFile);
 
-	// Collect screenshots and re-upload as individual artifacts
-	const screenshotFailures = [];
-	for (const directory of fs.readdirSync("bad-screenshots")) {
-		const newPath = path.join("bad-screenshots", directory, "new.png");
-		const oldPath = path.join("bad-screenshots", directory, "old.png");
-		const diffPath = path.join("bad-screenshots", directory, "diff.png");
-
-		if (![newPath, oldPath, diffPath].some((p) => fs.existsSync(p)))
-			continue;
-
-		// Upload screenshots as new artifacts
-		const uploadAndGetUrl = async (file, label) => {
-			if (!fs.existsSync(file)) return null;
-
-			await github.rest.actions.uploadArtifact({
-				owner: context.repo.owner,
-				repo: context.repo.repo,
-				run_id: context.runId,
-				name: `${directory}-${label}`,
-				files: [file],
-			});
-
-			// Note: GitHub doesn’t provide direct image links; instead, artifact download URL:
-			const { data } = await github.rest.actions.listWorkflowRunArtifacts(
-				{
-					owner: context.repo.owner,
-					repo: context.repo.repo,
-					run_id: context.runId,
+	// Validate the PR
+	const result = await github.graphql(
+		`query($owner:String!, $repo:String!, $prNumber:Int!) {
+		repository(owner: $owner, name: $repo) {
+			pullRequest(number: $prNumber) {
+				commits(last: 1) {
+					nodes {
+						commit {
+							checkSuites(first: 10) {
+								nodes {
+									id
+								}
+							}
+						}
+					}
 				}
-			);
-			const artifact = data.artifacts.find(
-				(a) => a.name === `${directory}-${label}`
-			);
-			return artifact ? artifact.archive_download_url : null;
-		};
+			}
+		}
+	}`,
+		{
+			owner: context.repo.owner,
+			repo: context.repo.repo,
+			prNumber,
+		}
+	);
 
-		let newUrl, oldUrl, diffUrl;
-		await Promise.all([
-			uploadAndGetUrl(newPath, "new").then((u) => (newUrl = u)),
-			uploadAndGetUrl(oldPath, "old").then((u) => (oldUrl = u)),
-			uploadAndGetUrl(diffPath, "diff").then((u) => (diffUrl = u)),
-		]);
+	const validPr =
+		result.repository.pullRequest.commits.nodes[0].commit.checkSuites.nodes.some(
+			({ id }) => id === context.payload.workflow_run.check_suite_node_id
+		);
 
-		screenshotFailures.push({ directory, newUrl, oldUrl, diffUrl });
+	if (!validPr) {
+		console.log(
+			`PR #${prNumber} is not valid (expected check suite ID ${context.payload.workflow_run.check_suite_node_id})`
+		);
+		return;
+	}
+
+	const screenshotFailures = [];
+
+	for (const directory of fs.readdirSync("bad-screenshots")) {
+		console.log(`Uploading screenshots for ${directory}`);
+
+		screenshotFailures.push({ directory });
 	}
 
 	if (screenshotFailures.length === 0) {
@@ -177,16 +162,11 @@ export async function showScreenshotTestResults({ github, context, exec }) {
 		return;
 	}
 
-	// Build PR comment (clickable download links)
-	const comment = screenshotFailures
-		.map(({ directory, newUrl, oldUrl, diffUrl }) => {
-			return `### Screenshot mismatch: \`${directory}\`
-
-**Old** [Download](${oldUrl})
-**New** [Download](${newUrl})
-**Diff** [Download](${diffUrl})`;
-		})
-		.join("\n\n");
+	// Post the comment
+	const comment = createComment(
+		screenshotFailures,
+		badScreenshots.archive_download_url
+	);
 
 	await github.rest.issues.createComment({
 		owner: context.repo.owner,

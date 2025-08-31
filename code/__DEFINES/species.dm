@@ -24,7 +24,6 @@
 #define SPECIES_SKELETON "skeleton"
 #define SPECIES_SNAIL "snail"
 #define SPECIES_SUPERSOLDIER "supersoldier"
-#define SPECIES_VAMPIRE "vampire"
 #define SPECIES_PSYPHOZA "psyphoza"
 #define SPECIES_ZOMBIE "zombie"
 #define SPECIES_ZOMBIE_INFECTIOUS "memezombie"

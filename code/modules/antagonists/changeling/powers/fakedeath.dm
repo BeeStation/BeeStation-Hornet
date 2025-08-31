@@ -28,7 +28,17 @@
 	return TRUE
 
 /datum/action/changeling/fakedeath/proc/revive(mob/living/carbon/user)
-	if(!user || !istype(user))
+	if(!istype(user))
+		return
+
+	user.cure_fakedeath("changeling")
+	// Heal all damage and some minor afflictions,
+	var/flags_to_heal = (HEAL_DAMAGE|HEAL_BODY|HEAL_STATUS|HEAL_CC_STATUS)
+	// but leave out limbs so we can do it specially
+	user.revive(flags_to_heal & ~HEAL_LIMBS)
+
+	var/static/list/dont_regenerate = list(BODY_ZONE_HEAD)
+	if(!length(user.get_missing_limbs() - dont_regenerate))
 		return
 
 	playsound(user, 'sound/magic/demon_consume.ogg', 50, TRUE)
@@ -37,10 +47,9 @@
 		span_userdanger("Your limbs regrow, making a loud, crunchy sound and giving you great pain!"),
 		span_hear("You hear organic matter ripping and tearing!"),
 	)
-
-	user.cure_fakedeath("changeling")
-	user.revive(full_heal = TRUE)
-	user.regenerate_limbs()
+	user.emote("scream")
+	// Manually call this (outside of revive/fullheal) so we can pass our blacklist
+	user.regenerate_limbs(dont_regenerate)
 
 /datum/action/changeling/fakedeath/proc/ready_to_regenerate(datum/mind/mind)
 	if(!mind || !iscarbon(mind.current))

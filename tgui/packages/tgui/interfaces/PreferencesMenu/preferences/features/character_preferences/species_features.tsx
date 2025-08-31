@@ -1,4 +1,13 @@
-import { FeatureColorInput, Feature, FeatureChoiced, FeatureValueProps, FeatureButtonedDropdownInput, StandardizedPalette } from '../base';
+import {
+  Feature,
+  FeatureChoiced,
+  FeatureColorInput,
+  FeatureValueProps,
+} from '../base';
+import {
+  FeatureButtonedDropdownInput,
+  StandardizedPalette,
+} from '../dropdowns';
 
 const eyePresets = {
   '#aaccff': 'Baby Blue',

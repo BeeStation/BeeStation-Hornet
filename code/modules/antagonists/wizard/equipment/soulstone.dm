@@ -46,6 +46,10 @@
 	name = "mysterious old shard"
 	old_shard = TRUE
 
+/obj/item/soulstone/vampire
+	theme = THEME_WIZARD
+	required_role = /datum/antagonist/vassal
+
 /obj/item/soulstone/pickup(mob/living/user)
 	..()
 	if(!role_check(user))
@@ -71,9 +75,7 @@
 	..()
 	if(istype(S))
 		// Things that *really should always* happen to the shade when it comes out should go here.
-		S.status_flags &= ~GODMODE
-		REMOVE_TRAIT(S, TRAIT_IMMOBILIZED, SOULSTONE_TRAIT)
-		REMOVE_TRAIT(S, TRAIT_HANDS_BLOCKED, SOULSTONE_TRAIT)
+		S.remove_traits(list(TRAIT_GODMODE, TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), SOULSTONE_TRAIT)
 		S.cancel_camera()
 		if(theme == THEME_HOLY)
 			S.icon_state = "shade_angelic"
@@ -232,7 +234,7 @@
 				to_chat(user, "[span_userdanger("Capture failed!")]: The soulstone is full! Free an existing soul to make room.")
 			else
 				T.forceMove(src) //put shade in stone
-				T.status_flags |= GODMODE
+				ADD_TRAIT(T, TRAIT_GODMODE, SOULSTONE_TRAIT)
 				T.mobility_flags = NONE
 				T.health = T.maxHealth
 				if(theme == THEME_HOLY)
@@ -345,9 +347,8 @@
 	T.invisibility = INVISIBILITY_ABSTRACT
 	T.dust_animation()
 	var/mob/living/simple_animal/shade/S = new /mob/living/simple_animal/shade(src)
-	S.status_flags |= GODMODE //So they won't die inside the stone somehow
-	ADD_TRAIT(S, TRAIT_IMMOBILIZED, SOULSTONE_TRAIT)
-	ADD_TRAIT(S, TRAIT_HANDS_BLOCKED, SOULSTONE_TRAIT)
+	//So they won't die inside the stone somehow
+	S.add_traits(list(TRAIT_GODMODE, TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), SOULSTONE_TRAIT)
 	S.name = "Shade of [T.real_name]"
 	S.real_name = "Shade of [T.real_name]"
 	S.key = shade_controller.key

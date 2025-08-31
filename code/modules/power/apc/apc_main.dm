@@ -295,7 +295,12 @@
 		else
 			. += "It's [ !terminal ? "not" : "" ] wired up.\n"+\
 			"The electronics are[!has_electronics?"n't":""] installed."
-		if(integration_cog || (user.hallucinating() && prob(20)))
+
+		var/is_hallucinating = FALSE
+		if(isliving(user))
+			var/mob/living/living_user = user
+			is_hallucinating = !!living_user.has_status_effect(/datum/status_effect/hallucination)
+		if(integration_cog || (is_hallucinating && prob(20)))
 			. += "A small cogwheel is inside of it."
 
 	else

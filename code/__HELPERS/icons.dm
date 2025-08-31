@@ -714,7 +714,7 @@ world
 	return rgb(round(rgb[1]*amount), round(rgb[2]*amount), round(rgb[3]*amount))
 
 // Creates a single icon from a given /atom or /image.  Only the first argument is required.
-/proc/getFlatIcon(image/appearance, defdir, deficon, defstate, defblend, start = TRUE, no_anim = FALSE, parentcolor)
+/proc/getFlatIcon(image/appearance, defdir, deficon, defstate, defblend, start = TRUE, no_anim = FALSE, parentcolor, override_plane = null, ignore_overlays = FALSE)
 	// Loop through the underlays, then overlays, sorting them into the layers list
 	#define PROCESS_OVERLAYS_OR_UNDERLAYS(flat, process, base_layer) \
 		for (var/i in 1 to process.len) { \
@@ -788,18 +788,19 @@ world
 
 	var/curblend = appearance.blend_mode || defblend
 
-	if(appearance.overlays.len || appearance.underlays.len)
+	if(!ignore_overlays && (appearance.overlays.len || appearance.underlays.len))
 		var/icon/flat = icon(flat_template)
 		// Layers will be a sorted list of icons/overlays, based on the order in which they are displayed
 		var/list/layers = list()
 		var/image/copy
 		// Add the atom's icon itself, without pixel_x/y offsets.
 		if(render_icon)
-			copy = image(icon=curicon, icon_state=curstate, layer=appearance.layer, dir=base_icon_dir)
-			copy.color = appearance.color
-			copy.alpha = appearance.alpha
-			copy.blend_mode = curblend
-			layers[copy] = appearance.layer
+			if (isnull(override_plane) || override_plane == appearance.plane)
+				copy = image(icon=curicon, icon_state=curstate, layer=appearance.layer, dir=base_icon_dir)
+				copy.color = appearance.color
+				copy.alpha = appearance.alpha
+				copy.blend_mode = curblend
+				layers += copy
 
 		PROCESS_OVERLAYS_OR_UNDERLAYS(flat, appearance.underlays, 0)
 		PROCESS_OVERLAYS_OR_UNDERLAYS(flat, appearance.overlays, 1)
@@ -843,7 +844,7 @@ world
 					else
 						add.Blend(appearance.color, ICON_MULTIPLY)
 			else // 'I' is an appearance object.
-				add = getFlatIcon(image(layer_image), curdir, curicon, curstate, curblend, FALSE, no_anim, next_parentcolor)
+				add = getFlatIcon(image(layer_image), curdir, curicon, curstate, curblend, FALSE, no_anim, next_parentcolor, override_plane = override_plane, ignore_overlays = TRUE)
 
 			if(!add)
 				continue
@@ -1436,8 +1437,8 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 	else
 		icon_states_cache[file][state] = FALSE
 		if(scream)
-			stack_trace("Icon Lookup for state: [state] in file [file] failed.")
-		return FALSE
+		 stack_trace("Icon Lookup for state: [state] in file [file] failed.")
+	 return FALSE
 
 /**
  * Center's an image.

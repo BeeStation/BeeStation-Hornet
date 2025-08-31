@@ -99,6 +99,13 @@ GLOBAL_LIST_INIT(construct_radial_images, list(
 			else
 				.[E.key_third_person] |= E
 
+/proc/get_crewmember_minds()
+	var/list/minds = list()
+	for(var/datum/record/locked/target in GLOB.manifest.locked)
+		var/datum/mind/mind = target.weakref_mind.resolve()
+		if(mind)
+			minds += mind
+	return minds
 /// List of all species prototypes to reference, assoc [type] = prototype
 GLOBAL_LIST_INIT_TYPED(species_prototypes, /datum/species, init_species_prototypes())
 

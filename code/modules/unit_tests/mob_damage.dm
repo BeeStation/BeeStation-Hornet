@@ -148,7 +148,7 @@
 	if(included_types & TOXLOSS)
 		damage_returned = testing_mob.adjustToxLoss(amount, updating_health = FALSE, forced = forced, required_biotype = biotypes)
 		// DISABLED: Toxin damage return value assertion - has precision/rounding issues
-		//TEST_ASSERT_EQUAL(damage_returned, expected, 
+		//TEST_ASSERT_EQUAL(damage_returned, expected,
 		//	"adjustToxLoss() should have returned [expected], but returned [damage_returned] instead!")
 
 	if(included_types & BRUTELOSS)
@@ -253,7 +253,7 @@
 ///	Sanity tests damage and healing using the more complex procs like take_overall_damage(), heal_overall_damage(), etc
 /datum/unit_test/mob_damage/proc/test_sanity_complex(mob/living/carbon/human/consistent/dummy)
 	// Heal up, so that errors from the previous tests we won't cause this one to fail
-	dummy.fully_heal(admin_revive = TRUE)
+	dummy.fully_heal(HEAL_DAMAGE)
 
 	var/damage_returned
 	// take 5 brute, 2 burn
@@ -323,9 +323,9 @@
 ///	Tests damage procs with godmode on
 /datum/unit_test/mob_damage/proc/test_godmode(mob/living/carbon/human/consistent/dummy)
 	// Heal up, so that errors from the previous tests we won't cause this one to fail
-	dummy.fully_heal(admin_revive = TRUE)
-	// flip godmode bit to 1
-	dummy.status_flags ^= GODMODE
+	dummy.fully_heal(HEAL_DAMAGE)
+	// add godmode
+	ADD_TRAIT(dummy, TRAIT_GODMODE, TRAIT_GENERIC)
 
 	// Apply 9 damage and then heal it
 	if(!test_apply_damage(dummy, amount = 9, expected = 0))
@@ -341,13 +341,13 @@
 	if(!test_apply_damage(dummy, amount = -11, forced = TRUE))
 		TEST_FAIL("ABOVE FAILURE: failed test_godmode! godmode did not respect forced = TRUE")
 
-	// flip godmode bit back to 0
-	dummy.status_flags ^= GODMODE
+	// remove godmode
+	REMOVE_TRAIT(dummy, TRAIT_GODMODE, TRAIT_GENERIC)
 
 /// Testing biotypes
 /datum/unit_test/mob_damage/proc/test_biotypes(mob/living/carbon/human/consistent/dummy)
 	// Heal up, so that errors from the previous tests we won't cause this one to fail
-	dummy.fully_heal(admin_revive = TRUE)
+	dummy.fully_heal(HEAL_DAMAGE)
 	// Testing biotypes using a plasmaman, who is MOB_MINERAL and MOB_HUMANOID
 	dummy.set_species(/datum/species/plasmaman)
 
@@ -382,7 +382,7 @@
 /// Testing oxyloss with the TRAIT_NOBREATH
 /datum/unit_test/mob_damage/proc/test_nobreath(mob/living/carbon/human/consistent/dummy)
 	// Heal up, so that errors from the previous tests we won't cause this one to fail
-	dummy.fully_heal(admin_revive = TRUE)
+	dummy.fully_heal(HEAL_DAMAGE)
 
 	// TRAIT_NOBREATH is supposed to prevent oxyloss damage (but not healing). Let's make sure that's the case.
 	ADD_TRAIT(dummy, TRAIT_NOBREATH, TRAIT_SOURCE_UNIT_TESTS)
@@ -402,7 +402,7 @@
 /// Testing toxloss with TRAIT_TOXINLOVER and TRAIT_TOXIMMUNE
 /datum/unit_test/mob_damage/proc/test_toxintraits(mob/living/carbon/human/consistent/dummy)
 	// Heal up, so that errors from the previous tests we won't cause this one to fail
-	dummy.fully_heal(admin_revive = TRUE)
+	dummy.fully_heal(HEAL_DAMAGE)
 
 	// TRAIT_TOXINLOVER is supposed to invert toxin damage and healing. Things that would normally cause toxloss now heal it, and vice versa.
 	ADD_TRAIT(dummy, TRAIT_TOXINLOVER, TRAIT_SOURCE_UNIT_TESTS)
@@ -437,7 +437,7 @@
 /// Testing cloneloss with TRAIT_NOCLONELOSS
 /datum/unit_test/mob_damage/proc/test_nocloneloss(mob/living/carbon/human/consistent/dummy)
 	// Heal up, so that errors from the previous tests we won't cause this one to fail
-	dummy.fully_heal(admin_revive = TRUE)
+	dummy.fully_heal(HEAL_DAMAGE)
 
 	// TRAIT_TRAIT_NOCLONELOSS is supposed to prevent cloneloss damage and healing. Let's make sure that's the case.
 	ADD_TRAIT(dummy, TRAIT_NOCLONELOSS, TRAIT_SOURCE_UNIT_TESTS)
@@ -460,7 +460,7 @@
 /// Testing heal_ordered_damage()
 /datum/unit_test/mob_damage/proc/test_ordered_healing(mob/living/carbon/human/consistent/dummy)
 	// Heal up, so that errors from the previous tests we won't cause this one to fail
-	dummy.fully_heal(admin_revive = TRUE)
+	dummy.fully_heal(HEAL_DAMAGE)
 	var/damage_returned
 
 	// We apply 20 brute, 20 burn, and 20 toxin damage. 60 damage total
@@ -571,7 +571,7 @@
 
 /datum/unit_test/mob_damage/basic/test_sanity_complex(mob/living/basic/pet/dog/corgi/gusgus)
 	// Heal up, so that errors from the previous tests we won't cause this one to fail
-	gusgus.fully_heal(admin_revive = TRUE)
+	gusgus.fully_heal(HEAL_DAMAGE)
 	var/damage_returned
 	// overall damage procs
 

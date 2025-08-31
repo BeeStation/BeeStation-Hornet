@@ -24,6 +24,9 @@
 	close_sound_volume = 50
 	drag_slowdown = 0
 	imacrate = TRUE
+	breakout_time = 20 SECONDS
+	var/mob/living/resident //The vampire owner of this crate (or coffin)
+	var/pry_lid_timer = 25 SECONDS //The time it takes to pry this open with a crowbar
 	var/crate_climb_time = 20
 	var/azimuth_angle_2 = 180 //in this context the azimuth angle for over 90 degree
 	var/radius_2 = 1.35
@@ -152,23 +155,6 @@
 		user.put_in_hands(manifest)
 	manifest = null
 	update_icon()
-
-/obj/structure/closet/crate/coffin
-	name = "coffin"
-	desc = "It's a burial receptacle for the dearly departed."
-	icon_state = "coffin"
-	resistance_flags = FLAMMABLE
-	max_integrity = 70
-	material_drop = /obj/item/stack/sheet/wood
-	material_drop_amount = 5
-	open_sound = 'sound/machines/wooden_closet_open.ogg'
-	close_sound = 'sound/machines/wooden_closet_close.ogg'
-	open_sound_volume = 25
-	close_sound_volume = 50
-	door_anim_angle = 140
-	azimuth_angle_2 = 180
-	door_anim_time = 5
-	door_hinge = 5
 
 /obj/structure/closet/crate/internals
 	desc = "An internals crate."

@@ -201,14 +201,18 @@
 	if(!check_rights(R_ADMIN))
 		return
 
-	M.status_flags ^= GODMODE
-	to_chat(usr, span_adminnotice("Toggled [(M.status_flags & GODMODE) ? "ON" : "OFF"]"))
+	if(HAS_TRAIT_FROM(M, TRAIT_GODMODE, "adminabuse"))
+		REMOVE_TRAIT(M, TRAIT_GODMODE, "adminabuse")
+	else
+		ADD_TRAIT(M, TRAIT_GODMODE, "adminabuse")
 
-	log_admin("[key_name(usr)] has toggled [key_name(M)]'s nodamage to [(M.status_flags & GODMODE) ? "On" : "Off"]")
-	var/msg = "[key_name_admin(usr)] has toggled [ADMIN_LOOKUPFLW(M)]'s nodamage to [(M.status_flags & GODMODE) ? "On" : "Off"]"
+	to_chat(usr, span_adminnotice("Toggled [(HAS_TRAIT(M, TRAIT_GODMODE)) ? "ON" : "OFF"]"))
+
+	log_admin("[key_name(usr)] has toggled [key_name(M)]'s nodamage to [(HAS_TRAIT(M, TRAIT_GODMODE)) ? "On" : "Off"]")
+	var/msg = "[key_name_admin(usr)] has toggled [ADMIN_LOOKUPFLW(M)]'s nodamage to [(HAS_TRAIT(M, TRAIT_GODMODE)) ? "On" : "Off"]"
 	message_admins(msg)
 	admin_ticket_log(M, msg)
-	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Godmode", "[M.status_flags & GODMODE ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Godmode", "[HAS_TRAIT(M, TRAIT_GODMODE) ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 
 /proc/cmd_admin_mute(whom, mute_type, automute = FALSE)
@@ -553,7 +557,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	// We query the admin who sent the adminheal if they are sure
 	if(tgui_alert(usr, "A full adminheal was called on [src], approve or deny?", "Aheal Query", buttons = list("Approve", "Deny")) != "Approve")
 		return
-	M.revive(full_heal = TRUE, admin_revive = TRUE)
+	M.revive(ADMIN_HEAL_ALL)
 
 	log_admin("[key_name(usr)] healed / revived [key_name(M)]")
 	var/msg = span_danger("Admin [key_name_admin(usr)] healed / revived [ADMIN_LOOKUPFLW(M)]!")

@@ -27,6 +27,8 @@
 	var/mob/living/quirk_target // The mob that will be affected by this quirk
 	/// When making an abstract quirk (in OOP terms), don't forget to set this var to the type path for that abstract quirk.
 	var/abstract_parent_type = /datum/quirk
+	/// Accent to be used in accent traits
+	var/accent_to_use = null
 
 /datum/quirk/New(datum/mind/quirk_mind, mob/living/quirk_mob, spawn_effects)
 	..()

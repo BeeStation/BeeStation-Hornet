@@ -9,7 +9,7 @@
  */
 /mob/living/basic/proc/adjust_health(amount, updating_health = TRUE, forced = FALSE)
 	. = FALSE
-	if(!forced && (status_flags & GODMODE))
+	if(!forced && HAS_TRAIT(src, TRAIT_GODMODE))
 		return 0
 	. = bruteloss // bruteloss value before applying damage
 	bruteloss = round(clamp(bruteloss + amount, 0, maxHealth * 2), DAMAGE_PRECISION)
