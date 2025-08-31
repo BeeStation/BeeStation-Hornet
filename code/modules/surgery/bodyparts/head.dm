@@ -3,7 +3,7 @@
 	desc = "Didn't make sense not to live for fun, your brain gets smart but your head gets dumb."
 	icon = 'icons/mob/species/human/bodyparts.dmi'
 	icon_state = "default_human_head"
-	max_damage = 200
+	max_damage = 80
 	body_zone = BODY_ZONE_HEAD
 	body_part = HEAD
 	plaintext_zone = "head"

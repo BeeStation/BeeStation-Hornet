@@ -11,6 +11,9 @@
 	medium_brute_msg = "dented"
 	heavy_brute_msg = "sheared"
 	circulation_flags = CIRCULATION_COOLANT
+	pain_multiplier = 0
+	internal_protection_rating = 0.1
+	max_damage = 40
 
 	light_burn_msg = "burned"
 	medium_burn_msg = "scorched"
@@ -37,6 +40,9 @@
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
 	decay_rate = 0
 	circulation_flags = CIRCULATION_COOLANT
+	pain_multiplier = 0
+	internal_protection_rating = 0.35
+	max_damage = 60
 
 	light_brute_msg = "scratched"
 	medium_brute_msg = "dented"
@@ -73,6 +79,9 @@
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
 	decay_rate = 0
 	circulation_flags = CIRCULATION_COOLANT
+	pain_multiplier = 0
+	internal_protection_rating = 0.2
+	max_damage = 30
 
 	light_brute_msg = "scratched"
 	medium_brute_msg = "dented"
@@ -94,6 +103,9 @@
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
 	decay_rate = 0
 	circulation_flags = CIRCULATION_COOLANT
+	pain_multiplier = 0
+	internal_protection_rating = 0.2
+	max_damage = 30
 
 	light_brute_msg = "scratched"
 	medium_brute_msg = "dented"
@@ -115,6 +127,9 @@
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
 	decay_rate = 0
 	circulation_flags = CIRCULATION_COOLANT
+	pain_multiplier = 0
+	internal_protection_rating = 0.2
+	max_damage = 30
 
 	light_brute_msg = "scratched"
 	medium_brute_msg = "dented"
@@ -136,6 +151,9 @@
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
 	decay_rate = 0
 	circulation_flags = CIRCULATION_COOLANT
+	pain_multiplier = 0
+	internal_protection_rating = 0.2
+	max_damage = 30
 
 	light_brute_msg = "scratched"
 	medium_brute_msg = "dented"

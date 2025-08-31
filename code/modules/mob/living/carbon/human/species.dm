@@ -165,6 +165,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	/// The type of consciousness used by this mob
 	var/consciousness_type = /datum/consciousness/organic
 
+	/// The type of pain used by this mob
+	var/pain_type = /datum/pain_source/carbon
+
 ///////////
 // PROCS //
 ///////////
@@ -478,6 +481,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if (istype(C.consciousness))
 		qdel(C.consciousness)
 	C.consciousness = new consciousness_type(C)
+
+	if (istype(C.pain))
+		qdel(C.pain)
+	C.pain = new pain_type()
+	C.pain.Initialize(C)
 
 	if(exotic_bloodtype && C.dna.blood_type != exotic_bloodtype)
 		C.dna.blood_type = exotic_bloodtype

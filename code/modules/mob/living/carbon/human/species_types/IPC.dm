@@ -74,6 +74,8 @@
 
 	speak_no_tongue = FALSE  // who stole my soundblaster?! (-candy/etherware)
 	blood_type = new /datum/blood_source/silicon
+	pain_type = /datum/pain_source/none
+	consciousness_type = /datum/consciousness/organic
 
 /datum/species/ipc/random_name(gender, unique, lastname, attempts)
 	. = "[pick(GLOB.posibrain_names)]-[rand(100, 999)]"

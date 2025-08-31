@@ -29,6 +29,9 @@
 	dmg_overlay_type = "robotic"
 	circulation_flags = CIRCULATION_BLOOD | CIRCULATION_COOLANT
 	pain_multiplier = 0.5
+	// Because IPCs can use these and don't feel pain, we need to take organ
+	// damage from normal attacks.
+	internal_protection_rating = 0.5
 
 	brute_reduction = 5
 	burn_reduction = 4
@@ -64,6 +67,9 @@
 	dmg_overlay_type = "robotic"
 	circulation_flags = CIRCULATION_BLOOD | CIRCULATION_COOLANT
 	pain_multiplier = 0.5
+	// Because IPCs can use these and don't feel pain, we need to take organ
+	// damage from normal attacks.
+	internal_protection_rating = 0.5
 
 	brute_reduction = 5
 	burn_reduction = 4
@@ -99,6 +105,9 @@
 	dmg_overlay_type = "robotic"
 	circulation_flags = CIRCULATION_BLOOD | CIRCULATION_COOLANT
 	pain_multiplier = 0.5
+	// Because IPCs can use these and don't feel pain, we need to take organ
+	// damage from normal attacks.
+	internal_protection_rating = 0.5
 
 	brute_reduction = 5
 	burn_reduction = 4
@@ -134,6 +143,9 @@
 	dmg_overlay_type = "robotic"
 	circulation_flags = CIRCULATION_BLOOD | CIRCULATION_COOLANT
 	pain_multiplier = 0.5
+	// Because IPCs can use these and don't feel pain, we need to take organ
+	// damage from normal attacks.
+	internal_protection_rating = 0.5
 
 	brute_reduction = 5
 	burn_reduction = 4
@@ -167,6 +179,9 @@
 	dmg_overlay_type = "robotic"
 	circulation_flags = CIRCULATION_BLOOD | CIRCULATION_COOLANT
 	pain_multiplier = 0.5
+	// Because IPCs can use these and don't feel pain, we need to take organ
+	// damage from normal attacks.
+	internal_protection_rating = 0.5
 
 	brute_reduction = 5
 	burn_reduction = 4
@@ -283,6 +298,9 @@
 	dmg_overlay_type = "robotic"
 	circulation_flags = CIRCULATION_BLOOD | CIRCULATION_COOLANT
 	pain_multiplier = 0.5
+	// Because IPCs can use these and don't feel pain, we need to take organ
+	// damage from normal attacks.
+	internal_protection_rating = 0.5
 
 	brute_reduction = 5
 	burn_reduction = 4
@@ -409,8 +427,6 @@
 	burn_reduction = 0
 	effectiveness = 40
 	max_damage = 20
-
-
 
 /obj/item/bodypart/head/robot/android
 	change_exempt_flags = null

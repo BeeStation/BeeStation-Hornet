@@ -68,7 +68,10 @@
 	var/brute_dam = 0
 	var/burn_dam = 0
 	var/max_stamina_damage = 0
-	var/max_damage = 0
+	/// How much health this bodypart has
+	/// When damage reaches this value, it will be disabled.
+	/// Both injuries and regular damage take from this value.
+	var/max_damage = 50
 
 	var/stamina_dam = 0
 	var/stamina_heal_rate = 1	//Stamina heal multiplier
@@ -134,6 +137,9 @@
 
 	/// How much pain does this limb feel?
 	var/pain_multiplier = 0.6
+
+	/// How much do we protect our organs from blunt damage?
+	var/internal_protection_rating = 0.9
 
 	/// Damage taken per second
 	var/decay_rate = STANDARD_ORGAN_DECAY
@@ -862,10 +868,11 @@
 	sharp_damage = current_damage * proportion
 	blunt_damage = (current_damage * (1 - proportion)) * BLUNT_DAMAGE_RATIO
 	// If our bones are destroyed, then they will cause damage to organs when taking blunt hits
-	sharp_damage += blunt_damage * (1 - bone_rating)
+	sharp_damage += blunt_damage * (1 - bone_rating * internal_protection_rating)
 	if (sharp_damage <= 0)
 		return
 	// Damage organs
+	var/penetration_left = sharp_damage
 	if (!HAS_TRAIT(owner, TRAIT_NO_ORGAN_PENETRATION))
 		for (var/slot in shuffle(organ_slots))
 			var/obj/item/organ/organ = owner.get_organ_slot(slot)
@@ -873,13 +880,23 @@
 				continue
 			if (!prob(organ.organ_size))
 				continue
-			organ.applyOrganDamage(sharp_damage * ORGAN_DAMAGE_MULTIPLIER)
-			break
+			organ.applyOrganDamage(penetration_left * ORGAN_DAMAGE_MULTIPLIER)
+			// Reduce damage as we penetrate through different organs
+			// Completely fluff calculation, but means we take damage easier
+			// if we are injured (or have highly injurable bodyparts)
+			penetration_left -= 5 * internal_protection_rating * bone_rating
+			// No more penetration to do
+			if (penetration_left <= 0)
+				break
 	// Dismemberment
-	var/dismemberment_chance = (1 - bone_rating) * sharpness
+	var/dismemberment_chance = (1 - bone_rating) * (sharpness + sharp_damage)
 	// Can always be dismembered
 	if (HAS_TRAIT(owner, TRAIT_EASYDISMEMBER))
-		dismemberment_chance = sharpness
+		dismemberment_chance = (sharpness + sharp_damage)
+	// If the limb is fully destroyed, then it can be delimbed depending on how strong
+	// the internal protection rating is, even if attacked with a blunt weapon
+	if (get_damage() >= max_damage)
+		dismemberment_chance = max(dismemberment_chance, 100 - 100 * internal_protection_rating)
 	if (dismemberment_requires_death && bone_rating > 0.1)
 		dismemberment_chance = 0
 	if (dismemberable && prob(dismemberment_chance))

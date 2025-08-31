@@ -2,7 +2,7 @@
 	name = BODY_ZONE_CHEST
 	desc = "It's impolite to stare at a person's chest."
 	icon_state = "default_human_chest"
-	max_damage = 200
+	max_damage = 100
 	body_zone = BODY_ZONE_CHEST
 	body_part = CHEST
 	plaintext_zone = "chest"
@@ -100,7 +100,7 @@
 	is_dimorphic = FALSE //All of them are girls
 	should_draw_greyscale = FALSE
 	dismemberable = 0
-	max_damage = 500
+	max_damage = 200
 	acceptable_bodytype = BODYTYPE_HUMANOID
 
 /obj/item/bodypart/chest/larva
@@ -111,7 +111,7 @@
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	dismemberable = 0
-	max_damage = 50
+	max_damage = 30
 	bodytype = BODYTYPE_LARVA_PLACEHOLDER | BODYTYPE_ORGANIC
 	acceptable_bodytype = BODYTYPE_LARVA_PLACEHOLDER
 
@@ -232,7 +232,7 @@
 	px_y = 0
 	dismemberable = FALSE
 	can_be_disabled = FALSE
-	max_damage = 100
+	max_damage = 80
 	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/r_arm
@@ -351,7 +351,7 @@
 	px_y = 0
 	dismemberable = FALSE
 	can_be_disabled = FALSE
-	max_damage = 100
+	max_damage = 80
 	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/l_leg
@@ -457,7 +457,7 @@
 	px_y = 0
 	dismemberable = FALSE
 	can_be_disabled = FALSE
-	max_damage = 100
+	max_damage = 80
 	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/r_leg
@@ -565,5 +565,5 @@
 	px_y = 0
 	dismemberable = FALSE
 	can_be_disabled = FALSE
-	max_damage = 100
+	max_damage = 80
 	should_draw_greyscale = FALSE

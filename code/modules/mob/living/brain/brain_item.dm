@@ -246,7 +246,13 @@
 	// - Headache
 	// - Light-headedness
 	// - Confusion
-	consciousness_rating = (initial(consciousness_rating) - HEALTH_THRESHOLD_DEAD) * (1 - (hypoxia / maxHealth)) + HEALTH_THRESHOLD_DEAD
+	consciousness_rating = (initial(consciousness_rating) - HEALTH_THRESHOLD_DEAD) * (1 - (max(hypoxia, damage) / maxHealth)) + HEALTH_THRESHOLD_DEAD
+	if (owner)
+		SEND_SIGNAL(owner, COMSIG_MOB_BRAIN_CONSCIOUSNESS_UPDATE, consciousness_rating)
+
+/obj/item/organ/brain/applyOrganDamage(d, maximum)
+	. = ..()
+	consciousness_rating = (initial(consciousness_rating) - HEALTH_THRESHOLD_DEAD) * (1 - (max(hypoxia, damage) / maxHealth)) + HEALTH_THRESHOLD_DEAD
 	if (owner)
 		SEND_SIGNAL(owner, COMSIG_MOB_BRAIN_CONSCIOUSNESS_UPDATE, consciousness_rating)
 
@@ -370,6 +376,9 @@
 	icon_state = "posibrain-ipc"
 	organ_flags = ORGAN_SYNTHETIC
 	base_icon_state = "posibrain"
+	// Always takes damage from chest impacts, because we don't feel pain so the damage needs to
+	// go straight to the head.
+	organ_size = 100
 
 /obj/item/organ/brain/positron/on_insert(mob/living/carbon/human/brain_owner)
 	. = ..()
