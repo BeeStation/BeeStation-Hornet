@@ -1394,7 +1394,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	return unwagged.stop_wag(src)
 
 /mob/living/carbon/proc/add_unarmed_damage_to_arms(amount)
-    for(var/obj/item/bodypart/arm in bodyparts)
-        if(arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM)
-            if(isnum(arm.unarmed_damage))
-                arm.unarmed_damage += amount
+	for(var/obj/item/bodypart/arm in bodyparts)
+		if(arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM)
+			if(isnum(arm.unarmed_damage))
+				arm.unarmed_damage += amount

@@ -1,15 +1,32 @@
 import { classes } from 'common/react';
 import { useState } from 'react';
 import { sendAct, useBackend, useLocalState } from '../../backend';
-import { Box, Button, Flex, LabeledList, Popper, Stack, Input, Icon, FitText } from '../../components';
-import { createSetPreference, PreferencesMenuData, RandomSetting } from './data';
+import {
+  Box,
+  Button,
+  Flex,
+  LabeledList,
+  Popper,
+  Stack,
+  Input,
+  Icon,
+  FitText,
+} from '../../components';
+import {
+  createSetPreference,
+  PreferencesMenuData,
+  RandomSetting,
+} from './data';
 import { CharacterPreview } from '../common/CharacterPreview';
 import { RandomizationButton } from './RandomizationButton';
 import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
 import { MultiNameInput, NameInput } from './names';
 import { Gender, GENDERS } from './preferences/gender';
 import features from './preferences/features';
-import { FeatureChoicedServerData, FeatureValueInput } from './preferences/features/base';
+import {
+  FeatureChoicedServerData,
+  FeatureValueInput,
+} from './preferences/features/base';
 import { filter, map, sortBy } from 'common/collections';
 import { useRandomToggleState } from './useRandomToggleState';
 import { createSearch } from 'common/string';
@@ -54,12 +71,21 @@ const CharacterControls = (props: {
       <Stack.Item grow />
 
       <Stack.Item>
-        <Button onClick={props.handleOpenSpecies} fontSize="22px" icon="paw" tooltip="Species" tooltipPosition="top" />
+        <Button
+          onClick={props.handleOpenSpecies}
+          fontSize="22px"
+          icon="paw"
+          tooltip="Species"
+          tooltipPosition="top"
+        />
       </Stack.Item>
 
       {props.showGender && (
         <Stack.Item>
-          <GenderButton gender={props.gender} handleSetGender={props.setGender} />
+          <GenderButton
+            gender={props.gender}
+            handleSetGender={props.setGender}
+          />
         </Stack.Item>
       )}
     </Stack>
@@ -79,7 +105,13 @@ const ChoicedSelection = (props: {
 }) => {
   const { act } = useBackend<PreferencesMenuData>();
 
-  const { catalog, supplementalFeature, supplementalValue, searchText, setSearchText } = props;
+  const {
+    catalog,
+    supplementalFeature,
+    supplementalValue,
+    searchText,
+    setSearchText,
+  } = props;
 
   if (!catalog.icons) {
     return <Box color="red">Provided catalog had no icons!</Box>;
@@ -96,9 +128,14 @@ const ChoicedSelection = (props: {
 
   const entryCount = Object.keys(catalog.icons).length;
 
-  const calculatedWidth = CLOTHING_SELECTION_CELL_SIZE_HORIZONTAL * Math.min(entryCount, ENTRIES_PER_ROW);
-  const baseHeight = CLOTHING_SELECTION_CELL_SIZE_VERTICAL * Math.min(Math.ceil(entryCount / ENTRIES_PER_ROW), MAX_ROWS);
-  const calculatedHeight = baseHeight + (supplementalFeature && !use_small_supplemental ? 100 : 0);
+  const calculatedWidth =
+    CLOTHING_SELECTION_CELL_SIZE_HORIZONTAL *
+    Math.min(entryCount, ENTRIES_PER_ROW);
+  const baseHeight =
+    CLOTHING_SELECTION_CELL_SIZE_VERTICAL *
+    Math.min(Math.ceil(entryCount / ENTRIES_PER_ROW), MAX_ROWS);
+  const calculatedHeight =
+    baseHeight + (supplementalFeature && !use_small_supplemental ? 100 : 0);
 
   return (
     <Box
@@ -106,8 +143,14 @@ const ChoicedSelection = (props: {
       style={{
         height: `${calculatedHeight}px`,
         width: `${calculatedWidth}px`,
-      }}>
-      <Box className="PopupWindow" style={{ padding: '5px' }} width="100%" height="100%">
+      }}
+    >
+      <Box
+        className="PopupWindow"
+        style={{ padding: '5px' }}
+        width="100%"
+        height="100%"
+      >
         <Stack vertical fill>
           <Stack.Item>
             <Stack fill>
@@ -130,7 +173,8 @@ const ChoicedSelection = (props: {
                     fontWeight: 'bold',
                     fontSize: '14px',
                     textAlign: 'center',
-                  }}>
+                  }}
+                >
                   Select {props.name}
                 </Box>
               </Stack.Item>
@@ -158,7 +202,12 @@ const ChoicedSelection = (props: {
             </Stack.Item>
           )}
 
-          <Stack.Item overflowX="hidden" overflowY="auto" grow className="section-background">
+          <Stack.Item
+            overflowX="hidden"
+            overflowY="auto"
+            grow
+            className="section-background"
+          >
             <Flex wrap>
               {Object.entries(catalog.icons)
                 .filter(([n, _]) => searchText?.length < 1 || search(n))
@@ -169,7 +218,8 @@ const ChoicedSelection = (props: {
                       basis={`${CLOTHING_SELECTION_CELL_SIZE}px`}
                       style={{
                         padding: '5px',
-                      }}>
+                      }}
+                    >
                       <Button
                         onClick={() => {
                           props.onSelect(name);
@@ -178,16 +228,25 @@ const ChoicedSelection = (props: {
                         style={{
                           height: `${CLOTHING_SELECTION_CELL_SIZE}px`,
                           width: `${CLOTHING_SELECTION_CELL_SIZE}px`,
-                        }}>
+                        }}
+                      >
                         <Box
-                          className={classes([`${catalog.icon_sheet}32x32`, image, 'centered-image'])}
+                          className={classes([
+                            `${catalog.icon_sheet}32x32`,
+                            image,
+                            'centered-image',
+                          ])}
                           style={{
-                            transform: 'translateX(-50%) translateY(-50%) scale(1.4)',
+                            transform:
+                              'translateX(-50%) translateY(-50%) scale(1.4)',
                           }}
                         />
                       </Button>
                       <Box textAlign="center">
-                        <FitText maxWidth={CLOTHING_SELECTION_CELL_SIZE} maxFontSize={12}>
+                        <FitText
+                          maxWidth={CLOTHING_SELECTION_CELL_SIZE}
+                          maxFontSize={12}
+                        >
                           {name}
                         </FitText>
                       </Box>
@@ -206,7 +265,8 @@ const ChoicedSelection = (props: {
                     fontWeight: 'bold',
                     fontSize: '14px',
                     textAlign: 'center',
-                  }}>
+                  }}
+                >
                   Select {features[supplementalFeature].name}
                 </Box>
               </Stack.Item>
@@ -227,7 +287,10 @@ const ChoicedSelection = (props: {
   );
 };
 
-const GenderButton = (props: { handleSetGender: (gender: Gender) => void; gender: Gender }) => {
+const GenderButton = (props: {
+  handleSetGender: (gender: Gender) => void;
+  gender: Gender;
+}) => {
   const [genderMenuOpen, setGenderMenuOpen] = useState(false);
 
   return (
@@ -257,7 +320,8 @@ const GenderButton = (props: { handleSetGender: (gender: Gender) => void; gender
             })}
           </Stack>
         </Box>
-      }>
+      }
+    >
       <Button
         onClick={(event) => {
           setGenderMenuOpen(!genderMenuOpen);
@@ -287,10 +351,22 @@ const MainFeature = (props: {
 }) => {
   const { act, data } = useBackend<PreferencesMenuData>();
 
-  const { catalog, currentValue, isOpen, handleOpen, handleClose, handleSelect, randomization, setRandomization } = props;
+  const {
+    catalog,
+    currentValue,
+    isOpen,
+    handleOpen,
+    handleClose,
+    handleSelect,
+    randomization,
+    setRandomization,
+  } = props;
 
   const supplementalFeature = catalog.supplemental_feature;
-  let [searchText, setSearchText] = useLocalState(catalog.name + '_choiced_search', '');
+  let [searchText, setSearchText] = useLocalState(
+    catalog.name + '_choiced_search',
+    '',
+  );
   const handleCloseInternal = () => {
     handleClose();
     setSearchText('');
@@ -307,13 +383,19 @@ const MainFeature = (props: {
           catalog={catalog}
           selected={currentValue}
           supplementalFeature={supplementalFeature}
-          supplementalValue={supplementalFeature && data.character_preferences.supplemental_features[supplementalFeature]}
+          supplementalValue={
+            supplementalFeature &&
+            data.character_preferences.supplemental_features[
+              supplementalFeature
+            ]
+          }
           onClose={handleCloseInternal}
           onSelect={handleSelect}
           searchText={searchText}
           setSearchText={setSearchText}
         />
-      }>
+      }
+    >
       <Button
         onClick={(event) => {
           event.stopPropagation();
@@ -329,9 +411,14 @@ const MainFeature = (props: {
         }}
         position="relative"
         tooltip={catalog.name}
-        tooltipPosition="right">
+        tooltipPosition="right"
+      >
         <Box
-          className={classes([`${catalog.icon_sheet}32x32`, catalog.icons![currentValue], 'centered-image'])}
+          className={classes([
+            `${catalog.icon_sheet}32x32`,
+            catalog.icons![currentValue],
+            'centered-image',
+          ])}
           style={{
             transform: randomization
               ? 'translateX(-70%) translateY(-70%) scale(1.1)'
@@ -368,19 +455,21 @@ const MainFeature = (props: {
           width: `${CLOTHING_CELL_SIZE}px`,
           overflowWrap: 'anywhere',
         }}
-        textAlign="center">
+        textAlign="center"
+      >
         {catalog.name}
       </Box>
     </Popper>
   );
 };
 
-const createSetRandomization = (act: typeof sendAct, preference: string) => (newSetting: RandomSetting) => {
-  act('set_random_preference', {
-    preference,
-    value: newSetting,
-  });
-};
+const createSetRandomization =
+  (act: typeof sendAct, preference: string) => (newSetting: RandomSetting) => {
+    act('set_random_preference', {
+      preference,
+      value: newSetting,
+    });
+  };
 
 const sortPreferences = (array: [string, unknown][]) =>
   sortBy(array, ([featureId, _]) => {
@@ -394,36 +483,59 @@ const PreferenceList = (props: {
   randomizations: Record<string, RandomSetting>;
 }) => {
   return (
-    <Stack.Item basis="50%" grow className="section-background" px={1} py="5px" overflowX="hidden" overflowY="scroll">
+    <Stack.Item
+      basis="50%"
+      grow
+      className="section-background"
+      px={1}
+      py="5px"
+      overflowX="hidden"
+      overflowY="scroll"
+    >
       <LabeledList>
-        {sortPreferences(Object.entries(props.preferences)).map(([featureId, value]) => {
-          const feature = features[featureId];
-          const randomSetting = props.randomizations[featureId];
+        {sortPreferences(Object.entries(props.preferences)).map(
+          ([featureId, value]) => {
+            const feature = features[featureId];
+            const randomSetting = props.randomizations[featureId];
 
-          if (feature === undefined) {
-            return (
-              <Stack.Item key={featureId}>
-                <b>Feature {featureId} is not recognized.</b>
-              </Stack.Item>
-            );
-          }
-
-          return (
-            <LabeledList.Item className="candystripe" key={featureId} label={feature.name} verticalAlign="middle">
-              <Stack fill>
-                {randomSetting && (
-                  <Stack.Item>
-                    <RandomizationButton setValue={createSetRandomization(props.act, featureId)} value={randomSetting} />
-                  </Stack.Item>
-                )}
-
-                <Stack.Item grow>
-                  <FeatureValueInput act={props.act} feature={feature} featureId={featureId} value={value} />
+            if (feature === undefined) {
+              return (
+                <Stack.Item key={featureId}>
+                  <b>Feature {featureId} is not recognized.</b>
                 </Stack.Item>
-              </Stack>
-            </LabeledList.Item>
-          );
-        })}
+              );
+            }
+
+            return (
+              <LabeledList.Item
+                className="candystripe"
+                key={featureId}
+                label={feature.name}
+                verticalAlign="middle"
+              >
+                <Stack fill>
+                  {randomSetting && (
+                    <Stack.Item>
+                      <RandomizationButton
+                        setValue={createSetRandomization(props.act, featureId)}
+                        value={randomSetting}
+                      />
+                    </Stack.Item>
+                  )}
+
+                  <Stack.Item grow>
+                    <FeatureValueInput
+                      act={props.act}
+                      feature={feature}
+                      featureId={featureId}
+                      value={value}
+                    />
+                  </Stack.Item>
+                </Stack>
+              </LabeledList.Item>
+            );
+          },
+        )}
       </LabeledList>
     </Stack.Item>
   );
@@ -431,16 +543,21 @@ const PreferenceList = (props: {
 
 export const MainPage = (props: { openSpecies: () => void }) => {
   const { act, data } = useBackend<PreferencesMenuData>();
-  const [currentClothingMenu, setCurrentClothingMenu] = useState<string | null>(null);
+  const [currentClothingMenu, setCurrentClothingMenu] = useState<string | null>(
+    null,
+  );
   const [multiNameInputOpen, setMultiNameInputOpen] = useState(false);
   const [randomToggleEnabled] = useRandomToggleState();
 
   return (
     <ServerPreferencesFetcher
       render={(serverData) => {
-        const currentSpeciesData = serverData && serverData.species[data.character_preferences.misc.species];
+        const currentSpeciesData =
+          serverData &&
+          serverData.species[data.character_preferences.misc.species];
 
-        const contextualPreferences = data.character_preferences.secondary_features || {};
+        const contextualPreferences =
+          data.character_preferences.secondary_features || {};
 
         const mainFeatures = [
           ...Object.entries(data.character_preferences.clothing || {}),
@@ -448,9 +565,12 @@ export const MainPage = (props: { openSpecies: () => void }) => {
         ];
 
         const randomBodyEnabled =
-          data.character_preferences.non_contextual.body_is_always_random !== RandomSetting.Disabled || randomToggleEnabled;
+          data.character_preferences.non_contextual.body_is_always_random !==
+            RandomSetting.Disabled || randomToggleEnabled;
 
-        const getRandomization = (preferences: Record<string, unknown>): Record<string, RandomSetting> => {
+        const getRandomization = (
+          preferences: Record<string, unknown>,
+        ): Record<string, RandomSetting> => {
           if (!serverData) {
             return {};
           }
@@ -461,20 +581,29 @@ export const MainPage = (props: { openSpecies: () => void }) => {
 
           return Object.fromEntries(
             map(
-              filter(Object.keys(preferences), (key) => serverData.random.randomizable.includes(key)),
-              (key) => [key, data.character_preferences.randomization[key] || RandomSetting.Disabled]
-            )
+              filter(Object.keys(preferences), (key) =>
+                serverData.random.randomizable.includes(key),
+              ),
+              (key) => [
+                key,
+                data.character_preferences.randomization[key] ||
+                  RandomSetting.Disabled,
+              ],
+            ),
           );
         };
 
-        const randomizationOfMainFeatures = getRandomization(Object.fromEntries(mainFeatures));
+        const randomizationOfMainFeatures = getRandomization(
+          Object.fromEntries(mainFeatures),
+        );
 
         const nonContextualPreferences = {
           ...data.character_preferences.non_contextual,
         };
 
         if (randomBodyEnabled) {
-          nonContextualPreferences['random_species'] = data.character_preferences.randomization['species'];
+          nonContextualPreferences['random_species'] =
+            data.character_preferences.randomization['species'];
         } else {
           // We can't use random_name/is_accessible because the
           // server doesn't know whether the random toggle is on.
@@ -504,7 +633,11 @@ export const MainPage = (props: { openSpecies: () => void }) => {
             <Stack height={`${CLOTHING_SIDEBAR_ROWS * CLOTHING_CELL_SIZE}px`}>
               <Stack.Item style={{ marginRight: '-2.5px' }}>
                 <Stack vertical fill>
-                  <Stack.Item className="section-background" p={0.75} style={{ marginRight: '1px', marginBottom: '-5px' }}>
+                  <Stack.Item
+                    className="section-background"
+                    p={0.75}
+                    style={{ marginRight: '1px', marginBottom: '-5px' }}
+                  >
                     <CharacterControls
                       gender={data.character_preferences.misc.gender}
                       handleOpenSpecies={props.openSpecies}
@@ -512,18 +645,26 @@ export const MainPage = (props: { openSpecies: () => void }) => {
                         act('rotate', { direction: direction });
                       }}
                       setGender={createSetPreference(act, 'gender')}
-                      showGender={currentSpeciesData ? !!currentSpeciesData.sexes : true}
+                      showGender={
+                        currentSpeciesData ? !!currentSpeciesData.sexes : true
+                      }
                     />
                   </Stack.Item>
 
                   <Stack.Item grow>
-                    <CharacterPreview height="100%" id={data.character_preview_view} />
+                    <CharacterPreview
+                      height="100%"
+                      id={data.character_preview_view}
+                    />
                   </Stack.Item>
 
                   <Stack.Item position="relative">
                     <NameInput
                       name={data.character_preferences.names[data.name_to_use]}
-                      handleUpdateName={createSetPreference(act, data.name_to_use)}
+                      handleUpdateName={createSetPreference(
+                        act,
+                        data.name_to_use,
+                      )}
                       openMultiNameInput={() => {
                         setMultiNameInputOpen(true);
                       }}
@@ -532,7 +673,11 @@ export const MainPage = (props: { openSpecies: () => void }) => {
                 </Stack>
               </Stack.Item>
 
-              <Stack.Item width={`${CLOTHING_CELL_SIZE * 2 + 15}px`} className="section-background" p={0.75}>
+              <Stack.Item
+                width={`${CLOTHING_CELL_SIZE * 2 + 15}px`}
+                className="section-background"
+                p={0.75}
+              >
                 <Stack height="100%" vertical wrap>
                   {mainFeatures.map(([clothingKey, clothing]) => {
                     const catalog =
@@ -555,8 +700,13 @@ export const MainPage = (props: { openSpecies: () => void }) => {
                               setCurrentClothingMenu(clothingKey);
                             }}
                             handleSelect={createSetPreference(act, clothingKey)}
-                            randomization={randomizationOfMainFeatures[clothingKey]}
-                            setRandomization={createSetRandomization(act, clothingKey)}
+                            randomization={
+                              randomizationOfMainFeatures[clothingKey]
+                            }
+                            setRandomization={createSetRandomization(
+                              act,
+                              clothingKey,
+                            )}
                           />
                         </Stack.Item>
                       )

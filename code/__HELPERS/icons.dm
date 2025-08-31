@@ -1437,8 +1437,8 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 	else
 		icon_states_cache[file][state] = FALSE
 		if(scream)
-		 stack_trace("Icon Lookup for state: [state] in file [file] failed.")
-	 return FALSE
+			stack_trace("Icon Lookup for state: [state] in file [file] failed.")
+		return FALSE
 
 /**
  * Center's an image.
