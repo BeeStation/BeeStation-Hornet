@@ -474,7 +474,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		C.blood.Initialize(C)
 	qdel(previous_blood)
 
-	if (C.consciousness)
+	// We might be a path still at this point
+	if (istype(C.consciousness))
 		qdel(C.consciousness)
 	C.consciousness = new consciousness_type(C)
 

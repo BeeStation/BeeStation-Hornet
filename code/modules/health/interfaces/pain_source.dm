@@ -12,16 +12,8 @@
 	register_signals()
 
 /datum/pain_source/proc/register_signals()
-	RegisterSignal(owner, COMSIG_MOB_STATCHANGE, PROC_REF(update_stat))
 
 /datum/pain_source/proc/on_life()
-
-/datum/pain_source/proc/update_stat()
-	// If we are unconscious, we can't feel pain
-	if (owner.stat >= UNCONSCIOUS)
-		set_pain_modifier(0, FROM_UNCONSCIOUS)
-	else
-		set_pain_modifier(1, FROM_UNCONSCIOUS)
 
 /datum/pain_source/proc/update_pain(pain_value)
 	pain = pain_value
