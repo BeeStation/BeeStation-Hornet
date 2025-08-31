@@ -1,4 +1,0 @@
-author: mrmanlikesbt, timothymtorres
-delete-after: true
-changes:
-  - code_imp: split up the persistence subsystem into multiple files
