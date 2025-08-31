@@ -381,13 +381,13 @@
 	if(HAS_TRAIT(target, TRAIT_GIANT))
 		defense_mod += 2
 
-	if(target.health >= 80)
+	if(target.consciousness.value >= 80)
 		defense_mod += 2
-	if(target.health < 60)
+	if(target.consciousness.value < 60)
 		defense_mod -= 1
-	if(target.health < 40)
+	if(target.consciousness.value < 40)
 		defense_mod -= 2
-	if(target.health < 20)
+	if(target.consciousness.value < 20)
 		defense_mod -= 2
 
 	if(ishuman(target))

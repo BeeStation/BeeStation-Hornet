@@ -55,7 +55,7 @@ Jugular Cut, can only be done if the target is in crit, being held in a tier 3 g
 Deals 15 brute to head(reduced by armor) and causes a rapid bleeding effect similar to throat slicing someone with a sharp item.
 */
 /datum/martial_art/tribal_claw/proc/jugularCut(mob/living/A, mob/living/D)
-	if((D.health <= D.crit_threshold || (A.pulling == D && A.grab_state >= GRAB_NECK) || D.IsSleeping()))
+	if((D.stat <= SOFT_CRIT || (A.pulling == D && A.grab_state >= GRAB_NECK) || D.IsSleeping()))
 		log_combat(A, D, "jugular cut (Tribal Claw)", name)
 		D.visible_message(span_warning("[A] cuts [D]'s jugular vein with their claws!"), \
 							span_userdanger("[A] cuts your jugular vein!"))

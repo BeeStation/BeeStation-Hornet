@@ -22,7 +22,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/statue/petrified)
 		L.forceMove(src)
 		L.add_traits(list(TRAIT_MUTE, TRAIT_NO_BLOOD, TRAIT_GODMODE), STATUE_MUTE)
 		L.faction += "mimic" //Stops mimics from instaqdeling people in statues
-		atom_integrity = L.health + 100 //stoning damaged mobs will result in easier to shatter statues
+		atom_integrity = L.consciousness.value + 100 //stoning damaged mobs will result in easier to shatter statues
 		max_integrity = atom_integrity
 		START_PROCESSING(SSobj, src)
 
@@ -59,7 +59,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/statue/petrified)
 	if(petrified_mob)
 		petrified_mob.forceMove(loc)
 		petrified_mob.remove_traits(list(TRAIT_MUTE, TRAIT_NO_BLOOD, TRAIT_GODMODE), STATUE_MUTE)
-		petrified_mob.take_overall_damage((petrified_mob.health - atom_integrity + 100)) //any new damage the statue incurred is transfered to the mob
+		petrified_mob.take_overall_damage((petrified_mob.consciousness.value - atom_integrity + 100)) //any new damage the statue incurred is transfered to the mob
 		petrified_mob.faction -= "mimic"
 		petrified_mob = null
 	return ..()

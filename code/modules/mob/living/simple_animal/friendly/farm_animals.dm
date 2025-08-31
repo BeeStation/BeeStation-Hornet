@@ -26,7 +26,6 @@
 	attack_verb_continuous = "kicks"
 	attack_verb_simple = "kick"
 	attack_sound = 'sound/weapons/punch1.ogg'
-	health = 40
 	maxHealth = 40
 	minbodytemp = 180
 	melee_damage = 5
@@ -132,7 +131,6 @@
 	response_harm_simple = "kick"
 	attack_verb_continuous = "kicks"
 	attack_verb_simple = "kick"
-	health = 3
 	maxHealth = 3
 	ventcrawler = VENTCRAWLER_ALWAYS
 	var/can_grow = TRUE
@@ -206,7 +204,6 @@
 	response_harm_simple = "kick"
 	attack_verb_continuous = "kicks"
 	attack_verb_simple = "kick"
-	health = 15
 	maxHealth = 15
 	ventcrawler = VENTCRAWLER_ALWAYS
 	var/eggsleft = 0
@@ -299,7 +296,6 @@
 	emote_hear = list("gobbles.")
 	emote_see = list("pecks at the ground.","flaps its wings viciously.")
 	density = FALSE
-	health = 15
 	maxHealth = 15
 	egg_type = null
 	attack_verb_continuous = "pecks"

@@ -20,7 +20,6 @@
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	gold_core_spawnable = FRIENDLY_SPAWN
 	melee_damage = 18 //why the fuck does it do this much damage
-	health = 50
 	maxHealth = 50
 	speed = 10
 	chat_color = "#728AE6"

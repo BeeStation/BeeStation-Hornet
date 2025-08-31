@@ -16,7 +16,6 @@
 	icon_living = "snake"
 	icon_dead = "snake_dead"
 	speak_emote = list("hisses")
-	health = 20
 	maxHealth = 20
 	attack_verb_continuous = "bites"
 	attack_verb_simple = "bite"

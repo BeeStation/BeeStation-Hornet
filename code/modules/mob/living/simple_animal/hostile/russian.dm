@@ -11,7 +11,6 @@
 	turns_per_move = 5
 	speed = 0
 	maxHealth = 100
-	health = 100
 	melee_damage = 15
 	attack_verb_continuous = "punches"
 	attack_verb_simple = "punch"
@@ -49,7 +48,6 @@
 	icon_state = "russianrangedelite"
 	icon_living = "russianrangedelite"
 	maxHealth = 150
-	health = 150
 	casingtype = /obj/item/ammo_casing/shotgun/buckshot
 	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged/trooper,
 				/obj/item/gun/ballistic/shotgun/lethal)
@@ -59,7 +57,6 @@
 	icon_state = "russianofficer"
 	icon_living = "russianofficer"
 	maxHealth = 65
-	health = 65
 	rapid = 3
 	casingtype = /obj/item/ammo_casing/c9mm
 	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged/officer,

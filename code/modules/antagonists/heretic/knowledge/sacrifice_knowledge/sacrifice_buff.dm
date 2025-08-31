@@ -35,17 +35,17 @@
 	var/healing_amount = 1 + (2 - owner.usable_legs)
 
 	// In softcrit you're, strong enough to stay up.
-	if(owner.health <= owner.crit_threshold && owner.health >= HEALTH_THRESHOLD_FULLCRIT)
+	if(owner.consciousness.value <= owner.crit_threshold && owner.consciousness.value >= HEALTH_THRESHOLD_FULLCRIT)
 		if(prob(5))
 			to_chat(owner, span_hypnophrase("Your body feels like giving up, but you fight on!"))
 		healing_amount *= 2
 	// ...But reach hardcrit and you're done. You now die faster.
-	if (owner.health < HEALTH_THRESHOLD_FULLCRIT)
+	if (owner.consciousness.value < HEALTH_THRESHOLD_FULLCRIT)
 		if(prob(5))
 			to_chat(owner, span_big("[span_hypnophrase("You can't hold on for much longer...")]"))
 		healing_amount *= -0.5
 
-	if(owner.health > owner.crit_threshold && prob(4))
+	if(owner.consciousness.value > owner.crit_threshold && prob(4))
 		owner.Jitter(10)
 		owner.Dizzy(5)
 		owner.adjust_hallucinations_up_to(6 SECONDS, 48 SECONDS)

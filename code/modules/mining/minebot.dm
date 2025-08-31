@@ -21,7 +21,6 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	// Health/damage
-	health = 125
 	maxHealth = 125
 	melee_damage = 15
 	obj_damage = 10
@@ -129,12 +128,13 @@
 // Shows basic data about equipment and sentience status
 /mob/living/simple_animal/hostile/mining_drone/examine(mob/user)
 	. = ..()
-	if(health < maxHealth)
-		if(health >= maxHealth * 0.75)
+	var/damage = get_total_damage()
+	if(damage > 0)
+		if(damage < maxHealth * 0.25)
 			. += span_warning("It looks slightly dented.")
-		else if(health >= maxHealth * 0.25)
+		else if(damage < maxHealth * 0.5)
 			. += span_warning("It looks <b>moderately</b> dented.")
-		else if(health > 0)
+		else if(damage < maxHealth)
 			. += span_boldwarning("It looks severely dented!")
 		else
 			. += span_boldwarning("It is disabled and requires repairs.")
@@ -173,13 +173,13 @@
 
 /// Repairing/reviving minebots
 /mob/living/simple_animal/hostile/mining_drone/welder_act(mob/living/user, obj/item/welder)
-	if(istype(welder, /obj/item/gun/energy/plasmacutter) && maxHealth == health) // So we don't show the welding message while installing a plasma cutter
+	if(istype(welder, /obj/item/gun/energy/plasmacutter) && !get_total_damage()) // So we don't show the welding message while installing a plasma cutter
 		return
-	if(maxHealth == health)
+	if(!get_total_damage())
 		to_chat(user, span_info("[src] is at full integrity."))
 		return TRUE
 	if(welder.use_tool(src, user, 0, volume = 40))
-		if(stat == DEAD && health > 0)
+		if(stat == DEAD && get_total_damage() != maxHealth)
 			to_chat(user, span_info("You restart [src]."))
 			revive()
 			return TRUE
@@ -224,7 +224,7 @@
 		to_chat(user, span_info("You uninstall [src]'s upgrades."))
 		return TRUE
 	if(istype(item, /obj/item/gun/energy/plasmacutter))
-		if(health != maxHealth)
+		if(get_total_damage() > 0)
 			return // For repairs
 		if(!do_after(user, 20, src))
 			return TRUE

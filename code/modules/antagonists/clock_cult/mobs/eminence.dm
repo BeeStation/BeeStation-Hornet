@@ -6,13 +6,14 @@
 	mob_biotypes = list(MOB_SPIRIT)
 	incorporeal_move = INCORPOREAL_MOVE_EMINENCE
 	invisibility = INVISIBILITY_SPIRIT
-	health = INFINITY
-	maxHealth = INFINITY
 	plane = GHOST_PLANE
 	healable = FALSE
 	spacewalk = TRUE
 	sight = SEE_SELF
 	throwforce = 0
+	consciousness = /datum/consciousness/immortal
+	pain = /datum/pain_source/none
+	blood = /datum/blood_source/none
 
 	see_in_dark = NIGHTVISION_FOV_RANGE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE

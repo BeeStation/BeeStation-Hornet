@@ -256,8 +256,8 @@
 
 /mob/living/simple_animal/bot/examine(mob/user)
 	. = ..()
-	if(health < maxHealth)
-		if(health > maxHealth/3)
+	if(consciousness.value < maxHealth)
+		if(consciousness.value > maxHealth/3)
 			. += "[src]'s parts look loose."
 		else
 			. += "[src]'s parts look very loose!"
@@ -358,7 +358,7 @@
 	else
 		user.changeNext_move(CLICK_CD_MELEE)
 		if(W.tool_behaviour == TOOL_WELDER && !user.combat_mode)
-			if(health >= maxHealth)
+			if(get_total_damage() == 0)
 				to_chat(user, span_warning("[src] does not need a repair!"))
 				return
 			if(!open)

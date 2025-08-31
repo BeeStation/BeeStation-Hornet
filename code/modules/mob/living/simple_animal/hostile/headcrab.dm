@@ -7,7 +7,7 @@
 	icon_living = "headcrab"
 	icon_dead = "headcrab_dead"
 	gender = NEUTER
-	health = 50
+
 	maxHealth = 50
 	melee_damage = 10
 	attack_verb_continuous = "chomps"

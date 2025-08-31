@@ -12,7 +12,6 @@
 	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
 	speak_chance = 80
 	maxHealth = 220
-	health = 220
 	loot = list(/obj/effect/gibspawner/generic/animal)
 	butcher_results = list(/obj/item/food/meat/slab/gorilla = 4)
 	response_help_continuous = "prods"
@@ -121,7 +120,6 @@
 	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
 	speak_chance = 80
 	maxHealth = 220
-	health = 220
 	loot = list(/obj/effect/gibspawner/generic/animal)
 	butcher_results = list(/obj/item/food/meat/slab/gorilla = 4)
 	melee_damage = 20

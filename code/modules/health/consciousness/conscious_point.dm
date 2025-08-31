@@ -19,7 +19,7 @@
 
 /datum/consciousness/point/consciousness_tick(delta_time)
 	// Continuously just become the hitpoints of our owner
-	var/new_consciousness = (owner.health / owner.maxHealth) * 100
+	var/new_consciousness = (1 - (owner.get_total_damage() / owner.maxHealth)) * 100
 	if (new_consciousness != value)
 		set_consciousness_source(new_consciousness, FROM_HITPOINTS)
 

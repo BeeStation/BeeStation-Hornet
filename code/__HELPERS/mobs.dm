@@ -297,9 +297,9 @@ GLOBAL_LIST_EMPTY(species_list)
 //pass a list in the format list("health" = mob's health var) to check health during this
 /mob/living/break_do_after_checks(list/checked_health, check_clicks)
 	if(islist(checked_health))
-		if(health < checked_health["health"])
+		if(consciousness.value < checked_health["health"])
 			return FALSE
-		checked_health["health"] = health
+		checked_health["health"] = consciousness.value
 	return ..()
 
 /**

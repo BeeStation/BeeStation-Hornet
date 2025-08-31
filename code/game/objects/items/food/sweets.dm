@@ -284,7 +284,7 @@
 /obj/item/food/lollipop/proc/chew()
 	if(iscarbon(loc) && chewing)
 		var/mob/living/carbon/M = loc
-		if(M.health <= 0)
+		if(M.consciousness.value <= 0)
 			return
 		attack(M, M)
 		timer_id = addtimer(CALLBACK(src, PROC_REF(chew)), bite_frequency, TIMER_STOPPABLE)

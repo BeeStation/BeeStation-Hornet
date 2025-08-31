@@ -13,7 +13,6 @@
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	speak_chance = 0
 	maxHealth = 15
-	health = 15
 	spacewalk = TRUE
 	see_in_dark = 10
 	melee_damage = 6
@@ -57,7 +56,6 @@
 	icon_living = "guard"
 	icon_state = "guard"
 	maxHealth = 250
-	health = 250
 	max_co2 = 5
 	max_tox = 2
 	melee_damage = 15

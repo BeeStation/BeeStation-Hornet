@@ -5,7 +5,6 @@
 	icon_state = "secbot"
 	density = FALSE
 	anchored = FALSE
-	health = 25
 	maxHealth = 25
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	pass_flags = PASSMOB
@@ -182,7 +181,7 @@
 /mob/living/simple_animal/bot/secbot/bullet_act(obj/projectile/Proj)
 	if(istype(Proj , /obj/projectile/beam)||istype(Proj, /obj/projectile/bullet))
 		if((Proj.damage_type == BURN) || (Proj.damage_type == BRUTE))
-			if(!Proj.nodamage && Proj.damage < src.health && ishuman(Proj.firer))
+			if(!Proj.nodamage && get_total_damage() + Proj.damage < maxHealth && ishuman(Proj.firer))
 				retaliate(Proj.firer)
 	return ..()
 
@@ -204,7 +203,7 @@
 	if(istype(AM, /obj/item))
 		var/obj/item/I = AM
 		var/mob/thrown_by = I.thrownby?.resolve()
-		if(I.throwforce < src.health && thrown_by && ishuman(thrown_by))
+		if(get_total_damage() + I.throwforce < maxHealth && thrown_by && ishuman(thrown_by))
 			var/mob/living/carbon/human/H = thrown_by
 			retaliate(H)
 	..()

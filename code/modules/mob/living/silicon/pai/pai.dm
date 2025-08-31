@@ -9,7 +9,6 @@
 	mob_size = MOB_SIZE_TINY
 	desc = "A generic pAI mobile hard-light holographics emitter. It seems to be deactivated."
 	weather_immunities = list("ash")
-	health = 500
 	maxHealth = 500
 	layer = BELOW_MOB_LAYER
 	can_be_held = TRUE
@@ -28,6 +27,8 @@
 	light_power = 1
 	light_range = 5
 	light_on = FALSE
+	pain = /datum/pain_source/none
+	blood = /datum/blood_source/none
 
 	/// Used as currency to purchase different abilities
 	var/ram = 100

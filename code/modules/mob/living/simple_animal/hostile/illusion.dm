@@ -12,7 +12,6 @@
 	attack_verb_continuous = "gores"
 	attack_verb_simple = "gore"
 	maxHealth = 100
-	health = 100
 	speed = 0
 	faction = list(FACTION_ILLUSION)
 	var/life_span = INFINITY //how long until they despawn

@@ -15,7 +15,6 @@
 	friendly_verb_continuous = "harmlessly rolls into"
 	friendly_verb_simple = "harmlessly roll into"
 	maxHealth = 23
-	health = 23
 	melee_damage = 0
 	attack_verb_continuous = "barrels into"
 	attack_verb_simple = "barrel into"

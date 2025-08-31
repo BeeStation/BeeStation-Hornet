@@ -1,7 +1,6 @@
 /mob/living/simple_animal
 	name = "animal"
 	icon = 'icons/mob/animal.dmi'
-	health = 20
 	maxHealth = 20
 	gender = PLURAL //placeholder
 	living_flags = MOVES_ON_ITS_OWN
@@ -208,10 +207,6 @@
 	if(stat == DEAD)
 		. += span_deadsay("Upon closer examination, [p_they()] appear[p_s()] to be dead.")
 
-/mob/living/simple_animal/updatehealth()
-	. = ..()
-	health = clamp(health, 0, maxHealth)
-
 /mob/living/simple_animal/get_attack_sharpness()
 	return sharpness
 
@@ -404,7 +399,7 @@
 		return ..()
 
 	var/list/tab_data = ..()
-	tab_data["Health"] = GENERATE_STAT_TEXT("[round((health / maxHealth) * 100)]%")
+	tab_data["Consciousness"] = GENERATE_STAT_TEXT("[round((consciousness.value / consciousness.max_value) * 100)]%")
 	return tab_data
 
 /mob/living/simple_animal/proc/drop_loot()
@@ -436,7 +431,6 @@
 			REMOVE_TRAIT(src, TRAIT_MOVE_FLYING, ROUNDSTART_TRAIT)
 		if(no_flying_animation)
 			REMOVE_TRAIT(src, TRAIT_NO_FLOATING_ANIM, ROUNDSTART_TRAIT)
-		health = 0
 		icon_state = icon_dead
 		if(flip_on_death)
 			transform = transform.Turn(180)

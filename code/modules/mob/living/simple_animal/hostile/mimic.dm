@@ -11,7 +11,6 @@
 	response_disarm_simple = "push"
 	speed = 0
 	maxHealth = 250
-	health = 250
 	gender = NEUTER
 	mob_biotypes = list(MOB_INORGANIC)
 
@@ -131,7 +130,6 @@
 GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/cable, /obj/structure/window, /obj/structure/grille))
 
 /mob/living/simple_animal/hostile/mimic/copy
-	health = 100
 	maxHealth = 100
 	var/mob/living/creator = null // the creator
 	var/knockdown_people = 0
@@ -187,16 +185,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/mimic/copy)
 		if (overlay_googly_eyes)
 			add_overlay(googly_eyes)
 		if(isstructure(O) || ismachinery(O))
-			health = (anchored * 50) + 50
+			maxHealth = (anchored * 50) + 50
 			if(O.density && O.anchored)
 				knockdown_people = 1
 				melee_damage *= 2
 		else if(isitem(O))
 			var/obj/item/I = O
-			health = 8 * I.w_class
+			maxHealth = 8 * I.w_class
 			melee_damage = 2 + I.force
 			move_to_delay = I.w_class + 1
-		maxHealth = health
 		if(user)
 			creator = user
 			faction += "[REF(creator)]" // very unique

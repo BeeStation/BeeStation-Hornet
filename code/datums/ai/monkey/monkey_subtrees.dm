@@ -44,7 +44,7 @@
 		return
 
 	if(!selected_enemy.stat) //He's up, get him!
-		if(living_pawn.health < MONKEY_FLEE_HEALTH) //Time to skeddadle
+		if(living_pawn.consciousness.value < MONKEY_FLEE_HEALTH) //Time to skeddadle
 			controller.queue_behavior(/datum/ai_behavior/monkey_flee)
 			return SUBTREE_RETURN_FINISH_PLANNING //I'm running fuck you guys
 

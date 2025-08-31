@@ -14,7 +14,6 @@
 	icon_living = "seedling"
 	icon_dead = "seedling_dead"
 	maxHealth = 100
-	health = 100
 	melee_damage = 30
 	SET_BASE_PIXEL(-16, -14)
 	minimum_distance = 3

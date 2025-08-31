@@ -10,7 +10,6 @@
 	turns_per_move = 3
 	speed = 0
 	maxHealth = 100
-	health = 100
 	melee_damage = 5
 	attack_verb_continuous = "punches"
 	attack_verb_simple = "punch"

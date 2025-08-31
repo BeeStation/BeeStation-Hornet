@@ -14,7 +14,6 @@
 	retreat_distance = 3
 	obj_damage = 0
 	melee_damage = 10
-	health = 1000
 	maxHealth = 1000
 	loot = list(/obj/effect/temp_visual/paperwiz_dying)
 	projectiletype = /obj/projectile/temp
@@ -89,7 +88,6 @@
 
 /mob/living/simple_animal/hostile/boss/paper_wizard/copy
 	desc = "'Tis a ruse!"
-	health = 1
 	maxHealth = 1
 	alpha = 200
 	boss_abilities = list()

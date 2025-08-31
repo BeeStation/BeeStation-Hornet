@@ -68,7 +68,7 @@
 		return
 	switch(mode)
 		if(0)
-			if(M.health >= 0)
+			if(M.consciousness.value >= 0)
 				if(isanimal_or_basicmob(M))
 					var/list/modifiers = params2list(params)
 					if (!user.combat_mode && !LAZYACCESS(modifiers, RIGHT_CLICK))
@@ -93,7 +93,7 @@
 							span_notice("You pet [M]!"))
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 		if(1)
-			if(M.health >= 0)
+			if(M.consciousness.value >= 0)
 				if(ishuman(M))
 					if(M.body_position == LYING_DOWN)
 						user.visible_message(span_notice("[user] shakes [M] trying to get [M.p_them()] up!"), \
@@ -113,7 +113,7 @@
 				playsound(loc, 'sound/weapons/tap.ogg', 50, 1, -1)
 		if(2)
 			if(scooldown < world.time)
-				if(M.health >= 0)
+				if(M.consciousness.value >= 0)
 					if(ishuman(M)||ismonkey(M))
 						M.electrocute_act(5, "[user]", flags = SHOCK_NOGLOVES)
 						user.visible_message(span_userdanger("[user] electrocutes [M] with [user.p_their()] touch!"), \
@@ -131,7 +131,7 @@
 					scooldown = world.time + 20
 		if(3)
 			if(ccooldown < world.time)
-				if(M.health >= 0)
+				if(M.consciousness.value >= 0)
 					if(ishuman(M))
 						user.visible_message(span_userdanger("[user] crushes [M] in [user.p_their()] grip!"), \
 							span_danger("You crush [M] in your grip!"))

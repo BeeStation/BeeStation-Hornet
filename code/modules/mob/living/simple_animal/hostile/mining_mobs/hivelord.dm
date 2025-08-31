@@ -15,7 +15,6 @@
 	aggro_vision_range = 9
 	speed = 3
 	maxHealth = 38
-	health = 38
 	melee_damage = 0
 	attack_verb_continuous = "lashes out at"
 	attack_verb_simple = "lash out at"
@@ -71,7 +70,6 @@
 	vision_range = 10
 	speed = 3
 	maxHealth = 1
-	health = 1
 	is_flying_animal = TRUE
 	no_flying_animation = TRUE
 	melee_damage = 2
@@ -130,7 +128,6 @@
 	icon_aggro = "dwarf_legion"
 	icon_dead = "dwarf_legion"
 	maxHealth = 30
-	health = 30
 	speed = 2 //faster!
 	crusher_drop_mod = 20
 	dwarf_mob = TRUE
@@ -167,7 +164,6 @@
 	friendly_verb_simple = "buzz near"
 	vision_range = 10
 	maxHealth = 1
-	health = 5
 	melee_damage = 12
 	attack_verb_continuous = "bites"
 	attack_verb_simple = "bite"
@@ -212,7 +208,6 @@
 //Advanced Legion is slightly tougher to kill and can raise corpses (revive other legions)
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion/advanced
 	maxHealth = 60
-	health = 60
 	brood_type = /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/advanced
 	icon_state = "dwarf_legion"
 	icon_living = "dwarf_legion"
@@ -230,7 +225,6 @@
 	icon_state = "legion"
 	icon_living = "legion"
 	icon_dead = "legion"
-	health = 450
 	maxHealth = 450
 	melee_damage = 20
 	anchored = FALSE

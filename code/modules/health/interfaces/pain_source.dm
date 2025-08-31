@@ -28,6 +28,11 @@
 	update_damage_overlay(pain)
 	owner.update_health_hud()
 	owner.med_hud_set_health()
+	var/consciousness_impact = pain - 20
+	var/impact_maximum = 80
+	// The more pain we have, the less conscious we are
+	var/consciousness_modifier = min((consciousness_impact / impact_maximum) * owner.consciousness.max_value, owner.consciousness.max_value)
+	owner.consciousness.set_consciousness_source(consciousness_modifier, FROM_PAIN_SHOCK)
 	if (pain >= 100)
 		enter_pain_crit()
 	else
@@ -35,7 +40,6 @@
 
 /datum/pain_source/proc/enter_pain_crit()
 	owner.blood.enter_shock(FROM_PAIN_SHOCK)
-	owner.set_stat_source(SOFT_CRIT, FROM_PAIN_SHOCK)
 	to_chat(owner, span_pain(pick(\
 		"You collapse from the unbearable pain!",\
 		"The pain overwhelms you, and you collapse!",\
@@ -46,7 +50,6 @@
 
 /datum/pain_source/proc/exit_pain_crit()
 	owner.blood.exit_shock(FROM_PAIN_SHOCK)
-	owner.set_stat_source(CONSCIOUS, FROM_PAIN_SHOCK)
 
 /// Update the damage overlay, pain level between
 /// 0: no pain

@@ -4,7 +4,6 @@
 	icon_state = "otherthing"
 	icon_living = "otherthing"
 	icon_dead = "otherthing-dead"
-	health = 80
 	maxHealth = 80
 	obj_damage = 100
 	melee_damage = 35
@@ -59,7 +58,6 @@
 	icon_living = "blank-body"
 	icon_dead = "blank-dead"
 	gold_core_spawnable = NO_SPAWN
-	health = 100
 	maxHealth = 100
 	melee_damage = 10
 	attack_verb_continuous = "punches"

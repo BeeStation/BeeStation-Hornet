@@ -37,7 +37,6 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/hierophant
 	name = "hierophant"
 	desc = "A massive metal club that hangs in the air as though waiting. It'll make you dance to its beat."
-	health = 1250
 	maxHealth = 1250
 	attack_verb_continuous = "clubs"
 	attack_verb_simple = "club"
@@ -191,7 +190,7 @@ Difficulty: Hard
 		blink(target)
 
 	else if(prob(70 - anger_modifier)) //a cross blast of some type
-		if(prob(anger_modifier * (2 / target_slowness)) && health < maxHealth * 0.5) //we're super angry do it at all dirs
+		if(prob(anger_modifier * (2 / target_slowness)) && get_total_damage() > maxHealth * 0.5) //we're super angry do it at all dirs
 			INVOKE_ASYNC(src, PROC_REF(blasts), target, GLOB.alldirs)
 		else if(prob(60))
 			INVOKE_ASYNC(src, PROC_REF(blasts), target, GLOB.cardinals)
@@ -202,7 +201,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/proc/blink_spam(var/blink_counter, var/target_slowness, var/cross_counter)
 	ranged_cooldown = world.time + max(5, major_attack_cooldown - anger_modifier * 0.75)
-	if(health < maxHealth * 0.5 && blink_counter > 1)
+	if(get_total_damage() > maxHealth * 0.5 && blink_counter > 1)
 		visible_message(span_hierophant("\"Mx ampp rsx iwgeti.\""))
 		var/oldcolor = color
 		animate(src, color = "#660099", time = 6)
@@ -392,15 +391,15 @@ Difficulty: Hard
 			did_reset = TRUE
 			visible_message("[span_hierophantwarning("\"Vixyvrmrk xs fewi...\"")]")
 			blink(spawned_beacon)
-			adjustHealth(min((health - maxHealth) * 0.5, -250)) //heal for 50% of our missing health, minimum 10% of maximum health
+			adjustHealth(min(-get_total_damage() * 0.5, -250)) //heal for 50% of our missing health, minimum 10% of maximum health
 			wander = FALSE
-			if(health > maxHealth * 0.9)
+			if(consciousness.value > maxHealth * 0.9)
 				visible_message(span_hierophant("\"Vitemvw gsqtpixi. Stivexmrk ex qebmqyq ijjmgmirgc.\""))
 			else
 				visible_message(span_hierophant("\"Vitemvw gsqtpixi. Stivexmsrep ijjmgmirgc gsqtvsqmwih.\""))
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/death()
-	if(health > 0 || stat == DEAD)
+	if(stat == DEAD)
 		return
 	else
 		set_stat_source(DEAD, FROM_DEAD)
@@ -474,7 +473,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/proc/calculate_rage() //how angry we are overall
 	did_reset = FALSE //oh hey we're doing SOMETHING, clearly we might need to heal if we recall
-	anger_modifier = clamp(((maxHealth - health) / 21),0,50)
+	anger_modifier = clamp((get_total_damage() / 21),0,50)
 	burst_range = initial(burst_range) + round(anger_modifier * 0.08)
 	beam_range = initial(beam_range) + round(anger_modifier * 0.12)
 

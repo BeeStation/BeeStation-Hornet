@@ -11,7 +11,6 @@
 	speak_chance = 1
 	turns_per_move = 5
 	maxHealth = 15
-	health = 15
 	melee_damage = 5
 	attack_verb_continuous = "bites"
 	attack_verb_simple = "bite"

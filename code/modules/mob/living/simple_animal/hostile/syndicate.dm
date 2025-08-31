@@ -29,7 +29,6 @@
 	stat_attack = HARD_CRIT
 	robust_searching = 1
 	maxHealth = 100
-	health = 100
 	melee_damage = 10
 	attack_verb_continuous = "punches"
 	attack_verb_simple = "punch"
@@ -54,7 +53,6 @@
 	icon_living = "syndicate_space"
 	name = "Syndicate Commando"
 	maxHealth = 170
-	health = 170
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	speed = 1
@@ -69,7 +67,6 @@
 	icon_living = "syndicate_stormtrooper"
 	name = "Syndicate Stormtrooper"
 	maxHealth = 250
-	health = 250
 
 /mob/living/simple_animal/hostile/syndicate/melee //dude with a knife and no shields
 	melee_damage = 15
@@ -88,7 +85,6 @@
 	icon_living = "syndicate_space_knife"
 	name = "Syndicate Commando"
 	maxHealth = 170
-	health = 170
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	speed = 1
@@ -105,7 +101,6 @@
 	icon_living = "syndicate_stormtrooper_knife"
 	name = "Syndicate Stormtrooper"
 	maxHealth = 250
-	health = 250
 	projectile_deflect_chance = 50
 
 /mob/living/simple_animal/hostile/syndicate/melee/sword
@@ -133,7 +128,6 @@
 	icon_living = "syndicate_space_sword"
 	name = "Syndicate Commando"
 	maxHealth = 170
-	health = 170
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	speed = 1
@@ -153,7 +147,6 @@
 	icon_living = "syndicate_stormtrooper_sword"
 	name = "Syndicate Stormtrooper"
 	maxHealth = 250
-	health = 250
 
 ///////////////Guns////////////
 
@@ -178,7 +171,6 @@
 	icon_living = "syndicate_space_pistol"
 	name = "Syndicate Commando"
 	maxHealth = 170
-	health = 170
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	speed = 1
@@ -193,7 +185,6 @@
 	icon_living = "syndicate_stormtrooper_pistol"
 	name = "Syndicate Stormtrooper"
 	maxHealth = 250
-	health = 250
 
 /mob/living/simple_animal/hostile/syndicate/ranged/smg
 	rapid = 2
@@ -211,7 +202,6 @@
 	icon_living = "syndicate_space_smg"
 	name = "Syndicate Commando"
 	maxHealth = 170
-	health = 170
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	speed = 1
@@ -226,7 +216,6 @@
 	icon_living = "syndicate_stormtrooper_smg"
 	name = "Syndicate Stormtrooper"
 	maxHealth = 250
-	health = 250
 
 /mob/living/simple_animal/hostile/syndicate/ranged/shotgun
 	rapid = 2
@@ -241,7 +230,6 @@
 	icon_living = "syndicate_space_shotgun"
 	name = "Syndicate Commando"
 	maxHealth = 170
-	health = 170
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	speed = 1
@@ -256,7 +244,6 @@
 	icon_living = "syndicate_stormtrooper_shotgun"
 	name = "Syndicate Stormtrooper"
 	maxHealth = 250
-	health = 250
 
 ///////////////Misc////////////
 
@@ -280,7 +267,6 @@
 	pass_flags = PASSTABLE | PASSMOB
 	combat_mode = TRUE
 	mob_biotypes = list(MOB_ROBOTIC)
-	health = 25
 	maxHealth = 25
 	melee_damage = 15
 	obj_damage = 0
@@ -320,7 +306,6 @@
 	minimum_distance = 4
 	turns_per_move = 6
 	melee_queue_distance = 2
-	health = 250
 	maxHealth = 250
 	melee_damage = 20
 	rapid_melee = 3
@@ -382,7 +367,6 @@
 	move_to_delay = 4
 	projectilesound = null
 	speed = 15
-	health = 300
 	maxHealth = 300
 	loot = list(/obj/effect/mob_spawn/human/corpse/heavy)
 	var/cooldown = 0

@@ -15,7 +15,6 @@
 	emote_taunt = list("glares")
 	taunt_chance = 25
 	maxHealth = 45
-	health = 45
 	speak_emote = list("telepathically cries")
 
 	obj_damage = 60

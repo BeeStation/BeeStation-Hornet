@@ -41,7 +41,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 			if(isliving(M))
 				var/mob/living/L = M
 				mob_data["location"] = get_area(L)
-				mob_data["health"] = L.health
+				mob_data["health"] = L.consciousness.value
 				if(ishuman(L))
 					var/mob/living/carbon/human/H = L
 					category = "humans"

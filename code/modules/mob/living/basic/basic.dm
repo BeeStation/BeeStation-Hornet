@@ -2,7 +2,6 @@
 /mob/living/basic
 	name = "basic mob"
 	icon = 'icons/mob/animal.dmi'
-	health = 20
 	maxHealth = 20
 	gender = PLURAL
 	status_flags = CANPUSH
@@ -137,7 +136,6 @@
 	if(basic_mob_flags & DEL_ON_DEATH)
 		qdel(src)
 	else
-		health = 0
 		look_dead()
 
 /**

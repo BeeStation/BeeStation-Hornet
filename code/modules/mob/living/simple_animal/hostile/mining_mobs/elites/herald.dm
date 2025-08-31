@@ -25,7 +25,6 @@
 	icon_dead = "herald_dying"
 	icon_gib = "syndicate_gib"
 	maxHealth = 400
-	health = 400
 	melee_damage = 20
 	attack_verb_continuous = "preaches to"
 	attack_verb_simple = "preach to"
@@ -142,7 +141,7 @@
 	shoot_projectile(target_turf, angle_to_target, FALSE)
 	addtimer(CALLBACK(src, PROC_REF(shoot_projectile), target_turf, angle_to_target, FALSE), 2)
 	addtimer(CALLBACK(src, PROC_REF(shoot_projectile), target_turf, angle_to_target, FALSE), 4)
-	if(health < maxHealth * 0.5)
+	if(get_total_damage() > maxHealth * 0.5)
 		playsound(get_turf(src), 'sound/magic/clockwork/invoke_general.ogg', 20, TRUE)
 		addtimer(CALLBACK(src, PROC_REF(shoot_projectile), target_turf, angle_to_target, FALSE), 10)
 		addtimer(CALLBACK(src, PROC_REF(shoot_projectile), target_turf, angle_to_target, FALSE), 12)
@@ -164,7 +163,7 @@
 		icon_state = "herald_enraged"
 	playsound(get_turf(src), 'sound/magic/clockwork/invoke_general.ogg', 20, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(herald_circleshot)), 5)
-	if(health < maxHealth * 0.5)
+	if(get_total_damage() > maxHealth * 0.5)
 		playsound(get_turf(src), 'sound/magic/clockwork/invoke_general.ogg', 20, TRUE)
 		addtimer(CALLBACK(src, PROC_REF(herald_circleshot)), 15)
 	addtimer(CALLBACK(src, PROC_REF(unenrage)), 20)
@@ -190,7 +189,6 @@
 /mob/living/simple_animal/hostile/asteroid/elite/herald/mirror
 	name = "herald's mirror"
 	desc = "This fiendish work of magic copies the herald's attacks.  Seems logical to smash it."
-	health = 30
 	maxHealth = 30
 	icon_state = "herald_mirror"
 	deathmessage = "shatters violently!"

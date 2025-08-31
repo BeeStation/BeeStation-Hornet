@@ -261,7 +261,7 @@
 	discovery_points = 1000
 
 /mob/living/simple_animal/hostile/alien/hugbox
-	health = 60 //they go down easy, to lull the player into a sense of false security
+	// They go down easy, to lull the player into a sense of false security
 	maxHealth = 60
 	mobchatspan = "researchdirector"
 	discovery_points = 1000

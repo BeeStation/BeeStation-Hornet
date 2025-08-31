@@ -18,7 +18,6 @@
 
 	//Health and life related vars
 	var/maxHealth = 100 //Maximum health that should be possible.
-	var/health = 100 	//A mob's health
 
 	/// Consciousness rating for the mob.
 	/// Essentially how awake and aware the mob is, entirely responsible for

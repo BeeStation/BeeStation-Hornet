@@ -578,7 +578,7 @@
 			continue
 		affected_mob.reagents.remove_reagent(reagent.type, 2.5 * REM * delta_time)
 
-	if(affected_mob.health > 20)
+	if(affected_mob.get_total_damage() < affected_mob.maxHealth - 20)
 		affected_mob.adjustToxLoss(2.5 * REM * delta_time, updating_health = FALSE)
 		return UPDATE_MOB_HEALTH
 
@@ -904,7 +904,7 @@
 		affected_mob.Jitter(5)
 		affected_mob.drop_all_held_items()
 
-	if(affected_mob.health <= 20)
+	if(affected_mob.get_total_damage() > 80)
 		affected_mob.adjustToxLoss(-4* REM * delta_time, 0)
 		affected_mob.adjustBruteLoss(-4* REM * delta_time, 0)
 		affected_mob.adjustFireLoss(-4* REM * delta_time, 0)
@@ -932,7 +932,7 @@
 	. = ..()
 	affected_mob.adjustStaminaLoss(-0.5 * REM * delta_time, updating_health = FALSE)
 
-	if(affected_mob.health <= affected_mob.crit_threshold)
+	if(affected_mob.stat >= SOFT_CRIT)
 		affected_mob.adjustToxLoss(-0.5 * REM * delta_time, updating_health = FALSE)
 		affected_mob.adjustBruteLoss(-0.5 * REM * delta_time, updating_health = FALSE)
 		affected_mob.adjustFireLoss(-0.5 * REM * delta_time, updating_health = FALSE)
@@ -1085,7 +1085,7 @@
 	affected_mob.AdjustAllImmobility(-60 * REM * delta_time)
 	affected_mob.adjustStaminaLoss(-35 * REM * delta_time, updating_health = FALSE)
 
-	if(affected_mob.health < 50 && affected_mob.health > 0)
+	if(affected_mob.get_total_damage() > 50 && affected_mob.stat == CONSCIOUS)
 		affected_mob.adjustOxyLoss(-1 * REM * delta_time, updating_health = FALSE)
 		affected_mob.adjustToxLoss(-1 * REM * delta_time, updating_health = FALSE)
 		affected_mob.adjustBruteLoss(-1 * REM * delta_time, updating_health = FALSE)
@@ -1699,7 +1699,7 @@
 	. = ..()
 	affected_mob.losebreath = 0
 
-	if(affected_mob.health <= 80)
+	if(affected_mob.get_total_damage() > 20)
 		affected_mob.adjustToxLoss(-4 * REM * delta_time, updating_health = FALSE)
 		affected_mob.adjustBruteLoss(-4 * REM * delta_time, updating_health = FALSE)
 		affected_mob.adjustFireLoss(-4 * REM * delta_time, updating_health = FALSE)

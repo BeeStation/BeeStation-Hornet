@@ -40,7 +40,7 @@
 
 	if(ishuman(M) && source.force && source.is_sharp())
 		var/mob/living/carbon/human/H = M
-		var/neckslice_conditions = (H.health <= H.crit_threshold || user.grab_state >= GRAB_NECK || H.IsSleeping())
+		var/neckslice_conditions = (H.consciousness.value <= H.crit_threshold || user.grab_state >= GRAB_NECK || H.IsSleeping())
 		if(neckslice_conditions && user.pulling == H && user.is_zone_selected(BODY_ZONE_HEAD) && user.grab_state >= GRAB_AGGRESSIVE) // Only sleeping, neck grabbed, or crit, can be sliced.
 			if(HAS_TRAIT(user, TRAIT_PACIFISM))
 				to_chat(user, span_warning("You don't want to harm other living beings!"))

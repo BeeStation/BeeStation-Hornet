@@ -121,7 +121,7 @@
 		actual_heal_amt = CEILING(heal_amt * 1.25, 0.5)
 		actual_effect_heal_amt = CEILING(heal_amt * 1.25, 1)
 		actual_purge_amt = CEILING(purge_amt * 1.25, 0.5)
-	var/old_health = target.health
+	var/old_damage = target.get_total_damage()
 	var/old_brute = target.getBruteLoss()
 	var/old_burn = target.getFireLoss()
 	var/old_oxy = target.getOxyLoss()
@@ -170,7 +170,7 @@
 	if(heal_clone)
 		target.adjustCloneLoss(-max(CEILING(actual_heal_amt * 0.75, 0.5), 1), updating_health = FALSE)
 	target.updatehealth()
-	if(old_health > target.health)
+	if(old_damage < target.get_total_damage())
 		SSblackbox.record_feedback("associative", "holoparasite_mob_damage_healed", 1, list(
 			"target" = replacetext("[target.type]", "/mob/living/", ""),
 			"brute" = max(old_brute - target.getBruteLoss(), 0),
@@ -178,7 +178,7 @@
 			"oxy" = max(old_oxy - target.getOxyLoss(), 0),
 			"tox" = max(old_tox - target.getToxLoss(), 0),
 			"clone" = heal_clone ? max(old_clone - target.getCloneLoss(), 0) : 0,
-			"total" = max(old_health - target.health, 0),
+			"total" = max(target.get_total_damage() - old_damage, 0),
 			"self" = target == owner.summoner.current
 		))
 

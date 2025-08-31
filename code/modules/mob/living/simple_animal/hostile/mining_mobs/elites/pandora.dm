@@ -25,7 +25,6 @@
 	icon_dead = "pandora_dead"
 	icon_gib = "syndicate_gib"
 	maxHealth = 400
-	health = 400
 	melee_damage = 15
 	attack_verb_continuous = "smashes into"
 	attack_verb_simple = "smash into"
@@ -95,10 +94,10 @@
 
 /mob/living/simple_animal/hostile/asteroid/elite/pandora/Life(delta_time = SSMOBS_DT, times_fired)
 	. = ..()
-	if(health >= maxHealth * 0.5)
+	if(get_total_damage() < maxHealth * 0.5)
 		cooldown_time = 20
 		return
-	if(health < maxHealth * 0.5 && health > maxHealth * 0.25)
+	if(get_total_damage() > maxHealth * 0.5 && get_total_damage() < maxHealth * 0.75)
 		cooldown_time = 15
 		return
 	else

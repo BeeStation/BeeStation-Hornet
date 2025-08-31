@@ -104,10 +104,10 @@
 /proc/RoundHealth(mob/living/M)
 	if(M.stat == DEAD || (HAS_TRAIT(M, TRAIT_FAKEDEATH)))
 		return "health-100" //what's our health? it doesn't matter, we're dead, or faking
-	var/maxi_health = M.maxHealth
-	if(iscarbon(M) && M.health < 0)
+	var/maxi_health = M.consciousness.max_value
+	if(iscarbon(M) && M.consciousness.value < 0)
 		maxi_health = 100 //so crit shows up right for aliens and other high-health carbon mobs; noncarbons don't have crit.
-	var/health_level = min(M.consciousness.value, (100 - M.pain.pain) / 100 * maxi_health)
+	var/health_level = M.consciousness.value
 	var/resulthealth = (health_level / maxi_health) * 100
 	switch(resulthealth)
 		if(100 to INFINITY)
@@ -362,7 +362,7 @@
 	if(stat == DEAD)
 		holder.icon_state = "huddiagdead"
 	else
-		holder.icon_state = "huddiag[RoundDiagBar(health/maxHealth)]"
+		holder.icon_state = "huddiag[RoundDiagBar(consciousness.value/consciousness.max_value)]"
 
 /mob/living/silicon/proc/diag_hud_set_status()
 	var/image/holder = hud_list[DIAG_STAT_HUD]
@@ -458,7 +458,7 @@
 	var/image/holder = hud_list[DIAG_HUD]
 	var/icon/I = icon(icon, icon_state, dir)
 	holder.pixel_y = I.Height() - world.icon_size
-	holder.icon_state = "huddiag[RoundDiagBar(health/maxHealth)]"
+	holder.icon_state = "huddiag[RoundDiagBar(consciousness.value/consciousness.max_value)]"
 
 /mob/living/simple_animal/bot/proc/diag_hud_set_botstat() //On (With wireless on or off), Off, EMP'ed
 	var/image/holder = hud_list[DIAG_STAT_HUD]

@@ -20,7 +20,6 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	icon_living = "cluwne"
 	icon_gib = "clown_gib"
 	maxHealth = 250
-	health = 250
 	speed = -1
 	attack_sound = 'sound/items/bikehorn.ogg'
 	del_on_death = TRUE

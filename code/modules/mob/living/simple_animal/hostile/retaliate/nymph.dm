@@ -26,7 +26,6 @@
 
 	var/brute_damage = 0
 	var/fire_damage = 0
-	health = 50
 	maxHealth = 50
 	melee_damage = 1.5
 	obj_damage = 10
@@ -69,7 +68,7 @@
 
 /mob/living/simple_animal/hostile/retaliate/nymph/get_stat_tab_status()
 	var/list/tab_data = ..()
-	tab_data["Health"] = GENERATE_STAT_TEXT("[round((health / maxHealth) * 100)]%")
+	tab_data["Consciousness"] = GENERATE_STAT_TEXT("[round((consciousness.value / consciousness.max_value) * 100)]%")
 	if(!is_drone)
 		tab_data["Growth"] = GENERATE_STAT_TEXT("[(round(amount_grown / max_grown * 100))]%")
 	return tab_data

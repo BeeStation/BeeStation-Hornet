@@ -17,7 +17,6 @@
 	incorporeal_move = INCORPOREAL_MOVE_JAUNT
 	see_invisible = SEE_INVISIBLE_SPIRIT
 	invisibility = INVISIBILITY_SPIRIT
-	health = INFINITY //Revenants don't use health, they use essence instead
 	maxHealth = INFINITY
 	do_not_show_health_on_stat_panel = TRUE // showing their health info is confusing
 	plane = GHOST_PLANE

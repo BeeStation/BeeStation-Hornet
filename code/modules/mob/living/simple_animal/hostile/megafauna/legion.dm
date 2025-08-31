@@ -11,7 +11,6 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/legion
 	name = "Legion"
-	health = 400
 	maxHealth = 400
 	icon_state = "legion"
 	icon_living = "legion"
@@ -122,7 +121,7 @@ Difficulty: Medium
 	charging = FALSE
 
 /mob/living/simple_animal/hostile/megafauna/legion/death()
-	if(health > 0)
+	if(consciousness.value > 0)
 		return
 	if(size > 1)
 		adjustHealth(-maxHealth) //heal ourself to full in prep for splitting
@@ -130,9 +129,6 @@ Difficulty: Medium
 
 		L.maxHealth = round(maxHealth * 0.6,DAMAGE_PRECISION)
 		maxHealth = L.maxHealth
-
-		L.health = L.maxHealth
-		health = maxHealth
 
 		size--
 		L.size = size

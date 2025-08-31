@@ -53,7 +53,7 @@
 	SHOULD_CALL_PARENT(FALSE)
 	//If there are alien weeds on the ground then heal if needed or give some plasma
 	if(locate(/obj/structure/alien/weeds) in owner.loc)
-		if(owner.health >= owner.maxHealth)
+		if(owner.get_total_damage() == 0)
 			owner.adjustPlasma(plasma_rate * delta_time)
 		else
 			var/heal_amt = heal_rate

@@ -35,7 +35,6 @@
 	projectiletype = /obj/projectile/magic
 	projectilesound = 'sound/weapons/emitter.ogg'
 	maxHealth = 50
-	health = 50
 	random_color = FALSE
 	gold_core_spawnable = NO_SPAWN
 
@@ -63,7 +62,6 @@
 	desc = "50% carp, 100% magic, 150% horrible."
 	color = "#00FFFF"
 	maxHealth = 75
-	health = 75
 	gold_core_spawnable = NO_SPAWN
 	discovery_points = 5000
 

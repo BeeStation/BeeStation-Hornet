@@ -6,7 +6,6 @@
 	icon_state = "cleanbot0"
 	density = FALSE
 	anchored = FALSE
-	health = 25
 	maxHealth = 25
 	radio_key = /obj/item/encryptionkey/headset_service
 	radio_channel = RADIO_CHANNEL_SERVICE //Service

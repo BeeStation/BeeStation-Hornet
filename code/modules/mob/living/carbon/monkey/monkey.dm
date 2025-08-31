@@ -119,7 +119,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	. = ..()
 	var/slow = 0
 	if(!HAS_TRAIT(src, TRAIT_IGNOREDAMAGESLOWDOWN))
-		var/health_deficiency = (maxHealth - health)
+		var/health_deficiency = get_total_damage()
 		if(health_deficiency >= 45)
 			slow += (health_deficiency / 25)
 		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/monkey_health_speedmod, TRUE, slow)

@@ -132,7 +132,7 @@
 
 /datum/status_effect/incapacitating/sleeping/tick()
 	if(owner.maxHealth)
-		var/health_ratio = owner.health / owner.maxHealth
+		var/health_ratio = owner.consciousness.value / owner.consciousness.max_value
 		if(health_ratio > 0.8)
 			var/healing = -0.2
 			if((locate(/obj/structure/bed) in owner.loc))
@@ -149,7 +149,7 @@
 	if(prob(20))
 		if(carbon_owner)
 			carbon_owner.handle_dreams()
-		if(prob(10) && owner.health > owner.crit_threshold)
+		if(prob(10) && owner.consciousness.value > owner.crit_threshold)
 			owner.emote("snore")
 
 /atom/movable/screen/alert/status_effect/asleep

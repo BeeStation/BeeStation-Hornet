@@ -63,7 +63,6 @@
 	stat_attack = DEAD
 	robust_searching = 1
 	maxHealth = 10000
-	health = 10000
 	melee_damage = 12
 	sharpness = SHARP_X
 	obj_damage = 0
@@ -176,7 +175,6 @@
 	icon_gib = "syndicate_space"
 	name = "Unknown Syndicate Agent"
 	maxHealth = 150
-	health = 150
 	melee_damage = 15
 	sharpness = SHARP_V
 	attack_verb_continuous = "punches"
@@ -239,7 +237,6 @@
 	name = "Unknown Security Officer"
 	speed = 1
 	maxHealth = 100
-	health = 100
 	melee_damage = 10
 	sharpness = SHARP_II
 	attack_verb_continuous = "punches"

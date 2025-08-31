@@ -107,7 +107,6 @@
 	//health_doll_icon = "venus_human_trap"
 	mob_biotypes = MOB_ORGANIC
 	layer = SPACEVINE_MOB_LAYER
-	health = 100
 	maxHealth = 100
 	ranged = TRUE
 	obj_damage = 60
@@ -162,7 +161,7 @@
 	if(!withering)
 		to_chat(src, span_userdanger("You are not being nourished by the vines and are withering away! Stay in the vines!"))
 	withering = TRUE
-	if(!ckey && (health < maxHealth * 0.50) && !(locate(/obj/structure/spacevine) in get_turf(src))) //Retreat!!!
+	if(!ckey && (get_total_damage() > maxHealth * 0.50) && !(locate(/obj/structure/spacevine) in get_turf(src))) //Retreat!!!
 		var/list/turf/possible_retreat_turfs = list()
 		FOR_DVIEW(var/turf/T, 8, get_turf(src), null)
 			if(locate(/obj/structure/spacevine) in T)
@@ -180,7 +179,7 @@
 	pixel_x = base_pixel_x + (dir & (NORTH|WEST) ? 2 : -2)
 
 /mob/living/simple_animal/hostile/venus_human_trap/MoveToTarget(list/possible_targets)
-	if(health < maxHealth * 0.50 && retreating) //Don't move away from the vines if we are below 50% health
+	if(get_total_damage() > maxHealth * 0.50 && retreating) //Don't move away from the vines if we are below 50% health
 		return 1
 	. = ..()
 

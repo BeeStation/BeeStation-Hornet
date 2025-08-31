@@ -29,7 +29,6 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/dragon
 	name = "ash drake"
 	desc = "Guardians of the necropolis."
-	health = 1250
 	maxHealth = 1250
 	attack_verb_continuous = "chomps"
 	attack_verb_simple = "chomp"
@@ -98,7 +97,7 @@ Difficulty: Medium
 	if(swooping)
 		return
 
-	anger_modifier = clamp(((maxHealth - health)/25),0,20)
+	anger_modifier = clamp((get_total_damage()/25),0,20)
 	ranged_cooldown = world.time + ranged_cooldown_time
 
 	if(client)
@@ -122,7 +121,7 @@ Difficulty: Medium
 		fire_cone()
 
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/shoot_fire_attack()
-	if(health < maxHealth*0.5)
+	if(get_total_damage() > maxHealth*0.5)
 		mass_fire()
 	else
 		fire_cone()
@@ -148,13 +147,13 @@ Difficulty: Medium
 		SLEEP_CHECK_DEATH(delay)
 
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/lava_swoop(var/amount = 30)
-	if(health < maxHealth * 0.5)
+	if(get_total_damage() > maxHealth * 0.5)
 		return swoop_attack(lava_arena = TRUE, swoop_cooldown = 60)
 	INVOKE_ASYNC(src, PROC_REF(lava_pools), amount)
 	swoop_attack(FALSE, target, 1000) // longer cooldown until it gets reset below
 	SLEEP_CHECK_DEATH(0)
 	fire_cone()
-	if(health < maxHealth*0.5)
+	if(get_total_damage() > maxHealth*0.5)
 		SLEEP_CHECK_DEATH(10)
 		fire_cone()
 		SLEEP_CHECK_DEATH(10)
@@ -564,7 +563,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/target)
 /mob/living/simple_animal/hostile/megafauna/dragon/lesser
 	name = "lesser ash drake"
 	maxHealth = 200
-	health = 200
 	faction = list(FACTION_NEUTRAL)
 	obj_damage = 80
 	melee_damage = 30

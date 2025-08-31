@@ -18,7 +18,6 @@
 	speak_chance = 1
 	combat_mode = TRUE
 	maxHealth = 75
-	health = 75
 	speed = 1
 	melee_damage = 10
 	attack_sound = 'sound/items/bikehorn.ogg'
@@ -101,7 +100,6 @@
 	speak = list("HONK", "Honk!", "YA-HONK!!!")
 	emote_see = list("honks", "bites into the banana", "plucks a banana off its head", "photosynthesizes")
 	maxHealth = 120
-	health = 120
 	speed = -10
 	loot = list(/obj/item/clothing/mask/gas/clown_hat, /obj/effect/gibspawner/human, /obj/item/soap, /obj/item/seeds/banana)
 	banana_time = 20
@@ -137,7 +135,6 @@
 	dextrous = TRUE
 	ventcrawler = VENTCRAWLER_ALWAYS
 	maxHealth = 140
-	health = 140
 	speed = -5
 	melee_damage = 15
 	attack_verb_continuous = "limply slaps"
@@ -162,7 +159,6 @@
 	emote_see = list("honks", "squeaks")
 	speak_chance = 60
 	maxHealth = 150
-	health = 150
 	pixel_x = -16
 	base_pixel_x = -16
 	speed = 10
@@ -187,7 +183,6 @@
 	emote_see = list("honks", "sweats", "grunts")
 	speak_chance = 5
 	maxHealth = 400
-	health = 400
 	pixel_x = -16
 	base_pixel_x = -16
 	speed = 2
@@ -212,7 +207,6 @@
 	speak = list("HONK", "Honk!", "Bruh", "cheeaaaahhh?")
 	emote_see = list("asserts his dominance", "emasculates everyone implicitly")
 	maxHealth = 500
-	health = 500
 	speed = -2
 	sharpness = SHARP_II
 	attack_verb_continuous = "steals the girlfriend of"
@@ -233,7 +227,6 @@
 	emote_see = list("squirms", "writhes")
 	speak_chance = 1
 	maxHealth = 200
-	health = 200
 	speed = -5
 	melee_damage = 10
 	attack_verb_continuous = "ferociously mauls"
@@ -251,7 +244,6 @@
 	response_harm_continuous = "bounces off of"
 	speak = list("HONK!!!", "The Honkmother is merciful, so I must act out her wrath.", "parce mihi ad beatus honkmother placet mihi ut peccata committere,", "DIE!!!")
 	maxHealth = 400
-	health = 400
 	speed = 5
 	melee_damage = 30
 	sharpness = SHARP_III
@@ -279,7 +271,6 @@
 	emote_see = list("squirms", "writhes", "pulsates", "froths", "oozes")
 	speak_chance = 10
 	maxHealth = 130
-	health = 130
 	pixel_x = -16
 	base_pixel_x = -16
 	speed = -5
@@ -295,7 +286,6 @@
 	icon_living = "blob"
 	speak = list("hey, buddy", "HONK!!!", "H-h-h-H-HOOOOONK!!!!", "HONKHONKHONK!!!", "HEY, BUCKO, GET BACK HERE!!!", "HOOOOOOOONK!!!")
 	emote_see = list("jiggles", "wobbles")
-	health = 130
 	mob_size = MOB_SIZE_LARGE
 	speed = 20
 	attack_verb_continuous = "bounces off of"

@@ -36,7 +36,7 @@
 		return target.attack_hulk(owner)
 
 /datum/mutation/hulk/on_life(delta_time, times_fired)
-	if(owner.health < 0)
+	if(owner.consciousness.value < 0)
 		on_losing(owner)
 		to_chat(owner, span_danger("You suddenly feel very weak."))
 

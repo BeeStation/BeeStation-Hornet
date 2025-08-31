@@ -64,7 +64,6 @@
 	else
 		phage = new(M.loc)
 		M.take_direct_damage(rand(1, 7))
-	phage.health += A.resistance
 	phage.maxHealth += A.resistance
 	phage.infections += A
 	phage.base_disease = A

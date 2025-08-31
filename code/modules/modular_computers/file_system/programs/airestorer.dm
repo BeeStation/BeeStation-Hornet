@@ -40,7 +40,7 @@
 
 	switch(action)
 		if("PRG_beginReconstruction")
-			if(A && A.health < 100)
+			if(A && A.consciousness.value < 100)
 				restoring = TRUE
 				A.notify_ghost_cloning("Your core files are being restored!", source = computer)
 			return TRUE
@@ -78,12 +78,12 @@
 	A.adjustBruteLoss(-1, 0)
 
 	A.updatehealth()
-	if(A.health >= 0 && A.stat == DEAD)
+	if(A.consciousness.value >= 0 && A.stat == DEAD)
 		A.revive()
 		cardhold.update_appearance()
 
 	// Finished restoring
-	if(A.health >= 100)
+	if(A.consciousness.value >= 100)
 		ai_slot.locked = FALSE
 		restoring = FALSE
 
@@ -115,7 +115,7 @@
 				data["AI_present"] = TRUE
 				data["name"] = AI.name
 				data["restoring"] = restoring
-				data["health"] = (AI.health + 100) / 2
+				data["health"] = (AI.consciousness.value + 100) / 2
 				data["isDead"] = AI.stat == DEAD
 				data["laws"] = AI.laws.get_law_list(include_zeroth = 1)
 				program_icon_state = "ai_restorer"

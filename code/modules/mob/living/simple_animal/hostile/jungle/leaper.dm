@@ -12,7 +12,6 @@
 	icon_dead = "leaper_dead"
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	maxHealth = 300
-	health = 300
 	ranged = TRUE
 	projectiletype = /obj/projectile/leaper
 	projectilesound = 'sound/weapons/pierce.ogg'

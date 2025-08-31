@@ -26,6 +26,11 @@
 	..()
 	if (HAS_TRAIT(owner, TRAIT_GODMODE))
 		return
+	if(CONFIG_GET(flag/near_death_experience))
+		if(value <= HEALTH_THRESHOLD_NEARDEATH && !HAS_TRAIT(src, TRAIT_NODEATH))
+			ADD_TRAIT(src, TRAIT_SIXTHSENSE, "near-death")
+		else if(value > HEALTH_THRESHOLD_NEARDEATH)
+			REMOVE_TRAIT(src, TRAIT_SIXTHSENSE, "near-death")
 	if (owner.stat != DEAD)
 		if(consciousness_value <= HEALTH_THRESHOLD_DEAD && !HAS_TRAIT(owner, TRAIT_NODEATH))
 			owner.death()
@@ -35,6 +40,6 @@
 		else if(HAS_TRAIT(owner, TRAIT_KNOCKEDOUT))
 			owner.set_stat_source(UNCONSCIOUS, FROM_CONSCIOUSNESS)
 		else if(consciousness_value <= HEALTH_THRESHOLD_CRIT && !HAS_TRAIT(owner, TRAIT_NOSOFTCRIT))
-			owner.set_stat_source(HARD_CRIT, FROM_CONSCIOUSNESS)
+			owner.set_stat_source(SOFT_CRIT, FROM_CONSCIOUSNESS)
 		else
 			owner.clear_stat(FROM_CONSCIOUSNESS)

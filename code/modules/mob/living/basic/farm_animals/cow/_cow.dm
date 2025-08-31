@@ -23,7 +23,6 @@
 	attack_verb_simple = "kick"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	attack_vis_effect = ATTACK_EFFECT_KICK
-	health = 50
 	maxHealth = 50
 	gold_core_spawnable = FRIENDLY_SPAWN
 	blood = new /datum/blood_source/organic

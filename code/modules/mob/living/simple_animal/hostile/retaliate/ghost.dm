@@ -17,7 +17,6 @@
 	healable = 0
 	speed = 0
 	maxHealth = 40
-	health = 40
 	melee_damage = 15
 	del_on_death = TRUE
 	emote_see = list("weeps silently", "groans", "mumbles")

@@ -26,7 +26,6 @@
 	icon_dead = "egg_sac"
 	icon_gib = "syndicate_gib"
 	maxHealth = 400
-	health = 400
 	melee_damage = 30
 	sharpness = SHARP_IV
 	attack_sound = 'sound/weapons/punch1.ogg'
@@ -97,10 +96,10 @@
 	. = ..()
 	if(!.) //Checks if they are dead as a rock.
 		return
-	if(health < maxHealth * 0.5 && rand_tent < world.time)
+	if(get_total_damage() > maxHealth * 0.5 && rand_tent < world.time)
 		rand_tent = world.time + 30
 		var/tentacle_amount = 5
-		if(health < maxHealth * 0.25)
+		if(get_total_damage() > maxHealth * 0.75)
 			tentacle_amount = 10
 		var/tentacle_loc = spiral_range_turfs(5, get_turf(src))
 		for(var/i in 1 to tentacle_amount)
@@ -164,7 +163,6 @@
 	icon_dead = "goliath_baby_dead"
 	icon_gib = "syndicate_gib"
 	maxHealth = 15
-	health = 15
 	melee_damage = 5
 	attack_verb_continuous = "bashes against"
 	attack_verb_simple = "bash against"

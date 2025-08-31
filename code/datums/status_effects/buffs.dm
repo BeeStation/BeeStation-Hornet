@@ -199,7 +199,7 @@
 		owner.cloneloss *= 10
 		owner.staminaloss *= 10
 		owner.updatehealth()
-		last_health = owner.health
+		last_health = owner.consciousness.value
 		last_bruteloss = owner.getBruteLoss()
 		last_fireloss = owner.getFireLoss()
 		last_toxloss = owner.getToxLoss()
@@ -211,7 +211,7 @@
 		owner.playsound_local(get_turf(owner), 'sound/effects/singlebeat.ogg', 40, 1, use_reverb = FALSE)
 
 /datum/status_effect/blooddrunk/tick() //multiply the effect of healing by 10
-	if(owner.health > last_health)
+	if(owner.consciousness.value > last_health)
 		var/needs_health_update = FALSE
 		var/new_bruteloss = owner.getBruteLoss()
 		if(new_bruteloss < last_bruteloss)
@@ -264,7 +264,7 @@
 		if(needs_health_update)
 			owner.updatehealth()
 			owner.playsound_local(get_turf(owner), 'sound/effects/singlebeat.ogg', 40, 1)
-	last_health = owner.health
+	last_health = owner.consciousness.value
 
 /datum/status_effect/blooddrunk/on_remove()
 	tick()
@@ -511,7 +511,7 @@
 					itemUser.put_in_hand(newRod, hand, forced = TRUE)
 					to_chat(itemUser, span_notice("The Rod of Asclepius suddenly grows back out of your arm!"))
 			//Because a servant of medicines stops at nothing to help others, lets keep them on their toes and give them an additional boost.
-			if(itemUser.health < itemUser.maxHealth)
+			if(itemUser.consciousness.value < itemUser.consciousness.max_value)
 				new /obj/effect/temp_visual/heal(get_turf(itemUser), "#375637")
 			itemUser.adjustBruteLoss(-1.5)
 			itemUser.adjustFireLoss(-1.5)
@@ -522,7 +522,7 @@
 			itemUser.adjustCloneLoss(-0.5) //Becasue apparently clone damage is the bastion of all health
 		//Heal all those around you, unbiased
 		for(var/mob/living/L in hearers(7, owner))
-			if(L.health < L.maxHealth)
+			if(L.consciousness.value < L.consciousness.max_value)
 				new /obj/effect/temp_visual/heal(get_turf(L), "#375637")
 			if(iscarbon(L))
 				L.adjustBruteLoss(-3.5)

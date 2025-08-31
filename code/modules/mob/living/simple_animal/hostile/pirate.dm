@@ -12,7 +12,6 @@
 	response_help_simple = "push"
 	speed = 0
 	maxHealth = 100
-	health = 100
 	melee_damage = 10
 	attack_verb_continuous = "punches"
 	attack_verb_simple = "punch"

@@ -57,7 +57,7 @@
 			attack_threshold_check(damage)
 			return 1
 	if (!M.combat_mode)
-		if (health > 0)
+		if (stat == CONSCIOUS)
 			visible_message(span_notice("[M.name] [response_help_continuous] [src]."), \
 							span_notice("[M.name] [response_help_continuous] you."), null, COMBAT_MESSAGE_RANGE, M)
 			to_chat(M, span_notice("You [response_help_simple] [src]."))

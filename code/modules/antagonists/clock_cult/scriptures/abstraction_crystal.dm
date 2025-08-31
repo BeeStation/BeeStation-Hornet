@@ -82,13 +82,13 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 		return
 	. = ..()
 	//Convert any body part damage loss to clone
-	var/health_lost = last_check_health - health
+	var/health_lost = get_total_damage()
 	if(health_lost > 0)
 		damage_crystal(health_lost)
 	var/required_health =  (linked_crystal.get_integrity() / linked_crystal.max_integrity) * maxHealth
-	var/health_delta_needed = max(health - required_health, 0)
+	var/health_delta_needed = max(health_lost - required_health, 0)
 	adjustCloneLoss(health_delta_needed)	//Adjust clone loss so that our health = crystals health
-	last_check_health = health
+	last_check_health = health_lost
 	if(incapacitated() || get_dist(src, linked_crystal) > ABSTRACTION_CRYSTAL_RANGE)
 		linked_crystal.deconstruct(FALSE)
 

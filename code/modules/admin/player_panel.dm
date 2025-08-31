@@ -97,7 +97,7 @@
 			data_entry["brutedam"] = round(tracked_human.getBruteLoss(), 1)
 		else if(isliving(player))
 			var/mob/living/tracked_living = player
-			data_entry["health"] = tracked_living.health
+			data_entry["health"] = (tracked_living.consciousness.value / tracked_living.consciousness.max_value) * tracked_living.getMaxHealth()
 			data_entry["health_max"] = tracked_living.getMaxHealth()
 		var/turf/pos = get_turf(player)
 		data_entry["position"] = AREACOORD(pos)

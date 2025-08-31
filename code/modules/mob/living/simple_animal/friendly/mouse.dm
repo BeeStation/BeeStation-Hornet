@@ -13,7 +13,6 @@
 	turns_per_move = 5
 	see_in_dark = 6
 	maxHealth = 5
-	health = 5
 	faction = list(FACTION_RAT)
 	butcher_results = list(/obj/item/food/meat/slab/mouse = 1)
 	response_help_continuous = "pets"
@@ -56,7 +55,6 @@
 	AddElement(/datum/element/connect_loc, loc_connections)
 
 /mob/living/simple_animal/mouse/proc/splat()
-	src.health = 0
 	src.icon_dead = "mouse_[body_color]_splat"
 	death()
 

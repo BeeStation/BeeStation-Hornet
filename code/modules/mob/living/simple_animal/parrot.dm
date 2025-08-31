@@ -35,7 +35,6 @@
 	icon_dead = "parrot_dead"
 	var/icon_sit = "parrot_sit"
 	density = FALSE
-	health = 80
 	maxHealth = 80
 	pass_flags = PASSTABLE | PASSMOB
 	can_be_held = TRUE
@@ -294,7 +293,7 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 		parrot_interest = M
 		parrot_state = PARROT_SWOOP //The parrot just got hit, it WILL move, now to pick a direction..
 
-		if(health > 30) //Let's get in there and squawk it up!
+		if(get_total_damage() < maxHealth - 30) //Let's get in there and squawk it up!
 			parrot_state |= PARROT_ATTACK
 		else
 			parrot_state |= PARROT_FLEE		//Otherwise, fly like a bat out of hell!
@@ -333,7 +332,7 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 
 			parrot_interest = user
 			parrot_state = PARROT_SWOOP
-			if(health > 30) //Let's get in there and squawk it up!
+			if(get_total_damage() < maxHealth - 30) //Let's get in there and squawk it up!
 				parrot_state |= PARROT_ATTACK
 			else
 				parrot_state |= PARROT_FLEE
@@ -341,7 +340,7 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 			drop_held_item(0)
 	else if(istype(O, /obj/item/food/cracker)) //Poly wants a cracker.
 		qdel(O)
-		if(health < maxHealth)
+		if(get_total_damage() > 0)
 			adjustBruteLoss(-10)
 		speak_chance *= 1.27 // 20 crackers to go from 1% to 100%
 		speech_shuffle_rate += 10
@@ -771,7 +770,7 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 	if(istype(held_item, /obj/item/food/cracker) && (drop_gently))
 		qdel(held_item)
 		held_item = null
-		if(health < maxHealth)
+		if(get_total_damage() > 0)
 			adjustBruteLoss(-10)
 		emote("me", 1, "[src] eagerly downs the cracker.")
 		return 1

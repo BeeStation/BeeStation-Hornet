@@ -2,7 +2,6 @@
 	name = "alien hunter"
 	caste = "h"
 	maxHealth = 200
-	health = 200
 	icon_state = "alienh"
 	var/atom/movable/screen/leap_icon
 

@@ -34,7 +34,7 @@
 	else if (scanned_slime.nutrition < scanned_slime.get_hunger_nutrition())
 		to_render += "\n[span_warning("Warning: slime is hungry")]"
 
-	to_render += "\nElectric charge strength: [scanned_slime.powerlevel]\nHealth: [round(scanned_slime.health/scanned_slime.maxHealth,0.01)*100]%"
+	to_render += "\nElectric charge strength: [scanned_slime.powerlevel]\nHealth: [round(scanned_slime.consciousness.value/scanned_slime.consciousness.max_value,0.01)*100]%"
 	if(scanned_slime.slime_mutation[4] == scanned_slime.colour)
 		to_render += "\nThis slime does not evolve any further."
 	else

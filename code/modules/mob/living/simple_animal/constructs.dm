@@ -92,8 +92,8 @@
 		if(THEME_HOLY)
 			text_span = "blue"
 	. = list("<span class='[text_span]'>This is [icon2html(src, user)] \a <b>[src]</b>!\n[desc]")
-	if(health < maxHealth)
-		if(health >= maxHealth/2)
+	if(get_total_damage() > 0)
+		if(get_total_damage() < maxHealth/2)
 			. += span_warning("[t_He] look[t_s] slightly dented.")
 		else
 			. += span_warning("<b>[t_He] look[t_s] severely dented!</b>")
@@ -106,15 +106,15 @@
 			return ..()
 		if(theme != C.theme)
 			return ..()
-		if(health < maxHealth)
+		if(get_total_damage() > 0)
 			adjustHealth(-5)
 			if(src != M)
 				Beam(M, icon_state="sendbeam", time = 4)
 				M.visible_message(span_danger("[M] repairs some of \the <b>[src]'s</b> dents."), \
-						   span_cult("You repair some of <b>[src]'s</b> dents, leaving <b>[src]</b> at <b>[health]/[maxHealth]</b> health."))
+						   span_cult("You repair some of <b>[src]'s</b> dents, leaving <b>[src]</b> with <b>[get_total_damage()]</b> damage."))
 			else
 				M.visible_message(span_danger("[M] repairs some of [p_their()] own dents."), \
-						   span_cult("You repair some of your own dents, leaving you at <b>[M.health]/[M.maxHealth]</b> health."))
+						   span_cult("You repair some of your own dents, leaving you at <b>[M.get_total_damage()]</b> damage."))
 		else
 			if(src != M)
 				to_chat(M, span_cult("You cannot repair <b>[src]'s</b> dents, as [p_they()] [p_have()] none!"))
@@ -137,7 +137,6 @@
 	icon_state = "juggernaut"
 	icon_living = "juggernaut"
 	maxHealth = 150
-	health = 150
 	response_harm_continuous = "punches"
 	response_harm_simple = "punch"
 
@@ -213,7 +212,6 @@
 	icon_state = "wraith"
 	icon_living = "wraith"
 	maxHealth = 65
-	health = 65
 	melee_damage = 20
 	retreat_distance = 2 //AI wraiths will move in and out of combat
 	attack_verb_continuous = "slashes"
@@ -291,7 +289,6 @@
 	icon_state = "artificer"
 	icon_living = "artificer"
 	maxHealth = 50
-	health = 50
 	response_harm_continuous = "viciously beats"
 	response_harm_simple = "viciously beat"
 	obj_damage = 60
@@ -320,7 +317,7 @@
 /mob/living/simple_animal/hostile/construct/artificer/Found(atom/A) //what have we found here?
 	if(isconstruct(A)) //is it a construct?
 		var/mob/living/simple_animal/hostile/construct/C = A
-		if(C.health < C.maxHealth) //is it hurt? let's go heal it if it is
+		if(C.get_total_damage() > 0) //is it hurt? let's go heal it if it is
 			return 1
 		else
 			return 0
@@ -337,10 +334,10 @@
 	..()
 	if(isliving(target))
 		var/mob/living/L = target
-		if(isconstruct(L) && L.health >= L.maxHealth) //is this target an unhurt construct? stop trying to heal it
+		if(isconstruct(L) && L.get_total_damage() <= 0) //is this target an unhurt construct? stop trying to heal it
 			LoseTarget()
 			return 0
-		if(L.health <= melee_damage) //ey bucko you're hurt as fuck let's go hit you
+		if(L.consciousness.value <= melee_damage) //ey bucko you're hurt as fuck let's go hit you
 			retreat_distance = null
 			minimum_distance = 1
 
@@ -402,7 +399,6 @@
 	icon_state = "harvester"
 	icon_living = "harvester"
 	maxHealth = 40
-	health = 40
 	sight = SEE_MOBS
 	melee_damage = 15
 	attack_verb_continuous = "butchers"
@@ -469,7 +465,6 @@
 	icon_state = "proteon"
 	icon_living = "proteon"
 	maxHealth = 35
-	health = 35
 	melee_damage = 9
 	retreat_distance = 4 //AI proteons will rapidly move in and out of combat to avoid conflict, but will still target and follow you.
 	attack_verb_continuous = "pinches"

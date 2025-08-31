@@ -368,7 +368,7 @@
 			data["subjectStatus"] = STATUS_TRANSFORMING
 		else
 			data["subjectStatus"] = scanner_occupant.stat
-		data["subjectHealth"] = scanner_occupant.health
+		data["subjectHealth"] = scanner_occupant.consciousness.value
 		data["subjectRads"] = scanner_occupant.radiation/(RAD_MOB_SAFE/100)
 		data["subjectEnzymes"] = scanner_occupant.dna.unique_enzymes
 		data["isMonkey"] = ismonkey(scanner_occupant)

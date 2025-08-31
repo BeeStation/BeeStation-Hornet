@@ -722,7 +722,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 					return
 		if(isconstruct(target))
 			var/mob/living/simple_animal/M = target
-			var/missing = M.maxHealth - M.health
+			var/missing = M.get_total_damage()
 			if(missing)
 				if(uses > missing)
 					M.adjustHealth(-missing)

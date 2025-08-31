@@ -3,7 +3,6 @@
 	desc = "Is that a secbot with four eswords in its arms...?"
 	icon = 'icons/mob/aibots.dmi'
 	icon_state = "grievous"
-	health = 150
 	maxHealth = 150
 	baton_type = /obj/item/melee/energy/sword/saber
 	base_speed = 4 //he's a fast fucker
@@ -15,7 +14,6 @@
 /mob/living/simple_animal/bot/secbot/grievous/toy //A toy version of general beepsky!
 	name = "Genewul Bweepskee"
 	desc = "An adorable looking secbot with four toy swords taped to its arms"
-	health = 50
 	maxHealth = 50
 	baton_type = /obj/item/toy/sword
 

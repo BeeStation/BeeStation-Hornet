@@ -13,7 +13,6 @@
 	robust_searching = 1
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	maxHealth = 100
-	health = 100
 	obj_damage = 0
 	melee_damage = 10
 	attack_verb_continuous = "punches"

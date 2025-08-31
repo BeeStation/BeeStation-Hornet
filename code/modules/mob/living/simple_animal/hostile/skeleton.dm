@@ -12,7 +12,6 @@
 	emote_see = list("rattles")
 	combat_mode = TRUE
 	maxHealth = 40
-	health = 40
 	speed = 1
 	melee_damage = 15
 	minbodytemp = 0
@@ -45,7 +44,6 @@
 	icon_living = "eskimo"
 	icon_dead = "eskimo_dead"
 	maxHealth = 55
-	health = 55
 	weather_immunities = list("snow")
 	gold_core_spawnable = NO_SPAWN
 	melee_damage = 20
@@ -63,7 +61,6 @@
 	icon_living = "templar"
 	icon_dead = "templar_dead"
 	maxHealth = 150
-	health = 150
 	weather_immunities = list("snow")
 	speed = 2
 	gold_core_spawnable = NO_SPAWN
@@ -83,7 +80,6 @@
 	desc = "A reanimated skeleton protected by a thick sheet of natural ice armor. Looks slow, though."
 	speed = 5
 	maxHealth = 75
-	health = 75
 	weather_immunities = list("snow")
 	color = rgb(114,228,250)
 	loot = list(/obj/effect/decal/remains/human{color = rgb(114,228,250)})
@@ -95,7 +91,6 @@
 	icon_living = "plasma_miner"
 	icon_dead = "plasma_miner"
 	maxHealth = 150
-	health = 150
 	melee_damage = 17
 	light_color = LIGHT_COLOR_PURPLE
 	attack_verb_continuous = "slashes"
@@ -110,7 +105,6 @@
 	icon_living = "plasma_miner_tool"
 	icon_dead = "plasma_miner_tool"
 	maxHealth = 185
-	health = 185
 	melee_damage = 22
 	attack_verb_continuous = "blasts"
 	attack_verb_simple = "blast"

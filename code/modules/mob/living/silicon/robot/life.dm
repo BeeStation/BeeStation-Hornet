@@ -47,15 +47,15 @@
 		return
 	if(hud_used.healths)
 		if(stat != DEAD)
-			if(health >= consciousness.max_value)
+			if(consciousness.value >= consciousness.max_value)
 				hud_used.healths.icon_state = "health0"
-			else if(health > consciousness.max_value*0.8)
+			else if(consciousness.value > consciousness.max_value*0.8)
 				hud_used.healths.icon_state = "health2"
-			else if(health > consciousness.max_value*0.6)
+			else if(consciousness.value > consciousness.max_value*0.6)
 				hud_used.healths.icon_state = "health3"
-			else if(health > consciousness.max_value*0.4)
+			else if(consciousness.value > consciousness.max_value*0.4)
 				hud_used.healths.icon_state = "health4"
-			else if(health > consciousness.max_value*0.2)
+			else if(consciousness.value > consciousness.max_value*0.2)
 				hud_used.healths.icon_state = "health5"
 			else
 				hud_used.healths.icon_state = "health6"

@@ -297,7 +297,7 @@
 		return
 	if(isliving(target))
 		var/mob/living/kidnapee = target
-		var/kidnaptime = max(1 SECONDS, (kidnapee.health * (kidnapee.mob_size / 2)))
+		var/kidnaptime = max(1 SECONDS, (kidnapee.consciousness.value * (kidnapee.mob_size / 2)))
 		if(iscarbon(target))
 			kidnaptime += 10 SECONDS
 		if(target == user)

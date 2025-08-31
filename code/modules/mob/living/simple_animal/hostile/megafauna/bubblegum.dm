@@ -1,4 +1,4 @@
-#define BUBBLEGUM_SMASH (health <= maxHealth*0.5) // angery
+#define BUBBLEGUM_SMASH (get_total_damage() > maxHealth*0.5) // angery
 #define BUBBLEGUM_CAN_ENRAGE (enrage_till + (enrage_time * 2) <= world.time)
 #define BUBBLEGUM_IS_ENRAGED (enrage_till > world.time)
 
@@ -27,7 +27,6 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/bubblegum
 	name = "bubblegum"
 	desc = "In what passes for a hierarchy among slaughter demons, this one is king."
-	health = 1250
 	maxHealth = 1250
 	attack_verb_continuous = "rends"
 	attack_verb_simple = "rend"
@@ -108,7 +107,7 @@ Difficulty: Hard
 	if(charging)
 		return
 
-	anger_modifier = clamp(((maxHealth - health)/30),0,20)
+	anger_modifier = clamp(((get_total_damage())/30),0,20)
 	enrage_time = initial(enrage_time) * clamp(anger_modifier / 20, 0.5, 1)
 	ranged_cooldown = world.time + 50
 
@@ -510,7 +509,6 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination
 	name = "bubblegum's hallucination"
 	desc = "Is that really just a hallucination?"
-	health = 1
 	maxHealth = 1
 	alpha = 127.5
 	loot = null

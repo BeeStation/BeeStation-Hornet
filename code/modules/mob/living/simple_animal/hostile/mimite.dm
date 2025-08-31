@@ -19,7 +19,6 @@
 
 	speed = 3
 	maxHealth = 50
-	health = 50
 	gender = NEUTER
 	mob_biotypes = list(MOB_INORGANIC)
 	wander = FALSE

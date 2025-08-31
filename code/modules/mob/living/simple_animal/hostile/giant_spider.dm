@@ -38,7 +38,6 @@
 	response_disarm_simple = "gently push aside"
 	initial_language_holder = /datum/language_holder/spider // Speaks buzzwords, understands buzzwords and common
 	maxHealth = 85
-	health = 85
 	obj_damage = 25
 	melee_damage = 15
 	poison_per_bite = 3
@@ -119,18 +118,6 @@
 		log_game("[key_name(src)] took control of [name] with the objective: '[spider_antag.spider_team.directive]'.")
 	return TRUE
 
-// Allows spiders to take damage slowdown. 2 max, but they don't start moving slower until under 75% health
-/mob/living/simple_animal/hostile/poison/giant_spider/updatehealth()
-	. = ..()
-	if(HAS_TRAIT(src, TRAIT_IGNOREDAMAGESLOWDOWN))
-		remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown)
-		return
-	var/health_percentage = round((health / maxHealth) * 100)
-	if(health_percentage <= 75)
-		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown, multiplicative_slowdown = ((100 - health_percentage) / 50))
-	else
-		remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown)
-
 // Handles faster movement on webs
 // This is triggered after the first time a spider steps on/off a web, making web-peeking using this harder
 /mob/living/simple_animal/hostile/poison/giant_spider/Moved(atom/oldloc, dir)
@@ -202,7 +189,7 @@
 						L.death() //If it's not already dead, we want it dead regardless of nourishment
 					if(L.blood.volume >= BLOOD_VOLUME_BAD && !isipc(L)) //IPCs and drained mobs are not nourishing.
 						L.blood.volume = 0 //Remove all fluids from this mob so they are no longer nourishing.
-						health = maxHealth //heal up from feeding.
+						heal_ordered_damage(INFINITY, list(BRUTE, BURN))
 						if(istype(L,/mob/living/carbon/human))
 							enriched_fed++ //it is a humanoid, and is very nourishing
 						else
@@ -255,7 +242,6 @@
 	icon_dead = "nurse_dead"
 	gender = FEMALE
 	maxHealth = 45
-	health = 45
 	melee_damage = 10
 	poison_per_bite = 3
 	speed = 1
@@ -282,7 +268,7 @@
 	if(!istype(target, /mob/living/simple_animal/hostile/poison/giant_spider))
 		return ..()
 	var/mob/living/simple_animal/hostile/poison/giant_spider/hurt_spider = target
-	if(hurt_spider.health >= hurt_spider.maxHealth)
+	if(hurt_spider.get_total_damage() == 0)
 		to_chat(src, span_warning("You can't find any wounds to wrap up."))
 		return ..() // IFF is handled in parent
 	if(hurt_spider == src)
@@ -302,14 +288,14 @@
 		if(!busy)
 			var/list/can_see = view(10, src)
 			for(var/mob/living/C in can_see)
-				if(istype(C, /mob/living/simple_animal/hostile/poison/giant_spider) && C.health < C.maxHealth)
+				if(istype(C, /mob/living/simple_animal/hostile/poison/giant_spider) && C.get_total_damage() > 0)
 					heal_target = C
 					busy = MOVING_TO_TARGET
 					Goto(C, move_to_delay)
 					addtimer(CALLBACK(src, PROC_REF(GiveUp)), 20 SECONDS) //to prevent infinite chases
 		if(heal_target && get_dist(src, heal_target) <= 1)
 			UnarmedAttack(heal_target)
-			if(!heal_target || heal_target.health >= heal_target.maxHealth)
+			if(!heal_target || heal_target.get_total_damage() == 0)
 				GiveUp()
 	..() //Do normal stuff after giving priority to healing attempts
 
@@ -321,7 +307,6 @@
 	icon_living = "broodmother"
 	icon_dead = "broodmother_dead"
 	maxHealth = 90
-	health = 90
 	melee_damage = 15
 	poison_per_bite = 5
 	speed = 2
@@ -379,7 +364,6 @@
 	icon_living = "hunter"
 	icon_dead = "hunter_dead"
 	maxHealth = 65
-	health = 65
 	melee_damage = 18
 	poison_per_bite = 5
 	move_to_delay = 3
@@ -394,7 +378,6 @@
 	icon_living = "viper"
 	icon_dead = "viper_dead"
 	maxHealth = 35
-	health = 35
 	melee_damage = 8
 	poison_per_bite = 8
 	onweb_speed = -1
@@ -410,7 +393,6 @@
 	icon_living = "guard"
 	icon_dead = "guard_dead"
 	maxHealth = 125
-	health = 125
 	melee_damage = 22
 	poison_per_bite = 1 //rely on brute force, but they're still spiders.
 	obj_damage = 50
@@ -455,7 +437,6 @@
 // Buffed spider for wizards to use
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper/wizard
 	maxHealth = 100
-	health = 100
 
 // SPIDER ACTIONS/PROCS
 

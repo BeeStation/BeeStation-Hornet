@@ -1,5 +1,5 @@
 /mob/living/carbon/monkey/help_shake_act(mob/living/carbon/M)
-	if(health < 0 && ishuman(M))
+	if(stat >= SOFT_CRIT && body_position == LYING_DOWN && ishuman(M))
 		var/mob/living/carbon/human/H = M
 		H.do_cpr(src)
 	else
@@ -52,7 +52,7 @@
 /mob/living/carbon/monkey/attack_alien(mob/living/carbon/alien/humanoid/M, modifiers)
 	if(..()) //if harm or disarm intent.
 		if (M.combat_mode)
-			if ((prob(95) && health > 0))
+			if (prob(95) && stat == CONSCIOUS)
 				playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
 				var/damage = rand(15, 30)
 				if (damage >= 25)

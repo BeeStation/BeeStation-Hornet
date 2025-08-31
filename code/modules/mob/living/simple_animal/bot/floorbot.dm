@@ -13,7 +13,6 @@
 	icon = 'icons/mob/aibots.dmi'
 	icon_state = "floorbot0"
 	density = FALSE
-	health = 25
 	maxHealth = 25
 	spacewalk = TRUE
 
@@ -52,7 +51,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/floorbot)
 	prev_access = access_card.access.Copy()
 
 	if(toolbox_color == "s")
-		health = 100
 		maxHealth = 100
 
 /mob/living/simple_animal/bot/floorbot/Exited(atom/movable/A, atom/newloc)

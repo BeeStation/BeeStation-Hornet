@@ -61,7 +61,7 @@
 		var/list/health
 		if(damage_interrupt && isliving(owner))
 			var/mob/living/L = owner
-			health = list("health" = L.health)
+			health = list("health" = L.consciousness.value)
 		var/scribe_mod = scribe_time
 		if(istype(T, /turf/open/floor/engine/cult))
 			scribe_mod *= 0.5

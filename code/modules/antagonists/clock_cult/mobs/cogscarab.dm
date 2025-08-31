@@ -8,7 +8,6 @@ GLOBAL_LIST_INIT(cogscarabs, list())
 	icon_state = "drone_clock"
 	icon_living = "drone_clock"
 	icon_dead = "drone_clock_dead"
-	health = 30
 	maxHealth = 30
 	faction = list(FACTION_NEUTRAL, FACTION_SILICON, FACTION_TURRET, FACTION_RATVAR)
 	default_storage = /obj/item/storage/belt/utility/servant/drone

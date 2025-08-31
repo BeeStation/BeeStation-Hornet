@@ -152,6 +152,5 @@
 		K.melee_damage += round(seed.potency / 10)
 		K.move_to_delay -= round(seed.production / 50)
 		K.frenzythreshold -= round(seed.potency / 25)// max potency tomatoes will enter a frenzy more easily
-		K.health = K.maxHealth
 		K.visible_message(span_notice("The Killer Tomato growls as it suddenly awakens."))
 		qdel(src)

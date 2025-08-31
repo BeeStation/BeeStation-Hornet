@@ -13,7 +13,6 @@
 	stat_attack = HARD_CRIT
 	robust_searching = 1
 	maxHealth = 100
-	health = 100
 	melee_damage = 12
 	attack_verb_continuous = "punches"
 	attack_verb_simple = "punch"

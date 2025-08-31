@@ -38,7 +38,6 @@
 	name = "alien queen"
 	caste = "q"
 	maxHealth = 400
-	health = 400
 	icon_state = "alienq"
 
 /mob/living/carbon/alien/humanoid/royal/queen/Initialize(mapload)

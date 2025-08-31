@@ -77,12 +77,7 @@
 	var/L = get_organ_slot(ORGAN_SLOT_LUNGS)
 
 	if(!L)
-		if(health >= crit_threshold)
-			adjustOxyLoss(HUMAN_MAX_OXYLOSS + 1)
-		else if(!HAS_TRAIT(src, TRAIT_NOCRITDAMAGE))
-			adjustOxyLoss(HUMAN_CRIT_MAX_OXYLOSS)
-
-		failed_last_breath = 1
+		blood.multiply_circulation_rating(0, FROM_BREATH)
 
 		var/datum/species/S = dna.species
 

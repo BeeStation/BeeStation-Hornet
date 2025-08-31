@@ -1,10 +1,9 @@
-/mob/living
-	///Used for tracking poking data
-	var/time_of_last_poke = 0
-	///Used for tracking accidental attacks
-	var/time_of_last_attack_dealt = 0
-	///Used for tracking accidental attacks
-	var/time_of_last_attack_received = 0
+///Used for tracking poking data
+/mob/living/var/time_of_last_poke = 0
+///Used for tracking accidental attacks
+/mob/living/var/time_of_last_attack_dealt = 0
+///Used for tracking accidental attacks
+/mob/living/var/time_of_last_attack_received = 0
 
 /mob/living/Initialize(mapload)
 	. = ..()
@@ -221,7 +220,7 @@
 				holding += ", and \a [I]."
 			else
 				holding += ", \a [I]"
-	return "You can also see [src] on the photo[health < (maxHealth * 0.75) ? ", looking a bit hurt":""].[length(holding) ? " [holding.Join("")].":""]"
+	return "You can also see [src] on the photo[get_total_damage() > (maxHealth * 0.25) ? ", looking a bit hurt":""].[length(holding) ? " [holding.Join("")].":""]"
 
 //Called when we bump onto an obj
 /mob/living/proc/ObjBump(obj/O)
@@ -442,8 +441,8 @@
 	if (!CAN_SUCCUMB(src))
 		return
 
-	log_message("Has [whispered ? "whispered his final words" : "succumbed to death"] with [round(health, 0.1)] points of health!", LOG_ATTACK)
-	adjustOxyLoss(health - HEALTH_THRESHOLD_DEAD)
+	log_message("Has [whispered ? "whispered his final words" : "succumbed to death"] with [round(consciousness.value, 0.1)] points of health!", LOG_ATTACK)
+	adjustOxyLoss(consciousness.value - HEALTH_THRESHOLD_DEAD)
 	updatehealth()
 	if(!whispered)
 		to_chat(src, span_notice("You have given up life and succumbed to death."))
@@ -672,11 +671,6 @@
 /mob/living/is_drawable(mob/user, allowmobs = TRUE)
 	return (allowmobs && reagents && can_inject(user))
 
-///Sets the current mob's health value. Do not call directly if you don't know what you are doing, use the damage procs, instead.
-/mob/living/proc/set_health(new_value)
-	. = health
-	health = new_value
-
 /mob/living/proc/updatehealth()
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
@@ -689,7 +683,7 @@
 
 /mob/living/update_health_hud()
 	var/severity = 0
-	var/healthpercent = min(consciousness.value / consciousness.max_value, 1 - (pain.pain / 100))
+	var/healthpercent = consciousness.value / consciousness.max_value
 	if(hud_used?.healthdoll) //to really put you in the boots of a simplemob
 		var/atom/movable/screen/healthdoll/living/livingdoll = hud_used.healthdoll
 		switch(healthpercent)
@@ -1745,8 +1739,6 @@
 		if (NAMEOF(src, maxHealth))
 			if (!isnum(var_value) || var_value <= 0)
 				return FALSE
-		if(NAMEOF(src, health)) //this doesn't work. gotta use procs instead.
-			return FALSE
 		if(NAMEOF(src, resting))
 			set_resting(var_value)
 			. = TRUE

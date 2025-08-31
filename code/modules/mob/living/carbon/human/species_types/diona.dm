@@ -78,7 +78,7 @@
 		H.take_overall_damage(1,0)
 	if(H.stat != CONSCIOUS)
 		H.remove_status_effect(/datum/status_effect/planthealing)
-	if((H.health <= H.crit_threshold)) //Shit, we're dying! Scatter!
+	if(H.stat >= SOFT_CRIT) //Shit, we're dying! Scatter!
 		split_ability.split(FALSE, H)
 	if(H.nutrition > NUTRITION_LEVEL_WELL_FED && !informed_nymph)
 		informed_nymph = TRUE

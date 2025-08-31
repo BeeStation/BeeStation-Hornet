@@ -5,7 +5,6 @@
 	icon_state = "honkbot"
 	density = FALSE
 	anchored = FALSE
-	health = 25
 	maxHealth = 25
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	pass_flags = PASSMOB
@@ -124,7 +123,7 @@
 		update_icon()
 
 /mob/living/simple_animal/bot/honkbot/bullet_act(obj/projectile/Proj)
-	if((istype(Proj,/obj/projectile/beam)) || (istype(Proj,/obj/projectile/bullet) && (Proj.damage_type == BURN))||(Proj.damage_type == BRUTE) && (!Proj.nodamage && Proj.damage < health && ishuman(Proj.firer)))
+	if((istype(Proj,/obj/projectile/beam)) || (istype(Proj,/obj/projectile/bullet) && (Proj.damage_type == BURN))||(Proj.damage_type == BRUTE) && (!Proj.nodamage && get_total_damage() + Proj.damage < maxHealth && ishuman(Proj.firer)))
 		retaliate(Proj.firer)
 	return ..()
 
@@ -150,7 +149,7 @@
 		playsound(src, honksound, 50, TRUE, -1)
 		var/obj/item/I = AM
 		var/mob/thrown_by = I.thrownby?.resolve()
-		if(I.throwforce < health && thrown_by && (istype(thrown_by, /mob/living/carbon/human)))
+		if(get_total_damage() + I.throwforce < maxHealth && thrown_by && (istype(thrown_by, /mob/living/carbon/human)))
 			var/mob/living/carbon/human/H = thrown_by
 			retaliate(H)
 	..()

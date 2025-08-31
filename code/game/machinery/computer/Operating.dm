@@ -128,7 +128,7 @@
 		if(DEAD)
 			data["patient"]["stat"] = "Dead"
 			data["patient"]["statstate"] = "bad"
-	data["patient"]["health"] = patient.health
+	data["patient"]["health"] = patient.consciousness.value
 
 	data["patient"]["blood_type"] = patient.dna.blood_type
 

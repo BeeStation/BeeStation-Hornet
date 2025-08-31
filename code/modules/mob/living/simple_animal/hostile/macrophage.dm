@@ -14,7 +14,6 @@
 	response_harm_continuous = "squashes"
 	response_harm_simple = "squash"
 	maxHealth = 6
-	health = 6
 	spacewalk = TRUE
 	faction = list(FACTION_PLANTS)
 	move_to_delay = 0
@@ -77,7 +76,6 @@
 	icon_state = "macrovirus_large"
 	melee_damage = 5
 	maxHealth = 12
-	health = 12
 	pass_flags = PASSTABLE | PASSGRILLE
 	density = TRUE
 	aggressive = TRUE
@@ -87,7 +85,6 @@
 /mob/living/simple_animal/hostile/macrophage/aggro/vector/Initialize(mapload)
 	.=..()
 	var/datum/disease/advance/random/macrophage/D = new
-	health += D.resistance
 	maxHealth += D.resistance
 	melee_damage += max(0, D.resistance)
 	infections += D

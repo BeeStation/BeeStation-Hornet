@@ -111,7 +111,6 @@
 	RegisterSignal(human_target, COMSIG_MOB_DEATH, PROC_REF(remove_ghoul))
 	human_target.revive(ADMIN_HEAL_ALL) // Have to do an admin heal here, otherwise they'll likely just die due to missing organs or limbs
 	human_target.setMaxHealth(GHOUL_MAX_HEALTH)
-	human_target.health = GHOUL_MAX_HEALTH
 	human_target.become_husk(MAGIC_TRAIT)
 	human_target.apply_status_effect(/datum/status_effect/ghoul)
 	human_target.faction |= FACTION_HERETIC
@@ -193,7 +192,6 @@
 	message_admins("[ADMIN_LOOKUPFLW(user)] created a voiceless dead, [ADMIN_LOOKUPFLW(soon_to_be_ghoul)].")
 	soon_to_be_ghoul.revive(HEAL_ALL)
 	soon_to_be_ghoul.setMaxHealth(MUTE_MAX_HEALTH)
-	soon_to_be_ghoul.health = MUTE_MAX_HEALTH // Voiceless dead are much tougher than ghouls
 	soon_to_be_ghoul.become_husk()
 	soon_to_be_ghoul.faction |= FACTION_HERETIC
 	soon_to_be_ghoul.apply_status_effect(/datum/status_effect/ghoul)

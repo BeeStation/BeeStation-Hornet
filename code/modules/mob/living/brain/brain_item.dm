@@ -190,7 +190,7 @@
 		. += span_info("It's started turning slightly grey. They must not have been able to handle the stress of it all.")
 	else if(brainmob)
 		if(!brainmob.soul_departed())
-			if(brain_death || brainmob.health <= HEALTH_THRESHOLD_DEAD)
+			if(brain_death || brainmob.stat == DEAD)
 				. += span_info("It's lifeless and severely damaged.")
 			else if(organ_flags & ORGAN_FAILING)
 				. += span_info("It seems to still have a bit of energy within it, but it's rather damaged... You may be able to restore it with some <b>mannitol</b>.")
@@ -363,7 +363,7 @@
 		var/mob/living/carbon/human/H = brain_owner
 		if(H.dna?.species)
 			if(REVIVESBYHEALING in H.dna.species.species_traits)
-				if(H.health > 0)
+				if(H.get_total_damage() < H.maxHealth)
 					H.revive()
 
 /obj/item/organ/brain/positron/emp_act(severity)

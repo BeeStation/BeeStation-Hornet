@@ -278,7 +278,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 /mob/living/silicon/ai/get_stat_tab_status()
 	var/list/tab_data = ..()
 	if(!stat)
-		tab_data["System integrity"] = GENERATE_STAT_TEXT("[(health+100)/2]%")
+		tab_data["System integrity"] = GENERATE_STAT_TEXT("[(consciousness.value+100)/2]%")
 		if(isturf(loc)) //only show if we're "in" a core
 			tab_data["Backup Power"] = GENERATE_STAT_TEXT("[battery/2]%")
 		tab_data["Connected cyborgs"] = GENERATE_STAT_TEXT("[connected_robots.len]")
@@ -294,7 +294,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 			//Name, Health, Battery, Model, Area, and Status! Everything an AI wants to know about its borgies!
 			index++
 			tab_data["[R.name] (Connection [index])"] = list(
-				text="S.Integrity: [R.health]% | Cell: [R.cell ? "[R.cell.charge]/[R.cell.maxcharge]" : "Empty"] | \
+				text="S.Integrity: [R.consciousness.value]% | Cell: [R.cell ? "[R.cell.charge]/[R.cell.maxcharge]" : "Empty"] | \
 					Model: [R.designation] | Loc: [get_area_name(R, TRUE)] | Status: [robot_status]", type = STAT_TEXT)
 		tab_data["AI shell beacons detected"] = GENERATE_STAT_TEXT("[LAZYLEN(GLOB.available_ai_shells)]") //Count of total AI shells
 	else

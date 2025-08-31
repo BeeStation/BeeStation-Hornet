@@ -8,7 +8,6 @@
 	speak_chance = 0
 	turns_per_move = 5
 	maxHealth = 30
-	health = 30
 	see_in_dark = 3
 	butcher_results = list(/obj/item/food/meat/slab/killertomato = 2)
 	response_help_continuous = "prods"

@@ -34,7 +34,6 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 	attack_verb_continuous = "punches"
 	attack_verb_simple = "punch"
 	maxHealth = INFINITY // The spirit itself is invincible
-	health = INFINITY
 	healable = FALSE // Don't bruise pack the holopara!
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.5, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0) // How much damage from each damage type we transfer to the owner
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
@@ -192,9 +191,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/holoparasite)
 		var/mob/living/current = summoner.current
 		var/health_percent
 		if(iscarbon(current))
-			health_percent = round((abs(HEALTH_THRESHOLD_DEAD - current.health) / abs(HEALTH_THRESHOLD_DEAD - current.maxHealth)) * 100)
+			health_percent = round((abs(HEALTH_THRESHOLD_DEAD - current.consciousness.value) / abs(HEALTH_THRESHOLD_DEAD - current.consciousness.max_value)) * 100)
 		else
-			health_percent = round((current.health / current.maxHealth) * 100, 0.5)
+			health_percent = round((current.consciousness.value / current.consciousness.max_value) * 100, 0.5)
 		var/stat_text = "[health_percent]%"
 		if(HAS_TRAIT(current, TRAIT_CRITICAL_CONDITION))
 			stat_text += " (!! CRITICAL !!)"

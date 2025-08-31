@@ -757,19 +757,17 @@
 
 /mob/living/silicon/robot/updatehealth()
 	..()
-	if(health < maxHealth * 0.75) //Gradual break down of modules as more damage is sustained
-		var/speedpenalty = (maxHealth - health) / 150
-		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown, multiplicative_slowdown = speedpenalty)
+	if(consciousness.value < consciousness.max_value * 0.75) //Gradual break down of modules as more damage is sustained
 		if(uneq_module(held_items[3]))
 			playsound(loc, 'sound/machines/warning-buzzer.ogg', 50, 1, 1)
 			audible_message(span_warning("[src] sounds an alarm! \"SYSTEM ERROR: Module 3 OFFLINE.\""))
 			to_chat(src, span_userdanger("SYSTEM ERROR: Module 3 OFFLINE."))
-		if(health < maxHealth*0.5)
+		if(consciousness.value < consciousness.max_value*0.5)
 			if(uneq_module(held_items[2]))
 				audible_message(span_warning("[src] sounds an alarm! \"SYSTEM ERROR: Module 2 OFFLINE.\""))
 				to_chat(src, span_userdanger("SYSTEM ERROR: Module 2 OFFLINE."))
 				playsound(loc, 'sound/machines/warning-buzzer.ogg', 60, 1, 1)
-			if(health < maxHealth*0.25)
+			if(consciousness.value < consciousness.max_value*0.25)
 				if(uneq_module(held_items[1]))
 					audible_message(span_warning("[src] sounds an alarm! \"CRITICAL ERROR: All modules OFFLINE.\""))
 					to_chat(src, span_userdanger("CRITICAL ERROR: All modules OFFLINE."))

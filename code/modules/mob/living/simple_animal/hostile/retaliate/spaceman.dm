@@ -14,7 +14,6 @@
 	response_harm_simple = "punch"
 	combat_mode = TRUE
 	maxHealth = 100
-	health = 100
 	speed = 0
 	melee_damage = 10
 	attack_verb_continuous = "hits"
@@ -39,7 +38,6 @@
 	robust_searching = 1
 	vision_range = 3
 	maxHealth = 100
-	health = 100
 	melee_damage = 12
 	attack_verb_continuous = "punches"
 	attack_verb_simple = "punch"

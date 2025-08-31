@@ -1265,7 +1265,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	blast_range = initial(blast_range)
 	if(isliving(user))
 		var/mob/living/L = user
-		var/health_percent = L.health / L.maxHealth
+		var/health_percent = 1 - (L.get_total_damage() / L.maxHealth)
 		chaser_cooldown += round(health_percent * 20) //two tenths of a second for each missing 10% of health
 		cooldown_time += round(health_percent * 10) //one tenth of a second for each missing 10% of health
 		chaser_speed = max(chaser_speed + health_percent, 0.5) //one tenth of a second faster for each missing 10% of health

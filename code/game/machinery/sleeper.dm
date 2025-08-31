@@ -266,7 +266,7 @@
 		if(DEAD)
 			data["occupant"]["stat"] = "Dead"
 			data["occupant"]["statstate"] = "bad"
-	data["occupant"]["health"] = mob_occupant.health
+	data["occupant"]["health"] = mob_occupant.consciousness.value
 	data["occupant"]["maxHealth"] = mob_occupant.maxHealth
 	data["occupant"]["minHealth"] = HEALTH_THRESHOLD_DEAD
 	data["occupant"]["bruteLoss"] = mob_occupant.getBruteLoss()

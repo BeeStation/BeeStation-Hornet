@@ -18,7 +18,6 @@
 
 	speed = -1
 	maxHealth = 50000
-	health = 50000
 	healable = 0
 
 	obj_damage = 100

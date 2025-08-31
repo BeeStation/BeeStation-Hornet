@@ -1999,7 +1999,7 @@
 
 /datum/reagent/peaceborg/tire/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	var/healthcomp = (100 - affected_mob.health) //DOES NOT ACCOUNT FOR ADMINBUS THINGS THAT MAKE YOU HAVE MORE THAN 200/210 HEALTH, OR SOMETHING OTHER THAN A HUMAN PROCESSING THIS.
+	var/healthcomp = affected_mob.get_total_damage()
 	if(affected_mob.getStaminaLoss() < (45 - healthcomp))	//At 50 health you would have 200 - 150 health meaning 50 compensation. 60 - 50 = 10, so would only do 10-19 stamina.)
 		affected_mob.adjustStaminaLoss(10 * REM * delta_time)
 	if(DT_PROB(16, delta_time))
@@ -2175,7 +2175,7 @@ Basically, we fill the time between now and 2s from now with hands based off the
 	. = ..()
 	affected_mob.losebreath = 0
 
-	if(affected_mob.health <= 20)
+	if(affected_mob.get_total_damage() > 80)
 		affected_mob.adjustToxLoss(-4 * REM * delta_time, updating_health = FALSE, forced = TRUE) // forced makes it heal toxinlovers
 		affected_mob.adjustBruteLoss(-4 * REM * delta_time, updating_health = FALSE)
 		affected_mob.adjustFireLoss(-4 * REM * delta_time, updating_health = FALSE)

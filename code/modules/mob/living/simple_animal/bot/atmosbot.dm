@@ -24,7 +24,6 @@
 	icon_state = "atmosbot0"
 	density = FALSE
 	anchored = FALSE
-	health = 25
 	maxHealth = 25
 	spacewalk = TRUE
 

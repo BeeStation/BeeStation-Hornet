@@ -58,7 +58,6 @@
 	initial_language_holder = /datum/language_holder/swarmer
 	bubble_icon = "swarmer"
 	mob_biotypes = list(MOB_ROBOTIC)
-	health = 65
 	maxHealth = 65
 	status_flags = CANPUSH
 	icon_state = "swarmer"
@@ -120,7 +119,7 @@
 	var/image/holder = hud_list[DIAG_HUD]
 	var/icon/I = icon(icon, icon_state, dir)
 	holder.pixel_y = I.Height() - world.icon_size
-	holder.icon_state = "huddiag[RoundDiagBar(health/maxHealth)]"
+	holder.icon_state = "huddiag[RoundDiagBar(consciousness.value/consciousness.max_value)]"
 
 /mob/living/simple_animal/hostile/swarmer/med_hud_set_status()
 	var/image/holder = hud_list[DIAG_STAT_HUD]
@@ -137,8 +136,8 @@
 	. = ..()
 	if(. & EMP_PROTECT_SELF)
 		return
-	if(health > 1)
-		adjustHealth(health-1)
+	if(get_total_damage() < maxHealth - 1)
+		set_health(1)
 	else
 		death()
 

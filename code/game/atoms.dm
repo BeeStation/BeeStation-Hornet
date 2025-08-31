@@ -1836,7 +1836,7 @@
 	var/datum/tool_atom = object
 
 	var/mob/living/living_target = target
-	var/hp = istype(living_target) ? " (NEWHP: [living_target.health]) " : ""
+	var/hp = istype(living_target) ? " (NEWHP: [living_target.consciousness.value]) " : ""
 	var/stam
 	if(iscarbon(living_target))
 		var/mob/living/carbon/C = living_target

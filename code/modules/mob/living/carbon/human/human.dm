@@ -482,7 +482,7 @@
 			to_chat(src, span_warning("You fail to perform CPR on [target]!"))
 			return FALSE
 
-		if (target.health > target.crit_threshold)
+		if (target.stat == CONSCIOUS)
 			return FALSE
 
 		visible_message(span_notice("[src] performs CPR on [target.name]!"), span_notice("You perform CPR on [target.name]."))
@@ -497,7 +497,7 @@
 			target.adjustOxyLoss(-min(target.getOxyLoss(), 7))
 			to_chat(target, span_unconscious("You feel a breath of fresh air enter your lungs... It feels good..."))
 
-		if (target.health <= target.crit_threshold)
+		if (target.stat > CONSCIOUS)
 			if (!panicking)
 				to_chat(src, span_warning("[target] still isn't up! You try harder!"))
 			panicking = TRUE

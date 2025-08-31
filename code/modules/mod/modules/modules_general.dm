@@ -225,7 +225,7 @@
 	.["display_time"] = display_time
 	.["shift_time"] = station_time_timestamp()
 	.["shift_id"] = GLOB.round_id
-	.["health"] = mod.wearer?.health || 0
+	.["health"] = mod.wearer?.consciousness.value || 0
 	.["health_max"] = mod.wearer?.getMaxHealth() || 0
 	if(display_detailed_vitals)
 		.["loss_brute"] = mod.wearer?.getBruteLoss() || 0

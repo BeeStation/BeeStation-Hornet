@@ -43,7 +43,7 @@
 	if(!is_type_in_list(target, food_types))
 		return
 	var/eat_verb = pick("bite","chew","nibble","gnaw","gobble","chomp")
-	var/healed = heal_amt && eater.health < eater.maxHealth
+	var/healed = heal_amt && eater.consciousness.value < eater.consciousness.max_value
 	if(heal_amt)
 		eater.heal_overall_damage(heal_amt)
 	eater.visible_message(span_notice("[eater] [eat_verb]s [target]."), span_notice("You [eat_verb] [target][healed ? ", restoring some health" : ""]."))

@@ -102,7 +102,6 @@ GLOBAL_LIST_INIT(valid_blobstrains, subtypesof(/datum/blobstrain) - list(/datum/
 
 	for(var/mob/living/simple_animal/hostile/blob/BM as anything in overmind.blob_mobs)
 		BM.maxHealth *= max_mob_health_multiplier
-		BM.health *= max_mob_health_multiplier
 		BM.update_icons() //If it's getting a new strain, tell it what it does!
 		to_chat(BM, "Your overmind's blob strain is now: <b><font color=\"[color]\">[name]</b></font>!")
 		to_chat(BM, "The <b><font color=\"[color]\">[name]</b></font> strain [shortdesc ? "[shortdesc]" : "[description]"]")
@@ -132,8 +131,6 @@ GLOBAL_LIST_INIT(valid_blobstrains, subtypesof(/datum/blobstrain) - list(/datum/
 
 	for(var/mob/living/simple_animal/hostile/blob/BM as anything in overmind.blob_mobs)
 		BM.maxHealth /= max_mob_health_multiplier
-		BM.health /= max_mob_health_multiplier
-
 
 /datum/blobstrain/proc/on_sporedeath(mob/living/spore)
 

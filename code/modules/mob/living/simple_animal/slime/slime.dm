@@ -28,7 +28,6 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 
 	maxHealth = 150
-	health = 150
 	healable = 0
 	gender = NEUTER
 
@@ -137,7 +136,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 	if(is_adult)
 		var/datum/action/innate/slime/reproduce/R = new
 		R.Grant(src)
-		health = 200
 		maxHealth = 200
 	else
 		var/datum/action/innate/slime/evolve/E = new
@@ -200,7 +198,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 /mob/living/simple_animal/slime/updatehealth()
 	. = ..()
 	remove_movespeed_modifier(/datum/movespeed_modifier/slime_healthmod)
-	var/health_deficiency = (100 - health)
+	var/health_deficiency = get_total_damage()
 	var/mod = 0
 	if(!HAS_TRAIT(src, TRAIT_IGNOREDAMAGESLOWDOWN))
 		if(health_deficiency >= 45)
@@ -321,7 +319,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 		if(nutrition >= 100) //steal some nutrition. negval handled in life()
 			adjust_nutrition(-(50 + (40 * M.is_adult)))
 			M.add_nutrition(25 + (20 * M.is_adult))
-		if(health > 0)
+		if(stat == CONSCIOUS)
 			M.adjustBruteLoss(-10 + (-10 * M.is_adult))
 			M.updatehealth()
 

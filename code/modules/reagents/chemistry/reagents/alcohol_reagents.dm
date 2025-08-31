@@ -726,15 +726,14 @@
 	tough_text = pick("brawny", "tenacious", "tough", "hardy", "sturdy") //Tuff stuff
 	to_chat(affected_mob, span_notice("You feel [tough_text]!"))
 
-	affected_mob.maxHealth += 10 //Brave Bull makes you sturdier, and thus capable of withstanding a tiny bit more punishment.
-	affected_mob.health += 10
+	//Brave Bull makes you sturdier, and thus capable of withstanding a tiny bit more punishment.
+	affected_mob.pain.set_pain_modifier(0.9, FROM_BRAVE_BULL)
 
 /datum/reagent/consumable/ethanol/brave_bull/on_mob_end_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
 	to_chat(affected_mob, span_notice("You no longer feel [tough_text]."))
 
-	affected_mob.maxHealth -= 10
-	affected_mob.health = min(affected_mob.health - 10, affected_mob.maxHealth) //This can indeed crit you if you're alive solely based on alchol ingestion
+	affected_mob.pain.set_pain_modifier(1, FROM_BRAVE_BULL)
 
 /datum/reagent/consumable/ethanol/tequila_sunrise
 	name = "Tequila Sunrise"
@@ -1650,7 +1649,7 @@
 
 /datum/reagent/consumable/ethanol/hearty_punch/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(affected_mob.health <= 0)
+	if(affected_mob.get_total_damage() > affected_mob.maxHealth)
 		affected_mob.adjustBruteLoss(-3 * REM * delta_time, updating_health = FALSE)
 		affected_mob.adjustFireLoss(-3 * REM * delta_time, updating_health = FALSE)
 		affected_mob.adjustCloneLoss(-5 * REM * delta_time, updating_health = FALSE)
@@ -2050,7 +2049,7 @@
 /datum/reagent/consumable/ethanol/bastion_bourbon/on_mob_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
 	var/heal_points = 10
-	if(affected_mob.health <= 0)
+	if(affected_mob.stat >= SOFT_CRIT)
 		heal_points = 20 //heal more if we're in softcrit
 	for(var/i in 1 to min(volume, heal_points)) //only heals 1 point of damage per unit on add, for balance reasons
 		affected_mob.adjustBruteLoss(-1, updating_health = FALSE)
@@ -2064,7 +2063,7 @@
 		affected_mob.visible_message(span_danger("[affected_mob] lurches to [affected_mob.p_their()] feet!"), span_boldnotice("Up and at 'em, kid."))
 
 /datum/reagent/consumable/ethanol/bastion_bourbon/on_mob_life(mob/living/L, delta_time, times_fired)
-	if(L.health > 0)
+	if(L.stat == CONSCIOUS)
 		L.adjustBruteLoss(-1 * REM * delta_time)
 		L.adjustFireLoss(-1 * REM * delta_time)
 		L.adjustToxLoss(-0.5 * REM * delta_time)
@@ -2374,7 +2373,7 @@
 
 /datum/reagent/consumable/ethanol/fanciulli/on_mob_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
-	if(affected_mob.health > 0)
+	if(affected_mob.stat == CONSCIOUS)
 		affected_mob.adjustStaminaLoss(20, updating_health = TRUE)
 
 /datum/reagent/consumable/ethanol/branca_menta
@@ -2394,7 +2393,7 @@
 
 /datum/reagent/consumable/ethanol/branca_menta/on_mob_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
-	if(affected_mob.health > 0)
+	if(affected_mob.stat == CONSCIOUS)
 		affected_mob.adjustStaminaLoss(35, updating_health = TRUE)
 
 /datum/reagent/consumable/ethanol/branca_menta/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)

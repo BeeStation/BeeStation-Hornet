@@ -162,7 +162,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/spear/explosive)
 		if(!L.stat && prob(50))
 			var/mob/living/simple_animal/hostile/illusion/M = new(user.loc)
 			M.faction = user.faction.Copy()
-			M.Copy_Parent(user, 100, user.health/2.5, 12, 30)
+			M.Copy_Parent(user, 100, user.consciousness.value/2.5, 12, 30)
 			M.GiveTarget(L)
 
 /*

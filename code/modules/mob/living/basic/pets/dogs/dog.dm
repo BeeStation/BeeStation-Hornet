@@ -335,7 +335,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	//Various hats and items (worn on his head) change Ian's behaviour. His attributes are reset when a hat is removed.
 
 	if(valid)
-		if(health <= 0)
+		if(consciousness.value <= 0)
 			to_chat(user, span_notice("There is merely a dull, lifeless look in [real_name]'s eyes as you put the [item_to_add] on [p_them()]."))
 		else if(user)
 			user.visible_message("[user] puts [item_to_add] on [real_name]'s head.  [src] looks at [user] and barks once.",
@@ -530,7 +530,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 		if(!DF.obj_color)
 			DF.obj_color = inventory_head.color
 
-		if(health <= 0)
+		if(stat == DEAD)
 			head_icon = DF.get_overlay(dir = EAST)
 			head_icon.pixel_y = -8
 			head_icon.transform = turn(head_icon.transform, 180)
@@ -550,7 +550,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 		if(!DF.obj_color)
 			DF.obj_color = inventory_back.color
 
-		if(health <= 0)
+		if(stat == DEAD)
 			back_icon = DF.get_overlay(dir = EAST)
 			back_icon.pixel_y = -11
 			back_icon.transform = turn(back_icon.transform, 180)

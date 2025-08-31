@@ -45,7 +45,6 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	desc = "That name is a bit of a mouthful, but stop paying attention to your mouth they're eating everything!"
 	icon = 'icons/mob/swarmer.dmi'
 	icon_state = "swarmer_console"
-	health = 375
 	maxHealth = 375 //""""low-ish"""" HP because it's a passive boss, and the swarm itself is the real foe
 	mob_biotypes = list(MOB_ROBOTIC)
 	gps_name = "Hungry Signal"
@@ -95,7 +94,6 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 //AI versions of the swarmer mini-antag
 //This is an Abstract Base, it re-enables AI, but does not give the swarmer any goals/targets
 /mob/living/simple_animal/hostile/swarmer/ai
-	health = 20
 	maxHealth = 20
 	wander = TRUE
 	faction = list(FACTION_SWARMER, FACTION_MINING)
@@ -126,7 +124,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	. = ..()
 	if(.)
 		if(!stop_automated_movement)
-			if(health < maxHealth*0.25)
+			if(get_total_damage > maxHealth*0.75)
 				StartAction(100)
 				RepairSelf()
 				return
@@ -258,7 +256,6 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 /mob/living/simple_animal/hostile/swarmer/ai/melee_combat
 	icon_state = "swarmer_melee"
 	icon_living = "swarmer_melee"
-	health = 60
 	maxHealth = 60
 	ranged = FALSE
 

@@ -70,14 +70,14 @@
 	var/datum/status_effect/crusher_damage/C = target.has_status_effect(/datum/status_effect/crusher_damage)
 	if(!C)
 		C = target.apply_status_effect(/datum/status_effect/crusher_damage)
-	var/target_health = target.health
+	var/target_damage = target.get_total_damage()
 	..()
 	for(var/t in trophies)
 		if(!QDELETED(target))
 			var/obj/item/crusher_trophy/T = t
 			T.on_melee_hit(target, user)
 	if(!QDELETED(C) && !QDELETED(target))
-		C.total_damage += target_health - target.health //we did some damage, but let's not assume how much we did
+		C.total_damage += target.get_total_damage() - target_damage
 
 /obj/item/kinetic_crusher/afterattack(atom/target, mob/living/user, proximity_flag, clickparams)
 	if(proximity_flag && isliving(target))
@@ -88,13 +88,13 @@
 		var/datum/status_effect/crusher_damage/C = L.has_status_effect(/datum/status_effect/crusher_damage)
 		if(!C)
 			C = L.apply_status_effect(/datum/status_effect/crusher_damage)
-		var/target_health = L.health
+		var/target_damage = L.get_total_damage()
 		for(var/t in trophies)
 			var/obj/item/crusher_trophy/T = t
 			T.on_mark_detonation(target, user)
 		if(!QDELETED(L))
 			if(!QDELETED(C))
-				C.total_damage += target_health - L.health //we did some damage, but let's not assume how much we did
+				C.total_damage += L.get_total_damage() - target_damage
 			new /obj/effect/temp_visual/kinetic_blast(get_turf(L))
 			var/backstab_dir = get_dir(user, L)
 			if((user.dir & backstab_dir) && (L.dir & backstab_dir))
@@ -252,7 +252,7 @@
 	return "mark detonation to do <b>[bonus_value]</b> more damage for every <b>[missing_health_desc]</b> health you are missing"
 
 /obj/item/crusher_trophy/goliath_tentacle/on_mark_detonation(mob/living/target, mob/living/user)
-	var/missing_health = user.health - user.maxHealth
+	var/missing_health = user.get_total_damage()
 	missing_health *= missing_health_ratio //bonus is active at all times, even if you're above 90 health
 	missing_health *= bonus_value //multiply the remaining amount by bonus_value
 	if(missing_health > 0)

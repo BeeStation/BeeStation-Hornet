@@ -11,7 +11,7 @@
 	icon_dead = "basic"
 	gender = NEUTER
 	mob_biotypes = list(MOB_ROBOTIC)
-	health = 15
+
 	maxHealth = 15
 	healable = 0
 	melee_damage = 3
@@ -61,7 +61,7 @@
 	icon_living = "strong"
 	icon_dead = "strong"
 	desc = "A robot, this one is armed and looks tough!"
-	health = 80
+
 	maxHealth = 80
 	ranged = 1
 

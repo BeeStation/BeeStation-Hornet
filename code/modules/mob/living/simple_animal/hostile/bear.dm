@@ -22,7 +22,6 @@
 	response_disarm_continuous = "gently pushes aside"
 	response_disarm_simple = "gently push aside"
 	maxHealth = 60
-	health = 60
 	spacewalk = TRUE
 	var/armored = FALSE
 
@@ -69,7 +68,6 @@
 	butcher_results = list(/obj/item/food/meat/slab/bear = 5, /obj/item/clothing/head/costume/bearpelt = 1, /obj/item/bear_armor = 1)
 	melee_damage = 30
 	sharpness = SHARP_V
-	health = 120
 	maxHealth = 120
 	armored = TRUE
 
@@ -81,7 +79,6 @@
 	name = "starving space bear"
 	desc = "You can practically see its ribcage through its thinning layer of fur. Looks like it hasn't eaten anything in a long while."
 	maxHealth = 60
-	health = 40
 	obj_damage = 30
 	melee_damage = 10
 
@@ -115,7 +112,6 @@
 			return
 		A.armored = TRUE
 		A.maxHealth += 60
-		A.health += 60
 		A.sharpness += 20
 		A.melee_damage += 5
 		A.update_icons()
@@ -143,7 +139,7 @@
 /mob/living/simple_animal/hostile/bear/butter/Life(delta_time = SSMOBS_DT, times_fired) //Heals butter bear really fast when he takes damage.
 	if(stat)
 		return
-	if(health < maxHealth)
+	if(get_total_damage() > 0)
 		heal_overall_damage(5 * delta_time) //Fast life regen, makes it hard for you to get eaten to death.
 
 /mob/living/simple_animal/hostile/bear/butter/attack_hand(mob/living/L) //Borrowed code from Cak, feeds people if they hit you. More nutriment but less vitamin to represent BUTTER.

@@ -12,7 +12,6 @@
 	vision_range = 20
 	aggro_vision_range = 20
 	maxHealth = 40 //easy to kill, but oh, will you be seeing a lot of them.
-	health = 40
 	melee_damage = 10
 	melee_damage_type = BURN
 	attack_verb_continuous = "slashes"

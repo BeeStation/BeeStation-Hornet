@@ -17,7 +17,6 @@
 	speed = 0
 	robust_searching = 1
 	maxHealth = 100
-	health = 100
 	melee_damage = 15
 	attack_verb_continuous = "slashes at"
 	attack_verb_simple = "slash at"
@@ -42,7 +41,7 @@
 //heal himself when not in combat
 /mob/living/simple_animal/hostile/cat_butcherer/Life()
 	. = ..()
-	if(prob(10) && health <= maxHealth && !target)
+	if(prob(10) && get_total_damage() > 0 && !target)
 		adjustHealth(-(20+ 2*LAZYLEN(victims)))
 		visible_message("[src] medicates themself.", span_notice("You medicate yourself."))
 
@@ -136,7 +135,7 @@
 	if(target)
 		if(ishuman(target))
 			var/mob/living/carbon/human/L = target
-			if(L.health <=30 || L.stat || !L.can_inject(null, FALSE)) // base health to move in to attack is 30, not 40, as it accounts for armor somewhat
+			if(L.get_total_damage() >= maxHealth - 30 || L.stat || !L.can_inject(null, FALSE)) // base health to move in to attack is 30, not 40, as it accounts for armor somewhat
 				retreat_distance = 0
 			else
 				retreat_distance = 3 //spam chems if they aren't low and can be injected
@@ -168,7 +167,7 @@
 				Targets[H] = 20
 				continue
 			else
-				var/healthdiff = 10-round(H.health/10)
+				var/healthdiff = 10-round(H.consciousness.value/10)
 				Targets[H] = clamp(healthdiff,1,12)
 	if(!Targets.len)//sanity check
 		return

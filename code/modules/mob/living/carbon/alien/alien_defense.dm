@@ -35,7 +35,7 @@ In all, this is a lot like the monkey code. /N
 		take_consciousness_damage(-60)
 		AdjustSleeping(-100)
 		visible_message("<span class='notice'>[user.name] nuzzles [src] trying to wake [p_them()] up!</span>")
-	else if(health > 1)
+	else if(get_total_damage() < maxHealth)
 		user.do_attack_animation(src, ATTACK_EFFECT_BITE)
 		playsound(loc, 'sound/weapons/bite.ogg', 50, TRUE, -1)
 		visible_message("<span class='danger'>[user.name] playfully bites [src]!</span>", \

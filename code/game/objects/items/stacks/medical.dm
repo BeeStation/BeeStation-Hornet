@@ -57,7 +57,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 		if(!(critter.healable))
 			to_chat(user, span_notice("You cannot use [src] on [M]!"))
 			return
-		if(critter.health == critter.maxHealth)
+		if(critter.consciousness.value == critter.consciousness.max_value)
 			to_chat(user, span_notice("[M] is at full health."))
 			return
 		if(!heal_creatures) //simplemobs can only take brute damage, and can only benefit from items intended to heal it

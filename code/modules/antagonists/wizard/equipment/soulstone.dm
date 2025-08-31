@@ -237,7 +237,6 @@
 				T.forceMove(src) //put shade in stone
 				ADD_TRAIT(T, TRAIT_GODMODE, SOULSTONE_TRAIT)
 				T.mobility_flags = NONE
-				T.health = T.maxHealth
 				if(theme == THEME_HOLY)
 					icon_state = "purified_soulstone2"
 					if(IS_CULTIST(T))

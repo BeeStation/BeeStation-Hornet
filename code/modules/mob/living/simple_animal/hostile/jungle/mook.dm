@@ -16,7 +16,6 @@
 	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
 	SET_BASE_PIXEL(-16, -8)
 	maxHealth = 45
-	health = 45
 	melee_damage = 30
 	ranged = TRUE
 	ranged_cooldown_time = 10

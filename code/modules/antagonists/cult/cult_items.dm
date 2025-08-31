@@ -610,7 +610,7 @@ Striking a noncultist, however, will tear their flesh."}
 					H.reagents.add_reagent(/datum/reagent/fuel/unholywater, 4)
 			if(isshade(living_target) || isconstruct(living_target))
 				var/mob/living/simple_animal/M = living_target
-				if(M.health+5 < M.maxHealth)
+				if(M.get_total_damage() > 5)
 					M.adjustHealth(-5)
 			new /obj/effect/temp_visual/cult/sparks(T)
 			qdel(src)
@@ -713,10 +713,10 @@ Striking a noncultist, however, will tear their flesh."}
 							H.reagents.add_reagent(/datum/reagent/fuel/unholywater, 7)
 					if(isshade(target) || isconstruct(target))
 						var/mob/living/simple_animal/M = target
-						if(M.health+15 < M.maxHealth)
+						if(M.get_total_damage() > 15)
 							M.adjustHealth(-15)
 						else
-							M.health = M.maxHealth
+							M.adjustHealth(-M.get_total_damage())
 				else
 					var/mob/living/L = target
 					if(L.density)
