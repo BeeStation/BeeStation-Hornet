@@ -17,4 +17,4 @@
 /// injury damage application process is aborted.
 #define INJURY_PENETRATION_MINIMUM -20
 /// The multiplier for organ damage for attacks that penetrate all the way down to them
-#define ORGAN_DAMAGE_MULTIPLIER 3.5
+#define ORGAN_DAMAGE_MULTIPLIER 1

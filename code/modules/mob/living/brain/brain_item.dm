@@ -16,7 +16,7 @@
 	// 10 minutes of survival time before total brain death
 	decay_factor = STANDARD_ORGAN_DECAY
 
-	maxHealth	= BRAIN_DAMAGE_DEATH
+	maxHealth = BRAIN_DAMAGE_DEATH
 	low_threshold = 45
 	high_threshold = 120
 

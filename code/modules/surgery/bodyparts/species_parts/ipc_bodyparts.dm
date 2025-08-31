@@ -14,6 +14,7 @@
 	pain_multiplier = 0
 	internal_protection_rating = 0.1
 	max_damage = 40
+	dismemberment_requires_death = FALSE
 
 	light_burn_msg = "burned"
 	medium_burn_msg = "scorched"

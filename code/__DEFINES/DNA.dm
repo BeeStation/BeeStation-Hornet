@@ -166,7 +166,7 @@
 // Legs
 
 //organ defines
-#define STANDARD_ORGAN_THRESHOLD 100
+#define STANDARD_ORGAN_THRESHOLD 30
 #define STANDARD_ORGAN_HEALING 0.0005
 // Organs decay by this amount, by default they will fail after 10 minutes
 #define STANDARD_ORGAN_DECAY (STANDARD_ORGAN_THRESHOLD * (1 SECONDS) / (10 MINUTES))
