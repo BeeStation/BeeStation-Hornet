@@ -28,10 +28,10 @@
 	update_damage_overlay(pain)
 	owner.update_health_hud()
 	owner.med_hud_set_health()
-	var/consciousness_impact = pain - 20
+	var/consciousness_impact = max(pain - 20, 0)
 	var/impact_maximum = 80
 	// The more pain we have, the less conscious we are
-	var/consciousness_modifier = min((consciousness_impact / impact_maximum) * owner.consciousness.max_value, owner.consciousness.max_value)
+	var/consciousness_modifier = -min((consciousness_impact / impact_maximum) * owner.consciousness.max_value, owner.consciousness.max_value)
 	owner.consciousness.set_consciousness_source(consciousness_modifier, FROM_PAIN_SHOCK)
 	if (pain >= 100)
 		enter_pain_crit()
