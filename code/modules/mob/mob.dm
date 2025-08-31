@@ -1350,13 +1350,13 @@
 	ADD_VALUE_TRAIT(src, TRAIT_VALUE_STAT, source, new_stat, new_stat)
 	return update_stat()
 
-/mob/proc/update_stat()
+/mob/proc/update_stat(forced = FALSE)
 	var/final_stat = GET_TRAIT_VALUE(src, TRAIT_VALUE_STAT) || CONSCIOUS
 	// God mode cannot be unconscious
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		final_stat = CONSCIOUS
 	// Value did not change
-	if (final_stat == stat)
+	if (final_stat == stat && !forced)
 		return
 	. = stat
 	stat = final_stat

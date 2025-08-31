@@ -727,7 +727,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	if(hud_used?.spacesuit)
 		hud_used.spacesuit.icon_state = "spacesuit_[cell_state]"
 
-/mob/living/carbon/update_stat()
+/mob/living/carbon/update_stat(forced = FALSE)
 	. = ..()
 	if (stat == CONSCIOUS)
 		if(!is_blind())

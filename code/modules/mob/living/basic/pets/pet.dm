@@ -79,7 +79,7 @@
 
 	update_icon(UPDATE_OVERLAYS)
 
-/mob/living/basic/pet/update_stat()
+/mob/living/basic/pet/update_stat(forced = FALSE)
 	. = ..()
 	update_icon(UPDATE_OVERLAYS)
 

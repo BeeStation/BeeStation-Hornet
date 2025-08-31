@@ -61,7 +61,7 @@
 	diag_hud_set_health()
 	disconnect_shell()
 
-/mob/living/silicon/ai/update_stat()
+/mob/living/silicon/ai/update_stat(forced = FALSE)
 	. = ..()
 	diag_hud_set_status()
 

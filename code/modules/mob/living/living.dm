@@ -1552,9 +1552,9 @@
 		if(client)
 			reset_perspective()
 
-/mob/living/update_stat()
+/mob/living/update_stat(forced = FALSE)
 	. = ..()
-	if(isnull(.))
+	if(isnull(.) && !forced)
 		return
 	if (stat >= SOFT_CRIT && pulledby)
 		ADD_TRAIT(src, TRAIT_IMMOBILIZED, PULLED_WHILE_SOFTCRIT_TRAIT)

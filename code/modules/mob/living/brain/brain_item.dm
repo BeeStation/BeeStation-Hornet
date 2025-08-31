@@ -57,6 +57,9 @@
 		ai_controller.PossessPawn(brain_owner) //Posession code was designed to handle everything
 		ai_controller = null
 
+	// Force a stat update, so we get the correct traits
+	brain_owner.update_stat(TRUE)
+
 	// Not a ling? Now you get to assume direct control.
 	if(brainmob)
 		if(brain_owner.key)
@@ -106,6 +109,8 @@
 	return ..()
 
 /obj/item/organ/brain/Remove(mob/living/carbon/brain_owner, special = 0, no_id_transfer = FALSE, pref_load = FALSE)
+	// Remove any traits caused by the stat
+	clear_stat()
 
 	. = ..()
 
@@ -289,6 +294,15 @@
 		remove_trauma_from_traumas(trauma)
 		replacement_brain.add_trauma_to_traumas(trauma)
 
+/obj/item/organ/brain/proc/clear_stat()
+	REMOVE_TRAIT(owner, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, STAT_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, STAT_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_FLOORED, STAT_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_INCAPACITATED, STAT_TRAIT)
+	owner.cure_blind(UNCONSCIOUS_TRAIT)
+	owner.remove_status_effect(/datum/status_effect/critical_condition)
+
 /obj/item/organ/brain/proc/stat_conscious(previous_stat)
 	REMOVE_TRAIT(owner, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
 	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, STAT_TRAIT)
@@ -369,6 +383,14 @@
 /obj/item/organ/brain/positron/emp_act(severity)
 	owner.apply_status_effect(/datum/status_effect/ipc/emp)
 	to_chat(owner, span_warning("Alert: Posibrain function disrupted."))
+
+/obj/item/organ/brain/positron/clear_stat()
+	REMOVE_TRAIT(owner, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, STAT_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, STAT_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_FLOORED, STAT_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_INCAPACITATED, STAT_TRAIT)
+	owner.cure_blind(UNCONSCIOUS_TRAIT)
 
 /obj/item/organ/brain/positron/stat_conscious(previous_stat)
 	REMOVE_TRAIT(owner, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)

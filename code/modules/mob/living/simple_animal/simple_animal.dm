@@ -210,7 +210,7 @@
 /mob/living/simple_animal/get_attack_sharpness()
 	return sharpness
 
-/mob/living/simple_animal/update_stat()
+/mob/living/simple_animal/update_stat(forced = FALSE)
 	med_hud_set_status()
 
 /mob/living/simple_animal/handle_status_effects(delta_time, times_fired)
