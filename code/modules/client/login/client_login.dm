@@ -114,6 +114,7 @@
 	if(first_run)
 		GLOB.clients_unsafe += src
 	GLOB.directory[ckey] = src
+	GLOB.connected_ckeys |= ckey
 	if(authenticated)
 		GLOB.clients += src
 
