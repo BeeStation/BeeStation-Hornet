@@ -692,7 +692,7 @@
 		linked_alert.desc = "The stabilized bluespace extract will try to redirect you from harm!"
 		linked_alert.icon_state = "slime_bluespace_on"
 
-	if(healthcheck && (healthcheck - owner.health) > 5)
+	if(healthcheck && (healthcheck - owner.get_total_damage()) > 5)
 		owner.visible_message(span_warning("[linked_extract] notices the sudden change in [owner]'s physical health, and activates!"))
 		do_sparks(5,FALSE,owner)
 		var/F = find_safe_turf(zlevels = owner.z, extended_safety_checks = TRUE)
@@ -704,7 +704,7 @@
 			to_chat(owner, span_notice("[linked_extract] will take some time to re-align you on the bluespace axis."))
 			do_sparks(5,FALSE,owner)
 			owner.apply_status_effect(/datum/status_effect/bluespacestabilization)
-	healthcheck = owner.health
+	healthcheck = owner.get_total_damage()
 	return ..()
 
 /datum/status_effect/stabilized/sepia
@@ -830,12 +830,12 @@
 	duration = -1
 	alert_type = null
 	var/damage = 0
-	var/lasthealth
+	var/lastdamage
 
 /datum/status_effect/pinkdamagetracker/tick()
-	if((lasthealth - owner.health) > 0)
-		damage += (lasthealth - owner.health)
-	lasthealth = owner.health
+	if((owner.get_total_damage() - lastdamage) > 0)
+		damage += owner.get_total_damage() - lastdamage
+	lastdamage = owner.get_total_damage()
 
 /datum/status_effect/stabilized/pink
 	id = "stabilizedpink"
@@ -964,7 +964,7 @@
 
 /datum/status_effect/stabilized/lightpink/tick()
 	for(var/mob/living/carbon/human/H in ohearers(1, owner))
-		if(H.stat != DEAD && H.health <= 0 && !H.reagents.has_reagent(/datum/reagent/medicine/epinephrine))
+		if(H.stat != DEAD && H.stat >= SOFT_CRIT && !H.reagents.has_reagent(/datum/reagent/medicine/epinephrine))
 			to_chat(owner, "[linked_extract] pulses in sync with [H]'s heartbeat, trying to keep [H.p_them()] alive.")
 			H.reagents.add_reagent(/datum/reagent/medicine/epinephrine,5)
 	return ..()
@@ -1022,7 +1022,7 @@
 	colour = SLIME_TYPE_RAINBOW
 
 /datum/status_effect/stabilized/rainbow/tick()
-	if(owner.health <= 0)
+	if(owner.stat >= SOFT_CRIT)
 		var/obj/item/slimecross/stabilized/rainbow/X = linked_extract
 		if(istype(X) && X.regencore)
 			owner.visible_message(span_warning("[owner] flashes a rainbow of colors, and [owner.p_their()] skin is coated in a milky regenerative goo!"))

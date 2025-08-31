@@ -138,7 +138,6 @@
 			TRIGGER_RESET_COOLDOWN(shift_spell)
 			TEST_ASSERT(istype(dummy.loc, shift_spell.shapeshift_type), "Failed to transform into [shift_spell.shapeshift_type]")
 			var/mob/living/shifted_mob = dummy.loc
-			shifted_mob.health = 0 // Fucking megafauna
 			shifted_mob.death()
 			if (shift_spell.revert_on_death)
 				TEST_ASSERT(!istype(dummy.loc, shift_spell.shapeshift_type), "Failed to untransform after death using [shift_spell.name].")

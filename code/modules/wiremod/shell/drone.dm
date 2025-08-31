@@ -18,7 +18,7 @@
 
 /mob/living/circuit_drone/updatehealth()
 	. = ..()
-	if(health < 0)
+	if(get_total_damage() >= maxHealth)
 		gib(no_brain = TRUE, no_organs = TRUE, no_bodyparts = TRUE)
 
 /mob/living/circuit_drone/spawn_gibs()

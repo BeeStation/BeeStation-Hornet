@@ -459,7 +459,7 @@
 	if(sect.grand_ritual_in_progress)
 		return
 	for(var/mob/living/L in view(6, src))
-		if(L.health == L.maxHealth)
+		if(!L.get_total_damage())
 			continue
 		if(!isshadow(L))
 			continue

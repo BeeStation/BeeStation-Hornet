@@ -58,7 +58,7 @@
 	if(last_heal <= world.time)
 		last_heal = world.time + heal_delay
 		for(var/mob/living/L in range(5, src))
-			if(L.health == L.maxHealth)
+			if(!L.get_total_damage())
 				continue
 			if(!isdiona(L) && !L.mind?.holy_role)
 				continue

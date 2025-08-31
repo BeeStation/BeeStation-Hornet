@@ -106,7 +106,7 @@
 	if(output)
 		var/temp = ""
 		if(patient)
-			temp = "<br />\[Occupant: [patient] ([patient.stat > 1 ? "*DECEASED*" : "Health: [patient.health]%"])\]<br /><a href='byond://?src=[REF(src)];view_stats=1'>View stats</a>|<a href='byond://?src=[REF(src)];eject=1'>Eject</a>"
+			temp = "<br />\[Occupant: [patient] ([patient.stat > 1 ? "*DECEASED*" : "Consciousness: [patient.consciousness.value]%"])\]<br /><a href='byond://?src=[REF(src)];view_stats=1'>View stats</a>|<a href='byond://?src=[REF(src)];eject=1'>Eject</a>"
 		return "[output] [temp]"
 	return
 
@@ -174,7 +174,7 @@
 	if(ishuman(patient))
 		var/mob/living/carbon/human/humi = patient
 		core_temp = {"<font color="[humi.coretemperature > 300 ? "#3d5bc3" : "#c51e1e"]"><b>Body Temperature:</b> [humi.bodytemperature-T0C]&deg;C ([humi.bodytemperature*1.8-459.67]&deg;F)</font><br />"}
-	return {"<font color="[patient.health > 50 ? "#3d5bc3" : "#c51e1e"]"><b>Health:</b> [patient.stat > 1 ? "[t1]" : "[patient.health]% ([t1])"]</font><br />
+	return {"<font color="[patient.consciousness.value > 50 ? "#3d5bc3" : "#c51e1e"]"><b>Health:</b> [patient.stat > 1 ? "[t1]" : "[patient.consciousness.value]% ([t1])"]</font><br />
 				[core_temp]
 				<font color="[patient.bodytemperature > 300 ? "#3d5bc3" : "#c51e1e"]"><b>Body Temperature:</b> [patient.bodytemperature-T0C]&deg;C ([patient.bodytemperature*1.8-459.67]&deg;F)</font><br />
 				<font color="[patient.getBruteLoss() < 60 ? "#3d5bc3" : "#c51e1e"]"><b>Brute Damage:</b> [patient.getBruteLoss()]%</font><br />
@@ -236,7 +236,7 @@
 	var/mob/living/carbon/ex_patient = patient
 	if(!ex_patient)
 		return
-	if(ex_patient.health > 0)
+	if(ex_patient.consciousness.value > 0)
 		ex_patient.adjustOxyLoss(-0.5 * delta_time)
 	ex_patient.AdjustStun(-40 * delta_time)
 	ex_patient.AdjustKnockdown(-40 * delta_time)

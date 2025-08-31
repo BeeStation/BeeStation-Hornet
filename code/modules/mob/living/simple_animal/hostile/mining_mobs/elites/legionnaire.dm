@@ -151,7 +151,7 @@
 		myhead.body = src
 		if(get_total_damage() > maxHealth * 0.75)
 			myhead.melee_damage = 30
-		else if(get_total_damage > maxHealth * 0.5)
+		else if(get_total_damage() > maxHealth * 0.5)
 			myhead.melee_damage = 20
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/onHeadDeath()

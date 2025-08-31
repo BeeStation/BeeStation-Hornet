@@ -55,5 +55,5 @@
 	burn.set_output(organism.getFireLoss())
 	toxin.set_output(organism.getToxLoss())
 	oxy.set_output(organism.getOxyLoss())
-	health.set_output(organism.health)
+	health.set_output(organism.consciousness.value)
 

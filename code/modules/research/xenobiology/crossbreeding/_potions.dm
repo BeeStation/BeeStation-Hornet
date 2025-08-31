@@ -196,7 +196,6 @@ Slimecrossing Potions
 	M.clear_stat(FROM_DEAD)
 	M.visible_message(span_notice("[M] is filled with renewed vigor and blinks awake!"))
 	M.maxHealth -= 10 //Revival isn't healthy.
-	M.health -= 10
 	M.regenerate_icons()
 	qdel(src)
 

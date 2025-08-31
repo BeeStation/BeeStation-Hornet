@@ -75,7 +75,7 @@
 	extra_settings[NES_DIRECTION] = new /datum/nanite_extra_setting/boolean(TRUE, "Above", "Below")
 
 /datum/nanite_program/sensor/health/check_event()
-	var/health_percent = host_mob.health / host_mob.maxHealth * 100
+	var/health_percent = host_mob.consciousness.value / host_mob.consciousness.max_value * 100
 	var/datum/nanite_extra_setting/percent = extra_settings[NES_HEALTH_PERCENT]
 	var/datum/nanite_extra_setting/direction = extra_settings[NES_DIRECTION]
 	var/detected = FALSE

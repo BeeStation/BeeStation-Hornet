@@ -7,7 +7,7 @@
 
 /obj/item/organ/heart/freedom/on_life(delta_time, times_fired)
 	. = ..()
-	if(owner.health < 5 && COOLDOWN_FINISHED(src, adrenaline_cooldown))
+	if(owner.get_total_damage() > maxHealth - 5 && COOLDOWN_FINISHED(src, adrenaline_cooldown))
 		COOLDOWN_START(src, adrenaline_cooldown, rand(25 SECONDS, 1 MINUTES))
 		to_chat(owner, span_userdanger("You feel yourself dying, but you refuse to give up!"))
 		owner.heal_overall_damage(15, 15, 0, BODYTYPE_ORGANIC)

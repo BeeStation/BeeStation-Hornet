@@ -598,7 +598,7 @@
 
 	//If they don't have a functional heart or are so damaged the drug would stop working
 	var/obj/item/organ/heart/heart = affected_mob.get_organ_slot(ORGAN_SLOT_HEART)
-	if(!heart || (heart.organ_flags & ORGAN_FAILING) || affected_mob.get_total_damage >= 200)
+	if(!heart || (heart.organ_flags & ORGAN_FAILING) || affected_mob.get_total_damage() >= 200)
 		return
 
 	if(affected_mob.stat == DEAD)

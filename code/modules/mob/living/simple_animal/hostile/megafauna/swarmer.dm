@@ -124,7 +124,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	. = ..()
 	if(.)
 		if(!stop_automated_movement)
-			if(get_total_damage > maxHealth*0.75)
+			if(get_total_damage() > maxHealth*0.75)
 				StartAction(100)
 				RepairSelf()
 				return
