@@ -3,10 +3,14 @@ SUBSYSTEM_DEF(persistence)
 	init_order = INIT_ORDER_PERSISTENCE
 	flags = SS_NO_FIRE
 
+	/// Soapstone messages
 	var/list/obj/structure/chisel_message/chisel_messages = list()
 	var/list/saved_messages = list()
+
+	/// Library trophies
 	var/list/saved_trophies = list()
-	var/list/picture_logging_information = list()
+
+	/// Pictures and photo albums
 	var/list/obj/structure/sign/picture_frame/photo_frames
 	var/list/obj/item/storage/photo_album/photo_albums
 
@@ -19,12 +23,12 @@ SUBSYSTEM_DEF(persistence)
 	var/delam_highscore = 0
 
 /datum/controller/subsystem/persistence/Initialize()
+	if(CONFIG_GET(flag/use_antag_rep))
+		load_antag_reputation()
 	load_poly()
 	load_chisel_messages()
 	load_trophies()
 	load_photo_persistence()
-	if(CONFIG_GET(flag/use_antag_rep))
-		load_antag_reputation()
 	load_custom_outfits()
 	load_delamination_counter()
 	return SS_INIT_SUCCESS
@@ -33,11 +37,11 @@ SUBSYSTEM_DEF(persistence)
  * Collects all data that is saved in-between rounds
  **/
 /datum/controller/subsystem/persistence/proc/collect_data()
+	if(CONFIG_GET(flag/use_antag_rep))
+		collect_antag_reputation()
 	collect_chisel_messages()
 	collect_trophies()
 	save_photo_persistence()
-	if(CONFIG_GET(flag/use_antag_rep))
-		collect_antag_reputation()
 	save_custom_outfits()
 	save_delamination_counter()
 

@@ -1,16 +1,19 @@
+#define FILE_PHOTO_ALBUMS "data/photo_albums.json"
+#define FILE_PHOTO_FRAMES "data/photo_frames.json"
+
 /datum/controller/subsystem/persistence/proc/get_photo_albums()
-	var/album_path = file("data/photo_albums.json")
+	var/album_path = file(FILE_PHOTO_ALBUMS)
 	if(fexists(album_path))
 		return json_decode(rustg_file_read(album_path))
 
 /datum/controller/subsystem/persistence/proc/get_photo_frames()
-	var/frame_path = file("data/photo_frames.json")
+	var/frame_path = file(FILE_PHOTO_FRAMES)
 	if(fexists(frame_path))
 		return json_decode(rustg_file_read(frame_path))
 
 /datum/controller/subsystem/persistence/proc/load_photo_persistence()
-	var/album_path = file("data/photo_albums.json")
-	var/frame_path = file("data/photo_frames.json")
+	var/album_path = file(FILE_PHOTO_ALBUMS)
+	var/frame_path = file(FILE_PHOTO_FRAMES)
 	if(fexists(album_path))
 		var/list/json = json_decode(rustg_file_read(album_path))
 		if(json.len)
@@ -32,8 +35,8 @@
 					PF.load_from_id(json[PF.persistence_id])
 
 /datum/controller/subsystem/persistence/proc/save_photo_persistence()
-	var/album_path = file("data/photo_albums.json")
-	var/frame_path = file("data/photo_frames.json")
+	var/album_path = file(FILE_PHOTO_ALBUMS)
+	var/frame_path = file(FILE_PHOTO_FRAMES)
 
 	var/list/frame_json = list()
 	var/list/album_json = list()
@@ -66,3 +69,6 @@
 	frame_json = json_encode(frame_json)
 
 	WRITE_FILE(frame_path, frame_json)
+
+#undef FILE_PHOTO_ALBUMS
+#undef FILE_PHOTO_FRAMES

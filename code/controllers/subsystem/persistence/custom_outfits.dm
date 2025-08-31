@@ -1,5 +1,7 @@
+#define FILE_CUSTOM_OUTFITS "data/custom_outfits.json"
+
 /datum/controller/subsystem/persistence/proc/load_custom_outfits()
-	var/file = file("data/custom_outfits.json")
+	var/file = file(FILE_CUSTOM_OUTFITS)
 	if(!fexists(file))
 		return
 	var/outfits_json = file2text(file)
@@ -20,7 +22,7 @@
 		GLOB.custom_outfits += outfit
 
 /datum/controller/subsystem/persistence/proc/save_custom_outfits()
-	var/file = file("data/custom_outfits.json")
+	var/file = file(FILE_CUSTOM_OUTFITS)
 	fdel(file)
 
 	var/list/data = list()
@@ -28,3 +30,5 @@
 		data += list(outfit.get_json_data())
 
 	WRITE_FILE(file, json_encode(data))
+
+#undef FILE_CUSTOM_OUTFITS

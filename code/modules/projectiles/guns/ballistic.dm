@@ -247,8 +247,7 @@
 		to_chat(user, span_notice("You rack the [bolt_wording] of \the [src]."))
 	if (chambered)
 		eject_chamber()
-	else
-		chamber_round()
+	chamber_round()
 	if (bolt_type == BOLT_TYPE_LOCKING && !chambered)
 		bolt_locked = TRUE
 		playsound(src, lock_back_sound, lock_back_sound_volume, lock_back_sound_vary)

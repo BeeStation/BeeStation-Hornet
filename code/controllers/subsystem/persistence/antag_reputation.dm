@@ -11,10 +11,8 @@
 	antag_rep = json_decode(json)
 
 /datum/controller/subsystem/persistence/proc/collect_antag_reputation()
-	var/ANTAG_REP_MAXIMUM = CONFIG_GET(number/antag_rep_maximum)
-
 	for(var/p_ckey in antag_rep_change)
-		antag_rep[p_ckey] = max(0, min(antag_rep[p_ckey]+antag_rep_change[p_ckey], ANTAG_REP_MAXIMUM))
+		antag_rep[p_ckey] = max(0, min(antag_rep[p_ckey]+antag_rep_change[p_ckey], CONFIG_GET(number/antag_rep_maximum)))
 
 	antag_rep_change = list()
 
