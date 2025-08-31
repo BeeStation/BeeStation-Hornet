@@ -19,7 +19,6 @@ GLOBAL_LIST_INIT(dangerous_turfs, typecacheof(list(
 //Since it didn't really belong in any other category, I'm putting this here
 //This is for procs to replace all the goddamn 'in world's that are chilling around the code
 
-GLOBAL_LIST_EMPTY(total_connected_ckeys)	//All ckeys that have connected at any point in the game
 GLOBAL_LIST_EMPTY(player_list)				//all mobs **with clients attached**.
 GLOBAL_LIST_EMPTY(mob_list)					//all mobs, including clientless
 GLOBAL_LIST_EMPTY(mob_directory)			//mob_id -> mob
@@ -44,6 +43,7 @@ GLOBAL_LIST_EMPTY(all_mimites)				//all mimites and their subtypes
 GLOBAL_LIST_EMPTY(bots_list)
 GLOBAL_LIST_EMPTY(ai_eyes)
 GLOBAL_LIST_EMPTY(suit_sensors_list) 		//all people with suit sensors on
+GLOBAL_LIST_EMPTY(unique_connected_keys)	//All ckeys that have connected at any point in the game
 
 GLOBAL_LIST_EMPTY(language_datum_instances)
 GLOBAL_LIST_EMPTY(all_languages)

@@ -815,7 +815,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 	discordmsg += "Server: [CONFIG_GET(string/servername)]\n"
 	discordmsg += "Round Number: [GLOB.round_id]\n"
 	discordmsg += "Duration: [DisplayTimeText(world.time - SSticker.round_start_time)]\n"
-	discordmsg += "Players: [GLOB.player_list.len] (Total: [GLOB.total_connected_ckeys.len])\n"
+	discordmsg += "Players: [GLOB.player_list.len] (Total: [GLOB.unique_connected_keys.len])\n"
 	discordmsg += "Survivors: [survivors]\n"
 	discordmsg += "Escapees: [escapees]\n"
 	discordmsg += "Total Crew: [GLOB.joined_player_list.len] (Roundstart: [SSjob.initial_players_to_assign])\n"
