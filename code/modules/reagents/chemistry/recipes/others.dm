@@ -178,8 +178,13 @@
 			continue
 		return virus
 
-////////////////////////////////// foam and foam precursor ///////////////////////////////////////////////////
+/datum/chemical_reaction/clone_blood
+	name = "Blood Cloning"
+	required_reagents = list(/datum/reagent/medicine/clonexadone = 1)
+	required_catalysts = list(/datum/reagent/blood = 1) //we don't want to actually replace the blood
+	results = list(/datum/reagent/blood = 1)
 
+////////////////////////////////// foam and foam precursor ///////////////////////////////////////////////////
 
 /datum/chemical_reaction/surfactant
 	name = "Foam surfactant"
