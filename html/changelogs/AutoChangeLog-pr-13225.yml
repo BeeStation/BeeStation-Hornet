@@ -1,0 +1,6 @@
+author: Tsar-Salat
+delete-after: true
+changes:
+  - bugfix: fix last resort gestation(pergnante) timer
+  - bugfix: fixes carbon handling on Last Resort, making it not randomly RR the changeling
+      when used
