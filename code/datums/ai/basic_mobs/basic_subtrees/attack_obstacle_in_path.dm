@@ -7,14 +7,12 @@
 
 /datum/ai_planning_subtree/attack_obstacle_in_path/SelectBehaviors(datum/ai_controller/controller, delta_time)
 	. = ..()
-	var/datum/weakref/weak_target = controller.blackboard[target_key]
-	var/atom/target = weak_target?.resolve()
-
+	var/atom/target = controller.blackboard[target_key]
 	if(QDELETED(target))
 		return
 
 	var/turf/next_step = get_step_towards(controller.pawn, target)
-	if (!next_step.is_blocked_turf(exclude_mobs = TRUE))
+	if(!next_step.is_blocked_turf(exclude_mobs = TRUE))
 		return
 
 	controller.queue_behavior(attack_behaviour, target_key)
@@ -29,10 +27,9 @@
 /datum/ai_behavior/attack_obstructions/perform(delta_time, datum/ai_controller/controller, target_key)
 	. = ..()
 	var/mob/living/basic/basic_mob = controller.pawn
-	var/datum/weakref/weak_target = controller.blackboard[target_key]
-	var/atom/target = weak_target?.resolve()
+	var/atom/target = controller.blackboard[target_key]
 
-	if (!target)
+	if(QDELETED(target))
 		finish_action(controller, succeeded = FALSE)
 		return
 
@@ -40,38 +37,38 @@
 	var/dir_to_next_step = get_dir(basic_mob, next_step)
 	// If moving diagonally we need to punch both ways, or more accurately the one we are blocked in
 	var/list/dirs_to_move = list()
-	if (ISDIAGONALDIR(dir_to_next_step))
+	if(ISDIAGONALDIR(dir_to_next_step))
 		for(var/direction in GLOB.cardinals)
 			if(direction & dir_to_next_step)
 				dirs_to_move += direction
 	else
 		dirs_to_move += dir_to_next_step
 
-	for (var/direction in dirs_to_move)
-		if (attack_in_direction(controller, basic_mob, direction))
+	for(var/direction in dirs_to_move)
+		if(attack_in_direction(controller, basic_mob, direction))
 			return
 
 /datum/ai_behavior/attack_obstructions/proc/attack_in_direction(datum/ai_controller/controller, mob/living/basic/basic_mob, direction)
 	var/turf/next_step = get_step(basic_mob, direction)
-	if (!next_step.is_blocked_turf(exclude_mobs = TRUE))
+	if(!next_step.is_blocked_turf(exclude_mobs = TRUE))
 		return FALSE
 
-	for (var/obj/object as anything in next_step.contents)
-		if (!can_smash_object(basic_mob, object))
+	for(var/obj/object as anything in next_step.contents)
+		if(!can_smash_object(basic_mob, object))
 			continue
 		basic_mob.melee_attack(object)
 		return TRUE
 
-	if (can_attack_turfs)
+	if(can_attack_turfs)
 		basic_mob.melee_attack(next_step)
 		return TRUE
 	return FALSE
 
 /datum/ai_behavior/attack_obstructions/proc/can_smash_object(mob/living/basic/basic_mob, obj/object)
-	if (!object.density)
+	if(!object.density)
 		return FALSE
-	if (object.IsObscured())
+	if(object.IsObscured())
 		return FALSE
-	if (basic_mob.see_invisible < object.invisibility)
+	if(basic_mob.see_invisible < object.invisibility)
 		return FALSE
 	return TRUE // It's in our way, let's get it out of our way
