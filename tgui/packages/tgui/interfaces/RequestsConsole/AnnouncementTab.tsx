@@ -21,11 +21,22 @@ export const AnnouncementTab = (props) => {
       <Section>
         <AuthenticationNoticeBox />
         <Button
-          disabled={!(authentication_data.announcement_authenticated || is_admin_ghost_ai) || !messageText}
+          disabled={
+            !(
+              authentication_data.announcement_authenticated ||
+              is_admin_ghost_ai
+            ) || !messageText
+          }
           icon="bullhorn"
           content="Send announcement"
           onClick={() => {
-            if (!(authentication_data.announcement_authenticated || is_admin_ghost_ai) || !messageText) {
+            if (
+              !(
+                authentication_data.announcement_authenticated ||
+                is_admin_ghost_ai
+              ) ||
+              !messageText
+            ) {
               return;
             }
             act('send_announcement', { message: messageText });

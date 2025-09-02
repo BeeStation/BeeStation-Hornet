@@ -107,7 +107,7 @@
 	if(random)
 		log_game("Random Event triggering: [name] ([typepath])")
 	if (alert_observers)
-		deadchat_broadcast(span_deadsay("<b>[name]</b> has just been triggered!", message_type=DEADCHAT_ANNOUNCEMENT)) //STOP ASSUMING IT'S BADMINS!
+		E.announce_deadchat(random)
 	return E
 
 //Special admins setup
@@ -136,6 +136,9 @@
 //This is really only for setting defaults which can be overridden later when New() finishes.
 /datum/round_event/proc/setup()
 	return
+
+/datum/round_event/proc/announce_deadchat(random)
+	deadchat_broadcast(" has just been triggered!", "<b>[control.name]</b>", message_type=DEADCHAT_ANNOUNCEMENT) //STOP ASSUMING IT'S BADMINS!
 
 //Called when the tick is equal to the startWhen variable.
 //Allows you to start before announcing or vice versa.

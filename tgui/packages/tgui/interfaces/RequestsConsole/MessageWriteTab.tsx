@@ -1,13 +1,26 @@
 import { sort } from 'common/collections';
 import { useState } from 'react';
-import { Box, Button, Dropdown, Section, Stack, TextArea } from 'tgui-core/components';
+import {
+  Box,
+  Button,
+  Dropdown,
+  Section,
+  Stack,
+  TextArea,
+} from 'tgui-core/components';
 
 import { useBackend, useLocalState } from '../../backend';
 import { RequestPriority, RequestsData, RequestType } from './types';
 
 export const MessageWriteTab = (props) => {
   const { act, data } = useBackend<RequestsData>();
-  const { authentication_data, hack_state, assistance_consoles = [], supply_consoles = [], information_consoles = [] } = data;
+  const {
+    authentication_data,
+    hack_state,
+    assistance_consoles = [],
+    supply_consoles = [],
+    information_consoles = [],
+  } = data;
 
   const sorted_assistance = sort(assistance_consoles);
   const sorted_supply = sort(supply_consoles);
@@ -34,7 +47,8 @@ export const MessageWriteTab = (props) => {
             onClick={() => {
               setRecipient('');
               setRequestType(RequestType.ASSISTANCE);
-            }}>
+            }}
+          >
             Request Assistance
           </Button>
         </Stack.Item>
@@ -46,7 +60,8 @@ export const MessageWriteTab = (props) => {
             onClick={() => {
               setRecipient('');
               setRequestType(RequestType.SUPPLIES);
-            }}>
+            }}
+          >
             Request Supplies
           </Button>
         </Stack.Item>
@@ -58,7 +73,8 @@ export const MessageWriteTab = (props) => {
             onClick={() => {
               setRecipient('');
               setRequestType(RequestType.INFORMATION);
-            }}>
+            }}
+          >
             Relay Information
           </Button>
         </Stack.Item>
@@ -152,7 +168,8 @@ export const MessageWriteTab = (props) => {
                   priority: priority,
                 });
                 resetMessage();
-              }}>
+              }}
+            >
               Send message
             </Button>
           </Stack.Item>
@@ -170,7 +187,8 @@ export const MessageWriteTab = (props) => {
           onClick={() => {
             act('clear_authentication');
             resetMessage();
-          }}>
+          }}
+        >
           Discard message
         </Button>
       </Section>

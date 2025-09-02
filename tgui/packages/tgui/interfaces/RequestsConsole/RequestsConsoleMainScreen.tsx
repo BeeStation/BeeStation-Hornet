@@ -22,7 +22,8 @@ export const RequestMainScreen = (props) => {
                 setTab(RequestTabs.MESSAGE_VIEW);
                 act('clear_message_status');
                 act('clear_authentication');
-              }}>
+              }}
+            >
               View Messages <Icon name={'envelope-open'} />
             </Tabs.Tab>
             <Tabs.Tab
@@ -34,7 +35,8 @@ export const RequestMainScreen = (props) => {
                   act('clear_authentication');
                 }
                 setTab(RequestTabs.MESSAGE_WRITE);
-              }}>
+              }}
+            >
               Write Message <Icon name="pencil" />
             </Tabs.Tab>
             {!!can_send_announcements && (
@@ -47,7 +49,8 @@ export const RequestMainScreen = (props) => {
                     act('clear_authentication');
                   }
                   setTab(RequestTabs.ANNOUNCE);
-                }}>
+                }}
+              >
                 Make Announcement <Icon name="bullhorn" />
               </Tabs.Tab>
             )}
@@ -56,7 +59,9 @@ export const RequestMainScreen = (props) => {
         <Stack.Item grow={1}>
           {tab === RequestTabs.MESSAGE_VIEW && <MessageViewTab />}
           {tab === RequestTabs.MESSAGE_WRITE && <MessageWriteTab />}
-          {!!can_send_announcements && tab === RequestTabs.ANNOUNCE && <AnnouncementTab />}
+          {!!can_send_announcements && tab === RequestTabs.ANNOUNCE && (
+            <AnnouncementTab />
+          )}
         </Stack.Item>
       </Stack>
     </Stack.Item>

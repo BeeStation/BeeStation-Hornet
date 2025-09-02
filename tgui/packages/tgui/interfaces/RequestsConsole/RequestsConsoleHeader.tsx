@@ -20,7 +20,11 @@ const EmergencyBox = (props) => {
   const { emergency } = data;
   return (
     <>
-      {!!emergency && <NoticeBox danger>{emergency} has been dispatched to this location</NoticeBox>}
+      {!!emergency && (
+        <NoticeBox danger>
+          {emergency} has been dispatched to this location
+        </NoticeBox>
+      )}
       {!emergency && (
         <Stack fill>
           <Stack.Item grow>
@@ -69,7 +73,9 @@ const EmergencyBox = (props) => {
 };
 
 const ErrorNoticeBox = (props) => {
-  return <NoticeBox danger>{'Error occured while sending a message!'}</NoticeBox>;
+  return (
+    <NoticeBox danger>{'Error occured while sending a message!'}</NoticeBox>
+  );
 };
 
 const MessageNoticeBox = (props) => {
