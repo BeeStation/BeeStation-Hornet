@@ -127,6 +127,8 @@
 	if(requires_wielding)
 		RegisterSignal(src, COMSIG_TWOHANDED_WIELD, PROC_REF(wield))
 		RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, PROC_REF(unwield))
+	
+	AddElement(/datum/element/no_ducttape/gun)
 
 /obj/item/gun/ComponentInitialize()
 	. = ..()

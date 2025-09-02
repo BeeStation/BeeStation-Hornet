@@ -119,21 +119,6 @@
 	if (!isobj(interacting_with) || iseffect(interacting_with))
 		return
 
-	if (istype(interacting_with, /obj/item/gun))
-		user.balloon_alert(user, "Using tape would make this too flimsy to shoot!")
-		return
-
-	var/obj/structure/structure = interacting_with
-	if (structure?.flags_1 & NODECONSTRUCT_1)
-		user.balloon_alert(user, "Only structures that can be reassembled can be repaired.")
-		return
-
-	// clock cult should be using power through their fabricators
-	// the ark also seems to be the only thing in the game that should never be repairable
-	if (istype(interacting_with, /obj/structure/destructible/clockwork))
-		user.balloon_alert(user, "The tape would get caught in the gears if you tried to fix this!")
-		return
-
 	var/object_is_damaged = interacting_with.get_integrity() < interacting_with.max_integrity
 
 	if (!object_is_damaged)

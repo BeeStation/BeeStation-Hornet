@@ -18,6 +18,10 @@
 	var/immune_to_servant_attacks = FALSE //if we ignore attacks from servants of ratvar instead of taking damage
 	var/datum/mind/owner = null	//The person who placed this structure
 
+/obj/structure/destructible/clockwork/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/no_ducttape/clock_cult)
+
 /obj/structure/destructible/clockwork/examine(mob/user)
 	. = list("[get_examine_string(user, TRUE)].")
 
