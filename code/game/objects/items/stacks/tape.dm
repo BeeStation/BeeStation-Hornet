@@ -94,21 +94,21 @@
 	if (proximity_flag != 1)
 		return
 
-	if(!object_repair_value)
+	if (!object_repair_value)
 		return
 
-	if(issilicon(interacting_with))
+	if (issilicon(interacting_with))
 		var/mob/living/silicon/robotic_pal = interacting_with
 		var/robot_is_damaged = robotic_pal.getBruteLoss()
 
-		if(!robot_is_damaged)
+		if (!robot_is_damaged)
 			user.balloon_alert(user, "[robotic_pal] is not damaged!")
 			return
 
 		user.visible_message(span_notice("[user] begins repairing [robotic_pal] with [src]."), span_notice("You begin repairing [robotic_pal] with [src]."))
 		playsound(user, 'sound/items/duct_tape/duct_tape_rip.ogg', 50, TRUE)
 
-		if(!do_after(user, 3 SECONDS, target = robotic_pal))
+		if (!do_after(user, 3 SECONDS, target = robotic_pal))
 			return
 
 		robotic_pal.adjustBruteLoss(-object_repair_value)
@@ -116,29 +116,37 @@
 		to_chat(user, span_notice("You finish repairing [interacting_with] with [src]."))
 		return
 
-	if(!isobj(interacting_with) || iseffect(interacting_with))
+	if (!isobj(interacting_with) || iseffect(interacting_with))
+		return
+
+	if (istype(interacting_with, /obj/item/gun))
+		user.balloon_alert(user, "Using tape would make this too flimsy to shoot!")
+		return
+
+	var/obj/structure/structure = interacting_with
+	if (structure?.flags_1 & NODECONSTRUCT_1)
+		user.balloon_alert(user, "Only structures that can be reassembled can be repaired.")
 		return
 
 	// clock cult should be using power through their fabricators
 	// the ark also seems to be the only thing in the game that should never be repairable
-	if(istype(interacting_with, /obj/structure/destructible/clockwork))
+	if (istype(interacting_with, /obj/structure/destructible/clockwork))
 		user.balloon_alert(user, "The tape would get caught in the gears if you tried to fix this!")
 		return
 
-	var/obj/item/object_to_repair = interacting_with
-	var/object_is_damaged = object_to_repair.get_integrity() < object_to_repair.max_integrity
+	var/object_is_damaged = interacting_with.get_integrity() < interacting_with.max_integrity
 
-	if(!object_is_damaged)
-		user.balloon_alert(user, "[object_to_repair] is not damaged!")
+	if (!object_is_damaged)
+		user.balloon_alert(user, "[interacting_with] is not damaged!")
 		return
 
-	user.visible_message(span_notice("[user] begins repairing [object_to_repair] with [src]."), span_notice("You begin repairing [object_to_repair] with [src]."))
+	user.visible_message(span_notice("[user] begins repairing [interacting_with] with [src]."), span_notice("You begin repairing [interacting_with] with [src]."))
 	playsound(user, 'sound/items/duct_tape/duct_tape_rip.ogg', 50, TRUE)
 
-	if(!do_after(user, 3 SECONDS, target = object_to_repair))
+	if (!do_after(user, 3 SECONDS, target = interacting_with))
 		return
 
-	object_to_repair.repair_damage(object_repair_value)
+	interacting_with.repair_damage(object_repair_value)
 	use(1)
 	to_chat(user, span_notice("You finish repairing [interacting_with] with [src]."))
 	return
