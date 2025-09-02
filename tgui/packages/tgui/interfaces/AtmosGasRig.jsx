@@ -184,13 +184,15 @@ export const AtmosGasRigTemplate = (props) => {
               fill="black"
               stroke="grey"
             />
-            <rect
-              x={143 + svgOffset}
-              y={barOffset}
-              width="4"
-              height={barHeight * (depth / data.max_depth)}
-              fill="grey"
-            />
+            <Tooltip content={'Depth: ' + depth + ' km'}>
+              <rect
+                x={143 + svgOffset}
+                y={barOffset}
+                width="4"
+                height={barHeight * (depth / data.max_depth)}
+                fill="grey"
+              />
+            </Tooltip>
             {DisplayGasBar(
               125 + svgOffset,
               data.o2_constants,

@@ -58,7 +58,7 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	///How much the gas accelerates a fusion reaction
 	var/fusion_power = 0
 	///How much the gas provides shielding for the Advanced Gas Rig
-	var/gasrig_shielding_power = 1
+	var/gasrig_shielding_power = 0
 	///The impact on efficiency of shielding this gas has in the Advanced Gas Rig. Should be greater then 0.1
 	var/gasrig_shielding_modifier = 1
 	/// relative rarity compared to other gases, used when setting up the reactions list.
