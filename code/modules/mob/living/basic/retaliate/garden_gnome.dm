@@ -117,7 +117,7 @@
 	set_greyscale(colors = list(chosen_hat_colour, pick_weight(gnome_body_colours), pick_weight(gnome_pants_colours), pick_weight(gnome_beard_colours)))
 
 /mob/living/basic/garden_gnome/proc/ai_retaliate_behaviour(mob/living/attacker)
-	if (!istype(attacker))
+	if(!istype(attacker))
 		return
 	for(var/mob/living/basic/garden_gnome/potential_gnome in oview(src, 7))
 		potential_gnome.ai_controller.insert_blackboard_key_lazylist(BB_BASIC_MOB_RETALIATE_LIST, attacker)
