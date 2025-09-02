@@ -1,5 +1,13 @@
 import { useState } from 'react';
-import { Button, Icon, ImageButton, Input, NoticeBox, Section, Stack } from 'tgui-core/components';
+import {
+  Button,
+  Icon,
+  ImageButton,
+  Input,
+  NoticeBox,
+  Section,
+  Stack,
+} from 'tgui-core/components';
 import { capitalizeAll, createSearch } from 'tgui-core/string';
 
 import { useBackend } from '../backend';
@@ -70,12 +78,23 @@ type CustomInput = {
 export const Vending = (props) => {
   const { data } = useBackend<VendingData>();
 
-  const { onstation, product_records = [], coin_records = [], hidden_records = [], categories } = data;
+  const {
+    onstation,
+    product_records = [],
+    coin_records = [],
+    hidden_records = [],
+    categories,
+  } = data;
 
-  const [selectedCategory, setSelectedCategory] = useState(Object.keys(categories)[0]);
+  const [selectedCategory, setSelectedCategory] = useState(
+    Object.keys(categories)[0],
+  );
 
   const [stockSearch, setStockSearch] = useState('');
-  const stockSearchFn = createSearch(stockSearch, (item: ProductRecord | CustomInput) => item.name);
+  const stockSearchFn = createSearch(
+    stockSearch,
+    (item: ProductRecord | CustomInput) => item.name,
+  );
 
   let inventory: (ProductRecord | CustomInput)[];
   let custom = false;
@@ -105,7 +124,7 @@ export const Vending = (props) => {
           return false;
         }
       });
-    })
+    }),
   );
 
   return (
@@ -128,15 +147,16 @@ export const Vending = (props) => {
             />
           </Stack.Item>
 
-          {stockSearch.length < 2 && Object.keys(filteredCategories).length > 1 && (
-            <Stack.Item>
-              <CategorySelector
-                categories={filteredCategories}
-                selectedCategory={selectedCategory!}
-                onSelect={setSelectedCategory}
-              />
-            </Stack.Item>
-          )}
+          {stockSearch.length < 2 &&
+            Object.keys(filteredCategories).length > 1 && (
+              <Stack.Item>
+                <CategorySelector
+                  categories={filteredCategories}
+                  selectedCategory={selectedCategory!}
+                  onSelect={setSelectedCategory}
+                />
+              </Stack.Item>
+            )}
         </Stack>
       </Window.Content>
     </Window>
@@ -155,7 +175,9 @@ export const UserDetails = (props) => {
           <Icon name="id-card" size={1.5} />
         </Stack.Item>
         <Stack.Item>
-          {user ? `${user.name || 'Unknown'} | ${user.job}` : 'No ID detected! Contact the Head of Personnel.'}
+          {user
+            ? `${user.name || 'Unknown'} | ${user.job}`
+            : 'No ID detected! Contact the Head of Personnel.'}
         </Stack.Item>
       </Stack>
     </NoticeBox>
@@ -172,8 +194,21 @@ const ProductDisplay = (props: {
   setSelectedCategory: (category: string) => void;
 }) => {
   const { data } = useBackend<VendingData>();
-  const { custom, inventory, stockSearch, setStockSearch, selectedCategory, setSelectedCategory } = props;
-  const { stock, all_products_free, user, displayed_currency_icon, displayed_currency_name } = data;
+  const {
+    custom,
+    inventory,
+    stockSearch,
+    setStockSearch,
+    selectedCategory,
+    setSelectedCategory,
+  } = props;
+  const {
+    stock,
+    all_products_free,
+    user,
+    displayed_currency_icon,
+    displayed_currency_name,
+  } = data;
   const [toggleLayout, setToggleLayout] = useState(getLayoutState(LAYOUT.Grid));
 
   return (
@@ -191,11 +226,16 @@ const ProductDisplay = (props: {
             </Stack.Item>
           )}
           <Stack.Item>
-            <Input onInput={(_, value) => setStockSearch(value)} placeholder="Search..." value={stockSearch} />
+            <Input
+              onInput={(_, value) => setStockSearch(value)}
+              placeholder="Search..."
+              value={stockSearch}
+            />
           </Stack.Item>
           <LayoutToggle state={toggleLayout} setState={setToggleLayout} />
         </Stack>
-      }>
+      }
+    >
       {inventory
         .filter((product) => {
           if (!stockSearch && 'category' in product) {
@@ -229,14 +269,21 @@ const Product = (props) => {
   const free =
     all_products_free ||
     product.price === 0 ||
-    (!product.premium && department_bitflag !== '0' && department_bitflag === user?.department_bitflag);
-  const discount = !product.premium && department_bitflag !== '0' && department_bitflag === user?.department_bitflag;
+    (!product.premium &&
+      department_bitflag !== '0' &&
+      department_bitflag === user?.department_bitflag);
+  const discount =
+    !product.premium &&
+    department_bitflag !== '0' &&
+    department_bitflag === user?.department_bitflag;
   const remaining = custom ? product.amount : productStock.amount;
   const redPrice = Math.round(product.price);
   const disabled =
     remaining === 0 ||
     (!all_products_free && !user) ||
-    (!all_products_free && !access && (discount ? redPrice : product.price) > user?.cash);
+    (!all_products_free &&
+      !access &&
+      (discount ? redPrice : product.price) > user?.cash);
 
   const baseProps = {
     base64: product.image,
@@ -245,19 +292,21 @@ const Product = (props) => {
     asset: ['vending32x32', product.path],
     disabled: disabled,
     tooltipPosition: 'bottom',
-    buttons: colorable && <ProductColorSelect disabled={disabled} product={product} fluid={fluid} />,
+    buttons: colorable && (
+      <ProductColorSelect disabled={disabled} product={product} fluid={fluid} />
+    ),
     product: product,
     colorable: colorable,
     remaining: remaining,
     onClick: () => {
       custom
         ? act('dispense', {
-          item: product.path,
-        })
+            item: product.path,
+          })
         : act('vend', {
-          ref: product.ref,
-          discountless: !!product.premium,
-        });
+            ref: product.ref,
+            discountless: !!product.premium,
+          });
     },
   };
 
@@ -269,7 +318,11 @@ const Product = (props) => {
     redPrice: redPrice,
   };
 
-  return fluid ? <ProductList {...baseProps} {...priceProps} /> : <ProductGrid {...baseProps} {...priceProps} />;
+  return fluid ? (
+    <ProductList {...baseProps} {...priceProps} />
+  ) : (
+    <ProductGrid {...baseProps} {...priceProps} />
+  );
 };
 
 const ProductGrid = (props) => {
@@ -287,7 +340,8 @@ const ProductGrid = (props) => {
           </Stack.Item>
           <Stack.Item color={'lightgray'}>x{remaining}</Stack.Item>
         </Stack>
-      }>
+      }
+    >
       {capitalizeAll(product.name)}
     </ImageButton>
   );
@@ -303,10 +357,17 @@ const ProductList = (props) => {
         <Stack.Item grow textAlign={'left'}>
           {capitalizeAll(product.name)}
         </Stack.Item>
-        <Stack.Item width={3.5} fontSize={0.8} color={'rgba(255, 255, 255, 0.5)'}>
+        <Stack.Item
+          width={3.5}
+          fontSize={0.8}
+          color={'rgba(255, 255, 255, 0.5)'}
+        >
           {remaining} left
         </Stack.Item>
-        <Stack.Item width={3.5} style={{ marginRight: !colorable ? '32px' : '' }}>
+        <Stack.Item
+          width={3.5}
+          style={{ marginRight: !colorable ? '32px' : '' }}
+        >
           <ProductPrice {...priceProps} />
         </Stack.Item>
       </Stack>
@@ -383,7 +444,8 @@ const CategorySelector = (props: {
           selected={name === selectedCategory}
           color={CATEGORY_COLORS[name]}
           icon={category.icon}
-          onClick={() => onSelect(name)}>
+          onClick={() => onSelect(name)}
+        >
           {name}
         </Button>
       ))}
