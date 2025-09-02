@@ -5,22 +5,22 @@
 	var/error_message = "Only structures that can be reassembled can be repaired."
 
 /datum/element/no_ducttape/Attach(datum/target)
-    . = ..()
-    var/atom/atom = target
-    if (!atom?.uses_integrity)
-        return ELEMENT_INCOMPATIBLE
-    
-    RegisterSignal(target, COMSIG_ATOM_ATTACKBY_SECONDARY, PROC_REF(cant_fix))
+	. = ..()
+	var/atom/atom = target
+	if (!atom?.uses_integrity)
+		return ELEMENT_INCOMPATIBLE
+	
+	RegisterSignal(target, COMSIG_ATOM_ATTACKBY_SECONDARY, PROC_REF(cant_fix))
 
 /datum/element/no_ducttape/Detach(datum/source)
-    . = ..()
-    UnregisterSignal(source, COMSIG_ATOM_ATTACKBY_SECONDARY)
-    
+	. = ..()
+	UnregisterSignal(source, COMSIG_ATOM_ATTACKBY_SECONDARY)
+	
 /datum/element/no_ducttape/proc/cant_fix(obj/item/weapon, obj/item/tape)
-    SIGNAL_HANDLER
+	SIGNAL_HANDLER
 
-    tape.balloon_alert(usr, error_message)
-    return COMPONENT_SECONDARY_CANCEL_ATTACK_CHAIN
+	tape.balloon_alert(usr, error_message)
+	return COMPONENT_SECONDARY_CANCEL_ATTACK_CHAIN
 
 // guns in general
 /datum/element/no_ducttape/gun
