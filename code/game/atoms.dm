@@ -2200,6 +2200,6 @@ if (UNLINT(target.base_luminosity != new_value)) {\
 	if (!do_after(user, 3 SECONDS, target = src))
 		return
 
+	to_chat(user, span_notice("You finish repairing [src] with [tape]."))
 	repair_damage(tape.object_repair_value)
-
 	return TRUE

@@ -101,5 +101,4 @@
 		return
 
 	use(1)
-	to_chat(user, span_notice("You finish repairing [interacting_with] with [src]."))
 	return

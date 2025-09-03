@@ -517,5 +517,6 @@
 	if (!do_after(user, 3 SECONDS, target = src))
 		return
 
+	to_chat(user, span_notice("You finish repairing [src] with [tape]."))
 	adjustBruteLoss(-tape.object_repair_value)
 	return TRUE
