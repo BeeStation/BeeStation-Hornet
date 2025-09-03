@@ -8,14 +8,14 @@
 	exp_type = EXP_TYPE_CREW
 	total_positions = 3
 	min_pop = MINPOP_JOB_LIMIT
-	supervisors = "Security / The warden"
+	supervisors = "your own conscience"
 	selection_color = "#dddddd"
 
 	base_access = list()
 	departments = DEPT_BITFLAG_UNASSIGNED
 	bank_account_department = NONE
 
-	display_order = JOB_DISPLAY_ORDER_ASSISTANT
+	display_order = JOB_DISPLAY_ORDER_PRISONER
 	rpg_title = "Vagrant"
 	allow_bureaucratic_error = FALSE
 
@@ -51,16 +51,15 @@
 					</i></font>"
 
 	//Fax first
-	for(var/obj/machinery/fax/sec/availableSecFaxes in GLOB.fax_machines)
+	for(var/obj/machinery/fax/sec/available_sec_faxes in GLOB.fax_machines)
 		var/obj/item/paper/message = new /obj/item/paper
 		message.name = "Prisoner transfer Documentation"
 		message.add_raw_text(deets)
-		availableSecFaxes.receive(message, "NT Penal Division", important = TRUE)
+		available_sec_faxes.receive(message, "NT Penal Division", important = TRUE)
 		message.update_icon()
 
 	// Announcement after
 	print_command_report(deets, title = "Prisoner transfer Documentation", announce = FALSE)
-	SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(priority_announce), "A prisoner has been transferred to your station. Check any communications console or security fax machine for a detailed printout.", "NT Penal Transfer", 'sound/misc/notice2.ogg'))
 	. = ..()
 
 /datum/job/prisoner/get_access()
@@ -74,8 +73,10 @@
 	belt = /obj/item/modular_computer/tablet/pda/prisoner
 	uniform = /obj/item/clothing/under/rank/prisoner/lowsec
 	shoes = /obj/item/clothing/shoes/sneakers/white
-	can_be_admin_equipped = TRUE
 
 /datum/job/prisoner/radio_help_message(mob/M)
 	.=..()
-	to_chat(M,span_prisonermessage("<b>You have signed up as Low-Security Inmate<hr><i>This role is primarily intended for prison roleplay;<br>While escape should not be the main thing on your mind, should you have a good reason to do so, you are free to attempt it.</i><br> As you are deemed neutral to the station, you may defend yourself as you please.</b>"))
+	to_chat(M,span_prisonermessage("<b>You have signed up as Low-Security Inmate, <i>This is primarily a roleplaying role.</i><hr>\
+									You are expected to create conflict using good role-play; in a way that is fun for others.<br>\
+									Good conflict escalation doesn't require spoiling the plan to a victim, but it is more interesting when you drop hints and attempt to get more players involved.<br>\
+									You are neutral to the station and are not expected to be on their side, but all conflicts must align with your character's motivations.<br></b>"))

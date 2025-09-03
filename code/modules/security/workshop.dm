@@ -7,6 +7,7 @@
 
 	mapped_start_area = /area/holodeck/prison
 	program_type = /datum/map_template/holodeck/prison //load workshop programs
+	req_access = list()
 	var/startup
 	var/offline = FALSE
 
@@ -42,8 +43,8 @@
 	return data
 
 /obj/machinery/computer/holodeck/prison/ui_act(action, params)
-	if(isobserver(usr))
-		return
+	if(!allowed(usr))
+		to_chat(usr, span_warning("Access denied."))
 	if(..())
 		return
 	switch(action)

@@ -24998,6 +24998,12 @@
 /obj/item/stack/package_wrap,
 /obj/item/stack/package_wrap,
 /obj/structure/rack,
+/obj/item/prison_scanner,
+/obj/item/prison_scanner,
+/obj/item/prison_scanner,
+/obj/item/prison_scanner,
+/obj/item/prison_scanner,
+/obj/item/prison_scanner,
 /turf/open/floor/prison,
 /area/security/prison)
 "etT" = (
@@ -28192,6 +28198,9 @@
 /obj/structure/closet/secure_closet/genpop,
 /obj/effect/turf_decal/tile/dark_red{
 	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/iron/smooth_corner{
 	dir = 8
@@ -31632,9 +31641,13 @@
 /turf/open/floor/iron/white,
 /area/science/xenobiology)
 "gXh" = (
-/obj/machinery/computer/holodeck/prison,
 /obj/effect/turf_decal/tile/dark_red/anticorner{
 	dir = 4
+	},
+/obj/structure/rack,
+/obj/item/book/manual/wiki/security_space_law{
+	pixel_x = 10;
+	pixel_y = 3
 	},
 /turf/open/floor/iron/smooth_corner{
 	dir = 8
@@ -32159,6 +32172,14 @@
 	},
 /obj/effect/turf_decal/tile/dark_red/anticorner{
 	dir = 8
+	},
+/obj/machinery/power/apc/highcap/five_k{
+	areastring = "/area/security/prison";
+	name = "Prison APC";
+	pixel_y = -24
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
 	},
 /turf/open/floor/iron/smooth_corner{
 	dir = 4
@@ -49710,9 +49731,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 1
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/smooth_large,
 /area/security/prison)
@@ -53215,10 +53233,6 @@
 /obj/machinery/airalarm/directional/north{
 	pixel_y = 28
 	},
-/obj/item/book/manual/wiki/security_space_law{
-	pixel_x = 10;
-	pixel_y = 3
-	},
 /obj/effect/turf_decal/tile/dark_red/half{
 	dir = 4
 	},
@@ -56057,13 +56071,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/item/prison_scanner,
-/obj/item/prison_scanner,
-/obj/item/prison_scanner,
-/obj/item/prison_scanner,
-/obj/item/prison_scanner,
-/obj/item/prison_scanner,
-/obj/structure/rack,
+/obj/machinery/computer/holodeck/prison,
 /turf/open/floor/prison,
 /area/security/prison)
 "pOJ" = (
@@ -66967,12 +66975,6 @@
 /area/hallway/primary/central)
 "tFV" = (
 /obj/structure/closet/secure_closet/genpop,
-/obj/machinery/power/apc/auto_name/directional/north{
-	name = "Prison"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
 /obj/effect/turf_decal/tile/dark_red{
 	dir = 1
 	},
