@@ -31,6 +31,8 @@
 		return
 	. = ..()
 
+// clock cult structures, they should use their power through fabricators
+// the ark should never be repairable
 /obj/structure/destructible/clockwork/try_ducttape(mob/living/user, obj/item/stack/sticky_tape/duct/tape)
 	balloon_alert(user, "The tape would get caught in the gears if you tried to fix this!")
 	return FALSE
