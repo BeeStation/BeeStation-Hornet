@@ -207,12 +207,12 @@
 
 	//pick flavor objective
 	var/datum/objective/abductee/extra_objective
-	switch(rand(100))
-		if(51 to 100)
+	switch(rand(1,10))
+		if(10 to 6)
 			extra_objective = /datum/objective/abductee/fearful
-		if(21 to 50)
+		if(5 to 3)
 			extra_objective = /datum/objective/abductee/violent
-		if(0 to 20)
+		if(2 to 1)
 			extra_objective = /datum/objective/abductee/paranoid
 
 	extra_objective.owner = owner
