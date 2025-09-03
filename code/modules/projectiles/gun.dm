@@ -127,7 +127,7 @@
 	if(requires_wielding)
 		RegisterSignal(src, COMSIG_TWOHANDED_WIELD, PROC_REF(wield))
 		RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, PROC_REF(unwield))
-	
+
 /obj/item/gun/ComponentInitialize()
 	. = ..()
 	//Smaller weapons are better when used in a single hand.
