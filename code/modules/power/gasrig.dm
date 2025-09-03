@@ -37,6 +37,17 @@
 	var/display_gas_power = 0
 	var/display_gasrig_gas_modifier = 0
 
+	var/list/gas_references = list(
+		/datum/gas/oxygen = GASRIG_O2,
+		/datum/gas/nitrogen = GASRIG_N2,
+		/datum/gas/plasma = GASRIG_PLAS,
+		/datum/gas/carbon_dioxide = GASRIG_CO2,
+		/datum/gas/nitrous_oxide = GASRIG_N2O,
+		/datum/gas/bz = GASRIG_BZ,
+		/datum/gas/pluoxium = GASRIG_PLOX,
+		/datum/gas/hypernoblium = GASRIG_NOB
+	)
+
 	init_processing = TRUE
 
 	var/datum/looping_sound/gravgen/soundloop
@@ -182,14 +193,8 @@
 
 	overpressure = FALSE
 
-	calculate_gas_to_output(GASRIG_O2, /datum/gas/oxygen, air, efficiency)
-	calculate_gas_to_output(GASRIG_N2, /datum/gas/nitrogen, air, efficiency)
-	calculate_gas_to_output(GASRIG_PLAS, /datum/gas/plasma, air, efficiency)
-	calculate_gas_to_output(GASRIG_CO2, /datum/gas/carbon_dioxide, air, efficiency)
-	calculate_gas_to_output(GASRIG_N2O, /datum/gas/nitrous_oxide, air, efficiency)
-	calculate_gas_to_output(GASRIG_BZ, /datum/gas/bz, air, efficiency)
-	calculate_gas_to_output(GASRIG_PLOX, /datum/gas/pluoxium, air, efficiency)
-	calculate_gas_to_output(GASRIG_NOB, /datum/gas/hypernoblium, air, efficiency)
+	for(var/gas_datum,gas_define in gas_references)
+		calculate_gas_to_output(gas_define, gas_datum, air, efficiency)
 
 /obj/machinery/atmospherics/gasrig/core/proc/calculate_power_use()
 	var/depth = get_depth()
