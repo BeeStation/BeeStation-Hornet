@@ -18,10 +18,6 @@
 	var/immune_to_servant_attacks = FALSE //if we ignore attacks from servants of ratvar instead of taking damage
 	var/datum/mind/owner = null	//The person who placed this structure
 
-/obj/structure/destructible/clockwork/Initialize(mapload)
-	. = ..()
-	AddElement(/datum/element/no_ducttape/clock_cult)
-
 /obj/structure/destructible/clockwork/examine(mob/user)
 	. = list("[get_examine_string(user, TRUE)].")
 
@@ -34,6 +30,10 @@
 	if(immune_to_servant_attacks && IS_SERVANT_OF_RATVAR(user))
 		return
 	. = ..()
+
+/obj/structure/destructible/clockwork/try_ducttape(mob/living/user, obj/item/stack/sticky_tape/duct/tape)
+	balloon_alert(user, "The tape would get caught in the gears if you tried to fix this!")
+	return FALSE
 
 //for the ark and Ratvar
 /obj/structure/destructible/clockwork/massive

@@ -97,41 +97,9 @@
 	if (!object_repair_value)
 		return
 
-	if (issilicon(interacting_with))
-		var/mob/living/silicon/robotic_pal = interacting_with
-		var/robot_is_damaged = robotic_pal.getBruteLoss()
-
-		if (!robot_is_damaged)
-			user.balloon_alert(user, "[robotic_pal] is not damaged!")
-			return
-
-		user.visible_message(span_notice("[user] begins repairing [robotic_pal] with [src]."), span_notice("You begin repairing [robotic_pal] with [src]."))
-		playsound(user, 'sound/items/duct_tape/duct_tape_rip.ogg', 50, TRUE)
-
-		if (!do_after(user, 3 SECONDS, target = robotic_pal))
-			return
-
-		robotic_pal.adjustBruteLoss(-object_repair_value)
-		use(1)
-		to_chat(user, span_notice("You finish repairing [interacting_with] with [src]."))
+	if (!interacting_with.try_ducttape(user, src))
 		return
 
-	if (!isobj(interacting_with) || iseffect(interacting_with))
-		return
-
-	var/object_is_damaged = interacting_with.get_integrity() < interacting_with.max_integrity
-
-	if (!object_is_damaged)
-		user.balloon_alert(user, "[interacting_with] is not damaged!")
-		return
-
-	user.visible_message(span_notice("[user] begins repairing [interacting_with] with [src]."), span_notice("You begin repairing [interacting_with] with [src]."))
-	playsound(user, 'sound/items/duct_tape/duct_tape_rip.ogg', 50, TRUE)
-
-	if (!do_after(user, 3 SECONDS, target = interacting_with))
-		return
-
-	interacting_with.repair_damage(object_repair_value)
 	use(1)
 	to_chat(user, span_notice("You finish repairing [interacting_with] with [src]."))
 	return
