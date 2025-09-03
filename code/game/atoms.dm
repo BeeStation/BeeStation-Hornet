@@ -2179,7 +2179,7 @@ if (UNLINT(target.base_luminosity != new_value)) {\
 		candidate = mergers[id]
 	return candidate
 
-/// attempts to fix something when ducktape is used on it
+/// attempts to fix something when duct tape is used on it
 /atom/proc/try_ducttape(mob/living/user, obj/item/stack/sticky_tape/duct/tape)
 	. = FALSE
 
