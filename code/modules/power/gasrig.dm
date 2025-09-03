@@ -37,7 +37,7 @@
 	var/display_gas_power = 0
 	var/display_gasrig_gas_modifier = 0
 
-	var/list/gas_references = list(
+	var/list/gas_references = list( //I think it might be better to stack this in with the gas defines themselves, but it would get kinda messy with how I made the tgui
 		/datum/gas/oxygen = GASRIG_O2,
 		/datum/gas/nitrogen = GASRIG_N2,
 		/datum/gas/plasma = GASRIG_PLAS,
@@ -45,7 +45,8 @@
 		/datum/gas/nitrous_oxide = GASRIG_N2O,
 		/datum/gas/bz = GASRIG_BZ,
 		/datum/gas/pluoxium = GASRIG_PLOX,
-		/datum/gas/hypernoblium = GASRIG_NOB
+		/datum/gas/hypernoblium = GASRIG_NOB,
+		/datum/gas/tritium = GASRIG_TRIT
 	)
 
 	init_processing = TRUE
@@ -193,8 +194,8 @@
 
 	overpressure = FALSE
 
-	for(var/gas_datum,gas_define in gas_references)
-		calculate_gas_to_output(gas_define, gas_datum, air, efficiency)
+	for(var/gas_datum in gas_references)
+		calculate_gas_to_output(gas_references[gas_datum], gas_datum, air, efficiency)
 
 /obj/machinery/atmospherics/gasrig/core/proc/calculate_power_use()
 	var/depth = get_depth()
@@ -360,6 +361,7 @@
 	data["nob_constants"] = GASRIG_NOB
 	data["bz_constants"] =  GASRIG_BZ
 	data["plox_constants"] = GASRIG_PLOX
+	data["trit_constants"] = GASRIG_TRIT
 	data["warning_message"] = get_warning()
 	return data
 

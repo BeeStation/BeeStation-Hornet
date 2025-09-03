@@ -31,3 +31,4 @@
 #define GASRIG_BZ list(950, 2000, 25)
 #define GASRIG_PLOX list(1555, 1875, 30)
 #define GASRIG_NOB list(1925, 2000, 25)
+#define GASRIG_TRIT list(1300, 1675, 15)
