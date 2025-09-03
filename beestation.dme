@@ -979,7 +979,6 @@
 #include "code\datums\elements\mirage_border.dm"
 #include "code\datums\elements\movement_turf_changer.dm"
 #include "code\datums\elements\movetype_handler.dm"
-#include "code\datums\elements\no_ducktape.dm"
 #include "code\datums\elements\obj_regen.dm"
 #include "code\datums\elements\openspace_item_click_handler.dm"
 #include "code\datums\elements\pet_bonus.dm"
