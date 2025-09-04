@@ -65,25 +65,26 @@
 	if(target.mind)
 		changeling.genetic_points += 1
 		changeling.total_chem_storage += 10
-		to_chat(owner, span_notice("We have drained [target] and gained 1 genetic point <span class='cfc_cyan'>Total</span>: <span class='cfc_green'>[changeling.genetic_points]</span>."))
+		to_chat(owner, span_notice("We have drained [target] and gained 1 genetic point. <span class='cfc_cyan'>Total</span>: <span class='cfc_green'>[changeling.genetic_points]</span>."))
 	else
-		if(total_chem_storage >= 50)
+		if(changeling.total_chem_storage >= 50)
 			to_chat(owner, span_notice("Absent-minded targets no longer sustain us... <span class='cfc_cyan'>Total</span>: <span class='cfc_green'>[changeling.genetic_points]</span>."))
 		else
 			changeling.genetic_points += 0.5
 			changeling.total_chem_storage += 5
-			to_chat(owner, span_notice("We have drained [target] and gained half a genetic point. Absent-minded targets are less... nutricious... <span class='cfc_cyan'>Total</span>: <span class='cfc_green'>[changeling.genetic_points]</span>."))
+			to_chat(owner, span_notice("We have drained [target] and gained 0.5 genetic point\s. Absent-minded targets are less... nutritious... <span class='cfc_cyan'>Total</span>: <span class='cfc_green'>[changeling.genetic_points]</span>."))
 
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("Absorb DNA", "4"))
 	owner.visible_message(span_danger("[target] was drained!"))
 	to_chat(target, span_userdanger("You are drained by the changeling!"))
 
 	playsound(owner, 'sound/items/drink.ogg', 35, TRUE)
-	playsound(user, 'sound/effects/blobattack.ogg', 50)
-	playsound(user, 'sound/effects/splat.ogg', 50, TRUE)
+	playsound(owner, 'sound/effects/blobattack.ogg', 50)
+	playsound(owner, 'sound/effects/splat.ogg', 50, TRUE)
 	return TRUE
 
 /datum/action/changeling/absorbDNA/proc/absorb_ling_power(mob/living/carbon/human/target)
+	var/datum/antagonist/changeling/changeling = IS_CHANGELING(owner)
 	var/datum/antagonist/changeling/target_ling = IS_CHANGELING(target)
 	if(target_ling)//If the target was a changeling, suck out their extra juice and objective points!
 		to_chat(owner, span_boldnotice("[target] was one of us. We have absorbed their power."))
@@ -120,7 +121,7 @@
 				owner.visible_message(span_danger("[owner] stabs [target] with the proboscis!"), span_notice("We stab [target] with the proboscis."))
 				to_chat(target, span_userdanger("You feel a sharp stabbing pain!"))
 				playsound(owner, 'sound/creatures/venus_trap_hit.ogg', 40)
-				playsound(get_turf(C), 'sound/weapons/slice.ogg', 50, 1)
+				playsound(target, 'sound/weapons/slice.ogg', 50)
 				target.take_overall_damage(40)
 
 		SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("Absorb DNA", "[absorbing_iteration]"))

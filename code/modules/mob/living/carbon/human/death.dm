@@ -137,7 +137,7 @@
 	death()
 	make_uncloneable()
 	spawn_gibs(FALSE)
-	target.balloon_alert_to_viewers("<font color='#ff0040'>SLURP</font>")
+	balloon_alert_to_viewers("<font color='#ff0040'>SLURP</font>")
 	if(istype(src, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = src
 		H.makeSkeleton()
