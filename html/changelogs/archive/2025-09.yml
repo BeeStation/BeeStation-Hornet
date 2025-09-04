@@ -10,3 +10,6 @@
   Liver-1:
   - bugfix: Fixes the lethals ammo box to use @Bieyes beautiful new art and not the
       plain box art.
+  TsunamiAnt:
+  - rscadd: 'Added a new station role: Prisoners! An RP heavy role intended to just
+      chill and maybe mug a new guy.'
