@@ -125,8 +125,10 @@
 	// Geneless is sort of a super power? You become imune to genetic mutations so...
 	ADD_TRAIT(src, TRAIT_GENELESS, CHANGELING_DRAIN)
 	blood_volume = 0
+	new /obj/effect/decal/cleanable/blood(get_turf(src))
 	// Lowers their temperature and keeps it low when they are revived by frostoil.
 	adjust_bodytemperature(-200)
+	balloon_alert_to_viewers("<font color='#ff8080'>Blood is spilled...</font>")
 	reagents.add_reagent(/datum/reagent/consumable/frostoil, 20)
 	return TRUE
 
@@ -134,9 +136,13 @@
 	changeling_drain()
 	death()
 	make_uncloneable()
+	spawn_gibs(FALSE)
+	target.balloon_alert_to_viewers("<font color='#ff0040'>SLURP</font>")
 	if(istype(src, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = src
 		H.makeSkeleton()
+	else	// If they are not human what are they?
+		gib()
 
 /mob/living/carbon/proc/make_uncloneable()
 	ADD_TRAIT(src, TRAIT_BADDNA, MADE_UNCLONEABLE)
