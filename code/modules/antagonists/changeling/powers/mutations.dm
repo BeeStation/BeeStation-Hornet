@@ -17,6 +17,7 @@
 	chemical_cost = 1000
 	dna_cost = -1
 
+	req_human = TRUE
 	var/silent = FALSE
 	var/weapon_type
 	var/weapon_name_simple
@@ -73,6 +74,7 @@
 	helptext = "Yell at Miauw and/or Perakp"
 	chemical_cost = 1000
 	dna_cost = -1
+	req_human = TRUE
 
 	var/helmet_type = /obj/item
 	var/suit_type = /obj/item

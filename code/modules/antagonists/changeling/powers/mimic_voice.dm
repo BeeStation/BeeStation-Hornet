@@ -6,7 +6,7 @@
 	chemical_cost = 0
 	recharge_slowdown = 0.2
 	dna_cost = 1
-	req_human = 1
+	req_human = TRUE
 
 // Fake Voice
 /datum/action/changeling/mimicvoice/sting_action(mob/user)

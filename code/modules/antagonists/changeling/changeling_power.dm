@@ -13,8 +13,8 @@
 	var/chemical_cost = 0 // negative chemical cost is for passive abilities (chemical glands)
 	var/dna_cost = -1 //cost of the sting in dna points. 0 = auto-purchase (see changeling.dm), -1 = cannot be purchased
 	var/points_to_use = 0  //amount of genetic points needed to use this ability
-	var/req_human = 0 //if you need to be human to use this ability
 	var/recharge_slowdown = 0 // Chemical upkeep of ability in use
+	var/req_human = FALSE //if you need to be human to use this ability
 	var/limb_sacrifice = FALSE // Sacrifices a limb and turns it into something else, can only be cast if ling has a limb obviously
 	var/ignores_fakedeath = FALSE // usable with the FAKEDEATH flag
 

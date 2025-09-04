@@ -4,7 +4,7 @@
 	button_icon_state = "transform"
 	chemical_cost = 5
 	dna_cost = 0
-	req_human = 1
+	req_human = TRUE
 
 /obj/item/clothing/glasses/changeling
 	name = "flesh"

@@ -6,7 +6,7 @@
 	chemical_cost = 0
 	recharge_slowdown = 0.1
 	dna_cost = 1
-	req_human = 1
+	req_human = TRUE
 
 /datum/action/changeling/organic_mindshield/sting_action(mob/living/user)
 	..()
