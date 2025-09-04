@@ -136,7 +136,7 @@
 /datum/action/changeling/weapon/arm_blade
 	name = "Arm Blade"
 	desc = "We reform one of our arms into a deadly blade. Costs 20 chemicals."
-	helptext = "We may retract our armblade in the same manner as we form it. Cannot be used while in lesser form."
+	helptext = "We may retract our armblade in the same manner as we form it."
 	button_icon_state = "armblade"
 	chemical_cost = 20
 	recharge_slowdown = 0.2
@@ -207,8 +207,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/arm_blade)
 	desc = "We ready a tentacle to grab items or victims with. Costs 10 chemicals."
 	helptext = "We can use it once to retrieve a distant item. If used on living creatures, the effect depends on our combat mode: \
 	In our neutral stance, we will simply drag them closer; if we try to shove, we will grab whatever they're holding in their active hand instead of them; \
-	in our combat stance, we will put the victim in our hold after catching them, and we will pull them in and stab them if we're also holding a sharp weapon. \
-	Cannot be used while in lesser form."
+	in our combat stance, we will put the victim in our hold after catching them, and we will pull them in and stab them if we're also holding a sharp weapon."
 	button_icon_state = "tentacle"
 	chemical_cost = 10
 	dna_cost = 2
@@ -384,7 +383,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 /datum/action/changeling/suit/organic_space_suit
 	name = "Organic Space Suit"
 	desc = "We grow an organic suit to protect ourselves from space exposure and is lightly armoured. Costs 20 chemicals."
-	helptext = "We must constantly repair our form to make it armored and space-proof, reducing chemical production while we are protected. Cannot be used in Lesser Form."
+	helptext = "We must constantly repair our form to make it armored and space-proof."
 	button_icon_state = "organic_suit"
 	chemical_cost = 20
 	dna_cost = 1
@@ -480,7 +479,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 /datum/action/changeling/suit/armor
 	name = "Chitinous Armor"
 	desc = "We turn our skin into tough chitin to protect us from damage. Costs 20 chemicals."
-	helptext = "Upkeep of the armor slows our rate of chemical production. The armor provides decent protection against projectiles and some protection against melee attacks. Cannot be used in lesser form."
+	helptext = "The armor provides decent protection against projectiles and some protection against melee attacks."
 	button_icon_state = "chitinous_armor"
 	chemical_cost = 20
 	dna_cost = 2

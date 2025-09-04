@@ -3,7 +3,7 @@
 /datum/action/changeling/teratoma
 	name = "Birth Teratoma"
 	desc = "Our form divides, creating an egg that will soon hatch into a living tumor, fixated on causing mayhem"
-	helptext = "The tumor will not be loyal to us or our cause. Costs 1 genetic point"
+	helptext = "The tumor will not be loyal to us or our cause."
 	button_icon_state = "spread_infestation"
 	points_to_use = 1
 	chemical_cost = 30

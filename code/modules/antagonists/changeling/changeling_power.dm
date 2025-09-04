@@ -24,6 +24,15 @@ if you override it, MAKE SURE you call parent or it will not be usable
 the same goes for Remove(). if you override Remove(), call parent or else your power wont be removed on respec
 */
 
+/datum/action/changeling/New(master)
+	..()
+	if(recharge_slowdown)
+		helptext += "Maintaining consumes [recharge_slowdown] chemicals per second."
+	if(points_to_use)
+		helptext += "Requires [points_to_use] genetic point\s to activate."
+	if(req_human)
+		helptext += "Cannot be used in lesser form."
+
 /datum/action/changeling/proc/on_purchase(mob/user, is_respec)
 	if(!is_respec)
 		SSblackbox.record_feedback("tally", "changeling_power_purchase", 1, name)
