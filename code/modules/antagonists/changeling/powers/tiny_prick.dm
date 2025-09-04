@@ -175,7 +175,7 @@
 	helptext = "Will give you the DNA of your target, allowing you to transform into them."
 	button_icon_state = "sting_extract"
 	chemical_cost = 25
-	dna_cost = 0
+	dna_cost = 1
 	stealthy = TRUE
 
 /datum/action/changeling/sting/extract_dna/ling_can_cast(mob/user, mob/target)
