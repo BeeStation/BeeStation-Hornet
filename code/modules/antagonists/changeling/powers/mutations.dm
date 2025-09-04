@@ -138,7 +138,7 @@
 	desc = "We reform one of our arms into a deadly blade. Costs 20 chemicals."
 	helptext = "We may retract our armblade in the same manner as we form it."
 	button_icon_state = "armblade"
-	chemical_cost = 20
+	chemical_cost = 5
 	recharge_slowdown = 0.2
 	dna_cost = 2
 	weapon_type = /obj/item/melee/arm_blade
@@ -476,7 +476,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 	desc = "We turn our skin into tough chitin to protect us from damage. Costs 20 chemicals."
 	helptext = "The armor provides decent protection against projectiles and some protection against melee attacks."
 	button_icon_state = "chitinous_armor"
-	chemical_cost = 20
+	chemical_cost = 10
 	dna_cost = 2
 	recharge_slowdown = 0.2
 
