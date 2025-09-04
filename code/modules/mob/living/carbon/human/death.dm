@@ -112,6 +112,13 @@
 	set_species(/datum/species/skeleton)
 	return TRUE
 
+/mob/living/carbon/proc/soft_drain()
+	ADD_TRAIT(src, TRAIT_GENELESS, CHANGELING_DRAIN)
+	blood_volume -= 300
+	// Lowers their temperature with frost-oil but doesnt kill them
+	reagents.add_reagent(/datum/reagent/consumable/frostoil, 5)
+	return TRUE
+
 /mob/living/carbon/proc/changeling_drain()
 	// We removed death at this point, because they will surelly die by having no blood... its more immersive!
 	// Drain is used only for health analizer
@@ -123,21 +130,14 @@
 	reagents.add_reagent(/datum/reagent/consumable/frostoil, 20)
 	return TRUE
 
-/mob/living/carbon/proc/soft_drain()
-	ADD_TRAIT(src, TRAIT_GENELESS, CHANGELING_DRAIN)
-	blood_volume -= 300
-	// Lowers their temperature with frost-oil but doesnt kill them
-	reagents.add_reagent(/datum/reagent/consumable/frostoil, 5)
-	return TRUE
-
 /mob/living/carbon/proc/master_drain()
 	changeling_drain()
 	death()
+	make_uncloneable()
 	if(istype(src, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = src
 		H.makeSkeleton()
 
-/mob/living/carbon/proc/makeUncloneable()
+/mob/living/carbon/proc/make_uncloneable()
 	ADD_TRAIT(src, TRAIT_BADDNA, MADE_UNCLONEABLE)
-	blood_volume = 0
 	return TRUE
