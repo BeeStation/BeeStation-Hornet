@@ -3,7 +3,7 @@
 	desc = "We fall into a stasis, allowing us to regenerate and trick our enemies. Costs 15 chemicals."
 	button_icon_state = "fake_death"
 	chemical_cost = 15
-	dna_cost = 0
+	dna_cost = 2
 	req_dna = 1
 	check_flags = NONE
 	ignores_fakedeath = TRUE
