@@ -1,5 +1,0 @@
-author: Liver-1
-delete-after: true
-changes:
-  - bugfix: Fixes the lethals ammo box to use @Bieyes beautiful new art and not the
-      plain box art.
