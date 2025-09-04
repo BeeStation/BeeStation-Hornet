@@ -923,6 +923,7 @@
 /obj/item/storage/box/lethalshot
 	name = "box of lethal shotgun shots"
 	desc = "A standard box full of lethal shots, designed for riot shotguns."
+	icon_state = "lethalshot_box"
 	illustration = null
 
 /obj/item/storage/box/lethalshot/PopulateContents()
