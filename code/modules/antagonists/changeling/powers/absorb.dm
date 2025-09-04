@@ -67,17 +67,20 @@
 		changeling.total_chem_storage += 10
 		to_chat(owner, span_notice("We have drained [target] and gained 1 genetic point <span class='cfc_cyan'>Total</span>: <span class='cfc_green'>[changeling.genetic_points]</span>."))
 	else
-		changeling.genetic_points += 0.5
-		changeling.total_chem_storage += 5
-		to_chat(owner, span_notice("We have drained [target] and gained half a genetic point. Absent-minded targets are less... nutricious... <span class='cfc_cyan'>Total</span>: <span class='cfc_green'>[changeling.genetic_points]</span>."))
+		if(total_chem_storage >= 50)
+			to_chat(owner, span_notice("Absent-minded targets no longer sustain us... <span class='cfc_cyan'>Total</span>: <span class='cfc_green'>[changeling.genetic_points]</span>."))
+		else
+			changeling.genetic_points += 0.5
+			changeling.total_chem_storage += 5
+			to_chat(owner, span_notice("We have drained [target] and gained half a genetic point. Absent-minded targets are less... nutricious... <span class='cfc_cyan'>Total</span>: <span class='cfc_green'>[changeling.genetic_points]</span>."))
 
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("Absorb DNA", "4"))
-	owner.balloon_alert_to_viewers("<font color='#ff0040'>SLURP!</font>")
 	owner.visible_message(span_danger("[target] was drained!"))
 	to_chat(target, span_userdanger("You are drained by the changeling!"))
 
 	playsound(owner, 'sound/items/drink.ogg', 35, TRUE)
-	playsound(owner, 'sound/surgery/organ2.ogg', 50)
+	playsound(user, 'sound/effects/blobattack.ogg', 50)
+	playsound(user, 'sound/effects/splat.ogg', 50, TRUE)
 	return TRUE
 
 /datum/action/changeling/absorbDNA/proc/absorb_ling_power(mob/living/carbon/human/target)
@@ -116,11 +119,12 @@
 			if(3)
 				owner.visible_message(span_danger("[owner] stabs [target] with the proboscis!"), span_notice("We stab [target] with the proboscis."))
 				to_chat(target, span_userdanger("You feel a sharp stabbing pain!"))
-				playsound(owner, 'sound/creatures/venus_trap_hit.ogg', 30)
+				playsound(owner, 'sound/creatures/venus_trap_hit.ogg', 40)
+				playsound(get_turf(C), 'sound/weapons/slice.ogg', 50, 1)
 				target.take_overall_damage(40)
 
 		SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("Absorb DNA", "[absorbing_iteration]"))
-		if(!do_after(owner, 2 SECONDS, target))
+		if(!do_after(owner, 3 SECONDS, target))
 			owner.balloon_alert(owner, "interrupted!")
 			is_absorbing = FALSE
 			return FALSE
