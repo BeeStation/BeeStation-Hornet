@@ -209,11 +209,11 @@
 	var/datum/objective/abductee/extra_objective
 	switch(rand(1,10))
 		if(6 to 10)
-			extra_objective = /datum/objective/abductee/fearful
+			extra_objective = new /datum/objective/abductee/fearful()
 		if(3 to 5)
-			extra_objective = /datum/objective/abductee/violent
+			extra_objective = new /datum/objective/abductee/violent()
 		if(1 to 2)
-			extra_objective = /datum/objective/abductee/paranoid
+			extra_objective = new /datum/objective/abductee/paranoid()
 
 	extra_objective.owner = owner
 	objectives += extra_objective
