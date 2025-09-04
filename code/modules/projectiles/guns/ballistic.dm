@@ -73,8 +73,8 @@
 		return
 	if (!magazine)
 		magazine = new mag_type(src)
-	if (!caliber)
-		caliber = magazine.caliber
+	if (!caliber || !caliber.len)
+		caliber = islist(magazine.caliber) ? magazine.caliber.Copy() : list(magazine.caliber)
 	chamber_round()
 	update_icon()
 
@@ -305,6 +305,23 @@
 		return FALSE
 	return chambered && ..()
 
+/obj/item/gun/ballistic/proc/caliber_supports(atom/A)
+	// Accepts an ammo casing or a raw value/list and returns TRUE if any overlap with src.caliber
+	var/list/incoming
+	if (istype(A, /obj/item/ammo_casing))
+		var/obj/item/ammo_casing/AC = A
+		incoming = islist(AC.caliber) ? AC.caliber : list(AC.caliber)
+	else if (islist(A))
+		incoming = A
+	else
+		incoming = list(A)
+
+	for (var/c in incoming)
+		if (c in src.caliber)
+			return TRUE
+	return FALSE
+
+
 /obj/item/gun/ballistic/attackby(obj/item/A, mob/user, params)
 	..()
 	if (.)
@@ -334,7 +351,7 @@
 		if(!chambered && istype(A, /obj/item/ammo_casing) && bolt_locked && bolt_type != BOLT_TYPE_OPEN)
 			var/obj/item/ammo_casing/AC = A
 			//If the gun isn't chambered in the same caliber as the cartridge, don't load it.
-			if(src.caliber != AC.caliber)
+			if (!caliber_supports(AC))
 				to_chat(user, span_warning("\The [src] isn't chambered in this caliber!"))
 				return
 			chambered = AC
