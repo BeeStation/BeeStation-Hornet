@@ -24,7 +24,7 @@
 	var/datum/antagonist/changeling/changeling = IS_CHANGELING(owner)
 	return changeling.can_absorb_dna(target)
 
-/datum/action/changeling/absorbDNA/sting_action(mob/owner)
+/datum/action/changeling/absorbDNA/sting_action(mob/living/carbon/owner)
 	SHOULD_CALL_PARENT(FALSE)
 
 	var/datum/antagonist/changeling/changeling = IS_CHANGELING(owner)
@@ -51,7 +51,7 @@
 	if(target.stat != DEAD)
 		target.investigate_log("has died from being changeling absorbed.", INVESTIGATE_DEATHS)
 
-	switch(total_chem_storage)
+	switch(changeling.total_chem_storage)
 		if(35 to 45)
 			target.soft_drain()
 		if(46 to 70)	// Third drain on a normal person will cause this.
@@ -61,7 +61,7 @@
 
 	// Changeling gains chems, 50 more than cap.
 	changeling.adjust_chemicals(100, changeling.total_chem_storage + 50)
-	changeling.blood_volume += 300	// We drain blood because its cool and useful!
+	owner.blood_volume += 300	// We drain blood because its cool and useful!
 	if(target.mind)
 		changeling.genetic_points += 1
 		changeling.total_chem_storage += 10

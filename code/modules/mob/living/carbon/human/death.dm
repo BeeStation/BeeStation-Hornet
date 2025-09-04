@@ -133,7 +133,9 @@
 /mob/living/carbon/proc/master_drain()
 	changeling_drain()
 	death()
-	makeSkeleton()
+	if(istype(src, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = src
+		H.makeSkeleton()
 
 /mob/living/carbon/proc/makeUncloneable()
 	ADD_TRAIT(src, TRAIT_BADDNA, MADE_UNCLONEABLE)
