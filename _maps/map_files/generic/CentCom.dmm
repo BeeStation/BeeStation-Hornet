@@ -17558,12 +17558,9 @@
 "aRX" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
-/obj/machinery/requests_console{
-	announcementConsole = 1;
+/obj/machinery/requests_console/directional/north{
 	department = "Captain's Desk";
-	departmentType = 5;
-	name = "Captain RC";
-	pixel_y = 32
+	name = "CentCom Requests Console"
 	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 9

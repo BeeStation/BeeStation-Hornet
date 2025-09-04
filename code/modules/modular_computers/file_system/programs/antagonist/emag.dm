@@ -8,9 +8,10 @@
 	available_on_ntnet = FALSE
 	tgui_id = "NtosEmagConsole"
 
-/datum/computer_file/program/emag_console/ui_act(action,params,datum/tgui/ui)
-	if(!ui || ui.status != UI_INTERACTIVE)
-		return TRUE
+/datum/computer_file/program/emag_console/ui_act(action,params, datum/tgui/ui)
+	. = ..()
+	if(.)
+		return
 	kill_program(forced = TRUE)
 	return TRUE
 

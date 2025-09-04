@@ -175,6 +175,10 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 	return data
 
 /obj/item/clockwork/clockwork_slab/ui_act(action, params)
+	. = ..()
+	if(.)
+		return
+
 	var/mob/living/M = usr
 	if(!istype(M))
 		return FALSE

@@ -918,10 +918,11 @@
 /area/shuttle/exploration)
 "Xp" = (
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "Exploration Shuttle";
-	departmentType = 5;
-	pixel_x = -32
+	pixel_x = -32;
+	assistance_requestable = 1;
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1

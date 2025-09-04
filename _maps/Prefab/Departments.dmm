@@ -520,6 +520,10 @@
 /obj/item/toy/plush/moth/lovers,
 /turf/open/floor/iron/tech/grid,
 /area/space)
+"mE" = (
+/obj/structure/reagent_dispensers/virusfood,
+/turf/open/floor/iron,
+/area/space)
 "mO" = (
 /obj/item/book/manual/wiki/barman_recipes,
 /turf/open/floor/iron/cafeteria_red,
@@ -1237,10 +1241,11 @@
 /area/crew_quarters/heads/cmo)
 "Do" = (
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "Bridge";
-	departmentType = 5;
-	name = "ai RC"
+	name = "ai RC";
+	assistance_requestable = 1;
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
 	},
 /obj/item/radio/intercom,
 /obj/item/radio/intercom,
@@ -1263,10 +1268,11 @@
 /area/crew_quarters/kitchen)
 "DS" = (
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "Captain's Desk";
-	departmentType = 5;
-	name = "Captain RC"
+	name = "Captain RC";
+	assistance_requestable = 1;
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
 	},
 /obj/item/disk/nuclear,
 /obj/item/book/manual/wiki/sopcommand,
@@ -1342,7 +1348,7 @@
 "Fh" = (
 /obj/machinery/requests_console{
 	department = "Cargo Bay";
-	departmentType = 2
+	supplies_requestable = 1
 	},
 /turf/open/floor/iron/sepia,
 /area/quartermaster/sorting)
@@ -1436,7 +1442,7 @@
 /turf/open/floor/iron,
 /area/space)
 "Iu" = (
-/obj/machinery/gear_requisition/exploration,
+/obj/machinery/vendor/exploration,
 /turf/open/floor/iron/dark,
 /area/quartermaster/exploration_prep)
 "IO" = (
@@ -1871,7 +1877,7 @@
 /turf/open/floor/iron/dark,
 /area/medical/genetics)
 "Rm" = (
-/obj/machinery/gear_requisition/mining,
+/obj/machinery/vendor/mining,
 /turf/open/floor/iron/sepia,
 /area/quartermaster/storage)
 "Rq" = (
@@ -2666,7 +2672,7 @@ Fr
 XF
 ER
 Xs
-Qk
+mE
 "}
 (20,1,1) = {"
 ZA

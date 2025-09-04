@@ -598,7 +598,7 @@
 	request_shuttle_message = "Override Escape"
 	possible_destinations = "pod_asteroid"
 	icon = 'icons/obj/terminals.dmi'
-	icon_state = "dorm_available"
+	icon_state = "pod_off"
 
 	//these muthafuckas arent supposed to smooth
 	base_icon_state = null
@@ -609,6 +609,8 @@
 	light_color = LIGHT_COLOR_BLUE
 	density = FALSE
 	clockwork = TRUE //it'd look weird
+	icon_keyboard = null
+	icon_screen = "pod_on"
 
 /obj/machinery/computer/shuttle_flight/pod/Initialize(mapload)
 	. = ..()
@@ -620,6 +622,8 @@
 /obj/machinery/computer/shuttle_flight/pod/on_emag(mob/user)
 	..()
 	to_chat(user, span_warning("You fry the pod's alert level monitoring system."))
+	icon_screen = "emagged_general"
+	update_appearance()
 
 /obj/machinery/computer/shuttle_flight/pod/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
 	. = ..()
