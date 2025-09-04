@@ -3,6 +3,7 @@ import {
   BlockQuote,
   Box,
   Button,
+  Collapsible,
   Flex,
   NoticeBox,
   NumberInput,
@@ -14,8 +15,12 @@ import { Window } from '../layouts';
 
 export const AtmosGasRig = (props) => {
   return (
-    <Window theme="ntos" width={480} height={425}>
-      <Window.Content>{AtmosGasRigTemplate(props)}</Window.Content>
+    <Window theme="ntos" width={480} height={500}>
+      <Window.Content>
+        <Section title="Advanced Gas Rig:" fill={1} overflow-y="scroll">
+          {AtmosGasRigTemplate(props)}
+        </Section>
+      </Window.Content>
     </Window>
   );
 };
@@ -25,6 +30,24 @@ const DisplayWarning = (message) => {
     return <NoticeBox color="red">{message}</NoticeBox>;
   }
   return <Box />;
+};
+
+const DisplayGasOutput = (production_list) => {
+  return production_list
+    .filter((_, index) => index % 2 === 0)
+    .map((name, produced) => (
+      <Flex
+        key={name}
+        justify="space-between"
+        p="3px"
+        backgroundColor={produced % 2 === 0 ? '#35303b' : '#423f46ff'}
+      >
+        <Flex.Item>{name}</Flex.Item>
+        <Flex.Item>
+          {production_list[produced * 2 + 1].toFixed(2) + ' mol/s'}
+        </Flex.Item>
+      </Flex>
+    ));
 };
 
 const DisplayValues = (position, barHeight, data) => {
@@ -84,7 +107,7 @@ export const AtmosGasRigTemplate = (props) => {
   const barOffset = 6;
   const svgOffset = -50;
   return (
-    <Section title="Advanced Gas Rig:" height="100%">
+    <>
       <Button
         mt="-10px"
         icon={data.active ? 'power-off' : 'times'}
@@ -167,15 +190,17 @@ export const AtmosGasRigTemplate = (props) => {
             {data.fracking_eff.toFixed(2)}
             <br />
             <br />
+            <Collapsible title="Production Table" overflow="overlay">
+              {DisplayGasOutput(data.mols_produced)}
+            </Collapsible>
             <br />
-            {DisplayWarning(data.warning_message)}
           </Box>
         </Flex.Item>
         <Flex.Item>
           <Box width="10px" />
         </Flex.Item>
         <Flex.Item>
-          <svg width="200" height="1000">
+          <svg width="200" height={barHeight + 20}>
             <rect
               x={140 + svgOffset}
               y={barOffset}
@@ -278,6 +303,7 @@ export const AtmosGasRigTemplate = (props) => {
           </svg>
         </Flex.Item>
       </Flex>
-    </Section>
+      {DisplayWarning(data.warning_message)}
+    </>
   );
 };

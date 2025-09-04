@@ -32,6 +32,7 @@
 	var/needs_repairs = FALSE
 
 	var/display_efficiency = 1
+	var/list/display_mols_produced = list()
 	var/display_shield_efficiency = 0
 
 	var/display_gas_power = 0
@@ -121,6 +122,7 @@
 	return ..()
 
 /obj/machinery/atmospherics/gasrig/core/process(delta_time)	// Machine operation is here
+	display_mols_produced = list() // this is here to ensure the list is empty if mols arnt being produced
 	get_shield_damage(shielding_input.airs[1])
 	get_damage(delta_time)
 	if(machine_stat & NOPOWER)
@@ -130,9 +132,9 @@
 		update_use_power(IDLE_POWER_USE) // We're not fracking yet so power consumption is IDLE
 	if(!needs_repairs && active)
 		update_use_power(ACTIVE_POWER_USE)
-		produce_gases(gas_output.airs[1])
+		produce_gases(gas_output.airs[1], delta_time)
 	if(needs_repairs && active)	//when repairs are needed leak gases into the turf instead of gas_output
-		produce_gases(src.loc.return_air())
+		produce_gases(src.loc.return_air(), delta_time)
 		src.air_update_turf(FALSE, FALSE)
 	calculate_power_use()
 	approach_set_depth(delta_time)
@@ -186,7 +188,7 @@
 	shield_strength_change = temp_shield - (get_depth() * GASRIG_DEPTH_SHIELD_DAMAGE_MULTIPLIER)
 	shield_strength = max(min(shield_strength + shield_strength_change, GASRIG_MAX_SHIELD_STRENGTH), 0)
 
-/obj/machinery/atmospherics/gasrig/core/proc/produce_gases(datum/gas_mixture/air)
+/obj/machinery/atmospherics/gasrig/core/proc/produce_gases(datum/gas_mixture/air, delta_time)
 	var/efficiency = get_fracking_efficiency(fracking_input.airs[1])
 	if (air.return_pressure() > get_output_pressure(efficiency))
 		overpressure = TRUE
@@ -195,7 +197,7 @@
 	overpressure = FALSE
 
 	for(var/gas_datum in gas_references)
-		calculate_gas_to_output(gas_references[gas_datum], gas_datum, air, efficiency)
+		calculate_gas_to_output(gas_references[gas_datum], gas_datum, air, efficiency, delta_time)
 
 /obj/machinery/atmospherics/gasrig/core/proc/calculate_power_use()
 	var/depth = get_depth()
@@ -353,6 +355,7 @@
 	data["max_health"] = GASRIG_MAX_HEALTH
 	data["health"] = health
 	data["active"] = active
+	data["mols_produced"] = display_mols_produced
 	data["o2_constants"] = GASRIG_O2
 	data["n2_constants"] = GASRIG_N2
 	data["plas_constants"] = GASRIG_PLAS
@@ -398,14 +401,15 @@
 	merger.temperature = temp
 	air.merge(merger)
 
-/obj/machinery/atmospherics/gasrig/core/proc/calculate_gas_to_output(gas_constant, gas_type, var/datum/gas_mixture/air, efficiency)
+/obj/machinery/atmospherics/gasrig/core/proc/calculate_gas_to_output(gas_constant, var/datum/gas/gas_type, var/datum/gas_mixture/air, efficiency, delta_time)
 	if(!((get_depth() >= gas_constant[1]) && (get_depth() <= gas_constant[2])))
 		return
 	var/difference = gas_constant[2] - gas_constant[1]
 	var/percent_rising = ((get_depth() - gas_constant[1]) / (difference/2))
 	var/percent_falling = ((gas_constant[2] - get_depth()) / (difference/2))
-
-	add_gas_to_output(gas_type, air, gas_constant[3] * min(percent_falling, percent_rising) * efficiency, depth * GASRIG_DEPTH_TEMP_MULTIPLER)
+	var/gas_produced = gas_constant[3] * min(percent_falling, percent_rising) * efficiency
+	display_mols_produced += list(gas_type.name, gas_produced / delta_time)
+	add_gas_to_output(gas_type, air, gas_produced, depth * GASRIG_DEPTH_TEMP_MULTIPLER)
 
 /obj/machinery/atmospherics/gasrig/core/proc/update_pipenets()
 	shielding_input.update_parents()

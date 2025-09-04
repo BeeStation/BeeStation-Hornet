@@ -1,11 +1,14 @@
-import { Box } from '../components';
+import { Section } from '../components';
 import { NtosWindow } from '../layouts';
 import { AtmosGasRigTemplate } from './AtmosGasRig';
-
 export const NtosAtmosGasRig = (props) => {
   return (
-    <NtosWindow width={480} height={450}>
-      <Box mt="25px">{AtmosGasRigTemplate(props)}</Box>
+    <NtosWindow width={480} height={530}>
+      <NtosWindow.Content scrollable>
+        <Section title="Advanced Gas Rig:">
+          {AtmosGasRigTemplate(props)}
+        </Section>
+      </NtosWindow.Content>
     </NtosWindow>
   );
 };
