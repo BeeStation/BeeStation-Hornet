@@ -35,7 +35,7 @@
 	icon_state = "repeater"
 	item_state = null
 	desc = "An experimental laser repeater rifle that uses a built-in bluespace dynamo to recharge its battery, crank it and fire!"
-	gun_charge = 200
+	gun_charge = 2000
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/repeater)
 	can_charge = FALSE //don't put this in a recharger
 	var/cranking = FALSE
@@ -51,7 +51,7 @@
 			cranking = TRUE
 			if(do_after(user, 1 SECONDS) && !fire_interrupted)
 				playsound(src, 'sound/weapons/autoguninsert.ogg', 30)
-				cell.give(5)
+				cell.give(500)
 				flick("repeater", src)
 				update_icon()
 			else

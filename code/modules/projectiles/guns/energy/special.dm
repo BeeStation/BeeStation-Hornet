@@ -10,7 +10,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/ion) //Heavy EMP, 15 shots
 	ammo_x_offset = 3
 	fire_rate = 1.5
-	gun_charge = 1200
+	gun_charge = 12000
 
 /obj/item/gun/energy/ionrifle/add_seclight_point()
 	AddComponent(/datum/component/seclite_attachable, \

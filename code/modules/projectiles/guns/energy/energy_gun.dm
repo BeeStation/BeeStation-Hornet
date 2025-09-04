@@ -23,7 +23,7 @@
 	icon_state = "mini"
 	item_state = "gun"
 	w_class = WEIGHT_CLASS_SMALL
-	gun_charge = 600
+	gun_charge = 6000
 	ammo_x_offset = 2
 	charge_sections = 3
 	weapon_weight = WEAPON_LIGHT
