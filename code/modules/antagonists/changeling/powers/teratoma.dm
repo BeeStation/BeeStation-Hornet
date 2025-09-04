@@ -45,7 +45,8 @@
 	)
 	if(!candidate) //if we got at least one candidate, they're teratoma now
 		to_chat(usr, span_warning("You fail at creating a tumor. Perhaps you should try again later?"))
-		c.chem_charges += chemical_cost				//If it fails we want to refund the chemicals
+		c.chem_charges += chemical_cost		//If it fails we want to refund the chemicals and genetic points
+		c.genetic_points += points_to_use
 		return FALSE
 	// Rerun preconditions after sleeping
 	if (!user.dna)
