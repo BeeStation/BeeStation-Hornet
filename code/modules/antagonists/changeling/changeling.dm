@@ -392,10 +392,6 @@
 		if(verbose)
 			to_chat(user, span_warning("[target] is not compatible with our biology."))
 		return FALSE
-	if(has_profile_with_dna(target.dna))
-		if(verbose)
-			to_chat(user, span_warning("We already have this DNA in storage!"))
-		return FALSE
 	if(HAS_TRAIT(target, TRAIT_NO_DNA_COPY))
 		if(verbose)
 			to_chat(user, span_warning("[target] is not compatible with our biology."))
