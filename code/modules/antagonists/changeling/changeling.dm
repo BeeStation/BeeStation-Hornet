@@ -315,11 +315,7 @@
 		return FALSE
 
 	if(genetic_points < initial(sting_path.dna_cost))
-		to_chat(owner.current, span_warning("We have reached our capacity for abilities!"))
-		return FALSE
-
-	if(absorbed_count < initial(sting_path.req_dna))
-		to_chat(owner.current, span_warning("We lack the DNA to evolve this ability!"))
+		to_chat(owner.current, span_warning("We require [initial(sting_path.dna_cost)] genetic point\s to evolve this ability!"))
 		return FALSE
 
 	if(initial(sting_path.dna_cost) < 0)
