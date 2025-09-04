@@ -24,9 +24,8 @@
 /datum/vampire_clan/brujah/on_favorite_vassal(datum/antagonist/vampire/source, datum/antagonist/vassal/favorite/vassaldatum)
 	. = ..()
 	var/mob/living/carbon/human/our_vassal = vassaldatum.owner.current
-	var/datum/species/vassal_species = our_vassal?.dna?.species
 
-	vassal_species?.punchdamage += BRUJAH_FAVORITE_VASSAL_ATTACK_BONUS
+	our_vassal.add_unarmed_damage_to_arms(BRUJAH_FAVORITE_VASSAL_ATTACK_BONUS)
 
 /**
  * Clan Objective

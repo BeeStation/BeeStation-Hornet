@@ -83,8 +83,6 @@ Contains:
 	icon_state = "beret_badge"
 	item_state = null
 	greyscale_colors = "#397F3F#FFCE5B"
-	dynamic_hair_suffix = "+generic"
-	dynamic_fhair_suffix = "+generic"
 	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT
 	flags_inv = 0
 	armor_type = /datum/armor/space_beret
@@ -656,7 +654,6 @@ Contains:
 	max_integrity = 200
 	slowdown = 3 //Higher is slower
 	clothing_flags = STOPSPRESSUREDAMAGE
-	species_restricted = null
 	gas_transfer_coefficient = 0.5
 	armor_type = /datum/armor/hardsuit_skinsuit
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals)

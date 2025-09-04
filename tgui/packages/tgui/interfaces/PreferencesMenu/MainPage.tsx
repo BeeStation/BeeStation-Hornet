@@ -1,6 +1,7 @@
 import { filter, map, sortBy } from 'common/collections';
 import { classes } from 'common/react';
 import { createSearch } from 'common/string';
+import { useState } from 'react';
 
 import { sendAct, useBackend, useLocalState } from '../../backend';
 import {
@@ -291,10 +292,7 @@ const GenderButton = (props: {
   handleSetGender: (gender: Gender) => void;
   gender: Gender;
 }) => {
-  const [genderMenuOpen, setGenderMenuOpen] = useLocalState(
-    'genderMenuOpen',
-    false,
-  );
+  const [genderMenuOpen, setGenderMenuOpen] = useState(false);
 
   return (
     <Popper
@@ -546,13 +544,10 @@ const PreferenceList = (props: {
 
 export const MainPage = (props: { openSpecies: () => void }) => {
   const { act, data } = useBackend<PreferencesMenuData>();
-  const [currentClothingMenu, setCurrentClothingMenu] = useLocalState<
-    string | null
-  >('currentClothingMenu', null);
-  const [multiNameInputOpen, setMultiNameInputOpen] = useLocalState(
-    'multiNameInputOpen',
-    false,
+  const [currentClothingMenu, setCurrentClothingMenu] = useState<string | null>(
+    null,
   );
+  const [multiNameInputOpen, setMultiNameInputOpen] = useState(false);
   const [randomToggleEnabled] = useRandomToggleState();
 
   return (
@@ -563,21 +558,11 @@ export const MainPage = (props: { openSpecies: () => void }) => {
           serverData.species[data.character_preferences.misc.species];
 
         const contextualPreferences =
-          data.character_preferences.secondary_features || [];
+          data.character_preferences.secondary_features || {};
 
         const mainFeatures = [
-          ...Object.entries(data.character_preferences.clothing),
-          ...Object.entries(data.character_preferences.features).filter(
-            ([featureName]) => {
-              if (!currentSpeciesData) {
-                return false;
-              }
-
-              return (
-                currentSpeciesData.enabled_features.indexOf(featureName) !== -1
-              );
-            },
-          ),
+          ...Object.entries(data.character_preferences.clothing || {}),
+          ...Object.entries(data.character_preferences.features || {}),
         ];
 
         const randomBodyEnabled =

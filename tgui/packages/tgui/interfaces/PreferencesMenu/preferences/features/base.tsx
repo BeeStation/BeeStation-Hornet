@@ -1,9 +1,9 @@
 import { sortBy } from 'common/collections';
 import { BooleanLike } from 'common/react';
-import { ComponentType, createElement, ReactNode } from 'react';
+import { ComponentType, createElement, ReactNode, useState } from 'react';
 import { Dropdown } from 'tgui-core/components';
 
-import { sendAct, useBackend, useLocalState } from '../../../../backend';
+import { sendAct, useBackend } from '../../../../backend';
 import { Box, Button, Input, NumberInput, Stack } from '../../../../components';
 import { createSetPreference, PreferencesMenuData } from '../../data';
 import { ServerPreferencesFetcher } from '../../ServerPreferencesFetcher';
@@ -203,10 +203,7 @@ export const FeatureValueInput = (props: {
 
   const [predictedValue, setPredictedValue] =
     feature.predictable === undefined || feature.predictable
-      ? useLocalState(
-          `${props.featureId}_predictedValue_${data.active_slot}`,
-          props.value,
-        )
+      ? useState(props.value)
       : [props.value, () => {}];
 
   const changeValue = (newValue: unknown) => {

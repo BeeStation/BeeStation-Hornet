@@ -40,7 +40,8 @@
 		/obj/item/organ/wings,
 		/obj/item/organ/wings/moth,
 		/obj/item/organ/wings/bee,
-		/obj/item/organ/wings/dragon/fake,)
+		/obj/item/organ/wings/dragon,
+	)
 	new mail_organminor(loc)
 	return ..()
 
@@ -65,8 +66,9 @@
 		/obj/item/organ/vocal_cords/adamantine,
 		/obj/effect/gibspawner/xeno,
 		/obj/effect/mob_spawn/human/corpse/assistant,
-		/obj/item/organ/wings/moth/robust,
-		/obj/item/organ/wings/dragon,)
+		/obj/item/organ/wings/moth,
+		/obj/item/organ/wings/dragon,
+	)
 	new mail_organmajor(loc)
 	return ..()
 
@@ -145,7 +147,7 @@
 		/obj/item/nanite_scanner,
 		/obj/item/disk/tech_disk,
 		/obj/item/assembly/prox_sensor,
-		/obj/item/bodypart/r_arm/robot,
+		/obj/item/bodypart/arm/right/robot,
 		/obj/item/assembly/flash/handheld/weak,
 		/obj/item/stock_parts/cell/high,
 		/obj/item/stock_parts/manipulator/nano,

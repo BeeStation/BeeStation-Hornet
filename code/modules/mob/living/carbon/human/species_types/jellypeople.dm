@@ -4,30 +4,27 @@
 //Slime people are able to split like slimes, retaining a single mind that can swap between bodies at will, even after death.
 
 /datum/species/oozeling/slime
-	name = "Slimeperson"
+	name = "\improper Slimeperson"
 	plural_form = "Slimepeople"
 	id = SPECIES_SLIMEPERSON
-	species_traits = list(
-		MUTCOLORS,
-		EYECOLOR,
-		HAIR,
-		FACEHAIR,
-	)
 	inherent_traits = list(
-		TRAIT_NOBLOOD
+		TRAIT_MUTANT_COLORS,
+		TRAIT_TOXINLOVER,
+		TRAIT_NOBLOOD,
 	)
-	hair_color = "mutcolor"
+	hair_color_mode = USE_MUTANT_COLOR
 	hair_alpha = 150
+	facial_hair_alpha = 150
 	var/datum/action/innate/split_body/slime_split
 	var/list/mob/living/carbon/bodies
 	var/datum/action/innate/swap_body/swap_body
 
 	bodypart_overrides = list(
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/slime,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/slime,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/slime,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/slime,
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/slime,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/slime,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/slime,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/slime,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/slime,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/slime,
 	)
 
@@ -43,18 +40,18 @@
 	C.blood_volume = min(C.blood_volume, BLOOD_VOLUME_NORMAL)
 	..()
 
-/datum/species/oozeling/slime/on_species_gain(mob/living/carbon/C, datum/species/old_species)
+/datum/species/oozeling/slime/on_species_gain(mob/living/carbon/new_slimeperson, datum/species/old_species, pref_load, regenerate_icons)
 	..()
-	if(ishuman(C))
+	if(ishuman(new_slimeperson))
 		slime_split = new
-		slime_split.Grant(C)
+		slime_split.Grant(new_slimeperson)
 		swap_body = new
-		swap_body.Grant(C)
+		swap_body.Grant(new_slimeperson)
 
 		if(!bodies || !bodies.len)
-			bodies = list(C)
+			bodies = list(new_slimeperson)
 		else
-			bodies |= C
+			bodies |= new_slimeperson
 
 /datum/species/oozeling/slime/spec_death(gibbed, mob/living/carbon/human/H)
 	if(slime_split)
@@ -133,7 +130,7 @@
 
 	spare.underwear = "Nude"
 	H.dna.transfer_identity(spare, transfer_SE=1)
-	spare.dna.features["mcolor"] = pick("FFFFFF","7F7F7F", "7FFF7F", "7F7FFF", "FF7F7F", "7FFFFF", "FF7FFF", "FFFF7F")
+	spare.dna.features["mcolor"] = "#[pick("7F", "FF")][pick("7F", "FF")][pick("7F", "FF")]"
 	spare.real_name = spare.dna.real_name
 	spare.name = spare.dna.real_name
 	spare.updateappearance(mutcolor_update=1)
@@ -202,8 +199,7 @@
 			continue
 
 		var/list/L = list()
-		// HTML colors need a # prefix
-		L["htmlcolor"] = "#[body.dna.features["mcolor"]]"
+		L["htmlcolor"] = body.dna.features["mcolor"]
 		L["area"] = get_area_name(body, TRUE)
 		var/stat = "error"
 		switch(body.stat)
@@ -308,11 +304,11 @@
 	id = SPECIES_LUMINESCENT
 	examine_limb_id = SPECIES_OOZELING
 	bodypart_overrides = list(
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/luminescent,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/luminescent,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/luminescent,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/luminescent,
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/luminescent,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/luminescent,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/luminescent,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/luminescent,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/luminescent,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/luminescent,
 	)
 	var/glow_intensity = LUMINESCENT_DEFAULT_GLOW
@@ -333,7 +329,7 @@
 	QDEL_NULL(extract_minor)
 	return ..()
 
-/datum/species/oozeling/luminescent/on_species_gain(mob/living/carbon/new_jellyperson, datum/species/old_species)
+/datum/species/oozeling/luminescent/on_species_gain(mob/living/carbon/new_jellyperson, datum/species/old_species, pref_load, regenerate_icons)
 	..()
 	glow = new_jellyperson.mob_light(light_type = /obj/effect/dummy/lighting_obj/moblight/species)
 	update_glow(new_jellyperson)
@@ -499,7 +495,7 @@ GLOBAL_LIST_EMPTY(slime_links_by_mind)
 	/// Special "project thought" telepathy action for stargazers.
 	var/datum/action/innate/project_thought/project_action
 
-/datum/species/oozeling/stargazer/on_species_gain(mob/living/carbon/grant_to, datum/species/old_species)
+/datum/species/oozeling/stargazer/on_species_gain(mob/living/carbon/grant_to, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()
 	project_action = new(src)
 	project_action.Grant(grant_to)

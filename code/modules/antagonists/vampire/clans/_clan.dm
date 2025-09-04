@@ -178,7 +178,7 @@
 
 	var/mob/living/carbon/human/vampire_human = vampiredatum.owner.current
 	if(ishuman(vampire_human))
-		vampire_human.dna.species.punchdamage += 0.5
+		vampire_human.add_unarmed_damage_to_arms(0.5)
 	// We're almost done - Spend your Rank now.
 	vampiredatum.vampire_level++
 	if(cost_rank)
