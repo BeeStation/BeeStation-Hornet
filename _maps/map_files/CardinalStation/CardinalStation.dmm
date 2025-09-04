@@ -39088,6 +39088,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/machinery/vending/deputy,
 /turf/open/floor/iron,
 /area/hallway/upper/primary/starboard)
 "hUX" = (

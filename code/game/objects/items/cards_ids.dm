@@ -1340,6 +1340,10 @@ update_label("John Doe", "Clowny")
 			idcard.assignment = assignment
 		if(name!=initial(name))
 			idcard.name = name
-		to_chat(user, "You upgrade your [idcard] with the [name].")
-		log_id("[key_name(user)] added access to '[idcard]' using [src] at [AREACOORD(user)].")
-		qdel(src)
+
+		on_applied(target, user, idcard)
+
+/obj/item/card/id/pass/proc/on_applied(atom/target, mob/user, obj/item/card/id/idcard)
+	to_chat(user, "You upgrade your [idcard] with the [name].")
+	log_id("[key_name(user)] added access to '[idcard]' using [src] at [AREACOORD(user)].")
+	qdel(src)

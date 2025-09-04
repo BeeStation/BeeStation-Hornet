@@ -56067,6 +56067,11 @@
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/iron/dark,
 /area/bridge)
+"slc" = (
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/machinery/vending/deputy,
+/turf/open/floor/iron,
+/area/hallway/primary/fore)
 "sle" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -109697,7 +109702,7 @@ bgr
 uGg
 qJy
 shJ
-ryd
+slc
 pJQ
 onZ
 wza

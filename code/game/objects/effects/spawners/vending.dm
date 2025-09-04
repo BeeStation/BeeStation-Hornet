@@ -33,3 +33,24 @@
 	vend.extended_inventory = hacked
 
 	return INITIALIZE_HINT_QDEL
+
+/obj/effect/spawner/deputy_vend
+	name = "Deputy vendor"
+	desc = "Spawns a deputy vendor if the station is lowpop."
+	icon = 'icons/obj/vending.dmi'
+	icon_state = "dep-broken"
+
+/obj/effect/spawner/deputy_vend/Initialize(mapload)
+	. = ..()
+	if (!mapload)
+		new /obj/machinery/vending/deputy(loc)
+		return INITIALIZE_HINT_QDEL
+	if (!SSticker.current_state >= GAME_STATE_PLAYING)
+		check_spawn()
+		return
+	SSticker.OnRoundstart(CALLBACK(src, PROC_REF(check_spawn)))
+
+/obj/effect/spawner/deputy_vend/proc/check_spawn()
+	if ((SSjob.is_job_empty(JOB_NAME_SECURITYOFFICER) && SSjob.is_job_empty(JOB_NAME_HEADOFSECURITY) && SSjob.initial_players_to_assign < LOWPOP_JOB_LIMIT) || SSjob.initial_players_to_assign < MINPOP_JOB_LIMIT)
+		new /obj/machinery/vending/deputy(loc)
+	qdel(src)
