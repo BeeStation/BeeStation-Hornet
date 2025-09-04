@@ -3,9 +3,10 @@
 /datum/action/changeling/teratoma
 	name = "Birth Teratoma"
 	desc = "Our form divides, creating an egg that will soon hatch into a living tumor, fixated on causing mayhem"
-	helptext = "The tumor will not be loyal to us or our cause. Costs two changeling absorptions"
+	helptext = "The tumor will not be loyal to us or our cause. Costs 1 genetic point"
 	button_icon_state = "spread_infestation"
-	chemical_cost = 60
+	points_to_use = 1
+	chemical_cost = 30
 	dna_cost = 2
 	req_human = TRUE
 
@@ -24,9 +25,6 @@
 /datum/action/changeling/teratoma/proc/create_teratoma(mob/living/carbon/human/user)
 	var/datum/antagonist/changeling/changeling = IS_CHANGELING(owner)
 	if(!istype(user))
-		return FALSE
-	if(!changeling.genetic_points)
-		to_chat(user, span_warning("Our current form has insufficient genetic points to create a Teratoma."))
 		return FALSE
 	var/terratoma_count = 0
 	for(var/mob/living/carbon/monkey/tumor/teratoma in GLOB.mob_living_list)
@@ -64,7 +62,6 @@
 	if (terratoma_count >= MAX_TERATOMA)
 		to_chat(user, span_warning("You don't have enough energy to birth a teratoma..."))
 		return FALSE
-	changeling.genetic_points -= 1
 	var/mob/living/carbon/monkey/tumor/T = new /mob/living/carbon/monkey/tumor(A)
 	// Copies the DNA, so that you can find who caused it while causing some chaos
 	T.dna.copy_dna(user.dna)
