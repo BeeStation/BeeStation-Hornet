@@ -404,6 +404,10 @@
 		if(verbose)
 			to_chat(user, span_warning("[target]'s DNA is ruined beyond usability!"))
 		return FALSE
+	if(HAS_TRAIT(target, CHANGELING_DRAIN))
+		if(verbose)
+			to_chat(user, span_warning("[target] has already been drained..."))
+		return FALSE
 	if(HAS_TRAIT(target, TRAIT_HUSK))
 		if(verbose)
 			to_chat(user, span_warning("[target]'s body is ruined beyond usability!"))

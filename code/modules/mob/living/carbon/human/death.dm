@@ -112,8 +112,8 @@
 	set_species(/datum/species/skeleton)
 	return TRUE
 
-
-/mob/living/carbon/proc/Drain()
+/mob/living/carbon/proc/changeling_drain()
+	// We removed death at this point, because they will surelly die by having no blood... its more immersive!
 	// Drain is used only for health analizer
 	// Geneless is sort of a super power? You become imune to genetic mutations so...
 	ADD_TRAIT(src, TRAIT_GENELESS, CHANGELING_DRAIN)
@@ -122,6 +122,18 @@
 	adjust_bodytemperature(-200)
 	reagents.add_reagent(/datum/reagent/consumable/frostoil, 20)
 	return TRUE
+
+/mob/living/carbon/proc/soft_drain()
+	ADD_TRAIT(src, TRAIT_GENELESS, CHANGELING_DRAIN)
+	blood_volume -= 300
+	// Lowers their temperature with frost-oil but doesnt kill them
+	reagents.add_reagent(/datum/reagent/consumable/frostoil, 5)
+	return TRUE
+
+/mob/living/carbon/proc/master_drain()
+	changeling_drain()
+	death()
+	makeSkeleton()
 
 /mob/living/carbon/proc/makeUncloneable()
 	ADD_TRAIT(src, TRAIT_BADDNA, MADE_UNCLONEABLE)

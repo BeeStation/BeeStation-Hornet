@@ -34,20 +34,6 @@
 	if(!attempt_absorb(target))
 		return
 
-	changeling.adjust_chemicals(10)
-	changeling.total_chem_storage += 5
-	if(target.mind)
-		changeling.genetic_points += 1
-		to_chat(owner, span_notice("We have drained [target] and gained 1 genetic point <span class='cfc_cyan'>Total</span>: <span class='cfc_green'>[changeling.genetic_points]</span>."))
-	else
-		changeling.genetic_points += 0.5
-		to_chat(owner, span_notice("We have drained [target] and gained half genetic point. Absent-minded targets are less... nutricious... <span class='cfc_cyan'>Total</span>: <span class='cfc_green'>[changeling.genetic_points]</span>."))
-
-	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("Absorb DNA", "4"))
-	owner.balloon_alert_to_viewers("<font color='#ff0040'>SLURP!</font>")
-	owner.visible_message(span_danger("[target] was drained!"))
-	to_chat(target, span_userdanger("You are drained by the changeling!"))
-
 	if(!changeling.has_profile_with_dna(target.dna))
 		changeling.add_new_profile(target)
 
@@ -65,10 +51,33 @@
 	if(target.stat != DEAD)
 		target.investigate_log("has died from being changeling absorbed.", INVESTIGATE_DEATHS)
 
+	switch(total_chem_storage)
+		if(35 to 45)
+			target.soft_drain()
+		if(46 to 70)	// Third drain on a normal person will cause this.
+			target.changeling_drain()
+		if(71 to INFINITY)
+			target.master_drain()
+
+	// Changeling gains chems, 50 more than cap.
+	changeling.adjust_chemicals(100, changeling.total_chem_storage + 50)
+	changeling.blood_volume += 300	// We drain blood because its cool and useful!
+	if(target.mind)
+		changeling.genetic_points += 1
+		changeling.total_chem_storage += 10
+		to_chat(owner, span_notice("We have drained [target] and gained 1 genetic point <span class='cfc_cyan'>Total</span>: <span class='cfc_green'>[changeling.genetic_points]</span>."))
+	else
+		changeling.genetic_points += 0.5
+		changeling.total_chem_storage += 5
+		to_chat(owner, span_notice("We have drained [target] and gained half a genetic point. Absent-minded targets are less... nutricious... <span class='cfc_cyan'>Total</span>: <span class='cfc_green'>[changeling.genetic_points]</span>."))
+
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("Absorb DNA", "4"))
+	owner.balloon_alert_to_viewers("<font color='#ff0040'>SLURP!</font>")
+	owner.visible_message(span_danger("[target] was drained!"))
+	to_chat(target, span_userdanger("You are drained by the changeling!"))
+
 	playsound(owner, 'sound/items/drink.ogg', 35, TRUE)
 	playsound(owner, 'sound/surgery/organ2.ogg', 50)
-	target.death(FALSE)
-	target.Drain()
 	return TRUE
 
 /datum/action/changeling/absorbDNA/proc/absorb_memories(mob/living/carbon/human/target)
