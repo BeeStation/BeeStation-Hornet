@@ -35,7 +35,7 @@
 		if(changeling?.chosen_sting)
 			changeling.chosen_sting.unset_sting(src)
 
-/datum/action/changeling/sting/can_sting(mob/user, mob/target)
+/datum/action/changeling/sting/ling_can_cast(mob/user, mob/target)
 	if(!..())
 		return
 	var/datum/antagonist/changeling/changeling = user.mind.has_antag_datum(/datum/antagonist/changeling)
@@ -87,7 +87,7 @@
 		return
 	return ..()
 
-/datum/action/changeling/sting/transformation/can_sting(mob/user, mob/living/carbon/target)
+/datum/action/changeling/sting/transformation/ling_can_cast(mob/user, mob/living/carbon/target)
 	if(!..())
 		return
 	if(!iscarbon(target) || HAS_TRAIT(target, TRAIT_HUSK) || HAS_TRAIT(target, TRAIT_NO_TRANSFORMATION_STING))
@@ -127,7 +127,7 @@
 	force = 5 //Basically as strong as a punch
 	fake = TRUE
 
-/datum/action/changeling/sting/false_armblade/can_sting(mob/user, mob/target)
+/datum/action/changeling/sting/false_armblade/ling_can_cast(mob/user, mob/target)
 	if(!..())
 		return
 	if(isliving(target))
@@ -178,7 +178,7 @@
 	dna_cost = 0
 	stealthy = TRUE
 
-/datum/action/changeling/sting/extract_dna/can_sting(mob/user, mob/target)
+/datum/action/changeling/sting/extract_dna/ling_can_cast(mob/user, mob/target)
 	if(..())
 		var/datum/antagonist/changeling/changeling = user.mind.has_antag_datum(/datum/antagonist/changeling)
 		return changeling.can_absorb_dna(target)

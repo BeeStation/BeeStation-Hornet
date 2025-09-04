@@ -65,7 +65,7 @@
 	chemical_cost = 0
 	revive_ready = TRUE
 
-/datum/action/changeling/fakedeath/can_sting(mob/living/user)
+/datum/action/changeling/fakedeath/ling_can_cast(mob/living/user)
 	if(HAS_TRAIT(user, TRAIT_HUSK))
 		to_chat(user, span_warning("This body is too damaged to revive!."))
 		return

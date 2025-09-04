@@ -8,7 +8,7 @@
 	///if we're currently absorbing, used for sanity
 	var/is_absorbing = FALSE
 
-/datum/action/changeling/absorbDNA/can_sting(mob/living/carbon/user)
+/datum/action/changeling/absorbDNA/ling_can_cast(mob/living/carbon/user)
 	if(!..())
 		return
 

@@ -35,7 +35,7 @@ the same goes for Remove(). if you override Remove(), call parent or else your p
 	try_to_sting(user)
 
 /datum/action/changeling/proc/try_to_sting(mob/living/user, mob/living/target)
-	if(!can_sting(user, target))
+	if(!ling_can_cast(user, target))
 		return
 	var/datum/antagonist/changeling/changeling = user.mind.has_antag_datum(/datum/antagonist/changeling)
 	if(sting_action(user, target))
@@ -50,7 +50,7 @@ the same goes for Remove(). if you override Remove(), call parent or else your p
 	return FALSE
 
 //Fairly important to remember to return 1 on success >.<
-/datum/action/changeling/proc/can_sting(mob/living/user, mob/living/target)
+/datum/action/changeling/proc/ling_can_cast(mob/living/user, mob/living/target)
 	if (!is_available(user))
 		return FALSE
 	if(!ishuman(user) && !ismonkey(user)) //typecast everything from mob to carbon from this point onwards
