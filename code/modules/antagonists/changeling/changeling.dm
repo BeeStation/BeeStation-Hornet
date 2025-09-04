@@ -30,7 +30,7 @@
 	/// The number of chemicals the changeling currently has.
 	var/chem_charges = 20
 	/// The max chemical storage the changeling currently has.
-	var/total_chem_storage = 75
+	var/total_chem_storage = 35
 	/// The chemical recharge rate per life tick.
 	var/chem_recharge_rate = 0.5
 	/// Any additional modifiers triggered by changelings that modify the chem_recharge_rate.
@@ -40,9 +40,9 @@
 	/// Changeling name, what other lings see over the hivemind when talking.
 	var/changelingID = "Changeling"
 	/// The number of genetics points (to buy powers) this ling currently has.
-	var/genetic_points = 10
+	var/genetic_points = 2
 	/// The max number of genetics points (to buy powers) this ling can have..
-	var/total_genetic_points = 10
+	var/total_genetic_points = 100
 	/// List of all powers we start with.
 	var/list/innate_powers = list()
 	/// Associated list of all powers we have evolved / bought from the emporium. [path] = [instance of path]
@@ -50,8 +50,6 @@
 
 	/// The voice we're mimicing via the changeling voice ability.
 	var/mimicing = ""
-	/// Whether we can currently respec in the cellular emporium.
-	var/can_respec = FALSE
 
 	/// The currently active changeling sting.
 	var/datum/action/changeling/sting/chosen_sting
@@ -355,10 +353,10 @@
 		to_chat(owner.current, span_warning("We are too busy reforming ourselves to readapt right now!"))
 		return
 
-	if(can_respec)
-		to_chat(owner.current, span_notice("We have removed our evolutions from this form, and are now ready to readapt."))
+	if(genetic_points >= 4)
+		to_chat(owner.current, span_notice("We have removed our evolutions from this form for 1 genetic point."))
 		remove_changeling_powers()
-		can_respec = FALSE
+		genetic_points -= 1
 		SSblackbox.record_feedback("tally", "changeling_power_purchase", 1, "Readapt")
 		log_game("Genetic powers refunded by [owner.current.ckey]/[owner.current.name] the [owner.current.job], [genetic_points] GP remaining.")
 		return TRUE
