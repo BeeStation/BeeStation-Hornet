@@ -141,7 +141,6 @@
 	chemical_cost = 20
 	recharge_slowdown = 0.2
 	dna_cost = 2
-	req_human = 1
 	weapon_type = /obj/item/melee/arm_blade
 	weapon_name_simple = "blade"
 
@@ -156,7 +155,6 @@
 	item_flags = NEEDS_PERMIT | ABSTRACT | DROPDEL | ISWEAPON
 	w_class = WEIGHT_CLASS_HUGE
 	force = 30
-	throwforce = 0 //Just to be on the safe side
 	throw_range = 0
 	throw_speed = 0
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
@@ -211,7 +209,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/arm_blade)
 	button_icon_state = "tentacle"
 	chemical_cost = 10
 	dna_cost = 2
-	req_human = 1
 	weapon_type = /obj/item/gun/magic/tentacle
 	weapon_name_simple = "tentacle"
 	silent = TRUE
@@ -387,8 +384,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 	button_icon_state = "organic_suit"
 	chemical_cost = 20
 	dna_cost = 1
-	req_human = 1
-
 	suit_type = /obj/item/clothing/suit/space/changeling
 	helmet_type = /obj/item/clothing/head/helmet/space/changeling
 	suit_name_simple = "flesh shell"
@@ -483,7 +478,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 	button_icon_state = "chitinous_armor"
 	chemical_cost = 20
 	dna_cost = 2
-	req_human = 1
 	recharge_slowdown = 0.2
 
 	suit_type = /obj/item/clothing/suit/armor/changeling

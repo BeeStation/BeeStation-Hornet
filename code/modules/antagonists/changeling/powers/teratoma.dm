@@ -23,7 +23,6 @@
 	return FALSE		//create_teratoma() handles the chemicals anyway so there is no reason to take them again
 
 /datum/action/changeling/teratoma/proc/create_teratoma(mob/living/carbon/human/user)
-	var/datum/antagonist/changeling/changeling = IS_CHANGELING(owner)
 	if(!istype(user))
 		return FALSE
 	var/terratoma_count = 0
