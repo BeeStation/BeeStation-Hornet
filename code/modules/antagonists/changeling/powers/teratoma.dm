@@ -22,17 +22,18 @@
 	return FALSE		//create_teratoma() handles the chemicals anyway so there is no reason to take them again
 
 /datum/action/changeling/teratoma/proc/create_teratoma(mob/living/carbon/human/user)
-	if (!istype(user))
+	var/datum/antagonist/changeling/changeling = IS_CHANGELING(owner)
+	if(!istype(user))
 		return FALSE
-	if (!user.dna)
-		to_chat(user, span_warning("Our current form has insufficient genetic material to create a Teratoma."))
+	if(!changeling.genetic_points)
+		to_chat(user, span_warning("Our current form has insufficient genetic points to create a Teratoma."))
 		return FALSE
 	var/terratoma_count = 0
-	for (var/mob/living/carbon/monkey/tumor/teratoma in GLOB.mob_living_list)
-		if (teratoma.creator_key != user.key || teratoma.stat == DEAD)
+	for(var/mob/living/carbon/monkey/tumor/teratoma in GLOB.mob_living_list)
+		if(teratoma.creator_key != user.key || teratoma.stat == DEAD)
 			continue
 		terratoma_count ++
-	if (terratoma_count >= MAX_TERATOMA)
+	if(terratoma_count >= MAX_TERATOMA)
 		to_chat(user, span_warning("You don't have enough energy to birth a teratoma..."))
 		return FALSE
 	var/datum/antagonist/changeling/c = user.mind.has_antag_datum(/datum/antagonist/changeling)
@@ -63,6 +64,7 @@
 	if (terratoma_count >= MAX_TERATOMA)
 		to_chat(user, span_warning("You don't have enough energy to birth a teratoma..."))
 		return FALSE
+	changeling.genetic_points -= 1
 	var/mob/living/carbon/monkey/tumor/T = new /mob/living/carbon/monkey/tumor(A)
 	// Copies the DNA, so that you can find who caused it while causing some chaos
 	T.dna.copy_dna(user.dna)

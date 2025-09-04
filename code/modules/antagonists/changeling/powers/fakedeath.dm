@@ -4,7 +4,7 @@
 	button_icon_state = "fake_death"
 	chemical_cost = 15
 	dna_cost = 2
-	req_dna = 1
+	points_to_use = 1
 	check_flags = NONE
 	ignores_fakedeath = TRUE
 	var/revive_ready = FALSE

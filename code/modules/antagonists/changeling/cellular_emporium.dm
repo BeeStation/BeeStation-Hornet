@@ -53,8 +53,6 @@
 		ability_data["dna_cost"] = dna_cost
 
 		var/can_purchase = TRUE
-		if(initial(ability_path.req_dna) > changeling.absorbed_count)
-			can_purchase = FALSE
 		if(dna_cost > genetic_points_remaining)
 			can_purchase = FALSE
 

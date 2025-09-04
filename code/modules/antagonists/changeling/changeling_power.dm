@@ -12,9 +12,8 @@
 	var/helptext = "" // Details
 	var/chemical_cost = 0 // negative chemical cost is for passive abilities (chemical glands)
 	var/dna_cost = -1 //cost of the sting in dna points. 0 = auto-purchase (see changeling.dm), -1 = cannot be purchased
-	var/req_dna = 0  //amount of dna needed to use this ability. Changelings always have atleast 1
+	var/points_to_use = 0  //amount of genetic points needed to use this ability
 	var/req_human = 0 //if you need to be human to use this ability
-	var/req_absorbs = 0 //similar to req_dna, but only gained from absorbing, not DNA sting
 	var/ignores_fakedeath = FALSE // usable with the FAKEDEATH flag
 
 /*
@@ -63,8 +62,9 @@ the same goes for Remove(). if you override Remove(), call parent or else your p
 	if(c.chem_charges < chemical_cost)
 		to_chat(user, span_warning("We require at least [chemical_cost] unit\s of chemicals to do that!"))
 		return FALSE
-	if(c.absorbed_count < req_dna)
-		to_chat(user, span_warning("We require at least [req_dna] sample\s of compatible DNA."))
+	if(c.genetic_points < points_to_use)
+		user.balloon_alert(user, "Insuficient Genetic Points!", "#ffffff") // maybe change colour
+		to_chat(user, span_warning("We require at least [points_to_use] genetic point\s."))
 		return FALSE
 	if((HAS_TRAIT(user, TRAIT_DEATHCOMA)) && (!ignores_fakedeath))
 		to_chat(user, span_warning("We are incapacitated."))

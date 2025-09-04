@@ -3,7 +3,7 @@
 	desc = "We change into a human. Costs 10 chemicals."
 	button_icon_state = "human_form"
 	chemical_cost = 10
-	req_dna = 1
+	points_to_use = 1
 
 //Transform into a human.
 /datum/action/changeling/humanform/sting_action(mob/living/carbon/user)
