@@ -370,6 +370,13 @@
 	message_admins("[key_name_admin(usr)] toggled Dead OOC.")
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Dead OOC", "[GLOB.dooc_allowed ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/datum/admins/proc/toggle_vote_dead()
+	set category = "Server"
+	set desc="Toggle the vote for dead players on or off."
+	set name="Toggle Dead Vote"
+
+	SSvote.toggle_dead_voting(usr)
+
 /datum/admins/proc/startnow()
 	set category = "Round"
 	set desc="Start the round RIGHT NOW"

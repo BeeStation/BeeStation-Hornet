@@ -389,7 +389,7 @@ GLOBAL_VAR(restart_counter)
 	if (server_name)
 		character_usage += length(server_name)
 	// We also need this stuff
-	character_usage += length("[players][popcaptext][SSmapping.config?.map_name || "Loading..."][server_tag]")
+	character_usage += length("[players][popcaptext][SSmapping.current_map?.map_name || "Loading..."][server_tag]")
 	var/station_name_limit = 255 - character_usage
 
 	if (station_name_limit <= 10)
@@ -434,7 +434,7 @@ GLOBAL_VAR(restart_counter)
 
 	s += "Time: <b>[gameTimestamp("hh:mm:ss")]</b><br>"
 	s += "Players: <b>[players][popcaptext]</b><br>"
-	s += "Map: <b>[SSmapping.config?.map_name || "Loading..."]"
+	s += "Map: <b>[SSmapping.current_map?.map_name || "Loading..."]"
 
 	status = s
 
