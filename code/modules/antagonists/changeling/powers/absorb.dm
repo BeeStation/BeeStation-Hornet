@@ -19,9 +19,6 @@
 	if(!owner.pulling || !iscarbon(owner.pulling))
 		owner.balloon_alert(owner, "needs grab!")
 		return
-	if(owner.grab_state <= GRAB_NECK)
-		owner.balloon_alert(owner, "needs tighter grip!")
-		return
 
 	var/mob/living/carbon/target = owner.pulling
 	var/datum/antagonist/changeling/changeling = IS_CHANGELING(owner)
@@ -37,9 +34,19 @@
 	if(!attempt_absorb(target))
 		return
 
+	changeling.adjust_chemicals(10)
+	changeling.total_chem_storage += 5
+	if(target.mind)
+		changeling.genetic_points += 1
+		to_chat(owner, span_notice("We have drained [target] and gained 1 genetic point <span class='cfc_cyan'>Total</span>: <span class='cfc_green'>[changeling.genetic_points]</span>."))
+	else
+		changeling.genetic_points += 0.5
+		to_chat(owner, span_notice("We have drained [target] and gained half genetic point. Absent-minded targets are less... nutricious... <span class='cfc_cyan'>Total</span>: <span class='cfc_green'>[changeling.genetic_points]</span>."))
+
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("Absorb DNA", "4"))
-	owner.visible_message(span_danger("[owner] sucks the fluids from [target]!"), span_notice("We have absorbed [target]."))
-	to_chat(target, span_userdanger("You are absorbed by the changeling!"))
+	owner.balloon_alert_to_viewers("<font color='#ff0040'>SLURP!</font>")
+	owner.visible_message(span_danger("[target] was drained!"))
+	to_chat(target, span_userdanger("You are drained by the changeling!"))
 
 	if(!changeling.has_profile_with_dna(target.dna))
 		changeling.add_new_profile(target)
@@ -55,11 +62,11 @@
 
 	is_absorbing = FALSE
 
-	changeling.adjust_chemicals(10)
-	changeling.can_respec = TRUE
-
 	if(target.stat != DEAD)
 		target.investigate_log("has died from being changeling absorbed.", INVESTIGATE_DEATHS)
+
+	playsound(owner, 'sound/items/drink.ogg', 35, TRUE)
+	playsound(owner, 'sound/surgery/organ2.ogg', 50)
 	target.death(FALSE)
 	target.Drain()
 	return TRUE
@@ -149,15 +156,18 @@
 		switch(absorbing_iteration)
 			if(1)
 				to_chat(owner, span_notice("This creature is compatible. We must hold still..."))
+				playsound(owner, 'sound/creatures/rattle.ogg', 10)
 			if(2)
 				owner.visible_message(span_warning("[owner] extends a proboscis!"), span_notice("We extend a proboscis."))
+				playsound(owner, 'sound/creatures/venus_trap_death.ogg', 20)
 			if(3)
 				owner.visible_message(span_danger("[owner] stabs [target] with the proboscis!"), span_notice("We stab [target] with the proboscis."))
 				to_chat(target, span_userdanger("You feel a sharp stabbing pain!"))
+				playsound(owner, 'sound/creatures/venus_trap_hit.ogg', 30)
 				target.take_overall_damage(40)
 
 		SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("Absorb DNA", "[absorbing_iteration]"))
-		if(!do_after(owner, 15 SECONDS, target, hidden = TRUE))
+		if(!do_after(owner, 2 SECONDS, target))
 			owner.balloon_alert(owner, "interrupted!")
 			is_absorbing = FALSE
 			return FALSE
