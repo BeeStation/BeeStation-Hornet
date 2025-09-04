@@ -1,0 +1,15 @@
+2025-09-01:
+  Tsar-Salat:
+  - bugfix: fix last resort gestation(pergnante) timer
+  - bugfix: fixes carbon handling on Last Resort, making it not randomly RR the changeling
+      when used
+2025-09-02:
+  mrmanlikesbt:
+  - bugfix: fixed the "Show Server Revision" verb
+2025-09-04:
+  Liver-1:
+  - bugfix: Fixes the lethals ammo box to use @Bieyes beautiful new art and not the
+      plain box art.
+  TsunamiAnt:
+  - rscadd: 'Added a new station role: Prisoners! An RP heavy role intended to just
+      chill and maybe mug a new guy.'

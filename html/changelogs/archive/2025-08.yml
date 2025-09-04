@@ -419,3 +419,40 @@
 2025-08-26:
   mrmanlikesbt, Ghommie:
   - code_imp: replaced the GODMODE bitflag with a trait
+  rkz, Melbert:
+  - refactor: Fully heal can be passed a series of flags. As a result, some things
+      which previously did a full heal might heal slightly less, or some things which
+      did partial full heals might do slightly more.
+  - bugfix: Adminordrazine will no longer completely break every facet of a person
+  - admin: Ahealing a changeling will refill all of their chems.
+2025-08-27:
+  Mc-oofert, Bieyes:
+  - rscadd: Added the ability to bind buttons to keys.
+  r1ks-iwnl:
+  - bugfix: Fixes many interactions for thrown items
+  - bugfix: Fixes items not doing thrown damage to objects and turfs
+  - bugfix: Fixes items not burning in lava when thrown
+  - bugfix: Fixes items not entering disposals when thrown
+2025-08-29:
+  PowerfulBacon:
+  - bugfix: Fixes the chem dispenser filters not being usable.
+  - bugfix: Fixes log button on the NTOS notepad not working.
+  - bugfix: Fixes the filter button on the admin requests panel not working.
+  - bugfix: Fixes the behaviour of manually racking guns.
+  wikimody:
+  - rscadd: Added new drill emiter, made by using screwdriver on emiter circuit board
+  - balance: Emitters now have higher damage with higher tier micro laser parts (guns
+      inside them get the damage increase to)
+  - balance: Under Ruko orders both emitters deal 75% reduced damage against blob
+  - rscdel: Removed proto emitter do to being unused
+  - tweak: Non hitscan emitter projectiles are now removed, this in practice only
+      changes anomalius crystal one interaction
+2025-08-30:
+  NanoTrasen-Inc, JackieOTheWisp:
+  - rscadd: Added 2 new options on the synthesizer's fun tab! The Meowsyth and Spaceman!
+2025-08-31:
+  Aramix:
+  - bugfix: fixed Transcendent Olfaction mutation ability not activating at all
+  - bugfix: fixed missing background sprite for mutation abilities action button
+  mrmanlikesbt, timothymtorres:
+  - code_imp: split up the persistence subsystem into multiple files

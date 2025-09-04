@@ -90,3 +90,4 @@ AUTH_CLIENT_VERB(showrevinfo)
 	msg += "Protect Assistant Role From Traitor: [CONFIG_GET(flag/protect_assistant_from_antagonist)]"
 	msg += "Protect Command Roles From Traitor: [CONFIG_GET(flag/protect_heads_from_antagonist)]"
 	msg += "Enforce Human Authority: [CONFIG_GET(flag/enforce_human_authority)]"
+	to_chat(src, msg.Join("<br>"))

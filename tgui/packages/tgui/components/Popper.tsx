@@ -6,6 +6,7 @@ import {
   useRef,
   useState,
 } from 'react';
+import { createPortal } from 'react-dom';
 import { usePopper } from 'react-popper';
 
 type RequiredProps = {
@@ -79,18 +80,20 @@ export function Popper(props: PropsWithChildren<Props>) {
       >
         {children}
       </div>
-      {isOpen && (
-        <div
-          ref={(node) => {
-            setPopperElement(node);
-            popperRef.current = node;
-          }}
-          style={{ ...styles.popper, zIndex: 5 }}
-          {...attributes.popper}
-        >
-          {content}
-        </div>
-      )}
+      {isOpen &&
+        createPortal(
+          <div
+            ref={(node) => {
+              setPopperElement(node);
+              popperRef.current = node;
+            }}
+            style={{ ...styles.popper, zIndex: 5 }}
+            {...attributes.popper}
+          >
+            {content}
+          </div>,
+          document.body,
+        )}
     </>
   );
 }
