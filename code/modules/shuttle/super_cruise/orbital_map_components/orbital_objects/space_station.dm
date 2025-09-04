@@ -26,7 +26,7 @@
 
 /datum/orbital_object/z_linked/station/explode()
 	. = ..()
-	SSticker.force_ending = TRUE
+	SSticker.force_ending = FORCE_END_ROUND
 
 /datum/orbital_object/z_linked/station/post_map_setup()
 	//Orbit around the system center

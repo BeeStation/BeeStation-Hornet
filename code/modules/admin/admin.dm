@@ -309,7 +309,7 @@
 	var/confirm = alert("End the round and  restart the game world?", "End Round", "Yes", "Cancel")
 	if(confirm != "Yes")
 		return
-	SSticker.force_ending = 1
+	SSticker.force_ending = ADMIN_FORCE_END_ROUND
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "End Round") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/announce()
