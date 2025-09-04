@@ -369,7 +369,6 @@
 
 /datum/status_effect/changeling
 	var/datum/antagonist/changeling/ling
-	var/chem_per_tick = 1
 
 /datum/status_effect/changeling/on_apply()
 	ling = IS_CHANGELING(owner)
@@ -378,10 +377,9 @@
 	return TRUE
 
 /datum/status_effect/changeling/tick()
-	if(ling.chem_charges < chem_per_tick)
+	if(ling.chem_charges <= 0)
 		qdel(src)
 		return FALSE
-	ling.chem_charges -= chem_per_tick
 	return TRUE
 
 //Changeling invisibility
@@ -427,7 +425,6 @@
 	id = "changelingmindshield"
 	alert_type = /atom/movable/screen/alert/status_effect/changeling_mindshield
 	tick_interval = 5 SECONDS
-	chem_per_tick = 1
 
 /datum/status_effect/changeling/mindshield/tick()
 	if(..() && owner.on_fire)

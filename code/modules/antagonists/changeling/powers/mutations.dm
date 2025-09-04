@@ -34,6 +34,7 @@
 			playsound(user, 'sound/effects/blobattack.ogg', 30, 1)
 			user.visible_message(span_warning("With a sickening crunch, [user] reforms [user.p_their()] [weapon_name_simple] into an arm!"), span_notice("We assimilate the [weapon_name_simple] back into our body."), span_italics("You hear organic matter ripping and tearing!"))
 		user.update_inv_hands()
+		subtract_slowdown(user)
 		return 1
 
 /datum/action/changeling/weapon/sting_action(mob/living/carbon/user)
@@ -77,7 +78,6 @@
 	var/suit_type = /obj/item
 	var/suit_name_simple = "    "
 	var/helmet_name_simple = "     "
-	var/recharge_slowdown = 0
 	var/blood_on_castoff = 0
 
 /datum/action/changeling/suit/try_to_sting(mob/user, mob/target)
@@ -104,7 +104,7 @@
 			H.add_splatter_floor()
 			playsound(H.loc, 'sound/effects/splat.ogg', 50, 1) //So real sounds
 
-		changeling.chem_recharge_slowdown -= recharge_slowdown
+		subtract_slowdown(user)
 		return 1
 
 /datum/action/changeling/suit/Remove(mob/user)
@@ -124,9 +124,6 @@
 
 	user.equip_to_slot_if_possible(new suit_type(user), ITEM_SLOT_OCLOTHING, 1, 1, 1)
 	user.equip_to_slot_if_possible(new helmet_type(user), ITEM_SLOT_HEAD, 1, 1, 1)
-
-	var/datum/antagonist/changeling/changeling = user.mind.has_antag_datum(/datum/antagonist/changeling)
-	changeling.chem_recharge_slowdown += recharge_slowdown
 	return TRUE
 
 
@@ -140,6 +137,7 @@
 	helptext = "We may retract our armblade in the same manner as we form it. Cannot be used while in lesser form."
 	button_icon_state = "armblade"
 	chemical_cost = 20
+	recharge_slowdown = 0.2
 	dna_cost = 2
 	req_human = 1
 	weapon_type = /obj/item/melee/arm_blade
@@ -394,7 +392,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 	helmet_type = /obj/item/clothing/head/helmet/space/changeling
 	suit_name_simple = "flesh shell"
 	helmet_name_simple = "space helmet"
-	recharge_slowdown = 0.25
+	recharge_slowdown = 0.2
 	blood_on_castoff = 1
 
 /obj/item/clothing/suit/space/changeling
@@ -485,7 +483,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 	chemical_cost = 20
 	dna_cost = 2
 	req_human = 1
-	recharge_slowdown = 0.125
+	recharge_slowdown = 0.2
 
 	suit_type = /obj/item/clothing/suit/armor/changeling
 	helmet_type = /obj/item/clothing/head/helmet/changeling

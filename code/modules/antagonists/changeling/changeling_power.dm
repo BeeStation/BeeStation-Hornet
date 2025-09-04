@@ -14,6 +14,7 @@
 	var/dna_cost = -1 //cost of the sting in dna points. 0 = auto-purchase (see changeling.dm), -1 = cannot be purchased
 	var/points_to_use = 0  //amount of genetic points needed to use this ability
 	var/req_human = 0 //if you need to be human to use this ability
+	var/recharge_slowdown = 0 // Chemical upkeep of ability in use
 	var/limb_sacrifice = FALSE // Sacrifices a limb and turns it into something else, can only be cast if ling has a limb obviously
 	var/ignores_fakedeath = FALSE // usable with the FAKEDEATH flag
 
@@ -68,7 +69,14 @@ the same goes for Remove(). if you override Remove(), call parent or else your p
 	// If the spell requires genetic points, deducts them here, check itself is done in ling_can_cast
 	if(points_to_use)
 		changeling.genetic_points -= points_to_use
+	if(recharge_slowdown)
+		changeling.chem_recharge_slowdown += recharge_slowdown
 	return FALSE
+
+/datum/action/changeling/proc/subtract_slowdown(mob/living/user)
+	if(recharge_slowdown)	// Just to be sure!
+		var/datum/antagonist/changeling/changeling = IS_CHANGELING(user)
+		changeling.chem_recharge_slowdown -= recharge_slowdown
 
 /datum/action/changeling/proc/sting_feedback(mob/living/user, mob/living/target)
 	return FALSE
