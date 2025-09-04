@@ -3,6 +3,7 @@
 	default_message = "Vote for next round's map!"
 	count_method = VOTE_COUNT_METHOD_SINGLE
 	winner_method = VOTE_WINNER_METHOD_NONE
+	display_statistics = FALSE
 
 /datum/vote/map_vote/New()
 	. = ..()
