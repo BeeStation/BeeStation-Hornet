@@ -14,6 +14,7 @@
 	var/dna_cost = -1 //cost of the sting in dna points. 0 = auto-purchase (see changeling.dm), -1 = cannot be purchased
 	var/points_to_use = 0  //amount of genetic points needed to use this ability
 	var/req_human = 0 //if you need to be human to use this ability
+	var/limb_sacrifice = FALSE // Sacrifices a limb and turns it into something else, can only be cast if ling has a limb obviously
 	var/ignores_fakedeath = FALSE // usable with the FAKEDEATH flag
 
 /*
@@ -43,7 +44,30 @@ the same goes for Remove(). if you override Remove(), call parent or else your p
 		changeling.adjust_chemicals(-chemical_cost)
 
 /datum/action/changeling/proc/sting_action(mob/living/user, mob/living/target)
+	var/datum/antagonist/changeling/changeling = IS_CHANGELING(user)
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
+	if(limb_sacrifice) // For limb sacrifice abilities, check in ling_can_cast
+		var/mob/living/carbon/C = user
+		var/list/parts = list()
+		for(var/limb in C.bodyparts)
+			var/obj/item/bodypart/BP = limb
+			if(BP.body_part != HEAD && BP.body_part != CHEST && IS_ORGANIC_LIMB(BP))
+				if(BP.dismemberable)
+					parts += BP
+		//limb related actions
+		var/obj/item/bodypart/BP = pick(parts)
+		for(var/obj/item/bodypart/Gir in parts)
+			if(Gir.body_part == ARM_RIGHT || Gir.body_part == ARM_LEFT)	//arms first so they don't become a stump too fast
+				BP = Gir
+		//text message
+		C.visible_message(span_warning("[user]'s [BP] detaches itself and mutates!"),
+				span_userdanger("Our [BP] reforms to our will!"))
+		BP.dismember()
+		BP.Destroy()
+		playsound(user, 'sound/magic/demon_consume.ogg', 50, TRUE)
+	// If the spell requires genetic points, deducts them here, check itself is done in ling_can_cast
+	if(points_to_use)
+		changeling.genetic_points -= points_to_use
 	return FALSE
 
 /datum/action/changeling/proc/sting_feedback(mob/living/user, mob/living/target)
@@ -63,9 +87,20 @@ the same goes for Remove(). if you override Remove(), call parent or else your p
 		to_chat(user, span_warning("We require at least [chemical_cost] unit\s of chemicals to do that!"))
 		return FALSE
 	if(c.genetic_points < points_to_use)
-		user.balloon_alert(user, "Insuficient Genetic Points!", "#ffffff") // maybe change colour
+		user.balloon_alert(user, "Insuficient Genetic Points!")
 		to_chat(user, span_warning("We require at least [points_to_use] genetic point\s."))
 		return FALSE
+	if(limb_sacrifice)	//Checking here too just in case
+		var/mob/living/carbon/C = user
+		var/list/parts = list()
+		for(var/limb in C.bodyparts)
+			var/obj/item/bodypart/BP = limb
+			if(BP.body_part != HEAD && BP.body_part != CHEST && IS_ORGANIC_LIMB(BP))
+				if(BP.dismemberable)
+					parts += BP
+		if(!LAZYLEN(parts))
+			to_chat(user, span_notice("We don't have any limbs to detach."))
+			return FALSE
 	if((HAS_TRAIT(user, TRAIT_DEATHCOMA)) && (!ignores_fakedeath))
 		to_chat(user, span_warning("We are incapacitated."))
 		return FALSE
