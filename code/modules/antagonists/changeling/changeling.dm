@@ -32,7 +32,7 @@
 	/// The max chemical storage the changeling currently has.
 	var/total_chem_storage = 35
 	/// The chemical recharge rate per life tick.
-	var/chem_recharge_rate = 0.5
+	var/chem_recharge_rate = 0.3
 	/// Any additional modifiers triggered by changelings that modify the chem_recharge_rate.
 	var/chem_recharge_slowdown = 0
 	/// The range this ling can sting things.
