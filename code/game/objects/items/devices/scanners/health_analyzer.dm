@@ -118,13 +118,14 @@
 		if(advanced)
 			if(HAS_TRAIT_FROM(target, TRAIT_HUSK, BURN))
 				render_list += "<span class='alert ml-1'>Subject has been husked by severe burns.</span>\n"
-			else if (HAS_TRAIT_FROM(target, TRAIT_HUSK, CHANGELING_DRAIN))
-				render_list += "<span class='alert ml-1'>Subject has been husked by dessication.</span>\n"
 			else
 				render_list += "<span class='alert ml-1'>Subject has been husked by mysterious causes.</span>\n"
-
 		else
 			render_list += "<span class='alert ml-1'>Subject has been husked.</span>\n"
+
+	// Changeling Drain detection
+	if(HAS_TRAIT(target, CHANGELING_DRAIN))
+		render_list += "<span class='alert ml-1'>Subject has been drained by a foreign life form.</span>\n"
 
 	if(target.getStaminaLoss())
 		if(advanced)
