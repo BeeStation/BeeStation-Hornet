@@ -1306,6 +1306,13 @@ update_label("John Doe", "Clowny")
 	icon_state = "id"
 	hud_state = JOB_HUD_UNKNOWN
 
+/obj/item/card/id/job/prisoner
+	name = "Prisoner Identification Card"
+	desc = "A rugged plastized ID card designed for use by prisoners. Purely to facilitate the convenience of digitalised currency."
+	icon_state = "orange"
+	assignment = JOB_NAME_PRISONER
+	hud_state = JOB_HUD_PRISONER
+
 /obj/item/card/id/gold/vip
 	name = "important gold identification card"
 	assignment = JOB_NAME_VIP
@@ -1315,7 +1322,6 @@ update_label("John Doe", "Clowny")
 	name = "their majesty's gold identification card"
 	assignment = JOB_NAME_KING
 	hud_state = JOB_HUD_KING
-
 
 /obj/item/card/id/pass
 	name = "promotion pass"
