@@ -127,7 +127,7 @@
 		var/datum/antagonist/changeling/changeling = O.mind.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling)
 			var/datum/action/changeling/humanform/hf = new
-			changeling.purchased_powers[hf.type] += hf
+			changeling.purchased_powers[hf.type] = hf
 			changeling.regain_powers()
 
 
