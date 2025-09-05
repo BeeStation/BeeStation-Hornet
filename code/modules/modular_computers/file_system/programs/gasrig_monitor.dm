@@ -23,6 +23,11 @@
 		return ..()
 	return gasrig.ui_data(user)
 
+/datum/computer_file/program/gasrig_monitor/ui_static_data(mob/user)
+	if(gasrig == null)
+		return ..()
+	return gasrig.ui_static_data(user)
+
 /datum/computer_file/program/gasrig_monitor/ui_act(action, params)
 	if(gasrig == null)
 		return ..()

@@ -6,7 +6,7 @@ export const NtosAtmosGasRig = (props) => {
     <NtosWindow width={480} height={530}>
       <NtosWindow.Content scrollable>
         <Section title="Advanced Gas Rig:">
-          {AtmosGasRigTemplate(props)}
+          <AtmosGasRigTemplate props />
         </Section>
       </NtosWindow.Content>
     </NtosWindow>

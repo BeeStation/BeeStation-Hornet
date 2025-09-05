@@ -447,8 +447,11 @@
 		return
 	parent.ui_act_base(action, params)
 
-/obj/machinery/atmospherics/components/unary/gasrig/ui_data()
-	return parent.ui_data()
+/obj/machinery/atmospherics/components/unary/gasrig/ui_data(mob/user)
+	return parent.ui_data(user)
+
+/obj/machinery/atmospherics/components/unary/gasrig/ui_static_data(mob/user)
+	return parent.ui_static_data(user)
 
 /obj/machinery/atmospherics/components/unary/gasrig/shielding_input
 	name = "AGR shield gas input port"
@@ -510,8 +513,12 @@
 		ui.open()
 
 
-/obj/machinery/atmospherics/gasrig/dummy/ui_data()
+/obj/machinery/atmospherics/gasrig/dummy/ui_data(mob/user)
 	return parent.ui_data()
+
+/obj/machinery/atmospherics/gasrig/dummy/ui_static_data(mob/user)
+	return parent.ui_static_data(user)
+
 
 /obj/machinery/atmospherics/gasrig/dummy/ui_act(action, params)
 	. = ..()

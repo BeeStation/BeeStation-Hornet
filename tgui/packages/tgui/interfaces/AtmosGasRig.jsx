@@ -18,7 +18,7 @@ export const AtmosGasRig = (props) => {
     <Window theme="ntos" width={480} height={500}>
       <Window.Content>
         <Section title="Advanced Gas Rig:" fill={1} overflow-y="scroll">
-          {AtmosGasRigTemplate(props)}
+          <AtmosGasRigTemplate props />
         </Section>
       </Window.Content>
     </Window>
@@ -81,7 +81,7 @@ const DisplayValues = (position, barHeight, data) => {
 const DisplayGasBar = (
   position_bar,
   constant,
-  data,
+  max_depth,
   barHeight,
   color,
   text,
@@ -91,9 +91,9 @@ const DisplayGasBar = (
     <Tooltip content={text}>
       <rect
         x={position_bar}
-        y={barHeight * (constant[0] / data.max_depth) + barOffset}
+        y={barHeight * (constant[0] / max_depth) + barOffset}
         width="10"
-        height={barHeight * ((constant[1] - constant[0]) / data.max_depth)}
+        height={barHeight * ((constant[1] - constant[0]) / max_depth)}
         fill={color}
       />
     </Tooltip>
@@ -102,7 +102,30 @@ const DisplayGasBar = (
 
 export const AtmosGasRigTemplate = (props) => {
   const { act, data } = useBackend();
-  const depth = data.depth;
+  const {
+    depth,
+    active,
+    max_depth,
+    max_shield,
+    shield_strength,
+    max_health,
+    health,
+    set_depth,
+    shield_strength_change,
+    gas_power,
+    gas_modifier,
+    fracking_eff,
+    o2_constants,
+    n2_constants,
+    co2_constants,
+    n2o_constants,
+    plas_constants,
+    plox_constants,
+    trit_constants,
+    nob_constants,
+    bz_constants,
+    mols_produced = [],
+  } = data;
   const barHeight = 300;
   const barOffset = 6;
   const svgOffset = -50;
@@ -110,9 +133,9 @@ export const AtmosGasRigTemplate = (props) => {
     <>
       <Button
         mt="-10px"
-        icon={data.active ? 'power-off' : 'times'}
-        content={data.active ? 'On' : 'Off'}
-        selected={data.active}
+        icon={active ? 'power-off' : 'times'}
+        content={active ? 'On' : 'Off'}
+        selected={active}
         onClick={() => act('active')}
       />
       <Flex>
@@ -121,7 +144,7 @@ export const AtmosGasRigTemplate = (props) => {
             Depth:
             <ProgressBar
               minValue={0}
-              maxValue={data.max_depth}
+              maxValue={max_depth}
               value={depth}
               ranges={{
                 good: [0.7, Infinity],
@@ -132,8 +155,8 @@ export const AtmosGasRigTemplate = (props) => {
             Shield:
             <ProgressBar
               minValue={0}
-              maxValue={data.max_shield}
-              value={data.shield_strength}
+              maxValue={max_shield}
+              value={shield_strength}
               ranges={{
                 good: [0.7, Infinity],
                 average: [0.4, 0.7],
@@ -143,8 +166,8 @@ export const AtmosGasRigTemplate = (props) => {
             Health:
             <ProgressBar
               minValue={0}
-              maxValue={data.max_health}
-              value={data.health}
+              maxValue={max_health}
+              value={health}
               ranges={{
                 good: [0.7, Infinity],
                 average: [0.4, 0.7],
@@ -156,11 +179,11 @@ export const AtmosGasRigTemplate = (props) => {
             <br />
             <NumberInput
               animated
-              value={parseFloat(data.set_depth)}
+              value={parseFloat(set_depth)}
               width="75px"
               unit="km"
               minValue={0}
-              maxValue={data.max_depth}
+              maxValue={max_depth}
               step={10}
               onChange={(value) =>
                 act('set_depth', {
@@ -173,25 +196,25 @@ export const AtmosGasRigTemplate = (props) => {
               <Tooltip content="Power * Modifier">
                 <Box>
                   Shielding Strength:
-                  {' ' + data.shield_strength_change.toFixed(2)}
+                  {' ' + shield_strength_change.toFixed(2)}
                   <br />
                 </Box>
               </Tooltip>
 
               <BlockQuote color="">
-                Total Gas Power: {data.gas_power.toFixed(2)}
+                Total Gas Power: {gas_power.toFixed(2)}
                 <br />
-                Average Gas Modifier: {data.gas_modifier.toFixed(2)}
+                Average Gas Modifier: {gas_modifier.toFixed(2)}
                 <br />
               </BlockQuote>
             </Box>
             Fracking Efficiency:
             <br />
-            {data.fracking_eff.toFixed(2)}
+            {fracking_eff.toFixed(2)}
             <br />
             <br />
             <Collapsible title="Production Table" overflow="overlay">
-              {DisplayGasOutput(data.mols_produced)}
+              {DisplayGasOutput(mols_produced)}
             </Collapsible>
             <br />
           </Box>
@@ -214,14 +237,14 @@ export const AtmosGasRigTemplate = (props) => {
                 x={143 + svgOffset}
                 y={barOffset}
                 width="4"
-                height={barHeight * (depth / data.max_depth)}
+                height={barHeight * (depth / max_depth)}
                 fill="grey"
               />
             </Tooltip>
             {DisplayGasBar(
               125 + svgOffset,
-              data.o2_constants,
-              data,
+              o2_constants,
+              max_depth,
               barHeight,
               'blue',
               'O2',
@@ -229,8 +252,8 @@ export const AtmosGasRigTemplate = (props) => {
             {/* O2 */}
             {DisplayGasBar(
               115 + svgOffset,
-              data.n2_constants,
-              data,
+              n2_constants,
+              max_depth,
               barHeight,
               'red',
               'N2',
@@ -238,8 +261,8 @@ export const AtmosGasRigTemplate = (props) => {
             {/* N2 */}
             {DisplayGasBar(
               125 + svgOffset,
-              data.plas_constants,
-              data,
+              plas_constants,
+              max_depth,
               barHeight,
               'purple',
               'Plasma',
@@ -247,8 +270,8 @@ export const AtmosGasRigTemplate = (props) => {
             {/* Plasma */}
             {DisplayGasBar(
               105 + svgOffset,
-              data.co2_constants,
-              data,
+              co2_constants,
+              max_depth,
               barHeight,
               'grey',
               'CO2',
@@ -256,8 +279,8 @@ export const AtmosGasRigTemplate = (props) => {
             {/* CO2 */}
             {DisplayGasBar(
               115 + svgOffset,
-              data.n2o_constants,
-              data,
+              n2o_constants,
+              max_depth,
               barHeight,
               'white',
               'N2O',
@@ -265,8 +288,8 @@ export const AtmosGasRigTemplate = (props) => {
             {/* N2O */}
             {DisplayGasBar(
               125 + svgOffset,
-              data.nob_constants,
-              data,
+              nob_constants,
+              max_depth,
               barHeight,
               'teal',
               'Hypernoblium',
@@ -274,8 +297,8 @@ export const AtmosGasRigTemplate = (props) => {
             {/* Hypernoblium */}
             {DisplayGasBar(
               115 + svgOffset,
-              data.bz_constants,
-              data,
+              bz_constants,
+              max_depth,
               barHeight,
               'brown',
               'BZ',
@@ -283,8 +306,8 @@ export const AtmosGasRigTemplate = (props) => {
             {/* BZ */}
             {DisplayGasBar(
               95 + svgOffset,
-              data.plox_constants,
-              data,
+              plox_constants,
+              max_depth,
               barHeight,
               'yellow',
               'Pluoxium',
@@ -292,8 +315,8 @@ export const AtmosGasRigTemplate = (props) => {
             {/* Pluoxium */}
             {DisplayGasBar(
               105 + svgOffset,
-              data.trit_constants,
-              data,
+              trit_constants,
+              max_depth,
               barHeight,
               'lawngreen',
               'Tritium',
