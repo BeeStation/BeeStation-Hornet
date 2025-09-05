@@ -73,7 +73,7 @@
 		return
 	if (!magazine)
 		magazine = new mag_type(src)
-	if (!caliber || !caliber.len)
+	if (!caliber || !length(caliber))
 		caliber = islist(magazine.caliber) ? magazine.caliber.Copy() : list(magazine.caliber)
 	chamber_round()
 	update_icon()
