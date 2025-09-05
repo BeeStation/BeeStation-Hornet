@@ -289,26 +289,6 @@
 			return "#F46402"
 	return "#0066FF"
 
-
-/obj/item/extinguisher/mini/nozzle/proc/install_upgrade(obj/item/atmostank_upgrade/upgrade, mob/user)
-	if(upgrade.upgrade_flags & src.upgrade_flags)
-		balloon_alert(user, "Already installed")
-		return
-	if(upgrade.upgrade_flags & FIREPACK_UPGRADE_EFFICIENCY)
-		tank.reagents.maximum_volume = 400
-		max_foam = 10
-		nozzle_cooldown = 4 SECONDS
-		resin_cost = 50
-		icon_state = "atmos_nozzle_upgraded"
-		. = TRUE // to tell the backpack to update its icon
-	if(upgrade.upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM)
-		toggled = TRUE
-	upgrade_flags |= upgrade.upgrade_flags
-	balloon_alert(user, "Upgrade installed")
-	playsound(src.loc, 'sound/machines/click.ogg', 50, TRUE)
-	qdel(upgrade)
-	update_icon()
-
 /obj/item/watertank/atmos/toggle_mister(mob/living/user)
 	if(!istype(user))
 		return
@@ -443,7 +423,7 @@
 		balloon_alert(user, "[toggled ? "Advanced" : "Normal"] foam mode")
 		playsound(src, 'sound/machines/click.ogg', 50)
 		update_icon()
-		if (istype(tank, /obj/item/watertank/atmos))
+		if (istype(loc, /mob/living/carbon))
 			tank.update_icon()
 			var/mob/living/carbon/wearer = tank.loc
 			wearer.update_inv_back()
@@ -475,6 +455,25 @@
 			balloon_alert(user, "Extinguisher mode")
 			return
 	return
+
+/obj/item/extinguisher/mini/nozzle/proc/install_upgrade(obj/item/atmostank_upgrade/upgrade, mob/user)
+	if(upgrade.upgrade_flags & src.upgrade_flags)
+		balloon_alert(user, "Already installed")
+		return
+	if(upgrade.upgrade_flags & FIREPACK_UPGRADE_EFFICIENCY)
+		tank.reagents.maximum_volume = 400
+		max_foam = 10
+		nozzle_cooldown = 4 SECONDS
+		resin_cost = 50
+		icon_state = "atmos_nozzle_upgraded"
+		. = TRUE // to tell the backpack to update its icon
+	if(upgrade.upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM)
+		toggled = TRUE
+	upgrade_flags |= upgrade.upgrade_flags
+	balloon_alert(user, "Upgrade installed")
+	playsound(src.loc, 'sound/machines/click.ogg', 50, TRUE)
+	qdel(upgrade)
+	update_icon()
 
 /obj/item/extinguisher/mini/nozzle/afterattack(atom/target, mob/user)
 	if(nozzle_mode == EXTINGUISHER)
