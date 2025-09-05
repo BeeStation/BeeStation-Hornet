@@ -245,7 +245,6 @@
 			icon_state = "gasrig_1"
 			return
 	icon_state = "gasrig_1_off"
-	return
 
 /obj/machinery/atmospherics/gasrig/core/update_overlays()
 	. = ..()
