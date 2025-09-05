@@ -64,15 +64,15 @@
 
 /obj/machinery/atmospherics/gasrig/core/proc/init_inputs()
 	var/turf/offset_loc = locate(x - 1, y, z)
-	shielding_input = new /obj/machinery/atmospherics/components/unary/gasrig/shielding_input(offset_loc, TRUE, src)
+	shielding_input = new /obj/machinery/atmospherics/components/unary/gasrig/shielding_input(offset_loc, src)
 	shielding_input.dir = WEST
 	shielding_input.set_init_directions()
 	offset_loc = locate(x + 1, y, z)
-	fracking_input = new /obj/machinery/atmospherics/components/unary/gasrig/fracking_input(offset_loc, TRUE, src)
+	fracking_input = new /obj/machinery/atmospherics/components/unary/gasrig/fracking_input(offset_loc, src)
 	fracking_input.dir = EAST
 	fracking_input.set_init_directions()
 	offset_loc = locate(x, y - 1, z)
-	gas_output = new /obj/machinery/atmospherics/components/unary/gasrig/gas_output(offset_loc, TRUE, src)
+	gas_output = new /obj/machinery/atmospherics/components/unary/gasrig/gas_output(offset_loc, src)
 	gas_output.dir = SOUTH
 	gas_output.set_init_directions()
 
@@ -418,9 +418,9 @@
 	move_resist = INFINITY
 	var/obj/machinery/atmospherics/gasrig/core/parent
 
-/obj/machinery/atmospherics/components/unary/gasrig/Initialize(loc, booled, obj/machinery/atmospherics/gasrig/core/C)
+/obj/machinery/atmospherics/components/unary/gasrig/Initialize(mapload, obj/machinery/atmospherics/gasrig/core/C)
 	parent = C //ordered this way to prevent update_overlays from getting a null value
-	..(loc, booled)
+	. = ..()
 
 /obj/machinery/atmospherics/components/unary/gasrig/Destroy()
     if (parent)
@@ -488,8 +488,8 @@
 /obj/machinery/atmospherics/gasrig/dummy
 	var/obj/machinery/atmospherics/gasrig/core/parent
 
-/obj/machinery/atmospherics/gasrig/dummy/Initialize(loc, obj/machinery/atmospherics/gasrig/core/gasrig, iconstate)
-	..(loc)
+/obj/machinery/atmospherics/gasrig/dummy/Initialize(mapload, obj/machinery/atmospherics/gasrig/core/gasrig, iconstate)
+	. = ..()
 	parent = gasrig
 	icon_state = iconstate
 
