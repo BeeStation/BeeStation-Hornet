@@ -18,7 +18,7 @@
 /obj/item/ammo_casing/energy/laser/anti_creature
 	projectile_type = /obj/projectile/beam/laser/anti_creature
 	select_name = "anti-creature"
-	e_cost = 40
+	e_cost = 40 WATT
 
 /obj/projectile/beam/laser/anti_creature
 	damage = 15
@@ -36,7 +36,7 @@
 /obj/item/ammo_casing/energy/laser/cutting
 	projectile_type = /obj/projectile/beam/laser/cutting
 	select_name = "demolition"
-	e_cost = 30
+	e_cost = 30 WATT
 
 /obj/projectile/beam/laser/cutting
 	damage = 5
@@ -59,7 +59,7 @@
 /obj/item/ammo_casing/energy/laser/exploration_kill
 	projectile_type = /obj/projectile/beam/laser/exploration_kill
 	select_name = "KILL"
-	e_cost = 80
+	e_cost = 80 WATT
 
 /obj/projectile/beam/laser/exploration_kill
 	damage = 30
@@ -82,7 +82,7 @@
 /obj/item/ammo_casing/energy/laser/exploration_destroy
 	projectile_type = /obj/projectile/beam/laser/exploration_destroy
 	select_name = "DESTROY"
-	e_cost = 120
+	e_cost = 120 WATT
 
 /obj/projectile/beam/laser/exploration_destroy
 	damage = 20
@@ -145,16 +145,16 @@
 
 //Standard disabler round
 /obj/item/ammo_casing/energy/disabler/cyborg
-	e_cost = 500 //20 shot capacity
+	e_cost = 500 WATT	//20 shot capacity
 
 //Does 5 damage to mobs and 70 to objects, with exception to blobs
 /obj/item/ammo_casing/energy/laser/cutting/cyborg
-	e_cost = 250 //40 shot capacity
+	e_cost = 250 WATT	//40 shot capacity
 
 //Does 5 damage to humans, 30 damage to all other mobs.
 /obj/item/ammo_casing/energy/laser/anti_creature/cyborg
 	projectile_type = /obj/projectile/beam/laser/anti_creature/cyborg
-	e_cost = 500 //20 shot capacity
+	e_cost = 500 WATT	//20 shot capacity
 
 /obj/projectile/beam/laser/anti_creature/cyborg
 	damage = 5  //15 is too much given this can be used on station
