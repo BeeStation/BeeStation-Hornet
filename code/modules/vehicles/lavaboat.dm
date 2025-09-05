@@ -10,6 +10,7 @@
 	icon_state_preview = "boat"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	can_buckle = TRUE
+	key_type = /obj/item/oar
 
 /obj/vehicle/ridden/lavaboat/add_riding_element()
 	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/lavaboat)
