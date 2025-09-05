@@ -461,7 +461,7 @@
 		balloon_alert(user, "Already installed")
 		return
 	if(upgrade.upgrade_flags & FIREPACK_UPGRADE_EFFICIENCY)
-		tank.reagents.maximum_volume = 400
+		max_water = tank.reagents.maximum_volume = 400
 		max_foam = 10
 		nozzle_cooldown = 4 SECONDS
 		resin_cost = 50
