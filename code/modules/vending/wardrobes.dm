@@ -280,7 +280,6 @@
 					/obj/item/clothing/suit/hooded/wintercoat/hydro = 2,
 					/obj/item/clothing/suit/apron = 3,
 					/obj/item/clothing/suit/apron/botany = 3,
-					/obj/item/clothing/suit/apron/botany/skirt = 3,
 					/obj/item/clothing/under/rank/civilian/hydroponics = 3,
 					/obj/item/clothing/under/rank/civilian/hydroponics/original = 3,
 					/obj/item/clothing/under/rank/civilian/hydroponics/original/skirt = 3,
