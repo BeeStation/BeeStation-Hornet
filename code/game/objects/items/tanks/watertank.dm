@@ -475,66 +475,68 @@
 	qdel(upgrade)
 	update_icon()
 
-/obj/item/extinguisher/mini/nozzle/afterattack(atom/target, mob/user)
-	if(nozzle_mode == EXTINGUISHER)
-		..()
-		return
-	var/Adj = user.Adjacent(target)
-	if(Adj)
-		AttemptRefill(target, user)
-	if(nozzle_mode == RESIN_LAUNCHER)
-		if(Adj || istype(target, /obj/structure/foamedmetal/resin))
-			return //Safety check so you don't blast yourself trying to refill your tank
-		var/datum/reagents/R = reagents
-		if(R.total_volume < resin_cost)
-			to_chat(user, span_warning("You need at least [resin_cost] units of water to use the resin launcher!"))
-			balloon_alert(user, "Not enough water")
+/obj/item/extinguisher/mini/nozzle/afterattack(atom/target, mob/user, proximity_flag)
+	if (proximity_flag == 1)
+		if (istype(target, /obj/structure/foamedmetal/resin))
 			return
-		if(!COOLDOWN_FINISHED(src, resin_cooldown))
-			balloon_alert(user, "Recharging")
+		if (AttemptRefill(target, user))
 			return
-		COOLDOWN_START(src, resin_cooldown, nozzle_cooldown)
-		R.remove_any(resin_cost)
-		var/resin_projectile = new /obj/effect/resin_container(get_turf(src))
-		if(toggled)
-			QDEL_NULL(resin_projectile)
-			resin_projectile = new /obj/effect/resin_container/chainreact(get_turf(src))
-		var/delay = 2
-		var/timeout = 10
-		if(upgrade_flags & FIREPACK_UPGRADE_EFFICIENCY)
-			delay = 1.5
-			timeout = 15
-			var/obj/effect/resin_container/resin = resin_projectile
-			resin.smoke_amount = 6
-		playsound(src,'sound/items/syringeproj.ogg',40,1)
-		var/datum/move_loop/loop = SSmove_manager.move_towards(resin_projectile, target, delay, timeout = timeout, priority = MOVEMENT_ABOVE_SPACE_PRIORITY, extra_info = target)
-		RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(resin_stop_check))
-		RegisterSignal(loop, COMSIG_QDELETING, PROC_REF(resin_landed))
-		if(upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM)
-			RegisterSignal(loop, COMSIG_MOVELOOP_REACHED_TARGET, PROC_REF(resin_landed))
 
-		log_game("[key_name(user)] used \the [upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM ? "Advanced" : ""] Resin Launcher at [AREACOORD(user)].")
-		return
-
-	if(nozzle_mode == RESIN_FOAM)
-		if(!Adj|| !isturf(target))
+	switch (nozzle_mode)
+		if (EXTINGUISHER)
+			..()
 			return
-		for(var/S in target)
-			if(istype(S, /obj/effect/particle_effect/foam/metal/resin) || istype(S, /obj/structure/foamedmetal/resin))
-				balloon_alert(user, "already has resin!")
+		if (RESIN_LAUNCHER)
+			var/datum/reagents/R = reagents
+			if(R.total_volume < resin_cost)
+				to_chat(user, span_warning("You need at least [resin_cost] units of water to use the resin launcher!"))
+				balloon_alert(user, "Not enough water")
 				return
-		if(resin_synthesis_cooldown < max_foam)
+			if(!COOLDOWN_FINISHED(src, resin_cooldown))
+				balloon_alert(user, "Recharging")
+				return
+			COOLDOWN_START(src, resin_cooldown, nozzle_cooldown)
+			R.remove_any(resin_cost)
+			var/resin_projectile = new /obj/effect/resin_container(get_turf(src))
 			if(toggled)
-				var/obj/effect/particle_effect/foam/metal/chainreact_resin/foam = new (get_turf(target))
-				foam.amount = 0
-			else
-				var/obj/effect/particle_effect/foam/metal/resin/foam = new (get_turf(target))
-				foam.amount = 0
-			resin_synthesis_cooldown++
-			addtimer(CALLBACK(src, PROC_REF(reduce_metal_synth_cooldown)), 10 SECONDS)
-		else
-			balloon_alert(user, "Recharging")
+				QDEL_NULL(resin_projectile)
+				resin_projectile = new /obj/effect/resin_container/chainreact(get_turf(src))
+			var/delay = 2
+			var/timeout = 10
+			if(upgrade_flags & FIREPACK_UPGRADE_EFFICIENCY)
+				delay = 1.5
+				timeout = 15
+				var/obj/effect/resin_container/resin = resin_projectile
+				resin.smoke_amount = 6
+			playsound(src,'sound/items/syringeproj.ogg',40,1)
+			var/datum/move_loop/loop = SSmove_manager.move_towards(resin_projectile, target, delay, timeout = timeout, priority = MOVEMENT_ABOVE_SPACE_PRIORITY, extra_info = target)
+			RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(resin_stop_check))
+			RegisterSignal(loop, COMSIG_QDELETING, PROC_REF(resin_landed))
+			if(upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM)
+				RegisterSignal(loop, COMSIG_MOVELOOP_REACHED_TARGET, PROC_REF(resin_landed))
+
+			log_game("[key_name(user)] used \the [upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM ? "Advanced" : ""] Resin Launcher at [AREACOORD(user)].")
 			return
+
+		if (RESIN_FOAM)
+			if(!(proximity_flag == 1) || !isturf(target))
+				return
+			for(var/S in target)
+				if(istype(S, /obj/effect/particle_effect/foam/metal/resin) || istype(S, /obj/structure/foamedmetal/resin))
+					balloon_alert(user, "already has resin!")
+					return
+			if(resin_synthesis_cooldown < max_foam)
+				if(toggled)
+					var/obj/effect/particle_effect/foam/metal/chainreact_resin/foam = new (get_turf(target))
+					foam.amount = 0
+				else
+					var/obj/effect/particle_effect/foam/metal/resin/foam = new (get_turf(target))
+					foam.amount = 0
+				resin_synthesis_cooldown++
+				addtimer(CALLBACK(src, PROC_REF(reduce_metal_synth_cooldown)), 10 SECONDS)
+			else
+				balloon_alert(user, "Recharging")
+				return
 
 /obj/item/extinguisher/mini/nozzle/proc/resin_stop_check(datum/move_loop/source, succeeded)
 	SIGNAL_HANDLER
