@@ -44,7 +44,7 @@
 	owner.copy_languages(target, LANGUAGE_ABSORB)
 
 	if(target.mind && owner.mind)//if the victim and owner have minds
-		absorb_ling_power(target)
+		absorb_memories(target)
 
 	is_absorbing = FALSE
 
@@ -83,8 +83,63 @@
 	playsound(owner, 'sound/effects/splat.ogg', 50, TRUE)
 	return TRUE
 
-/datum/action/changeling/absorbDNA/proc/absorb_ling_power(mob/living/carbon/human/target)
+/datum/action/changeling/absorbDNA/proc/absorb_memories(mob/living/carbon/human/target)
+	var/datum/mind/suckedbrain = target.mind
+	owner.mind.memory += "<BR><b>We've absorbed [target]'s memories into our own...</b><BR>[suckedbrain.memory]<BR>"
+	for(var/A in suckedbrain.antag_datums)
+		var/datum/antagonist/antag_types = A
+		var/list/all_objectives = antag_types.objectives.Copy()
+		if(antag_types.antag_memory)
+			owner.mind.memory += "[antag_types.antag_memory]<BR>"
+		if(LAZYLEN(all_objectives))
+			owner.mind.memory += "<B>Objectives:</B>"
+			var/obj_count = 1
+			for(var/O in all_objectives)
+				var/datum/objective/objective = O
+				owner.mind.memory += "<br><B>Objective #[obj_count++]</B>: [objective.explanation_text]"
+				var/list/datum/mind/other_owners = objective.get_owners() - suckedbrain
+				if(other_owners.len)
+					owner.mind.memory += "<ul>"
+					for(var/mind in other_owners)
+						var/datum/mind/M = mind
+						owner.mind.memory += "<li>Conspirator: [M.name]</li>"
+					owner.mind.memory += "</ul>"
+	owner.mind.memory += "<b>That's all [target] had.</b><BR>"
+	owner.memory() //I can read your mind, kekeke. Output all their notes.
+
+	//Some of target's recent speech, so the changeling can attempt to imitate them better.
+	//Recent as opposed to all because rounds tend to have a LOT of text.
+
+	var/list/recent_speech = list()
+	var/list/say_log = list()
+	var/log_source = target.logging
+	for(var/log_type in log_source)
+		var/nlog_type = text2num(log_type)
+		if(nlog_type & LOG_SAY)
+			var/list/reversed = log_source[log_type]
+			if(islist(reversed))
+				say_log = reverse_range(reversed.Copy())
+				break
+
+	if(LAZYLEN(say_log) > LING_ABSORB_RECENT_SPEECH)
+		recent_speech = say_log.Copy(say_log.len-LING_ABSORB_RECENT_SPEECH+1,0) //0 so len-LING_ARS+1 to end of list
+	else
+		for(var/spoken_memory in say_log)
+			if(recent_speech.len >= LING_ABSORB_RECENT_SPEECH)
+				break
+			recent_speech[spoken_memory] = say_log[spoken_memory]
+
 	var/datum/antagonist/changeling/changeling = IS_CHANGELING(owner)
+	if(recent_speech.len && changeling)
+		changeling.antag_memory += "<B>Some of [target]'s speech patterns, we should study these to better impersonate [target.p_them()]!</B><br>"
+		to_chat(owner, span_boldnotice("Some of [target]'s speech patterns, we should study these to better impersonate [target.p_them()]!"))
+		for(var/spoken_memory in recent_speech)
+			changeling.antag_memory += "\"[recent_speech[spoken_memory]]\"<br>"
+			to_chat(owner, span_notice("\"[recent_speech[spoken_memory]]\""))
+		changeling.antag_memory += "<B>We have no more knowledge of [target]'s speech patterns.</B><br>"
+		to_chat(owner, span_boldnotice("We have no more knowledge of [target]'s speech patterns."))
+
+
 	var/datum/antagonist/changeling/target_ling = IS_CHANGELING(target)
 	if(target_ling)//If the target was a changeling, suck out their extra juice and objective points!
 		to_chat(owner, span_boldnotice("[target] was one of us. We have absorbed their power."))
