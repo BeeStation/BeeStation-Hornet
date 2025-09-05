@@ -13,14 +13,10 @@
 
 /datum/computer_file/program/gasrig_monitor/on_start(mob/user)
 	..()
-	//for error handling
-	var/rig_found = FALSE
-	for(var/obj/machinery/atmospherics/gasrig/core/C in GLOB.machines)
-		gasrig = C
-		rig_found = TRUE
+	for(var/obj/machinery/atmospherics/gasrig/core/rig_core in GLOB.machines)
+		gasrig = rig_core
 		return TRUE
-	if(!rig_found)
-		CRASH("[src] was not able to find a Gas Rig!")
+	return FALSE
 
 /datum/computer_file/program/gasrig_monitor/ui_data(mob/user)
 	if(gasrig == null)

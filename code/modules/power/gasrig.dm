@@ -1,19 +1,19 @@
-
-
-/obj/machinery/atmospherics/gasrig/core
+/obj/machinery/atmospherics/gasrig
 	name = "\improper Advanced Gas Rig"
 	desc = "This state-of-the-art gas mining rig will extend a collector down to the depths of the atmosphere below to extract all the gases a station could need."
 	icon = 'icons/obj/machines/gasrig.dmi'
 	icon_state = "gasrig_1"
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	move_resist = INFINITY
+	layer = HIGH_OBJ_LAYER
+
+/obj/machinery/atmospherics/gasrig/core
 	/// Machine starts idle unless you want it to always start active
 	use_power = IDLE_POWER_USE
 	/// What we expend when NOT harvesting gasses
 	idle_power_usage = 2 KILOWATT
 	/// Power draw when harvesting gas (increases according to depth at Y x Depth / 200) (This will always be power usage at 200 depth)
 	active_power_usage = 25 KILOWATT
-	layer = HIGH_OBJ_LAYER
-	move_resist = INFINITY
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	density = TRUE
 
 	var/depth = 0
@@ -63,40 +63,35 @@
 	var/list/dummies = list()
 
 /obj/machinery/atmospherics/gasrig/core/proc/init_inputs()
-	var/offset_loc = locate(x - 1, y, z)
-	shielding_input = new/obj/machinery/atmospherics/components/unary/gasrig/shielding_input(offset_loc, TRUE, src)
+	var/turf/offset_loc = locate(x - 1, y, z)
+	shielding_input = new /obj/machinery/atmospherics/components/unary/gasrig/shielding_input(offset_loc, TRUE, src)
 	shielding_input.dir = WEST
 	shielding_input.set_init_directions()
-	RegisterSignal(shielding_input, COMSIG_QDELETING, PROC_REF(kill_children))
 	offset_loc = locate(x + 1, y, z)
-	fracking_input = new/obj/machinery/atmospherics/components/unary/gasrig/fracking_input(offset_loc, TRUE, src)
+	fracking_input = new /obj/machinery/atmospherics/components/unary/gasrig/fracking_input(offset_loc, TRUE, src)
 	fracking_input.dir = EAST
 	fracking_input.set_init_directions()
-	RegisterSignal(fracking_input, COMSIG_QDELETING, PROC_REF(kill_children))
 	offset_loc = locate(x, y - 1, z)
-	gas_output = new/obj/machinery/atmospherics/components/unary/gasrig/gas_output(offset_loc, TRUE, src)
+	gas_output = new /obj/machinery/atmospherics/components/unary/gasrig/gas_output(offset_loc, TRUE, src)
 	gas_output.dir = SOUTH
 	gas_output.set_init_directions()
-	RegisterSignal(gas_output, COMSIG_QDELETING, PROC_REF(kill_children))
 
 /obj/machinery/atmospherics/gasrig/core/proc/init_dummies()
-	var/offset_loc = locate(x - 1, y + 1, z)
-	dummies += new/obj/machinery/atmospherics/gasrig/dummy(offset_loc, src, "gasrig_d1")
+	var/turf/offset_loc = locate(x - 1, y + 1, z)
+	dummies += new /obj/machinery/atmospherics/gasrig/dummy(offset_loc, src, "gasrig_d1")
 	offset_loc = locate(x, y + 1, z)
-	dummies += new/obj/machinery/atmospherics/gasrig/dummy(offset_loc, src, "gasrig_d2")
+	dummies += new /obj/machinery/atmospherics/gasrig/dummy(offset_loc, src, "gasrig_d2")
 	offset_loc = locate(x + 1, y + 1, z)
-	dummies += new/obj/machinery/atmospherics/gasrig/dummy(offset_loc, src, "gasrig_d3")
+	dummies += new /obj/machinery/atmospherics/gasrig/dummy(offset_loc, src, "gasrig_d3")
 	offset_loc = locate(x - 1, y - 1, z)
 
 	for(var/obj/machinery/atmospherics/gasrig/dummy/dummy in dummies)
 		dummy.layer = ABOVE_MOB_LAYER
 
-	dummies += new/obj/machinery/atmospherics/gasrig/dummy(offset_loc, src, "gasrig_d4")
+	dummies += new /obj/machinery/atmospherics/gasrig/dummy(offset_loc, src, "gasrig_d4")
 	offset_loc = locate(x + 1, y - 1, z)
-	dummies += new/obj/machinery/atmospherics/gasrig/dummy(offset_loc, src, "gasrig_d5")
+	dummies += new /obj/machinery/atmospherics/gasrig/dummy(offset_loc, src, "gasrig_d5")
 
-	for(var/obj/machinery/atmospherics/gasrig/dummy/dummy in dummies)
-		RegisterSignal(dummy, COMSIG_QDELETING, PROC_REF(kill_children))
 
 
 /obj/machinery/atmospherics/gasrig/core/Initialize(mapload)
@@ -108,15 +103,14 @@
 	init_dummies()
 	update_pipenets()
 
-/obj/machinery/atmospherics/gasrig/core/proc/kill_children()
-	Destroy()
-
 /obj/machinery/atmospherics/gasrig/core/Destroy()
-	shielding_input.Destroy()
-	fracking_input.Destroy()
-	gas_output.Destroy()
-	for(var/obj/machinery/atmospherics/gasrig/dummy/dummy in dummies)
-		dummy.Destroy()
+	if (shielding_input)
+		QDEL_NULL(shielding_input)
+	if (fracking_input)
+		QDEL_NULL(fracking_input)
+	if (gas_output)
+		QDEL_NULL(gas_output)
+	QDEL_LIST(dummies)
 	QDEL_NULL(soundloop)
 	STOP_PROCESSING(SSmachines, src)
 	return ..()
@@ -151,15 +145,13 @@
 
 /obj/machinery/atmospherics/gasrig/core/power_change()
 	. = ..()
-	if(!.)
+	if(!(.))
 		return
 	if(machine_stat & NOPOWER)
 		if(soundloop.is_active())
 			soundloop.stop()
-	else
-		if(active)
-			if(!soundloop.is_active())
-				soundloop.start()
+	else if (active && !soundloop.is_active())
+		soundloop.start()
 	update_appearance()
 
 /obj/machinery/atmospherics/gasrig/core/proc/get_shield_damage(datum/gas_mixture/air)
@@ -236,7 +228,7 @@
 /obj/machinery/atmospherics/gasrig/core/proc/approach_set_depth(delta_time)
 	var/temp_depth = get_depth()
 	if (temp_depth != set_depth)
-		if ((temp_depth < set_depth) && !needs_repairs)
+		if (temp_depth < set_depth && !needs_repairs)
 			depth += min(GASRIG_DEPTH_CHANGE_SPEED * delta_time, set_depth - temp_depth)
 		if (temp_depth > set_depth)
 			depth += max(-GASRIG_DEPTH_CHANGE_SPEED * delta_time, set_depth - temp_depth)
@@ -283,8 +275,8 @@
 				soundloop.start()
 		if(GASRIG_MODE_REPAIR)
 			//here so it only plays once
-			playsound(src.loc, 'sound/weapons/blastcannon.ogg', 100)
-			playsound(src.loc, 'sound/machines/hiss.ogg', 50)
+			playsound(src, 'sound/weapons/blastcannon.ogg', 100)
+			playsound(src, 'sound/machines/hiss.ogg', 50)
 			needs_repairs = TRUE
 			update_appearance()
 
@@ -310,19 +302,19 @@
 		balloon_alert(user, "You repair the rig's damage!")
 		return TRUE
 
-/obj/machinery/atmospherics/gasrig/core/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stack/sheet/plasteel))
-		var/obj/item/stack/sheet/plasteel/PS = I
+/obj/machinery/atmospherics/gasrig/core/attackby(obj/item/attacking_item, mob/user, params)
+	if(istype(attacking_item, /obj/item/stack/sheet/plasteel))
+		var/obj/item/stack/sheet/plasteel/plasteel_sheets = attacking_item
 		if(!needs_repairs)
 			balloon_alert(user, "No repairs needed!")
 			return
 		if(get_depth() > 0)
 			balloon_alert(user, "The rig needs to be raised to repair it!")
 			return
-		if(PS.get_amount() >= 10)
-			PS.use(10)
+		if(plasteel_sheets.get_amount() >= 10)
+			plasteel_sheets.use(10)
 			balloon_alert(user, "You replace damaged plating.")
-			playsound(src.loc, 'sound/machines/click.ogg', 75, 1)
+			playsound(src, 'sound/machines/click.ogg', 75, 1)
 			needs_repairs = FALSE
 			update_mode(GASRIG_MODE_NORMAL)
 			change_health(10)
@@ -340,22 +332,8 @@
 		ui.open()
 		ui.set_autoupdate(TRUE)
 
-/obj/machinery/atmospherics/gasrig/core/ui_data()
-	var/data = list()
-	data["depth"] = depth
-	data["set_depth"] = set_depth
-	data["max_depth"] = GASRIG_MAX_DEPTH
-	data["shield_strength"] = shield_strength
-	data["shield_strength_change"] = shield_strength_change
-	data["max_shield"] = GASRIG_MAX_SHIELD_STRENGTH
-	data["fracking_eff"] = display_efficiency
-	data["shield_eff"] = display_shield_efficiency
-	data["gas_power"] = display_gas_power
-	data["gas_modifier"] = display_gasrig_gas_modifier
-	data["max_health"] = GASRIG_MAX_HEALTH
-	data["health"] = health
-	data["active"] = active
-	data["mols_produced"] = display_mols_produced
+/obj/machinery/atmospherics/gasrig/core/ui_static_data(mob/user)
+	var/list/data = list()
 	data["o2_constants"] = GASRIG_O2
 	data["n2_constants"] = GASRIG_N2
 	data["plas_constants"] = GASRIG_PLAS
@@ -365,6 +343,25 @@
 	data["bz_constants"] =  GASRIG_BZ
 	data["plox_constants"] = GASRIG_PLOX
 	data["trit_constants"] = GASRIG_TRIT
+	data["max_health"] = GASRIG_MAX_HEALTH
+	data["max_shield"] = GASRIG_MAX_SHIELD_STRENGTH
+	data["max_depth"] = GASRIG_MAX_DEPTH
+	return data
+
+
+/obj/machinery/atmospherics/gasrig/core/ui_data(mob/user)
+	var/list/data = list()
+	data["depth"] = depth
+	data["set_depth"] = set_depth
+	data["shield_strength"] = shield_strength
+	data["shield_strength_change"] = shield_strength_change
+	data["fracking_eff"] = display_efficiency
+	data["shield_eff"] = display_shield_efficiency
+	data["gas_power"] = display_gas_power
+	data["gas_modifier"] = display_gasrig_gas_modifier
+	data["health"] = health
+	data["active"] = active
+	data["mols_produced"] = display_mols_produced
 	data["warning_message"] = get_warning()
 	return data
 
@@ -376,7 +373,8 @@
 	return null
 
 /obj/machinery/atmospherics/gasrig/core/ui_act(action, params)
-	if(..())
+	. = ..()
+	if(.)
 		return
 	ui_act_base(action, params)
 
@@ -392,17 +390,16 @@
 			set_active(!active)
 			. = TRUE
 	update_appearance()
-		//log_gasrig(usr)
 
-/obj/machinery/atmospherics/gasrig/core/proc/add_gas_to_output(var/datum/gas/to_add, var/datum/gas_mixture/air, amount, temp)
+/obj/machinery/atmospherics/gasrig/core/proc/add_gas_to_output(datum/gas/to_add, datum/gas_mixture/air, amount, temp)
 	var/datum/gas_mixture/merger = new
 	merger.assert_gas(to_add)
 	merger.gases[to_add][MOLES] = amount
 	merger.temperature = temp
 	air.merge(merger)
 
-/obj/machinery/atmospherics/gasrig/core/proc/calculate_gas_to_output(gas_constant, var/datum/gas/gas_type, var/datum/gas_mixture/air, efficiency, delta_time)
-	if(!((get_depth() >= gas_constant[1]) && (get_depth() <= gas_constant[2])))
+/obj/machinery/atmospherics/gasrig/core/proc/calculate_gas_to_output(gas_constant, datum/gas/gas_type, datum/gas_mixture/air, efficiency, delta_time)
+	if(get_depth() < gas_constant[1] || get_depth() > gas_constant[2])
 		return
 	var/difference = gas_constant[2] - gas_constant[1]
 	var/percent_rising = ((get_depth() - gas_constant[1]) / (difference/2))
@@ -422,9 +419,14 @@
 	move_resist = INFINITY
 	var/obj/machinery/atmospherics/gasrig/core/parent
 
-/obj/machinery/atmospherics/components/unary/gasrig/New(loc, booled, var/obj/machinery/atmospherics/gasrig/core/C)
+/obj/machinery/atmospherics/components/unary/gasrig/Initialize(loc, booled, obj/machinery/atmospherics/gasrig/core/C)
 	parent = C //ordered this way to prevent update_overlays from getting a null value
 	..(loc, booled)
+
+/obj/machinery/atmospherics/components/unary/gasrig/Destroy()
+    if (parent)
+        QDEL_NULL(parent)
+    return ..()
 
 /obj/machinery/atmospherics/components/unary/gasrig/welder_act(mob/living/user, obj/item/tool)
 	if(parent.welder_act(user, tool))
@@ -441,7 +443,8 @@
 		ui.set_autoupdate(TRUE)
 
 /obj/machinery/atmospherics/components/unary/gasrig/ui_act(action, params)
-	if(..())
+	. = ..()
+	if(.)
 		return
 	parent.ui_act_base(action, params)
 
@@ -481,18 +484,17 @@
 		. += emissive_appearance(initial(icon), "overlay_3_broken", layer)
 
 /obj/machinery/atmospherics/gasrig/dummy
-	name = "\improper Advanced Gas Rig"
-	desc = "This state-of-the-art gas mining rig will extend a collector down to the depths of the atmosphere below to extract all the gases a station could need."
-	icon = 'icons/obj/machines/gasrig.dmi'
-	layer = HIGH_OBJ_LAYER
 	var/obj/machinery/atmospherics/gasrig/core/parent
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	move_resist = INFINITY
 
-/obj/machinery/atmospherics/gasrig/dummy/New(loc, var/obj/machinery/atmospherics/gasrig/core/gasrig, iconstate)
+/obj/machinery/atmospherics/gasrig/dummy/Initialize(loc, obj/machinery/atmospherics/gasrig/core/gasrig, iconstate)
 	..(loc)
 	parent = gasrig
 	icon_state = iconstate
+
+/obj/machinery/atmospherics/gasrig/dummy/Destroy()
+    if (parent)
+        QDEL_NULL(parent)
+    return ..()
 
 /obj/machinery/atmospherics/gasrig/dummy/welder_act(mob/living/user, obj/item/tool)
 	if(parent.welder_act(user, tool))
@@ -505,14 +507,16 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "AtmosGasRig")
-		ui.open()
 		ui.set_autoupdate(TRUE)
+		ui.open()
+
 
 /obj/machinery/atmospherics/gasrig/dummy/ui_data()
 	return parent.ui_data()
 
 /obj/machinery/atmospherics/gasrig/dummy/ui_act(action, params)
-	if(..())
+	. = ..()
+	if(.)
 		return
 	parent.ui_act_base(action, params)
 

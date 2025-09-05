@@ -111,13 +111,12 @@ const GasHandbook = (props) => {
             {'Specific heat: ' + relevantGas.specific_heat + ' Joule/KelvinMol'}
           </Box>
           <Box mb="0.5em">
-            {' Gas shielding power: ' +
+            {'Gas shielding power: ' +
               relevantGas.gasrig_shielding_power +
               '/mol'}
           </Box>
           <Box mb="0.5em">
-            {' Gas shielding modifier: ' +
-              relevantGas.gasrig_shielding_modifier}
+            {'Gas shielding modifier: ' + relevantGas.gasrig_shielding_modifier}
           </Box>
           <Box mb="0.5em">{'Relevant Reactions:'}</Box>
           {Object.entries(relevantGas.reactions).map(
