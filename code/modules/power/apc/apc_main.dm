@@ -125,9 +125,6 @@
 	//Clockcult - The integration cog inserted inside of us
 	var/integration_cog = null
 
-	/// To prevent sound loop bugs
-	var/apc_sound_stage = null
-
 	armor_type = /datum/armor/power_apc
 
 /datum/armor/power_apc
@@ -535,20 +532,16 @@
 
 	// The following math salad handles channel activation based on cell percent and if its charge plus surplus can meet the channels demand
 	// TODO: Not having it require cell
-	if(cell.percent() > 65 && (surplus() + cell.charge - (environ_power_req + equip_power_req)) > light_power_req)
-		lighting = autoset(lighting, AUTOSET_ON)
-		alarm_manager.clear_alarm(ALARM_POWER)
-	else
-		lighting = autoset(lighting, AUTOSET_FORCE_OFF)
-		alarm_manager.send_alarm(ALARM_POWER)
-	if(cell.percent() >= 50 && (surplus() + cell.charge - environ_power_req) > equip_power_req)
-		equipment = autoset(equipment, AUTOSET_ON)
-	else
-		equipment = autoset(equipment, AUTOSET_FORCE_OFF)
-	if(cell.percent() > 15 && (surplus() + cell.charge) > environ_power_req)
-		environ = autoset(environ, AUTOSET_ON)
-	else
-		environ = autoset(environ, AUTOSET_FORCE_OFF)
+	lighting = update_channel(lighting, light_power_req,
+		(cell.percent() > 65 && (surplus() + cell.charge - (environ_power_req + equip_power_req)) > light_power_req),
+		(environ_power_req + equip_power_req),
+		TRUE) // only lighting triggers alarms
+
+	equipment = update_channel(equipment, equip_power_req,
+		(cell.percent() >= 50 && (surplus() + cell.charge - environ_power_req) > equip_power_req), environ_power_req, FALSE)
+
+	environ = update_channel(environ, environ_power_req,
+		(cell.percent() > 15 && (surplus() + cell.charge) > environ_power_req), 0, FALSE)
 
 	if(cell && !shorted) //need to check to make sure the cell is still there since rigged cells can randomly explode after use().
 		var/surplus_used = min(surplus(), lastused_total)	//Here we're using the powernet to meet demand
@@ -583,20 +576,6 @@
 			GLOB.clockcult_power += power_delta
 			cell.charge -= power_delta
 
-		/// Sounds for power off and on stages in APCs
-		if(ISINRANGE(cell.percent(), 14, 16) && charging == APC_NOT_CHARGING && apc_sound_stage != 1)
-			playsound(src, 'sound/machines/apc/PowerSwitch_Place.ogg', 20, 1)
-			apc_sound_stage = 1
-		if(ISINRANGE(cell.percent(), 29, 31) && charging == APC_NOT_CHARGING && apc_sound_stage != 2)
-			playsound(src, 'sound/machines/apc/PowerSwitch_Off.ogg', 10, 1)
-			apc_sound_stage = 2
-		if(ISINRANGE(cell.percent(), 1, 3) && charging == APC_NOT_CHARGING  && apc_sound_stage != 3)
-			playsound(src, 'sound/machines/apc/PowerDown_001.ogg', 10, 1)
-			apc_sound_stage = 3
-		if(ISINRANGE(cell.percent(), 1, 3) && charging == APC_CHARGING && apc_sound_stage != 4)
-			playsound(src, 'sound/machines/apc/PowerUp_001.ogg', 10, 1)
-			apc_sound_stage = 4
-
 	else // wanted to redo this but cell-less APC needs a big refactor everywhere else so this stays for now
 		charging = APC_NOT_CHARGING
 		equipment = autoset(equipment, AUTOSET_FORCE_OFF)
@@ -611,6 +590,24 @@
 		update()
 	else if(last_ch != charging)
 		queue_icon_update()
+
+/obj/machinery/power/apc/proc/update_channel(current, req, threshold, autoset_threshold, alarm_channel)
+	// No power AND cant meet demand even with surplus - force off
+	if(cell.percent() == 0 && (surplus() + cell.charge - autoset_threshold) < req)
+		if(alarm_channel)
+			alarm_manager.send_alarm(ALARM_POWER)
+		return autoset(current, AUTOSET_FORCE_OFF)
+
+	// Threshold met - allow ON
+	if(threshold)
+		if(alarm_channel)
+			alarm_manager.clear_alarm(ALARM_POWER)
+		return autoset(current, AUTOSET_ON)
+
+	// Otherwise - OFF
+	if(alarm_channel)
+		alarm_manager.send_alarm(ALARM_POWER)
+	return autoset(current, AUTOSET_OFF)
 
 /*Power module, used for APC construction*/
 /obj/item/electronics/apc
