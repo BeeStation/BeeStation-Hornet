@@ -88,12 +88,28 @@
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/rank/civilian/hydroponics
-	desc = "It's a jumpsuit designed to protect against minor plant-related hazards."
-	name = "botanist's jumpsuit"
+	desc = "A comfortable pair of shorts and shirt to wear under an apron."
+	name = "botanist's outfit"
 	icon_state = "hydroponics"
 	item_state = "g_suit"
 	armor_type = /datum/armor/civilian_hydroponics
 
+/obj/item/clothing/under/rank/civilian/hydroponics/original
+	desc = "It's a jumpsuit designed to protect against minor plant-related hazards."
+	name = "botanist's  jumpsuit"
+	icon_state = "hydroponics_og"
+	armor_type = /datum/armor/civilian_hydroponics
+
+/obj/item/clothing/under/rank/civilian/hydroponics/original/skirt
+	name = "botanist's jumpskirt"
+	desc = "It's a jumpskirt designed to protect against minor plant-related hazards."
+	icon_state = "hydroponics_og_skirt"
+	item_state = "b_suit"
+	body_parts_covered = CHEST|GROIN|ARMS
+	can_adjust = FALSE
+	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
+	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
+	dying_key = DYE_REGISTRY_JUMPSKIRT
 
 /datum/armor/civilian_hydroponics
 	bio = 50
