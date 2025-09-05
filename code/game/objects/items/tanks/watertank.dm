@@ -380,7 +380,7 @@
 	var/resin_cost = 100 //How many reagents are used per resin launch
 	var/max_foam = 5 //Controls the amout of foam the nozzle can output at once
 	var/toggled = FALSE //Used for the advanced resin
-	var/fill_icon_thresholds = FILL_ICON_THRESHOLDS
+	var/static/list/fill_icon_thresholds = FILL_ICON_THRESHOLDS
 	COOLDOWN_DECLARE(resin_cooldown)
 
 /obj/item/extinguisher/mini/nozzle/Initialize(mapload)
