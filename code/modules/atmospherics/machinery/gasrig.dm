@@ -145,7 +145,7 @@
 
 /obj/machinery/atmospherics/gasrig/core/power_change()
 	. = ..()
-	if(!(.))
+	if(!.)
 		return
 	if(machine_stat & NOPOWER)
 		if(soundloop.is_active())
@@ -173,12 +173,13 @@
 	display_gas_power = gas_power
 	display_gasrig_gas_modifier = aver_gas_modifier
 
-	aver_gas_modifier = max(0.1, min(aver_gas_modifier, 1)) //clamp the gas modifier so shielding power of a gas is never zero
+	aver_gas_modifier = clamp(aver_gas_modifier, 0.1, 1) //clamp the gas modifier so shielding power of a gas is never zero
 
 	var/temp_shield = (((gas_power) * log(10, total_moles * GASRIG_SHIELD_MOL_LOG_MULTIPLER)) * aver_gas_modifier) + GASRIG_NATURAL_SHIELD_RECOVERY
 	display_shield_efficiency = temp_shield
 	shield_strength_change = temp_shield - (get_depth() * GASRIG_DEPTH_SHIELD_DAMAGE_MULTIPLIER)
-	shield_strength = max(min(shield_strength + shield_strength_change, GASRIG_MAX_SHIELD_STRENGTH), 0)
+	shield_strength = clamp(shield_strength + shield_strength_change, 0, GASRIG_MAX_SHIELD_STRENGTH)
+
 
 /obj/machinery/atmospherics/gasrig/core/proc/produce_gases(datum/gas_mixture/air, delta_time)
 	var/efficiency = get_fracking_efficiency(fracking_input.airs[1])
@@ -201,12 +202,13 @@
 /obj/machinery/atmospherics/gasrig/core/proc/get_fracking_efficiency(datum/gas_mixture/air)
 	var/datum/gas_mixture/temp_air = new
 	air.release_gas_to(temp_air, air.return_pressure() / 2, 1)
-	var/temp_eff = log(10, (temp_air.return_pressure() * temp_air.total_moles()) + 10/* to prevent efficiency ever being below 1 */)
+	// to prevent efficiency ever being below 1
+	var/temp_eff = log(10, (temp_air.return_pressure() * temp_air.total_moles()) + 10)
 	display_efficiency = temp_eff
 	return temp_eff
 
 /obj/machinery/atmospherics/gasrig/core/proc/change_health(amount)
-	health = max(min(health + amount, GASRIG_MAX_HEALTH), 0)
+	health = clamp(health + amount, 0, GASRIG_MAX_HEALTH)
 
 
 /obj/machinery/atmospherics/gasrig/core/proc/get_damage(delta_time)
@@ -215,9 +217,9 @@
 
 	change_health(-5)
 
-	if(!needs_repairs)
-		if(DT_PROB(50, delta_time))
-			playsound(src.loc, 'sound/machines/apc/PowerSwitch_Cover.ogg', 75, 1)
+	if(!needs_repairs && DT_PROB(50, delta_time))
+        playsound(src.loc, 'sound/machines/apc/PowerSwitch_Cover.ogg', 75, 1)
+
 	if (health <= 0)
 		update_mode(GASRIG_MODE_REPAIR)
 
@@ -418,8 +420,8 @@
 	move_resist = INFINITY
 	var/obj/machinery/atmospherics/gasrig/core/parent
 
-/obj/machinery/atmospherics/components/unary/gasrig/Initialize(mapload, obj/machinery/atmospherics/gasrig/core/C)
-	parent = C //ordered this way to prevent update_overlays from getting a null value
+/obj/machinery/atmospherics/components/unary/gasrig/Initialize(mapload, obj/machinery/atmospherics/gasrig/core/gas_rig)
+	parent = gas_rig //ordered this way to prevent update_overlays from getting a null value
 	. = ..()
 
 /obj/machinery/atmospherics/components/unary/gasrig/Destroy()
@@ -432,7 +434,7 @@
 		return TRUE
 
 /obj/machinery/atmospherics/components/unary/gasrig/attackby(obj/item/I, mob/user, params)
-	parent.attackby(I, user, params)
+	return parent.attackby(I, user, params)
 
 /obj/machinery/atmospherics/components/unary/gasrig/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -503,7 +505,7 @@
 		return TRUE
 
 /obj/machinery/atmospherics/gasrig/dummy/attackby(obj/item/I, mob/user, params)
-	parent.attackby(I, user, params)
+	return parent.attackby(I, user, params)
 
 /obj/machinery/atmospherics/gasrig/dummy/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
