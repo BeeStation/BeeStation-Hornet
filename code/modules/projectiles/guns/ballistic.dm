@@ -309,8 +309,8 @@
 	// Accepts an ammo casing or a raw value/list and returns TRUE if any overlap with src.caliber
 	var/list/incoming
 	if (istype(A, /obj/item/ammo_casing))
-		var/obj/item/ammo_casing/Ammo = A
-		incoming = islist(Ammo.caliber) ? Ammo.caliber : list(Ammo.caliber)
+		var/obj/item/ammo_casing/ammo = A
+		incoming = islist(ammo.caliber) ? ammo.caliber : list(ammo.caliber)
 	else if (islist(A))
 		incoming = A
 	else
