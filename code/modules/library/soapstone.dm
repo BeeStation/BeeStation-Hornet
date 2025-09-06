@@ -147,7 +147,7 @@
 	creator_name = user.real_name
 	creator_key = user.ckey
 	realdate = world.realtime
-	map = SSmapping.config.map_name
+	map = SSmapping.current_map.map_name
 	update_icon()
 
 /obj/structure/chisel_message/update_icon()
@@ -162,7 +162,7 @@
 	data["creator_name"] = creator_name
 	data["creator_key"] = creator_key
 	data["realdate"] = realdate
-	data["map"] = SSmapping.config.map_name
+	data["map"] = SSmapping.current_map.map_name
 	data["x"] = original_turf.x
 	data["y"] = original_turf.y
 	data["z"] = original_turf.z

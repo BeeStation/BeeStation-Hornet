@@ -221,7 +221,7 @@ GLOBAL_DATUM(narsie, /obj/eldritch/narsie)
 	return clashing
 
 /proc/ending_helper()
-	SSticker.force_ending = 1
+	SSticker.force_ending = FORCE_END_ROUND
 
 /proc/cult_ending_helper(var/no_explosion = 0)
 	if(no_explosion)

@@ -156,7 +156,7 @@
 		if(alert(usr, "This will end the round, are you SURE you want to do this?", "Confirmation", "Yes", "No") == "Yes")
 			if(alert(usr, "Final Confirmation: End the round NOW?", "Confirmation", "Yes", "No") == "Yes")
 				message_admins(span_adminnotice("[key_name_admin(src.owner)] has ended the round."))
-				SSticker.force_ending = 1 //Yeah there we go APC destroyed mission accomplished
+				SSticker.force_ending = ADMIN_FORCE_END_ROUND //Yeah there we go APC destroyed mission accomplished
 				return
 			else
 				message_admins(span_adminnotice("[key_name_admin(src.owner)] decided against ending the round."))
