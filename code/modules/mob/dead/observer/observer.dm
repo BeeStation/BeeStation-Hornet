@@ -29,6 +29,10 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 	var/started_as_observer //This variable is set to 1 when you enter the game as an observer.
 							//If you died in the game and are a ghsot - this will remain as null.
 							//Note that this is not a reliable way to determine if admins started as observers, since they change mobs a lot.
+	// Has ssticker identified us as a respawn canditate and updated our status?
+	var/respawn_notified = FALSE
+	// Are we able to respawn?
+	var/respawn_available = FALSE
 	var/atom/movable/following = null
 	var/fun_verbs = 0
 	var/image/ghostimage_default = null //this mobs ghost image without accessories and dirs
@@ -300,8 +304,16 @@ Works together with spawning an observer, noted above.
 			stop_sound_channel(CHANNEL_HEARTBEAT) //Stop heartbeat sounds because You Are A Ghost Now
 			var/mob/dead/observer/ghost = new(src)	// Transfer safety to observer spawning proc.
 			SStgui.on_transfer(src, ghost) // Transfer NanoUIs.
+
 			ghost.can_reenter_corpse = can_reenter_corpse
 			ghost.key = key
+
+			//If we cannot re-enter we note the time of conceptual death in player details.
+			if(can_reenter_corpse)
+				ghost.client?.player_details.time_of_death = ghost.mind?.current ? mind.current.timeofdeath : world.time
+			else
+				ghost.client.player_details.time_of_death = world.time
+
 			return ghost
 
 /*
