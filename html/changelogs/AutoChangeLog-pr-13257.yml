@@ -1,5 +1,0 @@
-author: Rukofamicom
-delete-after: true
-changes:
-  - bugfix: Goliath lava boats now work again by properly accepting the oar they need
-      to function

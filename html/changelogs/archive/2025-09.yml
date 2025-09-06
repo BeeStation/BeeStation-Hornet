@@ -16,3 +16,7 @@
 2025-09-05:
   TsunamiAnt:
   - bugfix: fixed the power monitor graph
+2025-09-06:
+  Rukofamicom:
+  - bugfix: Goliath lava boats now work again by properly accepting the oar they need
+      to function
