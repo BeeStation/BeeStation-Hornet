@@ -336,7 +336,7 @@
 
 		power_data["name"] = power.name
 		power_data["explanation"] = power.power_explanation
-		power_data["icon"] = power.__temp_icon__
+		power_data["icon"] = power.background_icon
 		power_data["icon_state"] = power.button_icon_state
 
 		power_data["cost"] = power.bloodcost ? power.bloodcost : "0"

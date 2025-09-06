@@ -43,7 +43,7 @@
 	var/transparent_when_unavailable = TRUE
 
 	/// This is the file for the BACKGROUND underlay icon of the button
-	var/__temp_icon__ = 'icons/hud/actions/backgrounds.dmi'
+	var/background_icon = 'icons/hud/actions/backgrounds.dmi'
 	/// This is the icon state state for the BACKGROUND icon of the button
 	/// (If set to ACTION_BUTTON_DEFAULT_BACKGROUND, uses the hud's default background)
 	var/background_icon_state = ACTION_BUTTON_DEFAULT_BACKGROUND
@@ -365,8 +365,8 @@
 			if(button.icon_state != settings["bg_state"])
 				button.icon_state = settings["bg_state"]
 		else
-			if(button.icon != __temp_icon__)
-				button.icon = __temp_icon__
+			if(button.icon != background_icon)
+				button.icon = background_icon
 			if(button.icon_state != background_icon_state)
 				button.icon_state = background_icon_state
 

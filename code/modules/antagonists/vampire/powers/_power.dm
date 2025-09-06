@@ -1,7 +1,7 @@
 /datum/action/vampire
 	name = "Vampiric Gift"
 	desc = "A vampiric gift."
-	__temp_icon__ = 'icons/vampires/actions_vampire.dmi'
+	background_icon = 'icons/vampires/actions_vampire.dmi'
 	background_icon_state = "vamp_power_off"
 	button_icon = 'icons/vampires/actions_vampire.dmi'
 	button_icon_state = "power_feed"
