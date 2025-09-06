@@ -6,7 +6,7 @@
 	invocation = "CLU WO'NIS CA'TE'BEST'IS MAXIMUS!"
 	invocation_type = INVOCATION_SHOUT
 	cast_range = 3
-	icon_icon = 'icons/obj/clothing/masks.dmi'
+	button_icon = 'icons/obj/clothing/masks.dmi'
 	ranged_mousepointer = 'icons/effects/mouse_pointers/cluwne.dmi'
 	button_icon_state = "cluwne"
 

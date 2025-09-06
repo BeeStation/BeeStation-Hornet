@@ -666,7 +666,7 @@
 /datum/action/toggle_scope_zoom
 	name = "Toggle Scope"
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_LYING
-	icon_icon = 'icons/hud/actions/actions_items.dmi'
+	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "sniper_zoom"
 	var/obj/item/gun/gun = null
 

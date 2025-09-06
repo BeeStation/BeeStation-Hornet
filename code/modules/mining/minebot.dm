@@ -495,13 +495,13 @@
 /datum/action/innate/minedrone
 	button_icon_state = null
 	check_flags = AB_CHECK_CONSCIOUS
-	icon_icon = 'icons/hud/actions/actions_mecha.dmi'
+	button_icon = 'icons/hud/actions/actions_mecha.dmi'
 	background_icon_state = "bg_default"
 
 /// Toggles a minebot's inbuilt meson scanners.
 /datum/action/innate/minedrone/toggle_meson_vision
 	name = "Toggle Meson Vision"
-	icon_icon = 'icons/obj/clothing/glasses.dmi'
+	button_icon = 'icons/obj/clothing/glasses.dmi'
 	button_icon_state = "trayson-"
 
 /datum/action/innate/minedrone/toggle_meson_vision/on_activate()

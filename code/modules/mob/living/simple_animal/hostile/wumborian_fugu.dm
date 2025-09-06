@@ -64,7 +64,7 @@
 
 /datum/action/innate/fugu
 	button_icon_state = null
-	icon_icon = 'icons/hud/actions/actions_animal.dmi'
+	button_icon = 'icons/hud/actions/actions_animal.dmi'
 
 /datum/action/innate/fugu/expand
 	name = "Inflate"

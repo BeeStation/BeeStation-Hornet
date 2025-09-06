@@ -154,7 +154,7 @@
 /datum/action/spell/night_vision/revenant
 	name = "Toggle Darkvision"
 	background_icon_state = "bg_revenant"
-	icon_icon = 'icons/hud/actions/actions_revenant.dmi'
+	button_icon = 'icons/hud/actions/actions_revenant.dmi'
 	button_icon_state = "r_nightvision"
 	toggle_span = "revennotice"
 
@@ -170,7 +170,7 @@
 
 /datum/action/spell/aoe/revenant
 	background_icon_state = "bg_revenant"
-	icon_icon = 'icons/hud/actions/actions_revenant.dmi'
+	button_icon = 'icons/hud/actions/actions_revenant.dmi'
 	button_icon_state = "r_default"
 	antimagic_flags = MAGIC_RESISTANCE_HOLY
 	spell_requirements = NONE
@@ -437,7 +437,7 @@
 	name = "Revenant Teleport"
 	desc = "Brings you to a location of your choosing on the station"
 	background_icon_state = "bg_revenant"
-	icon_icon = 'icons/hud/actions/actions_revenant.dmi'
+	button_icon = 'icons/hud/actions/actions_revenant.dmi'
 	button_icon_state = "r_teleport"
 	post_teleport_sound = 'sound/magic/voidblink.ogg'
 	cooldown_time = 10 SECONDS
@@ -457,7 +457,7 @@
 	name = "Phase Shift"
 	desc = "Shift in and out of your corporeal form"
 	background_icon_state = "bg_revenant"
-	icon_icon = 'icons/hud/actions/actions_revenant.dmi'
+	button_icon = 'icons/hud/actions/actions_revenant.dmi'
 	button_icon_state = "r_phase"
 
 /datum/action/revenant_phase_shift/on_activate(mob/user)

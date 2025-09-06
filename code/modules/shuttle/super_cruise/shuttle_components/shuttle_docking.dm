@@ -380,7 +380,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/ai_eye/remote/shuttle_docker)
 
 /datum/action/innate/shuttledocker_rotate
 	name = "Rotate"
-	icon_icon = 'icons/hud/actions/actions_mecha.dmi'
+	button_icon = 'icons/hud/actions/actions_mecha.dmi'
 	button_icon_state = "mech_cycle_equip_off"
 
 /datum/action/innate/shuttledocker_rotate/on_activate()
@@ -393,7 +393,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/ai_eye/remote/shuttle_docker)
 
 /datum/action/innate/shuttledocker_place
 	name = "Place"
-	icon_icon = 'icons/hud/actions/actions_mecha.dmi'
+	button_icon = 'icons/hud/actions/actions_mecha.dmi'
 	button_icon_state = "mech_zoom_off"
 
 /datum/action/innate/shuttledocker_place/on_activate()

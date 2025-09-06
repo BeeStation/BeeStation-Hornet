@@ -3,7 +3,7 @@
 	desc = "This spell allows you to pierce through reality and connect minds to one another \
 		via your Mansus Link. All minds connected to your Mansus Link will be able to communicate discreetly across great distances."
 	background_icon_state = "bg_heretic"
-	icon_icon = 'icons/hud/actions/actions_ecult.dmi'
+	button_icon = 'icons/hud/actions/actions_ecult.dmi'
 	button_icon_state = "mansus_link"
 	ranged_mousepointer = 'icons/effects/mouse_pointers/throw_target.dmi'
 
@@ -67,7 +67,7 @@
 	name = "Mansus Link"
 	desc = "Send a psychic message to everyone connected to your Mansus Net."
 	button_icon_state = "link_speech"
-	icon_icon = 'icons/hud/actions/actions_slime.dmi'
+	button_icon = 'icons/hud/actions/actions_slime.dmi'
 	background_icon_state = "bg_heretic"
 	/// The raw prophet that hosts our link.
 	var/mob/living/simple_animal/hostile/heretic_summon/raw_prophet/originator

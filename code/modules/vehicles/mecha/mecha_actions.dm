@@ -8,7 +8,7 @@
 
 
 /datum/action/vehicle/sealed/mecha
-	icon_icon = 'icons/hud/actions/actions_mecha.dmi'
+	button_icon = 'icons/hud/actions/actions_mecha.dmi'
 	var/obj/vehicle/sealed/mecha/chassis
 
 /datum/action/vehicle/sealed/mecha/Destroy()

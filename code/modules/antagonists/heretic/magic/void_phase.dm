@@ -4,7 +4,7 @@
 		around your pointed destination and your current location. \
 		It has a minimum range of 3 tiles and a maximum range of 9 tiles."
 	background_icon_state = "bg_heretic"
-	icon_icon = 'icons/hud/actions/actions_ecult.dmi'
+	button_icon = 'icons/hud/actions/actions_ecult.dmi'
 	button_icon_state = "voidblink"
 	ranged_mousepointer = 'icons/effects/mouse_pointers/throw_target.dmi'
 

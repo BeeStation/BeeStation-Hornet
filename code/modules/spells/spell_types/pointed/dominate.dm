@@ -3,7 +3,7 @@
 	desc = "This spell dominates the mind of a lesser creature to the will of Nar'Sie, \
 		allying it only to her direct followers."
 	background_icon_state = "bg_demon"
-	icon_icon = 'icons/hud/actions/actions_cult.dmi'
+	button_icon = 'icons/hud/actions/actions_cult.dmi'
 	button_icon_state = "dominate"
 	ranged_mousepointer = 'icons/effects/mouse_pointers/cult_target.dmi'
 

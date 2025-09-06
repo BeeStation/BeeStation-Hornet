@@ -49,7 +49,7 @@
 	var/background_icon_state = ACTION_BUTTON_DEFAULT_BACKGROUND
 
 	/// This is the file for the icon that appears OVER the button background
-	var/icon_icon = 'icons/hud/actions.dmi'
+	var/button_icon = 'icons/hud/actions.dmi'
 	/// This is the icon state for the icon that appears OVER the button background
 	var/button_icon_state = "default"
 
@@ -388,9 +388,9 @@
 
 /// Applies our button icon over top the background icon of the action
 /datum/action/proc/apply_icon(atom/movable/screen/movable/action_button/current_button, force = FALSE)
-	if(icon_icon && button_icon_state && ((current_button.button_icon_state != button_icon_state) || force))
+	if(button_icon && button_icon_state && ((current_button.button_icon_state != button_icon_state) || force))
 		current_button.cut_overlays(TRUE)
-		current_button.add_overlay(mutable_appearance(icon_icon, button_icon_state))
+		current_button.add_overlay(mutable_appearance(button_icon, button_icon_state))
 		current_button.button_icon_state = button_icon_state
 
 /datum/action/proc/update_cooldown_icon(atom/movable/screen/movable/action_button/button, force = FALSE)

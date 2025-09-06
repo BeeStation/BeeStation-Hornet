@@ -27,7 +27,7 @@
 	//generate_possible_icon_states_list("your/folder/path/")
 	var/list/bad_list = list()
 	for(var/datum/action/action_path as anything in subtypesof(/datum/action))
-		var/icon = initial(action_path.icon_icon)
+		var/icon = initial(action_path.button_icon)
 		if(isnull(icon))
 			continue
 		var/icon_state = initial(action_path.button_icon_state)

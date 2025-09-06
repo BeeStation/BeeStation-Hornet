@@ -72,7 +72,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_prism)
 
 /datum/action/item_action/change_prism_colour
 	name = "Adjust Prismatic Lens"
-	icon_icon = 'icons/obj/slimecrossing.dmi'
+	button_icon = 'icons/obj/slimecrossing.dmi'
 	button_icon_state = "prismcolor"
 
 /datum/action/item_action/change_prism_colour/on_activate(mob/user, atom/target)
@@ -84,7 +84,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_prism)
 
 /datum/action/item_action/place_light_prism
 	name = "Fabricate Light Prism"
-	icon_icon = 'icons/obj/slimecrossing.dmi'
+	button_icon = 'icons/obj/slimecrossing.dmi'
 	button_icon_state = "lightprism"
 
 /datum/action/item_action/place_light_prism/on_activate(mob/user, atom/target)

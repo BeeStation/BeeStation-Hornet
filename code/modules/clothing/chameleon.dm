@@ -2,7 +2,7 @@
 
 /datum/action/item_action/chameleon/drone/randomise
 	name = "Randomise Headgear"
-	icon_icon = 'icons/hud/actions/actions_items.dmi'
+	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "random"
 
 /datum/action/item_action/chameleon/drone/randomise/on_activate(mob/user, atom/target)
@@ -17,7 +17,7 @@
 
 /datum/action/item_action/chameleon/drone/togglehatmask
 	name = "Toggle Headgear Mode"
-	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
+	button_icon = 'icons/hud/actions/actions_silicon.dmi'
 
 /datum/action/item_action/chameleon/drone/togglehatmask/New(master)
 	..()
@@ -722,7 +722,7 @@
 
 /datum/action/item_action/chameleon/tongue_change
 	name = "Tongue Change"
-	icon_icon = 'icons/obj/surgery.dmi'
+	button_icon = 'icons/obj/surgery.dmi'
 	button_icon_state = "tonguebone"
 	var/static/list/tongue_list
 
