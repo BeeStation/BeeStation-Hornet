@@ -110,7 +110,7 @@
 			H.open_internals(H.get_item_for_held_index(2))
 
 /datum/species/plasmaman/give_important_for_life(mob/living/carbon/human/human_to_equip)
-	..()
+	. = ..()
 	human_to_equip.open_internals(human_to_equip.get_item_for_held_index(2))
 
 /datum/species/plasmaman/qualifies_for_rank(rank, list/features)
