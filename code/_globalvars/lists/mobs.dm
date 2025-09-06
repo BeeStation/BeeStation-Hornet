@@ -43,6 +43,7 @@ GLOBAL_LIST_EMPTY(all_mimites)				//all mimites and their subtypes
 GLOBAL_LIST_EMPTY(bots_list)
 GLOBAL_LIST_EMPTY(ai_eyes)
 GLOBAL_LIST_EMPTY(suit_sensors_list) 		//all people with suit sensors on
+GLOBAL_LIST_EMPTY(unique_connected_keys)	//All ckeys that have connected at any point in the game
 
 GLOBAL_LIST_EMPTY(language_datum_instances)
 GLOBAL_LIST_EMPTY(all_languages)
