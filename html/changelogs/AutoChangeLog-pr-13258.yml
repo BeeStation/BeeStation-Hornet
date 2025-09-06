@@ -1,8 +1,0 @@
-author: r1ks-iwnl
-delete-after: true
-changes:
-  - bugfix: Changeling's Last Resort no longer traps you as a monkey forever(The human
-      form button is visible again)
-  - bugfix: Changeling's Lesser Form no longer traps you as a monkey forever(The human
-      form button is visible again)
-  - bugfix: Changeling's chem HUD disappearing forever after you turn into a monkey

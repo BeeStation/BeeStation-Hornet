@@ -1,6 +1,0 @@
-author: lord scrubling
-delete-after: true
-changes:
-  - bugfix: Anomaly cores are no longer all blue
-  - bugfix: Cores from diffused anomalies fit in anomaly modsuit modules
-  - bugfix: The threadripper modsuit module is no longer visible even when not selected

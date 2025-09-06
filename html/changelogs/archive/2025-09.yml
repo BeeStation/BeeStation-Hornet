@@ -17,6 +17,53 @@
   TsunamiAnt:
   - bugfix: fixed the power monitor graph
 2025-09-06:
+  Powerfulbacon (sprites), Rukofamicom:
+  - rscdel: Removed block levels from all items. Items that can block will block the
+      tiles directly and diagonally in front of you. Attacks from the sides or rear
+      diagonals will bypass blocking attempts. Walk/Run no longer has any impact on
+      your ability to block.
+  - balance: Blocking with a weapon now has a two second cooldown unless you were
+      blocking projectiles, and it also triggers your melee attack cooldown slowing
+      your next attack. Blocking with a weapon will also fail if you have more than
+      45 stamina damage.
+  - balance: Blocking with shields now results in faster stamina damage buildup, and
+      the shield will be sent flying from your hand at more than 45 stamina damage
+  - balance: Blocking an incoming melee attack has entirely new calculations that
+      follow the same spirit as the old ones but with less extreme outcomes. Sharp
+      and non-brute weapons are easier to block than blunt ones.
+  - tweak: blocking stamina is no longer limb based
+  - tweak: 'Added or changed blocking capabilities and/or damage stats of the following
+      weapons. Examine them in-game for more details: Many nullrod options, Rod of
+      Asclepius (activated), energy swords, scythes, spears, proto-kinetic accelerator,
+      mime traitor baguette, mops, teleprods, ghost sword.'
+  - rscadd: three new blocking flags that will be revealed on examining weapons. The
+      flags are BLOCKING_COUNTERATTACK which does what it sounds like, BLOCKING_UNBALANCE
+      for long weapons which trips your opponent and delays their next attack, and
+      BLOCKING_UNBLOCKABLE which can only be blocked by itself and is reserved for
+      magical or energy weapons and energy shields.
+  - rscadd: Adds the Carbon Fiber Saber to security lockers scattered across the station.
+      This item is nearly identical to the captain's saber, but has much less armor
+      penetration and normal sharpness.
+  - bugfix: Fixes energy shield in-hand sprites so that they are now visible in player
+      hands again
+  - bugfix: Fixes energy shields functionality as well - they would never recharge,
+      but this may have gone unnoticed because they also weren't required to charge
+      before being deployed again.
+  - tweak: Energy shields are now much cheaper (5 TC) and available in regular uplinks
+      instead of only nuclear operative uplinks. This extends to the bananium shield
+      being cheaper for clowns as well.
   Rukofamicom:
   - bugfix: Goliath lava boats now work again by properly accepting the oar they need
       to function
+  lord scrubling:
+  - bugfix: Anomaly cores are no longer all blue
+  - bugfix: Cores from diffused anomalies fit in anomaly modsuit modules
+  - bugfix: The threadripper modsuit module is no longer visible even when not selected
+  mrmanlikesbt, lizardqueenlexi:
+  - bugfix: fixed cursed hearts
+  r1ks-iwnl:
+  - bugfix: Changeling's Last Resort no longer traps you as a monkey forever(The human
+      form button is visible again)
+  - bugfix: Changeling's Lesser Form no longer traps you as a monkey forever(The human
+      form button is visible again)
+  - bugfix: Changeling's chem HUD disappearing forever after you turn into a monkey
