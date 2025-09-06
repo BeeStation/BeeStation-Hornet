@@ -79,7 +79,7 @@
 
 /obj/item/gun/energy/beam_rifle/debug
 	delay = 0
-	cell_type = /obj/item/stock_parts/cell/infinite
+	gun_charge = 500 GIGAWATT // Something completely absurd (infinite)
 	aiming_time = 0
 	recoil = 0
 	pin = /obj/item/firing_pin
