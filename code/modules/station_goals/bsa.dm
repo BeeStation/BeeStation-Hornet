@@ -376,7 +376,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 	data["unlocked"] = GLOB.bsa_unlock
 	data["charge"] = cannon ? cannon.cell.charge : 0
 	data["max_charge"] = cannon ? cannon.cell.maxcharge : 0
-	data["formatted_charge"] = cannon ? display_power(cannon.cell.charge) : "0 A"
+	data["formatted_charge"] = cannon ? display_power(cannon.cell.charge) : "0 W"
 	data["targets"] = get_available_targets()
 	if(target_ref?.resolve())
 		data["target_ref"] = FAST_REF(target)
