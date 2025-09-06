@@ -423,9 +423,9 @@
 	. = ..()
 
 /obj/machinery/atmospherics/components/unary/gasrig/Destroy()
-    if (parent)
-        QDEL_NULL(parent)
-    return ..()
+	if (parent)
+		QDEL_NULL(parent)
+	return ..()
 
 /obj/machinery/atmospherics/components/unary/gasrig/welder_act(mob/living/user, obj/item/tool)
 	if(parent.welder_act(user, tool))
@@ -494,9 +494,9 @@
 	icon_state = iconstate
 
 /obj/machinery/atmospherics/gasrig/dummy/Destroy()
-    if (parent)
-        QDEL_NULL(parent)
-    return ..()
+	if (parent)
+		QDEL_NULL(parent)
+	return ..()
 
 /obj/machinery/atmospherics/gasrig/dummy/welder_act(mob/living/user, obj/item/tool)
 	if(parent.welder_act(user, tool))
