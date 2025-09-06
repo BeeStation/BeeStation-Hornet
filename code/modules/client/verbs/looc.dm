@@ -86,7 +86,8 @@ AUTH_CLIENT_VERB(looc)
 	var/list/targets = list()
 
 	to_chat(usr, span_looc("[span_prefix("LOOC:")] <EM>[span_name("[mob.name]")]:</EM> [span_message(msg)]"), avoid_highlighting = TRUE)
-	to_chat(target, span_looc("[span_prefix("LOOC:")] <EM>[span_name("[mob.name]")]:</EM> [span_message(msg)]"), avoid_highlighting = FALSE)
+	if (usr != target)
+		to_chat(target, span_looc("[span_prefix("LOOC:")] <EM>[span_name("[mob.name]")]:</EM> [span_message(msg)]"), avoid_highlighting = FALSE)
 
 	if(target.client.prefs.read_player_preference(/datum/preference/toggle/enable_runechat_looc))
 		targets |= target
