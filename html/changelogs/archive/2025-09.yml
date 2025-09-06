@@ -67,3 +67,9 @@
   - bugfix: Changeling's Lesser Form no longer traps you as a monkey forever(The human
       form button is visible again)
   - bugfix: Changeling's chem HUD disappearing forever after you turn into a monkey
+  rkz, Timberpoes:
+  - admin: Re-added the button to the player playtime panel that lets admins toggle
+      a player's job playtime exemption status.
+  - refactor: Rewrite the way we handle which roles get assigned with playtime tracking.
+  - bugfix: Players who get MMI'd and put into borgs or AIs mid-shift now gain job
+      playtime tracking towards Silicon roles instead.
