@@ -198,9 +198,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 
 	if(target.tlv_cold_room)
 		target.set_tlv_cold_room()
+	if(target.tlv_kitchen)
+		target.set_tlv_kitchen()
 	if(target.tlv_no_checks)
 		target.set_tlv_no_checks()
-	if(target.tlv_no_checks && target.tlv_cold_room)
+	if(target.tlv_no_checks + target.tlv_cold_room + target.tlv_kitchen > 1)
 		CRASH("Tried to apply incompatible air alarm threshold helpers!")
 
 	if(target.syndicate_access)
@@ -215,9 +217,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 		target.give_all_access()
 	if(target.syndicate_access + target.away_general_access + target.engine_access + target.mixingchamber_access + target.all_access > 1)
 		CRASH("Tried to combine incompatible air alarm access helpers!")
-
-	if(target.air_sensor_chamber_id)
-		target.setup_chamber_link()
 
 	target.update_icon()
 	qdel(src)
@@ -295,6 +294,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 		log_mapping("[src] at [AREACOORD(src)] [(area.type)] tried to adjust [target]'s tlv to cold_room but it's already changed!")
 	target.tlv_cold_room = TRUE
 
+/obj/effect/mapping_helpers/airalarm/tlv_kitchen
+	name = "airalarm kitchen tlv helper"
+	icon_state = "airalarm_tlv_kitchen_helper"
+
+/obj/effect/mapping_helpers/airalarm/tlv_kitchen/payload(obj/machinery/airalarm/target)
+	if(target.tlv_kitchen)
+		var/area/area = get_area(target)
+		log_mapping("[src] at [AREACOORD(src)] [(area.type)] tried to adjust [target]'s tlv to kitchen but it's already changed!")
+	target.tlv_kitchen = TRUE
+
 /obj/effect/mapping_helpers/airalarm/tlv_no_checks
 	name = "airalarm no checks tlv helper"
 	icon_state = "airalarm_tlv_no_checks_helper"
@@ -327,6 +336,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 	else
 		log_mapping("[src] failed to find air alarm at [AREACOORD(src)].")
 	qdel(src)
+
+/obj/effect/mapping_helpers/airalarm/surgery
+	name = "airalarm surgery helper"
+	icon_state = "airalarm_surgery_helper"
+
+/obj/effect/mapping_helpers/airalarm/surgery/LateInitialize()
+	var/obj/machinery/airalarm/target = locate() in loc
+	for(var/obj/machinery/atmospherics/components/unary/vent_scrubber/scrubber as anything in target?.my_area?.air_scrubbers)
+		scrubber.filter_types |= /datum/gas/nitrous_oxide
+		scrubber.set_widenet(TRUE)
+	return ..()
 
 //APC helpers
 /obj/effect/mapping_helpers/apc
