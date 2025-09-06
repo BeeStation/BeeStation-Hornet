@@ -11,3 +11,7 @@ GLOBAL_VAR_INIT(CELLRATE, 0.002)  //! conversion ratio between a watt-tick and k
 GLOBAL_VAR_INIT(CHARGELEVEL, 0.001) // Cap for how fast cells charge, as a percentage-per-tick (.001 means cellcharge is capped to 1% per second)
 
 GLOBAL_LIST_EMPTY(powernets)
+
+#define SOLAR_TRACK_OFF 0
+#define SOLAR_TRACK_TIMED 1
+#define SOLAR_TRACK_AUTO 2

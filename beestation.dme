@@ -239,6 +239,7 @@
 #include "code\__DEFINES\dcs\signals.dm"
 #include "code\__DEFINES\dcs\signals\signals_action.dm"
 #include "code\__DEFINES\dcs\signals\signals_area.dm"
+#include "code\__DEFINES\dcs\signals\signals_global_object.dm"
 #include "code\__DEFINES\dcs\signals\signals_global.dm"
 #include "code\__DEFINES\dcs\signals\signals_heretic.dm"
 #include "code\__DEFINES\dcs\signals\signals_lighting.dm"
