@@ -197,9 +197,9 @@
 			M.visible_message(span_warning("[user] has prodded [M] with [src]. Luckily it was off."), \
 							span_warning("[user] has prodded you with [src]. Luckily it was off"))
 	else
+		. = ..()
 		if(turned_on)
 			baton_effect(M, user, params)
-		return ..()
 
 /obj/item/melee/baton/proc/baton_effect(mob/living/target, mob/living/user, params)
 	if(obj_flags & OBJ_EMPED)
