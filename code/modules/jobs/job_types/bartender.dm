@@ -10,7 +10,13 @@
 
 	outfit = /datum/outfit/job/bartender
 
-	base_access = list(ACCESS_BAR, ACCESS_MINERAL_STOREROOM, ACCESS_THEATRE, ACCESS_WEAPONS)
+	base_access = list(
+		ACCESS_BAR,
+		ACCESS_MINERAL_STOREROOM,
+		ACCESS_SERVICE,
+		ACCESS_THEATRE,
+		ACCESS_WEAPONS,
+	)
 	extra_access = list(ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_MORGUE)
 
 	departments = DEPT_BITFLAG_SRV

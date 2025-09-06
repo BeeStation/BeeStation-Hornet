@@ -74,6 +74,8 @@
 	var/abandoned = FALSE
 	///Controls if the door closes quickly or not. FALSE = the door autocloses in 1.5 seconds, TRUE = 8 seconds - see autoclose_in()
 	var/normalspeed = TRUE
+	var/cut_ai_wire = FALSE
+	var/autoname = FALSE
 	var/doorOpen = 'sound/machines/airlock.ogg'
 	var/doorClose = 'sound/machines/airlockclose.ogg'
 	var/doorDeni = 'sound/machines/deniedbeep.ogg' // i'm thinkin' Deni's
@@ -152,36 +154,6 @@
 	AddElement(/datum/element/connect_loc, src, connections)
 
 	return INITIALIZE_HINT_LATELOAD
-
-/obj/machinery/door/airlock/LateInitialize()
-	. = ..()
-	if (cyclelinkeddir)
-		cyclelinkairlock()
-	if(closeOtherId)
-		update_other_id()
-	if(abandoned)
-		var/outcome = rand(1,100)
-		switch(outcome)
-			if(1 to 5)
-				var/turf/here = get_turf(src)
-				for(var/turf/closed/T in spiral_range_turfs(2, here))
-					here.PlaceOnTop(T.type)
-					qdel(src)
-					return
-				here.PlaceOnTop(/turf/closed/wall)
-				qdel(src)
-				return
-			if(5 to 6)
-				lights = FALSE
-				locked = TRUE
-			if(6 to 8)
-				locked = TRUE
-			if(8 to 10)
-				welded = TRUE
-			if(10 to 30)
-				panel_open = TRUE
-	update_appearance()
-
 
 /obj/machinery/door/airlock/proc/rebuild_parts()
 	if(part_overlays)

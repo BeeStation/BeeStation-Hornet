@@ -11,8 +11,16 @@
 
 	outfit = /datum/outfit/job/cook
 
-	base_access = list(ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_MINERAL_STOREROOM)
-	extra_access = list(ACCESS_HYDROPONICS, ACCESS_BAR)
+	base_access = list(
+		ACCESS_KITCHEN,
+		ACCESS_MORGUE,
+		ACCESS_MINERAL_STOREROOM,
+		ACCESS_SERVICE,
+	)
+	extra_access = list(
+		ACCESS_HYDROPONICS,
+		ACCESS_BAR,
+	)
 
 	departments = DEPT_BITFLAG_SRV
 	bank_account_department = ACCOUNT_SRV_BITFLAG

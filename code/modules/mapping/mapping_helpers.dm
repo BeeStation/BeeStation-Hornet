@@ -101,17 +101,71 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 //airlock helpers
 /obj/effect/mapping_helpers/airlock
 	layer = DOOR_HELPER_LAYER
+	late = TRUE
+	/// If TRUE we will apply to every windoor in the loc if we can't find an airlock.
+	var/apply_to_windoors = FALSE
 
 /obj/effect/mapping_helpers/airlock/Initialize(mapload)
 	. = ..()
 	if(!mapload)
 		log_mapping("[src] spawned outside of mapload!")
 		return
+
 	var/obj/machinery/door/airlock/airlock = locate(/obj/machinery/door/airlock) in loc
 	if(!airlock)
+		if(apply_to_windoors)
+			var/any_found = FALSE
+			for(var/obj/machinery/door/window/windoor in loc)
+				payload(windoor)
+				any_found = TRUE
+			if(!any_found)
+				log_mapping("[src] failed to find an airlock at [AREACOORD(src)], AND no windoors were found.")
+			return
+
 		log_mapping("[src] failed to find an airlock at [AREACOORD(src)]")
-	else
-		payload(airlock)
+		return
+
+	payload(airlock)
+
+/obj/effect/mapping_helpers/airlock/LateInitialize()
+	var/obj/machinery/door/airlock/airlock = locate(/obj/machinery/door/airlock) in loc
+	if(!airlock)
+		qdel(src)
+		return
+	if(airlock.cyclelinkeddir)
+		airlock.cyclelinkairlock()
+	if(airlock.closeOtherId)
+		airlock.update_other_id()
+	if(airlock.abandoned)
+		var/outcome = rand(1,100)
+		switch(outcome)
+			if(1 to 9)
+				var/turf/here = get_turf(src)
+				for(var/turf/closed/T in range(2, src))
+					here.PlaceOnTop(T.type)
+					qdel(airlock)
+					qdel(src)
+					return
+				here.PlaceOnTop(/turf/closed/wall)
+				qdel(airlock)
+				qdel(src)
+				return
+			if(9 to 11)
+				airlock.lights = FALSE
+				// These do not use airlock.bolt() because we want to pretend it was always locked. That means no sound effects.
+				airlock.locked = TRUE
+			if(12 to 15)
+				airlock.locked = TRUE
+			if(16 to 23)
+				airlock.welded = TRUE
+			if(24 to 30)
+				airlock.panel_open = TRUE
+	if(airlock.cut_ai_wire)
+		airlock.wires.cut(WIRE_AI)
+	if(airlock.autoname)
+		airlock.name = get_area_name(src, TRUE)
+	airlock.update_appearance()
+	qdel(src)
 
 /obj/effect/mapping_helpers/airlock/proc/payload(obj/machinery/door/airlock/payload)
 	return
@@ -165,6 +219,71 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 	else
 		airlock.abandoned = TRUE
 
+/obj/effect/mapping_helpers/airlock/welded
+	name = "airlock welded helper"
+	icon_state = "airlock_welded"
+
+/obj/effect/mapping_helpers/airlock/welded/payload(obj/machinery/door/airlock/airlock)
+	if(airlock.welded)
+		log_mapping("[src] at [AREACOORD(src)] tried to make [airlock] welded but it's already welded closed!")
+	airlock.welded = TRUE
+
+/obj/effect/mapping_helpers/airlock/cutaiwire
+	name = "airlock cut ai wire helper"
+	icon_state = "airlock_cutaiwire"
+
+/obj/effect/mapping_helpers/airlock/cutaiwire/payload(obj/machinery/door/airlock/airlock)
+	if(airlock.cut_ai_wire)
+		log_mapping("[src] at [AREACOORD(src)] tried to cut the ai wire on [airlock] but it's already cut!")
+	else
+		airlock.cut_ai_wire = TRUE
+
+/obj/effect/mapping_helpers/airlock/autoname
+	name = "airlock autoname helper"
+	icon_state = "airlock_autoname"
+
+/obj/effect/mapping_helpers/airlock/autoname/payload(obj/machinery/door/airlock/airlock)
+	if(airlock.autoname)
+		log_mapping("[src] at [AREACOORD(src)] tried to autoname the [airlock] but it's already autonamed!")
+	else
+		airlock.autoname = TRUE
+
+/obj/effect/mapping_helpers/airlock/note_placer
+	name = "Airlock Note Placer"
+	icon_state = "airlocknoteplacer"
+
+	/// Custom note name
+	var/note_name
+	/// For writing out custom notes without creating an extra paper subtype
+	var/note_info
+	/// Premade notes, for example: /obj/item/paper/guides/antag/nuke_instructions
+	var/obj/item/paper/note_path
+
+/obj/effect/mapping_helpers/airlock/note_placer/payload(obj/machinery/door/airlock/airlock)
+	if(note_path && !ispath(note_path, /obj/item/paper)) //don't put non-paper in the paper slot thank you
+		log_mapping("[src] at [x],[y] had an improper note_path path, could not place paper note.")
+		return
+
+	if(note_path)
+		var/obj/item/paper/paper = new note_path(src)
+		airlock.note = paper
+		paper.forceMove(airlock)
+		airlock.update_appearance()
+		return
+
+	if(note_info)
+		var/obj/item/paper/paper = new /obj/item/paper(src)
+		if(note_name)
+			paper.name = note_name
+		paper.add_raw_text(sanitize(note_info))
+		paper.update_appearance()
+		airlock.note = paper
+		paper.forceMove(airlock)
+		airlock.update_appearance()
+		return
+
+	log_mapping("[src] at [x],[y] had no note_path or note_info, cannot place paper note.")
+
 //air alarm helpers
 /obj/effect/mapping_helpers/airalarm
 	desc = "You shouldn't see this. Report it please."
@@ -198,9 +317,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 
 	if(target.tlv_cold_room)
 		target.set_tlv_cold_room()
+	if(target.tlv_kitchen)
+		target.set_tlv_kitchen()
 	if(target.tlv_no_checks)
 		target.set_tlv_no_checks()
-	if(target.tlv_no_checks && target.tlv_cold_room)
+	if(target.tlv_no_checks + target.tlv_cold_room + target.tlv_kitchen > 1)
 		CRASH("Tried to apply incompatible air alarm threshold helpers!")
 
 	if(target.syndicate_access)
@@ -215,9 +336,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 		target.give_all_access()
 	if(target.syndicate_access + target.away_general_access + target.engine_access + target.mixingchamber_access + target.all_access > 1)
 		CRASH("Tried to combine incompatible air alarm access helpers!")
-
-	if(target.air_sensor_chamber_id)
-		target.setup_chamber_link()
 
 	target.update_icon()
 	qdel(src)
@@ -295,6 +413,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 		log_mapping("[src] at [AREACOORD(src)] [(area.type)] tried to adjust [target]'s tlv to cold_room but it's already changed!")
 	target.tlv_cold_room = TRUE
 
+/obj/effect/mapping_helpers/airalarm/tlv_kitchen
+	name = "airalarm kitchen tlv helper"
+	icon_state = "airalarm_tlv_kitchen_helper"
+
+/obj/effect/mapping_helpers/airalarm/tlv_kitchen/payload(obj/machinery/airalarm/target)
+	if(target.tlv_kitchen)
+		var/area/area = get_area(target)
+		log_mapping("[src] at [AREACOORD(src)] [(area.type)] tried to adjust [target]'s tlv to kitchen but it's already changed!")
+	target.tlv_kitchen = TRUE
+
 /obj/effect/mapping_helpers/airalarm/tlv_no_checks
 	name = "airalarm no checks tlv helper"
 	icon_state = "airalarm_tlv_no_checks_helper"
@@ -328,31 +456,150 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 		log_mapping("[src] failed to find air alarm at [AREACOORD(src)].")
 	qdel(src)
 
-//APC helpers
+/obj/effect/mapping_helpers/airalarm/surgery
+	name = "airalarm surgery helper"
+	icon_state = "airalarm_surgery_helper"
+
+/obj/effect/mapping_helpers/airalarm/surgery/LateInitialize()
+	var/obj/machinery/airalarm/target = locate() in loc
+	for(var/obj/machinery/atmospherics/components/unary/vent_scrubber/scrubber as anything in target?.my_area?.air_scrubbers)
+		scrubber.filter_types |= /datum/gas/nitrous_oxide
+		scrubber.set_widenet(TRUE)
+	return ..()
+
+//apc helpers
 /obj/effect/mapping_helpers/apc
+	desc = "You shouldn't see this. Report it please."
+	late = TRUE
 
 /obj/effect/mapping_helpers/apc/Initialize(mapload)
 	. = ..()
 	if(!mapload)
 		log_mapping("[src] spawned outside of mapload!")
-		return
-	var/obj/machinery/power/apc/apc = locate(/obj/machinery/power/apc) in loc
-	if(!apc)
-		log_mapping("[src] failed to find an APC at [AREACOORD(src)]")
-	else
-		payload(apc)
+		return INITIALIZE_HINT_QDEL
 
-/obj/effect/mapping_helpers/apc/proc/payload(obj/machinery/power/apc/payload)
+	var/obj/machinery/power/apc/target = locate(/obj/machinery/power/apc) in loc
+	if(isnull(target))
+		var/area/target_area = get_area(src)
+		log_mapping("[src] failed to find an apc at [AREACOORD(src)] ([target_area.type]).")
+	else
+		payload(target)
+
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/effect/mapping_helpers/apc/LateInitialize()
+	var/obj/machinery/power/apc/target = locate(/obj/machinery/power/apc) in loc
+
+	if(isnull(target))
+		qdel(src)
+		return
+	if(target.cut_ai_wire)
+		target.wires.cut(WIRE_AI)
+	if(target.cell_5k)
+		target.install_cell_5k()
+	if(target.cell_10k)
+		target.install_cell_10k()
+	if(target.unlocked)
+		target.unlock()
+	if(target.syndicate_access)
+		target.give_syndicate_access()
+	if(target.away_general_access)
+		target.give_away_general_access()
+	if(target.no_charge)
+		target.set_no_charge()
+	if(target.full_charge)
+		target.set_full_charge()
+	if(target.cell_5k && target.cell_10k)
+		CRASH("Tried to combine non-combinable cell_5k and cell_10k APC helpers!")
+	if(target.syndicate_access && target.away_general_access)
+		CRASH("Tried to combine non-combinable syndicate_access and away_general_access APC helpers!")
+	if(target.no_charge && target.full_charge)
+		CRASH("Tried to combine non-combinable no_charge and full_charge APC helpers!")
+	target.update_appearance()
+	qdel(src)
+
+/obj/effect/mapping_helpers/apc/proc/payload(obj/machinery/power/apc/target)
 	return
 
-/obj/effect/mapping_helpers/apc/discharged
-	name = "apc zero change helper"
-	icon_state = "apc_nopower"
+/obj/effect/mapping_helpers/apc/cut_ai_wire
+	name = "apc AI wire mended helper"
+	icon_state = "apc_cut_AIwire_helper"
 
-/obj/effect/mapping_helpers/apc/discharged/payload(obj/machinery/power/apc/apc)
-	var/obj/item/stock_parts/cell/C = apc.get_cell()
-	C.charge = 0
-	C.update_icon()
+/obj/effect/mapping_helpers/apc/cut_ai_wire/payload(obj/machinery/power/apc/target)
+	if(target.cut_ai_wire)
+		var/area/apc_area = get_area(target)
+		log_mapping("[src] at [AREACOORD(src)] [(apc_area.type)] tried to mend the AI wire on the [target] but it's already cut!")
+	target.cut_ai_wire = TRUE
+
+/obj/effect/mapping_helpers/apc/cell_5k
+	name = "apc 5k cell helper"
+	icon_state = "apc_5k_cell_helper"
+
+/obj/effect/mapping_helpers/apc/cell_5k/payload(obj/machinery/power/apc/target)
+	if(target.cell_5k)
+		var/area/apc_area = get_area(target)
+		log_mapping("[src] at [AREACOORD(src)] [(apc_area.type)] tried to change [target]'s cell to cell_5k but it's already changed!")
+	target.cell_5k = TRUE
+
+/obj/effect/mapping_helpers/apc/cell_10k
+	name = "apc 10k cell helper"
+	icon_state = "apc_10k_cell_helper"
+
+/obj/effect/mapping_helpers/apc/cell_10k/payload(obj/machinery/power/apc/target)
+	if(target.cell_10k)
+		var/area/apc_area = get_area(target)
+		log_mapping("[src] at [AREACOORD(src)] [(apc_area.type)] tried to change [target]'s cell to cell_10k but it's already changed!")
+	target.cell_10k = TRUE
+
+/obj/effect/mapping_helpers/apc/syndicate_access
+	name = "apc syndicate access helper"
+	icon_state = "apc_syndicate_access_helper"
+
+/obj/effect/mapping_helpers/apc/syndicate_access/payload(obj/machinery/power/apc/target)
+	if(target.syndicate_access)
+		var/area/apc_area = get_area(target)
+		log_mapping("[src] at [AREACOORD(src)] [(apc_area.type)] tried to adjust [target]'s access to syndicate but it's already changed!")
+	target.syndicate_access = TRUE
+
+/obj/effect/mapping_helpers/apc/away_general_access
+	name = "apc away access helper"
+	icon_state = "apc_away_general_access_helper"
+
+/obj/effect/mapping_helpers/apc/away_general_access/payload(obj/machinery/power/apc/target)
+	if(target.away_general_access)
+		var/area/apc_area = get_area(target)
+		log_mapping("[src] at [AREACOORD(src)] [(apc_area.type)] tried to adjust [target]'s access to away_general but it's already changed!")
+	target.away_general_access = TRUE
+
+/obj/effect/mapping_helpers/apc/unlocked
+	name = "apc unlocked interface helper"
+	icon_state = "apc_unlocked_interface_helper"
+
+/obj/effect/mapping_helpers/apc/unlocked/payload(obj/machinery/power/apc/target)
+	if(target.unlocked)
+		var/area/apc_area = get_area(target)
+		log_mapping("[src] at [AREACOORD(src)] [(apc_area.type)] tried to unlock the [target] but it's already unlocked!")
+	target.unlocked = TRUE
+
+/obj/effect/mapping_helpers/apc/no_charge
+	name = "apc no charge helper"
+	icon_state = "apc_no_charge_helper"
+
+/obj/effect/mapping_helpers/apc/no_charge/payload(obj/machinery/power/apc/target)
+	if(target.no_charge)
+		var/area/apc_area = get_area(target)
+		log_mapping("[src] at [AREACOORD(src)] [(apc_area.type)] tried to set [target]'s charge to 0 but it's already at 0!")
+	target.no_charge = TRUE
+
+/obj/effect/mapping_helpers/apc/full_charge
+	name = "apc full charge helper"
+	icon_state = "apc_full_charge_helper"
+
+/obj/effect/mapping_helpers/apc/full_charge/payload(obj/machinery/power/apc/target)
+	if(target.full_charge)
+		var/area/apc_area = get_area(target)
+		log_mapping("[src] at [AREACOORD(src)] [(apc_area.type)] tried to set [target]'s charge to 100 but it's already at 100!")
+	target.full_charge = TRUE
 
 
 //needs to do its thing before spawn_rivers() is called
@@ -740,10 +987,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	desc = "Edit this text to your desired description."
 	icon_state = "Comment"
 	layer = TEXT_EFFECT_UI_LAYER
-
-/obj/effect/mapping_helpers/Mapper_Comment/Initialize(mapload)
-	..()
-	return INITIALIZE_HINT_QDEL
 
 //loads crate shelves with crates on mapload. Done via a helper because of linters
 /obj/effect/mapping_helpers/crate_shelf_loader

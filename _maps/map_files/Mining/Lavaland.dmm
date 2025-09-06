@@ -2364,7 +2364,7 @@
 	dir = 4
 	},
 /obj/structure/spider/stickyweb,
-/obj/effect/mapping_helpers/apc/discharged,
+/obj/effect/mapping_helpers/apc/no_charge,
 /turf/open/floor/plating,
 /area/mine/atmospostengine)
 "mR" = (
@@ -8833,7 +8833,7 @@
 /obj/machinery/power/apc/auto_name/directional/north{
 	start_charge = 0
 	},
-/obj/effect/mapping_helpers/apc/discharged,
+/obj/effect/mapping_helpers/apc/no_charge,
 /turf/open/floor/iron/tech,
 /area/mine/atmosfarmpost)
 "WE" = (
@@ -8859,7 +8859,7 @@
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/turf_decal/delivery,
 /obj/structure/closet/crate/solarpanel_small,
-/obj/effect/mapping_helpers/apc/discharged,
+/obj/effect/mapping_helpers/apc/no_charge,
 /turf/open/floor/iron,
 /area/mine/atmospost)
 "WL" = (
@@ -9359,7 +9359,7 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/firealarm/directional/south,
-/obj/effect/mapping_helpers/apc/discharged,
+/obj/effect/mapping_helpers/apc/no_charge,
 /turf/open/floor/iron/dark,
 /area/mine/atmosposthallway)
 "Zl" = (

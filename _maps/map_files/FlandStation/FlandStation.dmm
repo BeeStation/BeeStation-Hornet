@@ -89710,7 +89710,7 @@
 /area/maintenance/department/security/brig)
 "wLf" = (
 /obj/machinery/power/apc/auto_name/directional/north,
-/obj/effect/mapping_helpers/apc/discharged,
+/obj/effect/mapping_helpers/apc/no_charge,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},

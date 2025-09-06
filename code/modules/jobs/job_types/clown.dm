@@ -10,7 +10,10 @@
 
 	outfit = /datum/outfit/job/clown
 
-	base_access = list(ACCESS_THEATRE)
+	base_access = list(
+		ACCESS_THEATRE,
+		ACCESS_SERVICE,
+	)
 	extra_access = list()
 
 	departments = DEPT_BITFLAG_SRV
