@@ -168,7 +168,7 @@
 
 /datum/action/item_action/artifact_pincher_mode
 	name = "Toggle Safety"
-	button_icon = null
+	__temp_icon__ = null
 
 /datum/action/item_action/artifact_pincher_mode/on_activate(mob/user, atom/target)
 	. = ..()
