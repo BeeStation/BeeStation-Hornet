@@ -5,7 +5,7 @@
 	button_icon_state = "adrenaline"
 	chemical_cost = 20
 	dna_cost = 2
-	req_human = 1
+	req_human = TRUE
 	check_flags = AB_CHECK_DEAD
 
 //Recover from stuns.

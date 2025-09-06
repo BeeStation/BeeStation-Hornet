@@ -4,8 +4,8 @@
 	helptext = "We will be placed in control of a small, fragile creature. We may attack a corpse like this to plant an egg which will slowly mature into a new form for us. Cannot be used while being absorbed by another changeling."
 	button_icon_state = "last_resort"
 	chemical_cost = 20
-	dna_cost = 0
-	req_human = 1
+	dna_cost = 1
+	req_human = TRUE
 	check_flags = NONE
 	ignores_fakedeath = TRUE
 

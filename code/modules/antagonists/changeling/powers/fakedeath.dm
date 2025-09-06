@@ -3,8 +3,8 @@
 	desc = "We fall into a stasis, allowing us to regenerate and trick our enemies. Costs 15 chemicals."
 	button_icon_state = "fake_death"
 	chemical_cost = 15
-	dna_cost = 0
-	req_dna = 1
+	dna_cost = 2
+	points_to_use = 1
 	check_flags = NONE
 	ignores_fakedeath = TRUE
 	var/revive_ready = FALSE
@@ -65,7 +65,7 @@
 	chemical_cost = 0
 	revive_ready = TRUE
 
-/datum/action/changeling/fakedeath/can_sting(mob/living/user)
+/datum/action/changeling/fakedeath/ling_can_cast(mob/living/user)
 	if(HAS_TRAIT(user, TRAIT_HUSK))
 		to_chat(user, span_warning("This body is too damaged to revive!."))
 		return

@@ -31,10 +31,10 @@
 /datum/cellular_emporium/ui_data(mob/user)
 	var/list/data = list()
 
-	data["can_readapt"] = changeling.can_respec
-
 	var/genetic_points_remaining = changeling.genetic_points
 	data["genetic_points_remaining"] = genetic_points_remaining
+
+	data["can_readapt"] = (genetic_points_remaining >= 4)
 
 	var/list/abilities = list()
 	for(var/datum/action/changeling/ability_path as anything in changeling.all_powers)
@@ -53,8 +53,6 @@
 		ability_data["dna_cost"] = dna_cost
 
 		var/can_purchase = TRUE
-		if(initial(ability_path.req_dna) > changeling.absorbed_count)
-			can_purchase = FALSE
 		if(dna_cost > genetic_points_remaining)
 			can_purchase = FALSE
 
@@ -72,8 +70,7 @@
 
 	switch(action)
 		if("readapt")
-			if(changeling.can_respec)
-				changeling.readapt()
+			if(changeling.readapt())
 				. = TRUE
 		if("evolve")
 			var/sting_path = text2path(params["path"])
