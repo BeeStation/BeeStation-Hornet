@@ -191,7 +191,7 @@
 		if (!injury.external)
 			continue
 		if (!injury.examine_description)
-		. += span_warning("You see [injury.description] blighting the surface of the limb.")
+		. += span_warning("You see [injury.examine_description] blighting the surface of the limb.")
 	if(limb_id)
 		. += span_notice("It is a [limb_id] [parse_zone(body_zone)].")
 
