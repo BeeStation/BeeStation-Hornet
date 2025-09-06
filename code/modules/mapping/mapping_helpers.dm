@@ -160,7 +160,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 				airlock.welded = TRUE
 			if(24 to 30)
 				airlock.panel_open = TRUE
-	if(!airlock.cut_ai_wire)
+	if(airlock.cut_ai_wire)
 		airlock.wires.cut(WIRE_AI)
 	if(airlock.autoname)
 		airlock.name = get_area_name(src, TRUE)
@@ -247,6 +247,42 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 		log_mapping("[src] at [AREACOORD(src)] tried to autoname the [airlock] but it's already autonamed!")
 	else
 		airlock.autoname = TRUE
+
+/obj/effect/mapping_helpers/airlock/note_placer
+	name = "Airlock Note Placer"
+	icon_state = "airlocknoteplacer"
+
+	/// Custom note name
+	var/note_name
+	/// For writing out custom notes without creating an extra paper subtype
+	var/note_info
+	/// Premade notes, for example: /obj/item/paper/guides/antag/nuke_instructions
+	var/obj/item/paper/note_path
+
+/obj/effect/mapping_helpers/airlock/note_placer/payload(obj/machinery/door/airlock/airlock)
+	if(note_path && !ispath(note_path, /obj/item/paper)) //don't put non-paper in the paper slot thank you
+		log_mapping("[src] at [x],[y] had an improper note_path path, could not place paper note.")
+		return
+
+	if(note_path)
+		var/obj/item/paper/paper = new note_path(src)
+		airlock.note = paper
+		paper.forceMove(airlock)
+		airlock.update_appearance()
+		return
+
+	if(note_info)
+		var/obj/item/paper/paper = new /obj/item/paper(src)
+		if(note_name)
+			paper.name = note_name
+		paper.add_raw_text(sanitize(note_info))
+		paper.update_appearance()
+		airlock.note = paper
+		paper.forceMove(airlock)
+		airlock.update_appearance()
+		return
+
+	log_mapping("[src] at [x],[y] had no note_path or note_info, cannot place paper note.")
 
 //air alarm helpers
 /obj/effect/mapping_helpers/airalarm
