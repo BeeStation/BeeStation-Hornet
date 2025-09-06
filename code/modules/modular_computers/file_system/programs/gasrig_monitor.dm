@@ -29,6 +29,6 @@
 	return gasrig.ui_static_data(user)
 
 /datum/computer_file/program/gasrig_monitor/ui_act(action, params)
-	if(gasrig == null)
+	if(isnull(gasrig))
 		return ..()
 	return gasrig.ui_act_base(action, params)
