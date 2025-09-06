@@ -4,7 +4,7 @@
 	icon = 'icons/obj/clothing/belts.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 	icon_state = "utilitybelt"
-	item_state = "utility"
+	inhand_icon_state = "utility"
 	worn_icon_state = "utility"
 	lefthand_file = 'icons/mob/inhands/equipment/belt_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/belt_righthand.dmi'
@@ -38,7 +38,7 @@
 	name = "toolbelt" //Carn: utility belt is nicer, but it bamboozles the text parsing.
 	desc = "Holds tools."
 	icon_state = "utilitybelt"
-	item_state = "utility"
+	inhand_icon_state = "utility"
 	worn_icon_state = "utility"
 	content_overlays = TRUE
 	custom_price = 50
@@ -80,7 +80,7 @@
 	name = "botanical belt"
 	desc = "Can hold various botanical equipment."
 	icon_state = "botanical"
-	item_state = "botanical"
+	inhand_icon_state = "botanical"
 	worn_icon_state = "botanical"
 	content_overlays = TRUE
 
@@ -111,7 +111,7 @@
 	name = "\improper Chief Engineer's toolbelt" //"the Chief Engineer's toolbelt", because "Chief Engineer's toolbelt" is not a proper noun
 	desc = "Holds tools, looks snazzy."
 	icon_state = "utilitybelt_ce"
-	item_state = "utility_ce"
+	inhand_icon_state = "utility_ce"
 	worn_icon_state = "utility_ce"
 
 /obj/item/storage/belt/utility/chief/full
@@ -273,7 +273,7 @@
 	name = "medical belt"
 	desc = "Can hold various medical equipment."
 	icon_state = "medicalbelt"
-	item_state = "medical"
+	inhand_icon_state = "medical"
 	worn_icon_state = "medical"
 	content_overlays = TRUE
 
@@ -352,7 +352,7 @@
 	name = "security belt"
 	desc = "Can hold security gear like handcuffs and flashes."
 	icon_state = "securitybelt"
-	item_state = "security"//Could likely use a better one.
+	inhand_icon_state = "security"//Could likely use a better one.
 	worn_icon_state = "security"
 	content_overlays = TRUE
 
@@ -403,7 +403,7 @@
 	name = "security webbing"
 	desc = "Unique and versatile chest rig, can hold security gear."
 	icon_state = "securitywebbing"
-	item_state = "securitywebbing"
+	inhand_icon_state = "securitywebbing"
 	worn_icon_state = "securitywebbing"
 	content_overlays = FALSE
 	custom_premium_price = 800
@@ -412,7 +412,7 @@
 	name = "explorer's webbing"
 	desc = "A versatile chest rig, cherished by miners and hunters alike."
 	icon_state = "explorer1"
-	item_state = "explorer1"
+	inhand_icon_state = "explorer1"
 	worn_icon_state = "explorer1"
 
 /obj/item/storage/belt/mining/Initialize(mapload)
@@ -476,14 +476,14 @@
 
 /obj/item/storage/belt/mining/alt
 	icon_state = "explorer2"
-	item_state = "explorer2"
+	inhand_icon_state = "explorer2"
 	worn_icon_state = "explorer2"
 
 /obj/item/storage/belt/mining/primitive
 	name = "hunter's belt"
 	desc = "A versatile belt, woven from sinew."
 	icon_state = "ebelt"
-	item_state = "ebelt"
+	inhand_icon_state = "ebelt"
 	worn_icon_state = "ebelt"
 
 /obj/item/storage/belt/mining/primitive/Initialize(mapload)
@@ -494,7 +494,7 @@
 	name = "soul stone belt"
 	desc = "Designed for ease of access to the shards during a fight, as to not let a single enemy spirit slip away."
 	icon_state = "soulstonebelt"
-	item_state = "soulstonebelt"
+	inhand_icon_state = "soulstonebelt"
 	worn_icon_state = "soulstonebelt"
 
 /obj/item/storage/belt/soulstone/Initialize(mapload)
@@ -520,7 +520,7 @@
 	name = "championship belt"
 	desc = "Proves to the world that you are the strongest!"
 	icon_state = "championbelt"
-	item_state = "champion"
+	inhand_icon_state = "champion"
 	worn_icon_state = "champion"
 	custom_materials = list(/datum/material/gold=400)
 
@@ -535,7 +535,7 @@
 	name = "chest rig"
 	desc = "A set of tactical webbing worn by Syndicate boarding parties."
 	icon_state = "militarywebbing"
-	item_state = "militarywebbing"
+	inhand_icon_state = "militarywebbing"
 	worn_icon_state = "militarywebbing"
 	resistance_flags = FIRE_PROOF
 
@@ -593,7 +593,7 @@
 	desc = "A belt used by abductor agents."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "belt"
-	item_state = "security"
+	inhand_icon_state = "security"
 	worn_icon_state = "security"
 
 /obj/item/storage/belt/military/abductor/full/PopulateContents()
@@ -611,7 +611,7 @@
 	desc = "A belt used by abductor agents."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "belt"
-	item_state = "security"
+	inhand_icon_state = "security"
 	worn_icon_state = "security"
 
 /obj/item/storage/belt/military/abductor/med/PopulateContents()
@@ -628,21 +628,21 @@
 	name = "army belt"
 	desc = "A belt used by military forces."
 	icon_state = "grenadebeltold"
-	item_state = "security"
+	inhand_icon_state = "security"
 	worn_icon_state = "security"
 
 /obj/item/storage/belt/military/assault
 	name = "assault belt"
 	desc = "A tactical assault belt."
 	icon_state = "assaultbelt"
-	item_state = "security"
+	inhand_icon_state = "security"
 	worn_icon_state = "security"
 
 /obj/item/storage/belt/grenade
 	name = "grenadier belt"
 	desc = "A belt for holding grenades."
 	icon_state = "grenadebeltnew"
-	item_state = "security"
+	inhand_icon_state = "security"
 	worn_icon_state = "security"
 
 /obj/item/storage/belt/grenade/Initialize(mapload)
@@ -680,14 +680,14 @@
 	name = "grenadier chest rig"
 	desc = "A set of tactical webbing stocked full of grenades."
 	icon_state = "militarywebbing"
-	item_state = "militarywebbing"
+	inhand_icon_state = "militarywebbing"
 	worn_icon_state = "militarywebbing"
 
 /obj/item/storage/belt/wands
 	name = "wand belt"
 	desc = "A belt designed to hold various rods of power. A veritable fanny pack of exotic magic."
 	icon_state = "soulstonebelt"
-	item_state = "soulstonebelt"
+	inhand_icon_state = "soulstonebelt"
 	worn_icon_state = "soulstonebelt"
 
 /obj/item/storage/belt/wands/Initialize(mapload)
@@ -713,7 +713,7 @@
 	name = "janibelt"
 	desc = "A belt used to hold most janitorial supplies."
 	icon_state = "janibelt"
-	item_state = "janibelt"
+	inhand_icon_state = "janibelt"
 	worn_icon_state = "janibelt"
 
 /obj/item/storage/belt/janitor/Initialize(mapload)
@@ -747,7 +747,7 @@
 	name = "bandolier"
 	desc = "A bandolier for holding shotgun ammunition."
 	icon_state = "bandolier"
-	item_state = "bandolier"
+	inhand_icon_state = "bandolier"
 	worn_icon_state = "bandolier"
 
 /obj/item/storage/belt/bandolier/Initialize(mapload)
@@ -779,7 +779,7 @@
 	name = "leather quiver"
 	desc = "A quiver made from the hide of some animal. Used to hold arrows."
 	icon_state = "quiver"
-	item_state = "quiver"
+	inhand_icon_state = "quiver"
 	worn_icon_state = "quiver"
 
 /obj/item/storage/belt/quiver/Initialize(mapload)
@@ -797,7 +797,7 @@
 	name = "fannypack"
 	desc = "A dorky fannypack for keeping small items in."
 	icon_state = "fannypack_leather"
-	item_state = null
+	inhand_icon_state = null
 	worn_icon_state = "fannypack_leather"
 	dying_key = DYE_REGISTRY_FANNYPACK
 	custom_price = 15
@@ -811,7 +811,7 @@
 	name = "Worn belt"
 	desc = "A weathered belt"
 	icon_state = "utilitybelt" //Placeholder for now.
-	item_state = "utility"
+	inhand_icon_state = "utility"
 	worn_icon_state = "utility"
 
 /obj/item/storage/belt/fannypack/worn/detective //Starting contents defined in detective.dm where the rest of their loadout is handled.
@@ -878,7 +878,7 @@
 	name = "sabre sheath"
 	desc = "An ornate sheath designed to hold an officer's blade."
 	icon_state = "sheath"
-	item_state = "sheath"
+	inhand_icon_state = "sheath"
 	worn_icon_state = "sheath"
 	w_class = WEIGHT_CLASS_BULKY
 
@@ -911,11 +911,11 @@
 
 /obj/item/storage/belt/sabre/update_icon_state()
 	icon_state = initial(icon_state)
-	item_state = initial(item_state)
+	inhand_icon_state = initial(inhand_icon_state)
 	worn_icon_state = initial(worn_icon_state)
 	if(contents.len)
 		icon_state += "-sabre"
-		item_state += "-sabre"
+		inhand_icon_state += "-sabre"
 		worn_icon_state += "-sabre"
 	return ..()
 
@@ -928,14 +928,14 @@
 	desc = "Bon appetit!"
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "baguette"
-	item_state = "baguette"
+	inhand_icon_state = "baguette"
 	worn_icon_state = "baguette"
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK|ITEM_SLOT_BELT
 
 /obj/item/storage/belt/sabre/mime/update_icon()
 	icon_state = "baguette"
-	item_state = "baguette"
+	inhand_icon_state = "baguette"
 
 /obj/item/storage/belt/sabre/mime/Initialize(mapload)
 	. = ..()

@@ -2,7 +2,7 @@
 	name = "Summon Cult Floor"
 	desc = "This spell constructs a cult floor."
 	background_icon_state = "bg_cult"
-	icon_icon = 'icons/hud/actions/actions_cult.dmi'
+	button_icon = 'icons/hud/actions/actions_cult.dmi'
 	button_icon_state = "floorconstruct"
 
 	school = SCHOOL_CONJURATION
@@ -17,7 +17,7 @@
 	name = "Summon Cult Wall"
 	desc = "This spell constructs a cult wall."
 	background_icon_state = "bg_cult"
-	icon_icon = 'icons/hud/actions/actions_cult.dmi'
+	button_icon = 'icons/hud/actions/actions_cult.dmi'
 	button_icon_state = "lesserconstruct"
 
 	school = SCHOOL_CONJURATION
