@@ -6,3 +6,13 @@
 2025-09-02:
   mrmanlikesbt:
   - bugfix: fixed the "Show Server Revision" verb
+2025-09-04:
+  Liver-1:
+  - bugfix: Fixes the lethals ammo box to use @Bieyes beautiful new art and not the
+      plain box art.
+  TsunamiAnt:
+  - rscadd: 'Added a new station role: Prisoners! An RP heavy role intended to just
+      chill and maybe mug a new guy.'
+2025-09-05:
+  TsunamiAnt:
+  - bugfix: fixed the power monitor graph
