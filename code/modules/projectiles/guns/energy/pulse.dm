@@ -10,7 +10,7 @@
 	flags_1 =  CONDUCT_1
 	slot_flags = ITEM_SLOT_BACK
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/pulse, /obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser)
-	gun_charge = 40 KILOWATT
+	gun_charge = 400 KILOWATT
 	fire_rate = 3
 	automatic = 1
 
@@ -38,7 +38,7 @@
 	icon_state = "pulse_carbine"
 	worn_icon_state = "gun"
 	item_state = null
-	gun_charge = 5 KILOWATT
+	gun_charge = 50 KILOWATT
 
 /obj/item/gun/energy/pulse/carbine/add_seclight_point()
 	AddComponent(/datum/component/seclite_attachable, \
@@ -57,7 +57,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	icon_state = "pulse_carbine"
 	item_state = null
-	gun_charge = 5 KILOWATT
+	gun_charge = 50 KILOWATT
 
 //Handling seclights would be weird/why would borgs need seclights.
 /obj/item/gun/energy/pulse/carbine/cyborg/add_seclight_point()
@@ -72,7 +72,7 @@
 	icon_state = "pulse_pistol"
 	worn_icon_state = "gun"
 	item_state = "gun"
-	gun_charge = 2 KILOWATT
+	gun_charge = 20 KILOWATT
 	automatic = 0
 	fire_rate = 1.5
 	weapon_weight = WEAPON_LIGHT

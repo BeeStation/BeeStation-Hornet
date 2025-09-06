@@ -102,7 +102,7 @@
 	fire_rate = 10
 	weapon_weight = WEAPON_HEAVY
 	ammo_type = list(/obj/item/ammo_casing/energy/laser)
-	gun_charge = 500000 WATT
+	gun_charge = 5 MEGAWATT
 	can_charge = FALSE
 	fire_sound = 'sound/weapons/laser.ogg'
 	item_flags = NEEDS_PERMIT | SLOWS_WHILE_IN_HAND
