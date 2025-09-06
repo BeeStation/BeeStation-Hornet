@@ -12,7 +12,7 @@
 	load_sound = null
 	fire_sound = 'sound/weapons/bowfire.ogg'
 	slot_flags = ITEM_SLOT_BACK
-	item_flags = NEEDS_PERMIT
+	item_flags = SLOWS_WHILE_IN_HAND | NO_WORN_SLOWDOWN | NEEDS_PERMIT
 	casing_ejector = FALSE
 	internal_magazine = TRUE
 	pin = null
