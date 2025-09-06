@@ -2,17 +2,39 @@
 
 GLOBAL_VAR_INIT(looc_allowed, TRUE)
 
-AUTH_CLIENT_VERB(looc, msg as text)
+AUTH_CLIENT_VERB(looc)
 	set name = "LOOC"
-	set desc = "Local OOC, seen only by those in view."
+	set desc = "Local OOC, can only be seen by the target which must be in view of the user."
 	set category = "OOC"
 
 	if(GLOB.say_disabled)    //This is here to try to identify lag problems
-		to_chat(usr, span_danger(" Speech is currently admin-disabled."))
+		to_chat(usr, span_danger("Speech is currently admin-disabled."))
 		return
 
 	if(!mob?.ckey)
 		return
+
+	// Search everything in the view for anything that might be a mob, or contain a mob.
+	var/list/mob/message_targets = list()
+	for(var/mob/living/target_mob in view(get_turf(mob)))
+		if (!target_mob.client)
+			continue
+		message_targets += target_mob
+
+	var/mob/living/target = tgui_input_list(
+		usr,
+		"Who would you like to contact?.",
+		"Send out-of-character message",
+		message_targets,
+		null,
+		30 SECONDS
+	)
+
+	if (!target)
+		to_chat(usr, span_danger("You decided not to send an OOC communication!"))
+		return
+
+	var/msg = tgui_input_text(usr, "What would you like to tell them? Please avoid discouraging players from playstyles that you dislike, work around it!", "LOOC Message", "", MAX_MESSAGE_LEN, FALSE, TRUE, 30 SECONDS)
 
 	msg = trim(sanitize(msg), MAX_MESSAGE_LEN)
 	if(!length(msg))
@@ -58,29 +80,28 @@ AUTH_CLIENT_VERB(looc, msg as text)
 
 	mob.log_talk(raw_msg, LOG_OOC, tag="LOOC")
 
-	// Search everything in the view for anything that might be a mob, or contain a mob.
-	var/list/mob/targets = list()
-	var/list/turf/in_view = list()
-	for(var/turf/viewed_turf in view(get_turf(mob)))
-		in_view[viewed_turf] = TRUE
+	if (!target.client)
+		return
 
-	// Send to people in range
-	for(var/client/client in GLOB.clients)
-		if(!client.mob || !client.prefs.read_player_preference(/datum/preference/toggle/chat_ooc) || (client in GLOB.admins))
-			continue
+	var/list/targets = list()
 
-		if(in_view[get_turf(client.mob)])
-			if(client.prefs.read_player_preference(/datum/preference/toggle/enable_runechat_looc))
-				targets |= client.mob
-			to_chat(client, span_looc("[span_prefix("LOOC:")] <EM>[span_name("[mob.name]")]:</EM> [span_message(msg)]"), avoid_highlighting = (client == src))
+	to_chat(usr, span_looc("[span_prefix("LOOC:")] <EM>[span_name("[mob.name]")]:</EM> [span_message(msg)]"), avoid_highlighting = TRUE)
+	to_chat(target, span_looc("[span_prefix("LOOC:")] <EM>[span_name("[mob.name]")]:</EM> [span_message(msg)]"), avoid_highlighting = FALSE)
+
+	if(target.client.prefs.read_player_preference(/datum/preference/toggle/enable_runechat_looc))
+		targets |= target
+	if(usr.client.prefs.read_player_preference(/datum/preference/toggle/enable_runechat_looc))
+		targets |= usr
 
 	// Send to admins
 	for(var/client/admin in GLOB.admins)
 		if(!admin.prefs.read_player_preference(/datum/preference/toggle/chat_ooc))
 			continue
 
-		if(in_view[get_turf(admin.mob)] && admin.prefs.read_player_preference(/datum/preference/toggle/enable_runechat_looc))
-			targets |= admin.mob
+		if (admin == usr.client || admin == target.client)
+			continue
+
+		targets |= admin.mob
 		to_chat(admin, span_looc("[span_prefix("LOOC:")] <EM>[ADMIN_LOOKUPFLW(mob)]:</EM> [span_message(msg)]"), avoid_highlighting = (admin == src))
 
 	// Create runechat message
