@@ -18,7 +18,7 @@
 /obj/item/ammo_casing/energy/laser/anti_creature
 	projectile_type = /obj/projectile/beam/laser/anti_creature
 	select_name = "anti-creature"
-	e_cost = 40 WATT
+	e_cost = 400 WATT
 
 /obj/projectile/beam/laser/anti_creature
 	damage = 15
@@ -36,7 +36,7 @@
 /obj/item/ammo_casing/energy/laser/cutting
 	projectile_type = /obj/projectile/beam/laser/cutting
 	select_name = "demolition"
-	e_cost = 30 WATT
+	e_cost = 300 WATT
 
 /obj/projectile/beam/laser/cutting
 	damage = 5
@@ -59,7 +59,7 @@
 /obj/item/ammo_casing/energy/laser/exploration_kill
 	projectile_type = /obj/projectile/beam/laser/exploration_kill
 	select_name = "KILL"
-	e_cost = 80 WATT
+	e_cost = 800 WATT
 
 /obj/projectile/beam/laser/exploration_kill
 	damage = 30
@@ -82,7 +82,7 @@
 /obj/item/ammo_casing/energy/laser/exploration_destroy
 	projectile_type = /obj/projectile/beam/laser/exploration_destroy
 	select_name = "DESTROY"
-	e_cost = 120 WATT
+	e_cost = 1200 WATT
 
 /obj/projectile/beam/laser/exploration_destroy
 	damage = 20

@@ -11,7 +11,7 @@
 	select_name = "kill"
 
 /obj/item/ammo_casing/energy/lasergun/cyborg
-	e_cost = 100 WATT
+	e_cost = 1000 WATT
 
 /obj/item/ammo_casing/energy/lasergun/repeater
 	e_cost = 500 WATT
