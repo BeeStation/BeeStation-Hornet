@@ -9,6 +9,7 @@
 	)
 	healed_type = /datum/injury/cut_stitched_muscle
 	heal_description = "The victim requires immediate the application of a tourniquet and cauterization surgery to be performed."
+	external = TRUE
 
 /datum/injury/cut_arterial/on_tick(mob/living/carbon/human/target, delta_time)
 	. = ..()

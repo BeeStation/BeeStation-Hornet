@@ -91,7 +91,7 @@
 #define BP_BLOCK_CHANGE_SPECIES	(1<<0)
 
 //Bodytype defines for how things can be worn, surgery, and other misc things.
-///The limb is organic.
+///The limb is organic. Decays when outside of a body.
 #define BODYTYPE_ORGANIC (1<<0)
 ///The limb is robotic.
 #define BODYTYPE_ROBOTIC (1<<1)

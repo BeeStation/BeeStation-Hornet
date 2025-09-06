@@ -5,6 +5,7 @@
 	examine_description = "treatable burn scars"
 	healed_type = /datum/injury/healthy_skin_burn
 	heal_description = "This victim can be treated via a surgical skin graft."
+	external = TRUE
 
 /datum/injury/repaired_skin_burn/on_damage_taken(total_damage, delta_damage, damage_type = BRUTE, damage_flag = DAMAGE_STANDARD, is_sharp = FALSE)
 	if (damage_type != BURN)

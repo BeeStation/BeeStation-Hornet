@@ -24,7 +24,7 @@
 	)
 
 /datum/outfit/job/gimmick
-	can_be_admin_equipped = FALSE // we want just the parent outfit to be unequippable since this leads to problems
+	can_be_admin_equipped = FALSE // we  want just the parent outfit to be unequippable since this leads to problems
 
 /datum/job/gimmick/barber
 	title = JOB_NAME_BARBER

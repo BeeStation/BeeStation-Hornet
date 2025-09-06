@@ -65,9 +65,9 @@
 	var/stam_damage_coeff = 0.7 //Why is this the default???
 	var/brutestate = 0
 	var/burnstate = 0
-	var/brute_dam = 0
-	var/burn_dam = 0
 	var/max_stamina_damage = 0
+	/// How much damage have we accumulated from our injuries.
+	var/accumulated_damage = 0
 	/// How much health this bodypart has
 	/// When damage reaches this value, it will be disabled.
 	/// Both injuries and regular damage take from this value.
@@ -173,7 +173,8 @@
 
 /obj/item/bodypart/process(delta_time)
 	// Decay
-	receive_damage(decay_rate)
+	if (bodytype & BODYTYPE_ORGANIC)
+		receive_damage(decay_rate)
 	if (get_damage() >= max_damage)
 		destroyed = TRUE
 		update_disabled()
@@ -186,10 +187,11 @@
 
 /obj/item/bodypart/examine(mob/user)
 	. = ..()
-	if(brute_dam >= DAMAGE_PRECISION)
-		. += span_warning("This limb has [brute_dam > 30 ? "severe" : "minor"] bruising.")
-	if(burn_dam >= DAMAGE_PRECISION)
-		. += span_warning("This limb has [burn_dam > 30 ? "severe" : "minor"] burns.")
+	for (var/datum/injury/injury in injuries)
+		if (!injury.external)
+			continue
+		if (!injury.examine_description)
+		. += span_warning("You see [injury.description] blighting the surface of the limb.")
 	if(limb_id)
 		. += span_notice("It is a [limb_id] [parse_zone(body_zone)].")
 

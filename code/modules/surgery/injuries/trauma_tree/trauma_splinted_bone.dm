@@ -4,6 +4,7 @@
 	examine_description = "a splinted fracture"
 	effectiveness_modifier = 0.9
 	heal_description = "The victim should rest and allow the damaged bones to naturally heal over time."
+	external = TRUE
 
 /datum/injury/trauma_splinted_bone/apply_to_part(obj/item/bodypart/part)
 	// If we lose the injury, stop the timer

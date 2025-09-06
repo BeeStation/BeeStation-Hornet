@@ -1,43 +1,67 @@
 /datum/injury
+	// =================================
+	// Meta
+	// =================================
 	/// The starting point of the injury tree
 	var/base_type = null
-	/// Current amount of damage taken
-	var/current_damage = 0
-	/// Bodypart we are attached to
-	var/obj/item/bodypart/bodypart
-	/// Effectiveness modifier to the limb
-	var/effectiveness_modifier = 1
-	/// Modifier to the bone armour provided by the limb
-	var/bone_armour_modifier = 1
-	/// Modifier to the skin armour provided by the limb
-	var/skin_armour_modifier = 1
-	/// Current amount of damage that we have taken
-	VAR_PRIVATE/damage_taken = 0
-	/// List of surgeries provided by this injury
-	var/list/surgeries_provided = null
+	// =================================
+	// Presentation
+	// =================================
 	/// The severity level of this injury
 	var/severity_level = INJURY_PRIORITY_NONE
 	/// The health doll state to add
 	var/health_doll_icon = null
 	/// How the injury shows up when examined, prefaced by the auxiliary verb
 	var/examine_description = null
-	/// What do we need to do to heal this injury?
-	var/heal_description = null
 	/// Should we be treated as if we are coming from the body instead?
 	var/whole_body = FALSE
+	/// Is this injury visible by inspection of the body?
+	var/external = FALSE
+	// =================================
+	// Effects
+	// =================================
+	/// How much damage this injury adds to the limb when it is applied, regardless
+	/// of how much progression the injury has.
+	var/added_damage = 0
+	/// The amount of damage applied by this will be this value multiplied by the
+	/// progression of the injury.
+	var/damage_multiplier = 0
+	/// Current amount of damage taken
+	var/progression = 0
+	/// Effectiveness modifier to the limb. Reduces the effectiveness on the limb even
+	/// without causing damage to it.
+	var/effectiveness_modifier = 1
+	/// Modifier to the bone armour provided by the limb
+	var/bone_armour_modifier = 1
+	/// Modifier to the skin armour provided by the limb
+	var/skin_armour_modifier = 1
+	/// How much pain this injury causes
+	var/pain = 0
+	// =================================
+	// Healing
+	// =================================
+	/// List of surgeries provided by this injury
+	var/list/surgeries_provided = null
+	/// What do we need to do to heal this injury?
+	var/heal_description = null
 	/// The type we transition to upon being healed
 	var/healed_type
+	/// Max amount of damage we can absorb as a fresh injury. This means that new injuries
+	/// have more health than old ones.
+	var/max_absorption = 30
+	// =================================
+	// Instanced
+	// =================================
+	/// Bodypart we are attached to
+	var/obj/item/bodypart/bodypart
+	/// Current amount of damage that we have taken
+	VAR_PRIVATE/damage_taken = 0
 	/// When did we gain this injury?
 	var/gained_time
 	/// How much damage have we absorbed, when injuries are gained for the first time
 	/// there is a short period in which they absorb additional damage, so that a single
 	/// fight doesn't progress you to fatal injuries instantly
 	var/absorbed_damage = 0
-	/// Max amount of damage we can absorb as a fresh injury. This means that new injuries
-	/// have more health than old ones.
-	var/max_absorption = 30
-	/// How much pain this injury causes
-	var/pain = 0
 
 /datum/injury/process(delta_time)
 	if (!bodypart.owner)
@@ -74,14 +98,14 @@
 	STOP_PROCESSING(SSinjuries, src)
 
 /datum/injury/proc/apply_damage(delta_damage, damage_type = BRUTE, damage_flag = DAMAGE_STANDARD, is_sharp = FALSE)
-	if (on_damage_taken(current_damage + delta_damage, delta_damage, damage_type, damage_flag, is_sharp))
+	if (on_damage_taken(progression + delta_damage, delta_damage, damage_type, damage_flag, is_sharp))
 		// Absorb damage if we are a brand new injury.
 		var/duration = world.time - gained_time
 		var/propotion = CLAMP01(1 - (duration / INJURY_ABSORPTION_DURATION))
 		var/absorbed_amount = max(0, min(delta_damage, (max_absorption * propotion) - absorbed_damage))
 		absorbed_damage += absorbed_amount
 		// Increase our total damage amount
-		current_damage += delta_damage - absorbed_amount
+		progression += delta_damage - absorbed_amount
 
 /// Called when damage is taken
 /// Return false if the damage is not relevant and should be ignored, true otherwise.

@@ -4,6 +4,7 @@
 	examine_description = "treated burn wounds"
 	healed_type = /datum/injury/repaired_skin_burn
 	heal_description = "The victim should rest to make a full recovery."
+	external = TRUE
 
 /datum/injury/treated_burn/on_damage_taken(total_damage, delta_damage, damage_type = BRUTE, damage_flag = DAMAGE_STANDARD, is_sharp = FALSE)
 	if (damage_type != BURN)

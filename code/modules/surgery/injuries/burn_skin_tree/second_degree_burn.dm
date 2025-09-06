@@ -8,6 +8,7 @@
 	healed_type = /datum/injury/treated_burn
 	heal_description = "The victim can be treated with 5 units of advanced burn gel applied via patch to the site of the injury."
 	pain = 25
+	external = TRUE
 
 /datum/injury/second_degree_burns/on_damage_taken(total_damage, delta_damage, damage_type = BRUTE, damage_flag = DAMAGE_STANDARD, is_sharp = FALSE)
 	if (damage_type != BURN)
