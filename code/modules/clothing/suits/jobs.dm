@@ -25,6 +25,16 @@
 		/obj/item/storage/bag/plants
 	)
 
+/obj/item/clothing/suit/apron/botany
+	name = "hydroponics apron"
+	desc = "A green apron for botanist."
+	icon_state = "botanyoverall"
+
+/obj/item/clothing/suit/apron/skirt
+	name = "hydroponics skirt-apron"
+	desc = "A green skirt-apron for botanist."
+	icon_state = "botanyoverall_skirt"
+
 /obj/item/clothing/suit/apron/Initialize(mapload)
 	. = ..()
 	create_storage(storage_type = /datum/storage/pockets/exo/large)
@@ -43,7 +53,7 @@
 
 //Chef
 /obj/item/clothing/suit/toggle/chef
-	name = "chef's apron"
+	name = "Chef apron"
 	desc = "An apron-jacket used by a high class chef."
 	icon_state = "chef"
 	item_state = "chef"
@@ -62,6 +72,16 @@
 
 /datum/armor/toggle_chef
 	bio = 50
+
+/obj/item/clothing/suit/toggle/chef/black
+	name = "Black chef apron"
+	desc = "A black apron-jacket used by a high class chef."
+	icon_state = "chef_black"
+
+/obj/item/clothing/suit/toggle/chef/sushi
+	name = "Sushi chef kimon"
+	desc = "A kimono used by a high class sushi chef."
+	icon_state = "chef_sushi"
 
 /obj/item/clothing/suit/apron/chef
 	name = "cook's apron"

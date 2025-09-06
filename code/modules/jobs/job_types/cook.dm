@@ -36,11 +36,12 @@
 	id = /obj/item/card/id/job/cook
 	belt = /obj/item/modular_computer/tablet/pda/preset/cook
 	ears = /obj/item/radio/headset/headset_srv
-	uniform = /obj/item/clothing/under/rank/civilian/chef
+	uniform = /obj/item/clothing/under/rank/civilian/servicedefault
 	suit = /obj/item/clothing/suit/toggle/chef
 	head = /obj/item/clothing/head/utility/chefhat
 	mask = /obj/item/clothing/mask/fakemoustache/italian
 	backpack_contents = list(/obj/item/sharpener = 1)
+	shoes = /obj/item/clothing/shoes/laceup
 
 /datum/outfit/job/cook/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
