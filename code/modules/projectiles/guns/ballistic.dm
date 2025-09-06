@@ -74,7 +74,7 @@
 	if (!magazine)
 		magazine = new mag_type(src)
 	if (!caliber || !length(caliber))
-		caliber = islist(magazine.caliber) ? magazine.caliber.Copy() : list(magazine.caliber)
+		caliber = islist(magazine.caliber) ? magazine.caliber : list(magazine.caliber)
 	chamber_round()
 	update_icon()
 
@@ -309,15 +309,15 @@
 	// Accepts an ammo casing or a raw value/list and returns TRUE if any overlap with src.caliber
 	var/list/incoming
 	if (istype(A, /obj/item/ammo_casing))
-		var/obj/item/ammo_casing/AC = A
-		incoming = islist(AC.caliber) ? AC.caliber : list(AC.caliber)
+		var/obj/item/ammo_casing/Ammo = A
+		incoming = islist(Ammo.caliber) ? Ammo.caliber : list(Ammo.caliber)
 	else if (islist(A))
 		incoming = A
 	else
 		incoming = list(A)
 
-	for (var/c in incoming)
-		if (c in src.caliber)
+	for (var/caliber_type in incoming)
+		if (caliber_type in src.caliber)
 			return TRUE
 	return FALSE
 
