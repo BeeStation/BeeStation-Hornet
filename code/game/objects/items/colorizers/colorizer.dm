@@ -56,7 +56,7 @@
 	var/obj/item/target_item = to_be_colored
 	if(istype(target_item))
 		if(apply_item_state)
-			target_item.item_state = apply_item_state
+			target_item.inhand_icon_state = apply_item_state
 		if(apply_righthand_file)
 			target_item.righthand_file = apply_righthand_file
 		if(apply_lefthand_file)

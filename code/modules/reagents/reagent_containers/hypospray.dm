@@ -6,7 +6,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	icon_state = "hypo"
 	worn_icon_state = "hypo"
-	item_state = "hypo"
+	inhand_icon_state = "hypo"
 	amount_per_transfer_from_this = 5
 	volume = 30
 	possible_transfer_amounts = list(1,5,15)
@@ -78,7 +78,7 @@
 	name = "combat stimulant injector"
 	desc = "A modified air-needle autoinjector, used by support operatives to quickly heal injuries in combat."
 	amount_per_transfer_from_this = 10
-	item_state = "combat_hypo"
+	inhand_icon_state = "combat_hypo"
 	icon_state = "combat_hypo"
 	volume = 90
 	possible_transfer_amounts = list(10,15,30,45)
@@ -88,7 +88,7 @@
 /obj/item/reagent_containers/hypospray/combat/nanites
 	name = "experimental combat stimulant injector"
 	desc = "A modified air-needle autoinjector for use in combat situations. Prefilled with experimental medical nanites and a stimulant for rapid healing and a combat boost."
-	item_state = "nanite_hypo"
+	inhand_icon_state = "nanite_hypo"
 	icon_state = "nanite_hypo"
 	volume = 100
 	possible_transfer_amounts = list(5,10,15,30,50)
@@ -103,7 +103,7 @@
 /obj/item/reagent_containers/hypospray/combat/heresypurge
 	name = "holy water piercing injector"
 	desc = "A modified air-needle autoinjector for use in combat situations. Prefilled with 5 doses of a holy water and pacifier mixture. Not for use on your teammates."
-	item_state = "holy_hypo"
+	inhand_icon_state = "holy_hypo"
 	icon_state = "holy_hypo"
 	volume = 250
 	possible_transfer_amounts = list(25,50,100)
@@ -116,7 +116,7 @@
 	name = "epinephrine medipen"
 	desc = "A rapid and safe way to stabilize patients in critical condition for personnel without advanced medical knowledge. Contains a powerful preservative that can delay decomposition when applied to a dead body."
 	icon_state = "medipen"
-	item_state = "medipen"
+	inhand_icon_state = "medipen"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	amount_per_transfer_from_this = 13
@@ -161,7 +161,7 @@
 	name = "stimpack medipen"
 	desc = "A rapid way to stimulate your body's adrenaline, allowing for freer movement in restrictive armor."
 	icon_state = "stimpen"
-	item_state = "stimpen"
+	inhand_icon_state = "stimpen"
 	volume = 20
 	amount_per_transfer_from_this = 20
 	list_reagents = list(/datum/reagent/medicine/ephedrine = 10, /datum/reagent/consumable/coffee = 10)
@@ -174,7 +174,7 @@
 	name = "pumpup medipen"
 	desc = "Contains a very large amount of an incredibly powerful stimulant, vastly increasing your immunity and recovery from slowdowns for around five minutes. Do not take if pregnant."
 	icon_state = "syndipen"
-	item_state = "tbpen"
+	inhand_icon_state = "tbpen"
 	volume = 50
 	amount_per_transfer_from_this = 50
 	list_reagents = list(/datum/reagent/medicine/pumpup = 50)
@@ -183,7 +183,7 @@
 	name = "stimulant medipen"
 	desc = "Contains a very large amount of an incredibly powerful stimulant, vastly increasing your movement speed and reducing stuns by a very large amount for around five minutes. Do not take if pregnant."
 	icon_state = "syndipen"
-	item_state = "tbpen"
+	inhand_icon_state = "tbpen"
 	volume = 50
 	amount_per_transfer_from_this = 50
 	list_reagents = list(/datum/reagent/medicine/amphetamine = 50)
@@ -192,20 +192,20 @@
 	name = "morphine medipen"
 	desc = "A rapid way to get you out of a tight situation and fast! You'll feel rather drowsy, though."
 	icon_state = "morphen"
-	item_state = "morphen"
+	inhand_icon_state = "morphen"
 	list_reagents = list(/datum/reagent/medicine/morphine = 10)
 
 /obj/item/reagent_containers/hypospray/medipen/dexalin
 	name = "dexalin medipen"
 	icon_state = "dexpen"
-	item_state = "dexpen"
+	inhand_icon_state = "dexpen"
 	desc = "A autoinjector containing dexalin, used to heal oxygen damage quickly."
 	list_reagents = list(/datum/reagent/medicine/dexalin = 10)
 
 /obj/item/reagent_containers/hypospray/medipen/vactreat
 	name = "emergency vacuum exposure pen"
 	icon_state = "dexpen"
-	item_state = "dexpen"
+	inhand_icon_state = "dexpen"
 	volume = 60
 	amount_per_transfer_from_this = 30
 	desc = "A autoinjector containing a potent chemical cocktail formulated to treat momentary vacuum exposure. Toxic, and can be used twice."
@@ -221,7 +221,7 @@
 	name = "BVAK autoinjector"
 	desc = "Bio Virus Antidote Kit autoinjector. Has a two use system for yourself, and someone else. Inject when infected."
 	icon_state = "tbpen"
-	item_state = "tbpen"
+	inhand_icon_state = "tbpen"
 	volume = 60
 	amount_per_transfer_from_this = 30
 	list_reagents = list(/datum/reagent/medicine/atropine = 10, /datum/reagent/medicine/epinephrine = 10, /datum/reagent/medicine/salbutamol = 20, /datum/reagent/medicine/spaceacillin = 20)
@@ -238,7 +238,7 @@
 	name = "survival medipen"
 	desc = "A medipen for surviving in the harshest of environments, heals and protects from environmental hazards. WARNING: Do not inject more than one pen in quick succession."
 	icon_state = "survpen"
-	item_state = "survpen"
+	inhand_icon_state = "survpen"
 	volume = 57
 	amount_per_transfer_from_this = 57
 	list_reagents = list(/datum/reagent/medicine/salbutamol = 10, /datum/reagent/medicine/leporazine = 15, /datum/reagent/medicine/regen_jelly = 15, /datum/reagent/medicine/epinephrine = 10, /datum/reagent/medicine/lavaland_extract = 2, /datum/reagent/medicine/omnizine = 5)
@@ -247,7 +247,7 @@
 	name = "atropine autoinjector"
 	desc = "A rapid way to save a person from a critical injury state!"
 	icon_state = "atropen"
-	item_state = "atropen"
+	inhand_icon_state = "atropen"
 	list_reagents = list(/datum/reagent/medicine/atropine = 10)
 
 /obj/item/reagent_containers/hypospray/medipen/snail
@@ -255,13 +255,13 @@
 	desc = "All-purpose snail medicine! Do not use on non-snails!"
 	list_reagents = list(/datum/reagent/snail = 10)
 	icon_state = "snail"
-	item_state = "snail"
+	inhand_icon_state = "snail"
 
 /obj/item/reagent_containers/hypospray/medipen/magillitis
 	name = "experimental autoinjector"
 	desc = "A custom-frame needle injector with a small single-use reservoir, containing an experimental serum. Unlike the more common medipen frame, it cannot pierce through protective armor or hardsuits, nor can the chemical inside be extracted."
 	icon_state = "gorillapen"
-	item_state = "gorillapen"
+	inhand_icon_state = "gorillapen"
 	volume = 5
 	ignore_flags = 0
 	reagent_flags = NONE
@@ -271,7 +271,7 @@
 	name = "Shadow Person mutator autoinjector"
 	desc = "Become one with the shadows, and change your race to a Shadow Person today!"
 	icon_state = "syndipen"
-	item_state = "tbpen"
+	inhand_icon_state = "tbpen"
 	volume = 10
 	amount_per_transfer_from_this = 10
 	list_reagents = list(/datum/reagent/mutationtoxin/shadow = 10)

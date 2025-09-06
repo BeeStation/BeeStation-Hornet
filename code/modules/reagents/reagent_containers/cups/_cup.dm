@@ -172,7 +172,7 @@
 	desc = "A beaker. It can hold up to 50 units."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "beaker"
-	item_state = "beaker"
+	inhand_icon_state = "beaker"
 	worn_icon_state = "beaker"
 	custom_materials = list(/datum/material/glass=500)
 	fill_icon_thresholds = list(1, 10, 20, 40, 60, 80, 100)
@@ -294,7 +294,7 @@
 	icon = 'icons/obj/janitor.dmi'
 	worn_icon = 'icons/mob/clothing/head/utility.dmi'
 	icon_state = "bucket"
-	item_state = "bucket"
+	inhand_icon_state = "bucket"
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
 	custom_materials = list(/datum/material/iron=200)

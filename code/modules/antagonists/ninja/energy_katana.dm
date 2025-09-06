@@ -14,7 +14,7 @@
 	desc = "A katana infused with strong energy."
 	desc_controls = "Right-click to dash."
 	icon_state = "energy_katana"
-	item_state = "energy_katana"
+	inhand_icon_state = "energy_katana"
 	worn_icon_state = "energy_katana"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'

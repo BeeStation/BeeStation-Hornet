@@ -471,7 +471,7 @@
 		new_profile.flags_cover_list[slot] = clothing_item.flags_cover
 		new_profile.lefthand_file_list[slot] = clothing_item.lefthand_file
 		new_profile.righthand_file_list[slot] = clothing_item.righthand_file
-		new_profile.item_state_list[slot] = clothing_item.item_state
+		new_profile.item_state_list[slot] = clothing_item.inhand_icon_state
 		new_profile.worn_icon_list[slot] = clothing_item.worn_icon
 		new_profile.worn_icon_state_list[slot] = clothing_item.worn_icon_state
 		new_profile.exists_list[slot] = 1
@@ -738,7 +738,7 @@
 		new_flesh_item.flags_cover = chosen_profile.flags_cover_list[slot]
 		new_flesh_item.lefthand_file = chosen_profile.lefthand_file_list[slot]
 		new_flesh_item.righthand_file = chosen_profile.righthand_file_list[slot]
-		new_flesh_item.item_state = chosen_profile.item_state_list[slot]
+		new_flesh_item.inhand_icon_state = chosen_profile.item_state_list[slot]
 		new_flesh_item.worn_icon = chosen_profile.worn_icon_list[slot]
 		new_flesh_item.worn_icon_state = chosen_profile.worn_icon_state_list[slot]
 

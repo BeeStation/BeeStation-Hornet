@@ -68,7 +68,7 @@
 	desc = "A translucent balloon. There's nothing in it."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "waterballoon-e"
-	item_state = "balloon-empty"
+	inhand_icon_state = "balloon-empty"
 
 
 /obj/item/toy/balloon/Initialize(mapload)
@@ -132,10 +132,10 @@
 /obj/item/toy/balloon/update_icon()
 	if(src.reagents.total_volume >= 1)
 		icon_state = "waterballoon"
-		item_state = "balloon"
+		inhand_icon_state = "balloon"
 	else
 		icon_state = "waterballoon-e"
-		item_state = "balloon-empty"
+		inhand_icon_state = "balloon-empty"
 
 /obj/item/toy/syndicateballoon
 	name = "syndicate balloon"
@@ -146,7 +146,7 @@
 	force = 0
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "syndballoon"
-	item_state = "syndballoon"
+	inhand_icon_state = "syndballoon"
 	lefthand_file = 'icons/mob/inhands/antag/balloons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/antag/balloons_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
@@ -187,7 +187,7 @@
 	desc = "Looks almost like the real thing! Ages 8 and up. Please recycle in an autolathe when you're out of caps."
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "revolver"
-	item_state = "gun"
+	inhand_icon_state = "gun"
 	worn_icon_state = "gun"
 	lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
@@ -314,7 +314,7 @@
 	. = ..()
 	var/last_part = HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE) ? "_on[saber_color ? "_[saber_color]" : null]" : null
 	icon_state = "[initial(icon_state)][last_part]"
-	item_state = "[initial(item_state)][last_part]"
+	inhand_icon_state = "[initial(inhand_icon_state)][last_part]"
 
 /obj/item/toy/sword/multitool_act(mob/living/user, obj/item/tool)
 	if(hacked)
@@ -355,7 +355,7 @@
 	desc = "It says \"Sternside Changs #1 fan\" on it."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "foamblade"
-	item_state = "arm_blade"
+	inhand_icon_state = "arm_blade"
 	lefthand_file = 'icons/mob/inhands/antag/changeling_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/antag/changeling_righthand.dmi'
 	attack_verb_continuous = list("pricks", "absorbs", "gores")
@@ -372,7 +372,7 @@
 	desc = "Despite being a cheap plastic imitation of a stunbaton, it can still be charged."
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "stunbaton"
-	item_state = "baton"
+	inhand_icon_state = "baton"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	attack_verb_continuous = list("batongs", "stuns", "hits")
@@ -384,7 +384,7 @@
 	name = "windup toolbox"
 	desc = "A replica toolbox that rumbles when you turn the key."
 	icon_state = "his_grace"
-	item_state = "artistic_toolbox"
+	inhand_icon_state = "artistic_toolbox"
 	lefthand_file = 'icons/mob/inhands/equipment/toolbox_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/toolbox_righthand.dmi'
 	var/active = FALSE
@@ -466,7 +466,7 @@
 	desc = "Woefully underpowered in D20."
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "katana"
-	item_state = "katana"
+	inhand_icon_state = "katana"
 	worn_icon_state = "katana"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
@@ -1299,7 +1299,7 @@
 	icon = 'icons/misc/beach.dmi'
 	icon_state = "ball"
 	name = "beach ball"
-	item_state = "beachball"
+	inhand_icon_state = "beachball"
 	w_class = WEIGHT_CLASS_BULKY //Stops people from hiding it in their bags/pockets
 	item_flags = NO_PIXEL_RANDOM_DROP
 
@@ -1338,7 +1338,7 @@
 	desc = "A cheap plastic replica of a dagger. Produced by THE ARM Toys, Inc."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "render"
-	item_state = "cultdagger"
+	inhand_icon_state = "cultdagger"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
@@ -1448,7 +1448,7 @@
 /obj/item/toy/figure/assistant
 	name = "\improper Assistant action figure"
 	icon_state = "assistant"
-	item_state = "doll"
+	inhand_icon_state = "doll"
 	toysay = "Greytide world wide!"
 
 /obj/item/toy/figure/atmos
@@ -1650,7 +1650,7 @@
 	desc = "It's a dummy, dummy. Use .l to talk out of it if held in your left hand, or .r if held in your right hand."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "puppet"
-	item_state = "puppet"
+	inhand_icon_state = "puppet"
 	var/doll_name = "Dummy"
 
 //Add changing looks when i feel suicidal about making 20 inhands for these.

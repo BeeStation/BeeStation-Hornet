@@ -14,7 +14,7 @@
 	name = "welding helmet"
 	desc = "A head-mounted face cover designed to protect the wearer completely from space-arc eye."
 	icon_state = "welding"
-	item_state = "welding"
+	inhand_icon_state = "welding"
 	clothing_flags = SNUG_FIT
 	custom_materials = list(/datum/material/iron=1750, /datum/material/glass=400)
 	flash_protect = FLASH_PROTECTION_WELDER
@@ -42,7 +42,7 @@
 	desc = "A bunch of hair without a head attached."
 	icon = 'icons/mob/species/human/human_face.dmi'	  // default icon for all hairs
 	icon_state = "hair_vlong"
-	item_state = "pwig"
+	inhand_icon_state = "pwig"
 	flags_inv = HIDEHAIR	//Instead of being handled as a clothing item, it overrides the hair values in /datum/species/proc/handle_hair
 	slot_flags = ITEM_SLOT_HEAD
 	worn_icon = 'icons/mob/species/human/human_face.dmi'
@@ -149,14 +149,14 @@
 	name = "hat of ultimate masculinity"
 	desc = "Even the mere act of wearing this makes you want to pose menacingly."
 	icon_state = "speedwagon"
-	item_state = "speedwagon"
+	inhand_icon_state = "speedwagon"
 	worn_y_offset = 4
 
 /obj/item/clothing/head/costume/speedwagon/cursed
 	name = "ULTIMATE HAT"
 	desc = "You feel weak and pathetic in comparison to this exceptionally beautiful hat."
 	icon_state = "speedwagon"
-	item_state = "speedwagon"
+	inhand_icon_state = "speedwagon"
 	worn_y_offset = 6
 
 /obj/item/clothing/head/franks_hat
@@ -165,4 +165,4 @@
 	icon = 'icons/obj/clothing/head/cowboy.dmi'
 	worn_icon = 'icons/mob/clothing/head/cowboy.dmi'
 	icon_state = "cowboy"
-	item_state = "cowboy"
+	inhand_icon_state = "cowboy"

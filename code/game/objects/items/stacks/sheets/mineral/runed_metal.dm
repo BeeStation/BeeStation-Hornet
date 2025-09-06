@@ -72,7 +72,7 @@ GLOBAL_LIST_INIT(runed_metal_recipes, list( \
 	desc = "Sheets of cold metal with shifting inscriptions writ upon them."
 	singular_name = "runed metal sheet"
 	icon_state = "sheet-runed"
-	item_state = "sheet-runed"
+	inhand_icon_state = "sheet-runed"
 	//icon = 'icons/obj/stacks/mineral.dmi'
 	sheettype = "runed"
 	merge_type = /obj/item/stack/sheet/runed_metal

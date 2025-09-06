@@ -5,7 +5,7 @@
 	desc = "A device used to check objects made in the workshop, to have them cashed out for sentence reductions."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "export_scanner"
-	item_state = "radio"
+	inhand_icon_state = "radio"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	item_flags = NOBLUDGEON

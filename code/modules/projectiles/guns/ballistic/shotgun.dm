@@ -5,7 +5,7 @@
 	worn_icon_state = null
 	lefthand_file = 'icons/mob/inhands/weapons/64x_guns_left.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/64x_guns_right.dmi'
-	item_state = "shotgun"
+	inhand_icon_state = "shotgun"
 	inhand_x_dimension = 64
 	inhand_y_dimension = 64
 	fire_sound = "sound/weapons/shotgunshot.ogg"
@@ -57,7 +57,7 @@
 	name = "riot shotgun"
 	desc = "A sturdy shotgun with a longer magazine and a fixed tactical stock designed for non-lethal riot control."
 	icon_state = "riotshotgun"
-	item_state = "shotgun"
+	inhand_icon_state = "shotgun"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/riot
 	can_sawoff = TRUE
 	sawn_desc = "Come with me if you want to live."
@@ -73,7 +73,7 @@
 	name = "combat shotgun"
 	desc = "A semi automatic shotgun with tactical furniture and a six-shell capacity underneath."
 	icon_state = "cshotgun"
-	item_state = "shotgun_combat"
+	inhand_icon_state = "shotgun_combat"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/com
 	w_class = WEIGHT_CLASS_HUGE
 
@@ -165,7 +165,7 @@
 	name = "\improper Bulldog Shotgun"
 	desc = "A semi-auto, mag-fed shotgun for combat in narrow corridors with a built in recoil dampening system, nicknamed 'Bulldog' by boarding parties. Compatible only with specialized 8-round drum magazines."
 	icon_state = "bulldog"
-	item_state = "bulldog"
+	inhand_icon_state = "bulldog"
 	worn_icon_state = "cshotgun"
 	lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
@@ -200,7 +200,7 @@
 	name = "double-barreled shotgun"
 	desc = "A true classic."
 	icon_state = "dshotgun"
-	item_state = "shotgun_db"
+	inhand_icon_state = "shotgun_db"
 	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_MEDIUM
 	force = 10
@@ -250,7 +250,7 @@
 	name = "improvised shotgun"
 	desc = "Essentially a tube that aims shotgun shells."
 	icon_state = "ishotgun"
-	item_state = "shotgun_improv"
+	inhand_icon_state = "shotgun_improv"
 	sawn_item_state = "shotgun_improv_shorty"
 	w_class = WEIGHT_CLASS_BULKY
 	force = 10
@@ -329,7 +329,7 @@
 	name = "sawn-off improvised shotgun"
 	desc = "A single-shot shotgun. Better not miss."
 	icon_state = "ishotgun"
-	item_state = "shotgun_improv_shorty"
+	inhand_icon_state = "shotgun_improv_shorty"
 	worn_icon_state = "gun"
 	w_class = WEIGHT_CLASS_LARGE
 	sawn_off = TRUE
@@ -340,7 +340,7 @@
 	name = "hook modified sawn-off shotgun"
 	desc = "Range isn't an issue when you can bring your victim to you."
 	icon_state = "hookshotgun"
-	item_state = "shotgun"
+	inhand_icon_state = "shotgun"
 	lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
 	inhand_x_dimension = 32
@@ -378,7 +378,7 @@
 	w_class = WEIGHT_CLASS_LARGE
 	dual_wield_spread = 0
 	fire_sound_volume = 60    //tried on 90 my eardrums said goodbye
-	item_state = "leveraction"
+	inhand_icon_state = "leveraction"
 	icon_state = "leveraction"
 	worn_icon_state = "shotgun"
 	rack_sound = "sound/weapons/leveractionrack.ogg"

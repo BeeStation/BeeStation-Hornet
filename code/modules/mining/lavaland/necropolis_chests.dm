@@ -73,7 +73,7 @@
 	lefthand_file = 'icons/mob/inhands/weapons/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
 	icon_state = "asclepius_dormant"
-	item_state = "asclepius_dormant"
+	inhand_icon_state = "asclepius_dormant"
 	block_upgrade_walk = TRUE
 	block_level = 1
 	block_power = 40 //blocks very well to encourage using it. Just because you're a pacifist doesn't mean you can't defend yourself
@@ -130,7 +130,7 @@
 	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
 	desc = "A short wooden rod with a mystical snake inseparably gripping itself and the rod to your forearm. It flows with a healing energy that disperses amongst yourself and those around you. "
 	icon_state = "asclepius_active"
-	item_state = "asclepius_active"
+	inhand_icon_state = "asclepius_active"
 	activated = TRUE
 
 //Memento Mori
@@ -202,7 +202,7 @@
 	desc = "This lantern gives off no light, but is home to a friendly wisp."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "lantern-blue"
-	item_state = "lantern"
+	inhand_icon_state = "lantern"
 	lefthand_file = 'icons/mob/inhands/equipment/mining_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/mining_righthand.dmi'
 	var/obj/effect/wisp/wisp
@@ -396,7 +396,7 @@
 	desc = "Mid or feed."
 	ammo_type = /obj/item/ammo_casing/magic/hook
 	icon_state = "hook"
-	item_state = "chain"
+	inhand_icon_state = "chain"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
 	fire_sound = 'sound/weapons/batonextend.ogg'
@@ -678,7 +678,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	desc = "Pickaxes... for your hands!"
 	icon_state = "concussive_gauntlets"
 	worn_icon_state = "concussive_gauntlets"
-	item_state = "combatgloves"
+	inhand_icon_state = "combatgloves"
 	toolspeed = 0.1 //Sonic jackhammer, but only works on minerals.
 	strip_delay = 40
 	equip_delay_other = 20
@@ -754,7 +754,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	lefthand_file = 'icons/mob/inhands/64x64_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/64x64_righthand.dmi'
 	icon_state = "cleaving_saw"
-	item_state = "cleaving_saw"
+	inhand_icon_state = "cleaving_saw"
 	worn_icon_state = "cleaving_saw"
 	attack_verb_continuous = list("attacks", "saws", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	attack_verb_simple = list("attack", "saw", "slice", "tear", "lacerate", "rip", "dice", "cut")
@@ -888,7 +888,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	name = "\improper spectral blade"
 	desc = "A rusted and dulled blade. It doesn't look like it'd do much damage. It glows weakly."
 	icon_state = "spectral"
-	item_state = "spectral"
+	inhand_icon_state = "spectral"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	flags_1 = CONDUCT_1
@@ -1034,7 +1034,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	name = "staff of lava"
 	desc = "The power to manipulate lava. What more could you want out of life?"
 	icon_state = "staffofstorms"
-	item_state = "staffofstorms"
+	inhand_icon_state = "staffofstorms"
 	lefthand_file = 'icons/mob/inhands/weapons/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
 	icon = 'icons/obj/guns/magic.dmi'
@@ -1193,7 +1193,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	name = "hierophant club"
 	desc = "The strange technology of this large club allows various nigh-magical feats. It used to beat you, but now you can set the beat."
 	icon_state = "hierophant_club_ready_beacon"
-	item_state = "hierophant_club_ready_beacon"
+	inhand_icon_state = "hierophant_club_ready_beacon"
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	lefthand_file = 'icons/mob/inhands/64x64_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/64x64_righthand.dmi'
@@ -1288,7 +1288,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 
 /obj/item/hierophant_club/update_icon()
 	icon_state = "hierophant_club[timer <= world.time ? "_ready":""][(beacon && !QDELETED(beacon)) ? "":"_beacon"]"
-	item_state = icon_state
+	inhand_icon_state = icon_state
 	if(ismob(loc))
 		var/mob/M = loc
 		M.update_inv_hands()

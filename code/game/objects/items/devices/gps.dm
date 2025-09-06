@@ -4,7 +4,7 @@
 	desc = "Helping lost spacemen find their way through the planets since 2016."
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "gps-c"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	worn_icon_state = "electronic"
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_BELT
