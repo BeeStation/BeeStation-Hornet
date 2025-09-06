@@ -248,7 +248,7 @@
 	else
 		playsound(src, fire_sound, fire_sound_volume, vary_fire_sound)
 
-/obj/item/gun/proc/after_live_shot_fired(mob/living/user, pointblank = 0, atom/pbtarget = null, message = 1)
+/obj/item/gun/proc/after_live_shot_fired(mob/living/user, pointblank = 0, atom/pbtarget = null, message = TRUE)
 	if(recoil && !tk_firing(user))
 		shake_camera(user, recoil + 1, recoil)
 	fire_sounds()
@@ -425,7 +425,7 @@
 	SHOULD_NOT_OVERRIDE(TRUE)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM)) // If the user has the pacifist trait, then they won't be able to fire [src] if the round chambered inside of [src] is lethal.
 		if(chambered.harmful) // Is the bullet chambered harmful?
-			to_chat(user, span_notice(" [src] is lethally chambered! You don't want to risk harming anyone..."))
+			to_chat(user, span_notice("[src] is lethally chambered! You don't want to risk harming anyone..."))
 			return
 
 	if(burst_size > 1)

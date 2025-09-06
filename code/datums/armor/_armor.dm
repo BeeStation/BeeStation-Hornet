@@ -41,7 +41,6 @@ GLOBAL_LIST_INIT(armor_by_type, generate_armor_type_cache())
 	VAR_PROTECTED/fire = 0
 	VAR_PROTECTED/laser = 0
 	VAR_PROTECTED/melee = 0
-	VAR_PROTECTED/rad = 0
 	VAR_PROTECTED/stamina = 0
 	//VAR_PROTECTED/wound = 0
 
@@ -228,8 +227,6 @@ GLOBAL_LIST_INIT(armor_by_type, generate_armor_type_cache())
 			return "LASER"
 		if(MELEE)
 			return "MELEE"
-		if(RAD)
-			return "RAD"
 		if(STAMINA)
 			return "STAMINA"
 		/*

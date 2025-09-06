@@ -80,7 +80,6 @@
 	energy = 20
 	bomb = 35
 	bio = 35
-	rad = 35
 	stamina = 20
 	bleed = 20
 

@@ -50,7 +50,6 @@
 
 /datum/armor/unary_cryo_cell
 	energy = 100
-	rad = 100
 	fire = 30
 	acid = 30
 

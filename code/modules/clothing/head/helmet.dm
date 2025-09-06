@@ -221,7 +221,6 @@
 	energy = 40
 	bomb = 50
 	bio = 90
-	rad = 20
 	fire = 50
 	acid = 50
 	stamina = 50
@@ -260,7 +259,6 @@
 	energy = 50
 	bomb = 100
 	bio = 100
-	rad = 100
 	fire = 90
 	acid = 90
 
@@ -453,7 +451,6 @@
 	bullet = 30
 	energy = 15
 	bomb = 10
-	rad = 20
 	fire = 20
 	acid = 50
 	stamina = 20
@@ -482,7 +479,6 @@
 	energy = 10
 	bomb = 20
 	bio = 50
-	rad = 20
 	fire = -10
 	acid = 50
 	stamina = 20
@@ -507,7 +503,26 @@
 	energy = 10
 	bomb = 30
 	bio = 30
-	rad = 20
 	acid = 40
 	stamina = 25
 	bleed = 15
+
+/obj/item/clothing/head/helmet/elder_atmosian
+	name = "elder atmosian helmet"
+	desc = "A superb helmet made with the toughest and rarest materials available to man."
+	icon_state = "h2_helmet"
+	item_state = "h2_helmet"
+	armor_type = /datum/armor/helmet_elder_atmosian
+	material_flags = MATERIAL_EFFECTS | MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS //Can change color and add prefix
+	flags_inv = HIDEMASK | HIDEEARS | HIDEEYES | HIDEFACE | HIDEHAIR | HIDESNOUT
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+
+/datum/armor/helmet_elder_atmosian
+	melee = 25
+	bullet = 20
+	laser = 30
+	energy = 30
+	bomb = 85
+	bio = 10
+	fire = 65
+	acid = 40

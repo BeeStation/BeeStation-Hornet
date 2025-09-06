@@ -3032,11 +3032,6 @@
 "qt" = (
 /turf/closed/mineral/random/volcanic,
 /area/lavaland/surface/outdoors/unexplored)
-"qw" = (
-/obj/machinery/gear_requisition/mining,
-/obj/structure/extinguisher_cabinet/directional/east,
-/turf/open/floor/iron/dark,
-/area/mine/gateway)
 "qA" = (
 /obj/structure/railing/corner,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
@@ -3066,10 +3061,6 @@
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"qO" = (
-/obj/machinery/gear_requisition/mining,
-/turf/open/floor/iron/dark,
-/area/mine/gateway)
 "qQ" = (
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/firedoor,
@@ -3709,6 +3700,10 @@
 /obj/item/reagent_containers/blood/random,
 /turf/open/floor/iron/white,
 /area/mine/living_quarters)
+"uC" = (
+/obj/machinery/gear_requisition/mining,
+/turf/open/floor/iron/dark,
+/area/mine/production)
 "uD" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 8
@@ -4109,10 +4104,6 @@
 /obj/item/target/alien/anchored,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
-"wK" = (
-/obj/machinery/gear_requisition/mining,
-/turf/open/floor/iron/dark,
-/area/mine/production)
 "wL" = (
 /obj/structure/chair/fancy/comfy{
 	buildstackamount = 0;
@@ -4362,6 +4353,10 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/carpet/red,
 /area/mine/living_quarters)
+"yc" = (
+/obj/machinery/gear_requisition/mining,
+/turf/open/floor/iron/dark,
+/area/mine/gateway)
 "ym" = (
 /obj/effect/spawner/structure/window/plasma/reinforced,
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible{
@@ -7344,6 +7339,11 @@
 /obj/structure/lattice/catwalk,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/mine/atmosfarmpost)
+"Ol" = (
+/obj/machinery/gear_requisition/mining,
+/obj/structure/extinguisher_cabinet/directional/east,
+/turf/open/floor/iron/dark,
+/area/mine/gateway)
 "Oq" = (
 /obj/machinery/door/airlock{
 	id_tag = "miningdorm1";
@@ -40558,8 +40558,8 @@ jm
 jm
 LX
 DO
-qO
-qw
+yc
+Ol
 tI
 Xd
 uF
@@ -43384,7 +43384,7 @@ bJ
 Jw
 Sh
 jw
-wK
+uC
 ae
 IL
 jw

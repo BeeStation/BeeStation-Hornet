@@ -87,6 +87,19 @@
 	name = "resin foam"
 	metal = RESIN_FOAM
 
+/obj/effect/particle_effect/foam/metal/resin/halon
+	name = "halon foam"
+
+/obj/effect/particle_effect/foam/metal/resin/halon/Initialize(mapload)
+	. = ..()
+	RemoveElement(/datum/element/atmos_sensitive) // Doesn't dissolve in heat.
+
+/obj/effect/particle_effect/foam/metal/resin/halon/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
+	return FALSE // Doesn't dissolve in heat.
+
+/obj/effect/particle_effect/foam/metal/resin/halon/atmos_expose(datum/gas_mixture/air, exposed_temperature)
+	return // Doesn't dissolve in heat.
+
 /obj/effect/particle_effect/foam/metal/chainreact_resin
 	name = "self-destruct resin foam"
 	metal = RESIN_FOAM_CHAINREACT
@@ -134,6 +147,7 @@
 			new /obj/structure/foamedmetal/iron(get_turf(src))
 		if(RESIN_FOAM)
 			new /obj/structure/foamedmetal/resin(get_turf(src))
+
 		if(RESIN_FOAM_CHAINREACT)
 			new /obj/structure/foamedmetal/resin/chainreact(get_turf(src))
 	flick("[icon_state]-disolve", src)
@@ -230,14 +244,14 @@
 	effect_type = /obj/effect/particle_effect/foam
 	var/metal = 0
 
-
 /datum/effect_system/foam_spread/metal
 	effect_type = /obj/effect/particle_effect/foam/metal
-
 
 /datum/effect_system/foam_spread/metal/smart
 	effect_type = /obj/effect/particle_effect/foam/smart
 
+/datum/effect_system/foam_spread/metal/halon
+	effect_type = /obj/effect/particle_effect/foam/metal/resin/halon
 
 /datum/effect_system/foam_spread/long
 	effect_type = /obj/effect/particle_effect/foam/long_life
@@ -261,7 +275,7 @@
 		location = get_turf(loca)
 
 	amount = round(sqrt(amt / 2), 1)
-	carry.copy_to(chemholder, carry.total_volume)
+	carry?.copy_to(chemholder, carry.total_volume)
 
 /datum/effect_system/foam_spread/metal/set_up(amt=5, loca, datum/reagents/carry = null, metaltype)
 	..()
@@ -335,30 +349,40 @@
 	alpha = 120
 	max_integrity = 10
 
+	var/static/list/ignored_gases = typecacheof(list(
+		/datum/gas/nitrogen,
+		/datum/gas/oxygen,
+		/datum/gas/pluoxium,
+		/datum/gas/halon,
+	))
+
 /obj/structure/foamedmetal/resin/Initialize(mapload)
 	. = ..()
 	if(isopenturf(loc))
-		var/turf/open/O = loc
-		O.ClearWet()
-		if(O.air)
-			var/datum/gas_mixture/G = O.air
-			G.temperature = T20C
-			for(var/obj/effect/hotspot/H in O)
-				qdel(H)
-			for(var/I in G.gases)
-				if(I == /datum/gas/oxygen || I == /datum/gas/nitrogen)
-					continue
-				SET_MOLES(I , G, 0)
+		var/turf/open/turf = loc
+		turf.ClearWet()
+		if(turf.air)
+			var/datum/gas_mixture/air = turf.air
+			air.temperature = T20C
 
-		for(var/obj/machinery/atmospherics/components/unary/U in O)
-			if(!U.welded)
-				U.welded = TRUE
-				U.update_icon()
-				U.visible_message(span_danger("[U] sealed shut!"))
-		for(var/mob/living/L in O)
-			L.ExtinguishMob()
-		for(var/obj/item/Item in O)
-			Item.extinguish()
+			for(var/obj/effect/hotspot/fire in turf)
+				qdel(fire)
+
+			var/list/gases = air.gases
+			for(var/gas_type in gases)
+				if(!(ignored_gases[gas_type]))
+					gases[gas_type][MOLES] = 0
+			air.garbage_collect()
+
+		for(var/obj/machinery/atmospherics/components/unary/vent in turf)
+			if(!vent.welded)
+				vent.welded = TRUE
+				vent.update_icon()
+				vent.visible_message(span_danger("[vent] sealed shut!"))
+		for(var/mob/living/living in turf)
+			living.ExtinguishMob()
+		for(var/obj/item/item in turf)
+			item.extinguish()
 
 /obj/structure/foamedmetal/resin/chainreact
 	name = "\improper Advanced ATMOS Resin"
