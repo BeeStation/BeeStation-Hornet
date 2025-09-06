@@ -218,7 +218,7 @@
 	change_health(-5)
 
 	if(!needs_repairs && DT_PROB(50, delta_time))
-        playsound(src.loc, 'sound/machines/apc/PowerSwitch_Cover.ogg', 75, 1)
+		playsound(src.loc, 'sound/machines/apc/PowerSwitch_Cover.ogg', 75, 1)
 
 	if (health <= 0)
 		update_mode(GASRIG_MODE_REPAIR)
