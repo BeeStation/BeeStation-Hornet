@@ -39,6 +39,11 @@
 	icon_file = 'icons/mob/carp.dmi'
 	json_config = 'code/datums/greyscale/json_configs/carp.json'
 
+/datum/greyscale_config/garden_gnome
+	name = "Garden Gnome"
+	icon_file = 'icons/mob/garden_gnome.dmi'
+	json_config = 'code/datums/greyscale/json_configs/garden_gnome.json'
+
 /datum/greyscale_config/carp/disk_mouth
 	name = "Space Carp Disk in Mouth"
 	json_config = 'code/datums/greyscale/json_configs/carp_disk_mouth.json'
