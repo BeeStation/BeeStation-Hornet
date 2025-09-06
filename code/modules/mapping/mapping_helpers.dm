@@ -101,17 +101,71 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 //airlock helpers
 /obj/effect/mapping_helpers/airlock
 	layer = DOOR_HELPER_LAYER
+	late = TRUE
+	/// If TRUE we will apply to every windoor in the loc if we can't find an airlock.
+	var/apply_to_windoors = FALSE
 
 /obj/effect/mapping_helpers/airlock/Initialize(mapload)
 	. = ..()
 	if(!mapload)
 		log_mapping("[src] spawned outside of mapload!")
 		return
+
 	var/obj/machinery/door/airlock/airlock = locate(/obj/machinery/door/airlock) in loc
 	if(!airlock)
+		if(apply_to_windoors)
+			var/any_found = FALSE
+			for(var/obj/machinery/door/window/windoor in loc)
+				payload(windoor)
+				any_found = TRUE
+			if(!any_found)
+				log_mapping("[src] failed to find an airlock at [AREACOORD(src)], AND no windoors were found.")
+			return
+
 		log_mapping("[src] failed to find an airlock at [AREACOORD(src)]")
-	else
-		payload(airlock)
+		return
+
+	payload(airlock)
+
+/obj/effect/mapping_helpers/airlock/LateInitialize()
+	var/obj/machinery/door/airlock/airlock = locate(/obj/machinery/door/airlock) in loc
+	if(!airlock)
+		qdel(src)
+		return
+	if(airlock.cyclelinkeddir)
+		airlock.cyclelinkairlock()
+	if(airlock.closeOtherId)
+		airlock.update_other_id()
+	if(airlock.abandoned)
+		var/outcome = rand(1,100)
+		switch(outcome)
+			if(1 to 9)
+				var/turf/here = get_turf(src)
+				for(var/turf/closed/T in range(2, src))
+					here.PlaceOnTop(T.type)
+					qdel(airlock)
+					qdel(src)
+					return
+				here.PlaceOnTop(/turf/closed/wall)
+				qdel(airlock)
+				qdel(src)
+				return
+			if(9 to 11)
+				airlock.lights = FALSE
+				// These do not use airlock.bolt() because we want to pretend it was always locked. That means no sound effects.
+				airlock.locked = TRUE
+			if(12 to 15)
+				airlock.locked = TRUE
+			if(16 to 23)
+				airlock.welded = TRUE
+			if(24 to 30)
+				airlock.panel_open = TRUE
+	if(!airlock.cut_ai_wire)
+		airlock.wires.cut(WIRE_AI)
+	if(airlock.autoname)
+		airlock.name = get_area_name(src, TRUE)
+	airlock.update_appearance()
+	qdel(src)
 
 /obj/effect/mapping_helpers/airlock/proc/payload(obj/machinery/door/airlock/payload)
 	return
@@ -164,6 +218,35 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 		log_mapping("[src] at [AREACOORD(src)] tried to make [airlock] abandoned but it's already abandoned!")
 	else
 		airlock.abandoned = TRUE
+
+/obj/effect/mapping_helpers/airlock/welded
+	name = "airlock welded helper"
+	icon_state = "airlock_welded"
+
+/obj/effect/mapping_helpers/airlock/welded/payload(obj/machinery/door/airlock/airlock)
+	if(airlock.welded)
+		log_mapping("[src] at [AREACOORD(src)] tried to make [airlock] welded but it's already welded closed!")
+	airlock.welded = TRUE
+
+/obj/effect/mapping_helpers/airlock/cutaiwire
+	name = "airlock cut ai wire helper"
+	icon_state = "airlock_cutaiwire"
+
+/obj/effect/mapping_helpers/airlock/cutaiwire/payload(obj/machinery/door/airlock/airlock)
+	if(airlock.cut_ai_wire)
+		log_mapping("[src] at [AREACOORD(src)] tried to cut the ai wire on [airlock] but it's already cut!")
+	else
+		airlock.cut_ai_wire = TRUE
+
+/obj/effect/mapping_helpers/airlock/autoname
+	name = "airlock autoname helper"
+	icon_state = "airlock_autoname"
+
+/obj/effect/mapping_helpers/airlock/autoname/payload(obj/machinery/door/airlock/airlock)
+	if(airlock.autoname)
+		log_mapping("[src] at [AREACOORD(src)] tried to autoname the [airlock] but it's already autonamed!")
+	else
+		airlock.autoname = TRUE
 
 //air alarm helpers
 /obj/effect/mapping_helpers/airalarm
@@ -760,10 +843,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	desc = "Edit this text to your desired description."
 	icon_state = "Comment"
 	layer = TEXT_EFFECT_UI_LAYER
-
-/obj/effect/mapping_helpers/Mapper_Comment/Initialize(mapload)
-	..()
-	return INITIALIZE_HINT_QDEL
 
 //loads crate shelves with crates on mapload. Done via a helper because of linters
 /obj/effect/mapping_helpers/crate_shelf_loader
