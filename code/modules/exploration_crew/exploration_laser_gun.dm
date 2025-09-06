@@ -18,7 +18,7 @@
 /obj/item/ammo_casing/energy/laser/anti_creature
 	projectile_type = /obj/projectile/beam/laser/anti_creature
 	select_name = "anti-creature"
-	e_cost = 40
+	e_cost = 400 WATT
 
 /obj/projectile/beam/laser/anti_creature
 	damage = 15
@@ -36,7 +36,7 @@
 /obj/item/ammo_casing/energy/laser/cutting
 	projectile_type = /obj/projectile/beam/laser/cutting
 	select_name = "demolition"
-	e_cost = 30
+	e_cost = 300 WATT
 
 /obj/projectile/beam/laser/cutting
 	damage = 5
@@ -59,7 +59,7 @@
 /obj/item/ammo_casing/energy/laser/exploration_kill
 	projectile_type = /obj/projectile/beam/laser/exploration_kill
 	select_name = "KILL"
-	e_cost = 80
+	e_cost = 800 WATT
 
 /obj/projectile/beam/laser/exploration_kill
 	damage = 30
@@ -82,7 +82,7 @@
 /obj/item/ammo_casing/energy/laser/exploration_destroy
 	projectile_type = /obj/projectile/beam/laser/exploration_destroy
 	select_name = "DESTROY"
-	e_cost = 120
+	e_cost = 1200 WATT
 
 /obj/projectile/beam/laser/exploration_destroy
 	damage = 20
@@ -113,7 +113,7 @@
 	name = "multi-purpose energy gun"
 	desc = "An energy gun with three firing modes useful in a variety of situations, it is not capable of causing substantial harm to crew on any setting."
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler/cyborg, /obj/item/ammo_casing/energy/laser/cutting/cyborg, /obj/item/ammo_casing/energy/laser/anti_creature/cyborg)
-	gun_charge = 1000
+	gun_charge = 10 KILOWATT
 	fire_rate = 1		//One shots per second
 	charge_delay = 9	//Fully charged in 90 seconds
 	w_class = WEIGHT_CLASS_LARGE //Same weight as disabler, for the slightly higher slowdown while active
@@ -145,16 +145,16 @@
 
 //Standard disabler round
 /obj/item/ammo_casing/energy/disabler/cyborg
-	e_cost = 50 //20 shot capacity
+	e_cost = 500 WATT	//20 shot capacity
 
 //Does 5 damage to mobs and 70 to objects, with exception to blobs
 /obj/item/ammo_casing/energy/laser/cutting/cyborg
-	e_cost = 25 //40 shot capacity
+	e_cost = 250 WATT	//40 shot capacity
 
 //Does 5 damage to humans, 30 damage to all other mobs.
 /obj/item/ammo_casing/energy/laser/anti_creature/cyborg
 	projectile_type = /obj/projectile/beam/laser/anti_creature/cyborg
-	e_cost = 50 //20 shot capacity
+	e_cost = 500 WATT	//20 shot capacity
 
 /obj/projectile/beam/laser/anti_creature/cyborg
 	damage = 5  //15 is too much given this can be used on station

@@ -65,16 +65,26 @@
 /obj/machinery/power/apc/proc/autoset(val, on)
 	switch(on)
 		if(AUTOSET_FORCE_OFF)
-			if(val == APC_CHANNEL_ON) // if on, return off
-				return APC_CHANNEL_OFF
-			else if(val == APC_CHANNEL_AUTO_ON) // if auto-on, return auto-off
+			// Force OFF overrides everything, but manual-ON should become AUTO OFF so it can resume
+			if(val == APC_CHANNEL_ON || val == APC_CHANNEL_AUTO_ON)
+				playsound(src, "sound/machines/apc/PowerSwitch_Place.ogg", 20, TRUE)
+				do_sparks(2, cardinal_only = FALSE, source = src)
 				return APC_CHANNEL_AUTO_OFF
-		if(AUTOSET_ON)
-			if(val == APC_CHANNEL_AUTO_OFF) // if auto-off, return auto-on
+			// Manual OFF or AUTO OFF - stay the same
+			return val
+
+		if(AUTOSET_ON)	// APC turning the channel on automatically
+			if(val == APC_CHANNEL_AUTO_OFF)
+				playsound(src, "sound/machines/apc/PowerUp_001.ogg", 20, TRUE)
 				return APC_CHANNEL_AUTO_ON
-		if(AUTOSET_OFF)
-			if(val == APC_CHANNEL_AUTO_ON) // if auto-on, return auto-off
+			return val
+
+		if(AUTOSET_OFF)	// APC turning the channel off automatically
+			if(val == APC_CHANNEL_AUTO_ON)
+				playsound(src, "sound/machines/apc/PowerSwitch_Place.ogg", 20, TRUE)
+				do_sparks(2, cardinal_only = FALSE, source = src)
 				return APC_CHANNEL_AUTO_OFF
+			return val
 	return val
 
 /**

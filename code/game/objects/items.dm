@@ -1015,7 +1015,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		playsound(start, "sparks", 50, 1)
 		playsound(target, "sparks", 50, 1)
 		do_dash(src, start, target, 0, TRUE)
-		comp.use_power((250 * cpu.max_idle_programs) / GLOB.CELLRATE)
+		comp.use_power((250 * cpu.max_idle_programs))
 	return hit_atom.hitby(src, 0, itempush, throwingdatum=throwingdatum)
 
 

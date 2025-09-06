@@ -21,7 +21,7 @@ const PEAK_DRAW = 500000;
 
 const powerRank = (str) => {
   const unit = String(str.split(' ')[1]).toLowerCase();
-  return ['w', 'kw', 'mw', 'gw'].indexOf(unit);
+  return ['W', 'kW', 'MW', 'GW'].indexOf(unit);
 };
 
 export const PowerMonitor = () => {
@@ -76,7 +76,7 @@ export const PowerMonitorContent = (props) => {
                   maxValue={maxValue}
                   color="teal"
                 >
-                  {toFixed(supply / 1000) + ' kW'}
+                  {data.supply}
                 </ProgressBar>
               </LabeledList.Item>
               <LabeledList.Item label="Draw">
@@ -86,7 +86,7 @@ export const PowerMonitorContent = (props) => {
                   maxValue={maxValue}
                   color="pink"
                 >
-                  {toFixed(demand / 1000) + ' kW'}
+                  {data.demand}
                 </ProgressBar>
               </LabeledList.Item>
             </LabeledList>
