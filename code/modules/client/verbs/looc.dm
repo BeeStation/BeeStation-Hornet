@@ -95,14 +95,14 @@ AUTH_CLIENT_VERB(looc, msg as text)
 			var/commendations = ""
 			if (client != src)
 				commendations += "<span style='float: right'>"
-				commendations += "<a href='byond://?src=[REF(message_datum)];looc_commend=[ckey]'>[thumbs_up]</a>"
-				if (!client.player_details.has_criticized)
-					commendations += " <a href='byond://?src=[REF(message_datum)];looc_critic=[ckey]'>[thumbs_down]</a>"
+				commendations += span_emojibutton("<a href='byond://?src=[REF(message_datum)];looc_commend=[ckey]'>[thumbs_up]</a>")
+				if (!client.player_details.has_criticized && !holder)
+					commendations += " "
+					commendations += span_emojibutton("<a href='byond://?src=[REF(message_datum)];looc_critic=[ckey]'>[thumbs_down]</a>")
 				commendations += "</span>"
 				hearers |= client.ckey
 			var/rendered_message = span_looc("[span_prefix("LOOC:")] <EM>[span_name("[mob.name]")]:</EM> [span_message(msg)] [commendations]")
 			to_chat(client, rendered_message, avoid_highlighting = (client == src))
-
 
 	// Send to admins
 	for(var/client/admin in GLOB.admins)
@@ -134,6 +134,7 @@ AUTH_CLIENT_VERB(looc, msg as text)
 
 /datum/looc_message/New(mob_name, sender, hearers)
 	. = ..()
+	src.mob_name = mob_name
 	src.sender = sender
 	src.hearers = hearers
 	// Not secure, but we secure them anyway so it doesn't matter
@@ -158,10 +159,17 @@ AUTH_CLIENT_VERB(looc, msg as text)
 			to_chat(listener, span_good("You sent a commendation to [mob_name], thank you for creating a positive atmosphere!"))
 			to_chat(sender_client, span_good("You received a commendation for being helpful, but have been so helpful that you already hit the limit! Thank you for creating a positive atmosphere!"))
 		else
-			listener.inc_metabalance(1, FALSE, reason = "You sent a commendation to [mob_name], thank you for creating a positive atmosphere!")
-			sender_client.inc_metabalance(1, TRUE, reason = "You have received a commendation for helpful messages, thank you for creating a positive atmosphere!")
+			if (CONFIG_GET(flag/grant_metacurrency))
+				listener.inc_metabalance(1, TRUE, reason = "You sent a commendation to [mob_name], thank you for creating a positive atmosphere!")
+				sender_client.inc_metabalance(1, TRUE, reason = "You have received a commendation for helpful messages, thank you for creating a positive atmosphere!")
+			else
+				to_chat(listener, span_good("You sent a commendation to [mob_name], thank you for creating a positive atmosphere!"))
+				to_chat(sender_client, span_good("You have received a commendation for helpful messages, thank you for creating a positive atmosphere!"))
 	LAZYADD(commenders, listener.ckey)
-	sender.commendations_received ++
+	// Maximum of 20 commendations, which protects you from 3 criticisms, to discourage building
+	// a clique and talking in LOOC for commendations
+	if (sender.commendations_received < 20)
+		sender.commendations_received ++
 
 /datum/looc_message/proc/try_criticise(client/listener)
 	if (tgui_alert(listener, "Are you sure you want to criticise this message?", "Downvote message", list("Criticize", "Abort")) == "Abort")
@@ -176,8 +184,12 @@ AUTH_CLIENT_VERB(looc, msg as text)
 		return
 	to_chat(listener, span_good("You criticised a message from [mob_name], thank you for maintaining mutual respect even when the game gets tough."))
 	LAZYADD(commenders, listener.ckey)
-	sender.criticisms_received ++
+	var/client/sender_client = sender.find_client()
 	listener.player_details.has_criticized = TRUE
+	// Do nothing instead
+	if (sender_client && sender_client.holder)
+		return
+	sender.criticisms_received ++
 	// Will hold a reference until complete, at which point the datum will be deleted
 	addtimer(CALLBACK(src, PROC_REF(issue_warning)), rand(2 MINUTES, 5 MINUTES))
 
@@ -187,8 +199,9 @@ AUTH_CLIENT_VERB(looc, msg as text)
 	if (sender.muted & MUTE_OOC)
 		return
 	if (delta < 0)
-		to_chat(sender_client, span_rosebold("You have temporarily lost access to OOC communications due to automated feedback. Do not panic; \
-		you are not in trouble, this will automatically revert at the end of the round, and is not logged against you!"))
+		if (sender_client)
+			to_chat(sender_client, span_rosebold("You have temporarily lost access to OOC communications due to automated feedback. Do not panic; \
+			you are not in trouble, this will automatically revert at the end of the round, and is not logged against you!"))
 		sender.muted |= MUTE_OOC
 
 /proc/log_looc(text)
