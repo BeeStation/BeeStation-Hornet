@@ -155,7 +155,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	// Species specific bitflags. Used for things like if the race is unable to become a changeling.
 	var/species_bitflags = NONE
 
-	/// Do we try to prevent reset_perspective() from working? Useful for Dullahans to stop perspective changes when they're looking through their head.
+	/// Do we try to prevent reset_perspective() from working?
 	var/prevent_perspective_change = FALSE
 
 	//Should we preload this species's organs?
@@ -937,17 +937,21 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			bodyparts_to_add -= "ears"
 
 	if(mutant_bodyparts["wings"])
-		if(!H.dna.features["wings"] || H.dna.features["wings"] == "None" || (H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception))))
+		if(!H.dna.features["wings"] || H.dna.features["wings"] == "None" || (H?.wear_suit?.flags_inv & HIDEMUTWINGS) || ((H?.wear_suit?.flags_inv & HIDEJUMPSUIT) && (!H?.wear_suit?.species_exception || !is_type_in_list(src, H?.wear_suit?.species_exception))))
 			bodyparts_to_add -= "wings"
 
+	if(mutant_bodyparts["moth_wings"])
+		if(!H.dna.features["moth_wings"] || H.dna.features["moth_wings"] == "None" || (H?.wear_suit?.flags_inv & HIDEMUTWINGS))
+			bodyparts_to_add -= "moth_wings"
+
 	if(mutant_bodyparts["wings_open"])
-		if(H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception)))
+		if((H?.wear_suit.flags_inv & HIDEMUTWINGS) || ((H?.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H?.wear_suit.species_exception || !is_type_in_list(src, H?.wear_suit.species_exception))))
 			bodyparts_to_add -= "wings_open"
 		else if (mutant_bodyparts["wings"])
 			bodyparts_to_add -= "wings_open"
 
 	if(mutant_bodyparts["moth_antennae"])
-		if(!H.dna.features["moth_antennae"] || H.dna.features["moth_antennae"] == "None" || !HD)
+		if(!H.dna.features["moth_antennae"] || H.dna.features["moth_antennae"] == "None" || (H?.head?.flags_inv & HIDEANTENNAE) || !HD)
 			bodyparts_to_add -= "moth_antennae"
 
 	if(mutant_bodyparts["ipc_screen"])
@@ -965,30 +969,39 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(mutant_bodyparts["apid_headstripe"])
 		if(!H.dna.features["apid_headstripe"] || H.dna.features["apid_headstripe"] == "None" || (H.wear_mask && (H.wear_mask.flags_inv & HIDEEYES)) || !HD)
 			bodyparts_to_add -= "apid_headstripe"
+
 	if(mutant_bodyparts["psyphoza_cap"])
 		if(!H.dna.features["psyphoza_cap"] || H.dna.features["psyphoza_cap"] == "None" || !HD)
 			bodyparts_to_add -= "psyphoza_cap"
+
 	if("diona_leaves" in mutant_bodyparts)
 		if(!H.dna.features["diona_leaves"] || H.dna.features["diona_leaves"] == "None" || (H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception))))
 			bodyparts_to_add -= "diona_leaves"
+
 	if("diona_thorns" in mutant_bodyparts)
 		if(!H.dna.features["diona_thorns"] || H.dna.features["diona_thorns"] == "None" || (H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception))))
 			bodyparts_to_add -= "diona_thorns"
+
 	if("diona_flowers" in mutant_bodyparts)
 		if(!H.dna.features["diona_flowers"] || H.dna.features["diona_flowers"] == "None" || (H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception))))
 			bodyparts_to_add -= "diona_flowers"
+
 	if("diona_moss" in mutant_bodyparts)
 		if(!H.dna.features["diona_moss"] || H.dna.features["diona_moss"] == "None" || (H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception))))
 			bodyparts_to_add -= "diona_moss"
+
 	if("diona_mushroom" in mutant_bodyparts)
 		if(!H.dna.features["diona_mushroom"] || H.dna.features["diona_mushroom"] == "None" || !HD)
 			bodyparts_to_add -= "diona_mushroom"
+
 	if("diona_antennae" in mutant_bodyparts)
 		if(!H.dna.features["diona_antennae"] || H.dna.features["diona_antennae"] == "None" || !HD)
 			bodyparts_to_add -= "diona_antennae"
+
 	if("diona_eyes" in mutant_bodyparts)
 		if(!H.dna.features["diona_eyes"] || H.dna.features["diona_eyes"] == "None" || (H.wear_mask && (H.wear_mask.flags_inv & HIDEEYES)) || H.head && (H.head.flags_inv & HIDEHAIR) || (H.wear_mask && (H.wear_mask.flags_inv & HIDEHAIR)) || !HD)
 			bodyparts_to_add -= "diona_eyes"
+
 	if("diona_pbody" in mutant_bodyparts)
 		if(!H.dna.features["diona_pbody"] || H.dna.features["diona_pbody"] == "None" || (H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception))))
 			bodyparts_to_add -= "diona_pbody"
@@ -1421,11 +1434,13 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/after_equip_job(datum/job/J, mob/living/carbon/human/H, client/preference_source = null)
 	H.update_mutant_bodyparts()
 
-// Do species-specific reagent handling here
-// Return 1 if it should do normal processing too
-// Return 0 if it shouldn't deplete and do its normal effect
-// Other return values will cause weird badness
-
+/**
+ * Handling special reagent types.
+ *
+ * Return False to run the normal on_mob_life() for that reagent.
+ * Return True to not run the normal metabolism effects.
+ * NOTE: If you return TRUE, that reagent will not be removed liike normal! You must handle it manually.
+ */
 /datum/species/proc/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
 	if(chem.type == exotic_blood)
 		H.blood_volume = min(H.blood_volume + round(chem.volume, 0.1), BLOOD_VOLUME_MAXIMUM)
@@ -1452,8 +1467,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(!outfit_important_for_life)
 		return
 
-	outfit_important_for_life= new()
-	outfit_important_for_life.equip(human_to_equip)
+	var/datum/outfit/outfit = new outfit_important_for_life()
+	outfit.equip(human_to_equip)
+	qdel(outfit)
 
 ////////
 //LIFE//
@@ -1578,9 +1594,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			else
 				H.throw_alert("nutrition", /atom/movable/screen/alert/emptycell)
 
-/datum/species/proc/update_health_hud(mob/living/carbon/human/H)
-	return 0
-
 /**
  * Species based handling for irradiation
  *
@@ -1658,9 +1671,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 //////////////////
 
 /datum/species/proc/spec_updatehealth(mob/living/carbon/human/H)
-	return
-
-/datum/species/proc/spec_fully_heal(mob/living/carbon/human/H)
 	return
 
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
@@ -2340,9 +2350,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/ExtinguishMob(mob/living/carbon/human/H)
 	return
 
-/datum/species/proc/spec_revival(mob/living/carbon/human/H)
-	return
-
 
 ////////////
 //  Stun  //
@@ -2368,7 +2375,20 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				return TRUE
 	if(H.movement_type & FLYING)
 		return TRUE
-	return FALSE
+	if(!can_fly(H))
+		return FALSE
+	var/obj/item/organ/wings/wings = H.get_organ_slot(ORGAN_SLOT_WINGS)
+	if(wings?.flight_level == WINGS_FLIGHTLESS)
+		var/datum/gas_mixture/current = H.loc.return_air()
+		if(current && (current.return_pressure() >= ONE_ATMOSPHERE*0.85)) //as long as there's reasonable pressure and no gravity, flight is possible
+			return TRUE
+
+/datum/species/proc/can_fly(mob/living/carbon/human/H)
+	if(H.wear_suit?.flags_inv & HIDEMUTWINGS)
+		return FALSE //Can't fly with hidden wings
+	if(H.loc && isspaceturf(H.loc) && H.get_organ_by_type(/obj/item/organ/wings))
+		return FALSE //No flight in space wings
+	return TRUE
 
 /datum/species/proc/negates_gravity(mob/living/carbon/human/H)
 	if(H.movement_type & FLYING)

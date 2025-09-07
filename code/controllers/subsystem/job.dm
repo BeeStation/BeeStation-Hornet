@@ -43,7 +43,8 @@ SUBSYSTEM_DEF(job)
 		JOB_NAME_RESEARCHDIRECTOR,
 		JOB_NAME_CHIEFMEDICALOFFICER,
 		JOB_NAME_DEPUTY,
-		JOB_NAME_GIMMICK)
+		JOB_NAME_GIMMICK,
+		JOB_NAME_PRISONER)
 
 	/// If TRUE, some player has been assigned Captaincy or Acting Captaincy at some point during the shift and has been given the spare ID safe code.
 	var/assigned_captain = FALSE
@@ -177,13 +178,15 @@ SUBSYSTEM_DEF(job)
 			return FALSE
 		var/position_limit = job.get_spawn_position_count()
 		// Unassign our previous job, to prevent double counts
-		if (player.mind.assigned_role)
+		if(player.mind.assigned_role)
 			var/datum/job/current_job = SSjob.GetJob(player.mind.assigned_role)
 			current_job.current_positions--
 			player.mind.assigned_role = null
 		player.mind.assigned_role = rank
 		unassigned -= player
 		job.current_positions++
+		if(!latejoin)
+			player.client.inc_metabalance(METACOIN_READY_UP_REWARD, reason = "Joined the station as a roundstart crew member.")
 		JobDebug("Player: [player] is now Rank: [rank], JCP:[job.current_positions], JPL:[position_limit]. Group size: [job.count_players_in_group()]")
 		return TRUE
 	JobDebug("AR has failed, Player: [player], Rank: [rank]")

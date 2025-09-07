@@ -199,7 +199,7 @@
 
 /obj/structure/chisel_message/Destroy()
 	if(persists)
-		SSpersistence.SaveChiselMessage(src)
+		SSpersistence.save_chisel_message(src)
 	SSpersistence.chisel_messages -= src
 	. = ..()
 

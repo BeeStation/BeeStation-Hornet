@@ -92,7 +92,7 @@
 	severity = DYNAMIC_MIDROUND_LIGHT
 	role_preference = /datum/role_preference/midround/traitor
 	antag_datum = /datum/antagonist/traitor
-	weight = 6
+	weight = 7
 	points_cost = 30
 
 /datum/dynamic_ruleset/midround/living/sleeper_agent/get_poll_icon()
@@ -109,11 +109,19 @@
 	severity = DYNAMIC_MIDROUND_LIGHT
 	role_preference = /datum/role_preference/midround/heretic
 	antag_datum = /datum/antagonist/heretic
-	weight = 6
+	weight = 7
 	points_cost = 30
 
 /datum/dynamic_ruleset/midround/living/heretic/get_poll_icon()
 	return /obj/item/codex_cicatrix
+
+/datum/dynamic_ruleset/midround/living/heretic/trim_candidates()
+	. = ..()
+	for(var/mob/candidate in candidates)
+		// CLANKERS GO HOME (github copilot comment)
+		if(isipc(candidate))
+			candidates -= candidate
+			continue
 
 /datum/dynamic_ruleset/midround/living/heretic/execute()
 	. = ..()
@@ -131,6 +139,38 @@
 
 //////////////////////////////////////////////
 //                                          //
+//             VAMPIRE (LIGHT)              //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/midround/living/vampire
+	name = "Vampiric Accident"
+	severity = DYNAMIC_MIDROUND_LIGHT
+	role_preference = /datum/role_preference/midround/vampire
+	antag_datum = /datum/antagonist/vampire
+	weight = 7
+	points_cost = 30
+	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_CURATOR)
+
+/datum/dynamic_ruleset/midround/living/vampire/trim_candidates()
+	. = ..()
+	for(var/mob/living/carbon/candidate in candidates)
+		// Don't draft incompatible species
+		if(candidate.dna.species.species_bitflags & NOT_TRANSMORPHIC)
+			candidates -= candidate
+			continue
+
+/datum/dynamic_ruleset/midround/living/vampire/get_poll_icon()
+	return icon('icons/vampires/actions_vampire.dmi', icon_state = "power_feed")
+
+/datum/dynamic_ruleset/midround/living/vampire/execute()
+	. = ..()
+	for(var/mob/chosen_candidate in chosen_candidates)
+		var/datum/antagonist/vampire/new_vampire = IS_VAMPIRE(chosen_candidate)
+		new_vampire.vampire_level_unspent = rand(2,3)
+
+//////////////////////////////////////////////
+//                                          //
 //             OBSESSED (LIGHT)             //
 //                                          //
 //////////////////////////////////////////////
@@ -140,7 +180,7 @@
 	severity = DYNAMIC_MIDROUND_LIGHT | DYNAMIC_MIDROUND_MEDIUM
 	antag_datum = /datum/antagonist/obsessed
 	role_preference = /datum/role_preference/midround/obsessed
-	weight = 4
+	weight = 6
 	points_cost = 20
 
 /datum/dynamic_ruleset/midround/living/obsessed/get_poll_icon()

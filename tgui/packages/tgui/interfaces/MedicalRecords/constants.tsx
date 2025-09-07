@@ -35,7 +35,8 @@ export const MENTALSTATUS2COLOR = {
 
 export const MENTALSTATUS2DESC = {
   Stable: 'Stable. Individual is sane and free from psychological disorders.',
-  Watch: 'Watch. Individual has symptoms of mental illness. Monitor them closely.',
+  Watch:
+    'Watch. Individual has symptoms of mental illness. Monitor them closely.',
   Unstable: 'Unstable. Individual has one or more mental illnesses.',
   Insane: 'Insane. Individual exhibits severe, abnormal mental behaviors.',
 } as const;

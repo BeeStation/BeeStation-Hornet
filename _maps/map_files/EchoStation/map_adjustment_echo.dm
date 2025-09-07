@@ -13,7 +13,8 @@
 		JOB_NAME_EXPLORATIONCREW,
 		JOB_NAME_GENETICIST,
 		JOB_NAME_PARAMEDIC,
-		JOB_NAME_VIROLOGIST)
+		JOB_NAME_VIROLOGIST,
+		JOB_NAME_PRISONER)
 
 /datum/map_adjustment/echo_station/job_change()
 	change_job_position(JOB_NAME_COOK, 1)

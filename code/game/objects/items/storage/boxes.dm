@@ -807,6 +807,7 @@
 	item_state = "syringe_kit"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
+	w_class = WEIGHT_CLASS_NORMAL
 	foldable = /obj/item/stack/sheet/cardboard //BubbleWrap
 
 /obj/item/storage/box/lights/Initialize(mapload)
@@ -856,6 +857,15 @@
 	for(var/i in 1 to 7)
 		new/obj/item/grenade/chem_grenade/smart_metal_foam(src)
 
+/obj/item/storage/box/oxycandle
+	name = "box of oxygen candles"
+	desc = "Used to repressurize areas during power emergencies."
+	illustration = "grenade"
+
+/obj/item/storage/box/oxycandle/PopulateContents()
+	for(var/i in 1 to 7)
+		new/obj/item/flashlight/oxycandle(src)
+
 /obj/item/storage/box/hug
 	name = "box of hugs"
 	desc = "A special box for sensitive people."
@@ -902,7 +912,7 @@
 
 /obj/item/storage/box/rubbershot
 	name = "box of rubber shots"
-	desc = "A box full of rubber shots, designed for riot shotguns."
+	desc = "A standard box full of rubber shots, designed for riot shotguns."
 	icon_state = "rubbershot_box"
 	illustration = null
 
@@ -912,7 +922,7 @@
 
 /obj/item/storage/box/lethalshot
 	name = "box of lethal shotgun shots"
-	desc = "A box full of lethal shots, designed for riot shotguns."
+	desc = "A standard box full of lethal shots, designed for riot shotguns."
 	icon_state = "lethalshot_box"
 	illustration = null
 
@@ -922,7 +932,7 @@
 
 /obj/item/storage/box/beanbag
 	name = "box of beanbags"
-	desc = "A box full of beanbag shells."
+	desc = "A standard box full of beanbag shells."
 	icon_state = "rubbershot_box"
 	illustration = null
 
@@ -931,8 +941,8 @@
 		new /obj/item/ammo_casing/shotgun/beanbag(src)
 
 /obj/item/storage/box/breacherslug
-	name = "box of breaching shotgun shells"
-	desc = "A box full of breaching slugs, designed for rapid entry."
+	name = "box of breaching cartridges"
+	desc = "A standard box full of breaching slugs."
 	icon_state = "breachershot_box"
 	illustration = null
 
@@ -941,8 +951,8 @@
 		new /obj/item/ammo_casing/shotgun/breacher(src)
 
 /obj/item/storage/box/incapacitateshot
-	name = "box of incapacitating shotgun shots"
-	desc = "A box full of incapacitating shots, designed for shotguns."
+	name = "box of incapacitating cartridges"
+	desc = "A standard box full of incapacitating shots, made for a shotgun."
 	icon_state = "incapacitateshot_box"
 	illustration = null
 
@@ -1373,3 +1383,33 @@
 /obj/item/storage/box/locker/security
 	name = "security locker box"
 	icon_state = "secbox"
+/obj/item/storage/box/stabilized //every single stabilized extract from xenobiology
+	name = "box of stabilized extracts"
+	icon_state = "syndiebox"
+
+/obj/item/storage/box/stabilized/PopulateContents()
+	var/static/items_inside = list(
+		/obj/item/slimecross/stabilized/grey=1,\
+		/obj/item/slimecross/stabilized/orange=1,\
+		/obj/item/slimecross/stabilized/purple=1,\
+		/obj/item/slimecross/stabilized/blue=1,\
+		/obj/item/slimecross/stabilized/metal=1,\
+		/obj/item/slimecross/stabilized/yellow=1,\
+		/obj/item/slimecross/stabilized/darkpurple=1,\
+		/obj/item/slimecross/stabilized/darkblue=1,\
+		/obj/item/slimecross/stabilized/silver=1,\
+		/obj/item/slimecross/stabilized/bluespace=1,\
+		/obj/item/slimecross/stabilized/sepia=1,\
+		/obj/item/slimecross/stabilized/cerulean=1,\
+		/obj/item/slimecross/stabilized/pyrite=1,\
+		/obj/item/slimecross/stabilized/red=1,\
+		/obj/item/slimecross/stabilized/green=1,\
+		/obj/item/slimecross/stabilized/pink=1,\
+		/obj/item/slimecross/stabilized/gold=1,\
+		/obj/item/slimecross/stabilized/oil=1,\
+		/obj/item/slimecross/stabilized/black=1,\
+		/obj/item/slimecross/stabilized/lightpink=1,\
+		/obj/item/slimecross/stabilized/adamantine=1,\
+		/obj/item/slimecross/stabilized/rainbow=1,\
+		)
+	generate_items_inside(items_inside,src)

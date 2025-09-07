@@ -6,8 +6,8 @@
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "alarmp"
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 4
-	active_power_usage = 8
+	idle_power_usage = 0.2 KILOWATT
+	active_power_usage = 0.5 KILOWATT
 	power_channel = AREA_USAGE_ENVIRON
 	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE)
 	max_integrity = 250
@@ -152,7 +152,7 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 	if(my_area)
 		my_area = null
 	if(connected_sensor)
-		UnregisterSignal(connected_sensor, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(connected_sensor, COMSIG_QDELETING)
 		UnregisterSignal(connected_sensor.loc, COMSIG_TURF_EXPOSE)
 		connected_sensor.connected_airalarm = null
 		connected_sensor = null
@@ -622,6 +622,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/airalarm)
 		var/is_low_pressure = tlv_collection["pressure"].hazard_min != TLV_VALUE_IGNORE && pressure <= tlv_collection["pressure"].hazard_min
 		var/is_low_temp = tlv_collection["temperature"].hazard_min != TLV_VALUE_IGNORE && temp <= tlv_collection["temperature"].hazard_min
 
+		update_use_power(ACTIVE_POWER_USE)
+
 		if(is_low_pressure && is_low_temp)
 			warning_message = "Danger! Low pressure and temperature detected."
 			return
@@ -647,6 +649,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/airalarm)
 			warning_message = "Danger! High temperature detected."
 			return
 		else
+			update_use_power(IDLE_POWER_USE)
 			warning_message = null
 
 	else if(!(my_area.fault_status & AREA_FAULT_MANUAL)) //Only clear ourselves automatically if it was not a manual trigger.
@@ -743,7 +746,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airalarm, 27)
 	sensor.connected_airalarm = src
 	connected_sensor = sensor
 
-	RegisterSignal(connected_sensor, COMSIG_PARENT_QDELETING, PROC_REF(disconnect_sensor))
+	RegisterSignal(connected_sensor, COMSIG_QDELETING, PROC_REF(disconnect_sensor))
 
 	// Transfer signal from air alarm to sensor
 	UnregisterSignal(loc, COMSIG_TURF_EXPOSE)
@@ -758,7 +761,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airalarm, 27)
 
 ///Used to reset the air alarm to default configuration after disconnecting from air sensor
 /obj/machinery/airalarm/proc/disconnect_sensor()
-	UnregisterSignal(connected_sensor, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(connected_sensor, COMSIG_QDELETING)
 
 	// Transfer signal from sensor to air alarm
 	UnregisterSignal(connected_sensor.loc, COMSIG_TURF_EXPOSE)

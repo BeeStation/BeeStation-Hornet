@@ -1,0 +1,111 @@
+2025-09-01:
+  Tsar-Salat:
+  - bugfix: fix last resort gestation(pergnante) timer
+  - bugfix: fixes carbon handling on Last Resort, making it not randomly RR the changeling
+      when used
+2025-09-02:
+  mrmanlikesbt:
+  - bugfix: fixed the "Show Server Revision" verb
+2025-09-04:
+  Liver-1:
+  - bugfix: Fixes the lethals ammo box to use @Bieyes beautiful new art and not the
+      plain box art.
+  TsunamiAnt:
+  - rscadd: 'Added a new station role: Prisoners! An RP heavy role intended to just
+      chill and maybe mug a new guy.'
+2025-09-05:
+  TsunamiAnt:
+  - bugfix: fixed the power monitor graph
+2025-09-06:
+  Powerfulbacon (sprites), Rukofamicom:
+  - rscdel: Removed block levels from all items. Items that can block will block the
+      tiles directly and diagonally in front of you. Attacks from the sides or rear
+      diagonals will bypass blocking attempts. Walk/Run no longer has any impact on
+      your ability to block.
+  - balance: Blocking with a weapon now has a two second cooldown unless you were
+      blocking projectiles, and it also triggers your melee attack cooldown slowing
+      your next attack. Blocking with a weapon will also fail if you have more than
+      45 stamina damage.
+  - balance: Blocking with shields now results in faster stamina damage buildup, and
+      the shield will be sent flying from your hand at more than 45 stamina damage
+  - balance: Blocking an incoming melee attack has entirely new calculations that
+      follow the same spirit as the old ones but with less extreme outcomes. Sharp
+      and non-brute weapons are easier to block than blunt ones.
+  - tweak: blocking stamina is no longer limb based
+  - tweak: 'Added or changed blocking capabilities and/or damage stats of the following
+      weapons. Examine them in-game for more details: Many nullrod options, Rod of
+      Asclepius (activated), energy swords, scythes, spears, proto-kinetic accelerator,
+      mime traitor baguette, mops, teleprods, ghost sword.'
+  - rscadd: three new blocking flags that will be revealed on examining weapons. The
+      flags are BLOCKING_COUNTERATTACK which does what it sounds like, BLOCKING_UNBALANCE
+      for long weapons which trips your opponent and delays their next attack, and
+      BLOCKING_UNBLOCKABLE which can only be blocked by itself and is reserved for
+      magical or energy weapons and energy shields.
+  - rscadd: Adds the Carbon Fiber Saber to security lockers scattered across the station.
+      This item is nearly identical to the captain's saber, but has much less armor
+      penetration and normal sharpness.
+  - bugfix: Fixes energy shield in-hand sprites so that they are now visible in player
+      hands again
+  - bugfix: Fixes energy shields functionality as well - they would never recharge,
+      but this may have gone unnoticed because they also weren't required to charge
+      before being deployed again.
+  - tweak: Energy shields are now much cheaper (5 TC) and available in regular uplinks
+      instead of only nuclear operative uplinks. This extends to the bananium shield
+      being cheaper for clowns as well.
+  Rukofamicom:
+  - bugfix: Goliath lava boats now work again by properly accepting the oar they need
+      to function
+  lord scrubling:
+  - bugfix: Anomaly cores are no longer all blue
+  - bugfix: Cores from diffused anomalies fit in anomaly modsuit modules
+  - bugfix: The threadripper modsuit module is no longer visible even when not selected
+  mrmanlikesbt, lizardqueenlexi:
+  - bugfix: fixed cursed hearts
+  r1ks-iwnl:
+  - bugfix: Changeling's Last Resort no longer traps you as a monkey forever(The human
+      form button is visible again)
+  - bugfix: Changeling's Lesser Form no longer traps you as a monkey forever(The human
+      form button is visible again)
+  - bugfix: Changeling's chem HUD disappearing forever after you turn into a monkey
+  rkz, Timberpoes:
+  - admin: Re-added the button to the player playtime panel that lets admins toggle
+      a player's job playtime exemption status.
+  - refactor: Rewrite the way we handle which roles get assigned with playtime tracking.
+  - bugfix: Players who get MMI'd and put into borgs or AIs mid-shift now gain job
+      playtime tracking towards Silicon roles instead.
+2025-09-07:
+  Solene Ft. Bacon, Ruko, Ark and engineering nerds on discord:
+  - rscdel: Removed Joules
+  - tweak: Power now always only shows up to 1 decimal to simplify reading.
+  - code_imp: Reworks Power measures
+  - tweak: Reworks Power Cell charges and other calculations
+  - tweak: Inducers and Cell Chargers now depend on cell recharge rates for their
+      calculation
+  - bugfix: Fixed Inducer / Cell charge power duplication exploit
+  - rscadd: Energy weapons now display remaining shots to depletion on their examine.
+  - bugfix: Modular Computers will now drain the proper power depending on if they
+      are shut down or enabled.
+  - bugfix: Modular Computers now display power drain accurately
+  - refactor: Refactored Cell Charger code to be more accurate and avoid dupes.
+  - refactor: Refactored power usage updates on some machinery solving duplicated
+      power draws
+  - balance: Rebalanced some power usage costs for machinery
+  - tweak: SMES's now take matter bins instead of cells and display TOTAL POWER
+  - refactor: Changed how SMES's calculate total power and other boring things
+  - tweak: APCs now display total power
+  - refactor: Refactored APC code regarding power. APCs are fasted, more accurate
+      in their calculations and don't freeze randomly. Also they now display sound,
+      text and overlays that were intended but were poorly coded so never seen.
+  - refactor: Refactored Recharger code.
+  - bugfix: Fixed lights drawing power twice
+  - balance: Rebalances costs for power consumption of most machinery to ensure lights
+      aren't the only things drawing any noticeable power.
+  - code_imp: Fixed some instances where machines weren't using the right proc to
+      discern if they're in IDLE or ACTIVE power consumption modes.
+  - refactor: Refactored emitter code so they have less of a mind of their own and
+      actually fire if there is enough power.
+  - rscadd: Added a special power draw mechanic to the gravity generator (Since it
+      had no power cost to begin with). If it's either powering up or powering down
+      it's power use will be 10 times higher than when it is stable.
+  lord scrubling:
+  - bugfix: plasmamen receive a helmet and internals after being captured

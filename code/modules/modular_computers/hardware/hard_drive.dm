@@ -1,7 +1,7 @@
 /obj/item/computer_hardware/hard_drive
 	name = "hard disk drive"
 	desc = "A small HDD, for use in basic computers where power efficiency is desired."
-	power_usage = 25
+	power_usage = 25 // Watts per second
 	icon_state = "harddisk_mini"
 	critical = 1
 	w_class = WEIGHT_CLASS_TINY
@@ -174,7 +174,7 @@
 	name = "advanced hard disk drive"
 	desc = "A hybrid HDD, for use in higher grade computers where balance between power efficiency and capacity is desired."
 	max_capacity = 256
-	power_usage = 50 					// Hybrid, medium capacity and medium power storage
+	power_usage = 50 // Watts per second
 	icon_state = "harddisk_mini"
 	w_class = WEIGHT_CLASS_SMALL
 	custom_price = PAYCHECK_MEDIUM * 3
@@ -183,7 +183,7 @@
 	name = "super-advanced hard disk drive"
 	desc = "A high capacity HDD, for use in cluster storage solutions where capacity is more important than power efficiency."
 	max_capacity = 512
-	power_usage = 100					// High-capacity but uses lots of power, shortening battery life. Best used with APC link.
+	power_usage = 0.1 KILOWATT
 	icon_state = "harddisk_mini"
 	w_class = WEIGHT_CLASS_SMALL
 	custom_price = PAYCHECK_MEDIUM * 4
@@ -191,7 +191,7 @@
 /obj/item/computer_hardware/hard_drive/cluster
 	name = "cluster hard disk drive"
 	desc = "A large storage cluster consisting of multiple HDDs for usage in dedicated storage systems."
-	power_usage = 500
+	power_usage = 0.5 KILOWATT
 	max_capacity = 2048
 	icon_state = "harddisk"
 	w_class = WEIGHT_CLASS_NORMAL
@@ -201,7 +201,7 @@
 /obj/item/computer_hardware/hard_drive/small
 	name = "solid state drive"
 	desc = "An efficient SSD for portable devices."
-	power_usage = 10
+	power_usage = 10  // Watts per second
 	max_capacity = 64
 	icon_state = "ssd_mini"
 	w_class = WEIGHT_CLASS_TINY
@@ -239,13 +239,13 @@
 // Syndicate variant - very slight better
 /obj/item/computer_hardware/hard_drive/small/syndicate
 	desc = "An efficient SSD for portable devices developed by a rival organisation."
-	power_usage = 8
+	power_usage = 8 // Watts per second
 	max_capacity = 70
 	var/datum/antagonist/traitor/traitor_data // Syndicate hard drive has the user's data baked directly into it on creation
 
 /// For tablets given to nuke ops
 /obj/item/computer_hardware/hard_drive/small/nukeops
-	power_usage = 8
+	power_usage = 8 // Watts per second
 	max_capacity = 70
 	// Make sure this matches the syndicate shuttle's shield/door id in _maps/shuttles/infiltrator/infiltrator_basic.dmm
 	controllable_airlocks = list("smindicate")
@@ -261,7 +261,7 @@
 /obj/item/computer_hardware/hard_drive/micro
 	name = "micro solid state drive"
 	desc = "A highly efficient SSD chip for portable devices. It comes pre-installed with all default programs common in PDAs."
-	power_usage = 2
+	power_usage = 5  // Watts per second
 	max_capacity = 32
 	icon_state = "ssd_micro"
 	w_class = WEIGHT_CLASS_TINY
@@ -278,6 +278,28 @@
 	store_file(new/datum/computer_file/program/filemanager(src))		// File manager, allows text editor functions and basic file manipulation.
 
 /obj/item/computer_hardware/hard_drive/micro/on_install(obj/item/modular_computer/install_into, mob/living/user = null)
+	. = ..()
+	if(!.)
+		return
+	// Set the default ringtone
+	for(var/datum/computer_file/program/messenger/messenger in stored_files)
+		messenger.ringer_status = install_into.init_ringer_on
+		messenger.ringtone = install_into.init_ringtone
+
+/obj/item/computer_hardware/hard_drive/inmate
+	name = "inmate solid state drive"
+	desc = "A highly secure SSD chip for portable devices. It only comes pre-installed with the barest necessities."
+	power_usage = 2
+	max_capacity = 32
+	icon_state = "ssd_micro"
+	w_class = WEIGHT_CLASS_TINY
+	custom_price = PAYCHECK_EASY
+
+/obj/item/computer_hardware/hard_drive/inmate/install_default_programs()
+	store_file(new /datum/computer_file/program/messenger(src))
+	store_file(new /datum/computer_file/program/notepad(src))
+
+/obj/item/computer_hardware/hard_drive/inmate/on_install(obj/item/modular_computer/install_into, mob/living/user = null)
 	. = ..()
 	if(!.)
 		return

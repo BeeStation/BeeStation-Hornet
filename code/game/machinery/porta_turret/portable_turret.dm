@@ -46,7 +46,7 @@
 	var/obj/item/gun/installation = /obj/item/gun/energy/e_gun/turret
 	var/obj/item/gun/stored_gun
 	/// The charge of the gun when retrieved from wreckage
-	var/gun_charge = 0
+	var/gun_charge = 0 WATT
 
 	var/mode = TURRET_STUN
 
@@ -192,7 +192,7 @@
 		turret_gun.forceMove(src)
 		stored_gun = turret_gun
 
-	RegisterSignal(stored_gun, COMSIG_PARENT_PREQDELETED, PROC_REF(null_gun))
+	RegisterSignal(stored_gun, COMSIG_PREQDELETED, PROC_REF(null_gun))
 	var/list/gun_properties = stored_gun.get_turret_properties()
 
 	//required properties

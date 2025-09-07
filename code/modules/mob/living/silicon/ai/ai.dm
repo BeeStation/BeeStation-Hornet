@@ -39,7 +39,7 @@
 	var/requires_power = POWER_REQ_ALL
 	var/can_be_carded = TRUE
 	var/icon/holo_icon //Default is assigned when AI is created.
-	var/obj/vehicle/sealed/mecha/controlled_mech //For controlled_mech a mech, to determine whether to relaymove or use the AI eye.
+	var/obj/controlled_equipment //A piece of equipment, to determine whether to relaymove or use the AI eye.
 	var/radio_enabled = TRUE //Determins if a carded AI can speak with its built in radio or not.
 	radiomod = ";" //AIs will, by default, state their laws on the internal radio.
 	var/obj/item/multitool/aiMulti
@@ -489,7 +489,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 			log_game("Warning: possible href exploit by [key_name(usr)] - attempted control of a mecha without can_dominate_mechs or a control beacon in the mech.")
 			return
 
-		if(controlled_mech)
+		if(controlled_equipment)
 			to_chat(src, span_warning("You are already loaded into an onboard computer!"))
 			return
 		if(!GLOB.cameranet.checkCameraVis(M))
@@ -899,11 +899,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	else
 		clear_fullscreen("remote_view", 0)
 
-/mob/living/silicon/ai/revive(full_heal = 0, admin_revive = 0)
+/mob/living/silicon/ai/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE)
 	. = ..()
-	if(.) //successfully ressuscitated from death
-		set_core_display_icon(display_icon_override)
-		set_eyeobj_visible(TRUE)
+	if(!.) //successfully ressuscitated from death
+		return
+
+	set_core_display_icon(display_icon_override)
+	set_eyeobj_visible(TRUE)
 
 /mob/living/silicon/ai/proc/tilt(turf/target, damage, chance_to_crit, paralyze_time, damage_type = BRUTE, rotation = 90)
 	if(!target.is_blocked_turf(TRUE, src, list(src)))
@@ -1102,6 +1104,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai/spawned)
 
 /mob/living/silicon/on_handsblocked_end()
 	return // AIs have no hands
+
+/mob/living/silicon/ai/get_exp_list(minutes)
+	. = ..()
+
+	var/datum/job/ai/ai_job_ref = SSjob.GetJobType(/datum/job/ai)
+
+	.[ai_job_ref.title] = minutes
 
 /mob/living/silicon/ai/verb/change_photo_camera_radius()
 	set category = "AI Commands"

@@ -64,6 +64,7 @@
 #define FACTION_BLOB "Blob"
 #define FACTION_ALIEN "Xenomorph"
 #define FACTION_WIZARD "Wizard"
+#define FACTION_VAMPIRE "Vampire"
 
 // Heretic path defines.
 #define HERETIC_PATH_START "Heretic Start Path"
@@ -159,6 +160,9 @@ GLOBAL_LIST_INIT(ai_employers, list(
 /// Checks if the given mob is a revolutionary
 #define IS_REVOLUTIONARY(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/rev))
 #define IS_HEAD_REVOLUTIONARY(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/rev/head))
+
+//Tells whether or not someone is a space ninja
+#define IS_SPACE_NINJA(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/ninja))
 
 // Max of all fugitive types
 #define MAXIMUM_TOTAL_FUGITIVES 4

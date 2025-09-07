@@ -122,7 +122,7 @@
 		M.cut_overlays()
 		M.regenerate_icons()
 
-/obj/item/clothing/suit/armor/abductor/vest/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/clothing/suit/armor/abductor/vest/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	DeactivateStealth()
 
 /obj/item/clothing/suit/armor/abductor/vest/IsReflect()
@@ -650,13 +650,13 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		unregister_target()
 	current_target = new_target
 	if (current_target)
-		RegisterSignal(current_target, COMSIG_PARENT_QDELETING, PROC_REF(unregister_target))
+		RegisterSignal(current_target, COMSIG_QDELETING, PROC_REF(unregister_target))
 		START_PROCESSING(SSprocessing, src)
 
 /// Called when a target is deleted
 /obj/item/melee/baton/abductor/proc/unregister_target()
 	SIGNAL_HANDLER
-	UnregisterSignal(current_target, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(current_target, COMSIG_QDELETING)
 	current_target = null
 	STOP_PROCESSING(SSprocessing, src)
 
@@ -786,9 +786,24 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "Abduct with style - spiky style. Prevents digital tracking."
 	icon_state = "alienhelmet"
 	item_state = "alienhelmet"
-	flash_protect = 1
-	blockTracking = TRUE
+	flash_protect = FLASH_PROTECTION_FLASH
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
+
+/obj/item/clothing/head/helmet/abductor/equipped(mob/living/user, slot)
+	. = ..()
+	if(slot_flags & slot)
+		RegisterSignal(user, COMSIG_LIVING_CAN_TRACK, PROC_REF(can_track))
+	else
+		UnregisterSignal(user, COMSIG_LIVING_CAN_TRACK)
+
+/obj/item/clothing/head/helmet/abductor/dropped(mob/living/user)
+	. = ..()
+	UnregisterSignal(user, COMSIG_LIVING_CAN_TRACK)
+
+/obj/item/clothing/head/helmet/abductor/proc/can_track(datum/source, mob/user)
+	SIGNAL_HANDLER
+
+	return COMPONENT_CANT_TRACK
 
 // Operating Table / Beds / Lockers
 

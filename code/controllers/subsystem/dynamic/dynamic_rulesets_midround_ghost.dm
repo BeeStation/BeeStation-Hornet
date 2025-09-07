@@ -461,7 +461,7 @@
 	name = "Spider Infestation"
 	severity = DYNAMIC_MIDROUND_MEDIUM | DYNAMIC_MIDROUND_HEAVY
 	antag_datum = /datum/antagonist/spider
-	drafted_players_amount = 3
+	drafted_players_amount = 2
 	points_cost = 40
 	weight = 4
 
@@ -570,7 +570,6 @@
 	var/mob/living/simple_animal/hostile/morph/morph_body = new(pick(spawn_locations))
 	player_mind.transfer_to(morph_body)
 
-	to_chat(morph_body, morph_body.playstyle_string)
 	SEND_SOUND(morph_body, sound('sound/magic/mutate.ogg'))
 
 	return morph_body

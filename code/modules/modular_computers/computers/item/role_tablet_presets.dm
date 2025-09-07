@@ -170,6 +170,10 @@
 	default_disk = /obj/item/computer_hardware/hard_drive/role/ce
 	icon_state = "pda-ce"
 
+/obj/item/modular_computer/tablet/pda/preset/heads/chief_engineer/Initialize(mapload)
+	. = ..()
+	install_component(new /obj/item/computer_hardware/recharger/APC/pda)
+
 /obj/item/modular_computer/tablet/pda/preset/heads/chief_medical_officer
 	name = "chief medical officer PDA"
 	default_disk = /obj/item/computer_hardware/hard_drive/role/cmo
@@ -288,6 +292,10 @@
 	default_disk = /obj/item/computer_hardware/hard_drive/role/atmos
 	icon_state = "pda-atmos"
 
+/obj/item/modular_computer/tablet/pda/preset/atmospheric_technician/Initialize(mapload)
+	. = ..()
+	install_component(new /obj/item/computer_hardware/recharger/APC/pda)
+
 /obj/item/modular_computer/tablet/pda/preset/chemist
 	name = "chemist PDA"
 	default_disk = /obj/item/computer_hardware/hard_drive/role/chemistry
@@ -313,3 +321,18 @@
 	note = "Error: Unlicensed software detected. Please contact your supervisor."
 	default_disk = /obj/item/computer_hardware/hard_drive/role/maint
 	icon_state = "pda-knockoff"
+
+/obj/item/modular_computer/tablet/pda/prisoner
+	name = "Prisoner PDA"
+	desc = "A portable microcomputer by Thinktronic Systems, LTD. This model is a specially locked down variant for use by prisoners."
+	icon_state = "pda-prisoner"
+
+//This is silly
+/obj/item/modular_computer/tablet/pda/prisoner/Initialize(mapload)
+	. = ..()
+	install_component(new /obj/item/computer_hardware/hard_drive/inmate)
+	install_component(new /obj/item/computer_hardware/processor_unit/small)
+	install_component(new /obj/item/computer_hardware/battery(src, /obj/item/stock_parts/cell/computer/nano))
+	install_component(new /obj/item/computer_hardware/card_slot)
+	install_component(new /obj/item/computer_hardware/identifier)
+	install_component(new /obj/item/computer_hardware/network_card)

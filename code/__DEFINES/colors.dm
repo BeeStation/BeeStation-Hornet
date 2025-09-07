@@ -25,7 +25,7 @@
 #define COLOR_DARKMODE_TEXT "#a4bad6"
 
 #define COLOR_WHITE "#FFFFFF"
-#define COLOR_OFF_WHITE "#FFF5ED"
+#define COLOR_OFF_WHITE "#fff5ed"
 #define COLOR_VERY_LIGHT_GRAY "#EEEEEE"
 #define COLOR_SILVER "#C0C0C0"
 #define COLOR_GRAY "#808080"
@@ -76,6 +76,7 @@
 #define COLOR_STRONG_MAGENTA "#B800B8"
 #define COLOR_PURPLE           "#800080"
 #define COLOR_VIOLET           "#B900F7"
+#define COLOR_VOID_PURPLE "#53277E"
 #define COLOR_AMETHYST		 "#822BFF"
 #define COLOR_STRONG_VIOLET    "#6927C5"
 #define COLOR_DARK_PURPLE 	   "#551A8B"
