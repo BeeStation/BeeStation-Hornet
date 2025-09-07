@@ -319,6 +319,12 @@
 	credit_cost = 10000
 	danger_level = SHUTTLE_DANGER_SUBPAR
 
+/datum/map_template/shuttle/emergency/medbay
+	suffix = "medbay"
+	name = "Medical Emergencies Escape Shuttle"
+	description = "The M.E.E.S is the best shuttle you can buy if you need to tend a lot of crewmembers on your way home. Comes wiht a large, well equiped medbay and security, crew and command facilities."
+	credit_cost = 10000
+
 /datum/map_template/shuttle/emergency/funnypod
 	suffix = "funnypod"
 	name = "Comically Large Escape Pod"
