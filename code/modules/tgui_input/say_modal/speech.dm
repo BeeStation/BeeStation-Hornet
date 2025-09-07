@@ -45,7 +45,7 @@
 			client.ooc(entry)
 			return TRUE
 		if(LOOC_CHANNEL)
-			client.looc(entry)
+			client.private_ooc(entry)
 		if(ASAY_CHANNEL)
 			if(client.holder)
 				client.cmd_admin_say(entry)
