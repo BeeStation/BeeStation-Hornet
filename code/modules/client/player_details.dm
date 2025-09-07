@@ -1,5 +1,5 @@
 /datum/player_details
-	var/key
+	var/ckey
 	var/list/player_actions = list()
 	var/list/logging = list()
 	var/list/post_login_callbacks = list()
@@ -18,13 +18,13 @@
 	/// Bitflags for communications that are muted
 	var/muted = NONE
 
-/datum/player_details/New(key)
-	src.key = key
-	achievements = new(key)
+/datum/player_details/New(ckey)
+	src.ckey = ckey
+	achievements = new(ckey)
 
 /datum/player_details/proc/find_client()
 	for (var/client/client in GLOB.clients)
-		if (client.key == key)
+		if (client.ckey == ckey)
 			return client
 	return null
 
