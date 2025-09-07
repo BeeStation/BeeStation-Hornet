@@ -21,8 +21,6 @@ AUTH_CLIENT_VERB(private_ooc)
 			continue
 		message_targets += target_mob
 
-
-
 	var/mob/living/target = tgui_input_list(
 		usr,
 		"Who would you like to contact?.",
