@@ -314,7 +314,7 @@
 	icon_state = "freezegun"
 	desc = "A gun that changes temperatures."
 	ammo_type = list(/obj/item/ammo_casing/energy/temp, /obj/item/ammo_casing/energy/temp/hot)
-	cell_type = "/obj/item/stock_parts/cell/high"
+	gun_charge = 100 KILOWATT
 	automatic = 1
 	fire_rate = 4
 	pin = null
