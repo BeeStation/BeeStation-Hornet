@@ -10,6 +10,7 @@
 	icon_state_preview = "boat"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	can_buckle = TRUE
+	key_type = /obj/item/oar
 
 /obj/vehicle/ridden/lavaboat/add_riding_element()
 	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/lavaboat)
@@ -23,7 +24,7 @@
 	righthand_file = 'icons/mob/inhands/misc/lavaland_righthand.dmi'
 	desc = "Not to be confused with the kind Research hassles you for."
 	force = 12
-	block_upgrade_walk = TRUE
+
 	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 

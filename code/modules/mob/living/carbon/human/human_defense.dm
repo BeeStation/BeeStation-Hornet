@@ -127,7 +127,7 @@
 		if(!isclothing(I))
 			if(I.hit_reaction(src, AM, attack_text, damage, attack_type))
 				I.on_block(src, AM, attack_text, damage, attack_type)
-				return 1
+				return TRUE
 	if(wear_suit?.hit_reaction(src, AM, attack_text, damage, attack_type))
 		return TRUE
 	if(w_uniform?.hit_reaction(src, AM, attack_text, damage, attack_type))
@@ -815,12 +815,6 @@
 
 	for(var/obj/item/I in torn_items)
 		I.take_damage(damage_amount, damage_type, damage_flag, 0)
-
-/mob/living/carbon/human/proc/blockbreak()
-	to_chat(src, span_userdanger("Your block was broken!"))
-	ADD_TRAIT(src, TRAIT_NOBLOCK, type)
-	stoplag(50)
-	REMOVE_TRAIT(src, TRAIT_NOBLOCK, type)
 
 /mob/living/carbon/human/attack_animal(mob/living/simple_animal/M)
 	if(M.melee_damage != 0 && !HAS_TRAIT(M, TRAIT_PACIFISM) && check_shields(M, M.melee_damage, "the [M.name]", MELEE_ATTACK, M.armour_penetration))

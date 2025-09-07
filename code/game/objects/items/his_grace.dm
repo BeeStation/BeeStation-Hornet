@@ -15,7 +15,10 @@
 	w_class = WEIGHT_CLASS_GIGANTIC
 	item_flags = ISWEAPON
 	force = 12
-	block_upgrade_walk = TRUE
+
+	canblock = TRUE
+	block_flags = BLOCKING_ACTIVE
+
 	attack_verb_continuous = list("robusts")
 	attack_verb_simple = list("robust")
 	hitsound = 'sound/weapons/smash.ogg'

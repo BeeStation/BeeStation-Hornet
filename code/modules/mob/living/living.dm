@@ -2062,6 +2062,23 @@
 		return style.harm_act(src, target)
 	return style.help_act(src, target)
 
+/**
+ * Returns an assoc list of assignments and minutes for updating a client's exp time in the databse.
+ *
+ * Arguments:
+ * * minutes - The number of minutes to allocate to each valid role.
+ */
+/mob/living/proc/get_exp_list(minutes)
+	var/list/exp_list = list()
+
+	if(mind && mind.special_role && !(mind.datum_flags & DF_VAR_EDITED))
+		exp_list[mind.special_role] = minutes
+
+	if(mind.assigned_role in GLOB.exp_specialmap[EXP_TYPE_SPECIAL])
+		exp_list[mind.assigned_role] = minutes
+
+	return exp_list
+
 /// Actually does the shapeshift
 /mob/living/proc/do_shapeshift(shapeshift_type = /mob/living/basic/pet/dog/corgi)
 	// Spawn the new mob
