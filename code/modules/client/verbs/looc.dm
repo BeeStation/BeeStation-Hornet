@@ -10,9 +10,9 @@ AUTH_CLIENT_VERB(looc, msg as text)
 	set category = "OOC"
 
 	// Thumbs emojis
-	var/static/datum/asset/spritesheet_batched/sheet = get_asset_datum(/datum/asset/spritesheet_batched/chat)
-	var/static/thumbs_up = sheet.icon_tag("emoji-up")
-	var/static/thumbs_down = sheet.icon_tag("emoji-down")
+	var/datum/asset/spritesheet_batched/sheet = get_asset_datum(/datum/asset/spritesheet_batched/chat)
+	var/thumbs_up = sheet.icon_tag("emoji-up")
+	var/thumbs_down = sheet.icon_tag("emoji-down")
 
 	if(GLOB.say_disabled)    //This is here to try to identify lag problems
 		to_chat(usr, span_danger("Speech is currently admin-disabled."))
@@ -93,8 +93,12 @@ AUTH_CLIENT_VERB(looc, msg as text)
 			if(client.prefs.read_player_preference(/datum/preference/toggle/enable_runechat_looc))
 				targets |= client.mob
 				hearers |= client.ckey
-			var/commendations = "<span style='float: right'><a href='byond://?src=[REF(message_datum)];looc_commend=[ckey]'>[thumbs_up]</a> <a href='byond://?src=[REF(message_datum)];looc_critic=[ckey]'>[thumbs_down]</a></span>"
-			var/rendered_message = span_looc("[span_prefix("LOOC:")] <EM>[span_name("[mob.name]")]:</EM> [span_message(msg)]")
+			var/commendations = "<span style='float: right'>"
+			commendations += "<a href='byond://?src=[REF(message_datum)];looc_commend=[ckey]'>[thumbs_up]</a>"
+			if (!client.player_details.has_criticized)
+				commendations += " <a href='byond://?src=[REF(message_datum)];looc_critic=[ckey]'>[thumbs_down]</a>"
+			commendations += "</span>"
+			var/rendered_message = span_looc("[span_prefix("LOOC:")] <EM>[span_name("[mob.name]")]:</EM> [span_message(msg)] [commendations]")
 			to_chat(client, rendered_message, avoid_highlighting = (client == src))
 
 
@@ -137,7 +141,7 @@ AUTH_CLIENT_VERB(looc, msg as text)
 	. = ..()
 	if (href_list["looc_commend"])
 		try_commend(usr.client)
-	else if (href_list("looc_critic"))
+	else if (href_list["looc_critic"])
 		try_criticise(usr.client)
 
 /datum/looc_message/proc/try_commend(client/listener)
@@ -147,11 +151,12 @@ AUTH_CLIENT_VERB(looc, msg as text)
 		to_chat(listener, span_good("You have already rated this message, thank you for creating a positive atmosphere!"))
 		return
 	var/client/sender_client = sender.find_client()
-	to_chat(listener, span_good("You sent a commendation to [mob_name], thank you for creating a positive atmosphere!"))
 	if (sender_client)
-		if (sender.commendations_received > 20)
+		if (sender.commendations_received > 10)
+			to_chat(listener, span_good("You sent a commendation to [mob_name], thank you for creating a positive atmosphere!"))
 			to_chat(sender_client, span_good("You received a commendation for being helpful, but have been so helpful that you already hit the limit! Thank you for creating a positive atmosphere!"))
 		else
+			listener.inc_metabalance(1, FALSE, reason = "You sent a commendation to [mob_name], thank you for creating a positive atmosphere!")
 			sender_client.inc_metabalance(1, TRUE, reason = "You have received a commendation for helpful messages, thank you for creating a positive atmosphere!")
 	LAZYADD(commenders, listener.ckey)
 	sender.commendations_received ++
@@ -161,12 +166,16 @@ AUTH_CLIENT_VERB(looc, msg as text)
 		return
 	if (!(listener.ckey in hearers))
 		return
+	if (listener.player_details.has_criticized)
+		to_chat(listener, span_warning("You may only use the criticize function once per round."))
+		return
 	if (LAZYFIND(commenders, listener.ckey))
 		to_chat(listener, span_good("You have already rated this message, thank you for maintaining mutual respect even when the game gets tough."))
 		return
 	to_chat(listener, span_good("You criticised a message from [mob_name], thank you for maintaining mutual respect even when the game gets tough."))
 	LAZYADD(commenders, listener.ckey)
 	sender.criticisms_received ++
+	listener.player_details.has_criticized = TRUE
 	// Will hold a reference until complete, at which point the datum will be deleted
 	addtimer(CALLBACK(src, PROC_REF(issue_warning)), rand(2 MINUTES, 5 MINUTES))
 
@@ -176,7 +185,7 @@ AUTH_CLIENT_VERB(looc, msg as text)
 	if (sender.muted & MUTE_OOC)
 		return
 	if (delta < 0)
-		to_chat(sender, span_rosebold("You have temporarily lost access to OOC communications due to feedback from other players. Do not panic; \
+		to_chat(sender_client, span_rosebold("You have temporarily lost access to OOC communications due to automated feedback. Do not panic; \
 		you are not in trouble, this will automatically revert at the end of the round, and is not logged against you!"))
 		sender.muted |= MUTE_OOC
 

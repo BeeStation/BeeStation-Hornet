@@ -13,6 +13,8 @@
 	var/commendations_received = 0
 	/// How many criticisms have we received?
 	var/criticisms_received = 0
+	/// Have we criticized?
+	var/has_criticized = FALSE
 	/// Bitflags for communications that are muted
 	var/muted = NONE
 
