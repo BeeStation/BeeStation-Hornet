@@ -206,7 +206,7 @@
 	if(in_range(user, src) || isobserver(user))
 		. += span_notice("The status display reads:<br>" + \
 			"Recently grounded <b>[display_energy(get_stored_joules())]</b>.<br>" + \
-			"This energy would sustainably release <b>[display_power(calculate_sustainable_power(), convert = FALSE)]</b>.")
+			"This energy would sustainably release <b>[display_power(calculate_sustainable_power())]</b>.")
 
 /obj/machinery/power/energy_accumulator/grounding_rod/default_unfasten_wrench(mob/user, obj/item/wrench, time = 2 SECONDS)
 	. = ..()
