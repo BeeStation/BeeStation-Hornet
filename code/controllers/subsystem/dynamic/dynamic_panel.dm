@@ -54,7 +54,7 @@
 
 	data["roundstart_points"] = SSdynamic.roundstart_points
 	data["roundstart_divergence"] = SSdynamic.roundstart_point_divergence
-	data["roundstart_ready_amount"] = length(SSdynamic.roundstart_candidates)
+	data["roundstart_ready_amount"] = SSdynamic.roundstart_ready_amount
 	data["has_round_started"] = SSticker.HasRoundStarted()
 
 	data["roundstart_divergence_upper"] = SSdynamic.roundstart_divergence_percent_upper
@@ -102,6 +102,7 @@
 
 	data["living_delta"] = SSdynamic.midround_living_delta
 	data["dead_delta"] = SSdynamic.midround_dead_delta
+	data["dead_security_delta"] = SSdynamic.midround_dead_security_delta
 	data["observer_delta"] = SSdynamic.midround_observer_delta
 	data["linear_delta"] = SSdynamic.midround_linear_delta
 	data["linear_delta_forced"] = SSdynamic.midround_linear_delta_forced
@@ -110,6 +111,7 @@
 	data["logged_points_living"] = SSdynamic.logged_points["logged_points_living"]
 	data["logged_points_observer"] = SSdynamic.logged_points["logged_points_observer"]
 	data["logged_points_dead"] = SSdynamic.logged_points["logged_points_dead"]
+	data["logged_points_dead_security"] = SSdynamic.logged_points["logged_points_dead_security"]
 	data["logged_points_antag"] = SSdynamic.logged_points["logged_points_antag"]
 	data["logged_points_linear"] = SSdynamic.logged_points["logged_points_linear"]
 	data["logged_points_linear_forced"] = SSdynamic.logged_points["logged_points_linear_forced"]
@@ -307,7 +309,8 @@
 			var/result = SSdynamic.execute_ruleset(midround_ruleset)
 			message_admins("[key_name(usr)] forced the midround ruleset ([midround_ruleset]) to execute - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
 			log_dynamic("[key_name(usr)] forced the midround ruleset ([midround_ruleset]) to execute - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
-			SSdynamic.midround_executed_rulesets += SSdynamic.midround_chosen_ruleset
+			if(result == DYNAMIC_EXECUTE_SUCCESS)
+				SSdynamic.midround_executed_rulesets += SSdynamic.midround_chosen_ruleset
 			SSdynamic.midround_chosen_ruleset = null
 			return TRUE
 
@@ -342,6 +345,12 @@
 			SSdynamic.midround_dead_delta = new_dead_delta
 			message_admins("[key_name(usr)] set the midround dead delta to [new_dead_delta]")
 			log_dynamic("[key_name(usr)] set the midround dead delta to [new_dead_delta]")
+			return TRUE
+		if("set_midround_dead_security_delta")
+			var/new_dead_security_delta = params["new_dead_security_delta"]
+			SSdynamic.midround_dead_security_delta = new_dead_security_delta
+			message_admins("[key_name(usr)] set the midround dead security delta to [new_dead_security_delta]")
+			log_dynamic("[key_name(usr)] set the midround dead security delta to [new_dead_security_delta]")
 			return TRUE
 		if("set_midround_observer_delta")
 			var/new_observer_delta = params["new_observer_delta"]

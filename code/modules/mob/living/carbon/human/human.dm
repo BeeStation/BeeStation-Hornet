@@ -4,6 +4,7 @@
 	icon = 'icons/mob/human.dmi'
 	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE|LONG_GLIDE
 	COOLDOWN_DECLARE(special_emote_cooldown)
+	COOLDOWN_DECLARE(block_cooldown)
 
 /mob/living/carbon/human/Initialize(mapload)
 	add_verb(/mob/living/proc/mob_sleep)
@@ -701,27 +702,22 @@
 	for(var/t in get_disabled_limbs()) //Disabled limbs
 		hud_used.healthdoll.add_overlay(mutable_appearance('icons/hud/screen_gen.dmi', "[t]7"))
 
-/mob/living/carbon/human/fully_heal(admin_revive = FALSE)
-	dna?.species.spec_fully_heal(src)
-	if(admin_revive)
-		regenerate_limbs()
-		regenerate_organs()
-		if(ismoth(src))
-			REMOVE_TRAIT(src, TRAIT_MOTH_BURNT, "fire")
-	remove_all_embedded_objects()
-	set_heartattack(FALSE)
-	drunkenness = 0
-	for(var/datum/mutation/HM as() in dna.mutations)
-		if(HM.quality != POSITIVE)
-			dna.remove_mutation(HM.name)
-	coretemperature = get_body_temp_normal(apply_change=FALSE)
-	heat_exposure_stacks = 0
-	..()
+/mob/living/carbon/human/fully_heal(heal_flags = HEAL_ALL)
+	if(heal_flags & HEAL_NEGATIVE_MUTATIONS)
+		for(var/datum/mutation/human/existing_mutation in dna.mutations)
+			if(existing_mutation.quality != POSITIVE)
+				dna.remove_mutation(existing_mutation.name)
+
+	if(heal_flags & HEAL_TEMP)
+		coretemperature = get_body_temp_normal(apply_change = FALSE)
+		heat_exposure_stacks = 0
+
+	return ..()
 
 /mob/living/carbon/human/is_literate()
 	return TRUE
 
-/mob/living/carbon/human/vomit(lost_nutrition = 10, blood = 0, stun = 1, distance = 0, message = 1, toxic = 0)
+/mob/living/carbon/human/vomit(lost_nutrition = 10, blood = FALSE, stun = TRUE, distance = 1, message = TRUE, toxic = 0)
 	if(blood && HAS_TRAIT(src, TRAIT_NOBLOOD))
 		if(message)
 			visible_message(span_warning("[src] dry heaves!"), \
@@ -1041,6 +1037,12 @@
 		src.emote("scream")
 	src.apply_damage(power, BRUTE, def_zone = pick(BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
 	src.Paralyze(10 * power)
+
+/mob/living/carbon/human/get_exp_list(minutes)
+	. = ..()
+
+	if(mind.assigned_role in SSjob.name_occupations)
+		.[mind.assigned_role] = minutes
 
 /mob/living/carbon/human/monkeybrain
 	ai_controller = /datum/ai_controller/monkey

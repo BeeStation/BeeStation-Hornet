@@ -134,7 +134,7 @@
 	. = ..()
 
 /obj/item/gun/ballistic/revolver/detective/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
-	if(magazine.caliber != initial(magazine.caliber))
+	if (chambered && chambered.caliber == "357")
 		if(prob(70 - (magazine.ammo_count() * 10)))	//minimum probability of 10, maximum of 60
 			playsound(user, fire_sound, fire_sound_volume, vary_fire_sound)
 			to_chat(user, span_userdanger("[src] blows up in your face!"))
@@ -147,7 +147,7 @@
 /obj/item/gun/ballistic/revolver/detective/screwdriver_act(mob/living/user, obj/item/I)
 	if(..())
 		return TRUE
-	if(magazine.caliber == "38")
+	if("38" in magazine.caliber)
 		to_chat(user, span_notice("You begin to reinforce the barrel of [src]..."))
 		if(magazine.ammo_count())
 			afterattack(user, user)	//you know the drill
@@ -157,7 +157,7 @@
 			if(magazine.ammo_count())
 				to_chat(user, span_warning("You can't modify it!"))
 				return TRUE
-			magazine.caliber = "357"
+			magazine.caliber = list("357")
 			src.caliber = magazine.caliber
 			fire_rate = 1 //worse than a nromal .357
 			fire_sound = 'sound/weapons/revolver357shot.ogg'
@@ -173,7 +173,7 @@
 			if(magazine.ammo_count())
 				to_chat(user, span_warning("You can't modify it!"))
 				return
-			magazine.caliber = "38"
+			magazine.caliber = list("38")
 			src.caliber = magazine.caliber
 			fire_rate = initial(fire_rate)
 			fire_sound = 'sound/weapons/revolver38shot.ogg'

@@ -17,13 +17,26 @@ export const NoticeBoard = (props) => {
           </Section>
         ) : (
           items.map((item, index) => (
-            <Flex key={item.ref} color="black" backgroundColor="white" style={{ padding: '2px 2px 0 2px' }} mb={0.5}>
+            <Flex
+              key={item.ref}
+              color="black"
+              backgroundColor="white"
+              style={{ padding: '2px 2px 0 2px' }}
+              mb={0.5}
+            >
               <Flex.Item align="center" grow={1}>
                 <Box align="center">{item.name}</Box>
               </Flex.Item>
               <Flex.Item>
-                <Button icon="search" onClick={() => act('examine', { ref: item.ref })} />
-                <Button icon="eject" disabled={!allowed} onClick={() => act('remove', { ref: item.ref })} />
+                <Button
+                  icon="search"
+                  onClick={() => act('examine', { ref: item.ref })}
+                />
+                <Button
+                  icon="eject"
+                  disabled={!allowed}
+                  onClick={() => act('remove', { ref: item.ref })}
+                />
               </Flex.Item>
             </Flex>
           ))

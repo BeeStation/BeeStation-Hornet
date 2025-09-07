@@ -1,10 +1,12 @@
-import { Box, Icon, Stack, Tooltip } from '../../components';
-import { PreferencesMenuData, Quirk } from './data';
-import { useBackend, useLocalState } from '../../backend';
-import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
+import { useState } from 'react';
 import { logger } from 'tgui/logging';
 
-const getValueClass = (value: number): string => {
+import { useBackend } from '../../backend';
+import { Box, Icon, Stack, Tooltip } from '../../components';
+import { PreferencesMenuData, Quirk } from './data';
+import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
+
+function getValueClass(value: number) {
   if (value > 0) {
     return 'positive';
   } else if (value < 0) {
@@ -12,120 +14,164 @@ const getValueClass = (value: number): string => {
   } else {
     return 'neutral';
   }
+}
+
+type QuirkEntry = [string, Quirk & { failTooltip?: string }];
+
+type QuirkListProps = {
+  quirks: QuirkEntry[];
 };
 
-const QuirkList = (props: {
-  quirks: [
-    string,
-    Quirk & {
-      failTooltip?: string;
-    }
-  ][];
+type QuirkProps = {
   onClick: (quirkName: string, quirk: Quirk) => void;
-}) => {
+  selected?: boolean;
+};
+
+function QuirkList(props: QuirkProps & QuirkListProps) {
+  const { quirks = [], selected, onClick } = props;
+
   return (
     // Stack is not used here for a variety of IE flex bugs
     <Box className="PreferencesMenu__Quirks__QuirkList">
-      {props.quirks.map(([quirkKey, quirk]) => {
-        const className = 'PreferencesMenu__Quirks__QuirkList__quirk';
-        if (!quirk.icon) {
-          logger.info(quirk.name);
+      {quirks.map(([quirkKey, quirk]) => (
+        <QuirkDisplay
+          key={quirkKey}
+          onClick={onClick}
+          quirk={quirk}
+          quirkKey={quirkKey}
+          selected={selected}
+        />
+      ))}
+    </Box>
+  );
+}
+
+type QuirkDisplayProps = {
+  quirk: Quirk & { failTooltip?: string };
+  // bugged
+  // eslint-disable-next-line react/no-unused-prop-types
+  quirkKey: string;
+} & QuirkProps;
+
+function QuirkDisplay(props: QuirkDisplayProps) {
+  const { quirk, quirkKey, onClick, selected } = props;
+  const { icon, value, name, description, failTooltip } = quirk;
+
+  const className = 'PreferencesMenu__Quirks__QuirkList__quirk';
+
+  if (!icon) {
+    logger.info(name);
+  }
+
+  const child = (
+    <Box
+      className={className}
+      role="button"
+      tabIndex="1"
+      onClick={(event) => {
+        event.stopPropagation();
+        if (selected) {
         }
 
-        const child = (
-          <Box
-            className={className}
-            key={quirkKey}
-            role="button"
-            tabIndex="1"
-            onClick={() => {
-              props.onClick(quirkKey, quirk);
-            }}>
-            <Stack fill>
-              <Stack.Item
-                align="center"
-                style={{
-                  minWidth: '15%',
-                  maxWidth: '15%',
-                  textAlign: 'center',
-                }}>
-                {quirk.icon && <Icon color="#333" fontSize={3} name={quirk.icon} />}
-              </Stack.Item>
+        onClick(quirkKey, quirk);
+      }}
+    >
+      <Stack fill>
+        <Stack.Item
+          align="center"
+          style={{
+            minWidth: '15%',
+            maxWidth: '15%',
+            textAlign: 'center',
+          }}
+        >
+          {icon && <Icon color="#333" fontSize={3} name={icon} />}
+        </Stack.Item>
 
-              <Stack.Item
-                align="stretch"
-                ml={0}
+        <Stack.Item
+          align="stretch"
+          ml={0}
+          style={{
+            borderRight: '1px solid black',
+          }}
+        />
+
+        <Stack.Item
+          grow
+          ml={0}
+          style={{
+            // Fixes an IE bug for text overflowing in Flex boxes
+            minWidth: '0%',
+          }}
+        >
+          <Stack vertical fill>
+            <Stack.Item
+              className={`${className}--${getValueClass(value)}`}
+              style={{
+                borderBottom: '1px solid black',
+                padding: '2px',
+              }}
+            >
+              <Stack
+                fill
                 style={{
-                  borderRight: '1px solid black',
+                  fontSize: '1.2em',
                 }}
-              />
+              >
+                <Stack.Item grow basis="content">
+                  <b>{name}</b>
+                </Stack.Item>
 
-              <Stack.Item
-                grow
-                ml={0}
-                style={{
-                  // Fixes an IE bug for text overflowing in Flex boxes
-                  minWidth: '0%',
-                }}>
-                <Stack vertical fill>
-                  <Stack.Item
-                    className={`${className}--${getValueClass(quirk.value)}`}
-                    style={{
-                      borderBottom: '1px solid black',
-                      padding: '2px',
-                    }}>
-                    <Stack
-                      fill
-                      style={{
-                        fontSize: '1.2em',
-                      }}>
-                      <Stack.Item grow basis="content">
-                        <b>{quirk.name}</b>
-                      </Stack.Item>
-                    </Stack>
-                  </Stack.Item>
+                <Stack.Item>
+                  <b>{value}</b>
+                </Stack.Item>
+              </Stack>
+            </Stack.Item>
 
-                  <Stack.Item
-                    grow
-                    basis="content"
-                    mt={0}
-                    style={{
-                      padding: '3px',
-                    }}>
-                    {quirk.description}
-                  </Stack.Item>
-                </Stack>
-              </Stack.Item>
-            </Stack>
-          </Box>
-        );
-
-        if (quirk.failTooltip) {
-          return (
-            <Tooltip key={`${quirkKey}-tooltip`} content={quirk.failTooltip}>
-              {child}
-            </Tooltip>
-          );
-        } else {
-          return child;
-        }
-      })}
+            <Stack.Item
+              grow
+              basis="content"
+              mt={0}
+              style={{
+                padding: '3px',
+              }}
+            >
+              {description}
+            </Stack.Item>
+          </Stack>
+        </Stack.Item>
+      </Stack>
     </Box>
   );
-};
 
-const StatDisplay = (props) => {
+  if (failTooltip) {
+    return <Tooltip content={failTooltip}>{child}</Tooltip>;
+  } else {
+    return child;
+  }
+}
+
+function StatDisplay(props) {
+  const { children } = props;
+
   return (
-    <Box backgroundColor="#eee" bold color="black" fontSize="1.2em" px={3} py={0.5}>
-      {props.children}
+    <Box
+      backgroundColor="#eee"
+      bold
+      color="black"
+      fontSize="1.2em"
+      px={3}
+      py={0.5}
+    >
+      {children}
     </Box>
   );
-};
+}
 
-export const QuirksPage = (props) => {
+export function QuirksPage(props) {
   const { act, data } = useBackend<PreferencesMenuData>();
 
-  const [selectedQuirks, setSelectedQuirks] = useLocalState(`selectedQuirks_${data.active_slot}`, data.selected_quirks);
+  const [selectedQuirks, setSelectedQuirks] = useState(data.selected_quirks);
 
   return (
     <ServerPreferencesFetcher
@@ -134,7 +180,11 @@ export const QuirksPage = (props) => {
           return <Box>Loading quirks...</Box>;
         }
 
-        const { max_positive_quirks: maxPositiveQuirks, quirk_blacklist: quirkBlacklist, quirk_info: quirkInfo } = data.quirks;
+        const {
+          max_positive_quirks: maxPositiveQuirks,
+          quirk_blacklist: quirkBlacklist,
+          quirk_info: quirkInfo,
+        } = data.quirks;
 
         const quirks = Object.entries(quirkInfo);
         quirks.sort(([_, quirkA], [__, quirkB]) => {
@@ -177,7 +227,10 @@ export const QuirksPage = (props) => {
             }
 
             for (const incompatibleQuirk of blacklist) {
-              if (incompatibleQuirk !== quirk.name && selectedQuirkNames.indexOf(incompatibleQuirk) !== -1) {
+              if (
+                incompatibleQuirk !== quirk.name &&
+                selectedQuirkNames.indexOf(incompatibleQuirk) !== -1
+              ) {
                 return `This is incompatible with ${incompatibleQuirk}!`;
               }
             }
@@ -251,7 +304,11 @@ export const QuirksPage = (props) => {
                 <Stack.Item grow width="100%">
                   <QuirkList
                     onClick={(quirkName, quirk) => {
-                      setSelectedQuirks(selectedQuirks.filter((otherQuirk) => quirkName !== otherQuirk));
+                      setSelectedQuirks(
+                        selectedQuirks.filter(
+                          (otherQuirk) => quirkName !== otherQuirk,
+                        ),
+                      );
 
                       act('remove_quirk', { quirk: quirk.name });
                     }}
@@ -268,6 +325,7 @@ export const QuirksPage = (props) => {
                           },
                         ];
                       })}
+                    selected
                   />
                 </Stack.Item>
               </Stack>
@@ -277,4 +335,4 @@ export const QuirksPage = (props) => {
       }}
     />
   );
-};
+}

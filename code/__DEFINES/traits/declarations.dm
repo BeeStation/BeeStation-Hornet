@@ -95,6 +95,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_PIERCEIMMUNE		"pierce_immunity"
 #define TRAIT_NODISMEMBER "dismember_immunity"
 #define TRAIT_NOFIRE "nonflammable"
+/// Are we expected to fight antags?
+#define TRAIT_SECURITY "security_member"
 /// Prevents plasmamen from self-igniting
 #define TRAIT_NOSELFIGNITION "no_selfignition"
 #define TRAIT_NOGUNS			"no_guns"
@@ -251,6 +253,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// Apply this to make a mob not dense, and remove it when you want it to no longer make them undense, other sorces of undesity will still apply. Always define a unique source when adding a new instance of this!
 #define TRAIT_UNDENSE "undense"
+/// Makes the mob immune to damage and several other ailments.
+#define TRAIT_GODMODE "godmode"
 /// A trait gained by leaning against a wall
 #define TRAIT_LEANING "leaning"
 
