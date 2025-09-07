@@ -508,6 +508,7 @@
 
 /datum/reagent/medicine/system_cleaner/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	M.adjustToxLoss(-2 * REM * delta_time, 0)
+	M.radiation *= 0.9 //10% purged every cycle
 	. = 1
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)

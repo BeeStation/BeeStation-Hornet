@@ -356,8 +356,10 @@
 
 	radiation = max(radiation - (RAD_LOSS_PER_SECOND * delta_time), 0)
 	if(radiation > RAD_MOB_SAFE)
-		adjustToxLoss(log(radiation-RAD_MOB_SAFE)*RAD_TOX_COEFFICIENT*delta_time)
-
+		if(MOB_ROBOTIC in mob_biotypes)
+			adjustFireLoss(log(radiation-RAD_MOB_SAFE)*RAD_TOX_COEFFICIENT*delta_time)
+		else
+			adjustToxLoss(log(radiation-RAD_MOB_SAFE)*RAD_TOX_COEFFICIENT*delta_time)
 
 /*
 Alcohol Poisoning Chart
