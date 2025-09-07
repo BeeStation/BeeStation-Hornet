@@ -202,42 +202,8 @@
  */
 /obj/item/bodypart/proc/check_for_injuries(mob/living/carbon/human/examiner, list/check_list, list/whole_body_issues)
 
-	var/list/limb_damage = list(BRUTE = brute_dam, BURN = burn_dam)
-
 	SEND_SIGNAL(src, COMSIG_BODYPART_CHECKED_FOR_INJURY, examiner, check_list, limb_damage)
 	SEND_SIGNAL(examiner, COMSIG_CARBON_CHECKING_BODYPART, src, check_list, limb_damage)
-
-	var/shown_brute = limb_damage[BRUTE]
-	var/shown_burn = limb_damage[BURN]
-	var/status = ""
-	var/self_aware = HAS_TRAIT(examiner, TRAIT_SELF_AWARE)
-
-	if(self_aware)
-		if(!shown_brute && !shown_burn)
-			status = "no damage"
-		else
-			status = "[shown_brute] brute damage and [shown_burn] burn damage"
-
-	else
-		if(shown_brute > (max_damage * 0.8))
-			status += heavy_brute_msg
-		else if(shown_brute > (max_damage * 0.4))
-			status += medium_brute_msg
-		else if(shown_brute > DAMAGE_PRECISION)
-			status += light_brute_msg
-
-		if(shown_brute > DAMAGE_PRECISION && shown_burn > DAMAGE_PRECISION)
-			status += " and "
-
-		if(shown_burn > (max_damage * 0.8))
-			status += heavy_burn_msg
-		else if(shown_burn > (max_damage * 0.2))
-			status += medium_burn_msg
-		else if(shown_burn > DAMAGE_PRECISION)
-			status += light_burn_msg
-
-		if(status == "")
-			status = "OK"
 
 	// Get the injury texts for our injuries
 	var/list/injury_texts = list()
@@ -249,9 +215,6 @@
 				whole_body_issues |= tooltip_desc
 			else
 				injury_texts += tooltip_desc
-	var/no_damage
-	if(status == "OK" || status == "no damage")
-		no_damage = TRUE
 	// Put it into a list
 	var/stringified_injuries = null
 	if (length(injury_texts))
@@ -260,25 +223,23 @@
 		stringified_injuries += ", [injury_texts[i]]"
 	if (length(injury_texts) > 1)
 		stringified_injuries += ", and [injury_texts[length(injury_texts)]]"
-	var/auxiliary_verb = self_aware ? "has" : "is"
-	if (no_damage && stringified_injuries)
-		status = stringified_injuries
-		stringified_injuries = null
-		no_damage = FALSE
-		auxiliary_verb = "has"
 	var/isdisabled = ""
 	if(bodypart_disabled)
 		isdisabled = " is disabled"
-		if(no_damage)
-			isdisabled += " but otherwise"
+		if(!stringified_injuries)
+			isdisabled += " but otherwise OK"
 		else if (stringified_injuries)
 			isdisabled += ","
 		else
 			isdisabled += " and"
 	if (destroyed)
-		check_list += "\t <span class='[no_damage ? "notice" : "warning"]'>Your [name] is injured beyond treatment.</span>"
+		check_list += "\t <span class='warning'>Your [name] is injured beyond treatment.</span>"
+	else if (stringified_injuries)
+		check_list += "\t <span class='warning'>Your [name][isdisabled] has [stringified_injuries].</span>"
+	else if (isdisabled)
+		check_list += "\t <span class='notice'>Your [name][isdisabled].</span>"
 	else
-		check_list += "\t <span class='[no_damage ? "notice" : "warning"]'>Your [name][isdisabled] [auxiliary_verb] [status][stringified_injuries ? " and has " : ""][stringified_injuries].</span>"
+		check_list += "\t <span class='notice'>Your [name] is OK.</span>"
 
 
 	for(var/obj/item/embedded_thing in embedded_objects)
