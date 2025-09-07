@@ -91,7 +91,9 @@ AUTH_CLIENT_VERB(looc, msg as text)
 
 		if(in_view[get_turf(admin.mob)] && admin.prefs.read_player_preference(/datum/preference/toggle/enable_runechat_looc))
 			targets |= admin.mob
-		to_chat(admin, span_looc("[span_prefix("LOOC:")] <EM>[ADMIN_LOOKUPFLW(mob)]:</EM> [span_message(msg)]"), avoid_highlighting = (admin == src))
+			to_chat(admin, span_looc("[span_prefix("LOOC (NEARBY):")] <EM>[ADMIN_LOOKUPFLW(mob)]:</EM> [span_message(msg)]"), avoid_highlighting = (admin == src))
+		else
+			to_chat(admin, span_looc("[span_prefix("LOOC:")] <EM>[ADMIN_LOOKUPFLW(mob)]:</EM> [span_message(msg)]"), avoid_highlighting = (admin == src))
 
 	// Create runechat message
 	if(length(targets))
