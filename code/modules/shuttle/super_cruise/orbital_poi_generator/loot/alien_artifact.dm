@@ -439,7 +439,7 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 	for(var/atom/movable/thing in view(3, T))
 		var/obj/item/stock_parts/cell/C = thing.get_cell()
 		if(C)
-			C.give(250 * delta_time)
+			C.give(25 * delta_time)
 			thing.update_icon()
 
 //===================

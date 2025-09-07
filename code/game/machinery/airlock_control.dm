@@ -2,6 +2,7 @@
 
 // This code allows for airlocks to be controlled externally by setting an id_tag (disables ID access)
 /obj/machinery/door/airlock
+	idle_power_usage = 100 WATT
 	smoothing_groups = list(SMOOTH_GROUP_AIRLOCK)
 
 	/// The current state of the airlock, used to construct the airlock overlays
