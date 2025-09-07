@@ -298,19 +298,19 @@
 /obj/item/claymore/weak
 	desc = "This one is rusted."
 	force = 30
-	block_level = 1
-	block_upgrade_walk = TRUE
+	canblock = TRUE
+
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	armour_penetration = 15
 
 /obj/item/claymore/weak/ceremonial
 	desc = "A rusted claymore, once at the heart of a powerful scottish clan struck down and oppressed by tyrants, it has been passed down the ages as a symbol of defiance."
 	force = 15
-	block_power = 30
+	block_power = 25
 	armour_penetration = 5
 
 /obj/item/katana/weak/curator
 	desc = "An ancient Katana. Forged by... Well, it doesn't really say, but surely it's authentic! And sharp to boot!"
 	force = 15
-	block_power = 5
+	block_power = 25
 
