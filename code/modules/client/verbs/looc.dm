@@ -92,12 +92,14 @@ AUTH_CLIENT_VERB(looc, msg as text)
 		if(in_view[get_turf(client.mob)])
 			if(client.prefs.read_player_preference(/datum/preference/toggle/enable_runechat_looc))
 				targets |= client.mob
+			var/commendations = ""
+			if (client != src)
+				commendations += "<span style='float: right'>"
+				commendations += "<a href='byond://?src=[REF(message_datum)];looc_commend=[ckey]'>[thumbs_up]</a>"
+				if (!client.player_details.has_criticized)
+					commendations += " <a href='byond://?src=[REF(message_datum)];looc_critic=[ckey]'>[thumbs_down]</a>"
+				commendations += "</span>"
 				hearers |= client.ckey
-			var/commendations = "<span style='float: right'>"
-			commendations += "<a href='byond://?src=[REF(message_datum)];looc_commend=[ckey]'>[thumbs_up]</a>"
-			if (!client.player_details.has_criticized)
-				commendations += " <a href='byond://?src=[REF(message_datum)];looc_critic=[ckey]'>[thumbs_down]</a>"
-			commendations += "</span>"
 			var/rendered_message = span_looc("[span_prefix("LOOC:")] <EM>[span_name("[mob.name]")]:</EM> [span_message(msg)] [commendations]")
 			to_chat(client, rendered_message, avoid_highlighting = (client == src))
 
