@@ -148,6 +148,8 @@ AUTH_CLIENT_VERB(looc, msg as text)
 	GLOB.sent_looc_messages -= uuid
 
 /datum/looc_message/Topic(href, list/href_list)
+	if (QDELETED(src) || expired)
+		return
 	. = ..()
 	if (href_list["looc_commend"])
 		try_commend(usr.client)
