@@ -2,9 +2,9 @@
 
 GLOBAL_VAR_INIT(looc_allowed, TRUE)
 
-AUTH_CLIENT_VERB(looc)
-	set name = "LOOC"
-	set desc = "Local OOC, can only be seen by the target which must be in view of the user."
+AUTH_CLIENT_VERB(private_ooc)
+	set name = "Private OOC"
+	set desc = "Private OOC, can only be seen by the target which must be in view of the user."
 	set category = "OOC"
 
 	if(GLOB.say_disabled)    //This is here to try to identify lag problems
@@ -20,6 +20,8 @@ AUTH_CLIENT_VERB(looc)
 		if (!target_mob.client)
 			continue
 		message_targets += target_mob
+
+
 
 	var/mob/living/target = tgui_input_list(
 		usr,
