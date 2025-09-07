@@ -182,7 +182,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend)
 		return
 
 	if (src.client)
-		if(client.prefs.muted & MUTE_IC)
+		if(client.player_details.muted & MUTE_IC)
 			to_chat(src, "You cannot send IC messages (muted).")
 			return
 		if (src.client.handle_spam_prevention(message,MUTE_IC))

@@ -16,8 +16,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	/// Cache for player datumized preferences
 	var/datum/preferences_holder/preferences_player/player_data
 
-	/// Bitflags for communications that are muted
-	var/muted = NONE
 	/// Last IP that this client has connected from
 	var/last_ip
 	/// Last CID that this client has connected from

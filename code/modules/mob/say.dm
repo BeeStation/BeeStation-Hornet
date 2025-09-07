@@ -69,7 +69,7 @@
 
 
 	if (src.client)
-		if(src.client.prefs.muted & MUTE_DEADCHAT)
+		if(src.client.player_details.muted & MUTE_DEADCHAT)
 			to_chat(src, span_danger("You cannot talk in deadchat (muted)."))
 			return
 

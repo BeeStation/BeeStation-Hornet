@@ -36,7 +36,7 @@
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Admin PM") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_ahelp_reply(whom)
-	if(prefs.muted & MUTE_ADMINHELP)
+	if(player_details.muted & MUTE_ADMINHELP)
 		to_chat(src, span_danger("Error: Admin-PM: You are unable to use admin PM-s (muted)."), type = MESSAGE_TYPE_ADMINPM)
 		return
 	var/client/C
@@ -63,7 +63,7 @@
 	AH.Claim()
 
 /client/proc/cmd_ahelp_reply_instant(whom, msg, html_encoded = FALSE)
-	if(prefs.muted & MUTE_ADMINHELP)
+	if(player_details.muted & MUTE_ADMINHELP)
 		to_chat(src, span_danger("Error: Admin-PM: You are unable to use admin PM-s (muted)."), type = MESSAGE_TYPE_ADMINPM)
 		return
 	var/client/C
@@ -85,7 +85,7 @@
 //takes input from cmd_admin_pm_context, cmd_admin_pm_panel or /client/Topic and sends them a PM.
 //Fetching a message if needed. src is the sender and C is the target client
 /client/proc/cmd_admin_pm(whom, msg, html_encoded = FALSE)
-	if(prefs.muted & MUTE_ADMINHELP)
+	if(player_details.muted & MUTE_ADMINHELP)
 		to_chat(src, span_danger("Error: Admin-PM: You are unable to use admin PM-s (muted)."), type = MESSAGE_TYPE_ADMINPM)
 		return
 
@@ -138,7 +138,7 @@
 			// we need to not HTML encode again or you get &#39;s instead of 's
 			html_encoded = TRUE
 
-			if(prefs.muted & MUTE_ADMINHELP)
+			if(player_details.muted & MUTE_ADMINHELP)
 				to_chat(src, span_danger("Error: Admin-PM: You are unable to use admin PM-s (muted)."), type = MESSAGE_TYPE_ADMINPM)
 				return
 

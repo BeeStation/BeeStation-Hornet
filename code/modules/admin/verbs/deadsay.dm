@@ -7,7 +7,7 @@
 		return
 	if(!mob)
 		return
-	if(prefs.muted & MUTE_DEADCHAT)
+	if(player_details.muted & MUTE_DEADCHAT)
 		to_chat(src, span_danger("You cannot send DSAY messages (muted)."))
 		return
 

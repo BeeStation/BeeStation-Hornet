@@ -23,7 +23,7 @@ AUTH_CLIENT_VERB(ooc, msg as text)
 		if(mob.stat == DEAD && !GLOB.dooc_allowed)
 			to_chat(usr, span_danger("OOC for dead mobs has been turned off."))
 			return
-		if(prefs && (prefs.muted & MUTE_OOC))
+		if(prefs && (player_details.muted & MUTE_OOC))
 			to_chat(src, span_danger("You cannot use OOC (muted)."))
 			return
 	else

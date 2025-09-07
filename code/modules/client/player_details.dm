@@ -1,4 +1,5 @@
 /datum/player_details
+	var/key
 	var/list/player_actions = list()
 	var/list/logging = list()
 	var/list/post_login_callbacks = list()
@@ -8,9 +9,22 @@
 	var/datum/achievement_data/achievements
 	/// Whether or not this client has voted to leave
 	var/voted_to_leave = FALSE
+	/// How many commendations we have received
+	var/commendations_received = 0
+	/// How many criticisms have we received?
+	var/criticisms_received = 0
+	/// Bitflags for communications that are muted
+	var/muted = NONE
 
 /datum/player_details/New(key)
+	src.key = key
 	achievements = new(key)
+
+/datum/player_details/proc/find_client()
+	for (var/client/client in GLOB.clients)
+		if (client.key == key)
+			return client
+	return null
 
 /proc/log_played_names(ckey, ...)
 	if(!ckey)

@@ -251,11 +251,11 @@
 	else
 		return
 
-	var/datum/preferences/P
+	var/datum/player_details/P
 	if(C)
-		P = C.prefs
+		P = C.player_details
 	else
-		P = GLOB.preferences_datums[whom]
+		P = GLOB.player_details[whom]
 
 	if(!P)
 		return
