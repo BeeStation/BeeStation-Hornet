@@ -74,6 +74,8 @@
   - bugfix: Players who get MMI'd and put into borgs or AIs mid-shift now gain job
       playtime tracking towards Silicon roles instead.
 2025-09-07:
+  PowerfulBacon:
+  - tweak: Only conscious people can hear LOOC.
   Solene Ft. Bacon, Ruko, Ark and engineering nerds on discord:
   - rscdel: Removed Joules
   - tweak: Power now always only shows up to 1 decimal to simplify reading.
