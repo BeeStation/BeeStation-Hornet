@@ -1,0 +1,4 @@
+author: lord scrubling
+delete-after: true
+changes:
+  - bugfix: plasmamen receive a helmet and internals after being captured
