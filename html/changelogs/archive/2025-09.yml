@@ -73,3 +73,6 @@
   - refactor: Rewrite the way we handle which roles get assigned with playtime tracking.
   - bugfix: Players who get MMI'd and put into borgs or AIs mid-shift now gain job
       playtime tracking towards Silicon roles instead.
+2025-09-07:
+  lord scrubling:
+  - bugfix: plasmamen receive a helmet and internals after being captured
