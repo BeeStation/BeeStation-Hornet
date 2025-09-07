@@ -74,7 +74,6 @@ AUTH_CLIENT_VERB(looc, msg as text)
 
 	// Hearers is a reference so is updated below
 	var/datum/looc_message/message_datum = new /datum/looc_message(mob.name, player_details, hearers)
-	GLOB.sent_looc_messages[message_datum.uuid] = message_datum
 
 	// Send to people in range
 	for(var/client/client in GLOB.clients)
@@ -123,7 +122,7 @@ AUTH_CLIENT_VERB(looc, msg as text)
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(timeout_looc_message), message_datum), 2 MINUTES)
 
 /proc/timeout_looc_message(datum/looc_message/message)
-	GLOB.sent_looc_messages -= message.uuid
+	message.expired = TRUE
 
 /datum/looc_message
 	var/uuid
@@ -131,6 +130,8 @@ AUTH_CLIENT_VERB(looc, msg as text)
 	var/datum/player_details/sender
 	var/list/hearers
 	var/list/commenders = null
+	var/expired = FALSE
+	var/timer_active = FALSE
 
 /datum/looc_message/New(mob_name, sender, hearers)
 	. = ..()
@@ -139,6 +140,11 @@ AUTH_CLIENT_VERB(looc, msg as text)
 	src.hearers = hearers
 	// Not secure, but we secure them anyway so it doesn't matter
 	uuid = GUID()
+	GLOB.sent_looc_messages[uuid] = src
+
+/datum/looc_message/Destroy(force, ...)
+	. = ..()
+	GLOB.sent_looc_messages -= uuid
 
 /datum/looc_message/Topic(href, list/href_list)
 	. = ..()
@@ -148,6 +154,8 @@ AUTH_CLIENT_VERB(looc, msg as text)
 		try_criticise(usr.client)
 
 /datum/looc_message/proc/try_commend(client/listener)
+	if (listener.player_details.muted & MUTE_OOC)
+		return
 	if (!(listener.ckey in hearers))
 		return
 	if (LAZYFIND(commenders, listener.ckey))
@@ -172,6 +180,8 @@ AUTH_CLIENT_VERB(looc, msg as text)
 		sender.commendations_received ++
 
 /datum/looc_message/proc/try_criticise(client/listener)
+	if (listener.player_details.muted & MUTE_OOC)
+		return
 	if (tgui_alert(listener, "Are you sure you want to criticise this message?", "Downvote message", list("Criticize", "Abort")) == "Abort")
 		return
 	if (!(listener.ckey in hearers))
@@ -191,9 +201,13 @@ AUTH_CLIENT_VERB(looc, msg as text)
 		return
 	sender.criticisms_received ++
 	// Will hold a reference until complete, at which point the datum will be deleted
-	addtimer(CALLBACK(src, PROC_REF(issue_warning)), rand(2 MINUTES, 5 MINUTES))
+	if (!timer_active)
+		addtimer(CALLBACK(src, PROC_REF(issue_warning)), rand(2 MINUTES, 5 MINUTES))
+		timer_active = TRUE
 
 /datum/looc_message/proc/issue_warning()
+	timer_active = FALSE
+	expire()
 	var/delta = sender.commendations_received - (sender.criticisms_received * 5)
 	var/client/sender_client = sender.find_client()
 	if (sender.muted & MUTE_OOC)
@@ -203,6 +217,13 @@ AUTH_CLIENT_VERB(looc, msg as text)
 			to_chat(sender_client, span_rosebold("You have temporarily lost access to OOC communications due to automated feedback. Do not panic; \
 			you are not in trouble, this will automatically revert at the end of the round, and is not logged against you!"))
 		sender.muted |= MUTE_OOC
+
+/datum/looc_message/proc/expire()
+	if (!expired)
+		return
+	if (timer_active)
+		return
+	qdel(src)
 
 /proc/log_looc(text)
 	if (CONFIG_GET(flag/log_ooc))
