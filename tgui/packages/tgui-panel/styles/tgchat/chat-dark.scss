@@ -1162,7 +1162,9 @@ em {
 
 .emoji_button {
   border-radius: 4px;
-  padding: 1px;
+  padding-top: 4px;
+  padding-left: 1px;
+  padding-right: 1px;
   margin: 0px 1px;
   background: hsl(212, 45%, 25%);
   border: 1px solid hsl(212, 37.6%, 100.9%);
