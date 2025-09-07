@@ -228,6 +228,14 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
+"pb" = (
+/obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
+	},
+/obj/machinery/light,
+/turf/open/floor/iron/white,
+/area/shuttle/escape)
 "pr" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -246,6 +254,12 @@
 	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium,
+/area/shuttle/escape)
+"pP" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
 "qn" = (
 /turf/open/floor/iron/white/smooth_large,
@@ -308,6 +322,9 @@
 /obj/structure/window/reinforced,
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/random,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/iron/white/smooth_large,
 /area/shuttle/escape)
 "ww" = (
@@ -390,6 +407,9 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/iron/white/smooth_large,
 /area/shuttle/escape)
 "Bq" = (
@@ -437,6 +457,14 @@
 /obj/structure/closet/emcloset,
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
+"FX" = (
+/obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/item/kirbyplants{
+	icon_state = "plant-10"
+	},
+/obj/machinery/light,
+/turf/open/floor/iron/white,
+/area/shuttle/escape)
 "Hb" = (
 /obj/machinery/door/airlock/titanium{
 	name = "Emergency Shuttle Airlock";
@@ -471,6 +499,9 @@
 /obj/item/clothing/glasses/hud/health,
 /obj/effect/turf_decal/bot,
 /obj/structure/table/reinforced,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/iron/white/smooth_large,
 /area/shuttle/escape)
 "HP" = (
@@ -497,6 +528,16 @@
 /obj/effect/turf_decal/siding/dark_blue,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
+"IL" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/iron/white,
+/area/shuttle/escape)
 "Jb" = (
 /obj/item/radio/intercom/directional/south,
 /obj/structure/chair/fancy/shuttle{
@@ -505,13 +546,13 @@
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "Jn" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/structure/chair/fancy/shuttle{
-	dir = 4
-	},
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/item/kirbyplants{
+	icon_state = "plant-10"
+	},
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
 "Js" = (
@@ -590,9 +631,6 @@
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "NJ" = (
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/machinery/status_display/ai/directional/west,
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
 /obj/structure/closet/emcloset,
@@ -642,6 +680,7 @@
 	icon_state = "plant-10"
 	},
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/machinery/light,
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
 "Qj" = (
@@ -784,7 +823,7 @@ DN
 Hb
 DN
 lt
-xm
+DN
 xm
 xm
 xm
@@ -804,18 +843,18 @@ hu
 yx
 zd
 DN
-gk
+Jn
 NJ
 ux
 LQ
 ux
-LQ
+IL
 EG
 Hk
 LQ
 LQ
 ux
-Jn
+LQ
 EG
 PK
 DN
@@ -908,12 +947,12 @@ ux
 VZ
 LQ
 LQ
-LQ
+IL
 LQ
 ux
 ux
 LQ
-LQ
+IL
 LQ
 LQ
 VZ
@@ -943,8 +982,8 @@ VZ
 VZ
 VZ
 kg
-zb
-Yv
+oH
+Rv
 "}
 (8,1,1) = {"
 fI
@@ -967,9 +1006,9 @@ JG
 JG
 JG
 VZ
-kg
-oH
-Rv
+pb
+zb
+Yv
 "}
 (9,1,1) = {"
 fI
@@ -979,7 +1018,7 @@ xm
 ee
 xm
 DN
-gk
+Jn
 VZ
 vI
 pr
@@ -1042,7 +1081,7 @@ qn
 qn
 PH
 VZ
-kg
+pb
 zb
 Yv
 "}
@@ -1154,7 +1193,7 @@ qM
 eX
 OI
 DN
-gk
+Jn
 Qj
 Bb
 hG
@@ -1167,7 +1206,7 @@ hG
 SS
 wn
 Qj
-gk
+FX
 DN
 fI
 "}
@@ -1177,16 +1216,16 @@ fI
 DN
 DN
 xm
+pP
+DN
+xm
+xm
+DN
 DN
 DN
 xm
 xm
 DN
-DN
-DN
-xm
-xm
-xm
 xm
 xm
 xm
