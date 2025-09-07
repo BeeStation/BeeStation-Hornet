@@ -2,7 +2,7 @@
 AUTOMAPVOTE
 
 ## A flat bonus to give to all maps after a map vote is concluded.
-MAP_VOTE_FLAT_BONUS 5
+MAP_VOTE_FLAT_BONUS 0
 
 ## The minimum number of tallies a map can have for purposes of map rotation.
 MAP_VOTE_MINIMUM_TALLIES 1

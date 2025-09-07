@@ -439,7 +439,7 @@
 
 /// The flat amount all maps get by default
 /datum/config_entry/number/map_vote_flat_bonus
-	config_entry_value = 5
+	config_entry_value = 0
 	min_val = 0
 	max_val = INFINITY
 
