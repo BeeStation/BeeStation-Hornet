@@ -423,11 +423,10 @@
 		balloon_alert(user, "[toggled ? "Advanced" : "Normal"] foam mode")
 		playsound(src, 'sound/machines/click.ogg', 50)
 		update_icon()
-		if (istype(tank, /obj/item/watertank/atmos))
+		if (istype(tank.loc, /mob/living/carbon))
 			tank.update_icon()
-			if (istype(loc, /mob/living/carbon))
-				var/mob/living/carbon/wearer = tank.loc
-				wearer.update_inv_back()
+			var/mob/living/carbon/wearer = tank.loc
+			wearer.update_inv_back()
 
 /obj/item/extinguisher/mini/nozzle/Destroy()
 	reagents = null
