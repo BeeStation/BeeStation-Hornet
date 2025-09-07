@@ -27,7 +27,7 @@
 	weapon_weight = WEAPON_HEAVY
 	w_class = WEIGHT_CLASS_BULKY
 	ammo_type = list(/obj/item/ammo_casing/energy/beam_rifle/hitscan)
-	cell_type = /obj/item/stock_parts/cell/beam_rifle
+	gun_charge = 500 KILOWATT //This is not a gun you use lightly
 	canMouseDown = TRUE
 	pin = null
 	var/aiming = FALSE
