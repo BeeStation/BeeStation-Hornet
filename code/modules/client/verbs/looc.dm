@@ -123,6 +123,7 @@ AUTH_CLIENT_VERB(looc, msg as text)
 
 /proc/timeout_looc_message(datum/looc_message/message)
 	message.expired = TRUE
+	message.expire()
 
 /datum/looc_message
 	var/uuid
