@@ -8,7 +8,7 @@ AUTH_CLIENT_VERB(looc, msg as text)
 	set category = "OOC"
 
 	if(GLOB.say_disabled)    //This is here to try to identify lag problems
-		to_chat(usr, span_danger(" Speech is currently admin-disabled."))
+		to_chat(usr, span_danger("Speech is currently admin-disabled."))
 		return
 
 	if(!mob?.ckey)
@@ -32,9 +32,6 @@ AUTH_CLIENT_VERB(looc, msg as text)
 		if(!CONFIG_GET(flag/looc_enabled))
 			to_chat(src, span_danger("LOOC is disabled."))
 			return
-		if(!GLOB.dooc_allowed && (mob.stat == DEAD))
-			to_chat(usr, span_danger("LOOC for dead mobs has been turned off."))
-			return
 		if(prefs.muted & MUTE_OOC)
 			to_chat(src, span_danger("You cannot use LOOC (muted)."))
 			return
@@ -43,6 +40,9 @@ AUTH_CLIENT_VERB(looc, msg as text)
 		if(findtext(msg, "byond://"))
 			to_chat(src, span_bolddanger("Advertising other servers is not allowed."))
 			log_admin("[key_name(src)] has attempted to advertise in LOOC: [msg]")
+			return
+		if (HAS_TRAIT(mob, TRAIT_RESTRAINED) || HAS_TRAIT(mob, TRAIT_INCAPACITATED) || HAS_TRAIT(mob, TRAIT_IMMOBILIZED) || HAS_TRAIT(mob, TRAIT_MUTE))
+			to_chat(src, span_danger("The usage of LOOC to discourage other players from playstyles that you do not personally like is disallowed. As such, it cannot be used in this state, try to work around the current in-game situation or create an admin-help with the F1 button."))
 			return
 		if(mob.stat)
 			to_chat(src, span_danger("You cannot salt in LOOC while unconscious or dead."))
@@ -67,6 +67,10 @@ AUTH_CLIENT_VERB(looc, msg as text)
 	// Send to people in range
 	for(var/client/client in GLOB.clients)
 		if(!client.mob || !client.prefs.read_player_preference(/datum/preference/toggle/chat_ooc) || (client in GLOB.admins))
+			continue
+
+		// Must be conscious to hear LOOC
+		if (client.mob.stat != CONSCIOUS)
 			continue
 
 		if(in_view[get_turf(client.mob)])
