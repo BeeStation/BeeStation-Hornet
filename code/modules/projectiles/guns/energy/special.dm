@@ -145,7 +145,7 @@
 			to_chat(user, span_notice("You try to insert [I] into [src], but it's fully charged.")) //my cell is round and full
 			return
 		I.use(1)
-		cell.give(500 *charge_multiplier)
+		cell.give(5 KILOWATT *charge_multiplier)
 		to_chat(user, span_notice("You insert [I] in [src], recharging it."))
 	else
 		..()
