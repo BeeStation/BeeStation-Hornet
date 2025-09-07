@@ -27,7 +27,7 @@
 	weapon_weight = WEAPON_HEAVY
 	w_class = WEIGHT_CLASS_BULKY
 	ammo_type = list(/obj/item/ammo_casing/energy/beam_rifle/hitscan)
-	cell_type = /obj/item/stock_parts/cell/beam_rifle
+	gun_charge = 500 KILOWATT //This is not a gun you use lightly
 	canMouseDown = TRUE
 	pin = null
 	var/aiming = FALSE
@@ -79,7 +79,7 @@
 
 /obj/item/gun/energy/beam_rifle/debug
 	delay = 0
-	cell_type = /obj/item/stock_parts/cell/infinite
+	gun_charge = 500 GIGAWATT // Something completely absurd (infinite)
 	aiming_time = 0
 	recoil = 0
 	pin = /obj/item/firing_pin
@@ -403,7 +403,7 @@
 /obj/item/ammo_casing/energy/beam_rifle/hitscan
 	projectile_type = /obj/projectile/beam/beam_rifle/hitscan
 	select_name = "beam"
-	e_cost = 10000
+	e_cost = 100 KILOWATT
 	fire_sound = 'sound/weapons/beam_sniper.ogg'
 
 /obj/projectile/beam/beam_rifle
