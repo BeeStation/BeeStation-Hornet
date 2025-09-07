@@ -111,7 +111,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		playsound(start, "sparks", 50, 1)
 		playsound(target, "sparks", 50, 1)
 		do_dash(src, start, target, 0, TRUE)
-		comp.use_power((250 * cpu.max_idle_programs) / GLOB.CELLRATE)
+		comp.use_power((250 * cpu.max_idle_programs))
 	if(iscarbon(hit_atom) && hit_atom != src)
 		var/mob/living/carbon/victim = hit_atom
 		if(!(victim.movement_type & FLYING))

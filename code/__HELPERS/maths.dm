@@ -127,18 +127,6 @@
 	var/prefix = prefixes[prefix_index]
 	. = list(SI_COEFFICIENT = coefficient, SI_UNIT = " [prefix][unit]")
 
-/**Format a power value in prefixed watts.
- * Converts from energy if convert is true.
- * Args:
- * - power: The value of power to format.
- * - convert: Whether to convert this from joules.
- * - datum/controller/subsystem/scheduler: used in the conversion
- * Returns: The string containing the formatted power.
- */
-/proc/display_power(power, convert = TRUE, datum/controller/subsystem/scheduler = SSmachines)
-	power = convert ? energy_to_power(power, scheduler) : power
-	return siunit(power, "W", 3)
-
 /**
  * Format an energy value in prefixed joules.
  * Arguments
@@ -161,6 +149,26 @@
 //chances are 1:value. anyprob(1) will always return true
 /proc/anyprob(value)
 	return (rand(1,value)==value)
+
+/// Format a power value in W, kW, MW, GW.
+/proc/display_power(powerused)
+	if(powerused < 1000)
+		return "[powerused] W"	//Watt equivalent
+	else if(powerused < 1000000)
+		return "[round((powerused * 0.001), 0.1)] kW"	//KiloWatt equivalent
+	else if(powerused < 1000000000)
+		return "[round((powerused * 0.000001), 0.1)] MW"	//MegaWatt equivalent
+	return "[round((powerused * 0.000000001), 0.1)] GW"	//Gigawatt equivalent
+
+/// Format power value per second
+/proc/display_power_persec(powerused)
+	if(powerused < 1000)
+		return "[powerused] W/s"	//Watt/s equivalent
+	else if(powerused < 1000000)
+		return "[round((powerused * 0.001), 0.1)] kW/s"	//KiloWatt/s equivalent
+	else if(powerused < 1000000000)
+		return "[round((powerused * 0.000001), 0.1)] MW/s"	//MegaWatt/s equivalent
+	return "[round((powerused * 0.000000001), 0.1)] GW/s"	//GigaWatt/s equivalent
 
 ///counts the number of bits in Byond's 16-bit width field, in constant time and memory!
 /proc/bit_count(bit_field)

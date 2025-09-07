@@ -40,8 +40,8 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	var/last_world_time = "00:00"
 	var/list/last_header_icons
 
-	var/base_active_power_usage = 50						// Power usage when the computer is open (screen is active) and can be interacted with. Remember hardware can use power too.
-	var/base_idle_power_usage = 5							// Power usage when the computer is idle and screen is off (currently only applies to laptops)
+	var/base_active_power_usage = 10 WATT	// Aurs per second, Power usage when the computer is on. Remember hardware can use power too.
+	var/base_idle_power_usage = 5 WATT	// Aurs per second, Power usage when the computer is turned off
 
 	// Modular computers can run on various devices. Each DEVICE (Laptop, Console, Tablet,..)
 	// must have it's own DMI file. Icon states must be called exactly the same in all files, but may look differently
@@ -305,7 +305,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	playsound(start, "sparks", 50, 1)
 	playsound(target, "sparks", 50, 1)
 	do_dash(src, start, target, 0, TRUE)
-	use_power((250 * cpu.max_idle_programs) / GLOB.CELLRATE)
+	use_power((250 * cpu.max_idle_programs))
 	return
 
 /obj/item/modular_computer/proc/get_blink_destination(turf/start, direction, range)
@@ -874,11 +874,10 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	. = list()
 	. += "***** DIAGNOSTICS REPORT *****"
 	. += "Running Hardware Tests... (Maximum Hardware Size: [max_hardware_size]))"
-	var/total_power_usage
+	var/total_power_usage = calculate_power()
 	var/obj/item/computer_hardware/battery/battery_module = all_components[MC_CELL]
 	for(var/port in all_components)
 		var/obj/item/computer_hardware/component = all_components[port]
-		total_power_usage |= component.power_usage
 		. += "INFO :: <span class='cfc_orange'>[component.device_type]</span> accounted for."
 		if(!component.enabled)
 			. += "<span class='cfc_soul_glimmer_humour'>Warning</span> // [component.device_type] Disabled"
@@ -887,7 +886,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	if(battery_module?.battery)
 		. += "INFO :: <span class='cfc_orange'>[battery_module.battery.name]</span> accounted for."
 		. += "INFO :: Cell Current charge [battery_module.battery.percent()]%."
-	. += "Total Power consumption :: [total_power_usage]"
+	. += "Current Power consumption :: [display_power_persec(total_power_usage)]"
 	return
 
 /obj/item/modular_computer/proc/virus_blocked_info(gift_card = FALSE)	// If we caught a Virus, tell the player
