@@ -114,7 +114,7 @@
 			return
 
 		playsound(src, 'sound/weapons/bladeslice.ogg', 100, 1)
-		if (blade_sharpness >= GUILLOTINE_DECAP_MIN_SHARP || head.brute_dam >= 100)
+		if (blade_sharpness >= GUILLOTINE_DECAP_MIN_SHARP || head.accumulated_damage >= head.max_damage * 0.5)
 			head.dismember()
 			log_combat(user, H, "beheaded", src, important = FALSE)
 			H.regenerate_icons()

@@ -17,6 +17,9 @@
 	var/whole_body = FALSE
 	/// Is this injury visible by inspection of the body?
 	var/external = FALSE
+	/// The status icon which shows when you are selecting a bodypart to apply a medical item to
+	/// Defined in 'icons/mob/zone_dam.dmi'
+	var/status_icon_state = null
 	// =================================
 	// Effects
 	// =================================
@@ -106,6 +109,15 @@
 		absorbed_damage += absorbed_amount
 		// Increase our total damage amount
 		progression += delta_damage - absorbed_amount
+
+/datum/injury/proc/force_apply_damage(delta_damage)
+	// Absorb damage if we are a brand new injury.
+	var/duration = world.time - gained_time
+	var/propotion = CLAMP01(1 - (duration / INJURY_ABSORPTION_DURATION))
+	var/absorbed_amount = max(0, min(delta_damage, (max_absorption * propotion) - absorbed_damage))
+	absorbed_damage += absorbed_amount
+	// Increase our total damage amount
+	progression += delta_damage - absorbed_amount
 
 /// Called when damage is taken
 /// Return false if the damage is not relevant and should be ignored, true otherwise.

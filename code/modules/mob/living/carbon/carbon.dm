@@ -537,10 +537,8 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	var/total_burn	= 0
-	var/total_brute	= 0
 	var/total_stamina = 0
 	for(var/obj/item/bodypart/BP as() in bodyparts)
-		total_brute	+= (BP.brute_dam * BP.body_damage_coeff)
 		total_burn	+= (BP.burn_dam * BP.body_damage_coeff)
 		total_stamina += (BP.stamina_dam * BP.stam_damage_coeff)
 	staminaloss = round(total_stamina, DAMAGE_PRECISION)

@@ -20,10 +20,10 @@
 	var/list/reagent
 	///Is this for bruises?
 	var/heal_creatures = FALSE
-	///Is this for bruises?
-	var/heal_brute = FALSE
-	///Is this for burns?
-	var/heal_burn = FALSE
+	///The type of injury that we need to be applied. Null if we can apply it whenever
+	var/healed_injury_type = null
+	/// Are we intercepted by an injury when applied?
+	var/injury_intercepted = FALSE
 	///For how long does it stop bleeding?
 	var/stop_bleeding = 0
 	///How long does it take to apply on yourself?
@@ -122,12 +122,18 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 		C.balloon_alert(user, "Cannot use on robotic limb!")
 		return
 
-	if(!affecting.brute_dam && !affecting.burn_dam)
-		message = "[M]'s [parse_zone(zone_selected)] isn't hurt!</span>"
-	else if((affecting.brute_dam && !affecting.burn_dam && !heal_brute) || (affecting.burn_dam && !affecting.brute_dam && !heal_burn)) //suffer
-		message = "This type of medicine isn't appropriate for this type of wound."
-	else
+	if (healed_injury_type)
+		valid = FALSE
+		message = "The [src] isn't appropriate for this type of wound."
+		for (var/datum/injury/injury in affecting.injuries)
+			if (injury.base_type == healed_injury_type || injury.type == healed_injury_type)
+				valid = TRUE
+				break
+	else if (!injury_intercepted)
 		valid = TRUE
+	else
+		message = "The [src] isn't appropriate for the victim."
+		valid = FALSE
 
 	/// Was our healing intercepted?
 	var/intercepted = FALSE
@@ -186,7 +192,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 	icon_state = "brutepack"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	heal_brute = TRUE
+	healed_injury_type = /datum/injury/brute
 	heal_creatures = TRUE
 	reagent = list(/datum/reagent/medicine/styptic_powder = REAGENT_AMOUNT_PER_ITEM)
 	grind_results = list(/datum/reagent/medicine/styptic_powder = REAGENT_AMOUNT_PER_ITEM)
@@ -220,7 +226,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 	icon_state = "ointment"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	heal_burn = TRUE
+	healed_injury_type = /datum/injury/burn
 	reagent = list(/datum/reagent/medicine/silver_sulfadiazine = REAGENT_AMOUNT_PER_ITEM)
 	grind_results = list(/datum/reagent/medicine/silver_sulfadiazine = REAGENT_AMOUNT_PER_ITEM)
 	merge_type = /obj/item/stack/medical/ointment
@@ -301,6 +307,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 	amount = 3
 	max_amount = 3
 	self_delay = 10 SECONDS
+	injury_intercepted = TRUE
 
 /obj/item/stack/medical/splint/one
 	amount = 1

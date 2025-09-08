@@ -187,13 +187,11 @@
 		owner.maxHealth *= 10
 		owner.bruteloss *= 10
 		owner.fireloss *= 10
-		if(iscarbon(owner))
-			var/mob/living/carbon/C = owner
-			for(var/X in C.bodyparts)
-				var/obj/item/bodypart/BP = X
-				BP.max_damage *= 10
-				BP.set_brute_dam(BP.brute_dam * 10)
-				BP.set_burn_dam(BP.burn_dam * 10)
+		if(ishuman(owner))
+			var/mob/living/carbon/human/C = owner
+			C.physiology.brute_mod *= 0.1
+			C.physiology.burn_mod *= 0.1
+
 		owner.toxloss *= 10
 		owner.oxyloss *= 10
 		owner.cloneloss *= 10
@@ -271,13 +269,10 @@
 	owner.maxHealth *= 0.1
 	owner.bruteloss *= 0.1
 	owner.fireloss *= 0.1
-	if(iscarbon(owner))
-		var/mob/living/carbon/C = owner
-		for(var/X in C.bodyparts)
-			var/obj/item/bodypart/BP = X
-			BP.set_brute_dam(BP.brute_dam * 0.1)
-			BP.set_burn_dam(BP.burn_dam * 0.1)
-			BP.max_damage /= 10
+	if(ishuman(owner))
+		var/mob/living/carbon/human/C = owner
+		C.physiology.brute_mod *= 10
+		C.physiology.burn_mod *= 10
 	owner.toxloss *= 0.1
 	owner.oxyloss *= 0.1
 	owner.cloneloss *= 0.1

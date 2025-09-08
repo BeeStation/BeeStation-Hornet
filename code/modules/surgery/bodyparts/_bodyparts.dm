@@ -412,21 +412,9 @@
 				owner.cure_husk(0) // If it has REVIVESBYHEALING, it probably can't be cloned. No husk cure.
 	return update_bodypart_damage_state()
 
-///Proc to hook behavior associated to the change of the brute_dam variable's value.
-/obj/item/bodypart/proc/set_brute_dam(new_value)
-	if(brute_dam == new_value)
-		return
-	. = brute_dam
-	brute_dam = new_value
-
-
-///Proc to hook behavior associated to the change of the burn_dam variable's value.
-/obj/item/bodypart/proc/set_burn_dam(new_value)
-	if(burn_dam == new_value)
-		return
-	. = burn_dam
-	burn_dam = new_value
-
+/obj/item/bodypart/proc/increase_injury(injury_type, amount)
+	var/datum/injury/located_injury = apply_injury_tree(injury_type, null)
+	located_injury.force_apply_damage(amount)
 
 ///Proc to hook behavior associated to the change of the stamina_dam variable's value.
 /obj/item/bodypart/proc/set_stamina_dam(new_value)
@@ -439,7 +427,7 @@
 
 //Returns total damage.
 /obj/item/bodypart/proc/get_damage(include_stamina = FALSE)
-	var/total = brute_dam + burn_dam
+	var/total = accumulated_damage
 	if(include_stamina)
 		total = max(total, stamina_dam)
 	return total
@@ -889,7 +877,7 @@
 /obj/item/bodypart/proc/apply_injury_tree(injury_path, injury_base_path)
 	for (var/datum/injury/injury in injuries)
 		if (injury.type == injury_path)
-			return
+			return injury
 	var/datum/injury/injury = new injury_path()
 	injury.base_type = injury_base_path || injury_path
 	injuries += injury
@@ -899,6 +887,7 @@
 	if (owner && ishuman(owner))
 		injury.apply_to_human(owner)
 	check_effectiveness()
+	return injury
 
 /obj/item/bodypart/proc/get_skin_multiplier()
 	var/rate = 1

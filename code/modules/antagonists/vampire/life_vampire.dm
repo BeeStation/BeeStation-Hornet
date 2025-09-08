@@ -138,7 +138,7 @@
 		carbon_owner.regenerate_limb(missing_limb, FALSE)
 		AddBloodVolume(-limb_regen_cost)
 		var/obj/item/bodypart/missing_bodypart = carbon_owner.get_bodypart(missing_limb)
-		missing_bodypart.brute_dam = 60
+		missing_bodypart.increase_injury(/datum/injury/brute, missing_bodypart.max_damage * 0.6)
 		to_chat(carbon_owner, span_notice("Your flesh knits as it regrows your [missing_bodypart]!"))
 		playsound(carbon_owner, 'sound/magic/demon_consume.ogg', 50, TRUE)
 		return TRUE

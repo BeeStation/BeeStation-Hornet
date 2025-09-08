@@ -86,12 +86,10 @@
 			if (!accurate_health)
 				proportion = proportion > 0 ? max(round(proportion, 1), 0.05) : 0
 			else
-				if (target_part.burn_dam > 0)
-					var/image/dam_indicator = image(icon = 'icons/mob/zone_dam.dmi', icon_state = "burn")
-					dam_indicator.appearance_flags = RESET_COLOR | RESET_ALPHA
-					selection_overlay.overlays += dam_indicator
-				if (target_part.brute_dam > 0)
-					var/image/dam_indicator = image(icon = 'icons/mob/zone_dam.dmi', icon_state = "brute")
+				for (var/datum/injury/injury in target_part.injuries)
+					if (!injury.status_icon_state)
+						continue
+					var/image/dam_indicator = image(icon = 'icons/mob/zone_dam.dmi', icon_state = injury.status_icon_state)
 					dam_indicator.appearance_flags = RESET_COLOR | RESET_ALPHA
 					selection_overlay.overlays += dam_indicator
 			if (proportion > 0)
