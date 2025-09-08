@@ -26,6 +26,9 @@
 	//bare_wound_bonus = 15
 	tool_behaviour = TOOL_KNIFE
 
+	canblock = TRUE
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
+	block_power = 0
 
 /datum/armor/item_knife
 	fire = 50

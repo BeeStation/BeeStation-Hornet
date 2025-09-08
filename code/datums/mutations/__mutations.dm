@@ -201,7 +201,7 @@
 		return FALSE
 
 	var/datum/action/spell/new_power = new power_path(src)
-	new_power.background_icon_state = "bg_tech_blue_on"
+	new_power.background_icon_state = "bg_tech_blue_active"
 	new_power.Grant(owner)
 
 	return new_power

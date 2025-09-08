@@ -703,7 +703,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		if(!HAS_TRAIT(H, TRAIT_NOBLOOD) || HAS_TRAIT(H, TRAIT_NO_BLOOD)) //if you dont have blood, well... sucks to be you
 			H.setOxyLoss(0,0) //this is so a crit person still revives if suffocated
 			if(bloodpoints >= 200 && H.health > 0 && H.blood_volume >= BLOOD_VOLUME_NORMAL) //note that you need to actually need to heal, so a maxed out virus won't be bringing you back instantly in most cases. *even so*, if this needs to be nerfed ill do it in a heartbeat
-				H.revive(0)
+				H.revive()
 				H.visible_message(span_warning("[H.name]'s skin takes on a rosy hue as they begin moving. They live again!"), span_userdanger("As your body fills with fresh blood, you feel your limbs once more, accompanied by an insatiable thirst for blood."))
 				bloodpoints = 0
 				return 0

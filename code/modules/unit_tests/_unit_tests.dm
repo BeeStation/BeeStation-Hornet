@@ -42,6 +42,7 @@
 #endif
 
 #include "food_edibility_check.dm"
+#include "full_heal.dm"
 #include "gas_transfer.dm"
 #include "greyscale_config.dm"
 #include "hallucination_icons.dm"

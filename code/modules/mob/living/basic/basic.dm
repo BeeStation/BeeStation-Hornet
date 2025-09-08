@@ -153,9 +153,9 @@
 		set_density(FALSE)
 	SEND_SIGNAL(src, COMSIG_BASICMOB_LOOK_DEAD)
 
-/mob/living/basic/revive(full_heal = FALSE, admin_revive = FALSE)
+/mob/living/basic/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE)
 	. = ..()
-	if (!.)
+	if(!.)
 		return
 	look_alive()
 

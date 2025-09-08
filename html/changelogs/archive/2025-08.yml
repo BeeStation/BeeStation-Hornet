@@ -363,6 +363,96 @@
   - admin: You can now force specific outcomes of some hallucinations, such as delusions,
       fake alerts, fake sounds, and more. Check the VV dropdown.
 2025-08-21:
+  Bieyes:
+  - rscadd: Three new shotgun slugs!
+  - rscadd: Added the ability to load .50 cals into a shotgun.
+  - rscdel: Removed meteorslug and fragslug.
+  - tweak: Resprited every slug and cartridge boxes.
+  - tweak: Gold is required to print most slugs.
+  - tweak: Improvised shotgun no longer explodes!
+  - balance: Rebalanced most shotgun slugs.
   TsunamiAnt:
   - tweak: removed spellbook randomizer/challenges
   - balance: wizards can now refund everywhere
+  mrmanlikesbt:
+  - tweak: team roundstart rulesets now set their team size according to people connected
+      instead of people ready at roundstart
+  - tweak: tweaked some dynamic midround weights. you should see less space pirates
+      and more sleeper agents and whatnot now.
+  - tweak: increased the heretic and vampire roundstart minpop
+  - tweak: the spider infestation ruleset requires 2 candidates now instead of 3
+  - bugfix: fixed dynamic having a 2 minute window to execute midrounds while the
+      shuttle is docked to the station
+  - bugfix: fixed dynamic suddenly transforming IPCs into human heretics
+  - code_imp: small code sanity for dynamic
+2025-08-22:
+  Bieyes:
+  - tweak: Shotgun slugs are more cheaper to produce.
+  - tweak: Dart slugs cost silver now.
+  - tweak: Shotgun slugs are now their respective prices in Autolathes.
+  TsunamiAnt:
+  - tweak: Dynamic now pays attention to security and slows down spawning if officers
+      start dying.
+  rkz, jlsnow301:
+  - refactor: Refactored dropdowns and popper TGUI components to be more performant
+      and stable(This means the preference menu). They should no longer be hidden
+      by other UI elements or window size.
+2025-08-24:
+  Nakalon:
+  - bugfix: Finally actually fixes loadouts and loadout replacements
+  Rukofamicom:
+  - tweak: Xenomorph hunter leap attack now does 110 stamina damage instead of being
+      hardcoded as a 10 second stun. This means armor will potentially mitigate this
+      to less than an immediate takedown
+  - tweak: All xenomorphs now do slightly more stamina damage with right click attack
+  - bugfix: Xenomorph acid no longer instantly annihilates mobs, but has had its cost
+      reduced to 50. This ability was not previously intended to work on mobs at all,
+      so consider this turning a bug into a feature officially.
+  - bugfix: Removed an armor check from acid_processing() proc which was both unnecessary
+      and causing runtimes due to bad args
+  r1ks-iwnl:
+  - bugfix: Gas analyzer's barometer function works again (Alt-Click the gas analyzer
+      on lavaland to use the barometer function)
+2025-08-25:
+  rkz, jlsnow:
+  - code_imp: updated lints for TGUI
+2025-08-26:
+  mrmanlikesbt, Ghommie:
+  - code_imp: replaced the GODMODE bitflag with a trait
+  rkz, Melbert:
+  - refactor: Fully heal can be passed a series of flags. As a result, some things
+      which previously did a full heal might heal slightly less, or some things which
+      did partial full heals might do slightly more.
+  - bugfix: Adminordrazine will no longer completely break every facet of a person
+  - admin: Ahealing a changeling will refill all of their chems.
+2025-08-27:
+  Mc-oofert, Bieyes:
+  - rscadd: Added the ability to bind buttons to keys.
+  r1ks-iwnl:
+  - bugfix: Fixes many interactions for thrown items
+  - bugfix: Fixes items not doing thrown damage to objects and turfs
+  - bugfix: Fixes items not burning in lava when thrown
+  - bugfix: Fixes items not entering disposals when thrown
+2025-08-29:
+  PowerfulBacon:
+  - bugfix: Fixes the chem dispenser filters not being usable.
+  - bugfix: Fixes log button on the NTOS notepad not working.
+  - bugfix: Fixes the filter button on the admin requests panel not working.
+  - bugfix: Fixes the behaviour of manually racking guns.
+  wikimody:
+  - rscadd: Added new drill emiter, made by using screwdriver on emiter circuit board
+  - balance: Emitters now have higher damage with higher tier micro laser parts (guns
+      inside them get the damage increase to)
+  - balance: Under Ruko orders both emitters deal 75% reduced damage against blob
+  - rscdel: Removed proto emitter do to being unused
+  - tweak: Non hitscan emitter projectiles are now removed, this in practice only
+      changes anomalius crystal one interaction
+2025-08-30:
+  NanoTrasen-Inc, JackieOTheWisp:
+  - rscadd: Added 2 new options on the synthesizer's fun tab! The Meowsyth and Spaceman!
+2025-08-31:
+  Aramix:
+  - bugfix: fixed Transcendent Olfaction mutation ability not activating at all
+  - bugfix: fixed missing background sprite for mutation abilities action button
+  mrmanlikesbt, timothymtorres:
+  - code_imp: split up the persistence subsystem into multiple files

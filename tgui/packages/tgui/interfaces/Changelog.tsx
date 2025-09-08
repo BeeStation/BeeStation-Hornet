@@ -1,11 +1,21 @@
 import { classes } from 'common/react';
-import { useBackend } from '../backend';
-import { Component, Fragment } from 'react';
-import { Box, Button, Collapsible, Dropdown, Icon, Section, Stack, Table } from '../components';
-import { Window } from '../layouts';
-import { resolveAsset } from '../assets';
 import dateformat from 'dateformat';
 import yaml from 'js-yaml';
+import { Component, Fragment } from 'react';
+import { Dropdown } from 'tgui-core/components';
+
+import { resolveAsset } from '../assets';
+import { useBackend } from '../backend';
+import {
+  Box,
+  Button,
+  Collapsible,
+  Icon,
+  Section,
+  Stack,
+  Table,
+} from '../components';
+import { Window } from '../layouts';
 
 const icons = {
   add: { icon: 'check-circle', color: 'green' },
@@ -53,10 +63,16 @@ type ChangelogData = {
 const ChangeRow = (props: { kind: string; content: string }, _context) => {
   return (
     <Table.Row>
-      <Table.Cell className={classes(['Changelog__Cell', 'Changelog__Cell--Icon'])}>
+      <Table.Cell
+        className={classes(['Changelog__Cell', 'Changelog__Cell--Icon'])}
+      >
         <Icon
-          color={icons[props.kind] ? icons[props.kind].color : icons['unknown'].color}
-          name={icons[props.kind] ? icons[props.kind].icon : icons['unknown'].icon}
+          color={
+            icons[props.kind] ? icons[props.kind].color : icons['unknown'].color
+          }
+          name={
+            icons[props.kind] ? icons[props.kind].icon : icons['unknown'].icon
+          }
         />
       </Table.Cell>
       <Table.Cell className="Changelog__Cell">{props.content}</Table.Cell>
@@ -70,26 +86,32 @@ const Header = (props: { dropdown: any }, _context) => {
       <h1>BeeStation</h1>
       <p>
         <b>Thanks to: </b>
-        /TG/station, Baystation 12, /vg/station, NTstation, CDK Station devs, FacepunchStation, GoonStation devs, the original
-        Space Station 13 developers, Invisty for the title image and the countless others who have contributed to the game,
-        issue tracker or wiki over the years.
+        /TG/station, Baystation 12, /vg/station, NTstation, CDK Station devs,
+        FacepunchStation, GoonStation devs, the original Space Station 13
+        developers, Invisty for the title image and the countless others who
+        have contributed to the game, issue tracker or wiki over the years.
       </p>
       <p>
         {'Current organization members can be found '}
         <a href="https://github.com/orgs/BeeStation/people">here</a>
         {', recent GitHub contributors can be found '}
-        <a href="https://github.com/BeeStation/BeeStation-Hornet/graphs/contributors">here</a>.
+        <a href="https://github.com/BeeStation/BeeStation-Hornet/graphs/contributors">
+          here
+        </a>
+        .
       </p>
       <p>
         {'You can also join our community outside of the game: '}
         <br />
-        Navigate the community on our <a href="https://beestation13.com/">Website</a>
+        Navigate the community on our{' '}
+        <a href="https://beestation13.com/">Website</a>
         <br />
         Discuss on <a href="https://beestation13.com/forum">Forums</a>
         <br />
         Learn more at our <a href="https://wiki.beestation13.com/">Wiki</a>
         <br />
-        Check out our <a href="https://github.com/BeeStation/BeeStation-Hornet">Source</a>
+        Check out our{' '}
+        <a href="https://github.com/BeeStation/BeeStation-Hornet">Source</a>
         <br />
         Join our Discord <a href="https://discord.gg/ss13">Here!</a>.
       </p>
@@ -105,15 +127,16 @@ const Footer = (props: { dropdown: any }, _context) => {
       <h3>GoonStation 13 Development Team</h3>
       <p>
         <b>Coders: </b>
-        Stuntwaffle, Showtime, Pantaloons, Nannek, Keelin, Exadv1, hobnob, Justicefries, 0staf, sniperchance, AngriestIBM,
-        BrianOBlivion
+        Stuntwaffle, Showtime, Pantaloons, Nannek, Keelin, Exadv1, hobnob,
+        Justicefries, 0staf, sniperchance, AngriestIBM, BrianOBlivion
       </p>
       <p>
         <b>Spriters: </b>
         Supernorn, Haruhi, Stuntwaffle, Pantaloons, Rho, SynthOrange, I Said No
       </p>
       <p>
-        Beestation is thankful to the GoonStation 13 Development Team for its work on the game up to the
+        Beestation is thankful to the GoonStation 13 Development Team for its
+        work on the game up to the
         {' r4407 release. The changelog for changes up to r4407 can be seen '}
         <a href="https://wiki.ss13.co/Changelog#April_2010">here</a>.
       </p>
@@ -129,32 +152,56 @@ const Footer = (props: { dropdown: any }, _context) => {
       <h3>Beestation License</h3>
       <p>
         {'All code after '}
-        <a href={'https://github.com/tgstation/tgstation/commit/' + '333c566b88108de218d882840e61928a9b759d8f'}>
-          commit 333c566b88108de218d882840e61928a9b759d8f on 2014/31/12 at 4:38 PM PST
+        <a
+          href={
+            'https://github.com/tgstation/tgstation/commit/' +
+            '333c566b88108de218d882840e61928a9b759d8f'
+          }
+        >
+          commit 333c566b88108de218d882840e61928a9b759d8f on 2014/31/12 at 4:38
+          PM PST
         </a>
         {' is licensed under '}
         <a href="https://www.gnu.org/licenses/agpl-3.0.html">GNU AGPL v3</a>
         {'. All code before that commit is licensed under '}
         <a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU GPL v3</a>
         {', including tools unless their readme specifies otherwise. See '}
-        <a href="https://github.com/tgstation/tgstation/blob/master/LICENSE">LICENSE</a>
+        <a href="https://github.com/tgstation/tgstation/blob/master/LICENSE">
+          LICENSE
+        </a>
         {' and '}
-        <a href="https://github.com/tgstation/tgstation/blob/master/GPLv3.txt">GPLv3.txt</a>
+        <a href="https://github.com/tgstation/tgstation/blob/master/GPLv3.txt">
+          GPLv3.txt
+        </a>
         {' for more details.'}
       </p>
       <p>
         The TGS DMAPI API is licensed as a subproject under the MIT license.
         {' See the footer of '}
-        <a href={'https://github.com/tgstation/tgstation/blob/master' + '/code/__DEFINES/tgs.dm'}>code/__DEFINES/tgs.dm</a>
+        <a
+          href={
+            'https://github.com/tgstation/tgstation/blob/master' +
+            '/code/__DEFINES/tgs.dm'
+          }
+        >
+          code/__DEFINES/tgs.dm
+        </a>
         {' and '}
-        <a href={'https://github.com/tgstation/tgstation/blob/master' + '/code/modules/tgs/LICENSE'}>
+        <a
+          href={
+            'https://github.com/tgstation/tgstation/blob/master' +
+            '/code/modules/tgs/LICENSE'
+          }
+        >
           code/modules/tgs/LICENSE
         </a>
         {' for the MIT license.'}
       </p>
       <p>
         {'All assets including icons and sound are under a '}
-        <a href="https://creativecommons.org/licenses/by-sa/3.0/">Creative Commons 3.0 BY-SA license</a>
+        <a href="https://creativecommons.org/licenses/by-sa/3.0/">
+          Creative Commons 3.0 BY-SA license
+        </a>
         {' unless otherwise indicated.'}
       </p>
     </Section>
@@ -172,15 +219,17 @@ const Testmerges = (_props) => {
     <>
       <Section px={1}>
         <h4>
-          These are features being actively tested and developed on the server. Please report any issues or feedback to the
-          original PR, or on the feedback thread on the Discord if there is one.
+          These are features being actively tested and developed on the server.
+          Please report any issues or feedback to the original PR, or on the
+          feedback thread on the Discord if there is one.
         </h4>
       </Section>
       <Stack vertical>
         {testmerges.map((testmerge) => {
           const title = (
             <a href={testmerge.link}>
-              #{testmerge.number}: &quot;{testmerge.title}&quot; by {testmerge.author}
+              #{testmerge.number}: &quot;{testmerge.title}&quot; by{' '}
+              {testmerge.author}
             </a>
           );
           return (
@@ -189,8 +238,15 @@ const Testmerges = (_props) => {
                 <Collapsible color="transparent" title="Changelog" open>
                   <Box ml={3}>
                     <Table>
-                      {Object.entries(testmerge.changes).map(([kind, changes]) =>
-                        changes.map((desc) => <ChangeRow key={kind + desc} kind={kind} content={desc} />)
+                      {Object.entries(testmerge.changes).map(
+                        ([kind, changes]) =>
+                          changes.map((desc) => (
+                            <ChangeRow
+                              key={kind + desc}
+                              kind={kind}
+                              content={desc}
+                            />
+                          )),
                       )}
                     </Table>
                   </Box>
@@ -240,7 +296,9 @@ export class Changelog extends Component {
     const maxAttempts = 6;
 
     if (attemptNumber > maxAttempts) {
-      return this.setData('Failed to load data after ' + maxAttempts + ' attempts');
+      return this.setData(
+        'Failed to load data after ' + maxAttempts + ' attempts',
+      );
     }
 
     act('get_month', { date });
@@ -268,7 +326,9 @@ export class Changelog extends Component {
     } = useBackend<ChangelogData>();
 
     if (dates) {
-      dates.forEach((date) => this.dateChoices.push(dateformat(date, 'mmmm yyyy', true)));
+      dates.forEach((date) =>
+        this.dateChoices.push(dateformat(date, 'mmmm yyyy', true)),
+      );
       this.setSelectedDate(this.dateChoices[0]);
       this.getData(dates[0]);
     }
@@ -294,14 +354,18 @@ export class Changelog extends Component {
               this.setData('Loading changelog data...');
               this.setSelectedIndex(index);
               this.setSelectedDate(dateChoices[index]);
-              window.scrollTo(0, document.body.scrollHeight || document.documentElement.scrollHeight);
+              window.scrollTo(
+                0,
+                document.body.scrollHeight ||
+                  document.documentElement.scrollHeight,
+              );
               return this.getData(dates[index]);
             }}
           />
         </Stack.Item>
         <Stack.Item>
           <Dropdown
-            displayText={selectedDate}
+            autoScroll={false}
             options={dateChoices}
             onSelected={(value) => {
               const index = dateChoices.indexOf(value);
@@ -309,11 +373,15 @@ export class Changelog extends Component {
               this.setData('Loading changelog data...');
               this.setSelectedIndex(index);
               this.setSelectedDate(value);
-              window.scrollTo(0, document.body.scrollHeight || document.documentElement.scrollHeight);
+              window.scrollTo(
+                0,
+                document.body.scrollHeight ||
+                  document.documentElement.scrollHeight,
+              );
               return this.getData(dates[index]);
             }}
             selected={selectedDate}
-            width={'150px'}
+            width="150px"
           />
         </Stack.Item>
         <Stack.Item>
@@ -327,7 +395,11 @@ export class Changelog extends Component {
               this.setData('Loading changelog data...');
               this.setSelectedIndex(index);
               this.setSelectedDate(dateChoices[index]);
-              window.scrollTo(0, document.body.scrollHeight || document.documentElement.scrollHeight);
+              window.scrollTo(
+                0,
+                document.body.scrollHeight ||
+                  document.documentElement.scrollHeight,
+              );
               return this.getData(dates[index]);
             }}
           />
@@ -351,7 +423,11 @@ export class Changelog extends Component {
                       {changes.map((change) => {
                         const changeType = Object.keys(change)[0];
                         return (
-                          <ChangeRow key={changeType + change[changeType]} kind={changeType} content={change[changeType]} />
+                          <ChangeRow
+                            key={changeType + change[changeType]}
+                            kind={changeType}
+                            content={change[changeType]}
+                          />
                         );
                       })}
                     </Table>
@@ -363,7 +439,11 @@ export class Changelog extends Component {
         ));
 
     return (
-      <Window title="Changelog" width={testmerges?.length ? 1000 : 675} height={650}>
+      <Window
+        title="Changelog"
+        width={testmerges?.length ? 1000 : 675}
+        height={650}
+      >
         <Window.Content scrollable>
           <Header dropdown={dateDropdown} />
           <Stack>
