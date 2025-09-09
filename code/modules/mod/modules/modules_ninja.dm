@@ -12,7 +12,7 @@
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 2
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 10
 	incompatible_modules = list(/obj/item/mod/module/stealth)
-	cooldown_time = 5 SECONDS
+	cooldown_time = 30 SECONDS
 	required_slots = list(ITEM_SLOT_HEAD|ITEM_SLOT_MASK, ITEM_SLOT_OCLOTHING|ITEM_SLOT_ICLOTHING, ITEM_SLOT_GLOVES, ITEM_SLOT_FEET)
 
 /obj/item/mod/module/stealth/on_activation()
@@ -37,6 +37,7 @@
 	playsound(mod.wearer.loc, 'sound/effects/bamf.ogg', 50, 2)
 	animate(mod.wearer, time = 1 SECONDS, alpha = 0)
 	mod.wearer.apply_status_effect(/datum/status_effect/cloaked)
+	start_cooldown()
 
 /obj/item/mod/module/stealth/on_deactivation(display_message = TRUE, deleting = FALSE)
 	animate(mod.wearer, alpha = 255, time = 1.5 SECONDS)
