@@ -1214,7 +1214,6 @@ GLOBAL_LIST_INIT(mouse_cooldowns, list(
 		return
 	cooldown_cursor_time = world.time + time
 	var/end_time = cooldown_cursor_time
-	var/previous_cursor = mouse_pointer_icon
 	var/start_time = world.time
 	var/current_cursor = 1
 	for (var/cursor_icon in GLOB.mouse_cooldowns)
