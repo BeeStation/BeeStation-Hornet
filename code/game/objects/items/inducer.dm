@@ -205,10 +205,10 @@
 	transfer_coef = 1
 	opened = TRUE
 
-/obj/item/inducer/sci/with_cell()
-	cell_type = /obj/item/stock_parts/cell/high
-	opened = FALSE
-
 /obj/item/inducer/sci/Initialize(mapload)
 	. = ..()
 	update_icon()
+
+/obj/item/inducer/sci/with_cell
+	cell_type = /obj/item/stock_parts/cell/high
+	opened = FALSE
