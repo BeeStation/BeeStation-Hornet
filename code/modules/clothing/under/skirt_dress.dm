@@ -92,6 +92,16 @@
 	icon_state = "plaid_green"
 	item_state = "plaid_green"
 
+/obj/item/clothing/under/dress/pool
+	name = "pool swimsuit"
+	desc = "Unisex Nanotrasen-colored swimwear for a nice pool splash without forgetting who owns you."
+	icon_state = "pool_swimsuit"
+
+/obj/item/clothing/under/dress/skirt/pool
+	name = "pool swimskirt"
+	desc = "Nanotrasen-colored swimwear for a nice pool splash without forgetting who owns you."
+	icon_state = "pool_bikini"
+
 /////////////////
 //DONATOR ITEMS//
 /////////////////

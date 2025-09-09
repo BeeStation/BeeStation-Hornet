@@ -284,9 +284,6 @@
 "aiR" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/closet/athletic_mixed,
-/obj/item/pool/rubber_ring,
-/obj/item/pool/pool_noodle,
-/obj/item/pool/pool_noodle,
 /obj/effect/turf_decal/siding/white/corner{
 	alpha = 100;
 	dir = 4
@@ -3747,6 +3744,14 @@
 /obj/effect/mapping_helpers/airlock/abandoned,
 /turf/open/floor/plating,
 /area/maintenance/department/medical/central)
+"bJp" = (
+/obj/effect/turf_decal/siding/white{
+	alpha = 100;
+	dir = 4
+	},
+/obj/machinery/vending/pool,
+/turf/open/floor/iron/white,
+/area/crew_quarters/fitness/recreation)
 "bJy" = (
 /obj/structure/lattice/catwalk/over,
 /obj/structure/railing{
@@ -29466,9 +29471,6 @@
 	dir = 8
 	},
 /obj/structure/closet/athletic_mixed,
-/obj/item/pool/rubber_ring,
-/obj/item/pool/pool_noodle,
-/obj/item/pool/pool_noodle,
 /turf/open/floor/iron/textured_half{
 	dir = 1
 	},
@@ -56694,7 +56696,7 @@ uKo
 pLv
 exO
 itk
-pLv
+bJp
 aiR
 bgu
 vhU

@@ -4900,6 +4900,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/machinery/vending/pool,
 /turf/open/floor/iron/dark/side{
 	dir = 1
 	},
