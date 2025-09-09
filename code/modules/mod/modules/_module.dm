@@ -136,7 +136,7 @@
 		applied_cooldown = cooldown_time
 	COOLDOWN_START(src, cooldown_timer, applied_cooldown)
 	SEND_SIGNAL(src, COMSIG_MODULE_COOLDOWN_STARTED, applied_cooldown)
-	addtimer(CALLBACK(mod.wearer, TYPE_PROC_REF(/mob, update_clothing), mod.slot_flags), cooldown_time+1) //need to run it a bit after the cooldown starts to avoid conflicts
+	addtimer(CALLBACK(mod.wearer, TYPE_PROC_REF(/mob, update_clothing), mod.slot_flags), applied_cooldown+1) //need to run it a bit after the cooldown starts to avoid conflicts
 
 /// Called when the module is activated
 /obj/item/mod/module/proc/activate()

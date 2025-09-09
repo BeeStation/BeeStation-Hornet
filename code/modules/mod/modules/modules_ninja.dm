@@ -58,7 +58,7 @@
 	icon_state = "cloak_ninja"
 	active_power_cost = DEFAULT_CHARGE_DRAIN
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 5
-	cooldown_time = 3 SECONDS
+	cooldown_time = 30 SECONDS
 
 /obj/item/mod/module/stealth/ninja/on_activation()
 	. = ..()
