@@ -233,26 +233,72 @@ SUBSYSTEM_DEF(dynamic)
 					vars[variable] = dynamic_configuration["Dynamic"][variable]
 
 	// Configure Roundstart
-	roundstart_configured_rulesets = init_rulesets(/datum/dynamic_ruleset/roundstart)
+	roundstart_configured_rulesets = init_rulesets(/datum/dynamic_ruleset/roundstart, roundstart_configured_rulesets)
 	if(!length(roundstart_configured_rulesets))
 		stack_trace("DYNAMIC: ROUNDSTART: roundstart_configured_rulesets is empty. It is impossible to roll roundstart rulesets")
 		log_dynamic("ROUNDSTART: roundstart_configured_rulesets is empty. It is impossible to roll roundstart rulesets")
 
 	// Configure Midround
 
-	midround_configured_rulesets = init_rulesets(/datum/dynamic_ruleset/midround)
+	midround_configured_rulesets = init_rulesets(/datum/dynamic_ruleset/midround, midround_configured_rulesets)
 	if(!length(midround_configured_rulesets))
 		stack_trace("DYNAMIC: MIDROUND: midround_configured_rulesets is empty. It is impossible to roll midrounds")
 		log_dynamic("MIDROUND: midround_configured_rulesets is empty. It is impossible to roll midrounds")
 
 	// Configure Latejoin
-	latejoin_configured_rulesets = init_rulesets(/datum/dynamic_ruleset/latejoin)
+	latejoin_configured_rulesets = init_rulesets(/datum/dynamic_ruleset/latejoin, latejoin_configured_rulesets)
 	if(!length(latejoin_configured_rulesets))
 		stack_trace("DYNAMIC: LATEJOIN: latejoin_configured_rulesets is empty. It is impossible to roll latejoins")
 		log_dynamic("LATEJOIN: latejoin_configured_rulesets is empty. It is impossible to roll latejoins")
 
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_UPDATE_DYNAMICPANEL_DATA_STATIC)
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_UPDATE_DYNAMICPANEL_DATA)
+
+/**
+ * Returns a list of all the configured rulesets of a specific typepath (/datum/dynamic_ruleset/roundstart, etc...)
+ * If `preconfigured_rulesets` isn't null, we iterate through all of those instances instead of replacing the pre-existing ones.
+**/
+/datum/controller/subsystem/dynamic/proc/init_rulesets(datum/dynamic_ruleset/ruleset_subtype, list/datum/dynamic_ruleset/preconfigured_rulesets)
+	if (length(preconfigured_rulesets))
+		for (var/datum/dynamic_ruleset/ruleset in preconfigured_rulesets)
+			configure_ruleset(ruleset)
+
+		return preconfigured_rulesets
+
+	var/list/datum/dynamic_ruleset/rulesets = list()
+	for (var/datum/dynamic_ruleset/ruleset_type as anything in subtypesof(ruleset_subtype))
+		if (!ruleset_type.name)
+			continue
+		if (!ruleset_type.weight)
+			continue
+		if (!ruleset_type.points_cost)
+			continue
+
+		rulesets += configure_ruleset(new ruleset_type())
+	return rulesets
+
+/**
+ * Sets the variables of a ruleset to those in the dynamic configuration file
+**/
+/datum/controller/subsystem/dynamic/proc/configure_ruleset(datum/dynamic_ruleset/ruleset)
+	var/rule_config = LAZYACCESSASSOC(dynamic_configuration, ruleset.rule_category, ruleset.name)
+
+	// Set variables
+	for(var/variable in rule_config)
+		if(isnull(ruleset.vars[variable]))
+			stack_trace("Invalid dynamic configuration variable [variable] in [ruleset.rule_category] [ruleset.name].")
+			continue
+		ruleset.vars[variable] = rule_config[variable]
+
+	// Check config for additional restricted_roles
+	if(CONFIG_GET(flag/protect_roles_from_antagonist))
+		ruleset.restricted_roles |= ruleset.protected_roles
+	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
+		ruleset.restricted_roles |= JOB_NAME_ASSISTANT
+	if(CONFIG_GET(flag/protect_heads_from_antagonist))
+		ruleset.restricted_roles |= SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)
+
+	return ruleset
 
 /**
  * Called at roundstart, set roundstart points and choose rulesets
@@ -588,7 +634,6 @@ SUBSYSTEM_DEF(dynamic)
 **/
 /datum/controller/subsystem/dynamic/proc/choose_midround_ruleset(forced_severity)
 	// Pick severity
-
 	if(isnull(forced_severity))
 		var/random_value = rand(1, 100)
 		if(random_value <= midround_light_chance)
@@ -691,47 +736,6 @@ SUBSYSTEM_DEF(dynamic)
 			ruleset.round_result()
 			if(SSticker.news_report)
 				return
-
-
-/**
- * Returns a list of all the configured rulesets of a specific typepath (/datum/dynamic_ruleset/roundstart, etc...)
-**/
-/datum/controller/subsystem/dynamic/proc/init_rulesets(datum/dynamic_ruleset/ruleset_subtype)
-	var/list/datum/dynamic_ruleset/rulesets = list()
-
-	for(var/datum/dynamic_ruleset/ruleset_type as anything in subtypesof(ruleset_subtype))
-		if(!ruleset_type.name)
-			continue
-		if(!ruleset_type.weight)
-			continue
-		if(!ruleset_type.points_cost)
-			continue
-
-		rulesets += configure_ruleset(new ruleset_type(src))
-	return rulesets
-
-/**
- * Sets the variables of a ruleset to those in the dynamic configuration file
-**/
-/datum/controller/subsystem/dynamic/proc/configure_ruleset(datum/dynamic_ruleset/ruleset)
-	var/rule_conf = LAZYACCESSASSOC(dynamic_configuration, ruleset.rule_category, ruleset.name)
-
-	// Set variables
-	for(var/variable in rule_conf)
-		if(!(variable in ruleset.vars))
-			stack_trace("Invalid dynamic configuration variable [variable] in [ruleset.rule_category] [ruleset.name].")
-			continue
-		ruleset.vars[variable] = rule_conf[variable]
-
-	// Check config for additional restricted_roles
-	if(CONFIG_GET(flag/protect_roles_from_antagonist))
-		ruleset.restricted_roles |= ruleset.protected_roles
-	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
-		ruleset.restricted_roles |= JOB_NAME_ASSISTANT
-	if(CONFIG_GET(flag/protect_heads_from_antagonist))
-		ruleset.restricted_roles |= SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)
-
-	return ruleset
 
 /**
  * This is a frequency selection system. You may imagine it like a raffle where each player can have some number of tickets. The more tickets you have the more likely you are to
