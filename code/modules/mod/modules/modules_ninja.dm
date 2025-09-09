@@ -17,15 +17,33 @@
 
 /obj/item/mod/module/stealth/on_activation()
 	drain_power(use_power_cost)
+	mod.wearer.say(pick(\
+		"Watch your back...",\
+		"They never see me coming.",\
+		"Don't drop your guard.",\
+		"Knowing is half the battle.",\
+		"See you soon...",\
+		"Be seeing you.",\
+		"Not if I see you first.",\
+		"Can't hit what you can't see.",\
+		"Behind you..."\
+	))
+	mod.wearer.transfer_messages_to(get_turf(mod.wearer))
+	for (var/obj/machinery/light/light in view(7, mod.wearer))
+		light.break_light_tube()
+	var/datum/effect_system/smoke_spread/smoke = new()
+	smoke.set_up(3, mod.wearer.loc)
+	smoke.start()
+	playsound(mod.wearer.loc, 'sound/effects/bamf.ogg', 50, 2)
+	animate(mod.wearer, time = 1 SECONDS, alpha = 0)
 	mod.wearer.apply_status_effect(/datum/status_effect/cloaked)
 
 /obj/item/mod/module/stealth/on_deactivation(display_message = TRUE, deleting = FALSE)
 	animate(mod.wearer, alpha = 255, time = 1.5 SECONDS)
 	mod.wearer.remove_status_effect(/datum/status_effect/cloaked)
 
-/obj/item/mod/module/stealth/process(delta_time)
-	. = ..()
-	if (active && !mod.wearer.has_status_effect(/datum/status_effect/cloaked))
+/obj/item/mod/module/stealth/on_active_process(delta_time)
+	if (!mod.wearer.has_status_effect(/datum/status_effect/cloaked))
 		deactivate()
 
 //Advanced Cloaking - Doesn't turf off on bump, less power drain, more stealthy.

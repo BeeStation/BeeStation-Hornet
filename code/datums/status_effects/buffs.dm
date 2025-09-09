@@ -693,7 +693,7 @@
 	id = "invisibility"
 	alert_type = /atom/movable/screen/alert/status_effect/cloaked
 	tick_interval = 2
-	duration = 30 SECONDS
+	duration = -1
 	show_duration = TRUE
 	var/can_see_self = FALSE
 
