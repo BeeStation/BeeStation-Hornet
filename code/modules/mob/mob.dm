@@ -1180,7 +1180,7 @@
 /mob/proc/update_mouse_pointer()
 	if(!client)
 		return
-	if (cooldown_cursor_time > world.time)
+	if (client.cooldown_cursor_time > world.time)
 		return
 	if(client.mouse_pointer_icon != initial(client.mouse_pointer_icon))//only send changes to the client if theyre needed
 		client.mouse_pointer_icon = initial(client.mouse_pointer_icon)
@@ -1234,7 +1234,7 @@ GLOBAL_LIST_INIT(mouse_cooldowns, list(
 		if (mouse_pointer_icon != GLOB.mouse_cooldowns[length(GLOB.mouse_cooldowns)] || cooldown_cursor_time != end_time)
 			return
 	cooldown_cursor_time = null
-	update_mouse_pointer()
+	mob.update_mouse_pointer()
 
 /client/proc/clear_cooldown_cursor(time)
 	if (!(mouse_pointer_icon in GLOB.mouse_cooldowns))

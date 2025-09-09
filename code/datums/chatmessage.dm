@@ -379,7 +379,8 @@
 	LAZYREMOVE(message_loc.chat_messages, src)
 	message_loc = location
 	// Due to async, this may not have been created yet
-	message?.loc = location
+	for (var/datum/chatmessage_group/group in groups)
+		group.message.loc = location
 	LAZYADD(message_loc.chat_messages, src)
 
 /**
