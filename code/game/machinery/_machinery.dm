@@ -766,8 +766,7 @@
 	if(flags_1 & NODECONSTRUCT_1)
 		return ..()
 
-	//on_deconstruction(disassembled)
-	on_deconstruction()
+	on_deconstruction(disassembled)
 	if(!LAZYLEN(component_parts))
 		return ..() //We have no parts
 	spawn_frame(disassembled)
@@ -1037,7 +1036,7 @@
 
 //called on deconstruction before the final deletion
 /obj/machinery/proc/on_deconstruction(disassembled)
-	//PROTECTED_PROC(TRUE)
+	PROTECTED_PROC(TRUE)
 	return
 
 /obj/machinery/proc/can_be_overridden()
