@@ -124,6 +124,7 @@
 /datum/action/innate/dash/ninja
 	max_charges = 0
 	obj_damage = 350
+	has_button = FALSE
 
 /datum/action/innate/dash/ninja/is_available(feedback = FALSE)
 	var/mob/living/carbon/human/owner_mob = owner
