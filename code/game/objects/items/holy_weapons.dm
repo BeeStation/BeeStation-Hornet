@@ -149,7 +149,7 @@
 	item_state = "nullrod"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
-	block_upgrade_walk = TRUE
+
 	force = 18
 	throw_speed = 3
 	throw_range = 4
@@ -176,6 +176,7 @@
 	return (BRUTELOSS|FIRELOSS)
 
 /obj/item/nullrod/attack_self(mob/user)
+	. = ..()
 	if(user.mind && (user.mind.holy_role) && !current_skin)
 		reskin_holy_weapon(user)
 
@@ -210,7 +211,7 @@
 			"Dark Blessing" = /obj/item/nullrod/armblade,
 			"Unholy Blessing" = /obj/item/nullrod/armblade/tentacle,
 			"Carp-Sie Plushie" = /obj/item/nullrod/carp,
-			"Monk's Staff" = /obj/item/nullrod/claymore/bostaff,
+			"Monk's Staff" = /obj/item/nullrod/bostaff,
 			"Arrythmic Knife" = /obj/item/nullrod/tribal_knife,
 			"Unholy Pitchfork" = /obj/item/nullrod/pitchfork,
 			"Egyptian Staff" = /obj/item/nullrod/egyptian,
@@ -291,7 +292,7 @@
 	damtype = BURN
 	attack_verb_continuous = list("punches", "cross counters", "pummels")
 	attack_verb_simple = list("punch", "cross counter", "pummel")
-	block_upgrade_walk = FALSE
+
 
 /obj/item/nullrod/godhand/Initialize(mapload)
 	. = ..()
@@ -303,19 +304,31 @@
 	lefthand_file = 'icons/mob/inhands/weapons/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
 	name = "red holy staff"
-	desc = "It has a mysterious, protective aura."
+	desc = "It has a mysterious, protective aura when you channel the staff"
 	w_class = WEIGHT_CLASS_HUGE
 	force = 5
+	armour_penetration = 100 //Just like wizard staves, but it only does 5 damage. It's magical.
 	slot_flags = ITEM_SLOT_BACK
-	block_flags = BLOCKING_PROJECTILE
-	block_level = 1
-	block_power = 20
+
+	//Keep in mind it can only block once once per cooldown. This staff's whole purpose is defense so it's good at it when it does
+	canblock = TRUE
+	block_flags = BLOCKING_ACTIVE | BLOCKING_PROJECTILE | BLOCKING_UNBALANCE | BLOCKING_UNBLOCKABLE
+	block_power = 100 //No stamina damage for this one
 	var/shield_icon = "shield-red"
+
+/obj/item/nullrod/staff/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/two_handed, force_unwielded=5, force_wielded=5, block_power_unwielded=100, block_power_wielded=100)
 
 /obj/item/nullrod/staff/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = list()
-	if(isinhands)
+	if(ISWIELDED(src))
 		. += mutable_appearance('icons/effects/effects.dmi', shield_icon, MOB_SHIELD_LAYER)
+
+/obj/item/nullrod/staff/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
+	if(ISWIELDED(src))
+		return ..()
+	return FALSE
 
 /obj/item/nullrod/staff/blue
 	name = "blue holy staff"
@@ -332,10 +345,10 @@
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	w_class = WEIGHT_CLASS_HUGE
-	slot_flags = ITEM_SLOT_BACK|ITEM_SLOT_BELT
+	slot_flags = ITEM_SLOT_BACK | ITEM_SLOT_BELT
 	block_flags = BLOCKING_NASTY | BLOCKING_ACTIVE
-	block_level = 1
-	block_power = 30
+	canblock = TRUE
+	block_power = 25
 	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_CUT
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -382,9 +395,10 @@
 	icon_state = "katana"
 	item_state = "katana"
 	worn_icon_state = "katana"
+	force = 15 //Blocking projectiles comes at a cost
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
-	block_power = 0
+	block_power = 25
 
 /obj/item/nullrod/claymore/multiverse
 	name = "extradimensional blade"
@@ -407,6 +421,7 @@
 	worn_icon_state = "swordblue"
 	slot_flags = ITEM_SLOT_BELT
 	hitsound = 'sound/weapons/blade1.ogg'
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE | BLOCKING_UNBLOCKABLE
 
 /obj/item/nullrod/claymore/saber/red
 	name = "dark energy sword"
@@ -436,15 +451,13 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
-	block_level = 1
+	block_flags = BLOCKING_ACTIVE
+	canblock = TRUE
 
 /obj/item/nullrod/sord/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
-	if(isitem(hitby))
-		var/obj/item/I = hitby
-		owner.attackby(src)
-		owner.attackby(src, owner)
-		owner.visible_message(span_danger("[owner] can't get a grip, and stabs himself with both the [I] and the[src] while trying to parry the [I]!"))
-	return ..()
+	. = ..()
+	owner.attackby(src, owner)
+	owner.visible_message(span_danger("[owner] can't get a grip, and stabs himself with [src] while trying to parry the [hitby]!"))
 
 /obj/item/nullrod/scythe
 	name = "reaper scythe"
@@ -455,9 +468,9 @@
 	righthand_file = 'icons/mob/inhands/weapons/polearms_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 	armour_penetration = 35
-	block_level = 1
-	block_power = 15
-	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
+	canblock = TRUE
+	block_power = 50
+	block_flags = BLOCKING_ACTIVE | BLOCKING_COUNTERATTACK
 	slot_flags = ITEM_SLOT_BACK
 	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_CUT
@@ -597,7 +610,7 @@
 	tool_behaviour = TOOL_SAW
 	toolspeed = 2 //slower than a real saw
 	attack_weight = 2
-	block_upgrade_walk = FALSE
+
 
 
 /obj/item/nullrod/chainsaw/Initialize(mapload)
@@ -721,23 +734,41 @@
 		user.faction |= FACTION_CARP
 		used_blessing = TRUE
 
-/obj/item/nullrod/claymore/bostaff //May as well make it a "claymore" and inherit the blocking
+/obj/item/nullrod/bostaff
 	name = "monk's staff"
 	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts, it is now used to harass the clown."
 	w_class = WEIGHT_CLASS_BULKY
-	force = 14
-	block_power = 40
+	force = 10
+	throwforce = 20
+	throw_speed = 2
 	slot_flags = ITEM_SLOT_BACK
 	sharpness = BLUNT
-	hitsound = "swing_hit"
+	hitsound = 'sound/effects/woodhit.ogg'
 	attack_verb_continuous = list("smashes", "slams", "whacks", "thwacks")
 	attack_verb_simple = list("smash", "slam", "whack", "thwack")
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "bostaff0"
-	item_state = "bostaff0"
+	item_state = null
 	worn_icon_state = "bostaff0"
 	lefthand_file = 'icons/mob/inhands/weapons/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
+
+	canblock = TRUE
+	block_power = 75
+	block_flags = BLOCKING_ACTIVE | BLOCKING_COUNTERATTACK | BLOCKING_UNBALANCE
+
+/obj/item/nullrod/bostaff/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/two_handed, force_unwielded=10, force_wielded=14, block_power_unwielded=75, block_power_wielded=75, icon_wielded="bostaff1")
+
+/obj/item/nullrod/bostaff/update_icon_state()
+	icon_state = "bostaff0"
+	..()
+
+/obj/item/nullrod/bostaff/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
+	if(ISWIELDED(src))
+		return ..()
+	return FALSE
 
 /obj/item/nullrod/tribal_knife
 	name = "arrhythmic knife"

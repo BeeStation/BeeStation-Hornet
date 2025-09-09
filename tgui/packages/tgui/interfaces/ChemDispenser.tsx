@@ -1,4 +1,3 @@
-import { toFixed } from 'common/math';
 import { classes } from 'common/react';
 import { storage } from 'common/storage';
 import { createLogger } from 'tgui/logging';
@@ -19,6 +18,7 @@ import {
   Table,
   Tooltip,
 } from '../components';
+import { formatSiUnit } from '../format';
 import { Window } from '../layouts';
 
 type Reagent = {
@@ -413,7 +413,7 @@ export const ChemDispenser = (_props) => {
             <LabeledList>
               <LabeledList.Item label="Energy">
                 <ProgressBar value={data.energy / data.maxEnergy}>
-                  {toFixed(data.energy) + ' units'}
+                  {formatSiUnit(data.energy, 0, 'W')}
                 </ProgressBar>
               </LabeledList.Item>
             </LabeledList>
