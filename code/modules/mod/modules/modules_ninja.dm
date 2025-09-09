@@ -173,7 +173,7 @@
 
 /obj/item/mod/module/weapon_recall/on_uninstall(deleting)
 	. = ..()
-	if (!self_destruct)
+	if (!self_destruct || !linked_weapon)
 		return
 	linked_weapon.visible_message("\The [linked_weapon] violently explodes!")
 	qdel(linked_weapon)
