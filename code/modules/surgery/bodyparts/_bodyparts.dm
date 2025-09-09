@@ -385,10 +385,12 @@
 				. = TRUE
 	return update_bodypart_damage_state() || .
 
-//Heals brute and burn damage for the organ. Returns 1 if the damage-icon states changed at all.
-//Damage cannot go below zero.
-//Cannot remove negative damage (i.e. apply damage)
-/obj/item/bodypart/proc/heal_damage(brute, burn, stamina, required_status, updating_health = TRUE)
+/// Heal an injury by the base type path of the injury tree, or by the path of the injury
+/// injury: The typepath (or base path of the tree) of the injury to heal.
+/// amount: The amount to heal the injury by
+/// required_status: If set, the bodypart will only be healed if it meets the required status
+/// updating_health: Set to false to buffer the updatehealth() call.
+/obj/item/bodypart/proc/heal_injury(injury, amount, required_status = null, updating_health = TRUE)
 	SHOULD_CALL_PARENT(TRUE)
 
 	if(required_status && !(bodytype & required_status)) //So we can only heal certain kinds of limbs, ie robotic vs organic.
@@ -866,7 +868,7 @@
 
 /obj/item/bodypart/proc/get_injury_by_base(base_path)
 	for (var/datum/injury/injury in injuries)
-		if (injury.base_type == base_path)
+		if (injury.base_type == base_path || injury.type == base_path)
 			return injury
 	return null
 

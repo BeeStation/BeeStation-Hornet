@@ -115,18 +115,20 @@
 
 ////////////////////////////////////////////
 
-//Returns a list of damaged bodyparts
-/mob/living/carbon/proc/get_damaged_bodyparts(brute = FALSE, burn = FALSE, stamina = FALSE, injuries = FALSE, status)
+/// Returns a list of damaged bodyparts
+/// required_injury: The typepath of the injury that we are scanning for, or the base typepath of an injury tree.
+/// status: The required status of the bodypart
+/mob/living/carbon/proc/get_damaged_bodyparts(required_injury = null, status = null)
 	var/list/obj/item/bodypart/parts = list()
 	for(var/obj/item/bodypart/BP as() in bodyparts)
 		if(status && !(BP.bodytype & status))
 			continue
-		var/has_injuries = FALSE
-		for (var/datum/injury/injury in BP.injuries)
-			if (injury.examine_description)
-				has_injuries = TRUE
-		if((brute && BP.brute_dam) || (burn && BP.burn_dam) || (stamina && BP.stamina_dam) || (injuries && has_injuries))
-			parts += BP
+		if (required_injury)
+			if (BP.get_injury_by_base(required_injury))
+				parts += BP
+		else
+			if (BP.accumulated_damage > 0)
+				parts += BP
 	return parts
 
 //Returns a list of damageable bodyparts

@@ -538,13 +538,17 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		return
 	var/total_burn	= 0
 	var/total_stamina = 0
+	var/is_burn_destroyed = TRUE
 	for(var/obj/item/bodypart/BP as() in bodyparts)
-		total_burn	+= (BP.burn_dam * BP.body_damage_coeff)
+		var/datum/injury/burn_injury = BP.get_injury_by_base(/datum/injury/healthy_skin_burn)
+		if (burn_injury.type != /datum/injury/limb_destroyed && burn_injury.type != /datum/injury/third_degree_burn)
+			is_burn_destroyed = FALSE
 		total_stamina += (BP.stamina_dam * BP.stam_damage_coeff)
 	staminaloss = round(total_stamina, DAMAGE_PRECISION)
 	// Send the signal here in case our stat changes as the result of a signal call
 	SEND_SIGNAL(src, COMSIG_LIVING_HEALTH_UPDATE)
-	if(((maxHealth - total_burn) < HEALTH_THRESHOLD_DEAD*2) && stat == DEAD )
+	// Are we completely saturated in burn injuries?
+	if(is_burn_destroyed)
 		become_husk(BURN)
 	med_hud_set_health()
 	if(stat == SOFT_CRIT)
