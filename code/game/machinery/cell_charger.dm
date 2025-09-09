@@ -146,7 +146,7 @@
 		update_use_power(IDLE_POWER_USE)
 		return
 
-	var/power_needed = cell.chargerate * recharge_coeff * delta_time
+	var/power_needed = cell.chargerate * recharge_coeff
 
 	// Power transfer loss happens here so it doesn't affect user experience too much (making cell take more time to charge than it should)
 	active_power_usage = power_needed / POWER_TRANSFER_LOSS
