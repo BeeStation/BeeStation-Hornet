@@ -231,7 +231,9 @@ SUBSYSTEM_DEF(dynamic)
 
 			dynamic_storyteller_jsons[json_name] = loaded_json
 
-	set_storyteller(pick(dynamic_storyteller_jsons))
+	// Temporary, delete later
+	if (length(dynamic_storyteller_jsons))
+		set_storyteller(pick(dynamic_storyteller_jsons))
 
 	midround_light_chance = midround_light_starting_chance
 	midround_medium_chance = midround_medium_starting_chance
