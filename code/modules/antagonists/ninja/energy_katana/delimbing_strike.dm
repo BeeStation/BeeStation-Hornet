@@ -19,7 +19,7 @@
 	var/delimbs = FALSE
 	if (istype(owner_mob))
 		var/obj/item/mod/control/pre_equipped/ninja/ninja_suit = owner_mob.back
-		if (!istype(ninja_suit) && ninja_suit.active)
+		if (istype(ninja_suit) && ninja_suit.active)
 			delimbs = TRUE
 	// Get the direction to the clicked target
 	var/direction = get_cardinal_dir(user, target)
