@@ -14,47 +14,19 @@
 	incompatible_modules = list(/obj/item/mod/module/stealth)
 	cooldown_time = 5 SECONDS
 	required_slots = list(ITEM_SLOT_HEAD|ITEM_SLOT_MASK, ITEM_SLOT_OCLOTHING|ITEM_SLOT_ICLOTHING, ITEM_SLOT_GLOVES, ITEM_SLOT_FEET)
-	/// Whether or not the cloak turns off on bumping.
-	var/bumpoff = TRUE
-	/// The alpha applied when the cloak is on.
-	var/stealth_alpha = 50
 
 /obj/item/mod/module/stealth/on_activation()
-	if(bumpoff)
-		RegisterSignal(mod.wearer, COMSIG_LIVING_MOB_BUMP, PROC_REF(unstealth))
-	RegisterSignal(mod.wearer, COMSIG_HUMAN_MELEE_UNARMED_ATTACK, PROC_REF(on_unarmed_attack))
-	RegisterSignal(mod.wearer, COMSIG_ATOM_BULLET_ACT, PROC_REF(on_bullet_act))
-	RegisterSignals(mod.wearer, list(COMSIG_ITEM_ATTACK, COMSIG_ATOM_ATTACKBY, COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_HITBY, COMSIG_ATOM_HULK_ATTACK, COMSIG_ATOM_ATTACK_PAW, COMSIG_CARBON_CUFF_ATTEMPTED), PROC_REF(unstealth))
-	animate(mod.wearer, alpha = stealth_alpha, time = 1.5 SECONDS)
 	drain_power(use_power_cost)
+	mod.wearer.apply_status_effect(/datum/status_effect/cloaked)
 
 /obj/item/mod/module/stealth/on_deactivation(display_message = TRUE, deleting = FALSE)
-	if(bumpoff)
-		UnregisterSignal(mod.wearer, COMSIG_LIVING_MOB_BUMP)
-	UnregisterSignal(mod.wearer, list(COMSIG_HUMAN_MELEE_UNARMED_ATTACK, COMSIG_ITEM_ATTACK, COMSIG_ATOM_ATTACKBY, COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_BULLET_ACT, COMSIG_ATOM_HITBY, COMSIG_ATOM_HULK_ATTACK, COMSIG_ATOM_ATTACK_PAW, COMSIG_CARBON_CUFF_ATTEMPTED))
 	animate(mod.wearer, alpha = 255, time = 1.5 SECONDS)
+	mod.wearer.remove_status_effect(/datum/status_effect/cloaked)
 
-/obj/item/mod/module/stealth/proc/unstealth(datum/source)
-	SIGNAL_HANDLER
-
-	to_chat(mod.wearer, span_warning("[src] gets discharged from contact!"))
-	do_sparks(2, TRUE, src)
-	drain_power(use_power_cost)
-	deactivate()
-
-/obj/item/mod/module/stealth/proc/on_unarmed_attack(datum/source, atom/target)
-	SIGNAL_HANDLER
-
-	if(!isliving(target))
-		return
-	unstealth(source)
-
-/obj/item/mod/module/stealth/proc/on_bullet_act(datum/source, obj/projectile/projectile)
-	SIGNAL_HANDLER
-
-	if(projectile.nodamage)
-		return
-	unstealth(source)
+/obj/item/mod/module/stealth/process(delta_time)
+	. = ..()
+	if (active && !mod.wearer.has_status_effect(/datum/status_effect/cloaked))
+		deactivate()
 
 //Advanced Cloaking - Doesn't turf off on bump, less power drain, more stealthy.
 /obj/item/mod/module/stealth/ninja
@@ -65,8 +37,6 @@
 		The power draw has been reduced drastically, making this perfect for activities like \
 		standing near sentry turrets for extended periods of time."
 	icon_state = "cloak_ninja"
-	bumpoff = FALSE
-	stealth_alpha = 20
 	active_power_cost = DEFAULT_CHARGE_DRAIN
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 5
 	cooldown_time = 3 SECONDS
@@ -179,6 +149,16 @@
 	var/obj/item/linked_weapon
 	/// The accepted typepath we can link to.
 	var/accepted_type = /obj/item/energy_katana
+	/// Self destruct when destroyed
+	var/self_destruct = TRUE
+
+/obj/item/mod/module/weapon_recall/on_uninstall(deleting)
+	. = ..()
+	if (!self_destruct)
+		return
+	linked_weapon.visible_message("\The [linked_weapon] violently explodes!")
+	qdel(linked_weapon)
+	explosion(get_turf(linked_weapon), 0, 1, 2, 3, flame_range = 3)
 
 /obj/item/mod/module/weapon_recall/on_part_activation()
 	ADD_TRAIT(mod.wearer, TRAIT_NOGUNS, REF(src))
