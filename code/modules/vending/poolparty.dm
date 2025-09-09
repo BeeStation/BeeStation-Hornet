@@ -7,7 +7,7 @@
 	products = list(
 		/obj/item/clothing/under/shorts/pool = 10,
 		/obj/item/clothing/under/dress/skirt/pool = 10,
-		/obj/item/clothing/under/dress/skirt/pool = 10,
+		/obj/item/clothing/under/dress/pool = 10,
 		/obj/item/pool/rubber_ring = 5
 	)
 	premium = list(
