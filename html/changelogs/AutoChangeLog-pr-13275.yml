@@ -1,0 +1,7 @@
+author: Nakalon
+delete-after: true
+changes:
+  - bugfix: Cell Chargers work on Infinite Power areas again
+  - bugfix: Rechargers now properly update to idle power mode when nothing is charging
+  - balance: Increased Cell Charger Idle cost from 5 to 100 Watts
+  - refactor: Refactor Cell Charger power code (again sorry)
