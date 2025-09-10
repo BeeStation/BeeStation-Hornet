@@ -65,7 +65,7 @@
 			balloon_alert(user, "<font color='#c41d1d'>Value:</font> <span class='bold'>[price] cr</bold>")
 			glow.set_light(1, 0.6, LIGHT_COLOR_RED)
 			if(price)
-				playsound(user, 'sound/machines/uplink_error.ogg', 30, TRUE)
+				playsound(user, 'sound/machines/uplinkerror.ogg', 30, TRUE)
 			else
 				playsound(user, 'sound/machines/terminal_error.ogg', 30, TRUE)
 		if(bounty_ship_item_and_contents(O, dry_run=TRUE))
