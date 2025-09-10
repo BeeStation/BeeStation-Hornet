@@ -40,8 +40,33 @@
 			price += ex.total_value[x]
 
 		if(price)
-			to_chat(user, span_notice("Scanned [O], value: <b>[price]</b> credits[O.contents.len ? " (contents included)" : ""]."))
+			to_chat(user, "Scanned [O], value: <b>[price]</b> credits[O.contents.len ? " (contents included)" : ""].")
 		else
 			to_chat(user, span_warning("Scanned [O], no export value."))
+		var/detected
+		if(O.is_contraband)
+			to_chat(user, span_warning("CONTRABAND DETECTED: [O.name]"))
+			detected = TRUE
+		for(var/obj/thing in O.contents)
+			if(thing.is_contraband)
+				to_chat(user, span_warning("CONTRABAND DETECTED: [O.name]"))
+				detected = TRUE
+		var/obj/effect/dummy/lighting_obj/glow = new(get_turf(O))
+		glow.light_system = STATIC_LIGHT
+		QDEL_IN(glow, 0.25 SECONDS)
+		if(!detected)
+			balloon_alert(user, "<font color='#66c427'>Value:</font> <span class='bold'>[price] cr</bold>")
+			glow.set_light(1, 0.6, LIGHT_COLOR_GREEN)
+			if(price)
+				playsound(user, 'sound/effects/fastbeep.ogg', 30)
+			else
+				playsound(user, 'sound/machines/terminal_error.ogg', 30, TRUE)
+		else
+			balloon_alert(user, "<font color='#c41d1d'>Value:</font> <span class='bold'>[price] cr</bold>")
+			glow.set_light(1, 0.6, LIGHT_COLOR_RED)
+			if(price)
+				playsound(user, 'sound/machines/uplink_error.ogg', 30, TRUE)
+			else
+				playsound(user, 'sound/machines/terminal_error.ogg', 30, TRUE)
 		if(bounty_ship_item_and_contents(O, dry_run=TRUE))
 			to_chat(user, span_notice("Scanned item is eligible for one or more bounties."))

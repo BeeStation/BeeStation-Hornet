@@ -8,6 +8,7 @@
 	alt_covers_chest = TRUE
 	icon = 'icons/obj/clothing/under/syndicate.dmi'
 	worn_icon = 'icons/mob/clothing/under/syndicate.dmi'
+	is_contraband = TRUE
 
 /datum/armor/under_syndicate
 	melee = 10

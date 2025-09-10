@@ -72,6 +72,9 @@ CREATION_TEST_IGNORE_SELF(/obj)
 	/// If the emag behavior should be toggleable
 	var/emag_toggleable = FALSE
 
+	/// Is this contraband? If so can only be exported if the supply console has access to contraband
+	var/is_contraband = FALSE
+
 /obj/vv_edit_var(vname, vval)
 	if(vname == NAMEOF(src, obj_flags))
 		if ((obj_flags & DANGEROUS_POSSESSION) && !(vval & DANGEROUS_POSSESSION))

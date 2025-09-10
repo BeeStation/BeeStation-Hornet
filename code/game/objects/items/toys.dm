@@ -1202,6 +1202,7 @@
 	card_attack_verb_continuous = list("attacks", "slices", "dices", "slashes", "cuts")
 	card_attack_verb_simple = list("attack", "slice", "dice", "slash", "cut")
 	resistance_flags = NONE
+	is_contraband = TRUE
 
 /*
  * Fake nuke

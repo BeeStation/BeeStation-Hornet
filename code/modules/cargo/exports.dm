@@ -170,6 +170,8 @@ then the player gets the profit from selling his own wasted time.
 
 // Checks if the item is fit for export datum.
 /datum/export/proc/applies_to(obj/O, allowed_categories = NONE, apply_elastic = TRUE)
+	if(O.is_contraband)
+		export_category = EXPORT_CONTRABAND
 	if((allowed_categories & export_category) != export_category)
 		return FALSE
 	if(!include_subtypes && !(O.type in export_types))

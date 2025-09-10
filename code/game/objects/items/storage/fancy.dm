@@ -286,6 +286,7 @@
 	icon_state = "syndie"
 	base_icon_state = "syndie"
 	spawn_type = /obj/item/clothing/mask/cigarette/syndicate
+	is_contraband = TRUE
 
 /obj/item/storage/fancy/cigarettes/cigpack_midori
 	name = "\improper Midori Tabako packet"
@@ -300,6 +301,7 @@
 	icon_state = "shadyjim"
 	base_icon_state = "shadyjim"
 	spawn_type = /obj/item/clothing/mask/cigarette/shadyjims
+	is_contraband = TRUE
 
 /obj/item/storage/fancy/cigarettes/cigpack_xeno
 	name = "\improper Xeno Filtered packet"

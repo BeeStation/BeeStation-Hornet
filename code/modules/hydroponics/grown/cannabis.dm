@@ -95,6 +95,7 @@
 	foodtypes = VEGETABLES //i dont really know what else weed could be to be honest
 	tastes = list("cannabis" = 1)
 	wine_power = 20
+	is_contraband = TRUE
 
 /obj/item/food/grown/cannabis/rainbow
 	seed = /obj/item/seeds/cannabis/rainbow
