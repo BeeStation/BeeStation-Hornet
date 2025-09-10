@@ -111,3 +111,7 @@
       it's power use will be 10 times higher than when it is stable.
   lord scrubling:
   - bugfix: plasmamen receive a helmet and internals after being captured
+2025-09-10:
+  PowerfulBacon:
+  - tweak: 'Includes players who joined, players who joined roundstart, and total
+      client connections in the #ooc information of a round'

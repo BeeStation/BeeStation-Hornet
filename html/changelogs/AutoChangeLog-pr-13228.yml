@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - tweak: 'Includes players who joined, players who joined roundstart, and total
-      client connections in the #ooc information of a round'
