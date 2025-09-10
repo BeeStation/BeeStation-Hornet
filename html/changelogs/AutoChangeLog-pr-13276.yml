@@ -1,0 +1,7 @@
+author: Nakalon
+delete-after: true
+changes:
+  - bugfix: Inducer crates are no longer empty
+  - code_imp: Created a subtype of science inducer that starts with a standard cell
+  - code_imp: Deleted yet another cell type that was, this time, hidden away in crate
+      code
