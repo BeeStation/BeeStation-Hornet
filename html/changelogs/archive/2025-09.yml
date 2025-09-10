@@ -112,6 +112,15 @@
   lord scrubling:
   - bugfix: plasmamen receive a helmet and internals after being captured
 2025-09-10:
+  Nakalon:
+  - bugfix: Cell Chargers work on Infinite Power areas again
+  - bugfix: Rechargers now properly update to idle power mode when nothing is charging
+  - balance: Increased Cell Charger Idle cost from 5 to 100 Watts
+  - refactor: Refactor Cell Charger power code (again sorry)
+  - bugfix: Inducer crates are no longer empty
+  - code_imp: Created a subtype of science inducer that starts with a standard cell
+  - code_imp: Deleted yet another cell type that was, this time, hidden away in crate
+      code
   PowerfulBacon:
   - tweak: 'Includes players who joined, players who joined roundstart, and total
       client connections in the #ooc information of a round'
