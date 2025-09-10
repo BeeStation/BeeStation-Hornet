@@ -406,6 +406,9 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/piratepad_control)
 	unit_name = "hostage"
 	export_types = list(/mob/living/carbon/human)
 
+/datum/export/proc/find_loot()
+	return
+
 /datum/export/ransom/find_loot()
 	var/list/head_minds = SSjob.get_living_heads()
 	var/list/head_mobs = list()
