@@ -94,7 +94,7 @@ SUBSYSTEM_DEF(dynamic)
 	var/list/current_storyteller
 	/// An associative list of all of the dynamic storytellers
 	/// - "Name" : decoded_json
-	var/list/list/dynamic_storyteller_jsons = list()
+	var/list/list/dynamic_storyteller_jsons
 	/// Some rulesets (like revolution) need to process
 	var/list/datum/dynamic_ruleset/rulesets_to_process = list()
 	/// Associative list of current players
@@ -210,26 +210,7 @@ SUBSYSTEM_DEF(dynamic)
 
 /datum/controller/subsystem/dynamic/Initialize()
 	configure_variables()
-
-	// Load all of the files in the storytellers directory
-	for (var/file_path in flist(DYNAMIC_STORYTELLERS_DIRECTORY))
-		var/list/split = splittext(file_path, ".")
-		if (length(split) && split[length(split)] == "json")
-			// Check the json is valid
-			var/json_file = file("[DYNAMIC_STORYTELLERS_DIRECTORY][file_path]")
-			var/list/loaded_json
-			try
-				loaded_json = json_decode(file2text(json_file))
-			catch(var/exception/error)
-				stack_trace("Error while loading: \"[file_path]\": [error]")
-				continue
-
-			var/json_name = loaded_json["Name"]
-			if (!json_name)
-				stack_trace("Dynamic config: \"[file_path]\" could not be loaded because it did not have a set name.")
-				continue
-
-			dynamic_storyteller_jsons[json_name] = loaded_json
+	load_storytellers()
 
 	// Temporary, delete later
 	if (length(dynamic_storyteller_jsons))
@@ -240,19 +221,44 @@ SUBSYSTEM_DEF(dynamic)
 	midround_heavy_chance = midround_heavy_starting_chance
 	return SS_INIT_SUCCESS
 
+/**
+ * Load all of the files from the storytellers directory
+ * Only a proc for debugging purposes and in the event a new storyteller is added midround
+**/
+/datum/controller/subsystem/dynamic/proc/load_storytellers()
+	dynamic_storyteller_jsons = list()
+	for (var/file_path in flist(DYNAMIC_STORYTELLERS_DIRECTORY))
+		var/list/split = splittext(file_path, ".")
+		if (length(split) && split[length(split)] == "json")
+			// Check the json is valid
+			var/json_file = file("[DYNAMIC_STORYTELLERS_DIRECTORY][file_path]")
+			var/list/loaded_json
+			try
+				loaded_json = json_decode(file2text(json_file))
+			catch (var/exception/error)
+				stack_trace("Error while loading: \"[file_path]\": [error]")
+				continue
+
+			var/json_name = loaded_json["Name"]
+			if (!json_name)
+				stack_trace("Dynamic config: \"[file_path]\" could not be loaded because it did not have a set name.")
+				continue
+
+			dynamic_storyteller_jsons[json_name] = loaded_json
+
 /datum/controller/subsystem/dynamic/proc/set_storyteller(new_storyteller)
 	ASSERT(dynamic_storyteller_jsons[new_storyteller], "set_storyteller() called with an invalid storyteller")
 	current_storyteller = dynamic_storyteller_jsons[new_storyteller]
 	configure_variables()
 
 /**
- * Configure the dynamic variables from the loaded configuration
+ * Configure the dynamic variables from the loaded storyteller
 **/
 /datum/controller/subsystem/dynamic/proc/configure_variables()
 	if (current_storyteller)
 		for (var/variable in current_storyteller["Dynamic"])
 			if (isnull(vars[variable]))
-				stack_trace("Invalid dynamic configuration variable: [variable]")
+				stack_trace("Invalid dynamic storyteller variable: [variable]")
 				continue
 			vars[variable] = current_storyteller["Dynamic"][variable]
 
