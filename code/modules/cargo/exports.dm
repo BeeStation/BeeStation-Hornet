@@ -105,6 +105,34 @@ then the player gets the profit from selling his own wasted time.
 	//All these need to be present in export call parameter for this to apply.
 	var/export_category = EXPORT_CARGO
 
+/datum/export/item_price
+	cost = 0	// This is defined later based on custom prices
+	export_category = EXPORT_CARGO
+	include_subtypes = TRUE
+	export_types = list(/obj) // catch-all
+
+/datum/export/item_price/applies_to(obj/O, allowed_categories = NONE, apply_elastic = TRUE)
+	if(!(O.custom_price || O.custom_premium_price))
+		return FALSE
+	return TRUE
+
+/datum/export/item_price/get_cost(obj/O, allowed_categories = NONE, apply_elastic = TRUE)
+	var/amount = get_amount(O)
+	var/true_price = 0
+	var/markdown_to_use = 1
+	if(O.name) // What wouldn't have a name?! Just in case...
+		unit_name = O.name
+	if(O.custom_price)
+		true_price = O.custom_price
+		markdown_to_use = NORMAL_MARKDOWN
+	else if(O.custom_premium_price)
+		true_price = O.custom_premium_price
+		markdown_to_use = PREMIUM_MARKDOWN
+	if(apply_elastic && k_elasticity)
+		return round((true_price * markdown_to_use / k_elasticity) * (1 - NUM_E**(-1 * k_elasticity * amount)))
+	else
+		return round(true_price * markdown_to_use * amount)
+
 /datum/export/New()
 	..()
 	START_PROCESSING(SSprocessing, src)
