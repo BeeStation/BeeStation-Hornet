@@ -11,6 +11,8 @@
 	req_access = list(ACCESS_ENGINE_EQUIP)
 	circuit = /obj/item/circuitboard/machine/emitter
 
+	custom_price = 550
+
 	use_power = NO_POWER_USE
 	idle_power_usage = 500 WATT
 	active_power_usage = 5 KILOWATT

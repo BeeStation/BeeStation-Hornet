@@ -14,6 +14,7 @@
 	azimuth_angle_2 = 180
 	door_anim_time = 5
 	door_hinge = 5
+	custom_price = 190
 
 /obj/structure/closet/crate/coffin/examine(mob/user)
 	. = ..()

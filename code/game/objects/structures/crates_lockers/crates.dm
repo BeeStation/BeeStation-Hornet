@@ -25,6 +25,7 @@
 	drag_slowdown = 0
 	imacrate = TRUE
 	breakout_time = 20 SECONDS
+	custom_price = 500
 	var/mob/living/resident //The vampire owner of this crate (or coffin)
 	var/pry_lid_timer = 25 SECONDS //The time it takes to pry this open with a crowbar
 	var/crate_climb_time = 20

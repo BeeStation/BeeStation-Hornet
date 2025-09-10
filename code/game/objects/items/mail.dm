@@ -234,6 +234,7 @@
 	desc = "A certified post crate from CentCom."
 	icon_state = "mail_crate"
 	door_anim_time = 0
+	custom_price = 0
 
 /* Fills this mail crate with N pieces of mail, where N is the lower of the amount var passed,
 ** and the maximum capacity of this crate. If N is larger than the number of alive human players, the excess will be junkmail.*/
