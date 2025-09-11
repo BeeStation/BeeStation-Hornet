@@ -16,6 +16,7 @@
 	fire_rate = 3
 	automatic = 0
 	weapon_weight = WEAPON_LIGHT
+	is_contraband = TRUE
 
 /obj/item/gun/ballistic/automatic/pistol/no_mag
 	spawnwithmagazine = FALSE
@@ -136,6 +137,7 @@
 	fire_rate = 4
 	can_suppress = FALSE
 	worn_icon_state = "officer_pistol"
+	is_contraband = FALSE
 	var/stripe_state = "officer_com"
 
 /obj/item/gun/ballistic/automatic/pistol/service/update_icon()

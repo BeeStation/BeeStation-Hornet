@@ -101,6 +101,7 @@
 	soft_color = "sec"
 	armor_type = /datum/armor/soft_sec
 	strip_delay = 60
+	custom_price = 50
 
 
 /datum/armor/soft_sec

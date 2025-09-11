@@ -75,7 +75,7 @@ CREATION_TEST_IGNORE_SELF(/obj)
 	/// Is this contraband? If so can only be exported if the supply console has access to contraband
 	var/is_contraband = FALSE
 	/// Maximum demand of the object type for exporting calculations
-	var/max_demand = 50
+	var/max_demand
 
 /obj/vv_edit_var(vname, vval)
 	if(vname == NAMEOF(src, obj_flags))
@@ -112,6 +112,12 @@ CREATION_TEST_IGNORE_SELF(/obj)
 			network_id = NETWORK_NAME_COMBINE(STATION_NETWORK_ROOT, network_id) // I regret nothing!!
 		AddComponent(/datum/component/ntnet_interface, network_id, id_tag)
 		/// Needs to run before as ComponentInitialize runs after this statement...why do we have ComponentInitialize again?
+
+	if(!max_demand)	// If the item isnt getting a max_demand then give it a random one
+		max_demand = (5 * rand(5, 12)) // Makes sure it increases in increments of 5 - 6 * 5 = 25, 12 * 5 = 60
+	if(!custom_price)
+		if(!istype(src, /obj/item/card/id))	// NEED A DONT SELL VAR
+			custom_price = 10 // Minimum price for all items (objects at least)
 
 // A list of all /obj by their id_tag
 GLOBAL_LIST_EMPTY(objects_by_id_tag)

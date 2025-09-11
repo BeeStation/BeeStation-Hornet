@@ -354,6 +354,7 @@
 	foodtypes = JUNKFOOD | SUGAR
 	food_flags = FOOD_FINGER_FOOD
 	crafting_complexity = FOOD_COMPLEXITY_1
+	custom_price = 30
 
 /obj/item/food/rock_candy
 	name = "Rock candy"

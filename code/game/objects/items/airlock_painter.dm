@@ -13,6 +13,7 @@
 	item_state = "paint_sprayer"
 	worn_icon_state = "painter"
 	w_class = WEIGHT_CLASS_SMALL
+	custom_price = 15
 
 	custom_materials = list(/datum/material/iron=50, /datum/material/glass=50)
 

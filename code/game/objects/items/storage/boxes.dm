@@ -785,6 +785,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	drop_sound = 'sound/items/handling/matchbox_drop.ogg'
 	pickup_sound =  'sound/items/handling/matchbox_pickup.ogg'
+	custom_price = 10
 
 /obj/item/storage/box/matches/Initialize(mapload)
 	. = ..()

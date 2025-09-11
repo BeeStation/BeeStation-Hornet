@@ -163,6 +163,7 @@
 	force = 15
 	throwforce = 18
 	material_flags = NONE
+	is_contraband = TRUE
 
 /obj/item/storage/toolbox/syndicate/Initialize(mapload)
 	. = ..()

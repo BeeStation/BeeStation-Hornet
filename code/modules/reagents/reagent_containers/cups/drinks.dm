@@ -8,6 +8,7 @@
 	icon_state = null
 	possible_transfer_amounts = list(5,10,15,20,25,30,50)
 	resistance_flags = NONE
+	custom_price = 15	// We dont yet have a way to calculate price based on contents
 
 	isGlass = TRUE
 
@@ -166,6 +167,7 @@
 	drink_type = GRAIN
 	isGlass = FALSE
 	custom_price = PAYCHECK_MEDIUM * 0.9
+	custom_price = 20
 
 /obj/item/reagent_containers/cup/glass/waterbottle
 	name = "bottle of water"
@@ -412,6 +414,7 @@
 	desc = "The detective's only true friend."
 	icon_state = "detflask"
 	list_reagents = list(/datum/reagent/consumable/ethanol/whiskey = 30)
+	custom_price = 50
 
 /obj/item/reagent_containers/cup/glass/mug/britcup
 	name = "cup"

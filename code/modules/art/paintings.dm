@@ -45,6 +45,7 @@
 	icon_state = "11x11"
 	flags_1 = UNPAINTABLE_1
 	resistance_flags = FLAMMABLE
+	custom_price = 15
 	var/width = 11
 	var/height = 11
 	var/list/grid
@@ -556,6 +557,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/sign/painting)
 	lefthand_file = 'icons/mob/inhands/equipment/palette_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/palette_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
+	custom_price = 15
 	///Chosen paint color
 	var/current_color = "#000000"
 

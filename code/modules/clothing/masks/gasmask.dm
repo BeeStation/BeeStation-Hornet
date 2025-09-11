@@ -10,7 +10,7 @@
 	armor_type = /datum/armor/mask_gas
 	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
 	resistance_flags = NONE
-	custom_price = 25
+	custom_price = 50
 
 
 /datum/armor/mask_gas

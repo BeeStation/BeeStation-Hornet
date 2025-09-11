@@ -484,6 +484,7 @@ update_label("John Doe", "Clowny")
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE)
 	icon_state = "syndicate"
 	hud_state = JOB_HUD_SYNDICATE
+	is_contraband = TRUE
 	var/anyone = FALSE //Can anyone forge the ID or just syndicate?
 
 	var/datum/action/item_action/chameleon/change/chameleon_action

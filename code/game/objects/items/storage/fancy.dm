@@ -171,6 +171,7 @@
 	spawn_type = /obj/item/clothing/mask/cigarette/space_cigarette
 	spawn_count = 6
 	contents_tag = "cigarette"
+	custom_price = 15
 	//Special handling for cig overlays
 	var/display_cigs = TRUE
 
@@ -279,6 +280,7 @@
 	icon_state = "carp"
 	base_icon_state = "carp"
 	spawn_type = /obj/item/clothing/mask/cigarette/carp
+	is_contraband = TRUE
 
 /obj/item/storage/fancy/cigarettes/cigpack_syndicate
 	name = "cigarette packet"
@@ -294,6 +296,7 @@
 	icon_state = "midori"
 	base_icon_state = "midori"
 	spawn_type = /obj/item/clothing/mask/cigarette/rollie/nicotine
+	is_contraband = TRUE
 
 /obj/item/storage/fancy/cigarettes/cigpack_shadyjims
 	name = "\improper Shady Jim's Super Slims packet"
@@ -334,6 +337,7 @@
 	contents_tag = "rolling paper"
 	spawn_count = 10
 	spawn_type = /obj/item/rollingpaper
+	custom_price = 15
 
 /obj/item/storage/fancy/rollingpapers/Initialize(mapload)
 	. = ..()

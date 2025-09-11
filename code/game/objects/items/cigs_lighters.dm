@@ -646,6 +646,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	resistance_flags = FIRE_PROOF
 	light_color = LIGHT_COLOR_FIRE
 	grind_results = list(/datum/reagent/iron = 1, /datum/reagent/fuel = 5, /datum/reagent/oil = 5)
+	custom_price = 20
 
 /obj/item/lighter/Initialize(mapload)
 	. = ..()
@@ -870,6 +871,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	item_state = null
 	w_class = WEIGHT_CLASS_TINY
 	item_flags = ISWEAPON
+	custom_price = 30
 	var/chem_volume = 100
 	var/vapetime = 0 //this so it won't puff out clouds every tick
 	/// How often we take a drag in seconds

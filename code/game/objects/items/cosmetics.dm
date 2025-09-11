@@ -106,6 +106,7 @@
 	icon_state = "razor"
 	flags_1 = CONDUCT_1
 	w_class = WEIGHT_CLASS_TINY
+	custom_price = 15
 	var/extended = 1
 
 /obj/item/razor/suicide_act(mob/living/carbon/user)

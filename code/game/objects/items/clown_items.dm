@@ -23,6 +23,7 @@
 	throw_speed = 3
 	throw_range = 7
 	grind_results = list(/datum/reagent/lye = 10)
+	custom_price = 10
 	var/cleanspeed = 35 //slower than mop
 	force_string = "robust... against germs"
 	var/uses = 100
@@ -71,6 +72,8 @@
 	desc = "An untrustworthy bar of soap made of strong chemical agents that dissolve blood faster."
 	icon_state = "soapsyndie"
 	cleanspeed = 5 //faster than mop so it is useful for traitors who want to clean crime scenes
+	custom_price = 50
+	is_contraband = TRUE
 
 /obj/item/soap/suicide_act(mob/living/user)
 	user.say(";FFFFFFFFFFFFFFFFUUUUUUUDGE!!", forced="soap suicide")

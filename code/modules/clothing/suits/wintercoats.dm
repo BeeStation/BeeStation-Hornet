@@ -11,6 +11,7 @@
 	cold_protection = CHEST|GROIN|ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	armor_type = /datum/armor/hooded_wintercoat
+	custom_price = 25
 	allowed = list(
 		/obj/item/flashlight,
 		/obj/item/tank/internals/emergency_oxygen,
@@ -76,6 +77,7 @@
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/security
 	armor_type = /datum/armor/wintercoat_security
 	slowdown = 0.04
+	custom_price = 50
 
 
 /datum/armor/wintercoat_security

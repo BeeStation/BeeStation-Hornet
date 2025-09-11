@@ -21,6 +21,7 @@
 	slot_flags = ITEM_SLOT_BACK	//ERROOOOO
 	resistance_flags = NONE
 	max_integrity = 300
+	custom_price = 50
 
 /obj/item/storage/backpack/Initialize(mapload)
 	. = ..()
@@ -345,6 +346,7 @@
 	name = "satchel"
 	desc = "A trendy looking satchel."
 	icon_state = "satchel-norm"
+	custom_price = 30
 
 /obj/item/storage/backpack/satchel/leather
 	name = "leather satchel"
@@ -493,6 +495,7 @@
 	icon_state = "duffel"
 	item_state = "duffel"
 	slowdown = 1
+	custom_price = 50
 
 /obj/item/storage/backpack/duffelbag/Initialize(mapload)
 	. = ..()

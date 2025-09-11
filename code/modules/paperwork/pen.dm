@@ -27,6 +27,7 @@
 	custom_materials = list(/datum/material/iron=10)
 	pressure_resistance = 2
 	grind_results = list(/datum/reagent/iron = 2, /datum/reagent/iodine = 1)
+	custom_price = 10
 	var/colour = "black"	//what colour the ink is!
 	var/degrees = 0
 	var/font = PEN_FONT
@@ -55,6 +56,7 @@
 	desc = "It's a fancy four-color ink pen, set to black."
 	name = "four-color pen"
 	colour = "black"
+	custom_price = 20
 
 /obj/item/pen/fourcolor/attack_self(mob/living/carbon/user)
 	switch(colour)
@@ -76,12 +78,14 @@
 	desc = "It's a common fountain pen, with a faux wood body."
 	icon_state = "pen-fountain"
 	font = FOUNTAIN_PEN_FONT
+	custom_price = 50
 
 /obj/item/pen/brush
 	name = "calligraphy brush"
 	desc = "A traditional brush usually used for calligraphy and poems."
 	icon_state = "pen-brush"
 	font = BRUSH_PEN_FONT
+	custom_price = 50
 
 /obj/item/pen/charcoal
 	name = "charcoal stylus"
