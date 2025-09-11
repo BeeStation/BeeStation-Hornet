@@ -1,10 +1,11 @@
-import { decodeHtmlEntities } from 'common/string';
-import { useBackend } from '../backend';
-import { Box, Button, Input, Section, Table, Divider } from '../components';
-import { Window } from '../layouts';
 import { round } from 'common/math';
-import { ButtonConfirm } from '../components/Button';
+import { decodeHtmlEntities } from 'common/string';
 import { Component, createRef } from 'react';
+
+import { useBackend } from '../backend';
+import { Box, Button, Divider, Input, Section, Table } from '../components';
+import { ButtonConfirm } from '../components/Button';
+import { Window } from '../layouts';
 
 export const TicketMessenger = (props) => {
   return (
@@ -23,7 +24,17 @@ export const TicketMessenger = (props) => {
 
 export const TicketActionBar = (props) => {
   const { act, data } = useBackend();
-  const { disconnected, time_opened, world_time, claimee_key, antag_status, id, sender, is_admin_type, open } = data;
+  const {
+    disconnected,
+    time_opened,
+    world_time,
+    claimee_key,
+    antag_status,
+    id,
+    sender,
+    is_admin_type,
+    open,
+  } = data;
   return (
     <Box>
       <Box bold inline>
@@ -58,7 +69,13 @@ export const TicketActionBar = (props) => {
 
       <Divider />
       <Box>
-        {is_admin_type ? disconnected ? 'DISCONNECTED' : <TicketFullMonty /> : null}
+        {is_admin_type ? (
+          disconnected ? (
+            'DISCONNECTED'
+          ) : (
+            <TicketFullMonty />
+          )
+        ) : null}
         <TicketClosureStates admin={is_admin_type} />
       </Box>
     </Box>
@@ -93,7 +110,10 @@ export const TicketClosureStates = ({ admin }) => {
         </>
       ) : null}
       <Button content="RSLVE" onClick={() => act('resolve')} />
-      <ButtonConfirm content={admin ? 'MHELP' : 'AHELP'} onClick={() => act(`${admin ? 'mentor' : 'admin'}help`)} />
+      <ButtonConfirm
+        content={admin ? 'MHELP' : 'AHELP'}
+        onClick={() => act(`${admin ? 'mentor' : 'admin'}help`)}
+      />
     </Box>
   );
 };
@@ -154,7 +174,10 @@ class TicketMessages extends Component {
                 <Box>
                   <Box bold>
                     {message.from && message.to
-                      ? 'PM from ' + decodeHtmlEntities(message.from) + ' to ' + decodeHtmlEntities(message.to)
+                      ? 'PM from ' +
+                        decodeHtmlEntities(message.from) +
+                        ' to ' +
+                        decodeHtmlEntities(message.to)
                       : decodeHtmlEntities(message.from)
                         ? 'Reply PM from ' + decodeHtmlEntities(message.from)
                         : decodeHtmlEntities(message.to)

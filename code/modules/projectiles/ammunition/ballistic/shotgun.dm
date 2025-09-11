@@ -11,7 +11,7 @@
 
 /obj/item/ammo_casing/shotgun/beanbag
 	name = "beanbag slug"
-	desc = "A gold-tipped beanbag slug for riot control."
+	desc = "A less-lethal beanbag slug for riot control."
 	icon_state = "bshell"
 	high_power = FALSE
 	custom_materials = list(/datum/material/iron=4000, /datum/material/copper=2000)
@@ -70,7 +70,7 @@
 
 /obj/item/ammo_casing/shotgun/rubbershot
 	name = "rubber shot"
-	desc = "A bronze-tipped shotgun casing filled with densely-packed rubber balls, used to incapacitate crowds from a distance."
+	desc = "A gold-tipped shotgun casing filled with densely-packed rubber balls, used to incapacitate crowds from a distance."
 	icon_state = "bshell"
 	high_power = FALSE
 	projectile_type = /obj/projectile/bullet/pellet/shotgun_rubbershot
@@ -136,6 +136,7 @@
 	icon_state = "dtshell"
 	high_power = FALSE
 	projectile_type = /obj/projectile/bullet/dart
+	custom_materials = list(/datum/material/iron=4000, /datum/material/silver=2000)
 	var/reagent_amount = 30
 
 /obj/item/ammo_casing/shotgun/dart/Initialize(mapload)

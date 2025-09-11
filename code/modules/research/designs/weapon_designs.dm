@@ -49,49 +49,49 @@
 	build_type = PROTOLATHE
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
-	materials = list(/datum/material/iron = 4000, /datum/material/copper = 2000)
+	materials = list(/datum/material/iron = 4000, /datum/material/copper = 500)
 
 /datum/design/beanbag_slug/sec
 	id = "sec_beanbag_slug"
 	build_type = PROTOLATHE
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
-	materials = list(/datum/material/iron = 4000, /datum/material/copper = 2000)
+	materials = list(/datum/material/iron = 4000, /datum/material/copper = 500)
 
 /datum/design/shotgun_slug/sec
 	id = "sec_slug"
 	build_type = PROTOLATHE
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
-	materials = list(/datum/material/iron = 4000, /datum/material/gold = 2000)
+	materials = list(/datum/material/iron = 4000, /datum/material/gold = 500)
 
 /datum/design/buckshot_armour_shell/sec
 	id = "sec_bapshot"
 	build_type = PROTOLATHE
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
-	materials = list(/datum/material/iron = 4000, /datum/material/gold = 2000)
+	materials = list(/datum/material/iron = 4000, /datum/material/gold = 500)
 
 /datum/design/buckshot_shell/sec
 	id = "sec_bshot"
 	build_type = PROTOLATHE
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
-	materials = list(/datum/material/iron = 4000, /datum/material/copper = 2000)
+	materials = list(/datum/material/iron = 4000, /datum/material/copper = 500)
 
 /datum/design/shotgun_dart/sec
 	id = "sec_dart"
 	build_type = PROTOLATHE
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
-	materials = list(/datum/material/iron = 4000, /datum/material/gold = 2000)
+	materials = list(/datum/material/iron = 4000, /datum/material/silver = 2000)
 
 /datum/design/incendiary_slug/sec
 	id = "sec_Islug"
 	build_type = PROTOLATHE
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
-	materials = list(/datum/material/iron = 4000, /datum/material/plasma = 2000)
+	materials = list(/datum/material/iron = 4000, /datum/material/plasma = 500)
 
 /datum/design/breaching_slug/sec
 	name = "Breaching Slug"
@@ -368,7 +368,7 @@
 	desc = "A high-tech shotgun shell which can be loaded with materials to produce unique effects."
 	id = "techshotshell"
 	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 2000, /datum/material/diamond = 1000, /datum/material/bluespace = 1000)
+	materials = list(/datum/material/iron = 2000, /datum/material/diamond = 2000, /datum/material/bluespace = 2000)
 	build_path = /obj/item/ammo_casing/shotgun/techshell
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY | DEPARTMENTAL_FLAG_SCIENCE
@@ -408,7 +408,7 @@
 	desc = "A shotgun dart designed with similar internals to that of a cryostasis beaker, allowing reagents to not react when inside."
 	id = "shotgundartcryostasis"
 	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 2000)
+	materials = list(/datum/material/iron = 4000, /datum/material/diamond=2000)
 	build_path = /obj/item/ammo_casing/shotgun/dart/noreact
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY

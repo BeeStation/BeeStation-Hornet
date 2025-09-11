@@ -791,7 +791,7 @@
 	name = "Shotgun Slug"
 	id = "shotgun_slug"
 	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 4000)
+	materials = list(/datum/material/iron = 4000, /datum/material/copper = 500)
 	build_path = /obj/item/ammo_casing/shotgun
 	category = list("hacked", "Security")
 
@@ -799,7 +799,7 @@
 	name = "Buckshot Shell"
 	id = "buckshot_shell"
 	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 4000)
+	materials = list(/datum/material/iron = 4000, /datum/material/copper = 500)
 	build_path = /obj/item/ammo_casing/shotgun/buckshot
 	category = list("hacked", "Security")
 
@@ -807,7 +807,7 @@
 	name = "Armour-Piercing Buckshot Shell"
 	id = "buckshot_armour_shell"
 	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 3000, /datum/material/gold = 2000)
+	materials = list(/datum/material/iron = 3000, /datum/material/gold = 500)
 	build_path = /obj/item/ammo_casing/shotgun/buckshot/armour_piercing
 	category = list("hacked", "Security")
 
@@ -815,7 +815,7 @@
 	name = "Shotgun Dart"
 	id = "shotgun_dart"
 	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 4000)
+	materials = list(/datum/material/iron = 4000, /datum/material/silver = 2000)
 	build_path = /obj/item/ammo_casing/shotgun/dart
 	category = list("hacked", "Security")
 
@@ -823,7 +823,7 @@
 	name = "Incendiary Slug"
 	id = "incendiary_slug"
 	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 4000)
+	materials = list(/datum/material/iron = 4000, /datum/material/plasma = 500)
 	build_path = /obj/item/ammo_casing/shotgun/incendiary
 	category = list("hacked", "Security")
 

@@ -12,6 +12,7 @@ export const death_rattle: FeatureToggle = {
   name: 'Deaths',
   category: 'GHOST',
   subcategory: 'Chat',
-  description: 'When enabled, you will be notified as a ghost whenever someone dies.',
+  description:
+    'When enabled, you will be notified as a ghost whenever someone dies.',
   component: CheckboxInput,
 };

@@ -331,7 +331,7 @@
 /obj/machinery/emp_act(severity)
 	. = ..()
 	if(use_power && !machine_stat && !(. & EMP_PROTECT_SELF))
-		use_power(7500/severity)
+		use_power(7.5 KILOWATT/severity)
 		//Set the machine to be EMPed
 		machine_stat |= EMPED
 		//Reset EMP state in 120/60 seconds
