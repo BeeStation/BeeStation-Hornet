@@ -160,7 +160,7 @@
 		power_activated_sucessfully()
 		living_target.balloon_alert(owner, "revived [living_target]!")
 		living_target.mind.grab_ghost()
-		living_target.revive(full_heal = TRUE)
+		living_target.revive(HEAL_ALL)
 		return
 
 	if(IS_CURATOR(living_target))
@@ -174,7 +174,7 @@
 	power_activated_sucessfully()
 
 	living_target.mind.grab_ghost()
-	living_target.revive(full_heal = TRUE)
+	living_target.revive(HEAL_ALL)
 
 	vassaldatum = IS_VASSAL(living_target)
 	vassaldatum.special_type = TREMERE_VASSAL //don't turn them into a favorite please
