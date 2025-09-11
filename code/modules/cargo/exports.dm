@@ -237,18 +237,18 @@ then the player gets the profit from selling his own wasted time.
 GLOBAL_LIST_EMPTY(exports_list)
 
 /proc/setupExports()
-    var/list/catchalls = list()
+	var/list/catchalls = list()
 
-    for(var/subtype in subtypesof(/datum/export))
-        var/datum/export/E = new subtype
-        if(!E.export_types?.len)
-            continue
+	for(var/subtype in subtypesof(/datum/export))
+		var/datum/export/E = new subtype
+		if(!E.export_types?.len)
+			continue
 
-        // Detect catch-all
-        if(istype(E, /datum/export/item_price))
-            catchalls += E
-        else
-            GLOB.exports_list += E
+		// Detect catch-all
+		if(istype(E, /datum/export/item_price))
+			catchalls += E
+		else
+			GLOB.exports_list += E
 
-    // Now append catch-alls so they run last
-    GLOB.exports_list += catchalls
+	// Now append catch-alls so they run last
+	GLOB.exports_list += catchalls
