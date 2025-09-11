@@ -234,7 +234,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/trap/eldritch)
 	if(!iscarbon(victim))
 		return
 	var/mob/living/carbon/carbon_victim = victim
-	carbon_victim.adjustStaminaLoss(80)
+	carbon_victim.adjustExhaustion(80)
 	carbon_victim.silent += 10
 	carbon_victim.stuttering += 30
 	carbon_victim.Jitter(10)

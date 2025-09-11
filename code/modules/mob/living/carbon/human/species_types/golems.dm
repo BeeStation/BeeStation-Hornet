@@ -1241,7 +1241,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		if(chem.volume >= 6)
 			H.reagents.remove_reagent(chem.type, chem.volume - 5)
 			to_chat(H, span_warning("The excess milk is dripping off your bones!"))
-		H.heal_bodypart_damage(1.5,0, 0)
+		H.heal_bodypart_injuries(BRUTE, 1.5)
 		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM)
 		return TRUE
 

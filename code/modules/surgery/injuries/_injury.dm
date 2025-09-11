@@ -30,6 +30,8 @@
 	/// progression of the injury.
 	var/damage_multiplier = 0
 	/// Current amount of damage taken
+	/// Progression represents the amount of damage applied to the injury, so typically
+	/// would be in the range of 0-100, but it may be more in cases of extreme damage.
 	var/progression = 0
 	/// Effectiveness modifier to the limb. Reduces the effectiveness on the limb even
 	/// without causing damage to it.
@@ -107,6 +109,7 @@
 		absorbed_damage += absorbed_amount
 		// Increase our total damage amount
 		progression += delta_damage - absorbed_amount
+		on_progression_changed()
 
 /datum/injury/proc/force_apply_damage(delta_damage)
 	// Absorb damage if we are a brand new injury.
@@ -116,6 +119,10 @@
 	absorbed_damage += absorbed_amount
 	// Increase our total damage amount
 	progression += delta_damage - absorbed_amount
+	on_progression_changed()
+
+/datum/injury/proc/on_progression_changed()
+	return
 
 /// Called when damage is taken
 /// Return false if the damage is not relevant and should be ignored, true otherwise.
@@ -151,3 +158,5 @@
 /datum/injury/proc/heal()
 	if (healed_type)
 		transition_to(healed_type)
+
+/datum/injury/proc/get_e

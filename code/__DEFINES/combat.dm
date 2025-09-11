@@ -4,9 +4,9 @@
 
 //Damage defines //TODO: merge these down to reduce on defines
 /// Physical fracturing and warping of the material.
-#define BRUTE "brute"
+#define BRUTE /datum/injury/brute
 /// Scorching and charring of the material.
-#define BURN "burn"
+#define BURN /datum/injury/burn
 /// Conciousness damage. Unlike stamina damage, this
 /// damage type stacks up with regular damage and will
 /// result in you falling unconcious if you go over the crit

@@ -543,8 +543,6 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		var/datum/injury/burn_injury = BP.get_injury_by_base(/datum/injury/healthy_skin_burn)
 		if (burn_injury.type != /datum/injury/limb_destroyed && burn_injury.type != /datum/injury/third_degree_burn)
 			is_burn_destroyed = FALSE
-		total_stamina += (BP.stamina_dam * BP.stam_damage_coeff)
-	staminaloss = round(total_stamina, DAMAGE_PRECISION)
 	// Send the signal here in case our stat changes as the result of a signal call
 	SEND_SIGNAL(src, COMSIG_LIVING_HEALTH_UPDATE)
 	// Are we completely saturated in burn injuries?
@@ -557,7 +555,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		remove_movespeed_modifier(/datum/movespeed_modifier/carbon_softcrit)
 
 /mob/living/carbon/update_stamina(extend_stam_crit = FALSE)
-	var/stam = getStaminaLoss()
+	var/stam = getExhaustion()
 	if(stam >= DAMAGE_PRECISION && (maxHealth - stam) <= crit_threshold && !HAS_TRAIT(src, TRAIT_NOSTAMCRIT))
 		if(!stat)
 			if(extend_stam_crit || !HAS_TRAIT_FROM(src, TRAIT_INCAPACITATED, STAMINA))
@@ -708,7 +706,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	else
 
 		if(shown_stamina_loss == null)
-			shown_stamina_loss = getStaminaLoss()
+			shown_stamina_loss = getExhaustion()
 
 		if(shown_stamina_loss >= stam_crit_threshold)
 			hud_used.stamina.icon_state = "stamina_crit"

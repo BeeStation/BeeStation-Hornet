@@ -145,7 +145,7 @@
 	source.adjustFireLoss(-2, FALSE)
 	source.adjustToxLoss(-2, FALSE, forced = TRUE)
 	source.adjustOxyLoss(-0.5, FALSE)
-	source.adjustStaminaLoss(-2)
+	source.adjustExhaustion(-2)
 	source.AdjustAllImmobility(-5)
 
 /datum/heretic_knowledge/rust_mark
@@ -345,7 +345,7 @@
 	source.adjustFireLoss(-4, FALSE)
 	source.adjustToxLoss(-4, FALSE, forced = TRUE)
 	source.adjustOxyLoss(-4, FALSE)
-	source.adjustStaminaLoss(-20)
+	source.adjustExhaustion(-20)
 
 /**
  * #Rust spread datum

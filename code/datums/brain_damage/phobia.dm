@@ -142,7 +142,7 @@
 				owner.emote("scream")
 				if(prob(stress * 5))
 					fearscore = 29 //we don't get the adrenaline rush, and keel over like a baby immediately
-				owner.adjustStaminaLoss(-75)
+				owner.adjustExhaustion(-75)
 				owner.SetStun(0)
 				owner.SetKnockdown(0)
 				owner.SetImmobilized(0)
@@ -247,7 +247,7 @@
 			if(reason)
 				to_chat(owner, span_warning("[reason] makes you uneasy..."))
 		if(PHOBIA_STATE_FIGHTORFLIGHT)
-			owner.adjustStaminaLoss(-10 * (min(1, spooklevel)))
+			owner.adjustExhaustion(-10 * (min(1, spooklevel)))
 			owner.take_consciousness_damage(-100)
 			owner.SetStun(0)
 			owner.SetKnockdown(0)

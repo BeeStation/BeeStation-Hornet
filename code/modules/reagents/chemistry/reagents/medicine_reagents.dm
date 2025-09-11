@@ -47,7 +47,8 @@
 	var/full_heal_flags = ~(HEAL_BRUTE|HEAL_BURN|HEAL_TOX|HEAL_RESTRAINTS|HEAL_ORGANS)
 
 /datum/reagent/medicine/adminordrazine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
-	affected_mob.heal_bodypart_damage(5 * REM * delta_time, 5 * REM * delta_time, updating_health = FALSE)
+	affected_mob.heal_bodypart_injuries(BRUTE, 5 * REM * delta_time)
+	affected_mob.heal_bodypart_injuries(BRUTE, 5 * REM * delta_time)
 	affected_mob.adjustToxLoss(-5 * REM * delta_time, updating_health = FALSE, forced = TRUE)
 	// Heal everything! That we want to. But really don't heal reagents. Otherwise we'll lose ... us.
 	affected_mob.fully_heal(full_heal_flags & ~HEAL_ALL_REAGENTS)
@@ -203,7 +204,8 @@
 /datum/reagent/medicine/rezadone/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	affected_mob.setCloneLoss(0) //Rezadone is almost never used in favor of cryoxadone. Hopefully this will change that. // No such luck so far
-	affected_mob.heal_bodypart_damage(1 * REM * delta_time, 1 * REM * delta_time, updating_health = FALSE)
+	affected_mob.heal_bodypart_injuries(BRUTE, 1 * REM * delta_time)
+	affected_mob.heal_bodypart_injuries(BRUTE, 1 * REM * delta_time)
 	REMOVE_TRAIT(affected_mob, TRAIT_DISFIGURED, TRAIT_GENERIC)
 	return UPDATE_MOB_HEALTH
 
@@ -248,9 +250,8 @@
 			if(show_message)
 				to_chat(exposed_mob, span_warning("You don't feel so good..."))
 		else if(exposed_mob.getFireLoss() && method == PATCH)
-			if(affecting.heal_damage(burn = reac_volume))
-				exposed_mob.update_damage_overlays()
-			exposed_mob.adjustStaminaLoss(reac_volume*2)
+			affecting.heal_injury(BURN, reac_volume)
+			exposed_mob.adjustExhaustion(reac_volume*2)
 			if(show_message)
 				to_chat(exposed_mob, span_danger("You feel your burns healing! It stings like hell!"))
 			exposed_mob.emote("scream")
@@ -305,7 +306,7 @@
 	. = ..()
 	affected_mob.adjustFireLoss(-3 * REM * delta_time, updating_health = FALSE)
 	if(affected_mob.getFireLoss() != 0)
-		affected_mob.adjustStaminaLoss(3 * REM * delta_time, updating_health = FALSE)
+		affected_mob.adjustExhaustion(3 * REM * delta_time, updating_health = FALSE)
 	return UPDATE_MOB_HEALTH
 
 /datum/reagent/medicine/oxandrolone/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -333,9 +334,8 @@
 			if(show_message)
 				to_chat(exposed_mob, span_warning("You don't feel so good..."))
 		else if(exposed_mob.getBruteLoss() && method == PATCH)
-			if(affecting.heal_damage(reac_volume))
-				exposed_mob.update_damage_overlays()
-			exposed_mob.adjustStaminaLoss(reac_volume*2)
+			affecting.heal_injury(BRUTE, reac_volume)
+			exposed_mob.adjustExhaustion(reac_volume*2)
 			if(show_message)
 				to_chat(exposed_mob, span_danger("You feel your bruises healing! It stings like hell!"))
 			exposed_mob.emote("scream")
@@ -454,10 +454,9 @@
 		if(exposed_mob.stat == DEAD)
 			show_message = FALSE
 		if(method == PATCH)
-			//you could be targeting a limb that doesnt exist while applying the patch, so lets avoid a runtime
-			if(affecting.heal_damage(brute = reac_volume, burn = reac_volume))
-				exposed_mob.update_damage_overlays()
-			exposed_mob.adjustStaminaLoss(reac_volume*2)
+			affecting.heal_injury(BRUTE, reac_volume)
+			affecting.heal_injury(BURN, reac_volume)
+			exposed_mob.adjustExhaustion(reac_volume*2)
 			if(show_message)
 				to_chat(exposed_mob, span_danger("You feel your burns and bruises healing! It stings like hell!"))
 			SEND_SIGNAL(exposed_mob, COMSIG_ADD_MOOD_EVENT, "painful_medicine", /datum/mood_event/painful_medicine)
@@ -627,7 +626,7 @@
 	. = ..()
 	affected_mob.adjustBruteLoss(-3 * REM * delta_time, updating_health = FALSE)
 	if(affected_mob.getBruteLoss() != 0)
-		affected_mob.adjustStaminaLoss(3 * REM * delta_time, updating_health = FALSE)
+		affected_mob.adjustExhaustion(3 * REM * delta_time, updating_health = FALSE)
 	return UPDATE_MOB_HEALTH
 
 /datum/reagent/medicine/sal_acid/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -706,7 +705,7 @@
 			affected_mob.Jitter(10)
 
 	affected_mob.AdjustAllImmobility(-20 * REM * delta_time)
-	affected_mob.adjustStaminaLoss(-10 * REM * delta_time, FALSE)
+	affected_mob.adjustExhaustion(-10 * REM * delta_time, FALSE)
 	return UPDATE_MOB_HEALTH
 
 /datum/reagent/medicine/ephedrine/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -930,7 +929,7 @@
 
 /datum/reagent/medicine/epinephrine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.adjustStaminaLoss(-0.5 * REM * delta_time, updating_health = FALSE)
+	affected_mob.adjustExhaustion(-0.5 * REM * delta_time, updating_health = FALSE)
 
 	if(affected_mob.stat >= SOFT_CRIT)
 		affected_mob.adjustToxLoss(-0.5 * REM * delta_time, updating_health = FALSE)
@@ -952,7 +951,7 @@
 /datum/reagent/medicine/epinephrine/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(DT_PROB(18, delta_time))
-		affected_mob.adjustStaminaLoss(2.5 * REM * delta_time, updating_health = FALSE)
+		affected_mob.adjustExhaustion(2.5 * REM * delta_time, updating_health = FALSE)
 		affected_mob.adjustToxLoss(1 * REM * delta_time, updating_health = FALSE)
 		affected_mob.losebreath++
 		return UPDATE_MOB_HEALTH
@@ -1083,7 +1082,7 @@
 /datum/reagent/medicine/amphetamine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	affected_mob.AdjustAllImmobility(-60 * REM * delta_time)
-	affected_mob.adjustStaminaLoss(-35 * REM * delta_time, updating_health = FALSE)
+	affected_mob.adjustExhaustion(-35 * REM * delta_time, updating_health = FALSE)
 
 	if(affected_mob.get_total_damage() > 50 && affected_mob.stat == CONSCIOUS)
 		affected_mob.adjustOxyLoss(-1 * REM * delta_time, updating_health = FALSE)
@@ -1096,7 +1095,7 @@
 /datum/reagent/medicine/amphetamine/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(DT_PROB(18, delta_time))
-		affected_mob.adjustStaminaLoss(2.5, updating_health = FALSE)
+		affected_mob.adjustExhaustion(2.5, updating_health = FALSE)
 		affected_mob.adjustToxLoss(1, updating_health = FALSE)
 		affected_mob.losebreath++
 		return UPDATE_MOB_HEALTH
@@ -1114,13 +1113,13 @@
 /datum/reagent/medicine/pumpup/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	affected_mob.AdjustAllImmobility(-80, FALSE)
-	affected_mob.adjustStaminaLoss(-80, updating_health = FALSE)
+	affected_mob.adjustExhaustion(-80, updating_health = FALSE)
 	affected_mob.Jitter(300)
 
 /datum/reagent/medicine/pumpup/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(DT_PROB(33, delta_time))
-		affected_mob.adjustStaminaLoss(2.5 * REM, updating_health = FALSE)
+		affected_mob.adjustExhaustion(2.5 * REM, updating_health = FALSE)
 		affected_mob.adjustToxLoss(1 * REM, updating_health = FALSE)
 		affected_mob.losebreath++
 		return UPDATE_MOB_HEALTH
@@ -1189,7 +1188,7 @@
 	. = ..()
 	affected_mob.adjustOxyLoss(-3 * REM * delta_time, updating_health = FALSE)
 	if(affected_mob.getOxyLoss() != 0)
-		affected_mob.adjustStaminaLoss(3 * REM * delta_time, updating_health = FALSE)
+		affected_mob.adjustExhaustion(3 * REM * delta_time, updating_health = FALSE)
 	return UPDATE_MOB_HEALTH
 
 /datum/reagent/medicine/dexalinp/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -1418,7 +1417,7 @@
 	affected_mob.adjustToxLoss(-3 * REM * delta_time, updating_health = FALSE)
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1 * REM * delta_time, 150) //This does, after all, come from ambrosia, and the most powerful ambrosia in existence, at that!
 	affected_mob.adjustCloneLoss(-1 * REM * delta_time, updating_health = FALSE)
-	affected_mob.adjustStaminaLoss(-30 * REM * delta_time, updating_health = FALSE)
+	affected_mob.adjustExhaustion(-30 * REM * delta_time, updating_health = FALSE)
 	affected_mob.jitteriness = clamp(affected_mob.jitteriness + (3 * REM * delta_time), 0, 30)
 	affected_mob.druggy = clamp(affected_mob.druggy + (10 * REM * delta_time), 0, 15 * REM * delta_time) //See above
 	return UPDATE_MOB_HEALTH
@@ -1440,7 +1439,7 @@
 /datum/reagent/medicine/haloperidol/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	affected_mob.drowsyness += 2 * REM * delta_time
-	affected_mob.adjustStaminaLoss(2.5 * REM * delta_time, updating_health = FALSE)
+	affected_mob.adjustExhaustion(2.5 * REM * delta_time, updating_health = FALSE)
 
 	for(var/datum/reagent/drug/drug in affected_mob.reagents.reagent_list)
 		affected_mob.reagents.remove_reagent(drug.type, 5 * REM * delta_time)
@@ -1463,7 +1462,8 @@
 
 /datum/reagent/medicine/lavaland_extract/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.heal_bodypart_damage(5 * REM * delta_time, 5 * REM * delta_time, updating_health = FALSE)
+	affected_mob.heal_bodypart_injuries(BRUTE, 5 * REM * delta_time)
+	affected_mob.heal_bodypart_injuries(BRUTE, 5 * REM * delta_time)
 	return UPDATE_MOB_HEALTH
 
 /datum/reagent/medicine/lavaland_extract/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -1484,7 +1484,7 @@
 /datum/reagent/medicine/changelingadrenaline/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	affected_mob.AdjustAllImmobility(-20 * REM * delta_time)
-	affected_mob.adjustStaminaLoss(-20 * REM * delta_time, updating_health = FALSE)
+	affected_mob.adjustExhaustion(-20 * REM * delta_time, updating_health = FALSE)
 	return UPDATE_MOB_HEALTH
 
 /datum/reagent/medicine/changelingadrenaline/overdose_process(mob/living/affected_mob, delta_time, times_fired)
@@ -1567,7 +1567,7 @@
 	if(!overdosed) // We do not want any effects on OD
 		overdose_threshold = overdose_threshold + ((rand(-10, 10) / 10) * REM * delta_time) // for extra fun
 		affected_mob.AdjustAllImmobility(-20 * REM * delta_time)
-		affected_mob.adjustStaminaLoss(-15 * REM * delta_time, updating_health = FALSE)
+		affected_mob.adjustExhaustion(-15 * REM * delta_time, updating_health = FALSE)
 		affected_mob.Jitter(1)
 		metabolization_rate = 0.005 * REAGENTS_METABOLISM * rand(5, 20) // randomizes metabolism between 0.02 and 0.08 per second
 		return UPDATE_MOB_HEALTH
@@ -1589,7 +1589,7 @@
 				affected_mob.losebreath++
 		if(41 to 80)
 			affected_mob.adjustOxyLoss(0.1 * REM * delta_time, updating_health = FALSE)
-			affected_mob.adjustStaminaLoss(0.1 * REM * delta_time, updating_health = FALSE)
+			affected_mob.adjustExhaustion(0.1 * REM * delta_time, updating_health = FALSE)
 			affected_mob.jitteriness = min(affected_mob.jitteriness + (1 * REM * delta_time), 20)
 			affected_mob.stuttering = min(affected_mob.stuttering + (1 * REM * delta_time), 20)
 			affected_mob.Dizzy(10 * REM * delta_time)
@@ -1603,12 +1603,12 @@
 		if(81)
 			to_chat(affected_mob, "You feel too exhausted to continue!") // at this point you will eventually die unless you get charcoal
 			affected_mob.adjustOxyLoss(0.1 * REM * delta_time, updating_health = FALSE)
-			affected_mob.adjustStaminaLoss(0.1 * REM * delta_time, updating_health = FALSE)
+			affected_mob.adjustExhaustion(0.1 * REM * delta_time, updating_health = FALSE)
 			. = UPDATE_MOB_HEALTH
 		if(82 to INFINITY)
 			affected_mob.Sleeping(100 * REM * delta_time)
 			affected_mob.adjustOxyLoss(1.5 * REM * delta_time, updating_health = FALSE)
-			affected_mob.adjustStaminaLoss(1.5 * REM * delta_time, updating_health = FALSE)
+			affected_mob.adjustExhaustion(1.5 * REM * delta_time, updating_health = FALSE)
 			. = UPDATE_MOB_HEALTH
 
 /datum/reagent/medicine/psicodine

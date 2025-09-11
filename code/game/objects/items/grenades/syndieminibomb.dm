@@ -67,6 +67,6 @@
 	for(var/turf/open/floor/F in view(freeze_range,loc))
 		F.MakeSlippery(TURF_WET_PERMAFROST, 6 MINUTES)
 		for(var/mob/living/carbon/L in F)
-			L.adjustStaminaLoss(stamina_damage)
+			L.adjustExhaustion(stamina_damage)
 			L.adjust_bodytemperature(-230)
 	qdel(src)

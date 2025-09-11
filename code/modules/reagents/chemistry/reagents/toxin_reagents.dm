@@ -149,7 +149,7 @@
 		affected_mob.adjustToxLoss(rand(1, 10), updating_health = FALSE)
 		return UPDATE_MOB_HEALTH
 	else if(DT_PROB(23, delta_time))
-		affected_mob.heal_bodypart_damage(5, updating_health = FALSE)
+		affected_mob.heal_bodypart_injuries(BRUTE, 5 * REM * delta_time)
 		return UPDATE_MOB_HEALTH
 
 /datum/reagent/toxin/minttoxin
@@ -194,9 +194,9 @@
 /datum/reagent/toxin/zombiepowder/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(current_cycle >= 10) // delayed activation for toxin
-		affected_mob.adjustStaminaLoss((current_cycle - 5) * REM * delta_time, updating_health = FALSE)
+		affected_mob.adjustExhaustion((current_cycle - 5) * REM * delta_time, updating_health = FALSE)
 		. = UPDATE_MOB_HEALTH
-	if(affected_mob.getStaminaLoss() >= 145 && !HAS_TRAIT(affected_mob, TRAIT_FAKEDEATH)) // fake death tied to stamina for interesting interactions - 23 ticks to fake death with pure ZP
+	if(affected_mob.getExhaustion() >= 145 && !HAS_TRAIT(affected_mob, TRAIT_FAKEDEATH)) // fake death tied to stamina for interesting interactions - 23 ticks to fake death with pure ZP
 		affected_mob.fakedeath(type)
 
 /datum/reagent/toxin/zombiepowder/on_mob_end_metabolize(mob/living/carbon/affected_mob)
@@ -421,7 +421,7 @@
 /datum/reagent/toxin/staminatoxin/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	data = max(data - 1, 3)
-	affected_mob.adjustStaminaLoss(data * REM * delta_time, updating_health = FALSE)
+	affected_mob.adjustExhaustion(data * REM * delta_time, updating_health = FALSE)
 	return UPDATE_MOB_HEALTH
 
 /datum/reagent/toxin/polonium
@@ -553,8 +553,8 @@
 	if(holder.has_reagent(/datum/reagent/medicine/calomel) || holder.has_reagent(/datum/reagent/medicine/pen_acid) || holder.has_reagent(/datum/reagent/medicine/charcoal) || holder.has_reagent(/datum/reagent/medicine/carthatoline))
 		current_cycle += 5 // Prevents using purgatives while in combat
 
-	if(affected_mob.getStaminaLoss() <= 70) //Will never stamcrit
-		affected_mob.adjustStaminaLoss(min(volume * 1.5, 15) * REM * delta_time, updating_health = FALSE)
+	if(affected_mob.getExhaustion() <= 70) //Will never stamcrit
+		affected_mob.adjustExhaustion(min(volume * 1.5, 15) * REM * delta_time, updating_health = FALSE)
 		return UPDATE_MOB_HEALTH
 
 /datum/reagent/toxin/fentanyl
@@ -693,7 +693,7 @@
 
 /datum/reagent/toxin/sodium_thiopental/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.adjustStaminaLoss(10 * REM * delta_time, updating_health = FALSE)
+	affected_mob.adjustExhaustion(10 * REM * delta_time, updating_health = FALSE)
 	if(current_cycle >= 10)
 		affected_mob.Sleeping(40 * REM * delta_time)
 
@@ -974,7 +974,7 @@
 
 /datum/reagent/toxin/bonehurtingjuice/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.adjustStaminaLoss(7.5 * REM * delta_time, updating_health = FALSE)
+	affected_mob.adjustExhaustion(7.5 * REM * delta_time, updating_health = FALSE)
 
 	if(DT_PROB(10, delta_time))
 		switch(rand(1, 3))
@@ -1050,7 +1050,7 @@
 /datum/reagent/toxin/morphvenom/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	affected_mob.set_drugginess(5)
-	affected_mob.adjustStaminaLoss(30 * REM * delta_time, updating_health = FALSE)
+	affected_mob.adjustExhaustion(30 * REM * delta_time, updating_health = FALSE)
 	affected_mob.silent = max(affected_mob.silent, 3 * REM * delta_time)
 	affected_mob.confused = max(affected_mob.confused, 10 * REM * delta_time)
 	return UPDATE_MOB_HEALTH

@@ -4,3 +4,4 @@
 	max_absorption = 0
 	external = TRUE
 	status_icon_state = "brute"
+	damage_multiplier = 0.25

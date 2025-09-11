@@ -647,7 +647,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(blockhand?.bodypart_disabled)
 		to_chat(owner, span_danger("You're too exausted to block the attack!"))
 		return 0
-	else if(HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE) && owner.getStaminaLoss() >= 30)
+	else if(HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE) && owner.getExhaustion() >= 30)
 		to_chat(owner, span_danger("You're too exausted to block the attack!"))
 		return 0
 	if(block_flags & BLOCKING_ACTIVE && owner.get_active_held_item() != src) //you can still parry with the offhand
@@ -735,7 +735,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 				INVOKE_ASYNC(L, TYPE_PROC_REF(/atom, attackby), src, owner)
 				owner.visible_message(span_danger("[L] injures themselves on [owner]'s [src]!"))
 	owner.take_direct_damage(attackforce * (100 - block_power) * 0.01, STAMINA, attackflag, blockhand)
-	if((owner.getStaminaLoss() >= 35 && HAS_TRAIT(src, TRAIT_NODROP)) || (HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE) && owner.getStaminaLoss() >= 30))//if you don't drop the item, you can't block for a few seconds
+	if((owner.getExhaustion() >= 35 && HAS_TRAIT(src, TRAIT_NODROP)) || (HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE) && owner.getExhaustion() >= 30))//if you don't drop the item, you can't block for a few seconds
 		INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob/living/carbon/human, blockbreak))
 	if(attackforce)
 		owner.changeNext_move(CLICK_CD_MELEE)

@@ -1131,4 +1131,5 @@
 	if(cell)
 		cell.charge = min(cell.charge + amount, cell.maxcharge)
 	if(repairs)
-		heal_bodypart_damage(repairs, repairs - 1)
+		heal_bodypart_injuries(BRUTE, repairs)
+		heal_bodypart_injuries(BURN, repairs)

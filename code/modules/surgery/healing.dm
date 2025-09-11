@@ -74,7 +74,8 @@
 		urhealedamt_burn *= 0.55
 		umsg += " as best as you can while [target.p_they()] [target.p_have()] clothing on"
 		tmsg += " as best as [user.p_they()] can while [target] has clothing on"
-	target.heal_bodypart_damage(urhealedamt_brute,urhealedamt_burn)
+	target.heal_bodypart_injuries(BRUTE, urhealedamt_brute)
+	target.heal_bodypart_injuries(BURN, urhealedamt_burn)
 	umsg += get_progress(user, target, urhealedamt_brute, urhealedamt_burn)
 
 	display_results(user, target, span_notice("[umsg]."),

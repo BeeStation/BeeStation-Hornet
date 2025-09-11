@@ -674,8 +674,8 @@
 	else if (is_bandaged())
 		combined_msg += span_danger("Your [bleed_msg] is bandaged!")
 
-	if(getStaminaLoss())
-		if(getStaminaLoss() > 30)
+	if(getExhaustion())
+		if(getExhaustion() > 30)
 			combined_msg += span_info("You're completely exhausted.")
 		else
 			combined_msg += span_info("You feel fatigued.")

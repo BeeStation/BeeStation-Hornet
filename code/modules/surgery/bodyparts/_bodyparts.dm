@@ -65,16 +65,12 @@
 	var/stam_damage_coeff = 0.7 //Why is this the default???
 	var/brutestate = 0
 	var/burnstate = 0
-	var/max_stamina_damage = 0
 	/// How much damage have we accumulated from our injuries.
 	var/accumulated_damage = 0
 	/// How much health this bodypart has
 	/// When damage reaches this value, it will be disabled.
 	/// Both injuries and regular damage take from this value.
 	var/max_damage = 50
-
-	var/stamina_dam = 0
-	var/stamina_heal_rate = 1	//Stamina heal multiplier
 
 	// Damage reduction variables for damage handled on the limb level. Handled after worn armor.
 	///Amount subtracted from brute damage inflicted on the limb.
@@ -976,3 +972,18 @@
 		owner.update_body_parts()
 	else
 		update_icon_dropped()
+
+/obj/item/bodypart/proc/format_injury_description(external_only = FALSE)
+	var/list/injury_words = list()
+	// Gather all the injury words
+	for (var/datum/injury/injury in injuries)
+		if (!injury.examine_description)
+			continue
+		if (external_only && !injury.external)
+			continue
+		injury_words += injury.examine_description
+	if (!length(injury_words))
+		return "is fine"
+	if (length(injury_words) == 1)
+		return "has [injury_words[1]]"
+	return "has [jointext(injury_words.Splice(1, -1), ", ")] and [injury_words[length(injury_words)]]"

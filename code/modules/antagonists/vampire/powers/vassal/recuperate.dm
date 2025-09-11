@@ -37,7 +37,7 @@
 		return
 
 	user.Jitter(5 SECONDS)
-	user.adjustStaminaLoss(bloodcost * 1.1)
+	user.adjustExhaustion(bloodcost * 1.1)
 	user.adjustBruteLoss(-2.5)
 	user.adjustToxLoss(-2, forced = TRUE)
 	// Plasmamen won't lose blood, they don't have any, so they don't heal from Burn.

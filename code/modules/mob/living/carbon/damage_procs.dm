@@ -63,26 +63,21 @@
 		amount = min(amount, 0)
 	return ..()
 
-/mob/living/carbon/getStaminaLoss()
-	. = 0
-	for(var/obj/item/bodypart/BP as() in bodyparts)
-		. += round(BP.stamina_dam * BP.stam_damage_coeff, DAMAGE_PRECISION)
+/mob/living/carbon/getExhaustion()
+	return exhaustion
 
-/mob/living/carbon/adjustStaminaLoss(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/carbon/adjustExhaustion(amount, updating_health = TRUE, forced = FALSE)
 	if(!forced && HAS_TRAIT(src, TRAIT_GODMODE))
 		return FALSE
-	if(amount > 0)
-		take_overall_damage(0, 0, amount, updating_health)
-	else
-		heal_overall_damage(0, 0, abs(amount), null, updating_health)
+	exhaustion += amount
 	return amount
 
 /mob/living/carbon/setStaminaLoss(amount, updating_health = TRUE, forced = FALSE)
-	var/current = getStaminaLoss()
+	var/current = getExhaustion()
 	var/diff = amount - current
 	if(!diff)
 		return
-	adjustStaminaLoss(diff, updating_health, forced)
+	adjustExhaustion(diff, updating_health, forced)
 
 /** adjustOrganLoss
   * inputs: slot (organ slot, like ORGAN_SLOT_HEART), amount (damage to be done), and maximum (currently an arbitrarily large number, can be set so as to limit damage)
@@ -154,14 +149,13 @@
 //Heals ONE bodypart randomly selected from damaged ones.
 //It automatically updates damage overlays if necessary
 //It automatically updates health status
-/mob/living/carbon/heal_bodypart_damage(brute = 0, burn = 0, stamina = 0, updating_health = TRUE, required_status)
-	var/list/obj/item/bodypart/parts = get_damaged_bodypartsa(brute,burn,stamina,required_status)
+/mob/living/carbon/heal_bodypart_injuries(injury, amount, required_status, updating_health = TRUE)
+	var/list/obj/item/bodypart/parts = get_injured_bodyparts(injury, required_status)
 	if(!parts.len)
 		return
 	var/obj/item/bodypart/picked = pick(parts)
 	var/damage_calculator = picked.get_damage(TRUE) //heal_damage returns update status T/F instead of amount healed so we dance gracefully around this
-	if(picked.heal_damage(brute, burn, stamina, required_status))
-		update_damage_overlays()
+	picked.heal_injury(injury, amount, required_status, updating_health)
 	return max(damage_calculator - picked.get_damage(TRUE), 0)
 
 //Damages ONE bodypart randomly selected from damagable ones.

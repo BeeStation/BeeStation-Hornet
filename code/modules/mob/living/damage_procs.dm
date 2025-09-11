@@ -11,7 +11,7 @@
 		if(CLONE)
 			adjustCloneLoss(amount)
 		if(STAMINA)
-			adjustStaminaLoss(amount)
+			adjustExhaustion(amount)
 
 /mob/living/proc/get_damage_amount(damagetype = BRUTE)
 	switch(damagetype)
@@ -26,7 +26,7 @@
 		if(CLONE)
 			return getCloneLoss()
 		if(STAMINA)
-			return getStaminaLoss()
+			return getExhaustion()
 
 /// return the total damage of all types which update your health
 /mob/living/proc/get_total_damage(precision = DAMAGE_PRECISION)
@@ -198,18 +198,19 @@
 /mob/living/proc/getOrganLoss(slot)
 	return
 
-/mob/living/proc/getStaminaLoss()
-	return staminaloss
+/mob/living/proc/getExhaustion()
+	return exhaustion
 
-/mob/living/proc/adjustStaminaLoss(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/proc/adjustExhaustion(amount, updating_health = TRUE, forced = FALSE)
 	return
 
 /mob/living/proc/setStaminaLoss(amount, updating_health = TRUE, forced = FALSE)
 	return
 
 // heal ONE external organ, organ gets randomly selected from damaged ones.
-/mob/living/proc/heal_bodypart_damage(brute = 0, burn = 0, stamina = 0, updating_health = TRUE, required_status)
-	. = (adjustBruteLoss(-brute, FALSE) + adjustFireLoss(-burn, FALSE) + adjustStaminaLoss(-stamina, FALSE)) //zero as argument for no instant health update
+/mob/living/proc/heal_bodypart_injuries(injury, amount, required_status, updating_health = TRUE)
+	TODO
+	. = (adjustBruteLoss(-brute, FALSE) + adjustFireLoss(-burn, FALSE) + adjustExhaustion(-stamina, FALSE)) //zero as argument for no instant health update
 	if(updating_health)
 		updatehealth()
 		update_stamina()
@@ -218,7 +219,7 @@
 /mob/living/proc/take_bodypart_damage(brute = 0, burn = 0, stamina = 0, updating_health = TRUE, required_status)
 	adjustBruteLoss(brute, FALSE) //zero as argument for no instant health update
 	adjustFireLoss(burn, FALSE)
-	adjustStaminaLoss(stamina, FALSE)
+	adjustExhaustion(stamina, FALSE)
 	if(updating_health)
 		updatehealth()
 		update_stamina(stamina >= DAMAGE_PRECISION)
@@ -227,7 +228,7 @@
 /mob/living/proc/heal_overall_damage(brute = 0, burn = 0, stamina = 0, required_status, updating_health = TRUE)
 	adjustBruteLoss(-brute, FALSE) //zero as argument for no instant health update
 	adjustFireLoss(-burn, FALSE)
-	adjustStaminaLoss(-stamina, FALSE)
+	adjustExhaustion(-stamina, FALSE)
 	if(updating_health)
 		updatehealth()
 		update_stamina()
@@ -236,7 +237,7 @@
 /mob/living/proc/take_overall_damage(brute = 0, burn = 0, stamina = 0, updating_health = TRUE, required_status = null)
 	adjustBruteLoss(brute, FALSE) //zero as argument for no instant health update
 	adjustFireLoss(burn, FALSE)
-	adjustStaminaLoss(stamina, FALSE)
+	adjustExhaustion(stamina, FALSE)
 	if(updating_health)
 		updatehealth()
 		update_stamina(stamina >= DAMAGE_PRECISION)

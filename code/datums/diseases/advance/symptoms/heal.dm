@@ -989,7 +989,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				M.emote("twitch")
 				to_chat(M, span_notice("[pick("You feel energetic!", "You feel well-rested.", "You feel great!")]"))
 		if(4 to 5)
-			M.adjustStaminaLoss((-5 * power), 0)
+			M.adjustExhaustion((-5 * power), 0)
 			M.drowsyness = max(0, M.drowsyness - 10 * power)
 			M.AdjustSleeping(-10 * power)
 			M.take_consciousness_damage(-5 * power)

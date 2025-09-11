@@ -164,7 +164,7 @@
 		playsound(src, stun_sound, 75, TRUE, -1)
 		user.visible_message(span_danger("[user] accidentally hits [user.p_them()]self with [src], electrocuting themselves badly!"), \
 							span_userdanger("You accidentally hit yourself with [src], electrocuting yourself badly!"))
-		user.adjustStaminaLoss(stamina_damage*3)
+		user.adjustExhaustion(stamina_damage*3)
 		user.stuttering = stutter_amt
 		user.do_jitter_animation(20)
 		deductcharge(cell_hit_cost)
@@ -211,7 +211,7 @@
 			return FALSE
 
 	var/zone = ran_zone(user.get_combat_bodyzone(target))
-	// L.adjustStaminaLoss(stun_time)
+	// L.adjustExhaustion(stun_time)
 	target.deal_damage(stamina_damage, 0, STAMINA, DAMAGE_SHOCK, zone = zone)
 	target.deal_damage(pain_damage, 0, CONSCIOUSNESS, DAMAGE_SHOCK, zone = zone)
 	target.apply_effect(EFFECT_STUTTER, stun_time)
@@ -231,7 +231,7 @@
 
 	target.do_stun_animation()
 
-	if (target.getStaminaLoss() > target.getMaxHealth() - HEALTH_THRESHOLD_CRIT)
+	if (target.getExhaustion() > target.getMaxHealth() - HEALTH_THRESHOLD_CRIT)
 		target.emote("scream")
 
 	if(user)

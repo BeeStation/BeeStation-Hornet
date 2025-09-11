@@ -280,7 +280,7 @@
 /datum/reagent/consumable/ethanol/bilk/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(affected_mob.getBruteLoss() && DT_PROB(5, delta_time))
-		affected_mob.heal_bodypart_damage(brute = 1, updating_health = FALSE)
+		affected_mob.heal_bodypart_injuries(BRUTE, 1)
 		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/ethanol/threemileisland
@@ -472,7 +472,8 @@
 /datum/reagent/consumable/ethanol/hooch/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(affected_mob.mind?.assigned_role == JOB_NAME_ASSISTANT)
-		affected_mob.heal_bodypart_damage(1 * REM * delta_time, 1 * REM * delta_time, updating_health = FALSE)
+		affected_mob.heal_bodypart_injuries(BRUTE, 1 * REM * delta_time)
+		affected_mob.heal_bodypart_injuries(BURN, 1 * REM * delta_time)
 		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/ethanol/ale
@@ -833,7 +834,7 @@
 	. = ..()
 	if(HAS_MIND_TRAIT(drinker, TRAIT_LAW_ENFORCEMENT_METABOLISM))
 		. = UPDATE_MOB_HEALTH
-		drinker.adjustStaminaLoss(-10 * REM * delta_time, 0)
+		drinker.adjustExhaustion(-10 * REM * delta_time, 0)
 		if(DT_PROB(10, delta_time))
 			drinker.cause_hallucination(get_random_valid_hallucination_subtype(/datum/hallucination/nearby_fake_item), name)
 		if(DT_PROB(5, delta_time))
@@ -1530,7 +1531,8 @@
 /datum/reagent/consumable/ethanol/bananahonk/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if((ishuman(affected_mob) && affected_mob.job == JOB_NAME_CLOWN) || ismonkey(affected_mob))
-		affected_mob.heal_bodypart_damage(1 * REM * delta_time, 1 * REM * delta_time, updating_health = FALSE)
+		affected_mob.heal_bodypart_injuries(BRUTE, 1 * REM * delta_time)
+		affected_mob.heal_bodypart_injuries(BURN, 1 * REM * delta_time)
 		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/ethanol/silencer
@@ -1554,7 +1556,8 @@
 	. = ..()
 	affected_mob.silent = max(affected_mob.silent, 1.25)
 	if(ishuman(affected_mob) && affected_mob.job == JOB_NAME_MIME)
-		affected_mob.heal_bodypart_damage(1 * REM * delta_time, 1 * REM * delta_time, updating_health = FALSE)
+		affected_mob.heal_bodypart_injuries(BRUTE, 1 * REM * delta_time)
+		affected_mob.heal_bodypart_injuries(BURN, 1 * REM * delta_time)
 		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/ethanol/drunkenblumpkin
@@ -1772,7 +1775,7 @@
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1 * REM * delta_time, 150)
 
 	if(DT_PROB(10, delta_time))
-		affected_mob.adjustStaminaLoss(10, updating_health = FALSE)
+		affected_mob.adjustExhaustion(10, updating_health = FALSE)
 		. = UPDATE_MOB_HEALTH
 		affected_mob.drop_all_held_items()
 		to_chat(affected_mob, span_notice("You cant feel your hands!"))
@@ -1780,7 +1783,7 @@
 	if(current_cycle > 5)
 		if(DT_PROB(10, delta_time))
 			ADD_TRAIT(affected_mob, pick_trait(), "metabolize:[type]")
-			affected_mob.adjustStaminaLoss(10, updating_health = FALSE)
+			affected_mob.adjustExhaustion(10, updating_health = FALSE)
 			. = UPDATE_MOB_HEALTH
 
 		if(current_cycle > 30)
@@ -1793,7 +1796,7 @@
 
 /datum/reagent/consumable/ethanol/neurotoxin/on_mob_end_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
-	affected_mob.adjustStaminaLoss(10)
+	affected_mob.adjustExhaustion(10)
 
 /datum/reagent/consumable/ethanol/hippies_delight
 	name = "Hippie's Delight"
@@ -1965,7 +1968,8 @@
 	. = ..()
 	//Securidrink in line with the Screwdriver for engineers or Nothing for mimes
 	if(HAS_MIND_TRAIT(affected_mob, TRAIT_LAW_ENFORCEMENT_METABOLISM))
-		affected_mob.heal_bodypart_damage(0.5 * REM * delta_time, 0.5 * REM * delta_time, updating_health = FALSE)
+		affected_mob.heal_bodypart_injuries(BRUTE, 0.5 * REM * delta_time)
+		affected_mob.heal_bodypart_injuries(BURN, 0.5 * REM * delta_time)
 		affected_mob.adjust_nutrition(-1 * REM * delta_time)
 		return UPDATE_MOB_HEALTH
 
@@ -1989,7 +1993,8 @@
 	. = ..()
 	//Securidrink in line with the Screwdriver for engineers or Nothing for mimes but STRONG..
 	if(HAS_MIND_TRAIT(affected_mob, TRAIT_LAW_ENFORCEMENT_METABOLISM))
-		affected_mob.heal_bodypart_damage(1 * REM * delta_time, 1 * REM * delta_time, 1 * REM * delta_time, updating_health = FALSE)
+		affected_mob.heal_bodypart_injuries(BRUTE, 1 * REM * delta_time)
+		affected_mob.heal_bodypart_injuries(BURN, 1 * REM * delta_time)
 		affected_mob.adjust_nutrition(-2 * REM * delta_time)
 		return UPDATE_MOB_HEALTH
 
@@ -2056,7 +2061,7 @@
 		affected_mob.adjustFireLoss(-1, updating_health = FALSE)
 		affected_mob.adjustToxLoss(-1, updating_health = FALSE)
 		affected_mob.adjustOxyLoss(-1, updating_health = FALSE)
-		affected_mob.adjustStaminaLoss(-1, updating_health = FALSE)
+		affected_mob.adjustExhaustion(-1, updating_health = FALSE)
 		. = UPDATE_MOB_HEALTH
 	affected_mob.visible_message(span_warning("[affected_mob] shivers with renewed vigor!"), span_notice("One taste of [LOWER_TEXT(name)] fills you with energy!"))
 	if(!affected_mob.stat && heal_points == 20) //brought us out of softcrit
@@ -2068,7 +2073,7 @@
 		L.adjustFireLoss(-1 * REM * delta_time)
 		L.adjustToxLoss(-0.5 * REM * delta_time)
 		L.adjustOxyLoss(-3 * REM * delta_time)
-		L.adjustStaminaLoss(-5 * REM * delta_time)
+		L.adjustExhaustion(-5 * REM * delta_time)
 		. = TRUE
 	..()
 
@@ -2374,7 +2379,7 @@
 /datum/reagent/consumable/ethanol/fanciulli/on_mob_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
 	if(affected_mob.stat == CONSCIOUS)
-		affected_mob.adjustStaminaLoss(20, updating_health = TRUE)
+		affected_mob.adjustExhaustion(20, updating_health = TRUE)
 
 /datum/reagent/consumable/ethanol/branca_menta
 	name = "Branca Menta"
@@ -2394,7 +2399,7 @@
 /datum/reagent/consumable/ethanol/branca_menta/on_mob_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
 	if(affected_mob.stat == CONSCIOUS)
-		affected_mob.adjustStaminaLoss(35, updating_health = TRUE)
+		affected_mob.adjustExhaustion(35, updating_health = TRUE)
 
 /datum/reagent/consumable/ethanol/branca_menta/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -2421,7 +2426,8 @@
 	. = ..()
 	affected_mob.silent = max(affected_mob.silent, MIMEDRINK_SILENCE_DURATION)
 	if(ishuman(affected_mob) && affected_mob.job == JOB_NAME_MIME)
-		affected_mob.heal_bodypart_damage(1 * REM * delta_time, 1 * REM * delta_time, updating_health = FALSE)
+		affected_mob.heal_bodypart_injuries(BRUTE, 1 * REM * delta_time)
+		affected_mob.heal_bodypart_injuries(BURN, 1 * REM * delta_time)
 		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/ethanol/fruit_wine
@@ -2574,7 +2580,8 @@
 	. = ..()
 	//A healing drink similar to Quadruple Sec, Ling Stings, and Screwdrivers for the Wizznerds; the check is consistent with the changeling sting
 	if(affected_mob?.mind?.has_antag_datum(/datum/antagonist/wizard))
-		affected_mob.heal_bodypart_damage(1 * REM * delta_time, 1 * REM * delta_time, 1 * REM * delta_time, updating_health = FALSE)
+		affected_mob.heal_bodypart_injuries(BRUTE, 1 * REM * delta_time)
+		affected_mob.heal_bodypart_injuries(BURN, 1 * REM * delta_time)
 		affected_mob.adjustOxyLoss(-1 * REM * delta_time, updating_health = FALSE)
 		affected_mob.adjustToxLoss(-1 * REM * delta_time, updating_health = FALSE)
 		return UPDATE_MOB_HEALTH
@@ -2662,7 +2669,7 @@
 	if(DT_PROB(2, delta_time))
 		to_chat(affected_mob, span_notice(pick("You feel disregard for the rule of law.", "You feel pumped!", "Your head is pounding.", "Your thoughts are racing..")))
 
-	affected_mob.adjustStaminaLoss(-0.25 * affected_mob.drunkenness * REM * delta_time, updating_health = FALSE)
+	affected_mob.adjustExhaustion(-0.25 * affected_mob.drunkenness * REM * delta_time, updating_health = FALSE)
 	return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/ethanol/old_timer

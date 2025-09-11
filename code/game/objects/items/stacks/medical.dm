@@ -63,7 +63,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 		if(!heal_creatures) //simplemobs can only take brute damage, and can only benefit from items intended to heal it
 			to_chat(user, span_notice("[src] won't help [M] at all."))
 			return
-		M.heal_bodypart_damage(REAGENT_AMOUNT_PER_ITEM)
+		M.heal_bodypart_injuries(BRUTE, REAGENT_AMOUNT_PER_ITEM)
 		user.visible_message(span_green("[user] applies [src] on [M]."), span_green("You apply [src] on [M]."))
 		use(1)
 		return

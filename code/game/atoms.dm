@@ -1840,7 +1840,7 @@
 	var/stam
 	if(iscarbon(living_target))
 		var/mob/living/carbon/C = living_target
-		stam = "(STAM: [C.getStaminaLoss()]) "
+		stam = "(STAM: [C.getExhaustion()]) "
 
 	var/sobject = ""
 	if(object)

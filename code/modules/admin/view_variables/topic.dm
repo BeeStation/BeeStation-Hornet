@@ -130,8 +130,8 @@
 					L.adjustCloneLoss(amount)
 					newamt = L.getCloneLoss()
 				if("stamina")
-					L.adjustStaminaLoss(amount)
-					newamt = L.getStaminaLoss()
+					L.adjustExhaustion(amount)
+					newamt = L.getExhaustion()
 				else
 					to_chat(usr, "You caused an error. DEBUG: Text:[Text] Mob:[L]")
 					return

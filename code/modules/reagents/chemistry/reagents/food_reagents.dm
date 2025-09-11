@@ -53,7 +53,8 @@
 /datum/reagent/consumable/nutriment/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(DT_PROB(30, delta_time))
-		affected_mob.heal_bodypart_damage(brute_heal, burn_heal, updating_health = FALSE)
+		affected_mob.heal_bodypart_injuries(BRUTE, brute_heal)
+		affected_mob.heal_bodypart_injuries(BURN, burn_heal)
 		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/nutriment/on_new(list/supplied_data)
@@ -421,7 +422,8 @@
 		var/mob/living/carbon/human/affected_human = affected_mob
 		if(affected_human.job == JOB_NAME_COOK)
 			if(DT_PROB(10, delta_time)) //stays in the system much longer than sprinkles/banana juice, so heals slower to partially compensate
-				affected_human.heal_bodypart_damage(1, 1, updating_health = FALSE)
+				affected_human.heal_bodypart_injuries(BRUTE, 1)
+				affected_human.heal_bodypart_injuries(BRUTE, 1)
 				return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/sprinkles
@@ -434,7 +436,8 @@
 /datum/reagent/consumable/sprinkles/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(HAS_MIND_TRAIT(affected_mob, TRAIT_LAW_ENFORCEMENT_METABOLISM))
-		affected_mob.heal_bodypart_damage(1 * REM * delta_time, 1 * REM * delta_time, updating_health = FALSE)
+		affected_mob.heal_bodypart_injuries(BRUTE, 1 * REM * delta_time)
+		affected_mob.heal_bodypart_injuries(BURN, 1 * REM * delta_time)
 		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/enzyme
@@ -715,7 +718,7 @@
 		affected_mob.losebreath += 4
 		affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2 * REM, 150)
 		affected_mob.adjustToxLoss(3 * REM, updating_health = FALSE)
-		affected_mob.adjustStaminaLoss(10 * REM, updating_health = FALSE)
+		affected_mob.adjustExhaustion(10 * REM, updating_health = FALSE)
 		affected_mob.blur_eyes(5)
 		return UPDATE_MOB_HEALTH
 

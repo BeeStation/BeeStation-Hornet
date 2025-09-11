@@ -11,7 +11,7 @@
 		return FALSE
 	if(iscarbon(host_mob))
 		var/mob/living/carbon/C = host_mob
-		var/list/parts = C.get_damaged_bodyparts(TRUE,TRUE, status = BODYTYPE_ORGANIC)
+		var/list/parts = C.get_injured_bodyparts(list(BRUTE, BURN), status = BODYTYPE_ORGANIC)
 		if(!parts.len)
 			return FALSE
 	return ..()
@@ -19,7 +19,7 @@
 /datum/nanite_program/regenerative/active_effect()
 	if(iscarbon(host_mob))
 		var/mob/living/carbon/C = host_mob
-		var/list/parts = C.get_damaged_bodyparts(TRUE,TRUE, status = BODYTYPE_ORGANIC)
+		var/list/parts = C.get_injured_bodyparts(list(BRUTE, BURN), status = BODYTYPE_ORGANIC)
 		if(!parts.len)
 			return
 		for(var/obj/item/bodypart/L in parts)

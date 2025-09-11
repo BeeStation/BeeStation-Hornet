@@ -4398,6 +4398,7 @@
 #include "code\modules\surgery\injuries\cut_tree\cut_sutured.dm"
 #include "code\modules\surgery\injuries\damage_types\brute.dm"
 #include "code\modules\surgery\injuries\damage_types\burn.dm"
+#include "code\modules\surgery\injuries\damage_types\shock.dm"
 #include "code\modules\surgery\injuries\trauma_tree\trauma_broken_bone.dm"
 #include "code\modules\surgery\injuries\trauma_tree\trauma_fracture.dm"
 #include "code\modules\surgery\injuries\trauma_tree\trauma_healthy.dm"

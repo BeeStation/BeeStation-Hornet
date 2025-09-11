@@ -538,7 +538,7 @@
 	busy = TRUE
 	M.visible_message(span_danger("[user] has touched [M] with [src]!"), \
 			span_userdanger("[user] has touched [M] with [src]!"))
-	M.adjustStaminaLoss(80)
+	M.adjustExhaustion(80)
 	M.Knockdown(75)
 	M.Jitter(50)
 	M.apply_status_effect(/datum/status_effect/convulsing)

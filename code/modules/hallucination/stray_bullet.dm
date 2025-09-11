@@ -199,7 +199,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/projectile/hallucination)
 	hit_duration_wall = 5
 
 /obj/projectile/hallucination/bullet/apply_effect_to_hallucinator(mob/living/afflicted)
-	afflicted.adjustStaminaLoss(60)
+	afflicted.adjustExhaustion(60)
 
 /obj/projectile/hallucination/laser
 	name = "laser"
@@ -219,7 +219,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/projectile/hallucination)
 	reflectable = REFLECT_NORMAL // No idea if this works
 
 /obj/projectile/hallucination/laser/apply_effect_to_hallucinator(mob/living/afflicted)
-	afflicted.adjustStaminaLoss(20)
+	afflicted.adjustExhaustion(20)
 	afflicted.blur_eyes(2)
 
 /obj/projectile/hallucination/taser
@@ -265,7 +265,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/projectile/hallucination)
 	reflectable = REFLECT_NORMAL // No idea if this works
 
 /obj/projectile/hallucination/disabler/apply_effect_to_hallucinator(mob/living/afflicted)
-	afflicted.adjustStaminaLoss(30)
+	afflicted.adjustExhaustion(30)
 
 /obj/projectile/hallucination/ebow
 	name = "bolt"
@@ -280,7 +280,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/projectile/hallucination)
 /obj/projectile/hallucination/ebow/apply_effect_to_hallucinator(mob/living/afflicted)
 	afflicted.slurring += 5
 	afflicted.Knockdown(1 SECONDS)
-	afflicted.adjustStaminaLoss(75) // 60 stam + 15 tox
+	afflicted.adjustExhaustion(75) // 60 stam + 15 tox
 	afflicted.blur_eyes(10)
 
 /obj/projectile/hallucination/change

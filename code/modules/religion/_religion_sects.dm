@@ -109,7 +109,7 @@
 			return TRUE
 
 	var/heal_amt = 10
-	var/list/hurt_limbs = blessed.get_damaged_bodyparts(status = BODYTYPE_ORGANIC)
+	var/list/hurt_limbs = blessed.get_injured_bodyparts(status = BODYTYPE_ORGANIC)
 
 	if(hurt_limbs.len)
 		for(var/X in hurt_limbs)

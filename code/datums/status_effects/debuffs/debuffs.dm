@@ -96,8 +96,8 @@
 	return ..()
 
 /datum/status_effect/incapacitating/unconscious/tick()
-	if(owner.getStaminaLoss())
-		owner.adjustStaminaLoss(-0.3) //reduce stamina loss by 0.3 per tick, 6 per 2 seconds
+	if(owner.getExhaustion())
+		owner.adjustExhaustion(-0.3) //reduce stamina loss by 0.3 per tick, 6 per 2 seconds
 
 //SLEEPING
 /datum/status_effect/incapacitating/sleeping
@@ -143,7 +143,7 @@
 			owner.adjustBruteLoss(healing)
 			owner.adjustFireLoss(healing)
 			owner.adjustToxLoss(healing * 0.5, TRUE, TRUE)
-			owner.adjustStaminaLoss(healing)
+			owner.adjustExhaustion(healing)
 	if(human_owner?.drunkenness)
 		human_owner.drunkenness *= 0.997 //reduce drunkenness by 0.3% per tick, 6% per 2 seconds
 	if(prob(20))
@@ -863,7 +863,7 @@
 /datum/status_effect/heretic_mark/ash/on_effect()
 	if(iscarbon(owner))
 		var/mob/living/carbon/carbon_owner = owner
-		carbon_owner.adjustStaminaLoss(6 * repetitions)
+		carbon_owner.adjustExhaustion(6 * repetitions)
 		carbon_owner.adjustFireLoss(3 * repetitions)
 		for(var/mob/living/carbon/victim in ohearers(1,carbon_owner))
 			if(IS_HERETIC(victim))

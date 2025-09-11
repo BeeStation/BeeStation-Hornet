@@ -45,7 +45,7 @@
 			var/damagetype = held_item.suicide_act(src)
 			if(damagetype)
 				if(damagetype & SHAME)
-					adjustStaminaLoss(200)
+					adjustExhaustion(200)
 					set_suicide(FALSE)
 					SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "shameful_suicide", /datum/mood_event/shameful_suicide)
 					return

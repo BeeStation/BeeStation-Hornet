@@ -195,7 +195,7 @@
 				owner.dizziness += 20
 				owner.confused += 20
 				owner.Jitter(20)
-				owner.adjustStaminaLoss(50)
+				owner.adjustExhaustion(50)
 
 		if(3, 4)
 			if(!high_stress)

@@ -42,7 +42,7 @@
 		carbon_hit.silent = 3 SECONDS
 		carbon_hit.slurring = 7 SECONDS
 		carbon_hit.AdjustKnockdown(5 SECONDS)
-		carbon_hit.adjustStaminaLoss(80)
+		carbon_hit.adjustExhaustion(80)
 
 	return TRUE
 

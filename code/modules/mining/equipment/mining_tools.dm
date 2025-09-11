@@ -21,12 +21,12 @@
 	attack_verb_simple = list("hit", "pierce", "slice", "attack")
 
 /obj/item/pickaxe/use_tool(atom/target, mob/living/user, delay, amount, volume, datum/callback/extra_checks)
-	if(user.getStaminaLoss() < 75)
+	if(user.getExhaustion() < 75)
 		. = ..()
 	else
 		to_chat(user, span_danger("You quickly stop picking. You are too tired to work!"))
 		return
-	user.adjustStaminaLoss(stamina_use)
+	user.adjustExhaustion(stamina_use)
 	return
 
 /obj/item/pickaxe/suicide_act(mob/living/user)

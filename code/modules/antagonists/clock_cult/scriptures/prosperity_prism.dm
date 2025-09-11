@@ -68,11 +68,11 @@
 	for(var/mob/living/L in range(4, src))
 		if(!IS_SERVANT_OF_RATVAR(L))
 			continue
-		if(!L.toxloss && !L.staminaloss && !L.bruteloss && !L.fireloss)
+		if(!L.toxloss && !L.exhaustion && !L.bruteloss && !L.fireloss)
 			continue
 		if(use_power(2))
 			L.adjustToxLoss(-50*delta_time, FALSE, TRUE)
-			L.adjustStaminaLoss(-50*delta_time)
+			L.adjustExhaustion(-50*delta_time)
 			L.adjustBruteLoss(-10*delta_time)
 			L.adjustFireLoss(-10*delta_time)
 			new /obj/effect/temp_visual/heal(get_turf(L), "#45dd8a")

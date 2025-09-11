@@ -53,7 +53,7 @@
 /datum/reagent/consumable/tomatojuice/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(affected_mob.getFireLoss() && DT_PROB(10, delta_time))
-		affected_mob.heal_bodypart_damage(burn = 1, updating_health = FALSE)
+		affected_mob.heal_bodypart_injuries(BURN, 1 * REM * delta_time)
 		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/limejuice
@@ -185,7 +185,8 @@
 /datum/reagent/consumable/banana/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if((ishuman(affected_mob) && affected_mob.job == JOB_NAME_CLOWN) || ismonkey(affected_mob))
-		affected_mob.heal_bodypart_damage(1 * REM * delta_time, 1 * REM * delta_time, updating_health = FALSE)
+		affected_mob.heal_bodypart_injuries(BRUTE, 1 * REM * delta_time)
+		affected_mob.heal_bodypart_injuries(BURN, 1 * REM * delta_time)
 		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/nothing
@@ -208,7 +209,8 @@
 	. = ..()
 	if(ishuman(affected_mob) && affected_mob.job == JOB_NAME_MIME)
 		affected_mob.silent = max(affected_mob.silent, MIMEDRINK_SILENCE_DURATION)
-		affected_mob.heal_bodypart_damage(1 * REM * delta_time, 1 * REM * delta_time, updating_health = FALSE)
+		affected_mob.heal_bodypart_injuries(BRUTE, 1 * REM * delta_time)
+		affected_mob.heal_bodypart_injuries(BURN, 1 * REM * delta_time)
 		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/laughter
@@ -310,7 +312,7 @@
 		affected_mob.reagents.remove_reagent(/datum/reagent/consumable/capsaicin, 1 * delta_time)
 
 	if(affected_mob.getBruteLoss() && DT_PROB(10, delta_time))
-		affected_mob.heal_bodypart_damage(1, updating_health = FALSE)
+		affected_mob.heal_bodypart_injuries(BRUTE, 1 * REM * delta_time)
 		return UPDATE_MOB_HEALTH
 
 /*See block comment in ../milk/overdose_process(mob/living/carbon/affected_mob) for calculation and explanation of why this exists and why 5 was chosen
@@ -359,7 +361,7 @@
 /datum/reagent/consumable/soymilk/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(affected_mob.getBruteLoss() && DT_PROB(10, delta_time))
-		affected_mob.heal_bodypart_damage(1, updating_health = FALSE)
+		affected_mob.heal_bodypart_injuries(BRUTE, 1 * REM * delta_time)
 		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/cream
@@ -379,7 +381,7 @@
 /datum/reagent/consumable/cream/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(affected_mob.getBruteLoss() && DT_PROB(10, delta_time))
-		affected_mob.heal_bodypart_damage(1, updating_health = FALSE)
+		affected_mob.heal_bodypart_injuries(BRUTE, 1 * REM * delta_time)
 		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/coffee
@@ -815,7 +817,7 @@
 	affected_mob.Jitter(5 * REM * delta_time)
 
 	if(affected_mob.getBruteLoss() && DT_PROB(10, delta_time))
-		affected_mob.heal_bodypart_damage(1, updating_health = FALSE)
+		affected_mob.heal_bodypart_injuries(BRUTE, 1 * REM * delta_time)
 		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/cafe_latte
@@ -841,7 +843,7 @@
 	affected_mob.adjust_bodytemperature(5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, 0, affected_mob.get_body_temp_normal())
 	affected_mob.Jitter(5 * REM * delta_time)
 	if(affected_mob.getBruteLoss() && DT_PROB(10, delta_time))
-		affected_mob.heal_bodypart_damage(1, updating_health = FALSE)
+		affected_mob.heal_bodypart_injuries(BRUTE, 1 * REM * delta_time)
 		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/doctor_delight
@@ -1124,7 +1126,7 @@
 
 	affected_mob.adjust_bodytemperature(5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, 0, affected_mob.get_body_temp_normal())
 	if(affected_mob.getBruteLoss() && DT_PROB(10, delta_time))
-		affected_mob.heal_bodypart_damage(1, updating_health = FALSE)
+		affected_mob.heal_bodypart_injuries(BRUTE, 1 * REM * delta_time)
 		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/menthol

@@ -49,4 +49,4 @@
 	if(M)
 		M.take_direct_damage(0.4*reac_volume, OXY)
 	if(M)
-		M.adjustStaminaLoss(reac_volume)
+		M.adjustExhaustion(reac_volume)

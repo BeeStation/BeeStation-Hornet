@@ -81,7 +81,7 @@
 		return
 	if(key) // Prevents log spamming of keyless mob deaths (like xenobio monkeys)
 		investigate_log("has died at [loc_name(src)].<br>\
-			BRUTE: [src.getBruteLoss()] BURN: [src.getFireLoss()] TOX: [src.getToxLoss()] OXY: [src.getOxyLoss()] CLONE: [src.getCloneLoss()] STAM: [src.getStaminaLoss()]<br>\
+			BRUTE: [src.getBruteLoss()] BURN: [src.getFireLoss()] TOX: [src.getToxLoss()] OXY: [src.getOxyLoss()] CLONE: [src.getCloneLoss()] STAM: [src.getExhaustion()]<br>\
 			<b>Brain damage</b>: [src.getOrganLoss(ORGAN_SLOT_BRAIN) || "0"]<br>\
 			<b>Blood volume</b>: [src.blood.volume]cl ([round((src.blood.volume / BLOOD_VOLUME_NORMAL) * 100, 0.1)]%)<br>\
 			<b>Reagents</b>:<br>[reagents_readout()]", INVESTIGATE_DEATHS)

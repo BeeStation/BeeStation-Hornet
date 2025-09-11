@@ -155,10 +155,10 @@
 		var/obj/item/bodypart/body_part = X
 		var/damage_text
 		if(body_part.bodypart_disabled)
-			damage_text = "limp and lifeless"
+			damage_text = "is limp and lifeless"
 		else
-			damage_text = (body_part.brute_dam >= body_part.burn_dam) ? body_part.heavy_brute_msg : body_part.heavy_burn_msg
-		msg += "<B>[capitalize(t_his)] [body_part.name] is [damage_text]!</B>\n"
+			damage_text = body_part.format_injury_description(TRUE)
+		msg += "<B>[capitalize(t_his)] [body_part.name] [damage_text]!</B>\n"
 
 	//stores missing limbs
 	var/l_limbs_missing = 0

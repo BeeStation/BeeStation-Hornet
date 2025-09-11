@@ -258,7 +258,7 @@
 	add_fingerprint(user)
 	if((HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
 		to_chat(user, span_danger("You hit yourself over the head."))
-		user.adjustStaminaLoss(stamina_damage)
+		user.adjustExhaustion(stamina_damage)
 
 		additional_effects_carbon(user) // user is the target here
 		if(ishuman(user))
@@ -499,7 +499,7 @@
 		to_chat(user, span_danger("You hit yourself over the head."))
 
 		user.Paralyze(knockdown_time_carbon * force)
-		user.adjustStaminaLoss(stamina_damage)
+		user.adjustExhaustion(stamina_damage)
 
 		additional_effects_carbon(user) // user is the target here
 		if(ishuman(user))
@@ -554,12 +554,12 @@
 			if(is_target)
 				target.Knockdown(knockdown_time_carbon)
 				target.drop_all_held_items()
-				target.adjustStaminaLoss(stamina_damage)
+				target.adjustExhaustion(stamina_damage)
 				if(target_confusion > 0 && target.confused < 6 SECONDS)
 					target.confused = min(target.confused + target_confusion, 6 SECONDS)
 			else
 				target.Knockdown(knockdown_time_carbon)
-				target.adjustStaminaLoss(stamina_damage_non_target)
+				target.adjustExhaustion(stamina_damage_non_target)
 			additional_effects_carbon(target, user)
 
 			log_combat(user, target, "stunned", src)
@@ -960,7 +960,7 @@
 	add_fingerprint(user)
 	if((HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
 		to_chat(user, span_danger("You hit yourself over the head."))
-		user.adjustStaminaLoss(stamina_force)
+		user.adjustExhaustion(stamina_force)
 
 		// Deal full damage
 		force = initial(force)
@@ -993,8 +993,8 @@
 		log_combat(user, target, "attacked", src)
 
 		// If the target has a lot of stamina loss, knock them down
-		if ((user.is_zone_selected(BODY_ZONE_L_LEG) || user.is_zone_selected(BODY_ZONE_R_LEG)) && target.getStaminaLoss() > 22)
-			var/effectiveness = CLAMP01((target.getStaminaLoss() - 22) / 50)
+		if ((user.is_zone_selected(BODY_ZONE_L_LEG) || user.is_zone_selected(BODY_ZONE_R_LEG)) && target.getExhaustion() > 22)
+			var/effectiveness = CLAMP01((target.getExhaustion() - 22) / 50)
 			log_combat(user, target, "knocked-down", src, "(additional effect)")
 			// Move the target back upon knockdown, to give them some time to recover
 			var/shove_dir = get_dir(user.loc, target.loc)

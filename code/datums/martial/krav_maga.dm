@@ -169,7 +169,7 @@
 		playsound(D, 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
 		D.deal_damage(rand(10,15), 0, STAMINA, zone = target_zone)
 		log_combat(A, D, "stomped nonlethally", name)
-	if(prob(D.getStaminaLoss()))
+	if(prob(D.getExhaustion()))
 		D.visible_message(span_warning("[D] sputters and recoils in pain!"), span_userdanger("You recoil in pain as you are jabbed in a nerve!"))
 		D.drop_all_held_items()
 	return 1

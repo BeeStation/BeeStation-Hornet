@@ -72,7 +72,7 @@
 /mob/living/silicon/pai/adjustCloneLoss(amount, updating_health = TRUE, forced = FALSE)
 	return FALSE
 
-/mob/living/silicon/pai/adjustStaminaLoss(amount, updating_health, forced = FALSE)
+/mob/living/silicon/pai/adjustExhaustion(amount, updating_health, forced = FALSE)
 	if(forced)
 		take_holo_damage(amount)
 	else
@@ -93,7 +93,7 @@
 /mob/living/silicon/pai/getCloneLoss()
 	return FALSE
 
-/mob/living/silicon/pai/getStaminaLoss()
+/mob/living/silicon/pai/getExhaustion()
 	return FALSE
 
 /mob/living/silicon/pai/setCloneLoss()

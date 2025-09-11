@@ -92,7 +92,7 @@
 		owner.remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown)
 		owner.remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown_flying)
 		return
-	var/health_deficiency = max((max_value - value), owner.staminaloss)
+	var/health_deficiency = max((max_value - value), owner.exhaustion)
 	if(health_deficiency >= DAMAGE_SLOWDOWN_START)
 		owner.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown, TRUE, multiplicative_slowdown = (health_deficiency / 100) * DAMAGE_SLOWDOWN_CRIT)
 		owner.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown_flying, TRUE, multiplicative_slowdown = (health_deficiency / 100) * DAMAGE_SLOWDOWN_CRIT * DAMAGE_SLOWDOWN_FLYING_MULTIPLIER)
