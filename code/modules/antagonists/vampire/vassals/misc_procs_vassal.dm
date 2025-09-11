@@ -21,7 +21,7 @@
 /datum/antagonist/vassal/proc/grant_power(datum/action/vampire/power)
 	powers += power
 	power.Grant(owner.current)
-	log_game("[key_name(owner.current)] has recieved \"[power]\" as a vassal")
+	log_game("[key_name(owner.current)] has received \"[power]\" as a vassal")
 
 /datum/antagonist/vassal/proc/level_up_powers()
 	for(var/datum/action/vampire/power in powers)
