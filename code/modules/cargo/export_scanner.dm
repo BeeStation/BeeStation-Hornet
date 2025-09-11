@@ -55,11 +55,12 @@
 			glow.set_light(1, 0.6, LIGHT_COLOR_GREEN)
 			playsound(user, 'sound/effects/fastbeep.ogg', 30)
 			balloon_alert(user, "<font color='#66c427'>Value:</font> [price] cr")
+			to_chat(user, "Current stock of [O]: <span class='cfc_orange'><b>[stock]</span>/<span class='cfc_orange'>[demand.max_demand]</b></span>. Value: <span class='cfc_green'><b>[price] cr</b></span>[O.contents.len ? " (contents included)" : ""].")
 		else
 			glow.set_light(1, 0.6, LIGHT_COLOR_RED)
 			playsound(user, 'sound/machines/terminal_error.ogg', 30, TRUE)
 			balloon_alert(user, "<font color='#c41d1d'>Value:</font> [price] cr")
-		to_chat(user, "Current stock of [O]: <span class='cfc_orange'><b>[stock]</span>/<span class='cfc_orange'>[demand.max_demand]</b></span>. Value: <span class='cfc_green'><b>[price] cr</b></span>[O.contents.len ? " (contents included)" : ""].")
+			to_chat(user, "No export value for <span class='cfc_red'>[O]</span>")
 
 		if(istype(O, /obj/machinery/portable_atmospherics))
 			var/obj/machinery/portable_atmospherics/canister/C = O

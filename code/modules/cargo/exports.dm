@@ -134,12 +134,12 @@ then the player gets the profit from selling his own wasted time.
 	// Determine base price and markdown
 	var/base_price = 0
 	var/markdown = 1
-	if(O.custom_price)
-		base_price = O.custom_price
-		markdown = NORMAL_MARKDOWN
-	else if(O.custom_premium_price)
+	if(O.custom_premium_price)
 		base_price = O.custom_premium_price
 		markdown = PREMIUM_MARKDOWN
+	else if(O.custom_price)
+		base_price = O.custom_price
+		markdown = NORMAL_MARKDOWN
 	else
 		base_price = init_cost  // fallback for legacy datum/export items
 
@@ -150,9 +150,11 @@ then the player gets the profit from selling his own wasted time.
 	var/demand_ratio = state.current_demand / state.max_demand
 	demand_ratio = max(demand_ratio, state.min_price_factor)
 
-	// Scale price by demand
-	return round(base_price * amount * demand_ratio)
-
+	// Scale price by
+	if(base_price)	// Makes sure items that HAVE a value don't get completely dogged by the calculations causing it to return 0
+		return max(1, round(base_price * amount * demand_ratio))
+	else
+		return round(base_price * amount * demand_ratio)
 
 // Checks the amount of exportable in object. Credits in the bill, sheets in the stack, etc.
 // Usually acts as a multiplier for a cost, so item that has 0 amount will be skipped in export.
