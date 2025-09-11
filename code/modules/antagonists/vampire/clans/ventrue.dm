@@ -1,7 +1,5 @@
 ///The maximum level a Ventrue Vampire can be, before they have to level up their vassal instead.
 #define VENTRUE_MAX_LEVEL 3
-///How much it costs for a Ventrue to rank up without a spare rank to spend.
-#define VAMPIRE_BLOOD_RANKUP_COST (550)
 
 /datum/vampire_clan/ventrue
 	name = CLAN_VENTRUE
@@ -14,7 +12,7 @@
 		Members of the Ventrue Clan can only purchase 3 powers. The rest of their ranks they will use to level up a vassal into a vampire."
 	blood_drink_type = VAMPIRE_DRINK_SNOBBY
 
-/datum/vampire_clan/ventrue/spend_rank(datum/antagonist/vampire/source, mob/living/carbon/carbon_vassal, cost_rank = TRUE, blood_cost)
+/datum/vampire_clan/ventrue/spend_rank(mob/living/carbon/carbon_vassal)
 	// No vassal to level up? Just level yourself up (if you can)
 	if(!carbon_vassal)
 		if(vampiredatum.vampire_level < VENTRUE_MAX_LEVEL)
@@ -52,14 +50,14 @@
 			return FALSE
 
 		// Prevent Vampires from closing/reopning their coffin to spam Levels.
-		if(cost_rank && vampiredatum.vampire_level_unspent <= 0)
+		if(vampiredatum.vampire_level_unspent <= 0)
 			return FALSE
 		if((locate(options[power_response]) in vassaldatum.powers))
 			return FALSE
 
 		// Give power
 		var/datum/action/vampire/purchased_power = options[power_response]
-		vassaldatum.BuyPower(new purchased_power)
+		vassaldatum.grant_power(new purchased_power)
 
 		living_vampire.balloon_alert(living_vampire, "taught [power_response]!")
 		to_chat(living_vampire, span_notice("You taught [carbon_vassal] how to use [power_response]!"))
@@ -104,12 +102,12 @@
 
 			SEND_SIGNAL(vampiredatum.owner, COMSIG_ADD_MOOD_EVENT, "vampcandle", /datum/mood_event/vampcandle)
 
-	finalize_spend_rank(vampiredatum, cost_rank, blood_cost)
-	vassaldatum.LevelUpPowers()
+	finalize_spend_rank()
+	vassaldatum.level_up_powers()
 
 	// QoL
 	if(vampiredatum.vampire_level_unspent > 0)
-		spend_rank(source, carbon_vassal, cost_rank, blood_cost)
+		spend_rank(carbon_vassal)
 
 /datum/vampire_clan/ventrue/interact_with_vassal(datum/antagonist/vampire/source, datum/antagonist/vassal/favorite/vassaldatum)
 	. = ..()
@@ -118,25 +116,15 @@
 
 	if(!istype(vassaldatum))
 		return FALSE
-	if(!vampiredatum.vampire_level_unspent <= 0)
-		vampiredatum.spend_rank(vassaldatum.owner.current)
+
+	if(vampiredatum.vampire_level_unspent > 0)
+		spend_rank(vassaldatum.owner.current)
 		return TRUE
-	if(vampiredatum.vampire_blood_volume >= VAMPIRE_BLOOD_RANKUP_COST)
-		// We don't have any ranks to spare? Let them upgrade... with enough Blood.
-		to_chat(vampiredatum.owner.current, span_warning("Do you wish to spend [VAMPIRE_BLOOD_RANKUP_COST] Blood to Rank [vassaldatum.owner.current] up?"))
-		var/static/list/rank_options = list(
-			"Yes" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "radial_yes"),
-			"No" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "radial_no"),
-		)
-		var/rank_response = show_radial_menu(vampiredatum.owner.current, vassaldatum.owner.current, rank_options, radius = 36, require_near = TRUE)
-		if(rank_response == "Yes")
-			vampiredatum.spend_rank(vassaldatum.owner.current, cost_rank = FALSE, blood_cost = VAMPIRE_BLOOD_RANKUP_COST)
-		return TRUE
-	to_chat(vampiredatum.owner.current, span_danger("You don't have any levels or enough Blood to Rank [vassaldatum.owner.current] up with."))
+
+	to_chat(vampiredatum.owner.current, span_danger("You don't have any levels or enough to rank [vassaldatum.owner.current] up with."))
 	return TRUE
 
-/datum/vampire_clan/ventrue/on_favorite_vassal(datum/source, datum/antagonist/vassal/vassaldatum, mob/living/vampire)
-	to_chat(vampire, span_announce("* Vampire Tip: You can now upgrade your Favorite Vassal by buckling them onto a persuasion rack!"))
+/datum/vampire_clan/ventrue/on_favorite_vassal(datum/antagonist/vassal/favorite/favorite_vassal)
+	to_chat(vampiredatum.owner.current, span_announce("* Vampire Tip: You can now upgrade your Favorite Vassal by buckling them onto a persuasion rack!"))
 
-#undef VAMPIRE_BLOOD_RANKUP_COST
 #undef VENTRUE_MAX_LEVEL

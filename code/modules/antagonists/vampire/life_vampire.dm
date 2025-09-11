@@ -24,7 +24,10 @@
 			COOLDOWN_START(src, vampire_spam_healing, VAMPIRE_SPAM_HEALING)
 
 	// Standard Updates
-	SEND_SIGNAL(src, COMSIG_VAMPIRE_ON_LIFETICK)
+
+	// Clan specific stuff
+	if(my_clan)
+		INVOKE_ASYNC(my_clan, TYPE_PROC_REF(/datum/vampire_clan, handle_clan_life))
 
 	// Handle blood
 	INVOKE_ASYNC(src, PROC_REF(handle_blood), delta_time)

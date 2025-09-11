@@ -7,7 +7,8 @@
 	tracker.tracking_beacon.toggle_visibility(TRUE)
 
 /datum/antagonist/vampire/proc/cleanup_tracker()
-	QDEL_NULL(tracker)
+	if(tracker)
+		QDEL_NULL(tracker)
 
 /**
  * An abstract object contained within the vampire, used to host the team_monitor component.

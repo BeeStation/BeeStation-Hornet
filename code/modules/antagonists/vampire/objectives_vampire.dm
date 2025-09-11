@@ -110,7 +110,17 @@
 // GENERATE!
 /datum/objective/vampire/conversion/department/New()
 	target_department = pick(possible_departments)
-	target_amount = rand(2, 3)
+
+	// Don't assign more vassalizations than possible
+	var/vassal_max = 0
+	switch(length(GLOB.joined_player_list))
+		if(1 to 20)
+			vassal_max = 1
+		if(21 to 30)
+			vassal_max = 3
+		if(31 to INFINITY)
+			vassal_max = 4
+	target_amount = min(rand(2, 3), vassal_max)
 	return ..()
 
 // EXPLANATION
@@ -146,8 +156,8 @@
 
 // GENERATE!
 /datum/objective/vampire/heartthief/New()
+	. = ..()
 	target_amount = rand(2,3)
-	..()
 
 // EXPLANATION
 /datum/objective/vampire/heartthief/update_explanation_text()
@@ -179,7 +189,7 @@
 // GENERATE!
 /datum/objective/vampire/gourmand/New()
 	target_amount = rand(450,650)
-	..()
+	return ..()
 
 // EXPLANATION
 /datum/objective/vampire/gourmand/update_explanation_text()
