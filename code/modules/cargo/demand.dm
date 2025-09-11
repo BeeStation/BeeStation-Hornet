@@ -57,7 +57,7 @@ GLOBAL_LIST_EMPTY(obj_demand_states)
 	// Add radio message to cargo or smt
 
 /// Used to return gas value based on demand, expects gas datum and moles.
-proc/get_gas_value(datum/gas/g, moles)
+/proc/get_gas_value(datum/gas/g, moles)
 	if(moles <= 0)
 		return 0
 	// Grab demand state for this gas type
