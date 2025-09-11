@@ -6,7 +6,7 @@
 	/// How many dash charges do we have?
 	var/current_charges = 1
 	/// If set to 0, doesn't require charges
-	var/max_charges = 0
+	var/max_charges = 1
 	/// How much damage is dealt to objects in the path
 	var/obj_damage = 200
 	/// How long does it take to get a dash charge back?
