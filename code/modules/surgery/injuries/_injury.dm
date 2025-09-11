@@ -158,5 +158,3 @@
 /datum/injury/proc/heal()
 	if (healed_type)
 		transition_to(healed_type)
-
-/datum/injury/proc/get_e

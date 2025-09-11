@@ -13,7 +13,6 @@
 	px_x = 0
 	px_y = -8
 	stam_damage_coeff = 1
-	max_stamina_damage = 100
 	is_dimorphic = TRUE
 	dismemberment_requires_death = TRUE
 	organ_slots = list(
