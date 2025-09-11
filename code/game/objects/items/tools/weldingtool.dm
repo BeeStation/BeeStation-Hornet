@@ -391,6 +391,7 @@
 	light_range = 0
 	light_intensity = 0
 	change_icons = 0
+	custom_price = 100
 
 /obj/item/weldingtool/abductor/process()
 	if(get_fuel() <= max_fuel)
