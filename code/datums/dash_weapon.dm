@@ -5,7 +5,11 @@
 	button_icon_state = "jetboot"
 	/// How many dash charges do we have?
 	var/current_charges = 1
-	/// If set to 0, doesn't require charges
+	/// If set to 0, doesn't require charges. If set to a value greater than 0
+	/// then this is the maximum number of charges that the ability can hold, with
+	/// charges being consumed upon the use of the ability. Once all charges are
+	/// consumed, the user must wait until they recharge before the ability can
+	/// be used again.
 	var/max_charges = 1
 	/// How much damage is dealt to objects in the path
 	var/obj_damage = 200
