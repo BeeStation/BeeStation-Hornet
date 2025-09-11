@@ -57,8 +57,6 @@
 	// =================================
 	/// Bodypart we are attached to
 	var/obj/item/bodypart/bodypart
-	/// Current amount of damage that we have taken
-	VAR_PRIVATE/damage_taken = 0
 	/// When did we gain this injury?
 	var/gained_time
 	/// How much damage have we absorbed, when injuries are gained for the first time

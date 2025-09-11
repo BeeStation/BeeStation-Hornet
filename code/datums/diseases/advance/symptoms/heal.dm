@@ -154,14 +154,17 @@
 /datum/symptom/heal/coma/Heal(mob/living/carbon/M, datum/disease/advance/A, actual_power)
 	var/heal_amt = 4 * actual_power
 
-	var/list/parts = M.get_damaged_bodyparts(1,1)
+	var/list/parts = M.get_injured_bodyparts(list(
+		/datum/injury/burn,
+		/datum/injury/brute
+	), status = BODYTYPE_ORGANIC)
 
 	if(!parts.len)
 		return
 
 	for(var/obj/item/bodypart/L in parts)
-		if(L.heal_damage(heal_amt/parts.len, heal_amt/parts.len, null, BODYTYPE_ORGANIC))
-			M.update_damage_overlays()
+		L.heal_injury(/datum/injury/burn, heal_amt/parts.len, BODYTYPE_ORGANIC)
+		L.heal_injury(/datum/injury/brute, heal_amt/parts.len, BODYTYPE_ORGANIC)
 
 	if(active_coma && M.getBruteLoss() + M.getFireLoss() == 0)
 		uncoma(M)

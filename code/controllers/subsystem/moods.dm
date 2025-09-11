@@ -3,3 +3,4 @@ PROCESSING_SUBSYSTEM_DEF(mood)
 	flags = SS_NO_INIT | SS_BACKGROUND
 	priority = 20
 	wait = 1 SECONDS
+	runlevels = RUNLEVEL_GAME

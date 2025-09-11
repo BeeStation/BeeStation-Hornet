@@ -412,6 +412,7 @@
 			if(owner.consciousness.value > 0 && owner.stat == DEAD)
 				owner.revive()
 				owner.cure_husk(0) // If it has REVIVESBYHEALING, it probably can't be cloned. No husk cure.
+	owner.update_damage_overlays()	//temp: call this if we need to
 	return update_bodypart_damage_state()
 
 /obj/item/bodypart/proc/increase_injury(injury_type, amount)

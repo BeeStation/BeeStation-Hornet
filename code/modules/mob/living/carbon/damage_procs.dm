@@ -2,13 +2,17 @@
 /mob/living/carbon/getBruteLoss()
 	var/amount = 0
 	for(var/obj/item/bodypart/BP as() in bodyparts)
-		amount += BP.brute_dam
+		var/datum/injury/injury = BP.get_injury_by_base(/datum/injury/brute)
+		if (injury)
+			amount += injury.progression
 	return amount
 
 /mob/living/carbon/getFireLoss()
 	var/amount = 0
 	for(var/obj/item/bodypart/BP as() in bodyparts)
-		amount += BP.burn_dam
+		var/datum/injury/injury = BP.get_injury_by_base(/datum/injury/burn)
+		if (injury)
+			amount += injury.progression
 	return amount
 
 
@@ -117,13 +121,19 @@
 
 /// Returns a list of damaged bodyparts
 /// required_injury: The typepath of the injury that we are scanning for, or the base typepath of an injury tree.
+/// Lists are also supported.
 /// status: The required status of the bodypart
-/mob/living/carbon/proc/get_damaged_bodyparts(required_injury = null, status = null)
+/mob/living/carbon/proc/get_injured_bodyparts(required_injury = null, status = null)
 	var/list/obj/item/bodypart/parts = list()
 	for(var/obj/item/bodypart/BP as() in bodyparts)
 		if(status && !(BP.bodytype & status))
 			continue
-		if (required_injury)
+		if (islist(required_injury))
+			for (var/injury_path in required_injury)
+				if (BP.get_injury_by_base(required_injury))
+					parts += BP
+					break
+		else if (required_injury)
 			if (BP.get_injury_by_base(required_injury))
 				parts += BP
 		else
@@ -137,7 +147,7 @@
 	for(var/obj/item/bodypart/BP as() in bodyparts)
 		if(status && !(BP.bodytype & status))
 			continue
-		if(BP.brute_dam + BP.burn_dam < BP.max_damage)
+		if (!BP.destroyed)
 			parts += BP
 	return parts
 
@@ -145,7 +155,7 @@
 //It automatically updates damage overlays if necessary
 //It automatically updates health status
 /mob/living/carbon/heal_bodypart_damage(brute = 0, burn = 0, stamina = 0, updating_health = TRUE, required_status)
-	var/list/obj/item/bodypart/parts = get_damaged_bodyparts(brute,burn,stamina,required_status)
+	var/list/obj/item/bodypart/parts = get_damaged_bodypartsa(brute,burn,stamina,required_status)
 	if(!parts.len)
 		return
 	var/obj/item/bodypart/picked = pick(parts)
@@ -167,7 +177,7 @@
 
 //Heal MANY bodyparts, in random order
 /mob/living/carbon/heal_overall_damage(brute = 0, burn = 0, stamina = 0, required_status, updating_health = TRUE)
-	var/list/obj/item/bodypart/parts = get_damaged_bodyparts(brute, burn, stamina, required_status)
+	var/list/obj/item/bodypart/parts = get_damaged_bodypartsa(brute, burn, stamina, required_status)
 
 	var/update = NONE
 	while(parts.len && (brute > 0 || burn > 0 || stamina > 0))
