@@ -36,32 +36,73 @@
  * * For more information, see code\modules\atmospherics\machinery\portable\canister.dm.
  */
 /datum/export/large/gas_canister
-	cost = 10 //Base cost of canister. You get more for nice gases inside.
 	unit_name = "Gas Canister"
 	export_types = list(/obj/machinery/portable_atmospherics/canister)
 
 /datum/export/large/gas_canister/get_cost(obj/O)
 	var/obj/machinery/portable_atmospherics/canister/C = O
-	var/worth = cost
+	var/worth = C.custom_price
 	var/datum/gas_mixture/canister_mix = C.return_air()
 	var/canister_gas = canister_mix.gases
-	var/list/gases_to_check = list(
-		/datum/gas/bz,
-		/datum/gas/nitrium,
-		/datum/gas/hypernoblium,
-		/datum/gas/tritium,
-		/datum/gas/pluoxium,
-		/datum/gas/water_vapor,
-	)
 
-	for(var/gasID in gases_to_check)
-		canister_mix.assert_gas(gasID)
-		if(canister_gas[gasID][MOLES] > 0)
-			worth += get_gas_value(gasID, canister_gas[gasID][MOLES])
+	for(var/id in canister_gas)
+		var/datum/gas/path = gas_id2path(id)
+		var/moles = canister_gas[id][MOLES]
+		if(moles > 0)
+			worth += get_gas_value(path, moles)
 
 	canister_mix.garbage_collect()
 	return worth
 
-/datum/export/large/gas_canister/proc/get_gas_value(datum/gas/gasType, moles)
-	var/baseValue = initial(gasType.base_value)
-	return round((baseValue/k_elasticity) * (1 - NUM_E**(-1 * k_elasticity * moles)))
+/datum/export/large/gas_canister/get_amount(obj/O)
+	var/obj/machinery/portable_atmospherics/canister/C = O
+	var/datum/gas_mixture/canister_mix = C.return_air()
+	var/canister_gas = canister_mix.gases
+
+	var/dominant_id = null
+	var/dominant_moles = 0
+	var/total_moles = 0
+
+	for(var/id in canister_gas)
+		var/moles = canister_gas[id][MOLES]
+		if(moles > 0)
+			total_moles += moles
+			if(moles > dominant_moles)
+				dominant_moles = moles
+				dominant_id = id
+
+	if(total_moles > 0)
+		if(dominant_id)
+			var/gas_name = canister_gas[dominant_id][GAS_META][META_GAS_NAME]
+			unit_name = "Mole - Gas Canister: [gas_name]"
+		else
+			unit_name = "Mole - Mixed Gases Canister"
+
+		return total_moles
+
+	return 0
+
+/datum/export/large/gas_canister/sell_object(obj/O, datum/export_report/report, dry_run = TRUE, allowed_categories = EXPORT_CARGO)
+	var/obj/machinery/portable_atmospherics/canister/C = O
+	var/datum/gas_mixture/canister_mix = C.return_air()
+	var/canister_gas = canister_mix.gases
+
+	// Total value & amount already calculated by existing procs
+	var/total_value = get_cost(O)
+	var/total_moles = get_amount(O)
+
+	report.total_value[src] += total_value
+	report.total_amount[src] += total_moles
+
+	// Reduce demand for each gas sold
+	for(var/id in canister_gas)
+		var/datum/gas/path = gas_id2path(id)
+		var/moles = canister_gas[id][MOLES]
+		if(moles <= 0)
+			return
+		if(!dry_run)
+			var/datum/obj_demand_state/state = get_obj_demand_state(path)
+			state.current_demand = max(0, state.current_demand - moles)
+			SSblackbox.record_feedback("nested tally", "export_sold_cost", 1, list("[O.type]", "[total_value]"))
+
+	return TRUE

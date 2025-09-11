@@ -59,7 +59,7 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	var/rarity = 0
 	///Can gas of this type can purchased through cargo?
 	var/purchaseable = FALSE
-	///How does a single mole of this gas sell for? Formula to calculate maximum value is in code\modules\cargo\exports\large_objects.dm. Doesn't matter for roundstart gasses.
+	///How does a single mole of this gas sell for? Formula to calculate maximum value is in code\modules\cargo\exports\large_objects.dm.
 	var/base_value = 0
 	//Description
 	var/desc

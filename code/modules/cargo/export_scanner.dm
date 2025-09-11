@@ -57,7 +57,26 @@
 			balloon_alert(user, "<font color='#66c427'>Value:</font> [price] cr")
 		else
 			glow.set_light(1, 0.6, LIGHT_COLOR_RED)
-			if(price)
+			playsound(user, 'sound/machines/terminal_error.ogg', 30, TRUE)
+		to_chat(user, "Current stock of [O]: <span class='cfc_orange'><b>[stock]</span>/<span class='cfc_orange'>[demand.max_demand]</b></span>. Value: <span class='cfc_green'><b>[price] cr</b></span>[O.contents.len ? " (contents included)" : ""].")
+
+		if(istype(O, /obj/machinery/portable_atmospherics))
+			var/obj/machinery/portable_atmospherics/canister/C = O
+			var/datum/gas_mixture/canister_mix = C.return_air()
+			var/canister_gas = canister_mix.gases
+			for(var/id in canister_gas)
+				var/datum/gas/path = gas_id2path(id)
+				var/moles = canister_gas[id][MOLES]
+				var/datum/obj_demand_state/gas_demand = get_obj_demand_state(path)
+				var/gas_current = gas_demand.current_demand
+				var/gas_maximum = gas_demand.max_demand
+				var/gas_stock = (gas_maximum - gas_current)
+				to_chat(user, ("Detected: [path.name] [round(moles)] mol / Current stock: <span class='cfc_orange'><b>[gas_stock]</span>/<span class='cfc_orange'>[gas_demand.max_demand]</b></span> Value: <span class='cfc_green'><b>[get_gas_value(path, moles)] cr</b></span>"))
+		var/sound_played = FALSE
+		if(O.is_contraband)
+			to_chat(user, ("<span class='cfc_red'>CONTRABAND DETECTED:</span> <b>[O.name]</b>"))
+			if(!sound_played)
+				sound_played = TRUE
 				playsound(user, 'sound/machines/uplinkerror.ogg', 30, TRUE)
 		for(var/obj/thing in O.contents)
 			if(thing.is_contraband)
