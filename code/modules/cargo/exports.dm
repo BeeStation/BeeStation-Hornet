@@ -26,7 +26,7 @@ then the player gets the profit from selling his own wasted time.
 	var/list/total_value = list()		//export instance => total value of sold objects
 
 // external_report works as "transaction" object, pass same one in if you're doing more than one export in single go
-/proc/export_item_and_contents(atom/movable/AM, allowed_categories = EXPORT_CARGO, delete_unsold = TRUE, dry_run=FALSE, datum/export_report/external_report)
+/proc/export_item_and_contents(atom/movable/AM, allowed_categories = EXPORT_CARGO, delete_unsold = FALSE, dry_run=FALSE, datum/export_report/external_report)
 	if(!GLOB.exports_list.len)
 		setupExports()
 
@@ -43,11 +43,11 @@ then the player gets the profit from selling his own wasted time.
 		var/sold = FALSE
 
 		for(var/datum/export/E in GLOB.exports_list)
-			if(!E)
-				continue
+			//if(!E)
+			//	continue
 			if(E.applies_to(thing, allowed_categories))
 				sold = E.sell_object(thing, report, dry_run, allowed_categories)
-				report.exported_atoms += " [thing.name]"
+				report.exported_atoms += thing // append the atom itself
 				break
 
 		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_ATOM_SOLD, thing, sold)
@@ -59,7 +59,7 @@ then the player gets the profit from selling his own wasted time.
 
 	return report
 
-/proc/export_contents(atom/movable/AM, allowed_categories = EXPORT_CARGO, delete_unsold = TRUE, dry_run=FALSE, datum/export_report/external_report)
+/proc/export_contents(atom/movable/AM, allowed_categories = EXPORT_CARGO, delete_unsold = FALSE, dry_run=FALSE, datum/export_report/external_report)
 	if(!GLOB.exports_list.len)
 		setupExports()
 
@@ -104,17 +104,6 @@ then the player gets the profit from selling his own wasted time.
 	//All these need to be present in export call parameter for this to apply.
 	var/export_category = EXPORT_CARGO
 
-/datum/export/item_price
-	cost = 0	// This is defined later based on custom prices
-	export_category = EXPORT_CARGO
-	include_subtypes = TRUE
-	export_types = list(/obj) // catch-all
-
-/datum/export/item_price/applies_to(obj/O, allowed_categories = NONE)
-	if(!(O.custom_price || O.custom_premium_price))
-		return FALSE
-	return TRUE
-
 /datum/export/New()
 	..()
 	START_PROCESSING(SSprocessing, src)
@@ -131,19 +120,14 @@ then the player gets the profit from selling his own wasted time.
 	if(amount <= 0)
 		return 0
 
-	// Determine base price and markdown
+	// Determine base price
 	var/base_price = 0
-	var/markdown = 1
 	if(O.custom_premium_price)
 		base_price = O.custom_premium_price
-		markdown = PREMIUM_MARKDOWN
 	else if(O.custom_price)
 		base_price = O.custom_price
-		markdown = NORMAL_MARKDOWN
 	else
 		base_price = init_cost  // fallback for legacy datum/export items
-
-	base_price *= markdown
 
 	// Grab demand state for this object type
 	var/datum/obj_demand_state/state = get_obj_demand_state(O.type)
@@ -217,19 +201,51 @@ then the player gets the profit from selling his own wasted time.
 	var/total_value = ex.total_value[src]
 	var/total_amount = ex.total_amount[src]
 
-	var/msg = "[total_value] credits: Received [total_amount] "
+	var/msg = "[total_value] credits: Received "
+
 	if(total_value > 0)
 		msg = "+" + msg
 
-	if(unit_name)
-		msg += unit_name
-		if(total_amount > 1)
-			msg += "s"
-		if(message)
-			msg += " "
+	// Count occurrences using parallel lists
+	var/list/names_list = list()
+	var/list/counts_list = list()
+
+	for(var/atom/i in ex.exported_atoms)
+		if(i.name)
+			var/found = FALSE
+			for(var/j = 1; j <= names_list.len; j++)
+				if(names_list[j] == i.name)
+					counts_list[j] += 1
+					found = TRUE
+					break
+			if(!found)
+				names_list += i.name
+				counts_list += 1
+
+	// Build item strings
+	var/list/item_strings = list()
+	for(var/k = 1; k <= names_list.len; k++)
+		var/item_name = names_list[k]
+		var/count = counts_list[k]
+		if(count > 1)
+			item_strings += count + " " + item_name + "s"
+		else
+			item_strings += item_name
+
+	// Join with commas, last item with "and"
+	var/item_msg = ""
+	for(var/i = 1; i <= item_strings.len; i++)
+		if(i == 1)
+			item_msg = item_strings[i]
+		else if(i == item_strings.len)
+			item_msg = item_msg + " and " + item_strings[i]
+		else
+			item_msg = item_msg + ", " + item_strings[i]
+
+	msg += item_msg
 
 	if(message)
-		msg += message
+		msg += " " + message
 
 	msg += "."
 	return msg

@@ -16,8 +16,8 @@ GLOBAL_LIST_EMPTY(obj_demand_states)
 		var/datum/obj_demand_state/state = new /datum/obj_demand_state
 
 		// Check if object has a max_demand var
-		if(istype(typepath, /obj))
-			var/obj/object = typepath
+		if(ispath(typepath, /obj))
+			var/obj/object = new typepath
 			if(object.max_demand)
 				state.max_demand = object.max_demand
 		if(ispath(typepath, /datum/gas))

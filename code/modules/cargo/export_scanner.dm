@@ -82,7 +82,7 @@
 				playsound(user, 'sound/machines/uplinkerror.ogg', 30, TRUE)
 		for(var/obj/thing in O.contents)
 			if(thing.is_contraband)
-				to_chat(user, ("<span class='cfc_red'>CONTRABAND DETECTED:</span> <b>[O.name]</b>"))
+				to_chat(user, ("<span class='cfc_red'>CONTRABAND DETECTED:</span> <b>[thing.name]</b>"))
 				if(!sound_played)
 					sound_played = TRUE
 					playsound(user, 'sound/machines/uplinkerror.ogg', 30, TRUE)

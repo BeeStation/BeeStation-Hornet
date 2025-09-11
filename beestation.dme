@@ -2553,6 +2553,7 @@
 #include "code\modules\cargo\exports\seeds.dm"
 #include "code\modules\cargo\exports\sheets.dm"
 #include "code\modules\cargo\exports\tools.dm"
+#include "code\modules\cargo\exports\item_price.dm"
 #include "code\modules\chatter\chatter.dm"
 #include "code\modules\client\antag_tokens.dm"
 #include "code\modules\client\client_colour.dm"
