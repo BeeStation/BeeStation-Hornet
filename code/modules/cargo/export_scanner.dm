@@ -88,4 +88,4 @@
 					playsound(user, 'sound/machines/uplinkerror.ogg', 30, TRUE)
 
 		if(bounty_ship_item_and_contents(O, dry_run=TRUE))
-			to_chat(user, ("<span class='cfc_soul_glimmer_azure'>Scanned item is eligible for one or more <b>bounties!</b></span>"))
+			to_chat(user, ("<span class='cfc_soul_glimmer_azure'>[O.name] is eligible for one or more <b>bounties!</b></span>"))
