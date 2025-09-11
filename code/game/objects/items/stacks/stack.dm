@@ -13,6 +13,7 @@
 	icon = 'icons/obj/stacks/minerals.dmi'
 	gender = PLURAL
 	material_modifier = 0.05 //5%, so that a 50 sheet stack has the effect of 5k materials instead of 100k.
+	max_demand = 500
 	/// What's the name of just 1 of this stack. You have a stack of leather, but one piece of leather
 	var/singular_name
 	/// How much is in this stack?

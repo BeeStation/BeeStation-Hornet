@@ -26,7 +26,7 @@ then the player gets the profit from selling his own wasted time.
 	var/list/total_value = list()		//export instance => total value of sold objects
 
 // external_report works as "transaction" object, pass same one in if you're doing more than one export in single go
-/proc/export_item_and_contents(atom/movable/AM, allowed_categories = EXPORT_CARGO, apply_elastic = TRUE, delete_unsold = TRUE, dry_run=FALSE, datum/export_report/external_report)
+/proc/export_item_and_contents(atom/movable/AM, allowed_categories = EXPORT_CARGO, delete_unsold = TRUE, dry_run=FALSE, datum/export_report/external_report)
 	if(!GLOB.exports_list.len)
 		setupExports()
 
@@ -45,8 +45,8 @@ then the player gets the profit from selling his own wasted time.
 		for(var/datum/export/E in GLOB.exports_list)
 			if(!E)
 				continue
-			if(E.applies_to(thing, allowed_categories, apply_elastic))
-				sold = E.sell_object(thing, report, dry_run, allowed_categories , apply_elastic)
+			if(E.applies_to(thing, allowed_categories))
+				sold = E.sell_object(thing, report, dry_run, allowed_categories)
 				report.exported_atoms += " [thing.name]"
 				break
 
@@ -59,7 +59,7 @@ then the player gets the profit from selling his own wasted time.
 
 	return report
 
-/proc/export_contents(atom/movable/AM, allowed_categories = EXPORT_CARGO, apply_elastic = TRUE, delete_unsold = TRUE, dry_run=FALSE, datum/export_report/external_report)
+/proc/export_contents(atom/movable/AM, allowed_categories = EXPORT_CARGO, delete_unsold = TRUE, dry_run=FALSE, datum/export_report/external_report)
 	if(!GLOB.exports_list.len)
 		setupExports()
 
@@ -76,8 +76,8 @@ then the player gets the profit from selling his own wasted time.
 		for(var/datum/export/E in GLOB.exports_list)
 			if(!E)
 				continue
-			if(E.applies_to(thing, allowed_categories, apply_elastic))
-				sold = E.sell_object(thing, report, dry_run, allowed_categories , apply_elastic)
+			if(E.applies_to(thing, allowed_categories))
+				sold = E.sell_object(thing, report, dry_run, allowed_categories)
 				report.exported_atoms += " [thing.name]"
 				break
 
@@ -94,7 +94,6 @@ then the player gets the profit from selling his own wasted time.
 	var/unit_name = ""				// Unit name. Only used in "Received [total_amount] [name]s [message]." message
 	var/message = ""
 	var/cost = 100					// Cost of item, in cargo credits. Must not alow for infinite price dupes, see above.
-	var/k_elasticity = 1/30			//coefficient used in marginal price calculation that roughly corresponds to the inverse of price elasticity, or "quantity elasticity"
 	var/list/export_types = list()	// Type of the exported object. If none, the export datum is considered base type.
 	var/include_subtypes = TRUE		// Set to FALSE to make the datum apply only to a strict type.
 	var/list/exclude_types = list()	// Types excluded from export
@@ -111,27 +110,10 @@ then the player gets the profit from selling his own wasted time.
 	include_subtypes = TRUE
 	export_types = list(/obj) // catch-all
 
-/datum/export/item_price/applies_to(obj/O, allowed_categories = NONE, apply_elastic = TRUE)
+/datum/export/item_price/applies_to(obj/O, allowed_categories = NONE)
 	if(!(O.custom_price || O.custom_premium_price))
 		return FALSE
 	return TRUE
-
-/datum/export/item_price/get_cost(obj/O, allowed_categories = NONE, apply_elastic = TRUE)
-	var/amount = get_amount(O)
-	var/true_price = 0
-	var/markdown_to_use = 1
-	if(O.name) // What wouldn't have a name?! Just in case...
-		unit_name = O.name
-	if(O.custom_price)
-		true_price = O.custom_price
-		markdown_to_use = NORMAL_MARKDOWN
-	else if(O.custom_premium_price)
-		true_price = O.custom_premium_price
-		markdown_to_use = PREMIUM_MARKDOWN
-	if(apply_elastic && k_elasticity)
-		return round((true_price * markdown_to_use / k_elasticity) * (1 - NUM_E**(-1 * k_elasticity * amount)))
-	else
-		return round(true_price * markdown_to_use * amount)
 
 /datum/export/New()
 	..()
@@ -144,24 +126,33 @@ then the player gets the profit from selling his own wasted time.
 	STOP_PROCESSING(SSprocessing, src)
 	return ..()
 
-/datum/export/process()
-	. = ..()
-	if(!k_elasticity)
-		return PROCESS_KILL
-	cost *= NUM_E**(k_elasticity * (1/30))
-	if(cost > init_cost)
-		cost = init_cost
-
-// Checks the cost. 0 cost items are skipped in export.
-/datum/export/proc/get_cost(obj/O, allowed_categories = NONE, apply_elastic = TRUE)
+/datum/export/proc/get_cost(obj/O, allowed_categories = NONE)
 	var/amount = get_amount(O)
-	if(apply_elastic)
-		if(k_elasticity!=0)
-			return round((cost/k_elasticity) * (1 - NUM_E**(-1 * k_elasticity * amount)))	//anti-derivative of the marginal cost function
-		else
-			return round(cost * amount)	//alternative form derived from L'Hopital to avoid division by 0
+	if(amount <= 0)
+		return 0
+
+	// Determine base price and markdown
+	var/base_price = 0
+	var/markdown = 1
+	if(O.custom_price)
+		base_price = O.custom_price
+		markdown = NORMAL_MARKDOWN
+	else if(O.custom_premium_price)
+		base_price = O.custom_premium_price
+		markdown = PREMIUM_MARKDOWN
 	else
-		return round(init_cost * amount)
+		base_price = init_cost  // fallback for legacy datum/export items
+
+	base_price *= markdown
+
+	// Grab demand state for this object type
+	var/datum/obj_demand_state/state = get_obj_demand_state(O.type)
+	var/demand_ratio = state.current_demand / state.max_demand
+	demand_ratio = max(demand_ratio, state.min_price_factor)
+
+	// Scale price by demand
+	return round(base_price * amount * demand_ratio)
+
 
 // Checks the amount of exportable in object. Credits in the bill, sheets in the stack, etc.
 // Usually acts as a multiplier for a cost, so item that has 0 amount will be skipped in export.
@@ -169,7 +160,7 @@ then the player gets the profit from selling his own wasted time.
 	return 1
 
 // Checks if the item is fit for export datum.
-/datum/export/proc/applies_to(obj/O, allowed_categories = NONE, apply_elastic = TRUE)
+/datum/export/proc/applies_to(obj/O, allowed_categories = NONE)
 	if(O.is_contraband)
 		export_category = EXPORT_CONTRABAND
 	if((allowed_categories & export_category) != export_category)
@@ -178,7 +169,7 @@ then the player gets the profit from selling his own wasted time.
 		return FALSE
 	if(include_subtypes && (!is_type_in_typecache(O, export_types) || is_type_in_typecache(O, exclude_types)))
 		return FALSE
-	if(!get_cost(O, allowed_categories , apply_elastic))
+	if(!get_cost(O, allowed_categories))
 		return FALSE
 	if(O.flags_1 & HOLOGRAM_1)
 		return FALSE
@@ -192,12 +183,13 @@ then the player gets the profit from selling his own wasted time.
   * get_cost, get_amount and applies_to do not neccesary mean a successful sale.
   *
   */
-/datum/export/proc/sell_object(obj/O, datum/export_report/report, dry_run = TRUE, allowed_categories = EXPORT_CARGO , apply_elastic = TRUE)
+/datum/export/proc/sell_object(obj/O, datum/export_report/report, dry_run = TRUE, allowed_categories = EXPORT_CARGO)
 	///This is the value of the object, as derived from export datums.
-	var/the_cost = get_cost(O, allowed_categories , apply_elastic)
+	var/the_cost = get_cost(O, allowed_categories)
 	///Quantity of the object in question.
 	var/amount = get_amount(O)
-
+	if(!unit_name)
+		unit_name = O.name
 	if(amount <=0 || the_cost <=0)
 		return FALSE
 
@@ -207,10 +199,9 @@ then the player gets the profit from selling his own wasted time.
 		report.total_amount[src] += amount*MINERAL_MATERIAL_AMOUNT
 	else
 		report.total_amount[src] += amount
-
 	if(!dry_run)
-		if(apply_elastic)
-			cost *= NUM_E**(-1*k_elasticity*amount)		//marginal cost modifier
+		var/datum/obj_demand_state/state = get_obj_demand_state(O.type)
+		state.current_demand = max(0, state.current_demand - amount)
 		SSblackbox.record_feedback("nested tally", "export_sold_cost", 1, list("[O.type]", "[the_cost]"))
 	return TRUE
 
@@ -244,7 +235,18 @@ then the player gets the profit from selling his own wasted time.
 GLOBAL_LIST_EMPTY(exports_list)
 
 /proc/setupExports()
-	for(var/subtype in subtypesof(/datum/export))
-		var/datum/export/E = new subtype
-		if(E.export_types?.len) // Exports without a type are invalid/base types
-			GLOB.exports_list += E
+    var/list/catchalls = list()
+
+    for(var/subtype in subtypesof(/datum/export))
+        var/datum/export/E = new subtype
+        if(!E.export_types?.len)
+            continue
+
+        // Detect catch-all
+        if(istype(E, /datum/export/item_price))
+            catchalls += E
+        else
+            GLOB.exports_list += E
+
+    // Now append catch-alls so they run last
+    GLOB.exports_list += catchalls

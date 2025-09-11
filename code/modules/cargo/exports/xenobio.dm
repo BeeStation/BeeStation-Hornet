@@ -1,6 +1,6 @@
 /datum/export/slime
 
-/datum/export/slime/get_cost(obj/O, allowed_categories = NONE, apply_elastic = TRUE)
+/datum/export/slime/get_cost(obj/O, allowed_categories = NONE)
 	var/costfromparent = ..()
 	if (istype(O,/obj/item/slime_extract))
 		var/obj/item/slime_extract/slimething = O

@@ -74,6 +74,8 @@ CREATION_TEST_IGNORE_SELF(/obj)
 
 	/// Is this contraband? If so can only be exported if the supply console has access to contraband
 	var/is_contraband = FALSE
+	/// Maximum demand of the object type for exporting calculations
+	var/max_demand = 50
 
 /obj/vv_edit_var(vname, vval)
 	if(vname == NAMEOF(src, obj_flags))

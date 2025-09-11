@@ -66,6 +66,9 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	///RGB code for use when a generic color representing the gas is needed. Colors taken from contants.ts
 	var/primary_color
 
+	///Maximum demand when exporting in MOLES
+	var/max_demand = 5000
+
 /datum/gas/oxygen
 	id = GAS_O2
 	specific_heat = 20

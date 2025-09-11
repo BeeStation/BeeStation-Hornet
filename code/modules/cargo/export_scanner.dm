@@ -21,6 +21,7 @@
 	if(!istype(O) || !proximity || HAS_TRAIT(O, TRAIT_IGNORE_EXPORT_SCAN))
 		if(HAS_TRAIT(O, TRAIT_IGNORE_EXPORT_SCAN))
 			to_chat(user, "<span class='warning'>[O] cannot be scanned!</span>")
+			playsound(user, 'sound/machines/terminal_error.ogg', 30, TRUE)
 		return
 
 	if(istype(O, /obj/machinery/computer/cargo))
@@ -28,8 +29,10 @@
 		if(!C.requestonly)
 			cargo_console = C
 			to_chat(user, span_notice("Scanner linked to [C]."))
+			playsound(user, 'sound/effects/fastbeep.ogg', 30)
 	else if(!istype(cargo_console))
 		to_chat(user, span_warning("You must link [src] to a cargo console first!"))
+		playsound(user, 'sound/machines/terminal_error.ogg', 30, TRUE)
 	else
 		// Before you fix it:
 		// yes, checking manifests is a part of intended functionality.
@@ -39,34 +42,29 @@
 		for(var/x in ex.total_amount)
 			price += ex.total_value[x]
 
-		if(price)
-			to_chat(user, "Scanned [O], value: <b>[price]</b> credits[O.contents.len ? " (contents included)" : ""].")
-		else
-			to_chat(user, span_warning("Scanned [O], no export value."))
-		var/detected
-		if(O.is_contraband)
-			to_chat(user, span_warning("CONTRABAND DETECTED: [O.name]"))
-			detected = TRUE
-		for(var/obj/thing in O.contents)
-			if(thing.is_contraband)
-				to_chat(user, span_warning("CONTRABAND DETECTED: [O.name]"))
-				detected = TRUE
+		var/datum/obj_demand_state/demand = get_obj_demand_state(O.type)
+		var/current = demand.current_demand
+		var/maximum = demand.max_demand
+		var/stock = (maximum - current)
+		if(stock < 0)	// Boilerplate
+			stock = 0
 		var/obj/effect/dummy/lighting_obj/glow = new(get_turf(O))
 		glow.light_system = STATIC_LIGHT
 		QDEL_IN(glow, 0.25 SECONDS)
-		if(!detected)
-			balloon_alert(user, "<font color='#66c427'>Value:</font> [price] cr")
+		if(price)
 			glow.set_light(1, 0.6, LIGHT_COLOR_GREEN)
-			if(price)
-				playsound(user, 'sound/effects/fastbeep.ogg', 30)
-			else
-				playsound(user, 'sound/machines/terminal_error.ogg', 30, TRUE)
+			playsound(user, 'sound/effects/fastbeep.ogg', 30)
+			balloon_alert(user, "<font color='#66c427'>Value:</font> [price] cr")
 		else
-			balloon_alert(user, "<font color='#c41d1d'>Value:</font> [price] cr")
 			glow.set_light(1, 0.6, LIGHT_COLOR_RED)
 			if(price)
 				playsound(user, 'sound/machines/uplinkerror.ogg', 30, TRUE)
-			else
-				playsound(user, 'sound/machines/terminal_error.ogg', 30, TRUE)
+		for(var/obj/thing in O.contents)
+			if(thing.is_contraband)
+				to_chat(user, ("<span class='cfc_red'>CONTRABAND DETECTED:</span> <b>[O.name]</b>"))
+				if(!sound_played)
+					sound_played = TRUE
+					playsound(user, 'sound/machines/uplinkerror.ogg', 30, TRUE)
+
 		if(bounty_ship_item_and_contents(O, dry_run=TRUE))
-			to_chat(user, span_notice("Scanned item is eligible for one or more bounties."))
+			to_chat(user, ("<span class='cfc_soul_glimmer_azure'>Scanned item is eligible for one or more <b>bounties!</b></span>"))
