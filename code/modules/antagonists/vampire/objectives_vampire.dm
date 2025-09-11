@@ -156,8 +156,8 @@
 
 // GENERATE!
 /datum/objective/vampire/heartthief/New()
-	. = ..()
 	target_amount = rand(2,3)
+	return ..()
 
 // EXPLANATION
 /datum/objective/vampire/heartthief/update_explanation_text()

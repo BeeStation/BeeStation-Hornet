@@ -346,7 +346,7 @@
 	var/list/report = list()
 
 	// Vamp name
-	report += "<br>[span_cultbigbold(return_full_name())]"
+	report += "<br>[span_header(return_full_name())]"
 	report += printplayer(owner)
 	if(my_clan)
 		report += "They were part of the <b>[my_clan.name]</b>!"
@@ -362,7 +362,7 @@
 
 	// Now list their vassals
 	if(length(vassals))
-		report += span_header("Their Vassals were...")
+		report += span_header("<br>Their Vassals were...")
 		for(var/datum/antagonist/vassal/vassal in vassals)
 			if(!vassal.owner)
 				continue
