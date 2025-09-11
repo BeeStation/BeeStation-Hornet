@@ -58,6 +58,7 @@
 		else
 			glow.set_light(1, 0.6, LIGHT_COLOR_RED)
 			playsound(user, 'sound/machines/terminal_error.ogg', 30, TRUE)
+			balloon_alert(user, "<font color='#c41d1d'>Value:</font> [price] cr")
 		to_chat(user, "Current stock of [O]: <span class='cfc_orange'><b>[stock]</span>/<span class='cfc_orange'>[demand.max_demand]</b></span>. Value: <span class='cfc_green'><b>[price] cr</b></span>[O.contents.len ? " (contents included)" : ""].")
 
 		if(istype(O, /obj/machinery/portable_atmospherics))
