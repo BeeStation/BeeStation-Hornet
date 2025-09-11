@@ -5,6 +5,7 @@
 	icon = 'icons/mob/swarmer.dmi'
 	icon_state = "swarmer_unactivated"
 	custom_materials = list(/datum/material/iron=10000, /datum/material/glass=4000)
+	custom_price = 2000
 
 /obj/effect/mob_spawn/swarmer
 	name = "unactivated swarmer"

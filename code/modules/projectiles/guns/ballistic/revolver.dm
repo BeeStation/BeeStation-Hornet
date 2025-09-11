@@ -286,6 +286,8 @@
 /obj/item/gun/ballistic/revolver/russian/soul
 	name = "cursed Russian revolver"
 	desc = "To play with this revolver requires wagering your very soul."
+	custom_price = 10000
+	max_demand = 10
 
 /obj/item/gun/ballistic/revolver/russian/soul/shoot_self(mob/living/user)
 	..()

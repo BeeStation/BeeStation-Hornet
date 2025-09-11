@@ -38,6 +38,7 @@
 	item_state = "armor"
 	blood_overlay_type = "armor"
 	dog_fashion = /datum/dog_fashion/back/armorvest
+	custom_price = 100
 
 /obj/item/clothing/suit/armor/vest/alt
 	desc = "An alternate style Type I-B armored vest that provides decent protection against most types of damage. They perform identically in the field."

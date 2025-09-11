@@ -549,6 +549,8 @@
 	clothing_traits = list(TRAIT_BOOZE_SLIDER, TRAIT_REAGENT_SCANNER)
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	custom_price = 10000
+	max_demand = 10
 	vision_correction = 1  // why should the eye of a god have bad vision?
 	//var/datum/action/scan/scan_ability
 

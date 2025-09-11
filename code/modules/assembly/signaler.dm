@@ -242,6 +242,7 @@
 	icon_state = "anomaly_core"
 	anomaly_type = /obj/effect/anomaly/bluespace
 	custom_price = 10000
+	max_demand = 10
 
 /obj/item/assembly/signaler/anomaly/vortex
 	name = "\improper vortex anomaly core"

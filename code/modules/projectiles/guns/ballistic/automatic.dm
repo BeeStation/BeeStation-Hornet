@@ -98,6 +98,7 @@
 	fire_rate = 3
 	w_class = WEIGHT_CLASS_BULKY
 	full_auto = TRUE
+	custom_price = 300
 
 /obj/item/gun/ballistic/automatic/wt550/rubber_loaded/Initialize(mapload)
 	magazine = new /obj/item/ammo_box/magazine/wt550m9/rubber(src)

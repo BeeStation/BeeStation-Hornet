@@ -16,6 +16,7 @@
 	flags_cover = HEADCOVERSEYES
 	flags_inv = HIDEHAIR
 	bang_protect = 1
+	custom_price = 100
 
 /datum/armor/head_helmet
 	melee = 35

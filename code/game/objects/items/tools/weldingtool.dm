@@ -28,6 +28,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	armor_type = /datum/armor/item_weldingtool
 	resistance_flags = FIRE_PROOF
+	custom_price = 15
 
 	custom_materials = list(/datum/material/iron=70, /datum/material/glass=30)
 	///Whether the welding tool is on or off.
@@ -329,6 +330,7 @@
 	icon_state = "indwelder"
 	max_fuel = 40
 	custom_materials = list(/datum/material/glass=60)
+	custom_price = 25
 
 /obj/item/weldingtool/largetank/flamethrower_screwdriver()
 	return
@@ -401,6 +403,7 @@
 	icon_state = "upindwelder"
 	item_state = "upindwelder"
 	max_fuel = 80
+	custom_price = 50
 	custom_materials = list(/datum/material/iron=70, /datum/material/glass=120)
 
 /obj/item/weldingtool/experimental
@@ -415,6 +418,7 @@
 	can_off_process = 1
 	light_intensity = 1
 	toolspeed = 0.5
+	custom_price = 100
 	var/nextrefueltick = 0
 
 /obj/item/weldingtool/experimental/brass

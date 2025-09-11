@@ -76,6 +76,7 @@
 	item_state = "shotgun_combat"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/com
 	w_class = WEIGHT_CLASS_HUGE
+	custom_price = 300
 
 /obj/item/gun/ballistic/shotgun/automatic/combat/AltClick(mob/user)
 	if(loc == user)

@@ -134,6 +134,8 @@
 	throwforce = 10
 	w_class = WEIGHT_CLASS_NORMAL
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	custom_price = 10000
+	max_demand = 10
 
 /obj/item/knife/envy/afterattack(atom/movable/AM, mob/living/carbon/human/user, proximity)
 	. = ..()

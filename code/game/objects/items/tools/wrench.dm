@@ -21,6 +21,7 @@
 	tool_behaviour = TOOL_WRENCH
 	toolspeed = 1
 	armor_type = /datum/armor/item_wrench
+	custom_price = 10
 
 
 /datum/armor/item_wrench

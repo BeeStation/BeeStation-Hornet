@@ -4,6 +4,7 @@
 	item_state = "flashbang"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
+	custom_price = 25
 	var/flashbang_range = 7 //how many tiles away the mob will be stunned.
 
 /obj/item/grenade/flashbang/prime(mob/living/lanced_by)

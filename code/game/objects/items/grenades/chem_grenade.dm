@@ -432,6 +432,7 @@
 	name = "teargas grenade"
 	desc = "Used for nonlethal riot control. Contents under pressure. Do not directly inhale contents."
 	stage = GRENADE_READY
+	custom_price = 25
 
 /obj/item/grenade/chem_grenade/teargas/Initialize(mapload)
 	. = ..()

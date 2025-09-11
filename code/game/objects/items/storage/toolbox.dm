@@ -22,6 +22,7 @@
 	var/has_latches = TRUE
 	drop_sound = 'sound/items/handling/toolbox_drop.ogg'
 	pickup_sound =  'sound/items/handling/toolbox_pickup.ogg'
+	custom_price = 50
 
 /obj/item/storage/toolbox/Initialize(mapload)
 	. = ..()

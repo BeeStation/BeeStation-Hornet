@@ -290,6 +290,8 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 
 /obj/item/katana/cursed
 	slot_flags = null
+	custom_price = 10000
+	max_demand = 10
 
 /obj/item/katana/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!"))

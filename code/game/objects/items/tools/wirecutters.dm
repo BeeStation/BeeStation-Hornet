@@ -23,6 +23,7 @@
 	tool_behaviour = TOOL_WIRECUTTER
 	toolspeed = 1
 	armor_type = /datum/armor/item_wirecutters
+	custom_price = 10
 	var/random_color = TRUE
 	var/static/list/wirecutter_colors = list(
 		"blue" = "#1861d5",
