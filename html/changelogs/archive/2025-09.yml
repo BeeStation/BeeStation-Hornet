@@ -141,3 +141,4 @@
   - balance: Fixes the dash action having an action button.
   - balance: Stealth releases a smoke cloud on activation.
   - bugfix: Fixes mouse cooldown cursor being broken
+  - bugfix: Fixes some preference options not displaying
