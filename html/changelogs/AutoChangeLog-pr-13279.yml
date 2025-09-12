@@ -1,0 +1,18 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - balance: Energy katana is now deleted when the ninja is killed.
+  - balance: Energy katana dash no longer has changes, but has a 1.4 second cooldown
+      on usage instead. This cooldown blocks all user actions and is telegraphed.
+  - balance: Energy katana dash no longer can go through people, but instead will
+      attack and push back the person that you hit.
+  - balance: Energy katana can no longer delimb, this has been replaced with delimbing
+      strike. An ability that allows the ninja to attack the 3 tiles in front of it,
+      deilmbing anyone who gets caught in the attack.
+  - balance: Energy katana damage decreased to 22, down from 30.
+  - balance: Reduces their armour, particularly against melee attacks.
+  - balance: Stealth now grants 100% invisibility and runs through a standardised
+      status effect.
+  - balance: Fixes the dash action having an action button.
+  - balance: Stealth releases a smoke cloud on activation.
+  - bugfix: Fixes mouse cooldown cursor being broken
