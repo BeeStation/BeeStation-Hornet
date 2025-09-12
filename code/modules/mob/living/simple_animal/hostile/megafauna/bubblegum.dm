@@ -185,11 +185,23 @@ Difficulty: Hard
 	SLEEP_CHECK_DEATH(delay)
 	revving_charge = FALSE
 	var/movespeed = 0.7
-	SSmove_manager.move_towards(src, T, movespeed)
-	SLEEP_CHECK_DEATH(get_dist(src, T) * movespeed)
-	SSmove_manager.stop_looping(src) // cancel the movement
+	var/datum/move_loop/loop = SSmove_manager.move_towards(src, T, movespeed, timeout = get_dist(src, T) - movespeed)
+	if(!loop)
+		return
+	RegisterSignal(loop, COMSIG_MOVELOOP_REACHED_TARGET, PROC_REF(charge_end))
+	RegisterSignal(loop, COMSIG_QDELETING, PROC_REF(charge_end))
+	//Wait until we're done
+	while(charging)
+		SLEEP_CHECK_DEATH(1)
+
+/mob/living/simple_animal/hostile/megafauna/bubblegum/proc/charge_end(datum/source)
+	SIGNAL_HANDLER
+	var/datum/move_loop/loop = source
+	if(!QDELETED(loop))
+		SSmove_manager.stop_looping(src) // cancel the movement
 	try_bloodattack()
 	charging = FALSE
+	UnregisterSignal(loop, list(COMSIG_MOVELOOP_REACHED_TARGET, COMSIG_QDELETING))
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/get_mobs_on_blood()
 	var/list/targets = ListTargets()
