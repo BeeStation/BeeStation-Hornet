@@ -1544,15 +1544,15 @@
 	)
 
 /datum/armor/mod_theme_ninja
-	melee = 40
+	melee = 10
 	bullet = 30
-	laser = 20
+	laser = 30
 	energy = 30
-	bomb = 30
+	bomb = 70
 	bio = 100
 	fire = 100
 	acid = 100
-	bleed = 50
+	bleed = 60
 
 /datum/mod_theme/prototype
 	name = "prototype"
