@@ -136,8 +136,8 @@
 			if(C.charge >= C.maxcharge)
 				update_use_power(IDLE_POWER_USE)
 			else
-				C.give(C.chargerate * recharge_coeff) // Not adding power transfer loss here not to be a dickhead
-				active_power_usage = (C.chargerate * recharge_coeff)
+				C.give(C.chargerate * recharge_coeff)
+				active_power_usage = (C.chargerate * recharge_coeff / POWER_TRANSFER_LOSS)
 				update_use_power(ACTIVE_POWER_USE)
 
 		if(istype(charging, /obj/item/ammo_box/magazine/recharge))
@@ -149,6 +149,8 @@
 				active_power_usage = (1000 WATT / recharge_coeff)
 				update_use_power(ACTIVE_POWER_USE)
 		update_appearance()
+	else
+		update_use_power(IDLE_POWER_USE)
 
 /obj/machinery/recharger/emp_act(severity)
 	. = ..()

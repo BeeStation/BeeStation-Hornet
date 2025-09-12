@@ -4,8 +4,7 @@
 	icon = 'icons/obj/power.dmi'
 	icon_state = "ccharger"
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 5
-	active_power_usage = 60
+	idle_power_usage = 100 WATT
 	power_channel = AREA_USAGE_EQUIP
 	circuit = /obj/item/circuitboard/machine/cell_charger
 	pass_flags = PASSTABLE
@@ -138,33 +137,22 @@
 	if(!charging || !anchored || (machine_stat & (BROKEN|NOPOWER)))
 		return
 
-	var/obj/item/stock_parts/cell/cell_charging = charging.get_cell()
-	if(cell_charging.percent() >= 100)
+	var/obj/item/stock_parts/cell/cell = charging.get_cell()
+
+	if(!cell)
+		update_use_power(IDLE_POWER_USE)
+		return
+	if(cell.percent() >= 100)
+		update_use_power(IDLE_POWER_USE)
 		return
 
-	var/area/home = get_area(src)
-	if(!home)
-		return
+	var/power_needed = cell.chargerate * recharge_coeff
 
-	var/obj/machinery/power/apc/local_apc = home.apc
-	if(!local_apc)
-		return
+	// Power transfer loss happens here so it doesn't affect user experience too much (making cell take more time to charge than it should)
+	active_power_usage = power_needed / POWER_TRANSFER_LOSS
+	update_use_power(ACTIVE_POWER_USE)
 
-	var/power_needed = cell_charging.chargerate * recharge_coeff * delta_time
-	var/surplus = local_apc.surplus()
-	if(surplus <= 0)
-		return
-
-	// Clamp power to available surplus to avoid duping
-	var/power_to_use = power_needed
-	if(surplus < power_needed)
-		power_to_use = surplus
-
-	// Register power usage on the APC
-	use_power(power_to_use)
-
-	// Charge cell only by power used minus 15% (power transfer loss)
-	cell_charging.give(power_to_use * POWER_TRANSFER_LOSS)
+	cell.give(active_power_usage)
 
 	update_appearance()
 
