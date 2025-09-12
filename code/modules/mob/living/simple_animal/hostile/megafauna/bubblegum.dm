@@ -185,7 +185,8 @@ Difficulty: Hard
 	SLEEP_CHECK_DEATH(delay)
 	revving_charge = FALSE
 	var/movespeed = 0.7
-	var/time_to_hit = min(get_dist(src, T), 50) * movespeed
+	var/max_range
+	var/time_to_hit = min(get_dist(src, T), max_range) * movespeed
 	var/datum/move_loop/loop = SSmove_manager.home_onto(src, T, movespeed, timeout = time_to_hit + 1, extra_info = T)
 	if(!loop)
 		return
