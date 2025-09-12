@@ -316,7 +316,7 @@
 		circulation_disruption = 0
 	else
 		circulation_disruption = owner.blood.get_circulation_proportion()
-	// Organ damage due to lack of blood circulation
+	// Bodypart decay due to insufficient blood
 	if (circulation_disruption < 1)
 		var/damage_applied = (1 - circulation_disruption) * delta_time
 		// Organic bodyparts that need blood and nothing else die without it
