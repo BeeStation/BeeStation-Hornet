@@ -185,12 +185,13 @@ Difficulty: Hard
 	SLEEP_CHECK_DEATH(delay)
 	revving_charge = FALSE
 	var/movespeed = 0.7
-	var/datum/move_loop/loop = SSmove_manager.move_towards(src, T, movespeed, timeout = get_dist(src, T) - movespeed)
+	var/time_to_hit = min(get_dist(src, T), 50) * movespeed
+	var/datum/move_loop/loop = SSmove_manager.home_onto(src, T, movespeed, timeout = time_to_hit + 1, extra_info = T)
 	if(!loop)
 		return
 	RegisterSignal(loop, COMSIG_MOVELOOP_REACHED_TARGET, PROC_REF(charge_end))
-	RegisterSignal(loop, COMSIG_QDELETING, PROC_REF(charge_end))
-	//Wait until we're done
+	RegisterSignal(loop, COMSIG_QDELETING, PROC_REF(charge_end)) // When loop times out
+	// Wait until we're done
 	while(charging)
 		SLEEP_CHECK_DEATH(1)
 
