@@ -556,6 +556,10 @@ em {
   color: hsl(0, 82.9%, 34.3%);
 }
 
+.good {
+  color: hsl(132, 100%, 67%);
+  font-weight: bold;
+}
 .userdanger {
   color: hsl(0, 73.6%, 44.5%);
   font-weight: bold;
@@ -1154,6 +1158,16 @@ em {
   border: 1px solid hsl(213.6, 37.9%, 74.1%);
   margin: 0.5em;
   padding: 0.5em 0.75em;
+}
+
+.emoji_button {
+  border-radius: 4px;
+  padding-top: 4px;
+  padding-left: 1px;
+  padding-right: 1px;
+  margin: 0px 1px;
+  background: hsl(212, 45%, 25%);
+  border: 1px solid hsl(212, 37.6%, 100.9%);
 }
 
 //Job Colours
