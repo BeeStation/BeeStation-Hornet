@@ -60,8 +60,8 @@
 			glow.set_light(1, 0.6, LIGHT_COLOR_RED)
 			playsound(user, 'sound/machines/terminal_error.ogg', 30, TRUE)
 			balloon_alert(user, "<font color='#c41d1d'>Value:</font> [price] cr")
-			if(current == 0)
-				to_chat(user, "Current stock of [O]: <span class='cfc_orange'><b>[stock]</span>/<span class='cfc_orange'>[demand.max_demand]</b></span>. Value: <span class='cfc_red'><b>[0] cr</b></span>[O.contents.len ? " (contents included)" : ""].")
+			if(current == 0)	// If demand is 0, price will always be 0
+				to_chat(user, "Current stock of [O]: <span class='cfc_orange'><b>[stock]</span>/<span class='cfc_orange'>[demand.max_demand]</b></span>. Value: <span class='cfc_red'><b>[price] cr</b></span>[O.contents.len ? " (contents included)" : ""].")
 			else
 				to_chat(user, "No export value for <span class='cfc_red'>[O]</span>")
 

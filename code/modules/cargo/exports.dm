@@ -43,8 +43,8 @@ then the player gets the profit from selling his own wasted time.
 		var/sold = FALSE
 
 		for(var/datum/export/E in GLOB.exports_list)
-			//if(!E)
-			//	continue
+			if(!E)
+				continue
 			if(E.applies_to(thing, allowed_categories))
 				sold = E.sell_object(thing, report, dry_run, allowed_categories)
 				report.exported_atoms += thing // append the atom itself
