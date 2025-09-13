@@ -421,7 +421,6 @@
 /obj/effect/turf_decal/arrows{
 	dir = 1
 	},
-/obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "yx" = (
@@ -498,7 +497,6 @@
 /area/shuttle/escape)
 "Ce" = (
 /obj/effect/turf_decal/arrows,
-/obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "Cj" = (
@@ -760,7 +758,6 @@
 /obj/effect/turf_decal/arrows{
 	dir = 4
 	},
-/obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "Nw" = (
@@ -1087,8 +1084,8 @@ JG
 sD
 sD
 dP
-VZ
-VZ
+Nn
+Nn
 JG
 sD
 sD
@@ -1137,8 +1134,8 @@ Zg
 LQ
 EW
 tN
-VZ
-VZ
+Nn
+Nn
 Zg
 IL
 LQ
