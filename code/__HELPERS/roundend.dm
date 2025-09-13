@@ -304,8 +304,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 	SSblackbox.Seal()
 
 	if(CONFIG_GET(flag/automapvote))
-		if((world.time - SSticker.round_start_time) >= (CONFIG_GET(number/automapvote_threshold) MINUTES))
-			SSvote.initiate_vote("map", "BeeBot", forced=TRUE, popup=TRUE) //automatic map voting
+		INVOKE_ASYNC(SSvote, TYPE_PROC_REF(/datum/controller/subsystem/vote, initiate_vote), /datum/vote/map_vote, "Map Rotation", null, TRUE)
 
 	sleep(50)
 	ready_for_reboot = TRUE

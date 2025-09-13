@@ -232,8 +232,8 @@
  */
 /mob/proc/get_stat_tab_status()
 	var/list/tab_data = list()
-	tab_data["Map"] = GENERATE_STAT_TEXT("[SSmapping.config?.map_name || "Loading..."]")
-	var/datum/map_config/cached = SSmapping.next_map_config
+	tab_data["Map"] = GENERATE_STAT_TEXT("[SSmapping.current_map?.map_name || "Loading..."]")
+	var/datum/map_config/cached = SSmap_vote.next_map_config
 	if(cached)
 		tab_data["Next Map"] = GENERATE_STAT_TEXT(cached.map_name)
 	tab_data["Round ID"] = GENERATE_STAT_TEXT("[GLOB.round_id ? GLOB.round_id : "Null"]")

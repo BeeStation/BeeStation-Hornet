@@ -370,7 +370,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 		L.investigate_log("has been dusted by a doomsday device.", INVESTIGATE_DEATHS)
 		L.dust()
 	to_chat(world, span_bold("The AI cleansed the station of life with the Doomsday device!"))
-	SSticker.force_ending = 1
+	SSticker.force_ending = FORCE_END_ROUND
 
 /// Hostile Station Lockdown: Locks, bolts, and electrifies every airlock on the station. After 90 seconds, the doors reset.
 /datum/ai_module/malf/destructive/lockdown

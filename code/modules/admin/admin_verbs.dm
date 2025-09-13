@@ -140,8 +140,8 @@ GLOBAL_PROTECT(admin_verbs_server)
 	/client/proc/getserverlogs,		/*for accessing server logs*/
 	/client/proc/cmd_debug_del_all,
 	/client/proc/toggle_random_events,
-	/client/proc/forcerandomrotate,
-	/client/proc/adminchangemap,
+	/client/proc/admin_change_map,
+	/client/proc/admin_revert_map,
 	/client/proc/panicbunker,
 	/client/proc/toggle_interviews,
 	/client/proc/toggle_hub,
@@ -162,7 +162,6 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/enable_debug_verbs,
 	/client/proc/callproc,
 	/client/proc/callproc_datum,
-	/client/proc/forcemapconfig,
 	/client/proc/SDQL2_query,
 	/client/proc/test_movable_UI,
 	/client/proc/test_snap_UI,
