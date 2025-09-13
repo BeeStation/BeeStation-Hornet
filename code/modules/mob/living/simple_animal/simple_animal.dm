@@ -115,9 +115,6 @@
 
 	var/shouldwakeup = FALSE //convenience var for forcibly waking up an idling AI on next check.
 
-	//domestication
-	var/tame = 0
-
 	var/my_z // I don't want to confuse this with client registered_z
 
 	///What kind of footstep this mob should have. Null if it shouldn't have any.

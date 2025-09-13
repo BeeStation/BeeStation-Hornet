@@ -5,6 +5,7 @@
 	health = 20
 	maxHealth = 20
 	gender = PLURAL
+	living_flags = MOVES_ON_ITS_OWN
 	status_flags = CANPUSH
 
 	var/basic_mob_flags = NONE
@@ -96,8 +97,6 @@
 	///This damage is taken when the body temp is too hot. Set both this and unsuitable_cold_damage to 0 to avoid adding the basic_body_temp_sensitive element.
 	var/unsuitable_heat_damage = 1
 
-
-
 /mob/living/basic/Initialize(mapload)
 	. = ..()
 
@@ -152,6 +151,7 @@
 		transform = transform.Turn(180)
 	if(!(basic_mob_flags & REMAIN_DENSE_WHILE_DEAD))
 		set_density(FALSE)
+	SEND_SIGNAL(src, COMSIG_BASICMOB_LOOK_DEAD)
 
 /mob/living/basic/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE)
 	. = ..()
@@ -166,6 +166,7 @@
 		transform = transform.Turn(180)
 	if(!(basic_mob_flags & REMAIN_DENSE_WHILE_DEAD))
 		set_density(initial(density))
+	SEND_SIGNAL(src, COMSIG_BASICMOB_LOOK_ALIVE)
 
 /mob/living/basic/examine(mob/user)
 	. = ..()
@@ -185,6 +186,7 @@
 	melee_attack(attack_target, modifiers)
 
 /mob/living/basic/vv_edit_var(vname, vval)
+	. = ..()
 	if(vname == NAMEOF(src, speed))
 		datum_flags |= DF_VAR_EDITED
 		set_varspeed(vval)

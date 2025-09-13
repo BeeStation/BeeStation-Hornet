@@ -59,6 +59,15 @@
 	icon_state = "mailman"
 	desc = "<i>'Right-on-time'</i> mail service head wear."
 
+/obj/item/clothing/mask/nobreath/equipped(mob/living/carbon/human/user, slot)
+	. = ..()
+	if(slot == ITEM_SLOT_HEAD)
+		ADD_TRAIT(user, TRAIT_HATED_BY_DOGS, CLOTHING_TRAIT)
+
+/obj/item/clothing/mask/nobreath/dropped(mob/living/carbon/human/user)
+	..()
+	REMOVE_TRAIT(user, TRAIT_NOBREATH, CLOTHING_TRAIT)
+
 /obj/item/clothing/head/costume/plague
 	name = "plague doctor's hat"
 	desc = "These were once used by plague doctors. They're pretty much useless."

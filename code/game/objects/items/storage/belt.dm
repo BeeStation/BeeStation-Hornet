@@ -467,7 +467,8 @@
 		/obj/item/gun/energy/plasmacutter,
 		/obj/item/grenade/exploration,
 		/obj/item/exploration_detonator,
-		/obj/item/research_disk_pinpointer
+		/obj/item/research_disk_pinpointer,
+		/obj/item/key,
 		))
 
 
