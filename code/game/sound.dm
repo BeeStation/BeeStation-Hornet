@@ -341,6 +341,10 @@ distance_multiplier - Can be used to multiply the distance at which the sound is
 				soundin = pick('sound/machines/button1.ogg','sound/machines/button2.ogg','sound/machines/button3.ogg','sound/machines/button4.ogg')
 			if("switch")	//stolen from nsv
 				soundin = pick('sound/machines/switch1.ogg','sound/machines/switch2.ogg','sound/machines/switch3.ogg')
+			if("chatter_male")
+				soundin = pick('sound/chatter/male_uh_1.ogg','sound/chatter/male_uh_2.ogg')
+			if("question_male")
+				soundin = pick('sound/chatter/male_question_1.ogg','sound/chatter/male_question_2.ogg', 'sound/chatter/male_question_3.ogg')
 	return soundin
 
 /client/proc/channel_in_use(channel)

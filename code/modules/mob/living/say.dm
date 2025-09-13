@@ -226,6 +226,14 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		succumb(TRUE)
 		to_chat(src, compose_message(src, language, message, , spans, message_mods))
 
+	if(gender == (MALE || PLURAL))
+		var/whispering
+		if(message_mods[WHISPER_MODE] == MODE_WHISPER)
+			whispering = TRUE
+		if(copytext_char(message, length_char(message)) == "?")
+			playsound(src, "question_male", (whispering ? 10 : 50), TRUE)
+		else
+			playsound(src, "chatter_male", (whispering ? 10 : 50), TRUE)
 	return TRUE
 
 /mob/living/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
