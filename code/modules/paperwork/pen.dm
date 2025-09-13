@@ -247,7 +247,7 @@
 		throwforce_on = 35, \
 		throw_speed_on = 4, \
 		bleedforce_on = BLEED_CUT, \
-		sharpness_on = SHARP, \
+		sharpness_on = SHARP_DISMEMBER, \
 		w_class_on = WEIGHT_CLASS_NORMAL, \
 		inhand_icon_change = FALSE, \
 	)
