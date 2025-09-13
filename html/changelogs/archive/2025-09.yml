@@ -142,3 +142,7 @@
   - balance: Stealth releases a smoke cloud on activation.
   - bugfix: Fixes mouse cooldown cursor being broken
   - bugfix: Fixes some preference options not displaying
+2025-09-13:
+  ? mrmanlikesbt, MMMiracles, iwishforducks, dragomagol, unit0016, Son-of-Space, JohnFulpWillard,
+    san7890, Maurukas, Helg2, MTandi
+  : - rscadd: Added some airalarm, airlock, airlock access, and apc mapping helpers.
