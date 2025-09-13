@@ -9,15 +9,20 @@
 	item_flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_SMALL
 	siemens_coefficient = 1
+	/// This stops the export scanner not being able to scan storages without going inside them, by adding a on and off state
+	var/is_on = TRUE
 	var/obj/machinery/computer/cargo/cargo_console = null
 
 /obj/item/export_scanner/examine(user)
 	. = ..()
+	. += span_notice("Scanning is [is_on ? "<span class='cfc_green'>Enabled</span>" : "<span class='cfc_red'>Disabled</span>"]")
 	if(!cargo_console)
 		. += span_notice("[src] is not currently linked to a cargo console.")
 
-/obj/item/export_scanner/afterattack(obj/O, mob/user, proximity)
+/obj/item/export_scanner/pre_attack(obj/O, mob/user, proximity)
 	. = ..()
+	if(!is_on)
+		return FALSE
 	if(!istype(O) || !proximity || HAS_TRAIT(O, TRAIT_IGNORE_EXPORT_SCAN))
 		if(HAS_TRAIT(O, TRAIT_IGNORE_EXPORT_SCAN))
 			to_chat(user, "<span class='warning'>[O] cannot be scanned!</span>")
@@ -92,3 +97,14 @@
 
 		if(bounty_ship_item_and_contents(O, dry_run=TRUE))
 			to_chat(user, ("<span class='cfc_soul_glimmer_azure'>[O.name] is eligible for one or more <b>bounties!</b></span>"))
+		return TRUE
+
+/obj/item/export_scanner/attack_self(mob/user, modifiers)
+	. = ..()
+	is_on = !is_on
+	playsound(src, 'sound/weapons/pistolrack.ogg', 50)
+	flick("export_scanner_rack", src)
+	if(is_on)
+		balloon_alert(user, "Scanning: <font color='#66c427'>Enabled</font>")
+	else
+		balloon_alert(user, "Scanning: <font color='#c41d1d'>Disabled</font>")
