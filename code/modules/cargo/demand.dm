@@ -40,16 +40,17 @@ GLOBAL_LIST_EMPTY(obj_demand_states)
 			var/scaled_min_recovery = max(state.min_recovery, round((state.min_recovery / 50) * state.max_demand))
 			var/scaled_max_recovery = max(state.max_recovery, round((state.max_recovery / 50) * state.max_demand))
 			// Decide if demand goes up or down
-			if(prob(15)) // 15% chance to decrease demand
-				// Reduce demand, but never below 0
-				state.current_demand = max(0, state.current_demand - rand(scaled_min_recovery, scaled_max_recovery))
-			else
-				// Normal recovery
-				if(state.max_demand <= 10)
-					if(prob(35))
-						state.current_demand += 1
+			if(prob(45)) // 45% chance to decrease demand
+				if(state.max_demand > 10)
+					// Reduce demand, but never below 0
+					state.current_demand = max(0, state.current_demand - rand(scaled_min_recovery, scaled_max_recovery))
 				else
+					state.current_demand = max(0, state.current_demand - 1)
+			else
+				if(state.max_demand > 10)
 					state.current_demand += rand(scaled_min_recovery, scaled_max_recovery)
+				else
+					state.current_demand = max(0, state.current_demand + 1)
 
 			// Cap at max_demand
 			if(state.current_demand > state.max_demand)
