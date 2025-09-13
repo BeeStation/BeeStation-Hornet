@@ -339,6 +339,7 @@
 	name = "smart metal foam grenade"
 	desc = "Used for emergency sealing of hull breaches, while keeping areas accessible."
 	stage = GRENADE_READY
+	custom_price = 20
 
 
 /obj/item/grenade/chem_grenade/smart_metal_foam/Initialize(mapload)

@@ -8,6 +8,7 @@
 	item_state = "shotgun"
 	inhand_x_dimension = 64
 	inhand_y_dimension = 64
+	custom_price = 300
 	fire_sound = "sound/weapons/shotgunshot.ogg"
 	vary_fire_sound = FALSE
 	fire_sound_volume = 90

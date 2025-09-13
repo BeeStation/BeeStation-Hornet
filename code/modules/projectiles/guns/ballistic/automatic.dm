@@ -22,6 +22,7 @@
 	mag_display = TRUE
 	weapon_weight = WEAPON_LIGHT
 	burst_size = 3
+	custom_price = 300
 
 /obj/item/gun/ballistic/automatic/proto/unrestricted
 	pin = /obj/item/firing_pin
@@ -205,6 +206,7 @@
 	fire_sound = 'sound/weapons/gunshot_smg.ogg'
 	can_suppress = FALSE
 	fire_rate = 4
+	custom_price = 300
 
 
 // L6 SAW //

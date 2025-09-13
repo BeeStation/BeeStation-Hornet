@@ -43,6 +43,7 @@
 	automatic = 0
 	actions_types = list()
 	casing_ejector = FALSE
+	custom_price = 300
 
 /obj/item/gun/ballistic/rocketlauncher
 	name = "\improper PML-9"

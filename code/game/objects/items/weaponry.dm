@@ -1020,6 +1020,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	attack_verb_simple = list("club", "bludgeon")
 	item_flags = ISWEAPON
 	siemens_coefficient = 0
+	custom_price = 100
 	var/breakforce = 30
 	var/stamforce = 15
 

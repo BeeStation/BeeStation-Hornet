@@ -277,6 +277,7 @@
 	item_state = "medical"
 	worn_icon_state = "medical"
 	content_overlays = TRUE
+	custom_price = 100
 
 /obj/item/storage/belt/medical/Initialize(mapload)
 	. = ..()
@@ -407,7 +408,8 @@
 	item_state = "securitywebbing"
 	worn_icon_state = "securitywebbing"
 	content_overlays = FALSE
-	custom_premium_price = 800
+	max_demand = 10
+	custom_price = 150
 
 /obj/item/storage/belt/mining
 	name = "explorer's webbing"

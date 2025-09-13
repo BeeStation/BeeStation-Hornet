@@ -29,7 +29,6 @@
 	armor_type = /datum/armor/item_screwdriver
 	drop_sound = 'sound/items/handling/screwdriver_drop.ogg'
 	pickup_sound =  'sound/items/handling/screwdriver_pickup.ogg'
-	custom_price = 10
 	/// If the item should be assigned a random color
 	var/random_color = TRUE
 	/// List of possible random colors

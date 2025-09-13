@@ -22,7 +22,6 @@
 	armor_type = /datum/armor/item_crowbar
 	drop_sound = 'sound/items/handling/crowbar_drop.ogg'
 	pickup_sound =  'sound/items/handling/crowbar_pickup.ogg'
-	custom_price = 10
 
 
 /datum/armor/item_crowbar

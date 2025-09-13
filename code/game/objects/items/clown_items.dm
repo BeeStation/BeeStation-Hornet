@@ -23,7 +23,6 @@
 	throw_speed = 3
 	throw_range = 7
 	grind_results = list(/datum/reagent/lye = 10)
-	custom_price = 10
 	var/cleanspeed = 35 //slower than mop
 	force_string = "robust... against germs"
 	var/uses = 100

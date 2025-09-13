@@ -27,7 +27,6 @@
 	custom_materials = list(/datum/material/iron=10)
 	pressure_resistance = 2
 	grind_results = list(/datum/reagent/iron = 2, /datum/reagent/iodine = 1)
-	custom_price = 10
 	var/colour = "black"	//what colour the ink is!
 	var/degrees = 0
 	var/font = PEN_FONT

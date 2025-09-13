@@ -588,7 +588,7 @@
 /obj/item/storage/backpack/duffelbag/sec/deputy
 	name = "deputy gear duffel bag"
 	desc = "A large duffel bag for holding extra supplies - this one has compartments for various clothes and gear."
-	custom_premium_price = 500
+	custom_premium_price = 100	// ehhhhhhhh can't do nothing about this right now...
 
 /obj/item/storage/backpack/duffelbag/sec/deputy/PopulateContents()
 	new /obj/item/clothing/head/soft/sec(src)

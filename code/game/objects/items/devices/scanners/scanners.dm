@@ -16,7 +16,6 @@ GENE SCANNER
 /obj/item/t_scanner
 	name = "\improper T-ray scanner"
 	desc = "A terahertz-ray emitter and scanner used to detect underfloor objects such as cables and pipes."
-	custom_price = 10
 	icon = 'icons/obj/device.dmi'
 	icon_state = "t-ray0"
 	var/on = FALSE
@@ -30,7 +29,6 @@ GENE SCANNER
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	custom_materials = list(/datum/material/iron=150)
-	custom_price = 10
 
 /obj/item/t_scanner/suicide_act(mob/living/carbon/user)
 	user.visible_message(span_suicide("[user] begins to emit terahertz-rays into [user.p_their()] brain with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))

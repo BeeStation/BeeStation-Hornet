@@ -200,7 +200,7 @@
 	desc = "A handheld tracking device that points to crew suit sensors."
 	icon_state = "pinpointer_crew"
 	worn_icon_state = "pinpointer_crew"
-	custom_price = 150
+	custom_price = 100
 	jamming_resistance = JAMMER_PROTECTION_SENSOR_NETWORK
 	var/has_owner = FALSE
 	var/pinpointer_owner = null

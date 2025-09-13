@@ -9,6 +9,7 @@
 	can_hack = FALSE
 	/// If this virus bypasses Sending and Receiving being disabled
 	var/sending_bypass = FALSE
+	is_contraband = TRUE
 
 /obj/item/computer_hardware/hard_drive/role/virus/proc/send_virus(obj/item/modular_computer/tablet/target, mob/living/user)
 	if(!target)
@@ -82,6 +83,7 @@
 	desc = "A data disk for portable microcomputers. It smells vaguely of bananas."
 	icon_state = "cart-clown"
 	virus_class = "HONK::CORE"
+	is_contraband = FALSE
 
 /obj/item/computer_hardware/hard_drive/role/virus/clown/send_virus(obj/item/modular_computer/tablet/target, mob/living/user)
 	. = ..()
@@ -124,6 +126,7 @@
 /obj/item/computer_hardware/hard_drive/role/virus/mime
 	name = "\improper sound of silence disk"
 	virus_class = "MUTEWORM.VRS"
+	is_contraband = FALSE
 
 /obj/item/computer_hardware/hard_drive/role/virus/mime/send_virus(obj/item/modular_computer/tablet/target, mob/living/user)
 	. = ..()

@@ -17,6 +17,7 @@
 						/obj/item/seeds/cannabis/white,
 						/obj/item/seeds/cannabis/ultimate)
 	reagents_add = list(/datum/reagent/drug/space_drugs = 0.15, /datum/reagent/toxin/lipolicide = 0.35) // gives u the munchies
+	is_contraband = TRUE
 
 
 /obj/item/seeds/cannabis/rainbow
