@@ -5,7 +5,7 @@
 		briefly blinds them (increasing with range) and poisons them (decreasing with range). \
 		Also spreads rust in the path of the plume."
 	background_icon_state = "bg_heretic"
-	icon_icon = 'icons/hud/actions/actions_ecult.dmi'
+	button_icon = 'icons/hud/actions/actions_ecult.dmi'
 	button_icon_state = "entropic_plume"
 
 	school = SCHOOL_FORBIDDEN
@@ -67,7 +67,7 @@
 	name = "Patron's Reach"
 	desc = "Channels energy into your hands to release a wave of rust."
 	background_icon_state = "bg_heretic"
-	icon_icon = 'icons/hud/actions/actions_ecult.dmi'
+	button_icon = 'icons/hud/actions/actions_ecult.dmi'
 	button_icon_state = "rust_wave"
 
 	school = SCHOOL_FORBIDDEN

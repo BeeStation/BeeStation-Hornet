@@ -223,7 +223,7 @@
 	desc = "A delicious lollipop. Makes for a great Valentine's present."
 	icon = 'icons/obj/lollipop.dmi'
 	icon_state = "lollipop_stick"
-	item_state = null
+	inhand_icon_state = null
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 1,
 		/datum/reagent/consumable/nutriment/vitamin = 1,
@@ -344,7 +344,7 @@
 	name = "Swirl lollipop"
 	desc = "A massive rainbow swirlled lollipop. Said to contain extra sugar."
 	icon_state = "swirl_lollipop"
-	item_state = "swirl_lollipop"
+	inhand_icon_state = "swirl_lollipop"
 	food_reagents = list(
 		/datum/reagent/consumable/sugar = 30,
 		/datum/reagent/drug/happiness = 5, //swirl lollipops make everyone happy!

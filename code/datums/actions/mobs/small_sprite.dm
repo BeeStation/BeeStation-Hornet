@@ -2,7 +2,7 @@
 /datum/action/small_sprite
 	name = "Toggle Giant Sprite"
 	desc = "Others will always see you as giant."
-	icon_icon = 'icons/hud/actions/actions_xeno.dmi'
+	button_icon = 'icons/hud/actions/actions_xeno.dmi'
 	button_icon_state = "smallqueen"
 	background_icon_state = "bg_alien"
 	var/small = FALSE
@@ -14,7 +14,7 @@
 	small_icon_state = "alienq"
 
 /datum/action/small_sprite/megafauna
-	icon_icon = 'icons/hud/actions/actions_xeno.dmi'
+	button_icon = 'icons/hud/actions/actions_xeno.dmi'
 	small_icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 
 /datum/action/small_sprite/megafauna/drake
@@ -37,7 +37,7 @@
 /datum/action/small_sprite/space_dragon
 	small_icon = 'icons/mob/carp.dmi'
 	small_icon_state = "carp"
-	icon_icon = 'icons/mob/carp.dmi'
+	button_icon = 'icons/mob/carp.dmi'
 	button_icon_state = "carp"
 
 /datum/action/small_sprite/on_activate(mob/user, atom/target)
