@@ -143,6 +143,8 @@
   - bugfix: Fixes mouse cooldown cursor being broken
   - bugfix: Fixes some preference options not displaying
 2025-09-13:
+  ClownMoff:
+  - rscadd: Added the Medical Emergencies Escape Shuttle
   Therealdoooc, Comxy, Jacquerel, Melbert:
   - rscadd: Garden gnomes, a new basic mob that can be purchased from an emagged supply
       console for 4k credits.
