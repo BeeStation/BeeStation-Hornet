@@ -1,0 +1,9 @@
+author: Therealdoooc, Comxy, Jacquerel, Melbert
+delete-after: true
+changes:
+  - rscadd: Garden gnomes, a new basic mob that can be purchased from an emagged supply
+      console for 4k credits.
+  - code_imp: Advanced retaliate component.
+  - code_imp: Ground sinking component.
+  - code_imp: Attack obstacle in path AI subtree/behaviour.
+  - code_imp: Caltrop component now supports custom paralyze time.
