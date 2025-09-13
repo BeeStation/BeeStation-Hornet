@@ -66,8 +66,6 @@
 	//List of datums orbiting this atom
 	var/datum/component/orbiter/orbit_datum
 
-	/// Will move to flags_1 when i can be arsed to (2019, has not done so)
-	var/rad_flags = NONE
 	/// Radiation insulation types
 	var/rad_insulation = RAD_NO_INSULATION
 
@@ -1101,14 +1099,6 @@
 		SEND_SIGNAL(src, COMSIG_ATOM_ON_EMAG, user, hacker)
 
 /**
-  * Respond to a radioactive wave hitting this atom
-  *
-  * Default behaviour is to send COMSIG_ATOM_RAD_ACT and return
-  */
-/atom/proc/rad_act(strength)
-	SEND_SIGNAL(src, COMSIG_ATOM_RAD_ACT, strength)
-
-/**
   * Respond to narsie eating our atom
   *
   * Default behaviour is to send COMSIG_ATOM_NARSIE_ACT and return
@@ -1123,6 +1113,14 @@
   */
 /atom/proc/ratvar_act()
 	SEND_SIGNAL(src, COMSIG_ATOM_RATVAR_ACT)
+
+/**
+ * Respond to an electric bolt action on our item
+ *
+ * Default behaviour is to return, we define here to allow for cleaner code later on
+ */
+/atom/proc/zap_act(power, zap_flags)
+	return
 
 /**
   * Called when lighteater is called on this.
@@ -1389,7 +1387,6 @@
 	VV_DROPDOWN_OPTION(VV_HK_ADD_REAGENT, "Add Reagent")
 	VV_DROPDOWN_OPTION(VV_HK_TRIGGER_EMP, "EMP Pulse")
 	VV_DROPDOWN_OPTION(VV_HK_TRIGGER_EXPLOSION, "Explosion")
-	VV_DROPDOWN_OPTION(VV_HK_RADIATE, "Radiate")
 	VV_DROPDOWN_OPTION(VV_HK_EDIT_FILTERS, "Edit Filters")
 	VV_DROPDOWN_OPTION(VV_HK_EDIT_COLOR_MATRIX, "Edit Color as Matrix")
 	VV_DROPDOWN_OPTION(VV_HK_ADD_AI, "Add AI controller")
@@ -1442,11 +1439,6 @@
 
 	if(href_list[VV_HK_TRIGGER_EMP] && check_rights(R_FUN))
 		usr.client.cmd_admin_emp(src)
-
-	if(href_list[VV_HK_RADIATE] && check_rights(R_FUN))
-		var/strength = input(usr, "Choose the radiation strength.", "Choose the strength.") as num|null
-		if(!isnull(strength))
-			AddComponent(/datum/component/radioactive, strength, src)
 
 	if(href_list[VV_HK_ARMOR_MOD])
 		var/list/pickerlist = list()
@@ -1876,13 +1868,33 @@
 	if(isnull(locate(/datum/antagonist) in buyer.mind?.antag_datums))
 		message_admins("[ADMIN_LOOKUPFLW(buyer)] has [!is_bonus ? "bought" : "received a bonus item"] [object] from \a [type] as a non-antagonist.")
 
-/atom/proc/add_filter(name,priority,list/params)
+/** Add a filter to the datum.
+ * This is on datum level, despite being most commonly / primarily used on atoms, so that filters can be applied to images / mutable appearances.
+ * Can also be used to assert a filter's existence. I.E. update a filter regardless if it exists or not.
+ *
+ * Arguments:
+ * * name - Filter name
+ * * priority - Priority used when sorting the filter.
+ * * params - Parameters of the filter.
+ */
+/atom/proc/add_filter(name, priority, list/params)
 	LAZYINITLIST(filter_data)
-	var/list/p = params.Copy()
-	p["priority"] = priority
-	filter_data[name] = p
+	var/list/copied_parameters = params.Copy()
+	copied_parameters["priority"] = priority
+	filter_data[name] = copied_parameters
 	update_filters()
 
+/// A version of add_filter that takes a list of filters to add rather than being individual, to limit calls to update_filters().
+/atom/proc/add_filters(list/list/filters)
+	LAZYINITLIST(filter_data)
+	for(var/list/individual_filter as anything in filters)
+		var/list/params = individual_filter["params"]
+		var/list/copied_parameters = params.Copy()
+		copied_parameters["priority"] = individual_filter["priority"]
+		filter_data[individual_filter["name"]] = copied_parameters
+	update_filters()
+
+/// Reapplies all the filters.
 /atom/proc/update_filters()
 	filters = null
 	filter_data = sortTim(filter_data, GLOBAL_PROC_REF(cmp_filter_data_priority), TRUE)
@@ -1892,6 +1904,24 @@
 		arguments -= "priority"
 		filters += filter(arglist(arguments))
 	UNSETEMPTY(filter_data)
+
+/** Update a filter's parameter to the new one. If the filter doesn't exist we won't do anything.
+ *
+ * Arguments:
+ * * name - Filter name
+ * * new_params - New parameters of the filter
+ * * overwrite - TRUE means we replace the parameter list completely. FALSE means we only replace the things on new_params.
+ */
+/atom/proc/modify_filter(name, list/new_params, overwrite = FALSE)
+	var/filter = get_filter(name)
+	if(!filter)
+		return
+	if(overwrite)
+		filter_data[name] = new_params
+	else
+		for(var/thing in new_params)
+			filter_data[name][thing] = new_params[thing]
+	update_filters()
 
 /atom/proc/transition_filter(name, time, list/new_params, easing, loop)
 	var/filter = get_filter(name)
@@ -2094,11 +2124,11 @@
 
 	return (!gravity_turf.force_no_gravity && !(turf_area.area_flags & NO_GRAVITY)) && (SSmapping.gravity_by_z_level[gravity_turf.z] || turf_area.default_gravity)
 
-/*
-* Called when something made out of plasma is exposed to high temperatures.
-* Intended for use only with plasma that is ignited outside of some form of containment
-* Contained plasma ignitions (such as power cells or light fixtures) should explode with proper force
-*/
+/**
+ * Called when something made out of plasma is exposed to high temperatures.
+ * Intended for use only with plasma that is ignited outside of some form of containment
+ * Contained plasma ignitions (such as power cells or light fixtures) should explode with proper force
+**/
 /atom/proc/plasma_ignition(strength, mob/user, reagent_reaction)
 	var/turf/T = get_turf(src)
 	var/datum/gas_mixture/environment = T.return_air()

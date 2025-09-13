@@ -246,6 +246,22 @@
 	name = "bz filter"
 	filter_type = list(/datum/gas/bz)
 
+/obj/machinery/atmospherics/components/trinary/filter/atmos/freon
+	name = "freon filter"
+	filter_type = list(/datum/gas/freon)
+
+/obj/machinery/atmospherics/components/trinary/filter/atmos/halon
+	name = "halon filter"
+	filter_type = list(/datum/gas/halon)
+
+/obj/machinery/atmospherics/components/trinary/filter/atmos/healium
+	name = "healium filter"
+	filter_type = list(/datum/gas/healium)
+
+/obj/machinery/atmospherics/components/trinary/filter/atmos/h2
+	name = "hydrogen filter"
+	filter_type = list(/datum/gas/hydrogen)
+
 /obj/machinery/atmospherics/components/trinary/filter/atmos/hypernoblium
 	name = "hypernoblium filter"
 	filter_type = list(/datum/gas/hypernoblium)
@@ -258,6 +274,10 @@
 	name = "pluoxium filter"
 	filter_type = list(/datum/gas/pluoxium)
 
+/obj/machinery/atmospherics/components/trinary/filter/atmos/proto_nitrate
+	name = "proto-nitrate filter"
+	filter_type = list(/datum/gas/proto_nitrate)
+
 /obj/machinery/atmospherics/components/trinary/filter/atmos/tritium
 	name = "tritium filter"
 	filter_type = list(/datum/gas/tritium)
@@ -266,6 +286,9 @@
 	name = "water vapor filter"
 	filter_type = list(/datum/gas/water_vapor)
 
+/obj/machinery/atmospherics/components/trinary/filter/atmos/zauker
+	name = "zauker filter"
+	filter_type = list(/datum/gas/zauker)
 
 /obj/machinery/atmospherics/components/trinary/filter/atmos/flipped //This feels wrong, I know
 	icon_state = "filter_on-0_f"
@@ -295,6 +318,22 @@
 	name = "bz filter"
 	filter_type = list(/datum/gas/bz)
 
+/obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/freon
+	name = "freon filter"
+	filter_type = list(/datum/gas/freon)
+
+/obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/halon
+	name = "halon filter"
+	filter_type = list(/datum/gas/halon)
+
+/obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/healium
+	name = "healium filter"
+	filter_type = list(/datum/gas/healium)
+
+/obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/h2
+	name = "hydrogen filter"
+	filter_type = list(/datum/gas/hydrogen)
+
 /obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/hypernoblium
 	name = "hypernoblium filter"
 	filter_type = list(/datum/gas/hypernoblium)
@@ -307,6 +346,10 @@
 	name = "pluoxium filter"
 	filter_type = list(/datum/gas/pluoxium)
 
+/obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/proto_nitrate
+	name = "proto-nitrate filter"
+	filter_type = list(/datum/gas/proto_nitrate)
+
 /obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/tritium
 	name = "tritium filter"
 	filter_type = list(/datum/gas/tritium)
@@ -314,6 +357,18 @@
 /obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/h2o
 	name = "water vapor filter"
 	filter_type = list(/datum/gas/water_vapor)
+
+/obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/zauker
+	name = "zauker filter"
+	filter_type = list(/datum/gas/zauker)
+
+/obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/helium
+	name = "helium filter"
+	filter_type = list(/datum/gas/helium)
+
+/obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/antinoblium
+	name = "antinoblium filter"
+	filter_type = list(/datum/gas/antinoblium)
 
 // These two filter types have critical_machine flagged to on and thus causes the area they are in to be exempt from the Grid Check event.
 
