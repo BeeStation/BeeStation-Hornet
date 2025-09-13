@@ -94,12 +94,22 @@
 
 /obj/item/clothing/under/dress/pool
 	name = "pool swimsuit"
-	desc = "Unisex Nanotrasen-colored swimwear for a nice pool splash without forgetting who owns you."
+	desc = "Unisex Nanotrasen-mandated swimwear for a nice pool splash."
 	icon_state = "pool_swimsuit"
+	greyscale_config = /datum/greyscale_config/pool_swimsuit
+	greyscale_config_worn = /datum/greyscale_config/pool_swimsuit_worn
+
+/obj/item/clothing/under/dress/pool/vertical_stripes
+	greyscale_config = /datum/greyscale_config/pool_swimsuit/vertical_stripes
+	greyscale_config_worn = /datum/greyscale_config/pool_swimsuit/vertical_stripes_worn
+
+/obj/item/clothing/under/dress/pool/horizontal_stripes
+	greyscale_config = /datum/greyscale_config/pool_swimsuit/horizontal_stripes
+	greyscale_config_worn = /datum/greyscale_config/pool_swimsuit/horizontal_stripes_worn
 
 /obj/item/clothing/under/dress/skirt/pool
 	name = "pool swimskirt"
-	desc = "Nanotrasen-colored swimwear for a nice pool splash without forgetting who owns you."
+	desc = "Nanotrasen-mandated swimwear for a nice pool splash."
 	icon_state = "pool_bikini"
 
 /////////////////

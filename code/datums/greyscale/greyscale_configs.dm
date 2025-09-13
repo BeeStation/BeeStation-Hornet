@@ -305,3 +305,25 @@
 	name = "Worn CTF Light Vest"
 	icon_file = 'icons/mob/clothing/suits/ctf.dmi'
 	json_config = 'code/datums/greyscale/json_configs/ctf_light_worn.json'
+
+/datum/greyscale_config/pool_swimsuit
+	name = "Pool Swimsuit"
+	icon_file = 'icons/mob/clothing/under/swimwear.dmi'
+	json_config = 'code/datums/greyscale/json_configs/pool_swimsuit.json'
+
+/datum/greyscale_config/pool_swimsuit/vertical_stripes
+	json_config = 'code/datums/greyscale/json_configs/pool_swimsuit_vertical_stripes.json'
+
+/datum/greyscale_config/pool_swimsuit/horizontal_stripes
+	json_config = 'code/datums/greyscale/json_configs/pool_swimsuit_horizontal_stripes.json'
+
+/datum/greyscale_config/pool_swimsuit_worn
+	name = "Worn Pool Swimsuit"
+	icon_file = 'icons/mob/clothing/under/swimwear.dmi'
+	json_config = 'code/datums/greyscale/json_configs/pool_swimsuit_worn.json'
+
+/datum/greyscale_config/pool_swimsuit_worn/vertical_stripes
+	json_config = 'code/datums/greyscale/json_configs/pool_swimsuit_vertical_stripes_worn.json'
+
+/datum/greyscale_config/pool_swimsuit_worn/horizontal_stripes_worn
+	json_config = 'code/datums/greyscale/json_configs/pool_swimsuit_horizontal_stripes_worn.json'

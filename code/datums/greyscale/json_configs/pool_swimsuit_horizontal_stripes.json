@@ -1,0 +1,16 @@
+{
+	"pool_swimsuit_horizontal_stripes": [
+		{
+			"type": "icon_state",
+			"icon_state": "pool_swimsuit_worn",
+			"blend_mode": "overlay",
+			"color_ids": [ 1 ]
+		},
+		{
+			"type": "icon_state",
+			"icon_state": "",
+			"blend_mode": "overlay"
+		}
+	]
+}
+
