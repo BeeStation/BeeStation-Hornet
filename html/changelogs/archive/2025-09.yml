@@ -143,6 +143,13 @@
   - bugfix: Fixes mouse cooldown cursor being broken
   - bugfix: Fixes some preference options not displaying
 2025-09-13:
+  Therealdoooc, Comxy, Jacquerel, Melbert:
+  - rscadd: Garden gnomes, a new basic mob that can be purchased from an emagged supply
+      console for 4k credits.
+  - code_imp: Advanced retaliate component.
+  - code_imp: Ground sinking component.
+  - code_imp: Attack obstacle in path AI subtree/behaviour.
+  - code_imp: Caltrop component now supports custom paralyze time.
   ? mrmanlikesbt, MMMiracles, iwishforducks, dragomagol, unit0016, Son-of-Space, JohnFulpWillard,
     san7890, Maurukas, Helg2, MTandi
   : - rscadd: Added some airalarm, airlock, airlock access, and apc mapping helpers.
