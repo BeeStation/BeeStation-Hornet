@@ -166,6 +166,7 @@
 	slot_flags = ITEM_SLOT_ID
 	armor_type = /datum/armor/card_id
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	can_sell = FALSE
 	var/list/access = list()
 	var/registered_name// The name registered_name on the card
 	var/assignment

@@ -58,10 +58,16 @@
 
 	var/list/filter_data //For handling persistent filters
 
-	///Economy cost of item
+	/// Economy cost of item, 0 price items will not be sold and return when sent to CC trough cargo shuttle
 	var/custom_price
-	///Economy cost of item in premium vendor
+	/// Economy cost of item in premium vendor category (Export will use this if it exists even if custom price is defined)
 	var/custom_premium_price
+	/// Is this contraband? If so can only be exported if the supply console has access to contraband
+	var/is_contraband = FALSE
+	/// Maximum demand of the object type for exporting calculations
+	var/max_demand
+	/// Can this item be sold? TRUE by default. False means it will return when sent to CC via cargo shuttle
+	var/can_sell = TRUE
 
 	//List of datums orbiting this atom
 	var/datum/component/orbiter/orbit_datum
@@ -275,6 +281,11 @@
 		if(canSmoothWith[length(canSmoothWith)] > MAX_S_TURF) //If the last element is higher than the maximum turf-only value, then it must scan turf contents for smoothing targets.
 			smoothing_flags |= SMOOTH_OBJ
 		SET_BITFLAG_LIST(canSmoothWith)
+	/// Money calculations here
+	if(!max_demand)	// If the item isnt getting a max_demand then give it a random one
+		max_demand = (5 * rand(5, 12)) // Makes sure it increases in increments of 5 - 6 * 5 = 25, 12 * 5 = 60
+	if(!can_sell)
+		custom_price = 0	// 0 price items don't get sold
 
 	return INITIALIZE_HINT_NORMAL
 
