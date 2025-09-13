@@ -218,6 +218,7 @@
 		new /datum/data/requisition_equipment("Fulton Extraction Pack", /obj/item/extraction_pack, 1000, "Equipment"),
 		new /datum/data/requisition_equipment("Mining MODsuit", /obj/item/mod/control/pre_equipped/mining, 2500, "Equipment"),
 		new /datum/data/requisition_equipment("Jump Boots", /obj/item/clothing/shoes/bhop, 2000, "Equipment"),
+		new /datum/data/requisition_equipment("Lifesaver", /obj/item/clothing/neck/necklace/lifesaver, 10000, "Equipment"),
 	//Consumables
 		new /datum/data/requisition_equipment("30 Marker Beacons", /obj/item/stack/marker_beacon/thirty, 150, "Consumables"),
 		new /datum/data/requisition_equipment("Regen. Core Stabilizer", /obj/item/hivelordstabilizer, 400, "Consumables"),
@@ -288,7 +289,7 @@
 	return ..()
 
 /obj/machinery/gear_requisition/mining/RedeemVoucher(obj/item/mining_voucher/voucher, mob/redeemer)
-	var/items = list("Survival Capsule and Explorer's Webbing", "Resonator Kit", "Minebot Kit", "Extraction and Rescue Kit", "Crusher Kit", "Mining Conscription Kit")
+	var/items = list("Survival Capsule and Explorer's Webbing", "Resonator Kit", "Minebot Kit", "Extraction and Rescue Kit", "Crusher Kit", "Mining Conscription Kit", "Livesaver Biomonitor Kit")
 
 	var/selection = input(redeemer, "Pick your equipment", "Mining Voucher Redemption") as null|anything in sort_list(items)
 	if(!selection || !Adjacent(redeemer) || QDELETED(voucher) || voucher.loc != redeemer)
@@ -314,6 +315,8 @@
 			new /obj/item/kinetic_crusher(drop_location)
 		if("Mining Conscription Kit")
 			new /obj/item/storage/backpack/duffelbag/mining_conscript(drop_location)
+		if("Livesaver Biomonitor Kit")
+			new /obj/item/clothing/neck/necklace/lifesaver(drop_location)
 
 	SSblackbox.record_feedback("tally", "mining_voucher_redeemed", 1, selection)
 	qdel(voucher)
