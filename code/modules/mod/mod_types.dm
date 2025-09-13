@@ -227,7 +227,7 @@
 		/obj/item/mod/module/emp_shield,
 		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/jetpack,
-		/obj/item/mod/module/pathfinder/plus,
+		/obj/item/mod/module/pathfinder,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/dna_lock,
 		/obj/item/mod/module/hat_stabilizer/syndicate,
@@ -245,7 +245,7 @@
 		/obj/item/mod/module/emp_shield,
 		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/jetpack/advanced,
-		/obj/item/mod/module/pathfinder/plus,
+		/obj/item/mod/module/pathfinder,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/dna_lock,
 		/obj/item/mod/module/hat_stabilizer/syndicate,
@@ -381,11 +381,15 @@
 	applied_cell = /obj/item/stock_parts/cell/high/plus
 	req_access = list(ACCESS_CENT_GENERAL)
 	applied_modules = list(
-		/obj/item/mod/module/storage/syndicate,
-		/obj/item/mod/module/welding,
-		/obj/item/mod/module/emp_shield,
+		/obj/item/mod/module/storage/ert,
+		/obj/item/mod/module/megaphone,
 		/obj/item/mod/module/magnetic_harness,
+		/obj/item/mod/module/jetpack,
+		/obj/item/mod/module/emp_shield,
 		/obj/item/mod/module/flashlight,
+		/obj/item/mod/module/pathfinder,
+		/obj/item/mod/module/holster,
+		/obj/item/mod/module/gps,
 	)
 	/// The insignia type, insignias show what sort of member of the ERT you're dealing with.
 	var/insignia_type = /obj/item/mod/module/insignia
@@ -405,56 +409,52 @@
 
 /obj/item/mod/control/pre_equipped/responsory/security
 	insignia_type = /obj/item/mod/module/insignia/security
-	additional_module = /obj/item/mod/module/gps
-	additional_module = /obj/item/mod/module/pepper_shoulders
+	additional_module = /obj/item/mod/module/active_sonar
 
 /obj/item/mod/control/pre_equipped/responsory/engineer
 	insignia_type = /obj/item/mod/module/insignia/engineer
+	additional_module = /obj/item/mod/module/welding
 	//additional_module = /obj/item/mod/module/rad_protection
 
 /obj/item/mod/control/pre_equipped/responsory/medic
 	insignia_type = /obj/item/mod/module/insignia/medic
-	additional_module = /obj/item/mod/module/quick_carry
+	additional_module = /obj/item/mod/module/quick_carry/advanced
 
 /obj/item/mod/control/pre_equipped/responsory/janitor
 	insignia_type = /obj/item/mod/module/insignia/janitor
-	additional_module = /obj/item/mod/module/clamp
+	additional_module = /obj/item/mod/module/mister
 
+//rest in peace, my stalwart soldier
 /obj/item/mod/control/pre_equipped/responsory/clown
 	insignia_type = /obj/item/mod/module/insignia/clown
 	additional_module = /obj/item/mod/module/bikehorn
-
-/obj/item/mod/control/pre_equipped/responsory/chaplain
-	insignia_type = /obj/item/mod/module/insignia/chaplain
-	additional_module = /obj/item/mod/module/injector
 
 /obj/item/mod/control/pre_equipped/responsory/inquisitory
 	applied_skin = "inquisitory"
 	applied_modules = list(
 		/obj/item/mod/module/anti_magic,
-		/obj/item/mod/module/storage/large_capacity,
-		/obj/item/mod/module/welding,
+		/obj/item/mod/module/storage/ert,
+		/obj/item/mod/module/megaphone,
+		/obj/item/mod/module/flamethrower,
 		/obj/item/mod/module/emp_shield,
-		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/flashlight,
+		/obj/item/mod/module/pathfinder,
+		/obj/item/mod/module/gps,
 	)
 
 /obj/item/mod/control/pre_equipped/responsory/inquisitory/commander
 	insignia_type = /obj/item/mod/module/insignia/commander
-/obj/item/mod/control/pre_equipped/responsory/inquisitory/commander
 
 /obj/item/mod/control/pre_equipped/responsory/inquisitory/security
 	insignia_type = /obj/item/mod/module/insignia/security
-	additional_module = /obj/item/mod/module/gps
-	additional_module = /obj/item/mod/module/pepper_shoulders
 
 /obj/item/mod/control/pre_equipped/responsory/inquisitory/medic
 	insignia_type = /obj/item/mod/module/insignia/medic
 	additional_module = /obj/item/mod/module/quick_carry
 
-/obj/item/mod/control/pre_equipped/responsory/inquisitory/chaplain
-	insignia_type = /obj/item/mod/module/insignia/chaplain
-	additional_module = /obj/item/mod/module/injector
+/obj/item/mod/control/pre_equipped/responsory/inquisitory/engineer
+	insignia_type = /obj/item/mod/module/insignia/engineer
+	additional_module = /obj/item/mod/module/welding
 
 /obj/item/mod/control/pre_equipped/apocryphal
 	theme = /datum/mod_theme/apocryphal
@@ -466,6 +466,7 @@
 		/obj/item/mod/module/emp_shield/advanced,
 		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/jetpack,
+		/obj/item/mod/module/active_sonar,
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack,
@@ -479,6 +480,7 @@
 		/obj/item/mod/module/emp_shield/advanced,
 		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/jetpack,
+		/obj/item/mod/module/active_sonar,
 	)
 
 /obj/item/mod/control/pre_equipped/corporate
