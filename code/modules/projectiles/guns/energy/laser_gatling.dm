@@ -180,7 +180,7 @@
 	if(heating)
 		current_heat += 2
 
-/obj/item/gun/energy/minigun/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/gun/energy/minigun/pull_trigger(atom/target, mob/living/user, params, aimed)
 	if(!ammo_pack || ammo_pack.loc != user)
 		to_chat(user, span_warning("You need the backpack power source to fire the gun!"))
 	. = ..()

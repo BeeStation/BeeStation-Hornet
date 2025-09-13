@@ -5,13 +5,12 @@
 	lefthand_file = 'icons/mob/inhands/antag/clockwork_lefthand.dmi';
 	righthand_file = 'icons/mob/inhands/antag/clockwork_righthand.dmi'
 	worn_icon_state = "baguette"
-	item_flags = ABSTRACT
+	item_flags = ABSTRACT | ISWEAPON
 	block_flags = BLOCKING_NASTY | BLOCKING_ACTIVE
 	canblock = TRUE	//God blocking is actual aids to deal with, I am sorry for putting this here
 
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
-	item_flags = ISWEAPON
 	throwforce = 20
 	throw_speed = 4
 	armour_penetration = 10
