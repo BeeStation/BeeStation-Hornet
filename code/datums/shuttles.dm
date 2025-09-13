@@ -319,6 +319,12 @@
 	credit_cost = 10000
 	danger_level = SHUTTLE_DANGER_SUBPAR
 
+/datum/map_template/shuttle/emergency/medbay
+	suffix = "medbay"
+	name = "Medical Emergencies Escape Shuttle"
+	description = "The M.E.E.S. is a shuttle built for medical care, featuring a large, well-equipped medical center to tend to many crew members during the trip to Central Command."
+	credit_cost = 10000
+
 /datum/map_template/shuttle/emergency/funnypod
 	suffix = "funnypod"
 	name = "Comically Large Escape Pod"
