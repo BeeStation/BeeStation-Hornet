@@ -33,11 +33,22 @@
 	dir = 1
 	},
 /obj/structure/closet/crate/freezer/surplus_limbs,
+/obj/effect/turf_decal/tile/blue/fourcorners,
 /turf/open/floor/iron/white/smooth_large,
 /area/shuttle/escape)
 "dr" = (
 /obj/machinery/shieldgen,
 /turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"dP" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 10
+	},
+/turf/open/floor/iron/white,
 /area/shuttle/escape)
 "ee" = (
 /obj/effect/turf_decal/stripes/line{
@@ -72,6 +83,7 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
+/obj/effect/turf_decal/tile/blue/fourcorners,
 /turf/open/floor/iron/white/smooth_large,
 /area/shuttle/escape)
 "fI" = (
@@ -93,8 +105,17 @@
 /area/shuttle/escape)
 "gk" = (
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
-/obj/item/kirbyplants{
-	icon_state = "plant-10"
+/obj/structure/closet/firecloset,
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 1
+	},
+/turf/open/floor/iron/white,
+/area/shuttle/escape)
+"gP" = (
+/obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/structure/closet/emcloset,
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 1
 	},
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
@@ -130,6 +151,7 @@
 "hG" = (
 /obj/machinery/stasis,
 /obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/blue/fourcorners,
 /turf/open/floor/iron/white/smooth_large,
 /area/shuttle/escape)
 "hQ" = (
@@ -166,6 +188,9 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 1
+	},
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
 "kz" = (
@@ -190,6 +215,23 @@
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
 "lu" = (
+/obj/machinery/vending/wallmed{
+	name = "Emergency NanoMed";
+	use_power = 0
+	},
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/escape)
+"lx" = (
+/obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/structure/closet/firecloset,
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 4
+	},
+/turf/open/floor/iron/white,
+/area/shuttle/escape)
+"lJ" = (
+/obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
 /obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	use_power = 0
@@ -234,6 +276,9 @@
 	dir = 1
 	},
 /obj/machinery/light,
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 1
+	},
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
 "pr" = (
@@ -244,6 +289,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/blue/fourcorners,
 /turf/open/floor/iron/white/smooth_large,
 /area/shuttle/escape)
 "pM" = (
@@ -280,6 +326,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
+/obj/effect/turf_decal/tile/blue/fourcorners,
 /turf/open/floor/iron/white/smooth_large,
 /area/shuttle/escape)
 "ru" = (
@@ -288,12 +335,40 @@
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
+"sD" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 8
+	},
+/turf/open/floor/iron/white,
+/area/shuttle/escape)
 "sV" = (
 /obj/effect/turf_decal/tile/blue/fourcorners,
 /turf/open/floor/iron/white/textured_large,
 /area/shuttle/escape)
-"ux" = (
+"tN" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 4
+	},
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 6
+	},
+/turf/open/floor/iron/white,
+/area/shuttle/escape)
+"ux" = (
+/obj/effect/turf_decal/caution/stand_clear,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/escape)
+"vt" = (
+/obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 6
+	},
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
 "vI" = (
@@ -311,6 +386,7 @@
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 9
 	},
+/obj/effect/turf_decal/tile/blue/fourcorners,
 /turf/open/floor/iron/white/smooth_large,
 /area/shuttle/escape)
 "vJ" = (
@@ -325,6 +401,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/effect/turf_decal/tile/blue/fourcorners,
 /turf/open/floor/iron/white/smooth_large,
 /area/shuttle/escape)
 "ww" = (
@@ -344,6 +421,7 @@
 /obj/effect/turf_decal/arrows{
 	dir = 1
 	},
+/obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "yx" = (
@@ -410,6 +488,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/effect/turf_decal/tile/blue/fourcorners,
 /turf/open/floor/iron/white/smooth_large,
 /area/shuttle/escape)
 "Bq" = (
@@ -419,6 +498,7 @@
 /area/shuttle/escape)
 "Ce" = (
 /obj/effect/turf_decal/arrows,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "Cj" = (
@@ -448,14 +528,48 @@
 "DN" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
+"Ef" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 5
+	},
+/turf/open/floor/iron/white,
+/area/shuttle/escape)
 "Eq" = (
 /obj/structure/window/reinforced,
+/obj/effect/turf_decal/tile/blue/fourcorners,
 /turf/open/floor/iron/white/smooth_large,
 /area/shuttle/escape)
 "EG" = (
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
 /obj/structure/closet/emcloset,
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 4
+	},
 /turf/open/floor/iron/white,
+/area/shuttle/escape)
+"EW" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 4
+	},
+/turf/open/floor/iron/white,
+/area/shuttle/escape)
+"FC" = (
+/obj/structure/extinguisher_cabinet,
+/turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
 "FX" = (
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
@@ -463,6 +577,9 @@
 	icon_state = "plant-10"
 	},
 /obj/machinery/light,
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 1
+	},
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
 "Hb" = (
@@ -479,11 +596,13 @@
 "Hk" = (
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
 /obj/structure/closet/firecloset,
+/obj/effect/turf_decal/siding/thinplating_new,
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
 "Hq" = (
 /obj/structure/window/reinforced,
 /obj/structure/closet/crate/freezer/blood,
+/obj/effect/turf_decal/tile/blue/fourcorners,
 /turf/open/floor/iron/white/smooth_large,
 /area/shuttle/escape)
 "HN" = (
@@ -521,7 +640,19 @@
 /obj/structure/window/reinforced,
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/random,
+/obj/effect/turf_decal/tile/blue/fourcorners,
 /turf/open/floor/iron/white/smooth_large,
+/area/shuttle/escape)
+"IG" = (
+/obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/item/kirbyplants{
+	icon_state = "plant-10"
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/thinplating_new,
+/turf/open/floor/iron/white,
 /area/shuttle/escape)
 "IK" = (
 /obj/machinery/computer/atmos_alert,
@@ -529,12 +660,15 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "IL" = (
-/obj/structure/chair/fancy/shuttle{
-	dir = 4
-	},
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
 /obj/machinery/light{
 	dir = 8
+	},
+/obj/structure/chair/fancy/shuttle{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 4
 	},
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
@@ -553,6 +687,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/effect/turf_decal/siding/thinplating_new/corner,
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
 "Js" = (
@@ -564,6 +699,7 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/item/stack/medical/gauze,
+/obj/effect/turf_decal/tile/blue/fourcorners,
 /turf/open/floor/iron/white/smooth_large,
 /area/shuttle/escape)
 "JG" = (
@@ -571,6 +707,9 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 9
+	},
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
 "JO" = (
@@ -588,7 +727,13 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/random,
+/obj/effect/turf_decal/tile/blue/fourcorners,
 /turf/open/floor/iron/white/smooth_large,
+/area/shuttle/escape)
+"Ld" = (
+/obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/effect/turf_decal/siding/thinplating_new,
+/turf/open/floor/iron/white,
 /area/shuttle/escape)
 "Lm" = (
 /obj/structure/table/reinforced,
@@ -598,6 +743,7 @@
 "Lq" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/random,
+/obj/effect/turf_decal/tile/blue/fourcorners,
 /turf/open/floor/iron/white/smooth_large,
 /area/shuttle/escape)
 "LQ" = (
@@ -605,14 +751,17 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
-/turf/open/floor/iron/white,
-/area/shuttle/escape)
-"Nn" = (
-/obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
-/obj/effect/turf_decal/arrows{
+/obj/effect/turf_decal/siding/thinplating_new{
 	dir = 4
 	},
 /turf/open/floor/iron/white,
+/area/shuttle/escape)
+"Nn" = (
+/obj/effect/turf_decal/arrows{
+	dir = 4
+	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "Nw" = (
 /obj/machinery/computer/operating{
@@ -634,6 +783,9 @@
 /obj/machinery/status_display/ai/directional/west,
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
 /obj/structure/closet/emcloset,
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 6
+	},
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
 "NX" = (
@@ -650,6 +802,7 @@
 	dir = 1
 	},
 /obj/structure/closet/crate/freezer/blood,
+/obj/effect/turf_decal/tile/blue/fourcorners,
 /turf/open/floor/iron/white/smooth_large,
 /area/shuttle/escape)
 "OI" = (
@@ -668,24 +821,39 @@
 /obj/machinery/stasis{
 	dir = 1
 	},
+/obj/effect/turf_decal/tile/blue/fourcorners,
 /turf/open/floor/iron/white/smooth_large,
 /area/shuttle/escape)
 "PH" = (
 /obj/structure/window/reinforced,
 /obj/structure/closet/crate/freezer/surplus_limbs,
+/obj/effect/turf_decal/tile/blue/fourcorners,
 /turf/open/floor/iron/white/smooth_large,
 /area/shuttle/escape)
 "PK" = (
+/obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/machinery/light,
 /obj/item/kirbyplants{
 	icon_state = "plant-10"
 	},
-/obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
-/obj/machinery/light,
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 1
+	},
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
 "Qj" = (
 /obj/machinery/shieldgen,
 /turf/open/floor/mineral/titanium,
+/area/shuttle/escape)
+"Qp" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/effect/turf_decal/siding/thinplating_new/end{
+	dir = 4
+	},
+/turf/open/floor/iron/white,
 /area/shuttle/escape)
 "Rv" = (
 /obj/structure/shuttle/engine/propulsion,
@@ -711,6 +879,7 @@
 /obj/effect/turf_decal/bot,
 /obj/machinery/stasis,
 /obj/item/stack/medical/gauze,
+/obj/effect/turf_decal/tile/blue/fourcorners,
 /turf/open/floor/iron/white/smooth_large,
 /area/shuttle/escape)
 "SP" = (
@@ -719,6 +888,7 @@
 "SS" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/stasis,
+/obj/effect/turf_decal/tile/blue/fourcorners,
 /turf/open/floor/iron/white/smooth_large,
 /area/shuttle/escape)
 "Tx" = (
@@ -764,6 +934,13 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
+"Vx" = (
+/obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 10
+	},
+/turf/open/floor/iron/white,
+/area/shuttle/escape)
 "VZ" = (
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
@@ -792,6 +969,16 @@
 	},
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/escape)
+"Zg" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 5
+	},
+/turf/open/floor/iron/white,
+/area/shuttle/escape)
 "Zo" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -801,6 +988,7 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
+/obj/effect/turf_decal/tile/blue/fourcorners,
 /turf/open/floor/iron/white/smooth_large,
 /area/shuttle/escape)
 "ZW" = (
@@ -845,17 +1033,17 @@ zd
 DN
 Jn
 NJ
-ux
-LQ
-ux
-IL
+VZ
+Qp
+VZ
+Ef
 EG
-Hk
+lx
 LQ
-LQ
-ux
-LQ
-EG
+tN
+VZ
+Qp
+VZ
 PK
 DN
 fI
@@ -881,7 +1069,7 @@ VZ
 VZ
 VZ
 VZ
-Hk
+gP
 zb
 Yv
 "}
@@ -893,18 +1081,18 @@ SP
 SP
 ml
 DN
-ux
+Ld
 VZ
 JG
+sD
+sD
+dP
+VZ
+VZ
 JG
-JG
-JG
-ux
-ux
-JG
-JG
-JG
-JG
+sD
+sD
+dP
 VZ
 kg
 oH
@@ -924,11 +1112,11 @@ Tx
 lu
 ru
 RK
-ux
-ux
+VZ
+VZ
 Tx
-lu
-ru
+FC
+lJ
 RK
 VZ
 kg
@@ -943,18 +1131,18 @@ SP
 SP
 Jb
 DN
-ux
+Ld
 VZ
+Zg
 LQ
-LQ
+EW
+tN
+VZ
+VZ
+Zg
 IL
 LQ
-ux
-ux
-LQ
-IL
-LQ
-LQ
+tN
 VZ
 kg
 oH
@@ -968,7 +1156,7 @@ SP
 SP
 CG
 DN
-ux
+Ld
 VZ
 VZ
 VZ
@@ -993,18 +1181,18 @@ JO
 SP
 Lm
 DN
-ux
+Ld
 VZ
 JG
-JG
-JG
-JG
+sD
+sD
+dP
 Nn
 Nn
 JG
-JG
-JG
-JG
+sD
+sD
+dP
 VZ
 pb
 zb
@@ -1018,7 +1206,7 @@ xm
 ee
 xm
 DN
-Jn
+IG
 VZ
 vI
 pr
@@ -1043,7 +1231,7 @@ HP
 oJ
 gX
 DN
-ux
+Ld
 VZ
 rt
 qn
@@ -1068,7 +1256,7 @@ hQ
 gh
 kz
 xm
-ux
+Ld
 VZ
 cY
 qn
@@ -1093,7 +1281,7 @@ gh
 gh
 jl
 DN
-ux
+vt
 Ce
 yE
 qn
@@ -1143,7 +1331,7 @@ gh
 gh
 Vk
 DN
-ux
+Vx
 VZ
 Om
 qn
@@ -1168,7 +1356,7 @@ at
 gh
 pM
 xm
-ux
+Ld
 VZ
 rt
 qn
@@ -1193,7 +1381,7 @@ qM
 eX
 OI
 DN
-Jn
+IG
 Qj
 Bb
 hG
@@ -1225,7 +1413,7 @@ DN
 DN
 xm
 xm
-DN
+lu
 xm
 xm
 xm
