@@ -1,5 +1,5 @@
 /obj/structure/vampire
-	///Who owns this structure?
+	/// Who owns this structure?
 	var/mob/living/owner
 	/*
 	 *	We use vars to add descriptions to items.
@@ -195,7 +195,7 @@
 	if(!. || !has_buckled_mobs())
 		return FALSE
 
-	var/datum/antagonist/vassal/vampiredatum = IS_VAMPIRE(user)
+	var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(user)
 	var/mob/living/carbon/buckled_person = pick(buckled_mobs)
 
 	// oh no let me free this poor soul
@@ -206,7 +206,7 @@
 	// Try to interact with vassal
 	var/datum/antagonist/vassal/vassaldatum = IS_VASSAL(buckled_person)
 	if(vassaldatum?.master == vampiredatum)
-		SEND_SIGNAL(vampiredatum, VAMPIRE_INTERACT_WITH_VASSAL, vassaldatum)
+		vampiredatum.my_clan?.interact_with_vassal(vassaldatum)
 		return TRUE
 
 	var/obj/item/held_item = user.get_inactive_held_item()
@@ -238,21 +238,21 @@
  * * If the victim has a mindshield or is an antagonist, they must accept the conversion. If they don't accept, they aren't converted
  * * Vassalize target
  */
-/obj/structure/vampire/vassalrack/proc/try_to_torture(mob/living/user, mob/living/target, var/obj/item/held_item)
-	var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(user)
+/obj/structure/vampire/vassalrack/proc/try_to_torture(mob/living/living_vampire, mob/living/living_target, obj/item/held_item)
+	var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(living_vampire)
 
-	if(!vampiredatum.can_make_vassal(target) || is_torturing)
+	if(!vampiredatum.can_make_vassal(living_target) || is_torturing)
 		return
 
 	// These if statements can be simplified but aren't for better code-readability.
 	if(convert_progress > 0)
-		balloon_alert(user, "spilling blood...")
+		balloon_alert(living_vampire, "spilling blood...")
 
 		is_torturing = TRUE
-		target.Paralyze(1 SECONDS)
+		living_target.Paralyze(1 SECONDS)
 		vampiredatum.AddBloodVolume(-TORTURE_BLOOD_HALF_COST)
 
-		if(!do_torture(user, target, held_item))
+		if(!do_torture(living_vampire, living_target, held_item))
 			is_torturing = FALSE
 			return
 		is_torturing = FALSE
@@ -261,39 +261,44 @@
 		convert_progress--
 
 		if(convert_progress > 0)
-			balloon_alert(user, "needs more persuasion...")
+			balloon_alert(living_vampire, "needs more persuasion...")
 			return
 
 		// If the victim is mindshielded or an antagonist, they choose to accept or refuse vassilization.
-		if(!wants_vassilization && (HAS_TRAIT(target, TRAIT_MINDSHIELD) || length(target.mind.antag_datums)))
-			if(istype(vampiredatum.my_clan?.clan_objective, /datum/objective/brujah_clan_objective) && (vampiredatum.my_clan?.clan_objective.target == target.mind))
-				balloon_alert(user, "ready for communion!")
+		if(!wants_vassilization && (HAS_TRAIT(living_target, TRAIT_MINDSHIELD) || length(living_target.mind.antag_datums)))
+			// Check if our target is our brujah clan objective
+			if(istype(vampiredatum.my_clan, /datum/vampire_clan/brujah) && vampiredatum.my_clan.clan_objective.target == living_target.mind)
+				balloon_alert(living_vampire, "ready for communion!")
 				wants_vassilization = TRUE
 				return
 
-			balloon_alert(user, "has external loyalties! more persuasion required!")
-			if(!ask_for_vassilization(user, target))
-				balloon_alert(user, "refused persuasion!")
+			balloon_alert(living_vampire, "has external loyalties! more persuasion required!")
+			if(!ask_for_vassilization(living_vampire, living_target))
+				balloon_alert(living_vampire, "refused persuasion!")
 				convert_progress++
 				return
 
-		balloon_alert(user, "ready for communion!")
+		balloon_alert(living_vampire, "ready for communion!")
 		return
 
-	if(wants_vassilization || !(HAS_TRAIT(target, TRAIT_MINDSHIELD) || length(target.mind.antag_datums)))
-		user.balloon_alert_to_viewers("smears blood...", "paints bloody marks...")
-		if(!do_after(user, 5 SECONDS, target))
-			balloon_alert(user, "interrupted!")
+	if(wants_vassilization || !(HAS_TRAIT(living_target, TRAIT_MINDSHIELD) || length(living_target.mind.antag_datums)))
+		living_vampire.balloon_alert_to_viewers("smears blood...", "paints bloody marks...")
+		if(!do_after(living_vampire, 5 SECONDS, living_target))
+			balloon_alert(living_vampire, "interrupted!")
 			return
+
+		// Make our target into a vassal
 		vampiredatum.AddBloodVolume(-TORTURE_CONVERSION_COST)
+		vampiredatum.make_vassal(living_target)
 
-		vampiredatum.make_vassal(target)
 		// Find Mind Implant & Destroy
-		for(var/obj/item/implant/mindshield/mindshield in target.implants)
+		for(var/obj/item/implant/mindshield/mindshield in living_target.implants)
 			mindshield.Destroy()
-		SEND_SIGNAL(vampiredatum, VAMPIRE_MADE_VASSAL, user, target)
 
-/obj/structure/vampire/vassalrack/proc/do_torture(mob/living/user, mob/living/carbon/target, var/obj/item/held_item)
+		// We've made a vassal the proper way, do clan stuff
+		vampiredatum.my_clan?.on_vassal_made(living_vampire, living_target)
+
+/obj/structure/vampire/vassalrack/proc/do_torture(mob/living/user, mob/living/carbon/target, obj/item/held_item)
 	var/torture_time = 15
 	torture_time -= held_item?.force / 4
 	torture_time -= held_item?.sharpness + 1
@@ -309,7 +314,7 @@
 			span_userdanger("[user] performs a ritual, spilling some blood from your [selected_bodypart.name]!"))
 
 		INVOKE_ASYNC(target, TYPE_PROC_REF(/mob, emote), "scream")
-		target.Jitter(5 SECONDS)
+		target.Jitter(5)
 		target.apply_damage(held_item ? held_item.force / 4 : 2, held_item ? held_item.damtype : BRUTE, selected_bodypart)
 		return TRUE
 	else
@@ -354,18 +359,11 @@
 	density = FALSE
 	can_buckle = TRUE
 	anchored = FALSE
-	ghost_desc = "This is a magical candle which drains at the sanity of non Vampires and Vassals.\n\
-		Vassals can turn the candle on manually, while Vampires can do it from a distance."
-	vampire_desc = "This is a magical candle which drains at the sanity of mortals who are not under your command while it is active.\n\
-		You can right-click on it from any range to turn it on remotely, or simply be next to it and click on it to turn it on and off normally."
-	vassal_desc = "This is a magical candle which drains at the sanity of the fools who havent yet accepted your master, as long as it is active.\n\
-		You can turn it on and off by clicking on it while you are next to it."
+	ghost_desc = "This is a magical candle which drains at the sanity of non Vampires and Vassals."
+	vampire_desc = "This is a magical candle which drains at the sanity of mortals who are not under your command while it is active."
+	vassal_desc = "This is a magical candle which drains at the sanity of the fools who havent yet accepted your master."
 	curator_desc = "This is a blue Candelabrum, which causes insanity to those near it while active."
 	var/lit = FALSE
-
-/obj/structure/vampire/candelabrum/Initialize(mapload)
-	. = ..()
-	RegisterSignal(src, COMSIG_CLICK_RIGHT, PROC_REF(distance_toggle))
 
 /obj/structure/vampire/candelabrum/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -374,11 +372,6 @@
 /obj/structure/vampire/candelabrum/update_icon_state()
 	icon_state = "candelabrum[lit ? "_lit" : ""]"
 	return ..()
-
-/obj/structure/vampire/candelabrum/proc/distance_toggle(datum/source, atom/location, control, params, mob/user)
-	SIGNAL_HANDLER
-	if(anchored && !user.incapacitated() && IS_VAMPIRE(user) && !user.Adjacent(src))
-		toggle()
 
 /obj/structure/vampire/candelabrum/bolt()
 	density = TRUE

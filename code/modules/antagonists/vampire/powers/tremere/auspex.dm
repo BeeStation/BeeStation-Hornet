@@ -7,9 +7,6 @@
  *	Level 4 - Cloak of Darkness until clicking an area, teleports the user to the selected area, causes nearby people to bleed.
  *	Level 5 - Cloak of Darkness until clicking an area, teleports the user to the selected area, causes nearby people to fall asleep.
  */
-
-// Look to /datum/action/spell/pointed/void_phase for help.
-
 /datum/action/vampire/targeted/tremere/auspex
 	name = "Level 1: Auspex"
 	upgraded_power = /datum/action/vampire/targeted/tremere/auspex/two
@@ -18,7 +15,7 @@
 	button_icon_state = "power_auspex"
 	power_explanation = "When Activated, you will be hidden in a Cloak of Darkness.\n\
 		Click any area up to 2 tiles away to teleport there and reveal yourself."
-	check_flags = BP_CANT_USE_IN_TORPOR|BP_CANT_USE_WHILE_INCAPACITATED|BP_CANT_USE_WHILE_UNCONSCIOUS
+	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
 	bloodcost = 5
 	constant_bloodcost = 2
 	cooldown_time = 12 SECONDS

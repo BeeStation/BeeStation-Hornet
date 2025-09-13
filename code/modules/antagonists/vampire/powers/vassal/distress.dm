@@ -16,6 +16,6 @@
 	owner.balloon_alert(owner, "you call out for your master!")
 	to_chat(vassaldatum.master.owner, span_userdanger("[owner], your loyal Vassal, is desperately calling for aid at [get_area(owner)]!"))
 
-	var/mob/living/user = owner
-	user.adjustBruteLoss(10)
+	var/mob/living/living_owner = owner
+	living_owner.adjustBruteLoss(10)
 	deactivate_power()

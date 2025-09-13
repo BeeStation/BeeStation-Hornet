@@ -28,9 +28,12 @@
 	objectives += new_objective
 
 /datum/antagonist/vassal/discordant/greet()
-	to_chat(owner, span_cultbigbold("You are now a Discordant Vassal!"))
-	to_chat(owner, span_cult("All claims to authority that you might've \
+	var/list/msg = list()
+	msg += span_cultbigbold("You are now a Discordant Vassal!")
+	msg += span_cult("All claims to authority that you might've \
 		once had are now null and void. Liberate all of those who you once considered below you: \
 		give them whatever permissions they might desire. \
 		Do not harm [master.owner.name], the Vampire who broke your delusions of grandeur. \
-		Do note, however, that you are not bound to [master.owner.p_their()] orders."))
+		Do note, however, that you are not bound to [master.owner.p_their()] orders.")
+
+	to_chat(owner, examine_block(msg.Join("\n")))
