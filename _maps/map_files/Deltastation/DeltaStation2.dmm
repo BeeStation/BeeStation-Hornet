@@ -32668,9 +32668,6 @@
 	pixel_x = 32;
 	pixel_y = 32
 	},
-/obj/item/pool/pool_noodle,
-/obj/item/pool/pool_noodle,
-/obj/item/pool/rubber_ring,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron,
 /area/crew_quarters/fitness/recreation)
@@ -53567,6 +53564,13 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/bridge)
+"lqm" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/machinery/vending/pool,
+/turf/open/floor/iron,
+/area/crew_quarters/fitness/recreation)
 "lqr" = (
 /obj/structure/rack,
 /obj/item/stack/package_wrap,
@@ -59976,9 +59980,6 @@
 /area/security/brig)
 "nnq" = (
 /obj/structure/closet/boxinggloves,
-/obj/item/pool/pool_noodle,
-/obj/item/pool/pool_noodle,
-/obj/item/pool/rubber_ring,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron,
 /area/crew_quarters/fitness/recreation)
@@ -73983,9 +73984,6 @@
 /area/engine/engineering)
 "rJs" = (
 /obj/structure/closet/athletic_mixed,
-/obj/item/pool/pool_noodle,
-/obj/item/pool/pool_noodle,
-/obj/item/pool/rubber_ring,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron,
 /area/crew_quarters/fitness/recreation)
@@ -148481,7 +148479,7 @@ tkd
 cCk
 cDJ
 cFC
-cwd
+lqm
 cIk
 xLr
 gsU

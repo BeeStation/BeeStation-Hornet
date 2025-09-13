@@ -43204,11 +43204,8 @@
 /obj/effect/turf_decal/siding/blue{
 	dir = 8
 	},
-/obj/item/pool/rubber_ring,
 /obj/item/clothing/under/shorts/red,
 /obj/item/clothing/under/shorts/blue,
-/obj/item/pool/pool_noodle,
-/obj/item/pool/pool_noodle,
 /obj/structure/extinguisher_cabinet/directional/west,
 /turf/open/floor/noslip/blue,
 /area/crew_quarters/fitness/recreation)
@@ -51147,11 +51144,8 @@
 /obj/effect/turf_decal/siding/blue{
 	dir = 8
 	},
-/obj/item/pool/rubber_ring,
 /obj/item/clothing/under/shorts/grey,
 /obj/item/clothing/under/shorts/green,
-/obj/item/pool/pool_noodle,
-/obj/item/pool/pool_noodle,
 /turf/open/floor/noslip/blue,
 /area/crew_quarters/fitness/recreation)
 "kpc" = (
@@ -89017,11 +89011,8 @@
 /obj/effect/turf_decal/siding/blue{
 	dir = 8
 	},
-/obj/item/pool/rubber_ring,
 /obj/item/clothing/under/shorts/purple,
 /obj/item/clothing/under/shorts/black,
-/obj/item/pool/pool_noodle,
-/obj/item/pool/pool_noodle,
 /turf/open/floor/noslip/blue,
 /area/crew_quarters/fitness/recreation)
 "sbs" = (
@@ -101724,6 +101715,7 @@
 	pixel_x = -28;
 	dir = 4
 	},
+/obj/machinery/vending/pool,
 /turf/open/floor/noslip/blue,
 /area/crew_quarters/fitness/recreation)
 "uGH" = (
@@ -117947,10 +117939,6 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/maintenance/department/engine/atmos)
-"xUf" = (
-/obj/effect/turf_decal/siding/wood,
-/turf/open/floor/wood,
-/area/bridge/showroom/corporate)
 "xUx" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/effect/turf_decal/siding/dark{
