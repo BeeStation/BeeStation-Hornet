@@ -93,3 +93,4 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/tracker)
 
 /obj/item/electronics/tracker
 	name = "tracker electronics"
+	custom_price = 100

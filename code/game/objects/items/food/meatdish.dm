@@ -123,6 +123,7 @@
 	tastes = list("sour, rotten water" = 1)
 	foodtypes = GROSS
 	crafting_complexity = FOOD_COMPLEXITY_2
+	can_sell = FALSE
 
 /obj/item/food/spiderleg
 	name = "spider leg"

@@ -101,6 +101,7 @@
 	sign_name = "holobarrier"
 	creation_time = 30
 	max_signs = 6
+	custom_price = 50
 
 /obj/item/holosign_creator/engineering
 	name = "engineering holobarrier projector"

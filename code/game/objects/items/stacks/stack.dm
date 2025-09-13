@@ -13,6 +13,7 @@
 	icon = 'icons/obj/stacks/minerals.dmi'
 	gender = PLURAL
 	material_modifier = 0.05 //5%, so that a 50 sheet stack has the effect of 5k materials instead of 100k.
+	max_demand = 500
 	/// What's the name of just 1 of this stack. You have a stack of leather, but one piece of leather
 	var/singular_name
 	/// How much is in this stack?
@@ -48,6 +49,8 @@
 	var/use_radial = FALSE
 	/// If use_radial is TRUE, this is the radius of the radial
 	var/radial_radius = 52
+	/// Base price of the item PER AMOUNT. 1 amount will be 1 custom_price
+	var/base_price = 1
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 
@@ -77,10 +80,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 
 	update_weight()
 	update_appearance()
+	calculate_price()
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_movable_entered_occupied_turf),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/item/stack/proc/calculate_price()
+	/// Price is calculated based on base price times amount and updated whenever amoutn would change
+	custom_price = base_price * amount
 
 /obj/item/stack/add_context_self(datum/screentip_context/context, mob/user)
 	context.use_cache()
@@ -494,6 +502,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 	update_appearance()
 	ui_update()
 	update_weight()
+	calculate_price()
 	return TRUE
 
 /obj/item/stack/tool_use_check(mob/living/user, amount)
@@ -594,6 +603,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 	. = merge_without_del(target_stack, limit)
 	is_zero_amount(delete_if_zero = TRUE)
 	ui_update() //merging into stack wont update stackcrafting menu otherwise
+	calculate_price()
 
 /// Signal handler for connect_loc element. Called when a movable enters the turf we're currently occupying. Merges if possible.
 /obj/item/stack/proc/on_movable_entered_occupied_turf(datum/source, atom/movable/arrived)

@@ -4,6 +4,7 @@ SUBSYSTEM_DEF(economy)
 	init_order = INIT_ORDER_ECONOMY
 	runlevels = RUNLEVEL_GAME
 	var/roundstart_paychecks = 5
+	/// Budget pool afforded to the station. It will be divided between all budgets. MIND!! THIS INCUDED VIP, WELFARE AND MINING GOLEM!!!
 	var/budget_pool = 50000
 	var/full_ancap = FALSE // Enables extra money charges for things that normally would be free, such as sleepers/cryo/cloning.
 							//Take care when enabling, as players will NOT respond well if the economy is set up for low cash flows.
@@ -23,24 +24,36 @@ SUBSYSTEM_DEF(economy)
 	var/mail_blocked = FALSE
 
 /datum/controller/subsystem/economy/Initialize()
-	//Calculating before creating dept accounts
 	var/budget_size = 0
+	var/remaining_budget_pool = budget_pool
+
+	// First pass: subtract fixed starting budgets
+	for(var/datum/bank_account/department/each as() in subtypesof(/datum/bank_account/department))
+		if(initial(each.starting_budget))
+			remaining_budget_pool -= initial(each.starting_budget)
+
+	// Second pass: count departments that should receive a share
 	for(var/datum/bank_account/department/each as() in subtypesof(/datum/bank_account/department))
 		if(!initial(each.nonstation_account))
-			budget_size++
-	var/budget_to_hand_out = round(budget_pool / budget_size)
+			if(!initial(each.starting_budget)) // only count those without a fixed starting budget
+				budget_size++
 
-	//Creating department accounts subtypes
-	for(var/each as() in subtypesof(/datum/bank_account/department))
-		var/datum/bank_account/department/D = new each(budget_to_hand_out)
+	var/budget_to_hand_out = (budget_size > 0) ? round(remaining_budget_pool / budget_size) : 0
+
+	// Create department accounts
+	for(var/datum/bank_account/department/dep as() in subtypesof(/datum/bank_account/department))
+		var/datum/bank_account/department/D
+		if(initial(dep.starting_budget))
+			D = new dep(initial(dep.starting_budget))
+		else
+			D = new dep(budget_to_hand_out)
+
 		budget_accounts += D
 
-	// If we have united budget trait, need to do something else
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_UNITED_BUDGET))
 		var/datum/bank_account/department/D = get_budget_account(ACCOUNT_CAR_ID)
 		D.account_balance = budget_pool
 		D.account_holder = ACCOUNT_ALL_NAME
-		// Note: if you want to remove united_budget feature, try /event verb and find united budget cancel event
 
 	return SS_INIT_SUCCESS
 

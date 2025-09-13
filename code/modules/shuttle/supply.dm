@@ -203,9 +203,6 @@ GLOBAL_LIST_INIT(whitelisted_cargo_types, typecacheof(list(
 				//Exports the contents of things but not the item itself, so you can have conveyor belt that won't get sold
 				export_contents(AM, export_categories , dry_run = FALSE, external_report = ex)
 
-	if(ex.exported_atoms)
-		ex.exported_atoms += "." //ugh
-
 	if(matched_bounty)
 		msg += "Bounty items received. An update has been sent to all bounty consoles. "
 
