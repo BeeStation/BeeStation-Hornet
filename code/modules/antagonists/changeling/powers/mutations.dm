@@ -17,6 +17,7 @@
 	chemical_cost = 1000
 	dna_cost = -1
 
+	req_human = TRUE
 	var/silent = FALSE
 	var/weapon_type
 	var/weapon_name_simple
@@ -34,6 +35,7 @@
 			playsound(user, 'sound/effects/blobattack.ogg', 30, 1)
 			user.visible_message(span_warning("With a sickening crunch, [user] reforms [user.p_their()] [weapon_name_simple] into an arm!"), span_notice("We assimilate the [weapon_name_simple] back into our body."), span_italics("You hear organic matter ripping and tearing!"))
 		user.update_inv_hands()
+		subtract_slowdown(user)
 		return 1
 
 /datum/action/changeling/weapon/sting_action(mob/living/carbon/user)
@@ -72,12 +74,12 @@
 	helptext = "Yell at Miauw and/or Perakp"
 	chemical_cost = 1000
 	dna_cost = -1
+	req_human = TRUE
 
 	var/helmet_type = /obj/item
 	var/suit_type = /obj/item
 	var/suit_name_simple = "    "
 	var/helmet_name_simple = "     "
-	var/recharge_slowdown = 0
 	var/blood_on_castoff = 0
 
 /datum/action/changeling/suit/try_to_sting(mob/user, mob/target)
@@ -104,7 +106,7 @@
 			H.add_splatter_floor()
 			playsound(H.loc, 'sound/effects/splat.ogg', 50, 1) //So real sounds
 
-		changeling.chem_recharge_slowdown -= recharge_slowdown
+		subtract_slowdown(user)
 		return 1
 
 /datum/action/changeling/suit/Remove(mob/user)
@@ -124,9 +126,6 @@
 
 	user.equip_to_slot_if_possible(new suit_type(user), ITEM_SLOT_OCLOTHING, 1, 1, 1)
 	user.equip_to_slot_if_possible(new helmet_type(user), ITEM_SLOT_HEAD, 1, 1, 1)
-
-	var/datum/antagonist/changeling/changeling = user.mind.has_antag_datum(/datum/antagonist/changeling)
-	changeling.chem_recharge_slowdown += recharge_slowdown
 	return TRUE
 
 
@@ -137,11 +136,11 @@
 /datum/action/changeling/weapon/arm_blade
 	name = "Arm Blade"
 	desc = "We reform one of our arms into a deadly blade. Costs 20 chemicals."
-	helptext = "We may retract our armblade in the same manner as we form it. Cannot be used while in lesser form."
+	helptext = "We may retract our armblade in the same manner as we form it."
 	button_icon_state = "armblade"
-	chemical_cost = 20
+	chemical_cost = 5
+	recharge_slowdown = 0.2
 	dna_cost = 2
-	req_human = 1
 	weapon_type = /obj/item/melee/arm_blade
 	weapon_name_simple = "blade"
 
@@ -156,7 +155,6 @@
 	item_flags = NEEDS_PERMIT | ABSTRACT | DROPDEL | ISWEAPON
 	w_class = WEIGHT_CLASS_HUGE
 	force = 30
-	throwforce = 0 //Just to be on the safe side
 	throw_range = 0
 	throw_speed = 0
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
@@ -207,12 +205,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/arm_blade)
 	desc = "We ready a tentacle to grab items or victims with. Costs 10 chemicals."
 	helptext = "We can use it once to retrieve a distant item. If used on living creatures, the effect depends on our combat mode: \
 	In our neutral stance, we will simply drag them closer; if we try to shove, we will grab whatever they're holding in their active hand instead of them; \
-	in our combat stance, we will put the victim in our hold after catching them, and we will pull them in and stab them if we're also holding a sharp weapon. \
-	Cannot be used while in lesser form."
+	in our combat stance, we will put the victim in our hold after catching them, and we will pull them in and stab them if we're also holding a sharp weapon."
 	button_icon_state = "tentacle"
 	chemical_cost = 10
 	dna_cost = 2
-	req_human = 1
 	weapon_type = /obj/item/gun/magic/tentacle
 	weapon_name_simple = "tentacle"
 	silent = TRUE
@@ -384,17 +380,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 /datum/action/changeling/suit/organic_space_suit
 	name = "Organic Space Suit"
 	desc = "We grow an organic suit to protect ourselves from space exposure and is lightly armoured. Costs 20 chemicals."
-	helptext = "We must constantly repair our form to make it armored and space-proof, reducing chemical production while we are protected. Cannot be used in Lesser Form."
+	helptext = "We must constantly repair our form to make it armored and space-proof."
 	button_icon_state = "organic_suit"
 	chemical_cost = 20
 	dna_cost = 1
-	req_human = 1
-
 	suit_type = /obj/item/clothing/suit/space/changeling
 	helmet_type = /obj/item/clothing/head/helmet/space/changeling
 	suit_name_simple = "flesh shell"
 	helmet_name_simple = "space helmet"
-	recharge_slowdown = 0.25
+	recharge_slowdown = 0.2
 	blood_on_castoff = 1
 
 /obj/item/clothing/suit/space/changeling
@@ -480,12 +474,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 /datum/action/changeling/suit/armor
 	name = "Chitinous Armor"
 	desc = "We turn our skin into tough chitin to protect us from damage. Costs 20 chemicals."
-	helptext = "Upkeep of the armor slows our rate of chemical production. The armor provides decent protection against projectiles and some protection against melee attacks. Cannot be used in lesser form."
+	helptext = "The armor provides decent protection against projectiles and some protection against melee attacks."
 	button_icon_state = "chitinous_armor"
-	chemical_cost = 20
+	chemical_cost = 10
 	dna_cost = 2
-	req_human = 1
-	recharge_slowdown = 0.125
+	recharge_slowdown = 0.2
 
 	suit_type = /obj/item/clothing/suit/armor/changeling
 	helmet_type = /obj/item/clothing/head/helmet/changeling

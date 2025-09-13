@@ -44,30 +44,12 @@
 	dna_cost = 2
 	req_human = TRUE
 	check_flags = NONE
+	limb_sacrifice = TRUE
 	ignores_fakedeath = TRUE
 
 /datum/action/changeling/limbsnake/sting_action(mob/user)
 	..()
 	var/mob/living/carbon/C = user
-	var/list/parts = list()
-	for(var/Zim in C.bodyparts)
-		var/obj/item/bodypart/BP = Zim
-		if(BP.body_part != HEAD && BP.body_part != CHEST && IS_ORGANIC_LIMB(BP))
-			if(BP.dismemberable)
-				parts += BP
-	if(!LAZYLEN(parts))
-		to_chat(user, span_notice("We don't have any limbs to detach."))
-		return
-	//limb related actions
-	var/obj/item/bodypart/BP = pick(parts)
-	for(var/obj/item/bodypart/Gir in parts)
-		if(Gir.body_part == ARM_RIGHT || Gir.body_part == ARM_LEFT)	//arms first, so they can mitigate the damage with the Armblade ability too, and it's not entirely reliant on regenerate
-			BP = Gir
-	//text message
-	C.visible_message(span_warning("[user]'s [BP] detaches itself and takes the form of a snake!"),
-			span_userdanger("Our [BP] forms into a horrifying snake and heads towards our attackers!"))
-	BP.dismember()
-	BP.Destroy()
 	//Deploy limbsnake
 	var/mob/living/snek = new /mob/living/simple_animal/hostile/poison/limbsnake(get_turf(user))
 	//assign faction

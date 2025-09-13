@@ -30,9 +30,9 @@
 	/// The number of chemicals the changeling currently has.
 	var/chem_charges = 20
 	/// The max chemical storage the changeling currently has.
-	var/total_chem_storage = 75
+	var/total_chem_storage = 35
 	/// The chemical recharge rate per life tick.
-	var/chem_recharge_rate = 0.5
+	var/chem_recharge_rate = 0.3
 	/// Any additional modifiers triggered by changelings that modify the chem_recharge_rate.
 	var/chem_recharge_slowdown = 0
 	/// The range this ling can sting things.
@@ -40,9 +40,9 @@
 	/// Changeling name, what other lings see over the hivemind when talking.
 	var/changelingID = "Changeling"
 	/// The number of genetics points (to buy powers) this ling currently has.
-	var/genetic_points = 10
+	var/genetic_points = 2
 	/// The max number of genetics points (to buy powers) this ling can have..
-	var/total_genetic_points = 10
+	var/total_genetic_points = 100
 	/// List of all powers we start with.
 	var/list/innate_powers = list()
 	/// Associated list of all powers we have evolved / bought from the emporium. [path] = [instance of path]
@@ -50,8 +50,6 @@
 
 	/// The voice we're mimicing via the changeling voice ability.
 	var/mimicing = ""
-	/// Whether we can currently respec in the cellular emporium.
-	var/can_respec = FALSE
 
 	/// The currently active changeling sting.
 	var/datum/action/changeling/sting/chosen_sting
@@ -328,11 +326,7 @@
 		return FALSE
 
 	if(genetic_points < initial(sting_path.dna_cost))
-		to_chat(owner.current, span_warning("We have reached our capacity for abilities!"))
-		return FALSE
-
-	if(absorbed_count < initial(sting_path.req_dna))
-		to_chat(owner.current, span_warning("We lack the DNA to evolve this ability!"))
+		to_chat(owner.current, span_warning("We require [initial(sting_path.dna_cost)] genetic point\s to evolve this ability!"))
 		return FALSE
 
 	if(initial(sting_path.dna_cost) < 0)
@@ -366,10 +360,10 @@
 		to_chat(owner.current, span_warning("We are too busy reforming ourselves to readapt right now!"))
 		return
 
-	if(can_respec)
-		to_chat(owner.current, span_notice("We have removed our evolutions from this form, and are now ready to readapt."))
+	if(genetic_points >= 4)
+		to_chat(owner.current, span_notice("We have removed our evolutions from this form for 1 genetic point."))
 		remove_changeling_powers()
-		can_respec = FALSE
+		genetic_points -= 1
 		SSblackbox.record_feedback("tally", "changeling_power_purchase", 1, "Readapt")
 		log_game("Genetic powers refunded by [owner.current.ckey]/[owner.current.name] the [owner.current.job], [genetic_points] GP remaining.")
 		return TRUE
@@ -409,10 +403,6 @@
 		if(verbose)
 			to_chat(user, span_warning("[target] is not compatible with our biology."))
 		return FALSE
-	if(has_profile_with_dna(target.dna))
-		if(verbose)
-			to_chat(user, span_warning("We already have this DNA in storage!"))
-		return FALSE
 	if(HAS_TRAIT(target, TRAIT_NO_DNA_COPY))
 		if(verbose)
 			to_chat(user, span_warning("[target] is not compatible with our biology."))
@@ -420,6 +410,10 @@
 	if(HAS_TRAIT(target, TRAIT_BADDNA))
 		if(verbose)
 			to_chat(user, span_warning("[target]'s DNA is ruined beyond usability!"))
+		return FALSE
+	if(HAS_TRAIT(target, CHANGELING_DRAIN))
+		if(verbose)
+			to_chat(user, span_warning("[target] has already been drained..."))
 		return FALSE
 	if(HAS_TRAIT(target, TRAIT_HUSK))
 		if(verbose)

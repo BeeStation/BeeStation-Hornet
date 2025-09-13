@@ -8,7 +8,7 @@
 	///if we're currently absorbing, used for sanity
 	var/is_absorbing = FALSE
 
-/datum/action/changeling/absorbDNA/can_sting(mob/living/carbon/user)
+/datum/action/changeling/absorbDNA/ling_can_cast(mob/living/carbon/user)
 	if(!..())
 		return
 
@@ -19,15 +19,12 @@
 	if(!owner.pulling || !iscarbon(owner.pulling))
 		owner.balloon_alert(owner, "needs grab!")
 		return
-	if(owner.grab_state <= GRAB_NECK)
-		owner.balloon_alert(owner, "needs tighter grip!")
-		return
 
 	var/mob/living/carbon/target = owner.pulling
 	var/datum/antagonist/changeling/changeling = IS_CHANGELING(owner)
 	return changeling.can_absorb_dna(target)
 
-/datum/action/changeling/absorbDNA/sting_action(mob/owner)
+/datum/action/changeling/absorbDNA/sting_action(mob/living/carbon/owner)
 	SHOULD_CALL_PARENT(FALSE)
 
 	var/datum/antagonist/changeling/changeling = IS_CHANGELING(owner)
@@ -36,10 +33,6 @@
 
 	if(!attempt_absorb(target))
 		return
-
-	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("Absorb DNA", "4"))
-	owner.visible_message(span_danger("[owner] sucks the fluids from [target]!"), span_notice("We have absorbed [target]."))
-	to_chat(target, span_userdanger("You are absorbed by the changeling!"))
 
 	if(!changeling.has_profile_with_dna(target.dna))
 		changeling.add_new_profile(target)
@@ -55,13 +48,39 @@
 
 	is_absorbing = FALSE
 
-	changeling.adjust_chemicals(10)
-	changeling.can_respec = TRUE
-
 	if(target.stat != DEAD)
 		target.investigate_log("has died from being changeling absorbed.", INVESTIGATE_DEATHS)
-	target.death(FALSE)
-	target.Drain()
+
+	switch(changeling.total_chem_storage)
+		if(35 to 45)
+			target.soft_drain()
+		if(46 to 70)	// Third drain on a normal person will cause this.
+			target.changeling_drain()
+		if(71 to INFINITY)
+			target.master_drain()
+
+	// Changeling gains chems, 50 more than cap.
+	changeling.adjust_chemicals(100, changeling.total_chem_storage + 50)
+	owner.blood_volume += 300	// We drain blood because its cool and useful!
+	if(target.mind)
+		changeling.genetic_points += 1
+		changeling.total_chem_storage += 10
+		to_chat(owner, span_notice("We have drained [target] and gained 1 genetic point. <span class='cfc_cyan'>Total</span>: <span class='cfc_green'>[changeling.genetic_points]</span>."))
+	else
+		if(changeling.total_chem_storage >= 50)
+			to_chat(owner, span_notice("Absent-minded targets no longer sustain us... <span class='cfc_cyan'>Total</span>: <span class='cfc_green'>[changeling.genetic_points]</span>."))
+		else
+			changeling.genetic_points += 0.5
+			changeling.total_chem_storage += 5
+			to_chat(owner, span_notice("We have drained [target] and gained 0.5 genetic point\s. Absent-minded targets are less... nutritious... <span class='cfc_cyan'>Total</span>: <span class='cfc_green'>[changeling.genetic_points]</span>."))
+
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("Absorb DNA", "4"))
+	owner.visible_message(span_danger("[target] was drained!"))
+	to_chat(target, span_userdanger("You are drained by the changeling!"))
+
+	playsound(owner, 'sound/items/drink.ogg', 35, TRUE)
+	playsound(owner, 'sound/effects/blobattack.ogg', 50)
+	playsound(owner, 'sound/effects/splat.ogg', 50, TRUE)
 	return TRUE
 
 /datum/action/changeling/absorbDNA/proc/absorb_memories(mob/living/carbon/human/target)
@@ -149,15 +168,19 @@
 		switch(absorbing_iteration)
 			if(1)
 				to_chat(owner, span_notice("This creature is compatible. We must hold still..."))
+				playsound(owner, 'sound/creatures/rattle.ogg', 10)
 			if(2)
 				owner.visible_message(span_warning("[owner] extends a proboscis!"), span_notice("We extend a proboscis."))
+				playsound(owner, 'sound/creatures/venus_trap_death.ogg', 20)
 			if(3)
 				owner.visible_message(span_danger("[owner] stabs [target] with the proboscis!"), span_notice("We stab [target] with the proboscis."))
 				to_chat(target, span_userdanger("You feel a sharp stabbing pain!"))
+				playsound(owner, 'sound/creatures/venus_trap_hit.ogg', 40)
+				playsound(target, 'sound/weapons/slice.ogg', 50)
 				target.take_overall_damage(40)
 
 		SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("Absorb DNA", "[absorbing_iteration]"))
-		if(!do_after(owner, 15 SECONDS, target, hidden = TRUE))
+		if(!do_after(owner, 3 SECONDS, target))
 			owner.balloon_alert(owner, "interrupted!")
 			is_absorbing = FALSE
 			return FALSE

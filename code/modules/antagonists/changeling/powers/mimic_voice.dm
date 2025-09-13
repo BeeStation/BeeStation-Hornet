@@ -1,11 +1,12 @@
 /datum/action/changeling/mimicvoice
 	name = "Mimic Voice"
-	desc = "We shape our vocal glands to sound like a desired voice. Maintaining this power slows chemical production."
+	desc = "We shape our vocal glands to sound like a desired voice."
 	button_icon_state = "mimic_voice"
 	helptext = "Will turn your voice into the name that you enter."
 	chemical_cost = 0
+	recharge_slowdown = 0.2
 	dna_cost = 1
-	req_human = 1
+	req_human = TRUE
 
 // Fake Voice
 /datum/action/changeling/mimicvoice/sting_action(mob/user)
@@ -27,7 +28,6 @@
 /datum/action/changeling/mimicvoice/Remove(mob/user)
 	var/datum/antagonist/changeling/changeling = user.mind.has_antag_datum(/datum/antagonist/changeling)
 	if(changeling?.mimicing)
-		changeling.chem_recharge_slowdown = max(0, changeling.chem_recharge_slowdown - 0.25)
 		changeling.mimicing = ""
 		to_chat(user, span_notice("Our vocal glands return to their original position."))
 	. = ..()
