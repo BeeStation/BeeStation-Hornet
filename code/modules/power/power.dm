@@ -41,10 +41,9 @@
 		powernet.load += amount
 
 /obj/machinery/power/proc/surplus()
-	if(powernet)
-		return clamp(powernet.avail-powernet.load, 0, powernet.avail)
-	else
+	if(!powernet)
 		return 0
+	return powernet.avail - powernet.load
 
 /obj/machinery/power/proc/avail(amount)
 	if(powernet)
@@ -163,6 +162,7 @@
 	SHOULD_CALL_PARENT(TRUE)
 
 	if(machine_stat & BROKEN)
+		update_appearance()
 		return
 	if(powered(power_channel))
 		if(machine_stat & NOPOWER)
@@ -430,9 +430,9 @@
 
 	if (isarea(power_source))
 		var/area/source_area = power_source
-		source_area.use_power(drained_energy/GLOB.CELLRATE)
+		source_area.use_power(drained_energy)
 	else if (istype(power_source, /datum/powernet))
-		var/drained_power = drained_energy/GLOB.CELLRATE //convert from "joules" to "watts"
+		var/drained_power = drained_energy
 		PN.delayedload += (min(drained_power, max(PN.newavail - PN.delayedload, 0)))
 	else if (istype(power_source, /obj/item/stock_parts/cell))
 		cell.use(drained_energy)

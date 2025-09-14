@@ -74,9 +74,6 @@
 /obj/item/disk/tech_disk/research/adv_beam_weapons
 	node_id = "adv_beam_weapons"
 
-/obj/item/disk/tech_disk/research/exotic_ammo
-	node_id = "exotic_ammo"
-
 /obj/item/disk/tech_disk/research/phazon
 	node_id = "mecha_phazon"
 

@@ -308,7 +308,7 @@
 					/obj/item/grenade/smokebomb,
 					/obj/item/grenade/smokebomb,
 					/obj/item/grenade/smokebomb,
-					/obj/item/pen/sleepy,
+					/obj/item/pen/paralytic,
 					/obj/item/grenade/chem_grenade/incendiary)
 	crate_name = "emergency crate"
 	crate_type = /obj/structure/closet/crate/internals
@@ -1082,17 +1082,13 @@
 	crate_name = "space shelter crate"
 	crate_type = /obj/structure/closet/crate/engineering/electrical
 
-/obj/item/stock_parts/cell/inducer_supply
-	maxcharge = 5000
-	charge = 5000
-
 /datum/supply_pack/engineering/inducers
 	name = "NT-100 Heavy-Duty Inducers Crate"
 	desc = "No rechargers? No problem, with the NT-100 EPI, you can recharge any standard cell-based equipment anytime, anywhere, twice faster than consumer alternatives! Contains two Engineering inducers."
 	cost = 2000
 	max_supply = 3
-	contains = list(/obj/item/inducer {cell_type = /obj/item/stock_parts/cell/high; opened = 0}, /obj/item/inducer {cell_type = /obj/item/stock_parts/cell/inducer_supply; opened = 0}) //FALSE doesn't work in modified type paths apparently.
-	crate_name = "inducer crate"
+	contains = list(/obj/item/inducer, /obj/item/inducer)
+	crate_name = "industrial inducer crate"
 	crate_type = /obj/structure/closet/crate/engineering/electrical
 
 /datum/supply_pack/engineering/pacman
@@ -1914,7 +1910,6 @@
 	max_supply = 4
 	access = ACCESS_VIROLOGY
 	contains = list(/obj/item/food/monkeycube,
-					/obj/item/reagent_containers/cup/glass/bottle/virusfood,
 					/obj/item/reagent_containers/cup/bottle/mutagen,
 					/obj/item/reagent_containers/cup/bottle/formaldehyde,
 					/obj/item/reagent_containers/cup/bottle/synaptizine,
@@ -2044,8 +2039,8 @@
 	desc = "No rechargers? No problem, with the NT-50 EPI, you can recharge any standard cell-based equipment anytime, anywhere! Contains two Science inducers."
 	cost = 1000
 	max_supply = 3
-	contains = list(/obj/item/inducer/sci {cell_type = /obj/item/stock_parts/cell/inducer_supply; opened = 0}, /obj/item/inducer/sci {cell_type = /obj/item/stock_parts/cell/inducer_supply; opened = 0}) //FALSE doesn't work in modified type paths apparently.
-	crate_name = "inducer crate"
+	contains = list(/obj/item/inducer/sci/with_cell, /obj/item/inducer/sci/with_cell)
+	crate_name = "science inducer crate"
 
 /datum/supply_pack/science/rped
 	name = "RPED crate"
@@ -2115,6 +2110,18 @@
 					/obj/item/circuitboard/machine/monkey_recycler,
 					/obj/item/circuitboard/machine/processor/slime)
 	crate_name = "xenobiology starter crate"
+	crate_type = /obj/structure/closet/crate/secure/science
+
+/datum/supply_pack/science/mod_core
+	name = "MOD core Crate"
+	desc = "Three cores, perfect for any MODsuit construction! Naturally harvested™, of course."
+	cost = 600
+	access = ACCESS_ROBOTICS
+	access_budget = ACCESS_ROBOTICS
+	contains = list(/obj/item/mod/core/standard,
+		/obj/item/mod/core/standard,
+		/obj/item/mod/core/standard)
+	crate_name = "MOD core crate"
 	crate_type = /obj/structure/closet/crate/secure/science
 
 //////////////////////////////////////////////////////////////////////////////
@@ -2924,6 +2931,19 @@
 	cost = 10000
 	contains = list(/mob/living/basic/pet/dog/corgi/capybara)
 	crate_name = "capybara crate"
+
+/datum/supply_pack/critter/garden_gnome
+	name = "Garden Gnome Crate"
+	desc = "Collect them all for your garden. Comes with three!"
+	hidden = TRUE
+	cost = 4000
+	contains = list(/mob/living/basic/garden_gnome)
+	crate_name = "garden gnome crate"
+
+/datum/supply_pack/critter/garden_gnome/generate()
+	. = ..()
+	for(var/i in 1 to 2)
+		new /mob/living/basic/garden_gnome(.)
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Costumes & Toys /////////////////////////////////

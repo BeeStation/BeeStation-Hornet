@@ -9,7 +9,7 @@
 
 /obj/structure/destructible/clockwork/eminence_beacon/attack_hand(mob/user, list/modifiers)
 	. = ..()
-	if(!is_servant_of_ratvar(user))
+	if(!IS_SERVANT_OF_RATVAR(user))
 		return
 	if(vote_active)
 		deltimer(vote_timer)
@@ -36,7 +36,7 @@
 	used = TRUE
 	if(!eminence)
 		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
-			role = /datum/role_preference/antagonist/clock_cultist,
+			role = /datum/role_preference/roundstart/clock_cultist,
 			check_jobban = ROLE_SERVANT_OF_RATVAR,
 			poll_time = 10 SECONDS,
 			jump_target = src,

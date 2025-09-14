@@ -231,7 +231,8 @@
 	. += "Hardware Integrity Test... (Corruption: [damage]/[max_damage]) [damage > damage_failure ? "FAIL" : damage > damage_malfunction ? "WARN" : "PASS"]"
 	if(!enabled)
 		. += "<span class='cfc_soul_glimmer_humour'>Warning</span> // Hardware Disabled"
-	. += "Current power consumption :: [power_usage]"
+	if(power_usage)
+		. += "Current power consumption :: [display_power_persec(power_usage)]"
 	if(expansion_hw)
 		. += "INFO :: Component requires Expansion Bay slot."
 	if(hacked)

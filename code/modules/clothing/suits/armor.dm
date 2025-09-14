@@ -200,13 +200,11 @@
 	cold_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	armor_type = /datum/armor/armor_riot
-	blocks_shove_knockdown = TRUE
+	clothing_flags = BLOCKS_SHOVE_KNOCKDOWN
 	strip_delay = 80
 	equip_delay_other = 60
 	slowdown = 0.15
 	move_sound = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
-	clothing_flags = THICKMATERIAL
-
 
 /datum/armor/armor_riot
 	melee = 50
@@ -250,8 +248,6 @@
 	armor_type = /datum/armor/armor_bulletproof
 	strip_delay = 70
 	equip_delay_other = 50
-	clothing_flags = THICKMATERIAL
-
 
 /datum/armor/armor_bulletproof
 	melee = 15

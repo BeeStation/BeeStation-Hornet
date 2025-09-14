@@ -17,7 +17,7 @@
 
 /datum/clockcult/scripture/marauder/invoke()
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
-		role = /datum/role_preference/antagonist/clock_cultist,
+		role = /datum/role_preference/roundstart/clock_cultist,
 		check_jobban = ROLE_SERVANT_OF_RATVAR,
 		poll_time = 10 SECONDS,
 		ignore_category = POLL_IGNORE_CLOCKWORK_HELPER,

@@ -4,6 +4,9 @@ GLOBAL_PROTECT(log_directory)
 GLOBAL_VAR(world_game_log)
 GLOBAL_PROTECT(world_game_log)
 
+GLOBAL_VAR(world_dynamic_log)
+GLOBAL_PROTECT(world_dynamic_log)
+
 GLOBAL_VAR(world_objective_log)
 GLOBAL_PROTECT(world_objective_log)
 
@@ -12,6 +15,9 @@ GLOBAL_PROTECT(world_runtime_log)
 
 GLOBAL_VAR(world_qdel_log)
 GLOBAL_PROTECT(world_qdel_log)
+
+GLOBAL_VAR(world_signal_log)
+GLOBAL_PROTECT(world_signal_log)
 
 GLOBAL_VAR(world_attack_log)
 GLOBAL_PROTECT(world_attack_log)

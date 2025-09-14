@@ -130,7 +130,7 @@
 
 	var/log_message = uppertext(message)
 	if(!span_list || !span_list.len)
-		if(iscultist(user))
+		if(IS_CULTIST(user))
 			span_list = list("narsiesmall")
 		else
 			span_list = list()
@@ -170,7 +170,7 @@
 			power_multiplier *= 0.5
 
 	//Cultists are closer to their gods and are more powerful, but they'll give themselves away
-	if(iscultist(user))
+	if(IS_CULTIST(user))
 		power_multiplier *= 2
 
 	//Try to check if the speaker specified a name or a job to focus on
@@ -283,8 +283,15 @@
 	//HALLUCINATE
 	else if((findtext(message, hallucinate_words)))
 		cooldown = COOLDOWN_MEME
-		for(var/mob/living/carbon/C in listeners)
-			new /datum/hallucination/delusion(C, TRUE, null,150 * power_multiplier,0)
+		for(var/mob/living/target in listeners)
+			target.cause_hallucination( \
+				get_random_valid_hallucination_subtype(/datum/hallucination/delusion/preset), \
+				"voice of god", \
+				duration = 15 SECONDS * power_multiplier, \
+				affects_us = FALSE, \
+				affects_others = TRUE, \
+				skip_nearby = FALSE, \
+			)
 
 	//WAKE UP
 	else if((findtext(message, wakeup_words)))

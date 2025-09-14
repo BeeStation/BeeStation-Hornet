@@ -17,7 +17,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 /obj/item/computer_hardware/battery/on_remove(obj/item/modular_computer/remove_from, mob/user)
 	if(!holder)
 		return ..()
-	var/obj/item/computer_hardware/recharger/recharger = holder.all_components[MC_CHARGE]
+	var/obj/item/computer_hardware/recharger/recharger = holder.all_components[MC_CHARGER]
 	if(!recharger)	// We need to shutdown the computer if the battery is removed and theres nothing to give it power
 		remove_from.shutdown_computer()
 	return ..()
@@ -88,28 +88,47 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 	desc = "A standard power cell, commonly seen in high-end portable microcomputers or low-end laptops."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "cell_mini"
-	maxcharge = 1000
+	w_class = WEIGHT_CLASS_SMALL
+	maxcharge = 40 KILOWATT
+	chargerate_divide = 8
+	/// rating affects the size of the explosion created by the detonation of the battery (trough Power Cell Controler hacking)
+	rating = PART_TIER_3
+	custom_price = PAYCHECK_MEDIUM
 
 /obj/item/stock_parts/cell/computer/advanced
 	name = "advanced battery"
 	desc = "An advanced power cell, often used in most laptops, or high-end Tablets."
 	icon_state = "cell"
-	maxcharge = 1500
+	w_class = WEIGHT_CLASS_SMALL
+	maxcharge = 60 KILOWATT
+	custom_price = PAYCHECK_MEDIUM * 2
+	rating = PART_TIER_4
 
 /obj/item/stock_parts/cell/computer/super
 	name = "super battery"
 	desc = "An advanced power cell, often used in high-end laptops."
 	icon_state = "cell"
-	maxcharge = 2000
+	w_class = WEIGHT_CLASS_NORMAL	// Fits only laptops
+	maxcharge = 100 KILOWATT
+	chargerate_divide = 10
+	custom_price = PAYCHECK_MEDIUM * 3
+	rating = PART_TIER_5
 
 /obj/item/stock_parts/cell/computer/micro
 	name = "micro battery"
 	desc = "A small power cell, commonly seen in most portable microcomputers."
 	icon_state = "cell_micro"
-	maxcharge = 750
+	maxcharge = 30 KILOWATT
+	w_class = WEIGHT_CLASS_TINY
+	custom_price = PAYCHECK_EASY * 2
+	rating = PART_TIER_2
 
 /obj/item/stock_parts/cell/computer/nano
 	name = "nano battery"
 	desc = "A tiny power cell, commonly seen in low-end portable microcomputers."
 	icon_state = "cell_micro"
-	maxcharge = 500
+	w_class = WEIGHT_CLASS_TINY
+	maxcharge = 20 KILOWATT
+	chargerate_divide = 10
+	custom_price = PAYCHECK_EASY
+	rating = PART_TIER_1

@@ -6,8 +6,8 @@
 	layer = HIGH_PIPE_LAYER
 	power_channel = AREA_USAGE_ENVIRON
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 2
-	active_power_usage = 9
+	idle_power_usage = 25 WATT
+	active_power_usage = 50 WATT
 	max_integrity = 150
 	armor_type = /datum/armor/machinery_meter
 	greyscale_config = /datum/greyscale_config/meter
@@ -37,7 +37,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/meter)
 /obj/machinery/meter/Destroy()
 	SSair.stop_processing_machine(src)
 	if(!isnull(target))
-		UnregisterSignal(target, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(target, COMSIG_QDELETING)
 		target = null
 	return ..()
 
@@ -48,7 +48,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/meter)
 			candidate = pipe
 	if(candidate)
 		target = candidate
-		RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(drop_meter))
+		RegisterSignal(target, COMSIG_QDELETING, PROC_REF(drop_meter))
 		setAttachLayer(candidate.piping_layer)
 
 ///Called when the parent pipe is removed

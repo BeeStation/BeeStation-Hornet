@@ -109,8 +109,6 @@
 	no_equip = list(ITEM_SLOT_OCLOTHING, ITEM_SLOT_GLOVES, ITEM_SLOT_FEET, ITEM_SLOT_ICLOTHING, ITEM_SLOT_SUITSTORE)
 	species_traits = list(
 		NO_UNDERWEAR,
-		NO_DNA_COPY,
-		NOTRANSSTING,
 		NOEYESPRITES,
 		NOFLASH
 	)
@@ -126,6 +124,8 @@
 		TRAIT_NODISMEMBER,
 		TRAIT_NOHUNGER,
 		TRAIT_NOBLOOD,
+		TRAIT_NO_DNA_COPY,
+		TRAIT_NO_TRANSFORMATION_STING,
 	)
 	mutanteyes = /obj/item/organ/eyes/night_vision/nightmare
 	mutantheart = /obj/item/organ/heart/nightmare
@@ -231,7 +231,8 @@
 			respawn_progress += delta_time SECONDS
 			playsound(owner,'sound/effects/singlebeat.ogg',40,1)
 	if(respawn_progress >= HEART_RESPAWN_THRESHOLD)
-		owner.revive(full_heal = TRUE)
+		owner.revive(HEAL_ALL)
+
 		if(!(owner.dna.species.id == "shadow" || owner.dna.species.id == "nightmare"))
 			var/mob/living/carbon/old_owner = owner
 			Remove(owner, HEART_SPECIAL_SHADOWIFY)
@@ -251,7 +252,7 @@
 	icon_state = "arm_blade"
 	item_state = "arm_blade"
 	force = 25
-	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
+
 	armour_penetration = 35
 	lefthand_file = 'icons/mob/inhands/antag/changeling_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/antag/changeling_righthand.dmi'
@@ -538,7 +539,7 @@
 			respawn_progress += 0.75 * delta_time SECONDS
 			playsound(owner,'sound/effects/singlebeat.ogg',40,1)
 	if(respawn_progress >= HEART_RESPAWN_THRESHOLD)
-		owner.revive(full_heal = TRUE)
+		owner.revive(HEAL_ALL)
 		if(!isshadow(owner))
 			var/mob/living/carbon/old_owner = owner
 			old_owner.set_species(/datum/species/shadow/blessed)

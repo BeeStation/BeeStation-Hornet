@@ -1,0 +1,2 @@
+
+/obj/item/machinery/vendor_equipment/@SUBTYPES : /obj/item/machinery/requisition_equipment/@SUBTYPES {@OLD}

@@ -145,10 +145,11 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		return FALSE
 	return bleed.bleed_rate > 0
 
-/mob/living/carbon/proc/add_bleeding(bleed_level)
+/mob/living/carbon/proc/add_bleeding(bleed_level, sound_effect = TRUE)
 	if (HAS_TRAIT(src, TRAIT_NO_BLOOD))
 		return
-	playsound(src, 'sound/surgery/blood_wound.ogg', 80, vary = TRUE)
+	if(sound_effect)
+		playsound(src, 'sound/surgery/blood_wound.ogg', 80, vary = TRUE)
 	apply_status_effect(dna?.species?.bleed_effect || /datum/status_effect/bleeding, bleed_level)
 	if (bleed_level >= BLEED_DEEP_WOUND)
 		blur_eyes(1)
@@ -171,6 +172,8 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 
 /mob/living/carbon/proc/get_bleed_rate()
 	var/datum/status_effect/bleeding/bleed = has_status_effect(/datum/status_effect/bleeding)
+	if(!bleed)
+		return FALSE //bleed?.bleed_rate runtimes when has_status_effect returns FALSE
 	return bleed?.bleed_rate
 
 /// Can we heal bleeding using a welding tool?
@@ -260,6 +263,8 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 
 // Takes care blood loss and regeneration
 /mob/living/carbon/human/handle_blood(delta_time, times_fired)
+	if(mind && IS_VAMPIRE(src)) // vampires should not be affected by blood
+		return FALSE
 
 	if(HAS_TRAIT(src, TRAIT_NOBLOOD) || HAS_TRAIT(src, TRAIT_NOBLOOD))
 		cauterise_wounds()

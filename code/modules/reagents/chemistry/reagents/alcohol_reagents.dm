@@ -4,7 +4,7 @@
 	color = "#404030" // rgb: 64, 64, 48
 	nutriment_factor = 0
 	taste_description = "alcohol"
-	chem_flags = CHEMICAL_BASIC_ELEMENT | CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
+	chemical_flags = CHEMICAL_BASIC_ELEMENT | CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	default_container = /obj/item/reagent_containers/cup/glass/bottle/beer
 	fallback_icon = 'icons/obj/drinks/bottles.dmi'
@@ -34,60 +34,59 @@
 	 */
 	var/boozepwr = 65
 
-/datum/reagent/consumable/ethanol/on_mob_life(mob/living/carbon/C, delta_time, times_fired)
-	if(C.drunkenness < volume * boozepwr * ALCOHOL_THRESHOLD_MODIFIER)
+/datum/reagent/consumable/ethanol/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	if(affected_mob.drunkenness < volume * boozepwr * ALCOHOL_THRESHOLD_MODIFIER)
 		var/booze_power = boozepwr
-		if(HAS_TRAIT(C, TRAIT_ALCOHOL_TOLERANCE)) //we're an accomplished drinker
+		if(HAS_TRAIT(affected_mob, TRAIT_ALCOHOL_TOLERANCE)) //we're an accomplished drinker
 			booze_power *= 0.7
-		if(HAS_TRAIT(C, TRAIT_LIGHT_DRINKER))
+		if(HAS_TRAIT(affected_mob, TRAIT_LIGHT_DRINKER))
 			if(booze_power < 0)
 				booze_power *= -1
 			else
 				booze_power *= 2
-		C.drunkenness = max((C.drunkenness + (sqrt(volume) * booze_power * ALCOHOL_RATE * REM * delta_time)), 0) //Volume, power, and server alcohol rate effect how quickly one gets drunk
-		if(C.drunkenness >= 250)
-			C.client?.give_award(/datum/award/achievement/misc/drunk, C)
-		var/obj/item/organ/liver/L = C.get_organ_slot(ORGAN_SLOT_LIVER)
-		if (istype(L))
-			L.applyOrganDamage(((max(sqrt(volume) * (boozepwr ** ALCOHOL_EXPONENT) * L.alcohol_tolerance * delta_time, 0))/150))
-	return ..()
+		affected_mob.drunkenness = max((affected_mob.drunkenness + (sqrt(volume) * booze_power * ALCOHOL_RATE * REM * delta_time)), 0) //Volume, power, and server alcohol rate effect how quickly one gets drunk
+		if(affected_mob.drunkenness >= 250)
+			affected_mob.client?.give_award(/datum/award/achievement/misc/drunk, affected_mob)
+		var/obj/item/organ/liver/liver = affected_mob.get_organ_slot(ORGAN_SLOT_LIVER)
+		if(istype(liver))
+			liver.applyOrganDamage(((max(sqrt(volume) * (boozepwr ** ALCOHOL_EXPONENT) * liver.alcohol_tolerance * delta_time, 0)) / 150))
 
-/datum/reagent/consumable/ethanol/expose_obj(obj/O, reac_volume)
-	if(istype(O, /obj/item/paper))
-		var/obj/item/paper/paperaffected = O
+/datum/reagent/consumable/ethanol/expose_obj(obj/exposed_obj, reac_volume)
+	. = ..()
+	if(istype(exposed_obj, /obj/item/paper))
+		var/obj/item/paper/paperaffected = exposed_obj
 		paperaffected.clear_paper()
 		to_chat(usr, span_notice("[paperaffected]'s ink washes away."))
-	if(istype(O, /obj/item/book))
+	else if(istype(exposed_obj, /obj/item/book))
 		if(reac_volume >= 5)
-			var/obj/item/book/affectedbook = O
+			var/obj/item/book/affectedbook = exposed_obj
 			affectedbook.dat = null
-			O.visible_message(span_notice("[O]'s writing is washed away by [name]!"))
+			exposed_obj.visible_message(span_notice("[exposed_obj]'s writing is washed away by [name]!"))
 		else
-			O.visible_message(span_warning("[O]'s ink is smeared by [name], but doesn't wash away!"))
-	return
+			exposed_obj.visible_message(span_warning("[exposed_obj]'s ink is smeared by [name], but doesn't wash away!"))
 
-/datum/reagent/consumable/ethanol/expose_mob(mob/living/M, method=TOUCH, reac_volume)//Splashing people with ethanol isn't quite as good as fuel.
-	if(!isliving(M))
+/datum/reagent/consumable/ethanol/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)//Splashing people with ethanol isn't quite as good as fuel.
+	. = ..()
+	if(!isliving(exposed_mob))
 		return
 
 	if(method in list(TOUCH, VAPOR, PATCH))
-		M.adjust_fire_stacks(reac_volume / 15)
+		exposed_mob.adjust_fire_stacks(reac_volume / 15)
 
-		if(iscarbon(M))
-			var/mob/living/carbon/C = M
+		if(iscarbon(exposed_mob))
+			var/mob/living/carbon/exposed_carbon = exposed_mob
 			var/power_multiplier = boozepwr / 65 // Weak alcohol has less sterilizing power
 
-			for(var/s in C.surgeries)
-				var/datum/surgery/S = s
-				S.speed_modifier = max(0.1*power_multiplier, S.speed_modifier)
+			for(var/datum/surgery/surgery in exposed_carbon.surgeries)
+				surgery.speed_modifier = max(0.1 * power_multiplier, surgery.speed_modifier)
 				// +10% surgery speed on each step, useful while operating in less-than-perfect conditions
-	return ..()
 
 /datum/reagent/consumable/ethanol/beer
 	name = "Beer"
 	description = "An alcoholic beverage brewed since ancient times on Old Earth. Still popular today."
 	color = "#664300" // rgb: 102, 67, 0
-	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
+	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	nutriment_factor = 1 * REAGENTS_METABOLISM
 	boozepwr = 25
 	taste_description = "mild carbonated malt"
@@ -101,7 +100,7 @@
 /datum/reagent/consumable/ethanol/beer/light
 	name = "Light Beer"
 	description = "An alcoholic beverage brewed since ancient times on Old Earth. This variety has reduced calorie and alcohol content."
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 5 //Space Europeans hate it
 	taste_description = "dish water"
 
@@ -114,7 +113,7 @@
 	name = "Green Beer"
 	description = "An alcoholic beverage brewed since ancient times on Old Earth. This variety is dyed a festive green."
 	color = "#A8E61D"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	taste_description = "green piss water"
 
 /datum/glass_style/drinking_glass/beer/green
@@ -123,19 +122,20 @@
 	desc = "A freezing pint of green beer. Festive."
 	icon_state = "greenbeerglass"
 
-/datum/reagent/consumable/ethanol/beer/green/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	if(M.color != color)
-		M.add_atom_colour(color, TEMPORARY_COLOUR_PRIORITY)
-	return ..()
+/datum/reagent/consumable/ethanol/beer/green/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	if(affected_mob.color != color)
+		affected_mob.add_atom_colour(color, TEMPORARY_COLOUR_PRIORITY)
 
-/datum/reagent/consumable/ethanol/beer/green/on_mob_end_metabolize(mob/living/M)
-	M.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, color)
+/datum/reagent/consumable/ethanol/beer/green/on_mob_end_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	affected_mob.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, color)
 
 /datum/reagent/consumable/ethanol/kahlua
 	name = "Kahlua"
 	description = "A widely known, Mexican coffee-flavoured liqueur. In production since 1936!"
 	color = "#664300" // rgb: 102, 67, 0
-	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
+	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 45
 
 /datum/glass_style/shot_glass/kahlua
@@ -148,20 +148,20 @@
 	desc = "DAMN, THIS THING LOOKS ROBUST!"
 	icon_state ="kahluaglass"
 
-/datum/reagent/consumable/ethanol/kahlua/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.dizziness = max(M.dizziness - (5 * REM * delta_time), 0)
-	M.drowsyness = max(M.drowsyness - (3 * REM * delta_time), 0)
-	M.AdjustSleeping(-40 * REM * delta_time)
-	if(!HAS_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE))
-		M.Jitter(5)
-	..()
-	. = TRUE
+/datum/reagent/consumable/ethanol/kahlua/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.dizziness = max(affected_mob.dizziness - (5 * REM * delta_time), 0)
+	affected_mob.drowsyness = max(affected_mob.drowsyness - (3 * REM * delta_time), 0)
+	affected_mob.AdjustSleeping(-40 * REM * delta_time)
+
+	if(!HAS_TRAIT(affected_mob, TRAIT_ALCOHOL_TOLERANCE))
+		affected_mob.Jitter(5)
 
 /datum/reagent/consumable/ethanol/whiskey
 	name = "Whiskey"
 	description = "A superb and well-aged single-malt whiskey. Damn."
 	color = "#664300" // rgb: 102, 67, 0
-	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
+	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 75
 	taste_description = "molasses"
 
@@ -179,7 +179,7 @@
 	name = "Thirteen Loko"
 	description = "A potent mixture of caffeine and alcohol."
 	color = "#102000" // rgb: 16, 32, 0
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	nutriment_factor = 1 * REAGENTS_METABOLISM
 	boozepwr = 80
 	quality = DRINK_GOOD
@@ -193,60 +193,61 @@
 	desc = "This is a glass of Thirteen Loko, it appears to be of the highest quality. The drink, not the glass."
 	icon_state = "thirteen_loko_glass"
 
-/datum/reagent/consumable/ethanol/thirteenloko/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.drowsyness = max(M.drowsyness - (7 * REM * delta_time))
-	M.AdjustSleeping(-40 * REM * delta_time)
-	M.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, M.get_body_temp_normal())
-	if(!HAS_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE))
-		M.Jitter(5)
-	return ..()
+/datum/reagent/consumable/ethanol/thirteenloko/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.drowsyness = max(affected_mob.drowsyness - (7 * REM * delta_time))
+	affected_mob.AdjustSleeping(-40 * REM * delta_time)
+	affected_mob.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, affected_mob.get_body_temp_normal())
 
-/datum/reagent/consumable/ethanol/thirteenloko/overdose_start(mob/living/M)
-	to_chat(M, span_userdanger("Your entire body violently jitters as you start to feel queasy. You really shouldn't have drank all of that [name]!"))
-	M.Jitter(20)
-	M.Stun(15)
+	if(!HAS_TRAIT(affected_mob, TRAIT_ALCOHOL_TOLERANCE))
+		affected_mob.Jitter(5)
 
-/datum/reagent/consumable/ethanol/thirteenloko/overdose_process(mob/living/M, delta_time, times_fired)
-	if(DT_PROB(3.5, delta_time) && iscarbon(M))
-		var/obj/item/I = M.get_active_held_item()
-		if(I)
-			M.dropItemToGround(I)
-			to_chat(M, span_notice("Your hands jitter and you drop what you were holding!"))
-			M.Jitter(10)
+/datum/reagent/consumable/ethanol/thirteenloko/overdose_start(mob/living/carbon/affected_mob)
+	to_chat(affected_mob, span_userdanger("Your entire body violently jitters as you start to feel queasy. You really shouldn't have drank all of that [name]!"))
+	affected_mob.Jitter(20)
+	affected_mob.Stun(15)
+
+/datum/reagent/consumable/ethanol/thirteenloko/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	if(DT_PROB(3.5, delta_time))
+		var/obj/item/held_item = affected_mob.get_active_held_item()
+		if(held_item)
+			affected_mob.dropItemToGround(held_item)
+			to_chat(affected_mob, span_notice("Your hands jitter and you drop what you were holding!"))
+			affected_mob.Jitter(10)
 
 	if(DT_PROB(3.5, delta_time))
-		to_chat(M, span_notice("[pick("You have a really bad headache.", "Your eyes hurt.", "You find it hard to stay still.", "You feel your heart practically beating out of your chest.")]"))
+		to_chat(affected_mob, span_notice(pick("You have a really bad headache.", "Your eyes hurt.", "You find it hard to stay still.", "You feel your heart practically beating out of your chest.")))
 
-	if(DT_PROB(2.5, delta_time) && iscarbon(M))
-		var/obj/item/organ/eyes/eyes = M.get_organ_slot(ORGAN_SLOT_EYES)
-		if(M.is_blind())
+	if(DT_PROB(2.5, delta_time))
+		var/obj/item/organ/eyes/eyes = affected_mob.get_organ_slot(ORGAN_SLOT_EYES)
+		if(affected_mob.is_blind())
 			if(istype(eyes))
-				eyes.Remove(M)
-				eyes.forceMove(get_turf(M))
-				to_chat(M, span_userdanger("You double over in pain as you feel your eyeballs liquify in your head!"))
-				M.emote("scream")
-				M.adjustBruteLoss(15)
+				eyes.Remove(affected_mob)
+				eyes.forceMove(get_turf(affected_mob))
+				to_chat(affected_mob, span_userdanger("You double over in pain as you feel your eyeballs liquify in your head!"))
+				affected_mob.emote("scream")
+				affected_mob.adjustBruteLoss(15)
 		else
-			to_chat(M, span_userdanger("You scream in terror as you go blind!"))
+			to_chat(affected_mob, span_userdanger("You scream in terror as you go blind!"))
 			eyes.applyOrganDamage(eyes.maxHealth)
-			M.emote("scream")
+			affected_mob.emote("scream")
 
-	if(DT_PROB(1.5, delta_time) && iscarbon(M))
-		M.visible_message(span_danger("[M] starts having a seizure!"), span_userdanger("You have a seizure!"))
-		M.Unconscious(100)
-		M.Jitter(350)
+	if(DT_PROB(1.5, delta_time))
+		affected_mob.visible_message(span_danger("[affected_mob] starts having a seizure!"), span_userdanger("You have a seizure!"))
+		affected_mob.Unconscious(100)
+		affected_mob.Jitter(350)
 
-	if(DT_PROB(0.5, delta_time) && iscarbon(M))
-		var/datum/disease/D = new /datum/disease/heart_failure
-		M.ForceContractDisease(D)
-		to_chat(M, span_userdanger("You're pretty sure you just felt your heart stop for a second there.."))
-		M.playsound_local(M, 'sound/effects/singlebeat.ogg', 100, 0)
+	if(DT_PROB(0.5, delta_time))
+		affected_mob.ForceContractDisease(new /datum/disease/heart_failure)
+		to_chat(affected_mob, span_userdanger("You're pretty sure you just felt your heart stop for a second there.."))
+		affected_mob.playsound_local(affected_mob, 'sound/effects/singlebeat.ogg', 100, 0)
 
 /datum/reagent/consumable/ethanol/vodka
 	name = "Vodka"
 	description = "Number one drink AND fueling choice for Russians worldwide."
 	color = "#0064C8" // rgb: 0, 100, 200
-	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
+	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 65
 	taste_description = "grain alcohol"
 	default_container = /obj/item/reagent_containers/cup/glass/bottle/vodka
@@ -256,20 +257,16 @@
 	icon_state = "shotglassclear"
 
 /datum/glass_style/drinking_glass/vodka
-	required_drink_type = /datum/reagent/consumable/ethanol/vodka
 	name = "glass of vodka"
 	desc = "The glass contain wodka. Xynta."
 	icon_state = "ginvodkaglass"
-
-/datum/reagent/consumable/ethanol/vodka/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.radiation = max(M.radiation - (2 * REM * delta_time),0)
-	return ..()
+	required_drink_type = /datum/reagent/consumable/ethanol/vodka
 
 /datum/reagent/consumable/ethanol/bilk
 	name = "Bilk"
 	description = "This appears to be beer mixed with milk. Disgusting."
 	color = "#895C4C" // rgb: 137, 92, 76
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	nutriment_factor = 2 * REAGENTS_METABOLISM
 	boozepwr = 15
 	taste_description = "desperation and lactate"
@@ -280,17 +277,17 @@
 	desc = "A brew of milk and beer. For those alcoholics who fear osteoporosis."
 	icon_state = "glass_brown"
 
-/datum/reagent/consumable/ethanol/bilk/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	if(M.getBruteLoss() && DT_PROB(5, delta_time))
-		M.heal_bodypart_damage(brute = 1)
-		. = TRUE
-	return ..() || .
+/datum/reagent/consumable/ethanol/bilk/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	if(affected_mob.getBruteLoss() && DT_PROB(5, delta_time))
+		affected_mob.heal_bodypart_damage(brute = 1, updating_health = FALSE)
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/ethanol/threemileisland
 	name = "Three Mile Island Iced Tea"
 	description = "Made for a woman, but strong enough for a man."
 	color = "#666340" // rgb: 102, 99, 64
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 10
 	quality = DRINK_FANTASTIC
 	taste_description = "dryness"
@@ -302,15 +299,15 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "threemileislandglass"
 
-/datum/reagent/consumable/ethanol/threemileisland/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.set_drugginess(50 * REM * delta_time)
-	return ..()
+/datum/reagent/consumable/ethanol/threemileisland/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.set_drugginess(50 * REM * delta_time)
 
 /datum/reagent/consumable/ethanol/gin
 	name = "Gin"
 	description = "It's gin. In space. I say, good sir."
 	color = "#664300" // rgb: 102, 67, 0
-	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
+	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 45
 	taste_description = "an alcoholic christmas tree"
 
@@ -324,7 +321,7 @@
 	name = "Rum"
 	description = "Yohoho and all that."
 	color = "#664300" // rgb: 102, 67, 0
-	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
+	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 60
 	taste_description = "spiked butterscotch"
 	default_container = /obj/item/reagent_containers/cup/glass/bottle/rum
@@ -343,7 +340,7 @@
 	name = "Tequila"
 	description = "A strong and mildly flavoured Mexican produced spirit. Feeling thirsty, hombre?"
 	color = "#FFFF91" // rgb: 255, 255, 145
-	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
+	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 70
 	taste_description = "paint stripper"
 
@@ -361,7 +358,7 @@
 	name = "Vermouth"
 	description = "You suddenly feel a craving for a martini..."
 	color = "#91FF91" // rgb: 145, 255, 145
-	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
+	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 45
 	taste_description = "dry alcohol"
 
@@ -379,7 +376,7 @@
 	name = "Wine"
 	description = "A premium alcoholic beverage made from distilled grape juice."
 	color = "#7E4043" // rgb: 126, 64, 67
-	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
+	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 35
 	taste_description = "bitter sweetness"
 	default_container = /obj/item/reagent_containers/cup/glass/bottle/wine
@@ -398,7 +395,7 @@
 	name = "Lizard wine"
 	description = "An alcoholic beverage from Space China, made by infusing lizard tails in ethanol."
 	color = "#7E4043" // rgb: 126, 64, 67
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 45
 	quality = DRINK_FANTASTIC
 	taste_description = "scaley sweetness"
@@ -407,7 +404,7 @@
 	name = "Grappa"
 	description = "A fine Italian brandy for when regular wine just isn't alcoholic enough for you."
 	color = "#F8EBF1"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 60
 	taste_description = "classy bitter sweetness"
 
@@ -421,7 +418,7 @@
 	name = "Cognac"
 	description = "A sweet and strongly alcoholic drink, made after numerous distillations and years of maturing. Classy as fornication."
 	color = "#AB3C05" // rgb: 171, 60, 5
-	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
+	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 75
 	taste_description = "classy French brandy"
 
@@ -439,7 +436,7 @@
 	name = "Absinthe"
 	description = "A powerful alcoholic drink. Rumored to cause hallucinations, but does not."
 	color = rgb(10, 206, 0)
-	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
+	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 80 //Very strong even by default
 	taste_description = "death and licorice"
 
@@ -453,16 +450,16 @@
 	desc = "It's as strong as it smells."
 	icon_state = "absinthe"
 
-/datum/reagent/consumable/ethanol/absinthe/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	if(DT_PROB(5, delta_time) && !HAS_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE))
-		M.hallucination += 4 //Reference to the urban myth
-	..()
+/datum/reagent/consumable/ethanol/absinthe/on_mob_life(mob/living/carbon/drinker, delta_time, times_fired)
+	. = ..()
+	if(DT_PROB(5, delta_time) && !HAS_TRAIT(drinker, TRAIT_ALCOHOL_TOLERANCE))
+		drinker.adjust_hallucinations(8 SECONDS) //Reference to the urban myth
 
 /datum/reagent/consumable/ethanol/hooch
 	name = "Hooch"
 	description = "Either someone's failure at cocktail making or attempt in alcohol production. In any case, do you really want to drink that?"
 	color = "#664300" // rgb: 102, 67, 0
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 100
 	taste_description = "pure resignation"
 
@@ -472,17 +469,17 @@
 	desc = "You've really hit rock bottom now... your liver packed its bags and left last night."
 	icon_state = "glass_brown2"
 
-/datum/reagent/consumable/ethanol/hooch/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	if(M.mind?.assigned_role == JOB_NAME_ASSISTANT)
-		M.heal_bodypart_damage(1 * REM * delta_time, 1 * REM * delta_time)
-		. = 1
-	return ..() || .
+/datum/reagent/consumable/ethanol/hooch/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	if(affected_mob.mind?.assigned_role == JOB_NAME_ASSISTANT)
+		affected_mob.heal_bodypart_damage(1 * REM * delta_time, 1 * REM * delta_time, updating_health = FALSE)
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/ethanol/ale
 	name = "Ale"
 	description = "A dark alcoholic beverage made with malted barley and yeast."
 	color = "#664300" // rgb: 102, 67, 0
-	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
+	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 65
 	taste_description = "hearty barley ale"
 
@@ -496,7 +493,7 @@
 	name = "Goldschlager"
 	description = "100 proof cinnamon schnapps, made for alcoholic teen girls on spring break."
 	color = "#FFFF91" // rgb: 255, 255, 145
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 25
 	quality = DRINK_VERYGOOD
 	taste_description = "burning cinnamon"
@@ -516,7 +513,7 @@
 	name = "Patron"
 	description = "Tequila with silver in it, a favorite of alcoholic women in the club scene."
 	color = "#585840" // rgb: 88, 88, 64
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 60
 	quality = DRINK_VERYGOOD
 	taste_description = "metallic and expensive"
@@ -537,7 +534,7 @@
 	name = "Gin and Tonic"
 	description = "An all time classic, mild cocktail."
 	color = "#664300" // rgb: 102, 67, 0
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 25
 	quality = DRINK_NICE
 	taste_description = "mild and tart"
@@ -554,7 +551,7 @@
 	description = "Rum mixed with cola."
 	taste_description = "cola"
 	color = "#3E1B00"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 40
 	quality = DRINK_NICE
 
@@ -568,7 +565,7 @@
 	name = "Cuba Libre"
 	description = "Viva la Revolucion! Viva Cuba Libre!"
 	color = "#3E1B00" // rgb: 62, 27, 0
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 50
 	quality = DRINK_GOOD
 	taste_description = "a refreshing marriage of citrus and rum"
@@ -580,20 +577,20 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "cubalibreglass"
 
-/datum/reagent/consumable/ethanol/cuba_libre/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	if(M?.mind?.has_antag_datum(/datum/antagonist/rev)) //Cuba Libre, the traditional drink of revolutions! Heals revolutionaries.
-		M.adjustBruteLoss(-1 * REM * delta_time, 0)
-		M.adjustFireLoss(-1 * REM * delta_time, 0)
-		M.adjustToxLoss(-1 * REM * delta_time, 0)
-		M.adjustOxyLoss(-5 * REM * delta_time, 0)
-		. = TRUE
-	return ..() || .
+/datum/reagent/consumable/ethanol/cuba_libre/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	if(IS_REVOLUTIONARY(affected_mob)) //Cuba Libre, the traditional drink of revolutions! Heals revolutionaries.
+		affected_mob.adjustBruteLoss(-1 * REM * delta_time, updating_health = FALSE)
+		affected_mob.adjustFireLoss(-1 * REM * delta_time, updating_health = FALSE)
+		affected_mob.adjustToxLoss(-1 * REM * delta_time, updating_health = FALSE)
+		affected_mob.adjustOxyLoss(-5 * REM * delta_time, updating_health = FALSE)
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/ethanol/whiskey_cola
 	name = "Whiskey Cola"
 	description = "Whiskey mixed with cola. Surprisingly refreshing."
 	color = "#3E1B00" // rgb: 62, 27, 0
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 70
 	quality = DRINK_NICE
 	taste_description = "cola"
@@ -608,7 +605,7 @@
 	name = "Classic Martini"
 	description = "Vermouth with Gin. Not quite how 007 enjoyed it, but still delicious."
 	color = "#664300" // rgb: 102, 67, 0
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 60
 	quality = DRINK_NICE
 	taste_description = "dry class"
@@ -623,7 +620,7 @@
 	name = "Vodka Martini"
 	description = "Vodka with Gin. Not quite how 007 enjoyed it, but still delicious."
 	color = "#664300" // rgb: 102, 67, 0
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 65
 	quality = DRINK_NICE
 	taste_description = "shaken, not stirred"
@@ -638,7 +635,7 @@
 	name = "White Russian"
 	description = "That's just, like, your opinion, man..."
 	color = "#A68340" // rgb: 166, 131, 64
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 50
 	quality = DRINK_GOOD
 	taste_description = "bitter cream"
@@ -654,28 +651,28 @@
 	name = "Screwdriver"
 	description = "Vodka mixed with plain ol' orange juice. The result is surprisingly delicious."
 	color = "#A68310" // rgb: 166, 131, 16
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 55
 	quality = DRINK_NICE
 	taste_description = "oranges"
 
 /datum/glass_style/drinking_glass/screwdrivercocktail
-	required_drink_type = /datum/reagent/consumable/ethanol/screwdrivercocktail
 	name = "Screwdriver"
 	desc = "A simple, yet superb mixture of Vodka and orange juice. Just the thing for the tired engineer."
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "screwdriverglass"
+	required_drink_type = /datum/reagent/consumable/ethanol/screwdrivercocktail
 
-/datum/reagent/consumable/ethanol/screwdrivercocktail/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	if(M.mind && (M.mind.assigned_role in list(JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN, JOB_NAME_CHIEFENGINEER))) //Engineers lose radiation poisoning at a massive rate.
-		M.radiation = max(M.radiation - (25 * REM * delta_time), 0)
-	return ..()
+/datum/reagent/consumable/ethanol/screwdrivercocktail/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	if(affected_mob.mind?.assigned_role in list(JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN, JOB_NAME_CHIEFENGINEER))
+		affected_mob.radiation = max(affected_mob.radiation - (25 * REM * delta_time), 0)
 
 /datum/reagent/consumable/ethanol/booger
 	name = "Booger"
 	description = "Ewww..."
 	color = "#8CFF8C" // rgb: 140, 255, 140
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 45
 	taste_description = "sweet 'n creamy"
 
@@ -690,7 +687,7 @@
 	name = "Bloody Mary"
 	description = "A strange yet pleasurable mixture made of vodka, tomato, and lime juice. Or at least you THINK the red stuff is tomato juice."
 	color = "#664300" // rgb: 102, 67, 0
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 55
 	quality = DRINK_GOOD
 	taste_description = "tomatoes with a hint of lime"
@@ -702,16 +699,16 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "bloodymaryglass"
 
-/datum/reagent/consumable/ethanol/bloody_mary/on_mob_life(mob/living/carbon/C, delta_time, times_fired)
-	if(C.blood_volume < BLOOD_VOLUME_NORMAL)
-		C.blood_volume = min(C.blood_volume + (3 * REM * delta_time), BLOOD_VOLUME_NORMAL) //Bloody Mary quickly restores blood loss.
-	..()
+/datum/reagent/consumable/ethanol/bloody_mary/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	if(affected_mob.blood_volume < BLOOD_VOLUME_NORMAL)
+		affected_mob.blood_volume = min(affected_mob.blood_volume + (3 * REM * delta_time), BLOOD_VOLUME_NORMAL) //Bloody Mary quickly restores blood loss.
 
 /datum/reagent/consumable/ethanol/brave_bull
 	name = "Brave Bull"
 	description = "It's just as effective as Dutch-Courage!"
 	color = "#664300" // rgb: 102, 67, 0
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 80
 	quality = DRINK_NICE
 	taste_description = "alcoholic bravery"
@@ -724,22 +721,26 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "bravebullglass"
 
-/datum/reagent/consumable/ethanol/brave_bull/on_mob_metabolize(mob/living/M)
+/datum/reagent/consumable/ethanol/brave_bull/on_mob_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
 	tough_text = pick("brawny", "tenacious", "tough", "hardy", "sturdy") //Tuff stuff
-	to_chat(M, span_notice("You feel [tough_text]!"))
-	M.maxHealth += 10 //Brave Bull makes you sturdier, and thus capable of withstanding a tiny bit more punishment.
-	M.health += 10
+	to_chat(affected_mob, span_notice("You feel [tough_text]!"))
 
-/datum/reagent/consumable/ethanol/brave_bull/on_mob_end_metabolize(mob/living/M)
-	to_chat(M, span_notice("You no longer feel [tough_text]."))
-	M.maxHealth -= 10
-	M.health = min(M.health - 10, M.maxHealth) //This can indeed crit you if you're alive solely based on alchol ingestion
+	affected_mob.maxHealth += 10 //Brave Bull makes you sturdier, and thus capable of withstanding a tiny bit more punishment.
+	affected_mob.health += 10
+
+/datum/reagent/consumable/ethanol/brave_bull/on_mob_end_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	to_chat(affected_mob, span_notice("You no longer feel [tough_text]."))
+
+	affected_mob.maxHealth -= 10
+	affected_mob.health = min(affected_mob.health - 10, affected_mob.maxHealth) //This can indeed crit you if you're alive solely based on alchol ingestion
 
 /datum/reagent/consumable/ethanol/tequila_sunrise
 	name = "Tequila Sunrise"
 	description = "Tequila, Grenadine, and Orange Juice."
 	color = "#FFE48C" // rgb: 255, 228, 140
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 45
 	quality = DRINK_GOOD
 	taste_description = "oranges with a hint of pomegranate"
@@ -752,27 +753,34 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "tequilasunriseglass"
 
-/datum/reagent/consumable/ethanol/tequila_sunrise/on_mob_metabolize(mob/living/M)
-	to_chat(M, span_notice("You feel gentle warmth spread through your body!"))
-	light_holder = new(M)
+/datum/reagent/consumable/ethanol/tequila_sunrise/on_mob_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	if(isshadow(affected_mob)) //This is an uncounterable light for shadowpeople
+		return
+	to_chat(affected_mob, span_notice("You feel gentle warmth spread through your body!"))
+	light_holder = new(affected_mob)
 	light_holder.set_light(3, 0.7, "#FFCC00") //Tequila Sunrise makes you radiate dim light, like a sunrise!
 
-/datum/reagent/consumable/ethanol/tequila_sunrise/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+/datum/reagent/consumable/ethanol/tequila_sunrise/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	if(isshadow(affected_mob))
+		return
 	if(QDELETED(light_holder))
-		M.reagents.del_reagent(/datum/reagent/consumable/ethanol/tequila_sunrise) //If we lost our light object somehow, remove the reagent
-	else if(light_holder.loc != M)
-		light_holder.forceMove(M)
-	return ..()
+		affected_mob.reagents.del_reagent(/datum/reagent/consumable/ethanol/tequila_sunrise) //If we lost our light object somehow, remove the reagent
+	else if(light_holder.loc != affected_mob)
+		light_holder.forceMove(affected_mob)
 
-/datum/reagent/consumable/ethanol/tequila_sunrise/on_mob_end_metabolize(mob/living/M)
-	to_chat(M, span_notice("The warmth in your body fades."))
-	QDEL_NULL(light_holder)
+/datum/reagent/consumable/ethanol/tequila_sunrise/on_mob_end_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	if(light_holder)
+		to_chat(affected_mob, span_notice("The warmth in your body fades."))
+		QDEL_NULL(light_holder)
 
 /datum/reagent/consumable/ethanol/toxins_special
 	name = "Toxins Special"
 	description = "This thing is ON FIRE! CALL THE DAMN SHUTTLE!"
 	color = "#664300" // rgb: 102, 67, 0
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 25
 	quality = DRINK_VERYGOOD
 	taste_description = "spicy toxins"
@@ -789,22 +797,23 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "toxinsspecialglass"
 
-/datum/reagent/consumable/ethanol/toxins_special/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.adjust_bodytemperature(15 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, 0, M.get_body_temp_normal() + 20) //310.15 is the normal bodytemp.
-	return ..()
+/datum/reagent/consumable/ethanol/toxins_special/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.adjust_bodytemperature(15 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, 0, affected_mob.get_body_temp_normal() + 20) //310.15 is the normal bodytemp.
 
 /datum/reagent/consumable/ethanol/beepsky_smash
 	name = "Beepsky Smash"
 	description = "Drink this and prepare for the LAW."
 	color = "#664300" // rgb: 102, 67, 0
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 90 //THE FIST OF THE LAW IS STRONG AND HARD
 	quality = DRINK_GOOD
 	metabolization_rate = 1.25 * REAGENTS_METABOLISM
 	taste_description = "JUSTICE"
 	overdose_threshold = 40
+	metabolized_traits = list(TRAIT_NOBLOCK)
 
-	var/datum/brain_trauma/special/beepsky/B
+	var/datum/brain_trauma/special/beepsky/beepsky_hallucination
 
 /datum/glass_style/drinking_glass/beepsky_smash
 	required_drink_type = /datum/reagent/consumable/ethanol/beepsky_smash
@@ -813,42 +822,38 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "beepskysmashglass"
 
-/datum/reagent/consumable/ethanol/beepsky_smash/on_mob_metabolize(mob/living/carbon/M)
-	if(HAS_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE))
+/datum/reagent/consumable/ethanol/beepsky_smash/on_mob_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	if(HAS_TRAIT(affected_mob, TRAIT_ALCOHOL_TOLERANCE))
 		metabolization_rate = 0.8
-	if(M.mind != null && !HAS_TRAIT(M.mind, TRAIT_LAW_ENFORCEMENT_METABOLISM))
-		B = new()
-		M.gain_trauma(B, TRAUMA_RESILIENCE_ABSOLUTE)
-	ADD_TRAIT(M, TRAIT_NOBLOCK, type) //sorry sec, but you dont get a special stam heal to help with blocking
-	..()
+	if(!HAS_MIND_TRAIT(affected_mob, TRAIT_LAW_ENFORCEMENT_METABOLISM))
+		beepsky_hallucination = new()
+		affected_mob.gain_trauma(beepsky_hallucination, TRAUMA_RESILIENCE_ABSOLUTE)
 
-/datum/reagent/consumable/ethanol/beepsky_smash/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.Jitter(2)
-	if(M.mind != null && HAS_TRAIT(M.mind, TRAIT_LAW_ENFORCEMENT_METABOLISM))
-		M.adjustStaminaLoss(-10 * REM * delta_time, 0)
+/datum/reagent/consumable/ethanol/beepsky_smash/on_mob_life(mob/living/carbon/drinker, delta_time, times_fired)
+	. = ..()
+	if(HAS_MIND_TRAIT(drinker, TRAIT_LAW_ENFORCEMENT_METABOLISM))
+		. = UPDATE_MOB_HEALTH
+		drinker.adjustStaminaLoss(-10 * REM * delta_time, 0)
 		if(DT_PROB(10, delta_time))
-			new /datum/hallucination/items_other(M)
+			drinker.cause_hallucination(get_random_valid_hallucination_subtype(/datum/hallucination/nearby_fake_item), name)
 		if(DT_PROB(5, delta_time))
-			new /datum/hallucination/stray_bullet(M)
-	..()
-	. = TRUE
+			drinker.cause_hallucination(/datum/hallucination/stray_bullet, name)
 
-/datum/reagent/consumable/ethanol/beepsky_smash/on_mob_end_metabolize(mob/living/carbon/M)
-	if(B)
-		QDEL_NULL(B)
-	REMOVE_TRAIT(M, TRAIT_NOBLOCK, type)
-	return ..()
+/datum/reagent/consumable/ethanol/beepsky_smash/on_mob_end_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	if(beepsky_hallucination)
+		QDEL_NULL(beepsky_hallucination)
 
-/datum/reagent/consumable/ethanol/beepsky_smash/overdose_start(mob/living/carbon/M)
-	if(M.mind != null && !HAS_TRAIT(M.mind, TRAIT_LAW_ENFORCEMENT_METABOLISM))
-		M.gain_trauma(/datum/brain_trauma/mild/phobia/security, TRAUMA_RESILIENCE_BASIC)
-
+/datum/reagent/consumable/ethanol/beepsky_smash/overdose_start(mob/living/carbon/affected_mob)
+	if(!HAS_MIND_TRAIT(affected_mob, TRAIT_LAW_ENFORCEMENT_METABOLISM))
+		affected_mob.gain_trauma(/datum/brain_trauma/mild/phobia/security, TRAUMA_RESILIENCE_BASIC)
 
 /datum/reagent/consumable/ethanol/irish_cream
 	name = "Irish Cream"
 	description = "Whiskey-imbued cream. What else would you expect from the Irish?"
 	color = "#664300" // rgb: 102, 67, 0
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 50
 	quality = DRINK_NICE
 	taste_description = "creamy alcohol"
@@ -863,10 +868,11 @@
 	name = "The Manly Dorf"
 	description = "Beer and Ale brought together in a delicious mix. Intended for true men only."
 	color = "#664300" // rgb: 102, 67, 0
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 100 //For the manly only
 	quality = DRINK_NICE
 	taste_description = "hair on your chest and your chin"
+
 	var/dorf_mode = FALSE
 
 /datum/glass_style/drinking_glass/manly_dorf
@@ -876,25 +882,25 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "manlydorfglass"
 
-/datum/reagent/consumable/ethanol/manly_dorf/on_mob_metabolize(mob/living/M)
-	if(iscarbon(M))
-		var/mob/living/carbon/C = M
-		if(HAS_TRAIT(C, TRAIT_ALCOHOL_TOLERANCE) || HAS_TRAIT(C, TRAIT_DWARF))
-			to_chat(C, span_notice("Now THAT is MANLY!"))
-			boozepwr = 5 //We've had worse in the mines
-			dorf_mode = TRUE
+/datum/reagent/consumable/ethanol/manly_dorf/on_mob_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	if(HAS_TRAIT(affected_mob, TRAIT_ALCOHOL_TOLERANCE) || HAS_TRAIT(affected_mob, TRAIT_DWARF))
+		to_chat(affected_mob, span_notice("Now THAT is MANLY!"))
+		boozepwr = 5 //We've had worse in the mines
+		dorf_mode = TRUE
 
-/datum/reagent/consumable/ethanol/manly_dorf/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+/datum/reagent/consumable/ethanol/manly_dorf/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
 	if(dorf_mode)
-		M.adjustBruteLoss(-2 * REM * delta_time)
-		M.adjustFireLoss(-2 * REM * delta_time)
-	return ..()
+		affected_mob.adjustBruteLoss(-2 * REM * delta_time)
+		affected_mob.adjustFireLoss(-2 * REM * delta_time)
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/ethanol/longislandicedtea
 	name = "Long Island Iced Tea"
 	description = "The entire liquor cabinet brought together in a delicious mix. Intended for middle-aged alcoholic women only."
 	color = "#664300" // rgb: 102, 67, 0
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 35
 	quality = DRINK_VERYGOOD
 	taste_description = "a mixture of cola and alcohol"
@@ -910,7 +916,7 @@
 	name = "Moonshine"
 	description = "You've really hit rock bottom now. Your liver packed its bags and left last night."
 	color = "#AAAAAA77" // rgb: 170, 170, 170, 77 (alpha) (like water)
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING | CHEMICAL_GOAL_BOTANIST_HARVEST
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING | CHEMICAL_GOAL_BOTANIST_HARVEST
 	boozepwr = 95
 	taste_description = "bitterness"
 
@@ -924,7 +930,7 @@
 	name = "B-52"
 	description = "Coffee, Irish Cream, and cognac. You will get bombed."
 	color = "#664300" // rgb: 102, 67, 0
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 85
 	quality = DRINK_GOOD
 	taste_description = "angry and irish"
@@ -941,14 +947,15 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "b52glass"
 
-/datum/reagent/consumable/ethanol/b52/on_mob_metabolize(mob/living/M)
-	playsound(M, 'sound/effects/explosion_distant.ogg', 100, FALSE)
+/datum/reagent/consumable/ethanol/b52/on_mob_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	playsound(affected_mob, 'sound/effects/explosion_distant.ogg', 100, FALSE)
 
 /datum/reagent/consumable/ethanol/irishcoffee
 	name = "Irish Coffee"
 	description = "Coffee and alcohol. More fun than a Mimosa to drink in the morning."
 	color = "#664300" // rgb: 102, 67, 0
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 35
 	quality = DRINK_NICE
 	taste_description = "giving up on the day"
@@ -964,7 +971,7 @@
 	name = "Margarita"
 	description = "On the rocks with salt on the rim. Arriba~!"
 	color = "#8CFF8C" // rgb: 140, 255, 140
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 35
 	quality = DRINK_NICE
 	taste_description = "dry and salty"
@@ -980,7 +987,7 @@
 	name = "Black Russian"
 	description = "For the lactose-intolerant. Still as classy as a White Russian."
 	color = "#360000" // rgb: 54, 0, 0
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 70
 	quality = DRINK_NICE
 	taste_description = "bitterness"
@@ -996,7 +1003,7 @@
 	name = "Manhattan"
 	description = "The Detective's undercover drink of choice. He never could stomach gin."
 	color = "#664300" // rgb: 102, 67, 0
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 30
 	quality = DRINK_NICE
 	taste_description = "mild dryness"
@@ -1012,7 +1019,7 @@
 	name = "Manhattan Project"
 	description = "A scientist's drink of choice. Great for pondering ways to blow up the station."
 	color = "#664300" // rgb: 102, 67, 0
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 45
 	quality = DRINK_VERYGOOD
 	taste_description = "death, the destroyer of worlds"
@@ -1024,15 +1031,15 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "proj_manhattanglass"
 
-/datum/reagent/consumable/ethanol/manhattan_proj/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.set_drugginess(30 * REM * delta_time)
-	return ..()
+/datum/reagent/consumable/ethanol/manhattan_proj/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.set_drugginess(30 * REM * delta_time)
 
 /datum/reagent/consumable/ethanol/whiskeysoda
 	name = "Whiskey Soda"
 	description = "For the more refined griffon."
 	color = "#664300" // rgb: 102, 67, 0
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 70
 	quality = DRINK_NICE
 	taste_description = "soda"
@@ -1047,7 +1054,7 @@
 	name = "Anti-freeze"
 	description = "The ultimate refreshment. Not what it sounds like."
 	color = "#664300" // rgb: 102, 67, 0
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 35
 	quality = DRINK_NICE
 	taste_description = "Jack Frost's piss"
@@ -1059,15 +1066,15 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "antifreeze"
 
-/datum/reagent/consumable/ethanol/antifreeze/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.adjust_bodytemperature(20 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, 0, M.get_body_temp_normal() + 20) //310.15 is the normal bodytemp.
-	return ..()
+/datum/reagent/consumable/ethanol/antifreeze/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.adjust_bodytemperature(20 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, 0, affected_mob.get_body_temp_normal() + 20) //310.15 is the normal bodytemp.
 
 /datum/reagent/consumable/ethanol/barefoot
 	name = "Barefoot"
 	description = "Barefoot and pregnant."
 	color = "#664300" // rgb: 102, 67, 0
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 45
 	quality = DRINK_VERYGOOD
 	taste_description = "creamy berries"
@@ -1079,19 +1086,19 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "b&p"
 
-/datum/reagent/consumable/ethanol/barefoot/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	if(ishuman(M)) //Barefoot causes the imbiber to quickly regenerate brute trauma if they're not wearing shoes.
-		var/mob/living/carbon/human/H = M
-		if(!H.shoes)
-			H.adjustBruteLoss(-3 * REM * delta_time, 0)
-			. = TRUE
-	return ..() || .
+/datum/reagent/consumable/ethanol/barefoot/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	if(ishuman(affected_mob)) //Barefoot causes the imbiber to quickly regenerate brute trauma if they're not wearing shoes.
+		var/mob/living/carbon/human/human = affected_mob
+		if(!human.shoes)
+			human.adjustBruteLoss(-3 * REM * delta_time, updating_health = FALSE)
+			return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/ethanol/snowwhite
 	name = "Snow White"
 	description = "A cold refreshment."
 	color = "#FFFFFF" // rgb: 255, 255, 255
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 35
 	quality = DRINK_NICE
 	taste_description = "refreshing cold"
@@ -1107,7 +1114,7 @@
 	name = "Demon's Blood"
 	description = "AHHHH!!!!"
 	color = "#820000" // rgb: 130, 0, 0
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 75
 	quality = DRINK_VERYGOOD
 	taste_description = "sweet tasting iron"
@@ -1128,21 +1135,15 @@
 	UnregisterSignal(metabolizer, COMSIG_LIVING_BLOOD_CRAWL_PRE_CONSUMED)
 
 /// Prevents the imbiber from being dragged into a pool of blood by a slaughter demon.
-/datum/reagent/consumable/ethanol/demonsblood/proc/pre_bloodcrawl_consumed(
-	mob/living/source,
-	datum/action/spell/jaunt/bloodcrawl/crawl,
-	mob/living/jaunter,
-	obj/effect/decal/cleanable/blood,
-)
-
+/datum/reagent/consumable/ethanol/demonsblood/proc/pre_bloodcrawl_consumed(mob/living/source, datum/action/spell/jaunt/bloodcrawl/crawl, mob/living/jaunter, obj/effect/decal/cleanable/blood)
 	SIGNAL_HANDLER
 
 	var/turf/jaunt_turf = get_turf(jaunter)
 	jaunt_turf.visible_message(
-		("<span class='warning'>Something prevents [source] from entering [blood]!</span>"),
-		blind_message = ("<span class='notice'>You hear a splash and a thud.</span>")
+		span_warning("Something prevents [source] from entering [blood]!"),
+		blind_message = span_notice("You hear a splash and a thud."),
 	)
-	to_chat(jaunter, ("<span class='warning'>A strange force is blocking [source] from entering!</span>"))
+	to_chat(jaunter, span_warning("A strange force is blocking [source] from entering!"))
 
 	return COMPONENT_STOP_CONSUMPTION
 
@@ -1150,7 +1151,7 @@
 	name = "Devil's Kiss"
 	description = "A creepy time!"
 	color = "#A68310" // rgb: 166, 131, 16
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 70
 	quality = DRINK_VERYGOOD
 	taste_description = "bitter iron"
@@ -1171,12 +1172,7 @@
 	UnregisterSignal(metabolizer, COMSIG_LIVING_BLOOD_CRAWL_CONSUMED)
 
 /// If eaten by a slaughter demon, the demon will regret it.
-/datum/reagent/consumable/ethanol/devilskiss/proc/on_bloodcrawl_consumed(
-	mob/living/source,
-	datum/action/spell/jaunt/bloodcrawl/crawl,
-	mob/living/jaunter,
-)
-
+/datum/reagent/consumable/ethanol/devilskiss/proc/on_bloodcrawl_consumed(mob/living/source, datum/action/spell/jaunt/bloodcrawl/crawl, mob/living/jaunter)
 	SIGNAL_HANDLER
 
 	. = COMPONENT_STOP_CONSUMPTION
@@ -1201,7 +1197,7 @@
 	name = "Vodka and Tonic"
 	description = "For when a gin and tonic isn't Russian enough."
 	color = "#0064C8" // rgb: 0, 100, 200
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 70
 	quality = DRINK_NICE
 	taste_description = "tart bitterness"
@@ -1217,7 +1213,7 @@
 	name = "Gin Fizz"
 	description = "Refreshingly lemony, deliciously dry."
 	color = "#664300" // rgb: 102, 67, 0
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 45
 	quality = DRINK_GOOD
 	taste_description = "dry, tart lemons"
@@ -1233,7 +1229,7 @@
 	name = "Bahama Mama"
 	description = "A tropical cocktail with a complex blend of flavors."
 	color = "#FF7F3B" // rgb: 255, 127, 59
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 35
 	quality = DRINK_GOOD
 	taste_description = "pineapple, coconut, and a hint of coffee"
@@ -1249,7 +1245,7 @@
 	name = "Singulo"
 	description = "A blue-space beverage!"
 	color = "#2E6671" // rgb: 46, 102, 113
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 35
 	quality = DRINK_VERYGOOD
 	taste_description = "concentrated matter"
@@ -1265,7 +1261,7 @@
 	name = "Sbiten"
 	description = "A spicy Vodka! Might be a little hot for the little guys!"
 	color = "#664300" // rgb: 102, 67, 0
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 70
 	quality = DRINK_GOOD
 	taste_description = "hot and spice"
@@ -1277,15 +1273,15 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "sbitenglass"
 
-/datum/reagent/consumable/ethanol/sbiten/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.adjust_bodytemperature(50 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, 0, BODYTEMP_HEAT_DAMAGE_LIMIT) //310.15 is the normal bodytemp.
-	return ..()
+/datum/reagent/consumable/ethanol/sbiten/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.adjust_bodytemperature(50 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, 0, BODYTEMP_HEAT_DAMAGE_LIMIT)
 
 /datum/reagent/consumable/ethanol/red_mead
 	name = "Red Mead"
 	description = "The true Viking drink! Even though it has a strange red color."
 	color = "#C73C00" // rgb: 199, 60, 0
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 31 //Red drinks are stronger
 	quality = DRINK_GOOD
 	taste_description = "sweet and salty alcohol"
@@ -1301,7 +1297,7 @@
 	name = "Mead"
 	description = "A Viking drink, though a cheap one."
 	color = "#664300" // rgb: 102, 67, 0
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	nutriment_factor = 1 * REAGENTS_METABOLISM
 	boozepwr = 30
 	quality = DRINK_NICE
@@ -1318,7 +1314,7 @@
 	name = "Iced Beer"
 	description = "A beer which is so cold the air around it freezes."
 	color = "#664300" // rgb: 102, 67, 0
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 15
 	taste_description = "refreshingly cold"
 
@@ -1328,15 +1324,15 @@
 	desc = "A beer so frosty, the air around it freezes."
 	icon_state = "iced_beerglass"
 
-/datum/reagent/consumable/ethanol/iced_beer/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.adjust_bodytemperature(-20 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, T0C) //310.15 is the normal bodytemp.
-	return ..()
+/datum/reagent/consumable/ethanol/iced_beer/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.adjust_bodytemperature(-20 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, T0C)
 
 /datum/reagent/consumable/ethanol/grog
 	name = "Grog"
 	description = "Watered down rum. Nanotrasen approved!"
 	color = "#664300" // rgb: 102, 67, 0
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 1 //Basically nothing
 	taste_description = "a poor excuse for alcohol"
 
@@ -1351,7 +1347,7 @@
 	name = "Aloe"
 	description = "So very, very, very good."
 	color = "#664300" // rgb: 102, 67, 0
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 35
 	quality = DRINK_VERYGOOD
 	taste_description = "sweet 'n creamy"
@@ -1366,7 +1362,7 @@
 	name = "Andalusia"
 	description = "A nice, strangely named drink."
 	color = "#664300" // rgb: 102, 67, 0
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 40
 	quality = DRINK_GOOD
 	taste_description = "lemons"
@@ -1381,7 +1377,7 @@
 	name = "Allies Cocktail"
 	description = "A drink made from your allies. Not as sweet as those made from your enemies."
 	color = "#664300" // rgb: 102, 67, 0
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 45
 	quality = DRINK_NICE
 	taste_description = "bitter yet free"
@@ -1397,7 +1393,7 @@
 	name = "Acid Spit"
 	description = "A drink for the daring! Made from 20% more live aliens."
 	color = "#365000" // rgb: 54, 80, 0
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 80
 	quality = DRINK_VERYGOOD
 	taste_description = "stomach acid"
@@ -1412,7 +1408,7 @@
 	name = "Amasec"
 	description = "Official drink of the Nanotrasen Gun-Club!"
 	color = "#664300" // rgb: 102, 67, 0
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 35
 	quality = DRINK_GOOD
 	taste_description = "dark and metallic"
@@ -1428,7 +1424,7 @@
 	name = "Changeling Sting"
 	description = "You take a tiny sip and feel a burning sensation..."
 	color = "#2E6671" // rgb: 46, 102, 113
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 95
 	quality = DRINK_GOOD
 	taste_description = "your brain coming out your nose"
@@ -1440,17 +1436,17 @@
 	icon = 'icons/obj/drinks/soda.dmi'
 	icon_state = "changelingsting"
 
-/datum/reagent/consumable/ethanol/changelingsting/on_mob_life(mob/living/carbon/target, delta_time, times_fired)
-	var/datum/antagonist/changeling/changeling = target.mind?.has_antag_datum(/datum/antagonist/changeling)
-	changeling?.chem_charges += metabolization_rate * REM * delta_time
-	changeling?.chem_charges = clamp(changeling.chem_charges, 0, changeling.chem_storage)
-	return ..()
+/datum/reagent/consumable/ethanol/changelingsting/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	var/datum/antagonist/changeling/changeling = IS_CHANGELING(affected_mob)
+	//Changeling Sting assists in the recharging of changeling chemicals.
+	changeling?.adjust_chemicals(metabolization_rate * REM * delta_time)
 
 /datum/reagent/consumable/ethanol/irishcarbomb
 	name = "Irish Car Bomb"
 	description = "Mmm, tastes like chocolate cake..."
 	color = "#2E6671" // rgb: 46, 102, 113
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 25
 	quality = DRINK_GOOD
 	taste_description = "delicious anger"
@@ -1465,7 +1461,7 @@
 	name = "Syndicate Bomb"
 	description = "Tastes like terrorism!"
 	color = "#2E6671" // rgb: 46, 102, 113
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 90
 	quality = DRINK_GOOD
 	taste_description = "purified antagonism"
@@ -1477,16 +1473,16 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "syndicatebomb"
 
-/datum/reagent/consumable/ethanol/syndicatebomb/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+/datum/reagent/consumable/ethanol/syndicatebomb/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
 	if(DT_PROB(2.5, delta_time))
-		playsound(get_turf(M), 'sound/effects/explosionfar.ogg', 100, 1)
-	return ..()
+		playsound(affected_mob, 'sound/effects/explosionfar.ogg', 100, 1)
 
 /datum/reagent/consumable/ethanol/erikasurprise
 	name = "Erika Surprise"
 	description = "The surprise is, it's green!"
 	color = "#2E6671" // rgb: 46, 102, 113
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 35
 	quality = DRINK_VERYGOOD
 	taste_description = "tartness and bananas"
@@ -1503,7 +1499,7 @@
 	description = "Only for the experienced. You think you see sand floating in the glass."
 	nutriment_factor = 1 * REAGENTS_METABOLISM
 	color = "#2E6671" // rgb: 46, 102, 113
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 65
 	quality = DRINK_GOOD
 	taste_description = "a beach"
@@ -1520,7 +1516,7 @@
 	description = "A drink from Clown Heaven."
 	nutriment_factor = 1 * REAGENTS_METABOLISM
 	color = "#FFFF91" // rgb: 255, 255, 140
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 60
 	quality = DRINK_GOOD
 	taste_description = "a bad joke"
@@ -1532,18 +1528,18 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "bananahonkglass"
 
-/datum/reagent/consumable/ethanol/bananahonk/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	if((ishuman(M) && M.job == JOB_NAME_CLOWN) || ismonkey(M))
-		M.heal_bodypart_damage(1 * REM * delta_time, 1 * REM * delta_time)
-		. = 1
-	return ..() || .
+/datum/reagent/consumable/ethanol/bananahonk/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	if((ishuman(affected_mob) && affected_mob.job == JOB_NAME_CLOWN) || ismonkey(affected_mob))
+		affected_mob.heal_bodypart_damage(1 * REM * delta_time, 1 * REM * delta_time, updating_health = FALSE)
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/ethanol/silencer
 	name = "Silencer"
 	description = "A drink from Mime Heaven."
 	nutriment_factor = 2 * REAGENTS_METABOLISM
 	color = "#664300" // rgb: 102, 67, 0
-	chem_flags = NONE
+	chemical_flags = NONE
 	boozepwr = 59 //Proof that clowns are better than mimes right here
 	quality = DRINK_GOOD
 	taste_description = "a pencil eraser"
@@ -1555,18 +1551,18 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "silencerglass"
 
-/datum/reagent/consumable/ethanol/silencer/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.silent = max(M.silent, 1.25)
-	if(ishuman(M) && M.job == JOB_NAME_MIME)
-		M.heal_bodypart_damage(1 * REM * delta_time, 1 * REM * delta_time)
-		. = TRUE
-	return ..() || .
+/datum/reagent/consumable/ethanol/silencer/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.silent = max(affected_mob.silent, 1.25)
+	if(ishuman(affected_mob) && affected_mob.job == JOB_NAME_MIME)
+		affected_mob.heal_bodypart_damage(1 * REM * delta_time, 1 * REM * delta_time, updating_health = FALSE)
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/ethanol/drunkenblumpkin
 	name = "Drunken Blumpkin"
 	description = "A weird mix of whiskey and blumpkin juice."
 	color = "#1EA0FF" // rgb: 102, 67, 0
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 50
 	quality = DRINK_VERYGOOD
 	taste_description = "molasses and a mouthful of pool water"
@@ -1582,7 +1578,7 @@
 	name = "Whiskey Sour"
 	description = "Lemon juice mixed with whiskey and a dash of sugar. Surprisingly satisfying."
 	color = rgb(255, 201, 49)
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 35
 	quality = DRINK_GOOD
 	taste_description = "sour lemons"
@@ -1597,7 +1593,7 @@
 	name = "Hard Cider"
 	description = "Tastes like autumn. No wait, fall!"
 	color = "#CD6839"
-	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
+	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	nutriment_factor = 1 * REAGENTS_METABOLISM
 	boozepwr = 25
 	taste_description = "the season that <i>falls</i> between summer and winter"
@@ -1616,7 +1612,7 @@
 	name = "Fetching Fizz"
 	description = "Whiskey sour/iron/uranium mixture resulting in a highly magnetic slurry. Mild alcohol content." //Requires no alcohol to make but has alcohol anyway because ~magic~
 	color = rgb(255, 91, 15)
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 10
 	quality = DRINK_VERYGOOD
 	metabolization_rate = 0.1 * REAGENTS_METABOLISM
@@ -1629,17 +1625,17 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "fetching_fizz"
 
-/datum/reagent/consumable/ethanol/fetching_fizz/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	for(var/obj/item/stack/ore/O in orange(3, M))
-		step_towards(O, get_turf(M))
-	return ..()
+/datum/reagent/consumable/ethanol/fetching_fizz/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	for(var/obj/item/stack/ore/ore in orange(3, affected_mob))
+		step_towards(ore, get_turf(affected_mob))
 
 //Another reference. Heals those in critical condition extremely quickly.
 /datum/reagent/consumable/ethanol/hearty_punch
 	name = "Hearty Punch"
 	description = "Brave bull/syndicate bomb/absinthe mixture resulting in an energizing beverage. Mild alcohol content."
 	color = rgb(140, 0, 0)
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 90
 	quality = DRINK_VERYGOOD
 	metabolization_rate = 0.4 * REAGENTS_METABOLISM
@@ -1652,21 +1648,21 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "hearty_punch"
 
-/datum/reagent/consumable/ethanol/hearty_punch/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	if(M.health <= 0)
-		M.adjustBruteLoss(-3 * REM * delta_time, 0)
-		M.adjustFireLoss(-3 * REM * delta_time, 0)
-		M.adjustCloneLoss(-5 * REM * delta_time, 0)
-		M.adjustOxyLoss(-4 * REM * delta_time, 0)
-		M.adjustToxLoss(-3 * REM * delta_time, 0)
-		. = TRUE
-	return ..() || .
+/datum/reagent/consumable/ethanol/hearty_punch/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	if(affected_mob.health <= 0)
+		affected_mob.adjustBruteLoss(-3 * REM * delta_time, updating_health = FALSE)
+		affected_mob.adjustFireLoss(-3 * REM * delta_time, updating_health = FALSE)
+		affected_mob.adjustCloneLoss(-5 * REM * delta_time, updating_health = FALSE)
+		affected_mob.adjustOxyLoss(-4 * REM * delta_time, updating_health = FALSE)
+		affected_mob.adjustToxLoss(-3 * REM * delta_time, updating_health = FALSE)
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/ethanol/bacchus_blessing //An EXTREMELY powerful drink. Smashed in seconds, dead in minutes.
 	name = "Bacchus' Blessing"
 	description = "Unidentifiable mixture. Unmeasurably high alcohol content."
 	color = rgb(51, 19, 3) //Sickly brown
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 300 //I warned you
 	taste_description = "a wall of bricks"
 
@@ -1680,7 +1676,7 @@
 	name = "Atomic Bomb"
 	description = "Nuclear proliferation never tasted so good."
 	color = "#666300" // rgb: 102, 99, 0
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 0 //custom drunk effect
 	quality = DRINK_FANTASTIC
 	taste_description = "da bomb"
@@ -1692,29 +1688,29 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "atomicbombglass"
 
-/datum/reagent/consumable/ethanol/atomicbomb/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.set_drugginess(50 * REM * delta_time)
-	if(!HAS_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE))
-		M.confused = max(M.confused + (2 * REM * delta_time),0)
-		M.Dizzy(10 * REM * delta_time)
-	if (!M.slurring)
-		M.slurring = 1 * REM * delta_time
-	M.slurring += 3 * REM * delta_time
+/datum/reagent/consumable/ethanol/atomicbomb/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.set_drugginess(50 * REM * delta_time)
+	affected_mob.slurring += 3 * REM * delta_time
+
+	if(!HAS_TRAIT(affected_mob, TRAIT_ALCOHOL_TOLERANCE))
+		affected_mob.confused = max(affected_mob.confused + (2 * REM * delta_time),0)
+		affected_mob.Dizzy(10 * REM * delta_time)
+	if (!affected_mob.slurring)
+		affected_mob.slurring = 1 * REM * delta_time
 	switch(current_cycle)
 		if(51 to 200)
-			M.Sleeping(100 * REM * delta_time)
-			. = TRUE
+			affected_mob.Sleeping(100 * REM * delta_time)
 		if(201 to INFINITY)
-			M.AdjustSleeping(40 * REM * delta_time)
-			M.adjustToxLoss(2 * REM * delta_time, 0)
-			. = TRUE
-	..()
+			affected_mob.AdjustSleeping(40 * REM * delta_time)
+			affected_mob.adjustToxLoss(2 * REM * delta_time, updating_health = FALSE)
+			return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/ethanol/gargle_blaster
 	name = "Pan-Galactic Gargle Blaster"
 	description = "Whoah, this stuff looks volatile!"
 	color = "#664300" // rgb: 102, 67, 0
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 0 //custom drunk effect
 	quality = DRINK_GOOD
 	taste_description = "your brains smashed out by a lemon wrapped around a gold brick"
@@ -1726,32 +1722,39 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "gargleblasterglass"
 
-/datum/reagent/consumable/ethanol/gargle_blaster/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.dizziness += 1.5 * REM * delta_time
+/datum/reagent/consumable/ethanol/gargle_blaster/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.dizziness += 1.5 * REM * delta_time
 	switch(current_cycle)
 		if(15 to 45)
-			if(!M.slurring)
-				M.slurring = 1 * REM * delta_time
-			M.slurring += 3 * REM * delta_time
+			if(!affected_mob.slurring)
+				affected_mob.slurring = 1 * REM * delta_time
+			affected_mob.slurring += 3 * REM * delta_time
 		if(45 to 55)
 			if(DT_PROB(30, delta_time))
-				M.confused = max(M.confused + 3, 0)
+				affected_mob.confused = max(affected_mob.confused + 3, 0)
 		if(55 to 200)
-			M.set_drugginess(55 * REM * delta_time)
+			affected_mob.set_drugginess(55 * REM * delta_time)
 		if(200 to INFINITY)
-			M.adjustToxLoss(2 * REM * delta_time, 0)
-			. = TRUE
-	..()
+			affected_mob.adjustToxLoss(2 * REM * delta_time, updating_health = FALSE)
+			return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/ethanol/neurotoxin
 	name = "Neurotoxin"
 	description = "A strong neurotoxin that puts the subject into a death-like state."
 	color = "#2E2E61" // rgb: 46, 46, 97
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 50
 	quality = DRINK_VERYGOOD
 	taste_description = "a numbing sensation"
 	metabolization_rate = 1 * REAGENTS_METABOLISM
+
+	var/static/list/possible_traits = list(
+		TRAIT_PARALYSIS_L_ARM,
+		TRAIT_PARALYSIS_R_ARM,
+		TRAIT_PARALYSIS_L_LEG,
+		TRAIT_PARALYSIS_R_LEG,
+	)
 
 /datum/glass_style/drinking_glass/neurotoxin
 	required_drink_type = /datum/reagent/consumable/ethanol/neurotoxin
@@ -1760,45 +1763,44 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "neurotoxinglass"
 
-/datum/reagent/consumable/ethanol/neurotoxin/proc/pickt()
-	return (pick(TRAIT_PARALYSIS_L_ARM,TRAIT_PARALYSIS_R_ARM,TRAIT_PARALYSIS_R_LEG,TRAIT_PARALYSIS_L_LEG))
+/datum/reagent/consumable/ethanol/neurotoxin/proc/pick_trait()
+	return pick(possible_traits)
 
-/datum/reagent/consumable/ethanol/neurotoxin/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.set_drugginess(50 * REM * delta_time)
-	M.dizziness += 2 * REM * delta_time
-	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1 * REM * delta_time, 150)
+/datum/reagent/consumable/ethanol/neurotoxin/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.set_drugginess(50 * REM * delta_time)
+	affected_mob.dizziness += 2 * REM * delta_time
+	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1 * REM * delta_time, 150)
+
 	if(DT_PROB(10, delta_time))
-		M.adjustStaminaLoss(10)
-		M.drop_all_held_items()
-		to_chat(M, span_notice("You cant feel your hands!"))
+		affected_mob.adjustStaminaLoss(10, updating_health = FALSE)
+		. = UPDATE_MOB_HEALTH
+		affected_mob.drop_all_held_items()
+		to_chat(affected_mob, span_notice("You cant feel your hands!"))
+
 	if(current_cycle > 5)
 		if(DT_PROB(10, delta_time))
-			var/t = pickt()
-			ADD_TRAIT(M, t, type)
-			M.adjustStaminaLoss(10)
-		if(current_cycle > 30)
-			M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2 * REM * delta_time)
-			if(current_cycle > 50 && DT_PROB(7.5, delta_time))
-				if(!M.undergoing_cardiac_arrest() && M.can_heartattack())
-					M.set_heartattack(TRUE)
-					if(M.stat == CONSCIOUS)
-						M.visible_message(span_userdanger("[M] clutches at [M.p_their()] chest as if [M.p_their()] heart stopped!"))
-	. = TRUE
-	..()
+			ADD_TRAIT(affected_mob, pick_trait(), "metabolize:[type]")
+			affected_mob.adjustStaminaLoss(10, updating_health = FALSE)
+			. = UPDATE_MOB_HEALTH
 
-/datum/reagent/consumable/ethanol/neurotoxin/on_mob_end_metabolize(mob/living/carbon/M)
-	REMOVE_TRAIT(M, TRAIT_PARALYSIS_L_ARM, type)
-	REMOVE_TRAIT(M, TRAIT_PARALYSIS_R_ARM, type)
-	REMOVE_TRAIT(M, TRAIT_PARALYSIS_R_LEG, type)
-	REMOVE_TRAIT(M, TRAIT_PARALYSIS_L_LEG, type)
-	M.adjustStaminaLoss(10)
-	..()
+		if(current_cycle > 30)
+			affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2 * REM * delta_time)
+			if(current_cycle > 50 && DT_PROB(7.5, delta_time))
+				if(!affected_mob.undergoing_cardiac_arrest() && affected_mob.can_heartattack())
+					affected_mob.set_heartattack(TRUE)
+					if(affected_mob.stat == CONSCIOUS)
+						affected_mob.visible_message(span_userdanger("[affected_mob] clutches at [affected_mob.p_their()] chest as if [affected_mob.p_their()] heart stopped!"))
+
+/datum/reagent/consumable/ethanol/neurotoxin/on_mob_end_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	affected_mob.adjustStaminaLoss(10)
 
 /datum/reagent/consumable/ethanol/hippies_delight
 	name = "Hippie's Delight"
 	description = "You just don't get it maaaan."
 	color = "#664300" // rgb: 102, 67, 0
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	nutriment_factor = 0
 	boozepwr = 0 //custom drunk effect
 	quality = DRINK_FANTASTIC
@@ -1812,43 +1814,42 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "hippiesdelightglass"
 
-/datum/reagent/consumable/ethanol/hippies_delight/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	if (!M.slurring)
-		M.slurring = 1 * REM * delta_time
+/datum/reagent/consumable/ethanol/hippies_delight/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	if(!affected_mob.slurring)
+		affected_mob.slurring = 1 * REM * delta_time
 	switch(current_cycle)
 		if(1 to 5)
-			M.Dizzy(10 * REM * delta_time)
-			M.set_drugginess(30 * REM * delta_time)
+			affected_mob.Dizzy(10 * REM * delta_time)
+			affected_mob.set_drugginess(30 * REM * delta_time)
 			if(DT_PROB(5, delta_time))
-				M.emote(pick("twitch","giggle"))
+				affected_mob.emote(pick("twitch", "giggle"))
 		if(5 to 10)
-			M.Jitter(20 * REM * delta_time)
-			M.Dizzy(20 * REM * delta_time)
-			M.set_drugginess(45 * REM * delta_time)
+			affected_mob.Jitter(20 * REM * delta_time)
+			affected_mob.Dizzy(20 * REM * delta_time)
+			affected_mob.set_drugginess(45 * REM * delta_time)
 			if(DT_PROB(10, delta_time))
-				M.emote(pick("twitch","giggle"))
+				affected_mob.emote(pick("twitch", "giggle"))
 		if (10 to 200)
-			M.Jitter(40 * REM * delta_time)
-			M.Dizzy(40 * REM * delta_time)
-			M.set_drugginess(60 * REM * delta_time)
+			affected_mob.Jitter(40 * REM * delta_time)
+			affected_mob.Dizzy(40 * REM * delta_time)
+			affected_mob.set_drugginess(60 * REM * delta_time)
 			if(DT_PROB(16, delta_time))
-				M.emote(pick("twitch","giggle"))
+				affected_mob.emote(pick("twitch", "giggle"))
 		if(200 to INFINITY)
-			M.Jitter(60 * REM * delta_time)
-			M.Dizzy(60 * REM * delta_time)
-			M.set_drugginess(75 * REM * delta_time)
+			affected_mob.Jitter(60 * REM * delta_time)
+			affected_mob.Dizzy(60 * REM * delta_time)
+			affected_mob.set_drugginess(75 * REM * delta_time)
 			if(DT_PROB(23, delta_time))
-				M.emote(pick("twitch","giggle"))
-			if(DT_PROB(16, delta_time))
-				M.adjustToxLoss(2, 0)
-				. = TRUE
-	..()
+				affected_mob.emote(pick("twitch", "giggle"))
+			affected_mob.adjustToxLoss(2 * REM * delta_time, updating_health = FALSE)
+			return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/ethanol/eggnog
 	name = "Eggnog"
 	description = "For enjoying the most wonderful time of the year."
 	color = "#fcfdc6" // rgb: 252, 253, 198
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	nutriment_factor = 2 * REAGENTS_METABOLISM
 	boozepwr = 1
 	quality = DRINK_VERYGOOD
@@ -1872,7 +1873,7 @@
 	name = "Nar'Sour"
 	description = "Side effects include self-mutilation and hoarding plasteel."
 	color = RUNE_COLOR_DARKRED
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 10
 	quality = DRINK_FANTASTIC
 	taste_description = "blood"
@@ -1884,16 +1885,16 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "narsour"
 
-/datum/reagent/consumable/ethanol/narsour/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.cultslurring = min(M.cultslurring + (3 * REM * delta_time), 3)
-	M.stuttering = min(M.stuttering + (3 * REM * delta_time), 3)
-	..()
+/datum/reagent/consumable/ethanol/narsour/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.cultslurring = min(affected_mob.cultslurring + (3 * REM * delta_time), 3)
+	affected_mob.stuttering = min(affected_mob.stuttering + (3 * REM * delta_time), 3)
 
 /datum/reagent/consumable/ethanol/triple_sec
 	name = "Triple Sec"
 	description = "A sweet and vibrant orange liqueur."
 	color = "#ffcc66"
-	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
+	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 30
 	taste_description = "a warm flowery orange taste which recalls the ocean air and summer wind of the caribbean"
 
@@ -1907,7 +1908,7 @@
 	name = "Creme de Menthe"
 	description = "A minty liqueur excellent for refreshing, cool drinks."
 	color = "#00cc00"
-	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
+	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 20
 	taste_description = "a minty, cool, and invigorating splash of cold streamwater"
 
@@ -1921,7 +1922,7 @@
 	name = "Creme de Cacao"
 	description = "A chocolatey liqueur excellent for adding dessert notes to beverages and bribing sororities."
 	color = "#996633"
-	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
+	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 20
 	taste_description = "a slick and aromatic hint of chocolates swirling in a bite of alcohol"
 
@@ -1935,7 +1936,7 @@
 	name = "Creme de Coconut"
 	description = "A coconut liqueur for smooth, creamy, tropical drinks."
 	color = "#F7F0D0"
-	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
+	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 20
 	taste_description = "a sweet milky flavor with notes of toasted sugar"
 
@@ -1949,7 +1950,7 @@
 	name = "Quadruple Sec"
 	description = "Kicks just as hard as licking the power cell on a baton, but tastier."
 	color = "#cc0000"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 35
 	quality = DRINK_GOOD
 	taste_description = "an invigorating bitter freshness which suffuses your being; no enemy of the station will go unrobusted this day"
@@ -1961,19 +1962,19 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "quadruple_sec"
 
-/datum/reagent/consumable/ethanol/quadruple_sec/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+/datum/reagent/consumable/ethanol/quadruple_sec/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
 	//Securidrink in line with the Screwdriver for engineers or Nothing for mimes
-	if(M.mind != null && HAS_TRAIT(M.mind, TRAIT_LAW_ENFORCEMENT_METABOLISM))
-		M.heal_bodypart_damage(0.5 * REM * delta_time, 0.5 * REM * delta_time)
-		M.adjust_nutrition(-1 * REM * delta_time)
-		. = TRUE
-	return ..()
+	if(HAS_MIND_TRAIT(affected_mob, TRAIT_LAW_ENFORCEMENT_METABOLISM))
+		affected_mob.heal_bodypart_damage(0.5 * REM * delta_time, 0.5 * REM * delta_time, updating_health = FALSE)
+		affected_mob.adjust_nutrition(-1 * REM * delta_time)
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/ethanol/quintuple_sec
 	name = "Quintuple Sec"
 	description = "Law, Order, Alcohol, and Police Brutality distilled into one single elixir of JUSTICE."
 	color = "#ff3300"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 60
 	quality = DRINK_FANTASTIC
 	taste_description = "THE LAW"
@@ -1985,19 +1986,19 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "quintuple_sec"
 
-/datum/reagent/consumable/ethanol/quintuple_sec/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+/datum/reagent/consumable/ethanol/quintuple_sec/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
 	//Securidrink in line with the Screwdriver for engineers or Nothing for mimes but STRONG..
-	if(M.mind != null && HAS_TRAIT(M.mind, TRAIT_LAW_ENFORCEMENT_METABOLISM))
-		M.heal_bodypart_damage(1 * REM * delta_time, 1 * REM * delta_time, 1 * REM * delta_time)
-		M.adjust_nutrition(-2 * REM * delta_time)
-		. = TRUE
-	return ..()
+	if(HAS_MIND_TRAIT(affected_mob, TRAIT_LAW_ENFORCEMENT_METABOLISM))
+		affected_mob.heal_bodypart_damage(1 * REM * delta_time, 1 * REM * delta_time, 1 * REM * delta_time, updating_health = FALSE)
+		affected_mob.adjust_nutrition(-2 * REM * delta_time)
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/ethanol/grasshopper
 	name = "Grasshopper"
 	description = "A fresh and sweet dessert shooter. Difficult to look manly while drinking this."
 	color = "#00ff00"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 25
 	quality = DRINK_GOOD
 	taste_description = "chocolate and mint dancing around your mouth"
@@ -2013,7 +2014,7 @@
 	name = "Stinger"
 	description = "A snappy way to end the day."
 	color = "#ccff99"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 25
 	quality = DRINK_NICE
 	taste_description = "a slap on the face in the best possible way"
@@ -2029,7 +2030,7 @@
 	name = "Bastion Bourbon"
 	description = "Soothing hot herbal brew with restorative properties. Hints of citrus and berry flavors."
 	color = "#00FFFF"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 30
 	quality = DRINK_FANTASTIC
 	taste_description = "hot herbal brew with a hint of fruit"
@@ -2046,19 +2047,21 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "bastion_bourbon"
 
-/datum/reagent/consumable/ethanol/bastion_bourbon/on_mob_metabolize(mob/living/L)
+/datum/reagent/consumable/ethanol/bastion_bourbon/on_mob_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
 	var/heal_points = 10
-	if(L.health <= 0)
+	if(affected_mob.health <= 0)
 		heal_points = 20 //heal more if we're in softcrit
 	for(var/i in 1 to min(volume, heal_points)) //only heals 1 point of damage per unit on add, for balance reasons
-		L.adjustBruteLoss(-1)
-		L.adjustFireLoss(-1)
-		L.adjustToxLoss(-1)
-		L.adjustOxyLoss(-1)
-		L.adjustStaminaLoss(-1)
-	L.visible_message(span_warning("[L] shivers with renewed vigor!"), span_notice("One taste of [LOWER_TEXT(name)] fills you with energy!"))
-	if(!L.stat && heal_points == 20) //brought us out of softcrit
-		L.visible_message(span_danger("[L] lurches to [L.p_their()] feet!"), span_boldnotice("Up and at 'em, kid."))
+		affected_mob.adjustBruteLoss(-1, updating_health = FALSE)
+		affected_mob.adjustFireLoss(-1, updating_health = FALSE)
+		affected_mob.adjustToxLoss(-1, updating_health = FALSE)
+		affected_mob.adjustOxyLoss(-1, updating_health = FALSE)
+		affected_mob.adjustStaminaLoss(-1, updating_health = FALSE)
+		. = UPDATE_MOB_HEALTH
+	affected_mob.visible_message(span_warning("[affected_mob] shivers with renewed vigor!"), span_notice("One taste of [LOWER_TEXT(name)] fills you with energy!"))
+	if(!affected_mob.stat && heal_points == 20) //brought us out of softcrit
+		affected_mob.visible_message(span_danger("[affected_mob] lurches to [affected_mob.p_their()] feet!"), span_boldnotice("Up and at 'em, kid."))
 
 /datum/reagent/consumable/ethanol/bastion_bourbon/on_mob_life(mob/living/L, delta_time, times_fired)
 	if(L.health > 0)
@@ -2074,7 +2077,7 @@
 	name = "Squirt Cider"
 	description = "Fermented squirt extract with a nose of stale bread and ocean water. Whatever a squirt is."
 	color = "#FF0000"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 40
 	taste_description = "stale bread with a staler aftertaste"
 	nutriment_factor = 2 * REAGENTS_METABOLISM
@@ -2090,16 +2093,15 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "squirt_cider"
 
-/datum/reagent/consumable/ethanol/squirt_cider/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.satiety += 5 * REM * delta_time //for context, vitamins give 15 satiety per second
-	..()
-	. = TRUE
+/datum/reagent/consumable/ethanol/squirt_cider/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.satiety += 5 * REM * delta_time //for context, vitamins give 15 satiety per second
 
 /datum/reagent/consumable/ethanol/fringe_weaver
 	name = "Fringe Weaver"
 	description = "Bubbly, classy, and undoubtedly strong - a Glitch City classic."
 	color = "#FFEAC4"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 90 //classy hooch, essentially, but lower pwr to make up for slightly easier access
 	quality = DRINK_GOOD
 	taste_description = "ethylic alcohol with a hint of sugar"
@@ -2115,7 +2117,7 @@
 	name = "Sugar Rush"
 	description = "Sweet, light, and fruity - as girly as it gets."
 	color = "#FF226C"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 10
 	quality = DRINK_GOOD
 	taste_description = "your arteries clogging with sugar"
@@ -2128,16 +2130,15 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "sugar_rush"
 
-/datum/reagent/consumable/ethanol/sugar_rush/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.satiety -= 10 * REM * delta_time //junky as hell! a whole glass will keep you from being able to eat junk food
-	..()
-	. = TRUE
+/datum/reagent/consumable/ethanol/sugar_rush/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.satiety -= 10 * REM * delta_time //junky as hell! a whole glass will keep you from being able to eat junk food
 
 /datum/reagent/consumable/ethanol/crevice_spike
 	name = "Crevice Spike"
 	description = "Sour, bitter, and smashingly sobering. Doesn't sober up light drinkers."
 	color = "#5BD231"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = -10 //sobers you up - ideally, one would drink to get hit with brute damage now to avoid alcohol problems later
 	quality = DRINK_VERYGOOD
 	taste_description = "a bitter SPIKE with a sour aftertaste"
@@ -2149,14 +2150,15 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "crevice_spike"
 
-/datum/reagent/consumable/ethanol/crevice_spike/on_mob_metabolize(mob/living/L) //damage only applies when drink first enters system and won't again until drink metabolizes out
-	L.adjustBruteLoss(3 * min(5,volume)) //minimum 3 brute damage on ingestion to limit non-drink means of injury - a full 5 unit gulp of the drink trucks you for the full 15
+/datum/reagent/consumable/ethanol/crevice_spike/on_mob_metabolize(mob/living/carbon/affected_mob) //damage only applies when drink first enters system and won't again until drink metabolizes out
+	. = ..()
+	affected_mob.adjustBruteLoss(3 * min(5, volume)) //minimum 3 brute damage on ingestion to limit non-drink means of injury - a full 5 unit gulp of the drink trucks you for the full 15
 
 /datum/reagent/consumable/ethanol/sake
 	name = "Sake"
 	description = "A sweet rice wine of questionable legality and extreme potency."
 	color = "#DDDDDD"
-	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
+	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 70
 	taste_description = "sweet rice wine"
 
@@ -2170,7 +2172,7 @@
 	name = "Peppermint Patty"
 	description = "This lightly alcoholic drink combines the benefits of menthol and cocoa."
 	color = "#45ca7a"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	taste_description = "mint and chocolate"
 	boozepwr = 25
 	quality = DRINK_GOOD
@@ -2182,16 +2184,16 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "peppermint_patty"
 
-/datum/reagent/consumable/ethanol/peppermint_patty/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.apply_status_effect(/datum/status_effect/throat_soothed)
-	M.adjust_bodytemperature(5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, 0, M.get_body_temp_normal())
-	..()
+/datum/reagent/consumable/ethanol/peppermint_patty/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.apply_status_effect(/datum/status_effect/throat_soothed)
+	affected_mob.adjust_bodytemperature(5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, 0, affected_mob.get_body_temp_normal())
 
 /datum/reagent/consumable/ethanol/alexander
 	name = "Alexander"
 	description = "Named after a Greek hero, this mix is said to embolden a user's shield as if they were in a phalanx."
 	color = "#F5E9D3"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 80
 	quality = DRINK_GOOD
 	taste_description = "bitter, creamy cacao"
@@ -2204,31 +2206,32 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "alexander"
 
-/datum/reagent/consumable/ethanol/alexander/on_mob_metabolize(mob/living/L)
-	if(ishuman(L))
-		var/mob/living/carbon/human/thehuman = L
-		for(var/obj/item/shield/theshield in thehuman.contents)
+/datum/reagent/consumable/ethanol/alexander/on_mob_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	if(ishuman(affected_mob))
+		var/mob/living/carbon/human/affected_human = affected_mob
+		for(var/obj/item/shield/theshield in affected_human.contents)
 			mighty_shield = theshield
 			mighty_shield.block_power += 15
-			to_chat(thehuman, span_notice("[theshield] appears polished, although you don't recall polishing it."))
+			to_chat(affected_human, span_notice("[theshield] appears polished, although you don't recall polishing it."))
 			return TRUE
 
-/datum/reagent/consumable/ethanol/alexander/on_mob_life(mob/living/L, delta_time, times_fired)
-	..()
-	if(mighty_shield && !(mighty_shield in L.contents)) //If you had a shield and lose it, you lose the reagent as well. Otherwise this is just a normal drink.
-		L.reagents.del_reagent(/datum/reagent/consumable/ethanol/alexander)
+/datum/reagent/consumable/ethanol/alexander/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	if(mighty_shield && !(mighty_shield in affected_mob.contents)) //If you had a shield and lose it, you lose the reagent as well. Otherwise this is just a normal drink.
+		holder.del_reagent(/datum/reagent/consumable/ethanol/alexander)
 
-/datum/reagent/consumable/ethanol/alexander/on_mob_end_metabolize(mob/living/L)
+/datum/reagent/consumable/ethanol/alexander/on_mob_end_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
 	if(mighty_shield)
 		mighty_shield.block_power -= 15
-		to_chat(L,span_notice("You notice [mighty_shield] looks worn again. Weird."))
-	..()
+		to_chat(affected_mob, span_notice("You notice [mighty_shield] looks worn again. Weird."))
 
 /datum/reagent/consumable/ethanol/sidecar
 	name = "Sidecar"
 	description = "The one ride you'll gladly give up the wheel for."
 	color = "#FFC55B"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 80
 	quality = DRINK_GOOD
 	taste_description = "delicious freedom"
@@ -2244,7 +2247,7 @@
 	name = "Between the Sheets"
 	description = "A provocatively named classic. Funny enough, doctors recommend drinking it before taking a nap."
 	color = "#F4C35A"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 80
 	quality = DRINK_GOOD
 	taste_description = "seduction"
@@ -2256,24 +2259,27 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "between_the_sheets"
 
-/datum/reagent/consumable/ethanol/between_the_sheets/on_mob_life(mob/living/L, delta_time, times_fired)
-	..()
-	if(L.IsSleeping())
-		if(L.getBruteLoss() && L.getFireLoss()) //If you are damaged by both types, slightly increased healing but it only heals one. The more the merrier wink wink.
+/datum/reagent/consumable/ethanol/between_the_sheets/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	if(affected_mob.IsSleeping())
+		if(affected_mob.getBruteLoss() && affected_mob.getFireLoss()) //If you are damaged by both types, slightly increased healing but it only heals one. The more the merrier wink wink.
 			if(prob(50))
-				L.adjustBruteLoss(-0.25 * REM * delta_time)
+				affected_mob.adjustBruteLoss(-0.25 * REM * delta_time, updating_health = FALSE)
 			else
-				L.adjustFireLoss(-0.25 * REM * delta_time)
-		else if(L.getBruteLoss()) //If you have only one, it still heals but not as well.
-			L.adjustBruteLoss(-0.2 * REM * delta_time)
-		else if(L.getFireLoss())
-			L.adjustFireLoss(-0.2 * REM * delta_time)
+				affected_mob.adjustFireLoss(-0.25 * REM * delta_time, updating_health = FALSE)
+			return UPDATE_MOB_HEALTH
+		else if(affected_mob.getBruteLoss()) //If you have only one, it still heals but not as well.
+			affected_mob.adjustBruteLoss(-0.2 * REM * delta_time, updating_health = FALSE)
+			return UPDATE_MOB_HEALTH
+		else if(affected_mob.getFireLoss())
+			affected_mob.adjustFireLoss(-0.2 * REM * delta_time, updating_health = FALSE)
+			return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/ethanol/kamikaze
 	name = "Kamikaze"
 	description = "Divinely windy."
 	color = "#EEF191"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 60
 	quality = DRINK_GOOD
 	taste_description = "divine windiness"
@@ -2289,7 +2295,7 @@
 	name = "Mojito"
 	description = "A drink that looks as refreshing as it tastes."
 	color = "#DFFAD9"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 30
 	quality = DRINK_GOOD
 	taste_description = "refreshing mint"
@@ -2305,7 +2311,7 @@
 	name = "Fernet"
 	description = "An incredibly bitter herbal liqueur used as a digestif."
 	color = "#1B2E24" // rgb: 27, 46, 36
-	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
+	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 80
 	taste_description = "utter bitterness"
 
@@ -2314,18 +2320,19 @@
 	name = "glass of fernet"
 	desc = "A glass of pure Fernet. Only an absolute madman would drink this alone." //Hi Kevum
 
-/datum/reagent/consumable/ethanol/fernet/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	if(M.nutrition <= NUTRITION_LEVEL_STARVING)
-		M.adjustToxLoss(1 * REM * delta_time, 0)
-	M.adjust_nutrition(-5 * REM * delta_time)
-	M.overeatduration = 0
-	return ..()
+/datum/reagent/consumable/ethanol/fernet/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.adjust_nutrition(-5 * REM * delta_time)
+	affected_mob.overeatduration = 0
+	if(affected_mob.nutrition <= NUTRITION_LEVEL_STARVING)
+		affected_mob.adjustToxLoss(1 * REM * delta_time, updating_health = FALSE)
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/ethanol/fernet_cola
 	name = "Fernet Cola"
 	description = "A very popular and bittersweet digestif, ideal after a heavy meal. Best served on a sawed-off cola bottle as per tradition."
 	color = "#390600" // rgb: 57, 6,
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 25
 	quality = DRINK_NICE
 	taste_description = "sweet relief"
@@ -2337,18 +2344,19 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "godlyblend"
 
-/datum/reagent/consumable/ethanol/fernet_cola/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	if(M.nutrition <= NUTRITION_LEVEL_STARVING)
-		M.adjustToxLoss(0.5 * REM * delta_time, 0)
-	M.adjust_nutrition(-3 * REM * delta_time)
-	M.overeatduration = 0
-	return ..()
+/datum/reagent/consumable/ethanol/fernet_cola/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.adjust_nutrition(-3 * REM * delta_time)
+	affected_mob.overeatduration = 0
+	if(affected_mob.nutrition <= NUTRITION_LEVEL_STARVING)
+		affected_mob.adjustToxLoss(0.5 * REM * delta_time, updating_health = FALSE)
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/ethanol/fanciulli
 	name = "Fanciulli"
 	description = "What if the Manhattan coctail ACTUALLY used a bitter herb liquour? Helps you sobers up. Doesn't sober up light drinkers." //also causes a bit of stamina damage to symbolize the afterdrink lazyness
 	color = "#CA933F" // rgb: 202, 147, 63
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = -10
 	quality = DRINK_NICE
 	taste_description = "a sweet sobering mix"
@@ -2359,22 +2367,21 @@
 	desc = "A glass of Fanciulli. It's just Manhattan with Fernet."
 	icon_state = "fanciulli"
 
-/datum/reagent/consumable/ethanol/fanciulli/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.adjust_nutrition(-5 * REM * delta_time)
-	M.overeatduration = 0
-	return ..()
+/datum/reagent/consumable/ethanol/fanciulli/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.adjust_nutrition(-5 * REM * delta_time)
+	affected_mob.overeatduration = 0
 
-/datum/reagent/consumable/ethanol/fanciulli/on_mob_metabolize(mob/living/M)
-	if(M.health > 0)
-		M.adjustStaminaLoss(20)
-		. = TRUE
-	..()
+/datum/reagent/consumable/ethanol/fanciulli/on_mob_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	if(affected_mob.health > 0)
+		affected_mob.adjustStaminaLoss(20, updating_health = TRUE)
 
 /datum/reagent/consumable/ethanol/branca_menta
 	name = "Branca Menta"
 	description = "A refreshing mixture of bitter Fernet with mint creme liquour."
 	color = "#4B5746" // rgb: 75, 87, 70
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 35
 	quality = DRINK_GOOD
 	taste_description = "a bitter freshness"
@@ -2385,22 +2392,21 @@
 	desc = "A glass of Fanciulli. It's just Manhattan with Fernet."
 	icon_state = "fanciulli"
 
-/datum/reagent/consumable/ethanol/branca_menta/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.adjust_bodytemperature(-20 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, T0C)
-	return ..()
+/datum/reagent/consumable/ethanol/branca_menta/on_mob_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	if(affected_mob.health > 0)
+		affected_mob.adjustStaminaLoss(35, updating_health = TRUE)
 
-/datum/reagent/consumable/ethanol/branca_menta/on_mob_metabolize(mob/living/M)
-	if(M.health > 0)
-		M.adjustStaminaLoss(35)
-		. = TRUE
-	..()
+/datum/reagent/consumable/ethanol/branca_menta/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.adjust_bodytemperature(-20 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, T0C)
 
 /datum/reagent/consumable/ethanol/blank_paper
 	name = "Blank Paper"
 	description = "A bubbling glass of blank paper. Just looking at it makes you feel fresh."
 	nutriment_factor = 2 * REAGENTS_METABOLISM
 	color = "#DCDCDC" // rgb: 220, 220, 220
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 20
 	quality = DRINK_GOOD
 	taste_description = "bubbling possibility"
@@ -2412,18 +2418,18 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "blank_paper"
 
-/datum/reagent/consumable/ethanol/blank_paper/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.silent = max(M.silent, MIMEDRINK_SILENCE_DURATION)
-	if(ishuman(M) && M.job == JOB_NAME_MIME)
-		M.heal_bodypart_damage(1 * REM * delta_time, 1 * REM * delta_time)
-		. = TRUE
-	return ..()
+/datum/reagent/consumable/ethanol/blank_paper/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.silent = max(affected_mob.silent, MIMEDRINK_SILENCE_DURATION)
+	if(ishuman(affected_mob) && affected_mob.job == JOB_NAME_MIME)
+		affected_mob.heal_bodypart_damage(1 * REM * delta_time, 1 * REM * delta_time, updating_health = FALSE)
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/ethanol/fruit_wine
 	name = "Fruit Wine"
 	description = "A wine made from grown plants."
 	color = "#FFFFFF"
-	chem_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 35
 	quality = DRINK_GOOD
 	taste_description = "bad coding"
@@ -2438,6 +2444,7 @@
 	desc = "A wine made from grown plants."
 
 /datum/reagent/consumable/ethanol/fruit_wine/on_new(list/data)
+	. = ..()
 	if(!data)
 		return
 
@@ -2449,11 +2456,12 @@
 	generate_data_info(data)
 
 /datum/reagent/consumable/ethanol/fruit_wine/on_merge(list/data, amount)
+	. = ..()
 	var/diff = (amount/volume)
 	if(diff < 1)
-		color = BlendRGB(color, data["color"], diff/2) //The percentage difference over two, so that they take average if equal.
+		color = BlendRGB(color, data["color"], diff / 2) //The percentage difference over two, so that they take average if equal.
 	else
-		color = BlendRGB(color, data["color"], (1/diff)/2) //Adjust so it's always blending properly.
+		color = BlendRGB(color, data["color"], 1 / diff / 2) //Adjust so it's always blending properly.
 	var/oldvolume = volume-amount
 
 	var/list/cachednames = data["names"]
@@ -2533,12 +2541,11 @@
 	if(holder.my_atom)
 		holder.my_atom.on_reagent_change()
 
-
 /datum/reagent/consumable/ethanol/champagne //How the hell did we not have champagne already!?
 	name = "Champagne"
 	description = "A sparkling wine known for its ability to strike fast and hard."
 	color = "#ffffc1"
-	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
+	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 40
 	taste_description = "auspicious occasions and bad decisions"
 
@@ -2552,7 +2559,7 @@
 	name = "Wizz Fizz"
 	description = "A magical potion, fizzy and wild! However the taste, you will find, is quite mild."
 	color = "#4235d0" //Just pretend that the triple-sec was blue curacao.
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 50
 	quality = DRINK_GOOD
 	taste_description = "friendship! It is magic, after all"
@@ -2564,19 +2571,20 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "wizz_fizz"
 
-/datum/reagent/consumable/ethanol/wizz_fizz/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+/datum/reagent/consumable/ethanol/wizz_fizz/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
 	//A healing drink similar to Quadruple Sec, Ling Stings, and Screwdrivers for the Wizznerds; the check is consistent with the changeling sting
-	if(M?.mind?.has_antag_datum(/datum/antagonist/wizard))
-		M.heal_bodypart_damage(1 * REM * delta_time, 1 * REM * delta_time, 1 * REM * delta_time)
-		M.adjustOxyLoss(-1 * REM * delta_time, 0)
-		M.adjustToxLoss(-1 * REM * delta_time, 0)
-	return ..()
+	if(affected_mob?.mind?.has_antag_datum(/datum/antagonist/wizard))
+		affected_mob.heal_bodypart_damage(1 * REM * delta_time, 1 * REM * delta_time, 1 * REM * delta_time, updating_health = FALSE)
+		affected_mob.adjustOxyLoss(-1 * REM * delta_time, updating_health = FALSE)
+		affected_mob.adjustToxLoss(-1 * REM * delta_time, updating_health = FALSE)
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/ethanol/bug_spray
 	name = "Bug Spray"
 	description = "A harsh, acrid, bitter drink, for those who need something to brace themselves."
 	color = "#33ff33"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 50
 	quality = DRINK_GOOD
 	taste_description = "the pain of ten thousand slain mosquitos"
@@ -2588,24 +2596,23 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "bug_spray"
 
-/datum/reagent/consumable/ethanol/bug_spray/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+/datum/reagent/consumable/ethanol/bug_spray/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = .. ()
 	//Bugs should not drink Bug spray.
-	if(ismoth(M) || isflyperson(M) || isdiona(M))
-		M.adjustToxLoss(1 * REM * delta_time, 0)
-	return ..()
+	if(ismoth(affected_mob) || isflyperson(affected_mob) || isdiona(affected_mob))
+		affected_mob.adjustToxLoss(1 * REM * delta_time, updating_health = FALSE)
+		return UPDATE_MOB_HEALTH
 
-/datum/reagent/consumable/ethanol/bug_spray/on_mob_metabolize(mob/living/carbon/M)
-
-	if(ismoth(M) || isflyperson(M) || isdiona(M))
-		M.emote("scream")
-	return ..()
-
+/datum/reagent/consumable/ethanol/bug_spray/on_mob_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	if(ismoth(affected_mob) || isflyperson(affected_mob) || isdiona(affected_mob))
+		affected_mob.emote("scream")
 
 /datum/reagent/consumable/ethanol/applejack
 	name = "Applejack"
 	description = "The perfect beverage for when you feel the need to horse around."
 	color = "#ff6633"
-	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
+	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 20
 	taste_description = "an honest day's work at the orchard"
 
@@ -2619,7 +2626,7 @@
 	name = "Jack Rose"
 	description = "A light cocktail perfect for sipping with a slice of pie."
 	color = "#ff6633"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 15
 	quality = DRINK_NICE
 	taste_description = "a sweet and sour slice of apple"
@@ -2639,7 +2646,7 @@
 	name = "Turbo"
 	description = "A turbulent cocktail associated with outlaw hoverbike racing. Not for the faint of heart."
 	color = "#e94c3a"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 85
 	quality = DRINK_VERYGOOD
 	taste_description = "the outlaw spirit"
@@ -2651,17 +2658,19 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "turbo"
 
-/datum/reagent/consumable/ethanol/turbo/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+/datum/reagent/consumable/ethanol/turbo/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
 	if(DT_PROB(2, delta_time))
-		to_chat(M, span_notice("[pick("You feel disregard for the rule of law.", "You feel pumped!", "Your head is pounding.", "Your thoughts are racing..")]"))
-	M.adjustStaminaLoss(-0.25 * M.drunkenness * REM * delta_time)
-	return ..()
+		to_chat(affected_mob, span_notice(pick("You feel disregard for the rule of law.", "You feel pumped!", "Your head is pounding.", "Your thoughts are racing..")))
+
+	affected_mob.adjustStaminaLoss(-0.25 * affected_mob.drunkenness * REM * delta_time, updating_health = FALSE)
+	return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/ethanol/old_timer
 	name = "Old Timer"
 	description = "An archaic potation enjoyed by old coots of all ages."
 	color = "#996835"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 35
 	quality = DRINK_NICE
 	taste_description = "simpler times"
@@ -2673,30 +2682,33 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "old_timer"
 
-/datum/reagent/consumable/ethanol/old_timer/on_mob_life(mob/living/carbon/human/metabolizer, delta_time, times_fired)
-	if(DT_PROB(10, delta_time) && istype(metabolizer))
-		metabolizer.age += 1
-		if(metabolizer.age > 70)
-			metabolizer.facial_hair_color = "ccc"
-			metabolizer.hair_color = "ccc"
-			metabolizer.update_hair()
-			if(metabolizer.age > 100)
-				metabolizer.become_nearsighted(type)
-				if(metabolizer.gender == MALE)
-					metabolizer.facial_hair_style = "Beard (Very Long)"
-					metabolizer.update_hair()
+/datum/reagent/consumable/ethanol/old_timer/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	if(!ishuman(affected_mob))
+		return
 
-				if(metabolizer.age > 969) //Best not let people get older than this or i might incur G-ds wrath
-					metabolizer.visible_message(span_notice("[metabolizer] becomes older than any man should be.. and crumbles into dust!"))
-					metabolizer.dust(just_ash = FALSE, drop_items = TRUE, force = FALSE)
+	var/mob/living/carbon/human/affected_human = affected_mob
+	if(DT_PROB(10, delta_time))
+		affected_human.age += 1
+		if(affected_human.age > 70)
+			affected_human.facial_hair_color = "ccc"
+			affected_human.hair_color = "ccc"
+			affected_human.update_hair()
+			if(affected_human.age > 100)
+				affected_human.become_nearsighted(type)
+				if(affected_human.gender == MALE)
+					affected_human.facial_hair_style = "Beard (Very Long)"
+					affected_human.update_hair()
 
-	return ..()
+				if(affected_human.age > 969) //Best not let people get older than this or i might incur G-ds wrath
+					affected_human.visible_message(span_notice("[affected_human] becomes older than any man should be.. and crumbles into dust!"))
+					affected_human.dust(just_ash = FALSE, drop_items = TRUE, force = FALSE)
 
 /datum/reagent/consumable/ethanol/rubberneck
 	name = "Rubberneck"
 	description = "A quality rubberneck should not contain any gross natural ingredients."
 	color = "#ffe65b"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 60
 	quality = DRINK_GOOD
 	taste_description = "artifical fruityness"
@@ -2712,7 +2724,7 @@
 	name = "Duplex"
 	description = "An inseparable combination of two fruity drinks."
 	color = "#50e5cf"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 25
 	quality = DRINK_NICE
 	taste_description = "green apples and blue raspberries"
@@ -2728,7 +2740,7 @@
 	name = "Trappist Beer"
 	description = "A strong dark ale brewed by space-monks."
 	color = "#390c00"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 40
 	quality = DRINK_VERYGOOD
 	taste_description = "dried plums and malt"
@@ -2740,17 +2752,18 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "trappistglass"
 
-/datum/reagent/consumable/ethanol/trappist/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	if(M.mind?.holy_role)
-		M.adjustFireLoss(-2.5 * REM * delta_time, 0)
-		M.jitteriness = max(M.jitteriness - (1 * REM * delta_time), 0)
-		M.stuttering = max(M.stuttering - (1 * REM * delta_time), 0)
-	return ..()
+/datum/reagent/consumable/ethanol/trappist/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	if(affected_mob.mind?.holy_role)
+		affected_mob.adjustFireLoss(-2.5 * REM * delta_time, updating_health = FALSE)
+		affected_mob.jitteriness = max(affected_mob.jitteriness - (1 * REM * delta_time), 0)
+		affected_mob.stuttering = max(affected_mob.stuttering - (1 * REM * delta_time), 0)
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/ethanol/blazaam
 	name = "Blazaam"
 	description = "A strange drink that few people seem to remember existing. Doubles as a Berenstain remover."
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY // don't put CHEMICAL_GOAL_BARTENDER_SERVING. peach juice is totally RNG to get
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY // don't put CHEMICAL_GOAL_BARTENDER_SERVING. peach juice is totally RNG to get
 	boozepwr = 70
 	quality = DRINK_FANTASTIC
 	taste_description = "alternate realities"
@@ -2764,22 +2777,22 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "blazaamglass"
 
-/datum/reagent/consumable/ethanol/blazaam/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	if(M.drunkenness > 40)
+/datum/reagent/consumable/ethanol/blazaam/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	if(affected_mob.drunkenness > 40)
 		if(stored_teleports)
-			do_teleport(M, get_turf(M), rand(1,3), channel = TELEPORT_CHANNEL_WORMHOLE)
+			do_teleport(affected_mob, get_turf(affected_mob), rand(1,3), channel = TELEPORT_CHANNEL_WORMHOLE)
 			stored_teleports--
 
 		if(DT_PROB(5, delta_time))
 			stored_teleports += rand(2, 6)
 			if(prob(70))
-				M.vomit()
-	return ..()
+				affected_mob.vomit()
 
 /datum/reagent/consumable/ethanol/planet_cracker
 	name = "Planet Cracker"
 	description = "This jubilant drink celebrates humanity's triumph over the alien menace. May be offensive to non-human crewmembers."
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 50
 	quality = DRINK_FANTASTIC
 	taste_description = "triumph with a hint of bitterness"
@@ -2796,7 +2809,7 @@
 	description = "Extremely hot; not for the faint of heart!"
 	boozepwr = 40
 	color = "#fe8308" // 254, 131, 8
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	quality = DRINK_FANTASTIC
 	taste_description = "fiery, with an aftertaste of burnt flesh"
 
@@ -2807,20 +2820,20 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "mauna_loa"
 
-/datum/reagent/consumable/ethanol/mauna_loa/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+/datum/reagent/consumable/ethanol/mauna_loa/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
 	// Heats the user up while the reagent is in the body. Occasionally makes you burst into flames.
-	M.adjust_bodytemperature(25 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time)
-	if (DT_PROB(2.5, delta_time))
-		M.adjust_fire_stacks(1)
-		M.IgniteMob()
-	..()
+	affected_mob.adjust_bodytemperature(25 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time)
+	if(DT_PROB(2.5, delta_time))
+		affected_mob.adjust_fire_stacks(1)
+		affected_mob.IgniteMob()
 
 /datum/reagent/consumable/ethanol/painkiller
 	name = "Painkiller"
 	description = "Dulls your pain. Your emotional pain, that is."
 	boozepwr = 20
 	color = "#EAD677"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	quality = DRINK_NICE
 	taste_description = "sugary tartness"
 
@@ -2836,7 +2849,7 @@
 	description = "A fresh pineapple drink with coconut rum. Yum."
 	boozepwr = 40
 	color = "#FFF1B2"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	quality = DRINK_FANTASTIC
 	taste_description = "pineapple, coconut, and a hint of the ocean"
 
@@ -2851,41 +2864,41 @@
 	name = "Plasma Flood"
 	description = "Not very popular with plasmamen, for obvious reasons."
 	color = "#630480" // rgb: 99, 4, 128
-	chem_flags = NONE
+	chemical_flags = NONE
 	boozepwr = 60
 	quality = DRINK_NICE
 	metabolization_rate = 1.25 * REAGENTS_METABOLISM
 	taste_description = "a plasma fire in your mouth"
 
-/datum/reagent/consumable/ethanol/plasmaflood/on_mob_metabolize(mob/living/L)
-	to_chat(L, span_notice("You feel immune to the fire!"))
+/datum/reagent/consumable/ethanol/plasmaflood/on_mob_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
+	to_chat(affected_mob, span_notice("You feel immune to the fire!"))
 
-/datum/reagent/consumable/ethanol/plasmaflood/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	if(prob(80))
-		M.IgniteMob()
-		M.adjust_fire_stacks(10 * REM * delta_time)
-
-	if(M.fire_stacks > 9)
-		if(M.on_fire)
-			M.adjustFireLoss(-16 * REM * delta_time, 0)
-
-	..()
-
-/datum/reagent/consumable/ethanol/plasmaflood/on_mob_end_metabolize(mob/living/L)
-	to_chat(L, span_warning("You no longer feel immune to burning!"))
+/datum/reagent/consumable/ethanol/plasmaflood/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
+	if(DT_PROB(80, delta_time))
+		affected_mob.IgniteMob()
+		affected_mob.adjust_fire_stacks(10 * REM * delta_time)
+
+	if(affected_mob.fire_stacks > 9 && affected_mob.on_fire)
+		affected_mob.adjustFireLoss(-16 * REM * delta_time, updating_health = FALSE)
+		return UPDATE_MOB_HEALTH
+
+/datum/reagent/consumable/ethanol/plasmaflood/on_mob_end_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	to_chat(affected_mob, span_warning("You no longer feel immune to burning!"))
 
 /datum/reagent/consumable/ethanol/fourthwall
 	name = "Fourth Wall"
 	description = "This substance seems like it shouldn't exist."
 	color = "#0b43a3"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 0 //I feel like brain traumas is enough
 	quality = DRINK_GOOD
 	metabolization_rate = 0.3
 	taste_description = "binary"
-	var/list/trauma_list
+
+	var/list/trauma_list = list()
 
 /datum/glass_style/drinking_glass/fourthwall
 	required_drink_type = /datum/reagent/consumable/ethanol/fourthwall
@@ -2894,47 +2907,46 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "fourthwallglass"
 
-/datum/reagent/consumable/ethanol/fourthwall/proc/traumaweightpick(var/mild,var/severe,var/special)
+/datum/reagent/consumable/ethanol/fourthwall/proc/traumaweightpick(var/mild, var/severe, var/special)
 	return pick(pick_weight(list(subtypesof(/datum/brain_trauma/mild) = mild, subtypesof(/datum/brain_trauma/severe) - /datum/brain_trauma/severe/split_personality - /datum/brain_trauma/severe/hypnotic_stupor = severe, subtypesof(/datum/brain_trauma/special) - typesof(/datum/brain_trauma/special/imaginary_friend) = special)))
 
-/datum/reagent/consumable/ethanol/fourthwall/on_mob_metabolize(mob/living/carbon/M)
-	trauma_list = list()
-	to_chat(M, span_warning("Your mind breaks, as you realize your reality is just some comupter game."))
+/datum/reagent/consumable/ethanol/fourthwall/on_mob_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	to_chat(affected_mob, span_warning("Your mind breaks, as you realize your reality is just some comupter game."))
 	var/datum/brain_trauma/trauma = traumaweightpick(60,40,0)
 	trauma = new trauma()
 	trauma_list += trauma
-	M.gain_trauma(trauma, TRAUMA_RESILIENCE_ABSOLUTE)
-	..()
+	affected_mob.gain_trauma(trauma, TRAUMA_RESILIENCE_ABSOLUTE)
 
-/datum/reagent/consumable/ethanol/fourthwall/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+/datum/reagent/consumable/ethanol/fourthwall/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
 	var/datum/brain_trauma/OD_trauma
-	M.Jitter(2)
+	affected_mob.Jitter(2)
 	if(DT_PROB(2.5, delta_time) && current_cycle > 10)
 		switch(current_cycle) //The longer they're on this stuff, the higher the chance for worse brain trauma
 			if(10 to 50)
-				to_chat(M, span_warning("Your mind cracks."))
+				to_chat(affected_mob, span_warning("Your mind cracks."))
 				OD_trauma = traumaweightpick(50,40,10)
 			if(50 to 100)
-				to_chat(M, span_warning("Your mind splinters."))
+				to_chat(affected_mob, span_warning("Your mind splinters."))
 				OD_trauma = traumaweightpick(30,50,20)
 			if(100 to INFINITY)
-				to_chat(M, span_warning("Your mind shatters."))
+				to_chat(affected_mob, span_warning("Your mind shatters."))
 				OD_trauma = traumaweightpick(20,50,30)
 		OD_trauma = new OD_trauma()
 		trauma_list += OD_trauma
-		M.gain_trauma(OD_trauma, TRAUMA_RESILIENCE_ABSOLUTE)
-	..()
+		affected_mob.gain_trauma(OD_trauma, TRAUMA_RESILIENCE_ABSOLUTE)
 
-/datum/reagent/consumable/ethanol/fourthwall/on_mob_end_metabolize(mob/living/carbon/M)
-	to_chat(M, span_notice("You know that you figured out something important, but can't quite remember what it is. Your head feels a lot better."))
-	for(var/T in trauma_list)
-		QDEL_NULL(T)
-	return ..()
+/datum/reagent/consumable/ethanol/fourthwall/on_mob_end_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	to_chat(affected_mob, span_notice("You know that you figured out something important, but can't quite remember what it is. Your head feels a lot better."))
+	for(var/trauma in trauma_list)
+		QDEL_NULL(trauma)
 
 /datum/reagent/consumable/ethanol/ratvander
 	name = "Rat'vander Cocktail"
 	description = "Side effects include hoarding brass and hatred of blood."
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 10
 	quality = DRINK_FANTASTIC
 	taste_description = "sweet brass"
@@ -2946,17 +2958,18 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "ratvander"
 
-/datum/reagent/consumable/ethanol/ratvander/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+/datum/reagent/consumable/ethanol/ratvander/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
 	if(DT_PROB(5, delta_time))
-		to_chat(M, span_warning(pick("You can faintly hear the sound of gears.","You can feel an unnatural hatred towards exposed blood.","You swear you can feel steam eminating from the drink.","You hear faint, pleasant whispers.","You can see a white void within your mind.")))
-	M.clockslurring = min(M.clockslurring + (3 * REM * delta_time), 3)
-	M.stuttering = min(M.stuttering + (3 * REM * delta_time), 3)
-	..()
+		to_chat(affected_mob, span_warning(pick("You can faintly hear the sound of gears.", "You can feel an unnatural hatred towards exposed blood.", "You swear you can feel steam eminating from the drink.", "You hear faint, pleasant whispers.", "You can see a white void within your mind.")))
+
+	affected_mob.clockslurring = min(affected_mob.clockslurring + (3 * REM * delta_time), 3)
+	affected_mob.stuttering = min(affected_mob.stuttering + (3 * REM * delta_time), 3)
 
 /datum/reagent/consumable/ethanol/icewing
 	name = "Icewing"
 	description = "A frost beam on ice."
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 50
 	quality = DRINK_FANTASTIC
 	taste_description = "frostburn"
@@ -2968,22 +2981,24 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "icewing"
 
-/datum/reagent/consumable/ethanol/icewing/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.adjust_bodytemperature(-8 * TEMPERATURE_DAMAGE_COEFFICIENT * REM * delta_time, M.get_body_temp_normal())
-	if(M.bodytemperature <= BODYTEMP_COLD_DAMAGE_LIMIT) //heals burn if freezing
-		M.adjustFireLoss(-5 * REM * delta_time, 0)
-	..()
+/datum/reagent/consumable/ethanol/icewing/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.adjust_bodytemperature(-8 * TEMPERATURE_DAMAGE_COEFFICIENT * REM * delta_time, affected_mob.get_body_temp_normal())
+	if(affected_mob.bodytemperature <= BODYTEMP_COLD_DAMAGE_LIMIT) //heals burn if freezing
+		affected_mob.adjustFireLoss(-5 * REM * delta_time, updating_health = FALSE)
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/ethanol/sarsaparilliansunset
 	name = "Sarsaparillian Sunset"
 	description = "The taste of the waste."
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 70
 	quality = DRINK_FANTASTIC
 	taste_description = "pleasant burning"
-	var/datum/action/spell/power = /datum/action/spell/basic_projectile/weak
 	overdose_threshold = 50
 	metabolization_rate = 0.5
+
+	var/datum/action/spell/power = /datum/action/spell/basic_projectile/weak
 
 /datum/glass_style/drinking_glass/sarsaparilliansunset
 	required_drink_type = /datum/reagent/consumable/ethanol/sarsaparilliansunset
@@ -2992,24 +3007,27 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "sarsaparilliansunset"
 
-/datum/reagent/consumable/ethanol/sarsaparilliansunset/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.adjustFireLoss(-3 * REM * delta_time, 0)
-	..()
+/datum/reagent/consumable/ethanol/sarsaparilliansunset/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.adjustFireLoss(-3 * REM * delta_time, updating_health = FALSE)
+	return UPDATE_MOB_HEALTH
 
-/datum/reagent/consumable/ethanol/sarsaparilliansunset/overdose_start(mob/living/M)
-	to_chat(M, span_warning("You feel a heat from your abdomen, burning you from the inside!"))
+/datum/reagent/consumable/ethanol/sarsaparilliansunset/overdose_start(mob/living/carbon/affected_mob)
+	to_chat(affected_mob, span_warning("You feel a heat from your abdomen, burning you from the inside!"))
 	power = new power()
-	power.Grant(M)
-	. = ..()
+	power.Grant(affected_mob)
 
-/datum/reagent/consumable/ethanol/sarsaparilliansunset/overdose_process(mob/living/M)
-	M.adjustFireLoss(7, 0)
+/datum/reagent/consumable/ethanol/sarsaparilliansunset/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
+	affected_mob.adjustFireLoss(7, updating_health = FALSE)
+	return UPDATE_MOB_HEALTH
 
-/datum/reagent/consumable/ethanol/sarsaparilliansunset/on_mob_end_metabolize(mob/living/M)
-	to_chat(M, span_notice("The fire inside of you calms down."))
-	power.Remove(M)
-	return ..()
+/datum/reagent/consumable/ethanol/sarsaparilliansunset/on_mob_end_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	if(overdosed)
+		to_chat(affected_mob, span_notice("The fire inside of you calms down."))
+		power.Remove(affected_mob)
+		QDEL_NULL(power)
 
 /datum/action/spell/basic_projectile/weak
 	name = "Fire Upchuck"
@@ -3024,7 +3042,7 @@
 /datum/reagent/consumable/ethanol/beesknees
 	name = "Bee's Knees"
 	description = "This has way too much honey."
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 35
 	quality = 0
 	taste_description = "sweeter mead"
@@ -3036,31 +3054,33 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "beesknees"
 
-/datum/reagent/consumable/ethanol/beesknees/on_mob_metabolize(mob/living/M)
-	if(is_species(M, /datum/species/apid))
-		to_chat(M, span_notice("What a good drink! Reminds you of the honey back home."))
-		SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_fantastic)
+/datum/reagent/consumable/ethanol/beesknees/on_mob_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	if(is_species(affected_mob, /datum/species/apid))
+		to_chat(affected_mob, span_notice("What a good drink! Reminds you of the honey back home."))
+		SEND_SIGNAL(affected_mob, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_fantastic)
 	else
-		to_chat(M, span_warning("That drink was way too sweet! You feel sick."))
-		M.adjust_disgust(10)
-		SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_bad)
-	. = ..()
+		to_chat(affected_mob, span_warning("That drink was way too sweet! You feel sick."))
+		affected_mob.adjust_disgust(10)
+		SEND_SIGNAL(affected_mob, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_bad)
 
-/datum/reagent/consumable/ethanol/beesknees/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	if(is_species(M, /datum/species/apid))
-		M.adjustBruteLoss(-1.5 * REM * delta_time, 0)
-		M.adjustFireLoss(-1.5 * REM * delta_time, 0)
-		M.adjustToxLoss(-1 * REM * delta_time, 0)
+/datum/reagent/consumable/ethanol/beesknees/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
+	if(is_species(affected_mob, /datum/species/apid))
+		affected_mob.adjustBruteLoss(-1.5 * REM * delta_time, updating_health = FALSE)
+		affected_mob.adjustFireLoss(-1.5 * REM * delta_time, updating_health = FALSE)
+		affected_mob.adjustToxLoss(-1 * REM * delta_time, updating_health = FALSE)
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/ethanol/ftliver
 	name = "Faster-Than-Liver"
 	description = "A beverage born among the stars, it's said drinking too much feels just like FTL transit."
 	color = "#0D0D0D" // rgb: 13, 13, 13
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 52
 	taste_description = "empty space"
-	var/HasTraveled = 0
+
+	var/has_traveled = FALSE
 
 /datum/glass_style/drinking_glass/ftliver
 	required_drink_type = /datum/reagent/consumable/ethanol/ftliver
@@ -3069,15 +3089,13 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "ftliver"
 
-/datum/reagent/consumable/ethanol/ftliver/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	if(!HasTraveled && prob(volume))
-		HasTraveled = 1
-		M.AdjustKnockdown(15)
-		M.become_nearsighted("ftliver")
-		shake_camera(M,15)
-		M.playsound_local(M.loc,"sound/effects/hyperspace_end.ogg",50)
-		addtimer(CALLBACK(src, PROC_REF(Recover), M), 55)
-	return ..()
+/datum/reagent/consumable/ethanol/ftliver/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	if(!has_traveled && prob(volume))
+		has_traveled = TRUE
+		affected_mob.AdjustKnockdown(15)
+		shake_camera(affected_mob, 15)
+		affected_mob.playsound_local(affected_mob.loc, "sound/effects/hyperspace_end.ogg", 50)
+		affected_mob.become_nearsighted("ftliver")
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/carbon, cure_nearsighted), "ftliver"), 5 SECONDS)
 
-/datum/reagent/consumable/ethanol/ftliver/proc/Recover(mob/living/M)
-	M.cure_nearsighted("ftliver")

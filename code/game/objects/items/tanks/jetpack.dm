@@ -27,6 +27,20 @@
 	QDEL_NULL(ion_trail)
 	return ..()
 
+/obj/item/tank/jetpack/item_action_slot_check(slot)
+	if(slot & slot_flags)
+		return TRUE
+
+/obj/item/tank/jetpack/equipped(mob/user, slot, initial)
+	. = ..()
+	if(on && !(slot & slot_flags))
+		turn_off(user)
+
+/obj/item/tank/jetpack/dropped(mob/user, silent)
+	. = ..()
+	if(on)
+		turn_off(user)
+
 /obj/item/tank/jetpack/populate_gas()
 	if(gas_type)
 		var/datum/gas_mixture/our_mix = return_air()
@@ -78,7 +92,8 @@
 
 /obj/item/tank/jetpack/proc/on_user_add()
 	RegisterSignal(known_user, COMSIG_MOVABLE_MOVED, PROC_REF(move_react))
-	RegisterSignal(known_user, COMSIG_PARENT_QDELETING, PROC_REF(lose_known_user))
+	RegisterSignal(known_user, COMSIG_QDELETING, PROC_REF(lose_known_user))
+	RegisterSignal(known_user, COMSIG_MOVABLE_SPACEMOVE, PROC_REF(spacemove_react))
 
 /// Resets our current user, preventing them from using the jetpack.
 /obj/item/tank/jetpack/proc/lose_known_user()
@@ -90,7 +105,8 @@
 /obj/item/tank/jetpack/proc/on_user_loss()
 	known_user.remove_movespeed_modifier(/datum/movespeed_modifier/jetpack/fullspeed)
 	UnregisterSignal(known_user, COMSIG_MOVABLE_MOVED)
-	UnregisterSignal(known_user, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(known_user, COMSIG_QDELETING)
+	UnregisterSignal(known_user, COMSIG_MOVABLE_SPACEMOVE)
 
 /obj/item/tank/jetpack/proc/turn_on(mob/user)
 	if(!known_user)
@@ -115,10 +131,27 @@
 
 /obj/item/tank/jetpack/proc/move_react(mob/user)
 	SIGNAL_HANDLER
-	if(on)
-		allow_thrust(THRUST_REQUIREMENT_SPACEMOVE, user)
-		// Update speed according to pressure
-		JETPACK_SPEED_CHECK(known_user, MOVESPEED_ID_JETPACK, -1, full_speed)
+	if(!on)//If jet dont work, it dont work
+		return
+	if(!user || !user.client)//Don't allow jet self using
+		return
+	if(!isturf(user.loc))//You can't use jet in nowhere or from mecha/closet
+		return
+	if(!(user.movement_type & FLOATING) || user.buckled)//You don't want use jet in gravity or while buckled.
+		return
+	if(user.pulledby)//You don't must use jet if someone pull you
+		return
+	if(user.throwing)//You don't must use jet if you thrown
+		return
+	allow_thrust(THRUST_REQUIREMENT_SPACEMOVE, user)
+	// Update speed according to pressure
+	JETPACK_SPEED_CHECK(known_user, MOVESPEED_ID_JETPACK, -1, full_speed)
+
+/obj/item/tank/jetpack/proc/spacemove_react(mob/user, movement_dir)
+	SIGNAL_HANDLER
+
+	if(on && (movement_dir || stabilizers))
+		return COMSIG_MOVABLE_STOP_SPACEMOVE
 
 /obj/item/tank/jetpack/proc/allow_thrust(num, mob/living/user, use_fuel = TRUE)
 	if(!on || !known_user)
@@ -195,6 +228,7 @@
 	w_class = WEIGHT_CLASS_LARGE
 	volume = 90
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF //steal objective items are hard to destroy.
+	slot_flags = ITEM_SLOT_BACK | ITEM_SLOT_SUITSTORE
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
 /obj/item/tank/jetpack/oxygen/security
@@ -433,14 +467,14 @@
 	var/mob/living/carbon/human/H = user
 	tank = H.s_store
 	air_contents = tank.return_air()
-	RegisterSignals(tank, list(COMSIG_ITEM_DROPPED, COMSIG_PARENT_QDELETING), PROC_REF(on_tank_drop))
+	RegisterSignals(tank, list(COMSIG_ITEM_DROPPED, COMSIG_QDELETING), PROC_REF(on_tank_drop))
 	START_PROCESSING(SSobj, src)
 	..()
 
 // This override kills our tank reference before shutting off and resets our tank contents.
 /obj/item/tank/jetpack/suit/turn_off(mob/user)
 	if(!isnull(tank))
-		UnregisterSignal(tank, list(COMSIG_ITEM_DROPPED, COMSIG_PARENT_QDELETING))
+		UnregisterSignal(tank, list(COMSIG_ITEM_DROPPED, COMSIG_QDELETING))
 		tank = null
 	STOP_PROCESSING(SSobj, src)
 	..()
