@@ -111,3 +111,68 @@
       it's power use will be 10 times higher than when it is stable.
   lord scrubling:
   - bugfix: plasmamen receive a helmet and internals after being captured
+2025-09-10:
+  Nakalon:
+  - bugfix: Cell Chargers work on Infinite Power areas again
+  - bugfix: Rechargers now properly update to idle power mode when nothing is charging
+  - balance: Increased Cell Charger Idle cost from 5 to 100 Watts
+  - refactor: Refactor Cell Charger power code (again sorry)
+  - bugfix: Inducer crates are no longer empty
+  - code_imp: Created a subtype of science inducer that starts with a standard cell
+  - code_imp: Deleted yet another cell type that was, this time, hidden away in crate
+      code
+  PowerfulBacon:
+  - tweak: 'Includes players who joined, players who joined roundstart, and total
+      client connections in the #ooc information of a round'
+2025-09-12:
+  PowerfulBacon:
+  - balance: Energy katana is now deleted when the ninja is killed.
+  - balance: Energy katana dash no longer has changes, but has a 1.4 second cooldown
+      on usage instead. This cooldown blocks all user actions and is telegraphed.
+  - balance: Energy katana dash no longer can go through people, but instead will
+      attack and push back the person that you hit.
+  - balance: Energy katana can no longer delimb, this has been replaced with delimbing
+      strike. An ability that allows the ninja to attack the 3 tiles in front of it,
+      deilmbing anyone who gets caught in the attack.
+  - balance: Energy katana damage decreased to 22, down from 30.
+  - balance: Reduces their armour, particularly against melee attacks.
+  - balance: Stealth now grants 100% invisibility and runs through a standardised
+      status effect.
+  - balance: Fixes the dash action having an action button.
+  - balance: Stealth releases a smoke cloud on activation.
+  - bugfix: Fixes mouse cooldown cursor being broken
+  - bugfix: Fixes some preference options not displaying
+2025-09-13:
+  ClownMoff:
+  - rscadd: Added the Medical Emergencies Escape Shuttle
+  Therealdoooc, Comxy, Jacquerel, Melbert:
+  - rscadd: Garden gnomes, a new basic mob that can be purchased from an emagged supply
+      console for 4k credits.
+  - code_imp: Advanced retaliate component.
+  - code_imp: Ground sinking component.
+  - code_imp: Attack obstacle in path AI subtree/behaviour.
+  - code_imp: Caltrop component now supports custom paralyze time.
+  ? mrmanlikesbt, MMMiracles, iwishforducks, dragomagol, unit0016, Son-of-Space, JohnFulpWillard,
+    san7890, Maurukas, Helg2, MTandi
+  : - rscadd: Added some airalarm, airlock, airlock access, and apc mapping helpers.
+2025-09-14:
+  SunShine214, Nakalon:
+  - rscadd: The Advanced Gas Rig, capable of mining gases from the planet the station
+      is orbiting.
+  - rscadd: Gas Rig Monitor program, which uses NTnet to remotely control the gas
+      rig
+  - rscadd: Adds a Gas Rig Shielding power value to each gas
+  - tweak: Adjusted maps to fit the new gas rig.
+  - tweak: Waste now is vented, rather then filtered out. The filter line is for the
+      gas rig now.
+  - rscdel: Removed gas miners from all maps except for echo, as the gas rig being
+      there makes no sense
+  ? mrmanlikesbt, MrMelbert, san7890, SuperNovaa41, Watermelon914, lessthnthree, ZephyrTFA,
+    Jacquerel, AnywayFarus, imedial, SmArtKar
+  : - rscadd: Added the "Vote" verb the OOC tab, here you can check the status of
+        current voting or call them if you are able.
+    - tweak: Map votes now use a tally system instead of weighted RNG. What this means
+        is that votes for the maps that did not win will carry over to the next map
+        vote, and when that map eventually wins its tallies will be reset.
+    - refactor: refactored the voting subsystem
+    - tweak: Slightly altered the Emergency Shuttle undocking announcement

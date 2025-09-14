@@ -515,7 +515,7 @@
 /// Returns TRUE if the user can buy shuttles.
 /// If they cannot, returns FALSE or a string detailing why.
 /obj/machinery/computer/communications/proc/can_buy_shuttles(mob/user)
-	if (!SSmapping.config.allow_custom_shuttles)
+	if (!SSmapping.current_map.allow_custom_shuttles)
 		return FALSE
 	if (!authenticated_as_non_silicon_captain(user))
 		return FALSE
