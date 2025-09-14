@@ -50056,6 +50056,10 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
+"nOS" = (
+/obj/machinery/atmospherics/miner/station/plasma,
+/turf/open/floor/engine,
+/area/engine/atmos)
 "nOZ" = (
 /obj/machinery/door/airlock/medical/glass{
 	id_tag = "MedbayFoyer";
@@ -59696,6 +59700,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/maintenance/department/medical/central)
+"rfb" = (
+/obj/machinery/atmospherics/miner/station/carbon_dioxide,
+/turf/open/floor/engine,
+/area/engine/atmos)
 "rfn" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -70709,6 +70717,10 @@
 	},
 /turf/open/floor/iron/white,
 /area/science/xenobiology)
+"uUn" = (
+/obj/machinery/atmospherics/miner/station/n2o,
+/turf/open/floor/engine,
+/area/engine/atmos)
 "uUA" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 8
@@ -125902,7 +125914,7 @@ bza
 lMJ
 gJs
 vTO
-lii
+rfb
 vah
 sYd
 lMJ
@@ -126930,7 +126942,7 @@ bza
 lMJ
 gJs
 chX
-lii
+nOS
 vah
 sYd
 lMJ
@@ -127958,7 +127970,7 @@ bza
 lMJ
 gJs
 vNa
-lii
+uUn
 vah
 sYd
 lMJ
