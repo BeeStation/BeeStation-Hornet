@@ -215,59 +215,155 @@
 	..()
 
 //Anomaly cores
-/obj/item/assembly/signaler/anomaly/pyro
-	name = "\improper pyroclastic anomaly core"
-	desc = "The neutralized core of a pyroclastic anomaly. It feels warm to the touch. It'd probably be valuable for research."
-	icon_state = "pyro_core"
-	anomaly_type = /obj/effect/anomaly/pyro
+/obj/item/assembly/signaler/anomaly/exo
+	name = "\improper exothermic anomaly core"
+	desc = "The neutralized core of an exothermic anomaly. It feels warm to the touch. It'd probably be valuable for research or cargo."
+	icon_state = "exothermic_core"
+	anomaly_type = /obj/effect/anomaly/exo
+
+/obj/item/assembly/signaler/anomaly/endo
+	name = "\improper endothermic anomaly core"
+	desc = "The neutralized core of an endothermic anomaly. It feels cold to the touch. It'd probably be valuable for research or cargo."
+	icon_state = "endothermic_core"
+	anomaly_type = /obj/effect/anomaly/endo
 
 /obj/item/assembly/signaler/anomaly/grav
 	name = "\improper gravitational anomaly core"
-	desc = "The neutralized core of a gravitational anomaly. It feels much heavier than it looks. It'd probably be valuable for research."
-	icon_state = "grav_core"
+	desc = "The neutralized core of a gravitational anomaly. It feels much heavier than it looks. It'd probably be valuable for research or cargo."
+	icon_state = "gravitational_core"
 	anomaly_type = /obj/effect/anomaly/grav
 
 /obj/item/assembly/signaler/anomaly/flux
 	name = "\improper flux anomaly core"
-	desc = "The neutralized core of a flux anomaly. Touching it makes your skin tingle. It'd probably be valuable for research."
+	desc = "The neutralized core of a flux anomaly. Touching it makes your skin tingle. It'd probably be valuable for research or cargo."
 	icon_state = "flux_core"
 	anomaly_type = /obj/effect/anomaly/flux
 
 /obj/item/assembly/signaler/anomaly/bluespace
 	name = "\improper bluespace anomaly core"
-	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
-	icon_state = "anomaly_core"
+	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research or cargo."
+	icon_state = "bluespace_core"
 	anomaly_type = /obj/effect/anomaly/bluespace
 
 /obj/item/assembly/signaler/anomaly/vortex
 	name = "\improper vortex anomaly core"
-	desc = "The neutralized core of a vortex anomaly. It won't sit still, as if some invisible force is acting on it. It'd probably be valuable for research."
+	desc = "The neutralized core of a vortex anomaly. It won't sit still, as if some invisible force is acting on it. It'd probably be valuable for research or cargo."
 	icon_state = "vortex_core"
 	anomaly_type = /obj/effect/anomaly/bhole
 
+/obj/item/assembly/signaler/anomaly/tech
+	name = "\improper tech anomaly core"
+	desc = "The neutralized core of a tech anomaly. You swear you just saw it spark. It'd probably be valuable for research or cargo."
+	icon_state = "tech_core"
+	anomaly_type = /obj/effect/anomaly/tech
+
 /obj/item/assembly/signaler/anomaly/bioscrambler
 	name = "\improper bioscrambler anomaly core"
-	desc = "The neutralized core of a bioscrambler anomaly. It's squirming, as if moving. It'd probably be valuable for research."
+	desc = "The neutralized core of a bioscrambler anomaly. It's squirming, as if moving. It'd probably be valuable for research or cargo."
 	icon_state = "bioscrambler_core"
 	anomaly_type = /obj/effect/anomaly/bioscrambler
 
 /obj/item/assembly/signaler/anomaly/hallucination
 	name = "\improper hallucination anomaly core"
-	desc = "The neutralized core of a hallucination anomaly. It seems to be moving, but it's probably your imagination. It'd probably be valuable for research."
+	desc = "The neutralized core of a hallucination anomaly. It seems to be moving, but it's probably your imagination. It'd probably be valuable for research or cargo."
 	icon_state = "hallucination_core"
 	anomaly_type = /obj/effect/anomaly/hallucination
 
 /obj/item/assembly/signaler/anomaly/blood
 	name = "\improper blood anomaly core"
-	desc = "The neutralized core of a blood anomaly. You feel your blood running through your veins when you are around it. It'd probably be valuable for research."
-	icon_state = "hallucination_core"
+	desc = "The neutralized core of a blood anomaly. You feel your blood running through your veins when you are around it. It'd probably be valuable for research or cargo."
+	icon_state = "blood_core"
 	anomaly_type = /obj/effect/anomaly/blood
+
+/obj/item/assembly/signaler/anomaly/flesh
+	name = "\improper flesh anomaly core"
+	desc = "The neutralized core of a flesh anomaly. You feel your organs squench around it. It'd probably be valuable for research or cargo."
+	icon_state = "flesh_core"
+	anomaly_type = /obj/effect/anomaly/flesh
 
 /obj/item/assembly/signaler/anomaly/insanity
 	name = "\improper insanity pulse anomaly core"
-	desc = "The neutralized core of a insanity pulse anomaly. Ah."
-	icon_state = "hallucination_core"
+	desc = "The neutralized core of a insanity pulse anomaly. You have a pressing headache just by touching it. It'd probably be valuable for research or cargo."
+	icon_state = "insanity_core"
 	anomaly_type = /obj/effect/anomaly/insanity_pulse
+
+/obj/item/assembly/signaler/anomaly/glitch
+	name = "\improper glitch anomaly core"
+	desc = "The neutralized core of a glitch anomaly. You can't understand it but, it'd probably be valuable for research or cargo."
+	icon_state = "glitch_core"
+	anomaly_type = /obj/effect/anomaly/glitch
+
+/obj/item/assembly/signaler/anomaly/moth
+	name = "\improper moth anomaly core"
+	desc = "The neutralized core of a moth anomaly. It flutters slightly, as if trying to fly. It'd probably be valuable for research or cargo."
+	icon_state = "moth_core"
+	anomaly_type = /obj/effect/anomaly/moth
+
+/obj/item/assembly/signaler/anomaly/cheese
+	name = "\improper cheese anomaly core"
+	desc = "The neutralized core of a cheese anomaly. It smells faintly of cheddar. It'd probably be valuable for research or cargo."
+	icon_state = "cheese_core"
+	anomaly_type = /obj/effect/anomaly/cheese
+
+/obj/item/assembly/signaler/anomaly/monkey
+	name = "\improper monkey anomaly core"
+	desc = "The neutralized core of a monkey anomaly. It occasionally emits a faint chattering noise. It'd probably be valuable for research or cargo."
+	icon_state = "monkey_core"
+	anomaly_type = /obj/effect/anomaly/monkey
+
+/obj/item/assembly/signaler/anomaly/carp
+	name = "\improper carp anomaly core"
+	desc = "The neutralized core of a carp anomaly. It faintly smells of fish. It'd probably be valuable for research or cargo."
+	icon_state = "carp_core"
+	anomaly_type = /obj/effect/anomaly/carp
+
+/obj/item/assembly/signaler/anomaly/lock
+	name = "\improper lock anomaly core"
+	desc = "The neutralized core of a lock anomaly. It feels hard to the touch. It'd probably be valuable for research or cargo."
+	icon_state = "lock_core"
+	anomaly_type = /obj/effect/anomaly/lock
+
+/obj/item/assembly/signaler/anomaly/mime
+	name = "\improper mime anomaly core"
+	desc = "The neutralized core of a mime anomaly. It feels like it's trapped in an invisible box. It'd probably be valuable for research or cargo."
+	icon_state = "mime_core"
+	anomaly_type = /obj/effect/anomaly/mime
+
+/obj/item/assembly/signaler/anomaly/clown
+	name = "\improper clown anomaly core"
+	desc = "The neutralized core of a clown anomaly. It smells like fresh bananas. It'd probably be valuable for research or cargo."
+	icon_state = "clown_core"
+	anomaly_type = /obj/effect/anomaly/clown
+
+/obj/item/assembly/signaler/anomaly/nuclear
+	name = "\improper nuclear anomaly core"
+	desc = "The neutralized core of a nuclear anomaly. It air around it feels warm. It'd probably be valuable for research or cargo."
+	icon_state = "nuclear_core"
+	anomaly_type = /obj/effect/anomaly/nuclear
+
+/obj/item/assembly/signaler/anomaly/trap
+	name = "\improper beartrap anomaly core"
+	desc = "The neutralized core of a beartrap anomaly. It feels sharp to the touch. It'd probably be valuable for research or cargo."
+	icon_state = "trap_core"
+	anomaly_type = /obj/effect/anomaly/trap
+
+/obj/item/assembly/signaler/anomaly/babel
+	name = "\improper babel anomaly core"
+	desc = "The neutralized core of a babel anomaly. It hums with a strange energy. It'd probably be valuable for research or cargo."
+	icon_state = "babel_core"
+	anomaly_type = /obj/effect/anomaly/babel
+
+/obj/item/assembly/signaler/anomaly/greed
+	name = "\improper greed anomaly core"
+	desc = "The neutralized core of a greed anomaly. It feels heavy with the weight of gold. It'd probably be valuable for research or cargo."
+	icon_state = "greed_core"
+	anomaly_type = /obj/effect/anomaly/greed
+
+/obj/item/assembly/signaler/anomaly/omni
+	name = "\improper omni anomaly core"
+	desc = "The neutralized core of an omni anomaly. It seems to shift and change when you look at it. It'd probably be valuable for research or cargo."
+	icon_state = "omni_core"
+	anomaly_type = /obj/effect/anomaly/omni
 
 /obj/item/assembly/signaler/anomaly/attack_self()
 	return

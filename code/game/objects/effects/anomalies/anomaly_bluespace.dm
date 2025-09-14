@@ -1,6 +1,5 @@
 /obj/effect/anomaly/bluespace
 	name = "bluespace anomaly"
-	icon = 'icons/obj/projectiles.dmi'
 	icon_state = "bluespace"
 	density = TRUE
 	max_spawned_faked = 4
@@ -62,6 +61,7 @@
 				var/mob/M = A
 				if(M.client)
 					var/obj/blueeffect = new /obj(src)
+					playsound(src, 'sound/magic/repulse.ogg', 50, 1)
 					blueeffect.screen_loc = "WEST,SOUTH to EAST,NORTH"
 					blueeffect.icon = 'icons/effects/effects.dmi'
 					blueeffect.icon_state = "shieldsparkles"

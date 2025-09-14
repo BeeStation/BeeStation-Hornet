@@ -583,7 +583,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		if(power > SEVERE_POWER_PENALTY_THRESHOLD && prob(5) || prob(1))
 			supermatter_anomaly_gen(src, ANOMALY_GRAVITATIONAL, rand(5, 10))
 		if(power > SEVERE_POWER_PENALTY_THRESHOLD && prob(2) || prob(0.3) && power > POWER_PENALTY_THRESHOLD)
-			supermatter_anomaly_gen(src, ANOMALY_PYRO, rand(5, 10))
+			supermatter_anomaly_gen(src, ANOMALY_EXO, rand(5, 10))
 
 	if(damage > warning_point) // while the core is still damaged and it's still worth noting its status
 		if(damage_archived < warning_point) //If damage_archive is under the warning point, this is the very first cycle that we've reached said point.
@@ -927,8 +927,8 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			new /obj/effect/anomaly/grav(local_turf, has_weak_lifespan ? rand(200, 300) : null, faked_reality_spawn)
 		if(ANOMALY_HALLUCINATION)
 			new /obj/effect/anomaly/hallucination(local_turf, has_weak_lifespan ? rand(150, 250) : null, faked_reality_spawn)
-		if(ANOMALY_PYRO)
-			new /obj/effect/anomaly/pyro(local_turf, has_weak_lifespan ? rand(150, 250) : null, faked_reality_spawn)
+		if(ANOMALY_EXO)
+			new /obj/effect/anomaly/exo(local_turf, has_weak_lifespan ? rand(150, 250) : null, faked_reality_spawn)
 		if(ANOMALY_VORTEX)
 			new /obj/effect/anomaly/bhole(local_turf, 20, faked_reality_spawn)
 

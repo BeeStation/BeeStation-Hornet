@@ -47,6 +47,7 @@
 			return
 
 /obj/effect/anomaly/blood/proc/suck_blood()
+	playsound(src, 'sound/weapons/rapierhit.ogg', 50, 1)
 	sucking = FALSE
 	for (var/mob/living/carbon/bleed_target in loc)
 		bleed_target.add_bleeding(BLEED_SURFACE)

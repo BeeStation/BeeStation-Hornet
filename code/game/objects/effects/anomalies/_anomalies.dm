@@ -4,7 +4,7 @@
 	name = "anomaly"
 	desc = "A mysterious anomaly, seen commonly only in the region of space that the station orbits..."
 	icon = 'icons/effects/anomalies.dmi'
-	icon_state = "vortex"
+	icon_state = null
 	density = FALSE
 	anchored = TRUE
 	light_range = 3
