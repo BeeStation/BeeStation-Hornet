@@ -165,8 +165,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	if(pushed_mob.nutrition > NUTRITION_LEVEL_FAT) //lol
 		deconstruct(FALSE)
 		playsound(pushed_mob, "sound/effects/meteorimpact.ogg", 90, TRUE)
-		pushed_mob.visible_message(span_dangerbold("[user] SLAMS [pushed_mob] ONTO [src], BREAKING IT!"), \
-									span_dangerbold("[user] SLAMS YOU ONTO THE [src]!"))
+		pushed_mob.visible_message(span_dangerbold("[user] SLAMS [pushed_mob] ONTO \the [src], BREAKING IT!"), \
+									span_dangerbold("[user] SLAMS YOU ONTO \the [src]!"))
 		log_combat(user, pushed_mob, "tabled", null, "onto [src]", important = FALSE)
 		SEND_SIGNAL(pushed_mob, COMSIG_ADD_MOOD_EVENT, "table", /datum/mood_event/table_fat) //it's soul
 		return
