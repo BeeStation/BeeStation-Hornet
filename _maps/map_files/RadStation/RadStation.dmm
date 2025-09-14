@@ -72978,7 +72978,6 @@
 /area/security/detectives_office)
 "xYq" = (
 /obj/machinery/jukebox{
-	dept_req_for_free = 1<<9;
 	req_access = "0"
 	},
 /obj/effect/turf_decal/bot,
