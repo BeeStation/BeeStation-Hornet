@@ -26,11 +26,11 @@
 	contraband = list(/obj/item/computer_hardware/hard_drive/role/virus/clown = 2,
 					/obj/item/computer_hardware/hard_drive/role/virus/mime = 2)
 	refill_canister = /obj/item/vending_refill/job_disk
-	default_price = PAYCHECK_COMMAND
-	extra_price = PAYCHECK_COMMAND * 2.5
+	default_price = 100
+	extra_price = 300
 	dept_req_for_free = ACCOUNT_COM_BITFLAG
-	seller_department = ACCOUNT_SRV_BITFLAG | ACCOUNT_CIV_BITFLAG // don't send the profit to CentCom Budget account.
-	light_mask = "cart-light-mask"
+	seller_department = ACCOUNT_SRV_BITFLAG | ACCOUNT_CIV_BITFLAG // don't send the profic to CentCom Budget account.
+	light_mask="cart-light-mask"
 
 /obj/item/vending_refill/job_disk
 	machine_name = "PTech"

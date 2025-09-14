@@ -31,7 +31,6 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	armor_type = /datum/armor/kitchen_fork
 	var/datum/reagent/forkload //used to eat omelette
-	custom_price = PAYCHECK_LOWER
 
 
 /datum/armor/kitchen_fork
@@ -93,7 +92,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb_continuous = list("bashes", "batters", "bludgeons", "thrashes", "whacks")
 	attack_verb_simple = list("bash", "batter", "bludgeon", "thrash", "whack")
-	custom_price = PAYCHECK_CREW * 1.5
+	custom_price = 20
 	tool_behaviour = TOOL_ROLLINGPIN
 
 /obj/item/kitchen/rollingpin/suicide_act(mob/living/carbon/user)

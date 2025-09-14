@@ -72,18 +72,15 @@
 	///The amount of good boy points playing this role will earn you towards a higher chance to roll antagonist next round can be overridden by antag_rep.txt config
 	var/antag_rep = 10
 
-	///vender will not charge when you buy from it as long as department matches
+	///vender will not ask you for credits when you buy a stuff from it as long as department matches
 	var/bank_account_department = ACCOUNT_CIV_BITFLAG
 	///your payment per department. geneticist will be a good example for this.
-	var/payment_per_department = list(
-		ACCOUNT_CIV_ID = 0
-	)
+	var/payment_per_department = list(ACCOUNT_CIV_ID = 0)
 
 	var/list/mind_traits // Traits added to the mind of the mob assigned this job
 
 	var/display_order = JOB_DISPLAY_ORDER_DEFAULT
 
-	///What types of bounty tasks can this job recieve past the default?
 	var/bounty_types = CIV_JOB_BASIC
 
 	// Goodies that can be received via the mail system.

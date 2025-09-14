@@ -17,7 +17,7 @@
 
 	departments = DEPT_BITFLAG_CIV
 	bank_account_department = ACCOUNT_CIV_BITFLAG
-	payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_CREW)
+	payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_EASY)
 
 	display_order = JOB_DISPLAY_ORDER_CURATOR
 	rpg_title = "Veteran Adventurer"

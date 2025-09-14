@@ -22,7 +22,6 @@
 		/datum/reagent/consumable/nutriment/vitamin = 1
 	)
 	foodtypes = GRAIN | MEAT
-	custom_price = PAYCHECK_CREW * 0.8
 	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/burger/plain/Initialize(mapload)
@@ -472,7 +471,6 @@
 		/datum/reagent/consumable/nutriment/vitamin = 2
 	)
 	foodtypes = GRAIN | GROSS
-	custom_price = PAYCHECK_CREW * 0.8
 	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/burger/baconburger
@@ -486,7 +484,6 @@
 	)
 	tastes = list("bacon" = 4, "bun" = 2)
 	foodtypes = GRAIN | MEAT
-	custom_premium_price = PAYCHECK_CREW * 1.6
 	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/burger/empoweredburger

@@ -20,8 +20,8 @@
 	premium = list(/obj/item/storage/belt/utility = 3,
 				   /obj/item/storage/box/smart_metal_foam = 1)
 	refill_canister = /obj/item/vending_refill/engivend
-	default_price = PAYCHECK_CREW
-	extra_price = PAYCHECK_COMMAND * 1.5
+	default_price = 20
+	extra_price = 50
 	dept_req_for_free = ACCOUNT_ENG_BITFLAG
 	light_mask = "engivend-light-mask"
 

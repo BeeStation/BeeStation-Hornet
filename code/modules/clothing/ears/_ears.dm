@@ -15,7 +15,7 @@
 	strip_delay = 15
 	equip_delay_other = 25
 	resistance_flags = FLAMMABLE
-	custom_price = PAYCHECK_COMMAND * 1.5
+	custom_price = 40
 	bang_protect = 2
 
 /obj/item/clothing/ears/earmuffs/ComponentInitialize()

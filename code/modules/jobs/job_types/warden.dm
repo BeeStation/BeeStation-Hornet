@@ -15,29 +15,13 @@
 
 	outfit = /datum/outfit/job/warden
 
-	base_access = list(
-		ACCESS_SECURITY,
-		ACCESS_SEC_DOORS,
-		ACCESS_SEC_RECORDS,
-		ACCESS_BRIG,
-		ACCESS_BRIGPHYS,
-		ACCESS_ARMORY,
-		ACCESS_MECH_SECURITY,
-		ACCESS_COURT,
-		ACCESS_WEAPONS,
-		ACCESS_MINERAL_STOREROOM
-	) // See /datum/job/warden/get_access()
-	extra_access = list(
-		ACCESS_MAINT_TUNNELS,
-		ACCESS_MORGUE,
-		ACCESS_FORENSICS_LOCKERS
-	)
+	base_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_SEC_RECORDS, ACCESS_BRIG, ACCESS_BRIGPHYS, ACCESS_ARMORY, ACCESS_MECH_SECURITY,
+						ACCESS_COURT, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM) // See /datum/job/warden/get_access()
+	extra_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MORGUE,ACCESS_FORENSICS_LOCKERS)
 
 	departments = DEPT_BITFLAG_SEC
 	bank_account_department = ACCOUNT_SEC_BITFLAG
-	payment_per_department = list(
-		ACCOUNT_SEC_ID = PAYCHECK_CREW
-	)
+	payment_per_department = list(ACCOUNT_SEC_ID = PAYCHECK_HARD)
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_WARDEN

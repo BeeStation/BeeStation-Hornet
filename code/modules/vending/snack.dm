@@ -17,11 +17,10 @@
 					/obj/item/food/swirl_lollipop = 2)
 
 	refill_canister = /obj/item/vending_refill/snack
-	default_price = PAYCHECK_CREW * 0.6
-	extra_price = PAYCHECK_CREW
-	dept_req_for_free = ACCOUNT_SRV_BITFLAG
-
 	var/chef_compartment_access = "28" //ACCESS_KITCHEN
+	default_price = 20
+	extra_price = 30
+	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 
 /obj/item/vending_refill/snack
 	machine_name = "Getmore Chocolate Corp"

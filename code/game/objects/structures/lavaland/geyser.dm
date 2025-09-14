@@ -71,5 +71,3 @@
 
 	reinforced = TRUE
 	plunge_mod = 0.8
-
-	custom_premium_price = PAYCHECK_CREW * 8

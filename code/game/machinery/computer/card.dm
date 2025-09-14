@@ -637,7 +637,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 							B.payment_per_department[each] = 0 // your payment for each department is 0
 							B.bonus_per_department[each] = 0   // your bonus for each department is 0
 						B.active_departments &= ~SSeconomy.get_budget_acc_bitflag(ACCOUNT_COM_ID) // micromanagement. Command bitflag should be removed manually, because 'for/each' didn't remove it.
-						B.payment_per_department[ACCOUNT_CIV_ID] = PAYCHECK_LOWER // for the love of god, let them have minimal payment from Civ budget... to be a real assistant.
+						B.payment_per_department[ACCOUNT_CIV_ID] = PAYCHECK_MINIMAL // for the love of god, let them have minimal payment from Civ budget... to be a real assistant.
 					if(record)
 						for(var/each in B.payment_per_department)
 							if(SSeconomy.is_nonstation_account(each)) // do not touch VIP/Command flag

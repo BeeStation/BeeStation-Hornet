@@ -82,7 +82,7 @@
 	equip_delay_other = 50
 	resistance_flags = NONE
 	armor_type = /datum/armor/shoes_galoshes
-	custom_price = PAYCHECK_CREW * 3
+	can_be_bloody = FALSE
 	custom_price = 100
 
 

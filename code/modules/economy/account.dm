@@ -86,8 +86,6 @@
 			continue
 
 		var/money_to_transfer = payment_per_department[D] * amt_of_paychecks
-		if(amt_of_paychecks == 1)
-			money_to_transfer = clamp(money_to_transfer, 0, PAYCHECK_CREW) //We want to limit single, passive paychecks to regular crew income.
 		if((money_to_transfer + bonus_per_department[D]) < 0) //Check if the bonus is docking more pay than possible
 			bonus_per_department[D] -= money_to_transfer //Remove the debt with the payday
 			money_to_transfer = 0 //No money for you

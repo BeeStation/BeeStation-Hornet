@@ -2,8 +2,8 @@
 	icon_state = "refill_clothes"
 
 /obj/machinery/vending/wardrobe
-	default_price = PAYCHECK_CREW
-	extra_price = PAYCHECK_COMMAND
+	default_price = 50
+	extra_price = 75
 	dept_req_for_free = NO_FREEBIES
 	light_mask = "wardrobe-light-mask"
 
@@ -213,7 +213,7 @@
 					/obj/item/clothing/under/costume/mech_suit/white = 2,
 					/obj/item/clothing/under/costume/mech_suit/blue = 2,)
 	refill_canister = /obj/item/vending_refill/wardrobe/robo_wardrobe
-	extra_price = PAYCHECK_COMMAND * 1.2
+	extra_price = 300
 	dept_req_for_free = ACCOUNT_SCI_BITFLAG
 
 
@@ -335,7 +335,6 @@
 	)
 	premium = list(/obj/item/storage/box/dishdrive = 1)
 	refill_canister = /obj/item/vending_refill/wardrobe/bar_wardrobe
-	extra_price = PAYCHECK_COMMAND
 	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 
 
@@ -401,8 +400,6 @@
 					/obj/item/caution = 3, //The really old crusty ones
 	)
 	refill_canister = /obj/item/vending_refill/wardrobe/jani_wardrobe
-	default_price = PAYCHECK_CREW
-	extra_price = PAYCHECK_COMMAND * 0.8
 	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 	light_color = COLOR_STRONG_MAGENTA
 
@@ -585,7 +582,7 @@
 	)
 	premium = list(/obj/item/clothing/head/flatcap = 1, /obj/item/clothing/suit/armor/vest/det_suit = 1)
 	refill_canister = /obj/item/vending_refill/wardrobe/det_wardrobe
-	extra_price = PAYCHECK_COMMAND * 1.75
+	extra_price = 350
 	dept_req_for_free = ACCOUNT_SEC_BITFLAG
 
 /obj/item/vending_refill/wardrobe/det_wardrobe

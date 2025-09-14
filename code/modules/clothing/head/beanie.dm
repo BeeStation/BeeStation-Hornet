@@ -20,7 +20,7 @@
 	icon = 'icons/obj/clothing/head/beanie.dmi'
 	worn_icon = 'icons/mob/clothing/head/beanie.dmi'
 	icon_state = "beanie" //Default white
-	custom_price = PAYCHECK_CREW * 1.2
+	custom_price = 10
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/clothing/head/beanie/black

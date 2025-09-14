@@ -10,7 +10,6 @@
 	name = "black shoes"
 	desc = "A pair of black shoes."
 	greyscale_colors = "#545454#ffffff"
-	custom_price = PAYCHECK_CREW
 
 	cold_protection = FEET
 	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT
