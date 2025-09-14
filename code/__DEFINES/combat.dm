@@ -400,3 +400,13 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 /// The brain has 200 health and we regain consciousness after the brain
 /// heals to 100 hypoxia damage or less.
 #define HYPOXIA_HEAL_PER_TICK 2
+
+// Injury flags:
+// Where can the injury be applied?
+/// The injury applies to the entire body
+#define INJURY_BODY (1 << 0)
+/// The injury applies to specific limbs
+/// For mobs without limbs, the injury will still
+/// apply to the entire body, so having no bodypart
+/// must still be handled by the injury.
+#define INJURY_LIMB (1 << 1)

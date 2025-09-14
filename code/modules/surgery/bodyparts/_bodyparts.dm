@@ -305,12 +305,8 @@
 	return contents
 
 //Return TRUE to get whatever mob this is in to update health.
-/obj/item/bodypart/proc/on_life(delta_time, times_fired, stam_regen)
+/obj/item/bodypart/proc/on_life(delta_time, times_fired)
 	SHOULD_CALL_PARENT(TRUE)
-	//DO NOT update health here, it'll be done in the carbon's life.
-	if(stamina_dam >= DAMAGE_PRECISION && stam_regen)
-		heal_damage(0, 0, stam_regen, null, FALSE)
-		. |= BODYPART_LIFE_UPDATE_HEALTH
 	var/circulation_disruption = 1
 	if (!(owner.blood.circulation_type_provided & circulation_flags))
 		circulation_disruption = 0

@@ -78,7 +78,6 @@
 	var/damageoverlaytemp = 0
 
 	var/drunkenness = 0 //Overall drunkenness - check handle_alcohol() in life.dm for effects
-	var/stam_regen_start_time = 0 //used to halt stamina regen temporarily
 	var/stam_heal = 10	//Stamina healed per 2 seconds overall. When the mob has taken more than 60 stamina damage, the rate of stamina regeneration will be increased, up to 20 per second when the mob has taken 120 stamina damage.
 
 	/// Protection (insulation) from the heat, Value 0-1 corresponding to the percentage of protection

@@ -4,6 +4,8 @@
 	// =================================
 	/// The starting point of the injury tree
 	var/base_type = null
+	/// Flags about how the injury can be applied
+	var/injury_flags = INJURY_BODY | INJURY_LIMB
 	// =================================
 	// Presentation
 	// =================================
@@ -112,14 +114,7 @@
 
 /datum/injury/proc/apply_damage(delta_damage, damage_type = BRUTE, damage_flag = DAMAGE_STANDARD, is_sharp = FALSE)
 	if (on_damage_taken((progression - initial(progression)) + delta_damage, delta_damage, damage_type, damage_flag, is_sharp))
-		// Absorb damage if we are a brand new injury.
-		var/duration = world.time - gained_time
-		var/propotion = CLAMP01(1 - (duration / INJURY_ABSORPTION_DURATION))
-		var/absorbed_amount = max(0, min(delta_damage, (max_absorption * propotion) - absorbed_damage))
-		absorbed_damage += absorbed_amount
-		// Increase our total damage amount
-		progression += delta_damage - absorbed_amount
-		update_progressive_effects()
+		adjust_progression(delta_damage)
 
 /datum/injury/proc/adjust_progression(delta_damage)
 	// Absorb damage if we are a brand new injury.

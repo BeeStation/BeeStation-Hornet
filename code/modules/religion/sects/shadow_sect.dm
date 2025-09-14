@@ -42,7 +42,7 @@
 		S.change_hearts_ritual(blessed)
 		blessed.heal_overall_injuries(BRUTE, 5, BODYTYPE_ORGANIC)
 		blessed.heal_overall_injuries(BURN, 5, BODYTYPE_ORGANIC)
-		blessed.heal_overall_injuries(stamina damage, 20, BODYTYPE_ORGANIC)
+		blessed.heal_overall_injuries(STAMINA, 20, BODYTYPE_ORGANIC)
 		to_chat(user, span_notice("You bless [blessed] with the power of [GLOB.deity], healing them and spreading blessings."))
 	return TRUE
 
