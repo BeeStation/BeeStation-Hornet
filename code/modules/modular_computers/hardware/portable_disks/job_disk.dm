@@ -8,7 +8,6 @@
 	max_capacity = 500
 	device_type = MC_HDD_JOB
 	default_installs = FALSE
-	hotswap = TRUE
 	custom_price = 100
 	max_demand = 20
 	var/list/progs_to_store = list()

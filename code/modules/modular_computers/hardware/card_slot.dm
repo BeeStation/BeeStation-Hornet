@@ -151,7 +151,7 @@
 	if(fake_card)
 		. += "<span class='cfc_red'>ERROR DETECTED:</span> Phantom credentials present in port 2."
 
-/obj/item/computer_hardware/battery/update_overclocking(mob/living/user, obj/item/tool)
+/obj/item/computer_hardware/card_slot/update_overclocking(mob/living/user, obj/item/tool)
 	if(hacked)
 		balloon_alert(user, "<font color='#e06eb1'>Update:</font> // Electronic Sensor // <font color='#e60000'>Disabled</font>")
 		to_chat(user, "<span class='cfc_magenta'>Update:</span> // Electronic Sensor // <span class='cfc_red'>Disabled</span>")
