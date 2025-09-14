@@ -26242,6 +26242,12 @@
 	},
 /turf/open/floor/iron,
 /area/science/shuttledock)
+"fkP" = (
+/obj/structure/grille,
+/turf/open/floor/plating/foam{
+	initial_gas_mix = "TEMP=2.7"
+	},
+/area/space/nearstation)
 "fkZ" = (
 /obj/machinery/suit_storage_unit/standard_unit,
 /obj/machinery/firealarm{
@@ -66765,6 +66771,10 @@
 	},
 /turf/open/floor/plating,
 /area/crew_quarters/heads/cmo)
+"tCH" = (
+/obj/structure/grille,
+/turf/open/floor/plating/airless,
+/area/space/nearstation)
 "tDh" = (
 /obj/machinery/computer/pandemic,
 /obj/effect/turf_decal/bot,
@@ -122488,10 +122498,10 @@ aaa
 uGr
 aaa
 aaa
-ufl
+fkP
 rog
 rog
-ufl
+tCH
 gXq
 aie
 dqT
@@ -122748,7 +122758,7 @@ lMJ
 qRl
 blx
 blx
-ufl
+tCH
 aaa
 ack
 ajb
