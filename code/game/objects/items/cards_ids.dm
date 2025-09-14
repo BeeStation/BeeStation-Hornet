@@ -348,7 +348,7 @@
 	//var/current_balance = registered_account.account_balance
 	var/amount_to_remove = round(tgui_input_number(user, "How much do you want to withdraw? Current: [registered_account.account_balance] cr", "Withdraw Funds", 0, registered_account.account_balance, 0))
 
-	if(amount_to_remove == null || amount_to_remove <= 0)
+	if(isnull(amount_to_remove) || amount_to_remove <= 0)
 		return
 	if(!alt_click_can_use_id(user))
 		return
