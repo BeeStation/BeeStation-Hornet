@@ -190,8 +190,7 @@ Difficulty: Hard
 	var/datum/move_loop/loop = SSmove_manager.home_onto(src, T, movespeed, timeout = time_to_hit + 1, extra_info = T)
 	if(!loop)
 		return
-	RegisterSignal(loop, COMSIG_MOVELOOP_REACHED_TARGET, PROC_REF(charge_end))
-	RegisterSignal(loop, COMSIG_QDELETING, PROC_REF(charge_end)) // When loop times out
+	RegisterSignals(loop, list(COMSIG_MOVELOOP_REACHED_TARGET, COMSIG_QDELETING), PROC_REF(charge_end))
 	// Wait until we're done
 	while(charging)
 		SLEEP_CHECK_DEATH(1)
