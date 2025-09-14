@@ -18780,7 +18780,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/mob/living/basic/pet/dog/corgi/Ian{
+/mob/living/basic/pet/dog/corgi/ian{
 	dir = 8
 	},
 /obj/effect/turf_decal/siding/wood{

@@ -42845,7 +42845,7 @@
 /turf/open/floor/plating/asteroid/planetary,
 /area/engine/engineering)
 "wBs" = (
-/mob/living/basic/pet/dog/corgi/Ian{
+/mob/living/basic/pet/dog/corgi/ian{
 	density = 0;
 	dir = 1;
 	pixel_y = 4

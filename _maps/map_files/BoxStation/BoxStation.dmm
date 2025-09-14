@@ -28955,7 +28955,7 @@
 /turf/open/floor/iron/dark,
 /area/gateway)
 "iev" = (
-/mob/living/basic/pet/dog/corgi/Ian,
+/mob/living/basic/pet/dog/corgi/ian,
 /obj/effect/turf_decal/siding/wood,
 /obj/structure/bed/dogbed/ian,
 /obj/structure/cable/yellow{

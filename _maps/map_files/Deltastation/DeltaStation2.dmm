@@ -94423,7 +94423,7 @@
 "ych" = (
 /obj/structure/bed/dogbed/ian,
 /obj/machinery/airalarm/directional/east,
-/mob/living/basic/pet/dog/corgi/Ian,
+/mob/living/basic/pet/dog/corgi/ian,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
 "ycl" = (

@@ -44973,7 +44973,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
-/mob/living/basic/pet/dog/corgi/Ian,
+/mob/living/basic/pet/dog/corgi/ian,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},

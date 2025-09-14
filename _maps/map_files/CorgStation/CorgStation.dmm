@@ -5264,7 +5264,7 @@
 "bre" = (
 /obj/structure/bed/dogbed/ian,
 /obj/machinery/camera/directional/north,
-/mob/living/basic/pet/dog/corgi/Ian,
+/mob/living/basic/pet/dog/corgi/ian,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
 "brm" = (

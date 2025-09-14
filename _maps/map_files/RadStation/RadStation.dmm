@@ -39834,7 +39834,7 @@
 	dir = 9
 	},
 /obj/structure/bed/dogbed/ian,
-/mob/living/basic/pet/dog/corgi/Ian{
+/mob/living/basic/pet/dog/corgi/ian{
 	density = 0;
 	dir = 1;
 	pixel_y = 4
