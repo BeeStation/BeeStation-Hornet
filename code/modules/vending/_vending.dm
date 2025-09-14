@@ -13,7 +13,7 @@
 	contraband = list()
 	premium = list()
 */
-/// Centcome Tax rate on the price the seller (cargo) recieves
+/// NT's Tax rate on the price the seller (cargo) receives
 #define TAX_RATE 50
 #define MAX_VENDING_INPUT_AMOUNT 30
 /**
