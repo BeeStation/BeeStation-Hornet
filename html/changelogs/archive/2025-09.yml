@@ -156,6 +156,16 @@
     san7890, Maurukas, Helg2, MTandi
   : - rscadd: Added some airalarm, airlock, airlock access, and apc mapping helpers.
 2025-09-14:
+  Solene:
+  - rscadd: Added hotswap to every computer component.
+  - balance: Doubled battery size (lets see if it sticks this time)
+  - tweak: Reworked Power cell controlers. Now they're simply batteries and you don't
+      need 2 battery type components.
+  - tweak: Changed names of computer batteries to be more descriptive of their size.
+  - bugfix: Fixed a message error in primary card slot hacking
+  - bugfix: Fixed a runtime happening during Detomatix virus injection on targets
+      without battery
+  - bugfix: Standard batteries no longer fit laptops, sorry guys
   SunShine214, Nakalon:
   - rscadd: The Advanced Gas Rig, capable of mining gases from the planet the station
       is orbiting.
