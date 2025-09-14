@@ -30,7 +30,10 @@
 #define META_GAS_BREATH_RESULTS 11
 ///Reagents applied when the gas passes its dangerous threshold
 #define META_GAS_BREATH_REAGENT_DANGEROUS 12
-
+///Gas advanced gas rig shielding power
+#define META_GAS_RIG_SHIELDING_POWER 13
+///Gas advanced gas rig shielding modifier
+#define META_GAS_RIG_SHIELDING_MODIFIER 14
 
 //ATMOS
 //stuff you should probably leave well alone!

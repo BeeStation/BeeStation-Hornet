@@ -10,7 +10,12 @@
 
 	outfit = /datum/outfit/job/janitor
 
-	base_access = list(ACCESS_JANITOR, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM)
+	base_access = list(
+		ACCESS_JANITOR,
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_MINERAL_STOREROOM,
+		ACCESS_SERVICE,
+	)
 	extra_access = list()
 
 	departments = DEPT_BITFLAG_SRV

@@ -20,6 +20,7 @@ $include interviews.txt
 $include performance.txt
 # Server Policies/Rules
 $include policies.txt
+$include map_vote.txt
 
 # You can use the @ character at the beginning of a config option to lock it from being edited in-game
 # Example usage:
@@ -210,9 +211,6 @@ ID_CONSOLE_JOBSLOT_DELAY 30
 ## allow players to initiate a restart vote
 #ALLOW_VOTE_RESTART
 
-## allow players to initate a mode-change start
-#ALLOW_VOTE_MODE
-
 ## min delay (deciseconds) between voting sessions (default 10 minutes)
 VOTE_DELAY 6000
 
@@ -220,7 +218,7 @@ VOTE_DELAY 6000
 VOTE_PERIOD 600
 
 ## prevents dead players from voting or starting votes
-NO_DEAD_VOTE
+#NO_DEAD_VOTE
 
 ## players' votes default to "No vote" (otherwise,  default to "No change")
 DEFAULT_NO_VOTE
@@ -458,28 +456,6 @@ ANNOUNCE_ADMIN_LOGOUT
 
 ## Uncomment to have an admin message sent anytime an admin connects to a round in play, you can edit the messages in admin.dm
 ANNOUNCE_ADMIN_LOGIN
-
-## Map rotation
-## You should edit maps.txt to match your configuration when you enable this.
-MAPROTATION
-
-## Map voting
-## Allows players to vote for their preffered map
-## When it's set to zero, the map will be randomly picked each round
-PREFERENCE_MAP_VOTING 0
-
-## Starts a map vote at the end of rounds
-AUTOMAPVOTE
-
-## Sets a minimum round length (in minutes) before a map vote will be called to discourage players from forcing early round ends just to change map
-## Set to 0 to disable.
-AUTOMAPVOTE_THRESHOLD 45
-
-## Map rotate chance delta
-## This is the chance of map rotation factored to the round length.
-## A value of 1 would mean the map rotation chance is the round length in minutes (hour long round == 60% rotation chance)
-## A value of 0.5 would mean the map rotation chance is half of the round length in minutes (hour long round == 30% rotation chance)
-#MAPROTATIONCHANCEDELTA 0.5
 
 ## AUTOADMIN
 ## The default admin rank
