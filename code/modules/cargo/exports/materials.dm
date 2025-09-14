@@ -17,17 +17,15 @@
 		return 0
 	if(!isitem(O))
 		return 0
+
 	var/obj/item/I = O
 	if(!(SSmaterials.GetMaterialRef(material_id) in I.custom_materials))
 		return 0
 
 	var/amount = I.custom_materials[SSmaterials.GetMaterialRef(material_id)]
 
-	if(istype(I, /obj/item/stack))
-		var/obj/item/stack/S = I
-		amount *= S.amount
-		if(istype(I, /obj/item/stack/ore))
-			amount *= 0.8 // Station's ore redemption equipment is really goddamn good.
+	if(istype(I, /obj/item/stack/ore))
+		amount *= 0.8 // Station's ore redemption equipment is really goddamn good.
 
 	return round(amount/MINERAL_MATERIAL_AMOUNT)
 
@@ -45,6 +43,7 @@
 
 /datum/export/material/plasma
 	cost = 200
+	k_elasticity = 0
 	material_id = /datum/material/plasma
 	message = "cm3 of plasma"
 

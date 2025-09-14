@@ -37,14 +37,11 @@ then the player gets the profit from selling his own wasted time.
 	if(!report) //If we don't have any longer transaction going on
 		report = new
 
-	// We go backwards, so it'll be innermost objects sold first
-	for(var/i in reverse_range(contents))
-		var/atom/movable/thing = i
+	// We go backwards, so it'll be innermost objects sold first. We also make sure nothing is accidentally delete before everything is sold.
+	var/list/to_delete = list()
+	for(var/atom/movable/thing as anything in reverse_range(contents))
 		var/sold = FALSE
-
-		for(var/datum/export/export in GLOB.exports_list)
-			if(!export)
-				continue
+		for(var/datum/export/export as anything in GLOB.exports_list)
 			if(export.applies_to(thing, allowed_categories, apply_elastic))
 				if(!dry_run && (SEND_SIGNAL(thing, COMSIG_ITEM_PRE_EXPORT) & COMPONENT_STOP_EXPORT))
 					break
@@ -57,6 +54,10 @@ then the player gets the profit from selling his own wasted time.
 		if(!dry_run && (sold || delete_unsold))
 			if(ismob(thing))
 				thing.investigate_log("deleted through cargo export",INVESTIGATE_CARGO)
+			to_delete += thing
+
+	for(var/atom/movable/thing as anything in to_delete)
+		if(!QDELETED(thing))
 			qdel(thing)
 
 	return report
@@ -75,6 +76,8 @@ then the player gets the profit from selling his own wasted time.
 	for(var/i in reverse_range(contents))
 		var/atom/movable/thing = i
 		var/sold = FALSE
+		if(QDELETED(thing))
+			continue
 		for(var/datum/export/E in GLOB.exports_list)
 			if(!E)
 				continue
@@ -126,9 +129,7 @@ then the player gets the profit from selling his own wasted time.
 	return ..()
 
 /datum/export/process()
-	. = ..()
-	if(!k_elasticity)
-		return PROCESS_KILL
+	..()
 	cost *= NUM_E**(k_elasticity * (1/30))
 	if(cost > init_cost)
 		cost = init_cost
@@ -138,9 +139,9 @@ then the player gets the profit from selling his own wasted time.
 	var/amount = get_amount(O)
 	if(apply_elastic)
 		if(k_elasticity!=0)
-			return round((cost/k_elasticity) * (1 - NUM_E**(-1 * k_elasticity * amount)))	//anti-derivative of the marginal cost function
+			return round((cost/k_elasticity) * (1 - NUM_E**(-1 * k_elasticity * amount))) //anti-derivative of the marginal cost function
 		else
-			return round(cost * amount)	//alternative form derived from L'Hopital to avoid division by 0
+			return round(cost * amount) //alternative form derived from L'Hopital to avoid division by 0
 	else
 		return round(init_cost * amount)
 
