@@ -13,7 +13,8 @@
 	contraband = list()
 	premium = list()
 */
-
+/// Centcome Tax rate on the price the seller (cargo) recieves
+#define TAX_RATE 50
 #define MAX_VENDING_INPUT_AMOUNT 30
 /**
   * # vending record datum
@@ -61,7 +62,6 @@
 	armor_type = /datum/armor/machinery_vending
 	circuit = /obj/item/circuitboard/machine/vendor
 	clicksound = 'sound/machines/pda_button1.ogg'
-	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 
 	light_power = 0.5
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
@@ -1042,12 +1042,6 @@
 			flick(icon_deny,src)
 			vend_ready = TRUE
 			return
-		// Department cards cannot be used to order stuff in vendors, we make an exception for the debug card
-		else if(!C.registered_account.account_job && !istype(C, /obj/item/card/id/syndicate/debug))
-			say("Departmental accounts have been blacklisted from personal expenses due to embezzlement.")
-			flick(icon_deny, src)
-			vend_ready = TRUE
-			return
 		var/datum/bank_account/account = C.registered_account
 		if(account.account_job && (account.active_departments & dept_req_for_free))
 			price_to_use = 0
@@ -1066,7 +1060,9 @@
 				price_to_use = round(price_to_use/length(dept_list))
 				for(var/datum/bank_account/department/D in dept_list)
 					if(D)
-						D.adjust_money(price_to_use)
+						var/tax_percent = TAX_RATE / 100
+						var/after_tax = price_to_use * (1 - tax_percent)
+						D.adjust_money(after_tax)
 						SSblackbox.record_feedback("amount", "vending_spent", price_to_use)
 						log_econ("[price_to_use] credits were inserted into [src] by [D.account_holder] to buy [R].")
 
@@ -1224,7 +1220,6 @@
 	icon_deny = "robotics-deny"
 	light_mask = "robotics-light-mask"
 	max_integrity = 400
-	dept_req_for_free = NO_FREEBIES
 	refill_canister = /obj/item/vending_refill/custom
 	/// where the money is sent
 	var/datum/bank_account/private_a

@@ -135,9 +135,9 @@
 	var/fair_market_price = 69
 	var/market_verb = "Customer"
 	/// [Bitflag] the machine will be free when a bank holder has a specific bitflag
-	var/dept_req_for_free = ACCOUNT_ENG_BITFLAG
+	var/dept_req_for_free = NO_FREEBIES
 	/// [Bitflag] the machine sends its profit to the corresponding department budget. if this is not specified, this will follow `dept_req_for_free` value.
-	var/seller_department
+	var/seller_department = ACCOUNT_CAR_BITFLAG // Your money goes to cargo, and you will like it.
 
 	var/clickvol = 40	// sound volume played on successful click
 	var/next_clicksound = 0	// value to compare with world.time for whether to play clicksound according to CLICKSOUND_INTERVAL
@@ -185,9 +185,6 @@
 
 	if(occupant_typecache)
 		occupant_typecache = typecacheof(occupant_typecache)
-
-	if(!seller_department)
-		seller_department = dept_req_for_free
 
 	return INITIALIZE_HINT_LATELOAD
 
