@@ -579,7 +579,7 @@
 	slowdown_deployed = 0
 	allowed_suit_storage = list(
 		/obj/item/mail,
-		/obj/item/small_delivery,
+		/obj/item/delivery/small,
 		/obj/item/paper,
 		/obj/item/storage/backpack/satchel/mail,
 	)
