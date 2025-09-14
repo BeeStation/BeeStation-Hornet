@@ -30,8 +30,6 @@ then the player gets the profit from selling his own wasted time.
 	if(!GLOB.exports_list.len)
 		setupExports()
 
-	var/profit_ratio = 1 //Percentage that gets sent to the seller, rest goes to cargo.
-
 	var/list/contents = AM.GetAllContents()
 
 	var/datum/export_report/report = external_report
@@ -44,11 +42,13 @@ then the player gets the profit from selling his own wasted time.
 		var/atom/movable/thing = i
 		var/sold = FALSE
 
-		for(var/datum/export/E in GLOB.exports_list)
-			if(!E)
+		for(var/datum/export/export in GLOB.exports_list)
+			if(!export)
 				continue
-			if(E.applies_to(thing, allowed_categories, apply_elastic))
-				sold = E.sell_object(thing, report, dry_run, allowed_categories , apply_elastic, profit_ratio)
+			if(export.applies_to(thing, allowed_categories, apply_elastic))
+				if(!dry_run && (SEND_SIGNAL(thing, COMSIG_ITEM_PRE_EXPORT) & COMPONENT_STOP_EXPORT))
+					break
+				sold = export.sell_object(thing, report, dry_run, allowed_categories, apply_elastic)
 				report.exported_atoms += " [thing.name]"
 				break
 
@@ -93,13 +93,20 @@ then the player gets the profit from selling his own wasted time.
 	return report
 
 /datum/export
-	var/unit_name = ""				// Unit name. Only used in "Received [total_amount] [name]s [message]." message
+	/// Unit name. Only used in "Received [total_amount] [name]s [message]." message
+	var/unit_name = ""
 	var/message = ""
 	var/cost = 100					// Cost of item, in cargo credits. Must not alow for infinite price dupes, see above.
-	var/k_elasticity = 1/30			//coefficient used in marginal price calculation that roughly corresponds to the inverse of price elasticity, or "quantity elasticity"
-	var/list/export_types = list()	// Type of the exported object. If none, the export datum is considered base type.
-	var/include_subtypes = TRUE		// Set to FALSE to make the datum apply only to a strict type.
-	var/list/exclude_types = list()	// Types excluded from export
+	/// coefficient used in marginal price calculation that roughly corresponds to the inverse of price elasticity, or "quantity elasticity"
+	var/k_elasticity = 1/30
+	/// The multiplier of the amount sold shown on the report. Useful for exports, such as material, which costs are not strictly per single units sold.
+	var/amount_report_multiplier = 1
+	/// Type of the exported object. If none, the export datum is considered base type.
+	var/list/export_types = list()
+	/// Set to FALSE to make the datum apply only to a strict type.
+	var/include_subtypes = TRUE
+	/// Types excluded from export
+	var/list/exclude_types = list()
 
 	//cost includes elasticity, this does not.
 	var/init_cost
@@ -164,33 +171,29 @@ then the player gets the profit from selling his own wasted time.
   * get_cost, get_amount and applies_to do not neccesary mean a successful sale.
   *
   */
-/datum/export/proc/sell_object(obj/O, datum/export_report/report, dry_run = TRUE, allowed_categories = EXPORT_CARGO , apply_elastic = TRUE)
+/datum/export/proc/sell_object(obj/sold_item, datum/export_report/report, dry_run = TRUE, allowed_categories = EXPORT_CARGO , apply_elastic = TRUE)
 	///This is the value of the object, as derived from export datums.
-	var/the_cost = get_cost(O, allowed_categories , apply_elastic)
+	var/export_value = get_cost(sold_item, allowed_categories , apply_elastic)
 	///Quantity of the object in question.
-	var/amount = get_amount(O)
-	var/profit_ratio = 0
+	var/export_amount = get_amount(sold_item)
 
-	if(amount <=0 || the_cost <=0)
+	if(export_amount <= 0 || export_value <= 0)
 		return FALSE
-	if(dry_run == FALSE)
-		if(SEND_SIGNAL(O, COMSIG_ITEM_SOLD, item_value = get_cost(O, allowed_categories , apply_elastic)) & COMSIG_ITEM_SPLIT_VALUE)
-			profit_ratio = SEND_SIGNAL(O, COMSIG_ITEM_SPLIT_PROFIT)
-			the_cost = the_cost*((100-profit_ratio)/100)
-	else
-		profit_ratio = SEND_SIGNAL(O, COMSIG_ITEM_SPLIT_PROFIT)
-		the_cost = the_cost*((100-profit_ratio)/100)
-	report.total_value[src] += the_cost
 
-	if(istype(O, /datum/export/material))
-		report.total_amount[src] += amount*MINERAL_MATERIAL_AMOUNT
-	else
-		report.total_amount[src] += amount
+	// If we're not doing a dry run, send COMSIG_ITEM_EXPORTED to the sold item
+	var/export_result
+	if(!dry_run)
+		export_result = SEND_SIGNAL(sold_item, COMSIG_ITEM_EXPORTED, src, report, export_value)
+
+	// If the signal handled adding it to the report, don't do it now
+	if(!(export_result & COMPONENT_STOP_EXPORT_REPORT))
+		report.total_value[src] += export_value
+		report.total_amount[src] += export_amount * amount_report_multiplier
 
 	if(!dry_run)
 		if(apply_elastic)
-			cost *= NUM_E**(-1*k_elasticity*amount)		//marginal cost modifier
-		SSblackbox.record_feedback("nested tally", "export_sold_cost", 1, list("[O.type]", "[the_cost]"))
+			cost *= NUM_E**(-1 * k_elasticity * export_amount) //marginal cost modifier
+		SSblackbox.record_feedback("nested tally", "export_sold_cost", 1, list("[sold_item.type]", "[export_value]"))
 	return TRUE
 
 // Total printout for the cargo console.
