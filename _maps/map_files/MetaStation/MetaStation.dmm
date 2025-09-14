@@ -13886,7 +13886,9 @@
 /area/engine/atmos)
 "bUH" = (
 /obj/item/book/manual/nuclear,
-/turf/open/floor/plating/foam,
+/turf/open/floor/plating/foam{
+	initial_gas_mix = "TEMP=2.7"
+	},
 /area/space/nearstation)
 "bUI" = (
 /obj/machinery/atmospherics/components/trinary/filter/atmos/flipped{
@@ -60104,7 +60106,9 @@
 /turf/closed/wall,
 /area/engine/atmos)
 "rog" = (
-/turf/open/floor/plating/foam,
+/turf/open/floor/plating/foam{
+	initial_gas_mix = "TEMP=2.7"
+	},
 /area/space/nearstation)
 "ror" = (
 /obj/structure/cable/yellow{
