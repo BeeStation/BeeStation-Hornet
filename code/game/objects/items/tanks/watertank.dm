@@ -44,7 +44,8 @@
 /obj/item/watertank/on_reagent_change(changetype)
 	. = ..()
 	update_icon()
-	noz.update_icon()
+	if (!QDELETED(noz))
+		noz.update_icon()
 	if(istype(loc, /mob/living/carbon))//Someone's wearing it
 		var/mob/living/carbon/wearer = loc
 		wearer.update_inv_back()
