@@ -195,14 +195,13 @@ Difficulty: Hard
 	while(charging)
 		SLEEP_CHECK_DEATH(1)
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/proc/charge_end(datum/source)
+/mob/living/simple_animal/hostile/megafauna/bubblegum/proc/charge_end(datum/move_loop/source)
 	SIGNAL_HANDLER
-	var/datum/move_loop/loop = source
-	if(!QDELETED(loop))
+	if(!QDELETED(source))
 		SSmove_manager.stop_looping(src) // cancel the movement
 	try_bloodattack()
 	charging = FALSE
-	UnregisterSignal(loop, list(COMSIG_MOVELOOP_REACHED_TARGET, COMSIG_QDELETING))
+	UnregisterSignal(source, list(COMSIG_MOVELOOP_REACHED_TARGET, COMSIG_QDELETING))
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/get_mobs_on_blood()
 	var/list/targets = ListTargets()
