@@ -1,5 +1,5 @@
 /datum/bounty/item/botany
-	reward = CARGO_CRATE_VALUE * 10
+	reward = 5000
 	var/datum/bounty/item/botany/multiplier = 0 //adds bonus reward money; increased for higher tier or rare mutations
 	var/datum/bounty/item/botany/bonus_desc //for adding extra flavor text to bounty descriptions
 	var/datum/bounty/item/botany/foodtype = "meal" //same here
@@ -10,7 +10,7 @@
 
 	if (format_exception == FALSE)
 		description = "Central Command's head chef is looking to prepare a fine [foodtype] with [name]. [bonus_desc]"
-		reward += multiplier * (CARGO_CRATE_VALUE * 2)
+		reward += multiplier * 1000
 		required_count = rand(5, 10)
 
 /datum/bounty/item/botany/ambrosia_vulgaris
@@ -206,15 +206,15 @@
 /datum/bounty/item/botany/forgetmenot
 	name = "Forget-Me-Nots"
 	description = "Commander Zot has his eyes on Quartermaster Maya. Send a shipment of forget-me-nots - her favorite flower - and he'll happily reward you."
+	reward = 7000
 	required_count = 3
-	multiplier = 7
 	wanted_types = list(/obj/item/food/grown/flower/forgetmenot)
 	format_exception = TRUE
 
 /datum/bounty/item/botany/geranium
 	name = "Geraniums"
 	description = "Commander Zot has the hots for Commander Zena. Send a shipment of geraniums - her favorite flower - and he'll happily reward you."
-	multiplier = 6
+	reward = 6000
 	required_count = 3
 	wanted_types = list(/obj/item/food/grown/flower/geranium)
 	format_exception = TRUE
@@ -222,18 +222,7 @@
 /datum/bounty/item/botany/rainbowflowercrown
 	name = "Rainbow Flower Crowns"
 	description = "Central Command is concerned about their intern suicide rate. A shipment of rainbow flower crowns should do nicely to improve morale."
-	multiplier = 10
+	reward = 10000
 	required_count = 3
 	wanted_types = list(/obj/item/clothing/head/flowercrown/rainbowbunch)
 	format_exception = TRUE
-
-/datum/bounty/item/botany/bonfire
-	name = "Lit Bonfire"
-	description = "Space heaters are malfunctioning and the cargo crew of Central Command is starting to feel cold. Grow some logs and Ship a lit bonfire to warm them up."
-	wanted_types = list(/obj/structure/bonfire)
-
-/datum/bounty/item/botany/bonfire/applies_to(obj/O)
-	if(!..())
-		return FALSE
-	var/obj/structure/bonfire/B = O
-	return !!B.burning

@@ -23,7 +23,6 @@
 	payment_per_department = list(ACCOUNT_SCI_ID = PAYCHECK_MEDIUM)
 
 	display_order = JOB_DISPLAY_ORDER_SCIENTIST
-	bounty_types = CIV_JOB_SCI
 	rpg_title = "Thaumaturgist"
 
 	species_outfits = list(

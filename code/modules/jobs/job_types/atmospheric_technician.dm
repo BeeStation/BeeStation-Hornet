@@ -24,7 +24,6 @@
 
 	display_order = JOB_DISPLAY_ORDER_ATMOSPHERIC_TECHNICIAN
 	rpg_title = "Aeromancer"
-	bounty_types = CIV_JOB_ENG
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/atmospherics

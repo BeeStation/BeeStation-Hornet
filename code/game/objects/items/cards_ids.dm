@@ -393,11 +393,6 @@
 
 		. += span_info("Alt-Click the ID to pull money from the linked account in the form of holochips.")
 		. += span_info("You can insert credits into the linked account by pressing holochips, cash, or coins against the ID.")
-		if(registered_account.civilian_bounty)
-			. += span_info("<b>There is an active civilian bounty.</b>")
-			. += span_info("<i>[registered_account.bounty_text()]</i>")
-			. += span_info("Quantity: [registered_account.bounty_num()]")
-			. += span_info("Reward: [registered_account.bounty_value()]")
 		if(registered_account.account_holder == user.real_name)
 			. += span_boldnotice("If you lose this ID card, you can reclaim your account by Alt-Clicking a blank ID card while holding it and entering your account ID number.")
 	else

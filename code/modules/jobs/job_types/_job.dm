@@ -81,8 +81,6 @@
 
 	var/display_order = JOB_DISPLAY_ORDER_DEFAULT
 
-	var/bounty_types = CIV_JOB_BASIC
-
 	// Goodies that can be received via the mail system.
 	// this is a weighted list.
 	// Keep the _job definition for this empty and use /obj/item/mail to define general gifts.

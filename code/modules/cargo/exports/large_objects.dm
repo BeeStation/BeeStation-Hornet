@@ -1,5 +1,5 @@
 /datum/export/large/crate
-	cost = CARGO_CRATE_VALUE
+	cost = 500
 	k_elasticity = 0
 	unit_name = "crate"
 	export_types = list(/obj/structure/closet/crate)
@@ -11,7 +11,7 @@
 		. += " Thanks for participating in Nanotrasen Crates Recycling Program."
 
 /datum/export/large/crate/wooden
-	cost = CARGO_CRATE_VALUE * 0.5
+	cost = 100
 	unit_name = "large wooden crate"
 	export_types = list(/obj/structure/closet/crate/large)
 	exclude_types = list()
@@ -20,7 +20,7 @@
 	// Assuming you send back the crate and stamped manifest, wood can be ordered for 20cr/plank
 	// one ore box costs 4 planks = 80cr
 	// profit is 80cr per ore box, or 20cr/plank
-	cost = CARGO_CRATE_VALUE * 0.3
+	cost = 160
 	unit_name = "ore box"
 	export_types = list(/obj/structure/ore_box)
 
@@ -28,7 +28,7 @@
 	// Assuming you send back the crate and stamped manifest, wood can be ordered for 20cr/plank
 	// one wooden crate costs 6 planks = 120cr
 	// profit is 100cr per wooden crate, or ~17cr/plank
-	cost = CARGO_CRATE_VALUE * 0.4
+	cost = 220
 	unit_name = "wooden crate"
 	export_types = list(/obj/structure/closet/crate/wooden)
 	exclude_types = list()
@@ -36,14 +36,14 @@
 /datum/export/large/coffin
 	// Assuming you send back the crate and stamped manifest, wood can be ordered for 20cr/plank
 	// one coffin costs 5 planks = 100cr
-	// profit is 100cr per coffin, or 18cr/plank
-	cost = CARGO_CRATE_VALUE * 0.4
+	// profit is 90cr per coffin, or 18cr/plank
+	cost = 190
 	unit_name = "coffin"
 	export_types = list(/obj/structure/closet/crate/coffin)
 
 /datum/export/large/reagent_dispenser
-	cost = CARGO_CRATE_VALUE * 0.5 // +0-400 depending on amount of reagents left
-	var/contents_cost = CARGO_CRATE_VALUE * 0.8
+	cost = 100 // +0-400 depending on amount of reagents left
+	var/contents_cost = 400
 
 /datum/export/large/reagent_dispenser/get_cost(obj/O)
 	var/obj/structure/reagent_dispensers/D = O
@@ -54,7 +54,7 @@
 /datum/export/large/reagent_dispenser/water
 	unit_name = "watertank"
 	export_types = list(/obj/structure/reagent_dispensers/watertank)
-	contents_cost = CARGO_CRATE_VALUE * 0.4
+	contents_cost = 200
 
 /datum/export/large/reagent_dispenser/fuel
 	unit_name = "fueltank"
@@ -62,73 +62,73 @@
 
 /datum/export/large/reagent_dispenser/beer
 	unit_name = "beer keg"
-	contents_cost = CARGO_CRATE_VALUE * 3.5
+	contents_cost = 700
 	export_types = list(/obj/structure/reagent_dispensers/beerkeg)
 
 
 /datum/export/large/pipe_dispenser
-	cost = CARGO_CRATE_VALUE
+	cost = 500
 	unit_name = "pipe dispenser"
 	export_types = list(/obj/machinery/pipe_dispenser)
 
 /datum/export/large/emitter
-	cost = CARGO_CRATE_VALUE * 1.05
+	cost = 550
 	unit_name = "emitter"
 	export_types = list(/obj/machinery/power/emitter)
 
 /datum/export/large/field_generator
-	cost = CARGO_CRATE_VALUE * 1.05
+	cost = 550
 	unit_name = "field generator"
 	export_types = list(/obj/machinery/field/generator)
 
 /datum/export/large/collector
-	cost = CARGO_CRATE_VALUE * 2
+	cost = 400
 	unit_name = "radiation collector"
 	export_types = list(/obj/machinery/power/rad_collector)
 
 /datum/export/large/tesla_coil
-	cost = CARGO_CRATE_VALUE * 2.25
+	cost = 450
 	unit_name = "tesla coil"
 	export_types = list(/obj/machinery/power/tesla_coil)
 
 /datum/export/large/pa
-	cost = CARGO_CRATE_VALUE * 1.2
+	cost = 350
 	unit_name = "particle accelerator part"
 	export_types = list(/obj/structure/particle_accelerator)
 
 /datum/export/large/pa/controls
-	cost = CARGO_CRATE_VALUE
+	cost = 500
 	unit_name = "particle accelerator control console"
 	export_types = list(/obj/machinery/particle_accelerator/control_box)
 
 /datum/export/large/supermatter
-	cost = CARGO_CRATE_VALUE * 17.5
+	cost = 8000
 	unit_name = "supermatter shard"
 	export_types = list(/obj/machinery/power/supermatter_crystal/shard)
 
 /datum/export/large/grounding_rod
-	cost = CARGO_CRATE_VALUE * 1.2
+	cost = 350
 	unit_name = "grounding rod"
 	export_types = list(/obj/machinery/power/grounding_rod)
 
 /datum/export/large/tesla_gen
-	cost = CARGO_CRATE_VALUE * 3.5
+	cost = 4000
 	unit_name = "energy ball generator"
 	export_types = list(/obj/machinery/the_singularitygen/tesla)
 
 /datum/export/large/singulo_gen
-	cost = CARGO_CRATE_VALUE * 3.5
+	cost = 4000
 	unit_name = "gravitational singularity generator"
 	export_types = list(/obj/machinery/the_singularitygen)
 	include_subtypes = FALSE
 
 /datum/export/large/iv
-	cost = CARGO_CRATE_VALUE * 0.1
+	cost = 50
 	unit_name = "iv drip"
 	export_types = list(/obj/machinery/iv_drip)
 
 /datum/export/large/barrier
-	cost = CARGO_CRATE_VALUE * 0.25
+	cost = 25
 	unit_name = "security barrier"
 	export_types = list(/obj/item/security_barricade, /obj/structure/barricade/security)
 
@@ -147,7 +147,7 @@
  * * For more information, see code\modules\atmospherics\machinery\portable\canister.dm.
  */
 /datum/export/large/gas_canister
-	cost = CARGO_CRATE_VALUE * 0.05 //Base cost of canister. You get more for nice gases inside.
+	cost = 10 //Base cost of canister. You get more for nice gases inside.
 	unit_name = "Gas Canister"
 	export_types = list(/obj/machinery/portable_atmospherics/canister)
 	k_elasticity = 0.00033

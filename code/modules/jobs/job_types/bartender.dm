@@ -19,7 +19,6 @@
 	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_EASY)
 
 	display_order = JOB_DISPLAY_ORDER_BARTENDER
-	bounty_types = CIV_JOB_DRINK
 	rpg_title = "Tavernkeeper"
 
 	species_outfits = list(

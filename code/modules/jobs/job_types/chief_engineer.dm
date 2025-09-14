@@ -31,7 +31,6 @@
 
 
 	display_order = JOB_DISPLAY_ORDER_CHIEF_ENGINEER
-	bounty_types = CIV_JOB_ENG
 	rpg_title = "High Crystallomancer"
 
 	species_outfits = list(

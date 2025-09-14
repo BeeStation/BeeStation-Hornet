@@ -32,7 +32,6 @@
 	mind_traits = list(TRAIT_MEDICAL_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_CHIEF_MEDICAL_OFFICER
-	bounty_types = CIV_JOB_MED
 	rpg_title = "High Cleric"
 
 	species_outfits = list(

@@ -34,7 +34,6 @@
 		ACCOUNT_SRV_ID = PAYCHECK_COMMAND_DEPT)
 
 	display_order = JOB_DISPLAY_ORDER_HEAD_OF_PERSONNEL
-	bounty_types = CIV_JOB_RANDOM
 	rpg_title = "Guild Questgiver"
 
 	species_outfits = list(

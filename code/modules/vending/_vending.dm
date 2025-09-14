@@ -344,34 +344,11 @@
 		if(!start_empty)
 			R.amount = amount
 		R.max_amount = amount
-		R.custom_price = round(initial(temp.custom_price) * SSeconomy.inflation_value())
-		R.custom_premium_price = round(initial(temp.custom_premium_price) * SSeconomy.inflation_value())
+		R.custom_price = initial(temp.custom_price)
+		R.custom_premium_price = initial(temp.custom_premium_price)
 		R.colorable = !!(initial(temp.greyscale_config) && initial(temp.greyscale_colors) && (initial(temp.flags_1) & IS_PLAYER_COLORABLE_1))
 		R.category = product_to_category[typepath]
 		recordlist += R
-
-/**
-  * Reassign the prices of the vending machine as a result of the inflation value, as provided by SSeconomy
-  *
-  * This rebuilds both /datum/vending_products lists for premium and standard products based on their most relevant pricing values.
-  * Arguments:
-  * * recordlist - the list of standard product datums in the vendor to refresh their prices.
-  * * premiumlist - the list of premium product datums in the vendor to refresh their prices.
-  */
-/obj/machinery/vending/proc/reset_prices(list/recordlist, list/premiumlist)
-	for(var/R in recordlist)
-		var/datum/vending_product/record = R
-		var/atom/potential_product = record.product_path
-		record.custom_price = round(initial(potential_product.custom_price) * SSeconomy.inflation_value())
-	for(var/R in premiumlist)
-		var/datum/vending_product/record = R
-		var/atom/potential_product = record.product_path
-		var/premium_sanity = round(initial(potential_product.custom_premium_price))
-		if(premium_sanity)
-			record.custom_premium_price = round(premium_sanity * SSeconomy.inflation_value())
-			continue
-		//For some ungodly reason, some premium only items only have a custom_price
-		record.custom_premium_price = round(extra_price + (initial(potential_product.custom_price) * (SSeconomy.inflation_value() - 1)))
 
 /obj/machinery/vending/proc/build_inventories(start_empty)
 	build_inventory(products, product_records, product_categories, start_empty)

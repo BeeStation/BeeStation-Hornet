@@ -64,6 +64,9 @@
 		var/datum/computer_file/program/robocontrol/robo = new(src)
 		progs_to_store += robo
 
+	if(disk_flags & DISK_CARGO)
+		progs_to_store += new /datum/computer_file/program/bounty(src)
+
 	if(disk_flags & DISK_SILO_LOG)
 		progs_to_store += new /datum/computer_file/program/log_viewer(src)
 
