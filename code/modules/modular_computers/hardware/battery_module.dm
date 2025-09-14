@@ -89,7 +89,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 	icon = 'icons/obj/module.dmi'
 	icon_state = "cell_mini"
 	w_class = WEIGHT_CLASS_SMALL
-	maxcharge = 40 KILOWATT
+	maxcharge = 80 KILOWATT
 	chargerate_divide = 8
 	/// rating affects the size of the explosion created by the detonation of the battery (trough Power Cell Controler hacking)
 	rating = PART_TIER_3
@@ -100,7 +100,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 	desc = "An advanced power cell, often used in most laptops, or high-end Tablets."
 	icon_state = "cell"
 	w_class = WEIGHT_CLASS_SMALL
-	maxcharge = 60 KILOWATT
+	maxcharge = 120 KILOWATT
 	custom_price = PAYCHECK_MEDIUM * 2
 	rating = PART_TIER_4
 
@@ -109,7 +109,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 	desc = "An advanced power cell, often used in high-end laptops."
 	icon_state = "cell"
 	w_class = WEIGHT_CLASS_NORMAL	// Fits only laptops
-	maxcharge = 100 KILOWATT
+	maxcharge = 200 KILOWATT
 	chargerate_divide = 10
 	custom_price = PAYCHECK_MEDIUM * 3
 	rating = PART_TIER_5
@@ -118,7 +118,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 	name = "micro battery"
 	desc = "A small power cell, commonly seen in most portable microcomputers."
 	icon_state = "cell_micro"
-	maxcharge = 30 KILOWATT
+	maxcharge = 60 KILOWATT
 	w_class = WEIGHT_CLASS_TINY
 	custom_price = PAYCHECK_EASY * 2
 	rating = PART_TIER_2
@@ -128,7 +128,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 	desc = "A tiny power cell, commonly seen in low-end portable microcomputers."
 	icon_state = "cell_micro"
 	w_class = WEIGHT_CLASS_TINY
-	maxcharge = 20 KILOWATT
+	maxcharge = 40 KILOWATT
 	chargerate_divide = 10
 	custom_price = PAYCHECK_EASY
 	rating = PART_TIER_1
