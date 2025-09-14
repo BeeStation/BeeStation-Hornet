@@ -1,4 +1,4 @@
-/datum/round_event_control/anomaly/insanity_pulse
+/datum/round_event_control/anomaly/anomaly_insanity_pulse
 	name = "Anomaly: Sanity Disruptor"
 	typepath = /datum/round_event/anomaly/insanity_pulse
 

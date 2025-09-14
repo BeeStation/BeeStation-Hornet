@@ -1,4 +1,4 @@
-/datum/round_event_control/anomaly/blood
+/datum/round_event_control/anomaly/anomaly_blood
 	name = "Anomaly: Blood"
 	typepath = /datum/round_event/anomaly/blood
 

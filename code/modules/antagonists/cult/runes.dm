@@ -1132,10 +1132,50 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 				var/datum/round_event_control/anomaly/anomaly_grav/AG
 				var/datum/round_event_control/anomaly/anomaly_exo/AE
 				var/datum/round_event_control/anomaly/anomaly_vortex/AV
+				var/datum/round_event_control/anomaly/anomaly_endo/AEN
+				var/datum/round_event_control/anomaly/anomaly_trap/TR
+				var/datum/round_event_control/anomaly/anomaly_clown/CL
+				var/datum/round_event_control/anomaly/anomaly_mime/MI
+				var/datum/round_event_control/anomaly/anomaly_babel/BA
+				var/datum/round_event_control/anomaly/anomaly_monkey/MO
+				var/datum/round_event_control/anomaly/anomaly_carp/CA
+				var/datum/round_event_control/anomaly/anomaly_tech/TE
+				var/datum/round_event_control/anomaly/anomaly_nuclear/NU
+				var/datum/round_event_control/anomaly/anomaly_glitch/GL
+				var/datum/round_event_control/anomaly/anomaly_lock/LO
+				var/datum/round_event_control/anomaly/anomaly_greed/GR
+				var/datum/round_event_control/anomaly/anomaly_bioscrambler/BI
+				var/datum/round_event_control/anomaly/anomaly_bluespace/BL
+				var/datum/round_event_control/anomaly/anomaly_hallucination/HA
+				var/datum/round_event_control/anomaly/anomaly_blood/BLO
+				var/datum/round_event_control/anomaly/anomaly_insanity_pulse/IN
+				var/datum/round_event_control/anomaly/anomaly_flesh/FLE
+				var/datum/round_event_control/anomaly/anomaly_cheese/CH
+				var/datum/round_event_control/anomaly/anomaly_omni/OM
 				AF.runEvent()
 				AG.runEvent()
 				AE.runEvent()
 				AV.runEvent()
+				AEN.runEvent()
+				TR.runEvent()
+				CL.runEvent()
+				MI.runEvent()
+				BA.runEvent()
+				MO.runEvent()
+				CA.runEvent()
+				TE.runEvent()
+				NU.runEvent() // Let the station die.
+				GL.runEvent()
+				LO.runEvent()
+				GR.runEvent()
+				BI.runEvent()
+				BL.runEvent()
+				HA.runEvent()
+				BLO.runEvent()
+				IN.runEvent()
+				FLE.runEvent()
+				CH.runEvent()
+				OM.runEvent()
 			if(71 to 80)
 				var/datum/round_event_control/spacevine/SV = new()
 				var/datum/round_event_control/grey_tide/GT = new()
