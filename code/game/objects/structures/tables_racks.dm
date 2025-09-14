@@ -162,7 +162,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	pushed_mob.apply_damage(40, STAMINA)
 	if(user.mind?.martial_art?.smashes_tables)
 		deconstruct(FALSE)
-	if(pushed_mob.nutrition > NUTRITION_LEVEL_FAT)
+	if(pushed_mob.nutrition > NUTRITION_LEVEL_FAT) //lol
 		deconstruct(FALSE)
 	playsound(pushed_mob, "sound/effects/tableslam.ogg", 90, TRUE)
 	pushed_mob.visible_message(span_danger("[user] slams [pushed_mob] onto \the [src]!"), \
