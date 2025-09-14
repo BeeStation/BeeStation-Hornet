@@ -149,7 +149,7 @@
 //Heals ONE bodypart randomly selected from damaged ones.
 //It automatically updates damage overlays if necessary
 //It automatically updates health status
-/mob/living/carbon/heal_bodypart_injuries(injury, amount, required_status, updating_health = TRUE)
+/mob/living/carbon/heal_overall_injuries(injury, amount, required_status, updating_health = TRUE)
 	var/list/obj/item/bodypart/parts = get_injured_bodyparts(injury, required_status)
 	if(!parts.len)
 		return

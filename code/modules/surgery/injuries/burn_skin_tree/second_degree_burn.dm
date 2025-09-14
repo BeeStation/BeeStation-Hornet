@@ -11,6 +11,7 @@
 	pain = 25
 	external = TRUE
 	progression = 50
+	injury_flags = INJURY_LIMB | INJURY_GRAPH
 
 /datum/injury/second_degree_burns/on_damage_taken(total_damage, delta_damage, damage_type = BRUTE, damage_flag = DAMAGE_STANDARD, is_sharp = FALSE)
 	if (damage_type != BURN)

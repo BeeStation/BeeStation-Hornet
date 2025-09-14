@@ -79,7 +79,7 @@
 
 /datum/surgery_step/clamp_bleeders/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(locate(/datum/surgery_step/saw) in surgery.steps)
-		target.heal_bodypart_injuries(BRUTE, 20)
+		target.heal_overall_injuries(BRUTE, 20)
 	return ..()
 
 
@@ -134,7 +134,7 @@
 
 /datum/surgery_step/close/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(locate(/datum/surgery_step/saw) in surgery.steps)
-		target.heal_bodypart_injuries(BRUTE, 45)
+		target.heal_overall_injuries(BRUTE, 45)
 	target.cauterise_wounds()
 	return ..()
 

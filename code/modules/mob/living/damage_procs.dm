@@ -95,23 +95,17 @@
 
 
 /mob/living/proc/getBruteLoss()
-	return bruteloss
+	return get_injury_amount(BRUTE)
 
 /mob/living/proc/adjustBruteLoss(amount, updating_health = TRUE, forced = FALSE, required_status)
 	if(!forced && HAS_TRAIT(src, TRAIT_GODMODE))
 		return FALSE
-	bruteloss = clamp((bruteloss + (amount * CONFIG_GET(number/damage_multiplier))), 0, maxHealth * 2)
-	if(updating_health)
-		updatehealth()
-	return amount
+	return adjust_injury(BRUTE, amount)
 
 /mob/living/proc/setBruteLoss(amount, updating_health = TRUE, forced = FALSE)
 	if(!forced && HAS_TRAIT(src, TRAIT_GODMODE))
 		return
-	. = bruteloss
-	bruteloss = amount
-	if(updating_health)
-		updatehealth()
+	set_injury(BRUTE, amount)
 
 /mob/living/proc/getOxyLoss()
 	return oxyloss
@@ -133,61 +127,43 @@
 		updatehealth()
 
 /mob/living/proc/getToxLoss()
-	return toxloss
+	return get_injury_amount(TOX)
 
 /mob/living/proc/adjustToxLoss(amount, updating_health = TRUE, forced = FALSE)
 	if(!forced && HAS_TRAIT(src, TRAIT_GODMODE))
 		return FALSE
-	toxloss = clamp((toxloss + (amount * CONFIG_GET(number/damage_multiplier))), 0, maxHealth * 2)
-	if(updating_health)
-		updatehealth()
-	return amount
+	return adjust_injury(TOX, amount)
 
 /mob/living/proc/setToxLoss(amount, updating_health = TRUE, forced = FALSE)
 	if(!forced && HAS_TRAIT(src, TRAIT_GODMODE))
 		return FALSE
-	toxloss = amount
-	if(updating_health)
-		updatehealth()
-	return amount
+	set_injury(TOX, amount)
 
 /mob/living/proc/getFireLoss()
-	return fireloss
+	return get_injury_amount(BURN)
 
 /mob/living/proc/adjustFireLoss(amount, updating_health = TRUE, forced = FALSE)
 	if(!forced && HAS_TRAIT(src, TRAIT_GODMODE))
 		return FALSE
-	fireloss = clamp((fireloss + (amount * CONFIG_GET(number/damage_multiplier))), 0, maxHealth * 2)
-	if(updating_health)
-		updatehealth()
-	return amount
+	return adjust_injury(BURN, amount)
 
 /mob/living/proc/setFireLoss(amount, updating_health = TRUE, forced = FALSE)
 	if(!forced && HAS_TRAIT(src, TRAIT_GODMODE))
 		return
-	. = fireloss
-	fireloss = amount
-	if(updating_health)
-		updatehealth()
+	set_injury(BURN, amount)
 
 /mob/living/proc/getCloneLoss()
-	return cloneloss
+	return get_injury_amount(CLONE)
 
 /mob/living/proc/adjustCloneLoss(amount, updating_health = TRUE, forced = FALSE)
 	if(!forced && (HAS_TRAIT(src, TRAIT_GODMODE) || HAS_TRAIT(src, TRAIT_NOCLONELOSS)))
 		return FALSE
-	cloneloss = clamp((cloneloss + (amount * CONFIG_GET(number/damage_multiplier))), 0, maxHealth * 2)
-	if(updating_health)
-		updatehealth()
-	return amount
+	return adjust_injury(CLONE, amount)
 
 /mob/living/proc/setCloneLoss(amount, updating_health = TRUE, forced = FALSE)
 	if(!forced && (HAS_TRAIT(src, TRAIT_GODMODE) || HAS_TRAIT(src, TRAIT_NOCLONELOSS)))
 		return FALSE
-	cloneloss = amount
-	if(updating_health)
-		updatehealth()
-	return amount
+	return get_injury_amount(CLONE)
 
 /mob/living/proc/adjustOrganLoss(slot, amount, maximum, required_status)
 	return
@@ -206,14 +182,6 @@
 
 /mob/living/proc/setStaminaLoss(amount, updating_health = TRUE, forced = FALSE)
 	return
-
-// heal ONE external organ, organ gets randomly selected from damaged ones.
-/mob/living/proc/heal_bodypart_injuries(injury, amount, required_status, updating_health = TRUE)
-	TODO
-	. = (adjustBruteLoss(-brute, FALSE) + adjustFireLoss(-burn, FALSE) + adjustExhaustion(-stamina, FALSE)) //zero as argument for no instant health update
-	if(updating_health)
-		updatehealth()
-		update_stamina()
 
 // damage ONE external organ, organ gets randomly selected from damaged ones.
 /mob/living/proc/take_bodypart_damage(brute = 0, burn = 0, stamina = 0, updating_health = TRUE, required_status)

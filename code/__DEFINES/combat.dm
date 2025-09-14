@@ -13,7 +13,7 @@
 /// limit. Heals naturally over time
 #define CONSCIOUSNESS "consciousness"
 /// Poisoning. Mostly caused by reagents.
-#define TOX "toxin"
+#define TOX /datum/injury/acute/toxin
 /// Suffocation.
 #define OXY "oxygen"
 /// Cellular degredation. Rare and difficult to treat.
@@ -410,3 +410,6 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 /// apply to the entire body, so having no bodypart
 /// must still be handled by the injury.
 #define INJURY_LIMB (1 << 1)
+/// Represent that this injury is from a tree, and
+/// should not be added.
+#define INJURY_GRAPH (1 << 2)

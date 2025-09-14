@@ -11,6 +11,7 @@
 	pain = 35
 	external = TRUE
 	progression = 50
+	injury_flags = INJURY_LIMB | INJURY_GRAPH
 
 /datum/injury/third_degree_burn/gain_message(mob/living/carbon/human/target, obj/item/bodypart/part)
 	to_chat(target, span_userdanger("The burns on your [part.plaintext_zone] intensify."))

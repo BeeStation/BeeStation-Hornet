@@ -149,7 +149,7 @@
 		affected_mob.adjustToxLoss(rand(1, 10), updating_health = FALSE)
 		return UPDATE_MOB_HEALTH
 	else if(DT_PROB(23, delta_time))
-		affected_mob.heal_bodypart_injuries(BRUTE, 5 * REM * delta_time)
+		affected_mob.heal_overall_injuries(BRUTE, 5 * REM * delta_time)
 		return UPDATE_MOB_HEALTH
 
 /datum/reagent/toxin/minttoxin

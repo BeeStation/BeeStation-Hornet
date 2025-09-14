@@ -134,7 +134,7 @@
 		if(chem.volume > 10)
 			H.reagents.remove_reagent(chem.type, chem.metabolization_rate * delta_time)
 			to_chat(H, span_warning("The excess milk is dripping off your bones!"))
-		H.heal_bodypart_injuries(BRUTE, 1.5)
+		H.heal_overall_injuries(BRUTE, 1.5)
 		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
 		return TRUE
 	if(chem.type == /datum/reagent/toxin/bonehurtingjuice)

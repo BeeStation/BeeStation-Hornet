@@ -11,6 +11,7 @@
 	heal_description = "The victim requires surgical stiches on their muscle to ensure a full recovery."
 	external = TRUE
 	progression = 50
+	injury_flags = INJURY_LIMB | INJURY_GRAPH
 
 /datum/injury/cut_bandaged_muscle_tear/on_damage_taken(total_damage, delta_damage, damage_type, damage_flag, is_sharp)
 	if (!is_sharp)

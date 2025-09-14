@@ -11,6 +11,7 @@
 	heal_description = "The victim requires bone setting surgery to make a full recovery."
 	external = TRUE
 	progression = 50
+	injury_flags = INJURY_LIMB | INJURY_GRAPH
 
 /datum/injury/trauma_splinted_broken_bone/on_damage_taken(total_damage, delta_damage, damage_type, damage_flag, is_sharp)
 	if (is_sharp || damage_type != BRUTE)

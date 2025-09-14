@@ -190,8 +190,9 @@
 		arrived_diona.regenerate_limb(healed_limb)
 		for(var/obj/item/bodypart/body_part in arrived_diona.bodyparts)
 			if(body_part.body_zone == healed_limb)
-				body_part.set_brute_dam(brute_damage)
-				body_part.set_burn_dam(fire_damage)
+				for (var/datum/injury/injury in injuries)
+					body_part.increase_injury(injury.base_type, injury.progression - injury:progression)
+				break
 		balloon_alert(arrived_diona, "[arrived_diona] assimilates [src]")
 		QDEL_NULL(src)
 

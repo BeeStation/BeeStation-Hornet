@@ -12,6 +12,7 @@
 	heal_description = "The victim requires sutures to prevent further bleeding."
 	external = TRUE
 	progression = 50
+	injury_flags = INJURY_LIMB | INJURY_GRAPH
 
 /datum/injury/cut_laceration/on_tick(mob/living/carbon/human/target, delta_time)
 	. = ..()

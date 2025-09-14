@@ -77,8 +77,6 @@
 /// Called on /basic when updating its speed, from base of /mob/living/basic/update_basic_mob_varspeed(): ()
 #define POST_BASIC_MOB_UPDATE_VARSPEED "post_basic_mob_update_varspeed"
 
-/// from /datum/status_effect/incapacitating/stamcrit/on_apply()
-#define COMSIG_LIVING_ENTER_STAMCRIT "living_enter_stamcrit"
 ///from /obj/structure/door/crush(): (mob/living/crushed, /obj/machinery/door/crushing_door)
 #define COMSIG_LIVING_DOORCRUSHED "living_doorcrush"
 ///sent when items with siemen coeff. of 0 block a shock: (power_source, source, siemens_coeff, dist_check)

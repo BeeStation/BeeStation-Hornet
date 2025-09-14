@@ -11,7 +11,9 @@ Regenerative extracts:
 
 /obj/item/slimecross/regenerative/proc/core_effect(mob/living/carbon/human/target, mob/user)
 	SHOULD_CALL_PARENT(TRUE)
-	target.heal_overall_damage(50, 50, 50)
+	target.heal_overall_injuries(BRUTE, 50)
+	target.heal_overall_injuries(BURN, 50)
+	target.heal_overall_injuries(STAMINA, 50)
 	target.adjustToxLoss(-50, forced = TRUE)
 
 /obj/item/slimecross/regenerative/proc/core_effect_before(mob/living/carbon/human/target, mob/user)
@@ -279,7 +281,9 @@ Regenerative extracts:
 	if(target == user)
 		return
 	var/mob/living/U = user
-	U.heal_overall_damage(50, 50, 50)
+	target.heal_overall_injuries(BRUTE, 50)
+	target.heal_overall_injuries(BURN, 50)
+	target.heal_overall_injuries(STAMINA, 50)
 	U.adjustToxLoss(-50, forced = TRUE)
 	to_chat(U, span_notice("Some of the milky goo sprays onto you, as well!"))
 

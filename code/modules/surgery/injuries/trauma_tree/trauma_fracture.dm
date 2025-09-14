@@ -9,6 +9,7 @@
 	heal_description = "The victim requires a splint to make a full recovery."
 	pain = 10
 	progression = 50
+	injury_flags = INJURY_LIMB | INJURY_GRAPH
 
 /datum/injury/trauma_broken_bone/apply_to_human(mob/living/carbon/human/target)
 	. = ..()

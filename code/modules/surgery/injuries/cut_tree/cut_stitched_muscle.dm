@@ -6,6 +6,7 @@
 	heal_description = "The victim has scars from a previous injury that may result in life-threatening injuries if damaged. Augmentation or replacement of the bodypart is required for a full recovery."
 	external = TRUE
 	progression = 50
+	injury_flags = INJURY_LIMB | INJURY_GRAPH
 
 /datum/injury/cut_stitched_muscle/on_damage_taken(total_damage, delta_damage, damage_type, damage_flag, is_sharp)
 	if (!is_sharp)

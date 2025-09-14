@@ -5,6 +5,7 @@
 	max_absorption = 0
 	external = FALSE
 	damage_multiplier = 0
+	injury_flags = INJURY_LIMB
 	var/stam_regen_start_time
 
 /datum/injury/acute/shock/adjust_progression(delta_damage)

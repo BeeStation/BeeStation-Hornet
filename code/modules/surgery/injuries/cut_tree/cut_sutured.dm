@@ -7,6 +7,7 @@
 	heal_description = "The victim will make a full recovery naturally over time."
 	external = TRUE
 	progression = 50
+	injury_flags = INJURY_LIMB | INJURY_GRAPH
 
 /datum/injury/cut_sutured/on_damage_taken(total_damage, delta_damage, damage_type, damage_flag, is_sharp)
 	if (!is_sharp)

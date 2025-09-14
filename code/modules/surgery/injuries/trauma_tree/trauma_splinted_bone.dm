@@ -7,6 +7,7 @@
 	heal_description = "The victim should rest and allow the damaged bones to naturally heal over time."
 	external = TRUE
 	progression = 50
+	injury_flags = INJURY_LIMB | INJURY_GRAPH
 
 /datum/injury/trauma_splinted_bone/apply_to_part(obj/item/bodypart/part)
 	// If we lose the injury, stop the timer

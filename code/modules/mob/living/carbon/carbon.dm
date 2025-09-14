@@ -554,20 +554,6 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	else
 		remove_movespeed_modifier(/datum/movespeed_modifier/carbon_softcrit)
 
-/mob/living/carbon/update_stamina(extend_stam_crit = FALSE)
-	var/stam = getExhaustion()
-	if(stam >= DAMAGE_PRECISION && (maxHealth - stam) <= crit_threshold && !HAS_TRAIT(src, TRAIT_NOSTAMCRIT))
-		if(!stat)
-			if(extend_stam_crit || !HAS_TRAIT_FROM(src, TRAIT_INCAPACITATED, STAMINA))
-				enter_stamcrit()
-	else if(HAS_TRAIT_FROM(src, TRAIT_INCAPACITATED, STAMINA))
-		REMOVE_TRAIT(src, TRAIT_INCAPACITATED, STAMINA)
-		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, STAMINA)
-		REMOVE_TRAIT(src, TRAIT_FLOORED, STAMINA)
-	else
-		return
-	update_stamina_hud()
-
 /mob/living/carbon/update_sight()
 	if(!client)
 		return

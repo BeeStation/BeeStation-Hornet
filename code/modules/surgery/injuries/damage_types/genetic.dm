@@ -4,7 +4,7 @@
 	heal_description = "The injury can be treated by applying ointment to the affected limb."
 	max_absorption = 0
 	external = TRUE
-	damage_multiplier = 0.25
+	injury_flags = INJURY_LIMB
 
 /datum/injury/acute/genetic/update_progressive_effects()
 	var/mob/living/owner = mob || bodypart.owner

@@ -12,6 +12,7 @@
 	heal_description = "The victim requires immediate the application of a tourniquet and cauterization surgery to be performed."
 	external = TRUE
 	progression = 50
+	injury_flags = INJURY_LIMB | INJURY_GRAPH
 
 /datum/injury/cut_arterial/on_tick(mob/living/carbon/human/target, delta_time)
 	. = ..()

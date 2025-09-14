@@ -280,7 +280,7 @@
 /datum/reagent/consumable/ethanol/bilk/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(affected_mob.getBruteLoss() && DT_PROB(5, delta_time))
-		affected_mob.heal_bodypart_injuries(BRUTE, 1)
+		affected_mob.heal_overall_injuries(BRUTE, 1)
 		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/ethanol/threemileisland
@@ -472,8 +472,8 @@
 /datum/reagent/consumable/ethanol/hooch/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(affected_mob.mind?.assigned_role == JOB_NAME_ASSISTANT)
-		affected_mob.heal_bodypart_injuries(BRUTE, 1 * REM * delta_time)
-		affected_mob.heal_bodypart_injuries(BURN, 1 * REM * delta_time)
+		affected_mob.heal_overall_injuries(BRUTE, 1 * REM * delta_time)
+		affected_mob.heal_overall_injuries(BURN, 1 * REM * delta_time)
 		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/ethanol/ale
@@ -1531,8 +1531,8 @@
 /datum/reagent/consumable/ethanol/bananahonk/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if((ishuman(affected_mob) && affected_mob.job == JOB_NAME_CLOWN) || ismonkey(affected_mob))
-		affected_mob.heal_bodypart_injuries(BRUTE, 1 * REM * delta_time)
-		affected_mob.heal_bodypart_injuries(BURN, 1 * REM * delta_time)
+		affected_mob.heal_overall_injuries(BRUTE, 1 * REM * delta_time)
+		affected_mob.heal_overall_injuries(BURN, 1 * REM * delta_time)
 		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/ethanol/silencer
@@ -1556,8 +1556,8 @@
 	. = ..()
 	affected_mob.silent = max(affected_mob.silent, 1.25)
 	if(ishuman(affected_mob) && affected_mob.job == JOB_NAME_MIME)
-		affected_mob.heal_bodypart_injuries(BRUTE, 1 * REM * delta_time)
-		affected_mob.heal_bodypart_injuries(BURN, 1 * REM * delta_time)
+		affected_mob.heal_overall_injuries(BRUTE, 1 * REM * delta_time)
+		affected_mob.heal_overall_injuries(BURN, 1 * REM * delta_time)
 		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/ethanol/drunkenblumpkin
@@ -1968,8 +1968,8 @@
 	. = ..()
 	//Securidrink in line with the Screwdriver for engineers or Nothing for mimes
 	if(HAS_MIND_TRAIT(affected_mob, TRAIT_LAW_ENFORCEMENT_METABOLISM))
-		affected_mob.heal_bodypart_injuries(BRUTE, 0.5 * REM * delta_time)
-		affected_mob.heal_bodypart_injuries(BURN, 0.5 * REM * delta_time)
+		affected_mob.heal_overall_injuries(BRUTE, 0.5 * REM * delta_time)
+		affected_mob.heal_overall_injuries(BURN, 0.5 * REM * delta_time)
 		affected_mob.adjust_nutrition(-1 * REM * delta_time)
 		return UPDATE_MOB_HEALTH
 
@@ -1993,8 +1993,8 @@
 	. = ..()
 	//Securidrink in line with the Screwdriver for engineers or Nothing for mimes but STRONG..
 	if(HAS_MIND_TRAIT(affected_mob, TRAIT_LAW_ENFORCEMENT_METABOLISM))
-		affected_mob.heal_bodypart_injuries(BRUTE, 1 * REM * delta_time)
-		affected_mob.heal_bodypart_injuries(BURN, 1 * REM * delta_time)
+		affected_mob.heal_overall_injuries(BRUTE, 1 * REM * delta_time)
+		affected_mob.heal_overall_injuries(BURN, 1 * REM * delta_time)
 		affected_mob.adjust_nutrition(-2 * REM * delta_time)
 		return UPDATE_MOB_HEALTH
 
@@ -2426,8 +2426,8 @@
 	. = ..()
 	affected_mob.silent = max(affected_mob.silent, MIMEDRINK_SILENCE_DURATION)
 	if(ishuman(affected_mob) && affected_mob.job == JOB_NAME_MIME)
-		affected_mob.heal_bodypart_injuries(BRUTE, 1 * REM * delta_time)
-		affected_mob.heal_bodypart_injuries(BURN, 1 * REM * delta_time)
+		affected_mob.heal_overall_injuries(BRUTE, 1 * REM * delta_time)
+		affected_mob.heal_overall_injuries(BURN, 1 * REM * delta_time)
 		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/ethanol/fruit_wine
@@ -2580,8 +2580,8 @@
 	. = ..()
 	//A healing drink similar to Quadruple Sec, Ling Stings, and Screwdrivers for the Wizznerds; the check is consistent with the changeling sting
 	if(affected_mob?.mind?.has_antag_datum(/datum/antagonist/wizard))
-		affected_mob.heal_bodypart_injuries(BRUTE, 1 * REM * delta_time)
-		affected_mob.heal_bodypart_injuries(BURN, 1 * REM * delta_time)
+		affected_mob.heal_overall_injuries(BRUTE, 1 * REM * delta_time)
+		affected_mob.heal_overall_injuries(BURN, 1 * REM * delta_time)
 		affected_mob.adjustOxyLoss(-1 * REM * delta_time, updating_health = FALSE)
 		affected_mob.adjustToxLoss(-1 * REM * delta_time, updating_health = FALSE)
 		return UPDATE_MOB_HEALTH

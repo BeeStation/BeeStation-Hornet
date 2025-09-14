@@ -118,7 +118,7 @@
 
 	if(iscarbon(host_mob))
 		var/mob/living/carbon/C = host_mob
-		var/list/parts = C.get_damaged_bodyparts(TRUE, TRUE, status = BODYTYPE_ROBOTIC)
+		var/list/parts = C.get_injured_bodyparts(list(BRUTE, BURN), status = BODYTYPE_ROBOTIC)
 		if(!parts.len)
 			return FALSE
 	else
@@ -129,13 +129,13 @@
 /datum/nanite_program/repairing/active_effect(mob/living/M)
 	if(iscarbon(host_mob))
 		var/mob/living/carbon/C = host_mob
-		var/list/parts = C.get_damaged_bodyparts(TRUE, TRUE, status = BODYTYPE_ROBOTIC)
+		var/list/parts = C.get_injured_bodyparts(list(BRUTE, BURN), status = BODYTYPE_ROBOTIC)
 		if(!parts.len)
 			return
 		var/update = FALSE
 		for(var/obj/item/bodypart/L in parts)
-			if(L.heal_damage(1.5/parts.len, 1.5/parts.len, null, BODYTYPE_ROBOTIC)) //much faster than organic healing
-				update = TRUE
+			L.heal_injury(BRUTE, 1.5/parts.len, BODYTYPE_ROBOTIC)
+			L.heal_injury(BURN, 1.5/parts.len, BODYTYPE_ROBOTIC)
 		if(update)
 			host_mob.update_damage_overlays()
 	else
@@ -177,13 +177,13 @@
 /datum/nanite_program/regenerative_advanced/active_effect()
 	if(iscarbon(host_mob))
 		var/mob/living/carbon/C = host_mob
-		var/list/parts = C.get_damaged_bodyparts(TRUE,TRUE, status = BODYTYPE_ORGANIC)
+		var/list/parts = C.get_injured_bodyparts(list(BRUTE, BURN), status = BODYTYPE_ORGANIC)
 		if(!parts.len)
 			return
 		var/update = FALSE
 		for(var/obj/item/bodypart/L in parts)
-			if(L.heal_damage(1.5/parts.len, 1.5/parts.len, null, BODYTYPE_ORGANIC))
-				update = TRUE
+			L.heal_injury(BRUTE, 1.5/parts.len, BODYTYPE_ORGANIC)
+			L.heal_injury(BURN, 1.5/parts.len, BODYTYPE_ORGANIC)
 		if(update)
 			host_mob.update_damage_overlays()
 	else

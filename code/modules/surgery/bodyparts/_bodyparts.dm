@@ -894,6 +894,9 @@
 	for (var/datum/injury/injury in injuries)
 		if (injury.base_type == injury_path:base_type)
 			return injury
+	// You can't instantiate new instances of a graph-based injury
+	if (injury_path:injury_flags & INJURY_GRAPH)
+		return
 	var/datum/injury/injury = new injury_path()
 	injuries += injury
 	injury.bodypart = src

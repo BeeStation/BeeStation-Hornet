@@ -47,8 +47,8 @@
 	var/full_heal_flags = ~(HEAL_BRUTE|HEAL_BURN|HEAL_TOX|HEAL_RESTRAINTS|HEAL_ORGANS)
 
 /datum/reagent/medicine/adminordrazine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
-	affected_mob.heal_bodypart_injuries(BRUTE, 5 * REM * delta_time)
-	affected_mob.heal_bodypart_injuries(BRUTE, 5 * REM * delta_time)
+	affected_mob.heal_overall_injuries(BRUTE, 5 * REM * delta_time)
+	affected_mob.heal_overall_injuries(BRUTE, 5 * REM * delta_time)
 	affected_mob.adjustToxLoss(-5 * REM * delta_time, updating_health = FALSE, forced = TRUE)
 	// Heal everything! That we want to. But really don't heal reagents. Otherwise we'll lose ... us.
 	affected_mob.fully_heal(full_heal_flags & ~HEAL_ALL_REAGENTS)
@@ -204,8 +204,8 @@
 /datum/reagent/medicine/rezadone/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	affected_mob.setCloneLoss(0) //Rezadone is almost never used in favor of cryoxadone. Hopefully this will change that. // No such luck so far
-	affected_mob.heal_bodypart_injuries(BRUTE, 1 * REM * delta_time)
-	affected_mob.heal_bodypart_injuries(BRUTE, 1 * REM * delta_time)
+	affected_mob.heal_overall_injuries(BRUTE, 1 * REM * delta_time)
+	affected_mob.heal_overall_injuries(BRUTE, 1 * REM * delta_time)
 	REMOVE_TRAIT(affected_mob, TRAIT_DISFIGURED, TRAIT_GENERIC)
 	return UPDATE_MOB_HEALTH
 
@@ -1462,8 +1462,8 @@
 
 /datum/reagent/medicine/lavaland_extract/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.heal_bodypart_injuries(BRUTE, 5 * REM * delta_time)
-	affected_mob.heal_bodypart_injuries(BRUTE, 5 * REM * delta_time)
+	affected_mob.heal_overall_injuries(BRUTE, 5 * REM * delta_time)
+	affected_mob.heal_overall_injuries(BRUTE, 5 * REM * delta_time)
 	return UPDATE_MOB_HEALTH
 
 /datum/reagent/medicine/lavaland_extract/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
