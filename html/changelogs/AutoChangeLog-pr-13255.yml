@@ -1,0 +1,6 @@
+author: lord scrubling
+delete-after: true
+changes:
+  - rscadd: resin mister upgrades can now be applied to the modsuit module
+  - bugfix: the resin mister module now deploys
+  - refactor: watertank backpacks are more flexible
