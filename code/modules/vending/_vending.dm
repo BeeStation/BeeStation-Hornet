@@ -844,8 +844,8 @@
 /obj/machinery/vending/ui_static_data(mob/user)
 	var/list/data = list()
 	data["onstation"] = onstation
-	data["department_bitflag"] = payment_department
-	data["jobDiscount"] = DEPARTMENT_DISCOUNT
+	data["all_products_free"] = all_products_free
+	data["department_bitflag"] = dept_req_for_free
 	data["product_records"] = list()
 	data["displayed_currency_icon"] = displayed_currency_icon
 	data["displayed_currency_name"] = displayed_currency_name
@@ -1043,8 +1043,8 @@
 			vend_ready = TRUE
 			return
 		var/datum/bank_account/account = C.registered_account
-		if(account.account_job && (account.active_departments & payment_department))
-			price_to_use = max(round(price_to_use * DEPARTMENT_DISCOUNT), 1)
+		if(account.account_job && (account.active_departments & dept_req_for_free))
+			price_to_use = 0
 		if(coin_records.Find(R) || hidden_records.Find(R))
 			price_to_use = R.custom_premium_price ? R.custom_premium_price : extra_price
 		if(LAZYLEN(R.returned_products))
