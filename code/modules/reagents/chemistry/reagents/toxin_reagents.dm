@@ -571,7 +571,7 @@
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3 * REM * delta_time, 150)
 	if(current_cycle >= 18)
 		affected_mob.Sleeping(40 * REM * delta_time)
-	if(affected_mob.toxloss <= 60)
+	if(affected_mob.getToxLoss() <= 60)
 		affected_mob.adjustToxLoss(1 * REM * delta_time, updating_health = FALSE)
 		return UPDATE_MOB_HEALTH
 

@@ -101,7 +101,7 @@
 		if(isshadow(M))
 			M.heal_overall_injuries(BRUTE, 25 * grand_ritual_level)
 			M.heal_overall_injuries(BURN, 25 * grand_ritual_level)
-			M.heal_overall_injuries(stamina damage, 200)
+			M.heal_overall_injuries(STAMINA, 200)
 			if(isblessedshadow(M))
 				var/datum/species/shadow/S = M.dna.species
 				S.change_hearts_ritual(M)
@@ -474,7 +474,7 @@
 				continue
 			L.heal_overall_injuries(BRUTE, 0.5 * delta_time)
 			L.heal_overall_injuries(BURN, 0.5 * delta_time)
-			L.heal_overall_injuries(stamina damage, 5 * delta_time)
+			L.heal_overall_injuries(STAMINA, 5 * delta_time)
 
 
 /obj/structure/destructible/religion/shadow_obelisk/after_rit_1/after_rit_2/after_rit_3

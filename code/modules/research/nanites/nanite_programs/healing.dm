@@ -19,12 +19,8 @@
 /datum/nanite_program/regenerative/active_effect()
 	if(iscarbon(host_mob))
 		var/mob/living/carbon/C = host_mob
-		var/list/parts = C.get_injured_bodyparts(list(BRUTE, BURN), status = BODYTYPE_ORGANIC)
-		if(!parts.len)
-			return
-		for(var/obj/item/bodypart/L in parts)
-			if(L.heal_damage(0.5/parts.len, 0.5/parts.len, null, BODYTYPE_ORGANIC))
-				host_mob.update_damage_overlays()
+		C.heal_overall_injuries(BRUTE, 0.5, BODYTYPE_ORGANIC)
+		C.heal_overall_injuries(BURN, 0.5, BODYTYPE_ORGANIC)
 	else
 		host_mob.adjustBruteLoss(-0.5, TRUE)
 		host_mob.adjustFireLoss(-0.5, TRUE)
