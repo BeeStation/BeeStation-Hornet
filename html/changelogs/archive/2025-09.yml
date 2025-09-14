@@ -177,6 +177,10 @@
       gas rig now.
   - rscdel: Removed gas miners from all maps except for echo, as the gas rig being
       there makes no sense
+  lord scrubling:
+  - rscadd: resin mister upgrades can now be applied to the modsuit module
+  - bugfix: the resin mister module now deploys
+  - refactor: watertank backpacks are more flexible
   ? mrmanlikesbt, MrMelbert, san7890, SuperNovaa41, Watermelon914, lessthnthree, ZephyrTFA,
     Jacquerel, AnywayFarus, imedial, SmArtKar
   : - rscadd: Added the "Vote" verb the OOC tab, here you can check the status of
