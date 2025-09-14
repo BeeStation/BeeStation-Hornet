@@ -122,7 +122,8 @@
 
 	if(brute_heal > 0 || burn_heal > 0) // Just a check? Don't heal/spend, and return.
 		var/bloodcost = (brute_heal * 0.5 + burn_heal) * bloodcost_multiplier * healing_mulitplier
-		carbon_owner.heal_overall_damage(brute_heal, burn_heal)
+		carbon_owner.heal_overall_injuries(BRUTE, brute_heal)
+		carbon_owner.heal_overall_injuries(BURN, burn_heal)
 		AddBloodVolume(-bloodcost)
 		return TRUE
 	return FALSE
@@ -138,7 +139,7 @@
 		carbon_owner.regenerate_limb(missing_limb, FALSE)
 		AddBloodVolume(-limb_regen_cost)
 		var/obj/item/bodypart/missing_bodypart = carbon_owner.get_bodypart(missing_limb)
-		missing_bodypart.increase_injury(/datum/injury/brute, missing_bodypart.max_damage * 0.6)
+		missing_bodypart.increase_injury(/datum/injury/acute/brute, missing_bodypart.max_damage * 0.6)
 		to_chat(carbon_owner, span_notice("Your flesh knits as it regrows your [missing_bodypart]!"))
 		playsound(carbon_owner, 'sound/magic/demon_consume.ogg', 50, TRUE)
 		return TRUE

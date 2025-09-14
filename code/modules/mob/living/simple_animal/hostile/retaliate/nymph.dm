@@ -197,7 +197,8 @@
 
 /mob/living/simple_animal/hostile/retaliate/nymph/handle_mutations_and_radiation()
 	if(radiation > 50)
-		heal_overall_damage(1,1, 0, BODYTYPE_ORGANIC)
+		heal_overall_injuries(BRUTE, 1, 0, BODYTYPE_ORGANIC)
+		heal_overall_injuries(BURN, 1, 0, BODYTYPE_ORGANIC)
 	. = ..()
 
 /mob/living/simple_animal/hostile/retaliate/nymph/proc/evolve(var/mob/living/simple_animal/hostile/retaliate/nymph/nymphs)

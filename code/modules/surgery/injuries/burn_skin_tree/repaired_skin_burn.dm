@@ -1,4 +1,5 @@
 /datum/injury/repaired_skin_burn
+	base_type = /datum/injury/healthy_skin_burn
 	surgeries_provided = list(/datum/surgery/skin_graft)
 	severity_level = INJURY_PRIORITY_HEALING
 	health_doll_icon = "bandage"
@@ -6,6 +7,7 @@
 	healed_type = /datum/injury/healthy_skin_burn
 	heal_description = "This victim can be treated via a surgical skin graft."
 	external = TRUE
+	progression = 50
 
 /datum/injury/repaired_skin_burn/on_damage_taken(total_damage, delta_damage, damage_type = BRUTE, damage_flag = DAMAGE_STANDARD, is_sharp = FALSE)
 	if (damage_type != BURN)

@@ -1,4 +1,5 @@
 /datum/injury/cut_healthy
+	base_type = /datum/injury/cut_healthy
 	max_absorption = 0
 
 /datum/injury/cut_healthy/on_damage_taken(total_damage, delta_damage, damage_type, damage_flag, is_sharp)

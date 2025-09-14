@@ -1,9 +1,11 @@
 /datum/injury/cut_stitched_muscle
+	base_type = /datum/injury/cut_healthy
 	severity_level = INJURY_PRIORITY_HEALING
 	health_doll_icon = "bandage"
 	examine_description = "an untreatable cut scar"
 	heal_description = "The victim has scars from a previous injury that may result in life-threatening injuries if damaged. Augmentation or replacement of the bodypart is required for a full recovery."
 	external = TRUE
+	progression = 50
 
 /datum/injury/cut_stitched_muscle/on_damage_taken(total_damage, delta_damage, damage_type, damage_flag, is_sharp)
 	if (!is_sharp)

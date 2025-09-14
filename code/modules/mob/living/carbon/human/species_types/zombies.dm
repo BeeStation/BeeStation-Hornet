@@ -130,7 +130,8 @@
 		var/heal_amt = heal_rate
 		if(HAS_TRAIT(C, TRAIT_CRITICAL_CONDITION))
 			heal_amt *= 2
-		C.heal_overall_damage(heal_amt * delta_time, heal_amt * delta_time)
+		C.heal_overall_injuries(BRUTE, heal_amt * delta_time)
+		C.heal_overall_injuries(BURN, heal_amt * delta_time)
 		C.adjustToxLoss(-heal_amt * delta_time)
 		C.adjustOrganLoss(ORGAN_SLOT_BRAIN, -heal_amt * delta_time)
 	if(!HAS_TRAIT(C, TRAIT_CRITICAL_CONDITION) && DT_PROB(2, delta_time))

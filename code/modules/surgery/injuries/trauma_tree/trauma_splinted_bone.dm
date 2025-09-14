@@ -1,10 +1,12 @@
 /datum/injury/trauma_splinted_bone
+	base_type = /datum/injury/trauma_healthy
 	severity_level = INJURY_PRIORITY_HEALING
 	health_doll_icon = "bandage"
 	examine_description = "a splinted fracture"
 	effectiveness_modifier = 0.9
 	heal_description = "The victim should rest and allow the damaged bones to naturally heal over time."
 	external = TRUE
+	progression = 50
 
 /datum/injury/trauma_splinted_bone/apply_to_part(obj/item/bodypart/part)
 	// If we lose the injury, stop the timer

@@ -540,7 +540,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	var/total_stamina = 0
 	var/is_burn_destroyed = TRUE
 	for(var/obj/item/bodypart/BP as() in bodyparts)
-		var/datum/injury/burn_injury = BP.get_injury_by_base(/datum/injury/healthy_skin_burn)
+		var/datum/injury/acute/burn_injury = BP.get_injury(/datum/injury/healthy_skin_burn)
 		if (burn_injury.type != /datum/injury/limb_destroyed && burn_injury.type != /datum/injury/third_degree_burn)
 			is_burn_destroyed = FALSE
 	// Send the signal here in case our stat changes as the result of a signal call

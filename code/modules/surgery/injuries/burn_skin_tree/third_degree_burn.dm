@@ -1,4 +1,5 @@
 /datum/injury/third_degree_burn
+	base_type = /datum/injury/healthy_skin_burn
 	skin_armour_modifier = 0.4
 	effectiveness_modifier = 0
 	surgeries_provided = list(/datum/surgery/skin_graft)
@@ -9,6 +10,7 @@
 	heal_description = "The victim can be assisted with advanced burn gel applied via patch, but a full recovery is only possible via augmentation or replacement of the bodypart."
 	pain = 35
 	external = TRUE
+	progression = 50
 
 /datum/injury/third_degree_burn/gain_message(mob/living/carbon/human/target, obj/item/bodypart/part)
 	to_chat(target, span_userdanger("The burns on your [part.plaintext_zone] intensify."))

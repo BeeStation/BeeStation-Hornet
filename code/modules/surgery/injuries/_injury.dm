@@ -32,6 +32,9 @@
 	/// Current amount of damage taken
 	/// Progression represents the amount of damage applied to the injury, so typically
 	/// would be in the range of 0-100, but it may be more in cases of extreme damage.
+	/// If this has an initial value other than 0, then the injury is given a progression
+	/// value as soon as it is applied, which may be the case for injuries where progression
+	/// is not directly tied to damage.
 	var/progression = 0
 	/// Effectiveness modifier to the limb. Reduces the effectiveness on the limb even
 	/// without causing damage to it.
@@ -47,6 +50,8 @@
 	// =================================
 	/// List of surgeries provided by this injury
 	var/list/surgeries_provided = null
+	/// The progression value that we need to reach for the injury to be fully healed
+	var/minimum_progression = 0
 	/// What do we need to do to heal this injury?
 	var/heal_description = null
 	/// The type we transition to upon being healed
@@ -57,8 +62,10 @@
 	// =================================
 	// Instanced
 	// =================================
-	/// Bodypart we are attached to
+	/// Bodypart we are attached to, if we are a bodypart injury
 	var/obj/item/bodypart/bodypart
+	/// The mob that we are attached to, if we are a mob injury
+	var/mob/living/mob
 	/// When did we gain this injury?
 	var/gained_time
 	/// How much damage have we absorbed, when injuries are gained for the first time
@@ -93,15 +100,18 @@
 	START_PROCESSING(SSinjuries, src)
 	if (pain)
 		target.pain.set_pain_source(pain, "[type]")
+	// Update progression, to apply initial effects
+	update_progressive_effects()
 
 /// Take the injury away from the person who owns the limb
 /datum/injury/proc/remove_from_human(mob/living/carbon/human/target)
+	remove_progressive_effects()
 	UnregisterSignal(target, COMSIG_ATOM_ATTACKBY)
 	target.update_health_hud()
 	STOP_PROCESSING(SSinjuries, src)
 
 /datum/injury/proc/apply_damage(delta_damage, damage_type = BRUTE, damage_flag = DAMAGE_STANDARD, is_sharp = FALSE)
-	if (on_damage_taken(progression + delta_damage, delta_damage, damage_type, damage_flag, is_sharp))
+	if (on_damage_taken((progression - initial(progression)) + delta_damage, delta_damage, damage_type, damage_flag, is_sharp))
 		// Absorb damage if we are a brand new injury.
 		var/duration = world.time - gained_time
 		var/propotion = CLAMP01(1 - (duration / INJURY_ABSORPTION_DURATION))
@@ -109,19 +119,32 @@
 		absorbed_damage += absorbed_amount
 		// Increase our total damage amount
 		progression += delta_damage - absorbed_amount
-		on_progression_changed()
+		update_progressive_effects()
 
-/datum/injury/proc/force_apply_damage(delta_damage)
+/datum/injury/proc/adjust_progression(delta_damage)
 	// Absorb damage if we are a brand new injury.
 	var/duration = world.time - gained_time
 	var/propotion = CLAMP01(1 - (duration / INJURY_ABSORPTION_DURATION))
 	var/absorbed_amount = max(0, min(delta_damage, (max_absorption * propotion) - absorbed_damage))
 	absorbed_damage += absorbed_amount
 	// Increase our total damage amount
+	var/applied = delta_damage - absorbed_amount
+	var/previous_progression = progression
 	progression += delta_damage - absorbed_amount
-	on_progression_changed()
+	// Progression of the injury decreased to 0, heal the injury
+	if (progression < minimum_progression)
+		heal()
+		// If progression was 10 before, the delta was -10
+		return -previous_progression
+	else
+		update_progressive_effects()
+		// Return however much progression was applied
+		return applied
 
-/datum/injury/proc/on_progression_changed()
+/datum/injury/proc/update_progressive_effects()
+	return
+
+/datum/injury/proc/remove_progressive_effects()
 	return
 
 /// Called when damage is taken

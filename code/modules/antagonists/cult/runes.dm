@@ -893,7 +893,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 		if(!IS_CULTIST(L) && L.blood.volume)
 			if(L.can_block_magic(MAGIC_RESISTANCE_HOLY))
 				continue
-			L.take_overall_damage(tick_damage*multiplier, tick_damage*multiplier)
+			L.take_direct_overall_damage(BRUTE, tick_damage*multiplier)
+			L.take_direct_overall_damage(BURN, tick_damage*multiplier)
 
 //Rite of Spectral Manifestation: Summons a ghost on top of the rune as a cultist human with no items. User must stand on the rune at all times, and takes damage for each summoned ghost.
 /obj/effect/rune/manifest

@@ -1,16 +1,16 @@
 //These procs fetch a cumulative total damage from all bodyparts
 /mob/living/carbon/getBruteLoss()
-	var/amount = 0
+	var/amount = ..()
 	for(var/obj/item/bodypart/BP as() in bodyparts)
-		var/datum/injury/injury = BP.get_injury_by_base(/datum/injury/brute)
+		var/datum/injury/injury = BP.get_injury(/datum/injury/acute/brute)
 		if (injury)
 			amount += injury.progression
 	return amount
 
 /mob/living/carbon/getFireLoss()
-	var/amount = 0
+	var/amount = ..()
 	for(var/obj/item/bodypart/BP as() in bodyparts)
-		var/datum/injury/injury = BP.get_injury_by_base(/datum/injury/burn)
+		var/datum/injury/injury = BP.get_injury(/datum/injury/acute/burn)
 		if (injury)
 			amount += injury.progression
 	return amount
@@ -20,11 +20,11 @@
 	if(!forced && HAS_TRAIT(src, TRAIT_GODMODE))
 		return FALSE
 	if(amount > 0)
-		take_overall_damage(amount, 0, 0, updating_health, required_status)
+		take_direct_overall_damage(BRUTE, amount, required_status)
 	else
 		if(!required_status)
 			required_status = forced ? null : BODYTYPE_ORGANIC
-		heal_overall_damage(abs(amount), 0, 0, required_status, updating_health)
+		heal_overall_injuries(BRUTE, abs(amount), required_status)
 	return amount
 
 /mob/living/carbon/setBruteLoss(amount, updating_health = TRUE, forced = FALSE)
@@ -38,11 +38,11 @@
 	if(!forced && HAS_TRAIT(src, TRAIT_GODMODE))
 		return FALSE
 	if(amount > 0)
-		take_overall_damage(0, amount, 0, updating_health, required_status)
+		take_direct_overall_damage(BURN, amount, required_status)
 	else
 		if(!required_status)
 			required_status = forced ? null : BODYTYPE_ORGANIC
-		heal_overall_damage(0, abs(amount), 0, required_status, updating_health)
+		heal_overall_injuries(BURN, abs(amount), required_status)
 	return amount
 
 /mob/living/carbon/setFireLoss(amount, updating_health = TRUE, forced = FALSE)
@@ -125,11 +125,11 @@
 			continue
 		if (islist(required_injury))
 			for (var/injury_path in required_injury)
-				if (BP.get_injury_by_base(required_injury))
+				if (BP.get_injury(required_injury))
 					parts += BP
 					break
 		else if (required_injury)
-			if (BP.get_injury_by_base(required_injury))
+			if (BP.get_injury(required_injury))
 				parts += BP
 		else
 			if (BP.accumulated_damage > 0)
@@ -169,58 +169,32 @@
 	if(picked.receive_damage(brute, burn, stamina))
 		update_damage_overlays()
 
-//Heal MANY bodyparts, in random order
-/mob/living/carbon/heal_overall_damage(brute = 0, burn = 0, stamina = 0, required_status, updating_health = TRUE)
-	var/list/obj/item/bodypart/parts = get_damaged_bodypartsa(brute, burn, stamina, required_status)
-
-	var/update = NONE
-	while(parts.len && (brute > 0 || burn > 0 || stamina > 0))
-		var/obj/item/bodypart/picked = pick(parts)
-
-		var/brute_was = picked.brute_dam
-		var/burn_was = picked.burn_dam
-		var/stamina_was = picked.stamina_dam
-
-		update |= picked.heal_damage(brute, burn, stamina, required_status, FALSE)
-
-		brute = round(brute - (brute_was - picked.brute_dam), DAMAGE_PRECISION)
-		burn = round(burn - (burn_was - picked.burn_dam), DAMAGE_PRECISION)
-		stamina = round(stamina - (stamina_was - picked.stamina_dam), DAMAGE_PRECISION)
-
-		parts -= picked
-	if(updating_health)
-		updatehealth()
-		update_stamina(stamina >= DAMAGE_PRECISION)
-	if(update)
-		update_damage_overlays()
+/mob/living/carbon/heal_overall_injuries(injury_type, amount, required_status)
+	// If we have mob injuries, heal them first
+	var/healed_amount = adjust_injury(injury_type, -amount)
+	amount -= healed_amount
+	// Nothing left to heal
+	if (amount <= 0)
+		return
+	// Heal bodyparts evenly
+	var/list/injured_parts = get_injured_bodyparts(injury_type, required_status)
+	for (var/obj/item/bodypart/part in injured_parts)
+		part.heal_injury(injury_type, amount / length(injured_parts), required_status, FALSE)
+	// Update health
+	updatehealth()
+	update_stamina()
+	update_damage_overlays()
 
 // damage MANY bodyparts, in random order
-/mob/living/carbon/take_overall_damage(brute = 0, burn = 0, stamina = 0, updating_health = TRUE, required_status)
+/mob/living/carbon/take_direct_overall_damage(injury_type, amount, required_status)
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return	//godmode
 
-	var/list/obj/item/bodypart/parts = get_damageable_bodyparts(required_status)
-	var/update = 0
-	while(parts.len && (brute > 0 || burn > 0 || stamina > 0))
-		var/obj/item/bodypart/picked = pick(parts)
-		var/brute_per_part = round(brute/parts.len, DAMAGE_PRECISION)
-		var/burn_per_part = round(burn/parts.len, DAMAGE_PRECISION)
-		var/stamina_per_part = round(stamina/parts.len, DAMAGE_PRECISION)
-
-		var/brute_was = picked.brute_dam
-		var/burn_was = picked.burn_dam
-		var/stamina_was = picked.stamina_dam
-
-
-		update |= picked.receive_damage(brute_per_part, burn_per_part, stamina_per_part, FALSE, required_status)
-
-		brute	= round(brute - (picked.brute_dam - brute_was), DAMAGE_PRECISION)
-		burn	= round(burn - (picked.burn_dam - burn_was), DAMAGE_PRECISION)
-		stamina = round(stamina - (picked.stamina_dam - stamina_was), DAMAGE_PRECISION)
-
-		parts -= picked
-	if(updating_health)
-		updatehealth()
-	if(update)
-		update_damage_overlays()
-	update_stamina(stamina >= DAMAGE_PRECISION)
+	// Heal bodyparts evenly
+	var/list/injured_parts = get_damageable_bodyparts(required_status)
+	for (var/obj/item/bodypart/part in injured_parts)
+		part.increase_injury(injury_type, amount / length(injured_parts))
+	// Update health
+	updatehealth()
+	update_stamina()
+	update_damage_overlays()

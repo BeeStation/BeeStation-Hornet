@@ -225,22 +225,12 @@
 		update_stamina(stamina >= DAMAGE_PRECISION)
 
 // heal MANY bodyparts, in random order
-/mob/living/proc/heal_overall_damage(brute = 0, burn = 0, stamina = 0, required_status, updating_health = TRUE)
-	adjustBruteLoss(-brute, FALSE) //zero as argument for no instant health update
-	adjustFireLoss(-burn, FALSE)
-	adjustExhaustion(-stamina, FALSE)
-	if(updating_health)
-		updatehealth()
-		update_stamina()
+/mob/living/proc/heal_overall_injuries(injury_type, amount, required_status)
+	adjust_injury(injury_type, -amount)
 
 // damage MANY bodyparts, in random order
-/mob/living/proc/take_overall_damage(brute = 0, burn = 0, stamina = 0, updating_health = TRUE, required_status = null)
-	adjustBruteLoss(brute, FALSE) //zero as argument for no instant health update
-	adjustFireLoss(burn, FALSE)
-	adjustExhaustion(stamina, FALSE)
-	if(updating_health)
-		updatehealth()
-		update_stamina(stamina >= DAMAGE_PRECISION)
+/mob/living/proc/take_direct_overall_damage(injury_type, amount, required_status)
+	adjust_injury(injury_type, amount)
 
 //heal up to amount damage, in a given order
 /mob/living/proc/heal_ordered_damage(amount, list/damage_types)

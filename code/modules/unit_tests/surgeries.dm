@@ -71,7 +71,8 @@
 
 /datum/unit_test/tend_wounds/Run()
 	var/mob/living/carbon/human/patient = allocate(/mob/living/carbon/human/consistent)
-	patient.take_overall_damage(100, 100)
+	patient.take_direct_overall_damage(BRUTE, 100)
+	patient.take_direct_overall_damage(BURN, 100)
 
 	var/mob/living/carbon/human/user = allocate(/mob/living/carbon/human/consistent)
 
@@ -86,11 +87,11 @@
 
 	// Test that wearing clothing lowers heal amount
 	var/mob/living/carbon/human/naked_patient = allocate(/mob/living/carbon/human/consistent)
-	naked_patient.take_overall_damage(100)
+	naked_patient.take_direct_overall_damage(BRUTE, 100)
 
 	var/mob/living/carbon/human/clothed_patient = allocate(/mob/living/carbon/human/consistent)
 	clothed_patient.equipOutfit(/datum/outfit/job/medical_doctor, TRUE)
-	clothed_patient.take_overall_damage(100)
+	clothed_patient.take_direct_overall_damage(BRUTE, 100)
 
 	basic_brute_heal.success(user, naked_patient, BODY_ZONE_CHEST)
 	basic_brute_heal.success(user, clothed_patient, BODY_ZONE_CHEST)

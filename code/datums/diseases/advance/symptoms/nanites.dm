@@ -37,7 +37,8 @@
 			if(prob(2 * power))
 				NP.software_error(rand(3, 4)) //activate, deactivate, or trigger the nanites
 	if(A.stage >= 4)
-		M.heal_overall_damage((0.5 * power), (0.5 * power), required_status = BODYTYPE_ROBOTIC)
+		M.heal_overall_injuries(BRUTE, (0.5 * power), required_status = BODYTYPE_ROBOTIC)
+		M.heal_overall_injuries(BURN, (0.5 * power), required_status = BODYTYPE_ROBOTIC)
 
 /datum/symptom/nano_destroy
 	name = "Silicolysis"
@@ -80,4 +81,4 @@
 			else if(prob(2))
 				NP.software_error()
 	if(A.stage >= 4)
-		M.take_overall_damage((1 * power), required_status = BODYTYPE_ROBOTIC)
+		M.take_direct_overall_damage(BRUTE, (1 * power), required_status = BODYTYPE_ROBOTIC)

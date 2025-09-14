@@ -411,9 +411,22 @@
 	owner.update_damage_overlays()	//temp: call this if we need to
 	return update_bodypart_damage_state()
 
+/// Increase the progression of an injury by a specified amount
+/// injury_type: The type of injury to progress. If the injury type belongs to a graph-based injury
+/// then the injury increase will apply to the tree regardless of the current state that the graph
+/// is at.
+/// Amount: The amount to progress the injury by. Accepts negative values.
+/// Returns the amount that the injury was progressed by, which may not be the same as the amount
+/// in cases where the injury was fully healed before the entire amount could be applied.
 /obj/item/bodypart/proc/increase_injury(injury_type, amount)
+	// When healing, do not apply the injury if it doesn't exist
+	if (amount <= 0)
+		var/datum/injury/located_injury = get_injury(injury_type, null)
+		if (!located_injury)
+			return 0
+		return located_injury.adjust_progression(amount)
 	var/datum/injury/located_injury = apply_injury_tree(injury_type, null)
-	located_injury.force_apply_damage(amount)
+	return located_injury.adjust_progression(amount)
 
 ///Proc to hook behavior associated to the change of the stamina_dam variable's value.
 /obj/item/bodypart/proc/set_stamina_dam(new_value)
@@ -863,22 +876,29 @@
 	qdel(injury)
 	check_effectiveness()
 
-/obj/item/bodypart/proc/get_injury_by_base(base_path)
+/obj/item/bodypart/proc/get_injury(base_path)
+	var/datum/injury/injury_path = base_path
 	for (var/datum/injury/injury in injuries)
-		if (injury.base_type == base_path || injury.type == base_path)
+		if (injury.base_type == injury_path:base_type)
 			return injury
 	return null
+
+/obj/item/bodypart/proc/get_injury_amount(base_path)
+	var/datum/injury/injury_path = base_path
+	for (var/datum/injury/injury in injuries)
+		if (injury.base_type == injury_path:base_type)
+			return injury.progression
+	return 0
 
 /// Add a new injury to the set of injury trees on this bodypart
 /// Do not use this to set an injury, as the previous injury tree
 /// node has to be removed first, simply adding a new injury due
 /// to damage will result in multiple trees of that damage type.
-/obj/item/bodypart/proc/apply_injury_tree(injury_path, injury_base_path)
+/obj/item/bodypart/proc/apply_injury_tree(datum/injury/injury_path)
 	for (var/datum/injury/injury in injuries)
-		if (injury.type == injury_path)
+		if (injury.base_type == injury_path:base_type)
 			return injury
 	var/datum/injury/injury = new injury_path()
-	injury.base_type = injury_base_path || injury_path
 	injuries += injury
 	injury.bodypart = src
 	injury.gained_time = world.time

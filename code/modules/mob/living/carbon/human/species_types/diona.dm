@@ -75,7 +75,7 @@
 	if(H.fire_stacks < 1)
 		H.adjust_fire_stacks(1) //VERY flammable
 	if(H.nutrition < NUTRITION_LEVEL_STARVING)
-		H.take_overall_damage(1,0)
+		H.take_direct_overall_damage(BRUTE, 1)
 	if(H.stat != CONSCIOUS)
 		H.remove_status_effect(/datum/status_effect/planthealing)
 	if(H.stat >= SOFT_CRIT) //Shit, we're dying! Scatter!
@@ -114,7 +114,8 @@
 	//Dionae heal and eat radiation for a living.
 	H.adjust_nutrition(clamp(radiation, 0, 7))
 	if(radiation > 50)
-		H.heal_overall_damage(1,1, 0, BODYTYPE_ORGANIC)
+		H.heal_overall_injuries(BRUTE, 1, BODYTYPE_ORGANIC)
+		H.heal_overall_injuries(BURN, 1, BODYTYPE_ORGANIC)
 		H.adjustToxLoss(-2)
 		H.adjustOxyLoss(-1)
 
@@ -227,13 +228,13 @@
 			BP.drop_limb()
 			continue
 		if(istype(BP, /obj/item/bodypart/head))
-			nymph.adjustBruteLoss(BP.brute_dam)
-			nymph.adjustFireLoss(BP.burn_dam)
+			for (var/datum/injury/injury in BP.injuries)
+				nymph.adjust_injury(injury, injury.progression - injury:progression)
 			nymph.updatehealth()
 			continue //Exclude the head nymph from the alive_nymphs list, since that list is used for secondary consciousness transfer.
 		var/mob/living/simple_animal/hostile/retaliate/nymph/limb_nymph = new /mob/living/simple_animal/hostile/retaliate/nymph(H.loc)
-		limb_nymph.adjustBruteLoss(BP.brute_dam)
-		limb_nymph.adjustFireLoss(BP.burn_dam)
+		for (var/datum/injury/injury in BP.injuries)
+			limb_nymph.adjust_injury(injury, injury.progression - injury:progression)
 		limb_nymph.updatehealth()
 		if(limb_nymph.stat != DEAD)
 			alive_nymphs += limb_nymph

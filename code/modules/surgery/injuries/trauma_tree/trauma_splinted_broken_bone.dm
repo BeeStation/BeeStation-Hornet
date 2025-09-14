@@ -1,4 +1,5 @@
 /datum/injury/trauma_splinted_broken_bone
+	base_type = /datum/injury/trauma_healthy
 	severity_level = INJURY_PRIORITY_HEALING
 	health_doll_icon = "bandage"
 	examine_description = "a splinted broken bone"
@@ -9,6 +10,7 @@
 	)
 	heal_description = "The victim requires bone setting surgery to make a full recovery."
 	external = TRUE
+	progression = 50
 
 /datum/injury/trauma_splinted_broken_bone/on_damage_taken(total_damage, delta_damage, damage_type, damage_flag, is_sharp)
 	if (is_sharp || damage_type != BRUTE)

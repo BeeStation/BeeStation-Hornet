@@ -278,7 +278,8 @@
 	if(!do_after(src, 2 SECONDS, target = hurt_spider))
 		return
 
-	hurt_spider.heal_overall_damage(20, 20)
+	hurt_spider.heal_overall_injuries(BRUTE, 20)
+	hurt_spider.heal_overall_injuries(BURN, 20)
 	new /obj/effect/temp_visual/heal(get_turf(hurt_spider), "#80F5FF")
 	visible_message(span_notice("[src] wraps the wounds of [hurt_spider]."), span_notice("You wrap the wounds of [hurt_spider]."))
 

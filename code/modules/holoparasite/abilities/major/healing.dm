@@ -127,7 +127,8 @@
 	var/old_oxy = target.getOxyLoss()
 	var/old_tox = target.getToxLoss()
 	var/old_clone = target.getCloneLoss()
-	target.heal_overall_damage(brute = actual_heal_amt, burn = actual_heal_amt, updating_health = FALSE)
+	target.heal_overall_injuries(BRUTE, actual_heal_amt)
+	target.heal_overall_injuries(BURN, actual_heal_amt)
 	target.adjustOxyLoss(-actual_heal_amt, updating_health = FALSE)
 	target.adjustToxLoss(-actual_heal_amt, updating_health = FALSE, forced = TRUE)
 

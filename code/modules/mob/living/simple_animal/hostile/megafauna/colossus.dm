@@ -753,7 +753,8 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	if(isliving(target) && target != src)
 		var/mob/living/L = target
 		if(L.stat != DEAD)
-			L.heal_overall_damage(heal_power, heal_power)
+			L.heal_overall_injuries(BRUTE, heal_power)
+			L.heal_overall_injuries(BURN, heal_power)
 			new /obj/effect/temp_visual/heal(get_turf(target), "#80F5FF")
 
 /mob/living/simple_animal/hostile/lightgeist/ghostize(can_reenter_corpse, sentience_retention)

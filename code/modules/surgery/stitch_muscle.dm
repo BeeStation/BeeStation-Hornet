@@ -21,6 +21,6 @@
 		"[user] starts stitching the muscle in [target]'s [parse_zone(surgery.location)].")
 
 /datum/surgery_step/clamp_bleeders/stitch_muscle/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/skin_graft/surgery)
-	var/datum/injury/injury = surgery.operated_bodypart.get_injury_by_base(/datum/injury/cut_healthy)
+	var/datum/injury/injury = surgery.operated_bodypart.get_injury(/datum/injury/cut_healthy)
 	injury.heal()
 	return TRUE

@@ -1,4 +1,5 @@
 /datum/injury/cut_laceration
+	base_type = /datum/injury/cut_healthy
 	effectiveness_modifier = 0.8
 	skin_armour_modifier = 0.6
 	severity_level = INJURY_PRIORITY_ACTIVE
@@ -10,6 +11,7 @@
 	)
 	heal_description = "The victim requires sutures to prevent further bleeding."
 	external = TRUE
+	progression = 50
 
 /datum/injury/cut_laceration/on_tick(mob/living/carbon/human/target, delta_time)
 	. = ..()

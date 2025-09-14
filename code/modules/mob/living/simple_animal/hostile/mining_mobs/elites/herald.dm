@@ -233,7 +233,7 @@
 		var/mob/living/L = target
 		var/mob/living/F = firer
 		if(F != null && istype(F, /mob/living/simple_animal/hostile/asteroid/elite) && F.faction_check_mob(L))
-			L.heal_overall_damage(damage)
+			L.heal_overall_injuries(BRUTE, damage)
 
 /obj/projectile/herald/teleshot/on_hit(atom/target, blocked = FALSE)
 	. = ..()

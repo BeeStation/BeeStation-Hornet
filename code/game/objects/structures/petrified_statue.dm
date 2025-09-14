@@ -59,7 +59,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/statue/petrified)
 	if(petrified_mob)
 		petrified_mob.forceMove(loc)
 		petrified_mob.remove_traits(list(TRAIT_MUTE, TRAIT_NO_BLOOD, TRAIT_GODMODE), STATUE_MUTE)
-		petrified_mob.take_overall_damage((petrified_mob.consciousness.value - atom_integrity + 100)) //any new damage the statue incurred is transfered to the mob
+		petrified_mob.take_direct_overall_damage(CLONE, petrified_mob.consciousness.value - atom_integrity + 100) //any new damage the statue incurred is transfered to the mob
 		petrified_mob.faction -= "mimic"
 		petrified_mob = null
 	return ..()

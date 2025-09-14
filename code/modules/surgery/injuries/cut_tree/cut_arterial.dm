@@ -1,4 +1,5 @@
 /datum/injury/cut_arterial
+	base_type = /datum/injury/cut_healthy
 	effectiveness_modifier = 0.4
 	skin_armour_modifier = 0.4
 	severity_level = INJURY_PRIORITY_ACTIVE
@@ -10,6 +11,7 @@
 	healed_type = /datum/injury/cut_stitched_muscle
 	heal_description = "The victim requires immediate the application of a tourniquet and cauterization surgery to be performed."
 	external = TRUE
+	progression = 50
 
 /datum/injury/cut_arterial/on_tick(mob/living/carbon/human/target, delta_time)
 	. = ..()

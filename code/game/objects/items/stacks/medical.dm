@@ -192,7 +192,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 	icon_state = "brutepack"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	healed_injury_type = /datum/injury/brute
+	healed_injury_type = /datum/injury/acute/brute
 	heal_creatures = TRUE
 	reagent = list(/datum/reagent/medicine/styptic_powder = REAGENT_AMOUNT_PER_ITEM)
 	grind_results = list(/datum/reagent/medicine/styptic_powder = REAGENT_AMOUNT_PER_ITEM)
@@ -226,7 +226,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 	icon_state = "ointment"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	healed_injury_type = /datum/injury/burn
+	healed_injury_type = /datum/injury/acute/burn
 	reagent = list(/datum/reagent/medicine/silver_sulfadiazine = REAGENT_AMOUNT_PER_ITEM)
 	grind_results = list(/datum/reagent/medicine/silver_sulfadiazine = REAGENT_AMOUNT_PER_ITEM)
 	merge_type = /obj/item/stack/medical/ointment

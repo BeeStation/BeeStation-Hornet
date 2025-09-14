@@ -114,8 +114,8 @@
 	if(hurt_limbs.len)
 		for(var/X in hurt_limbs)
 			var/obj/item/bodypart/affecting = X
-			affecting.heal_injury(/datum/injury/brute, heal_amt, BODYTYPE_ORGANIC)
-			affecting.heal_injury(/datum/injury/burn, heal_amt, BODYTYPE_ORGANIC)
+			affecting.heal_injury(/datum/injury/acute/brute, heal_amt, BODYTYPE_ORGANIC)
+			affecting.heal_injury(/datum/injury/acute/burn, heal_amt, BODYTYPE_ORGANIC)
 			affecting.heal_injury(/datum/injury/trauma_splinted_bone, heal_amt, BODYTYPE_ORGANIC)
 			affecting.heal_injury(/datum/injury/treated_burn, heal_amt, BODYTYPE_ORGANIC)
 		blessed.visible_message(span_notice("[chap] heals [blessed] with the power of [GLOB.deity]!"))

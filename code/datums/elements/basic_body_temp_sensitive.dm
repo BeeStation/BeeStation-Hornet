@@ -40,7 +40,7 @@
 	var/gave_alert = FALSE
 
 	if(basic_mob.bodytemperature < min_body_temp)
-		basic_mob.adjust_health(cold_damage * delta_time)
+		basic_mob.adjustBruteLoss(cold_damage * delta_time)
 		switch(cold_damage)
 			if(1 to 5)
 				basic_mob.throw_alert("temp", /atom/movable/screen/alert/cold, 1)
@@ -51,7 +51,7 @@
 		gave_alert = TRUE
 
 	else if(basic_mob.bodytemperature > max_body_temp)
-		basic_mob.adjust_health(heat_damage * delta_time)
+		basic_mob.adjustBruteLoss(heat_damage * delta_time)
 		switch(heat_damage)
 			if(1 to 5)
 				basic_mob.throw_alert("temp", /atom/movable/screen/alert/hot, 1)

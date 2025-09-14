@@ -355,7 +355,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/clonepod, "Examine")
 			go_out()
 			log_cloning("[key_name(mob_occupant)] ejected from [src] at [AREACOORD(src)] after suiciding.")
 
-		else if(mob_occupant && mob_occupant.cloneloss > (100 - heal_level))
+		else if(mob_occupant && mob_occupant.getCloneLoss() > (100 - heal_level))
 			mob_occupant.Unconscious(80)
 			var/dmg_mult = CONFIG_GET(number/damage_multiplier)
 			//Slowly get that clone healed and finished.
@@ -383,7 +383,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/clonepod, "Examine")
 
 			use_power(5000 * speed_coeff) //This might need tweaking.
 
-		else if(mob_occupant && (mob_occupant.cloneloss <= (100 - heal_level)))
+		else if(mob_occupant && (mob_occupant.getCloneLoss() <= (100 - heal_level)))
 			connected_message("Cloning Process Complete.")
 			if(internal_radio)
 				SPEAK("The cloning cycle of [mob_occupant.real_name] is complete.")

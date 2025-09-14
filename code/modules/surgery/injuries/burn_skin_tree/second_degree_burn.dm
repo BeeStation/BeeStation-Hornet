@@ -1,4 +1,5 @@
 /datum/injury/second_degree_burns
+	base_type = /datum/injury/healthy_skin_burn
 	skin_armour_modifier = 0.6
 	effectiveness_modifier = 0.6
 	surgeries_provided = list(/datum/surgery/skin_graft)
@@ -9,6 +10,7 @@
 	heal_description = "The victim can be treated with 5 units of advanced burn gel applied via patch to the site of the injury."
 	pain = 25
 	external = TRUE
+	progression = 50
 
 /datum/injury/second_degree_burns/on_damage_taken(total_damage, delta_damage, damage_type = BRUTE, damage_flag = DAMAGE_STANDARD, is_sharp = FALSE)
 	if (damage_type != BURN)

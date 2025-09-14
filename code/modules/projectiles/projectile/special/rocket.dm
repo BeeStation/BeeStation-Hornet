@@ -25,7 +25,8 @@
 		M.deal_damage(anti_armour_damage, sharpness)
 	if(issilicon(target))
 		var/mob/living/silicon/S = target
-		S.take_overall_damage(anti_armour_damage*0.75, anti_armour_damage*0.25)
+		S.take_direct_overall_damage(BRUTE, anti_armour_damage*0.75)
+		S.take_direct_overall_damage(BURN, anti_armour_damage*0.25)
 	return BULLET_ACT_HIT
 
 /obj/projectile/bullet/a84mm_he

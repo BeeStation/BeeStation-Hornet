@@ -158,13 +158,14 @@
 			return
 
 		if (EXPLODE_HEAVY)
-			take_overall_damage(60, 60)
+			take_direct_overall_damage(BRUTE, 60)
+			take_direct_overall_damage(BURN, 60)
 			damage_clothes(200, BRUTE, DAMAGE_BOMB)
 			adjustEarDamage(30, 120)
 			Unconscious(200)
 
 		if(EXPLODE_LIGHT)
-			take_overall_damage(30, 0)
+			take_direct_overall_damage(BRUTE, 30)
 			damage_clothes(50, BRUTE, DAMAGE_BOMB)
 			adjustEarDamage(15,60)
 			Unconscious(160)
@@ -175,7 +176,7 @@
 		var/max_limb_loss = round(4/severity) //so you don't lose four limbs at severity 3.
 		for(var/obj/item/bodypart/BP as() in bodyparts)
 			if(prob(50/severity) && BP.body_zone != BODY_ZONE_CHEST)
-				BP.increase_injury(/datum/injury/brute, BP.max_damage)
+				BP.increase_injury(/datum/injury/acute/brute, BP.max_damage)
 				BP.dismember()
 				max_limb_loss--
 				if(!max_limb_loss)

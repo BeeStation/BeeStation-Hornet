@@ -97,7 +97,7 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 		return
 	if(iscarbon(owner))
 		var/mob/living/carbon/C = owner
-		C.take_overall_damage(amount * 0.4)
+		C.take_direct_overall_damage(BRUTE, amount * 0.4)
 	linked_crystal.take_direct_damage(amount)
 
 //===================

@@ -168,6 +168,7 @@
 #define FROM_INJURY(injury) "injury_[injury.type]_[injury.bodypart?.body_zone]"
 #define FROM_MORPHINE "morphine"
 #define FROM_BRAVE_BULL "brave_bull"
+#define FROM_GENETIC_DAMAGE "genetic_damage"
 
 /// Trait granted by [/mob/living/silicon/robot]
 /// Traits applied to a silicon mob by their module.

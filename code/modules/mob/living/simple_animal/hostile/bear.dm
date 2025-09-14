@@ -140,7 +140,7 @@
 	if(stat)
 		return
 	if(get_total_damage() > 0)
-		heal_overall_damage(5 * delta_time) //Fast life regen, makes it hard for you to get eaten to death.
+		heal_overall_injuries(BRUTE, 5 * delta_time) //Fast life regen, makes it hard for you to get eaten to death.
 
 /mob/living/simple_animal/hostile/bear/butter/attack_hand(mob/living/L) //Borrowed code from Cak, feeds people if they hit you. More nutriment but less vitamin to represent BUTTER.
 	..()

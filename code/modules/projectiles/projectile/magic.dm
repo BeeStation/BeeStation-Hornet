@@ -541,7 +541,7 @@
 		var/mob/living/mob_target = target
 		// between this 10 burn, the 10 brute, the explosion brute, and the onfire burn,
 		// you are at about 65 damage if you stop drop and roll immediately
-		mob_target.take_overall_damage(burn = 10)
+		mob_target.take_direct_overall_damage(BURN, 10)
 
 	var/turf/target_turf = get_turf(target)
 

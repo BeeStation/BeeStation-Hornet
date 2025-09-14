@@ -1,4 +1,5 @@
 /datum/injury/blisters
+	base_type = /datum/injury/healthy_skin_burn
 	skin_armour_modifier = 0.9
 	effectiveness_modifier = 0.7
 	surgeries_provided = list(/datum/surgery/skin_graft)
@@ -9,6 +10,7 @@
 	heal_description = "This victim requires 5 units of either silver sulfadiazine, or advanced burn gel applied via patch."
 	pain = 15
 	external = TRUE
+	progression = 50
 
 /datum/injury/blisters/on_damage_taken(total_damage, delta_damage, damage_type = BRUTE, damage_flag = DAMAGE_STANDARD, is_sharp = FALSE)
 	if (damage_type != BURN)

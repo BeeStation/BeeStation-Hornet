@@ -130,11 +130,12 @@ In all, this is a lot like the monkey code. /N
 			return
 
 		if(EXPLODE_HEAVY)
-			take_overall_damage(60, 60)
+			take_direct_overall_damage(BRUTE, 60)
+			take_direct_overall_damage(BURN, 60)
 			adjustEarDamage(30,120)
 
 		if(EXPLODE_LIGHT)
-			take_overall_damage(30,0)
+			take_direct_overall_damage(BRUTE, 30)
 			if(prob(50))
 				Unconscious(20)
 			adjustEarDamage(15,60)

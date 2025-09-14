@@ -1,10 +1,12 @@
 /datum/injury/cut_sutured
+	base_type = /datum/injury/cut_healthy
 	severity_level = INJURY_PRIORITY_HEALING
 	health_doll_icon = "bandage"
 	examine_description = "sutured wounds"
 	healed_type = /datum/injury/cut_healthy
 	heal_description = "The victim will make a full recovery naturally over time."
 	external = TRUE
+	progression = 50
 
 /datum/injury/cut_sutured/on_damage_taken(total_damage, delta_damage, damage_type, damage_flag, is_sharp)
 	if (!is_sharp)

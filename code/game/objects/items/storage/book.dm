@@ -138,8 +138,8 @@
 
 	var/heal_amt = 10
 	var/list/hurt_limbs = H.get_injured_bodyparts(list(
-		/datum/injury/burn,
-		/datum/injury/brute,
+		/datum/injury/acute/burn,
+		/datum/injury/acute/brute,
 		/datum/injury/trauma_splinted_bone,
 		/datum/injury/treated_burn
 	), status = BODYTYPE_ORGANIC)
@@ -147,8 +147,8 @@
 	if(hurt_limbs.len)
 		for(var/X in hurt_limbs)
 			var/obj/item/bodypart/affecting = X
-			affecting.heal_injury(/datum/injury/brute, heal_amt, BODYTYPE_ORGANIC)
-			affecting.heal_injury(/datum/injury/burn, heal_amt, BODYTYPE_ORGANIC)
+			affecting.heal_injury(/datum/injury/acute/brute, heal_amt, BODYTYPE_ORGANIC)
+			affecting.heal_injury(/datum/injury/acute/burn, heal_amt, BODYTYPE_ORGANIC)
 			affecting.heal_injury(/datum/injury/trauma_splinted_bone, heal_amt, BODYTYPE_ORGANIC)
 			affecting.heal_injury(/datum/injury/treated_burn, heal_amt, BODYTYPE_ORGANIC)
 		H.visible_message(span_notice("[user] heals [H] with the power of [deity_name]!"))

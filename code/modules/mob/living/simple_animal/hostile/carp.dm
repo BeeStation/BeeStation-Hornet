@@ -156,7 +156,7 @@
 /mob/living/simple_animal/hostile/carp/megacarp/Life(delta_time = SSMOBS_DT, times_fired)
 	. = ..()
 	if(regen_cooldown < world.time)
-		heal_overall_damage(2 * delta_time)
+		heal_overall_injuries(BRUTE, 2 * delta_time)
 
 /mob/living/simple_animal/hostile/carp/cayenne
 	name = "Cayenne"

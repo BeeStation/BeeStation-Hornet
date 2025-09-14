@@ -57,7 +57,7 @@
 
 	else if(isanimal_or_basicmob(parent))
 		var/mob/living/animal = parent
-		brute_loss = animal.bruteloss
+		brute_loss = animal.getBruteLoss()
 		rewind_type = PROC_REF(rewind_animal)
 
 	else if(isobj(parent))
@@ -103,8 +103,7 @@
 
 /datum/component/dejavu/proc/rewind_animal()
 	var/mob/living/simple_animal/master = parent
-	master.bruteloss = brute_loss
-	master.updatehealth()
+	master.setBruteLoss(brute_loss)
 	rewind_living()
 
 /datum/component/dejavu/proc/rewind_obj()

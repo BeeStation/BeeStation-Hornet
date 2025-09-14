@@ -1,4 +1,5 @@
 /datum/injury/trauma_broken_bone
+	base_type = /datum/injury/trauma_healthy
 	severity_level = INJURY_PRIORITY_ACTIVE
 	health_doll_icon = "blood"
 	examine_description = "<b>a broken bone</b>"
@@ -10,6 +11,7 @@
 	)
 	heal_description = "The victim can be assisted with a splint, but requires bone setting surgery to make a full recovery."
 	pain = 15
+	progression = 50
 
 /datum/injury/trauma_broken_bone/apply_to_human(mob/living/carbon/human/target)
 	. = ..()

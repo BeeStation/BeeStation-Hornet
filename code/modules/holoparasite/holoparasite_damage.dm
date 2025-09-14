@@ -12,7 +12,7 @@
 	if(!summoner.current)
 		return
 	// Spread damage across different bodyparts.
-	summoner.current.take_overall_damage(brute = amount)
+	summoner.current.take_direct_overall_damage(BRUTE, amount)
 	extra_host_damage(amount * 0.5)
 	if(COOLDOWN_FINISHED(src, recoil_cooldown) && prob(70))
 		var/holoparasite_visible = isturf(summoner.current.loc) && isturf(loc) && (src in viewers(world.view, summoner.current))
@@ -36,7 +36,7 @@
 		return
 	if(!summoner.current)
 		return
-	summoner.current.take_overall_damage(burn = amount)
+	summoner.current.take_direct_overall_damage(BURN, amount)
 	extra_host_damage(amount * 0.5)
 	if(COOLDOWN_FINISHED(src, recoil_cooldown) && prob(70))
 		var/holoparasite_visible = isturf(summoner.current.loc) && isturf(loc) && (src in viewers(world.view, summoner.current))
@@ -156,10 +156,11 @@
 				if(iscarbon(summoner.current))
 					var/mob/living/carbon/carbon_summoner = summoner.current
 					carbon_summoner.vomit(lost_nutrition = 0, blood = TRUE, stun = FALSE, distance = 5, message = FALSE)
-					carbon_summoner.take_overall_damage(brute = carbon_summoner.maxHealth * 1.1, stamina = summoner.current.maxHealth * 1.5)
+					carbon_summoner.take_direct_overall_damage(BRUTE, carbon_summoner.maxHealth * 1.1)
+					carbon_summoner.take_direct_overall_damage(STAMINA, carbon_summoner.maxHealth * 1.5)
 				else
 					summoner.current.add_splatter_floor()
-					summoner.current.take_overall_damage(brute = summoner.current.maxHealth * 0.9, stamina = summoner.current.maxHealth * 1.5)
+					summoner.current.take_direct_overall_damage(BRUTE, summoner.current.maxHealth * 0.9)
 				to_chat(summoner.current, span_userdanger("You violently cough up blood, barely surviving as an explosion nearly tears apart [color_name], causing you to collapse in incredible, agonizing pain!"))
 				summoner.current.visible_message(span_warning("[summoner.current] violently coughs up blood, collapsing to the ground in incredible pain!"))
 				summoner.current.AdjustParalyzed(45 SECONDS, ignore_canstun = TRUE)
@@ -180,11 +181,13 @@
 				SSblackbox.record_feedback("tally", "holoparasite_exploded", 1, "devastate (gibbed)")
 				gib()
 		if(EXPLODE_HEAVY)
-			summoner.current.take_overall_damage(brute = summoner.current.maxHealth * 0.6, stamina = summoner.current.maxHealth * 0.6)
+			summoner.current.take_direct_overall_damage(BRUTE, summoner.current.maxHealth * 0.6)
+			summoner.current.take_direct_overall_damage(STAMINA, summoner.current.maxHealth * 0.6)
 			summoner.current.jitteriness = min(summoner.current.jitteriness + 90, 90)
 			SSblackbox.record_feedback("tally", "holoparasite_exploded", 1, "heavy")
 		if(EXPLODE_LIGHT)
-			summoner.current.take_overall_damage(brute = summoner.current.maxHealth * 0.3, stamina = summoner.current.maxHealth * 0.45)
+			summoner.current.take_direct_overall_damage(BRUTE, summoner.current.maxHealth * 0.3)
+			summoner.current.take_direct_overall_damage(STAMINA, summoner.current.maxHealth * 0.45)
 			summoner.current.jitteriness = min(summoner.current.jitteriness + 45, 45)
 			SSblackbox.record_feedback("tally", "holoparasite_exploded", 1, "light")
 

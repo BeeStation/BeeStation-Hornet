@@ -4,9 +4,9 @@
 
 //Damage defines //TODO: merge these down to reduce on defines
 /// Physical fracturing and warping of the material.
-#define BRUTE /datum/injury/brute
+#define BRUTE /datum/injury/acute/brute
 /// Scorching and charring of the material.
-#define BURN /datum/injury/burn
+#define BURN /datum/injury/acute/burn
 /// Conciousness damage. Unlike stamina damage, this
 /// damage type stacks up with regular damage and will
 /// result in you falling unconcious if you go over the crit
@@ -17,9 +17,10 @@
 /// Suffocation.
 #define OXY "oxygen"
 /// Cellular degredation. Rare and difficult to treat.
-#define CLONE "clone"
+#define CLONE /datum/injury/acute/genetic
 /// Exhaustion and nonlethal damage.
-#define STAMINA "stamina"
+/// TODO: Differentiate between shock and exhaustion
+#define STAMINA /datum/injury/acute/shock
 /// Brain damage. Should probably be decomissioned and replaced with proper organ damage.
 #define BRAIN "brain"
 

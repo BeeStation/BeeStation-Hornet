@@ -1,4 +1,5 @@
 /datum/injury/trauma_fracture
+	base_type = /datum/injury/trauma_healthy
 	severity_level = INJURY_PRIORITY_ACTIVE
 	health_doll_icon = "blood"
 	examine_description = "<b>a fracture</b>"
@@ -7,6 +8,7 @@
 	healed_type = /datum/injury/trauma_splinted_bone
 	heal_description = "The victim requires a splint to make a full recovery."
 	pain = 10
+	progression = 50
 
 /datum/injury/trauma_broken_bone/apply_to_human(mob/living/carbon/human/target)
 	. = ..()

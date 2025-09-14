@@ -27,12 +27,8 @@
 	/// Pain rating for the mob
 	var/datum/pain_source/pain = new /datum/pain_source
 
-	//Damage related vars, NOTE: THESE SHOULD ONLY BE MODIFIED BY PROCS
-	var/bruteloss = 0	//Brutal damage caused by brute force (punching, being clubbed by a toolbox ect... this also accounts for pressure damage)
-	var/oxyloss = 0		//Oxygen depravation damage (no air in lungs)
-	var/toxloss = 0		//Toxic damage caused by being poisoned or radiated
-	var/fireloss = 0	//Burn damage caused by being way too hot, too cold or burnt.
-	var/cloneloss = 0	//Damage caused by being cloned or ejected from the cloner early. slimes also deal cloneloss damage to victims
+	/// Body-wide injuries applied to the mob.
+	var/list/body_injuries = list()
 	/// Represents the exhaustion of a mob, as a body-wide injury
 	var/exhaustion = 0
 

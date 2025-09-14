@@ -1,4 +1,5 @@
 /datum/injury/cut_muscle_tear
+	base_type = /datum/injury/cut_healthy
 	effectiveness_modifier = 0.4
 	skin_armour_modifier = 0.4
 	severity_level = INJURY_PRIORITY_ACTIVE
@@ -10,6 +11,7 @@
 	)
 	heal_description = "The victim requires a suture to stop the bleeding, and surgery to stitch the muscle for a full recovery."
 	external = TRUE
+	progression = 50
 
 /datum/injury/cut_muscle_tear/on_tick(mob/living/carbon/human/target, delta_time)
 	. = ..()

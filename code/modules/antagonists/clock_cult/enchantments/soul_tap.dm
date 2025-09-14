@@ -10,5 +10,6 @@
 		return
 	var/obj/item/parentItem = parent
 	var/health_back = CEILING(level * parentItem.force * 0.1, 1)
-	user.heal_overall_damage(health_back, health_back)
+	user.heal_overall_injuries(BRUTE, health_back)
+	user.heal_overall_injuries(BURN, health_back)
 	new /obj/effect/temp_visual/heal(get_turf(user), "#eeba6b")

@@ -160,7 +160,7 @@
 				if(getBruteLoss())
 					to_chat(human_user, "<b>Physical trauma analysis:</b>")
 					for(var/obj/item/bodypart/BP as() in bodyparts)
-						var/brutedamage = BP.brute_dam
+						var/brutedamage = BP.get_injury_amount(BRUTE)
 						if(brutedamage > 0)
 							status = "received minor physical injuries."
 							span = "notice"
@@ -175,7 +175,7 @@
 				if(getFireLoss())
 					to_chat(human_user, "<b>Analysis of skin burns:</b>")
 					for(var/obj/item/bodypart/BP as() in bodyparts)
-						var/burndamage = BP.burn_dam
+						var/burndamage = BP.get_injury_amount(BURN)
 						if(burndamage > 0)
 							status = "signs of minor burns."
 							span = "notice"
@@ -675,7 +675,7 @@
 			continue
 
 		var/is_hallucinating = !!src.has_status_effect(/datum/status_effect/hallucination)
-		var/damage = body_part.burn_dam + body_part.brute_dam + (is_hallucinating ? body_part.stamina_dam : 0)
+		var/damage = body_part.get_damage(is_hallucinating)
 		var/comparison = (body_part.max_damage/5)
 		if(damage)
 			icon_num = 1
@@ -707,7 +707,7 @@
 			hud_used.healthdoll.add_overlay(mutable_appearance('icons/hud/screen_gen.dmi', "[body_part.body_zone][icon_num]"))
 		//Stamina Outline (Communicate that we have stamina damage)
 		//Hallucinations will appear as regular damage
-		if(body_part.stamina_dam && !is_hallucinating)
+		if(body_part.get_staminaloss() && !is_hallucinating)
 			var/mutable_appearance/MA = mutable_appearance('icons/hud/screen_gen.dmi', "[body_part.body_zone]stam")
 			MA.alpha = (body_part.stamina_dam / body_part.max_stamina_damage) * 70 + 30
 			hud_used.healthdoll.add_overlay(MA)

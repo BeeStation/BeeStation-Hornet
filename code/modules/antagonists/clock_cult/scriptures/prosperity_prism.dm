@@ -68,7 +68,7 @@
 	for(var/mob/living/L in range(4, src))
 		if(!IS_SERVANT_OF_RATVAR(L))
 			continue
-		if(!L.toxloss && !L.exhaustion && !L.bruteloss && !L.fireloss)
+		if(!L.getToxLoss() && !L.exhaustion && !L.getBruteLoss() && !L.getFireLoss())
 			continue
 		if(use_power(2))
 			L.adjustToxLoss(-50*delta_time, FALSE, TRUE)

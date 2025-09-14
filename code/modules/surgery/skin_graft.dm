@@ -22,6 +22,6 @@
 		"[user] starts transfering some healthy skin from [target]'s [parse_zone(surgery.location)].")
 
 /datum/surgery_step/clamp_bleeders/skin_graft/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/skin_graft/surgery)
-	var/datum/injury/injury = surgery.operated_bodypart.get_injury_by_base(surgery.target_injury)
+	var/datum/injury/injury = surgery.operated_bodypart.get_injury(surgery.target_injury)
 	injury.heal()
 	return TRUE

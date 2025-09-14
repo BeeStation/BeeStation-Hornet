@@ -155,16 +155,16 @@
 	var/heal_amt = 4 * actual_power
 
 	var/list/parts = M.get_injured_bodyparts(list(
-		/datum/injury/burn,
-		/datum/injury/brute
+		/datum/injury/acute/burn,
+		/datum/injury/acute/brute
 	), status = BODYTYPE_ORGANIC)
 
 	if(!parts.len)
 		return
 
 	for(var/obj/item/bodypart/L in parts)
-		L.heal_injury(/datum/injury/burn, heal_amt/parts.len, BODYTYPE_ORGANIC)
-		L.heal_injury(/datum/injury/brute, heal_amt/parts.len, BODYTYPE_ORGANIC)
+		L.heal_injury(/datum/injury/acute/burn, heal_amt/parts.len, BODYTYPE_ORGANIC)
+		L.heal_injury(/datum/injury/acute/brute, heal_amt/parts.len, BODYTYPE_ORGANIC)
 
 	if(active_coma && M.getBruteLoss() + M.getFireLoss() == 0)
 		uncoma(M)
@@ -205,12 +205,12 @@
 	var/healed = FALSE
 
 	if(M.getBruteLoss() && M.getBruteLoss() <= threshold)
-		M.heal_overall_damage(power, required_status = BODYTYPE_ORGANIC)
+		M.heal_overall_injuries(BRUTE, power, required_status = BODYTYPE_ORGANIC)
 		healed = TRUE
 		scarcounter++
 
 	if(M.getFireLoss() && M.getFireLoss() <= threshold)
-		M.heal_overall_damage(burn = power, required_status = BODYTYPE_ORGANIC)
+		M.heal_overall_injuries(BURN, power, required_status = BODYTYPE_ORGANIC)
 		healed = TRUE
 		scarcounter++
 
@@ -451,7 +451,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	switch(A.stage)
 		if(4, 5)
 			if(burnheal)
-				M.heal_overall_damage(0, 1.5 * power) //no required_status checks here, this does all bodyparts equally
+				M.heal_overall_injuries(BURN, 1.5 * power) //no required_status checks here, this does all bodyparts equally
 			if(M.stat == DEAD)
 				return
 			if(COOLDOWN_FINISHED(src, teleport_cooldown) && (M.bodytemperature < BODYTEMP_HEAT_DAMAGE_LIMIT || M.bodytemperature > BODYTEMP_COLD_DAMAGE_LIMIT))
@@ -573,7 +573,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 									M.grab_ghost()
 								break
 			if(bruteheal)
-				M.heal_overall_damage(2 * power, required_status = BODYTYPE_ORGANIC)
+				M.heal_overall_injuries(BRUTE, 2 * power, required_status = BODYTYPE_ORGANIC)
 				if(prob(33) && tetsuo)
 					M.adjustCloneLoss(1)
 		else
@@ -678,7 +678,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 						M.blood.volume = max((M.blood.volume + 3 * power), BLOOD_VOLUME_NORMAL) //bloodpoints are valued at 4 units of blood volume per point, so this is diminished
 					else if(bruteheal && M.getBruteLoss())
 						bloodpoints -= 1
-						M.heal_overall_damage(2, required_status = BODYTYPE_ORGANIC)
+						M.heal_overall_injuries(BRUTE, 2, required_status = BODYTYPE_ORGANIC)
 					if(prob(60) && !M.stat)
 						bloodpoints -- //you cant just accumulate blood and keep it as a battery of healing. the quicker the symptom is, the faster your bloodpoints decay
 				else if(prob(20) && M.blood.volume >= BLOOD_VOLUME_BAD)//the virus continues to extract blood if you dont have any stored up. higher probability due to BP value

@@ -58,7 +58,7 @@
 			if(DT_PROB(5, delta_time))
 				affected_mob.adjustCloneLoss(5)
 				affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2, 170)
-			if(affected_mob.cloneloss >= 100)
+			if(affected_mob.getCloneLoss() >= 100)
 				affected_mob.visible_message(span_danger("[affected_mob] skin turns to dust!"), span_boldwarning("Your skin turns to dust!"))
 				affected_mob.dust()
 				return FALSE

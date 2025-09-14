@@ -1,4 +1,5 @@
 /datum/injury/healthy_skin_burn
+	base_type = /datum/injury/healthy_skin_burn
 	max_absorption = 0
 
 /datum/injury/healthy_skin_burn/on_damage_taken(total_damage, delta_damage, damage_type = BRUTE, damage_flag = DAMAGE_STANDARD, is_sharp = FALSE)
