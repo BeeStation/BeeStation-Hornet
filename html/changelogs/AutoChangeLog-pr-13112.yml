@@ -1,0 +1,13 @@
+author: SunShine214, Nakalon
+delete-after: true
+changes:
+  - rscadd: The Advanced Gas Rig, capable of mining gases from the planet the station
+      is orbiting.
+  - rscadd: Gas Rig Monitor program, which uses NTnet to remotely control the gas
+      rig
+  - rscadd: Adds a Gas Rig Shielding power value to each gas
+  - tweak: Adjusted maps to fit the new gas rig.
+  - tweak: Waste now is vented, rather then filtered out. The filter line is for the
+      gas rig now.
+  - rscdel: Removed gas miners from all maps except for echo, as the gas rig being
+      there makes no sense
