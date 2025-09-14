@@ -156,10 +156,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable/vomit/old)
 		var/datum/disease/advance/new_disease = new /datum/disease/advance/random(rand(2, 5), rand(7, 9), 4, infected = src)
 		src.diseases += new_disease
 
-/obj/effect/decal/cleanable/vomit/old/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
-	. = ..()
-	EXTRAPOLATOR_ACT_ADD_DISEASES(., diseases)
-
 /obj/effect/decal/cleanable/chem_pile
 	name = "chemical pile"
 	desc = "A pile of chemicals. You can't quite tell what's inside it."

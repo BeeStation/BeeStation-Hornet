@@ -49,6 +49,11 @@
 
 #define DEFAULT_CYBORG_NAME "Default Cyborg Name"
 
+// Choose grid or list TGUI layouts for UI's, when possible.
+/// Force grid layout, even if default is a list.
+#define TGUI_LAYOUT_GRID "grid"
+/// Force list layout, even if default is a grid.
+#define TGUI_LAYOUT_LIST "list"
 
 //Job preferences levels
 #define JP_LOW 1
@@ -194,6 +199,9 @@ GLOBAL_PROTECT(undatumized_preference_tags_character)
 // Priorities must be in order!
 /// The default priority level
 #define PREFERENCE_PRIORITY_DEFAULT 1
+
+/// The priority at which the hotkey preference is set, required for TGUI say special macros
+#define PREFERENCE_PRIORITY_HOTKEYS 2
 
 /// The priority at which species runs, needed for external organs to apply properly.
 #define PREFERENCE_PRIORITY_SPECIES 2

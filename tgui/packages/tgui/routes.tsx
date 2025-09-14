@@ -6,29 +6,30 @@
 
 import { useBackend } from './backend';
 import { useDebug } from './debug';
+import { LoadingScreen } from './interfaces/common/LoadingToolbox';
 import { Window } from './layouts';
-import { Icon, Section, Stack } from './components';
 
 const requireInterface = require.context('./interfaces');
 
-const routingError = (type: 'notFound' | 'missingExport', name: string) => () => {
-  return (
-    <Window>
-      <Window.Content scrollable>
-        {type === 'notFound' && (
-          <div>
-            Interface <b>{name}</b> was not found.
-          </div>
-        )}
-        {type === 'missingExport' && (
-          <div>
-            Interface <b>{name}</b> is missing an export.
-          </div>
-        )}
-      </Window.Content>
-    </Window>
-  );
-};
+const routingError =
+  (type: 'notFound' | 'missingExport', name: string) => () => {
+    return (
+      <Window>
+        <Window.Content scrollable>
+          {type === 'notFound' && (
+            <div>
+              Interface <b>{name}</b> was not found.
+            </div>
+          )}
+          {type === 'missingExport' && (
+            <div>
+              Interface <b>{name}</b> is missing an export.
+            </div>
+          )}
+        </Window.Content>
+      </Window>
+    );
+  };
 
 // Displays an empty Window with scrollable content
 const SuspendedWindow = () => {
@@ -44,14 +45,7 @@ const RefreshingWindow = () => {
   return (
     <Window title="Loading" theme="generic">
       <Window.Content>
-        <Section fill>
-          <Stack align="center" fill justify="center" vertical>
-            <Stack.Item>
-              <Icon color="yellow" name="circle-notch" spin size={4} />
-            </Stack.Item>
-            <Stack.Item>Please wait...</Stack.Item>
-          </Stack>
-        </Section>
+        <LoadingScreen />
       </Window.Content>
     </Window>
   );
@@ -74,7 +68,8 @@ export const getRoutedComponent = () => {
       return require('./debug').KitchenSink;
     }
   }
-  const name = config?.interface;
+
+  const name = config?.interface?.name;
   const interfacePathBuilders = [
     (name: string) => `./${name}.tsx`,
     (name: string) => `./${name}.jsx`,

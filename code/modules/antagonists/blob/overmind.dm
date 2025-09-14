@@ -69,6 +69,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/blob)
 	if(blob_core)
 		blob_core.update_icon()
 	SSshuttle.registerHostileEnvironment(src)
+	announcement_time = world.time + OVERMIND_ANNOUNCEMENT_MAX_TIME
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
@@ -179,7 +180,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/blob)
 			main_objective.completed = TRUE
 	to_chat(world, "<B>[real_name] consumed the station in an unstoppable tide!</B>")
 	SSticker.news_report = BLOB_WIN
-	SSticker.force_ending = 1
+	SSticker.force_ending = FORCE_END_ROUND
 
 /mob/camera/blob/Destroy()
 	QDEL_NULL(blobstrain)

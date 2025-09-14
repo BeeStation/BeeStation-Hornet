@@ -6,6 +6,7 @@
 /obj/item/circuit_component/get_name
 	display_name = "Get Name"
 	desc = "A component that returns the name of a mob."
+	category = "Entity"
 
 	/// The input port
 	var/datum/port/input/entity_input

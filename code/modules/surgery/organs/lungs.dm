@@ -86,7 +86,9 @@
 	// This may look weird, but uh, organ code is weird, so we FIRST check to see if this organ is going into a NEW person.
 	// If it is going into a new person, ..() will ensure that organ is Remove()d first, and we won't run into any issues with duplicate signals.
 	var/new_owner = QDELETED(owner) || owner != M
-	..()
+	. = ..()
+	if(!.)
+		return .
 	if(new_owner)
 		RegisterSignal(M, SIGNAL_ADDTRAIT(TRAIT_NOBREATH), PROC_REF(on_nobreath))
 
@@ -129,9 +131,9 @@
 	LAZYREMOVE(thrown_alerts, alert_category)
 
 /obj/item/organ/lungs/proc/check_breath(datum/gas_mixture/breath, mob/living/carbon/human/H)
-//TODO: add lung damage = less oxygen gains
+	//TODO: add lung damage = less oxygen gains
 	var/breathModifier = (5-(5*(damage/maxHealth)/2)) //range 2.5 - 5
-	if(H.status_flags & GODMODE)
+	if(HAS_TRAIT(H, TRAIT_GODMODE))
 		return
 	if(HAS_TRAIT(H, TRAIT_NOBREATH))
 		return
@@ -271,13 +273,13 @@
 
 		var/bz_pp = PP(breath, /datum/gas/bz)
 		if(bz_pp > BZ_brain_damage_min)
-			H.hallucination += 10
+			H.adjust_hallucinations(20 SECONDS)
 			H.reagents.add_reagent(/datum/reagent/metabolite/bz,5)
 			if(prob(33))
 				H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3, 150)
 
 		else if(bz_pp > BZ_trip_balls_min)
-			H.hallucination += 5
+			H.adjust_hallucinations(10 SECONDS)
 			H.reagents.add_reagent(/datum/reagent/metabolite/bz,1)
 
 	// Nitrium
@@ -287,11 +289,12 @@
 			to_chat(H, span_notice("You feel a burning sensation in your chest"))
 		gas_breathed = PP(breath, /datum/gas/nitrium)
 		if (nitrium_pp > 5)
-			var/existing = H.reagents.get_reagent_amount(/datum/reagent/nitrium_low_metabolization)
-			H.reagents.add_reagent(/datum/reagent/nitrium_low_metabolization, max(0, 2 - existing))
+			var/existing = H.reagents.get_reagent_amount(/datum/reagent/nitrium)
+			H.reagents.add_reagent(/datum/reagent/nitrium, max(0, 4 - existing))
 		if (nitrium_pp > 10)
-			var/existing = H.reagents.get_reagent_amount(/datum/reagent/nitrium_high_metabolization)
-			H.reagents.add_reagent(/datum/reagent/nitrium_high_metabolization, max(0, 1 - existing))
+			var/existing = H.reagents.get_reagent_amount(/datum/reagent/nitrosyl_plasmide)
+			H.reagents.add_reagent(/datum/reagent/nitrosyl_plasmide, max(0, 4 - existing))
+			H.reagents.add_reagent(/datum/reagent/nitrium, 2) //Triggers overdose message primarily, so players aren't stuck in extreme slowdown for too long.
 
 		REMOVE_MOLES(/datum/gas/nitrium, breath, gas_breathed)
 
@@ -355,8 +358,8 @@
 		failed = FALSE
 	return
 
-/obj/item/organ/lungs/get_availability(datum/species/S)
-	return !(TRAIT_NOBREATH in S.species_traits)
+/obj/item/organ/lungs/get_availability(datum/species/owner_species, mob/living/owner_mob)
+	return owner_species.mutantlungs
 
 /obj/item/organ/lungs/plasmaman
 	name = "plasma filter"
@@ -411,7 +414,12 @@
 	name = "apid lungs"
 	desc = "Lungs from an apid, or beeperson. Thanks to the many spiracles an apid has, these lungs are capable of gathering more oxygen from low-pressure environments."
 	icon_state = "lungs"
-	safe_breath_min = 8
+	safe_breath_min = 1 // If oxygen is present, they can breathe
+	gas_max = list(
+		/datum/gas/carbon_dioxide = 45,
+		/datum/gas/plasma = 10,
+		/datum/gas/bz = 10
+	)
 
 /obj/item/organ/lungs/ashwalker
 	name = "ash walker lungs"
@@ -421,7 +429,7 @@
 	safe_breath_max = 20
 	gas_max = list(
 		/datum/gas/carbon_dioxide = 45,
-		/datum/gas/plasma = MOLES_GAS_VISIBLE
+		/datum/gas/plasma = 1
 	)
 
 /obj/item/organ/lungs/diona

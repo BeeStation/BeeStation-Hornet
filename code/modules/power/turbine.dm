@@ -275,7 +275,7 @@
 	data["turbine"] = compressor?.turbine ? TRUE : FALSE
 	data["turbine_broke"] = (!compressor || !compressor.turbine || (compressor.turbine.machine_stat & BROKEN)) ? TRUE : FALSE
 	data["online"] = compressor?.starter
-	data["power"] = display_power(compressor?.turbine?.lastgen)
+	data["power"] = display_power_persec(compressor?.turbine?.lastgen)
 	data["rpm"] = compressor?.rpm
 	data["temp"] = compressor?.gas_contained.temperature
 	return data
@@ -341,7 +341,7 @@
 	data["turbine"] = compressor?.turbine ? TRUE : FALSE
 	data["turbine_broke"] = (!compressor || !compressor.turbine || (compressor.turbine.machine_stat & BROKEN)) ? TRUE : FALSE
 	data["online"] = compressor?.starter
-	data["power"] = display_power(compressor?.turbine?.lastgen)
+	data["power"] = display_power_persec(compressor?.turbine?.lastgen)
 	data["rpm"] = compressor?.rpm
 	data["temp"] = compressor?.gas_contained.temperature
 	return data

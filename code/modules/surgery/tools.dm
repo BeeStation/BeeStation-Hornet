@@ -8,6 +8,7 @@
 	item_state = "clamps"
 	custom_materials = list(/datum/material/iron=6000, /datum/material/glass=3000)
 	flags_1 = CONDUCT_1
+	item_flags = SURGICAL_TOOL
 	w_class = WEIGHT_CLASS_TINY
 	tool_behaviour = TOOL_RETRACTOR
 	toolspeed = 1
@@ -34,6 +35,7 @@
 	item_state = "clamps"
 	custom_materials = list(/datum/material/iron=5000, /datum/material/glass=2500)
 	flags_1 = CONDUCT_1
+	item_flags = SURGICAL_TOOL
 	w_class = WEIGHT_CLASS_TINY
 	attack_verb_continuous = list("attacks", "pinches")
 	attack_verb_simple = list("attack", "pinch")
@@ -64,6 +66,7 @@
 	item_state = "cautery"
 	custom_materials = list(/datum/material/iron=2500, /datum/material/glass=750)
 	flags_1 = CONDUCT_1
+	item_flags = SURGICAL_TOOL
 	w_class = WEIGHT_CLASS_TINY
 	attack_verb_continuous = list("burns")
 	attack_verb_simple = list("burn")
@@ -131,6 +134,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	custom_materials = list(/datum/material/iron=2000, /datum/material/glass=1500, /datum/material/silver=500)
 	flags_1 = CONDUCT_1
+	item_flags = SURGICAL_TOOL
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb_continuous = list("pumps", "siphons")
 	attack_verb_simple = list("pump", "siphon")
@@ -153,6 +157,7 @@
 	hitsound = 'sound/weapons/circsawhit.ogg'
 	custom_materials = list(/datum/material/iron=10000, /datum/material/glass=6000)
 	flags_1 = CONDUCT_1
+	item_flags = SURGICAL_TOOL
 	force = 15
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb_continuous = list("drills")
@@ -191,6 +196,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	item_state = "scalpel"
 	flags_1 = CONDUCT_1
+	item_flags = SURGICAL_TOOL
 	force = 10
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 5
@@ -242,6 +248,7 @@
 	hitsound = 'sound/weapons/circsawhit.ogg'
 	throwhitsound =  'sound/weapons/pierce.ogg'
 	flags_1 = CONDUCT_1
+	item_flags = SURGICAL_TOOL
 	force = 15
 	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 9
@@ -364,31 +371,52 @@
 	return
 
 /obj/item/surgical_processor //allows medical cyborgs to scan and initiate advanced surgeries
-	name = "\improper Surgical Processor"
+	name = "surgical processor"
 	desc = "A device for scanning and initiating surgeries from a disk or operating computer."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "spectrometer"
 	item_flags = NOBLUDGEON
-	var/list/advanced_surgeries = list()
+	var/list/loaded_surgeries = list()
 
-/obj/item/surgical_processor/afterattack(obj/item/O, mob/user, proximity)
+/obj/item/surgical_processor/equipped(mob/user, slot, initial)
 	. = ..()
-	if(!proximity)
+	if(slot != ITEM_SLOT_HANDS)
+		UnregisterSignal(user, COMSIG_SURGERY_STARTING)
 		return
-	if(istype(O, /obj/item/disk/surgery))
-		to_chat(user, span_notice("You load the surgery protocol from [O] into [src]."))
-		var/obj/item/disk/surgery/D = O
-		if(do_after(user, 10, target = O))
-			advanced_surgeries |= D.surgeries
-		return TRUE
-	if(istype(O, /obj/machinery/computer/operating))
-		to_chat(user, span_notice("You copy surgery protocols from [O] into [src]."))
-		var/obj/machinery/computer/operating/OC = O
-		if(do_after(user, 10, target = O))
-			advanced_surgeries |= OC.advanced_surgeries
-		return TRUE
-	return
+	RegisterSignal(user, COMSIG_SURGERY_STARTING, PROC_REF(check_surgery))
 
+/obj/item/surgical_processor/dropped(mob/user, silent)
+	. = ..()
+	UnregisterSignal(user, COMSIG_SURGERY_STARTING)
+
+/obj/item/surgical_processor/cyborg_unequip(mob/user)
+	. = ..()
+	UnregisterSignal(user, COMSIG_SURGERY_STARTING)
+
+/obj/item/surgical_processor/afterattack(atom/design_holder, mob/user, proximity)
+	if(!proximity)
+		return ..()
+	if(!istype(design_holder, /obj/item/disk/surgery) && !istype(design_holder, /obj/machinery/computer/operating))
+		return ..()
+	balloon_alert(user, "copying designs...")
+	playsound(src, 'sound/machines/terminal_processing.ogg', 25, TRUE)
+	if(do_after(user, 1 SECONDS, target = design_holder))
+		if(istype(design_holder, /obj/item/disk/surgery))
+			var/obj/item/disk/surgery/surgery_disk = design_holder
+			loaded_surgeries |= surgery_disk.surgeries
+		else
+			var/obj/machinery/computer/operating/surgery_computer = design_holder
+			loaded_surgeries |= surgery_computer.advanced_surgeries
+		playsound(src, 'sound/machines/terminal_success.ogg', 25, TRUE)
+	return TRUE
+
+/obj/item/surgical_processor/proc/check_surgery(mob/user, datum/surgery/surgery, mob/patient)
+	SIGNAL_HANDLER
+
+	if(surgery.replaced_by in loaded_surgeries)
+		return COMPONENT_CANCEL_SURGERY
+	if(surgery.type in loaded_surgeries)
+		return COMPONENT_FORCE_SURGERY
 
 /obj/item/scalpel/advanced
 	name = "laser scalpel"

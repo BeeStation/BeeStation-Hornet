@@ -7,15 +7,15 @@
 @use 'sass:meta';
 
 @use '../colors.scss' with (
-    $primary: #1596b6,
-    $fg-map-keys: (),
-    $bg-map-keys: (),
-  );
+  $primary: hsl(191.9, 79.3%, 39.8%),
+  $fg-map-keys: (),
+  $bg-map-keys: ()
+);
 @use '../base.scss' with (
-    $color-bg: #213e4e,
-    $color-bg-grad-spread: 6%,
-    $border-radius: 2px,
-  );
+  $color-bg: hsl(201.3, 40.5%, 21.8%),
+  $color-bg-grad-spread: 6%,
+  $border-radius: 2px
+);
 
 .theme-wizard {
   // Atomic classes
@@ -26,23 +26,41 @@
     '../components/Button.scss',
     $with: (
       'color-default': colors.$primary,
-      'color-disabled': #02426d,
-      'color-selected': #465899,
-      'color-caution': #be6209,
-      'color-danger': #b30707
+      'color-disabled': hsl(204.1, 96.4%, 21.8%),
+      'color-selected': hsl(227, 37.2%, 43.7%),
+      'color-caution': hsl(29.5, 91%, 39%),
+      'color-danger': hsl(0, 92.5%, 36.5%)
     )
   );
-  @include meta.load-css('../components/Input.scss', $with: ('border-color': #404b6e));
-  @include meta.load-css('../components/NoticeBox.scss', $with: ('background-color': #a82d55));
-  @include meta.load-css('../components/NumberInput.scss', $with: ('border-color': #404b6e));
-  @include meta.load-css('../components/ProgressBar.scss', $with: ('background-color': rgba(0, 0, 0, 0.5)));
+  @include meta.load-css(
+    '../components/Input.scss',
+    $with: ('border-color': hsl(225.7, 26.4%, 34.1%))
+  );
+  @include meta.load-css(
+    '../components/NoticeBox.scss',
+    $with: ('background-color': hsl(340.5, 57.7%, 41.8%))
+  );
+  @include meta.load-css(
+    '../components/NumberInput.scss',
+    $with: ('border-color': hsl(225.7, 26.4%, 34.1%))
+  );
+  @include meta.load-css(
+    '../components/ProgressBar.scss',
+    $with: ('background-color': hsla(0, 0%, 0%, 0.5))
+  );
   @include meta.load-css('../components/Section.scss');
-  @include meta.load-css('../components/Tooltip.scss', $with: ('background-color': #2da848));
+  @include meta.load-css(
+    '../components/Tooltip.scss',
+    $with: ('background-color': hsl(133.2, 57.7%, 41.8%))
+  );
 
   // Layouts
   @include meta.load-css('../layouts/Layout.scss');
   @include meta.load-css('../layouts/Window.scss');
-  @include meta.load-css('../layouts/TitleBar.scss', $with: ('background-color': #1b9e26));
+  @include meta.load-css(
+    '../layouts/TitleBar.scss',
+    $with: ('background-color': hsl(125, 70.8%, 36.3%))
+  );
 
   .Layout__content {
     background-image: url('../../assets/bg-wizard.svg');

@@ -1,4 +1,3 @@
-
 /datum/species/ethereal
 	name = "\improper Ethereal"
 	id = SPECIES_ETHEREAL
@@ -8,50 +7,57 @@
 	meat = /obj/item/food/meat/slab/human/mutant/ethereal
 	mutantstomach = /obj/item/organ/stomach/battery/ethereal
 	mutanttongue = /obj/item/organ/tongue/ethereal
+	mutantheart = /obj/item/organ/heart/ethereal
 	exotic_blood = /datum/reagent/consumable/liquidelectricity //Liquid Electricity. fuck you think of something better gamer
 	siemens_coeff = 0.5 //They thrive on energy
 	brutemod = 1.25 //They're weak to punches
 	attack_type = BURN //burn bish
-	damage_overlay_type = "" //We are too cool for regular damage overlays
-	species_traits = list(DYNCOLORS, AGENDER, HAIR)
+	species_traits = list(
+		DYNCOLORS,
+		AGENDER,
+		HAIR
+	)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/ethereal
 	inherent_traits = list(TRAIT_POWERHUNGRY)
 	sexes = FALSE //no fetish content allowed
-	hair_color = "fixedmutcolor"
-	hair_alpha = 140
-	swimming_component = /datum/component/swimming/ethereal
-
-	species_chest = /obj/item/bodypart/chest/ethereal
-	species_head = /obj/item/bodypart/head/ethereal
-	species_l_arm = /obj/item/bodypart/l_arm/ethereal
-	species_r_arm = /obj/item/bodypart/r_arm/ethereal
-	species_l_leg = /obj/item/bodypart/l_leg/ethereal
-	species_r_leg = /obj/item/bodypart/r_leg/ethereal
 
 	// Body temperature for ethereals is much higher then humans as they like hotter environments
 	bodytemp_normal = (BODYTEMP_NORMAL + 50)
 	bodytemp_heat_damage_limit = FIRE_MINIMUM_TEMPERATURE_TO_SPREAD // about 150C
 	// Cold temperatures hurt faster as it is harder to move with out the heat energy
 	bodytemp_cold_damage_limit = (T20C - 10) // about 10c
+	hair_color = "fixedmutcolor"
+	hair_alpha = 140
+	swimming_component = /datum/component/swimming/ethereal
+	inert_mutation = /datum/mutation/overload
+
+	bodypart_overrides = list(
+		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/ethereal,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/ethereal,
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/ethereal,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/ethereal,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/ethereal,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/ethereal,
+	)
 
 	var/current_color
-	//var/default_color
+	var/default_color
+	var/EMPeffect = FALSE
+	var/emageffect = FALSE
 	var/r1
 	var/g1
 	var/b1
 	var/static/r2 = 237
 	var/static/g2 = 164
 	var/static/b2 = 149
-	var/EMPeffect = FALSE
-	var/emageffect = FALSE
 	//this is shit but how do i fix it? no clue.
 	var/drain_time = 0 //used to keep ethereals from spam draining power sources
-	inert_mutation = /datum/mutation/overload
 	var/obj/effect/dummy/lighting_obj/ethereal_light
 
 /datum/species/ethereal/Destroy(force)
-	QDEL_NULL(ethereal_light)
+	if(ethereal_light)
+		QDEL_NULL(ethereal_light)
 	return ..()
 
 /datum/species/ethereal/on_species_gain(mob/living/carbon/new_ethereal, datum/species/old_species, pref_load)
@@ -69,11 +75,10 @@
 	ethereal_light = ethereal.mob_light(light_type = /obj/effect/dummy/lighting_obj/moblight/species)
 	spec_updatehealth(ethereal)
 
-	//The following code is literally only to make admin-spawned ethereals not be black.
-	new_ethereal.dna.features["mcolor"] = new_ethereal.dna.features["ethcolor"] //Ethcolor and Mut color are both dogshit and will be replaced
-	for(var/obj/item/bodypart/limb as anything in new_ethereal.bodyparts)
-		if(limb.limb_id == SPECIES_ETHEREAL)
-			limb.update_limb(is_creating = TRUE)
+	new_ethereal.set_safe_hunger_level()
+
+	var/obj/item/organ/heart/ethereal/ethereal_heart = new_ethereal.get_organ_slot(ORGAN_SLOT_HEART)
+	ethereal_heart.ethereal_color = default_color
 
 /datum/species/ethereal/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
 	UnregisterSignal(C, COMSIG_ATOM_SHOULD_EMAG)
@@ -95,6 +100,11 @@
 	. = ..()
 	if(!ethereal_light)
 		return
+	if(default_color != ethereal.dna.features["ethcolor"])
+		var/new_color = ethereal.dna.features["ethcolor"]
+		r1 = GETREDPART(new_color)
+		g1 = GETGREENPART(new_color)
+		b1 = GETBLUEPART(new_color)
 	if(ethereal.stat != DEAD && !EMPeffect)
 		var/healthpercent = max(ethereal.health, 0) / 100
 		if(!emageffect)

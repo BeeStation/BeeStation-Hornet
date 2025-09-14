@@ -331,11 +331,11 @@
 	silent = max(silent - (0.5 * delta_time), 0)
 
 /mob/living/silicon/pai/updatehealth()
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	set_health(maxHealth - getBruteLoss() - getFireLoss())
 	update_stat()
-	SEND_SIGNAL(src, COMSIG_LIVING_UPDATE_HEALTH)
+	SEND_SIGNAL(src, COMSIG_LIVING_HEALTH_UPDATE)
 
 /mob/living/silicon/pai/process(delta_time)
 	emitterhealth = clamp((emitterhealth + (emitterregen * delta_time)), -50, emittermaxhealth)

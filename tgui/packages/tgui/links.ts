@@ -5,7 +5,7 @@
  */
 
 /**
- * Prevents baby jailing the user when he clicks an external link.
+ * Prevents baby jailing the user when they click an external link.
  */
 export const captureExternalLinks = () => {
   // Subscribe to all document clicks
@@ -25,7 +25,8 @@ export const captureExternalLinks = () => {
     }
     const hrefAttr = target.getAttribute('href') || '';
     // Leave BYOND links alone
-    const isByondLink = hrefAttr.charAt(0) === '?' || hrefAttr.startsWith('byond://');
+    const isByondLink =
+      hrefAttr.charAt(0) === '?' || hrefAttr.startsWith('byond://');
     if (isByondLink) {
       return;
     }

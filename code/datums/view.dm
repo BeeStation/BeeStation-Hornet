@@ -38,20 +38,20 @@
 		assertFormat()
 	else
 		resetFormat()
-	var/datum/hud/our_hud = chief?.mob?.hud_used
-	our_hud.view_audit_buttons() // Make sure our hud's buttons are in our new size
+	if(chief?.mob)
+		SEND_SIGNAL(chief.mob, COMSIG_VIEWDATA_UPDATE, getView())
 
 /datum/view_data/proc/assertFormat()//T-Pose
 	winset(chief, "mapwindow.map", "zoom=0")
 	zoom = 0
 
 /datum/view_data/proc/resetFormat()
-	zoom = chief?.prefs.read_preference(/datum/preference/numeric/pixel_size)
+	zoom = chief?.prefs?.read_preference(/datum/preference/numeric/pixel_size)
 	winset(chief, "mapwindow.map", "zoom=[zoom]")
 	chief?.attempt_auto_fit_viewport() // If you change zoom mode, fit the viewport
 
 /datum/view_data/proc/setZoomMode()
-	winset(chief, "mapwindow.map", "zoom-mode=[chief?.prefs.read_preference(/datum/preference/choiced/scaling_method)]")
+	winset(chief, "mapwindow.map", "zoom-mode=[chief?.prefs?.read_preference(/datum/preference/choiced/scaling_method) || SCALING_METHOD_DISTORT]")
 
 /datum/view_data/proc/isZooming()
 	return (width || height)

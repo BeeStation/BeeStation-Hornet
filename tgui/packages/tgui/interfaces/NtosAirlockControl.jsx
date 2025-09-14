@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Section, LabeledList, Button, Icon } from '../components';
+import { Button, Icon, LabeledList, Section } from '../components';
 import { NtosWindow } from '../layouts';
 
 export const NtosAirlockControl = (_) => {
@@ -14,7 +14,8 @@ export const NtosAirlockControl = (_) => {
               <LabeledList.Item
                 label={
                   <>
-                    <Icon name={airlock.open ? 'lock-open' : 'lock'} /> {` ${airlock.name} (${airlock.locx}, ${airlock.locy})`}
+                    <Icon name={airlock.open ? 'lock-open' : 'lock'} />{' '}
+                    {` ${airlock.name} (${airlock.locx}, ${airlock.locy})`}
                   </>
                 }
                 key={airlock.id}

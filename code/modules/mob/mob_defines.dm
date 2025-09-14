@@ -221,12 +221,6 @@ CREATION_TEST_IGNORE_SELF(/mob)
 	///Override for sound_environments. If this is set the user will always hear a specific type of reverb (Instead of the area defined reverb)
 	var/sound_environment_override = SOUND_ENVIRONMENT_NONE
 
-	///Is the mob pixel shifted?
-	var/is_shifted
-
-	///Is the mob actively shifting?
-	var/shifting
-
 	///the icon currently used for the typing indicator's bubble
 	var/active_typing_indicator
 	///the icon currently used for the thinking indicator's bubble

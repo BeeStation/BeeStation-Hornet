@@ -6,7 +6,6 @@
 	supervisors = "the chief medical officer"
 	faction = "Station"
 	total_positions = 2
-	spawn_positions = 2
 	selection_color = "#d4ebf2"
 	exp_requirements = 180
 	exp_type = EXP_TYPE_MEDICAL
@@ -45,14 +44,13 @@
 	jobtype = /datum/job/virologist
 
 	id = /obj/item/card/id/job/virologist
-	belt = /obj/item/extrapolator
 	ears = /obj/item/radio/headset/headset_med
 	uniform = /obj/item/clothing/under/rank/medical/virologist
 	mask = /obj/item/clothing/mask/surgical
 	shoes = /obj/item/clothing/shoes/sneakers/white
 	suit =  /obj/item/clothing/suit/toggle/labcoat/virologist
 	suit_store =  /obj/item/flashlight/pen
-	r_pocket = /obj/item/modular_computer/tablet/pda/virologist
+	r_pocket = /obj/item/modular_computer/tablet/pda/preset/virologist
 
 	backpack = /obj/item/storage/backpack/virology
 	satchel = /obj/item/storage/backpack/satchel/vir

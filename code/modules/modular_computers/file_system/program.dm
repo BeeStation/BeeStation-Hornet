@@ -2,8 +2,6 @@
 /datum/computer_file/program
 	filetype = "PRG"
 	filename = "UnknownProgram"				// File name. FILE NAME MUST BE UNIQUE IF YOU WANT THE PROGRAM TO BE DOWNLOADABLE FROM NTNET!
-	/// List of required accesses to *run* the program.
-	var/list/required_access = list()
 	/// List of required access to download or file host the program
 	var/list/transfer_access = list()
 	var/program_state = PROGRAM_STATE_KILLED// PROGRAM_STATE_KILLED or PROGRAM_STATE_BACKGROUND or PROGRAM_STATE_ACTIVE - specifies whether this program is running.
@@ -16,7 +14,6 @@
 	var/requires_ntnet = 0					// Set to 1 for program to require nonstop NTNet connection to run. If NTNet connection is lost program crashes.
 	var/requires_ntnet_feature = 0			// Optional, if above is set to 1 checks for specific function of NTNet (currently NTNET_SOFTWAREDOWNLOAD, NTNET_PEERTOPEER, NTNET_SYSTEMCONTROL and NTNET_COMMUNICATION)
 	var/ntnet_status = 1					// NTNet status, updated every tick by computer running this program. Don't use this for checks if NTNet works, computers do that. Use this for calculations, etc.
-	var/usage_flags = PROGRAM_ALL			// Bitflags (PROGRAM_CONSOLE, PROGRAM_LAPTOP, PROGRAM_PDA combination) or PROGRAM_ALL
 	var/network_destination = null			// Optional string that describes what NTNet server/system this program connects to. Used in default logging.
 	var/available_on_ntnet = 1				// Whether the program can be downloaded from NTNet. Set to 0 to disable.
 	var/available_on_syndinet = 0			// Whether the program can be downloaded from SyndiNet (accessible via emagging the computer). Set to 1 to enable.
@@ -35,6 +32,14 @@
 	var/use_attack = FALSE
 	/// If this program should process attack_atom calls
 	var/use_attack_obj = FALSE
+	/// Who is using this program?
+	var/mob/living/player
+	/// If there is a sound playing that should be stopped at some point
+	var/sound = FALSE
+	/// The channel of the sound we're playing (usually music)
+	var/sound_channel
+	/// Hardware required to run this program
+	var/hardware_requirement
 
 /datum/computer_file/program/New(obj/item/modular_computer/comp = null)
 	..()
@@ -47,14 +52,18 @@
 	computer = null
 	. = ..()
 
+/datum/computer_file/program/proc/get_user()
+	if(istype(computer.loc, /mob/living))
+		player = computer.loc
+		return
+
 /datum/computer_file/program/clone()
 	var/datum/computer_file/program/temp = ..()
-	temp.required_access = required_access
 	temp.filedesc = filedesc
 	temp.program_icon_state = program_icon_state
 	temp.requires_ntnet = requires_ntnet
 	temp.requires_ntnet_feature = requires_ntnet_feature
-	temp.usage_flags = usage_flags
+	temp.hardware_requirement = hardware_requirement
 	return temp
 
 // Relays icon update to the computer.
@@ -62,10 +71,21 @@
 	if(computer)
 		computer.update_icon()
 
-// Attempts to create a log in global ntnet datum. Returns 1 on success, 0 on fail.
-/datum/computer_file/program/proc/generate_network_log(text)
+/**
+ * Passes a message to modular computer, which will in turn be passed onto SSNetworks to be logged.
+ * Returns 1 on success, 0 on fail.
+ *
+ * Should a Program want to create a log on the network this is the proc to use
+ * it will pass all its information onto SSnetworks (trough modular computer) which have their own add_log proc.
+ * It will automatically apply the network argument on its own.
+ * Arguments:
+ * * text - message to log
+ * * log_id - if we want IDs not to be printed on the log (Hardware ID and Identification string)
+ * * card = network card, will extract identification string and hardware ID from it later on (if log_id = TRUE).
+ */
+/datum/computer_file/program/proc/generate_network_log(text, log_id = TRUE, obj/item/computer_hardware/network_card/card)
 	if(computer)
-		return computer.add_log(text)
+		return computer.add_log(text, log_id, card)	//This is important since Hardware_id wasn't working otherwise
 	return 0
 
 /**
@@ -83,12 +103,26 @@
 /datum/computer_file/program/proc/tap(atom/A, mob/living/user, params)
 	return FALSE
 
-/datum/computer_file/program/proc/is_supported_by_hardware(hardware_flag = 0, loud = 0, mob/user = null)
-	if(!(hardware_flag & usage_flags))
-		if(loud && computer && user)
-			to_chat(user, span_danger("\The [computer] flashes an \"Hardware Error - Incompatible software\" warning."))
-		return 0
-	return 1
+
+/**
+ * Called during /obj/item/modular_computer/proc/open_program
+ *
+ * Checks for hardware incompatibilities.
+ * If the current computer doesn't have the hardware matching hardware equipment an error will display and the program wont start.
+ * Arguments:
+ * * to_check - The computer being checked, this does not use the computer var due to cases where the program doesn't exist yet in any computer but needs to be checked against yours.
+ * * user - The mob that started the program
+ * * loud - Are we making a sound and displaying balloon alert?
+ **/
+/datum/computer_file/program/proc/is_supported_by_hardware(obj/item/modular_computer/to_check, mob/user, loud = TRUE)
+	if(!hardware_requirement)
+		return TRUE
+	if(!to_check?.get_modular_computer_part(hardware_requirement))
+		if(loud)	// Else fail silently
+			to_check.balloon_alert(user, "<font color='#d80000'>ERROR:</font> Required hardware type :: <font color='#e65bc3'>[hardware_requirement]</font> not found!")
+			playsound(to_check, 'sound/machines/defib_failed.ogg', 25, TRUE)
+		return FALSE
+	return TRUE
 
 /datum/computer_file/program/proc/get_signal(specific_action = 0)
 	if(computer)
@@ -105,27 +139,21 @@
   *NT Software Hub is checking available software), a list can be given to be used instead.
   *Arguments:
   *user is a ref of the mob using the device.
-  *loud is a bool deciding if this proc should use to_chats
   *access_to_check is an access level that will be checked against the ID
-  *transfer, if TRUE and access_to_check is null, will tell this proc to use the program's transfer_access in place of access_to_check
   *access can contain a list of access numbers to check against. If access is not empty, it will be used istead of checking any inserted ID.
 */
-/datum/computer_file/program/proc/can_run(mob/user, loud = FALSE, access_to_check, transfer = FALSE, var/list/access)
+
+/datum/computer_file/program/proc/can_download(mob/user, loud = FALSE, access_to_check, var/list/access)
 	if(issilicon(user))
 		return TRUE
 
 	if(IsAdminGhost(user))
 		return TRUE
 
-	if(!transfer && computer && (computer.obj_flags & EMAGGED))	//emags can bypass the execution locks but not the download ones.
+	if(computer && (computer.obj_flags & EMAGGED))	//emags can bypass download access requirements
 		return TRUE
 
-	// Defaults to required_access
-	if(!access_to_check)
-		if(transfer && transfer_access)
-			access_to_check = transfer_access
-		else
-			access_to_check = required_access
+	access_to_check = transfer_access
 	if(!islist(access_to_check))
 		access_to_check = list(access_to_check)
 	if(!length(access_to_check)) // No required_access, allow it.
@@ -137,18 +165,14 @@
 		if(computer)
 			card_slot = computer.all_components[MC_CARD]
 			access_card = card_slot?.GetID()
-
 		if(!access_card)
-			if(loud)
-				to_chat(user, span_danger("\The [computer] flashes an \"RFID Error - Unable to scan ID\" warning."))
 			return FALSE
+
 		access = access_card.GetAccess()
 
 	for(var/singular_access in access_to_check)
 		if(singular_access in access)//For loop checks every individual access entry in the access list. If the user's ID has access to any entry, then we're good.
 			return TRUE
-	if(loud)
-		to_chat(user, span_danger("\The [computer] flashes an \"Access Denied\" warning."))
 	return FALSE
 
 /**
@@ -161,9 +185,10 @@
  **/
 /datum/computer_file/program/proc/on_start(mob/living/user)
 	SHOULD_CALL_PARENT(TRUE)
-	if(can_run(user, 1))
+	if(is_supported_by_hardware(computer, user, 1))
 		if(requires_ntnet && network_destination)
-			generate_network_log("Connection opened to [network_destination].")
+			var/obj/item/computer_hardware/network_card/network_card = computer.all_components[MC_NET]
+			generate_network_log("Connection opened to [network_destination].", network_card) // Probably should be cut
 		program_state = PROGRAM_STATE_ACTIVE
 		return TRUE
 	return FALSE
@@ -192,8 +217,10 @@
 /datum/computer_file/program/proc/kill_program(forced = FALSE)
 	SHOULD_CALL_PARENT(TRUE)
 	program_state = PROGRAM_STATE_KILLED
+	computer.update_appearance()
+	var/obj/item/computer_hardware/network_card/network_card = computer.all_components[MC_NET]
 	if(network_destination)
-		generate_network_log("Connection to [network_destination] closed.")
+		generate_network_log("Connection to [network_destination] closed.", network_card) //Probably should be cut
 	return 1
 
 /// Return TRUE if nothing was processed. Return FALSE to prevent further actions running.

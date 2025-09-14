@@ -1,4 +1,5 @@
 import { BooleanLike } from 'common/react';
+
 import { sendAct } from '../../backend';
 import { Gender } from './preferences/gender';
 
@@ -10,12 +11,17 @@ export enum Food {
   Dairy = 'DAIRY',
   Fried = 'FRIED',
   Fruit = 'FRUIT',
+  Gore = 'GORE',
   Grain = 'GRAIN',
   Gross = 'GROSS',
   Junkfood = 'JUNKFOOD',
   Meat = 'MEAT',
+  Nuts = 'NUTS',
+  Oranges = 'ORANGES',
   Pineapple = 'PINEAPPLE',
   Raw = 'RAW',
+  Seafood = 'SEAFOOD',
+  Stone = 'STONE',
   Sugar = 'SUGAR',
   Toxic = 'TOXIC',
   Vegetables = 'VEGETABLES',
@@ -139,12 +145,13 @@ export enum GamePreferencesSelectedPage {
   Keybindings,
 }
 
-export const createSetPreference = (act: typeof sendAct, preference: string) => (value: unknown) => {
-  act('set_preference', {
-    preference,
-    value,
-  });
-};
+export const createSetPreference =
+  (act: typeof sendAct, preference: string) => (value: unknown) => {
+    act('set_preference', {
+      preference,
+      value,
+    });
+  };
 
 export enum Window {
   Character = 0,

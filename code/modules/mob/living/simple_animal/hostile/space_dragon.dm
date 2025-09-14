@@ -97,6 +97,7 @@
 	if(!isliving(source))
 		return
 	var/mob/living/mob = source
+	//TODO Componentize this
 	if(mob in src)
 		playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
 		visible_message(span_danger("[src] vomits up [mob]!"))
@@ -168,10 +169,11 @@
 	fire_stream()
 
 /mob/living/simple_animal/hostile/space_dragon/death(gibbed)
-	. = ..()
+	empty_contents()
+	..()
 	update_dragon_overlay()
 
-/mob/living/simple_animal/hostile/space_dragon/revive(full_heal, admin_revive)
+/mob/living/simple_animal/hostile/space_dragon/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE)
 	. = ..()
 	update_dragon_overlay()
 
@@ -343,6 +345,18 @@
 		A.forceMove(src)
 		return TRUE
 	return FALSE
+
+/**
+  * Disperses the contents of the mob on the surrounding tiles.
+  *
+  * Randomly places the contents of the mob onto surrounding tiles.
+  * Has a 10% chance to place on the same tile as the mob.
+  */
+/mob/living/simple_animal/hostile/space_dragon/proc/empty_contents()
+	for(var/atom/movable/AM in src)
+		AM.forceMove(loc)
+		if(prob(90))
+			step(AM, pick(GLOB.alldirs))
 
 /**
   * Resets Space Dragon's status after using wing gust.

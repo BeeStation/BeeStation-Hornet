@@ -27,7 +27,7 @@
 	reagents = parent_movable.reagents
 	turn_connects = _turn_connects
 
-	RegisterSignals(parent, list(COMSIG_MOVABLE_MOVED,COMSIG_PARENT_PREQDELETED), PROC_REF(disable))
+	RegisterSignals(parent, list(COMSIG_MOVABLE_MOVED,COMSIG_PREQDELETED), PROC_REF(disable))
 	RegisterSignal(parent, COMSIG_OBJ_DEFAULT_UNFASTEN_WRENCH, PROC_REF(toggle_active))
 	RegisterSignal(parent, COMSIG_OBJ_HIDE, PROC_REF(hide))
 	RegisterSignal(parent, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(create_overlays)) //create overlays also gets called after init (no idea by what it just happens)

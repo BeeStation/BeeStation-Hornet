@@ -5,7 +5,7 @@
 	category = PROGRAM_CATEGORY_MISC
 	program_icon_state = "command"
 	extended_desc = "This program allows communication over NTNRC network"
-	size = 8
+	size = 4
 	requires_ntnet = TRUE
 	requires_ntnet_feature = NTNET_COMMUNICATION
 	network_destination = "NTNRC server"
@@ -105,7 +105,7 @@
 				channel?.add_client(src)
 				return TRUE
 			var/mob/living/user = usr
-			if(can_run(user, TRUE, ACCESS_NETWORK))
+			if(can_admin(user))
 				for(var/C in SSnetworks.station_network.chat_channels)
 					var/datum/ntnet_conversation/chan = C
 					chan.remove_client(src)
@@ -130,7 +130,7 @@
 			var/logname = check_filename(params["log_name"])
 			if(!logname)
 				return
-			var/datum/computer_file/data/log_file/logfile = new()
+			var/datum/computer_file/data/text/log_file/logfile = new()
 			// Now we will generate HTML-compliant file that can actually be viewed/printed.
 			logfile.filename = "[logname].log"
 			var/log_data = "Logfile dump from NTNRC channel [channel.title]\n"
@@ -219,8 +219,20 @@
 
 /datum/computer_file/program/chatclient/ui_static_data(mob/user)
 	var/list/data = list()
-	data["can_admin"] = can_run(user, FALSE, ACCESS_NETWORK)
+	data["can_admin"] = can_admin(user)
 	return data
+
+/// Checks for RD server access in Id cards for admin purposes
+/datum/computer_file/program/chatclient/proc/can_admin(mob/user)
+	var/obj/item/computer_hardware/card_slot/card_slot = computer.all_components[MC_CARD]
+	if(!card_slot)
+		return FALSE
+	var/obj/item/card/id/id_card = card_slot.stored_card
+	if(!id_card)
+		return FALSE
+	if(ACCESS_RD_SERVER in id_card.access)
+		return TRUE
+	return FALSE
 
 /datum/computer_file/program/chatclient/ui_data(mob/user)
 	if(!SSnetworks.station_network || !SSnetworks.station_network.chat_channels)

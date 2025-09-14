@@ -119,7 +119,7 @@
 
 		t += "<div class='statusDisplay'>"
 
-		t += "Output: [display_power(lastgenlev)]"
+		t += "Output: [display_power_persec(lastgenlev)]"
 
 		t += "<BR>"
 

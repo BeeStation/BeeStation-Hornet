@@ -77,6 +77,12 @@
 	icon_state = "pen-fountain"
 	font = FOUNTAIN_PEN_FONT
 
+/obj/item/pen/brush
+	name = "calligraphy brush"
+	desc = "A traditional brush usually used for calligraphy and poems."
+	icon_state = "pen-brush"
+	font = BRUSH_PEN_FONT
+
 /obj/item/pen/charcoal
 	name = "charcoal stylus"
 	desc = "It's just a wooden stick with some compressed ash on the end. At least it can write."
@@ -84,9 +90,6 @@
 	colour = "dimgray"
 	font = CHARCOAL_FONT
 	custom_materials = null
-
-
-
 
 /obj/item/pen/fountain/captain
 	name = "captain's fountain pen"
@@ -130,11 +133,10 @@
 	if(.)
 		return
 
-	var/deg = input(user, "What angle would you like to rotate the pen head to? (1-360)", "Rotate Pen Head") as null|num
-	if(deg && (deg > 0 && deg <= 360))
-		degrees = deg
-		to_chat(user, span_notice("You rotate the top of the pen to [degrees] degrees."))
-		SEND_SIGNAL(src, COMSIG_PEN_ROTATED, deg, user)
+	var/deg = tgui_input_number(user, "What angle would you like to rotate the pen head to? (1-360)", "Rotate Pen Head", 0, 360, 0)
+	degrees = deg
+	to_chat(user, span_notice("You rotate the top of the pen to [degrees] degrees."))
+	SEND_SIGNAL(src, COMSIG_PEN_ROTATED, deg, user)
 
 /obj/item/pen/attack(mob/living/M, mob/user,stealth)
 	if(!istype(M))
@@ -156,25 +158,33 @@
 	. = ..()
 	//Changing Name/Description of items. Only works if they have the 'unique_rename' flag set
 	if(isobj(O) && proximity && (O.obj_flags & UNIQUE_RENAME))
-		var/penchoice = input(user, "What would you like to edit?", "Rename or change description?") as null|anything in list("Rename","Change description")
+		var/penchoice = tgui_input_list(user, "What would you like to edit?", "Rename or change description?", list("Rename","Change description"))
 		if(QDELETED(O) || !user.canUseTopic(O, BE_CLOSE))
 			return
 		var/anythingchanged = FALSE
 		if(penchoice == "Rename")
-			var/input = stripped_input(user,"What do you want to name \the [O.name]?", ,"", MAX_NAME_LEN)
-			var/oldname = O.name
+			var/input = tgui_input_text(user,"What do you want to name [O]?", "", O.name, MAX_NAME_LEN)
 			if(QDELETED(O) || !user.canUseTopic(O, BE_CLOSE))
 				return
-			if(oldname == input)
-				to_chat(user, "You changed \the [O.name] to... well... \the [O.name].")
-			else
-				O.name = input
-				to_chat(user, "\The [oldname] has been successfully been renamed to \the [input].")
-				O.renamedByPlayer = TRUE
-				anythingchanged = TRUE
-		if(penchoice == "Change description")
-			var/input = stripped_input(user,"Describe \the [O.name] here", ,"", 100)
+			if(!input) // empty input so we return
+				to_chat(user, span_warning("You need to enter a name!"))
+				return
+			if(CHAT_FILTER_CHECK(input)) // check for forbidden words
+				to_chat(user, span_warning("Your message contains forbidden words."))
+				return
+			if(O.name == input)
+				to_chat(user, "You changed [O] to... well... [O].")
+				return
+			to_chat(user, capitalize("[O] has been successfully been renamed to [input]."))
+			O.name = input
+			O.renamedByPlayer = TRUE
+			anythingchanged = TRUE
+		if(penchoice == "Change description") // we'll allow empty descriptions
+			var/input = tgui_input_text(user, "Describe [O] here", "", O.desc) // max_lenght to the default MAX_MESSAGE_LEN, what's the worst that could happen?
 			if(QDELETED(O) || !user.canUseTopic(O, BE_CLOSE))
+				return
+			if(CHAT_FILTER_CHECK(input)) // check for forbidden words
+				to_chat(user, span_warning("Your message contains forbidden words."))
 				return
 			O.desc = input
 			to_chat(user, "You have successfully changed \the [O.name]'s description.")
@@ -194,31 +204,29 @@
  * Sleepypens
  */
 
-/obj/item/pen/sleepy
+/obj/item/pen/paralytic
 
-/obj/item/pen/sleepy/attack(mob/living/M, mob/user)
+/obj/item/pen/paralytic/attack(mob/living/M, mob/user)
 	if(!istype(M))
 		return
 
 	if(reagents?.total_volume && M.reagents)
 		// Obvious message to other people, so that they can call out suspicious activity.
 		to_chat(user, span_notice("You prepare to engage the sleepy pen's internal mechanism!"))
-		if (!do_after(user, 0.5 SECONDS, M) || !..())
+		if (!do_after(user, 1 SECONDS, M) || !..())
 			to_chat(user, span_warning("You fail to engage the sleepy pen mechanism!"))
 			return
 		reagents.trans_to(M, reagents.total_volume, transfered_by = user, method = INJECT)
 		user.visible_message(span_warning("[user] stabs [M] with [src]!"), span_notice("You successfully inject [M] with the pen's contents!"), vision_distance = COMBAT_MESSAGE_RANGE, ignored_mobs = list(M))
-		// Looks like a normal pen once it has been used
-		qdel(reagents)
-		reagents = null
+		to_chat(M, span_danger("You feel a tiny prick!"))
 	else
 		return ..()
 
-/obj/item/pen/sleepy/Initialize(mapload)
+/obj/item/pen/paralytic/Initialize(mapload)
 	. = ..()
 	create_reagents(45, OPENCONTAINER)
-	reagents.add_reagent(/datum/reagent/toxin/chloralhydrate, 20)
-	reagents.add_reagent(/datum/reagent/toxin/mutetoxin, 15)
+	reagents.add_reagent(/datum/reagent/toxin/curare, 20)
+	reagents.add_reagent(/datum/reagent/toxin/whispertoxin, 15)
 	reagents.add_reagent(/datum/reagent/toxin/staminatoxin, 10)
 
 /*

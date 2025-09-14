@@ -589,7 +589,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 					if(ORION_TRAIL_RAIDERS)
 						if(prob(50))
 							to_chat(usr, span_userdanger("You hear battle shouts. The tramping of boots on cold metal. Screams of agony. The rush of venting air. Are you going insane?"))
-							M.hallucination += 30
+							M.adjust_hallucinations(60 SECONDS)
 						else
 							to_chat(usr, span_userdanger("Something strikes you from behind! It hurts like hell and feel like a blunt weapon, but nothing is there..."))
 							M.take_bodypart_damage(30)
@@ -1236,6 +1236,8 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	desc = "A picture of a blood-soaked medical cyborg flashes on the screen. The mediborg has a speech bubble that says, \"Put your hand in the machine if you aren't a <b>coward!</b>\""
 	icon_state = "arcade"
 	circuit = /obj/item/circuitboard/computer/arcade/amputation
+
+SCREENTIP_ATTACK_HAND(/obj/machinery/computer/arcade/amputation, "Use")
 
 /obj/machinery/computer/arcade/amputation/attack_hand(mob/user, list/modifiers)
 	if(!iscarbon(user))

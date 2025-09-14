@@ -58,21 +58,13 @@
 #define SPAWNTYPE_MIDROUND "midround"
 #define SPAWNTYPE_EITHER "either"
 
-/// Checks if the given mob is a blood cultist
-#define IS_CULTIST(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/cult))
-
-///It is faster as a macro than a proc
-#define IS_HERETIC(mob) (mob.mind?.has_antag_datum(/datum/antagonist/heretic))
-#define IS_HERETIC_MONSTER(mob) (mob.mind?.has_antag_datum(/datum/antagonist/heretic_monster))
-/// Checks if the given mob is either a heretic or a heretic monster.
-#define IS_HERETIC_OR_MONSTER(mob) (IS_HERETIC(mob) || IS_HERETIC_MONSTER(mob))
-
 /// Define for the heretic faction applied to heretics and heretic mobs.
 
 #define FACTION_SYNDICATE "Syndicate"
 #define FACTION_BLOB "Blob"
 #define FACTION_ALIEN "Xenomorph"
 #define FACTION_WIZARD "Wizard"
+#define FACTION_VAMPIRE "Vampire"
 
 // Heretic path defines.
 #define HERETIC_PATH_START "Heretic Start Path"
@@ -141,14 +133,36 @@ GLOBAL_LIST_INIT(ai_employers, list(
 	WIZARD_LOADOUT_SOULTAP, \
 )
 
+/// These macros are faster than procs.
+
+/// Checks if the given mob is a wizard
+#define IS_TRAITOR(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/traitor))
 /// Checks if the given mob is a wizard
 #define IS_WIZARD(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/wizard))
-///Checks if given mob is a hive host
+/// Checks if given mob is a hive host
 #define IS_HIVEHOST(mob) (mob.mind?.has_antag_datum(/datum/antagonist/hivemind))
-///Checks if given mob is an awakened vessel
+/// Checks if given mob is an awakened vessel
 #define IS_WOKEVESSEL(mob) (mob.mind?.has_antag_datum(/datum/antagonist/hivevessel))
 ///Checks if the given mob is a malfunctioning AI
 #define IS_MALF_AI(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/malf_ai))
+/// Checks if the given mob is a nuclear operative
+#define IS_NUCLEAR_OPERATIVE(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/nukeop))
+/// Checks if the given mob is a blood cultist
+#define IS_CULTIST(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/cult))
+/// Checks if the given mob is a clock cultist
+#define IS_SERVANT_OF_RATVAR(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/servant_of_ratvar))
+/// Checks if the given mob is a changeling
+#define IS_CHANGELING(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/changeling))
+/// Checks if the given mob is a heretic
+#define IS_HERETIC(mob) (mob.mind?.has_antag_datum(/datum/antagonist/heretic))
+#define IS_HERETIC_MONSTER(mob) (mob.mind?.has_antag_datum(/datum/antagonist/heretic_monster))
+#define IS_HERETIC_OR_MONSTER(mob) (IS_HERETIC(mob) || IS_HERETIC_MONSTER(mob))
+/// Checks if the given mob is a revolutionary
+#define IS_REVOLUTIONARY(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/rev))
+#define IS_HEAD_REVOLUTIONARY(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/rev/head))
+
+//Tells whether or not someone is a space ninja
+#define IS_SPACE_NINJA(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/ninja))
 
 // Max of all fugitive types
 #define MAXIMUM_TOTAL_FUGITIVES 4

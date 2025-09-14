@@ -177,8 +177,12 @@
 		return em_block
 
 /atom/movable/update_overlays()
-	. = ..()
-	. += update_emissive_block()
+	var/list/overlays = ..()
+	var/emissive_block = update_emissive_block()
+	if(emissive_block)
+		// Emissive block should always go at the beginning of the list
+		overlays.Insert(1, emissive_block)
+	return overlays
 
 /atom/movable/vv_edit_var(var_name, var_value)
 	var/static/list/banned_edits = list("step_x", "step_y", "step_size", "bounds")
@@ -256,16 +260,18 @@
 	return TRUE
 
 /atom/movable/proc/stop_pulling()
-	if(pulling)
-		if(ismob(pulling?.pulledby))
-			pulling.pulledby.log_message("has stopped pulling [key_name(pulling)]", LOG_ATTACK)
-		if(ismob(pulling))
-			pulling.log_message("has stopped being pulled by [key_name(pulling.pulledby)]", LOG_ATTACK)
-		pulling.set_pulledby(null)
-		var/mob/living/ex_pulled = pulling
-		setGrabState(GRAB_PASSIVE)
-		pulling = null
-		SEND_SIGNAL(ex_pulled, COMSIG_MOVABLE_NO_LONGER_PULLED)
+	if(!pulling)
+		return
+	if(ismob(pulling?.pulledby))
+		pulling.pulledby.log_message("has stopped pulling [key_name(pulling)]", LOG_ATTACK)
+	if(ismob(pulling))
+		pulling.log_message("has stopped being pulled by [key_name(pulling.pulledby)]", LOG_ATTACK)
+	pulling.set_pulledby(null)
+	setGrabState(GRAB_PASSIVE)
+	var/mob/living/old_pulling = pulling
+	pulling = null
+	SEND_SIGNAL(old_pulling, COMSIG_ATOM_NO_LONGER_PULLED, src)
+	//SEND_SIGNAL(src, COMSIG_ATOM_NO_LONGER_PULLING, old_pulling)
 
 ///Reports the event of the change in value of the pulledby variable.
 /atom/movable/proc/set_pulledby(new_pulledby)
@@ -721,6 +727,9 @@
 //Mobs should return 1 if they should be able to move of their own volition, see client/Move() in mob_movement.dm
 //movement_dir == 0 when stopping or any dir when trying to move
 /atom/movable/proc/Process_Spacemove(movement_dir = FALSE)
+	if(SEND_SIGNAL(src, COMSIG_MOVABLE_SPACEMOVE, movement_dir) & COMSIG_MOVABLE_STOP_SPACEMOVE)
+		return TRUE
+
 	if(has_gravity(src))
 		return TRUE
 
@@ -778,13 +787,13 @@
 		step(src, AM.dir)
 	..(AM, skipcatch, hitpush, blocked, throwingdatum)
 
-/atom/movable/proc/safe_throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = MOVE_FORCE_STRONG, gentle = FALSE)
+/atom/movable/proc/safe_throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = MOVE_FORCE_STRONG)
 	if((force < (move_resist * MOVE_FORCE_THROW_RATIO)) || (move_resist == INFINITY))
 		return
-	return throw_at(target, range, speed, thrower, spin, diagonals_first, callback, force, gentle)
+	return throw_at(target, range, speed, thrower, spin, diagonals_first, callback, force)
 
 ///If this returns FALSE then callback will not be called.
-/atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = MOVE_FORCE_STRONG, gentle = FALSE, quickstart = TRUE)
+/atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = MOVE_FORCE_STRONG, quickstart = TRUE)
 	. = FALSE
 
 	if(QDELETED(src))
@@ -836,7 +845,7 @@
 	else
 		target_zone = thrower.get_combat_bodyzone(target)
 
-	var/datum/thrownthing/TT = new(src, target, get_dir(src, target), range, speed, thrower, diagonals_first, force, gentle, callback, target_zone)
+	var/datum/thrownthing/TT = new(src, target, get_dir(src, target), range, speed, thrower, diagonals_first, force, callback, target_zone)
 
 	var/dist_x = abs(target.x - src.x)
 	var/dist_y = abs(target.y - src.y)
@@ -1090,8 +1099,7 @@
 /atom/movable/proc/get_language_holder()
 	RETURN_TYPE(/datum/language_holder)
 	if(QDELING(src))
-		CRASH("get_language_holder() called on a QDELing atom, \
-			this will try to re-instantiate the language holder that's about to be deleted, which is bad.")
+		CRASH("get_language_holder() called on a QDELing atom, this will try to re-instantiate the language holder that's about to be deleted, which is bad.")
 
 	if(!language_holder)
 		language_holder = new initial_language_holder(src)

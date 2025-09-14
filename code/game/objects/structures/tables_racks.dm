@@ -26,6 +26,7 @@
 	anchored = TRUE
 	pass_flags_self = PASSTABLE | LETPASSTHROW
 	layer = TABLE_LAYER
+	obj_flags = CAN_BE_HIT | IGNORE_DENSITY
 	var/frame = /obj/structure/table_frame
 	var/framestack = /obj/item/stack/rods
 	var/glass_shard_type = /obj/item/shard
@@ -634,12 +635,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 
 /obj/structure/table/optable/proc/set_patient(new_patient)
 	if(patient)
-		UnregisterSignal(patient, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(patient, COMSIG_QDELETING)
 		UnregisterSignal(patient, COMSIG_LIVING_RESTING_UPDATED)
 		REMOVE_TRAIT(patient, TRAIT_NO_BLEEDING, TABLE_TRAIT)
 	patient = new_patient
 	if(patient)
-		RegisterSignal(patient, COMSIG_PARENT_QDELETING, PROC_REF(patient_deleted))
+		RegisterSignal(patient, COMSIG_QDELETING, PROC_REF(patient_deleted))
 		RegisterSignal(patient, COMSIG_LIVING_RESTING_UPDATED, PROC_REF(check_bleed_trait))
 		check_bleed_trait()
 

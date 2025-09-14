@@ -2,33 +2,25 @@
 	name = "tablet computer"
 	icon = 'icons/obj/modular_tablet.dmi'
 	icon_state = "tablet-red"
-	worn_icon_state = "pda"
-	icon_state_unpowered = "tablet"
-	icon_state_powered = "tablet"
 	icon_state_menu = "menu"
-	hardware_flag = PROGRAM_PDA
-	max_hardware_size = 1
+	worn_icon_state = "pda"
+	max_hardware_size = WEIGHT_CLASS_SMALL
 	w_class = WEIGHT_CLASS_SMALL
+	custom_price = PAYCHECK_MEDIUM * 2
 	max_bays = 3
 	steel_sheet_cost = 1
 	slot_flags = ITEM_SLOT_ID | ITEM_SLOT_BELT
 	has_light = TRUE //LED flashlight!
-	comp_light_luminosity = 2.3 //Same as the PDA
+	comp_light_luminosity = 3 //not the same as the PDA
 	interaction_flags_atom = INTERACT_ATOM_ALLOW_USER_LOCATION
 	can_save_id = TRUE
 	saved_auto_imprint = TRUE
-
-	var/has_variants = TRUE
-	var/finish_color = null
-
 	var/list/contained_item = list(/obj/item/pen, /obj/item/toy/crayon, /obj/item/lipstick, /obj/item/flashlight/pen, /obj/item/clothing/mask/cigarette)
 	//This is the typepath to load "into" the pda
 	var/obj/item/insert_type = /obj/item/pen
 	//This is the currently inserted item
 	var/obj/item/inserted_item
-
-	/// If this tablet can be detonated with detomatix (needs to be refactored into a signal)
-	var/detonatable = TRUE
+	can_store_pai = TRUE
 
 	/// The note used by the notekeeping app, stored here for convenience.
 	var/note = "Congratulations on your station upgrading to the new NtOS and Thinktronic based collaboration effort, bringing you the best in electronics and software since 2467!"
@@ -44,14 +36,20 @@
 	data["show_imprint"] = TRUE
 	return data
 
-/obj/item/modular_computer/tablet/update_icon()
-	..()
-	if (has_variants && !bypass_state)
-		if(!finish_color)
-			finish_color = pick("red","blue","brown","green","black")
-		icon_state = "tablet-[finish_color]"
-		icon_state_unpowered = "tablet-[finish_color]"
-		icon_state_powered = "tablet-[finish_color]"
+/obj/item/modular_computer/tablet/update_overlays()
+	. = ..()
+	var/init_icon = initial(icon)
+	if(!init_icon)
+		return
+	var/obj/item/computer_hardware/card_slot/card = all_components[MC_CARD]
+	if(card)
+		if(card.stored_card)
+			. += mutable_appearance(init_icon, "id_overlay")
+	if(inserted_item)
+		. += mutable_appearance(init_icon, "insert_overlay")
+	if(light_on)
+		. += mutable_appearance(init_icon, "light_overlay")
+
 
 /obj/item/modular_computer/tablet/emp_act(severity)
 	. = ..()
@@ -90,7 +88,7 @@
 			to_chat(user, span_notice("You insert \the [attacking_item] into \the [src]."))
 			inserted_item = attacking_item
 			playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
-			update_icon()
+			update_appearance()
 
 /obj/item/modular_computer/tablet/pre_attack(atom/target, mob/living/user, params)
 	if(try_scan_paper(target, user))
@@ -116,11 +114,15 @@
 			return
 	..()
 
-// Eject the pen if the ID was not ejected
+// Eject the PAI then pen if the ID was not ejected
 /obj/item/modular_computer/tablet/AltClick(mob/user)
 	if(..() || issilicon(user) || !user.canUseTopic(src, BE_CLOSE))
 		return
-	remove_pen(user)
+	if(!inserted_item && stored_pai_card)
+		usr.put_in_hands(stored_pai_card)
+		remove_pai()
+	else
+		remove_pen(user)
 
 // Always eject pen with Ctrl+Click
 /obj/item/modular_computer/tablet/CtrlClick(mob/user)
@@ -160,54 +162,26 @@
 		user.put_in_hands(inserted_item)
 		inserted_item = null
 		playsound(src, 'sound/machines/pda_button2.ogg', 50, TRUE)
-		update_icon()
+		update_appearance()
 	else
 		to_chat(user, span_warning("This tablet does not have a pen in it!"))
 
-// Tablet 'splosion..
-
-/obj/item/modular_computer/tablet/proc/explode(mob/target, mob/bomber)
-	var/turf/current_turf = get_turf(src)
-
-	log_bomber(bomber, "tablet-bombed", target, "[bomber && !is_special_character(bomber) ? "(SENT BY NON-ANTAG)" : ""]")
-
-	if (ismob(loc))
-		var/mob/victim = loc
-		victim.show_message(span_userdanger("Your [src] explodes!"), MSG_VISUAL, span_warning("You hear a loud *pop*!"), MSG_AUDIBLE)
-	else
-		visible_message(span_danger("[src] explodes!"), span_warning("You hear a loud *pop*!"))
-
-	if(current_turf)
-		current_turf.hotspot_expose(700,125)
-		if(istype(all_components[MC_HDD_JOB], /obj/item/computer_hardware/hard_drive/role/virus/syndicate))
-			explosion(current_turf, devastation_range = -1, heavy_impact_range = 1, light_impact_range = 3, flash_range = 4)
-		else
-			explosion(current_turf, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 2, flash_range = 3)
-	qdel(src)
-
 // SUBTYPES
-
 /obj/item/modular_computer/tablet/syndicate_contract_uplink
 	name = "contractor tablet"
 	icon = 'icons/obj/contractor_tablet.dmi'
 	icon_state = "tablet"
-	icon_state_unpowered = "tablet"
-	icon_state_powered = "tablet"
 	icon_state_menu = "assign"
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_ID | ITEM_SLOT_BELT
 	comp_light_luminosity = 6.3
-	has_variants = FALSE
 	device_theme = THEME_SYNDICATE
 	theme_locked = TRUE
 
 /// Given to Nuke Ops members.
 /obj/item/modular_computer/tablet/nukeops
 	icon_state = "tablet-syndicate"
-	icon_state_powered = "tablet-syndicate"
-	icon_state_unpowered = "tablet-syndicate"
 	comp_light_luminosity = 6.3
-	has_variants = FALSE
 	device_theme = THEME_SYNDICATE
 	theme_locked = TRUE
 	light_color = COLOR_RED
@@ -223,12 +197,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/modular_computer/tablet/integrated)
 /obj/item/modular_computer/tablet/integrated
 	name = "modular interface"
 	icon_state = "tablet-silicon"
-	icon_state_unpowered = "tablet-silicon"
-	icon_state_powered = "tablet-silicon"
 	icon_state_menu = "menu"
 	has_light = FALSE //tablet light button actually enables/disables the borg lamp
 	comp_light_luminosity = 0
-	has_variants = FALSE
 	///Ref to the silicon we're installed in. Set by the borg during our creation.
 	var/mob/living/silicon/borgo
 	///Ref to the Cyborg Self-Monitoring app. Important enough to borgs to deserve a ref.
@@ -247,6 +218,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/modular_computer/tablet/integrated)
 
 /obj/item/modular_computer/tablet/integrated/Destroy()
 	borgo = null
+	for(var/port in all_components)
+		var/obj/item/computer_hardware/component = all_components[port]	//This hopefully stops borgs from just shitting out their parts when they die
+		qdel(component)
+		forget_component(component)
 	return ..()
 
 /obj/item/modular_computer/tablet/integrated/turn_on(mob/user, open_ui = FALSE)
@@ -318,8 +293,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/modular_computer/tablet/integrated)
 
 /obj/item/modular_computer/tablet/integrated/syndicate
 	icon_state = "tablet-silicon-syndicate"
-	icon_state_unpowered = "tablet-silicon-syndicate"
-	icon_state_powered = "tablet-silicon-syndicate"
 	icon_state_menu = "command-syndicate"
 	device_theme = THEME_SYNDICATE
 	theme_locked = TRUE
@@ -341,9 +314,8 @@ GLOBAL_LIST_EMPTY(PDAs)
 	worn_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
-
-	bypass_state = TRUE
-	can_store_pai = TRUE
+	comp_light_luminosity = 2.3
+	max_hardware_size = WEIGHT_CLASS_TINY
 
 	var/default_disk = 0
 	/// If the PDA has been picked up / equipped before. This is used to set the user's preference background color / theme.
@@ -373,43 +345,9 @@ GLOBAL_LIST_EMPTY(PDAs)
 		device_theme = allowed_themes[pref_theme]
 	classic_color = user.client.prefs.read_character_preference(/datum/preference/color/pda_classic_color)
 
-/obj/item/modular_computer/tablet/pda/update_icon()
-	..()
-	var/init_icon = initial(icon)
-	if(!init_icon)
-		return
-	var/obj/item/computer_hardware/card_slot/card = all_components[MC_CARD]
-	if(card)
-		if(card.stored_card)
-			add_overlay(mutable_appearance(init_icon, "id_overlay"))
-	if(inserted_item)
-		add_overlay(mutable_appearance(init_icon, "insert_overlay"))
-	if(light_on)
-		add_overlay(mutable_appearance(init_icon, "light_overlay"))
-
-
 /obj/item/modular_computer/tablet/pda/attack_silicon(mob/user)
 	to_chat(user, span_notice("It doesn't feel right to snoop around like that..."))
 	return // we don't want ais or cyborgs using a private role tablet
-
-/obj/item/modular_computer/tablet/pda/Initialize(mapload)
-	. = ..()
-	install_component(new /obj/item/computer_hardware/hard_drive/small/pda)
-	install_component(new /obj/item/computer_hardware/processor_unit/small)
-	install_component(new /obj/item/computer_hardware/battery(src, /obj/item/stock_parts/cell/computer))
-	install_component(new /obj/item/computer_hardware/network_card)
-	install_component(new /obj/item/computer_hardware/card_slot)
-	install_component(new /obj/item/computer_hardware/identifier)
-	install_component(new /obj/item/computer_hardware/sensorpackage)
-
-	if(default_disk)
-		var/obj/item/computer_hardware/hard_drive/portable/disk = new default_disk(src)
-		install_component(disk)
-
-	if(insert_type)
-		inserted_item = new insert_type(src)
-		// show the inserted item
-		update_icon()
 
 /// Return a list of types you want to pregenerate and use later
 /// Do not pass in things that care about their init location, or expect extra input

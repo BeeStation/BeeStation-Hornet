@@ -29,7 +29,7 @@
 		return INITIALIZE_HINT_QDEL
 	if(ismovable(loc))
 		RegisterSignal(loc, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
-	RegisterSignal(loc, COMSIG_PARENT_QDELETING, PROC_REF(on_qdel))
+	RegisterSignal(loc, COMSIG_QDELETING, PROC_REF(on_qdel))
 	weak_attached = WEAKREF(loc)
 	update_visual_contents(loc)
 
@@ -40,7 +40,7 @@
 		additional_attached = weak_additional.resolve()
 	if(attached)
 		attached.vis_contents -= src
-		UnregisterSignal(loc, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_QDELETING))
+		UnregisterSignal(loc, list(COMSIG_MOVABLE_MOVED, COMSIG_QDELETING))
 	if(additional_attached)
 		additional_attached.vis_contents -= src
 	QDEL_NULL(emitters)

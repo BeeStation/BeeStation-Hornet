@@ -24,7 +24,15 @@
 	var/disease_amount = 20
 	///Is this container spillable (by throwing, etc)
 	var/spillable = FALSE
-	///The tresholds at which we change the icon (used to display fullness of the container)
+	/**
+	 * The different thresholds at which the reagent fill overlay will change. See reagentfillings.dmi.
+	 *
+	 * Should be a list of integers which correspond to a reagent unit threshold.
+	 * If null, no automatic fill overlays are generated.
+	 *
+	 * For example, list(0) will mean it will gain a the overlay with any reagents present. This overlay is "overlayname0".
+	 * list(0, 10) whill have two overlay options, for 0-10 units ("overlayname0") and 10+ units ("overlayname10").
+	 */
 	var/list/fill_icon_thresholds
 	///Optional custom name for reagent fill icon_state prefix
 	var/fill_icon_state
@@ -215,7 +223,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 	reagents.expose_temperature(temperature)
 
 /obj/item/reagent_containers/on_reagent_change(changetype)
-	update_icon()
+	update_appearance()
 
 /obj/item/reagent_containers/update_overlays()
 	. = ..()
@@ -242,10 +250,3 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 	if(label_icon && (name != initial(name) || desc != initial(desc)))
 		var/mutable_appearance/label = mutable_appearance('icons/obj/chemical.dmi', "[label_icon]")
 		. += label
-
-/obj/item/reagent_containers/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
-	// Always attempt to isolate diseases from reagent containers, if possible.
-	. = ..()
-	EXTRAPOLATOR_ACT_SET(., EXTRAPOLATOR_ACT_PRIORITY_ISOLATE)
-	var/datum/reagent/blood/blood = reagents.get_reagent(/datum/reagent/blood)
-	EXTRAPOLATOR_ACT_ADD_DISEASES(., blood?.get_diseases())
