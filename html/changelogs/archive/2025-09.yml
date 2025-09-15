@@ -142,3 +142,51 @@
   - balance: Stealth releases a smoke cloud on activation.
   - bugfix: Fixes mouse cooldown cursor being broken
   - bugfix: Fixes some preference options not displaying
+2025-09-13:
+  ClownMoff:
+  - rscadd: Added the Medical Emergencies Escape Shuttle
+  Therealdoooc, Comxy, Jacquerel, Melbert:
+  - rscadd: Garden gnomes, a new basic mob that can be purchased from an emagged supply
+      console for 4k credits.
+  - code_imp: Advanced retaliate component.
+  - code_imp: Ground sinking component.
+  - code_imp: Attack obstacle in path AI subtree/behaviour.
+  - code_imp: Caltrop component now supports custom paralyze time.
+  ? mrmanlikesbt, MMMiracles, iwishforducks, dragomagol, unit0016, Son-of-Space, JohnFulpWillard,
+    san7890, Maurukas, Helg2, MTandi
+  : - rscadd: Added some airalarm, airlock, airlock access, and apc mapping helpers.
+2025-09-14:
+  Solene:
+  - rscadd: Added hotswap to every computer component.
+  - balance: Doubled battery size (lets see if it sticks this time)
+  - tweak: Reworked Power cell controlers. Now they're simply batteries and you don't
+      need 2 battery type components.
+  - tweak: Changed names of computer batteries to be more descriptive of their size.
+  - bugfix: Fixed a message error in primary card slot hacking
+  - bugfix: Fixed a runtime happening during Detomatix virus injection on targets
+      without battery
+  - bugfix: Standard batteries no longer fit laptops, sorry guys
+  SunShine214, Nakalon:
+  - rscadd: The Advanced Gas Rig, capable of mining gases from the planet the station
+      is orbiting.
+  - rscadd: Gas Rig Monitor program, which uses NTnet to remotely control the gas
+      rig
+  - rscadd: Adds a Gas Rig Shielding power value to each gas
+  - tweak: Adjusted maps to fit the new gas rig.
+  - tweak: Waste now is vented, rather then filtered out. The filter line is for the
+      gas rig now.
+  - rscdel: Removed gas miners from all maps except for echo, as the gas rig being
+      there makes no sense
+  lord scrubling:
+  - rscadd: resin mister upgrades can now be applied to the modsuit module
+  - bugfix: the resin mister module now deploys
+  - refactor: watertank backpacks are more flexible
+  ? mrmanlikesbt, MrMelbert, san7890, SuperNovaa41, Watermelon914, lessthnthree, ZephyrTFA,
+    Jacquerel, AnywayFarus, imedial, SmArtKar
+  : - rscadd: Added the "Vote" verb the OOC tab, here you can check the status of
+        current voting or call them if you are able.
+    - tweak: Map votes now use a tally system instead of weighted RNG. What this means
+        is that votes for the maps that did not win will carry over to the next map
+        vote, and when that map eventually wins its tallies will be reset.
+    - refactor: refactored the voting subsystem
+    - tweak: Slightly altered the Emergency Shuttle undocking announcement
