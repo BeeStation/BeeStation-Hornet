@@ -519,25 +519,26 @@
 			log_game("[key_name(user)] used \the [upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM ? "Advanced" : ""] Resin Launcher at [AREACOORD(user)].")
 			return
 
-		if (RESIN_FOAM)
-			if(!(proximity_flag == 1) || !isturf(target))
+	if(nozzle_mode == RESIN_FOAM)
+		if(!Adj|| !isturf(target))
+			balloon_alert(user, "too far!")
+			return
+		for(var/S in target)
+			if(istype(S, /obj/effect/particle_effect/foam/metal/resin) || istype(S, /obj/structure/foamedmetal/resin))
+				balloon_alert(user, "already has resin!")
 				return
-			for(var/S in target)
-				if(istype(S, /obj/effect/particle_effect/foam/metal/resin) || istype(S, /obj/structure/foamedmetal/resin))
-					balloon_alert(user, "already has resin!")
-					return
-			if(resin_synthesis_cooldown < max_foam)
-				if(toggled)
-					var/obj/effect/particle_effect/foam/metal/resin/chainreact/foam = new (get_turf(target))
-					foam.amount = 0
-				else
-					var/obj/effect/particle_effect/foam/metal/resin/foam = new (get_turf(target))
-					foam.amount = 0
-				resin_synthesis_cooldown++
-				addtimer(CALLBACK(src, PROC_REF(reduce_metal_synth_cooldown)), 10 SECONDS)
+		if(resin_synthesis_cooldown < max_foam)
+			if(toggled)
+				var/obj/effect/particle_effect/foam/metal/chainreact_resin/foam = new (get_turf(target))
+				foam.amount = 0
 			else
-				balloon_alert(user, "Recharging")
-				return
+				var/obj/effect/particle_effect/foam/metal/resin/foam = new (get_turf(target))
+				foam.amount = 0
+			resin_synthesis_cooldown++
+			addtimer(CALLBACK(src, PROC_REF(reduce_metal_synth_cooldown)), 10 SECONDS)
+		else
+			balloon_alert(user, "Recharging")
+			return
 
 /obj/item/extinguisher/mini/nozzle/proc/resin_stop_check(datum/move_loop/source, succeeded)
 	SIGNAL_HANDLER

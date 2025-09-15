@@ -33823,6 +33823,17 @@
 	},
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/engine/engine_room)
+"leu" = (
+/obj/machinery/jukebox{
+	req_access = "0"
+	},
+/obj/effect/turf_decal/bot,
+/obj/machinery/status_display/evac{
+	pixel_x = -31;
+	pixel_y = -1
+	},
+/turf/open/floor/holofloor/wood,
+/area/security/main)
 "leD" = (
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted{
 	dir = 1
@@ -39438,6 +39449,25 @@
 /obj/machinery/firealarm/directional/north,
 /turf/open/floor/iron,
 /area/engine/break_room)
+"nag" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 9
+	},
+/obj/structure/bed/dogbed/ian,
+/mob/living/basic/pet/dog/corgi/ian{
+	density = 0;
+	dir = 1;
+	pixel_y = 4
+	},
+/obj/item/toy/beach_ball/holoball/dodgeball{
+	name = "dodgeball 3 of 5"
+	},
+/obj/machinery/newscaster{
+	pixel_x = 1;
+	pixel_y = 33
+	},
+/turf/open/floor/carpet/blue,
+/area/crew_quarters/heads/hop)
 "nah" = (
 /obj/machinery/conveyor{
 	dir = 1;
@@ -39829,25 +39859,6 @@
 /obj/item/trash/popcorn,
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
-"nhB" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 9
-	},
-/obj/structure/bed/dogbed/ian,
-/mob/living/basic/pet/dog/corgi/ian{
-	density = 0;
-	dir = 1;
-	pixel_y = 4
-	},
-/obj/item/toy/beach_ball/holoball/dodgeball{
-	name = "dodgeball 3 of 5"
-	},
-/obj/machinery/newscaster{
-	pixel_x = 1;
-	pixel_y = 33
-	},
-/turf/open/floor/carpet/blue,
-/area/crew_quarters/heads/hop)
 "nhQ" = (
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /obj/structure/cable/yellow{
@@ -62887,26 +62898,6 @@
 /obj/machinery/camera/directional/east,
 /turf/open/space/basic,
 /area/engine/engine_room)
-"uGk" = (
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/bed/dogbed/tyson,
-/obj/item/stack/sheet/bone{
-	pixel_x = 6;
-	pixel_y = -6
-	},
-/mob/living/basic/pet/dog/bullterrier/tyson{
-	density = 0
-	},
-/obj/machinery/status_display/evac{
-	pixel_y = 32
-	},
-/turf/open/floor/iron/dark,
-/area/security/warden)
 "uGm" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
@@ -62967,6 +62958,26 @@
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/storage)
+"uIg" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/bed/dogbed/tyson,
+/obj/item/stack/sheet/bone{
+	pixel_x = 6;
+	pixel_y = -6
+	},
+/mob/living/basic/pet/dog/bullterrier/tyson{
+	density = 0
+	},
+/obj/machinery/status_display/evac{
+	pixel_y = 32
+	},
+/turf/open/floor/iron/dark,
+/area/security/warden)
 "uIs" = (
 /turf/closed/wall,
 /area/hallway/primary/fore)
@@ -72976,17 +72987,6 @@
 	},
 /turf/open/floor/wood,
 /area/security/detectives_office)
-"xYq" = (
-/obj/machinery/jukebox{
-	req_access = "0"
-	},
-/obj/effect/turf_decal/bot,
-/obj/machinery/status_display/evac{
-	pixel_x = -31;
-	pixel_y = -1
-	},
-/turf/open/floor/holofloor/wood,
-/area/security/main)
 "xYt" = (
 /obj/structure/sink{
 	dir = 8;
@@ -101619,7 +101619,7 @@ voS
 cxh
 nEn
 eQz
-xYq
+leu
 voS
 nWv
 fpn
@@ -102352,7 +102352,7 @@ uYx
 uYx
 uYx
 uYx
-uGk
+uIg
 wrh
 uaZ
 bKr
@@ -108775,7 +108775,7 @@ fnT
 oif
 bwr
 nJK
-nhB
+nag
 sww
 sNM
 bQs
