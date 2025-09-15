@@ -489,23 +489,6 @@
 "lt" = (
 /turf/open/floor/engine,
 /area/science/mixing)
-"lE" = (
-/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
-	alpha = 180;
-	color = "#DE3A3A"
-	},
-/mob/living/basic/pet/dog/bullterrier/tyson{
-	density = 0
-	},
-/mob/living/simple_animal/kalo{
-	desc = "The Perma brig's cute grass snake.";
-	icon_dead = "snake_dead";
-	icon_living = "snake";
-	icon_state = "snake";
-	name = "Hugel"
-	},
-/turf/open/floor/iron,
-/area/security/main)
 "lT" = (
 /turf/open/floor/iron/smooth_large,
 /area/space)
@@ -1257,6 +1240,23 @@
 	},
 /turf/open/floor/circuit,
 /area/space)
+"DF" = (
+/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
+	alpha = 180;
+	color = "#DE3A3A"
+	},
+/mob/living/basic/pet/dog/bullterrier/tyson{
+	density = 0
+	},
+/mob/living/simple_animal/kalo{
+	desc = "The Perma brig's cute grass snake.";
+	icon_dead = "snake_dead";
+	icon_living = "snake";
+	icon_state = "snake";
+	name = "Hugel"
+	},
+/turf/open/floor/iron,
+/area/security/main)
 "DR" = (
 /obj/machinery/vending/dinnerware,
 /turf/open/floor/iron/freezer,
@@ -1479,6 +1479,14 @@
 /obj/structure/closet,
 /turf/open/floor/iron,
 /area/space)
+"JJ" = (
+/mob/living/basic/pet/dog/corgi/ian{
+	density = 0;
+	dir = 1;
+	pixel_y = 4
+	},
+/turf/open/floor/wood,
+/area/crew_quarters/heads/hop)
 "JM" = (
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /mob/living/basic/pet/dog/pug{
@@ -1924,14 +1932,6 @@
 /obj/structure/closet/secure_closet/hydroponics,
 /turf/open/floor/grass/no_border,
 /area/hydroponics)
-"So" = (
-/mob/living/basic/pet/dog/corgi/ian{
-	density = 0;
-	dir = 1;
-	pixel_y = 4
-	},
-/turf/open/floor/wood,
-/area/crew_quarters/heads/hop)
 "Sy" = (
 /obj/item/storage/box{
 	pixel_x = 1;
@@ -2371,7 +2371,7 @@ qz
 (5,1,1) = {"
 bE
 YW
-So
+JJ
 fL
 EI
 JM
@@ -2380,7 +2380,7 @@ yJ
 Wx
 np
 fz
-lE
+DF
 Vk
 rW
 nr
