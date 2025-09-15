@@ -266,14 +266,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 	else if(valve_open && holding)
 		user.investigate_log("started a transfer into [holding].", INVESTIGATE_ATMOS)
 
-/obj/machinery/portable_atmospherics/canister/process(seconds_per_tick)
+/obj/machinery/portable_atmospherics/canister/process(delta_time)
 	if(!shielding_powered)
 		return
 
 	var/our_pressure = air_contents.return_pressure()
 	var/our_temperature = air_contents.return_temperature()
 	var/energy_factor = round(log(10, max(our_pressure - pressure_limit, 1)) + log(10, max(our_temperature - temp_limit, 1)))
-	var/energy_consumed = energy_factor * 250 * seconds_per_tick
+	var/energy_consumed = energy_factor * 250 * delta_time
 
 	if(!energy_consumed)
 		return

@@ -245,6 +245,27 @@
 	. = ..()
 	reagents.add_reagent(/datum/reagent/water, volume)
 
+/obj/item/mod/module/mister/atmos/examine(mob/user)
+	. = ..()
+	. += span_notice("It contains:")
+	if (QDELETED(device))
+		return
+	. += device.examine(user)
+
+/obj/item/mod/module/mister/atmos/on_reagent_change(changetype)
+	. = ..()
+	if (QDELETED(device))
+		return
+	device.update_icon()
+
+/obj/item/mod/module/mister/atmos/attackby(obj/item/I, mob/user, params)
+	if (istype(I, /obj/item/atmostank_upgrade))
+		if (QDELETED(device))
+			return ..()
+		var/obj/item/extinguisher/mini/nozzle/mod/noz = device
+		noz.install_upgrade(I, user)
+	return ..()
+
 /obj/item/extinguisher/mini/nozzle/mod
 	name = "MOD atmospheric mister"
 	desc = "An atmospheric resin mister with three modes, mounted as a module."

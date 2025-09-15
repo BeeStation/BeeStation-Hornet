@@ -27,4 +27,4 @@
 			L.emote("scream")
 
 /proc/clockcult_gg()
-	SSticker.force_ending = TRUE
+	SSticker.force_ending = FORCE_END_ROUND
