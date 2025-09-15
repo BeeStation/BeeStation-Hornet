@@ -1,6 +1,0 @@
-author: TsunamiAnt
-delete-after: true
-changes:
-  - tweak: Makes abductee objectives not be complete ass.
-  - tweak: Abductee objectives are now tied to the gland itself and can be cured by
-      just removing it.

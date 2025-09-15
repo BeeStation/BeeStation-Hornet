@@ -191,9 +191,33 @@
     - refactor: refactored the voting subsystem
     - tweak: Slightly altered the Emergency Shuttle undocking announcement
 2025-09-15:
+  PowerfulBacon:
+  - bugfix: Fixes guns slowing down while worn on the belt.
+  - bugfix: Fixes guns not being able to shoot if you click on a tile adjacent to
+      you.
+  TsunamiAnt:
+  - tweak: Makes abductee objectives not be complete ass.
+  - tweak: Abductee objectives are now tied to the gland itself and can be cured by
+      just removing it.
   mrmanlikesbt:
   - bugfix: Fixed the item overlay on smartfridges displaying even when there are
       no items inside.
+  - bugfix: Fixes the feed ability breaking if the person you are feeding off of is
+      deleted
+  - bugfix: Fixed Ventrue made vampires getting duplicate spells when turned into
+      a vampire
+  - bugfix: Fixed vampires sometimes greentexting when they didn't complete all of
+      their objectives
+  - bugfix: Fixed the Tremere Dominate ability not being able to resurrect people
+      into vassals
+  - code_imp: Cleaned up some vampire code
+  - tweak: The vampire department vassalization objective can no longer ask you to
+      vassalize more people than possible
+  - tweak: Adjusted the roundend report vampire section
+  - tweak: Stakes now have a medium weight size meaning people other than the staked
+      person can remove them
+  - tweak: Ventrue favorite vassals lose their vassal status when leveled up into
+      a vampire. Be careful Ventrue clan members!
   r1ks-iwnl:
   - bugfix: Bubblegum no longer ends his dashes earlier than he should
   rkz, tralezab, TheBonded, ma44, Ryll/Shaps, Vishenka0704, Vladoricious, Jacquerel, Fikou, Sealed101, San7890:
