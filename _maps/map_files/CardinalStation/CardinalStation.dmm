@@ -45371,6 +45371,19 @@
 	},
 /turf/open/floor/wood/big,
 /area/crew_quarters/barbershop)
+"jio" = (
+/obj/effect/turf_decal/siding/wideplating_new/dark,
+/obj/effect/turf_decal/trimline/red/filled/mid_joiner,
+/obj/structure/bed/dogbed/tyson,
+/obj/effect/turf_decal/tile/techfloor/diagonal,
+/obj/structure/extinguisher_cabinet/directional/south,
+/mob/living/basic/pet/dog/bullterrier/tyson,
+/obj/item/clothing/mask/gas/old{
+	name = "chewed up gas mask";
+	desc = "A face-covering mask that can be connected to an air supply. This one appears to be one of Tyson's favorite chew toys."
+	},
+/turf/open/floor/iron/techmaint,
+/area/security/warden)
 "jiq" = (
 /obj/structure/flora/ausbushes/brflowers{
 	pixel_y = -5;
@@ -52453,6 +52466,24 @@
 /obj/structure/grille,
 /turf/open/space/basic,
 /area/space/nearstation)
+"kFl" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/dark_blue{
+	dir = 1
+	},
+/obj/structure/bed/dogbed/ian{
+	pixel_y = -1;
+	pixel_x = -3
+	},
+/obj/item/stack/sheet/bone{
+	desc = "A bone for a good boy.";
+	name = "Dog bone"
+	},
+/mob/living/basic/pet/dog/corgi/ian,
+/obj/machinery/airalarm/directional/south,
+/obj/machinery/light/directional/south,
+/turf/open/floor/wood/big,
+/area/crew_quarters/heads/hop)
 "kFn" = (
 /obj/effect/turf_decal/trimline/white/filled/warning{
 	dir = 1
@@ -98436,24 +98467,6 @@
 /obj/machinery/light/directional/south,
 /turf/open/floor/iron/textured_large,
 /area/hallway/primary/fore)
-"tXR" = (
-/obj/effect/turf_decal/siding/wood,
-/obj/effect/turf_decal/siding/dark_blue{
-	dir = 1
-	},
-/obj/structure/bed/dogbed/ian{
-	pixel_y = -1;
-	pixel_x = -3
-	},
-/obj/item/stack/sheet/bone{
-	desc = "A bone for a good boy.";
-	name = "Dog bone"
-	},
-/mob/living/basic/pet/dog/corgi/ian,
-/obj/machinery/airalarm/directional/south,
-/obj/machinery/light/directional/south,
-/turf/open/floor/wood/big,
-/area/crew_quarters/heads/hop)
 "tXS" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line,
 /obj/effect/turf_decal/trimline/neutral/line,
@@ -108263,19 +108276,6 @@
 /obj/machinery/airalarm/directional/north,
 /turf/open/floor/noslip/blue,
 /area/crew_quarters/fitness/recreation)
-"vTl" = (
-/obj/effect/turf_decal/siding/wideplating_new/dark,
-/obj/effect/turf_decal/trimline/red/filled/mid_joiner,
-/obj/structure/bed/dogbed/tyson,
-/obj/effect/turf_decal/tile/techfloor/diagonal,
-/obj/structure/extinguisher_cabinet/directional/south,
-/mob/living/basic/pet/dog/bullterrier/tyson,
-/obj/item/clothing/mask/gas/old{
-	name = "chewed up gas mask";
-	desc = "A face-covering mask that can be connected to an air supply. This one appears to be one of Tyson's favorite chew toys."
-	},
-/turf/open/floor/iron/techmaint,
-/area/security/warden)
 "vTn" = (
 /obj/effect/turf_decal/siding/blue{
 	dir = 9
@@ -138899,7 +138899,7 @@ uOP
 otx
 cko
 vDU
-tXR
+kFl
 eYi
 eYi
 eYi
@@ -154520,7 +154520,7 @@ kdI
 vDe
 fyS
 hSK
-vTl
+jio
 kdI
 qTU
 kTJ
