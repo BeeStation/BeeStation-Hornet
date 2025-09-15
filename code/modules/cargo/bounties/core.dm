@@ -1,3 +1,6 @@
+
+// If you add a core here make sure it has a normal export price aswell (code\modules\cargo\exports\core.dm).
+
 /datum/bounty/item/core/New()
 	..()
 	description = "The admiral heard that a [name] could help you grow your beard, fetch a [name] immediately! Ship it to receive a large payment."
@@ -63,7 +66,7 @@
 
 /datum/bounty/item/core/glitch
 	name = "glitch anomaly core"
-	reward = 19999
+	reward = 49999
 	wanted_types = list(/obj/item/assembly/signaler/anomaly/glitch)
 
 /datum/bounty/item/core/moth

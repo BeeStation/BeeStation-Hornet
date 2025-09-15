@@ -184,9 +184,9 @@
 
 // Embedded signaller used in anomalies.
 /obj/item/assembly/signaler/anomaly
-	name = "anomaly core"
-	desc = "The neutralized core of an anomaly. It'd probably be valuable for research."
-	icon_state = "anomaly_core"
+	name = "Raton core"
+	desc = "The neutralized core of a raton anomaly. It'd probably be valuable for research."
+	icon_state = null
 	item_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
