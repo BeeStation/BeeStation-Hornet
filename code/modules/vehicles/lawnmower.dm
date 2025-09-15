@@ -4,7 +4,6 @@
 	icon = 'icons/obj/vehicles.dmi'
 	icon_state = "lawnmower"
 	max_integrity = 200
-	var/emagged = FALSE
 	var/emagged_by = null
 	var/list/drive_sounds = list('sound/effects/mowermove1.ogg', 'sound/effects/mowermove2.ogg')
 	var/list/hurt_sounds = list('sound/effects/mowermovesquish.ogg')
@@ -18,12 +17,12 @@
 
 
 /obj/vehicle/ridden/lawnmower/emagged
-	emagged = TRUE
+	obj_flags = EMAGGED
 	desc = "Equipped with reliable safeties to prevent <i>accidents</i> in the workplace."
 
 /obj/vehicle/ridden/lawnmower/examine(mob/user)
 	. = ..()
-	if(emagged)
+	if(obj_flags & EMAGGED)
 		. += span_warning("The safety lights are <b>off<b>.")
 	else
 		. += span_notice("The safety lights are <b>on<b>.")
@@ -38,18 +37,18 @@
 
 /obj/vehicle/ridden/lawnmower/on_emag(mob/user)
 	. = ..()
-	if(emagged)
+	if(obj_flags & EMAGGED)
 		to_chat(user, span_warning("The safety mechanisms on \the [src] are already disabled!"))
 		return
 	to_chat(user, span_warning("You disable the safety mechanisms on \the [src]."))
 	desc = "Equipped with reliable safeties to prevent <i>accidents</i> in the workplace."
-	emagged = TRUE
+	obj_flags = EMAGGED
 	if(user)
 		emagged_by = key_name(user)
 
 /obj/vehicle/ridden/lawnmower/Bump(atom/A)
 	. = ..()
-	if(emagged)
+	if(obj_flags & EMAGGED)
 		if(isliving(A))
 			var/mob/living/M = A
 			M.adjustBruteLoss(10)
@@ -69,7 +68,7 @@
 	else
 		return .
 
-	if(emagged)
+	if(obj_flags & EMAGGED)
 		for(var/mob/living/carbon/human/M in loc)
 			if(M == H)
 				continue
@@ -115,7 +114,7 @@
 	icon = 'icons/obj/vehicles.dmi'
 	icon_state = "syndi_lawnmower"
 	max_integrity = 150
-	emagged = TRUE
+	obj_flags = EMAGGED
 	drive_sounds = list('sound/effects/mower_treads.ogg')
 	hurt_sounds = list('sound/effects/splat.ogg')
 	normal_variant = FALSE
