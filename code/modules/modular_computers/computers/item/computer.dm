@@ -702,14 +702,9 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	ui_update()
 
 /obj/item/modular_computer/pre_attack(atom/A, mob/living/user, params)
-	if(!istype(A, /obj/item/computer_hardware) && !istype(A, /obj/item/stock_parts/cell/computer))
+	if(!istype(A, /obj/item/computer_hardware))
 		return
 
-	var/obj/item/computer_hardware/battery/battery_module = all_components[MC_CELL]
-
-	if(istype(A, /obj/item/stock_parts/cell/computer) && battery_module)
-		if(battery_module.try_insert(A, user))
-			return TRUE
 	if(istype(A, /obj/item/computer_hardware))
 		var/obj/item/computer_hardware/inserted_hardware = A
 		if(install_component(inserted_hardware, user))
@@ -884,7 +879,6 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		if(component.hacked)
 			. += "<span class='cfc_magenta'>WARNING ::</span> [component.device_type] <span class='cfc_magenta'>OPERATING BEYOND RATED PARAMETERS</span>"
 	if(battery_module?.battery)
-		. += "INFO :: <span class='cfc_orange'>[battery_module.battery.name]</span> accounted for."
 		. += "INFO :: Cell Current charge [battery_module.battery.percent()]%."
 	. += "Current Power consumption :: [display_power_persec(total_power_usage)]"
 	return

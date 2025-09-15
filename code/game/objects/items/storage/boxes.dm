@@ -1349,8 +1349,7 @@
 
 /obj/item/storage/box/tablet4dummies/PopulateContents()
 	new /obj/item/modular_computer/tablet(src)
-	new /obj/item/computer_hardware/battery(src)
-	new /obj/item/stock_parts/cell/computer/nano(src)
+	new /obj/item/computer_hardware/battery/tiny(src)
 	new /obj/item/computer_hardware/processor_unit/small(src)
 	new /obj/item/computer_hardware/hard_drive/micro(src)
 	new /obj/item/computer_hardware/identifier(src)

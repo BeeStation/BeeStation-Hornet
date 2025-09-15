@@ -165,6 +165,33 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/dark,
 /area/mine/atmosposthallway)
+"aK" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/structure/table,
+/obj/item/storage/toolbox/emergency{
+	pixel_x = 3;
+	pixel_y = -1
+	},
+/obj/item/stack/sheet/mineral/plasma/ten{
+	pixel_y = 8;
+	pixel_x = 2
+	},
+/obj/item/extinguisher/advanced{
+	pixel_x = -8;
+	pixel_y = 2
+	},
+/obj/item/pipe_dispenser,
+/obj/machinery/power/apc/auto_name/directional/north{
+	start_charge = 0
+	},
+/obj/effect/mapping_helpers/apc/no_charge,
+/turf/open/floor/iron/tech,
+/area/mine/atmosfarmpost)
 "aN" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup{
@@ -2353,20 +2380,6 @@
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/open/floor/plating/asteroid,
 /area/mine/living_quarters)
-"mM" = (
-/obj/machinery/power/apc/auto_name/directional/west{
-	start_charge = 0
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/effect/turf_decal/siding/thinplating/corner{
-	dir = 4
-	},
-/obj/structure/spider/stickyweb,
-/obj/effect/mapping_helpers/apc/discharged,
-/turf/open/floor/plating,
-/area/mine/atmospostengine)
 "mR" = (
 /obj/machinery/door/airlock/external/glass{
 	name = "Science Shuttle Airlock"
@@ -2673,6 +2686,17 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/catwalk_floor/iron,
+/area/mine/atmosposthallway)
+"oE" = (
+/obj/machinery/power/apc/auto_name/directional/west{
+	start_charge = 0
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/machinery/firealarm/directional/south,
+/obj/effect/mapping_helpers/apc/no_charge,
+/turf/open/floor/iron/dark,
 /area/mine/atmosposthallway)
 "oF" = (
 /obj/machinery/vending/cigarette,
@@ -3032,6 +3056,11 @@
 "qt" = (
 /turf/closed/mineral/random/volcanic,
 /area/lavaland/surface/outdoors/unexplored)
+"qw" = (
+/obj/machinery/gear_requisition/mining,
+/obj/structure/extinguisher_cabinet/directional/east,
+/turf/open/floor/iron/dark,
+/area/mine/gateway)
 "qA" = (
 /obj/structure/railing/corner,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
@@ -3061,6 +3090,10 @@
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"qO" = (
+/obj/machinery/gear_requisition/mining,
+/turf/open/floor/iron/dark,
+/area/mine/gateway)
 "qQ" = (
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/firedoor,
@@ -3700,10 +3733,6 @@
 /obj/item/reagent_containers/blood/random,
 /turf/open/floor/iron/white,
 /area/mine/living_quarters)
-"uC" = (
-/obj/machinery/gear_requisition/mining,
-/turf/open/floor/iron/dark,
-/area/mine/production)
 "uD" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 8
@@ -4104,6 +4133,10 @@
 /obj/item/target/alien/anchored,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
+"wK" = (
+/obj/machinery/gear_requisition/mining,
+/turf/open/floor/iron/dark,
+/area/mine/production)
 "wL" = (
 /obj/structure/chair/fancy/comfy{
 	buildstackamount = 0;
@@ -4353,10 +4386,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/carpet/red,
 /area/mine/living_quarters)
-"yc" = (
-/obj/machinery/gear_requisition/mining,
-/turf/open/floor/iron/dark,
-/area/mine/gateway)
 "ym" = (
 /obj/effect/spawner/structure/window/plasma/reinforced,
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible{
@@ -4812,6 +4841,19 @@
 	initial_gas_mix = "o2=14;n2=5;co2=13;plasma=0.25;TEMP=300"
 	},
 /area/mine/atmosposthallway)
+"AW" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/machinery/power/apc/auto_name/directional/north{
+	start_charge = 0
+	},
+/obj/effect/decal/cleanable/cobweb,
+/obj/effect/turf_decal/delivery,
+/obj/structure/closet/crate/solarpanel_small,
+/obj/effect/mapping_helpers/apc/no_charge,
+/turf/open/floor/iron,
+/area/mine/atmospost)
 "AY" = (
 /obj/structure/spider/stickyweb,
 /turf/open/floor/plating,
@@ -5311,6 +5353,20 @@
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"Ds" = (
+/obj/machinery/power/apc/auto_name/directional/west{
+	start_charge = 0
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/effect/turf_decal/siding/thinplating/corner{
+	dir = 4
+	},
+/obj/structure/spider/stickyweb,
+/obj/effect/mapping_helpers/apc/no_charge,
+/turf/open/floor/plating,
+/area/mine/atmospostengine)
 "Dy" = (
 /turf/open/floor/engine/vacuum{
 	initial_gas_mix = "TEMP=300"
@@ -7339,11 +7395,6 @@
 /obj/structure/lattice/catwalk,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/mine/atmosfarmpost)
-"Ol" = (
-/obj/machinery/gear_requisition/mining,
-/obj/structure/extinguisher_cabinet/directional/east,
-/turf/open/floor/iron/dark,
-/area/mine/gateway)
 "Oq" = (
 /obj/machinery/door/airlock{
 	id_tag = "miningdorm1";
@@ -8809,33 +8860,6 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/mine/laborcamp)
-"WC" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/structure/table,
-/obj/item/storage/toolbox/emergency{
-	pixel_x = 3;
-	pixel_y = -1
-	},
-/obj/item/stack/sheet/mineral/plasma/ten{
-	pixel_y = 8;
-	pixel_x = 2
-	},
-/obj/item/extinguisher/advanced{
-	pixel_x = -8;
-	pixel_y = 2
-	},
-/obj/item/pipe_dispenser,
-/obj/machinery/power/apc/auto_name/directional/north{
-	start_charge = 0
-	},
-/obj/effect/mapping_helpers/apc/discharged,
-/turf/open/floor/iron/tech,
-/area/mine/atmosfarmpost)
 "WE" = (
 /obj/structure/closet/crate/science,
 /obj/item/stack/ore/plasma/five,
@@ -8849,19 +8873,6 @@
 /obj/item/rack_parts,
 /turf/open/floor/iron/dark,
 /area/mine/atmosposthallway)
-"WI" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/machinery/power/apc/auto_name/directional/north{
-	start_charge = 0
-	},
-/obj/effect/decal/cleanable/cobweb,
-/obj/effect/turf_decal/delivery,
-/obj/structure/closet/crate/solarpanel_small,
-/obj/effect/mapping_helpers/apc/discharged,
-/turf/open/floor/iron,
-/area/mine/atmospost)
 "WL" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
 	dir = 10
@@ -9350,17 +9361,6 @@
 	dir = 1
 	},
 /turf/open/floor/catwalk_floor/iron,
-/area/mine/atmosposthallway)
-"Zj" = (
-/obj/machinery/power/apc/auto_name/directional/west{
-	start_charge = 0
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/machinery/firealarm/directional/south,
-/obj/effect/mapping_helpers/apc/discharged,
-/turf/open/floor/iron/dark,
 /area/mine/atmosposthallway)
 "Zl" = (
 /obj/structure/extinguisher_cabinet{
@@ -40558,8 +40558,8 @@ jm
 jm
 LX
 DO
-yc
-Ol
+qO
+qw
 tI
 Xd
 uF
@@ -43384,7 +43384,7 @@ bJ
 Jw
 Sh
 jw
-uC
+wK
 ae
 IL
 jw
@@ -51086,7 +51086,7 @@ ZL
 Bn
 Bn
 Bn
-Zj
+oE
 EV
 Ao
 xw
@@ -51360,7 +51360,7 @@ GP
 MO
 Bl
 js
-mM
+Ds
 cM
 hq
 Pj
@@ -53398,7 +53398,7 @@ Cx
 fd
 rJ
 tc
-WI
+AW
 TI
 lI
 Qh
@@ -53630,7 +53630,7 @@ qt
 qt
 qt
 en
-WC
+aK
 zh
 dr
 en
