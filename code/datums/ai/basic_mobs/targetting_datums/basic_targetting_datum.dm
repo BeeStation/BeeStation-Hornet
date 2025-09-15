@@ -2,7 +2,7 @@
 /datum/targetting_datum
 
 ///Returns true or false depending on if the target can be attacked by the mob
-/datum/targetting_datum/proc/can_attack(mob/living/living_mob, atom/target)
+/datum/targetting_datum/proc/can_attack(mob/living/living_mob, atom/target, vision_range)
 	return
 
 ///Returns something the target might be hiding inside of
@@ -15,8 +15,12 @@
 /datum/targetting_datum/basic
 	/// When we do our basic faction check, do we look for exact faction matches?
 	var/check_factions_exactly = FALSE
+	/// Minimum status to attack living beings
+	var/stat_attack = CONSCIOUS
+	///Whether we care for seeing the target or not
+	var/ignore_sight = FALSE
 
-/datum/targetting_datum/basic/can_attack(mob/living/living_mob, atom/the_target)
+/datum/targetting_datum/basic/can_attack(mob/living/living_mob, atom/the_target, vision_range)
 	if(isturf(the_target) || !the_target) // bail out on invalids
 		return FALSE
 
@@ -24,6 +28,9 @@
 		var/mob/M = the_target
 		if(HAS_TRAIT(M, TRAIT_GODMODE))
 			return FALSE
+
+	if(!ignore_sight && can_see(living_mob, the_target, vision_range)) //Target has moved behind cover and we have lost line of sight to it
+		return FALSE
 
 	if(living_mob.see_invisible < the_target.invisibility)//Target's invisible to us, forget it
 		return FALSE
@@ -33,7 +40,7 @@
 
 	if(isliving(the_target)) //Targetting vs living mobs
 		var/mob/living/L = the_target
-		if(faction_check(living_mob, L) || L.stat)
+		if(faction_check(living_mob, L) || (L.stat > stat_attack))
 			return FALSE
 		return TRUE
 

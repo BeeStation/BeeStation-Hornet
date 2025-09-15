@@ -39834,7 +39834,7 @@
 	dir = 9
 	},
 /obj/structure/bed/dogbed/ian,
-/mob/living/basic/pet/dog/corgi/Ian{
+/mob/living/basic/pet/dog/corgi/ian{
 	density = 0;
 	dir = 1;
 	pixel_y = 4
@@ -62894,12 +62894,12 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/bed/dogbed/walter,
+/obj/structure/bed/dogbed/tyson,
 /obj/item/stack/sheet/bone{
 	pixel_x = 6;
 	pixel_y = -6
 	},
-/mob/living/basic/pet/dog/bullterrier/walter{
+/mob/living/basic/pet/dog/bullterrier/tyson{
 	density = 0
 	},
 /obj/machinery/status_display/evac{

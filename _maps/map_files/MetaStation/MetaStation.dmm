@@ -36093,8 +36093,8 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/maintenance/disposal/incinerator)
 "iCR" = (
-/mob/living/basic/pet/dog/bullterrier/walter,
-/obj/structure/bed/dogbed/walter,
+/mob/living/basic/pet/dog/bullterrier/tyson,
+/obj/structure/bed/dogbed/tyson,
 /obj/machinery/newscaster{
 	pixel_y = -30
 	},
@@ -74921,7 +74921,7 @@
 	pixel_y = 32
 	},
 /obj/structure/bed/dogbed/ian,
-/mob/living/basic/pet/dog/corgi/Ian,
+/mob/living/basic/pet/dog/corgi/ian,
 /obj/effect/turf_decal/siding/wood,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
