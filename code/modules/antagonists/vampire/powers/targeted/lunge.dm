@@ -11,8 +11,8 @@
 		If used on a dead body, you will tear their organs out.\n\
 		At level 4, you will instantly lunge, but are limited to tackling from only 6 tiles away."
 	power_flags = NONE
-	check_flags = BP_CANT_USE_IN_TORPOR|BP_CANT_USE_IN_FRENZY|BP_CANT_USE_WHILE_INCAPACITATED|BP_CANT_USE_WHILE_UNCONSCIOUS
-	purchase_flags = VAMPIRE_CAN_BUY|VASSAL_CAN_BUY
+	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
+	purchase_flags = VAMPIRE_CAN_BUY | VASSAL_CAN_BUY
 	bloodcost = 10
 	cooldown_time = 10 SECONDS
 	power_activates_immediately = FALSE
