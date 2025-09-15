@@ -212,10 +212,6 @@ SUBSYSTEM_DEF(dynamic)
 /datum/controller/subsystem/dynamic/Initialize()
 	configure_variables()
 	load_storytellers()
-
-	midround_light_chance = midround_light_starting_chance
-	midround_medium_chance = midround_medium_starting_chance
-	midround_heavy_chance = midround_heavy_starting_chance
 	return SS_INIT_SUCCESS
 
 /**
@@ -640,25 +636,25 @@ SUBSYSTEM_DEF(dynamic)
  * Additionally, the Medium Ruleset Chance will start to decrease and the Heavy Ruleset Chance will increase
 **/
 /datum/controller/subsystem/dynamic/proc/update_midround_chances()
-	// How much should we decrease per minute to reach 0% by the configured time?
-	var/light_decrease_rate = midround_light_starting_chance / (midround_light_end_time / (1 MINUTES))
+	var/time_elapsed = world.time - SSticker.round_start_time
 
-	// Decrease light chance
-	midround_light_chance = max(midround_light_chance - light_decrease_rate, 0)
+	// Light decreases linearly until midround_light_end_time
+	if (time_elapsed < midround_light_end_time)
+		var/light_progress = clamp(time_elapsed / midround_light_end_time, 0, 1)
+		midround_light_chance = max(midround_light_starting_chance * (1 - light_progress), 0)
 
-	if(world.time > midround_light_end_time)
-		// Light is 0%, lets start to lower Medium
-		var/medium_decrease_rate = 100 * midround_medium_increase_ratio / ((midround_medium_end_time - midround_light_end_time) / (1 MINUTES))
+		var/heavy_ratio = 1 - midround_medium_increase_ratio
 
-		midround_medium_chance = max(midround_medium_chance - medium_decrease_rate, 0)
-		midround_heavy_chance = min(midround_heavy_chance + medium_decrease_rate, 100)
+		midround_medium_chance = light_progress * midround_light_starting_chance * midround_medium_increase_ratio
+		midround_heavy_chance = light_progress * midround_light_starting_chance * heavy_ratio
 	else
-		// Increase Medium and Heavy chances
-		var/medium_ratio = midround_medium_increase_ratio
-		var/heavy_ratio = 1 - medium_ratio
+		// After light reaches 0, shift Medium into Heavy until midround_medium_end_time
+		var/medium_duration = midround_medium_end_time - midround_light_end_time
+		var/medium_progress = clamp((time_elapsed - midround_light_end_time) / medium_duration, 0, 1)
 
-		midround_medium_chance += light_decrease_rate * medium_ratio
-		midround_heavy_chance += light_decrease_rate * heavy_ratio
+		midround_light_chance = 0
+		midround_medium_chance = max(100 * (1 - medium_progress) * midround_medium_increase_ratio, 0)
+		midround_heavy_chance = min(100 - midround_medium_chance, 100)
 
 	// Do our best to ensure the total chance is 100%, it honestly probably never will be because of floating point imprecision
 	var/total_current_chance = midround_light_chance + midround_medium_chance + midround_heavy_chance
