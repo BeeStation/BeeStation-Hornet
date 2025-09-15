@@ -270,10 +270,10 @@
 	},
 /obj/structure/window/reinforced/spawner/east,
 /obj/structure/transit_tube/horizontal,
-/obj/structure/cable/cyan{
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/dark,
 /area/engine/transit_tube)
 "ace" = (
@@ -10801,11 +10801,11 @@
 /area/crew_quarters/toilet/auxiliary)
 "bEP" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/cable/cyan{
-	icon_state = "4-8"
-	},
 /obj/structure/transit_tube/horizontal,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/space,
 /area/space/nearstation)
 "bES" = (
@@ -19506,11 +19506,11 @@
 "dqp" = (
 /obj/structure/window/reinforced/spawner/west,
 /obj/structure/lattice/catwalk,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/structure/transit_tube/horizontal,
-/obj/structure/cable/cyan{
+/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/space/basic,
 /area/space/nearstation)
 "dqu" = (
@@ -21197,10 +21197,10 @@
 "dUE" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/transit_tube/crossing/horizontal,
-/obj/structure/cable/cyan{
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/space/basic,
 /area/space/nearstation)
 "dUL" = (
@@ -35904,10 +35904,10 @@
 	dir = 4
 	},
 /obj/structure/lattice/catwalk,
-/obj/structure/cable/cyan{
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/space,
 /area/space/nearstation)
 "jeS" = (
@@ -36375,11 +36375,11 @@
 /area/security/main)
 "jox" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/cable/cyan{
-	icon_state = "4-8"
-	},
 /obj/structure/transit_tube/crossing/horizontal,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/space,
 /area/space/nearstation)
 "joZ" = (
@@ -38473,10 +38473,10 @@
 /area/hallway/secondary/entry)
 "jZV" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/cable/cyan{
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/space,
 /area/space/nearstation)
 "kac" = (
@@ -41195,6 +41195,9 @@
 	icon_state = "2-8"
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron/dark,
 /area/engine/transit_tube)
 "kXQ" = (
@@ -44678,6 +44681,9 @@
 	},
 /obj/structure/transit_tube_pod{
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/iron/dark,
 /area/engine/transit_tube)
@@ -48659,10 +48665,10 @@
 /turf/open/floor/iron/dark,
 /area/bridge)
 "nAQ" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron/dark,
 /area/aisat)
 "nAS" = (
@@ -54469,10 +54475,10 @@
 /obj/structure/transit_tube/station{
 	dir = 4
 	},
-/obj/structure/cable/cyan{
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/dark,
 /area/aisat)
 "ptS" = (
@@ -55839,10 +55845,10 @@
 /obj/structure/transit_tube/junction/flipped{
 	dir = 8
 	},
-/obj/structure/cable/cyan{
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/space,
 /area/space/nearstation)
 "pUE" = (
@@ -59005,10 +59011,10 @@
 "qWV" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/transit_tube/horizontal,
-/obj/structure/cable/cyan{
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/space/basic,
 /area/space/nearstation)
 "qXc" = (
@@ -74387,11 +74393,11 @@
 "wiF" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/transit_tube/horizontal,
-/obj/structure/cable/cyan{
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/orange/visible,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/space/basic,
 /area/space/nearstation)
 "wjd" = (
@@ -76954,10 +76960,10 @@
 /turf/open/floor/iron,
 /area/crew_quarters/fitness/recreation)
 "wZY" = (
-/obj/structure/cable/cyan{
-	icon_state = "0-8"
-	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron/dark,
 /area/aisat)
 "xac" = (
