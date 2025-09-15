@@ -1,0 +1,19 @@
+author: mrmanlikesbt
+delete-after: true
+changes:
+  - bugfix: Fixes the feed ability breaking if the person you are feeding off of is
+      deleted
+  - bugfix: Fixed Ventrue made vampires getting duplicate spells when turned into
+      a vampire
+  - bugfix: Fixed vampires sometimes greentexting when they didn't complete all of
+      their objectives
+  - bugfix: Fixed the Tremere Dominate ability not being able to resurrect people
+      into vassals
+  - code_imp: Cleaned up some vampire code
+  - tweak: The vampire department vassalization objective can no longer ask you to
+      vassalize more people than possible
+  - tweak: Adjusted the roundend report vampire section
+  - tweak: Stakes now have a medium weight size meaning people other than the staked
+      person can remove them
+  - tweak: Ventrue favorite vassals lose their vassal status when leveled up into
+      a vampire. Be careful Ventrue clan members!
