@@ -15,6 +15,10 @@
 /datum/dynamic_panel/ui_static_data(mob/user)
 	var/list/data = list()
 
+	data["possible_storytellers"] = list()
+	for (var/storyteller_name in SSdynamic.dynamic_storyteller_jsons)
+		data["possible_storytellers"] += storyteller_name
+
 	data["valid_roundstart_rulesets"] = list()
 	for(var/datum/dynamic_ruleset/roundstart/potential_ruleset in SSdynamic.roundstart_configured_rulesets)
 		data["valid_roundstart_rulesets"] += list(list(
@@ -46,6 +50,7 @@
 
 	// Other
 	data["forced_extended"] = SSdynamic.forced_extended
+	data["current_storyteller"] = SSdynamic.current_storyteller?["Name"]
 
 	// Roundstart
 	data["roundstart_points_override"] = SSdynamic.roundstart_points_override
@@ -152,11 +157,19 @@
 		if("vv")
 			usr.client.debug_variables(SSdynamic)
 			return TRUE
-		if("reload_config")
-			SSdynamic.configure_variables()
+		if("reload_storytellers")
+			SSdynamic.load_storytellers()
 			return TRUE
 		if("toggle_forced_extended")
 			SSdynamic.forced_extended = !SSdynamic.forced_extended
+			return TRUE
+		// Midround
+		if("set_storyteller")
+			var/new_storyteller = params["new_storyteller"]
+			SSdynamic.set_storyteller(new_storyteller == "None" ? null : new_storyteller)
+
+			message_admins("[key_name(usr)] set the dynamic storyteller to [new_storyteller]")
+			log_dynamic("[key_name(usr)] set the dynamic storyteller to [new_storyteller]")
 			return TRUE
 
 		// Roundstart
