@@ -207,7 +207,7 @@ SUBSYSTEM_DEF(mapping)
 
 /// Returns true if the map we're playing on is on a planet
 /datum/controller/subsystem/mapping/proc/is_planetary()
-	return config.planetary_station
+	return current_map.planetary_station
 
 /* Nuke threats, for making the blue tiles on the station go RED
 	Used by the AI doomsday and the self-destruct nuke.
