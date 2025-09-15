@@ -190,3 +190,7 @@
         vote, and when that map eventually wins its tallies will be reset.
     - refactor: refactored the voting subsystem
     - tweak: Slightly altered the Emergency Shuttle undocking announcement
+2025-09-15:
+  mrmanlikesbt:
+  - bugfix: Fixed the item overlay on smartfridges displaying even when there are
+      no items inside.
