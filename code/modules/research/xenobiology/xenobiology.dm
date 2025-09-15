@@ -862,6 +862,7 @@
 	to_chat(user, span_notice("You drink the potion then place your hands on [switchy_mob]..."))
 
 	user.mind.transfer_to(switchy_mob)
+	SEND_SIGNAL(switchy_mob, COMSIG_SIMPLEMOB_TRANSFERPOTION, user)
 	switchy_mob.faction = user.faction.Copy()
 	user.death()
 	to_chat(switchy_mob, span_notice("In a quick flash, you feel your consciousness flow into [switchy_mob]!"))

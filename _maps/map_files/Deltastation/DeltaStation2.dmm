@@ -59481,8 +59481,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/obj/structure/bed/dogbed/walter,
-/mob/living/basic/pet/dog/bullterrier/walter,
+/obj/structure/bed/dogbed/tyson,
+/mob/living/basic/pet/dog/bullterrier/tyson,
 /turf/open/floor/iron/dark,
 /area/security/warden)
 "nhX" = (
@@ -94423,7 +94423,7 @@
 "ych" = (
 /obj/structure/bed/dogbed/ian,
 /obj/machinery/airalarm/directional/east,
-/mob/living/basic/pet/dog/corgi/Ian,
+/mob/living/basic/pet/dog/corgi/ian,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
 "ycl" = (

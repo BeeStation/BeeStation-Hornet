@@ -44,7 +44,7 @@ GLOBAL_LIST_INIT(high_priority_sentience, typecacheof(list(
 		check_jobban = ROLE_SENTIENT_ANIMAL,
 		poll_time = 30 SECONDS,
 		role_name_text = "sentient animal",
-		alert_pic = /mob/living/basic/pet/dog/corgi/Ian,
+		alert_pic = /mob/living/basic/pet/dog/corgi/ian,
 	)
 	if(!length(candidates))
 		return NOT_ENOUGH_PLAYERS

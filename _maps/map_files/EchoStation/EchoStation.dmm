@@ -3463,8 +3463,8 @@
 	pixel_y = 1;
 	req_access_txt = "3"
 	},
-/obj/structure/bed/dogbed/walter,
-/mob/living/basic/pet/dog/bullterrier/walter{
+/obj/structure/bed/dogbed/tyson,
+/mob/living/basic/pet/dog/bullterrier/tyson{
 	density = 0;
 	dir = 1
 	},
@@ -42845,7 +42845,7 @@
 /turf/open/floor/plating/asteroid/planetary,
 /area/engine/engineering)
 "wBs" = (
-/mob/living/basic/pet/dog/corgi/Ian{
+/mob/living/basic/pet/dog/corgi/ian{
 	density = 0;
 	dir = 1;
 	pixel_y = 4

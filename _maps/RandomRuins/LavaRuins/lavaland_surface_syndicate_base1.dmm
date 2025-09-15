@@ -2116,7 +2116,7 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
 "tV" = (
-/mob/living/simple_animal/chicken/rabbit{
+/mob/living/simple_animal/rabbit{
 	faction = list("Syndicate");
 	desc = "Just a mildly evil rabbit."
 	},

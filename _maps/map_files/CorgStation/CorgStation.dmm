@@ -5264,7 +5264,7 @@
 "bre" = (
 /obj/structure/bed/dogbed/ian,
 /obj/machinery/camera/directional/north,
-/mob/living/basic/pet/dog/corgi/Ian,
+/mob/living/basic/pet/dog/corgi/ian,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
 "brm" = (
@@ -40997,11 +40997,11 @@
 	departmentType = 5;
 	pixel_y = 32
 	},
-/obj/structure/bed/dogbed/walter,
+/obj/structure/bed/dogbed/tyson,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
 	},
-/mob/living/basic/pet/dog/bullterrier/walter,
+/mob/living/basic/pet/dog/bullterrier/tyson,
 /turf/open/floor/iron/dark,
 /area/security/warden)
 "nal" = (
