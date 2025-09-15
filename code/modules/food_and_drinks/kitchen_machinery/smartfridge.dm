@@ -231,9 +231,9 @@
 		icon_state += "-broken"
 	return ..()
 
-/// Returns the number of items visible in the fridge. Faster than subtracting 2 lists
+/// Returns the number of items visible in the fridge.
 /obj/machinery/smartfridge/proc/visible_items()
-	return contents.len - 1 // Exclude circuitboard
+	return length(contents) - length(component_parts) // Exclude circuitboard and matter bin
 
 /obj/machinery/smartfridge/update_overlays()
 	. = ..()

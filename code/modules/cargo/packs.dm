@@ -2838,7 +2838,13 @@
 		var/mob/living/basic/pet/dog/corgi/D = locate() in .
 		if(D.gender == FEMALE)
 			qdel(D)
-			new /mob/living/basic/pet/dog/corgi/Lisa(.)
+			new /mob/living/basic/pet/dog/corgi/lisa(.)
+
+/datum/supply_pack/critter/dog_bone
+	name = "Jumbo Dog Bone"
+	desc = "The best dog bone money can have exported to a space station. A perfect gift for a dog."
+	cost = PAYCHECK_COMMAND * 4
+	contains = list(/obj/item/dog_bone)
 
 /datum/supply_pack/critter/cow
 	name = "Cow Crate"
