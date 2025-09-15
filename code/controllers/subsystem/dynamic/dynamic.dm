@@ -244,12 +244,36 @@ SUBSYSTEM_DEF(dynamic)
 			dynamic_storyteller_jsons[json_name] = loaded_json
 
 /datum/controller/subsystem/dynamic/proc/set_storyteller(new_storyteller)
+	revert_storyteller_config()
+
 	if (isnull(new_storyteller))
 		current_storyteller = null
 	else
 		ASSERT(dynamic_storyteller_jsons[new_storyteller], "set_storyteller() called with an invalid storyteller")
 		current_storyteller = dynamic_storyteller_jsons[new_storyteller]
+
 	configure_variables()
+
+/**
+ * Reverts the changed variables of a specific ruleset.
+ * This is the least awful way I could think of reliably setting config values back to default when changing storytellers
+**/
+/datum/controller/subsystem/dynamic/proc/revert_storyteller_config()
+	if (!current_storyteller)
+		return
+
+	for (var/variable in current_storyteller["Dynamic"])
+		if (isnull(vars[variable]))
+			stack_trace("Invalid dynamic storyteller variable: [variable]")
+			continue
+		vars[variable] = initial(vars[variable])
+
+	for (var/datum/dynamic_ruleset/ruleset in roundstart_configured_rulesets)
+		configure_ruleset(ruleset, revert_storyteller_config = TRUE)
+	for (var/datum/dynamic_ruleset/ruleset in midround_configured_rulesets)
+		configure_ruleset(ruleset, revert_storyteller_config = TRUE)
+	for (var/datum/dynamic_ruleset/ruleset in latejoin_configured_rulesets)
+		configure_ruleset(ruleset, revert_storyteller_config = TRUE)
 
 /**
  * Configure the dynamic variables from the loaded storyteller
@@ -262,55 +286,44 @@ SUBSYSTEM_DEF(dynamic)
 				continue
 			vars[variable] = current_storyteller["Dynamic"][variable]
 
-	// Configure Roundstart
 	roundstart_configured_rulesets = init_rulesets(/datum/dynamic_ruleset/roundstart, roundstart_configured_rulesets)
-	if(!length(roundstart_configured_rulesets))
-		stack_trace("DYNAMIC: ROUNDSTART: roundstart_configured_rulesets is empty. It is impossible to roll roundstart rulesets")
-		log_dynamic("ROUNDSTART: roundstart_configured_rulesets is empty. It is impossible to roll roundstart rulesets")
-
-	// Configure Midround
-
 	midround_configured_rulesets = init_rulesets(/datum/dynamic_ruleset/midround, midround_configured_rulesets)
-	if(!length(midround_configured_rulesets))
-		stack_trace("DYNAMIC: MIDROUND: midround_configured_rulesets is empty. It is impossible to roll midrounds")
-		log_dynamic("MIDROUND: midround_configured_rulesets is empty. It is impossible to roll midrounds")
-
-	// Configure Latejoin
 	latejoin_configured_rulesets = init_rulesets(/datum/dynamic_ruleset/latejoin, latejoin_configured_rulesets)
-	if(!length(latejoin_configured_rulesets))
-		stack_trace("DYNAMIC: LATEJOIN: latejoin_configured_rulesets is empty. It is impossible to roll latejoins")
-		log_dynamic("LATEJOIN: latejoin_configured_rulesets is empty. It is impossible to roll latejoins")
 
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_UPDATE_DYNAMICPANEL_DATA_STATIC)
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_UPDATE_DYNAMICPANEL_DATA)
 
 /**
- * Returns a list of all the configured rulesets of a specific typepath (/datum/dynamic_ruleset/roundstart, etc...)
- * If `preconfigured_rulesets` isn't null, we iterate through all of those instances instead of replacing the pre-existing ones.
+ * Returns a list of all the configured rulesets of a specific ruleset typepath
+ * If `preconfigured_rulesets` is passed through, we iterate through all of those instances instead of replacing the pre-existing ones.
 **/
 /datum/controller/subsystem/dynamic/proc/init_rulesets(datum/dynamic_ruleset/ruleset_subtype, list/datum/dynamic_ruleset/preconfigured_rulesets)
+	ASSERT(ispath(ruleset_subtype), "init_rulesets() called without `ruleset_subtype` being a typepath!")
+
+	var/list/datum/dynamic_ruleset/rulesets
+
 	if (length(preconfigured_rulesets))
-		for (var/datum/dynamic_ruleset/ruleset in preconfigured_rulesets)
+		rulesets = preconfigured_rulesets
+		for (var/datum/dynamic_ruleset/ruleset in rulesets)
 			configure_ruleset(ruleset)
+	else
+		rulesets = list()
+		for (var/datum/dynamic_ruleset/ruleset_type as anything in subtypesof(ruleset_subtype))
+			if (!ruleset_type.name)
+				continue
+			if (!ruleset_type.weight)
+				continue
+			if (ruleset_type.points_cost)
+				continue
 
-		return preconfigured_rulesets
+			rulesets += configure_ruleset(new ruleset_type())
 
-	var/list/datum/dynamic_ruleset/rulesets = list()
-	for (var/datum/dynamic_ruleset/ruleset_type as anything in subtypesof(ruleset_subtype))
-		if (!ruleset_type.name)
-			continue
-		if (!ruleset_type.weight)
-			continue
-		if (!ruleset_type.points_cost)
-			continue
-
-		rulesets += configure_ruleset(new ruleset_type())
 	return rulesets
 
 /**
- * Sets the variables of a ruleset to those in the dynamic configuration file
+ * Sets the variables of a ruleset to those in the loaded configuration file
 **/
-/datum/controller/subsystem/dynamic/proc/configure_ruleset(datum/dynamic_ruleset/ruleset)
+/datum/controller/subsystem/dynamic/proc/configure_ruleset(datum/dynamic_ruleset/ruleset, revert_storyteller_config = FALSE)
 	// Set variables
 	if (current_storyteller)
 		var/rule_config = LAZYACCESSASSOC(current_storyteller, ruleset.rule_category, ruleset.name)
@@ -318,7 +331,11 @@ SUBSYSTEM_DEF(dynamic)
 			if (isnull(ruleset.vars[variable]))
 				stack_trace("Invalid dynamic configuration variable [variable] in [ruleset.rule_category] [ruleset.name].")
 				continue
-			ruleset.vars[variable] = rule_config[variable]
+
+			if (revert_storyteller_config)
+				ruleset.vars[variable] = initial(ruleset.vars[variable])
+			else
+				ruleset.vars[variable] = rule_config[variable]
 
 	// Check config for additional restricted_roles
 	if (CONFIG_GET(flag/protect_roles_from_antagonist))
