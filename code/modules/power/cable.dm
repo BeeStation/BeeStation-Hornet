@@ -481,7 +481,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (
 
 /obj/item/stack/cable_coil
 	name = "cable coil"
-	custom_price = 15
+	custom_price = PAYCHECK_PRISONER * 0.8
 	gender = NEUTER //That's a cable coil sounds better than that's some cable coils
 	icon = 'icons/obj/power.dmi'
 	icon_state = "coil"

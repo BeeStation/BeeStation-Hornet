@@ -3,7 +3,7 @@ GLOBAL_LIST_EMPTY(bounties_list)
 /datum/bounty
 	var/name
 	var/description
-	var/reward = 1000 // In credits. Modified by a bunch of outside variables, so this is not the real amount of credits awarded.
+	var/reward = CARGO_CRATE_VALUE * 2 // In credits. Modified by a bunch of outside variables, so this is not the real amount of credits awarded.
 	var/claimed = FALSE
 	var/high_priority = FALSE
 

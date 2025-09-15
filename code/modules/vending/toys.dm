@@ -30,8 +30,9 @@
 	armor_type = /datum/armor/vending_donksofttoyvendor
 	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/donksoft
-	default_price = 75
-	extra_price = 300
+	default_price = PAYCHECK_ASSISTANT
+	extra_price = PAYCHECK_HARD
+	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 
 /datum/armor/vending_donksofttoyvendor
 	melee = 100

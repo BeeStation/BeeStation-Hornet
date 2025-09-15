@@ -368,7 +368,7 @@
 	desc = "An advanced kit to help deal with advanced wounds."
 	icon_state = "firstaid-advanced"
 	item_state = "firstaid-advanced"
-	custom_premium_price = 600
+	custom_premium_price = PAYCHECK_HARD * 6
 	skin_type = MEDBOT_SKIN_ADVANCED
 
 /obj/item/storage/firstaid/advanced/PopulateContents()
