@@ -20,36 +20,53 @@ SUBSYSTEM_DEF(ticker)
 	/// Boolean to track and check if our subsystem setup is done.
 	var/setup_done = FALSE
 
-	var/login_music							//music played in pregame lobby
-	var/round_end_sound						//music/jingle played when the world reboots
-	var/round_end_sound_sent = TRUE			//If all clients have loaded it
+	/// Music played in pre-game lobby
+	var/login_music
+	/// Music/jingle played when the world reboots
+	var/round_end_sound
+	/// If all clients have loaded it
+	var/round_end_sound_sent = TRUE
 
-	var/list/datum/mind/minds = list()		//The characters in the game. Used for objective tracking.
+	/// The characters in the game. Used for objective tracking.
+	var/list/datum/mind/minds = list()
 
-	var/delay_end = 0						//if set true, the round will not restart on it's own
-	var/admin_delay_notice = ""				//a message to display to anyone who tries to restart the world after a delay
-	var/ready_for_reboot = FALSE			//all roundend preparation done with, all that's left is reboot
+	/// If set TRUE, the round will not restart on it's own
+	var/delay_end = FALSE
+	/// A message to display to anyone who tries to restart the world after a delay
+	var/admin_delay_notice = ""
+	/// All roundend preparation done with, all that's left is reboot
+	var/ready_for_reboot = FALSE
 
-	var/triai = 0							//Global holder for Triumvirate
-	var/tipped = 0							//Did we broadcast the tip of the day yet?
-	var/selected_tip						// What will be the tip of the day?
+	/// Global holder for Triumvirate
+	var/triai = 0
+	/// Did we broadcast the tip of the day yet?
+	var/tipped = FALSE
+	/// What will be the tip of the day?
+	var/selected_tip
 
-	var/timeLeft						//pregame timer
+	/// Pre-game timer
+	var/timeLeft
 	var/start_at
 
-	var/gametime_offset = 432000		//Deciseconds to add to world.time for station time.
-	var/station_time_rate_multiplier = 12		//factor of station time progressal vs real time.
+	/// Deciseconds to add to world.time for station time.
+	var/gametime_offset = 12 HOURS
+	/// Factor of station time progressal vs real time.
+	var/station_time_rate_multiplier = 12
 
-	var/totalPlayers = 0					//used for pregame stats on statpanel
-	var/totalPlayersReady = 0				//used for pregame stats on statpanel
-	var/totalPlayersPreAuth = 0				//used for pregame stats on statpanel
+	/// Used for pregame stats on statpanel
+	var/totalPlayers = 0
+	var/totalPlayersReady = 0
+	var/totalPlayersPreAuth = 0
 
+	/// Used for join queues when the server exceeds the hard population cap
 	var/queue_delay = 0
-	var/list/queued_players = list()		//used for join queues when the server exceeds the hard population cap
+	var/list/queued_players = list()
 
+	/// The message sent to other servers when the round ends, if any
 	var/news_report
 
-	var/late_join_disabled
+	/// Set to TRUE to disable latejoining
+	var/late_join_disabled = FALSE
 
 	var/roundend_check_paused = FALSE
 
