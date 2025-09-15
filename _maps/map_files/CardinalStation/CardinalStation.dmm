@@ -10062,6 +10062,24 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/iron/white,
 /area/medical/virology)
+"cak" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/dark_blue{
+	dir = 1
+	},
+/obj/structure/bed/dogbed/ian{
+	pixel_y = -1;
+	pixel_x = -3
+	},
+/obj/item/stack/sheet/bone{
+	desc = "A bone for a good boy.";
+	name = "Dog bone"
+	},
+/mob/living/basic/pet/dog/corgi/ian,
+/obj/machinery/airalarm/directional/south,
+/obj/machinery/light/directional/south,
+/turf/open/floor/wood/big,
+/area/crew_quarters/heads/hop)
 "caq" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 1
@@ -16375,6 +16393,19 @@
 /obj/machinery/camera/directional/north,
 /turf/open/floor/iron,
 /area/hallway/upper/primary/port)
+"dkF" = (
+/obj/effect/turf_decal/siding/wideplating_new/dark,
+/obj/effect/turf_decal/trimline/red/filled/mid_joiner,
+/obj/structure/bed/dogbed/tyson,
+/obj/effect/turf_decal/tile/techfloor/diagonal,
+/obj/structure/extinguisher_cabinet/directional/south,
+/mob/living/basic/pet/dog/bullterrier/tyson,
+/obj/item/clothing/mask/gas/old{
+	name = "chewed up gas mask";
+	desc = "A face-covering mask that can be connected to an air supply. This one appears to be one of Tyson's favorite chew toys."
+	},
+/turf/open/floor/iron/techmaint,
+/area/security/warden)
 "dkG" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
@@ -25299,6 +25330,14 @@
 /obj/structure/lattice,
 /turf/open/space/basic,
 /area/space/nearstation)
+"fiQ" = (
+/obj/machinery/gear_requisition/exploration,
+/obj/machinery/light/directional/north,
+/obj/effect/turf_decal/siding/dark,
+/obj/machinery/camera/directional/north,
+/obj/machinery/airalarm/directional/north,
+/turf/open/floor/mineral/titanium,
+/area/quartermaster/exploration_prep)
 "fiS" = (
 /obj/effect/turf_decal/siding/dark,
 /obj/machinery/firealarm{
@@ -45371,19 +45410,6 @@
 	},
 /turf/open/floor/wood/big,
 /area/crew_quarters/barbershop)
-"jio" = (
-/obj/effect/turf_decal/siding/wideplating_new/dark,
-/obj/effect/turf_decal/trimline/red/filled/mid_joiner,
-/obj/structure/bed/dogbed/tyson,
-/obj/effect/turf_decal/tile/techfloor/diagonal,
-/obj/structure/extinguisher_cabinet/directional/south,
-/mob/living/basic/pet/dog/bullterrier/tyson,
-/obj/item/clothing/mask/gas/old{
-	name = "chewed up gas mask";
-	desc = "A face-covering mask that can be connected to an air supply. This one appears to be one of Tyson's favorite chew toys."
-	},
-/turf/open/floor/iron/techmaint,
-/area/security/warden)
 "jiq" = (
 /obj/structure/flora/ausbushes/brflowers{
 	pixel_y = -5;
@@ -50320,14 +50346,6 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/medical/cryo)
-"kip" = (
-/obj/machinery/gear_requisition/exploration,
-/obj/machinery/light/directional/north,
-/obj/effect/turf_decal/siding/dark,
-/obj/machinery/camera/directional/north,
-/obj/machinery/airalarm/directional/north,
-/turf/open/floor/mineral/titanium,
-/area/quartermaster/exploration_prep)
 "kit" = (
 /obj/effect/turf_decal/siding{
 	color = "#535c5b";
@@ -52466,24 +52484,6 @@
 /obj/structure/grille,
 /turf/open/space/basic,
 /area/space/nearstation)
-"kFl" = (
-/obj/effect/turf_decal/siding/wood,
-/obj/effect/turf_decal/siding/dark_blue{
-	dir = 1
-	},
-/obj/structure/bed/dogbed/ian{
-	pixel_y = -1;
-	pixel_x = -3
-	},
-/obj/item/stack/sheet/bone{
-	desc = "A bone for a good boy.";
-	name = "Dog bone"
-	},
-/mob/living/basic/pet/dog/corgi/ian,
-/obj/machinery/airalarm/directional/south,
-/obj/machinery/light/directional/south,
-/turf/open/floor/wood/big,
-/area/crew_quarters/heads/hop)
 "kFn" = (
 /obj/effect/turf_decal/trimline/white/filled/warning{
 	dir = 1
@@ -71583,6 +71583,14 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/wood/big,
 /area/lawoffice)
+"oAp" = (
+/obj/machinery/gear_requisition/mining,
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = -28
+	},
+/turf/open/floor/vault/rock,
+/area/quartermaster/miningoffice)
 "oAL" = (
 /obj/effect/spawner/structure/window/reinforced/tinted,
 /turf/open/floor/plating,
@@ -93953,14 +93961,6 @@
 	},
 /turf/open/floor/plating/rust,
 /area/maintenance/department/science/central)
-"tdO" = (
-/obj/machinery/gear_requisition/mining,
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -28
-	},
-/turf/open/floor/vault/rock,
-/area/quartermaster/miningoffice)
 "tdQ" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -117917,6 +117917,10 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/maintenance/department/engine/atmos)
+"xUf" = (
+/obj/effect/turf_decal/siding/wood,
+/turf/open/floor/wood,
+/area/bridge/showroom/corporate)
 "xUx" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/effect/turf_decal/siding/dark{
@@ -138406,7 +138410,7 @@ hyT
 hyT
 hyT
 sQF
-kip
+fiQ
 hiX
 dAV
 gbg
@@ -138899,7 +138903,7 @@ uOP
 otx
 cko
 vDU
-kFl
+cak
 eYi
 eYi
 eYi
@@ -154520,7 +154524,7 @@ kdI
 vDe
 fyS
 hSK
-jio
+dkF
 kdI
 qTU
 kTJ
@@ -156665,7 +156669,7 @@ rKt
 nHE
 uhS
 kxL
-tdO
+oAp
 agD
 fmz
 sSF
