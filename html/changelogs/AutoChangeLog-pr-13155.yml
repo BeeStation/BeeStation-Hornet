@@ -1,0 +1,6 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - bugfix: Fixes guns slowing down while worn on the belt.
+  - bugfix: Fixes guns not being able to shoot if you click on a tile adjacent to
+      you.
