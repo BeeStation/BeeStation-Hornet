@@ -17,7 +17,7 @@
 
 
 /obj/vehicle/ridden/lawnmower/emagged
-	obj_flags = EMAGGED
+	obj_flags = CAN_BE_HIT | EMAGGED
 	desc = "Equipped with reliable safeties to prevent <i>accidents</i> in the workplace."
 
 /obj/vehicle/ridden/lawnmower/examine(mob/user)
@@ -42,7 +42,7 @@
 		return
 	to_chat(user, span_warning("You disable the safety mechanisms on \the [src]."))
 	desc = "Equipped with reliable safeties to prevent <i>accidents</i> in the workplace."
-	obj_flags = EMAGGED
+	obj_flags |= EMAGGED
 	if(user)
 		emagged_by = key_name(user)
 
@@ -114,7 +114,7 @@
 	icon = 'icons/obj/vehicles.dmi'
 	icon_state = "syndi_lawnmower"
 	max_integrity = 150
-	obj_flags = EMAGGED
+	obj_flags = CAN_BE_HIT | EMAGGED
 	drive_sounds = list('sound/effects/mower_treads.ogg')
 	hurt_sounds = list('sound/effects/splat.ogg')
 	normal_variant = FALSE
