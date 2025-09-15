@@ -44812,6 +44812,12 @@
 /obj/structure/grille,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
+"mmY" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/open/space/basic,
+/area/space/nearstation)
 "mnd" = (
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /obj/structure/disposalpipe/segment{
@@ -76623,7 +76629,7 @@
 /obj/effect/turf_decal/tile/dark{
 	dir = 1
 	},
-/obj/machinery/atmospherics/components/binary/pump/off{
+/obj/machinery/atmospherics/components/binary/pump/on{
 	name = "Waste to Filter"
 	},
 /turf/open/floor/iron,
@@ -133568,8 +133574,8 @@ aNw
 aNw
 aTQ
 rLE
-aTQ
-gXq
+bJl
+mmY
 aNw
 aNw
 aaa
