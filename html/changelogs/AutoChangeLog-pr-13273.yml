@@ -1,0 +1,5 @@
+author: mrmanlikesbt
+delete-after: true
+changes:
+  - bugfix: Fixed the item overlay on smartfridges displaying even when there are
+      no items inside.

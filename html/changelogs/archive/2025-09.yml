@@ -73,3 +73,120 @@
   - refactor: Rewrite the way we handle which roles get assigned with playtime tracking.
   - bugfix: Players who get MMI'd and put into borgs or AIs mid-shift now gain job
       playtime tracking towards Silicon roles instead.
+2025-09-07:
+  PowerfulBacon:
+  - tweak: Only conscious people can hear LOOC.
+  Solene Ft. Bacon, Ruko, Ark and engineering nerds on discord:
+  - rscdel: Removed Joules
+  - tweak: Power now always only shows up to 1 decimal to simplify reading.
+  - code_imp: Reworks Power measures
+  - tweak: Reworks Power Cell charges and other calculations
+  - tweak: Inducers and Cell Chargers now depend on cell recharge rates for their
+      calculation
+  - bugfix: Fixed Inducer / Cell charge power duplication exploit
+  - rscadd: Energy weapons now display remaining shots to depletion on their examine.
+  - bugfix: Modular Computers will now drain the proper power depending on if they
+      are shut down or enabled.
+  - bugfix: Modular Computers now display power drain accurately
+  - refactor: Refactored Cell Charger code to be more accurate and avoid dupes.
+  - refactor: Refactored power usage updates on some machinery solving duplicated
+      power draws
+  - balance: Rebalanced some power usage costs for machinery
+  - tweak: SMES's now take matter bins instead of cells and display TOTAL POWER
+  - refactor: Changed how SMES's calculate total power and other boring things
+  - tweak: APCs now display total power
+  - refactor: Refactored APC code regarding power. APCs are fasted, more accurate
+      in their calculations and don't freeze randomly. Also they now display sound,
+      text and overlays that were intended but were poorly coded so never seen.
+  - refactor: Refactored Recharger code.
+  - bugfix: Fixed lights drawing power twice
+  - balance: Rebalances costs for power consumption of most machinery to ensure lights
+      aren't the only things drawing any noticeable power.
+  - code_imp: Fixed some instances where machines weren't using the right proc to
+      discern if they're in IDLE or ACTIVE power consumption modes.
+  - refactor: Refactored emitter code so they have less of a mind of their own and
+      actually fire if there is enough power.
+  - rscadd: Added a special power draw mechanic to the gravity generator (Since it
+      had no power cost to begin with). If it's either powering up or powering down
+      it's power use will be 10 times higher than when it is stable.
+  lord scrubling:
+  - bugfix: plasmamen receive a helmet and internals after being captured
+2025-09-10:
+  Nakalon:
+  - bugfix: Cell Chargers work on Infinite Power areas again
+  - bugfix: Rechargers now properly update to idle power mode when nothing is charging
+  - balance: Increased Cell Charger Idle cost from 5 to 100 Watts
+  - refactor: Refactor Cell Charger power code (again sorry)
+  - bugfix: Inducer crates are no longer empty
+  - code_imp: Created a subtype of science inducer that starts with a standard cell
+  - code_imp: Deleted yet another cell type that was, this time, hidden away in crate
+      code
+  PowerfulBacon:
+  - tweak: 'Includes players who joined, players who joined roundstart, and total
+      client connections in the #ooc information of a round'
+2025-09-12:
+  PowerfulBacon:
+  - balance: Energy katana is now deleted when the ninja is killed.
+  - balance: Energy katana dash no longer has changes, but has a 1.4 second cooldown
+      on usage instead. This cooldown blocks all user actions and is telegraphed.
+  - balance: Energy katana dash no longer can go through people, but instead will
+      attack and push back the person that you hit.
+  - balance: Energy katana can no longer delimb, this has been replaced with delimbing
+      strike. An ability that allows the ninja to attack the 3 tiles in front of it,
+      deilmbing anyone who gets caught in the attack.
+  - balance: Energy katana damage decreased to 22, down from 30.
+  - balance: Reduces their armour, particularly against melee attacks.
+  - balance: Stealth now grants 100% invisibility and runs through a standardised
+      status effect.
+  - balance: Fixes the dash action having an action button.
+  - balance: Stealth releases a smoke cloud on activation.
+  - bugfix: Fixes mouse cooldown cursor being broken
+  - bugfix: Fixes some preference options not displaying
+2025-09-13:
+  ClownMoff:
+  - rscadd: Added the Medical Emergencies Escape Shuttle
+  Therealdoooc, Comxy, Jacquerel, Melbert:
+  - rscadd: Garden gnomes, a new basic mob that can be purchased from an emagged supply
+      console for 4k credits.
+  - code_imp: Advanced retaliate component.
+  - code_imp: Ground sinking component.
+  - code_imp: Attack obstacle in path AI subtree/behaviour.
+  - code_imp: Caltrop component now supports custom paralyze time.
+  ? mrmanlikesbt, MMMiracles, iwishforducks, dragomagol, unit0016, Son-of-Space, JohnFulpWillard,
+    san7890, Maurukas, Helg2, MTandi
+  : - rscadd: Added some airalarm, airlock, airlock access, and apc mapping helpers.
+2025-09-14:
+  Solene:
+  - rscadd: Added hotswap to every computer component.
+  - balance: Doubled battery size (lets see if it sticks this time)
+  - tweak: Reworked Power cell controlers. Now they're simply batteries and you don't
+      need 2 battery type components.
+  - tweak: Changed names of computer batteries to be more descriptive of their size.
+  - bugfix: Fixed a message error in primary card slot hacking
+  - bugfix: Fixed a runtime happening during Detomatix virus injection on targets
+      without battery
+  - bugfix: Standard batteries no longer fit laptops, sorry guys
+  SunShine214, Nakalon:
+  - rscadd: The Advanced Gas Rig, capable of mining gases from the planet the station
+      is orbiting.
+  - rscadd: Gas Rig Monitor program, which uses NTnet to remotely control the gas
+      rig
+  - rscadd: Adds a Gas Rig Shielding power value to each gas
+  - tweak: Adjusted maps to fit the new gas rig.
+  - tweak: Waste now is vented, rather then filtered out. The filter line is for the
+      gas rig now.
+  - rscdel: Removed gas miners from all maps except for echo, as the gas rig being
+      there makes no sense
+  lord scrubling:
+  - rscadd: resin mister upgrades can now be applied to the modsuit module
+  - bugfix: the resin mister module now deploys
+  - refactor: watertank backpacks are more flexible
+  ? mrmanlikesbt, MrMelbert, san7890, SuperNovaa41, Watermelon914, lessthnthree, ZephyrTFA,
+    Jacquerel, AnywayFarus, imedial, SmArtKar
+  : - rscadd: Added the "Vote" verb the OOC tab, here you can check the status of
+        current voting or call them if you are able.
+    - tweak: Map votes now use a tally system instead of weighted RNG. What this means
+        is that votes for the maps that did not win will carry over to the next map
+        vote, and when that map eventually wins its tallies will be reset.
+    - refactor: refactored the voting subsystem
+    - tweak: Slightly altered the Emergency Shuttle undocking announcement

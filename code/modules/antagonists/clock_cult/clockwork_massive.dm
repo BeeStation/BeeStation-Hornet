@@ -102,7 +102,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	addtimer(CALLBACK(src, PROC_REF(clockies_win)), 300)
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/clockies_win()
-	SSticker.force_ending = TRUE
+	SSticker.force_ending = FORCE_END_ROUND
 	qdel(src)
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armour_penetration)
