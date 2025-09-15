@@ -60,7 +60,6 @@
 	tanktype = /obj/structure/reagent_dispensers/foamtank
 	sprite_name = "foam_extinguisher"
 	precision = TRUE
-	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/extinguisher/suicide_act(mob/living/carbon/user)
 	if (!safety && (reagents.total_volume >= 1))
