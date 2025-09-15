@@ -29202,6 +29202,7 @@
 	dir = 6
 	},
 /obj/machinery/meter,
+/obj/machinery/door/firedoor,
 /turf/open/floor/engine,
 /area/engine/atmos)
 "gNz" = (
@@ -35319,6 +35320,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/engine,
 /area/engine/atmos)
 "iRu" = (
@@ -48283,6 +48285,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible{
 	dir = 9
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/engine,
 /area/engine/atmos)
 "nup" = (
@@ -60299,6 +60302,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible{
 	dir = 4
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/engine,
 /area/engine/atmos)
 "rvM" = (
@@ -70451,6 +70455,7 @@
 /area/security/prison)
 "uQq" = (
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/door/firedoor,
 /turf/open/floor/engine,
 /area/engine/atmos)
 "uQr" = (
