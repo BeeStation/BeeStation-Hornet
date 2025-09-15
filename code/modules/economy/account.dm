@@ -22,6 +22,7 @@
 	var/list/bonus_per_department = list()
 
 	var/datum/bounty/civilian_bounty
+	var/list/datum/bounty/bounties
 	var/bounty_timer = 0
 
 /datum/bank_account/New(newname, job)

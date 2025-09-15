@@ -32,6 +32,10 @@ SUBSYSTEM_DEF(economy)
 	///Multiplied as they go to all department accounts rather than just cargo.
 	var/bounty_modifier = 9
 
+	/// Total value of exported materials.
+	var/export_total = 0
+	/// Total value of imported goods.
+	var/import_total = 0
 	/// Number of mail items generated.
 	var/mail_waiting
 	/// Mail Holiday: AKA does mail arrive today? Always blocked on Sundays, but not on bee, the mail is 24/7.
@@ -81,7 +85,7 @@ SUBSYSTEM_DEF(economy)
 	station_target = max(round(temporary_total / max(bank_accounts.len * 2, 1)) + station_target_buffer, 1)
 	if(!market_crashing)
 		price_update()
-	var/effective_mailcount = living_player_count()
+	var/effective_mailcount = round(living_player_count()/(inflation_value - 0.5)) //More mail at low inflation, and vis versa.
 	mail_waiting = clamp(mail_waiting + clamp(effective_mailcount, 1, MAX_MAIL_PER_MINUTE * (wait / (1 MINUTES))), 0, MAX_MAIL_LIMIT)
 
 /datum/controller/subsystem/economy/proc/get_bank_account_by_id(target_id)
