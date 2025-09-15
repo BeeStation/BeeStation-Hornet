@@ -358,3 +358,10 @@ AUTH_CLIENT_VERB(vote_to_leave)
 		player_details.voted_to_leave = TRUE
 		SSautotransfer.connected_votes_to_leave++
 		to_chat(src, "<font color='purple'>You are now voting for the current round to end.</font>")
+
+AUTH_CLIENT_VERB(show_map_vote_tallies)
+	set name = "Show Map Vote Tallies"
+	set category = "OOC"
+	set desc = "View the current map vote tally counts."
+
+	to_chat(src, SSmap_vote.tally_printout)
