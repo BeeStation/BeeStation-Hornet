@@ -999,7 +999,7 @@
 /turf/open/floor/plating,
 /area/security/prison)
 "ajO" = (
-/obj/machinery/atmospherics/miner/station/nitrogen,
+/obj/machinery/portable_atmospherics/canister/nitrogen,
 /turf/open/floor/engine/n2,
 /area/engine/atmos)
 "ajP" = (
@@ -1260,7 +1260,7 @@
 /turf/open/floor/iron,
 /area/crew_quarters/fitness/recreation)
 "amu" = (
-/obj/machinery/atmospherics/miner/station/oxygen,
+/obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/open/floor/engine/o2,
 /area/engine/atmos)
 "amA" = (
@@ -50156,7 +50156,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "nOS" = (
-/obj/machinery/atmospherics/miner/station/plasma,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
 "nOZ" = (
@@ -59833,7 +59833,7 @@
 /turf/open/floor/iron,
 /area/maintenance/department/medical/central)
 "rfb" = (
-/obj/machinery/atmospherics/miner/station/carbon_dioxide,
+/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
 /turf/open/floor/engine/co2,
 /area/engine/atmos)
 "rfn" = (
@@ -70880,7 +70880,7 @@
 /turf/open/floor/iron/white,
 /area/science/xenobiology)
 "uUn" = (
-/obj/machinery/atmospherics/miner/station/n2o,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /turf/open/floor/engine/n2o,
 /area/engine/atmos)
 "uUA" = (
