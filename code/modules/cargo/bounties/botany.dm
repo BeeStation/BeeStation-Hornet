@@ -203,6 +203,17 @@
 	foodtype = "batch of oatmeal"
 	bonus_desc = "Squats and oats. We're all out of oats."
 
+/datum/bounty/item/botany/bonfire
+	name = "Lit Bonfire"
+	description = "Space heaters are malfunctioning and the cargo crew of Central Command is starting to feel cold. Grow some logs and Ship a lit bonfire to warm them up."
+	wanted_types = list(/obj/structure/bonfire)
+
+/datum/bounty/item/botany/bonfire/applies_to(obj/O)
+	if(!..())
+		return FALSE
+	var/obj/structure/bonfire/B = O
+	return !!B.burning
+
 /datum/bounty/item/botany/forgetmenot
 	name = "Forget-Me-Nots"
 	description = "Commander Zot has his eyes on Quartermaster Maya. Send a shipment of forget-me-nots - her favorite flower - and he'll happily reward you."

@@ -24,6 +24,8 @@
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM, TRAIT_SECURITY)
 
 	display_order = JOB_DISPLAY_ORDER_WARDEN
+	bounty_types = CIV_JOB_SEC
+
 	rpg_title = "Jailor"
 
 	species_outfits = list(

@@ -20,6 +20,8 @@
 	mind_traits = list(TRAIT_MEDICAL_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_VIROLOGIST
+	bounty_types = CIV_JOB_VIRO
+
 	rpg_title = "Plague Doctor"
 
 	species_outfits = list(

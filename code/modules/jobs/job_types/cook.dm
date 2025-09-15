@@ -28,6 +28,7 @@
 
 
 	display_order = JOB_DISPLAY_ORDER_COOK
+	bounty_types = CIV_JOB_CHEF
 	rpg_title = "Tavern Chef"
 
 	species_outfits = list(

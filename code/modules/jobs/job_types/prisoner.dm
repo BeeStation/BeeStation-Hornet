@@ -8,8 +8,11 @@
 	exp_type = EXP_TYPE_CREW
 	total_positions = 3
 	min_pop = MINPOP_JOB_LIMIT
-	supervisors = "your own conscience"
-	selection_color = "#dddddd"
+	supervisors = "the security team"
+	selection_color = "#ffe1c3"
+
+	bank_account_department = ACCOUNT_SEC_BITFLAG //Oh yes, they are *your* deadweight, security
+	payment_per_department = list(ACCOUNT_SEC_ID = PAYCHECK_PRISONER)
 
 	base_access = list()
 	departments = DEPT_BITFLAG_UNASSIGNED

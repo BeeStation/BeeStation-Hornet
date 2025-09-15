@@ -20,6 +20,8 @@
 	payment_per_department = list(ACCOUNT_CAR_ID = PAYCHECK_MEDIUM)
 
 	display_order = JOB_DISPLAY_ORDER_QUARTERMASTER
+	bounty_types = CIV_JOB_RANDOM
+
 	rpg_title = "Steward"
 
 	species_outfits = list(

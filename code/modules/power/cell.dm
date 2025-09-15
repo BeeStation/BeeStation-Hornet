@@ -375,3 +375,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 	var/area/A = get_area(src)
 	if(!A.lightswitch || !A.light_power)
 		charge = 0 //For naturally depowered areas, we start with no power
+
+/obj/item/stock_parts/cell/inducer_supply
+	maxcharge = 5000
+	charge = 5000
+

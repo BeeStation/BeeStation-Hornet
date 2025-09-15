@@ -679,6 +679,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 		/obj/item/stack/sheet/glass = 1,
 		/obj/item/vending_refill/donksoft = 1)
 
+/obj/item/circuitboard/machine/bountypad
+	name = "Civilian Bounty Pad (Machine Board)"
+	icon_state = "generic"
+	build_path = /obj/machinery/piratepad/civilian
+	req_components = list(
+		/obj/item/stock_parts/card_reader = 1,
+		/obj/item/stock_parts/scanning_module = 1,
+		/obj/item/stock_parts/micro_laser = 1
+	)
+
 /obj/item/circuitboard/machine/fax
 	name = "Fax Machine"
 	build_path = /obj/machinery/fax

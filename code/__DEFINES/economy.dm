@@ -1,10 +1,13 @@
-#define STARTING_PAYCHECKS 5
+#define STARTING_PAYCHECKS 7
 
-#define PAYCHECK_ASSISTANT 15
-#define PAYCHECK_MINIMAL 30
-#define PAYCHECK_EASY 35
-#define PAYCHECK_MEDIUM 60
-#define PAYCHECK_HARD 90
+//Experimental change: These are subject to tweaking based on the /tg/ economy overhaul.
+#define PAYCHECK_PRISONER 25
+#define PAYCHECK_ASSISTANT 50
+#define PAYCHECK_MINIMAL 55
+#define PAYCHECK_EASY 60
+#define PAYCHECK_MEDIUM 75
+#define PAYCHECK_HARD 100
+
 // given from nanotrasen to heads
 #define PAYCHECK_COMMAND_NT 20
 // given from department budget
@@ -20,6 +23,8 @@
 
 
 #define PAYCHECK_WELFARE 20 //NEETbucks
+
+#define STATION_TARGET_BUFFER 40
 
 
 #define NON_STATION_BUDGET_BASE rand(8888888, 11111111)
@@ -53,6 +58,8 @@
 #define ACCOUNT_ALL_NAME "United Station Budget" // for negative station trait - united budget
 
 // If a vending machine matches its department flag with your bank account's, it gets free.
+#define NO_FREEBIES 0 // used for a vendor selling nothing for free
+
 #define ACCOUNT_COM_BITFLAG (1<<0) // for Commander only vendor items (i.e. HoP cartridge vendor)
 #define ACCOUNT_CIV_BITFLAG (1<<1)
 #define ACCOUNT_SRV_BITFLAG (1<<2)
@@ -64,6 +71,24 @@
 #define ACCOUNT_VIP_BITFLAG (1<<8) // for VIP only vendor items. currently not used.
 // this should use the same bitflag values in `\_DEFINES\jobs.dm` to match.
 // It's true that bitflags shouldn't be separated in two DEFINES if these are same, but just in case the system can be devided, it's remained separated.
+
+//Defines that set what kind of civilian bounties should be applied mid-round.
+#define CIV_JOB_BASIC 1
+#define CIV_JOB_ROBO 2
+#define CIV_JOB_CHEF 3
+#define CIV_JOB_SEC 4
+#define CIV_JOB_DRINK 5
+#define CIV_JOB_CHEM 6
+#define CIV_JOB_VIRO 7
+#define CIV_JOB_SCI 8
+#define CIV_JOB_ENG 9
+#define CIV_JOB_MINE 10
+#define CIV_JOB_MED 11
+#define CIV_JOB_GROW 12
+#define CIV_JOB_RANDOM 13
+
+//By how much should the station's inflation value be multiplied by when dividing the civilian bounty's reward?
+#define BOUNTY_MULTIPLIER 10
 
 /// How much mail the Economy SS can create per minute, regardless of firing time.
 #define MAX_MAIL_PER_MINUTE 1

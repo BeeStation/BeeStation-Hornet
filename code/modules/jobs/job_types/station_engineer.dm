@@ -20,6 +20,8 @@
 	payment_per_department = list(ACCOUNT_ENG_ID = PAYCHECK_MEDIUM)
 
 	display_order = JOB_DISPLAY_ORDER_STATION_ENGINEER
+	bounty_types = CIV_JOB_ENG
+
 	rpg_title = "Crystallomancer"
 
 	species_outfits = list(

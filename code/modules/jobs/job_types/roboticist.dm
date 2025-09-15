@@ -9,6 +9,7 @@
 	selection_color = "#ffeeff"
 	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
+	bounty_types = CIV_JOB_ROBO
 
 	outfit = /datum/outfit/job/roboticist
 

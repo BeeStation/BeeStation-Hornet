@@ -31,6 +31,8 @@
 
 
 	display_order = JOB_DISPLAY_ORDER_CARGO_TECHNICIAN
+	bounty_types = CIV_JOB_RANDOM
+	
 	rpg_title = "Merchantman"
 
 	species_outfits = list(

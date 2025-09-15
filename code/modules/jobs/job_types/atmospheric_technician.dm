@@ -22,6 +22,7 @@
 	payment_per_department = list(ACCOUNT_ENG_ID = PAYCHECK_MEDIUM)
 
 	display_order = JOB_DISPLAY_ORDER_ATMOSPHERIC_TECHNICIAN
+	bounty_types = CIV_JOB_ENG
 	rpg_title = "Aeromancer"
 
 	species_outfits = list(

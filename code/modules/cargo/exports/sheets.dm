@@ -77,6 +77,16 @@
 	unit_name = "wood plank"
 	export_types = list(/obj/item/stack/sheet/wood)
 
+/datum/export/stack/cloth
+	cost = 5
+	message = "rolls of cloth"
+	export_types = list(/obj/item/stack/sheet/cotton/cloth)
+
+/datum/export/stack/durathread
+	cost = 70
+	message = "rolls of durathread"
+	export_types = list(/obj/item/stack/sheet/cotton/durathread)
+
 /datum/export/stack/cardboard
 	cost = 2
 	message = "of cardboard"
@@ -92,6 +102,11 @@
 	cost = 0.2
 	unit_name = "cable piece"
 	export_types = list(/obj/item/stack/cable_coil)
+
+/datum/export/stack/meat
+	cost = 8
+	unit_name = "of meat"
+	export_types = list(/obj/item/stack/sheet/meat)
 
 // Weird Stuff
 
