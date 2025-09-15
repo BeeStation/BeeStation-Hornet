@@ -191,6 +191,14 @@
 	if(limb_id)
 		. += span_notice("It is a [limb_id] [parse_zone(body_zone)].")
 
+/// Update the amount of damage that the bodypart has
+/// Must be called upon the application of an injury
+/obj/item/bodypart/proc/update_damage()
+	accumulated_damage = 0
+	for (var/datum/injury/injury in injuries)
+		accumulated_damage += injury.added_damage + injury.damage_multiplier * injury.progression
+	check_effectiveness()
+
 /**
  * Called when a bodypart is checked for injuries.
  *
@@ -439,10 +447,6 @@
 	if(include_stamina)
 		total = max(total, stamina_dam)
 	return total
-
-//Returns only stamina damage.
-/obj/item/bodypart/proc/get_staminaloss()
-	return stamina_dam
 
 //Checks disabled status thresholds
 /obj/item/bodypart/proc/update_disabled()
@@ -870,7 +874,7 @@
 	if (owner && ishuman(owner))
 		injury.remove_from_human(owner)
 	qdel(injury)
-	check_effectiveness()
+	update_damage()
 
 /obj/item/bodypart/proc/get_injury(base_path)
 	var/datum/injury/injury_path = base_path
@@ -904,7 +908,7 @@
 	injury.apply_to_part(src)
 	if (owner && ishuman(owner))
 		injury.apply_to_human(owner)
-	check_effectiveness()
+	update_damage()
 	return injury
 
 /obj/item/bodypart/proc/get_skin_multiplier()
