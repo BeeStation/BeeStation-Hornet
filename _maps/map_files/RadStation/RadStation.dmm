@@ -3673,6 +3673,13 @@
 	},
 /turf/open/floor/iron/tech,
 /area/science/xenobiology)
+"bjc" = (
+/obj/machinery/light,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/open/floor/wood,
+/area/crew_quarters/heads/hop)
 "bjj" = (
 /obj/effect/spawner/room/threexfive,
 /turf/open/floor/plating,
@@ -16466,16 +16473,6 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/space/nearstation)
-"flw" = (
-/obj/machinery/light,
-/obj/machinery/computer/bounty{
-	dir = 1
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/wood,
-/area/crew_quarters/heads/hop)
 "flA" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
@@ -21682,6 +21679,19 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
+"gUR" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/box,
+/obj/machinery/computer/piratepad_control/civilian{
+	dir = 4
+	},
+/turf/open/floor/iron/sepia,
+/area/quartermaster/office)
 "gUW" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -24823,6 +24833,22 @@
 /obj/structure/flora/ausbushes/sunnybush,
 /turf/open/floor/grass,
 /area/hallway/primary/central)
+"iep" = (
+/obj/effect/turf_decal/stripes/box,
+/obj/structure/window/reinforced,
+/obj/structure/disposalpipe/segment{
+	dir = 2
+	},
+/obj/machinery/door/window/westleft{
+	name = "Cargo Desk";
+	pixel_y = 1;
+	req_access_txt = "31"
+	},
+/obj/machinery/computer/cargo/request{
+	dir = 4
+	},
+/turf/open/floor/iron/sepia,
+/area/quartermaster/office)
 "ies" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
@@ -26747,19 +26773,6 @@
 /obj/item/trash/canned/beefbroth,
 /turf/open/floor/plating,
 /area/maintenance/department/security)
-"iMP" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/modular_fabricator/autolathe,
-/obj/effect/turf_decal/stripes/box,
-/obj/machinery/door/window/westright{
-	name = "Cargo Desk";
-	pixel_y = 1;
-	req_access_txt = "31"
-	},
-/turf/open/floor/iron/sepia,
-/area/quartermaster/office)
 "iMQ" = (
 /obj/structure/table/reinforced,
 /obj/item/paper/fluff/holodeck/disclaimer{
@@ -29466,6 +29479,17 @@
 "jBY" = (
 /turf/closed/wall/mineral/plastitanium,
 /area/hallway/secondary/entry)
+"jCk" = (
+/obj/machinery/jukebox{
+	req_access = "0"
+	},
+/obj/effect/turf_decal/bot,
+/obj/machinery/status_display/evac{
+	pixel_x = -31;
+	pixel_y = -1
+	},
+/turf/open/floor/holofloor/wood,
+/area/security/main)
 "jCl" = (
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
@@ -33823,17 +33847,6 @@
 	},
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/engine/engine_room)
-"leu" = (
-/obj/machinery/jukebox{
-	req_access = "0"
-	},
-/obj/effect/turf_decal/bot,
-/obj/machinery/status_display/evac{
-	pixel_x = -31;
-	pixel_y = -1
-	},
-/turf/open/floor/holofloor/wood,
-/area/security/main)
 "leD" = (
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted{
 	dir = 1
@@ -34199,6 +34212,13 @@
 /obj/item/reagent_containers/cup/bucket,
 /turf/open/floor/iron/grid/steel,
 /area/hydroponics)
+"lmM" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/newscaster{
+	pixel_y = 34
+	},
+/turf/open/floor/iron/dark,
+/area/quartermaster/qm)
 "lnu" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
@@ -34545,14 +34565,6 @@
 /obj/item/flashlight/lamp,
 /turf/open/floor/iron/dark,
 /area/security/interrogation_room)
-"ltF" = (
-/obj/machinery/computer/bounty,
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/newscaster{
-	pixel_y = 34
-	},
-/turf/open/floor/iron/dark,
-/area/quartermaster/qm)
 "ltI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/firecloset,
@@ -39449,35 +39461,6 @@
 /obj/machinery/firealarm/directional/north,
 /turf/open/floor/iron,
 /area/engine/break_room)
-"nag" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 9
-	},
-/obj/structure/bed/dogbed/ian,
-/mob/living/basic/pet/dog/corgi/ian{
-	density = 0;
-	dir = 1;
-	pixel_y = 4
-	},
-/obj/item/toy/beach_ball/holoball/dodgeball{
-	name = "dodgeball 3 of 5"
-	},
-/obj/machinery/newscaster{
-	pixel_x = 1;
-	pixel_y = 33
-	},
-/turf/open/floor/carpet/blue,
-/area/crew_quarters/heads/hop)
-"nah" = (
-/obj/machinery/conveyor{
-	dir = 1;
-	id = "MailConv"
-	},
-/obj/structure/window/reinforced{
-	pixel_y = 1
-	},
-/turf/open/floor/iron/dark,
-/area/quartermaster/office)
 "nan" = (
 /obj/structure/chair/fancy/sofa/old/right{
 	color = "#742925";
@@ -39859,6 +39842,25 @@
 /obj/item/trash/popcorn,
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
+"nhB" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 9
+	},
+/obj/structure/bed/dogbed/ian,
+/mob/living/basic/pet/dog/corgi/ian{
+	density = 0;
+	dir = 1;
+	pixel_y = 4
+	},
+/obj/item/toy/beach_ball/holoball/dodgeball{
+	name = "dodgeball 3 of 5"
+	},
+/obj/machinery/newscaster{
+	pixel_x = 1;
+	pixel_y = 33
+	},
+/turf/open/floor/carpet/blue,
+/area/crew_quarters/heads/hop)
 "nhQ" = (
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /obj/structure/cable/yellow{
@@ -46479,12 +46481,26 @@
 	},
 /turf/open/floor/iron/tech,
 /area/science/xenobiology)
+"pmS" = (
+/turf/open/floor/iron/dark,
+/area/quartermaster/office)
 "pny" = (
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted{
 	alpha = 180
 	},
 /turf/open/floor/iron,
 /area/engine/engineering)
+"pnK" = (
+/obj/effect/turf_decal/stripes/box,
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/piratepad/civilian,
+/turf/open/floor/iron/sepia,
+/area/quartermaster/office)
 "pom" = (
 /obj/effect/turf_decal/guideline/guideline_edge/blue{
 	color = "#267878"
@@ -52267,24 +52283,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/courtroom)
-"rln" = (
-/obj/machinery/computer/bounty{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 1;
-	pixel_y = 3
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/box,
-/obj/structure/window/reinforced,
-/obj/structure/disposalpipe/segment{
-	dir = 2
-	},
-/turf/open/floor/iron/sepia,
-/area/quartermaster/office)
 "rlT" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -54389,6 +54387,16 @@
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/qm)
+"rXz" = (
+/obj/machinery/modular_fabricator/autolathe,
+/obj/effect/turf_decal/stripes/box,
+/obj/machinery/door/window/westright{
+	name = "Cargo Desk";
+	pixel_y = 1;
+	req_access_txt = "31"
+	},
+/turf/open/floor/iron/sepia,
+/area/quartermaster/office)
 "rXD" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -58932,21 +58940,6 @@
 	},
 /turf/open/floor/catwalk_floor,
 /area/maintenance/department/engine)
-"tuQ" = (
-/obj/machinery/computer/cargo/request{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/box,
-/obj/machinery/door/window/westleft{
-	name = "Cargo Desk";
-	pixel_y = 1;
-	req_access_txt = "31"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 10
-	},
-/turf/open/floor/iron/sepia,
-/area/quartermaster/office)
 "tvg" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -61735,6 +61728,25 @@
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/quartermaster/miningdock)
+"ukR" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/closet/crate,
+/obj/machinery/conveyor/inverted{
+	dir = 6;
+	id = "MailConv"
+	},
+/obj/structure/noticeboard{
+	name = "bounty list";
+	pixel_x = 1;
+	pixel_y = 33
+	},
+/obj/structure/window/reinforced{
+	pixel_y = 1
+	},
+/turf/open/floor/iron/dark,
+/area/quartermaster/office)
 "ulg" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/marker_beacon,
@@ -62898,6 +62910,26 @@
 /obj/machinery/camera/directional/east,
 /turf/open/space/basic,
 /area/engine/engine_room)
+"uGk" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/bed/dogbed/tyson,
+/obj/item/stack/sheet/bone{
+	pixel_x = 6;
+	pixel_y = -6
+	},
+/mob/living/basic/pet/dog/bullterrier/tyson{
+	density = 0
+	},
+/obj/machinery/status_display/evac{
+	pixel_y = 32
+	},
+/turf/open/floor/iron/dark,
+/area/security/warden)
 "uGm" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
@@ -62958,26 +62990,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/storage)
-"uIg" = (
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/bed/dogbed/tyson,
-/obj/item/stack/sheet/bone{
-	pixel_x = 6;
-	pixel_y = -6
-	},
-/mob/living/basic/pet/dog/bullterrier/tyson{
-	density = 0
-	},
-/obj/machinery/status_display/evac{
-	pixel_y = 32
-	},
-/turf/open/floor/iron/dark,
-/area/security/warden)
 "uIs" = (
 /turf/closed/wall,
 /area/hallway/primary/fore)
@@ -69891,22 +69903,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/medical/sleeper)
-"wXg" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/closet/crate,
-/obj/machinery/conveyor/inverted{
-	dir = 6;
-	id = "MailConv"
-	},
-/obj/structure/noticeboard{
-	name = "bounty list";
-	pixel_x = 1;
-	pixel_y = 33
-	},
-/turf/open/floor/iron/dark,
-/area/quartermaster/office)
 "wXE" = (
 /obj/structure/disposalpipe/segment{
 	dir = 1
@@ -72267,10 +72263,6 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
-"xIL" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/quartermaster/office)
 "xIU" = (
 /obj/structure/table/reinforced,
 /obj/item/toy/figure/bartender{
@@ -96734,10 +96726,10 @@ eSK
 eSK
 eSK
 vCJ
-xIL
-iMP
-tuQ
-rln
+rXz
+gUR
+pnK
+iep
 nFK
 eyo
 krB
@@ -96990,8 +96982,8 @@ mNu
 wGq
 eBH
 eSK
-wXg
-nah
+ukR
+pmS
 tLg
 kHy
 umx
@@ -99050,7 +99042,7 @@ oVD
 aBA
 nre
 ttt
-ltF
+lmM
 khE
 fwR
 ava
@@ -101619,7 +101611,7 @@ voS
 cxh
 nEn
 eQz
-leu
+jCk
 voS
 nWv
 fpn
@@ -102352,7 +102344,7 @@ uYx
 uYx
 uYx
 uYx
-uIg
+uGk
 wrh
 uaZ
 bKr
@@ -108006,7 +107998,7 @@ jzy
 tpz
 oNA
 evI
-flw
+bjc
 sAc
 jyv
 bxo
@@ -108775,7 +108767,7 @@ fnT
 oif
 bwr
 nJK
-nag
+nhB
 sww
 sNM
 bQs

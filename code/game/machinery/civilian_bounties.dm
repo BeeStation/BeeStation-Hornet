@@ -136,6 +136,7 @@
 	if(!ui)
 		ui = new(user, src, "CivCargoHoldTerminal", name)
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /obj/machinery/computer/piratepad_control/civilian/ui_data(mob/user)
 	var/list/data = list()

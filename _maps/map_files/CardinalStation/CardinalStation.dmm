@@ -4006,6 +4006,16 @@
 /obj/structure/window/spawner,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/central)
+"aQR" = (
+/obj/effect/turf_decal/siding/dark{
+	dir = 9
+	},
+/obj/effect/turf_decal/trimline/brown/filled/line{
+	dir = 9
+	},
+/obj/machinery/airalarm/directional/south,
+/turf/open/floor/iron/tech,
+/area/quartermaster/office)
 "aQS" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/green{
@@ -6110,14 +6120,6 @@
 	},
 /turf/open/floor/plating/airless,
 /area/engine/engine_room/external)
-"bjG" = (
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/obj/effect/turf_decal/siding/white{
-	dir = 5
-	},
-/obj/effect/decal/cleanable/cobweb/cobweb2,
-/turf/open/floor/iron,
-/area/hallway/primary/aft)
 "bjH" = (
 /turf/closed/wall/r_wall,
 /area/maintenance/port/aft)
@@ -8698,6 +8700,15 @@
 	pixel_x = -4
 	},
 /turf/open/floor/grass/no_border,
+/area/hallway/primary/aft)
+"bMC" = (
+/obj/effect/turf_decal/siding/white{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/machinery/light/directional/east,
+/obj/machinery/piratepad/civilian,
+/turf/open/floor/iron,
 /area/hallway/primary/aft)
 "bMO" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
@@ -11317,6 +11328,16 @@
 	},
 /turf/open/floor/iron/smooth_edge,
 /area/engine/atmos)
+"clr" = (
+/obj/machinery/computer/security/telescreen/vault{
+	pixel_x = 32;
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/dark{
+	dir = 4
+	},
+/turf/open/floor/carpet/blue,
+/area/crew_quarters/heads/hop)
 "cls" = (
 /obj/effect/turf_decal/tile/steelgrid/diagonal{
 	dir = 4;
@@ -32725,6 +32746,17 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/hallway/primary/port)
+"gEX" = (
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/effect/turf_decal/siding/white{
+	dir = 5
+	},
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/machinery/computer/piratepad_control/civilian{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/hallway/primary/aft)
 "gFf" = (
 /obj/effect/turf_decal/siding/red,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -67046,24 +67078,6 @@
 /obj/effect/landmark/start/assistant,
 /turf/open/floor/iron/chapel,
 /area/chapel/main)
-"nDt" = (
-/obj/effect/turf_decal/siding/wood,
-/obj/effect/turf_decal/siding/dark_blue{
-	dir = 1
-	},
-/obj/structure/bed/dogbed/ian{
-	pixel_y = -1;
-	pixel_x = -3
-	},
-/obj/item/stack/sheet/bone{
-	desc = "A bone for a good boy.";
-	name = "Dog bone"
-	},
-/mob/living/basic/pet/dog/corgi/ian,
-/obj/machinery/airalarm/directional/south,
-/obj/machinery/light/directional/south,
-/turf/open/floor/wood/big,
-/area/crew_quarters/heads/hop)
 "nDu" = (
 /obj/effect/turf_decal/siding/dark{
 	dir = 1
@@ -76031,13 +76045,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/upper/primary/port)
-"psE" = (
-/obj/machinery/computer/bounty{
-	dir = 4
-	},
-/obj/machinery/camera/directional/west,
-/turf/open/floor/iron/tech/grid,
-/area/quartermaster/storage)
 "psG" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line{
 	dir = 1
@@ -85138,6 +85145,10 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible,
 /turf/open/floor/catwalk_floor/iron,
 /area/engine/engine_room)
+"rlX" = (
+/obj/machinery/camera/directional/west,
+/turf/open/floor/iron/tech/grid,
+/area/quartermaster/storage)
 "rmb" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -88933,19 +88944,6 @@
 	},
 /turf/open/floor/plating,
 /area/medical/genetics)
-"sav" = (
-/obj/machinery/computer/bounty{
-	dir = 8
-	},
-/obj/machinery/computer/security/telescreen/vault{
-	pixel_x = 32;
-	dir = 8
-	},
-/obj/effect/turf_decal/siding/dark{
-	dir = 4
-	},
-/turf/open/floor/carpet/blue,
-/area/crew_quarters/heads/hop)
 "saw" = (
 /obj/effect/turf_decal/edges/borderfloor/corner1{
 	dir = 1
@@ -94254,14 +94252,6 @@
 	dir = 4
 	},
 /area/hallway/secondary/exit/departure_lounge)
-"tgx" = (
-/obj/effect/turf_decal/siding/white{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/obj/machinery/light/directional/east,
-/turf/open/floor/iron,
-/area/hallway/primary/aft)
 "tgM" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/space/nearstation)
@@ -98454,6 +98444,24 @@
 /obj/machinery/light/directional/south,
 /turf/open/floor/iron/textured_large,
 /area/hallway/primary/fore)
+"tXR" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/dark_blue{
+	dir = 1
+	},
+/obj/structure/bed/dogbed/ian{
+	pixel_y = -1;
+	pixel_x = -3
+	},
+/obj/item/stack/sheet/bone{
+	desc = "A bone for a good boy.";
+	name = "Dog bone"
+	},
+/mob/living/basic/pet/dog/corgi/ian,
+/obj/machinery/airalarm/directional/south,
+/obj/machinery/light/directional/south,
+/turf/open/floor/wood/big,
+/area/crew_quarters/heads/hop)
 "tXS" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line,
 /obj/effect/turf_decal/trimline/neutral/line,
@@ -99816,19 +99824,6 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/port/central)
-"umy" = (
-/obj/effect/turf_decal/siding/wideplating_new/dark,
-/obj/effect/turf_decal/trimline/red/filled/mid_joiner,
-/obj/structure/bed/dogbed/tyson,
-/obj/effect/turf_decal/tile/techfloor/diagonal,
-/obj/structure/extinguisher_cabinet/directional/south,
-/mob/living/basic/pet/dog/bullterrier/tyson,
-/obj/item/clothing/mask/gas/old{
-	name = "chewed up gas mask";
-	desc = "A face-covering mask that can be connected to an air supply. This one appears to be one of Tyson's favorite chew toys."
-	},
-/turf/open/floor/iron/techmaint,
-/area/security/warden)
 "umM" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/effect/turf_decal/tile/steelgrid/diagonal{
@@ -100914,19 +100909,6 @@
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
 /turf/open/floor/iron/techmaint,
 /area/engine/atmos)
-"uwJ" = (
-/obj/machinery/computer/bounty{
-	dir = 1
-	},
-/obj/effect/turf_decal/siding/dark{
-	dir = 9
-	},
-/obj/effect/turf_decal/trimline/brown/filled/line{
-	dir = 9
-	},
-/obj/machinery/airalarm/directional/south,
-/turf/open/floor/iron/tech,
-/area/quartermaster/office)
 "uwP" = (
 /obj/effect/turf_decal/edges/borderfloor/corner1{
 	dir = 4
@@ -106705,6 +106687,13 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/bridge)
+"vDD" = (
+/obj/machinery/firealarm{
+	pixel_y = 28
+	},
+/obj/machinery/light/small/directional/east,
+/turf/open/floor/carpet/orange,
+/area/quartermaster/qm)
 "vDF" = (
 /obj/structure/sign/warning/pods,
 /turf/closed/wall,
@@ -108276,6 +108265,19 @@
 /obj/machinery/airalarm/directional/north,
 /turf/open/floor/noslip/blue,
 /area/crew_quarters/fitness/recreation)
+"vTl" = (
+/obj/effect/turf_decal/siding/wideplating_new/dark,
+/obj/effect/turf_decal/trimline/red/filled/mid_joiner,
+/obj/structure/bed/dogbed/tyson,
+/obj/effect/turf_decal/tile/techfloor/diagonal,
+/obj/structure/extinguisher_cabinet/directional/south,
+/mob/living/basic/pet/dog/bullterrier/tyson,
+/obj/item/clothing/mask/gas/old{
+	name = "chewed up gas mask";
+	desc = "A face-covering mask that can be connected to an air supply. This one appears to be one of Tyson's favorite chew toys."
+	},
+/turf/open/floor/iron/techmaint,
+/area/security/warden)
 "vTn" = (
 /obj/effect/turf_decal/siding/blue{
 	dir = 9
@@ -108758,14 +108760,6 @@
 	dir = 4
 	},
 /area/engine/storage_shared)
-"vXV" = (
-/obj/machinery/computer/bounty,
-/obj/machinery/firealarm{
-	pixel_y = 28
-	},
-/obj/machinery/light/small/directional/east,
-/turf/open/floor/carpet/orange,
-/area/quartermaster/qm)
 "vYm" = (
 /obj/machinery/light/floor,
 /obj/effect/turf_decal/siding/wood{
@@ -138899,7 +138893,7 @@ uOP
 otx
 cko
 vDU
-nDt
+tXR
 eYi
 eYi
 eYi
@@ -139672,7 +139666,7 @@ lOQ
 bUZ
 bAy
 klI
-sav
+clr
 nVm
 ket
 otA
@@ -152539,8 +152533,8 @@ cLp
 hUY
 hUY
 hUY
-bjG
-tgx
+gEX
+bMC
 njO
 klM
 eIP
@@ -154520,7 +154514,7 @@ kdI
 vDe
 fyS
 hSK
-umy
+vTl
 kdI
 qTU
 kTJ
@@ -155380,7 +155374,7 @@ iyj
 rEY
 fpe
 tPG
-uwJ
+aQR
 tGk
 fmz
 sSF
@@ -157170,7 +157164,7 @@ hcW
 tEE
 dKi
 qhZ
-psE
+rlX
 tWy
 jUO
 kon
@@ -157930,7 +157924,7 @@ taH
 vle
 bNW
 ilI
-vXV
+vDD
 mSn
 ukY
 pFx

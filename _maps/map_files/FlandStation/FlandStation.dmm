@@ -24612,9 +24612,6 @@
 /turf/open/floor/iron/cafeteria,
 /area/storage/art)
 "gnK" = (
-/obj/machinery/computer/bounty{
-	dir = 4
-	},
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -32040,9 +32037,6 @@
 /area/hallway/primary/port)
 "iix" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/computer/bounty{
-	dir = 4
-	},
 /obj/structure/railing{
 	dir = 8
 	},
@@ -73317,6 +73311,9 @@
 /turf/open/floor/carpet/green,
 /area/crew_quarters/dorms)
 "sNb" = (
+/obj/machinery/computer/piratepad_control/civilian{
+	dir = 8
+	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/office)
 "sNc" = (
@@ -79661,13 +79658,10 @@
 /turf/open/floor/iron/dark,
 /area/library/lounge)
 "uue" = (
-/obj/structure/closet/crate{
-	opened = 1
-	},
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/machinery/piratepad/civilian,
 /turf/open/floor/iron/dark,
 /area/quartermaster/office)
 "uum" = (
@@ -96042,7 +96036,6 @@
 /turf/open/floor/iron/grid/steel,
 /area/crew_quarters/dorms)
 "xXL" = (
-/obj/machinery/computer/bounty,
 /turf/open/floor/wood,
 /area/quartermaster/qm)
 "xXW" = (

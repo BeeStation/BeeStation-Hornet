@@ -13504,9 +13504,6 @@
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain)
 "cIN" = (
-/obj/machinery/computer/bounty{
-	dir = 4
-	},
 /obj/machinery/requests_console{
 	announcementConsole = 1;
 	department = "Head of Personnel's Desk";
@@ -30947,6 +30944,12 @@
 "hYQ" = (
 /turf/open/floor/engine,
 /area/engine/atmos)
+"hYR" = (
+/obj/effect/turf_decal/tile/brown/half/contrasted,
+/obj/effect/turf_decal/tile/yellow,
+/obj/machinery/piratepad/civilian,
+/turf/open/floor/iron,
+/area/hallway/primary/starboard)
 "hZo" = (
 /obj/effect/landmark/blobstart,
 /obj/effect/landmark/xeno_spawn,
@@ -33576,7 +33579,6 @@
 /turf/open/floor/prison,
 /area/security/prison)
 "iRj" = (
-/obj/machinery/computer/bounty,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -71389,9 +71391,6 @@
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "vfP" = (
-/obj/machinery/computer/bounty{
-	dir = 8
-	},
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 1
 	},
@@ -75708,6 +75707,9 @@
 /obj/machinery/light,
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted,
 /obj/effect/turf_decal/tile/yellow,
+/obj/machinery/computer/piratepad_control/civilian{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
 "wvN" = (
@@ -118587,7 +118589,7 @@ vzJ
 ulS
 vpQ
 yik
-sIh
+hYR
 wvK
 bnv
 bjX
