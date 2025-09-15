@@ -194,6 +194,8 @@
   mrmanlikesbt:
   - bugfix: Fixed the item overlay on smartfridges displaying even when there are
       no items inside.
+  r1ks-iwnl:
+  - bugfix: Bubblegum no longer ends his dashes earlier than he should
   rkz, tralezab, TheBonded, ma44, Ryll/Shaps, Vishenka0704, Vladoricious, Jacquerel, Fikou, Sealed101, San7890:
   - tweak: Renames the Wardens dog
   - refactor: tamable component + egg layer component, animal variety element
