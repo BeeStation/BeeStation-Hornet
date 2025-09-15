@@ -110,6 +110,9 @@
 /// Allow players to vote to change the map mid-round
 /datum/config_entry/flag/allow_vote_map
 
+/// Allow players to vote to change the dynamic storyteller, this vote
+/datum/config_entry/flag/allow_vote_storyteller
+
 /datum/config_entry/number/vote_delay	// minimum time between voting sessions (deciseconds, 10 minute default)
 	config_entry_value = 6000
 	integer = FALSE

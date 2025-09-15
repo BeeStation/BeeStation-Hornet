@@ -44,6 +44,9 @@ SUBSYSTEM_DEF(ticker)
 	/// What will be the tip of the day?
 	var/selected_tip
 
+	/// Have we sent out the pre-game vote for the dynamic storyteller?
+	var/sent_storyteller_vote = FALSE
+
 	/// Pre-game timer
 	var/timeLeft
 	var/start_at
@@ -194,7 +197,11 @@ SUBSYSTEM_DEF(ticker)
 				return
 			timeLeft -= wait
 
-			if(timeLeft <= 300 && !tipped)
+			if(timeLeft <= 70 SECONDS && !sent_storyteller_vote)
+				INVOKE_ASYNC(SSvote, TYPE_PROC_REF(/datum/controller/subsystem/vote, initiate_vote), /datum/vote/storyteller_vote, "Dynamic", null, TRUE)
+				sent_storyteller_vote = TRUE
+
+			if(timeLeft <= 30 SECONDS && !tipped)
 				send_tip_of_the_round()
 				tipped = TRUE
 

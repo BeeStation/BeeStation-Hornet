@@ -2,6 +2,7 @@ SUBSYSTEM_DEF(dynamic)
 	name = "Dynamic"
 	runlevels = RUNLEVEL_GAME
 	wait = 1 MINUTES
+	init_order = INIT_ORDER_DYNAMIC
 
 	/**
 	 * Roundstart variables
@@ -212,10 +213,6 @@ SUBSYSTEM_DEF(dynamic)
 	configure_variables()
 	load_storytellers()
 
-	// Temporary, delete later
-	if (length(dynamic_storyteller_jsons))
-		set_storyteller(pick(dynamic_storyteller_jsons))
-
 	midround_light_chance = midround_light_starting_chance
 	midround_medium_chance = midround_medium_starting_chance
 	midround_heavy_chance = midround_heavy_starting_chance
@@ -247,8 +244,11 @@ SUBSYSTEM_DEF(dynamic)
 			dynamic_storyteller_jsons[json_name] = loaded_json
 
 /datum/controller/subsystem/dynamic/proc/set_storyteller(new_storyteller)
-	ASSERT(dynamic_storyteller_jsons[new_storyteller], "set_storyteller() called with an invalid storyteller")
-	current_storyteller = dynamic_storyteller_jsons[new_storyteller]
+	if (isnull(new_storyteller))
+		current_storyteller = null
+	else
+		ASSERT(dynamic_storyteller_jsons[new_storyteller], "set_storyteller() called with an invalid storyteller")
+		current_storyteller = dynamic_storyteller_jsons[new_storyteller]
 	configure_variables()
 
 /**
@@ -311,21 +311,21 @@ SUBSYSTEM_DEF(dynamic)
  * Sets the variables of a ruleset to those in the dynamic configuration file
 **/
 /datum/controller/subsystem/dynamic/proc/configure_ruleset(datum/dynamic_ruleset/ruleset)
-	var/rule_config = LAZYACCESSASSOC(current_storyteller, ruleset.rule_category, ruleset.name)
-
 	// Set variables
-	for(var/variable in rule_config)
-		if(isnull(ruleset.vars[variable]))
-			stack_trace("Invalid dynamic configuration variable [variable] in [ruleset.rule_category] [ruleset.name].")
-			continue
-		ruleset.vars[variable] = rule_config[variable]
+	if (current_storyteller)
+		var/rule_config = LAZYACCESSASSOC(current_storyteller, ruleset.rule_category, ruleset.name)
+		for (var/variable in rule_config)
+			if (isnull(ruleset.vars[variable]))
+				stack_trace("Invalid dynamic configuration variable [variable] in [ruleset.rule_category] [ruleset.name].")
+				continue
+			ruleset.vars[variable] = rule_config[variable]
 
 	// Check config for additional restricted_roles
-	if(CONFIG_GET(flag/protect_roles_from_antagonist))
+	if (CONFIG_GET(flag/protect_roles_from_antagonist))
 		ruleset.restricted_roles |= ruleset.protected_roles
-	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
+	if (CONFIG_GET(flag/protect_assistant_from_antagonist))
 		ruleset.restricted_roles |= JOB_NAME_ASSISTANT
-	if(CONFIG_GET(flag/protect_heads_from_antagonist))
+	if (CONFIG_GET(flag/protect_heads_from_antagonist))
 		ruleset.restricted_roles |= SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)
 
 	return ruleset
@@ -528,7 +528,7 @@ SUBSYSTEM_DEF(dynamic)
  * Execute a ruleset and if it needs to process, add it to the list of rulesets to process
 **/
 /datum/controller/subsystem/dynamic/proc/execute_ruleset(datum/dynamic_ruleset/ruleset)
-	if(!ruleset)
+	if(!istype(ruleset))
 		return DYNAMIC_EXECUTE_FAILURE
 
 	if(CHECK_BITFIELD(ruleset.flags, SHOULD_PROCESS_RULESET))
@@ -721,7 +721,7 @@ SUBSYSTEM_DEF(dynamic)
  * There is a 10% chance for someone to be picked
 **/
 /datum/controller/subsystem/dynamic/proc/on_player_latejoin(mob/living/carbon/human/character)
-	if(forced_extended || SSticker.check_finished() || EMERGENCY_ESCAPED_OR_ENDGAMED || EMERGENCY_CALLED)
+	if(forced_extended || SSticker.check_finished() || EMERGENCY_ESCAPED_OR_ENDGAMED || EMERGENCY_CALLED || EMERGENCY_AT_LEAST_DOCKED)
 		return
 
 	if(!length(latejoin_configured_rulesets))
@@ -738,9 +738,6 @@ SUBSYSTEM_DEF(dynamic)
 		var/list/possible_rulesets = list()
 		for(var/datum/dynamic_ruleset/latejoin/ruleset in latejoin_configured_rulesets)
 			possible_rulesets[ruleset] = ruleset.weight
-
-		if(!length(possible_rulesets))
-			return
 
 		latejoin_forced_ruleset = pick_weight(possible_rulesets)
 
