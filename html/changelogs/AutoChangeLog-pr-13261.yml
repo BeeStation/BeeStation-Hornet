@@ -1,0 +1,12 @@
+author: mrmanlikesbt, MrPerson, cacogen, MMMiracles, Tastyfish, XyzzyThePretender,
+  LemonInTheDark, MTandi, Lufferly, BobDABuilder9001, Sealed101
+delete-after: true
+changes:
+  - rscadd: Added new solar panel sprites. These dynamically track the sun instead
+      of being fixed to incremental angles
+  - rscadd: 'Solar panels can now be upgraded based on what glass they are made of,
+      the higher tier the glass is, the higher the multiplier is. The tiers are as
+      follows: normal glass - 1x, titanium glass - 2x, plasma glass - 3x, plastitanium
+      glass - x4'
+  - rscdel: Removed the goonstation folder
+  - refactor: Refactored SSsun and solar panel code.
