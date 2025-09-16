@@ -215,6 +215,7 @@
 	icon_state = "sheet-plastitaniumglass"
 	item_state = "sheet-plastitaniumglass"
 	mats_per_unit = list(/datum/material/titanium=MINERAL_MATERIAL_AMOUNT * 0.5, /datum/material/plasma=MINERAL_MATERIAL_AMOUNT * 0.5, /datum/material/glass=MINERAL_MATERIAL_AMOUNT)
+	material_type = /datum/material/alloy/plastitaniumglass
 	armor_type = /datum/armor/sheet_plastitaniumglass
 	resistance_flags = ACID_PROOF
 	material_flags = NONE
