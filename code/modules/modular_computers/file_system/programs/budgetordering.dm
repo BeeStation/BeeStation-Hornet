@@ -23,9 +23,6 @@
 	//If you're being raided by pirates, what do you tell the crew?
 	var/blockade_warning = "Bluespace instability detected. Shuttle movement impossible."
 
-/datum/computer_file/program/budgetorders/proc/get_export_categories()
-	return EXPORT_CARGO
-
 /datum/computer_file/program/budgetorders/proc/get_buyer_id(mob/user) //gets access from id on person or inserted one
 	var/obj/item/card/id/id
 	if(ishuman(user))
@@ -143,7 +140,6 @@
 				computer.say(blockade_warning)
 				return
 			if(SSshuttle.supply.getDockedId() == "supply_home")
-				SSshuttle.supply.export_categories = get_export_categories()
 				SSshuttle.moveShuttle("supply", "supply_away", TRUE)
 				computer.say("The supply shuttle is departing.")
 				usr.investigate_log("sent the supply shuttle away.", INVESTIGATE_CARGO)

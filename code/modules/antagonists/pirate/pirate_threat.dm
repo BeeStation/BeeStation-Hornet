@@ -365,7 +365,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/piratepad_control)
 	for(var/atom/movable/item_on_pad in get_turf(pad))
 		if(item_on_pad == pad)
 			continue
-		export_item_and_contents(item_on_pad, EXPORT_PIRATE | EXPORT_CARGO | EXPORT_CONTRABAND | EXPORT_EMAG, apply_elastic = FALSE, delete_unsold = FALSE, external_report = report)
+		export_item_and_contents(item_on_pad, apply_elastic = FALSE, delete_unsold = FALSE, external_report = report)
 
 	status_report = "Sold: "
 	var/value = 0

@@ -4,9 +4,9 @@
 		{
 			"type": "byond",
 			"request": "launch",
-			"name": "Launch DreamSeeker (Linux/Wine)",
+			"name": "Launch DreamSeeker",
 			"preLaunchTask": "Build All",
-			"dmb": "/home/boneyards/Cloned Repos/BeeStation-Salatland/beestation.dmb"
+			"dmb": "${workspaceFolder}/${command:CurrentDMB}"
 		}
 	]
 }

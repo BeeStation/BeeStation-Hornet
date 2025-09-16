@@ -45,13 +45,6 @@
 	for (var/datum/tgui/open_window as() in SStgui.get_all_open_uis(src))
 		update_static_data(null, open_window)
 
-/obj/machinery/computer/cargo/proc/get_export_categories()
-	. = EXPORT_CARGO
-	if(contraband)
-		. |= EXPORT_CONTRABAND
-	if(obj_flags & EMAGGED)
-		. |= EXPORT_EMAG
-
 /obj/machinery/computer/cargo/on_emag(mob/user)
 	..()
 	user?.visible_message(span_warning("[user] swipes a suspicious card through [src]!"),
@@ -155,7 +148,6 @@
 				say(blockade_warning)
 				return
 			if(SSshuttle.supply.getDockedId() == "supply_home")
-				SSshuttle.supply.export_categories = get_export_categories()
 				SSshuttle.moveShuttle("supply", "supply_away", TRUE)
 				say("The supply shuttle is departing.")
 				usr.investigate_log(" sent the supply shuttle away.", INVESTIGATE_CARGO)

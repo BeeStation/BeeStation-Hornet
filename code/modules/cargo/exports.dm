@@ -21,16 +21,26 @@ then the player gets the profit from selling his own wasted time.
 
 // Simple holder datum to pass export results around
 /datum/export_report
-	var/list/exported_atoms = list()	//names of atoms sold/deleted by export
-	var/list/total_amount = list()		//export instance => total count of sold objects of its type, only exists if any were sold
-	var/list/total_value = list()		//export instance => total value of sold objects
+	///names of atoms sold/deleted by export
+	var/list/exported_atoms = list()
+	///export instance => total count of sold objects of its type, only exists if any were sold
+	var/list/total_amount = list()
+	///export instance => total value of sold objects
+	var/list/total_value = list()
 
-// external_report works as "transaction" object, pass same one in if you're doing more than one export in single go
-/proc/export_item_and_contents(atom/movable/AM, apply_elastic = TRUE, delete_unsold = TRUE, dry_run=FALSE, datum/export_report/external_report)
+/*
+	* Handles exporting a movable atom and its contents
+	* Arguments:
+	** apply_elastic: if the price will change based on amount sold, where applicable
+	** delete_unsold: if the items that were not sold should be deleted
+	** dry_run: if the item should be actually sold, or if its just a pirce test
+	** external_report: works as "transaction" object, pass same one in if you're doing more than one export in single go
+*/
+/proc/export_item_and_contents(atom/movable/exported_atom, apply_elastic = TRUE, delete_unsold = TRUE, dry_run = FALSE, datum/export_report/external_report, list/ignore_typecache)
 	if(!GLOB.exports_list.len)
 		setupExports()
 
-	var/list/contents = AM.GetAllContents()
+	var/list/contents = exported_atom.GetAllContentsIgnoring(ignore_typecache)
 
 	var/datum/export_report/report = external_report
 
@@ -58,39 +68,6 @@ then the player gets the profit from selling his own wasted time.
 
 	for(var/atom/movable/thing as anything in to_delete)
 		if(!QDELETED(thing))
-			qdel(thing)
-
-	return report
-
-/proc/export_contents(atom/movable/AM, apply_elastic = TRUE, delete_unsold = TRUE, dry_run=FALSE, datum/export_report/external_report)
-	if(!GLOB.exports_list.len)
-		setupExports()
-
-	var/list/contents = AM.GetAllContents() - AM
-
-	var/datum/export_report/report = external_report
-	if(!report) //If we don't have any longer transaction going on
-		report = new
-
-	// We go backwards, so it'll be innermost objects sold first
-	for(var/i in reverse_range(contents))
-		var/atom/movable/thing = i
-		var/sold = FALSE
-		if(QDELETED(thing))
-			continue
-		for(var/datum/export/E in GLOB.exports_list)
-			if(!E)
-				continue
-			if(E.applies_to(thing, apply_elastic))
-				sold = E.sell_object(thing, report, dry_run, apply_elastic)
-				report.exported_atoms += " [thing.name]"
-				break
-
-		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_ATOM_SOLD, thing, sold)
-
-		if(!dry_run && (sold || delete_unsold))
-			if(ismob(thing))
-				thing.investigate_log("deleted through cargo export",INVESTIGATE_CARGO)
 			qdel(thing)
 
 	return report

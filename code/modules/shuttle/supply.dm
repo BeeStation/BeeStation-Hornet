@@ -50,10 +50,6 @@ GLOBAL_LIST_INIT(whitelisted_cargo_types, typecacheof(list(
 	movement_force = list("KNOCKDOWN" = 0, "THROW" = 0)
 	undockable = TRUE
 
-
-	//Export categories for this run, this is set by console sending the shuttle.
-	var/export_categories = EXPORT_CARGO
-
 /obj/docking_port/mobile/supply/register()
 	. = ..()
 	SSshuttle.supply = src
@@ -187,32 +183,28 @@ GLOBAL_LIST_INIT(whitelisted_cargo_types, typecacheof(list(
 
 	var/msg = ""
 
-	var/datum/export_report/ex = new
+	var/datum/export_report/report = new
 
-	for(var/place in shuttle_areas)
-		var/area/shuttle/shuttle_area = place
-		for(var/atom/movable/AM in shuttle_area)
-			if(iscameramob(AM))
+	for(var/area/shuttle/shuttle_area as anything in shuttle_areas)
+		for(var/atom/movable/exporting_atom in shuttle_area)
+			if(iscameramob(exporting_atom))
 				continue
-			if(!AM.anchored)
-				export_item_and_contents(AM, export_categories , dry_run = FALSE, external_report = ex)
-			else if(!ismachinery(AM))
-				//Exports the contents of things but not the item itself, so you can have conveyor belt that won't get sold
-				export_contents(AM, export_categories , dry_run = FALSE, external_report = ex)
+			if(!exporting_atom.anchored)
+				export_item_and_contents(exporting_atom, apply_elastic = TRUE, dry_run = FALSE, external_report = report)
 
-	if(ex.exported_atoms)
-		ex.exported_atoms += "." //ugh
+	if(report.exported_atoms)
+		report.exported_atoms += "." //ugh
 
-	for(var/datum/export/E in ex.total_amount)
-		var/export_text = E.total_printout(ex)
+	for(var/datum/export/E in report.total_amount)
+		var/export_text = E.total_printout(report)
 		if(!export_text)
 			continue
 
 		msg += export_text + "\n"
-		D.adjust_money(ex.total_value[E])
+		D.adjust_money(report.total_value[E])
 
 	SSshuttle.centcom_message = msg
-	investigate_log("Shuttle contents sold for [D.account_balance - presale_points] credits. Contents: [ex.exported_atoms ? ex.exported_atoms.Join(",") + "." : "none."] Message: [SSshuttle.centcom_message || "none."]", INVESTIGATE_CARGO)
+	investigate_log("Shuttle contents sold for [D.account_balance - presale_points] credits. Contents: [report.exported_atoms ? report.exported_atoms.Join(",") + "." : "none."] Message: [SSshuttle.centcom_message || "none."]", INVESTIGATE_CARGO)
 
 
 //	Generates a box of mail depending on our exports and imports.
