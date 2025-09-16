@@ -14,7 +14,7 @@
 	premium = list()
 */
 /// NT's Tax rate on the price the seller (cargo) receives
-#define TAX_RATE 50
+#define TAX_RATE 0.5
 #define MAX_VENDING_INPUT_AMOUNT 30
 /**
   * # vending record datum
@@ -1060,8 +1060,7 @@
 				price_to_use = round(price_to_use/length(dept_list))
 				for(var/datum/bank_account/department/D in dept_list)
 					if(D)
-						var/tax_percent = TAX_RATE / 100
-						var/after_tax = price_to_use * (1 - tax_percent)
+						var/after_tax = price_to_use * TAX_RATE
 						D.adjust_money(after_tax)
 						SSblackbox.record_feedback("amount", "vending_spent", price_to_use)
 						log_econ("[price_to_use] credits were inserted into [src] by [D.account_holder] to buy [R].")
