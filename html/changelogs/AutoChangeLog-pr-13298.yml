@@ -1,0 +1,7 @@
+author: rkz, arcanemusic, cacogen, tastyfish
+delete-after: true
+changes:
+  - rscadd: adds ability to split profits on sold items with the sales tagger
+  - rscadd: cleaned up delivery crate appearance code, crates will show notes scrawled
+      on them and destination tags better
+  - refactor: cleaned up some crate export code
