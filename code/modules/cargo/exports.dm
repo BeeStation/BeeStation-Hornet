@@ -76,7 +76,8 @@ then the player gets the profit from selling his own wasted time.
 	/// Unit name. Only used in "Received [total_amount] [name]s [message]." message
 	var/unit_name = ""
 	var/message = ""
-	var/cost = 100					// Cost of item, in cargo credits. Must not alow for infinite price dupes, see above.
+	// Cost of item, in cargo credits. Must not alow for infinite price dupes, see above.
+	var/cost = CARGO_CRATE_VALUE * 0.5
 	/// coefficient used in marginal price calculation that roughly corresponds to the inverse of price elasticity, or "quantity elasticity"
 	var/k_elasticity = 1/30
 	/// The multiplier of the amount sold shown on the report. Useful for exports, such as material, which costs are not strictly per single units sold.

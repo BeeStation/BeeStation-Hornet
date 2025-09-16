@@ -9,7 +9,7 @@
 	refill_canister = /obj/item/vending_refill/sovietsoda
 	resistance_flags = FIRE_PROOF
 	default_price = 1
-	extra_price = 1
+	extra_price = PAYCHECK_ASSISTANT //One credit for every state of FREEDOM
 	dept_req_for_free = NO_FREEBIES
 	light_color = COLOR_PALE_ORANGE
 

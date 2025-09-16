@@ -83,7 +83,7 @@
 	resistance_flags = NONE
 	armor_type = /datum/armor/shoes_galoshes
 	can_be_bloody = FALSE
-	custom_price = 100
+	custom_price = PAYCHECK_EASY * 3
 
 
 /datum/armor/shoes_galoshes

@@ -24,7 +24,7 @@
 
 /datum/bounty/reagent/simple_drink
 	name = "Simple Drink"
-	reward = 1500
+	reward = CARGO_CRATE_VALUE * 3
 
 /datum/bounty/reagent/simple_drink/New()
 	// Don't worry about making this comprehensive. It doesn't matter if some drinks are skipped.
@@ -80,7 +80,7 @@
 
 /datum/bounty/reagent/complex_drink
 	name = "Complex Drink"
-	reward = 4000
+	reward = CARGO_CRATE_VALUE * 8
 
 /datum/bounty/reagent/complex_drink/New()
 	// Don't worry about making this comprehensive. It doesn't matter if some drinks are skipped.
@@ -113,7 +113,7 @@
 
 /datum/bounty/reagent/chemical_simple
 	name = "Simple Chemical"
-	reward = 4000
+	reward = CARGO_CRATE_VALUE * 8
 	required_volume = 30
 
 /datum/bounty/reagent/chemical_simple/New()
@@ -151,7 +151,7 @@
 
 /datum/bounty/reagent/chemical_complex
 	name = "Rare Chemical"
-	reward = 6000
+	reward = CARGO_CRATE_VALUE * 12
 	required_volume = 20
 
 /datum/bounty/reagent/chemical_complex/New()

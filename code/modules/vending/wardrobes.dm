@@ -2,9 +2,10 @@
 	icon_state = "refill_clothes"
 
 /obj/machinery/vending/wardrobe
-	default_price = 50
-	extra_price = 75
+	default_price = PAYCHECK_ASSISTANT
+	extra_price = PAYCHECK_HARD
 	dept_req_for_free = NO_FREEBIES
+	input_display_header = "Returned Clothing"
 	light_mask = "wardrobe-light-mask"
 
 /obj/machinery/vending/wardrobe/sec_wardrobe
@@ -227,7 +228,7 @@
 					/obj/item/storage/backpack/security_borg_bag = 2,
 					/obj/item/storage/backpack/medical_borg_bag = 2)
 	refill_canister = /obj/item/vending_refill/wardrobe/robo_wardrobe
-	extra_price = 300
+	extra_price = PAYCHECK_HARD * 1.2
 	dept_req_for_free = ACCOUNT_SCI_BITFLAG
 
 
@@ -353,7 +354,7 @@
 	)
 	refill_canister = /obj/item/vending_refill/wardrobe/bar_wardrobe
 	dept_req_for_free = ACCOUNT_SRV_BITFLAG
-
+	extra_price = PAYCHECK_HARD
 
 /obj/item/vending_refill/wardrobe/bar_wardrobe
 	machine_name = "BarDrobe"
@@ -423,6 +424,8 @@
 		/obj/item/storage/backpack/janitor_borg_bag = 2,
 	)
 	refill_canister = /obj/item/vending_refill/wardrobe/jani_wardrobe
+	default_price = PAYCHECK_EASY
+	extra_price = PAYCHECK_HARD * 0.8
 	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 	light_color = COLOR_STRONG_MAGENTA
 
@@ -606,7 +609,7 @@
 	)
 	premium = list(/obj/item/clothing/head/flatcap = 1, /obj/item/clothing/suit/armor/vest/det_suit = 1, /obj/item/clothing/neck/tie/detective = 1)
 	refill_canister = /obj/item/vending_refill/wardrobe/det_wardrobe
-	extra_price = 350
+	extra_price = PAYCHECK_COMMAND * 1.75
 	dept_req_for_free = ACCOUNT_SEC_BITFLAG
 
 /obj/item/vending_refill/wardrobe/det_wardrobe

@@ -1,7 +1,7 @@
 /obj/item/flashlight
 	name = "flashlight"
 	desc = "A hand-held emergency light."
-	custom_price = 10
+	custom_price = PAYCHECK_EASY
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "flashlight"
 	item_state = "flashlight"
@@ -450,7 +450,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 /obj/item/flashlight/glowstick
 	name = "glowstick"
 	desc = "A military-grade glowstick."
-	custom_price = 10
+	custom_price = PAYCHECK_PRISONER
 	w_class = WEIGHT_CLASS_SMALL
 	light_range = 4
 	light_system = MOVABLE_LIGHT

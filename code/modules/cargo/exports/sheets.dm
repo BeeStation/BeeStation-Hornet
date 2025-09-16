@@ -85,10 +85,12 @@
 	export_types = list(/obj/item/stack/sheet/cotton/durathread)
 
 /datum/export/stack/cardboard
+	cost = CARGO_CRATE_VALUE * 0.01
 	message = "of cardboard"
 	export_types = list(/obj/item/stack/sheet/cardboard)
 
 /datum/export/stack/sandstone
+	cost = CARGO_CRATE_VALUE * 0.005
 	unit_name = "block"
 	message = "of sandstone"
 	export_types = list(/obj/item/stack/sheet/mineral/sandstone)
@@ -116,4 +118,3 @@
 	cost = CARGO_CRATE_VALUE * 2
 	message = "of alien alloy"
 	export_types = list(/obj/item/stack/sheet/mineral/abductor)
-
