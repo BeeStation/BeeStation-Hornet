@@ -1,9 +1,0 @@
-author: Nakalon
-delete-after: true
-changes:
-  - balance: Removed Department freebies from vendors. Everything will cost money
-      for everyone.
-  - balance: Cargo gets a cut of all items sold by vendors
-  - tweak: You can now buy items with departmental cards, embezzlement is no longer
-      stopped by code :)
-  - bugfix: Fixed Assistants seeing items as free, even though they aren't
