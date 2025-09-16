@@ -53,7 +53,6 @@
 #define ACCOUNT_ALL_NAME "United Station Budget" // for negative station trait - united budget
 
 // If a vending machine matches its department flag with your bank account's, it gets free.
-#define NO_FREEBIES 0 // used for a vendor selling nothing for free
 #define ACCOUNT_COM_BITFLAG (1<<0) // for Commander only vendor items (i.e. HoP cartridge vendor)
 #define ACCOUNT_CIV_BITFLAG (1<<1)
 #define ACCOUNT_SRV_BITFLAG (1<<2)

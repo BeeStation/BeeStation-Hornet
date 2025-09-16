@@ -13,4 +13,3 @@
 	contraband = list(/obj/item/assembly/health = 3)
 	default_price = 200
 	extra_price = 250
-	dept_req_for_free = ACCOUNT_SCI_BITFLAG
