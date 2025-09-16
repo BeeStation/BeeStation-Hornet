@@ -116,7 +116,6 @@
 
 	refill_canister = /obj/item/vending_refill/modularpc
 	default_price = PAYCHECK_MEDIUM
-	extra_price = PAYCHECK_HARD
 	dept_req_for_free = NO_FREEBIES
 
 /obj/item/vending_refill/modularpc

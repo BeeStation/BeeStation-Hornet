@@ -1,5 +1,5 @@
 /datum/bounty/item/botany
-	reward = CARGO_CRATE_VALUE * 10
+	reward = 5000
 	var/datum/bounty/item/botany/multiplier = 0 //adds bonus reward money; increased for higher tier or rare mutations
 	var/datum/bounty/item/botany/bonus_desc //for adding extra flavor text to bounty descriptions
 	var/datum/bounty/item/botany/foodtype = "meal" //same here
@@ -10,7 +10,7 @@
 
 	if (format_exception == FALSE)
 		description = "Central Command's head chef is looking to prepare a fine [foodtype] with [name]. [bonus_desc]"
-		reward += multiplier * (CARGO_CRATE_VALUE * 2)
+		reward += multiplier * 1000
 		required_count = rand(5, 10)
 
 /datum/bounty/item/botany/ambrosia_vulgaris

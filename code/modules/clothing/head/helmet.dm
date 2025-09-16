@@ -95,7 +95,7 @@
 	desc = "A reliable, blue tinted helmet reminding you that you <i>still</i> owe that engineer a beer."
 	icon_state = "blueshift"
 	item_state = "blueshift"
-	custom_premium_price = PAYCHECK_HARD
+	custom_premium_price = 450
 
 /obj/item/clothing/head/helmet/toggleable
 	///chat message when the visor is toggled down.

@@ -23,7 +23,6 @@
 	)
 	foodtypes = GRAIN | MEAT
 	crafting_complexity = FOOD_COMPLEXITY_2
-	custom_price = PAYCHECK_ASSISTANT * 0.8
 
 /obj/item/food/burger/plain/Initialize(mapload)
 	. = ..()
@@ -473,7 +472,6 @@
 	)
 	foodtypes = GRAIN | GROSS
 	crafting_complexity = FOOD_COMPLEXITY_3
-	custom_price = PAYCHECK_ASSISTANT * 0.8
 
 /obj/item/food/burger/baconburger
 	name = "bacon burger"
@@ -487,7 +485,6 @@
 	tastes = list("bacon" = 4, "bun" = 2)
 	foodtypes = GRAIN | MEAT
 	crafting_complexity = FOOD_COMPLEXITY_3
-	custom_premium_price = PAYCHECK_ASSISTANT * 1.6
 
 /obj/item/food/burger/empoweredburger
 	name = "empowered burger"

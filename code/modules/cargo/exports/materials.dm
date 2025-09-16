@@ -2,13 +2,13 @@
 	cost = 5 // Cost per MINERAL_MATERIAL_AMOUNT, which is 2000cm3 as of April 2016.
 	message = "cm3 of developer's tears. Please, report this on github"
 	amount_report_multiplier = MINERAL_MATERIAL_AMOUNT
-	var/datum/material/material_id = null
+	var/material_id = null
 	export_types = list(
 		/obj/item/stack/sheet/mineral,
 		/obj/item/stack/tile/mineral,
 		/obj/item/stack/ore,
 		/obj/item/coin
-	)
+		)
 // Yes, it's a base type containing export_types.
 // But it has no material_id, so any applies_to check will return false, and these types reduce amount of copypasta a lot
 
@@ -31,64 +31,64 @@
 
 // Materials. Nothing but plasma is really worth selling. Better leave it all to RnD and sell some plasma instead.
 
-/datum/export/material/plasma
-	cost = CARGO_CRATE_VALUE * 0.4
-	k_elasticity = 0
-	material_id = /datum/material/plasma
-	message = "cm3 of plasma"
-
 /datum/export/material/bananium
-	cost = CARGO_CRATE_VALUE * 2
+	cost = 1000
 	material_id = /datum/material/bananium
 	message = "cm3 of bananium"
 
 /datum/export/material/diamond
-	cost = CARGO_CRATE_VALUE
+	cost = 500
 	material_id = /datum/material/diamond
 	message = "cm3 of diamonds"
 
+/datum/export/material/plasma
+	cost = 200
+	k_elasticity = 0
+	material_id = /datum/material/plasma
+	message = "cm3 of plasma"
+
 /datum/export/material/uranium
-	cost = CARGO_CRATE_VALUE * 0.2
+	cost = 100
 	material_id = /datum/material/uranium
 	message = "cm3 of uranium"
 
 /datum/export/material/gold
-	cost = CARGO_CRATE_VALUE * 0.25
+	cost = 125
 	material_id = /datum/material/gold
 	message = "cm3 of gold"
 
 /datum/export/material/copper
-	cost = CARGO_CRATE_VALUE * 0.15
+	cost = 15
 	material_id = /datum/material/copper
 	message = "cm3 of copper"
 
 /datum/export/material/silver
-	cost = CARGO_CRATE_VALUE * 0.1
+	cost = 50
 	material_id = /datum/material/silver
 	message = "cm3 of silver"
 
 /datum/export/material/titanium
-	cost = CARGO_CRATE_VALUE * 0.25
+	cost = 125
 	material_id = /datum/material/titanium
 	message = "cm3 of titanium"
 
 /datum/export/material/adamantine
-	cost = CARGO_CRATE_VALUE
+	cost = 500
 	material_id = /datum/material/adamantine
 	message = "cm3 of adamantine"
 
 /datum/export/material/bscrystal
-	cost = CARGO_CRATE_VALUE * 0.6
+	cost = 300
 	message = "of bluespace crystals"
 	material_id = /datum/material/bluespace
 
 /datum/export/material/plastic
-	cost = CARGO_CRATE_VALUE * 0.05
+	cost = 25
 	message = "cm3 of plastic"
 	material_id = /datum/material/plastic
 
 /datum/export/material/iron
-	cost = CARGO_CRATE_VALUE * 0.01
+	cost = 5
 	message = "cm3 of metal"
 	material_id = /datum/material/iron
 	export_types = list(
@@ -96,7 +96,7 @@
 		/obj/item/stack/rods, /obj/item/stack/ore, /obj/item/coin)
 
 /datum/export/material/glass
-	cost = CARGO_CRATE_VALUE * 0.01
+	cost = 5
 	message = "cm3 of glass"
 	material_id = /datum/material/glass
 	export_types = list(/obj/item/stack/sheet/glass, /obj/item/stack/ore,

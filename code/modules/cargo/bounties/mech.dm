@@ -12,30 +12,30 @@
 
 /datum/bounty/item/mech/ripleymk2
 	name = "APLU MK-II \"Ripley\""
-	reward = CARGO_CRATE_VALUE * 26
+	reward = 13000
 	wanted_types = list(/obj/vehicle/sealed/mecha/working/ripley/mk2)
 
 /datum/bounty/item/mech/clarke
 	name = "Clarke"
-	reward = CARGO_CRATE_VALUE * 32
+	reward = 16000
 	wanted_types = list(/obj/vehicle/sealed/mecha/working/clarke)
 
 /datum/bounty/item/mech/odysseus
 	name = "Odysseus"
-	reward = CARGO_CRATE_VALUE * 22
+	reward = 11000
 	wanted_types = list(/obj/vehicle/sealed/mecha/medical/odysseus)
 
 /datum/bounty/item/mech/gygax
 	name = "Gygax"
-	reward = CARGO_CRATE_VALUE * 56
+	reward = 28000
 	wanted_types = list(/obj/vehicle/sealed/mecha/combat/gygax)
 
 /datum/bounty/item/mech/durand
 	name = "Durand"
-	reward = CARGO_CRATE_VALUE * 40
+	reward = 20000
 	wanted_types = list(/obj/vehicle/sealed/mecha/combat/durand)
 
 /datum/bounty/item/mech/phazon
 	name = "Phazon"
-	reward = CARGO_CRATE_VALUE * 100
+	reward = 100000
 	wanted_types = list(/obj/vehicle/sealed/mecha/combat/phazon)

@@ -8,7 +8,6 @@
 	possible_transfer_amounts = list(1, 2, 5)
 	volume = 5
 	reagent_flags = TRANSPARENT
-	custom_price = PAYCHECK_MEDIUM
 
 /obj/item/reagent_containers/dropper/afterattack(obj/target, mob/user , proximity)
 	. = ..()

@@ -22,7 +22,6 @@
 	throw_speed = 3
 	throw_range = 7
 	custom_materials = list(/datum/material/iron=200)
-	custom_price = PAYCHECK_HARD
 	var/mode = SCANNER_VERBOSE
 	var/scanmode = SCANMODE_HEALTH
 	var/advanced = FALSE

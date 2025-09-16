@@ -11,7 +11,6 @@
 	icon_dead = "xpod-dead"
 	icon_harvest = "xpod-harvest"
 	growthstages = 4
-	custom_premium_price = PAYCHECK_EASY * 2
 
 /obj/item/seeds/random/Initialize(mapload)
 	. = ..()
