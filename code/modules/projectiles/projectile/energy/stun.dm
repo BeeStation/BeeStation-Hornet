@@ -11,9 +11,9 @@
 	jitter = 20
 	hitsound = 'sound/weapons/taserhit.ogg'
 	range = 7
-	tracer_type = /obj/effect/projectile/tracer/stun
-	muzzle_type = /obj/effect/projectile/muzzle/stun
-	impact_type = /obj/effect/projectile/impact/stun
+	hitscan_tracer_type = /obj/effect/projectile/tracer/stun
+	hitscan_muzzle_type = /obj/effect/projectile/muzzle/stun
+	hitscan_impact_type = /obj/effect/projectile/impact/stun
 
 /obj/projectile/energy/electrode/on_hit(atom/target, blocked = FALSE)
 	. = ..()

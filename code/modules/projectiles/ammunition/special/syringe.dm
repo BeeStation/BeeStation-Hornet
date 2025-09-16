@@ -2,7 +2,6 @@
 	name = "syringe gun spring"
 	desc = "A high-power spring that throws syringes."
 	projectile_type = /obj/projectile/bullet/dart/syringe
-	firing_effect_type = null
 
 /obj/item/ammo_casing/syringegun/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
 	if(!BB)
@@ -34,7 +33,6 @@
 	name = "dart synthesiser"
 	desc = "A high-power spring, linked to an energy-based dart synthesiser."
 	projectile_type = /obj/projectile/bullet/dart
-	firing_effect_type = null
 
 /obj/item/ammo_casing/chemgun/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
 	if(!BB)
@@ -52,7 +50,6 @@
 	name = "bee synthesiser"
 	desc = "A beehive shoved into a gun."
 	projectile_type = /obj/projectile/bullet/dart/bee
-	firing_effect_type = null
 
 /obj/item/ammo_casing/bee/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
 	if(!BB)
@@ -70,7 +67,6 @@
 	name = "rigged syringe gun spring"
 	desc = "A high-power spring that throws DNA injectors."
 	projectile_type = /obj/projectile/bullet/dnainjector
-	firing_effect_type = null
 
 /obj/item/ammo_casing/dnainjector/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
 	if(!BB)

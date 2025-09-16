@@ -8,9 +8,9 @@
 	//Weakref to the thing that shot us
 	var/datum/weakref/gun
 	color = "#33CCFF"
-	tracer_type = /obj/effect/projectile/tracer/wormhole
-	impact_type = /obj/effect/projectile/impact/wormhole
-	muzzle_type = /obj/effect/projectile/muzzle/wormhole
+	hitscan_tracer_type = /obj/effect/projectile/tracer/wormhole
+	hitscan_impact_type = /obj/effect/projectile/impact/wormhole
+	hitscan_muzzle_type = /obj/effect/projectile/muzzle/wormhole
 	hitscan = TRUE
 	martial_arts_no_deflect = TRUE
 

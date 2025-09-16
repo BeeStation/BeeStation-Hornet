@@ -7,9 +7,9 @@
 	dismemberment = 20
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
 	var/mine_range = 3 //mines this many additional tiles of rock
-	tracer_type = /obj/effect/projectile/tracer/plasma_cutter
-	muzzle_type = /obj/effect/projectile/muzzle/plasma_cutter
-	impact_type = /obj/effect/projectile/impact/plasma_cutter
+	hitscan_tracer_type = /obj/effect/projectile/tracer/plasma_cutter
+	hitscan_muzzle_type = /obj/effect/projectile/muzzle/plasma_cutter
+	hitscan_impact_type = /obj/effect/projectile/impact/plasma_cutter
 
 /obj/projectile/plasma/on_hit(atom/target)
 	. = ..()

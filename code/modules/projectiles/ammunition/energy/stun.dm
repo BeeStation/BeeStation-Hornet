@@ -23,7 +23,8 @@
 
 
 /obj/item/ammo_casing/energy/disabler
-	projectile_type = /obj/projectile/beam/disabler
+	//projectile_type = /obj/projectile/beam/disabler
+	projectile_type = /obj/projectile/beam/colour/pink
 	select_name = "disable"
 	e_cost = 400 WATT
 	fire_sound = 'sound/weapons/taser2.ogg'

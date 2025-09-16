@@ -8,7 +8,7 @@
 	irradiate = 2500 //enough to knockdown and induce vomiting
 	speed = 0.4
 	hitsound = 'sound/weapons/emitter2.ogg'
-	impact_type = /obj/effect/projectile/impact/xray
+	hitscan_impact_type = /obj/effect/projectile/impact/xray
 	var/static/list/particle_colors = list(
 		"red" = "#FF0000",
 		"blue" = "#00FF00",

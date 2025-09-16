@@ -7,6 +7,7 @@
 	armour_penetration = 100
 	armor_flag = NONE
 	martial_arts_no_deflect = TRUE
+	muzzle_effect_type = /obj/effect/temp_visual/dir_setting/firing_effect/magic
 	/// determines what type of antimagic can block the spell projectile
 	var/antimagic_flags = MAGIC_RESISTANCE
 	/// determines the drain cost on the antimagic item

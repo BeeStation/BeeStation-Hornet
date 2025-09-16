@@ -386,8 +386,11 @@
 	var/firing_dir
 	if(BB.firer)
 		firing_dir = BB.firer.dir
-	if(!BB.suppressed && firing_effect_type)
-		new firing_effect_type(get_turf(src), firing_dir)
+	if(!BB.suppressed && BB.muzzle_effect_type)
+		var/obj/effect/temp_visual/muzzle = new BB.muzzle_effect_type(get_turf(src), firing_dir)
+		muzzle.color = BB.color
+		muzzle.set_light(l_color = BB.light_color)
+
 	var/modifiers = params2list(params)
 	BB.preparePixelProjectile(target, user, modifiers, spread)
 	BB.fire(gun? gun.lastangle : null, null)
@@ -491,7 +494,7 @@
 /obj/projectile/beam/beam_rifle/hitscan
 	icon_state = ""
 	hitscan = TRUE
-	tracer_type = /obj/effect/projectile/tracer/tracer/beam_rifle
+	hitscan_tracer_type = /obj/effect/projectile/tracer/tracer/beam_rifle
 	var/constant_tracer = FALSE
 
 /obj/projectile/beam/beam_rifle/hitscan/generate_hitscan_tracers(cleanup = TRUE, duration = 5, impacting = TRUE, highlander)
@@ -501,17 +504,17 @@
 	if(highlander && istype(gun))
 		QDEL_LIST(gun.current_tracers)
 		for(var/datum/point/p in beam_segments)
-			gun.current_tracers += generate_tracer_between_points(p, beam_segments[p], tracer_type, color, 0, hitscan_light_range, hitscan_light_color_override, hitscan_light_intensity)
+			gun.current_tracers += generate_tracer_between_points(p, beam_segments[p], hitscan_tracer_type, color, 0, hitscan_light_range, hitscan_light_color_override, hitscan_light_intensity)
 	else
 		for(var/datum/point/p in beam_segments)
-			generate_tracer_between_points(p, beam_segments[p], tracer_type, color, duration, hitscan_light_range, hitscan_light_color_override, hitscan_light_intensity)
+			generate_tracer_between_points(p, beam_segments[p], hitscan_tracer_type, color, duration, hitscan_light_range, hitscan_light_color_override, hitscan_light_intensity)
 	if(cleanup)
 		QDEL_LIST(beam_segments)
 		beam_segments = null
 		QDEL_NULL(beam_index)
 
 /obj/projectile/beam/beam_rifle/hitscan/aiming_beam
-	tracer_type = /obj/effect/projectile/tracer/tracer/aiming
+	hitscan_tracer_type = /obj/effect/projectile/tracer/tracer/aiming
 	name = "aiming beam"
 	hitsound = null
 	hitsound_wall = null

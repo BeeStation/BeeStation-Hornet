@@ -9,6 +9,7 @@
 	armor_flag = LASER
 	eyeblur = 2
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
+	muzzle_effect_type = /obj/effect/temp_visual/dir_setting/firing_effect/energy
 	light_system = MOVABLE_LIGHT
 	light_range = 2
 	light_power = 1
@@ -19,17 +20,17 @@
 	reflectable = REFLECT_NORMAL
 
 /obj/projectile/beam/laser
-	tracer_type = /obj/effect/projectile/tracer/laser
-	muzzle_type = /obj/effect/projectile/muzzle/laser
-	impact_type = /obj/effect/projectile/impact/laser
+	hitscan_tracer_type = /obj/effect/projectile/tracer/laser
+	hitscan_muzzle_type = /obj/effect/projectile/muzzle/laser
+	hitscan_impact_type = /obj/effect/projectile/impact/laser
 
 /obj/projectile/beam/laser/heavylaser
 	name = "heavy laser"
 	icon_state = "heavylaser"
 	damage = 40
-	tracer_type = /obj/effect/projectile/tracer/heavy_laser
-	muzzle_type = /obj/effect/projectile/muzzle/heavy_laser
-	impact_type = /obj/effect/projectile/impact/heavy_laser
+	hitscan_tracer_type = /obj/effect/projectile/tracer/heavy_laser
+	hitscan_muzzle_type = /obj/effect/projectile/muzzle/heavy_laser
+	hitscan_impact_type = /obj/effect/projectile/impact/heavy_laser
 
 /obj/projectile/beam/laser/on_hit(atom/target, blocked = FALSE)
 	. = ..()
@@ -37,7 +38,11 @@
 		var/mob/living/carbon/M = target
 		M.IgniteMob()
 	else if(isturf(target))
-		impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser/wall
+		// If the target is a turf change impact effect, if its not meant to be colourable give it default red
+		if(istype(impact_effect_type, /obj/effect/temp_visual/impact_effect/color))
+			impact_effect_type = /obj/effect/temp_visual/impact_effect/color/wall
+		else
+			impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser/wall
 
 /obj/projectile/beam/laser/lesslethal
 	damage = 11
@@ -76,9 +81,9 @@
 
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
 	light_color = LIGHT_COLOR_GREEN
-	tracer_type = /obj/effect/projectile/tracer/xray
-	muzzle_type = /obj/effect/projectile/muzzle/xray
-	impact_type = /obj/effect/projectile/impact/xray
+	hitscan_tracer_type = /obj/effect/projectile/tracer/xray
+	hitscan_muzzle_type = /obj/effect/projectile/muzzle/xray
+	hitscan_impact_type = /obj/effect/projectile/impact/xray
 
 /obj/projectile/beam/disabler
 	name = "disabler beam"
@@ -90,9 +95,9 @@
 	eyeblur = 0
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_BLUE
-	tracer_type = /obj/effect/projectile/tracer/disabler
-	muzzle_type = /obj/effect/projectile/muzzle/disabler
-	impact_type = /obj/effect/projectile/impact/disabler
+	hitscan_tracer_type = /obj/effect/projectile/tracer/disabler
+	hitscan_muzzle_type = /obj/effect/projectile/muzzle/disabler
+	hitscan_impact_type = /obj/effect/projectile/impact/disabler
 
 /obj/projectile/beam/disabler/pass_glass ///this is for the malf ai turret upgrade xdxdxd
 	name = "beam-disabler"
@@ -106,9 +111,9 @@
 	damage = 50
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_BLUE
-	tracer_type = /obj/effect/projectile/tracer/pulse
-	muzzle_type = /obj/effect/projectile/muzzle/pulse
-	impact_type = /obj/effect/projectile/impact/pulse
+	hitscan_tracer_type = /obj/effect/projectile/tracer/pulse
+	hitscan_muzzle_type = /obj/effect/projectile/muzzle/pulse
+	hitscan_impact_type = /obj/effect/projectile/impact/pulse
 
 /obj/projectile/beam/pulse/on_hit(atom/target, blocked = FALSE)
 	. = ..()
@@ -139,9 +144,9 @@
 	damage = 25
 	light_color = LIGHT_COLOR_GREEN
 	hitscan = TRUE
-	muzzle_type = /obj/effect/projectile/muzzle/laser/emitter
-	tracer_type = /obj/effect/projectile/tracer/laser/emitter
-	impact_type = /obj/effect/projectile/impact/laser/emitter
+	hitscan_muzzle_type = /obj/effect/projectile/muzzle/laser/emitter
+	hitscan_tracer_type = /obj/effect/projectile/tracer/laser/emitter
+	hitscan_impact_type = /obj/effect/projectile/impact/laser/emitter
 	impact_effect_type = null
 	hitscan_light_intensity = 3
 	hitscan_light_range = 0.75
@@ -164,9 +169,9 @@
 	//Will actually be 10 when fired from an emitter due to additional damage provided by stock parts
 	damage = 5
 	light_color = COLOR_DARK_ORANGE
-	muzzle_type = /obj/effect/projectile/muzzle/laser/emitter/drill
-	tracer_type = /obj/effect/projectile/tracer/laser/emitter/drill
-	impact_type = /obj/effect/projectile/impact/laser/emitter/drill
+	hitscan_muzzle_type = /obj/effect/projectile/muzzle/laser/emitter/drill
+	hitscan_tracer_type = /obj/effect/projectile/tracer/laser/emitter/drill
+	hitscan_impact_type = /obj/effect/projectile/impact/laser/emitter/drill
 	hitscan_light_color_override = COLOR_DARK_ORANGE
 	muzzle_flash_color_override = COLOR_DARK_ORANGE
 	impact_light_color_override = COLOR_DARK_ORANGE
@@ -204,9 +209,9 @@
 	suit_types = list(/obj/item/clothing/suit/bluetag)
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
 	light_color = LIGHT_COLOR_RED
-	tracer_type = /obj/effect/projectile/tracer/laser
-	muzzle_type = /obj/effect/projectile/muzzle/laser
-	impact_type = /obj/effect/projectile/impact/laser
+	hitscan_tracer_type = /obj/effect/projectile/tracer/laser
+	hitscan_muzzle_type = /obj/effect/projectile/muzzle/laser
+	hitscan_impact_type = /obj/effect/projectile/impact/laser
 
 /obj/projectile/beam/lasertag/redtag/hitscan
 	hitscan = TRUE
@@ -214,9 +219,9 @@
 /obj/projectile/beam/lasertag/bluetag
 	icon_state = "bluelaser"
 	suit_types = list(/obj/item/clothing/suit/redtag)
-	tracer_type = /obj/effect/projectile/tracer/laser/blue
-	muzzle_type = /obj/effect/projectile/muzzle/laser/blue
-	impact_type = /obj/effect/projectile/impact/laser/blue
+	hitscan_tracer_type = /obj/effect/projectile/tracer/laser/blue
+	hitscan_muzzle_type = /obj/effect/projectile/muzzle/laser/blue
+	hitscan_impact_type = /obj/effect/projectile/impact/laser/blue
 
 /obj/projectile/beam/lasertag/bluetag/hitscan
 	hitscan = TRUE
@@ -245,3 +250,57 @@
 		var/mob/living/carbon/M = target
 		M.visible_message(span_danger("[M] explodes into a shower of gibs!"))
 		M.gib()
+
+/obj/projectile/beam/colour
+	icon_state = "normal_laser_white"
+	var/core_overlay = "normal_laser_core"
+	color = COLOR_WHITE	// Colour will also be applied to every "type" var you see below us
+	light_color = LIGHT_COLOR_WHITE	// Same with light color!
+	// This one is important for normal shots
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/color
+	muzzle_effect_type = /obj/effect/temp_visual/dir_setting/firing_effect/color
+	// These ones are important for hitscaner shots
+	hitscan_tracer_type = /obj/effect/projectile/tracer/color
+	hitscan_muzzle_type = /obj/effect/projectile/muzzle/color
+	hitscan_impact_type = /obj/effect/projectile/impact/color
+
+/obj/projectile/beam/colour/update_overlays()
+	. = ..()
+	var/mutable_appearance/ma = mutable_appearance(icon, "normal_laser_core")
+	ma.appearance_flags |= RESET_COLOR
+	. += ma
+
+/obj/effect/projectile/impact/color
+	icon_state = "laser_impact_white"
+
+/obj/effect/projectile/muzzle/color
+	icon_state = "laser_muzzle_white"
+
+/obj/effect/projectile/tracer/color
+	icon_state = "laser_beam_white"
+
+/obj/effect/temp_visual/impact_effect/color
+	icon_state = "laser_impact_white"
+	duration = 4
+
+/obj/effect/temp_visual/dir_setting/firing_effect/color
+	icon_state = "firing_effect_white"
+	duration = 3
+	light_range = 1
+	light_power = 1
+	light_color = LIGHT_COLOR_WHITE
+	light_flags = LIGHT_NO_LUMCOUNT
+
+/obj/effect/temp_visual/impact_effect/color/wall
+	icon_state = "laser_impact_wall_white"
+	duration = 10
+
+/obj/projectile/beam/colour/disabler
+	name = "disabler beam"
+	damage = 28
+	damage_type = STAMINA
+	armor_flag = ENERGY
+	hitsound = 'sound/weapons/tap.ogg'
+	eyeblur = 0
+	color = COLOR_LIGHT_PINK
+	light_color = LIGHT_COLOR_PINK

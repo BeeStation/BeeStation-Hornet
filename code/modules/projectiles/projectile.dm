@@ -102,9 +102,16 @@
 	var/turf/last_angle_set_hitscan_store /// Last turf an angle was changed in for hitscan projectiles.
 	var/datum/point/beam_index
 	var/turf/hitscan_last	//last turf touched during hitscanning.
-	var/tracer_type
-	var/muzzle_type
-	var/impact_type
+	/// Hitscan Tracer Effect (ONLY WORKS IF HITSCAN = TRUE)
+	var/obj/effect/projectile/tracer/hitscan_tracer_type
+	/// Hitscan Muzzle Effect (ONLY WORKS IF HITSCAN = TRUE)
+	var/obj/effect/projectile/muzzle/hitscan_muzzle_type
+	/// Hitscan Impact Effect (ONLY WORKS IF HITSCAN = TRUE)
+	var/obj/effect/projectile/impact/hitscan_impact_type
+	/// Impact effect for projectiles that have HITSCAN = FALSE
+	var/obj/effect/temp_visual/impact_effect_type
+	/// The muzzle effect if projectile has HITSCAN = FALSE
+	var/obj/effect/temp_visual/muzzle_effect_type = /obj/effect/temp_visual/dir_setting/firing_effect
 
 	//Fancy hitscan lighting effects!
 	var/hitscan_light_intensity = 1.5
@@ -151,7 +158,6 @@
 	var/stamina = 0
 	var/jitter = 0
 	var/dismemberment = 0 //The higher the number, the greater the bonus to dismembering. 0 will not dismember at all.
-	var/impact_effect_type //what type of impact effect to show when hitting something
 	var/log_override = FALSE //is this type spammed enough to not log? (KAs)
 	var/martial_arts_no_deflect = FALSE
 
@@ -222,7 +228,9 @@
 	if(!nodamage && (damage_type == BRUTE || damage_type == BURN) && iswallturf(target_loca) && prob(75))
 		var/turf/closed/wall/W = target_loca
 		if(impact_effect_type && !hitscan)
-			new impact_effect_type(target_loca, hitx, hity)
+			var/obj/effect/temp_visual/impact = new impact_effect_type(target_loca, hitx, hity)
+			if(color)
+				impact.color = color
 
 		W.add_dent(WALL_DENT_SHOT, hitx, hity)
 
@@ -230,7 +238,9 @@
 
 	if(!isliving(target))
 		if(impact_effect_type && !hitscan)
-			new impact_effect_type(target_loca, hitx, hity)
+			var/obj/effect/temp_visual/impact = new impact_effect_type(target_loca, hitx, hity)
+			if(color)
+				impact.color = color
 		if(isturf(target) && hitsound_wall)
 			var/volume = clamp(vol_by_damage() + 20, 0, 100)
 			if(suppressed)
@@ -258,7 +268,9 @@
 				if(prob(33))
 					L.add_splatter_floor(target_loca)
 		else if(impact_effect_type && !hitscan)
-			new impact_effect_type(target_loca, hitx, hity)
+			var/obj/effect/temp_visual/impact = new impact_effect_type(target_loca, hitx, hity)
+			if(color)
+				impact.color = color
 
 		var/organ_hit_text = ""
 		var/limb_hit = L.check_limb_hit(def_zone)//to get the correct message info.
@@ -653,6 +665,7 @@
 		pixel_move(1, FALSE)
 
 /obj/projectile/proc/fire(angle, atom/direct_target)
+	update_appearance()
 	LAZYINITLIST(impacted)
 	if(fired_from)
 		SEND_SIGNAL(fired_from, COMSIG_PROJECTILE_BEFORE_FIRE, src, original)
@@ -938,13 +951,13 @@
 /obj/projectile/proc/generate_hitscan_tracers(cleanup = TRUE, duration = 3, impacting = TRUE)
 	if(!length(beam_segments))
 		return
-	if(tracer_type)
+	if(hitscan_tracer_type)
 		var/tempref = REF(src)
 		for(var/datum/point/p in beam_segments)
-			generate_tracer_between_points(p, beam_segments[p], tracer_type, color, duration, hitscan_light_range, hitscan_light_color_override, hitscan_light_intensity, tempref)
-	if(muzzle_type && duration > 0)
+			generate_tracer_between_points(p, beam_segments[p], hitscan_tracer_type, color, duration, hitscan_light_range, hitscan_light_color_override, hitscan_light_intensity, tempref)
+	if(hitscan_muzzle_type && duration > 0)
 		var/datum/point/p = beam_segments[1]
-		var/atom/movable/thing = new muzzle_type
+		var/atom/movable/thing = new hitscan_muzzle_type
 		p.move_atom_to_src(thing)
 		var/matrix/M = new
 		M.Turn(original_angle)
@@ -952,9 +965,9 @@
 		thing.color = color
 		thing.set_light(muzzle_flash_range, muzzle_flash_intensity, muzzle_flash_color_override? muzzle_flash_color_override : color)
 		QDEL_IN(thing, duration)
-	if(impacting && impact_type && duration > 0)
+	if(impacting && hitscan_impact_type && duration > 0)
 		var/datum/point/p = beam_segments[beam_segments[beam_segments.len]]
-		var/atom/movable/thing = new impact_type
+		var/atom/movable/thing = new hitscan_impact_type
 		p.move_atom_to_src(thing)
 		var/matrix/M = new
 		M.Turn(Angle)

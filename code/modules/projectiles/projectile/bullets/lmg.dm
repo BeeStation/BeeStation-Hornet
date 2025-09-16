@@ -2,6 +2,7 @@
 
 /obj/projectile/bullet/c3d
 	damage = 20
+	muzzle_effect_type = /obj/effect/temp_visual/dir_setting/firing_effect
 
 // Mech LMG
 

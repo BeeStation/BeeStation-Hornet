@@ -22,9 +22,9 @@
 
 /obj/projectile/beam/laser/anti_creature
 	damage = 15
-	tracer_type = /obj/effect/projectile/tracer/laser
-	muzzle_type = /obj/effect/projectile/muzzle/laser
-	impact_type = /obj/effect/projectile/impact/laser
+	hitscan_tracer_type = /obj/effect/projectile/tracer/laser
+	hitscan_muzzle_type = /obj/effect/projectile/muzzle/laser
+	hitscan_impact_type = /obj/effect/projectile/impact/laser
 
 /obj/projectile/beam/laser/anti_creature/prehit_pierce(atom/target)
 	if(!iscarbon(target) && !issilicon(target))
@@ -41,9 +41,9 @@
 /obj/projectile/beam/laser/cutting
 	damage = 5
 	icon_state = "plasmacutter"
-	tracer_type = /obj/effect/projectile/tracer/heavy_laser
-	muzzle_type = /obj/effect/projectile/muzzle/heavy_laser
-	impact_type = /obj/effect/projectile/impact/heavy_laser
+	hitscan_tracer_type = /obj/effect/projectile/tracer/heavy_laser
+	hitscan_muzzle_type = /obj/effect/projectile/muzzle/heavy_laser
+	hitscan_impact_type = /obj/effect/projectile/impact/heavy_laser
 
 /obj/projectile/beam/laser/cutting/on_hit(atom/target, blocked)
 	damage = initial(damage)
@@ -63,9 +63,9 @@
 
 /obj/projectile/beam/laser/exploration_kill
 	damage = 30
-	tracer_type = /obj/effect/projectile/tracer/laser
-	muzzle_type = /obj/effect/projectile/muzzle/laser
-	impact_type = /obj/effect/projectile/impact/laser
+	hitscan_tracer_type = /obj/effect/projectile/tracer/laser
+	hitscan_muzzle_type = /obj/effect/projectile/muzzle/laser
+	hitscan_impact_type = /obj/effect/projectile/impact/laser
 
 /obj/projectile/beam/laser/exploration_kill/on_hit(atom/target, blocked)
 	damage = initial(damage)
@@ -87,9 +87,9 @@
 /obj/projectile/beam/laser/exploration_destroy
 	damage = 20
 	icon_state = "heavylaser"
-	tracer_type = /obj/effect/projectile/tracer/heavy_laser
-	muzzle_type = /obj/effect/projectile/muzzle/heavy_laser
-	impact_type = /obj/effect/projectile/impact/heavy_laser
+	hitscan_tracer_type = /obj/effect/projectile/tracer/heavy_laser
+	hitscan_muzzle_type = /obj/effect/projectile/muzzle/heavy_laser
+	hitscan_impact_type = /obj/effect/projectile/impact/heavy_laser
 
 /obj/projectile/beam/laser/exploration_destroy/on_hit(atom/target, blocked)
 	damage = initial(damage)
