@@ -134,9 +134,7 @@
 	var/interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_SET_MACHINE
 	var/fair_market_price = 69
 	var/market_verb = "Customer"
-	/// [Bitflag] the machine will be free when a bank holder has a specific bitflag
-	var/dept_req_for_free = NO_FREEBIES
-	/// [Bitflag] the machine sends its profit to the corresponding department budget. if this is not specified, this will follow `dept_req_for_free` value.
+	/// [Bitflag] the machine sends its profit to the corresponding department budget.
 	var/seller_department = ACCOUNT_CAR_BITFLAG // Your money goes to cargo, and you will like it.
 
 	var/clickvol = 40	// sound volume played on successful click

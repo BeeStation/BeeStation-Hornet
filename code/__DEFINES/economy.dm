@@ -62,7 +62,6 @@
 #define ACCOUNT_MED_BITFLAG (1<<6)
 #define ACCOUNT_SEC_BITFLAG (1<<7)
 #define ACCOUNT_VIP_BITFLAG (1<<8) // for VIP only vendor items. currently not used.
-#define NO_FREEBIES (1<<9) // used for a vendor selling nothing for free
 // this should use the same bitflag values in `\_DEFINES\jobs.dm` to match.
 // It's true that bitflags shouldn't be separated in two DEFINES if these are same, but just in case the system can be devided, it's remained separated.
 

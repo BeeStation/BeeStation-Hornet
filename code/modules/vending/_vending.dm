@@ -845,7 +845,6 @@
 	var/list/data = list()
 	data["onstation"] = onstation
 	data["all_products_free"] = all_products_free
-	data["department_bitflag"] = dept_req_for_free
 	data["product_records"] = list()
 	data["displayed_currency_icon"] = displayed_currency_icon
 	data["displayed_currency_name"] = displayed_currency_name
@@ -918,11 +917,9 @@
 			.["user"]["name"] = H.name
 		.["user"]["cash"] = H.get_accessible_cash()
 		.["user"]["job"] = "No Job"
-		.["user"]["department_bitflag"] = 0
 		var/datum/record/crew/R = find_record(card?.registered_account?.account_holder, GLOB.manifest.general)
 		if(card?.registered_account?.account_job)
 			.["user"]["job"] = card.registered_account.account_job.title
-			.["user"]["department_bitflag"] = card.registered_account.active_departments
 		if(R)
 			.["user"]["job"] = R.rank
 	.["stock"] = list()
@@ -1043,8 +1040,6 @@
 			vend_ready = TRUE
 			return
 		var/datum/bank_account/account = C.registered_account
-		if(account.account_job && (account.active_departments & dept_req_for_free))
-			price_to_use = 0
 		if(coin_records.Find(R) || hidden_records.Find(R))
 			price_to_use = R.custom_premium_price ? R.custom_premium_price : extra_price
 		if(LAZYLEN(R.returned_products))
