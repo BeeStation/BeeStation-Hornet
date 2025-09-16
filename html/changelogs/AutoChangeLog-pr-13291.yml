@@ -1,5 +1,0 @@
-author: mrmanlikesbt, san7890, the wonderful mappers at /tg/station
-delete-after: true
-changes:
-  - rscadd: Remapped MetaStation Service and Atmos
-  - bugfix: Fixed airlock pumps

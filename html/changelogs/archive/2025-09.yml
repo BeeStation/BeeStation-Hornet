@@ -283,3 +283,6 @@
         plastitanium glass - x4'
     - rscdel: Removed the goonstation folder
     - refactor: Refactored SSsun and solar panel code.
+  mrmanlikesbt, san7890, the wonderful mappers at /tg/station:
+  - rscadd: Remapped MetaStation Service and Atmos
+  - bugfix: Fixed airlock pumps
