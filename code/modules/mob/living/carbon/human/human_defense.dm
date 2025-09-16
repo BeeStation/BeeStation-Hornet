@@ -127,7 +127,7 @@
 		if(!isclothing(I))
 			if(I.hit_reaction(src, AM, attack_text, damage, attack_type))
 				I.on_block(src, AM, attack_text, damage, attack_type)
-				return 1
+				return TRUE
 	if(wear_suit?.hit_reaction(src, AM, attack_text, damage, attack_type))
 		return TRUE
 	if(w_uniform?.hit_reaction(src, AM, attack_text, damage, attack_type))
@@ -268,13 +268,12 @@
 			to_chat(user, span_danger("You disarm [src]!"))
 		else
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, TRUE, -1)
-			Knockdown(20)
 			log_combat(user, src, "tackled")
 			var/obj/item/bodypart/affecting = get_bodypart(ran_zone(user.get_combat_bodyzone(src)))
 			if(!affecting)
 				affecting = get_bodypart(BODY_ZONE_CHEST)
 			var/armor_block = run_armor_check(affecting, MELEE,"","",10)
-			apply_damage(30, STAMINA, affecting, armor_block)
+			apply_damage(45, STAMINA, affecting, armor_block)
 			visible_message(span_danger("[user] tackles [src] down!"), \
 					span_userdanger("[user] tackles you down!"), span_hear("You hear aggressive shuffling followed by a loud thud!"), null, user)
 			to_chat(user, span_danger("You tackle [src] down!"))
@@ -816,12 +815,6 @@
 
 	for(var/obj/item/I in torn_items)
 		I.take_damage(damage_amount, damage_type, damage_flag, 0)
-
-/mob/living/carbon/human/proc/blockbreak()
-	to_chat(src, span_userdanger("Your block was broken!"))
-	ADD_TRAIT(src, TRAIT_NOBLOCK, type)
-	stoplag(50)
-	REMOVE_TRAIT(src, TRAIT_NOBLOCK, type)
 
 /mob/living/carbon/human/attack_animal(mob/living/simple_animal/M)
 	if(M.melee_damage != 0 && !HAS_TRAIT(M, TRAIT_PACIFISM) && check_shields(M, M.melee_damage, "the [M.name]", MELEE_ATTACK, M.armour_penetration))

@@ -8,7 +8,7 @@ AUTH_CLIENT_VERB(looc, msg as text)
 	set category = "OOC"
 
 	if(GLOB.say_disabled)    //This is here to try to identify lag problems
-		to_chat(usr, span_danger(" Speech is currently admin-disabled."))
+		to_chat(usr, span_danger("Speech is currently admin-disabled."))
 		return
 
 	if(!mob?.ckey)
@@ -28,31 +28,31 @@ AUTH_CLIENT_VERB(looc, msg as text)
 		to_chat(src, span_danger("You have been banned from OOC and LOOC."))
 		return
 
+	var/failed = FALSE
+
 	if(!holder)
+		failed = TRUE
 		if(!CONFIG_GET(flag/looc_enabled))
 			to_chat(src, span_danger("LOOC is disabled."))
-			return
-		if(!GLOB.dooc_allowed && (mob.stat == DEAD))
-			to_chat(usr, span_danger("LOOC for dead mobs has been turned off."))
-			return
-		if(prefs.muted & MUTE_OOC)
+		else if(prefs.muted & MUTE_OOC)
 			to_chat(src, span_danger("You cannot use LOOC (muted)."))
-			return
-		if(handle_spam_prevention(msg, MUTE_OOC))
-			return
-		if(findtext(msg, "byond://"))
+		else if(handle_spam_prevention(msg, MUTE_OOC))
+			failed = TRUE
+		else if(findtext(msg, "byond://"))
 			to_chat(src, span_bolddanger("Advertising other servers is not allowed."))
 			log_admin("[key_name(src)] has attempted to advertise in LOOC: [msg]")
-			return
-		if(mob.stat)
+		else if(mob.stat)
 			to_chat(src, span_danger("You cannot salt in LOOC while unconscious or dead."))
-			return
-		if(isdead(mob))
+		else if(isdead(mob))
 			to_chat(src, span_danger("You cannot use LOOC while ghosting."))
-			return
-		if(OOC_FILTER_CHECK(raw_msg))
+		else if(OOC_FILTER_CHECK(raw_msg))
 			to_chat(src, span_warning("That message contained a word prohibited in OOC chat! Consider reviewing the server rules.\n") + "<span replaceRegex='show_filtered_ooc_chat'>\"[raw_msg]\"</span>")
-			return
+		else
+			failed = FALSE
+
+	if (failed)
+		mob.log_talk(raw_msg, LOG_OOC, tag="LOOC (Failed)")
+		return
 
 	msg = emoji_parse(msg)
 
@@ -69,6 +69,14 @@ AUTH_CLIENT_VERB(looc, msg as text)
 		if(!client.mob || !client.prefs.read_player_preference(/datum/preference/toggle/chat_ooc) || (client in GLOB.admins))
 			continue
 
+		// Ghosts are not allowed to use this
+		if (isdead(client.mob))
+			continue
+
+		// Must be conscious to hear LOOC
+		if (client.mob.stat != CONSCIOUS)
+			continue
+
 		if(in_view[get_turf(client.mob)])
 			if(client.prefs.read_player_preference(/datum/preference/toggle/enable_runechat_looc))
 				targets |= client.mob
@@ -81,7 +89,9 @@ AUTH_CLIENT_VERB(looc, msg as text)
 
 		if(in_view[get_turf(admin.mob)] && admin.prefs.read_player_preference(/datum/preference/toggle/enable_runechat_looc))
 			targets |= admin.mob
-		to_chat(admin, span_looc("[span_prefix("LOOC:")] <EM>[ADMIN_LOOKUPFLW(mob)]:</EM> [span_message(msg)]"), avoid_highlighting = (admin == src))
+			to_chat(admin, span_looc("[span_prefix("LOOC (NEARBY):")] <EM>[ADMIN_LOOKUPFLW(mob)]:</EM> [span_message(msg)]"), avoid_highlighting = (admin == src))
+		else
+			to_chat(admin, span_looc("[span_prefix("LOOC:")] <EM>[ADMIN_LOOKUPFLW(mob)]:</EM> [span_message(msg)]"), avoid_highlighting = (admin == src))
 
 	// Create runechat message
 	if(length(targets))

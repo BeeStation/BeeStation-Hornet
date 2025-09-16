@@ -4,20 +4,21 @@
  * @license MIT
  */
 
-import { Button, Stack, Section } from 'tgui/components';
+import { useDispatch, useLocalState } from 'tgui/backend';
+import { Button, Section, Stack } from 'tgui/components';
+import { Box, Divider, DraggableControl } from 'tgui/components';
 import { Pane } from 'tgui/layouts';
+import { logger } from 'tgui/logging';
+
 import { NowPlayingWidget, useAudio } from './audio';
-import { StatTabs } from './stat';
 import { ChatPanel, ChatTabs } from './chat';
 import { useGame } from './game';
 import { Notifications } from './Notifications';
 import { PingIndicator } from './ping';
 import { ReconnectButtons } from './reconnect';
 import { SettingsPanel, useSettings } from './settings';
-import { useLocalState, useDispatch } from 'tgui/backend';
-import { Box, Divider, DraggableControl } from 'tgui/components';
 import { updateSettings } from './settings/actions';
-import { logger } from 'tgui/logging';
+import { StatTabs } from './stat';
 
 export const Panel = (props) => {
   const audio = useAudio();
@@ -37,7 +38,7 @@ export const Panel = (props) => {
     dispatch(
       updateSettings({
         statSize: 40,
-      })
+      }),
     );
     return;
   }
@@ -47,7 +48,7 @@ export const Panel = (props) => {
     dispatch(
       updateSettings({
         statSize: Math.max(Math.min(value, 90), 10),
-      })
+      }),
     );
   };
   return (
@@ -64,10 +65,16 @@ export const Panel = (props) => {
         step={1}
         stepPixelSize={9}
         onDrag={(e, value) => resizeFunction(value)}
-        updateRate={5}>
+        updateRate={5}
+      >
         {(control) => (
           <Box onMouseDown={control.handleDragStart} height="10px">
-            <Box position="relative" height="4px" backgroundColor="grey" top="3px">
+            <Box
+              position="relative"
+              height="4px"
+              backgroundColor="grey"
+              top="3px"
+            >
               <Divider />
               {control.inputElement}
             </Box>
@@ -98,7 +105,9 @@ export const Panel = (props) => {
                 <Button
                   icon={settings.visible ? 'times' : 'cog'}
                   selected={settings.visible}
-                  tooltip={settings.visible ? 'Close settings' : 'Open settings'}
+                  tooltip={
+                    settings.visible ? 'Close settings' : 'Open settings'
+                  }
                   tooltipPosition="bottom-start"
                   onClick={() => settings.toggle()}
                 />
@@ -126,13 +135,14 @@ export const Panel = (props) => {
             <Notifications>
               {game.connectionLostAt && (
                 <Notifications.Item rightSlot={<ReconnectButtons />}>
-                  You are either AFK, experiencing lag or the connection has closed.
+                  You are either AFK, experiencing lag or the connection has
+                  closed.
                 </Notifications.Item>
               )}
               {game.roundRestartedAt && (
                 <Notifications.Item>
-                  The connection has been closed because the server is restarting. Please wait while you automatically
-                  reconnect.
+                  The connection has been closed because the server is
+                  restarting. Please wait while you automatically reconnect.
                 </Notifications.Item>
               )}
             </Notifications>

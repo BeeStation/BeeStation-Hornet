@@ -1467,8 +1467,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(!outfit_important_for_life)
 		return
 
-	outfit_important_for_life= new()
-	outfit_important_for_life.equip(human_to_equip)
+	var/datum/outfit/outfit = new outfit_important_for_life()
+	outfit.equip(human_to_equip)
+	qdel(outfit)
 
 ////////
 //LIFE//
@@ -1670,9 +1671,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 //////////////////
 
 /datum/species/proc/spec_updatehealth(mob/living/carbon/human/H)
-	return
-
-/datum/species/proc/spec_fully_heal(mob/living/carbon/human/H)
 	return
 
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
@@ -2349,9 +2347,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	return TRUE
 
 /datum/species/proc/ExtinguishMob(mob/living/carbon/human/H)
-	return
-
-/datum/species/proc/spec_revival(mob/living/carbon/human/H)
 	return
 
 

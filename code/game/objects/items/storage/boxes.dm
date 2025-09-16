@@ -923,6 +923,7 @@
 /obj/item/storage/box/lethalshot
 	name = "box of lethal shotgun shots"
 	desc = "A standard box full of lethal shots, designed for riot shotguns."
+	icon_state = "lethalshot_box"
 	illustration = null
 
 /obj/item/storage/box/lethalshot/PopulateContents()
@@ -1349,8 +1350,7 @@
 
 /obj/item/storage/box/tablet4dummies/PopulateContents()
 	new /obj/item/modular_computer/tablet(src)
-	new /obj/item/computer_hardware/battery(src)
-	new /obj/item/stock_parts/cell/computer/nano(src)
+	new /obj/item/computer_hardware/battery/tiny(src)
 	new /obj/item/computer_hardware/processor_unit/small(src)
 	new /obj/item/computer_hardware/hard_drive/micro(src)
 	new /obj/item/computer_hardware/identifier(src)

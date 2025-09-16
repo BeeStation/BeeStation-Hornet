@@ -58,6 +58,7 @@
 	verb_say = "beeps"
 	verb_ask = "beeps"
 	verb_exclaim = "beeps"
+	idle_power_usage = 100 WATT
 	max_integrity = 300
 	integrity_failure = 0.33
 	armor_type = /datum/armor/machinery_vending
@@ -1076,7 +1077,7 @@
 		say(vend_reply)
 		purchase_message_cooldown = world.time + 5 SECONDS
 		last_shopper = REF(usr)
-	use_power(5)
+	use_power(500 WATT)
 	if(icon_vend) //Show the vending animation if needed
 		flick(icon_vend,src)
 	playsound(src, 'sound/machines/machine_vend.ogg', 50, TRUE, extrarange = -3)
@@ -1329,7 +1330,7 @@
 						else
 							to_chat(usr, span_warning("[capitalize(S.name)] falls onto the floor!"))
 						loaded_items--
-						use_power(5)
+						use_power(500 WATT)
 						vend_ready = TRUE
 						return TRUE
 					//var/datum/bank_account/account = C?.registered_account
@@ -1368,7 +1369,7 @@
 		to_chat(usr, span_warning("[capitalize(bought_item.name)] falls onto the floor!"))
 	playsound(src, 'sound/machines/machine_vend.ogg', 50, TRUE, extrarange = -3)
 	loaded_items--
-	use_power(5)
+	use_power(500 WATT)
 	if(last_shopper != REF(usr) || COOLDOWN_FINISHED(src, purchase_message_cooldown))
 		say("Thank you for buying local and purchasing [bought_item]!")
 		COOLDOWN_START(src, purchase_message_cooldown, (5 SECONDS))

@@ -1,7 +1,20 @@
 import { classes } from 'common/react';
 import { createSearch } from 'common/string';
+
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Dimmer, Flex, Icon, Input, Section, Table, Tabs, NoticeBox, NumberInput } from '../components';
+import {
+  Box,
+  Button,
+  Dimmer,
+  Flex,
+  Icon,
+  Input,
+  NoticeBox,
+  NumberInput,
+  Section,
+  Table,
+  Tabs,
+} from '../components';
 import { formatMoney } from '../format';
 import { Window } from '../layouts';
 
@@ -30,7 +43,10 @@ export const BiogeneratorContent = (props) => {
   const { act, data } = useBackend();
   const { biomass, can_process, categories = [] } = data;
   const [searchText, setSearchText] = useLocalState('searchText', '');
-  const [selectedCategory, setSelectedCategory] = useLocalState('category', categories[0]?.name);
+  const [selectedCategory, setSelectedCategory] = useLocalState(
+    'category',
+    categories[0]?.name,
+  );
   const testSearch = createSearch(searchText, (item) => {
     return item.name;
   });
@@ -55,11 +71,21 @@ export const BiogeneratorContent = (props) => {
       buttons={
         <>
           Search
-          <Input value={searchText} onInput={(e, value) => setSearchText(value)} mx={1} />
+          <Input
+            value={searchText}
+            onInput={(e, value) => setSearchText(value)}
+            mx={1}
+          />
           <Button icon="eject" content="Eject" onClick={() => act('detach')} />
-          <Button icon="cog" content="Activate" disabled={!can_process} onClick={() => act('activate')} />
+          <Button
+            icon="cog"
+            content="Activate"
+            disabled={!can_process}
+            onClick={() => act('activate')}
+          />
         </>
-      }>
+      }
+    >
       <Flex>
         {searchText.length === 0 && (
           <Flex.Item>
@@ -68,7 +94,8 @@ export const BiogeneratorContent = (props) => {
                 <Tabs.Tab
                   key={category.name}
                   selected={category.name === selectedCategory}
-                  onClick={() => setSelectedCategory(category.name)}>
+                  onClick={() => setSelectedCategory(category.name)}
+                >
                   {category.name} ({category.items?.length || 0})
                 </Tabs.Tab>
               ))}
@@ -77,7 +104,11 @@ export const BiogeneratorContent = (props) => {
         )}
         <Flex.Item grow={1} basis={0}>
           {items.length === 0 && (
-            <NoticeBox>{searchText.length === 0 ? 'No items in this category.' : 'No results found.'}</NoticeBox>
+            <NoticeBox>
+              {searchText.length === 0
+                ? 'No items in this category.'
+                : 'No results found.'}
+            </NoticeBox>
           )}
           <Table>
             <ItemList biomass={biomass} items={items} />
@@ -96,7 +127,8 @@ const ItemList = (props) => {
   const items = props.items.map((item) => {
     const [amount, setAmount] = useLocalState('amount' + item.name, 1);
     const notSameItem = hoveredItem && hoveredItem.name !== item.name;
-    const notEnoughHovered = props.biomass - hoveredCost * hoveredItem.amount < item.cost * amount;
+    const notEnoughHovered =
+      props.biomass - hoveredCost * hoveredItem.amount < item.cost * amount;
     const disabledDueToHovered = notSameItem && notEnoughHovered;
     const disabled = props.biomass < item.cost * amount || disabledDueToHovered;
     return {

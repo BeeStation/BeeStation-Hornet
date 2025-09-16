@@ -197,7 +197,7 @@
 
 	if(ismob(the_target)) //Target is in godmode, ignore it.
 		var/mob/M = the_target
-		if(M.status_flags & GODMODE)
+		if(HAS_TRAIT(M, TRAIT_GODMODE))
 			return FALSE
 
 	if(see_invisible < the_target.invisibility)//Target's invisible to us, forget it
@@ -623,3 +623,9 @@
 		robust_searching = TRUE // enables friends list check
 		return
 	robust_searching = initial(robust_searching)
+/mob/living/simple_animal/hostile/befriend(mob/living/new_friend)
+	. = ..()
+	if (!.)
+		return
+	friends += new_friend
+	faction = new_friend.faction.Copy()

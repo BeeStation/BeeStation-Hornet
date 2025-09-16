@@ -3421,31 +3421,6 @@
 	dir = 1
 	},
 /area/crew_quarters/fitness/recreation)
-"bCc" = (
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	alpha = 180;
-	dir = 1
-	},
-/obj/machinery/camera/directional/west,
-/obj/machinery/button/door{
-	id = "armory";
-	name = "Armory Shutter Toggle";
-	pixel_x = -32;
-	pixel_y = 1;
-	req_access_txt = "3"
-	},
-/obj/structure/bed/dogbed/walter,
-/mob/living/basic/pet/dog/bullterrier/walter{
-	density = 0;
-	dir = 1
-	},
-/obj/item/stack/sheet/bone{
-	pixel_x = 6;
-	pixel_y = -6
-	},
-/obj/structure/disposalpipe/segment,
-/turf/open/floor/iron/dark,
-/area/security/warden)
 "bCu" = (
 /obj/effect/spawner/room/fivexthree,
 /turf/open/floor/plating,
@@ -3727,19 +3702,6 @@
 	dir = 8
 	},
 /area/hallway/primary/central)
-"bIO" = (
-/obj/machinery/power/apc/auto_name/directional/north{
-	pixel_y = 24
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/structure/toilet{
-	dir = 4;
-	pixel_y = 2
-	},
-/turf/open/floor/prison/dark,
-/area/security/prison/shielded)
 "bJi" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
@@ -5756,21 +5718,6 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron/dark,
 /area/hallway/primary/central)
-"cTf" = (
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "Vacant Office APC";
-	pixel_y = 24
-	},
-/obj/effect/mapping_helpers/apc/discharged,
-/obj/structure/light_construct{
-	dir = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/turf/open/floor/wood,
-/area/library/abandoned)
 "cTs" = (
 /obj/structure/curtain/directional{
 	color = "#ACD1E9";
@@ -6514,18 +6461,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/qm)
-"dkq" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/frame/computer{
-	anchored = 1
-	},
-/obj/machinery/power/apc/auto_name/directional/north,
-/obj/effect/mapping_helpers/apc/discharged,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/turf/open/floor/iron,
-/area/science/research/abandoned)
 "dkt" = (
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
@@ -7988,6 +7923,20 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
+"ecL" = (
+/obj/machinery/power/apc/auto_name/directional/north{
+	pixel_y = 24
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/structure/toilet{
+	dir = 4;
+	pixel_y = 2
+	},
+/obj/effect/landmark/start/prisoner,
+/turf/open/floor/prison/dark,
+/area/security/prison/shielded)
 "edK" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /mob/living/simple_animal/pet/hamster/vector{
@@ -12765,6 +12714,15 @@
 /obj/machinery/light,
 /turf/open/floor/wood,
 /area/chapel/office)
+"gAf" = (
+/obj/structure/bed{
+	dir = 8
+	},
+/obj/item/bedsheet/ian,
+/obj/machinery/newscaster/directional/east,
+/obj/effect/landmark/start/prisoner,
+/turf/open/floor/prison/dark,
+/area/security/prison/shielded)
 "gAm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -20002,14 +19960,6 @@
 	},
 /turf/open/floor/plating,
 /area/medical/apothecary)
-"kqR" = (
-/obj/structure/bed{
-	dir = 8
-	},
-/obj/item/bedsheet/ian,
-/obj/machinery/newscaster/directional/east,
-/turf/open/floor/prison/dark,
-/area/security/prison/shielded)
 "krm" = (
 /obj/structure/railing{
 	dir = 10
@@ -29584,16 +29534,6 @@
 	dir = 1
 	},
 /area/crew_quarters/fitness/recreation)
-"pzG" = (
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	alpha = 180;
-	dir = 1
-	},
-/obj/machinery/vending/deputy,
-/turf/open/floor/iron/dark/side{
-	dir = 4
-	},
-/area/hallway/primary/fore)
 "pzQ" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance/two,
@@ -34678,6 +34618,21 @@
 	},
 /turf/open/floor/iron/dark,
 /area/chapel/main)
+"sjd" = (
+/obj/machinery/power/apc{
+	dir = 1;
+	name = "Vacant Office APC";
+	pixel_y = 24
+	},
+/obj/effect/mapping_helpers/apc/no_charge,
+/obj/structure/light_construct{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/turf/open/floor/wood,
+/area/library/abandoned)
 "sjW" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/lavendergrass,
@@ -34739,6 +34694,16 @@
 	},
 /turf/open/floor/iron,
 /area/engine/engineering)
+"slS" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	alpha = 180;
+	dir = 1
+	},
+/obj/machinery/vending/deputy,
+/turf/open/floor/iron/dark/side{
+	dir = 4
+	},
+/area/hallway/primary/fore)
 "slT" = (
 /obj/machinery/vending/cigarette,
 /obj/machinery/airalarm/directional/south,
@@ -38923,6 +38888,31 @@
 /obj/effect/spawner/structure/window/reinforced/tinted,
 /turf/open/floor/plating,
 /area/medical/morgue)
+"uxD" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	alpha = 180;
+	dir = 1
+	},
+/obj/machinery/camera/directional/west,
+/obj/machinery/button/door{
+	id = "armory";
+	name = "Armory Shutter Toggle";
+	pixel_x = -32;
+	pixel_y = 1;
+	req_access_txt = "3"
+	},
+/obj/structure/bed/dogbed/tyson,
+/mob/living/basic/pet/dog/bullterrier/tyson{
+	density = 0;
+	dir = 1
+	},
+/obj/item/stack/sheet/bone{
+	pixel_x = 6;
+	pixel_y = -6
+	},
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/iron/dark,
+/area/security/warden)
 "uxK" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/two,
@@ -40976,6 +40966,18 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/science/central)
+"vtA" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/frame/computer{
+	anchored = 1
+	},
+/obj/machinery/power/apc/auto_name/directional/north,
+/obj/effect/mapping_helpers/apc/no_charge,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/turf/open/floor/iron,
+/area/science/research/abandoned)
 "vun" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -42828,19 +42830,6 @@
 /obj/structure/flora/ash/tall_shroom,
 /turf/open/floor/plating/asteroid/planetary,
 /area/engine/atmos)
-"wBs" = (
-/mob/living/basic/pet/dog/corgi/Ian{
-	density = 0;
-	dir = 1;
-	pixel_y = 4
-	},
-/obj/item/toy/plush/ian,
-/obj/structure/bed/dogbed/ian,
-/obj/item/storage/secure/safe{
-	pixel_x = 38
-	},
-/turf/open/floor/carpet/blue,
-/area/crew_quarters/heads/hop)
 "wBT" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance/two,
@@ -45306,6 +45295,19 @@
 	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
+"xNH" = (
+/mob/living/basic/pet/dog/corgi/ian{
+	density = 0;
+	dir = 1;
+	pixel_y = 4
+	},
+/obj/item/toy/plush/ian,
+/obj/structure/bed/dogbed/ian,
+/obj/item/storage/secure/safe{
+	pixel_x = 38
+	},
+/turf/open/floor/carpet/blue,
+/area/crew_quarters/heads/hop)
 "xNK" = (
 /obj/structure/railing/corner{
 	dir = 1
@@ -62863,7 +62865,7 @@ btX
 btX
 btX
 btX
-cTf
+sjd
 lUc
 qqB
 jiw
@@ -65969,7 +65971,7 @@ ggs
 lYA
 lYA
 exD
-dkq
+vtA
 kPH
 oyA
 edK
@@ -120955,7 +120957,7 @@ kWe
 lbA
 vIE
 xYT
-bIO
+ecL
 bgS
 wEb
 uNJ
@@ -121469,7 +121471,7 @@ lKm
 lyZ
 iwF
 xYT
-kqR
+gAf
 bgS
 bam
 hcA
@@ -190103,7 +190105,7 @@ vLu
 dCK
 uGq
 xQY
-bCc
+uxD
 yjC
 omk
 wHN
@@ -191137,7 +191139,7 @@ uAn
 fnY
 sQp
 tLg
-pzG
+slS
 rgL
 nYV
 mMC
@@ -194993,7 +194995,7 @@ dur
 qDp
 uQG
 rXP
-wBs
+xNH
 qah
 qYU
 srJ
@@ -262865,7 +262867,7 @@ nek
 oeq
 oeq
 oeq
-oeq
+sTs
 sTs
 sTs
 sTs
