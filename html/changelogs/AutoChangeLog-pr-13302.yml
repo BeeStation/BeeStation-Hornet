@@ -1,0 +1,4 @@
+author: lord scrubling
+delete-after: true
+changes:
+  - bugfix: advanced atmos resin is no longer killed early when spreading in hot air
