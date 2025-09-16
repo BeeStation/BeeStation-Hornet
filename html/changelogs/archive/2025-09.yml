@@ -271,6 +271,8 @@
   - tweak: You can now buy items with departmental cards, embezzlement is no longer
       stopped by code :)
   - bugfix: Fixed Assistants seeing items as free, even though they aren't
+  THEREALDOOOC213:
+  - rscadd: fat people now break tables when slammed onto them
   ? mrmanlikesbt, MrPerson, cacogen, MMMiracles, Tastyfish, XyzzyThePretender, LemonInTheDark,
     MTandi, Lufferly, BobDABuilder9001, Sealed101
   : - rscadd: Added new solar panel sprites. These dynamically track the sun instead
