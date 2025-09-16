@@ -26,34 +26,9 @@
 		if(R.name != "blobspawn")
 			if(prob(35))
 				if(isspaceturf(R.loc))
-					new /mob/living/simple_animal/chicken/rabbit/easter/space(R.loc)
+					new /mob/living/simple_animal/rabbit/easter/space(R.loc)
 				else
-					new /mob/living/simple_animal/chicken/rabbit/easter(R.loc)
-
-/mob/living/simple_animal/chicken/rabbit/easter
-	desc = "The hippiest hop around."
-	icon_state = "rabbit_white"
-	icon_living = "rabbit_white"
-	icon_dead = "rabbit_white_dead"
-	speak = list("Hop into Easter!","Come get your eggs!","Prizes for everyone!")
-	speak_language = /datum/language/metalanguage // everyone should understand happy easter
-	emote_hear = list("hops.")
-	emote_see = list("hops around","bounces up and down")
-	egg_type = /obj/item/surprise_egg
-	food_type = /obj/item/food/grown/carrot
-	eggsleft = 10
-	eggsFertile = FALSE
-	layMessage = list("hides an egg.","scampers around suspiciously.","begins making a huge racket.","begins shuffling.")
-
-/mob/living/simple_animal/chicken/rabbit/easter/space
-	icon_prefix = "s_rabbit"
-	icon_state = "s_rabbit_white"
-	icon_living = "s_rabbit_white"
-	icon_dead = "s_rabbit_white_dead"
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
-	maxbodytemp = 1500
-	unsuitable_atmos_damage = 0
+					new /mob/living/simple_animal/rabbit(R.loc)
 
 /obj/item/storage/basket
 	name = "basket"

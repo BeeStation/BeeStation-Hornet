@@ -18780,7 +18780,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/mob/living/basic/pet/dog/corgi/Ian{
+/mob/living/basic/pet/dog/corgi/ian{
 	dir = 8
 	},
 /obj/effect/turf_decal/siding/wood{
@@ -50415,8 +50415,8 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/structure/bed/dogbed/walter,
-/mob/living/basic/pet/dog/bullterrier/walter,
+/obj/structure/bed/dogbed/tyson,
+/mob/living/basic/pet/dog/bullterrier/tyson,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},

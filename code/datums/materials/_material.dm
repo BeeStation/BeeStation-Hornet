@@ -21,6 +21,8 @@ Simple datum which is instanced once per type and is used for every object of sa
 	var/list/categories = list()
 	///The type of sheet this material creates. This should be replaced as soon as possible by greyscale sheets
 	var/obj/item/stack/sheet_type
+	///What type of shard the material will shatter to
+	var/obj/item/shard_type
 	///This is a modifier for force, and resembles the strength of the material
 	var/strength_modifier = 1
 	///This is a modifier for integrity, and resembles the strength of the material

@@ -32,7 +32,7 @@ SUBSYSTEM_DEF(sunlight)
 			SEND_SIGNAL(src, COMSIG_SOL_RISE_TICK)
 			if(!issued_XP && time_til_cycle <= 15)
 				issued_XP = TRUE
-				SEND_SIGNAL(src, COMSIG_SOL_RANKUP_VAMPIRES)
+				SEND_SIGNAL(src, COMSIG_SOL_NEAR_END)
 		if(time_til_cycle <= 1)
 			sunlight_active = FALSE
 			issued_XP = FALSE
