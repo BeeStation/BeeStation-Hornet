@@ -318,6 +318,7 @@
 		/obj/item/t_scanner,
 		/obj/item/construction/rcd,
 		/obj/item/pipe_dispenser,
+		/obj/item/extinguisher,
 	)
 	variants = list(
 		"atmospheric" = list(

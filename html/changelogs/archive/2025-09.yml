@@ -265,6 +265,14 @@
 2025-09-16:
   Nakalon:
   - code_imp: Withdraw Funds now uses TGUI
+  - balance: Removed Department freebies from vendors. Everything will cost money
+      for everyone.
+  - balance: Cargo gets a cut of all items sold by vendors
+  - tweak: You can now buy items with departmental cards, embezzlement is no longer
+      stopped by code :)
+  - bugfix: Fixed Assistants seeing items as free, even though they aren't
+  THEREALDOOOC213:
+  - rscadd: fat people now break tables when slammed onto them
   ? mrmanlikesbt, MrPerson, cacogen, MMMiracles, Tastyfish, XyzzyThePretender, LemonInTheDark,
     MTandi, Lufferly, BobDABuilder9001, Sealed101
   : - rscadd: Added new solar panel sprites. These dynamically track the sun instead
@@ -275,3 +283,6 @@
         plastitanium glass - x4'
     - rscdel: Removed the goonstation folder
     - refactor: Refactored SSsun and solar panel code.
+  mrmanlikesbt, san7890, the wonderful mappers at /tg/station:
+  - rscadd: Remapped MetaStation Service and Atmos
+  - bugfix: Fixed airlock pumps
