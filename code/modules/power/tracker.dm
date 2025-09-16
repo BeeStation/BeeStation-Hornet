@@ -38,7 +38,6 @@
 /obj/effect/overlay/tracker
 	vis_flags = VIS_INHERIT_ID | VIS_INHERIT_ICON
 	appearance_flags = TILE_BOUND
-	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 	layer = FLY_LAYER
 
 /obj/machinery/power/tracker/proc/add_panel_overlay(icon_state, z_offset)
