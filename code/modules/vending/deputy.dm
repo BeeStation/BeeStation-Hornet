@@ -97,11 +97,6 @@
 			vend_reply = "APS thanks you for enlisting in our volunteer program!"
 
 			if(..())
-				if(!card?.registered_account)
-					playsound(src, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
-					flick(icon_deny,src)
-					return
-
 				playsound(src, 'sound/effects/startup.ogg', 100, FALSE)
 				radio.talk_into(src, "[buyer], [get_area(src)], has just enlisted for Auri Private Security’s volunteer deputy program! APS thanks you for your service, and reminds all crew members: **Unauthorized enforcement is strictly prohibited!** Remember; Compliance is a team effort!")
 
