@@ -42,7 +42,7 @@
 
 	var/turf/open/T = get_turf(src)
 	var/obj/effect/hotspot/hotspot = (locate(/obj/effect/hotspot) in T)
-	if(hotspot && istype(T) && T.air)
+	if(hotspot && T.air)
 		qdel(hotspot)
 		var/datum/gas_mixture/G = T.air
 		var/plas_amt = min(30,GET_MOLES(/datum/gas/plasma, G)) //Absorb some plasma
