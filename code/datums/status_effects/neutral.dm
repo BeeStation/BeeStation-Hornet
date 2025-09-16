@@ -320,6 +320,8 @@
 	bodypart = owner.get_bodypart(bodyzone_target)
 	if (!bodypart)
 		qdel(src)
+		return
+	bodypart.increase_injury(STAMINA, 0.1)
 
 /datum/status_effect/tourniquet/on_remove()
 	. = ..()
@@ -329,24 +331,6 @@
 	if (!bodypart)
 		return
 	REMOVE_TRAIT(bodypart, TRAIT_BODYPART_NO_STAMINA_REGENERATION, "[type]")
-	// After 6 minutes lactic acid builds up at a rate of 100 every 4 minutes
-	var/lactic_buildup = (duration_applied - (6 MINUTES)) * (100 / (4 MINUTES))
-	if (lactic_buildup > 0)
-		owner.take_overall_damage(stamina = lactic_buildup)
-		message = "As the tourniquet is removed, the lactic acid pooled in your [bodypart.plaintext_zone] rush through your body."
-	// After 8 minutes lactic acid builds up at a rate of 100 every 4 minutes
-	var/toxin_buildup = (duration_applied - (6 MINUTES)) * (100 / (4 MINUTES))
-	if (toxin_buildup > 0)
-		owner.adjustToxLoss(max(toxin_buildup, 50), forced = TRUE)
-		message = "As the tourniquet is removed, the built up toxins in your [bodypart.plaintext_zone] rush through your body."
-	// After 12 minutes of application, removing it will give us a heart attack
-	if (duration_applied > 12 MINUTES)
-		var/mob/living/carbon/human/human_owner = owner
-		if (istype(human_owner))
-			human_owner.set_heartattack(TRUE)
-		message = "As the tourniquet is removed, the built up toxins in your [bodypart.plaintext_zone] rush to your heart!"
-	if (message)
-		to_chat(bodypart.owner, span_userdanger(message))
 
 /datum/status_effect/tourniquet/Destroy()
 	. = ..()
