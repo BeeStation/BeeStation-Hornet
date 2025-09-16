@@ -266,18 +266,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table/wood/bar)
 		payees[AM] += H.credits
 		counted_money += H
 
-	if(ishuman(AM))
-		var/mob/living/carbon/human/H = AM
-		if(H.get_bank_account())
-			var/datum/bank_account/account = H.get_bank_account()
+	else
+		var/mob/living/L = AM
+		var/datum/bank_account/account = L.get_bank_account()
 
-			if(account.account_balance < threshold)
-				payees[AM] += account.account_balance
-				account.adjust_money(-account.account_balance)
-			else
-				var/money_owed = threshold - payees[AM]
-				payees[AM] += money_owed
-				account.adjust_money(-money_owed)
+		if(account.account_balance < threshold)
+			payees[AM] += account.account_balance
+			account.adjust_money(-account.account_balance)
+		else
+			var/money_owed = threshold - payees[AM]
+			payees[AM] += money_owed
+			account.adjust_money(-money_owed)
 
 	if(payees[AM] >= threshold)
 		for(var/obj/I in counted_money)

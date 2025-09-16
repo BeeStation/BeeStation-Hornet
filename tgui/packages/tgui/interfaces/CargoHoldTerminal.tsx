@@ -1,3 +1,5 @@
+import { BooleanLike } from 'common/react';
+
 import { useBackend } from '../backend';
 import {
   AnimatedNumber,
@@ -8,9 +10,17 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 
+type Data = {
+  points: number;
+  pad: string;
+  sending: BooleanLike;
+  status_report: string;
+};
+
 export const CargoHoldTerminal = (props) => {
-  const { act, data } = useBackend();
+  const { act, data } = useBackend<Data>();
   const { points, pad, sending, status_report } = data;
+
   return (
     <Window width={600} height={230}>
       <Window.Content scrollable>

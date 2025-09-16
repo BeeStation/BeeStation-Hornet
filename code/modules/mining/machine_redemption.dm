@@ -268,8 +268,10 @@
 				to_chat(usr, span_warning("No points to claim."))
 				return
 
-			var/mob/living/user = usr
-			var/obj/item/card/id/user_id_card = user.get_idcard(TRUE)
+			var/obj/item/card/id/user_id_card
+			if(isliving(usr))
+				var/mob/living/L = usr
+				user_id_card = L.get_idcard(TRUE)
 			if(!user_id_card)
 				to_chat(usr, span_warning("No ID detected."))
 				return
@@ -341,8 +343,10 @@
 				return
 			var/alloy_id = params["id"]
 			var/datum/design/alloy = stored_research.isDesignResearchedID(alloy_id)
-			var/mob/living/user = usr
-			var/obj/item/card/id/user_id_card = user.get_idcard(TRUE)
+			var/obj/item/card/id/user_id_card
+			if(isliving(usr))
+				var/mob/living/L = usr
+				user_id_card = L.get_idcard(TRUE)
 			if((check_access(user_id_card) || allowed(usr)) && alloy)
 				var/smelt_amount = can_smelt_alloy(alloy)
 				var/desired = 0

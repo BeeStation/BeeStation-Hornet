@@ -3,9 +3,6 @@
 	var/shipped_volume = 0
 	var/datum/reagent/wanted_reagent
 
-/datum/bounty/reagent/completion_string()
-	return {"[round(shipped_volume)]/[required_volume] Units"}
-
 /datum/bounty/reagent/can_claim()
 	return ..() && shipped_volume >= required_volume
 
@@ -24,12 +21,6 @@
 	shipped_volume += O.reagents.get_reagent_amount(wanted_reagent.type)
 	if(shipped_volume > required_volume)
 		shipped_volume = required_volume
-
-/datum/bounty/reagent/compatible_with(other_bounty)
-	if(!istype(other_bounty, /datum/bounty/reagent))
-		return TRUE
-	var/datum/bounty/reagent/R = other_bounty
-	return wanted_reagent.type != R.wanted_reagent.type
 
 /datum/bounty/reagent/simple_drink
 	name = "Simple Drink"

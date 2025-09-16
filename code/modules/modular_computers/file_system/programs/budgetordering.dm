@@ -188,7 +188,7 @@
 				rank = "Silicon"
 
 			var/datum/bank_account/account
-			if(self_paid && ishuman(usr))
+			if(self_paid)
 				var/obj/item/card/id/id_card = get_buyer_id(usr)
 				if(!istype(id_card))
 					computer.say("No ID card detected.")

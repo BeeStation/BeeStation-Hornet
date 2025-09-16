@@ -26,7 +26,7 @@ then the player gets the profit from selling his own wasted time.
 	var/list/total_value = list()		//export instance => total value of sold objects
 
 // external_report works as "transaction" object, pass same one in if you're doing more than one export in single go
-/proc/export_item_and_contents(atom/movable/AM, allowed_categories = EXPORT_CARGO, apply_elastic = TRUE, delete_unsold = TRUE, dry_run=FALSE, datum/export_report/external_report)
+/proc/export_item_and_contents(atom/movable/AM, apply_elastic = TRUE, delete_unsold = TRUE, dry_run=FALSE, datum/export_report/external_report)
 	if(!GLOB.exports_list.len)
 		setupExports()
 
@@ -42,10 +42,10 @@ then the player gets the profit from selling his own wasted time.
 	for(var/atom/movable/thing as anything in reverse_range(contents))
 		var/sold = FALSE
 		for(var/datum/export/export as anything in GLOB.exports_list)
-			if(export.applies_to(thing, allowed_categories, apply_elastic))
+			if(export.applies_to(thing, apply_elastic))
 				if(!dry_run && (SEND_SIGNAL(thing, COMSIG_ITEM_PRE_EXPORT) & COMPONENT_STOP_EXPORT))
 					break
-				sold = export.sell_object(thing, report, dry_run, allowed_categories, apply_elastic)
+				sold = export.sell_object(thing, report, dry_run, apply_elastic)
 				report.exported_atoms += " [thing.name]"
 				break
 
@@ -62,7 +62,7 @@ then the player gets the profit from selling his own wasted time.
 
 	return report
 
-/proc/export_contents(atom/movable/AM, allowed_categories = EXPORT_CARGO, apply_elastic = TRUE, delete_unsold = TRUE, dry_run=FALSE, datum/export_report/external_report)
+/proc/export_contents(atom/movable/AM, apply_elastic = TRUE, delete_unsold = TRUE, dry_run=FALSE, datum/export_report/external_report)
 	if(!GLOB.exports_list.len)
 		setupExports()
 
@@ -81,8 +81,8 @@ then the player gets the profit from selling his own wasted time.
 		for(var/datum/export/E in GLOB.exports_list)
 			if(!E)
 				continue
-			if(E.applies_to(thing, allowed_categories, apply_elastic))
-				sold = E.sell_object(thing, report, dry_run, allowed_categories , apply_elastic)
+			if(E.applies_to(thing, apply_elastic))
+				sold = E.sell_object(thing, report, dry_run, apply_elastic)
 				report.exported_atoms += " [thing.name]"
 				break
 
@@ -115,9 +115,6 @@ then the player gets the profit from selling his own wasted time.
 	//cost includes elasticity, this does not.
 	var/init_cost
 
-	//All these need to be present in export call parameter for this to apply.
-	var/export_category = EXPORT_CARGO
-
 /datum/export/New()
 	..()
 	START_PROCESSING(SSprocessing, src)
@@ -136,7 +133,7 @@ then the player gets the profit from selling his own wasted time.
 		cost = init_cost
 
 // Checks the cost. 0 cost items are skipped in export.
-/datum/export/proc/get_cost(obj/O, allowed_categories = NONE, apply_elastic = TRUE)
+/datum/export/proc/get_cost(obj/O, apply_elastic = TRUE)
 	var/amount = get_amount(O)
 	if(apply_elastic)
 		if(k_elasticity!=0)
@@ -152,14 +149,12 @@ then the player gets the profit from selling his own wasted time.
 	return 1
 
 // Checks if the item is fit for export datum.
-/datum/export/proc/applies_to(obj/O, allowed_categories = NONE, apply_elastic = TRUE)
-	if((allowed_categories & export_category) != export_category)
-		return FALSE
+/datum/export/proc/applies_to(obj/O, apply_elastic = TRUE)
 	if(!include_subtypes && !(O.type in export_types))
 		return FALSE
 	if(include_subtypes && (!is_type_in_typecache(O, export_types) || is_type_in_typecache(O, exclude_types)))
 		return FALSE
-	if(!get_cost(O, allowed_categories , apply_elastic))
+	if(!get_cost(O, apply_elastic))
 		return FALSE
 	if(O.flags_1 & HOLOGRAM_1)
 		return FALSE
@@ -173,9 +168,9 @@ then the player gets the profit from selling his own wasted time.
   * get_cost, get_amount and applies_to do not neccesary mean a successful sale.
   *
   */
-/datum/export/proc/sell_object(obj/sold_item, datum/export_report/report, dry_run = TRUE, allowed_categories = EXPORT_CARGO , apply_elastic = TRUE)
+/datum/export/proc/sell_object(obj/sold_item, datum/export_report/report, dry_run = TRUE, apply_elastic = TRUE)
 	///This is the value of the object, as derived from export datums.
-	var/export_value = get_cost(sold_item, allowed_categories , apply_elastic)
+	var/export_value = get_cost(sold_item, apply_elastic)
 	///Quantity of the object in question.
 	var/export_amount = get_amount(sold_item)
 

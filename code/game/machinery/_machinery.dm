@@ -613,32 +613,31 @@
 	if(!SSeconomy.full_ancap)
 		return TRUE
 	if(occupant && !state_open)
-		if(ishuman(occupant))
-			var/mob/living/carbon/human/H = occupant
-			var/obj/item/card/id/I = H.get_idcard(TRUE)
-			if(I)
-				var/datum/bank_account/insurance = I.registered_account
-				if(!insurance)
-					say("[market_verb] NAP Violation: No bank account found.")
-					nap_violation(H)
-					return FALSE
-				else
-					if(!insurance.adjust_money(-fair_market_price))
-						say("[market_verb] NAP Violation: Unable to pay.")
-						nap_violation(H)
-						return FALSE
-
-					// each department (seller_department) will earn the profit
-					if(fair_market_price && seller_department)
-						var/list/dept_list = SSeconomy.get_dept_id_by_bitflag(seller_department)
-						if(length(dept_list))
-							fair_market_price = round(fair_market_price/length(dept_list))
-							for(var/datum/bank_account/department/D in dept_list)
-								D.adjust_money(fair_market_price)
-			else
-				say("[market_verb] NAP Violation: No ID card found.")
-				nap_violation(H)
+		var/mob/living/L = occupant
+		var/obj/item/card/id/I = L.get_idcard(TRUE)
+		if(I)
+			var/datum/bank_account/insurance = I.registered_account
+			if(!insurance)
+				say("[market_verb] NAP Violation: No bank account found.")
+				nap_violation(L)
 				return FALSE
+			else
+				if(!insurance.adjust_money(-fair_market_price))
+					say("[market_verb] NAP Violation: Unable to pay.")
+					nap_violation(L)
+					return FALSE
+
+				// each department (seller_department) will earn the profit
+				if(fair_market_price && seller_department)
+					var/list/dept_list = SSeconomy.get_dept_id_by_bitflag(seller_department)
+					if(length(dept_list))
+						fair_market_price = round(fair_market_price/length(dept_list))
+						for(var/datum/bank_account/department/D in dept_list)
+							D.adjust_money(fair_market_price)
+		else
+			say("[market_verb] NAP Violation: No ID card found.")
+			nap_violation(L)
+			return FALSE
 	return TRUE
 
 /obj/machinery/proc/nap_violation(mob/violator)

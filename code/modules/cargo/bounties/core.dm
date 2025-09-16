@@ -3,9 +3,6 @@
 	description = "The admiral heard that a [name] could help you grow your beard, fetch a [name] immediately! Ship it to receive a large payment."
 	required_count = 1
 
-/datum/bounty/item/core/mark_high_priority(scale_reward)
-	return ..(max(scale_reward * 0.7, 1.2))
-
 /datum/bounty/item/core/bleed
 	name = "blood anomaly core"
 	reward = 25000

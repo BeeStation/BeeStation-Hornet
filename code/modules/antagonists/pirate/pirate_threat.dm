@@ -221,10 +221,14 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 /obj/machinery/piratepad
 	name = "cargo hold pad"
 	icon = 'icons/obj/telescience.dmi'
-	icon_state = "lpad-idle-o"
-	var/idle_state = "lpad-idle-o"
+	icon_state = "lpad-idle-off"
+	///This is the icon_state that this telepad uses when it's not in use.
+	var/idle_state = "lpad-idle-off"
+	///This is the icon_state that this telepad uses when it's warming up for goods teleportation.
 	var/warmup_state = "lpad-idle"
+	///This is the icon_state to flick when the goods are being sent off by the telepad.
 	var/sending_state = "lpad-beam"
+	///This is the cargo hold ID used by the piratepad_control. Match these two to link them together.
 	var/cargo_hold_id
 
 REGISTER_BUFFER_HANDLER(/obj/machinery/piratepad)
@@ -235,21 +239,43 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/piratepad)
 		return COMPONENT_BUFFER_RECEIVED
 	return NONE
 
+/obj/machinery/piratepad/screwdriver_act_secondary(mob/living/user, obj/item/screwdriver/screw)
+	. = ..()
+	if(!.)
+		return default_deconstruction_screwdriver(user, "lpad-idle-open", "lpad-idle-off", screw)
+
+/obj/machinery/piratepad/crowbar_act_secondary(mob/living/user, obj/item/tool)
+	. = ..()
+	default_deconstruction_crowbar(tool)
+	return TRUE
+
 /obj/machinery/computer/piratepad_control
 	name = "cargo hold control terminal"
-
-
+	///Message to display on the TGUI window.
 	var/status_report = "Ready for delivery."
-	var/obj/machinery/piratepad/pad
+	///Reference to the specific pad that the control computer is linked up to.
+	var/datum/weakref/pad_ref
+	///How long does it take to warmup the pad to teleport?
 	var/warmup_time = 100
+	///Is the teleport pad/computer sending something right now? TRUE/FALSE
 	var/sending = FALSE
+	///For the purposes of space pirates, how many points does the control pad have collected.
 	var/points = 0
+	///Reference to the export report totaling all sent objects and mobs.
 	var/datum/export_report/total_report
+	///Callback holding the sending timer for sending the goods after a delay.
 	var/sending_timer
+	///This is the cargo hold ID used by the piratepad machine. Match these two to link them together.
 	var/cargo_hold_id
+	///Interface name for the ui_interact call for different subtypes.
+	var/interface_type = "CargoHoldTerminal"
+	///Typecache of things that shouldn't be sold and shouldn't have their contents sold.
+	var/static/list/nosell_typecache
 
 /obj/machinery/computer/piratepad_control/Initialize(mapload)
 	..()
+	if(isnull(nosell_typecache))
+		nosell_typecache = typecacheof(/mob/living/silicon/robot)
 	return INITIALIZE_HINT_LATELOAD
 
 REGISTER_BUFFER_HANDLER(/obj/machinery/computer/piratepad_control)
@@ -257,7 +283,7 @@ REGISTER_BUFFER_HANDLER(/obj/machinery/computer/piratepad_control)
 DEFINE_BUFFER_HANDLER(/obj/machinery/computer/piratepad_control)
 	if (istype(buffer,/obj/machinery/piratepad))
 		to_chat(user, span_notice("You link [src] with [buffer] in [buffer_parent] buffer."))
-		set_pad(buffer)
+		pad_ref = WEAKREF(buffer)
 		ui_update()
 		return COMPONENT_BUFFER_RECEIVED
 	return NONE
@@ -267,38 +293,24 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/piratepad_control)
 	if(cargo_hold_id)
 		for(var/obj/machinery/piratepad/P in GLOB.machines)
 			if(P.cargo_hold_id == cargo_hold_id)
-				set_pad(P)
+				pad_ref = WEAKREF(P)
 				return
 	else
-		set_pad(locate(/obj/machinery/piratepad) in range(4,src))
+		var/obj/machinery/piratepad/pad = locate() in range(4, src)
+		pad_ref = WEAKREF(pad)
 
-/obj/machinery/computer/piratepad_control/proc/set_pad(obj/machinery/piratepad/newpad)
-	if(pad)
-		UnregisterSignal(pad, COMSIG_QDELETING)
-
-	pad = newpad
-
-	if(pad)
-		RegisterSignal(pad, COMSIG_QDELETING, PROC_REF(handle_pad_deletion))
-
-/obj/machinery/computer/piratepad_control/proc/handle_pad_deletion()
-	pad = null
-	ui_update()
-
-
-/obj/machinery/computer/piratepad_control/ui_state(mob/user)
-	return GLOB.default_state
 
 /obj/machinery/computer/piratepad_control/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "CargoHoldTerminal")
+		ui = new(user, src, interface_type, name)
+		ui.set_autoupdate(TRUE)
 		ui.open()
 
 /obj/machinery/computer/piratepad_control/ui_data(mob/user)
 	var/list/data = list()
 	data["points"] = points
-	data["pad"] = pad ? TRUE : FALSE
+	data["pad"] = pad_ref?.resolve() ? TRUE : FALSE
 	data["sending"] = sending
 	data["status_report"] = status_report
 	return data
@@ -306,7 +318,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/piratepad_control)
 /obj/machinery/computer/piratepad_control/ui_act(action, params)
 	if(..())
 		return
-	if(!pad)
+	if(!pad_ref?.resolve())
 		return
 
 	switch(action)
@@ -320,55 +332,59 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/piratepad_control)
 			stop_sending()
 			. = TRUE
 
+/// Calculates the predicted value of the items on the pirate pad
 /obj/machinery/computer/piratepad_control/proc/recalc()
 	if(sending)
 		return
 
 	status_report = "Predicted value: "
 	var/value = 0
-	var/datum/export_report/ex = new
+	var/datum/export_report/report = new
+	var/obj/machinery/piratepad/pad = pad_ref?.resolve()
 	for(var/atom/movable/AM in get_turf(pad))
 		if(AM == pad)
 			continue
-		export_item_and_contents(AM, EXPORT_PIRATE | EXPORT_CARGO | EXPORT_CONTRABAND | EXPORT_EMAG, apply_elastic = FALSE, dry_run = TRUE, external_report = ex)
+		export_item_and_contents(AM, apply_elastic = FALSE, dry_run = TRUE, external_report = report)
 
-	for(var/datum/export/E in ex.total_amount)
-		status_report += E.total_printout(ex,notes = FALSE)
+	for(var/datum/export/exported_datum in report.total_amount)
+		status_report += exported_datum.total_printout(report,notes = FALSE)
 		status_report += " "
-		value += ex.total_value[E]
+		value += report.total_value[exported_datum]
 
 	if(!value)
 		status_report += "0"
 
+/// Deletes and sells the item
 /obj/machinery/computer/piratepad_control/proc/send()
 	if(!sending)
 		return
 
-	var/datum/export_report/ex = new
+	var/datum/export_report/report = new
+	var/obj/machinery/piratepad/pad = pad_ref?.resolve()
 
-	for(var/atom/movable/AM in get_turf(pad))
-		if(AM == pad)
+	for(var/atom/movable/item_on_pad in get_turf(pad))
+		if(item_on_pad == pad)
 			continue
-		export_item_and_contents(AM, EXPORT_PIRATE | EXPORT_CARGO | EXPORT_CONTRABAND | EXPORT_EMAG, apply_elastic = FALSE, delete_unsold = FALSE, external_report = ex)
+		export_item_and_contents(item_on_pad, EXPORT_PIRATE | EXPORT_CARGO | EXPORT_CONTRABAND | EXPORT_EMAG, apply_elastic = FALSE, delete_unsold = FALSE, external_report = report)
 
 	status_report = "Sold: "
 	var/value = 0
-	for(var/datum/export/E in ex.total_amount)
-		var/export_text = E.total_printout(ex,notes = FALSE) //Don't want nanotrasen messages, makes no sense here.
+	for(var/datum/export/exported_datum in report.total_amount)
+		var/export_text = exported_datum.total_printout(report,notes = FALSE) //Don't want nanotrasen messages, makes no sense here.
 		if(!export_text)
 			continue
 
 		status_report += export_text
 		status_report += " "
-		value += ex.total_value[E]
+		value += report.total_value[exported_datum]
 
 	if(!total_report)
-		total_report = ex
+		total_report = report
 	else
-		total_report.exported_atoms += ex.exported_atoms
-		for(var/datum/export/E in ex.total_amount)
-			total_report.total_amount[E] += ex.total_amount[E]
-			total_report.total_value[E] += ex.total_value[E]
+		total_report.exported_atoms += report.exported_atoms
+		for(var/datum/export/exported_datum in report.total_amount)
+			total_report.total_amount[exported_datum] += report.total_amount[exported_datum]
+			total_report.total_value[exported_datum] += report.total_value[exported_datum]
 		playsound(loc, 'sound/machines/wewewew.ogg', 70, TRUE)
 
 	points += value
@@ -382,25 +398,36 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/piratepad_control)
 	sending = FALSE
 	ui_update()
 
+/// Prepares to sell the items on the pad
 /obj/machinery/computer/piratepad_control/proc/start_sending()
+	var/obj/machinery/piratepad/pad = pad_ref?.resolve()
+	if(!pad)
+		status_report = "No pad detected. Build or link a pad."
+		pad.audible_message(span_notice("[pad] beeps."))
+		return
+	if(pad?.panel_open)
+		status_report = "Please screwdrive pad closed to send. "
+		pad.audible_message(span_notice("[pad] beeps."))
+		return
 	if(sending)
 		return
 	sending = TRUE
 	status_report = "Sending... "
 	pad.visible_message(span_notice("[pad] starts charging up."))
 	pad.icon_state = pad.warmup_state
-	sending_timer = addtimer(CALLBACK(src,PROC_REF(send)),warmup_time, TIMER_STOPPABLE)
+	sending_timer = addtimer(CALLBACK(src, PROC_REF(send)),warmup_time, TIMER_STOPPABLE)
 
-/obj/machinery/computer/piratepad_control/proc/stop_sending()
+/// Finishes the sending state of the pad
+/obj/machinery/computer/piratepad_control/proc/stop_sending(custom_report)
 	if(!sending)
 		return
 	sending = FALSE
 	status_report = "Ready for delivery."
+	if(custom_report)
+		status_report = custom_report
+	var/obj/machinery/piratepad/pad = pad_ref?.resolve()
 	pad.icon_state = pad.idle_state
 	deltimer(sending_timer)
-
-/datum/export/pirate
-	export_category = EXPORT_PIRATE
 
 //Attempts to find the thing on station
 /datum/export/pirate/proc/find_loot()
@@ -414,22 +441,21 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/piratepad_control)
 /datum/export/pirate/ransom/find_loot()
 	var/list/head_minds = SSjob.get_living_heads()
 	var/list/head_mobs = list()
-	for(var/datum/mind/M in head_minds)
+	for(var/datum/mind/M as anything in head_minds)
 		head_mobs += M.current
 	if(head_mobs.len)
 		return pick(head_mobs)
 
 /datum/export/pirate/ransom/get_cost(atom/movable/AM)
-	var/mob/living/carbon/human/H = AM
-	if(H.stat != CONSCIOUS || !H.mind || !H.mind.assigned_role) //mint condition only
+	var/mob/living/carbon/human/ransomee = AM
+	if(ransomee.stat != CONSCIOUS || !ransomee.mind) //mint condition only
 		return 0
-	else if(FACTION_PIRATE in H.faction) //can't ransom your fellow pirates to CentCom!
+	else if(FACTION_PIRATE in ransomee.faction) //can't ransom your fellow pirates to CentCom!
 		return 0
+	else if(ransomee.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
+		return 3000
 	else
-		if(H.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
-			return 3000
-		else
-			return 1000
+		return 1000
 
 /datum/export/pirate/parrot
 	cost = 2000
@@ -437,28 +463,28 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/piratepad_control)
 	export_types = list(/mob/living/simple_animal/parrot)
 
 /datum/export/pirate/parrot/find_loot()
-	for(var/mob/living/simple_animal/parrot/P in GLOB.alive_mob_list)
-		var/turf/T = get_turf(P)
-		if(T && is_station_level(T.z))
-			return P
+	for(var/mob/living/simple_animal/parrot/current_parrot in GLOB.alive_mob_list)
+		var/turf/parrot_turf = get_turf(current_parrot)
+		if(parrot_turf && is_station_level(parrot_turf.z))
+			return current_parrot
 
 /datum/export/pirate/cash
 	cost = 1
 	unit_name = "bills"
 	export_types = list(/obj/item/stack/spacecash)
 
-/datum/export/pirate/cash/get_amount(obj/O)
-	var/obj/item/stack/spacecash/C = O
-	return ..() * C.amount * C.value
+/datum/export/pirate/cash/get_amount(obj/exported_item)
+	var/obj/item/stack/spacecash/cash = exported_item
+	return ..() * cash.amount * cash.value
 
 /datum/export/pirate/holochip
 	cost = 1
 	unit_name = "holochip"
 	export_types = list(/obj/item/holochip)
 
-/datum/export/pirate/holochip/get_cost(atom/movable/AM)
-	var/obj/item/holochip/H = AM
-	return H.credits
+/datum/export/pirate/holochip/get_cost(atom/movable/exported_item)
+	var/obj/item/holochip/chip = exported_item
+	return chip.credits
 
 #undef PIRATE_RESPONSE_NO_PAY
 #undef PIRATE_RESPONSE_PAY

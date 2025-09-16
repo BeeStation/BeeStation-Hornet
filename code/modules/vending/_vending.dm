@@ -1257,13 +1257,12 @@
 
 /obj/machinery/vending/custom/compartmentLoadAccessCheck(mob/user)
 	. = FALSE
-	var/mob/living/carbon/human/H
-	var/obj/item/card/id/C
-	if(ishuman(user))
-		H = user
-		C = H.get_idcard(TRUE)
-		if(C?.registered_account && C.registered_account == private_a)
-			return TRUE
+	if(!isliving(user))
+		return FALSE
+	var/mob/living/L = user
+	var/obj/item/card/id/C = L.get_idcard(FALSE)
+	if(C?.registered_account && C.registered_account == private_a)
+		return TRUE
 
 /obj/machinery/vending/custom/canLoadItem(obj/item/I, mob/user)
 	. = FALSE
@@ -1386,15 +1385,12 @@
 	vend_ready = TRUE
 
 /obj/machinery/vending/custom/attackby(obj/item/I, mob/user, params)
-	if(!private_a)
-		var/mob/living/carbon/human/H
-		var/obj/item/card/id/C
-		if(ishuman(user))
-			H = user
-			C = H.get_idcard(TRUE)
-			if(C?.registered_account)
-				private_a = C.registered_account
-				say("\The [src] has been linked to [C].")
+	if(!private_a && isliving(user))
+		var/mob/living/L = user
+		var/obj/item/card/id/C = L.get_idcard(TRUE)
+		if(C?.registered_account)
+			private_a = C.registered_account
+			say("\The [src] has been linked to [C].")
 
 	if(compartmentLoadAccessCheck(user))
 		if(istype(I, /obj/item/pen))
