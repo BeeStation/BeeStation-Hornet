@@ -262,3 +262,14 @@
   - bugfix: fixes pets not dropping their collar when gibbed
   - bugfix: butter don't go on Lisa and corgi puppies (Lisa won't wear hats and corgi
       puppies can't wear hats and back slot items)
+2025-09-16:
+  ? mrmanlikesbt, MrPerson, cacogen, MMMiracles, Tastyfish, XyzzyThePretender, LemonInTheDark,
+    MTandi, Lufferly, BobDABuilder9001, Sealed101
+  : - rscadd: Added new solar panel sprites. These dynamically track the sun instead
+        of being fixed to incremental angles
+    - rscadd: 'Solar panels can now be upgraded based on what glass they are made
+        of, the higher tier the glass is, the higher the multiplier is. The tiers
+        are as follows: normal glass - 1x, titanium glass - 2x, plasma glass - 3x,
+        plastitanium glass - x4'
+    - rscdel: Removed the goonstation folder
+    - refactor: Refactored SSsun and solar panel code.
