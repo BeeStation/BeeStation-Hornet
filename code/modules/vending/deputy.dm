@@ -54,7 +54,6 @@
 	refill_canister = /obj/item/vending_refill/deputy
 	default_price = PAYCHECK_MINIMAL * 10
 	extra_price = PAYCHECK_MINIMAL * 15
-	dept_req_for_free = NONE
 
 /obj/machinery/vending/deputy/Initialize(mapload)
 	. = ..()
