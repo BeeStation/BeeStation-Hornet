@@ -359,7 +359,10 @@
 		if(!start_empty)
 			new_record.amount = amount
 		new_record.max_amount = amount
-		new_record.custom_price = initial(temp.custom_price)
+		if(price_tag)
+			new_record.custom_price = initial(temp.price_tag)
+		else
+			new_record.custom_price = initial(temp.custom_price)
 		new_record.custom_premium_price = initial(temp.custom_premium_price)
 		new_record.colorable = !!(initial(temp.greyscale_config) && initial(temp.greyscale_colors) && (initial(temp.flags_1) & IS_PLAYER_COLORABLE_1))
 		new_record.category = product_to_category[typepath]
@@ -1450,10 +1453,10 @@
 		return
 	if(isitem(target))
 		var/obj/item/I = target
-		I.custom_price = price
+		I.price_tag = price
 		if(atom_storage)
 			for(var/atom/A in I.contents)
-				A.custom_price = price
+				A.price_tag = price
 			to_chat(user, span_notice("You set the price of [I] and everything inside of it to [price] cr."))
 		else
 			to_chat(user, span_notice("You set the price of [I] to [price] cr."))

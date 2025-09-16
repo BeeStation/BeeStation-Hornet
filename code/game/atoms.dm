@@ -68,6 +68,8 @@
 	var/max_demand
 	/// Can this item be sold? TRUE by default. False means it will return when sent to CC via cargo shuttle
 	var/can_sell = TRUE
+	/// Tagger Price tag
+	var/price_tag
 
 	//List of datums orbiting this atom
 	var/datum/component/orbiter/orbit_datum
