@@ -406,6 +406,36 @@
 					/obj/item/ammo_box/magazine/mm10x25/empty)
 	crate_name = "magazine crate"
 
+datum/supply_pack/security/tasers
+	name = "APS-Arc 3-pack Crate"
+	desc = "Three standard issue law enforcement tasers. Requires Security access to open. Includes magazines."
+	cost = 1900
+	max_supply = 2
+	contains = list(/obj/item/gun/ballistic/automatic/pistol/security,
+					/obj/item/gun/ballistic/automatic/pistol/security,
+					/obj/item/gun/ballistic/automatic/pistol/security)
+	crate_name = "taser crate"
+
+/datum/supply_pack/security/secpistol_ammo
+	name = "Taser load assemblies Crate"
+	desc = "Three boxes of pre-arranged APS taser load assemblies for station law enforcement. Requires Security access to open."
+	cost = 950
+	max_supply = 2
+	contains = list(/obj/item/ammo_box/c10x25mm,
+					/obj/item/ammo_box/c10x25mm,
+					/obj/item/ammo_box/c10x25mm)
+	crate_name = "ammo crate"
+
+/datum/supply_pack/security/secpistol_mags
+	name = "APS-Arc cartridge Crate"
+	desc = "Three standard issue APS-Arc taser cartridges. Pre-loaded. Requires Security access to open."
+	cost = 1200
+	max_supply = 2
+	contains = list(/obj/item/ammo_box/magazine/mm10x25/empty,
+					/obj/item/ammo_box/magazine/mm10x25/empty,
+					/obj/item/ammo_box/magazine/mm10x25/empty)
+	crate_name = "magazine crate"
+
 /datum/supply_pack/security/forensics
 	name = "Forensics Crate"
 	desc = "Stay hot on the criminal's heels with Nanotrasen's Detective Essentials(tm). Contains a forensics scanner, six evidence bags, detective's camera, tape recorder, white crayon, and of course, a fedora. Requires Security access to open."

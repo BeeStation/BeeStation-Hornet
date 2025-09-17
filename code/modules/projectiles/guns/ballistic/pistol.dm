@@ -202,8 +202,8 @@
 			private security operators.</i>"
 
 /obj/item/gun/ballistic/automatic/pistol/taser
-	name = "TASER"
-	desc = "TASER"
+	name = "APS-Arc Ballistic Taser"
+	desc = "Standard taser for on-station APS enforcement. While principially less-lethal, overuse is highly discouraged due to the chance for heart-attacks."
 	icon_state = "taser"
 	w_class = WEIGHT_CLASS_SMALL
 	mag_type = /obj/item/ammo_box/magazine/taser
@@ -223,8 +223,7 @@
 	var/mutable_appearance/cartridge = mutable_appearance(icon, "taser_cartridge")
 
 	cut_overlay(cartridge)
-
-	if(magazine.ammo_count() >= 1)
+	if(magazine?.ammo_count() >= 1)
 		add_overlay(cartridge)
 
 /obj/item/gun/ballistic/automatic/pistol/taser/examine(mob/user)
@@ -233,4 +232,6 @@
 
 /obj/item/gun/ballistic/automatic/pistol/taser/examine_more(mob/user)
 	. = ..()
-	. += "<i>TASER</i>"
+	. += "<i>The APS-Arc is a compact stunner made from impact-resistant polymer, developed by Nanotrasen for use by APS officers in the field. \
+		Each reloadable cartridge snaps in a pre-spooled wire spindle and barbed contact needles, primed for a precise and long-lasting electrical jolt. And officers can swap or reload spares in seconds too! \
+		This Lightweight and virtually silent design uilizes a manually cocked hammer to puncture the internal propellant load, it’s the go-anywhere, reliable, less-lethal option security teams rely on.</i>"

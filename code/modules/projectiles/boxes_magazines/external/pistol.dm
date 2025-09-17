@@ -102,7 +102,7 @@
 
 /obj/item/ammo_box/magazine/taser
 	name = "Multi-use taser cartridge"
-	desc= "A gun magazine for 10x25mm ammo. The standard law-enforcement loading of the popular NPS-10. Has a handy digital counter built into it."
+	desc= "Standard-issue APS-Arc taser cartridge. Easily repacked with pre-prepared load-assemblies. Some text is stamped into the polymer body:'ATTENTION: DO NOT LOSE.'"
 	icon_state = "taser_cartridge-1"
 	ammo_type = /obj/item/ammo_casing/taser_load
 	caliber = list("taser load")

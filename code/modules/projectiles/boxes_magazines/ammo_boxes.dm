@@ -90,6 +90,19 @@
 	max_ammo = 12
 	custom_price = 100
 
+/obj/item/ammo_box/taser
+	name = "ammo box (Taser Loads)"
+	icon_state = "tasebox"
+	ammo_type = /obj/item/ammo_casing/taser_load
+	max_ammo = 10
+
+/obj/item/ammo_box/pouch/taser
+	name = "ammo pouch (Taser Loads)"
+	desc = "2 standard-issue APS enforcement taser load-assemblies, neatly stowed in a disposable paper package."
+	ammo_type = /obj/item/ammo_casing/taser_load
+	max_ammo = 2
+	custom_price = 20
+
 /obj/item/ammo_box/pouch/c9mm
 	name = "ammo pouch (9mm)"
 	ammo_type = /obj/item/ammo_casing/c9mm

@@ -378,7 +378,8 @@
 		/obj/item/holosign_creator/security,
 		/obj/item/club,
 		/obj/item/shield/riot/tele,
-		/obj/item/gun/ballistic/automatic/pistol/taser
+		/obj/item/gun/ballistic/automatic/pistol/taser,
+		/obj/item/ammo_box/magazine/taser
 		))
 
 /obj/item/storage/belt/security/full/PopulateContents()
