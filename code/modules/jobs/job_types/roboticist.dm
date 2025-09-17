@@ -19,7 +19,7 @@
 
 	departments = DEPT_BITFLAG_SCI
 	bank_account_department = ACCOUNT_SCI_BITFLAG
-	payment_per_department = list(ACCOUNT_SCI_ID = PAYCHECK_MEDIUM)
+	payment_per_department = list(ACCOUNT_SCI_ID = PAYCHECK_CREW)
 
 	display_order = JOB_DISPLAY_ORDER_ROBOTICIST
 	rpg_title = "Golemancer"

@@ -166,8 +166,9 @@
 	)
 
 	refill_canister = /obj/item/vending_refill/autodrobe
-	default_price = 50
-	extra_price = 75
+	default_price = PAYCHECK_CREW * 0.8 //Default of 40.
+	extra_price = PAYCHECK_COMMAND
+	seller_department = ACCOUNT_SRV_BITFLAG
 	light_mask="theater-light-mask"
 
 /obj/machinery/vending/autodrobe/all_access

@@ -13,11 +13,16 @@ Assistant
 
 	outfit = /datum/outfit/job/assistant
 
-	base_access = list()	//See /datum/job/assistant/get_access()
+	base_access = list()//See /datum/job/assistant/get_access()
 
 	departments = DEPT_BITFLAG_CIV
 	bank_account_department = NONE // nothing is free for them
-	payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_ASSISTANT) // Get a job. Job reassignment changes your paycheck now. Get over it.
+
+	// Get a job. Job reassignment changes your paycheck now. Get over it.
+	if(CONFIG_GET(number/welfare_paycheck))
+		payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_LOWER)
+	else
+		payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_NONE)
 
 	display_order = JOB_DISPLAY_ORDER_ASSISTANT
 	rpg_title = "Lout"

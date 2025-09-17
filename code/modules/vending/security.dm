@@ -27,8 +27,9 @@
 				   /obj/item/clothing/suit/armor/vest/blueshirt = 1,
 				   /obj/item/grenade/stingbang = 1)
 	refill_canister = /obj/item/vending_refill/security
-	default_price = 100
-	extra_price = 150
+	default_price = PAYCHECK_CREW
+	extra_price = PAYCHECK_COMMAND * 1.5
+	seller_department = ACCOUNT_SEC_BITFLAG
 
 /obj/machinery/vending/security/pre_throw(obj/item/I)
 	if(istype(I, /obj/item/grenade))

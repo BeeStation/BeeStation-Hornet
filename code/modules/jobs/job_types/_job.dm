@@ -75,9 +75,10 @@
 	///vender will not ask you for credits when you buy a stuff from it as long as department matches
 	var/bank_account_department = ACCOUNT_CIV_BITFLAG
 	///your payment per department. geneticist will be a good example for this.
-	var/payment_per_department = list(ACCOUNT_CIV_ID = 0)
+	var/payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_CREW)
 
-	var/list/mind_traits // Traits added to the mind of the mob assigned this job
+	/// Traits added to the mind of the mob assigned this job
+	var/list/mind_traits
 
 	var/display_order = JOB_DISPLAY_ORDER_DEFAULT
 
@@ -154,6 +155,13 @@
 		lock_flags |= JOB_LOCK_REASON_MAP
 	if(lock_flags || gimmick)
 		SSjob.job_manager_blacklisted |= title
+
+	//For the poors
+	if(welfare_job)
+		if(CONFIG_GET(flag/welfare_paycheck))
+			payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_LOWER)
+		else
+			payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_NONE)
 
 /// Returns true if there are available slots
 /datum/job/proc/has_space()

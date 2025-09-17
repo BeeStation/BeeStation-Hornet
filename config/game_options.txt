@@ -545,5 +545,6 @@ SPECIAL_SYMPTOM_THRESHOLDS
 ##At this amount of symptoms, Synaptizine will no longer remove symptoms from a virus. Set this to 6 or higher to prevent removing symptoms at all. Set this to 1 to allow synaptizine to work to its full effect
 VIRUS_THINNING_CAP 4
 
-
+##Determines if lower roles receive a low paycheck (PAYCHECK_LOWER), otherwise receiving no paycheck. Meant for low roles like assistant/prisoner, to force them to make money
+WELFARE_PAYCHECK
 

@@ -16,8 +16,9 @@
 	armor_type = /datum/armor/vending_wallmed
 	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/wallmed
-	default_price = 25
-	extra_price = 100
+	default_price = PAYCHECK_COMMAND //Double the medical price due to being meant for public consumption, not player specfic
+	extra_price = PAYCHECK_COMMAND * 1.5
+	seller_department = ACCOUNT_MED_BITFLAG
 	tiltable = FALSE
 	light_mask = "wallmed-light-mask"
 

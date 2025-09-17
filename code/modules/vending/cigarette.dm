@@ -20,8 +20,9 @@
 		           /obj/item/storage/fancy/cigarettes/cigars/havana = 1,
 		           /obj/item/storage/fancy/cigarettes/cigars/cohiba = 1)
 	refill_canister = /obj/item/vending_refill/cigarette
-	default_price = 5
-	extra_price = 40
+	default_price = PAYCHECK_CREW
+	extra_price = PAYCHECK_COMMAND
+	seller_department = ACCOUNT_SRV_BITFLAG
 	light_mask = "cigs-light-mask"
 
 /obj/machinery/vending/cigarette/syndicate

@@ -30,8 +30,9 @@
 					/obj/item/stock_parts/matter_bin = 5,
 					/obj/item/stock_parts/manipulator = 5)
 	refill_canister = /obj/item/vending_refill/engineering
-	default_price = 50
-	extra_price = 60
+	default_price = PAYCHECK_CREW
+	extra_price = PAYCHECK_COMMAND * 1.5
+	seller_department = ACCOUNT_ENG_BITFLAG
 	light_mask = "engi-light-mask"
 
 /obj/item/vending_refill/engineering

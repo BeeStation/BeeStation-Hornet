@@ -20,8 +20,9 @@
 		           /obj/item/reagent_containers/cup/soda_cans/monkey_energy = 1,
 		           /obj/item/reagent_containers/cup/soda_cans/grey_bull = 1)
 	refill_canister = /obj/item/vending_refill/cola
-	default_price = 5
-	extra_price = 60
+	default_price = PAYCHECK_CREW * 0.7
+	extra_price = PAYCHECK_CREW
+	seller_department = ACCOUNT_SRV_BITFLAG
 
 
 /obj/item/vending_refill/cola

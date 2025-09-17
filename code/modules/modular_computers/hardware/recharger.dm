@@ -29,7 +29,7 @@
 	desc = "A device that wirelessly recharges connected device from nearby APC."
 	icon_state = "charger_APC"
 	w_class = WEIGHT_CLASS_SMALL // Can't be installed into PDAs. Tablets are good to go
-	custom_price = PAYCHECK_HARD * 4
+	custom_price = PAYCHECK_COMMAND * 4
 
 /obj/item/computer_hardware/recharger/APC/use_power(amount, charging = 0)
 	if(ismachinery(holder.physical))

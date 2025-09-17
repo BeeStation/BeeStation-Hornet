@@ -17,9 +17,10 @@
 
 	departments = DEPT_BITFLAG_ENG
 	bank_account_department = ACCOUNT_ENG_BITFLAG
-	payment_per_department = list(ACCOUNT_ENG_ID = PAYCHECK_MEDIUM)
+	payment_per_department = list(ACCOUNT_ENG_ID = PAYCHECK_CREW)
 
 	display_order = JOB_DISPLAY_ORDER_STATION_ENGINEER
+
 	rpg_title = "Crystallomancer"
 
 	species_outfits = list(

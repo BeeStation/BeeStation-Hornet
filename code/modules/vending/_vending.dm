@@ -29,9 +29,9 @@
 	var/amount = 0
 	///How many we can store at maximum
 	var/max_amount = 0
-	///Does the item have a custom price override
+	///Price of an item in a vending machine, overriding the base vending machine price. Define in terms of paycheck defines as opposed to raw numbers.
 	var/custom_price
-	///Does the item have a custom premium price override
+	///Price of an item in a vending machine, overriding the premium vending machine price. Define in terms of paycheck defines as opposed to raw numbers.
 	var/custom_premium_price
 	///Whether the product can be recolored by the GAGS system
 	var/colorable
@@ -1429,14 +1429,14 @@
 /obj/item/vending_refill/custom
 	machine_name = "Custom Vendor"
 	icon_state = "refill_custom"
-	custom_premium_price = 75
+	custom_premium_price = PAYCHECK_CREW
 
 /obj/item/price_tagger
 	name = "price tagger"
 	desc = "This tool is used to set a price for items used in custom vendors."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "pricetagger"
-	custom_premium_price = 20
+	custom_premium_price = PAYCHECK_CREW * 0.5
 	///the price of the item
 	var/price = 1
 

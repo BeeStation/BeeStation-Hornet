@@ -150,3 +150,8 @@ DEFINE_BITFIELD(food_types, list(
 #define FOOD_LIKED 1
 #define FOOD_DISLIKED 2
 #define FOOD_TOXIC 3
+
+#define FOOD_MEAT_NORMAL 5
+#define FOOD_MEAT_HUMAN 50
+#define FOOD_MEAT_MUTANT 100
+#define FOOD_MEAT_MUTANT_RARE 200
