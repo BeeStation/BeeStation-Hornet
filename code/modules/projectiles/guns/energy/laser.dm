@@ -50,6 +50,7 @@
 /obj/item/gun/energy/laser/repeater/proc/crank_charge(mob/living/user)
 	if(cell.charge >= gun_charge)
 		to_chat(user,"<span class='danger'>The gun is at maximum charge already!</span>")
+		playsound(src, crank_sound, 30)
 		return
 	else if(!cranking)
 		balloon_alert(user, "You start cranking")
@@ -95,7 +96,7 @@
 /obj/item/gun/energy/laser/repeater/shotgun/disabler // Disabler Repeater Shotgun
 	name = "NT DS 2-58"
 	icon_state = "disabler_shotgun"
-	time_to_crank = 1.5 SECONDS
+	time_to_crank = 2 SECONDS
 	ammo_type = list(/obj/item/ammo_casing/energy/shotgun_disabler)
 
 /obj/item/gun/energy/laser/captain

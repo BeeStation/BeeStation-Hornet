@@ -3,7 +3,7 @@
 	name = "energy gun"
 	desc = "A basic energy-based gun."
 	icon = 'icons/obj/guns/energy.dmi'
-	fire_sound = null
+	fire_sound = 'sound/effects/sparks4.ogg'
 
 	///What type of power cell this uses
 	var/obj/item/stock_parts/cell/cell
@@ -236,7 +236,7 @@
 	if (select > ammo_type.len)
 		select = 1
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
-	fire_sound = shot.fire_sound
+	projectile_fire_sound = shot.fire_sound
 	fire_delay = shot.delay
 	if (shot.select_name && user)
 		balloon_alert(user, "You set [src]'s mode to [shot.select_name].")
