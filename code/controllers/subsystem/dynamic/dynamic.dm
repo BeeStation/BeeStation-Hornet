@@ -310,11 +310,11 @@ SUBSYSTEM_DEF(dynamic)
 	else
 		rulesets = list()
 		for (var/datum/dynamic_ruleset/ruleset_type as anything in subtypesof(ruleset_subtype))
-			if (!ruleset_type.name)
+			if (!initial(ruleset_type.name))
 				continue
-			if (!ruleset_type.weight)
+			if (!initial(ruleset_type.weight))
 				continue
-			if (ruleset_type.points_cost)
+			if (!initial(ruleset_type.points_cost))
 				continue
 
 			rulesets += configure_ruleset(new ruleset_type())
@@ -439,10 +439,7 @@ SUBSYSTEM_DEF(dynamic)
 	// Pick rulesets
 	var/roundstart_points_left = roundstart_points
 	var/no_other_rulesets = FALSE
-	while(roundstart_points_left > 0)
-		if(!length(possible_rulesets))
-			break
-
+	while(roundstart_points_left > 0 && length(possible_rulesets))
 		var/datum/dynamic_ruleset/roundstart/ruleset = pick_weight(possible_rulesets)
 
 		// Ran out of rulesets
@@ -488,11 +485,12 @@ SUBSYSTEM_DEF(dynamic)
 				continue
 
 			// Undraft our previously drafted players
-			for(var/mob/chosen_candidate in ruleset.chosen_candidates)
-				GLOB.pre_setup_antags -= chosen_candidate.mind
+			for(var/datum/mind/chosen_candidate in ruleset.chosen_candidates)
+				GLOB.pre_setup_antags -= chosen_candidate
 
-				chosen_candidate.mind.special_role = null
-				chosen_candidate.mind.restricted_roles = list()
+				chosen_candidate.special_role = null
+				chosen_candidate.restricted_roles = list()
+			ruleset.chosen_candidates = list()
 
 			log_dynamic("ROUNDSTART: Cancelling [ruleset] because a ruleset with the 'NO_OTHER_RULESETS' was chosen")
 			roundstart_executed_rulesets -= ruleset
@@ -503,10 +501,10 @@ SUBSYSTEM_DEF(dynamic)
 **/
 /datum/controller/subsystem/dynamic/proc/check_is_ruleset_blocked(datum/dynamic_ruleset/ruleset, list/datum/dynamic_ruleset/applied_rulesets)
 	// Check for blocked rulesets
-	for(var/datum/dynamic_ruleset/blocked_ruleset in ruleset.blocking_rulesets)
+	for(var/datum/dynamic_ruleset/blocked_ruleset_path as anything in ruleset.blocking_rulesets)
 		for(var/datum/dynamic_ruleset/executed_ruleset in applied_rulesets)
-			if(blocked_ruleset.type == executed_ruleset.type)
-				log_dynamic("NOT ALLOWED: [ruleset] was blocked by [blocked_ruleset]")
+			if(executed_ruleset.type == blocked_ruleset_path)
+				log_dynamic("NOT ALLOWED: [ruleset] was blocked by [initial(blocked_ruleset_path.name)]")
 				return TRUE
 
 	// Check for bitflags
