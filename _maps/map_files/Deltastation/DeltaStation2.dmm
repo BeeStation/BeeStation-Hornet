@@ -13826,7 +13826,6 @@
 	name = "Weapons Storage";
 	req_one_access_txt = "1;4"
 	},
-/obj/effect/loot_jobscale/armoury/energy_gun,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -13835,6 +13834,8 @@
 	},
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
 /obj/structure/rack,
+/obj/item/ammo_box/c10x25mm,
+/obj/item/gun/ballistic/automatic/pistol/security,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "bSL" = (
@@ -40749,12 +40750,13 @@
 	name = "Disabler Storage";
 	req_one_access_txt = "1;4"
 	},
-/obj/effect/loot_jobscale/armoury/disabler,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/red,
 /obj/structure/rack,
+/obj/item/ammo_box/taser,
+/obj/item/gun/ballistic/automatic/pistol/taser,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "hbR" = (

@@ -38557,7 +38557,8 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/effect/loot_jobscale/armoury/disabler,
+/obj/item/ammo_box/taser,
+/obj/item/gun/ballistic/automatic/pistol/taser,
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "lKH" = (
@@ -38760,7 +38761,8 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/effect/loot_jobscale/armoury/energy_gun,
+/obj/item/gun/ballistic/automatic/pistol/security,
+/obj/item/ammo_box/c10x25mm,
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "lPN" = (

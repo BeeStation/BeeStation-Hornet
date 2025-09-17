@@ -30357,13 +30357,11 @@
 /area/science/xenobiology)
 "jFZ" = (
 /obj/structure/rack,
-/obj/effect/loot_jobscale/armoury/energy_gun{
-	pixel_y = 5
-	},
 /obj/effect/turf_decal/delivery,
-/obj/effect/loot_jobscale/armoury/disabler{
-	pixel_y = -3
-	},
+/obj/item/ammo_box/c10x25mm,
+/obj/item/ammo_box/taser,
+/obj/item/gun/ballistic/automatic/pistol/security,
+/obj/item/gun/ballistic/automatic/pistol/taser,
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "jGb" = (

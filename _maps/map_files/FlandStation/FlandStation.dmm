@@ -20273,7 +20273,8 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/obj/effect/loot_jobscale/armoury/disabler,
+/obj/item/ammo_box/taser,
+/obj/item/gun/ballistic/automatic/pistol/taser,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "fmD" = (
@@ -30378,7 +30379,8 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/obj/effect/loot_jobscale/armoury/energy_gun,
+/obj/item/ammo_box/c10x25mm,
+/obj/item/gun/ballistic/automatic/pistol/security,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "hLX" = (

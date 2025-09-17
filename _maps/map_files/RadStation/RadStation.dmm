@@ -16057,14 +16057,6 @@
 /area/security/prison)
 "fez" = (
 /obj/structure/table/reinforced,
-/obj/item/gun/energy/e_gun{
-	pixel_x = 1;
-	pixel_y = 5
-	},
-/obj/item/gun/energy/e_gun{
-	pixel_x = 4;
-	pixel_y = 3
-	},
 /obj/machinery/door/window/brigdoor/westleft{
 	name = "energy Guns";
 	req_access_txt = "3"
@@ -16073,6 +16065,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/item/ammo_box/c10x25mm,
+/obj/item/gun/ballistic/automatic/pistol/security,
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "feL" = (
@@ -47579,17 +47573,12 @@
 "pHx" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/bot,
-/obj/item/gun/energy/disabler{
-	pixel_x = 1;
-	pixel_y = 2
-	},
-/obj/item/gun/energy/disabler{
-	pixel_x = 5;
-	pixel_y = 1
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/item/ammo_box/taser,
+/obj/item/gun/ballistic/automatic/pistol/taser,
+/obj/item/gun/ballistic/automatic/pistol/taser,
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "pHE" = (

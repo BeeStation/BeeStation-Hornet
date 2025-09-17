@@ -34112,8 +34112,9 @@
 /area/engine/atmos)
 "ivh" = (
 /obj/structure/rack,
-/obj/effect/loot_jobscale/armoury/energy_gun,
 /obj/effect/turf_decal/box/red,
+/obj/item/gun/ballistic/automatic/pistol/security,
+/obj/item/ammo_box/c10x25mm,
 /turf/open/floor/iron/dark/smooth_large,
 /area/ai_monitored/security/armory)
 "ivo" = (
@@ -54832,8 +54833,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/effect/loot_jobscale/armoury/disabler,
 /obj/effect/turf_decal/box/red,
+/obj/item/ammo_box/taser,
+/obj/item/gun/ballistic/automatic/pistol/taser,
 /turf/open/floor/iron/dark/smooth_large,
 /area/ai_monitored/security/armory)
 "pzl" = (

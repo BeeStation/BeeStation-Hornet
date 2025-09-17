@@ -27259,14 +27259,8 @@
 "osP" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/bot,
-/obj/item/gun/energy/e_gun{
-	pixel_x = 1;
-	pixel_y = 5
-	},
-/obj/item/gun/energy/e_gun{
-	pixel_x = 4;
-	pixel_y = 3
-	},
+/obj/item/gun/ballistic/automatic/pistol/security,
+/obj/item/ammo_box/c10x25mm,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "oth" = (
@@ -28766,14 +28760,8 @@
 "pdd" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/rack,
-/obj/item/gun/energy/disabler{
-	pixel_x = 1;
-	pixel_y = 2
-	},
-/obj/item/gun/energy/disabler{
-	pixel_x = 5;
-	pixel_y = 1
-	},
+/obj/item/ammo_box/taser,
+/obj/item/gun/ballistic/automatic/pistol/taser,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "pdw" = (
