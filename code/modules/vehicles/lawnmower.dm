@@ -73,7 +73,7 @@
 			if(M == H)
 				continue
 			if(M.body_position == LYING_DOWN)
-				visible_message(span_danger("\the [src] grinds [M.name], injuring them!"))
+				visible_message(span_danger("\the [src] grinds [M.name], into a fine paste!"))
 				M.gib() // This is so fucked but you people wanted it
 				M.log_message("has been gibbed by an emagged lawnmower that was driven by [(H.ckey || "nobody")] and emagged by [(emagged_by || "nobody")]", LOG_ATTACK, color="red")
 				H.log_message("has gibbed [(M.ckey || "none-player")] using an emagged lawnmower that was emagged by [(emagged_by || "nobody")]", LOG_ATTACK, color="red")
