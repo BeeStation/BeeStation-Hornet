@@ -15,6 +15,9 @@
 ///from base of mob/alt_click_on_secodary(): (atom/A)
 #define COMSIG_MOB_ALTCLICKON_SECONDARY "mob_altclickon_secondary"
 
+/// from /mob/proc/key_down(): (key, client/client, full_key)
+#define COMSIG_MOB_KEYDOWN "mob_key_down"
+
 /// From base of /mob/living/simple_animal/bot/proc/bot_step()
 #define COMSIG_MOB_BOT_PRE_STEP "mob_bot_pre_step"
 	/// Should always match COMPONENT_MOVABLE_BLOCK_PRE_MOVE as these are interchangeable and used to block movement.
@@ -102,3 +105,14 @@
 /// Called before a mob fires a gun (mob/source, obj/item/gun, atom/target, aimed)
 #define COMSIG_MOB_BEFORE_FIRE_GUN "before_fire_gun"
 	#define GUN_HIT_SELF (1 << 0)
+
+/// Sent from /mob/living/basic/proc/look_dead() : ()
+#define COMSIG_BASICMOB_LOOK_DEAD "basicmob_look_dead"
+/// Sent from /mob/living/basic/proc/look_alive() : ()
+#define COMSIG_BASICMOB_LOOK_ALIVE "basicmob_look_alive"
+
+/// Signal sent when a blackboard key is set to a new value
+#define COMSIG_AI_BLACKBOARD_KEY_SET(blackboard_key) "ai_blackboard_key_set_[blackboard_key]"
+
+/// Signal sent when a blackboard key is cleared
+#define COMSIG_AI_BLACKBOARD_KEY_CLEARED(blackboard_key) "ai_blackboard_key_clear_[blackboard_key]"

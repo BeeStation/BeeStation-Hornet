@@ -65,6 +65,12 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	name = "Janitor"
 	icon_state = "Janitor"
 
+/obj/effect/landmark/start/prisoner
+	name = "Prisoner"
+	icon_state = "prisoner"
+	jobspawn_override = TRUE
+	delete_after_roundstart = FALSE
+
 /obj/effect/landmark/start/cargo_technician
 	name = "Cargo Technician"
 	icon_state = "Cargo Technician"

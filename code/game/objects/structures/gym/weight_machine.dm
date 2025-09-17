@@ -105,7 +105,7 @@
 	STOP_PROCESSING(SSobj, src)
 	icon_state = initial(icon_state)
 
-/obj/structure/weightmachine/process(seconds_per_tick)
+/obj/structure/weightmachine/process(delta_time)
 	if(!has_buckled_mobs())
 		end_workout()
 		return FALSE

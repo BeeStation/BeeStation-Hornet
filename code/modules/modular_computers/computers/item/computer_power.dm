@@ -13,10 +13,10 @@
 
 	if(battery_module && battery_module.battery && battery_module.battery.charge)
 		var/obj/item/stock_parts/cell/cell = battery_module.battery
-		if(cell.use(amount * GLOB.CELLRATE))
+		if(cell.use(amount))
 			return TRUE
 		else // Discharge the cell anyway.
-			cell.use(min(amount * GLOB.CELLRATE, cell.charge))
+			cell.use(min(amount, cell.charge))
 			return FALSE
 	return FALSE
 
@@ -47,7 +47,7 @@
 
 /obj/item/modular_computer/proc/battery_explosion()
 	var/obj/item/computer_hardware/battery/controler = all_components[MC_CELL]
-	if(controler.battery)	// If the battery controler is hacked the battery just fucking explodes
+	if(controler.battery)	// If the battery controler is hacked it just fucking explodes
 		var/turf/current_turf = get_turf(src)
 		if(ismob(loc))
 			var/mob/victim = loc
@@ -58,7 +58,7 @@
 		playsound(src, "sparks", 50, 1)
 		if(current_turf)
 			current_turf.hotspot_expose(700, 125)
-		switch(controler.battery.rating)
+		switch(controler.rating)
 			if(PART_TIER_1)
 				explosion(src, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 2, flash_range = 1)
 			if(PART_TIER_2)
@@ -69,7 +69,6 @@
 				explosion(src, devastation_range = -1, heavy_impact_range = 1, light_impact_range = 2, flash_range = 3, flame_range = 2)
 			if(PART_TIER_5)
 				explosion(src, devastation_range = -1, heavy_impact_range = 2, light_impact_range = 3, flash_range = 4, flame_range = 3)
-		qdel(controler.battery)
 		controler.component_qdel()
 		update_appearance()
 
@@ -79,18 +78,31 @@
 	if(recharger)
 		recharger.process(delta_time)
 
-	var/power_usage = screen_on ? base_active_power_usage : base_idle_power_usage
-
-	for(var/h in all_components)
-		var/obj/item/computer_hardware/H = all_components[h]
-		if(H.enabled)
-			power_usage += H.power_usage
+	var/power_usage = calculate_power()
 	if(use_power(power_usage))
 		last_power_usage = power_usage
 		return TRUE
 	else
 		power_failure()
 		return FALSE
+
+/**
+*Calculates current power usage based on if the computer is on of not.
+*
+*Takes into account component power usage, active or idle power usage.
+*
+*When te computer is idle doesn't return component power usage.
+*
+*/
+/obj/item/modular_computer/proc/calculate_power()
+	var/power_usage = enabled ? base_active_power_usage : base_idle_power_usage
+
+	if(enabled)
+		for(var/h in all_components)
+			var/obj/item/computer_hardware/H = all_components[h]
+			if(H.enabled)
+				power_usage += H.power_usage
+	return power_usage
 
 // Used by child types if they have other power source than battery or recharger
 /obj/item/modular_computer/proc/check_power_override()

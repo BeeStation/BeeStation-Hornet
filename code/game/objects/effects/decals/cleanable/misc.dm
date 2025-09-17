@@ -259,3 +259,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable/vomit/old)
 /obj/effect/decal/cleanable/ants/update_overlays()
 	. = ..()
 	. += emissive_appearance(icon, "[icon_state]_light", alpha = src.alpha)
+	
+/obj/effect/decal/cleanable/wrapping
+	name = "wrapping shreds"
+	desc = "Torn pieces of cardboard and paper, left over from a package."
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "paper_shreds"

@@ -35,7 +35,7 @@
 	icon_state = "repeater"
 	item_state = null
 	desc = "An experimental laser repeater rifle that uses a built-in bluespace dynamo to recharge its battery, crank it and fire!"
-	gun_charge = 200
+	gun_charge = 2000 WATT
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/repeater)
 	can_charge = FALSE //don't put this in a recharger
 	var/cranking = FALSE
@@ -51,7 +51,7 @@
 			cranking = TRUE
 			if(do_after(user, 1 SECONDS) && !fire_interrupted)
 				playsound(src, 'sound/weapons/autoguninsert.ogg', 30)
-				cell.give(50)
+				cell.give(500 WATT)
 				flick("repeater", src)
 				update_icon()
 			else
@@ -105,7 +105,7 @@
 /obj/item/gun/energy/laser/cyborg
 	desc = "An energy-based laser gun that draws power from the cyborg's internal energy cell directly. So this is what freedom looks like?"
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/cyborg)
-	gun_charge = 1000 	//10 shot capacity
+	gun_charge = 10000 WATT	//10 shot capacity
 	fire_rate = 2 		//Two shots per second, higher DPS due to hacked module but still slightly worse than normal laser gun
 	charge_delay = 6 	//Still 10 shots per minute overall
 

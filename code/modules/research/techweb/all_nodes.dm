@@ -23,6 +23,8 @@
 		"design_disk",
 		"dest_tagger",
 		"destructive_analyzer",
+		"duct_tape",
+		"epaperread",
 		"fax",
 		"glasses_prescription",
 		"handlabel",
@@ -40,10 +42,12 @@
 		"plastitanium",
 		"plastitaniumglass",
 		"plumbing_rcd",
+		"portable_thermomachine",
 		"rdconsole",
 		"rdserver",
 		"rdservercontrol",
 		"rglass",
+		"salestagger",
 		"sec_38",
 		"sec_38b",
 		"sec_beanbag_slug",
@@ -54,13 +58,10 @@
 		"sec_Islug",
 		"sec_rshot",
 		"sec_slug",
-		"portable_thermomachine",
 		"tech_disk",
 		"titaniumglass",
 		"xenoa_labeler",
 		"xlarge_beaker",
-		"epaperread",
-		"duct_tape"
 	)
 
 /datum/techweb_node/mmi
@@ -1155,7 +1156,6 @@
 	export_price = 2000
 	design_ids = list(
 		"antivirus",
-		"bat_control",
 		"bat_nano",
 		"bat_micro",
 		"cardslot",

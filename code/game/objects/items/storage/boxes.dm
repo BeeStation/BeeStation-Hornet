@@ -923,6 +923,7 @@
 /obj/item/storage/box/lethalshot
 	name = "box of lethal shotgun shots"
 	desc = "A standard box full of lethal shots, designed for riot shotguns."
+	icon_state = "lethalshot_box"
 	illustration = null
 
 /obj/item/storage/box/lethalshot/PopulateContents()
@@ -1349,8 +1350,7 @@
 
 /obj/item/storage/box/tablet4dummies/PopulateContents()
 	new /obj/item/modular_computer/tablet(src)
-	new /obj/item/computer_hardware/battery(src)
-	new /obj/item/stock_parts/cell/computer/nano(src)
+	new /obj/item/computer_hardware/battery/tiny(src)
 	new /obj/item/computer_hardware/processor_unit/small(src)
 	new /obj/item/computer_hardware/hard_drive/micro(src)
 	new /obj/item/computer_hardware/identifier(src)
@@ -1410,5 +1410,19 @@
 		/obj/item/slimecross/stabilized/lightpink=1,\
 		/obj/item/slimecross/stabilized/adamantine=1,\
 		/obj/item/slimecross/stabilized/rainbow=1,\
+	)
+
+/obj/item/storage/box/shipping
+	name = "box of shipping supplies"
+	desc = "Contains several scanners and labelers for shipping things. Wrapping Paper not included."
+	illustration = "shipping"
+
+/obj/item/storage/box/shipping/PopulateContents()
+	var/static/items_inside = list(
+		/obj/item/dest_tagger=1,
+		/obj/item/sales_tagger=1,
+		/obj/item/export_scanner=1,
+		/obj/item/stack/package_wrap/small=2,
+		/obj/item/stack/wrapping_paper/small=1
 		)
 	generate_items_inside(items_inside,src)

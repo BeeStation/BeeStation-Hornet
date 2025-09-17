@@ -15,14 +15,14 @@
 	power_explanation = "Activating Vanishing Act will, after a short delay, teleport you to your Claimed Coffin.\n\
 		Immediately after activating, lights around the user will begin to flicker.\n\
 		Once the user teleports to their coffin, in their place will be a Rat or Bat."
-	power_flags = BP_AM_TOGGLE|BP_AM_SINGLEUSE|BP_AM_STATIC_COOLDOWN
-	check_flags = BP_CANT_USE_IN_FRENZY|BP_CANT_USE_WHILE_STAKED
+	power_flags = BP_AM_TOGGLE | BP_AM_SINGLEUSE | BP_AM_STATIC_COOLDOWN
+	check_flags = BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_STAKED
 	purchase_flags = NONE
 	bloodcost = 100
 	cooldown_time = 100 SECONDS
 	///What stage of the teleportation are we in
 	var/teleporting_stage = GOHOME_START
-	///The types of mobs that will drop post-teleportation.
+	/// The types of mobs that will drop post-teleportation.
 	var/static/list/spawning_mobs = list(
 		/mob/living/simple_animal/mouse = 3,
 		/mob/living/simple_animal/hostile/retaliate/bat = 1,
@@ -58,7 +58,7 @@
 			INVOKE_ASYNC(src, PROC_REF(flicker_lights), 4, 60)
 	teleporting_stage++
 
-/datum/action/vampire/gohome/ContinueActive()
+/datum/action/vampire/gohome/continue_active()
 	. = ..()
 	if(!.)
 		return FALSE

@@ -20,7 +20,7 @@
 	/// The antag datum assigned to a candidate's mind on execution
 	var/datum/antagonist/antag_datum
 	/// If the config flag `protect_roles_from_antagonist` is set, these roles are excluded
-	var/list/protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
+	var/list/protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_PRISONER)
 	/// The roles that can never have this ruleset applied to them regardless of the config
 	var/list/restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG)
 	/// A list of rulesets that this ruleset is not compatible with. (A blood and clock cult can't both run)

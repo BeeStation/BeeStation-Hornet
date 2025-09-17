@@ -13,7 +13,8 @@
 	contraband = list()
 	premium = list()
 */
-
+/// NT's Tax rate on the price the seller (cargo) receives
+#define TAX_RATE 0.5
 #define MAX_VENDING_INPUT_AMOUNT 30
 /**
   * # vending record datum
@@ -55,12 +56,12 @@
 	verb_say = "beeps"
 	verb_ask = "beeps"
 	verb_exclaim = "beeps"
+	idle_power_usage = 100 WATT
 	max_integrity = 300
 	integrity_failure = 0.33
 	armor_type = /datum/armor/machinery_vending
 	circuit = /obj/item/circuitboard/machine/vendor
 	clicksound = 'sound/machines/pda_button1.ogg'
-	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 
 	light_power = 0.5
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
@@ -844,7 +845,6 @@
 	var/list/data = list()
 	data["onstation"] = onstation
 	data["all_products_free"] = all_products_free
-	data["department_bitflag"] = dept_req_for_free
 	data["product_records"] = list()
 	data["displayed_currency_icon"] = displayed_currency_icon
 	data["displayed_currency_name"] = displayed_currency_name
@@ -917,11 +917,9 @@
 			.["user"]["name"] = H.name
 		.["user"]["cash"] = H.get_accessible_cash()
 		.["user"]["job"] = "No Job"
-		.["user"]["department_bitflag"] = 0
 		var/datum/record/crew/R = find_record(card?.registered_account?.account_holder, GLOB.manifest.general)
 		if(card?.registered_account?.account_job)
 			.["user"]["job"] = card.registered_account.account_job.title
-			.["user"]["department_bitflag"] = card.registered_account.active_departments
 		if(R)
 			.["user"]["job"] = R.rank
 	.["stock"] = list()
@@ -1041,15 +1039,7 @@
 			flick(icon_deny,src)
 			vend_ready = TRUE
 			return
-		// Department cards cannot be used to order stuff in vendors, we make an exception for the debug card
-		else if(!C.registered_account.account_job && !istype(C, /obj/item/card/id/syndicate/debug))
-			say("Departmental accounts have been blacklisted from personal expenses due to embezzlement.")
-			flick(icon_deny, src)
-			vend_ready = TRUE
-			return
 		var/datum/bank_account/account = C.registered_account
-		if(account.account_job && (account.active_departments & dept_req_for_free))
-			price_to_use = 0
 		if(coin_records.Find(R) || hidden_records.Find(R))
 			price_to_use = R.custom_premium_price ? R.custom_premium_price : extra_price
 		if(LAZYLEN(R.returned_products))
@@ -1065,7 +1055,8 @@
 				price_to_use = round(price_to_use/length(dept_list))
 				for(var/datum/bank_account/department/D in dept_list)
 					if(D)
-						D.adjust_money(price_to_use)
+						var/after_tax = price_to_use * TAX_RATE
+						D.adjust_money(after_tax)
 						SSblackbox.record_feedback("amount", "vending_spent", price_to_use)
 						log_econ("[price_to_use] credits were inserted into [src] by [D.account_holder] to buy [R].")
 
@@ -1073,7 +1064,7 @@
 		say("Thank you for shopping with [src]!")
 		purchase_message_cooldown = world.time + 5 SECONDS
 		last_shopper = REF(usr)
-	use_power(5)
+	use_power(500 WATT)
 	if(icon_vend) //Show the vending animation if needed
 		flick(icon_vend,src)
 	playsound(src, 'sound/machines/machine_vend.ogg', 50, TRUE, extrarange = -3)
@@ -1223,7 +1214,6 @@
 	icon_deny = "robotics-deny"
 	light_mask = "robotics-light-mask"
 	max_integrity = 400
-	dept_req_for_free = NO_FREEBIES
 	refill_canister = /obj/item/vending_refill/custom
 	/// where the money is sent
 	var/datum/bank_account/private_a
@@ -1326,7 +1316,7 @@
 						else
 							to_chat(usr, span_warning("[capitalize(S.name)] falls onto the floor!"))
 						loaded_items--
-						use_power(5)
+						use_power(500 WATT)
 						vend_ready = TRUE
 						return TRUE
 					//var/datum/bank_account/account = C?.registered_account
@@ -1365,7 +1355,7 @@
 		to_chat(usr, span_warning("[capitalize(bought_item.name)] falls onto the floor!"))
 	playsound(src, 'sound/machines/machine_vend.ogg', 50, TRUE, extrarange = -3)
 	loaded_items--
-	use_power(5)
+	use_power(500 WATT)
 	if(last_shopper != REF(usr) || COOLDOWN_FINISHED(src, purchase_message_cooldown))
 		say("Thank you for buying local and purchasing [bought_item]!")
 		COOLDOWN_START(src, purchase_message_cooldown, (5 SECONDS))

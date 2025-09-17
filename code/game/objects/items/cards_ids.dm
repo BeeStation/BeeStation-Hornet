@@ -345,10 +345,10 @@
 		registered_account.bank_card_talk(span_warning("ERROR: UNABLE TO LOGIN DUE TO SCHEDULED MAINTENANCE. MAINTENANCE IS SCHEDULED TO COMPLETE IN [(registered_account.withdrawDelay - world.time)/10] SECONDS."), TRUE)
 		return
 
-	var/amount_to_remove =  FLOOR(input(user, "How much do you want to withdraw? Current Balance: [registered_account.account_balance]", "Withdraw Funds", 5) as num, 1)
+	//var/current_balance = registered_account.account_balance
+	var/amount_to_remove = round(tgui_input_number(user, "How much do you want to withdraw? Current: [registered_account.account_balance] cr", "Withdraw Funds", 0, registered_account.account_balance, 0))
 
-	if(!amount_to_remove || amount_to_remove < 0)
-		to_chat(user, span_warning("You're pretty sure that's not how money works."))
+	if(isnull(amount_to_remove) || amount_to_remove <= 0)
 		return
 	if(!alt_click_can_use_id(user))
 		return
@@ -1306,6 +1306,13 @@ update_label("John Doe", "Clowny")
 	icon_state = "id"
 	hud_state = JOB_HUD_UNKNOWN
 
+/obj/item/card/id/job/prisoner
+	name = "Prisoner Identification Card"
+	desc = "A rugged plastized ID card designed for use by prisoners. Purely to facilitate the convenience of digitalised currency."
+	icon_state = "orange"
+	assignment = JOB_NAME_PRISONER
+	hud_state = JOB_HUD_PRISONER
+
 /obj/item/card/id/gold/vip
 	name = "important gold identification card"
 	assignment = JOB_NAME_VIP
@@ -1315,7 +1322,6 @@ update_label("John Doe", "Clowny")
 	name = "their majesty's gold identification card"
 	assignment = JOB_NAME_KING
 	hud_state = JOB_HUD_KING
-
 
 /obj/item/card/id/pass
 	name = "promotion pass"
