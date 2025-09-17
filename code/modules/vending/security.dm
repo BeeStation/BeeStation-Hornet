@@ -21,11 +21,12 @@
 	contraband = list(/obj/item/clothing/glasses/sunglasses/advanced = 2)
 	premium = list(/obj/item/storage/belt/security/webbing = 5,
 					/obj/item/storage/backpack/duffelbag/sec/deputy = 4,
-				   /obj/item/coin/antagtoken = 1,
-				   /obj/item/security_barricade = 4,
-				   /obj/item/clothing/head/helmet/blueshirt = 1,
-				   /obj/item/clothing/suit/armor/vest/blueshirt = 1,
-				   /obj/item/grenade/stingbang = 1)
+					/obj/item/ammo_box/pouch/c10x25mm = 6,
+					/obj/item/coin/antagtoken = 1,
+					/obj/item/security_barricade = 4,
+					/obj/item/clothing/head/helmet/blueshirt = 1,
+					/obj/item/clothing/suit/armor/vest/blueshirt = 1,
+					/obj/item/grenade/stingbang = 1)
 	refill_canister = /obj/item/vending_refill/security
 	default_price = 100
 	extra_price = 150

@@ -167,6 +167,7 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 
 	backpack_contents = list(
 		/obj/item/ammo_box/magazine/mm10x25 = 1,
+		/obj/item/ammo_box/magazine/taser = 1,
 		)
 
 	implants = list(/obj/item/implant/mindshield)

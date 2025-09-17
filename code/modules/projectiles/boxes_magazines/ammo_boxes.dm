@@ -77,6 +77,19 @@
 	ammo_type = /obj/item/ammo_casing/c9mm
 	max_ammo = 30
 
+/obj/item/ammo_box/c10x25mm
+	name = "ammo box (10x25mm NPS)"
+	icon_state = "45box"
+	ammo_type = /obj/item/ammo_casing/c10x25mm
+	max_ammo = 30
+
+/obj/item/ammo_box/pouch/c10x25mm
+	name = "ammo pouch (10x25mm)"
+	desc = "12 10x25mm NPS bullets in a disposable paper package."
+	ammo_type = /obj/item/ammo_casing/c10x25mm
+	max_ammo = 12
+	custom_price = 100
+
 /obj/item/ammo_box/pouch/c9mm
 	name = "ammo pouch (9mm)"
 	ammo_type = /obj/item/ammo_casing/c9mm

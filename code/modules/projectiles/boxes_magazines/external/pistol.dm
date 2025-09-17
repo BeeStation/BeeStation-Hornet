@@ -96,3 +96,22 @@
 /obj/item/ammo_box/magazine/mm10x25/examine_more(mob/user)
 	. = ..()
 	. += "<i>Loaded with 12 shots of NT custom 10 by 25 steel-jacketed, low-velocity ammo. The lubricant they had to use because of the steel cartridges stains your hands terribly. Of course it's proprietary...</i>"
+
+/obj/item/ammo_box/magazine/mm10x25/empty
+	start_empty = TRUE
+
+/obj/item/ammo_box/magazine/taser
+	name = "Multi-use taser cartridge"
+	desc= "A gun magazine for 10x25mm ammo. The standard law-enforcement loading of the popular NPS-10. Has a handy digital counter built into it."
+	icon_state = "taser_cartridge-1"
+	ammo_type = /obj/item/ammo_casing/taser_load
+	caliber = list("taser load")
+	max_ammo = 1
+	multiple_sprites = 1
+
+/obj/item/ammo_box/magazine/taser/update_icon()
+	..()
+	if (ammo_count() >= 1)
+		icon_state = "taser_cartridge-1"
+	else
+		icon_state = "taser_cartridge-0"

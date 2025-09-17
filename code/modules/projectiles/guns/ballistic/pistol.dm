@@ -201,4 +201,36 @@
 			Designed to blend into any uniform yet hold its own in close quarters, it’s the pragmatic choice for \
 			private security operators.</i>"
 
+/obj/item/gun/ballistic/automatic/pistol/taser
+	name = "TASER"
+	desc = "TASER"
+	icon_state = "taser"
+	w_class = WEIGHT_CLASS_SMALL
+	mag_type = /obj/item/ammo_box/magazine/taser
+	can_suppress = FALSE
+	tac_reloads = FALSE
+	worn_icon_state = "officer_pistol"
+	fire_rate = 1
+	magazine_wording = "cartridge"
+	cartridge_wording = "taser load"
+	throwforce = 0
+	weapon_weight = WEAPON_LIGHT * 0.5
+	equip_time = 0
+	fire_sound = 'sound/weapons/taser/shot.ogg'
 
+/obj/item/gun/ballistic/automatic/pistol/taser/update_icon()
+	. = ..()
+	var/mutable_appearance/cartridge = mutable_appearance(icon, "taser_cartridge")
+
+	cut_overlay(cartridge)
+
+	if(magazine.ammo_count() >= 1)
+		add_overlay(cartridge)
+
+/obj/item/gun/ballistic/automatic/pistol/taser/examine(mob/user)
+	. = ..()
+	. += span_notice("<i>You could examine it more thoroughly...</i>")
+
+/obj/item/gun/ballistic/automatic/pistol/taser/examine_more(mob/user)
+	. = ..()
+	. += "<i>TASER</i>"

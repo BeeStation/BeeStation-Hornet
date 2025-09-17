@@ -72,3 +72,10 @@
 	caliber = "10x25mm"
 	icon_state = "s-casing_steel"
 	projectile_type = /obj/projectile/bullet/c10x25mm
+
+/obj/item/ammo_casing/taser_load
+	name = "taser load"
+	desc = "taser load"
+	caliber = "taser load"
+	icon_state = "taser_load"
+	projectile_type = /obj/projectile/bullet/c10x25mm

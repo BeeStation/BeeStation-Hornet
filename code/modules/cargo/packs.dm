@@ -376,15 +376,35 @@
 					/obj/item/clothing/head/helmet/sec)
 	crate_name = "armor crate"
 
-/datum/supply_pack/security/disabler
-	name = "Disabler Crate"
-	desc = "Three stamina-draining disabler weapons. Requires Security access to open."
-	cost = 1500
+/datum/supply_pack/security/secpistol
+	name = "NPS-10 3-pack Crate"
+	desc = "Three standard issue law enforcement firearms. Requires Security access to open. Includes magazines."
+	cost = 1900
 	max_supply = 2
-	contains = list(/obj/item/gun/energy/disabler,
-					/obj/item/gun/energy/disabler,
-					/obj/item/gun/energy/disabler)
-	crate_name = "disabler crate"
+	contains = list(/obj/item/gun/ballistic/automatic/pistol/security,
+					/obj/item/gun/ballistic/automatic/pistol/security,
+					/obj/item/gun/ballistic/automatic/pistol/security)
+	crate_name = "pistol crate"
+
+/datum/supply_pack/security/secpistol_ammo
+	name = "10x25mm NPS ammo Crate"
+	desc = "Three boxes of 10 by 25mm steel-cartridged low velocity ammo for law enforcement firearms. Requires Security access to open."
+	cost = 950
+	max_supply = 2
+	contains = list(/obj/item/ammo_box/c10x25mm,
+					/obj/item/ammo_box/c10x25mm,
+					/obj/item/ammo_box/c10x25mm)
+	crate_name = "ammo crate"
+
+/datum/supply_pack/security/secpistol_mags
+	name = "NPS-10 magazines Crate"
+	desc = "Three standard issue NPS-10 compatible magazines for law enforcement firearms. Does not come pre-loaded. Requires Security access to open."
+	cost = 1200
+	max_supply = 2
+	contains = list(/obj/item/ammo_box/magazine/mm10x25/empty,
+					/obj/item/ammo_box/magazine/mm10x25/empty,
+					/obj/item/ammo_box/magazine/mm10x25/empty)
+	crate_name = "magazine crate"
 
 /datum/supply_pack/security/forensics
 	name = "Forensics Crate"
