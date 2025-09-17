@@ -3,7 +3,8 @@
 	desc = "The part of the gun that makes the laser go pew."
 	caliber = "energy"
 	projectile_type = /obj/projectile/energy
-	var/e_cost = 1000 WATT	//The amount of energy a cell needs to expend to create this shot. This is calculated automatically based on shots per 10 kW
+	/// The amount of energy a cell needs to expend to create this shot
+	var/e_cost = 1000 WATT
 	var/select_name = "energy"
 	fire_sound = 'sound/weapons/laser.ogg'
 	heavy_metal = FALSE

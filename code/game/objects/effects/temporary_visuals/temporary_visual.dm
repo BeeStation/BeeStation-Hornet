@@ -7,13 +7,24 @@
 	var/duration = 10 //in deciseconds
 	var/randomdir = TRUE
 	var/timerid
+	/// Used in Projectile effects to keep the core of the effect white
+	var/core_overlay
 
 /obj/effect/temp_visual/Initialize(mapload)
 	. = ..()
 	if(randomdir)
 		setDir(pick(GLOB.cardinals))
+	if(core_overlay)
+		update_appearance()
 
 	timerid = QDEL_IN_STOPPABLE(src, duration)
+
+/obj/effect/temp_visual/update_overlays()
+	. = ..()
+	if(core_overlay)
+		var/mutable_appearance/ma = mutable_appearance(icon, core_overlay)
+		ma.appearance_flags |= RESET_COLOR
+		. += ma
 
 /obj/effect/temp_visual/Destroy()
 	. = ..()

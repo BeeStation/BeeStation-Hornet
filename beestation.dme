@@ -3887,6 +3887,7 @@
 #include "code\modules\projectiles\ammunition\energy\lmg.dm"
 #include "code\modules\projectiles\ammunition\energy\plasma.dm"
 #include "code\modules\projectiles\ammunition\energy\portal.dm"
+#include "code\modules\projectiles\ammunition\energy\shotgun.dm"
 #include "code\modules\projectiles\ammunition\energy\special.dm"
 #include "code\modules\projectiles\ammunition\energy\stun.dm"
 #include "code\modules\projectiles\ammunition\special\magic.dm"

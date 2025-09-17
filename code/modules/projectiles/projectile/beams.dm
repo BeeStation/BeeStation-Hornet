@@ -44,6 +44,7 @@
 
 /obj/effect/temp_visual/impact_effect/color
 	icon_state = "laser_impact_white"
+	core_overlay = "laser_impact_core"
 	duration = 4
 	light_range = 1
 	light_power = 1
@@ -52,6 +53,7 @@
 
 /obj/effect/temp_visual/dir_setting/firing_effect/color
 	icon_state = "firing_effect_white"
+	core_overlay = "firing_effect_core"
 	duration = 3
 	/// Muzzles now have a light effect, they didn't prior!
 	light_range = 1
@@ -61,6 +63,7 @@
 
 /obj/effect/temp_visual/impact_effect/color/wall
 	icon_state = "laser_impact_wall_white"
+	core_overlay = "laser_impact_wall_core"
 	duration = 10
 
 /obj/projectile/laser/Initialize(mapload)
@@ -163,8 +166,10 @@
 	armor_flag = ENERGY
 	hitsound = 'sound/weapons/tap.ogg'
 	eyeblur = 0
-	color = COLOR_CYAN
-	light_color = LIGHT_COLOR_BLUE
+	color = COLOR_LIGHT_PINK
+	light_color = LIGHT_COLOR_PINK
+	//color = COLOR_CYAN
+	//light_color = LIGHT_COLOR_BLUE
 
 /obj/projectile/laser/disabler/pass_glass ///this is for the malf ai turret upgrade xdxdxd
 	name = "beam-disabler"
@@ -326,6 +331,8 @@
 		M.visible_message(span_danger("[M] explodes into a shower of gibs!"))
 		M.gib()
 
+///* SHOTGUN PELLETS *///
+
 /obj/projectile/laser/pellet
 	name = "laser pellet"
 	icon_state = "laser_pellet"
@@ -351,7 +358,7 @@
 
 /obj/projectile/laser/pellet/disabler
 	name = "disabler pellet"
-	damage = 6
+	damage = 12
 	damage_type = STAMINA
 	armor_flag = ENERGY
 	hitsound = 'sound/weapons/tap.ogg'
@@ -360,11 +367,10 @@
 	color = COLOR_CYAN
 	light_color = LIGHT_COLOR_CYAN
 
-/obj/item/ammo_casing/energy/shotgun_disabler
-	projectile_type = /obj/projectile/laser/pellet/disabler
-	select_name = "disable"
-	e_cost = 1000 WATT
-	pellets = 8
-	variance = 40
-	fire_sound = 'sound/weapons/taser2.ogg'
-	harmful = FALSE
+/obj/projectile/laser/pellet/lethal
+	name = "lethal pellet"
+	damage = 10
+	range = 12
+	speed = 1
+	color = COLOR_RED
+	light_color = LIGHT_COLOR_RED
