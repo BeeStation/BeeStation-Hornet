@@ -1,6 +1,0 @@
-author: Bieyes
-delete-after: true
-changes:
-  - tweak: heavily slowed down all lawnmowers.
-  - balance: lawnmowers no longer gib.
-  - bugfix: mosins (and any other bolt actions) can be reloaded again.

@@ -292,6 +292,10 @@
   - rscadd: Remapped MetaStation Service and Atmos
   - bugfix: Fixed airlock pumps
 2025-09-17:
+  Bieyes:
+  - tweak: heavily slowed down all lawnmowers.
+  - balance: lawnmowers no longer gib.
+  - bugfix: mosins (and any other bolt actions) can be reloaded again.
   ClownMoff:
   - rscdel: Removed a stray decal on BoxStation
   rkz, arcanemusic, cacogen, tastyfish:
