@@ -481,7 +481,7 @@
 	atom_storage.max_slots = 32
 	atom_storage.set_holdable(list(
 		/obj/item/mail,
-		/obj/item/small_delivery,
+		/obj/item/delivery/small,
 		/obj/item/paper,
 		/obj/item/reagent_containers/condiment/milk,
 		/obj/item/food/bread/plain

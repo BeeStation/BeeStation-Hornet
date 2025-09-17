@@ -273,6 +273,11 @@
   - bugfix: Fixed Assistants seeing items as free, even though they aren't
   THEREALDOOOC213:
   - rscadd: fat people now break tables when slammed onto them
+  lord scrubling:
+  - bugfix: advanced atmos resin is no longer killed early when spreading in hot air
+  - rscadd: atmos hardsuits, winter coats, and modsuits can carry extinguishers in
+      their exo slot
+  - bugfix: firefighting foam now works
   ? mrmanlikesbt, MrPerson, cacogen, MMMiracles, Tastyfish, XyzzyThePretender, LemonInTheDark,
     MTandi, Lufferly, BobDABuilder9001, Sealed101
   : - rscadd: Added new solar panel sprites. These dynamically track the sun instead
@@ -286,3 +291,9 @@
   mrmanlikesbt, san7890, the wonderful mappers at /tg/station:
   - rscadd: Remapped MetaStation Service and Atmos
   - bugfix: Fixed airlock pumps
+2025-09-17:
+  rkz, arcanemusic, cacogen, tastyfish:
+  - rscadd: adds ability to split profits on sold items with the sales tagger
+  - rscadd: cleaned up delivery crate appearance code, crates will show notes scrawled
+      on them and destination tags better
+  - refactor: cleaned up some crate export code
