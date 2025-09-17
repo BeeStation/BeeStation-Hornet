@@ -157,9 +157,10 @@
 		return
 
 	var/duration = input(usr, "What is the duration of the sound? (Seconds)") as null|num
-	duration = duration SECONDS
 	if(duration <= 0)
+		to_chat(src, span_warning("Duration must be more than 0"))
 		return
+	duration = duration SECONDS
 
 	SSticker.SetRoundEndSound(S, duration)
 
