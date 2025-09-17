@@ -30,6 +30,8 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/old)
 	ammo_x_offset = 3
 
+/// Repeater ///
+
 /obj/item/gun/energy/laser/repeater
 	name = "NT LRR Model 2284"
 	icon_state = "repeater"
@@ -73,7 +75,7 @@
 	if(!cranking)
 		crank_charge(user)
 
-/obj/item/gun/energy/laser/repeater/shotgun
+/obj/item/gun/energy/laser/repeater/shotgun // Lethal Repeater Shotgun
 	name = "NT LS 2-58"
 	icon_state = "laser_shotgun"
 	item_state = "shotgun"
@@ -90,7 +92,7 @@
 	do_after_flag = IGNORE_USER_LOC_CHANGE	// The Weight class is already punishing enough
 	ammo_type = list(/obj/item/ammo_casing/energy/shotgun_laser)
 
-/obj/item/gun/energy/laser/repeater/shotgun/disabler
+/obj/item/gun/energy/laser/repeater/shotgun/disabler // Disabler Repeater Shotgun
 	name = "NT DS 2-58"
 	icon_state = "disabler_shotgun"
 	time_to_crank = 1.5 SECONDS
