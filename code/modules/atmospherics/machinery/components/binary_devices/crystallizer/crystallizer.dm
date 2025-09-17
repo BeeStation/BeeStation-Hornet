@@ -39,6 +39,12 @@
 	. = ..()
 	internal = new
 
+/obj/machinery/atmospherics/components/binary/crystallizer/examine()
+	. = ..()
+	. += span_notice("A label on the side reads:")
+	. += "[span_green("Green")] - gas input."
+	. += "[span_red("Red")] - temperature management."
+
 /obj/machinery/atmospherics/components/binary/crystallizer/on_deconstruction(disassembled)
 	var/turf/local_turf = get_turf(loc)
 	if(internal.total_moles())
@@ -66,12 +72,12 @@
 /obj/machinery/atmospherics/components/binary/crystallizer/update_overlays()
 	. = ..()
 	// Gas input
-	var/image/pipe_appearance1 = get_pipe_image('icons/obj/atmospherics/components/thermomachine.dmi', "pipe", dir, COLOR_LIME, piping_layer)
+	var/image/pipe_appearance1 = get_pipe_image('icons/obj/atmospherics/components/thermomachine.dmi', "pipe", dir, COLOR_VIBRANT_LIME, piping_layer)
 	pipe_appearance1.layer = (dir == NORTH) ? GAS_SCRUBBER_LAYER : WALL_OBJ_LAYER
 	. += pipe_appearance1
 
 	// Heat moderation
-	var/image/pipe_appearance2 = get_pipe_image('icons/obj/atmospherics/components/thermomachine.dmi', "pipe", REVERSE_DIR(dir), COLOR_MOSTLY_PURE_RED, piping_layer)
+	var/image/pipe_appearance2 = get_pipe_image('icons/obj/atmospherics/components/thermomachine.dmi', "pipe", REVERSE_DIR(dir), COLOR_RED, piping_layer)
 	pipe_appearance2.layer = (REVERSE_DIR(dir) == NORTH) ? GAS_SCRUBBER_LAYER : WALL_OBJ_LAYER
 	. += pipe_appearance2
 
