@@ -731,6 +731,14 @@ SUBSYSTEM_DEF(ticker)
 
 	var/start_wait = world.time
 	UNTIL(round_end_sound_sent || (world.time - start_wait) > (delay * 2))	//don't wait forever
+
+	var/round_end_sound = pick(GLOB.round_end_sounds)
+	var/sound_length = GLOB.round_end_sounds[round_end_sound]
+	if(delay > sound_length) // If there's time, play the round-end sound before rebooting
+		spawn(delay - sound_length)
+			if(!delay_end)
+				SEND_SOUND(world, sound(round_end_sound))
+
 	sleep(delay - (world.time - start_wait))
 
 	if(delay_end && !skip_delay)
@@ -754,12 +762,6 @@ SUBSYSTEM_DEF(ticker)
 	gather_newscaster() //called here so we ensure the log is created even upon admin reboot
 	save_admin_data()
 	update_everything_flag_in_db()
-	if(!round_end_sound)
-		var/list/tracks = flist("sound/roundend/")
-		if(tracks.len)
-			round_end_sound = "sound/roundend/[pick(tracks)]"
-
-	SEND_SOUND(world, sound(round_end_sound))
 	rustg_file_append(login_music, "data/last_round_lobby_music.txt")
 
 #undef ROUND_START_MUSIC_LIST
