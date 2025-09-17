@@ -169,13 +169,22 @@
 	desc = "Standard APS firearm for on-station law enforcement. Low-velocity and unlikely to breach the hull. Uses 10x25mm ammo."
 	icon_state = "sec"
 	w_class = WEIGHT_CLASS_NORMAL
-	mag_type = /obj/item/ammo_box/magazine/recharge/service
+	mag_type = /obj/item/ammo_box/magazine/mm10x25
 	can_suppress = FALSE
 	actions_types = list(/datum/action/item_action/toggle_firemode)
 	worn_icon_state = "officer_pistol"
 	burst_size = 2
 	fire_delay = 1.5
 	fire_rate = 2
+
+// We do not want to start on burst mode.
+/obj/item/gun/ballistic/automatic/pistol/security/Initialize()
+	. = ..()
+	burst_select()
+
+/obj/item/gun/ballistic/automatic/pistol/security/examine(mob/user)
+	. = ..()
+	. += span_notice("<i>You could examine it more thoroughly...</i>")
 
 /obj/item/gun/ballistic/automatic/pistol/security/examine_more(mob/user)
 	. = ..()

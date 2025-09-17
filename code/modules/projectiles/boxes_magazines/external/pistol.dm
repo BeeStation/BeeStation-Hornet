@@ -80,10 +80,19 @@
 	name = "pistol magazine (10x25mm)"
 	icon_state = "10x25mm-12"
 	desc= "A gun magazine for 10x25mm ammo. The standard law-enforcement loading of the popular NPS-10. Has a handy digital counter built into it."
-	ammo_type = /obj/item/ammo_casing/c9mm
+	ammo_type = /obj/item/ammo_casing/c10x25mm
 	caliber = list("10x25mm")
 	max_ammo = 12
+	multiple_sprites = 1
+
+/obj/item/ammo_box/magazine/mm10x25/update_icon()
+	..()
+	icon_state = "10x25mm-[CEILING(ammo_count(),3)]"
+
+/obj/item/ammo_box/magazine/mm10x25/examine(mob/user)
+	. = ..()
+	. += span_notice("<i>You could examine it more thoroughly...</i>")
 
 /obj/item/ammo_box/magazine/mm10x25/examine_more(mob/user)
 	. = ..()
-	. += "<i>Loaded with 12 shots of NT custom 10 by 25 steel-jacketed ammo. The lubricant they had to use because of the steel cartridges stains your hands terribly. Of course it's proprietary...</i>"
+	. += "<i>Loaded with 12 shots of NT custom 10 by 25 steel-jacketed, low-velocity ammo. The lubricant they had to use because of the steel cartridges stains your hands terribly. Of course it's proprietary...</i>"
