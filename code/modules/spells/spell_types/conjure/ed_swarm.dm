@@ -14,5 +14,5 @@
 	var/mob/living/simple_animal/bot/ed209/summoned_bot = summoned_object
 	summoned_bot.name = "Wizard's Justicebot"
 
-	summoned_bot.projectile = /obj/projectile/beam/laser
+	summoned_bot.projectile = /obj/projectile/laser/laser
 	summoned_bot.shoot_sound = 'sound/weapons/laser.ogg'

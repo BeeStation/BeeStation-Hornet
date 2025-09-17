@@ -55,15 +55,15 @@
 	harmful = FALSE
 
 /obj/item/ammo_casing/energy/instakill
-	projectile_type = /obj/projectile/beam/instakill
+	projectile_type = /obj/projectile/laser/instakill
 	e_cost = 0 WATT
 	select_name = "DESTROY"
 
 /obj/item/ammo_casing/energy/instakill/blue
-	projectile_type = /obj/projectile/beam/instakill/blue
+	projectile_type = /obj/projectile/laser/instakill/blue
 
 /obj/item/ammo_casing/energy/instakill/red
-	projectile_type = /obj/projectile/beam/instakill/red
+	projectile_type = /obj/projectile/laser/instakill/red
 
 /obj/item/ammo_casing/energy/tesla_revolver
 	fire_sound = 'sound/magic/lightningbolt.ogg'

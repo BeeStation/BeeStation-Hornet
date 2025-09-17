@@ -1,7 +1,7 @@
-/obj/projectile/beam/mindflayer
+/obj/projectile/laser/mindflayer
 	name = "flayer ray"
 
-/obj/projectile/beam/mindflayer/on_hit(atom/target, blocked = FALSE)
+/obj/projectile/laser/mindflayer/on_hit(atom/target, blocked = FALSE)
 	. = ..()
 	if(ishuman(target))
 		var/mob/living/carbon/human/human_hit = target

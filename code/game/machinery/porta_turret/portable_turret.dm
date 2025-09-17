@@ -751,7 +751,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	base_icon_state = "standard"
 	stun_projectile = /obj/projectile/energy/electrode
 	stun_projectile_sound = 'sound/weapons/taser.ogg'
-	lethal_projectile = /obj/projectile/beam/laser
+	lethal_projectile = /obj/projectile/laser/lethal
 	lethal_projectile_sound = 'sound/weapons/laser.ogg'
 	desc = "An energy blaster auto-turret."
 
@@ -762,12 +762,12 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	base_icon_state = "standard"
 	stun_projectile = /obj/projectile/energy/electrode
 	stun_projectile_sound = 'sound/weapons/taser.ogg'
-	lethal_projectile = /obj/projectile/beam/heavylaser
+	lethal_projectile = /obj/projectile/laser/heavy
 	lethal_projectile_sound = 'sound/weapons/lasercannonfire.ogg'
 	desc = "An energy blaster auto-turret."
 
 /obj/machinery/porta_turret/syndicate/energy/raven
-	stun_projectile =  /obj/projectile/beam/laser
+	stun_projectile =  /obj/projectile/laser/lethal
 	stun_projectile_sound = 'sound/weapons/laser.ogg'
 	faction = list(FACTION_NEUTRAL, FACTION_SILICON, FACTION_TURRET)
 
@@ -855,8 +855,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	use_power = NO_POWER_USE
 	has_cover = FALSE
 	scan_range = 9
-	stun_projectile = /obj/projectile/beam/laser
-	lethal_projectile = /obj/projectile/beam/laser
+	stun_projectile = /obj/projectile/laser/lethal	// uh?! what
+	lethal_projectile = /obj/projectile/laser/lethal
 	lethal_projectile_sound = 'sound/weapons/plasma_cutter.ogg'
 	stun_projectile_sound = 'sound/weapons/plasma_cutter.ogg'
 	faction = list(FACTION_NEUTRAL,FACTION_SILICON,FACTION_TURRET)
@@ -877,8 +877,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	desc = "A turret built with substandard parts and run down further with age. Still capable of delivering lethal lasers to the odd space carp, but not much else."
 	max_integrity = 120
 	integrity_failure = 0.5
-	stun_projectile = /obj/projectile/beam/weak/penetrator
-	lethal_projectile = /obj/projectile/beam/weak/penetrator
+	stun_projectile = /obj/projectile/laser/weak/penetrator
+	lethal_projectile = /obj/projectile/laser/weak/penetrator
 	faction = list(FACTION_NEUTRAL,FACTION_SILICON,FACTION_TURRET)
 
 ////////////////////////
@@ -1115,16 +1115,16 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/turretid)
 
 /obj/item/gun/energy/laser/bluetag/get_turret_properties()
 	. = ..()
-	.["stun_projectile"] = /obj/projectile/beam/lasertag/bluetag
-	.["lethal_projectile"] = /obj/projectile/beam/lasertag/bluetag
+	.["stun_projectile"] = /obj/projectile/laser/lasertag/bluetag
+	.["lethal_projectile"] = /obj/projectile/laser/lasertag/bluetag
 	.["base_icon_state"] = "blue"
 	.["shot_delay"] = 30
 	.["team_color"] = "blue"
 
 /obj/item/gun/energy/laser/redtag/get_turret_properties()
 	. = ..()
-	.["stun_projectile"] = /obj/projectile/beam/lasertag/redtag
-	.["lethal_projectile"] = /obj/projectile/beam/lasertag/redtag
+	.["stun_projectile"] = /obj/projectile/laser/lasertag/redtag
+	.["lethal_projectile"] = /obj/projectile/laser/lasertag/redtag
 	.["base_icon_state"] = "red"
 	.["shot_delay"] = 30
 	.["team_color"] = "red"
@@ -1194,11 +1194,11 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/turretid)
 	. = ..()
 	if(on)
 		if(team_color == "blue")
-			if(istype(P, /obj/projectile/beam/lasertag/redtag))
+			if(istype(P, /obj/projectile/laser/lasertag/redtag))
 				toggle_on(FALSE)
 				addtimer(CALLBACK(src, PROC_REF(toggle_on), TRUE), 10 SECONDS)
 		else if(team_color == "red")
-			if(istype(P, /obj/projectile/beam/lasertag/bluetag))
+			if(istype(P, /obj/projectile/laser/lasertag/bluetag))
 				toggle_on(FALSE)
 				addtimer(CALLBACK(src, PROC_REF(toggle_on), TRUE), 10 SECONDS)
 

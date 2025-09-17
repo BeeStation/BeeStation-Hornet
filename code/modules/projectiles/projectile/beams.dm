@@ -1,4 +1,4 @@
-/obj/projectile/beam
+/obj/projectile/laser
 	name = "laser"
 	pass_flags = PASSTABLE | PASSTRANSPARENT | PASSGRILLE
 	damage = 20
@@ -63,17 +63,17 @@
 	icon_state = "laser_impact_wall_white"
 	duration = 10
 
-/obj/projectile/beam/Initialize(mapload)
+/obj/projectile/laser/Initialize(mapload)
 	. = ..()
 	update_appearance()
 
-/obj/projectile/beam/update_overlays()
+/obj/projectile/laser/update_overlays()
 	. = ..()
 	var/mutable_appearance/ma = mutable_appearance(icon, core_overlay)
 	ma.appearance_flags |= RESET_COLOR
 	. += ma
 
-/obj/projectile/beam/on_hit(atom/target, blocked = FALSE)
+/obj/projectile/laser/on_hit(atom/target, blocked = FALSE)
 	. = ..()
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
@@ -85,7 +85,7 @@
 		else
 			impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser/wall
 
-/obj/projectile/beam/mini
+/obj/projectile/laser/mini
 	// This is a smaller version of the laser beam, it amounts to a small bullet
 	name = "mini-laser"
 	icon_state = "minilaser_white"
@@ -93,20 +93,20 @@
 
 //* BEAM SUBTYPES *//
 
-/obj/projectile/beam/lethal
+/obj/projectile/laser/lethal
 	name = "lethal beam"
 	damage = 20
 	damage_type = BURN
 	color = COLOR_RED
 	light_color = LIGHT_COLOR_RED
 
-/obj/projectile/beam/mini/lesslethal
+/obj/projectile/laser/mini/lesslethal
 	damage = 11
 	stamina = 22
 	color = COLOR_ORANGE
 	light_color = LIGHT_COLOR_ORANGE
 
-/obj/projectile/beam/heavylaser
+/obj/projectile/laser/heavy
 	name = "heavy laser"
 	icon_state = "heavylaser"
 	damage = 40
@@ -116,19 +116,19 @@
 	hitscan_muzzle_type = /obj/effect/projectile/muzzle/heavy_laser
 	hitscan_impact_type = /obj/effect/projectile/impact/heavy_laser
 
-/obj/projectile/beam/weak
+/obj/projectile/laser/weak
 	damage = 12
 	color = COLOR_RED
 	light_color = LIGHT_COLOR_RED
 
-/obj/projectile/beam/weak/shotgun
+/obj/projectile/laser/weak/shotgun
 	damage = 18
 
-/obj/projectile/beam/weak/penetrator //laser gatling and centcom shuttle turret
+/obj/projectile/laser/weak/penetrator //laser gatling and centcom shuttle turret
 	damage = 15
 	armour_penetration = 50
 
-/obj/projectile/beam/practice
+/obj/projectile/laser/practice
 	name = "practice laser"
 	damage = 0
 	nodamage = TRUE
@@ -136,12 +136,12 @@
 	color = COLOR_RED
 	light_color = LIGHT_COLOR_RED
 
-/obj/projectile/beam/scatter
+/obj/projectile/laser/scatter
 	name = "laser pellet"
-	icon_state = "scatterlaser"
+	icon_state = "scatterlaser"	// This does NOT exit
 	damage = 5	// TO DO
 
-/obj/projectile/beam/xray
+/obj/projectile/laser/xray
 	name = "\improper X-ray beam"
 	icon_state = "xray"
 	damage = 15
@@ -156,7 +156,7 @@
 	hitscan_muzzle_type = /obj/effect/projectile/muzzle/xray
 	hitscan_impact_type = /obj/effect/projectile/impact/xray
 
-/obj/projectile/beam/disabler
+/obj/projectile/laser/disabler
 	name = "disabler beam"
 	damage = 28
 	damage_type = STAMINA
@@ -166,13 +166,13 @@
 	color = COLOR_CYAN
 	light_color = LIGHT_COLOR_BLUE
 
-/obj/projectile/beam/disabler/pass_glass ///this is for the malf ai turret upgrade xdxdxd
+/obj/projectile/laser/disabler/pass_glass ///this is for the malf ai turret upgrade xdxdxd
 	name = "beam-disabler"
 	damage = 50
 	damage_type = STAMINA
 	pass_flags = PASSTABLE | PASSGRILLE | PASSTRANSPARENT
 
-/obj/projectile/beam/pulse
+/obj/projectile/laser/pulse
 	name = "pulse"
 	icon_state = "u_laser"
 	damage = 50
@@ -183,7 +183,7 @@
 	hitscan_muzzle_type = /obj/effect/projectile/muzzle/pulse
 	hitscan_impact_type = /obj/effect/projectile/impact/pulse
 
-/obj/projectile/beam/pulse/on_hit(atom/target, blocked = FALSE)
+/obj/projectile/laser/pulse/on_hit(atom/target, blocked = FALSE)
 	. = ..()
 	if (!QDELETED(target) && (isturf(target) || istype(target, /obj/structure/)))
 		if(isobj(target))
@@ -191,21 +191,21 @@
 		else
 			SSexplosions.medturf += target
 
-/obj/projectile/beam/pulse/shotgun
+/obj/projectile/laser/pulse/shotgun
 	damage = 35
 
-/obj/projectile/beam/pulse/heavy
+/obj/projectile/laser/pulse/heavy
 	name = "heavy pulse laser"
 	icon_state = "pulse1_bl"
 	var/life = 20
 
-/obj/projectile/beam/pulse/heavy/on_hit(atom/target, blocked = FALSE)
+/obj/projectile/laser/pulse/heavy/on_hit(atom/target, blocked = FALSE)
 	life -= 10
 	if(life > 0)
 		. = BULLET_ACT_FORCE_PIERCE
 	..()
 
-/obj/projectile/beam/emitter
+/obj/projectile/laser/emitter
 	name = "emitter beam"
 	icon_state = "emitter"
 	//Will actually be 30 when fired from an emitter due to additional damage provided by stock parts
@@ -227,12 +227,12 @@
 	impact_light_range = 2.5
 	impact_light_color_override = COLOR_LIME
 
-/obj/projectile/beam/emitter/on_hit(atom/target, blocked)
+/obj/projectile/laser/emitter/on_hit(atom/target, blocked)
 	if(istype(target, /obj/structure/blob))
 		damage *= 0.25
 	. = ..()
 
-/obj/projectile/beam/emitter/drill
+/obj/projectile/laser/emitter/drill
 	name = "driller beam"
 	icon_state = "emitter"
 	//Will actually be 10 when fired from an emitter due to additional damage provided by stock parts
@@ -245,7 +245,7 @@
 	muzzle_flash_color_override = COLOR_DARK_ORANGE
 	impact_light_color_override = COLOR_DARK_ORANGE
 
-/obj/projectile/beam/emitter/drill/on_hit(atom/target, blocked)
+/obj/projectile/laser/emitter/drill/on_hit(atom/target, blocked)
 	if(istype(target, /turf/closed/mineral))
 		var/turf/closed/mineral/T = target
 		T.gets_drilled()
@@ -253,7 +253,7 @@
 		damage *= 10
 	. = ..()
 
-/obj/projectile/beam/lasertag
+/obj/projectile/laser/lasertag
 	name = "laser tag beam"
 	icon_state = "omnilaser"
 	hitsound = null
@@ -265,7 +265,7 @@
 	light_color = LIGHT_COLOR_BLUE
 	martial_arts_no_deflect = TRUE
 
-/obj/projectile/beam/lasertag/on_hit(atom/target, blocked = FALSE)
+/obj/projectile/laser/lasertag/on_hit(atom/target, blocked = FALSE)
 	. = ..()
 	if(ishuman(target))
 		var/mob/living/carbon/human/M = target
@@ -273,13 +273,13 @@
 			if(M.wear_suit.type in suit_types)
 				M.adjustStaminaLoss(34)
 
-/obj/projectile/beam/lasertag/redtag
+/obj/projectile/laser/lasertag/redtag
 	icon_state = "laser"
 	suit_types = list(/obj/item/clothing/suit/bluetag)
 	color = COLOR_RED
 	light_color = LIGHT_COLOR_RED
 
-/obj/projectile/beam/lasertag/redtag/hitscan
+/obj/projectile/laser/lasertag/redtag/hitscan
 	hitscan = TRUE
 	color = null
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
@@ -287,13 +287,13 @@
 	hitscan_muzzle_type = /obj/effect/projectile/muzzle/laser
 	hitscan_impact_type = /obj/effect/projectile/impact/laser
 
-/obj/projectile/beam/lasertag/bluetag
+/obj/projectile/laser/lasertag/bluetag
 	icon_state = "bluelaser"
 	suit_types = list(/obj/item/clothing/suit/redtag)
 	color = COLOR_DARK_CYAN
 	light_color = LIGHT_COLOR_BLUE
 
-/obj/projectile/beam/lasertag/bluetag/hitscan
+/obj/projectile/laser/lasertag/bluetag/hitscan
 	hitscan = TRUE
 	color = null
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
@@ -301,7 +301,7 @@
 	hitscan_muzzle_type = /obj/effect/projectile/muzzle/laser/blue
 	hitscan_impact_type = /obj/effect/projectile/impact/laser/blue
 
-/obj/projectile/beam/instakill
+/obj/projectile/laser/instakill
 	name = "instagib laser"
 	icon_state = "purple_laser"
 	damage = 200
@@ -309,24 +309,24 @@
 	color = COLOR_STRONG_MAGENTA
 	light_color = LIGHT_COLOR_PURPLE
 
-/obj/projectile/beam/instakill/blue
+/obj/projectile/laser/instakill/blue
 	icon_state = "blue_laser"
 	color = COLOR_DARK_CYAN
 	light_color = LIGHT_COLOR_BLUE
 
-/obj/projectile/beam/instakill/red
+/obj/projectile/laser/instakill/red
 	icon_state = "red_laser"
 	color = COLOR_RED
 	light_color = LIGHT_COLOR_RED
 
-/obj/projectile/beam/instakill/on_hit(atom/target)
+/obj/projectile/laser/instakill/on_hit(atom/target)
 	. = ..()
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
 		M.visible_message(span_danger("[M] explodes into a shower of gibs!"))
 		M.gib()
 
-/obj/projectile/beam/pellet
+/obj/projectile/laser/pellet
 	name = "laser pellet"
 	icon_state = "laser_pellet"
 	core_overlay = "laser_pellet_core"
@@ -337,7 +337,7 @@
 	light_range = 1
 	light_power = 2
 
-/obj/projectile/beam/pellet/Range()
+/obj/projectile/laser/pellet/Range()
 	..()
 	if(damage > 0)
 		damage = min(initial(damage), range)
@@ -349,7 +349,7 @@
 	alpha = target_alpha
 	set_light_power(light_power)
 
-/obj/projectile/beam/pellet/disabler
+/obj/projectile/laser/pellet/disabler
 	name = "disabler pellet"
 	damage = 6
 	damage_type = STAMINA
@@ -361,7 +361,7 @@
 	light_color = LIGHT_COLOR_CYAN
 
 /obj/item/ammo_casing/energy/shotgun_disabler
-	projectile_type = /obj/projectile/beam/pellet/disabler
+	projectile_type = /obj/projectile/laser/pellet/disabler
 	select_name = "disable"
 	e_cost = 1000 WATT
 	pellets = 8

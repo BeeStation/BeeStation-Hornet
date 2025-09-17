@@ -77,7 +77,7 @@
 	rapid_fire_delay = 6
 	retreat_distance = 5
 	minimum_distance = 5
-	projectiletype = /obj/projectile/beam/laser
+	projectiletype = /obj/projectile/laser/laser
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate/ranged,
 			/obj/item/gun/energy/laser)
 

@@ -11,7 +11,7 @@
 	extra_target_range = 2
 	weight = 21
 	///List of projectiles we *could* shoot
-	var/list/possible_projectiles = list(/obj/projectile/beam/disabler, /obj/projectile/tentacle, /obj/projectile/beam/lasertag, /obj/projectile/energy/electrode)
+	var/list/possible_projectiles = list(/obj/projectile/laser/disabler, /obj/projectile/tentacle, /obj/projectile/laser/lasertag, /obj/projectile/energy/electrode)
 	///The projectile type we *will* shoot
 	var/obj/projectile/choosen_projectile
 
@@ -48,7 +48,7 @@
 	label_desc = "Barreled Δ: The artifact seems to contain projectile components. Triggering these components will produce an unsafe projectile."
 	flags = XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	cooldown = XENOA_TRAIT_COOLDOWN_GAMER
-	possible_projectiles = list(/obj/projectile/beam/laser, /obj/projectile/bullet/c38, /obj/projectile/energy/tesla)
+	possible_projectiles = list(/obj/projectile/laser/laser, /obj/projectile/bullet/c38, /obj/projectile/energy/tesla)
 	conductivity = 3
 
 /datum/xenoartifact_trait/major/projectile/unsafe/get_dictionary_hint()

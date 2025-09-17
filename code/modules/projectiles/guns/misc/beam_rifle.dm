@@ -180,7 +180,7 @@
 	if(diff < AIMING_BEAM_ANGLE_CHANGE_THRESHOLD && !force_update)
 		return
 	aiming_lastangle = lastangle
-	var/obj/projectile/beam/beam_rifle/hitscan/aiming_beam/P = new
+	var/obj/projectile/laser/beam_rifle/hitscan/aiming_beam/P = new
 	P.gun = src
 	P.wall_pierce_amount = wall_pierce_amount
 	P.structure_pierce_amount = structure_piercing
@@ -355,7 +355,7 @@
 
 /obj/item/ammo_casing/energy/beam_rifle/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
 	. = ..()
-	var/obj/projectile/beam/beam_rifle/hitscan/HS_BB = BB
+	var/obj/projectile/laser/beam_rifle/hitscan/HS_BB = BB
 	if(!istype(HS_BB))
 		return
 	HS_BB.impact_direct_damage = projectile_damage
@@ -398,12 +398,12 @@
 	return TRUE
 
 /obj/item/ammo_casing/energy/beam_rifle/hitscan
-	projectile_type = /obj/projectile/beam/beam_rifle/hitscan
+	projectile_type = /obj/projectile/laser/beam_rifle/hitscan
 	select_name = "beam"
 	e_cost = 100 KILOWATT
 	fire_sound = 'sound/weapons/beam_sniper.ogg'
 
-/obj/projectile/beam/beam_rifle
+/obj/projectile/laser/beam_rifle
 	name = "particle beam"
 	icon = null
 	hitsound = 'sound/effects/explosion3.ogg'
@@ -430,7 +430,7 @@
 	var/impact_direct_damage = 0
 	var/list/pierced = list()
 
-/obj/projectile/beam/beam_rifle/proc/AOE(turf/epicenter)
+/obj/projectile/laser/beam_rifle/proc/AOE(turf/epicenter)
 	if(!epicenter)
 		return
 	new /obj/effect/temp_visual/explosion/fast(epicenter)
@@ -444,7 +444,7 @@
 		if(!isitem(O))
 			O.take_damage(aoe_structure_damage * get_damage_coeff(O), BURN, LASER, FALSE)
 
-/obj/projectile/beam/beam_rifle/prehit_pierce(atom/A)
+/obj/projectile/laser/beam_rifle/prehit_pierce(atom/A)
 	if(isclosedturf(A) && (wall_pierce < wall_pierce_amount))
 		if(prob(wall_devastate))
 			if(iswallturf(A))
@@ -461,14 +461,14 @@
 		return PROJECTILE_PIERCE_PHASE			// ditto and this could be refactored to on_hit honestly
 	return ..()
 
-/obj/projectile/beam/beam_rifle/proc/get_damage_coeff(atom/target)
+/obj/projectile/laser/beam_rifle/proc/get_damage_coeff(atom/target)
 	if(istype(target, /obj/machinery/door))
 		return 0.4
 	if(istype(target, /obj/structure/window))
 		return 0.5
 	return 1
 
-/obj/projectile/beam/beam_rifle/proc/handle_impact(atom/target)
+/obj/projectile/laser/beam_rifle/proc/handle_impact(atom/target)
 	if(isobj(target))
 		var/obj/O = target
 		O.take_damage(impact_structure_damage * get_damage_coeff(target), BURN, LASER, FALSE)
@@ -477,7 +477,7 @@
 		L.adjustFireLoss(impact_direct_damage)
 		L.emote("scream")
 
-/obj/projectile/beam/beam_rifle/proc/handle_hit(atom/target, piercing_hit = FALSE)
+/obj/projectile/laser/beam_rifle/proc/handle_hit(atom/target, piercing_hit = FALSE)
 	set waitfor = FALSE
 	if(nodamage)
 		return FALSE
@@ -487,17 +487,17 @@
 	if(!QDELETED(target))
 		handle_impact(target)
 
-/obj/projectile/beam/beam_rifle/on_hit(atom/target, blocked = FALSE, piercing_hit = FALSE)
+/obj/projectile/laser/beam_rifle/on_hit(atom/target, blocked = FALSE, piercing_hit = FALSE)
 	handle_hit(target, piercing_hit)
 	return ..()
 
-/obj/projectile/beam/beam_rifle/hitscan
+/obj/projectile/laser/beam_rifle/hitscan
 	icon_state = ""
 	hitscan = TRUE
 	hitscan_tracer_type = /obj/effect/projectile/tracer/tracer/beam_rifle
 	var/constant_tracer = FALSE
 
-/obj/projectile/beam/beam_rifle/hitscan/generate_hitscan_tracers(cleanup = TRUE, duration = 5, impacting = TRUE, highlander)
+/obj/projectile/laser/beam_rifle/hitscan/generate_hitscan_tracers(cleanup = TRUE, duration = 5, impacting = TRUE, highlander)
 	set waitfor = FALSE
 	if(isnull(highlander))
 		highlander = constant_tracer
@@ -513,7 +513,7 @@
 		beam_segments = null
 		QDEL_NULL(beam_index)
 
-/obj/projectile/beam/beam_rifle/hitscan/aiming_beam
+/obj/projectile/laser/beam_rifle/hitscan/aiming_beam
 	hitscan_tracer_type = /obj/effect/projectile/tracer/tracer/aiming
 	name = "aiming beam"
 	hitsound = null
@@ -526,10 +526,10 @@
 	hitscan_light_color_override = "#99ff99"
 	reflectable = REFLECT_FAKEPROJECTILE
 
-/obj/projectile/beam/beam_rifle/hitscan/aiming_beam/prehit_pierce(atom/target)
+/obj/projectile/laser/beam_rifle/hitscan/aiming_beam/prehit_pierce(atom/target)
 	return PROJECTILE_DELETE_WITHOUT_HITTING
 
-/obj/projectile/beam/beam_rifle/hitscan/aiming_beam/on_hit()
+/obj/projectile/laser/beam_rifle/hitscan/aiming_beam/on_hit()
 	qdel(src)
 	return BULLET_ACT_BLOCK
 

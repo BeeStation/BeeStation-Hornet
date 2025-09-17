@@ -16,17 +16,17 @@
 //Anti-creature - Extra damage against simplemobs
 
 /obj/item/ammo_casing/energy/laser/anti_creature
-	projectile_type = /obj/projectile/beam/laser/anti_creature
+	projectile_type = /obj/projectile/laser/lethal/anti_creature
 	select_name = "anti-creature"
 	e_cost = 400 WATT
 
-/obj/projectile/beam/laser/anti_creature
+/obj/projectile/laser/lethal/anti_creature
 	damage = 15
 	hitscan_tracer_type = /obj/effect/projectile/tracer/laser
 	hitscan_muzzle_type = /obj/effect/projectile/muzzle/laser
 	hitscan_impact_type = /obj/effect/projectile/impact/laser
 
-/obj/projectile/beam/laser/anti_creature/prehit_pierce(atom/target)
+/obj/projectile/laser/lethal/anti_creature/prehit_pierce(atom/target)
 	if(!iscarbon(target) && !issilicon(target))
 		damage = 30
 	return ..()
@@ -34,18 +34,18 @@
 //Cutting projectile - Damage against objects
 
 /obj/item/ammo_casing/energy/laser/cutting
-	projectile_type = /obj/projectile/beam/laser/cutting
+	projectile_type = /obj/projectile/laser/lethal/cutting
 	select_name = "demolition"
 	e_cost = 300 WATT
 
-/obj/projectile/beam/laser/cutting
+/obj/projectile/laser/lethal/cutting
 	damage = 5
 	icon_state = "plasmacutter"
 	hitscan_tracer_type = /obj/effect/projectile/tracer/heavy_laser
 	hitscan_muzzle_type = /obj/effect/projectile/muzzle/heavy_laser
 	hitscan_impact_type = /obj/effect/projectile/impact/heavy_laser
 
-/obj/projectile/beam/laser/cutting/on_hit(atom/target, blocked)
+/obj/projectile/laser/lethal/cutting/on_hit(atom/target, blocked)
 	damage = initial(damage)
 	if(isobj(target) && !istype(target, /obj/structure/blob))
 		damage = 70
@@ -57,17 +57,17 @@
 //Emagged ammo types
 
 /obj/item/ammo_casing/energy/laser/exploration_kill
-	projectile_type = /obj/projectile/beam/laser/exploration_kill
+	projectile_type = /obj/projectile/laser/lethal/exploration_kill
 	select_name = "KILL"
 	e_cost = 800 WATT
 
-/obj/projectile/beam/laser/exploration_kill
+/obj/projectile/laser/lethal/exploration_kill
 	damage = 30
 	hitscan_tracer_type = /obj/effect/projectile/tracer/laser
 	hitscan_muzzle_type = /obj/effect/projectile/muzzle/laser
 	hitscan_impact_type = /obj/effect/projectile/impact/laser
 
-/obj/projectile/beam/laser/exploration_kill/on_hit(atom/target, blocked)
+/obj/projectile/laser/lethal/exploration_kill/on_hit(atom/target, blocked)
 	damage = initial(damage)
 	if(!iscarbon(target) && !issilicon(target))
 		damage = 50
@@ -80,18 +80,18 @@
 //destroy
 
 /obj/item/ammo_casing/energy/laser/exploration_destroy
-	projectile_type = /obj/projectile/beam/laser/exploration_destroy
+	projectile_type = /obj/projectile/laser/lethal/exploration_destroy
 	select_name = "DESTROY"
 	e_cost = 1200 WATT
 
-/obj/projectile/beam/laser/exploration_destroy
+/obj/projectile/laser/lethal/exploration_destroy
 	damage = 20
 	icon_state = "heavylaser"
 	hitscan_tracer_type = /obj/effect/projectile/tracer/heavy_laser
 	hitscan_muzzle_type = /obj/effect/projectile/muzzle/heavy_laser
 	hitscan_impact_type = /obj/effect/projectile/impact/heavy_laser
 
-/obj/projectile/beam/laser/exploration_destroy/on_hit(atom/target, blocked)
+/obj/projectile/laser/lethal/exploration_destroy/on_hit(atom/target, blocked)
 	damage = initial(damage)
 	if(isobj(target) && !istype(target, /obj/structure/blob))
 		damage = 150
@@ -153,8 +153,8 @@
 
 //Does 5 damage to humans, 30 damage to all other mobs.
 /obj/item/ammo_casing/energy/laser/anti_creature/cyborg
-	projectile_type = /obj/projectile/beam/laser/anti_creature/cyborg
+	projectile_type = /obj/projectile/laser/laser/anti_creature/cyborg
 	e_cost = 500 WATT	//20 shot capacity
 
-/obj/projectile/beam/laser/anti_creature/cyborg
+/obj/projectile/laser/laser/anti_creature/cyborg
 	damage = 5  //15 is too much given this can be used on station

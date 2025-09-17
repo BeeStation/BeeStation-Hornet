@@ -1,12 +1,12 @@
 /obj/item/ammo_casing/energy/laser
-	projectile_type = /obj/projectile/beam/lethal
+	projectile_type = /obj/projectile/laser/lethal
 	select_name = "kill"
 
 /obj/item/ammo_casing/energy/laser/gatlinggun
 	e_cost = 10 WATT
 
 /obj/item/ammo_casing/energy/lasergun
-	projectile_type = /obj/projectile/beam/lethal
+	projectile_type = /obj/projectile/laser/lethal
 	e_cost = 710 WATT
 	select_name = "kill"
 
@@ -20,7 +20,7 @@
 	e_cost = 1000 WATT
 
 /obj/item/ammo_casing/energy/lasergun/old
-	projectile_type = /obj/projectile/beam/laser
+	projectile_type = /obj/projectile/laser/lethal
 	e_cost = 2000 WATT
 	select_name = "kill"
 
@@ -28,35 +28,35 @@
 	e_cost = 1200 WATT
 
 /obj/item/ammo_casing/energy/laser/practice
-	projectile_type = /obj/projectile/beam/practice
+	projectile_type = /obj/projectile/laser/practice
 	select_name = "practice"
 	harmful = FALSE
 
 /obj/item/ammo_casing/energy/laser/scatter
-	projectile_type = /obj/projectile/beam/scatter
+	projectile_type = /obj/projectile/laser/scatter
 	pellets = 5
 	variance = 25
 	select_name = "scatter"
 
 /obj/item/ammo_casing/energy/laser/scatter/disabler
-	projectile_type = /obj/projectile/beam/disabler
+	projectile_type = /obj/projectile/laser/disabler
 	pellets = 3
 	variance = 15
 	harmful = FALSE
 
 /obj/item/ammo_casing/energy/laser/heavy
-	projectile_type = /obj/projectile/beam/heavylaser
+	projectile_type = /obj/projectile/laser/heavy
 	select_name = "anti-vehicle"
 	fire_sound = 'sound/weapons/lasercannonfire.ogg'
 
 /obj/item/ammo_casing/energy/laser/pulse
-	projectile_type = /obj/projectile/beam/pulse
+	projectile_type = /obj/projectile/laser/pulse
 	e_cost = 2000 WATT
 	select_name = "DESTROY"
 	fire_sound = 'sound/weapons/pulse.ogg'
 
 /obj/item/ammo_casing/energy/laser/bluetag
-	projectile_type = /obj/projectile/beam/lasertag/bluetag
+	projectile_type = /obj/projectile/laser/lasertag/bluetag
 	select_name = "bluetag"
 	harmful = FALSE
 
@@ -65,26 +65,26 @@
 	return
 
 /obj/item/ammo_casing/energy/laser/bluetag/hitscan
-	projectile_type = /obj/projectile/beam/lasertag/bluetag/hitscan
+	projectile_type = /obj/projectile/laser/lasertag/bluetag/hitscan
 
 /obj/item/ammo_casing/energy/laser/bluetag/update_overlays()
 	. = ..()
 	return
 
 /obj/item/ammo_casing/energy/laser/redtag
-	projectile_type = /obj/projectile/beam/lasertag/redtag
+	projectile_type = /obj/projectile/laser/lasertag/redtag
 	select_name = "redtag"
 	harmful = FALSE
 
 /obj/item/ammo_casing/energy/laser/redtag/hitscan
-	projectile_type = /obj/projectile/beam/lasertag/redtag/hitscan
+	projectile_type = /obj/projectile/laser/lasertag/redtag/hitscan
 
 /obj/item/ammo_casing/energy/xray
-	projectile_type = /obj/projectile/beam/xray
+	projectile_type = /obj/projectile/laser/xray
 	e_cost = 500 WATT
 	fire_sound = 'sound/weapons/laser3.ogg'
 
 /obj/item/ammo_casing/energy/mindflayer
-	projectile_type = /obj/projectile/beam/mindflayer
+	projectile_type = /obj/projectile/laser/mindflayer
 	select_name = "MINDFUCK"
 	fire_sound = 'sound/weapons/laser.ogg'

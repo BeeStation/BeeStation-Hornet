@@ -165,7 +165,7 @@
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES //only token destruction, don't smash the cult wall NO STOP
 
 /mob/living/simple_animal/hostile/construct/juggernaut/bullet_act(obj/projectile/P)
-	if(istype(P, /obj/projectile/energy) || istype(P, /obj/projectile/beam))
+	if(istype(P, /obj/projectile/energy) || istype(P, /obj/projectile/laser))
 		var/reflectchance = 40 - round(P.damage/3)
 		if(prob(reflectchance))
 			apply_damage(P.damage * 0.5, P.damage_type)

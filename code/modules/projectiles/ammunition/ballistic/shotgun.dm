@@ -48,7 +48,7 @@
 	energy blast. While the heat and power drain limit it to one use, it can still allow an operator to engage targets that ballistic ammunition \
 	would have difficulty with."
 	icon_state = "pshell"
-	projectile_type = /obj/projectile/beam/pulse/shotgun
+	projectile_type = /obj/projectile/laser/pulse/shotgun
 	custom_materials = list(/datum/material/iron=2000, /datum/material/diamond=3000)
 
 /obj/item/ammo_casing/shotgun/buckshot
@@ -119,7 +119,7 @@
 	name = "scatter laser shell"
 	desc = "A gold-tipped advanced shotgun shell that uses a micro laser to replicate the effects of a scatter laser weapon in a ballistic package."
 	icon_state = "lshell"
-	projectile_type = /obj/projectile/beam/weak/shotgun
+	projectile_type = /obj/projectile/laser/weak/shotgun
 	pellets = 6
 	variance = 35
 

@@ -182,7 +182,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/ed209)
 		set_weapon()
 
 /mob/living/simple_animal/bot/ed209/bullet_act(obj/projectile/Proj)
-	if(istype(Proj , /obj/projectile/beam/laser)||istype(Proj, /obj/projectile/bullet))
+	if(istype(Proj , /obj/projectile/laser/laser)||istype(Proj, /obj/projectile/bullet))
 		if((Proj.damage_type == BURN) || (Proj.damage_type == BRUTE))
 			if(!Proj.nodamage && Proj.damage < src.health && ishuman(Proj.firer))
 				retaliate(Proj.firer)
@@ -398,17 +398,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/ed209)
 	shoot_sound = 'sound/weapons/laser.ogg'
 	if(emagged == 2)
 		if(lasercolor)
-			projectile = /obj/projectile/beam/lasertag
+			projectile = /obj/projectile/laser/lasertag
 		else
-			projectile = /obj/projectile/beam
+			projectile = /obj/projectile/laser
 	else
 		if(!lasercolor)
 			shoot_sound = 'sound/weapons/laser.ogg'
-			projectile = /obj/projectile/beam/disabler
+			projectile = /obj/projectile/laser/disabler
 		else if(lasercolor == "b")
-			projectile = /obj/projectile/beam/lasertag/bluetag
+			projectile = /obj/projectile/laser/lasertag/bluetag
 		else if(lasercolor == "r")
-			projectile = /obj/projectile/beam/lasertag/redtag
+			projectile = /obj/projectile/laser/lasertag/redtag
 
 /mob/living/simple_animal/bot/ed209/proc/shootAt(mob/target)
 	if(world.time <= lastfired + shot_delay)
@@ -474,10 +474,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/ed209)
 	if(!disabled)
 		var/lasertag_check = 0
 		if((lasercolor == "b"))
-			if(istype(Proj, /obj/projectile/beam/lasertag/redtag))
+			if(istype(Proj, /obj/projectile/laser/lasertag/redtag))
 				lasertag_check++
 		else if((lasercolor == "r"))
-			if(istype(Proj, /obj/projectile/beam/lasertag/bluetag))
+			if(istype(Proj, /obj/projectile/laser/lasertag/bluetag))
 				lasertag_check++
 		if(lasertag_check)
 			icon_state = "[lasercolor]ed2090"
