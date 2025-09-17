@@ -406,34 +406,33 @@
 					/obj/item/ammo_box/magazine/mm10x25/empty)
 	crate_name = "magazine crate"
 
-datum/supply_pack/security/tasers
+/datum/supply_pack/security/taser
 	name = "APS-Arc 3-pack Crate"
 	desc = "Three standard issue law enforcement tasers. Requires Security access to open. Includes magazines."
 	cost = 1900
 	max_supply = 2
-	contains = list(/obj/item/gun/ballistic/automatic/pistol/security,
-					/obj/item/gun/ballistic/automatic/pistol/security,
-					/obj/item/gun/ballistic/automatic/pistol/security)
+	contains = list(/obj/item/gun/ballistic/automatic/pistol/taser,
+					/obj/item/gun/ballistic/automatic/pistol/taser,
+					/obj/item/gun/ballistic/automatic/pistol/taser)
 	crate_name = "taser crate"
 
-/datum/supply_pack/security/secpistol_ammo
+/datum/supply_pack/security/taser_ammo
 	name = "Taser load assemblies Crate"
-	desc = "Three boxes of pre-arranged APS taser load assemblies for station law enforcement. Requires Security access to open."
+	desc = "Two boxes of pre-arranged APS taser load assemblies for station law enforcement. Requires Security access to open."
 	cost = 950
 	max_supply = 2
-	contains = list(/obj/item/ammo_box/c10x25mm,
-					/obj/item/ammo_box/c10x25mm,
-					/obj/item/ammo_box/c10x25mm)
+	contains = list(/obj/item/ammo_box/taser,
+					/obj/item/ammo_box/taser)
 	crate_name = "ammo crate"
 
-/datum/supply_pack/security/secpistol_mags
+/datum/supply_pack/security/taser_mags
 	name = "APS-Arc cartridge Crate"
 	desc = "Three standard issue APS-Arc taser cartridges. Pre-loaded. Requires Security access to open."
 	cost = 1200
 	max_supply = 2
-	contains = list(/obj/item/ammo_box/magazine/mm10x25/empty,
-					/obj/item/ammo_box/magazine/mm10x25/empty,
-					/obj/item/ammo_box/magazine/mm10x25/empty)
+	contains = list(/obj/item/ammo_box/magazine/taser,
+					/obj/item/ammo_box/magazine/taser,
+					/obj/item/ammo_box/magazine/taser)
 	crate_name = "magazine crate"
 
 /datum/supply_pack/security/forensics
