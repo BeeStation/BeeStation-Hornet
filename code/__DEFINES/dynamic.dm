@@ -5,7 +5,7 @@
 	#error TESTING_DYNAMIC is enabled, disable this!
 #endif
 
-#define DYNAMIC_STORYTELLERS_DIRECTORY "config/dynamic/"
+#define DYNAMIC_STORYTELLERS_DIRECTORY "[global.config.directory]/dynamic/"
 
 #define DYNAMIC_CATEGORY_ROUNDSTART "Roundstart"
 #define DYNAMIC_CATEGORY_MIDROUND "Midround"

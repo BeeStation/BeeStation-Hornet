@@ -122,7 +122,7 @@ SUBSYSTEM_DEF(dynamic)
 	var/roundstart_divergence_percent_lower = 1
 	var/roundstart_divergence_percent_upper = 1
 	/// How many roundstart points should be granted per player based off ready status
-	var/roundstart_points_per_ready = 1
+	var/roundstart_points_per_ready = 1.8
 	var/roundstart_points_per_unready = 0.5
 	var/roundstart_points_per_observer = 0
 
@@ -166,11 +166,11 @@ SUBSYSTEM_DEF(dynamic)
 	var/midround_grace_period = 20 MINUTES
 	/// The amount of midround points given per minute for every type of player
 	/// The total midround points delta cannot be lower than 0, it always increases or stays the same
-	var/midround_living_delta = 0.05
+	var/midround_living_delta = 0.04
 	var/midround_observer_delta = 0
-	var/midround_dead_delta = -0.4
+	var/midround_dead_delta = -0.3
 	var/midround_dead_security_delta = -0.6
-	var/midround_linear_delta = 0.9
+	var/midround_linear_delta = 0.7
 	/// This delta is applied no matter what
 	var/midround_linear_delta_forced = 0.25
 
@@ -198,6 +198,11 @@ SUBSYSTEM_DEF(dynamic)
 		"/datum/antagonist/heretic" = -0.2,
 		"/datum/antagonist/brother" = -0.1,
 		"/datum/antagonist/changeling" = -0.2,
+		"/datum/antagonist/abductor" = -0.3,
+		"/datum/antagonist/abductor/agent" = -0.3,
+		"/datum/antagonist/abductor/scientist" = -0.3,
+		"/datum/antagonist/abductor/scientist/solo" = -0.3,
+		"/datum/antagonist/nightmare" = -0.4
 	)
 
 	/**
@@ -229,7 +234,7 @@ SUBSYSTEM_DEF(dynamic)
 			try
 				loaded_json = json_decode(file2text(json_file))
 			catch (var/exception/error)
-				stack_trace("Error while loading: \"[file_path]\": [error]")
+				stack_trace("Error while loading: \"[file_path]\" = [error]")
 				continue
 
 			var/json_name = loaded_json["Name"]
