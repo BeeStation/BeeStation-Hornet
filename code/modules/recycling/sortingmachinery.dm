@@ -4,6 +4,8 @@
 	var/sort_tag = 0
 	var/obj/item/paper/note
 	var/obj/item/barcode/sticker
+	can_sell = FALSE
+	delete_on_sale_attempt = TRUE
 
 /obj/item/delivery/Initialize(mapload)
 	. = ..()
@@ -386,6 +388,8 @@
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "barcode"
 	w_class = WEIGHT_CLASS_TINY
+	can_sell = FALSE
+	delete_on_sale_attempt = TRUE
 	///All values inheirited from the sales tagger it came from.
 	var/datum/bank_account/payments_acc = null
 	var/cut_multiplier = 0.5

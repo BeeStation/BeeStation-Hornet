@@ -52,7 +52,7 @@ then the player gets the profit from selling his own wasted time.
 
 		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_ATOM_SOLD, thing, sold)
 
-		if(!dry_run && (sold || delete_unsold))
+		if(!dry_run && (sold || delete_unsold || thing.delete_on_sale_attempt))
 			if(ismob(thing))
 				thing.investigate_log("deleted through cargo export",INVESTIGATE_CARGO)
 			to_delete += thing

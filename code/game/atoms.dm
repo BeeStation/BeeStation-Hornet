@@ -68,6 +68,8 @@
 	var/max_demand
 	/// Can this item be sold? TRUE by default. False means it will return when sent to CC via cargo shuttle
 	var/can_sell = TRUE
+	/// Should this get deleted even thought it didn't get sold?
+	var/delete_on_sale_attempt = FALSE
 	/// Tagger Price tag
 	var/price_tag
 
