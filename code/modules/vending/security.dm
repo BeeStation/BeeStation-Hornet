@@ -29,7 +29,7 @@
 	refill_canister = /obj/item/vending_refill/security
 	default_price = PAYCHECK_CREW
 	extra_price = PAYCHECK_COMMAND * 1.5
-	dept_req_for_free = ACCOUNT_SEC_BITFLAG
+	seller_department = ACCOUNT_SEC_BITFLAG
 
 /obj/machinery/vending/security/pre_throw(obj/item/I)
 	if(istype(I, /obj/item/grenade))

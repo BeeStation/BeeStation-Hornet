@@ -117,7 +117,7 @@
 	refill_canister = /obj/item/vending_refill/modularpc
 	default_price = PAYCHECK_CREW
 	extra_price = PAYCHECK_COMMAND
-	dept_req_for_free = NO_FREEBIES
+	seller_department = NO_FREEBIES
 
 /obj/item/vending_refill/modularpc
 	machine_name = "Deluxe Silicate Selections"

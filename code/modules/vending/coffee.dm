@@ -12,7 +12,7 @@
 	refill_canister = /obj/item/vending_refill/coffee
 	default_price = PAYCHECK_LOWER
 	extra_price = PAYCHECK_CREW
-	dept_req_for_free = ACCOUNT_SRV_BITFLAG
+	seller_department = ACCOUNT_SRV_BITFLAG
 	light_mask = "coffee-light-mask"
 	light_color = COLOR_DARK_MODERATE_ORANGE
 

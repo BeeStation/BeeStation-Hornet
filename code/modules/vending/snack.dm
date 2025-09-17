@@ -20,7 +20,7 @@
 	var/chef_compartment_access = "28" //ACCESS_KITCHEN
 	default_price = PAYCHECK_CREW * 0.6
 	extra_price = PAYCHECK_CREW
-	dept_req_for_free = ACCOUNT_SRV_BITFLAG
+	seller_department = ACCOUNT_SRV_BITFLAG
 
 /obj/item/vending_refill/snack
 	machine_name = "Getmore Chocolate Corp"

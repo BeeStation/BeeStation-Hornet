@@ -18,7 +18,7 @@
 	resistance_flags = FIRE_PROOF
 	default_price = 0 //Just in case, since it's primary use is storage.
 	extra_price = PAYCHECK_COMMAND
-	dept_req_for_free = ACCOUNT_SRV_BITFLAG
+	seller_department = ACCOUNT_SRV_BITFLAG
 	light_mask = "magivend-light-mask"
 
 /datum/armor/vending_magivend

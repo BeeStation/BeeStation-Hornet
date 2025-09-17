@@ -56,7 +56,7 @@
 	refill_canister = /obj/item/vending_refill/hydroseeds
 	default_price = PAYCHECK_LOWER
 	extra_price = PAYCHECK_CREW
-	dept_req_for_free = ACCOUNT_SRV_BITFLAG
+	seller_department = ACCOUNT_SRV_BITFLAG
 
 /obj/item/vending_refill/hydroseeds
 	machine_name = "MegaSeed Servitor"

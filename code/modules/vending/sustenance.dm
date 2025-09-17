@@ -15,7 +15,7 @@
 	refill_canister = /obj/item/vending_refill/sustenance
 	default_price = PAYCHECK_LOWER
 	extra_price = PAYCHECK_LOWER * 0.6
-	dept_req_for_free = NO_FREEBIES
+	seller_department = NO_FREEBIES
 
 /obj/item/vending_refill/sustenance
 	machine_name = "Sustenance Vendor"

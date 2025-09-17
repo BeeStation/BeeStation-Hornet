@@ -27,7 +27,7 @@
 	resistance_flags = FIRE_PROOF
 	default_price = PAYCHECK_CREW
 	extra_price = PAYCHECK_COMMAND * 1.5
-	dept_req_for_free = ACCOUNT_ENG_BITFLAG
+	seller_department = ACCOUNT_ENG_BITFLAG
 
 /datum/armor/vending_tool
 	melee = 100

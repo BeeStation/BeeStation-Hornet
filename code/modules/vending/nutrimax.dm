@@ -20,7 +20,7 @@
 	refill_canister = /obj/item/vending_refill/hydronutrients
 	default_price = PAYCHECK_CREW * 0.8
 	extra_price = PAYCHECK_COMMAND * 0.8
-	dept_req_for_free = ACCOUNT_SRV_BITFLAG
+	seller_department = ACCOUNT_SRV_BITFLAG
 
 /obj/item/vending_refill/hydronutrients
 	machine_name = "NutriMax"

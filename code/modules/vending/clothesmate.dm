@@ -204,7 +204,7 @@
 	refill_canister = /obj/item/vending_refill/clothing
 	default_price = PAYCHECK_CREW * 0.7 //Default of
 	extra_price = PAYCHECK_COMMAND
-	dept_req_for_free = NO_FREEBIES
+	seller_department = NO_FREEBIES
 	light_mask = "wardrobe-light-mask"
 	light_color = LIGHT_COLOR_ELECTRIC_GREEN
 

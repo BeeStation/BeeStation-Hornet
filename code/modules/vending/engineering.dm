@@ -32,7 +32,7 @@
 	refill_canister = /obj/item/vending_refill/engineering
 	default_price = PAYCHECK_CREW
 	extra_price = PAYCHECK_COMMAND * 1.5
-	dept_req_for_free = ACCOUNT_ENG_BITFLAG
+	seller_department = ACCOUNT_ENG_BITFLAG
 	light_mask = "engi-light-mask"
 
 /obj/item/vending_refill/engineering

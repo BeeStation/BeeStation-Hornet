@@ -32,7 +32,7 @@
 	refill_canister = /obj/item/vending_refill/donksoft
 	default_price = PAYCHECK_CREW
 	extra_price = PAYCHECK_COMMAND
-	dept_req_for_free = ACCOUNT_SRV_BITFLAG
+	seller_department = ACCOUNT_SRV_BITFLAG
 
 /datum/armor/vending_donksofttoyvendor
 	melee = 100

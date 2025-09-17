@@ -22,7 +22,7 @@
 					/obj/item/crowbar = 5)
 	refill_canister = /obj/item/vending_refill/robotics
 	default_price = PAYCHECK_COMMAND
-	dept_req_for_free = ACCOUNT_SCI_BITFLAG
+	seller_department = ACCOUNT_SCI_BITFLAG
 
 /obj/item/vending_refill/robotics
 	machine_name = "Robotech Deluxe"

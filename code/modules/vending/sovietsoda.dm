@@ -10,7 +10,7 @@
 	resistance_flags = FIRE_PROOF
 	default_price = 1
 	extra_price = PAYCHECK_CREW //One credit for every state of FREEDOM
-	dept_req_for_free = NO_FREEBIES
+	seller_department = NO_FREEBIES
 	light_color = COLOR_PALE_ORANGE
 
 /obj/item/vending_refill/sovietsoda

@@ -73,7 +73,7 @@
 	refill_canister = /obj/item/vending_refill/dinnerware
 	default_price = PAYCHECK_CREW * 0.8
 	extra_price = PAYCHECK_COMMAND
-	dept_req_for_free = NO_FREEBIES
+	seller_department = NO_FREEBIES
 	seller_department = ACCOUNT_SRV_BITFLAG
 	light_mask = "dinnerware-light-mask"
 

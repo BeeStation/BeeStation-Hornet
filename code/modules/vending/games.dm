@@ -38,7 +38,7 @@
 	refill_canister = /obj/item/vending_refill/games
 	default_price = PAYCHECK_CREW
 	extra_price = PAYCHECK_COMMAND * 1.25
-	dept_req_for_free = ACCOUNT_SRV_BITFLAG
+	seller_department = ACCOUNT_SRV_BITFLAG
 	light_mask = "games-light-mask"
 
 /obj/item/vending_refill/games
