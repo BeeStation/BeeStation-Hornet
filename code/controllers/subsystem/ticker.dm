@@ -23,8 +23,13 @@ SUBSYSTEM_DEF(ticker)
 	var/login_music							//music played in pregame lobby
 	var/round_end_sound						//music/jingle played when the world reboots
 	var/round_end_sound_sent = TRUE			//If all clients have loaded it
+	var/round_end_sound_duration			//how early before reboot to start playing sound
+	var/round_end_sound_timer				//timer for sound duration
 
 	var/list/datum/mind/minds = list()		//The characters in the game. Used for objective tracking.
+
+	var/start_wait							//time when reboot has started
+	var/reboot_delay						//time before world reboot
 
 	var/delay_end = 0						//if set true, the round will not restart on it's own
 	var/admin_delay_notice = ""				//a message to display to anyone who tries to restart the world after a delay
@@ -703,16 +708,27 @@ SUBSYSTEM_DEF(ticker)
 			//Break chain since this has a sleep input in it
 			addtimer(CALLBACK(player, TYPE_PROC_REF(/mob/dead/new_player/authenticated, make_me_an_observer)), 1)
 
-/datum/controller/subsystem/ticker/proc/SetRoundEndSound(the_sound)
+/datum/controller/subsystem/ticker/proc/SetRoundEndSound(the_sound, duration)
 	set waitfor = FALSE
 	round_end_sound_sent = FALSE
 	round_end_sound = fcopy_rsc(the_sound)
+	round_end_sound_duration = duration
+	if(round_end_sound_timer)
+		var/time_left = reboot_delay - (world.time - start_wait)
+		if(time_left > round_end_sound_duration)
+			deltimer(round_end_sound_timer)
+			round_end_sound_timer = addtimer(CALLBACK(src, PROC_REF(PlayRoundEndSound)), time_left - round_end_sound_duration, TIMER_STOPPABLE)
+
 	for(var/thing in GLOB.clients_unsafe)
 		var/client/C = thing
-		if (!C)
+		if(!C)
 			continue
 		C.Export("##action=load_rsc", round_end_sound)
 	round_end_sound_sent = TRUE
+
+/datum/controller/subsystem/ticker/proc/PlayRoundEndSound()
+	if(!delay_end)
+		SEND_SOUND(world, sound(round_end_sound))
 
 /datum/controller/subsystem/ticker/proc/Reboot(reason, end_string, delay)
 	set waitfor = FALSE
@@ -729,15 +745,17 @@ SUBSYSTEM_DEF(ticker)
 
 	to_chat(world, span_boldannounce("Rebooting World in [DisplayTimeText(delay)]. [reason]"))
 
-	var/start_wait = world.time
+	start_wait = world.time
+	reboot_delay = delay
 	UNTIL(round_end_sound_sent || (world.time - start_wait) > (delay * 2))	//don't wait forever
 
-	var/round_end_sound = pick(GLOB.round_end_sounds)
-	var/sound_length = GLOB.round_end_sounds[round_end_sound]
-	if(delay > sound_length) // If there's time, play the round-end sound before rebooting
-		spawn(delay - sound_length)
-			if(!delay_end)
-				SEND_SOUND(world, sound(round_end_sound))
+	if(!round_end_sound)
+		round_end_sound = pick(GLOB.round_end_sounds)
+		round_end_sound_duration = GLOB.round_end_sounds[round_end_sound]
+		if(delay > round_end_sound_duration) // If there's time, play the round-end sound before rebooting
+			round_end_sound_timer = addtimer(CALLBACK(src, PROC_REF(PlayRoundEndSound)), delay - round_end_sound_duration, TIMER_STOPPABLE)
+	else //admin added sound
+		round_end_sound_timer = addtimer(CALLBACK(src, PROC_REF(PlayRoundEndSound)), delay - round_end_sound_duration, TIMER_STOPPABLE)
 
 	sleep(delay - (world.time - start_wait))
 

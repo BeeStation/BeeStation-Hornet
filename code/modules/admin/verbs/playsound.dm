@@ -156,7 +156,12 @@
 	if(!check_rights(R_SOUND))
 		return
 
-	SSticker.SetRoundEndSound(S)
+	var/duration = input(usr, "What is the duration of the sound? (Seconds)") as null|num
+	duration = duration SECONDS
+	if(duration <= 0)
+		return
+
+	SSticker.SetRoundEndSound(S, duration)
 
 	log_admin("[key_name(src)] set the round end sound to [S]")
 	message_admins("[key_name_admin(src)] set the round end sound to [S]")
