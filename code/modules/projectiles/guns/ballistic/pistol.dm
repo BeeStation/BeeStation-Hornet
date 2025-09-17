@@ -177,8 +177,15 @@
 	fire_delay = 1.5
 	fire_rate = 2
 
+/obj/item/gun/ballistic/automatic/pistol/security/add_seclight_point()
+	AddComponent(/datum/component/seclite_attachable, \
+		light_overlay_icon = 'icons/obj/guns/flashlights.dmi', \
+		light_overlay = "flight", \
+		overlay_x = 19, \
+		overlay_y = 14)
+
 // We do not want to start on burst mode.
-/obj/item/gun/ballistic/automatic/pistol/security/Initialize()
+/obj/item/gun/ballistic/automatic/pistol/security/Initialize(mapload)
 	. = ..()
 	burst_select()
 
