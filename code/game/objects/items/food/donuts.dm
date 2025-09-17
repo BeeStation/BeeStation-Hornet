@@ -8,7 +8,6 @@
 	food_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/sugar = 3)
 	tastes = list("donut" = 1)
 	foodtypes = JUNKFOOD | GRAIN | SUGAR | BREAKFAST
-	custom_price = PAYCHECK_ASSISTANT * 0.7
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_SMALL
 	crafting_complexity = FOOD_COMPLEXITY_2

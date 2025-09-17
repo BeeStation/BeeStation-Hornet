@@ -8,7 +8,7 @@
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_BELT
-	custom_premium_price = PAYCHECK_HARD * 1.25
+	custom_premium_price = PAYCHECK_COMMAND * 1.25
 	/// If the pAIcard is slotted in a PDA
 	var/slotted = FALSE
 	/// Any pAI personalities inserted
@@ -16,7 +16,7 @@
 	///what emotion icon we have. handled in /mob/living/silicon/pai/Topic()
 	var/emotion_icon = "off"
 	resistance_flags = FIRE_PROOF | ACID_PROOF | INDESTRUCTIBLE
-	custom_price = PAYCHECK_MEDIUM * 4
+	custom_price = PAYCHECK_CREW * 4
 
 /obj/item/paicard/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] is staring sadly at [src]! [user.p_they()] can't keep living without real human intimacy!"))

@@ -7,7 +7,7 @@
 	device_type = MC_SENSORS
 	expansion_hw = TRUE
 	power_usage = 10 // Watts per second
-	custom_price = PAYCHECK_MEDIUM
+	custom_price = PAYCHECK_CREW
 	can_hack = FALSE
 
 /obj/item/computer_hardware/radio_card
@@ -18,7 +18,7 @@
 	device_type = MC_SIGNALLER
 	expansion_hw = TRUE
 	power_usage = 10 // Watts per second
-	custom_price = PAYCHECK_MEDIUM
+	custom_price = PAYCHECK_CREW
 	can_hack = FALSE
 
 /obj/item/computer_hardware/camera_component

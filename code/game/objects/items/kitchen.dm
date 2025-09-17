@@ -24,7 +24,6 @@
 	throwforce = 0
 	throw_speed = 3
 	throw_range = 5
-	custom_price = 5 /// Silly useless thing
 	custom_materials = list(/datum/material/iron=80)
 	flags_1 = CONDUCT_1
 	attack_verb_continuous = list("attacks", "stabs", "pokes")
@@ -32,7 +31,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	armor_type = /datum/armor/kitchen_fork
 	var/datum/reagent/forkload //used to eat omelette
-	custom_price = PAYCHECK_PRISONER
+	custom_price = PAYCHECK_LOWER
 
 /datum/armor/kitchen_fork
 	fire = 50
@@ -80,7 +79,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb_continuous = list("bashes", "batters", "bludgeons", "thrashes", "whacks")
 	attack_verb_simple = list("bash", "batter", "bludgeon", "thrash", "whack")
-	custom_price = PAYCHECK_EASY * 1.5
+	custom_price = PAYCHECK_CREW * 1.5
 	tool_behaviour = TOOL_ROLLINGPIN
 
 /obj/item/kitchen/rollingpin/suicide_act(mob/living/carbon/user)

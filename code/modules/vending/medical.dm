@@ -30,7 +30,7 @@
 	armor_type = /datum/armor/vending_medical
 	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/medical
-	default_price = PAYCHECK_EASY
+	default_price = PAYCHECK_CREW
 	extra_price = PAYCHECK_COMMAND
 	dept_req_for_free = ACCOUNT_MED_BITFLAG
 	light_mask = "med-light-mask"

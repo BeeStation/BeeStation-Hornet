@@ -12,7 +12,7 @@
 	selection_color = "#ffe1c3"
 
 	bank_account_department = ACCOUNT_SEC_BITFLAG //Oh yes, they are *your* deadweight, security
-	payment_per_department = list(ACCOUNT_SEC_ID = PAYCHECK_PRISONER)
+	payment_per_department = list(ACCOUNT_SEC_ID = PAYCHECK_LOWER)
 
 	base_access = list()
 	departments = DEPT_BITFLAG_UNASSIGNED

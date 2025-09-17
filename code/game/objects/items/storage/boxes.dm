@@ -785,7 +785,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	drop_sound = 'sound/items/handling/matchbox_drop.ogg'
 	pickup_sound =  'sound/items/handling/matchbox_pickup.ogg'
-	custom_price = PAYCHECK_ASSISTANT * 0.4
+	custom_price = PAYCHECK_CREW * 0.4
 
 /obj/item/storage/box/matches/Initialize(mapload)
 	. = ..()
@@ -1183,7 +1183,7 @@
 /obj/item/storage/box/dishdrive
 	name = "DIY Dish Drive Kit"
 	desc = "Contains everything you need to build your own Dish Drive!"
-	custom_premium_price = PAYCHECK_EASY * 3
+	custom_premium_price = PAYCHECK_CREW * 3
 
 /obj/item/storage/box/dishdrive/PopulateContents()
 	var/static/items_inside = list(
@@ -1330,7 +1330,7 @@
 	name = "colorizer box"
 	desc = "A box full of Tablet Colorizers. Unleash your inner child and play around with a vast array of colors!"
 	icon_state = "tabletcbox"
-	custom_price = PAYCHECK_MEDIUM * 4
+	custom_price = PAYCHECK_CREW * 4
 
 /obj/item/storage/box/tabletcolorizer/PopulateContents()
 	new /obj/item/colorizer/tablet(src)
@@ -1347,7 +1347,7 @@
 	name = "'Tablets For Dummies'"
 	desc = "First Edition 'Tablets for Dummies' kit. Complete with body, components, and instructions for assembly."
 	icon_state = "radiobox"
-	custom_price = 150
+	custom_price = PAYCHECK_CREW * 4
 
 /obj/item/storage/box/tablet4dummies/PopulateContents()
 	new /obj/item/modular_computer/tablet(src)

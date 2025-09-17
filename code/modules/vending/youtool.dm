@@ -25,7 +25,7 @@
 	refill_canister = /obj/item/vending_refill/tool
 	armor_type = /datum/armor/vending_tool
 	resistance_flags = FIRE_PROOF
-	default_price = PAYCHECK_ASSISTANT
+	default_price = PAYCHECK_CREW
 	extra_price = PAYCHECK_COMMAND * 1.5
 	dept_req_for_free = ACCOUNT_ENG_BITFLAG
 

@@ -73,15 +73,14 @@ SUBSYSTEM_DEF(economy)
 	station_target_buffer += STATION_TARGET_BUFFER
 	for(var/account in bank_accounts)
 		var/datum/bank_account/bank_account = account
-		bank_account.payday(1)
-		if(bank_account?.account_job)
+		if(bank_account?.account_job && !ispath(bank_account.account_job))
 			var/full_paycheck = 0
 			for(var/key in bank_account.account_job.payment_per_department)
 				var/amount = bank_account.account_job.payment_per_department[key]
 				full_paycheck += amount
 			temporary_total += (full_paycheck * STARTING_PAYCHECKS)
-		if(!istype(bank_account, /datum/bank_account/department))
-			station_total += bank_account.account_balance
+		bank_account.payday(1)
+		station_total += bank_account.account_balance
 	station_target = max(round(temporary_total / max(bank_accounts.len * 2, 1)) + station_target_buffer, 1)
 	if(!market_crashing)
 		price_update()
@@ -193,7 +192,7 @@ SUBSYSTEM_DEF(economy)
 		if(!is_station_level(V.z))
 			continue
 		V.reset_prices(V.product_records, V.coin_records)
-	earning_report = "Sector Economic Report<br /> Sector vendor prices is currently at [SSeconomy.inflation_value()*100]%.<br /> The station spending power is currently <b>[station_total] Credits</b>, and the crew's targeted allowance is at <b>[station_target] Credits</b>.<br /> That's all from the <i>Nanotrasen Economist Division</i>."
+	earning_report = "<b>Sector Economic Report</b><br><br> Sector vendor prices is currently at <b>[SSeconomy.inflation_value()*100]%</b>.<br><br> The station spending power is currently <b>[station_total] Credits</b>, and the crew's targeted allowance is at <b>[station_target] Credits</b>.<br><br> That's all from the <i>Nanotrasen Economist Division</i>."
 	GLOB.news_network.submit_article(earning_report, "Station Earnings Report", "Station Announcements", null, update_alert = FALSE)
 
 /**

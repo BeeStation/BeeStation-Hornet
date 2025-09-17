@@ -351,7 +351,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 	maxcharge = 3 KILOWATT
 	custom_materials = null
 	grown_battery = TRUE //it has the overlays for wires
-	custom_premium_price = PAYCHECK_ASSISTANT
+	custom_premium_price = PAYCHECK_CREW
 
 /obj/item/stock_parts/cell/high/slime
 	name = "charged slime core"

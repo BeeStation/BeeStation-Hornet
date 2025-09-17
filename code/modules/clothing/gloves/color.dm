@@ -9,7 +9,7 @@
 	siemens_coefficient = 0
 	armor_type = /datum/armor/color_yellow
 	resistance_flags = NONE
-	custom_price = PAYCHECK_MEDIUM * 10
+	custom_price = PAYCHECK_CREW * 10
 	custom_premium_price = PAYCHECK_COMMAND * 6
 	cut_type = /obj/item/clothing/gloves/cut
 
@@ -247,7 +247,7 @@
 	icon_state = "white"
 	item_state = "wgloves"
 	worn_icon_state = "wgloves"
-	custom_price = PAYCHECK_MINIMAL
+	custom_price = PAYCHECK_CREW
 
 /obj/item/clothing/gloves/color/color_yellow
 	name = "yellow gloves"

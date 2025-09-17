@@ -22,7 +22,7 @@
 				   /obj/item/storage/box/smart_metal_foam = 3,
 				   /obj/item/storage/box/oxycandle = 3)
 	refill_canister = /obj/item/vending_refill/engivend
-	default_price = PAYCHECK_EASY
+	default_price = PAYCHECK_CREW
 	extra_price = PAYCHECK_COMMAND * 1.5
 	dept_req_for_free = ACCOUNT_ENG_BITFLAG
 	light_mask = "engivend-light-mask"

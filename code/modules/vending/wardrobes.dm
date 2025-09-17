@@ -2,8 +2,8 @@
 	icon_state = "refill_clothes"
 
 /obj/machinery/vending/wardrobe
-	default_price = PAYCHECK_ASSISTANT
-	extra_price = PAYCHECK_HARD
+	default_price = PAYCHECK_CREW
+	extra_price = PAYCHECK_COMMAND
 	dept_req_for_free = NO_FREEBIES
 	input_display_header = "Returned Clothing"
 	light_mask = "wardrobe-light-mask"
@@ -228,7 +228,7 @@
 					/obj/item/storage/backpack/security_borg_bag = 2,
 					/obj/item/storage/backpack/medical_borg_bag = 2)
 	refill_canister = /obj/item/vending_refill/wardrobe/robo_wardrobe
-	extra_price = PAYCHECK_HARD * 1.2
+	extra_price = PAYCHECK_COMMAND * 1.2
 	dept_req_for_free = ACCOUNT_SCI_BITFLAG
 
 
@@ -354,7 +354,7 @@
 	)
 	refill_canister = /obj/item/vending_refill/wardrobe/bar_wardrobe
 	dept_req_for_free = ACCOUNT_SRV_BITFLAG
-	extra_price = PAYCHECK_HARD
+	extra_price = PAYCHECK_COMMAND
 
 /obj/item/vending_refill/wardrobe/bar_wardrobe
 	machine_name = "BarDrobe"
@@ -424,8 +424,8 @@
 		/obj/item/storage/backpack/janitor_borg_bag = 2,
 	)
 	refill_canister = /obj/item/vending_refill/wardrobe/jani_wardrobe
-	default_price = PAYCHECK_EASY
-	extra_price = PAYCHECK_HARD * 0.8
+	default_price = PAYCHECK_CREW
+	extra_price = PAYCHECK_COMMAND * 0.8
 	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 	light_color = COLOR_STRONG_MAGENTA
 

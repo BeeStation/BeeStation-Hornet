@@ -56,7 +56,7 @@
 	desc = "A type H-L armored vest which provides greater protection than its I-A counterpart, at the cost of being bulkier."
 	icon_state = "blueshift"
 	item_state = null
-	custom_premium_price = PAYCHECK_HARD
+	custom_premium_price = PAYCHECK_COMMAND
 	armor_type = /datum/armor/vest_blueshirt
 	slowdown = 0.14
 

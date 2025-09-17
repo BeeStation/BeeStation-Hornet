@@ -1,19 +1,21 @@
-#define STARTING_PAYCHECKS 7
+#define STARTING_PAYCHECKS 5
 
-//Experimental change: These are subject to tweaking based on the /tg/ economy overhaul.
-#define PAYCHECK_PRISONER 25
-#define PAYCHECK_ASSISTANT 50
-#define PAYCHECK_MINIMAL 55
-#define PAYCHECK_EASY 60
-#define PAYCHECK_MEDIUM 75
-#define PAYCHECK_HARD 100
+//Current Paycheck values. Altering these changes both the cost of items meant for each paygrade, as well as the passive/starting income of each job.
+///Default paygrade for the Unassigned Job/Unpaid job assignments.
+#define PAYCHECK_ZERO 0
+///Paygrade for Prisoners and Assistants.
+#define PAYCHECK_LOWER 25
+///Paygrade for all regular crew not belonging to PAYGRADE_LOWER or PAYGRADE_COMMAND.
+#define PAYCHECK_CREW 50
 
 // given from nanotrasen to heads
 #define PAYCHECK_COMMAND_NT 20
 // given from department budget
 #define PAYCHECK_COMMAND_DEPT 80
-// Command Total
+///Paygrade for Heads of Staff.
 #define PAYCHECK_COMMAND 100
+
+
 #define PAYCHECK_VIP 2000
 /*	Note: The current intention for crazy amount of money to VIP is that they can be a rich shitter
 			or be targeted by antags for their money - oh, my, being rich isn't always good.
@@ -24,7 +26,7 @@
 
 #define PAYCHECK_WELFARE 20 //NEETbucks
 
-#define STATION_TARGET_BUFFER 40
+#define STATION_TARGET_BUFFER 25
 
 
 #define NON_STATION_BUDGET_BASE rand(8888888, 11111111)
