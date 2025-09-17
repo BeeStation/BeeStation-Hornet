@@ -33,10 +33,19 @@
 	var/plas = . ? .[MOLES] : 0
 	. = air_gases[/datum/gas/tritium]
 	var/trit = . ? .[MOLES] : 0
+	. = air_gases[/datum/gas/hydrogen]
+	var/h2 = . ? .[MOLES] : 0
+	. = air_gases[/datum/gas/freon]
+	var/freon = . ? .[MOLES] : 0
 	if(active_hotspot)
 		if(soh)
-			if(plas > 0.5 || trit > 0.5)
+			if(plas > 0.5 || trit > 0.5 || h2 > 0.5)
 				if(active_hotspot.temperature < exposed_temperature)
+					active_hotspot.temperature = exposed_temperature
+				if(active_hotspot.volume < exposed_volume)
+					active_hotspot.volume = exposed_volume
+			else if(freon > 0.5)
+				if(active_hotspot.temperature > exposed_temperature)
 					active_hotspot.temperature = exposed_temperature
 				if(active_hotspot.volume < exposed_volume)
 					active_hotspot.volume = exposed_volume
@@ -80,6 +89,8 @@
 	/// Whether the hotspot becomes passive and follows the gasmix temp instead of changing it.
 	var/bypassing = FALSE
 	var/visual_update_tick = 0
+	/// Are we burning freon?
+	var/cold_fire = FALSE
 
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/hotspot)
@@ -91,6 +102,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/hotspot)
 		volume = starting_volume
 	if(!isnull(starting_temperature))
 		temperature = starting_temperature
+		if(temperature <= FREON_MAXIMUM_BURN_TEMPERATURE)
+			cold_fire = TRUE
 	perform_exposure()
 	setDir(pick(GLOB.cardinals))
 	air_update_turf(FALSE, FALSE)
@@ -121,7 +134,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/hotspot)
 	bypassing = !just_spawned && (volume > CELL_VOLUME*0.95)
 
 	//Passive mode
-	if(bypassing)
+	if(bypassing || cold_fire)
 		reference = location.air // Our color and volume will depend on the turf's gasmix
 	//Active mode
 	else
@@ -138,6 +151,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/hotspot)
 		for (var/reaction in SSair.hotspot_reactions)
 			volume += cached_results[reaction] * FIRE_GROWTH_RATE
 		temperature = reference.temperature
+
+	// Handles the burning of atoms.
+	if(cold_fire)
+		return TRUE
 
 	// Handles the burning of atoms.
 	for(var/A in location)
@@ -161,7 +178,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/hotspot)
 	var/heat_a = 255
 	var/greyscale_fire = 1 //This determines how greyscaled the fire is.
 
-	if(temperature < 5000) //This is where fire is very orange, we turn it into the normal fire texture here.
+	if(cold_fire)
+		heat_r = 0
+		heat_g = LERP(255, temperature, 1.2)
+		heat_b = LERP(255, temperature, 0.9)
+		heat_a = 100
+	else if(temperature < 5000) //This is where fire is very orange, we turn it into the normal fire texture here.
 		var/normal_amt = gauss_lerp(temperature, 1000, 3000)
 		heat_r = LERP(heat_r,255,normal_amt)
 		heat_g = LERP(heat_g,255,normal_amt)
@@ -227,6 +249,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/hotspot)
 	if(location.excited_group)
 		location.excited_group.reset_cooldowns()
 
+	cold_fire = FALSE
+	if(temperature <= FREON_MAXIMUM_BURN_TEMPERATURE)
+		cold_fire = TRUE
+
 	if((temperature < FIRE_MINIMUM_TEMPERATURE_TO_EXIST) || (volume <= 1))
 		qdel(src)
 		return
@@ -240,11 +266,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/hotspot)
 
 	if(bypassing)
 		icon_state = "3"
-		location.burn_tile()
+		if(!cold_fire)
+			location.burn_tile()
 
 		//Possible spread due to radiated heat.
 		if(location.air.temperature > FIRE_MINIMUM_TEMPERATURE_TO_SPREAD)
 			var/radiated_temperature = location.air.temperature*FIRE_SPREAD_RADIOSITY_SCALE
+			if(cold_fire)
+				radiated_temperature = location.air.temperature * COLD_FIRE_SPREAD_RADIOSITY_SCALE
 			for(var/t in location.atmos_adjacent_turfs)
 				var/turf/open/T = t
 				if(!T.active_hotspot)
@@ -270,7 +299,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/hotspot)
 
 /obj/effect/hotspot/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
-	if(isliving(arrived))
+	if(isliving(arrived) && !cold_fire)
 		var/mob/living/immolated = arrived
 		immolated.fire_act(temperature, volume)
 
