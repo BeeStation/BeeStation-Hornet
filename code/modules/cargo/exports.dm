@@ -43,7 +43,7 @@ then the player gets the profit from selling his own wasted time.
 		var/sold = FALSE
 
 		for(var/datum/export/export as anything in GLOB.exports_list)
-			if(export.applies_to(thing, allowed_categories, apply_elastic))
+			if(export.applies_to(thing, allowed_categories))
 				if(!dry_run && (SEND_SIGNAL(thing, COMSIG_ITEM_PRE_EXPORT) & COMPONENT_STOP_EXPORT))
 					break
 				sold = export.sell_object(thing, report, dry_run, allowed_categories)
@@ -188,16 +188,16 @@ then the player gets the profit from selling his own wasted time.
 	///Quantity of the object in question.
 	var/export_amount = get_amount(sold_item)
 	if(!unit_name)
-		unit_name = O.name
+		unit_name = sold_item.name
 	if(export_amount <= 0 || export_value <= 0)
 		return FALSE
 
-	report.total_value[src] += the_cost
+	report.total_value[src] += export_value
 
-	if(istype(O, /datum/export/material))
-		report.total_amount[src] += amount*MINERAL_MATERIAL_AMOUNT
+	if(istype(sold_item, /datum/export/material))
+		report.total_amount[src] += export_amount * MINERAL_MATERIAL_AMOUNT
 	else
-		report.total_amount[src] += amount
+		report.total_amount[src] += export_amount
 	// If we're not doing a dry run, send COMSIG_ITEM_EXPORTED to the sold item
 	var/export_result
 	if(!dry_run)

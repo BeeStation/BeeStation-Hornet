@@ -43,7 +43,6 @@
 
 /datum/export/material/plasma
 	cost = 200
-	k_elasticity = 0
 	material_id = /datum/material/plasma
 	message = "cm3 of plasma"
 
