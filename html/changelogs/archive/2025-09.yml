@@ -292,6 +292,8 @@
   - rscadd: Remapped MetaStation Service and Atmos
   - bugfix: Fixed airlock pumps
 2025-09-17:
+  ClownMoff:
+  - rscdel: Removed a stray decal on BoxStation
   rkz, arcanemusic, cacogen, tastyfish:
   - rscadd: adds ability to split profits on sold items with the sales tagger
   - rscadd: cleaned up delivery crate appearance code, crates will show notes scrawled
