@@ -4211,6 +4211,9 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /obj/machinery/stasis{
 	dir = 4
 	},
@@ -4220,9 +4223,6 @@
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 4
 	},
 /turf/open/floor/iron/grid,
 /area/medical/patients_rooms)
@@ -10820,6 +10820,9 @@
 	},
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/blue{
 	dir = 4
 	},
 /turf/open/floor/iron/white,
@@ -23734,6 +23737,9 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
 /obj/effect/turf_decal/tile/white/opposingcorners,
 /obj/effect/turf_decal/tile/white{
 	dir = 4
@@ -23743,9 +23749,6 @@
 	},
 /obj/machinery/stasis{
 	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 8
 	},
 /turf/open/floor/iron/grid,
 /area/medical/patients_rooms)
@@ -41913,6 +41916,9 @@
 /turf/open/floor/prison,
 /area/security/prison)
 "nly" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
 /obj/effect/turf_decal/tile/white,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
@@ -41922,9 +41928,6 @@
 	},
 /obj/machinery/computer/operating{
 	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 8
 	},
 /turf/open/floor/iron/grid,
 /area/medical/patients_rooms)
@@ -57053,6 +57056,9 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "taf" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /obj/effect/turf_decal/tile/white,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 1
@@ -57062,9 +57068,6 @@
 	},
 /obj/structure/bed/roller,
 /obj/item/bedsheet/medical,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
 /turf/open/floor/iron/grid,
 /area/medical/patients_rooms)
 "tam" = (
