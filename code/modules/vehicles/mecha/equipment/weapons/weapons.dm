@@ -87,7 +87,7 @@
 	desc = "A weapon for combat exosuits. Shoots heavy lasers."
 	icon_state = "mecha_laser"
 	energy_drain = 60
-	projectile = /obj/projectile/beam/laser/heavylaser
+	projectile = /obj/projectile/beam/heavylaser
 	fire_sound = 'sound/weapons/lasercannonfire.ogg'
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/ion

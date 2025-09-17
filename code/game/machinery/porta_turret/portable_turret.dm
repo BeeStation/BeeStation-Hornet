@@ -762,7 +762,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	base_icon_state = "standard"
 	stun_projectile = /obj/projectile/energy/electrode
 	stun_projectile_sound = 'sound/weapons/taser.ogg'
-	lethal_projectile = /obj/projectile/beam/laser/heavylaser
+	lethal_projectile = /obj/projectile/beam/heavylaser
 	lethal_projectile_sound = 'sound/weapons/lasercannonfire.ogg'
 	desc = "An energy blaster auto-turret."
 

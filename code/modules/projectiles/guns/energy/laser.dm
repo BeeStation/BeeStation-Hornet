@@ -38,8 +38,11 @@
 	gun_charge = 2000 WATT
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/repeater)
 	can_charge = FALSE //don't put this in a recharger
+	var/charge_per_crank = 500 WATT
 	var/cranking = FALSE
 	var/fire_interrupted = FALSE
+	var/do_after_flag
+	var/crank_sound = 'sound/weapons/autoguninsert.ogg'
 
 /obj/item/gun/energy/laser/repeater/proc/crank_charge(mob/living/user)
 	if(cell.charge >= gun_charge)
@@ -47,13 +50,14 @@
 		return
 	else if(!cranking)
 		balloon_alert(user, "You start cranking")
+		playsound(src, 'sound/weapons/leveractionrack_open.ogg', 30)
 		while(cell.charge < gun_charge)
 			cranking = TRUE
-			if(do_after(user, 1 SECONDS) && !fire_interrupted)
-				playsound(src, 'sound/weapons/autoguninsert.ogg', 30)
-				cell.give(500 WATT)
-				flick("repeater", src)
-				update_icon()
+			if(do_after(user, 1 SECONDS, timed_action_flags = do_after_flag) && !fire_interrupted)
+				playsound(src, crank_sound, 30)
+				cell.give(charge_per_crank)
+				flick("[icon_state]_flick", src)
+				update_appearance()
 			else
 				break
 	cranking = FALSE
@@ -67,6 +71,23 @@
 /obj/item/gun/energy/laser/repeater/attack_self(mob/living/user)
 	if(!cranking)
 		crank_charge(user)
+
+/obj/item/gun/energy/laser/repeater/disabler_shotgun
+	name = "NT HRD 2-58"
+	icon_state = "disabler_shotgun"
+	item_state = "shotgun"
+	desc = "Based on the Model 2284, this heavy recoil disabler makes itself known for its suitability for close quarters encounters and energy independence mechanism."
+	fire_sound = 'sound/weapons/shotgunshot.ogg'
+	fire_sound_volume = 70
+	crank_sound = 'sound/weapons/shotgunpump.ogg'
+	//ammo_x_offset = 0
+	shaded_charge = FALSE
+	recoil = 1
+	gun_charge = 1000 WATT
+	charge_per_crank = 1000 WATT
+	w_class = WEIGHT_CLASS_BULKY
+	do_after_flag = IGNORE_USER_LOC_CHANGE	// The Weight class is already punishing enough
+	ammo_type = list(/obj/item/ammo_casing/energy/shotgun_disabler)
 
 /obj/item/gun/energy/laser/captain
 	name = "antique laser gun"

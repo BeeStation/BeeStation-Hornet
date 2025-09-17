@@ -15,4 +15,4 @@
 	click_cooldown_override = 1
 
 /obj/item/ammo_casing/caseless/laser/lesslethal
-	projectile_type = /obj/projectile/beam/laser/lesslethal
+	projectile_type = /obj/projectile/beam/mini/lesslethal

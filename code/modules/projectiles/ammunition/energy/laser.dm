@@ -1,12 +1,12 @@
 /obj/item/ammo_casing/energy/laser
-	projectile_type = /obj/projectile/beam/laser
+	projectile_type = /obj/projectile/beam/lethal
 	select_name = "kill"
 
 /obj/item/ammo_casing/energy/laser/gatlinggun
 	e_cost = 10 WATT
 
 /obj/item/ammo_casing/energy/lasergun
-	projectile_type = /obj/projectile/beam/laser
+	projectile_type = /obj/projectile/beam/lethal
 	e_cost = 710 WATT
 	select_name = "kill"
 
@@ -45,7 +45,7 @@
 	harmful = FALSE
 
 /obj/item/ammo_casing/energy/laser/heavy
-	projectile_type = /obj/projectile/beam/laser/heavylaser
+	projectile_type = /obj/projectile/beam/heavylaser
 	select_name = "anti-vehicle"
 	fire_sound = 'sound/weapons/lasercannonfire.ogg'
 

@@ -53,7 +53,7 @@
 
 /obj/projectile/bullet/pellet
 	var/tile_dropoff = 0.75
-	var/tile_dropoff_s = 0.5
+	var/tile_dropoff_stamina = 0.5
 	ricochets_max = 1
 	ricochet_chance = 50
 	ricochet_decay_chance = 0.9
@@ -76,7 +76,7 @@
 	damage = 3
 	stamina = 12
 	tile_dropoff = 0.5
-	tile_dropoff_s = 0
+	tile_dropoff_stamina = 0
 	ricochets_max = 2
 	ricochet_chance = 80
 	ricochet_incidence_leeway = 60
@@ -85,10 +85,10 @@
 	bleed_force = BLEED_TINY
 
 /obj/projectile/bullet/pellet/shotgun_rubbershot/Range()
-	if(damage <= 0 && tile_dropoff_s == 0)
+	if(damage <= 0 && tile_dropoff_stamina == 0)
 		damage = 0
 		tile_dropoff = 0
-		tile_dropoff_s = 0.5
+		tile_dropoff_stamina = 0.5
 	..()
 
 /obj/projectile/bullet/pellet/shotgun_incapacitate
@@ -101,7 +101,7 @@
 	if(damage > 0)
 		damage -= tile_dropoff
 	if(stamina > 0)
-		stamina -= tile_dropoff_s
+		stamina -= tile_dropoff_stamina
 	if(damage < 0 && stamina < 0)
 		qdel(src)
 

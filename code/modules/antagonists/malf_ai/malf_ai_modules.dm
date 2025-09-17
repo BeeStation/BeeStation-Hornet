@@ -819,7 +819,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 		turret.repair_damage(200)
 		turret.stun_projectile = /obj/projectile/beam/disabler/pass_glass //// AI defenses are often built with glass, so this is big.
 		turret.stun_projectile_sound = 'sound/weapons/lasercannonfire.ogg'
-		turret.lethal_projectile = /obj/projectile/beam/laser/heavylaser //Once you see it, you will know what it means to FEAR.
+		turret.lethal_projectile = /obj/projectile/beam/heavylaser //Once you see it, you will know what it means to FEAR.
 		turret.lethal_projectile_sound = 'sound/weapons/lasercannonfire.ogg'
 
 /// Enhanced Surveillance: Enables AI to hear conversations going on near its active vision.

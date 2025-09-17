@@ -71,7 +71,8 @@
 	/// If objects are below this layer, we pass through them
 	var/hit_threshhold = PROJECTILE_HIT_THRESHOLD_LAYER
 
-	var/speed = 0.8			//Amount of deciseconds it takes for projectile to travel
+	/// Amount of deciseconds it takes for projectile to travel
+	var/speed = 0.8
 	var/Angle = 0
 	var/original_angle = 0		//Angle at firing
 	var/nondirectional_sprite = FALSE //Set TRUE to prevent projectiles from having their sprites rotated based on firing angle
@@ -231,6 +232,9 @@
 			var/obj/effect/temp_visual/impact = new impact_effect_type(target_loca, hitx, hity)
 			if(color)
 				impact.color = color
+			if(alpha != initial(alpha))
+				impact.alpha = alpha
+			impact.light_power = light_power
 
 		W.add_dent(WALL_DENT_SHOT, hitx, hity)
 
@@ -241,6 +245,10 @@
 			var/obj/effect/temp_visual/impact = new impact_effect_type(target_loca, hitx, hity)
 			if(color)
 				impact.color = color
+			if(alpha != initial(alpha))
+				impact.alpha = alpha
+			impact.light_power = light_power
+
 		if(isturf(target) && hitsound_wall)
 			var/volume = clamp(vol_by_damage() + 20, 0, 100)
 			if(suppressed)
@@ -271,6 +279,9 @@
 			var/obj/effect/temp_visual/impact = new impact_effect_type(target_loca, hitx, hity)
 			if(color)
 				impact.color = color
+			if(alpha != initial(alpha))
+				impact.alpha = alpha
+			impact.light_power = light_power
 
 		var/organ_hit_text = ""
 		var/limb_hit = L.check_limb_hit(def_zone)//to get the correct message info.
@@ -665,7 +676,6 @@
 		pixel_move(1, FALSE)
 
 /obj/projectile/proc/fire(angle, atom/direct_target)
-	update_appearance()
 	LAZYINITLIST(impacted)
 	if(fired_from)
 		SEND_SIGNAL(fired_from, COMSIG_PROJECTILE_BEFORE_FIRE, src, original)

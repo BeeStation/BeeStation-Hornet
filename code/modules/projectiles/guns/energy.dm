@@ -3,6 +3,7 @@
 	name = "energy gun"
 	desc = "A basic energy-based gun."
 	icon = 'icons/obj/guns/energy.dmi'
+	fire_sound = null
 
 	///What type of power cell this uses
 	var/obj/item/stock_parts/cell/cell
@@ -38,6 +39,8 @@
 	var/dead_cell = FALSE
 	/// Should the charge overlay be emissive?
 	var/emissive_charge = TRUE
+	/// Gun will play this if the bullet has a fire sound combined with the gun's fire_sound
+	var/projectile_fire_sound
 
 /obj/item/gun/energy/emp_act(severity)
 	. = ..()
@@ -137,6 +140,8 @@
 			playsound(src, 'sound/weapons/effects/energy_click.ogg', suppressed_volume, vary_fire_sound, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0, frequency = click_frequency_to_use)
 	else
 		playsound(src, fire_sound, fire_sound_volume, vary_fire_sound, frequency = frequency_to_use)
+		if(projectile_fire_sound)
+			playsound(src, projectile_fire_sound, fire_sound_volume, vary_fire_sound, frequency = frequency_to_use)
 		if(play_click)
 			playsound(src, 'sound/weapons/effects/energy_click.ogg', fire_sound_volume, vary_fire_sound, frequency = click_frequency_to_use)
 
@@ -147,7 +152,7 @@
 		shot = new shottype(src)
 		ammo_type[i] = shot
 	shot = ammo_type[select]
-	fire_sound = shot.fire_sound
+	projectile_fire_sound = shot.fire_sound
 	fire_delay = shot.delay
 
 /obj/item/gun/energy/Destroy()
