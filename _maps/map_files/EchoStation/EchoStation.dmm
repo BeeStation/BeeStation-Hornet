@@ -3061,19 +3061,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /turf/open/floor/iron/tech/grid,
 /area/ai_monitored/turret_protected/aisat_interior)
-"bqL" = (
-/mob/living/basic/pet/dog/corgi/ian{
-	density = 0;
-	dir = 1;
-	pixel_y = 4
-	},
-/obj/item/toy/plush/ian,
-/obj/structure/bed/dogbed/ian,
-/obj/item/storage/secure/safe{
-	pixel_x = 38
-	},
-/turf/open/floor/carpet/blue,
-/area/crew_quarters/heads/hop)
 "bqY" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -3384,6 +3371,19 @@
 	},
 /turf/open/floor/iron/dark/textured_large,
 /area/engine/atmos)
+"bzZ" = (
+/obj/structure/window/plasma/reinforced{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/green/visible{
+	dir = 5
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/turf/open/floor/plating,
+/area/engine/supermatter)
 "bAN" = (
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/dark/side{
@@ -3450,6 +3450,31 @@
 	dir = 1
 	},
 /area/crew_quarters/fitness/recreation)
+"bCc" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	alpha = 180;
+	dir = 1
+	},
+/obj/machinery/camera/directional/west,
+/obj/machinery/button/door{
+	id = "armory";
+	name = "Armory Shutter Toggle";
+	pixel_x = -32;
+	pixel_y = 1;
+	req_access_txt = "3"
+	},
+/obj/structure/bed/dogbed/tyson,
+/mob/living/basic/pet/dog/bullterrier/tyson{
+	density = 0;
+	dir = 1
+	},
+/obj/item/stack/sheet/bone{
+	pixel_x = 6;
+	pixel_y = -6
+	},
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/iron/dark,
+/area/security/warden)
 "bCu" = (
 /obj/effect/spawner/room/fivexthree,
 /turf/open/floor/plating,
@@ -5084,6 +5109,19 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/closed/wall,
 /area/crew_quarters/heads/chief)
+"cwa" = (
+/obj/structure/window/plasma/reinforced{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold/cyan/visible{
+	dir = 4
+	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/turf/open/floor/plating,
+/area/engine/supermatter)
 "cwd" = (
 /obj/structure/lattice/catwalk/over,
 /obj/machinery/firealarm/directional/east,
@@ -5690,6 +5728,12 @@
 /obj/machinery/telecomms/processor/preset_two,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
+"cLK" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/bot,
+/obj/machinery/power/energy_accumulator/tesla_coil,
+/turf/open/floor/iron/large,
+/area/engine/engineering)
 "cLW" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/chair/office/light{
@@ -6472,6 +6516,19 @@
 	},
 /turf/open/floor/iron/half,
 /area/engine/engineering)
+"dit" = (
+/obj/structure/window/plasma/reinforced{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold/green/visible{
+	dir = 8
+	},
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
+/turf/open/floor/plating,
+/area/engine/supermatter)
 "diC" = (
 /obj/structure/flora/grass/jungle,
 /obj/structure/flora/ausbushes/ppflowers,
@@ -7305,6 +7362,22 @@
 "dIK" = (
 /turf/open/floor/plating,
 /area/science/mixing)
+"dIN" = (
+/obj/structure/window/plasma/reinforced{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 32
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold/green/visible{
+	dir = 8
+	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/turf/open/floor/plating,
+/area/engine/supermatter)
 "dJL" = (
 /obj/machinery/power/terminal{
 	dir = 4
@@ -9129,22 +9202,6 @@
 /obj/machinery/camera/directional/north,
 /turf/open/floor/iron,
 /area/maintenance/department/crew_quarters/dorms)
-"eKj" = (
-/obj/structure/window/plasma/reinforced{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 32
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold/green/visible{
-	dir = 8
-	},
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
-/turf/open/floor/plating,
-/area/engine/supermatter)
 "eKo" = (
 /obj/effect/turf_decal/tile/neutral/half{
 	dir = 4
@@ -9708,31 +9765,6 @@
 	},
 /turf/open/floor/iron,
 /area/science/research)
-"eYG" = (
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	alpha = 180;
-	dir = 1
-	},
-/obj/machinery/camera/directional/west,
-/obj/machinery/button/door{
-	id = "armory";
-	name = "Armory Shutter Toggle";
-	pixel_x = -32;
-	pixel_y = 1;
-	req_access_txt = "3"
-	},
-/obj/structure/bed/dogbed/tyson,
-/mob/living/basic/pet/dog/bullterrier/tyson{
-	density = 0;
-	dir = 1
-	},
-/obj/item/stack/sheet/bone{
-	pixel_x = 6;
-	pixel_y = -6
-	},
-/obj/structure/disposalpipe/segment,
-/turf/open/floor/iron/dark,
-/area/security/warden)
 "eYZ" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -10511,6 +10543,19 @@
 	},
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/engine/atmos)
+"fpT" = (
+/obj/structure/window/plasma/reinforced{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
+	dir = 9
+	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/turf/open/floor/plating,
+/area/engine/supermatter)
 "fqb" = (
 /turf/open/floor/iron,
 /area/maintenance/department/bridge)
@@ -17095,19 +17140,6 @@
 	},
 /turf/open/openspace/planetary,
 /area/maintenance/department/security/brig)
-"iPI" = (
-/obj/structure/window/plasma/reinforced{
-	dir = 8
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold/cyan/visible{
-	dir = 4
-	},
-/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
-/turf/open/floor/plating,
-/area/engine/supermatter)
 "iQa" = (
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 1
@@ -19990,19 +20022,6 @@
 /obj/effect/spawner/lootdrop/glowstick/lit,
 /turf/open/floor/iron,
 /area/maintenance/department/engine/atmos)
-"ksb" = (
-/obj/structure/window/plasma/reinforced{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold/green/visible{
-	dir = 8
-	},
-/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
-/turf/open/floor/plating,
-/area/engine/supermatter)
 "ksi" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -20751,19 +20770,6 @@
 "kLU" = (
 /turf/open/floor/iron,
 /area/engine/atmos)
-"kMm" = (
-/obj/structure/window/plasma/reinforced{
-	dir = 8
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold/cyan/visible{
-	dir = 4
-	},
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
-/turf/open/floor/plating,
-/area/engine/supermatter)
 "kMG" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow{
@@ -23644,6 +23650,14 @@
 	},
 /turf/open/floor/iron,
 /area/medical/surgery)
+"mpO" = (
+/obj/effect/turf_decal/bot,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/power/energy_accumulator/tesla_coil,
+/turf/open/floor/iron/large,
+/area/engine/engineering)
 "mrb" = (
 /obj/structure/railing/corner{
 	dir = 8
@@ -24488,19 +24502,6 @@
 	},
 /turf/open/floor/engine,
 /area/science/xenobiology)
-"mNM" = (
-/obj/structure/window/plasma/reinforced{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/green/visible{
-	dir = 5
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
-/turf/open/floor/plating,
-/area/engine/supermatter)
 "mNO" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -25971,19 +25972,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/science/lab)
-"nGg" = (
-/obj/structure/window/plasma/reinforced{
-	dir = 8
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
-	dir = 9
-	},
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
-/turf/open/floor/plating,
-/area/engine/supermatter)
 "nGn" = (
 /obj/item/reagent_containers/cup/glass/drinkingglass{
 	pixel_x = -7;
@@ -28187,24 +28175,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/disposal/incinerator)
-"oPV" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/green/visible{
-	dir = 4
-	},
-/obj/structure/table,
-/obj/item/clothing/mask/gas{
-	pixel_x = -4;
-	pixel_y = 10
-	},
-/obj/item/analyzer{
-	pixel_x = 1
-	},
-/obj/item/crowbar/red{
-	pixel_x = -2;
-	pixel_y = 11
-	},
-/turf/open/floor/iron/smooth_large,
-/area/engine/engineering)
 "oPX" = (
 /obj/machinery/camera/directional/south,
 /turf/open/floor/engine/vacuum,
@@ -31522,14 +31492,6 @@
 	},
 /turf/open/floor/iron,
 /area/science/research/abandoned)
-"qII" = (
-/obj/effect/turf_decal/bot,
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/machinery/power/energy_accumulator/tesla_coil,
-/turf/open/floor/iron/large,
-/area/engine/engineering)
 "qJo" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/open/floor/plating/asteroid/planetary,
@@ -36432,12 +36394,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/medical/central)
-"tmd" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/bot,
-/obj/machinery/power/energy_accumulator/tesla_coil,
-/turf/open/floor/iron/large,
-/area/engine/engineering)
 "tmh" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /obj/structure/table/reinforced,
@@ -42044,6 +42000,24 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/department/science/central)
+"waH" = (
+/obj/machinery/atmospherics/pipe/smart/manifold/green/visible{
+	dir = 4
+	},
+/obj/structure/table,
+/obj/item/clothing/mask/gas{
+	pixel_x = -4;
+	pixel_y = 10
+	},
+/obj/item/analyzer{
+	pixel_x = 1
+	},
+/obj/item/crowbar/red{
+	pixel_x = -2;
+	pixel_y = 11
+	},
+/turf/open/floor/iron/smooth_large,
+/area/engine/engineering)
 "waJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -42853,6 +42827,19 @@
 	},
 /turf/open/floor/plating/asteroid/planetary,
 /area/engine/engineering)
+"wBs" = (
+/mob/living/basic/pet/dog/corgi/ian{
+	density = 0;
+	dir = 1;
+	pixel_y = 4
+	},
+/obj/item/toy/plush/ian,
+/obj/structure/bed/dogbed/ian,
+/obj/item/storage/secure/safe{
+	pixel_x = 38
+	},
+/turf/open/floor/carpet/blue,
+/area/crew_quarters/heads/hop)
 "wBT" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance/two,
@@ -44320,6 +44307,19 @@
 	},
 /turf/open/openspace/planetary,
 /area/crew_quarters/heads/chief)
+"xnS" = (
+/obj/structure/window/plasma/reinforced{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold/cyan/visible{
+	dir = 4
+	},
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
+/turf/open/floor/plating,
+/area/engine/supermatter)
 "xnU" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
@@ -60066,7 +60066,7 @@ jLK
 okK
 cku
 eVt
-oPV
+waH
 nEO
 dXI
 glt
@@ -60326,9 +60326,9 @@ uSS
 dXI
 dXI
 ifQ
-eKj
-ksb
-mNM
+dIN
+dit
+bzZ
 xiB
 nKk
 uSY
@@ -61354,9 +61354,9 @@ ruV
 dXI
 dXI
 ocx
-kMm
-iPI
-nGg
+cwa
+xnS
+fpT
 xiB
 nKk
 uSY
@@ -63401,8 +63401,8 @@ gef
 rdU
 nHd
 sXB
-qII
-tmd
+mpO
+cLK
 lbJ
 wfM
 khz
@@ -190100,7 +190100,7 @@ vLu
 dCK
 uGq
 xQY
-eYG
+bCc
 yjC
 omk
 wHN
@@ -194990,7 +194990,7 @@ dur
 qDp
 uQG
 rXP
-bqL
+wBs
 qah
 qYU
 srJ
@@ -262862,7 +262862,7 @@ vpD
 tFe
 tFe
 tFe
-tFe
+xQn
 xQn
 xQn
 xQn

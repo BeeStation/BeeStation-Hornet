@@ -10,14 +10,6 @@
 "ad" = (
 /turf/open/floor/iron/dark/textured_large,
 /area/space)
-"ah" = (
-/mob/living/basic/pet/dog/corgi/ian{
-	density = 0;
-	dir = 1;
-	pixel_y = 4
-	},
-/turf/open/floor/wood,
-/area/crew_quarters/heads/hop)
 "aj" = (
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /obj/machinery/vending/wardrobe/viro_wardrobe,
@@ -66,6 +58,23 @@
 /obj/effect/landmark/start/atmospheric_technician,
 /turf/open/floor/iron/tech,
 /area/engine/atmos)
+"aX" = (
+/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
+	alpha = 180;
+	color = "#DE3A3A"
+	},
+/mob/living/basic/pet/dog/bullterrier/tyson{
+	density = 0
+	},
+/mob/living/simple_animal/kalo{
+	desc = "The Perma brig's cute grass snake.";
+	icon_dead = "snake_dead";
+	icon_living = "snake";
+	icon_state = "snake";
+	name = "Hugel"
+	},
+/turf/open/floor/iron,
+/area/security/main)
 "aZ" = (
 /obj/structure/sign/poster/random,
 /turf/open/floor/iron/dark,
@@ -585,23 +594,6 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/medical/sleeper)
-"nz" = (
-/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
-	alpha = 180;
-	color = "#DE3A3A"
-	},
-/mob/living/basic/pet/dog/bullterrier/tyson{
-	density = 0
-	},
-/mob/living/simple_animal/kalo{
-	desc = "The Perma brig's cute grass snake.";
-	icon_dead = "snake_dead";
-	icon_living = "snake";
-	icon_state = "snake";
-	name = "Hugel"
-	},
-/turf/open/floor/iron,
-/area/security/main)
 "nG" = (
 /obj/structure/disposalpipe/sorting/mail/destination/hop_office,
 /turf/open/floor/wood,
@@ -678,10 +670,6 @@
 /obj/structure/janitorialcart,
 /turf/open/floor/iron,
 /area/janitor)
-"pb" = (
-/obj/machinery/gear_requisition/exploration,
-/turf/open/floor/iron/dark,
-/area/quartermaster/exploration_prep)
 "pd" = (
 /obj/effect/turf_decal/edges/techfloor_orange,
 /turf/open/floor/iron/grid/steel,
@@ -840,6 +828,14 @@
 /obj/structure/closet/secure_closet/bar,
 /turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/bar)
+"sD" = (
+/mob/living/basic/pet/dog/corgi/ian{
+	density = 0;
+	dir = 1;
+	pixel_y = 4
+	},
+/turf/open/floor/wood,
+/area/crew_quarters/heads/hop)
 "tb" = (
 /obj/machinery/door/airlock/mining/glass{
 	name = "Delivery Office";
@@ -862,10 +858,6 @@
 /obj/structure/closet/wardrobe/green,
 /turf/open/floor/iron/dark,
 /area/space)
-"to" = (
-/obj/machinery/gear_requisition/mining,
-/turf/open/floor/iron/sepia,
-/area/quartermaster/storage)
 "tw" = (
 /obj/effect/turf_decal/edges/borderfloor{
 	dir = 10
@@ -1451,6 +1443,10 @@
 /obj/item/toy/plush/moth/punished,
 /turf/open/floor/iron,
 /area/space)
+"Iu" = (
+/obj/machinery/gear_requisition/exploration,
+/turf/open/floor/iron/dark,
+/area/quartermaster/exploration_prep)
 "IO" = (
 /obj/structure/closet/secure_closet/RD,
 /turf/open/floor/carpet/purple,
@@ -1882,6 +1878,10 @@
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/medical/genetics)
+"Rm" = (
+/obj/machinery/gear_requisition/mining,
+/turf/open/floor/iron/sepia,
+/area/quartermaster/storage)
 "Rq" = (
 /obj/machinery/deepfryer,
 /turf/open/floor/iron/freezer,
@@ -2371,7 +2371,7 @@ qz
 (5,1,1) = {"
 bE
 YW
-ah
+sD
 fL
 EI
 JM
@@ -2380,7 +2380,7 @@ yJ
 Wx
 np
 fz
-nz
+aX
 Vk
 rW
 nr
@@ -2405,7 +2405,7 @@ be
 nr
 Oe
 KY
-to
+Rm
 vZ
 "}
 (7,1,1) = {"
@@ -2634,7 +2634,7 @@ Oz
 uM
 RB
 ti
-pb
+Iu
 uy
 it
 YS

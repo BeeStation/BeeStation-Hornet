@@ -85,7 +85,7 @@
 	init_flags = MATERIAL_INIT_MAPLOAD
 	integrity_modifier = 0.5
 	sheet_type = /obj/item/stack/sheet/plasmaglass
-	//shard_type = /obj/item/shard/plasma
+	shard_type = /obj/item/shard/plasma
 	value_per_unit = 0.075
 	categories = list(MAT_CATEGORY_RIGID=TRUE, MAT_CATEGORY_BASE_RECIPES=TRUE)
 	composition = list(/datum/material/glass=1, /datum/material/plasma=0.5)
@@ -102,7 +102,7 @@
 	alpha = 150
 	init_flags = MATERIAL_INIT_MAPLOAD
 	sheet_type = /obj/item/stack/sheet/titaniumglass
-	//shard_type = /obj/item/shard
+	shard_type = /obj/item/shard
 	value_per_unit = 0.04
 	categories = list(MAT_CATEGORY_RIGID=TRUE, MAT_CATEGORY_BASE_RECIPES=TRUE)
 	composition = list(/datum/material/glass=1, /datum/material/titanium=0.5)
@@ -120,7 +120,7 @@
 	init_flags = MATERIAL_INIT_MAPLOAD
 	integrity_modifier = 1.1
 	sheet_type = /obj/item/stack/sheet/plastitaniumglass
-	//shard_type = /obj/item/shard/plasma
+	shard_type = /obj/item/shard/plasma
 	value_per_unit = 0.125
 	categories = list(MAT_CATEGORY_RIGID=TRUE, MAT_CATEGORY_BASE_RECIPES=TRUE)
 	composition = list(/datum/material/glass=1, /datum/material/alloy/plastitanium=0.5)

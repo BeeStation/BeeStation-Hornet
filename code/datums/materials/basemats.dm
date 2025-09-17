@@ -18,6 +18,7 @@
 	categories = list(MAT_CATEGORY_RIGID = TRUE/*, MAT_CATEGORY_BASE_RECIPES = TRUE*/) //Excluding glass for now
 	integrity_modifier = 0.1
 	sheet_type = /obj/item/stack/sheet/glass
+	shard_type = /obj/item/shard
 	value_per_unit = 0.0025
 
 /*

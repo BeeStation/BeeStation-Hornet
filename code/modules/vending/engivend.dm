@@ -24,7 +24,6 @@
 	refill_canister = /obj/item/vending_refill/engivend
 	default_price = 20
 	extra_price = 50
-	dept_req_for_free = ACCOUNT_ENG_BITFLAG
 	light_mask = "engivend-light-mask"
 
 /obj/item/vending_refill/engivend

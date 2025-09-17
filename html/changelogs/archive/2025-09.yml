@@ -191,6 +191,109 @@
     - refactor: refactored the voting subsystem
     - tweak: Slightly altered the Emergency Shuttle undocking announcement
 2025-09-15:
+  PowerfulBacon:
+  - bugfix: Fixes guns slowing down while worn on the belt.
+  - bugfix: Fixes guns not being able to shoot if you click on a tile adjacent to
+      you.
+  TsunamiAnt:
+  - tweak: Makes abductee objectives not be complete ass.
+  - tweak: Abductee objectives are now tied to the gland itself and can be cured by
+      just removing it.
   mrmanlikesbt:
   - bugfix: Fixed the item overlay on smartfridges displaying even when there are
       no items inside.
+  - bugfix: Fixes the feed ability breaking if the person you are feeding off of is
+      deleted
+  - bugfix: Fixed Ventrue made vampires getting duplicate spells when turned into
+      a vampire
+  - bugfix: Fixed vampires sometimes greentexting when they didn't complete all of
+      their objectives
+  - bugfix: Fixed the Tremere Dominate ability not being able to resurrect people
+      into vassals
+  - code_imp: Cleaned up some vampire code
+  - tweak: The vampire department vassalization objective can no longer ask you to
+      vassalize more people than possible
+  - tweak: Adjusted the roundend report vampire section
+  - tweak: Stakes now have a medium weight size meaning people other than the staked
+      person can remove them
+  - tweak: Ventrue favorite vassals lose their vassal status when leveled up into
+      a vampire. Be careful Ventrue clan members!
+  r1ks-iwnl:
+  - bugfix: Bubblegum no longer ends his dashes earlier than he should
+  rkz, tralezab, TheBonded, ma44, Ryll/Shaps, Vishenka0704, Vladoricious, Jacquerel, Fikou, Sealed101, San7890:
+  - tweak: Renames the Wardens dog
+  - refactor: tamable component + egg layer component, animal variety element
+  - bugfix: dogs will no longer forget to unbuckle themselves when fetching items
+      thrown nearby
+  - code_imp: fixed bad rabbit subtyping
+  - refactor: Basic AI movement has been refactored to clean it up a bit
+  - bugfix: Dog AI's should no longer lock up and become unresponsive after failed
+      fetch attempts
+  - soundadd: Dogs in harass mode that are guarding against someone will now make
+      growling sounds
+  - bugfix: Dead dogs can no longer befriend you or lick you.
+  - bugfix: Consciousness Transference potions now tame the target creature, just
+      like Sentience potions.
+  - bugfix: A revived basic mob will stand up again rather than inching around as
+      a living corpse.
+  - rscadd: Ian has learned some new tricks, tell him what a good boy he is!
+  - rscadd: Ian will come on a walk with you, if you are his friend.
+  - refactor: Ian's tricks work the same way as some other mobs' tricks and should
+      be extendable to future mobs.
+  - bugfix: Dogs no longer run at the maximum possible speed for a mob at all times.
+  - rscadd: When Ian gets old, he also slows down. Poor little guy.
+  - rscadd: Dogs will no longer dislike the presence of Felinids who have taken the
+      time to befriend them.
+  - rscadd: 'Dogs will now occasionally bark at their two mortal enemies: felinids
+      and mailmen'
+  - bugfix: Dogs set to attack will now only close within 3 tiles of their target,
+      and must be approached further by their target (or pushed next to their target)
+      to actually attack
+  - balance: While Ian still enjoys being petted, his heart will now most closely
+      belong to anyone who gives him an expensive luxury dog bone.
+  - code_imp: Using an item which can deal damage on a mob tracking hostile actions
+      (such as a dog) won't automatically be considered to be a hostile action if
+      you aren't actually hitting it with the item.
+  - bugfix: Dead basic mobs are no longer "dense" objects and can be stepped on.
+  - rscadd: Nars-Ian now can revive from the dead if he consumes a pet
+  - bugfix: fixes dog fashion items with no speech modifiers set making dressed up
+      corgis unable to perform their speech or emote behaviors
+  - bugfix: fixes old Ian losing his mobility ride when shaved with a razor
+  - bugfix: fixes pets not dropping their collar when gibbed
+  - bugfix: butter don't go on Lisa and corgi puppies (Lisa won't wear hats and corgi
+      puppies can't wear hats and back slot items)
+2025-09-16:
+  Nakalon:
+  - code_imp: Withdraw Funds now uses TGUI
+  - balance: Removed Department freebies from vendors. Everything will cost money
+      for everyone.
+  - balance: Cargo gets a cut of all items sold by vendors
+  - tweak: You can now buy items with departmental cards, embezzlement is no longer
+      stopped by code :)
+  - bugfix: Fixed Assistants seeing items as free, even though they aren't
+  THEREALDOOOC213:
+  - rscadd: fat people now break tables when slammed onto them
+  lord scrubling:
+  - bugfix: advanced atmos resin is no longer killed early when spreading in hot air
+  - rscadd: atmos hardsuits, winter coats, and modsuits can carry extinguishers in
+      their exo slot
+  - bugfix: firefighting foam now works
+  ? mrmanlikesbt, MrPerson, cacogen, MMMiracles, Tastyfish, XyzzyThePretender, LemonInTheDark,
+    MTandi, Lufferly, BobDABuilder9001, Sealed101
+  : - rscadd: Added new solar panel sprites. These dynamically track the sun instead
+        of being fixed to incremental angles
+    - rscadd: 'Solar panels can now be upgraded based on what glass they are made
+        of, the higher tier the glass is, the higher the multiplier is. The tiers
+        are as follows: normal glass - 1x, titanium glass - 2x, plasma glass - 3x,
+        plastitanium glass - x4'
+    - rscdel: Removed the goonstation folder
+    - refactor: Refactored SSsun and solar panel code.
+  mrmanlikesbt, san7890, the wonderful mappers at /tg/station:
+  - rscadd: Remapped MetaStation Service and Atmos
+  - bugfix: Fixed airlock pumps
+2025-09-17:
+  rkz, arcanemusic, cacogen, tastyfish:
+  - rscadd: adds ability to split profits on sold items with the sales tagger
+  - rscadd: cleaned up delivery crate appearance code, crates will show notes scrawled
+      on them and destination tags better
+  - refactor: cleaned up some crate export code

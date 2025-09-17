@@ -42,7 +42,7 @@
 
 	var/turf/open/T = get_turf(src)
 	var/obj/effect/hotspot/hotspot = (locate(/obj/effect/hotspot) in T)
-	if(hotspot && istype(T) && T.air)
+	if(hotspot && T.air)
 		qdel(hotspot)
 		var/datum/gas_mixture/G = T.air
 		var/plas_amt = min(30,GET_MOLES(/datum/gas/plasma, G)) //Absorb some plasma
@@ -100,7 +100,7 @@
 /obj/effect/particle_effect/foam/metal/resin/halon/atmos_expose(datum/gas_mixture/air, exposed_temperature)
 	return // Doesn't dissolve in heat.
 
-/obj/effect/particle_effect/foam/metal/chainreact_resin
+/obj/effect/particle_effect/foam/metal/resin/chainreact
 	name = "self-destruct resin foam"
 	metal = RESIN_FOAM_CHAINREACT
 	lifetime = 20
