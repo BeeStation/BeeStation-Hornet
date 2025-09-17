@@ -166,10 +166,8 @@
 	armor_flag = ENERGY
 	hitsound = 'sound/weapons/tap.ogg'
 	eyeblur = 0
-	color = COLOR_LIGHT_PINK
-	light_color = LIGHT_COLOR_PINK
-	//color = COLOR_CYAN
-	//light_color = LIGHT_COLOR_BLUE
+	color = COLOR_CYAN
+	light_color = LIGHT_COLOR_BLUE
 
 /obj/projectile/laser/disabler/pass_glass ///this is for the malf ai turret upgrade xdxdxd
 	name = "beam-disabler"
