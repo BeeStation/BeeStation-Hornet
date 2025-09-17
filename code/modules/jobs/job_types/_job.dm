@@ -144,6 +144,9 @@
 	/// that can apply for a job, which adjusts the delta value.
 	var/total_position_delta = 0
 
+	// This job typically receives PAYCHECK_LOWER, but optionally we can set it so it receives no money in its 'paychecks'
+	var/welfare_job = NONE
+
 /datum/job/New()
 	. = ..()
 	lightup_areas = typecacheof(lightup_areas)
@@ -157,11 +160,11 @@
 		SSjob.job_manager_blacklisted |= title
 
 	//For the poors
-	if(welfare_job)
+	if(welfare_job_account != NONE)
 		if(CONFIG_GET(flag/welfare_paycheck))
-			payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_LOWER)
+			payment_per_department = list(welfare_job_account = PAYCHECK_LOWER)
 		else
-			payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_NONE)
+			payment_per_department = list(welfare_job_account = PAYCHECK_NONE)
 
 /// Returns true if there are available slots
 /datum/job/proc/has_space()

@@ -13,6 +13,7 @@
 
 	bank_account_department = ACCOUNT_SEC_BITFLAG //Oh yes, they are *your* deadweight, security
 	payment_per_department = list(ACCOUNT_SEC_ID = PAYCHECK_LOWER)
+	welfare_job_account = ACCOUNT_SEC_ID
 
 	base_access = list()
 	departments = DEPT_BITFLAG_UNASSIGNED

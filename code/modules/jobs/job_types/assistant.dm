@@ -17,12 +17,8 @@ Assistant
 
 	departments = DEPT_BITFLAG_CIV
 	bank_account_department = NONE // nothing is free for them
-
-	// Get a job. Job reassignment changes your paycheck now. Get over it.
-	if(CONFIG_GET(number/welfare_paycheck))
-		payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_LOWER)
-	else
-		payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_NONE)
+	payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_LOWER) // Get a job. Job reassignment changes your paycheck now. Get over it.
+	welfare_job_account = ACCOUNT_CIV_ID
 
 	display_order = JOB_DISPLAY_ORDER_ASSISTANT
 	rpg_title = "Lout"
