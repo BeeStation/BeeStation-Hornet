@@ -291,3 +291,9 @@
   mrmanlikesbt, san7890, the wonderful mappers at /tg/station:
   - rscadd: Remapped MetaStation Service and Atmos
   - bugfix: Fixed airlock pumps
+2025-09-17:
+  rkz, arcanemusic, cacogen, tastyfish:
+  - rscadd: adds ability to split profits on sold items with the sales tagger
+  - rscadd: cleaned up delivery crate appearance code, crates will show notes scrawled
+      on them and destination tags better
+  - refactor: cleaned up some crate export code
