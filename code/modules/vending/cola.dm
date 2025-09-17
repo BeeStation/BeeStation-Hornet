@@ -22,6 +22,7 @@
 	refill_canister = /obj/item/vending_refill/cola
 	default_price = 5
 	extra_price = 60
+	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 
 
 /obj/item/vending_refill/cola

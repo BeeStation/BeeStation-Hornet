@@ -38,6 +38,7 @@
 	refill_canister = /obj/item/vending_refill/medical
 	default_price = 25
 	extra_price = 100
+	dept_req_for_free = ACCOUNT_MED_BITFLAG
 	light_mask = "med-light-mask"
 
 /datum/armor/vending_medical
