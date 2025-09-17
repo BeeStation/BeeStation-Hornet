@@ -54,11 +54,11 @@
 			M.adjustBruteLoss(10)
 			playsound(loc, 'sound/effects/bang.ogg', 50, 1)
 			var/atom/newLoc = get_edge_target_turf(M, get_dir(src, get_step_away(M, src)))
-			M.throw_at(newLoc, 4, 1)
+			M.throw_at(newLoc, 2, 1)
 
 /obj/vehicle/ridden/lawnmower/Move()
 	. = ..()
-	var/attacked = FALSE
+	var/gibbed = FALSE
 	playsound(loc, pick(drive_sounds), 50, 1)
 	var/mob/living/carbon/H
 
@@ -74,13 +74,13 @@
 				continue
 			if(M.body_position == LYING_DOWN)
 				visible_message(span_danger("\the [src] grinds [M.name], injuring them!"))
-				M.adjustBruteLoss(25)
-				M.log_message("has been attacked by an emagged lawnmower that was driven by [(H.ckey || "nobody")] and emagged by [(emagged_by || "nobody")]", LOG_ATTACK, color="red")
-				H.log_message("has attacked [(M.ckey || "none-player")] using an emagged lawnmower that was emagged by [(emagged_by || "nobody")]", LOG_ATTACK, color="red")
+				M.gib() // This is so fucked but you people wanted it
+				M.log_message("has been gibbed by an emagged lawnmower that was driven by [(H.ckey || "nobody")] and emagged by [(emagged_by || "nobody")]", LOG_ATTACK, color="red")
+				H.log_message("has gibbed [(M.ckey || "none-player")] using an emagged lawnmower that was emagged by [(emagged_by || "nobody")]", LOG_ATTACK, color="red")
 				shake_camera(M, 20, 1)
-				attacked = TRUE
+				gibbed = TRUE
 
-	if(attacked)
+	if(gibbed)
 		shake_camera(H, 2, 1)
 		playsound(loc, pick(hurt_sounds), 75, 1)
 
