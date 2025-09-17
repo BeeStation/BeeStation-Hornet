@@ -73,8 +73,7 @@
 		return
 	if (!magazine)
 		magazine = new mag_type(src)
-	if (!caliber)
-		caliber = magazine.caliber
+	caliber = magazine.caliber
 	chamber_round()
 	update_icon()
 
@@ -334,7 +333,7 @@
 		if(!chambered && istype(A, /obj/item/ammo_casing) && bolt_locked && bolt_type != BOLT_TYPE_OPEN)
 			var/obj/item/ammo_casing/AC = A
 			//If the gun isn't chambered in the same caliber as the cartridge, don't load it.
-			if(src.caliber != AC.caliber)
+			if (!(AC.caliber in src.caliber))
 				to_chat(user, span_warning("\The [src] isn't chambered in this caliber!"))
 				return
 			chambered = AC
