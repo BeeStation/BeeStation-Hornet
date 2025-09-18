@@ -304,6 +304,8 @@
       on them and destination tags better
   - refactor: cleaned up some crate export code
 2025-09-18:
+  PowerfulBacon:
+  - bugfix: Guns can now be recharged again.
   lord scrubling:
   - bugfix: ethereal colors
   mrmanlikesbt:
