@@ -71,73 +71,73 @@ export const CSS_COLORS = [
 export const RADIO_CHANNELS = [
   {
     name: 'Syndicate',
-    freq: 1213,
+    freq: 121,
     color: '#a52a2a',
   },
   {
     name: 'Red Team',
-    freq: 1215,
+    freq: 130,
     color: '#ff4444',
   },
   {
     name: 'Blue Team',
-    freq: 1217,
+    freq: 131,
     color: '#3434fd',
   },
   {
-    name: 'CentCom',
-    freq: 1337,
-    color: '#2681a5',
+    name: 'Common',
+    freq: 85,
+    color: '#1ecc43',
   },
   {
     name: 'Supply',
-    freq: 1347,
+    freq: 86,
     color: '#b88646',
   },
   {
     name: 'Service',
-    freq: 1349,
+    freq: 87,
     color: '#6ca729',
   },
   {
-    name: 'Exploration',
-    freq: 1361,
-    color: '#7ed4c2',
-  },
-  {
     name: 'Science',
-    freq: 1351,
+    freq: 88,
     color: '#c68cfa',
   },
   {
     name: 'Command',
-    freq: 1353,
+    freq: 89,
     color: '#5177ff',
   },
   {
     name: 'Medical',
-    freq: 1355,
+    freq: 90,
     color: '#57b8f0',
   },
   {
     name: 'Engineering',
-    freq: 1357,
+    freq: 91,
     color: '#f37746',
   },
   {
     name: 'Security',
-    freq: 1359,
+    freq: 92,
     color: '#dd3535',
   },
   {
+    name: 'Exploration',
+    freq: 93,
+    color: '#7ed4c2',
+  },
+  {
     name: 'AI Private',
-    freq: 1447,
+    freq: 94,
     color: '#d65d95',
   },
   {
-    name: 'Common',
-    freq: 1459,
-    color: '#1ecc43',
+    name: 'CentCom',
+    freq: 95,
+    color: '#2681a5',
   },
 ] as const;
 

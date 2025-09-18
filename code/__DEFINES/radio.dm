@@ -62,41 +62,45 @@
 #define RADIO_KEY_UPLINK "d"
 #define RADIO_TOKEN_UPLINK ":d"
 
-#define MIN_FREE_FREQ 1339 // -------------------------------------------------
-// Frequencies are always odd numbers and range from 1339 to 1599.
+#define MIN_FREE_FREQ 65 // -------------------------------------------------
+// Frequencies were reduced to range from 65 to 120 including free (syndicate) freequencies.
 
-#define FREQ_SYNDICATE 1213  //!  Nuke op comms frequency, dark brown
-#define FREQ_UPLINK 1214   //!  Dummy channel for headset uplink
-#define FREQ_CTF_RED 1215  //!  CTF red team comms frequency, red
-#define FREQ_CTF_BLUE 1217  //!  CTF blue team comms frequency, blue
-#define FREQ_CENTCOM 1337  //!  CentCom comms frequency, gray
-#define FREQ_SUPPLY 1347  //!  Supply comms frequency, light brown
-#define FREQ_SERVICE 1349  //! Service comms frequency, green
-#define FREQ_SCIENCE 1351  //! Science comms frequency, plum
-#define FREQ_COMMAND 1353  //! Command comms frequency, gold
-#define FREQ_MEDICAL 1355  //! Medical comms frequency, soft blue
-#define FREQ_ENGINEERING 1357  //! Engineering comms frequency, orange
-#define FREQ_SECURITY 1359  //! Security comms frequency, red
-#define FREQ_EXPLORATION 1361 //! Exploration comms frequency, cyan
+#define MIN_FREQ 80 // ------------------------------------------------------
+// Only the 80 to 100 range is freely available for general conversation.
 
-#define FREQ_STATUS_DISPLAYS 1435
+// Frequencies are ordered in 3 categories, by importance and how often they are used by players
+// 1 - Day to Day Frequencies
+#define FREQ_COMMON 85  //! Common comms frequency, dark green
+#define FREQ_SUPPLY 86  //!  Supply comms frequency, light brown
+#define FREQ_SERVICE 87  //! Service comms frequency, green
+#define FREQ_SCIENCE 88  //! Science comms frequency, plum
+#define FREQ_COMMAND 89  //! Command comms frequency, gold
+#define FREQ_MEDICAL 90  //! Medical comms frequency, soft blue
+#define FREQ_ENGINEERING 91  //! Engineering comms frequency, orange
+#define FREQ_SECURITY 92  //! Security comms frequency, red
+#define FREQ_EXPLORATION 93 //! Exploration comms frequency, cyan
+#define FREQ_AI_PRIVATE 94  //! AI private comms frequency, magenta
 
-#define MIN_FREQ 1441 // ------------------------------------------------------
-// Only the 1441 to 1489 range is freely available for general conversation.
-// This represents 1/8th of the available spectrum.
+// 2 - Special Frequencies - These, save for centcom are always after the 100-th range
+#define FREQ_CENTCOM 95  //!  CentCom comms frequency, light green
+#define FREQ_NAV_BEACON 105
+#define FREQ_PRESSURE_PLATE 106
+#define FREQ_ELECTROPACK 107
+#define FREQ_MAGNETS 108
+#define FREQ_LOCATOR_IMPLANT 109
+#define FREQ_SIGNALER 110  //! the default for new signalers, players have 25 frequencies to play with, 10 from 110 to 120 (easy access)
 
-#define FREQ_NAV_BEACON 1445
-#define FREQ_AI_PRIVATE 1447  //! AI private comms frequency, magenta
-#define FREQ_PRESSURE_PLATE 1447
-#define FREQ_ELECTROPACK 1449
-#define FREQ_MAGNETS 1449
-#define FREQ_LOCATOR_IMPLANT 1451
-#define FREQ_SIGNALER 1457  //! the default for new signalers
-#define FREQ_COMMON 1459  //! Common comms frequency, dark green
+// 3 - Syndicate Freequencies, these are only accessible by free frequency radios.
+#define FREQ_SYNDICATE 121  //!  Nuke op comms frequency, dark brown
+#define FREQ_UPLINK 140   //!  Dummy channel for headset uplink
+#define FREQ_CTF_RED 130  //!  CTF red team comms frequency, red
+#define FREQ_CTF_BLUE 131  //!  CTF blue team comms frequency, blue
 
-#define MAX_FREQ 1489 // ------------------------------------------------------
+#define FREQ_STATUS_DISPLAYS 75	// I'll be honest, I have no idea what this does exactly, but this was beyound the range of normal radios so I kept it at that
 
-#define MAX_FREE_FREQ 1599 // -------------------------------------------------
+#define MAX_FREQ 120 // ------------------------------------------------------
+
+#define MAX_FREE_FREQ 140 // -------------------------------------------------
 
 // Transmission types.
 #define TRANSMISSION_WIRE 0  //! some sort of wired connection, not used

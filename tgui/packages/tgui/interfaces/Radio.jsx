@@ -1,5 +1,4 @@
 import { map } from 'common/collections';
-import { toFixed } from 'common/math';
 
 import { useBackend } from '../backend';
 import { Box, Button, LabeledList, NumberInput, Section } from '../components';
@@ -39,21 +38,20 @@ export const Radio = (props) => {
             <LabeledList.Item label="Frequency">
               {(freqlock && (
                 <Box inline color="light-gray">
-                  {toFixed(frequency / 10, 1) + ' kHz'}
+                  {frequency + ' kHz'}
                 </Box>
               )) || (
                 <NumberInput
                   animated
                   unit="kHz"
-                  step={0.2}
-                  stepPixelSize={10}
-                  minValue={minFrequency / 10}
-                  maxValue={maxFrequency / 10}
-                  value={frequency / 10}
-                  format={(value) => toFixed(value, 1)}
+                  step={1}
+                  stepPixelSize={6}
+                  minValue={minFrequency}
+                  maxValue={maxFrequency}
+                  value={frequency}
                   onDrag={(value) =>
                     act('frequency', {
-                      adjust: value - frequency / 10,
+                      adjust: value - frequency,
                     })
                   }
                 />

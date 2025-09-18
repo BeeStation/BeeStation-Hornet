@@ -5,15 +5,13 @@
 		. = clamp(frequency, MIN_FREE_FREQ, MAX_FREE_FREQ)
 	else
 		. = clamp(frequency, MIN_FREQ, MAX_FREQ)
-	if(!(. % 2)) // Ensure the last digit is an odd number
-		. += 1
 
-// Format frequency by moving the decimal.
+// Format frequency by adding kHz.
 /proc/format_frequency(frequency)
 	frequency = text2num(frequency)
-	return "[round(frequency / 10)].[frequency % 10]"
+	return "[frequency].kHz"
 
 //Opposite of format, returns as a number
 /proc/unformat_frequency(frequency)
 	frequency = text2num(frequency)
-	return frequency * 10
+	return frequency
