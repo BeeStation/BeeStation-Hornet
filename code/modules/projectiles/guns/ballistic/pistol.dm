@@ -209,6 +209,7 @@
 	mag_type = /obj/item/ammo_box/magazine/taser
 	can_suppress = FALSE
 	tac_reloads = FALSE
+	item_state = "ballistic_taser"
 	worn_icon_state = "officer_pistol"
 	fire_rate = 1
 	magazine_wording = "cartridge"
