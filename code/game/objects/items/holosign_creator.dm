@@ -104,7 +104,7 @@
 	max_signs = 6
 	var/active_crimescene = FALSE
 	var/list/active_barriers = list()
-	var/crimescene_range = 6
+	var/crimescene_range = 4
 
 /obj/item/holosign_creator/security/Initialize(mapload)
 	. = ..()
@@ -137,11 +137,8 @@
 	for(var/turf/open/floor/turf_candidate in regionC)
 		if(!turf_candidate.is_blocked_turf(TRUE))
 			var/obj/structure/crimesign/barrier = new /obj/structure/crimesign(turf_candidate)
-			barrier.user_mob = user
+			barrier.align(get_turf(src), crimescene_range)
 			active_barriers += barrier
-
-	for(var/obj/structure/crimesign/to_align in active_barriers)
-		to_align.align(get_turf(src))
 
 	active_crimescene = TRUE
 	return
