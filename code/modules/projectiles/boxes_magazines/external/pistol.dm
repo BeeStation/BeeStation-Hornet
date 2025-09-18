@@ -99,19 +99,3 @@
 
 /obj/item/ammo_box/magazine/mm10x25/empty
 	start_empty = TRUE
-
-/obj/item/ammo_box/magazine/taser
-	name = "Multi-use taser cartridge"
-	desc= "Standard-issue APS-Arc taser cartridge. Easily repacked with pre-prepared load-assemblies. Some text is stamped into the polymer body:'ATTENTION: DO NOT LOSE.'"
-	icon_state = "taser_cartridge-1"
-	ammo_type = /obj/item/ammo_casing/taser_load
-	caliber = list("taser load")
-	max_ammo = 1
-	multiple_sprites = 1
-
-/obj/item/ammo_box/magazine/taser/update_icon()
-	..()
-	if (ammo_count() >= 1)
-		icon_state = "taser_cartridge-1"
-	else
-		icon_state = "taser_cartridge-0"

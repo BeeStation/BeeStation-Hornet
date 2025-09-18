@@ -168,7 +168,7 @@
 	name = "NPS-10"
 	desc = "Standard APS firearm for on-station law enforcement. Low-velocity and unlikely to breach the hull. Uses 10x25mm ammo."
 	icon_state = "sec"
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	mag_type = /obj/item/ammo_box/magazine/mm10x25
 	can_suppress = FALSE
 	actions_types = list(/datum/action/item_action/toggle_firemode)
@@ -200,38 +200,3 @@
 			optional two-round burst and 12-round magazine ensure effective self defense when called upon. \
 			Designed to blend into any uniform yet hold its own in close quarters, it’s the pragmatic choice for \
 			private security operators.</i>"
-
-/obj/item/gun/ballistic/automatic/pistol/taser
-	name = "APS-Arc Ballistic Taser"
-	desc = "Standard taser for on-station APS enforcement. While principially less-lethal, overuse is highly discouraged due to the chance for heart-attacks."
-	icon_state = "taser"
-	w_class = WEIGHT_CLASS_SMALL
-	mag_type = /obj/item/ammo_box/magazine/taser
-	can_suppress = FALSE
-	tac_reloads = FALSE
-	worn_icon_state = "officer_pistol"
-	fire_rate = 1
-	magazine_wording = "cartridge"
-	cartridge_wording = "taser load"
-	throwforce = 0
-	weapon_weight = WEAPON_LIGHT * 0.5
-	equip_time = 0
-	fire_sound = 'sound/weapons/taser/shot.ogg'
-
-/obj/item/gun/ballistic/automatic/pistol/taser/update_icon()
-	. = ..()
-	var/mutable_appearance/cartridge = mutable_appearance(icon, "taser_cartridge")
-
-	cut_overlay(cartridge)
-	if(magazine?.ammo_count() >= 1)
-		add_overlay(cartridge)
-
-/obj/item/gun/ballistic/automatic/pistol/taser/examine(mob/user)
-	. = ..()
-	. += span_notice("<i>You could examine it more thoroughly...</i>")
-
-/obj/item/gun/ballistic/automatic/pistol/taser/examine_more(mob/user)
-	. = ..()
-	. += "<i>The APS-Arc is a compact stunner made from impact-resistant polymer, developed by Nanotrasen for use by APS officers in the field. \
-		Each reloadable cartridge snaps in a pre-spooled wire spindle and barbed contact needles, primed for a precise and long-lasting electrical jolt. And officers can swap or reload spares in seconds too! \
-		This Lightweight and virtually silent design uilizes a manually cocked hammer to puncture the internal propellant load, it’s the go-anywhere, reliable, less-lethal option security teams rely on.</i>"

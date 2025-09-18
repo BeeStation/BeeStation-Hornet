@@ -72,10 +72,3 @@
 	caliber = "10x25mm"
 	icon_state = "s-casing_steel"
 	projectile_type = /obj/projectile/bullet/c10x25mm
-
-/obj/item/ammo_casing/taser_load
-	name = "APS-Arc taser-cartridge load"
-	desc = "The internals of an APS enforcement taser cartridge. Easily replaceable while wound up, and nicely disposable once used."
-	caliber = "taser load"
-	icon_state = "taser_load"
-	projectile_type = /obj/projectile/bullet/c10x25mm

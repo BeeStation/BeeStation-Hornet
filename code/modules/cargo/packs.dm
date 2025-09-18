@@ -411,9 +411,9 @@
 	desc = "Three standard issue law enforcement tasers. Requires Security access to open. Includes magazines."
 	cost = 1900
 	max_supply = 2
-	contains = list(/obj/item/gun/ballistic/automatic/pistol/taser,
-					/obj/item/gun/ballistic/automatic/pistol/taser,
-					/obj/item/gun/ballistic/automatic/pistol/taser)
+	contains = list(/obj/item/gun/ballistic/taser,
+					/obj/item/gun/ballistic/taser,
+					/obj/item/gun/ballistic/taser)
 	crate_name = "taser crate"
 
 /datum/supply_pack/security/taser_ammo
@@ -430,9 +430,9 @@
 	desc = "Three standard issue APS-Arc taser cartridges. Pre-loaded. Requires Security access to open."
 	cost = 1200
 	max_supply = 2
-	contains = list(/obj/item/ammo_box/magazine/taser,
-					/obj/item/ammo_box/magazine/taser,
-					/obj/item/ammo_box/magazine/taser)
+	contains = list(/obj/item/ammo_casing/taser,
+					/obj/item/ammo_casing/taser,
+					/obj/item/ammo_casing/taser)
 	crate_name = "magazine crate"
 
 /datum/supply_pack/security/forensics
