@@ -396,12 +396,9 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	//Not scaling these down to button size because they look horrible then, instead just bumping up radius.
 	return MA
 
-/obj/item/construction/rcd/proc/change_computer_dir(mob/user, atom/anchor = null, require_near = TRUE)
+/obj/item/construction/rcd/proc/change_computer_dir(mob/user, atom/anchor = src, require_near = TRUE)
 	if(!user)
 		return
-
-	if(!anchor)
-		anchor=src
 
 	var/list/computer_dirs = list(
 		"NORTH" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "cnorth"),
@@ -422,12 +419,9 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 		if("WEST")
 			computer_dir = 8
 
-/obj/item/construction/rcd/proc/change_airlock_setting(mob/user, atom/anchor = null, require_near = TRUE)
+/obj/item/construction/rcd/proc/change_airlock_setting(mob/user, atom/anchor = src, require_near = TRUE)
 	if(!user)
 		return
-
-	if(!anchor)
-		anchor=src
 
 	var/list/solid_or_glass_choices = list(
 		"Solid" = get_airlock_image(/obj/machinery/door/airlock),
