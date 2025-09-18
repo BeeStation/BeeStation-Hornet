@@ -64,6 +64,7 @@
 	. = ..()
 	if(mapload) //Map spawned consoles have a filled RCD and stocked special structures
 		RCD.matter = RCD.max_matter
+		RCD.mode = RCD_FLOORWALL //Initialize To Floor And Wall Mode
 		fans_remaining = 4
 		turret_stock = 4
 
@@ -184,7 +185,7 @@
 			rcd_target = S //If we don't break out of this loop we'll get the last placed thing
 
 	owner.changeNext_move(CLICK_CD_RANGE)
-	B.RCD.afterattack(rcd_target, owner, TRUE) //Activate the RCD and force it to work remotely!
+	B.RCD.rcd_create(rcd_target, owner) //Activate the RCD and force it to work remotely!
 	playsound(target_turf, 'sound/items/deconstruct.ogg', 60, 1)
 
 /datum/action/innate/aux_base/switch_mode
@@ -195,7 +196,7 @@
 	if(..())
 		return
 
-	var/list/buildlist = list("Walls and Floors" = 1,"Airlocks" = 2,"Deconstruction" = 3,"Windows and Grilles" = 4)
+	var/list/buildlist = list("Walls and Floors" = RCD_FLOORWALL,"Airlocks" = RCD_AIRLOCK,"Deconstruction" = RCD_DECONSTRUCT,"Windows and Grilles" = RCD_WINDOWGRILLE)
 	var/buildmode = tgui_input_list(owner, "Set construction mode.", "Base Console", buildlist,  timeout = 0 )
 	B.RCD.mode = buildlist[buildmode]
 	to_chat(owner, "Build mode is now [buildmode].")
@@ -218,7 +219,7 @@
 /datum/action/innate/aux_base/window_type/on_activate()
 	if(..())
 		return
-	B.RCD.toggle_window_glass()
+	B.RCD.toggle_window_glass(owner)
 
 /datum/action/innate/aux_base/place_fan
 	name = "Place Tiny Fan"
