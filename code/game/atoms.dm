@@ -72,6 +72,9 @@
 	var/delete_on_sale_attempt = FALSE
 	/// Tagger Price tag
 	var/price_tag
+	/// The weight class of an object. Used to determine tons of things, like if it's too cumbersome for you to drag, if it can fit in certain storage items, how long it takes to burn, and more. See _DEFINES/inventory.dm to see all weight classes.
+	var/w_class
+	// Its important that w_class is here for price calculations
 
 	//List of datums orbiting this atom
 	var/datum/component/orbiter/orbit_datum
@@ -289,9 +292,8 @@
 	if(!max_demand)	// If the item isnt getting a max_demand then give it a random one
 		max_demand = (5 * rand(5, 12)) // Makes sure it increases in increments of 5 - 6 * 5 = 25, 12 * 5 = 60
 	if(!custom_price)
-		if(istype(src, /obj/item))
-			var/obj/item/thing = src
-			custom_price = (5 * rand(1, thing.w_class * 2))
+		if(w_class)
+			custom_price = (5 * rand(1, w_class * 4))
 		else
 			custom_price = rand(10, 20)
 

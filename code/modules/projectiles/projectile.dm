@@ -12,6 +12,8 @@
 	movement_type = FLYING
 	//wound_bonus = CANT_WOUND // can't wound by default
 	generic_canpass = FALSE
+	can_sell = FALSE
+	delete_on_sale_attempt = TRUE
 	//The sound this plays on impact.
 	var/hitsound = 'sound/weapons/pierce.ogg'
 	var/hitsound_wall = ""
