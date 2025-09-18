@@ -84,7 +84,7 @@
 	favorite_vassal.grant_power(new /datum/action/vampire/targeted/brawn)
 
 /datum/vampire_clan/proc/spend_rank(mob/living/carbon/carbon_vassal)
-	if(vampiredatum.vampire_level_unspent <= 0)
+	if(QDELETED(vampiredatum.owner?.current) || vampiredatum.vampire_level_unspent <= 0)
 		return
 
 	// Generate radial menu
