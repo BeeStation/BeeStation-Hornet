@@ -218,7 +218,7 @@
 		new /datum/data/requisition_equipment("Fulton Extraction Pack", /obj/item/extraction_pack, 1000, "Equipment"),
 		new /datum/data/requisition_equipment("Mining MODsuit", /obj/item/mod/control/pre_equipped/mining, 2500, "Equipment"),
 		new /datum/data/requisition_equipment("Jump Boots", /obj/item/clothing/shoes/bhop, 2000, "Equipment"),
-		new /datum/data/requisition_equipment("Lifesaver", /obj/item/clothing/neck/necklace/lifesaver, 10000, "Equipment"),
+		new /datum/data/requisition_equipment("Lifesaver", /obj/item/clothing/neck/necklace/lifesaver, 500, "Equipment"),
 	//Consumables
 		new /datum/data/requisition_equipment("30 Marker Beacons", /obj/item/stack/marker_beacon/thirty, 150, "Consumables"),
 		new /datum/data/requisition_equipment("Regen. Core Stabilizer", /obj/item/hivelordstabilizer, 400, "Consumables"),
