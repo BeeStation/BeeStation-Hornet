@@ -396,16 +396,20 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	//Not scaling these down to button size because they look horrible then, instead just bumping up radius.
 	return MA
 
-/obj/item/construction/rcd/proc/change_computer_dir(mob/user)
+/obj/item/construction/rcd/proc/change_computer_dir(mob/user, atom/anchor = null, require_near = TRUE)
 	if(!user)
 		return
+
+	if(!anchor)
+		anchor=src
+
 	var/list/computer_dirs = list(
 		"NORTH" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "cnorth"),
 		"EAST" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "ceast"),
 		"SOUTH" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "csouth"),
 		"WEST" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "cwest")
 		)
-	var/computerdirs = show_radial_menu(user, src, computer_dirs, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
+	var/computerdirs = show_radial_menu(user, anchor, computer_dirs, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = require_near, tooltips = TRUE)
 	if(!check_menu(user))
 		return
 	switch(computerdirs)

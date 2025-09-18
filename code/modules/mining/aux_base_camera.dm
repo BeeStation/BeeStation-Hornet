@@ -200,8 +200,10 @@
 	var/list/buildlist = list("Walls and Floors" = RCD_FLOORWALL,"Airlocks" = RCD_AIRLOCK,"Deconstruction" = RCD_DECONSTRUCT,"Windows and Grilles" = RCD_WINDOWGRILLE, "Machine Frames"= RCD_MACHINE, "Computer Frames"=RCD_COMPUTER)
 	var/buildmode = tgui_input_list(owner, "Set construction mode.", "Base Console", buildlist,  timeout = 0 )
 	if(buildmode)
-	B.RCD.mode = buildlist[buildmode]
-	to_chat(owner, "Build mode is now [buildmode].")
+		B.RCD.mode = buildlist[buildmode]
+		to_chat(owner, "Build mode is now [buildmode].")
+		if(B.RCD.mode == RCD_COMPUTER)//Bring up the menu to change computer direction
+			B.RCD.change_computer_dir(owner, remote_eye, FALSE)
 
 /datum/action/innate/aux_base/airlock_type
 	name = "Select Airlock Type"
