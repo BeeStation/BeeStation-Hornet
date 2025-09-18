@@ -39,11 +39,11 @@
 
 /obj/machinery/power/energy_accumulator/tesla_coil/RefreshParts()
 	var/power_multiplier = 0
+	cooldown_time = 10 SECONDS
 	for(var/obj/item/stock_parts/capacitor/capacitor in component_parts)
 		power_multiplier += capacitor.rating
-		cooldown_time = initial(cooldown_time) - capacitor.rating * (2 SECONDS)
-
-	input_power_multiplier = initial(input_power_multiplier) * power_multiplier
+		cooldown_time -= capacitor.rating * 2 SECONDS
+	input_power_multiplier = max(1 * (power_multiplier / 8), 0.25) //Max out at 50% efficency.
 
 /obj/machinery/power/energy_accumulator/tesla_coil/examine(mob/user)
 	. = ..()
@@ -113,7 +113,8 @@
 	COOLDOWN_START(src, zap_cooldown, cooldown_time)
 
 	// Always always always use more then you output for the love of god
-	var/power = min(surplus(), powernet.avail * 0.2 * input_power_multiplier)
+	var/power = (powernet.avail) * 0.2 * input_power_multiplier  //Always always always use more then you output for the love of god
+	power = min(surplus(), power) //Take the smaller of the two
 	add_load(power)
 
 	playsound(src, 'sound/magic/lightningshock.ogg', zap_sound_volume, TRUE, zap_sound_range)
@@ -122,7 +123,7 @@
 		zap_range = 10,
 		power = power,
 		cutoff = 1e3,
-		zap_flags = zap_flags
+		zap_flags = zap_flags,
 	)
 	zap_buckle_check(power)
 
