@@ -23,7 +23,7 @@
 
 	var/obj/item/stock_parts/cell/cell
 	var/preload_cell_type //if not empty the baton starts with this type of cell
-	var/cell_hit_cost = 12.5 KILOWATT
+	var/cell_hit_cost = 1 KILOWATT
 	var/can_remove_cell = TRUE
 
 	var/turned_on = FALSE
