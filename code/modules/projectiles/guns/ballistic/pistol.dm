@@ -171,10 +171,7 @@
 	w_class = WEIGHT_CLASS_LARGE
 	mag_type = /obj/item/ammo_box/magazine/mm10x25
 	can_suppress = FALSE
-	actions_types = list(/datum/action/item_action/toggle_firemode)
 	worn_icon_state = "officer_pistol"
-	burst_size = 2
-	fire_delay = 1.5
 	fire_rate = 2
 
 /obj/item/gun/ballistic/automatic/pistol/security/add_seclight_point()
@@ -183,11 +180,6 @@
 		light_overlay = "flight", \
 		overlay_x = 19, \
 		overlay_y = 14)
-
-// We do not want to start on burst mode.
-/obj/item/gun/ballistic/automatic/pistol/security/Initialize(mapload)
-	. = ..()
-	burst_select()
 
 /obj/item/gun/ballistic/automatic/pistol/security/examine(mob/user)
 	. = ..()

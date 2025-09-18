@@ -98,9 +98,61 @@
 	desc = "A holographic projector that creates holographic security barriers."
 	icon_state = "signmaker_sec"
 	holosign_type = /obj/structure/holosign/barrier
+	actions_types = list(/datum/action/item_action/toggle_crimescene)
 	sign_name = "holobarrier"
 	creation_time = 30
 	max_signs = 6
+	var/active_crimescene = FALSE
+	var/list/active_barriers = list()
+	var/crimescene_range = 6
+
+/obj/item/holosign_creator/security/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_ITEM_UI_ACTION_CLICK, PROC_REF(on_action_click))
+
+/obj/item/holosign_creator/security/Destroy()
+	UnregisterSignal(src, COMSIG_ITEM_UI_ACTION_CLICK)
+	. = ..()
+
+/// Signal proc for [COMSIG_ITEM_UI_ACTION_CLICK] that toggles crimescene on and off if our action button is clicked.
+/obj/item/holosign_creator/security/proc/on_action_click(obj/item/source, mob/user, datum/action)
+	SIGNAL_HANDLER
+
+	if(active_crimescene)
+		delete_barriers()
+	else
+		spawn_barriers(user)
+
+	return COMPONENT_ACTION_HANDLED
+
+/obj/item/holosign_creator/security/proc/spawn_barriers(var/mob/user)
+	// Create a square that is 7 tiles radius(A), then one that is 6 in radius(B).
+	var/list/regionA = RANGE_TURFS(crimescene_range, user.loc)
+	var/list/regionB = RANGE_TURFS(crimescene_range - 1, user.loc)
+
+	// Remove all tiles of B from A to get the bounds.
+	var/list/regionC = regionA - regionB
+
+	// Go over each open turf in our bounds list, check for blacklisted objects, then spawn a barrier.
+	for(var/turf/open/floor/turf_candidate in regionC)
+		if(!turf_candidate.is_blocked_turf(TRUE))
+			var/obj/structure/crimesign/barrier = new /obj/structure/crimesign(turf_candidate)
+			barrier.user_mob = user
+			active_barriers += barrier
+
+	for(var/obj/structure/crimesign/to_align in active_barriers)
+		to_align.align(get_turf(src))
+
+	active_crimescene = TRUE
+	return
+
+/obj/item/holosign_creator/security/proc/delete_barriers()
+	for(var/anything as anything in active_barriers)
+		active_barriers -= anything
+		qdel(anything)
+
+	active_crimescene = FALSE
+	return
 
 /obj/item/holosign_creator/engineering
 	name = "engineering holobarrier projector"
