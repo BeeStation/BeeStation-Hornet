@@ -829,7 +829,7 @@
 	playsound(src, 'sound/weapons/pierce_slow.ogg', 50, TRUE)
 
 	var/obj/item/bodypart/random_arm = pick(get_bodypart(BODY_ZONE_L_ARM), get_bodypart(BODY_ZONE_R_ARM))
-	log_combat(src, src, "has forcibly broken their arm to escape [cuffs]", important = FALSE)
+	log_combat(src, src, "has forcibly broken their arm to escape [handcuffed]", important = FALSE)
 
 	if(HAS_TRAIT(src, TRAIT_EASYDISMEMBER) && !HAS_TRAIT(src, TRAIT_NODISMEMBER))
 		random_arm.dismember()
