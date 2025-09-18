@@ -20,11 +20,11 @@
 	var/datum/antagonist/vampire/vampiredatum_power
 
 	/// The effects on this Power (Toggled/Single Use/Static Cooldown)
-	var/power_flags = BP_AM_TOGGLE|BP_AM_SINGLEUSE|BP_AM_STATIC_COOLDOWN|BP_AM_COSTLESS_UNCONSCIOUS
+	var/power_flags = BP_AM_TOGGLE | BP_AM_SINGLEUSE | BP_AM_STATIC_COOLDOWN | BP_AM_COSTLESS_UNCONSCIOUS
 	/// Requirement flags for checks
-	check_flags = BP_CANT_USE_IN_TORPOR|BP_CANT_USE_IN_FRENZY|BP_CANT_USE_WHILE_STAKED|BP_CANT_USE_WHILE_INCAPACITATED|BP_CANT_USE_WHILE_UNCONSCIOUS
+	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
 	/// Who can purchase the Power
-	var/purchase_flags = NONE // VAMPIRE_CAN_BUY|VAMPIRE_DEFAULT_POWER|TREMERE_CAN_BUY|VASSAL_CAN_BUY
+	var/purchase_flags = NONE // VAMPIRE_CAN_BUY | VAMPIRE_DEFAULT_POWER | TREMERE_CAN_BUY | VASSAL_CAN_BUY
 
 	/// If the Power is currently active, differs from action cooldown because of how powers are handled.
 	var/currently_active = FALSE
@@ -49,9 +49,12 @@
 /datum/action/vampire/Grant(mob/user)
 	. = ..()
 	var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(owner)
+	var/datum/antagonist/vassal/favorite/favorite_vassal = IS_FAVORITE_VASSAL(owner)
 	if(vampiredatum)
 		vampiredatum_power = vampiredatum
 		level_current = vampiredatum.vampire_level
+	else if(favorite_vassal)
+		level_current = favorite_vassal.vassal_level
 
 //This is when we CLICK on the ability Icon, not USING.
 /datum/action/vampire/on_activate(mob/user, atom/target)
@@ -79,7 +82,7 @@
 	if(power_flags & BP_AM_SINGLEUSE)
 		desc += "<br><br><b>SINGLE USE:</br><i> Can only be used once per night.</i>"
 
-///Called when the Power is upgraded.
+/// Called when the Power is upgraded.
 /datum/action/vampire/proc/upgrade_power()
 	level_current++
 	// Decrease cooldown time
@@ -87,25 +90,25 @@
 		cooldown_time = max(initial(cooldown_time) / 2, initial(cooldown_time) - (initial(cooldown_time) / 16 * (level_current - 1)))
 
 /datum/action/vampire/proc/can_pay_cost()
-	if(!owner || !owner.mind)
+	if(QDELETED(owner))
 		return FALSE
-	// Cooldown?
-	if(!COOLDOWN_FINISHED(src, next_use_time))
-		owner.balloon_alert(owner, "power unavailable!")
-		return FALSE
+
+	// Check if we have enough blood for non-vampires
 	if(!vampiredatum_power)
 		var/mob/living/living_owner = owner
 		if(!HAS_TRAIT(living_owner, TRAIT_NO_BLOOD) && living_owner.blood_volume < bloodcost)
-			to_chat(owner, span_warning("You need at least [bloodcost] blood to activate [name]"))
+			living_owner.balloon_alert(living_owner, "not enough blood.")
 			return FALSE
+
 		return TRUE
 
 	// Have enough blood? Vampires in a Frenzy don't need to pay them
 	if(vampiredatum_power.frenzied)
 		return TRUE
 	if(vampiredatum_power.vampire_blood_volume < bloodcost)
-		to_chat(owner, span_warning("You need at least [bloodcost] blood to activate [name]"))
+		owner.balloon_alert(owner, "not enough blood.")
 		return FALSE
+
 	return TRUE
 
 ///Checks if the Power is available to use.
@@ -185,7 +188,7 @@
 
 /// Used by powers that are continuously active (That have BP_AM_TOGGLE flag)
 /datum/action/vampire/proc/UsePower()
-	if(!ContinueActive()) // We can't afford the Power? Deactivate it.
+	if(!continue_active()) // We can't afford the Power? Deactivate it.
 		deactivate_power()
 		return FALSE
 	// We can keep this up (For now), so Pay Cost!
@@ -200,7 +203,7 @@
 	return TRUE
 
 /// Checks to make sure this power can stay active
-/datum/action/vampire/proc/ContinueActive()
+/datum/action/vampire/proc/continue_active()
 	if(!owner)
 		return FALSE
 	if(vampiredatum_power && vampiredatum_power.vampire_blood_volume < constant_bloodcost)

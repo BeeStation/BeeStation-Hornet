@@ -32,7 +32,6 @@
 	refill_canister = /obj/item/vending_refill/engineering
 	default_price = 50
 	extra_price = 60
-	dept_req_for_free = ACCOUNT_ENG_BITFLAG
 	light_mask = "engi-light-mask"
 
 /obj/item/vending_refill/engineering

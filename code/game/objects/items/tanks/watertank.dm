@@ -528,7 +528,7 @@
 					return
 			if(resin_synthesis_cooldown < max_foam)
 				if(toggled)
-					var/obj/effect/particle_effect/foam/metal/chainreact_resin/foam = new (get_turf(target))
+					var/obj/effect/particle_effect/foam/metal/resin/chainreact/foam = new (get_turf(target))
 					foam.amount = 0
 				else
 					var/obj/effect/particle_effect/foam/metal/resin/foam = new (get_turf(target))
@@ -585,10 +585,10 @@
 	anchored = TRUE
 
 /obj/effect/resin_container/chainreact/Smoke()
-	if(locate(/obj/effect/particle_effect/foam/metal/chainreact_resin) in get_turf(src) || locate(/obj/effect/particle_effect/foam/metal/resin) in get_turf(src))
+	if(locate(/obj/effect/particle_effect/foam/metal/resin) in get_turf(src))
 		qdel(src)
 		return
-	var/obj/effect/particle_effect/foam/metal/chainreact_resin/S = new /obj/effect/particle_effect/foam/metal/chainreact_resin(get_turf(loc))
+	var/obj/effect/particle_effect/foam/metal/resin/chainreact/S = new(get_turf(loc))
 	S.amount = smoke_amount
 	playsound(src,'sound/effects/bamf.ogg',100,1)
 	qdel(src)
