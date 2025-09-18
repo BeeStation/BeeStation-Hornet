@@ -221,7 +221,7 @@ then the player gets the profit from selling his own wasted time.
 		var/item_name = names_list[k]
 		var/count = counts_list[k]
 		if(count > 1)
-			item_strings += count + " " + item_name + "s"
+			item_strings += "[count]" + " " + item_name + "s"
 		else
 			item_strings += item_name
 

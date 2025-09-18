@@ -289,7 +289,7 @@
 	if(!max_demand)	// If the item isnt getting a max_demand then give it a random one
 		max_demand = (5 * rand(5, 12)) // Makes sure it increases in increments of 5 - 6 * 5 = 25, 12 * 5 = 60
 	if(!custom_price)
-		if(istype(src, obj/item))
+		if(istype(src, /obj/item))
 			var/obj/item/thing = src
 			custom_price = (5 * rand(1, thing.w_class * 2))
 		else
