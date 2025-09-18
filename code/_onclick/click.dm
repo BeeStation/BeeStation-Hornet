@@ -175,9 +175,8 @@
 
 				// Defer to normal ranged attack
 				if (ranged_attack_result == SECONDARY_ATTACK_CALL_NORMAL)
-					if (!W.ranged_attack(A, src, params))
-						W.afterattack(A,src,0,params)
-					return
+					if (W.ranged_attack(A, src, params))
+						return
 
 				var/after_attack_secondary_result = W.afterattack_secondary(A, src, FALSE, params)
 

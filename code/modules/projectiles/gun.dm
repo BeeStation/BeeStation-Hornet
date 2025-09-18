@@ -292,10 +292,28 @@
 				continue
 			O.emp_act(severity)
 
-/obj/item/gun/pre_attack(atom/A, mob/living/user, params)
+/obj/item/gun/attack_atom(obj/O, mob/living/user, params)
+	if (user.combat_mode || (flags_1 & ISWEAPON))
+		..()
+		return TRUE
+	return FALSE
+
+/obj/item/gun/attack_turf(turf/T, mob/living/user)
+	if (user.combat_mode || (flags_1 & ISWEAPON))
+		..()
+		return TRUE
+	return FALSE
+
+/obj/item/gun/attack(mob/M, mob/living/user)
+	if (user.combat_mode || (flags_1 & ISWEAPON))
+		..()
+		return TRUE
+	return FALSE
+
+/obj/item/gun/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 	// Cancel the attack chain if we fire
-	return . || pull_trigger(A, user, params, GUN_NOT_AIMED)
+	return . || pull_trigger(target, user, click_parameters, GUN_NOT_AIMED)
 
 /obj/item/gun/ranged_attack(atom/target, mob/living/user, params)
 	. = ..()
