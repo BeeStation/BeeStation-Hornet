@@ -196,7 +196,7 @@
 		return
 
 	var/list/buildlist = list("Walls and Floors" = 1,"Airlocks" = 2,"Deconstruction" = 3,"Windows and Grilles" = 4)
-	var/buildmode = tgui_input_list("Set construction mode.", "Base Console", buildlist)
+	var/buildmode = tgui_input_list(owner, "Set construction mode.", "Base Console", buildlist,  timeout = 0 )
 	B.RCD.mode = buildlist[buildmode]
 	to_chat(owner, "Build mode is now [buildmode].")
 
