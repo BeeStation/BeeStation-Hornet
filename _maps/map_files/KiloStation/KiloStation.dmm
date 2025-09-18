@@ -17954,8 +17954,8 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/item/ammo_box/c10x25mm,
-/obj/item/gun/ballistic/automatic/pistol/security,
+/obj/item/gun/ballistic/automatic/pistol/taser,
+/obj/item/ammo_box/taser,
 /turf/open/floor/iron/tech/grid,
 /area/ai_monitored/security/armory)
 "dUn" = (
@@ -41017,9 +41017,9 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/item/ammo_box/taser,
-/obj/item/gun/ballistic/automatic/pistol/taser,
-/turf/open/space/basic,
+/obj/item/gun/ballistic/automatic/pistol/security,
+/obj/item/ammo_box/c10x25mm,
+/turf/open/floor/iron/tech/grid,
 /area/ai_monitored/security/armory)
 "lsq" = (
 /obj/structure/table/reinforced,
