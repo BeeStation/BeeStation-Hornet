@@ -491,7 +491,7 @@
 
 /datum/action/antag_info/vampire
 	name = "Vampire Guide"
-	button_icon = 'icons/vampires/actions_vampire.dmi'
+	background_icon = 'icons/vampires/actions_vampire.dmi'
 	background_icon_state = "vamp_power_off"
 
 /datum/antagonist/vampire/make_info_button()
