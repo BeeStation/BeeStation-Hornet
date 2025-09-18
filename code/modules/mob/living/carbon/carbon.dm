@@ -334,7 +334,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		to_chat(src, span_notice("You attempt to wriggle your way out of [cuffs]..."))
 		while(do_after(src, 5 SECONDS, timed_action_flags = IGNORE_USER_LOC_CHANGE|IGNORE_HELD_ITEM, hidden = TRUE))
 			cuff_breakout_attempts++
-			if(cuff_breakout_attempts * 5 SECONDS >= breakouttime || (prob(cuff_breakout_attempts/4)))
+			if(cuff_breakout_attempts * 5 SECONDS >= breakouttime)
 				log_combat(src, src, "slipped out of [cuffs] after [cuff_breakout_attempts]/[breakouttime / (5 SECONDS)] attempts", important = FALSE)
 				. = clear_cuffs(cuffs, cuff_break)
 				break
