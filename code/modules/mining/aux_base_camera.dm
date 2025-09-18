@@ -65,6 +65,7 @@
 	if(mapload) //Map spawned consoles have a filled RCD and stocked special structures
 		RCD.matter = RCD.max_matter
 		RCD.mode = RCD_FLOORWALL //Initialize To Floor And Wall Mode
+		RCD.upgrade = RCD_UPGRADE_FRAMES //Fancy Frames
 		fans_remaining = 4
 		turret_stock = 4
 
@@ -196,8 +197,9 @@
 	if(..())
 		return
 
-	var/list/buildlist = list("Walls and Floors" = RCD_FLOORWALL,"Airlocks" = RCD_AIRLOCK,"Deconstruction" = RCD_DECONSTRUCT,"Windows and Grilles" = RCD_WINDOWGRILLE)
+	var/list/buildlist = list("Walls and Floors" = RCD_FLOORWALL,"Airlocks" = RCD_AIRLOCK,"Deconstruction" = RCD_DECONSTRUCT,"Windows and Grilles" = RCD_WINDOWGRILLE, "Machine Frames"= RCD_MACHINE, "Computer Frames"=RCD_COMPUTER)
 	var/buildmode = tgui_input_list(owner, "Set construction mode.", "Base Console", buildlist,  timeout = 0 )
+	if(buildmode)
 	B.RCD.mode = buildlist[buildmode]
 	to_chat(owner, "Build mode is now [buildmode].")
 
@@ -209,7 +211,7 @@
 	if(..())
 		return
 
-	B.RCD.change_airlock_setting()
+	B.RCD.change_airlock_setting(owner,remote_eye, FALSE)
 
 
 /datum/action/innate/aux_base/window_type

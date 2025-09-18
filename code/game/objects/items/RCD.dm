@@ -418,9 +418,12 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 		if("WEST")
 			computer_dir = 8
 
-/obj/item/construction/rcd/proc/change_airlock_setting(mob/user)
+/obj/item/construction/rcd/proc/change_airlock_setting(mob/user, atom/anchor = null, require_near = TRUE)
 	if(!user)
 		return
+
+	if(!anchor)
+		anchor=src
 
 	var/list/solid_or_glass_choices = list(
 		"Solid" = get_airlock_image(/obj/machinery/door/airlock),
@@ -466,13 +469,13 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 		"External Maintenance" = get_airlock_image(/obj/machinery/door/airlock/maintenance/external/glass)
 	)
 
-	var/airlockcat = show_radial_menu(user, src, solid_or_glass_choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
+	var/airlockcat = show_radial_menu(user, anchor, solid_or_glass_choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = require_near, tooltips = TRUE)
 	if(!check_menu(user))
 		return
 	switch(airlockcat)
 		if("Solid")
 			if(advanced_airlock_setting == 1)
-				var/airlockpaint = show_radial_menu(user, src, solid_choices, radius = 42, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
+				var/airlockpaint = show_radial_menu(user, anchor, solid_choices, radius = 42, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = require_near, tooltips = TRUE)
 				if(!check_menu(user))
 					return
 				switch(airlockpaint)
@@ -517,7 +520,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 
 		if("Glass")
 			if(advanced_airlock_setting == 1)
-				var/airlockpaint = show_radial_menu(user, src , glass_choices, radius = 42, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
+				var/airlockpaint = show_radial_menu(user, anchor, glass_choices, radius = 42, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = require_near, tooltips = TRUE)
 				if(!check_menu(user))
 					return
 				switch(airlockpaint)
