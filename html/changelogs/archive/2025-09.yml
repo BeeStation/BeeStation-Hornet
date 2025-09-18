@@ -292,8 +292,21 @@
   - rscadd: Remapped MetaStation Service and Atmos
   - bugfix: Fixed airlock pumps
 2025-09-17:
+  Bieyes:
+  - tweak: heavily slowed down all lawnmowers.
+  - balance: lawnmowers no longer gib.
+  - bugfix: mosins (and any other bolt actions) can be reloaded again.
+  ClownMoff:
+  - rscdel: Removed a stray decal on BoxStation
   rkz, arcanemusic, cacogen, tastyfish:
   - rscadd: adds ability to split profits on sold items with the sales tagger
   - rscadd: cleaned up delivery crate appearance code, crates will show notes scrawled
       on them and destination tags better
   - refactor: cleaned up some crate export code
+2025-09-18:
+  PowerfulBacon:
+  - bugfix: Guns can now be recharged again.
+  lord scrubling:
+  - bugfix: ethereal colors
+  mrmanlikesbt:
+  - bugfix: fixed vampires being able to level up an infinite amount of times

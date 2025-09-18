@@ -41,6 +41,9 @@
 	/// Sourced directly from product_categories.
 	var/category
 
+/datum/vending_product/proc/get_category_name()
+	return category["name"] || "UNKNOWN"
+
 /**
   * # vending machines
   *
@@ -123,7 +126,7 @@
 	var/list/coin_records = list()
 	var/list/slogan_list = list()
 	///Message sent post vend (Thank you for shopping!)
-	var/vend_reply
+	var/vend_reply = "Thank you for shopping with us!"
 	///Last world tick we sent a vent reply
 	var/last_reply = 0
 	///Last world tick we sent a slogan message out
@@ -1002,7 +1005,7 @@
 /obj/machinery/vending/proc/vend(list/params, list/greyscale_colors)
 	. = TRUE
 	if(!can_vend(usr))
-		return
+		return FALSE
 	vend_ready = FALSE //One thing at a time!!
 	var/datum/vending_product/R = locate(params["ref"])
 	var/list/record_to_check = product_records + coin_records
@@ -1010,23 +1013,23 @@
 		record_to_check = product_records + coin_records + hidden_records
 	if(!R || !istype(R) || !R.product_path)
 		vend_ready = TRUE
-		return
+		return FALSE
 	var/price_to_use = default_price
 	if(R.custom_price)
 		price_to_use = R.custom_price
 	if(R in hidden_records)
 		if(!extended_inventory)
 			vend_ready = TRUE
-			return
+			return FALSE
 	else if (!(R in record_to_check))
 		vend_ready = TRUE
 		message_admins("Vending machine exploit attempted by [ADMIN_LOOKUPFLW(usr)]!")
-		return
+		return FALSE
 	if (R.amount <= 0)
 		say("Sold out of [R.name].")
 		flick(icon_deny,src)
 		vend_ready = TRUE
-		return
+		return FALSE
 	if(onstation)
 		var/obj/item/card/id/C
 		if(isliving(usr))
@@ -1036,12 +1039,12 @@
 			say("No card found.")
 			flick(icon_deny,src)
 			vend_ready = TRUE
-			return
+			return FALSE
 		else if (!C.registered_account)
 			say("No account found.")
 			flick(icon_deny,src)
 			vend_ready = TRUE
-			return
+			return FALSE
 		var/datum/bank_account/account = C.registered_account
 		if(coin_records.Find(R) || hidden_records.Find(R))
 			price_to_use = R.custom_premium_price ? R.custom_premium_price : extra_price
@@ -1051,7 +1054,7 @@
 			say("You do not possess the funds to purchase [R.name].")
 			flick(icon_deny,src)
 			vend_ready = TRUE
-			return
+			return FALSE
 		if(price_to_use && seller_department)
 			var/list/dept_list = SSeconomy.get_dept_id_by_bitflag(seller_department)
 			if(length(dept_list))
@@ -1064,7 +1067,7 @@
 						log_econ("[price_to_use] credits were inserted into [src] by [D.account_holder] to buy [R].")
 
 	if(last_shopper != REF(usr) || purchase_message_cooldown < world.time)
-		say("Thank you for shopping with [src]!")
+		say(vend_reply)
 		purchase_message_cooldown = world.time + 5 SECONDS
 		last_shopper = REF(usr)
 	use_power(500 WATT)

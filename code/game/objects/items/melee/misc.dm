@@ -354,6 +354,7 @@
 	cooldown = 10
 	stamina_damage = 20
 	stun_animation = TRUE
+	custom_price = 120
 
 //Telescopic Baton
 /obj/item/melee/classic_baton/police/telescopic

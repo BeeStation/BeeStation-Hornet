@@ -102,7 +102,7 @@
 	custom_materials = list(/datum/material/iron=150, /datum/material/glass=75)
 	breakouttime = 1 MINUTES
 	cuffsound = 'sound/weapons/cablecuff.ogg'
-	custom_price = 10
+	custom_price = 15
 
 /obj/item/restraints/handcuffs/cable/red
 	color = "#ff0000"

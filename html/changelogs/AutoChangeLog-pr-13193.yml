@@ -1,0 +1,9 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - tweak: Players on lowpop no longer spawn with security access if no security are
+      present.
+  - rscadd: Added a new machine on lowpop which dispenses security deputy kits for
+      credits.
+  - tweak: Replace police baton with tonfa in deputy belt
+  - rscadd: The deputy duffel bag now comes with a deputy access upgrade card.
