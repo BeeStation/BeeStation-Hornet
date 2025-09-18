@@ -10,6 +10,7 @@
 	var/active = FALSE
 
 	var/radio_counter
+	var/shutoff_counter
 
 /obj/item/clothing/neck/necklace/lifesaver/Initialize(mapload)
 	. = ..()
@@ -48,11 +49,11 @@
 		worn_icon_state = "lifesaver_active"
 		active_owner.regenerate_icons()
 
-		say("ALERT - LIFESIGNS CRITICAL - DEPLOYING IN: 15 SECONDS.")
+		say("ALERT - LIFESIGNS CRITICAL - DEPLOYING IN: 30 SECONDS.")
 		playsound(src, 'sound/machines/triple_beep.ogg', 80, FALSE)
 		active = TRUE
 
-		addtimer(CALLBACK(src, PROC_REF(enable_alert)), 15 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(enable_alert)), 30 SECONDS)
 
 /obj/item/clothing/neck/necklace/lifesaver/proc/enable_alert()
 	if(active)
@@ -68,6 +69,10 @@
 	icon_state = "lifesaver"
 	worn_icon_state = "lifesaver"
 
+	// reset counters so we can use it again after
+	radio_counter = 0
+	shutoff_counter = 0
+
 	qdel(GetComponent(/datum/component/gps))
 	active = FALSE
 
@@ -75,9 +80,13 @@
 /obj/item/clothing/neck/necklace/lifesaver/proc/alertRoutine()
 	if(active)
 		// Periodic unhelpful radio announcements
+		// Shutoff_counter counts up with every radio pulse, at 6, so after 30 minutes, it "shuts off" the radio announcement part but keeps the GPS active.
 		if(radio_counter >= 100)
 			radio.talk_into(src, "Alert - Rescue required! GPS beacon active!")
 			say("ALERT - RESCUE REQUIRED")
+			radio_counter = 0
+			shutoff_counter++
+		else if(shutoff_counter >= 7)
 			radio_counter = 0
 		else
 			radio_counter++
