@@ -46,8 +46,8 @@
 	skinned_type = /obj/item/stack/sheet/iron{amount = 10}
 
 	//IPCs are extremely fragile, but do not go into softcrit and can be repaired with relative ease
-	burnmod = 2
-	brutemod = 2
+	burnmod = 1.5
+	brutemod = 1.5
 	clonemod = 0
 	staminamod = 0 //IPCs don't get tired
 	siemens_coeff = 1.5
