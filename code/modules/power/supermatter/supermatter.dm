@@ -497,10 +497,10 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	if(holiday_lights)
 		if(istype(src, /obj/machinery/power/supermatter_crystal/shard))
 			. += mutable_appearance(icon, "holiday_lights_shard")
-			. += emissive_appearance(icon, "holiday_lights_shard_e", src, alpha = src.alpha)
+			. += emissive_appearance(icon, "holiday_lights_shard_e", alpha = src.alpha)
 		else
 			. += mutable_appearance(icon, "holiday_lights")
-			. += emissive_appearance(icon, "holiday_lights_e", src, alpha = src.alpha)
+			. += emissive_appearance(icon, "holiday_lights_e", alpha = src.alpha)
 	return .
 
 /obj/machinery/power/supermatter_crystal/update_icon(updates)
@@ -1059,7 +1059,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	update_appearance()
 
 /// Consume the santa hat and add it as an overlay
-/obj/machinery/power/supermatter_crystal/proc/holiday_item_interaction(obj/item/attacking_item, mob/user, params)
+/obj/machinery/power/supermatter_crystal/proc/holiday_item_interaction(source, obj/item/attacking_item, mob/user, params)
 	SIGNAL_HANDLER
 	if(istype(attacking_item, /obj/item/clothing/head/costume/santa))
 		QDEL_NULL(attacking_item)
