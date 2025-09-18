@@ -17953,8 +17953,9 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/effect/loot_jobscale/armoury/energy_gun,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/item/gun/ballistic/automatic/pistol/taser,
+/obj/item/ammo_box/taser,
 /turf/open/floor/iron/tech/grid,
 /area/ai_monitored/security/armory)
 "dUn" = (
@@ -41015,8 +41016,9 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/effect/loot_jobscale/armoury/disabler,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/item/gun/ballistic/automatic/pistol/security,
+/obj/item/ammo_box/c10x25mm,
 /turf/open/floor/iron/tech/grid,
 /area/ai_monitored/security/armory)
 "lsq" = (
