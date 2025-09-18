@@ -66,7 +66,7 @@
 	var/is_contraband = FALSE
 	/// Maximum demand of the object type for exporting calculations
 	var/max_demand
-	/// Can this item be sold? TRUE by default. False means it will return when sent to CC via cargo shuttle
+	/// Can this item be sold? TRUE by default. False means it will return when sent to CC via cargo shuttle (if delete_on_Sale_attempt is also false)
 	var/can_sell = TRUE
 	/// Should this get deleted even thought it didn't get sold?
 	var/delete_on_sale_attempt = FALSE
@@ -288,8 +288,12 @@
 	/// Money calculations here
 	if(!max_demand)	// If the item isnt getting a max_demand then give it a random one
 		max_demand = (5 * rand(5, 12)) // Makes sure it increases in increments of 5 - 6 * 5 = 25, 12 * 5 = 60
-	if(!can_sell)
-		custom_price = 0	// 0 price items don't get sold
+	if(!custom_price)
+		if(istype(src, obj/item))
+			var/obj/item/thing = src
+			custom_price = (5 * rand(1, thing.w_class * 2))
+		else
+			custom_price = rand(10, 20)
 
 	return INITIALIZE_HINT_NORMAL
 

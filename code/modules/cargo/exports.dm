@@ -120,6 +120,8 @@ then the player gets the profit from selling his own wasted time.
 	if(state.current_demand == 0)
 		// If we at CC are at full stock then this item is worth 0 thus, won't be sold
 		base_price = 0
+	if(!O.can_sell)
+		base_price = 0
 
 	// Scale price by
 	if(base_price)	// Makes sure items that HAVE a value don't get completely dogged by the calculations causing it to return 0

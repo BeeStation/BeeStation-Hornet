@@ -36,6 +36,8 @@
 	var/illustration = "writing"
 	drop_sound = 'sound/items/handling/cardboardbox_drop.ogg'
 	pickup_sound =  'sound/items/handling/cardboardbox_pickup.ogg'
+	can_sell = FALSE
+	delete_on_sale_attempt = TRUE
 
 /obj/item/storage/box/Initialize(mapload)
 	. = ..()
@@ -1417,6 +1419,7 @@
 	name = "box of shipping supplies"
 	desc = "Contains several scanners and labelers for shipping things. Wrapping Paper not included."
 	illustration = "shipping"
+	custom_price = 150
 
 /obj/item/storage/box/shipping/PopulateContents()
 	var/static/items_inside = list(
