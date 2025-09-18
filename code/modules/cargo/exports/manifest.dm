@@ -40,6 +40,7 @@
 /datum/export/manifest_error
 	unit_name = "erroneously approved manifest"
 	export_types = list(/obj/item/paper/fluff/jobs/cargo/manifest)
+	allow_negative_cost = TRUE
 
 /datum/export/manifest_error/applies_to(obj/O)
 	if(!..())
@@ -58,9 +59,10 @@
 // Erroneously denied manifest.
 // Substracts the package cost minus the cost of crate.
 /datum/export/manifest_correct_denied
-	cost = 500
+	cost = -500
 	unit_name = "erroneously denied manifest"
 	export_types = list(/obj/item/paper/fluff/jobs/cargo/manifest)
+	allow_negative_cost = TRUE
 
 /datum/export/manifest_correct_denied/applies_to(obj/O)
 	if(!..())

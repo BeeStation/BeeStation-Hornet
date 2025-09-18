@@ -63,49 +63,23 @@ then the player gets the profit from selling his own wasted time.
 
 	return report
 
-/proc/export_contents(atom/movable/AM, allowed_categories = EXPORT_CARGO, delete_unsold = FALSE, dry_run=FALSE, datum/export_report/external_report)
-	if(!GLOB.exports_list.len)
-		setupExports()
-
-	var/list/contents = AM.GetAllContents() - AM
-
-	var/datum/export_report/report = external_report
-	if(!report) //If we don't have any longer transaction going on
-		report = new
-
-	// We go backwards, so it'll be innermost objects sold first
-	for(var/i in reverse_range(contents))
-		var/atom/movable/thing = i
-		var/sold = FALSE
-		if(QDELETED(thing))
-			continue
-		for(var/datum/export/E in GLOB.exports_list)
-			if(!E)
-				continue
-			if(E.applies_to(thing, allowed_categories))
-				sold = E.sell_object(thing, report, dry_run, allowed_categories)
-				report.exported_atoms += " [thing.name]"
-				break
-
-		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_ATOM_SOLD, thing, sold)
-
-		if(!dry_run && (sold || delete_unsold))
-			if(ismob(thing))
-				thing.investigate_log("deleted through cargo export",INVESTIGATE_CARGO)
-			qdel(thing)
-
-	return report
-
 /datum/export
-	/// Unit name. Only used in "Received [total_amount] [name]s [message]." message
+	/// Unit name. Only used in "Received [total_amount] [name]s [message]."
 	var/unit_name = ""
+	/// Message appended to the sale report
 	var/message = ""
-	var/cost = 100					// Cost of item, in cargo credits. Must not alow for infinite price dupes, see above.
-	var/list/export_types = list()	// Type of the exported object. If none, the export datum is considered base type.
-	var/include_subtypes = TRUE		// Set to FALSE to make the datum apply only to a strict type.
-	var/list/exclude_types = list()	// Types excluded from export
+	/// Cost of item, in cargo credits. Must not allow for infinite price dupes, see above.
+	var/cost = 1
+	/// whether this export can have a negative impact on the cargo budget or not
+	var/allow_negative_cost = FALSE
 	/// The multiplier of the amount sold shown on the report. Useful for exports, such as material, which costs are not strictly per single units sold.
 	var/amount_report_multiplier = 1
+	/// Type of the exported object. If none, the export datum is considered base type.
+	var/list/export_types = list()
+	/// Set to FALSE to make the datum apply only to a strict type.
+	var/include_subtypes = TRUE
+	/// Types excluded from export
+	var/list/exclude_types = list()
 
 	//cost includes elasticity, this does not.
 	var/init_cost
@@ -117,7 +91,7 @@ then the player gets the profit from selling his own wasted time.
 	..()
 	START_PROCESSING(SSprocessing, src)
 	init_cost = cost
-	export_types = typecacheof(export_types)
+	export_types = typecacheof(export_types, ignore_root_path = FALSE, only_root_path = !include_subtypes)
 	exclude_types = typecacheof(exclude_types)
 
 /datum/export/Destroy()
@@ -164,9 +138,9 @@ then the player gets the profit from selling his own wasted time.
 		export_category = EXPORT_CONTRABAND
 	if((allowed_categories & export_category) != export_category)
 		return FALSE
-	if(!include_subtypes && !(O.type in export_types))
+	if(!is_type_in_typecache(O, export_types))
 		return FALSE
-	if(include_subtypes && (!is_type_in_typecache(O, export_types) || is_type_in_typecache(O, exclude_types)))
+	if(include_subtypes && is_type_in_typecache(O, exclude_types))
 		return FALSE
 	if(!get_cost(O, allowed_categories))
 		return FALSE
@@ -189,15 +163,10 @@ then the player gets the profit from selling his own wasted time.
 	var/export_amount = get_amount(sold_item)
 	if(!unit_name)
 		unit_name = sold_item.name
-	if(export_amount <= 0 || export_value <= 0)
+
+	if(export_amount <= 0 || (export_value <= 0 && !allow_negative_cost))
 		return FALSE
 
-	report.total_value[src] += export_value
-
-	if(istype(sold_item, /datum/export/material))
-		report.total_amount[src] += export_amount * MINERAL_MATERIAL_AMOUNT
-	else
-		report.total_amount[src] += export_amount
 	// If we're not doing a dry run, send COMSIG_ITEM_EXPORTED to the sold item
 	var/export_result
 	if(!dry_run)

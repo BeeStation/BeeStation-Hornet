@@ -92,6 +92,7 @@ GLOBAL_LIST_INIT(whitelisted_cargo_types, typecacheof(list(
 	var/list/obj/miscboxes = list() //miscboxes are combo boxes that contain all small_item orders grouped
 	var/list/misc_order_num = list() //list of strings of order numbers, so that the manifest can show all orders in a box
 	var/list/misc_contents = list() //list of lists of items that each box will contain
+	var/list/misc_costs = list() //list of overall costs sustained by each buyer.
 	if(!SSsupply.shoppinglist.len)
 		return
 
@@ -143,6 +144,7 @@ GLOBAL_LIST_INIT(whitelisted_cargo_types, typecacheof(list(
 					miscboxes[D.account_holder].req_access = list()
 				for (var/item in SO.pack.contains)
 					misc_contents[D.account_holder] += item
+				misc_costs[D.account_holder] += SO.pack.cost
 				misc_order_num[D.account_holder] = "[misc_order_num[D.account_holder]]#[SO.id]  "
 				if(SO.pack.access)
 					miscboxes[D.account_holder].req_access |= SO.pack.access
@@ -170,7 +172,7 @@ GLOBAL_LIST_INIT(whitelisted_cargo_types, typecacheof(list(
 	for(var/I in miscboxes)
 		var/datum/supply_order/SO = new/datum/supply_order()
 		SO.id = misc_order_num[I]
-		SO.generateCombo(miscboxes[I], I, misc_contents[I])
+		SO.generateCombo(miscboxes[I], I, misc_contents[I], misc_costs[I])
 		qdel(SO)
 
 	var/datum/bank_account/cargo_budget = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
@@ -199,9 +201,6 @@ GLOBAL_LIST_INIT(whitelisted_cargo_types, typecacheof(list(
 				matched_bounty = TRUE
 			if(!AM.anchored)
 				export_item_and_contents(AM, export_categories , dry_run = FALSE, external_report = ex)
-			else if(!ismachinery(AM))
-				//Exports the contents of things but not the item itself, so you can have conveyor belt that won't get sold
-				export_contents(AM, export_categories , dry_run = FALSE, external_report = ex)
 
 	if(matched_bounty)
 		msg += "Bounty items received. An update has been sent to all bounty consoles. "
