@@ -1,13 +1,12 @@
 /obj/vehicle/ridden/lawnmower
-	name = "Doom. Co Ultra-Mega-Mower"
-	desc = "Equipped with reliable safeties to prevent <i>accidents</i> in the workplace."
+	name = "Standard Issue Lawnmower"
+	desc = "Developed by Nanotrasen, this lawnmower is equipped with reliable safeties to prevent <i>accidents</i> in the workplace."
 	icon = 'icons/obj/vehicles.dmi'
 	icon_state = "lawnmower"
 	max_integrity = 200
-	var/emagged = FALSE
 	var/emagged_by = null
 	var/list/drive_sounds = list('sound/effects/mowermove1.ogg', 'sound/effects/mowermove2.ogg')
-	var/list/gib_sounds = list('sound/effects/mowermovesquish.ogg')
+	var/list/hurt_sounds = list('sound/effects/mowermovesquish.ogg')
 	var/normal_variant = TRUE // This is just so the lawnmower doesn't explode twice on destruction and for initializing.
 
 /obj/vehicle/ridden/lawnmower/add_riding_element()
@@ -18,12 +17,12 @@
 
 
 /obj/vehicle/ridden/lawnmower/emagged
-	emagged = TRUE
+	obj_flags = CAN_BE_HIT | EMAGGED
 	desc = "Equipped with reliable safeties to prevent <i>accidents</i> in the workplace."
 
 /obj/vehicle/ridden/lawnmower/examine(mob/user)
 	. = ..()
-	if(emagged)
+	if(obj_flags & EMAGGED)
 		. += span_warning("The safety lights are <b>off<b>.")
 	else
 		. += span_notice("The safety lights are <b>on<b>.")
@@ -38,24 +37,24 @@
 
 /obj/vehicle/ridden/lawnmower/on_emag(mob/user)
 	. = ..()
-	if(emagged)
+	if(obj_flags & EMAGGED)
 		to_chat(user, span_warning("The safety mechanisms on \the [src] are already disabled!"))
 		return
 	to_chat(user, span_warning("You disable the safety mechanisms on \the [src]."))
 	desc = "Equipped with reliable safeties to prevent <i>accidents</i> in the workplace."
-	emagged = TRUE
+	obj_flags |= EMAGGED
 	if(user)
 		emagged_by = key_name(user)
 
 /obj/vehicle/ridden/lawnmower/Bump(atom/A)
 	. = ..()
-	if(emagged)
+	if(obj_flags & EMAGGED)
 		if(isliving(A))
 			var/mob/living/M = A
-			M.adjustBruteLoss(25)
+			M.adjustBruteLoss(10)
 			playsound(loc, 'sound/effects/bang.ogg', 50, 1)
 			var/atom/newLoc = get_edge_target_turf(M, get_dir(src, get_step_away(M, src)))
-			M.throw_at(newLoc, 4, 1)
+			M.throw_at(newLoc, 2, 1)
 
 /obj/vehicle/ridden/lawnmower/Move()
 	. = ..()
@@ -69,21 +68,21 @@
 	else
 		return .
 
-	if(emagged)
+	if(obj_flags & EMAGGED)
 		for(var/mob/living/carbon/human/M in loc)
 			if(M == H)
 				continue
 			if(M.body_position == LYING_DOWN)
-				visible_message(span_danger("\the [src] grinds [M.name] into a fine paste!"))
-				M.gib()
+				visible_message(span_danger("\the [src] grinds [M.name], into a fine paste!"))
+				M.gib() // This is so fucked but you people wanted it
 				M.log_message("has been gibbed by an emagged lawnmower that was driven by [(H.ckey || "nobody")] and emagged by [(emagged_by || "nobody")]", LOG_ATTACK, color="red")
 				H.log_message("has gibbed [(M.ckey || "none-player")] using an emagged lawnmower that was emagged by [(emagged_by || "nobody")]", LOG_ATTACK, color="red")
 				shake_camera(M, 20, 1)
 				gibbed = TRUE
 
 	if(gibbed)
-		shake_camera(H, 10, 1)
-		playsound(loc, pick(gib_sounds), 75, 1)
+		shake_camera(H, 2, 1)
+		playsound(loc, pick(hurt_sounds), 75, 1)
 
 	mow_lawn()
 
@@ -115,8 +114,8 @@
 	icon = 'icons/obj/vehicles.dmi'
 	icon_state = "syndi_lawnmower"
 	max_integrity = 150
-	emagged = TRUE
+	obj_flags = CAN_BE_HIT | EMAGGED
 	drive_sounds = list('sound/effects/mower_treads.ogg')
-	gib_sounds = list('sound/effects/splat.ogg')
+	hurt_sounds = list('sound/effects/splat.ogg')
 	normal_variant = FALSE
 
