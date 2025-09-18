@@ -1048,12 +1048,20 @@
 
 /obj/machinery/zap_act(power, zap_flags)
 	if(prob(85) && (zap_flags & ZAP_MACHINE_EXPLOSIVE) && !(resistance_flags & INDESTRUCTIBLE))
-		explosion(src, devastation_range = 1, heavy_impact_range = 2, light_impact_range = 4, flame_range = 2, adminlog = TRUE, smoke = FALSE)
+		explosion(
+			epicenter = src,
+			devastation_range = 1,
+			heavy_impact_range = 2,
+			light_impact_range = 4,
+			flame_range = 2,
+			adminlog = FALSE
+		)
 	else if(zap_flags & ZAP_OBJ_DAMAGE)
 		take_damage(power * 2.5e-4, BURN, ENERGY)
 		if(prob(40))
 			emp_act(EMP_LIGHT)
 		power -= power * 5e-4
+
 	return ..()
 
 /obj/machinery/Exited(atom/movable/gone, direction)
