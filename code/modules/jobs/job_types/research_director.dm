@@ -31,6 +31,7 @@
 		ACCOUNT_SCI_ID = PAYCHECK_COMMAND_DEPT)
 
 	display_order = JOB_DISPLAY_ORDER_RESEARCH_DIRECTOR
+	bounty_types = CIV_JOB_SCI
 	rpg_title = "Archmagister"
 
 	species_outfits = list(

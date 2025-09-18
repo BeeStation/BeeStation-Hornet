@@ -9,6 +9,7 @@
 	selection_color = "#ffeeff"
 	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
+	bounty_types = CIV_JOB_ROBO
 
 	outfit = /datum/outfit/job/roboticist
 
@@ -19,7 +20,7 @@
 
 	departments = DEPT_BITFLAG_SCI
 	bank_account_department = ACCOUNT_SCI_BITFLAG
-	payment_per_department = list(ACCOUNT_SCI_ID = PAYCHECK_MEDIUM)
+	payment_per_department = list(ACCOUNT_SCI_ID = PAYCHECK_CREW)
 
 	display_order = JOB_DISPLAY_ORDER_ROBOTICIST
 	rpg_title = "Golemancer"

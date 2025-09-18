@@ -65,7 +65,10 @@
 				var/was_antagonist = FALSE
 
 				//If we have an ID, use that
-				var/obj/item/card/id/identification_card = M.get_idcard()
+				var/obj/item/card/id/identification_card
+				if(isliving(M))
+					var/mob/living/L = M
+					identification_card = L.get_idcard()
 				if (identification_card)
 					serialized["role_icon"] = "hud[ckey(identification_card.get_item_job_icon())]"
 				else if(SSjob.name_occupations[mind.assigned_role])

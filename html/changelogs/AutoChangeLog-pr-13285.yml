@@ -1,0 +1,4 @@
+author: r1ks-iwnl
+delete-after: true
+changes:
+  - bugfix: Bubblegum no longer ends his dashes earlier than he should

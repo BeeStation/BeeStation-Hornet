@@ -13,7 +13,7 @@
 
 	departments = DEPT_BITFLAG_CIV
 	bank_account_department = ACCOUNT_CIV_BITFLAG
-	payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_ASSISTANT)
+	payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_LOWER)
 
 	display_order = JOB_DISPLAY_ORDER_ASSISTANT
 	rpg_title = "Peasant"
@@ -41,7 +41,7 @@
 
 	departments = DEPT_BITFLAG_SRV
 	bank_account_department = ACCOUNT_SRV_BITFLAG
-	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_ASSISTANT)
+	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_LOWER)
 
 	rpg_title = "Scissorhands"
 
@@ -74,7 +74,7 @@
 
 	departments = DEPT_BITFLAG_SRV
 	bank_account_department = ACCOUNT_SRV_BITFLAG
-	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_MINIMAL)
+	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_LOWER)
 
 	rpg_title = "Master Illusionist"
 	species_outfits = list(
@@ -113,7 +113,7 @@
 
 	departments = DEPT_BITFLAG_MED
 	bank_account_department = ACCOUNT_MED_BITFLAG
-	payment_per_department = list(ACCOUNT_MED_ID = PAYCHECK_EASY)
+	payment_per_department = list(ACCOUNT_MED_ID = PAYCHECK_CREW)
 	mind_traits = list(TRAIT_MADNESS_IMMUNE, TRAIT_MEDICAL_METABOLISM)
 
 	rpg_title = "Enchanter"

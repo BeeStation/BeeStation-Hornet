@@ -24,10 +24,11 @@
 
 	departments = DEPT_BITFLAG_SRV
 	bank_account_department = ACCOUNT_SRV_BITFLAG
-	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_ASSISTANT)
+	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_CREW)
 
 
 	display_order = JOB_DISPLAY_ORDER_COOK
+	bounty_types = CIV_JOB_CHEF
 	rpg_title = "Tavern Chef"
 
 	species_outfits = list(

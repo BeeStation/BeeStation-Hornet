@@ -136,7 +136,10 @@
 		if("vend") // Changed from "purchase" to "vend" for compatibility
 			var/datum/bank_account/target_account = bound_bank_account
 			if(!target_account) // if bound_bank_account is null, it means you need to get a new account
-				var/obj/item/card/id/I = M.get_idcard(TRUE)
+				var/obj/item/card/id/I
+				if(isliving(usr))
+					var/mob/living/L = usr
+					I = L.get_idcard(TRUE)
 				if(!istype(I))
 					to_chat(usr, span_alert("Error: An ID is required!"))
 					flick(icon_deny, src)

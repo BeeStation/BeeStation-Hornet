@@ -14054,9 +14054,6 @@
 /obj/machinery/light_switch{
 	pixel_x = 23
 	},
-/obj/machinery/computer/bounty{
-	dir = 8
-	},
 /obj/effect/turf_decal/tile/brown/half/contrasted,
 /turf/open/floor/iron,
 /area/quartermaster/qm)
@@ -30806,16 +30803,6 @@
 /obj/effect/landmark/xeno_spawn,
 /turf/open/space,
 /area/solar/port/aft)
-"ehb" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment,
-/obj/machinery/computer/bounty{
-	dir = 8
-	},
-/turf/open/floor/carpet/royalblue,
-/area/crew_quarters/heads/hop)
 "ehk" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -34365,10 +34352,8 @@
 /area/hallway/primary/central)
 "fit" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
 /obj/effect/turf_decal/tile/brown/half/contrasted,
+/obj/machinery/piratepad/civilian,
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "fiH" = (
@@ -51374,13 +51359,13 @@
 /turf/open/floor/iron,
 /area/quartermaster/miningoffice)
 "kAf" = (
-/obj/structure/table,
-/obj/item/paper_bin,
-/obj/item/pen,
 /obj/machinery/light{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted,
+/obj/machinery/computer/piratepad_control/civilian{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "kAh" = (
@@ -64573,14 +64558,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/chapel/main)
-"oKM" = (
-/obj/structure/table,
-/obj/item/storage/box/lights/mixed,
-/obj/effect/turf_decal/tile/brown/half/contrasted{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/hallway/primary/fore)
 "oLa" = (
 /obj/structure/cable/yellow,
 /obj/effect/spawner/structure/window/reinforced,
@@ -71240,13 +71217,6 @@
 	},
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/tcommsat/server)
-"qUV" = (
-/obj/machinery/computer/bounty{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron,
-/area/quartermaster/storage)
 "qUW" = (
 /obj/structure/table/reinforced,
 /obj/machinery/status_display/evac{
@@ -86136,10 +86106,6 @@
 /area/vacant_room/office)
 "vCO" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair{
-	dir = 1
-	},
-/obj/effect/landmark/start/assistant,
 /obj/effect/turf_decal/tile/brown/half/contrasted{
 	dir = 8
 	},
@@ -88861,10 +88827,8 @@
 	dir = 8;
 	pixel_x = 28
 	},
-/obj/machinery/computer/bounty{
-	dir = 8
-	},
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted,
+/obj/structure/filingcabinet/filingcabinet,
 /turf/open/floor/iron,
 /area/quartermaster/office)
 "wue" = (
@@ -131165,7 +131129,7 @@ caP
 bZb
 tdz
 sDo
-ehb
+caP
 cjB
 ckX
 cmA
@@ -136792,7 +136756,7 @@ ovq
 ovq
 mUA
 ovq
-oKM
+ddP
 bfk
 egd
 qHr
@@ -137809,7 +137773,7 @@ vkn
 aOW
 neL
 iMb
-qUV
+vkn
 cXb
 wWn
 gBf

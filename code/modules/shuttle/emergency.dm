@@ -85,8 +85,10 @@
 		return
 	if(!IS_DOCKED) // shuttle computer only has uses when onstation
 		return
+	if(!isliving(usr))
+		return
 
-	var/mob/user = usr
+	var/mob/living/user = usr
 	. = FALSE
 
 	var/obj/item/card/id/ID = user.get_idcard(TRUE)
@@ -135,7 +137,7 @@
 			log_game("Early launch authorization revoked, [remaining] authorizations needed.")
 	acted_recently += user
 
-/obj/machinery/computer/emergency_shuttle/proc/authorize(mob/user, source)
+/obj/machinery/computer/emergency_shuttle/proc/authorize(mob/living/user, source)
 	var/obj/item/card/id/ID = user.get_idcard(TRUE)
 
 	if(ID in authorized)

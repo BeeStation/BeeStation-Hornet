@@ -530,27 +530,33 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	usr.set_machine(src)
 	switch(href_list["choice"])
 		if ("inserted_modify_id")
-			if(inserted_modify_id && !usr.get_active_held_item())
-				if(id_eject(usr, inserted_modify_id))
+			if(!isliving(usr))
+				return
+			var/mob/living/L = usr
+			if(inserted_modify_id && !L.get_active_held_item())
+				if(id_eject(L, inserted_modify_id))
 					inserted_modify_id = null
 					updateUsrDialog()
 					return
-			if(usr.get_id_in_hand())
-				var/obj/item/held_item = usr.get_active_held_item()
+			if(L.get_id_in_hand())
+				var/obj/item/held_item = L.get_active_held_item()
 				var/obj/item/card/id/id_to_insert = held_item.GetID()
-				if(id_insert(usr, held_item, inserted_modify_id))
+				if(id_insert(L, held_item, inserted_modify_id))
 					inserted_modify_id = id_to_insert
 					updateUsrDialog()
 		if ("inserted_scan_id")
-			if(inserted_scan_id && !usr.get_active_held_item())
-				if(id_eject(usr, inserted_scan_id))
+			if(!isliving(usr))
+				return
+			var/mob/living/L = usr
+			if(inserted_scan_id && !L.get_active_held_item())
+				if(id_eject(L, inserted_scan_id))
 					inserted_scan_id = null
 					updateUsrDialog()
 					return
-			if(usr.get_id_in_hand())
-				var/obj/item/held_item = usr.get_active_held_item()
+			if(L.get_id_in_hand())
+				var/obj/item/held_item = L.get_active_held_item()
 				var/obj/item/card/id/id_to_insert = held_item.GetID()
-				if(id_insert(usr, held_item, inserted_scan_id))
+				if(id_insert(L, held_item, inserted_scan_id))
 					inserted_scan_id = id_to_insert
 					updateUsrDialog()
 		if ("auth")
@@ -637,7 +643,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 							B.payment_per_department[each] = 0 // your payment for each department is 0
 							B.bonus_per_department[each] = 0   // your bonus for each department is 0
 						B.active_departments &= ~SSeconomy.get_budget_acc_bitflag(ACCOUNT_COM_ID) // micromanagement. Command bitflag should be removed manually, because 'for/each' didn't remove it.
-						B.payment_per_department[ACCOUNT_CIV_ID] = PAYCHECK_MINIMAL // for the love of god, let them have minimal payment from Civ budget... to be a real assistant.
+						B.payment_per_department[ACCOUNT_CIV_ID] = PAYCHECK_LOWER // for the love of god, let them have minimal payment from Civ budget... to be a real assistant.
 					if(record)
 						for(var/each in B.payment_per_department)
 							if(SSeconomy.is_nonstation_account(each)) // do not touch VIP/Command flag

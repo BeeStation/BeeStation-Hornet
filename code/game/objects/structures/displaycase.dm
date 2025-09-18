@@ -258,7 +258,7 @@
 			electronics = I
 			to_chat(user, span_notice("You install the airlock electronics."))
 
-	else if(istype(I, /obj/item/stock_parts/manipulator))
+	else if(istype(I, /obj/item/stock_parts/card_reader))
 		var/obj/item/stock_parts/manipulator/M = I
 		to_chat(user, span_notice("You start adding [M] to [src]..."))
 		if(do_after(user, 20, target = src))

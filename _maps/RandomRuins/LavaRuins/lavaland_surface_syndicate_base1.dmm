@@ -691,6 +691,13 @@
 /obj/item/stock_parts/cell/high/plus,
 /turf/open/floor/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
+"fh" = (
+/mob/living/simple_animal/rabbit{
+	faction = list("Syndicate");
+	desc = "Just a mildly evil rabbit."
+	},
+/turf/open/floor/wood,
+/area/ruin/unpowered/syndicate_lava_base/bar)
 "fi" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/effect/turf_decal/stripes/line{
@@ -1784,13 +1791,6 @@
 	dir = 4
 	},
 /area/ruin/unpowered/syndicate_lava_base/science)
-"pC" = (
-/mob/living/simple_animal/rabbit{
-	faction = list("Syndicate");
-	desc = "Just a mildly evil rabbit."
-	},
-/turf/open/floor/wood,
-/area/ruin/unpowered/syndicate_lava_base/bar)
 "pD" = (
 /obj/item/storage/box/lights/bulbs,
 /obj/item/stack/rods{
@@ -6491,7 +6491,7 @@ Yx
 BA
 Jz
 lX
-pC
+fh
 Zd
 EL
 jy

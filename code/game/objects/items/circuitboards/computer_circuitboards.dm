@@ -478,10 +478,9 @@
 	icon_state = "supply"
 	build_path = /obj/machinery/computer/objective
 
-/obj/item/circuitboard/computer/bounty
-	name = "Nanotrasen bounty console (Computer Board)"
-	icon_state = "supply"
-	build_path = /obj/machinery/computer/bounty
+/obj/item/circuitboard/computer/bountypad
+	name = "Bounty Pad (Computer Board)"
+	build_path = /obj/machinery/computer/piratepad_control/civilian
 
 /obj/item/circuitboard/computer/cargo
 	name = "supply console (Computer Board)"

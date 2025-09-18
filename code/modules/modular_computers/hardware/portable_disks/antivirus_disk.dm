@@ -12,7 +12,7 @@
 	pickup_sound =  'sound/items/handling/disk_pickup.ogg'
 	var/resistcap = 6 //one higher than what it can cure
 	virus_defense = ANTIVIRUS_BASIC
-	custom_price = PAYCHECK_MEDIUM
+	custom_price = PAYCHECK_CREW
 	dont_instal = TRUE
 	open_overlay = "disk_open"
 	var/sender_disk_typepath = /obj/item/computer_hardware/hard_drive/role/virus/antivirus

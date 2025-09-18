@@ -81,7 +81,10 @@
 			if (!security_interface_locked)
 				security_interface_locked = TRUE
 			else
-				var/obj/item/id_slot = usr.get_idcard(TRUE)
+				var/obj/item/card/id/id_slot
+				if(isliving(usr))
+					var/mob/living/L = usr
+					id_slot = L.get_idcard(TRUE)
 				if((ACCESS_SECURITY in id_slot.GetAccess()) && !(obj_flags & EMAGGED))
 					security_interface_locked = FALSE
 					to_chat(usr, span_warning("You unlock the security controls of [src]."))

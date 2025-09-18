@@ -91,7 +91,10 @@
 	if(!usr || !usr.canUseTopic(src, !issilicon(usr)) || machine_stat || QDELETED(src))
 		return
 	if(href_list["authenticate"])
-		var/obj/item/card/id/ID = usr.get_idcard(TRUE)
+		var/obj/item/card/id/ID
+		if(isliving(usr))
+			var/mob/living/L = usr
+			ID = L.get_idcard()
 		if(ID && istype(ID))
 			if(check_access(ID))
 				authenticated = TRUE

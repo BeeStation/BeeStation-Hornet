@@ -181,6 +181,10 @@
   - rscadd: resin mister upgrades can now be applied to the modsuit module
   - bugfix: the resin mister module now deploys
   - refactor: watertank backpacks are more flexible
+  lord scrubling:
+  - rscadd: resin mister upgrades can now be applied to the modsuit module
+  - bugfix: the resin mister module now deploys
+  - refactor: watertank backpacks are more flexible
   ? mrmanlikesbt, MrMelbert, san7890, SuperNovaa41, Watermelon914, lessthnthree, ZephyrTFA,
     Jacquerel, AnywayFarus, imedial, SmArtKar
   : - rscadd: Added the "Vote" verb the OOC tab, here you can check the status of
@@ -191,35 +195,9 @@
     - refactor: refactored the voting subsystem
     - tweak: Slightly altered the Emergency Shuttle undocking announcement
 2025-09-15:
-  PowerfulBacon:
-  - bugfix: Fixes guns slowing down while worn on the belt.
-  - bugfix: Fixes guns not being able to shoot if you click on a tile adjacent to
-      you.
-  TsunamiAnt:
-  - tweak: Makes abductee objectives not be complete ass.
-  - tweak: Abductee objectives are now tied to the gland itself and can be cured by
-      just removing it.
   mrmanlikesbt:
   - bugfix: Fixed the item overlay on smartfridges displaying even when there are
       no items inside.
-  - bugfix: Fixes the feed ability breaking if the person you are feeding off of is
-      deleted
-  - bugfix: Fixed Ventrue made vampires getting duplicate spells when turned into
-      a vampire
-  - bugfix: Fixed vampires sometimes greentexting when they didn't complete all of
-      their objectives
-  - bugfix: Fixed the Tremere Dominate ability not being able to resurrect people
-      into vassals
-  - code_imp: Cleaned up some vampire code
-  - tweak: The vampire department vassalization objective can no longer ask you to
-      vassalize more people than possible
-  - tweak: Adjusted the roundend report vampire section
-  - tweak: Stakes now have a medium weight size meaning people other than the staked
-      person can remove them
-  - tweak: Ventrue favorite vassals lose their vassal status when leveled up into
-      a vampire. Be careful Ventrue clan members!
-  r1ks-iwnl:
-  - bugfix: Bubblegum no longer ends his dashes earlier than he should
   rkz, tralezab, TheBonded, ma44, Ryll/Shaps, Vishenka0704, Vladoricious, Jacquerel, Fikou, Sealed101, San7890:
   - tweak: Renames the Wardens dog
   - refactor: tamable component + egg layer component, animal variety element
@@ -262,44 +240,3 @@
   - bugfix: fixes pets not dropping their collar when gibbed
   - bugfix: butter don't go on Lisa and corgi puppies (Lisa won't wear hats and corgi
       puppies can't wear hats and back slot items)
-2025-09-16:
-  Nakalon:
-  - code_imp: Withdraw Funds now uses TGUI
-  - balance: Removed Department freebies from vendors. Everything will cost money
-      for everyone.
-  - balance: Cargo gets a cut of all items sold by vendors
-  - tweak: You can now buy items with departmental cards, embezzlement is no longer
-      stopped by code :)
-  - bugfix: Fixed Assistants seeing items as free, even though they aren't
-  THEREALDOOOC213:
-  - rscadd: fat people now break tables when slammed onto them
-  lord scrubling:
-  - bugfix: advanced atmos resin is no longer killed early when spreading in hot air
-  - rscadd: atmos hardsuits, winter coats, and modsuits can carry extinguishers in
-      their exo slot
-  - bugfix: firefighting foam now works
-  ? mrmanlikesbt, MrPerson, cacogen, MMMiracles, Tastyfish, XyzzyThePretender, LemonInTheDark,
-    MTandi, Lufferly, BobDABuilder9001, Sealed101
-  : - rscadd: Added new solar panel sprites. These dynamically track the sun instead
-        of being fixed to incremental angles
-    - rscadd: 'Solar panels can now be upgraded based on what glass they are made
-        of, the higher tier the glass is, the higher the multiplier is. The tiers
-        are as follows: normal glass - 1x, titanium glass - 2x, plasma glass - 3x,
-        plastitanium glass - x4'
-    - rscdel: Removed the goonstation folder
-    - refactor: Refactored SSsun and solar panel code.
-  mrmanlikesbt, san7890, the wonderful mappers at /tg/station:
-  - rscadd: Remapped MetaStation Service and Atmos
-  - bugfix: Fixed airlock pumps
-2025-09-17:
-  Bieyes:
-  - tweak: heavily slowed down all lawnmowers.
-  - balance: lawnmowers no longer gib.
-  - bugfix: mosins (and any other bolt actions) can be reloaded again.
-  ClownMoff:
-  - rscdel: Removed a stray decal on BoxStation
-  rkz, arcanemusic, cacogen, tastyfish:
-  - rscadd: adds ability to split profits on sold items with the sales tagger
-  - rscadd: cleaned up delivery crate appearance code, crates will show notes scrawled
-      on them and destination tags better
-  - refactor: cleaned up some crate export code

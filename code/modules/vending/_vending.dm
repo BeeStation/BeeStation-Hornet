@@ -29,9 +29,9 @@
 	var/amount = 0
 	///How many we can store at maximum
 	var/max_amount = 0
-	///Does the item have a custom price override
+	///Price of an item in a vending machine, overriding the base vending machine price. Define in terms of paycheck defines as opposed to raw numbers.
 	var/custom_price
-	///Does the item have a custom premium price override
+	///Price of an item in a vending machine, overriding the premium vending machine price. Define in terms of paycheck defines as opposed to raw numbers.
 	var/custom_premium_price
 	///Whether the product can be recolored by the GAGS system
 	var/colorable
@@ -359,11 +359,34 @@
 		if(!start_empty)
 			new_record.amount = amount
 		new_record.max_amount = amount
-		new_record.custom_price = initial(temp.custom_price)
-		new_record.custom_premium_price = initial(temp.custom_premium_price)
+		new_record.custom_price = round(initial(temp.custom_price) * SSeconomy.inflation_value())
+		new_record.custom_premium_price = round(initial(temp.custom_premium_price) * SSeconomy.inflation_value())
 		new_record.colorable = !!(initial(temp.greyscale_config) && initial(temp.greyscale_colors) && (initial(temp.flags_1) & IS_PLAYER_COLORABLE_1))
 		new_record.category = product_to_category[typepath]
 		recordlist += new_record
+
+/**
+  * Reassign the prices of the vending machine as a result of the inflation value, as provided by SSeconomy
+  *
+  * This rebuilds both /datum/vending_products lists for premium and standard products based on their most relevant pricing values.
+  * Arguments:
+  * * recordlist - the list of standard product datums in the vendor to refresh their prices.
+  * * premiumlist - the list of premium product datums in the vendor to refresh their prices.
+  */
+/obj/machinery/vending/proc/reset_prices(list/recordlist, list/premiumlist)
+	for(var/R in recordlist)
+		var/datum/vending_product/record = R
+		var/atom/potential_product = record.product_path
+		record.custom_price = round(initial(potential_product.custom_price) * SSeconomy.inflation_value())
+	for(var/R in premiumlist)
+		var/datum/vending_product/record = R
+		var/atom/potential_product = record.product_path
+		var/premium_sanity = round(initial(potential_product.custom_premium_price))
+		if(premium_sanity)
+			record.custom_premium_price = round(premium_sanity * SSeconomy.inflation_value())
+			continue
+		//For some ungodly reason, some premium only items only have a custom_price
+		record.custom_premium_price = round(extra_price + (initial(potential_product.custom_price) * (SSeconomy.inflation_value() - 1)))
 
 /**Builds all available inventories for the vendor - standard, contraband and premium
  * Arguments:
@@ -1234,13 +1257,12 @@
 
 /obj/machinery/vending/custom/compartmentLoadAccessCheck(mob/user)
 	. = FALSE
-	var/mob/living/carbon/human/H
-	var/obj/item/card/id/C
-	if(ishuman(user))
-		H = user
-		C = H.get_idcard(TRUE)
-		if(C?.registered_account && C.registered_account == private_a)
-			return TRUE
+	if(!isliving(user))
+		return FALSE
+	var/mob/living/L = user
+	var/obj/item/card/id/C = L.get_idcard(FALSE)
+	if(C?.registered_account && C.registered_account == private_a)
+		return TRUE
 
 /obj/machinery/vending/custom/canLoadItem(obj/item/I, mob/user)
 	. = FALSE
@@ -1363,15 +1385,12 @@
 	vend_ready = TRUE
 
 /obj/machinery/vending/custom/attackby(obj/item/I, mob/user, params)
-	if(!private_a)
-		var/mob/living/carbon/human/H
-		var/obj/item/card/id/C
-		if(ishuman(user))
-			H = user
-			C = H.get_idcard(TRUE)
-			if(C?.registered_account)
-				private_a = C.registered_account
-				say("\The [src] has been linked to [C].")
+	if(!private_a && isliving(user))
+		var/mob/living/L = user
+		var/obj/item/card/id/C = L.get_idcard(TRUE)
+		if(C?.registered_account)
+			private_a = C.registered_account
+			say("\The [src] has been linked to [C].")
 
 	if(compartmentLoadAccessCheck(user))
 		if(istype(I, /obj/item/pen))
@@ -1429,14 +1448,14 @@
 /obj/item/vending_refill/custom
 	machine_name = "Custom Vendor"
 	icon_state = "refill_custom"
-	custom_premium_price = 75
+	custom_premium_price = PAYCHECK_CREW
 
 /obj/item/price_tagger
 	name = "price tagger"
 	desc = "This tool is used to set a price for items used in custom vendors."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "pricetagger"
-	custom_premium_price = 20
+	custom_premium_price = PAYCHECK_CREW * 0.5
 	///the price of the item
 	var/price = 1
 

@@ -24,9 +24,10 @@
 
 	departments = DEPT_BITFLAG_SRV
 	bank_account_department = ACCOUNT_SRV_BITFLAG
-	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_EASY)
+	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_CREW)
 
 	display_order = JOB_DISPLAY_ORDER_BOTANIST
+	bounty_types = CIV_JOB_GROW
 	rpg_title = "Gardener"
 
 	species_outfits = list(

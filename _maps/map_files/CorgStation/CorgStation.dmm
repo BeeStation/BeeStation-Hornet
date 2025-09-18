@@ -48197,7 +48197,7 @@
 /area/ai_monitored/turret_protected/ai)
 "pzz" = (
 /obj/structure/table/reinforced,
-/obj/item/circuitboard/computer/bounty{
+/obj/item/circuitboard/computer/bountypad{
 	pixel_y = 7
 	},
 /obj/item/circuitboard/computer/cargo{

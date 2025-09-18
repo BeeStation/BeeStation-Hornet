@@ -8,7 +8,7 @@
 	attack_verb_simple = list("dump")
 	var/activated = FALSE
 
-/obj/item/suspiciousphone/attack_self(mob/user)
+/obj/item/suspiciousphone/attack_self(mob/living/user)
 	if(!ISADVANCEDTOOLUSER(user))
 		to_chat(user, span_warning("This device is too advanced for you!"))
 		return
@@ -42,7 +42,7 @@
 	max_hit_damage = 30
 	/// when this gets at this hp, it will run away! oh no!
 	var/next_health_to_teleport
-	var/mob/living/carbon/human/bogdanoff
+	var/mob/living/bogdanoff
 	var/canwalk = FALSE
 	var/static/existing_machines = 0
 	var/protected_accounts = list()
@@ -73,6 +73,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/checkoutmachine)
 	max_integrity = min(300+player_modifier*15, 600)
 	atom_integrity = max_integrity
 	calculate_runaway_condition()
+	SSeconomy.market_crashing = TRUE
 
 	existing_machines++
 	. = ..()
@@ -181,6 +182,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/checkoutmachine)
 			B.withdrawDelay = 0
 	priority_announce("The credit deposit machine at [get_area(src)] has been destroyed. Station funds have stopped draining!", sound = SSstation.announcer.get_rand_alert_sound(), sender_override = "CRAB-17 Protocol", )
 	explosion(src, 0,0,1, flame_range = 2)
+	SSeconomy.market_crashing = FALSE
 	return ..()
 
 /obj/structure/checkoutmachine/proc/start_dumping()
@@ -268,7 +270,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/checkoutmachine)
 	light_range = 2
 	var/obj/effect/dumpeetFall/DF
 	var/obj/structure/checkoutmachine/dump
-	var/mob/living/carbon/human/bogdanoff
+	var/mob/living/bogdanoff
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/dumpeetTarget)
 

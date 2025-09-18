@@ -3,9 +3,6 @@
 	var/shipped_volume = 0
 	var/datum/reagent/wanted_reagent
 
-/datum/bounty/reagent/completion_string()
-	return {"[round(shipped_volume)]/[required_volume] Units"}
-
 /datum/bounty/reagent/can_claim()
 	return ..() && shipped_volume >= required_volume
 
@@ -25,15 +22,9 @@
 	if(shipped_volume > required_volume)
 		shipped_volume = required_volume
 
-/datum/bounty/reagent/compatible_with(other_bounty)
-	if(!istype(other_bounty, /datum/bounty/reagent))
-		return TRUE
-	var/datum/bounty/reagent/R = other_bounty
-	return wanted_reagent.type != R.wanted_reagent.type
-
 /datum/bounty/reagent/simple_drink
 	name = "Simple Drink"
-	reward = 1500
+	reward = CARGO_CRATE_VALUE * 3
 
 /datum/bounty/reagent/simple_drink/New()
 	// Don't worry about making this comprehensive. It doesn't matter if some drinks are skipped.
@@ -89,7 +80,7 @@
 
 /datum/bounty/reagent/complex_drink
 	name = "Complex Drink"
-	reward = 4000
+	reward = CARGO_CRATE_VALUE * 8
 
 /datum/bounty/reagent/complex_drink/New()
 	// Don't worry about making this comprehensive. It doesn't matter if some drinks are skipped.
@@ -122,7 +113,7 @@
 
 /datum/bounty/reagent/chemical_simple
 	name = "Simple Chemical"
-	reward = 4000
+	reward = CARGO_CRATE_VALUE * 8
 	required_volume = 30
 
 /datum/bounty/reagent/chemical_simple/New()
@@ -160,7 +151,7 @@
 
 /datum/bounty/reagent/chemical_complex
 	name = "Rare Chemical"
-	reward = 6000
+	reward = CARGO_CRATE_VALUE * 12
 	required_volume = 20
 
 /datum/bounty/reagent/chemical_complex/New()

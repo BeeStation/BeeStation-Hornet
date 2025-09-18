@@ -233,7 +233,10 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 		scantemp = "Cannot delete: Data Corrupted."
 		return FALSE
-	var/obj/item/card/id/C = usr.get_idcard(hand_first = TRUE)
+	var/obj/item/card/id/C
+	if(isliving(usr))
+		var/mob/living/L = usr
+		C = L.get_idcard(hand_first = TRUE)
 	if(istype(C) || istype(C, /obj/item/modular_computer/tablet))
 		if(check_access(C))
 			scantemp = "[cloning_record_copy.name] => Record deleted."

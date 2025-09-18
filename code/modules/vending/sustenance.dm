@@ -13,8 +13,9 @@
 						/obj/item/tank/internals/emergency_oxygen = 6,
 						/obj/item/clothing/mask/breath = 6)
 	refill_canister = /obj/item/vending_refill/sustenance
-	default_price = 0
-	extra_price = 0
+	default_price = PAYCHECK_LOWER
+	extra_price = PAYCHECK_LOWER * 0.6
+	seller_department = NO_FREEBIES
 
 /obj/item/vending_refill/sustenance
 	machine_name = "Sustenance Vendor"
