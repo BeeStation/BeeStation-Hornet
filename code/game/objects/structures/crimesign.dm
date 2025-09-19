@@ -7,10 +7,15 @@
 	max_integrity = 1
 	armor_type = /datum/armor/structure_holosign
 	layer = LOW_OBJ_LAYER
+	plane = FLOOR_PLANE
+	light_color = "#ff2466"
+	light_range = 1.5
+	light_power = 0.25
 
 /obj/structure/crimesign/Initialize(mapload)
 	. = ..()
-	alpha = 200
+	alpha = 150
+	add_filter("bloom" , 1 , list(type="bloom", size=0.5, offset = 0.1, alpha = 200))
 
 /obj/structure/crimesign/attack_hand(mob/living/user)
 	. = ..()
@@ -76,3 +81,4 @@
 		icon_state = "crimescene_straight"
 		dir = WEST
 		return
+	update_overlays()

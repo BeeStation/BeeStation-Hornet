@@ -49,3 +49,4 @@
 	desc = "The internals of an APS enforcement taser cartridge. Easily replaceable while wound up, and nicely disposable once used."
 	icon = 'icons/obj/ammo.dmi'
 	icon_state = "taser_load"
+	custom_price = 10

@@ -104,7 +104,9 @@
 	max_signs = 6
 	var/active_crimescene = FALSE
 	var/list/active_barriers = list()
-	var/crimescene_range = 4
+	var/crimescene_range = 6
+	var/cooldown_length = 5 MINUTES
+	COOLDOWN_DECLARE(crimesign_projector_cooldown)
 
 /obj/item/holosign_creator/security/Initialize(mapload)
 	. = ..()
@@ -118,10 +120,13 @@
 /obj/item/holosign_creator/security/proc/on_action_click(obj/item/source, mob/user, datum/action)
 	SIGNAL_HANDLER
 
-	if(active_crimescene)
-		delete_barriers()
+	if(!active_crimescene)
+		if(COOLDOWN_FINISHED(src, crimesign_projector_cooldown))
+			spawn_barriers(user)
+		else
+			say("Error. Function on cooldown.")
 	else
-		spawn_barriers(user)
+		delete_barriers()
 
 	return COMPONENT_ACTION_HANDLED
 
@@ -140,7 +145,10 @@
 			barrier.align(get_turf(src), crimescene_range)
 			active_barriers += barrier
 
+	playsound(user, 'sound/effects/crimescenealarm.ogg', 50, 0, 4)
+	say("ATTENTION. A CRIMESCENE WAS DECLARED. BYSTANDERS ARE TO VACATE THE PREMISES.")
 	active_crimescene = TRUE
+	COOLDOWN_START(src, crimesign_projector_cooldown, cooldown_length)
 	return
 
 /obj/item/holosign_creator/security/proc/delete_barriers()
