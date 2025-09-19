@@ -47,7 +47,7 @@ then the player gets the profit from selling his own wasted time.
 				if(!dry_run && (SEND_SIGNAL(thing, COMSIG_ITEM_PRE_EXPORT) & COMPONENT_STOP_EXPORT))
 					break
 				sold = export.sell_object(thing, report, dry_run, allowed_categories)
-				if(!(thing.trade_flags & TRADE_DELETE_UNSOLD) || thing.trade_flags & TRADE_NOT_SELLABLE)
+				if(!(thing.trade_flags & (TRADE_DELETE_UNSOLD | TRADE_NOT_SELLABLE)))
 					report.exported_atoms += thing // append the atom itself
 				break
 
