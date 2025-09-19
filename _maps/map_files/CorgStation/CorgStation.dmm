@@ -6745,6 +6745,11 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/virology)
+"bQZ" = (
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/machinery/vending/deputy,
+/turf/open/floor/iron,
+/area/hallway/primary/fore)
 "bRc" = (
 /obj/structure/rack,
 /obj/item/storage/box/beakers{
@@ -30355,15 +30360,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/science/xenobiology)
-"jFZ" = (
-/obj/structure/rack,
-/obj/effect/turf_decal/delivery,
-/obj/item/ammo_box/c10x25mm,
-/obj/item/ammo_box/taser,
-/obj/item/gun/ballistic/automatic/pistol/security,
-/obj/item/gun/ballistic/automatic/pistol/taser,
-/turf/open/floor/iron,
-/area/ai_monitored/security/armory)
 "jGb" = (
 /obj/effect/turf_decal/tile/red/opposingcorners{
 	dir = 1
@@ -64440,6 +64436,15 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/aft)
+"uXl" = (
+/obj/structure/rack,
+/obj/effect/turf_decal/delivery,
+/obj/item/ammo_box/c10x25mm,
+/obj/item/ammo_box/taser,
+/obj/item/gun/ballistic/automatic/pistol/security,
+/obj/item/gun/ballistic/automatic/pistol/taser,
+/turf/open/floor/iron,
+/area/ai_monitored/security/armory)
 "uXD" = (
 /obj/machinery/requests_console{
 	pixel_y = -32
@@ -109770,7 +109775,7 @@ bgr
 uGg
 qJy
 shJ
-ryd
+bQZ
 pJQ
 onZ
 wza
@@ -116441,7 +116446,7 @@ lSx
 hrA
 mmh
 muP
-jFZ
+uXl
 oXI
 aMT
 aMT

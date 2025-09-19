@@ -12933,6 +12933,13 @@
 /obj/structure/window/reinforced,
 /turf/open/floor/engine,
 /area/science/xenobiology)
+"gBk" = (
+/obj/structure/rack,
+/obj/effect/turf_decal/bot,
+/obj/item/gun/ballistic/automatic/pistol/security,
+/obj/item/ammo_box/c10x25mm,
+/turf/open/floor/iron/dark,
+/area/ai_monitored/security/armory)
 "gBH" = (
 /obj/item/kirbyplants/random{
 	pixel_y = 22
@@ -16524,6 +16531,13 @@
 /obj/effect/turf_decal/numbers/two_nine,
 /turf/open/floor/iron,
 /area/maintenance/department/crew_quarters/dorms)
+"iCw" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/rack,
+/obj/item/ammo_box/taser,
+/obj/item/gun/ballistic/automatic/pistol/taser,
+/turf/open/floor/iron/dark,
+/area/ai_monitored/security/armory)
 "iCD" = (
 /obj/structure/frame/machine,
 /turf/open/floor/plating,
@@ -27256,13 +27270,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
-"osP" = (
-/obj/structure/rack,
-/obj/effect/turf_decal/bot,
-/obj/item/gun/ballistic/automatic/pistol/security,
-/obj/item/ammo_box/c10x25mm,
-/turf/open/floor/iron/dark,
-/area/ai_monitored/security/armory)
 "oth" = (
 /obj/structure/sign/warning/explosives,
 /turf/closed/wall,
@@ -28757,13 +28764,6 @@
 	},
 /turf/open/floor/carpet/red,
 /area/medical/exam_room)
-"pdd" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/rack,
-/obj/item/ammo_box/taser,
-/obj/item/gun/ballistic/automatic/pistol/taser,
-/turf/open/floor/iron/dark,
-/area/ai_monitored/security/armory)
 "pdw" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/structure/cable/yellow{
@@ -29461,15 +29461,6 @@
 	dir = 1
 	},
 /area/crew_quarters/fitness/recreation)
-"pzG" = (
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	alpha = 180;
-	dir = 1
-	},
-/turf/open/floor/iron/dark/side{
-	dir = 4
-	},
-/area/hallway/primary/fore)
 "pzQ" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance/two,
@@ -44984,6 +44975,16 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
+"xHA" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	alpha = 180;
+	dir = 1
+	},
+/obj/machinery/vending/deputy,
+/turf/open/floor/iron/dark/side{
+	dir = 4
+	},
+/area/hallway/primary/fore)
 "xHG" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -187780,7 +187781,7 @@ dNl
 qRb
 qfG
 bnk
-osP
+gBk
 jSJ
 kxH
 fLS
@@ -188037,7 +188038,7 @@ tth
 sGC
 teE
 nwN
-pdd
+iCw
 xJJ
 fLS
 fLS
@@ -191126,7 +191127,7 @@ uAn
 fnY
 sQp
 tLg
-pzG
+xHA
 rgL
 nYV
 mMC

@@ -30743,27 +30743,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
-"gmL" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/rack,
-/obj/effect/turf_decal/bot,
-/obj/machinery/door/window/southright{
-	name = "Weapons Storage";
-	req_one_access_txt = "3"
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/obj/machinery/light/directional/north,
-/obj/item/gun/ballistic/automatic/pistol/security,
-/obj/item/ammo_box/c10x25mm,
-/turf/open/floor/iron/dark/textured,
-/area/ai_monitored/security/armory)
 "gmN" = (
 /obj/structure/table/reinforced{
 	color = "#c2bfa3"
@@ -39093,22 +39072,6 @@
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
 /area/hallway/primary/starboard)
-"hUT" = (
-/obj/effect/turf_decal/trimline/red/filled/line{
-	dir = 5
-	},
-/obj/effect/turf_decal/trimline/red/line{
-	dir = 5
-	},
-/obj/machinery/camera/directional/east,
-/obj/effect/turf_decal/tile/dark{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/hallway/upper/primary/starboard)
 "hUX" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 1
@@ -41785,6 +41748,27 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2,
 /turf/open/floor/carpet/grimy,
 /area/security/courtroom)
+"iwk" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/rack,
+/obj/effect/turf_decal/bot,
+/obj/machinery/door/window/southright{
+	name = "Weapons Storage";
+	req_one_access_txt = "3"
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/machinery/light/directional/north,
+/obj/item/gun/ballistic/automatic/pistol/security,
+/obj/item/ammo_box/c10x25mm,
+/turf/open/floor/iron/dark/textured,
+/area/ai_monitored/security/armory)
 "iws" = (
 /obj/effect/turf_decal/siding/red{
 	dir = 4
@@ -86888,6 +86872,39 @@
 /obj/structure/railing/perspective/black,
 /turf/open/floor/iron/dark/textured_edge,
 /area/quartermaster/storage)
+"rDh" = (
+/obj/structure/rack,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/item/clothing/head/helmet{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/clothing/head/helmet,
+/obj/item/clothing/head/helmet{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/clothing/suit/armor/vest{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/clothing/suit/armor/vest{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/clothing/suit/armor/vest{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/machinery/light_switch/directional/south,
+/obj/machinery/light/directional/east,
+/obj/item/ammo_box/taser,
+/obj/item/gun/ballistic/automatic/pistol/taser,
+/obj/item/gun/ballistic/automatic/pistol/taser,
+/turf/open/floor/iron/dark/textured,
+/area/ai_monitored/security/armory)
 "rDs" = (
 /obj/structure/chair/office/light{
 	dir = 1
@@ -90958,6 +90975,23 @@
 	},
 /turf/open/floor/iron/smooth,
 /area/engine/atmos)
+"swZ" = (
+/obj/effect/turf_decal/trimline/red/filled/line{
+	dir = 5
+	},
+/obj/effect/turf_decal/trimline/red/line{
+	dir = 5
+	},
+/obj/machinery/camera/directional/east,
+/obj/effect/turf_decal/tile/dark{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/machinery/vending/deputy,
+/turf/open/floor/iron,
+/area/hallway/upper/primary/starboard)
 "sxb" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Space Bridge Access"
@@ -108467,39 +108501,6 @@
 	},
 /turf/open/floor/iron/tech,
 /area/ai_monitored/turret_protected/aisat/hallway)
-"vUR" = (
-/obj/structure/rack,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/item/clothing/head/helmet{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/clothing/head/helmet,
-/obj/item/clothing/head/helmet{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/clothing/suit/armor/vest{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/clothing/suit/armor/vest{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/clothing/suit/armor/vest{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/machinery/light_switch/directional/south,
-/obj/machinery/light/directional/east,
-/obj/item/ammo_box/taser,
-/obj/item/gun/ballistic/automatic/pistol/taser,
-/obj/item/gun/ballistic/automatic/pistol/taser,
-/turf/open/floor/iron/dark/textured,
-/area/ai_monitored/security/armory)
 "vUX" = (
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=7-ATMOS";
@@ -157078,7 +157079,7 @@ hZp
 nNT
 nug
 eQO
-gmL
+iwk
 fCL
 oHS
 kLg
@@ -157595,7 +157596,7 @@ eQO
 vVj
 bTo
 xhW
-vUR
+rDh
 eQO
 lHO
 bSC
@@ -157864,7 +157865,7 @@ phD
 gig
 phD
 phD
-hUT
+swZ
 avc
 tRM
 avc

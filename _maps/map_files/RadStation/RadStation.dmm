@@ -2334,6 +2334,17 @@
 	dir = 4
 	},
 /area/hallway/primary/central)
+"aKd" = (
+/obj/structure/rack,
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/item/ammo_box/taser,
+/obj/item/gun/ballistic/automatic/pistol/taser,
+/obj/item/gun/ballistic/automatic/pistol/taser,
+/turf/open/floor/iron,
+/area/ai_monitored/security/armory)
 "aKg" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -5656,28 +5667,6 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/gateway)
-"bPj" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/effect/turf_decal/guideline/guideline_tri/red,
-/obj/effect/turf_decal/guideline/guideline_edge_alt/red{
-	dir = 8
-	},
-/obj/effect/turf_decal/guideline/guideline_half_edge/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/guideline/guideline_half_edge/red{
-	dir = 10
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/security/main)
 "bPo" = (
 /obj/structure/sign/departments/minsky/research/dorms,
 /turf/closed/wall,
@@ -16055,20 +16044,6 @@
 	},
 /turf/open/floor/prison,
 /area/security/prison)
-"fez" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/brigdoor/westleft{
-	name = "energy Guns";
-	req_access_txt = "3"
-	},
-/obj/structure/window/reinforced,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/item/ammo_box/c10x25mm,
-/obj/item/gun/ballistic/automatic/pistol/security,
-/turf/open/floor/iron,
-/area/ai_monitored/security/armory)
 "feL" = (
 /obj/machinery/door/airlock/highsecurity{
 	name = "Gravity Generator Foyer";
@@ -27092,6 +27067,20 @@
 	},
 /turf/open/floor/iron/tech,
 /area/engine/engine_room)
+"iRQ" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/brigdoor/westleft{
+	name = "energy Guns";
+	req_access_txt = "3"
+	},
+/obj/structure/window/reinforced,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/item/ammo_box/c10x25mm,
+/obj/item/gun/ballistic/automatic/pistol/security,
+/turf/open/floor/iron,
+/area/ai_monitored/security/armory)
 "iRV" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/chem_dispenser,
@@ -47570,17 +47559,6 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
-"pHx" = (
-/obj/structure/rack,
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/item/ammo_box/taser,
-/obj/item/gun/ballistic/automatic/pistol/taser,
-/obj/item/gun/ballistic/automatic/pistol/taser,
-/turf/open/floor/iron,
-/area/ai_monitored/security/armory)
 "pHE" = (
 /turf/open/floor/plating,
 /area/ai_monitored/storage/satellite)
@@ -62956,6 +62934,29 @@
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/storage)
+"uIg" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/guideline/guideline_tri/red,
+/obj/effect/turf_decal/guideline/guideline_edge_alt/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 10
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/machinery/vending/deputy,
+/turf/open/floor/iron,
+/area/security/main)
 "uIs" = (
 /turf/closed/wall,
 /area/hallway/primary/fore)
@@ -100282,7 +100283,7 @@ uYx
 tqK
 cIf
 dMH
-pHx
+aKd
 oMO
 fIN
 pVN
@@ -102081,7 +102082,7 @@ uYx
 pIG
 goC
 eNe
-fez
+iRQ
 nYl
 fIN
 tVv
@@ -102615,7 +102616,7 @@ fHK
 fHK
 fHK
 fHK
-bPj
+uIg
 mOL
 tQM
 voS

@@ -273,6 +273,11 @@
   - bugfix: Fixed Assistants seeing items as free, even though they aren't
   THEREALDOOOC213:
   - rscadd: fat people now break tables when slammed onto them
+  lord scrubling:
+  - bugfix: advanced atmos resin is no longer killed early when spreading in hot air
+  - rscadd: atmos hardsuits, winter coats, and modsuits can carry extinguishers in
+      their exo slot
+  - bugfix: firefighting foam now works
   ? mrmanlikesbt, MrPerson, cacogen, MMMiracles, Tastyfish, XyzzyThePretender, LemonInTheDark,
     MTandi, Lufferly, BobDABuilder9001, Sealed101
   : - rscadd: Added new solar panel sprites. These dynamically track the sun instead
@@ -283,3 +288,31 @@
         plastitanium glass - x4'
     - rscdel: Removed the goonstation folder
     - refactor: Refactored SSsun and solar panel code.
+  mrmanlikesbt, san7890, the wonderful mappers at /tg/station:
+  - rscadd: Remapped MetaStation Service and Atmos
+  - bugfix: Fixed airlock pumps
+2025-09-17:
+  Bieyes:
+  - tweak: heavily slowed down all lawnmowers.
+  - balance: lawnmowers no longer gib.
+  - bugfix: mosins (and any other bolt actions) can be reloaded again.
+  ClownMoff:
+  - rscdel: Removed a stray decal on BoxStation
+  rkz, arcanemusic, cacogen, tastyfish:
+  - rscadd: adds ability to split profits on sold items with the sales tagger
+  - rscadd: cleaned up delivery crate appearance code, crates will show notes scrawled
+      on them and destination tags better
+  - refactor: cleaned up some crate export code
+2025-09-18:
+  PowerfulBacon:
+  - bugfix: Guns can now be recharged again.
+  - tweak: Players on lowpop no longer spawn with security access if no security are
+      present.
+  - rscadd: Added a new machine on lowpop which dispenses security deputy kits for
+      credits.
+  - tweak: Replace police baton with tonfa in deputy belt
+  - rscadd: The deputy duffel bag now comes with a deputy access upgrade card.
+  lord scrubling:
+  - bugfix: ethereal colors
+  mrmanlikesbt:
+  - bugfix: fixed vampires being able to level up an infinite amount of times

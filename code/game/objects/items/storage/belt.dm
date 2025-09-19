@@ -355,6 +355,7 @@
 	item_state = "security"//Could likely use a better one.
 	worn_icon_state = "security"
 	content_overlays = TRUE
+	custom_price = 80
 
 /obj/item/storage/belt/security/Initialize(mapload)
 	. = ..()
@@ -395,9 +396,10 @@
 	name = "deputy security belt"
 
 /obj/item/storage/belt/security/deputy/PopulateContents()
-	new /obj/item/melee/classic_baton/police/deputy(src)
-	new /obj/item/restraints/handcuffs(src)
-	new /obj/item/restraints/handcuffs/cable(src)
+	new /obj/item/melee/tonfa(src)
+	new /obj/item/restraints/handcuffs/cable/zipties(src)
+	new /obj/item/restraints/handcuffs/cable/zipties(src)
+	new /obj/item/assembly/flash/handheld(src)
 	new /obj/item/reagent_containers/peppercloud_deployer(src)
 	new /obj/item/flashlight/seclite(src)
 	update_appearance()
