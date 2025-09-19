@@ -49788,7 +49788,7 @@
 	},
 /obj/effect/turf_decal/box/red,
 /obj/item/ammo_box/taser,
-/obj/item/gun/ballistic/automatic/pistol/taser,
+/obj/item/gun/ballistic/taser,
 /turf/open/floor/iron/dark/smooth_large,
 /area/ai_monitored/security/armory)
 "nSi" = (

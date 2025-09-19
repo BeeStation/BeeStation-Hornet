@@ -86901,8 +86901,7 @@
 /obj/machinery/light_switch/directional/south,
 /obj/machinery/light/directional/east,
 /obj/item/ammo_box/taser,
-/obj/item/gun/ballistic/automatic/pistol/taser,
-/obj/item/gun/ballistic/automatic/pistol/taser,
+/obj/item/gun/ballistic/taser,
 /turf/open/floor/iron/dark/textured,
 /area/ai_monitored/security/armory)
 "rDs" = (

@@ -64442,7 +64442,7 @@
 /obj/item/ammo_box/c10x25mm,
 /obj/item/ammo_box/taser,
 /obj/item/gun/ballistic/automatic/pistol/security,
-/obj/item/gun/ballistic/automatic/pistol/taser,
+/obj/item/gun/ballistic/taser,
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "uXD" = (

@@ -1667,7 +1667,7 @@
 	dir = 4
 	},
 /obj/item/ammo_box/taser,
-/obj/item/gun/ballistic/automatic/pistol/taser,
+/obj/item/gun/ballistic/taser,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "avb" = (

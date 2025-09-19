@@ -64432,8 +64432,8 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/item/gun/ballistic/automatic/pistol/taser,
 /obj/item/ammo_box/taser,
+/obj/item/gun/ballistic/taser,
 /turf/open/floor/iron/tech/grid,
 /area/ai_monitored/security/armory)
 "sRy" = (
