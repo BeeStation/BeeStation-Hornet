@@ -106,11 +106,16 @@
 	var/list/active_barriers = list()
 	var/crimescene_range = 6
 	var/cooldown_length = 5 MINUTES
+	var/obj/item/radio/radio
 	COOLDOWN_DECLARE(crimesign_projector_cooldown)
 
 /obj/item/holosign_creator/security/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_ITEM_UI_ACTION_CLICK, PROC_REF(on_action_click))
+
+	radio = new/obj/item/radio(src)
+	radio.set_listening(FALSE)
+	radio.set_frequency(FREQ_SECURITY)
 
 /obj/item/holosign_creator/security/Destroy()
 	UnregisterSignal(src, COMSIG_ITEM_UI_ACTION_CLICK)
@@ -126,7 +131,7 @@
 		else
 			say("Error. Function on cooldown.")
 	else
-		delete_barriers()
+		delete_barriers(FALSE)
 
 	return COMPONENT_ACTION_HANDLED
 
@@ -145,19 +150,28 @@
 			barrier.align(get_turf(src), crimescene_range)
 			active_barriers += barrier
 
-	playsound(user, 'sound/effects/crimescenealarm.ogg', 50, 0, 4)
-	say("ATTENTION. A CRIMESCENE WAS DECLARED. BYSTANDERS ARE TO VACATE THE PREMISES.")
+	playsound(user, 'sound/effects/crimescenealarm.ogg', 10, 0, 4)
+
+	radio.talk_into(src, "Attention: A crime-scene was declared by [user].")
+	say("BYSTANDERS ARE TO VACATE THE AREA.")
 	active_crimescene = TRUE
 	COOLDOWN_START(src, crimesign_projector_cooldown, cooldown_length)
+	addtimer(CALLBACK(src, PROC_REF(delete_barriers), TRUE), cooldown_length / 1.2)
 	return
 
-/obj/item/holosign_creator/security/proc/delete_barriers()
+/obj/item/holosign_creator/security/proc/delete_barriers(var/fizzled)
 	for(var/anything as anything in active_barriers)
 		active_barriers -= anything
 		qdel(anything)
 
+	if(fizzled)
+		say("Error. Barrier-charge depleted.")
 	active_crimescene = FALSE
 	return
+
+/obj/item/holosign_creator/security/Destroy()
+	QDEL_NULL(radio)
+	return ..()
 
 /obj/item/holosign_creator/engineering
 	name = "engineering holobarrier projector"
