@@ -374,7 +374,7 @@
 		return
 	if (remover.get_active_held_item())
 		to_chat(remover, span_warning("You cannot remove the electrode as your hands are full!"))
-		remover.balloon_alert("Your hands are full!")
+		remover.balloon_alert(remover, "Your hands are full!")
 		return
 	playsound(owner, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 	remover.visible_message(
@@ -418,6 +418,10 @@
 	if (disruptor.Knockdown(5 SECONDS))
 		disruptor.apply_damage(90, STAMINA)
 	owner.jitteriness = max(min(owner.jitteriness + 5, 30), owner.jitteriness)
+	if(istype(taser, /obj/item/gun/ballistic/taser))
+		var/obj/item/gun/ballistic/taser/taser_object = taser
+		taser_object.forceMove(get_turf(taser_object))
+		taser_object.throw_at(get_turf(get_step(disruptor, get_dir(disruptor.loc, taser_object.loc))), 3, 1)
 	qdel(src)
 
 /// Screen alert for being tased, clicking does a resist
