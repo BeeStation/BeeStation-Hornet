@@ -18,7 +18,7 @@
 
 /obj/item/ammo_box/magazine/toy/smg/riot
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
-	is_contraband = TRUE
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/ammo_box/magazine/toy/pistol
 	name = "foam force pistol magazine"
@@ -28,7 +28,7 @@
 
 /obj/item/ammo_box/magazine/toy/pistol/riot
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
-	is_contraband = TRUE
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/ammo_box/magazine/toy/smgm45
 	name = "donksoft SMG magazine"
@@ -43,7 +43,7 @@
 /obj/item/ammo_box/magazine/toy/smgm45/riot
 	icon_state = "c20r45-riot"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
-	is_contraband = TRUE
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/ammo_box/magazine/toy/m762
 	name = "donksoft box magazine"
@@ -58,4 +58,4 @@
 /obj/item/ammo_box/magazine/toy/m762/riot
 	icon_state = "a762-riot"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
-	is_contraband = TRUE
+	trade_flags = TRADE_CONTRABAND

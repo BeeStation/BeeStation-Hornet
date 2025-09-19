@@ -47,13 +47,13 @@ then the player gets the profit from selling his own wasted time.
 				if(!dry_run && (SEND_SIGNAL(thing, COMSIG_ITEM_PRE_EXPORT) & COMPONENT_STOP_EXPORT))
 					break
 				sold = export.sell_object(thing, report, dry_run, allowed_categories)
-				if(!thing.delete_on_sale_attempt)
+				if(!(thing.trade_flags & TRADE_DELETE_UNSOLD) || thing.trade_flags & TRADE_NOT_SELLABLE)
 					report.exported_atoms += thing // append the atom itself
 				break
 
 		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_ATOM_SOLD, thing, sold)
 
-		if(!dry_run && (sold || delete_unsold || thing.delete_on_sale_attempt))
+		if(!dry_run && (sold || delete_unsold || thing.trade_flags & TRADE_DELETE_UNSOLD))
 			if(ismob(thing))
 				thing.investigate_log("deleted through cargo export",INVESTIGATE_CARGO)
 			to_delete += thing
@@ -106,9 +106,7 @@ then the player gets the profit from selling his own wasted time.
 
 	// Determine base price
 	var/base_price = 0
-	if(O.custom_premium_price)
-		base_price = O.custom_premium_price
-	else if(O.item_price)
+	if(O.item_price)
 		base_price = O.item_price
 	else
 		base_price = init_cost  // fallback for legacy datum/export items
@@ -121,7 +119,7 @@ then the player gets the profit from selling his own wasted time.
 	if(state.current_demand == 0)
 		// If we at CC are at full stock then this item is worth 0 thus, won't be sold
 		base_price = 0
-	if(!O.can_sell)
+	if(O.trade_flags & TRADE_NOT_SELLABLE)
 		base_price = 0
 
 	// Scale price by
@@ -137,7 +135,7 @@ then the player gets the profit from selling his own wasted time.
 
 // Checks if the item is fit for export datum.
 /datum/export/proc/applies_to(obj/O, allowed_categories = NONE)
-	if(O.is_contraband)
+	if(O.trade_flags & TRADE_CONTRABAND)
 		export_category = EXPORT_CONTRABAND
 	if((allowed_categories & export_category) != export_category)
 		return FALSE

@@ -280,7 +280,7 @@
 	icon_state = "carp"
 	base_icon_state = "carp"
 	spawn_type = /obj/item/clothing/mask/cigarette/carp
-	is_contraband = TRUE
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/storage/fancy/cigarettes/cigpack_syndicate
 	name = "cigarette packet"
@@ -288,7 +288,7 @@
 	icon_state = "syndie"
 	base_icon_state = "syndie"
 	spawn_type = /obj/item/clothing/mask/cigarette/syndicate
-	is_contraband = TRUE
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/storage/fancy/cigarettes/cigpack_midori
 	name = "\improper Midori Tabako packet"
@@ -296,7 +296,7 @@
 	icon_state = "midori"
 	base_icon_state = "midori"
 	spawn_type = /obj/item/clothing/mask/cigarette/rollie/nicotine
-	is_contraband = TRUE
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/storage/fancy/cigarettes/cigpack_shadyjims
 	name = "\improper Shady Jim's Super Slims packet"
@@ -304,7 +304,7 @@
 	icon_state = "shadyjim"
 	base_icon_state = "shadyjim"
 	spawn_type = /obj/item/clothing/mask/cigarette/shadyjims
-	is_contraband = TRUE
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/storage/fancy/cigarettes/cigpack_xeno
 	name = "\improper Xeno Filtered packet"

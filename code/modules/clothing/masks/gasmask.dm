@@ -73,7 +73,7 @@
 	desc = "A close-fitting tactical mask that can be connected to an air supply."
 	icon_state = "syndicate"
 	strip_delay = 60
-	is_contraband = TRUE
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/clothing/mask/gas/clown_hat
 	name = "clown wig and mask"

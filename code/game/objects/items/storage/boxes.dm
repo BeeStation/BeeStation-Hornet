@@ -36,8 +36,7 @@
 	var/illustration = "writing"
 	drop_sound = 'sound/items/handling/cardboardbox_drop.ogg'
 	pickup_sound =  'sound/items/handling/cardboardbox_pickup.ogg'
-	can_sell = FALSE
-	delete_on_sale_attempt = TRUE
+	trade_flags = TRADE_NOT_SELLABLE | TRADE_DELETE_UNSOLD
 
 /obj/item/storage/box/Initialize(mapload)
 	. = ..()
@@ -1367,7 +1366,7 @@
 	icon_state = "syndiebox"
 	illustration = "disk_kit"
 	custom_price = 200 // this SHOULD be calculated by contents... but... that would ruin export, we need to find something else in the future for vendors
-	is_contraband = TRUE
+	trade_flags = TRADE_CONTRABAND | TRADE_NOT_SELLABLE | TRADE_DELETE_UNSOLD
 
 /obj/item/storage/box/hacking4dummies/PopulateContents()
 	new /obj/item/screwdriver(src)

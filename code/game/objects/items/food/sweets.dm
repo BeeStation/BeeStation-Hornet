@@ -20,7 +20,7 @@
 	throwforce = 1 // if someone manages to bust out of jail with candy corn god bless them
 	tastes = list("bitter wax" = 1)
 	foodtypes = JUNKFOOD | GROSS
-	can_sell = FALSE
+	trade_flags = TRADE_NOT_SELLABLE
 
 /obj/item/food/candiedapple
 	name = "candied apple"

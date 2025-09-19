@@ -265,7 +265,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	crafting_complexity = FOOD_COMPLEXITY_1
 	custom_price = 30
-	is_contraband = TRUE
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/food/energybar
 	name = "\improper High-power energy bars"

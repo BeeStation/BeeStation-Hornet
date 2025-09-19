@@ -11,7 +11,7 @@
 	icon_dead = "xpod-dead"
 	icon_harvest = "xpod-harvest"
 	growthstages = 4
-	is_contraband = TRUE
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/seeds/random/Initialize(mapload)
 	. = ..()

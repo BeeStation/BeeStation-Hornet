@@ -297,7 +297,7 @@
 	taste_sensitivity = 25 // not as good as an organic tongue
 	custom_price = 300
 	max_demand = 5
-	is_contraband = TRUE
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/organ/tongue/robot/get_possible_languages()
 	return ..() + /datum/language/machine + /datum/language/voltaic

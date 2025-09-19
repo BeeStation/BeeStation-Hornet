@@ -62,14 +62,10 @@
 	var/custom_price
 	/// Economy cost of item in premium vendor category (Export will use this if it exists even if custom price is defined)
 	var/custom_premium_price
-	/// Is this contraband? If so can only be exported if the supply console has access to contraband
-	var/is_contraband = FALSE
 	/// Maximum demand of the object type for exporting calculations
 	var/max_demand
-	/// Can this item be sold? TRUE by default. False means it will return when sent to CC via cargo shuttle (if delete_on_Sale_attempt is also false)
-	var/can_sell = TRUE
-	/// Should this get deleted even thought it didn't get sold?
-	var/delete_on_sale_attempt = FALSE
+	/// Can be: TRADE_CONTRABAND, TRADE_NOT_SELLABLE, TRADE_DELETE_UNSOLD. Important in exporting and other things!
+	var/trade_flags = NONE
 	/// This is the economy price of the item. This is important for exports and imports
 	var/item_price
 	// Its important that w_class is here for price calculations

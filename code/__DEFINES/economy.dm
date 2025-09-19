@@ -30,6 +30,12 @@
 /// This markup is applied to vendor prices and vendor prices only (DOES NOT APPLY TO PREMIUM PRICE)
 #define PRICE_MARKUP 2
 
+/// Defines an Item that is contraband
+#define TRADE_CONTRABAND (1 << 0)
+/// Defines Items that can not be sold
+#define TRADE_NOT_SELLABLE (1 << 1)
+/// Defines items that, if unsold will be deleted instead of being returned
+#define TRADE_DELETE_UNSOLD (1 << 2)
 
 #define NON_STATION_BUDGET_BASE rand(8888888, 11111111)
 #define BUDGET_RATIO_TYPE_SINGLE 1 // For Service & Civilian budget

@@ -25,7 +25,7 @@
 	desc = "The by-product of human farming."
 	singular_name = "human skin piece"
 	novariants = FALSE
-	is_contraband = TRUE
+	trade_flags = TRADE_CONTRABAND
 	merge_type = /obj/item/stack/sheet/animalhide/human
 
 /obj/item/stack/sheet/animalhide/human/get_recipes()
@@ -39,7 +39,7 @@
 	singular_name = "corgi hide piece"
 	icon_state = "sheet-corgi"
 	item_state = "sheet-corgi"
-	is_contraband = TRUE
+	trade_flags = TRADE_CONTRABAND
 	merge_type = /obj/item/stack/sheet/animalhide/corgi
 
 /obj/item/stack/sheet/animalhide/corgi/get_recipes()
@@ -76,7 +76,7 @@
 	singular_name = "cat hide piece"
 	icon_state = "sheet-cat"
 	item_state = "sheet-cat"
-	is_contraband = TRUE
+	trade_flags = TRADE_CONTRABAND
 	merge_type = /obj/item/stack/sheet/animalhide/cat
 
 /* Monkey hide */

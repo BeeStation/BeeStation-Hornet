@@ -6,7 +6,7 @@
 	desc = "Has a tag on it: Totally not property of an enemy corporation, honest!"
 	armor_type = /datum/armor/space_syndicate
 	custom_price = 150
-	is_contraband = TRUE
+	trade_flags = TRADE_CONTRABAND
 
 
 /datum/armor/space_syndicate
@@ -32,7 +32,7 @@
 	armor_type = /datum/armor/space_syndicate
 	cell = /obj/item/stock_parts/cell/hyper
 	custom_price = 300
-	is_contraband = TRUE
+	trade_flags = TRADE_CONTRABAND
 
 //Green syndicate space suit
 

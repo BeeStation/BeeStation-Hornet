@@ -14,7 +14,7 @@
 	species = "reishi"
 	plantname = "Reishi"
 	product = /obj/item/food/grown/mushroom/reishi
-	is_contraband = TRUE
+	trade_flags = TRADE_CONTRABAND
 	lifespan = 35
 	endurance = 35
 	maturation = 10
@@ -31,7 +31,7 @@
 	name = "reishi"
 	desc = "<I>Ganoderma lucidum</I>: A special fungus known for its medicinal and stress relieving properties."
 	icon_state = "reishi"
-	is_contraband = TRUE
+	trade_flags = TRADE_CONTRABAND
 
 // Fly Amanita
 /obj/item/seeds/amanita
@@ -41,7 +41,7 @@
 	species = "amanita"
 	plantname = "Fly Amanitas"
 	product = /obj/item/food/grown/mushroom/amanita
-	is_contraband = TRUE
+	trade_flags = TRADE_CONTRABAND
 	lifespan = 50
 	endurance = 35
 	maturation = 10
@@ -58,7 +58,7 @@
 	name = "fly amanita"
 	desc = "<I>Amanita Muscaria</I>: Learn poisonous mushrooms by heart. Only pick mushrooms you know."
 	icon_state = "amanita"
-	is_contraband = TRUE
+	trade_flags = TRADE_CONTRABAND
 
 // Destroying Angel
 /obj/item/seeds/angel
@@ -96,7 +96,7 @@
 	species = "liberty"
 	plantname = "Liberty-Caps"
 	product = /obj/item/food/grown/mushroom/libertycap
-	is_contraband = TRUE
+	trade_flags = TRADE_CONTRABAND
 	maturation = 7
 	production = 1
 	yield = 5
@@ -112,7 +112,7 @@
 	desc = "<I>Psilocybe Semilanceata</I>: Liberate yourself!"
 	icon_state = "libertycap"
 	wine_power = 80
-	is_contraband = TRUE
+	trade_flags = TRADE_CONTRABAND
 
 // Plump Helmet
 /obj/item/seeds/plump
@@ -122,7 +122,7 @@
 	species = "plump"
 	plantname = "Plump-Helmet Mushrooms"
 	product = /obj/item/food/grown/mushroom/plumphelmet
-	is_contraband = TRUE
+	trade_flags = TRADE_CONTRABAND
 	maturation = 8
 	production = 1
 	yield = 4
@@ -139,7 +139,7 @@
 	desc = "<I>Plumus Hellmus</I>: Plump, soft and s-so inviting~"
 	icon_state = "plumphelmet"
 	distill_reagent = /datum/reagent/consumable/ethanol/manly_dorf
-	is_contraband = TRUE
+	trade_flags = TRADE_CONTRABAND
 
 // Walking Mushroom
 /obj/item/seeds/plump/walkingmushroom
@@ -244,7 +244,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds/chanter/jupitercup)
 	species = "glowshroom"
 	plantname = "Glowshrooms"
 	product = /obj/item/food/grown/mushroom/glowshroom
-	is_contraband = TRUE
+	trade_flags = TRADE_CONTRABAND
 	lifespan = 100 //ten times that is the delay
 	endurance = 30
 	maturation = 15
@@ -266,7 +266,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds/chanter/jupitercup)
 	var/effect_path = /obj/structure/glowshroom
 	wine_power = 50
 	discovery_points = 300
-	is_contraband = TRUE
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/food/grown/mushroom/glowshroom/attack_self(mob/user)
 	if(isspaceturf(user.loc))

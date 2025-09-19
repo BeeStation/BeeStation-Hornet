@@ -16,7 +16,7 @@
 	fire_rate = 1.5 //slower than normal guns due to the damage factor
 	var/spin_delay = 10
 	var/recent_spin = 0
-	is_contraband = TRUE
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/gun/ballistic/revolver/chamber_round(spin_cylinder = TRUE)
 	if(spin_cylinder)
@@ -107,7 +107,7 @@
 		"The Peacemaker" = "detective_peacemaker",
 		"Black Panther" = "detective_panther"
 	)
-	is_contraband = FALSE
+	trade_flags = NONE
 
 /obj/item/gun/ballistic/revolver/detective/cowboy
 	name = "sheriff's revolver"
@@ -215,7 +215,7 @@
 	desc = "A Russian-made revolver for drinking games. Uses .357 ammo, and has a mechanism requiring you to spin the chamber before each trigger pull."
 	icon_state = "russianrevolver"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rus357
-	is_contraband = FALSE
+	trade_flags = NONE
 	var/spun = FALSE
 
 /obj/item/gun/ballistic/revolver/russian/do_spin()
