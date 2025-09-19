@@ -285,6 +285,10 @@
 
 	// the actual stunning is here
 	var/obj/item/bodypart/affecting = owner.get_bodypart(ran_zone(def_zone))
+	if(!affecting) //Not if we can't fucking do it buddy. Then we just do normal damage
+		owner.apply_damage((stamina_per_second * seconds_between_ticks) / 3, BURN)
+		return
+
 	// Switch to chest after we finish our damage
 	if (affecting.stamina_dam > affecting.max_stamina_damage)
 		affecting = owner.get_bodypart(BODY_ZONE_CHEST)
