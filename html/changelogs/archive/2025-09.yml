@@ -316,3 +316,6 @@
   - bugfix: ethereal colors
   mrmanlikesbt:
   - bugfix: fixed vampires being able to level up an infinite amount of times
+2025-09-19:
+  ACanOpener:
+  - tweak: renamed cybernetic stomachs
