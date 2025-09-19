@@ -21,6 +21,15 @@
 
 #define PAYCHECK_WELFARE 20 //NEETbucks
 
+/// NT's Tax rate - Currently applies to vending machine sales
+#define TAX_RATE 0.5
+
+/// Economy multiplier. This controls (or hopefully will control) the whole economy as a whole
+#define ECONOMY_MULTIPLYER 1	// Currently applies to automatic item pricing
+
+/// This markup is applied to vendor prices and vendor prices only (DOES NOT APPLY TO PREMIUM PRICE)
+#define PRICE_MARKUP 2
+
 
 #define NON_STATION_BUDGET_BASE rand(8888888, 11111111)
 #define BUDGET_RATIO_TYPE_SINGLE 1 // For Service & Civilian budget
