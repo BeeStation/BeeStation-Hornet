@@ -5,6 +5,6 @@
 	export_types = list(/obj) // catch-all
 
 /datum/export/item_price/applies_to(obj/O, allowed_categories = NONE)
-	if(!(O.custom_price || O.custom_premium_price))
+	if(!(O.item_price))
 		return FALSE
 	return TRUE

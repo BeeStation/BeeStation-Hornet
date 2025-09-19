@@ -70,10 +70,8 @@
 	var/can_sell = TRUE
 	/// Should this get deleted even thought it didn't get sold?
 	var/delete_on_sale_attempt = FALSE
-	/// Tagger Price tag
-	var/price_tag
-	/// The weight class of an object. Used to determine tons of things, like if it's too cumbersome for you to drag, if it can fit in certain storage items, how long it takes to burn, and more. See _DEFINES/inventory.dm to see all weight classes.
-	var/w_class
+	/// This is the economy price of the item. This is important for exports and imports
+	var/item_price
 	// Its important that w_class is here for price calculations
 
 	//List of datums orbiting this atom
@@ -291,13 +289,17 @@
 	/// Money calculations here
 	if(!max_demand)	// If the item isnt getting a max_demand then give it a random one
 		max_demand = (5 * rand(5, 12)) // Makes sure it increases in increments of 5 - 6 * 5 = 25, 12 * 5 = 60
-	if(!custom_price)
-		if(w_class)
-			custom_price = (5 * rand(1, w_class * 4))
-		else
-			custom_price = rand(10, 20)
+	generate_price()
 
 	return INITIALIZE_HINT_NORMAL
+
+/atom/proc/generate_price()
+	if(custom_price)
+		// This ensures item price will not be higher than custom price, if it is set.
+		item_price = max((5 * rand(1, 5)) * ECONOMY_MULTIPLYER, custom_price)
+		// Rand from 5 - 25 (in increments of 5) * the economy multiplier
+	else
+		item_price = (5 * rand(1, 5)) * ECONOMY_MULTIPLYER
 
 /**
   * Late Intialization, for code that should run after all atoms have run Intialization

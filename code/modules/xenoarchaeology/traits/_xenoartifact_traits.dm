@@ -83,7 +83,7 @@
 		generate_trait_appearance(component_parent.parent)
 	//Stats
 	component_parent.target_range += extra_target_range
-	movable.custom_price += extra_value
+	movable.item_price += extra_value
 
 //Remeber to call this before setting a new component_parent
 /datum/xenoartifact_trait/proc/remove_parent(datum/source, pensive = TRUE)
@@ -96,7 +96,7 @@
 		UnregisterSignal(component_parent, COMSIG_XENOA_TRIGGER)
 		var/atom/atom_parent = component_parent.parent
 		component_parent.target_range -= extra_target_range
-		atom_parent.custom_price -= extra_value
+		atom_parent.item_price -= extra_value
 		cut_trait_appearance(component_parent.parent)
 		if(can_pearl)
 			UnregisterSignal(atom_parent, COMSIG_ATOM_TOOL_ACT(TOOL_SCREWDRIVER))

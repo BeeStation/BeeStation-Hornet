@@ -80,7 +80,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/stealthy_audio = FALSE
 
 	/// The weight class of an object. Used to determine tons of things, like if it's too cumbersome for you to drag, if it can fit in certain storage items, how long it takes to burn, and more. See _DEFINES/inventory.dm to see all weight classes.
-	w_class = WEIGHT_CLASS_NORMAL
+	var/w_class = WEIGHT_CLASS_NORMAL
 	/// This is used to determine on which inventory slots an item can fit.
 	var/slot_flags = 0
 
@@ -278,6 +278,17 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	if(LAZYLEN(embedding))
 		updateEmbedding()
+
+/obj/item/generate_price()
+	if(w_class)
+		if(custom_price)
+			// This ensures item price will not be higher than custom price, if it is set.
+			item_price = max(((5 * rand(1, 5))* w_class) * ECONOMY_MULTIPLYER, custom_price * PRICE_MARKUP)
+			// Rand from 5 - 25 (in increments of 5) * the economy multiplier
+		else
+			item_price = ((5 * rand(1, 5)) * w_class) * ECONOMY_MULTIPLYER
+	else
+		return ..()
 
 /obj/item/Destroy()
 	master = null

@@ -108,8 +108,8 @@ then the player gets the profit from selling his own wasted time.
 	var/base_price = 0
 	if(O.custom_premium_price)
 		base_price = O.custom_premium_price
-	else if(O.custom_price)
-		base_price = O.custom_price
+	else if(O.item_price)
+		base_price = O.item_price
 	else
 		base_price = init_cost  // fallback for legacy datum/export items
 

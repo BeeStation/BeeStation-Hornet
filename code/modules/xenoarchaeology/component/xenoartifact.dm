@@ -61,7 +61,7 @@
 	//Setup our typing
 	artifact_material = material_type || pick_weight(SSxenoarchaeology.xenoartifact_material_weights)
 	artifact_material = new artifact_material()
-	atom_parent.custom_price = atom_parent.custom_price || artifact_material.custom_price
+	atom_parent.item_price = atom_parent.item_price || artifact_material.custom_price
 
 	//Build appearance from material
 	old_appearance = atom_parent.appearance
@@ -312,7 +312,7 @@
 	do_mask = old_mask
 	//States
 	calcified = TRUE
-	atom_parent.custom_price /= 2
+	atom_parent.item_price /= 2
 	//Disable artifact
 	cooldown_override = TRUE
 
@@ -323,7 +323,7 @@
 	var/atom/movable/atom_parent = parent
 	//Stats
 	calibrated = TRUE
-	atom_parent.custom_price *= 2
+	atom_parent.item_price *= 2
 	//Effect
 	calibrated_holder = new(atom_parent)
 	var/obj/emitter/spiral/S = calibrated_holder.add_emitter(/obj/emitter/spiral, "calibration", 11)

@@ -317,7 +317,7 @@
 	//Scoring & success
 	if(score)
 		var/success_rate = score / max_score
-		var/dp_reward = max(0, (atom_target.custom_price*artifact_component.artifact_material.dp_rate)*success_rate) * reward_rate
+		var/dp_reward = max(0, (atom_target.item_price*artifact_component.artifact_material.dp_rate)*success_rate) * reward_rate
 		linked_techweb?.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, dp_reward)
 		//Announce this, for honor or shame
 		var/message = "[atom_target] has been calibrated, and generated [dp_reward] Discovery Points!"

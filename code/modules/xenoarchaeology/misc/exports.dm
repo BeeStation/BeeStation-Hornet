@@ -7,7 +7,7 @@
 	export_types = list(/obj/item/xenoartifact)
 
 /datum/export/artifact/get_cost(obj/item/O, allowed_categories = NONE)
-	cost = O.custom_price
+	cost = O.item_price
 	return ..()
 
 /datum/export/artifact/applies_to(obj/O, allowed_categories = NONE)
