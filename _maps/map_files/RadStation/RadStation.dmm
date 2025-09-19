@@ -2341,7 +2341,7 @@
 	dir = 4
 	},
 /obj/item/ammo_box/taser,
-/obj/item/gun/ballistic/taser,
+/obj/item/ammo_box/taser,
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "aKg" = (
@@ -27076,8 +27076,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/item/ammo_box/c10x25mm,
 /obj/item/gun/ballistic/automatic/pistol/security,
+/obj/item/ammo_box/c10x25mm,
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "iRV" = (
