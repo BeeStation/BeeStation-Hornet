@@ -144,13 +144,13 @@
 #define JOB_NAME_PAI    "Personal AI"
 
 // ERTs
-#define JOB_ERT_DEATHSQUAD "Death Commando"
+#define JOB_ERT_DEATHSQUAD 		"Death Commando"
 #define JOB_ERT_COMMANDER       "Emergency Response Team Commander"
 #define JOB_ERT_OFFICER         "Security Response Officer"
 #define JOB_ERT_ENGINEER        "Engineering Response Officer"
 #define JOB_ERT_MEDICAL_DOCTOR  "Medical Response Officer"
-#define JOB_ERT_CHAPLAIN        "Religious Response Officer"
-#define JOB_ERT_JANITOR         "Janitorial Response Officer"
+#define JOB_ERT_JANITOR			"Janitorial Response Officer"
+#define JOB_ERT_CLOWN       	"Morale Response Officer"
 
 // CentCom
 #define JOB_CENTCOM_CENTRAL_COMMAND "Central Command"
