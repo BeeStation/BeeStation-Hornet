@@ -370,6 +370,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 			//ignore this comment, it fixes the broken sytax parsing caused by the " above
 			else
 				parts += "[GLOB.TAB]<i>Nobody died this shift!</i>"
+	parts += "[GLOB.TAB]Dynamic Storyteller: <b>[SSdynamic.current_storyteller?["Name"] || "None"]</b>"
 
 	// Roundstart
 	var/list/roundstart_rule_counts = list()
@@ -819,6 +820,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 	discordmsg += "Escapees: [escapees]\n"
 	discordmsg += "Total Crew: [GLOB.joined_player_list.len] (Roundstart: [SSjob.initial_players_to_assign])\n"
 	discordmsg += "Integrity: [integrity]\n"
+	discordmsg += "Dynamic Storyteller: [SSdynamic.current_storyteller?["Name"] || "None"]\n"
 
 	// Roundstart
 	var/list/roundstart_rule_counts = list()
