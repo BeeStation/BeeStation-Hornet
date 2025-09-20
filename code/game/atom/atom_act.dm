@@ -199,6 +199,14 @@
 		loc.on_log(login)
 
 /**
+  * Causes effects when the atom gets hit by a rust effect from heretics
+  *
+  * Override this if you want custom behaviour in whatever gets hit by the rust
+  */
+/atom/proc/rust_heretic_act()
+	return
+
+/**
  * Respond to an RCD acting on our item
  *
  * Default behaviour is to send COMSIG_ATOM_RCD_ACT and return FALSE
