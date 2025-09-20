@@ -373,7 +373,7 @@
 	approaching_target = TRUE
 	minimum_distance = 1
 	melee_queue_distance = 1
-	projectiletype = /obj/projectile/beam/disabler
+	projectiletype = /obj/projectile/laser/disabler
 
 
 #undef MIMITE_COOLDOWN

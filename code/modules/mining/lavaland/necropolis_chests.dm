@@ -417,7 +417,6 @@
 	desc = "A hook."
 	projectile_type = /obj/projectile/hook
 	caliber = "hook"
-	firing_effect_type = /obj/effect/temp_visual/dir_setting/firing_effect/energy
 
 /obj/projectile/hook
 	name = "hook"
@@ -430,6 +429,7 @@
 	hitsound = 'sound/effects/splat.ogg'
 	knockdown = 30
 	bleed_force = BLEED_SURFACE
+	muzzle_effect_type = /obj/effect/temp_visual/dir_setting/firing_effect/energy
 	var/chain
 
 /obj/projectile/hook/fire(setAngle)

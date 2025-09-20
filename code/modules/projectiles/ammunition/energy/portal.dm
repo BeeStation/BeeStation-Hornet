@@ -1,5 +1,5 @@
 /obj/item/ammo_casing/energy/wormhole
-	projectile_type = /obj/projectile/beam/wormhole
+	projectile_type = /obj/projectile/laser/wormhole
 	e_cost = 0 WATT
 	harmful = FALSE
 	fire_sound = 'sound/weapons/pulse3.ogg'
@@ -8,7 +8,7 @@
 	var/datum/weakref/gun
 
 /obj/item/ammo_casing/energy/wormhole/orange
-	projectile_type = /obj/projectile/beam/wormhole/orange
+	projectile_type = /obj/projectile/laser/wormhole/orange
 	select_name = "orange"
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/ammo_casing/energy/wormhole)
@@ -19,6 +19,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/ammo_casing/energy/wormhole)
 
 /obj/item/ammo_casing/energy/wormhole/throw_proj()
 	. = ..()
-	if(istype(BB, /obj/projectile/beam/wormhole))
-		var/obj/projectile/beam/wormhole/WH = BB
+	if(istype(BB, /obj/projectile/laser/wormhole))
+		var/obj/projectile/laser/wormhole/WH = BB
 		WH.gun = gun

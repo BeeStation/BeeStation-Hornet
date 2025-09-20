@@ -9,6 +9,7 @@
 	range = 10
 	projectile_phasing = ALL
 	projectile_piercing = NONE
+	muzzle_effect_type = /obj/effect/temp_visual/dir_setting/firing_effect/energy
 
 /obj/projectile/energy/vortex/Range()
 	new /obj/effect/temp_visual/hierophant/blast/vortex(get_turf(src), firer, FALSE)

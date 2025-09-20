@@ -23,12 +23,12 @@
 
 
 /obj/item/ammo_casing/energy/disabler
-	projectile_type = /obj/projectile/beam/disabler
+	projectile_type = /obj/projectile/laser/disabler
 	select_name = "disable"
 	e_cost = 400 WATT
 	fire_sound = 'sound/weapons/taser2.ogg'
 	harmful = FALSE
 
 /obj/item/ammo_casing/energy/disabler/hos
-	projectile_type = /obj/projectile/beam/disabler
+	projectile_type = /obj/projectile/laser/disabler
 	e_cost = 500 WATT

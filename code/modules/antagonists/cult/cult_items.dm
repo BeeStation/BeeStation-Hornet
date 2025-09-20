@@ -673,7 +673,6 @@ Striking a noncultist, however, will tear their flesh."}
 
 /obj/item/ammo_casing/magic/arcane_barrage/blood
 	projectile_type = /obj/projectile/magic/arcane_barrage/blood
-	firing_effect_type = /obj/effect/temp_visual/cult/sparks
 
 /obj/projectile/magic/arcane_barrage/blood
 	name = "blood bolt"
@@ -681,6 +680,7 @@ Striking a noncultist, however, will tear their flesh."}
 	nondirectional_sprite = TRUE
 	damage_type = BRUTE
 	impact_effect_type = /obj/effect/temp_visual/dir_setting/bloodsplatter
+	muzzle_effect_type = /obj/effect/temp_visual/cult/sparks
 
 /obj/projectile/magic/arcane_barrage/blood/Bump(atom/target)
 	var/turf/T = get_turf(target)

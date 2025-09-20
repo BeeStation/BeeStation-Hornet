@@ -4,6 +4,7 @@
 	damage = 15
 	icon_state = "arrow"
 	ammo_type = /obj/item/ammo_casing/caseless/arrow/wood
+	muzzle_effect_type = null
 
 /obj/projectile/bullet/reusable/arrow/ash
 	name = "Ashen arrow"

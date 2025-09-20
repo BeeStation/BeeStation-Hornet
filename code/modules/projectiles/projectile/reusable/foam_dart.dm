@@ -10,6 +10,7 @@
 	range = 10
 	martial_arts_no_deflect = TRUE
 	bleed_force = 0
+	muzzle_effect_type = null
 	var/modified = FALSE
 	var/obj/item/pen/pen = null
 
