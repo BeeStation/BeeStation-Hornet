@@ -129,9 +129,7 @@
 /turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "w" = (
-/obj/structure/musician/piano{
-	icon_state = "piano"
-	},
+/obj/structure/musician/piano,
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},

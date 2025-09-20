@@ -73690,9 +73690,7 @@
 	},
 /area/maintenance/central)
 "ylp" = (
-/obj/structure/musician/piano{
-	icon_state = "piano"
-	},
+/obj/structure/musician/piano,
 /turf/open/floor/glass/reinforced,
 /area/crew_quarters/cafeteria)
 "ylB" = (
