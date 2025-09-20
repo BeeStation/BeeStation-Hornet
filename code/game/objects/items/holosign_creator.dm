@@ -104,7 +104,7 @@
 	max_signs = 6
 	var/active_crimescene = FALSE
 	var/list/active_barriers = list()
-	var/crimescene_range = 6
+	var/crimescene_range = 4 //in tiles
 	var/cooldown_length = 5 MINUTES
 	var/obj/item/radio/radio
 	COOLDOWN_DECLARE(crimesign_projector_cooldown)
@@ -160,6 +160,10 @@
 	return
 
 /obj/item/holosign_creator/security/proc/delete_barriers(var/fizzled)
+
+	if(!active_crimescene)
+		return
+
 	for(var/anything as anything in active_barriers)
 		active_barriers -= anything
 		qdel(anything)
