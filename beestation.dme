@@ -1238,6 +1238,7 @@
 #include "code\game\atom\atom_storage.dm"
 #include "code\game\atom\atom_tool_acts.dm"
 #include "code\game\atom\atom_vv.dm"
+#include "code\game\atom\atoms_initializing_EXPENSIVE.dm"
 #include "code\game\gamemodes\events.dm"
 #include "code\game\gamemodes\legacy_gang_outfits.dm"
 #include "code\game\gamemodes\meteors.dm"
