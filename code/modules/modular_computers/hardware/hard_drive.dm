@@ -261,7 +261,7 @@
 /obj/item/computer_hardware/hard_drive/micro
 	name = "micro solid state drive"
 	desc = "A highly efficient SSD chip for portable devices. It comes pre-installed with all default programs common in PDAs."
-	power_usage = 5  // Watts per second
+	power_usage = 4  // Watts per second
 	max_capacity = 32
 	icon_state = "ssd_micro"
 	w_class = WEIGHT_CLASS_TINY

@@ -13,6 +13,7 @@
 	tgui_id = "NtosPowerMonitor"
 	program_icon = "plug"
 	hardware_requirement = MC_CHARGER
+	power_consumption = 80 WATT
 
 	var/has_alert = 0
 	var/obj/structure/cable/attached_wire

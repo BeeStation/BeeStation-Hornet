@@ -29,7 +29,7 @@
 	desc = "A miniaturised CPU used in portable devices. It can run up to two programs simultaneously."
 	icon_state = "cpu"
 	w_class = WEIGHT_CLASS_TINY
-	power_usage = 2.5 // Watts per second
+	power_usage = 3 // Watts per second
 	max_idle_programs = 1
 	custom_price = PAYCHECK_EASY * 2
 

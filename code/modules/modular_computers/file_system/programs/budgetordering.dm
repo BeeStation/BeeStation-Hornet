@@ -8,6 +8,7 @@
 	size = 10
 	tgui_id = "NtosCargo"
 	program_icon = "credit-card"
+	power_consumption = 40 WATT
 	//Are you actually placing orders with it?
 	var/requestonly = TRUE
 	//Can the tablet see or buy illegal stuff?

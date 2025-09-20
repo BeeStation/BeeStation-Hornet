@@ -8,6 +8,7 @@
 	size = 1
 	available_on_ntnet = FALSE
 	undeletable = TRUE
+	power_consumption = 10 WATT
 
 /datum/computer_file/program/remote_airlock/ui_data(mob/user)
 	var/list/data = list()

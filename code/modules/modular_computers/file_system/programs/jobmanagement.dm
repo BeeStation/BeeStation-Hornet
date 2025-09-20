@@ -8,6 +8,7 @@
 	size = 4
 	tgui_id = "NtosJobManager"
 	program_icon = "address-book"
+	power_consumption = 80 WATT
 
 	var/change_position_cooldown = 30
 

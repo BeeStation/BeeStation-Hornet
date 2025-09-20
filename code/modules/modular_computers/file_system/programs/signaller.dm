@@ -8,6 +8,7 @@
 	tgui_id = "NtosSignaller"
 	program_icon = "satellite-dish"
 	hardware_requirement = MC_SIGNALLER
+	power_consumption = 60 WATT
 	///What is the saved signal frequency?
 	var/signal_frequency = FREQ_SIGNALER
 	/// What is the saved signal code?

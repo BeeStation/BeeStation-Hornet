@@ -13,6 +13,7 @@
 	tgui_id = "NtosBountyConsole"
 	program_icon = "tags"
 	hardware_requirement = MC_PRINT
+	power_consumption = 60 WATT
 
 	/// Cooldown var for printing paper sheets.
 	COOLDOWN_DECLARE(printer_ready)
