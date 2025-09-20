@@ -1,4 +1,8 @@
-// SHOULD PORT https://github.com/tgstation/tgstation/pull/88201 https://github.com/tgstation/tgstation/pull/89702
+/**
+ * should probably port these:
+ * https://github.com/tgstation/tgstation/pull/88201
+ * https://github.com/tgstation/tgstation/pull/89702
+ */
 
 /*
 	Atom Colour Priority System
