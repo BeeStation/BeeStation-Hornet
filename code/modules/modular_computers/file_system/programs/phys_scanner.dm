@@ -9,6 +9,7 @@
 	tgui_id = "NtosPhysScanner"
 	program_icon = "barcode"
 	hardware_requirement = MC_SENSORS
+	power_consumption = 100 WATT
 	/// Information from the last scanned person, to display on the app.
 	var/last_record = ""
 
