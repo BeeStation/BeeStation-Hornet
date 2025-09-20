@@ -277,7 +277,7 @@
 	. = ..()
 	beaker = new /obj/item/reagent_containers/cup/saline(src)
 
-/obj/machinery/iv_drip/saline/ComponentInitialize()
+/obj/machinery/iv_drip/saline/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/update_icon_blocker)
 

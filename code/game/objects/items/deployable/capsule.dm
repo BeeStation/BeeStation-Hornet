@@ -7,7 +7,7 @@
 	var/active = FALSE
 	var/activation_delay = 3 SECONDS
 
-/obj/item/bluespace_capsule/ComponentInitialize()
+/obj/item/bluespace_capsule/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/deployable, /obj/structure/closet/crate/capsule)
 

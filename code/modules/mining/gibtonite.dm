@@ -16,13 +16,12 @@
 	var/attacher = "UNKNOWN"
 	var/det_timer
 
-/obj/item/gibtonite/ComponentInitialize()
+/obj/item/gibtonite/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/two_handed, require_twohands=TRUE)
 
 /obj/item/gibtonite/Destroy()
-	qdel(wires)
-	wires = null
+	QDEL_NULL(wires)
 	return ..()
 
 /obj/item/gibtonite/attackby(obj/item/I, mob/user, params)

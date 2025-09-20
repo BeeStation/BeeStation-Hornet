@@ -742,7 +742,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 
 
 
-/obj/item/staff/bostaff/ComponentInitialize()
+/obj/item/staff/bostaff/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/two_handed, force_unwielded=10, force_wielded=14, block_power_unwielded=75, block_power_wielded=75, icon_wielded="bostaff1")
 
@@ -1102,7 +1102,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	slot_flags = ITEM_SLOT_BACK
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
-/obj/item/vibro_weapon/ComponentInitialize()
+/obj/item/vibro_weapon/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/butchering, 20, 105)
 	AddComponent(/datum/component/two_handed, force_multiplier=2, block_power_wielded=40, icon_wielded="hfrequency1")

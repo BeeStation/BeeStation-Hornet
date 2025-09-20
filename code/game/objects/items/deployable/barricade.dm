@@ -10,7 +10,7 @@
 	icon_state = "barrier0"
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/security_barricade/ComponentInitialize()
+/obj/item/security_barricade/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/deployable, /obj/structure/barricade/security, time_to_deploy = 3 SECONDS)
 

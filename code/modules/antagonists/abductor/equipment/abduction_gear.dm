@@ -286,7 +286,7 @@
 	icon_state = "silencer"
 	item_state = "gizmo"
 
-/obj/item/abductor/silencer/ComponentInitialize()
+/obj/item/abductor/silencer/Initialize(mapload)
 	. = ..()
 	//Activate the jammer
 	//This jammer will not block cameras or AI shells
@@ -462,7 +462,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	var/sleep_time = 2 MINUTES
 	var/time_to_cuff = 3 SECONDS
 
-/obj/item/melee/baton/abductor/ComponentInitialize()
+/obj/item/melee/baton/abductor/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/update_icon_updates_onmob)
 

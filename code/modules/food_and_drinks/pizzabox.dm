@@ -38,9 +38,6 @@
 	if(pizza)
 		pizza = new pizza
 	update_icon()
-
-/obj/item/pizzabox/ComponentInitialize()
-	. = ..()
 	AddElement(/datum/element/empprotection, EMP_PROTECT_WIRES)
 
 /obj/item/pizzabox/Destroy()

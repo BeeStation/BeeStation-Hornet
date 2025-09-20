@@ -36,7 +36,8 @@
 	/// The sound that plays when the chainsaw is turned off
 	var/sound/off_sound = 'sound/weapons/chainsaw_off.ogg'
 
-/obj/item/chainsaw/ComponentInitialize()
+/obj/item/chainsaw/Initialize(mapload)
+	. = ..()
 	AddComponent(/datum/component/butchering, \
 		_speed = 3 SECONDS, \
 		_effectiveness = 100, \
@@ -130,7 +131,7 @@
 	active_force = 40
 	active_hitsound = 'sound/weapons/energychainsaw_hit1.ogg'
 
-/obj/item/chainsaw/ComponentInitialize()
+/obj/item/chainsaw/Initialize(mapload)
 	. = ..()
 	var/datum/component/transforming/transforming = src.GetComponent(/datum/component/transforming)
 

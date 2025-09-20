@@ -736,7 +736,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	stun_projectile_sound = 'sound/weapons/gunshot.ogg'
 	faction = list(FACTION_SYNDICATE)
 
-/obj/machinery/porta_turret/syndicate/ComponentInitialize()
+/obj/machinery/porta_turret/syndicate/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/empprotection, EMP_PROTECT_SELF | EMP_PROTECT_WIRES)
 
@@ -862,7 +862,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	faction = list(FACTION_NEUTRAL,FACTION_SILICON,FACTION_TURRET)
 	mode = TURRET_LETHAL
 
-/obj/machinery/porta_turret/centcom_shuttle/ComponentInitialize()
+/obj/machinery/porta_turret/centcom_shuttle/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/empprotection, EMP_PROTECT_SELF | EMP_PROTECT_WIRES)
 

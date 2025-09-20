@@ -31,7 +31,7 @@
 	usesound = 'sound/weapons/empty.ogg'
 	var/mode = 0
 
-/obj/item/multitool/ComponentInitialize()
+/obj/item/multitool/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/buffer)
 

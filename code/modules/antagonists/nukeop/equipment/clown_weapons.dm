@@ -236,9 +236,6 @@
 		var/mob/living/carbon/C = loc
 		C.throw_mode_on(THROW_MODE_TOGGLE)
 	bomb.preprime(loc, null, FALSE)
-
-/obj/item/grown/bananapeel/bombanana/ComponentInitialize()
-	. = ..()
 	AddComponent(/datum/component/slippery, det_time)
 
 /obj/item/grown/bananapeel/bombanana/Destroy()

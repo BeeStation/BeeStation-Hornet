@@ -25,9 +25,6 @@
 	//color correction
 	RegisterSignal(src, COMSIG_MOVABLE_ENTERED_AREA, PROC_REF(apply_color_correction))
 	gravity_setup()
-
-/mob/living/ComponentInitialize()
-	. = ..()
 	AddElement(/datum/element/movetype_handler)
 
 /mob/living/prepare_huds()

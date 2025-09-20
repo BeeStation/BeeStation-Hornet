@@ -107,7 +107,7 @@
 	stamina = 50
 	bleed = 60
 
-/obj/item/clothing/suit/wizrobe/ComponentInitialize()
+/obj/item/clothing/suit/wizrobe/Initialize(mapload)
 	. = ..()
 	add_anti_artifact()
 

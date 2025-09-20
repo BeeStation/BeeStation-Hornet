@@ -97,6 +97,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	if (flags_1 & ON_BORDER_1)
 		AddElement(/datum/element/connect_loc, loc_connections)
 
+	AddElement(/datum/element/atmos_sensitive)
+
 /obj/structure/window/MouseDrop_T(atom/dropping, mob/user, params)
 	. = ..()
 	if (flags_1 & ON_BORDER_1)
@@ -105,9 +107,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	//Adds the component only once. We do it here & not in Initialize() because there are tons of windows & we don't want to add to their init times
 	LoadComponent(/datum/component/leanable, dropping)
 
-/obj/structure/window/ComponentInitialize()
-	. = ..()
-	AddElement(/datum/element/atmos_sensitive)
 /obj/structure/window/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
 	if(the_rcd.mode == RCD_DECONSTRUCT)
 		return list("mode" = RCD_DECONSTRUCT, "delay" = 20, "cost" = 5)
@@ -473,10 +472,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	glass_type = /obj/item/stack/sheet/plasmaglass
 	rad_insulation = RAD_NO_INSULATION
 
-/obj/structure/window/plasma/ComponentInitialize()
+/obj/structure/window/plasma/Initialize(mapload)
 	. = ..()
 	RemoveElement(/datum/element/atmos_sensitive)
-
 
 /datum/armor/window_plasma
 	melee = 75

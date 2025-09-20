@@ -52,13 +52,11 @@
 
 /obj/item/weldingtool/Initialize(mapload)
 	. = ..()
+	AddElement(/datum/element/update_icon_updates_onmob)
 	create_reagents(max_fuel)
 	reagents.add_reagent(/datum/reagent/fuel, max_fuel)
 	update_icon()
 
-/obj/item/weldingtool/ComponentInitialize()
-	. = ..()
-	AddElement(/datum/element/update_icon_updates_onmob)
 
 /obj/item/weldingtool/update_icon_state()
 	if(welding)

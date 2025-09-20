@@ -26,7 +26,7 @@
 	noloot = TRUE
 	faction = list(FACTION_SYNDICATE)
 
-/mob/living/simple_animal/bot/secbot/grievous/nullcrate/ComponentInitialize()
+/mob/living/simple_animal/bot/secbot/grievous/nullcrate/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/empprotection, EMP_PROTECT_SELF | EMP_PROTECT_CONTENTS | EMP_PROTECT_WIRES)
 

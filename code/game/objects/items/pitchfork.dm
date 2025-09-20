@@ -25,7 +25,7 @@
 	fire = 100
 	acid = 30
 
-/obj/item/pitchfork/ComponentInitialize()
+/obj/item/pitchfork/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/two_handed, force_unwielded=7, force_wielded=15, block_power_wielded=25, icon_wielded="pitchfork1")
 

@@ -108,7 +108,7 @@
 	attack_verb_simple = list("bash", "bludgeon", "thrash", "whack")
 	clockwork_hint = "Enemies hit by this will be flung back while on Reebe."
 
-/obj/item/clockwork/weapon/brass_battlehammer/ComponentInitialize()
+/obj/item/clockwork/weapon/brass_battlehammer/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/two_handed, force_unwielded=15, force_wielded=28, block_power_wielded=25)
 

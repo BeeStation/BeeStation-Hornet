@@ -509,7 +509,7 @@
 	shieldstate = SHIELD_SETUPFIELDS
 	active_power_usage = 0
 
-/obj/machinery/power/shieldwallgen/atmos/ComponentInitialize()
+/obj/machinery/power/shieldwallgen/atmos/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/simple_rotation)
 

@@ -33,10 +33,6 @@
 	var/igniter_type = /obj/item/assembly/igniter
 	trigger_guard = TRIGGER_GUARD_NORMAL
 
-/obj/item/flamethrower/ComponentInitialize()
-	. = ..()
-	AddElement(/datum/element/update_icon_updates_onmob)
-
 /obj/item/flamethrower/Destroy()
 	if(weldtool)
 		qdel(weldtool)
@@ -240,6 +236,8 @@
 		if(create_with_tank)
 			ptank = new /obj/item/tank/internals/plasma/full(src)
 		update_icon()
+
+	AddElement(/datum/element/update_icon_updates_onmob)
 
 /obj/item/flamethrower/full
 	create_full = TRUE
