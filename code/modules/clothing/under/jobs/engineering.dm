@@ -9,7 +9,6 @@
 
 /datum/armor/rank_engineering
 	bio = 10
-	rad = 10
 	fire = 60
 	acid = 20
 
@@ -25,7 +24,6 @@
 
 /datum/armor/engineering_chief_engineer
 	bio = 10
-	rad = 10
 	fire = 80
 	acid = 40
 	bleed = 10
@@ -44,7 +42,6 @@
 
 
 /datum/armor/chief_engineer_skirt
-	rad = 7
 	fire = 80
 	acid = 40
 	bleed = 10
@@ -77,7 +74,6 @@
 
 
 /datum/armor/engineering_engineer
-	rad = 10
 	fire = 60
 	acid = 20
 	bleed = 10

@@ -94,7 +94,6 @@
 
 /obj/structure/holosign/barrier/engineering
 	icon_state = "holosign_engi"
-	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	rad_insulation = RAD_LIGHT_INSULATION
 
 /obj/structure/holosign/barrier/atmos
@@ -105,8 +104,8 @@
 	anchored = TRUE
 	can_atmos_pass = ATMOS_PASS_NO
 	alpha = 150
-	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	rad_insulation = RAD_LIGHT_INSULATION
+	resistance_flags = FIRE_PROOF | FREEZE_PROOF
 
 /obj/structure/holosign/barrier/atmos/robust
 	name = "holo blast door"

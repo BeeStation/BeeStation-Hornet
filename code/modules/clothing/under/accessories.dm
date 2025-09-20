@@ -367,7 +367,6 @@
 	energy = 5
 	bomb = 20
 	bio = 20
-	rad = 5
 	acid = 25
 	stamina = 10
 	bleed = 10
@@ -388,7 +387,6 @@
 	energy = 5
 	bomb = 20
 	bio = 20
-	rad = 5
 	acid = 25
 	stamina = 10
 	bleed = 10

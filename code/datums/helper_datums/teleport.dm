@@ -393,7 +393,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/teleportation_wake)
 
 	// getline path
 	var/turf/landing_turf = current_turf
-	var/list/path = getline(current_turf, target_turf)
+	var/list/path = get_line(current_turf, target_turf)
 	path -= current_turf
 	// iterate
 	for (var/turf/checked_turf in path)

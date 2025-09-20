@@ -446,7 +446,6 @@
 		"plasmaman_tank",
 		"power control",
 		"powermonitor",
-		"rad_collector",
 		"recharger",
 		"recycler",
 		"researchdisk_locator",
@@ -503,6 +502,25 @@
 		"xenoa_conductor",
 		"xenoa_calibrator",
 		"xenoa_tracker",
+	)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
+	export_price = 5000
+
+/datum/techweb_node/fusion
+	id = "fusion"
+	tech_tier = 4
+	display_name = "Fusion"
+	description = "Investigating fusion reactor technology to achieve sustainable and efficient energy production through controlled plasma reactions involving noble gases."
+	prereq_ids = list("adv_engi")
+	design_ids = list(
+		"hfr_core",
+		"hfr_corner",
+		"hfr_fuel_input",
+		"hfr_interface",
+		"hfr_moderator_input",
+		"hfr_waste_output",
+		"crystallizer",
+		"electrolyzer",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
@@ -1971,7 +1989,7 @@
 	design_ids = list(
 		"mod_plating_atmospheric",
 		"mod_jetpack",
-		//"mod_rad_protection",
+		"mod_rad_protection",
 		"mod_emp_shield",
 		"mod_storage_expanded",
 	)

@@ -64,7 +64,7 @@
 		if(prob(15))
 			if(locate(/obj/item/organ/stomach) in M.internal_organs)
 				var/obj/item/organ/stomach/cat_stomach = M.internal_organs_slot[ORGAN_SLOT_STOMACH]
-				cat_stomach.applyOrganDamage(15)
+				cat_stomach.apply_organ_damage(15)
 		return FALSE
 	return ..() //second part of this effect is handled elsewhere
 
