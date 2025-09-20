@@ -94,10 +94,10 @@ AUTH_CLIENT_VERB(looc, msg as text)
 			var/commendations = ""
 			if (client != src)
 				commendations += "<span style='float: right'>"
-				commendations += span_emojibutton("<a href='byond://?src=[REF(message_datum)];looc_commend=[ckey]'>[thumbs_up]</a>")
+				commendations += span_emojibutton("<a href='byond://?src=[REF(message_datum)];looc_commend=1'>[thumbs_up]</a>")
 				if (!client.player_details.has_criticized && !holder)
 					commendations += " "
-					commendations += span_emojibutton("<a href='byond://?src=[REF(message_datum)];looc_critic=[ckey]'>[thumbs_down]</a>")
+					commendations += span_emojibutton("<a href='byond://?src=[REF(message_datum)];looc_critic=1'>[thumbs_down]</a>")
 				commendations += "</span>"
 				hearers |= client.ckey
 			var/rendered_message = span_looc("[span_prefix("LOOC:")] <EM>[span_name("[mob.name]")]:</EM> [span_message(msg)] [commendations]")
