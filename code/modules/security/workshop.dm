@@ -46,8 +46,6 @@
 	if(!allowed(usr))
 		to_chat(usr, span_warning("Access denied."))
 		return
-	if(isobserver(usr))
-		return
 	if(..())
 		return
 	switch(action)
@@ -85,6 +83,3 @@
 	else
 		say("Workshop shutdown underway! Standby for reboot...")
 
-/obj/machinery/computer/holodeck/prison/load_program()
-	. = ..()
-	offline = FALSE
