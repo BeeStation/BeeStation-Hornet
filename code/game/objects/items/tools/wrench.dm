@@ -22,7 +22,6 @@
 	toolspeed = 1
 	armor_type = /datum/armor/item_wrench
 
-
 /datum/armor/item_wrench
 	fire = 50
 	acid = 30
@@ -55,6 +54,7 @@
 	throwforce = 4
 	attack_verb_continuous = list("heals", "medicals", "taps", "pokes", "analyzes") //"cobbyed"
 	attack_verb_simple = list("heal", "medical", "tap", "poke", "analyze")
+	custom_price = 25 //useless fucking shit items that only serve to suicide
 	///var to hold the name of the person who suicided
 	var/suicider
 

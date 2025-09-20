@@ -181,6 +181,7 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 	custom_materials = list(/datum/material/iron=75000, /datum/material/glass=37500)
 	armor_type = /datum/armor/item_pipe_dispenser
 	resistance_flags = FIRE_PROOF
+	custom_price = 100
 	///Sparks system used when changing device in the UI
 	var/datum/effect_system/spark_spread/spark_system
 	///Direction of the device we are going to spawn, set up in the UI

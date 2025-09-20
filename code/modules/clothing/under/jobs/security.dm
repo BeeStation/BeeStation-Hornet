@@ -16,6 +16,7 @@
 	strip_delay = 50
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
+	custom_price = 50
 
 
 /datum/armor/rank_security

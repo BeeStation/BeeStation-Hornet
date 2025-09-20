@@ -149,6 +149,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/payload_spawner)
 /obj/item/grenade/clusterbuster/inferno
 	name = "Inferno"
 	payload = /obj/item/grenade/chem_grenade/incendiary
+	custom_price = 10000
+	max_demand = 10
 
 /obj/item/grenade/clusterbuster/antiweed
 	name = "RoundDown"

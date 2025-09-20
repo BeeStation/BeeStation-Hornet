@@ -22,6 +22,7 @@
 	var/has_latches = TRUE
 	drop_sound = 'sound/items/handling/toolbox_drop.ogg'
 	pickup_sound =  'sound/items/handling/toolbox_pickup.ogg'
+	custom_price = 50
 
 /obj/item/storage/toolbox/Initialize(mapload)
 	. = ..()
@@ -162,6 +163,7 @@
 	force = 15
 	throwforce = 18
 	material_flags = NONE
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/storage/toolbox/syndicate/Initialize(mapload)
 	. = ..()

@@ -233,7 +233,7 @@
 	//Set custom price with the artifact component
 	var/datum/component/xenoartifact/artifact = target.GetComponent(/datum/component/xenoartifact)
 	if(artifact)
-		old_custom_price = target.custom_price
+		old_custom_price = target.item_price
 		//Build list of artifact's traits
 		var/list/traits_catagories = list()
 		for(var/trait in artifact.traits_catagories)
@@ -242,9 +242,9 @@
 		//Compare them to ours
 		for(var/datum/xenoartifact_trait/trait_datum as anything in traits)
 			if(locate(trait_datum) in traits_catagories)
-				target.custom_price *= XENOA_LABEL_REWARD
+				target.item_price *= XENOA_LABEL_REWARD
 			else
-				target.custom_price *= XENOA_LABEL_PUNISHMENT
+				target.item_price *= XENOA_LABEL_PUNISHMENT
 	RegisterSignal(target, COMSIG_ATOM_EXAMINE, PROC_REF(parent_examine))
 
 /obj/item/sticker/xenoartifact_label/unstick(atom/override)
@@ -253,7 +253,7 @@
 	//Set custom price back
 	var/datum/component/xenoartifact/artifact = loc.GetComponent(/datum/component/xenoartifact)
 	if(artifact)
-		loc.custom_price = old_custom_price
+		loc.item_price = old_custom_price
 	. = ..()
 
 /obj/item/sticker/xenoartifact_label/proc/parent_examine(datum/source, mob/user, list/examine_text)
