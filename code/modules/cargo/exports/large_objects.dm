@@ -101,7 +101,7 @@
 		if(moles <= 0)
 			return
 		if(!dry_run)
-			var/datum/obj_demand_state/state = get_obj_demand_state(path)
+			var/datum/demand_state/state = SSdemand.get_demand_state(path)
 			state.current_demand = max(0, state.current_demand - moles)
 			SSblackbox.record_feedback("nested tally", "export_sold_cost", 1, list("[O.type]", "[total_value]"))
 

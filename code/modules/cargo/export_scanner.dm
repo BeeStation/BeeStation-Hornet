@@ -47,7 +47,7 @@
 		for(var/x in ex.total_amount)
 			price += ex.total_value[x]
 
-		var/datum/obj_demand_state/demand = get_obj_demand_state(O.type)
+		var/datum/demand_state/demand = SSdemand.get_demand_state(O.type)
 		var/current = demand.current_demand
 		var/maximum = demand.max_demand
 		var/stock = (maximum - current)
@@ -77,7 +77,7 @@
 			for(var/id in canister_gas)
 				var/datum/gas/path = gas_id2path(id)
 				var/moles = canister_gas[id][MOLES]
-				var/datum/obj_demand_state/gas_demand = get_obj_demand_state(path)
+				var/datum/demand_state/gas_demand = SSdemand.get_demand_state(path)
 				var/gas_current = gas_demand.current_demand
 				var/gas_maximum = gas_demand.max_demand
 				var/gas_stock = (gas_maximum - gas_current)

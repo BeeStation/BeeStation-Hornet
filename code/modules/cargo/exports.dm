@@ -112,7 +112,7 @@ then the player gets the profit from selling his own wasted time.
 		base_price = init_cost  // fallback for legacy datum/export items
 
 	// Grab demand state for this object type
-	var/datum/obj_demand_state/state = get_obj_demand_state(O.type)
+	var/datum/demand_state/state = SSdemand.get_demand_state(O.type)
 	var/demand_ratio = state.current_demand / state.max_demand
 	demand_ratio = max(demand_ratio, state.min_price_factor)
 
@@ -179,7 +179,7 @@ then the player gets the profit from selling his own wasted time.
 		report.total_amount[src] += export_amount * amount_report_multiplier
 
 	if(!dry_run)
-		var/datum/obj_demand_state/state = get_obj_demand_state(sold_item.type)
+		var/datum/demand_state/state = SSdemand.get_demand_state(sold_item.type)
 		state.current_demand = max(0, state.current_demand - export_amount)
 		SSblackbox.record_feedback("nested tally", "export_sold_cost", 1, list("[sold_item.type]", "[export_value]"))
 	return TRUE
