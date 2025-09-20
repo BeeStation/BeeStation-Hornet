@@ -8,7 +8,7 @@ Doesn't work on other aliens/AI.*/
 /datum/action/alien
 	name = "Alien Power"
 	background_icon_state = "bg_alien"
-	icon_icon = 'icons/hud/actions/actions_xeno.dmi'
+	button_icon = 'icons/hud/actions/actions_xeno.dmi'
 	button_icon_state = null
 	check_flags = AB_CHECK_CONSCIOUS
 	/// How much plasma this action uses.

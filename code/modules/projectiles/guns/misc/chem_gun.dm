@@ -4,7 +4,7 @@
 	name = "reagent gun"
 	desc = "A Nanotrasen syringe gun, modified to automatically synthesise chemical darts, and instead hold reagents."
 	icon_state = "chemgun"
-	item_state = "chemgun"
+	inhand_icon_state = "chemgun"
 	w_class = WEIGHT_CLASS_LARGE
 	throw_speed = 3
 	throw_range = 7
@@ -51,7 +51,7 @@
 	name = "bee gun"
 	desc = "An odd piece of BLF tech, which fires bees filled with whatever reagents may be in the gun's reservoir, or venom if there are none."
 	icon_state = "beegun"
-	item_state = "chemgun"
+	inhand_icon_state = "chemgun"
 	fire_sound = 'sound/creatures/bee.ogg'
 	automatic = 1
 	fire_rate = 5

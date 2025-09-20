@@ -3,7 +3,7 @@
 	desc = "A banner with Nanotrasen's logo on it."
 	icon = 'icons/obj/banner.dmi'
 	icon_state = "banner"
-	item_state = "banner"
+	inhand_icon_state = "banner"
 	force = 8
 	attack_verb_continuous = list("forcefully inspires", "violently encourages", "relentlessly galvanizes")
 	attack_verb_simple = list("forcefully inspire", "violently encourage", "relentlessly galvanize")
@@ -79,7 +79,7 @@
 	name = "securistan banner"
 	desc = "The banner of Securistan, ruling the station with an iron fist."
 	icon_state = "banner_security"
-	item_state = "banner_security"
+	inhand_icon_state = "banner_security"
 	lefthand_file = 'icons/mob/inhands/equipment/banners_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/banners_righthand.dmi'
 	job_loyalties = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_BRIGPHYSICIAN, JOB_NAME_DEPUTY)
@@ -92,7 +92,7 @@
 	name = "meditopia banner"
 	desc = "The banner of Meditopia, generous benefactors that cure wounds and shelter the weak."
 	icon_state = "banner_medical"
-	item_state = "banner_medical"
+	inhand_icon_state = "banner_medical"
 	lefthand_file = 'icons/mob/inhands/equipment/banners_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/banners_righthand.dmi'
 	job_loyalties = list(JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHEMIST, JOB_NAME_GENETICIST, JOB_NAME_VIROLOGIST, JOB_NAME_PARAMEDIC, JOB_NAME_CHIEFMEDICALOFFICER)
@@ -113,7 +113,7 @@
 	name = "sciencia banner"
 	desc = "The banner of Sciencia, bold and daring thaumaturges and researchers that take the path less traveled."
 	icon_state = "banner_science"
-	item_state = "banner_science"
+	inhand_icon_state = "banner_science"
 	lefthand_file = 'icons/mob/inhands/equipment/banners_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/banners_righthand.dmi'
 	job_loyalties = list(JOB_NAME_SCIENTIST, JOB_NAME_ROBOTICIST, JOB_NAME_RESEARCHDIRECTOR)
@@ -129,7 +129,7 @@
 	name = "cargonia banner"
 	desc = "The banner of the eternal Cargonia, with the mystical power of conjuring any object into existence."
 	icon_state = "banner_cargo"
-	item_state = "banner_cargo"
+	inhand_icon_state = "banner_cargo"
 	lefthand_file = 'icons/mob/inhands/equipment/banners_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/banners_righthand.dmi'
 	job_loyalties = list(JOB_NAME_CARGOTECHNICIAN, JOB_NAME_SHAFTMINER, JOB_NAME_QUARTERMASTER)
@@ -142,7 +142,7 @@
 	name = "engitopia banner"
 	desc = "The banner of Engitopia, wielders of limitless power."
 	icon_state = "banner_engineering"
-	item_state = "banner_engineering"
+	inhand_icon_state = "banner_engineering"
 	lefthand_file = 'icons/mob/inhands/equipment/banners_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/banners_righthand.dmi'
 	job_loyalties = list(JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN, JOB_NAME_CHIEFENGINEER)
@@ -170,13 +170,13 @@
 /obj/item/banner/red
 	name = "red banner"
 	icon_state = "banner-red"
-	item_state = "banner-red"
+	inhand_icon_state = "banner-red"
 	desc = "A banner with the logo of the red deity."
 
 /obj/item/banner/blue
 	name = "blue banner"
 	icon_state = "banner-blue"
-	item_state = "banner-blue"
+	inhand_icon_state = "banner-blue"
 	desc = "A banner with the logo of the blue deity."
 
 /obj/item/storage/backpack/bannerpack

@@ -1,7 +1,7 @@
 /datum/action/innate/choose_modules
 	name = "Malfunction Modules"
 	desc = "Choose from a variety of insidious modules to aid you."
-	icon_icon = 'icons/hud/actions/actions_AI.dmi'
+	button_icon = 'icons/hud/actions/actions_AI.dmi'
 	button_icon_state = "modules_menu"
 	var/datum/module_picker/module_picker
 

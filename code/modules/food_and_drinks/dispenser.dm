@@ -3,7 +3,7 @@
 	name = "gumball dispenser"
 	desc = "A whimsical device with a glass globe on top, which can be operated to dispense various candies."
 	icon = 'icons/obj/food/containers.dmi'
-	item_state = "deliverypackage"
+	inhand_icon_state = "deliverypackage"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	icon_state = "dispenser"
