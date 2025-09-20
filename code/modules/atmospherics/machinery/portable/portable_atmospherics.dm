@@ -7,7 +7,6 @@
 	max_integrity = 250
 	armor_type = /datum/armor/machinery_portable_atmospherics
 	anchored = FALSE
-	interacts_with_air = TRUE
 
 	///Stores the gas mixture of the portable component. Don't access this directly, use return_air() so you support the temporary processing it provides
 	var/datum/gas_mixture/air_contents

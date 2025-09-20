@@ -16,9 +16,6 @@
 
 	welded = FALSE
 
-	interacts_with_air = TRUE
-
-
 	///Indicates that the direction of the pump, if ATMOS_DIRECTION_SIPHONING is siphoning, if ATMOS_DIRECTION_RELEASING is releasing
 	var/pump_direction = ATMOS_DIRECTION_RELEASING
 	///Set the maximum allowed external pressure
