@@ -33,8 +33,6 @@
 	var/view_range = 7
 	var/short_range = 2
 
-	var/alarm_on = FALSE
-	var/busy = FALSE
 	var/emped = FALSE  //Number of consecutive EMP's on this camera
 	var/in_use_lights = 0
 
