@@ -9358,8 +9358,7 @@
 /area/ai_monitored/turret_protected/aisat_interior)
 "bsc" = (
 /obj/machinery/door/airlock{
-	name = "Service Hall";
-	req_access_txt = "35"
+	name = "Service Hall"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -34799,7 +34798,7 @@
 "iCu" = (
 /obj/effect/turf_decal/tile/dark,
 /obj/effect/turf_decal/bot,
-/obj/machinery/modular_computer/console/preset/civilian{
+/obj/machinery/computer/rdconsole/production{
 	dir = 8
 	},
 /turf/open/floor/iron,
@@ -35918,7 +35917,7 @@
 /area/hallway/primary/aft)
 "iUu" = (
 /obj/machinery/door/airlock/public/glass{
-	name = "Kitchen";
+	name = "Auxiliary Tool Storage";
 	req_access_txt = "12"
 	},
 /obj/effect/landmark/event_spawn,
@@ -46540,16 +46539,13 @@
 /turf/open/floor/wood,
 /area/library)
 "mHY" = (
-/obj/structure/table/glass,
 /obj/effect/turf_decal/trimline/yellow/filled/warning{
 	dir = 4
 	},
 /obj/effect/turf_decal/trimline/brown/filled/line{
 	dir = 4
 	},
-/obj/item/candydispenser/engineering{
-	pixel_y = 11
-	},
+/obj/machinery/modular_computer/console/preset/civilian,
 /turf/open/floor/iron,
 /area/engine/break_room)
 "mIf" = (
@@ -79549,6 +79545,10 @@
 	},
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted{
 	dir = 1
+	},
+/obj/structure/table/glass,
+/obj/item/candydispenser/engineering{
+	pixel_y = 11
 	},
 /turf/open/floor/iron,
 /area/engine/break_room)
