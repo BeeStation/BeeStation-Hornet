@@ -28,7 +28,7 @@
 		log_game("A tech anomaly has detonated at [loc].")
 		message_admins("A tech anomaly has detonated at [ADMIN_VERBOSEJMP(loc)].")
 		var/emp_strength = (machine_count / 2)
-		empulse(src, emp_strength - 2, emp_strength - 4, TRUE) //in spacemen terms, more machines more power. Keep toned down or experience a solar flare.
+		empulse(src, emp_strength - 2, emp_strength - 4, TRUE) //I shitcoded so keep toned down or experience a solar flare.
 	else
 		log_game("A tech anomaly detonated at [loc], but there were no machines nearby to increase EMP strength.")
 		message_admins("A tech anomaly detonated at [ADMIN_VERBOSEJMP(loc)], but there were no machines nearby to increase EMP strength.")

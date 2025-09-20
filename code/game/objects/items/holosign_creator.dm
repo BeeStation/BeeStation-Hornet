@@ -102,17 +102,6 @@
 	creation_time = 30
 	max_signs = 6
 
-/obj/item/holosign_creator/security/AltClick(mob/user)
-	if(!user)
-		return
-	if(holosign_type == /obj/structure/holosign/barrier)
-		holosign_type = /obj/structure/holosign/barrier/crime
-		to_chat(user, "<span class='notice'>You toggle the projector to create <b>crime scene barriers</b>.</span>")
-	else
-		holosign_type = /obj/structure/holosign/barrier
-		to_chat(user, "<span class='notice'>You toggle the projector to create <b>standard barriers</b>.</span>")
-	return TRUE
-
 /obj/item/holosign_creator/engineering
 	name = "engineering holobarrier projector"
 	desc = "A holographic projector that creates holographic engineering barriers."
