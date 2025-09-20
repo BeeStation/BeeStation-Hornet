@@ -3865,9 +3865,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/structure/musician/piano{
-	icon_state = "piano"
-	},
+/obj/structure/musician/piano,
 /turf/open/floor/carpet/grimy,
 /area/ruin/space/has_grav/hotel/bar)
 "AP" = (
