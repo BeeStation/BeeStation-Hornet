@@ -325,3 +325,8 @@
       Computer.
   - rscadd: Auxiliary Base Construction Computer can now construct machine frames
       and computer frames.
+  Rukofamicom:
+  - rscdel: Cameras no longer send alerts to AI except for motion cameras detecting
+      motion. This means cameras can now be disabled, destroyed or hit with an EMP
+      without the AI being immediately notified that cameras have been disabled in
+      a specific location.
