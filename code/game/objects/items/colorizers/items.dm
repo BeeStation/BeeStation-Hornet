@@ -13,7 +13,7 @@
 	apply_icon_state = "tablet-red"
 	delete_me = FALSE
 	w_class = WEIGHT_CLASS_SMALL
-	custom_price = PAYCHECK_MEDIUM
+	custom_price = PAYCHECK_CREW
 
 /obj/item/colorizer/tablet/pink
 	name = "Pink Tablet Colorizer"

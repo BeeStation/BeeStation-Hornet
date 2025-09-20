@@ -207,7 +207,7 @@
 	desc = "A janitorial cleaner backpack with nozzle to clean blood and graffiti."
 	icon_state = "waterbackpackjani"
 	item_state = "waterbackpackjani"
-	custom_price = 100
+	custom_price = PAYCHECK_CREW * 5
 	noz = /obj/item/reagent_containers/spray/mister/janitor
 
 /obj/item/watertank/janitor/Initialize(mapload)

@@ -69,6 +69,8 @@
 	pixel_x = 10
 	pixel_y = 9
 
+	custom_premium_price = PAYCHECK_CREW
+
 /obj/item/canvas/Initialize(mapload)
 	. = ..()
 	reset_grid()

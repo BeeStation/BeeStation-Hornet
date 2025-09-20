@@ -9,6 +9,7 @@
 /obj/item/clothing/shoes/sneakers/black
 	name = "black shoes"
 	desc = "A pair of black shoes."
+	custom_price = PAYCHECK_CREW
 	greyscale_colors = "#545454#ffffff"
 
 	cold_protection = FEET

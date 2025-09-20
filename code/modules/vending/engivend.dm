@@ -22,8 +22,9 @@
 				   /obj/item/storage/box/smart_metal_foam = 3,
 				   /obj/item/storage/box/oxycandle = 3)
 	refill_canister = /obj/item/vending_refill/engivend
-	default_price = 20
-	extra_price = 50
+	default_price = PAYCHECK_CREW
+	extra_price = PAYCHECK_COMMAND * 1.5
+	seller_department = ACCOUNT_ENG_BITFLAG
 	light_mask = "engivend-light-mask"
 
 /obj/item/vending_refill/engivend

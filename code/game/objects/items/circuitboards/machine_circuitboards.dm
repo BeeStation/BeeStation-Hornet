@@ -590,7 +590,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	name = "custom vendor (Machine Board)"
 	icon_state = "generic"
 	desc = "You can turn the \"brand selection\" dial using a screwdriver."
-	custom_premium_price = 25
+	custom_premium_price = PAYCHECK_CREW * 1.5
 	build_path = /obj/machinery/vending/custom
 	req_components = list(/obj/item/vending_refill/custom = 1)
 
