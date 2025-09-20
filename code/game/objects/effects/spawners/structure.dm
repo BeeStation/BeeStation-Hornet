@@ -456,6 +456,7 @@ again.
 
 /obj/effect/spawner/structure/random_piano
 	name = "random piano spawner"
+	icon = 'icons/effects/landmarks_spawners.dmi'
 	icon_state = "piano"
 
 /// This is stupid, I hate it, I'm already working on a pr to overhaul this entire stupid ass cocksucking bitch of a system
