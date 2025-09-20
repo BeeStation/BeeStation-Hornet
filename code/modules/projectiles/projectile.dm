@@ -72,6 +72,7 @@
 	var/hit_threshhold = PROJECTILE_HIT_THRESHOLD_LAYER
 
 	var/speed = 0.8			//Amount of deciseconds it takes for projectile to travel
+	/// Angle of the projectile, 0 is up, 90 is right, 180 is down, 270 is left
 	var/Angle = 0
 	var/original_angle = 0		//Angle at firing
 	var/nondirectional_sprite = FALSE //Set TRUE to prevent projectiles from having their sprites rotated based on firing angle
