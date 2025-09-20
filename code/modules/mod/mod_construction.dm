@@ -4,7 +4,7 @@
 	item_state = "rack_parts"
 
 /obj/item/mod/construction/helmet
-	name = "MOD helmet"
+	name = "\improper MOD helmet"
 	icon_state = "helmet"
 
 /obj/item/mod/construction/helmet/examine(mob/user)
@@ -12,7 +12,7 @@
 	. += span_notice("You could insert it into a <b>MOD shell</b>...")
 
 /obj/item/mod/construction/chestplate
-	name = "MOD chestplate"
+	name = "\improper MOD chestplate"
 	icon_state = "chestplate"
 
 /obj/item/mod/construction/chestplate/examine(mob/user)
@@ -20,7 +20,8 @@
 	. += span_notice("You could insert it into a <b>MOD shell</b>...")
 
 /obj/item/mod/construction/gauntlets
-	name = "MOD gauntlets"
+	name = "\improper MOD gauntlets"
+	gender = PLURAL
 	icon_state = "gauntlets"
 
 /obj/item/mod/construction/gauntlets/examine(mob/user)
@@ -28,7 +29,8 @@
 	. += span_notice("You could insert these into a <b>MOD shell</b>...")
 
 /obj/item/mod/construction/boots
-	name = "MOD boots"
+	name = "\improper MOD boots"
+	gender = PLURAL
 	icon_state = "boots"
 
 /obj/item/mod/construction/boots/examine(mob/user)
@@ -54,7 +56,7 @@
 	qdel(src)
 
 /obj/item/mod/construction/plating
-	name = "MOD external plating"
+	name = "\improper MOD external plating"
 	desc = "External plating used to finish a MOD control unit."
 	icon_state = "standard-plating"
 	var/datum/mod_theme/theme = /datum/mod_theme
@@ -62,7 +64,7 @@
 /obj/item/mod/construction/plating/Initialize(mapload)
 	. = ..()
 	var/datum/mod_theme/used_theme = GLOB.mod_themes[theme]
-	name = "MOD [used_theme.name] external plating"
+	name = "\improper MOD [used_theme.name] external plating"
 	desc = "[desc] [used_theme.desc]"
 	icon_state = "[used_theme.default_skin]-plating"
 
@@ -95,7 +97,7 @@
 #define SCREWED_ASSEMBLY_STEP "screwed_assembly"
 
 /obj/item/mod/construction/shell
-	name = "MOD shell"
+	name = "\improper MOD shell"
 	icon_state = "mod-construction_start"
 	desc = "A MOD shell."
 	var/obj/item/core
