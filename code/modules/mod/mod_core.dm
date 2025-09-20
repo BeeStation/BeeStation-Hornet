@@ -1,5 +1,5 @@
 /obj/item/mod/core
-	name = "MOD core"
+	name = "\improper MOD core"
 	desc = "A non-functional MOD core. Inform the admins if you see this."
 	icon = 'icons/obj/clothing/modsuit/mod_construction.dmi'
 	icon_state = "mod-core"
@@ -51,7 +51,7 @@
 	mod.wearer.clear_alert("mod_charge")
 
 /obj/item/mod/core/infinite
-	name = "MOD infinite core"
+	name = "\improper MOD infinite core"
 	icon_state = "mod-core-infinite"
 	desc = "A fusion core using the rare Fixium to sustain enough energy for the lifetime of the MOD's user. \
 		This might be because of the slowly killing poison inside, but those are just rumors."
@@ -75,7 +75,7 @@
 	return TRUE
 
 /obj/item/mod/core/standard
-	name = "MOD standard core"
+	name = "\improper MOD standard core"
 	icon_state = "mod-core-standard"
 	desc = "Growing in the most lush, fertile areas of the planet Sprout, there is a crystal known as the Heartbloom. \
 		These rare, organic piezoelectric crystals are of incredible cultural significance to the artist castes of the \
@@ -241,7 +241,7 @@
 	mod.update_charge_alert()
 
 /obj/item/mod/core/ethereal
-	name = "MOD ethereal core"
+	name = "\improper MOD ethereal core"
 	icon_state = "mod-core-ethereal"
 	desc = "A reverse engineered core of a Modular Outerwear Device. Using natural liquid electricity from Ethereals, \
 		preventing the need to use external sources to convert electric charge. As the suits are naturally charged by \
@@ -291,7 +291,7 @@
 #define PLASMA_CORE_SHEET_CHARGE 2000
 
 /obj/item/mod/core/plasma
-	name = "MOD plasma core"
+	name = "\improper MOD plasma core"
 	icon_state = "mod-core-plasma"
 	desc = "Nanotrasen's attempt at capitalizing on their plasma research. These plasma cores are refueled \
 		through plasma ore, allowing for easy continued use by their mining squads."

@@ -1,6 +1,6 @@
 ///MOD module - A special device installed in a MODsuit allowing the suit to do new stuff.
 /obj/item/mod/module
-	name = "MOD module"
+	name = "\improper MOD module"
 	icon = 'icons/obj/clothing/modsuit/mod_modules.dmi'
 	icon_state = "module"
 	/// If it can be removed
@@ -407,7 +407,7 @@
 
 ///Anomaly Locked - Causes the module to not function without an anomaly.
 /obj/item/mod/module/anomaly_locked
-	name = "MOD anomaly locked module"
+	name = "\improper MOD anomaly locked module"
 	desc = "A form of a module, locked behind an anomalous core to function."
 	incompatible_modules = list(/obj/item/mod/module/anomaly_locked)
 	/// The core item the module runs off.
