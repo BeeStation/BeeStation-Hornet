@@ -50,5 +50,3 @@
 		name = "space piano"
 		desc = "This is a space piano, like a regular piano, but always in tune! Even if the musician isn't."
 		icon_state = "piano"
-
-	AddElement(/datum/element/falling_hazard, damage = 60, hardhat_safety = FALSE, crushes = TRUE/*, impact_sound = 'sound/effects/piano_hit.ogg'*/)
