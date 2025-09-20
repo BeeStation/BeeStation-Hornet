@@ -40697,6 +40697,9 @@
 	pixel_y = -32
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
 "kEM" = (
@@ -45122,9 +45125,6 @@
 /obj/effect/spawner/lootdrop/grille_or_trash,
 /turf/open/floor/iron,
 /area/maintenance/aft)
-"mlj" = (
-/turf/closed/wall/r_wall,
-/area/space)
 "mlo" = (
 /obj/machinery/status_display/ai{
 	pixel_y = 32
@@ -125494,10 +125494,10 @@ aaf
 aaf
 aaf
 aaf
-htU
-mlj
-mlj
-mlj
+aaf
+bKK
+bKK
+bKK
 aaf
 aaf
 aaf
