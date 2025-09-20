@@ -3,7 +3,7 @@
 	typepath = /datum/round_event/anomaly/anomaly_glitch
 
 	max_occurrences = 5
-	weight = 20
+	weight = 10
 
 /datum/round_event/anomaly/anomaly_glitch
 	startWhen = 3
