@@ -3,17 +3,18 @@
 	icon_state = null
 	color = COLOR_YELLOW
 	hitsound = null
-	range = 5
+	range = 4
 	reflectable = FALSE
 	tracer_type = /obj/effect/projectile/tracer/stun
 	muzzle_type = /obj/effect/projectile/muzzle/stun
 	impact_type = /obj/effect/projectile/impact/stun
 	armor_flag = STAMINA
+	speed = 0.4
 	// Feels really inconsistent with random targeting, as limb shots do not
 	// fully stun the target.
 	zone_accurate = TRUE
 	/// How much stamina damage will the tase deal per second
-	VAR_PROTECTED/tase_stamina = 30
+	VAR_PROTECTED/tase_stamina = 40
 	/// What is the maximum duration that the taser can apply for?
 	VAR_PROTECTED/max_duration = 6 SECONDS
 	/// If false then we will not be able to affect targets with pierce protection.
@@ -52,6 +53,8 @@
 			span_warning("[src]\s fail to make contact with [target]."),
 			span_notice("[src] fails to make contact with your body."),
 		)
+		playsound(target, 'sound/weapons/parry.ogg', 100)
+		target.balloon_alert(firer, "Blocked")
 		return
 	// we need a "from", otherwise, where does the electricity come from?
 	if(isnull(fired_from))
@@ -70,13 +73,19 @@
 		tase_stamina,
 		100 WATT,
 		"\the [src]\s",
-		initial(range) + 1,
+		initial(range) + 2,
 		def_zone,
 		max_duration
 	)
 
 /obj/projectile/energy/electrode/on_range() //to ensure the bolt sparks when it reaches the end of its range if it didn't hit a target yet
 	do_sparks(1, TRUE, src)
+	for (var/cardinal in GLOB.alldirs)
+		// Try to hit any targets near enough to out final location
+		for(var/mob/M in get_step(src, cardinal))
+			if(can_hit_target(M, M == original, TRUE))
+				Impact(M)
+				return
 	return ..()
 
 /obj/projectile/energy/electrode/turret
@@ -93,7 +102,7 @@
 	id = "being_tased"
 	status_type = STATUS_EFFECT_MULTIPLE
 	alert_type = null
-	tick_interval = 1 SECONDS
+	tick_interval = 0.25 SECONDS
 	on_remove_on_mob_delete = TRUE
 	/// What atom is tasing us?
 	VAR_PRIVATE/datum/taser
@@ -315,8 +324,8 @@
 	firer = new_firer
 	if(taser != firer) // Turrets, notably, are both
 		RegisterSignal(firer, COMSIG_QDELETING, PROC_REF(end_tase))
-	RegisterSignal(firer, COMSIG_MOB_EQUIPPED_ITEM, PROC_REF(end_tase))
-	RegisterSignal(firer, COMSIG_MOB_UNEQUIPPED_ITEM, PROC_REF(end_tase))
+	RegisterSignal(firer, COMSIG_MOB_EQUIPPED_ITEM, PROC_REF(check_hands))
+	RegisterSignal(firer, COMSIG_MOB_UNEQUIPPED_ITEM, PROC_REF(check_hands))
 
 	RegisterSignal(firer, COMSIG_MOB_CLICKON, PROC_REF(user_cancel_tase))
 
@@ -353,6 +362,15 @@
 	end_tase()
 	source.changeNext_move(CLICK_CD_GRABBING)
 	return COMSIG_MOB_CANCEL_CLICKON
+
+/datum/status_effect/tased/proc/check_hands(datum/source, obj/item/item, ...)
+	SIGNAL_HANDLER
+	if(QDELING(src))
+		return
+	// We don't care about switching hands, only about item equips
+	if (item.item_flags & ABSTRACT)
+		return
+	end_tase()
 
 /datum/status_effect/tased/proc/end_tase(...)
 	SIGNAL_HANDLER
