@@ -132,9 +132,12 @@ then the player gets the profit from selling his own wasted time.
 
 // Checks if the item is fit for export datum.
 /datum/export/proc/applies_to(obj/O, allowed_categories = NONE)
+
+	var/category_to_use = export_category
+
 	if(O.trade_flags & TRADE_CONTRABAND)
-		export_category = EXPORT_CONTRABAND
-	if((allowed_categories & export_category) != export_category)
+		category_to_use = EXPORT_CONTRABAND
+	if((allowed_categories & category_to_use) != category_to_use)
 		return FALSE
 	if(!is_type_in_typecache(O, export_types))
 		return FALSE

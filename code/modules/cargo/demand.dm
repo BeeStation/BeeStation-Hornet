@@ -20,13 +20,15 @@
 
 /datum/demand_state/proc/generate_price(obj/object)
 	var/price_to_use
-	if(istype(object, /obj/item))
+	if(ispath(object, /obj/item))
 		var/obj/item/thing = object
 		if(initial(thing.w_class))	// This ensures item price will not be higher than custom price, if it is set.
 			if(initial(thing.custom_price))
 				price_to_use = max(((5 * rand(1, 5))* initial(thing.w_class)) * ECONOMY_MULTIPLYER, initial(thing.custom_price) * PRICE_MARKUP)
 			else
 				price_to_use = ((5 * rand(1, 5)) * initial(thing.w_class)) * ECONOMY_MULTIPLYER
+		else
+			price_to_use = max((5 * rand(1, 5)) * ECONOMY_MULTIPLYER, initial(thing.custom_price) * PRICE_MARKUP)
 	else	// Rand from 5 - 25 (in increments of 5) * the economy multiplier
 		price_to_use = (5 * rand(1, 5)) * ECONOMY_MULTIPLYER
 	generated_price = price_to_use
