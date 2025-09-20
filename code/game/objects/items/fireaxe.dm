@@ -30,9 +30,6 @@
 
 /obj/item/fireaxe/Initialize(mapload)
 	. = ..()
-
-/obj/item/fireaxe/ComponentInitialize()
-	. = ..()
 	AddComponent(/datum/component/butchering, 100, 80, 0 , hitsound) //axes are not known for being precision butchering tools
 	AddComponent(/datum/component/two_handed, force_unwielded=5, force_wielded=24, block_power_wielded=25, icon_wielded="[icon_prefix]1")
 
@@ -68,7 +65,3 @@
 	desc = "A large, vicious axe crafted out of several sharpened bone plates and crudely tied together. Made of monsters, by killing monsters, for killing monsters."
 	icon_prefix = "bone_axe"
 	icon_state = "bone_axe0"
-
-/obj/item/fireaxe/boneaxe/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/two_handed, force_unwielded=5, force_wielded=23, icon_wielded="[icon_prefix]1")
