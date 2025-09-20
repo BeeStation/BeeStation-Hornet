@@ -44,3 +44,9 @@
 	name = "10mm incendiary bullet"
 	damage = 15
 	fire_stacks = 2
+
+// 10x25mm (Secoff, NT proprietary)
+
+/obj/projectile/bullet/c10x25mm
+	name = "10x25mm bullet"
+	damage = 22

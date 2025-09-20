@@ -162,3 +162,33 @@
 
 /obj/item/gun/ballistic/automatic/pistol/service/cmo
 	stripe_state = "officer_med"
+
+// Security
+/obj/item/gun/ballistic/automatic/pistol/security
+	name = "NPS-10"
+	desc = "Standard APS firearm for on-station law enforcement. Low-velocity and unlikely to breach the hull. Uses 10x25mm ammo."
+	icon_state = "sec"
+	w_class = WEIGHT_CLASS_LARGE
+	mag_type = /obj/item/ammo_box/magazine/mm10x25
+	can_suppress = FALSE
+	worn_icon_state = "officer_pistol"
+	fire_rate = 2
+
+/obj/item/gun/ballistic/automatic/pistol/security/add_seclight_point()
+	AddComponent(/datum/component/seclite_attachable, \
+		light_overlay_icon = 'icons/obj/guns/flashlights.dmi', \
+		light_overlay = "flight", \
+		overlay_x = 19, \
+		overlay_y = 14)
+
+/obj/item/gun/ballistic/automatic/pistol/security/examine(mob/user)
+	. = ..()
+	. += span_notice("<i>You could examine it more thoroughly...</i>")
+
+/obj/item/gun/ballistic/automatic/pistol/security/examine_more(mob/user)
+	. = ..()
+	. += "<i>The corporate-issue NPS-10 is a slim, nondescript 10mm sidearm built for reliability on a budget. \
+			Its brushed-gray slide and ergonomic polymer grip keep it unflashy, while the semi-auto action with \
+			optional two-round burst and 12-round magazine ensure effective self defense when called upon. \
+			Designed to blend into any uniform yet hold its own in close quarters, it’s the pragmatic choice for \
+			private security operators.</i>"

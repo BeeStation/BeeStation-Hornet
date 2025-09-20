@@ -64,3 +64,11 @@
 	caliber = ".50"
 	projectile_type = /obj/projectile/bullet/a50AE
 
+// Seccie
+
+/obj/item/ammo_casing/c10x25mm
+	name = "10x25mm bullet casing"
+	desc = "A 10x25mm bullet casing."
+	caliber = "10x25mm"
+	icon_state = "s-casing_steel"
+	projectile_type = /obj/projectile/bullet/c10x25mm

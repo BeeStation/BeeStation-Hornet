@@ -72,6 +72,7 @@
 	var/hit_threshhold = PROJECTILE_HIT_THRESHOLD_LAYER
 
 	var/speed = 0.8			//Amount of deciseconds it takes for projectile to travel
+	/// Angle of the projectile, 0 is up, 90 is right, 180 is down, 270 is left
 	var/Angle = 0
 	var/original_angle = 0		//Angle at firing
 	var/nondirectional_sprite = FALSE //Set TRUE to prevent projectiles from having their sprites rotated based on firing angle
@@ -159,6 +160,8 @@
 	var/shrapnel_type
 	///If TRUE, hit mobs even if they're on the floor and not our target
 	var/hit_stunned_targets = FALSE
+	/// If we are zone accurate, we always hit the zone we were targeting
+	var/zone_accurate = FALSE
 
 /obj/projectile/Initialize(mapload)
 	. = ..()
@@ -364,7 +367,10 @@
 			return TRUE
 
 	var/distance = get_dist(T, starting) // Get the distance between the turf shot from and the mob we hit and use that for the calculations.
-	def_zone = ran_zone(def_zone, max(100-(7*distance), 5)) //Lower accurancy/longer range tradeoff. 7 is a balanced number to use.
+	if (!zone_accurate)
+		def_zone = ran_zone(def_zone, max(100-(7*distance), 5)) //Lower accurancy/longer range tradeoff. 7 is a balanced number to use.
+	else if (!def_zone)
+		def_zone = ran_zone()
 
 	return process_hit(T, select_target(T, A, A), A)		// SELECT TARGET FIRST!
 

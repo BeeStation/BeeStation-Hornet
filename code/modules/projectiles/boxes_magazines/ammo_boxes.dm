@@ -77,6 +77,27 @@
 	ammo_type = /obj/item/ammo_casing/c9mm
 	max_ammo = 30
 
+/obj/item/ammo_box/c10x25mm
+	name = "ammo box (10x25mm NPS)"
+	icon_state = "45box"
+	ammo_type = /obj/item/ammo_casing/c10x25mm
+	max_ammo = 30
+
+/obj/item/ammo_box/pouch/c10x25mm
+	name = "ammo pouch (10x25mm)"
+	desc = "12 10x25mm NPS bullets in a disposable paper package."
+	icon_state = "bagobullets_alt_10mm"
+	ammo_type = /obj/item/ammo_casing/c10x25mm
+	max_ammo = 12
+	custom_price = 100
+	custom_premium_price = 100
+
+/obj/item/ammo_box/taser
+	name = "ammo box (Taser Loads)"
+	icon_state = "tasebox"
+	ammo_type = /obj/item/ammo_casing/taser
+	max_ammo = 10
+
 /obj/item/ammo_box/pouch/c9mm
 	name = "ammo pouch (9mm)"
 	ammo_type = /obj/item/ammo_casing/c9mm
