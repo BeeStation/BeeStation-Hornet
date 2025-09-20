@@ -292,8 +292,36 @@
   - rscadd: Remapped MetaStation Service and Atmos
   - bugfix: Fixed airlock pumps
 2025-09-17:
+  Bieyes:
+  - tweak: heavily slowed down all lawnmowers.
+  - balance: lawnmowers no longer gib.
+  - bugfix: mosins (and any other bolt actions) can be reloaded again.
+  ClownMoff:
+  - rscdel: Removed a stray decal on BoxStation
   rkz, arcanemusic, cacogen, tastyfish:
   - rscadd: adds ability to split profits on sold items with the sales tagger
   - rscadd: cleaned up delivery crate appearance code, crates will show notes scrawled
       on them and destination tags better
   - refactor: cleaned up some crate export code
+2025-09-18:
+  PowerfulBacon:
+  - bugfix: Guns can now be recharged again.
+  - tweak: Players on lowpop no longer spawn with security access if no security are
+      present.
+  - rscadd: Added a new machine on lowpop which dispenses security deputy kits for
+      credits.
+  - tweak: Replace police baton with tonfa in deputy belt
+  - rscadd: The deputy duffel bag now comes with a deputy access upgrade card.
+  lord scrubling:
+  - bugfix: ethereal colors
+  mrmanlikesbt:
+  - bugfix: fixed vampires being able to level up an infinite amount of times
+2025-09-19:
+  ACanOpener:
+  - tweak: renamed cybernetic stomachs
+2025-09-20:
+  Programs-The-Station:
+  - bugfix: Central Command has repaired your station's Auxiliary Base Construction
+      Computer.
+  - rscadd: Auxiliary Base Construction Computer can now construct machine frames
+      and computer frames.
