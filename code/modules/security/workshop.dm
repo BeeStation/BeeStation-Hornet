@@ -83,6 +83,3 @@
 	else
 		say("Workshop shutdown underway! Standby for reboot...")
 
-/obj/machinery/computer/holodeck/prison/load_program()
-	. = ..()
-	offline = FALSE
