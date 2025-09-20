@@ -258,15 +258,16 @@
  * * stamp_y - Y coordinate to render the stamp in tgui.
  * * rotation - Degrees of rotation for the stamp to be rendered with in tgui.
  * * stamp_icon_state - Icon state for the stamp as part of overlay rendering.
+* * stamp_icon_state - An alternate Icon file can be passed for the stamp as part of overlay rendering if desired
  */
-/obj/item/paper/proc/add_stamp(stamp_class, stamp_x, stamp_y, rotation, stamp_icon_state)
+/obj/item/paper/proc/add_stamp(stamp_class, stamp_x, stamp_y, rotation, stamp_icon_state, stamp_icon = 'icons/obj/bureaucracy.dmi')
 	var/new_stamp_datum = new /datum/paper_stamp(stamp_class, stamp_x, stamp_y, rotation)
 	LAZYADD(raw_stamp_data, new_stamp_datum);
 
 	if(LAZYLEN(stamp_cache) > MAX_PAPER_STAMPS_OVERLAYS)
 		return
 
-	var/mutable_appearance/stamp_overlay = mutable_appearance('icons/obj/bureaucracy.dmi', "paper_[stamp_icon_state]")
+	var/mutable_appearance/stamp_overlay = mutable_appearance(stamp_icon, "paper_[stamp_icon_state]", appearance_flags = KEEP_APART | RESET_COLOR)
 	stamp_overlay.pixel_x = rand(-2, 2)
 	stamp_overlay.pixel_y = rand(-3, 2)
 	add_overlay(stamp_overlay)
@@ -415,7 +416,7 @@
 		to_chat(user, span_notice("You ready your stamp over the paper! "))
 		if(!user.can_read(src))
 			//The paper's stampable window area is assumed approx 300x400
-			add_stamp(writing_stats["stamp_class"], rand(0, 300), rand(0, 400), rand(0, 360), writing_stats["stamp_icon_state"], stamp_icon_state = writing_stats["stamp_icon_state"])
+			add_stamp(writing_stats["stamp_class"], rand(0, 300), rand(0, 400), rand(0, 360), writing_stats["stamp_icon_state"], stamp_icon = writing_stats["stamp_icon"])
 			user.visible_message(span_notice("[user] blindly stamps [src] with \the [attacking_item]!"))
 			playsound(src, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
 			update_appearance()//THIS MIGHT BE USELESS
@@ -443,7 +444,7 @@
 	if(!user.can_read(src)) // Just leftclick instead
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
-	add_stamp(writing_stats["stamp_class"], rand(0, 300), rand(0, 400), stamp_icon_state = writing_stats["stamp_icon_state"])
+	add_stamp(writing_stats["stamp_class"], rand(1, 300), rand(1, 400), stamp_icon_state = writing_stats["stamp_icon_state"], stamp_icon = writing_stats["stamp_icon"])
 	user.visible_message(
 		span_notice("[user] quickly stamps [src] with [tool] without looking."),
 		span_notice("You quickly stamp [src] with [tool] without looking."),
@@ -573,12 +574,13 @@
 			//var/datum/asset/spritesheet_batched/sheet = get_asset_datum(/datum/asset/spritesheet/simple/paper)
 			var/stamp_rotation = text2num(params["rotation"])
 			var/stamp_icon_state = stamp_info["stamp_icon_state"]
+			var/stamp_icon = stamp_info["stamp_icon"]
 
 			if (LAZYLEN(raw_stamp_data) >= MAX_PAPER_STAMPS)
 				to_chat(usr, pick("You try to stamp but you miss!", "There is nowhere else you can stamp!"))
 				return TRUE
 
-			add_stamp(stamp_class, stamp_x, stamp_y, stamp_rotation, stamp_icon_state)
+			add_stamp(stamp_class, stamp_x, stamp_y, stamp_rotation, stamp_icon_state, stamp_icon)
 			user.visible_message(span_notice("[user] stamps [src] with \the [holding.name]!"), span_notice("You stamp [src] with \the [holding.name]!"))
 			playsound(src, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
 			update_appearance()
