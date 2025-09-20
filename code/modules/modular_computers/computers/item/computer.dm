@@ -428,7 +428,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		else
 			idle_threads.Remove(P)
 
-	handle_flashlight()
+	handle_flashlight(delta_time)
 
 	handle_power(delta_time) // Handles all computer power interaction
 	//check_update_ui_need()
@@ -677,15 +677,18 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 /obj/item/modular_computer/proc/handle_flashlight(delta_time)
 	if (!using_flashlight)
 		return
-	var/power_ratio = 1 - CLAMP01(get_power() / 10 KILOWATT)
-	if (DT_PROB(power_ratio * 10, delta_time))
+	var/power_ratio = 1 - CLAMP01(get_power() / (10 KILOWATT))
+	if (DT_PROB(power_ratio * 20, delta_time))
 		do_flicker()
 
 /obj/item/modular_computer/proc/do_flicker(amounts = 5)
-	if (!using_flashlight || amounts <= 0)
+	if (!using_flashlight)
+		return
+	if (amounts <= 0)
+		set_light_on(TRUE)
 		return
 	set_light_on(!light_on)
-	addtimer(CALLBACK(src, PROC_REF(handle_flashlight), amounts - 1), rand(0.1 SECONDS, 0.3 SECONDS))
+	addtimer(CALLBACK(src, PROC_REF(do_flicker), amounts - 1), rand(0.1 SECONDS, 0.3 SECONDS))
 
 /obj/item/modular_computer/screwdriver_act(mob/user, obj/item/tool)
 	if(!deconstructable)
