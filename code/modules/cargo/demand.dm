@@ -24,13 +24,13 @@
 		var/obj/item/thing = object
 		if(initial(thing.w_class))	// This ensures item price will not be higher than custom price, if it is set.
 			if(initial(thing.custom_price))
-				price_to_use = max(((5 * rand(1, 5))* initial(thing.w_class)) * ECONOMY_MULTIPLYER, initial(thing.custom_price) * PRICE_MARKUP)
+				price_to_use = max(((5 * rand(1, 5))* initial(thing.w_class)) * ECONOMY_MULTIPLIER, initial(thing.custom_price) * PRICE_MARKUP)
 			else
-				price_to_use = ((5 * rand(1, 5)) * initial(thing.w_class)) * ECONOMY_MULTIPLYER
+				price_to_use = ((5 * rand(1, 5)) * initial(thing.w_class)) * ECONOMY_MULTIPLIER
 		else
-			price_to_use = max((5 * rand(1, 5)) * ECONOMY_MULTIPLYER, initial(thing.custom_price) * PRICE_MARKUP)
+			price_to_use = max((5 * rand(1, 5)) * ECONOMY_MULTIPLIER, initial(thing.custom_price) * PRICE_MARKUP)
 	else	// Rand from 5 - 25 (in increments of 5) * the economy multiplier
-		price_to_use = (5 * rand(1, 5)) * ECONOMY_MULTIPLYER
+		price_to_use = (5 * rand(1, 5)) * ECONOMY_MULTIPLIER
 	generated_price = price_to_use
 
 /datum/demand_state/proc/get_price()

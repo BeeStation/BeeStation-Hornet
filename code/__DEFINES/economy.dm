@@ -25,7 +25,7 @@
 #define TAX_RATE 0.5
 
 /// Economy multiplier. This controls (or hopefully will control) the whole economy as a whole
-#define ECONOMY_MULTIPLYER 1	// Currently applies to automatic item pricing
+#define ECONOMY_MULTIPLIER 1	// Currently applies to automatic item pricing
 
 /// This markup is applied to vendor prices and vendor prices only (DOES NOT APPLY TO PREMIUM PRICE)
 #define PRICE_MARKUP 2
