@@ -282,20 +282,8 @@
 		if(canSmoothWith[length(canSmoothWith)] > MAX_S_TURF) //If the last element is higher than the maximum turf-only value, then it must scan turf contents for smoothing targets.
 			smoothing_flags |= SMOOTH_OBJ
 		SET_BITFLAG_LIST(canSmoothWith)
-	/// Money calculations here
-	if(!max_demand)	// If the item isnt getting a max_demand then give it a random one
-		max_demand = (5 * rand(5, 12)) // Makes sure it increases in increments of 5 - 6 * 5 = 25, 12 * 5 = 60
-	generate_price()
 
 	return INITIALIZE_HINT_NORMAL
-
-/atom/proc/generate_price()
-	if(custom_price)
-		// This ensures item price will not be higher than custom price, if it is set.
-		item_price = max((5 * rand(1, 5)) * ECONOMY_MULTIPLYER, custom_price)
-		// Rand from 5 - 25 (in increments of 5) * the economy multiplier
-	else
-		item_price = (5 * rand(1, 5)) * ECONOMY_MULTIPLYER
 
 /**
   * Late Intialization, for code that should run after all atoms have run Intialization

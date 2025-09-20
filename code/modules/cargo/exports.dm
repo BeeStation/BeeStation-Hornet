@@ -99,27 +99,25 @@ then the player gets the profit from selling his own wasted time.
 	STOP_PROCESSING(SSprocessing, src)
 	return ..()
 
-/datum/export/proc/get_cost(obj/O, allowed_categories = NONE)
-	var/amount = get_amount(O)
+/datum/export/proc/get_cost(obj/object, allowed_categories = NONE)
+	var/amount = get_amount(object)
 	if(amount <= 0)
 		return 0
 
+	var/price_of_item = SSdemand.generate_price(object)
+
 	// Determine base price
-	var/base_price = 0
-	if(O.item_price)
-		base_price = O.item_price
-	else
-		base_price = init_cost  // fallback for legacy datum/export items
+	var/base_price = price_of_item || init_cost
 
 	// Grab demand state for this object type
-	var/datum/demand_state/state = SSdemand.get_demand_state(O.type)
+	var/datum/demand_state/state = SSdemand.get_demand_state(object.type)
 	var/demand_ratio = state.current_demand / state.max_demand
 	demand_ratio = max(demand_ratio, state.min_price_factor)
 
 	if(state.current_demand == 0)
 		// If we at CC are at full stock then this item is worth 0 thus, won't be sold
 		base_price = 0
-	if(O.trade_flags & TRADE_NOT_SELLABLE)
+	if(object.trade_flags & TRADE_NOT_SELLABLE)
 		base_price = 0
 
 	// Scale price by

@@ -279,17 +279,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(LAZYLEN(embedding))
 		updateEmbedding()
 
-/obj/item/generate_price()
-	if(w_class)
-		if(custom_price)
-			// This ensures item price will not be higher than custom price, if it is set.
-			item_price = max(((5 * rand(1, 5))* w_class) * ECONOMY_MULTIPLYER, custom_price * PRICE_MARKUP)
-			// Rand from 5 - 25 (in increments of 5) * the economy multiplier
-		else
-			item_price = ((5 * rand(1, 5)) * w_class) * ECONOMY_MULTIPLYER
-	else
-		return ..()
-
 /obj/item/Destroy()
 	master = null
 	if(ismob(loc))
