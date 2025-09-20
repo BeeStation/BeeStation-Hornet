@@ -1,5 +1,3 @@
-import { toFixed } from 'common/math';
-
 import { useBackend } from '../backend';
 import { Button, Grid, NumberInput, Section } from '../components';
 import { Window } from '../layouts';
@@ -27,12 +25,11 @@ export const SignalerContent = (props) => {
           <NumberInput
             animated
             unit="kHz"
-            step={0.2}
+            step={1}
             stepPixelSize={6}
-            minValue={minFrequency / 10}
-            maxValue={maxFrequency / 10}
-            value={frequency / 10 || minFrequency / 10}
-            format={(value) => toFixed(value, 1)}
+            minValue={minFrequency}
+            maxValue={maxFrequency}
+            value={frequency || minFrequency}
             width="80px"
             onDrag={(value) =>
               act('freq', {
