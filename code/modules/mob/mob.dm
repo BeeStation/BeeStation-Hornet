@@ -49,6 +49,11 @@
 		mind.set_current(null)
 	return ..()
 
+/mob/New()
+	// This needs to happen IMMEDIATELY. I'm sorry :(
+	GenerateTag()
+	return ..()
+
 /**
   * Intialize a mob
   *

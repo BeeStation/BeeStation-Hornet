@@ -4,7 +4,6 @@
 	icon_state = "blank_blob"
 	desc = "A huge, pulsating yellow mass."
 	max_integrity = BLOB_CORE_MAX_HP
-	max_hit_damage = BLOB_CORE_MAX_HP / 10
 	armor_type = /datum/armor/blob_core
 	explosion_block = 6
 	point_return = -1
