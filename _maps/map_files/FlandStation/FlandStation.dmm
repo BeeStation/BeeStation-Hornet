@@ -86630,7 +86630,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/effect/spawner/structure/random_piano,
+/obj/structure/musician/piano,
 /obj/effect/turf_decal/siding/wood/corner,
 /turf/open/floor/wood,
 /area/crew_quarters/theatre)

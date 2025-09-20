@@ -12191,7 +12191,7 @@
 /turf/open/floor/carpet/black,
 /area/centcom/holding)
 "aFb" = (
-/obj/effect/spawner/structure/random_piano,
+/obj/structure/musician/piano,
 /obj/machinery/light{
 	dir = 8
 	},

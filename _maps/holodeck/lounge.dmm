@@ -296,7 +296,9 @@
 	},
 /area/template_noop)
 "Z" = (
-/obj/structure/musician/piano,
+/obj/structure/musician/piano{
+	icon_state = "piano"
+	},
 /turf/open/floor/holofloor/carpet,
 /area/template_noop)
 
