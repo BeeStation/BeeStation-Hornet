@@ -424,11 +424,6 @@
 	weight = 1
 	max_occurrences = 1
 
-/datum/map_template/ruin_part/corgasteroid
-	file_name = "41x41_corgasteroid"
-	weight = 1
-	max_occurrences = 1
-
 /datum/map_template/ruin_part/teleporter
 	file_name = "9x13_teleporter"
 	weight = 1
