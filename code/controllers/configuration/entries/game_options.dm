@@ -163,7 +163,6 @@
 /datum/config_entry/number/station_goal_budget
 	default = 1
 	min_val = 0
-	integer = FALSE
 
 /datum/config_entry/flag/diona_ghost_spawn
 
@@ -375,6 +374,21 @@
 /datum/config_entry/flag/spare_enforce_coc
 
 /datum/config_entry/flag/station_traits
+
+/datum/config_entry/keyed_list/positive_station_traits
+	config_entry_value = list("0" = 8, "1" = 4, "2" = 2, "3" = 1)
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_NUM
+
+/datum/config_entry/keyed_list/negative_station_traits
+	config_entry_value = list("0" = 8, "1" = 4, "2" = 2, "3" = 1)
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_NUM
+
+/datum/config_entry/keyed_list/neutral_station_traits
+	config_entry_value = list("0" = 10, "1" = 10, "2" = 3, "2.5" = 1)
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_NUM
 
 /datum/config_entry/flag/dark_unstaffed_departments
 
