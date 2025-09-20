@@ -1235,6 +1235,7 @@
 #include "code\game\atom\atom_greyscale.dm"
 #include "code\game\atom\atom_materials.dm"
 #include "code\game\atom\atom_merger.dm"
+#include "code\game\atom\atom_storage.dm"
 #include "code\game\gamemodes\events.dm"
 #include "code\game\gamemodes\legacy_gang_outfits.dm"
 #include "code\game\gamemodes\meteors.dm"
