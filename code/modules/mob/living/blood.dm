@@ -153,7 +153,8 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	apply_status_effect(dna?.species?.bleed_effect || /datum/status_effect/bleeding, bleed_level)
 	if (bleed_level >= BLEED_DEEP_WOUND)
 		blur_eyes(1)
-		to_chat(src, "[span_userdanger("Blood starts rushing out of the open wound!")]")
+		var/datum/reagent/blood = get_blood_id() //Not every race has "BLOOD" rushing from the wound
+		to_chat(src, "[span_userdanger("[blood.name] starts rushing out of the open wound!")]")
 	if(bleed_level >= BLEED_CUT)
 		add_splatter_floor(src.loc)
 	else
