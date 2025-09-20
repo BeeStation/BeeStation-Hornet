@@ -526,10 +526,10 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/airalarm)
 			. = TRUE
 
 		if("set_ac_target")
-			if(!isnum(params["target"]))
+			if(!isnum(params["value"]))
 				return
-			set_ac_target(params["target"])
-			investigate_log("has had its air conditioning target set to [params["target"]] by [key_name(usr)]", INVESTIGATE_ATMOS)
+			set_ac_target(params["value"])
+			investigate_log("has had its air conditioning target set to [params["value"]] by [key_name(usr)]", INVESTIGATE_ATMOS)
 			. = TRUE
 
 		if("default_ac_target")
