@@ -1,7 +1,0 @@
-author: Programs-The-Station
-delete-after: true
-changes:
-  - bugfix: Central Command has repaired your station's Auxiliary Base Construction
-      Computer.
-  - rscadd: Auxiliary Base Construction Computer can now construct machine frames
-      and computer frames.

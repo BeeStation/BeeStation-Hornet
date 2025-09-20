@@ -319,3 +319,9 @@
 2025-09-19:
   ACanOpener:
   - tweak: renamed cybernetic stomachs
+2025-09-20:
+  Programs-The-Station:
+  - bugfix: Central Command has repaired your station's Auxiliary Base Construction
+      Computer.
+  - rscadd: Auxiliary Base Construction Computer can now construct machine frames
+      and computer frames.
