@@ -14,8 +14,6 @@
 	shift_underlay_only = FALSE
 	pipe_state = "uvent"
 
-	interacts_with_air = TRUE
-
 	///Direction of pumping the gas (ATMOS_DIRECTION_RELEASING or ATMOS_DIRECTION_SIPHONING)
 	var/pump_direction = ATMOS_DIRECTION_RELEASING
 	///Should we check internal pressure, external pressure, both or none? (ATMOS_EXTERNAL_BOUND, ATMOS_INTERNAL_BOUND, NO_BOUND)
