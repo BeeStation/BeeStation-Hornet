@@ -278,7 +278,7 @@ effective or pretty fucking useless.
 	icon = 'icons/obj/device.dmi'
 	icon_state = "jammer"
 
-/obj/item/jammer/Initialize(mapload)
+/obj/item/jammer/ComponentInitialize()
 	. = ..()
 	//Add the radio jamming component
 	AddComponent(/datum/component/radio_jamming)

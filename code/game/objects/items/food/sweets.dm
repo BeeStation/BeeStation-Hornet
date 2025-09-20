@@ -187,7 +187,7 @@
 	)
 	tastes = list("gummy death")
 
-/obj/item/food/gumball/syndicate/Initialize(mapload)
+/obj/item/food/gumball/syndicate/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/slippery, 0.5 SECONDS, NO_SLIP_WHEN_WALKING)
 

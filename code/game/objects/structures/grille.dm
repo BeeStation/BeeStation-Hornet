@@ -26,9 +26,10 @@
 		pipe_astar_cost = 1\
 	)
 
-/obj/structure/grille/Initialize(mapload)
+/obj/structure/grille/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/atmos_sensitive)
+
 
 /datum/armor/structure_grille
 	melee = 50

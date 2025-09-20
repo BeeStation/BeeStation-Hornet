@@ -173,6 +173,8 @@
 				icon = 'icons/obj/smooth_structures/alien/weeds3.dmi'
 				base_icon_state = "weeds3"
 
+/obj/structure/alien/weeds/ComponentInitialize()
+	. = ..()
 	AddElement(/datum/element/atmos_sensitive)
 
 /obj/structure/alien/weeds/proc/expand()
@@ -267,6 +269,9 @@
 	proximity_monitor = new(src, status == GROWN ? 1 : 0)
 	if(status == BURST)
 		atom_integrity = integrity_failure * max_integrity
+
+/obj/structure/alien/egg/ComponentInitialize()
+	. = ..()
 	AddElement(/datum/element/atmos_sensitive)
 
 /obj/structure/alien/egg/update_icon()

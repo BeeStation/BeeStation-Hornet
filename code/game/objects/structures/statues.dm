@@ -114,7 +114,7 @@
 	name = "statue of a scientist"
 	icon_state = "sci"
 
-/obj/structure/statue/plasma/Initialize(mapload)
+/obj/structure/statue/plasma/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/atmos_sensitive)
 

@@ -239,6 +239,9 @@
 	max_integrity = 300
 	light_range = 2
 
+/obj/structure/mineral_door/uranium/ComponentInitialize()
+	return
+
 /obj/structure/mineral_door/sandstone
 	name = "sandstone door"
 	icon_state = "sandstone"
@@ -258,7 +261,7 @@
 	icon_state = "plasma"
 	sheetType = /obj/item/stack/sheet/mineral/plasma
 
-/obj/structure/mineral_door/transparent/plasma/Initialize(mapload)
+/obj/structure/mineral_door/transparent/plasma/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/atmos_sensitive)
 
@@ -357,6 +360,9 @@
 			return TRUE
 
 	return ..()
+
+/obj/structure/mineral_door/paperframe/ComponentInitialize()
+	return
 
 /obj/structure/mineral_door/paperframe/Destroy()
 	QUEUE_SMOOTH_NEIGHBORS(src)

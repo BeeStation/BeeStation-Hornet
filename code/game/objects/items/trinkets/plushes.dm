@@ -624,7 +624,7 @@
 	desc = "An ancient plushie that has grown enlightened to the true nature of reality."
 	icon_state = "awakeplush"
 
-/obj/item/toy/plush/awakenedplushie/Initialize(mapload)
+/obj/item/toy/plush/awakenedplushie/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/edit_complainer)
 

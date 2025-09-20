@@ -337,9 +337,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 	maxcharge = 500 KILOWATT
 	ratingdesc = FALSE
 
-/obj/item/stock_parts/cell/infinite/abductor/Initialize(mapload)
+/obj/item/stock_parts/cell/infinite/abductor/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/update_icon_blocker)
+
 
 /obj/item/stock_parts/cell/potato
 	name = "potato battery"

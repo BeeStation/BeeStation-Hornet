@@ -1,5 +1,5 @@
 /// Helper that allows for atoms to receive buffer information
-#define REGISTER_BUFFER_HANDLER(TYPEPATH) ##TYPEPATH/Initialize(mapload) {\
+#define REGISTER_BUFFER_HANDLER(TYPEPATH) ##TYPEPATH/ComponentInitialize() {\
 		. = ..();\
 		RegisterSignal(src, COMSIG_PARENT_RECEIVE_BUFFER, PROC_REF(_buffer_handler));\
 	}\

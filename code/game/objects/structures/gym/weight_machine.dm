@@ -147,7 +147,7 @@
 	throw_range = 2
 	slowdown = 2
 
-/obj/item/barbell/Initialize(mapload)
+/obj/item/barbell/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/two_handed, require_twohands=TRUE, block_power_unwielded=block_power, block_power_wielded=block_power)
 

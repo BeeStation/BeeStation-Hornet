@@ -14,7 +14,7 @@
 
 	volume = 1000
 
-/obj/machinery/portable_atmospherics/pump/Initialize(mapload)
+/obj/machinery/portable_atmospherics/pump/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/usb_port, list(/obj/item/circuit_component/portable_pump))
 

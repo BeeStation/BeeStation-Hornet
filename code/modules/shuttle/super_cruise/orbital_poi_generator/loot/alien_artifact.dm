@@ -16,7 +16,10 @@
 		for(var/verb in effect.effect_act_descs)
 			. += "[src] likely does something when [verb]."
 
-/obj/item/alienartifact/objective/Initialize(mapload)
+/obj/item/alienartifact/ComponentInitialize()
+	AddComponent(/datum/component/discoverable, 10000, TRUE)
+
+/obj/item/alienartifact/objective/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/gps, "[scramble_message_replace_chars("#########", 100)]", TRUE)
 	AddComponent(/datum/component/tracking_beacon, EXPLORATION_TRACKING, null, null, TRUE, "#eb4d4d", TRUE, TRUE)
@@ -44,8 +47,6 @@
 			effect.register_signals(src)
 			effect.Initialize(src)
 			effects += effect
-
-	AddComponent(/datum/component/discoverable, 10000, TRUE)
 
 /obj/item/alienartifact/Destroy()
 	. = ..()

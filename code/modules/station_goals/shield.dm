@@ -137,7 +137,7 @@
 	icon_state = "capsule"
 	w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/meteor_shield/Initialize(mapload)
+/obj/item/meteor_shield/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/deployable, /obj/machinery/satellite/meteor_shield, time_to_deploy = 0)
 

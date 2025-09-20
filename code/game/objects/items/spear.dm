@@ -32,7 +32,7 @@
 	fire = 50
 	acid = 30
 
-/obj/item/spear/Initialize(mapload)
+/obj/item/spear/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/butchering, 100, 70) //decent in a pinch, but pretty bad.
 	AddComponent(/datum/component/jousting)
@@ -164,7 +164,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/spear/explosive)
 	throwforce = 22
 	armour_penetration = 50				//Enhanced armor piercing
 
-/obj/item/spear/bonespear/Initialize(mapload)
+/obj/item/spear/bonespear/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/two_handed, force_unwielded=12, force_wielded=20, block_power_wielded=60, icon_wielded="[icon_prefix]1")
 
@@ -189,6 +189,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/spear/explosive)
 	sharpness = SHARP
 	bleed_force = BLEED_CUT
 
-/obj/item/spear/bamboospear/Initialize(mapload)
+/obj/item/spear/bamboospear/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/two_handed, force_unwielded=10, force_wielded=18, block_power_wielded=25, icon_wielded="[icon_prefix]1")

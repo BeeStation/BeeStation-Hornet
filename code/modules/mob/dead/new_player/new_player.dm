@@ -24,6 +24,8 @@
 	else
 		forceMove(locate(1,1,1))
 
+	ComponentInitialize()
+
 	. = ..()
 
 /mob/dead/new_player/authenticated/Initialize(mapload)

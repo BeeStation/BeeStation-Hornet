@@ -32,7 +32,7 @@ CREATION_TEST_IGNORE_SELF(/turf/open)
 	///Is this floor no-slip?
 	var/traction = FALSE
 
-/turf/open/Initialize(mapload)
+/turf/open/ComponentInitialize()
 	. = ..()
 	if(wet)
 		AddComponent(/datum/component/wet_floor, wet, INFINITY, 0, INFINITY, TRUE)

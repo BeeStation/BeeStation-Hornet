@@ -19,6 +19,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/xenoartifact)
 	. = ..()
 	artifact_material = _artifact_type || artifact_material
 	ADD_TRAIT(src, TRAIT_IGNORE_EXPORT_SCAN, GENERIC_ITEM_TRAIT)
+
+/obj/item/xenoartifact/ComponentInitialize()
+	. = ..()
 	add_artifact_component()
 
 ///Proc to add your artifact stuff, here so we can override it
@@ -30,15 +33,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/xenoartifact)
 	has a 90% chance of being bluespace, 10% of being anything else, like a regular artifact.
 	Lets crew discover / play with artifacts without blowing shit up
 */
-/obj/item/xenoartifact/maint/Initialize(mapload, _artifact_type)
-	. = ..()
+/obj/item/xenoartifact/maint/ComponentInitialize()
 	artifact_material = prob(90) ? /datum/xenoartifact_material/bluespace : null
+	return ..()
 
 /*
 	objective variant
 	spawns with objective trait, shouldn't effect labelling.
 */
-/obj/item/xenoartifact/objective/Initialize(mapload, _artifact_type)
+/obj/item/xenoartifact/objective/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/tracking_beacon, EXPLORATION_TRACKING, null, null, TRUE, "#eb4d4d", TRUE, TRUE)
 	var/datum/component/xenoartifact/artifact_component = GetComponent(/datum/component/xenoartifact)
@@ -75,7 +78,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/xenoartifact)
 */
 /obj/item/xenoartifact/pre_labeled
 
-/obj/item/xenoartifact/pre_labeled/Initialize(mapload, _artifact_type)
+/obj/item/xenoartifact/pre_labeled/ComponentInitialize()
 	. = ..()
 	var/datum/component/xenoartifact/artifact_component = GetComponent(/datum/component/xenoartifact)
 	var/trait_list = list()

@@ -5,7 +5,7 @@
 	icon_state = "folded"
 	w_class = WEIGHT_CLASS_LARGE // No more excuses, stop getting blood everywhere
 
-/obj/item/rollerbed/Initialize(mapload)
+/obj/item/rollerbed/ComponentInitialize()
 	. = ..()
 	DeployableInitialize()
 

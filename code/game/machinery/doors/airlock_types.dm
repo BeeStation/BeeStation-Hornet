@@ -217,7 +217,7 @@
 	icon = 'icons/obj/doors/airlocks/station/plasma.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_plasma
 
-/obj/machinery/door/airlock/plasma/Initialize(mapload)
+/obj/machinery/door/airlock/plasma/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/atmos_sensitive)
 

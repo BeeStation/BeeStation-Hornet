@@ -116,9 +116,6 @@
 		if(!mapload)
 			spawn(1)
 				update(FALSE, FALSE, FALSE)
-
-	AddElement(/datum/element/atmos_sensitive)
-
 	if(mapload)
 		return INITIALIZE_HINT_LATELOAD
 
@@ -130,6 +127,10 @@
 		nightshift_enabled = temp_apc?.nightshift_lights
 		if(nightshift_enabled)
 			update(FALSE, TRUE, TRUE)
+
+/obj/machinery/light/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/atmos_sensitive)
 
 /obj/machinery/light/Destroy()
 	var/area/A = get_area(src)

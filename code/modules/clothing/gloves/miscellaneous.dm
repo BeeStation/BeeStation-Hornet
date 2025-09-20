@@ -161,7 +161,7 @@
 	actions_types = list(/datum/action/item_action/artifact_pincher_mode)
 	var/safety = FALSE
 
-/obj/item/clothing/gloves/artifact_pinchers/Initialize(mapload)
+/obj/item/clothing/gloves/artifact_pinchers/ComponentInitialize()
 	. = ..()
 	var/datum/component/anti_artifact/A = AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100, ITEM_SLOT_GLOVES)
 	A?.override = !safety

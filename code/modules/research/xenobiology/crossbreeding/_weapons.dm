@@ -93,7 +93,7 @@ Slimecrossing Weapons
 	acid = 70
 	stamina = 70
 
-/obj/item/shield/adamantineshield/Initialize(mapload)
+/obj/item/shield/adamantineshield/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/two_handed, require_twohands=TRUE, force_wielded=15)
 
