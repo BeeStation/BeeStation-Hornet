@@ -207,37 +207,37 @@
 		if(prob(10))
 			var/obj/item/organ/liver/liver = C.get_organ_slot(ORGAN_SLOT_LIVER)
 			if(liver)
-				liver.applyOrganDamage(0.6)
+				liver.apply_organ_damage(0.6)
 		current_stage++
 	if(nanites.nanite_volume > 750) //Extra volume spills out in other central organs
 		if(prob(10))
 			var/obj/item/organ/stomach/stomach = C.get_organ_slot(ORGAN_SLOT_STOMACH)
 			if(stomach)
-				stomach.applyOrganDamage(0.75)
+				stomach.apply_organ_damage(0.75)
 		if(prob(10))
 			var/obj/item/organ/lungs/lungs = C.get_organ_slot(ORGAN_SLOT_LUNGS)
 			if(lungs)
-				lungs.applyOrganDamage(0.75)
+				lungs.apply_organ_damage(0.75)
 		current_stage++
 	if(nanites.nanite_volume > 1000) //Extra volume spills out in more critical organs
 		if(prob(10))
 			var/obj/item/organ/heart/heart = C.get_organ_slot(ORGAN_SLOT_HEART)
 			if(heart)
-				heart.applyOrganDamage(0.75)
+				heart.apply_organ_damage(0.75)
 		if(prob(10))
 			var/obj/item/organ/brain/brain = C.get_organ_slot(ORGAN_SLOT_BRAIN)
 			if(brain)
-				brain.applyOrganDamage(0.75)
+				brain.apply_organ_damage(0.75)
 		current_stage++
 	if(nanites.nanite_volume > 1250) //Excess nanites start invading smaller organs for more space, including sensory organs
 		if(prob(13))
 			var/obj/item/organ/eyes/eyes = C.get_organ_slot(ORGAN_SLOT_EYES)
 			if(eyes)
-				eyes.applyOrganDamage(0.75)
+				eyes.apply_organ_damage(0.75)
 		if(prob(13))
 			var/obj/item/organ/ears/ears = C.get_organ_slot(ORGAN_SLOT_EARS)
 			if(ears)
-				ears.applyOrganDamage(0.75)
+				ears.apply_organ_damage(0.75)
 		current_stage++
 	if(nanites.nanite_volume > 1500) //Nanites start spilling into the bloodstream, causing toxicity
 		if(prob(15))
