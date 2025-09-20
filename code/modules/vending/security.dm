@@ -11,6 +11,7 @@
 					/obj/item/grenade/flashbang = 4,
 					/obj/item/assembly/flash/handheld = 5,
 					/obj/item/ammo_casing/taser = 12,
+					/obj/item/ammo_box/pouch/c10x25mm = 6,
 					/obj/item/book/manual/wiki/security_space_law = 3,
 					/obj/item/storage/box/evidence = 6,
 					/obj/item/flashlight/seclite = 4,
@@ -22,7 +23,6 @@
 	contraband = list(/obj/item/clothing/glasses/sunglasses/advanced = 2)
 	premium = list(/obj/item/storage/belt/security/webbing = 5,
 					/obj/item/storage/backpack/duffelbag/sec/deputy = 4,
-					/obj/item/ammo_box/pouch/c10x25mm = 6,
 					/obj/item/coin/antagtoken = 1,
 					/obj/item/security_barricade = 4,
 					/obj/item/clothing/head/helmet/blueshirt = 1,
