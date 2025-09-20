@@ -53,7 +53,7 @@
 			span_warning("[src]\s fail to make contact with [target]."),
 			span_notice("[src] fails to make contact with your body."),
 		)
-		playsound(target, 'sound/weapons/parry.ogg')
+		playsound(target, 'sound/weapons/parry.ogg', 100)
 		target.balloon_alert(firer, "Blocked")
 		return
 	// we need a "from", otherwise, where does the electricity come from?
