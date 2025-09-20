@@ -48,7 +48,7 @@
 #define ROLE_FUGITIVE_HUNTER	"Fugitive Hunter"
 #define ROLE_SLAUGHTER_DEMON	"Slaughter Demon"
 #define ROLE_CONTRACTOR_SUPPORT_UNIT "Contractor Support Unit"
-#define ROLE_PYRO_SLIME			"Pyroclastic Anomaly Slime"
+#define ROLE_EXO_SLIME			"Exothermic Anomaly Slime"
 #define ROLE_MONKEY_HELMET		"Sentient Monkey"
 #define ROLE_PRISONER			"Prisoner"
 #define ROLE_WIZARD_APPRENTICE 	"Apprentice"

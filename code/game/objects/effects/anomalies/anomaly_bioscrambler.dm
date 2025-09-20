@@ -24,6 +24,7 @@
 		return
 	COOLDOWN_START(src, pulse_cooldown, pulse_interval)
 
+	playsound(src, 'sound/magic/staff_animation.ogg', 50, 1)
 	bioscrambler_pulse(src, range)
 
 /proc/bioscrambler_pulse(atom/owner, range = 5, ignore_owner = FALSE, message_admins = FALSE)
