@@ -110485,7 +110485,7 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/structure/sign/poster/official/random/directional/south,
 /obj/effect/turf_decal/siding/dark,
-/obj/structure/musician/piano{
+/obj/effect/spawner/structure/random_piano{
 	icon_state = "piano";
 	dir = 4
 	},

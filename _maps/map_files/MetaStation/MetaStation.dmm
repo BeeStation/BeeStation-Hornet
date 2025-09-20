@@ -6336,7 +6336,7 @@
 	dir = 10
 	},
 /obj/structure/window/spawner/west,
-/obj/structure/musician/piano,
+/obj/effect/spawner/structure/random_piano,
 /turf/open/floor/wood/big,
 /area/crew_quarters/theatre)
 "aXr" = (
