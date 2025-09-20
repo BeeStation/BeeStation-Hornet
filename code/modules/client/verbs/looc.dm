@@ -220,7 +220,7 @@ AUTH_CLIENT_VERB(looc, msg as text)
 			to_chat(sender_client, span_rosebold("You have temporarily lost access to OOC communications due to automated feedback. Do not panic; \
 			you are not in trouble, this will automatically revert at the end of the round, and is not logged against you!"))
 		sender.muted |= MUTE_OOC
-		log_game("[sender.ckey] was muted as a result of an automated LOOC critique - this is not a punishment and should not be used as evidence in any cases against a player. User had [sender.commendations_received] commendations and [sender.criticisms_received] criticisms.")
+		log_admin("AUTOMUTE: [sender.ckey] from LOOC")
 
 /datum/looc_message/proc/expire()
 	if (!expired)
