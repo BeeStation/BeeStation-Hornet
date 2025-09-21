@@ -12,6 +12,7 @@
 	tgui_id = "NtosSupermatter"
 	program_icon = "radiation"
 	alert_able = TRUE
+	power_consumption = 60 WATT
 
 	/// Last known status of the supermatter, used to set the program icon.
 	var/last_status = SUPERMATTER_INACTIVE

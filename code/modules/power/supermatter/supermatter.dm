@@ -26,7 +26,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	critical_machine = TRUE
-	light_on = FALSE
+	zmm_flags = ZMM_MANGLE_PLANES
 
 	/// The id of our supermatter
 	var/uid = 1

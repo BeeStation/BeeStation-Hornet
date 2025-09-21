@@ -15,6 +15,7 @@
 	tgui_id = "NtosRbmk"
 	program_icon = "radiation"
 	alert_able = TRUE
+	power_consumption = 80 WATT
 
 	/// Last known status of the reactor, used to set the program icon.
 	var/last_status = 0

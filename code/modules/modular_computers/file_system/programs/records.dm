@@ -8,6 +8,7 @@
 	tgui_id = "NtosRecords"
 	size = 4
 	available_on_ntnet = FALSE
+	power_consumption = 60 WATT
 
 	var/mode
 
@@ -20,6 +21,7 @@
 	transfer_access = list(ACCESS_MEDICAL, ACCESS_HEADS)
 	available_on_ntnet = TRUE
 	mode = "medical"
+	power_consumption = 60 WATT
 
 /datum/computer_file/program/records/security
 	filedesc = "Security Records"
@@ -29,6 +31,7 @@
 	transfer_access = list(ACCESS_SECURITY, ACCESS_HEADS)
 	available_on_ntnet = TRUE
 	mode = "security"
+	power_consumption = 60 WATT
 
 /datum/computer_file/program/records/proc/GetRecordsReadable()
 	var/list/all_records = list()

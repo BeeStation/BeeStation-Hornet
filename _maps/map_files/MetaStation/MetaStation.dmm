@@ -2299,7 +2299,7 @@
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "avs" = (
-/obj/structure/reagent_dispensers/watertank,
+/obj/machinery/modular_fabricator/autolathe,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "avN" = (
@@ -23710,6 +23710,10 @@
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted{
 	dir = 1
 	},
+/obj/structure/table/glass,
+/obj/item/candydispenser/engineering{
+	pixel_y = 11
+	},
 /turf/open/floor/iron,
 /area/engine/break_room)
 "eOB" = (
@@ -25253,16 +25257,13 @@
 /turf/open/floor/iron/dark,
 /area/science/xenobiology)
 "frY" = (
-/obj/structure/table/glass,
 /obj/effect/turf_decal/trimline/yellow/filled/warning{
 	dir = 4
 	},
 /obj/effect/turf_decal/trimline/brown/filled/line{
 	dir = 4
 	},
-/obj/item/candydispenser/engineering{
-	pixel_y = 11
-	},
+/obj/machinery/modular_computer/console/preset/civilian,
 /turf/open/floor/iron,
 /area/engine/break_room)
 "fsm" = (
@@ -56802,7 +56803,7 @@
 /area/storage/tech)
 "qgL" = (
 /obj/machinery/door/airlock/public/glass{
-	name = "Kitchen";
+	name = "Auxiliary Tool Storage";
 	req_access_txt = "12"
 	},
 /obj/effect/landmark/event_spawn,
@@ -78936,6 +78937,9 @@
 	pixel_y = -32
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
 "xEl" = (
@@ -79150,7 +79154,7 @@
 "xIL" = (
 /obj/effect/turf_decal/tile/dark,
 /obj/effect/turf_decal/bot,
-/obj/machinery/modular_computer/console/preset/civilian{
+/obj/machinery/computer/rdconsole/production{
 	dir = 8
 	},
 /turf/open/floor/iron,
@@ -80158,8 +80162,7 @@
 /area/bridge)
 "xYs" = (
 /obj/machinery/door/airlock{
-	name = "Service Hall";
-	req_access_txt = "35"
+	name = "Service Hall"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"

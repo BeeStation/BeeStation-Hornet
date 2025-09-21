@@ -40,6 +40,8 @@
 	var/sound_channel
 	/// Hardware required to run this program
 	var/hardware_requirement
+	/// Power consumption of this program, per second
+	var/power_consumption
 
 /datum/computer_file/program/New(obj/item/modular_computer/comp = null)
 	..()

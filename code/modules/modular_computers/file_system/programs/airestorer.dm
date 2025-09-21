@@ -9,6 +9,7 @@
 	tgui_id = "NtosAiRestorer"
 	program_icon = "laptop-code"
 	hardware_requirement = MC_AI
+	power_consumption = 100 WATT
 	/// Variable dictating if we are in the process of restoring the AI in the inserted intellicard
 	var/restoring = FALSE
 
