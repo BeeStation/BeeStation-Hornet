@@ -333,6 +333,24 @@
 2025-09-21:
   ACanOpener, Anonmare:
   - balance: Reduced damage of the possessed chainsword to 18, down from 30.
+  PowerfulBacon:
+  - balance: Reduces the PDA's inactive power consumption, power consumption is now
+      higher when you have programs open. PDAs never use power while turned off.
+  - balance: Flashlight PDA now consumes and requires power, flickering when low on
+      power.
+  - balance: PDA batteries charge slightly faster.
   mrmanlikesbt:
   - code_imp: Renamed the applyOrganDamage() proc to apply_organ_damage()
   - bugfix: Fixed canister connectors always having a pipe overlay on the south
+  - bugfix: fixed some small mistakes on MetaStation
+  mrmanlikesbt, ZephyrTFA, Jacquerel, jlsnow301:
+  - rscadd: Unary vents can be overclocked now to bypass their normal pressure restrictions
+      (5066kPa). While a vent is overclocked it will slowly lose integrity which you
+      can see via air alarm or examining it, you can repair a vent by using a screwdriver
+      on it. As the vent's integrity decreases, the amount of gas it is able to move
+      while under normal operation will decrease as well. When the vent reaches 0
+      integrity it will break and unwrench itself.
+  - refactor: Refactored the air alarm UI backend
+  - bugfix: Fixed the air alarm UI having overlapping buttons on 516 clients
+  - bugfix: Fixed not being able to set an air alarm's target air conditioning temperature
+  - code_imp: 'Removes an unused var: [/obj/machinery/var/interacts_with_air]'
