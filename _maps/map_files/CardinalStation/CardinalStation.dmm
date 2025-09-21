@@ -5599,8 +5599,15 @@
 	},
 /area/crew_quarters/cryopods)
 "bfr" = (
-/obj/machinery/requests_console/auto_name/directional/west{
-	announcementConsole = 1
+/obj/machinery/requests_console{
+	department = "Cargo Bay";
+	departmentType = 2;
+	pixel_x = -30
+	},
+/obj/machinery/requests_console{
+	department = "Cargo Bay";
+	departmentType = 2;
+	pixel_x = -30
 	},
 /turf/open/floor/carpet/orange,
 /area/quartermaster/qm)
