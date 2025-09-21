@@ -17,6 +17,10 @@
 
 	var/range = 5
 
+/obj/effect/anomaly/bioscrambler/Initialize(mapload, new_lifespan, spawned_fake_harvested)
+	. = ..()
+	COOLDOWN_START(src, pulse_cooldown, pulse_interval) // give them time to react
+
 /obj/effect/anomaly/bioscrambler/anomalyEffect(delta_time)
 	. = ..()
 
