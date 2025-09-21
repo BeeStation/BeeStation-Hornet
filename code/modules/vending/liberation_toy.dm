@@ -24,11 +24,9 @@
 						/obj/item/toy/cards/deck/syndicate = 10) //Gambling and it hurts, making it a +18 item
 	armor_type = /datum/armor/vending_toyliberationstation
 	resistance_flags = FIRE_PROOF
-	refill_canister = /obj/item/vending_refill/donksoft
 	default_price = 75
 	extra_price = 300
 	light_mask = "donksoft-light-mask"
-
 
 /datum/armor/vending_toyliberationstation
 	melee = 100

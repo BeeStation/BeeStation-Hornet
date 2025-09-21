@@ -237,15 +237,6 @@
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
 
-/datum/design/donksoft_refill
-	name = "Donksoft Toy Vendor Refill"
-	desc = "A refill canister for Donksoft Toy Vendors."
-	id = "donksoft_refill"
-	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 25000, /datum/material/glass = 15000, /datum/material/plasma = 20000, /datum/material/gold = 10000, /datum/material/silver = 10000)
-	build_path = /obj/item/vending_refill/donksoft
-	category = list("Equipment")
-
 /datum/design/oxygen_tank
 	name = "Oxygen Tank"
 	desc = "An empty oxygen tank."

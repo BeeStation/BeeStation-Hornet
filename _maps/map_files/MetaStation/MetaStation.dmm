@@ -57499,7 +57499,7 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
 "qrA" = (
-/obj/item/vending_refill/coffee,
+/obj/item/vending_refill,
 /turf/open/floor/plating,
 /area/maintenance/disposal)
 "qrC" = (
@@ -72171,7 +72171,7 @@
 /obj/item/stack/sheet/iron,
 /obj/item/stack/cable_coil/yellow,
 /obj/item/stack/cable_coil/yellow,
-/obj/item/vending_refill/cigarette,
+/obj/item/vending_refill,
 /obj/item/wrench,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"

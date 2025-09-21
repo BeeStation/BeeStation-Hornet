@@ -35,11 +35,6 @@
 		/obj/item/airlock_painter = 1,
 		/obj/item/melee/skateboard/hoverboard = 1
 	)
-	refill_canister = /obj/item/vending_refill/games
 	default_price = 10
 	extra_price = 25
 	light_mask = "games-light-mask"
-
-/obj/item/vending_refill/games
-	machine_name = "\improper Good Clean Fun"
-	icon_state = "refill_games"

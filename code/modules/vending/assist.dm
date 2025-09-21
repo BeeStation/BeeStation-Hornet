@@ -13,15 +13,9 @@
 		)
 	premium = list(
 		/obj/item/price_tagger = 4,
-		/obj/item/vending_refill/custom = 4,
 		/obj/item/circuitboard/machine/vendor = 4
 		)
-	refill_canister = /obj/item/vending_refill/assist
 	product_ads = "Only the finest!;Have some tools.;The most robust equipment.;The finest gear in space!"
 	default_price = 10
 	extra_price = 40
 	light_mask = "generic-light-mask"
-
-/obj/item/vending_refill/assist
-	machine_name = "Vendomat"
-	icon_state = "refill_engi"

@@ -1,6 +1,3 @@
-/obj/item/vending_refill/wardrobe
-	icon_state = "refill_clothes"
-
 /obj/machinery/vending/wardrobe
 	default_price = 50
 	extra_price = 75
@@ -45,11 +42,7 @@
 		/obj/item/clothing/head/beret/sec/navyofficer = 3,
 		/obj/item/storage/backpack/peace_borg_bag = 3,
 		)
-	refill_canister = /obj/item/vending_refill/wardrobe/sec_wardrobe
 	light_color = COLOR_MOSTLY_PURE_RED
-
-/obj/item/vending_refill/wardrobe/sec_wardrobe
-	machine_name = "SecDrobe"
 
 /obj/machinery/vending/wardrobe/medi_wardrobe
 	name = "\improper MediDrobe"
@@ -90,10 +83,6 @@
 	premium = list(
 		/obj/item/storage/backpack/medical_borg_bag = 2,
 	)
-	refill_canister = /obj/item/vending_refill/wardrobe/medi_wardrobe
-
-/obj/item/vending_refill/wardrobe/medi_wardrobe
-	machine_name = "MediDrobe"
 
 /obj/machinery/vending/wardrobe/engi_wardrobe
 	name = "EngiDrobe"
@@ -123,11 +112,7 @@
 	premium = list(
 		/obj/item/storage/backpack/engineer_borg_bag = 3,
 	)
-	refill_canister = /obj/item/vending_refill/wardrobe/engi_wardrobe
 	light_color = COLOR_VIVID_YELLOW
-
-/obj/item/vending_refill/wardrobe/engi_wardrobe
-	machine_name = "EngiDrobe"
 
 /obj/machinery/vending/wardrobe/atmos_wardrobe
 	name = "AtmosDrobe"
@@ -147,11 +132,7 @@
 					/obj/item/clothing/shoes/sneakers/black = 3,
 					/obj/item/clothing/head/beret/atmos = 3)
 	contraband = list(/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos/old = 3)
-	refill_canister = /obj/item/vending_refill/wardrobe/atmos_wardrobe
 	light_color = COLOR_VIVID_YELLOW
-
-/obj/item/vending_refill/wardrobe/atmos_wardrobe
-	machine_name = "AtmosDrobe"
 
 /obj/machinery/vending/wardrobe/cargo_wardrobe
 	name = "CargoDrobe"
@@ -188,10 +169,6 @@
 		/obj/item/radio/headset/headset_quartermaster = 1,
 		/obj/item/clothing/suit/hooded/wintercoat/cargo/old = 3
 	)
-	refill_canister = /obj/item/vending_refill/wardrobe/cargo_wardrobe
-
-/obj/item/vending_refill/wardrobe/cargo_wardrobe
-	machine_name = "CargoDrobe"
 
 /obj/machinery/vending/wardrobe/robo_wardrobe
 	name = "RoboDrobe"
@@ -225,12 +202,7 @@
 					/obj/item/storage/backpack/service_borg_bag = 2,
 					/obj/item/storage/backpack/security_borg_bag = 2,
 					/obj/item/storage/backpack/medical_borg_bag = 2)
-	refill_canister = /obj/item/vending_refill/wardrobe/robo_wardrobe
 	extra_price = 300
-
-
-/obj/item/vending_refill/wardrobe/robo_wardrobe
-	machine_name = "RoboDrobe"
 
 /obj/machinery/vending/wardrobe/science_wardrobe
 	name = "SciDrobe"
@@ -255,11 +227,6 @@
 					/obj/item/clothing/head/beret/science = 3,
 					/obj/item/clothing/head/cowboy/science = 3)
 	contraband = list(/obj/item/clothing/suit/hooded/wintercoat/science/old = 3)
-	refill_canister = /obj/item/vending_refill/wardrobe/science_wardrobe
-
-
-/obj/item/vending_refill/wardrobe/science_wardrobe
-	machine_name = "SciDrobe"
 
 /obj/machinery/vending/wardrobe/hydro_wardrobe
 	name = "Hydrobe"
@@ -284,12 +251,7 @@
 	premium = list(
 		/obj/item/storage/backpack/service_borg_bag = 2,
 	)
-	refill_canister = /obj/item/vending_refill/wardrobe/hydro_wardrobe
 	light_color = LIGHT_COLOR_ELECTRIC_GREEN
-
-
-/obj/item/vending_refill/wardrobe/hydro_wardrobe
-	machine_name = "HyDrobe"
 
 /obj/machinery/vending/wardrobe/curator_wardrobe
 	name = "CuraDrobe"
@@ -311,11 +273,6 @@
 					/obj/item/storage/bag/books = 1,
 					/obj/item/clothing/under/plasmaman/curator = 1,
 					/obj/item/clothing/head/helmet/space/plasmaman/curator = 1)
-	refill_canister = /obj/item/vending_refill/wardrobe/curator_wardrobe
-
-
-/obj/item/vending_refill/wardrobe/curator_wardrobe
-	machine_name = "CuraDrobe"
 
 /obj/machinery/vending/wardrobe/bar_wardrobe
 	name = "BarDrobe"
@@ -349,11 +306,6 @@
 	premium = list(/obj/item/storage/box/dishdrive = 1,
 		/obj/item/storage/backpack/service_borg_bag = 2,
 	)
-	refill_canister = /obj/item/vending_refill/wardrobe/bar_wardrobe
-
-
-/obj/item/vending_refill/wardrobe/bar_wardrobe
-	machine_name = "BarDrobe"
 
 /obj/machinery/vending/wardrobe/chef_wardrobe
 	name = "ChefDrobe"
@@ -381,11 +333,6 @@
 	premium = list(
 		/obj/item/storage/backpack/service_borg_bag = 3,
 	)
-	refill_canister = /obj/item/vending_refill/wardrobe/chef_wardrobe
-
-
-/obj/item/vending_refill/wardrobe/chef_wardrobe
-	machine_name = "ChefDrobe"
 
 /obj/machinery/vending/wardrobe/jani_wardrobe
 	name = "JaniDrobe"
@@ -419,12 +366,7 @@
 	premium = list(
 		/obj/item/storage/backpack/janitor_borg_bag = 2,
 	)
-	refill_canister = /obj/item/vending_refill/wardrobe/jani_wardrobe
 	light_color = COLOR_STRONG_MAGENTA
-
-
-/obj/item/vending_refill/wardrobe/jani_wardrobe
-	machine_name = "JaniDrobe"
 
 /obj/machinery/vending/wardrobe/law_wardrobe
 	name = "LawDrobe"
@@ -463,10 +405,6 @@
 		/obj/item/clothing/suit/jacket/aristocrat/brown = 1,
 		/obj/item/clothing/suit/jacket/aristocrat/blue = 1,
 		)
-	refill_canister = /obj/item/vending_refill/wardrobe/law_wardrobe
-
-/obj/item/vending_refill/wardrobe/law_wardrobe
-	machine_name = "LawDrobe"
 
 /obj/machinery/vending/wardrobe/chap_wardrobe
 	name = "ChapDrobe"
@@ -500,11 +438,6 @@
 	premium = list(/obj/item/clothing/suit/chaplainsuit/bishoprobe = 1,
 					/obj/item/clothing/neck/crucifix/rosary = 1,
 					/obj/item/clothing/head/chaplain/bishopmitre = 1)
-	refill_canister = /obj/item/vending_refill/wardrobe/chap_wardrobe
-
-
-/obj/item/vending_refill/wardrobe/chap_wardrobe
-	machine_name = "ChapDrobe"
 
 /obj/machinery/vending/wardrobe/chem_wardrobe
 	name = "ChemDrobe"
@@ -523,10 +456,6 @@
 					/obj/item/storage/backpack/satchel/chem = 2,
 					/obj/item/storage/bag/chemistry = 2,
 					/obj/item/clothing/head/beret/medical = 2)
-	refill_canister = /obj/item/vending_refill/wardrobe/chem_wardrobe
-
-/obj/item/vending_refill/wardrobe/chem_wardrobe
-	machine_name = "ChemDrobe"
 
 /obj/machinery/vending/wardrobe/gene_wardrobe
 	name = "GeneDrobe"
@@ -543,10 +472,6 @@
 					/obj/item/clothing/suit/hooded/wintercoat/geneticist = 2,
 					/obj/item/storage/backpack/genetics = 2,
 					/obj/item/storage/backpack/satchel/gen = 2)
-	refill_canister = /obj/item/vending_refill/wardrobe/gene_wardrobe
-
-/obj/item/vending_refill/wardrobe/gene_wardrobe
-	machine_name = "GeneDrobe"
 
 /obj/machinery/vending/wardrobe/viro_wardrobe
 	name = "ViroDrobe"
@@ -567,10 +492,6 @@
 	contraband = list(/obj/item/clothing/suit/bio_suit/plaguedoctorsuit = 1,
 					/obj/item/clothing/head/costume/plague = 1,
 					/obj/item/clothing/mask/gas/plaguedoctor = 1)
-	refill_canister = /obj/item/vending_refill/wardrobe/viro_wardrobe
-
-/obj/item/vending_refill/wardrobe/viro_wardrobe
-	machine_name = "ViroDrobe"
 
 /obj/machinery/vending/wardrobe/det_wardrobe
 	name = "\improper DetDrobe"
@@ -601,11 +522,7 @@
 		/obj/item/storage/fancy/cigarettes = 5
 	)
 	premium = list(/obj/item/clothing/head/flatcap = 1, /obj/item/clothing/suit/armor/vest/det_suit = 1, /obj/item/clothing/neck/tie/detective = 1)
-	refill_canister = /obj/item/vending_refill/wardrobe/det_wardrobe
 	extra_price = 350
-
-/obj/item/vending_refill/wardrobe/det_wardrobe
-	machine_name = "DetDrobe"
 
 /obj/machinery/vending/wardrobe/cent_wardrobe
 	name = "\improper CentDrobe"
@@ -631,8 +548,3 @@
 		/obj/item/clothing/head/hats/centhat = 3,
 		/obj/item/clothing/head/hats/intern = 3,
 	)
-	refill_canister = /obj/item/vending_refill/wardrobe/cent_wardrobe
-
-/obj/item/vending_refill/wardrobe/cent_wardrobe
-	machine_name = "CentDrobe"
-	light_color = LIGHT_COLOR_ELECTRIC_GREEN

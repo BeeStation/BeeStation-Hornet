@@ -213,7 +213,7 @@
 /obj/machinery/vending/wallmed/survival_pod
 	name = "survival pod medical supply"
 	desc = "Wall-mounted Medical Equipment dispenser. This one seems just a tiny bit smaller."
-	refill_canister = null
+	circuit = null
 	onstation = FALSE
 
 //Computer

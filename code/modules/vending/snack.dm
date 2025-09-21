@@ -16,13 +16,9 @@
 	contraband = list(/obj/item/food/syndicake = 6,
 					/obj/item/food/swirl_lollipop = 2)
 
-	refill_canister = /obj/item/vending_refill/snack
 	var/chef_compartment_access = "28" //ACCESS_KITCHEN
 	default_price = 20
 	extra_price = 30
-
-/obj/item/vending_refill/snack
-	machine_name = "Getmore Chocolate Corp"
 
 /obj/machinery/vending/snack/blue
 	icon_state = "snackblue"

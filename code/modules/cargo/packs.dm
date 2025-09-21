@@ -487,14 +487,6 @@
 					/obj/item/storage/box/handcuffs)
 	crate_name = "security supply crate"
 
-/datum/supply_pack/security/vending/security
-	name = "SecTech Supply Crate"
-	desc = "Officer Paul bought all the handcuffs? Then refill the security vendor with ths crate."
-	cost = 1200
-	max_supply = 3
-	contains = list(/obj/item/vending_refill/security)
-	crate_name = "SecTech supply crate"
-
 /datum/supply_pack/security/firingpins
 	name = "Standard Firing Pins Crate"
 	desc = "Upgrade your arsenal with 10 standard firing pins. Requires Security access to open."
@@ -1161,15 +1153,6 @@
 					/obj/item/fuel_rod)
 	crate_name = "fuel rod crate"
 	crate_type = /obj/structure/closet/crate/secure/engineering
-
-/datum/supply_pack/engineering/vending/engineering
-	name = "Engineering Vending Crate"
-	desc = "Sick of assistants breaking into engineering for tools? Contains one Engi-Vend refill and one YouTool refill."
-	cost = 1100
-	max_supply = 6
-	contains = list(/obj/item/vending_refill/engivend,
-					/obj/item/vending_refill/tool)
-	crate_name = "engineering vending crate"
 
 /datum/supply_pack/engineering/bsa
 	name = "Bluespace Artillery Parts"
@@ -1844,8 +1827,7 @@
 					/obj/item/defibrillator/loaded,
 					/obj/item/reagent_containers/blood/OMinus,
 					/obj/item/storage/pill_bottle/mining,
-					/obj/item/reagent_containers/pill/neurine,
-					/obj/item/vending_refill/medical)
+					/obj/item/reagent_containers/pill/neurine)
 	crate_name = "medical supplies crate"
 
 /datum/supply_pack/medical/supplies/fill(obj/structure/closet/crate/C)
@@ -1917,15 +1899,6 @@
 					/obj/item/toy/figure/virologist)
 	crate_name = "Junior Epidemiology Kit"
 	dangerous = TRUE
-
-/datum/supply_pack/medical/vending
-	name = "Medical Vending Crate"
-	desc = "Contains one NanoMed Plus refill and one wall-mounted NanoMed refill."
-	cost = 1500
-	max_supply = 6
-	contains = list(/obj/item/vending_refill/medical,
-					/obj/item/vending_refill/wallmed)
-	crate_name = "medical vending crate"
 
 /datum/supply_pack/medical/virus
 	name = "Virus Crate"
@@ -2066,14 +2039,6 @@
 	)
 	crate_name = "shield generators crate"
 	crate_type = /obj/structure/closet/crate/secure/science
-
-/datum/supply_pack/science/modularpc
-	name = "Deluxe Silicate Selections restocking unit"
-	desc = "What's a computer? Contains Deluxe Silicate Selections restocking unit."
-	cost = 5500
-	max_supply = 4
-	contains = list(/obj/item/vending_refill/modularpc)
-	crate_name = "computer supply crate"
 
 /datum/supply_pack/science/monkey_helmets
 	name = "Monkey Mind Magnification Helmet Crate"
@@ -2301,87 +2266,6 @@
 	contains = list(/obj/item/storage/backpack/duffelbag/mining_conscript)
 	crate_name = "shaft miner starter kit"
 	crate_type = /obj/structure/closet/crate/secure
-
-/datum/supply_pack/service/vending/bartending
-	name = "Booze-o-mat and Coffee Supply Crate"
-	desc = "Bring on the booze and coffee vending machine refills."
-	cost = 1200
-	max_supply = 6
-	access_budget = ACCESS_BAR
-	contains = list(/obj/item/vending_refill/boozeomat,
-					/obj/item/vending_refill/coffee)
-	crate_name = "bartending supply crate"
-
-/datum/supply_pack/service/vending/cigarette
-	name = "Cigarette Supply Crate"
-	desc = "Don't believe the reports - smoke today! Contains a cigarette vending machine refill."
-	cost = 1200
-	max_supply = 5
-	contains = list(/obj/item/vending_refill/cigarette)
-	crate_name = "cigarette supply crate"
-	crate_type = /obj/structure/closet/crate
-
-/datum/supply_pack/service/vending/dinnerware
-	name = "Kitchen Supply Crate"
-	desc = "More knives and ingredients for the chef."
-	cost = 500
-	max_supply = 6
-	access_budget = ACCESS_KITCHEN
-	contains = list(/obj/item/vending_refill/dinnerware)
-	crate_name = "kitchen supply crate"
-
-/datum/supply_pack/service/vending/games
-	name = "Games Supply Crate"
-	desc = "Get your game on with this game vending machine refill."
-	cost = 800
-	max_supply = 6
-	contains = list(/obj/item/vending_refill/games)
-	crate_name = "games supply crate"
-	crate_type = /obj/structure/closet/crate
-
-/datum/supply_pack/service/vending/imported
-	name = "Imported Vending Machines"
-	desc = "Vending machines famous in other parts of the galaxy."
-	cost = 3000
-	max_supply = 6
-	contains = list(/obj/item/vending_refill/sustenance,
-					/obj/item/vending_refill/robotics,
-					/obj/item/vending_refill/sovietsoda,
-					/obj/item/vending_refill/engineering)
-	crate_name = "unlabeled supply crate"
-
-/datum/supply_pack/service/vending/ptech
-	name = "PTech Supply Crate"
-	desc = "Not enough job disks after half the crew lost their PDA to explosions? This may fix it."
-	cost = 800
-	max_supply = 6
-	access_budget = ACCESS_HOP
-	contains = list(/obj/item/vending_refill/job_disk)
-	crate_name = "ptech supply crate"
-
-/datum/supply_pack/service/vending/snack
-	name = "Snack Supply Crate"
-	desc = "One vending machine refill of cavity-bringin' goodness! The number one dentist recommended order!"
-	cost = 800
-	max_supply = 6
-	contains = list(/obj/item/vending_refill/snack)
-	crate_name = "snacks supply crate"
-
-/datum/supply_pack/service/vending/cola
-	name = "Softdrinks Supply Crate"
-	desc = "Got whacked by a toolbox, but you still have those pesky teeth? Get rid of those pearly whites with this soda machine refill, today!"
-	cost = 800
-	max_supply = 6
-	contains = list(/obj/item/vending_refill/cola)
-	crate_name = "soft drinks supply crate"
-
-/datum/supply_pack/service/vending/vendomat
-	name = "Vendomat Supply Crate"
-	desc = "More tools for your IED testing facility."
-	cost = 800
-	max_supply = 6
-	contains = list(/obj/item/vending_refill/assist)
-	crate_name = "vendomat supply crate"
 
 /datum/supply_pack/service/randomized/donkpockets
 	name = "Donk Pocket Variety Crate"
@@ -2688,17 +2572,6 @@
 					/obj/item/food/grown/onion,
 					/obj/item/food/grown/pumpkin)
 	crate_name = "food crate"
-
-/datum/supply_pack/organic/vending/hydro_refills
-	name = "Hydroponics Vending Machines Refills"
-	desc = "When the clown takes all the banana seeds. Contains a NutriMax refill and an MegaSeed Servitor refill."
-	cost = 1700
-	max_supply = 6
-	access_budget = ACCESS_HYDROPONICS
-	crate_type = /obj/structure/closet/crate
-	contains = list(/obj/item/vending_refill/hydroseeds,
-					/obj/item/vending_refill/hydronutrients)
-	crate_name = "hydroponics supply crate"
 
 /datum/supply_pack/organic/grill
 	name = "Grilling Starter Kit"
@@ -3011,8 +2884,7 @@
 					/obj/item/storage/fancy/cigarettes/cigpack_syndicate,
 					/obj/item/storage/fancy/cigarettes/cigpack_shadyjims,
 					/obj/item/clothing/mask/gas/syndicate,
-					/obj/item/clothing/neck/necklace/dope,
-					/obj/item/vending_refill/donksoft)
+					/obj/item/clothing/neck/necklace/dope)
 	crate_name = "crate"
 
 /datum/supply_pack/costumes_toys/foamforce
@@ -3287,104 +3159,37 @@
 		new plush_nomoth(C)
 
 //////////////////////////////////////////////////////////////////////////////
-///////////////////////// Wardrobe Resupplies ////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
-
-/datum/supply_pack/costumes_toys/wardrobes/autodrobe
-	name = "Autodrobe Supply Crate"
-	desc = "Autodrobe missing your favorite dress? Solve that issue today with this autodrobe refill."
-	cost = 800
-	max_supply = 6
-	contains = list(/obj/item/vending_refill/autodrobe)
-	crate_name = "autodrobe supply crate"
-
-/datum/supply_pack/costumes_toys/wardrobes/cargo
-	name = "Cargo Wardrobe Supply Crate"
-	desc = "This crate contains a refill for the CargoDrobe."
-	cost = 800
-	max_supply = 6
-	access_budget = ACCESS_CARGO
-	contains = list(/obj/item/vending_refill/wardrobe/cargo_wardrobe)
-	crate_name = "cargo department supply crate"
-
-/datum/supply_pack/costumes_toys/wardrobes/clothesmate
-	name = "ClothesMate Wardrobe Supply Crate"
-	desc = "This crate contains a refill for the ClothesMate."
-	cost = 800
-	max_supply = 6
-	contains = list(/obj/item/vending_refill/clothing)
-	crate_name = "clothesmate supply crate"
-
-/datum/supply_pack/costumes_toys/wardrobes/engineering
-	name = "Engineering Wardrobe Supply Crate"
-	desc = "This crate contains refills for the EngiDrobe and AtmosDrobe."
-	cost = 800
-	max_supply = 6
-	access_budget = ACCESS_ENGINE
-	contains = list(/obj/item/vending_refill/wardrobe/engi_wardrobe,
-					/obj/item/vending_refill/wardrobe/atmos_wardrobe)
-	crate_name = "engineering department wardrobe supply crate"
-
-/datum/supply_pack/costumes_toys/wardrobes/general
-	name = "General Wardrobes Supply Crate"
-	desc = "This crate contains refills for the CuraDrobe, BarDrobe, ChefDrobe, JaniDrobe, ChapDrobe."
-	cost = 1200
-	max_supply = 6
-	contains = list(/obj/item/vending_refill/wardrobe/curator_wardrobe,
-					/obj/item/vending_refill/wardrobe/bar_wardrobe,
-					/obj/item/vending_refill/wardrobe/chef_wardrobe,
-					/obj/item/vending_refill/wardrobe/jani_wardrobe,
-					/obj/item/vending_refill/wardrobe/chap_wardrobe)
-	crate_name = "general wardrobes vendor refills"
-
-/datum/supply_pack/costumes_toys/wardrobes/hydroponics
-	name = "Hydrobe Supply Crate"
-	desc = "This crate contains a refill for the Hydrobe."
-	cost = 600
-	max_supply = 6
-	access_budget = ACCESS_HYDROPONICS
-	contains = list(/obj/item/vending_refill/wardrobe/hydro_wardrobe)
-	crate_name = "hydrobe supply crate"
-
-/datum/supply_pack/costumes_toys/wardrobes/medical
-	name = "Medical Wardrobe Supply Crate"
-	desc = "This crate contains refills for the MediDrobe, ChemDrobe, GeneDrobe, and ViroDrobe."
-	cost = 1200
-	max_supply = 6
-	access_budget = ACCESS_MEDICAL
-	contains = list(/obj/item/vending_refill/wardrobe/medi_wardrobe,
-					/obj/item/vending_refill/wardrobe/chem_wardrobe,
-					/obj/item/vending_refill/wardrobe/gene_wardrobe,
-					/obj/item/vending_refill/wardrobe/viro_wardrobe)
-	crate_name = "medical department wardrobe supply crate"
-
-/datum/supply_pack/costumes_toys/wardrobes/science
-	name = "Science Wardrobe Supply Crate"
-	desc = "This crate contains refills for the SciDrobe and RoboDrobe."
-	cost = 800
-	max_supply = 6
-	access_budget = ACCESS_RESEARCH
-	contains = list(/obj/item/vending_refill/wardrobe/robo_wardrobe,
-					/obj/item/vending_refill/wardrobe/science_wardrobe)
-	crate_name = "science department wardrobe supply crate"
-
-/datum/supply_pack/costumes_toys/wardrobes/security
-	name = "Security Wardrobe Supply Crate"
-	desc = "This crate contains refills for the SecDrobe, DetDrobe and LawDrobe."
-	cost = 1000
-	max_supply = 6
-	access_budget = ACCESS_SECURITY
-	contains = list(/obj/item/vending_refill/wardrobe/sec_wardrobe,
-					/obj/item/vending_refill/wardrobe/det_wardrobe,
-					/obj/item/vending_refill/wardrobe/law_wardrobe)
-	crate_name = "security department supply crate"
-
-//////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Miscellaneous ///////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 
 /datum/supply_pack/misc
 	group = "Miscellaneous Supplies"
+
+/datum/supply_pack/misc/vending_refill
+	name = "Vendor Resupply Crate (small)"
+	desc = "This crate contains small vendor ressuply canisters."
+	cost = 2000
+	max_supply = 6
+	contains = list(/obj/item/vending_refill,
+					/obj/item/vending_refill,
+					/obj/item/vending_refill,
+					/obj/item/vending_refill)
+	crate_name = "crate of vendor ressuply canisters"
+
+/datum/supply_pack/misc/vending_refill/medium
+	name = "Vendor Resupply Crate (medium)"
+	desc = "This crate contains medium vendor ressuply canisters."
+	max_supply = 4
+	contains = list(/obj/item/vending_refill/medium,
+					/obj/item/vending_refill/medium,
+					/obj/item/vending_refill/medium)
+
+/datum/supply_pack/misc/vending_refill/large
+	name = "Vendor Resupply Crate (large)"
+	desc = "This crate contains large vendor ressuply canisters."
+	max_supply = 2
+	contains = list(/obj/item/vending_refill/large,
+					/obj/item/vending_refill/large)
 
 /datum/supply_pack/misc/artsupply
 	name = "Art Supplies"
@@ -3400,8 +3205,7 @@
 					/obj/item/canvas/twentythree_twentythree,
 					/obj/item/canvas/twentythree_twentythree,
 					/obj/item/toy/crayon/rainbow,
-					/obj/item/toy/crayon/rainbow,
-					/obj/item/vending_refill/sticker)
+					/obj/item/toy/crayon/rainbow)
 	crate_name = "art supply crate"
 	crate_type = /obj/structure/closet/crate/wooden
 

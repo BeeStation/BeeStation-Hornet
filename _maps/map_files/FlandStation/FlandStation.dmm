@@ -30161,12 +30161,12 @@
 	pixel_x = 8;
 	pixel_y = -3
 	},
-/obj/item/vending_refill/cigarette{
+/obj/item/vending_refill{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/vending_refill/cigarette,
-/obj/item/vending_refill/coffee{
+/obj/item/vending_refill,
+/obj/item/vending_refill{
 	pixel_x = 3;
 	pixel_y = -3
 	},
@@ -42266,7 +42266,7 @@
 	dir = 5
 	},
 /obj/structure/table,
-/obj/item/vending_refill/coffee,
+/obj/item/vending_refill,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},

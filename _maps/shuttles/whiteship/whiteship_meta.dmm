@@ -120,12 +120,12 @@
 /obj/structure/closet/crate{
 	name = "food crate"
 	},
-/obj/item/vending_refill/cigarette{
+/obj/item/vending_refill{
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/vending_refill/cigarette,
-/obj/item/vending_refill/coffee{
+/obj/item/vending_refill,
+/obj/item/vending_refill{
 	pixel_x = -3;
 	pixel_y = -3
 	},

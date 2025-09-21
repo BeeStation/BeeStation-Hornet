@@ -2740,7 +2740,6 @@
 		"arcade_amputation",
 		"borg_syndicate_module",
 		"decloner",
-		"donksoft_refill",
 		"donksofttoyvendor",
 		"largecrossbow",
 		"suppressor",

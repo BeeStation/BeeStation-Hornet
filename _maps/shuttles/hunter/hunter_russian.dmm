@@ -299,7 +299,7 @@
 	dir = 1
 	},
 /obj/structure/closet/crate/engineering,
-/obj/item/vending_refill/dinnerware,
+/obj/item/vending_refill,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/dark,
 /area/shuttle/hunter)

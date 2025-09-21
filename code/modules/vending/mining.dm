@@ -11,11 +11,6 @@
 	contraband = list(/obj/item/reagent_containers/cup/glass/coffee = 10,
 						/obj/item/food/chips = 6,
 						/obj/item/food/icecreamsandwich = 6)
-	refill_canister = /obj/item/vending_refill/mining
 	default_price = 0
 	extra_price = 0
 	light_mask = "snack-light-mask"
-
-/obj/item/vending_refill/mining
-	machine_name = "Mining Nutrition Vendor"
-	icon_state = "refill_snack"

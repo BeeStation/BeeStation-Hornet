@@ -2,13 +2,11 @@
 	Vending machine refills can be found at /code/modules/vending/ within each vending machine's respective file
 */
 /obj/item/vending_refill
-	name = "resupply canister"
-	var/machine_name = "Generic"
-
+	name = "small resupply canister"
 	icon = 'icons/obj/vending_restock.dmi'
-	icon_state = "refill_snack"
+	icon_state = "refill_small"
 	item_state = "restock_unit"
-	desc = "A vending machine restock cart."
+	desc = "Used to restock vending machines! The bigger it is, the faster it restocks!"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	flags_1 = CONDUCT_1
@@ -16,48 +14,38 @@
 	throwforce = 10
 	throw_speed = 1
 	throw_range = 7
-	w_class = WEIGHT_CLASS_BULKY
+	w_class = WEIGHT_CLASS_MEDIUM
 	armor_type = /datum/armor/item_vending_refill
-
-	// Built automatically from the corresponding vending machine.
-	// If null, considered to be full. Otherwise, is list(/typepath = amount).
-	var/list/products
-	var/list/product_categories
-	var/list/contraband
-	var/list/premium
-
+	/// Amount used to restock vending machines, gets decressed by restocking action
+	var/stock = 5
+	/// Restocking speed of the cannister. Some are faster than others!
+	var/restock_speed = 1 SECONDS
 
 /datum/armor/item_vending_refill
 	fire = 70
 	acid = 30
 
-/obj/item/vending_refill/Initialize(mapload)
-	. = ..()
-	name = "\improper [machine_name] restocking unit"
-
 /obj/item/vending_refill/examine(mob/user)
 	. = ..()
-	var/num = get_part_rating()
-	if (num == INFINITY)
+	if(stock == initial(stock))
 		. += "It's sealed tight, completely full of supplies."
-	else if (num == 0)
+	else if(stock <= 0)
 		. += "It's empty!"
 	else
-		. += "It can restock [num] item\s."
+		. += "It can restock [stock] item\s."
 
-/obj/item/vending_refill/get_part_rating()
-	if (!products || !product_categories || !contraband || !premium)
-		return INFINITY
-	. = 0
-	for(var/key in products)
-		. += products[key]
-	for(var/key in contraband)
-		. += contraband[key]
-	for(var/key in premium)
-		. += premium[key]
-	for (var/list/category as anything in product_categories)
-		var/list/products = category["products"]
-		for (var/product_key in products)
-			. += products[product_key]
+/obj/item/vending_refill/medium
+	name = "medium resuply canister"
+	icon_state = "refill_medium"
+	item_state = "restock_unit"
+	w_class = WEIGHT_CLASS_LARGE
+	stock = 10
+	restock_speed = 0.5 SECONDS
 
-	return .
+/obj/item/vending_refill/large
+	name = "large resuply canister"
+	icon_state = "refill_large"
+	item_state = "restock_unit"
+	w_class = WEIGHT_CLASS_BULKY
+	stock = 20
+	restock_speed = 0.25 SECONDS

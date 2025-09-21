@@ -49889,7 +49889,7 @@
 "kev" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/two,
-/obj/item/vending_refill/sticker,
+/obj/item/vending_refill,
 /turf/open/floor/catwalk_floor/iron,
 /area/maintenance/central)
 "keI" = (

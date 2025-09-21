@@ -107,7 +107,7 @@ GLOBAL_LIST_INIT(maintenance_loot, list(
 	/obj/item/tank/internals/emergency_oxygen = 2,
 	/obj/item/throwing_star/toy = 1,
 	/obj/item/toy/eightball = 1,
-	/obj/item/vending_refill/cola = 1,
+	/obj/item/vending_refill = 1,
 	/obj/item/weaponcrafting/receiver = 2,
 	/obj/item/weldingtool = 3,
 	/obj/item/wirecutters = 1,

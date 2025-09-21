@@ -113,10 +113,4 @@
 					/obj/item/colorizer/tablet/contractor = 2,
 					/obj/item/colorizer/tablet/emag = 2
 	)
-
-	refill_canister = /obj/item/vending_refill/modularpc
 	default_price = PAYCHECK_MEDIUM
-
-/obj/item/vending_refill/modularpc
-	machine_name = "Deluxe Silicate Selections"
-	icon_state = "refill_engi"

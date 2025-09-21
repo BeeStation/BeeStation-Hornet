@@ -15,7 +15,6 @@
 						/obj/item/reagent_containers/cup/bottle/morphine = 1)
 	armor_type = /datum/armor/vending_wallmed
 	resistance_flags = FIRE_PROOF
-	refill_canister = /obj/item/vending_refill/wallmed
 	default_price = 25
 	extra_price = 100
 	tiltable = FALSE
@@ -30,10 +29,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/vending/wallmed, 32)
 	energy = 100
 	fire = 100
 	acid = 50
-
-/obj/item/vending_refill/wallmed
-	machine_name = "NanoMed"
-	icon_state = "refill_medical"
 
 /obj/machinery/vending/wallmed/lite
 	name = "\improper NanoMed Lite"
