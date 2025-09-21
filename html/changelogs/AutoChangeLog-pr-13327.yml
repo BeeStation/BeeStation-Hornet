@@ -1,0 +1,8 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - balance: Reduces the PDA's inactive power consumption, power consumption is now
+      higher when you have programs open. PDAs never use power while turned off.
+  - balance: Flashlight PDA now consumes and requires power, flickering when low on
+      power.
+  - balance: PDA batteries charge slightly faster.
