@@ -2216,7 +2216,7 @@
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "avs" = (
-/obj/structure/reagent_dispensers/watertank,
+/obj/machinery/modular_fabricator/autolathe,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "avN" = (
@@ -12981,6 +12981,10 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/aisat)
+"bWI" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/maintenance/starboard)
 "bXm" = (
 /obj/machinery/atmospherics/pipe/smart/simple/dark/visible{
 	dir = 4
@@ -57693,9 +57697,6 @@
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/security/execution/education)
-"qvo" = (
-/turf/open/floor/plating,
-/area/space/nearstation)
 "qvu" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
@@ -75911,7 +75912,7 @@
 /obj/structure/closet/firecloset,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating,
-/area/space/nearstation)
+/area/maintenance/starboard)
 "wGx" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
@@ -124678,10 +124679,10 @@ sSP
 uaT
 pzQ
 axY
-bKK
-qRl
-qRl
-qvo
+atm
+bWI
+bWI
+apc
 wGs
 bhT
 vcq
@@ -124937,9 +124938,9 @@ yhu
 noP
 eVI
 dgj
-qRl
-qRl
-bKK
+bWI
+bWI
+atm
 bhT
 bhT
 duM
