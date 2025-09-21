@@ -37,6 +37,7 @@
 
 /obj/item/gun/ballistic/taser/examine(mob/user)
 	. = ..()
+	. += "While traditionally challenging to aim, tests have shown that officer's accuracy greatly improves when this weapon is used in combination with the SecHUD, specially when targets are painted as 'wanted'."
 	. += span_notice("<i>You could examine it more thoroughly...</i>")
 
 /obj/item/gun/ballistic/taser/examine_more(mob/user)

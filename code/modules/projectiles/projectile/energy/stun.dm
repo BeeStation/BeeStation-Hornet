@@ -79,13 +79,16 @@
 	)
 
 /obj/projectile/energy/electrode/Range()
-	. = ..()
+	if (!firer || !HAS_TRAIT(firer, TRAIT_SECURITY_HUD))
+		..()
+		return
 	for (var/cardinal in GLOB.alldirs)
 		// Snap on to any targets with a wanted status
 		for(var/mob/living/carbon/human/M in get_step(src, cardinal))
 			if(M.get_wanted_status() == WANTED_ARREST && can_hit_target(M, M == original, TRUE))
 				Impact(M)
 				return
+	..()
 
 /obj/projectile/energy/electrode/on_range() //to ensure the bolt sparks when it reaches the end of its range if it didn't hit a target yet
 	do_sparks(1, TRUE, src)
