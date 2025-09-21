@@ -330,3 +330,9 @@
       motion. This means cameras can now be disabled, destroyed or hit with an EMP
       without the AI being immediately notified that cameras have been disabled in
       a specific location.
+2025-09-21:
+  ACanOpener, Anonmare:
+  - balance: Reduced damage of the possessed chainsword to 18, down from 30.
+  mrmanlikesbt:
+  - code_imp: Renamed the applyOrganDamage() proc to apply_organ_damage()
+  - bugfix: Fixed canister connectors always having a pipe overlay on the south
