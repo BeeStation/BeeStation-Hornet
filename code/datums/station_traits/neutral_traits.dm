@@ -66,7 +66,7 @@
 /datum/station_trait/birthday
 	name = "Employee Birthday"
 	trait_type = STATION_TRAIT_NEUTRAL
-	weight = 2
+	weight = 1
 	show_in_report = TRUE
 	report_message = "We here at Nanotrasen would all like to wish Employee Name a very happy birthday"
 	trait_to_give = STATION_TRAIT_BIRTHDAY
