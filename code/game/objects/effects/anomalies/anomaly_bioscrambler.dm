@@ -36,7 +36,7 @@
 		if(!ignore_owner && target == owner)
 			continue
 		// probability should linearly scale from no protection at 30 to guaranteed at 90 bio armor
-		var/protection_chance = (target.getarmor(type = BIO) - 30) * (1 / (90 - 30))
+		var/protection_chance = (target.getarmor(type = BIO) - 30) * (100 / (90 - 30))
 		if(prob(protection_chance))
 			to_chat(target, span_notice("Your armor protects you from [owner]!"))
 			continue //We are protected
