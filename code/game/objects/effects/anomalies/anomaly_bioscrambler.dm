@@ -35,7 +35,8 @@
 	for(var/mob/living/carbon/target in range(range, owner))
 		if(!ignore_owner && target == owner)
 			continue
-		if(target.getarmor(type = BIO) >= 100)
+		var/protection_chance = (-50) + (target.getarmor(type = BIO) * 1.7)
+		if(prob(protection_chance))
 			to_chat(target, span_notice("Your armor protects you from [owner]!"))
 			continue //We are protected
 
