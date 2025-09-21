@@ -221,6 +221,7 @@
 		return FALSE
 
 	RegisterSignal(owner, COMSIG_LIVING_RESIST, PROC_REF(try_remove_taser))
+	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(recalculate_distance))
 
 	//RegisterSignal(owner, COMSIG_CARBON_PRE_MISC_HELP, PROC_REF(someome_removing_taser))
 	SEND_SIGNAL(owner, COMSIG_LIVING_MINOR_SHOCK)
@@ -228,7 +229,7 @@
 		// does not use the status effect api because we snowflake it a bit
 		owner.throw_alert(type, /atom/movable/screen/alert/tazed)
 		SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "tased", /datum/mood_event/tased)
-		owner.add_movespeed_modifier(/datum/movespeed_modifier/being_tased)
+		recalculate_distance()
 		owner.emote("scream")
 		if(HAS_TRAIT(owner, TRAIT_HULK))
 			owner.say(pick(
@@ -342,6 +343,9 @@
 	RegisterSignal(firer, COMSIG_MOB_UNEQUIPPED_ITEM, PROC_REF(check_hands))
 
 	RegisterSignal(firer, COMSIG_MOB_CLICKON, PROC_REF(user_cancel_tase))
+	RegisterSignal(firer, COMSIG_MOVABLE_MOVED, PROC_REF(recalculate_distance))
+	RegisterSignal(firer, COMSIG_ATOM_ATTACKBY, PROC_REF(on_firer_attacked))
+	RegisterSignal(firer, COMSIG_HUMAN_DISARM_HIT, PROC_REF(on_firer_disarmed))
 
 	// Ensures AI mobs or turrets don't tase players until they run out of power
 	var/mob/living/mob_firer = new_firer
@@ -362,6 +366,15 @@
 	RegisterSignal(tase_line, COMSIG_QDELETING, PROC_REF(end_tase))
 	// moves the tase beam up or down if the target moves up or down
 	tase_line.RegisterSignal(owner, COMSIG_LIVING_SET_BODY_POSITION, TYPE_PROC_REF(/datum/beam, redrawing))
+	recalculate_distance()
+
+/datum/status_effect/tased/proc/recalculate_distance(...)
+	SIGNAL_HANDLER
+	var/distance = get_dist(firer, owner)
+	var/proportion_to_range = CLAMP01((distance - 2) / (tase_range - 2))
+	// Faster when approaching the wielder, but slower when trying to escape from them
+	var/slowdown_amount = 1 + 2.5 * proportion_to_range
+	owner.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/being_tased, slowdown_amount)
 
 /datum/status_effect/tased/proc/block_firing(...)
 	SIGNAL_HANDLER
@@ -395,6 +408,28 @@
 		span_notice("[capitalize(electrode_name)] stop shocking you[isfloorturf(owner.loc) ? ", falling to [owner.loc]" : ""]."),
 	)
 	qdel(src)
+
+/datum/status_effect/tased/proc/on_firer_disarmed(mob/living/source, mob/living/attacker, zone)
+	if (attacker != owner)
+		return
+	if(!istype(taser, /obj/item))
+		return
+	var/obj/item/taser_object = taser
+	taser_object.forceMove(get_turf(taser_object))
+	taser_object.throw_at(get_edge_target_turf(source, get_dir(attacker.loc, source.loc)), 2, 1, spin = TRUE)
+	owner.visible_message("[attacker] disarms [source]'s [taser], knocking it out of their hands!")
+
+/datum/status_effect/tased/proc/on_firer_attacked(mob/living/source, obj/item/weapon, mob/living/attacker, params)
+	if (attacker != owner)
+		return
+	if(!istype(taser, /obj/item))
+		return
+	if (!weapon.force)
+		return
+	var/obj/item/taser_object = taser
+	taser_object.forceMove(get_turf(taser_object))
+	taser_object.throw_at(get_edge_target_turf(source, get_dir(attacker.loc, source.loc)), 3, 1, spin = TRUE)
+	owner.visible_message("[attacker] smashes the [weapon] into [source]'s [taser], knocking it out of their hands!")
 
 /datum/status_effect/tased/proc/try_remove_taser(datum/source)
 	SIGNAL_HANDLER
@@ -490,5 +525,5 @@
 	multiplicative_slowdown = 2
 
 /datum/movespeed_modifier/being_tased
-	multiplicative_slowdown = 2.5
+	variable = TRUE
 
