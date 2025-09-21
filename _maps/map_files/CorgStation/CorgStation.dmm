@@ -124,8 +124,8 @@
 /area/engine/atmos)
 "aaX" = (
 /obj/item/kirbyplants/random,
-/obj/structure/extinguisher_cabinet/directional/south,
 /obj/machinery/light,
+/obj/machinery/incident_display/bridge/directional/south,
 /turf/open/floor/iron/dark,
 /area/bridge)
 "aba" = (
@@ -537,6 +537,9 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
+	},
+/obj/item/radio/intercom{
+	pixel_y = 24
 	},
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/engine/engine_room)
@@ -5394,10 +5397,6 @@
 /turf/open/floor/grass/no_border,
 /area/hallway/secondary/command)
 "bvo" = (
-/obj/machinery/light_switch{
-	pixel_x = 1;
-	pixel_y = 28
-	},
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 4
 	},
@@ -10652,7 +10651,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/obj/machinery/digital_clock/directional/south,
+/obj/machinery/incident_display/delam/directional/south,
 /turf/open/floor/iron,
 /area/engine/engineering)
 "djA" = (
@@ -17502,6 +17501,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/light_switch/directional/north,
 /turf/open/floor/iron,
 /area/science/shuttle)
 "fBi" = (
@@ -18892,6 +18892,7 @@
 /obj/effect/turf_decal/tile/yellow/opposingcorners{
 	dir = 1
 	},
+/obj/machinery/digital_clock/directional/south,
 /turf/open/floor/iron,
 /area/engine/engineering)
 "fYv" = (
@@ -54738,6 +54739,7 @@
 "rLi" = (
 /obj/structure/closet/secure_closet/engineering_personal,
 /obj/machinery/camera/directional/west,
+/obj/machinery/requests_console/directional/south,
 /turf/open/floor/noslip/dark,
 /area/engine/engineering)
 "rLH" = (
@@ -59179,9 +59181,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/light_switch{
-	pixel_y = -25
-	},
 /obj/machinery/portable_atmospherics/canister/nitrogen,
 /turf/open/floor/iron/dark,
 /area/engine/engine_smes)
@@ -63556,6 +63555,10 @@
 	dir = 4
 	},
 /obj/structure/table/reinforced,
+/obj/machinery/keycard_auth{
+	pixel_y = -3;
+	pixel_x = -4
+	},
 /turf/open/floor/iron/dark,
 /area/bridge)
 "uIa" = (
@@ -64282,9 +64285,6 @@
 /area/engine/engine_room)
 "uUh" = (
 /obj/effect/turf_decal/stripes/corner,
-/obj/machinery/keycard_auth{
-	pixel_y = -24
-	},
 /turf/open/floor/iron/dark,
 /area/bridge)
 "uUn" = (
@@ -64888,6 +64888,7 @@
 	},
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted,
 /obj/structure/closet/secure_closet/engineering_welding,
+/obj/machinery/light_switch/directional/south,
 /turf/open/floor/iron,
 /area/engine/engine_smes)
 "vgE" = (
@@ -65177,15 +65178,13 @@
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/engine/engine_room)
 "vky" = (
-/obj/item/radio/intercom{
-	pixel_y = 24
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/machinery/incident_display/delam/directional/north,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/engine/engine_room)
 "vkA" = (
@@ -72580,10 +72579,8 @@
 	pixel_y = 2
 	},
 /obj/machinery/camera/directional/west,
-/obj/machinery/requests_console{
-	pixel_y = -32
-	},
 /obj/item/clothing/gloves/color/yellow,
+/obj/machinery/incident_display/delam/directional/south,
 /turf/open/floor/iron/dark,
 /area/engine/engine_smes)
 "xHU" = (
@@ -74267,6 +74264,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible/layer4{
 	dir = 5
 	},
+/obj/machinery/incident_display/delam/directional/south,
 /turf/open/floor/engine,
 /area/engine/engine_room)
 "yjv" = (

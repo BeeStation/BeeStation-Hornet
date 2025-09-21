@@ -4523,7 +4523,16 @@
 /area/maintenance/department/engine/atmos)
 "aVj" = (
 /obj/machinery/vending/engivend,
-/obj/machinery/light_switch/directional/west,
+/obj/machinery/light_switch/directional/west{
+	pixel_y = 5
+	},
+/obj/machinery/button/door{
+	pixel_x = -26;
+	name = "Radiation Shutters";
+	id = "smrad";
+	color = "#74b366";
+	pixel_y = -5
+	},
 /turf/open/floor/iron/tech/grid,
 /area/engine/storage)
 "aVp" = (
@@ -16101,13 +16110,13 @@
 /area/crew_quarters/heads/captain)
 "dhl" = (
 /obj/machinery/light/directional/west,
-/obj/machinery/status_display/ai/directional/west,
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
 /obj/effect/turf_decal/siding/brown{
 	dir = 1
 	},
+/obj/structure/extinguisher_cabinet/directional/west,
 /turf/open/floor/wood/big,
 /area/crew_quarters/heads/chief)
 "dhq" = (
@@ -19940,9 +19949,6 @@
 /obj/item/powertool/jaws_of_life{
 	pixel_y = 12;
 	pixel_x = -8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
 	},
 /turf/open/floor/iron/dark,
 /area/engineering/hallway)
@@ -27517,6 +27523,7 @@
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "CEdesk"
 	},
+/obj/machinery/status_display/ai/directional/east,
 /turf/open/floor/plating,
 /area/crew_quarters/heads/chief)
 "fGu" = (
@@ -29716,7 +29723,6 @@
 	dir = 8;
 	pixel_x = 25
 	},
-/obj/machinery/newscaster/directional/north,
 /turf/open/floor/iron/tech/grid,
 /area/engine/engine_room)
 "gdr" = (
@@ -32306,6 +32312,7 @@
 	dir = 1
 	},
 /obj/item/clothing/ears/earmuffs,
+/obj/machinery/incident_display/delam/directional/south,
 /turf/open/floor/iron,
 /area/engine/storage_shared)
 "gAf" = (
@@ -33390,6 +33397,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/general/visible{
 	dir = 9
 	},
+/obj/machinery/incident_display/delam/directional/south,
 /turf/open/floor/vault/rock,
 /area/engine/engine_room)
 "gMj" = (
@@ -36369,7 +36377,7 @@
 /area/hallway/secondary/command)
 "hrQ" = (
 /obj/machinery/suit_storage_unit/engine,
-/obj/machinery/newscaster/directional/east,
+/obj/machinery/firealarm/directional/east,
 /turf/open/floor/iron/tech/grid,
 /area/engine/storage)
 "hrT" = (
@@ -49298,9 +49306,6 @@
 	color = "#3a3a3a"
 	},
 /obj/effect/turf_decal/siding/dark,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /turf/open/floor/iron/smooth_large,
 /area/engineering/hallway)
 "jXk" = (
@@ -57271,6 +57276,13 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/security/brig/medbay)
+"lDA" = (
+/obj/effect/turf_decal/tile/monorust,
+/obj/effect/turf_decal/siding/dark{
+	dir = 1
+	},
+/turf/open/floor/iron/smooth_large,
+/area/engineering/hallway)
 "lDF" = (
 /obj/machinery/light/directional/west,
 /obj/machinery/door/poddoor/preopen{
@@ -58520,7 +58532,6 @@
 /obj/item/computer_hardware/hard_drive/role/engineering{
 	pixel_x = 8
 	},
-/obj/structure/extinguisher_cabinet/directional/north,
 /turf/open/floor/carpet/orange,
 /area/crew_quarters/heads/chief)
 "lQk" = (
@@ -62177,9 +62188,7 @@
 	pixel_x = -4;
 	pixel_y = 5
 	},
-/obj/machinery/firealarm{
-	pixel_y = 28
-	},
+/obj/machinery/incident_display/delam/directional/north,
 /turf/open/floor/iron/grid/steel,
 /area/engine/storage)
 "mFg" = (
@@ -62463,6 +62472,9 @@
 	dir = 4
 	},
 /obj/machinery/light_switch/directional/north,
+/obj/item/radio/intercom/directional/north{
+	pixel_y = 34
+	},
 /turf/open/floor/carpet/orange,
 /area/crew_quarters/heads/chief)
 "mIi" = (
@@ -63937,8 +63949,8 @@
 /area/teleporter)
 "mVw" = (
 /obj/structure/tank_dispenser,
-/obj/item/radio/intercom/directional/south,
 /obj/machinery/airalarm/directional/east,
+/obj/machinery/newscaster/directional/south,
 /turf/open/floor/iron/tech/grid,
 /area/engine/storage)
 "mVx" = (
@@ -64242,6 +64254,13 @@
 	},
 /turf/open/floor/noslip/dark,
 /area/storage/tech)
+"mZC" = (
+/obj/machinery/door/poddoor/preopen{
+	id = "bridgew"
+	},
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/bridge)
 "mZI" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -77835,9 +77854,6 @@
 	icon_state = "1-4"
 	},
 /obj/structure/cable/yellow,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
 /obj/machinery/door/airlock/command{
 	name = "Power Tools Storage A";
 	req_access_txt = "19";
@@ -85918,7 +85934,6 @@
 	dir = 5
 	},
 /obj/machinery/camera/directional/north,
-/obj/structure/wall_closet/tool/directional/north,
 /obj/item/lightreplacer{
 	pixel_y = 9;
 	pixel_x = -10
@@ -88442,7 +88457,6 @@
 	pixel_y = 10
 	},
 /obj/machinery/light/directional/north,
-/obj/item/radio/intercom/directional/north,
 /turf/open/floor/carpet/orange,
 /area/crew_quarters/heads/chief)
 "rVe" = (
@@ -96681,12 +96695,7 @@
 /area/science/mixing)
 "tGa" = (
 /obj/machinery/suit_storage_unit/engine,
-/obj/machinery/button/door{
-	pixel_x = 24;
-	name = "Radiation Shutters";
-	id = "smrad";
-	color = "#74b366"
-	},
+/obj/structure/wall_closet/tool/directional/east,
 /turf/open/floor/iron/tech/grid,
 /area/engine/storage)
 "tGc" = (
@@ -103068,7 +103077,7 @@
 /obj/effect/turf_decal/trimline/yellow/filled/corner,
 /obj/machinery/modular_computer/console/preset/engineering,
 /obj/machinery/camera/directional/north,
-/obj/structure/sign/poster/official/random/directional/north,
+/obj/machinery/incident_display/bridge/directional/north,
 /turf/open/floor/iron/grid/steel,
 /area/bridge)
 "uUe" = (
@@ -115838,6 +115847,7 @@
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 1
 	},
+/obj/machinery/incident_display/delam/directional/north,
 /turf/open/floor/iron/tech/grid,
 /area/engine/engine_room)
 "xzc" = (
@@ -135300,7 +135310,7 @@ nzj
 nzj
 hyT
 qNN
-saC
+aMX
 unq
 xCR
 nuX
@@ -135313,7 +135323,7 @@ rvH
 hqD
 sUj
 vDz
-saC
+mZC
 qNN
 hyT
 nzj
@@ -135570,7 +135580,7 @@ izS
 hqD
 jAr
 rlB
-saC
+mZC
 qNN
 nnv
 exV
@@ -154914,10 +154924,10 @@ fVX
 uyY
 rvZ
 pKH
-wJf
+lDA
 jXc
 dZm
-btm
+dGx
 xzb
 fxG
 vuA

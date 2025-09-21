@@ -298,9 +298,6 @@
 /obj/effect/turf_decal/tile/brown/half/contrasted{
 	dir = 4
 	},
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 32
-	},
 /turf/open/floor/iron,
 /area/bridge)
 "aji" = (
@@ -4716,6 +4713,9 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/computer/atmos_alert{
 	dir = 8
+	},
+/obj/machinery/status_display/evac{
+	pixel_y = 32
 	},
 /turf/open/floor/iron/large,
 /area/engine/engineering)
@@ -12715,6 +12715,7 @@
 "gvJ" = (
 /obj/item/kirbyplants/random,
 /obj/machinery/light/small,
+/obj/machinery/incident_display/delam/directional/south,
 /turf/open/floor/iron/textured_large,
 /area/engine/engineering)
 "gvM" = (
@@ -17828,9 +17829,6 @@
 	},
 /obj/machinery/light{
 	dir = 1
-	},
-/obj/machinery/status_display/evac{
-	pixel_y = 32
 	},
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -26273,6 +26271,9 @@
 	dir = 1
 	},
 /obj/machinery/computer/prisoner/management,
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 32
+	},
 /turf/open/floor/iron,
 /area/bridge)
 "nOr" = (
@@ -30894,6 +30895,7 @@
 	},
 /obj/machinery/power/smes/engineering,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/incident_display/delam/directional/north,
 /turf/open/floor/iron/large,
 /area/engine/engineering)
 "qlD" = (
@@ -40085,6 +40087,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
+/obj/machinery/incident_display/bridge/directional/north,
 /turf/open/floor/iron,
 /area/bridge)
 "uXm" = (

@@ -1917,6 +1917,7 @@
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted{
 	dir = 1
 	},
+/obj/machinery/incident_display/bridge/directional/north,
 /turf/open/floor/iron/dark,
 /area/bridge)
 "azn" = (
@@ -4041,9 +4042,7 @@
 /obj/effect/turf_decal/tile/yellow/opposingcorners{
 	dir = 1
 	},
-/obj/machinery/light_switch{
-	pixel_x = -23
-	},
+/obj/machinery/incident_display/delam/directional/north,
 /turf/open/floor/iron/dark/corner{
 	dir = 1
 	},
@@ -9472,14 +9471,6 @@
 	dir = 1
 	},
 /area/hallway/primary/aft)
-"bXK" = (
-/obj/structure/sign/poster/official/build,
-/turf/closed/wall/r_wall,
-/area/engine/atmos)
-"bXL" = (
-/obj/structure/sign/warning/securearea,
-/turf/closed/wall/r_wall,
-/area/engine/atmos)
 "bXR" = (
 /obj/structure/closet/secure_closet/atmospherics,
 /obj/effect/turf_decal/stripes/line{
@@ -13566,6 +13557,7 @@
 	dir = 1
 	},
 /obj/item/pipe_dispenser,
+/obj/machinery/incident_display/delam/directional/north,
 /turf/open/floor/engine,
 /area/engine/engineering)
 "cDj" = (
@@ -14031,6 +14023,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
 	dir = 6
 	},
+/obj/machinery/incident_display/delam/directional/north,
 /turf/open/floor/engine,
 /area/engine/engineering)
 "cFM" = (
@@ -28118,7 +28111,7 @@
 /obj/effect/turf_decal/bot{
 	dir = 1
 	},
-/obj/machinery/firealarm/directional/north,
+/obj/machinery/incident_display/delam/directional/north,
 /turf/open/floor/iron/techmaint,
 /area/engine/engineering)
 "hQe" = (
@@ -28611,17 +28604,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/storage/eva)
-"hYV" = (
-/obj/structure/sign/departments/minsky/engineering/atmospherics{
-	pixel_y = 32
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/turf/open/floor/iron/dark/corner{
-	dir = 1
-	},
-/area/engine/break_room)
 "hZj" = (
 /obj/item/cigbutt/roach,
 /turf/open/floor/plating,
@@ -33344,6 +33326,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
+/obj/machinery/firealarm/directional/north,
 /turf/open/floor/engine/light,
 /area/engine/engineering)
 "jOR" = (
@@ -47265,6 +47248,9 @@
 /obj/machinery/airalarm/directional/west{
 	pixel_x = -22
 	},
+/obj/machinery/light_switch/directional/south{
+	pixel_x = -6
+	},
 /turf/open/floor/iron/checker,
 /area/engine/break_room)
 "ppQ" = (
@@ -48786,15 +48772,6 @@
 /obj/structure/disposalpipe/junction,
 /turf/open/floor/iron,
 /area/hallway/secondary/exit)
-"pTs" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/light_switch{
-	pixel_y = -26
-	},
-/turf/open/floor/iron,
-/area/engine/engineering)
 "pTx" = (
 /turf/closed/wall,
 /area/hallway/primary/aft)
@@ -50197,6 +50174,10 @@
 /obj/effect/turf_decal/siding/wood,
 /turf/open/floor/wood/big,
 /area/crew_quarters/bar)
+"qzh" = (
+/obj/structure/sign/poster/official/build,
+/turf/closed/wall,
+/area/engine/break_room)
 "qzz" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/green/opposingcorners,
@@ -51854,6 +51835,9 @@
 /obj/structure/closet/firecloset,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
+	},
+/obj/structure/sign/departments/minsky/engineering/atmospherics{
+	pixel_y = 32
 	},
 /turf/open/floor/iron/checker,
 /area/engine/break_room)
@@ -66315,6 +66299,12 @@
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
+"wwS" = (
+/obj/machinery/light_switch{
+	pixel_y = -26
+	},
+/turf/open/floor/iron,
+/area/engine/engineering)
 "wwW" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -98928,7 +98918,7 @@ wMQ
 cig
 cig
 qpi
-pTs
+eDN
 ccw
 cDh
 xxT
@@ -100197,7 +100187,7 @@ lns
 bLK
 bxV
 bLK
-bYH
+qzh
 bVo
 bYH
 bYH
@@ -100213,7 +100203,7 @@ wUe
 cfb
 wLG
 cfz
-cgR
+wwS
 ccw
 mhm
 lSx
@@ -100453,7 +100443,7 @@ bMK
 bUG
 pYo
 bWO
-bXK
+bLK
 aWd
 khn
 ppE
@@ -100711,7 +100701,7 @@ fDZ
 iCc
 bRA
 bLK
-hYV
+bYL
 bZy
 bZy
 qHS
@@ -101224,7 +101214,7 @@ tkN
 pOq
 hwp
 wvx
-bXL
+bLK
 reG
 avz
 bTg

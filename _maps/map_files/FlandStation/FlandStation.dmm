@@ -15876,6 +15876,7 @@
 "eiZ" = (
 /obj/effect/spawner/randomvend/cola,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
+/obj/machinery/incident_display/delam/directional/south,
 /turf/open/floor/iron/dark,
 /area/bridge)
 "eje" = (
@@ -25881,6 +25882,7 @@
 "gDk" = (
 /obj/machinery/vending/engivend,
 /obj/effect/turf_decal/tile/yellow/opposingcorners,
+/obj/machinery/incident_display/delam/directional/north,
 /turf/open/floor/iron/sepia,
 /area/engine/engineering)
 "gDK" = (
@@ -30552,7 +30554,7 @@
 "hNe" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/computer/rdconsole/production,
-/obj/machinery/firealarm/directional/north,
+/obj/machinery/incident_display/delam/directional/north,
 /turf/open/floor/iron/dark,
 /area/engine/storage_shared)
 "hNy" = (
@@ -42111,9 +42113,6 @@
 /turf/open/floor/iron/dark,
 /area/maintenance/department/science)
 "kJH" = (
-/obj/item/radio/intercom{
-	pixel_y = -28
-	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
@@ -45622,9 +45621,6 @@
 "lxD" = (
 /obj/machinery/rnd/production/protolathe/department/engineering,
 /obj/effect/turf_decal/delivery,
-/obj/structure/sign/poster/official/random{
-	pixel_y = 32
-	},
 /obj/item/radio/intercom{
 	pixel_x = 28
 	},
@@ -57855,9 +57851,6 @@
 /obj/item/geiger_counter,
 /obj/item/geiger_counter,
 /obj/effect/turf_decal/bot,
-/obj/machinery/light_switch{
-	pixel_y = -24
-	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
@@ -63209,6 +63202,7 @@
 "qiV" = (
 /obj/structure/closet/toolcloset,
 /obj/effect/turf_decal/bot,
+/obj/machinery/firealarm/directional/west,
 /turf/open/floor/iron/dark,
 /area/engine/storage_shared)
 "qiY" = (
@@ -68995,6 +68989,20 @@
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/heads/chief)
+"rIK" = (
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/pink/visible,
+/obj/item/radio/intercom/directional/west{
+	pixel_y = -6;
+	pixel_x = -28
+	},
+/obj/machinery/light_switch/directional/west{
+	pixel_y = 8
+	},
+/turf/open/floor/iron/ameridiner,
+/area/engine/engine_room)
 "rIP" = (
 /obj/effect/turf_decal/guideline/guideline_in/red{
 	dir = 9
@@ -75994,6 +76002,7 @@
 /obj/structure/closet/firecloset,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
+/obj/machinery/incident_display/delam/directional/north,
 /turf/open/floor/iron/ameridiner,
 /area/engine/engine_room)
 "tvT" = (
@@ -95247,6 +95256,13 @@
 "xNi" = (
 /turf/closed/wall,
 /area/crew_quarters/kitchen/coldroom)
+"xNA" = (
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/obj/machinery/incident_display/delam/directional/south,
+/turf/open/floor/iron/ameridiner,
+/area/engine/engine_room)
 "xNI" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/stripes/line{
@@ -145219,7 +145235,7 @@ sQi
 sQi
 sQi
 hKg
-kXP
+xNA
 wWM
 wWM
 wWM
@@ -145477,7 +145493,7 @@ eRF
 eRF
 nbP
 kXP
-rHd
+wWM
 wtD
 ptR
 sKK
@@ -146505,7 +146521,7 @@ qmx
 lMO
 qyQ
 oOj
-wWM
+rHd
 mCw
 xzr
 wio
@@ -147019,7 +147035,7 @@ uxj
 ekl
 tZq
 wrz
-wrz
+rIK
 mik
 caF
 scj

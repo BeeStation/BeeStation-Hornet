@@ -1872,9 +1872,6 @@
 /obj/item/crowbar/red,
 /obj/item/flashlight,
 /obj/item/flashlight,
-/obj/structure/fireaxecabinet{
-	pixel_y = -30
-	},
 /turf/open/floor/iron/dark,
 /area/bridge)
 "arg" = (
@@ -4032,9 +4029,6 @@
 /turf/open/floor/engine,
 /area/ai_monitored/turret_protected/ai)
 "aOp" = (
-/obj/machinery/airalarm/directional/north{
-	pixel_y = 22
-	},
 /obj/machinery/camera/directional/north{
 	c_tag = "Engineering Desk";
 	name = "engineering camera"
@@ -4047,6 +4041,7 @@
 	dir = 8
 	},
 /obj/machinery/fax/eng,
+/obj/machinery/incident_display/delam/directional/north,
 /turf/open/floor/iron/dark,
 /area/engine/break_room)
 "aOy" = (
@@ -13721,9 +13716,6 @@
 /obj/structure/table,
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high,
-/obj/item/radio/intercom{
-	pixel_y = -28
-	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -33604,6 +33596,9 @@
 "iRL" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/effect/turf_decal/bot,
+/obj/structure/fireaxecabinet{
+	pixel_y = -30
+	},
 /turf/open/floor/iron/dark,
 /area/bridge)
 "iSa" = (
@@ -36715,9 +36710,6 @@
 	},
 /area/maintenance/starboard)
 "jSo" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -30
-	},
 /obj/structure/closet/secure_closet/engineering_welding,
 /obj/item/storage/box/lights/mixed,
 /obj/item/wrench,
@@ -36725,6 +36717,7 @@
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted,
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/bot,
+/obj/machinery/airalarm/directional/south,
 /turf/open/floor/iron,
 /area/engine/break_room)
 "jSN" = (
@@ -39674,6 +39667,16 @@
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/dark,
 /area/maintenance/fore)
+"kTM" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/incident_display/delam/directional/north,
+/turf/open/floor/engine,
+/area/engine/engineering)
 "kTS" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
@@ -48622,6 +48625,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
+/obj/machinery/firealarm{
+	pixel_y = 26
+	},
 /turf/open/floor/engine,
 /area/engine/engineering)
 "nQf" = (
@@ -54737,8 +54743,10 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/machinery/digital_clock/directional/north,
 /obj/effect/turf_decal/bot,
+/obj/machinery/status_display/evac{
+	pixel_y = 32
+	},
 /turf/open/floor/iron,
 /area/engine/break_room)
 "pKu" = (
@@ -55104,9 +55112,6 @@
 "pRk" = (
 /obj/machinery/disposal/bin,
 /obj/effect/turf_decal/bot,
-/obj/machinery/status_display/evac{
-	pixel_y = 32
-	},
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
@@ -58617,18 +58622,6 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/science/lab)
-"qYt" = (
-/obj/machinery/firealarm{
-	pixel_y = 26
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/engine,
-/area/engine/engineering)
 "qYD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -67497,6 +67490,7 @@
 	c_tag = "Bridge Emergency Supplies";
 	name = "command camera"
 	},
+/obj/machinery/incident_display/bridge/directional/south,
 /turf/open/floor/iron/dark,
 /area/bridge)
 "tTH" = (
@@ -117376,7 +117370,7 @@ fGh
 iRA
 cKX
 axS
-ajS
+kTM
 qVf
 aLs
 aOS
@@ -117633,7 +117627,7 @@ axS
 ako
 cne
 axa
-qYt
+ajS
 dDS
 xnL
 svb
