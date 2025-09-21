@@ -161,6 +161,9 @@
 	vend_reply = "Thank you for using the CargoDrobe!"
 	extra_price = 50
 	products = list(
+		/obj/item/storage/backpack/cargo = 3,
+		/obj/item/storage/backpack/satchel/flat/empty/cargo = 3,
+		/obj/item/storage/backpack/duffelbag/cargo = 3,
 		/obj/item/clothing/suit/hooded/wintercoat/cargo = 3,
 		/obj/item/clothing/under/rank/cargo/tech = 3,
 		/obj/item/clothing/under/rank/cargo/tech/skirt = 3,
