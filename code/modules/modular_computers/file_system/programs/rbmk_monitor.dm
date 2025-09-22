@@ -18,7 +18,7 @@
 	power_consumption = 80 WATT
 
 	/// Last known status of the reactor, used to set the program icon.
-	var/last_status = REACTOR_INACTIVE
+	var/last_status = 0
 	/// List of reactors that we are going to send the data of.
 	var/list/obj/machinery/atmospherics/components/unary/rbmk/core/reactors = list()
 	/// The reactor which will send a notification to us if it's melting.
