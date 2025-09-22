@@ -1234,7 +1234,7 @@
 				location,
 				max_range = rand(6,30),
 				threshold = RAD_EXTREME_INSULATION,
-				chance = 60,
+				intensity = 20,
 			)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)

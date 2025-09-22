@@ -15,7 +15,7 @@
 		if(victim.z == 0)
 			continue
 
-		SSradiation.irradiate(victim)
+		SSradiation.irradiate(victim, intensity = 50)
 
 	return TRUE
 

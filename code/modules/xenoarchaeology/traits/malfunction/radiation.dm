@@ -18,11 +18,11 @@
 	radiation_pulse(
 		source = atom_parent,
 		max_range = 4,
-		chance = component_parent.trait_strength,
+		intensity = component_parent.trait_strength * 0.25,
 	)
 
 	for(var/atom/target in focus)
-		radiation_pulse(target, 1, chance = component_parent.trait_strength)
+		SSradiation.irradiate(target, intensity = 100)
 
 	dump_targets()
 	clear_focus()

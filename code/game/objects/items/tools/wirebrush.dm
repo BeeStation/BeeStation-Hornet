@@ -36,7 +36,7 @@
 
 	if(prob(crit_fail_prob))
 		to_chat(user, span_danger("You feel a sharp pain as \the [src] grows oddly warm."))
-		SSradiation.irradiate(user)
+		SSradiation.irradiate(user, intensity = 100)
 		user.emote("vomit")
 		return
 

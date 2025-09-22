@@ -498,7 +498,7 @@ Arguments:
 	SSair.atmos_machinery -= src //Annd we're now just a useless brick.
 	update_icon()
 	STOP_PROCESSING(SSmachines, src)
-	AddElement(/datum/element/radioactive, chance = 50, threshold = RAD_EXTREME_INSULATION)
+	AddElement(/datum/element/radioactive, intensity = 20, threshold = RAD_EXTREME_INSULATION)
 	var/turf/reactor_turf = get_turf(src)
 	var/rbmkzlevel = reactor_turf.get_virtual_z_level()
 	for(var/mob/player_mob in GLOB.player_list)

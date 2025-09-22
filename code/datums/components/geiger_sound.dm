@@ -70,7 +70,7 @@
 		list('sound/items/geiger/high1.ogg'=1, 'sound/items/geiger/high2.ogg'=1, 'sound/items/geiger/high3.ogg'=1, 'sound/items/geiger/high4.ogg'=1),
 		list('sound/items/geiger/ext1.ogg'=1, 'sound/items/geiger/ext2.ogg'=1, 'sound/items/geiger/ext3.ogg'=1, 'sound/items/geiger/ext4.ogg'=1)
 	)
-	mid_length = 2
+	mid_length = 0.2 SECONDS
 	volume = 25
 
 	var/datum/radiation_pulse_information/last_radiation_pulse

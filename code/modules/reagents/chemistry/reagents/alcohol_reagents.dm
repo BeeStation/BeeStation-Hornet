@@ -657,6 +657,12 @@
 	taste_description = "oranges"
 	metabolized_traits = list(TRAIT_HALT_RADIATION_EFFECTS)
 
+/datum/reagent/medicine/potass_iodide/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	if(HAS_TRAIT(affected_mob, TRAIT_IRRADIATED))
+		var/datum/component/irradiated/irradiated_component = affected_mob.GetComponent(/datum/component/irradiated)
+		irradiated_component.intensity -= 0.5 * REM * delta_time
+
 /datum/glass_style/drinking_glass/screwdrivercocktail
 	name = "Screwdriver"
 	desc = "A simple, yet superb mixture of Vodka and orange juice. Just the thing for the tired engineer."

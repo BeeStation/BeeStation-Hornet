@@ -562,6 +562,9 @@
 	if(!HAS_TRAIT(affected_mob, TRAIT_IRRADIATED))
 		return
 
+	var/datum/component/irradiated/irradiated_component = affected_mob.GetComponent(/datum/component/irradiated)
+	irradiated_component.intensity -= REM * delta_time
+
 	affected_mob.adjustToxLoss(-1 * REM * delta_time, updating_health = FALSE)
 	return UPDATE_MOB_HEALTH
 
@@ -580,6 +583,10 @@
 		if(reagent == src)
 			continue
 		affected_mob.reagents.remove_reagent(reagent.type, 2 * REM * delta_time)
+
+	if(HAS_TRAIT(affected_mob, TRAIT_IRRADIATED))
+		var/datum/component/irradiated/irradiated_component = affected_mob.GetComponent(/datum/component/irradiated)
+		irradiated_component.intensity -= 2 * REM * delta_time
 
 	affected_mob.adjustToxLoss(-2 * REM * delta_time, updating_health = FALSE)
 	return UPDATE_MOB_HEALTH

@@ -186,7 +186,7 @@
 			playsound(atom_source, 'sound/effects/supermatter.ogg', 150, TRUE)
 			consume(atom_source, item)
 
-			radiation_pulse(atom_source, max_range = 3, threshold = 0.1, chance = 50)
+			radiation_pulse(atom_source, max_range = 3, threshold = 0.1, intensity = 30)
 			return
 		else
 			cig.light()
@@ -197,7 +197,7 @@
 
 			playsound(atom_source, 'sound/effects/supermatter.ogg', 50, TRUE)
 
-			radiation_pulse(atom_source, max_range = 1, threshold = 0, chance = 100)
+			radiation_pulse(atom_source, max_range = 1, threshold = 0, intensity = 100)
 			return
 
 	if(user.dropItemToGround(item))
@@ -208,7 +208,7 @@
 		consume(atom_source, item)
 		playsound(get_turf(atom_source), 'sound/effects/supermatter.ogg', 50, TRUE)
 
-		radiation_pulse(atom_source, max_range = 3, threshold = 0.1, chance = 50)
+		radiation_pulse(atom_source, max_range = 3, threshold = 0.1, intensity = 30)
 		return
 
 	if(atom_source.Adjacent(user)) //if the item is stuck to the person, kill the person too instead of eating just the item.
@@ -376,7 +376,7 @@
 
 	// Some poor sod got eaten, go ahead and irradiate people nearby.
 
-	radiation_pulse(atom_source, max_range = radiation_range, threshold = 1.2 / max(object_size, 1), chance = 10 * object_size)
+	radiation_pulse(atom_source, max_range = radiation_range, threshold = 1.2 / max(object_size, 1), intensity = 5 * object_size)
 	for(var/mob/living/near_mob in range(radiation_range))
 		atom_source.investigate_log("has irradiated [key_name(near_mob)] after consuming [consumed_object].", INVESTIGATE_ENGINES)
 		if(HAS_TRAIT(near_mob, TRAIT_RADIMMUNE) || issilicon(near_mob))

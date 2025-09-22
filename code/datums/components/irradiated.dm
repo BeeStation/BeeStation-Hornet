@@ -1,7 +1,11 @@
-#define RADIATION_IMMEDIATE_TOX_DAMAGE 10
+/// How much toxin damage we deal * intensity per second
+#define RADIATION_TOX_DAMAGE_PER_INTENSITY 0.01
+/// The maximum amount of toxin damage dealt per second
+#define RADIATION_MAX_TOX_DAMAGE 0.5
 
-#define RADIATION_TOX_DAMAGE_PER_INTERVAL 2
-#define RADIATION_TOX_INTERVAL (25 SECONDS)
+#define RADIATION_GLOW_THRESHOLD 20
+#define RADIATION_ALERT_THRESHOLD 20
+#define RADIATION_BURN_THRESHOLD 75
 
 #define RADIATION_BURN_SPLOTCH_DAMAGE 11
 #define RADIATION_BURN_INTERVAL_MIN (30 SECONDS)
@@ -15,14 +19,17 @@
 /datum/component/irradiated
 	dupe_mode = COMPONENT_DUPE_UNIQUE
 
+	/// The time we were irradiated
 	var/beginning_of_irradiation
-
-	var/burn_splotch_timer_id
+	/// Our radiation intensity
+	var/intensity = 1
+	/// Are we currently attempting to burn our target?
+	var/trying_to_burn = FALSE
 
 	COOLDOWN_DECLARE(clean_cooldown)
 	COOLDOWN_DECLARE(last_tox_damage)
 
-/datum/component/irradiated/Initialize()
+/datum/component/irradiated/Initialize(intensity)
 	if (!CAN_IRRADIATE(parent))
 		return COMPONENT_INCOMPATIBLE
 
@@ -31,22 +38,16 @@
 		qdel(src)
 		return
 
-	ADD_TRAIT(parent, TRAIT_IRRADIATED, REF(src))
+	src.intensity = intensity
 
-	create_glow()
+	ADD_TRAIT(parent, TRAIT_IRRADIATED, REF(src))
 
 	beginning_of_irradiation = world.time
 
 	if (ishuman(parent))
-		var/mob/living/carbon/human/human_parent = parent
-		human_parent.apply_damage(RADIATION_IMMEDIATE_TOX_DAMAGE, TOX)
 		START_PROCESSING(SSobj, src)
-
-		COOLDOWN_START(src, last_tox_damage, RADIATION_TOX_INTERVAL)
-
-		start_burn_splotch_timer()
-
-		human_parent.throw_alert(ALERT_IRRADIATED, /atom/movable/screen/alert/irradiated)
+	else
+		create_glow()
 
 /datum/component/irradiated/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(on_clean))
@@ -71,7 +72,6 @@
 
 	REMOVE_TRAIT(parent, TRAIT_IRRADIATED, REF(src))
 
-	deltimer(burn_splotch_timer_id)
 	STOP_PROCESSING(SSobj, src)
 
 	return ..()
@@ -84,18 +84,31 @@
 		qdel(src)
 		return PROCESS_KILL
 
-	var/mob/living/carbon/human/human_parent = parent
-	if (human_parent.getToxLoss() == 0)
+	if (intensity <= 0)
 		qdel(src)
 		return PROCESS_KILL
 
-	if (should_halt_effects(parent))
+	var/mob/living/carbon/human/human_parent = parent
+
+	if (intensity >= RADIATION_GLOW_THRESHOLD && !human_parent.get_filter("rad_glow"))
+		create_glow()
+	if (intensity >= RADIATION_ALERT_THRESHOLD && !human_parent.has_alert(ALERT_IRRADIATED))
+		human_parent.throw_alert(ALERT_IRRADIATED, /atom/movable/screen/alert/irradiated)
+
+	if (should_halt_effects(human_parent))
 		return
 
-	if (human_parent.stat != DEAD)
-		human_parent.dna?.species?.handle_radiation(human_parent, world.time - beginning_of_irradiation, delta_time)
+	if (intensity >= RADIATION_BURN_THRESHOLD && !trying_to_burn)
+		start_burn_splotch_timer()
 
-	process_tox_damage(human_parent, delta_time)
+	if (human_parent.stat != DEAD)
+		human_parent.dna?.species?.handle_radiation(human_parent, intensity, delta_time)
+
+	var/tox_dealt = min(RADIATION_TOX_DAMAGE_PER_INTENSITY * intensity * delta_time, RADIATION_MAX_TOX_DAMAGE)
+	human_parent.apply_damage(tox_dealt, TOX)
+
+/datum/component/irradiated/InheritComponent(datum/component/irradiated/old_component)
+	intensity += old_component.intensity
 
 /datum/component/irradiated/proc/should_halt_effects(mob/living/carbon/human/target)
 	if (IS_IN_STASIS(target))
@@ -109,19 +122,18 @@
 
 	return FALSE
 
-/datum/component/irradiated/proc/process_tox_damage(mob/living/carbon/human/target, seconds_per_tick)
-	if (!COOLDOWN_FINISHED(src, last_tox_damage))
-		return
-
-	target.apply_damage(RADIATION_TOX_DAMAGE_PER_INTERVAL, TOX)
-	COOLDOWN_START(src, last_tox_damage, RADIATION_TOX_INTERVAL)
-
 /datum/component/irradiated/proc/start_burn_splotch_timer()
+	trying_to_burn = TRUE
 	addtimer(CALLBACK(src, PROC_REF(give_burn_splotches)), rand(RADIATION_BURN_INTERVAL_MIN, RADIATION_BURN_INTERVAL_MAX), TIMER_STOPPABLE)
 
 /datum/component/irradiated/proc/give_burn_splotches()
+	trying_to_burn = FALSE
+
 	// This shouldn't be possible, but just in case.
 	if (QDELETED(src))
+		return
+
+	if (intensity < RADIATION_BURN_THRESHOLD)
 		return
 
 	start_burn_splotch_timer()
@@ -175,8 +187,7 @@
 	SIGNAL_HANDLER
 
 	if (isliving(source))
-		var/mob/living/living_source = source
-		to_chat(user, span_bolddanger("[icon2html(geiger_counter, user)] Subject is irradiated. Contamination traces back to roughly [DisplayTimeText(world.time - beginning_of_irradiation, 5)] ago. Current toxin levels: [living_source.getToxLoss()]."))
+		to_chat(user, span_bolddanger("[icon2html(geiger_counter, user)] Subject is irradiated. Contamination traces back to roughly [DisplayTimeText(world.time - beginning_of_irradiation, 5)] ago. Current radiation levels: [intensity]%."))
 	else
 		// In case the green wasn't obvious enough...
 		to_chat(user, span_bolddanger("[icon2html(geiger_counter, user)] Target is irradiated."))
@@ -185,17 +196,19 @@
 
 /datum/component/irradiated/proc/on_healthscan(datum/source, list/render_list, advanced, mob/user, mode, tochat)
 	SIGNAL_HANDLER
-	render_list += "<span class='alert ml-1'>Subject is irradiated. Supply antiradiation or antitoxin.</span><br>"
+	render_list += "<span class='alert ml-1'>Subject is irradiated. Supply antiradiation.</span><br>"
 
 /atom/movable/screen/alert/irradiated
 	name = "Irradiated"
 	desc = "You're irradiated! Heal your toxins quick, and stand under a shower to halt the incoming damage."
 	icon_state = ALERT_IRRADIATED
 
+#undef RADIATION_TOX_DAMAGE_PER_INTENSITY
+#undef RADIATION_MAX_TOX_DAMAGE
+#undef RADIATION_GLOW_THRESHOLD
+#undef RADIATION_ALERT_THRESHOLD
+#undef RADIATION_BURN_THRESHOLD
 #undef RADIATION_BURN_SPLOTCH_DAMAGE
 #undef RADIATION_BURN_INTERVAL_MIN
 #undef RADIATION_BURN_INTERVAL_MAX
 #undef RADIATION_CLEAN_IMMUNITY_TIME
-#undef RADIATION_IMMEDIATE_TOX_DAMAGE
-#undef RADIATION_TOX_INTERVAL
-#undef RADIATION_TOX_DAMAGE_PER_INTERVAL

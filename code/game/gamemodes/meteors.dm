@@ -328,7 +328,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/meteor)
 				source = src,
 				max_range = 7,
 				threshold = RAD_EXTREME_INSULATION,
-				chance = 100,
+				intensity = 100,
 			)
 
 //Meaty Ore

@@ -4,13 +4,13 @@
 /datum/element/radioactive
 	element_flags = ELEMENT_DETACH | ELEMENT_BESPOKE
 	id_arg_index = 2
-	///Range of our wave in tiles
+	/// Range of our wave in tiles
 	var/range
-	///Threshold for radioactive permeance
+	/// Threshold for radioactive permeance
 	var/threshold
-	///Chance the object is irradiated
-	var/chance
-	///Minimum time needed in order to be irradiated
+	/// Intensity per radiation pulse
+	var/intensity
+	/// Minimum time needed in order to be irradiated
 	var/minimum_exposure_time
 
 	var/list/radioactive_objects = list()
@@ -22,7 +22,7 @@
 	datum/target,
 	range = 3,
 	threshold = RAD_LIGHT_INSULATION,
-	chance = URANIUM_IRRADIATION_CHANCE,
+	intensity = URANIUM_IRRADIATION_INTENSITY,
 	minimum_exposure_time = URANIUM_RADIATION_MINIMUM_EXPOSURE_TIME,
 	)
 
@@ -32,14 +32,14 @@
 
 	src.range = range
 	src.threshold = threshold
-	src.chance = chance
+	src.intensity = intensity
 	src.minimum_exposure_time = minimum_exposure_time
 
 /datum/element/radioactive/Detach(datum/source, ...)
 	radioactive_objects -= source
 	return ..()
 
-/datum/element/radioactive/process(seconds_per_tick)
+/datum/element/radioactive/process(delta_time)
 	for (var/radioactive_object in radioactive_objects)
 		if (world.time - radioactive_objects[radioactive_object] < DELAY_BETWEEN_RADIATION_PULSES)
 			continue
@@ -48,7 +48,7 @@
 			radioactive_object,
 			max_range = range,
 			threshold = threshold,
-			chance = chance,
+			intensity = intensity,
 			minimum_exposure_time = minimum_exposure_time,
 		)
 

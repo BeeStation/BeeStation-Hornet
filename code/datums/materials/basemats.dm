@@ -76,7 +76,7 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	if(isitem(source))
 		return
 
-	source.AddElement(/datum/element/radioactive, chance = URANIUM_IRRADIATION_CHANCE)
+	source.AddElement(/datum/element/radioactive, chance = URANIUM_IRRADIATION_INTENSITY)
 
 /datum/material/uranium/on_removed(atom/source, amount, material_flags)
 	. = ..()
@@ -84,7 +84,7 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	if(isitem(source))
 		return
 
-	source.RemoveElement(/datum/element/radioactive, chance = URANIUM_IRRADIATION_CHANCE)
+	source.RemoveElement(/datum/element/radioactive, chance = URANIUM_IRRADIATION_INTENSITY)
 
 ///Adds firestacks on hit (Still needs support to turn into gas on destruction)
 /datum/material/plasma
