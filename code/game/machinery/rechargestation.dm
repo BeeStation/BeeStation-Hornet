@@ -14,6 +14,11 @@
 	var/recharge_speed
 	var/repairs
 
+
+	//NEW CHARGING SOUNDS
+	var/charging = FALSE
+	var/next_beep_time = 0    // for optional loop beeps
+
 /obj/machinery/recharge_station/Initialize(mapload)
 	. = ..()
 	update_icon()
@@ -77,15 +82,28 @@
 	else
 		open_machine()
 
+
 /obj/machinery/recharge_station/open_machine()
 	. = ..()
+	// Only beep if we were charging AND have power
+	if (charging && is_operational)
+		playsound(src, 'sound/machines/firedoor_open.ogg', 50, TRUE)
+	charging = FALSE
 	update_use_power(IDLE_POWER_USE)
 
 /obj/machinery/recharge_station/close_machine()
 	. = ..()
 	if(occupant)
-		update_use_power(ACTIVE_POWER_USE) //It always tries to charge, even if it can't.
+		update_use_power(ACTIVE_POWER_USE) // It always tries to charge, even if it can't.
 		add_fingerprint(occupant)
+		// Begin (or resume) charging only if powered
+		if (!charging && is_operational)
+			charging = TRUE
+			playsound(src, 'sound/machines/firedoor_close.ogg', 50, TRUE)
+			// First beep can happen soon after
+			next_beep_time = world.time + 20  // 2.0s (world.time is in deciseconds)
+
+
 
 /obj/machinery/recharge_station/update_icon()
 	if(is_operational)
@@ -96,10 +114,20 @@
 	else
 		icon_state = (state_open ? "borgcharger-u0" : "borgcharger-u1")
 
+
+
 /obj/machinery/recharge_station/proc/process_occupant(delta_time)
 	if(!occupant)
 		return
+	// PASSIVE REPEATING SOUND
+	if (charging && is_operational && !state_open)
+		if (world.time >= next_beep_time)
+			playsound(src, 'sound/machines/capacitor_charge.ogg', 25, TRUE)
+			next_beep_time = world.time + 50   // 5.0s between beeps
 	SEND_SIGNAL(occupant, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, recharge_speed * delta_time / 2, repairs)
+
+
+
 
 /obj/machinery/recharge_station/proc/restock_modules()
 	if(occupant)
