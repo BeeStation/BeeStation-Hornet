@@ -7,6 +7,7 @@
 	size = 4
 	tgui_id = "NtosCrewManifest"
 	program_icon = "clipboard-list"
+	power_consumption = 20 WATT
 
 /datum/computer_file/program/crew_manifest/ui_static_data(mob/user)
 	var/list/data = list()

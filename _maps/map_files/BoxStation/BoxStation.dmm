@@ -13139,7 +13139,7 @@
 /obj/docking_port/stationary{
 	dir = 8;
 	dwidth = 2;
-	height = 13;
+	height = 14;
 	id = "ferry_home";
 	name = "port bay 2";
 	width = 5
@@ -38107,6 +38107,9 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 8
+	},
+/obj/item/radio/intercom{
+	pixel_y = -29
 	},
 /turf/open/floor/iron,
 /area/security/brig)

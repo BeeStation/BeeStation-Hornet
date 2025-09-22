@@ -8,6 +8,7 @@
 	tgui_id = "NtosAtmosGasRig"
 	program_icon = "clipboard-list"
 	requires_ntnet = TRUE
+	power_consumption = 60 WATT
 	var/obj/machinery/atmospherics/gasrig/core/gasrig
 
 
