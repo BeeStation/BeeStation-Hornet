@@ -100,11 +100,11 @@
 	. = ..()
 	if(!ethereal_light)
 		return
-	if(default_color != ethereal.dna.features["ethcolor"])
-		var/new_color = ethereal.dna.features["ethcolor"]
-		r1 = GETREDPART(new_color)
-		g1 = GETGREENPART(new_color)
-		b1 = GETBLUEPART(new_color)
+	var/dna_color = "#[ethereal.dna.features["ethcolor"]]"
+	if(default_color != dna_color)
+		r1 = GETREDPART(dna_color)
+		g1 = GETGREENPART(dna_color)
+		b1 = GETBLUEPART(dna_color)
 	if(ethereal.stat != DEAD && !EMPeffect)
 		var/healthpercent = max(ethereal.health, 0) / 100
 		if(!emageffect)

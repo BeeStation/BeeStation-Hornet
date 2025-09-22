@@ -303,3 +303,60 @@
   - rscadd: cleaned up delivery crate appearance code, crates will show notes scrawled
       on them and destination tags better
   - refactor: cleaned up some crate export code
+2025-09-18:
+  PowerfulBacon:
+  - bugfix: Guns can now be recharged again.
+  - tweak: Players on lowpop no longer spawn with security access if no security are
+      present.
+  - rscadd: Added a new machine on lowpop which dispenses security deputy kits for
+      credits.
+  - tweak: Replace police baton with tonfa in deputy belt
+  - rscadd: The deputy duffel bag now comes with a deputy access upgrade card.
+  lord scrubling:
+  - bugfix: ethereal colors
+  mrmanlikesbt:
+  - bugfix: fixed vampires being able to level up an infinite amount of times
+2025-09-19:
+  ACanOpener:
+  - tweak: renamed cybernetic stomachs
+2025-09-20:
+  Programs-The-Station:
+  - bugfix: Central Command has repaired your station's Auxiliary Base Construction
+      Computer.
+  - rscadd: Auxiliary Base Construction Computer can now construct machine frames
+      and computer frames.
+  Rukofamicom:
+  - rscdel: Cameras no longer send alerts to AI except for motion cameras detecting
+      motion. This means cameras can now be disabled, destroyed or hit with an EMP
+      without the AI being immediately notified that cameras have been disabled in
+      a specific location.
+2025-09-21:
+  ACanOpener, Anonmare:
+  - balance: Reduced damage of the possessed chainsword to 18, down from 30.
+  PowerfulBacon:
+  - balance: Reduces the PDA's inactive power consumption, power consumption is now
+      higher when you have programs open. PDAs never use power while turned off.
+  - balance: Flashlight PDA now consumes and requires power, flickering when low on
+      power.
+  - balance: PDA batteries charge slightly faster.
+  mrmanlikesbt:
+  - code_imp: Renamed the applyOrganDamage() proc to apply_organ_damage()
+  - bugfix: Fixed canister connectors always having a pipe overlay on the south
+  - bugfix: fixed some small mistakes on MetaStation
+  mrmanlikesbt, ZephyrTFA, Jacquerel, jlsnow301:
+  - rscadd: Unary vents can be overclocked now to bypass their normal pressure restrictions
+      (5066kPa). While a vent is overclocked it will slowly lose integrity which you
+      can see via air alarm or examining it, you can repair a vent by using a screwdriver
+      on it. As the vent's integrity decreases, the amount of gas it is able to move
+      while under normal operation will decrease as well. When the vent reaches 0
+      integrity it will break and unwrench itself.
+  - refactor: Refactored the air alarm UI backend
+  - bugfix: Fixed the air alarm UI having overlapping buttons on 516 clients
+  - bugfix: Fixed not being able to set an air alarm's target air conditioning temperature
+  - code_imp: 'Removes an unused var: [/obj/machinery/var/interacts_with_air]'
+2025-09-22:
+  mrmanlikesbt, ninjanomnom:
+  - code_imp: Split up the atoms.dm file. If you see anything strange please report
+      it!
+  - code_imp: Removed an unused var and proc [/atom/var/max_hit_damage] [/atom/proc/clear_filters]
+  - code_imp: Re-implemented the previously commented signal [COMSIG_ATOM_UPDATE_INHAND_ICON]

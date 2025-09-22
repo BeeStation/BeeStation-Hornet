@@ -193,3 +193,5 @@ libprof.so
 
 # Define sanity output
 define_sanity_output.txt
+
+.venv/
