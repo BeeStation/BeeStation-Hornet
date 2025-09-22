@@ -1,0 +1,7 @@
+author: mrmanlikesbt, ninjanomnom
+delete-after: true
+changes:
+  - code_imp: Split up the atoms.dm file. If you see anything strange please report
+      it!
+  - code_imp: Removed an unused var and proc [/atom/var/max_hit_damage] [/atom/proc/clear_filters]
+  - code_imp: Re-implemented the previously commented signal [COMSIG_ATOM_UPDATE_INHAND_ICON]
