@@ -82,7 +82,7 @@
 	var/combine
 
 	var/max_chromosomes = 5
-	/// mount of mutations we can store
+	///Amount of mutations we can store
 	var/list/genetic_makeup_buffer[NUMBER_OF_BUFFERS]
 	///mutations we have stored
 	var/list/stored_mutations = list()
@@ -390,7 +390,9 @@
 		data["subjectUNI"] = scanner_occupant.dna.unique_identity
 		data["subjectUF"] = scanner_occupant.dna.unique_features
 		data["storage"]["occupant"] = tgui_occupant_mutations
-		//data["subjectMutations"] = tgui_occupant_mutations
+
+		var/datum/status_effect/genetic_damage/genetic_damage = scanner_occupant.has_status_effect(/datum/status_effect/genetic_damage)
+		data["subjectDamage"] = genetic_damage ? round((genetic_damage.total_damage / genetic_damage.minimum_before_tox_damage) * 100, 0.1) : 0
 	else
 		data["subjectName"] = null
 		data["subjectStatus"] = null
@@ -493,7 +495,7 @@
 			scanner_occupant.dna.generate_dna_blocks()
 			COOLDOWN_START(src, scramble_cooldown, SCRAMBLE_TIMEOUT)
 			balloon_alert(usr, "dna scrambled.")
-			scanner_occupant.AddComponent(/datum/component/genetic_damage, GENETIC_DAMAGE_STRENGTH_MULTIPLIER*50/(connected_scanner.damage_coeff ** 2))
+			scanner_occupant.apply_status_effect(/datum/status_effect/genetic_damage, GENETIC_DAMAGE_STRENGTH_MULTIPLIER*50/(connected_scanner.damage_coeff ** 2))
 			return
 
 		// Check whether a specific mutation is eligible for discovery within the
@@ -604,7 +606,7 @@
 			//  we've increased the occupant genetic damage
 			sequence = copytext(sequence, 1, genepos) + newgene + copytext(sequence, genepos + 1)
 			scanner_occupant.dna.mutation_index[path] = sequence
-			scanner_occupant.AddComponent(/datum/component/genetic_damage, GENETIC_DAMAGE_STRENGTH_MULTIPLIER/connected_scanner.damage_coeff)
+			scanner_occupant.apply_status_effect(/datum/status_effect/genetic_damage, GENETIC_DAMAGE_STRENGTH_MULTIPLIER/connected_scanner.damage_coeff)
 			scanner_occupant.domutcheck()
 
 			// GUARD CHECK - Modifying genetics can lead to edge cases where the
@@ -1639,7 +1641,7 @@
 	if(.)
 		if(ui || ue)
 			scanner_occupant.updateappearance(mutcolor_update=ue, mutations_overlay_update=TRUE)
-		scanner_occupant.AddComponent(/datum/component/genetic_damage, damage_increase)
+		scanner_occupant.apply_status_effect(/datum/status_effect/genetic_damage, damage_increase)
 		scanner_occupant.domutcheck()
 
 /**
@@ -1664,12 +1666,14 @@
 
 	scanner_occupant = connected_scanner.occupant
 
-	if(!scanner_occupant.has_dna() || HAS_TRAIT(scanner_occupant, TRAIT_GENELESS))
-		return FALSE
-	if(connected_scanner.scan_level >= 3)
+	// Check validity of occupent for DNA Modification
+	// DNA Modification:
+	//   requires DNA
+	//    this DNA can not be bad
+	//   is done via genetic damage bursts, so genetic damage immune carbons are not viable
+	// And the DNA Scanner itself must have a valid scan level
+	if(scanner_occupant.has_dna() && !HAS_TRAIT(scanner_occupant, TRAIT_GENELESS) && !HAS_TRAIT(scanner_occupant, TRAIT_BADDNA) || (connected_scanner.scan_level == 3))
 		return TRUE
-	if(!HAS_TRAIT(scanner_occupant, TRAIT_BADDNA))
-		return FALSE
 
 	return TRUE
 

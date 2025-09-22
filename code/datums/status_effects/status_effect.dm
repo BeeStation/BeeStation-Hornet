@@ -74,13 +74,13 @@
 		owner = null
 	return ..()
 
-/datum/status_effect/process()
+/datum/status_effect/process(delta_time)
 	if(!owner)
 		qdel(src)
 		return
 	var/needs_update = last_shown_duration != CEILING((duration - world.time) / 10, 1)
 	if(tick_interval < world.time)
-		tick()
+		tick(delta_time)
 		tick_interval = world.time + initial(tick_interval)
 		needs_update = TRUE
 	if (needs_update)
@@ -92,7 +92,7 @@
 	return TRUE
 
 /// Called every tick from process().
-/datum/status_effect/proc/tick()
+/datum/status_effect/proc/tick(delta_time)
 	return
 
 /// Called whenever the buff expires or is removed (qdeleted)
