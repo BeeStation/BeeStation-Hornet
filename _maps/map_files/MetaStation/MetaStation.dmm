@@ -3776,6 +3776,9 @@
 /obj/structure/platform/wood{
 	dir = 1
 	},
+/obj/structure/sign/barsign{
+	pixel_y = 32
+	},
 /turf/open/floor/wood/big,
 /area/space)
 "aHe" = (
@@ -29008,6 +29011,9 @@
 	dir = 1;
 	name = "Kitchen Window";
 	req_access_txt = "28"
+	},
+/obj/structure/window/reinforced{
+	dir = 4
 	},
 /turf/open/floor/iron/cafeteria,
 /area/space)
@@ -61493,9 +61499,8 @@
 /turf/open/floor/iron,
 /area/maintenance/starboard/secondary)
 "sqL" = (
-/obj/structure/table/wood,
-/obj/item/food/pie/cream,
-/turf/open/floor/glass/reinforced,
+/obj/structure/sign/barsign,
+/turf/closed/wall,
 /area/space)
 "sqT" = (
 /obj/structure/cable/yellow{
@@ -66298,6 +66303,9 @@
 	dir = 8;
 	name = "Bar Door";
 	req_access_txt = "25"
+	},
+/obj/structure/window/reinforced{
+	dir = 1
 	},
 /turf/open/floor/iron/dark,
 /area/space)
@@ -72146,7 +72154,6 @@
 /obj/item/instrument/violin,
 /obj/structure/closet/crate/wooden,
 /obj/effect/turf_decal/tile/purple/opposingcorners,
-/obj/machinery/firealarm/directional/east,
 /obj/effect/turf_decal/tile/random/opposingcorners{
 	dir = 8
 	},
@@ -77844,6 +77851,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/item/food/pie/cream,
 /turf/open/floor/iron,
 /area/space)
 "xVG" = (
@@ -113936,7 +113944,7 @@ viz
 jwz
 xeO
 igV
-sqL
+wES
 iHH
 gUp
 hBl
@@ -116246,7 +116254,7 @@ iAn
 iAn
 tPN
 iAn
-iAn
+sqL
 rOT
 rOT
 roR
