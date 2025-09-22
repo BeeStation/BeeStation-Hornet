@@ -354,3 +354,9 @@
   - bugfix: Fixed the air alarm UI having overlapping buttons on 516 clients
   - bugfix: Fixed not being able to set an air alarm's target air conditioning temperature
   - code_imp: 'Removes an unused var: [/obj/machinery/var/interacts_with_air]'
+2025-09-22:
+  mrmanlikesbt, ninjanomnom:
+  - code_imp: Split up the atoms.dm file. If you see anything strange please report
+      it!
+  - code_imp: Removed an unused var and proc [/atom/var/max_hit_damage] [/atom/proc/clear_filters]
+  - code_imp: Re-implemented the previously commented signal [COMSIG_ATOM_UPDATE_INHAND_ICON]
