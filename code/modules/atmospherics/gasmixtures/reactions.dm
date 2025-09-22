@@ -1207,9 +1207,10 @@
 	if(total_not_antinoblium_moles < MINIMUM_MOLE_COUNT) // Clear up the remaining gases if this condition is met.
 		. = NO_REACTION
 		reaction_rate = total_not_antinoblium_moles
-	for(var/id,gas in cached_gases)
+	for(var/id in cached_gases)
 		if(id == /datum/gas/antinoblium)
 			continue
+		var/list/gas = cached_gases[id]
 		if(. == NO_REACTION) // Let the gases get properly cleared while avoiding potential division by 0.
 			gas[MOLES] = 0
 			continue
