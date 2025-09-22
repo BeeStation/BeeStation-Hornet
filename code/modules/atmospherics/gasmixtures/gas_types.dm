@@ -302,7 +302,7 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 /datum/gas/antinoblium
 	id = GAS_ANTINOBLIUM
 	specific_heat = 1
-	name = "Antinoblium"
+	name = "Anti-Noblium"
 	dangerous = TRUE
 	gas_overlay = "antinoblium"
 	moles_visible = MOLES_GAS_VISIBLE

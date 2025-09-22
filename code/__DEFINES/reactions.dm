@@ -255,6 +255,10 @@
 /// How much radiation in consumed amount does a nuclear particle take from radiation when proto-nitrate breaks down BZ.
 #define PN_BZASE_NUCLEAR_PARTICLE_RADIATION_ENERGY_CONVERSION 2.5
 
+// Antinoblium:
+/// The divisor for the maximum antinoblium conversion rate. (1/90 of the antinoblium converts other gases to antinoblium in one reaction tick.)
+#define ANTINOBLIUM_CONVERSION_DIVISOR 90
+
 // Plasm Fusion:
 /// Amount of energy it takes to start a fusion reaction
 #define REAC_FUSION_ENERGY_THRESHOLD 3e9
