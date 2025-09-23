@@ -163,7 +163,7 @@
 	name = "secondary RFID card module"
 	device_type = MC_CARD2
 	expansion_hw = TRUE
-	custom_price = PAYCHECK_CREW * 2
+	custom_price = PAYCHECK_CREW * MULTIPLIER_PREMIUM
 
 /obj/item/computer_hardware/card_slot/secondary/update_overclocking(mob/living/user, obj/item/tool)
 	if(hacked)

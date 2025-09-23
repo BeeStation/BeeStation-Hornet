@@ -28,7 +28,7 @@
 				   /obj/item/grenade/stingbang = 1)
 	refill_canister = /obj/item/vending_refill/security
 	default_price = PAYCHECK_CREW
-	extra_price = PAYCHECK_COMMAND * 1.5
+	extra_price = PAYCHECK_COMMAND * MULTIPLIER_PREMIUM
 	seller_department = ACCOUNT_SEC_BITFLAG
 
 /obj/machinery/vending/security/pre_throw(obj/item/I)

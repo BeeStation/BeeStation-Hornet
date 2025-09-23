@@ -18,7 +18,7 @@
 	var/proj_var = INJECT_TRY_SHOW_ERROR_MESSAGE
 	custom_materials = list(/datum/material/iron=10, /datum/material/glass=20)
 	reagent_flags = TRANSPARENT
-	custom_price = PAYCHECK_CREW * 0.5
+	custom_price = PAYCHECK_CREW * MULTIPLIER_VERY_LOW
 	var/list/datum/disease/syringe_diseases = list()
 	var/units_per_tick = 1.5
 	var/initial_inject = 5

@@ -6,7 +6,7 @@
 	worn_icon_state = "pda"
 	max_hardware_size = WEIGHT_CLASS_SMALL
 	w_class = WEIGHT_CLASS_SMALL
-	custom_price = PAYCHECK_CREW * 2
+	custom_price = PAYCHECK_CREW * MULTIPLIER_PREMIUM
 	max_bays = 3
 	steel_sheet_cost = 1
 	slot_flags = ITEM_SLOT_ID | ITEM_SLOT_BELT

@@ -79,7 +79,7 @@
 	spawn_count = 6
 	appearance_flags = KEEP_TOGETHER|LONG_GLIDE
 	contents_tag = "donut"
-	custom_premium_price = PAYCHECK_COMMAND * 1.75
+	custom_premium_price = PAYCHECK_COMMAND * MULTIPLIER_PREMIUM
 
 /obj/item/storage/fancy/donut_box/Initialize(mapload)
 	. = ..()

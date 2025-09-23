@@ -227,7 +227,7 @@
 					/obj/item/storage/backpack/security_borg_bag = 2,
 					/obj/item/storage/backpack/medical_borg_bag = 2)
 	refill_canister = /obj/item/vending_refill/wardrobe/robo_wardrobe
-	extra_price = PAYCHECK_COMMAND * 1.2
+	extra_price = PAYCHECK_COMMAND * MULTIPLIER_HIGH
 	seller_department = ACCOUNT_SCI_BITFLAG
 
 
@@ -424,7 +424,7 @@
 	)
 	refill_canister = /obj/item/vending_refill/wardrobe/jani_wardrobe
 	default_price = PAYCHECK_CREW
-	extra_price = PAYCHECK_COMMAND * 0.8
+	extra_price = PAYCHECK_COMMAND * MULTIPLIER_SUBSTANDARD
 	seller_department = ACCOUNT_SRV_BITFLAG
 	light_color = COLOR_STRONG_MAGENTA
 
@@ -608,7 +608,7 @@
 	)
 	premium = list(/obj/item/clothing/head/flatcap = 1, /obj/item/clothing/suit/armor/vest/det_suit = 1, /obj/item/clothing/neck/tie/detective = 1)
 	refill_canister = /obj/item/vending_refill/wardrobe/det_wardrobe
-	extra_price = PAYCHECK_COMMAND * 1.75
+	extra_price = PAYCHECK_COMMAND * MULTIPLIER_PREMIUM
 	seller_department = ACCOUNT_SEC_BITFLAG
 
 /obj/item/vending_refill/wardrobe/det_wardrobe

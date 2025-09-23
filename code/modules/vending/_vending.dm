@@ -1439,7 +1439,7 @@
 	desc = "This tool is used to set a price for items used in custom vendors."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "pricetagger"
-	custom_premium_price = PAYCHECK_CREW * 0.5
+	custom_premium_price = PAYCHECK_CREW * MULTIPLIER_VERY_LOW
 	///the price of the item
 	var/price = 1
 

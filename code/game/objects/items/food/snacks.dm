@@ -198,7 +198,7 @@
 	tastes = list("dried raisins" = 1)
 	foodtypes = JUNKFOOD | FRUIT | SUGAR
 	food_flags = FOOD_FINGER_FOOD
-	custom_price = PAYCHECK_CREW * 0.7
+	custom_price = PAYCHECK_CREW * MULTIPLIER_VERY_LOW
 	w_class = WEIGHT_CLASS_SMALL
 	crafting_complexity = FOOD_COMPLEXITY_1
 

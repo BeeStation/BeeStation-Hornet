@@ -17,7 +17,7 @@
 	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/wallmed
 	default_price = PAYCHECK_COMMAND //Double the medical price due to being meant for public consumption, not player specfic
-	extra_price = PAYCHECK_COMMAND * 1.5
+	extra_price = PAYCHECK_COMMAND * MULTIPLIER_PREMIUM
 	seller_department = ACCOUNT_MED_BITFLAG
 	tiltable = FALSE
 	light_mask = "wallmed-light-mask"

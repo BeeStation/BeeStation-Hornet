@@ -204,17 +204,17 @@
 /obj/item/clothing/neck/stripedredscarf
 	name = "striped red scarf"
 	icon_state = "stripedredscarf"
-	custom_price = PAYCHECK_CREW * 0.2
+	custom_price = PAYCHECK_CREW * MULTIPLIER_ULTRA_LOW
 
 /obj/item/clothing/neck/stripedgreenscarf
 	name = "striped green scarf"
 	icon_state = "stripedgreenscarf"
-	custom_price = PAYCHECK_CREW * 0.2
+	custom_price = PAYCHECK_CREW * MULTIPLIER_ULTRA_LOW
 
 /obj/item/clothing/neck/stripedbluescarf
 	name = "striped blue scarf"
 	icon_state = "stripedbluescarf"
-	custom_price = PAYCHECK_CREW * 0.2
+	custom_price = PAYCHECK_CREW * MULTIPLIER_ULTRA_LOW
 
 /obj/item/clothing/neck/petcollar  // adding an OOC restriction to an IC action, like wearing a collar, is gay.
 	name = "pet collar"

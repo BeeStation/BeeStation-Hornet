@@ -11,7 +11,7 @@
 	icon_state = "glassbottle"
 	worn_icon_state = "bottle"
 	fill_icon_thresholds = list(0, 10, 20, 30, 40, 50, 60, 70, 80, 90)
-	custom_price = PAYCHECK_CREW * 1.1
+	custom_price = PAYCHECK_CREW * MULTIPLIER_HIGH
 	amount_per_transfer_from_this = 10
 	volume = 100
 	force = 15 //Smashing bottles over someone's head hurts.
@@ -30,7 +30,7 @@
 	desc = "This blank bottle is unyieldingly anonymous, offering no clues to its contents."
 	icon_state = "glassbottlesmall"
 	volume = 50
-	custom_price = PAYCHECK_CREW * 0.9
+	custom_price = PAYCHECK_CREW * MULTIPLIER_SUBSTANDARD
 
 /obj/item/reagent_containers/cup/glass/bottle/smash(mob/living/target, mob/thrower, ranged = FALSE)
 	if(bartender_check(target) && ranged)

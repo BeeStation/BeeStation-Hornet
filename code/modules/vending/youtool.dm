@@ -26,7 +26,7 @@
 	armor_type = /datum/armor/vending_tool
 	resistance_flags = FIRE_PROOF
 	default_price = PAYCHECK_CREW
-	extra_price = PAYCHECK_COMMAND * 1.5
+	extra_price = PAYCHECK_COMMAND * MULTIPLIER_PREMIUM
 	seller_department = ACCOUNT_ENG_BITFLAG
 
 /datum/armor/vending_tool

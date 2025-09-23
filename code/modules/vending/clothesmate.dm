@@ -202,7 +202,7 @@
 		/obj/item/clothing/suit/jacket/letterman_nanotrasen = 1
 	)
 	refill_canister = /obj/item/vending_refill/clothing
-	default_price = PAYCHECK_CREW * 0.7 //Default of
+	default_price = PAYCHECK_CREW * MULTIPLIER_LOW //Default of
 	extra_price = PAYCHECK_COMMAND
 	light_mask = "wardrobe-light-mask"
 	light_color = LIGHT_COLOR_ELECTRIC_GREEN

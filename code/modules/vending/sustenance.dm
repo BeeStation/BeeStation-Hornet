@@ -14,7 +14,7 @@
 						/obj/item/clothing/mask/breath = 6)
 	refill_canister = /obj/item/vending_refill/sustenance
 	default_price = PAYCHECK_LOWER
-	extra_price = PAYCHECK_LOWER * 0.6
+	extra_price = PAYCHECK_LOWER * MULTIPLIER_LOW
 
 /obj/item/vending_refill/sustenance
 	machine_name = "Sustenance Vendor"

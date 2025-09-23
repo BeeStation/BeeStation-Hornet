@@ -18,8 +18,8 @@
 	contraband = list(/obj/item/reagent_containers/cup/bottle/ammonia = 10,
 						/obj/item/reagent_containers/cup/bottle/diethylamine = 5)
 	refill_canister = /obj/item/vending_refill/hydronutrients
-	default_price = PAYCHECK_CREW * 0.8
-	extra_price = PAYCHECK_COMMAND * 0.8
+	default_price = PAYCHECK_CREW * MULTIPLIER_SUBSTANDARD
+	extra_price = PAYCHECK_COMMAND * MULTIPLIER_SUBSTANDARD
 	seller_department = ACCOUNT_SRV_BITFLAG
 
 /obj/item/vending_refill/hydronutrients

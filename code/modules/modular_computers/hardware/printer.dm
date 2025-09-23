@@ -9,7 +9,7 @@
 	var/stored_paper = 20
 	var/max_paper = 30
 	can_hack = FALSE
-	custom_price = PAYCHECK_CREW * 2
+	custom_price = PAYCHECK_CREW * MULTIPLIER_PREMIUM
 
 /obj/item/computer_hardware/printer/diagnostics()
 	. = ..()

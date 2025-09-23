@@ -2850,7 +2850,7 @@
 /datum/supply_pack/critter/dog_bone
 	name = "Jumbo Dog Bone"
 	desc = "The best dog bone money can have exported to a space station. A perfect gift for a dog."
-	cost = PAYCHECK_COMMAND * 4
+	cost = CARGO_CRATE_VALUE * 4
 	contains = list(/obj/item/dog_bone)
 
 /datum/supply_pack/critter/cow

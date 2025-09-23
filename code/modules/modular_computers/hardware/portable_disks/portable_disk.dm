@@ -42,7 +42,7 @@
 	icon_state = "datadisk5"
 	max_capacity = 64
 	virus_typepath = /obj/item/computer_hardware/hard_drive/role/virus/coil
-	custom_price = PAYCHECK_LOWER * 2
+	custom_price = PAYCHECK_LOWER * MULTIPLIER_PREMIUM
 
 /obj/item/computer_hardware/hard_drive/portable/super
 	name = "super data disk"
@@ -52,4 +52,4 @@
 	max_capacity = 256
 	custom_price = 60
 	virus_typepath = /obj/item/computer_hardware/hard_drive/role/virus/breacher
-	custom_price = PAYCHECK_LOWER * 3
+	custom_price = PAYCHECK_LOWER * MULTIPLIER_LUXURY

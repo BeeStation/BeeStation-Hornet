@@ -83,7 +83,7 @@
 	resistance_flags = NONE
 	armor_type = /datum/armor/shoes_galoshes
 	can_be_bloody = FALSE
-	custom_price = PAYCHECK_CREW * 3
+	custom_price = PAYCHECK_CREW * MULTIPLIER_LUXURY
 
 
 /datum/armor/shoes_galoshes

@@ -18,7 +18,7 @@
 
 	refill_canister = /obj/item/vending_refill/snack
 	var/chef_compartment_access = "28" //ACCESS_KITCHEN
-	default_price = PAYCHECK_CREW * 0.6
+	default_price = PAYCHECK_CREW * MULTIPLIER_VERY_LOW
 	extra_price = PAYCHECK_CREW
 	seller_department = ACCOUNT_SRV_BITFLAG
 

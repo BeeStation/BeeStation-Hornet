@@ -10,7 +10,7 @@
 	var/signal_level = SIGNAL_LOW
 	malfunction_probability = 1
 	device_type = MC_NET
-	custom_price = PAYCHECK_LOWER * 2
+	custom_price = PAYCHECK_LOWER * MULTIPLIER_PREMIUM
 
 /obj/item/computer_hardware/network_card/Initialize(mapload)
 	. = ..()
@@ -88,7 +88,7 @@
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
-	custom_price = PAYCHECK_CREW * 2
+	custom_price = PAYCHECK_CREW * MULTIPLIER_PREMIUM
 	identification_string = "nt_card_WFS/HB"
 
 /obj/item/computer_hardware/network_card/advanced/norelay

@@ -28,8 +28,8 @@
 						/obj/item/food/burger/superbite = 3) //U S A
 	armor_type = /datum/armor/vending_liberationstation
 	resistance_flags = FIRE_PROOF
-	default_price = PAYCHECK_COMMAND * 2.5
-	extra_price = PAYCHECK_COMMAND * 2.5
+	default_price = PAYCHECK_COMMAND * MULTIPLIER_LUXURY
+	extra_price = PAYCHECK_COMMAND * MULTIPLIER_LUXURY
 	seller_department = ACCOUNT_SEC_BITFLAG
 	light_mask = "liberation-light-mask"
 

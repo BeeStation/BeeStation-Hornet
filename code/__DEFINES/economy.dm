@@ -26,6 +26,33 @@
 
 #define PAYCHECK_WELFARE 20 //NEETbucks
 
+// Standardized price multipliers for vending machines and economy
+//Extremely cheap, worth very little
+#define MULTIPLIER_ULTRA_LOW 0.4
+/// Very cheap, e.g. basic snacks, low-tier items
+#define MULTIPLIER_VERY_LOW 0.5
+/// Discounted
+#define MULTIPLIER_LOW 0.7
+/// Slightly more affordable
+#define MULTIPLIER_SUBSTANDARD 0.85
+/// Normal price
+#define MULTIPLIER_STANDARD 1
+/// Slightly expensive
+#define MULTIPLIER_HIGH 1.2
+/// Premium items
+#define MULTIPLIER_PREMIUM 1.5
+/// Luxury/rare items
+#define MULTIPLIER_LUXURY 3
+/// Very rare, exclusive, or high-value items
+#define MULTIPLIER_EXCLUSIVE 4.5
+/// Big
+#define MULTIPLIER_COMMAND 6
+
+// Usage example:
+// extra_price = PAYCHECK_COMMAND * MULTIPLIER_LOW
+// default_price = PAYCHECK_CREW * MULTIPLIER_STANDARD
+// extra_price = PAYCHECK_COMMAND * MULTIPLIER_PREMIUM
+
 
 #define NON_STATION_BUDGET_BASE rand(8888888, 11111111)
 #define BUDGET_RATIO_TYPE_SINGLE 1 // For Service & Civilian budget

@@ -16,7 +16,7 @@
 	name = "Must Hang jeans"
 	desc = "Made in the finest space jeans factory this side of Alpha Centauri."
 	icon_state = "jeansmustang"
-	custom_price = PAYCHECK_CREW * 3
+	custom_price = PAYCHECK_CREW * MULTIPLIER_LUXURY
 
 /obj/item/clothing/under/pants/blackjeans
 	name = "black jeans"

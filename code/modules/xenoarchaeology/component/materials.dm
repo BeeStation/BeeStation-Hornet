@@ -120,7 +120,7 @@
 	material_color = "#f1ffca"
 	instability_step = 50
 	texture_icon_states = list("texture-pearl1", "texture-pearl2", "texture-pearl3")
-	custom_price = PAYCHECK_LOWER * 1.6 //Joke adjusted for inflation
+	custom_price = PAYCHECK_LOWER * MULTIPLIER_PREMIUM //Joke adjusted for inflation
 	trait_flags = XENOA_PEARL_TRAIT
 	label_icon = "question"
 

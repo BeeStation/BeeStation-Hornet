@@ -9,8 +9,8 @@
 	siemens_coefficient = 0
 	armor_type = /datum/armor/color_yellow
 	resistance_flags = NONE
-	custom_price = PAYCHECK_CREW * 8
-	custom_premium_price = PAYCHECK_COMMAND * 4
+	custom_price = PAYCHECK_CREW * MULTIPLIER_COMMAND
+	custom_premium_price = PAYCHECK_COMMAND * MULTIPLIER_EXCLUSIVE
 	cut_type = /obj/item/clothing/gloves/cut
 
 
