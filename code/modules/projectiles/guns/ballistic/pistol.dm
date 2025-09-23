@@ -137,6 +137,7 @@
 	can_suppress = FALSE
 	worn_icon_state = "officer_pistol"
 	var/stripe_state = "officer_com"
+	tac_reloads = FALSE
 
 /obj/item/gun/ballistic/automatic/pistol/service/update_icon()
 	. = ..()
@@ -173,6 +174,7 @@
 	can_suppress = FALSE
 	worn_icon_state = "officer_pistol"
 	fire_rate = 2
+	tac_reloads = FALSE
 
 /obj/item/gun/ballistic/automatic/pistol/security/add_seclight_point()
 	AddComponent(/datum/component/seclite_attachable, \
