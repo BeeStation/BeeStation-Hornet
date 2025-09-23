@@ -381,9 +381,9 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 			roundstart_rule_counts[rule] = 1
 
 	if(length(roundstart_rule_counts))
-		parts += "[FOURSPACES]Executed roundstart rulesets:"
+		parts += "[GLOB.TAB]Executed roundstart rulesets:"
 		for(var/datum/dynamic_ruleset/rule in roundstart_rule_counts)
-			parts += "<b>[FOURSPACES][FOURSPACES][rule.name]</b>" + (roundstart_rule_counts[rule] > 1 ? " - [roundstart_rule_counts[rule]]x" : "")
+			parts += "<b>[GLOB.TAB][GLOB.TAB][rule.name]</b>" + (roundstart_rule_counts[rule] > 1 ? " - [roundstart_rule_counts[rule]]x" : "")
 
 	// Midround
 	var/list/midround_rule_counts = list()
@@ -394,9 +394,9 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 			midround_rule_counts[rule] = 1
 
 	if(length(midround_rule_counts))
-		parts += "[FOURSPACES]Executed midround rulesets:"
+		parts += "[GLOB.TAB]Executed midround rulesets:"
 		for(var/datum/dynamic_ruleset/rule in midround_rule_counts)
-			parts += "<b>[FOURSPACES][FOURSPACES][rule.name]</b>" + (midround_rule_counts[rule] > 1 ? " - [midround_rule_counts[rule]]x" : "")
+			parts += "<b>[GLOB.TAB][GLOB.TAB][rule.name]</b>" + (midround_rule_counts[rule] > 1 ? " - [midround_rule_counts[rule]]x" : "")
 
 	// Latejoin
 	var/list/latejoin_rule_counts = list()
@@ -407,9 +407,9 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 			latejoin_rule_counts[rule] = 1
 
 	if(length(latejoin_rule_counts))
-		parts += "[FOURSPACES]Executed latejoin rulesets:"
+		parts += "[GLOB.TAB]Executed latejoin rulesets:"
 		for(var/datum/dynamic_ruleset/rule in latejoin_rule_counts)
-			parts += "<b>[FOURSPACES][FOURSPACES][rule.name]</b>" + (latejoin_rule_counts[rule] > 1 ? " - [latejoin_rule_counts[rule]]x" : "")
+			parts += "<b>[GLOB.TAB][GLOB.TAB][rule.name]</b>" + (latejoin_rule_counts[rule] > 1 ? " - [latejoin_rule_counts[rule]]x" : "")
 
 	return parts.Join("<br>")
 

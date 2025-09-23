@@ -412,7 +412,7 @@ SUBSYSTEM_DEF(dynamic)
 				message_admins("DYNAMIC: ROUNDSTART: Could not force [forced_ruleset]")
 				continue
 
-			roundstart_executed_rulesets[forced_ruleset] += 1
+			roundstart_executed_rulesets += forced_ruleset
 			forced_ruleset.choose_candidates()
 
 			log_dynamic("ROUNDSTART: Successfully forced [forced_ruleset]")
@@ -467,7 +467,7 @@ SUBSYSTEM_DEF(dynamic)
 		// Apply cost and add ruleset to 'roundstart_executed_rulesets'
 		roundstart_points_left -= ruleset.points_cost
 
-		roundstart_executed_rulesets[ruleset] += 1
+		roundstart_executed_rulesets += ruleset
 		ruleset.choose_candidates()
 
 		log_dynamic("ROUNDSTART: Chose [ruleset] with [roundstart_points_left] points left")
@@ -530,7 +530,7 @@ SUBSYSTEM_DEF(dynamic)
 
 		log_dynamic("ROUNDSTART: Executing [ruleset] - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
 		if(result != DYNAMIC_EXECUTE_SUCCESS)
-			roundstart_executed_rulesets[ruleset] -= 1
+			roundstart_executed_rulesets -= ruleset
 
 /**
  * Some rulesets need to process each tick. Lets give them the opportunity to do so.
