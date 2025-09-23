@@ -10174,7 +10174,6 @@
 /area/hallway/secondary/exit/departure_lounge)
 "dlY" = (
 /obj/structure/table,
-/obj/machinery/camera/directional/north,
 /turf/open/floor/iron/dark,
 /area/vacant_room/commissary/commissary1)
 "dmd" = (
@@ -42848,6 +42847,7 @@
 /obj/item/stack/sheet/iron/twenty,
 /obj/item/stack/sheet/glass/five,
 /obj/item/stack/package_wrap,
+/obj/machinery/camera/directional/north,
 /turf/open/floor/iron/dark,
 /area/vacant_room/commissary/commissary1)
 "ohp" = (
