@@ -56,7 +56,7 @@
 			if(!target_organ.damage)
 				continue
 
-			target_organ.applyOrganDamage(excess_healing * -1, required_organ_flag = ORGAN_ORGANIC) //1 excess = 5 organ damage healed
+			target_organ.apply_organ_damage(excess_healing * -1, required_organ_flag = ORGAN_ORGANIC) //1 excess = 5 organ damage healed
 
 	return ..()
 
@@ -192,7 +192,7 @@
 		return FALSE
 	if(required_organ_flag && !(affected_organ.organ_flags & required_organ_flag))
 		return FALSE
-	return affected_organ.applyOrganDamage(amount, maximum)
+	return affected_organ.apply_organ_damage(amount, maximum)
 
 /**
  * If an organ exists in the slot requested, and we are capable of taking damage (we don't have [GODMODE] on), call the set damage proc on that organ, which can

@@ -27,8 +27,8 @@
 	. = ..()
 	var/mob/living/carbon/human/human_vassal = favorite_vassal.owner.current
 	if (istype(human_vassal))
-		var/datum/species/vassal_species = human_vassal.dna.species
-		vassal_species.punchdamage += BRUJAH_FAVORITE_VASSAL_ATTACK_BONUS
+
+		human_vassal.add_unarmed_damage_to_arms(BRUJAH_FAVORITE_VASSAL_ATTACK_BONUS)
 
 /**
  * Clan Objective

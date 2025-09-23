@@ -207,7 +207,7 @@
 		if(!heart)
 			// damn you, heartless bastard!!
 			for(var/obj/item/organ/organ in new_body.organs)
-				organ.applyOrganDamage(rand(20, 40), organ.maxHealth - 1)
+				organ.apply_organ_damage(rand(20, 40), organ.maxHealth - 1)
 		else
 			heart.apply_organ_damage(rand(20, 40), heart.maxHealth - 1)
 	else

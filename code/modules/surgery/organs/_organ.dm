@@ -192,7 +192,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 	return //so we don't grant the organ's action to mobs who pick up the organ.
 
 ///Adjusts an organ's damage by the amount "damage_amount", up to a maximum amount, which is by default max damage. Returns the net change in organ damage.
-/obj/item/organ/proc/applyOrganDamage(damage_amount, maximum = maxHealth, required_organ_flag = NONE) //use for damaging effects
+/obj/item/organ/proc/apply_organ_damage(damage_amount, maximum = maxHealth, required_organ_flag = NONE) //use for damaging effects
 	if(!damage_amount) //Micro-optimization.
 		return FALSE
 	if(maximum < damage)
@@ -214,7 +214,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 
 ///SETS an organ's damage to the amount "damage_amount", and in doing so clears or sets the failing flag, good for when you have an effect that should fix an organ if broken
 /obj/item/organ/proc/set_organ_damage(damage_amount, required_organ_flag = NONE) //use mostly for admin heals
-	return applyOrganDamage(damage_amount - damage, required_organ_flag = required_organ_flag)
+	return apply_organ_damage(damage_amount - damage, required_organ_flag = required_organ_flag)
 
 /** check_damage_thresholds
  * input: mob/organ_owner (a mob, the owner of the organ we call the proc on)

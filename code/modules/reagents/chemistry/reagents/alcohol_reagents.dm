@@ -231,7 +231,7 @@
 				affected_mob.adjustBruteLoss(15)
 			else
 				to_chat(affected_mob, span_userdanger("You scream in terror as you go blind!"))
-				eyes.applyOrganDamage(eyes.maxHealth)
+				eyes.apply_organ_damage(eyes.maxHealth)
 				affected_mob.emote("scream")
 
 	if(DT_PROB(1.5, delta_time))

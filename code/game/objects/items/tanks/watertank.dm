@@ -427,7 +427,7 @@
 		if (istype(tank.loc, /mob/living/carbon))
 			tank.update_icon()
 			var/mob/living/carbon/wearer = tank.loc
-			wearer.update_inv_back()
+			wearer.update_worn_back()
 
 /obj/item/extinguisher/mini/nozzle/Destroy()
 	reagents = null

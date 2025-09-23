@@ -898,7 +898,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 			if(!target_organ.damage)
 				continue
 
-			target_organ.applyOrganDamage(excess_healing * -1, required_organ_flag = ORGAN_ORGANIC) //1 excess = 5 organ damage healed
+			target_organ.apply_organ_damage(excess_healing * -1, required_organ_flag = ORGAN_ORGANIC) //1 excess = 5 organ damage healed
 
 	return ..()
 
