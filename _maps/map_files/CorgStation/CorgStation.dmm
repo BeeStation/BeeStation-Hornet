@@ -19904,9 +19904,12 @@
 "goa" = (
 /obj/structure/cable/yellow,
 /obj/machinery/power/apc/auto_name/directional/south,
-/obj/structure/rack,
-/obj/item/storage/box/firingpins,
 /obj/effect/turf_decal/delivery,
+/obj/effect/loot_jobscale/armoury/taser_ammo_box,
+/obj/effect/loot_jobscale/armoury/tasers,
+/obj/structure/closet/gun_locker{
+	anchored = 1
+	},
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "goc" = (
@@ -26374,6 +26377,9 @@
 /obj/effect/turf_decal/delivery,
 /obj/structure/rack,
 /obj/item/storage/box/sec_barricades,
+/obj/item/storage/box/firingpins{
+	pixel_y = 11
+	},
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "irq" = (
@@ -64437,12 +64443,13 @@
 /turf/open/floor/iron/white,
 /area/medical/medbay/aft)
 "uXl" = (
-/obj/structure/rack,
 /obj/effect/turf_decal/delivery,
-/obj/item/ammo_box/c10x25mm,
-/obj/item/ammo_box/taser,
-/obj/item/gun/ballistic/automatic/pistol/security,
-/obj/item/gun/ballistic/taser,
+/obj/effect/loot_jobscale/armoury/pistol_ammo,
+/obj/effect/loot_jobscale/armoury/pistol_ammo_box,
+/obj/effect/loot_jobscale/armoury/pistols,
+/obj/structure/closet/gun_locker{
+	anchored = 1
+	},
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "uXD" = (

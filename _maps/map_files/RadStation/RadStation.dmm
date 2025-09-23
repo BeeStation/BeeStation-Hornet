@@ -2335,13 +2335,16 @@
 	},
 /area/hallway/primary/central)
 "aKd" = (
-/obj/structure/rack,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/item/ammo_box/taser,
-/obj/item/ammo_box/taser,
+/obj/effect/loot_jobscale/armoury/pistol_ammo,
+/obj/effect/loot_jobscale/armoury/pistol_ammo_box,
+/obj/effect/loot_jobscale/armoury/pistols,
+/obj/structure/closet/gun_locker{
+	anchored = 1
+	},
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "aKg" = (
@@ -8364,16 +8367,39 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
 "cIf" = (
-/obj/item/gun/energy/e_gun/dragnet{
-	pixel_x = -2;
-	pixel_y = 1
-	},
-/obj/item/beacon/nettingportal,
 /obj/machinery/firealarm/directional/west,
-/obj/structure/rack,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
+	},
+/obj/structure/rack,
+/obj/item/storage/box/breacherslug,
+/obj/item/storage/box/rubbershot{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/storage/box/rubbershot{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/storage/box/rubbershot{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/storage/box/rubbershot{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/storage/box/rubbershot{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/storage/box/breacherslug,
+/obj/item/storage/box/breacherslug,
+/obj/item/storage/box/breacherslug,
+/obj/item/storage/box/rubbershot{
+	pixel_x = 3;
+	pixel_y = -3
 	},
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
@@ -11772,34 +11798,6 @@
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
 "dMH" = (
-/obj/structure/rack,
-/obj/item/storage/box/rubbershot{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/storage/box/rubbershot{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/storage/box/rubbershot{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/storage/box/rubbershot{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/storage/box/rubbershot{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/storage/box/rubbershot{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/storage/box/breacherslug,
-/obj/item/storage/box/breacherslug,
-/obj/item/storage/box/breacherslug,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -11808,6 +11806,11 @@
 	bulb_colour = "#DE3A3A";
 	dir = 8;
 	nightshift_light_color = "#DE3A3A"
+	},
+/obj/effect/loot_jobscale/armoury/tasers,
+/obj/effect/loot_jobscale/armoury/taser_ammo_box,
+/obj/structure/closet/gun_locker{
+	anchored = 1
 	},
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
@@ -27067,7 +27070,6 @@
 /turf/open/floor/iron/tech,
 /area/engine/engine_room)
 "iRQ" = (
-/obj/structure/table/reinforced,
 /obj/machinery/door/window/brigdoor/westleft{
 	name = "energy Guns";
 	req_access_txt = "3"
@@ -27076,8 +27078,12 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/item/gun/ballistic/automatic/pistol/security,
-/obj/item/ammo_box/c10x25mm,
+/obj/structure/table/reinforced,
+/obj/item/beacon/nettingportal,
+/obj/item/gun/energy/e_gun/dragnet{
+	pixel_x = -2;
+	pixel_y = 1
+	},
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "iRV" = (

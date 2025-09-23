@@ -21264,8 +21264,6 @@
 	},
 /obj/machinery/light_switch/directional/south,
 /obj/machinery/light/directional/east,
-/obj/item/ammo_box/taser,
-/obj/item/gun/ballistic/taser,
 /turf/open/floor/iron/dark/textured,
 /area/ai_monitored/security/armory)
 "enV" = (
@@ -79361,7 +79359,6 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/rack,
 /obj/effect/turf_decal/bot,
 /obj/machinery/door/window/southright{
 	name = "Weapons Storage";
@@ -79374,8 +79371,14 @@
 	dir = 6
 	},
 /obj/machinery/light/directional/north,
-/obj/item/gun/ballistic/automatic/pistol/security,
-/obj/item/ammo_box/c10x25mm,
+/obj/effect/loot_jobscale/armoury/tasers,
+/obj/effect/loot_jobscale/armoury/taser_ammo_box,
+/obj/effect/loot_jobscale/armoury/pistols,
+/obj/effect/loot_jobscale/armoury/pistol_ammo_box,
+/obj/effect/loot_jobscale/armoury/pistol_ammo,
+/obj/structure/closet/gun_locker{
+	anchored = 1
+	},
 /turf/open/floor/iron/dark/textured,
 /area/ai_monitored/security/armory)
 "qco" = (

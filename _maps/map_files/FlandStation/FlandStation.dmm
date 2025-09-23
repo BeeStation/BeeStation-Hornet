@@ -1666,8 +1666,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/obj/item/ammo_box/taser,
-/obj/item/gun/ballistic/taser,
+/obj/effect/loot_jobscale/armoury/laser_gun,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "avb" = (
@@ -29115,7 +29114,6 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/rack,
 /obj/effect/turf_decal/bot,
 /obj/machinery/door/window/southright{
 	name = "Weapons Storage";
@@ -29127,8 +29125,11 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/obj/item/ammo_box/c10x25mm,
-/obj/item/gun/ballistic/automatic/pistol/security,
+/obj/effect/loot_jobscale/armoury/pistol_ammo,
+/obj/effect/loot_jobscale/armoury/pistol_ammo_box,
+/obj/structure/closet/gun_locker{
+	anchored = 1
+	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "hxo" = (
@@ -35100,7 +35101,6 @@
 /turf/open/floor/iron,
 /area/hallway/primary/port)
 "iUg" = (
-/obj/structure/rack,
 /obj/effect/turf_decal/bot,
 /obj/structure/window/reinforced{
 	dir = 8
@@ -35117,7 +35117,11 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/obj/effect/loot_jobscale/armoury/laser_gun,
+/obj/effect/loot_jobscale/armoury/taser_ammo_box,
+/obj/effect/loot_jobscale/armoury/tasers,
+/obj/structure/closet/gun_locker{
+	anchored = 1
+	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "iUs" = (

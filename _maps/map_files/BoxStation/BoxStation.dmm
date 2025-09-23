@@ -498,7 +498,6 @@
 /turf/open/space/basic,
 /area/space)
 "afc" = (
-/obj/structure/rack,
 /obj/effect/turf_decal/bot,
 /obj/structure/window/reinforced{
 	dir = 1
@@ -506,8 +505,12 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/ammo_box/taser,
-/obj/item/gun/ballistic/taser,
+/obj/effect/loot_jobscale/armoury/pistol_ammo,
+/obj/effect/loot_jobscale/armoury/pistol_ammo_box,
+/obj/effect/loot_jobscale/armoury/pistols,
+/obj/structure/closet/gun_locker{
+	anchored = 1
+	},
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "afe" = (
@@ -41522,13 +41525,15 @@
 /turf/open/floor/iron/dark,
 /area/security/main)
 "mYr" = (
-/obj/structure/rack,
 /obj/effect/turf_decal/bot,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/item/gun/ballistic/automatic/pistol/security,
-/obj/item/ammo_box/c10x25mm,
+/obj/effect/loot_jobscale/armoury/taser_ammo_box,
+/obj/effect/loot_jobscale/armoury/tasers,
+/obj/structure/closet/gun_locker{
+	anchored = 1
+	},
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "mYB" = (

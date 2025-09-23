@@ -23351,13 +23351,12 @@
 /turf/open/floor/iron,
 /area/engine/storage_shared)
 "eGN" = (
-/obj/structure/rack,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
 /obj/effect/turf_decal/box/red,
-/obj/item/ammo_box/taser,
-/obj/item/gun/ballistic/taser,
+/obj/effect/loot_jobscale/armoury/laser_gun,
+/obj/structure/rack,
 /turf/open/floor/iron/dark/smooth_large,
 /area/ai_monitored/security/armory)
 "eGR" = (
@@ -31040,10 +31039,13 @@
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
 "hpL" = (
-/obj/structure/rack,
 /obj/effect/turf_decal/box/red,
-/obj/item/ammo_box/c10x25mm,
-/obj/item/gun/ballistic/automatic/pistol/security,
+/obj/effect/loot_jobscale/armoury/pistol_ammo,
+/obj/effect/loot_jobscale/armoury/pistol_ammo_box,
+/obj/effect/loot_jobscale/armoury/pistols,
+/obj/structure/closet/gun_locker{
+	anchored = 1
+	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/ai_monitored/security/armory)
 "hpQ" = (
@@ -52358,9 +52360,12 @@
 /turf/open/floor/prison,
 /area/security/prison)
 "oBP" = (
-/obj/structure/rack,
-/obj/effect/loot_jobscale/armoury/laser_gun,
 /obj/effect/turf_decal/box/red,
+/obj/effect/loot_jobscale/armoury/taser_ammo_box,
+/obj/effect/loot_jobscale/armoury/tasers,
+/obj/structure/closet/gun_locker{
+	anchored = 1
+	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/ai_monitored/security/armory)
 "oCb" = (

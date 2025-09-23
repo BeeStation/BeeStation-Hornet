@@ -26919,8 +26919,7 @@
 	},
 /obj/effect/turf_decal/tile/red,
 /obj/structure/rack,
-/obj/item/ammo_box/taser,
-/obj/item/gun/ballistic/taser,
+/obj/effect/loot_jobscale/armoury/laser_gun,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "dBu" = (
@@ -48379,11 +48378,14 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/obj/effect/loot_jobscale/armoury/laser_gun,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/structure/rack,
+/obj/effect/loot_jobscale/armoury/taser_ammo_box,
+/obj/effect/loot_jobscale/armoury/tasers,
+/obj/structure/closet/gun_locker{
+	anchored = 1
+	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "jBX" = (
@@ -68866,9 +68868,12 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
-/obj/structure/rack,
-/obj/item/ammo_box/c10x25mm,
-/obj/item/gun/ballistic/automatic/pistol/security,
+/obj/effect/loot_jobscale/armoury/pistol_ammo,
+/obj/effect/loot_jobscale/armoury/pistol_ammo_box,
+/obj/effect/loot_jobscale/armoury/pistols,
+/obj/structure/closet/gun_locker{
+	anchored = 1
+	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "qjn" = (
