@@ -9423,6 +9423,7 @@
 /area/hallway/secondary/entry)
 "bsv" = (
 /obj/effect/turf_decal/tile/neutral,
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron,
 /area/hallway/primary/port)
 "bsw" = (
@@ -12769,7 +12770,6 @@
 /obj/structure/sign/poster/contraband/red_rum{
 	pixel_y = 32
 	},
-/obj/machinery/light/directional/east,
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
 "bUw" = (
@@ -14015,6 +14015,9 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 6
 	},
 /turf/open/floor/catwalk_floor/iron,
 /area/hallway/secondary/service)
@@ -22251,6 +22254,9 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 9
+	},
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "emy" = (
@@ -23136,6 +23142,9 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
+/obj/structure/disposalpipe/segment{
+	dir = 9
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/port)
 "eDa" = (
@@ -26442,6 +26451,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/catwalk_floor/iron,
 /area/hallway/secondary/service)
 "fMm" = (
@@ -27127,9 +27137,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/disposalpipe/segment{
-	dir = 5
-	},
+/obj/structure/disposalpipe/sorting/mail/destination/kitchen/flip,
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "fVm" = (
@@ -27663,6 +27671,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/food/flour,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "gfw" = (
@@ -30452,13 +30463,17 @@
 /turf/open/floor/plating,
 /area/maintenance/department/medical/central)
 "hij" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
 	},
-/turf/open/floor/catwalk_floor/iron,
-/area/hallway/secondary/service)
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/camera/directional/south{
+	c_tag = "Starboard Primary Hallway - Engineering"
+	},
+/turf/open/floor/iron,
+/area/hallway/primary/starboard)
 "hik" = (
 /obj/effect/spawner/lootdrop/grille_or_trash,
 /turf/open/floor/plating,
@@ -32074,6 +32089,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "hLe" = (
@@ -32253,6 +32271,9 @@
 /obj/effect/turf_decal/siding/thinplating_new,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/food/flour,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "hNe" = (
@@ -41860,9 +41881,6 @@
 /area/engine/atmos)
 "llq" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4,
-/obj/machinery/light/small{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/restraints/legcuffs/beartrap,
 /obj/structure/cable/yellow{
@@ -52545,9 +52563,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 6
-	},
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
 	dir = 8
 	},
@@ -53847,6 +53862,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "pkX" = (
@@ -54869,7 +54887,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -56261,6 +56278,9 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/siding/thinplating_new/corner,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment{
+	dir = 6
+	},
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "qak" = (
@@ -58859,6 +58879,9 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/siding/thinplating_new,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "qRE" = (
@@ -59384,9 +59407,6 @@
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "qZY" = (
-/obj/structure/disposalpipe/segment{
-	dir = 9
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -59394,6 +59414,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/port)
@@ -65620,6 +65643,16 @@
 "tjJ" = (
 /turf/open/floor/iron,
 /area/maintenance/aft)
+"tjL" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 9
+	},
+/turf/open/floor/iron/checker,
+/area/crew_quarters/kitchen)
 "tjU" = (
 /obj/structure/table,
 /obj/item/storage/belt/utility,
@@ -69890,8 +69923,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 10
+/obj/structure/disposalpipe/junction/yjunction{
+	dir = 8
 	},
 /turf/open/floor/catwalk_floor/iron,
 /area/hallway/secondary/service)
@@ -71095,11 +71128,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 5
-	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
+	},
+/obj/structure/disposalpipe/junction{
+	dir = 1
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/port)
@@ -71824,6 +71857,9 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/open/floor/catwalk_floor/iron,
 /area/crew_quarters/kitchen)
@@ -73640,9 +73676,6 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/obj/machinery/camera/directional/south{
-	c_tag = "Starboard Primary Hallway - Engineering"
-	},
 /obj/structure/disposalpipe/sorting/mail/destination/threatre{
 	dir = 4
 	},
@@ -74121,8 +74154,8 @@
 	dir = 8
 	},
 /obj/machinery/disposal/bin,
-/obj/structure/disposalpipe/trunk,
 /obj/machinery/light/directional/north,
+/obj/structure/disposalpipe/trunk,
 /turf/open/floor/iron/white,
 /area/crew_quarters/theatre/backstage)
 "vYG" = (
@@ -76733,9 +76766,6 @@
 /turf/open/floor/iron,
 /area/maintenance/aft)
 "wPp" = (
-/obj/structure/disposalpipe/junction/flip{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
 	},
@@ -76745,6 +76775,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron,
 /area/hallway/primary/port)
 "wPs" = (
@@ -78616,7 +78647,6 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
 /area/maintenance/starboard/secondary)
@@ -81068,7 +81098,6 @@
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain/private)
 "yji" = (
-/obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -115428,7 +115457,7 @@ wbY
 kdj
 ePS
 mkh
-hij
+rDa
 lcn
 bbJ
 mRi
@@ -115685,7 +115714,7 @@ qUy
 kdj
 bUn
 qrp
-hij
+rDa
 oxC
 bpB
 kyN
@@ -117724,7 +117753,7 @@ bdX
 aZw
 lMa
 lmg
-jWt
+hij
 xXn
 gsC
 jUw
@@ -117997,7 +118026,7 @@ uXJ
 lIo
 gRw
 fVl
-fJY
+tjL
 iPh
 bHI
 eZZ
