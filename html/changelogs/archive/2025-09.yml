@@ -177,6 +177,10 @@
       gas rig now.
   - rscdel: Removed gas miners from all maps except for echo, as the gas rig being
       there makes no sense
+  lord scrubling:
+  - rscadd: resin mister upgrades can now be applied to the modsuit module
+  - bugfix: the resin mister module now deploys
+  - refactor: watertank backpacks are more flexible
   ? mrmanlikesbt, MrMelbert, san7890, SuperNovaa41, Watermelon914, lessthnthree, ZephyrTFA,
     Jacquerel, AnywayFarus, imedial, SmArtKar
   : - rscadd: Added the "Vote" verb the OOC tab, here you can check the status of
@@ -186,3 +190,184 @@
         vote, and when that map eventually wins its tallies will be reset.
     - refactor: refactored the voting subsystem
     - tweak: Slightly altered the Emergency Shuttle undocking announcement
+2025-09-15:
+  PowerfulBacon:
+  - bugfix: Fixes guns slowing down while worn on the belt.
+  - bugfix: Fixes guns not being able to shoot if you click on a tile adjacent to
+      you.
+  TsunamiAnt:
+  - tweak: Makes abductee objectives not be complete ass.
+  - tweak: Abductee objectives are now tied to the gland itself and can be cured by
+      just removing it.
+  mrmanlikesbt:
+  - bugfix: Fixed the item overlay on smartfridges displaying even when there are
+      no items inside.
+  - bugfix: Fixes the feed ability breaking if the person you are feeding off of is
+      deleted
+  - bugfix: Fixed Ventrue made vampires getting duplicate spells when turned into
+      a vampire
+  - bugfix: Fixed vampires sometimes greentexting when they didn't complete all of
+      their objectives
+  - bugfix: Fixed the Tremere Dominate ability not being able to resurrect people
+      into vassals
+  - code_imp: Cleaned up some vampire code
+  - tweak: The vampire department vassalization objective can no longer ask you to
+      vassalize more people than possible
+  - tweak: Adjusted the roundend report vampire section
+  - tweak: Stakes now have a medium weight size meaning people other than the staked
+      person can remove them
+  - tweak: Ventrue favorite vassals lose their vassal status when leveled up into
+      a vampire. Be careful Ventrue clan members!
+  r1ks-iwnl:
+  - bugfix: Bubblegum no longer ends his dashes earlier than he should
+  rkz, tralezab, TheBonded, ma44, Ryll/Shaps, Vishenka0704, Vladoricious, Jacquerel, Fikou, Sealed101, San7890:
+  - tweak: Renames the Wardens dog
+  - refactor: tamable component + egg layer component, animal variety element
+  - bugfix: dogs will no longer forget to unbuckle themselves when fetching items
+      thrown nearby
+  - code_imp: fixed bad rabbit subtyping
+  - refactor: Basic AI movement has been refactored to clean it up a bit
+  - bugfix: Dog AI's should no longer lock up and become unresponsive after failed
+      fetch attempts
+  - soundadd: Dogs in harass mode that are guarding against someone will now make
+      growling sounds
+  - bugfix: Dead dogs can no longer befriend you or lick you.
+  - bugfix: Consciousness Transference potions now tame the target creature, just
+      like Sentience potions.
+  - bugfix: A revived basic mob will stand up again rather than inching around as
+      a living corpse.
+  - rscadd: Ian has learned some new tricks, tell him what a good boy he is!
+  - rscadd: Ian will come on a walk with you, if you are his friend.
+  - refactor: Ian's tricks work the same way as some other mobs' tricks and should
+      be extendable to future mobs.
+  - bugfix: Dogs no longer run at the maximum possible speed for a mob at all times.
+  - rscadd: When Ian gets old, he also slows down. Poor little guy.
+  - rscadd: Dogs will no longer dislike the presence of Felinids who have taken the
+      time to befriend them.
+  - rscadd: 'Dogs will now occasionally bark at their two mortal enemies: felinids
+      and mailmen'
+  - bugfix: Dogs set to attack will now only close within 3 tiles of their target,
+      and must be approached further by their target (or pushed next to their target)
+      to actually attack
+  - balance: While Ian still enjoys being petted, his heart will now most closely
+      belong to anyone who gives him an expensive luxury dog bone.
+  - code_imp: Using an item which can deal damage on a mob tracking hostile actions
+      (such as a dog) won't automatically be considered to be a hostile action if
+      you aren't actually hitting it with the item.
+  - bugfix: Dead basic mobs are no longer "dense" objects and can be stepped on.
+  - rscadd: Nars-Ian now can revive from the dead if he consumes a pet
+  - bugfix: fixes dog fashion items with no speech modifiers set making dressed up
+      corgis unable to perform their speech or emote behaviors
+  - bugfix: fixes old Ian losing his mobility ride when shaved with a razor
+  - bugfix: fixes pets not dropping their collar when gibbed
+  - bugfix: butter don't go on Lisa and corgi puppies (Lisa won't wear hats and corgi
+      puppies can't wear hats and back slot items)
+2025-09-16:
+  Nakalon:
+  - code_imp: Withdraw Funds now uses TGUI
+  - balance: Removed Department freebies from vendors. Everything will cost money
+      for everyone.
+  - balance: Cargo gets a cut of all items sold by vendors
+  - tweak: You can now buy items with departmental cards, embezzlement is no longer
+      stopped by code :)
+  - bugfix: Fixed Assistants seeing items as free, even though they aren't
+  THEREALDOOOC213:
+  - rscadd: fat people now break tables when slammed onto them
+  lord scrubling:
+  - bugfix: advanced atmos resin is no longer killed early when spreading in hot air
+  - rscadd: atmos hardsuits, winter coats, and modsuits can carry extinguishers in
+      their exo slot
+  - bugfix: firefighting foam now works
+  ? mrmanlikesbt, MrPerson, cacogen, MMMiracles, Tastyfish, XyzzyThePretender, LemonInTheDark,
+    MTandi, Lufferly, BobDABuilder9001, Sealed101
+  : - rscadd: Added new solar panel sprites. These dynamically track the sun instead
+        of being fixed to incremental angles
+    - rscadd: 'Solar panels can now be upgraded based on what glass they are made
+        of, the higher tier the glass is, the higher the multiplier is. The tiers
+        are as follows: normal glass - 1x, titanium glass - 2x, plasma glass - 3x,
+        plastitanium glass - x4'
+    - rscdel: Removed the goonstation folder
+    - refactor: Refactored SSsun and solar panel code.
+  mrmanlikesbt, san7890, the wonderful mappers at /tg/station:
+  - rscadd: Remapped MetaStation Service and Atmos
+  - bugfix: Fixed airlock pumps
+2025-09-17:
+  Bieyes:
+  - tweak: heavily slowed down all lawnmowers.
+  - balance: lawnmowers no longer gib.
+  - bugfix: mosins (and any other bolt actions) can be reloaded again.
+  ClownMoff:
+  - rscdel: Removed a stray decal on BoxStation
+  rkz, arcanemusic, cacogen, tastyfish:
+  - rscadd: adds ability to split profits on sold items with the sales tagger
+  - rscadd: cleaned up delivery crate appearance code, crates will show notes scrawled
+      on them and destination tags better
+  - refactor: cleaned up some crate export code
+2025-09-18:
+  PowerfulBacon:
+  - bugfix: Guns can now be recharged again.
+  - tweak: Players on lowpop no longer spawn with security access if no security are
+      present.
+  - rscadd: Added a new machine on lowpop which dispenses security deputy kits for
+      credits.
+  - tweak: Replace police baton with tonfa in deputy belt
+  - rscadd: The deputy duffel bag now comes with a deputy access upgrade card.
+  lord scrubling:
+  - bugfix: ethereal colors
+  mrmanlikesbt:
+  - bugfix: fixed vampires being able to level up an infinite amount of times
+2025-09-19:
+  ACanOpener:
+  - tweak: renamed cybernetic stomachs
+2025-09-20:
+  Programs-The-Station:
+  - bugfix: Central Command has repaired your station's Auxiliary Base Construction
+      Computer.
+  - rscadd: Auxiliary Base Construction Computer can now construct machine frames
+      and computer frames.
+  Rukofamicom:
+  - rscdel: Cameras no longer send alerts to AI except for motion cameras detecting
+      motion. This means cameras can now be disabled, destroyed or hit with an EMP
+      without the AI being immediately notified that cameras have been disabled in
+      a specific location.
+2025-09-21:
+  ACanOpener, Anonmare:
+  - balance: Reduced damage of the possessed chainsword to 18, down from 30.
+  PowerfulBacon:
+  - balance: Reduces the PDA's inactive power consumption, power consumption is now
+      higher when you have programs open. PDAs never use power while turned off.
+  - balance: Flashlight PDA now consumes and requires power, flickering when low on
+      power.
+  - balance: PDA batteries charge slightly faster.
+  mrmanlikesbt:
+  - code_imp: Renamed the applyOrganDamage() proc to apply_organ_damage()
+  - bugfix: Fixed canister connectors always having a pipe overlay on the south
+  - bugfix: fixed some small mistakes on MetaStation
+  mrmanlikesbt, ZephyrTFA, Jacquerel, jlsnow301:
+  - rscadd: Unary vents can be overclocked now to bypass their normal pressure restrictions
+      (5066kPa). While a vent is overclocked it will slowly lose integrity which you
+      can see via air alarm or examining it, you can repair a vent by using a screwdriver
+      on it. As the vent's integrity decreases, the amount of gas it is able to move
+      while under normal operation will decrease as well. When the vent reaches 0
+      integrity it will break and unwrench itself.
+  - refactor: Refactored the air alarm UI backend
+  - bugfix: Fixed the air alarm UI having overlapping buttons on 516 clients
+  - bugfix: Fixed not being able to set an air alarm's target air conditioning temperature
+  - code_imp: 'Removes an unused var: [/obj/machinery/var/interacts_with_air]'
+2025-09-22:
+  mrmanlikesbt, ninjanomnom:
+  - code_imp: Split up the atoms.dm file. If you see anything strange please report
+      it!
+  - code_imp: Removed an unused var and proc [/atom/var/max_hit_damage] [/atom/proc/clear_filters]
+  - code_imp: Re-implemented the previously commented signal [COMSIG_ATOM_UPDATE_INHAND_ICON]
+  pixelpoepleman:
+  - rscadd: New intercom in Box brig hall
+  - tweak: Fixed Card QM request console to be the 'Cargo' version instead of generic
+      'West'
+  - bugfix: Ferry Home docking port now fits the ferry on Box "Port Bay 2"
+2025-09-23:
+  ACanOpener:
+  - tweak: Renamed the "advanced cybernetic stomach" to "upgraded cybernetic stomach"
+      to be more consistent with other cybernetic organs.
+  mrmanlikesbt:
+  - rscadd: Changelings can speak most languages now

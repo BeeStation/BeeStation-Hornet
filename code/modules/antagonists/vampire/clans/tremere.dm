@@ -13,15 +13,15 @@
 	vampiredatum.remove_nondefault_powers(return_levels = TRUE)
 	for(var/datum/action/vampire/power as anything in vampiredatum.all_vampire_powers)
 		if((initial(power.purchase_flags) & TREMERE_CAN_BUY) && initial(power.level_current) == 1)
-			vampiredatum.BuyPower(new power)
+			vampiredatum.grant_power(new power)
 
 /datum/vampire_clan/tremere/Destroy(force)
 	for(var/datum/action/vampire/power in vampiredatum.powers)
 		if(power.purchase_flags & TREMERE_CAN_BUY)
-			vampiredatum.RemovePower(power)
+			vampiredatum.remove_power(power)
 	return ..()
 
-/datum/vampire_clan/tremere/spend_rank(datum/antagonist/vampire/source, mob/living/carbon/target, cost_rank = TRUE, blood_cost)
+/datum/vampire_clan/tremere/spend_rank(mob/living/carbon/carbon_vassal)
 	// Purchase Power Prompt
 	var/list/options = list()
 	var/list/radial_display = list()
@@ -63,19 +63,19 @@
 			to_chat(user, span_notice("[power_response] is already at max level!"))
 			return
 
-		vampiredatum.BuyPower(new tremere_power.upgraded_power)
-		vampiredatum.RemovePower(tremere_power)
+		vampiredatum.grant_power(new tremere_power.upgraded_power)
+		vampiredatum.remove_power(tremere_power)
 		user.balloon_alert(user, "upgraded [power_response]!")
 		to_chat(user, span_notice("You have upgraded [power_response]!"))
 
-	finalize_spend_rank(vampiredatum, cost_rank, blood_cost)
+	finalize_spend_rank()
 
 	// QoL
 	if(vampiredatum.vampire_level_unspent > 0)
-		spend_rank(source, target, cost_rank, blood_cost)
+		spend_rank(carbon_vassal)
 
-/datum/vampire_clan/tremere/on_favorite_vassal(datum/antagonist/vampire/source, datum/antagonist/vassal/vassaldatum)
-	vassaldatum.BuyPower(new /datum/action/vampire/shapeshift/batform)
+/datum/vampire_clan/tremere/on_favorite_vassal(datum/antagonist/vassal/favorite/favorite_vassal)
+	favorite_vassal.grant_power(new /datum/action/vampire/shapeshift/batform)
 
 /datum/vampire_clan/tremere/on_vassal_made(datum/antagonist/vampire/source, mob/living/user, mob/living/target)
 	. = ..()

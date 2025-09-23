@@ -40,6 +40,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 		balloon_alert(user, "<font color='#e06eb1'>Update:</font> // Battery Integrity Sensor // <font color='#17c011'>Engaged</font>")
 		to_chat(user, "<span class='cfc_magenta'>Update:</span> // Battery Integrity Sensor // <span class='cfc_green'>Engaged</span>")
 
+// =================================
+// Battery Hardware
+// =================================
+
 /obj/item/computer_hardware/battery/tiny	//I just wanted to create a subtype to facilitate coding since seeing battery alone isn't very helpful at a glance
 	name = "tiny battery"
 	desc = "The smallest battery available. Commonly seen in low-end portable microcomputers"
@@ -83,36 +87,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 	rating = PART_TIER_5
 	custom_price = PAYCHECK_MEDIUM * 3
 
-/obj/item/stock_parts/cell/computer
-	name = "standard battery"
-	desc = "A standard power cell, commonly seen in high-end portable microcomputers or low-end laptops."
-	icon = 'icons/obj/module.dmi'
-	icon_state = "cell_mini"
-	w_class = WEIGHT_CLASS_SMALL
-	maxcharge = 80 KILOWATT
-	chargerate_divide = 8
-	/// rating affects the size of the explosion created by the detonation of the battery (trough Power Cell Controler hacking)
-	rating = PART_TIER_3
-	custom_price = PAYCHECK_MEDIUM
+// =================================
+// Battery Cells: Each tier increases by 50%
+// =================================
 
-/obj/item/stock_parts/cell/computer/advanced
-	name = "advanced battery"
-	desc = "An advanced power cell, often used in most laptops, or high-end Tablets."
-	icon_state = "cell"
-	w_class = WEIGHT_CLASS_SMALL
-	maxcharge = 120 KILOWATT
-	custom_price = PAYCHECK_MEDIUM * 2
-	rating = PART_TIER_4
-
-/obj/item/stock_parts/cell/computer/super
-	name = "super battery"
-	desc = "An advanced power cell, often used in high-end laptops."
-	icon_state = "cell"
-	w_class = WEIGHT_CLASS_NORMAL	// Fits only laptops
-	maxcharge = 200 KILOWATT
-	chargerate_divide = 10
-	custom_price = PAYCHECK_MEDIUM * 3
-	rating = PART_TIER_5
+/obj/item/stock_parts/cell/computer/nano
+	name = "nano battery"
+	desc = "A tiny power cell, commonly seen in low-end portable microcomputers."
+	icon_state = "cell_micro"
+	w_class = WEIGHT_CLASS_TINY
+	maxcharge = 40 KILOWATT
+	chargerate_divide = 4
+	custom_price = PAYCHECK_EASY
+	rating = PART_TIER_1
 
 /obj/item/stock_parts/cell/computer/micro
 	name = "micro battery"
@@ -122,13 +109,34 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 	w_class = WEIGHT_CLASS_TINY
 	custom_price = PAYCHECK_EASY * 2
 	rating = PART_TIER_2
+	chargerate_divide = 2
 
-/obj/item/stock_parts/cell/computer/nano
-	name = "nano battery"
-	desc = "A tiny power cell, commonly seen in low-end portable microcomputers."
-	icon_state = "cell_micro"
-	w_class = WEIGHT_CLASS_TINY
-	maxcharge = 40 KILOWATT
+/obj/item/stock_parts/cell/computer
+	name = "standard battery"
+	desc = "A standard power cell, commonly seen in high-end portable microcomputers or low-end laptops."
+	icon = 'icons/obj/module.dmi'
+	icon_state = "cell_mini"
+	w_class = WEIGHT_CLASS_SMALL
+	maxcharge = 100 KILOWATT
+	/// rating affects the size of the explosion created by the detonation of the battery (trough Power Cell Controler hacking)
+	rating = PART_TIER_3
+	custom_price = PAYCHECK_MEDIUM
+
+/obj/item/stock_parts/cell/computer/advanced
+	name = "advanced battery"
+	desc = "An advanced power cell, often used in most laptops, or high-end Tablets."
+	icon_state = "cell"
+	w_class = WEIGHT_CLASS_SMALL
+	maxcharge = 140 KILOWATT
+	custom_price = PAYCHECK_MEDIUM * 2
+	rating = PART_TIER_4
+
+/obj/item/stock_parts/cell/computer/super
+	name = "super battery"
+	desc = "An advanced power cell, often used in high-end laptops."
+	icon_state = "cell"
+	w_class = WEIGHT_CLASS_NORMAL	// Fits only laptops
+	maxcharge = 220 KILOWATT
 	chargerate_divide = 10
-	custom_price = PAYCHECK_EASY
-	rating = PART_TIER_1
+	custom_price = PAYCHECK_MEDIUM * 3
+	rating = PART_TIER_5

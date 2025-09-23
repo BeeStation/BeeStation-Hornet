@@ -6,7 +6,6 @@
 
 	can_unwrench = TRUE
 	hide = TRUE
-	interacts_with_air = TRUE
 	layer = GAS_SCRUBBER_LAYER
 	shift_underlay_only = FALSE
 

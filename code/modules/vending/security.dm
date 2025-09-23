@@ -29,7 +29,6 @@
 	refill_canister = /obj/item/vending_refill/security
 	default_price = 100
 	extra_price = 150
-	dept_req_for_free = ACCOUNT_SEC_BITFLAG
 
 /obj/machinery/vending/security/pre_throw(obj/item/I)
 	if(istype(I, /obj/item/grenade))
