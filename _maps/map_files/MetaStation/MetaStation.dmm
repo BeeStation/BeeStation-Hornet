@@ -20763,6 +20763,9 @@
 /obj/structure/platform/wood{
 	dir = 8
 	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "dJI" = (
@@ -35557,6 +35560,10 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/light/directional/east,
+/obj/structure/disposalpipe/segment,
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 8
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "iRA" = (
@@ -39434,13 +39441,13 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 6
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
@@ -39856,6 +39863,10 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment,
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
@@ -52918,6 +52929,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/structure/disposalpipe/segment,
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "oMR" = (
@@ -55796,6 +55811,9 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 1
+	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/bar)
 "pPd" = (
@@ -57038,10 +57056,13 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 9
-	},
 /obj/effect/turf_decal/siding/wood/corner,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "qhG" = (
@@ -58666,6 +58687,12 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 9
+	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 1
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
@@ -62808,8 +62835,8 @@
 /turf/open/floor/iron/dark,
 /area/ai_monitored/storage/eva)
 "sho" = (
-/obj/structure/disposalpipe/segment,
-/turf/open/floor/wood,
+/obj/structure/table/glass,
+/turf/open/floor/carpet/red,
 /area/crew_quarters/bar)
 "shp" = (
 /obj/structure/cable/yellow{
@@ -72557,6 +72584,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 4
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "vtN" = (
@@ -73852,14 +73882,12 @@
 /turf/open/floor/iron,
 /area/storage/tools)
 "vPr" = (
-/obj/effect/turf_decal/tile/yellow{
+/obj/structure/platform/wood{
 	dir = 8
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 6
-	},
-/turf/open/floor/iron,
-/area/hallway/primary/starboard)
+/obj/effect/turf_decal/siding/wood/corner,
+/turf/open/floor/wood,
+/area/crew_quarters/bar)
 "vPH" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Holodeck Door"
@@ -76652,8 +76680,8 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "wKi" = (
-/obj/structure/disposalpipe/segment,
 /obj/structure/fluff/hedge/opaque,
+/obj/effect/turf_decal/siding/wood,
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "wKo" = (
@@ -117996,7 +118024,7 @@ lMa
 bjp
 vpf
 wRB
-dIR
+vPr
 dIR
 dIR
 dIR
@@ -118251,12 +118279,12 @@ vvX
 aZw
 mks
 uTF
-vPr
+bmV
 bUe
 wKi
+lQE
 sho
-sho
-sho
+jgk
 qhy
 efH
 iER
