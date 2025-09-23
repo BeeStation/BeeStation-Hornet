@@ -159,4 +159,3 @@
  */
 /atom/proc/LateInitialize()
 	set waitfor = FALSE
-
