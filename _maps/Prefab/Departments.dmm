@@ -512,6 +512,10 @@
 "lW" = (
 /turf/open/floor/iron/textured_corner,
 /area/space)
+"lX" = (
+/obj/machinery/aug_manipulator,
+/turf/open/floor/iron/white,
+/area/science/robotics)
 "mo" = (
 /obj/item/toy/plush/moth/lovers,
 /turf/open/floor/iron/tech/grid,
@@ -775,10 +779,6 @@
 /obj/structure/sign/directions/command,
 /turf/open/floor/iron/dark,
 /area/space)
-"qX" = (
-/obj/machinery/gear_requisition/exploration,
-/turf/open/floor/iron/dark,
-/area/quartermaster/exploration_prep)
 "rc" = (
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
@@ -1211,10 +1211,6 @@
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating,
 /area/maintenance/central)
-"Cw" = (
-/obj/machinery/gear_requisition/mining,
-/turf/open/floor/iron/sepia,
-/area/quartermaster/storage)
 "CE" = (
 /obj/machinery/rnd/production/techfab/department/service,
 /turf/open/floor/wood,
@@ -1447,6 +1443,10 @@
 /obj/item/toy/plush/moth/punished,
 /turf/open/floor/iron,
 /area/space)
+"Iu" = (
+/obj/machinery/gear_requisition/exploration,
+/turf/open/floor/iron/dark,
+/area/quartermaster/exploration_prep)
 "IO" = (
 /obj/structure/closet/secure_closet/RD,
 /turf/open/floor/carpet/purple,
@@ -1878,6 +1878,10 @@
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/medical/genetics)
+"Rm" = (
+/obj/machinery/gear_requisition/mining,
+/turf/open/floor/iron/sepia,
+/area/quartermaster/storage)
 "Rq" = (
 /obj/machinery/deepfryer,
 /turf/open/floor/iron/freezer,
@@ -2401,7 +2405,7 @@ be
 nr
 Oe
 KY
-Cw
+Rm
 vZ
 "}
 (7,1,1) = {"
@@ -2469,7 +2473,7 @@ Tj
 Vy
 or
 TE
-ei
+lX
 BQ
 OT
 Rd
@@ -2630,7 +2634,7 @@ Oz
 uM
 RB
 ti
-qX
+Iu
 uy
 it
 YS
