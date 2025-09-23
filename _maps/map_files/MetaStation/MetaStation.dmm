@@ -11660,7 +11660,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/plating,
-/area/maintenance/starboard)
+/area/maintenance/starboard/secondary)
 "bLM" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
@@ -12458,7 +12458,6 @@
 	dir = 8;
 	desc = "A chair fit for a walrus of a man."
 	},
-/obj/item/storage/box/matches,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "bSm" = (
@@ -13308,8 +13307,6 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/broken_bottle,
-/obj/effect/decal/cleanable/glass,
 /obj/machinery/disposal/bin,
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
@@ -18424,7 +18421,7 @@
 "dcR" = (
 /obj/effect/decal/cleanable/food/plant_smudge,
 /turf/open/floor/plating,
-/area/maintenance/starboard)
+/area/maintenance/starboard/secondary)
 "ddb" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/disposalpipe/segment{
@@ -24482,7 +24479,7 @@
 	dir = 10
 	},
 /turf/open/floor/plating,
-/area/maintenance/starboard)
+/area/maintenance/starboard/secondary)
 "fcq" = (
 /obj/machinery/teleport/hub,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -25101,6 +25098,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/item/broken_bottle,
+/obj/effect/decal/cleanable/glass,
 /turf/open/floor/plating/rust,
 /area/hallway/secondary/service)
 "fon" = (
@@ -28783,7 +28782,7 @@
 	icon_state = "1-8"
 	},
 /turf/open/floor/plating,
-/area/maintenance/starboard)
+/area/maintenance/starboard/secondary)
 "gCW" = (
 /obj/machinery/camera/directional/east,
 /turf/open/floor/engine/co2,
@@ -29254,7 +29253,6 @@
 	dir = 6
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/blacklight/directional/north,
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating,
@@ -30420,7 +30418,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/plating,
-/area/maintenance/starboard)
+/area/maintenance/starboard/secondary)
 "hhT" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow,
@@ -35410,12 +35408,17 @@
 /turf/open/floor/wood,
 /area/crew_quarters/dorms)
 "iRz" = (
-/obj/machinery/power/apc/auto_name/directional/north,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
 	},
-/turf/open/floor/plating,
-/area/maintenance/starboard)
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/light/directional/east,
+/turf/open/floor/wood,
+/area/crew_quarters/bar)
 "iRA" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -38858,7 +38861,7 @@
 "kex" = (
 /obj/item/grown/bananapeel,
 /turf/open/floor/plating,
-/area/maintenance/starboard)
+/area/maintenance/starboard/secondary)
 "keB" = (
 /obj/structure/table,
 /obj/item/paper_bin{
@@ -39720,6 +39723,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance,
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "kuA" = (
@@ -41838,7 +41842,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating,
-/area/maintenance/starboard)
+/area/maintenance/starboard/secondary)
 "lle" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 8;
@@ -41858,7 +41862,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/plating/rust,
-/area/maintenance/starboard)
+/area/maintenance/starboard/secondary)
 "llw" = (
 /obj/machinery/door/airlock/security{
 	name = "Interrogation Monitoring";
@@ -45090,7 +45094,7 @@
 "mqu" = (
 /obj/effect/decal/cleanable/cobweb,
 /turf/open/floor/plating,
-/area/maintenance/starboard)
+/area/maintenance/starboard/secondary)
 "mqT" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
@@ -53555,6 +53559,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "pgs" = (
@@ -54884,7 +54891,7 @@
 "pzW" = (
 /obj/item/toy/beach_ball/holoball,
 /turf/open/floor/plating,
-/area/maintenance/starboard)
+/area/maintenance/starboard/secondary)
 "pAs" = (
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
@@ -55294,7 +55301,7 @@
 	},
 /obj/effect/decal/cleanable/generic,
 /turf/open/floor/plating,
-/area/maintenance/starboard)
+/area/maintenance/starboard/secondary)
 "pIT" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
@@ -55815,14 +55822,7 @@
 	pixel_y = 5
 	},
 /obj/structure/table,
-/obj/item/candle{
-	pixel_y = 13;
-	pixel_x = -11
-	},
-/obj/item/candle{
-	pixel_y = -2;
-	pixel_x = 12
-	},
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "pTp" = (
@@ -56997,7 +56997,6 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/junction{
 	dir = 4
 	},
-/obj/machinery/airalarm/directional/south,
 /turf/open/floor/iron/kitchen_coldroom/freezerfloor,
 /area/crew_quarters/kitchen/coldroom)
 "qkp" = (
@@ -60052,7 +60051,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/plating/rust,
-/area/maintenance/starboard)
+/area/maintenance/starboard/secondary)
 "rog" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable{
@@ -65181,7 +65180,7 @@
 "tcJ" = (
 /obj/structure/reagent_dispensers/water_cooler,
 /turf/open/floor/plating,
-/area/maintenance/starboard)
+/area/maintenance/starboard/secondary)
 "tcZ" = (
 /obj/structure/sign/warning/vacuum{
 	pixel_x = -32
@@ -67750,8 +67749,6 @@
 /turf/open/floor/iron/dark,
 /area/teleporter)
 "tVl" = (
-/obj/machinery/door/airlock/freezer,
-/obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
 /obj/machinery/atmospherics/pipe/layer_manifold/supply/hidden{
 	dir = 4
@@ -67759,6 +67756,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/machinery/door/airlock/freezer,
 /turf/open/floor/iron/kitchen_coldroom/freezerfloor,
 /area/crew_quarters/kitchen)
 "tVs" = (
@@ -70261,7 +70259,7 @@
 /obj/effect/decal/cleanable/glass,
 /obj/machinery/light/small/directional/north,
 /turf/open/floor/plating,
-/area/maintenance/starboard)
+/area/maintenance/starboard/secondary)
 "uKt" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/light/small{
@@ -70713,7 +70711,7 @@
 	pixel_x = 14
 	},
 /turf/open/floor/plating,
-/area/maintenance/starboard)
+/area/maintenance/starboard/secondary)
 "uQU" = (
 /obj/structure/closet/crate,
 /turf/open/floor/plating,
@@ -72876,14 +72874,10 @@
 /turf/open/floor/iron/dark,
 /area/science/misc_lab/range)
 "vDH" = (
-/obj/structure/chair/wood{
-	dir = 4
-	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 4
-	},
-/turf/open/floor/glass/reinforced,
-/area/crew_quarters/bar)
+/obj/machinery/power/apc/auto_name/directional/south,
+/obj/structure/cable/yellow,
+/turf/open/floor/plating,
+/area/maintenance/starboard)
 "vDL" = (
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted{
 	dir = 4
@@ -78621,7 +78615,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/plating,
-/area/maintenance/starboard)
+/area/maintenance/starboard/secondary)
 "xvR" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4{
@@ -78639,15 +78633,12 @@
 /area/hallway/primary/central)
 "xvT" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock{
-	name = "Kitchen Coldroom";
-	req_access_txt = "28"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/door/airlock/freezer,
 /turf/open/floor/plating,
 /area/crew_quarters/kitchen/coldroom)
 "xwd" = (
@@ -115940,7 +115931,7 @@ iAR
 nzi
 foZ
 dvX
-vDH
+foZ
 dvX
 vku
 fCa
@@ -118245,12 +118236,12 @@ lMa
 ylH
 kmh
 pPa
-oMv
+iRz
 oMv
 ktK
 oMv
 qKq
-oMv
+iRz
 raq
 raq
 bvP
@@ -118271,10 +118262,10 @@ aDY
 hZk
 aDY
 aDY
-iRz
+jRr
 gCQ
 lkV
-apc
+nbv
 mrC
 nbv
 rAb
@@ -118528,7 +118519,7 @@ cXI
 apc
 atm
 kex
-apc
+nbv
 llq
 lkV
 pzW
@@ -118789,7 +118780,7 @@ bLK
 rnV
 uQP
 tcJ
-alq
+ovj
 nbv
 sEo
 chD
@@ -120067,7 +120058,7 @@ sAY
 qTu
 oEQ
 pgm
-apc
+vDH
 atm
 wzo
 aAs
