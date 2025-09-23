@@ -17,7 +17,6 @@ import { getLayoutState, LAYOUT, LayoutToggle } from './common/LayoutToggle';
 type VendingData = {
   all_products_free: boolean;
   onstation: boolean;
-  department_bitflag: string;
   displayed_currency_icon: string;
   displayed_currency_name: string;
   product_records: ProductRecord[];
@@ -58,7 +57,6 @@ type UserData = {
   name: string;
   cash: number;
   job: string;
-  department_bitflag: string;
 };
 
 type StockItem = {
@@ -263,19 +261,11 @@ const ProductDisplay = (props: {
 const Product = (props) => {
   const { act, data } = useBackend<VendingData>();
   const { custom, product, productStock, fluid } = props;
-  const { access, department_bitflag, all_products_free, user } = data;
+  const { access, all_products_free, user } = data;
 
   const colorable = !!productStock?.colorable;
-  const free =
-    all_products_free ||
-    product.price === 0 ||
-    (!product.premium &&
-      department_bitflag !== '0' &&
-      department_bitflag === user?.department_bitflag);
-  const discount =
-    !product.premium &&
-    department_bitflag !== '0' &&
-    department_bitflag === user?.department_bitflag;
+  const free = all_products_free || product.price === 0;
+  const discount = !product.premium;
   const remaining = custom ? product.amount : productStock.amount;
   const redPrice = Math.round(product.price);
   const disabled =

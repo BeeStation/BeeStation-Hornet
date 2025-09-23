@@ -32,6 +32,8 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	var/ignore_theme_pref = FALSE
 	/// List of themes for this device to allow.
 	var/list/allowed_themes
+	/// Are we using the flashlight
+	var/using_flashlight = FALSE
 	/// Color used for the Thinktronic Classic theme.
 	var/classic_color = COLOR_OLIVE
 	var/datum/computer_file/program/active_program = null	// A currently active program running on the computer.
@@ -40,8 +42,10 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	var/last_world_time = "00:00"
 	var/list/last_header_icons
 
-	var/base_active_power_usage = 10 WATT	// Aurs per second, Power usage when the computer is on. Remember hardware can use power too.
-	var/base_idle_power_usage = 5 WATT	// Aurs per second, Power usage when the computer is turned off
+	// Power consumption of the modular computer per second when the device is on
+	// but the computer is not using any power.
+	var/base_power_usage = 0 WATT
+	var/flashlight_power_usage = 30 WATT
 
 	// Modular computers can run on various devices. Each DEVICE (Laptop, Console, Tablet,..)
 	// must have it's own DMI file. Icon states must be called exactly the same in all files, but may look differently
@@ -98,6 +102,8 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	var/can_store_pai = FALSE
 	/// Level of Virus Defense to be added on initialize to the pre instaled hard drive this happens in tablet/PDA, Normal detomatix halves at 2, fails at 3
 	var/default_virus_defense = ANTIVIRUS_NONE
+	/// Multiplier for power usage
+	var/power_usage_multiplier = 1
 
 /datum/armor/item_modular_computer
 	bullet = 20
@@ -422,6 +428,8 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		else
 			idle_threads.Remove(P)
 
+	handle_flashlight(delta_time)
+
 	handle_power(delta_time) // Handles all computer power interaction
 	//check_update_ui_need()
 
@@ -642,9 +650,10 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
   * It is separated from ui_act() to be overwritten as needed.
 */
 /obj/item/modular_computer/proc/toggle_flashlight()
-	if(!has_light)
+	if(!has_light && use_power(10 WATT))
 		return FALSE
-	set_light_on(!light_on)
+	using_flashlight = !using_flashlight
+	set_light_on(using_flashlight)
 	update_appearance()
 	// Show the light_on overlay on top of the action button icon
 	update_action_buttons(force = TRUE) //force it because we added an overlay, not changed its icon
@@ -664,6 +673,22 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	comp_light_color = color
 	set_light_color(color)
 	return TRUE
+
+/obj/item/modular_computer/proc/handle_flashlight(delta_time)
+	if (!using_flashlight)
+		return
+	var/power_ratio = 1 - CLAMP01(get_power() / (10 KILOWATT))
+	if (DT_PROB(power_ratio * 20, delta_time))
+		do_flicker()
+
+/obj/item/modular_computer/proc/do_flicker(amounts = 5)
+	if (!using_flashlight)
+		return
+	if (amounts <= 0)
+		set_light_on(TRUE)
+		return
+	set_light_on(!light_on)
+	addtimer(CALLBACK(src, PROC_REF(do_flicker), amounts - 1), rand(0.1 SECONDS, 0.3 SECONDS))
 
 /obj/item/modular_computer/screwdriver_act(mob/user, obj/item/tool)
 	if(!deconstructable)
@@ -703,14 +728,9 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	ui_update()
 
 /obj/item/modular_computer/pre_attack(atom/A, mob/living/user, params)
-	if(!istype(A, /obj/item/computer_hardware) && !istype(A, /obj/item/stock_parts/cell/computer))
+	if(!istype(A, /obj/item/computer_hardware))
 		return
 
-	var/obj/item/computer_hardware/battery/battery_module = all_components[MC_CELL]
-
-	if(istype(A, /obj/item/stock_parts/cell/computer) && battery_module)
-		if(battery_module.try_insert(A, user))
-			return TRUE
 	if(istype(A, /obj/item/computer_hardware))
 		var/obj/item/computer_hardware/inserted_hardware = A
 		if(install_component(inserted_hardware, user))
@@ -885,7 +905,6 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		if(component.hacked)
 			. += "<span class='cfc_magenta'>WARNING ::</span> [component.device_type] <span class='cfc_magenta'>OPERATING BEYOND RATED PARAMETERS</span>"
 	if(battery_module?.battery)
-		. += "INFO :: <span class='cfc_orange'>[battery_module.battery.name]</span> accounted for."
 		. += "INFO :: Cell Current charge [battery_module.battery.percent()]%."
 	. += "Current Power consumption :: [display_power_persec(total_power_usage)]"
 	return

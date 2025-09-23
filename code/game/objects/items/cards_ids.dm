@@ -345,10 +345,10 @@
 		registered_account.bank_card_talk(span_warning("ERROR: UNABLE TO LOGIN DUE TO SCHEDULED MAINTENANCE. MAINTENANCE IS SCHEDULED TO COMPLETE IN [(registered_account.withdrawDelay - world.time)/10] SECONDS."), TRUE)
 		return
 
-	var/amount_to_remove =  FLOOR(input(user, "How much do you want to withdraw? Current Balance: [registered_account.account_balance]", "Withdraw Funds", 5) as num, 1)
+	//var/current_balance = registered_account.account_balance
+	var/amount_to_remove = round(tgui_input_number(user, "How much do you want to withdraw? Current: [registered_account.account_balance] cr", "Withdraw Funds", 0, registered_account.account_balance, 0))
 
-	if(!amount_to_remove || amount_to_remove < 0)
-		to_chat(user, span_warning("You're pretty sure that's not how money works."))
+	if(isnull(amount_to_remove) || amount_to_remove <= 0)
 		return
 	if(!alt_click_can_use_id(user))
 		return
@@ -1346,6 +1346,10 @@ update_label("John Doe", "Clowny")
 			idcard.assignment = assignment
 		if(name!=initial(name))
 			idcard.name = name
-		to_chat(user, "You upgrade your [idcard] with the [name].")
-		log_id("[key_name(user)] added access to '[idcard]' using [src] at [AREACOORD(user)].")
-		qdel(src)
+
+		on_applied(target, user, idcard)
+
+/obj/item/card/id/pass/proc/on_applied(atom/target, mob/user, obj/item/card/id/idcard)
+	to_chat(user, "You upgrade your [idcard] with the [name].")
+	log_id("[key_name(user)] added access to '[idcard]' using [src] at [AREACOORD(user)].")
+	qdel(src)

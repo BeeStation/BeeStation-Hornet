@@ -281,15 +281,6 @@
 	name = "mainframe floor"
 	},
 /area/tcommsat/server)
-"aiR" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/closet/athletic_mixed,
-/obj/effect/turf_decal/siding/white/corner{
-	alpha = 100;
-	dir = 4
-	},
-/turf/open/floor/iron/white,
-/area/crew_quarters/fitness/recreation)
 "aja" = (
 /obj/machinery/computer/cargo/request,
 /obj/effect/turf_decal/tile/brown/half/contrasted{
@@ -1688,6 +1679,15 @@
 	},
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/captain/private)
+"aKD" = (
+/obj/effect/turf_decal/pool{
+	dir = 8
+	},
+/obj/structure/closet/athletic_mixed,
+/turf/open/floor/iron/textured_half{
+	dir = 1
+	},
+/area/crew_quarters/fitness/recreation)
 "aLc" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -3447,31 +3447,6 @@
 	dir = 1
 	},
 /area/crew_quarters/fitness/recreation)
-"bCc" = (
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	alpha = 180;
-	dir = 1
-	},
-/obj/machinery/camera/directional/west,
-/obj/machinery/button/door{
-	id = "armory";
-	name = "Armory Shutter Toggle";
-	pixel_x = -32;
-	pixel_y = 1;
-	req_access_txt = "3"
-	},
-/obj/structure/bed/dogbed/walter,
-/mob/living/basic/pet/dog/bullterrier/walter{
-	density = 0;
-	dir = 1
-	},
-/obj/item/stack/sheet/bone{
-	pixel_x = 6;
-	pixel_y = -6
-	},
-/obj/structure/disposalpipe/segment,
-/turf/open/floor/iron/dark,
-/area/security/warden)
 "bCu" = (
 /obj/effect/spawner/room/fivexthree,
 /turf/open/floor/plating,
@@ -3744,14 +3719,6 @@
 /obj/effect/mapping_helpers/airlock/abandoned,
 /turf/open/floor/plating,
 /area/maintenance/department/medical/central)
-"bJp" = (
-/obj/effect/turf_decal/siding/white{
-	alpha = 100;
-	dir = 4
-	},
-/obj/machinery/vending/pool,
-/turf/open/floor/iron/white,
-/area/crew_quarters/fitness/recreation)
 "bJy" = (
 /obj/structure/lattice/catwalk/over,
 /obj/structure/railing{
@@ -4060,6 +4027,31 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/science/central)
+"bSR" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	alpha = 180;
+	dir = 1
+	},
+/obj/machinery/camera/directional/west,
+/obj/machinery/button/door{
+	id = "armory";
+	name = "Armory Shutter Toggle";
+	pixel_x = -32;
+	pixel_y = 1;
+	req_access_txt = "3"
+	},
+/obj/structure/bed/dogbed/tyson,
+/mob/living/basic/pet/dog/bullterrier/tyson{
+	density = 0;
+	dir = 1
+	},
+/obj/item/stack/sheet/bone{
+	pixel_x = 6;
+	pixel_y = -6
+	},
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/iron/dark,
+/area/security/warden)
 "bSX" = (
 /obj/machinery/computer/prisoner/management,
 /obj/machinery/power/apc/auto_name/directional/north{
@@ -5858,21 +5850,6 @@
 	},
 /turf/open/floor/iron,
 /area/security/brig)
-"cTf" = (
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "Vacant Office APC";
-	pixel_y = 24
-	},
-/obj/effect/mapping_helpers/apc/discharged,
-/obj/structure/light_construct{
-	dir = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/turf/open/floor/wood,
-/area/library/abandoned)
 "cTs" = (
 /obj/structure/curtain/directional{
 	color = "#ACD1E9";
@@ -6599,18 +6576,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/qm)
-"dkq" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/frame/computer{
-	anchored = 1
-	},
-/obj/machinery/power/apc/auto_name/directional/north,
-/obj/effect/mapping_helpers/apc/discharged,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/turf/open/floor/iron,
-/area/science/research/abandoned)
 "dkt" = (
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
@@ -7929,6 +7894,19 @@
 	},
 /turf/open/floor/plating/rust,
 /area/science/test_area)
+"dZH" = (
+/mob/living/basic/pet/dog/corgi/ian{
+	density = 0;
+	dir = 1;
+	pixel_y = 4
+	},
+/obj/item/toy/plush/ian,
+/obj/structure/bed/dogbed/ian,
+/obj/item/storage/secure/safe{
+	pixel_x = 38
+	},
+/turf/open/floor/carpet/blue,
+/area/crew_quarters/heads/hop)
 "eaA" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron,
@@ -10300,6 +10278,16 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/department/crew_quarters/bar)
+"fjn" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	alpha = 180;
+	dir = 1
+	},
+/obj/machinery/vending/deputy,
+/turf/open/floor/iron/dark/side{
+	dir = 4
+	},
+/area/hallway/primary/fore)
 "fjp" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/two,
@@ -26323,6 +26311,18 @@
 	},
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
+"nOJ" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/frame/computer{
+	anchored = 1
+	},
+/obj/machinery/power/apc/auto_name/directional/north,
+/obj/effect/mapping_helpers/apc/no_charge,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/turf/open/floor/iron,
+/area/science/research/abandoned)
 "nPw" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -29466,24 +29466,6 @@
 /obj/structure/sign/warning/fire,
 /turf/closed/wall/r_wall,
 /area/maintenance/disposal/incinerator)
-"pzC" = (
-/obj/effect/turf_decal/pool{
-	dir = 8
-	},
-/obj/structure/closet/athletic_mixed,
-/turf/open/floor/iron/textured_half{
-	dir = 1
-	},
-/area/crew_quarters/fitness/recreation)
-"pzG" = (
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	alpha = 180;
-	dir = 1
-	},
-/turf/open/floor/iron/dark/side{
-	dir = 4
-	},
-/area/hallway/primary/fore)
 "pzQ" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance/two,
@@ -31335,6 +31317,14 @@
 	dir = 1
 	},
 /area/engine/atmos)
+"qAf" = (
+/obj/effect/turf_decal/siding/white{
+	alpha = 100;
+	dir = 4
+	},
+/obj/machinery/vending/pool,
+/turf/open/floor/iron/white,
+/area/crew_quarters/fitness/recreation)
 "qAj" = (
 /obj/structure/chair/wood/wings,
 /turf/open/floor/carpet/green,
@@ -35953,6 +35943,15 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/dark,
 /area/hallway/primary/aft)
+"sZG" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/closet/athletic_mixed,
+/obj/effect/turf_decal/siding/white/corner{
+	alpha = 100;
+	dir = 4
+	},
+/turf/open/floor/iron/white,
+/area/crew_quarters/fitness/recreation)
 "sZQ" = (
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer{
 	dir = 4;
@@ -42301,6 +42300,21 @@
 	},
 /turf/open/floor/plating,
 /area/science/lab)
+"whM" = (
+/obj/machinery/power/apc{
+	dir = 1;
+	name = "Vacant Office APC";
+	pixel_y = 24
+	},
+/obj/effect/mapping_helpers/apc/no_charge,
+/obj/structure/light_construct{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/turf/open/floor/wood,
+/area/library/abandoned)
 "whN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -42846,19 +42860,6 @@
 	},
 /turf/open/floor/plating/asteroid/planetary,
 /area/engine/engineering)
-"wBs" = (
-/mob/living/basic/pet/dog/corgi/Ian{
-	density = 0;
-	dir = 1;
-	pixel_y = 4
-	},
-/obj/item/toy/plush/ian,
-/obj/structure/bed/dogbed/ian,
-/obj/item/storage/secure/safe{
-	pixel_x = 38
-	},
-/turf/open/floor/carpet/blue,
-/area/crew_quarters/heads/hop)
 "wBT" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance/two,
@@ -56184,7 +56185,7 @@ bBW
 cAN
 bBW
 mfU
-pzC
+aKD
 iaR
 mvf
 ouO
@@ -56696,8 +56697,8 @@ uKo
 pLv
 exO
 itk
-bJp
-aiR
+qAf
+sZG
 bgu
 vhU
 ejN
@@ -62866,7 +62867,7 @@ btX
 btX
 btX
 btX
-cTf
+whM
 lUc
 qqB
 jiw
@@ -65972,7 +65973,7 @@ ggs
 lYA
 lYA
 exD
-dkq
+nOJ
 cuJ
 oyA
 edK
@@ -190106,7 +190107,7 @@ vLu
 dCK
 uGq
 xQY
-bCc
+bSR
 yjC
 omk
 wHN
@@ -191140,7 +191141,7 @@ uAn
 fnY
 sQp
 tLg
-pzG
+fjn
 rgL
 nYV
 mMC
@@ -194996,7 +194997,7 @@ dur
 qDp
 uQG
 rXP
-wBs
+dZH
 qah
 qYU
 srJ
@@ -262868,7 +262869,7 @@ vpD
 tFe
 tFe
 tFe
-tFe
+xQn
 xQn
 xQn
 xQn
