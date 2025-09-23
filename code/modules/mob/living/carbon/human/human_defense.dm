@@ -445,12 +445,11 @@
 				to_chat(src, span_userdanger("You feel a sharp pain as [bodypart] overloads!"))
 				informed = TRUE
 			if(prob(30/severity)) //Random chance to disable and burn limbs
-				bodypart.receive_damage(burn = 5)
-				bodypart.receive_damage(stamina = 120) //Disable the limb since we got EMP'd
-				bodypart.run_limb_injuries(10, BURN, DAMAGE_FIRE, 0)
+				bodypart.increase_injury(BURN, 5)
+				bodypart.increase_injury(STAMINA, 120) //Disable the limb since we got EMP'd
 			else
-				bodypart.receive_damage(stamina = 10) //Progressive stamina damage to ensure a consistent takedown within a reasonable number of hits, regardless of RNG
-			if(HAS_TRAIT(bodypart, TRAIT_EASYDISMEMBER) && bodypart.body_zone != "chest")
+				bodypart.increase_injury(STAMINA, 10) //Progressive stamina damage to ensure a consistent takedown within a reasonable number of hits, regardless of RNG
+			if(HAS_TRAIT(bodypart, TRAIT_EASYDISMEMBER) && bodypart.dismemberable && !bodypart.dismemberment_requires_death)
 				if(prob(5))
 					bodypart.dismember(BRUTE)
 
@@ -567,21 +566,21 @@
 
 
 	//DAMAGE//
-	for(var/obj/item/bodypart/affecting in damaged)
-		affecting.receive_damage(acidity, 2*acidity)
-		affecting.run_limb_injuries(2*acidity, BURN, DAMAGE_ACID, 0)
+	take_direct_damage(acidity * 2, BURN, DAMAGE_ACID, BODY_ZONE_HEAD)
+	take_direct_damage(acidity * 2, BURN, DAMAGE_ACID, BODY_ZONE_CHEST)
+	take_direct_damage(acidity * 2, BURN, DAMAGE_ACID, BODY_ZONE_L_ARM)
+	take_direct_damage(acidity * 2, BURN, DAMAGE_ACID, BODY_ZONE_R_ARM)
+	take_direct_damage(acidity * 2, BURN, DAMAGE_ACID, BODY_ZONE_L_LEG)
+	take_direct_damage(acidity * 2, BURN, DAMAGE_ACID, BODY_ZONE_R_LEG)
 
-		if(affecting.name == BODY_ZONE_HEAD)
-			if(prob(min(acidpwr*acid_volume/10, 90))) //Applies disfigurement
-				affecting.receive_damage(acidity, 2*acidity)
-				affecting.run_limb_injuries(2*acidity, BURN, DAMAGE_ACID, 0)
-				emote("scream")
-				facial_hair_style = "Shaved"
-				hair_style = "Bald"
-				update_hair()
-				ADD_TRAIT(src, TRAIT_DISFIGURED, TRAIT_GENERIC)
-
-		update_damage_overlays()
+	if(prob(min(acidpwr*acid_volume/10, 90))) //Applies disfigurement
+		take_direct_damage(acidity, BRUTE, DAMAGE_ACID, BODY_ZONE_HEAD)
+		take_direct_damage(acidity * 2, BURN, DAMAGE_ACID, BODY_ZONE_HEAD)
+		emote("scream")
+		facial_hair_style = "Shaved"
+		hair_style = "Bald"
+		update_hair()
+		ADD_TRAIT(src, TRAIT_DISFIGURED, TRAIT_GENERIC)
 
 	//MELTING INVENTORY ITEMS//
 	//these items are all outside of armour visually, so melt regardless.

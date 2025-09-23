@@ -86,11 +86,7 @@
 		return
 	if(!on)
 		return
-	var/hit_zone = (C.held_index_to_dir(C.active_hand_index) == "l" ? "l_":"r_") + "arm"
-	var/obj/item/bodypart/affecting = C.get_bodypart(hit_zone)
-	if(affecting)
-		if(affecting.receive_damage(0, rand(10,20)))
-			C.update_damage_overlays()
+	C.deal_damage(rand(10, 20), 0, BURN, DAMAGE_FIRE, zone = (user.active_hand_index % 2 == 0) ? BODY_ZONE_R_ARM : BODY_ZONE_L_ARM)
 	to_chat(C, span_userdanger("The hot metal burns your bare hand!"))
 	user.dropItemToGround(src)
 	C.emote("scream")

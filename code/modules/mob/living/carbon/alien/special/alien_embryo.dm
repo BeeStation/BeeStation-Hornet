@@ -129,12 +129,7 @@
 	if(kill_on_success)
 		new_xeno.visible_message(span_danger("[new_xeno] bursts out of [owner] in a shower of gore!"), span_userdanger("You exit [owner], your previous host."), span_italics("You hear organic matter ripping and tearing!"))
 		owner.investigate_log("has been killed by an alien larva chestburst.", INVESTIGATE_DEATHS)
-		var/obj/item/bodypart/BP = owner.get_bodypart(BODY_ZONE_CHEST)
-		if(BP)
-			BP.receive_damage(brute = 200) // Kill them dead
-			BP.dismember()
-		else
-			owner.take_direct_damage(200)
+		owner.take_sharpness_damage(200, BRUTE, DAMAGE_STANDARD, BODY_ZONE_CHEST, SHARP_X)
 	else
 		new_xeno.visible_message(span_danger("[new_xeno] wriggles out of [owner]!"), span_userdanger("You exit [owner], your previous host."))
 		owner.adjustBruteLoss(40)

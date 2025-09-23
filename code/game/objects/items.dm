@@ -516,10 +516,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			to_chat(user, span_notice("You put out the fire on [src]."))
 		else
 			to_chat(user, span_warning("You burn your hand on [src]!"))
-			var/obj/item/bodypart/affecting = C.get_bodypart("[(user.active_hand_index % 2 == 0) ? "r" : "l" ]_arm")
-			if(affecting && affecting.receive_damage( 0, 5 ))		// 5 burn damage
-				affecting.run_limb_injuries(5, BURN, DAMAGE_FIRE, 0)
-				C.update_damage_overlays()
+			C.deal_damage(5, 0, BURN, DAMAGE_FIRE, zone = (user.active_hand_index % 2 == 0) ? BODY_ZONE_R_ARM : BODY_ZONE_L_ARM)
 			return
 
 	if(acid_level > 20 && !ismob(loc))// so we can still remove the clothes on us that have acid.
@@ -527,10 +524,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(istype(C))
 			if(!C.gloves || (!(C.gloves.resistance_flags & (UNACIDABLE|ACID_PROOF))))
 				to_chat(user, span_warning("The acid on [src] burns your hand!"))
-				var/obj/item/bodypart/affecting = C.get_bodypart("[(user.active_hand_index % 2 == 0) ? "r" : "l" ]_arm")
-				if(affecting && affecting.receive_damage( 0, 5 ))		// 5 burn damage
-					affecting.run_limb_injuries(5, BURN, DAMAGE_FIRE, 0)
-					C.update_damage_overlays()
+				C.deal_damage(5, 0, BURN, DAMAGE_FIRE, zone = (user.active_hand_index % 2 == 0) ? BODY_ZONE_R_ARM : BODY_ZONE_L_ARM)
 
 	if(!(interaction_flags_item & INTERACT_ITEM_ATTACK_HAND_PICKUP))		//See if we're supposed to auto pickup.
 		return

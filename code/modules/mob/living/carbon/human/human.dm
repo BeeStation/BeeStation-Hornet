@@ -880,10 +880,7 @@
 				playsound(src, 'sound/effects/hit_kick.ogg', 80, 1, -1)
 				playsound(src, 'sound/weapons/punch2.ogg', 80, 1, -1)
 
-				var/obj/item/bodypart/BP = T.get_bodypart(BODY_ZONE_HEAD)
-				if(BP)
-					BP.receive_damage(36) //so 3 toolbox hits
-					BP.run_limb_injuries(36, BRUTE, DAMAGE_STANDARD, 0)
+				T.deal_damage(36, 0, BRUTE, DAMAGE_STANDARD, zone = BODY_ZONE_HEAD)
 
 				T.visible_message(span_warning("[src] curbstomps [T]!"), span_warning("[src] curbstomps you!"))
 
@@ -906,14 +903,7 @@
 				playsound(src, 'sound/effects/hit_kick.ogg', 80, 1, -1)
 				playsound(src, 'sound/effects/hit_punch.ogg', 80, 1, -1)
 
-				var/obj/item/bodypart/BP = T.get_bodypart(BODY_ZONE_CHEST)
-				if(BP)
-					if(T.gender == MALE)
-						BP.receive_damage(25)
-						BP.run_limb_injuries(25, BRUTE, DAMAGE_STANDARD, 0)
-					else
-						BP.receive_damage(15)
-						BP.run_limb_injuries(15, BRUTE, DAMAGE_STANDARD, 0)
+				T.deal_damage(T.gender == MALE ? 25 : 15, 0, BRUTE, DAMAGE_STANDARD, zone = BODY_ZONE_CHEST)
 
 				T.visible_message(span_warning("[src] kicks [T] in the groin!"), "<span class='warning'>[src] kicks you in the groin!</span")
 

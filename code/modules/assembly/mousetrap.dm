@@ -89,7 +89,6 @@
 		return
 	armed = FALSE  // moved to the top because you could trigger it more than once under some circumstances
 	update_icon()
-	var/obj/item/bodypart/affecting = null
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		if(HAS_TRAIT(H, TRAIT_PIERCEIMMUNE))
@@ -99,19 +98,16 @@
 		switch(type)
 			if("feet")
 				if(!H.shoes)
-					affecting = H.get_bodypart(pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
+					H.deal_damage(1, SHARP_II, BRUTE, DAMAGE_STANDARD, zone = pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
 					H.Paralyze(60)
 				else
 					to_chat(H, "<span notice='warning'>Your [H.shoes] protects you from [src].")
 			if(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND)
 				if(!H.gloves)
-					affecting = H.get_bodypart(type)
+					H.deal_damage(1, SHARP_II, BRUTE, DAMAGE_STANDARD, zone = type)
 					H.Stun(60)
 				else
 					to_chat(H, "<span notice='warning'>Your [H.gloves] protects you from [src].")
-		if(affecting)
-			if(affecting.receive_damage(1, 0))
-				H.update_damage_overlays()
 	else if(ismouse(target))
 		var/mob/living/simple_animal/mouse/M = target
 		visible_message(span_boldannounce("SPLAT!"))

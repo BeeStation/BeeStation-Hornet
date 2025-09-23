@@ -55,4 +55,4 @@ BONUS
 		var/can_scratch = scratch && !M.incapacitated() && get_location_accessible(M, picked_bodypart)
 		M.visible_message("[can_scratch ? span_warning("[M] scratches [M.p_their()] [bodypart.name].") : ""]", span_notice("Your [bodypart.name] itches. [can_scratch ? " You scratch it." : ""]"))
 		if(can_scratch)
-			bodypart.receive_damage(0.5)
+			M.take_direct_damage(0.5, BRUTE, DAMAGE_STANDARD, picked_bodypart)

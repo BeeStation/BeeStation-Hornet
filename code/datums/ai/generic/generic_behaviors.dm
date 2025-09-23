@@ -58,9 +58,7 @@
 		for(var/obj/item/bodypart/bodypart_to_break in carbon_batman.bodyparts)
 			if(bodypart_to_break.body_zone == BODY_ZONE_HEAD)
 				continue
-			bodypart_to_break.receive_damage(brute = 15)
-			// Breaking your bone if you have no armour
-			bodypart_to_break.run_limb_injuries(60, BRUTE, DAMAGE_STANDARD, 0)
+			carbon_batman.take_direct_damage(15, BRUTE, DAMAGE_STANDARD, bodypart_to_break.body_zone)
 	else
 		batman.adjustBruteLoss(150)
 

@@ -1211,17 +1211,14 @@
 		if(prob(50)) // Most of the damage is done through random chance. When tested yielded an average 100 brute with 200u ants.
 			switch(rand(1,50))
 				if (1 to 8) //16% Chance
-					var/obj/item/bodypart/head/hed = victim.get_bodypart(BODY_ZONE_HEAD)
 					to_chat(victim, "<span class='danger'>You scratch at the ants on your scalp!.</span>")
-					hed.receive_damage(1,0)
+					victim.take_direct_damage(1, BRUTE, DAMAGE_STANDARD, BODY_ZONE_HEAD)
 				if (9 to 29) //40% chance
-					var/obj/item/bodypart/arm = victim.get_bodypart(pick(BODY_ZONE_L_ARM,BODY_ZONE_R_ARM))
 					to_chat(victim, "<span class='danger'>You scratch at the ants on your arms!</span>")
-					arm.receive_damage(3,0)
+					victim.take_direct_damage(3, BRUTE, DAMAGE_STANDARD, pick(BODY_ZONE_L_ARM,BODY_ZONE_R_ARM))
 				if (30 to 49) //38% chance
-					var/obj/item/bodypart/leg = victim.get_bodypart(pick(BODY_ZONE_L_LEG,BODY_ZONE_R_LEG))
 					to_chat(victim, "<span class='danger'>You scratch at the ants on your leg!</span>")
-					leg.receive_damage(3,0)
+					victim.take_direct_damage(3, BRUTE, DAMAGE_STANDARD, pick(BODY_ZONE_L_LEG,BODY_ZONE_R_LEG))
 				if(50) // 2% chance
 					to_chat(victim, "<span class='danger'>You rub some ants away from your eyes!</span>")
 					victim.blur_eyes(3)
