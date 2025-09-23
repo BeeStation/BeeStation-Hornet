@@ -104,6 +104,10 @@
 			H.equip_to_slot(new helmet, ITEM_SLOT_HEAD)
 			H.open_internals(H.get_item_for_held_index(2))
 
+/datum/species/plasmaman/give_important_for_life(mob/living/carbon/human/human_to_equip)
+	. = ..()
+	human_to_equip.open_internals(human_to_equip.get_item_for_held_index(2))
+
 /datum/species/plasmaman/random_name(gender, unique, lastname, attempts)
 	. = "[pick(GLOB.plasmaman_names)] \Roman[rand(1,99)]"
 

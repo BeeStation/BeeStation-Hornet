@@ -225,6 +225,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 	force = 9 // Not as good as a stun baton.
 	light_range = 5 // A little better than the standard flashlight.
 	hitsound = 'sound/weapons/genhit1.ogg'
+	custom_price = 45
 
 // the desk lamps are a bit special
 /obj/item/flashlight/lamp

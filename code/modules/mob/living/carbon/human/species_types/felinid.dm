@@ -11,6 +11,7 @@
 	)
 	inherent_traits = list(
 		TRAIT_USES_SKINTONES,
+		TRAIT_HATED_BY_DOGS,
 		)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 

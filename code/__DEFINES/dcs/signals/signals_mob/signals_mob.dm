@@ -126,3 +126,14 @@
 
 /// from mob/proc/dropItemToGround()
 #define COMSIG_MOB_DROPPING_ITEM "mob_dropping_item"
+
+/// Sent from /mob/living/basic/proc/look_dead() : ()
+#define COMSIG_BASICMOB_LOOK_DEAD "basicmob_look_dead"
+/// Sent from /mob/living/basic/proc/look_alive() : ()
+#define COMSIG_BASICMOB_LOOK_ALIVE "basicmob_look_alive"
+
+/// Signal sent when a blackboard key is set to a new value
+#define COMSIG_AI_BLACKBOARD_KEY_SET(blackboard_key) "ai_blackboard_key_set_[blackboard_key]"
+
+/// Signal sent when a blackboard key is cleared
+#define COMSIG_AI_BLACKBOARD_KEY_CLEARED(blackboard_key) "ai_blackboard_key_clear_[blackboard_key]"

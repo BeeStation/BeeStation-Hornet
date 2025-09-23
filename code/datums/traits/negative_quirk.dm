@@ -166,6 +166,8 @@
 				heirloom_type = pick(/obj/item/toy/windupToolbox, /obj/item/reagent_containers/cup/glass/bottle/holywater)
 			if(JOB_NAME_ASSISTANT)
 				heirloom_type = pick(/obj/item/heirloomtoolbox, /obj/item/clothing/gloves/cut/heirloom)
+			if(JOB_NAME_PRISONER)
+				heirloom_type = pick(/obj/item/heirloomtoolbox, /obj/item/clothing/gloves/cut/heirloom)
 			if(JOB_NAME_BARBER)
 				heirloom_type = /obj/item/handmirror
 			if(JOB_NAME_STAGEMAGICIAN)

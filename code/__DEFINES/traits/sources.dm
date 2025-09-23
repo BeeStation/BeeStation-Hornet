@@ -138,6 +138,10 @@
 #define LICH_TRAIT "lich_trait"
 /// Trait given to an atom/movable when they orbit something.
 #define ORBITING_TRAIT "orbiting"
+/// Trait given by simple/basic mob death
+#define BASIC_MOB_DEATH_TRAIT "basic_mob_death"
+/// Trait applied to a mob when it gets a required "operational datum" (components/elements). Sends out the source as the type of the element.
+#define TRAIT_SUBTREE_REQUIRED_OPERATIONAL_DATUM "element-required"
 /// Don't draw external organs/species features like wings, horns, frills and stuff
 #define TRAIT_HIDE_EXTERNAL_ORGANS "hide_external_organs"
 ///When people are floating from zero-grav or something, we can move around freely!
@@ -167,6 +171,8 @@
 #define MODULE_TRAIT "module_trait"
 /// Trait from an organ being inside a bodypart
 #define ORGAN_INSIDE_BODY_TRAIT "organ_inside_body"
+/// trait that prevents AI controllers from planning detached from ai_status to prevent weird state stuff.
+#define TRAIT_AI_PAUSED "TRAIT_AI_PAUSED"
 
 /// some trait sorces dirived from bodyparts BODYPART_TRAIT is generic.
 #define BODYPART_TRAIT "bodypart"

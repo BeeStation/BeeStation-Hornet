@@ -72,7 +72,7 @@
 				H.flash_act(visual = 1)
 				H.adjust_blindness(3)
 				H.blur_eyes(5)
-				eyes.applyOrganDamage(5)
+				eyes.apply_organ_damage(5)
 
 /obj/item/clothing/glasses/meson
 	name = "optical meson scanner"
@@ -286,6 +286,7 @@
 	name = "advanced sunglasses"
 	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Has enhanced shielding which blocks flashes."
 	flash_protect = FLASH_PROTECTION_FLASH
+	custom_price = 15
 
 /obj/item/clothing/glasses/sunglasses/advanced/reagent
 	name = "beer goggles"
@@ -607,7 +608,7 @@
 	name = "Scan"
 	desc = "Scan an enemy, to get their location and stagger them, increasing their time between attacks."
 	background_icon_state = "bg_clock"
-	icon_icon = 'icons/mob/actions/actions_items.dmi'
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "scan"
 
 	requires_target = TRUE

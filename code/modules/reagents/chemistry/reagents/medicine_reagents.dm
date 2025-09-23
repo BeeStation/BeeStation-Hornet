@@ -843,7 +843,7 @@
 	if(!eyes)
 		return
 
-	eyes.applyOrganDamage(-2 * REM * delta_time)
+	eyes.apply_organ_damage(-2 * REM * delta_time)
 	if(HAS_TRAIT_FROM(affected_mob, TRAIT_BLIND, EYE_DAMAGE))
 		if(DT_PROB(10, delta_time))
 			to_chat(affected_mob, span_warning("Your vision slowly returns..."))

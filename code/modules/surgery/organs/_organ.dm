@@ -133,7 +133,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 /obj/item/organ/proc/on_death(delta_time, times_fired) //runs decay when outside of a person
 	if(organ_flags & (ORGAN_ROBOTIC | ORGAN_FROZEN))
 		return
-	applyOrganDamage(decay_factor * maxHealth * delta_time)
+	apply_organ_damage(decay_factor * maxHealth * delta_time)
 
 /// NOTE: THIS IS VERY HOT. Be careful what you put in here
 /// To give you some scale, if there's 100 carbons in the game, they each have maybe 9 organs
@@ -153,7 +153,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 	///Damage decrements again by a percent of its maxhealth, up to a total of 4 extra times depending on the owner's health
 	if(owner)
 		healing_amount += (owner.satiety > 0) ? (4 * healing_factor * owner.satiety / MAX_SATIETY) : 0
-	applyOrganDamage(-healing_amount * maxHealth * delta_time, damage) // pass current damage incase we are over cap
+	apply_organ_damage(-healing_amount * maxHealth * delta_time, damage) // pass current damage incase we are over cap
 
 /obj/item/organ/examine(mob/user)
 	. = ..()
