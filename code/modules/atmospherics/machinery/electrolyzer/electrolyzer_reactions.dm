@@ -69,16 +69,16 @@ GLOBAL_LIST_INIT(electrolyzer_reactions, electrolyzer_reactions_list())
 		air_mixture.temperature = max(air_mixture.temperature * old_heat_capacity / new_heat_capacity, TCMB)
 
 /datum/electrolyzer_reaction/nob_conversion
-	name = "Hypernob conversion"
+	name = "Hyper-Noblium Conversion"
 	id = "nob_conversion"
-	desc = "Conversion of Hypernoblium into Antinoblium"
+	desc = "Conversion of Hyper-Noblium into Anti-Noblium"
 	requirements = list(
 		/datum/gas/hypernoblium = MINIMUM_MOLE_COUNT,
 		"MAX_TEMP" = 150
 	)
 	factor = list(
-		/datum/gas/hypernoblium = "1 mole of Hypernoblium gets consumed",
-		/datum/gas/antinoblium = "0.5 moles of Antinoblium get produced",
+		/datum/gas/hypernoblium = "1 mole of Hyper-Noblium gets consumed",
+		/datum/gas/antinoblium = "0.5 moles of Anti-Noblium get produced",
 		"Temperature" = "Can only occur under 150 kelvin.",
 		"Location" = "Can only happen on turfs with an active Electrolyzer.",
 	)
@@ -98,7 +98,7 @@ GLOBAL_LIST_INIT(electrolyzer_reactions, electrolyzer_reactions_list())
 		air_mixture.temperature = max(air_mixture.temperature * old_heat_capacity / new_heat_capacity, TCMB)
 
 /datum/electrolyzer_reaction/halon_generation
-	name = "Halon generation"
+	name = "Halon Generation"
 	id = "halon_generation"
 	desc = "Production of halon from the electrolysis of BZ."
 	requirements = list(

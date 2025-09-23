@@ -1180,9 +1180,9 @@
 
 /datum/gas_reaction/antinoblium_replication
 	priority_group = PRIORITY_FORMATION
-	name = "Antinoblium Replication"
+	name = "Anti-Noblium Replication"
 	id = "antinoblium_replication"
-	desc = "Antinoblium breaks down all gases into more of itself."
+	desc = "Anti-Noblium breaks down all gases into more of itself."
 
 /datum/gas_reaction/antinoblium_replication/init_reqs()
 	requirements = list(
@@ -1191,7 +1191,7 @@
 	)
 
 /**
- * Antinoblium Recplication
+ * Anti-Noblium Recplication
  *
  * Converts all gases into antinoblium.
  */
