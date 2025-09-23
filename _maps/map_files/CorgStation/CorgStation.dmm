@@ -6745,7 +6745,6 @@
 /obj/item/clothing/suit/apron,
 /obj/item/wrench,
 /obj/item/storage/box/syringes,
-/obj/item/book/manual/hydroponics_pod_people,
 /turf/open/floor/iron,
 /area/hydroponics)
 "bRd" = (

@@ -29065,12 +29065,7 @@
 /area/hallway/primary/central)
 "hvt" = (
 /obj/structure/table/glass,
-/obj/item/book/manual/hydroponics_pod_people{
-	pixel_y = 4
-	},
-/obj/item/paper/guides/jobs/hydroponics,
 /obj/item/reagent_containers/dropper,
-/obj/item/pen,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/camera/directional/west{
 	c_tag = "Hydroponics Pen";
