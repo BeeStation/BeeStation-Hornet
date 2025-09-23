@@ -98,7 +98,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 	w_class = WEIGHT_CLASS_TINY
 	maxcharge = 40 KILOWATT
 	chargerate_divide = 4
-	custom_price = PAYCHECK_EASY
+	custom_price = PAYCHECK_CREW
 	rating = PART_TIER_1
 
 /obj/item/stock_parts/cell/computer/micro
@@ -107,7 +107,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 	icon_state = "cell_micro"
 	maxcharge = 60 KILOWATT
 	w_class = WEIGHT_CLASS_TINY
-	custom_price = PAYCHECK_EASY * 2
+	custom_price = PAYCHECK_CREW * MULTIPLIER_PREMIUM
 	rating = PART_TIER_2
 	chargerate_divide = 2
 
@@ -138,5 +138,5 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 	w_class = WEIGHT_CLASS_NORMAL	// Fits only laptops
 	maxcharge = 220 KILOWATT
 	chargerate_divide = 10
-	custom_price = PAYCHECK_CREW * 3
+	custom_price = PAYCHECK_CREW * MULTIPLIER_LUXURY
 	rating = PART_TIER_5

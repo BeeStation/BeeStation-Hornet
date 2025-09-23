@@ -145,7 +145,7 @@
 	var/total_position_delta = 0
 
 	// This job typically receives PAYCHECK_LOWER, but optionally we can set it so it receives no money in its 'paychecks'
-	var/welfare_job = NONE
+	var/welfare_job_account = NONE
 
 /datum/job/New()
 	. = ..()
@@ -164,7 +164,7 @@
 		if(CONFIG_GET(flag/welfare_paycheck))
 			payment_per_department = list(welfare_job_account = PAYCHECK_LOWER)
 		else
-			payment_per_department = list(welfare_job_account = PAYCHECK_NONE)
+			payment_per_department = list(welfare_job_account = PAYCHECK_ZERO)
 
 /// Returns true if there are available slots
 /datum/job/proc/has_space()

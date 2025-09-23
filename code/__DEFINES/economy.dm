@@ -4,19 +4,19 @@
 ///Default paygrade for the Unassigned Job/Unpaid job assignments.
 #define PAYCHECK_ZERO 0
 ///Paygrade for Prisoners and Assistants.
-#define PAYCHECK_LOWER 25
+#define PAYCHECK_LOWER 20
 ///Paygrade for all regular crew not belonging to PAYGRADE_LOWER or PAYGRADE_COMMAND.
-#define PAYCHECK_CREW 50
+#define PAYCHECK_CREW 40
 
 // given from nanotrasen to heads
-#define PAYCHECK_COMMAND_NT 20
+#define PAYCHECK_COMMAND_NT 10
 // given from department budget
-#define PAYCHECK_COMMAND_DEPT 80
+#define PAYCHECK_COMMAND_DEPT 70
 ///Paygrade for Heads of Staff.
-#define PAYCHECK_COMMAND 100
+#define PAYCHECK_COMMAND 80
 
 
-#define PAYCHECK_VIP 2000
+#define PAYCHECK_VIP 1000
 /*	Note: The current intention for crazy amount of money to VIP is that they can be a rich shitter
 			or be targeted by antags for their money - oh, my, being rich isn't always good.
 			The first buff to their money was to 2,000 credits. Nerf is fine if you think it's necessary,
@@ -24,7 +24,7 @@
 			I recommend to nerf their gimmick spawn chance instead. */
 
 
-#define PAYCHECK_WELFARE 20 //NEETbucks
+#define PAYCHECK_WELFARE 10 //NEETbucks
 
 // Standardized price multipliers for vending machines and economy
 //Extremely cheap, worth very little
