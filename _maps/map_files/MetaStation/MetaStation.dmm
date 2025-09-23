@@ -30463,17 +30463,15 @@
 /turf/open/floor/plating,
 /area/maintenance/department/medical/central)
 "hij" = (
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/obj/structure/disposalpipe/segment{
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/siding/thinplating_new{
 	dir = 4
 	},
-/obj/machinery/camera/directional/south{
-	c_tag = "Starboard Primary Hallway - Engineering"
+/obj/structure/disposalpipe/segment{
+	dir = 9
 	},
-/turf/open/floor/iron,
-/area/hallway/primary/starboard)
+/turf/open/floor/iron/checker,
+/area/crew_quarters/kitchen)
 "hik" = (
 /obj/effect/spawner/lootdrop/grille_or_trash,
 /turf/open/floor/plating,
@@ -65643,16 +65641,6 @@
 "tjJ" = (
 /turf/open/floor/iron,
 /area/maintenance/aft)
-"tjL" = (
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/turf_decal/siding/thinplating_new{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 9
-	},
-/turf/open/floor/iron/checker,
-/area/crew_quarters/kitchen)
 "tjU" = (
 /obj/structure/table,
 /obj/item/storage/belt/utility,
@@ -72100,6 +72088,18 @@
 	},
 /turf/open/floor/iron/dark,
 /area/medical/surgery)
+"vpf" = (
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/camera/directional/south{
+	c_tag = "Starboard Primary Hallway - Engineering"
+	},
+/turf/open/floor/iron,
+/area/hallway/primary/starboard)
 "vpq" = (
 /obj/machinery/holopad,
 /obj/structure/cable/yellow{
@@ -117753,7 +117753,7 @@ bdX
 aZw
 lMa
 lmg
-hij
+vpf
 xXn
 gsC
 jUw
@@ -118026,7 +118026,7 @@ uXJ
 lIo
 gRw
 fVl
-tjL
+hij
 iPh
 bHI
 eZZ
