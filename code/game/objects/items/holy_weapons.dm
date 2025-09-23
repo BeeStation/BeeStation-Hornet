@@ -573,7 +573,6 @@
 	item_state = "chainswordon"
 	worn_icon_state = "chainswordon"
 	chaplain_spawnable = FALSE
-	force = 30
 	slot_flags = ITEM_SLOT_BELT
 	attack_verb_continuous = list("saws", "tears", "lacerates", "cuts", "chops", "dices")
 	attack_verb_simple = list("saw", "tear", "lacerate", "cut", "chop", "dice")
