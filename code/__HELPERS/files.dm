@@ -91,6 +91,6 @@ GLOBAL_VAR_INIT(fileaccess_timer, 0)
 	// its importaint this code can handle md5filepath sleeping instead of hard blocking, if it's converted to use rust_g.
 	var/filename = "tmp/md5asfile.[world.realtime].[world.timeofday].[world.time].[world.tick_usage].[notch]"
 	notch = WRAP(notch+1, 0, 2**15)
-he	fcopy(file, filename)
+	fcopy(file, filename)
 	. = md5filepath(filename)
 	fdel(filename)
