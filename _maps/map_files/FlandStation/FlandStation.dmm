@@ -35441,8 +35441,8 @@
 /obj/item/bodypart/arm/left/robot{
 	pixel_x = -6
 	},
-/obj/item/bodypart/r_leg/robot,
-/obj/item/bodypart/r_leg/robot,
+/obj/item/bodypart/leg/right/robot,
+/obj/item/bodypart/leg/right/robot,
 /turf/open/floor/iron/tech/grid,
 /area/ai_monitored/turret_protected/ai_upload_foyer)
 "jad" = (
@@ -45018,7 +45018,6 @@
 /turf/open/floor/plating/airless,
 /area/maintenance/disposal/incinerator)
 "lqQ" = (
-/obj/machinery/aug_manipulator,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/science/robotics/lab)
@@ -70137,11 +70136,11 @@
 /obj/item/bodypart/arm/right/robot{
 	pixel_x = 4
 	},
-/obj/item/bodypart/r_leg/robot{
+/obj/item/bodypart/leg/right/robot{
 	pixel_x = 5;
 	pixel_y = -7
 	},
-/obj/item/bodypart/l_leg/robot{
+/obj/item/bodypart/leg/left/robot{
 	pixel_x = -4;
 	pixel_y = -7
 	},
