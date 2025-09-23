@@ -12,6 +12,7 @@ CREATION_TEST_IGNORE_SELF(/obj/item/food/grown)
 	worn_icon = 'icons/mob/clothing/head/hydroponics.dmi'
 	name = "fresh produce" //fix naming bug
 	max_volume = 100
+	max_demand = 150
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
 	/// type path, gets converted to item on New(). It's safe to assume it's always a seed item.
