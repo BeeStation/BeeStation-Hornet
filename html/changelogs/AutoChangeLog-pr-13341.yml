@@ -1,0 +1,5 @@
+author: ACanOpener
+delete-after: true
+changes:
+  - tweak: Renamed the "advanced cybernetic stomach" to "upgraded cybernetic stomach"
+      to be more consistent with other cybernetic organs.
