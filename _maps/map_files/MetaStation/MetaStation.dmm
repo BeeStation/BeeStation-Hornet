@@ -6545,8 +6545,6 @@
 /area/ai_monitored/turret_protected/ai)
 "aYB" = (
 /obj/effect/turf_decal/trimline/purple/filled/warning,
-/obj/item/reagent_containers/cup/bucket,
-/obj/item/mop,
 /turf/open/floor/iron,
 /area/janitor/custodian)
 "aYC" = (
@@ -17865,12 +17863,9 @@
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "cTF" = (
-/obj/structure/table/glass,
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -4;
-	pixel_y = 4
-	},
 /obj/machinery/light_switch/directional/west,
+/obj/machinery/hydroponics/constructable,
+/obj/effect/turf_decal/bot_white,
 /turf/open/floor/iron/techmaint,
 /area/hydroponics)
 "cTJ" = (
@@ -38750,6 +38745,8 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
+/obj/item/reagent_containers/cup/bucket,
+/obj/item/mop,
 /turf/open/floor/iron,
 /area/janitor)
 "kcK" = (
@@ -41544,6 +41541,10 @@
 	},
 /obj/structure/table,
 /obj/structure/railing,
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -4;
+	pixel_y = 4
+	},
 /turf/open/floor/iron/large,
 /area/hydroponics/garden/monastery)
 "lcO" = (
@@ -45188,7 +45189,7 @@
 "mrC" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/maintenance,
-/obj/effect/mapping_helpers/airlock/access/any/science/maintenance,
+/obj/effect/mapping_helpers/airlock/access/any/service/maintenance,
 /turf/open/floor/plating,
 /area/maintenance/starboard/secondary)
 "mrL" = (
@@ -54753,8 +54754,8 @@
 /turf/open/floor/prison,
 /area/security/prison)
 "pxa" = (
-/obj/machinery/seed_extractor,
 /obj/effect/turf_decal/delivery/white,
+/obj/machinery/vending/hydronutrients,
 /turf/open/floor/iron/large,
 /area/hydroponics)
 "pxe" = (
@@ -59612,6 +59613,11 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
+"rdf" = (
+/obj/effect/turf_decal/delivery/white,
+/obj/machinery/seed_extractor,
+/turf/open/floor/iron/large,
+/area/hydroponics)
 "rdt" = (
 /obj/machinery/door/airlock/maintenance{
 	req_one_access_txt = "12;47"
@@ -62070,8 +62076,6 @@
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "rXP" = (
-/obj/machinery/vending/hydronutrients,
-/obj/effect/turf_decal/delivery/white,
 /turf/open/floor/iron/large,
 /area/hydroponics)
 "rXW" = (
@@ -68118,6 +68122,7 @@
 /obj/item/storage/box/beanbag{
 	pixel_y = 4
 	},
+/obj/item/gun/ballistic/shotgun/doublebarrel,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar/atrium)
 "uah" = (
@@ -69926,11 +69931,11 @@
 /area/crew_quarters/kitchen/coldroom)
 "uFg" = (
 /obj/effect/turf_decal/trimline/purple/filled/warning,
-/obj/structure/janitorialcart{
-	dir = 8
-	},
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
+	},
+/obj/structure/janitorialcart{
+	dir = 8
 	},
 /turf/open/floor/iron,
 /area/janitor/custodian)
@@ -75918,7 +75923,6 @@
 /obj/item/bedsheet/green,
 /obj/effect/landmark/start/bartender,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
-/obj/item/gun/ballistic/shotgun/doublebarrel,
 /obj/machinery/airalarm/directional/north,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar/atrium)
@@ -114733,7 +114737,7 @@ tJr
 vYO
 mUh
 cTF
-rea
+lAs
 bEr
 tkH
 tJr
@@ -115503,8 +115507,8 @@ mRi
 tJr
 tYW
 mNj
-cfb
-cfb
+bfY
+pxa
 ntb
 siy
 tJr
@@ -115760,8 +115764,8 @@ kyN
 tJr
 sFL
 iWt
-bfY
-pxa
+rXP
+rXP
 ntb
 oRu
 tJr
@@ -116017,7 +116021,7 @@ wak
 tJr
 iit
 cjT
-bYj
+rXP
 rXP
 ntb
 lAs
@@ -116274,8 +116278,8 @@ cTq
 mdD
 kzt
 lTr
-cfb
-cfb
+bYj
+rdf
 ntb
 nYW
 tJr
