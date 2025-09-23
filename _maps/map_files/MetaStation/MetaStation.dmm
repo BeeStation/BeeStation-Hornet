@@ -17923,10 +17923,8 @@
 /area/crew_quarters/kitchen)
 "cTF" = (
 /obj/machinery/light_switch/directional/west,
-/obj/machinery/vending/hydroseeds{
-	slogan_delay = 700
-	},
-/obj/effect/turf_decal/delivery/white,
+/obj/machinery/hydroponics/constructable,
+/obj/effect/turf_decal/bot_white,
 /turf/open/floor/iron/techmaint,
 /area/hydroponics)
 "cTJ" = (
@@ -20713,7 +20711,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/iron,
-/area/hydroponics/garden/monastery)
+/area/hydroponics)
 "dHk" = (
 /obj/structure/lattice,
 /obj/structure/grille,
@@ -22309,9 +22307,9 @@
 /turf/open/floor/iron/dark,
 /area/ai_monitored/storage/satellite)
 "emh" = (
-/obj/machinery/vending/hydronutrients,
 /obj/effect/turf_decal/delivery/white,
-/turf/open/floor/iron/techmaint,
+/obj/machinery/vending/hydronutrients,
+/turf/open/floor/iron/large,
 /area/hydroponics)
 "eml" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/plasma_output{
@@ -38793,7 +38791,7 @@
 /obj/effect/turf_decal/trimline/green/warning,
 /obj/effect/turf_decal/trimline/green/warning,
 /turf/closed/wall,
-/area/hydroponics/garden/monastery)
+/area/hydroponics)
 "kaR" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -45717,7 +45715,7 @@
 "mxX" = (
 /obj/effect/turf_decal/trimline/green/warning,
 /turf/open/floor/iron/techmaint,
-/area/hydroponics/garden/monastery)
+/area/hydroponics)
 "mxY" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -56844,7 +56842,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/carpet/red,
-/area/crew_quarters/theatre)
+/area/crew_quarters/bar)
 "qfv" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -67378,6 +67376,11 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/plating,
 /area/maintenance/disposal)
+"tKO" = (
+/obj/effect/turf_decal/bot_white,
+/obj/machinery/hydroponics/constructable,
+/turf/open/floor/iron/large,
+/area/hydroponics)
 "tKV" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -67800,7 +67803,7 @@
 /obj/machinery/reagentgrinder,
 /obj/structure/table/glass,
 /turf/open/floor/iron/techmaint,
-/area/hydroponics/garden/monastery)
+/area/hydroponics)
 "tRS" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -68123,7 +68126,7 @@
 	},
 /obj/structure/table/glass,
 /turf/open/floor/iron/techmaint,
-/area/hydroponics/garden/monastery)
+/area/hydroponics)
 "tYe" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4{
@@ -70551,7 +70554,7 @@
 /obj/structure/table,
 /obj/machinery/light/directional/east,
 /turf/open/floor/iron/techmaint,
-/area/hydroponics/garden/monastery)
+/area/hydroponics)
 "uKH" = (
 /obj/machinery/light_switch{
 	pixel_x = -25
@@ -79803,11 +79806,12 @@
 /turf/open/floor/iron/dark,
 /area/storage/tech)
 "xLV" = (
-/obj/machinery/hydroponics/constructable,
-/obj/effect/turf_decal/bot_white,
-/obj/machinery/light/directional/south,
-/turf/open/floor/iron/techmaint,
-/area/hydroponics/garden/monastery)
+/obj/effect/turf_decal/delivery/white,
+/obj/machinery/vending/hydroseeds{
+	slogan_delay = 700
+	},
+/turf/open/floor/iron/large,
+/area/hydroponics)
 "xMj" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
@@ -114963,7 +114967,7 @@ tJr
 vYO
 mUh
 cTF
-emh
+lAs
 bEr
 tkH
 tJr
@@ -115476,7 +115480,7 @@ wXk
 nDn
 oat
 srj
-cfb
+tKO
 cfb
 ntb
 lAs
@@ -117018,8 +117022,8 @@ rUb
 qgF
 rea
 eOQ
-cfb
-cfb
+emh
+xLV
 hqj
 lAs
 tJr
@@ -117529,13 +117533,13 @@ dvl
 cpf
 jFq
 qPl
-yfP
+atE
 tXW
 uKB
 tRG
 dGY
 mxX
-xLV
+tkH
 kaP
 vdJ
 cgq
