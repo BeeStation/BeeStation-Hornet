@@ -369,3 +369,5 @@
   ACanOpener:
   - tweak: Renamed the "advanced cybernetic stomach" to "upgraded cybernetic stomach"
       to be more consistent with other cybernetic organs.
+  mrmanlikesbt:
+  - rscadd: Changelings can speak most languages now
