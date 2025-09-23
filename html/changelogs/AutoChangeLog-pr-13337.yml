@@ -1,0 +1,5 @@
+author: Nakalon
+delete-after: true
+changes:
+  - balance: 10x'd the amount of power RTG's produce
+  - balance: 10x'd the amount of power Etherials drain from APCs
