@@ -50,3 +50,5 @@
 /obj/projectile/bullet/c10x25mm
 	name = "10x25mm bullet"
 	damage = 22
+	armour_penetration = 0
+	bleed_force = BLEED_CUT

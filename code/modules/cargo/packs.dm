@@ -388,12 +388,13 @@
 
 /datum/supply_pack/security/secpistol_ammo
 	name = "10x25mm NPS ammo Crate"
-	desc = "Three boxes of 10 by 25mm steel-cartridged low velocity ammo for law enforcement firearms. Requires Security access to open."
+	desc = "A box of 10 by 25mm steel-cartridged low velocity ammo for law enforcement firearms, and 3 twelve-packs alongside. Requires Security access to open."
 	cost = 950
 	max_supply = 2
 	contains = list(/obj/item/ammo_box/c10x25mm,
-					/obj/item/ammo_box/c10x25mm,
-					/obj/item/ammo_box/c10x25mm)
+					/obj/item/ammo_box/pouch/c10x25mm,
+					/obj/item/ammo_box/pouch/c10x25mm,
+					/obj/item/ammo_box/pouch/c10x25mm)
 	crate_name = "ammo crate"
 
 /datum/supply_pack/security/secpistol_mags

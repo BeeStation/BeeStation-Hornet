@@ -11,7 +11,6 @@
 					/obj/item/grenade/flashbang = 4,
 					/obj/item/assembly/flash/handheld = 5,
 					/obj/item/ammo_casing/taser = 12,
-					/obj/item/ammo_box/pouch/c10x25mm = 6,
 					/obj/item/book/manual/wiki/security_space_law = 3,
 					/obj/item/storage/box/evidence = 6,
 					/obj/item/flashlight/seclite = 4,
