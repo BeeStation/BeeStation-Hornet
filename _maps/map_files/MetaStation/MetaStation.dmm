@@ -19332,6 +19332,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
 "dlV" = (
@@ -20946,8 +20949,8 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/structure/disposalpipe/junction,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/disposalpipe/sorting/mail/destination/threatre,
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
 "dPF" = (
@@ -32612,9 +32615,6 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/bar,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
 "hSA" = (
@@ -36269,6 +36269,10 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
 "jhU" = (
@@ -37202,6 +37206,9 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
@@ -41927,6 +41934,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
 "lmt" = (
@@ -42761,9 +42772,6 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tile/bar,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
 "lzX" = (
@@ -45799,7 +45807,6 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
@@ -46350,6 +46357,9 @@
 	dir = 8
 	},
 /obj/machinery/door/firedoor,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
 "mIh" = (
@@ -55983,12 +55993,10 @@
 /turf/open/floor/engine,
 /area/engine/atmospherics_engine)
 "pVs" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+/obj/effect/turf_decal/tile/yellow{
 	dir = 1
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
 "pVv" = (
@@ -57679,10 +57687,8 @@
 	icon_state = "2-4"
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/structure/disposalpipe/segment{
-	dir = 6
-	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/disposalpipe/junction/yjunction,
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
 "qvJ" = (
@@ -70875,6 +70881,9 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
 "uTW" = (
@@ -71776,11 +71785,9 @@
 "viC" = (
 /obj/effect/turf_decal/tile/yellow,
 /obj/effect/turf_decal/tile/bar,
-/obj/structure/disposalpipe/segment{
-	dir = 6
-	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "viX" = (
@@ -71943,9 +71950,6 @@
 /area/library)
 "vmb" = (
 /obj/effect/turf_decal/tile/bar,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
 "vmg" = (
@@ -72120,9 +72124,6 @@
 "vpf" = (
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
 	},
 /obj/machinery/camera/directional/south{
 	c_tag = "Starboard Primary Hallway - Engineering"
@@ -73708,8 +73709,8 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/obj/structure/disposalpipe/sorting/mail/destination/threatre{
-	dir = 4
+/obj/structure/disposalpipe/segment{
+	dir = 6
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
@@ -75410,6 +75411,9 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/structure/disposalpipe/segment{
+	dir = 6
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "wsV" = (
@@ -79682,9 +79686,6 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -81395,6 +81396,9 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
@@ -114445,7 +114449,7 @@ oNc
 lxS
 plk
 aZt
-lMa
+pVs
 lmg
 vmb
 wpU
@@ -114703,7 +114707,7 @@ cDP
 wbW
 bfJ
 lMa
-lmg
+bjp
 vmb
 wpU
 jbI
@@ -114960,7 +114964,7 @@ vPl
 tND
 qgL
 lMa
-lmg
+bjp
 vmb
 wpU
 pWX
@@ -115217,7 +115221,7 @@ nJy
 jNy
 bfJ
 lMa
-lmg
+bjp
 vmb
 wpU
 vYz
@@ -115474,7 +115478,7 @@ knj
 wrJ
 aZt
 cPm
-lmg
+bjp
 vmb
 wpU
 bXl
@@ -115731,7 +115735,7 @@ aZt
 aZt
 aZt
 ezx
-pVs
+cvM
 vmb
 xXn
 wsu
@@ -115988,7 +115992,7 @@ mvU
 dnh
 dYi
 lMa
-lmg
+bjp
 vmb
 xXn
 fzq
@@ -116245,7 +116249,7 @@ dnS
 dnh
 nWr
 lMa
-lmg
+bjp
 vmb
 eGe
 hlQ
@@ -116502,7 +116506,7 @@ dnh
 dnh
 dnh
 lMa
-lmg
+bjp
 hSr
 xma
 fzq
@@ -117273,8 +117277,8 @@ aaa
 aaa
 bfN
 fHl
-lmg
-jWt
+bjp
+bmV
 eGe
 hlQ
 cDM
@@ -117530,8 +117534,8 @@ bcu
 aZw
 aZw
 vFh
-lmg
-jWt
+bjp
+bmV
 xXn
 fzq
 cDM
@@ -117787,7 +117791,7 @@ bcv
 bdX
 aZw
 lMa
-lmg
+bjp
 vpf
 xXn
 gsC
@@ -118558,7 +118562,7 @@ sLY
 bdZ
 aWv
 qox
-lmg
+bjp
 jWt
 atC
 atC
@@ -118815,7 +118819,7 @@ glr
 knC
 aWv
 lMa
-lmg
+bjp
 jWt
 atC
 dxr
@@ -119329,7 +119333,7 @@ bhJ
 lVn
 aWv
 lMa
-lmg
+bjp
 sCT
 atC
 wBR
