@@ -3780,6 +3780,9 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron,
 /area/janitor)
 "aSd" = (
@@ -4008,6 +4011,9 @@
 /obj/item/toy/figure/janitor{
 	pixel_x = 4;
 	pixel_y = 2
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
 	},
 /turf/open/floor/iron,
 /area/janitor)
@@ -32825,6 +32831,9 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /turf/open/floor/iron,
 /area/janitor)
 "jwQ" = (
