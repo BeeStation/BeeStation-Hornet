@@ -47092,6 +47092,7 @@
 	pixel_x = 16;
 	pixel_y = -16
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/white,
 /area/crew_quarters/theatre/backstage)
 "mPw" = (
@@ -51665,9 +51666,6 @@
 /obj/effect/turf_decal/tile/red,
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
-"oqd" = (
-/turf/closed/wall,
-/area/crew_quarters/bar/lounge)
 "oqj" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -56372,7 +56370,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar/atrium)
 "pTP" = (
@@ -62399,6 +62396,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/maintenance/solars/port/aft)
+"rTV" = (
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/effect/landmark/navigate_destination,
+/turf/open/floor/iron/dark,
+/area/crew_quarters/bar/lounge)
 "rTX" = (
 /obj/machinery/door/airlock{
 	name = "Unisex Showers"
@@ -63405,8 +63407,6 @@
 "sjP" = (
 /obj/item/food/grown/wheat,
 /obj/item/food/grown/watermelon,
-/obj/item/food/grown/citrus/orange,
-/obj/item/food/grown/grapes,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -27
 	},
@@ -66960,6 +66960,9 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
+"tvc" = (
+/turf/closed/wall,
+/area/crew_quarters/bar/lounge)
 "tvl" = (
 /obj/item/paper_bin{
 	pixel_y = 7
@@ -71630,9 +71633,7 @@
 /area/maintenance/solars/starboard/fore)
 "uVa" = (
 /obj/structure/table,
-/obj/item/book/manual/hydroponics_pod_people,
 /obj/machinery/light,
-/obj/item/paper/guides/jobs/hydroponics,
 /obj/machinery/camera/directional/south{
 	c_tag = "Hydroponics - Foyer"
 	},
@@ -71643,6 +71644,8 @@
 /obj/effect/turf_decal/trimline/green/filled/line{
 	dir = 1
 	},
+/obj/item/food/grown/grapes,
+/obj/item/food/grown/citrus/orange,
 /turf/open/floor/iron/dark,
 /area/hallway/primary/central)
 "uVp" = (
@@ -119606,7 +119609,7 @@ oOE
 atC
 iDh
 mmH
-qdb
+rTV
 qdb
 vxB
 pVX
@@ -120380,7 +120383,7 @@ qOj
 ocL
 onZ
 rDf
-oqd
+tvc
 ojS
 vAW
 fKM
@@ -120632,12 +120635,12 @@ wBR
 nUy
 uWf
 atC
-oqd
-oqd
-oqd
-oqd
-oqd
-oqd
+tvc
+tvc
+tvc
+tvc
+tvc
+tvc
 ojS
 ojS
 ojS
