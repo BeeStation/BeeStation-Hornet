@@ -893,8 +893,6 @@ world
 
 		return final_icon
 
-	#undef PROCESS_OVERLAYS_OR_UNDERLAYS
-
 /proc/getStillIcon(atom/A, directionless = TRUE)//By whoever that guy below me is, I just kind of stole it and changed it a bit lol
 	var/icon/overlayIcon = new /icon()
 	var/isEmpty = TRUE	//So the overlay icon isn't empty.
