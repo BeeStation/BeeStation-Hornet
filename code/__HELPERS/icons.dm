@@ -715,33 +715,6 @@ world
 
 // Creates a single icon from a given /atom or /image.  Only the first argument is required.
 /proc/getFlatIcon(image/appearance, defdir, deficon, defstate, defblend, start = TRUE, no_anim = FALSE, parentcolor, override_plane = null, ignore_overlays = FALSE)
-	// Loop through the underlays, then overlays, sorting them into the layers list
-	#define PROCESS_OVERLAYS_OR_UNDERLAYS(flat, process, base_layer) \
-		for (var/i in 1 to process.len) { \
-			var/image/current = process[i]; \
-			if (!current) { \
-				continue; \
-			} \
-			if (current.plane != FLOAT_PLANE && current.plane != appearance.plane) { \
-				continue; \
-			} \
-			var/current_layer = current.layer; \
-			if (current_layer < 0) { \
-				if (current_layer <= -1000) { \
-					return flat; \
-				} \
-				current_layer = base_layer + appearance.layer + current_layer / 1000; \
-			} \
-			for (var/index_to_compare_to in 1 to layers.len) { \
-				var/compare_to = layers[index_to_compare_to]; \
-				if (current_layer < layers[compare_to]) { \
-					layers.Insert(index_to_compare_to, current); \
-					break; \
-				} \
-			} \
-			layers[current] = current_layer; \
-		}
-
 	var/static/icon/flat_template = icon('icons/blanks/32x32.dmi', "nothing")
 
 	if(!appearance || appearance.alpha <= 0)
@@ -802,8 +775,27 @@ world
 				copy.blend_mode = curblend
 				layers += copy
 
-		PROCESS_OVERLAYS_OR_UNDERLAYS(flat, appearance.underlays, 0)
-		PROCESS_OVERLAYS_OR_UNDERLAYS(flat, appearance.overlays, 1)
+		// Loop through the underlays, then overlays, sorting them into the layers list
+		for(var/process_set in 0 to 1)
+			var/list/process = process_set ? appearance.overlays : appearance.underlays
+			process = process.Copy()
+			var/i = 1
+			while (i < length(process))
+				if (i > 10000)
+					CRASH("Number of overlays/underlays exceeded 10000, infinite loop possible. Aborting to avoid server crash.")
+				var/image/current = process[i]
+				i++
+				process += process_set ? current.overlays : current.underlays
+				if(!current)
+					continue
+				if (!isnull(override_plane))
+					if(current.plane != override_plane)
+						continue
+				else
+					if(current.plane != FLOAT_PLANE && current.plane != appearance.plane)
+						continue
+
+				BINARY_INSERT(current, layers, /image, current, layer, COMPARE_KEY)
 
 		var/icon/add // Icon of overlay being added
 
@@ -844,7 +836,7 @@ world
 					else
 						add.Blend(appearance.color, ICON_MULTIPLY)
 			else // 'I' is an appearance object.
-				add = getFlatIcon(appearance = image(layer_image), defdir = curdir, deficon = curicon, defstate = curstate, def_blend = curblend, start = FALSE, no_anim = no_anim, parentcolor = next_parentcolor, override_plane = override_plane, ignore_overlays = TRUE)
+				add = getFlatIcon(appearance = image(layer_image), defdir = curdir, deficon = curicon, defstate = curstate, defblend = curblend, start = FALSE, no_anim = no_anim, parentcolor = next_parentcolor, override_plane = override_plane, ignore_overlays = TRUE)
 
 			if(!add)
 				continue
