@@ -22635,6 +22635,9 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar/lounge)
 "eqc" = (
@@ -25339,8 +25342,9 @@
 /turf/open/floor/iron,
 /area/security/warden)
 "fpN" = (
+/obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/machinery/vending/boozeomat,
-/turf/open/space/basic,
+/turf/open/floor/iron/dark,
 /area/crew_quarters/bar/atrium)
 "fpO" = (
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted,
@@ -44417,12 +44421,12 @@
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/fore)
 "lXk" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 9
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar/lounge)
@@ -46806,7 +46810,7 @@
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron/dark,
-/area/maintenance/starboard)
+/area/crew_quarters/bar/lounge)
 "mKH" = (
 /obj/item/storage/secure/safe{
 	name = "armory safe A";
@@ -50895,7 +50899,7 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/machinery/airalarm/directional/east,
 /turf/open/floor/iron/dark,
-/area/maintenance/starboard)
+/area/crew_quarters/bar/lounge)
 "odl" = (
 /obj/structure/closet/secure_closet/miner,
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted,
@@ -51490,11 +51494,8 @@
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/machinery/light_switch/directional/east,
-/obj/structure/disposalpipe/segment{
-	dir = 10
-	},
 /turf/open/floor/iron/dark,
-/area/maintenance/starboard)
+/area/crew_quarters/bar/lounge)
 "ooc" = (
 /obj/machinery/washing_machine,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
@@ -58009,6 +58010,9 @@
 	},
 /turf/open/floor/carpet/red,
 /area/medical/exam_room)
+"qtC" = (
+/turf/closed/wall,
+/area/crew_quarters/bar/lounge)
 "qtE" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -59200,7 +59204,7 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/machinery/requests_console/auto_name/directional/east,
 /turf/open/floor/iron/dark,
-/area/maintenance/starboard)
+/area/crew_quarters/bar/lounge)
 "qOt" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -61369,15 +61373,13 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 9
-	},
 /obj/machinery/chem_dispenser/drinks{
 	dir = 8
 	},
 /obj/machinery/status_display/evac/directional/south,
+/obj/structure/table/wood,
 /turf/open/floor/iron/dark,
-/area/maintenance/starboard)
+/area/crew_quarters/bar/lounge)
 "rDz" = (
 /obj/machinery/disposal/bin,
 /obj/effect/turf_decal/bot,
@@ -120373,7 +120375,7 @@ qOj
 ocL
 onZ
 rDf
-alq
+qtC
 ojS
 vAW
 fKM
@@ -120625,12 +120627,12 @@ wBR
 nUy
 uWf
 atC
-alq
-alq
-alq
-alq
-alq
-alq
+qtC
+qtC
+qtC
+qtC
+qtC
+qtC
 ojS
 ojS
 ojS
