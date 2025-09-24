@@ -921,6 +921,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/kitchen_coldroom/freezerfloor,
 /area/crew_quarters/kitchen/coldroom)
 "aiP" = (
@@ -12911,6 +12912,9 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/dark/visible,
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
 /turf/open/floor/iron/kitchen_coldroom/freezerfloor,
 /area/crew_quarters/kitchen/coldroom)
 "bVi" = (
@@ -22631,9 +22635,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 10
-	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar/lounge)
 "eqc" = (
@@ -22886,6 +22887,9 @@
 "ets" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 5
 	},
 /turf/open/floor/iron/kitchen_coldroom/freezerfloor,
 /area/crew_quarters/kitchen/coldroom)
@@ -27264,6 +27268,9 @@
 	name = "Kitchen Delivery";
 	req_access_txt = "28"
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 5
+	},
 /turf/open/floor/iron/kitchen_coldroom/freezerfloor,
 /area/crew_quarters/kitchen/coldroom)
 "fUF" = (
@@ -27300,7 +27307,9 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/disposalpipe/sorting/mail/destination/kitchen/flip,
+/obj/structure/disposalpipe/segment{
+	dir = 6
+	},
 /obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
@@ -27799,6 +27808,7 @@
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
 /obj/machinery/atmospherics/pipe/layer_manifold/supply/hidden,
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/kitchen_coldroom/freezerfloor,
 /area/crew_quarters/kitchen/coldroom)
 "geE" = (
@@ -27835,9 +27845,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/food/flour,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "gfw" = (
@@ -29802,9 +29809,6 @@
 	req_access_txt = "28"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
-/obj/structure/disposalpipe/segment{
-	dir = 1
-	},
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "gRz" = (
@@ -30566,8 +30570,8 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 1
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 5
+/obj/structure/disposalpipe/junction/flip{
+	dir = 4
 	},
 /turf/open/floor/iron/kitchen_coldroom/freezerfloor,
 /area/crew_quarters/kitchen/coldroom)
@@ -30648,9 +30652,7 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 9
-	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "hik" = (
@@ -31287,6 +31289,12 @@
 "hrC" = (
 /turf/open/floor/carpet/grimy,
 /area/tcommsat/computer)
+"hrE" = (
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/turf/open/floor/iron/kitchen_coldroom/freezerfloor,
+/area/crew_quarters/kitchen/coldroom)
 "hrL" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -32457,9 +32465,6 @@
 /obj/effect/turf_decal/siding/thinplating_new,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/food/flour,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "hNe" = (
@@ -35416,6 +35421,9 @@
 	dir = 1
 	},
 /obj/machinery/light/small/directional/east,
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
 /turf/open/floor/iron/kitchen_coldroom/freezerfloor,
 /area/crew_quarters/kitchen/coldroom)
 "iMB" = (
@@ -35518,6 +35526,9 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 5
 	},
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
@@ -36769,9 +36780,6 @@
 "joZ" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
 	},
 /obj/machinery/computer/security/telescreen/entertainment/directional/south,
 /turf/open/floor/wood,
@@ -43464,9 +43472,6 @@
 /area/bridge/showroom/corporate)
 "lIo" = (
 /obj/effect/turf_decal/siding/wood,
-/obj/structure/disposalpipe/segment{
-	dir = 6
-	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "lIx" = (
@@ -44410,9 +44415,6 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 9
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar/lounge)
@@ -50478,6 +50480,9 @@
 /area/medical/genetics/cloning)
 "nXh" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/dark/visible,
+/obj/structure/disposalpipe/segment{
+	dir = 5
+	},
 /turf/open/floor/iron/kitchen_coldroom/freezerfloor,
 /area/crew_quarters/kitchen/coldroom)
 "nXq" = (
@@ -51832,6 +51837,7 @@
 "orP" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/dark/visible,
 /obj/machinery/holopad,
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/kitchen_coldroom/freezerfloor,
 /area/crew_quarters/kitchen/coldroom)
 "orR" = (
@@ -53279,7 +53285,6 @@
 	pixel_x = -4
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
-/obj/machinery/firealarm/directional/west,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar/atrium)
 "oOU" = (
@@ -53343,6 +53348,7 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar/lounge)
 "oQD" = (
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/kitchen_coldroom/freezerfloor,
 /area/crew_quarters/kitchen/coldroom)
 "oQO" = (
@@ -56515,9 +56521,6 @@
 /obj/structure/extinguisher_cabinet/directional/south{
 	pixel_x = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 9
-	},
 /obj/machinery/button/door{
 	id = "barcounter";
 	name = "Bar Counter Shutters";
@@ -56771,7 +56774,7 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/siding/thinplating_new/corner,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/disposalpipe/junction/flip,
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "qak" = (
@@ -57391,6 +57394,15 @@
 	},
 /turf/open/floor/iron,
 /area/medical/genetics)
+"qhZ" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/disposalpipe/sorting/mail/destination/kitchen,
+/turf/open/floor/plating,
+/area/maintenance/starboard)
 "qig" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
@@ -59392,9 +59404,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/siding/thinplating_new,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "qRE" = (
@@ -60648,17 +60657,11 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "roR" = (
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
-/turf/open/floor/iron/dark,
-/area/crew_quarters/bar/lounge)
+/turf/open/floor/iron/kitchen_coldroom/freezerfloor,
+/area/crew_quarters/kitchen/coldroom)
 "rph" = (
 /obj/machinery/camera/directional/north,
 /turf/open/floor/iron/dark,
@@ -61833,6 +61836,9 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 8
 	},
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
@@ -64029,6 +64035,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
 /turf/open/floor/iron/kitchen_coldroom/freezerfloor,
 /area/crew_quarters/kitchen/coldroom)
 "swn" = (
@@ -65824,9 +65833,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/sorting/mail/destination/bar/flip{
-	dir = 8
-	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar/lounge)
 "teA" = (
@@ -67810,6 +67817,9 @@
 	location = "Kitchen"
 	},
 /obj/structure/plasticflaps/opaque,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen/coldroom)
 "tMi" = (
@@ -68380,6 +68390,9 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/freezer,
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
 /turf/open/floor/iron/kitchen_coldroom/freezerfloor,
 /area/crew_quarters/kitchen)
 "tVs" = (
@@ -68706,6 +68719,7 @@
 "uaa" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/structure/reagent_dispensers/beerkeg,
+/obj/machinery/firealarm/directional/south,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar/atrium)
 "uah" = (
@@ -70526,6 +70540,9 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/junction{
 	dir = 4
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
 /turf/open/floor/iron/kitchen_coldroom/freezerfloor,
 /area/crew_quarters/kitchen/coldroom)
 "uFg" = (
@@ -71697,9 +71714,6 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/service/bar,
 /obj/machinery/door/firedoor,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar/lounge)
 "uWj" = (
@@ -73289,9 +73303,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 6
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar/lounge)
@@ -76594,9 +76605,7 @@
 /area/crew_quarters/bar/atrium)
 "wCa" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
-/obj/structure/disposalpipe/segment{
-	dir = 5
-	},
+/obj/structure/disposalpipe/sorting/mail/destination/bar/flip,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar/lounge)
 "wCj" = (
@@ -119839,7 +119848,7 @@ tPN
 dFq
 dFq
 nWG
-roR
+dFq
 ter
 wCa
 gev
@@ -119847,7 +119856,7 @@ oQD
 nXh
 bVh
 orP
-oQD
+roR
 qkn
 alq
 bSe
@@ -120104,7 +120113,7 @@ dah
 uEV
 aiO
 ets
-oQD
+hrE
 fQN
 alq
 sHA
@@ -120876,7 +120885,7 @@ pVs
 kUj
 xXj
 nBX
-nBX
+qhZ
 sAY
 qTu
 oEQ
