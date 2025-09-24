@@ -3969,10 +3969,8 @@
 /area/janitor)
 "aTJ" = (
 /obj/effect/turf_decal/bot_white,
+/obj/effect/decal/cleanable/oil,
 /obj/vehicle/ridden/janicart,
-/obj/effect/decal/cleanable/oil{
-	color = black
-	},
 /turf/open/floor/iron/ameridiner,
 /area/janitor)
 "aTK" = (
