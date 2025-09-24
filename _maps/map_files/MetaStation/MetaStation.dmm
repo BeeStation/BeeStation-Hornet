@@ -9900,9 +9900,6 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
 "bvP" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/effect/landmark/start/bartender,
 /turf/open/floor/iron/dark,
@@ -21188,6 +21185,9 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "dRr" = (
@@ -21270,6 +21270,9 @@
 /obj/effect/turf_decal/siding/wood/corner,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "dTE" = (
@@ -22089,8 +22092,6 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "efV" = (
@@ -27892,6 +27893,9 @@
 /obj/effect/landmark/start/assistant,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "ghb" = (
@@ -28545,9 +28549,6 @@
 /turf/open/floor/iron,
 /area/storage/primary)
 "gtQ" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/machinery/light/directional/east,
 /obj/machinery/vending/cigarette,
 /turf/open/floor/carpet/red,
@@ -34974,8 +34975,6 @@
 /obj/effect/turf_decal/siding/wood,
 /obj/structure/chair/stool/bar,
 /obj/effect/landmark/start/assistant,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "iFa" = (
@@ -44385,6 +44384,9 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "lWn" = (
@@ -47247,6 +47249,11 @@
 /turf/open/floor/engine,
 /area/maintenance/department/science/xenobiology)
 "mTj" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "mTt" = (
@@ -47923,9 +47930,6 @@
 	},
 /turf/open/floor/plating,
 /area/engine/break_room)
-"nec" = (
-/turf/closed/wall,
-/area/crew_quarters/bar/lounge)
 "ned" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -51661,6 +51665,9 @@
 /obj/effect/turf_decal/tile/red,
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
+"oqd" = (
+/turf/closed/wall,
+/area/crew_quarters/bar/lounge)
 "oqj" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -56954,11 +56961,6 @@
 /area/hallway/secondary/exit/departure_lounge)
 "qcw" = (
 /obj/structure/chair/stool/bar,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/effect/turf_decal/siding/wood/end{
 	dir = 4
 	},
@@ -59006,12 +59008,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/power/apc/auto_name/directional/east,
 /obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
 /obj/structure/disposalpipe/segment{
@@ -59019,6 +59015,9 @@
 	},
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
@@ -63159,6 +63158,9 @@
 	},
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
@@ -73082,9 +73084,6 @@
 "vtG" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/structure/platform/wood/corner{
 	dir = 1
 	},
@@ -73093,6 +73092,12 @@
 	},
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
@@ -119086,7 +119091,7 @@ oMv
 qKq
 gtQ
 qcw
-raq
+viX
 bvP
 raq
 amu
@@ -120375,7 +120380,7 @@ qOj
 ocL
 onZ
 rDf
-nec
+oqd
 ojS
 vAW
 fKM
@@ -120627,12 +120632,12 @@ wBR
 nUy
 uWf
 atC
-nec
-nec
-nec
-nec
-nec
-nec
+oqd
+oqd
+oqd
+oqd
+oqd
+oqd
 ojS
 ojS
 ojS
