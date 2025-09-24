@@ -430,11 +430,22 @@ GLOBAL_LIST_EMPTY(asset_datums)
 // A GOON CODER SAYS BAD ICON ERRORS CAN BE THROWN BY THE "ICON CACHE"
 // APPARENTLY IT MAKES ICONS IMMUTABLE
 // LOOK INTO USING THE MUTABLE APPEARANCE PATTERN HERE
-/datum/asset/spritesheet/proc/queuedInsert(sprite_name, icon/I, icon_state="", dir=SOUTH, frame=1, moving=FALSE)
-	I = icon(I, icon_state=icon_state, dir=dir, frame=frame, moving=moving)
-	if (!I || !length(icon_states(I)))  // that direction or state doesn't exist
+/datum/asset/spritesheet/proc/queuedInsert(sprite_name, icon/inserted_icon, icon_state="", dir=SOUTH, frame=1, moving=FALSE)
+#ifdef UNIT_TESTS
+	if (inserted_icon && icon_state && !icon_exists(inserted_icon, icon_state)) // check the base icon prior to extracting the state we want
+		stack_trace("Tried to insert nonexistent icon_state '[icon_state]' from [inserted_icon] into spritesheet [name] ([type])")
 		return
-	var/size_id = "[I.Width()]x[I.Height()]"
+#endif
+	inserted_icon = icon(inserted_icon, icon_state=icon_state, dir=dir, frame=frame, moving=moving)
+	if (!inserted_icon || !length(icon_states(inserted_icon)))  // that direction or state doesn't exist
+		return
+
+	var/start_usage = world.tick_usage
+
+	//any sprite modifications we want to do (aka, coloring a greyscaled asset)
+	inserted_icon = ModifyInserted(inserted_icon)
+	var/list/dimensions = get_icon_dimensions(inserted_icon)
+	var/size_id = "[dimensions["width"]]x[dimensions["height"]]"
 	var/size = sizes[size_id]
 
 	if (sprites[sprite_name])
@@ -442,16 +453,33 @@ GLOBAL_LIST_EMPTY(asset_datums)
 
 	if (size)
 		var/position = size[SPRSZ_COUNT]++
+		// Icons are essentially representations of files + modifications
+		// Because of this, byond keeps them in a cache. It does this in a really dumb way tho
+		// It's essentially a FIFO queue. So after we do icon() some amount of times, our old icons go out of cache
+		// When this happens it becomes impossible to modify them, trying to do so will instead throw a
+		// "bad icon" error.
+		// What we're doing here is ensuring our icon is in the cache by refreshing it, so we can modify it w/o runtimes.
 		var/icon/sheet = size[SPRSZ_ICON]
 		var/icon/sheet_copy = icon(sheet)
 		size[SPRSZ_STRIPPED] = null
-		sheet_copy.Insert(I, icon_state=sprite_name)
+		sheet_copy.Insert(inserted_icon, icon_state=sprite_name)
 		size[SPRSZ_ICON] = sheet_copy
 
 		sprites[sprite_name] = list(size_id, position)
 	else
-		sizes[size_id] = size = list(1, I, null)
+		sizes[size_id] = size = list(1, inserted_icon, null)
 		sprites[sprite_name] = list(size_id, 0)
+
+	SSblackbox.record_feedback("tally", "spritesheet_queued_insert_time", TICK_USAGE_TO_MS(start_usage), name)
+
+/**
+ * A simple proc handing the Icon for you to modify before it gets turned into an asset.
+ *
+ * Arguments:
+ * * I: icon being turned into an asset
+ */
+/datum/asset/spritesheet/proc/ModifyInserted(icon/pre_asset)
+	return pre_asset
 
 /datum/asset/spritesheet/proc/InsertAll(prefix, icon/I, list/directions)
 	if (length(prefix))

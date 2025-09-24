@@ -693,7 +693,7 @@
 	icon_state ||= initial(preview_item.icon_state_preview) || initial(preview_item.icon_state)
 
 	//if(PERFORM_ALL_TESTS(focus_only/bad_cooking_crafting_icons))
-	//	if(!icon_exists(icon_file, icon_state, scream = TRUE))
+	//	if(!icon_exists_or_scream(icon_file, icon_state))
 	//		return
 
 	insert_icon("a[id]", uni_icon(icon_file, icon_state, SOUTH))
