@@ -21,7 +21,7 @@
 	departments = DEPT_BITFLAG_SEC
 	bank_account_department = ACCOUNT_SEC_BITFLAG
 	payment_per_department = list(ACCOUNT_SEC_ID = PAYCHECK_HARD)
-	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
+	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM, TRAIT_SECURITY)
 
 	display_order = JOB_DISPLAY_ORDER_WARDEN
 	rpg_title = "Jailor"
@@ -56,6 +56,9 @@
 	suit_store = /obj/item/gun/energy/disabler
 
 	backpack = /obj/item/storage/backpack/security
+	backpack_contents = list(
+		/obj/item/dog_bone = 1,
+	)
 	satchel = /obj/item/storage/backpack/satchel/sec
 	duffelbag = /obj/item/storage/backpack/duffelbag/sec
 	box = /obj/item/storage/box/survival/security

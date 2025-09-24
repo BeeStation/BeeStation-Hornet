@@ -95,6 +95,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_PIERCEIMMUNE		"pierce_immunity"
 #define TRAIT_NODISMEMBER "dismember_immunity"
 #define TRAIT_NOFIRE "nonflammable"
+/// Are we expected to fight antags?
+#define TRAIT_SECURITY "security_member"
 /// Prevents plasmamen from self-igniting
 #define TRAIT_NOSELFIGNITION "no_selfignition"
 #define TRAIT_NOGUNS			"no_guns"
@@ -232,6 +234,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Trait that prevents you from being moved when pulled.
 #define TRAIT_NO_MOVE_PULL "no_move_pull"
 #define TRAIT_SILENT_FOOTSTEPS "silent_footsteps" //makes your footsteps completely silent
+/// If applied to a mob, nearby dogs will have a small chance to nonharmfully harass said mob
+#define TRAIT_HATED_BY_DOGS "hated_by_dogs"
 
 /// This mob has no soul
 #define TRAIT_NO_SOUL "no_soul"
@@ -251,6 +255,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// Apply this to make a mob not dense, and remove it when you want it to no longer make them undense, other sorces of undesity will still apply. Always define a unique source when adding a new instance of this!
 #define TRAIT_UNDENSE "undense"
+/// Makes the mob immune to damage and several other ailments.
+#define TRAIT_GODMODE "godmode"
 /// A trait gained by leaning against a wall
 #define TRAIT_LEANING "leaning"
 
@@ -336,6 +342,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_LIVING_HEART "living_heart"
 /// Prevents stripping this equipment
 #define TRAIT_NO_STRIP "no_strip"
+/// Disallows this item from being pricetagged with a barcode
+#define TRAIT_NO_BARCODES "no_barcode"
 
 //quirk traits
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"

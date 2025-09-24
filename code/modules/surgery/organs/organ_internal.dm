@@ -123,7 +123,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		organ_owner.internal_organs -= src
 		if(organ_owner.internal_organs_slot[slot] == src)
 			organ_owner.internal_organs_slot.Remove(slot)
-		if((organ_flags & ORGAN_VITAL) && !special && !(organ_owner.status_flags & GODMODE))
+		if((organ_flags & ORGAN_VITAL) && !special && !HAS_TRAIT(organ_owner, TRAIT_GODMODE))
 			if(organ_owner.stat != DEAD)
 				organ_owner.investigate_log("has been killed by losing a vital organ ([src]).", INVESTIGATE_DEATHS)
 			organ_owner.death()
@@ -191,7 +191,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 /obj/item/organ/proc/on_death(delta_time, times_fired) //runs decay when outside of a person
 	if(organ_flags & (ORGAN_SYNTHETIC | ORGAN_FROZEN))
 		return
-	applyOrganDamage(decay_factor * maxHealth * delta_time)
+	apply_organ_damage(decay_factor * maxHealth * delta_time)
 
 /obj/item/organ/proc/on_life(delta_time, times_fired) //repair organ damage if the organ is not failing
 	SHOULD_CALL_PARENT(TRUE) //PASS YOUR ARGS FUCKER
@@ -203,7 +203,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 	///Damage decrements again by a percent of its maxhealth, up to a total of 4 extra times depending on the owner's health
 	if(owner)
 		healing_amount += (owner.satiety > 0) ? (4 * healing_factor * owner.satiety / MAX_SATIETY) : 0
-	applyOrganDamage(-healing_amount * maxHealth * delta_time, damage) // pass current damage incase we are over cap
+	apply_organ_damage(-healing_amount * maxHealth * delta_time, damage) // pass current damage incase we are over cap
 
 /obj/item/organ/examine(mob/user)
 	. = ..()
@@ -259,7 +259,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 	return //so we don't grant the organ's action to mobs who pick up the organ.
 
 ///Adjusts an organ's damage by the amount "d", up to a maximum amount, which is by default max damage
-/obj/item/organ/proc/applyOrganDamage(var/d, var/maximum = maxHealth)	//use for damaging effects
+/obj/item/organ/proc/apply_organ_damage(var/d, var/maximum = maxHealth)	//use for damaging effects
 	if(!d) //Micro-optimization.
 		return
 	if(maximum < damage)
@@ -272,7 +272,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 
 ///SETS an organ's damage to the amount "d", and in doing so clears or sets the failing flag, good for when you have an effect that should fix an organ if broken
 /obj/item/organ/proc/set_organ_damage(var/d)	//use mostly for admin heals
-	applyOrganDamage(d - damage)
+	apply_organ_damage(d - damage)
 
 /** check_damage_thresholds
   * input: M (a mob, the owner of the organ we call the proc on)
@@ -304,44 +304,54 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 //Looking for brains?
 //Try code/modules/mob/living/carbon/brain/brain_item.dm
 
-/mob/living/proc/regenerate_organs()
-	return 0
-
-/mob/living/carbon/regenerate_organs()
+/**
+ * Heals all of the mob's organs, and re-adds any missing ones.
+ *
+ * * regenerate_existing - if TRUE, existing organs will be deleted and replaced with new ones
+ */
+/mob/living/carbon/proc/regenerate_organs(regenerate_existing = FALSE)
+	// Delegate to species if possible.
 	if(dna?.species)
-		dna.species.regenerate_organs(src, replace_current = FALSE)
+		dna.species.regenerate_organs(src, replace_current = regenerate_existing)
+		// Species regenerate organs doesn't ALWAYS handle healing the organs because it's dumb
+		for(var/obj/item/organ/organ as anything in internal_organs)
+			organ.set_organ_damage(0)
+		set_heartattack(FALSE)
 		return
 
+	// Default organ fixing handling
+	// May result in kinda cursed stuff for mobs which don't need these organs
+	var/obj/item/organ/lungs/lungs = get_organ_slot(ORGAN_SLOT_LUNGS)
+	if(!lungs)
+		lungs = new()
+		lungs.Insert(src)
+	lungs.set_organ_damage(0)
+
+	var/obj/item/organ/heart/heart = get_organ_slot(ORGAN_SLOT_HEART)
+	if(heart)
+		set_heartattack(FALSE)
 	else
-		var/obj/item/organ/lungs/L = get_organ_slot(ORGAN_SLOT_LUNGS)
-		if(!L)
-			L = new()
-			L.Insert(src)
-		L.set_organ_damage(0)
+		heart = new()
+		heart.Insert(src)
+	heart.set_organ_damage(0)
 
-		var/obj/item/organ/heart/H = get_organ_slot(ORGAN_SLOT_HEART)
-		if(!H)
-			H = new()
-			H.Insert(src)
-		H.set_organ_damage(0)
+	var/obj/item/organ/tongue/tongue = get_organ_slot(ORGAN_SLOT_TONGUE)
+	if(!tongue)
+		tongue = new()
+		tongue.Insert(src)
+	tongue.set_organ_damage(0)
 
-		var/obj/item/organ/tongue/T = get_organ_slot(ORGAN_SLOT_TONGUE)
-		if(!T)
-			T = new()
-			T.Insert(src)
-		T.set_organ_damage(0)
+	var/obj/item/organ/eyes/eyes = get_organ_slot(ORGAN_SLOT_EYES)
+	if(!eyes)
+		eyes = new()
+		eyes.Insert(src)
+	eyes.set_organ_damage(0)
 
-		var/obj/item/organ/eyes/eyes = get_organ_slot(ORGAN_SLOT_EYES)
-		if(!eyes)
-			eyes = new()
-			eyes.Insert(src)
-		eyes.set_organ_damage(0)
-
-		var/obj/item/organ/ears/ears = get_organ_slot(ORGAN_SLOT_EARS)
-		if(!ears)
-			ears = new()
-			ears.Insert(src)
-		ears.set_organ_damage(0)
+	var/obj/item/organ/ears/ears = get_organ_slot(ORGAN_SLOT_EARS)
+	if(!ears)
+		ears = new()
+		ears.Insert(src)
+	ears.set_organ_damage(0)
 
 /** get_availability
   * returns whether the species should innately have this organ.

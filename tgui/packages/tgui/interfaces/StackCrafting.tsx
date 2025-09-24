@@ -1,9 +1,18 @@
-import { createSearch } from 'common/string';
-import { useBackend } from '../backend';
-import { Box, Button, Input, NoticeBox, Section, Collapsible, Table } from '../components';
-import { Window } from '../layouts';
 import { clamp } from 'common/math';
+import { createSearch } from 'common/string';
 import { useState } from 'react';
+
+import { useBackend } from '../backend';
+import {
+  Box,
+  Button,
+  Collapsible,
+  Input,
+  NoticeBox,
+  Section,
+  Table,
+} from '../components';
+import { Window } from '../layouts';
 
 type Recipe = {
   ref: unknown | null;
@@ -56,7 +65,10 @@ function isRecipeList(value: Recipe | RecipeList): value is RecipeList {
  * @param list the recipe list to filter
  * @param filter the filter function for recipes
  */
-const filterRecipeList = (list: RecipeList, keyFilter: (key: string) => boolean): RecipeList | undefined => {
+const filterRecipeList = (
+  list: RecipeList,
+  keyFilter: (key: string) => boolean,
+): RecipeList | undefined => {
   const filteredList = Object.fromEntries(
     Object.entries(list)
       .flatMap((entry): RecipeListFilterableEntry[] => {
@@ -77,7 +89,7 @@ const filterRecipeList = (list: RecipeList, keyFilter: (key: string) => boolean)
 
         return [];
       })
-      .sort(([a], [b]) => (a < b ? -1 : a !== b ? 1 : 0))
+      .sort(([a], [b]) => (a < b ? -1 : a !== b ? 1 : 0)),
   );
 
   return Object.keys(filteredList).length ? filteredList : undefined;
@@ -101,10 +113,20 @@ export const StackCrafting = (_props) => {
           buttons={
             <>
               Search
-              <Input autoFocus value={searchText} onInput={(e, value) => setSearchText(value)} mx={1} />
+              <Input
+                autoFocus
+                value={searchText}
+                onInput={(e, value) => setSearchText(value)}
+                mx={1}
+              />
             </>
-          }>
-          {filteredRecipes ? <RecipeListBox recipes={filteredRecipes} /> : <NoticeBox>No recipes found.</NoticeBox>}
+          }
+        >
+          {filteredRecipes ? (
+            <RecipeListBox recipes={filteredRecipes} />
+          ) : (
+            <NoticeBox>No recipes found.</NoticeBox>
+          )}
         </Section>
       </Window.Content>
     </Window>
@@ -147,7 +169,10 @@ const Multipliers = (props: MultiplierProps) => {
 
   const { recipe, maxMultiplier } = props;
 
-  const maxM = Math.min(maxMultiplier, Math.floor(recipe.max_res_amount / recipe.res_amount));
+  const maxM = Math.min(
+    maxMultiplier,
+    Math.floor(recipe.max_res_amount / recipe.res_amount),
+  );
 
   const multipliers = [5, 10, 25];
 
@@ -164,7 +189,7 @@ const Multipliers = (props: MultiplierProps) => {
               multiplier: multiplier,
             })
           }
-        />
+        />,
       );
     }
   }
@@ -179,7 +204,7 @@ const Multipliers = (props: MultiplierProps) => {
             multiplier: maxM,
           })
         }
-      />
+      />,
     );
   }
 

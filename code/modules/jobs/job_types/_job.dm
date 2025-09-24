@@ -329,7 +329,8 @@
 						if(old_bag)
 							for(var/obj/item/item in old_bag.contents)
 								item.forceMove(new_bag)
-							H.doUnEquip(old_bag, newloc = H.drop_location(), invdrop = FALSE, silent = TRUE)
+							H.doUnEquip(old_bag, newloc = null, invdrop = FALSE, silent = TRUE)
+							qdel(old_bag)
 							if(H.equip_to_slot_or_del(new_bag, G.slot))
 								if(M.client)
 									to_chat(M, span_notice("Equipping you with [G.display_name]!"))
@@ -346,7 +347,7 @@
 								spawned_box.forceMove(current_bag)	// Gets put in the backpack
 								if(M.client)
 									to_chat(M, span_notice("A box with your standard equipment was placed in your [current_bag.name]!"))
-							if(isplasmaman(H) && G.slot == ITEM_SLOT_HEAD || G.slot == ITEM_SLOT_ICLOTHING)
+							if(isplasmaman(H) && (G.slot == ITEM_SLOT_HEAD || G.slot == ITEM_SLOT_ICLOTHING))
 								new_item.forceMove(spawned_box)	// iF THEY'RE PLASMAMAN PUT IT IN THE BOX INSTEAD
 								if(M.client)
 									to_chat(M, span_notice("Storing your [G.display_name] inside a box in your [current_bag.name]!"))
@@ -499,11 +500,6 @@
 		if (SSjob.is_job_empty(JOB_NAME_CAPTAIN))
 			. |= ACCESS_HEADS
 			. |= ACCESS_KEYCARD_AUTH
-		// Access to security basics (get captain for guns)
-		if (SSjob.is_job_empty(JOB_NAME_SECURITYOFFICER))
-			. |= list(
-				ACCESS_SECURITY, ACCESS_BRIG, ACCESS_SEC_DOORS
-			)
 		// Access to science
 		if (SSjob.is_job_empty(JOB_NAME_SCIENTIST))
 			. |= list(

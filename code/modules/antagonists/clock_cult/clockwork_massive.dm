@@ -15,7 +15,6 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	clockwork_desc = "Nezbere's magnum opus: a hulking clockwork machine capable of combining bluespace and steam power to summon Ratvar. Once activated, \
 	its instability will cause one-way bluespace rifts to open across the station to the City of Cogs, so be prepared to defend it at all costs."
 	max_integrity = 1000
-	max_hit_damage = 25
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "clockwork_gateway_components"
 	pixel_x = -32
@@ -102,7 +101,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	addtimer(CALLBACK(src, PROC_REF(clockies_win)), 300)
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/clockies_win()
-	SSticker.force_ending = TRUE
+	SSticker.force_ending = FORCE_END_ROUND
 	qdel(src)
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armour_penetration)
@@ -214,7 +213,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	hierophant_message("Ratvar approaches, you shall be eternally rewarded for your servitude!", null, "<span class='large_brass'>")
 	resistance_flags |= INDESTRUCTIBLE
 	for(var/mob/living/M in GLOB.all_servants_of_ratvar)
-		M.status_flags |= GODMODE
+		ADD_TRAIT(M, TRAIT_GODMODE, TRAIT_GENERIC)
 	sound_to_playing_players(volume = 100, channel = CHANNEL_JUSTICAR_ARK, S = sound('sound/effects/ratvar_rises.ogg')) //End the sounds
 	GLOB.ratvar_risen = TRUE
 	var/original_matrix = matrix()

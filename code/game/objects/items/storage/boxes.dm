@@ -912,7 +912,7 @@
 
 /obj/item/storage/box/rubbershot
 	name = "box of rubber shots"
-	desc = "A box full of rubber shots, designed for riot shotguns."
+	desc = "A standard box full of rubber shots, designed for riot shotguns."
 	icon_state = "rubbershot_box"
 	illustration = null
 
@@ -922,7 +922,7 @@
 
 /obj/item/storage/box/lethalshot
 	name = "box of lethal shotgun shots"
-	desc = "A box full of lethal shots, designed for riot shotguns."
+	desc = "A standard box full of lethal shots, designed for riot shotguns."
 	icon_state = "lethalshot_box"
 	illustration = null
 
@@ -932,7 +932,7 @@
 
 /obj/item/storage/box/beanbag
 	name = "box of beanbags"
-	desc = "A box full of beanbag shells."
+	desc = "A standard box full of beanbag shells."
 	icon_state = "rubbershot_box"
 	illustration = null
 
@@ -941,8 +941,8 @@
 		new /obj/item/ammo_casing/shotgun/beanbag(src)
 
 /obj/item/storage/box/breacherslug
-	name = "box of breaching shotgun shells"
-	desc = "A box full of breaching slugs, designed for rapid entry."
+	name = "box of breaching cartridges"
+	desc = "A standard box full of breaching slugs."
 	icon_state = "breachershot_box"
 	illustration = null
 
@@ -951,8 +951,8 @@
 		new /obj/item/ammo_casing/shotgun/breacher(src)
 
 /obj/item/storage/box/incapacitateshot
-	name = "box of incapacitating shotgun shots"
-	desc = "A box full of incapacitating shots, designed for shotguns."
+	name = "box of incapacitating cartridges"
+	desc = "A standard box full of incapacitating shots, made for a shotgun."
 	icon_state = "incapacitateshot_box"
 	illustration = null
 
@@ -1350,8 +1350,7 @@
 
 /obj/item/storage/box/tablet4dummies/PopulateContents()
 	new /obj/item/modular_computer/tablet(src)
-	new /obj/item/computer_hardware/battery(src)
-	new /obj/item/stock_parts/cell/computer/nano(src)
+	new /obj/item/computer_hardware/battery/tiny(src)
 	new /obj/item/computer_hardware/processor_unit/small(src)
 	new /obj/item/computer_hardware/hard_drive/micro(src)
 	new /obj/item/computer_hardware/identifier(src)
@@ -1411,5 +1410,19 @@
 		/obj/item/slimecross/stabilized/lightpink=1,\
 		/obj/item/slimecross/stabilized/adamantine=1,\
 		/obj/item/slimecross/stabilized/rainbow=1,\
+	)
+
+/obj/item/storage/box/shipping
+	name = "box of shipping supplies"
+	desc = "Contains several scanners and labelers for shipping things. Wrapping Paper not included."
+	illustration = "shipping"
+
+/obj/item/storage/box/shipping/PopulateContents()
+	var/static/items_inside = list(
+		/obj/item/dest_tagger=1,
+		/obj/item/sales_tagger=1,
+		/obj/item/export_scanner=1,
+		/obj/item/stack/package_wrap/small=2,
+		/obj/item/stack/wrapping_paper/small=1
 		)
 	generate_items_inside(items_inside,src)

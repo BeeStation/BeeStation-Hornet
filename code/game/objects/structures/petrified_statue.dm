@@ -20,10 +20,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/statue/petrified)
 			L.buckled.unbuckle_mob(L,force=1)
 		L.visible_message(span_warning("[L]'s skin rapidly turns to marble!"), span_userdanger("Your body freezes up! Can't... move... can't...  think..."))
 		L.forceMove(src)
-		ADD_TRAIT(L, TRAIT_MUTE, STATUE_MUTE)
-		ADD_TRAIT(L, TRAIT_NO_BLOOD, STATUE_MUTE)
+		L.add_traits(list(TRAIT_MUTE, TRAIT_NO_BLOOD, TRAIT_GODMODE), STATUE_MUTE)
 		L.faction += "mimic" //Stops mimics from instaqdeling people in statues
-		L.status_flags |= GODMODE
 		atom_integrity = L.health + 100 //stoning damaged mobs will result in easier to shatter statues
 		max_integrity = atom_integrity
 		START_PROCESSING(SSobj, src)
@@ -45,7 +43,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/statue/petrified)
 		petrified_mob = null
 
 /obj/structure/statue/petrified/Destroy()
-
 	if(istype(src.loc, /mob/living/simple_animal/hostile/statue))
 		var/mob/living/simple_animal/hostile/statue/S = src.loc
 		forceMove(S.loc)
@@ -60,10 +57,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/statue/petrified)
 		O.forceMove(loc)
 
 	if(petrified_mob)
-		petrified_mob.status_flags &= ~GODMODE
 		petrified_mob.forceMove(loc)
-		REMOVE_TRAIT(petrified_mob, TRAIT_MUTE, STATUE_MUTE)
-		REMOVE_TRAIT(petrified_mob, TRAIT_NO_BLOOD, STATUE_MUTE)
+		petrified_mob.remove_traits(list(TRAIT_MUTE, TRAIT_NO_BLOOD, TRAIT_GODMODE), STATUE_MUTE)
 		petrified_mob.take_overall_damage((petrified_mob.health - atom_integrity + 100)) //any new damage the statue incurred is transfered to the mob
 		petrified_mob.faction -= "mimic"
 		petrified_mob = null

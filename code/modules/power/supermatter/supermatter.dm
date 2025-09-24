@@ -22,7 +22,6 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 	critical_machine = TRUE
-	interacts_with_air = TRUE
 	zmm_flags = ZMM_MANGLE_PLANES
 
 	var/gasefficency = 0.15
@@ -708,7 +707,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	dust_mob(user, cause = "hand")
 
 /obj/machinery/power/supermatter_crystal/proc/dust_mob(mob/living/nom, vis_msg, mob_msg, cause)
-	if(nom.incorporeal_move || nom.status_flags & GODMODE || is_type_in_typecache(nom, not_dustable))
+	if(nom.incorporeal_move || HAS_TRAIT(nom, TRAIT_GODMODE) || is_type_in_typecache(nom, not_dustable))
 		return
 	if(!vis_msg)
 		vis_msg = span_danger("[nom] reaches out and touches [src], inducing a resonance... [nom.p_their()] body starts to glow and burst into flames before flashing into dust!")
@@ -811,7 +810,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		return
 	else if(isliving(AM))
 		var/mob/living/user = AM
-		if(user.status_flags & GODMODE)
+		if(HAS_TRAIT(user, TRAIT_GODMODE))
 			return
 		message_admins("[src] has consumed [key_name_admin(user)] [ADMIN_JMP(src)].")
 		investigate_log("has consumed [key_name(user)].", INVESTIGATE_ENGINES)

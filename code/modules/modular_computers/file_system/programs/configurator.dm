@@ -12,6 +12,7 @@
 	available_on_ntnet = TRUE
 	tgui_id = "NtosConfiguration"
 	program_icon = "cog"
+	power_consumption = 40 WATT
 
 /datum/computer_file/program/computerconfig/ui_static_data(mob/user)
 	var/list/data = ..()
