@@ -199,7 +199,7 @@
 				return
 			if(tod)
 				var/tdelta = round(world.time - timeofdeath)
-				if(tdelta < (DEFIB_TIME_LIMIT))
+				if(tdelta < (DEFIB_TIME_LIMIT * 10))
 					if(!client && key)
 						holder.icon_state = "huddefib-ssd"
 						return

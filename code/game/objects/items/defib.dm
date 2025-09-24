@@ -323,7 +323,7 @@
 	var/recharge_time = 6 SECONDS // Only applies to defibs that do not require a defibrilator. See: do_success
 	var/combat = FALSE //If it penetrates armor and gives additional functionality
 	var/grab_ghost = TRUE
-	var/tlimit = DEFIB_TIME_LIMIT
+	var/tlimit = DEFIB_TIME_LIMIT * 10
 
 	var/mob/listeningTo
 
@@ -630,7 +630,7 @@
 				else if (H.ishellbound())
 					failed = span_warning("[req_defib ? "[defib]" : "[src]"] buzzes: Resuscitation failed - Patient's soul appears to be on another plane of existence.  Further attempts futile.")
 				else if (tplus > tlimit)
-					failed = span_warning("[req_defib ? "[defib]" : "[src]"] buzzes: Resuscitation failed - No intelligence pattern can be detected in patient's neural net. Immediate cloning may be required to prevent permanent loss.")
+					failed = span_warning("[req_defib ? "[defib]" : "[src]"] buzzes: Resuscitation failed - Body has decayed for too long. Further attempts futile.")
 				else if (!heart)
 					failed = span_warning("[req_defib ? "[defib]" : "[src]"] buzzes: Resuscitation failed - Patient's heart is missing.")
 				else if (heart.organ_flags & ORGAN_FAILING)
@@ -641,7 +641,7 @@
 					var/obj/item/organ/brain/BR = H.get_organ_by_type(/obj/item/organ/brain)
 					if(BR)
 						if(BR.organ_flags & ORGAN_FAILING || BR.brain_death)
-							failed = span_warning("[req_defib ? "[defib]" : "[src]"] buzzes: Resuscitation failed - Patient's brain tissue is damaged, making recovery of patient impossible via defibrillator. Further attempts futile.")
+							failed = span_warning("[req_defib ? "[defib]" : "[src]"] buzzes: Resuscitation failed - Patient's brain tissue is damaged making recovery of patient impossible via defibrillator. Further attempts futile.")
 						if(BR.suicided || BR.brainmob?.suiciding)
 							failed = span_warning("[req_defib ? "[defib]" : "[src]"] buzzes: Resuscitation failed - No intelligence pattern can be detected in patient's brain. Further attempts futile.")
 						if(H.get_ghost())

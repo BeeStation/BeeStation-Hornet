@@ -374,6 +374,7 @@
 		"surgery_nerve_ground",
 		"surgery_nerve_splice",
 		"surgery_pacify",
+		"surgery_revival",
 		"surgery_vein_thread",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
@@ -392,7 +393,6 @@
 		"surgery_brainwashing",
 		"surgery_heal_combo_upgrade_femto",
 		"surgery_zombie",
-		"surgery_revival",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
 	export_price = 5000

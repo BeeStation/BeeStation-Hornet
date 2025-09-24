@@ -319,19 +319,6 @@
 		var/tdelta = round(world.time - target.timeofdeath)
 		render_list += "<span class='alert ml-1'><b>Subject died [DisplayTimeText(tdelta)] ago.</b></span>\n"
 
-		// This being affected by fakedeath means that normal health analyzers will not have a reliable readout when treating races with fakedeath. Which is fine.
-		switch(tdelta)
-			if(DEFIB_TIME_LIMIT / 2 to DEFIB_TIME_LIMIT)
-				render_list += "<span class='alert ml-1'><b>Critical: Defibrillation viability drops to zero in [DisplayTimeText((tdelta - DEFIB_TIME_LIMIT) * -1)].</b></span>\n"
-			if (DEFIB_TIME_LIMIT to DEFIB_TIME_LIMIT * 1.5)
-				if(CONFIG_GET(flag/permadeath_enabled))
-					render_list += "<span class='alert ml-1'><b>Critical: Defibrillation window expired. Clone subject within [DisplayTimeText((tdelta - (DEFIB_TIME_LIMIT * 1.5)) * -1)] to prevent permanent loss.</b></span>\n"
-				else
-					render_list += "<span class='alert ml-1'><b>Critical: Defibrillation window expired. Cloning or alternative revival method required.</b></span>\n"
-			if (DEFIB_TIME_LIMIT * 1.5 to INFINITY)
-				if(CONFIG_GET(flag/permadeath_enabled))
-					render_list += "<span class='alert ml-1'><b>Critical: Revival window expired. Recovery of patient impossible. </b></span>\n"
-
 	/*
 	// Wounds
 	if(iscarbon(target))

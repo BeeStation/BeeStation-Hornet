@@ -171,10 +171,22 @@
 	duration = -1
 	tick_interval = 10
 	alert_type = /atom/movable/screen/alert/status_effect/stasis
+	var/last_dead_time
+
+/datum/status_effect/grouped/stasis/proc/update_time_of_death()
+	if(last_dead_time)
+		var/delta = world.time - last_dead_time
+		var/new_timeofdeath = owner.timeofdeath + delta
+		owner.timeofdeath = new_timeofdeath
+		owner.tod = station_time_timestamp(wtime=new_timeofdeath)
+		last_dead_time = null
+	if(owner.stat == DEAD)
+		last_dead_time = world.time
 
 /datum/status_effect/grouped/stasis/on_creation(mob/living/new_owner, set_duration)
 	. = ..()
 	if(.)
+		update_time_of_death()
 		owner.reagents?.end_metabolization(owner, FALSE)
 		SEND_SIGNAL(owner, COMSIG_LIVING_ENTER_STASIS)
 
@@ -185,10 +197,13 @@
 	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
 	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
 
+/datum/status_effect/grouped/stasis/tick()
+	update_time_of_death()
 
 /datum/status_effect/grouped/stasis/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
 	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
+	update_time_of_death()
 	SEND_SIGNAL(owner, COMSIG_LIVING_EXIT_STASIS)
 	return ..()
 
