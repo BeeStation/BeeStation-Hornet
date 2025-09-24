@@ -47923,6 +47923,9 @@
 	},
 /turf/open/floor/plating,
 /area/engine/break_room)
+"nec" = (
+/turf/closed/wall,
+/area/crew_quarters/bar/lounge)
 "ned" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -58010,9 +58013,6 @@
 	},
 /turf/open/floor/carpet/red,
 /area/medical/exam_room)
-"qtC" = (
-/turf/closed/wall,
-/area/crew_quarters/bar/lounge)
 "qtE" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -120375,7 +120375,7 @@ qOj
 ocL
 onZ
 rDf
-qtC
+nec
 ojS
 vAW
 fKM
@@ -120627,12 +120627,12 @@ wBR
 nUy
 uWf
 atC
-qtC
-qtC
-qtC
-qtC
-qtC
-qtC
+nec
+nec
+nec
+nec
+nec
+nec
 ojS
 ojS
 ojS
