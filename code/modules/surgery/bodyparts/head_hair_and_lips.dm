@@ -75,7 +75,7 @@
 		var/image/lip_overlay = image('icons/mob/species/human/human_face.dmi', "lips_[lip_style]", layer = CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), dir = image_dir)
 		lip_overlay.color = lip_color
 		//Emissive blocker
-		if(blocks_emissive)
+		if(blocks_emissive != FALSE)
 			lip_overlay.overlays += emissive_blocker(lip_overlay.icon, lip_overlay.icon_state, alpha = facial_hair_alpha)
 		//Offsets
 		worn_face_offset?.apply_offset(lip_overlay)
@@ -89,7 +89,7 @@
 			facial_hair_overlay = image(sprite_accessory.icon, sprite_accessory.icon_state, layer = CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER), dir = image_dir)
 			facial_hair_overlay.alpha = facial_hair_alpha
 			//Emissive blocker
-			if(blocks_emissive)
+			if(blocks_emissive != FALSE)
 				facial_hair_overlay.overlays += emissive_blocker(facial_hair_overlay.icon, facial_hair_overlay.icon_state, alpha = facial_hair_alpha)
 			//Offsets
 			worn_face_offset?.apply_offset(facial_hair_overlay)
@@ -109,7 +109,7 @@
 			hair_overlay = image(hair_sprite_accessory.icon, hair_sprite_accessory.icon_state, CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER), image_dir)
 			hair_overlay.alpha = hair_alpha
 			//Emissive blocker
-			if(blocks_emissive)
+			if(blocks_emissive != FALSE)
 				hair_overlay.overlays += emissive_blocker(hair_overlay.icon, hair_overlay.icon_state, alpha = hair_alpha)
 			//Offsets
 			worn_face_offset?.apply_offset(hair_overlay)

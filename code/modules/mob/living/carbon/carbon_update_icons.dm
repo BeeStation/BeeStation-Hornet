@@ -278,7 +278,7 @@
 	RETURN_TYPE(/list)
 
 	. = list()
-	if(blocks_emissive)
+	if(blocks_emissive != FALSE)
 		. += emissive_blocker(standing.icon, standing.icon_state, alpha = standing.alpha)
 	SEND_SIGNAL(src, COMSIG_ITEM_GET_WORN_OVERLAYS, ., standing, isinhands, icon_file)
 

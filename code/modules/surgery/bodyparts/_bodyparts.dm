@@ -875,7 +875,7 @@
 		// I am very sure that this is unnecessary, and i need to treat it as part of the return list
 		// to be able to mask it proper in case this limb is a leg.
 	if(!is_husked)
-		if(blocks_emissive)
+		if(blocks_emissive != FALSE)
 			var/atom/location = loc || owner || src
 			var/mutable_appearance/limb_em_block = emissive_blocker(limb.icon, limb.icon_state, location, layer = CALCULATE_MOB_OVERLAY_LAYER(limb.layer), alpha = limb.alpha)
 			limb_em_block.dir = image_dir
