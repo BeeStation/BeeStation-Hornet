@@ -601,7 +601,7 @@
 	category = list("initial", "Misc")
 
 /datum/design/tape
-	name = "Recorder Tape"
+	name = "Cassette Tape"
 	id = "tape"
 	build_type = AUTOLATHE
 	materials = list(/datum/material/iron = 20, /datum/material/glass = 5)
