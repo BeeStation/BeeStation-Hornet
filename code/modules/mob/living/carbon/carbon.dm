@@ -331,7 +331,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 	else if(istype(cuffs, /obj/item/restraints/handcuffs))
 		to_chat(src, span_notice("You attempt to wriggle your way out of [cuffs]..."))
-		while(cuffs.item_flags & BEING_REMOVED)
+		while(cuffs.item_flags & BEING_REMOVED && handcuffed == cuffs)
 			cuff_breakout_attempts++ //We increment these first so that long-term progress is still made even if interrupted
 			if(!do_after(src, 5 SECONDS, timed_action_flags = IGNORE_USER_LOC_CHANGE|IGNORE_HELD_ITEM, hidden = TRUE))
 				break
