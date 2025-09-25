@@ -71,16 +71,16 @@
 				dominant_moles = moles
 				dominant_id = id
 
-	if(total_moles > 0)
-		if(dominant_id)
-			var/gas_name = canister_gas[dominant_id][GAS_META][META_GAS_NAME]
-			unit_name = "Mole - Gas Canister: [gas_name]"
-		else
-			unit_name = "Mole - Mixed Gases Canister"
+	if(total_moles <= 0)
+		return 0
+		
+	if(dominant_id)
+		var/gas_name = canister_gas[dominant_id][GAS_META][META_GAS_NAME]
+		unit_name = "Mole - Gas Canister: [gas_name]"
+	else
+		unit_name = "Mole - Mixed Gases Canister"
 
-		return total_moles
-
-	return 0
+	return total_moles
 
 /datum/export/large/gas_canister/sell_object(obj/O, datum/export_report/report, dry_run = TRUE, allowed_categories = EXPORT_CARGO)
 	var/obj/machinery/portable_atmospherics/canister/C = O

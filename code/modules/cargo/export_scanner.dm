@@ -25,7 +25,7 @@
 		return FALSE
 	if(!istype(O) || !proximity || HAS_TRAIT(O, TRAIT_IGNORE_EXPORT_SCAN))
 		if(HAS_TRAIT(O, TRAIT_IGNORE_EXPORT_SCAN))
-			to_chat(user, "<span class='warning'>[O] cannot be scanned!</span>")
+			to_chat(user, span_warning("[O] cannot be scanned!"))
 			playsound(user, 'sound/machines/terminal_error.ogg', 30, TRUE)
 		return
 
@@ -50,9 +50,7 @@
 		var/datum/demand_state/demand = SSdemand.get_demand_state(O.type)
 		var/current = demand.current_demand
 		var/maximum = demand.max_demand
-		var/stock = (maximum - current)
-		if(stock < 0)	// Boilerplate
-			stock = 0
+		var/stock = max(maximum - current, 0)
 		var/obj/effect/dummy/lighting_obj/glow = new(get_turf(O))
 		glow.light_system = STATIC_LIGHT
 		QDEL_IN(glow, 0.25 SECONDS)
@@ -60,7 +58,7 @@
 			glow.set_light(1, 0.6, LIGHT_COLOR_GREEN)
 			playsound(user, 'sound/effects/fastbeep.ogg', 30)
 			balloon_alert(user, "<font color='#66c427'>Value:</font> [price] cr")
-			to_chat(user, "Current stock of [O]: <span class='cfc_orange'><b>[stock]</span>/<span class='cfc_orange'>[demand.max_demand]</b></span>. Value: <span class='cfc_green'><b>[price] cr</b></span>[O.contents.len ? " (contents included)" : ""].")
+			to_chat(user, "Current stock of [O]: <span class='cfc_orange'><b>[stock]</span>/<span class='cfc_orange'>[demand.max_demand]</b></span>. Value: <span class='cfc_green'><b>[price] cr</b></span>[length(O.contents) ? " (contents included)" : ""].")
 		else
 			glow.set_light(1, 0.6, LIGHT_COLOR_RED)
 			playsound(user, 'sound/machines/terminal_error.ogg', 30, TRUE)
@@ -81,22 +79,22 @@
 				var/gas_current = gas_demand.current_demand
 				var/gas_maximum = gas_demand.max_demand
 				var/gas_stock = (gas_maximum - gas_current)
-				to_chat(user, ("Detected: [path.name] [round(moles)] mol / Current stock: <span class='cfc_orange'><b>[gas_stock]</span>/<span class='cfc_orange'>[gas_demand.max_demand]</b></span> Value: <span class='cfc_green'><b>[get_gas_value(path, moles)] cr</b></span>"))
+				to_chat(user, "Detected: [path.name] [round(moles)] mol / Current stock: <span class='cfc_orange'><b>[gas_stock]</span>/<span class='cfc_orange'>[gas_demand.max_demand]</b></span> Value: <span class='cfc_green'><b>[get_gas_value(path, moles)] cr</b></span>")
 		var/sound_played = FALSE
 		if(O.trade_flags & TRADE_CONTRABAND)
-			to_chat(user, ("<span class='cfc_red'>CONTRABAND DETECTED:</span> <b>[O.name]</b>"))
+			to_chat(user, "<span class='cfc_red'>CONTRABAND DETECTED:</span> <b>[O.name]</b>")
 			if(!sound_played)
 				sound_played = TRUE
 				playsound(user, 'sound/machines/uplinkerror.ogg', 30, TRUE)
 		for(var/obj/thing in O.contents)
 			if(thing.trade_flags & TRADE_CONTRABAND)
-				to_chat(user, ("<span class='cfc_red'>CONTRABAND DETECTED:</span> <b>[thing.name]</b>"))
+				to_chat(user, "<span class='cfc_red'>CONTRABAND DETECTED:</span> <b>[thing.name]</b>")
 				if(!sound_played)
 					sound_played = TRUE
 					playsound(user, 'sound/machines/uplinkerror.ogg', 30, TRUE)
 
 		if(bounty_ship_item_and_contents(O, dry_run=TRUE))
-			to_chat(user, ("<span class='cfc_soul_glimmer_azure'>[O.name] is eligible for one or more <b>bounties!</b></span>"))
+			to_chat(user, "<span class='cfc_soul_glimmer_azure'>[O.name] is eligible for one or more <b>bounties!</b></span>")
 		return TRUE
 
 /obj/item/export_scanner/attack_self(mob/user, modifiers)

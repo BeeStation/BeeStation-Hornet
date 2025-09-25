@@ -57,7 +57,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 /obj/item/stock_parts/cell/calculate_price()
 	// Base cell price is 10. Price will increase related to max charge
 	// T2 cell is 100 cr for instance
-	custom_price = (maxcharge / 1000)
+	custom_price = maxcharge / 1000
 
 /obj/item/stock_parts/cell/vv_edit_var(var_name, var_value)
 	switch(var_name)

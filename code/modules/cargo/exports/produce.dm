@@ -29,4 +29,4 @@
 	if(base_price)	// Makes sure items that HAVE a value don't get completely dogged by the calculations causing it to return 0
 		return max(1, round(base_price * demand_ratio) * potency_multiplier)
 	else
-		return round((base_price * demand_ratio) * potency_multiplier)
+		return round(base_price * demand_ratio * potency_multiplier)

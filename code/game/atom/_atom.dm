@@ -46,7 +46,6 @@
 	var/trade_flags = NONE
 	/// This is the economy price of the item. This is important for exports and imports
 	var/item_price
-	// Its important that w_class is here for price calculations
 
 	//List of datums orbiting this atom
 	var/datum/component/orbiter/orbit_datum

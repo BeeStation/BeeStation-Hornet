@@ -216,25 +216,15 @@ then the player gets the profit from selling his own wasted time.
 
 	// Build item strings
 	var/list/item_strings = list()
-	for(var/k = 1; k <= names_list.len; k++)
-		var/item_name = names_list[k]
-		var/count = counts_list[k]
+	for(var/export_name in names_list)
+		var/count = counts_list[export_name]
 		if(count > 1)
-			item_strings += "[count]" + " " + item_name + "s"
+			item_strings += "[count] [item_name]s"
 		else
 			item_strings += item_name
 
-	// Join with commas, last item with "and"
-	var/item_msg = ""
-	for(var/i = 1; i <= item_strings.len; i++)
-		if(i == 1)
-			item_msg = item_strings[i]
-		else if(i == item_strings.len)
-			item_msg = item_msg + " and " + item_strings[i]
-		else
-			item_msg = item_msg + ", " + item_strings[i]
-
-	msg += item_msg
+	item_strings[length(item_strings)] = "and [item_strings[length(item_strings)]]"
+	msg += item_strings.Join(", ")
 
 	if(message)
 		msg += " " + message
