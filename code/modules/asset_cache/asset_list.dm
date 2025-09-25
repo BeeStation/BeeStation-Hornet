@@ -244,14 +244,14 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	for(var/size_id in sizes)
 		var/size = sizes[size_id]
 		var/file_path = size[SPRSZ_STRIPPED]
-		var/file_hash = rustg_hash_file("md5", file_path)
+		var/file_hash = rustg_hash_file(RUSTG_HASH_MD5, file_path)
 		SSassets.transport.register_asset("[name]_[size_id].png", file_path, file_hash=file_hash)
 	var/res_name = "spritesheet_[name].css"
 	var/fname = "data/spritesheets/[res_name]"
 	fdel(fname)
 	var/css = generate_css()
 	rustg_file_write(css, fname)
-	var/css_hash = rustg_hash_string("md5", css)
+	var/css_hash = rustg_hash_string(RUSTG_HASH_MD5, css)
 	SSassets.transport.register_asset(res_name, fcopy_rsc(fname), file_hash=css_hash)
 	fdel(fname)
 
@@ -442,10 +442,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 
 	var/start_usage = world.tick_usage
 
-	//any sprite modifications we want to do (aka, coloring a greyscaled asset)
-	inserted_icon = ModifyInserted(inserted_icon)
-	var/list/dimensions = get_icon_dimensions(inserted_icon)
-	var/size_id = "[dimensions["width"]]x[dimensions["height"]]"
+	var/size_id = "[inserted_icon.Width()]x[inserted_icon.Height()]"
 	var/size = sizes[size_id]
 
 	if (sprites[sprite_name])
@@ -471,15 +468,6 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		sprites[sprite_name] = list(size_id, 0)
 
 	SSblackbox.record_feedback("tally", "spritesheet_queued_insert_time", TICK_USAGE_TO_MS(start_usage), name)
-
-/**
- * A simple proc handing the Icon for you to modify before it gets turned into an asset.
- *
- * Arguments:
- * * I: icon being turned into an asset
- */
-/datum/asset/spritesheet/proc/ModifyInserted(icon/pre_asset)
-	return pre_asset
 
 /datum/asset/spritesheet/proc/InsertAll(prefix, icon/I, list/directions)
 	if (length(prefix))
