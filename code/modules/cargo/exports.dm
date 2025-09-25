@@ -238,15 +238,15 @@ GLOBAL_LIST_EMPTY(exports_list)
 	var/list/catchalls = list()
 
 	for(var/subtype in subtypesof(/datum/export))
-		var/datum/export/E = new subtype
-		if(!E.export_types?.len)
+		var/datum/export/current_export = new subtype
+		if(!current_export.export_types?.len)
 			continue
 
 		// Detect catch-all
-		if(istype(E, /datum/export/item_price))
-			catchalls += E
+		if(istype(current_export, /datum/export/item_price))
+			catchalls += current_export
 		else
-			GLOB.exports_list += E
+			GLOB.exports_list += current_export
 
 	// Now append catch-alls so they run last
 	GLOB.exports_list += catchalls
