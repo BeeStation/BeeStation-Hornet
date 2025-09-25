@@ -10,6 +10,31 @@ SUBSYSTEM_DEF(demand)
 		return
 	recover_obj_demands()
 
+/// Increases object demand with a slight chance to decrease
+/datum/controller/subsystem/demand/proc/recover_obj_demands()
+	for(var/typepath in demand_states)
+		var/datum/demand_state/state = demand_states[typepath]
+		if(state.current_demand < state.max_demand)
+			var/scaled_min_recovery = max(state.min_recovery, round((state.min_recovery / 50) * state.max_demand))
+			var/scaled_max_recovery = max(state.max_recovery, round((state.max_recovery / 50) * state.max_demand))
+			// Decide if demand goes up or down
+			if(prob(45)) // 45% chance to decrease demand
+				if(state.max_demand > 10)
+					// Reduce demand, but never below 0
+					state.current_demand = max(0, state.current_demand - rand(scaled_min_recovery, scaled_max_recovery))
+				else
+					state.current_demand = max(0, state.current_demand - 1)
+			else
+				if(state.max_demand > 10)
+					state.current_demand += rand(scaled_min_recovery, scaled_max_recovery)
+				else
+					state.current_demand = max(0, state.current_demand + 1)
+
+			// Cap at max_demand
+			if(state.current_demand > state.max_demand)
+				state.current_demand = state.max_demand
+	// TO_DO: Add radio message to cargo or smt (i don't know how to)
+
 /// Creates a object demand state datum and calculates max demand
 /datum/controller/subsystem/demand/proc/get_demand_state(typepath)
 	var/datum/demand_state/state = demand_states[typepath]
