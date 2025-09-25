@@ -36270,8 +36270,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/maintenance{
-	},
+/obj/machinery/door/airlock/maintenance,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 1
 	},
@@ -39574,7 +39573,7 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock{
-	name = "Custodial Closet";
+	name = "Custodial Closet"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/service/janitor,
 /turf/open/floor/iron,
