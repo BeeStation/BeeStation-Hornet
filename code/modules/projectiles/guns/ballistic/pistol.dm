@@ -172,13 +172,12 @@
 	mag_type = /obj/item/ammo_box/magazine/mm10x25
 	can_suppress = FALSE
 	worn_icon_state = "officer_pistol"
-	fire_rate = 2
 
 /obj/item/gun/ballistic/automatic/pistol/security/add_seclight_point()
 	AddComponent(/datum/component/seclite_attachable, \
 		light_overlay_icon = 'icons/obj/guns/flashlights.dmi', \
 		light_overlay = "flight", \
-		overlay_x = 19, \
+		overlay_x = 16, \
 		overlay_y = 14)
 
 /obj/item/gun/ballistic/automatic/pistol/security/examine(mob/user)

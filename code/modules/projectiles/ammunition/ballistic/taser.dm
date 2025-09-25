@@ -6,4 +6,5 @@
 	fire_sound = 'sound/weapons/taser.ogg'
 	harmful = FALSE
 	caliber = "taser cartridge"
+	harmful = FALSE
 	custom_price = 5
