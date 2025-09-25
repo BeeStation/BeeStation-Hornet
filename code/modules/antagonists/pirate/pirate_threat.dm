@@ -210,7 +210,7 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 	var/list/possible_loot = list()
 	for(var/datum/export/E in GLOB.exports_list)
 		possible_loot += E
-	var/datum/export/P
+	var/datum/export/pirate/P
 	var/atom/movable/AM
 	while(!AM && possible_loot.len)
 		P = pick_n_take(possible_loot)
@@ -401,12 +401,18 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/piratepad_control)
 // Export pirate category is irrelevant
 // export/pirate applies to living things (which don't fit the cargo shuttle) and money, which I don't see a reason not to
 
-/datum/export/ransom
+/// This only serves to be a parent type to all pirate exports for purposes of find_loot
+/datum/export/pirate
+
+/datum/export/pirate/proc/find_loot()
+	return
+
+/datum/export/pirate/ransom
 	cost = 3000
 	unit_name = "hostage"
 	export_types = list(/mob/living/carbon/human)
 
-/datum/export/ransom/proc/find_loot()
+/datum/export/pirate/ransom/find_loot()
 	var/list/head_minds = SSjob.get_living_heads()
 	var/list/head_mobs = list()
 	for(var/datum/mind/M in head_minds)
@@ -414,7 +420,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/piratepad_control)
 	if(head_mobs.len)
 		return pick(head_mobs)
 
-/datum/export/ransom/get_cost(atom/movable/AM)
+/datum/export/pirate/ransom/get_cost(atom/movable/AM)
 	var/mob/living/carbon/human/H = AM
 	if(H.stat != CONSCIOUS || !H.mind || !H.mind.assigned_role) //mint condition only
 		return 0
@@ -426,32 +432,32 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/piratepad_control)
 		else
 			return 1000
 
-/datum/export/parrot
+/datum/export/pirate/parrot
 	cost = 2000
 	unit_name = "alive parrot"
 	export_types = list(/mob/living/simple_animal/parrot)
 
-/datum/export/parrot/find_loot()
+/datum/export/pirate/parrot/find_loot()
 	for(var/mob/living/simple_animal/parrot/P in GLOB.alive_mob_list)
 		var/turf/T = get_turf(P)
 		if(T && is_station_level(T.z))
 			return P
 
-/datum/export/cash
+/datum/export/pirate/cash
 	cost = 1
 	unit_name = "bills"
 	export_types = list(/obj/item/stack/spacecash)
 
-/datum/export/cash/get_amount(obj/O)
+/datum/export/pirate/get_amount(obj/O)
 	var/obj/item/stack/spacecash/C = O
 	return ..() * C.amount * C.value
 
-/datum/export/holochip
+/datum/export/pirate/holochip
 	cost = 1
 	unit_name = "holochip"
 	export_types = list(/obj/item/holochip)
 
-/datum/export/holochip/get_cost(atom/movable/AM)
+/datum/export/pirate/holochip/get_cost(atom/movable/AM)
 	var/obj/item/holochip/H = AM
 	return H.credits
 
