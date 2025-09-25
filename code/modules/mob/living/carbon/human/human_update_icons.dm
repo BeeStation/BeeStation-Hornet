@@ -251,6 +251,14 @@ There are several things that need to be remembered:
 			return
 		my_head.worn_glasses_offset?.apply_offset(glasses_overlay)
 		overlays_standing[GLASSES_LAYER] = glasses_overlay
+
+		// We handle sunglasses and mesons and the like here
+		if(glasses.emissive_state && !(head && (head.flags_inv & HIDEEYES)) && !(wear_mask && (wear_mask.flags_inv & HIDEEYES)))
+			var/emissive_layer = GLASSES_LAYER
+			var/mutable_appearance/glasses_emissive = emissive_appearance(icon_file, glasses.emissive_state, emissive_layer, 100, filters = src.filters)
+			add_overlay(glasses_emissive)
+			ADD_LUM_SOURCE(src, LUM_SOURCE_GLASSES)
+
 	apply_overlay(GLASSES_LAYER)
 
 
@@ -861,6 +869,9 @@ generate/load female uniform sprites matching all previously decided variables
 		standing.overlays.Add(worn_overlays)
 		// Add emissive blockers for overlays
 		for (var/mutable_appearance/worn_overlay in worn_overlays)
+			// Don't add emissive blockers to emissive overlays...
+			if(worn_overlay.plane == EMISSIVE_PLANE)
+				continue
 			// Add on emissive blocker overlays
 			// Reset the layer back to below, in case we added emissives to the overlays.
 			standing.overlays.Add(emissive_blocker(worn_overlay.icon, worn_overlay.icon_state, worn_overlay.layer - 0.0001, worn_overlay.alpha))
