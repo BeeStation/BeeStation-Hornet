@@ -39,7 +39,7 @@ SUBSYSTEM_DEF(demand)
 /datum/controller/subsystem/demand/proc/get_demand_state(typepath)
 	var/datum/demand_state/state = demand_states[typepath]
 	if(isnull(state))
-		state = new typepath()
+		state = new(typepath)
 		demand_states[typepath] = state
 	return state
 
