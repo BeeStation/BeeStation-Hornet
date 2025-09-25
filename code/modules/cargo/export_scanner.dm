@@ -79,7 +79,7 @@
 				var/gas_current = gas_demand.current_demand
 				var/gas_maximum = gas_demand.max_demand
 				var/gas_stock = (gas_maximum - gas_current)
-				to_chat(user, "Detected: [path.name] [round(moles)] mol / Current stock: <span class='cfc_orange'><b>[gas_stock]</span>/<span class='cfc_orange'>[gas_demand.max_demand]</b></span> Value: <span class='cfc_green'><b>[get_gas_value(path, moles)] cr</b></span>")
+				to_chat(user, "Detected: [path.name] [round(moles)] mol / Current stock: <span class='cfc_orange'><b>[gas_stock]</span>/<span class='cfc_orange'>[gas_demand.max_demand]</b></span> Value: <span class='cfc_green'><b>[SSdemand.get_gas_value(path, moles)] cr</b></span>")
 		var/sound_played = FALSE
 		if(O.trade_flags & TRADE_CONTRABAND)
 			to_chat(user, "<span class='cfc_red'>CONTRABAND DETECTED:</span> <b>[O.name]</b>")

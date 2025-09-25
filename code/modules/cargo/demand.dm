@@ -42,20 +42,6 @@
 /datum/demand_state/proc/get_price()
 	return generated_price
 
-/// Used to return gas value based on demand, expects gas datum and moles.
-/proc/get_gas_value(datum/gas/g, moles)
-	if(moles <= 0)
-		return 0
-	// Grab demand state for this gas type
-	var/datum/demand_state/state = SSdemand.get_demand_state(g)
-	var/demand = state.current_demand / state.max_demand
-	var/base_value = g.base_value
-	var/demand_ratio = max(demand, state.min_price_factor)
-
-	var/total_value = round(base_value * moles * demand_ratio) // 0.2 * 20 * 0.2
-
-	return total_value
-
 /// Increases object demand with a slight chance to decrease
 /proc/recover_obj_demands()
 	for(var/typepath in SSdemand.demand_states)

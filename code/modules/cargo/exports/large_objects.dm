@@ -49,7 +49,7 @@
 		var/datum/gas/path = gas_id2path(id)
 		var/moles = canister_gas[id][MOLES]
 		if(moles > 0)
-			worth += get_gas_value(path, moles)
+			worth += SSdemand.get_gas_value(path, moles)
 
 	canister_mix.garbage_collect()
 	return worth
@@ -73,7 +73,7 @@
 
 	if(total_moles <= 0)
 		return 0
-		
+
 	if(dominant_id)
 		var/gas_name = canister_gas[dominant_id][GAS_META][META_GAS_NAME]
 		unit_name = "Mole - Gas Canister: [gas_name]"
