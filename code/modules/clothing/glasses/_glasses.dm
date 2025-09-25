@@ -71,7 +71,7 @@
 				H.flash_act(visual = 1)
 				H.adjust_blindness(3)
 				H.blur_eyes(5)
-				eyes.applyOrganDamage(5)
+				eyes.apply_organ_damage(5)
 
 /obj/item/clothing/glasses/meson
 	name = "optical meson scanner"
@@ -285,6 +285,7 @@
 	name = "advanced sunglasses"
 	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Has enhanced shielding which blocks flashes."
 	flash_protect = FLASH_PROTECTION_FLASH
+	custom_price = 15
 
 /obj/item/clothing/glasses/sunglasses/advanced/reagent
 	name = "beer goggles"
