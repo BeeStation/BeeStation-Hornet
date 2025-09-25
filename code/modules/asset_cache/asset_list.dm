@@ -244,7 +244,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	for(var/size_id in sizes)
 		var/size = sizes[size_id]
 		var/file_path = size[SPRSZ_STRIPPED]
-		var/file_hash = rustg_hash_file("md5", file_path)
+		var/file_hash = rustg_hash_file(RUSTG_HASH_MD5, file_path)
 		SSassets.transport.register_asset("[name]_[size_id].png", file_path, file_hash=file_hash)
 	var/res_name = "spritesheet_[name].css"
 	var/fname = "data/spritesheets/[res_name]"
@@ -348,7 +348,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		var/asset_id = find_background_urls.group[1]
 		var/file_path = "[ASSET_CROSS_ROUND_CACHE_DIRECTORY]/spritesheet.[asset_id]"
 		// Hashing it here is a *lot* faster.
-		var/hash = rustg_hash_file("md5", file_path)
+		var/hash = rustg_hash_file(RUSTG_HASH_MD5, file_path)
 		var/asset_cache_item = SSassets.transport.register_asset(asset_id, file_path, file_hash=hash)
 		var/asset_url = SSassets.transport.get_asset_url(asset_cache_item = asset_cache_item)
 		replaced_css = replacetext(replaced_css, find_background_urls.match, "background-image:url('[asset_url]')")
@@ -430,11 +430,19 @@ GLOBAL_LIST_EMPTY(asset_datums)
 // A GOON CODER SAYS BAD ICON ERRORS CAN BE THROWN BY THE "ICON CACHE"
 // APPARENTLY IT MAKES ICONS IMMUTABLE
 // LOOK INTO USING THE MUTABLE APPEARANCE PATTERN HERE
-/datum/asset/spritesheet/proc/queuedInsert(sprite_name, icon/I, icon_state="", dir=SOUTH, frame=1, moving=FALSE)
-	I = icon(I, icon_state=icon_state, dir=dir, frame=frame, moving=moving)
-	if (!I || !length(icon_states(I)))  // that direction or state doesn't exist
+/datum/asset/spritesheet/proc/queuedInsert(sprite_name, icon/inserted_icon, icon_state="", dir=SOUTH, frame=1, moving=FALSE)
+#ifdef UNIT_TESTS
+	if (inserted_icon && icon_state && !icon_exists(inserted_icon, icon_state)) // check the base icon prior to extracting the state we want
+		stack_trace("Tried to insert nonexistent icon_state '[icon_state]' from [inserted_icon] into spritesheet [name] ([type])")
 		return
-	var/size_id = "[I.Width()]x[I.Height()]"
+#endif
+	inserted_icon = icon(inserted_icon, icon_state=icon_state, dir=dir, frame=frame, moving=moving)
+	if (!inserted_icon || !length(icon_states(inserted_icon)))  // that direction or state doesn't exist
+		return
+
+	var/start_usage = world.tick_usage
+
+	var/size_id = "[inserted_icon.Width()]x[inserted_icon.Height()]"
 	var/size = sizes[size_id]
 
 	if (sprites[sprite_name])
@@ -442,16 +450,24 @@ GLOBAL_LIST_EMPTY(asset_datums)
 
 	if (size)
 		var/position = size[SPRSZ_COUNT]++
+		// Icons are essentially representations of files + modifications
+		// Because of this, byond keeps them in a cache. It does this in a really dumb way tho
+		// It's essentially a FIFO queue. So after we do icon() some amount of times, our old icons go out of cache
+		// When this happens it becomes impossible to modify them, trying to do so will instead throw a
+		// "bad icon" error.
+		// What we're doing here is ensuring our icon is in the cache by refreshing it, so we can modify it w/o runtimes.
 		var/icon/sheet = size[SPRSZ_ICON]
 		var/icon/sheet_copy = icon(sheet)
 		size[SPRSZ_STRIPPED] = null
-		sheet_copy.Insert(I, icon_state=sprite_name)
+		sheet_copy.Insert(inserted_icon, icon_state=sprite_name)
 		size[SPRSZ_ICON] = sheet_copy
 
 		sprites[sprite_name] = list(size_id, position)
 	else
-		sizes[size_id] = size = list(1, I, null)
+		sizes[size_id] = size = list(1, inserted_icon, null)
 		sprites[sprite_name] = list(size_id, 0)
+
+	SSblackbox.record_feedback("tally", "spritesheet_queued_insert_time", TICK_USAGE_TO_MS(start_usage), name)
 
 /datum/asset/spritesheet/proc/InsertAll(prefix, icon/I, list/directions)
 	if (length(prefix))

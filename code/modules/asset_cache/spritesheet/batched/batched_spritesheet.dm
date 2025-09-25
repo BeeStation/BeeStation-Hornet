@@ -208,7 +208,7 @@
 
 	for(var/size_id in sizes)
 		var/file_path = "data/spritesheets/[name]_[size_id].png"
-		var/file_hash = rustg_hash_file("md5", file_path)
+		var/file_hash = rustg_hash_file(RUSTG_HASH_MD5, file_path)
 		SSassets.transport.register_asset("[name]_[size_id].png", fcopy_rsc(file_path), file_hash)
 	var/res_name = "spritesheet_[name].css"
 	var/fname = "data/spritesheets/[res_name]"
@@ -287,11 +287,11 @@
 		if(!fexists(fname))
 			return FALSE
 
-	var/css_hash = rustg_hash_file("md5", css_fname)
+	var/css_hash = rustg_hash_file(RUSTG_HASH_MD5, css_fname)
 	SSassets.transport.register_asset("spritesheet_[name].css", fcopy_rsc(css_fname), file_hash=css_hash)
 	for(var/size_id in sizes)
 		var/fname = "data/spritesheets/[name]_[size_id].png"
-		var/hash = rustg_hash_file("md5", fname)
+		var/hash = rustg_hash_file(RUSTG_HASH_MD5, fname)
 		SSassets.transport.register_asset("[name]_[size_id].png", fcopy_rsc(fname), file_hash=hash)
 
 	return TRUE
