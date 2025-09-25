@@ -104,7 +104,11 @@ then the player gets the profit from selling his own wasted time.
 	var/datum/demand_state/state = SSdemand.get_demand_state(object.type)
 
 	// Determine base price
-	var/base_price = state.generated_price || cost
+	var/base_price
+	if(state.generated_price)
+		base_price = state.generated_price
+	else
+		base_price = cost
 
 	var/demand_ratio = state.current_demand / state.max_demand
 	demand_ratio = max(demand_ratio, state.min_price_factor)
