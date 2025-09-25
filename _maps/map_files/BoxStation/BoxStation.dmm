@@ -3825,6 +3825,7 @@
 /obj/effect/turf_decal/trimline/white/warning_offset{
 	dir = 1
 	},
+/obj/effect/landmark/start/janitor,
 /turf/open/floor/iron/ameridiner,
 /area/janitor)
 "aSn" = (
@@ -4291,9 +4292,6 @@
 /turf/open/floor/iron,
 /area/hallway/primary/port)
 "aWD" = (
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 6
 	},
@@ -4313,6 +4311,7 @@
 	pixel_x = 26;
 	pixel_y = -4
 	},
+/obj/machinery/light,
 /turf/open/floor/iron,
 /area/janitor)
 "aWF" = (
@@ -31306,10 +31305,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
-"iRj" = (
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/turf/closed/wall/r_wall,
-/area/hallway/primary/port)
 "iRk" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -39553,7 +39548,6 @@
 /area/ai_monitored/turret_protected/ai)
 "mcF" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/landmark/event_spawn,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -52178,6 +52172,7 @@
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /mob/living/simple_animal/kalo,
+/obj/effect/landmark/event_spawn,
 /turf/open/floor/iron,
 /area/janitor)
 "rea" = (
@@ -94000,7 +93995,7 @@ aaa
 gXs
 aaa
 aaa
-iRj
+fHM
 wCW
 aLE
 aul
