@@ -102,7 +102,7 @@
 	stamina = 30
 	bleed = 40
 
-/obj/item/clothing/shoes/magboots/commando/attack_self(mob/user) //Code for the passive no-slip of the commando magboots to always apply, kind of a shit code solution though.
+/obj/item/clothing/shoes/magboots/commando/attack_self(mob/user)
 	. = ..()
 	clothing_flags |= NOSLIP
 
