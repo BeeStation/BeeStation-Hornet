@@ -166,12 +166,18 @@
 // Security
 /obj/item/gun/ballistic/automatic/pistol/security
 	name = "NPS-10"
-	desc = "Standard APS firearm for on-station law enforcement. Low-velocity and unlikely to breach the hull. Uses 10x25mm ammo."
+	desc = "Standard APS firearm for on-station law enforcement. Low-velocity and unlikely to breach the hull. Uses x200 LAW ammo cartridges."
 	icon_state = "sec"
 	w_class = WEIGHT_CLASS_LARGE
-	mag_type = /obj/item/ammo_box/magazine/mm10x25
+	mag_type = /obj/item/ammo_box/magazine/x200law
 	can_suppress = FALSE
 	worn_icon_state = "officer_pistol"
+	alarmed = TRUE
+	rack_sound = 'sound/weapons/nps10/NPS-rack.ogg'
+	load_empty_sound = 'sound/weapons/nps10/NPS-load.ogg'
+	bolt_drop_sound = 'sound/weapons/nps10/NPS-boltdrop.ogg'
+	lock_back_sound = 'sound/weapons/nps10/NPS-lockback.ogg'
+	fire_sound = 'sound/weapons/nps10/NPS-fire.ogg'
 
 /obj/item/gun/ballistic/automatic/pistol/security/add_seclight_point()
 	AddComponent(/datum/component/seclite_attachable, \
@@ -186,7 +192,7 @@
 
 /obj/item/gun/ballistic/automatic/pistol/security/examine_more(mob/user)
 	. = ..()
-	. += "<i>The corporate-issue NPS-10 is a slim, nondescript 10mm sidearm built for reliability on a budget. \
+	. += "<i>The corporate-issue NPS-10 is a slim, nondescript sidearm built for reliability on a budget. \
 			Its brushed-gray slide and ergonomic polymer grip keep it unflashy, while the semi-auto action with \
 			optional two-round burst and 12-round magazine ensure effective self defense when called upon. \
 			Designed to blend into any uniform yet hold its own in close quarters, it’s the pragmatic choice for \

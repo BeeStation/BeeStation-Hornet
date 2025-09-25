@@ -45,10 +45,10 @@
 	damage = 15
 	fire_stacks = 2
 
-// 10x25mm (Secoff, NT proprietary)
+// x200law (Secoff, NT proprietary)
 
-/obj/projectile/bullet/c10x25mm
-	name = "10x25mm bullet"
+/obj/projectile/bullet/x200law
+	name = "x200 LAW bullet"
 	damage = 22
 	armour_penetration = 0
 	bleed_force = BLEED_CUT

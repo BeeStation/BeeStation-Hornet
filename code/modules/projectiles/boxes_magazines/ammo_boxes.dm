@@ -77,18 +77,18 @@
 	ammo_type = /obj/item/ammo_casing/c9mm
 	max_ammo = 30
 
-/obj/item/ammo_box/c10x25mm
-	name = "ammo box (10x25mm NPS)"
+/obj/item/ammo_box/x200law
+	name = "ammo box (x200 LAW NPS)"
 	icon_state = "45box"
-	ammo_type = /obj/item/ammo_casing/c10x25mm
+	ammo_type = /obj/item/ammo_casing/x200law
 	max_ammo = 30
 
-/obj/item/ammo_box/pouch/c10x25mm
-	name = "ammo pouch (10x25mm)"
-	desc = "12 10x25mm NPS bullets in a disposable paper package."
+/obj/item/ammo_box/pouch/x200law
+	name = "ammo pouch (x200 LAW)"
+	desc = "8 x200 LAW NPS bullets in a disposable paper package."
 	icon_state = "bagobullets_alt_10mm"
-	ammo_type = /obj/item/ammo_casing/c10x25mm
-	max_ammo = 12
+	ammo_type = /obj/item/ammo_casing/x200law
+	max_ammo = 8
 	custom_price = 100
 	custom_premium_price = 100
 

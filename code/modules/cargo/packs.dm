@@ -387,14 +387,14 @@
 	crate_name = "pistol crate"
 
 /datum/supply_pack/security/secpistol_ammo
-	name = "10x25mm NPS ammo Crate"
-	desc = "A box of 10 by 25mm steel-cartridged low velocity ammo for law enforcement firearms, and 3 twelve-packs alongside. Requires Security access to open."
+	name = "x200 LAW - NPS ammo Crate"
+	desc = "A box of x200 LAW; steel-cartridged low velocity ammo for law enforcement firearms, and 3 twelve-packs alongside. Requires Security access to open."
 	cost = 950
 	max_supply = 2
-	contains = list(/obj/item/ammo_box/c10x25mm,
-					/obj/item/ammo_box/pouch/c10x25mm,
-					/obj/item/ammo_box/pouch/c10x25mm,
-					/obj/item/ammo_box/pouch/c10x25mm)
+	contains = list(/obj/item/ammo_box/x200law,
+					/obj/item/ammo_box/pouch/x200law,
+					/obj/item/ammo_box/pouch/x200law,
+					/obj/item/ammo_box/pouch/x200law)
 	crate_name = "ammo crate"
 
 /datum/supply_pack/security/secpistol_mags
@@ -402,9 +402,9 @@
 	desc = "Three standard issue NPS-10 compatible magazines for law enforcement firearms. Does not come pre-loaded. Requires Security access to open."
 	cost = 1200
 	max_supply = 2
-	contains = list(/obj/item/ammo_box/magazine/mm10x25/empty,
-					/obj/item/ammo_box/magazine/mm10x25/empty,
-					/obj/item/ammo_box/magazine/mm10x25/empty)
+	contains = list(/obj/item/ammo_box/magazine/x200law/empty,
+					/obj/item/ammo_box/magazine/x200law/empty,
+					/obj/item/ammo_box/magazine/x200law/empty)
 	crate_name = "magazine crate"
 
 /datum/supply_pack/security/taser

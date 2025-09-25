@@ -66,9 +66,9 @@
 
 // Seccie
 
-/obj/item/ammo_casing/c10x25mm
-	name = "10x25mm bullet casing"
-	desc = "A 10x25mm bullet casing."
-	caliber = "10x25mm"
+/obj/item/ammo_casing/x200law
+	name = "x200 LAW bullet casing"
+	desc = "A x200 LAW bullet casing."
+	caliber = "x200 LAW"
 	icon_state = "s-casing_steel"
-	projectile_type = /obj/projectile/bullet/c10x25mm
+	projectile_type = /obj/projectile/bullet/x200law

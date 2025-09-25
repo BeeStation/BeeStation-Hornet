@@ -56,7 +56,7 @@
 /obj/effect/loot_jobscale/armoury/pistol_ammo
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "sec"
-	loot = list(/obj/item/ammo_box/pouch/c10x25mm)
+	loot = list(/obj/item/ammo_box/pouch/x200law)
 	fan_out_items = TRUE
 	minimum = 6
 	linear_scaling_rate = 2
@@ -64,7 +64,7 @@
 /obj/effect/loot_jobscale/armoury/pistol_ammo_box
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "sec"
-	loot = list(/obj/item/ammo_box/c10x25mm)
+	loot = list(/obj/item/ammo_box/x200law)
 	fan_out_items = TRUE
 	minimum = 1
 	linear_scaling_rate = 0.4
