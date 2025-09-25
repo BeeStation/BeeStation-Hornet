@@ -1,3 +1,9 @@
+/datum/export/singulo //failsafe in case someone decides to ship a live singularity to CentCom without the corresponding bounty
+	cost = 1
+	unit_name = "singularity"
+	export_types = list(/obj/anomaly/singularity)
+	include_subtypes = FALSE
+
 /datum/export/singulo/total_printout(datum/export_report/ex, notes = TRUE)
 	. = ..()
 	if(. && notes)
