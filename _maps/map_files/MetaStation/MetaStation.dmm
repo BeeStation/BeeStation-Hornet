@@ -1288,9 +1288,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
 /obj/structure/chair/stool/bar{
 	dir = 1
 	},
@@ -10802,6 +10799,11 @@
 	},
 /obj/effect/turf_decal/siding/green,
 /obj/effect/landmark/navigate_destination,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron,
 /area/hydroponics)
 "bEs" = (
@@ -18184,6 +18186,11 @@
 /obj/effect/turf_decal/siding/green{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/iron,
 /area/hydroponics)
 "cWA" = (
@@ -21104,6 +21111,10 @@
 /obj/effect/turf_decal/siding/green{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/iron,
 /area/hydroponics)
 "dPP" = (
@@ -21899,9 +21910,6 @@
 /obj/effect/turf_decal/trimline/green/corner{
 	dir = 8
 	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 1
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
@@ -21914,6 +21922,14 @@
 	},
 /obj/effect/turf_decal/siding/green/corner{
 	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
 	},
 /turf/open/floor/iron,
 /area/hydroponics)
@@ -23686,9 +23702,6 @@
 /turf/open/floor/iron,
 /area/engine/break_room)
 "eIP" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
 	},
@@ -23696,6 +23709,9 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "eJq" = (
@@ -24610,18 +24626,17 @@
 /turf/open/floor/iron/white,
 /area/science/research)
 "fbS" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/secondary)
@@ -26425,14 +26440,14 @@
 /turf/open/floor/circuit/telecomms,
 /area/maintenance/department/science/xenobiology)
 "fIK" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "fIL" = (
@@ -26831,15 +26846,15 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=8-Central-to-Aft";
 	location = "7.5-Starboard-Aft-Corner"
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
@@ -27296,9 +27311,6 @@
 	location = "Bar"
 	},
 /obj/structure/plasticflaps/opaque,
-/obj/structure/disposalpipe/segment{
-	dir = 6
-	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar/atrium)
 "fVl" = (
@@ -27803,12 +27815,11 @@
 /turf/open/space,
 /area/solar/starboard/aft)
 "gev" = (
-/obj/effect/mapping_helpers/airlock/locked,
-/obj/machinery/door/airlock/freezer,
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
-/obj/machinery/atmospherics/pipe/layer_manifold/supply/hidden,
 /obj/structure/disposalpipe/segment,
+/obj/effect/mapping_helpers/airlock/locked,
+/obj/machinery/door/airlock/freezer,
 /turf/open/floor/iron/kitchen_coldroom/freezerfloor,
 /area/crew_quarters/kitchen/coldroom)
 "geE" = (
@@ -29309,6 +29320,23 @@
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
+"gJo" = (
+/obj/effect/turf_decal/trimline/green/warning{
+	dir = 1
+	},
+/obj/effect/turf_decal/trimline/green/warning,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/green{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/green,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/hydroponics)
 "gJs" = (
 /obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
@@ -29650,9 +29678,6 @@
 /turf/open/floor/iron,
 /area/maintenance/starboard/secondary)
 "gPn" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
 	dir = 4
@@ -29661,6 +29686,9 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment,
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "gPy" = (
@@ -30614,7 +30642,6 @@
 /turf/open/floor/iron/dark,
 /area/storage/tech)
 "hhH" = (
-/obj/effect/decal/cleanable/cobweb,
 /obj/machinery/light/small/directional/north,
 /turf/open/floor/plating,
 /area/maintenance/starboard/secondary)
@@ -31221,7 +31248,7 @@
 "hqj" = (
 /obj/effect/turf_decal/trimline/green/warning,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 1
+	dir = 4
 	},
 /obj/effect/turf_decal/trimline/green/warning{
 	dir = 1
@@ -32546,7 +32573,6 @@
 	},
 /obj/item/weldingtool,
 /obj/item/clothing/glasses/welding,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron,
@@ -38726,6 +38752,15 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
+"jWW" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/turf/open/floor/plating,
+/area/maintenance/starboard)
 "jXr" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -41949,9 +41984,6 @@
 /turf/open/floor/iron,
 /area/science/robotics/lab)
 "lhi" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
 	dir = 4
 	},
@@ -41963,6 +41995,9 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 9
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
@@ -42551,14 +42586,12 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/security/main)
 "ltg" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/maintenance/starboard/secondary)
 "ltk" = (
@@ -42712,6 +42745,10 @@
 /obj/effect/turf_decal/siding/green/corner,
 /obj/effect/turf_decal/siding/green/corner{
 	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
 	},
 /turf/open/floor/iron,
 /area/hydroponics)
@@ -52727,9 +52764,6 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
@@ -53831,6 +53865,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/siding/green,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/hydroponics)
 "pbb" = (
@@ -57663,6 +57698,11 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/effect/mapping_helpers/airlock/access/all/service/hydroponics,
 /obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/iron,
 /area/hydroponics)
 "qmx" = (
@@ -63210,9 +63250,6 @@
 /turf/open/floor/wood,
 /area/library)
 "sic" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/machinery/door/airlock/public/glass{
 	name = "Hydroponics Storage"
 	},
@@ -63223,6 +63260,9 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "sig" = (
@@ -63734,6 +63774,9 @@
 /obj/effect/turf_decal/siding/green,
 /obj/effect/turf_decal/siding/green/corner{
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
 	},
 /turf/open/floor/iron,
 /area/hydroponics)
@@ -66789,14 +66832,14 @@
 /turf/open/floor/iron,
 /area/engine/storage_shared)
 "trI" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "trY" = (
@@ -68672,9 +68715,6 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/table/wood,
 /obj/item/candydispenser{
 	pixel_y = 11
@@ -70934,6 +70974,12 @@
 /area/engine/engineering)
 "uKl" = (
 /obj/effect/decal/cleanable/glass,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/decal/cleanable/cobweb,
 /turf/open/floor/plating,
 /area/maintenance/starboard/secondary)
 "uKt" = (
@@ -71048,12 +71094,6 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -77880,6 +77920,9 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
 /turf/open/floor/iron,
 /area/maintenance/starboard/secondary)
 "wWU" = (
@@ -78014,6 +78057,9 @@
 /area/library)
 "wYN" = (
 /obj/machinery/light/small/directional/east,
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "wYQ" = (
@@ -79118,9 +79164,6 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/security/brig)
 "xrY" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -79139,7 +79182,10 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/service/hydroponics,
 /obj/effect/turf_decal/trimline/green/corner,
-/turf/open/floor/iron/greyish,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron,
 /area/hydroponics)
 "xsb" = (
 /obj/machinery/vending/wardrobe/det_wardrobe,
@@ -82135,6 +82181,9 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2,
 /obj/structure/disposalpipe/sorting/mail/destination/hydroponics{
 	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/secondary)
@@ -116008,7 +116057,7 @@ oat
 srj
 tKO
 cfb
-ntb
+gJo
 cfb
 tJr
 hMg
@@ -118323,7 +118372,7 @@ yfP
 qIa
 yfP
 aDY
-mqu
+ovj
 oEW
 bOj
 ovj
@@ -118580,7 +118629,7 @@ iLE
 uvI
 wKT
 aDY
-hhH
+mqu
 eoF
 voR
 ovj
@@ -119351,7 +119400,7 @@ alq
 kex
 alq
 ovj
-nbv
+hhH
 llq
 lkV
 pzW
@@ -120882,7 +120931,7 @@ alq
 apc
 apc
 pVs
-kUj
+jWW
 xXj
 nBX
 qhZ
