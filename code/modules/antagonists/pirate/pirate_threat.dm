@@ -206,7 +206,7 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 
 /obj/machinery/loot_locator/proc/find_random_loot()
 	if(!GLOB.exports_list.len)
-		setupExports()
+		setup_exports()
 	var/list/possible_loot = list()
 	for(var/datum/export/E in GLOB.exports_list)
 		possible_loot += E

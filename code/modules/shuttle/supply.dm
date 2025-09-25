@@ -185,7 +185,7 @@ GLOBAL_LIST_INIT(whitelisted_cargo_types, typecacheof(list(
 	var/presale_points = D.account_balance
 
 	if(!GLOB.exports_list.len) // No exports list? Generate it!
-		setupExports()
+		setup_exports()
 
 	var/msg = ""
 	var/matched_bounty = FALSE
