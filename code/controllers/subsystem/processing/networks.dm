@@ -3,7 +3,6 @@ SUBSYSTEM_DEF(networks)
 	priority = FIRE_PRIORITY_NETWORKS
 	wait = 5
 	flags = SS_KEEP_TIMING
-	init_order = INIT_ORDER_NETWORKS
 
 	var/list/relays = list()
 	/// Legacy ntnet lookup for software.  Should be changed latter so don't rely on this

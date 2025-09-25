@@ -2,7 +2,6 @@ SUBSYSTEM_DEF(natural_light_cycle)
 	name = "Natural Light Cycle"
 	wait = 600
 	flags = SS_KEEP_TIMING
-	init_order = INIT_ORDER_NATURAL_LIGHT
 	var/list/cycle_colours = null
 
 /datum/controller/subsystem/natural_light_cycle/Initialize()

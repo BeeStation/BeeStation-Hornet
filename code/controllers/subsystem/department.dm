@@ -1,7 +1,7 @@
 
 SUBSYSTEM_DEF(department)
 	name = "Departments"
-	init_order = INIT_ORDER_DEPARTMENT
+	init_stage = INITSTAGE_EARLY
 	flags = SS_NO_FIRE
 
 	/// full list of department datums.

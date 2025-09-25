@@ -5,7 +5,6 @@
 SUBSYSTEM_DEF(zcopy)
 	name = "Z-Copy"
 	wait = 1
-	init_order = INIT_ORDER_ZCOPY
 	priority = FIRE_PRIORITY_ZCOPY
 	runlevels = RUNLEVELS_DEFAULT | RUNLEVEL_LOBBY
 

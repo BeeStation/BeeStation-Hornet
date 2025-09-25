@@ -60,7 +60,7 @@
 		"borg_self_monitor.gif" = 'icons/program_icons/borg_self_monitor.gif'
 	)
 
-/datum/asset/simple/circuit_assets
+/datum/asset/simple/plane_background
 	assets = list(
 		"grid_background.png" = 'icons/ui_icons/tgui/grid_background.png'
 	)
