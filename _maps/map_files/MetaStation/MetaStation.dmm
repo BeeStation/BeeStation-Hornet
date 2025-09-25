@@ -19325,7 +19325,11 @@
 /obj/effect/turf_decal/siding/thinplating_new/dark/corner{
 	dir = 4
 	},
-/turf/open/floor/iron/dark,
+/obj/effect/turf_decal/tile/dark{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/dark,
+/turf/open/floor/iron,
 /area/crew_quarters/locker)
 "dhK" = (
 /obj/structure/closet,
@@ -58483,6 +58487,19 @@
 	},
 /turf/open/floor/iron/smooth_large,
 /area/security/warden)
+"qqQ" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/dark{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/dark,
+/turf/open/floor/iron,
+/area/crew_quarters/locker)
 "qqZ" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/structure/disposalpipe/segment{
@@ -72647,6 +72664,7 @@
 /obj/effect/turf_decal/tile/dark{
 	dir = 1
 	},
+/obj/effect/turf_decal/tile/dark,
 /turf/open/floor/iron,
 /area/crew_quarters/locker)
 "vep" = (
@@ -115768,7 +115786,7 @@ aKl
 kZJ
 iLd
 dhD
-hyz
+qqQ
 lzr
 jdD
 aTy
