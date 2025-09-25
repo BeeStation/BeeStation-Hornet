@@ -737,8 +737,9 @@ world
 	var/render_icon = curicon
 
 	if (render_icon)
-		if(!icon_exists(curicon, curstate))
-			if(icon_exists(curicon, ""))
+		var/curstates = icon_states(curicon)
+		if(!(curstate in curstates))
+			if ("" in curstates)
 				curstate = ""
 			else
 				render_icon = FALSE
@@ -1406,37 +1407,28 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 	var/icon/I = getFlatIcon(thing)
 	return icon2html(I, target, sourceonly = sourceonly)
 
-/// Checks whether a given icon state exists in a given icon file. If `file` and `state` both exist,
-/// this will return `TRUE` - otherwise, it will return `FALSE`.
-///
-/// If you want a stack trace to be output when the given state/file doesn't exist, use
-/// `/proc/icon_exists_or_scream()`.
-/proc/icon_exists(file, state)
+//Returns TRUE if the given iconstate is located in the given file, otherwise returns false.
+/proc/icon_exists(file, state, scream)
 	var/static/list/icon_states_cache = list()
-	if(isnull(file) || isnull(state))
-		return FALSE //This is common enough that it shouldn't panic, imo.
-
-	if(isnull(icon_states_cache[file]))
-		icon_states_cache[file] = list()
-		for(var/istate in icon_states(file))
-			icon_states_cache[file][istate] = TRUE
-
-	return !isnull(icon_states_cache[file][state])
-
-/// Functions the same as `/proc/icon_exists()`, but with the addition of a stack trace if the
-/// specified file or state doesn't exist.
-///
-/// Stack traces will only be output once for each file.
-/proc/icon_exists_or_scream(file, state)
-	if(icon_exists(file, state))
+	if(icon_states_cache[file]?[state])
 		return TRUE
 
-	var/static/list/screams = list()
-	if(!isnull(screams[file]))
-		screams[file] = TRUE
-		stack_trace("State [state] in file [file] does not exist.")
+	if(icon_states_cache[file]?[state] == FALSE)
+		return FALSE
 
-	return FALSE
+	var/list/states = icon_states(file)
+
+	if(!icon_states_cache[file])
+		icon_states_cache[file] = list()
+
+	if(state in states)
+		icon_states_cache[file][state] = TRUE
+		return TRUE
+	else
+		icon_states_cache[file][state] = FALSE
+		if(scream)
+			stack_trace("Icon Lookup for state: [state] in file [file] failed.")
+		return FALSE
 
 /**
  * Center's an image.
@@ -1495,12 +1487,6 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 
 /// Returns a list containing the width and height of an icon file
 /proc/get_icon_dimensions(icon_path)
-	// Icons can be a real file(), a rsc backed file(), a dynamic rsc (dyn.rsc) reference (known as a cache reference in byond docs), or an /icon which is pointing to one of those.
-	// Runtime generated dynamic icons are an unbounded concept cache identity wise, the same icon can exist millions of ways and holding them in a list as a key can lead to unbounded memory usage if called often by consumers.
-	// Check distinctly that this is something that has this unspecified concept, and thus that we should not cache.
-	if (!isfile(icon_path) || !length("[icon_path]"))
-		var/icon/my_icon = icon(icon_path)
-		return list("width" = my_icon.Width(), "height" = my_icon.Height())
 	if (isnull(GLOB.icon_dimensions[icon_path]))
 		var/icon/my_icon = icon(icon_path)
 		GLOB.icon_dimensions[icon_path] = list("width" = my_icon.Width(), "height" = my_icon.Height())
