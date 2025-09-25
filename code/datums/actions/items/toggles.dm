@@ -8,8 +8,8 @@
 /datum/action/item_action/toggle_light
 	name = "Toggle Light"
 
-/datum/action/item_action/toggle_crimescene
-	name = "Toggle Crimescene"
+/datum/action/item_action/toggle_crimesigns
+	name = "Declare Exclusion Zone"
 
 /datum/action/item_action/toggle_computer_light
 	name = "Toggle Flashlight"
