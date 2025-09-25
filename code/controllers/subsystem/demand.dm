@@ -19,13 +19,13 @@ SUBSYSTEM_DEF(demand)
 	return state
 
 /// Used to return gas value based on demand, expects gas datum and moles.
-/datum/controller/subsystem/demand/proc/get_gas_value(datum/gas/g, moles)
+/datum/controller/subsystem/demand/proc/get_gas_value(datum/gas/current_gas, moles)
 	if(moles <= 0)
 		return 0
 	// Grab demand state for this gas type
-	var/datum/demand_state/state = SSdemand.get_demand_state(g)
+	var/datum/demand_state/state = SSdemand.get_demand_state(current_gas)
 	var/demand = state.current_demand / state.max_demand
-	var/base_value = g.base_value
+	var/base_value = current_gas.base_value
 	var/demand_ratio = max(demand, state.min_price_factor)
 
 	var/total_value = round(base_value * moles * demand_ratio) // 0.2 * 20 * 0.2
