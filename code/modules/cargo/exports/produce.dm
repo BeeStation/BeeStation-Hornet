@@ -13,7 +13,7 @@
 	var/datum/demand_state/state = SSdemand.get_demand_state(produce.type)
 
 	// Determine base price
-	var/base_price = state.generated_price || init_cost
+	var/base_price = state.generated_price || cost
 
 	var/demand_ratio = state.current_demand / state.max_demand
 	demand_ratio = max(demand_ratio, state.min_price_factor)

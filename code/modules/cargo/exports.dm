@@ -82,16 +82,12 @@ then the player gets the profit from selling his own wasted time.
 	/// Types excluded from export
 	var/list/exclude_types = list()
 
-	//cost includes elasticity, this does not.
-	var/init_cost
-
 	//All these need to be present in export call parameter for this to apply.
 	var/export_category = EXPORT_CARGO
 
 /datum/export/New()
 	..()
 	START_PROCESSING(SSprocessing, src)
-	init_cost = cost
 	export_types = typecacheof(export_types, ignore_root_path = FALSE, only_root_path = !include_subtypes)
 	exclude_types = typecacheof(exclude_types)
 
@@ -108,7 +104,7 @@ then the player gets the profit from selling his own wasted time.
 	var/datum/demand_state/state = SSdemand.get_demand_state(object.type)
 
 	// Determine base price
-	var/base_price = state.generated_price || init_cost
+	var/base_price = state.generated_price || cost
 
 	var/demand_ratio = state.current_demand / state.max_demand
 	demand_ratio = max(demand_ratio, state.min_price_factor)
