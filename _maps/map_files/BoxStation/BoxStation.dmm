@@ -4364,9 +4364,11 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "aXk" = (
+/obj/effect/mapping_helpers/airlock/access/all/service/janitor,
 /obj/machinery/door/airlock/maintenance{
-	req_access_txt = "26"
+	name = "Janitorial Maintenance Access"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/service/maintenance,
 /turf/open/floor/plating,
 /area/janitor)
 "aXq" = (
@@ -36269,12 +36271,12 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/maintenance,
 /turf/open/floor/plating,
 /area/maintenance/port)
 "kIP" = (
@@ -39573,8 +39575,8 @@
 	},
 /obj/machinery/door/airlock{
 	name = "Custodial Closet";
-	req_access_txt = "26"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/service/janitor,
 /turf/open/floor/iron,
 /area/janitor)
 "mcP" = (
