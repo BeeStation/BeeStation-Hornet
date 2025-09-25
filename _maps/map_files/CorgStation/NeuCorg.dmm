@@ -70,7 +70,7 @@
 /turf/open/floor/wood,
 /area/space)
 "aB" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 4
 	},
 /obj/structure/cable/yellow{
@@ -204,7 +204,7 @@
 /turf/open/floor/carpet,
 /area/space)
 "ba" = (
-/obj/effect/turf_decal/siding/white/corner{
+/obj/effect/turf_decal/siding/light_gray/corner{
 	dir = 4
 	},
 /obj/structure/cable/yellow{
@@ -501,8 +501,7 @@
 /turf/open/floor/iron/dark,
 /area/space)
 "cQ" = (
-/obj/effect/turf_decal/siding/brown/corner{
-	color = "#774732";
+/obj/effect/turf_decal/siding/dark_brown/corner{
 	dir = 1
 	},
 /turf/open/floor/wood,
@@ -524,7 +523,7 @@
 /area/space)
 "dd" = (
 /obj/structure/table/wood,
-/obj/effect/turf_decal/siding/white,
+/obj/effect/turf_decal/siding/light_gray,
 /obj/item/paper_bin{
 	pixel_x = 2;
 	pixel_y = 10
@@ -550,9 +549,7 @@
 	dir = 1
 	},
 /obj/structure/chair/stool/bar/directional/north,
-/obj/effect/turf_decal/siding/brown{
-	color = "#774732"
-	},
+/obj/effect/turf_decal/siding/dark_brown,
 /turf/open/floor/wood,
 /area/space)
 "dh" = (
@@ -773,7 +770,7 @@
 /turf/open/floor/iron/smooth_large,
 /area/space)
 "fA" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment{
@@ -887,7 +884,10 @@
 /turf/open/floor/wood/big,
 /area/space)
 "fT" = (
-/obj/structure/fluff/hedge/opaque,
+/obj/structure/fluff/hedge{
+	icon_state = "hedge-4"
+	},
+/obj/structure/railing/perspective/wood,
 /turf/open/floor/wood,
 /area/space)
 "fU" = (
@@ -1089,8 +1089,7 @@
 /obj/effect/turf_decal/siding/dirt{
 	dir = 9
 	},
-/obj/effect/turf_decal/siding{
-	color = "#535c5b";
+/obj/effect/turf_decal/siding/slate{
 	dir = 9
 	},
 /turf/open/floor/grass/no_border,
@@ -1148,8 +1147,8 @@
 /turf/open/floor/wood/big,
 /area/space)
 "hN" = (
-/obj/effect/turf_decal/siding/white/corner,
-/obj/effect/turf_decal/siding/white/corner{
+/obj/effect/turf_decal/siding/light_gray/corner,
+/obj/effect/turf_decal/siding/light_gray/corner{
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment{
@@ -1192,7 +1191,7 @@
 /turf/open/floor/wood/big,
 /area/space)
 "ia" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/brown{
@@ -1234,18 +1233,18 @@
 /turf/open/floor/iron/textured_half,
 /area/space)
 "it" = (
-/obj/effect/turf_decal/siding/white/corner{
+/obj/effect/turf_decal/siding/light_gray/corner{
 	color = "#FFFFFF"
 	},
-/obj/effect/turf_decal/siding/white/corner{
+/obj/effect/turf_decal/siding/light_gray/corner{
 	color = "#FFFFFF";
 	dir = 1
 	},
-/obj/effect/turf_decal/siding/white/corner{
+/obj/effect/turf_decal/siding/light_gray/corner{
 	color = "#FFFFFF";
 	dir = 4
 	},
-/obj/effect/turf_decal/siding/white/corner{
+/obj/effect/turf_decal/siding/light_gray/corner{
 	color = "#FFFFFF";
 	dir = 8
 	},
@@ -1292,7 +1291,7 @@
 /turf/open/floor/wood,
 /area/space)
 "iO" = (
-/obj/effect/turf_decal/siding{
+/obj/effect/turf_decal/siding/white{
 	dir = 5
 	},
 /obj/structure/reagent_dispensers/nutriment/fat/oil,
@@ -1310,18 +1309,18 @@
 /turf/open/floor/plating,
 /area/space)
 "jn" = (
-/obj/effect/turf_decal/siding/white/corner{
+/obj/effect/turf_decal/siding/light_gray/corner{
 	color = "#FFFFFF";
 	dir = 1
 	},
-/obj/effect/turf_decal/siding/white/corner{
+/obj/effect/turf_decal/siding/light_gray/corner{
 	color = "#FFFFFF"
 	},
-/obj/effect/turf_decal/siding/white/corner{
+/obj/effect/turf_decal/siding/light_gray/corner{
 	color = "#FFFFFF";
 	dir = 4
 	},
-/obj/effect/turf_decal/siding/white/corner{
+/obj/effect/turf_decal/siding/light_gray/corner{
 	color = "#FFFFFF";
 	dir = 8
 	},
@@ -1359,7 +1358,8 @@
 /area/space)
 "jO" = (
 /obj/structure/fluff/hedge{
-	pixel_y = 5
+	pixel_y = 5;
+	icon_state = "hedge-2"
 	},
 /turf/open/floor/iron/smooth_half{
 	dir = 1
@@ -1394,9 +1394,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/obj/effect/turf_decal/siding/brown/corner{
-	color = "#774732"
-	},
+/obj/effect/turf_decal/siding/dark_brown/corner,
 /turf/open/floor/wood,
 /area/space)
 "kt" = (
@@ -1820,7 +1818,7 @@
 /turf/open/floor/wood,
 /area/space)
 "ny" = (
-/obj/effect/turf_decal/siding{
+/obj/effect/turf_decal/siding/white{
 	dir = 1
 	},
 /turf/open/floor/iron/freezer,
@@ -1936,8 +1934,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/obj/effect/turf_decal/siding/brown/corner{
-	color = "#774732";
+/obj/effect/turf_decal/siding/dark_brown/corner{
 	dir = 8
 	},
 /turf/open/floor/wood,
@@ -1977,7 +1974,7 @@
 /turf/open/floor/iron/dark,
 /area/space)
 "oA" = (
-/obj/effect/turf_decal/siding/white/corner,
+/obj/effect/turf_decal/siding/light_gray/corner,
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
@@ -2013,7 +2010,7 @@
 /turf/open/floor/iron/dark,
 /area/space)
 "oM" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 9
 	},
 /turf/open/floor/carpet/red,
@@ -2044,7 +2041,7 @@
 /turf/open/floor/iron/dark,
 /area/space)
 "pa" = (
-/obj/effect/turf_decal/siding{
+/obj/effect/turf_decal/siding/white{
 	dir = 9
 	},
 /obj/machinery/icecream_vat,
@@ -2058,8 +2055,7 @@
 /obj/effect/turf_decal/siding/dirt{
 	dir = 10
 	},
-/obj/effect/turf_decal/siding{
-	color = "#535c5b";
+/obj/effect/turf_decal/siding/slate{
 	dir = 10
 	},
 /turf/open/floor/grass/no_border,
@@ -2072,6 +2068,14 @@
 	dir = 8
 	},
 /turf/open/floor/wood/big,
+/area/space)
+"pm" = (
+/obj/structure/fluff/hedge{
+	icon_state = "hedge-1"
+	},
+/turf/open/floor/iron/smooth_half{
+	dir = 1
+	},
 /area/space)
 "po" = (
 /obj/effect/turf_decal/tile/black/opposingcorners{
@@ -2227,9 +2231,10 @@
 "qa" = (
 /obj/structure/platform/wood,
 /obj/structure/railing/perspective/wood,
-/obj/structure/fluff/hedge/opaque,
-/obj/effect/turf_decal/siding/brown{
-	color = "#774732";
+/obj/structure/fluff/hedge{
+	icon_state = "hedge-8"
+	},
+/obj/effect/turf_decal/siding/dark_brown{
 	dir = 1
 	},
 /turf/open/floor/wood,
@@ -2270,7 +2275,7 @@
 /turf/open/floor/plating,
 /area/space)
 "qi" = (
-/obj/effect/turf_decal/siding/white,
+/obj/effect/turf_decal/siding/light_gray,
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/wood,
 /area/space)
@@ -2313,7 +2318,7 @@
 	},
 /area/space)
 "qq" = (
-/obj/effect/turf_decal/siding{
+/obj/effect/turf_decal/siding/white{
 	dir = 6
 	},
 /obj/structure/kitchenspike,
@@ -2497,7 +2502,7 @@
 /turf/open/floor/iron/tech,
 /area/space)
 "ru" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 10
 	},
 /turf/open/floor/carpet/red,
@@ -2511,6 +2516,15 @@
 "rG" = (
 /obj/structure/railing/corner,
 /turf/open/openspace/cold,
+/area/space)
+"rH" = (
+/obj/structure/fluff/hedge{
+	pixel_y = 5;
+	icon_state = "hedge-75"
+	},
+/turf/open/floor/iron/smooth_half{
+	dir = 1
+	},
 /area/space)
 "rI" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners{
@@ -2692,7 +2706,7 @@
 /turf/open/floor/iron,
 /area/space)
 "sQ" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 5
 	},
 /turf/open/floor/carpet/red,
@@ -2707,7 +2721,7 @@
 	pixel_y = 5;
 	pixel_x = -4
 	},
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 1
 	},
 /obj/item/toy/cards/deck/unum{
@@ -2748,9 +2762,7 @@
 	pixel_x = -49
 	},
 /obj/effect/turf_decal/siding/dirt,
-/obj/effect/turf_decal/siding{
-	color = "#535c5b"
-	},
+/obj/effect/turf_decal/siding/slate,
 /turf/open/floor/grass/no_border,
 /area/space)
 "tM" = (
@@ -2946,7 +2958,7 @@
 /turf/open/floor/wood,
 /area/space)
 "vv" = (
-/obj/effect/turf_decal/siding{
+/obj/effect/turf_decal/siding/white{
 	dir = 1
 	},
 /obj/structure/wall_closet/freezer/directional/north,
@@ -2995,8 +3007,7 @@
 /obj/effect/turf_decal/siding/dirt{
 	dir = 1
 	},
-/obj/effect/turf_decal/siding{
-	color = "#535c5b";
+/obj/effect/turf_decal/siding/slate{
 	dir = 1
 	},
 /turf/open/floor/grass/no_border,
@@ -3098,7 +3109,7 @@
 	},
 /area/space)
 "wy" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment{
@@ -3160,8 +3171,7 @@
 /turf/open/floor/wood,
 /area/space)
 "wQ" = (
-/obj/effect/turf_decal/siding/brown{
-	color = "#774732";
+/obj/effect/turf_decal/siding/dark_brown{
 	dir = 4
 	},
 /turf/open/floor/wood/big,
@@ -3285,7 +3295,7 @@
 /turf/open/floor/wood,
 /area/space)
 "xy" = (
-/obj/effect/turf_decal/siding,
+/obj/effect/turf_decal/siding/white,
 /turf/open/floor/iron/freezer,
 /area/space)
 "xC" = (
@@ -3455,13 +3465,11 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/obj/effect/turf_decal/siding/brown{
-	color = "#774732"
-	},
+/obj/effect/turf_decal/siding/dark_brown,
 /turf/open/floor/wood,
 /area/space)
 "yK" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 4
 	},
 /obj/structure/cable/yellow{
@@ -3500,10 +3508,11 @@
 /area/space)
 "ze" = (
 /obj/structure/platform/wood,
-/obj/structure/fluff/hedge/opaque,
+/obj/structure/fluff/hedge{
+	icon_state = "hedge-12"
+	},
 /obj/structure/railing/perspective/wood,
-/obj/effect/turf_decal/siding/brown/corner{
-	color = "#774732";
+/obj/effect/turf_decal/siding/dark_brown/corner{
 	dir = 4
 	},
 /turf/open/floor/wood,
@@ -3533,7 +3542,7 @@
 /turf/open/openspace/cold,
 /area/space)
 "zl" = (
-/obj/effect/turf_decal/siding/white,
+/obj/effect/turf_decal/siding/light_gray,
 /turf/open/floor/wood,
 /area/space)
 "zm" = (
@@ -3590,6 +3599,14 @@
 	},
 /obj/machinery/chem_master/condimaster,
 /turf/open/floor/iron,
+/area/space)
+"zx" = (
+/obj/structure/fluff/hedge{
+	icon_state = "hedge-75"
+	},
+/turf/open/floor/iron/smooth_half{
+	dir = 1
+	},
 /area/space)
 "zz" = (
 /turf/closed/wall/mineral/iron{
@@ -3673,7 +3690,7 @@
 	},
 /area/space)
 "Ab" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/brown{
@@ -3786,7 +3803,7 @@
 /turf/open/floor/catwalk_floor,
 /area/space)
 "Bb" = (
-/obj/effect/turf_decal/siding{
+/obj/effect/turf_decal/siding/white{
 	dir = 9
 	},
 /obj/machinery/disposal/bin,
@@ -3833,6 +3850,9 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden,
 /turf/open/floor/iron/smooth,
 /area/space)
+"BE" = (
+/turf/open/floor/iron/half,
+/area/space)
 "BL" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -3865,8 +3885,7 @@
 /turf/open/floor/carpet/red,
 /area/space)
 "BR" = (
-/obj/effect/turf_decal/siding/brown{
-	color = "#774732";
+/obj/effect/turf_decal/siding/dark_brown{
 	dir = 4
 	},
 /turf/open/floor/wood,
@@ -3954,7 +3973,7 @@
 /turf/open/floor/iron/edge,
 /area/space)
 "Cu" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 4
 	},
 /turf/open/floor/wood/big,
@@ -4054,7 +4073,7 @@
 /turf/open/floor/wood,
 /area/space)
 "DC" = (
-/obj/effect/turf_decal/siding{
+/obj/effect/turf_decal/siding/white{
 	dir = 1
 	},
 /turf/open/floor/iron/white/smooth_edge{
@@ -4076,7 +4095,7 @@
 	},
 /area/space)
 "DK" = (
-/obj/effect/turf_decal/siding/white/corner,
+/obj/effect/turf_decal/siding/light_gray/corner,
 /obj/effect/turf_decal/siding/brown/corner{
 	dir = 8
 	},
@@ -4087,8 +4106,7 @@
 	dir = 4;
 	pixel_y = -20
 	},
-/obj/effect/turf_decal/siding/brown{
-	color = "#774732";
+/obj/effect/turf_decal/siding/dark_brown{
 	dir = 4
 	},
 /turf/open/floor/wood/big,
@@ -4120,7 +4138,9 @@
 /obj/structure/railing/perspective/wood{
 	dir = 8
 	},
-/obj/structure/fluff/hedge,
+/obj/structure/fluff/hedge{
+	icon_state = "hedge-2"
+	},
 /turf/open/floor/iron/grimy,
 /area/space)
 "Eb" = (
@@ -4239,8 +4259,7 @@
 	},
 /area/space)
 "EY" = (
-/obj/effect/turf_decal/siding{
-	icon_state = "siding_corner";
+/obj/effect/turf_decal/siding/white/corner{
 	dir = 1
 	},
 /turf/open/floor/iron/white,
@@ -4277,8 +4296,20 @@
 /turf/open/floor/mineral/titanium/white,
 /area/space)
 "Ff" = (
-/obj/effect/turf_decal/siding,
+/obj/effect/turf_decal/siding/white,
 /turf/open/floor/iron/white/smooth_edge,
+/area/space)
+"Fg" = (
+/obj/structure/platform/wood{
+	dir = 8
+	},
+/obj/structure/railing/perspective/wood{
+	dir = 8
+	},
+/obj/structure/fluff/hedge{
+	icon_state = "hedge-1"
+	},
+/turf/open/floor/iron/grimy,
 /area/space)
 "Fm" = (
 /obj/machinery/computer/crew,
@@ -4397,8 +4428,7 @@
 /obj/effect/turf_decal/siding/dirt{
 	dir = 5
 	},
-/obj/effect/turf_decal/siding{
-	color = "#535c5b";
+/obj/effect/turf_decal/siding/slate{
 	dir = 5
 	},
 /turf/open/floor/grass/no_border,
@@ -4460,8 +4490,8 @@
 /turf/open/floor/iron/dark,
 /area/space)
 "Hd" = (
-/obj/effect/turf_decal/siding,
-/obj/effect/turf_decal/siding{
+/obj/effect/turf_decal/siding/white,
+/obj/effect/turf_decal/siding/white{
 	dir = 1
 	},
 /turf/open/floor/mineral/titanium/tiled,
@@ -4728,6 +4758,18 @@
 	},
 /turf/open/floor/iron/ridged/steel,
 /area/space)
+"JR" = (
+/obj/structure/platform/wood{
+	dir = 4
+	},
+/obj/structure/railing/perspective/wood{
+	dir = 4
+	},
+/obj/structure/fluff/hedge{
+	icon_state = "hedge-2"
+	},
+/turf/open/floor/iron/grimy,
+/area/space)
 "JT" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners{
 	dir = 1
@@ -4746,10 +4788,24 @@
 /turf/open/floor/wood/big,
 /area/space)
 "JX" = (
-/obj/structure/fluff/hedge,
+/obj/structure/fluff/hedge{
+	icon_state = "hedge-2"
+	},
 /turf/open/floor/iron/smooth_half{
 	dir = 1
 	},
+/area/space)
+"Ki" = (
+/obj/structure/platform/wood{
+	dir = 8
+	},
+/obj/structure/railing/perspective/wood{
+	dir = 8
+	},
+/obj/structure/fluff/hedge{
+	icon_state = "hedge-75"
+	},
+/turf/open/floor/iron/grimy,
 /area/space)
 "Kn" = (
 /obj/structure/fluff/hedge/opaque,
@@ -4778,8 +4834,7 @@
 /turf/open/floor/wood,
 /area/space)
 "KC" = (
-/obj/effect/turf_decal/siding/brown{
-	color = "#774732";
+/obj/effect/turf_decal/siding/dark_brown{
 	dir = 4
 	},
 /obj/structure/chair/stool/bar/directional/west,
@@ -5176,11 +5231,8 @@
 /turf/open/floor/wood/big,
 /area/space)
 "NU" = (
-/obj/effect/turf_decal/siding{
-	icon_state = "siding_corner"
-	},
-/obj/effect/turf_decal/siding{
-	icon_state = "siding_corner";
+/obj/effect/turf_decal/siding/white/corner,
+/obj/effect/turf_decal/siding/white/corner{
 	dir = 8
 	},
 /turf/open/floor/iron/white/smooth_edge,
@@ -5314,7 +5366,7 @@
 /turf/open/floor/pod/dark,
 /area/space)
 "Pc" = (
-/obj/effect/turf_decal/siding{
+/obj/effect/turf_decal/siding/white{
 	dir = 6
 	},
 /obj/structure/closet/crate/bin{
@@ -5438,7 +5490,7 @@
 /turf/open/floor/iron/dark,
 /area/space)
 "Qn" = (
-/obj/effect/turf_decal/siding{
+/obj/effect/turf_decal/siding/white{
 	dir = 5
 	},
 /obj/machinery/vending/coffee,
@@ -5484,8 +5536,7 @@
 /turf/open/floor/wood,
 /area/space)
 "QK" = (
-/obj/effect/turf_decal/siding{
-	icon_state = "siding_corner";
+/obj/effect/turf_decal/siding/white/corner{
 	dir = 8
 	},
 /turf/open/floor/iron/white,
@@ -5502,8 +5553,7 @@
 "QT" = (
 /obj/structure/platform/wood,
 /obj/structure/railing/perspective/wood,
-/obj/effect/turf_decal/siding/brown{
-	color = "#774732";
+/obj/effect/turf_decal/siding/dark_brown{
 	dir = 1
 	},
 /turf/open/floor/wood,
@@ -5561,12 +5611,10 @@
 /turf/open/floor/pod/dark,
 /area/space)
 "Ro" = (
-/obj/effect/turf_decal/siding{
-	icon_state = "siding_corner";
+/obj/effect/turf_decal/siding/white/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/siding{
-	icon_state = "siding_corner";
+/obj/effect/turf_decal/siding/white/corner{
 	dir = 4
 	},
 /turf/open/floor/iron/freezer,
@@ -5683,8 +5731,7 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/space)
 "Sm" = (
-/obj/effect/turf_decal/siding/brown{
-	color = "#774732";
+/obj/effect/turf_decal/siding/dark_brown{
 	dir = 8
 	},
 /turf/open/floor/wood,
@@ -5775,7 +5822,7 @@
 	},
 /area/space)
 "Tq" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 6
 	},
 /turf/open/floor/carpet/red,
@@ -5911,7 +5958,9 @@
 /obj/structure/railing/perspective/wood{
 	dir = 4
 	},
-/obj/structure/fluff/hedge,
+/obj/structure/fluff/hedge{
+	icon_state = "hedge-1"
+	},
 /turf/open/floor/iron/grimy,
 /area/space)
 "Ut" = (
@@ -5979,7 +6028,7 @@
 /area/space)
 "Ve" = (
 /obj/structure/table/wood,
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 1
 	},
 /obj/item/flashlight/lamp{
@@ -6166,6 +6215,15 @@
 	},
 /turf/open/floor/wood,
 /area/space)
+"Wo" = (
+/obj/structure/fluff/hedge{
+	pixel_y = 5;
+	icon_state = "hedge-1"
+	},
+/turf/open/floor/iron/smooth_half{
+	dir = 1
+	},
+/area/space)
 "Wp" = (
 /turf/open/chasm{
 	icon_state = "chasms-74"
@@ -6212,8 +6270,8 @@
 /turf/open/floor/iron/smooth_half,
 /area/space)
 "WG" = (
-/obj/effect/turf_decal/siding/white/corner,
-/obj/effect/turf_decal/siding/white/corner{
+/obj/effect/turf_decal/siding/light_gray/corner,
+/obj/effect/turf_decal/siding/light_gray/corner{
 	dir = 4
 	},
 /obj/structure/cable/yellow{
@@ -6281,7 +6339,7 @@
 	},
 /area/space)
 "Xc" = (
-/obj/effect/turf_decal/siding,
+/obj/effect/turf_decal/siding/white,
 /obj/structure/closet/secure_closet/freezer/meat,
 /turf/open/floor/iron/freezer,
 /area/space)
@@ -6298,8 +6356,7 @@
 	dir = 6
 	},
 /obj/effect/turf_decal/siding/dirt,
-/obj/effect/turf_decal/siding{
-	color = "#535c5b";
+/obj/effect/turf_decal/siding/slate{
 	dir = 6
 	},
 /turf/open/floor/grass/no_border,
@@ -6469,7 +6526,7 @@
 /area/space)
 "Yj" = (
 /obj/structure/table/wood,
-/obj/effect/turf_decal/siding/white,
+/obj/effect/turf_decal/siding/light_gray,
 /obj/machinery/computer/libraryconsole{
 	pixel_y = 10
 	},
@@ -6496,8 +6553,7 @@
 	dir = 1;
 	pixel_y = -20
 	},
-/obj/effect/turf_decal/siding/brown{
-	color = "#774732";
+/obj/effect/turf_decal/siding/dark_brown{
 	dir = 1
 	},
 /turf/open/floor/wood,
@@ -6591,6 +6647,18 @@
 /turf/open/floor/iron/textured_half{
 	dir = 1
 	},
+/area/space)
+"Zn" = (
+/obj/structure/platform/wood{
+	dir = 4
+	},
+/obj/structure/railing/perspective/wood{
+	dir = 4
+	},
+/obj/structure/fluff/hedge{
+	icon_state = "hedge-75"
+	},
+/turf/open/floor/iron/grimy,
 /area/space)
 "Zs" = (
 /obj/structure/bookcase/random/nonfiction,
@@ -184847,9 +184915,9 @@ aj
 aj
 pB
 jO
-jO
-jO
-jO
+rH
+rH
+Wo
 cm
 bc
 bc
@@ -186641,9 +186709,9 @@ pB
 pB
 pB
 JX
-JX
-JX
-JX
+zx
+zx
+pm
 pB
 MD
 Nn
@@ -186673,12 +186741,12 @@ pB
 pB
 pB
 MD
-aj
+Nn
 Qq
 Yf
 Yf
 Ep
-aj
+Nn
 CS
 pB
 pB
@@ -186894,13 +186962,13 @@ VH
 WL
 PA
 IG
-aj
-aj
-aj
-aj
-aj
-aj
-aj
+Cf
+Cf
+Cf
+Cf
+Cf
+Cf
+Cf
 il
 aj
 UO
@@ -187150,64 +187218,64 @@ Cl
 Cl
 oO
 PA
+BE
+UO
+UO
 MD
-UO
-UO
-aj
-aj
-UO
-UO
-aj
-il
-aj
-UO
-DS
-vE
-tK
-uR
-UO
-aj
-xa
-xa
-pB
-Lz
-Lz
-Lz
-Lz
-In
-HO
-HO
-HO
-In
-Lz
-Lz
-Lz
-Lz
-pB
-qQ
-qQ
-aj
-UO
-DS
-vE
-tK
-uR
-UO
-aj
-il
-aj
-UO
-UO
-UO
-aj
-aj
-aj
-aj
-aj
-UO
-UO
-UO
 CS
+UO
+UO
+MD
+il
+aj
+UO
+DS
+vE
+tK
+uR
+UO
+aj
+xa
+xa
+pB
+Lz
+Lz
+Lz
+Lz
+In
+HO
+HO
+HO
+In
+Lz
+Lz
+Lz
+Lz
+pB
+qQ
+qQ
+aj
+UO
+DS
+vE
+tK
+uR
+UO
+aj
+il
+CS
+UO
+UO
+UO
+MD
+aj
+aj
+aj
+CS
+UO
+UO
+UO
+BE
 PA
 lG
 Cl
@@ -187408,13 +187476,13 @@ bf
 sV
 PA
 Ig
-aj
-aj
-aj
-aj
-aj
-aj
-aj
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
 il
 aj
 UO
@@ -187669,9 +187737,9 @@ pB
 pB
 pB
 JX
-JX
-JX
-JX
+zx
+zx
+pm
 pB
 MD
 Cf
@@ -187701,18 +187769,18 @@ pB
 pB
 pB
 MD
-aj
+Cf
 GB
 mg
 zW
 Qt
-aj
+Cf
 CS
 pB
 JX
-JX
-JX
-JX
+zx
+zx
+pm
 pB
 pB
 BY
@@ -188449,8 +188517,8 @@ LJ
 Ob
 se
 lQ
-Un
-Un
+JR
+Zn
 Un
 pB
 Lz
@@ -191020,8 +191088,8 @@ rB
 se
 Az
 DU
-DU
-DU
+Ki
+Fg
 pB
 Lz
 Lz

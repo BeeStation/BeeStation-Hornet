@@ -943,7 +943,7 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "ni" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	alpha = 100;
 	dir = 8
 	},
@@ -2334,7 +2334,7 @@
 	},
 /area/template_noop)
 "JF" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	alpha = 100;
 	dir = 1
 	},

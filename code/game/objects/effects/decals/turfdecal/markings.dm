@@ -193,13 +193,58 @@
 /obj/effect/turf_decal/siding
 	icon_state = "siding_line"
 
-/obj/effect/turf_decal/siding/white
+/obj/effect/turf_decal/siding/light_gray
 	color = "#BCBCBC"
+
+/obj/effect/turf_decal/siding/light_gray/corner
+	icon_state = "siding_corner"
+
+/obj/effect/turf_decal/siding/light_gray/end
+	icon_state = "siding_end"
+
+/obj/effect/turf_decal/siding/white
+	color = "#FFFFFF"
 
 /obj/effect/turf_decal/siding/white/corner
 	icon_state = "siding_corner"
 
 /obj/effect/turf_decal/siding/white/end
+	icon_state = "siding_end"
+
+/obj/effect/turf_decal/siding/gray
+	color = "#909090"
+
+/obj/effect/turf_decal/siding/gray/corner
+	icon_state = "siding_corner"
+
+/obj/effect/turf_decal/siding/gray/end
+	icon_state = "siding_end"
+
+/obj/effect/turf_decal/siding/slate
+	color = "#535c5b"
+
+/obj/effect/turf_decal/siding/slate/corner
+	icon_state = "siding_corner"
+
+/obj/effect/turf_decal/siding/slate/end
+	icon_state = "siding_end"
+
+/obj/effect/turf_decal/siding/light_slate
+	color = "#807e74"
+
+/obj/effect/turf_decal/siding/light_slate/corner
+	icon_state = "siding_corner"
+
+/obj/effect/turf_decal/siding/light_slate/end
+	icon_state = "siding_end"
+
+/obj/effect/turf_decal/siding/dark_brown
+	color = "#774732"
+
+/obj/effect/turf_decal/siding/dark_brown/corner
+	icon_state = "siding_corner"
+
+/obj/effect/turf_decal/siding/dark_brown/end
 	icon_state = "siding_end"
 
 /obj/effect/turf_decal/siding/red

@@ -31756,7 +31756,7 @@
 /turf/open/floor/iron/dark,
 /area/engine/atmospherics_engine)
 "euR" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 1
 	},
 /obj/effect/landmark/navigate_destination,
@@ -37095,7 +37095,7 @@
 /turf/open/floor/iron,
 /area/security/checkpoint/science/research)
 "fZv" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 1
 	},
 /turf/open/floor/glass/reinforced,
@@ -37713,7 +37713,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "gjn" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 5
 	},
 /turf/open/floor/glass/reinforced,
@@ -39657,7 +39657,7 @@
 /turf/open/floor/iron,
 /area/crew_quarters/dorms)
 "gNp" = (
-/obj/effect/turf_decal/siding/white,
+/obj/effect/turf_decal/siding/light_gray,
 /turf/open/floor/glass/reinforced,
 /area/hallway/secondary/entry)
 "gNF" = (
@@ -40449,7 +40449,7 @@
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/dorms)
 "gZc" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 5
 	},
 /turf/open/floor/glass/reinforced,
@@ -40489,7 +40489,7 @@
 /turf/open/floor/iron,
 /area/quartermaster/office)
 "gZq" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 4
 	},
 /turf/open/floor/glass/reinforced,
@@ -44590,7 +44590,7 @@
 /turf/open/floor/catwalk_floor/iron,
 /area/engine/atmospherics_engine)
 "ilJ" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 9
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -52201,7 +52201,7 @@
 /turf/open/floor/iron,
 /area/engine/atmospherics_engine)
 "kRd" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 6
 	},
 /turf/open/floor/glass/reinforced,
@@ -57239,7 +57239,7 @@
 /turf/open/floor/iron/dark,
 /area/science/explab)
 "myu" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 6
 	},
 /turf/open/floor/glass/reinforced,
@@ -76133,7 +76133,7 @@
 /area/aisat)
 "sqL" = (
 /obj/effect/landmark/event_spawn,
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 10
 	},
 /turf/open/floor/glass/reinforced,
@@ -77088,7 +77088,7 @@
 /turf/open/floor/iron,
 /area/quartermaster/office)
 "sGd" = (
-/obj/effect/turf_decal/siding/white,
+/obj/effect/turf_decal/siding/light_gray,
 /turf/open/floor/glass/reinforced,
 /area/hallway/secondary/exit/departure_lounge)
 "sGh" = (
@@ -79525,7 +79525,7 @@
 /turf/open/floor/iron,
 /area/crew_quarters/heads/chief)
 "tst" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 10
 	},
 /turf/open/floor/glass/reinforced,
@@ -80420,7 +80420,7 @@
 /turf/open/floor/iron,
 /area/quartermaster/storage)
 "tJb" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 9
 	},
 /turf/open/floor/glass/reinforced,
@@ -94566,7 +94566,7 @@
 /turf/open/floor/iron/white,
 /area/science/explab)
 "yer" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 8
 	},
 /turf/open/floor/glass/reinforced,

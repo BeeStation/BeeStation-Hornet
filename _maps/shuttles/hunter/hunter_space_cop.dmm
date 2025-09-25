@@ -55,7 +55,7 @@
 /turf/open/floor/iron/stairs,
 /area/shuttle/hunter)
 "ce" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 8
 	},
 /obj/structure/extinguisher_cabinet{
@@ -108,8 +108,8 @@
 /turf/open/floor/iron/showroomfloor,
 /area/shuttle/hunter)
 "dl" = (
-/obj/effect/turf_decal/siding/white,
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray,
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -132,11 +132,11 @@
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/hunter)
 "dM" = (
-/obj/effect/turf_decal/siding/white/corner,
-/obj/effect/turf_decal/siding/white/corner{
+/obj/effect/turf_decal/siding/light_gray/corner,
+/obj/effect/turf_decal/siding/light_gray/corner{
 	dir = 4
 	},
-/obj/effect/turf_decal/siding/white/corner{
+/obj/effect/turf_decal/siding/light_gray/corner{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -245,8 +245,8 @@
 /turf/open/floor/wood,
 /area/shuttle/hunter)
 "gd" = (
-/obj/effect/turf_decal/siding/white/corner,
-/obj/effect/turf_decal/siding/white/corner{
+/obj/effect/turf_decal/siding/light_gray/corner,
+/obj/effect/turf_decal/siding/light_gray/corner{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -324,10 +324,10 @@
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/hunter)
 "ir" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 1
 	},
-/obj/effect/turf_decal/siding/white,
+/obj/effect/turf_decal/siding/light_gray,
 /obj/machinery/door/airlock/hatch{
 	req_access_txt = "181"
 	},
@@ -337,7 +337,7 @@
 /turf/template_noop,
 /area/template_noop)
 "je" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 8
 	},
 /obj/structure/sign/departments/engineering{
@@ -506,7 +506,7 @@
 /turf/open/floor/plating,
 /area/shuttle/hunter)
 "nz" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 4
 	},
 /obj/structure/chair/fancy/sofa/corp/right{
@@ -565,7 +565,7 @@
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/hunter)
 "og" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 10
 	},
 /obj/item/kirbyplants{
@@ -743,10 +743,10 @@
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/hunter)
 "uR" = (
-/obj/effect/turf_decal/siding/white/corner{
+/obj/effect/turf_decal/siding/light_gray/corner{
 	dir = 8
 	},
-/obj/effect/turf_decal/siding/white/corner{
+/obj/effect/turf_decal/siding/light_gray/corner{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -832,7 +832,7 @@
 /turf/open/floor/plating,
 /area/shuttle/hunter)
 "Bx" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 6
 	},
 /obj/machinery/vending/sustenance,
@@ -895,7 +895,7 @@
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/hunter)
 "Dn" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 9
 	},
 /obj/effect/decal/cleanable/cobweb,
@@ -1108,8 +1108,8 @@
 /turf/open/floor/iron,
 /area/shuttle/hunter)
 "LY" = (
-/obj/effect/turf_decal/siding/white,
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray,
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1172,7 +1172,7 @@
 	},
 /area/shuttle/hunter)
 "Of" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1316,7 +1316,7 @@
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/hunter)
 "Ww" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 4
 	},
 /obj/structure/closet/crate/bin,
@@ -1401,7 +1401,7 @@
 	},
 /area/shuttle/hunter)
 "Zk" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 4
 	},
 /obj/structure/chair/fancy/sofa/corp/left{
