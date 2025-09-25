@@ -172,7 +172,7 @@
 					eyes_overlay.color = eyes.eye_color
 			if(eyes.overlay_ignore_lighting)
 				eyes_overlay.overlays += emissive_appearance(eyes_overlay.icon, eyes_overlay.icon_state, src, alpha = eyes_overlay.alpha)
-			else if(blocks_emissive != FALSE)
+			else if(blocks_emissive)
 				var/atom/location = loc || owner || src
 				eyes_overlay.overlays += emissive_blocker(eyes_overlay.icon, eyes_overlay.icon_state, location, alpha = eyes_overlay.alpha)
 			if(worn_face_offset)
