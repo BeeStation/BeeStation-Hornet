@@ -202,16 +202,16 @@ then the player gets the profit from selling his own wasted time.
 	var/list/names_list = list()
 	var/list/counts_list = list()
 
-	for(var/atom/i in ex.exported_atoms)
-		if(i.name)
+	for(var/atom/thing in ex.exported_atoms)
+		if(thing.name)
 			var/found = FALSE
 			for(var/j = 1; j <= names_list.len; j++)
-				if(names_list[j] == i.name)
+				if(names_list[j] == thing.name)
 					counts_list[j] += 1
 					found = TRUE
 					break
 			if(!found)
-				names_list += i.name
+				names_list += thing.name
 				counts_list += 1
 
 	// Build item strings
@@ -219,9 +219,9 @@ then the player gets the profit from selling his own wasted time.
 	for(var/export_name in names_list)
 		var/count = counts_list[export_name]
 		if(count > 1)
-			item_strings += "[count] [item_name]s"
+			item_strings += "[count] [export_name]s"
 		else
-			item_strings += item_name
+			item_strings += export_name
 
 	item_strings[length(item_strings)] = "and [item_strings[length(item_strings)]]"
 	msg += item_strings.Join(", ")
