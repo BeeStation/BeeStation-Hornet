@@ -239,7 +239,7 @@ GLOBAL_LIST_EMPTY(exports_list)
 
 	for(var/subtype in subtypesof(/datum/export))
 		var/datum/export/E = new subtype
-		if(!E.export_types?.len)
+		if(!length(E.export_types))
 			continue
 
 		// Detect catch-all
