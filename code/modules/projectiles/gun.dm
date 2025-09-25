@@ -742,8 +742,8 @@
 		azoom = new()
 		azoom.gun = src
 
-#undef FIRING_PIN_REMOVAL_DELAY
-
 /obj/item/gun/try_ducttape(mob/living/user, obj/item/stack/sticky_tape/duct/tape)
 	balloon_alert(user, "Using tape would make this too flimsy to shoot!")
 	return FALSE
+
+#undef FIRING_PIN_REMOVAL_DELAY
