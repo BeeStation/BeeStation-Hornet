@@ -381,3 +381,6 @@
       scales from guaranteed at 30 average bio armor to full protection at 90 bio
       armor
   - bugfix: bio protection properly protects against bioscrambler anomalies
+2025-09-26:
+  rkz, Mothblocks:
+  - refactor: refactor GetFlatIcon to be clearer
