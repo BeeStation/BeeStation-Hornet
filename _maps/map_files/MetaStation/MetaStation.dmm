@@ -77912,11 +77912,11 @@
 "wUd" = (
 /obj/effect/decal/cleanable/food/tomato_smudge,
 /obj/machinery/computer/security/wooden_tv{
-	network = null;
 	name = "Broken Televison";
 	desc = "An old TV hooked into a disk player, sadly both are out of order at the moment.";
 	pixel_x = 1;
-	pixel_y = 6
+	pixel_y = 6;
+	network = list("MothNews6")
 	},
 /obj/item/trash/can{
 	pixel_y = -14;
