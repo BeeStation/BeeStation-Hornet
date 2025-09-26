@@ -208,6 +208,6 @@
 	stamina = 10
 	bleed = 15
 
-/obj/item/clothing/suit/utility/radiation/ComponentInitialize()
+/obj/item/clothing/suit/utility/radiation/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100)
