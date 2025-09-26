@@ -466,7 +466,7 @@
 	update_appearance()
 	visible_message(message)
 	balloon_alert_to_viewers("The plant <font color='#0cec4f'>mutates</font>!")
-	playsound(loc, 'sound/magic/summonitems_generic.ogg', 50, 1) // Its like magic!
+	playsound(loc, 'sound/magic/summonitems_generic.ogg', 50, TRUE) // Its like magic!
 
 /obj/machinery/hydroponics/proc/plantdies() // OH NOES!!!!! I put this all in one function to make things easier
 	plant_health = 0
