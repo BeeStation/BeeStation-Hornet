@@ -184,7 +184,7 @@
 		light_overlay_icon = 'icons/obj/guns/flashlights.dmi', \
 		light_overlay = "flight", \
 		overlay_x = 16, \
-		overlay_y = 14)
+		overlay_y = 12)
 
 /obj/item/gun/ballistic/automatic/pistol/security/examine(mob/user)
 	. = ..()
