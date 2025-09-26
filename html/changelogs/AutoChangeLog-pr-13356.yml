@@ -1,0 +1,4 @@
+author: lord scrubling
+delete-after: true
+changes:
+  - bugfix: magboots not updating their slowdown when toggled
