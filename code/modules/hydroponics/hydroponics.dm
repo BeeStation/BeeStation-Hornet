@@ -29,7 +29,7 @@
 	var/unwrenchable = 1
 	var/recent_bee_visit = FALSE //Have we been visited by a bee recently, so bees dont overpollinate one plant
 	var/using_irrigation = FALSE //If the tray is connected to other trays via irrigation hoses
-	var/self_sufficiency_req = 20 //Required total dose to make a self-sufficient hydro tray. 1:1 with earthsblood.
+	var/self_sufficiency_req = 5 //Required total dose to make a self-sufficient hydro tray. 1:1 with earthsblood. (This is equivalent to 1 gaia at 100 potency)
 	var/self_sufficiency_progress = 0
 	var/self_sustaining = FALSE //If the tray generates nutrients and water on its own
 
@@ -410,7 +410,9 @@
 	myseed.mutate(lifemut, endmut, productmut, yieldmut, potmut, wrmut, wcmut, traitmut)
 
 /obj/machinery/hydroponics/proc/hardmutate()
-	mutate(4, 10, 2, 4, 50, 4, 10, 3)
+	if(!myseed)
+		return
+	myseed.hard_mutate(4, 10, 2, 4, 50, 4, 10, 3)
 
 /obj/machinery/hydroponics/proc/glowmutate()
 	if(!myseed)
@@ -439,34 +441,32 @@
 	weedlevel = 0 // Reset
 
 	var/message = span_warning("[oldPlantName] suddenly mutates into [myseed.plantname]!")
-	addtimer(CALLBACK(src, PROC_REF(after_mutation), message), 0.5 SECONDS)
+	after_mutation(message)
 
 
 /obj/machinery/hydroponics/proc/mutateweed() // If the weeds gets the mutagent instead. Mind you, this pretty much destroys the old plant
-	if( weedlevel > 5 )
-		if(myseed)
-			qdel(myseed)
-			myseed = null
-		var/newWeed = pick(/obj/item/seeds/liberty, /obj/item/seeds/angel, /obj/item/seeds/nettle/death, /obj/item/seeds/kudzu)
-		myseed = new newWeed
-		dead = 0
-		hardmutate()
-		age = 0
-		plant_health = myseed.endurance
-		lastcycle = world.time
-		harvest = 0
-		weedlevel = 0 // Reset
+	if(myseed)
+		qdel(myseed)
+		myseed = null
+	var/newWeed = pick(/obj/item/seeds/liberty, /obj/item/seeds/angel, /obj/item/seeds/nettle/death, /obj/item/seeds/kudzu)
+	myseed = new newWeed
+	dead = 0
+	hardmutate()
+	age = 0
+	plant_health = myseed.endurance
+	lastcycle = world.time
+	harvest = 0
+	weedlevel = 0 // Reset
 
-		var/message = span_warning("The mutated weeds in [src] spawn some [myseed.plantname]!")
-		addtimer(CALLBACK(src, PROC_REF(after_mutation), message), 0.5 SECONDS)
-	else
-		to_chat(usr, span_warning("The few weeds in [src] seem to react, but only for a moment..."))
+	var/message = span_warning("The mutated weeds in [src] spawn some [myseed.plantname]!")
+	after_mutation(message)
 
-
-//Called after plant mutation, update the appearance of the tray content and send a visible_message()
+/// Called after plant mutation, update the appearance of the tray content, send out messages and sound
 /obj/machinery/hydroponics/proc/after_mutation(message)
-	update_icon()
+	update_appearance()
 	visible_message(message)
+	balloon_alert_to_viewers("The plant <font color='#0cec4f'>mutates</font>!")
+	playsound(loc, 'sound/magic/summonitems_generic.ogg', 50, 1) // Its like magic!
 
 /obj/machinery/hydroponics/proc/plantdies() // OH NOES!!!!! I put this all in one function to make things easier
 	plant_health = 0
@@ -494,22 +494,22 @@
 
 	// Requires 5 mutagen to possibly change species.// Poor man's mutagen.
 	if(S.has_reagent(/datum/reagent/toxin/mutagen, 5) || S.has_reagent(/datum/reagent/uranium/radium, 10) || S.has_reagent(/datum/reagent/uranium, 10))
+		if(pestlevel > 5)
+			if(prob(50))
+				mutatepest(user)
+		if(weedlevel > 5)
+			if(prob(50))
+				mutateweed()
 		switch(rand(100))
-			if(91 to 100)
+			if(81 to 90)
 				adjustHealth(-10)
 				to_chat(user, span_warning("The plant shrivels and burns."))
-			if(81 to 90)
-				mutatespecie()
-			if(66 to 80)
-				hardmutate()
-			if(41 to 65)
-				mutate()
-			if(21 to 41)
-				to_chat(user, span_notice("The plants don't seem to react..."))
-			if(11 to 20)
-				mutateweed()
-			if(1 to 10)
-				mutatepest(user)
+			if(51 to 80)
+				mutatespecie() // Should be the main one
+			if(26 to 50)
+				hardmutate() // This is hard rand
+			if(1 to 25)
+				mutate() // This slightly points upwards always
 			else
 				to_chat(user, span_notice("Nothing happens..."))
 
@@ -517,7 +517,7 @@
 	else if(S.has_reagent(/datum/reagent/toxin/mutagen, 2) || S.has_reagent(/datum/reagent/uranium/radium, 5) || S.has_reagent(/datum/reagent/uranium, 5))
 		hardmutate()
 	else if(S.has_reagent(/datum/reagent/toxin/mutagen, 1) || S.has_reagent(/datum/reagent/uranium/radium, 2) || S.has_reagent(/datum/reagent/uranium, 2))
-		mutate()
+		mutate() // Mutate is MUCH more stable
 
 	//Bioluminescence only mutation
 	if(S.has_reagent(/datum/reagent/colorful_reagent, 1))

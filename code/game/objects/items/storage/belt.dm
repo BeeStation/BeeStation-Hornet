@@ -107,6 +107,14 @@
 		/obj/item/gun/energy/floragun
 		))
 
+/obj/item/storage/belt/botanical/full/PopulateContents()
+	SSwardrobe.provide_type(/obj/item/plant_analyzer, src)
+	SSwardrobe.provide_type(/obj/item/cultivator, src)
+	SSwardrobe.provide_type(/obj/item/shovel/spade, src)
+	SSwardrobe.provide_type(/obj/item/hatchet, src)
+	SSwardrobe.provide_type(/obj/item/reagent_containers/cup/beaker/large, src)
+	SSwardrobe.provide_type(/obj/item/reagent_containers/cup/bottle/nutrient/empty, src)
+
 /obj/item/storage/belt/utility/chief
 	name = "\improper Chief Engineer's toolbelt" //"the Chief Engineer's toolbelt", because "Chief Engineer's toolbelt" is not a proper noun
 	desc = "Holds tools, looks snazzy."

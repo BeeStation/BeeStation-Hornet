@@ -21,14 +21,22 @@
 	var/icon_dead					// Used to override dead icon (default is "[species]-dead"). You can use one dead icon for multiple closely related plants with it.
 	var/icon_harvest				// Used to override harvest icon (default is "[species]-harvest"). If null, plant will use [icon_grow][growthstages].
 
-	var/lifespan = 25				// How long before the plant begins to take damage from age.
-	var/endurance = 15				// Amount of health the plant has.
-	var/maturation = 6				// Used to determine which sprite to switch to when growing.
-	var/production = 6				// Changes the amount of time needed for a plant to become harvestable.
-	var/yield = 3					// Amount of growns created per harvest. If is -1, the plant/shroom/weed is never meant to be harvested.
-	var/potency = 10				// The 'power' of a plant. Generally effects the amount of reagent in a plant, also used in other ways.
-	var/growthstages = 6			// Amount of growth sprites the plant has.
-	var/rarity = 0					// How rare the plant is. Used for giving points to cargo when shipping off to CentCom.
+	/// How long before the plant begins to take damage from age.
+	var/lifespan = 25
+	/// Amount of health the plant has.
+	var/endurance = 15
+	/// Used to determine which sprite to switch to when growing.
+	var/maturation = 6
+	/// Changes the amount of time needed for a plant to become harvestable.
+	var/production = 6
+	/// Amount of growns created per harvest. If is -1, the plant/shroom/weed is never meant to be harvested.
+	var/yield = 3
+	/// The 'power' of a plant. Generally effects the amount of reagent in a plant, also used in other ways.
+	var/potency = 10
+	/// Amount of growth sprites the plant has.
+	var/growthstages = 6
+	/// How rare the plant is. Used for giving points to cargo when shipping off to CentCom.
+	var/rarity = 0
 	var/list/mutatelist = list()	// The type of plants that this plant can mutate into.
 	var/list/genes = list()			// Plant genes are stored here, see plant_genes.dm for more info.
 	var/datum/mind/mind				// For if the seed can hold a mind. Used for diona related stuffs.
@@ -38,8 +46,10 @@
 	// Stronger reagents must always come first to avoid being displaced by weaker ones.
 	// Total amount of any reagent in plant is calculated by formula: 1 + round(potency * multiplier)
 
-	var/weed_rate = 1 //If the chance below passes, then this many weeds sprout during growth
-	var/weed_chance = 5 //Percentage chance per tray update to grow weeds
+	/// If weed_chance passes, then this many weeds sprout during growth
+	var/weed_rate = 1
+	/// Percentage chance per tray update to grow weeds
+	var/weed_chance = 5
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds)
 
@@ -119,7 +129,25 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds)
 	if(g)
 		g.mutability_flags &=  ~mutability
 
-/obj/item/seeds/proc/mutate(lifemut = 2, endmut = 5, productmut = 1, yieldmut = 2, potmut = 25, wrmut = 2, wcmut = 5, traitmut = 0)
+/obj/item/seeds/proc/mutate(lifemut = 2, endmut = 5, productmut = 1, yieldmut = 2, potmut = 25, wrmut = 2, wcmut = 5)
+	adjust_lifespan(soft_adjust(lifemut))
+	adjust_endurance(soft_adjust(endmut))
+	adjust_production(soft_adjust(productmut))
+	adjust_yield(soft_adjust(yieldmut))
+	adjust_potency(soft_adjust(potmut))
+	adjust_weed_rate(soft_adjust(wrmut))
+	adjust_weed_chance(soft_adjust(wcmut))
+
+/// This random adjustment allows us to keep values randomized yet always slightly directed towards improvement. Effectively reducing time spamming.
+/obj/item/seeds/proc/soft_adjust(amount)
+	var/adjust_amt
+	if(prob(55))
+		adjust_amt = rand(0, amount)
+	else
+		adjust_amt = rand(-amount, 0)
+	return adjust_amt
+
+/obj/item/seeds/proc/hard_mutate(lifemut = 2, endmut = 5, productmut = 1, yieldmut = 2, potmut = 25, wrmut = 2, wcmut = 5, traitmut = 0)
 	adjust_lifespan(rand(-lifemut,lifemut))
 	adjust_endurance(rand(-endmut,endmut))
 	adjust_production(rand(-productmut,productmut))
@@ -129,8 +157,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds)
 	adjust_weed_chance(rand(-wcmut, wcmut))
 	if(prob(traitmut))
 		add_random_traits(1, 1)
-
-
 
 /obj/item/seeds/bullet_act(obj/projectile/Proj) //Works with the Somatoray to modify plant variables.
 	if(istype(Proj, /obj/projectile/energy/florayield))
