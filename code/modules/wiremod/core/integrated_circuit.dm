@@ -282,7 +282,7 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 
 /obj/item/integrated_circuit/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/simple/plane_background)
+		get_asset_datum(/datum/asset/simple/circuit_assets)
 	)
 
 /obj/item/integrated_circuit/ui_static_data(mob/user)

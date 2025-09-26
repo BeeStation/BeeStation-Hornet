@@ -216,7 +216,6 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/test_dview_to_lum_changes,
 	/client/proc/cmd_regenerate_asset_cache,
 	/client/proc/cmd_clear_smart_asset_cache,
-	/datum/admins/proc/debug_mc_dependencies,
 	/client/proc/view_runtimes,
 	/client/proc/debug_hallucination_weighted_list_per_type,
 	)
