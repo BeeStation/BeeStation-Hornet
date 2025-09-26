@@ -160,16 +160,18 @@
 	var/chaplain_spawnable = TRUE
 
 
-/obj/item/nullrod/ComponentInitialize()
+/obj/item/nullrod/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/anti_magic, \
-	_source = INNATE_TRAIT, \
-	antimagic_flags = (MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY))
+		_source = INNATE_TRAIT, \
+		antimagic_flags = MAGIC_RESISTANCE | MAGIC_RESISTANCE_HOLY \
+	)
 	AddComponent(/datum/component/effect_remover, \
-	success_feedback = "You disrupt the magic of %THEEFFECT with %THEWEAPON.", \
-	success_forcesay = "BEGONE FOUL MAGIKS!!", \
-	on_clear_callback = CALLBACK(src, PROC_REF(on_cult_rune_removed)), \
-	effects_we_clear = list(/obj/effect/rune, /obj/effect/heretic_rune))
+		success_feedback = "You disrupt the magic of %THEEFFECT with %THEWEAPON.", \
+		success_forcesay = "BEGONE FOUL MAGIKS!!", \
+		on_clear_callback = CALLBACK(src, PROC_REF(on_cult_rune_removed)), \
+		effects_we_clear = list(/obj/effect/rune, /obj/effect/heretic_rune) \
+	)
 
 /obj/item/nullrod/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] is killing [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to get closer to god!"))
@@ -316,7 +318,7 @@
 	block_power = 100 //No stamina damage for this one
 	var/shield_icon = "shield-red"
 
-/obj/item/nullrod/staff/ComponentInitialize()
+/obj/item/nullrod/staff/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/two_handed, force_unwielded=5, force_wielded=5, block_power_unwielded=100, block_power_wielded=100)
 
@@ -756,7 +758,7 @@
 	block_power = 75
 	block_flags = BLOCKING_ACTIVE | BLOCKING_COUNTERATTACK | BLOCKING_UNBALANCE
 
-/obj/item/nullrod/bostaff/ComponentInitialize()
+/obj/item/nullrod/bostaff/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/two_handed, force_unwielded=10, force_wielded=14, block_power_unwielded=75, block_power_wielded=75, icon_wielded="bostaff1")
 
