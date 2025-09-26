@@ -2,6 +2,8 @@
 // Here's all the seeds (plants) that can be used in hydro
 // ********************************************************
 
+#define MUTATION_SUCCESS_RATE 55
+
 /obj/item/seeds
 	name = "seed"
 	icon = 'icons/obj/hydroponics/seeds.dmi'
@@ -141,7 +143,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds)
 /// This random adjustment allows us to keep values randomized yet always slightly directed towards improvement. Effectively reducing time spamming.
 /obj/item/seeds/proc/soft_adjust(amount)
 	var/adjust_amt
-	if(prob(55))
+	if(prob(MUTATION_SUCCESS_RATE))
 		adjust_amt = rand(0, amount)
 	else
 		adjust_amt = rand(-amount, 0)
