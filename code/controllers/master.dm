@@ -347,7 +347,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	var/time = (REALTIMEOFDAY - start_timeofday) / 10
 
 
-	var/msg = "Initializations complete within [time] second[time == 1 ? "" : "s"]!"
+	var/msg = "Initializations complete within [round(time, 0.01)] second[time == 1 ? "" : "s"]!"
 	to_chat(world, span_boldannounce("[msg]"))
 	log_world(msg)
 
