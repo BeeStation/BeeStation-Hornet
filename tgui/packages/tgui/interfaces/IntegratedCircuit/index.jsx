@@ -5,7 +5,7 @@ import { useBackend } from '../../backend';
 import { Box, Button, InfinitePlane, Input, Stack } from '../../components';
 import { Window } from '../../layouts';
 import { CircuitInfo } from './CircuitInfo';
-import { Connections } from './common/Connections';
+import { Connections } from './Connections';
 import { ABSOLUTE_Y_OFFSET, MOUSE_BUTTON_LEFT } from './constants';
 import { ObjectComponent } from './ObjectComponent';
 import { VariableMenu } from './VariableMenu';
