@@ -1,7 +1,0 @@
-author: SunShine214
-delete-after: true
-changes:
-  - balance: Adjusted gas shielding powers. Plasma is now bad at shielding, nitrium
-      and tritium are much better then before.
-  - bugfix: Added access restrictions to the AGR monitor program. Assistants no longer
-      can ruin atmos techs days.
