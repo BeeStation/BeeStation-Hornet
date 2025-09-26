@@ -2607,3 +2607,11 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 3
 	surplus = 0
 	disabled = TRUE	// #11346 Currently in a broken state, lasso'd mobs will never unregister a target once they have locked onto one, making them unusable.
+
+/datum/uplink_item/support/nukielawnmower
+	name = "Syndicate Organism Shredder"
+	desc = "An armoured and modified lawn mower that can mow down any organic in its path. It is a fast and armoured to melee and ranged weaponry, but it's extremely vunerable to: bombs, fire, and form of acid"
+	item = /obj/vehicle/ridden/lawnmower/nukie
+	cost = 15
+	surplus = 0
+	purchasable_from = UPLINK_NUKE_OPS
