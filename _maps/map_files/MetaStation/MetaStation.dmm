@@ -28317,7 +28317,8 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/maintenance/disposal/incinerator)
 "ghT" = (
-/obj/machinery/seed_extractor,
+/obj/machinery/biogenerator,
+/obj/item/reagent_containers/cup/bucket,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/hydroponics/garden)
 "gjc" = (
@@ -76379,8 +76380,7 @@
 /turf/open/floor/iron/white,
 /area/medical/medbay/aft)
 "wuO" = (
-/obj/machinery/biogenerator,
-/obj/item/reagent_containers/cup/bucket,
+/obj/machinery/seed_extractor,
 /turf/open/floor/wood/big,
 /area/hydroponics/garden)
 "wvo" = (
