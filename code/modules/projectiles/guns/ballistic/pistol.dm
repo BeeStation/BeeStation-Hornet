@@ -172,7 +172,7 @@
 	mag_type = /obj/item/ammo_box/magazine/x200law
 	can_suppress = FALSE
 	worn_icon_state = "officer_pistol"
-	alarmed = TRUE
+	empty_alarm = TRUE
 	rack_sound = 'sound/weapons/nps10/NPS-rack.ogg'
 	load_empty_sound = 'sound/weapons/nps10/NPS-load.ogg'
 	bolt_drop_sound = 'sound/weapons/nps10/NPS-boltdrop.ogg'

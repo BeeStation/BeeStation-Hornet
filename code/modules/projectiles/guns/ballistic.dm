@@ -426,8 +426,9 @@
 
 /obj/item/gun/ballistic/proc/postfire_empty_checks()
 	if (!chambered && !get_ammo())
-		if (alarmed)
+		if (!alarmed && empty_alarm)
 			playsound(src, empty_alarm_sound, empty_alarm_volume, empty_alarm_vary)
+			alarmed = TRUE
 			update_icon()
 		if (bolt_type == BOLT_TYPE_LOCKING && semi_auto)
 			bolt_locked = TRUE
