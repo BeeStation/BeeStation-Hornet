@@ -1,0 +1,4 @@
+author: rkz, Mothblocks
+delete-after: true
+changes:
+  - refactor: refactor GetFlatIcon to be clearer
