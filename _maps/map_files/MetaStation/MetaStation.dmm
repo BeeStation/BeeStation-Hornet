@@ -3905,7 +3905,6 @@
 	dir = 1
 	},
 /obj/structure/table,
-/obj/structure/table,
 /obj/machinery/digital_clock/directional/west{
 	pixel_x = 27
 	},
@@ -45006,8 +45005,7 @@
 /obj/item/pen,
 /obj/effect/decal/cleanable/cobweb,
 /obj/structure/sign/painting/library{
-	pixel_x = -32;
-	pixel_y = 0
+	pixel_x = -32
 	},
 /turf/open/floor/wood,
 /area/library)
@@ -72571,14 +72569,12 @@
 /obj/structure/disposalpipe/junction{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/dark{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/dark,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/crew_quarters/locker)
 "vep" = (
@@ -77916,7 +77912,7 @@
 "wUd" = (
 /obj/effect/decal/cleanable/food/tomato_smudge,
 /obj/machinery/computer/security/wooden_tv{
-	network = list("");
+	network = null;
 	name = "Broken Televison";
 	desc = "An old TV hooked into a disk player, sadly both are out of order at the moment.";
 	pixel_x = 1;
