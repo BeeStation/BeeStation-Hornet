@@ -76829,9 +76829,7 @@
 /turf/open/floor/iron,
 /area/maintenance/department/science)
 "sBi" = (
-/obj/structure/musician/piano{
-	icon_state = "piano"
-	},
+/obj/structure/musician/piano,
 /obj/machinery/airalarm/directional/south{
 	pixel_y = -22
 	},
