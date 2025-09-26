@@ -77916,7 +77916,7 @@
 	desc = "An old TV hooked into a disk player, sadly both are out of order at the moment.";
 	pixel_x = 1;
 	pixel_y = 6;
-	network = list("MothNews6")
+	network = list("LIMBO")
 	},
 /obj/item/trash/can{
 	pixel_y = -14;
