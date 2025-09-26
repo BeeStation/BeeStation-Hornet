@@ -42,6 +42,9 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 	AddElement(/datum/element/mechanical_repair)
+	if(!CONFIG_GET(flag/disable_human_mood))
+		AddComponent(/datum/component/mood)
+
 	GLOB.human_list += src
 
 /mob/living/carbon/human/proc/setup_physiology()
@@ -50,11 +53,6 @@
 /mob/living/carbon/human/proc/setup_human_dna()
 	randomize_human_normie(src, randomize_mutations = TRUE, update_body = FALSE)
 
-/mob/living/carbon/human/ComponentInitialize()
-	. = ..()
-	if(!CONFIG_GET(flag/disable_human_mood))
-		AddComponent(/datum/component/mood)
-
 /mob/living/carbon/human/Destroy()
 	QDEL_NULL(physiology)
 	if(biowares)
@@ -62,7 +60,6 @@
 	GLOB.suit_sensors_list -= src
 	GLOB.human_list -= src
 	return ..()
-
 
 /mob/living/carbon/human/prepare_data_huds()
 	//Update med hud images...

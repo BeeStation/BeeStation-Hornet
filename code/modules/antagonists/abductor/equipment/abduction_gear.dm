@@ -286,7 +286,7 @@
 	icon_state = "silencer"
 	item_state = "gizmo"
 
-/obj/item/abductor/silencer/ComponentInitialize()
+/obj/item/abductor/silencer/Initialize(mapload)
 	. = ..()
 	//Activate the jammer
 	//This jammer will not block cameras or AI shells
