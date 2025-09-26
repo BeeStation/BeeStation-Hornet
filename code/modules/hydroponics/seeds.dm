@@ -522,3 +522,5 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds)
 			genes += P
 		else
 			qdel(P)
+
+#undef MUTATION_SUCCESS_RATE
