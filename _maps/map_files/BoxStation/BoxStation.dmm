@@ -32687,10 +32687,6 @@
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 8
 	},
-/obj/item/book/manual/hydroponics_pod_people{
-	pixel_x = 10
-	},
-/obj/item/paper/guides/jobs/hydroponics,
 /turf/open/floor/iron,
 /area/hydroponics)
 "jyd" = (
