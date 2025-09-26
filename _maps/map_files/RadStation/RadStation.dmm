@@ -23686,6 +23686,17 @@
 	},
 /turf/open/floor/iron,
 /area/janitor)
+"hGg" = (
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/effect/turf_decal/edges/borderfloor,
+/obj/machinery/camera/motion/directional/south,
+/turf/open/floor/iron/smooth,
+/area/ai_monitored/turret_protected/aisat/hallway)
 "hGp" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -33928,7 +33939,6 @@
 /turf/open/floor/iron/dark,
 /area/maintenance/port/central)
 "ldG" = (
-/obj/machinery/camera/motion/directional/south,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
@@ -39404,7 +39414,6 @@
 /obj/machinery/computer/upload/ai{
 	dir = 4
 	},
-/obj/machinery/camera/motion/directional/west,
 /turf/open/floor/iron/tech,
 /area/ai_monitored/turret_protected/ai_upload)
 "mWo" = (
@@ -47162,7 +47171,6 @@
 /turf/open/floor/plating/airless,
 /area/science/test_area)
 "puk" = (
-/obj/machinery/camera/motion/directional/north,
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
@@ -71785,7 +71793,6 @@
 /turf/open/floor/iron,
 /area/medical/medbay/lobby)
 "xoP" = (
-/obj/machinery/camera/motion/directional/north,
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
@@ -72066,7 +72073,6 @@
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "xsX" = (
-/obj/machinery/camera/motion/directional/south,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -105882,7 +105888,7 @@ mSK
 uTv
 dcR
 hAR
-rmg
+hGg
 niZ
 nPN
 jxK
@@ -107938,7 +107944,7 @@ uTv
 uTv
 ree
 bYI
-rmg
+hGg
 uuQ
 gFX
 dlp
