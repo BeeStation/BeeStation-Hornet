@@ -2,6 +2,8 @@ GLOBAL_LIST_EMPTY(all_wormholes) // So we can pick wormholes to teleport to
 
 /datum/round_event_control/wormholes
 	name = "Wormholes"
+	description = "Space time anomalies appear on the station, randomly teleporting people who walk into them."
+	category = EVENT_CATEGORY_SPACE
 	typepath = /datum/round_event/wormholes
 	max_occurrences = 3
 	weight = 2
@@ -9,16 +11,16 @@ GLOBAL_LIST_EMPTY(all_wormholes) // So we can pick wormholes to teleport to
 
 
 /datum/round_event/wormholes
-	announceWhen = 10
-	endWhen = 60
+	announce_when = 10
+	end_when = 60
 
 	var/list/wormholes = list()
 	var/shift_frequency = 3
 	var/number_of_wormholes = 400
 
 /datum/round_event/wormholes/setup()
-	announceWhen = rand(0, 20)
-	endWhen = rand(40, 80)
+	announce_when = rand(0, 20)
+	end_when = rand(40, 80)
 
 /datum/round_event/wormholes/start()
 	for(var/i in 1 to number_of_wormholes)

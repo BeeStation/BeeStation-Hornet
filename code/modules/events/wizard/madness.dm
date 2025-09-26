@@ -1,5 +1,6 @@
 /datum/round_event_control/wizard/madness
 	name = "Curse of Madness"
+	description = "Reveals a horrifying truth to everyone, giving them a trauma."
 	weight = 1
 	typepath = /datum/round_event/wizard/madness
 	earliest_start = 0 MINUTES

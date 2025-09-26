@@ -3,11 +3,13 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 
 /datum/round_event_control/fugitives
 	name = "Spawn Fugitives"
+	description = "Spawns a group of fugitives."
+	category = EVENT_CATEGORY_INVASION
 	typepath = /datum/round_event/ghost_role/fugitives
 	max_occurrences = 1
 	min_players = 20
 	earliest_start = 30 MINUTES //deadchat sink, lets not even consider it early on.
-	cannot_spawn_after_shuttlecall = TRUE
+	can_spawn_after_shuttlecall = FALSE
 
 /datum/round_event/ghost_role/fugitives
 	minimum_required = 1
@@ -20,7 +22,7 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 	for(var/datum/team/fugitive_hunters/F in GLOB.antagonist_teams)
 		return MAP_ERROR
 	var/list/possible_spawns = list()//Some xeno spawns are in some spots that will instantly kill the refugees, like atmos
-	for(var/turf/X in GLOB.xeno_spawn)
+	for(var/turf/X in GLOB.generic_maintenance_landmarks)
 		if(istype(X.loc, /area/maintenance))
 			possible_spawns += X
 	if(!length(possible_spawns))

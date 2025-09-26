@@ -1,5 +1,7 @@
 /datum/round_event_control/spacevine
 	name = "Spacevine"
+	description = "Kudzu begins to overtake the station. Might spawn man-eating plants."
+	category = EVENT_CATEGORY_ENTITIES
 	typepath = /datum/round_event/spacevine
 	weight = 15
 	max_occurrences = 3

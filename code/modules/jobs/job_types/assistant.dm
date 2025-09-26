@@ -50,30 +50,36 @@ Assistant
 	jobtype = /datum/job/assistant
 	belt = /obj/item/modular_computer/tablet/pda/preset/assistant
 
-/datum/outfit/job/assistant/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/assistant/pre_equip(mob/living/carbon/human/target)
 	..()
+	give_holiday_hat(target)
+	give_jumpsuit(target)
+
+/datum/outfit/job/assistant/proc/give_holiday_hat(mob/living/carbon/human/target)
+	for(var/holidayname in GLOB.holidays)
+		var/datum/holiday/holiday_today = GLOB.holidays[holidayname]
+		var/obj/item/special_hat = holiday_today.holiday_hat
+		if(prob(20) && !isnull(special_hat) && isnull(head))
+			head = special_hat
+
+/datum/outfit/job/assistant/proc/give_jumpsuit(mob/living/carbon/human/target)
 	if (CONFIG_GET(flag/grey_assistants))
-		give_grey_suit(H)
+		if (target.jumpsuit_style == PREF_SUIT)
+			uniform = /obj/item/clothing/under/color/grey
+		else
+			uniform = /obj/item/clothing/under/color/jumpskirt/grey
 	else
-		if(H.jumpsuit_style == PREF_SUIT)
+		if(target.jumpsuit_style == PREF_SUIT)
 			uniform = /obj/item/clothing/under/color/random
 		else
 			uniform = /obj/item/clothing/under/color/jumpskirt/random
 
-/datum/outfit/job/assistant/proc/give_grey_suit(mob/living/carbon/human/target)
-	//We don't cache these, because they can delete on init
-	//Too fragile, better to just eat the cost
-	if (target.jumpsuit_style == PREF_SUIT)
-		uniform = /obj/item/clothing/under/color/grey
-	else
-		uniform = /obj/item/clothing/under/color/jumpskirt/grey
-
 /datum/outfit/job/assistant/consistent
 	name = "Assistant - Always Grey"
 
-/datum/outfit/job/assistant/consistent/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/assistant/consistent/pre_equip(mob/living/carbon/human/target)
 	..()
-	give_grey_suit(H)
+	give_jumpsuit(target)
 
 /datum/outfit/job/assistant/consistent/post_equip(mob/living/carbon/human/H, visualsOnly)
 	..()

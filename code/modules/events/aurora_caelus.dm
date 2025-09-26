@@ -1,19 +1,21 @@
 /datum/round_event_control/aurora_caelus
 	name = "Aurora Caelus"
+	description = "A colourful display can be seen through select windows. And the kitchen."
+	category = EVENT_CATEGORY_FRIENDLY
 	typepath = /datum/round_event/aurora_caelus
 	max_occurrences = 1
 	weight = 1
 	earliest_start = 5 MINUTES
 
-/datum/round_event_control/aurora_caelus/canSpawnEvent(players)
+/datum/round_event_control/aurora_caelus/can_spawn_event(players)
 	if(!CONFIG_GET(flag/starlight))
 		return FALSE
 	return ..()
 
 /datum/round_event/aurora_caelus
-	announceWhen = 1
-	startWhen = 9
-	endWhen = 50
+	announce_when = 1
+	start_when = 9
+	end_when = 50
 	var/list/aurora_colors = list("#A2FF80", "#A2FFB6", "#92FFD8", "#8AFFEA", "#72FCFF", "#C6A8FF", "#F89EFF", "#FFA0F1")
 	var/aurora_progress = 0 //this cycles from 1 to 8, slowly changing colors from gentle green to gentle blue
 

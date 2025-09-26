@@ -1,5 +1,6 @@
 /datum/round_event_control/anomaly/anomaly_vortex
 	name = "Anomaly: Vortex"
+	description = "This anomaly sucks in and detonates items."
 	typepath = /datum/round_event/anomaly/anomaly_vortex
 
 	min_players = 20
@@ -7,8 +8,8 @@
 	weight = 5
 
 /datum/round_event/anomaly/anomaly_vortex
-	startWhen = 10
-	announceWhen = 3
+	start_when = 10
+	announce_when = 3
 	anomaly_path = /obj/effect/anomaly/bhole
 
 /datum/round_event/anomaly/anomaly_vortex/announce(fake)

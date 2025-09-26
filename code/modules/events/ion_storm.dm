@@ -1,5 +1,7 @@
 /datum/round_event_control/ion_storm
 	name = "Ion Storm"
+	description = "Gives the AI a new, randomized law."
+	category = EVENT_CATEGORY_AI
 	typepath = /datum/round_event/ion_storm
 	weight = 15
 	min_players = 2
@@ -13,8 +15,8 @@
 	var/bot_emag_prob = 1
 	var/law_source = "Ion Storm"
 	var/ion_message = null
-	announceWhen = 1
-	announceChance = 33
+	announce_when = 1
+	announce_chance = 33
 
 /datum/round_event/ion_storm/add_law_only // special subtype that adds a law only
 	law_source = "unspecified, please report this to coders"
@@ -25,7 +27,7 @@
 	bot_emag_prob = 0
 
 /datum/round_event/ion_storm/announce(fake)
-	if(prob(announceChance) || fake)
+	if(prob(announce_chance) || fake)
 		priority_announce("Ion storm detected near the station. Please check all AI-controlled equipment for errors.", "Anomaly Alert", ANNOUNCER_IONSTORM)
 
 

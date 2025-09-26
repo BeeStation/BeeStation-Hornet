@@ -591,6 +591,10 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 		var/area/our_area = to_contain.loc
 		our_area.contained_turfs += to_contain
 
+/// Returns true if the map we're playing on is on a planet
+/datum/controller/subsystem/mapping/proc/is_planetary()
+	return current_map.planetary_station
+
 /datum/controller/subsystem/mapping/proc/calculate_default_z_level_gravities()
 	for(var/z_level in 1 to length(z_list))
 		calculate_z_level_gravity(z_level)

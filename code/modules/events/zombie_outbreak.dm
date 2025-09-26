@@ -1,5 +1,7 @@
 /datum/round_event_control/zombie_outbreak
 	name = "Zombie Outbreak"
+	description = "A random crewmember is infected with a zombie tumor."
+	category = EVENT_CATEGORY_HEALTH
 	typepath = /datum/round_event/zombie_outbreak
 	weight = 5
 	max_occurrences = 1

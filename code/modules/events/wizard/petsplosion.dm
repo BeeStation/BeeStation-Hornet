@@ -1,5 +1,6 @@
 /datum/round_event_control/wizard/petsplosion //the horror
 	name = "Petsplosion"
+	description = "Rapidly multiplies the animals on the station."
 	weight = 2
 	typepath = /datum/round_event/wizard/petsplosion
 	max_occurrences = 1 //Exponential growth is nothing to sneeze at!
@@ -16,7 +17,7 @@
 	..()
 
 /datum/round_event/wizard/petsplosion
-	endWhen = 61 //1 minute (+1 tick for endWhen not to interfere with tick)
+	end_when = 61 //1 minute (+1 tick for end_when not to interfere with tick)
 	var/countdown = 0
 	var/mobs_duped = 0
 

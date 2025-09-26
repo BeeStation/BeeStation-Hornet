@@ -1,11 +1,11 @@
 /datum/round_event_control/mass_hallucination
 	name = "Mass Hallucination"
-	//description = "All crewmembers start to hallucinate the same thing."
+	description = "All crewmembers start to hallucinate the same thing."
+	category = EVENT_CATEGORY_HEALTH
 	typepath = /datum/round_event/mass_hallucination
 	weight = 10
 	max_occurrences = 2
 	min_players = 1
-	//category = EVENT_CATEGORY_HEALTH
 
 	/// For admins, what hallucination did we pick
 	var/admin_forced_hallucination

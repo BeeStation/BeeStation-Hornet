@@ -1,11 +1,13 @@
 /datum/round_event_control/processor_overload
 	name = "Processor Overload"
+	description = "Emps the telecomm processors, scrambling radio speech. Might blow up a few."
+	category = EVENT_CATEGORY_ENGINEERING
 	typepath = /datum/round_event/processor_overload
 	weight = 15
 	min_players = 20
 
 /datum/round_event/processor_overload
-	announceWhen	= 1
+	announce_when	= 1
 
 /datum/round_event/processor_overload/announce(fake)
 	var/alert = pick(	"Exospheric bubble inbound. Processor overload is likely. Please contact you*%xp25)`6cq-BZZT", \

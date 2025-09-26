@@ -134,7 +134,7 @@
 
 /mob/living/simple_animal/eminence/proc/run_global_event(datum/round_event_control/E)
 	E.preRunEvent()
-	E.runEvent()
+	E.run_event()
 	SSevents.reschedule()
 
 /mob/living/simple_animal/eminence/get_stat_tab_status()

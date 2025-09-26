@@ -1,13 +1,14 @@
 /datum/round_event_control/anomaly/insanity_pulse
 	name = "Anomaly: Sanity Disruptor"
+	description = "This anomaly makes people sad."
 	typepath = /datum/round_event/anomaly/insanity_pulse
 
 	min_players = 15
 	max_occurrences = 2
 
 /datum/round_event/anomaly/insanity_pulse
-	startWhen = 3
-	announceWhen = 10
+	start_when = 3
+	announce_when = 10
 	anomaly_path = /obj/effect/anomaly/insanity_pulse
 
 /datum/round_event/anomaly/insanity_pulse/announce(fake)

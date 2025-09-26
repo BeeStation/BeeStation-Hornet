@@ -2,6 +2,7 @@
 // This is the "lets entice the wizard to use summon events!" file.
 /datum/round_event_control/wizard/robelesscasting //EI NUDTH!
 	name = "Robeless Casting"
+	description = "Wizard no longer needs robes to cast spells."
 	weight = 2
 	typepath = /datum/round_event/wizard/robelesscasting
 	max_occurrences = 1
@@ -26,6 +27,7 @@
 
 /datum/round_event_control/wizard/improvedcasting //blink x5 disintergrate x5 here I come!
 	name = "Improved Casting"
+	description = "Levels up the wizard's spells."
 	weight = 3
 	typepath = /datum/round_event/wizard/improvedcasting
 	max_occurrences = 4 //because that'd be max level spells

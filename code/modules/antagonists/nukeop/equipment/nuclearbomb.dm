@@ -571,7 +571,7 @@ GLOBAL_VAR_INIT(nuke_off_station, 0)
 		return
 	if(is_station_level(bomb_location.z))
 		var/datum/round_event_control/beer_clog/beer_event = new()
-		beer_event.runEvent()
+		beer_event.run_event()
 		addtimer(CALLBACK(src, PROC_REF(really_actually_explode)), 110)
 	else
 		visible_message(span_notice("[src] fizzes ominously."))

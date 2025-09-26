@@ -1,5 +1,6 @@
 /datum/round_event_control/wizard/summonguns //The Classic
 	name = "Summon Guns"
+	description = "Summons a gun for everyone. Might turn people into survivalists."
 	weight = 1
 	typepath = /datum/round_event/wizard/summonguns
 	max_occurrences = 1

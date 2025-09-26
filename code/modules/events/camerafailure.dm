@@ -1,5 +1,7 @@
 /datum/round_event_control/camera_failure
 	name = "Camera Failure"
+	description = "Turns off a random amount of cameras."
+	category = EVENT_CATEGORY_ENGINEERING
 	typepath = /datum/round_event/camera_failure
 	weight = 100
 	max_occurrences = 20
