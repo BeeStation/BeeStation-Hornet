@@ -254,8 +254,8 @@ There are several things that need to be remembered:
 
 		// We handle sunglasses and mesons and the like here
 		if(glasses.emissive_state && !(head && (head.flags_inv & HIDEEYES)) && !(wear_mask && (wear_mask.flags_inv & HIDEEYES)))
-			var/emissive_layer = GLASSES_LAYER
-			var/mutable_appearance/glasses_emissive = emissive_appearance(icon_file, glasses.emissive_state, emissive_layer, 100, filters = src.filters)
+			var/emissive_layer = CALCULATE_MOB_OVERLAY_LAYER(GLASSES_LAYER)
+			var/mutable_appearance/glasses_emissive = emissive_appearance(icon_file, glasses.emissive_state, layer = emissive_layer, alpha = 100, filters = src.filters)
 			add_overlay(glasses_emissive)
 			ADD_LUM_SOURCE(src, LUM_SOURCE_GLASSES)
 
