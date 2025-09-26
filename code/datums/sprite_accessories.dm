@@ -2353,7 +2353,7 @@
 	icon = 'icons/mob/ipc_accessories.dmi'
 	emissive_state = "m_ipc_screen_emissive"
 	emissive_alpha = 60
-	color_src = HEAD_EYECOLOR
+	color_src = EYE_COLOR
 
 /datum/sprite_accessory/ipc_screens/blue
 	name = "Blue"
