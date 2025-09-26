@@ -3452,6 +3452,8 @@
 	icon_state = "2-8"
 	},
 /obj/structure/table/reinforced,
+/obj/item/paper_bin/construction,
+/obj/item/pen,
 /turf/open/floor/iron/dark/smooth_large,
 /area/ai_monitored/turret_protected/aisat_interior)
 "bdI" = (
@@ -6119,6 +6121,7 @@
 /obj/effect/turf_decal/edges/borderfloor{
 	dir = 1
 	},
+/mob/living/simple_animal/bot/cleanbot/larry,
 /turf/open/floor/iron/smooth,
 /area/ai_monitored/turret_protected/aisat/hallway)
 "bXj" = (
@@ -6460,6 +6463,7 @@
 /obj/effect/turf_decal/edges/borderfloor{
 	dir = 10
 	},
+/obj/structure/fluff/hedge,
 /turf/open/floor/iron/smooth,
 /area/ai_monitored/turret_protected/aisat/hallway)
 "cbk" = (
@@ -9027,6 +9031,11 @@
 	icon_state = "4-8"
 	},
 /obj/structure/table/reinforced,
+/obj/item/screwdriver{
+	pixel_y = 7;
+	pixel_x = -10
+	},
+/obj/item/folder,
 /turf/open/floor/iron/dark/smooth_large,
 /area/ai_monitored/turret_protected/aisat_interior)
 "cRy" = (
@@ -9352,6 +9361,21 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/port/aft)
+"cXe" = (
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
+/obj/machinery/light/cold/no_nightlight/directional/north,
+/obj/effect/turf_decal/edges/borderfloor{
+	dir = 1
+	},
+/obj/structure/table/reinforced,
+/obj/item/radio/intercom{
+	dir = 1;
+	pixel_x = 1
+	},
+/turf/open/floor/iron/smooth,
+/area/ai_monitored/turret_protected/aisat/hallway)
 "cXo" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -9695,14 +9719,15 @@
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
-/obj/machinery/status_display/ai/directional/north,
 /obj/structure/railing{
 	dir = 4
 	},
 /obj/effect/turf_decal/edges/borderfloor{
 	dir = 5
 	},
-/mob/living/simple_animal/bot/floorbot,
+/obj/structure/flora/bigplant{
+	pixel_y = 8
+	},
 /turf/open/floor/iron/smooth,
 /area/ai_monitored/turret_protected/aisat/hallway)
 "dcU" = (
@@ -10271,6 +10296,7 @@
 	dir = 6
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/fluff/hedge,
 /turf/open/floor/iron/smooth,
 /area/ai_monitored/turret_protected/aisat/hallway)
 "dlY" = (
@@ -22925,6 +22951,7 @@
 /obj/effect/turf_decal/edges/borderfloor{
 	dir = 4
 	},
+/obj/structure/fluff/hedge,
 /turf/open/floor/iron/smooth,
 /area/ai_monitored/turret_protected/aisat/hallway)
 "hre" = (
@@ -23426,6 +23453,7 @@
 /obj/effect/turf_decal/edges/borderfloor/corner1{
 	dir = 4
 	},
+/mob/living/simple_animal/bot/floorbot,
 /turf/open/floor/iron/smooth,
 /area/ai_monitored/turret_protected/aisat/hallway)
 "hBh" = (
@@ -38882,6 +38910,19 @@
 /obj/machinery/light/directional/west,
 /turf/open/floor/iron,
 /area/engine/atmos)
+"mOB" = (
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/edges/borderfloor{
+	dir = 1
+	},
+/obj/structure/chair/fancy/corp{
+	dir = 8
+	},
+/obj/machinery/status_display/ai/directional/north,
+/turf/open/floor/iron/smooth,
+/area/ai_monitored/turret_protected/aisat/hallway)
 "mOL" = (
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
@@ -52174,7 +52215,6 @@
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
-/obj/machinery/status_display/ai/directional/north,
 /obj/structure/railing{
 	dir = 8
 	},
@@ -52182,7 +52222,9 @@
 	dir = 9
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/bot/cleanbot/larry,
+/obj/structure/flora/bigplant{
+	pixel_y = 8
+	},
 /turf/open/floor/iron/smooth,
 /area/ai_monitored/turret_protected/aisat/hallway)
 "req" = (
@@ -55080,6 +55122,7 @@
 	dir = 9
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/fluff/hedge,
 /turf/open/floor/iron/smooth,
 /area/ai_monitored/turret_protected/aisat/hallway)
 "seT" = (
@@ -57393,6 +57436,11 @@
 	dir = 9
 	},
 /obj/machinery/status_display/ai/directional/west,
+/obj/structure/showcase/cyborg/old{
+	dir = 4;
+	pixel_x = -9;
+	pixel_y = 2
+	},
 /turf/open/floor/iron/textured_corner,
 /area/ai_monitored/turret_protected/aisat_interior)
 "sSn" = (
@@ -57856,6 +57904,16 @@
 /obj/effect/decal/cleanable/blood/footprints,
 /turf/open/floor/catwalk_floor,
 /area/maintenance/department/engine)
+"sZH" = (
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/edges/borderfloor{
+	dir = 1
+	},
+/obj/machinery/status_display/ai/directional/north,
+/turf/open/floor/iron/smooth,
+/area/ai_monitored/turret_protected/aisat/hallway)
 "sZT" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8
@@ -58977,6 +59035,7 @@
 /obj/structure/cable/orange{
 	icon_state = "2-8"
 	},
+/obj/machinery/power/port_gen/pacman,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat/service)
 "tos" = (
@@ -62478,10 +62537,11 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 9
 	},
-/obj/structure/showcase/cyborg/old{
-	dir = 4;
-	pixel_x = -9;
-	pixel_y = 2
+/obj/structure/table/reinforced,
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/glasses/meson{
+	pixel_y = 11;
+	pixel_x = 6
 	},
 /turf/open/floor/iron/textured_corner,
 /area/ai_monitored/turret_protected/aisat_interior)
@@ -64053,6 +64113,7 @@
 /obj/effect/turf_decal/edges/borderfloor{
 	dir = 5
 	},
+/obj/structure/fluff/hedge,
 /turf/open/floor/iron/smooth,
 /area/ai_monitored/turret_protected/aisat/hallway)
 "uRI" = (
@@ -64277,6 +64338,9 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/fancy/corp{
+	dir = 4
+	},
 /turf/open/floor/iron/smooth,
 /area/ai_monitored/turret_protected/aisat/hallway)
 "uUZ" = (
@@ -69092,6 +69156,12 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 5
 	},
+/obj/structure/table/reinforced,
+/obj/item/phone{
+	desc = "Supposedly a direct line to Nanotrasen Central Command. It's not even plugged in.";
+	pixel_x = -3;
+	pixel_y = -1
+	},
 /turf/open/floor/iron/textured_corner{
 	dir = 8
 	},
@@ -72817,6 +72887,7 @@
 /obj/effect/turf_decal/edges/borderfloor{
 	dir = 8
 	},
+/obj/structure/fluff/hedge,
 /turf/open/floor/iron/smooth,
 /area/ai_monitored/turret_protected/aisat/hallway)
 "xGt" = (
@@ -103229,7 +103300,7 @@ yeA
 yeA
 yeA
 yeA
-yeA
+fQL
 gsA
 gsA
 gsA
@@ -103485,8 +103556,8 @@ ewB
 ewB
 yeA
 yeA
-yeA
-yeA
+gsA
+gsA
 gsA
 gsA
 gsA
@@ -103498,7 +103569,7 @@ gsA
 gsA
 gsA
 gsA
-yeA
+fQL
 yeA
 yeA
 yeA
@@ -104767,7 +104838,7 @@ yeA
 gsA
 gsA
 gsA
-gsA
+fQL
 uTv
 uTv
 uTv
@@ -105038,7 +105109,7 @@ oUx
 dvc
 fMZ
 oUx
-iPR
+sZH
 nBE
 xsX
 niZ
@@ -106819,7 +106890,7 @@ yeA
 yeA
 yeA
 yeA
-gsA
+fQL
 uTv
 uTv
 jch
@@ -108379,7 +108450,7 @@ wsM
 wsM
 wsM
 wsM
-ibx
+cXe
 vti
 ctW
 uuQ
@@ -108636,7 +108707,7 @@ wsM
 qlK
 euB
 wsM
-iPR
+mOB
 tXw
 ldG
 uuQ
@@ -108879,7 +108950,7 @@ yeA
 gsA
 gsA
 gsA
-gsA
+fQL
 uTv
 uTv
 uTv
@@ -110167,8 +110238,8 @@ ewB
 ewB
 yeA
 yeA
-yeA
-yeA
+gsA
+gsA
 gsA
 gsA
 gsA
@@ -110180,7 +110251,7 @@ gsA
 gsA
 gsA
 gsA
-yeA
+fQL
 yeA
 yeA
 yeA
@@ -110425,7 +110496,7 @@ yeA
 yeA
 yeA
 yeA
-yeA
+fQL
 gsA
 gsA
 gsA
