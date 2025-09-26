@@ -382,5 +382,9 @@
       armor
   - bugfix: bio protection properly protects against bioscrambler anomalies
 2025-09-26:
+  lord scrubling:
+  - rscadd: Rapid cable layers have a protolathe design under the advanced engineering
+      technode
+  - balance: Makeshift rcls have the same basic functions as the normal version
   rkz, Mothblocks:
   - refactor: refactor GetFlatIcon to be clearer
