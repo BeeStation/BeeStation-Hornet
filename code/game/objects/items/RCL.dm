@@ -327,7 +327,6 @@
 			showWiringGui(user)
 
 /obj/item/rcl/ghetto
-	actions_types = list()
 	max_amount = 30
 	name = "makeshift rapid cable layer"
 	ghetto = TRUE
