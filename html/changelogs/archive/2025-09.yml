@@ -386,5 +386,8 @@
   - rscadd: Rapid cable layers have a protolathe design under the advanced engineering
       technode
   - balance: Makeshift rcls have the same basic functions as the normal version
+  - bugfix: magboots not updating their slowdown when toggled
+  mrmanlikesbt, JohnFulpWillard:
+  - code_imp: Nuked ComponentInitialize(). Report anything strange!
   rkz, Mothblocks:
   - refactor: refactor GetFlatIcon to be clearer

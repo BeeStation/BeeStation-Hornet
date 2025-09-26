@@ -1,4 +1,0 @@
-author: mrmanlikesbt, JohnFulpWillard
-delete-after: true
-changes:
-  - code_imp: Nuked ComponentInitialize(). Report anything strange!
