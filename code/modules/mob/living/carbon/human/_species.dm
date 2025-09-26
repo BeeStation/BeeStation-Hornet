@@ -781,8 +781,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			// Snowflake, im sorry. We should eventually make this its own mutant organ
 			var/datum/sprite_accessory/screen_accessory = SSaccessories.ipc_screens_list[source.dna.features["ipc_screen"]]
 			if(screen_accessory?.emissive_state)
-				var/emissive_layer = BODY_ADJ_LAYER  // Use the main layer for IPC screen
-				var/mutable_appearance/ipc_screen_emissive = emissive_appearance(screen_accessory.icon, screen_accessory.emissive_state, emissive_layer, screen_accessory.emissive_alpha, filters = source.filters)
+				var/emissive_layer = CALCULATE_MOB_OVERLAY_LAYER(BODY_ADJ_LAYER)
+				var/mutable_appearance/ipc_screen_emissive = emissive_appearance(screen_accessory.icon, screen_accessory.emissive_state, layer = emissive_layer, alpha = screen_accessory.emissive_alpha, filters = source.filters)
 				source.add_overlay(ipc_screen_emissive)
 				ADD_LUM_SOURCE(source, LUM_SOURCE_IPC_SCREEN)
 
