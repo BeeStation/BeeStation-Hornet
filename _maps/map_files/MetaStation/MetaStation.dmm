@@ -5376,11 +5376,6 @@
 /turf/open/floor/wood/big,
 /area/hydroponics/garden)
 "aPR" = (
-/obj/structure/wall_closet/hydro/directional/north{
-	dir = 4;
-	pixel_y = 0;
-	pixel_x = 34
-	},
 /obj/item/plant_analyzer,
 /obj/item/shovel/spade,
 /obj/item/hatchet,
@@ -5396,6 +5391,7 @@
 	},
 /obj/item/crowbar,
 /obj/item/reagent_containers/spray/plantbgone,
+/obj/structure/wall_closet/hydro/directional/east,
 /turf/open/floor/wood/big,
 /area/hydroponics/garden)
 "aPS" = (
@@ -23433,7 +23429,6 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "ezO" = (
-/obj/structure/table,
 /obj/structure/table,
 /obj/item/storage/toolbox/emergency{
 	pixel_y = 12
