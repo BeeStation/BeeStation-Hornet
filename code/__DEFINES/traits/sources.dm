@@ -11,18 +11,23 @@
 #define DISEASE_TRAIT "disease"
 #define SPECIES_TRAIT "species"
 #define ORGAN_TRAIT "organ"
+/// Trait given by organ gained via abductor surgery
+#define ABDUCTOR_GLAND_TRAIT "abductor_gland"
 #define ROUNDSTART_TRAIT "roundstart" //cannot be removed without admin intervention
 #define JOB_TRAIT "job"
 #define CYBORG_ITEM_TRAIT "cyborg-item"
 #define ADMIN_TRAIT "admin" // (B)admins only.
 /// Any traits given through a smite.
 #define SMITE_TRAIT "smite"
+#define SLIME_POTION_TRAIT "slime_potion"
 #define CHANGELING_TRAIT "changeling"
 #define CULT_TRAIT "cult"
 #define CURSED_ITEM_TRAIT "cursed-item" // The item is magically cursed
 #define ABSTRACT_ITEM_TRAIT "abstract-item"
 #define STATUS_EFFECT_TRAIT "status-effect"
 #define CLOTHING_TRAIT "clothing"
+#define MASK_TRAIT "mask" //inherited from the mask
+#define SHOES_TRAIT "shoes" //inherited from your sweet kicks
 #define CLOTHING_FEET_TRAIT "feet"
 #define VEHICLE_TRAIT "vehicle" // inherited from riding vehicles
 #define INNATE_TRAIT "innate"
@@ -122,6 +127,8 @@
 #define PAI_FOLDED "pai-folded"
 /// Trait applied to brain mobs when they lack external aid for locomotion, such as being inside a mech.
 #define BRAIN_UNAIDED "brain-unaided"
+/// Trait applied by MODsuits.
+#define MOD_TRAIT "mod"
 #define TRAIT_PRESERVE_UI_WITHOUT_CLIENT "preserve_ui_without_client" //this mob should never close ui even if it doesn't have a client
 #define EXPERIMENTAL_SURGERY_TRAIT "experimental_surgery"
 #define NINJA_KIDNAPPED_TRAIT "ninja_kidnapped"
@@ -129,6 +136,10 @@
 #define LICH_TRAIT "lich_trait"
 /// Trait given to an atom/movable when they orbit something.
 #define ORBITING_TRAIT "orbiting"
+/// Trait given by simple/basic mob death
+#define BASIC_MOB_DEATH_TRAIT "basic_mob_death"
+/// Trait applied to a mob when it gets a required "operational datum" (components/elements). Sends out the source as the type of the element.
+#define TRAIT_SUBTREE_REQUIRED_OPERATIONAL_DATUM "element-required"
 
 /// This trait comes from when a mob is currently typing.
 #define CURRENTLY_TYPING_TRAIT "currently_typing"
@@ -142,3 +153,10 @@
 /// Sources for TRAIT_IGNORING_GRAVITY
 #define IGNORING_GRAVITY_NEGATION "ignoring_gravity_negation"
 #define FROM_SHADOW_SECT "shadow_sect"
+#define FROM_NOOARTRIUM "nooartrium"
+
+/// Trait granted by [/mob/living/silicon/robot]
+/// Traits applied to a silicon mob by their module.
+#define MODULE_TRAIT "module_trait"
+/// trait that prevents AI controllers from planning detached from ai_status to prevent weird state stuff.
+#define TRAIT_AI_PAUSED "TRAIT_AI_PAUSED"

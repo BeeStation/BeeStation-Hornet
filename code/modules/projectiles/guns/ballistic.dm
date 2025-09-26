@@ -37,7 +37,7 @@
 	var/alarmed = FALSE
 	//Additional info related to the actual chambering, and to allow loading bullets directly into battery / into var/chambered
 	//Copies the caliber of the magazine in the gun during Initialize() | Must be explicitly set on the gun if it spawns without a magazine ;)
-	var/caliber = null
+	var/list/caliber = list()
 	var/direct_loading = FALSE //A gun with this allows the internal magazine to be loaded without removing, ontop of directly chambering rounds
 	//Six bolt types:
 	//BOLT_TYPE_STANDARD: Gun has a bolt, it stays closed while not cycling. The gun must be racked to have a bullet chambered when a mag is inserted.
@@ -73,8 +73,7 @@
 		return
 	if (!magazine)
 		magazine = new mag_type(src)
-	if (!caliber)
-		caliber = magazine.caliber
+	caliber = magazine.caliber
 	chamber_round()
 	update_icon()
 
@@ -240,8 +239,7 @@
 		to_chat(user, span_notice("You rack the [bolt_wording] of \the [src]."))
 	if (chambered)
 		eject_chamber()
-	else
-		chamber_round()
+	chamber_round()
 	if (bolt_type == BOLT_TYPE_LOCKING && !chambered)
 		bolt_locked = TRUE
 		playsound(src, lock_back_sound, lock_back_sound_volume, lock_back_sound_vary)
@@ -335,7 +333,7 @@
 		if(!chambered && istype(A, /obj/item/ammo_casing) && bolt_locked && bolt_type != BOLT_TYPE_OPEN)
 			var/obj/item/ammo_casing/AC = A
 			//If the gun isn't chambered in the same caliber as the cartridge, don't load it.
-			if(src.caliber != AC.caliber)
+			if (!(AC.caliber in src.caliber))
 				to_chat(user, span_warning("\The [src] isn't chambered in this caliber!"))
 				return
 			chambered = AC
@@ -513,7 +511,7 @@
 #define BRAINS_BLOWN_THROW_SPEED 1
 
 /obj/item/gun/ballistic/suicide_act(mob/living/user)
-	var/obj/item/organ/brain/B = user.getorganslot(ORGAN_SLOT_BRAIN)
+	var/obj/item/organ/brain/B = user.get_organ_slot(ORGAN_SLOT_BRAIN)
 	if (B && chambered && chambered.BB && can_trigger_gun(user) && !chambered.BB.nodamage)
 		user.visible_message(span_suicide("[user] is putting the barrel of [src] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide!"))
 		sleep(25)

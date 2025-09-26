@@ -177,26 +177,28 @@
 	return !held_items[hand_index]
 
 /mob/proc/put_in_hand(obj/item/I, hand_index, forced = FALSE, ignore_anim = TRUE)
-	if(forced || can_put_in_hand(I, hand_index))
-		if(isturf(I.loc) && !ignore_anim)
-			I.do_pickup_animation(src)
-		if(hand_index == null)
-			return FALSE
-		if(get_item_for_held_index(hand_index) != null)
-			dropItemToGround(get_item_for_held_index(hand_index), force = TRUE)
-		if(!(I.item_flags & PICKED_UP))
-			I.pickup(src)
-		I.forceMove(src)
-		held_items[hand_index] = I
-		I.plane = ABOVE_HUD_PLANE
-		I.equipped(src, ITEM_SLOT_HANDS)
-		if(I.pulledby)
-			I.pulledby.stop_pulling()
-		update_inv_hands()
-		I.pixel_x = I.base_pixel_x
-		I.pixel_y = I.base_pixel_y
-		return hand_index || TRUE
-	return FALSE
+	if(hand_index == null || !held_items.len || (!forced && !can_put_in_hand(I, hand_index)))
+		return FALSE
+
+	if(isturf(I.loc) && !ignore_anim)
+		I.do_pickup_animation(src)
+	if(get_item_for_held_index(hand_index))
+		dropItemToGround(get_item_for_held_index(hand_index), force = TRUE)
+	if(!(I.item_flags & PICKED_UP))
+		I.pickup(src)
+	I.forceMove(src)
+	held_items[hand_index] = I
+	I.plane = ABOVE_HUD_PLANE
+	I.equipped(src, ITEM_SLOT_HANDS)
+	if(QDELETED(I)) // this is here because some ABSTRACT items like slappers and circle hands could be moved from hand to hand then delete, which meant you'd have a null in your hand until you cleared it (say, by dropping it)
+		held_items[hand_index] = null
+		return FALSE
+	if(I.pulledby)
+		I.pulledby.stop_pulling()
+	update_inv_hands()
+	I.pixel_x = I.base_pixel_x
+	I.pixel_y = I.base_pixel_y
+	return hand_index
 
 //Puts the item into the first available left hand if possible and calls all necessary triggers/updates. returns 1 on success.
 /mob/proc/put_in_l_hand(obj/item/I)
@@ -324,10 +326,15 @@
 /mob/proc/doUnEquip(obj/item/I, force, newloc, no_move, invdrop = TRUE, was_thrown = FALSE, silent = FALSE) //Force overrides TRAIT_NODROP for things like wizarditis and admin undress.
 													//Use no_move if the item is just gonna be immediately moved afterward
 													//Invdrop is used to prevent stuff in pockets dropping. only set to false if it's going to immediately be replaced
+
+	//PROTECTED_PROC(TRUE) //What part of "dont call this proc" dont you people not fucking understand
 	if(!I) //If there's nothing to drop, the drop is automatically successfull. If(unEquip) should generally be used to check for TRAIT_NODROP.
 		return TRUE
 
 	if(HAS_TRAIT(I, TRAIT_NODROP) && !force)
+		return FALSE
+
+	if((SEND_SIGNAL(I, COMSIG_ITEM_PRE_UNEQUIP, force, newloc, no_move, invdrop, silent) & COMPONENT_ITEM_BLOCK_UNEQUIP) && !force)
 		return FALSE
 
 	var/hand_index = get_held_index_of_item(I)
@@ -345,6 +352,7 @@
 			else
 				I.forceMove(newloc)
 		I.dropped(src, was_thrown, silent)
+	SEND_SIGNAL(src, COMSIG_MOB_UNEQUIPPED_ITEM, I, force, newloc, no_move, invdrop, silent)
 	return TRUE
 
 //Outdated but still in use apparently. This should at least be a human proc.
@@ -407,7 +415,7 @@
 	var/obscured = NONE
 	var/hidden_slots = NONE
 
-	for(var/obj/item/I in get_equipped_items())
+	for(var/obj/item/I in get_all_worn_items())
 		hidden_slots |= I.flags_inv
 		if(transparent_protection)
 			hidden_slots |= I.transparent_protection
@@ -513,7 +521,7 @@
 			var/obj/item/bodypart/BP = new path ()
 			BP.owner = src
 			BP.held_index = i
-			add_bodypart(BP)
+			BP.try_attach_limb(src, TRUE)
 			hand_bodyparts[i] = BP
 	..() //Don't redraw hands until we have organs for them
 

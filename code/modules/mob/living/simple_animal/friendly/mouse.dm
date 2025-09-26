@@ -38,23 +38,17 @@
 
 /mob/living/simple_animal/mouse/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/squeak, list('sound/effects/mousesqueek.ogg'=1), 100)
-	if(!body_color)
-		body_color = pick( list("brown","gray","white") )
-	icon_state = "mouse_[body_color]"
-	icon_living = "mouse_[body_color]"
-	icon_dead = "mouse_[body_color]_dead"
-	held_state = "mouse_[body_color]"
+	AddElement(/datum/element/animal_variety, "mouse", pick("brown","gray","white"), FALSE)
+	AddComponent(/datum/component/squeak, list('sound/effects/mousesqueek.ogg' = 1), 100, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) //as quiet as a mouse or whatever
 	if(prob(75))
-		rat_diseases += new /datum/disease/advance/random(rand(1, 6), 9, 1, infected = src)
+		var/datum/disease/advance/dormant_disease = new /datum/disease/advance/random(rand(1, 6), 9, 1, infected = src) // Dormant desiese
+		dormant_disease.dormant = TRUE
+		dormant_disease.spread_flags = DISEASE_SPREAD_NON_CONTAGIOUS
+		rat_diseases += dormant_disease
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
-
-/mob/living/simple_animal/mouse/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
-	. = ..()
-	EXTRAPOLATOR_ACT_ADD_DISEASES(., rat_diseases)
 
 /mob/living/simple_animal/mouse/proc/splat()
 	src.health = 0
@@ -62,15 +56,13 @@
 	death()
 
 /mob/living/simple_animal/mouse/death(gibbed, toast)
-	var/list/data = list("viruses" = rat_diseases)
 	if(!ckey)
 		..(1)
 		if(!gibbed)
 			var/obj/item/food/deadmouse/M = new(loc)
+			M.rat_diseases = rat_diseases
 			M.icon_state = icon_dead
 			M.name = name
-			if(CONFIG_GET(flag/biohazards_allowed))
-				M.reagents.add_reagent(/datum/reagent/blood, 2, data)
 			if(toast)
 				M.add_atom_colour("#3A3A3A", FIXED_COLOUR_PRIORITY)
 				M.desc = "It's toast."
@@ -149,6 +141,7 @@
 	)
 	decomp_req_handle = TRUE
 	decomp_type = /obj/item/food/deadmouse/moldy
+	var/list/datum/disease/rat_diseases = list()
 
 /obj/item/food/deadmouse/moldy
 	name = "moldy dead mouse"
@@ -181,8 +174,3 @@
 
 /obj/item/food/deadmouse/on_grind()
 	reagents.clear_reagents()
-
-/obj/item/food/deadmouse/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run)
-	. = ..()
-	if(EXTRAPOLATOR_ACT_CHECK(., EXTRAPOLATOR_ACT_PRIORITY_ISOLATE))
-		. -= EXTRAPOLATOR_RESULT_ACT_PRIORITY

@@ -72,10 +72,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable/blood/old)
 		var/datum/disease/advance/new_disease = new /datum/disease/advance/random(rand(1, 4), rand(7, 9), 4)
 		src.diseases += new_disease
 
-/obj/effect/decal/cleanable/blood/old/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
-	. = ..()
-	EXTRAPOLATOR_ACT_ADD_DISEASES(., diseases)
-
 /obj/effect/decal/cleanable/blood/splatter
 	icon_state = "gibbl1"
 	random_icon_states = list("gibbl1", "gibbl2", "gibbl3", "gibbl4", "gibbl5")
@@ -224,10 +220,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable/blood/gibs/old)
 		src.diseases += new_disease
 	dry()
 
-/obj/effect/decal/cleanable/blood/gibs/old/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
-	. = ..()
-	EXTRAPOLATOR_ACT_ADD_DISEASES(., diseases)
-
 /obj/effect/decal/cleanable/blood/drip
 	name = "drips of blood"
 	desc = "It's red."
@@ -330,9 +322,9 @@ GLOBAL_LIST_EMPTY(bloody_footprints_cache)
 			else if(species == SPECIES_MONKEY)
 				. += "[icon2html('icons/mob/monkey.dmi', user, "monkey1")] Some <B>monkey feet</B>."
 			else if(species == SPECIES_HUMAN)
-				. += "[icon2html('icons/mob/human_parts.dmi', user, "default_human_l_leg")] Some <B>human feet</B>."
+				. += "[icon2html('icons/mob/species/human/bodyparts.dmi', user, "default_human_l_leg")] Some <B>human feet</B>."
 			else
-				. += "[icon2html('icons/mob/human_parts.dmi', user, "[species]_l_leg")] Some <B>[species] feet</B>."
+				. += "[icon2html('icons/mob/species/human/bodyparts.dmi', user, "[species]_l_leg")] Some <B>[species] feet</B>."
 
 /obj/effect/decal/cleanable/blood/footprints/replace_decal(obj/effect/decal/cleanable/C)
 	if(blood_state != C.blood_state) //We only replace footprints of the same type as us

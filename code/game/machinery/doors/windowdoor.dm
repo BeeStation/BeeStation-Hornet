@@ -64,11 +64,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
 	)
 
-	AddElement(/datum/element/connect_loc, loc_connections)
 	RegisterSignal(src, COMSIG_COMPONENT_NTNET_RECEIVE, PROC_REF(ntnet_receive))
 
-/obj/machinery/door/window/ComponentInitialize()
-	. = ..()
+	AddElement(/datum/element/connect_loc, loc_connections)
 	AddElement(/datum/element/atmos_sensitive)
 	AddComponent(/datum/component/ntnet_interface)
 
@@ -491,7 +489,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 	return TRUE //yup that's power all right
 
 /obj/machinery/door/window/clockwork/allowed(mob/M)
-	if(is_servant_of_ratvar(M))
+	if(IS_SERVANT_OF_RATVAR(M))
 		return TRUE
 	return FALSE
 

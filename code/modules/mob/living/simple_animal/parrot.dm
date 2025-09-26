@@ -111,15 +111,7 @@
 
 /mob/living/simple_animal/parrot/Initialize(mapload)
 	. = ..()
-	if(!ears)
-		var/headset = pick(/obj/item/radio/headset/headset_sec, \
-						/obj/item/radio/headset/headset_eng, \
-						/obj/item/radio/headset/headset_med, \
-						/obj/item/radio/headset/headset_sci, \
-						/obj/item/radio/headset/headset_cargo, \
-						/obj/item/radio/headset/headset_exploration)
-		ears = new headset(src)
-
+//normal parrats dont get free headsets
 	parrot_sleep_dur = parrot_sleep_max //In case someone decides to change the max without changing the duration var
 
 	add_verb(list(/mob/living/simple_animal/parrot/proc/steal_from_ground, \
@@ -982,12 +974,13 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 	desc = "Doomed to squawk the Earth."
 	color = "#FFFFFF77"
 	speak_chance = 20
-	status_flags = GODMODE
+	status_flags = NONE
 	incorporeal_move = INCORPOREAL_MOVE_BASIC
 	butcher_results = list(/obj/item/ectoplasm = 1)
 
 /mob/living/simple_animal/parrot/Poly/ghost/Initialize(mapload)
 	memory_saved = TRUE //At this point nothing is saved
+	ADD_TRAIT(src, TRAIT_GODMODE, TRAIT_GENERIC)
 	. = ..()
 
 /mob/living/simple_animal/parrot/Poly/ghost/handle_automated_speech()

@@ -160,7 +160,6 @@
 				var/obj/item/stock_parts/cell/crap/empty/C = new(src)
 				C.forceMove(src)
 				cell = C
-				chargecount = 0
 				user.visible_message(span_notice("[user] fabricates a weak power cell and places it into [src]."), \
 				span_warning("Your [the_rcd.name] whirrs with strain as you create a weak power cell and place it into [src]!"))
 				update_appearance()

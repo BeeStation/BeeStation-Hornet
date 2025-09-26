@@ -8,10 +8,11 @@
 	requires_ntnet = TRUE
 	transfer_access = list(ACCESS_CONSTRUCTION)
 	network_destination = "supermatter monitoring system"
-	size = 5
+	size = 4
 	tgui_id = "NtosSupermatterMonitor"
 	program_icon = "radiation"
 	alert_able = TRUE
+	power_consumption = 60 WATT
 	var/last_status = SUPERMATTER_INACTIVE
 	var/list/supermatters
 	var/obj/machinery/power/supermatter_crystal/active		// Currently selected supermatter crystal.
@@ -58,7 +59,7 @@
 		if (!isturf(S.loc) || !(is_station_level(S.z) || is_mining_level(S.z) || S.get_virtual_z_level() == T.get_virtual_z_level()))
 			continue
 		supermatters.Add(S)
-		RegisterSignal(S, COMSIG_PARENT_QDELETING, PROC_REF(react_to_del))
+		RegisterSignal(S, COMSIG_QDELETING, PROC_REF(react_to_del))
 
 /datum/computer_file/program/supermatter_monitor/proc/get_status()
 	. = SUPERMATTER_INACTIVE
@@ -177,4 +178,4 @@
 	supermatters -= matter
 	if(matter == active)
 		active = null
-	UnregisterSignal(matter, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(matter, COMSIG_QDELETING)

@@ -25,6 +25,10 @@
 #define LAZYINITLIST(L) if (!L) { L = list(); }
 ///If the provided list is empty, set it to null
 #define UNSETEMPTY(L) if (L && !length(L)) L = null
+///If the provided key -> list is empty, remove it from the list
+#define ASSOC_UNSETEMPTY(L, K) if (!length(L[K])) L -= K;
+///Like LAZYCOPY - copies an input list if the list has entries, If it doesn't the assigned list is nulled
+#define LAZYLISTDUPLICATE(L) (L ? L.Copy() : null )
 ///copies an input list if the list has entries
 #define LAZYCOPY(L) (L ? L.Copy() : list() )
 ///Remove an item from the list, set the list to null if empty
@@ -336,30 +340,16 @@
 	var/total = 0
 	var/item
 	for(item in list_to_pick)
-		if(!list_to_pick[item])
-			list_to_pick[item] = 1
 		total += list_to_pick[item]
+
+	// If everything has no weight set, then perform a standard pick
+	if (!total)
+		return pick(list_to_pick)
 
 	total *= rand()
 	for(item in list_to_pick)
 		total -= list_to_pick[item]
 		if(total <= 0)
-			return item
-
-	return null
-///The original pick_weight proc will sometimes pick entries with zero weight. I'm not sure if changing the original will break anything, so I left it be.
-/proc/pick_weight_allow_zero(list/list_to_pick)
-	var/total = 0
-	var/item
-	for(item in list_to_pick)
-		if(!list_to_pick[item])
-			list_to_pick[item] = 0
-		total += list_to_pick[item]
-
-	total *= rand()
-	for(item in list_to_pick)
-		total -= list_to_pick[item]
-		if(total <= 0 && list_to_pick[item])
 			return item
 
 	return null

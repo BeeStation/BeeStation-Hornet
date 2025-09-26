@@ -15,7 +15,7 @@
 	. = ..()
 	if(!isitem(target)) // Do not attach this to anything that isn't an item
 		return ELEMENT_INCOMPATIBLE
-	RegisterSignal(target, COMSIG_PARENT_EXAMINE, PROC_REF(warning_label))
+	RegisterSignal(target, COMSIG_ATOM_EXAMINE, PROC_REF(warning_label))
 	RegisterSignal(target, COMSIG_TOPIC, PROC_REF(topic_handler))
 	// Don't perform the assignment if there is nothing to assign, or if we already have something for this bespoke element
 	if(attached_proc && !src.attached_proc)
@@ -23,7 +23,7 @@
 
 /datum/element/weapon_description/Detach(datum/target)
 	. = ..()
-	UnregisterSignal(target, list(COMSIG_PARENT_EXAMINE, COMSIG_TOPIC))
+	UnregisterSignal(target, list(COMSIG_ATOM_EXAMINE, COMSIG_TOPIC))
 
 /**
  *
@@ -95,19 +95,20 @@
 			readout += "It takes about [span_warning("[HITS_TO_CRIT(source.throwforce)] throwing hit\s")] to take down an enemy."
 		else
 			readout += "It does not deal noticeable throwing damage."
-		if(source.armour_penetration > 0 || source.block_level > 0)
+		if(source.armour_penetration > 0)
 			readout += "It has [span_warning("[weapon_tag_convert(source.armour_penetration)]")] armor-piercing capability."
 
-		if(source.block_level || source.block_upgrade_walk)
+		if(source.canblock)
 			//empty line
 			readout += ""
-			if(source.block_upgrade_walk && !source.block_level)
-				readout += "While walking, it can block attacks in a <b>narrow</b> arc."
-			else
-				readout += "It can block attacks in a [span_warning("[weapon_tag_convert(source.block_upgrade_walk + source.block_level * OUTPUT_MODIFIER)]")] arc."
-				if(source.block_upgrade_walk)
-					readout += "It is [span_warning("less")] effective at blocking while the user is [span_warning("running")]."
-			readout += "It has [span_warning("[weapon_tag_convert((source.block_power * OUTPUT_MODIFIER))]")] blocking ability."
+			readout += "It should be able to block incoming attacks [(source.block_flags & BLOCKING_ACTIVE) ? "from your main-hand.":"even in your off-hand"]"
+			readout += "It has [span_warning("[weapon_tag_convert((source.block_power + 1))]")] blocking ability."
+			if(source.block_flags & BLOCKING_UNBALANCE)
+				readout += "It may be able to throw your opponent off-balance when blocking their attacks."
+			if(source.block_flags & (BLOCKING_COUNTERATTACK | BLOCKING_NASTY))
+				readout += "It is able to counter-attack while blocking."
+			if(source.block_flags & BLOCKING_PROJECTILE)
+				readout += "It can reflect laser weaponry."
 
 	// Custom manual notes
 	if(source.offensive_notes)

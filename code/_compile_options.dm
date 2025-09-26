@@ -32,6 +32,14 @@
 //#define TRACK_MAX_SHARE	//Allows max share tracking, for use in the atmos debugging ui
 #endif //ifdef TESTING
 
+/// Disables hub authentication. This must be done at compile time due to /client::authenticate being read-only
+/// All connecting users will be forced to use external auth. If external auth is not enabled in the config, the connection is blindly trusted.
+/// DO NOT ENABLE THIS FLAG ON PRODUCTION WITHOUT EXTERNAL AUTH SET UP
+/// Toggle ENABLE_GUEST_EXTERNAL_AUTH to require external auth, otherwise CKEYs are blindly trusted!
+/// This flag also forcibly enables guest connections, because every client has its key reassigned on login.
+/// This flag also disables BYOND account age checks, BYOND Key change verification, and makes the config flag use_account_age_for_jobs useless.
+//#define DISABLE_BYOND_AUTH
+
 /// Enables BYOND TRACY, which allows profiling using Tracy.
 /// The prof.dll/libprof.so must be built and placed in the repo folder.
 /// https://github.com/mafemergency/byond-tracy
@@ -79,6 +87,10 @@
 #warn Hey brother, you're running in LAG MODE.
 #warn IF YOU PUT THIS ON LIVE I WILL FIND YOU AND MAKE YOU WISH YOU WERE NEVE-
 #endif
+
+// If defined, we will compile with FULL timer debug info, rather then a limited scope
+// Be warned, this increases timer creation cost by 5x
+// #define TIMER_DEBUG
 
 /// If this is uncommented, Autowiki will generate edits and shut down the server.
 /// Prefer the autowiki build target instead.
@@ -141,6 +153,8 @@
 #define REFERENCE_TRACKING_DEBUG
 #define FIND_REF_NO_CHECK_TICK
 #define GC_FAILURE_HARD_LOOKUP
+//Test at full capacity, the extra cost doesn't matter
+#define TIMER_DEBUG
 #endif
 
 #ifdef TGS

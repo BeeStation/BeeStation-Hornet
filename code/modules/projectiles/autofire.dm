@@ -98,7 +98,7 @@ Everything else should be handled for you. Good luck soldier.
 			G.attack(autofire_target, L)
 			next_process = world.time + CLICK_CD_MELEE
 			return
-	G.afterattack(autofire_target,L)
+	G.pull_trigger(autofire_target,L)
 
 /datum/component/full_auto/ClearFromParent()
 	. = ..()

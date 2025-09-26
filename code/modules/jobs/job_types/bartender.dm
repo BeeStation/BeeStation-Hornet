@@ -6,12 +6,17 @@
 	supervisors = "the head of personnel"
 	faction = "Station"
 	total_positions = 1
-	spawn_positions = 1
 	selection_color = "#bbe291"
 
 	outfit = /datum/outfit/job/bartender
 
-	base_access = list(ACCESS_BAR, ACCESS_MINERAL_STOREROOM, ACCESS_THEATRE, ACCESS_WEAPONS)
+	base_access = list(
+		ACCESS_BAR,
+		ACCESS_MINERAL_STOREROOM,
+		ACCESS_SERVICE,
+		ACCESS_THEATRE,
+		ACCESS_WEAPONS,
+	)
 	extra_access = list(ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_MORGUE)
 
 	departments = DEPT_BITFLAG_SRV
@@ -37,7 +42,7 @@
 
 	id = /obj/item/card/id/job/bartender
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced/reagent
-	belt = /obj/item/modular_computer/tablet/pda/bartender
+	belt = /obj/item/modular_computer/tablet/pda/preset/bartender
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/bartender
 	suit = /obj/item/clothing/suit/armor/vest

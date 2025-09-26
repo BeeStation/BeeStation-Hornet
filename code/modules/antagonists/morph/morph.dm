@@ -1,4 +1,4 @@
-#define MORPH_COOLDOWN 50
+
 
 /mob/living/simple_animal/hostile/morph
 	name = "morph"
@@ -10,7 +10,7 @@
 	icon_state = "morph"
 	icon_living = "morph"
 	icon_dead = "morph_dead"
-	speed = 2
+	speed = 0
 	combat_mode = TRUE
 	stop_automated_movement = 1
 	status_flags = CANPUSH
@@ -23,6 +23,7 @@
 	healable = 0
 	obj_damage = 50
 	melee_damage = 20
+	melee_damage_type = BURN //Did you know morphs are highly acidic blobs?
 	see_in_dark = NIGHTVISION_FOV_RANGE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	vision_range = 1 // Only attack when target is close
@@ -31,12 +32,11 @@
 	attack_verb_simple = "glomp"
 	attack_sound = 'sound/effects/blobattack.ogg'
 	butcher_results = list(/obj/item/food/meat/slab = 2)
+	sight = SEE_SELF|SEE_MOBS
 
+	COOLDOWN_DECLARE(morph_transformation)
 	var/morphed = FALSE
-	var/melee_damage_disguised = 5
-	var/eat_while_disguised = FALSE
 	var/atom/movable/form = null
-	var/morph_time = 0
 	var/static/list/blacklist_typecache = typecacheof(list(
 	/atom/movable/screen,
 	/obj/anomaly,
@@ -46,13 +46,6 @@
 	/mob/camera
 	))
 	var/atom/movable/throwatom = null
-
-	var/playstyle_string = span_bigbold("You are a morph,") + "</b> an abomination of science created primarily with changeling cells. \
-							You may take the form of anything nearby by shift-clicking it. This process will alert any nearby \
-							observers, and can only be performed once every five seconds. While morphed, you move faster, but do \
-							less damage. In addition, anyone within three tiles will note an uncanny wrongness if examining you. \
-							You can attack any item or dead creature to consume it - creatures will restore your health. \
-							Finally, you can restore yourself to your original form while morphed by shift-clicking yourself.</b>"
 
 	mobchatspan = "blob"
 	discovery_points = 2000
@@ -93,8 +86,6 @@
 /mob/living/simple_animal/hostile/morph/examine(mob/user)
 	if(morphed)
 		. = form.examine(user)
-		if(get_dist(user,src)<=3)
-			. += span_warning("It doesn't look quite right...")
 	else
 		. = ..()
 
@@ -116,20 +107,50 @@
 	return !is_type_in_typecache(A, blacklist_typecache) && (isobj(A) || ismob(A))
 
 /mob/living/simple_animal/hostile/morph/proc/eat(atom/movable/A)
-	if(morphed && !eat_while_disguised)
-		to_chat(src, span_warning("You can not eat anything while you are disguised!"))
-		return FALSE
+	if(ishuman(A))
+		//We don't store human mobs, we eat them now where they are
+		return digest_mob(A)
+
 	if(A && A.loc != src)
+		playsound(src, attack_sound, 50, TRUE)
 		visible_message(span_warning("[src] swallows [A] whole!"))
 		AddContents(A)
 		morph_stomach.ui_update()
 		return TRUE
 	return FALSE
 
+/mob/living/simple_animal/hostile/morph/proc/digest_mob(mob/living/living_target)
+	if(HAS_TRAIT(living_target, TRAIT_HUSK))
+		to_chat(src, span_warning("[span_name("[living_target]")] has already been stripped of all nutritional value!"))
+		return FALSE
+	if(throwatom == living_target)
+		throwatom = null
+	to_chat(src, span_danger("You begin digesting [span_name("[living_target]")]"))
+	if(do_after(src, 3 SECONDS, living_target))
+		if(ishuman(living_target) || ismonkey(living_target) || isalienadult(living_target) || istype(living_target, /mob/living/basic/pet/dog) || istype(living_target, /mob/living/simple_animal/parrot))
+			var/list/turfs_to_throw = view(2, src)
+			for(var/obj/item/item in living_target.contents)
+				if(isclothing(item))
+					continue //no reason to strip them of sensors
+				living_target.dropItemToGround(item, TRUE)
+				if(QDELING(item))
+					continue //skip it
+				item.throw_at(pick(turfs_to_throw), 3, 1, spin = FALSE)
+				item.pixel_x = rand(-10, 10)
+				item.pixel_y = rand(-10, 10)
+		RemoveContents(living_target)
+		living_target.death(FALSE)
+		living_target.take_overall_damage(burn = 50)
+		living_target.become_husk("burn") // Digested bodies can be fixed with synthflesh.
+		adjustHealth(-(living_target.maxHealth * 0.5))
+		to_chat(src, span_danger("You digest [span_name("[living_target]")], restoring some health"))
+		playsound(src, 'sound/effects/splat.ogg', vol = 50, vary = TRUE)
+		return TRUE
+
 /mob/living/simple_animal/hostile/morph/ShiftClickOn(atom/movable/A)
-	if(morph_time <= world.time && !stat)
+	if(COOLDOWN_FINISHED(src, morph_transformation) && !stat)
 		if(A == src)
-			restore(TRUE)
+			restore()
 			return
 		if(allowed(A))
 			assume(A)
@@ -157,19 +178,13 @@
 	else
 		mobchatspan = initial(mobchatspan)
 
-	//Morphed is weaker
-	melee_damage = melee_damage_disguised
-	set_varspeed(0)
-
-	morph_time = world.time + MORPH_COOLDOWN
-	med_hud_set_health()
-	med_hud_set_status() //we're an object honest
+	//Morphed is slower
+	set_varspeed(2)
+	set_cooldown_and_hud(FALSE)
 	return
 
-/mob/living/simple_animal/hostile/morph/proc/restore(var/intentional = FALSE)
+/mob/living/simple_animal/hostile/morph/proc/restore(ambush = FALSE)
 	if(!morphed)
-		if(intentional)
-			to_chat(src, span_warning("You're already in your normal form!"))
 		return
 	morphed = FALSE
 	form = null
@@ -186,13 +201,36 @@
 	icon_state = initial(icon_state)
 	cut_overlays()
 
-	//Baseline stats
-	melee_damage = initial(melee_damage)
+	//Baseline abilities
+	melee_damage_type = BURN
 	set_varspeed(initial(speed))
+	set_cooldown_and_hud(ambush)
 
-	morph_time = world.time + MORPH_COOLDOWN
+/mob/living/simple_animal/hostile/morph/proc/set_cooldown_and_hud(ambush = FALSE)
+	if(ambush)
+		COOLDOWN_START(src, morph_transformation, 20 SECONDS)
+		apply_status_effect(/datum/status_effect/morph_cooldown)
 	med_hud_set_health()
-	med_hud_set_status() //we are not an object
+	med_hud_set_status()
+
+/mob/living/simple_animal/hostile/morph/proc/morph_ambush(mob/living/L, touched_morph = FALSE)
+	changeNext_move(CLICK_CD_MELEE)
+	L.Stun(1 SECONDS)
+	to_chat(L, span_userdanger("[src] bites you!"))
+	visible_message(span_danger("[src] violently bites [L]!"),\
+			span_userdanger("You ambush [L]!"), null, COMBAT_MESSAGE_RANGE)
+
+	//After the ambush we show our true form, the attack will register as coming from whatever we were disguised as
+	restore(ambush = TRUE)
+
+	if(touched_morph)
+		L.Knockdown(5 SECONDS)
+		L.reagents.add_reagent(/datum/reagent/toxin/morphvenom, 7)
+	else
+		L.Knockdown(3 SECONDS)
+
+	if(issilicon(L))
+		L.flash_act(affect_silicon = TRUE)
 
 /mob/living/simple_animal/hostile/morph/death(gibbed)
 	if(morphed)
@@ -233,77 +271,35 @@
 	return ..()
 
 /mob/living/simple_animal/hostile/morph/AttackingTarget()
-	if(morphed && !melee_damage_disguised)
-		to_chat(src, span_warning("You can not attack while disguised!"))
-		return
-	if(isliving(target)) //Eat living beings to store them for a snack, or other uses
-		var/mob/living/L = target
-		if(L.stat)
-			if(L.stat == DEAD)
-				eat(L)
-			else if(do_after(src, 30, target = L)) //Don't Return after this, it's important that the morph can attack softcrit targets to bring them into hardcrit
-				eat(L)
-	else if(isitem(target)) //Eat items for later use
+	if(isitem(target)) //Eat items for later use
 		var/obj/item/I = target
 		if(!I.anchored)
 			eat(I)
 			return
+	else if(isliving(target)) //Eat living beings to store them for a snack, or other uses
+		var/mob/living/L = target
+		if(morphed)
+			morph_ambush(L, FALSE)
+			return //The ambush is our attack
+		if(L?.stat >= SOFT_CRIT && eat(L))
+			return //attack continues if eat() fails, but we don't want to finish attacking if it doesn't.
 	return ..()
 //Ambush attack
 /mob/living/simple_animal/hostile/morph/attack_hand(mob/living/carbon/human/M)
 	if(morphed)
-		M.Knockdown(40)
-		M.reagents.add_reagent(/datum/reagent/toxin/morphvenom, 7)
-		to_chat(M, span_userdanger("[src] bites you!"))
-		visible_message(span_danger("[src] violently bites [M]!"),\
-				span_userdanger("You ambush [M]!"), null, COMBAT_MESSAGE_RANGE)
-		restore()
+		morph_ambush(M, TRUE)
 	else
 		..()
 
+/mob/living/simple_animal/hostile/morph/attacked_by(obj/item/I, mob/living/user)
+	. = ..()
+	if(morphed)
+		restore(TRUE) //It is us who was ambushed!
+
 /mob/living/simple_animal/hostile/morph/mind_initialize()
 	. = ..()
-	to_chat(src, playstyle_string)
-	// sometimes the datum is not added for a bit
 	addtimer(CALLBACK(src, PROC_REF(notify_non_antag)), 3 SECONDS)
 
 /mob/living/simple_animal/hostile/morph/proc/notify_non_antag()
 	if(!mind.has_antag_datum(/datum/antagonist/morph))
 		to_chat(src, span_boldwarning("If you were not an antagonist before you did not become one now. You still retain your retain your original loyalties and mind!"))
-
-//Spawn Event
-
-/datum/round_event_control/morph
-	name = "Spawn Morph"
-	typepath = /datum/round_event/ghost_role/morph
-	weight = 2
-	max_occurrences = 1
-
-/datum/round_event/ghost_role/morph
-	minimum_required = 1
-	role_name = ROLE_MORPH
-
-/datum/round_event/ghost_role/morph/spawn_role()
-	var/list/candidates = get_candidates(ROLE_MORPH, /datum/role_preference/midround_ghost/morph)
-	if(!candidates.len)
-		return NOT_ENOUGH_PLAYERS
-
-	var/mob/dead/selected = pick_n_take(candidates)
-
-	var/datum/mind/player_mind = new /datum/mind(selected.key)
-	player_mind.active = 1
-	if(!GLOB.xeno_spawn)
-		return MAP_ERROR
-	var/mob/living/simple_animal/hostile/morph/S = new /mob/living/simple_animal/hostile/morph(pick(GLOB.xeno_spawn))
-	player_mind.transfer_to(S)
-	player_mind.assigned_role = ROLE_MORPH
-	player_mind.special_role = ROLE_MORPH
-	player_mind.add_antag_datum(/datum/antagonist/morph)
-	to_chat(S, S.playstyle_string)
-	SEND_SOUND(S, sound('sound/magic/mutate.ogg'))
-	message_admins("[ADMIN_LOOKUPFLW(S)] has been made into a morph by an event.")
-	log_game("[key_name(S)] was spawned as a morph by an event.")
-	spawned_mobs += S
-	return SUCCESSFUL_SPAWN
-
-#undef MORPH_COOLDOWN

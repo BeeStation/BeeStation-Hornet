@@ -5,13 +5,12 @@
 	lefthand_file = 'icons/mob/inhands/antag/clockwork_lefthand.dmi';
 	righthand_file = 'icons/mob/inhands/antag/clockwork_righthand.dmi'
 	worn_icon_state = "baguette"
-	item_flags = ABSTRACT
+	item_flags = ABSTRACT | ISWEAPON
 	block_flags = BLOCKING_NASTY | BLOCKING_ACTIVE
-	block_level = 1	//God blocking is actual aids to deal with, I am sorry for putting this here
-	block_upgrade_walk = TRUE
+	canblock = TRUE	//God blocking is actual aids to deal with, I am sorry for putting this here
+
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
-	item_flags = ISWEAPON
 	throwforce = 20
 	throw_speed = 4
 	armour_penetration = 10
@@ -35,14 +34,14 @@
 	..()
 	if(!user.mind)
 		return
-	if(is_servant_of_ratvar(user) && !SS)
+	if(IS_SERVANT_OF_RATVAR(user) && !SS)
 		SS = new
 		SS.marked_item = src
 		SS.Grant(user)
 
 /obj/item/clockwork/weapon/examine(mob/user)
 	. = ..()
-	if(is_servant_of_ratvar(user) && clockwork_hint)
+	if(IS_SERVANT_OF_RATVAR(user) && clockwork_hint)
 		. += clockwork_hint
 
 /obj/item/clockwork/weapon/attack(mob/living/target, mob/living/user)
@@ -68,7 +67,7 @@
 	force += force_buff
 	. = ..()
 	force -= force_buff
-	if(!QDELETED(target) && target.stat != DEAD && !is_servant_of_ratvar(target) && !target.can_block_magic(MAGIC_RESISTANCE_HOLY))
+	if(!QDELETED(target) && target.stat != DEAD && !IS_SERVANT_OF_RATVAR(target) && !target.can_block_magic(MAGIC_RESISTANCE_HOLY))
 		hit_effect(target, user)
 
 /obj/item/clockwork/weapon/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
@@ -78,7 +77,7 @@
 	if(isliving(hit_atom))
 		var/mob/living/target = hit_atom
 		if(!.)
-			if(!target.can_block_magic(MAGIC_RESISTANCE_HOLY) && !is_servant_of_ratvar(target))
+			if(!target.can_block_magic(MAGIC_RESISTANCE_HOLY) && !IS_SERVANT_OF_RATVAR(target))
 				hit_effect(target, throwingdatum?.thrower, TRUE)
 
 /obj/item/clockwork/weapon/proc/hit_effect(mob/living/target, mob/living/user, thrown=FALSE)
@@ -109,7 +108,7 @@
 	attack_verb_simple = list("bash", "bludgeon", "thrash", "whack")
 	clockwork_hint = "Enemies hit by this will be flung back while on Reebe."
 
-/obj/item/clockwork/weapon/brass_battlehammer/ComponentInitialize()
+/obj/item/clockwork/weapon/brass_battlehammer/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/two_handed, force_unwielded=15, force_wielded=28, block_power_wielded=25)
 

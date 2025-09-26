@@ -110,8 +110,11 @@
 	icon_state = "detective"
 	item_state = "det_hat"
 	var/candy_cooldown = 0
+	var/adjusted = FALSE
+	var/adjustable = TRUE
+	var/aura_icon_on = "detective_aura"
 	dog_fashion = /datum/dog_fashion/head/detective
-
+	actions_types = list(/datum/action/item_action/noirmode)
 
 /datum/armor/fedora_det_hat
 	melee = 25
@@ -132,7 +135,7 @@
 
 /obj/item/clothing/head/fedora/det_hat/examine(mob/user)
 	. = ..()
-	. += span_notice("Alt-click to take a candy corn.")
+	. += span_notice("Alt-click to take a candy corn. Control-click to adjust it.")
 
 /obj/item/clothing/head/fedora/det_hat/AltClick(mob/user)
 	. = ..()
@@ -146,11 +149,28 @@
 	else
 		to_chat(user, "You just took a candy corn! You should wait a couple minutes, lest you burn through your stash.")
 
+/obj/item/clothing/head/fedora/det_hat/CtrlClick(mob/user)
+	..()
+	if(user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, !iscyborg(user)))
+		flip(user)
+
+/obj/item/clothing/head/fedora/det_hat/proc/flip(mob/user)
+	if(!user.incapacitated() && adjustable == TRUE)
+		adjusted = !adjusted
+		if(adjusted)
+			worn_icon_state = aura_icon_on
+			to_chat(user, span_notice("You adjust your hat to look more intimidating."))
+		else
+			worn_icon_state = initial(worn_icon_state)
+			to_chat(user, span_notice("You return your hat to its original position."))
+		user.update_inv_head()
+
 /obj/item/clothing/head/fedora/det_hat/noir
 	name = "noir fedora"
 	desc = "An essential accessory for the world-weary private eye."
 	icon_state = "fedora"
 	dog_fashion = /datum/dog_fashion/head/noir
+	aura_icon_on = "fedora_aura"
 
 //Mime
 /obj/item/clothing/head/beret
@@ -321,7 +341,7 @@
 				message = replacetextEx(message, ".", "!!", length(message))
 			if(DRILL_CANADIAN)
 				message = "[message]"
-				var/list/canadian_words = strings(CANADIAN_TALK_FILE, "canadian")
+				var/list/canadian_words = strings(CANADIAN_TALK_FILE, "words")
 
 				for(var/key in canadian_words)
 					var/value = canadian_words[key]

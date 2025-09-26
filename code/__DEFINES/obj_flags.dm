@@ -38,25 +38,40 @@
 #define ISCARVABLE			    (1<<17) //! Examine will not read out this item
 #define NO_WORN_SLOWDOWN		(1<<18)	//! Doesn't slow you down while worn, which is only useful in combination with SLOWS_WHILE_IN_HAND
 #define HAND_ITEM (1<<18) // If an item is just your hand (circled hand, slapper) and shouldn't block things like riding
+///Can be equipped on digitigrade legs.
+#define IGNORE_DIGITIGRADE (1<<19)
 
 // Flags for the clothing_flags var on /obj/item/clothing
 
-#define LAVAPROTECT             (1<<0)
-#define STOPSPRESSUREDAMAGE		(1<<1)	//! SUIT and HEAD items which stop pressure damage. To stop you taking all pressure damage you must have both a suit and head item with this flag.
-#define BLOCK_GAS_SMOKE_EFFECT	(1<<2)	//! blocks the effect that chemical clouds would have on a mob --glasses, mask and helmets ONLY!
-#define MASKINTERNALS		    (1<<3)	//! mask allows internals
-#define NOSLIP                  (1<<4)  //! prevents from slipping on wet floors, in space etc
-#define THICKMATERIAL			(1<<5)	//! prevents syringes, parapens and hypos if the external suit or helmet (if targeting head) has this flag. Example: space suits, biosuit, bombsuits, thick suits that cover your body.
-#define VOICEBOX_TOGGLABLE      (1<<6)  //! The voicebox in this clothing can be toggled.
-#define VOICEBOX_DISABLED       (1<<7)  //! The voicebox is currently turned off.
-#define SNUG_FIT                (1<<9)  //! prevents hat throwing from knocking this hat off
-#define EFFECT_HAT              (1<<10) //! For hats with an effect that shouldn't get knocked off ie finfoil
-#define SCAN_REAGENTS           (1<<11) //! Allows helmets and glasses to scan reagents.
-#define SCAN_BOOZEPOWER         (1<<12) //! Allows helmets and glasses to scan reagents.
-#define MASKEXTENDRANGE			(1<<13) //! For masks, allows you to breathe from internals on adjecent tiles
-#define NOTCONSUMABLE			(1<<14) //! Moths cannot eat clothing with that flag
+/// Protects from lava
+#define LAVAPROTECT (1<<0)
+/// SUIT and HEAD items which stop pressure damage. To stop you taking all pressure damage you must have both a suit and head item with this flag.
+#define STOPSPRESSUREDAMAGE (1<<1)
+/// Blocks the effect that chemical clouds would have on a mob --glasses, mask and helmets ONLY!
+#define BLOCK_GAS_SMOKE_EFFECT (1<<2)
+/// Mask allows internals
+#define MASKINTERNALS (1<<3)
+/// Prevents from slipping on wet floors, in space etc
+#define NOSLIP (1<<4)
+/// Prevents syringes, parapens and hypos if the external suit or helmet (if targeting head) has this flag. Example: space suits, biosuit, bombsuits, thick suits that cover your body.
+#define THICKMATERIAL (1<<5)
+/// The voicebox in this clothing can be toggled.
+#define VOICEBOX_TOGGLABLE (1<<6)
+/// The voicebox is currently turned off.
+#define VOICEBOX_DISABLED (1<<7)
+/// Prevents shovies against a dense object from knocking the wearer down.
+#define BLOCKS_SHOVE_KNOCKDOWN (1<<8)
+/// Prevents hat throwing from knocking this hat off
+#define SNUG_FIT (1<<9)
+/// For hats with an effect that shouldn't get knocked off ie finfoil
+#define EFFECT_HAT (1<<10)
+/// For masks, allows you to breathe from internals on adjacent tiles
+#define MASKEXTENDRANGE (1<<11)
+/// Moths cannot eat clothing with that flag
+#define NOTCONSUMABLE (1<<12)
+#define SURGICAL_TOOL (1<<20)
 /// Usable as casting clothes by wizards (matters for suits, glasses and headwear)
-#define CASTING_CLOTHES (1<<15)
+#define CASTING_CLOTHES (1<<13)
 /// Headgear/helmet allows internals
 #define HEADINTERNALS (1<<18)
 /// noslip with only works if wearer is walking

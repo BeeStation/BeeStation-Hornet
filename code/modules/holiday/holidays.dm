@@ -79,7 +79,6 @@
 	name = "Groundhog Day"
 	begin_day = 2
 	begin_month = FEBRUARY
-	drone_hat = /obj/item/clothing/head/helmet/space/chronos
 
 /datum/holiday/groundhog/getStationPrefix()
 	return pick("Deja Vu") //I have been to this place before
@@ -539,7 +538,7 @@ Since Ramadan is an entire month that lasts 29.5 days on average, the start and 
 	for(var/obj/machinery/computer/security/telescreen/entertainment/Monitor in GLOB.machines)
 		Monitor.icon_state_on = "entertainment_xmas"
 
-	for(var/mob/living/basic/pet/dog/corgi/Ian/Ian in GLOB.mob_living_list)
+	for(var/mob/living/basic/pet/dog/corgi/ian/Ian in GLOB.mob_living_list)
 		Ian.place_on_head(new /obj/item/clothing/head/helmet/space/santahat(Ian))
 
 

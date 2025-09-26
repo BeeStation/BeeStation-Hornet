@@ -7,7 +7,6 @@
 	max_integrity = 250
 	armor_type = /datum/armor/machinery_portable_atmospherics
 	anchored = FALSE
-	interacts_with_air = TRUE
 
 	///Stores the gas mixture of the portable component. Don't access this directly, use return_air() so you support the temporary processing it provides
 	var/datum/gas_mixture/air_contents
@@ -179,9 +178,9 @@
 		investigate_log("had its internal [holding] swapped with [new_tank] by [key_name(user)].", INVESTIGATE_ATMOS)
 		to_chat(user, span_notice("In one smooth motion you pop [holding] out of [src]'s connector and replace it with [new_tank]."))
 		user.put_in_hands(holding)
-		UnregisterSignal(holding, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(holding, COMSIG_QDELETING)
 		holding = new_tank
-		RegisterSignal(holding, COMSIG_PARENT_QDELETING, PROC_REF(unregister_holding))
+		RegisterSignal(holding, COMSIG_QDELETING, PROC_REF(unregister_holding))
 	else if(holding)//we remove a tank
 		investigate_log("had its internal [holding] removed by [key_name(user)].", INVESTIGATE_ATMOS)
 		to_chat(user, span_notice("You remove [holding] from [src]."))
@@ -189,13 +188,13 @@
 			user.put_in_hands(holding)
 		else
 			holding.forceMove(get_turf(src))
-		UnregisterSignal(holding, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(holding, COMSIG_QDELETING)
 		holding = null
 	else if(new_tank)//we insert the tank
 		investigate_log("had [new_tank] inserted into it by [key_name(user)].", INVESTIGATE_ATMOS)
 		to_chat(user, span_notice("You insert [new_tank] into [src]."))
 		holding = new_tank
-		RegisterSignal(holding, COMSIG_PARENT_QDELETING, PROC_REF(unregister_holding))
+		RegisterSignal(holding, COMSIG_QDELETING, PROC_REF(unregister_holding))
 
 	SSair.start_processing_machine(src)
 	update_icon()
@@ -248,7 +247,7 @@
 /obj/machinery/portable_atmospherics/proc/unregister_holding()
 	SIGNAL_HANDLER
 
-	UnregisterSignal(holding, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(holding, COMSIG_QDELETING)
 	holding = null
 
 

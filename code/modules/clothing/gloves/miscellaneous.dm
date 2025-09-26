@@ -25,6 +25,7 @@
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
 	armor_type = /datum/armor/gloves_botanic_leather
+	clothing_flags = THICKMATERIAL
 
 
 /datum/armor/gloves_botanic_leather
@@ -46,7 +47,7 @@
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
 	armor_type = /datum/armor/gloves_combat
-
+	clothing_flags = THICKMATERIAL
 
 /datum/armor/gloves_combat
 	bio = 90
@@ -160,7 +161,7 @@
 	actions_types = list(/datum/action/item_action/artifact_pincher_mode)
 	var/safety = FALSE
 
-/obj/item/clothing/gloves/artifact_pinchers/ComponentInitialize()
+/obj/item/clothing/gloves/artifact_pinchers/Initialize(mapload)
 	. = ..()
 	var/datum/component/anti_artifact/A = AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100, ITEM_SLOT_GLOVES)
 	A?.override = !safety

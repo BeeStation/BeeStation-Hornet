@@ -7,7 +7,6 @@
 	supervisors = "the quartermaster and the head of personnel"
 	faction = "Station"
 	total_positions = 3
-	spawn_positions = 3
 	selection_color = "#dcba97"
 	// Requires a little bit of game knowledge to play appropriately
 	exp_requirements = 180
@@ -15,8 +14,20 @@
 
 	outfit = /datum/outfit/job/miner
 
-	base_access = list(ACCESS_MINING, ACCESS_MECH_MINING, ACCESS_MINING_STATION, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM, ACCESS_AUX_BASE, ACCESS_GATEWAY)
-	extra_access = list(ACCESS_QM, ACCESS_CARGO, ACCESS_MAINT_TUNNELS)
+	base_access = list(
+		ACCESS_MINING,
+		ACCESS_MECH_MINING,
+		ACCESS_MINING_STATION,
+		ACCESS_MAILSORTING,
+		ACCESS_MINERAL_STOREROOM,
+		ACCESS_AUX_BASE,
+		ACCESS_GATEWAY
+	)
+	extra_access = list(
+		ACCESS_QM,
+		ACCESS_CARGO,
+		ACCESS_MAINT_TUNNELS
+	)
 
 	departments = DEPT_BITFLAG_CAR
 	bank_account_department = ACCOUNT_CAR_BITFLAG
@@ -36,7 +47,7 @@
 	jobtype = /datum/job/shaft_miner
 
 	id = /obj/item/card/id/job/shaft_miner
-	belt = /obj/item/modular_computer/tablet/pda/shaft_miner
+	belt = /obj/item/modular_computer/tablet/pda/preset/shaft_miner
 	ears = /obj/item/radio/headset/headset_cargo/shaft_miner
 	shoes = /obj/item/clothing/shoes/workboots/mining
 	gloves = /obj/item/clothing/gloves/color/black
@@ -81,8 +92,10 @@
 		var/obj/item/clothing/suit/hooded/S = H.wear_suit
 		S.ToggleHood()
 
-/datum/outfit/job/miner/equipped/hardsuit
-	name = "Shaft Miner (Equipment + Hardsuit)"
-	suit = /obj/item/clothing/suit/space/hardsuit/mining
-	mask = /obj/item/clothing/mask/breath
+/datum/outfit/job/miner/equipped/mod
+	name = "Shaft Miner (Equipment + MODsuit)"
+
+	back = /obj/item/mod/control/pre_equipped/mining
+	suit = null
+	mask = /obj/item/clothing/mask/gas/explorer
 

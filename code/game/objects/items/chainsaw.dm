@@ -9,7 +9,6 @@
 	righthand_file = 'icons/mob/inhands/weapons/chainsaw_righthand.dmi'
 	flags_1 = CONDUCT_1
 	force = 13
-	block_power = 20
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	attack_weight = 2
 	w_class = WEIGHT_CLASS_HUGE
@@ -37,7 +36,8 @@
 	/// The sound that plays when the chainsaw is turned off
 	var/sound/off_sound = 'sound/weapons/chainsaw_off.ogg'
 
-/obj/item/chainsaw/ComponentInitialize()
+/obj/item/chainsaw/Initialize(mapload)
+	. = ..()
 	AddComponent(/datum/component/butchering, \
 		_speed = 3 SECONDS, \
 		_effectiveness = 100, \
@@ -103,7 +103,7 @@
 	armour_penetration = 100
 	active_force = 30
 
-/obj/item/chainsaw/doomslayer/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/chainsaw/doomslayer/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	if(attack_type == PROJECTILE_ATTACK)
 		owner.visible_message(span_danger("Ranged attacks just make [owner] angrier!"))
 		playsound(src, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 75, TRUE)
@@ -121,6 +121,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	actions_types = list(/datum/action/item_action/startchainsaw)
 	block_power = 50
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_UNBLOCKABLE
 	armour_penetration = 50
 	light_color = "#ff0000"
 	light_system = MOVABLE_LIGHT
@@ -130,7 +131,7 @@
 	active_force = 40
 	active_hitsound = 'sound/weapons/energychainsaw_hit1.ogg'
 
-/obj/item/chainsaw/ComponentInitialize()
+/obj/item/chainsaw/Initialize(mapload)
 	. = ..()
 	var/datum/component/transforming/transforming = src.GetComponent(/datum/component/transforming)
 
@@ -146,7 +147,7 @@
 	desc = "The chainsaw you want when you need to kill every damn thing in the room."
 	w_class = WEIGHT_CLASS_LARGE
 	block_power = 75
-	block_level = 1
+	canblock = TRUE
 	attack_weight = 3
 	armour_penetration = 75
 	light_range = 6

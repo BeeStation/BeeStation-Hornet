@@ -71,7 +71,7 @@
 /datum/xenoartifact_trait/proc/register_parent(datum/source)
 	component_parent = source
 	var/atom/movable/movable = component_parent.parent
-	RegisterSignal(component_parent, COMSIG_PARENT_QDELETING, PROC_REF(remove_parent))
+	RegisterSignal(component_parent, COMSIG_QDELETING, PROC_REF(remove_parent))
 	//Setup trigger signals
 	RegisterSignal(component_parent, COMSIG_XENOA_TRIGGER, PROC_REF(trigger))
 	//If we need to setup signals for pearl stuff
@@ -92,7 +92,7 @@
 	//Detach from current component_parent
 	if(component_parent)
 		remove_hints()
-		UnregisterSignal(component_parent, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(component_parent, COMSIG_QDELETING)
 		UnregisterSignal(component_parent, COMSIG_XENOA_TRIGGER)
 		var/atom/atom_parent = component_parent.parent
 		component_parent.target_range -= extra_target_range
@@ -111,7 +111,7 @@
 	if(do_trigger)
 		trigger(null, priority, target)
 	targets += target
-	RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(unregister_target_signal), TRUE)
+	RegisterSignal(target, COMSIG_QDELETING, PROC_REF(unregister_target_signal), TRUE)
 
 //Cleanly unregister an effected target
 /datum/xenoartifact_trait/proc/unregister_target(datum/source, do_untrigger = FALSE)
@@ -120,7 +120,7 @@
 	if(do_untrigger) //This will only happen in the event something is unregistered before we can untrigger, which is needed for QDELs
 		un_trigger(source, override = source)
 	targets -= source
-	UnregisterSignal(source, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(source, COMSIG_QDELETING)
 
 /datum/xenoartifact_trait/proc/unregister_target_signal(datum/source)
 	SIGNAL_HANDLER
@@ -143,7 +143,7 @@
 		for(var/atom/target in component_parent.targets)
 			register_target(target)
 	//Handle focus
-	focus = override ? list(override) : targets
+	focus = override ? list(override) : targets.Copy()
 	return
 
 //Most traits will handle this on their own
@@ -180,7 +180,7 @@
 	return
 
 /datum/xenoartifact_trait/proc/setup_generic_item_hint()
-	RegisterSignal(component_parent.parent, COMSIG_PARENT_ATTACKBY, PROC_REF(hint_translation_type_a))
+	RegisterSignal(component_parent.parent, COMSIG_ATOM_ATTACKBY, PROC_REF(hint_translation_type_a))
 
 /datum/xenoartifact_trait/proc/setup_generic_touch_hint()
 	RegisterSignal(component_parent.parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(hint_translation_type_b))
@@ -189,7 +189,7 @@
 /datum/xenoartifact_trait/proc/remove_hints()
 	UnregisterSignal(component_parent.parent, COMSIG_ITEM_ATTACK_SELF)
 	UnregisterSignal(component_parent.parent, COMSIG_ATOM_ATTACK_HAND)
-	UnregisterSignal(component_parent.parent, COMSIG_PARENT_ATTACKBY)
+	UnregisterSignal(component_parent.parent, COMSIG_ATOM_ATTACKBY)
 
 /datum/xenoartifact_trait/proc/hint_translation_type_a(datum/source, obj/item, mob/living, params)
 	SIGNAL_HANDLER

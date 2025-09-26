@@ -109,7 +109,7 @@
 	message_admins("[ADMIN_LOOKUPFLW(source)] created a ghoul, [ADMIN_LOOKUPFLW(human_target)].")
 
 	RegisterSignal(human_target, COMSIG_MOB_DEATH, PROC_REF(remove_ghoul))
-	human_target.revive(full_heal = TRUE, admin_revive = TRUE)
+	human_target.revive(ADMIN_HEAL_ALL) // Have to do an admin heal here, otherwise they'll likely just die due to missing organs or limbs
 	human_target.setMaxHealth(GHOUL_MAX_HEALTH)
 	human_target.health = GHOUL_MAX_HEALTH
 	human_target.become_husk(MAGIC_TRAIT)
@@ -171,20 +171,27 @@
 
 	if(!soon_to_be_ghoul.mind || !soon_to_be_ghoul.client)
 		message_admins("[ADMIN_LOOKUPFLW(user)] is creating a voiceless dead of a body with no player.")
-		var/list/mob/dead/observer/candidates = poll_candidates_for_mob("Do you want to play as a [soon_to_be_ghoul.real_name], a voiceless dead?", ROLE_HERETIC, null, 7.5 SECONDS, soon_to_be_ghoul)
-		if(!LAZYLEN(candidates))
+		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(
+			question = "Do you want to play as a [soon_to_be_ghoul.real_name], a voiceless dead?",
+			check_jobban = ROLE_HERETIC,
+			poll_time = 10 SECONDS,
+			checked_target = soon_to_be_ghoul,
+			jump_target = soon_to_be_ghoul,
+			role_name_text = "voiceless dead",
+			alert_pic = soon_to_be_ghoul,
+		)
+		if(!candidate)
 			loc.balloon_alert(user, "Ritual failed, no ghosts")
 			return FALSE
 
-		var/mob/dead/observer/chosen_candidate = pick(candidates)
-		message_admins("[key_name_admin(chosen_candidate)] has taken control of ([key_name_admin(soon_to_be_ghoul)]) to replace an AFK player.")
+		message_admins("[key_name_admin(candidate)] has taken control of ([key_name_admin(soon_to_be_ghoul)]) to replace an AFK player.")
 		soon_to_be_ghoul.ghostize(FALSE)
-		soon_to_be_ghoul.key = chosen_candidate.key
+		soon_to_be_ghoul.key = candidate.key
 
 	ADD_TRAIT(soon_to_be_ghoul, TRAIT_MUTE, MAGIC_TRAIT)
 	log_game("[key_name(user)] created a voiceless dead, controlled by [key_name(soon_to_be_ghoul)].")
 	message_admins("[ADMIN_LOOKUPFLW(user)] created a voiceless dead, [ADMIN_LOOKUPFLW(soon_to_be_ghoul)].")
-	soon_to_be_ghoul.revive(full_heal = TRUE, admin_revive = TRUE)
+	soon_to_be_ghoul.revive(HEAL_ALL)
 	soon_to_be_ghoul.setMaxHealth(MUTE_MAX_HEALTH)
 	soon_to_be_ghoul.health = MUTE_MAX_HEALTH // Voiceless dead are much tougher than ghouls
 	soon_to_be_ghoul.become_husk()

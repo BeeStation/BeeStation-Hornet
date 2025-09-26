@@ -44,7 +44,7 @@
 		AddComponent(/datum/component/squashable, squash_chance = 50, squash_damage = 1)
 
 /mob/living/basic/cockroach/death(gibbed)
-	if(SSticker.mode?.station_was_nuked) //If the nuke is going off, then cockroaches are invincible. Keeps the nuke from killing them, cause cockroaches are immune to nukes.
+	if(GLOB.station_was_nuked) //If the nuke is going off, then cockroaches are invincible. Keeps the nuke from killing them, cause cockroaches are immune to nukes.
 		return
 	..()
 
@@ -53,7 +53,8 @@
 
 /datum/ai_controller/basic_controller/cockroach
 	blackboard = list(
-		BB_TARGETTING_DATUM = new /datum/targetting_datum/basic()
+		BB_TARGETTING_DATUM = new /datum/targetting_datum/basic(),
+		BB_PET_TARGETTING_DATUM = new /datum/targetting_datum/basic/not_friends,
 	)
 
 	ai_traits = STOP_MOVING_WHEN_PULLED

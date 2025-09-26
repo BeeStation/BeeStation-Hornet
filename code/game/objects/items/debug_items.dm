@@ -19,7 +19,7 @@
 
 /obj/item/debug/human_spawner/attack_self(mob/user)
 	..()
-	var/choice = input("Select a species", "Human Spawner", null) in GLOB.species_list
+	var/choice = tgui_input_list(user, "Select a species", "Human Spawner", GLOB.species_list)
 	selected_species = GLOB.species_list[choice]
 
 /obj/item/debug/omnitool
@@ -276,7 +276,7 @@
 /obj/item/storage/box/debugtools/PopulateContents()
 	var/static/items_inside = list(
 		/obj/item/flashlight/emp/debug=1,
-		/obj/item/modular_computer/tablet/pda=1,
+		/obj/item/modular_computer/tablet/pda/preset=1,
 		/obj/item/modular_computer/tablet/preset/advanced=1,
 		/obj/item/storage/belt/military/abductor/full=1,
 		/obj/item/geiger_counter=1,
