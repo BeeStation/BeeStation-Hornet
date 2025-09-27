@@ -310,3 +310,23 @@
 	name = "Worn CTF Light Vest"
 	icon_file = 'icons/mob/clothing/suits/ctf.dmi'
 	json_config = 'code/datums/greyscale/json_configs/ctf_light_worn.json'
+
+/datum/greyscale_config/festive_hat
+	name = "Festive Hat"
+	icon_file = 'icons/obj/clothing/head/costume.dmi'
+	json_config = 'code/datums/greyscale/json_configs/festive_hat.json'
+
+/datum/greyscale_config/festive_hat_worn
+	name = "Festive Hat Worn"
+	icon_file = 'icons/mob/clothing/head/costume.dmi'
+	json_config = 'code/datums/greyscale/json_configs/festive_hat.json'
+
+/datum/greyscale_config/party_hat
+	name = "Party Hat"
+	icon_file = 'icons/obj/clothing/head/costume.dmi'
+	json_config = 'code/datums/greyscale/json_configs/party_hat.json'
+
+/datum/greyscale_config/party_hat_worn
+	name = "Party Hat Worn"
+	icon_file = 'icons/mob/clothing/head/costume.dmi'
+	json_config = 'code/datums/greyscale/json_configs/party_hat.json'
