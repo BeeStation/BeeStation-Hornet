@@ -43,7 +43,7 @@ AUTH_CLIENT_VERB(adminhelp)
 		return
 
 	//handle muting and automuting
-	if(prefs && prefs.muted & MUTE_ADMINHELP)
+	if(prefs && player_details.muted & MUTE_ADMINHELP)
 		to_chat(src, span_danger("Error: Admin-PM: You cannot send adminhelps (Muted)."))
 		return
 	if(handle_spam_prevention(msg,MUTE_ADMINHELP))
@@ -281,7 +281,7 @@ AUTH_CLIENT_VERB(adminhelp)
 	if(!bwoink)
 		sendadminhelp2ext("Ticket #[id] transferred to mentorhelp by [istext(mhelp_marker) ? mhelp_marker : key_name(mhelp_marker, include_link = FALSE)]")
 	Close(silent = TRUE, hide_interaction = TRUE)
-	if(initiator.prefs.muted & MUTE_MHELP)
+	if(initiator.player_details.muted & MUTE_MHELP)
 		message_admins(span_danger("Attempted de-escalation to mentorhelp failed because [initiator_key_name] is mhelp muted."))
 		return
 	var/datum/help_ticket/mentor/ticket = new(initiator)
