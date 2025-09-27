@@ -1,17 +1,22 @@
 #define STARTING_PAYCHECKS 5
 
-#define PAYCHECK_ASSISTANT 15
-#define PAYCHECK_MINIMAL 30
-#define PAYCHECK_EASY 35
-#define PAYCHECK_MEDIUM 60
-#define PAYCHECK_HARD 90
+//Current Paycheck values. Altering these changes both the cost of items meant for each paygrade, as well as the passive/starting income of each job.
+///Default paygrade for the Unassigned Job/Unpaid job assignments.
+#define PAYCHECK_ZERO 0
+///Paygrade for Prisoners and Assistants.
+#define PAYCHECK_LOWER 20
+///Paygrade for all regular crew not belonging to PAYGRADE_LOWER or PAYGRADE_COMMAND.
+#define PAYCHECK_CREW 40
+
 // given from nanotrasen to heads
-#define PAYCHECK_COMMAND_NT 20
+#define PAYCHECK_COMMAND_NT 10
 // given from department budget
-#define PAYCHECK_COMMAND_DEPT 80
-// Command Total
-#define PAYCHECK_COMMAND 100
-#define PAYCHECK_VIP 2000
+#define PAYCHECK_COMMAND_DEPT 70
+///Paygrade for Heads of Staff.
+#define PAYCHECK_COMMAND 80
+
+
+#define PAYCHECK_VIP 1000
 /*	Note: The current intention for crazy amount of money to VIP is that they can be a rich shitter
 			or be targeted by antags for their money - oh, my, being rich isn't always good.
 			The first buff to their money was to 2,000 credits. Nerf is fine if you think it's necessary,
@@ -19,7 +24,34 @@
 			I recommend to nerf their gimmick spawn chance instead. */
 
 
-#define PAYCHECK_WELFARE 20 //NEETbucks
+#define PAYCHECK_WELFARE 10 //NEETbucks
+
+// Standardized price multipliers for vending machines and economy
+//Extremely cheap, worth very little
+#define MULTIPLIER_ULTRA_LOW 0.4
+/// Very cheap, e.g. basic snacks, low-tier items
+#define MULTIPLIER_VERY_LOW 0.5
+/// Discounted
+#define MULTIPLIER_LOW 0.7
+/// Slightly more affordable
+#define MULTIPLIER_SUBSTANDARD 0.85
+/// Normal price
+#define MULTIPLIER_STANDARD 1
+/// Slightly expensive
+#define MULTIPLIER_HIGH 1.2
+/// Premium items
+#define MULTIPLIER_PREMIUM 1.5
+/// Luxury/rare items
+#define MULTIPLIER_LUXURY 3
+/// Very rare, exclusive, or high-value items
+#define MULTIPLIER_EXCLUSIVE 4.5
+/// Big
+#define MULTIPLIER_COMMAND 6
+
+// Usage example:
+// extra_price = PAYCHECK_COMMAND * MULTIPLIER_LOW
+// default_price = PAYCHECK_CREW * MULTIPLIER_STANDARD
+// extra_price = PAYCHECK_COMMAND * MULTIPLIER_PREMIUM
 
 
 #define NON_STATION_BUDGET_BASE rand(8888888, 11111111)
