@@ -1,0 +1,4 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - bugfix: Clown cars may now only be controlled by clowns
