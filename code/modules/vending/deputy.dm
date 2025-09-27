@@ -1,3 +1,6 @@
+/// Delete maploaded deputy vendors when there are more than this number of security officers
+#define SECURITY_MAX_POP 3
+
 /obj/machinery/vending/deputy
 	name = "\improper DepVend"
 	desc = "A machine that dispenses the equipment required to join security voluntarily. Helpfully provided by Auri private security, it's used on stations with skeleton crews to make sure someone is always available to maintain the peace."
@@ -57,10 +60,22 @@
 
 /obj/machinery/vending/deputy/Initialize(mapload)
 	. = ..()
+	if (mapload)
+		RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_SPAWN, PROC_REF(check_roundstart_security))
 
-	radio = new/obj/item/radio(src)
+	radio = new /obj/item/radio(src)
 	radio.set_listening(FALSE)
 	radio.set_frequency(FREQ_COMMON)
+
+/obj/machinery/vending/deputy/proc/check_roundstart_security()
+	var/sec_amount = SSjob.GetJob(JOB_NAME_SECURITYOFFICER).current_positions
+	sec_amount += SSjob.GetJob(JOB_NAME_HEADOFSECURITY).current_positions
+	sec_amount += SSjob.GetJob(JOB_NAME_WARDEN).current_positions
+	sec_amount += SSjob.GetJob(JOB_NAME_DETECTIVE).current_positions
+	sec_amount += SSjob.GetJob(JOB_NAME_CAPTAIN).current_positions
+
+	if(sec_amount >= SECURITY_MAX_POP)
+		qdel(src)
 
 /obj/machinery/vending/deputy/vend(list/params, list/greyscale_colors)
 
@@ -111,7 +126,7 @@
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 		flick(icon_deny,src)
 		return TRUE
-	
+
 	playsound(src, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 	say("Only qualified personnel are allowed to purchase spare equipment. Enlist now!")
 	flick(icon_deny,src)
@@ -125,3 +140,4 @@
 	machine_name = "DepVend"
 	icon_state = "refill_sec"
 
+#undef SECURITY_MAX_POP
