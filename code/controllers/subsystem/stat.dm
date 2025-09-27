@@ -5,7 +5,6 @@ SUBSYSTEM_DEF(stat)
 	wait = 1 SECONDS
 	priority = FIRE_PRIORITY_STAT
 	runlevels = RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME | RUNLEVEL_POSTGAME	//RUNLEVEL_INIT doesn't work, so the stat panel will not auto update during this time (But that is good since we don't want to waste processing time during that phase).
-	init_order = INIT_ORDER_STAT
 	flags = SS_NO_INIT | SS_BACKGROUND
 
 	var/list/flat_icon_cache = list()	//Assoc list, datum = flat icon

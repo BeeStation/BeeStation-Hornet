@@ -1,7 +1,9 @@
 #define SUBSYSTEM_INIT_SOURCE "subsystem init"
 SUBSYSTEM_DEF(atoms)
 	name = "Atoms"
-	init_order = INIT_ORDER_ATOMS
+	dependencies = list(
+		/datum/controller/subsystem/mapping,
+	)
 	flags = SS_NO_FIRE
 
 	/// A stack of list(source, desired initialized state)
