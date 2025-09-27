@@ -178,6 +178,7 @@
 	bolt_drop_sound = 'sound/weapons/nps10/NPS-boltdrop.ogg'
 	lock_back_sound = 'sound/weapons/nps10/NPS-lockback.ogg'
 	fire_sound = 'sound/weapons/nps10/NPS-fire.ogg'
+	recoil = 0.5
 
 /obj/item/gun/ballistic/automatic/pistol/security/add_seclight_point()
 	AddComponent(/datum/component/seclite_attachable, \
