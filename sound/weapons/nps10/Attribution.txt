@@ -1,0 +1,7 @@
+
+All files in sound/weapons/nps10 are modifications and remixes of:
+
+WEAPONPistol_Cyberpistol, Lazer, Sci-fi_JW-48kHz-Stereo.wav by Jwsounddesigner -- https://freesound.org/s/636023/ -- License: Attribution 4.0
+SciFi Futuristic Handgun Reload by Sabacky -- https://freesound.org/s/767158/ -- License: Attribution 4.0
+9mm pistol - rapid fire, 10 shots by oneshotofficial -- https://freesound.org/s/647594/ -- License: Attribution 4.0
+Arming a Sci-Fi Gun by jackolous -- https://freesound.org/s/645778/ -- License: Creative Commons 0

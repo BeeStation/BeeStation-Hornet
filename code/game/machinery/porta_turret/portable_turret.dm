@@ -482,7 +482,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 			else if(iscarbon(mob_target))
 				var/mob/living/carbon/carbon_target = mob_target
 				//If not emagged, only target carbons that can use items
-				if(mode != TURRET_LETHAL && (carbon_target.stat || carbon_target.handcuffed || !(carbon_target.mobility_flags & MOBILITY_USE)))
+				if(mode != TURRET_LETHAL && (carbon_target.stat || HAS_TRAIT(carbon_target, TRAIT_INCAPACITATED) || carbon_target.handcuffed || !(carbon_target.mobility_flags & MOBILITY_USE)))
 					continue
 
 				//If emagged, target all but dead carbons

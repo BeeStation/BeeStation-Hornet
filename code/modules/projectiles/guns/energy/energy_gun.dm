@@ -109,7 +109,7 @@
 	slot_flags = null
 	w_class = WEIGHT_CLASS_HUGE
 	gun_charge = 100 KILOWATT
-	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser)
+	ammo_type = list(/obj/item/ammo_casing/energy/electrode/turret, /obj/item/ammo_casing/energy/laser)
 	weapon_weight = WEAPON_HEAVY
 	trigger_guard = TRIGGER_GUARD_NONE
 	ammo_x_offset = 2

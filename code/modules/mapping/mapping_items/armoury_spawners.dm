@@ -45,6 +45,46 @@
 	minimum = 2
 	linear_scaling_rate = 0.6
 
+/obj/effect/loot_jobscale/armoury/pistols
+	icon = 'icons/obj/guns/projectile.dmi'
+	icon_state = "sec"
+	loot = list(/obj/item/gun/ballistic/automatic/pistol/security)
+	fan_out_items = TRUE
+	minimum = 2
+	linear_scaling_rate = 1
+
+/obj/effect/loot_jobscale/armoury/pistol_ammo
+	icon = 'icons/obj/guns/projectile.dmi'
+	icon_state = "sec"
+	loot = list(/obj/item/ammo_box/pouch/x200law)
+	fan_out_items = TRUE
+	minimum = 6
+	linear_scaling_rate = 2
+
+/obj/effect/loot_jobscale/armoury/pistol_ammo_box
+	icon = 'icons/obj/guns/projectile.dmi'
+	icon_state = "sec"
+	loot = list(/obj/item/ammo_box/x200law)
+	fan_out_items = TRUE
+	minimum = 1
+	linear_scaling_rate = 0.4
+
+/obj/effect/loot_jobscale/armoury/tasers
+	icon = 'icons/obj/guns/projectile.dmi'
+	icon_state = "taser"
+	loot = list(/obj/item/gun/ballistic/taser)
+	fan_out_items = TRUE
+	minimum = 2
+	linear_scaling_rate = 1
+
+/obj/effect/loot_jobscale/armoury/taser_ammo_box
+	icon = 'icons/obj/guns/projectile.dmi'
+	icon_state = "taser"
+	loot = list(/obj/item/ammo_box/taser)
+	fan_out_items = TRUE
+	minimum = 1
+	linear_scaling_rate = 0.4
+
 /obj/effect/loot_jobscale/armoury/dragnet
 	icon = 'icons/obj/guns/energy.dmi'
 	icon_state = "dragnet"

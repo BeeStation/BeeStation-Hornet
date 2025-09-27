@@ -334,6 +334,10 @@
 			return FALSE
 	add_fingerprint(user)
 
+	// Return true, but act as intercepted so we don't start hitting things
+	if (SEND_SIGNAL(src, COMSIG_MOB_PULL_TRIGGER, target, user, params, aimed) & CANCEL_TRIGGER_PULL)
+		return TRUE
+
 	if(istype(user))//Check if the user can use the gun, if the user isn't alive(turrets) assume it can.
 		var/mob/living/L = user
 		if(!can_trigger_gun(L))

@@ -497,6 +497,22 @@
 	},
 /turf/open/space/basic,
 /area/space)
+"afc" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/effect/loot_jobscale/armoury/pistol_ammo,
+/obj/effect/loot_jobscale/armoury/pistol_ammo_box,
+/obj/effect/loot_jobscale/armoury/pistols,
+/obj/structure/closet/gun_locker{
+	anchored = 1
+	},
+/turf/open/floor/iron,
+/area/ai_monitored/security/armory)
 "afe" = (
 /obj/structure/grille,
 /obj/structure/window{
@@ -13135,17 +13151,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /turf/open/space,
 /area/space/nearstation)
-"cxE" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 2;
-	height = 14;
-	id = "ferry_home";
-	name = "port bay 2";
-	width = 5
-	},
-/turf/open/space/basic,
-/area/space)
 "cyb" = (
 /obj/machinery/door/airlock/external{
 	name = "Escape Pod One"
@@ -23268,6 +23273,17 @@
 	},
 /turf/open/floor/iron/dark,
 /area/hallway/secondary/command)
+"fTN" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 2;
+	height = 14;
+	id = "ferry_home";
+	name = "port bay 2";
+	width = 5
+	},
+/turf/open/space/basic,
+/area/space)
 "fTO" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 5
@@ -30016,6 +30032,18 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2,
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/turf/open/floor/iron,
+/area/security/brig)
+"itQ" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 8
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/obj/item/radio/intercom{
+	pixel_y = -29
 	},
 /turf/open/floor/iron,
 /area/security/brig)
@@ -38101,18 +38129,6 @@
 	},
 /turf/open/floor/iron,
 /area/quartermaster/warehouse)
-"lxA" = (
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 8
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 8
-	},
-/obj/item/radio/intercom{
-	pixel_y = -29
-	},
-/turf/open/floor/iron,
-/area/security/brig)
 "lxF" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 1
@@ -38718,18 +38734,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/medical/cryo)
-"lJH" = (
-/obj/structure/rack,
-/obj/effect/turf_decal/bot,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/effect/loot_jobscale/armoury/disabler,
-/turf/open/floor/iron,
-/area/ai_monitored/security/armory)
 "lKH" = (
 /obj/structure/chair/office{
 	dir = 1
@@ -38919,15 +38923,6 @@
 /obj/structure/dresser,
 /turf/open/floor/carpet/orange,
 /area/crew_quarters/dorms)
-"lPI" = (
-/obj/structure/rack,
-/obj/effect/turf_decal/bot,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/effect/loot_jobscale/armoury/energy_gun,
-/turf/open/floor/iron,
-/area/ai_monitored/security/armory)
 "lPN" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 1
@@ -41529,6 +41524,18 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/dark,
 /area/security/main)
+"mYr" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/effect/loot_jobscale/armoury/taser_ammo_box,
+/obj/effect/loot_jobscale/armoury/tasers,
+/obj/structure/closet/gun_locker{
+	anchored = 1
+	},
+/turf/open/floor/iron,
+/area/ai_monitored/security/armory)
 "mYB" = (
 /obj/machinery/computer/teleporter{
 	dir = 1
@@ -82157,7 +82164,7 @@ aUL
 rQX
 aaa
 aaa
-cxE
+fTN
 aaa
 aaa
 rQX
@@ -100102,7 +100109,7 @@ cVL
 adR
 sCt
 vLp
-lxA
+itQ
 aiX
 aiX
 aiX
@@ -102402,7 +102409,7 @@ aaa
 aaZ
 kAi
 ted
-lPI
+mYr
 fRu
 csg
 eJm
@@ -102659,7 +102666,7 @@ cyR
 aaZ
 pst
 ack
-lJH
+afc
 hJq
 jZE
 aaZ

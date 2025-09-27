@@ -29,6 +29,7 @@
 	armor_type = /datum/armor/restraints_handcuffs
 	var/cuffsound = 'sound/weapons/handcuffs.ogg'
 	var/trashtype = null //for disposable cuffs
+	var/overlay_state = "handcuff1"
 
 /obj/item/restraints/handcuffs/get_belt_overlay()
 	return mutable_appearance('icons/obj/clothing/belt_overlays.dmi', "handcuffs")
