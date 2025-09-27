@@ -5,6 +5,7 @@
 	bleed_force = BLEED_SCRATCH
 	var/piercing = FALSE
 	var/obj/item/reagent_containers/syringe/syringe = null
+	muzzle_effect_type = null
 
 /obj/projectile/bullet/dart/c38
 	name = "bullet"

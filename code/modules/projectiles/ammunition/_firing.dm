@@ -42,8 +42,10 @@
 	var/firing_dir
 	if(BB.firer)
 		firing_dir = BB.firer.dir
-	if(!BB.suppressed && firing_effect_type)
-		new firing_effect_type(get_turf(src), firing_dir)
+	if(!BB.suppressed && BB.muzzle_effect_type)
+		var/obj/effect/temp_visual/muzzle = new BB.muzzle_effect_type(get_turf(src), firing_dir)
+		muzzle.color = BB.color
+		muzzle.set_light(l_color = BB.light_color)
 
 	var/direct_target
 	if(targloc == current_location)

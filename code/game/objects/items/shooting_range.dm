@@ -82,7 +82,7 @@
 		bullet_hole.pixel_y = p_y - 1
 		if(decaltype == DECALTYPE_SCORCH)
 			bullet_hole.setDir(pick(NORTH,SOUTH,EAST,WEST))// random scorch design
-			if(P.damage >= 20 || istype(P, /obj/projectile/beam/practice))
+			if(P.damage >= 20 || istype(P, /obj/projectile/laser/practice))
 				bullet_hole.setDir(pick(NORTH,SOUTH,EAST,WEST))
 			else
 				bullet_hole.icon_state = "light_scorch"

@@ -4152,7 +4152,7 @@
 	req_access = null;
 	req_access_txt = "203"
 	},
-/obj/item/gun/energy/laser/scatter/shotty,
+/obj/item/gun/energy/laser/repeater/shotgun/disabler,
 /obj/item/clothing/head/helmet/toggleable/justice,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
