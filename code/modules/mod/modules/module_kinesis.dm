@@ -1,6 +1,6 @@
 ///Kinesis - Gives you the ability to move and launch objects.
 /obj/item/mod/module/anomaly_locked/kinesis
-	name = "MOD kinesis module"
+	name = "\improper MOD kinesis module"
 	desc = "A modular plug-in to the forearm, this module was presumed lost for many years, \
 		despite the suits it used to be mounted on still seeing some circulation. \
 		This piece of technology allows the user to generate precise anti-gravity fields, \
@@ -255,17 +255,21 @@
 	prebuilt = TRUE
 
 /obj/item/mod/module/anomaly_locked/kinesis/prototype
-	name = "MOD prototype kinesis module"
+	name = "\improper MOD prototype kinesis module"
+	desc = "A permanent fixture to the forearm, this lost piece of technology \
+		allows the user to generate precise anti-gravity fields, \
+		letting them move objects as small as a titanium rod to as large as industrial machinery. \
+		It is unusually power-hungry, and it doesn't seem to work on living creatures."
 	prebuilt = TRUE
 	complexity = 0
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 5
 	removable = FALSE
 
 /obj/item/mod/module/anomaly_locked/kinesis/plus
-	name = "MOD kinesis+ module"
+	name = "\improper MOD kinesis+ module"
 	desc = "A modular plug-in to the forearm, this module was recently redeveloped in secret. \
 		The bane of all ne'er-do-wells, the kinesis+ module is a powerful tool that allows the user \
-		to manipulate the world around them. Like it's older counterpart, it's capable of manipulating \
+		to manipulate the world around them. Like its older counterpart, it's capable of manipulating \
 		structures, machinery, vehicles, and, thanks to the fruitful efforts of its creators - living beings."
 	complexity = 0
 	prebuilt = TRUE
@@ -273,7 +277,7 @@
 
 /// Admin suit version of kinesis. Can grab anything at any range, may enable phasing through walls.
 /obj/item/mod/module/anomaly_locked/kinesis/admin
-	name = "MOD kinesis++ module"
+	name = "\improper MOD kinesis++ module"
 	desc = "A modular plug-in to the forearm, this module was recently reredeveloped in super secret. \
 		This one can force some of the grasped objects to phase through walls. Oh no."
 	complexity = 0

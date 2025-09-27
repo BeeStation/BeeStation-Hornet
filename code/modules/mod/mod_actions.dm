@@ -128,7 +128,7 @@
 	if(linked_module.allow_flags & MODULE_ALLOW_INCAPACITATED)
 		// clears check hands and check conscious
 		check_flags = NONE
-	name = "Activate [capitalize(linked_module.name)]"
+	name = "Activate [capitalize(format_text(linked_module.name))]"
 	desc = "Quickly activate [linked_module]."
 	icon_icon = linked_module.icon
 	button_icon_state = linked_module.icon_state
