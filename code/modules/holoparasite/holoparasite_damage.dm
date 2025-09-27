@@ -115,12 +115,6 @@
 	return FALSE
 
 /**
- * A holoparasite's crystalline structure is unaffected by radiation.
- */
-/mob/living/simple_animal/hostile/holoparasite/rad_act(amount)
-	return FALSE
-
-/**
  * An un-manifested holoparasite will be immune to EMPs, i.e in the case of a dextrous holoparasite.
  */
 /mob/living/simple_animal/hostile/holoparasite/emp_act(severity)

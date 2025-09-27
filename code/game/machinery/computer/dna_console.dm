@@ -1,20 +1,31 @@
+/// Base timeout for creating mutation activators and other injectors
 #define INJECTOR_TIMEOUT 100
+/// Maximum number of genetic makeup storage slots in DNA Console
 #define NUMBER_OF_BUFFERS 3
+/// Timeout for DNA Scramble in DNA Consoles
 #define SCRAMBLE_TIMEOUT 600
-#define JOKER_TIMEOUT 12000					//20 minutes
-#define JOKER_UPGRADE 1800
+/// Timeout for using the Joker feature to solve a gene in DNA Console
+#define JOKER_TIMEOUT 20 MINUTES
+/// How much time DNA Scanner upgrade tiers remove from JOKER_TIMEOUT
+#define JOKER_UPGRADE 5 MINUTES
 
-#define RADIATION_STRENGTH_MAX 15
-#define RADIATION_STRENGTH_MULTIPLIER 1			//larger has more range
+/// Maximum value for genetic damage strength when pulsing enzymes
+#define GENETIC_DAMAGE_STRENGTH_MAX 15
+/// Larger multipliers will affect the range of values when pulsing enzymes
+#define GENETIC_DAMAGE_STRENGTH_MULTIPLIER 1
 
-#define RADIATION_DURATION_MAX 30
-#define RADIATION_ACCURACY_MULTIPLIER 3			//larger is less accurate
+/// Maximum value for the genetic damage pulse duration when pulsing enzymes
+#define GENETIC_DAMAGE_DURATION_MAX 30
+/// Large values reduce pulse accuracy and may pulse other enzymes than selected
+#define GENETIC_DAMAGE_ACCURACY_MULTIPLIER 3
 
 /// Special status indicating a scanner occupant is transforming eg. from monkey to human
 #define STATUS_TRANSFORMING 4
 
-#define RADIATION_IRRADIATION_MULTIPLIER 1		//multiplier for how much radiation a test subject receives
+/// Multiplier for how much genetic damage received from DNA Console functionality
+#define GENETIC_DAMAGE_IRGENETIC_DAMAGE_MULTIPLIER 1
 
+/// Flag for the mutation ref search system. Search will include scanner occupant
 #define SEARCH_OCCUPANT 1
 /// Flag for the mutation ref search system. Search will include console storage
 #define SEARCH_STORED 2
@@ -23,9 +34,11 @@
 /// Flag for the mutation ref search system. Search will include advanced injector mutations
 #define SEARCH_ADV_INJ 8
 
-//Rad pulse mode defines
-#define RAD_PULSE_UNIQUE_IDENTITY "ui"
-#define RAD_PULSE_UNIQUE_FEATURES "uf"
+/// The base cooldown of the ability to copy enzymes and genetic makeup to people.
+#define ENZYME_COPY_BASE_COOLDOWN (60 SECONDS)
+
+#define GENETIC_DAMAGE_PULSE_UNIQUE_IDENTITY "ui"
+#define GENETIC_DAMAGE_PULSE_UNIQUE_FEATURES "uf"
 
 /// Boilerplate define for whenever a cooldown is upgraded.
 /// This will recalculate the current timeout if the given cooldown is currently active.
@@ -67,8 +80,7 @@
 	var/datum/techweb/stored_research
 	var/max_storage = 6
 	var/combine
-	var/radduration = 2
-	var/radstrength = 1
+
 	var/max_chromosomes = 5
 	///Amount of mutations we can store
 	var/list/genetic_makeup_buffer[NUMBER_OF_BUFFERS]
@@ -116,12 +128,16 @@
 	var/obj/item/disk/data/diskette = null
 	var/list/delayed_action = null
 
+	/// Duration for enzyme genetic damage pulses
+	var/pulse_duration = 2
+	/// Strength for enzyme genetic damage pulses
+	var/pulse_strength = 1
 	/// Index of the enzyme being modified during delayed enzyme pulse operations
-	var/rad_pulse_index = 0
+	var/genetic_damage_pulse_index = 0
 	/// World time when the enzyme pulse should complete
-	COOLDOWN_DECLARE(rad_pulse_timer)
+	COOLDOWN_DECLARE(genetic_damage_pulse_timer)
 	/// Which dna string to edit with the pulse
-	var/rad_pulse_type
+	var/genetic_damage_pulse_type
 
 	/// Used for setting tgui data - Whether the connected DNA Scanner is usable
 	var/can_use_scanner = FALSE
@@ -134,7 +150,7 @@
 	/// Used for setting tgui data - Whether injectors are ready to be printed
 	var/is_injector_ready = FALSE
 	/// Used for setting tgui data - Wheher an enzyme pulse operation is ongoing
-	var/is_pulsing_rads = FALSE
+	var/is_pulsing = FALSE
 	/// Used for setting tgui data - Time until scramble is ready
 	var/time_to_scramble = 0
 	/// Used for setting tgui data - Time until joker is ready
@@ -170,10 +186,10 @@
 /obj/machinery/computer/scan_consolenew/process()
 	. = ..()
 
-	// This is for pulsing the UI element with radiation as part of genetic makeup
-	// If rad_pulse_index > 0 then it means we're attempting a rad pulse
-	if((rad_pulse_index > 0) && !COOLDOWN_FINISHED(src, rad_pulse_timer))
-		rad_pulse()
+	// This is for pulsing the UI element with genetic damage as part of genetic makeup
+	// If genetic_damage_pulse_index > 0 then it means we're attempting a pulse
+	if((genetic_damage_pulse_index > 0) && !COOLDOWN_FINISHED(src, genetic_damage_pulse_timer))
+		genetic_damage_pulse()
 		return
 
 /obj/machinery/computer/scan_consolenew/attackby(obj/item/I, mob/user, params)
@@ -313,8 +329,8 @@
 	is_joker_ready = COOLDOWN_FINISHED(src, joker_cooldown)
 	time_to_joker = round(COOLDOWN_TIMELEFT(src, joker_cooldown) / 10)
 
-	is_pulsing_rads = ((rad_pulse_index > 0) && !COOLDOWN_FINISHED(src, rad_pulse_timer))
-	time_to_pulse = round(COOLDOWN_TIMELEFT(src, rad_pulse_timer) / 10)
+	is_pulsing = ((genetic_damage_pulse_index > 0) && !COOLDOWN_FINISHED(src, genetic_damage_pulse_timer))
+	time_to_pulse = round(COOLDOWN_TIMELEFT(src, genetic_damage_pulse_timer) / 10)
 
 	// Attempt to update tgui ui, open and update if needed.
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -348,10 +364,10 @@
 		data["scannerOpen"] = connected_scanner.state_open
 		data["scannerLocked"] = connected_scanner.locked
 		data["scannerBoltWireCut"] = connected_scanner.wires.is_cut(WIRE_BOLTS)
-		data["radStrength"] = radstrength
-		data["radDuration"] = radduration
-		data["stdDevStr"] = radstrength * RADIATION_STRENGTH_MULTIPLIER
-		switch(RADIATION_ACCURACY_MULTIPLIER / (radduration + (connected_scanner.precision_coeff ** 2)))	//hardcoded values from a z-table for a normal distribution
+		data["pulseStrength"] = pulse_strength
+		data["pulseDuration"] = pulse_duration
+		data["stdDevStr"] = pulse_strength * GENETIC_DAMAGE_STRENGTH_MULTIPLIER
+		switch(GENETIC_DAMAGE_ACCURACY_MULTIPLIER / (pulse_duration + (connected_scanner.precision_coeff ** 2))) //hardcoded values from a z-table for a normal distribution
 			if(0 to 0.25)
 				data["stdDevAcc"] = ">95 %"
 			if(0.25 to 0.5)
@@ -369,18 +385,18 @@
 		else
 			data["subjectStatus"] = scanner_occupant.stat
 		data["subjectHealth"] = scanner_occupant.health
-		data["subjectRads"] = scanner_occupant.radiation/(RAD_MOB_SAFE/100)
 		data["subjectEnzymes"] = scanner_occupant.dna.unique_enzymes
 		data["isMonkey"] = ismonkey(scanner_occupant)
 		data["subjectUNI"] = scanner_occupant.dna.unique_identity
 		data["subjectUF"] = scanner_occupant.dna.unique_features
 		data["storage"]["occupant"] = tgui_occupant_mutations
-		//data["subjectMutations"] = tgui_occupant_mutations
+
+		var/datum/status_effect/genetic_damage/genetic_damage = scanner_occupant.has_status_effect(/datum/status_effect/genetic_damage)
+		data["subjectDamage"] = genetic_damage ? round((genetic_damage.total_damage / genetic_damage.minimum_before_tox_damage) * 100, 0.1) : 0
 	else
 		data["subjectName"] = null
 		data["subjectStatus"] = null
 		data["subjectHealth"] = null
-		data["subjectRads"] = null
 		data["subjectEnzymes"] = null
 		data["isMonkey"] = null
 		data["subjectUNI"] = null
@@ -395,8 +411,8 @@
 	data["scrambleSeconds"] = time_to_scramble
 	data["jokerSeconds"] = time_to_joker
 	data["injectorSeconds"] = time_to_injector
-	data["isPulsingRads"] = is_pulsing_rads
-	data["radPulseSeconds"] = time_to_pulse
+	data["isPulsing"] = is_pulsing
+	data["timeToPulse"] = time_to_pulse
 
 	if(diskette != null)
 		data["hasDisk"] = TRUE
@@ -478,8 +494,8 @@
 			scanner_occupant.dna.remove_all_mutations(list(MUT_NORMAL, MUT_EXTRA))
 			scanner_occupant.dna.generate_dna_blocks()
 			COOLDOWN_START(src, scramble_cooldown, SCRAMBLE_TIMEOUT)
-			to_chat(usr, span_notice("DNA scrambled."))
-			scanner_occupant.radiation += RADIATION_STRENGTH_MULTIPLIER * 50 / (connected_scanner.damage_coeff ** 2)
+			balloon_alert(usr, "dna scrambled.")
+			scanner_occupant.apply_status_effect(/datum/status_effect/genetic_damage, GENETIC_DAMAGE_STRENGTH_MULTIPLIER*50/(connected_scanner.damage_coeff ** 2))
 			return
 
 		// Check whether a specific mutation is eligible for discovery within the
@@ -587,10 +603,10 @@
 				scanner_occupant.dna.default_mutation_genes[path] = defaultseq
 
 			// Copy genome to scanner occupant and do some basic mutation checks as
-			//  we've increased the occupant rads
+			//  we've increased the occupant genetic damage
 			sequence = copytext(sequence, 1, genepos) + newgene + copytext(sequence, genepos + 1)
 			scanner_occupant.dna.mutation_index[path] = sequence
-			scanner_occupant.radiation += RADIATION_STRENGTH_MULTIPLIER / connected_scanner.damage_coeff
+			scanner_occupant.apply_status_effect(/datum/status_effect/genetic_damage, GENETIC_DAMAGE_STRENGTH_MULTIPLIER/connected_scanner.damage_coeff)
 			scanner_occupant.domutcheck()
 
 			// GUARD CHECK - Modifying genetics can lead to edge cases where the
@@ -720,7 +736,7 @@
 				I.name = "DNA activator"
 				I.research = TRUE
 				// If there's an operational connected scanner, we can use its upgrades
-				//  to improve our injector's radiation generation
+				//  to improve our injector's genetic damage generation
 				if(scanner_operational())
 					I.damage_coeff = connected_scanner.damage_coeff * 4
 					COOLDOWN_START(src, injector_cooldown, activator_timeout)
@@ -731,7 +747,7 @@
 				I.desc = "Adds the current mutation on injection, at the cost of genetic stability."
 				I.doitanyway = TRUE
 				// If there's an operational connected scanner, we can use its upgrades
-				//  to improve our injector's radiation generation
+				//  to improve our injector's genetic damage generation
 				if(scanner_operational())
 					I.damage_coeff = connected_scanner.damage_coeff
 					COOLDOWN_START(src, injector_cooldown, mutator_timeout)
@@ -1077,7 +1093,7 @@
 		//  later on in code
 		if("set_pulse_strength")
 			var/value = round(text2num(params["val"]))
-			radstrength = WRAP(value, 1, RADIATION_STRENGTH_MAX+1)
+			pulse_strength = WRAP(value, 1, GENETIC_DAMAGE_STRENGTH_MAX+1)
 			return
 
 		// Sets the Genetic Makeup pulse duration
@@ -1086,7 +1102,7 @@
 		//  later on in code
 		if("set_pulse_duration")
 			var/value = round(text2num(params["val"]))
-			radduration = WRAP(value, 1, RADIATION_DURATION_MAX+1)
+			pulse_duration = WRAP(value, 1, GENETIC_DAMAGE_DURATION_MAX+1)
 			return
 
 		// Saves Genetic Makeup information to disk
@@ -1271,7 +1287,7 @@
 				I.fields = fields
 
 				// If there is a connected scanner, we can use its upgrades to reduce
-				//  the radiation generated by this injector
+				//  the genetic damage generated by this injector
 				if(scanner_operational())
 					I.damage_coeff  = connected_scanner.damage_coeff
 
@@ -1359,19 +1375,19 @@
 			// Set the appropriate timer and index to pulse. This is then managed
 			//  later on in process()
 			var/type = params["type"]
-			rad_pulse_type = type
+			genetic_damage_pulse_type = type
 			var/len
 			switch(type)
 				if("ui")
 					len = length(scanner_occupant.dna.unique_identity)
 				if("uf")
 					len = length(scanner_occupant.dna.unique_features)
-			COOLDOWN_START(src, rad_pulse_timer, radduration * 10)
-			rad_pulse_index = WRAP(text2num(params["index"]), 1, len + 1)
+			COOLDOWN_START(src, genetic_damage_pulse_timer, pulse_duration * 10)
+			genetic_damage_pulse_index = WRAP(text2num(params["index"]), 1, len + 1)
 			START_PROCESSING(SSobj, src)
 			return
 
-		// Cancels the delayed action - In this context it is not the radiation
+		// Cancels the delayed action - In this context it is not the genetic damage
 		//  pulse from "makeup_pulse", which can not be cancelled. It is instead
 		//  the delayed genetic transfer from "makeup_delay"
 		if("cancel_delay")
@@ -1452,7 +1468,7 @@
 			I.name = "Advanced [inj_name] injector"
 
 			// If there's an operational connected scanner, we can use its upgrades
-			//  to improve our injector's radiation generation
+			//  to improve our injector's genetic damage generation
 			if(scanner_operational())
 				I.damage_coeff = connected_scanner.damage_coeff
 				COOLDOWN_START(src, injector_cooldown, advanced_timeout)
@@ -1578,11 +1594,11 @@
 	//  necessary occupant guard checks. If you call this code yourself, please
 	//  apply can_modify_occupant() or equivalent checks first.
 
-	// Pre-calc the rad increase since we'll be using it in all the possible
-	//  operations
 	. = FALSE
 
-	var/rad_increase = rand(100 / (connected_scanner.damage_coeff ** 2), 250 / (connected_scanner.damage_coeff ** 2))
+	// Pre-calc the damage increase since we'll be using it in all the possible
+	//  operations
+	var/damage_increase = rand(100/(connected_scanner.damage_coeff ** 2),250/(connected_scanner.damage_coeff ** 2))
 
 	var/ui = types["ui"]
 	var/ue = types["ue"]
@@ -1625,7 +1641,7 @@
 	if(.)
 		if(ui || ue)
 			scanner_occupant.updateappearance(mutcolor_update=ue, mutations_overlay_update=TRUE)
-		scanner_occupant.radiation += rad_increase
+		scanner_occupant.apply_status_effect(/datum/status_effect/genetic_damage, damage_increase)
 		scanner_occupant.domutcheck()
 
 /**
@@ -1650,15 +1666,16 @@
 
 	scanner_occupant = connected_scanner.occupant
 
-	if(!scanner_occupant.has_dna() || \
-	   HAS_TRAIT(scanner_occupant, TRAIT_GENELESS))
-		return FALSE
-	else if(connected_scanner.scan_level >= 3) //A high scanner level overrides the below conditions
+	// Check validity of occupent for DNA Modification
+	// DNA Modification:
+	//   requires DNA
+	//    this DNA can not be bad
+	//   is done via genetic damage bursts, so genetic damage immune carbons are not viable
+	// And the DNA Scanner itself must have a valid scan level
+	if(scanner_occupant.has_dna() && !HAS_TRAIT(scanner_occupant, TRAIT_GENELESS) && !HAS_TRAIT(scanner_occupant, TRAIT_BADDNA) || (connected_scanner.scan_level == 3))
 		return TRUE
-	else if(HAS_TRAIT(scanner_occupant, TRAIT_BADDNA))
-		return FALSE
-	else
-		return TRUE
+
+	return TRUE
 
 /**
   * Called by connected DNA Scanners when their doors close.
@@ -1689,10 +1706,10 @@
   */
 /obj/machinery/computer/scan_consolenew/proc/on_scanner_open()
 	SIGNAL_HANDLER
-	// If we had a radiation pulse action ongoing, we want to stop this.
+	// If we had a genetic damage pulse action ongoing, we want to stop this.
 	// Imagine it being like a microwave stopping when you open the door.
-	rad_pulse_index = 0
-	COOLDOWN_RESET(src, rad_pulse_timer)
+	genetic_damage_pulse_index = 0
+	COOLDOWN_RESET(src, genetic_damage_pulse_timer)
 	STOP_PROCESSING(SSobj, src)
 	scanner_occupant = null
 
@@ -2033,11 +2050,11 @@
 	*
 	* Arguments:
   * * position - Index of the intended enzyme element to pulse
-	* * radduration - Duration of intended radiation pulse
+	* * pulse_duration - Duration of intended genetic damage pulse
 	* * number_of_blocks - Number of individual data blocks in the pulsed enzyme
   */
-/obj/machinery/computer/scan_consolenew/proc/randomize_radiation_accuracy(position, radduration, number_of_blocks)
-	var/val = round(gaussian(0, RADIATION_ACCURACY_MULTIPLIER/radduration) + position, 1)
+/obj/machinery/computer/scan_consolenew/proc/randomize_genetic_damage_accuracy(position, pulse_duration, number_of_blocks)
+	var/val = round(gaussian(0, GENETIC_DAMAGE_ACCURACY_MULTIPLIER/pulse_duration) + position, 1)
 	return WRAP(val, 1, number_of_blocks + 1)
 
 /**
@@ -2047,11 +2064,11 @@
 	*
 	* Arguments:
   * * input - Enzyme identity element to scramble, expected hex value
-	* * rs - Strength of radiation pulse, increases the range of possible outcomes
+	* * rs - Strength of genetic damage pulse, increases the range of possible outcomes
   */
 /obj/machinery/computer/scan_consolenew/proc/scramble(input,rs)
 	var/length = length(input)
-	var/ran = gaussian(0, rs * RADIATION_STRENGTH_MULTIPLIER)
+	var/ran = gaussian(0, rs * GENETIC_DAMAGE_STRENGTH_MULTIPLIER)
 	switch(ran)
 		if(0)
 			ran = pick(-1, 1)	//hacky, statistically should almost never happen. 0-chance makes people mad though
@@ -2062,34 +2079,34 @@
 	return num2hex(WRAP(hex2num(input) + ran, 0, 16 ** length), length)
 
 /**
-  * Performs the enzyme radiation pulse.
+  * Performs the enzyme genetic damage pulse.
 	*
 	* Donor code from previous DNA Console iteration. Called from process() when
-	* there is a radiation pulse in progress. Ends processing.
+	* there is a genetic damage pulse in progress. Ends processing.
   */
-/obj/machinery/computer/scan_consolenew/proc/rad_pulse()
+/obj/machinery/computer/scan_consolenew/proc/genetic_damage_pulse()
 	// GUARD CHECK - Can we genetically modify the occupant? Includes scanner
 	//  operational guard checks.
 	// If we can't, abort the procedure.
-	if(!can_modify_occupant() || (rad_pulse_type != RAD_PULSE_UNIQUE_IDENTITY && rad_pulse_type != RAD_PULSE_UNIQUE_FEATURES))
-		rad_pulse_index = 0
+	if(!can_modify_occupant() || (genetic_damage_pulse_type != GENETIC_DAMAGE_PULSE_UNIQUE_IDENTITY && genetic_damage_pulse_type != GENETIC_DAMAGE_PULSE_UNIQUE_FEATURES))
+		genetic_damage_pulse_index = 0
 		STOP_PROCESSING(SSobj, src)
 		return
 
-	var/unique_sequence = rad_pulse_type == RAD_PULSE_UNIQUE_IDENTITY ? scanner_occupant.dna.unique_identity : scanner_occupant.dna.unique_features
+	var/unique_sequence = genetic_damage_pulse_type == GENETIC_DAMAGE_PULSE_UNIQUE_IDENTITY ? scanner_occupant.dna.unique_identity : scanner_occupant.dna.unique_features
 
 	var/len = length_char(unique_sequence)
-	var/num = randomize_radiation_accuracy(rad_pulse_index, radduration + (connected_scanner.precision_coeff ** 2), len) //Each manipulator level above 1 makes randomization as accurate as selected time + manipulator lvl^2																																																		 //Value is this high for the same reason as with laser - not worth the hassle of upgrading if the bonus is low
+	var/num = randomize_genetic_damage_accuracy(genetic_damage_pulse_index, pulse_duration + (connected_scanner.precision_coeff ** 2), len) //Each manipulator level above 1 makes randomization as accurate as selected time + manipulator lvl^2																																																		 //Value is this high for the same reason as with laser - not worth the hassle of upgrading if the bonus is low
 	var/hex = copytext(unique_sequence, num, num + 1)
-	hex = scramble(hex, radstrength, radduration)
+	hex = scramble(hex, pulse_strength, pulse_duration)
 
-	if(rad_pulse_type == RAD_PULSE_UNIQUE_IDENTITY)
+	if(genetic_damage_pulse_type == GENETIC_DAMAGE_PULSE_UNIQUE_IDENTITY)
 		scanner_occupant.dna.unique_identity = copytext(unique_sequence, 1, num) + hex + copytext(unique_sequence, num + 1)
 	else
 		scanner_occupant.dna.unique_features = copytext(unique_sequence, 1, num) + hex + copytext(unique_sequence, num + 1)
 	scanner_occupant.updateappearance(mutations_overlay_update = 1)
 
-	rad_pulse_index = 0
+	genetic_damage_pulse_index = 0
 	STOP_PROCESSING(SSobj, src)
 	return
 
@@ -2151,27 +2168,30 @@
 
 /////////////////////////// DNA MACHINES
 
-#undef CALCULATE_UPGRADED_TIMEOUT
 #undef INJECTOR_TIMEOUT
 #undef NUMBER_OF_BUFFERS
 #undef SCRAMBLE_TIMEOUT
 #undef JOKER_TIMEOUT
 #undef JOKER_UPGRADE
 
-#undef RADIATION_STRENGTH_MAX
-#undef RADIATION_STRENGTH_MULTIPLIER
+#undef GENETIC_DAMAGE_STRENGTH_MAX
+#undef GENETIC_DAMAGE_STRENGTH_MULTIPLIER
 
-#undef RADIATION_DURATION_MAX
-#undef RADIATION_ACCURACY_MULTIPLIER
-
-#undef RADIATION_IRRADIATION_MULTIPLIER
+#undef GENETIC_DAMAGE_DURATION_MAX
+#undef GENETIC_DAMAGE_ACCURACY_MULTIPLIER
 
 #undef STATUS_TRANSFORMING
+
+#undef GENETIC_DAMAGE_IRGENETIC_DAMAGE_MULTIPLIER
 
 #undef SEARCH_OCCUPANT
 #undef SEARCH_STORED
 #undef SEARCH_DISKETTE
 #undef SEARCH_ADV_INJ
 
-#undef RAD_PULSE_UNIQUE_IDENTITY
-#undef RAD_PULSE_UNIQUE_FEATURES
+#undef ENZYME_COPY_BASE_COOLDOWN
+
+#undef GENETIC_DAMAGE_PULSE_UNIQUE_IDENTITY
+#undef GENETIC_DAMAGE_PULSE_UNIQUE_FEATURES
+
+#undef CALCULATE_UPGRADED_TIMEOUT

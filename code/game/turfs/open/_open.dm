@@ -276,14 +276,6 @@ CREATION_TEST_IGNORE_SELF(/turf/open)
 /turf/open/proc/ClearWet()//Nuclear option of immediately removing slipperyness from the tile instead of the natural drying over time
 	qdel(GetComponent(/datum/component/wet_floor))
 
-/turf/open/rad_act(pulse_strength)
-	. = ..()
-	if (air.gases[/datum/gas/carbon_dioxide] && air.gases[/datum/gas/oxygen] && air.temperature <= PLUOXIUM_TEMP_CAP)
-		pulse_strength = min(pulse_strength,air.gases[/datum/gas/carbon_dioxide][MOLES]*1000,air.gases[/datum/gas/oxygen][MOLES]*2000) //Ensures matter is conserved properly
-		REMOVE_MOLES(/datum/gas/carbon_dioxide, air, (pulse_strength/1000))
-		REMOVE_MOLES(/datum/gas/oxygen, air, (pulse_strength/2000))
-		ADJUST_MOLES(/datum/gas/pluoxium, air, pulse_strength/4000)
-
 /turf/open/proc/break_tile(force, allow_base)
 	LAZYINITLIST(damage_overlays)
 	var/list/options = list()

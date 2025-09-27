@@ -373,7 +373,6 @@
 
 /datum/armor/wintercoat_geneticist
 	bio = 20
-	rad = 30
 	acid = 45
 
 /obj/item/clothing/head/hooded/winterhood/geneticist
@@ -399,12 +398,22 @@
 	icon_state = "coatengineer"
 	item_state = "coatengineer"
 	armor_type = /datum/armor/wintercoat_engineering
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/t_scanner, /obj/item/construction/rcd, /obj/item/pipe_dispenser, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
+	allowed = list(
+		/obj/item/flashlight,
+		/obj/item/tank/internals/emergency_oxygen,
+		/obj/item/tank/internals/plasmaman,
+		/obj/item/t_scanner,
+		/obj/item/construction/rcd,
+		/obj/item/pipe_dispenser,
+		/obj/item/toy,
+		/obj/item/storage/fancy/cigarettes,
+		/obj/item/lighter,
+		/obj/item/gun/ballistic/rifle/rebarxbow,
+	)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/engineering
 
 
 /datum/armor/wintercoat_engineering
-	rad = 20
 	fire = 30
 	acid = 45
 
@@ -494,7 +503,6 @@
 	energy = 20
 	bomb = 50
 	bio = 10
-	rad = 20
 	fire = 50
 	acid = 50
 	stamina = 20
@@ -519,7 +527,6 @@
 	energy = 20
 	bomb = 50
 	bio = 10
-	rad = 20
 	fire = 50
 	acid = 50
 	stamina = 20
@@ -620,7 +627,6 @@
 	energy = 50
 	bomb = 35
 	bio = 10
-	rad = 10
 	fire = 10
 	acid = 60
 
@@ -640,6 +646,5 @@
 	energy = 50
 	bomb = 35
 	bio = 10
-	rad = 10
 	fire = 10
 	acid = 60

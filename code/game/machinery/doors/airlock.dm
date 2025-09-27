@@ -111,7 +111,6 @@
 	///How many seconds remain until the door is no longer electrified. -1/MACHINE_ELECTRIFIED_PERMANENT = permanently electrified until someone fixes it.
 	var/secondsElectrified = MACHINE_NOT_ELECTRIFIED
 	var/protected_door = FALSE // Protects the door against any form of power outage, AI control, screwdrivers and welders.
-	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	rad_insulation = RAD_MEDIUM_INSULATION
 
 	var/electrification_timing // Set to true while electrified_loop is running, to prevent multiple being started

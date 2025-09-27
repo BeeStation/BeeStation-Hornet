@@ -21,7 +21,6 @@
 	energy = 20
 	bomb = 20
 	bio = 100
-	rad = 20
 	fire = 100
 	acid = 100
 	stamina = 50
@@ -101,7 +100,6 @@
 	energy = 20
 	bomb = 20
 	bio = 100
-	rad = 20
 	fire = 100
 	acid = 100
 	stamina = 50
@@ -223,7 +221,6 @@
 	sleep(30)
 	src.robe_charge = TRUE
 	to_chat(usr, span_notice("The robe hums, its internal magic supply restored."))
-
 
 // The actual code for this is handled in the shielded component, see [/datum/component/shielded/proc/check_recharge_rune]
 /obj/item/wizard_armour_charge

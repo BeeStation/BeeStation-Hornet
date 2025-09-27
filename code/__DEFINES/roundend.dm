@@ -47,3 +47,5 @@
 #define CLOCK_PROSELYTIZATION 23
 /// The emergency shuttle was successfully hijacked
 #define SHUTTLE_HIJACK 24
+/// The station was destroyed by the supermatter cascade
+#define SUPERMATTER_CASCADE 25

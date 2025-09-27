@@ -13,7 +13,6 @@
 	max_integrity = 200
 	armor_type = /datum/armor/structure_mineral_door
 	can_atmos_pass = ATMOS_PASS_DENSITY
-	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	rad_insulation = RAD_MEDIUM_INSULATION
 
 	var/door_opened = FALSE //if it's open or not.
@@ -31,7 +30,6 @@
 	melee = 10
 	energy = 100
 	bomb = 10
-	rad = 100
 	fire = 50
 	acid = 50
 
