@@ -213,6 +213,12 @@
 	icon_state = "viropack"
 	item_state = "viropack"
 
+/obj/item/storage/backpack/cargo
+	name = "cargo backpack"
+	desc = "A backpack designed for heavy loads, it has a harness to reduce the lickelyhood of back injuries."
+	icon_state = "backpack_cargo"
+	item_state = "backpack_cargo"
+
 /obj/item/storage/backpack/ert
 	name = "emergency response team commander backpack"
 	desc = "A spacious backpack with lots of pockets, worn by the Commander of an Emergency Response Team."
@@ -458,6 +464,12 @@
 /obj/item/storage/backpack/satchel/flat/empty/PopulateContents()
 	return
 
+/obj/item/storage/backpack/satchel/flat/empty/cargo
+	name = "cargo smuggling satchel"
+	desc = "A very slim satchel that can easily fit into tight spaces... For... Cargo purposes."
+	icon_state = "satchel_cargo"
+	item_state = "satchel_cargo"
+
 // -----------------------------
 //           mail bag
 // -----------------------------
@@ -626,6 +638,12 @@
 	icon_state = "duffel-drone"
 	item_state = "duffel-drone"
 	resistance_flags = FIRE_PROOF
+
+/obj/item/storage/backpack/duffelbag/cargo
+	name = "cargo duffel bag"
+	desc = "A large duffel in cargonian colors. Wear it with pride!"
+	icon_state = "duffel_cargo"
+	item_state = "duffel_cargo"
 
 /obj/item/storage/backpack/duffelbag/clown
 	name = "clown's duffel bag"
