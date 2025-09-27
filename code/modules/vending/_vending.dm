@@ -357,7 +357,10 @@
 
 		var/obj/item/temp = typepath
 		var/datum/vending_product/new_record = new /datum/vending_product()
-		new_record.name = initial(temp.name)
+		var/new_name = initial(temp.name)
+		if(isnull(new_name))
+			message_admins("[temp] item had a null name when built in vending inventory in [src]. Fix your product categories!")
+		new_record.name = new_name
 		new_record.product_path = typepath
 		if(!start_empty)
 			new_record.amount = amount
@@ -670,10 +673,10 @@
 					if(1) // shatter their legs and bleed 'em
 						crit_rebate = 60
 						C.bleed(150)
-						var/obj/item/bodypart/l_leg/l = C.get_bodypart(BODY_ZONE_L_LEG)
+						var/obj/item/bodypart/leg/left/l = C.get_bodypart(BODY_ZONE_L_LEG)
 						if(l)
 							l.receive_damage(brute=200, updating_health=TRUE)
-						var/obj/item/bodypart/r_leg/r = C.get_bodypart(BODY_ZONE_R_LEG)
+						var/obj/item/bodypart/leg/right/r = C.get_bodypart(BODY_ZONE_R_LEG)
 						if(r)
 							r.receive_damage(brute=200, updating_health=TRUE)
 						if(l || r)

@@ -12,7 +12,7 @@
 	desc = "The commander in chef's head wear."
 	strip_delay = 10
 	equip_delay_other = 10
-	dynamic_hair_suffix = ""
+
 
 	dog_fashion = /datum/dog_fashion/head/chef
 
@@ -163,7 +163,7 @@
 		else
 			worn_icon_state = initial(worn_icon_state)
 			to_chat(user, span_notice("You return your hat to its original position."))
-		user.update_inv_head()
+		user.update_worn_head()
 
 /obj/item/clothing/head/fedora/det_hat/noir
 	name = "noir fedora"
@@ -224,7 +224,7 @@
 	icon_state = "hoscap"
 	armor_type = /datum/armor/hats_hos
 	strip_delay = 80
-	dynamic_hair_suffix = ""
+
 	dying_key = DYE_REGISTRY_CAP
 
 

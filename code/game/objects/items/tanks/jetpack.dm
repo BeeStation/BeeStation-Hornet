@@ -22,6 +22,7 @@
 	if(use_ion_trail)
 		ion_trail = new
 		ion_trail.set_up(src)
+	AddElement(/datum/element/update_icon_updates_onmob, ITEM_SLOT_SUITSTORE)
 
 /obj/item/tank/jetpack/Destroy()
 	QDEL_NULL(ion_trail)

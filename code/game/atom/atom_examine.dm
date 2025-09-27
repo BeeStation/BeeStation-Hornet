@@ -73,7 +73,7 @@
 					. += span_danger("It's empty.")
 
 	if(HAS_TRAIT(user, TRAIT_PSYCHIC_SENSE))
-		var/list/souls = return_souls()
+		var/list/souls = GET_ATOM_SOULS(src)
 		if(!length(souls))
 			return
 		to_chat(user, span_notice("You sense a presence here..."))

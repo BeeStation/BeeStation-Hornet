@@ -38,6 +38,7 @@
 	flags_cover = MASKCOVERSEYES
 	visor_flags_inv = HIDEEYES
 	visor_flags_cover = MASKCOVERSEYES
+	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
 	resistance_flags = FIRE_PROOF
 
 
@@ -50,9 +51,16 @@
 	bleed = 5
 
 /obj/item/clothing/mask/gas/welding/attack_self(mob/user)
-	weldingvisortoggle(user)
+	adjust_visor(user)
 
-/obj/item/clothing/mask/gas/welding/up
+/obj/item/clothing/mask/gas/welding/adjust_visor(mob/living/user)
+	. = ..()
+	if(.)
+		playsound(src, 'sound/mecha/mechmove03.ogg', 50, TRUE)
+
+/obj/item/clothing/mask/gas/welding/update_icon_state()
+	. = ..()
+	icon_state = "[initial(icon_state)][up ? "up" : ""]"
 
 /obj/item/clothing/mask/gas/welding/up/Initialize(mapload)
 	. = ..()
@@ -113,7 +121,7 @@
 
 	if(src && choice && !user.incapacitated() && in_range(user,src))
 		icon_state = options[choice]
-		user.update_inv_wear_mask()
+		user.update_worn_mask()
 		for(var/X in actions)
 			var/datum/action/A = X
 			A.update_buttons()
@@ -164,7 +172,7 @@
 
 	if(src && choice && !user.incapacitated() && in_range(user,src))
 		icon_state = options[choice]
-		user.update_inv_wear_mask()
+		user.update_worn_mask()
 		for(var/X in actions)
 			var/datum/action/A = X
 			A.update_buttons()
@@ -246,7 +254,7 @@
 
 	if(src && choice && !M.stat && in_range(M,src))
 		icon_state = options[choice]
-		user.update_inv_wear_mask()
+		user.update_worn_mask()
 		for(var/X in actions)
 			var/datum/action/A = X
 			A.update_buttons()

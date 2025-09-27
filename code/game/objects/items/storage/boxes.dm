@@ -890,7 +890,7 @@
 	illustration = "clown"
 
 /obj/item/storage/box/clown/attackby(obj/item/I, mob/user, params)
-	if((istype(I, /obj/item/bodypart/l_arm/robot)) || (istype(I, /obj/item/bodypart/r_arm/robot)))
+	if((istype(I, /obj/item/bodypart/arm/left/robot)) || (istype(I, /obj/item/bodypart/arm/right/robot)))
 		if(contents.len) //prevent accidently deleting contents
 			to_chat(user, span_warning("You need to empty [src] out first!"))
 			return

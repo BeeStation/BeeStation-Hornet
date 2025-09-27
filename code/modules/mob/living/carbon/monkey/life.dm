@@ -21,7 +21,7 @@
 						if(3)
 							var/obj/item/bodypart/BP = pick(bodyparts)
 							if(BP.body_part != HEAD && BP.body_part != CHEST)
-								if(BP.dismemberable)
+								if(!(BP.bodypart_flags & BODYPART_UNREMOVABLE))
 									BP.dismember()
 							take_bodypart_damage(100, 0, 0)
 					return

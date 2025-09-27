@@ -13,7 +13,7 @@
 	hijack_speed = 0.5
 	/// Whether to give this changeling objectives or not
 	give_objectives = TRUE
-	/// Whether we assign objectives which compete with other lings
+	/// Weather we assign objectives which compete with other lings
 	var/competitive_objectives = FALSE
 
 	// Changeling Stuff.
@@ -66,7 +66,7 @@
 	/// Static list of possible ids. Initialized into the greek alphabet the first time it is used
 	var/static/list/possible_changeling_IDs
 
-	/// Static list of what each slot associated with (in regard to changeling flesh items).
+	/// Satic list of what each slot associated with (in regard to changeling flesh items).
 	var/static/list/slot2type = list(
 		"head" = /obj/item/clothing/head/changeling,
 		"wear_mask" = /obj/item/clothing/mask/changeling,
@@ -86,23 +86,6 @@
 	///	Keeps track of the currently selected profile.
 	var/datum/changeling_profile/current_profile
 
-	/// A list of languages granted to changelings
-	var/static/list/granted_languages = list(
-		/datum/language/apidite,
-		/datum/language/buzzwords,
-		/datum/language/calcic,
-		/datum/language/common,
-		/datum/language/uncommon,
-		/datum/language/draconic,
-		/datum/language/moffic,
-		/datum/language/monkey,
-		/datum/language/slime,
-		/datum/language/sonus,
-		/datum/language/sylvan,
-		/datum/language/terrum,
-		/datum/language/voltaic,
-	)
-
 /datum/antagonist/changeling/New()
 	. = ..()
 	for(var/datum/antagonist/changeling/other_ling in GLOB.antagonists)
@@ -118,7 +101,6 @@
 	return ..()
 
 /datum/antagonist/changeling/on_gain()
-	generate_name()
 	create_emporium()
 	create_innate_actions()
 	create_initial_profile()
@@ -127,9 +109,6 @@
 	handle_clown_mutation(owner.current, "You have evolved beyond your clownish nature, allowing you to wield weapons without harming yourself.")
 	owner.current.get_language_holder().omnitongue = TRUE
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ling_aler.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
-
-	for(var/datum/language/language as anything in granted_languages)
-		owner.current.grant_language(language, source = LANGUAGE_CHANGELING)
 	return ..()
 
 /datum/antagonist/changeling/apply_innate_effects(mob/living/mob_override)
@@ -190,7 +169,6 @@
 
 /datum/antagonist/changeling/on_removal()
 	remove_changeling_powers(include_innate = TRUE)
-	owner.current.remove_all_languages(LANGUAGE_CHANGELING, TRUE)
 	if(!iscarbon(owner.current))
 		return
 	var/mob/living/carbon/carbon_owner = owner.current
@@ -471,7 +449,7 @@
 	new_profile.protected = protect
 
 	new_profile.age = target.age
-	//new_profile.physique = target.physique
+	new_profile.physique = target.physique
 
 	// Clothes, of course
 	new_profile.underwear = target.underwear
@@ -480,8 +458,8 @@
 	new_profile.socks = target.socks
 
 	// Hair and facial hair gradients, alongside their colours.
-	//new_profile.grad_style = LAZYLISTDUPLICATE(target.grad_style)
-	//new_profile.grad_color = LAZYLISTDUPLICATE(target.grad_color)
+	new_profile.grad_style = LAZYLISTDUPLICATE(target.grad_style)
+	new_profile.grad_color = LAZYLISTDUPLICATE(target.grad_color)
 
 	// Make an icon snapshot of what they currently look like
 	var/datum/icon_snapshot/entry = new()
@@ -731,9 +709,9 @@
 	user.undershirt = chosen_profile.undershirt
 	user.socks = chosen_profile.socks
 	user.age = chosen_profile.age
-	//user.physique = chosen_profile.physique
-	//user.grad_style = LAZYLISTDUPLICATE(chosen_profile.grad_style)
-	//user.grad_color = LAZYLISTDUPLICATE(chosen_profile.grad_color)
+	user.physique = chosen_profile.physique
+	user.grad_style = LAZYLISTDUPLICATE(chosen_profile.grad_style)
+	user.grad_color = LAZYLISTDUPLICATE(chosen_profile.grad_color)
 
 	chosen_dna.transfer_identity(user, TRUE)
 

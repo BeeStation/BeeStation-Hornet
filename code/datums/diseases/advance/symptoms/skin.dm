@@ -35,9 +35,9 @@ BONUS
 	var/mob/living/M = A.affected_mob
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(H.dna.species.use_skintones)
+		if(HAS_TRAIT(H, TRAIT_USES_SKINTONES))
 			cachedcolor = H.skin_tone
-		else if(MUTCOLORS in H.dna.species.species_traits)
+		else if(HAS_TRAIT(H, TRAIT_MUTANT_COLORS) && !HAS_TRAIT(H, TRAIT_FIXED_MUTANT_COLORS))
 			cachedcolor	= H.dna.features["mcolor"]
 
 /datum/symptom/vitiligo/Activate(datum/disease/advance/A)
@@ -48,14 +48,14 @@ BONUS
 		var/mob/living/carbon/human/H = M
 		if(H.skin_tone == "albino")
 			return
-		if(H.dna.features["mcolor"] == "EEE")
+		if(H.dna.features["mcolor"] == "#EEEEEE")
 			return
 		switch(A.stage)
 			if(5)
-				if(H.dna.species.use_skintones)
+				if(HAS_TRAIT(H, TRAIT_USES_SKINTONES))
 					H.skin_tone = "albino"
-				else if(MUTCOLORS in H.dna.species.species_traits)
-					H.dna.features["mcolor"] = "EEE" //pure white.
+				else if(HAS_TRAIT(H, TRAIT_MUTANT_COLORS) && !HAS_TRAIT(H, TRAIT_FIXED_MUTANT_COLORS))
+					H.dna.features["mcolor"] = "#EEEEEE" //pure white.
 				H.regenerate_icons()
 			else
 				H.visible_message(span_notice("[H] looks a bit pale."), span_notice("Your skin suddenly appears lighter."))
@@ -65,9 +65,9 @@ BONUS
 	var/mob/living/M = A.affected_mob
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(H.dna.species.use_skintones)
+		if(HAS_TRAIT(H, TRAIT_USES_SKINTONES))
 			H.skin_tone = cachedcolor
-		else if(MUTCOLORS in H.dna.species.species_traits)
+		else if(HAS_TRAIT(H, TRAIT_MUTANT_COLORS) && !HAS_TRAIT(H, TRAIT_FIXED_MUTANT_COLORS))
 			H.dna.features["mcolor"] = cachedcolor
 		H.regenerate_icons()
 
@@ -107,9 +107,9 @@ BONUS
 	var/mob/living/M = A.affected_mob
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(H.dna.species.use_skintones)
+		if(HAS_TRAIT(H, TRAIT_USES_SKINTONES))
 			cachedcolor = H.skin_tone
-		else if(MUTCOLORS in H.dna.species.species_traits)
+		else if(HAS_TRAIT(H, TRAIT_MUTANT_COLORS) && !HAS_TRAIT(H, TRAIT_FIXED_MUTANT_COLORS))
 			cachedcolor	= H.dna.features["mcolor"]
 
 /datum/symptom/revitiligo/Activate(datum/disease/advance/A)
@@ -120,14 +120,14 @@ BONUS
 		var/mob/living/carbon/human/H = M
 		if(H.skin_tone == "african2")
 			return
-		if(H.dna.features["mcolor"] == "000")
+		if(H.dna.features["mcolor"] == "#000000")
 			return
 		switch(A.stage)
 			if(5)
-				if(H.dna.species.use_skintones)
+				if(HAS_TRAIT(H, TRAIT_USES_SKINTONES))
 					H.skin_tone = "african2"
-				else if(MUTCOLORS in H.dna.species.species_traits)
-					H.dna.features["mcolor"] = "000" //pure black.
+				else if(HAS_TRAIT(H, TRAIT_MUTANT_COLORS) && !HAS_TRAIT(H, TRAIT_FIXED_MUTANT_COLORS))
+					H.dna.features["mcolor"] = "#000000" //pure black.
 				H.regenerate_icons()
 			else
 				H.visible_message(span_notice("[H] looks a bit dark."), span_notice("Your skin suddenly appears darker."))
@@ -137,9 +137,9 @@ BONUS
 	var/mob/living/M = A.affected_mob
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(H.dna.species.use_skintones)
+		if(HAS_TRAIT(H, TRAIT_USES_SKINTONES))
 			H.skin_tone = cachedcolor
-		else if(MUTCOLORS in H.dna.species.species_traits)
+		else if(HAS_TRAIT(H, TRAIT_MUTANT_COLORS) && !HAS_TRAIT(H, TRAIT_FIXED_MUTANT_COLORS))
 			H.dna.features["mcolor"] = cachedcolor
 		H.regenerate_icons()
 

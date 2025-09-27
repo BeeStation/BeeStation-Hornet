@@ -209,6 +209,10 @@
 /datum/client_colour/rave
 	priority = PRIORITY_LOW
 
+/datum/client_colour/manual_heart_blood
+	priority = PRIORITY_ABSOLUTE
+	colour = COLOR_RED
+
 #undef PRIORITY_ABSOLUTE
 #undef PRIORITY_HIGH
 #undef PRIORITY_NORMAL

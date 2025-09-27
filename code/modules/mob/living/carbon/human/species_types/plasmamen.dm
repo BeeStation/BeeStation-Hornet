@@ -2,30 +2,24 @@
 	name = "\improper Plasmaman"
 	plural_form = "Plasmamen"
 	id = SPECIES_PLASMAMAN
-	bodyflag = FLAG_PLASMAMAN
 	sexes = 0
 	meat = /obj/item/stack/sheet/mineral/plasma
-	species_traits = list(
-		ENVIROSUIT
-	)
 	inherent_traits = list(
 		TRAIT_GENELESS,
 		TRAIT_RESISTCOLD,
 		TRAIT_RADIMMUNE,
 		TRAIT_NOHUNGER,
 		TRAIT_NOBLOOD,
-		TRAIT_NO_TRANSFORMATION_STING,
+		TRAIT_ENVIROSUIT
 	)
-	inherent_biotypes = list(MOB_INORGANIC, MOB_HUMANOID)
+	inherent_biotypes = MOB_MINERAL|MOB_HUMANOID
 	mutantlungs = /obj/item/organ/lungs/plasmaman
 	mutanttongue = /obj/item/organ/tongue/bone/plasmaman
 	mutantliver = /obj/item/organ/liver/plasmaman
 	mutantstomach = /obj/item/organ/stomach/plasmaman
 	mutantappendix = null
 	mutantheart = null
-	burnmod = 1.5
 	heatmod = 1.5
-	brutemod = 1.5
 	breathid = GAS_PLASMA
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC
 	outfit_important_for_life = /datum/outfit/plasmaman
@@ -41,21 +35,22 @@
 	bodytemp_cold_damage_limit = (BODYTEMP_COLD_DAMAGE_LIMIT - 50) // about -50c
 
 	bodypart_overrides = list(
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/plasmaman,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/plasmaman,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/plasmaman,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/plasmaman,
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/plasmaman,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/plasmaman,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/plasmaman,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/plasmaman,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/plasmaman,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/plasmaman,
 	)
 
 	var/internal_fire = FALSE //If the bones themselves are burning clothes won't help you much
 
-/datum/species/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
+/datum/species/plasmaman/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()
 	C.set_safe_hunger_level()
 
 /datum/species/plasmaman/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
+	. = ..()
 	var/atmos_sealed = FALSE
 	if (H.wear_suit && H.head && isclothing(H.wear_suit) && isclothing(H.head))
 		var/obj/item/clothing/CS = H.wear_suit
@@ -112,13 +107,6 @@
 /datum/species/plasmaman/give_important_for_life(mob/living/carbon/human/human_to_equip)
 	. = ..()
 	human_to_equip.open_internals(human_to_equip.get_item_for_held_index(2))
-
-/datum/species/plasmaman/qualifies_for_rank(rank, list/features)
-	if(rank in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY))
-		return 0
-	if(rank == JOB_NAME_CLOWN || rank == JOB_NAME_MIME)//No funny bussiness
-		return 0
-	return ..()
 
 /datum/species/plasmaman/random_name(gender, unique, lastname, attempts)
 	. = "[pick(GLOB.plasmaman_names)] \Roman[rand(1,99)]"

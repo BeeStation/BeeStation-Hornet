@@ -329,7 +329,10 @@
 	name = "design"
 
 /datum/asset/spritesheet_batched/research_designs/create_spritesheets()
-	for (var/datum/design/D as() in subtypesof(/datum/design))
+	for (var/datum/design/D as anything in subtypesof(/datum/design))
+		if(initial(D.id) == DESIGN_ID_IGNORE)
+			continue
+
 		var/icon_file
 		var/icon_state
 		var/datum/icon_transformer/transform = null
@@ -355,17 +358,14 @@
 				if (machine)
 					item = machine
 
+			// GAGS icon short-circuit the rest of the checks
 			if (initial(item.greyscale_config) && initial(item.greyscale_colors))
 				insert_icon(initial(D.id), gags_to_universal_icon(item))
 				continue
-			if(ispath(item, /obj/item/bodypart)) // mmm snowflake limbcode as usual
-				var/obj/item/bodypart/body_part = item
-				icon_file = initial(body_part.icon_static)
 			else
 				icon_file = initial(item.icon)
 
 			icon_state = initial(item.icon_state)
-
 			if(initial(item.color))
 				transform = color_transform(initial(item.color))
 
@@ -693,7 +693,7 @@
 	icon_state ||= initial(preview_item.icon_state_preview) || initial(preview_item.icon_state)
 
 	//if(PERFORM_ALL_TESTS(focus_only/bad_cooking_crafting_icons))
-	//	if(!icon_exists(icon_file, icon_state, scream = TRUE))
+	//	if(!icon_exists_or_scream(icon_file, icon_state))
 	//		return
 
 	insert_icon("a[id]", uni_icon(icon_file, icon_state, SOUTH))

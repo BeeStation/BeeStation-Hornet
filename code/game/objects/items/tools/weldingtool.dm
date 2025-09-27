@@ -57,7 +57,6 @@
 	reagents.add_reagent(/datum/reagent/fuel, max_fuel)
 	update_icon()
 
-
 /obj/item/weldingtool/update_icon_state()
 	if(welding)
 		item_state = "[initial(item_state)]1"

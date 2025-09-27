@@ -78,7 +78,7 @@
 			icon_state = "vest_stealth"
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
-		H.update_inv_wear_suit()
+		H.update_worn_oversuit()
 	update_action_buttons()
 
 /obj/item/clothing/suit/armor/abductor/vest/item_action_slot_check(slot, mob/user)
@@ -101,7 +101,7 @@
 		M.icon_state = disguise.icon_state
 		M.cut_overlays()
 		M.add_overlay(disguise.overlays)
-		M.update_inv_hands()
+		M.update_held_items()
 
 /obj/item/clothing/suit/armor/abductor/vest/proc/return_disguise_name(mob/living/carbon/human/source, list/identity)
 	SIGNAL_HANDLER
@@ -624,7 +624,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		species = span_notice("[H.dna.species.name]")
 		if(L.mind && L.mind.has_antag_datum(/datum/antagonist/changeling))
 			species = span_warning("Changeling lifeform")
-		var/obj/item/organ/heart/gland/temp = locate() in H.internal_organs
+		var/obj/item/organ/heart/gland/temp = locate() in H.organs
 		if(temp)
 			helptext = span_warning("Experimental gland detected!")
 		else

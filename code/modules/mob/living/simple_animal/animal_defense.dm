@@ -1,39 +1,41 @@
-/mob/living/simple_animal/attack_hand(mob/living/carbon/human/M, modifiers)
+/mob/living/simple_animal/attack_hand(mob/living/carbon/human/user, modifiers)
 	// so that martial arts don't double dip
 	if (..())
 		return TRUE
 
 	if(LAZYACCESS(modifiers, RIGHT_CLICK))
-		M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
+		if(user.move_force < move_resist)
+			return
+		user.do_attack_animation(src, ATTACK_EFFECT_DISARM)
 		playsound(src, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
-		var/shove_dir = get_dir(M, src)
+		var/shove_dir = get_dir(user, src)
 		if(!Move(get_step(src, shove_dir), shove_dir))
-			log_combat(M, src, "shoved", "combat mode", "failing to move it")
-			M.visible_message("<span class='danger'>[M.name] shoves [src]!</span>",
-				"<span class='danger'>You shove [src]!</span>", "<span class='hear'>You hear aggressive shuffling!</span>", COMBAT_MESSAGE_RANGE, list(src))
-			to_chat(src, "<span class='userdanger'>You're shoved by [M.name]!</span>")
+			log_combat(user, src, "shoved", "combat mode", "failing to move it")
+			user.visible_message(span_danger("[user.name] shoves [src]!"),
+				span_danger("You shove [src]!"), span_hear("You hear aggressive shuffling!"), COMBAT_MESSAGE_RANGE, list(src))
+			to_chat(src, span_userdanger("You're shoved by [user.name]!"))
 			return TRUE
 
-	if(!M.combat_mode)
+	if(!user.combat_mode)
 		if (stat == DEAD)
 			return
-		visible_message("<span class='notice'>[M] [response_help_continuous] [src].</span>", \
-						"<span class='notice'>[M] [response_help_continuous] you.</span>", null, null, M)
-		to_chat(M, "<span class='notice'>You [response_help_simple] [src].</span>")
+		visible_message(span_notice("[user] [response_help_continuous] [src]."), \
+						span_notice("[user] [response_help_continuous] you."), null, null, user)
+		to_chat(user, span_notice("You [response_help_simple] [src]."))
 		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
-
-
 	else
-		if(HAS_TRAIT(M, TRAIT_PACIFISM))
-			to_chat(M, "<span class='warning'>You don't want to hurt [src]!</span>")
+		if(HAS_TRAIT(user, TRAIT_PACIFISM))
+			to_chat(user, span_warning("You don't want to hurt [src]!"))
 			return
-		M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
-		visible_message("<span class='danger'>[M] [response_harm_continuous] [src]!</span>",\
-						"<span class='userdanger'>[M] [response_harm_continuous] you!</span>", null, COMBAT_MESSAGE_RANGE, M)
-		to_chat(M, "<span class='danger'>You [response_harm_simple] [src]!</span>")
+		user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
+		visible_message(span_danger("[user] [response_harm_continuous] [src]!"),\
+						span_userdanger("[user] [response_harm_continuous] you!"), null, COMBAT_MESSAGE_RANGE, user)
+		to_chat(user, span_danger("You [response_harm_simple] [src]!"))
 		playsound(loc, attacked_sound, 25, TRUE, -1)
-		attack_threshold_check(M.dna.species.punchdamage)
-		log_combat(M, src, "attacked")
+
+		var/obj/item/bodypart/arm/active_arm = user.get_active_hand()
+		attack_threshold_check(active_arm.unarmed_damage, active_arm.attack_type)
+		log_combat(user, src, "attacked")
 		updatehealth()
 		return TRUE
 

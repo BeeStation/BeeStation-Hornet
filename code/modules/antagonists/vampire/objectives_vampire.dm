@@ -172,7 +172,7 @@
 	var/list/all_items = owner.current.get_contents()
 	var/heart_count = 0
 	for(var/obj/item/organ/heart/current_hearts in all_items)
-		if(current_hearts.organ_flags & ORGAN_SYNTHETIC) // No robo-hearts allowed
+		if(current_hearts.organ_flags & ORGAN_ROBOTIC) // No robo-hearts allowed
 			continue
 		heart_count++
 
