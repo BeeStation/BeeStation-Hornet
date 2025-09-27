@@ -382,6 +382,11 @@
       armor
   - bugfix: bio protection properly protects against bioscrambler anomalies
 2025-09-26:
+  SunShine214:
+  - balance: Adjusted gas shielding powers. Plasma is now bad at shielding, nitrium
+      and tritium are much better then before.
+  - bugfix: Added access restrictions to the AGR monitor program. Assistants no longer
+      can ruin atmos techs days.
   lord scrubling:
   - rscadd: Rapid cable layers have a protolathe design under the advanced engineering
       technode
@@ -391,3 +396,6 @@
   - code_imp: Nuked ComponentInitialize(). Report anything strange!
   rkz, Mothblocks:
   - refactor: refactor GetFlatIcon to be clearer
+2025-09-27:
+  Rukofamicom:
+  - bugfix: Clown cars may now only be controlled by clowns
