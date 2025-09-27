@@ -95,7 +95,7 @@
 
 /obj/item/holosign_creator/security
 	name = "security holobarrier projector"
-	desc = "A holographic projector that creates holographic security barriers."
+	desc = "A holographic projector that creates holographic security barriers. <b>Alt-Click</b> to toggle between standard and crime scene barriers."
 	icon_state = "signmaker_sec"
 	holosign_type = /obj/structure/holosign/barrier
 	sign_name = "holobarrier"

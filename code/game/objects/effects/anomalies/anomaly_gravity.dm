@@ -36,6 +36,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/anomaly/grav)
 /obj/effect/anomaly/grav/anomalyEffect(delta_time)
 	..()
 	boing = 1
+	playsound(src, 'sound/magic/blind.ogg', 50, 1)
 	for(var/obj/O in orange(4, src))
 		if(!O.anchored)
 			step_towards(O,src)

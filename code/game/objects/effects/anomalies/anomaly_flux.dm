@@ -38,8 +38,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/anomaly/flux)
 	if(canshock && istype(M))
 		canshock = FALSE
 		M.electrocute_act(shockdamage, name, flags = SHOCK_NOGLOVES)
+		playsound(src, 'sound/magic/mm_hit.ogg', 50, 1)
 
 /obj/effect/anomaly/flux/detonate()
+	playsound(src, 'sound/magic/lightningbolt.ogg', 50, 1)
 	switch(explosive)
 		if(ANOMALY_FLUX_EXPLOSIVE)
 			explosion(src, devastation_range = 1, heavy_impact_range = 4, light_impact_range = 16, flash_range = 18) //Low devastation, but hits a lot of stuff.
