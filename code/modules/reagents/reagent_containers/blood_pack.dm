@@ -129,7 +129,7 @@
 		balloon_alert(victim, "not fresh!")
 		return TRUE
 
-	while(do_after(victim, 1 SECONDS, timed_action_flags = IGNORE_USER_LOC_CHANGE, extra_checks = CALLBACK(src, PROC_REF(can_drink), victim, attacker)))
+	while(do_after(victim, 1 SECONDS, attacker, timed_action_flags = IGNORE_USER_LOC_CHANGE, extra_checks = CALLBACK(src, PROC_REF(can_drink), victim, attacker)))
 		victim.visible_message(
 			span_notice("[victim] puts the [src] up to their mouth."),
 			span_notice("You take a sip from the [src]."))
