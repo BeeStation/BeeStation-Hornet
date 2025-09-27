@@ -267,3 +267,18 @@
 
 /turf/open/floor/cult/airless
 	initial_gas_mix = AIRLESS_ATMOS
+
+/turf/open/floor/plating/concrete
+	name = "concrete"
+	icon_state = "conc_smooth"
+	desc = "Cement Das Conk Creet Baybee."
+	barefootstep = FOOTSTEP_HARD_BAREFOOT
+	clawfootstep = FOOTSTEP_HARD_CLAW
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	tiled_dirt = FALSE
+
+/turf/open/floor/plating/concrete/slab
+	icon_state = "conc_slab"
+
+/turf/open/floor/plating/concrete/tile
+	icon_state = "conc_tiles"
