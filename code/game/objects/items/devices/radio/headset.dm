@@ -25,12 +25,12 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	custom_materials = list(/datum/material/iron=75)
 	subspace_transmission = TRUE
 	headset = TRUE
+	two_keys = TRUE
 	canhear_range = 0 // can't hear headsets from very far away
 	var/bang_protect = 0 //this isn't technically clothing so it needs its own bang_protect var
 
 	slot_flags = ITEM_SLOT_EARS
 	dog_fashion = null
-	var/obj/item/encryptionkey/keyslot2 = null
 
 /obj/item/radio/headset/suicide_act(mob/living/carbon/user)
 	user.visible_message(span_suicide("[user] begins putting \the [src]'s antenna up [user.p_their()] nose! It looks like [user.p_theyre()] trying to give [user.p_them()]self cancer!"))
@@ -60,7 +60,6 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 /obj/item/radio/headset/Initialize(mapload)
 	. = ..()
 	set_listening(TRUE)
-	recalculateChannels()
 	possibly_deactivate_in_loc()
 
 /obj/item/radio/headset/proc/possibly_deactivate_in_loc()
@@ -73,15 +72,13 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	. = ..()
 	possibly_deactivate_in_loc()
 
-/obj/item/radio/headset/Destroy()
-	QDEL_NULL(keyslot2)
-	return ..()
-
 /obj/item/radio/headset/ui_data(mob/user)
 	. = ..()
 	.["headset"] = TRUE
 
 /obj/item/radio/headset/syndicate //disguised to look like a normal headset for stealth ops
+	keyslot = new /obj/item/encryptionkey/syndicate
+	syndie = TRUE
 
 /obj/item/radio/headset/syndicate/alt //undisguised bowman with flash protection
 	name = "syndicate headset"
@@ -94,17 +91,9 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	name = "team leader headset"
 	command = TRUE
 
-/obj/item/radio/headset/syndicate/Initialize(mapload)
-	. = ..()
-	make_syndie()
 
 /obj/item/radio/headset/binary
-
-/obj/item/radio/headset/binary/Initialize(mapload)
-	. = ..()
-	qdel(keyslot)
 	keyslot = new /obj/item/encryptionkey/binary
-	recalculateChannels()
 
 /obj/item/radio/headset/headset_sec
 	name = "security radio headset"
@@ -313,70 +302,6 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	name = "\proper Integrated Subspace Transceiver "
 	keyslot2 = new /obj/item/encryptionkey/ai
 	command = TRUE
-
-/obj/item/radio/headset/attackby(obj/item/W, mob/user, params)
-	user.set_machine(src)
-
-	if(W.tool_behaviour == TOOL_SCREWDRIVER)
-		if(keyslot || keyslot2)
-			for(var/ch_name in channels)
-				SSradio.remove_object(src, GLOB.radiochannels[ch_name])
-				secure_radio_connections[ch_name] = null
-
-			if(keyslot)
-				user.put_in_hands(keyslot)
-				keyslot = null
-			if(keyslot2)
-				user.put_in_hands(keyslot2)
-				keyslot2 = null
-
-			recalculateChannels()
-			ui_update()
-			to_chat(user, span_notice("You pop out the encryption keys in the headset."))
-
-		else
-			to_chat(user, span_warning("This headset doesn't have any unique encryption keys!  How useless..."))
-
-	else if(istype(W, /obj/item/encryptionkey))
-		if(keyslot && keyslot2)
-			to_chat(user, span_warning("The headset can't hold another key!"))
-			return
-
-		if(!keyslot)
-			if(!user.transferItemToLoc(W, src))
-				return
-			keyslot = W
-
-		else
-			if(!user.transferItemToLoc(W, src))
-				return
-			keyslot2 = W
-
-
-		recalculateChannels()
-		ui_update()
-	else
-		return ..()
-
-
-/obj/item/radio/headset/recalculateChannels()
-	. = ..()
-	if(keyslot2)
-		for(var/ch_name in keyslot2.channels)
-			if(!(ch_name in src.channels))
-				LAZYSET(channels, ch_name, keyslot2.channels[ch_name])
-
-		if(keyslot2.translate_binary)
-			translate_binary = TRUE
-		if(keyslot2.syndie)
-			syndie = TRUE
-		if (keyslot2.independent)
-			independent = TRUE
-		if (keyslot2.amplification)
-			command = TRUE
-
-		for(var/ch_name in channels)
-			secure_radio_connections[ch_name] = add_radio(src, GLOB.radiochannels[ch_name])
 
 /obj/item/radio/headset/AltClick(mob/living/user)
 	if(!istype(user) || !Adjacent(user) || user.incapacitated())
