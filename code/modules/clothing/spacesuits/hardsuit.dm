@@ -675,7 +675,7 @@
 	)
 	clothing_flags = NOTCONSUMABLE | STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS | THICKMATERIAL
 
-/obj/item/clothing/suit/space/hardsuit/syndi/ComponentInitialize()
+/obj/item/clothing/suit/space/hardsuit/syndi/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100)
 
@@ -846,7 +846,7 @@
 	stamina = 70
 	bleed = 70
 
-/obj/item/clothing/suit/space/hardsuit/wizard/ComponentInitialize()
+/obj/item/clothing/suit/space/hardsuit/wizard/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100)
 	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, MAGIC_RESISTANCE)
@@ -994,7 +994,7 @@
 	stamina = 30
 	bleed = 70
 
-/obj/item/clothing/suit/space/hardsuit/research_director/ComponentInitialize()
+/obj/item/clothing/suit/space/hardsuit/research_director/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100)
 
@@ -1427,9 +1427,6 @@
 		charge_increment_delay = 1 SECONDS, \
 		shield_icon = "shield-red" \
 	)
-
-/obj/item/clothing/suit/space/hardsuit/shielded/syndi/ComponentInitialize()
-	. = ..()
 	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100)
 
 

@@ -1,8 +1,0 @@
-author: lord scrubling
-delete-after: true
-changes:
-  - balance: bioscrambler anomalies no longer instantly fire after spawning
-  - balance: the chance to have a limb replaced by a bioscrambler anomaly linearly
-      scales from guaranteed at 30 average bio armor to full protection at 90 bio
-      armor
-  - bugfix: bio protection properly protects against bioscrambler anomalies

@@ -33,6 +33,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob/special/core)
 	if(overmind)
 		overmind.blobstrain.on_gain()
 		update_icon()
+	AddComponent(/datum/component/stationloving, FALSE, TRUE)
 	. = ..()
 
 /obj/structure/blob/special/core/scannerreport()
@@ -77,10 +78,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob/special/core)
 	reinforce_area(delta_time)
 	produce_spores()
 	..()
-
-/obj/structure/blob/special/core/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/stationloving, FALSE, TRUE)
 
 /obj/structure/blob/special/core/onTransitZ(old_z, new_z)
 	if(overmind && is_station_level(new_z))
