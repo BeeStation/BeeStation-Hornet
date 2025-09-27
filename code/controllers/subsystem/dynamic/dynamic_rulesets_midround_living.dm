@@ -75,7 +75,9 @@
 	restricted_roles = list(JOB_NAME_CYBORG, JOB_NAME_POSIBRAIN)
 	role_preference = /datum/role_preference/midround/malfunctioning_ai
 	antag_datum = /datum/antagonist/malf_ai
+	weight = 3
 	points_cost = 40
+	minimum_players_required = 24
 	mob_type = /mob/living/silicon/ai
 
 /datum/dynamic_ruleset/midround/living/value_drifted/get_poll_icon()
