@@ -222,7 +222,7 @@
 	. = ..()
 	data = list()
 	data["version"] = GLOB.game_version
-	data["respawn"] = config ? !CONFIG_GET(flag/norespawn) : FALSE
+	data["respawn"] = config ? !!CONFIG_GET(flag/allow_respawn) : FALSE // show respawn as true regardless of "respawn as char" or "free respawn"
 	data["enter"] = GLOB.enter_allowed
 	data["ai"] = CONFIG_GET(flag/allow_ai)
 	data["host"] = world.host ? world.host : null
