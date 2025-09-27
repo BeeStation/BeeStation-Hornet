@@ -188,39 +188,38 @@ then the player gets the profit from selling his own wasted time.
 		return ""
 
 	var/total_value = ex.total_value[src]
-
 	var/msg = "[total_value] credits: Received "
-
 	if(total_value > 0)
 		msg = "+" + msg
 
-	// Count occurrences using parallel lists
-	var/list/names_list = list()
-	var/list/counts_list = list()
-
+	// Count occurrences using associative list
+	var/list/counts = list()
 	for(var/atom/thing in ex.exported_atoms)
 		if(thing.name)
-			var/found = FALSE
-			for(var/j = 1; j <= names_list.len; j++)
-				if(names_list[j] == thing.name)
-					counts_list[j] += 1
-					found = TRUE
-					break
-			if(!found)
-				names_list += thing.name
-				counts_list += 1
+			counts[thing.name] = (counts[thing.name] || 0) + 1
 
 	// Build item strings
 	var/list/item_strings = list()
-	for(var/export_name in names_list)
-		var/count = counts_list[export_name]
+	for(var/name in counts)
+		var/count = counts[name]
 		if(count > 1)
-			item_strings += "[count] [export_name]s"
+			item_strings += "[count] [name]s"
 		else
-			item_strings += export_name
+			item_strings += name
 
-	item_strings[length(item_strings)] = "and [item_strings[length(item_strings)]]"
-	msg += item_strings.Join(", ")
+	// Join with commas, last item with "and"
+	var/item_msg = ""
+	var/counter = 0
+	for(var/item in item_strings)
+		counter += 1
+		if(counter == 1)
+			item_msg = item
+		else if(counter == item_strings.len)
+			item_msg = item_msg + " and " + item
+		else
+			item_msg = item_msg + ", " + item
+
+	msg += item_msg
 
 	if(message)
 		msg += " " + message
