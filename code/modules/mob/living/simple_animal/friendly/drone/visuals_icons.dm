@@ -30,7 +30,7 @@
 
 	if(r_hand)
 
-		var/r_state = r_hand.item_state
+		var/r_state = r_hand.inhand_icon_state
 		if(!r_state)
 			r_state = r_hand.icon_state
 
@@ -47,7 +47,7 @@
 
 	if(l_hand)
 
-		var/l_state = l_hand.item_state
+		var/l_state = l_hand.inhand_icon_state
 		if(!l_state)
 			l_state = l_hand.icon_state
 

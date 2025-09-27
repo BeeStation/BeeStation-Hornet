@@ -3,7 +3,7 @@
 	desc = "Uses patented retractable wheel technology. Never sacrifice speed for style - not that this provides much of either." //Thanks Fel
 	icon_state = "sneakers"
 	worn_icon_state = "wheelys"
-	item_state = "wheelys"
+	inhand_icon_state = "wheelys"
 	greyscale_colors = "#545454#ffffff"
 	greyscale_config = /datum/greyscale_config/sneakers_wheelys
 	actions_types = list(/datum/action/item_action/wheelys)

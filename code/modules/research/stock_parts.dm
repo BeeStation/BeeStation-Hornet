@@ -6,7 +6,7 @@ If you create T5+ please take a pass at gene_modder.dm [L40]. Max_values MUST fi
 	desc = "Special mechanical module made to store, sort, and apply standard machine parts."
 	icon = 'icons/obj/storage/storage.dmi'
 	icon_state = "RPED"
-	item_state = "RPED"
+	inhand_icon_state = "RPED"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	w_class = WEIGHT_CLASS_HUGE
@@ -86,7 +86,7 @@ If you create T5+ please take a pass at gene_modder.dm [L40]. Max_values MUST fi
 	name = "bluespace rapid part exchange device (BSRPED)"
 	desc = "A version of the RPED that allows for replacement of parts and scanning from a distance, along with higher capacity for parts."
 	icon_state = "BS_RPED"
-	item_state = "BS_RPED"
+	inhand_icon_state = "BS_RPED"
 	w_class = WEIGHT_CLASS_NORMAL
 	works_from_distance = TRUE
 	pshoom_or_beepboopblorpzingshadashwoosh = 'sound/items/pshoom.ogg'
@@ -211,7 +211,7 @@ If you create T5+ please take a pass at gene_modder.dm [L40]. Max_values MUST fi
 	name = "rapid part exchange device"
 	desc = "Special mechanical module made to store, sort, and apply standard machine parts."
 	icon_state = "borgrped"
-	item_state = "RPED"
+	inhand_icon_state = "RPED"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 

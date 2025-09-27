@@ -5,7 +5,7 @@
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	item_type = /obj/item/food/pie/cream
 	cooldown_time = 5 SECONDS
-	icon_icon = 'icons/obj/food/piecake.dmi'
+	button_icon = 'icons/obj/food/piecake.dmi'
 	button_icon_state = "pie"
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -19,7 +19,7 @@
 
 	active_msg = "You focus, your mind reaching to the clown dimension, ready to make a peel matrialize wherever you want!"
 	deactive_msg = "You relax, the peel remaining right in the \"thin air\" it would appear out of."
-	icon_icon = 'icons/obj/hydroponics/harvest.dmi'
+	button_icon = 'icons/obj/hydroponics/harvest.dmi'
 	base_icon_state = "banana_peel"
 	button_icon_state = "banana"
 
@@ -40,7 +40,7 @@
 	cooldown_time = 10 SECONDS
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
-	icon_icon = 'icons/mecha/mecha_equipment.dmi'
+	button_icon = 'icons/mecha/mecha_equipment.dmi'
 	button_icon_state = "mecha_honker"
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -53,7 +53,7 @@
 	cooldown_time = 60 SECONDS
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
-	icon_icon = 'icons/obj/food/piecake.dmi'
+	button_icon = 'icons/obj/food/piecake.dmi'
 	button_icon_state = "blumpkinpieslice"
 
 

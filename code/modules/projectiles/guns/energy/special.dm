@@ -2,7 +2,7 @@
 	name = "ion rifle"
 	desc = "A man-portable anti-armor weapon designed to disable mechanical threats at range."
 	icon_state = "ionrifle"
-	item_state = null //so the human update icon uses the icon_state instead.
+	inhand_icon_state = null //so the human update icon uses the icon_state instead.
 	worn_icon_state = null
 	w_class = WEIGHT_CLASS_HUGE
 	flags_1 =  CONDUCT_1
@@ -65,7 +65,7 @@
 	name = "floral somatoray"
 	desc = "A tool that discharges controlled radiation which induces mutation in plant cells."
 	icon_state = "flora"
-	item_state = "gun"
+	inhand_icon_state = "gun"
 	ammo_type = list(/obj/item/ammo_casing/energy/flora/yield, /obj/item/ammo_casing/energy/flora/mut)
 	modifystate = 1
 	ammo_x_offset = 1
@@ -75,7 +75,7 @@
 	name = "meteor gun"
 	desc = "For the love of god, make sure you're aiming this the right way!"
 	icon_state = "meteor_gun"
-	item_state = "c20r"
+	inhand_icon_state = "c20r"
 	w_class = WEIGHT_CLASS_BULKY
 	ammo_type = list(/obj/item/ammo_casing/energy/meteor)
 	clumsy_check = 0 //Admin spawn only, might as well let clowns use it.
@@ -87,7 +87,7 @@
 	desc = "The pen is mightier than the sword."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "pen"
-	item_state = "pen"
+	inhand_icon_state = "pen"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
@@ -97,7 +97,7 @@
 	name = "\improper Mind Flayer"
 	desc = "A prototype weapon recovered from the ruins of Research-Station Epsilon."
 	icon_state = "xray"
-	item_state = null
+	inhand_icon_state = null
 	ammo_type = list(/obj/item/ammo_casing/energy/mindflayer)
 	ammo_x_offset = 2
 
@@ -105,7 +105,7 @@
 	name = "plasma cutter"
 	desc = "A mining tool capable of expelling concentrated plasma bursts. You could use it to cut limbs off xenos! Or, you know, mine stuff."
 	icon_state = "plasmacutter"
-	item_state = "plasmacutter"
+	inhand_icon_state = "plasmacutter"
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma)
 	flags_1 = CONDUCT_1
 	attack_verb_continuous = list("attacks", "slashes", "cuts", "slices")
@@ -206,7 +206,7 @@
 /obj/item/gun/energy/plasmacutter/adv
 	name = "advanced plasma cutter"
 	icon_state = "adv_plasmacutter"
-	item_state = "adv_plasmacutter"
+	inhand_icon_state = "adv_plasmacutter"
 	force = 15
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma/adv)
 
@@ -224,7 +224,7 @@
 	name = "bluespace wormhole projector"
 	desc = "A projector that emits high density quantum-coupled bluespace beams."
 	ammo_type = list(/obj/item/ammo_casing/energy/wormhole, /obj/item/ammo_casing/energy/wormhole/orange)
-	item_state = null
+	inhand_icon_state = null
 	icon_state = "wormhole_projector"
 	automatic_charge_overlays = FALSE
 	var/obj/effect/portal/p_blue
@@ -233,7 +233,7 @@
 
 /obj/item/gun/energy/wormhole_projector/update_icon()
 	icon_state = "[initial(icon_state)][select]"
-	item_state = icon_state
+	inhand_icon_state = icon_state
 
 /obj/item/gun/energy/wormhole_projector/update_ammo_types()
 	. = ..()
@@ -331,7 +331,7 @@
 /obj/item/gun/energy/laser/instakill
 	name = "instakill rifle"
 	icon_state = "instagib"
-	item_state = "instagib"
+	inhand_icon_state = "instagib"
 	desc = "A specialized ASMD laser-rifle, capable of flat-out disintegrating most targets in a single hit."
 	ammo_type = list(/obj/item/ammo_casing/energy/instakill)
 	force = 60
@@ -342,13 +342,13 @@
 /obj/item/gun/energy/laser/instakill/red
 	desc = "A specialized ASMD laser-rifle, capable of flat-out disintegrating most targets in a single hit. This one has a red design."
 	icon_state = "instagibred"
-	item_state = "instagibred"
+	inhand_icon_state = "instagibred"
 	ammo_type = list(/obj/item/ammo_casing/energy/instakill/red)
 
 /obj/item/gun/energy/laser/instakill/blue
 	desc = "A specialized ASMD laser-rifle, capable of flat-out disintegrating most targets in a single hit. This one has a blue design."
 	icon_state = "instagibblue"
-	item_state = "instagibblue"
+	inhand_icon_state = "instagibblue"
 	ammo_type = list(/obj/item/ammo_casing/energy/instakill/blue)
 
 /obj/item/gun/energy/laser/instakill/emp_act() //implying you could stop the instagib
@@ -358,7 +358,7 @@
 	name = "one-point bluespace-gravitational manipulator"
 	desc = "An experimental, multi-mode device that fires bolts of Zero-Point Energy, causing local distortions in gravity."
 	ammo_type = list(/obj/item/ammo_casing/energy/gravity/repulse, /obj/item/ammo_casing/energy/gravity/attract, /obj/item/ammo_casing/energy/gravity/chaos)
-	item_state = "gravity_gun"
+	inhand_icon_state = "gravity_gun"
 	icon_state = "gravity_gun"
 	automatic_charge_overlays = FALSE
 	var/power = 4

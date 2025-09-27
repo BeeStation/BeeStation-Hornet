@@ -180,6 +180,6 @@
 	sharpness = SHARP_DISMEMBER
 	icon = 'icons/obj/nanite.dmi'
 	icon_state = "nanite_blade"
-	item_state = "nanite_blade"
+	inhand_icon_state = "nanite_blade"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'

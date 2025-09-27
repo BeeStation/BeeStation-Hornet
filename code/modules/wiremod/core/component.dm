@@ -11,7 +11,7 @@
 	name = COMPONENT_DEFAULT_NAME
 	icon = 'icons/obj/module.dmi'
 	icon_state = "component"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	w_class = WEIGHT_CLASS_TINY
 
 	/// The name of the component shown on the UI

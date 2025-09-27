@@ -687,5 +687,5 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/pod_landingzone)
 	desc = "This disk provides a firmware update to the Express Supply Console, granting the use of Nanotrasen's Bluespace Drop Pods to the supply department."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "cargodisk"
-	item_state = "card-id"
+	inhand_icon_state = "card-id"
 	w_class = WEIGHT_CLASS_SMALL
