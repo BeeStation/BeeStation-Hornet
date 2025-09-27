@@ -27,8 +27,6 @@ then the player gets the profit from selling his own wasted time.
 
 // external_report works as "transaction" object, pass same one in if you're doing more than one export in single go
 /proc/export_item_and_contents(atom/movable/AM, allowed_categories = EXPORT_CARGO, delete_unsold = FALSE, dry_run=FALSE, datum/export_report/external_report)
-	if(!GLOB.exports_list.len)
-		setup_exports()
 
 	var/list/contents = AM.GetAllContents()
 
@@ -228,7 +226,7 @@ then the player gets the profit from selling his own wasted time.
 	msg += "."
 	return msg
 
-GLOBAL_LIST_EMPTY(exports_list)
+GLOBAL_LIST_INIT(exports_list, setup_exports())
 
 /proc/setup_exports()
 	var/list/catchalls = list()
