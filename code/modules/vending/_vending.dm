@@ -35,8 +35,8 @@
 	var/custom_premium_price
 	///Whether the product can be recolored by the GAGS system
 	var/colorable
-	///List of items that have been returned to the vending machine.
-	var/list/returned_products
+	///List of items that have been inserted in the custom vendor.
+	var/list/custom_product
 	/// The category the product was in, if any.
 	/// Sourced directly from product_categories.
 	var/category
@@ -186,9 +186,6 @@
 	///Display header on the input view
 	var/input_display_header = "Custom Compartment"
 
-	//The type of refill canisters used by this machine.
-	var/obj/item/vending_refill/refill_canister = null
-
 	/// how many items have been inserted in a vendor
 	var/loaded_items = 0
 
@@ -215,15 +212,11 @@
   * * TRUE - all other cases
   */
 /obj/machinery/vending/Initialize(mapload)
-	var/build_inv = FALSE
-	if(!refill_canister)
-		circuit = null
-		build_inv = TRUE
 	. = ..()
 	wires = new /datum/wires/vending(src)
 
-	if(build_inv) //non-constructable vending machine
-		build_inventories()
+	// Only starts with full inventory if constructed by mapload
+	build_inventories(mapload ? FALSE : TRUE)
 
 	slogan_list = splittext(product_slogans, ";")
 	// So not all machines speak at the exact same time.
@@ -253,24 +246,19 @@
 /obj/machinery/vending/can_speak()
 	return !shut_up
 
-//Better would be to make constructable child
-/obj/machinery/vending/RefreshParts()
-	if(!component_parts)
-		return
-
-	build_products_from_categories()
-
-	product_records = list()
-	hidden_records = list()
-	coin_records = list()
-
-	build_inventories(start_empty = TRUE)
-
-	for(var/obj/item/vending_refill/VR in component_parts)
-		restock(VR)
-
 /obj/machinery/vending/deconstruct(disassembled = TRUE)
-	if(refill_canister)
+	if(!isnull(circuit))
+		var/dump_amount = rand(1, 10)
+		for(var/datum/vending_product/record as anything in shuffle(product_records))
+			if(!dump_amount)
+				break
+			if(record.amount <= 0) //Try to use a record that actually has something to dump.
+				continue
+			var/item_path = record.product_path
+			if(!item_path)
+				continue
+			var/obj/obj_to_dump = new item_path(loc)
+			step(obj_to_dump, pick(GLOB.alldirs))
 		return ..()
 	if(!(flags_1 & NODECONSTRUCT_1)) //the non constructable vendors drop metal instead of a machine frame.
 		new /obj/item/stack/sheet/iron(loc, 3)
@@ -310,10 +298,10 @@
 
 		for(var/datum/vending_product/record as anything in shuffle(product_records))
 			//first dump any of the items that have been returned, in case they contain the nuke disk or something
-			for(var/obj/returned_obj_to_dump in record.returned_products)
-				LAZYREMOVE(record.returned_products, returned_obj_to_dump)
-				returned_obj_to_dump.forceMove(get_turf(src))
-				step(returned_obj_to_dump, pick(GLOB.alldirs))
+			for(var/obj/custom_object_to_dump in record.custom_product)
+				LAZYREMOVE(record.custom_product, custom_object_to_dump)
+				custom_object_to_dump.forceMove(get_turf(src))
+				step(custom_object_to_dump, pick(GLOB.alldirs))
 				record.amount--
 
 			if(record.amount <= 0) //Try to use a record that actually has something to dump.
@@ -403,42 +391,6 @@
 		for (var/product_key in category_products)
 			products[product_key] += category_products[product_key]
 
-/**
-  * Refill a vending machine from a refill canister
-  *
-  * This takes the products from the refill canister and then fills the products,contraband and premium product categories
-  *
-  * Arguments:
-  * * canister - the vending canister we are refilling from
-  */
-/obj/machinery/vending/proc/restock(obj/item/vending_refill/canister)
-	if (!canister.products)
-		canister.products = products.Copy()
-	if (!canister.contraband)
-		canister.contraband = contraband.Copy()
-	if (!canister.premium)
-		canister.premium = premium.Copy()
-
-	. = 0
-
-	if (isnull(canister.product_categories) && !isnull(product_categories))
-		canister.product_categories = product_categories.Copy()
-
-	if (!isnull(canister.product_categories))
-		var/list/products_unwrapped = list()
-		for (var/list/category as anything in canister.product_categories)
-			var/list/products = category["products"]
-			for (var/product_key in products)
-				products_unwrapped[product_key] += products[product_key]
-
-		. += refill_inventory(products_unwrapped, product_records)
-	else
-		. += refill_inventory(canister.products, product_records)
-
-	. += refill_inventory(canister.contraband, hidden_records)
-	. += refill_inventory(canister.premium, coin_records)
-
-	return .
 
 /**
   * Refill our inventory from the passed in product list into the record list
@@ -455,23 +407,6 @@
 			productlist[record.product_path] -= diff
 			record.amount += diff
 			. += diff
-/**
-  * Set up a refill canister that matches this machines products
-  *
-  * This is used when the machine is deconstructed, so the items aren't "lost"
-  */
-/obj/machinery/vending/proc/update_canister()
-	if (!component_parts)
-		return
-
-	var/obj/item/vending_refill/R = locate() in component_parts
-	if (!R)
-		CRASH("Constructible vending machine did not have a refill canister")
-
-	unbuild_inventory_into(product_records, R.products, R.product_categories)
-
-	R.contraband = unbuild_inventory(hidden_records)
-	R.premium = unbuild_inventory(coin_records)
 
 /**
   * Given a record list, go through and and return a list of type -> amount
@@ -552,55 +487,57 @@
 		to_chat(user, span_warning("You must first secure [src]."))
 	return TRUE
 
-/obj/machinery/vending/attackby(obj/item/I, mob/living/user, params)
-	if(panel_open && is_wire_tool(I))
+/obj/machinery/vending/attackby(obj/item/attacking_item, mob/living/user, params)
+	if(panel_open && is_wire_tool(attacking_item))
 		wires.interact(user)
 		return
 
-	if(refill_canister && istype(I, refill_canister))
-		if (!panel_open)
-			to_chat(user, span_notice("You should probably unscrew the service panel first."))
-		else if (machine_stat & (BROKEN|NOPOWER))
+	if(istype(attacking_item, /obj/item/vending_refill))
+		var/obj/item/vending_refill/canister = attacking_item
+		if(machine_stat & (BROKEN|NOPOWER))
 			to_chat(user, span_notice("[src] does not respond."))
-		else
-			//if the panel is open we attempt to refill the machine
-			var/obj/item/vending_refill/canister = I
-			if(canister.get_part_rating() == 0)
-				to_chat(user, span_notice("[canister] is empty!"))
-			else
-				// instantiate canister if needed
-				var/transferred = restock(canister)
-				if(transferred)
-					to_chat(user, span_notice("You loaded [transferred] items in [src]."))
-				else
-					to_chat(user, span_notice("There's nothing to restock!"))
 			return
-	if(compartmentLoadAccessCheck(user) && !user.combat_mode)
-		if(canLoadItem(I))
-			loadingAttempt(I,user)
-			ui_update()
-
-		if(istype(I, /obj/item/storage/bag)) //trays USUALLY
-			var/obj/item/storage/T = I
-			var/loaded = 0
-			var/denied_items = 0
-			for(var/obj/item/the_item in T.contents)
-				if(contents.len >= MAX_VENDING_INPUT_AMOUNT) // no more than 30 item can fit inside, legacy from snack vending although not sure why it exists
-					to_chat(user, span_warning("[src]'s compartment is full."))
+		else	// Restocking now!
+			// First, check if there's anything to restock at all.
+			var/needs_restock = FALSE
+			for(var/datum/vending_product/record as anything in product_records)
+				if(record.amount < record.max_amount)
+					needs_restock = TRUE
 					break
-				if(canLoadItem(the_item) && loadingAttempt(the_item,user))
-					T.atom_storage?.attempt_remove(the_item, src)
-					loaded++
-				else
-					denied_items++
-			if(denied_items)
-				to_chat(user, span_warning("[src] refuses some items!"))
-			if(loaded)
-				to_chat(user, span_notice("You insert [loaded] dishes into [src]'s compartment."))
-				ui_update()
+
+			if(!needs_restock)
+				balloon_alert(user, "Restocking unnecessary!")
+				to_chat(user, span_notice("There's nothing to restock!"))
+				playsound(src, 'sound/machines/terminal_error.ogg', 50, TRUE)
+				return
+
+			// Now actually restock
+			balloon_alert(user, "Restocking...")
+			to_chat(user, span_notice("You begin restocking [src]."))
+			for(var/datum/vending_product/record as anything in shuffle(product_records))
+				if(record.amount >= record.max_amount)
+					continue
+				if(canister.stock <= 0)	//If somehow this happens...
+					qdel(canister)
+					return
+				while(record.amount < record.max_amount && canister.stock > 0)
+					if(!do_after(user, canister.restock_speed, src))
+						return
+					playsound(src, 'sound/machines/click.ogg', 50, TRUE)
+					canister.stock--
+					record.amount++
+				if(canister.stock <= 0)
+					qdel(canister)
+					balloon_alert(user, "Canister Depleted!")
+					to_chat(user, span_notice("[canister] is depleted!"))
+					return
+			balloon_alert(user, "Restocking complete!")
+			to_chat(user, span_notice("Restocking of [src] complete!"))
+			playsound(src, 'sound/machines/ping.ogg', 50, TRUE)
+			return
 	else
 		. = ..()
-		if(tiltable && !tilted && I.force)
+		if(tiltable && !tilted && attacking_item.force)
 			switch(rand(1, 100))
 				if(1 to 5)
 					freebie(3)
@@ -632,11 +569,11 @@
 			var/dump_path = R.product_path
 			if(!dump_path)
 				continue
-			if(R.amount > LAZYLEN(R.returned_products)) //always give out new stuff that costs before free returned stuff, because of the risk getting gibbed involved
+			if(R.amount > LAZYLEN(R.custom_product)) //always give out new stuff that costs before free returned stuff, because of the risk getting gibbed involved
 				new dump_path(get_turf(src))
 			else
-				var/obj/returned_obj_to_dump = LAZYACCESS(R.returned_products, LAZYLEN(R.returned_products)) //first in, last out
-				LAZYREMOVE(R.returned_products, returned_obj_to_dump)
+				var/obj/returned_obj_to_dump = LAZYACCESS(R.custom_product, LAZYLEN(R.custom_product)) //first in, last out
+				LAZYREMOVE(R.custom_product, returned_obj_to_dump)
 				returned_obj_to_dump.forceMove(get_turf(src))
 			R.amount--
 			break
@@ -741,24 +678,6 @@
 	M.Turn(0)
 	transform = M
 
-/obj/machinery/vending/proc/loadingAttempt(obj/item/I, mob/user)
-	. = TRUE
-	if(!user.transferItemToLoc(I, src))
-		return FALSE
-	to_chat(user, span_notice("You insert [I] into [src]'s input compartment."))
-
-	for(var/datum/vending_product/product_datum in product_records + coin_records + hidden_records)
-		if(ispath(I.type, product_datum.product_path))
-			product_datum.amount++
-			LAZYADD(product_datum.returned_products, I)
-			return
-
-	if(vending_machine_input[format_text(I.name)])
-		vending_machine_input[format_text(I.name)]++
-	else
-		vending_machine_input[format_text(I.name)] = 1
-	loaded_items++
-
 /obj/machinery/vending/unbuckle_mob(mob/living/buckled_mob, force=FALSE)
 	if(!force)
 		return
@@ -795,26 +714,19 @@
 		return FALSE
 	if((flags_1 & NODECONSTRUCT_1) && !W.works_from_distance)
 		return FALSE
-	if(!component_parts || !refill_canister)
+	if(!component_parts)
 		return FALSE
 
 	var/moved = 0
 	if(panel_open || W.works_from_distance)
 		if(W.works_from_distance)
 			display_parts(user)
-		for(var/I in W)
-			if(istype(I, refill_canister))
-				moved += restock(I)
 	else
 		display_parts(user)
 	if(moved)
 		to_chat(user, span_notice("[moved] items restocked."))
 		W.play_rped_sound()
 	return TRUE
-
-/obj/machinery/vending/on_deconstruction()
-	update_canister()
-	. = ..()
 
 /obj/machinery/vending/on_emag(mob/user)
 	..()
@@ -1045,8 +957,6 @@
 		var/datum/bank_account/account = C.registered_account
 		if(coin_records.Find(R) || hidden_records.Find(R))
 			price_to_use = R.custom_premium_price ? R.custom_premium_price : extra_price
-		if(LAZYLEN(R.returned_products))
-			price_to_use = 0 //returned items are free
 		if(price_to_use && !account.adjust_money(-price_to_use))
 			say("You do not possess the funds to purchase [R.name].")
 			flick(icon_deny,src)
@@ -1072,11 +982,11 @@
 		flick(icon_vend,src)
 	playsound(src, 'sound/machines/machine_vend.ogg', 50, TRUE, extrarange = -3)
 	var/obj/item/vended_item
-	if(!LAZYLEN(R.returned_products)) //always give out free returned stuff first, e.g. to avoid walling a traitor objective in a bag behind paid items
+	if(!LAZYLEN(R.custom_product))
 		vended_item = new R.product_path(get_turf(src))
 	else
-		vended_item = LAZYACCESS(R.returned_products, LAZYLEN(R.returned_products)) //first in, last out
-		LAZYREMOVE(R.returned_products, vended_item)
+		vended_item = LAZYACCESS(R.custom_product, LAZYLEN(R.custom_product)) //first in, last out
+		LAZYREMOVE(R.custom_product, vended_item)
 		vended_item.forceMove(get_turf(src))
 	if(greyscale_colors)
 		vended_item.set_greyscale(colors=greyscale_colors)
@@ -1147,12 +1057,12 @@
 		var/dump_path = R.product_path
 		if(!dump_path)
 			continue
-		if(R.amount > LAZYLEN(R.returned_products)) //always throw new stuff that costs before free returned stuff, because of the hacking effort and time between throws involved
+		if(R.amount > LAZYLEN(R.custom_product))
 			throw_item = new dump_path(loc)
 		else
-			throw_item = LAZYACCESS(R.returned_products, LAZYLEN(R.returned_products)) //first in, last out
+			throw_item = LAZYACCESS(R.custom_product, LAZYLEN(R.custom_product)) //first in, last out
 			throw_item.forceMove(loc)
-			LAZYREMOVE(R.returned_products, throw_item)
+			LAZYREMOVE(R.custom_product, throw_item)
 		R.amount--
 		break
 	if(!throw_item)
@@ -1195,18 +1105,6 @@
 		return TRUE
 	else
 		return FALSE
-/**
-  * Are we able to load the item passed in
-  *
-  * Arguments:
-  * * I - the item being loaded
-  * * user - the user doing the loading
-  */
-/obj/machinery/vending/proc/canLoadItem(obj/item/I, mob/user)
-	if((I.type in products) || (I.type in premium) || (I.type in contraband))
-		return TRUE
-	balloon_alert(user, "[src] does not accept [I]!")
-	return FALSE
 
 /obj/machinery/vending/onTransitZ()
 	return
@@ -1217,7 +1115,6 @@
 	icon_deny = "robotics-deny"
 	light_mask = "robotics-light-mask"
 	max_integrity = 400
-	refill_canister = /obj/item/vending_refill/custom
 	/// where the money is sent
 	var/datum/bank_account/private_a
 	/// max number of items that the custom vendor can hold
@@ -1245,7 +1142,25 @@
 		if(C?.registered_account && C.registered_account == private_a)
 			return TRUE
 
-/obj/machinery/vending/custom/canLoadItem(obj/item/I, mob/user)
+/obj/machinery/vending/custom/proc/loadingAttempt(obj/item/I, mob/user)
+	. = TRUE
+	if(!user.transferItemToLoc(I, src))
+		return FALSE
+	to_chat(user, span_notice("You insert [I] into [src]'s input compartment."))
+
+	for(var/datum/vending_product/product_datum in product_records + coin_records + hidden_records)
+		if(ispath(I.type, product_datum.product_path))
+			product_datum.amount++
+			LAZYADD(product_datum.custom_product, I)
+			return
+
+	if(vending_machine_input[format_text(I.name)])
+		vending_machine_input[format_text(I.name)]++
+	else
+		vending_machine_input[format_text(I.name)] = 1
+	loaded_items++
+
+/obj/machinery/vending/custom/proc/canLoadItem(obj/item/I, mob/user)
 	. = FALSE
 	if(I.flags_1 & HOLOGRAM_1)
 		say("This vendor cannot accept nonexistent items.")
@@ -1411,6 +1326,8 @@
 					slogan_list = newslogan
 					last_slogan = world.time + rand(0, slogan_delay)
 					return
+		else if(canLoadItem(I, user))
+			loadingAttempt(I, user)
 	return ..()
 
 /obj/machinery/vending/custom/crowbar_act(mob/living/user, obj/item/I)
@@ -1428,11 +1345,6 @@
 /obj/machinery/vending/custom/unbreakable
 	name = "Indestructible Vendor"
 	resistance_flags = INDESTRUCTIBLE
-
-/obj/item/vending_refill/custom
-	machine_name = "Custom Vendor"
-	icon_state = "refill_custom"
-	custom_premium_price = 75
 
 /obj/item/price_tagger
 	name = "price tagger"

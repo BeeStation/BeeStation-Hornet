@@ -15537,7 +15537,7 @@
 /area/centcom/ferry)
 "aNm" = (
 /obj/structure/closet/crate,
-/obj/item/vending_refill/autodrobe,
+/obj/item/vending_refill,
 /obj/item/stack/sheet/paperframes/fifty,
 /obj/item/stack/sheet/paperframes/fifty,
 /obj/item/storage/fancy/candle_box,

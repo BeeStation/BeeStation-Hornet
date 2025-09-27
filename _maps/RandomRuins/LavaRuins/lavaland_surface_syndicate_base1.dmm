@@ -3820,16 +3820,16 @@
 /area/ruin/unpowered/syndicate_lava_base/main)
 "Lo" = (
 /obj/structure/closet/crate,
-/obj/item/vending_refill/snack{
+/obj/item/vending_refill{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/vending_refill/snack{
+/obj/item/vending_refill{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/vending_refill/coffee,
-/obj/item/vending_refill/cola,
+/obj/item/vending_refill,
+/obj/item/vending_refill,
 /obj/effect/spawner/lootdrop/donkpockets{
 	pixel_x = -4;
 	pixel_y = 6

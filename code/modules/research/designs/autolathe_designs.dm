@@ -1051,14 +1051,6 @@
 	build_path = /obj/item/price_tagger
 	category = list("initial", "Misc")
 
-/datum/design/custom_vendor_refill
-	name = "Custom Vendor Refill"
-	id = "custom_vendor_refill"
-	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 5000, /datum/material/glass = 2000)
-	build_path = /obj/item/vending_refill/custom
-	category = list("initial", "Misc")
-
 /datum/design/custom_vendor_board
 	name = "Custom Vendor Machine Board"
 	id = "custom_vendor_board"

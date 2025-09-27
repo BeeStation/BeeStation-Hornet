@@ -592,7 +592,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	desc = "You can turn the \"brand selection\" dial using a screwdriver."
 	custom_premium_price = 25
 	build_path = /obj/machinery/vending/custom
-	req_components = list(/obj/item/vending_refill/custom = 1)
+	req_components = list(/obj/item/stock_parts/matter_bin = 1)
 
 	var/static/list/vending_names_paths = list(
 		/obj/machinery/vending/boozeomat = "Booze-O-Mat",
@@ -653,7 +653,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 /obj/item/circuitboard/machine/vendor/proc/set_type(obj/machinery/vending/typepath)
 	build_path = typepath
 	name = "[vending_names_paths[build_path]] Vendor (Machine Board)"
-	req_components = list(initial(typepath.refill_canister) = 1)
 
 /obj/item/circuitboard/machine/vendor/apply_default_parts(obj/machinery/M)
 	for(var/typepath in vending_names_paths)
@@ -668,16 +667,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	icon_state = "generic"
 	build_path = /obj/machinery/vending/donksofttoyvendor
 	req_components = list(
-		/obj/item/stack/sheet/glass = 1,
-		/obj/item/vending_refill/donksoft = 1)
+		/obj/item/stack/sheet/glass = 1)
 
 /obj/item/circuitboard/machine/vending/syndicatedonksofttoyvendor
 	name = "Syndicate Donksoft toy vendor (Machine Board)"
 	icon_state = "generic"
 	build_path = /obj/machinery/vending/toyliberationstation
 	req_components = list(
-		/obj/item/stack/sheet/glass = 1,
-		/obj/item/vending_refill/donksoft = 1)
+		/obj/item/stack/sheet/glass = 1)
 
 /obj/item/circuitboard/machine/fax
 	name = "Fax Machine"

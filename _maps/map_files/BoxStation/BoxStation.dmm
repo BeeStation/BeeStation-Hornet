@@ -27321,7 +27321,7 @@
 /obj/item/stack/cable_coil/random,
 /obj/item/stack/cable_coil/random,
 /obj/structure/closet,
-/obj/item/vending_refill/cigarette,
+/obj/item/vending_refill,
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 4
 	},

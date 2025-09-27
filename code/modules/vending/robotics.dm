@@ -20,10 +20,5 @@
 					/obj/item/clothing/mask/breath/medical = 5,
 					/obj/item/screwdriver = 5,
 					/obj/item/crowbar = 5)
-	refill_canister = /obj/item/vending_refill/robotics
 	default_price = 50
 	extra_price = 75
-
-/obj/item/vending_refill/robotics
-	machine_name = "Robotech Deluxe"
-	icon_state = "refill_engi"
