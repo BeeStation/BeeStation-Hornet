@@ -1,16 +1,18 @@
 /datum/round_event_control/supermatter_surge
 	name = "Supermatter Surge"
+	description = "The supermatter will increase in power and heat by a random amount, and announce it."
+	category = EVENT_CATEGORY_ENGINEERING
 	typepath = /datum/round_event/supermatter_surge
 	weight = 20
 	max_occurrences = 4
 	earliest_start = 10 MINUTES
 
-/datum/round_event_control/supermatter_surge/canSpawnEvent()
+/datum/round_event_control/supermatter_surge/can_spawn_event()
 	if(GLOB.main_supermatter_engine?.has_been_powered)
 		return ..()
 
 /datum/round_event/supermatter_surge
-	announceWhen = 1
+	announce_when = 1
 	var/power = 2000
 
 /datum/round_event/supermatter_surge/setup()

@@ -1,5 +1,6 @@
 /datum/round_event_control/anomaly/anomaly_bioscrambler
 	name = "Anomaly: Bioscrambler"
+	description = "This anomaly replaces the limbs of nearby people."
 	typepath = /datum/round_event/anomaly/anomaly_bioscrambler
 
 	min_players = 10
@@ -7,8 +8,8 @@
 	weight = 20
 
 /datum/round_event/anomaly/anomaly_bioscrambler
-	startWhen = 10
-	announceWhen = 3
+	start_when = 10
+	announce_when = 3
 	anomaly_path = /obj/effect/anomaly/bioscrambler
 
 /datum/round_event/anomaly/anomaly_bioscrambler/announce(fake)

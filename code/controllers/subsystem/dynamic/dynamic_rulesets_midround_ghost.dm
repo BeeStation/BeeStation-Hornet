@@ -331,7 +331,7 @@
 	return /obj/item/light_eater
 
 /datum/dynamic_ruleset/midround/ghost/nightmare/get_spawn_locations()
-	for(var/turf/potential_spawn in GLOB.xeno_spawn)
+	for(var/turf/potential_spawn in GLOB.generic_maintenance_landmarks)
 		if(potential_spawn.get_lumcount() < SHADOW_SPECIES_LIGHT_THRESHOLD)
 			spawn_locations += potential_spawn
 
@@ -545,7 +545,7 @@
 		print_command_report(swarmer_report, announce=TRUE)
 
 /datum/dynamic_ruleset/midround/ghost/swarmer/get_spawn_locations()
-	spawn_locations = GLOB.xeno_spawn
+	spawn_locations = GLOB.generic_maintenance_landmarks
 
 //////////////////////////////////////////////
 //                                          //
@@ -575,7 +575,7 @@
 	return morph_body
 
 /datum/dynamic_ruleset/midround/ghost/morph/get_spawn_locations()
-	spawn_locations = GLOB.xeno_spawn
+	spawn_locations = GLOB.generic_maintenance_landmarks
 
 //////////////////////////////////////////////
 //                                          //
@@ -648,7 +648,7 @@
 
 
 /datum/dynamic_ruleset/midround/ghost/fugitives/get_spawn_locations()
-	for(var/turf/turf in GLOB.xeno_spawn)
+	for(var/turf/turf in GLOB.generic_maintenance_landmarks)
 		if(istype(turf.loc, /area/maintenance))
 			spawn_locations += turf
 

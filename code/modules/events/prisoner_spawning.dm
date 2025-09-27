@@ -1,9 +1,11 @@
 /datum/round_event_control/prisoner
 	name = "Spawn Prisoners"
+	description = "Spawns a group of dangerous prisoners... in the prison."
+	category = EVENT_CATEGORY_INVASION
 	typepath = /datum/round_event/ghost_role/prisoner
 	max_occurrences = 1
 	min_players = 20
-	cannot_spawn_after_shuttlecall = TRUE
+	can_spawn_after_shuttlecall = FALSE
 
 /datum/round_event/ghost_role/prisoner/setup()
 	minimum_required = 1

@@ -10,7 +10,8 @@
 	var/always_celebrate = FALSE // for christmas neverending, or testing.
 	var/current_year = 0
 	var/year_offset = 0
-	var/obj/item/drone_hat //If this is defined, drones without a default hat will spawn with this one during the holiday; check drones_as_items.dm to see this used
+	/// If this is defined, drones/assistants without a default hat will spawn with this item in their head clothing slot.
+	var/obj/item/holiday_hat
 
 // This proc gets run before the game starts when the holiday is activated. Do festive shit here.
 /datum/holiday/proc/celebrate()
@@ -70,7 +71,7 @@
 	begin_month = DECEMBER
 	end_day = 2
 	end_month = JANUARY
-	drone_hat = /obj/item/clothing/head/costume/festive
+	holiday_hat = /obj/item/clothing/head/costume/festive
 
 /datum/holiday/new_year/getStationPrefix()
 	return pick("Party","New","Hangover","Resolution", "Auld")
@@ -109,7 +110,7 @@
 	name = "Birthday of Space Station 13"
 	begin_day = 16
 	begin_month = FEBRUARY
-	drone_hat = /obj/item/clothing/head/costume/festive
+	holiday_hat = /obj/item/clothing/head/costume/festive
 
 /datum/holiday/birthday/greet()
 	var/game_age = text2num(time2text(world.timeofday, "YY")) - 3
@@ -165,7 +166,7 @@
 	name = "St. Patrick's Day"
 	begin_day = 17
 	begin_month = MARCH
-	drone_hat = /obj/item/clothing/head/soft/green
+	holiday_hat = /obj/item/clothing/head/soft/green
 
 /datum/holiday/no_this_is_patrick/getStationPrefix()
 	return pick("Blarney","Green","Leprechaun","Booze")
@@ -190,7 +191,7 @@
 	name = "Cosmonautics Day"
 	begin_day = 12
 	begin_month = APRIL
-	drone_hat = /obj/item/clothing/head/syndicatefake
+	holiday_hat = /obj/item/clothing/head/syndicatefake
 
 /datum/holiday/spess/greet()
 	return "On this day over 600 years ago, Comrade Yuri Gagarin first ventured into space!"
@@ -220,13 +221,13 @@
 	name = "Labor Day"
 	begin_day = 1
 	begin_month = MAY
-	drone_hat = /obj/item/clothing/head/utility/hardhat
+	holiday_hat = /obj/item/clothing/head/utility/hardhat
 
 /datum/holiday/firefighter
 	name = "Firefighter's Day"
 	begin_day = 4
 	begin_month = MAY
-	drone_hat = /obj/item/clothing/head/utility/hardhat/red
+	holiday_hat = /obj/item/clothing/head/utility/hardhat/red
 
 /datum/holiday/firefighter/getStationPrefix()
 	return pick("Burning","Blazing","Plasma","Fire")
@@ -235,7 +236,7 @@
 	name = "Bee Day"
 	begin_day = 20
 	begin_month = MAY
-	drone_hat = /obj/item/clothing/mask/rat/bee
+	holiday_hat = /obj/item/clothing/mask/rat/bee
 
 /datum/holiday/bee/getStationPrefix()
 	return pick("Bee","Honey","Hive","Africanized","Mead","Buzz")
@@ -249,13 +250,13 @@
 	name = "Doctor's Day"
 	begin_day = 1
 	begin_month = JULY
-	drone_hat = /obj/item/clothing/head/costume/nursehat
+	holiday_hat = /obj/item/clothing/head/costume/nursehat
 
 /datum/holiday/UFO
 	name = "UFO Day"
 	begin_day = 2
 	begin_month = JULY
-	drone_hat = /obj/item/clothing/mask/facehugger/dead
+	holiday_hat = /obj/item/clothing/mask/facehugger/dead
 
 /datum/holiday/UFO/getStationPrefix() //Is such a thing even possible?
 	return pick("Ayy","Truth","Tsoukalos","Mulder","Scully") //Yes it is!
@@ -277,7 +278,7 @@
 	name = "Bastille Day"
 	begin_day = 14
 	begin_month = JULY
-	drone_hat = /obj/item/clothing/head/beret
+	holiday_hat = /obj/item/clothing/head/beret
 
 /datum/holiday/france/getStationPrefix()
 	return pick("Francais","Fromage", "Zut", "Merde")
@@ -316,7 +317,7 @@
 	name = "Talk-Like-a-Pirate Day"
 	begin_day = 19
 	begin_month = SEPTEMBER
-	drone_hat = /obj/item/clothing/head/costume/pirate
+	holiday_hat = /obj/item/clothing/head/costume/pirate
 
 /datum/holiday/pirate/greet()
 	return "Ye be talkin' like a pirate today or else ye'r walkin' tha plank, matey!"
@@ -360,13 +361,13 @@
 	name = "Smiling Day"
 	begin_day = 7
 	begin_month = OCTOBER
-	drone_hat = /obj/item/clothing/head/costume/papersack/smiley
+	holiday_hat = /obj/item/clothing/head/costume/papersack/smiley
 
 /datum/holiday/boss
 	name = "Boss' Day"
 	begin_day = 16
 	begin_month = OCTOBER
-	drone_hat = /obj/item/clothing/head/hats/tophat
+	holiday_hat = /obj/item/clothing/head/hats/tophat
 
 /datum/holiday/halloween
 	name = HALLOWEEN
@@ -407,7 +408,7 @@
 	name = "Flowers Day"
 	begin_day = 19
 	begin_month = NOVEMBER
-	drone_hat = /obj/item/food/grown/flower/moonflower
+	holiday_hat = /obj/item/food/grown/flower/moonflower
 
 /datum/holiday/hello
 	name = "Saying-'Hello' Day"
@@ -426,14 +427,14 @@
 	name = "Monkey Day"
 	begin_day = 14
 	begin_month = DECEMBER
-	drone_hat = /obj/item/clothing/mask/gas/monkeymask
+	holiday_hat = /obj/item/clothing/mask/gas/monkeymask
 
 /datum/holiday/thanksgiving
 	name = "Thanksgiving in the United States"
 	begin_week = 4
 	begin_month = NOVEMBER
 	begin_weekday = THURSDAY
-	drone_hat = /obj/item/clothing/head/hats/tophat //This is the closest we can get to a pilgrim's hat
+	holiday_hat = /obj/item/clothing/head/hats/tophat //This is the closest we can get to a pilgrim's hat
 
 /datum/holiday/thanksgiving/canada
 	name = "Thanksgiving in Canada"
@@ -514,14 +515,14 @@ Since Ramadan is an entire month that lasts 29.5 days on average, the start and 
 	name = "Mayan Doomsday Anniversary"
 	begin_day = 21
 	begin_month = DECEMBER
-	drone_hat = /obj/item/clothing/mask/rat/tribal
+	holiday_hat = /obj/item/clothing/mask/rat/tribal
 
 /datum/holiday/xmas
 	name = CHRISTMAS
 	begin_day = 24
 	begin_month = DECEMBER
 	end_day = 26
-	drone_hat = /obj/item/clothing/head/costume/santa
+	holiday_hat = /obj/item/clothing/head/costume/santa
 
 /datum/holiday/xmas/greet()
 	return "Have a merry Christmas!"
@@ -547,7 +548,7 @@ Since Ramadan is an entire month that lasts 29.5 days on average, the start and 
 	begin_day = 1
 	begin_month = DECEMBER
 	end_day = 31
-	drone_hat = /obj/item/clothing/head/costume/santa
+	holiday_hat = /obj/item/clothing/head/costume/santa
 
 /datum/holiday/festive_season/greet()
 	return "Have a nice festive season!"
@@ -570,7 +571,7 @@ Since Ramadan is an entire month that lasts 29.5 days on average, the start and 
 
 /datum/holiday/easter
 	name = EASTER
-	drone_hat = /obj/item/clothing/head/costume/rabbitears
+	holiday_hat = /obj/item/clothing/head/costume/rabbitears
 	var/const/days_early = 1 //to make editing the holiday easier
 	var/const/days_extra = 1
 

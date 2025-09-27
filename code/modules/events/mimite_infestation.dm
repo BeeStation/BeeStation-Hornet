@@ -1,19 +1,21 @@
 /datum/round_event_control/mimite_infestation
 	name = "Mimite Infestation"
+	description = "A horde of mimites arrive, disguising themselves as objects and attacking the crew."
+	category = EVENT_CATEGORY_ENTITIES
 	typepath = /datum/round_event/mimite_infestation
 	weight = 10
 	min_players = 20
 
 
 /datum/round_event/mimite_infestation
-	announceWhen = 200
+	announce_when = 200
 	// 50% chance of being incremented by one
 	var/spawncount = 3
 	fakeable = TRUE
 
 /datum/round_event/mimite_infestation/setup()
-	announceWhen = rand(announceWhen, announceWhen + 50)
-	endWhen = 3600 //60 min
+	announce_when = rand(announce_when, announce_when + 50)
+	end_when = 3600 //60 min
 	if(prob(50))
 		spawncount++
 

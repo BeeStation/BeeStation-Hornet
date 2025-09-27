@@ -92,6 +92,8 @@
 
 /datum/round_event_control/santa
 	name = "Vist by Santa"
+	description = "Spawns Santa, who shall roam the station, handing out gifts."
+	category = EVENT_CATEGORY_HOLIDAY
 	holidayID = CHRISTMAS
 	typepath = /datum/round_event/santa
 	weight = 20

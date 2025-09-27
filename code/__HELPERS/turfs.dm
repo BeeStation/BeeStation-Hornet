@@ -405,29 +405,6 @@ Turf and target are separate in case you want to teleport some distance from a t
 				return FALSE
 	return TRUE
 
-/proc/is_turf_safe(turf/open/floor/floor)
-	// It's probably not safe if it's not a floor.
-	if(!istype(floor))
-		return FALSE
-	var/datum/gas_mixture/air = floor.air
-	// Certainly unsafe if it completely lacks air.
-	if(QDELETED(air))
-		return FALSE
-	// Can most things breathe?
-	for(var/id in air.gases)
-		if(id in GLOB.hardcoded_gases)
-			continue
-		return FALSE
-	if(GET_MOLES(/datum/gas/oxygen, air) < 16 || GET_MOLES(/datum/gas/plasma, air) || GET_MOLES(/datum/gas/carbon_dioxide, air) >= 10)
-		return FALSE
-	var/temperature = air.temperature
-	if(temperature <= 270 || temperature >= 360)
-		return FALSE
-	var/pressure = air.return_pressure()
-	if(pressure <= 20 || pressure >= 550)
-		return FALSE
-	return TRUE
-
 /// returns a turf that isn't holy from the list
 /proc/get_non_holy_tile_from_list(list/turf_list)
 	if(!length(turf_list))

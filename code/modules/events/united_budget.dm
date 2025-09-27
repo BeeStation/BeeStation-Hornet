@@ -1,10 +1,12 @@
 /datum/round_event_control/united_budget_setup
 	name = "United budget - Setup"
+	description = "Combines all of the station budgets into one."
+	category = EVENT_CATEGORY_BUREAUCRATIC
 	typepath = /datum/round_event/united_budget_setup
 	max_occurrences = 0
 
 /datum/round_event/united_budget_setup
-	announceWhen	= 0
+	announce_when	= 0
 
 /datum/round_event/united_budget_setup/announce()
 	priority_announce("Your station has been selected for one of our financial experiments! All station budgets have been united into one, and all budget cards will be linked to one account!", "Central Command Update", SSstation.announcer.get_rand_alert_sound())
@@ -34,11 +36,13 @@
 //-----------------------------------------------------------------------------------------
 /datum/round_event_control/united_budget_cancel
 	name = "United budget - Cancel"
+	description = "Un-combines all of the station budgets."
+	category = EVENT_CATEGORY_BUREAUCRATIC
 	typepath = /datum/round_event/united_budget_cancel
 	max_occurrences = 0
 
 /datum/round_event/united_budget_cancel
-	announceWhen	= 0
+	announce_when	= 0
 
 /datum/round_event/united_budget_cancel/announce()
 	priority_announce("All unified budget accounts have been converted to individual departmental accounts.", "Central Command Update", SSstation.announcer.get_rand_alert_sound())

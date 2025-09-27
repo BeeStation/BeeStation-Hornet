@@ -1,5 +1,7 @@
 /datum/round_event_control/brain_trauma
 	name = "Spontaneous Brain Trauma"
+	description = "A crewmember gains a random trauma."
+	category = EVENT_CATEGORY_HEALTH
 	typepath = /datum/round_event/brain_trauma
 	weight = 25
 	min_players = 20 //this shit ain't fun on a small crew
