@@ -18,6 +18,7 @@ Buildable meters
 	icon_state = "simple"
 	icon_state_preview = "manifold4w"
 	w_class = WEIGHT_CLASS_NORMAL
+	trade_flags = TRADE_NOT_SELLABLE
 	///Piping layer that we are going to be on
 	var/piping_layer = PIPING_LAYER_DEFAULT
 	///Type of pipe-object made, selected from the RPD

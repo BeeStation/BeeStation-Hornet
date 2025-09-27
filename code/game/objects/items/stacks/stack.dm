@@ -13,6 +13,7 @@
 	icon = 'icons/obj/stacks/minerals.dmi'
 	gender = PLURAL
 	material_modifier = 0.05 //5%, so that a 50 sheet stack has the effect of 5k materials instead of 100k.
+	max_demand = 500
 	/// What's the name of just 1 of this stack. You have a stack of leather, but one piece of leather
 	var/singular_name
 	/// How much is in this stack?
@@ -48,6 +49,8 @@
 	var/use_radial = FALSE
 	/// If use_radial is TRUE, this is the radius of the radial
 	var/radial_radius = 52
+	/// Base price of the item PER AMOUNT. 1 amount will be 1 custom_price
+	var/base_price = 1
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 

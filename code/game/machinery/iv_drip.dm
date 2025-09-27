@@ -14,6 +14,7 @@
 	var/mode = IV_INJECTING
 	///Internal beaker
 	var/obj/item/reagent_containers/beaker
+	custom_price = 50
 	///Typecache of containers we accept
 	var/static/list/drip_containers = typecacheof(list(
 		/obj/item/reagent_containers/blood,

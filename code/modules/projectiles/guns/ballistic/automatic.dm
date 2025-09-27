@@ -22,6 +22,7 @@
 	mag_display = TRUE
 	weapon_weight = WEAPON_LIGHT
 	burst_size = 3
+	custom_price = 300
 
 /obj/item/gun/ballistic/automatic/proto/unrestricted
 	pin = /obj/item/firing_pin
@@ -98,6 +99,7 @@
 	fire_rate = 3
 	w_class = WEIGHT_CLASS_BULKY
 	full_auto = TRUE
+	custom_price = 300
 
 /obj/item/gun/ballistic/automatic/wt550/rubber_loaded/Initialize(mapload)
 	magazine = new /obj/item/ammo_box/magazine/wt550m9/rubber(src)
@@ -208,6 +210,7 @@
 	fire_sound = 'sound/weapons/gunshot_smg.ogg'
 	can_suppress = FALSE
 	fire_rate = 4
+	custom_price = 300
 
 
 // L6 SAW //

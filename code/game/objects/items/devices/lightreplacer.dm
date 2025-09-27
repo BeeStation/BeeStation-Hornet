@@ -51,6 +51,7 @@
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
 	force = 8
+	custom_price = 25
 
 	var/max_uses = 20
 	var/uses = 10

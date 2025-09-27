@@ -16,6 +16,7 @@
 	fire_rate = 1.5 //slower than normal guns due to the damage factor
 	var/spin_delay = 10
 	var/recent_spin = 0
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/gun/ballistic/revolver/chamber_round(spin_cylinder = TRUE)
 	if(spin_cylinder)
@@ -106,6 +107,7 @@
 		"The Peacemaker" = "detective_peacemaker",
 		"Black Panther" = "detective_panther"
 	)
+	trade_flags = NONE
 
 /obj/item/gun/ballistic/revolver/detective/cowboy
 	name = "sheriff's revolver"
@@ -213,6 +215,7 @@
 	desc = "A Russian-made revolver for drinking games. Uses .357 ammo, and has a mechanism requiring you to spin the chamber before each trigger pull."
 	icon_state = "russianrevolver"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rus357
+	trade_flags = NONE
 	var/spun = FALSE
 
 /obj/item/gun/ballistic/revolver/russian/do_spin()
@@ -286,6 +289,8 @@
 /obj/item/gun/ballistic/revolver/russian/soul
 	name = "cursed Russian revolver"
 	desc = "To play with this revolver requires wagering your very soul."
+	custom_price = 10000
+	max_demand = 10
 
 /obj/item/gun/ballistic/revolver/russian/soul/shoot_self(mob/living/user)
 	..()

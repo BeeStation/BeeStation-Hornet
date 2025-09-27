@@ -38,6 +38,7 @@
 	item_state = "armor"
 	blood_overlay_type = "armor"
 	dog_fashion = /datum/dog_fashion/back/armorvest
+	custom_price = 100
 
 /obj/item/clothing/suit/armor/vest/alt
 	desc = "An alternate style Type I-B armored vest that provides decent protection against most types of damage. They perform identically in the field."
@@ -56,7 +57,8 @@
 	desc = "A type H-L armored vest which provides greater protection than its I-A counterpart, at the cost of being bulkier."
 	icon_state = "blueshift"
 	item_state = null
-	custom_premium_price = 600
+	max_demand = 10
+	custom_premium_price = 150
 	armor_type = /datum/armor/vest_blueshirt
 	slowdown = 0.14
 

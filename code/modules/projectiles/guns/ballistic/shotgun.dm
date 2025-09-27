@@ -8,6 +8,7 @@
 	item_state = "shotgun"
 	inhand_x_dimension = 64
 	inhand_y_dimension = 64
+	custom_price = 300
 	fire_sound = "sound/weapons/shotgunshot.ogg"
 	vary_fire_sound = FALSE
 	fire_sound_volume = 90
@@ -76,6 +77,7 @@
 	item_state = "shotgun_combat"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/com
 	w_class = WEIGHT_CLASS_HUGE
+	custom_price = 300
 
 /obj/item/gun/ballistic/shotgun/automatic/combat/AltClick(mob/user)
 	if(loc == user)
