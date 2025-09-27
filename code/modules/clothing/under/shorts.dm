@@ -32,3 +32,8 @@
 /obj/item/clothing/under/shorts/purple
 	name = "purple athletic shorts"
 	icon_state = "purpleshorts"
+
+/obj/item/clothing/under/shorts/pool
+	name = "pool shorts"
+	desc = "Nanotrasen-colored swimwear for a nice pool splash without forgetting who owns you."
+	icon_state = "pool_shorts"

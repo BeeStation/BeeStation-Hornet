@@ -32657,9 +32657,6 @@
 /area/engine/atmos)
 "hRt" = (
 /obj/structure/closet/athletic_mixed,
-/obj/item/pool/rubber_ring,
-/obj/item/pool/pool_noodle,
-/obj/item/pool/pool_noodle,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/fitness/recreation)
@@ -40053,9 +40050,6 @@
 /area/construction/storage_wing)
 "ksT" = (
 /obj/structure/closet/boxinggloves,
-/obj/item/pool/rubber_ring,
-/obj/item/pool/pool_noodle,
-/obj/item/pool/pool_noodle,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/fitness/recreation)
@@ -54661,9 +54655,6 @@
 /area/aisat)
 "psV" = (
 /obj/structure/closet/masks,
-/obj/item/pool/rubber_ring,
-/obj/item/pool/pool_noodle,
-/obj/item/pool/pool_noodle,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/fitness/recreation)
@@ -65701,6 +65692,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/machinery/vending/pool,
 /turf/open/floor/iron,
 /area/crew_quarters/fitness/recreation)
 "tjH" = (

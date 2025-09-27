@@ -1,0 +1,15 @@
+{
+	"pool_swimsuit_vertical_stripes": [
+		{
+			"type": "icon_state",
+			"icon_state": "pool_swimsuit_worn",
+			"blend_mode": "overlay",
+			"color_ids": [ 1 ]
+		},
+		{
+			"type": "icon_state",
+			"icon_state": "pool_swimsuit_vstripes_overlay",
+			"blend_mode": "overlay"
+		}
+	]
+}
