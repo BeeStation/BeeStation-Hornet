@@ -48,12 +48,19 @@
 	throw_at(target_turf, throw_range, throw_speed)
 	return TRUE
 
+/obj/item/bodypart/head/dismember()
+	if(!owner)
+		return FALSE
+	var/mob/living/carbon/C = owner
+	if(C.stat == CONSCIOUS) //Beheading can only happen to someone who has at least fallen into crit for balance reasons
+		return FALSE
+	. = ..()
 
 /obj/item/bodypart/chest/dismember()
 	if(!owner)
 		return FALSE
 	var/mob/living/carbon/C = owner
-	if(!dismemberable)
+	if(!dismemberable || C.stat != DEAD) //Organs spilling out of the chest cannot happen before death for player sanity reasons
 		return FALSE
 	if(HAS_TRAIT(C, TRAIT_NODISMEMBER))
 		return FALSE

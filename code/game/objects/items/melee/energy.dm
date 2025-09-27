@@ -22,7 +22,7 @@
 	/// Force while active.
 	var/active_bleedforce = 0
 	/// Sharpness while active.
-	var/active_sharpness = SHARP
+	var/active_sharpness = SHARP_DISMEMBER_EASY
 	/// Hitsound played attacking while active.
 	var/active_hitsound = 'sound/weapons/blade1.ogg'
 	/// Weight class while active.
