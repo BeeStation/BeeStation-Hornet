@@ -128,7 +128,6 @@
 	if(uses_integrity)
 		atom_integrity = max_integrity
 
-	ComponentInitialize()
 	InitializeAIController()
 
 	if(length(smoothing_groups))
@@ -160,7 +159,3 @@
  */
 /atom/proc/LateInitialize()
 	set waitfor = FALSE
-
-/// Put your AddComponent() calls here
-/atom/proc/ComponentInitialize()
-	return

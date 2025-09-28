@@ -11,7 +11,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	custom_price = 25
 
-/obj/item/security_barricade/ComponentInitialize()
+/obj/item/security_barricade/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/deployable, /obj/structure/barricade/security, time_to_deploy = 3 SECONDS)
 

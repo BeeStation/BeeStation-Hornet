@@ -1,7 +1,0 @@
-author: pixelpoepleman
-delete-after: true
-changes:
-  - rscadd: New intercom in Box brig hall
-  - tweak: Fixed Card QM request console to be the 'Cargo' version instead of generic
-      'West'
-  - bugfix: Ferry Home docking port now fits the ferry on Box "Port Bay 2"

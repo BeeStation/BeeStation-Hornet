@@ -151,9 +151,6 @@
 
 	if(footstep_type)
 		AddElement(/datum/element/footstep, footstep_type)
-
-/mob/living/simple_animal/ComponentInitialize()
-	. = ..()
 	if(no_flying_animation)
 		ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, ROUNDSTART_TRAIT)
 	if(dextrous)

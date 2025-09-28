@@ -34420,12 +34420,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
-"ivh" = (
-/obj/structure/rack,
-/obj/effect/loot_jobscale/armoury/energy_gun,
-/obj/effect/turf_decal/box/red,
-/turf/open/floor/iron/dark/smooth_large,
-/area/ai_monitored/security/armory)
 "ivo" = (
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
@@ -47154,6 +47148,15 @@
 	},
 /turf/open/space/basic,
 /area/space/nearstation)
+"mSZ" = (
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/effect/turf_decal/box/red,
+/obj/effect/loot_jobscale/armoury/laser_gun,
+/obj/structure/rack,
+/turf/open/floor/iron/dark/smooth_large,
+/area/ai_monitored/security/armory)
 "mTg" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/item/beacon,
@@ -52362,12 +52365,6 @@
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/prison,
 /area/security/prison)
-"oBP" = (
-/obj/structure/rack,
-/obj/effect/loot_jobscale/armoury/laser_gun,
-/obj/effect/turf_decal/box/red,
-/turf/open/floor/iron/dark/smooth_large,
-/area/ai_monitored/security/armory)
 "oCb" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -55001,15 +54998,6 @@
 	},
 /turf/open/floor/iron,
 /area/science/shuttledock)
-"pze" = (
-/obj/structure/rack,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/effect/loot_jobscale/armoury/disabler,
-/obj/effect/turf_decal/box/red,
-/turf/open/floor/iron/dark/smooth_large,
-/area/ai_monitored/security/armory)
 "pzh" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
 	dir = 5
@@ -69231,6 +69219,15 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
+"utb" = (
+/obj/effect/turf_decal/box/red,
+/obj/effect/loot_jobscale/armoury/taser_ammo_box,
+/obj/effect/loot_jobscale/armoury/tasers,
+/obj/structure/closet/gun_locker{
+	anchored = 1
+	},
+/turf/open/floor/iron/dark/smooth_large,
+/area/ai_monitored/security/armory)
 "utg" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
@@ -75092,6 +75089,16 @@
 /obj/structure/closet/secure_closet/genpop,
 /turf/open/floor/iron/dark/smooth_half,
 /area/security/main)
+"wsT" = (
+/obj/effect/turf_decal/box/red,
+/obj/effect/loot_jobscale/armoury/pistol_ammo,
+/obj/effect/loot_jobscale/armoury/pistol_ammo_box,
+/obj/effect/loot_jobscale/armoury/pistols,
+/obj/structure/closet/gun_locker{
+	anchored = 1
+	},
+/turf/open/floor/iron/dark/smooth_large,
+/area/ai_monitored/security/armory)
 "wsV" = (
 /turf/closed/wall/r_wall,
 /area/medical/chemistry)
@@ -108712,7 +108719,7 @@ lMJ
 aeq
 jZE
 bob
-pze
+mSZ
 cQJ
 ttB
 atT
@@ -109226,8 +109233,8 @@ lMJ
 aeq
 tdx
 pCY
-oBP
-ivh
+utb
+wsT
 ehu
 aqa
 eIH

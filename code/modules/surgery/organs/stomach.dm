@@ -200,7 +200,7 @@
 	maxHealth = STANDARD_ORGAN_THRESHOLD * 0.5
 
 /obj/item/organ/stomach/cybernetic/upgraded
-	name = "advanced cybernetic stomach"
+	name = "upgraded cybernetic stomach"
 	icon_state = "stomach-c-u"
 	desc = "An electronic device designed to mimic the functions of a human stomach. Handles disgusting food a bit better."
 	maxHealth = 1.5 * STANDARD_ORGAN_THRESHOLD
