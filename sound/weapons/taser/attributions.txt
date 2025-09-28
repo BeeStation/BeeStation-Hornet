@@ -1,0 +1,5 @@
+shot.ogg:
+gunshot__high_5.wav by eardeer -- https://freesound.org/s/402012/ -- License: Attribution 4.0
+
+loop.ogg:
+taser.wav by anez -- https://freesound.org/s/403445/ -- License: Attribution 4.0
