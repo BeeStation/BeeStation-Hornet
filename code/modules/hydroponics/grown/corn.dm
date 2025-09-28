@@ -60,7 +60,7 @@
 	species = "snapcorn"
 	plantname = "Snapcorn Stalks"
 	product = /obj/item/grown/snapcorn
-	mutatelist = list()
+	mutatelist = list(/obj/item/seeds/corn)
 	rarity = 10
 
 /obj/item/grown/snapcorn

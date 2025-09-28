@@ -33,7 +33,7 @@
 	species = "teaastra"
 	plantname = "Tea Astra Plant"
 	product = /obj/item/food/grown/tea/astra
-	mutatelist = list()
+	mutatelist = list(/obj/item/seeds/tea)
 	reagents_add = list(/datum/reagent/fluorine = 0.02, /datum/reagent/medicine/synaptizine = 0.1, /datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/toxin/teapowder = 0.1)
 	rarity = 20
 
@@ -83,7 +83,7 @@
 	species = "coffeer"
 	plantname = "Coffee Robusta Bush"
 	product = /obj/item/food/grown/coffee/robusta
-	mutatelist = list()
+	mutatelist = list(/obj/item/seeds/coffee)
 	reagents_add = list(/datum/reagent/medicine/ephedrine = 0.1, /datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/toxin/coffeepowder = 0.1)
 	rarity = 20
 

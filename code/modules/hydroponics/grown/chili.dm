@@ -39,7 +39,7 @@
 	maturation = 4
 	production = 4
 	rarity = 20
-	mutatelist = list()
+	mutatelist = list(/obj/item/seeds/chili, /obj/item/seeds/chili/ghost)
 	reagents_add = list(/datum/reagent/consumable/frostoil = 0.25, /datum/reagent/consumable/nutriment/vitamin = 0.02, /datum/reagent/consumable/nutriment = 0.02)
 
 /obj/item/food/grown/icepepper
@@ -65,7 +65,7 @@
 	production = 10
 	yield = 3
 	rarity = 20
-	mutatelist = list()
+	mutatelist = list(/obj/item/seeds/chili/ice, /obj/item/seeds/chili)
 	reagents_add = list(/datum/reagent/consumable/condensedcapsaicin = 0.3, /datum/reagent/consumable/capsaicin = 0.55, /datum/reagent/consumable/nutriment = 0.04)
 
 /obj/item/food/grown/ghost_chili

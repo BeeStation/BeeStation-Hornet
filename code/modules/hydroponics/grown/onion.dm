@@ -35,6 +35,7 @@
 	plantname = "Red Onion Sprouts"
 	weed_chance = 1
 	product = /obj/item/food/grown/onion/red
+	mutatelist = list(/obj/item/seeds/onion)
 	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.1, /datum/reagent/consumable/tearjuice = 0.05)
 
 /obj/item/food/grown/onion/red

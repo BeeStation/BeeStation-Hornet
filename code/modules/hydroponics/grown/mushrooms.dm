@@ -21,6 +21,7 @@
 	yield = 4
 	potency = 15
 	growthstages = 4
+	mutatelist = list(/obj/item/seeds/liberty)
 	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism)
 	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
 	reagents_add = list(/datum/reagent/medicine/morphine = 0.35, /datum/reagent/medicine/charcoal = 0.35, /datum/reagent/consumable/nutriment = 0)
@@ -72,6 +73,7 @@
 	potency = 35
 	growthstages = 3
 	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism)
+	mutatelist = list(/obj/item/seeds/amanita)
 	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
 	reagents_add = list(/datum/reagent/drug/mushroomhallucinogen = 0.04, /datum/reagent/toxin/amatoxin = 0.1, /datum/reagent/consumable/nutriment = 0, /datum/reagent/toxin/amanitin = 0.2)
 	rarity = 30
@@ -98,6 +100,7 @@
 	potency = 15
 	growthstages = 3
 	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism)
+	mutatelist = list(/obj/item/seeds/reishi)
 	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
 	reagents_add = list(/datum/reagent/drug/mushroomhallucinogen = 0.25, /datum/reagent/consumable/nutriment = 0.02)
 
@@ -146,7 +149,7 @@
 	maturation = 5
 	yield = 1
 	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
-	mutatelist = list()
+	mutatelist = list(/obj/item/seeds/plump)
 	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.05, /datum/reagent/consumable/nutriment = 0.15)
 	rarity = 30
 
@@ -209,6 +212,7 @@
 	endurance = 8
 	yield = 4
 	growthstages = 2
+	mutatelist = list(/obj/item/seeds/chanter)
 	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism, /datum/plant_gene/reagent/liquidelectricity, /datum/plant_gene/trait/plant_type/carnivory)
 	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
 	reagents_add = list(/datum/reagent/consumable/nutriment = 0.1)
@@ -290,7 +294,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds/chanter/jupitercup)
 	plantname = "Glowcaps"
 	product = /obj/item/food/grown/mushroom/glowshroom/glowcap
 	genes = list(/datum/plant_gene/trait/glow/red, /datum/plant_gene/trait/cell_charge, /datum/plant_gene/trait/plant_type/fungal_metabolism)
-	mutatelist = list()
+	mutatelist = list(/obj/item/seeds/glowshroom, /obj/item/seeds/glowshroom/shadowshroom)
 	reagents_add = list(/datum/reagent/teslium = 0.1, /datum/reagent/consumable/nutriment = 0.04)
 	rarity = 30
 
@@ -312,7 +316,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds/chanter/jupitercup)
 	plantname = "Shadowshrooms"
 	product = /obj/item/food/grown/mushroom/glowshroom/shadowshroom
 	genes = list(/datum/plant_gene/trait/glow/shadow, /datum/plant_gene/trait/plant_type/fungal_metabolism)
-	mutatelist = list()
+	mutatelist = list(/obj/item/seeds/glowshroom/glowcap, /obj/item/seeds/glowshroom)
 	reagents_add = list(/datum/reagent/uranium/radium = 0.2, /datum/reagent/consumable/nutriment = 0.04)
 	rarity = 30
 
