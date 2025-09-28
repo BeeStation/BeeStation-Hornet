@@ -6,7 +6,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	var/bag_type = /obj/structure/closet/body_bag
 
-/obj/item/bodybag/ComponentInitialize()
+/obj/item/bodybag/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/deployable, bag_type)
 

@@ -11,6 +11,7 @@
 	mutantears = /obj/item/organ/ears/cat
 	mutant_organs = list(/obj/item/organ/tail/cat)
 	mutanttongue = /obj/item/organ/tongue/cat
+	inherent_traits = list(TRAIT_HATED_BY_DOGS)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 
 	swimming_component = /datum/component/swimming/felinid
@@ -63,7 +64,7 @@
 		if(prob(15))
 			if(locate(/obj/item/organ/stomach) in M.internal_organs)
 				var/obj/item/organ/stomach/cat_stomach = M.internal_organs_slot[ORGAN_SLOT_STOMACH]
-				cat_stomach.applyOrganDamage(15)
+				cat_stomach.apply_organ_damage(15)
 		return FALSE
 	return ..() //second part of this effect is handled elsewhere
 

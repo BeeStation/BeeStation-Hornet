@@ -33,8 +33,8 @@
 	slippery_foam = FALSE
 	var/absorbed_plasma = 0
 
-/obj/effect/particle_effect/foam/firefighting/ComponentInitialize()
-	..()
+/obj/effect/particle_effect/foam/firefighting/Initialize(mapload)
+	. = ..()
 	RemoveElement(/datum/element/atmos_sensitive)
 
 /obj/effect/particle_effect/foam/firefighting/process()
@@ -42,7 +42,7 @@
 
 	var/turf/open/T = get_turf(src)
 	var/obj/effect/hotspot/hotspot = (locate(/obj/effect/hotspot) in T)
-	if(hotspot && istype(T) && T.air)
+	if(hotspot && T.air)
 		qdel(hotspot)
 		var/datum/gas_mixture/G = T.air
 		var/plas_amt = min(30,GET_MOLES(/datum/gas/plasma, G)) //Absorb some plasma
@@ -87,7 +87,7 @@
 	name = "resin foam"
 	metal = RESIN_FOAM
 
-/obj/effect/particle_effect/foam/metal/chainreact_resin
+/obj/effect/particle_effect/foam/metal/resin/chainreact
 	name = "self-destruct resin foam"
 	metal = RESIN_FOAM_CHAINREACT
 	lifetime = 20
@@ -115,8 +115,6 @@
 	START_PROCESSING(SSfastprocess, src)
 	playsound(src, 'sound/effects/bubbles2.ogg', 80, 1, -3)
 
-/obj/effect/particle_effect/foam/ComponentInitialize()
-	. = ..()
 	if(slippery_foam)
 		AddComponent(/datum/component/slippery, 100)
 

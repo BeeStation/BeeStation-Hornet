@@ -61,6 +61,8 @@
 
 	/// Used for air alarm helper called tlv_cold_room to adjust alarm thresholds for cold room.
 	var/tlv_cold_room = FALSE
+	/// Used for air alarm helper called tlv_kitchen to adjust temperature thresholds for kitchen.
+	var/tlv_kitchen = FALSE
 	/// Used for air alarm helper called tlv_no_ckecks to remove alarm thresholds.
 	var/tlv_no_checks = FALSE
 
@@ -322,6 +324,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/airalarm)
 				"refID" = REF(vent),
 				"long_name" = sanitize(vent.name),
 				"power" = vent.on,
+				"overclock" = vent.fan_overclocked,
+				"integrity" = vent.get_integrity_percentage(),
 				"checks" = vent.pressure_checks,
 				"excheck" = vent.pressure_checks & ATMOS_EXTERNAL_BOUND,
 				"incheck" = vent.pressure_checks & ATMOS_INTERNAL_BOUND,
@@ -391,6 +395,13 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/airalarm)
 			powering.on = !!params["val"]
 			powering.atmos_conditions_changed()
 			powering.update_icon()
+
+		if ("overclock")
+			if(isnull(vent))
+				return TRUE
+			vent.toggle_overclock(source = key_name(user))
+			vent.update_appearance(UPDATE_ICON)
+			return TRUE
 
 		if ("direction")
 			if (isnull(vent))
@@ -515,10 +526,10 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/airalarm)
 			. = TRUE
 
 		if("set_ac_target")
-			if(!isnum(params["target"]))
+			if(!isnum(params["value"]))
 				return
-			set_ac_target(params["target"])
-			investigate_log("has had its air conditioning target set to [params["target"]] by [key_name(usr)]", INVESTIGATE_ATMOS)
+			set_ac_target(params["value"])
+			investigate_log("has had its air conditioning target set to [params["value"]] by [key_name(usr)]", INVESTIGATE_ATMOS)
 			. = TRUE
 
 		if("default_ac_target")
@@ -721,6 +732,10 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airalarm, 27)
 /obj/machinery/airalarm/proc/set_tlv_cold_room()
 	tlv_collection["temperature"] = new /datum/tlv/cold_room_temperature
 	tlv_collection["pressure"] = new /datum/tlv/cold_room_pressure
+
+///Used for air alarm kitchen tlv helper, which ensures that kitchen air alarm doesn't trigger from cold room air
+/obj/machinery/airalarm/proc/set_tlv_kitchen()
+	tlv_collection["temperature"] = new /datum/tlv/kitchen_temperature
 
 ///Used for air alarm no tlv helper, which removes alarm thresholds
 /obj/machinery/airalarm/proc/set_tlv_no_checks()

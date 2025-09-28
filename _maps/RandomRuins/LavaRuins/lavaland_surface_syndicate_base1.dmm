@@ -1784,6 +1784,13 @@
 	dir = 4
 	},
 /area/ruin/unpowered/syndicate_lava_base/science)
+"pC" = (
+/mob/living/simple_animal/rabbit{
+	faction = list("Syndicate");
+	desc = "Just a mildly evil rabbit."
+	},
+/turf/open/floor/wood,
+/area/ruin/unpowered/syndicate_lava_base/bar)
 "pD" = (
 /obj/item/storage/box/lights/bulbs,
 /obj/item/stack/rods{
@@ -2115,13 +2122,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible/layer4,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
-"tV" = (
-/mob/living/simple_animal/chicken/rabbit{
-	faction = list("Syndicate");
-	desc = "Just a mildly evil rabbit."
-	},
-/turf/open/floor/wood,
-/area/ruin/unpowered/syndicate_lava_base/bar)
 "ub" = (
 /obj/structure/closet/secure_closet/freezer/kitchen/maintenance{
 	req_access = null
@@ -6491,7 +6491,7 @@ Yx
 BA
 Jz
 lX
-tV
+pC
 Zd
 EL
 jy

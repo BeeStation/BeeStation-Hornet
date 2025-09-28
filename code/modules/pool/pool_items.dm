@@ -14,11 +14,14 @@
 	. = ..()
 	//Pick a random color
 	add_atom_colour(pick(COLOR_YELLOW, COLOR_LIME, COLOR_RED, COLOR_BLUE_LIGHT, COLOR_CYAN, COLOR_MAGENTA), FIXED_COLOUR_PRIORITY)
-
-/obj/item/pool/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/two_handed, require_twohands=TRUE, force_unwielded=0, force_wielded=5, \
-				wieldsound='sound/weapons/tap.ogg', unwieldsound='sound/weapons/tap.ogg', block_power_wielded=20)
+	AddComponent(/datum/component/two_handed, \
+		require_twohands = TRUE, \
+		force_unwielded = 0, \
+		force_wielded = 5, \
+		wieldsound = 'sound/weapons/tap.ogg', \
+		unwieldsound = 'sound/weapons/tap.ogg', \
+		block_power_wielded = 20,\
+	)
 
 /obj/item/pool/rubber_ring
 	name = "inflateable ring"

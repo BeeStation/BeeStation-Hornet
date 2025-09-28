@@ -363,6 +363,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	crafting_complexity = FOOD_COMPLEXITY_2
 
-/obj/item/food/butterdog/ComponentInitialize()
+/obj/item/food/butterdog/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/slippery, 8 SECONDS)

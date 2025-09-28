@@ -71,7 +71,7 @@
 				H.flash_act(visual = 1)
 				H.adjust_blindness(3)
 				H.blur_eyes(5)
-				eyes.applyOrganDamage(5)
+				eyes.apply_organ_damage(5)
 
 /obj/item/clothing/glasses/meson
 	name = "optical meson scanner"
@@ -285,6 +285,7 @@
 	name = "advanced sunglasses"
 	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Has enhanced shielding which blocks flashes."
 	flash_protect = FLASH_PROTECTION_FLASH
+	custom_price = 15
 
 /obj/item/clothing/glasses/sunglasses/advanced/reagent
 	name = "beer goggles"
@@ -378,7 +379,7 @@
 	force_glass_colour = TRUE
 	var/next_use_time = 0
 
-/obj/item/clothing/glasses/welding/ghostbuster/ComponentInitialize()
+/obj/item/clothing/glasses/welding/ghostbuster/Initialize(mapload)
 	. = ..()
 	//Have the HUD enabled by default, since the glasses start in the down position.
 	var/datum/component/team_monitor/worn/ghost_vision = AddComponent(/datum/component/team_monitor/worn, "ghost", 1)
@@ -598,7 +599,7 @@
 	name = "Scan"
 	desc = "Scan an enemy, to get their location and stagger them, increasing their time between attacks."
 	background_icon_state = "bg_clock"
-	icon_icon = 'icons/mob/actions/actions_items.dmi'
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "scan"
 
 	requires_target = TRUE

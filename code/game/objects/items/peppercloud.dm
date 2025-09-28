@@ -21,6 +21,7 @@
 
 	var/cooldown_time = 0
 	var/activation_cooldown = 2 SECONDS
+	custom_price = 100
 
 /obj/item/reagent_containers/peppercloud_deployer/empty //for protolathe printing
 	list_reagents = null
