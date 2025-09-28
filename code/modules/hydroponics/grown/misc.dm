@@ -15,6 +15,7 @@
 	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
 	genes = list(/datum/plant_gene/trait/plant_type/weed_hardy)
 	mutatelist = list(/obj/item/seeds/galaxythistle)
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/seeds/starthistle/harvest(mob/user)
 	var/obj/machinery/hydroponics/parent = loc

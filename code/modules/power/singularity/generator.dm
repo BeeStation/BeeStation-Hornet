@@ -9,6 +9,7 @@
 	use_power = NO_POWER_USE
 	resistance_flags = FIRE_PROOF
 	processing_flags = START_PROCESSING_MANUALLY // lets not do any processing when we do not have anything to do
+	custom_price = 4000
 
 	// You can buckle someone to the singularity generator, then start the engine. Fun!
 	can_buckle = TRUE

@@ -3,6 +3,7 @@
 	name = "energy gun"
 	desc = "A basic energy-based gun."
 	icon = 'icons/obj/guns/energy.dmi'
+	custom_price = 100 // Adding this here because only SOME guns were covered by export datums
 
 	///What type of power cell this uses
 	var/obj/item/stock_parts/cell/cell

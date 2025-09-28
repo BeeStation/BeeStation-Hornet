@@ -12,6 +12,7 @@
 	movement_type = FLYING
 	//wound_bonus = CANT_WOUND // can't wound by default
 	generic_canpass = FALSE
+	trade_flags = TRADE_NOT_SELLABLE | TRADE_DELETE_UNSOLD
 	//The sound this plays on impact.
 	var/hitsound = 'sound/weapons/pierce.ogg'
 	var/hitsound_wall = ""

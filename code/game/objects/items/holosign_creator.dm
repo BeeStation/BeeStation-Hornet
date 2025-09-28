@@ -102,6 +102,7 @@
 	sign_name = "holobarrier"
 	creation_time = 30
 	max_signs = 6
+	custom_price = 50
 	var/active_crimesign = FALSE
 	var/list/active_barriers = list()
 	var/crimesign_range = 4 //in tiles

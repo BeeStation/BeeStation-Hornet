@@ -226,6 +226,7 @@
 	icon = 'icons/obj/chess_board.dmi'
 	icon_state = "chess_board_folded"
 	w_class = WEIGHT_CLASS_LARGE
+	custom_price = 15
 	var/list/sorted_contents
 	var/populated = FALSE
 	var/unfolded_type = /obj/structure/chess_board

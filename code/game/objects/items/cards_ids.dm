@@ -166,6 +166,7 @@
 	slot_flags = ITEM_SLOT_ID
 	armor_type = /datum/armor/card_id
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	trade_flags = TRADE_NOT_SELLABLE
 	var/list/access = list()
 	var/registered_name// The name registered_name on the card
 	var/assignment
@@ -484,6 +485,7 @@ update_label("John Doe", "Clowny")
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE)
 	icon_state = "syndicate"
 	hud_state = JOB_HUD_SYNDICATE
+	trade_flags = TRADE_NOT_SELLABLE | TRADE_CONTRABAND
 	var/anyone = FALSE //Can anyone forge the ID or just syndicate?
 
 	var/datum/action/item_action/chameleon/change/chameleon_action

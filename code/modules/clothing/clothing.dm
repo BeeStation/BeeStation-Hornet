@@ -11,6 +11,8 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 200
 	integrity_failure = 0.4
+	custom_price = 20 // Basic costum price for clothing. If it does not fit anything else.
+	max_demand = 15 // Demand shouldn't be too big for clothing or else you can just sell clothing like crazy
 	var/damaged_clothes = CLOTHING_PRISTINE //similar to machine's BROKEN stat and structure's broken var
 	var/flash_protect = FLASH_PROTECTION_NONE 		//What level of bright light protection item has. 1 = Flashers, Flashes, & Flashbangs | 2 = Welding | -1 = OH GOD WELDING BURNT OUT MY RETINAS
 	var/bang_protect = 0		//what level of sound protection the item has. 1 is the level of a normal bowman.

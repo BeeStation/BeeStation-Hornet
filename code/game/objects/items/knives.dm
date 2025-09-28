@@ -21,6 +21,7 @@
 	sharpness = SHARP
 	bleed_force = BLEED_CUT
 	armor_type = /datum/armor/item_knife
+	custom_price = 50 // Adding this here because some knives were not covered by the export datum
 	var/bayonet = FALSE //Can this be attached to a gun?
 	//wound_bonus = 5
 	//bare_wound_bonus = 15
@@ -167,6 +168,7 @@
 	attack_verb_continuous = list("slashes", "stabs", "slices", "tears", "lacerates", "rips", "cuts")
 	attack_verb_simple = list("slash", "stab", "slice", "tear", "lacerate", "rip", "cut")
 	bayonet = TRUE
+	custom_price = 100
 
 /obj/item/knife/combat/survival
 	name = "survival knife"

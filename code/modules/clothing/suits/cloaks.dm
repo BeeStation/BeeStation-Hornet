@@ -117,6 +117,8 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	transparent_protection = HIDEGLOVES|HIDESUITSTORAGE|HIDEJUMPSUIT|HIDESHOES
 	high_pressure_multiplier = 0.4
+	custom_price = 10000
+	max_demand = 10
 
 
 /datum/armor/cloak_drake
