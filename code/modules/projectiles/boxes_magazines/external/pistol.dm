@@ -75,3 +75,27 @@
 	caliber = list(".50")
 	max_ammo = 7
 	multiple_sprites = 1
+
+/obj/item/ammo_box/magazine/x200law
+	name = "pistol magazine (x200 LAW)"
+	icon_state = "x200law-8"
+	desc= "A gun magazine for x200 LAW ammo. The standard law-enforcement loading of the popular NPS-10. Has a handy digital counter built into it."
+	ammo_type = /obj/item/ammo_casing/x200law
+	caliber = list("x200 LAW")
+	max_ammo = 8
+	multiple_sprites = 1
+
+/obj/item/ammo_box/magazine/x200law/update_icon()
+	..()
+	icon_state = "x200law-[CEILING(ammo_count(),2)]"
+
+/obj/item/ammo_box/magazine/x200law/examine(mob/user)
+	. = ..()
+	. += span_notice("<i>You could examine it more thoroughly...</i>")
+
+/obj/item/ammo_box/magazine/x200law/examine_more(mob/user)
+	. = ..()
+	. += "<i>Loaded with 8 shots of NT custom x200 LAW; steel-jacketed, low-velocity ammo. The lubricant they had to use because of the steel cartridges stains your hands terribly. Of course it's proprietary...</i>"
+
+/obj/item/ammo_box/magazine/x200law/empty
+	start_empty = TRUE

@@ -58,7 +58,7 @@
 /// How long it takes a powereater to drain or charge APCs. Also used as a spam limiter.
 #define APC_DRAIN_TIME (7.5 SECONDS)
 /// How much powereater species gain/drain from APCs.
-#define APC_POWER_GAIN 200
+#define APC_POWER_GAIN 2 KILOWATT
 
 // Wires & EMPs:
 /// The wire value used to reset the APCs wires after one's EMPed.

@@ -21,6 +21,7 @@
 
 /// Handles this atom landing on a turf from a zfall
 /atom/movable/proc/onZImpact(turf/T, levels)
+	SHOULD_CALL_PARENT(TRUE)
 	var/atom/highest = null
 	for(var/i in T.contents)
 		var/atom/A = i

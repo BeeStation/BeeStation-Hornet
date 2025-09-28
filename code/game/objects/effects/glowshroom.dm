@@ -43,8 +43,8 @@
 		QDEL_NULL(myseed)
 	return ..()
 
-/obj/structure/glowshroom/New(loc, obj/item/seeds/newseed, mutate_stats)
-	..()
+/obj/structure/glowshroom/Initialize(mapload, obj/item/seeds/newseed, mutate_stats)
+	. = ..()
 	if(newseed)
 		myseed = newseed.Copy()
 		myseed.forceMove(src)
@@ -81,6 +81,7 @@
 		icon_state = base_icon_state
 
 	addtimer(CALLBACK(src, PROC_REF(Spread)), delay)
+	AddElement(/datum/element/atmos_sensitive)
 
 /obj/structure/glowshroom/proc/Spread()
 	var/turf/ownturf = get_turf(src)
@@ -164,7 +165,7 @@
 
 /obj/structure/glowshroom/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	if(damage_type == BURN && damage_amount)
-		playsound(src.loc, 'sound/items/welder.ogg', 100, 1)
+		playsound(src, 'sound/items/welder.ogg', 100, 1)
 
 /obj/structure/glowshroom/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
 	return exposed_temperature > 300
@@ -178,7 +179,3 @@
 	var/obj/effect/decal/cleanable/molten_object/I = new (get_turf(src))
 	I.desc = "Looks like this was \an [src] some time ago."
 	qdel(src)
-
-/obj/structure/glowshroom/ComponentInitialize()
-	. = ..()
-	AddElement(/datum/element/atmos_sensitive)

@@ -160,7 +160,7 @@
 		target.restoreEars()
 		var/obj/item/organ/eyes/eyes = target.get_organ_slot(ORGAN_SLOT_EYES)
 		if(istype(eyes))
-			eyes.applyOrganDamage(-actual_heal_amt)
+			eyes.apply_organ_damage(-actual_heal_amt)
 		target.adjust_blindness(-actual_effect_heal_amt)
 		target.adjust_blurriness(-actual_effect_heal_amt)
 		target.adjust_disgust(-actual_effect_heal_amt)
