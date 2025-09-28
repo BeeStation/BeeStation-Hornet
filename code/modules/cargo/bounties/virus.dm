@@ -1,5 +1,5 @@
 /datum/bounty/virus
-	reward = 5000
+	reward = CARGO_CRATE_VALUE * 10
 	var/shipped = FALSE
 	var/stat_value = 0
 	var/stat_name = ""
