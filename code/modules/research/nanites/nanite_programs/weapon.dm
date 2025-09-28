@@ -10,7 +10,7 @@
 /datum/nanite_program/flesh_eating/active_effect()
 	if(iscarbon(host_mob))
 		var/mob/living/carbon/C = host_mob
-		C.take_bodypart_damage(1, 0, 0)
+		C.take_direct_bodypart_injury(BRUTE, 1)
 	else
 		host_mob.adjustBruteLoss(1, TRUE)
 	if(prob(3))

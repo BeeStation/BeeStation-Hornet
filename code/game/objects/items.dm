@@ -910,7 +910,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		U.deal_damage(7, sharpness, BRUTE, sound = FALSE, zone = BODY_ZONE_HEAD)
 
 	else
-		M.take_bodypart_damage(7)
+		M.take_direct_bodypart_injury(BRUTE, 7)
 
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "eye_stab", /datum/mood_event/eye_stab)
 

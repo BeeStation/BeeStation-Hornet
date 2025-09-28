@@ -165,7 +165,7 @@
 
 	if (HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		to_chat(user, span_danger("[src] slips out of your hand and hits your head."))
-		user.take_bodypart_damage(10)
+		user.take_direct_bodypart_injury(BRUTE, 10)
 		user.Unconscious(400)
 		return
 
@@ -175,7 +175,7 @@
 
 	if(!chaplain)
 		to_chat(user, span_danger("The book sizzles in your hands."))
-		user.take_bodypart_damage(0,10)
+		user.take_direct_bodypart_injury(BURN, 10)
 		return
 
 	if (!heal_mode)

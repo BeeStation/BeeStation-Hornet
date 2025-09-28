@@ -110,7 +110,7 @@
 	if(get_dist(owner, stalker) <= 1)
 		playsound(owner, 'sound/magic/demon_attack1.ogg', 50)
 		owner.visible_message(span_warning("[owner] is torn apart by invisible claws!"), span_userdanger("Ghostly claws tear your body apart!"))
-		owner.take_bodypart_damage(rand(20, 45))
+		owner.take_direct_bodypart_injury(BRUTE, rand(20, 45))
 	else if(DT_PROB(30, delta_time))
 		stalker.forceMove(get_step_towards(stalker, owner))
 	if(get_dist(owner, stalker) <= 8)

@@ -96,7 +96,8 @@
 		urdamageamt_brute += round((target.getBruteLoss()/ (missinghpbonus*2)),0.1)
 		urdamageamt_burn += round((target.getFireLoss()/ (missinghpbonus*2)),0.1)
 
-	target.take_bodypart_damage(urdamageamt_brute, urdamageamt_burn)
+	target.take_direct_bodypart_injury(BRUTE, urdamageamt_brute)
+	target.take_direct_bodypart_injury(BRUTE, urdamageamt_burn)
 	return FALSE
 
 /***************************BRUTE***************************/
@@ -332,5 +333,6 @@
 /datum/surgery_step/heal/combo/upgraded/femto/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, span_warning("You screwed up!"),
 		span_warning("[user] screws up!"),
-		span_notice("[user] fixes some of [target]'s wounds."), TRUE)
-	target.take_bodypart_damage(5,5)
+		span_notice("[user] fails to fix some of [target]'s wounds."), TRUE)
+	target.take_direct_bodypart_injury(BRUTE, 5)
+	target.take_direct_bodypart_injury(BURN, 5)

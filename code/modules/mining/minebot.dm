@@ -279,10 +279,10 @@
 	switch(severity)
 		if(1)
 			Stun(10 SECONDS)
-			take_bodypart_damage(25) // 20% of HP
+			take_direct_bodypart_injury(BRUTE, 25) // 20% of HP
 		if(2)
 			Stun(5 SECONDS)
-			take_bodypart_damage(10) // Bit less than 10% of HP
+			take_direct_bodypart_injury(BRUTE, 10) // Bit less than 10% of HP
 	to_chat(src, span_userdanger("*BZZZT*"))
 
 /// Handles humans toggling minebot modes

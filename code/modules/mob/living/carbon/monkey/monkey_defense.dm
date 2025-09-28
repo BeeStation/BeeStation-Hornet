@@ -143,7 +143,7 @@
 			else
 				to_chat(src, span_warning("Your hat protects you from the acid."))
 			return
-	take_bodypart_damage(acidpwr * min(0.6, acid_volume*0.1))
+	take_direct_bodypart_injury(BRUTE, acidpwr * min(0.6, acid_volume*0.1))
 
 
 /mob/living/carbon/monkey/ex_act(severity, target, origin)

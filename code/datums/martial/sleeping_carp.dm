@@ -221,7 +221,7 @@
 			var/mob/living/H = user
 			H.take_direct_damage(2*force, BRUTE, zone = BODY_ZONE_HEAD)
 		else
-			user.take_bodypart_damage(2*force)
+			user.take_direct_bodypart_injury(BRUTE, 2*force)
 		return
 	if(iscyborg(target))
 		return ..()

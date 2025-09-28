@@ -265,7 +265,7 @@
 			var/mob/living/carbon/human/H = user
 			H.deal_damage(2*force, sharpness, BRUTE, zone = BODY_ZONE_HEAD)
 		else
-			user.take_bodypart_damage(2*force)
+			user.take_direct_bodypart_injury(BRUTE, 2*force)
 		return
 	if(iscyborg(target))
 		// We don't stun if we're on harm.
@@ -506,7 +506,7 @@
 			var/mob/living/carbon/human/H = user
 			H.deal_damage(2*force, sharpness, BRUTE, zone = BODY_ZONE_HEAD)
 		else
-			user.take_bodypart_damage(2*force)
+			user.take_direct_bodypart_injury(BRUTE, 2*force)
 		return
 	if(iscyborg(target))
 		// We don't stun if we're on harm.
@@ -968,7 +968,7 @@
 			var/mob/living/carbon/human/H = user
 			H.deal_damage(2*force, sharpness, BRUTE, zone = BODY_ZONE_HEAD)
 		else
-			user.take_bodypart_damage(2*force)
+			user.take_direct_bodypart_injury(BRUTE, 2*force)
 		return
 	if(!isliving(target))
 		return ..()

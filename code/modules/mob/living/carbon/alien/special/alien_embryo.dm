@@ -40,7 +40,7 @@
 			if(DT_PROB(2, delta_time))
 				to_chat(owner, span_danger("Your muscles ache."))
 				if(prob(20))
-					owner.take_bodypart_damage(1)
+					owner.take_direct_bodypart_injury(BRUTE, 1)
 			if(DT_PROB(2, delta_time))
 				to_chat(owner, span_danger("Your stomach hurts."))
 				if(prob(20))

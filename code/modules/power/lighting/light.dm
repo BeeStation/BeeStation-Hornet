@@ -577,8 +577,7 @@
 			to_chat(user, span_warning("You try to remove the light [fitting], but you burn your hand on it!"))
 
 			var/obj/item/bodypart/affecting = user.get_bodypart("[(user.active_hand_index % 2 == 0) ? "r" : "l" ]_arm")
-			if(affecting && affecting.receive_damage( 0, 5 ))		// 5 burn damage
-				user.update_damage_overlays()
+			affecting.increase_injury(BURN, 5)
 			return				// if burned, don't remove the light
 	else
 		to_chat(user, span_notice("You remove the light [fitting]."))

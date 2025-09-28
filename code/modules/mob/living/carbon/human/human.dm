@@ -707,9 +707,9 @@
 			hud_used.healthdoll.add_overlay(mutable_appearance('icons/hud/screen_gen.dmi', "[body_part.body_zone][icon_num]"))
 		//Stamina Outline (Communicate that we have stamina damage)
 		//Hallucinations will appear as regular damage
-		if(body_part.get_staminaloss() && !is_hallucinating)
+		if(body_part.get_injury_amount(STAMINA) && !is_hallucinating)
 			var/mutable_appearance/MA = mutable_appearance('icons/hud/screen_gen.dmi', "[body_part.body_zone]stam")
-			MA.alpha = (body_part.stamina_dam / body_part.max_stamina_damage) * 70 + 30
+			MA.alpha = (body_part.get_injury_amount(STAMINA) / body_part.max_damage) * 70 + 30
 			hud_used.healthdoll.add_overlay(MA)
 		for (var/injury_icon in injury_list)
 			hud_used.healthdoll.add_overlay(mutable_appearance('icons/hud/screen_gen.dmi', "[body_part.body_zone]_[injury_icon]"))

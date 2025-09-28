@@ -92,26 +92,22 @@
 			step_away(src, mecha_attacker, 15)
 		var/obj/item/bodypart/temp = get_bodypart(pick(BODY_ZONE_CHEST, BODY_ZONE_CHEST, BODY_ZONE_CHEST, BODY_ZONE_HEAD))
 		if(temp)
-			var/update = 0
 			var/dmg = rand(mecha_attacker.force * 0.5, mecha_attacker.force)
 			switch(mecha_attacker.damtype)
 				if(BRUTE)
 					if(mecha_attacker.force > 35) // durand and other heavy mechas
 						Knockdown(20)
-					update |= temp.receive_damage(dmg, 0)
+					temp.increase_injury(mecha_attacker.damtype, dmg)
 					temp.run_limb_injuries(dmg, mecha_attacker.damtype, DAMAGE_STANDARD, 0)
 					playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
 				if(BURN)
-					update |= temp.receive_damage(0, dmg)
+					temp.increase_injury(mecha_attacker.damtype, dmg)
 					temp.run_limb_injuries(dmg, mecha_attacker.damtype, DAMAGE_FIRE, 0)
 					playsound(src, 'sound/items/welder.ogg', 50, TRUE)
 				if(TOX)
 					mecha_attacker.mech_toxin_damage(src)
 				else
 					return
-			if(update)
-				update_damage_overlays()
-			updatehealth()
 
 		visible_message(span_danger("[mecha_attacker.name] hits [src]!"), \
 						span_userdanger("[mecha_attacker.name] hits you!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, list(mecha_attacker))

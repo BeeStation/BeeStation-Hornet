@@ -39,7 +39,7 @@
 			user.log_message("[key_name(user)] fired a p50 round from [src] and it exploded.")
 			playsound(user, fire_sound, fire_sound_volume, vary_fire_sound)
 			to_chat(user, span_userdanger("[src] catastrophically explodes in your hands!"))
-			user.take_bodypart_damage(0, 40)
+			user.take_direct_bodypart_injury(BURN, 40)
 			explosion(src, 0, 0, 2, 2)
 			qdel(chambered)
 			chambered = null

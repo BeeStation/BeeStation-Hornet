@@ -934,7 +934,7 @@
 
 /datum/reagent/chlorine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.take_bodypart_damage(0.5 * REM * delta_time, updating_health = FALSE)
+	affected_mob.take_direct_bodypart_injury(BRUTE, 0.5 * REM * delta_time)
 	return UPDATE_MOB_HEALTH
 
 /datum/reagent/fluorine

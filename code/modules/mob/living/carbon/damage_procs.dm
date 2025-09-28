@@ -161,13 +161,18 @@
 //Damages ONE bodypart randomly selected from damagable ones.
 //It automatically updates damage overlays if necessary
 //It automatically updates health status
-/mob/living/carbon/take_bodypart_damage(brute = 0, burn = 0, stamina = 0, updating_health = TRUE, required_status)
+/mob/living/carbon/take_direct_bodypart_injury(injury, amount, required_status)
+	if(HAS_TRAIT(src, TRAIT_GODMODE) && amount > 0)
+		return
 	var/list/obj/item/bodypart/parts = get_damageable_bodyparts(required_status)
 	if(!parts.len)
 		return
 	var/obj/item/bodypart/picked = pick(parts)
-	if(picked.receive_damage(brute, burn, stamina))
-		update_damage_overlays()
+	picked.increase_injury(injury, amount)
+	// Update health
+	updatehealth()
+	update_stamina()
+	update_damage_overlays()
 
 /mob/living/carbon/heal_overall_injuries(injury_type, amount, required_status)
 	// If we have mob injuries, heal them first
@@ -187,10 +192,9 @@
 
 // damage MANY bodyparts, in random order
 /mob/living/carbon/take_direct_overall_damage(injury_type, amount, required_status)
-	if(HAS_TRAIT(src, TRAIT_GODMODE))
-		return	//godmode
+	if(HAS_TRAIT(src, TRAIT_GODMODE) && amount > 0)
+		return
 
-	// Heal bodyparts evenly
 	var/list/injured_parts = get_damageable_bodyparts(required_status)
 	for (var/obj/item/bodypart/part in injured_parts)
 		part.increase_injury(injury_type, amount / length(injured_parts))

@@ -26,7 +26,7 @@
 				affected_mob.emote("cough")
 			if(DT_PROB(0.5, delta_time))
 				to_chat(affected_mob, span_danger("You're burning in your own skin!"))
-				affected_mob.take_bodypart_damage(0, 5, updating_health = FALSE)
+				affected_mob.take_direct_bodypart_injury(BURN, 5)
 
 		if(3)
 			affected_mob.adjust_bodytemperature(10 * delta_time)
@@ -36,4 +36,4 @@
 				affected_mob.emote("cough")
 			if(DT_PROB(2.5, delta_time))
 				to_chat(affected_mob, span_danger("You're burning in your own skin!"))
-				affected_mob.take_bodypart_damage(0, 5, updating_health = FALSE)
+				affected_mob.take_direct_bodypart_injury(BURN, 5)

@@ -199,7 +199,7 @@
 	addtimer(CALLBACK(src, PROC_REF(detach)), MAX_IMPREGNATION_TIME)
 
 	if(!sterile)
-		M.take_bodypart_damage(strength,0) //done here so that humans in helmets take damage
+		M.take_direct_bodypart_injury(BRUTE, strength) //done here so that humans in helmets take damage
 		M.Unconscious(MAX_IMPREGNATION_TIME/0.3) //something like 25 ticks = 20 seconds with the default settings
 
 	GoIdle() //so it doesn't jump the people that tear it off

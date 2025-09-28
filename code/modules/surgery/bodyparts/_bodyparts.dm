@@ -170,7 +170,7 @@
 /obj/item/bodypart/process(delta_time)
 	// Decay
 	if (bodytype & BODYTYPE_ORGANIC)
-		receive_damage(decay_rate)
+		increase_injury(CLONE, decay_rate)
 	if (get_damage() >= max_damage)
 		destroyed = TRUE
 		update_disabled()
@@ -327,81 +327,23 @@
 		if (circulation_flags == CIRCULATION_BLOOD)
 			var/circulation_rating = owner.blood.get_circulation_proportion()
 			var/desired_hypoxia_damage = max(0, (max_damage * 3) - (((CLAMP01(circulation_rating) * (max_damage * 3)) ** 0.3) / ((max_damage * 3) ** (-0.7))))
-			receive_damage(clamp(damage_applied * 0.1, 0, desired_hypoxia_damage - damage_applied * 0.1))
-
-//Applies brute and burn damage to the organ. Returns 1 if the damage-icon states changed at all.
-//Damage will not exceed max_damage using this proc
-//Cannot apply negative damage
-/obj/item/bodypart/proc/receive_damage(brute = 0, burn = 0, stamina = 0, blocked = 0, updating_health = TRUE, required_status = null)
-	SHOULD_CALL_PARENT(TRUE)
-
-	var/hit_percent = (100-blocked)/100
-	if((!brute && !burn && !stamina) || hit_percent <= 0)
-		return FALSE
-	if(owner && HAS_TRAIT(owner, TRAIT_GODMODE))
-		return FALSE	//godmode
-	if(required_status && !(bodytype & required_status))
-		return FALSE
-
-	var/dmg_mlt = CONFIG_GET(number/damage_multiplier) * hit_percent
-	brute = round(max(brute * dmg_mlt, 0),DAMAGE_PRECISION)
-	burn = round(max(burn * dmg_mlt, 0),DAMAGE_PRECISION)
-	stamina = round(max(stamina * dmg_mlt, 0),DAMAGE_PRECISION)
-	brute = max(0, brute - brute_reduction)
-	burn = max(0, burn - burn_reduction)
-	//No stamina scaling.. for now..
-
-	if(!brute && !burn && !stamina)
-		return FALSE
-
-	if(bodytype & (BODYTYPE_ALIEN|BODYTYPE_LARVA_PLACEHOLDER)) //aliens take double burn //nothing can burn with so much snowflake code around
-		burn *= 2
-
-	var/can_inflict = (max_damage * 2) - get_damage()
-	if(can_inflict <= 0)
-		return FALSE
-	var/total_damage = brute + burn
-	if(total_damage > can_inflict)
-		brute = round(brute * (can_inflict / total_damage),DAMAGE_PRECISION)
-		burn = round(burn * (can_inflict / total_damage),DAMAGE_PRECISION)
-
-	if(brute)
-		set_brute_dam(brute_dam + brute)
-	if(burn)
-		set_burn_dam(burn_dam + burn)
-
-	//We've dealt the physical damages, if there's room lets apply the stamina damage.
-	if(stamina && !HAS_TRAIT(src, TRAIT_BODYPART_NO_STAMINA_REGENERATION))
-		set_stamina_dam(stamina_dam + round(clamp(stamina, 0, max_stamina_damage - stamina_dam), DAMAGE_PRECISION))
-
-	if(owner)
-		if(can_be_disabled)
-			update_disabled()
-		if(updating_health)
-			owner.updatehealth()
-			if(stamina >= DAMAGE_PRECISION)
-				owner.update_stamina(TRUE)
-				owner.stam_regen_start_time = max(owner.stam_regen_start_time, world.time + STAMINA_REGEN_BLOCK_TIME)
-				. = TRUE
-	return update_bodypart_damage_state() || .
+			increase_injury(CLONE, clamp(damage_applied * 0.1, 0, desired_hypoxia_damage - damage_applied * 0.1))
 
 /// Heal an injury by the base type path of the injury tree, or by the path of the injury
 /// injury: The typepath (or base path of the tree) of the injury to heal.
 /// amount: The amount to heal the injury by
 /// required_status: If set, the bodypart will only be healed if it meets the required status
 /// updating_health: Set to false to buffer the updatehealth() call.
-/obj/item/bodypart/proc/heal_injury(injury, amount, required_status = null, updating_health = TRUE)
+/obj/item/bodypart/proc/heal_injury(injury, amount, required_status = null)
 	SHOULD_CALL_PARENT(TRUE)
 
 	if(required_status && !(bodytype & required_status)) //So we can only heal certain kinds of limbs, ie robotic vs organic.
 		return
 
-	if(brute)
-		set_brute_dam(round(max(brute_dam - brute, 0), DAMAGE_PRECISION))
-	if(burn)
-		set_burn_dam(round(max(burn_dam - burn, 0), DAMAGE_PRECISION))
-	if(stamina && !HAS_TRAIT(src, TRAIT_BODYPART_NO_STAMINA_REGENERATION))
-		set_stamina_dam(round(max(stamina_dam - stamina, 0), DAMAGE_PRECISION))
+	if (amount <= 0)
+		return
+
+	increase_injury(injury, -amount)
 
 	if(owner)
 		if(can_be_disabled)
@@ -431,15 +373,6 @@
 		return located_injury.adjust_progression(amount)
 	var/datum/injury/located_injury = apply_injury_tree(injury_type, null)
 	return located_injury.adjust_progression(amount)
-
-///Proc to hook behavior associated to the change of the stamina_dam variable's value.
-/obj/item/bodypart/proc/set_stamina_dam(new_value)
-	PROTECTED_PROC(TRUE)
-
-	if(stamina_dam == new_value)
-		return
-	. = stamina_dam
-	stamina_dam = new_value
 
 //Returns total damage.
 /obj/item/bodypart/proc/get_damage(include_stamina = FALSE)

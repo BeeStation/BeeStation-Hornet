@@ -592,7 +592,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 							M.adjust_hallucinations(60 SECONDS)
 						else
 							to_chat(usr, span_userdanger("Something strikes you from behind! It hurts like hell and feel like a blunt weapon, but nothing is there..."))
-							M.take_bodypart_damage(30)
+							M.take_direct_bodypart_injury(BRUTE, 30)
 							playsound(loc, 'sound/weapons/genhit2.ogg', 100, 1)
 					if(ORION_TRAIL_ILLNESS)
 						var/severity = rand(1,3) //pray to RNGesus. PRAY, PIGS
@@ -610,7 +610,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 						if(prob(75))
 							M.Paralyze(60)
 							say("A sudden gust of powerful wind slams [M] into the floor!")
-							M.take_bodypart_damage(25)
+							M.take_direct_bodypart_injury(BRUTE, 25)
 							playsound(loc, 'sound/weapons/genhit.ogg', 100, 1)
 						else
 							to_chat(M, span_userdanger("A violent gale blows past you, and you barely manage to stay standing!"))

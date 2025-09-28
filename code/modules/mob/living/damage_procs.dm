@@ -184,13 +184,10 @@
 	return
 
 // damage ONE external organ, organ gets randomly selected from damaged ones.
-/mob/living/proc/take_bodypart_damage(brute = 0, burn = 0, stamina = 0, updating_health = TRUE, required_status)
-	adjustBruteLoss(brute, FALSE) //zero as argument for no instant health update
-	adjustFireLoss(burn, FALSE)
-	adjustExhaustion(stamina, FALSE)
-	if(updating_health)
-		updatehealth()
-		update_stamina(stamina >= DAMAGE_PRECISION)
+/mob/living/proc/take_direct_bodypart_injury(injury, amount, required_status)
+	take_direct_damage(amount, injury, DAMAGE_EXISTENTIAL)
+	updatehealth()
+	update_stamina(stamina >= DAMAGE_PRECISION)
 
 // heal MANY bodyparts, in random order
 /mob/living/proc/heal_overall_injuries(injury_type, amount, required_status)

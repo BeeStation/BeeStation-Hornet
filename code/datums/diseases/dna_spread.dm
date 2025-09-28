@@ -45,7 +45,7 @@
 			if(DT_PROB(0.5, delta_time))
 				to_chat(affected_mob, span_danger("Your muscles ache."))
 				if(prob(20))
-					affected_mob.take_bodypart_damage(1, updating_health = FALSE)
+					affected_mob.take_direct_bodypart_injury(BRUTE, 1)
 			if(DT_PROB(0.5, delta_time))
 				to_chat(affected_mob, span_danger("Your stomach hurts."))
 				if(prob(20))
