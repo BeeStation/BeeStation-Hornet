@@ -191,7 +191,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 /obj/item/organ/proc/on_death(delta_time, times_fired) //runs decay when outside of a person
 	if(organ_flags & (ORGAN_SYNTHETIC | ORGAN_FROZEN))
 		return
-	applyOrganDamage(decay_factor * maxHealth * delta_time)
+	apply_organ_damage(decay_factor * maxHealth * delta_time)
 
 /obj/item/organ/proc/on_life(delta_time, times_fired) //repair organ damage if the organ is not failing
 	SHOULD_CALL_PARENT(TRUE) //PASS YOUR ARGS FUCKER
@@ -203,7 +203,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 	///Damage decrements again by a percent of its maxhealth, up to a total of 4 extra times depending on the owner's health
 	if(owner)
 		healing_amount += (owner.satiety > 0) ? (4 * healing_factor * owner.satiety / MAX_SATIETY) : 0
-	applyOrganDamage(-healing_amount * maxHealth * delta_time, damage) // pass current damage incase we are over cap
+	apply_organ_damage(-healing_amount * maxHealth * delta_time, damage) // pass current damage incase we are over cap
 
 /obj/item/organ/examine(mob/user)
 	. = ..()
@@ -259,7 +259,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 	return //so we don't grant the organ's action to mobs who pick up the organ.
 
 ///Adjusts an organ's damage by the amount "d", up to a maximum amount, which is by default max damage
-/obj/item/organ/proc/applyOrganDamage(var/d, var/maximum = maxHealth)	//use for damaging effects
+/obj/item/organ/proc/apply_organ_damage(var/d, var/maximum = maxHealth)	//use for damaging effects
 	if(!d) //Micro-optimization.
 		return
 	if(maximum < damage)
@@ -272,7 +272,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 
 ///SETS an organ's damage to the amount "d", and in doing so clears or sets the failing flag, good for when you have an effect that should fix an organ if broken
 /obj/item/organ/proc/set_organ_damage(var/d)	//use mostly for admin heals
-	applyOrganDamage(d - damage)
+	apply_organ_damage(d - damage)
 
 /** check_damage_thresholds
   * input: M (a mob, the owner of the organ we call the proc on)

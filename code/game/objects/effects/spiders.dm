@@ -7,7 +7,7 @@
 	density = FALSE
 	max_integrity = 15
 
-/obj/structure/spider/ComponentInitialize()
+/obj/structure/spider/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/atmos_sensitive)
 

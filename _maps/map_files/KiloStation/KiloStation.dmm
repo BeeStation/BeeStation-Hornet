@@ -17944,19 +17944,6 @@
 /obj/machinery/modular_fabricator/autolathe,
 /turf/open/floor/plating,
 /area/science/lab)
-"dTV" = (
-/obj/structure/rack,
-/obj/effect/turf_decal/bot,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/effect/loot_jobscale/armoury/energy_gun,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/tech/grid,
-/area/ai_monitored/security/armory)
 "dUn" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8;
@@ -19430,6 +19417,14 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
+/turf/open/floor/iron,
+/area/hallway/primary/aft)
+"eob" = (
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/machinery/vending/deputy,
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "eos" = (
@@ -23045,6 +23040,21 @@
 	},
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
+"fym" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/loot_jobscale/armoury/pistols,
+/obj/effect/loot_jobscale/armoury/pistol_ammo_box,
+/obj/effect/loot_jobscale/armoury/pistol_ammo,
+/obj/structure/closet/gun_locker{
+	anchored = 1
+	},
+/turf/open/floor/iron/tech/grid,
+/area/ai_monitored/security/armory)
 "fyQ" = (
 /turf/open/floor/catwalk_floor,
 /area/quartermaster/warehouse)
@@ -27299,13 +27309,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
-"gTk" = (
-/obj/effect/turf_decal/tile/red/anticorner/contrasted{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/turf/open/floor/iron,
-/area/hallway/primary/aft)
 "gTo" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -41008,17 +41011,6 @@
 /obj/item/book/manual/wiki/engineering_hacking,
 /turf/open/floor/plating,
 /area/quartermaster/warehouse)
-"lrO" = (
-/obj/structure/rack,
-/obj/effect/turf_decal/bot,
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/effect/loot_jobscale/armoury/disabler,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/tech/grid,
-/area/ai_monitored/security/armory)
 "lsq" = (
 /obj/structure/table/reinforced,
 /obj/structure/window/reinforced{
@@ -64433,6 +64425,22 @@
 	},
 /turf/open/floor/iron/dark,
 /area/lawoffice)
+"sRu" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/loot_jobscale/armoury/tasers,
+/obj/effect/loot_jobscale/armoury/taser_ammo_box,
+/obj/structure/closet/gun_locker{
+	anchored = 1
+	},
+/turf/open/floor/iron/tech/grid,
+/area/ai_monitored/security/armory)
 "sRy" = (
 /obj/machinery/atmospherics/pipe/smart/simple/orange/visible{
 	dir = 9
@@ -103461,8 +103469,8 @@ edP
 glJ
 gXW
 syX
-dTV
-lrO
+sRu
+fym
 cYE
 mGO
 aka
@@ -106273,7 +106281,7 @@ qdW
 rGz
 dIQ
 hTB
-gTk
+eob
 gNQ
 oDK
 fmO

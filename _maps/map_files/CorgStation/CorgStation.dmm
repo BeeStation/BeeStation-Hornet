@@ -6745,6 +6745,11 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/virology)
+"bQZ" = (
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/machinery/vending/deputy,
+/turf/open/floor/iron,
+/area/hallway/primary/fore)
 "bRc" = (
 /obj/structure/rack,
 /obj/item/storage/box/beakers{
@@ -19899,9 +19904,12 @@
 "goa" = (
 /obj/structure/cable/yellow,
 /obj/machinery/power/apc/auto_name/directional/south,
-/obj/structure/rack,
-/obj/item/storage/box/firingpins,
 /obj/effect/turf_decal/delivery,
+/obj/effect/loot_jobscale/armoury/taser_ammo_box,
+/obj/effect/loot_jobscale/armoury/tasers,
+/obj/structure/closet/gun_locker{
+	anchored = 1
+	},
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "goc" = (
@@ -26369,6 +26377,9 @@
 /obj/effect/turf_decal/delivery,
 /obj/structure/rack,
 /obj/item/storage/box/sec_barricades,
+/obj/item/storage/box/firingpins{
+	pixel_y = 11
+	},
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "irq" = (
@@ -30355,17 +30366,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/science/xenobiology)
-"jFZ" = (
-/obj/structure/rack,
-/obj/effect/loot_jobscale/armoury/energy_gun{
-	pixel_y = 5
-	},
-/obj/effect/turf_decal/delivery,
-/obj/effect/loot_jobscale/armoury/disabler{
-	pixel_y = -3
-	},
-/turf/open/floor/iron,
-/area/ai_monitored/security/armory)
 "jGb" = (
 /obj/effect/turf_decal/tile/red/opposingcorners{
 	dir = 1
@@ -64442,6 +64442,16 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/aft)
+"uXl" = (
+/obj/effect/turf_decal/delivery,
+/obj/effect/loot_jobscale/armoury/pistol_ammo,
+/obj/effect/loot_jobscale/armoury/pistol_ammo_box,
+/obj/effect/loot_jobscale/armoury/pistols,
+/obj/structure/closet/gun_locker{
+	anchored = 1
+	},
+/turf/open/floor/iron,
+/area/ai_monitored/security/armory)
 "uXD" = (
 /obj/machinery/requests_console{
 	pixel_y = -32
@@ -109772,7 +109782,7 @@ bgr
 uGg
 qJy
 shJ
-ryd
+bQZ
 pJQ
 onZ
 wza
@@ -116443,7 +116453,7 @@ lSx
 hrA
 mmh
 muP
-jFZ
+uXl
 oXI
 aMT
 aMT

@@ -25,3 +25,9 @@
 	icon = 'icons/effects/particles/misc.dmi'
 	drift = generator("box", list(0.3, 0, 0.3), list(-0.3, 0, -0.3), NORMAL_RAND)
 	icon_state = list("line_4")
+
+/obj/emitter/confetti/taser
+	particles = new/particles/confetti/taser
+
+/particles/confetti/taser
+	color = generator("color", "#ffea00", "#ff00bf", UNIFORM_RAND)
