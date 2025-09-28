@@ -146,8 +146,7 @@
 	// Go over each open turf in our bounds list, check for blacklisted objects, then spawn a barrier.
 	for(var/turf/open/floor/turf_candidate in regionC)
 		if(!turf_candidate.is_blocked_turf(TRUE))
-			var/obj/structure/crimesign/barrier = new /obj/structure/crimesign(turf_candidate)
-			barrier.align(get_turf(src), crimesign_range)
+			var/obj/effect/crimesign/barrier = new /obj/effect/crimesign(turf_candidate, get_turf(src), crimesign_range)
 			active_barriers += barrier
 
 	playsound(user, 'sound/effects/crimesignalarm.ogg', 10, 0, 4)
