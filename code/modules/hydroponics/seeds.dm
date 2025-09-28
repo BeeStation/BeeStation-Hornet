@@ -131,10 +131,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds)
 	if(g)
 		g.mutability_flags &=  ~mutability
 
-/obj/item/seeds/proc/mutate(lifemut = 2, endmut = 5, productmut = 1, yieldmut = 2, potmut = 25, wrmut = 2, wcmut = 5)
+/obj/item/seeds/proc/mutate(lifemut = 2, endmut = 5, speedmut = 1, yieldmut = 2, potmut = 25, wrmut = 2, wcmut = 5)
 	adjust_lifespan(soft_adjust(lifemut))
 	adjust_endurance(soft_adjust(endmut))
-	adjust_production(soft_adjust(productmut))
+	adjust_production(soft_adjust(speedmut))
 	adjust_yield(soft_adjust(yieldmut))
 	adjust_potency(soft_adjust(potmut))
 	adjust_weed_rate(soft_adjust(wrmut))
@@ -149,15 +149,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds)
 		adjust_amt = rand(-amount, 0)
 	return adjust_amt
 
-/obj/item/seeds/proc/hard_mutate(lifemut = 2, endmut = 5, productmut = 1, yieldmut = 2, potmut = 25, wrmut = 2, wcmut = 5, traitmut = 0)
+/obj/item/seeds/proc/hard_mutate(lifemut = 2, endmut = 5, speedmut = 1, yieldmut = 2, potmut = 25, wrmut = 2, wcmut = 5, trait_chance = 0)
 	adjust_lifespan(rand(-lifemut,lifemut))
 	adjust_endurance(rand(-endmut,endmut))
-	adjust_production(rand(-productmut,productmut))
+	adjust_production(rand(-speedmut,speedmut))
 	adjust_yield(rand(-yieldmut,yieldmut))
 	adjust_potency(rand(-potmut,potmut))
 	adjust_weed_rate(rand(-wrmut, wrmut))
 	adjust_weed_chance(rand(-wcmut, wcmut))
-	if(prob(traitmut))
+	if(prob(trait_chance))
 		add_random_traits(1, 1)
 
 /obj/item/seeds/bullet_act(obj/projectile/Proj) //Works with the Somatoray to modify plant variables.

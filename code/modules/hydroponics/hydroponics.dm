@@ -25,6 +25,8 @@
 	var/cycledelay = 200	//About 10 seconds / cycle
 	var/harvest = 0			//Ready to harvest?
 	var/obj/item/seeds/myseed = null	//The currently planted seed
+	/// Possible weeds that can spawn by using mutagen on a weed (stat) tray
+	var/list/possible_weeds = list(/obj/item/seeds/liberty, /obj/item/seeds/angel, /obj/item/seeds/nettle/death, /obj/item/seeds/kudzu)
 	var/rating = 1
 	var/unwrenchable = 1
 	var/recent_bee_visit = FALSE //Have we been visited by a bee recently, so bees dont overpollinate one plant
@@ -404,15 +406,15 @@
 	visible_message(span_warning("The [oldPlantName] is overtaken by some [myseed.plantname]!"))
 
 
-/obj/machinery/hydroponics/proc/mutate(lifemut = 2, endmut = 5, productmut = 1, yieldmut = 2, potmut = 25, wrmut = 2, wcmut = 5, traitmut = 0) // Mutates the current seed
+/obj/machinery/hydroponics/proc/mutate(lifemut = 2, endmut = 5, speedmut = 1, yieldmut = 2, potmut = 25, wrmut = 2, wcmut = 5, trait_chance = 0) // Mutates the current seed
 	if(!myseed)
 		return
-	myseed.mutate(lifemut, endmut, productmut, yieldmut, potmut, wrmut, wcmut, traitmut)
+	myseed.mutate(lifemut, endmut, speedmut, yieldmut, potmut, wrmut, wcmut, trait_chance)
 
 /obj/machinery/hydroponics/proc/hardmutate()
 	if(!myseed)
 		return
-	myseed.hard_mutate(4, 10, 2, 4, 50, 4, 10, 3)
+	myseed.hard_mutate(lifemut = 4, endmut = 10, speedmut = 2, yieldmut = 4, potmut = 50, wrmut = 4, wcmut = 10, trait_chance = 3)
 
 /obj/machinery/hydroponics/proc/glowmutate()
 	if(!myseed)
@@ -448,8 +450,8 @@
 	if(myseed)
 		qdel(myseed)
 		myseed = null
-	var/newWeed = pick(/obj/item/seeds/liberty, /obj/item/seeds/angel, /obj/item/seeds/nettle/death, /obj/item/seeds/kudzu)
-	myseed = new newWeed
+	var/weed_to_spawn = pick(possible_weeds)
+	myseed = new weed_to_spawn
 	dead = 0
 	hardmutate()
 	age = 0
