@@ -23,6 +23,8 @@
 #define FACTION_CREATURE "creature"
 /// Faithless and shadowpeople
 #define FACTION_FAITHLESS "faithless"
+/// Faithless and shadowpeople
+#define FACTION_ANOMALY "anomaly"
 /// Gondolas
 #define FACTION_GONDOLA "gondola"
 /// Slaughterdemons
