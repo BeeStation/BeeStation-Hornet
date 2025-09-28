@@ -165,7 +165,6 @@
 		/obj/item/skub = 1
 	)
 
-	refill_canister = /obj/item/vending_refill/autodrobe
 	default_price = 50
 	extra_price = 75
 	light_mask="theater-light-mask"
@@ -173,7 +172,3 @@
 /obj/machinery/vending/autodrobe/all_access
 	desc = "A vending machine for costumes. This model appears to have no access restrictions."
 	req_access = null
-
-/obj/item/vending_refill/autodrobe
-	machine_name = "AutoDrobe"
-	icon_state = "refill_costume"

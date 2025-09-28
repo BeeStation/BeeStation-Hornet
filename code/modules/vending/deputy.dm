@@ -51,7 +51,6 @@
 	premium = list(/obj/item/clothing/head/helmet = 4,
 					/obj/item/clothing/suit/armor/vest = 4)
 
-	refill_canister = /obj/item/vending_refill/deputy
 	default_price = PAYCHECK_MINIMAL * 10
 	extra_price = PAYCHECK_MINIMAL * 15
 
@@ -111,7 +110,7 @@
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 		flick(icon_deny,src)
 		return TRUE
-	
+
 	playsound(src, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 	say("Only qualified personnel are allowed to purchase spare equipment. Enlist now!")
 	flick(icon_deny,src)
@@ -120,8 +119,3 @@
 /obj/machinery/vending/deputy/Destroy()
 	QDEL_NULL(radio)
 	return ..()
-
-/obj/item/vending_refill/deputy
-	machine_name = "DepVend"
-	icon_state = "refill_sec"
-

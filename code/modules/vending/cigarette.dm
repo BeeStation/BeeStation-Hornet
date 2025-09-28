@@ -19,7 +19,6 @@
 		           /obj/item/storage/fancy/cigarettes/cigars = 1,
 		           /obj/item/storage/fancy/cigarettes/cigars/havana = 1,
 		           /obj/item/storage/fancy/cigarettes/cigars/cohiba = 1)
-	refill_canister = /obj/item/vending_refill/cigarette
 	default_price = 5
 	extra_price = 40
 	light_mask = "cigs-light-mask"
@@ -51,10 +50,6 @@
 	premium = list(/obj/item/storage/fancy/cigarettes/cigpack_mindbreaker = 5,
 					/obj/item/clothing/mask/vape = 5,
 					/obj/item/lighter = 3)
-
-/obj/item/vending_refill/cigarette
-	machine_name = "ShadyCigs Deluxe"
-	icon_state = "refill_smoke"
 
 /obj/machinery/vending/cigarette/pre_throw(obj/item/I)
 	if(istype(I, /obj/item/lighter))

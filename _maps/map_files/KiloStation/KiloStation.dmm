@@ -56982,7 +56982,7 @@
 /obj/structure/table/wood,
 /obj/item/stack/package_wrap,
 /obj/item/stack/package_wrap,
-/obj/item/vending_refill/cigarette,
+/obj/item/vending_refill,
 /obj/item/hand_labeler,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -26
@@ -72512,11 +72512,11 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/structure/closet/crate,
-/obj/item/vending_refill/snack{
+/obj/item/vending_refill{
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/item/vending_refill/cola,
+/obj/item/vending_refill,
 /obj/item/screwdriver,
 /obj/structure/grille/broken,
 /turf/open/floor/plating,

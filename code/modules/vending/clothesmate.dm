@@ -201,12 +201,7 @@
 		/obj/item/clothing/neck/necklace/dope = 3,
 		/obj/item/clothing/suit/jacket/letterman_nanotrasen = 1
 	)
-	refill_canister = /obj/item/vending_refill/clothing
 	default_price = PAYCHECK_MEDIUM
 	extra_price = PAYCHECK_HARD
 	light_mask = "wardrobe-light-mask"
 	light_color = LIGHT_COLOR_ELECTRIC_GREEN
-
-/obj/item/vending_refill/clothing
-	machine_name = "ClothesMate"
-	icon_state = "refill_clothes"

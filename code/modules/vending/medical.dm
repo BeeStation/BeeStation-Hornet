@@ -35,7 +35,6 @@
 		)
 	armor_type = /datum/armor/vending_medical
 	resistance_flags = FIRE_PROOF
-	refill_canister = /obj/item/vending_refill/medical
 	default_price = 25
 	extra_price = 100
 	light_mask = "med-light-mask"
@@ -47,10 +46,6 @@
 	energy = 100
 	fire = 100
 	acid = 50
-
-/obj/item/vending_refill/medical
-	machine_name = "NanoMed Plus"
-	icon_state = "refill_medical"
 
 /obj/machinery/vending/medical/syndicate_access
 	name = "\improper SyndiMed Plus"

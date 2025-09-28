@@ -224,7 +224,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/vending_refill/snack,
+/obj/item/vending_refill,
 /turf/open/floor/wood,
 /area/shuttle/transport)
 "bd" = (

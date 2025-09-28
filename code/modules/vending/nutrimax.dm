@@ -17,10 +17,5 @@
 					/obj/item/plant_analyzer = 4)
 	contraband = list(/obj/item/reagent_containers/cup/bottle/ammonia = 10,
 						/obj/item/reagent_containers/cup/bottle/diethylamine = 5)
-	refill_canister = /obj/item/vending_refill/hydronutrients
 	default_price = 10
 	extra_price = 50
-
-/obj/item/vending_refill/hydronutrients
-	machine_name = "NutriMax"
-	icon_state = "refill_plant"

@@ -25,12 +25,6 @@
 	premium = list(/obj/item/computer_hardware/hard_drive/role/captain = 3)
 	contraband = list(/obj/item/computer_hardware/hard_drive/role/virus/clown = 2,
 					/obj/item/computer_hardware/hard_drive/role/virus/mime = 2)
-	refill_canister = /obj/item/vending_refill/job_disk
 	default_price = 100
 	extra_price = 300
 	light_mask="cart-light-mask"
-
-/obj/item/vending_refill/job_disk
-	machine_name = "PTech"
-	icon_state = "refill_smoke"
-

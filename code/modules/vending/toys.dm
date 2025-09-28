@@ -29,7 +29,6 @@
 
 	armor_type = /datum/armor/vending_donksofttoyvendor
 	resistance_flags = FIRE_PROOF
-	refill_canister = /obj/item/vending_refill/donksoft
 	default_price = 75
 	extra_price = 300
 
@@ -40,8 +39,3 @@
 	energy = 100
 	fire = 100
 	acid = 50
-
-/obj/item/vending_refill/donksoft
-	machine_name = "Donksoft Toy Vendor"
-	icon_state = "refill_donksoft"
-

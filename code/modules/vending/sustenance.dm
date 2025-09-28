@@ -12,10 +12,5 @@
 						/obj/item/reagent_containers/cup/glass/coffee = 12,
 						/obj/item/tank/internals/emergency_oxygen = 6,
 						/obj/item/clothing/mask/breath = 6)
-	refill_canister = /obj/item/vending_refill/sustenance
 	default_price = 0
 	extra_price = 0
-
-/obj/item/vending_refill/sustenance
-	machine_name = "Sustenance Vendor"
-	icon_state = "refill_snack"

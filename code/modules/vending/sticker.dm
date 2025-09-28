@@ -5,17 +5,12 @@
 	icon_state = "gacha"
 	light_color = LIGHT_COLOR_CYAN
 	products = list(/obj/item/sticker_gacha/series_1 = 15)
-	refill_canister = /obj/item/vending_refill/sticker
 	default_price = 35
 	extra_price = 50
 
 /obj/machinery/vending/sticker/Initialize(mapload)
 	. = ..()
 	fill_sticker_globals()
-
-/obj/item/vending_refill/sticker
-	machine_name = "Sticker Vendor"
-	icon_state = "refill_smoke"
 
 //You can make this generic if you want to use it elsehwere
 /obj/item/sticker_gacha

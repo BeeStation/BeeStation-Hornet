@@ -26,7 +26,6 @@
 				   /obj/item/clothing/head/helmet/blueshirt = 1,
 				   /obj/item/clothing/suit/armor/vest/blueshirt = 1,
 				   /obj/item/grenade/stingbang = 1)
-	refill_canister = /obj/item/vending_refill/security
 	default_price = 100
 	extra_price = 150
 
@@ -38,7 +37,3 @@
 		var/obj/item/flashlight/F = I
 		F.on = TRUE
 		F.update_brightness()
-
-/obj/item/vending_refill/security
-	machine_name = "SecTech"
-	icon_state = "refill_sec"

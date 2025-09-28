@@ -21214,7 +21214,7 @@
 	dir = 1
 	},
 /obj/machinery/airalarm/directional/north,
-/obj/item/vending_refill/hydroseeds{
+/obj/item/vending_refill{
 	pixel_x = -2;
 	pixel_y = 4
 	},
@@ -39282,7 +39282,7 @@
 /obj/structure/closet/secure_closet/bar{
 	req_access_txt = "25"
 	},
-/obj/item/vending_refill/cigarette,
+/obj/item/vending_refill,
 /obj/effect/turf_decal/bot,
 /obj/item/reagent_containers/cup/glass/shaker,
 /turf/open/floor/iron,
