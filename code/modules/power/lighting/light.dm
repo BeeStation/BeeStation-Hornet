@@ -575,10 +575,9 @@
 			to_chat(user, span_notice("You telekinetically remove the light [fitting]."))
 		else
 			to_chat(user, span_warning("You try to remove the light [fitting], but you burn your hand on it!"))
-
-			var/obj/item/bodypart/affecting = user.get_bodypart("[(user.active_hand_index % 2 == 0) ? "r" : "l" ]_arm")
-			affecting.increase_injury(BURN, 5)
-			return				// if burned, don't remove the light
+			user.deal_damage(5, 0, BURN, DAMAGE_FIRE, zone = user.active_hand_index % 2 == 0 ? BODY_ZONE_R_ARM : BODY_ZONE_L_ARM)
+			// if burned, don't remove the light
+			return
 	else
 		to_chat(user, span_notice("You remove the light [fitting]."))
 	// create a light tube/bulb item and put it in the user's hand

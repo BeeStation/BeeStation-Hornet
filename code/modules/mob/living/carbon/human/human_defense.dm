@@ -1,5 +1,6 @@
 /mob/living/carbon/human/take_direct_damage(amount, type = BRUTE, flag = DAMAGE_STANDARD, zone = null)
-	amount *= (100 - physiology.damage_resistance) / 100
+	if (flag != DAMAGE_EXISTENTIAL)
+		amount *= (100 - physiology.damage_resistance) / 100
 	// depending on the species, it will run the corresponding apply_damage code there
 	if(stat != DEAD && (type == BRUTE || type == BURN) && amount > 10 && prob(10 + amount / 2))
 		INVOKE_ASYNC(src, PROC_REF(emote), "scream")

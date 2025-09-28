@@ -156,7 +156,7 @@
 					playsound(H, get_sfx("desecration"), 50, TRUE, -1) //You just want to socialize
 					H.visible_message(span_warning("[H] rattles loudly and flails around!!"), span_danger("Your bones hurt so much that your missing muscles spasm!!"))
 					H.say("OOF!!", forced=/datum/reagent/toxin/bonehurtingjuice)
-					bp.increase_injury(BRUTE, 200) //But I don't think we should
+					H.take_direct_damage(200, BRUTE, DAMAGE_EXISTENTIAL, bp.body_zone)
 				else
 					to_chat(H, span_warning("Your missing arm aches from wherever you left it."))
 					H.emote("sigh")
