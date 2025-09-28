@@ -10,11 +10,10 @@
 	light_power = 0.25
 
 /obj/effect/crimesign/Initialize(mapload, turf/source, size)
-	. = ..()
+	align(source, size)
 	alpha = 100
 	add_filter("bloom" , 1 , list(type="bloom", size=0.5, offset = 0.1, alpha = 200))
-	align(source, size)
-	update_appearance(UPDATE_ICON)
+	. = ..()
 
 /obj/effect/crimesign/update_overlays()
 	. = ..()

@@ -137,7 +137,7 @@
 
 	return COMPONENT_ACTION_HANDLED
 
-/obj/item/holosign_creator/security/proc/spawn_barriers(var/mob/user)
+/obj/item/holosign_creator/security/proc/spawn_barriers(mob/user)
 	// Create a square that is 7 tiles radius(A), then one that is 6 in radius(B).
 	var/list/regionA = RANGE_TURFS(crimesign_range, user.loc)
 	var/list/regionB = RANGE_TURFS(crimesign_range - 1, user.loc)
@@ -160,7 +160,7 @@
 	addtimer(CALLBACK(src, PROC_REF(delete_barriers), TRUE), cooldown_length / 1.2)
 	return
 
-/obj/item/holosign_creator/security/proc/delete_barriers(var/fizzled)
+/obj/item/holosign_creator/security/proc/delete_barriers(fizzled)
 
 	if(!active_crimesign)
 		return
