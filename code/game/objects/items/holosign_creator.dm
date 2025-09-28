@@ -119,6 +119,8 @@
 
 /obj/item/holosign_creator/security/Destroy()
 	UnregisterSignal(src, COMSIG_ITEM_UI_ACTION_CLICK)
+	QDEL_NULL(radio)
+	delete_barriers(FALSE)
 	. = ..()
 
 /// Signal proc for [COMSIG_ITEM_UI_ACTION_CLICK] that toggles crimesign on and off if our action button is clicked.
@@ -171,10 +173,6 @@
 		say("Error. Charge depleted.")
 	active_crimesign = FALSE
 	return
-
-/obj/item/holosign_creator/security/Destroy()
-	QDEL_NULL(radio)
-	return ..()
 
 /obj/item/holosign_creator/engineering
 	name = "engineering holobarrier projector"
