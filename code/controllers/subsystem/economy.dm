@@ -2,6 +2,10 @@ SUBSYSTEM_DEF(economy)
 	name = "Economy"
 	wait = 5 MINUTES
 	runlevels = RUNLEVEL_GAME
+	dependencies = list(
+		/datum/controller/subsystem/processing/station,
+	)
+
 	var/roundstart_paychecks = 5
 	var/budget_pool = 50000
 	var/full_ancap = FALSE // Enables extra money charges for things that normally would be free, such as sleepers/cryo/cloning.
