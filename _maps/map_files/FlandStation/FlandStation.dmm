@@ -20249,28 +20249,6 @@
 /obj/structure/disposalpipe/trunk,
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
-"fmo" = (
-/obj/structure/rack,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/effect/turf_decal/bot,
-/obj/machinery/door/window/southright{
-	base_state = "left";
-	dir = 1;
-	icon_state = "left";
-	name = "Disabler Storage";
-	req_one_access_txt = "1;4"
-	},
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 4
-	},
-/obj/effect/loot_jobscale/armoury/disabler,
-/turf/open/floor/iron/dark,
-/area/ai_monitored/security/armory)
 "fmD" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/rack,
@@ -23208,6 +23186,28 @@
 	},
 /turf/open/floor/iron/dark,
 /area/engine/engine_room)
+"fVw" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/effect/turf_decal/bot,
+/obj/machinery/door/window/southright{
+	name = "Weapons Storage";
+	req_one_access_txt = "1;4"
+	},
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 8
+	},
+/obj/effect/loot_jobscale/armoury/pistol_ammo,
+/obj/effect/loot_jobscale/armoury/pistol_ammo_box,
+/obj/structure/closet/gun_locker{
+	anchored = 1
+	},
+/turf/open/floor/iron/dark,
+/area/ai_monitored/security/armory)
 "fVT" = (
 /obj/machinery/light,
 /obj/machinery/requests_console{
@@ -30365,25 +30365,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/bridge)
-"hLS" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/rack,
-/obj/effect/turf_decal/bot,
-/obj/machinery/door/window/southright{
-	name = "Weapons Storage";
-	req_one_access_txt = "1;4"
-	},
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 8
-	},
-/obj/effect/loot_jobscale/armoury/energy_gun,
-/turf/open/floor/iron/dark,
-/area/ai_monitored/security/armory)
 "hLX" = (
 /obj/machinery/door/airlock/external{
 	name = "Supply Dock Airlock";
@@ -30896,6 +30877,28 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
+"hTl" = (
+/obj/structure/rack,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/effect/turf_decal/bot,
+/obj/machinery/door/window/southright{
+	base_state = "left";
+	dir = 1;
+	icon_state = "left";
+	name = "Disabler Storage";
+	req_one_access_txt = "1;4"
+	},
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 4
+	},
+/obj/effect/loot_jobscale/armoury/laser_gun,
+/turf/open/floor/iron/dark,
+/area/ai_monitored/security/armory)
 "hTr" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 10
@@ -35082,27 +35085,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/port)
-"iUg" = (
-/obj/structure/rack,
-/obj/effect/turf_decal/bot,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/machinery/door/window/southright{
-	base_state = "left";
-	icon_state = "left";
-	name = "Weapons Storage";
-	req_one_access_txt = "1;4"
-	},
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 8
-	},
-/obj/effect/loot_jobscale/armoury/laser_gun,
-/turf/open/floor/iron/dark,
-/area/ai_monitored/security/armory)
 "iUs" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -78720,6 +78702,14 @@
 	},
 /turf/open/floor/iron,
 /area/security/main)
+"ugO" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/effect/spawner/structure/random_piano,
+/obj/effect/turf_decal/siding/wood/corner,
+/turf/open/floor/wood,
+/area/crew_quarters/theatre)
 "ugP" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance/four,
@@ -86626,14 +86616,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/warden)
-"vTP" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/effect/spawner/structure/random_piano,
-/obj/effect/turf_decal/siding/wood/corner,
-/turf/open/floor/wood,
-/area/crew_quarters/theatre)
 "vTS" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/two,
@@ -95789,6 +95771,30 @@
 /obj/structure/bookcase/random,
 /turf/open/floor/carpet,
 /area/hallway/secondary/entry)
+"xUx" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/door/window/southright{
+	base_state = "left";
+	icon_state = "left";
+	name = "Weapons Storage";
+	req_one_access_txt = "1;4"
+	},
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 8
+	},
+/obj/effect/loot_jobscale/armoury/taser_ammo_box,
+/obj/effect/loot_jobscale/armoury/tasers,
+/obj/structure/closet/gun_locker{
+	anchored = 1
+	},
+/turf/open/floor/iron/dark,
+/area/ai_monitored/security/armory)
 "xUA" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -116908,7 +116914,7 @@ mRd
 mRd
 mRd
 vAS
-vTP
+ugO
 wsD
 wOH
 iCg
@@ -127956,7 +127962,7 @@ uoz
 wWu
 tMf
 oSQ
-fmo
+hTl
 lFm
 mgw
 oSQ
@@ -128472,7 +128478,7 @@ cRA
 uPR
 aJs
 hiV
-iUg
+xUx
 rlY
 pNu
 wWu
@@ -128729,7 +128735,7 @@ xCu
 uPR
 pqf
 rha
-hLS
+fVw
 aBX
 rve
 wWu

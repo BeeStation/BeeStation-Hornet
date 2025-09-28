@@ -329,11 +329,6 @@
 
 	base_icon_state = "defibpaddles"
 
-/obj/item/shockpaddles/ComponentInitialize()
-	. = ..()
-	AddElement(/datum/element/update_icon_updates_onmob)
-	AddComponent(/datum/component/two_handed, force_unwielded=8, force_wielded=12)
-
 /obj/item/shockpaddles/Destroy()
 	defib = null
 	listeningTo = null
@@ -395,6 +390,9 @@
 	defib = loc
 	busy = FALSE
 	update_appearance()
+
+	AddElement(/datum/element/update_icon_updates_onmob)
+	AddComponent(/datum/component/two_handed, force_unwielded=8, force_wielded=12)
 
 /obj/item/shockpaddles/update_icon_state()
 	var/wielded = ISWIELDED(src)

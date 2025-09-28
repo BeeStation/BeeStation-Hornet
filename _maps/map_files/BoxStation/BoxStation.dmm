@@ -13055,6 +13055,18 @@
 /obj/machinery/computer/security/wooden_tv,
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain)
+"cwN" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 8
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/obj/item/radio/intercom{
+	pixel_y = -29
+	},
+/turf/open/floor/iron,
+/area/security/brig)
 "cwO" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "Prisongate"
@@ -13135,17 +13147,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /turf/open/space,
 /area/space/nearstation)
-"cxE" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 2;
-	height = 13;
-	id = "ferry_home";
-	name = "port bay 2";
-	width = 5
-	},
-/turf/open/space/basic,
-/area/space)
 "cyb" = (
 /obj/machinery/door/airlock/external{
 	name = "Escape Pod One"
@@ -23081,6 +23082,22 @@
 /obj/effect/spawner/lootdrop/glowstick,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
+"fQj" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/effect/loot_jobscale/armoury/pistol_ammo,
+/obj/effect/loot_jobscale/armoury/pistol_ammo_box,
+/obj/effect/loot_jobscale/armoury/pistols,
+/obj/structure/closet/gun_locker{
+	anchored = 1
+	},
+/turf/open/floor/iron,
+/area/ai_monitored/security/armory)
 "fQq" = (
 /obj/machinery/ai_slipper{
 	uses = 10
@@ -38101,15 +38118,6 @@
 	},
 /turf/open/floor/iron,
 /area/quartermaster/warehouse)
-"lxA" = (
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 8
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/security/brig)
 "lxF" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 1
@@ -38715,18 +38723,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/medical/cryo)
-"lJH" = (
-/obj/structure/rack,
-/obj/effect/turf_decal/bot,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/effect/loot_jobscale/armoury/disabler,
-/turf/open/floor/iron,
-/area/ai_monitored/security/armory)
 "lKH" = (
 /obj/structure/chair/office{
 	dir = 1
@@ -38916,15 +38912,6 @@
 /obj/structure/dresser,
 /turf/open/floor/carpet/orange,
 /area/crew_quarters/dorms)
-"lPI" = (
-/obj/structure/rack,
-/obj/effect/turf_decal/bot,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/effect/loot_jobscale/armoury/energy_gun,
-/turf/open/floor/iron,
-/area/ai_monitored/security/armory)
 "lPN" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 1
@@ -54443,6 +54430,18 @@
 	},
 /turf/open/floor/catwalk_floor/iron,
 /area/engine/atmos)
+"rYB" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/effect/loot_jobscale/armoury/taser_ammo_box,
+/obj/effect/loot_jobscale/armoury/tasers,
+/obj/structure/closet/gun_locker{
+	anchored = 1
+	},
+/turf/open/floor/iron,
+/area/ai_monitored/security/armory)
 "rYC" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/preopen{
@@ -62094,16 +62093,6 @@
 /obj/machinery/camera/directional/south,
 /turf/open/floor/iron,
 /area/science/mixing)
-"uSC" = (
-/obj/structure/window/reinforced,
-/obj/effect/turf_decal/siding/wood,
-/obj/structure/musician/piano,
-/obj/item/radio/intercom/directional/west,
-/obj/machinery/computer/security/telescreen/entertainment{
-	pixel_x = -31
-	},
-/turf/open/floor/wood,
-/area/crew_quarters/theatre)
 "uSE" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -65011,6 +65000,16 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/genetics)
+"vYj" = (
+/obj/structure/window/reinforced,
+/obj/effect/turf_decal/siding/wood,
+/obj/structure/musician/piano,
+/obj/item/radio/intercom/directional/west,
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_x = -31
+	},
+/turf/open/floor/wood,
+/area/crew_quarters/theatre)
 "vYB" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -69427,6 +69426,17 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
+"xHZ" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 2;
+	height = 14;
+	id = "ferry_home";
+	name = "port bay 2";
+	width = 5
+	},
+/turf/open/space/basic,
+/area/space)
 "xIi" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 8
@@ -82152,7 +82162,7 @@ aUL
 rQX
 aaa
 aaa
-cxE
+xHZ
 aaa
 aaa
 rQX
@@ -100097,7 +100107,7 @@ cVL
 adR
 sCt
 vLp
-lxA
+cwN
 aiX
 aiX
 aiX
@@ -102397,7 +102407,7 @@ aaa
 aaZ
 kAi
 ted
-lPI
+rYB
 fRu
 csg
 eJm
@@ -102654,7 +102664,7 @@ cyR
 aaZ
 pst
 ack
-lJH
+fQj
 hJq
 jZE
 aaZ
@@ -104505,7 +104515,7 @@ oLg
 tna
 aMr
 ndY
-uSC
+vYj
 cik
 qPv
 dlq

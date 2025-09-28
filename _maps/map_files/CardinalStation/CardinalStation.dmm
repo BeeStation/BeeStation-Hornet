@@ -5598,12 +5598,6 @@
 	dir = 1
 	},
 /area/crew_quarters/cryopods)
-"bfr" = (
-/obj/machinery/requests_console/auto_name/directional/west{
-	announcementConsole = 1
-	},
-/turf/open/floor/carpet/orange,
-/area/quartermaster/qm)
 "bfx" = (
 /obj/structure/platform/gray{
 	dir = 10
@@ -30720,26 +30714,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
-"gmL" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/rack,
-/obj/effect/turf_decal/bot,
-/obj/machinery/door/window/southright{
-	name = "Weapons Storage";
-	req_one_access_txt = "3"
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 8
-	},
-/obj/effect/loot_jobscale/armoury/energy_gun,
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/obj/machinery/light/directional/north,
-/turf/open/floor/iron/dark/textured,
-/area/ai_monitored/security/armory)
 "gmN" = (
 /obj/structure/table/reinforced{
 	color = "#c2bfa3"
@@ -30995,6 +30969,18 @@
 	},
 /turf/open/floor/plating,
 /area/medical/booth)
+"goE" = (
+/obj/effect/turf_decal/tile/brown/opposingcorners,
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/structure/sign/poster/official/random/directional/south,
+/obj/effect/turf_decal/siding/dark,
+/obj/effect/spawner/structure/random_piano{
+	icon_state = "piano";
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/crew_quarters/theatre/backstage)
 "goL" = (
 /obj/machinery/telecomms/server/presets/command,
 /obj/effect/turf_decal/bot_white,
@@ -42603,6 +42589,36 @@
 	},
 /turf/open/floor/vault/rock,
 /area/science/mixing)
+"iFO" = (
+/obj/structure/rack,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/item/clothing/head/helmet{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/clothing/head/helmet,
+/obj/item/clothing/head/helmet{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/clothing/suit/armor/vest{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/clothing/suit/armor/vest{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/clothing/suit/armor/vest{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/machinery/light_switch/directional/south,
+/obj/machinery/light/directional/east,
+/turf/open/floor/iron/dark/textured,
+/area/ai_monitored/security/armory)
 "iFS" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line,
 /obj/structure/sign/departments/minsky/engineering/engineering{
@@ -82023,6 +82039,14 @@
 	},
 /turf/open/floor/iron/half,
 /area/hallway/primary/fore)
+"qFu" = (
+/obj/machinery/requests_console{
+	department = "Cargo Bay";
+	departmentType = 2;
+	pixel_x = -30
+	},
+/turf/open/floor/carpet/orange,
+/area/quartermaster/qm)
 "qFE" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -85993,6 +86017,32 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/prison/dark,
 /area/security/prison)
+"rto" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/effect/turf_decal/bot,
+/obj/machinery/door/window/southright{
+	name = "Weapons Storage";
+	req_one_access_txt = "3"
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/machinery/light/directional/north,
+/obj/effect/loot_jobscale/armoury/tasers,
+/obj/effect/loot_jobscale/armoury/taser_ammo_box,
+/obj/effect/loot_jobscale/armoury/pistols,
+/obj/effect/loot_jobscale/armoury/pistol_ammo_box,
+/obj/effect/loot_jobscale/armoury/pistol_ammo,
+/obj/structure/closet/gun_locker{
+	anchored = 1
+	},
+/turf/open/floor/iron/dark/textured,
+/area/ai_monitored/security/armory)
 "rtp" = (
 /obj/structure/railing/perspective/black,
 /obj/effect/turf_decal/siding{
@@ -108461,40 +108511,6 @@
 	},
 /turf/open/floor/iron/tech,
 /area/ai_monitored/turret_protected/aisat/hallway)
-"vUR" = (
-/obj/structure/rack,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/item/clothing/head/helmet{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/clothing/head/helmet,
-/obj/item/clothing/head/helmet{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/clothing/suit/armor/vest{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/clothing/suit/armor/vest{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/clothing/suit/armor/vest{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/effect/loot_jobscale/armoury/disabler,
-/obj/effect/loot_jobscale/armoury/disabler{
-	pixel_y = -3
-	},
-/obj/machinery/light_switch/directional/south,
-/obj/machinery/light/directional/east,
-/turf/open/floor/iron/dark/textured,
-/area/ai_monitored/security/armory)
 "vUX" = (
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=7-ATMOS";
@@ -110479,18 +110495,6 @@
 /obj/effect/turf_decal/tile/purple/opposingcorners,
 /turf/open/floor/iron/white,
 /area/science/research)
-"wqm" = (
-/obj/effect/turf_decal/tile/brown/opposingcorners,
-/obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/obj/structure/sign/poster/official/random/directional/south,
-/obj/effect/turf_decal/siding/dark,
-/obj/effect/spawner/structure/random_piano{
-	icon_state = "piano";
-	dir = 4
-	},
-/turf/open/floor/iron/dark,
-/area/crew_quarters/theatre/backstage)
 "wqn" = (
 /obj/structure/chair/office/light{
 	dir = 8
@@ -157079,7 +157083,7 @@ hZp
 nNT
 nug
 eQO
-gmL
+rto
 fCL
 oHS
 kLg
@@ -157418,7 +157422,7 @@ qkz
 qkz
 ilI
 aXZ
-bfr
+qFu
 fQw
 sfi
 tDc
@@ -157596,7 +157600,7 @@ eQO
 vVj
 bTo
 xhW
-vUR
+iFO
 eQO
 lHO
 bSC
@@ -158696,7 +158700,7 @@ ker
 upT
 tLt
 wBA
-wqm
+goE
 jKy
 udB
 rtq

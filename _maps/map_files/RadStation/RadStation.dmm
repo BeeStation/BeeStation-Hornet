@@ -8353,20 +8353,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
-"cIf" = (
-/obj/item/gun/energy/e_gun/dragnet{
-	pixel_x = -2;
-	pixel_y = 1
-	},
-/obj/item/beacon/nettingportal,
-/obj/machinery/firealarm/directional/west,
-/obj/structure/rack,
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/ai_monitored/security/armory)
 "cIg" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -11761,46 +11747,6 @@
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
-"dMH" = (
-/obj/structure/rack,
-/obj/item/storage/box/rubbershot{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/storage/box/rubbershot{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/storage/box/rubbershot{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/storage/box/rubbershot{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/storage/box/rubbershot{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/storage/box/rubbershot{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/storage/box/breacherslug,
-/obj/item/storage/box/breacherslug,
-/obj/item/storage/box/breacherslug,
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/light{
-	bulb_colour = "#DE3A3A";
-	dir = 8;
-	nightshift_light_color = "#DE3A3A"
-	},
-/turf/open/floor/iron,
-/area/ai_monitored/security/armory)
 "dML" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -16033,26 +15979,6 @@
 	},
 /turf/open/floor/prison,
 /area/security/prison)
-"fez" = (
-/obj/structure/table/reinforced,
-/obj/item/gun/energy/e_gun{
-	pixel_x = 1;
-	pixel_y = 5
-	},
-/obj/item/gun/energy/e_gun{
-	pixel_x = 4;
-	pixel_y = 3
-	},
-/obj/machinery/door/window/brigdoor/westleft{
-	name = "energy Guns";
-	req_access_txt = "3"
-	},
-/obj/structure/window/reinforced,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/ai_monitored/security/armory)
 "feL" = (
 /obj/machinery/door/airlock/highsecurity{
 	name = "Gravity Generator Foyer";
@@ -19855,6 +19781,43 @@
 	},
 /turf/open/floor/catwalk_floor,
 /area/maintenance/department/medical/morgue)
+"goJ" = (
+/obj/machinery/firealarm/directional/west,
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/rack,
+/obj/item/storage/box/breacherslug,
+/obj/item/storage/box/rubbershot{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/storage/box/rubbershot{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/storage/box/rubbershot{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/storage/box/rubbershot{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/storage/box/rubbershot{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/storage/box/breacherslug,
+/obj/item/storage/box/breacherslug,
+/obj/item/storage/box/breacherslug,
+/obj/item/storage/box/rubbershot{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/turf/open/floor/iron,
+/area/ai_monitored/security/armory)
 "goU" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating{
@@ -32957,6 +32920,19 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/security)
+"kQu" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/loot_jobscale/armoury/pistol_ammo,
+/obj/effect/loot_jobscale/armoury/pistol_ammo_box,
+/obj/effect/loot_jobscale/armoury/pistols,
+/obj/structure/closet/gun_locker{
+	anchored = 1
+	},
+/turf/open/floor/iron,
+/area/ai_monitored/security/armory)
 "kQC" = (
 /obj/effect/spawner/structure/window/reinforced/tinted,
 /obj/structure/disposalpipe/segment{
@@ -33795,6 +33771,23 @@
 	},
 /turf/open/floor/wood,
 /area/security/prison)
+"ldK" = (
+/obj/machinery/door/window/brigdoor/westleft{
+	name = "energy Guns";
+	req_access_txt = "3"
+	},
+/obj/structure/window/reinforced,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/table/reinforced,
+/obj/item/beacon/nettingportal,
+/obj/item/gun/energy/e_gun/dragnet{
+	pixel_x = -2;
+	pixel_y = 1
+	},
+/turf/open/floor/iron,
+/area/ai_monitored/security/armory)
 "lef" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -47554,22 +47547,6 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
-"pHx" = (
-/obj/structure/rack,
-/obj/effect/turf_decal/bot,
-/obj/item/gun/energy/disabler{
-	pixel_x = 1;
-	pixel_y = 2
-	},
-/obj/item/gun/energy/disabler{
-	pixel_x = 5;
-	pixel_y = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/ai_monitored/security/armory)
 "pHE" = (
 /turf/open/floor/plating,
 /area/ai_monitored/storage/satellite)
@@ -60316,6 +60293,23 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plating,
 /area/engine/atmos)
+"tPm" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/light{
+	bulb_colour = "#DE3A3A";
+	dir = 8;
+	nightshift_light_color = "#DE3A3A"
+	},
+/obj/effect/loot_jobscale/armoury/tasers,
+/obj/effect/loot_jobscale/armoury/taser_ammo_box,
+/obj/structure/closet/gun_locker{
+	anchored = 1
+	},
+/turf/open/floor/iron,
+/area/ai_monitored/security/armory)
 "tPw" = (
 /obj/machinery/button/door{
 	id = "xeno3";
@@ -69311,6 +69305,10 @@
 	},
 /turf/open/floor/engine,
 /area/science/xenobiology)
+"wNa" = (
+/obj/structure/musician/piano,
+/turf/open/floor/glass/reinforced,
+/area/crew_quarters/cafeteria)
 "wNh" = (
 /turf/open/floor/engine{
 	initial_gas_mix = "n2=100;TEMP=80";
@@ -73689,10 +73687,6 @@
 	burnt = 1
 	},
 /area/maintenance/central)
-"ylp" = (
-/obj/structure/musician/piano,
-/turf/open/floor/glass/reinforced,
-/area/crew_quarters/cafeteria)
 "ylB" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/tree/jungle,
@@ -100290,9 +100284,9 @@ gsA
 gsA
 uYx
 tqK
-cIf
-dMH
-pHx
+goJ
+tPm
+kQu
 oMO
 fIN
 pVN
@@ -102091,7 +102085,7 @@ uYx
 pIG
 goC
 eNe
-fez
+ldK
 nYl
 fIN
 tVv
@@ -111903,7 +111897,7 @@ yfJ
 bZA
 mWi
 iyq
-ylp
+wNa
 ovp
 raV
 obE

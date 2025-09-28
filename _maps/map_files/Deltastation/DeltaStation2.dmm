@@ -13849,26 +13849,6 @@
 	},
 /turf/open/floor/wood,
 /area/bridge/meeting_room/council)
-"bSB" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/effect/turf_decal/bot,
-/obj/machinery/door/window/southright{
-	name = "Weapons Storage";
-	req_one_access_txt = "1;4"
-	},
-/obj/effect/loot_jobscale/armoury/energy_gun,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
-/obj/structure/rack,
-/turf/open/floor/iron/dark,
-/area/ai_monitored/security/armory)
 "bSL" = (
 /obj/structure/table/wood,
 /obj/machinery/light{
@@ -40627,26 +40607,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/engine/transit_tube)
-"hbN" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/effect/turf_decal/bot,
-/obj/machinery/door/window/southright{
-	base_state = "left";
-	dir = 1;
-	icon_state = "left";
-	name = "Disabler Storage";
-	req_one_access_txt = "1;4"
-	},
-/obj/effect/loot_jobscale/armoury/disabler,
-/obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red,
-/obj/structure/rack,
-/turf/open/floor/iron/dark,
-/area/ai_monitored/security/armory)
 "hbR" = (
 /obj/structure/table/reinforced,
 /obj/item/stack/sheet/iron/fifty,
@@ -43562,6 +43522,14 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/starboard)
+"hUH" = (
+/obj/structure/musician/piano,
+/obj/machinery/airalarm/directional/south{
+	pixel_y = -22
+	},
+/obj/machinery/light,
+/turf/open/floor/carpet/grimy,
+/area/crew_quarters/bar/atrium)
 "hVg" = (
 /obj/structure/table/wood/fancy,
 /obj/item/organ/heart,
@@ -47021,6 +46989,33 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/hallway/secondary/entry)
+"jfn" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/door/window/southright{
+	base_state = "left";
+	icon_state = "left";
+	name = "Weapons Storage";
+	req_one_access_txt = "1;4"
+	},
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/effect/loot_jobscale/armoury/taser_ammo_box,
+/obj/effect/loot_jobscale/armoury/tasers,
+/obj/structure/closet/gun_locker{
+	anchored = 1
+	},
+/turf/open/floor/iron/dark,
+/area/ai_monitored/security/armory)
 "jfy" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -48345,30 +48340,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/quartermaster/miningoffice)
-"jBV" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/machinery/door/window/southright{
-	base_state = "left";
-	icon_state = "left";
-	name = "Weapons Storage";
-	req_one_access_txt = "1;4"
-	},
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 8
-	},
-/obj/effect/loot_jobscale/armoury/laser_gun,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/rack,
-/turf/open/floor/iron/dark,
-/area/ai_monitored/security/armory)
 "jBX" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
@@ -67097,6 +67068,30 @@
 "pFh" = (
 /turf/open/floor/carpet/purple,
 /area/vacant_room/office)
+"pFk" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/effect/turf_decal/bot,
+/obj/machinery/door/window/southright{
+	name = "Weapons Storage";
+	req_one_access_txt = "1;4"
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
+/obj/effect/loot_jobscale/armoury/pistol_ammo,
+/obj/effect/loot_jobscale/armoury/pistol_ammo_box,
+/obj/effect/loot_jobscale/armoury/pistols,
+/obj/structure/closet/gun_locker{
+	anchored = 1
+	},
+/turf/open/floor/iron/dark,
+/area/ai_monitored/security/armory)
 "pFm" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/door/airlock/external{
@@ -76828,14 +76823,6 @@
 /obj/effect/turf_decal/trimline/black/filled/line,
 /turf/open/floor/iron,
 /area/maintenance/department/science)
-"sBi" = (
-/obj/structure/musician/piano,
-/obj/machinery/airalarm/directional/south{
-	pixel_y = -22
-	},
-/obj/machinery/light,
-/turf/open/floor/carpet/grimy,
-/area/crew_quarters/bar/atrium)
 "sBj" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -92535,6 +92522,26 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/disposal)
+"xzN" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/effect/turf_decal/bot,
+/obj/machinery/door/window/southright{
+	base_state = "left";
+	dir = 1;
+	icon_state = "left";
+	name = "Disabler Storage";
+	req_one_access_txt = "1;4"
+	},
+/obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/structure/rack,
+/obj/effect/loot_jobscale/armoury/laser_gun,
+/turf/open/floor/iron/dark,
+/area/ai_monitored/security/armory)
 "xzP" = (
 /obj/structure/sign/directions/engineering{
 	desc = "A sign that shows there are doors here. There are doors everywhere!";
@@ -130614,7 +130621,7 @@ aQn
 hNE
 aOF
 aOF
-sBi
+hUH
 aYC
 baA
 bcf
@@ -152228,7 +152235,7 @@ mQm
 bLs
 nix
 ucj
-hbN
+xzN
 wdB
 qUt
 krM
@@ -153000,7 +153007,7 @@ bLs
 iqS
 ucj
 cIU
-jBV
+jfn
 qUt
 hfP
 bLs
@@ -153257,7 +153264,7 @@ bLs
 jbr
 ucj
 stV
-bSB
+pFk
 rlC
 aVt
 bLs

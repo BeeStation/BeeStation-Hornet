@@ -9,6 +9,7 @@
 	available_on_ntnet = TRUE
 	tgui_id = "NtosNewscaster"
 	program_icon = "newspaper"
+	power_consumption = 60 WATT
 	///The UI we use for the newscaster
 	var/obj/machinery/newscaster/newscaster_ui
 

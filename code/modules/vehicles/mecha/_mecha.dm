@@ -227,8 +227,6 @@
 
 	become_hearing_sensitive(trait_source = ROUNDSTART_TRAIT)
 
-/obj/mecha/ComponentInitialize()
-	. = ..()
 	AddElement(/datum/element/atmos_sensitive)
 	AddElement(/datum/element/falling_hazard, damage = 80, hardhat_safety = FALSE, crushes = TRUE)
 

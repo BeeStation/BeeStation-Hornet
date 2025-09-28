@@ -12,6 +12,7 @@
 	tgui_id = "NtosMessenger"
 	program_icon = "comment-alt"
 	alert_able = TRUE
+	power_consumption = 20 WATT
 
 	/// The current ringtone (displayed in the chat when a message is received).
 	var/ringtone = "beep"

@@ -127,8 +127,6 @@
 		RegisterSignal(src, COMSIG_TWOHANDED_WIELD, PROC_REF(wield))
 		RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, PROC_REF(unwield))
 
-/obj/item/gun/ComponentInitialize()
-	. = ..()
 	//Smaller weapons are better when used in a single hand.
 	if(requires_wielding)
 		AddComponent(/datum/component/two_handed, unwield_on_swap = TRUE, auto_wield = TRUE, ignore_attack_self = TRUE, force_wielded = force, force_unwielded = force, block_power_wielded = block_power, block_power_unwielded = block_power)
@@ -335,6 +333,10 @@
 		if(target == user && !user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH)) //so we can't shoot ourselves (unless mouth selected)
 			return FALSE
 	add_fingerprint(user)
+
+	// Return true, but act as intercepted so we don't start hitting things
+	if (SEND_SIGNAL(src, COMSIG_MOB_PULL_TRIGGER, target, user, params, aimed) & CANCEL_TRIGGER_PULL)
+		return TRUE
 
 	if(istype(user))//Check if the user can use the gun, if the user isn't alive(turrets) assume it can.
 		var/mob/living/L = user

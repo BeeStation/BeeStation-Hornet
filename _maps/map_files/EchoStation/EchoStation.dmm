@@ -3687,6 +3687,22 @@
 	dir = 1
 	},
 /area/science/lab)
+"bIy" = (
+/obj/structure/musician/piano,
+/obj/effect/turf_decal/siding/white{
+	dir = 8
+	},
+/obj/machinery/power/apc/auto_name/directional/north{
+	pixel_y = 24
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 6
+	},
+/turf/open/floor/wood,
+/area/crew_quarters/cafeteria)
 "bIz" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/engine,
@@ -5314,6 +5330,16 @@
 	luminosity = 2
 	},
 /area/ai_monitored/turret_protected/ai)
+"cCN" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/loot_jobscale/armoury/pistol_ammo,
+/obj/effect/loot_jobscale/armoury/pistol_ammo_box,
+/obj/effect/loot_jobscale/armoury/pistols,
+/obj/structure/closet/gun_locker{
+	anchored = 1
+	},
+/turf/open/floor/iron/dark,
+/area/ai_monitored/security/armory)
 "cCS" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -20916,25 +20942,6 @@
 /obj/machinery/firealarm/directional/south,
 /turf/open/floor/iron/dark,
 /area/security/brig)
-"kSu" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/obj/structure/musician/piano,
-/obj/machinery/light{
-	dir = 1;
-	light_color = "#7AC3FF"
-	},
-/obj/machinery/camera/directional/north{
-	c_tag = "Captain's Quarters"
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/sign/barsign{
-	pixel_x = 1;
-	pixel_y = 33
-	},
-/turf/open/floor/carpet/blue,
-/area/crew_quarters/cafeteria)
 "kSK" = (
 /obj/structure/sign/painting/library{
 	pixel_y = 32
@@ -27319,19 +27326,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
-"osP" = (
-/obj/structure/rack,
-/obj/effect/turf_decal/bot,
-/obj/item/gun/energy/e_gun{
-	pixel_x = 1;
-	pixel_y = 5
-	},
-/obj/item/gun/energy/e_gun{
-	pixel_x = 4;
-	pixel_y = 3
-	},
-/turf/open/floor/iron/dark,
-/area/ai_monitored/security/armory)
 "oth" = (
 /obj/structure/sign/warning/explosives,
 /turf/closed/wall,
@@ -28848,19 +28842,6 @@
 	},
 /turf/open/floor/carpet/red,
 /area/medical/exam_room)
-"pdd" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/rack,
-/obj/item/gun/energy/disabler{
-	pixel_x = 1;
-	pixel_y = 2
-	},
-/obj/item/gun/energy/disabler{
-	pixel_x = 5;
-	pixel_y = 1
-	},
-/turf/open/floor/iron/dark,
-/area/ai_monitored/security/armory)
 "pdw" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/structure/cable/yellow{
@@ -32678,6 +32659,25 @@
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating,
 /area/science/mixing)
+"rkF" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/structure/musician/piano,
+/obj/machinery/light{
+	dir = 1;
+	light_color = "#7AC3FF"
+	},
+/obj/machinery/camera/directional/north{
+	c_tag = "Captain's Quarters"
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/sign/barsign{
+	pixel_x = 1;
+	pixel_y = 33
+	},
+/turf/open/floor/carpet/blue,
+/area/crew_quarters/cafeteria)
 "rkK" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
@@ -42070,22 +42070,6 @@
 	},
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
-"wcs" = (
-/obj/structure/musician/piano,
-/obj/effect/turf_decal/siding/white{
-	dir = 8
-	},
-/obj/machinery/power/apc/auto_name/directional/north{
-	pixel_y = 24
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 6
-	},
-/turf/open/floor/wood,
-/area/crew_quarters/cafeteria)
 "wcw" = (
 /obj/machinery/light{
 	dir = 8
@@ -43271,6 +43255,15 @@
 "wKO" = (
 /turf/closed/wall/r_wall,
 /area/science/test_area)
+"wKP" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/loot_jobscale/armoury/taser_ammo_box,
+/obj/effect/loot_jobscale/armoury/tasers,
+/obj/structure/closet/gun_locker{
+	anchored = 1
+	},
+/turf/open/floor/iron/dark,
+/area/ai_monitored/security/armory)
 "wLe" = (
 /turf/open/floor/engine/light,
 /area/holodeck/small)
@@ -126327,7 +126320,7 @@ bSM
 rMU
 rMU
 hhu
-kSu
+rkF
 hVF
 lfw
 xTb
@@ -127872,7 +127865,7 @@ gEP
 gEP
 pTv
 gEP
-wcs
+bIy
 vSu
 aNK
 cbI
@@ -187789,7 +187782,7 @@ dNl
 qRb
 qfG
 bnk
-osP
+wKP
 jSJ
 kxH
 fLS
@@ -188046,7 +188039,7 @@ tth
 sGC
 teE
 nwN
-pdd
+cCN
 xJJ
 fLS
 fLS

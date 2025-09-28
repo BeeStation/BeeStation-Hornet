@@ -1,3 +1,18 @@
+/atom
+	/// Any atom that uses integrity and can be damaged must set this to true, otherwise the integrity procs will throw an error
+	var/uses_integrity = FALSE
+
+	VAR_PROTECTED/datum/armor/armor_type = /datum/armor/none
+	VAR_PRIVATE/datum/armor/armor
+
+	VAR_PRIVATE/atom_integrity //defaults to max_integrity
+	var/max_integrity = 500
+	var/integrity_failure = 0 //0 if we have no special broken behavior, otherwise is a percentage of at what point the atom breaks. 0.5 being 50%
+	/// Damage under this value will be completely ignored
+	var/damage_deflection = 0
+
+	var/resistance_flags = NONE // INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ON_FIRE | UNACIDABLE | ACID_PROOF
+
 /// The essential proc to call when an atom must receive damage of any kind.
 /atom/proc/take_damage(damage_amount, damage_type = BRUTE, damage_flag = "", sound_effect = TRUE, attack_dir, armour_penetration = 0)
 	if(!uses_integrity)
@@ -54,12 +69,24 @@
 	if(atom_integrity == new_value)
 		return
 	atom_integrity = new_value
+	on_update_integrity(old_value, new_value)
+	return new_value
+
+/// Handle updates to your atom's integrity
+/atom/proc/on_update_integrity(old_value, new_value)
+	SHOULD_NOT_SLEEP(TRUE)
+	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_ATOM_INTEGRITY_CHANGED, old_value, new_value)
 
 /// This mostly exists to keep atom_integrity private. Might be useful in the future.
 /atom/proc/get_integrity()
 	SHOULD_BE_PURE(TRUE)
 	return atom_integrity
+
+/// Similar to get_integrity, but returns the percentage as [0-1] instead.
+/atom/proc/get_integrity_percentage()
+	SHOULD_BE_PURE(TRUE)
+	return round(atom_integrity / max_integrity, 0.01)
 
 /atom/proc/get_integrity_ratio()
 	SHOULD_BE_PURE(TRUE)
