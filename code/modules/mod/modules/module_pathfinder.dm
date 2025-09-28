@@ -173,7 +173,7 @@
 	addtimer(CALLBACK(src, PROC_REF(recall_zap_thief), carrying_mob), 3 SECONDS)
 	//return FALSE //We zapped them, but its still not valid until the modsuit is actually dropped
 
-/obj/item/implant/mod/proc/recall_zap_thief(var/mob/living/carrying_mob)
+/obj/item/implant/mod/proc/recall_zap_thief(mob/living/carrying_mob)
 	if(!ismob(get_atom_on_turf(module.mod)))
 		return FALSE //They dropped it
 	carrying_mob.Paralyze(5 SECONDS)

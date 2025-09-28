@@ -156,7 +156,7 @@
   * This prevents any reagent_containers from being consumed before the reagents they contain, which can
   * lead to runtimes and item duplication when it happens.
   */
-/proc/cmp_crafting_req_priority(var/A, var/B)
+/proc/cmp_crafting_req_priority(A, B)
 	var/lhs
 	var/rhs
 

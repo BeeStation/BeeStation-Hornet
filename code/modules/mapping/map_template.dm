@@ -213,6 +213,6 @@
 
 //for your ever biggening badminnery kevinz000
 //❤ - Cyberboss
-/proc/load_new_z_level(var/file, var/name, orbital_body_type)
+/proc/load_new_z_level(file, name, orbital_body_type)
 	var/datum/map_template/template = new(file, name)
 	template.load_new_z(orbital_body_type = orbital_body_type)

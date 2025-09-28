@@ -217,7 +217,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 				user.put_in_hands(cig_butt)
 				playsound(user, 'sound/items/cig_snuff.ogg', 25, 1)
 
-/obj/item/clothing/mask/cigarette/afterattack(var/target, mob/living/user, proximity)
+/obj/item/clothing/mask/cigarette/afterattack(target, mob/living/user, proximity)
 	if (istype(target, /mob/living))
 		butt(target, user, proximity)
 		. = ..()
