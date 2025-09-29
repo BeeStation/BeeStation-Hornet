@@ -127,7 +127,7 @@
 	hand = null
 
 /obj/item/organ/cyberimp/arm/proc/register_hand(mob/living/carbon/user, obj/item/bodypart/new_hand)
-	if(!istype(new_hand, /obj/item/bodypart/l_arm) && !istype(new_hand, /obj/item/bodypart/r_arm))
+	if(!istype(new_hand, /obj/item/bodypart/arm/left) && !istype(new_hand, /obj/item/bodypart/arm/right))
 		return
 	hand = new_hand
 	RegisterSignal(hand, COMSIG_BODYPART_REMOVED, PROC_REF(limb_removed))
