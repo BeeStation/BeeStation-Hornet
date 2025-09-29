@@ -195,7 +195,7 @@
 		return FALSE
 	if(I.pulledby)
 		I.pulledby.stop_pulling()
-	update_inv_hands()
+	update_held_items()
 	I.pixel_x = I.base_pixel_x
 	I.pixel_y = I.base_pixel_y
 	return hand_index
@@ -340,7 +340,7 @@
 	var/hand_index = get_held_index_of_item(I)
 	if(hand_index)
 		held_items[hand_index] = null
-		update_inv_hands()
+		update_held_items()
 	if(I)
 		if(client)
 			client.screen -= I
@@ -446,7 +446,7 @@
 		return FALSE
 
 	if(M.equip_to_appropriate_slot(src))
-		M.update_inv_hands()
+		M.update_held_items()
 		return TRUE
 	else
 		if(equip_delay_self)

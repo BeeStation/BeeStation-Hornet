@@ -51,7 +51,7 @@
 	if(offset && (slot_flags & slot))
 		user.pixel_y += offset
 		worn_y_dimension -= (offset * 2)
-		user.update_inv_shoes()
+		user.update_worn_shoes()
 		equipped_before_drop = TRUE
 
 /obj/item/clothing/shoes/proc/restore_offsets(mob/user)
@@ -68,4 +68,4 @@
 	..()
 	if(ismob(loc))
 		var/mob/M = loc
-		M.update_inv_shoes()
+		M.update_worn_shoes()

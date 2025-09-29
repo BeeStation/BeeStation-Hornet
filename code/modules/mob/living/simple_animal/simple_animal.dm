@@ -607,9 +607,9 @@
 
 /mob/living/simple_animal/put_in_hands(obj/item/I, del_on_fail = FALSE, merge_stacks = TRUE)
 	. = ..(I, del_on_fail, merge_stacks)
-	update_inv_hands()
+	update_held_items()
 
-/mob/living/simple_animal/update_inv_hands()
+/mob/living/simple_animal/update_held_items()
 	if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
 		var/obj/item/l_hand = get_item_for_held_index(1)
 		var/obj/item/r_hand = get_item_for_held_index(2)

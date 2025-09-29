@@ -31,7 +31,7 @@
 		return
 	if(dextrous && isitem(target))
 		. = target.attack_hand(src)
-		update_inv_hands()
+		update_held_items()
 	else
 		if(combat_mode)
 			if(LAZYACCESS(modifiers, RIGHT_CLICK))
@@ -40,12 +40,12 @@
 					. = living_target.grabbedby(src)
 				else
 					. = target.attack_hand(src)
-				update_inv_hands()
+				update_held_items()
 			else
 				. = harm_attack(target)
 		else
 			. = target.attack_hand(src)
-			update_inv_hands()
+			update_held_items()
 
 	SEND_SIGNAL(src, COMSIG_HOSTILE_POST_ATTACKINGTARGET, target)
 

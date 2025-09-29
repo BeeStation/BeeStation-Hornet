@@ -8,10 +8,10 @@
 //Does nobody read the comments telling you to not touch shit you souldn't?
 /mob/living/simple_animal/drone/doUnEquip(obj/item/I, force, newloc, no_move, invdrop = TRUE, was_thrown = FALSE, silent = FALSE)
 	if(..())
-		update_inv_hands()
+		update_held_items()
 		if(I == head)
 			head = null
-			update_inv_head()
+			update_worn_head()
 		if(I == internal_storage)
 			internal_storage = null
 			update_inv_internal_storage()
@@ -58,7 +58,7 @@
 	var/index = get_held_index_of_item(I)
 	if(index)
 		held_items[index] = null
-	update_inv_hands()
+	update_held_items()
 
 	if(I.pulledby)
 		I.pulledby.stop_pulling()
@@ -70,7 +70,7 @@
 	switch(slot)
 		if(ITEM_SLOT_HEAD)
 			head = I
-			update_inv_head()
+			update_worn_head()
 		if(ITEM_SLOT_DEX_STORAGE)
 			internal_storage = I
 			update_inv_internal_storage()
