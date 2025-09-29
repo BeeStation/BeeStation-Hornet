@@ -162,6 +162,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	pushed_mob.apply_damage(40, STAMINA)
 	if(user.mind?.martial_art?.smashes_tables)
 		deconstruct(FALSE)
+	if(pushed_mob.nutrition > NUTRITION_LEVEL_FAT) //lol
+		deconstruct(FALSE)
+		playsound(pushed_mob, "sound/effects/meteorimpact.ogg", 90, TRUE)
+		pushed_mob.visible_message(span_dangerbold("[user] slams [pushed_mob] onto \the [src], breaking it!"), \
+									span_dangerbold("[user] slams you onto \the [src]!"))
+		log_combat(user, pushed_mob, "tabled", null, "onto [src]", important = FALSE)
+		SEND_SIGNAL(pushed_mob, COMSIG_ADD_MOOD_EVENT, "table", /datum/mood_event/table_fat) //it's soul
+		return
 	playsound(pushed_mob, "sound/effects/tableslam.ogg", 90, TRUE)
 	pushed_mob.visible_message(span_danger("[user] slams [pushed_mob] onto \the [src]!"), \
 								span_userdanger("[user] slams you onto \the [src]!"))
@@ -635,12 +643,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 
 /obj/structure/table/optable/proc/set_patient(new_patient)
 	if(patient)
-		UnregisterSignal(patient, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(patient, COMSIG_QDELETING)
 		UnregisterSignal(patient, COMSIG_LIVING_RESTING_UPDATED)
 		REMOVE_TRAIT(patient, TRAIT_NO_BLEEDING, TABLE_TRAIT)
 	patient = new_patient
 	if(patient)
-		RegisterSignal(patient, COMSIG_PARENT_QDELETING, PROC_REF(patient_deleted))
+		RegisterSignal(patient, COMSIG_QDELETING, PROC_REF(patient_deleted))
 		RegisterSignal(patient, COMSIG_LIVING_RESTING_UPDATED, PROC_REF(check_bleed_trait))
 		check_bleed_trait()
 

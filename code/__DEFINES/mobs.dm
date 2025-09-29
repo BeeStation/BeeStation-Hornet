@@ -407,6 +407,15 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define REAGENTS_METABOLISM 0.2 //How many units of reagent are consumed per second, by default.
 #define REAGENTS_EFFECT_MULTIPLIER (REAGENTS_METABOLISM / 0.4) // By defining the effect multiplier this way, it'll exactly adjust all effects according to how they originally were with the 0.4 metabolism
 
+// Eye protection
+// THese values are additive to determine your overall flash protection.
+#define FLASH_PROTECTION_SENSITIVE -1
+#define FLASH_PROTECTION_NONE 0
+#define FLASH_PROTECTION_FLASH 1
+#define FLASH_PROTECTION_WELDER 2
+#define FLASH_PROTECTION_WELDER_SENSITIVE 3
+#define FLASH_PROTECTION_WELDER_HYPER_SENSITIVE 4
+
 // Roundstart trait system
 
 //The maximum amount of positive quirks one character can have at roundstart, and I hope whoever originally named this simply MAX_QUIRKS stubs their toe
@@ -542,7 +551,7 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define SHOES_LAYER 18
 /// Ears layer (Spessmen have ears? Wow)
 #define EARS_LAYER 17
-/// Suit layer (armor, hardsuits, etc.)
+/// Suit layer (armor, coats, etc.)
 #define SUIT_LAYER 16
 /// Glasses layer
 #define GLASSES_LAYER 15
@@ -589,7 +598,6 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 /// The layer above mutant body parts
 #define ABOVE_BODY_FRONT_LAYER (BODY_FRONT_LAYER-1)
 
-
 //used by canUseTopic()
 /// If silicons need to be next to the atom to use this
 #define BE_CLOSE TRUE
@@ -626,6 +634,60 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define STANDING_UP 0
 /// Mob is lying down, usually associated with lying_angle values of 90 or 270.
 #define LYING_DOWN 1
+
+// Flags for fully_heal().
+
+/// Special flag that means this heal is an admin heal and goes above and beyond
+/// Note, this includes things like removing suicide status and handcuffs / legcuffs, use with slight caution.
+#define HEAL_ADMIN (1<<0)
+/// Heals all brute damage.
+#define HEAL_BRUTE (1<<1)
+/// Heals all burn damage.
+#define HEAL_BURN (1<<2)
+/// Heals all toxin damage, slime people included.
+#define HEAL_TOX (1<<3)
+/// Heals all oxyloss.
+#define HEAL_OXY (1<<4)
+/// Heals all cellular damage.
+#define HEAL_CLONE (1<<5)
+/// Heals all stamina damage.
+#define HEAL_STAM (1<<6)
+/// Restore all limbs to their initial state.
+#define HEAL_LIMBS (1<<7)
+/// Heals all organs from failing. If done as a part of an admin heal, will instead restore all organs to their initial state.
+#define HEAL_ORGANS (1<<8)
+/// A "super" heal organs, this refreshes all organs entirely, deleting old and replacing them with new.
+#define HEAL_REFRESH_ORGANS (1<<9)
+/// Removes all brain traumas, not including permanent ones.
+#define HEAL_TRAUMAS (1<<10)
+/// Removes all reagents present.
+#define HEAL_ALL_REAGENTS (1<<11)
+/// Removes all non-positive diseases.
+#define HEAL_NEGATIVE_DISEASES (1<<12)
+/// Restores body temperature back to nominal.
+#define HEAL_TEMP (1<<13)
+/// Restores blood levels to normal.
+#define HEAL_BLOOD (1<<14)
+/// Removes all non-positive mutations (neutral included).
+#define HEAL_NEGATIVE_MUTATIONS (1<<15)
+/// Removes status effects with this flag set that also have remove_on_fullheal = TRUE.
+#define HEAL_STATUS (1<<16)
+/// Same as above, removes all CC related status effects with this flag set that also have remove_on_fullheal = TRUE.
+#define HEAL_CC_STATUS (1<<17)
+/// Deletes any restraints on the mob (handcuffs / legcuffs)
+#define HEAL_RESTRAINTS (1<<18)
+
+/// Combination flag to only heal the main damage types.
+#define HEAL_DAMAGE (HEAL_BRUTE|HEAL_BURN|HEAL_TOX|HEAL_OXY|HEAL_CLONE|HEAL_STAM)
+/// Combination flag to only heal things messed up things about the mob's body itself.
+#define HEAL_BODY (HEAL_LIMBS|HEAL_ORGANS|HEAL_REFRESH_ORGANS|HEAL_TRAUMAS|HEAL_BLOOD|HEAL_TEMP)
+/// Combination flag to heal negative things affecting the mob.
+#define HEAL_AFFLICTIONS (HEAL_NEGATIVE_DISEASES|HEAL_NEGATIVE_MUTATIONS|HEAL_ALL_REAGENTS|HEAL_STATUS|HEAL_CC_STATUS)
+
+/// Full heal that isn't admin forced
+#define HEAL_ALL ~(HEAL_ADMIN|HEAL_RESTRAINTS)
+/// Heals everything and is as strong as / is an admin heal
+#define ADMIN_HEAL_ALL ALL
 
 // Species related bitflags go here.
 #define NOT_TRANSMORPHIC (1<<0) // This race can't become a changeling antagonist.

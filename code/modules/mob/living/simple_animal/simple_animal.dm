@@ -75,7 +75,8 @@
 	var/friendly_verb_simple = "nuzzle"
 	///Set to 1 to allow breaking of crates,lockers,racks,tables; 2 for walls; 3 for Rwalls.
 	var/environment_smash = ENVIRONMENT_SMASH_NONE
-	var/hardattacks = FALSE //if true, a simplemob is unaffected by NASTY_BLOCKING
+	///If true, simplemob gets an extreme bonus against blocking players
+	var/hardattacks = FALSE
 
 	var/speed = 1 //LETS SEE IF I CAN SET SPEEDS FOR SIMPLE MOBS WITHOUT DESTROYING EVERYTHING. Higher speed is slower, negative speed is faster
 
@@ -114,9 +115,6 @@
 
 	var/shouldwakeup = FALSE //convenience var for forcibly waking up an idling AI on next check.
 
-	//domestication
-	var/tame = 0
-
 	var/my_z // I don't want to confuse this with client registered_z
 
 	///What kind of footstep this mob should have. Null if it shouldn't have any.
@@ -153,9 +151,6 @@
 
 	if(footstep_type)
 		AddElement(/datum/element/footstep, footstep_type)
-
-/mob/living/simple_animal/ComponentInitialize()
-	. = ..()
 	if(no_flying_animation)
 		ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, ROUNDSTART_TRAIT)
 	if(dextrous)
@@ -213,7 +208,7 @@
 	health = clamp(health, 0, maxHealth)
 
 /mob/living/simple_animal/update_stat()
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	if(stat != DEAD)
 		if(health <= 0)
@@ -453,7 +448,7 @@
 		return FALSE
 	if(ismob(the_target))
 		var/mob/M = the_target
-		if(M.status_flags & GODMODE)
+		if(HAS_TRAIT(M, TRAIT_GODMODE))
 			return FALSE
 	if (isliving(the_target))
 		var/mob/living/L = the_target
@@ -475,7 +470,7 @@
 	return
 
 
-/mob/living/simple_animal/revive(full_heal = 0, admin_revive = 0)
+/mob/living/simple_animal/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE)
 	. = ..()
 	if(!.)
 		return

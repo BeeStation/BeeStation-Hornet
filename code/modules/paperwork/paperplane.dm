@@ -18,7 +18,7 @@
 	user.visible_message(span_suicide("[user] jams [src] in [user.p_their()] nose. It looks like [user.p_theyre()] trying to commit suicide!"))
 	user.adjust_blurriness(6)
 	if(eyes)
-		eyes.applyOrganDamage(rand(6,8))
+		eyes.apply_organ_damage(rand(6,8))
 	sleep(10)
 	return BRUTELOSS
 
@@ -50,7 +50,7 @@
 
 	return ..()
 
-/obj/item/origami/paperplane/throw_at(atom/target, range, speed, mob/thrower, spin=FALSE, diagonals_first = FALSE, datum/callback/callback, quickstart = TRUE)
+/obj/item/origami/paperplane/throw_at(atom/target, range, speed, mob/thrower, spin=FALSE, diagonals_first = FALSE, datum/callback/callback, force, quickstart = TRUE)
 	. = ..(target, range, speed, thrower, FALSE, diagonals_first, callback, quickstart = quickstart)
 
 
@@ -71,6 +71,6 @@
 			return
 		visible_message(span_danger("\The [src] hits [H] in the eye!"))
 		H.adjust_blurriness(6)
-		eyes.applyOrganDamage(rand(6,8))
+		eyes.apply_organ_damage(rand(6,8))
 		H.Paralyze(40)
 		H.emote("scream")

@@ -16,7 +16,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	can_malf_fake_alert = TRUE
 
 
-/datum/round_event_control/immovable_rod/admin_setup()
+/datum/round_event_control/immovable_rod/admin_setup(mob/admin)
 	if(!check_rights(R_FUN))
 		return
 

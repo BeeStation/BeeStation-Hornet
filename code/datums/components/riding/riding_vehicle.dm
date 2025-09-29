@@ -50,12 +50,12 @@
 			COOLDOWN_START(src, message_cooldown, 5 SECONDS)
 		return COMPONENT_DRIVER_BLOCK_MOVE
 
-	if(ride_check_flags & RIDER_NEEDS_ARMS && HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(ride_check_flags & RIDER_NEEDS_ARMS && !check_rider_holding_on(user))
 		if(ride_check_flags & UNBUCKLE_DISABLED_RIDER)
 			vehicle_parent.unbuckle_mob(user, TRUE)
 			user.visible_message(span_danger("[user] falls off \the [vehicle_parent]."),\
 			span_danger("You fall off \the [vehicle_parent] while trying to operate it without being able to hold on!"))
-			user.Stun(3 SECONDS)
+			user.Stun(2 SECONDS)
 
 		if(COOLDOWN_FINISHED(src, message_cooldown))
 			to_chat(user, span_warning("You can't seem to hold onto \the [vehicle_parent] to move it..."))
@@ -64,6 +64,41 @@
 
 	handle_ride(user, direction)
 	return ..()
+
+///This is specifically for a detailed check on whether the rider has arms and can use them for control
+/datum/component/riding/vehicle/proc/check_rider_holding_on(mob/living/user)
+
+	///Is the mob still holding onto the controls? Starts at false in case they've been transformed into a non-carbon
+	var/holding_on = FALSE
+
+	if(iscarbon(user))
+		var/mob/living/carbon/carbon_user = user
+		var/obj/item/bodypart/left_arm = carbon_user.get_bodypart(BODY_ZONE_L_ARM)
+		var/obj/item/bodypart/right_arm = carbon_user.get_bodypart(BODY_ZONE_R_ARM)
+
+		//This could all be one very long if-statement, but I broke it up for better readability
+
+		//Can't hold on to controls if you're cuffed or completely incapacitated
+		if(HAS_TRAIT(carbon_user, TRAIT_HANDS_BLOCKED) || carbon_user.incapacitated(TRUE, TRUE))
+			holding_on = FALSE
+
+		//Can't hold on if you don't have arms in the first place
+		else if(!left_arm || !right_arm)
+			holding_on = FALSE
+
+		//Can't hold on if your arms are so tired or damaged they aren't functional
+		else if(left_arm.bodypart_disabled || right_arm.bodypart_disabled)
+			holding_on = FALSE
+
+		//Can't hold on if you are holding something else entirely
+		else if(carbon_user.get_active_held_item() || carbon_user.get_inactive_held_item())
+			holding_on = FALSE
+
+		//We have both arms, they're both empty and both functional. Continue to hold the controls
+		else
+			holding_on = TRUE
+
+	return holding_on
 
 /// This handles the actual movement for vehicles once [/datum/component/riding/vehicle/proc/driver_move] has given us the green light
 /datum/component/riding/vehicle/proc/handle_ride(mob/user, direction)
@@ -124,9 +159,6 @@
 	. = ..()
 	allowed_turf_typecache = typecacheof(allowed_turf)
 
-/datum/component/riding/vehicle/lavaboat/dragonboat
-	vehicle_move_delay = 1
-
 /datum/component/riding/vehicle/lavaboat/dragonboat/handle_specials()
 	. = ..()
 	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(1, 2), TEXT_SOUTH = list(1, 2), TEXT_EAST = list(1, 2), TEXT_WEST = list( 1, 2)))
@@ -139,6 +171,9 @@
 /datum/component/riding/vehicle/janicart
 	keytype = /obj/item/key/janitor
 	empable = TRUE
+
+/datum/component/riding/vehicle/janicart/keyless
+	keytype = null
 
 /datum/component/riding/vehicle/janicart/handle_specials()
 	. = ..()
@@ -166,7 +201,7 @@
 	set_vehicle_dir_layer(WEST, OBJ_LAYER)
 
 /datum/component/riding/vehicle/scooter/skateboard/wheelys
-	vehicle_move_delay = 0
+	vehicle_move_delay = 1.5
 
 /datum/component/riding/vehicle/scooter/skateboard/wheelys/handle_specials()
 	. = ..()
@@ -259,6 +294,7 @@
 	return ..()
 
 /datum/component/riding/vehicle/wheelchair/motorized
+	ride_check_flags = NONE //No longer hand powered
 	empable = TRUE
 
 /datum/component/riding/vehicle/wheelchair/motorized/driver_move(obj/vehicle/vehicle_parent, mob/living/user, direction)
@@ -295,7 +331,7 @@
 	AM.remove_emitter("smoke")
 
 /datum/component/riding/vehicle/lawnmower
-	vehicle_move_delay = 2
+	vehicle_move_delay = 2.75
 	ride_check_flags = RIDER_NEEDS_LEGS | RIDER_NEEDS_ARMS | UNBUCKLE_DISABLED_RIDER
 
 /datum/component/riding/vehicle/lawnmower/handle_specials()
@@ -303,5 +339,5 @@
 	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 4), TEXT_SOUTH = list(0, 7), TEXT_EAST = list(-5, 2), TEXT_WEST = list(5, 2)))
 
 /datum/component/riding/vehicle/lawnmower/nukie
-	vehicle_move_delay = 1
+	vehicle_move_delay = 1.5
 	ride_check_flags = RIDER_NEEDS_LEGS | RIDER_NEEDS_ARMS | UNBUCKLE_DISABLED_RIDER

@@ -4,6 +4,9 @@
  * @license MIT
  */
 
+// FUCK YOU, FUCK THIS RULE
+/* eslint-disable simple-import-sort/exports */
+
 export { AnimatedNumber } from './AnimatedNumber';
 export { Autofocus } from './Autofocus';
 export { Blink } from './Blink';
@@ -20,16 +23,14 @@ export { Dimmer } from './Dimmer';
 export { Divider } from './Divider';
 export { DraggableControl } from './DraggableControl';
 export { DraggableClickableControl } from './DraggableClickableControl';
-export { Dropdown } from './Dropdown';
-export { Flex } from './Flex';
 export { FitText } from './FitText';
+export { Flex } from './Flex';
 export { Grid } from './Grid';
-export { Image } from './Image';
-export { DmIcon } from './DmIcon';
 export { Icon } from './Icon';
+export { Image } from './Image';
 export { InfinitePlane } from './InfinitePlane';
-export { Interactive } from './Interactive';
 export { Input } from './Input';
+export { Interactive } from './Interactive';
 export { KeyListener } from './KeyListener';
 export { Knob } from './Knob';
 export { LabeledControls } from './LabeledControls';
@@ -39,11 +40,12 @@ export { NoticeBox } from './NoticeBox';
 export { NumberInput } from './NumberInput';
 export { OrbitalMapComponent } from './OrbitalMapComponent';
 export { OrbitalMapSvg } from './OrbitalMapSvg';
-export { ProgressBar } from './ProgressBar';
-export { ScrollableBox } from './ScrollableBox';
 export { Pointer } from './Pointer';
 export { Popper } from './Popper';
+export { ProgressBar } from './ProgressBar';
+export { RadarChart } from './RadarChart';
 export { RestrictedInput } from './RestrictedInput';
+export { ScrollableBox } from './ScrollableBox';
 export { Section } from './Section';
 export { Slider } from './Slider';
 export { Stack } from './Stack';
@@ -51,6 +53,5 @@ export { Table } from './Table';
 export { Tabs } from './Tabs';
 export { TextArea } from './TextArea';
 export { TimeDisplay } from './TimeDisplay';
-export { TrackOutsideClicks } from './TrackOutsideClicks';
 export { Tooltip } from './Tooltip';
-export { RadarChart } from './RadarChart';
+export { TrackOutsideClicks } from './TrackOutsideClicks';

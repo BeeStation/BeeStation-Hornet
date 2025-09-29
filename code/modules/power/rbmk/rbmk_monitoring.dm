@@ -15,6 +15,7 @@
 	tgui_id = "NtosRbmkStats"
 	program_icon = "radiation"
 	alert_able = TRUE
+	power_consumption = 80 WATT
 	var/active = TRUE //Easy process throttle
 	var/last_status
 	COOLDOWN_DECLARE(next_stat_interval)

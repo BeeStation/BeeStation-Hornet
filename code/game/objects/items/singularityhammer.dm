@@ -9,7 +9,7 @@
 	slot_flags = ITEM_SLOT_BACK
 	force = 5
 	attack_weight = 3
-	block_upgrade_walk = TRUE
+
 	throwforce = 15
 	throw_range = 1
 	w_class = WEIGHT_CLASS_HUGE
@@ -31,9 +31,6 @@
 /obj/item/singularityhammer/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
-
-/obj/item/singularityhammer/ComponentInitialize()
-	. = ..()
 	AddComponent(/datum/component/two_handed, force_multiplier=4, icon_wielded="singularity_hammer1")
 
 /obj/item/singularityhammer/Destroy()
@@ -59,21 +56,16 @@
 	for(var/atom/movable/A as mob|obj in orange(5,pull))
 		if(A == wielder)
 			continue
-		if(A && !A.anchored && !ishuman(A))
+		if(isliving(A))
+			var/mob/living/vortexed_mob = A
+			if(vortexed_mob.mob_negates_gravity())
+				continue
+			else
+				vortexed_mob.Paralyze(2 SECONDS)
+		if(!A.anchored && !isobserver(A))
 			step_towards(A,pull)
 			step_towards(A,pull)
 			step_towards(A,pull)
-		else if(ishuman(A))
-			var/mob/living/carbon/human/H = A
-			if(istype(H.shoes, /obj/item/clothing/shoes/magboots))
-				var/obj/item/clothing/shoes/magboots/M = H.shoes
-				if(M.magpulse)
-					continue
-			H.apply_effect(20, EFFECT_PARALYZE, 0)
-			step_towards(H,pull)
-			step_towards(H,pull)
-			step_towards(H,pull)
-	return
 
 /obj/item/singularityhammer/afterattack(atom/A as mob|obj|turf|area, mob/living/user, proximity)
 	. = ..()

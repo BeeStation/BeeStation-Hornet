@@ -35,7 +35,7 @@ SUBSYSTEM_DEF(blackbox)
 
 	if(CONFIG_GET(flag/use_exp_tracking))
 		if((triggertime < 0) || (world.time > (triggertime +3000)))	//subsystem fires once at roundstart then once every 10 minutes. a 5 min check skips the first fire. The <0 is midnight rollover check
-			update_exp(10,FALSE)
+			update_exp(10)
 
 /datum/controller/subsystem/blackbox/proc/CheckPlayerCount()
 	set waitfor = FALSE
@@ -350,7 +350,7 @@ Versioning
 		"z_coord" = L.z,
 		"last_words" = L.last_words,
 		"suicide" = L.suiciding,
-		"map" = SSmapping.config.map_name,
+		"map" = SSmapping.current_map.map_name,
 		"internet_address" = world.internet_address || "0",
 		"port" = "[world.port]",
 		"server_name" = CONFIG_GET(string/serversqlname),

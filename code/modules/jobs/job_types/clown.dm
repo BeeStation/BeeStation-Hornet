@@ -10,7 +10,10 @@
 
 	outfit = /datum/outfit/job/clown
 
-	base_access = list(ACCESS_THEATRE)
+	base_access = list(
+		ACCESS_THEATRE,
+		ACCESS_SERVICE,
+	)
 	extra_access = list()
 
 	departments = DEPT_BITFLAG_SRV
@@ -65,6 +68,13 @@
 	box = /obj/item/storage/box/survival/hug
 
 	chameleon_extras = /obj/item/stamp/clown
+
+/datum/outfit/job/clown/mod
+	name = "Clown (MODsuit)"
+
+	suit_store = /obj/item/tank/internals/oxygen
+	back = /obj/item/mod/control/pre_equipped/cosmohonk
+	internals_slot = ITEM_SLOT_SUITSTORE
 
 /datum/outfit/job/clown/pre_equip(mob/living/carbon/human/H, visualsOnly)
 	. = ..()

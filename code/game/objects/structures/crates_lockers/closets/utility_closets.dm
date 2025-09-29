@@ -192,6 +192,14 @@
 		new /obj/item/storage/pill_bottle/antirad(src)
 
 /*
+ *Gun-Lockers except they are actually lockers
+ */
+/obj/structure/closet/gun_locker
+	name = "\improper weapon closet"
+	desc = "It's a storage unit for weapons and similar objects."
+	icon_state = "shotguncase"
+
+/*
  * Bombsuit closet
  */
 /obj/structure/closet/bombcloset

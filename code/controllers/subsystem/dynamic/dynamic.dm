@@ -15,6 +15,8 @@ SUBSYSTEM_DEF(dynamic)
 	var/list/datum/dynamic_ruleset/roundstart/roundstart_executed_rulesets = list()
 	/// List of players ready on roundstart.
 	var/list/mob/dead/new_player/authenticated/roundstart_candidates = list()
+	/// The amount of people ready at roundstart
+	var/roundstart_ready_amount = 0
 	/// A list if roundstart rulesets configured from 'dynamic.json'
 	var/list/datum/dynamic_ruleset/roundstart/roundstart_configured_rulesets
 
@@ -43,10 +45,13 @@ SUBSYSTEM_DEF(dynamic)
 	var/list/datum/dynamic_ruleset/midround/midround_configured_rulesets
 
 	/// The chances for each type of midround ruleset to be picked
-	/// Set in `configure_variables`
+	/// Set in `configure_variables()`
 	var/midround_light_chance
 	var/midround_medium_chance
 	var/midround_heavy_chance
+
+	/// The cooldown until the chosen midround can execute
+	COOLDOWN_DECLARE(midround_ruleset_cooldown)
 
 	/// Dynamic Panel variables
 
@@ -55,6 +60,7 @@ SUBSYSTEM_DEF(dynamic)
 		"logged_points" = list(0),
 		"logged_points_living" = list(0),
 		"logged_points_dead" = list(0),
+		"logged_points_dead_security" = list(0),
 		"logged_points_observer" = list(0),
 		"logged_points_antag" = list(0),
 		"logged_points_linear" = list(0),
@@ -159,9 +165,14 @@ SUBSYSTEM_DEF(dynamic)
 	var/midround_living_delta = 0.05
 	var/midround_observer_delta = 0
 	var/midround_dead_delta = -0.4
+	var/midround_dead_security_delta = -0.6
 	var/midround_linear_delta = 0.9
 	/// This delta is applied no matter what
 	var/midround_linear_delta_forced = 0.25
+
+	/// How long dynamic will wait to execute another ruleset if it fails to execute the previous one
+	/// Used to mitigate spam and antag rolling
+	var/midround_failure_stallout = 5 MINUTES
 
 	/// The point delta per living antagonist
 	var/list/midround_points_per_antag = list(
@@ -254,6 +265,10 @@ SUBSYSTEM_DEF(dynamic)
 		return TRUE
 
 	pick_roundstart_rulesets(roundstart_configured_rulesets)
+
+	// Save us from hard dels
+	roundstart_ready_amount = length(roundstart_candidates)
+	roundstart_candidates = list()
 	return TRUE
 
 /**
@@ -414,9 +429,9 @@ SUBSYSTEM_DEF(dynamic)
 	return FALSE
 
 /**
- * Execute roundstart rulesets, configures midrounds and latejoins
+ * Execute roundstart rulesets
 **/
-/datum/controller/subsystem/dynamic/proc/post_setup(report)
+/datum/controller/subsystem/dynamic/proc/execute_roundstart_rulesets()
 	// Execute Roundstarts
 	for(var/datum/dynamic_ruleset/roundstart/ruleset in roundstart_executed_rulesets)
 		var/result = execute_ruleset(ruleset)
@@ -446,6 +461,7 @@ SUBSYSTEM_DEF(dynamic)
 	var/result = ruleset.execute()
 
 	// Since we reuse rulesets we need to empty chosen_candidates
+	ruleset.candidates = list()
 	ruleset.chosen_candidates = list()
 	return result
 
@@ -458,14 +474,14 @@ SUBSYSTEM_DEF(dynamic)
 		return
 
 	// Antags have done their jobs, good job guys
-	if(SSticker.check_finished() || EMERGENCY_ESCAPED_OR_ENDGAMED || EMERGENCY_CALLED)
+	if(SSticker.check_finished() || EMERGENCY_ESCAPED_OR_ENDGAMED || EMERGENCY_CALLED || EMERGENCY_AT_LEAST_DOCKED)
 		return
 
 	update_midround_chances()
 	update_midround_points()
 
 	// Try to choose/execute a ruleset
-	if(world.time - SSticker.round_start_time > midround_grace_period)
+	if(world.time - SSticker.round_start_time > midround_grace_period && COOLDOWN_FINISHED(src, midround_ruleset_cooldown))
 		if(!midround_chosen_ruleset)
 			choose_midround_ruleset()
 		else if(midround_points >= midround_chosen_ruleset.points_cost)
@@ -478,6 +494,8 @@ SUBSYSTEM_DEF(dynamic)
 				midround_executed_rulesets += midround_chosen_ruleset
 				midround_points -= midround_chosen_ruleset.points_cost
 				logged_points["logged_points"] += midround_points
+			else
+				COOLDOWN_START(src, midround_ruleset_cooldown, midround_failure_stallout)
 
 			midround_chosen_ruleset = null
 
@@ -496,13 +514,18 @@ SUBSYSTEM_DEF(dynamic)
 	var/observing_delta = length(current_players[CURRENT_OBSERVERS]) * midround_observer_delta
 	var/dead_delta = length(current_players[CURRENT_DEAD_PLAYERS]) * midround_dead_delta
 
+	var/dead_security_delta = 0
+	for(var/mob/dead_guy in current_players[CURRENT_DEAD_PLAYERS])
+		if(HAS_MIND_TRAIT(dead_guy, TRAIT_SECURITY))
+			dead_security_delta += midround_dead_security_delta
+
 	var/antag_delta = 0
 	for(var/mob/antag in current_players[CURRENT_LIVING_ANTAGS])
 		for(var/datum/antagonist/antag_datum in antag.mind?.antag_datums)
-			antag_delta += midround_points_per_antag[antag_datum.type] || midround_points_per_antag["[antag_datum.type]"]
+			antag_delta += midround_points_per_antag["[antag_datum.type]"]
 
 	// Add points
-	midround_points += max(living_delta + observing_delta + dead_delta + antag_delta + midround_linear_delta, 0)
+	midround_points += max(living_delta + observing_delta + dead_delta + dead_security_delta + antag_delta + midround_linear_delta, 0)
 	midround_points += midround_linear_delta_forced
 
 	// Log point sources
@@ -510,6 +533,7 @@ SUBSYSTEM_DEF(dynamic)
 	logged_points["logged_points_living"] += living_delta
 	logged_points["logged_points_observer"] += observing_delta
 	logged_points["logged_points_dead"] += dead_delta
+	logged_points["logged_points_dead_security"] += dead_security_delta
 	logged_points["logged_points_antag"] += antag_delta
 	logged_points["logged_points_linear"] += midround_linear_delta
 	logged_points["logged_points_linear_forced"] += midround_linear_delta_forced
@@ -562,22 +586,22 @@ SUBSYSTEM_DEF(dynamic)
  * * First we choose the severity based off the Light/Medium/Heavy Ruleset Chances
  * * We then pick a midround ruleset of the same severity based of weight
 **/
-/datum/controller/subsystem/dynamic/proc/choose_midround_ruleset()
+/datum/controller/subsystem/dynamic/proc/choose_midround_ruleset(forced_severity)
 	// Pick severity
-	var/severity = DYNAMIC_MIDROUND_LIGHT
 
-	var/random_value = rand(1, 100)
-	if(random_value <= midround_light_chance)
-		severity = DYNAMIC_MIDROUND_LIGHT
-	else if(random_value <= midround_light_chance + midround_medium_chance)
-		severity = DYNAMIC_MIDROUND_MEDIUM
-	else
-		severity = DYNAMIC_MIDROUND_HEAVY
+	if(isnull(forced_severity))
+		var/random_value = rand(1, 100)
+		if(random_value <= midround_light_chance)
+			forced_severity = DYNAMIC_MIDROUND_LIGHT
+		else if(random_value <= midround_light_chance + midround_medium_chance)
+			forced_severity = DYNAMIC_MIDROUND_MEDIUM
+		else
+			forced_severity = DYNAMIC_MIDROUND_HEAVY
 
 	// Get possible rulesets
 	var/list/possible_rulesets = list()
 	for(var/datum/dynamic_ruleset/midround/ruleset in midround_configured_rulesets)
-		if(ruleset.severity != severity)
+		if(!(ruleset.severity & forced_severity))
 			continue
 
 		if(check_is_ruleset_blocked(ruleset, midround_executed_rulesets))
@@ -592,14 +616,28 @@ SUBSYSTEM_DEF(dynamic)
 
 		possible_rulesets[ruleset] = ruleset.weight
 
+	// Tick down to a lower severity ruleset if there are none of the chosen severity
 	if(!length(possible_rulesets))
-		log_dynamic("MIDROUND: FAIL: Tried to roll a [severity] midround but there are no possible rulesets.")
+		var/new_severity
+
+		// Don't love this solution, but whatever
+		switch(forced_severity)
+			if(DYNAMIC_MIDROUND_HEAVY)
+				new_severity = DYNAMIC_MIDROUND_MEDIUM
+			if(DYNAMIC_MIDROUND_MEDIUM)
+				new_severity = DYNAMIC_MIDROUND_LIGHT
+
+		log_dynamic("MIDROUND: FAIL: Tried to roll a [severity_flag_to_text(forced_severity)] midround but there are no possible rulesets.")
+
+		if(!isnull(new_severity))
+			choose_midround_ruleset(new_severity)
+
 		return
 
 	// Pick ruleset and log
 	midround_chosen_ruleset = pick_weight(possible_rulesets)
-	log_dynamic("MIDROUND: A new midround has been chosen to save up for: [midround_chosen_ruleset]. (COST: [midround_chosen_ruleset.points_cost])")
-	message_admins("DYNAMIC: A new midround ruleset has been chosen to save up for: [midround_chosen_ruleset] (COST: [midround_chosen_ruleset.points_cost])")
+	log_dynamic("MIDROUND: Saving up for a new midround: [midround_chosen_ruleset] (COST: [midround_chosen_ruleset.points_cost])")
+	message_admins("DYNAMIC: Saving up for a new midround: [midround_chosen_ruleset] (COST: [midround_chosen_ruleset.points_cost])")
 
 /**
  * Latejoin functionality
@@ -775,3 +813,13 @@ SUBSYSTEM_DEF(dynamic)
 
 	WARNING("Something has gone terribly wrong. /datum/controller/subsystem/dynamic/antag_pick() failed to select a candidate. Falling back to pick()")
 	return pick(candidates)
+
+/datum/controller/subsystem/dynamic/proc/severity_flag_to_text(flag)
+	var/texts = list()
+	if (flag & DYNAMIC_MIDROUND_LIGHT)
+		texts += "LIGHT"
+	if (flag & DYNAMIC_MIDROUND_MEDIUM)
+		texts += "MEDIUM"
+	if (flag & DYNAMIC_MIDROUND_HEAVY)
+		texts += "HEAVY"
+	return jointext(texts, " | ")

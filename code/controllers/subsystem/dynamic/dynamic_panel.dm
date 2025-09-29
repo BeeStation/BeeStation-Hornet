@@ -54,7 +54,7 @@
 
 	data["roundstart_points"] = SSdynamic.roundstart_points
 	data["roundstart_divergence"] = SSdynamic.roundstart_point_divergence
-	data["roundstart_ready_amount"] = length(SSdynamic.roundstart_candidates)
+	data["roundstart_ready_amount"] = SSdynamic.roundstart_ready_amount
 	data["has_round_started"] = SSticker.HasRoundStarted()
 
 	data["roundstart_divergence_upper"] = SSdynamic.roundstart_divergence_percent_upper
@@ -98,9 +98,11 @@
 
 	data["current_midround_points"] = SSdynamic.midround_points
 	data["midround_grace_period"] = SSdynamic.midround_grace_period / (1 MINUTES)
+	data["midround_failure_stallout"] = SSdynamic.midround_failure_stallout / (1 MINUTES)
 
 	data["living_delta"] = SSdynamic.midround_living_delta
 	data["dead_delta"] = SSdynamic.midround_dead_delta
+	data["dead_security_delta"] = SSdynamic.midround_dead_security_delta
 	data["observer_delta"] = SSdynamic.midround_observer_delta
 	data["linear_delta"] = SSdynamic.midround_linear_delta
 	data["linear_delta_forced"] = SSdynamic.midround_linear_delta_forced
@@ -109,6 +111,7 @@
 	data["logged_points_living"] = SSdynamic.logged_points["logged_points_living"]
 	data["logged_points_observer"] = SSdynamic.logged_points["logged_points_observer"]
 	data["logged_points_dead"] = SSdynamic.logged_points["logged_points_dead"]
+	data["logged_points_dead_security"] = SSdynamic.logged_points["logged_points_dead_security"]
 	data["logged_points_antag"] = SSdynamic.logged_points["logged_points_antag"]
 	data["logged_points_linear"] = SSdynamic.logged_points["logged_points_linear"]
 	data["logged_points_linear_forced"] = SSdynamic.logged_points["logged_points_linear_forced"]
@@ -306,7 +309,10 @@
 			var/result = SSdynamic.execute_ruleset(midround_ruleset)
 			message_admins("[key_name(usr)] forced the midround ruleset ([midround_ruleset]) to execute - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
 			log_dynamic("[key_name(usr)] forced the midround ruleset ([midround_ruleset]) to execute - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
+			if(result == DYNAMIC_EXECUTE_SUCCESS)
+				SSdynamic.midround_executed_rulesets += SSdynamic.midround_chosen_ruleset
 			SSdynamic.midround_chosen_ruleset = null
+			return TRUE
 
 		if("set_midround_points")
 			var/new_points = params["new_points"]
@@ -316,10 +322,16 @@
 			log_dynamic("[key_name(usr)] set the midround points to [new_points]")
 			return TRUE
 		if("set_midround_grace_period")
-			var/new_grace_period = params["new_grace_period"] MINUTES
-			SSdynamic.midround_grace_period = new_grace_period
-			message_admins("[key_name(usr)] set the midround graceperiod to [new_grace_period]")
-			log_dynamic("[key_name(usr)] set the midround graceperiod to [new_grace_period]")
+			var/new_grace_period = params["new_grace_period"]
+			SSdynamic.midround_grace_period = new_grace_period MINUTES
+			message_admins("[key_name(usr)] set the midround grace period to [new_grace_period] minutes")
+			log_dynamic("[key_name(usr)] set the midround grace period to [new_grace_period] minutes")
+			return TRUE
+		if("set_midround_failure_stallout")
+			var/new_midround_stallout = params["new_midround_stallout"]
+			SSdynamic.midround_failure_stallout = new_midround_stallout MINUTES
+			message_admins("[key_name(usr)] set the midround stallout time to [new_midround_stallout] minutes")
+			log_dynamic("[key_name(usr)] set the midround grace period to [new_midround_stallout] minutes")
 			return TRUE
 
 		if("set_midround_living_delta")
@@ -333,6 +345,12 @@
 			SSdynamic.midround_dead_delta = new_dead_delta
 			message_admins("[key_name(usr)] set the midround dead delta to [new_dead_delta]")
 			log_dynamic("[key_name(usr)] set the midround dead delta to [new_dead_delta]")
+			return TRUE
+		if("set_midround_dead_security_delta")
+			var/new_dead_security_delta = params["new_dead_security_delta"]
+			SSdynamic.midround_dead_security_delta = new_dead_security_delta
+			message_admins("[key_name(usr)] set the midround dead security delta to [new_dead_security_delta]")
+			log_dynamic("[key_name(usr)] set the midround dead security delta to [new_dead_security_delta]")
 			return TRUE
 		if("set_midround_observer_delta")
 			var/new_observer_delta = params["new_observer_delta"]

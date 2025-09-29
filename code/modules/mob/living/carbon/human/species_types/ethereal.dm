@@ -7,6 +7,7 @@
 	meat = /obj/item/food/meat/slab/human/mutant/ethereal
 	mutantstomach = /obj/item/organ/stomach/battery/ethereal
 	mutanttongue = /obj/item/organ/tongue/ethereal
+	mutantheart = /obj/item/organ/heart/ethereal
 	exotic_blood = /datum/reagent/consumable/liquidelectricity //Liquid Electricity. fuck you think of something better gamer
 	siemens_coeff = 0.5 //They thrive on energy
 	brutemod = 1.25 //They're weak to punches
@@ -41,6 +42,7 @@
 	)
 
 	var/current_color
+	var/default_color
 	var/EMPeffect = FALSE
 	var/emageffect = FALSE
 	var/r1
@@ -52,7 +54,6 @@
 	//this is shit but how do i fix it? no clue.
 	var/drain_time = 0 //used to keep ethereals from spam draining power sources
 	var/obj/effect/dummy/lighting_obj/ethereal_light
-	var/default_color
 
 /datum/species/ethereal/Destroy(force)
 	if(ethereal_light)
@@ -76,11 +77,8 @@
 
 	new_ethereal.set_safe_hunger_level()
 
-	//The following code is literally only to make admin-spawned ethereals not be black.
-	//new_ethereal.dna.features["mcolor"] = new_ethereal.dna.features["ethcolor"] //Ethcolor and Mut color are both dogshit and will be replaced
-	//for(var/obj/item/bodypart/limb as anything in new_ethereal.bodyparts)
-	//	if(limb.limb_id == SPECIES_ETHEREAL)
-	//		limb.update_limb(is_creating = TRUE)
+	var/obj/item/organ/heart/ethereal/ethereal_heart = new_ethereal.get_organ_slot(ORGAN_SLOT_HEART)
+	ethereal_heart.ethereal_color = default_color
 
 /datum/species/ethereal/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
 	UnregisterSignal(C, COMSIG_ATOM_SHOULD_EMAG)
@@ -102,11 +100,11 @@
 	. = ..()
 	if(!ethereal_light)
 		return
-	if(default_color != ethereal.dna.features["ethcolor"])
-		var/new_color = ethereal.dna.features["ethcolor"]
-		r1 = GETREDPART(new_color)
-		g1 = GETGREENPART(new_color)
-		b1 = GETBLUEPART(new_color)
+	var/dna_color = "#[ethereal.dna.features["ethcolor"]]"
+	if(default_color != dna_color)
+		r1 = GETREDPART(dna_color)
+		g1 = GETGREENPART(dna_color)
+		b1 = GETBLUEPART(dna_color)
 	if(ethereal.stat != DEAD && !EMPeffect)
 		var/healthpercent = max(ethereal.health, 0) / 100
 		if(!emageffect)

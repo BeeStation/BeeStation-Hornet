@@ -672,9 +672,6 @@ This is here to make the tiles around the station mininuke change when it's arme
 		AddElement(/datum/element/point_of_interest)
 		last_disk_move = world.time
 		START_PROCESSING(SSobj, src)
-
-/obj/item/disk/nuclear/ComponentInitialize()
-	. = ..()
 	AddComponent(/datum/component/stationloving, !fake)
 	if(!fake)
 		//Global teamfinder signal trackable on the synd frequency.
@@ -720,7 +717,7 @@ This is here to make the tiles around the station mininuke change when it's arme
 	if(!fake)
 		return
 
-	if(isobserver(user) || HAS_TRAIT(user.mind, TRAIT_DISK_VERIFIER))
+	if(isobserver(user) || HAS_MIND_TRAIT(user, TRAIT_DISK_VERIFIER))
 		. += span_warning("The serial numbers on [src] are incorrect.")
 
 /obj/item/disk/nuclear/attackby(obj/item/I, mob/living/user, params)

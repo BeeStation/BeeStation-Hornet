@@ -11,6 +11,7 @@
 	ui_header = "downloader_finished.gif"
 	tgui_id = "NtosNetDownloader"
 	program_icon = "download"
+	power_consumption = 80 WATT
 
 
 
@@ -171,7 +172,9 @@
 			"category" = P.category,
 			"installed" = !!hard_drive.find_file_by_name(P.filename),
 			"size" = P.size,
-			"access" = emagged && P.available_on_syndinet ? TRUE : P.can_run(user,transfer = 1, access = access),
+			"access" = emagged && P.available_on_syndinet ? TRUE : P.can_download(user, access = access),
+			"compatible" = P.is_supported_by_hardware(computer, user, loud = FALSE),
+			"requiredhardware" = P.hardware_requirement,
 			"verifiedsource" = P.available_on_ntnet,
 		))
 
@@ -197,6 +200,7 @@
 	ui_header = "downloader_finished.gif"
 	tgui_id = "NtosNetDownloader"
 	emagged = TRUE
+	power_consumption = 10 WATT
 
 /datum/computer_file/program/ntnetdownload/syndicate/on_start()
 	. = ..()

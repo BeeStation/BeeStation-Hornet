@@ -5,10 +5,8 @@
 // /atom signals
 ///from base of atom/proc/Initialize(mapload): sent any time a new atom is created
 #define COMSIG_ATOM_CREATED "atom_created"
-/// from base of atom/examine(): (/mob, list/examine_text)
-#define COMSIG_PARENT_EXAMINE "atom_examine"
 ///from base of atom/examine(): (/mob, list/examine_text)
-//#define COMSIG_ATOM_EXAMINE "atom_examine"
+#define COMSIG_ATOM_EXAMINE "atom_examine"
 ///from base of atom/examine_tags(): (/mob, list/examine_tags)
 #define COMSIG_ATOM_EXAMINE_TAGS "atom_examine_tags"
 ///from base of atom/get_examine_name(): (/mob, list/overrides)
@@ -46,6 +44,8 @@
 	/// If returned from [COMSIG_ATOM_UPDATE_ICON] it prevents the atom from updating its overlays.
 	#define COMSIG_ATOM_NO_UPDATE_OVERLAYS UPDATE_OVERLAYS
 	#define COMSIG_ATOM_NO_UPDATE_GREYSCALE UPDATE_GREAYSCALE
+///from base of [atom/update_inhand_icon]: (/mob)
+#define COMSIG_ATOM_UPDATE_INHAND_ICON "atom_update_inhand_icon"
 ///from base of [atom/update_icon_state]: ()
 #define COMSIG_ATOM_UPDATE_ICON_STATE "atom_update_icon_state"
 //from base of atom/update_overlays(): (list/new_overlays)
@@ -180,3 +180,11 @@
 
 // From /atom/proc/set_density(new_value) for when an atom changes density
 #define COMSIG_ATOM_DENSITY_CHANGED "atom_density_change"
+// Atom movement signals. Format:
+// When the signal is called: (signal arguments)
+// All signals send the source datum of the signal as the first argument
+
+///signal sent out by an atom when it is no longer being pulled by something else : (atom/puller)
+#define COMSIG_ATOM_NO_LONGER_PULLED "movable_no_longer_pulled"
+///signal sent out by an atom when it is no longer pulling something : (atom/pulling)
+//#define COMSIG_ATOM_NO_LONGER_PULLING "movable_no_longer_pulling"

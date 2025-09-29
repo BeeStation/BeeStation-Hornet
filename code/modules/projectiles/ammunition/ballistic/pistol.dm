@@ -9,7 +9,6 @@
 /obj/item/ammo_casing/c10mm/improv
 	name = "improvised 10mm bullet casing"
 	desc = "A handmade 10mm bullet casing."
-	caliber = "10mm"
 	projectile_type = /obj/projectile/bullet/c10mm/improv
 	variance = 10 //Shit ammo is inaccurate.
 
@@ -65,3 +64,11 @@
 	caliber = ".50"
 	projectile_type = /obj/projectile/bullet/a50AE
 
+// Seccie
+
+/obj/item/ammo_casing/x200law
+	name = "x200 LAW bullet casing"
+	desc = "A x200 LAW bullet casing."
+	caliber = "x200 LAW"
+	icon_state = "s-casing_steel"
+	projectile_type = /obj/projectile/bullet/x200law

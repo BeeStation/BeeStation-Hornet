@@ -265,16 +265,18 @@
 	return TRUE
 
 /atom/movable/proc/stop_pulling()
-	if(pulling)
-		if(ismob(pulling?.pulledby))
-			pulling.pulledby.log_message("has stopped pulling [key_name(pulling)]", LOG_ATTACK)
-		if(ismob(pulling))
-			pulling.log_message("has stopped being pulled by [key_name(pulling.pulledby)]", LOG_ATTACK)
-		pulling.set_pulledby(null)
-		var/mob/living/ex_pulled = pulling
-		setGrabState(GRAB_PASSIVE)
-		pulling = null
-		SEND_SIGNAL(ex_pulled, COMSIG_MOVABLE_NO_LONGER_PULLED)
+	if(!pulling)
+		return
+	if(ismob(pulling?.pulledby))
+		pulling.pulledby.log_message("has stopped pulling [key_name(pulling)]", LOG_ATTACK)
+	if(ismob(pulling))
+		pulling.log_message("has stopped being pulled by [key_name(pulling.pulledby)]", LOG_ATTACK)
+	pulling.set_pulledby(null)
+	setGrabState(GRAB_PASSIVE)
+	var/mob/living/old_pulling = pulling
+	pulling = null
+	SEND_SIGNAL(old_pulling, COMSIG_ATOM_NO_LONGER_PULLED, src)
+	//SEND_SIGNAL(src, COMSIG_ATOM_NO_LONGER_PULLING, old_pulling)
 
 ///Reports the event of the change in value of the pulledby variable.
 /atom/movable/proc/set_pulledby(new_pulledby)
@@ -362,7 +364,7 @@
 	. = FALSE
 	if(!newloc || newloc == loc)
 		return
-		
+
 	// A mid-movement... movement... occured, resolve that first.
 	RESOLVE_ACTIVE_MOVEMENT
 
@@ -497,7 +499,7 @@
 						moving_diagonally = SECOND_DIAG_STEP
 						. = step(src, SOUTH)
 			if(moving_diagonally == SECOND_DIAG_STEP)
-				if(!. && set_dir_on_move && update_dir && !face_mouse) 
+				if(!. && set_dir_on_move && update_dir && !face_mouse)
 					setDir(first_step_dir)
 				else if(!inertia_moving)
 					newtonian_move(direct)
@@ -703,7 +705,7 @@
 	if(destination)
 		if(pulledby)
 			pulledby.stop_pulling()
-			
+
 		var/same_loc = oldloc == destination
 		var/area/old_area = get_area(oldloc)
 		var/area/destarea = get_area(destination)
@@ -771,8 +773,8 @@
 	if(has_gravity())
 		return TRUE
 
-	//if(SEND_SIGNAL(src, COMSIG_MOVABLE_SPACEMOVE, movement_dir, continuous_move) & COMSIG_MOVABLE_STOP_SPACEMOVE)
-	//	return TRUE
+	if(SEND_SIGNAL(src, COMSIG_MOVABLE_SPACEMOVE, movement_dir) & COMSIG_MOVABLE_STOP_SPACEMOVE)
+		return TRUE
 
 	if(pulledby && (pulledby.pulledby != src || moving_from_pull))
 		return TRUE
@@ -1139,8 +1141,7 @@
 /atom/movable/proc/get_language_holder()
 	RETURN_TYPE(/datum/language_holder)
 	if(QDELING(src))
-		CRASH("get_language_holder() called on a QDELing atom, \
-			this will try to re-instantiate the language holder that's about to be deleted, which is bad.")
+		CRASH("get_language_holder() called on a QDELing atom, this will try to re-instantiate the language holder that's about to be deleted, which is bad.")
 
 	if(!language_holder)
 		language_holder = new initial_language_holder(src)

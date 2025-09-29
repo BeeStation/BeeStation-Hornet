@@ -274,12 +274,12 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/piratepad_control)
 
 /obj/machinery/computer/piratepad_control/proc/set_pad(obj/machinery/piratepad/newpad)
 	if(pad)
-		UnregisterSignal(pad, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(pad, COMSIG_QDELETING)
 
 	pad = newpad
 
 	if(pad)
-		RegisterSignal(pad, COMSIG_PARENT_QDELETING, PROC_REF(handle_pad_deletion))
+		RegisterSignal(pad, COMSIG_QDELETING, PROC_REF(handle_pad_deletion))
 
 /obj/machinery/computer/piratepad_control/proc/handle_pad_deletion()
 	pad = null

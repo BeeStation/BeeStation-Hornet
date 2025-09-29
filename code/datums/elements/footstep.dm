@@ -75,6 +75,7 @@
 			return
 		if(carbon_source.m_intent == MOVE_INTENT_WALK)
 			return// stealth
+
 	steps_for_living[source] += 1
 	var/steps = steps_for_living[source]
 
@@ -114,6 +115,9 @@
 
 /datum/element/footstep/proc/play_humanstep(mob/living/carbon/human/source, atom/oldloc, direction, forced, list/old_locs, momentum_change)
 	SIGNAL_HANDLER
+
+	if(HAS_TRAIT(source, TRAIT_SILENT_FOOTSTEPS))
+		return
 
 	if (!momentum_change)
 		return

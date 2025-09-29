@@ -43,6 +43,7 @@ GLOBAL_LIST_EMPTY(all_mimites)				//all mimites and their subtypes
 GLOBAL_LIST_EMPTY(bots_list)
 GLOBAL_LIST_EMPTY(ai_eyes)
 GLOBAL_LIST_EMPTY(suit_sensors_list) 		//all people with suit sensors on
+GLOBAL_LIST_EMPTY(unique_connected_keys)	//All ckeys that have connected at any point in the game
 
 GLOBAL_LIST_EMPTY(language_datum_instances)
 GLOBAL_LIST_EMPTY(all_languages)
@@ -98,3 +99,11 @@ GLOBAL_LIST_INIT(construct_radial_images, list(
 				.[E.key_third_person] = list(E)
 			else
 				.[E.key_third_person] |= E
+
+/proc/get_crewmember_minds()
+	var/list/minds = list()
+	for(var/datum/record/locked/target in GLOB.manifest.locked)
+		var/datum/mind/mind = target.weakref_mind.resolve()
+		if(mind)
+			minds += mind
+	return minds

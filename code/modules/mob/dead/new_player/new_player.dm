@@ -24,8 +24,6 @@
 	else
 		forceMove(locate(1,1,1))
 
-	ComponentInitialize()
-
 	. = ..()
 
 /mob/dead/new_player/authenticated/Initialize(mapload)
@@ -379,7 +377,8 @@
 	if(CONFIG_GET(flag/roundstart_traits))
 		SSquirks.AssignQuirks(character.mind, character.client, TRUE)
 
-	GLOB.manifest.inject(humanc)
+	if(humanc)
+		GLOB.manifest.inject(humanc)
 	log_manifest(character.mind.key,character.mind,character,latejoin = TRUE)
 
 /mob/dead/new_player/authenticated/proc/AddEmploymentContract(mob/living/carbon/human/employee)

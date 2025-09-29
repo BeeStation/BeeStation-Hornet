@@ -174,7 +174,7 @@ ALLOW_AI_MULTICAM
 
 ## Secborg ###
 ## Uncomment to prevent the security cyborg model from being chosen
-DISABLE_SECBORG
+#DISABLE_GUARDIANBORG
 
 ## Peacekeeper Borg ###
 ## Uncomment to prevent the peacekeeper cyborg model from being chosen
@@ -229,7 +229,7 @@ NEAR_DEATH_EXPERIENCE
 ## This controls what the AI's laws are at the start of the round.
 ## Set to 0/commented out for "off", silicons will just start with Asimov.
 ## Set to 1 for "custom", silicons will start with the custom laws defined in silicon_laws.txt. (If silicon_laws.txt is empty, the AI will spawn with asimov and Custom boards will auto-delete.)
-## Set to 2 for "random", silicons will start with a random lawset picked from random laws specified below.
+## Set to 2 for "random", silicons will start with a random lawset picked from random laws specified below. Also weighted, for convenience.
 ## Set to 3 for "weighted random", using values in "silicon_weights.txt", a law will be selected, with weights specified in that file.
 ## Set to 4 for "specified", silicons will start with an existing lawset. (If no specified lawset is identified, the AI will spawn with asimov.)
 DEFAULT_LAWS 2
@@ -240,11 +240,11 @@ DEFAULT_LAWS 2
 ## See datums\ai_laws.dm for the full law lists
 
 ## standard-ish laws. These are fairly ok to run
-RANDOM_LAWS asimov
-RANDOM_LAWS asimovpp
-RANDOM_LAWS crewsimov
-RANDOM_LAWS corporate
-RANDOM_LAWS efficiency
+RANDOM_LAWS asimov,10
+RANDOM_LAWS corporate,3
+RANDOM_LAWS asimovpp,2
+RANDOM_LAWS efficiency,1
+#RANDOM_LAWS crewsimov
 
 ## Quirky laws. Shouldn't cause too much harm
 #RANDOM_LAWS hippocratic
@@ -358,9 +358,7 @@ ROUNDSTART_RACES plasmaman
 
 #ROUNDSTART_RACES abductor
 #ROUNDSTART_RACES shadow
-#ROUNDSTART_RACES dullahan
 #ROUNDSTART_RACES pumpkin_man
-#ROUNDSTART_RACES vampire
 
 ## OP Halloween races:
 #ROUNDSTART_RACES skeleton
