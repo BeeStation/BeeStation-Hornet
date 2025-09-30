@@ -1,6 +1,6 @@
 {
 	"Name": "Immediate Action",
-	"Description": "Focuses on more roundstart antagonists and less midrounds",
+	"Description": "Focuses on more roundstart antagonists and less midrounds with high intensity gamemodes included",
 	"Dynamic": {
 		"roundstart_divergence_percent_lower": 1,
 		"roundstart_divergence_percent_upper": 1,

@@ -1,6 +1,6 @@
 {
 	"Name": "Rumors of Deceit",
-	"Description": "Focuses on more less-disruptive antagonists with the intent of sowing distrust",
+	"Description": "Focuses on less-disruptive antagonists with the intent of sowing distrust",
 	"Dynamic": {
 		"roundstart_divergence_percent_lower": 1,
 		"roundstart_divergence_percent_upper": 1,

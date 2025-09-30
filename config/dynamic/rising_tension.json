@@ -1,6 +1,6 @@
 {
 	"Name": "Rising Tension",
-	"Description": "The standard dynamic config, it aims to create a satisfying increase in drama throughout the round.",
+	"Description": "The standard dynamic config, it aims to create a satisfying increase in drama throughout the round",
 	"Dynamic": {
 		"roundstart_divergence_percent_lower": 1,
 		"roundstart_divergence_percent_upper": 1,
