@@ -18510,7 +18510,6 @@
 /area/quartermaster/warehouse)
 "dOG" = (
 /obj/structure/table,
-/obj/structure/table,
 /obj/effect/turf_decal/tile/green/opposingcorners{
 	dir = 1
 	},
@@ -26903,7 +26902,6 @@
 "gXO" = (
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
@@ -37096,7 +37094,6 @@
 /area/medical/morgue)
 "kHv" = (
 /obj/structure/table,
-/obj/structure/table,
 /obj/effect/turf_decal/tile/green/opposingcorners{
 	dir = 1
 	},
@@ -41484,7 +41481,6 @@
 /turf/open/floor/iron/dark,
 /area/security/prison)
 "myI" = (
-/obj/machinery/recharge_station,
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 1
 	},
@@ -43732,10 +43728,6 @@
 /obj/effect/turf_decal/tile/dark/opposingcorners,
 /turf/open/floor/iron,
 /area/hydroponics/garden)
-"ntx" = (
-/obj/structure/lattice,
-/turf/closed/wall,
-/area/maintenance/fore/secondary)
 "ntz" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -52681,6 +52673,9 @@
 /obj/effect/turf_decal/tile/steelgrid/diagonal,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 8
 	},
 /turf/open/floor/iron/tiled/light,
 /area/crew_quarters/toilet)
@@ -64454,7 +64449,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/table,
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/iron/fifty,
@@ -107501,7 +107495,7 @@ ahn
 obt
 ahn
 rqd
-ntx
+ahn
 mYR
 enz
 vhY
@@ -107757,7 +107751,7 @@ aaa
 ahn
 xEX
 ahn
-ntx
+ahn
 ahn
 wCE
 iYo
