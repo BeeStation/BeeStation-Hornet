@@ -3,7 +3,8 @@
 
 /obj/structure/holosign
 	name = "holo sign"
-	icon = 'icons/effects/effects.dmi'
+	icon = 'icons/effects/holosigns.dmi'
+	icon_state = "holosign"
 	anchored = TRUE
 	max_integrity = 1
 	armor_type = /datum/armor/structure_holosign
