@@ -399,8 +399,6 @@
 	AddElement(/datum/element/update_icon_updates_onmob)
 	AddComponent(/datum/component/two_handed, force_unwielded=8, force_wielded=12)
 
-	return
-
 /obj/item/shockpaddles/update_icon_state()
 	var/wielded = ISWIELDED(src)
 	icon_state = "[base_icon_state][wielded]"
