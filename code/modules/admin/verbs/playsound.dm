@@ -156,10 +156,10 @@
 	if(!check_rights(R_SOUND))
 		return
 
-	var/duration = input(usr, "What is the duration of the sound(Seconds)? A duration shorter than that of the sound itself will likely cause it to cut off.") as null|num
-	if(duration <= 0)
-		to_chat(src, span_warning("Duration must be more than 0"))
+	var/duration = tgui_input_number(src, "What is the duration of the sound(Seconds)? A duration shorter than that of the sound itself will likely cause it to cut off.")
+	if(!duration)
 		return
+
 	duration = duration SECONDS
 
 	SSticker.SetRoundEndSound(S, duration)
