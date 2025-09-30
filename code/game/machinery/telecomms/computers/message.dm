@@ -67,7 +67,7 @@
 			set_linked_server(S)
 			break
 
-/obj/machinery/computer/message_monitor/proc/set_linked_server(var/obj/machinery/telecomms/message_server/server)
+/obj/machinery/computer/message_monitor/proc/set_linked_server(obj/machinery/telecomms/message_server/server)
 	if(linked_server)
 		UnregisterSignal(linked_server, COMSIG_QDELETING)
 	if(server != linked_server)

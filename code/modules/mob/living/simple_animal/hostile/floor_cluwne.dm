@@ -425,7 +425,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	stage = STAGE_HAUNT
 	Acquire_Victim()
 
-/mob/living/simple_animal/hostile/floor_cluwne/proc/force_target(var/mob/living/H)
+/mob/living/simple_animal/hostile/floor_cluwne/proc/force_target(mob/living/H)
 	if(!istype(H) || !H.client)		return  // if theyre not human or they're afk
 	current_victim = H
 	target = H

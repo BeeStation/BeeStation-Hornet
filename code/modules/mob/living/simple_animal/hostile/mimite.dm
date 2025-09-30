@@ -137,7 +137,7 @@
 	aggro_vision_range = 1
 	return
 
-/mob/living/simple_animal/hostile/mimite/proc/restore(var/intentional = FALSE)
+/mob/living/simple_animal/hostile/mimite/proc/restore(intentional = FALSE)
 	if(!morphed)
 		if(intentional)
 			to_chat(src, span_warning("You're already in your normal form!"))
@@ -172,7 +172,7 @@
 	..()
 	restore()
 
-/mob/living/simple_animal/hostile/mimite/AIShouldSleep(var/list/possible_targets)
+/mob/living/simple_animal/hostile/mimite/AIShouldSleep(list/possible_targets)
 	. = ..()
 	if(.)
 		if(!morphed)

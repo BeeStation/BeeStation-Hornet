@@ -1096,7 +1096,7 @@
 	return english_list(out, "something indescribable")
 
 /// Applies heat to this holder
-/datum/reagents/proc/expose_temperature(var/temperature, var/coeff=0.02)
+/datum/reagents/proc/expose_temperature(temperature, coeff=0.02)
 	var/temp_delta = (temperature - chem_temp) * coeff
 	if(temp_delta > 0)
 		chem_temp = min(chem_temp + max(temp_delta, 1), temperature)
@@ -1147,7 +1147,7 @@
 		3. add the new static variable to the 'random_reagent' list
 			then done! (of course, don't forget to turn on the new flag at each desired reagent)
 */
-/proc/get_random_reagent_id(var/flag_check, var/blacklist_flag = NONE, var/union = TRUE, var/return_as_list = FALSE)
+/proc/get_random_reagent_id(flag_check, blacklist_flag = NONE, union = TRUE, return_as_list = FALSE)
 
 
 	// ----below is a section you might want to edit for more chem RNGs----
