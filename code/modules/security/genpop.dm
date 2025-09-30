@@ -286,8 +286,12 @@
 		return TRUE //Allow certain things declared with pass_flags_self through wihout side effects
 	if(machine_stat & BROKEN)
 		return FALSE
+
+	//get nerds moving direction
+	var/movement_dir = get_dir(get_turf(mover), target)
+
 	// Let everything through in 1 direction
-	if(mover.dir == dir)
+	if(movement_dir == dir)
 		return TRUE
 	// Call the default allowed functionality, handles:
 	// - Mobs with security access
