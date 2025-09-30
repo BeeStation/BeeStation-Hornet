@@ -2228,9 +2228,6 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "aBH" = (
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -14384,7 +14381,7 @@
 	dir = 8
 	},
 /turf/open/floor/carpet/purple,
-/area/maintenance/port/fore)
+/area/maintenance/club)
 "cDe" = (
 /obj/structure/closet/radiation,
 /turf/open/floor/iron,
@@ -20064,11 +20061,6 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/ai_monitored/turret_protected/aisat_interior)
-"eqT" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/maintenance/fore/secondary)
 "erv" = (
 /obj/machinery/power/apc/auto_name/directional/west,
 /obj/structure/cable/yellow{
@@ -23792,10 +23784,6 @@
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain)
 "fMD" = (
-/obj/structure/disposalpipe/sorting/mail/flip{
-	dir = 4;
-	sortType = 30
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
@@ -23807,6 +23795,9 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 9
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
@@ -26771,7 +26762,6 @@
 /area/crew_quarters/dorms)
 "gUf" = (
 /obj/structure/table/wood,
-/obj/structure/table/wood,
 /obj/item/paper{
 	pixel_y = 7;
 	pixel_x = 3
@@ -28611,7 +28601,6 @@
 /area/crew_quarters/heads/captain)
 "hDg" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron,
@@ -31272,12 +31261,6 @@
 	},
 /turf/open/floor/iron,
 /area/engine/engineering)
-"ixa" = (
-/obj/structure/disposalpipe/segment{
-	dir = 10
-	},
-/turf/open/floor/iron,
-/area/hallway/primary/fore)
 "ixj" = (
 /obj/structure/chair{
 	dir = 4
@@ -32616,11 +32599,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
-"jaD" = (
-/obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/tile/red,
-/turf/open/floor/iron,
-/area/hallway/primary/fore)
 "jaQ" = (
 /obj/structure/chair/office{
 	dir = 1
@@ -50790,7 +50768,6 @@
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
 "qgN" = (
-/obj/structure/table/wood/poker,
 /obj/structure/table/wood/poker,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/toy/cards/deck,
@@ -103673,8 +103650,8 @@ tIl
 pnW
 wQj
 anA
-ixa
-jaD
+anz
+aoz
 hDg
 awr
 tAg
@@ -108040,7 +108017,7 @@ aaa
 aaf
 ahn
 ahn
-eqT
+aiA
 aiA
 ahn
 arj
