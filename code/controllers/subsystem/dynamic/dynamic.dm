@@ -239,7 +239,10 @@ SUBSYSTEM_DEF(dynamic)
 
 			var/json_name = loaded_json["Name"]
 			if (!json_name)
-				stack_trace("Dynamic config: \"[file_path]\" could not be loaded because it did not have a set name.")
+				stack_trace("Dynamic config: \"[file_path]\" could not be loaded because it did not have a name.")
+				continue
+			if (!loaded_json["Description"])
+				stack_trace("Dynamic config: \"[file_path]\" could not be loaded because it did not have a description.")
 				continue
 
 			dynamic_storyteller_jsons[json_name] = loaded_json
