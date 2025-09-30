@@ -287,13 +287,11 @@
 	if(machine_stat & BROKEN)
 		return FALSE
 
-	// compare that shit
-	var/turf/current_turf = get_turf(mover)
-	var/movement_dir = get_dir(current_turf, target)
-
-	// Fat nerds get to go 1 dir, not the other
-	if(movement_dir == dir)
-		return TRUE
+	// Nerds get to go one way
+	if(mover.dir == dir)
+		// But only if they're actually facing the turnstile
+		if(is_source_facing_target(mover, src))
+			return TRUE
 
 	// Call the default allowed functionality, handles:
 	// - Mobs with security access
