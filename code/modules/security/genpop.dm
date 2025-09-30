@@ -287,11 +287,12 @@
 	if(machine_stat & BROKEN)
 		return FALSE
 
-	//get nerds moving direction
-	var/movement_dir = get_dir(get_turf(mover), target)
+	// compare that shit
+	var/turf/current_turf = get_turf(mover)
+	var/movement_dir = get_dir(current_turf, target)
 
 	// Fat nerds get to go 1 dir, not the other
-	if(movement_dir == turn(dir, 180))
+	if(movement_dir == dir)
 		return TRUE
 
 	// Call the default allowed functionality, handles:
