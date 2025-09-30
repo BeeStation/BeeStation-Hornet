@@ -399,6 +399,8 @@ SUBSYSTEM_DEF(dynamic)
 		log_dynamic("ROUNDSTART: Starting a round of forced extended.")
 		return
 
+	log_dynamic("Starting a round with the storyteller: \"[current_storyteller?["Name"] || "None"]\"")
+
 	// Check for forced rulesets
 	if(!roundstart_blacklist_forced_rulesets)
 		for(var/datum/dynamic_ruleset/roundstart/forced_ruleset in roundstart_forced_rulesets)
