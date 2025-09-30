@@ -2,7 +2,7 @@
 
 ///Cloaking - Lowers the user's visibility, can be interrupted by being touched or attacked.
 /obj/item/mod/module/stealth
-	name = "MOD prototype cloaking module"
+	name = "\improper MOD prototype cloaking module"
 	desc = "A complete retrofitting of the suit, this is a form of visual concealment tech employing esoteric technology \
 		to bend light around the user, as well as mimetic materials to make the surface of the suit match the \
 		surroundings based off sensor data. For some reason, this tech is rarely seen."
@@ -49,7 +49,7 @@
 
 //Advanced Cloaking - Doesn't turf off on bump, less power drain, more stealthy.
 /obj/item/mod/module/stealth/ninja
-	name = "MOD advanced cloaking module"
+	name = "\improper MOD advanced cloaking module"
 	desc = "The latest in stealth technology, this module is a definite upgrade over previous versions. \
 		The field has been tuned to be even more responsive and fast-acting, with enough stability to \
 		continue operation of the field even if the user bumps into others. \
@@ -70,7 +70,7 @@
 
 ///Camera Vision - Prevents flashes, blocks tracking.
 /obj/item/mod/module/welding/camera_vision
-	name = "MOD camera vision module"
+	name = "\improper MOD camera vision module"
 	desc = "A module installed into the suit's helmet. This specialized piece of technology is built for subterfuge, \
 		replacing the standard visor with a nanotech display; capable of displaying specialized imagery at \
 		just the right frequency to jam all known forms of camera tracking and facial recognition, \
@@ -96,7 +96,7 @@
 
 //Ninja Star Dispenser - Dispenses ninja stars.
 /obj/item/mod/module/dispenser/ninja
-	name = "MOD ninja star dispenser module"
+	name = "\improper MOD ninja star dispenser module"
 	desc = "This piece of Spider Clan technology can exploit known energy-matter equivalence principles, \
 		using the nanites already hosted in the wearer's suit to transmute into monomolecular shuriken. \
 		While these lack the intense bleeding edge of conventional throwing stars, \
@@ -110,7 +110,7 @@
 
 ///Hacker - This module hooks onto your right-clicks with empty hands and causes ninja actions.
 /obj/item/mod/module/hacker
-	name = "MOD hacker module"
+	name = "\improper MOD hacker module"
 	desc = "Built for one purpose, electronic warfare, this module is built into the hands. \
 		Using near-field communication alongside precise electro-stimulation of the wires in machines, \
 		this decker's dream is normally used to pass through doors like a phantom. \
@@ -150,7 +150,7 @@
 
 ///Weapon Recall - Teleports your katana to you, prevents gun use.
 /obj/item/mod/module/weapon_recall
-	name = "MOD weapon recall module"
+	name = "\improper MOD weapon recall module"
 	desc = "The cornerstone of a clanmember's life as a blademaster, and a module symbolizing their eternal bond with their weapon. \
 		This hooks to the micro bluespace drive inside an energy katana's handle, capable of recalling it to the user's \
 		skilled hands wherever they are. However, those that make such a bond with their weapon are cursed to \
@@ -251,7 +251,7 @@
 
 //Reinforced DNA Lock - Gibs if wrong DNA, emp-proof.
 /obj/item/mod/module/dna_lock/reinforced
-	name = "MOD reinforced DNA lock module"
+	name = "\improper MOD reinforced DNA lock module"
 	desc = "A module which engages with the various locks and seals tied to the suit's systems, \
 		enabling it to only be worn by someone corresponding with the user's exact DNA profile. \
 		Due to utilizing a skintight dampening shield, this one is entirely sealed against electromagnetic interference; \
@@ -276,7 +276,7 @@
 
 //EMP Pulse - In addition to normal shielding, can also launch an EMP itself.
 /obj/item/mod/module/emp_shield/pulse
-	name = "MOD EMP pulse module"
+	name = "\improper MOD EMP pulse module"
 	desc = "This module is normally set to activate on dramatic gestures, inverting and expanding the suit's \
 		EMP dampening shield to cause an electromagnetic pulse of its own. While this won't interfere with the wearer, \
 		it will piss off everyone around them."
@@ -292,7 +292,7 @@
 
 /// Ninja Status Readout - Like the normal status display (see the base type), but with a clock.
 /obj/item/mod/module/status_readout/ninja
-	name = "MOD Spider Clan status readout module"
+	name = "\improper MOD Spider Clan status readout module"
 	desc = "A once-common module, this technology unfortunately went out of fashion in the safer regions of space; \
 		and, according to the extra markings on this particular unit's casing, right into the arachnid grip of the Spider Clan. \
 		Like other similar units, this one hooks into the suit's spine, and is capable of capturing and displaying \
@@ -305,9 +305,9 @@
 
 ///Energy Net - Ensnares enemies in a net that prevents movement.
 /obj/item/mod/module/energy_net
-	name = "MOD energy net module"
+	name = "\improper MOD energy net module"
 	desc = "A custom-built net-thrower. While conventional implementations of this capturing device \
-		tilize monomolecular fibers or cutting razorwire, this uses hardlight technology to deploy a \
+		utilize monomolecular fibers or cutting razorwire, this uses hardlight technology to deploy a \
 		trapping field capable of immobilizing even the strongest opponents."
 	icon_state = "energy_net"
 	removable = FALSE
@@ -388,7 +388,7 @@
 
 ///Adrenaline Boost - Stops all stuns the ninja is affected with, increases his speed.
 /obj/item/mod/module/adrenaline_boost
-	name = "MOD adrenaline boost module"
+	name = "\improper MOD adrenaline boost module"
 	desc = "The secrets of the Spider Clan are many. The exact specifications of their suits, \
 		the techniques they use to make every singular cut make their enemies weep with admiration, \
 		but one of their greatest mysteries is the chemical compound their assassin-saboteurs use in times of need. \
