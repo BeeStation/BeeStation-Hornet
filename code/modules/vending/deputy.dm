@@ -1,5 +1,5 @@
-/// Delete maploaded deputy vendors when there are more than this number of security officers
-#define SECURITY_MAX_POP 3
+/// If there are more than [SECURITY_MAX_POP] security officers on station, the vending machine will refuse to vend anything.
+#define SECURITY_MAX_POP 1
 
 /obj/machinery/vending/deputy
 	name = "\improper DepVend"
@@ -60,22 +60,23 @@
 
 /obj/machinery/vending/deputy/Initialize(mapload)
 	. = ..()
-	if (mapload)
-		RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_SPAWN, PROC_REF(check_roundstart_security))
-
 	radio = new /obj/item/radio(src)
 	radio.set_listening(FALSE)
 	radio.set_frequency(FREQ_COMMON)
 
-/obj/machinery/vending/deputy/proc/check_roundstart_security()
+/obj/machinery/vending/deputy/can_vend()
+	. = ..()
+	if (!.)
+		return FALSE
+
 	var/sec_amount = SSjob.GetJob(JOB_NAME_SECURITYOFFICER).current_positions
 	sec_amount += SSjob.GetJob(JOB_NAME_HEADOFSECURITY).current_positions
 	sec_amount += SSjob.GetJob(JOB_NAME_WARDEN).current_positions
 	sec_amount += SSjob.GetJob(JOB_NAME_DETECTIVE).current_positions
 	sec_amount += SSjob.GetJob(JOB_NAME_CAPTAIN).current_positions
-
-	if(sec_amount >= SECURITY_MAX_POP)
-		qdel(src)
+	if(sec_amount >= SECURITY_MAX_POP && !allowed(usr))
+		to_chat(usr, span_warning("There are security personal on station, ask for their help!"))
+		return FALSE
 
 /obj/machinery/vending/deputy/vend(list/params, list/greyscale_colors)
 
