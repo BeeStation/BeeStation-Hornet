@@ -10,6 +10,7 @@
 	var/list/new_choices = list()
 	for (var/storyteller_name in SSdynamic.dynamic_storyteller_jsons)
 		new_choices += storyteller_name
+		choice_descriptions[storyteller_name] = SSdynamic.dynamic_storyteller_jsons[storyteller_name]["Description"]
 	default_choices = new_choices
 
 /datum/vote/storyteller_vote/toggle_votable()
@@ -22,6 +23,7 @@
 	var/list/new_choices = list()
 	for (var/storyteller_name in SSdynamic.dynamic_storyteller_jsons)
 		new_choices += storyteller_name
+		choice_descriptions[storyteller_name] = SSdynamic.dynamic_storyteller_jsons[storyteller_name]["Description"]
 	choices = new_choices
 
 	. = ..()

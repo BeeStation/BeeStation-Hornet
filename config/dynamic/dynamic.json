@@ -1,5 +1,6 @@
 {
 	"Name": "Normal",
+	"Description": "The default dynamic config",
 	"Dynamic": {
 		"roundstart_divergence_percent_lower": 1,
 		"roundstart_divergence_percent_upper": 1,

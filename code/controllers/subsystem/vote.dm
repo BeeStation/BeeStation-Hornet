@@ -332,6 +332,7 @@ SUBSYSTEM_DEF(vote)
 			for(var/key in current_vote.choices)
 				choices += list(list(
 					"name" = key,
+					"description" = current_vote.choice_descriptions[key],
 					"votes" = current_vote.choices[key],
 				))
 

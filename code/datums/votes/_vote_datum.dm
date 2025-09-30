@@ -28,6 +28,8 @@
 	// Don't mess with these, change the above values / override procs for subtypes.
 	/// An assoc list of [all choices] to [number of votes in the current running vote].
 	VAR_FINAL/list/choices = list()
+	/// An assoc list of [all choices] to [choice description], must be manually set.
+	VAR_FINAL/list/choice_descriptions = list()
 	/// A assoc list of [ckey] to [what they voted for in the current running vote].
 	VAR_FINAL/list/choices_by_ckey = list()
 	/// The world time this vote was started.
@@ -190,7 +192,7 @@
 		total_votes += choices[option]
 
 	if(total_votes <= 0)
-		return span_bold("Vote Result: Inconclusive - No Votes!")
+		return span_bold("[name] Vote Result: Inconclusive - No Votes!")
 
 	if (display_statistics)
 		returned_text += "\nResults:"

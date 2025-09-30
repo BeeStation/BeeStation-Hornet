@@ -1,5 +1,6 @@
 {
 	"Name": "Death is imminent",
+	"Description": "A LOT of antagonists",
 	"Dynamic": {
 		"roundstart_divergence_percent_lower": 1,
 		"roundstart_divergence_percent_upper": 5,

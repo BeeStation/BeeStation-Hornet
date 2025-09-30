@@ -1,5 +1,6 @@
 {
 	"Name": "Greenshift",
+	"Description": "Zero antagonists spawn",
 	"Dynamic": {
 		"roundstart_points_per_ready": 0,
 		"roundstart_points_per_unready": 0,
