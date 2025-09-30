@@ -1,6 +1,6 @@
 //From NSV13
 //Credit to oraclestation for the idea! This just a recode...
-// Recode CanAllowThrough() at some point, it won't allow ridden vehicles
+// Recode CanAllowThrough() at some point, it won't allow ridden vehicles //no
 
 /obj/machinery/turnstile
 	name = "turnstile"
@@ -290,9 +290,10 @@
 	//get nerds moving direction
 	var/movement_dir = get_dir(get_turf(mover), target)
 
-	// Let everything through in 1 direction
-	if(movement_dir == dir)
+	// Fat nerds get to go 1 dir, not the other
+	if(movement_dir == turn(dir, 180))
 		return TRUE
+
 	// Call the default allowed functionality, handles:
 	// - Mobs with security access
 	// - Mobs with security access that are buckled to a vehicle
