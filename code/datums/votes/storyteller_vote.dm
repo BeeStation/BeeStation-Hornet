@@ -42,9 +42,12 @@
 		return "The dynamic storyteller has already been selected."
 
 /datum/vote/storyteller_vote/get_result_text(list/all_winners, real_winner, list/non_voters)
+	// I hate this, but it's better than repeating a ton of code
+	display_statistics = TRUE
+	message_admins(span_infoplain(span_purple("[..()]")))
+	display_statistics = FALSE
 	return null
 
 /datum/vote/storyteller_vote/finalize_vote(winning_option)
-	message_admins("DYNAMIC: The dynamic storyteller has been selected via vote and is: \"[winning_option]\"")
 	log_dynamic("The dynamic storyteller has been selected via vote and is: \"[winning_option]\"")
 	SSdynamic.set_storyteller(winning_option)
