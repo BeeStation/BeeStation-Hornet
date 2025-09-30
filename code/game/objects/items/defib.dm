@@ -386,11 +386,11 @@
 
 	// Defib-specific initialization
 	if(req_defib)
-		 // Check if we are inside a defibrillator; if not, delete the object.
+		// Check if we are inside a defibrillator; if not, delete the object.
 		if (!loc || !istype(loc, /obj/item/defibrillator))
 			return INITIALIZE_HINT_QDEL
 
-		 // If valid, set up the reference and appearance.
+		// If valid, set up the reference and appearance.
 		defib = loc
 		busy = FALSE
 		update_appearance()
