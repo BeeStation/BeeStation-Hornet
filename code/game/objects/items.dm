@@ -349,11 +349,20 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/add_weapon_description()
 	AddElement(/datum/element/weapon_description)
 
-/obj/item/proc/check_allowed_items(atom/target, not_inside, target_self)
-	if(((src in target) && !target_self) || (!isturf(target.loc) && !isturf(target) && not_inside))
+/**
+ * Checks if an item is allowed to be used on an atom/target
+ * Returns TRUE if allowed.
+ *
+ * Args:
+ * target_self - Whether we will check if we (src) are in target, preventing people from using items on themselves.
+ * not_inside - Whether target (or target's loc) has to be a turf.
+ */
+/obj/item/proc/check_allowed_items(atom/target, not_inside = FALSE, target_self = FALSE)
+	if(!target_self && (src in target))
 		return FALSE
-	else
-		return TRUE
+	if(not_inside && !isturf(target.loc) && !isturf(target))
+		return FALSE
+	return TRUE
 
 /obj/item/blob_act(obj/structure/blob/B)
 	if(B.loc == loc && !(resistance_flags & INDESTRUCTIBLE))
