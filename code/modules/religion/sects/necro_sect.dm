@@ -277,7 +277,7 @@
 	chosen_sacrifice = null
 	return ..()
 
-/datum/religion_rites/living_sacrifice/proc/cuff(var/mob/living/carbon/C)
+/datum/religion_rites/living_sacrifice/proc/cuff(mob/living/carbon/C)
 	if(C.handcuffed)
 		return
 	C.handcuffed = new /obj/item/restraints/handcuffs/energy/cult(C)

@@ -900,7 +900,7 @@
   *
   * Use this if an atom needs to attempt to charge another atom.
   */
-/atom/proc/attempt_charge(var/atom/sender, var/atom/target, var/extra_fees = 0)
+/atom/proc/attempt_charge(atom/sender, atom/target, extra_fees = 0)
 	return SEND_SIGNAL(sender, COMSIG_OBJ_ATTEMPT_CHARGE, target, extra_fees)
 
 /**
@@ -913,7 +913,7 @@
 		ai_controller = new ai_controller(src)
 
 ///Setter for the "base_pixel_x" var to append behavior related to it's changing
-/atom/proc/set_base_pixel_x(var/new_value)
+/atom/proc/set_base_pixel_x(new_value)
 	if(base_pixel_x == new_value)
 		return
 	. = base_pixel_x

@@ -1007,7 +1007,7 @@
 		return FALSE
 	return ..()
 
-/mob/living/carbon/human/proc/stub_toe(var/power)
+/mob/living/carbon/human/proc/stub_toe(power)
 	if(HAS_TRAIT(src, TRAIT_LIGHT_STEP))
 		power *= 0.5
 		src.emote("gasp")

@@ -201,7 +201,7 @@
 		heal_overall_damage(1,1, 0, BODYTYPE_ORGANIC)
 	. = ..()
 
-/mob/living/simple_animal/hostile/retaliate/nymph/proc/evolve(var/mob/living/simple_animal/hostile/retaliate/nymph/nymphs)
+/mob/living/simple_animal/hostile/retaliate/nymph/proc/evolve(mob/living/simple_animal/hostile/retaliate/nymph/nymphs)
 	if(istype(loc, /obj/item/clothing/head/mob_holder))
 		var/obj/item/clothing/head/mob_holder/L = loc
 		src.loc = L.loc
@@ -252,7 +252,7 @@
 	QDEL_NULL(helpers)
 	qdel(src)
 
-/mob/living/simple_animal/hostile/retaliate/nymph/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language, ignore_spam = FALSE, forced)
+/mob/living/simple_animal/hostile/retaliate/nymph/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language, ignore_spam = FALSE, forced)
 	if(!..())
 		emote("chitter")
 

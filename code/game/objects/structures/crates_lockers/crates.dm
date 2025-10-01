@@ -54,7 +54,7 @@
 			if(!locatedcrate.opened) //otherwise, if the located crate is closed, allow entering
 				return TRUE
 
-/obj/structure/closet/crate/animate_door(var/closing = FALSE)
+/obj/structure/closet/crate/animate_door(closing = FALSE)
 	if(!door_anim_time)
 		return
 	if(!door_obj) door_obj = new

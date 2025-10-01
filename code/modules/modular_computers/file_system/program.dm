@@ -145,7 +145,7 @@
   *access can contain a list of access numbers to check against. If access is not empty, it will be used istead of checking any inserted ID.
 */
 
-/datum/computer_file/program/proc/can_download(mob/user, loud = FALSE, access_to_check, var/list/access)
+/datum/computer_file/program/proc/can_download(mob/user, loud = FALSE, access_to_check, list/access)
 	if(issilicon(user))
 		return TRUE
 

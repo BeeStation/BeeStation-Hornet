@@ -107,7 +107,7 @@
 			var/turf/t = pick_n_take(tentacle_loc)
 			new /obj/effect/temp_visual/goliath_tentacle/broodmother(t, src)
 
-/mob/living/simple_animal/hostile/asteroid/elite/broodmother/proc/tentacle_patch(var/target)
+/mob/living/simple_animal/hostile/asteroid/elite/broodmother/proc/tentacle_patch(target)
 	ranged_cooldown = world.time + 15
 	var/tturf = get_turf(target)
 	if(!isturf(tturf))
@@ -115,7 +115,7 @@
 	visible_message(span_warning("[src] digs its tentacles under [target]!"))
 	new /obj/effect/temp_visual/goliath_tentacle/broodmother/patch(tturf, src)
 
-/mob/living/simple_animal/hostile/asteroid/elite/broodmother/proc/spawn_children(var/target)
+/mob/living/simple_animal/hostile/asteroid/elite/broodmother/proc/spawn_children(target)
 	ranged_cooldown = world.time + 40
 	visible_message(span_boldwarning("The ground churns behind [src]!"))
 	for(var/i in 1 to 2)

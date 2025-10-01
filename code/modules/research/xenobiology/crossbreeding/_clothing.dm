@@ -60,7 +60,7 @@ Slimecrossing Armor
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_prism)
 
-/obj/structure/light_prism/Initialize(mapload, var/newcolor)
+/obj/structure/light_prism/Initialize(mapload, newcolor)
 	. = ..()
 	color = newcolor
 	light_color = newcolor

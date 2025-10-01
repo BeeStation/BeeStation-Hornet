@@ -8,7 +8,7 @@
 	var/implant_overlay
 	var/syndicate_implant = FALSE //Makes the implant invisible to health analyzers and medical HUDs.
 
-/obj/item/organ/cyberimp/New(var/mob/M = null)
+/obj/item/organ/cyberimp/New(mob/M = null)
 	if(iscarbon(M))
 		src.Insert(M)
 	if(implant_overlay)

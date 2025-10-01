@@ -80,7 +80,7 @@
 /datum/disease/transformation/proc/form_mutagen(mob/living/affected_mob)
 	return //default if something goes wrong
 
-/datum/disease/transformation/proc/replace_banned_player(var/mob/living/new_mob) // This can run well after the mob has been transferred, so need a handle on the new mob to kill it if needed.
+/datum/disease/transformation/proc/replace_banned_player(mob/living/new_mob) // This can run well after the mob has been transferred, so need a handle on the new mob to kill it if needed.
 	set waitfor = FALSE
 
 	affected_mob.playable_bantype = bantype
