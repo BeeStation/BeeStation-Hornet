@@ -35,7 +35,7 @@
 					to_chat(user, span_warning("You need a free hand to hold the gun!"))
 					return
 				update_icon()
-				user.update_inv_back()
+				user.update_worn_back()
 		else
 			to_chat(user, span_warning("You are already holding the gun!"))
 	else
@@ -85,7 +85,7 @@
 	else
 		src.visible_message(span_warning("The [gun.name] snaps back onto the [name]!"))
 	update_icon()
-	user.update_inv_back()
+	user.update_worn_back()
 
 /obj/item/gun/energy/minigun
 	name = "laser gatling gun"

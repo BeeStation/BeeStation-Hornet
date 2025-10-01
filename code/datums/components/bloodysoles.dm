@@ -247,7 +247,7 @@
 			wielder.overlays_standing[SHOES_LAYER] = bloody_feet
 			wielder.apply_overlay(SHOES_LAYER)
 		else
-			wielder.update_inv_shoes()
+			wielder.update_worn_shoes()
 
 /datum/component/bloodysoles/feet/add_parent_to_footprint(obj/effect/decal/cleanable/blood/footprints/FP)
 	if(ismonkey(wielder))

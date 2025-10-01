@@ -361,7 +361,7 @@
 		C.legcuffed = src
 		forceMove(C)
 		C.update_equipment_speed_mods()
-		C.update_inv_legcuffed()
+		C.update_worn_legcuffs()
 		SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 		to_chat(C, span_userdanger("\The [src] ensnares you!"))
 		if(knockdown)
