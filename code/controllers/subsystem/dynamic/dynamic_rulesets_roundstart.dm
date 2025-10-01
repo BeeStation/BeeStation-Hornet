@@ -209,7 +209,7 @@
 	var/datum/team/cult/team
 
 /datum/dynamic_ruleset/roundstart/bloodcult/set_drafted_players_amount()
-	drafted_players_amount = ROUND_UP(length(GLOB.player_list) / 10)
+	drafted_players_amount = max(FLOOR(length(SSdynamic.roundstart_candidates) / 9, 1), 1)
 
 /datum/dynamic_ruleset/roundstart/bloodcult/execute()
 	team = new
