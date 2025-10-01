@@ -1,4 +1,6 @@
 2025-10-01:
+  Isaac:
+  - bugfix: Modsuit defibrillator can be dual-wielded again
   Rukofamicom:
   - balance: Handcuff RNG has been removed. It is no longer possible to randomly break
       out of cuffs sooner than the full timer, and messages about attempted escapes
