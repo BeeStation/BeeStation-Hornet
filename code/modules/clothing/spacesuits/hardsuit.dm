@@ -748,7 +748,7 @@
 	if(ishuman(loc))
 		var/mob/living/carbon/H = loc
 		H.update_equipment_speed_mods()
-		H.update_worn_mask()
+		H.update_worn_oversuit()
 		H.update_worn_undersuit()
 
 /obj/item/clothing/suit/space/hardsuit/syndi/proc/activate_combat_mode()
@@ -760,7 +760,7 @@
 	if(ishuman(loc))
 		var/mob/living/carbon/H = loc
 		H.update_equipment_speed_mods()
-		H.update_worn_mask()
+		H.update_worn_oversuit()
 		H.update_worn_undersuit()
 
 //Stupid snowflake type so we dont freak out the spritesheets. Its not actually used ingame

@@ -125,7 +125,7 @@
 		var/mob/living/carbon/human/H = user
 		attached_accessory.on_uniform_equip(src, user)
 		if(attached_accessory.above_suit)
-			H.update_worn_mask()
+			H.update_worn_oversuit()
 
 /obj/item/clothing/under/equipped(mob/user, slot)
 	..()
@@ -139,7 +139,7 @@
 	if(attached_accessory)
 		attached_accessory.on_uniform_dropped(src, user)
 		if(ishuman(H) && attached_accessory.above_suit)
-			H.update_worn_mask()
+			H.update_worn_oversuit()
 
 	if(ishuman(H) || ismonkey(H))
 		if(H.w_uniform == src)
@@ -178,7 +178,7 @@
 			if(ishuman(loc))
 				var/mob/living/carbon/human/H = loc
 				H.update_worn_undersuit()
-				H.update_worn_mask()
+				H.update_worn_oversuit()
 			if(ismonkey(loc))
 				var/mob/living/carbon/monkey/H = loc
 				H.update_worn_undersuit()
@@ -202,7 +202,7 @@
 		if(ishuman(loc))
 			var/mob/living/carbon/human/H = loc
 			H.update_worn_undersuit()
-			H.update_worn_mask()
+			H.update_worn_oversuit()
 		if(ismonkey(loc))
 			var/mob/living/carbon/monkey/H = loc
 			H.update_worn_undersuit()

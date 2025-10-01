@@ -96,7 +96,7 @@
 		H.visible_message(span_warning("[H] casts off [H.p_their()] [suit_name_simple]!"), span_warning("We cast off our [suit_name_simple]."), span_italics("You hear the organic matter ripping and tearing!"))
 		H.temporarilyRemoveItemFromInventory(H.head, TRUE) //The qdel on dropped() takes care of it
 		H.temporarilyRemoveItemFromInventory(H.wear_suit, TRUE)
-		H.update_worn_mask()
+		H.update_worn_oversuit()
 		H.update_worn_head()
 		H.update_hair()
 

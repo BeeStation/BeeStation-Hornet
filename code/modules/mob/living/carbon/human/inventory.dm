@@ -121,7 +121,7 @@
 				ADD_TRAIT(src, TRAIT_RESTRAINED, SUIT_TRAIT)
 				stop_pulling() //can't pull if restrained
 				update_action_buttons_icon() //certain action buttons will no longer be usable.
-			update_worn_mask()
+			update_worn_oversuit()
 		if(ITEM_SLOT_ICLOTHING)
 			w_uniform = I
 			update_suit_sensors()
@@ -178,7 +178,7 @@
 		if(!QDELETED(src)) //no need to update we're getting deleted anyway
 			if(I.flags_inv & HIDEJUMPSUIT)
 				update_worn_undersuit()
-			update_worn_mask()
+			update_worn_oversuit()
 	else if(I == w_uniform)
 		if(invdrop)
 			if(r_store)
