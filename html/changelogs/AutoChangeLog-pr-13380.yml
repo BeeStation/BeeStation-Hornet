@@ -1,0 +1,4 @@
+author: Isaac
+delete-after: true
+changes:
+  - bugfix: Modsuit defibrillator can be dual-wielded again
