@@ -1,8 +1,0 @@
-author: Tsar-Salat
-delete-after: true
-changes:
-  - refactor: splits legs and arms into grandchildren. (bodypart/l_arm is now bodypart/arm/left,
-      etcetera)
-  - tweak: changed TGUI genderpicker to use pronouns
-  - code_imp: cleaned up some TGUI
-  - code_imp: updated player worn state procs

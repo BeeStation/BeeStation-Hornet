@@ -16,3 +16,11 @@
       them
   Schoolboy215:
   - rscadd: Alt+clicking on the map in a shuttle clears target and thrust
+  Tsar-Salat:
+  - refactor: splits legs and arms into grandchildren. (bodypart/l_arm is now bodypart/arm/left,
+      etcetera)
+  - tweak: changed TGUI genderpicker to use pronouns
+  - code_imp: cleaned up some TGUI
+  - code_imp: updated player worn state procs
+  mrmanlikesbt:
+  - config: adjusted the nuclear operative and blood cult team size formula
