@@ -1,6 +1,5 @@
-author: Rukofamicom
-delete-after: true
-changes:
+2025-10-01:
+  Rukofamicom:
   - balance: Handcuff RNG has been removed. It is no longer possible to randomly break
       out of cuffs sooner than the full timer, and messages about attempted escapes
       now happen every ten attempts
@@ -13,3 +12,5 @@ changes:
       may not be wise to utilize depending on the circumstances you're in.
   - bugfix: You now stop trying to break out of handcuffs if someone else removes
       them
+  Schoolboy215:
+  - rscadd: Alt+clicking on the map in a shuttle clears target and thrust
