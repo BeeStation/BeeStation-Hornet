@@ -104,7 +104,7 @@
 /mob/living/carbon/human/add_blood_DNA(list/blood_dna, list/datum/disease/diseases)
 	if(wear_suit)
 		wear_suit.add_blood_DNA(blood_dna)
-		update_worn_mask()
+		update_worn_oversuit()
 	else if(w_uniform)
 		w_uniform.add_blood_DNA(blood_dna)
 		update_worn_undersuit()

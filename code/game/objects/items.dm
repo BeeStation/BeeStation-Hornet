@@ -1057,7 +1057,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/mob/owner = loc
 	var/flags = slot_flags
 	if(flags & ITEM_SLOT_OCLOTHING)
-		owner.update_worn_mask()
+		owner.update_worn_oversuit()
 	if(flags & ITEM_SLOT_ICLOTHING)
 		owner.update_worn_undersuit()
 	if(flags & ITEM_SLOT_GLOVES)

@@ -82,7 +82,7 @@ There are several things that need to be remembered:
 		update_worn_head()
 		update_worn_belt()
 		update_worn_back()
-		update_worn_mask()
+		update_worn_oversuit()
 		update_pockets()
 		update_worn_neck()
 		update_transform()
@@ -117,7 +117,7 @@ There are several things that need to be remembered:
 	if(slot_flags & ITEM_SLOT_FEET)
 		update_worn_shoes()
 	if(slot_flags & ITEM_SLOT_OCLOTHING)
-		update_worn_mask()
+		update_worn_oversuit()
 	if(slot_flags & ITEM_SLOT_ICLOTHING)
 		update_worn_undersuit()
 	if(slot_flags & ITEM_SLOT_SUITSTORE)
@@ -507,7 +507,7 @@ There are several things that need to be remembered:
 
 
 
-/mob/living/carbon/human/update_worn_mask(update_obscured = TRUE)
+/mob/living/carbon/human/update_worn_oversuit(update_obscured = TRUE)
 	remove_overlay(SUIT_LAYER)
 
 	if(client && hud_used)

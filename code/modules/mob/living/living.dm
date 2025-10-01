@@ -1986,7 +1986,7 @@
 		REMOVE_TRAIT(src, TRAIT_FAT, OBESITY)
 		remove_movespeed_modifier(/datum/movespeed_modifier/obesity)
 		update_worn_undersuit()
-		update_worn_mask()
+		update_worn_oversuit()
 
 	// Reset overeat duration.
 	overeatduration = 0
