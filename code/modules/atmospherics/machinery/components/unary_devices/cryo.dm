@@ -40,7 +40,6 @@
 	var/message_cooldown
 	var/breakout_time = 300
 	fair_market_price = 10
-	dept_req_for_free = ACCOUNT_MED_BITFLAG
 
 	/// Reference to the datum connector we're using to interface with the pipe network
 	var/datum/gas_machine_connector/internal_connector

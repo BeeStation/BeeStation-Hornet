@@ -21,6 +21,8 @@ Simple datum which is instanced once per type and is used for every object of sa
 	var/list/categories = list()
 	///The type of sheet this material creates. This should be replaced as soon as possible by greyscale sheets
 	var/obj/item/stack/sheet_type
+	///What type of shard the material will shatter to
+	var/obj/item/shard_type
 	///This is a modifier for force, and resembles the strength of the material
 	var/strength_modifier = 1
 	///This is a modifier for integrity, and resembles the strength of the material
@@ -120,7 +122,7 @@ Simple datum which is instanced once per type and is used for every object of sa
 	item.pickup_sound = item_sound_override
 	item.drop_sound = item_sound_override
 
-/datum/material/proc/on_applied_turf(var/turf/T, amount, material_flags)
+/datum/material/proc/on_applied_turf(turf/T, amount, material_flags)
 	if(isopenturf(T))
 		if(!turf_sound_override)
 			return

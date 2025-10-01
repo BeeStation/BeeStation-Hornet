@@ -1,0 +1,26 @@
+2025-10-01:
+  Isaac:
+  - bugfix: Modsuit defibrillator can be dual-wielded again
+  Rukofamicom:
+  - balance: Handcuff RNG has been removed. It is no longer possible to randomly break
+      out of cuffs sooner than the full timer, and messages about attempted escapes
+      now happen every ten attempts
+  - tweak: Dragging players which are prone (whether by choice or because they are
+      unable to stand) is now much slower. Fireman carry or use roller bed or other
+      similar item to move someone faster if they are unable or unwilling to stand.
+  - rscadd: Handcuffed players may now severely injure one of their arms to break
+      out of cuffs quickly, dealing 50 damage to a random arm or completely dismembering
+      it if they are a race that is easily delimbed. Bear in mind that this option
+      may not be wise to utilize depending on the circumstances you're in.
+  - bugfix: You now stop trying to break out of handcuffs if someone else removes
+      them
+  Schoolboy215:
+  - rscadd: Alt+clicking on the map in a shuttle clears target and thrust
+  Tsar-Salat:
+  - refactor: splits legs and arms into grandchildren. (bodypart/l_arm is now bodypart/arm/left,
+      etcetera)
+  - tweak: changed TGUI genderpicker to use pronouns
+  - code_imp: cleaned up some TGUI
+  - code_imp: updated player worn state procs
+  mrmanlikesbt:
+  - config: adjusted the nuclear operative and blood cult team size formula

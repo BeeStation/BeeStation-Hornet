@@ -202,8 +202,6 @@ CREATION_TEST_IGNORE_SELF(/turf)
 		custom_materials = null //Null the list to prepare for applying the materials properly
 		set_custom_materials(temp_list)
 
-	ComponentInitialize()
-
 	if(uses_integrity)
 		atom_integrity = max_integrity
 
@@ -460,7 +458,7 @@ CREATION_TEST_IGNORE_SELF(/turf)
 //////////////////////////////
 
 //Distance associates with all directions movement
-/turf/proc/Distance(var/turf/T)
+/turf/proc/Distance(turf/T)
 	return get_dist(src,T)
 
 //  This Distance proc assumes that only cardinal movement is

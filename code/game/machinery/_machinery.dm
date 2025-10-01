@@ -134,10 +134,8 @@
 	var/interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_SET_MACHINE
 	var/fair_market_price = 69
 	var/market_verb = "Customer"
-	/// [Bitflag] the machine will be free when a bank holder has a specific bitflag
-	var/dept_req_for_free = ACCOUNT_ENG_BITFLAG
-	/// [Bitflag] the machine sends its profit to the corresponding department budget. if this is not specified, this will follow `dept_req_for_free` value.
-	var/seller_department
+	/// [Bitflag] the machine sends its profit to the corresponding department budget.
+	var/seller_department = ACCOUNT_CAR_BITFLAG // Your money goes to cargo, and you will like it.
 
 	var/clickvol = 40	// sound volume played on successful click
 	var/next_clicksound = 0	// value to compare with world.time for whether to play clicksound according to CLICKSOUND_INTERVAL
@@ -151,8 +149,6 @@
 	var/last_used_time = 0
 	/// Mobtype of last user. Typecast to [/mob/living] for initial() usage
 	var/mob/living/last_user_mobtype
-	///Is this machine currently in the atmos machinery queue, but also interacting with turf air?
-	var/interacts_with_air = FALSE
 
 	/// Maximum time an EMP will disable this machine for
 	var/emp_disable_time = 2 MINUTES
@@ -185,9 +181,6 @@
 
 	if(occupant_typecache)
 		occupant_typecache = typecacheof(occupant_typecache)
-
-	if(!seller_department)
-		seller_department = dept_req_for_free
 
 	return INITIALIZE_HINT_LATELOAD
 
@@ -766,7 +759,7 @@
 	if(flags_1 & NODECONSTRUCT_1)
 		return ..()
 
-	on_deconstruction()
+	on_deconstruction(disassembled)
 	if(!LAZYLEN(component_parts))
 		return ..() //We have no parts
 	spawn_frame(disassembled)
@@ -1035,7 +1028,8 @@
 	return
 
 //called on deconstruction before the final deletion
-/obj/machinery/proc/on_deconstruction()
+/obj/machinery/proc/on_deconstruction(disassembled)
+	PROTECTED_PROC(TRUE)
 	return
 
 /obj/machinery/proc/can_be_overridden()
@@ -1066,7 +1060,7 @@
 	AM.pixel_x = -8 + ((.%3)*8)
 	AM.pixel_y = -8 + (round( . / 3)*8)
 
-/obj/machinery/proc/play_click_sound(var/custom_clicksound)
+/obj/machinery/proc/play_click_sound(custom_clicksound)
 	if((custom_clicksound ||= clicksound) && world.time > next_clicksound)
 		next_clicksound = world.time + CLICKSOUND_INTERVAL
 		playsound(src, custom_clicksound, clickvol)

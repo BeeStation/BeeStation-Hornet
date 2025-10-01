@@ -304,8 +304,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 	SSblackbox.Seal()
 
 	if(CONFIG_GET(flag/automapvote))
-		if((world.time - SSticker.round_start_time) >= (CONFIG_GET(number/automapvote_threshold) MINUTES))
-			SSvote.initiate_vote("map", "BeeBot", forced=TRUE, popup=TRUE) //automatic map voting
+		INVOKE_ASYNC(SSvote, TYPE_PROC_REF(/datum/controller/subsystem/vote, initiate_vote), /datum/vote/map_vote, "Map Rotation", null, TRUE)
 
 	sleep(50)
 	ready_for_reboot = TRUE
@@ -809,15 +808,16 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 		qdel(query_check_everything_ranks)
 
 
-/datum/controller/subsystem/ticker/proc/sendtodiscord(var/survivors, var/escapees, var/integrity)
+/datum/controller/subsystem/ticker/proc/sendtodiscord(survivors, escapees, integrity)
 	var/discordmsg = ""
 	discordmsg += "--------------ROUND END--------------\n"
 	discordmsg += "Server: [CONFIG_GET(string/servername)]\n"
 	discordmsg += "Round Number: [GLOB.round_id]\n"
 	discordmsg += "Duration: [DisplayTimeText(world.time - SSticker.round_start_time)]\n"
-	discordmsg += "Players: [GLOB.player_list.len]\n"
+	discordmsg += "Players: [GLOB.player_list.len] (Total: [GLOB.unique_connected_keys.len])\n"
 	discordmsg += "Survivors: [survivors]\n"
 	discordmsg += "Escapees: [escapees]\n"
+	discordmsg += "Total Crew: [GLOB.joined_player_list.len] (Roundstart: [SSjob.initial_players_to_assign])\n"
 	discordmsg += "Integrity: [integrity]\n"
 
 	// Roundstart

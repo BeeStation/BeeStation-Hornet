@@ -27,7 +27,7 @@
 		else
 			icon_state = "[soft_color]soft"
 			to_chat(user, span_notice("You flip the hat back in normal position."))
-		user.update_inv_head()	//so our mob-overlays update
+		user.update_worn_head()	//so our mob-overlays update
 
 /obj/item/clothing/head/soft/equipped(mob/user, slot)
 	. = ..()
@@ -101,6 +101,7 @@
 	soft_color = "sec"
 	armor_type = /datum/armor/soft_sec
 	strip_delay = 60
+	custom_price = 30
 
 
 /datum/armor/soft_sec

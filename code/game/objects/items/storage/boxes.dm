@@ -890,7 +890,7 @@
 	illustration = "clown"
 
 /obj/item/storage/box/clown/attackby(obj/item/I, mob/user, params)
-	if((istype(I, /obj/item/bodypart/l_arm/robot)) || (istype(I, /obj/item/bodypart/r_arm/robot)))
+	if((istype(I, /obj/item/bodypart/arm/left/robot)) || (istype(I, /obj/item/bodypart/arm/right/robot)))
 		if(contents.len) //prevent accidently deleting contents
 			to_chat(user, span_warning("You need to empty [src] out first!"))
 			return
@@ -1350,8 +1350,7 @@
 
 /obj/item/storage/box/tablet4dummies/PopulateContents()
 	new /obj/item/modular_computer/tablet(src)
-	new /obj/item/computer_hardware/battery(src)
-	new /obj/item/stock_parts/cell/computer/nano(src)
+	new /obj/item/computer_hardware/battery/tiny(src)
 	new /obj/item/computer_hardware/processor_unit/small(src)
 	new /obj/item/computer_hardware/hard_drive/micro(src)
 	new /obj/item/computer_hardware/identifier(src)
@@ -1411,5 +1410,19 @@
 		/obj/item/slimecross/stabilized/lightpink=1,\
 		/obj/item/slimecross/stabilized/adamantine=1,\
 		/obj/item/slimecross/stabilized/rainbow=1,\
+	)
+
+/obj/item/storage/box/shipping
+	name = "box of shipping supplies"
+	desc = "Contains several scanners and labelers for shipping things. Wrapping Paper not included."
+	illustration = "shipping"
+
+/obj/item/storage/box/shipping/PopulateContents()
+	var/static/items_inside = list(
+		/obj/item/dest_tagger=1,
+		/obj/item/sales_tagger=1,
+		/obj/item/export_scanner=1,
+		/obj/item/stack/package_wrap/small=2,
+		/obj/item/stack/wrapping_paper/small=1
 		)
 	generate_items_inside(items_inside,src)

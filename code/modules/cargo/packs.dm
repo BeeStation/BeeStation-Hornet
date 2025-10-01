@@ -376,15 +376,65 @@
 					/obj/item/clothing/head/helmet/sec)
 	crate_name = "armor crate"
 
-/datum/supply_pack/security/disabler
-	name = "Disabler Crate"
-	desc = "Three stamina-draining disabler weapons. Requires Security access to open."
-	cost = 1500
+/datum/supply_pack/security/secpistol
+	name = "NPS-10 3-pack Crate"
+	desc = "Three standard issue law enforcement firearms. Requires Security access to open. Includes magazines."
+	cost = 1900
 	max_supply = 2
-	contains = list(/obj/item/gun/energy/disabler,
-					/obj/item/gun/energy/disabler,
-					/obj/item/gun/energy/disabler)
-	crate_name = "disabler crate"
+	contains = list(/obj/item/gun/ballistic/automatic/pistol/security,
+					/obj/item/gun/ballistic/automatic/pistol/security,
+					/obj/item/gun/ballistic/automatic/pistol/security)
+	crate_name = "pistol crate"
+
+/datum/supply_pack/security/secpistol_ammo
+	name = "x200 LAW - NPS ammo Crate"
+	desc = "A box of x200 LAW; steel-cartridged low velocity ammo for law enforcement firearms, and 3 twelve-packs alongside. Requires Security access to open."
+	cost = 950
+	max_supply = 2
+	contains = list(/obj/item/ammo_box/x200law,
+					/obj/item/ammo_box/pouch/x200law,
+					/obj/item/ammo_box/pouch/x200law,
+					/obj/item/ammo_box/pouch/x200law)
+	crate_name = "ammo crate"
+
+/datum/supply_pack/security/secpistol_mags
+	name = "NPS-10 magazines Crate"
+	desc = "Three standard issue NPS-10 compatible magazines for law enforcement firearms. Does not come pre-loaded. Requires Security access to open."
+	cost = 1200
+	max_supply = 2
+	contains = list(/obj/item/ammo_box/magazine/x200law/empty,
+					/obj/item/ammo_box/magazine/x200law/empty,
+					/obj/item/ammo_box/magazine/x200law/empty)
+	crate_name = "magazine crate"
+
+/datum/supply_pack/security/taser
+	name = "APS-Arc 3-pack Crate"
+	desc = "Three standard issue law enforcement tasers. Requires Security access to open. Includes magazines."
+	cost = 1900
+	max_supply = 2
+	contains = list(/obj/item/gun/ballistic/taser,
+					/obj/item/gun/ballistic/taser,
+					/obj/item/gun/ballistic/taser)
+	crate_name = "taser crate"
+
+/datum/supply_pack/security/taser_ammo
+	name = "Taser load assemblies Crate"
+	desc = "Two boxes of pre-arranged APS taser load assemblies for station law enforcement. Requires Security access to open."
+	cost = 950
+	max_supply = 2
+	contains = list(/obj/item/ammo_box/taser,
+					/obj/item/ammo_box/taser)
+	crate_name = "ammo crate"
+
+/datum/supply_pack/security/taser_mags
+	name = "APS-Arc cartridge Crate"
+	desc = "Three standard issue APS-Arc taser cartridges. Pre-loaded. Requires Security access to open."
+	cost = 1200
+	max_supply = 2
+	contains = list(/obj/item/ammo_casing/taser,
+					/obj/item/ammo_casing/taser,
+					/obj/item/ammo_casing/taser)
+	crate_name = "magazine crate"
 
 /datum/supply_pack/security/forensics
 	name = "Forensics Crate"
@@ -1082,17 +1132,13 @@
 	crate_name = "space shelter crate"
 	crate_type = /obj/structure/closet/crate/engineering/electrical
 
-/obj/item/stock_parts/cell/inducer_supply
-	maxcharge = 5000
-	charge = 5000
-
 /datum/supply_pack/engineering/inducers
 	name = "NT-100 Heavy-Duty Inducers Crate"
 	desc = "No rechargers? No problem, with the NT-100 EPI, you can recharge any standard cell-based equipment anytime, anywhere, twice faster than consumer alternatives! Contains two Engineering inducers."
 	cost = 2000
 	max_supply = 3
-	contains = list(/obj/item/inducer {cell_type = /obj/item/stock_parts/cell/high; opened = 0}, /obj/item/inducer {cell_type = /obj/item/stock_parts/cell/inducer_supply; opened = 0}) //FALSE doesn't work in modified type paths apparently.
-	crate_name = "inducer crate"
+	contains = list(/obj/item/inducer, /obj/item/inducer)
+	crate_name = "industrial inducer crate"
 	crate_type = /obj/structure/closet/crate/engineering/electrical
 
 /datum/supply_pack/engineering/pacman
@@ -2043,8 +2089,8 @@
 	desc = "No rechargers? No problem, with the NT-50 EPI, you can recharge any standard cell-based equipment anytime, anywhere! Contains two Science inducers."
 	cost = 1000
 	max_supply = 3
-	contains = list(/obj/item/inducer/sci {cell_type = /obj/item/stock_parts/cell/inducer_supply; opened = 0}, /obj/item/inducer/sci {cell_type = /obj/item/stock_parts/cell/inducer_supply; opened = 0}) //FALSE doesn't work in modified type paths apparently.
-	crate_name = "inducer crate"
+	contains = list(/obj/item/inducer/sci/with_cell, /obj/item/inducer/sci/with_cell)
+	crate_name = "science inducer crate"
 
 /datum/supply_pack/science/rped
 	name = "RPED crate"
@@ -2125,7 +2171,7 @@
 	contains = list(/obj/item/mod/core/standard,
 		/obj/item/mod/core/standard,
 		/obj/item/mod/core/standard)
-	crate_name = "MOD core crate"
+	crate_name = "\improper MOD core crate"
 	crate_type = /obj/structure/closet/crate/secure/science
 
 //////////////////////////////////////////////////////////////////////////////
@@ -2842,7 +2888,13 @@
 		var/mob/living/basic/pet/dog/corgi/D = locate() in .
 		if(D.gender == FEMALE)
 			qdel(D)
-			new /mob/living/basic/pet/dog/corgi/Lisa(.)
+			new /mob/living/basic/pet/dog/corgi/lisa(.)
+
+/datum/supply_pack/critter/dog_bone
+	name = "Jumbo Dog Bone"
+	desc = "The best dog bone money can have exported to a space station. A perfect gift for a dog."
+	cost = PAYCHECK_COMMAND * 4
+	contains = list(/obj/item/dog_bone)
 
 /datum/supply_pack/critter/cow
 	name = "Cow Crate"
@@ -2935,6 +2987,19 @@
 	cost = 10000
 	contains = list(/mob/living/basic/pet/dog/corgi/capybara)
 	crate_name = "capybara crate"
+
+/datum/supply_pack/critter/garden_gnome
+	name = "Garden Gnome Crate"
+	desc = "Collect them all for your garden. Comes with three!"
+	hidden = TRUE
+	cost = 4000
+	contains = list(/mob/living/basic/garden_gnome)
+	crate_name = "garden gnome crate"
+
+/datum/supply_pack/critter/garden_gnome/generate()
+	. = ..()
+	for(var/i in 1 to 2)
+		new /mob/living/basic/garden_gnome(.)
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Costumes & Toys /////////////////////////////////

@@ -3463,8 +3463,8 @@
 	pixel_y = 1;
 	req_access_txt = "3"
 	},
-/obj/structure/bed/dogbed/walter,
-/mob/living/basic/pet/dog/bullterrier/walter{
+/obj/structure/bed/dogbed/tyson,
+/mob/living/basic/pet/dog/bullterrier/tyson{
 	density = 0;
 	dir = 1
 	},
@@ -5859,7 +5859,7 @@
 	name = "Vacant Office APC";
 	pixel_y = 24
 	},
-/obj/effect/mapping_helpers/apc/discharged,
+/obj/effect/mapping_helpers/apc/no_charge,
 /obj/structure/light_construct{
 	dir = 1
 	},
@@ -6600,7 +6600,7 @@
 	anchored = 1
 	},
 /obj/machinery/power/apc/auto_name/directional/north,
-/obj/effect/mapping_helpers/apc/discharged,
+/obj/effect/mapping_helpers/apc/no_charge,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -12933,6 +12933,15 @@
 /obj/structure/window/reinforced,
 /turf/open/floor/engine,
 /area/science/xenobiology)
+"gBk" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/loot_jobscale/armoury/taser_ammo_box,
+/obj/effect/loot_jobscale/armoury/tasers,
+/obj/structure/closet/gun_locker{
+	anchored = 1
+	},
+/turf/open/floor/iron/dark,
+/area/ai_monitored/security/armory)
 "gBH" = (
 /obj/item/kirbyplants/random{
 	pixel_y = 22
@@ -16524,6 +16533,16 @@
 /obj/effect/turf_decal/numbers/two_nine,
 /turf/open/floor/iron,
 /area/maintenance/department/crew_quarters/dorms)
+"iCw" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/loot_jobscale/armoury/pistol_ammo,
+/obj/effect/loot_jobscale/armoury/pistol_ammo_box,
+/obj/effect/loot_jobscale/armoury/pistols,
+/obj/structure/closet/gun_locker{
+	anchored = 1
+	},
+/turf/open/floor/iron/dark,
+/area/ai_monitored/security/armory)
 "iCD" = (
 /obj/structure/frame/machine,
 /turf/open/floor/plating,
@@ -27256,19 +27275,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
-"osP" = (
-/obj/structure/rack,
-/obj/effect/turf_decal/bot,
-/obj/item/gun/energy/e_gun{
-	pixel_x = 1;
-	pixel_y = 5
-	},
-/obj/item/gun/energy/e_gun{
-	pixel_x = 4;
-	pixel_y = 3
-	},
-/turf/open/floor/iron/dark,
-/area/ai_monitored/security/armory)
 "oth" = (
 /obj/structure/sign/warning/explosives,
 /turf/closed/wall,
@@ -28763,19 +28769,6 @@
 	},
 /turf/open/floor/carpet/red,
 /area/medical/exam_room)
-"pdd" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/rack,
-/obj/item/gun/energy/disabler{
-	pixel_x = 1;
-	pixel_y = 2
-	},
-/obj/item/gun/energy/disabler{
-	pixel_x = 5;
-	pixel_y = 1
-	},
-/turf/open/floor/iron/dark,
-/area/ai_monitored/security/armory)
 "pdw" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/structure/cable/yellow{
@@ -29473,15 +29466,6 @@
 	dir = 1
 	},
 /area/crew_quarters/fitness/recreation)
-"pzG" = (
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	alpha = 180;
-	dir = 1
-	},
-/turf/open/floor/iron/dark/side{
-	dir = 4
-	},
-/area/hallway/primary/fore)
 "pzQ" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance/two,
@@ -42845,7 +42829,7 @@
 /turf/open/floor/plating/asteroid/planetary,
 /area/engine/engineering)
 "wBs" = (
-/mob/living/basic/pet/dog/corgi/Ian{
+/mob/living/basic/pet/dog/corgi/ian{
 	density = 0;
 	dir = 1;
 	pixel_y = 4
@@ -44996,6 +44980,16 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
+"xHA" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	alpha = 180;
+	dir = 1
+	},
+/obj/machinery/vending/deputy,
+/turf/open/floor/iron/dark/side{
+	dir = 4
+	},
+/area/hallway/primary/fore)
 "xHG" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -187792,7 +187786,7 @@ dNl
 qRb
 qfG
 bnk
-osP
+gBk
 jSJ
 kxH
 fLS
@@ -188049,7 +188043,7 @@ tth
 sGC
 teE
 nwN
-pdd
+iCw
 xJJ
 fLS
 fLS
@@ -191138,7 +191132,7 @@ uAn
 fnY
 sQp
 tLg
-pzG
+xHA
 rgL
 nYV
 mMC
@@ -262866,7 +262860,7 @@ vpD
 tFe
 tFe
 tFe
-tFe
+xQn
 xQn
 xQn
 xQn

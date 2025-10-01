@@ -23,7 +23,7 @@
 		for(var/each in starting_organ)
 			insert_organ(new each(src))
 
-/obj/item/autosurgeon/proc/insert_organ(var/obj/item/I)
+/obj/item/autosurgeon/proc/insert_organ(obj/item/I)
 	storedorgan += I
 	I.forceMove(src)
 

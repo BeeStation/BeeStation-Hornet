@@ -318,6 +318,7 @@
 		/obj/item/t_scanner,
 		/obj/item/construction/rcd,
 		/obj/item/pipe_dispenser,
+		/obj/item/extinguisher,
 	)
 	variants = list(
 		"atmospheric" = list(
@@ -579,7 +580,7 @@
 	slowdown_deployed = 0
 	allowed_suit_storage = list(
 		/obj/item/mail,
-		/obj/item/small_delivery,
+		/obj/item/delivery/small,
 		/obj/item/paper,
 		/obj/item/storage/backpack/satchel/mail,
 	)
@@ -1554,16 +1555,16 @@
 	)
 
 /datum/armor/mod_theme_ninja
-	melee = 40
+	melee = 10
 	bullet = 30
-	laser = 20
+	laser = 30
 	energy = 30
-	bomb = 30
+	bomb = 70
 	bio = 100
-	rad = 60
+	rad = 80
 	fire = 100
 	acid = 100
-	bleed = 50
+	bleed = 60
 
 /datum/mod_theme/prototype
 	name = "prototype"
@@ -1583,7 +1584,7 @@
 	charge_drain = DEFAULT_CHARGE_DRAIN * 2
 	slowdown_deployed = 0.75
 	ui_theme = "hackerman"
-	inbuilt_modules = list(/obj/item/mod/module/anomaly_locked/kinesis)
+	inbuilt_modules = list(/obj/item/mod/module/anomaly_locked/kinesis/prototype)
 	allowed_suit_storage = list(
 		/obj/item/analyzer,
 		/obj/item/t_scanner,

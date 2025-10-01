@@ -120,6 +120,23 @@
 	///Represents a signel source of power alarms for this apc
 	var/datum/alarm_handler/alarm_manager
 
+	/// Used for apc helper called cut_ai_wire to make apc's wore responsible for ai connectione mended.
+	var/cut_ai_wire = FALSE
+	/// Used for apc helper called unlocked to make apc unlocked.
+	var/unlocked = FALSE
+	/// Used for apc helper called syndicate_access to make apc's required access syndicate_access.
+	var/syndicate_access = FALSE
+	/// Used for apc helper called away_general_access to make apc's required access away_general_access.
+	var/away_general_access = FALSE
+	/// Used for apc helper called cell_5k to install 5k cell into apc.
+	var/cell_5k = FALSE
+	/// Used for apc helper called cell_10k to install 10k cell into apc.
+	var/cell_10k = FALSE
+	/// Used for apc helper called no_charge to make apc's charge at 0% meter.
+	var/no_charge = FALSE
+	/// Used for apc helper called full_charge to make apc's charge at 100% meter.
+	var/full_charge = FALSE
+
 	//Clockcult - Has the reward for converting an APC been given?
 	var/clock_cog_rewarded = FALSE
 	//Clockcult - The integration cog inserted inside of us
@@ -137,7 +154,7 @@
 	fire = 90
 	acid = 50
 
-/obj/machinery/power/apc/New(turf/loc, var/ndir, var/building=0)
+/obj/machinery/power/apc/New(turf/loc, ndir, building=0)
 	..()
 	GLOB.apcs_list += src
 
@@ -219,10 +236,6 @@
 	area.apc = null
 	area = null
 
-/obj/machinery/power/apc/ComponentInitialize()
-	. = ..()
-	AddElement(/datum/element/atmos_sensitive)
-
 /obj/machinery/power/apc/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
 	return (exposed_temperature > 2000)
 
@@ -272,6 +285,8 @@
 	update_appearance()
 
 	make_terminal()
+
+	AddElement(/datum/element/atmos_sensitive)
 
 	addtimer(CALLBACK(src, PROC_REF(update)), 5)
 
@@ -399,6 +414,36 @@
 
 /obj/machinery/power/apc/proc/report()
 	return "[area.name] : [equipment]/[lighting]/[environ] ([lastused_equip+lastused_light+lastused_environ]) : [cell? cell.percent() : "N/C"] ([charging])"
+
+///Used for cell_5k apc helper, which installs 5k cell into apc.
+/obj/machinery/power/apc/proc/install_cell_5k()
+	cell_type = /obj/item/stock_parts/cell/upgraded/plus
+	cell = new cell_type(src)
+
+/// Used for cell_10k apc helper, which installs 10k cell into apc.
+/obj/machinery/power/apc/proc/install_cell_10k()
+	cell_type = /obj/item/stock_parts/cell/high
+	cell = new cell_type(src)
+
+/// Used for unlocked apc helper, which unlocks the apc.
+/obj/machinery/power/apc/proc/unlock()
+	locked = FALSE
+
+/// Used for syndicate_access apc helper, which sets apc's required access to syndicate_access.
+/obj/machinery/power/apc/proc/give_syndicate_access()
+	req_one_access = list(ACCESS_SYNDICATE)
+
+///Used for away_general_access apc helper, which set apc's required access to away_general_access.
+/obj/machinery/power/apc/proc/give_away_general_access()
+	req_one_access = list(ACCESS_AWAY_GENERAL)
+
+/// Used for no_charge apc helper, which sets apc charge to 0%.
+/obj/machinery/power/apc/proc/set_no_charge()
+	cell.charge = 0
+
+/// Used for full_charge apc helper, which sets apc charge to 100%.
+/obj/machinery/power/apc/proc/set_full_charge()
+	cell.charge = cell.maxcharge
 
 /obj/machinery/power/apc/ui_status(mob/user)
 	. = ..()

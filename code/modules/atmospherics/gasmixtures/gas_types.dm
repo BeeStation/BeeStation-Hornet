@@ -3,13 +3,15 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 /proc/meta_gas_list()
 	. = subtypesof(/datum/gas)
 	for(var/gas_path in .)
-		var/list/gas_info = new(13)
+		var/list/gas_info = new(15)
 		var/datum/gas/gas = gas_path
 
 		gas_info[META_GAS_SPECIFIC_HEAT] = initial(gas.specific_heat)
 		gas_info[META_GAS_NAME] = initial(gas.name)
 
 		gas_info[META_GAS_MOLES_VISIBLE] = initial(gas.moles_visible)
+		gas_info[META_GAS_RIG_SHIELDING_POWER] = initial(gas.gasrig_shielding_power)
+		gas_info[META_GAS_RIG_SHIELDING_MODIFIER] = initial(gas.gasrig_shielding_modifier)
 		if(initial(gas.moles_visible) != null)
 			gas_info[META_GAS_OVERLAY] = generate_gas_overlay(gas)
 
@@ -55,6 +57,10 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	var/dangerous = FALSE
 	///How much the gas accelerates a fusion reaction
 	var/fusion_power = 0
+	///How much the gas provides shielding for the Advanced Gas Rig
+	var/gasrig_shielding_power = 0
+	///The impact on efficiency of shielding this gas has in the Advanced Gas Rig. Should be greater then 0.1
+	var/gasrig_shielding_modifier = 1
 	/// relative rarity compared to other gases, used when setting up the reactions list.
 	var/rarity = 0
 	///Can gas of this type can purchased through cargo?
@@ -70,6 +76,7 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = GAS_O2
 	specific_heat = 20
 	name = "Oxygen"
+	gasrig_shielding_modifier = 3
 	rarity = 900
 	purchaseable = TRUE
 	base_value = 0.2
@@ -103,6 +110,8 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	name = "Plasma"
 	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE
+	gasrig_shielding_power = 2
+	gasrig_shielding_modifier = 0.4
 	dangerous = TRUE
 	rarity = 800
 	base_value = 1.5
@@ -116,6 +125,8 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	gas_overlay = "water_vapor"
 	moles_visible = MOLES_GAS_VISIBLE
 	fusion_power = 8
+	gasrig_shielding_power = 8
+	gasrig_shielding_modifier = 0.5
 	rarity = 500
 	purchaseable = TRUE
 	base_value = 0.5
@@ -129,6 +140,8 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	gas_overlay = "freon"
 	moles_visible = MOLES_GAS_VISIBLE
 	fusion_power = 10
+	gasrig_shielding_power = 50
+	gasrig_shielding_modifier = 0.1
 	rarity = 50
 	base_value = 5
 	desc = "The most noble gas of them all. High quantities of hyper-noblium actively prevents reactions from occurring."
@@ -141,6 +154,7 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	gas_overlay = "nitrous_oxide"
 	moles_visible = MOLES_GAS_VISIBLE * 2
 	fusion_power = 10
+	gasrig_shielding_modifier = 0.8
 	dangerous = TRUE
 	rarity = 600
 	purchaseable = TRUE
@@ -153,6 +167,7 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	specific_heat = 10
 	name = "Nitrium"
 	fusion_power = 7
+	gasrig_shielding_power = 80
 	gas_overlay = "nitrium"
 	moles_visible = MOLES_GAS_VISIBLE
 	dangerous = TRUE
@@ -169,6 +184,8 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	moles_visible = MOLES_GAS_VISIBLE
 	dangerous = TRUE
 	fusion_power = 5
+	gasrig_shielding_power = 2
+	gasrig_shielding_modifier = 6
 	rarity = 300
 	base_value = 2.5
 	desc = "A highly flammable and radioactive gas."
@@ -180,6 +197,8 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	name = "BZ"
 	dangerous = TRUE
 	fusion_power = 8
+	gasrig_shielding_power = 20
+	gasrig_shielding_modifier = 1.5
 	rarity = 400
 	purchaseable = TRUE
 	base_value = 1.5
@@ -191,6 +210,8 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	specific_heat = 80
 	name = "Pluoxium"
 	fusion_power = -10
+	gasrig_shielding_power = 20
+	gasrig_shielding_modifier = 0.6
 	rarity = 200
 	base_value = 2.5
 	desc = "A gas that could supply even more oxygen to the bloodstream when inhaled, without being an oxidizer."

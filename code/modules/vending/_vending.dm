@@ -13,7 +13,8 @@
 	contraband = list()
 	premium = list()
 */
-
+/// NT's Tax rate on the price the seller (cargo) receives
+#define TAX_RATE 0.5
 #define MAX_VENDING_INPUT_AMOUNT 30
 /**
   * # vending record datum
@@ -40,6 +41,9 @@
 	/// Sourced directly from product_categories.
 	var/category
 
+/datum/vending_product/proc/get_category_name()
+	return category["name"] || "UNKNOWN"
+
 /**
   * # vending machines
   *
@@ -61,7 +65,6 @@
 	armor_type = /datum/armor/machinery_vending
 	circuit = /obj/item/circuitboard/machine/vendor
 	clicksound = 'sound/machines/pda_button1.ogg'
-	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 
 	light_power = 0.5
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
@@ -123,7 +126,7 @@
 	var/list/coin_records = list()
 	var/list/slogan_list = list()
 	///Message sent post vend (Thank you for shopping!)
-	var/vend_reply
+	var/vend_reply = "Thank you for shopping with us!"
 	///Last world tick we sent a vent reply
 	var/last_reply = 0
 	///Last world tick we sent a slogan message out
@@ -667,10 +670,10 @@
 					if(1) // shatter their legs and bleed 'em
 						crit_rebate = 60
 						C.bleed(150)
-						var/obj/item/bodypart/l_leg/l = C.get_bodypart(BODY_ZONE_L_LEG)
+						var/obj/item/bodypart/leg/left/l = C.get_bodypart(BODY_ZONE_L_LEG)
 						if(l)
 							l.receive_damage(brute=200, updating_health=TRUE)
-						var/obj/item/bodypart/r_leg/r = C.get_bodypart(BODY_ZONE_R_LEG)
+						var/obj/item/bodypart/leg/right/r = C.get_bodypart(BODY_ZONE_R_LEG)
 						if(r)
 							r.receive_damage(brute=200, updating_health=TRUE)
 						if(l || r)
@@ -845,7 +848,6 @@
 	var/list/data = list()
 	data["onstation"] = onstation
 	data["all_products_free"] = all_products_free
-	data["department_bitflag"] = dept_req_for_free
 	data["product_records"] = list()
 	data["displayed_currency_icon"] = displayed_currency_icon
 	data["displayed_currency_name"] = displayed_currency_name
@@ -918,11 +920,9 @@
 			.["user"]["name"] = H.name
 		.["user"]["cash"] = H.get_accessible_cash()
 		.["user"]["job"] = "No Job"
-		.["user"]["department_bitflag"] = 0
 		var/datum/record/crew/R = find_record(card?.registered_account?.account_holder, GLOB.manifest.general)
 		if(card?.registered_account?.account_job)
 			.["user"]["job"] = card.registered_account.account_job.title
-			.["user"]["department_bitflag"] = card.registered_account.active_departments
 		if(R)
 			.["user"]["job"] = R.rank
 	.["stock"] = list()
@@ -1002,7 +1002,7 @@
 /obj/machinery/vending/proc/vend(list/params, list/greyscale_colors)
 	. = TRUE
 	if(!can_vend(usr))
-		return
+		return FALSE
 	vend_ready = FALSE //One thing at a time!!
 	var/datum/vending_product/R = locate(params["ref"])
 	var/list/record_to_check = product_records + coin_records
@@ -1010,23 +1010,23 @@
 		record_to_check = product_records + coin_records + hidden_records
 	if(!R || !istype(R) || !R.product_path)
 		vend_ready = TRUE
-		return
+		return FALSE
 	var/price_to_use = default_price
 	if(R.custom_price)
 		price_to_use = R.custom_price
 	if(R in hidden_records)
 		if(!extended_inventory)
 			vend_ready = TRUE
-			return
+			return FALSE
 	else if (!(R in record_to_check))
 		vend_ready = TRUE
 		message_admins("Vending machine exploit attempted by [ADMIN_LOOKUPFLW(usr)]!")
-		return
+		return FALSE
 	if (R.amount <= 0)
 		say("Sold out of [R.name].")
 		flick(icon_deny,src)
 		vend_ready = TRUE
-		return
+		return FALSE
 	if(onstation)
 		var/obj/item/card/id/C
 		if(isliving(usr))
@@ -1036,21 +1036,13 @@
 			say("No card found.")
 			flick(icon_deny,src)
 			vend_ready = TRUE
-			return
+			return FALSE
 		else if (!C.registered_account)
 			say("No account found.")
 			flick(icon_deny,src)
 			vend_ready = TRUE
-			return
-		// Department cards cannot be used to order stuff in vendors, we make an exception for the debug card
-		else if(!C.registered_account.account_job && !istype(C, /obj/item/card/id/syndicate/debug))
-			say("Departmental accounts have been blacklisted from personal expenses due to embezzlement.")
-			flick(icon_deny, src)
-			vend_ready = TRUE
-			return
+			return FALSE
 		var/datum/bank_account/account = C.registered_account
-		if(account.account_job && (account.active_departments & dept_req_for_free))
-			price_to_use = 0
 		if(coin_records.Find(R) || hidden_records.Find(R))
 			price_to_use = R.custom_premium_price ? R.custom_premium_price : extra_price
 		if(LAZYLEN(R.returned_products))
@@ -1059,19 +1051,20 @@
 			say("You do not possess the funds to purchase [R.name].")
 			flick(icon_deny,src)
 			vend_ready = TRUE
-			return
+			return FALSE
 		if(price_to_use && seller_department)
 			var/list/dept_list = SSeconomy.get_dept_id_by_bitflag(seller_department)
 			if(length(dept_list))
 				price_to_use = round(price_to_use/length(dept_list))
 				for(var/datum/bank_account/department/D in dept_list)
 					if(D)
-						D.adjust_money(price_to_use)
+						var/after_tax = price_to_use * TAX_RATE
+						D.adjust_money(after_tax)
 						SSblackbox.record_feedback("amount", "vending_spent", price_to_use)
 						log_econ("[price_to_use] credits were inserted into [src] by [D.account_holder] to buy [R].")
 
 	if(last_shopper != REF(usr) || purchase_message_cooldown < world.time)
-		say("Thank you for shopping with [src]!")
+		say(vend_reply)
 		purchase_message_cooldown = world.time + 5 SECONDS
 		last_shopper = REF(usr)
 	use_power(500 WATT)
@@ -1224,7 +1217,6 @@
 	icon_deny = "robotics-deny"
 	light_mask = "robotics-light-mask"
 	max_integrity = 400
-	dept_req_for_free = NO_FREEBIES
 	refill_canister = /obj/item/vending_refill/custom
 	/// where the money is sent
 	var/datum/bank_account/private_a
@@ -1346,7 +1338,7 @@
 						return
 			vend_ready = TRUE
 
-/obj/machinery/vending/custom/proc/make_purchase(obj/item/bought_item, mob/living/carbon/human/H, var/N)
+/obj/machinery/vending/custom/proc/make_purchase(obj/item/bought_item, mob/living/carbon/human/H, N)
 	var/datum/bank_account/owner = private_a
 	if(owner)
 		owner.adjust_money(bought_item.custom_price)

@@ -49,6 +49,11 @@
 		mind.set_current(null)
 	return ..()
 
+/mob/New()
+	// This needs to happen IMMEDIATELY. I'm sorry :(
+	GenerateTag()
+	return ..()
+
 /**
   * Intialize a mob
   *
@@ -450,7 +455,7 @@
 
 // Convinience proc.  Collects crap that fails to equip either onto the mob's back, or drops it.
 // Used in job equipping so shit doesn't pile up at the start loc.
-/mob/living/carbon/human/proc/equip_or_collect(var/obj/item/W, var/slot)
+/mob/living/carbon/human/proc/equip_or_collect(obj/item/W, slot)
 	if(W.mob_can_equip(src, null, slot, TRUE, TRUE))
 		//Mob can equip.  Equip it.
 		equip_to_slot_or_del(W, slot)
@@ -680,7 +685,7 @@
 	var/obj/item/I = get_active_held_item()
 	if(I)
 		I.attack_self(src)
-		update_inv_hands()
+		update_held_items()
 		return
 
 	limb_attack_self()
@@ -892,7 +897,7 @@
 		return mind.grab_ghost(force = force)
 
 ///Notify a ghost that it's body is being cloned
-/mob/proc/notify_ghost_cloning(var/message = "Someone is trying to revive you. Re-enter your corpse if you want to be revived!", var/sound = 'sound/effects/genetics.ogg', var/atom/source = null, flashwindow)
+/mob/proc/notify_ghost_cloning(message = "Someone is trying to revive you. Re-enter your corpse if you want to be revived!", sound = 'sound/effects/genetics.ogg', atom/source = null, flashwindow)
 	var/mob/dead/observer/ghost = get_ghost()
 	if(ghost)
 		ghost.notify_cloning(message, sound, source, flashwindow)
@@ -1180,6 +1185,8 @@
 /mob/proc/update_mouse_pointer()
 	if(!client)
 		return
+	if (client.cooldown_cursor_time > world.time)
+		return
 	if(client.mouse_pointer_icon != initial(client.mouse_pointer_icon))//only send changes to the client if theyre needed
 		client.mouse_pointer_icon = initial(client.mouse_pointer_icon)
 	if(examine_cursor_icon && client.keys_held["Shift"]) //mouse shit is hardcoded, make this non hard-coded once we make mouse modifiers bindable
@@ -1190,6 +1197,55 @@
 			client.mouse_pointer_icon = E.mouse_pointer
 	if(client.mouse_override_icon)
 		client.mouse_pointer_icon = client.mouse_override_icon
+
+GLOBAL_LIST_INIT(mouse_cooldowns, list(
+	'icons/effects/cooldown_cursors/cooldown_1.dmi',
+	'icons/effects/cooldown_cursors/cooldown_2.dmi',
+	'icons/effects/cooldown_cursors/cooldown_3.dmi',
+	'icons/effects/cooldown_cursors/cooldown_4.dmi',
+	'icons/effects/cooldown_cursors/cooldown_5.dmi',
+	'icons/effects/cooldown_cursors/cooldown_6.dmi',
+	'icons/effects/cooldown_cursors/cooldown_7.dmi',
+	'icons/effects/cooldown_cursors/cooldown_8.dmi',
+	'icons/effects/cooldown_cursors/cooldown_9.dmi',
+))
+
+/client/var/cooldown_cursor_time
+
+/client/proc/give_cooldown_cursor(time, override = FALSE)
+	set waitfor = FALSE
+	// Ignore the cooldown cursor if we have a longer one already applied
+	if (world.time + time < cooldown_cursor_time && !override)
+		return
+	cooldown_cursor_time = world.time + time
+	var/end_time = cooldown_cursor_time
+	var/start_time = world.time
+	var/current_cursor = 1
+	for (var/cursor_icon in GLOB.mouse_cooldowns)
+		// Set the cursor and wait
+		mouse_pointer_icon = cursor_icon
+		// Sleep until we are where we should be
+		var/next_cursor_time = start_time + current_cursor * time / length(GLOB.mouse_cooldowns)
+		sleep(next_cursor_time - world.time)
+		// Someone else is managing the cursor
+		// Someone else is managing a cooldown timer, allow them since they overrode us
+		if (mouse_pointer_icon != cursor_icon || cooldown_cursor_time != end_time)
+			return
+		current_cursor ++
+	// Somehow we finished a bit early
+	if (world.time < end_time)
+		sleep(end_time - world.time)
+		if (mouse_pointer_icon != GLOB.mouse_cooldowns[length(GLOB.mouse_cooldowns)] || cooldown_cursor_time != end_time)
+			return
+	cooldown_cursor_time = null
+	mob.update_mouse_pointer()
+
+/client/proc/clear_cooldown_cursor(time)
+	if (!(mouse_pointer_icon in GLOB.mouse_cooldowns))
+		return
+	mouse_pointer_icon = initial(mouse_pointer_icon)
+	cooldown_cursor_time = 0
+
 
 /// This mob can read
 /mob/proc/is_literate()
@@ -1316,11 +1372,11 @@
 	get_language_holder().open_language_menu(usr)
 
 ///Adjust the nutrition of a mob
-/mob/proc/adjust_nutrition(var/change) //Honestly FUCK the oldcoders for putting nutrition on /mob someone else can move it up because holy hell I'd have to fix SO many typechecks
+/mob/proc/adjust_nutrition(change) //Honestly FUCK the oldcoders for putting nutrition on /mob someone else can move it up because holy hell I'd have to fix SO many typechecks
 	nutrition = max(0, nutrition + change)
 
 ///Force set the mob nutrition
-/mob/proc/set_nutrition(var/change) //Seriously fuck you oldcoders.
+/mob/proc/set_nutrition(change) //Seriously fuck you oldcoders.
 	nutrition = max(0, change)
 
 /mob/proc/update_equipment_speed_mods()

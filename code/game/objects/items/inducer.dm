@@ -9,7 +9,7 @@
 	force = 7
 	var/transfer_coef = 2
 	var/opened = FALSE
-	var/cell_type = /obj/item/stock_parts/cell/high
+	var/cell_type = /obj/item/stock_parts/cell/high/plus
 	var/obj/item/stock_parts/cell/cell
 	var/recharging = FALSE
 
@@ -208,3 +208,7 @@
 /obj/item/inducer/sci/Initialize(mapload)
 	. = ..()
 	update_icon()
+
+/obj/item/inducer/sci/with_cell
+	cell_type = /obj/item/stock_parts/cell/high
+	opened = FALSE

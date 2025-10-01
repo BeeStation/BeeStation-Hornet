@@ -355,6 +355,7 @@
 	item_state = "security"//Could likely use a better one.
 	worn_icon_state = "security"
 	content_overlays = TRUE
+	custom_price = 80
 
 /obj/item/storage/belt/security/Initialize(mapload)
 	. = ..()
@@ -377,7 +378,9 @@
 		/obj/item/restraints/legcuffs/bola,
 		/obj/item/holosign_creator/security,
 		/obj/item/club,
-		/obj/item/shield/riot/tele
+		/obj/item/shield/riot/tele,
+		/obj/item/gun/ballistic/taser,
+		/obj/item/ammo_casing/taser
 		))
 
 /obj/item/storage/belt/security/full/PopulateContents()
@@ -386,17 +389,20 @@
 	new /obj/item/grenade/flashbang(src)
 	new /obj/item/assembly/flash/handheld(src)
 	new /obj/item/melee/baton/loaded(src)
+	new /obj/item/gun/ballistic/taser(src)
 	update_appearance()
 
 /obj/item/storage/belt/security/deputy
 	name = "deputy security belt"
 
 /obj/item/storage/belt/security/deputy/PopulateContents()
-	new /obj/item/melee/classic_baton/police/deputy(src)
-	new /obj/item/restraints/handcuffs(src)
-	new /obj/item/restraints/handcuffs/cable(src)
+	new /obj/item/melee/tonfa(src)
+	new /obj/item/restraints/handcuffs/cable/zipties(src)
+	new /obj/item/restraints/handcuffs/cable/zipties(src)
+	new /obj/item/assembly/flash/handheld(src)
 	new /obj/item/reagent_containers/peppercloud_deployer(src)
 	new /obj/item/flashlight/seclite(src)
+	new /obj/item/gun/ballistic/taser(src)
 	update_appearance()
 
 /obj/item/storage/belt/security/webbing
@@ -467,7 +473,8 @@
 		/obj/item/gun/energy/plasmacutter,
 		/obj/item/grenade/exploration,
 		/obj/item/exploration_detonator,
-		/obj/item/research_disk_pinpointer
+		/obj/item/research_disk_pinpointer,
+		/obj/item/key,
 		))
 
 
