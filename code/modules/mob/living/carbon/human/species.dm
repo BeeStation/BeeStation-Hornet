@@ -2475,10 +2475,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	H.refresh_gravity()
 
 ///Calls the DMI data for a custom icon for a given bodypart from the Species Datum.
-/datum/species/proc/get_custom_icons(var/part)
+/datum/species/proc/get_custom_icons(part)
 	return
 /*Here's what a species that has a unique icon for every slot would look like. If your species doesnt have any custom icons for a given part, return null.
-/datum/species/teshari/get_custom_icons(var/part)
+/datum/species/teshari/get_custom_icons(part)
 	switch(part)
 		if("uniform")
 			return 'icons/mob/species/teshari/tesh_uniforms.dmi'

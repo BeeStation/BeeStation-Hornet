@@ -83,7 +83,7 @@
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Headset Message") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/cmd_admin_mod_antag_rep(client/C in GLOB.clients, var/operation)
+/client/proc/cmd_admin_mod_antag_rep(client/C in GLOB.clients, operation)
 	set category = "Adminbus"
 	set name = "Modify Antagonist Reputation"
 
@@ -1107,7 +1107,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	admin_ticket_log(whom, msg)
 	log_admin("[key_name(src)] punished [key_name(whom)] with [punishment].")
 
-/mob/living/carbon/proc/give_cookie(var/client/admin_client)
+/mob/living/carbon/proc/give_cookie(client/admin_client)
 	var/obj/item/food/cookie/cookie = new(src)
 	if(src.put_in_hands(cookie))
 		if(ishuman(src))

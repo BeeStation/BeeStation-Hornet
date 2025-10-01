@@ -1338,7 +1338,7 @@
 						return
 			vend_ready = TRUE
 
-/obj/machinery/vending/custom/proc/make_purchase(obj/item/bought_item, mob/living/carbon/human/H, var/N)
+/obj/machinery/vending/custom/proc/make_purchase(obj/item/bought_item, mob/living/carbon/human/H, N)
 	var/datum/bank_account/owner = private_a
 	if(owner)
 		owner.adjust_money(bought_item.custom_price)
