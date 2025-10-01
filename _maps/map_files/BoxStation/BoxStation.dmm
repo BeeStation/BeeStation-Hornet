@@ -3518,7 +3518,7 @@
 	name = "Unisex Restroom"
 	},
 /turf/open/floor/noslip/white,
-/area/crew_quarters/toilet/locker)
+/area/crew_quarters/locker)
 "aOq" = (
 /obj/structure/disposalpipe/junction{
 	dir = 4
@@ -4759,7 +4759,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/white/smooth_half,
-/area/crew_quarters/toilet/locker)
+/area/crew_quarters/locker)
 "aWO" = (
 /obj/machinery/light{
 	dir = 4
@@ -4813,7 +4813,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/iron/white/smooth_half,
-/area/crew_quarters/toilet/locker)
+/area/crew_quarters/locker)
 "aXs" = (
 /obj/machinery/disposal/bin,
 /obj/structure/disposalpipe/trunk{
@@ -4838,7 +4838,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/white/smooth_half,
-/area/crew_quarters/toilet/locker)
+/area/crew_quarters/locker)
 "aXw" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
@@ -5099,7 +5099,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/white/smooth_half,
-/area/crew_quarters/toilet/locker)
+/area/crew_quarters/locker)
 "bag" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
@@ -29023,7 +29023,7 @@
 	icon_state = "1-8"
 	},
 /turf/open/floor/iron/white/smooth_half,
-/area/crew_quarters/toilet/locker)
+/area/crew_quarters/locker)
 "hJD" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -36195,7 +36195,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/iron/white/smooth_half,
-/area/crew_quarters/toilet/locker)
+/area/crew_quarters/locker)
 "knX" = (
 /obj/effect/turf_decal/tile/green/anticorner/contrasted,
 /obj/machinery/atmospherics/pipe/smart/simple/yellow/visible/layer2,
@@ -41849,7 +41849,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/white/smooth_half,
-/area/crew_quarters/toilet/locker)
+/area/crew_quarters/locker)
 "mBv" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -47047,8 +47047,8 @@
 /obj/structure/table,
 /obj/item/clipboard,
 /obj/item/paper{
-	default_raw_text = "<h2>Highest Regards</h2></br><i>-Porter Keopple</i></br>";
-	name = "old piece of paper";
+	default_raw_text = "<center><h1>Tye-Dye Instructions</h2></center><hr><font size='4'> Lets get <i>groovy</i> with it, grab yourself some of those funky crayons and throw the color of your choice in the washer!<br><br>Then you like, gotta get some clothes, some cool jumpsuits and wash em with with that crayon.<center><br><br>! <font color="Red">Rock<font color="Blue"> On <font color="Green">Colorful <font color="Purple"> Broski's </font>⠀!";
+	name = "Old Instructions";
 	icon_state = "scrap_words"
 	},
 /turf/open/floor/iron/white/smooth_half,
@@ -52011,7 +52011,7 @@
 	},
 /obj/structure/closet/wardrobe/pjs,
 /turf/open/floor/iron/white/smooth_half,
-/area/crew_quarters/toilet/locker)
+/area/crew_quarters/locker)
 "qyD" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -55127,7 +55127,7 @@
 /obj/structure/bedsheetbin,
 /obj/item/razor,
 /turf/open/floor/iron/white/smooth_half,
-/area/crew_quarters/toilet/locker)
+/area/crew_quarters/locker)
 "rEX" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
@@ -70452,7 +70452,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/iron/white/smooth_half,
-/area/crew_quarters/toilet/locker)
+/area/crew_quarters/locker)
 "xqm" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -90283,10 +90283,10 @@ aPA
 aPA
 aPA
 aPA
-aXQ
+aPA
 aOo
-aXQ
-aXQ
+aPA
+aPA
 aXQ
 aXQ
 aXQ
@@ -90543,7 +90543,7 @@ viT
 rEE
 knA
 aWH
-aXQ
+aPA
 aSg
 aSg
 aeS
@@ -90800,7 +90800,7 @@ aXr
 xql
 hJC
 qyw
-aXQ
+aPA
 aSg
 aSg
 aSg
@@ -91057,7 +91057,7 @@ aXv
 mBs
 aZX
 aWH
-aXQ
+aPA
 aSg
 aSg
 aSg
