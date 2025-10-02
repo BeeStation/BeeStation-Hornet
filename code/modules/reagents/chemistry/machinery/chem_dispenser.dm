@@ -360,6 +360,7 @@
 		if(!user.transferItemToLoc(B, src))
 			return
 		replace_beaker(user, B)
+		ui_update()
 		to_chat(user, span_notice("You add [B] to [src]."))
 		updateUsrDialog()
 	else if(!user.combat_mode && !istype(I, /obj/item/card/emag) && !istype(I, /obj/item/stock_parts/cell))
