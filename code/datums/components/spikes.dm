@@ -77,13 +77,13 @@
 			finalarmor = max(0, (35 - H.dna.species.armor)) //don't make high armor species invinceable, but don't lower their armor if their armor is too high already
 		H.dna.species.armor += finalarmor
 
-/datum/component/spikes/proc/checkdiseasecure(datum/source, var/diseaseid)
+/datum/component/spikes/proc/checkdiseasecure(datum/source, diseaseid)
 	SIGNAL_HANDLER
 
 	if(diseaseid == id)
 		qdel(src) //we were cured! time to go.
 
-/datum/component/spikes/proc/removearmor(datum/source, var/datum/component/C)
+/datum/component/spikes/proc/removearmor(datum/source, datum/component/C)
 	SIGNAL_HANDLER
 
 	if(C != src)

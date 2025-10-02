@@ -124,9 +124,9 @@
 	if(isliving(loc))
 		var/mob/living/user = loc
 		if(user.get_item_by_slot(ITEM_SLOT_EYES) == src)
-			user.update_inv_glasses()
+			user.update_worn_glasses()
 		else
-			user.update_inv_hands()
+			user.update_held_items()
 
 /obj/item/clothing/glasses/meson/engine/tray //atmos techs have lived far too long without tray goggles while those damned engineers get their dual-purpose gogles all to themselves
 	name = "optical t-ray scanner"

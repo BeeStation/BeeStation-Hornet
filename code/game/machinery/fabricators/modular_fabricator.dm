@@ -470,7 +470,7 @@
 		return
 	begin_process()
 
-/obj/machinery/modular_fabricator/proc/make_item(power, var/list/materials_used, var/list/picked_materials, multiplier, coeff, is_stack, requested_design_id, queue_data)
+/obj/machinery/modular_fabricator/proc/make_item(power, list/materials_used, list/picked_materials, multiplier, coeff, is_stack, requested_design_id, queue_data)
 	if(QDELETED(src))
 		return
 	//Stops the queue

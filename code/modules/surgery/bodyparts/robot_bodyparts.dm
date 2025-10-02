@@ -10,7 +10,7 @@
 //The complete sprite (displayed when the limb is on the ground) should be named "borg_l_arm".
 //Failure to follow this pattern will cause the hand's icons to be missing due to the way get_limb_icon() works to generate the mob's icons using the aux_zone var.
 
-/obj/item/bodypart/l_arm/robot
+/obj/item/bodypart/arm/left/robot
 	name = "cyborg left arm"
 	desc = "A skeletal limb wrapped in pseudomuscles, with a low-conductivity case."
 	limb_id = BODYPART_ID_ROBOTIC
@@ -38,7 +38,7 @@
 	medium_burn_msg = ROBOTIC_MEDIUM_BURN_MSG
 	heavy_burn_msg = ROBOTIC_HEAVY_BURN_MSG
 
-/obj/item/bodypart/r_arm/robot
+/obj/item/bodypart/arm/right/robot
 	name = "cyborg right arm"
 	desc = "A skeletal limb wrapped in pseudomuscles, with a low-conductivity case."
 	attack_verb_continuous = list("slaps", "punches")
@@ -66,7 +66,7 @@
 	medium_burn_msg = ROBOTIC_MEDIUM_BURN_MSG
 	heavy_burn_msg = ROBOTIC_HEAVY_BURN_MSG
 
-/obj/item/bodypart/l_leg/robot
+/obj/item/bodypart/leg/left/robot
 	name = "cyborg left leg"
 	desc = "A skeletal limb wrapped in pseudomuscles, with a low-conductivity case."
 	attack_verb_continuous = list("kicks", "stomps")
@@ -94,7 +94,7 @@
 	medium_burn_msg = ROBOTIC_MEDIUM_BURN_MSG
 	heavy_burn_msg = ROBOTIC_HEAVY_BURN_MSG
 
-/obj/item/bodypart/r_leg/robot
+/obj/item/bodypart/leg/right/robot
 	name = "cyborg right leg"
 	desc = "A skeletal limb wrapped in pseudomuscles, with a low-conductivity case."
 	attack_verb_continuous = list("kicks", "stomps")
@@ -334,7 +334,7 @@
 
 
 
-/obj/item/bodypart/l_arm/robot/surplus
+/obj/item/bodypart/arm/left/robot/surplus
 	name = "surplus prosthetic left arm"
 	desc = "A skeletal, robotic limb. Outdated and fragile, but it's still better than nothing."
 	icon_static = 'icons/mob/augmentation/surplus_augments.dmi'
@@ -342,7 +342,7 @@
 	burn_reduction = 0
 	max_damage = 20
 
-/obj/item/bodypart/r_arm/robot/surplus
+/obj/item/bodypart/arm/right/robot/surplus
 	name = "surplus prosthetic right arm"
 	desc = "A skeletal, robotic limb. Outdated and fragile, but it's still better than nothing."
 	icon_static = 'icons/mob/augmentation/surplus_augments.dmi'
@@ -350,7 +350,7 @@
 	burn_reduction = 0
 	max_damage = 20
 
-/obj/item/bodypart/l_leg/robot/surplus
+/obj/item/bodypart/leg/left/robot/surplus
 	name = "surplus prosthetic left leg"
 	desc = "A skeletal, robotic limb. Outdated and fragile, but it's still better than nothing."
 	icon_static = 'icons/mob/augmentation/surplus_augments.dmi'
@@ -358,7 +358,7 @@
 	burn_reduction = 0
 	max_damage = 20
 
-/obj/item/bodypart/r_leg/robot/surplus
+/obj/item/bodypart/leg/right/robot/surplus
 	name = "surplus prosthetic right leg"
 	desc = "A skeletal, robotic limb. Outdated and fragile, but it's still better than nothing."
 	icon_static = 'icons/mob/augmentation/surplus_augments.dmi'
@@ -374,16 +374,16 @@
 /obj/item/bodypart/chest/robot/android
 	change_exempt_flags = null
 
-/obj/item/bodypart/l_arm/robot/android
+/obj/item/bodypart/arm/left/robot/android
 	change_exempt_flags = null
 
-/obj/item/bodypart/r_arm/robot/android
+/obj/item/bodypart/arm/right/robot/android
 	change_exempt_flags = null
 
-/obj/item/bodypart/l_leg/robot/android
+/obj/item/bodypart/leg/left/robot/android
 	change_exempt_flags = null
 
-/obj/item/bodypart/r_leg/robot/android
+/obj/item/bodypart/leg/right/robot/android
 	change_exempt_flags = null
 
 #undef ROBOTIC_LIGHT_BRUTE_MSG

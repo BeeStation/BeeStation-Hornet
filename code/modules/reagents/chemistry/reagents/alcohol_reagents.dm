@@ -50,7 +50,7 @@
 			affected_mob.client?.give_award(/datum/award/achievement/misc/drunk, affected_mob)
 		var/obj/item/organ/liver/liver = affected_mob.get_organ_slot(ORGAN_SLOT_LIVER)
 		if(istype(liver))
-			liver.applyOrganDamage(((max(sqrt(volume) * (boozepwr ** ALCOHOL_EXPONENT) * liver.alcohol_tolerance * delta_time, 0)) / 150))
+			liver.apply_organ_damage(((max(sqrt(volume) * (boozepwr ** ALCOHOL_EXPONENT) * liver.alcohol_tolerance * delta_time, 0)) / 150))
 
 /datum/reagent/consumable/ethanol/expose_obj(obj/exposed_obj, reac_volume)
 	. = ..()
@@ -230,7 +230,7 @@
 				affected_mob.adjustBruteLoss(15)
 		else
 			to_chat(affected_mob, span_userdanger("You scream in terror as you go blind!"))
-			eyes.applyOrganDamage(eyes.maxHealth)
+			eyes.apply_organ_damage(eyes.maxHealth)
 			affected_mob.emote("scream")
 
 	if(DT_PROB(1.5, delta_time))
@@ -2907,7 +2907,7 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "fourthwallglass"
 
-/datum/reagent/consumable/ethanol/fourthwall/proc/traumaweightpick(var/mild, var/severe, var/special)
+/datum/reagent/consumable/ethanol/fourthwall/proc/traumaweightpick(mild, severe, special)
 	return pick(pick_weight(list(subtypesof(/datum/brain_trauma/mild) = mild, subtypesof(/datum/brain_trauma/severe) - /datum/brain_trauma/severe/split_personality - /datum/brain_trauma/severe/hypnotic_stupor = severe, subtypesof(/datum/brain_trauma/special) - typesof(/datum/brain_trauma/special/imaginary_friend) = special)))
 
 /datum/reagent/consumable/ethanol/fourthwall/on_mob_metabolize(mob/living/carbon/affected_mob)

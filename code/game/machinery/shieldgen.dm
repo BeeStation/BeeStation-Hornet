@@ -509,7 +509,7 @@
 	shieldstate = SHIELD_SETUPFIELDS
 	active_power_usage = 0
 
-/obj/machinery/power/shieldwallgen/atmos/ComponentInitialize()
+/obj/machinery/power/shieldwallgen/atmos/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/simple_rotation)
 
@@ -648,7 +648,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/shieldwall)
 /obj/machinery/shieldwall/atmos
 	name = "holofield wall"
 	desc = "An energy shield capable of blocking gas movement."
-	icon = 'icons/effects/effects.dmi'
+	icon = 'icons/effects/holosigns.dmi'
 	icon_state = "holofield"
 	density = FALSE
 	can_atmos_pass = ATMOS_PASS_NO

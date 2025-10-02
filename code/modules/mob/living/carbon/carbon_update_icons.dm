@@ -47,13 +47,13 @@
 /mob/living/carbon/regenerate_icons()
 	if(notransform)
 		return 1
-	update_inv_hands()
-	update_inv_handcuffed()
-	update_inv_legcuffed()
+	update_held_items()
+	update_worn_handcuffs()
+	update_worn_legcuffs()
 	update_fire()
 
 
-/mob/living/carbon/update_inv_hands()
+/mob/living/carbon/update_held_items()
 	remove_overlay(HANDS_LAYER)
 	if (handcuffed)
 		drop_all_held_items()
@@ -84,7 +84,7 @@
 	apply_overlay(HANDS_LAYER)
 
 
-/mob/living/carbon/update_fire(var/fire_icon = "Generic_mob_burning")
+/mob/living/carbon/update_fire(fire_icon = "Generic_mob_burning")
 	remove_overlay(FIRE_LAYER)
 	if(on_fire || islava(loc))
 		var/mutable_appearance/new_fire_overlay = mutable_appearance('icons/mob/OnFire.dmi', fire_icon, -FIRE_LAYER)
@@ -109,7 +109,7 @@
 	apply_overlay(DAMAGE_LAYER)
 
 
-/mob/living/carbon/update_inv_wear_mask(update_obscured = TRUE)
+/mob/living/carbon/update_worn_mask(update_obscured = TRUE)
 	remove_overlay(FACEMASK_LAYER)
 
 	if(!get_bodypart(BODY_ZONE_HEAD)) //Decapitated
@@ -128,7 +128,7 @@
 
 	apply_overlay(FACEMASK_LAYER)
 
-/mob/living/carbon/update_inv_neck(update_obscured = TRUE)
+/mob/living/carbon/update_worn_neck(update_obscured = TRUE)
 	remove_overlay(NECK_LAYER)
 
 	if(client && hud_used && hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_NECK) + 1])
@@ -144,7 +144,7 @@
 
 	apply_overlay(NECK_LAYER)
 
-/mob/living/carbon/update_inv_back(update_obscured = TRUE)
+/mob/living/carbon/update_worn_back(update_obscured = TRUE)
 	remove_overlay(BACK_LAYER)
 
 	if(client && hud_used && hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_BACK) + 1])
@@ -159,7 +159,7 @@
 
 	apply_overlay(BACK_LAYER)
 
-/mob/living/carbon/update_inv_head(update_obscured = TRUE)
+/mob/living/carbon/update_worn_head(update_obscured = TRUE)
 	remove_overlay(HEAD_LAYER)
 
 	if(!get_bodypart(BODY_ZONE_HEAD)) //Decapitated
@@ -177,12 +177,12 @@
 
 	apply_overlay(HEAD_LAYER)
 
-/mob/living/carbon/update_inv_handcuffed(update_obscured = TRUE)
+/mob/living/carbon/update_worn_handcuffs(update_obscured = TRUE)
 	remove_overlay(HANDCUFF_LAYER)
 	if(handcuffed)
 		if(update_obscured)
 			update_obscured_slots(handcuffed.flags_inv)
-		overlays_standing[HANDCUFF_LAYER] = mutable_appearance('icons/mob/mob.dmi', "handcuff1", CALCULATE_MOB_OVERLAY_LAYER(HANDCUFF_LAYER))
+		overlays_standing[HANDCUFF_LAYER] = mutable_appearance('icons/mob/mob.dmi', handcuffed.overlay_state, CALCULATE_MOB_OVERLAY_LAYER(HANDCUFF_LAYER))
 		apply_overlay(HANDCUFF_LAYER)
 
 

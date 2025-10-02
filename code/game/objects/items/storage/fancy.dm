@@ -75,7 +75,7 @@
 	icon = 'icons/obj/food/donuts.dmi'
 	icon_state = "donutbox"
 	base_icon_state = "donutbox"
-	spawn_type = /obj/item/food/donut/premade
+	spawn_type = /obj/item/food/donut/plain
 	spawn_count = 6
 	appearance_flags = KEEP_TOGETHER|LONG_GLIDE
 	contents_tag = "donut"
