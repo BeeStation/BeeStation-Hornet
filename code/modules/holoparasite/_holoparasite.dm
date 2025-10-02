@@ -210,7 +210,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/holoparasite)
 	set hidden = TRUE
 	to_chat(src, span_warning("You cannot commit suicide! Reset yourself (or contact an admin) if you wish to stop being a holoparasite!"))
 
-/mob/living/simple_animal/hostile/holoparasite/set_resting(rest, silent = TRUE)
+/mob/living/simple_animal/hostile/holoparasite/set_resting(new_resting, silent = TRUE, instant = FALSE)
 	return FALSE
 
 /mob/living/simple_animal/hostile/holoparasite/can_use_guns(obj/item/gun)
