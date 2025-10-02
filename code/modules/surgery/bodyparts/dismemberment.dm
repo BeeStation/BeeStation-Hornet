@@ -170,7 +170,7 @@
 	if(special)
 		return ..()
 
-/obj/item/bodypart/r_arm/drop_limb(special)
+/obj/item/bodypart/arm/right/drop_limb(special)
 	. = ..()
 
 	var/mob/living/carbon/C = owner
@@ -186,10 +186,10 @@
 				R.update_icon()
 		if(C.gloves)
 			C.dropItemToGround(C.gloves, TRUE)
-		C.update_inv_gloves() //to remove the bloody hands overlay
+		C.update_worn_gloves() //to remove the bloody hands overlay
 
 
-/obj/item/bodypart/l_arm/drop_limb(special)
+/obj/item/bodypart/arm/left/drop_limb(special)
 	. = ..()
 
 	var/mob/living/carbon/C = owner
@@ -205,27 +205,27 @@
 				L.update_icon()
 		if(C.gloves)
 			C.dropItemToGround(C.gloves, TRUE)
-		C.update_inv_gloves() //to remove the bloody hands overlay
+		C.update_worn_gloves() //to remove the bloody hands overlay
 
 
-/obj/item/bodypart/r_leg/drop_limb(special)
+/obj/item/bodypart/leg/right/drop_limb(special)
 	if(owner && !special)
 		if(owner.legcuffed)
 			owner.legcuffed.forceMove(owner.drop_location()) //At this point bodypart is still in nullspace
 			owner.legcuffed.dropped(owner)
 			owner.legcuffed = null
-			owner.update_inv_legcuffed()
+			owner.update_worn_legcuffs()
 		if(owner.shoes)
 			owner.dropItemToGround(owner.shoes, TRUE)
 	return ..()
 
-/obj/item/bodypart/l_leg/drop_limb(special) //copypasta
+/obj/item/bodypart/leg/left/drop_limb(special) //copypasta
 	if(owner && !special)
 		if(owner.legcuffed)
 			owner.legcuffed.forceMove(owner.drop_location())
 			owner.legcuffed.dropped(owner)
 			owner.legcuffed = null
-			owner.update_inv_legcuffed()
+			owner.update_worn_legcuffs()
 		if(owner.shoes)
 			owner.dropItemToGround(owner.shoes, TRUE)
 	return ..()
@@ -291,7 +291,7 @@
 			var/atom/movable/screen/inventory/hand/hand = new_limb_owner.hud_used.hand_slots["[held_index]"]
 			if(hand)
 				hand.update_icon()
-		new_limb_owner.update_inv_gloves()
+		new_limb_owner.update_worn_gloves()
 
 	if(special) //non conventional limb attachment
 		for(var/datum/surgery/attach_surgery as anything in new_limb_owner.surgeries) //if we had an ongoing surgery to attach a new limb, we stop it.

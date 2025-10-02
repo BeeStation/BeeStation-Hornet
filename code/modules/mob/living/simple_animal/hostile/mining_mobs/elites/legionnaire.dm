@@ -105,7 +105,7 @@
 	visible_message(span_boldwarning("[src] prepares to charge!"))
 	addtimer(CALLBACK(src, PROC_REF(legionnaire_charge_2), dir_to_target, 0), 5)
 
-/mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/legionnaire_charge_2(var/move_dir, var/times_ran)
+/mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/legionnaire_charge_2(move_dir, times_ran)
 	if(times_ran >= 4)
 		return
 	var/turf/T = get_step(get_turf(src), move_dir)

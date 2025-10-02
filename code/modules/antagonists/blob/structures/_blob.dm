@@ -84,7 +84,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
 /obj/structure/blob/blob_act()
 	return
 
-/obj/structure/blob/Adjacent(var/atom/neighbour)
+/obj/structure/blob/Adjacent(atom/neighbour)
 	. = ..()
 	if(.)
 		var/result = 0

@@ -1057,7 +1057,7 @@ GLOBAL_LIST_INIT(numerals, list("1","2","3","4","5","6","7","8","9","0"))
 	return replacetext(replacetext(text,"\proper ",""),"\improper ","")
 
 ///Returns a string based on the weight class define used as argument
-/proc/weight_class_to_text(var/w_class)
+/proc/weight_class_to_text(w_class)
 	switch(w_class)
 		if(WEIGHT_CLASS_TINY)
 			. = "tiny"
