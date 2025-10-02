@@ -27,6 +27,9 @@
   mrmanlikesbt:
   - config: adjusted the nuclear operative and blood cult team size formula
 2025-10-02:
+  Isaacnml:
+  - bugfix: Lavaland syndicate base distro and waste is separated once again
+  - bugfix: Smaller issues related to lavaland syndicate base
   Tsar-Salat:
   - bugfix: fixes outwear overlay
   mrmanlikesbt, Ghilker, GuillaumePrata, OrionTheFox, coiax, lessthnthree, 13spacemen, DrDiasyl, Hatterhat, Xander3359:
