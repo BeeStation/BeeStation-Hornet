@@ -133,7 +133,12 @@
 	},
 /turf/open/floor/iron,
 /area/template_noop)
-"B" = (
+"C" = (
+/obj/vehicle/sealed/mecha/combat/marauder/seraph,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron,
+/area/template_noop)
+"D" = (
 /obj/structure/table,
 /obj/item/bodypart/chest/robot{
 	pixel_y = 4
@@ -153,11 +158,6 @@
 	pixel_y = 6
 	},
 /obj/item/bodypart/head/robot,
-/turf/open/floor/iron,
-/area/template_noop)
-"C" = (
-/obj/vehicle/sealed/mecha/combat/marauder/seraph,
-/obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
 "E" = (
@@ -369,7 +369,7 @@ a
 k
 a
 M
-B
+D
 L
 a
 t
