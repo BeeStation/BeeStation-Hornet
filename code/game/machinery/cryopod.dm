@@ -334,13 +334,21 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 
 	// Ghost and delete the mob.
 	if(!mob_occupant.get_ghost(TRUE))
-		if(world.time < 15 * 600)//before the 15 minute mark
+		if(world.time - SSticker.round_start_time < 15 MINUTES)//before the 15 minute mark
 			mob_occupant.ghostize(FALSE,SENTIENCE_ERASE) // Players despawned too early may not re-enter the game
 		else
 			mob_occupant.ghostize(TRUE,SENTIENCE_ERASE)
 	if(mob_occupant.mind)
 		mob_occupant.mind.cryoed = TRUE
 		SEND_SIGNAL(mob_occupant.mind, COMSIG_MIND_CRYOED)
+
+	// This is stupid, I know
+	var/mob/dead/observer/ghost = mob_occupant.get_ghost(TRUE)
+	if (ghost)
+		ghost.remove_from_current_dead_players()
+		ghost.started_as_observer = TRUE
+		ghost.add_to_current_dead_players()
+
 	QDEL_NULL(occupant)
 	open_machine()
 	name = initial(name)
