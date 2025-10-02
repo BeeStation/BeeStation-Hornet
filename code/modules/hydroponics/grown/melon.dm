@@ -6,7 +6,7 @@
 	species = "watermelon"
 	plantname = "Watermelon Vines"
 	product = /obj/item/food/grown/watermelon
-	lifespan = 50
+	lifespan = 200
 	endurance = 40
 	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
 	icon_dead = "watermelon-dead"

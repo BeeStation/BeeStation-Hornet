@@ -6,7 +6,7 @@
 	species = "pineapple"
 	plantname = "Pineapple Plant"
 	product = /obj/item/food/grown/pineapple
-	lifespan = 40
+	lifespan = 160
 	endurance = 30
 	growthstages = 3
 	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'

@@ -5,7 +5,7 @@
 	species = "onion"
 	plantname = "Onion Sprouts"
 	product = /obj/item/food/grown/onion
-	lifespan = 20
+	lifespan = 80
 	maturation = 3
 	production = 4
 	yield = 6
