@@ -608,7 +608,6 @@
 				/obj/item/pickaxe/drill/diamonddrill = 6,
 				/obj/item/borg/upgrade/vtec = 7)
 
-
 /obj/effect/spawner/lootdrop/snowdin/dungeonheavy
 	name = "dungeon heavy"
 	loot = list(/obj/item/singularityhammer = 25,
@@ -627,3 +626,55 @@
 				/obj/item/pickaxe/drill/jackhammer = 30,
 				/obj/item/borg/upgrade/syndicate = 13,
 				/obj/item/borg/upgrade/selfrepair = 17)
+
+/obj/effect/spawner/lootdrop/prison_contraband
+	name = "Prison Contraband"
+	loot = list(
+				// Food
+				/obj/item/food/grown/citrus/orange = 3,
+				/obj/item/food/canned/peaches/maint = 3,
+				// Equipment
+				/obj/item/switchblade = 1,
+				/obj/item/weaponcrafting/receiver = 1,
+				/obj/item/stock_parts/cell = 1,
+				/obj/item/stack/sticky_tape = 1,
+				/obj/item/radio/off = 1,
+				/obj/item/pen = 3,
+				/obj/item/pen/screwdriver = 1,
+				/obj/item/book/manual/wiki/engineering_hacking = 1,
+				/obj/item/grenade/smokebomb = 1,
+				// Clothing
+				/obj/item/clothing/glasses/meson = 1,
+				/obj/item/clothing/glasses/sunglasses/advanced = 1,
+				/obj/item/clothing/gloves/tackler/offbrand = 1,
+				/obj/item/storage/belt/utility = 1,
+				// Assemblies
+				/obj/item/assembly/igniter = 1,
+				/obj/item/assembly/infra = 1,
+				/obj/item/assembly/mousetrap = 1,
+				/obj/item/assembly/prox_sensor = 1,
+				/obj/item/assembly/signaler = 1,
+				/obj/item/assembly/timer = 1,
+				// Substances
+				/obj/item/reagent_containers/cup/glass/bottle/hooch = 1,
+				/obj/item/clothing/mask/cigarette/dromedary = 1,
+				/obj/item/clothing/mask/cigarette/uplift = 3,
+				/obj/item/clothing/mask/cigarette/robust = 1,
+				/obj/item/clothing/mask/cigarette/robustgold = 1,
+				/obj/item/clothing/mask/cigarette/carp = 3,
+				/obj/item/food/grown/flower/poppy = 3,
+				/obj/item/storage/pill_bottle/zoom = 1,
+				/obj/item/storage/pill_bottle/happy = 1,
+				/obj/item/storage/pill_bottle/lsd = 1,
+				// Misc & Money
+				/obj/item/stack/spacecash/c20 = 5,
+				/obj/item/poster/random_contraband = 3,
+				/obj/item/stack/sheet/cardboard = 5,
+				// Garbage
+				/obj/item/paper/crumpled = 5,
+				/obj/item/reagent_containers/syringe/used = 5,
+				/obj/item/reagent_containers/cup/rag = 5,
+				/obj/item/cigbutt = 5,
+				/obj/item/food/deadmouse/moldy = 5,
+				/obj/item/food/deadmouse/prison = 5,
+				)
