@@ -231,3 +231,13 @@
 	attack_verb_continuous = list("shanks", "shivs")
 	attack_verb_simple = list("shank", "shiv")
 	armor_type = /datum/armor/none
+
+/obj/item/knife/cheap
+	name = "cheap knife"
+	icon_state = "bone_dagger" // placeholder sprite, until a new one is created in another guide
+	icon = 'icons/obj/knives.dmi'
+	desc = "A cheap less knife-ey knife. Its not as sharp, but it doesn't affect the quality of your cooking whatsoever!"
+	force = 5
+	throwforce = 5
+	bleed_force = BLEED_SURFACE // This knife is less sharp to account for its cost!
+	custom_price = 10
