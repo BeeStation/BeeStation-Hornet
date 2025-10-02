@@ -82,7 +82,7 @@
 	desc = "A data disk for portable microcomputers. It smells vaguely of bananas."
 	icon_state = "cart-clown"
 	virus_class = "HONK::CORE"
-	spam_delay = 1.5 //Every annoying role has the ability to PDA everyone. Clown should not be the exception.
+	spam_delay = 3 //For my honkers, spread out your message to everyone on the station.
 
 /obj/item/computer_hardware/hard_drive/role/virus/clown/send_virus(obj/item/modular_computer/tablet/target, mob/living/user)
 	. = ..()
