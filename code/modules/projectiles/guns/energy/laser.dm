@@ -30,6 +30,8 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/old)
 	ammo_x_offset = 3
 
+/// Repeater ///
+
 /obj/item/gun/energy/laser/repeater
 	name = "NT LRR Model 2284"
 	icon_state = "repeater"
@@ -38,22 +40,28 @@
 	gun_charge = 2000 WATT
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/repeater)
 	can_charge = FALSE //don't put this in a recharger
+	var/charge_per_crank = 500 WATT
+	var/time_to_crank = 1 SECONDS
 	var/cranking = FALSE
 	var/fire_interrupted = FALSE
+	var/do_after_flag
+	var/crank_sound = 'sound/weapons/autoguninsert.ogg'
 
 /obj/item/gun/energy/laser/repeater/proc/crank_charge(mob/living/user)
 	if(cell.charge >= gun_charge)
 		to_chat(user,"<span class='danger'>The gun is at maximum charge already!</span>")
+		playsound(src, crank_sound, 30)
 		return
 	else if(!cranking)
 		balloon_alert(user, "You start cranking")
+		playsound(src, 'sound/weapons/leveractionrack_open.ogg', 30)
 		while(cell.charge < gun_charge)
 			cranking = TRUE
-			if(do_after(user, 1 SECONDS) && !fire_interrupted)
-				playsound(src, 'sound/weapons/autoguninsert.ogg', 30)
-				cell.give(500 WATT)
-				flick("repeater", src)
-				update_icon()
+			if(do_after(user, time_to_crank, timed_action_flags = do_after_flag) && !fire_interrupted)
+				playsound(src, crank_sound, 30)
+				cell.give(charge_per_crank)
+				flick("[icon_state]_flick", src)
+				update_appearance()
 			else
 				break
 	cranking = FALSE
@@ -67,6 +75,29 @@
 /obj/item/gun/energy/laser/repeater/attack_self(mob/living/user)
 	if(!cranking)
 		crank_charge(user)
+
+/obj/item/gun/energy/laser/repeater/shotgun // Lethal Repeater Shotgun
+	name = "NT LS 2-58"
+	icon_state = "laser_shotgun"
+	item_state = "shotgun"
+	desc = "Based on the Model 2284, this heavy recoil weapon is ideal for close quarters combat is known for its energy independence mechanism."
+	fire_sound = 'sound/weapons/shotgunshot.ogg'
+	fire_sound_volume = 70
+	crank_sound = 'sound/weapons/shotgunpump.ogg'
+	time_to_crank = 2.5 SECONDS
+	charge_sections = 1
+	recoil = 1
+	gun_charge = 1000 WATT
+	charge_per_crank = 1000 WATT
+	w_class = WEIGHT_CLASS_BULKY
+	do_after_flag = IGNORE_USER_LOC_CHANGE	// The Weight class is already punishing enough
+	ammo_type = list(/obj/item/ammo_casing/energy/shotgun_laser)
+
+/obj/item/gun/energy/laser/repeater/shotgun/disabler // Disabler Repeater Shotgun
+	name = "NT DS 2-58"
+	icon_state = "disabler_shotgun"
+	time_to_crank = 2 SECONDS
+	ammo_type = list(/obj/item/ammo_casing/energy/shotgun_disabler)
 
 /obj/item/gun/energy/laser/captain
 	name = "antique laser gun"
@@ -116,22 +147,6 @@
 /obj/item/gun/energy/laser/cyborg/emp_act()
 	return
 
-/obj/item/gun/energy/laser/scatter
-	name = "scatter laser gun"
-	desc = "A laser gun equipped with a refraction kit that spreads bolts."
-	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter, /obj/item/ammo_casing/energy/laser)
-
-/obj/item/gun/energy/laser/scatter/shotty
-	name = "energy shotgun"
-	icon = 'icons/obj/guns/projectile.dmi'
-	icon_state = "cshotgun"
-	item_state = "shotgun"
-	desc = "A combat shotgun gutted and refitted with an internal laser system. Can switch between taser and scattered disabler shots."
-	shaded_charge = FALSE
-	pin = /obj/item/firing_pin/implant/mindshield
-	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter/disabler, /obj/item/ammo_casing/energy/electrode)
-	automatic_charge_overlays = FALSE
-
 ///Laser Cannon
 
 /obj/item/gun/energy/lasercannon
@@ -149,17 +164,17 @@
 	ammo_x_offset = 3
 
 /obj/item/ammo_casing/energy/laser/accelerator
-	projectile_type = /obj/projectile/beam/laser/accelerator
+	projectile_type = /obj/projectile/laser/laser/accelerator
 	select_name = "accelerator"
 	fire_sound = 'sound/weapons/lasercannonfire.ogg'
 
-/obj/projectile/beam/laser/accelerator
+/obj/projectile/laser/laser/accelerator
 	name = "accelerator laser"
 	icon_state = "scatterlaser"
 	range = 255
 	damage = 6
 
-/obj/projectile/beam/laser/accelerator/Range()
+/obj/projectile/laser/laser/accelerator/Range()
 	..()
 	damage += 7
 	transform *= 1 + ((damage/7) * 0.2)//20% larger per tile

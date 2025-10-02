@@ -5,9 +5,9 @@
 	hitsound = null
 	range = 4
 	reflectable = FALSE
-	tracer_type = /obj/effect/projectile/tracer/stun
-	muzzle_type = /obj/effect/projectile/muzzle/stun
-	impact_type = /obj/effect/projectile/impact/stun
+	hitscan_tracer_type = /obj/effect/projectile/tracer/stun
+	hitscan_muzzle_type = /obj/effect/projectile/muzzle/stun
+	hitscan_impact_type = /obj/effect/projectile/impact/stun
 	armor_flag = STAMINA
 	speed = 0.4
 	// Feels really inconsistent with random targeting, as limb shots do not

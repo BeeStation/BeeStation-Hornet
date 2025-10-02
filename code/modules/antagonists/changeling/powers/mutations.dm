@@ -271,7 +271,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 	desc = "A tentacle."
 	projectile_type = /obj/projectile/tentacle
 	caliber = "tentacle"
-	firing_effect_type = null
 	var/obj/item/gun/magic/tentacle/gun //the item that shot it
 
 /obj/item/ammo_casing/magic/tentacle/Initialize(mapload)
@@ -290,6 +289,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 	damage_type = BRUTE
 	range = 8
 	hitsound = 'sound/weapons/thudswoosh.ogg'
+	muzzle_effect_type = null
 	var/chain
 	var/obj/item/ammo_casing/magic/tentacle/source //the item that shot it
 	///Click params that were used to fire the tentacle shot
