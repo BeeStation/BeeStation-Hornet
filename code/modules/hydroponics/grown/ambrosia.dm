@@ -76,7 +76,7 @@
 	reagents_add = list(/datum/reagent/medicine/earthsblood = 0.05, /datum/reagent/consumable/nutriment = 0.06, /datum/reagent/consumable/nutriment/vitamin = 0.05)
 	rarity = 30 //These are some pretty good plants right here
 	genes = list()
-	weed_rate = 2
+	weed_rate = 4
 	weed_chance = 15
 
 /obj/item/food/grown/ambrosia/gaia
