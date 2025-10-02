@@ -253,7 +253,7 @@ const ChoicesPanel = (props) => {
               <Box key={choice.name}>
                 <LabeledList.Item
                   label={choice.name.replace(/^\w/, (c) => c.toUpperCase())}
-                  tooltip={choice.description}
+                  tooltip={choice.description ?? undefined}
                   textAlign="right"
                   buttons={
                     <Button
@@ -300,7 +300,7 @@ const ChoicesPanel = (props) => {
               <Box key={choice.name}>
                 <LabeledList.Item
                   label={choice.name.replace(/^\w/, (c) => c.toUpperCase())}
-                  tooltip={choice.description}
+                  tooltip={choice.description ?? undefined}
                   textAlign="right"
                   buttons={
                     <Button
