@@ -25,7 +25,7 @@
 	..()
 	return update_icons()
 
-/mob/living/carbon/alien/larva/update_inv_handcuffed()
+/mob/living/carbon/alien/larva/update_worn_handcuffs()
 	update_icons() //larva icon_state changes if cuffed/uncuffed.
 
 /mob/living/carbon/alien/larva/lying_angle_on_lying_down(new_lying_angle)

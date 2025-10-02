@@ -442,7 +442,7 @@
 /**
  * Scans an atom, showing any (detectable) diseases they may have.
  */
-/proc/virusscan(mob/user, atom/target, var/maximum_stealth, var/maximum, var/list/extracted_ids)
+/proc/virusscan(mob/user, atom/target, maximum_stealth, maximum, list/extracted_ids)
 	. = TRUE
 	var/list/result = target?.extrapolator_act(user, target)
 	var/list/diseases = result[EXTRAPOLATOR_RESULT_DISEASES]
