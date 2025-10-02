@@ -19,7 +19,7 @@
 	. = ..()
 	if(ishuman(user) && slot == ITEM_SLOT_HEAD)
 		var/mob/living/carbon/human/H = user
-		H.update_inv_head()
+		H.update_worn_head()
 	attached_wig?.equipped(user, slot)
 
 /obj/item/clothing/head/dropped(mob/user)
@@ -27,7 +27,7 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.head == src)
-			H.update_inv_head()
+			H.update_worn_head()
 	attached_wig?.dropped(user)
 
 /obj/item/clothing/head/attackby(obj/item/W, mob/user, params)
@@ -73,7 +73,7 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.head == src)
-			H.update_inv_head()
+			H.update_worn_head()
 
 /obj/item/clothing/head/Destroy()
 	if (attached_wig)
@@ -147,7 +147,7 @@
 	..()
 	if(ismob(loc))
 		var/mob/M = loc
-		M.update_inv_head()
+		M.update_worn_head()
 
 /obj/item/clothing/head/compile_monkey_icon()
 	var/identity = "[type]_[icon_state]" //Allows using multiple icon states for piece of clothing

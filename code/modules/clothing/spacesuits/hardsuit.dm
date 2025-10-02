@@ -69,7 +69,7 @@
 	else
 		on = !on
 	icon_state = "[basestate][on]-[hardsuit_type]"
-	user?.update_inv_head()	//so our mob-overlays update
+	user?.update_worn_head()	//so our mob-overlays update
 
 	set_light_on(on)
 
@@ -109,7 +109,7 @@
 	else
 		to_chat(user, span_warning("You disable the heads up display of your suit."))
 
-/obj/item/clothing/head/helmet/space/hardsuit/proc/display_visor_message(var/msg)
+/obj/item/clothing/head/helmet/space/hardsuit/proc/display_visor_message(msg)
 	var/mob/wearer = loc
 	if(msg && ishuman(wearer))
 		wearer.show_message("[icon2html(src, wearer)]<b>[span_robot("[msg]")]</b>", MSG_VISUAL)
@@ -658,7 +658,7 @@
 	update_icon()
 	playsound(src.loc, 'sound/mecha/mechmove03.ogg', 50, 1)
 	toggle_hardsuit_mode(user)
-	user.update_inv_head()
+	user.update_worn_head()
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		C.head_update(src, forced = 1)
@@ -718,7 +718,7 @@
 	)
 	clothing_flags = NOTCONSUMABLE | STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS | THICKMATERIAL
 
-/obj/item/clothing/suit/space/hardsuit/syndi/ComponentInitialize()
+/obj/item/clothing/suit/space/hardsuit/syndi/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100)
 
@@ -748,8 +748,8 @@
 	if(ishuman(loc))
 		var/mob/living/carbon/H = loc
 		H.update_equipment_speed_mods()
-		H.update_inv_wear_suit()
-		H.update_inv_w_uniform()
+		H.update_worn_oversuit()
+		H.update_worn_undersuit()
 
 /obj/item/clothing/suit/space/hardsuit/syndi/proc/activate_combat_mode()
 	name = "[initial(name)] (combat)"
@@ -760,8 +760,8 @@
 	if(ishuman(loc))
 		var/mob/living/carbon/H = loc
 		H.update_equipment_speed_mods()
-		H.update_inv_wear_suit()
-		H.update_inv_w_uniform()
+		H.update_worn_oversuit()
+		H.update_worn_undersuit()
 
 //Stupid snowflake type so we dont freak out the spritesheets. Its not actually used ingame
 /obj/item/clothing/suit/space/hardsuit/syndipreview
@@ -892,7 +892,7 @@
 	stamina = 70
 	bleed = 70
 
-/obj/item/clothing/suit/space/hardsuit/wizard/ComponentInitialize()
+/obj/item/clothing/suit/space/hardsuit/wizard/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100)
 	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, MAGIC_RESISTANCE)
@@ -1044,7 +1044,7 @@
 	stamina = 30
 	bleed = 70
 
-/obj/item/clothing/suit/space/hardsuit/research_director/ComponentInitialize()
+/obj/item/clothing/suit/space/hardsuit/research_director/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100)
 
@@ -1488,9 +1488,6 @@
 		charge_increment_delay = 1 SECONDS, \
 		shield_icon = "shield-red" \
 	)
-
-/obj/item/clothing/suit/space/hardsuit/shielded/syndi/ComponentInitialize()
-	. = ..()
 	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100)
 
 

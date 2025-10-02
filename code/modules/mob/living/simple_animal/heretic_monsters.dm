@@ -271,7 +271,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/heretic_summon/a
 	AttackingTarget()
 
 /mob/living/simple_animal/hostile/heretic_summon/armsy/AttackingTarget()
-	if(istype(target, /obj/item/bodypart/r_arm) || istype(target, /obj/item/bodypart/l_arm))
+	if(istype(target, /obj/item/bodypart/arm/right) || istype(target, /obj/item/bodypart/arm/left))
 		playsound(src, 'sound/magic/demon_consume.ogg', 50, TRUE)
 		qdel(target)
 		heal()

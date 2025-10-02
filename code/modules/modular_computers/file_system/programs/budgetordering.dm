@@ -8,6 +8,7 @@
 	size = 10
 	tgui_id = "NtosCargo"
 	program_icon = "credit-card"
+	power_consumption = 40 WATT
 	//Are you actually placing orders with it?
 	var/requestonly = TRUE
 	//Can the tablet see or buy illegal stuff?
@@ -36,7 +37,7 @@
 		id = card_slot?.GetID()
 	return id ? id : FALSE
 
-/datum/computer_file/program/budgetorders/proc/is_visible_pack(mob/user, var/contraband)
+/datum/computer_file/program/budgetorders/proc/is_visible_pack(mob/user, contraband)
 	if(issilicon(user)) //Borgs can't buy things.
 		return FALSE
 	if(computer.obj_flags & EMAGGED)

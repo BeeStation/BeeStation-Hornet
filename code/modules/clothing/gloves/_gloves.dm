@@ -41,7 +41,7 @@
 	..()
 	if(ismob(loc))
 		var/mob/M = loc
-		M.update_inv_gloves()
+		M.update_worn_gloves()
 
 // Called just before an attack_hand(), in mob/UnarmedAttack()
 /obj/item/clothing/gloves/proc/Touch(atom/A, proximity)

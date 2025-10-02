@@ -226,7 +226,7 @@
 	source.inhand_icon_state = initial(source.inhand_icon_state)
 	if(ismob(source.loc))
 		var/mob/loc_mob = source.loc
-		loc_mob.update_inv_hands()
+		loc_mob.update_held_items()
 
 /*
  * If [clumsy_check] is set to TRUE, attempt to cause a side effect for clumsy people activating this item.

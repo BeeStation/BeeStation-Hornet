@@ -209,7 +209,7 @@ Slimecrossing Items
 	else
 		to_chat(user, span_warning("The device is empty..."))
 
-/obj/item/capturedevice/proc/store(var/mob/living/M)
+/obj/item/capturedevice/proc/store(mob/living/M)
 	M.forceMove(src)
 
 /obj/item/capturedevice/proc/release()

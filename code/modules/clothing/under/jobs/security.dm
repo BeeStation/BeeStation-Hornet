@@ -76,6 +76,7 @@
 	icon_state = "blueshift"
 	inhand_icon_state = null
 	can_adjust = FALSE
+	custom_price = 110
 
 /obj/item/clothing/under/rank/security/officer/formal
 	name = "security officer's formal uniform"

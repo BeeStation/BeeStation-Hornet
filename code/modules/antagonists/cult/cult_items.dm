@@ -173,7 +173,7 @@ Striking a noncultist, however, will tear their flesh."}
 	heat_protection = CHEST|GROIN|LEGS|ARMS
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 
-/obj/item/clothing/suit/hooded/cultrobes/ComponentInitialize()
+/obj/item/clothing/suit/hooded/cultrobes/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100)
 
@@ -585,9 +585,6 @@ Striking a noncultist, however, will tear their flesh."}
 	var/datum/action/innate/cult/spear/spear_act
 
 /obj/item/cult_spear/Initialize(mapload)
-	. = ..()
-
-/obj/item/cult_spear/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/butchering, 100, 90)
 	AddComponent(/datum/component/two_handed, force_unwielded=17, force_wielded=24, icon_wielded="bloodspear1")

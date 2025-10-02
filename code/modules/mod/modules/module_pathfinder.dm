@@ -1,6 +1,6 @@
 ///Pathfinder - Can fly the suit from a long distance to an implant installed in someone.
 /obj/item/mod/module/pathfinder
-	name = "MOD pathfinder module"
+	name = "\improper MOD pathfinder module"
 	desc = "This module, brought to you by Nakamura Engineering, has two components. \
 		The first component is a series of thrusters and a computerized location subroutine installed into the \
 		very control unit of the suit, allowing it flight at highway speeds using the suit's access locks \
@@ -21,9 +21,9 @@
 	var/faithful_return = FALSE
 
 /obj/item/mod/module/pathfinder/plus
-	name = "MOD pathfinder+ module"
+	name = "\improper MOD pathfinder+ module"
 	desc = "This modified pathfinder module, based on Nakamura Engineering's design, \
-		has been altered by DonkCo with an anti-personal shock field that guarantees \
+		has been altered by DonkCo with an anti-personnel shock field that guarantees \
 		would-be thieves a nasty surprise, and a swift return of the suit to the owner."
 
 	faithful_return = TRUE
@@ -99,7 +99,7 @@
 		qdel(existing_action)
 
 /obj/item/implant/mod
-	name = "MOD pathfinder implant"
+	name = "\improper MOD pathfinder implant"
 	desc = "Lets you recall a MODsuit to you at any time."
 	actions_types = list(/datum/action/item_action/mod_recall)
 	/// The pathfinder module we are linked to.
@@ -173,7 +173,7 @@
 	addtimer(CALLBACK(src, PROC_REF(recall_zap_thief), carrying_mob), 3 SECONDS)
 	//return FALSE //We zapped them, but its still not valid until the modsuit is actually dropped
 
-/obj/item/implant/mod/proc/recall_zap_thief(var/mob/living/carrying_mob)
+/obj/item/implant/mod/proc/recall_zap_thief(mob/living/carrying_mob)
 	if(!ismob(get_atom_on_turf(module.mod)))
 		return FALSE //They dropped it
 	carrying_mob.Paralyze(5 SECONDS)

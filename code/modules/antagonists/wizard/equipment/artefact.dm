@@ -44,7 +44,7 @@
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 
-/obj/effect/rend/Initialize(mapload, var/spawn_type, var/spawn_amt, var/desc, var/spawn_fast)
+/obj/effect/rend/Initialize(mapload, spawn_type, spawn_amt, desc, spawn_fast)
 	. = ..()
 	src.spawn_path = spawn_type
 	src.spawn_amt_left = spawn_amt

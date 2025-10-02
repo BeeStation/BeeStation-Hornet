@@ -2,7 +2,7 @@
 
 ///Magnetic Harness - Automatically puts guns in your suit storage when you drop them.
 /obj/item/mod/module/magnetic_harness
-	name = "MOD magnetic harness module"
+	name = "\improper MOD magnetic harness module"
 	desc = "Based off old TerraGov harness kits, this magnetic harness automatically attaches dropped guns back to the wearer."
 	icon_state = "mag_harness"
 	complexity = 2
@@ -62,7 +62,7 @@
 
 ///Pepper Shoulders - When hit, reacts with a spray of pepper spray around the user.
 /obj/item/mod/module/pepper_shoulders
-	name = "MOD pepper shoulders module"
+	name = "\improper MOD pepper shoulders module"
 	desc = "A module that attaches two pepper sprayers on shoulders of a MODsuit, reacting to touch with a spray around the user."
 	icon_state = "pepper_shoulder"
 	module_type = MODULE_USABLE
@@ -101,7 +101,7 @@
 
 ///Holster - Instantly holsters any not huge gun.
 /obj/item/mod/module/holster
-	name = "MOD holster module"
+	name = "\improper MOD holster module"
 	desc = "Based off typical storage compartments, this system allows the suit to holster a \
 		standard firearm across its surface and allow for extremely quick retrieval. \
 		While some users prefer the chest, others the forearm for quick deployment, \
@@ -150,7 +150,7 @@
 
 ///Megaphone - Lets you speak loud.
 /obj/item/mod/module/megaphone
-	name = "MOD megaphone module"
+	name = "\improper MOD megaphone module"
 	desc = "A microchip megaphone linked to a MODsuit, for very important purposes, like: loudness."
 	icon_state = "megaphone"
 	module_type = MODULE_TOGGLE
@@ -177,7 +177,7 @@
 /*
 ///Criminal Capture - Lets you put people in transport bags.
 /obj/item/mod/module/criminalcapture
-	name = "MOD criminal capture module"
+	name = "\improper MOD criminal capture module"
 	desc = "The private security that had orders to take in people dead were quite \
 		happy with their space-proofed suit, but for those who wanted to bring back \
 		whomever their targets were still breathing needed a way to \"share\" the \
@@ -250,7 +250,7 @@
 
 ///Mirage grenade dispenser - Dispenses grenades that copy the user's appearance.
 /obj/item/mod/module/dispenser/mirage
-	name = "MOD mirage grenade dispenser module"
+	name = "\improper MOD mirage grenade dispenser module"
 	desc = "This module can create mirage grenades at the user's liking. These grenades create holographic copies of the user."
 	icon_state = "mirage_grenade"
 	cooldown_time = 20 SECONDS
@@ -284,8 +284,8 @@
 
 ///Projectile Dampener - Weakens projectiles in range.
 /obj/item/mod/module/projectile_dampener
-	name = "MOD projectile dampener module"
-	desc = "Using technology from peaceborgs, this module weakens all projectiles in nearby range."
+	name = "\improper MOD projectile dampener module"
+	desc = "Using technology from peacekeeper cyborgs, this module weakens all projectiles in nearby range."
 	icon_state = "projectile_dampener"
 	module_type = MODULE_TOGGLE
 	complexity = 3
@@ -336,7 +336,7 @@
 
 ///Active Sonar - Displays a hud circle on the turf of any living creatures in the given radius
 /obj/item/mod/module/active_sonar
-	name = "MOD active sonar"
+	name = "\improper MOD active sonar"
 	desc = "Ancient tech from the 20th century, this module uses sonic waves to detect living creatures within the user's radius. \
 		Its basic function slowly scans around the user for any bio-signatures, however it can be overclocked to scan everywhere at once.\
 		Its loud ping is much harder to hide in an indoor station than in the outdoor operations it was designed for."

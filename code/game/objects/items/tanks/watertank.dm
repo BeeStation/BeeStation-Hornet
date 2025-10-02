@@ -48,7 +48,7 @@
 		noz.update_icon()
 	if(istype(loc, /mob/living/carbon))//Someone's wearing it
 		var/mob/living/carbon/wearer = loc
-		wearer.update_inv_back()
+		wearer.update_worn_back()
 
 /obj/item/watertank/update_overlays()
 	. = ..()
@@ -275,7 +275,7 @@
 		if(istype(loc, /mob/living/carbon))
 			var/mob/living/carbon/wearer = loc
 			if(wearer.back == src)
-				wearer.update_inv_back()
+				wearer.update_worn_back()
 
 /obj/item/watertank/atmos/update_overlays()
 	. = ..()
@@ -394,7 +394,7 @@
 	if(istype(loc, /mob/living/carbon))
 		var/mob/living/carbon/wearer = loc
 		if(wearer.get_active_held_item() == src)//Someone's holding it
-			wearer.update_inv_hands()
+			wearer.update_held_items()
 
 /obj/item/extinguisher/mini/nozzle/update_overlays()
 	. = ..()
@@ -427,7 +427,7 @@
 		if (istype(tank.loc, /mob/living/carbon))
 			tank.update_icon()
 			var/mob/living/carbon/wearer = tank.loc
-			wearer.update_inv_back()
+			wearer.update_worn_back()
 
 /obj/item/extinguisher/mini/nozzle/Destroy()
 	reagents = null
@@ -690,7 +690,7 @@
 	reagents.expose(user, INJECT,injection_amount,0)
 	reagents.trans_to(user,used_amount,multiplier=usage_ratio)
 	update_icon()
-	user.update_inv_back() //for overlays update
+	user.update_worn_back() //for overlays update
 
 /datum/action/item_action/activate_injector
 	name = "Activate Injector"
