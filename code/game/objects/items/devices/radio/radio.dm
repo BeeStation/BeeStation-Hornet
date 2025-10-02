@@ -63,11 +63,16 @@
 
 	var/headset = FALSE
 
+	/// If true the radio will be able to hold 2 encryption keys
+	var/two_keys = FALSE
+
 	///makes anyone who is talking through this anonymous.
 	var/anonymize = FALSE
 
 	// Encryption key handling
 	var/obj/item/encryptionkey/keyslot
+	// Secondary Key slot
+	var/obj/item/encryptionkey/keyslot2
 	/// If true, can hear the special binary channel.
 	var/translate_binary = FALSE
 	/// If true, can say/hear on the special CentCom channel.
@@ -75,9 +80,9 @@
 	/// If true, hears all well-known channels automatically, and can say/hear on the Syndicate channel.
 	var/syndie = FALSE
 	/// associative list of the encrypted radio channels this radio is currently set to listen/broadcast to, of the form: list(channel name = TRUE or FALSE)
-	var/list/channels
+	var/list/channels = list()
 	/// associative list of the encrypted radio channels this radio can listen/broadcast to, of the form: list(channel name = channel frequency)
-	var/list/secure_radio_connections
+	var/list/secure_radio_connections = list()
 	// If true, radio doesn't make sound effects (ie for Syndicate internal radio implants)
 	var/radio_silent = FALSE
 
@@ -85,16 +90,13 @@
 	wires = new /datum/wires/radio(src)
 	if(prison_radio)
 		wires.cut(WIRE_TX, null) // OH GOD WHY
-	secure_radio_connections = list()
 	. = ..()
-
-	for(var/ch_name in channels)
-		secure_radio_connections[ch_name] = add_radio(src, GLOB.radiochannels[ch_name])
 
 	set_listening(listening)
 	set_broadcasting(broadcasting)
 	set_frequency(sanitize_frequency(frequency, freerange))
 	set_on(on)
+	recalculateChannels()
 
 	AddElement(/datum/element/empprotection, EMP_PROTECT_WIRES)
 
@@ -110,14 +112,15 @@
 	frequency = add_radio(src, new_frequency)
 
 /obj/item/radio/proc/recalculateChannels()
-	resetChannels()
-	command = initial(command)
+	if(secure_radio_connections && secure_radio_connections.len > 0)
+		resetChannels()
+	// Always allow common
+	secure_radio_connections[RADIO_CHANNEL_COMMON] = add_radio(src, FREQ_COMMON)
+	// Always allow AI private
+	secure_radio_connections[RADIO_CHANNEL_AI_PRIVATE] = add_radio(src, FREQ_AI_PRIVATE)
+	command = initial(command) // If it could loudmode without key it will always be able to
 
 	if(keyslot)
-		for(var/channel_name in keyslot.channels)
-			if(!(channel_name in channels))
-				channels[channel_name] = keyslot.channels[channel_name]
-
 		if(keyslot.translate_binary)
 			translate_binary = TRUE
 		if(keyslot.syndie)
@@ -126,19 +129,35 @@
 			independent = TRUE
 		if(keyslot.amplification)
 			command = TRUE
+		for(var/channel_name in keyslot.channels)
+			if(!(channel_name in channels))
+				channels[channel_name] = keyslot.channels[channel_name]
+				secure_radio_connections[channel_name] = add_radio(src, GLOB.radiochannels[channel_name])
+	if(keyslot2)
+		if(keyslot2.translate_binary)
+			translate_binary = TRUE
+		if(keyslot2.syndie)
+			syndie = TRUE
+		if(keyslot2.independent)
+			independent = TRUE
+		if(keyslot2.amplification)
+			command = TRUE
+		for(var/channel_name in keyslot2.channels)
+			if(!(channel_name in channels))
+				channels[channel_name] = keyslot2.channels[channel_name]
+				secure_radio_connections[channel_name] = add_radio(src, GLOB.radiochannels[channel_name])
+
 
 	if(!command)
+		// Turns off loud mode if this radio can't have loudmode
 		use_command = FALSE
-
-	for(var/ch_name in channels)
-		secure_radio_connections[ch_name] = add_radio(src, GLOB.radiochannels[ch_name])
 
 /obj/item/radio/proc/resetChannels()
 	channels = list()
 	secure_radio_connections = list()
-	translate_binary = FALSE
-	syndie = FALSE
-	independent = FALSE
+	translate_binary = initial(translate_binary)
+	syndie = initial(syndie)
+	independent = initial(independent)
 
 ///goes through all radio channels we should be listening for and readds them to the global list
 /obj/item/radio/proc/readd_listening_radio_channels()
@@ -159,6 +178,8 @@
 		. = ..()
 	else if(user.canUseTopic(src, !issilicon(user), TRUE, FALSE))
 		broadcasting = !broadcasting
+		playsound(src, 'sound/effects/radio1.ogg', 50, TRUE)
+		balloon_alert(user, "Broadcast : [broadcasting ? "<font color='#39c90d'>on</font>" : "<font color='#db1818'>off</font>"]!")
 		to_chat(user, span_notice("You toggle broadcasting [broadcasting ? "on" : "off"]."))
 		ui_update()
 
@@ -289,12 +310,21 @@
 	if(channel && channels)
 		if(channel == MODE_DEPARTMENT && channels.len > 0)
 			channel = channels[1]
-		freq = secure_radio_connections[channel]
-		if(istype(talking_movable, /mob) && !freq && channel != RADIO_CHANNEL_UPLINK)
+
+	// Check send permission
+	if(!can_send(channel) && channel != RADIO_CHANNEL_UPLINK)
+		if(istype(talking_movable, /mob))
 			to_chat(talking_movable, span_warning("You can't access this channel without an encryption key!"))
-		if (!channels[channel]) // if the channel is turned off, don't broadcast
-			return
+		return
+
+	// At this point we know we have access — safe to fetch
+	freq = secure_radio_connections[channel]
+
+	// channel exists but is toggled OFF (not listening)
+	if(!(channels[channel] & FREQ_LISTENING))
+		return
 	else
+		// No channel selected — use manual frequency mode
 		freq = frequency
 		channel = null
 
@@ -362,21 +392,37 @@
 // Checks if this radio can receive on the given frequency.
 /obj/item/radio/proc/can_receive(input_frequency, list/levels)
 	// deny checks
-	if (levels != RADIO_NO_Z_LEVEL_RESTRICTION)
+	if(levels != RADIO_NO_Z_LEVEL_RESTRICTION)
 		var/turf/position = get_turf(src)
 		if(!position || !(position.get_virtual_z_level() in levels))
 			return FALSE
 
-	if (input_frequency == FREQ_SYNDICATE && !syndie)
+	if(input_frequency == FREQ_SYNDICATE && !syndie)
 		return FALSE
 
-	// allow checks: are we listening on that frequency?
-	if (input_frequency == frequency)
-		return TRUE
-	for(var/ch_name in channels)
-		if(channels[ch_name] & FREQ_LISTENING)
+	// Now check secure channels we are connected to
+	for(var/ch_name in secure_radio_connections)
+		var/freq_num = GLOB.radiochannels[ch_name]
+		if(freq_num == text2num(input_frequency))
+			// Make sure this channel is actually toggled ON (listening)
 			if(GLOB.radiochannels[ch_name] == text2num(input_frequency) || syndie)
 				return TRUE
+	return FALSE
+
+/obj/item/radio/proc/can_send(channel)
+	// If there are no secure radio connections, you can't send anywhere
+	if(!secure_radio_connections || !secure_radio_connections.len)
+		return FALSE
+
+	// Check if this is a known secure channel
+	if(channel in secure_radio_connections)
+		// Channel must be toggled ON to transmit
+		if(channels[channel] & FREQ_LISTENING)
+			return TRUE
+		else
+			return FALSE
+
+	// Not in our list? Can't send
 	return FALSE
 
 /obj/item/radio/ui_state(mob/user)
@@ -425,10 +471,10 @@
 			var/tune = params["tune"]
 			var/adjust = text2num(params["adjust"])
 			if(adjust)
-				tune = frequency + adjust * 10
+				tune = frequency + adjust
 				. = TRUE
 			else if(text2num(tune) != null)
-				tune = tune * 10
+				tune = tune
 				. = TRUE
 			if(.)
 				set_frequency(sanitize_frequency(tune, freerange))
@@ -471,7 +517,7 @@
 /obj/item/radio/examine(mob/user)
 	. = ..()
 	if (frequency && in_range(src, user))
-		. += span_notice("It is set to broadcast over the [frequency/10] frequency.")
+		. += span_notice("It is set to broadcast over the [frequency] frequency.")
 	if (unscrewed)
 		. += span_notice("It can be attached and modified.")
 	else
@@ -482,7 +528,57 @@
 /obj/item/radio/attackby(obj/item/attacking_item, mob/user, params)
 	add_fingerprint(user)
 
+	user.set_machine(src)
+
 	if(attacking_item.tool_behaviour == TOOL_SCREWDRIVER)
+		if(keyslot || keyslot2)
+			for(var/ch_name in channels)
+				SSradio.remove_object(src, GLOB.radiochannels[ch_name])
+				secure_radio_connections[ch_name] = null
+
+			if(keyslot)
+				user.put_in_hands(keyslot)
+				keyslot = null
+			if(keyslot2)
+				user.put_in_hands(keyslot2)
+				keyslot2 = null
+
+			recalculateChannels()
+			ui_update()
+			to_chat(user, span_notice("You pop out the encryption keys in [src]"))
+
+		else
+			if(!istype(src, /obj/item/radio/headset))
+				unscrewed = !unscrewed
+				to_chat(user, span_notice(unscrewed ? "The radio can now be attached and modified!" : "The radio can no longer be modified or attached!"))
+
+	else if(istype(attacking_item, /obj/item/encryptionkey))
+		if(keyslot && keyslot2)
+			to_chat(user, span_warning("[src] can't hold another key!"))
+			return
+
+		if(!keyslot)
+			if(!user.transferItemToLoc(attacking_item, src))
+				return
+			keyslot = attacking_item
+
+		else
+			if(!two_keys)
+				return
+			if(!user.transferItemToLoc(attacking_item, src))
+				return
+			keyslot2 = attacking_item
+
+
+		recalculateChannels()
+		ui_update()
+	else
+		return ..()
+
+/obj/item/radio/attackby_secondary(obj/item/attacking_item, mob/user, params)
+	add_fingerprint(user)
+
+	if(attacking_item.tool_behaviour == TOOL_SCREWDRIVER && !istype(src, /obj/item/radio/headset))
 		unscrewed = !unscrewed
 		to_chat(user, span_notice(unscrewed ? "The radio can now be attached and modified!" : "The radio can no longer be modified or attached!"))
 	else
@@ -510,6 +606,7 @@
 	remove_radio_all(src) //Just to be sure
 	QDEL_NULL(wires)
 	QDEL_NULL(keyslot)
+	QDEL_NULL(keyslot2)
 	return ..()
 
 /obj/item/radio/proc/end_emp_effect(curremp)
@@ -602,5 +699,14 @@
 /obj/item/radio/borg/syndicate/Initialize(mapload)
 	. = ..()
 	set_frequency(FREQ_SYNDICATE)
+
+/obj/item/radio/security
+	name = "security portable radio"
+	desc = "A walkie-talkie type radio used by the security officers."
+	icon_state = "sec_radio"
+	force = 7
+	throwforce = 7
+	custom_price = 50
+	keyslot = new /obj/item/encryptionkey/headset_sec
 
 #undef FREQ_LISTENING
