@@ -26636,10 +26636,7 @@
 	req_one_access_txt = "2";
 	pixel_y = 32
 	},
-/obj/machinery/camera{
-	dir = 9;
-	c_tag = "Fore Primary Hallway 3"
-	},
+/obj/machinery/camera/directional/north,
 /turf/open/floor/prison,
 /area/security/prison)
 "fNn" = (
@@ -41350,10 +41347,7 @@
 	dir = 1
 	},
 /obj/structure/curtain,
-/obj/machinery/camera{
-	dir = 9;
-	c_tag = "Fore Primary Hallway 3"
-	},
+/obj/machinery/camera/directional/north,
 /turf/open/floor/iron,
 /area/security/prison)
 "kOr" = (
@@ -55819,10 +55813,7 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
-/obj/machinery/camera{
-	dir = 9;
-	c_tag = "Fore Primary Hallway 3"
-	},
+/obj/machinery/camera/directional/north,
 /turf/open/floor/prison,
 /area/security/prison)
 "pML" = (
