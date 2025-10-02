@@ -26,3 +26,6 @@
   - code_imp: updated player worn state procs
   mrmanlikesbt:
   - config: adjusted the nuclear operative and blood cult team size formula
+2025-10-02:
+  Tsar-Salat:
+  - bugfix: fixes outwear overlay
