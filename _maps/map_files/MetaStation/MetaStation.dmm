@@ -26636,6 +26636,10 @@
 	req_one_access_txt = "2";
 	pixel_y = 32
 	},
+/obj/machinery/camera{
+	dir = 9;
+	c_tag = "Fore Primary Hallway 3"
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "fNn" = (
@@ -28758,10 +28762,6 @@
 	},
 /area/security/checkpoint/medical)
 "gzz" = (
-/obj/machinery/camera{
-	dir = 10;
-	c_tag = "Security - Prison - Port"
-	},
 /obj/effect/turf_decal/tile/black/fourcorners/contrasted,
 /obj/structure/punching_bag,
 /obj/effect/turf_decal/siding/wideplating_new/dark,
@@ -41350,6 +41350,10 @@
 	dir = 1
 	},
 /obj/structure/curtain,
+/obj/machinery/camera{
+	dir = 9;
+	c_tag = "Fore Primary Hallway 3"
+	},
 /turf/open/floor/iron,
 /area/security/prison)
 "kOr" = (
@@ -42992,16 +42996,6 @@
 /obj/structure/window/reinforced,
 /turf/open/floor/iron,
 /area/engine/engineering)
-"lwp" = (
-/obj/machinery/camera{
-	dir = 9;
-	c_tag = "Fore Primary Hallway 3"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/hallway/primary/fore)
 "lwq" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -55825,6 +55819,10 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
+/obj/machinery/camera{
+	dir = 9;
+	c_tag = "Fore Primary Hallway 3"
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "pML" = (
@@ -105041,7 +105039,7 @@ kUt
 mhU
 dcQ
 elT
-lwp
+etl
 pZO
 anQ
 aFU
