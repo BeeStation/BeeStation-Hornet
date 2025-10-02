@@ -33,7 +33,7 @@
 /obj/machinery/jukebox/examine(mob/user)
 	. = ..()
 	if(music_player.active_song_sound)
-		. += "Now playing: [music_player.selection.song_name]"
+		. += span_notice("Now playing: [music_player.selection.song_name]")
 
 /obj/machinery/jukebox/wrench_act(mob/living/user, obj/item/tool)
 	if(!isnull(music_player.active_song_sound))
