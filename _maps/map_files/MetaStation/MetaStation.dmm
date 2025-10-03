@@ -21674,9 +21674,6 @@
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 1
 	},
-/obj/item/kirbyplants/random,
-/obj/effect/spawner/lootdrop/prison_contraband,
-/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/prison,
 /area/security/prison)
 "dZR" = (
@@ -69864,13 +69861,14 @@
 /obj/structure/railing/sec{
 	dir = 4
 	},
-/obj/machinery/door/poddoor/shutters{
-	id = "visitationlock"
-	},
 /obj/machinery/scanner_gate{
 	name = "Prison Scanner";
 	scangate_mode = "Mindshield";
-	reverse = 1
+	reverse = 1;
+	pixel_y = 5
+	},
+/obj/machinery/door/poddoor/shutters{
+	id = "visitationlock"
 	},
 /turf/open/floor/prison,
 /area/security/prison)
