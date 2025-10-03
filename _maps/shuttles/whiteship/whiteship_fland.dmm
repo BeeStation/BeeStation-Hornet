@@ -61,7 +61,7 @@
 /turf/open/floor/wood,
 /area/shuttle/abandoned)
 "dB" = (
-/obj/effect/spawner/structure/window/plastitanium,
+/obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating,
 /area/shuttle/abandoned)
 "ec" = (
@@ -116,7 +116,7 @@
 /area/shuttle/abandoned)
 "fy" = (
 /obj/structure/shuttle/engine/heater,
-/obj/effect/spawner/structure/window/plastitanium,
+/obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating,
 /area/shuttle/abandoned)
 "gk" = (

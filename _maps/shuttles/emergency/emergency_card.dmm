@@ -1490,7 +1490,7 @@
 /turf/open/floor/iron/tiled,
 /area/shuttle/escape)
 "Tx" = (
-/obj/effect/spawner/structure/window/plastitanium,
+/obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "Uo" = (

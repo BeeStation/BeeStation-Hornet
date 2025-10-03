@@ -1222,7 +1222,7 @@
 /area/shuttle/escape)
 "VT" = (
 /obj/structure/shuttle/engine/heater,
-/obj/effect/spawner/structure/window/plastitanium,
+/obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "Wh" = (

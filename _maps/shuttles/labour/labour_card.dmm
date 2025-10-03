@@ -282,7 +282,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/labor)
 "O" = (
-/obj/effect/spawner/structure/window/plastitanium,
+/obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating,
 /area/shuttle/labor)
 "Q" = (
