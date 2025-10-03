@@ -20,7 +20,8 @@ export const NoteKeeper = (props) => {
   const foundRecord = getMedicalRecord();
   if (!foundRecord) return <> </>;
 
-  const { act } = useBackend<MedicalRecordData>();
+  const { data, act } = useBackend<MedicalRecordData>();
+  const { is_silicon } = data;
   const { record_ref } = foundRecord;
 
   const [selectedNote, setSelectedNote] = useLocalState<
@@ -62,7 +63,11 @@ export const NoteKeeper = (props) => {
           <LabeledList>
             <LabeledList.Item
               label="Author"
-              buttons={<Button color="bad" icon="trash" onClick={deleteNote} />}
+              buttons={
+                !is_silicon && (
+                  <Button color="bad" icon="trash" onClick={deleteNote} />
+                )
+              }
             >
               {selectedNote.author}
             </LabeledList.Item>
@@ -119,7 +124,7 @@ const NoteTabs = (props) => {
               onClick={() => setNote(note)}
               selected={selectedNote?.note_ref === note.note_ref}
             >
-              {index + 1}
+              {`Note ${index + 1}`}
             </Tabs.Tab>
           ))
         : null}
