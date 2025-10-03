@@ -947,7 +947,7 @@
 	},
 /area/template_noop)
 "mM" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/template_noop)
 "mR" = (

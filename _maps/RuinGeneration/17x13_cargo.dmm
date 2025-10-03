@@ -74,7 +74,7 @@
 /turf/open/floor/mineral/titanium,
 /area/ruin/unpowered)
 "t" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "v" = (

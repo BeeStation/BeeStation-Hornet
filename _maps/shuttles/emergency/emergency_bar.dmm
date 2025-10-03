@@ -260,7 +260,7 @@
 /area/shuttle/escape)
 "bC" = (
 /obj/structure/shuttle/engine/heater,
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "bE" = (
@@ -795,7 +795,7 @@
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "Zp" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "Zq" = (

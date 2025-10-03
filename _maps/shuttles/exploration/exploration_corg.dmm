@@ -197,7 +197,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "jB" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/exploration)
 "jO" = (
@@ -396,7 +396,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "sh" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible,
 /turf/open/floor/plating,
 /area/shuttle/exploration)
@@ -927,7 +927,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "XG" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},

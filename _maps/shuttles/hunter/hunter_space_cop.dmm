@@ -518,7 +518,7 @@
 /turf/open/floor/iron,
 /area/shuttle/hunter)
 "nB" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /obj/machinery/door/poddoor/preopen{
 	id = "hunter_police_bridge";
 	name = "Bridge View Blast Door"
@@ -820,7 +820,7 @@
 /turf/open/floor/iron/yellowsiding,
 /area/shuttle/hunter)
 "Be" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /obj/machinery/door/poddoor/preopen{
 	id = "hunter_police_windows"
 	},

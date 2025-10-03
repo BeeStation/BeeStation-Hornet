@@ -15,7 +15,7 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 8
 	},
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "ap" = (
@@ -797,7 +797,7 @@
 /turf/open/floor/iron/large,
 /area/shuttle/escape)
 "VO" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "Wg" = (

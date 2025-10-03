@@ -1778,7 +1778,7 @@
 /turf/open/floor/plating/grass,
 /area/template_noop)
 "BM" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/template_noop)
 "BN" = (

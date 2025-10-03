@@ -356,7 +356,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "ub" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "vo" = (

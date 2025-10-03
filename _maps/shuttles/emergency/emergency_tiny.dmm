@@ -238,7 +238,7 @@
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "sT" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "tn" = (
@@ -274,7 +274,7 @@
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
 "xa" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /obj/structure/grille,
 /obj/structure/shuttle/engine/heater,
 /turf/open/floor/plating,
@@ -313,7 +313,7 @@
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
 "xD" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /obj/structure/curtain/directional{
 	dir = 4
 	},
@@ -639,7 +639,7 @@
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "Up" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /obj/structure/grille,
 /turf/open/floor/plating,
 /area/shuttle/escape)

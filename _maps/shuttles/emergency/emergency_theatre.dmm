@@ -181,7 +181,7 @@
 /turf/open/floor/carpet/cyan,
 /area/shuttle/escape)
 "xm" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "xR" = (

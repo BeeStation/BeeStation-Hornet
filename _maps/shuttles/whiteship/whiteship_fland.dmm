@@ -636,7 +636,7 @@
 /turf/open/floor/iron/textured,
 /area/shuttle/abandoned)
 "Ih" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/abandoned)
 "Iv" = (
@@ -780,7 +780,7 @@
 /turf/open/floor/plating,
 /area/shuttle/abandoned)
 "QS" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
 /area/shuttle/abandoned)

@@ -508,7 +508,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "uQ" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "uY" = (

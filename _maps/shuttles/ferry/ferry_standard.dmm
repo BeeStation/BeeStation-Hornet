@@ -110,7 +110,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/transport)
 "y" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating/airless,
 /area/shuttle/transport)
 "z" = (

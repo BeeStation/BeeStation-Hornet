@@ -139,7 +139,7 @@
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "Q" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 

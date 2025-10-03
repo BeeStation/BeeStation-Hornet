@@ -823,7 +823,7 @@
 /turf/open/floor/plating,
 /area/shuttle/exploration)
 "Om" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/exploration)
 "OJ" = (

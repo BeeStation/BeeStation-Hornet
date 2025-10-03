@@ -351,7 +351,7 @@
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/exploration)
 "R" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/exploration)
 "S" = (

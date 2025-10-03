@@ -278,7 +278,7 @@
 /area/shuttle/escape)
 "bi" = (
 /obj/structure/shuttle/engine/heater,
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "bj" = (
@@ -761,7 +761,7 @@
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "JW" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "Km" = (

@@ -535,7 +535,7 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 8
 	},
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "xV" = (
@@ -762,7 +762,7 @@
 /turf/open/floor/carpet/blue,
 /area/shuttle/escape)
 "MN" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "Nj" = (

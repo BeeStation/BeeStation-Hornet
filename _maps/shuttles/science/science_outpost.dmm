@@ -19,7 +19,7 @@
 /turf/open/floor/mineral/titanium/purple,
 /area/shuttle/science)
 "d" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/science)
 "g" = (
