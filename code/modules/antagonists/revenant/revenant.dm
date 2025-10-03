@@ -226,9 +226,6 @@
 		return BULLET_ACT_FORCE_PIERCE
 	return ..()
 
-/mob/living/simple_animal/revenant/rad_act(amount)
-	return
-
 //damage, gibbing, and dying
 /mob/living/simple_animal/revenant/attackby(obj/item/W, mob/living/user, params)
 	. = ..()

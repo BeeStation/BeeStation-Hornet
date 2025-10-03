@@ -37,7 +37,6 @@
 /datum/armor/shuttle_heater
 	energy = 100
 	bio = 100
-	rad = 100
 	fire = 100
 	acid = 30
 

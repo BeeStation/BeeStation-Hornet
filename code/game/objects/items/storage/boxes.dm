@@ -1201,7 +1201,6 @@
 
 /obj/item/storage/box/material/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/rad_insulation, _amount = RAD_FULL_INSULATION, contamination_proof = TRUE) //please datum mats no more cancer
 	atom_storage.max_specific_storage = 1000
 	atom_storage.max_specific_storage = WEIGHT_CLASS_GIGANTIC
 	atom_storage.max_slots = 1000

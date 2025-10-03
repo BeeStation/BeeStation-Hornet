@@ -8,7 +8,6 @@
 
 /datum/armor/plasmaman_engineering
 	bio = 100
-	rad = 10
 	fire = 95
 	acid = 95
 	bleed = 10

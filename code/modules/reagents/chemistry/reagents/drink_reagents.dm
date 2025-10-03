@@ -572,7 +572,9 @@
 	affected_mob.drowsyness = 0
 	affected_mob.AdjustSleeping(-40 * REM * delta_time)
 	affected_mob.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, affected_mob.get_body_temp_normal())
-	affected_mob.radiation += 4 * REM * delta_time
+
+	if(SSradiation.can_irradiate_basic(affected_mob))
+		affected_mob.AddComponent(/datum/component/irradiated)
 
 /datum/reagent/consumable/grey_bull
 	name = "Grey Bull"
@@ -861,7 +863,7 @@
 
 /datum/reagent/consumable/doctor_delight/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	// Drains the nutrition of the affected_mob.reagents. Not medical staff though, since it's the Doctor's Delight!
+	// Drains the nutrition of the holder. Not medical staff though, since it's the Doctor's Delight!
 	if(affected_mob.nutrition && (affected_mob.nutrition - 2 > 0))
 		if(!HAS_MIND_TRAIT(affected_mob, TRAIT_MEDICAL_METABOLISM))
 			affected_mob.adjust_nutrition(-2 * REM * delta_time)

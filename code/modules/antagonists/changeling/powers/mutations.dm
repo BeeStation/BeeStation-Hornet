@@ -421,7 +421,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 	energy = 30
 	bomb = 30
 	bio = 100
-	rad = 20
 	fire = 90
 	acid = 90
 	stamina = 10
@@ -464,7 +463,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 	energy = 30
 	bomb = 30
 	bio = 100
-	rad = 20
 	fire = 90
 	acid = 90
 	stamina = 10

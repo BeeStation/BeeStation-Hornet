@@ -35,6 +35,10 @@
 	for(var/mob/living/carbon/target in range(range, owner))
 		if(!ignore_owner && target == owner)
 			continue
+
+		if(HAS_TRAIT(target, TRAIT_GENELESS))
+			continue
+
 		// probability should linearly scale from no protection at 30 to guaranteed at 90 bio armor
 		var/protection_chance = (target.getarmor(type = BIO) - 30) * (100 / (90 - 30))
 		if(prob(protection_chance))

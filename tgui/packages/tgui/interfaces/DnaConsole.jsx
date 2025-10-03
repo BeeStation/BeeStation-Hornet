@@ -82,16 +82,16 @@ const isSameMutation = (a, b) => {
 
 export const DnaConsole = (props) => {
   const { data, act } = useBackend();
-  const { isPulsingRads, radPulseSeconds, subjectUNI, subjectUF } = data;
+  const { isPulsing, timeToPulse, subjectUNI, subjectUF } = data;
   const { consoleMode } = data.view;
   return (
     <Window title="DNA Console" width={539} height={710} resizable>
-      {!!isPulsingRads && (
+      {!!isPulsing && (
         <Dimmer fontSize="14px" textAlign="center">
           <Icon mr={1} name="spinner" spin />
-          Radiation pulse in progress...
+          Pulse in progress...
           <Box mt={1} />
-          {radPulseSeconds}s
+          {timeToPulse}s
         </Dimmer>
       )}
       <Window.Content scrollable>
@@ -130,7 +130,7 @@ const DnaScannerButtons = (props) => {
   const { data, act } = useBackend();
   const {
     hasDelayedAction,
-    isPulsingRads,
+    isPulsing,
     isScannerConnected,
     isScrambleReady,
     isViableSubject,
@@ -157,7 +157,7 @@ const DnaScannerButtons = (props) => {
       )}
       {!!isViableSubject && (
         <Button
-          disabled={!isScrambleReady || isPulsingRads}
+          disabled={!isScrambleReady || isPulsing}
           onClick={() => act('scramble_dna')}
         >
           Scramble DNA
@@ -231,7 +231,7 @@ const DnaScannerContent = (props) => {
     isScannerConnected,
     isViableSubject,
     subjectHealth,
-    subjectRads,
+    subjectDamage,
     subjectStatus,
   } = data;
   if (!isScannerConnected) {
@@ -262,9 +262,9 @@ const DnaScannerContent = (props) => {
           {subjectHealth}%
         </ProgressBar>
       </LabeledList.Item>
-      <LabeledList.Item label="Radiation">
+      <LabeledList.Item label="Genetic Damage">
         <ProgressBar
-          value={subjectRads}
+          value={subjectDamage}
           minValue={0}
           maxValue={100}
           ranges={{
@@ -274,7 +274,7 @@ const DnaScannerContent = (props) => {
             olive: [-Infinity, 0],
           }}
         >
-          {subjectRads}%
+          {subjectDamage}%
         </ProgressBar>
       </LabeledList.Item>
     </LabeledList>
@@ -1133,7 +1133,7 @@ const DnaConsoleEnzymes = (props) => {
 
 const RadiationEmitterSettings = (props) => {
   const { data, act } = useBackend();
-  const { radStrength, radDuration } = data;
+  const { pulseStrength, pulseDuration } = data;
   return (
     <Section title="Radiation Emitter" minHeight="100%">
       <LabeledList>
@@ -1142,7 +1142,7 @@ const RadiationEmitterSettings = (props) => {
             animated
             width="32px"
             stepPixelSize={10}
-            value={radStrength}
+            value={pulseStrength}
             minValue={1}
             maxValue={RADIATION_STRENGTH_MAX}
             step={1}
@@ -1158,7 +1158,7 @@ const RadiationEmitterSettings = (props) => {
             animated
             width="32px"
             stepPixelSize={10}
-            value={radDuration}
+            value={pulseDuration}
             minValue={1}
             maxValue={RADIATION_DURATION_MAX}
             step={1}

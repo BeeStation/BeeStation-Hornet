@@ -83,14 +83,16 @@
 /// The total visible states
 #define TOTAL_VISIBLE_STATES (FACTOR_GAS_VISIBLE_MAX * (1 / MOLES_GAS_VISIBLE_STEP))
 
-//REACTIONS
-//return values for reactions (bitflags)
-///The gas mixture is not reacting
-#define NO_REACTION 0
-///The gas mixture is reacting
-#define REACTING 1
-///The gas mixture is able to stop all reactions
-#define STOP_REACTIONS 2
+//  REACTIONS
+//  Return values for reactions (bitflags).
+/// The gas mixture is not reacting. Not actually a bitflag.
+#define NO_REACTION NONE
+/// The gas mixture is reacting.
+#define REACTING (1 << 0)
+/// The gas mixture is able to stop all reactions.
+#define STOP_REACTIONS (1 << 1)
+/// The gas mixture has the requirements to start a volatile reaction.
+#define VOLATILE_REACTION (1 << 2)
 
 
 //EXCITED GROUPS
@@ -144,6 +146,9 @@
 #define FIRE_SPREAD_RADIOSITY_SCALE 0.85
 ///Helper for small fires to grow
 #define FIRE_GROWTH_RATE 40000
+
+/// Multiplier for the temperature shared to other turfs
+#define COLD_FIRE_SPREAD_RADIOSITY_SCALE 0.95
 
 ///moles in a 2.5 m^3 cell at 101.325 Pa and 20 degC (103 or so)
 #define MOLES_CELLSTANDARD (ONE_ATMOSPHERE*CELL_VOLUME/(T20C*R_IDEAL_GAS_EQUATION))

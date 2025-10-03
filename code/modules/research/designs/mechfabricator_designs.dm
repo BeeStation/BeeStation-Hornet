@@ -1089,14 +1089,12 @@
 	materials = list(/datum/material/iron = 1500)
 	build_path = /obj/item/mod/module/mouthhole
 
-/*
 /datum/design/module/mod_rad_protection
 	name = "MOD Module: Radiation Protection"
 	id = "mod_rad_protection"
 	materials = list(/datum/material/iron = 1000, /datum/material/uranium = 1000)
 	build_path = /obj/item/mod/module/rad_protection
 	department_type = MODULE_ENGINEERING
-*/
 
 /datum/design/module/mod_emp_shield
 	name = "MOD Module: EMP Shield"

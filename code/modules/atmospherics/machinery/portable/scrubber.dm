@@ -20,7 +20,13 @@
 		/datum/gas/nitrium,
 		/datum/gas/tritium,
 		/datum/gas/hypernoblium,
-		/datum/gas/water_vapor
+		/datum/gas/water_vapor,
+		/datum/gas/freon,
+		/datum/gas/hydrogen,
+		/datum/gas/healium,
+		/datum/gas/proto_nitrate,
+		/datum/gas/zauker,
+		/datum/gas/halon,
 	)
 
 	volume = 2000

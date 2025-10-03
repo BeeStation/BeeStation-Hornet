@@ -11,9 +11,6 @@
 	var/obj/machinery/atmospherics/components/unary/rbmk/core/reactor
 	var/active = FALSE
 
-/obj/machinery/computer/reactor/Initialize(mapload)
-	. = ..()
-
 /obj/machinery/computer/reactor/control_rods
 	name = "control rod management computer"
 	desc = "A computer which can remotely raise / lower the control rods of an RBMK class nuclear reactor."

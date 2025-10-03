@@ -35,7 +35,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 	laser = 50
 	energy = 50
 	bomb = 10
-	rad = 100
 	fire = 70
 	acid = 100
 
@@ -462,7 +461,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 /datum/armor/window_clockwork
 	bomb = 10
 	bio = 100
-	rad = 100
 	fire = 70
 	acid = 100
 

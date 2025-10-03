@@ -88,7 +88,7 @@
 /datum/computer_file/program/proc/generate_network_log(text, log_id = TRUE, obj/item/computer_hardware/network_card/card)
 	if(computer)
 		return computer.add_log(text, log_id, card)	//This is important since Hardware_id wasn't working otherwise
-	return 0
+	return FALSE
 
 /**
  *Runs when the device is used to attack an atom in non-combat mode.
@@ -104,7 +104,6 @@
 */
 /datum/computer_file/program/proc/tap(atom/A, mob/living/user, params)
 	return FALSE
-
 
 /**
  * Called during /obj/item/modular_computer/proc/open_program
@@ -129,11 +128,11 @@
 /datum/computer_file/program/proc/get_signal(specific_action = 0)
 	if(computer)
 		return computer.get_ntnet_status(specific_action)
-	return 0
+	return FALSE
 
 // Called by Process() on device that runs us, once every tick.
 /datum/computer_file/program/proc/process_tick(delta_time)
-	return 1
+	return TRUE
 
 /**
   *Check if the user can run program. Only humans and silicons can operate computer. Automatically called in on_start()
@@ -223,7 +222,7 @@
 	var/obj/item/computer_hardware/network_card/network_card = computer.all_components[MC_NET]
 	if(network_destination)
 		generate_network_log("Connection to [network_destination] closed.", network_card) //Probably should be cut
-	return 1
+	return TRUE
 
 /// Return TRUE if nothing was processed. Return FALSE to prevent further actions running.
 /// Set use_attack = TRUE to receive proccalls from the parent computer.

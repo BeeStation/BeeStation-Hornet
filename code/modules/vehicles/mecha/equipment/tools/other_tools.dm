@@ -451,14 +451,12 @@
 	rechargerate = 25
 	var/radrate = 15
 
+/obj/item/mecha_parts/mecha_equipment/generator/nuclear/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/radioactive)
+
 /obj/item/mecha_parts/mecha_equipment/generator/nuclear/generator_init()
 	fuel = new /obj/item/stack/sheet/mineral/uranium(src, 0)
-
-/obj/item/mecha_parts/mecha_equipment/generator/nuclear/process(delta_time)
-	. = ..()
-	if(!.) //process wasnt killed
-		radiation_pulse(get_turf(src), radrate * delta_time)
-
 
 /////////////////////////////////////////// THRUSTERS /////////////////////////////////////////////
 
