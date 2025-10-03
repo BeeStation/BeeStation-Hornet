@@ -4998,6 +4998,11 @@
 /obj/item/prison_scanner,
 /obj/item/prison_scanner,
 /obj/effect/spawner/lootdrop/prison_contraband,
+/obj/machinery/button/door/prison_lockdown{
+	req_access_txt = "2";
+	id = "Prisongate";
+	pixel_x = -32
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "aPs" = (
@@ -102752,7 +102757,7 @@ jiS
 jiS
 hIK
 aax
-fcD
+abe
 abe
 abe
 abe
