@@ -930,6 +930,7 @@
 /area/maintenance/port/fore)
 "alv" = (
 /obj/machinery/washing_machine,
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/iron/ridged,
 /area/security/prison)
 "alF" = (
@@ -6255,6 +6256,12 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/wideplating_new/corner,
+/obj/machinery/button/door/prison_lockdown{
+	req_access_txt = "2";
+	id = "Prisongate";
+	pixel_x = 32;
+	pixel_y = -32
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "bsK" = (
@@ -7046,8 +7053,8 @@
 "bDP" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/structure/table/wood,
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/prison,
 /area/security/prison)
 "bDR" = (
@@ -16728,6 +16735,12 @@
 /obj/machinery/door/poddoor/shutters{
 	id = "visitationlock"
 	},
+/obj/machinery/scanner_gate{
+	name = "Prison Scanner";
+	scangate_mode = "Mindshield";
+	reverse = 1;
+	pixel_y = 5
+	},
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "dtC" = (
@@ -17053,6 +17066,17 @@
 	},
 /turf/open/floor/iron,
 /area/tcommsat/computer)
+"dAc" = (
+/obj/effect/turf_decal/siding/wideplating_new{
+	dir = 4
+	},
+/obj/machinery/button/door/prison_lockdown{
+	req_access_txt = "2";
+	id = "Prisongate";
+	pixel_x = 32
+	},
+/turf/open/floor/prison,
+/area/security/prison)
 "dAi" = (
 /obj/machinery/door/window/eastright{
 	name = "Theatre Stage";
@@ -18520,6 +18544,12 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/button/door/prison_lockdown{
+	req_access_txt = "2";
+	id = "Prisongate";
+	pixel_x = 32;
+	pixel_y = -32
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "ebc" = (
@@ -19175,6 +19205,11 @@
 	},
 /obj/machinery/door/window/checkpoint/northleft{
 	req_one_access_txt = "2"
+	},
+/obj/machinery/scanner_gate{
+	name = "Prison Scanner";
+	scangate_mode = "Mindshield";
+	reverse = 1
 	},
 /turf/open/floor/prison/dark,
 /area/security/prison)
@@ -21947,6 +21982,7 @@
 /obj/structure/closet/crate/bin,
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
 /obj/machinery/firealarm/directional/south,
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/iron/dark,
 /area/security/prison)
 "ftv" = (
@@ -22658,8 +22694,8 @@
 	dir = 5
 	},
 /obj/item/kirbyplants/random,
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "fGv" = (
@@ -26494,6 +26530,11 @@
 /obj/effect/turf_decal/siding/wideplating_new{
 	dir = 4
 	},
+/obj/machinery/button/door/prison_lockdown{
+	req_access_txt = "2";
+	id = "Prisongate";
+	pixel_x = -32
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "hir" = (
@@ -27396,7 +27437,6 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "hzO" = (
@@ -27876,8 +27916,8 @@
 	},
 /obj/effect/turf_decal/siding/wideplating_new,
 /obj/item/kirbyplants/random,
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/prison,
 /area/security/prison)
 "hJC" = (
@@ -29239,7 +29279,6 @@
 /obj/item/clothing/under/rank/prisoner,
 /obj/item/clothing/under/rank/prisoner,
 /obj/item/clothing/under/rank/prisoner,
-/obj/item/clothing/under/rank/prisoner,
 /obj/structure/railing{
 	dir = 1
 	},
@@ -30183,7 +30222,7 @@
 	},
 /obj/structure/table,
 /obj/effect/turf_decal/bot_white,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/iron/dark,
 /area/security/prison)
 "iwg" = (
@@ -32888,9 +32927,9 @@
 	dir = 4
 	},
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/prison_contraband,
+/obj/effect/spawner/lootdrop/prison_contraband,
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/prison,
 /area/security/prison)
 "jzS" = (
@@ -33830,7 +33869,7 @@
 /area/maintenance/aft)
 "jTg" = (
 /obj/structure/table/wood,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/wood,
 /area/security/prison)
 "jTn" = (
@@ -34079,9 +34118,9 @@
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/structure/closet/secure_closet/personal/empty,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/spawner/lootdrop/prison_contraband,
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/prison,
 /area/security/prison)
 "jXi" = (
@@ -36337,12 +36376,12 @@
 /area/hallway/primary/central)
 "kNP" = (
 /obj/structure/closet/crate/bin,
-/obj/item/food/donut/chaos,
 /obj/effect/turf_decal/siding/wideplating_new{
 	dir = 6
 	},
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/spawner/lootdrop/prison_contraband,
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/prison,
 /area/security/prison)
 "kOf" = (
@@ -37391,9 +37430,8 @@
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/structure/wall_closet/generic/directional/east,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/prison,
 /area/security/prison)
 "liU" = (
@@ -39466,7 +39504,7 @@
 	dir = 4
 	},
 /obj/machinery/light/small/directional/south,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/iron/freezer,
 /area/security/prison)
 "mgt" = (
@@ -39802,6 +39840,11 @@
 	name = "Visitation Lock";
 	req_one_access_txt = "2";
 	pixel_y = 32
+	},
+/obj/machinery/button/door/prison_lockdown{
+	req_access_txt = "2";
+	id = "Prisongate";
+	pixel_x = -32
 	},
 /turf/open/floor/prison/dark,
 /area/security/prison)
@@ -45254,8 +45297,7 @@
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/structure/wall_closet/generic/directional/east,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/prison,
 /area/security/prison)
 "oyg" = (
@@ -45404,6 +45446,11 @@
 	dir = 4
 	},
 /obj/machinery/light/directional/north,
+/obj/machinery/button/door/prison_lockdown{
+	req_access_txt = "2";
+	id = "Prisongate";
+	pixel_y = 32
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "oAu" = (
@@ -45959,8 +46006,8 @@
 /obj/item/canvas/twentythree_twentythree,
 /obj/item/paint_palette,
 /obj/item/paint_palette,
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/prison,
 /area/security/prison)
 "oMN" = (
@@ -46646,7 +46693,7 @@
 	dir = 8
 	},
 /obj/structure/cable/yellow,
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/reinforced/prison,
 /turf/open/floor/plating,
 /area/security/prison)
 "pbe" = (
@@ -49004,8 +49051,8 @@
 "pVF" = (
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
 /obj/item/kirbyplants/random,
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/prison,
 /area/security/prison)
 "pVO" = (
@@ -49416,7 +49463,6 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/iron/techmaint,
 /area/security/prison/shielded)
 "qfD" = (
@@ -50689,7 +50735,8 @@
 	dir = 1
 	},
 /obj/structure/closet/crate/bin,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/prison_contraband,
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/prison,
 /area/security/prison)
 "qFi" = (
@@ -53647,6 +53694,12 @@
 	pixel_x = 4
 	},
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/button/door/prison_lockdown{
+	req_access_txt = "2";
+	id = "Prisongate";
+	pixel_x = -32
+	},
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/iron/techmaint,
 /area/security/prison/shielded)
 "rIE" = (
@@ -54431,7 +54484,7 @@
 /obj/item/food/meat/slab,
 /obj/item/food/meat/slab,
 /obj/item/food/meat/slab,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/prison,
 /area/security/prison)
 "rYy" = (
@@ -54691,6 +54744,11 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/cobweb,
+/obj/machinery/button/door/prison_lockdown{
+	req_access_txt = "2";
+	id = "Prisongate";
+	pixel_x = -32
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "scB" = (
@@ -56301,6 +56359,7 @@
 	pixel_x = -9;
 	pixel_y = 5
 	},
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/prison,
 /area/security/prison)
 "sJB" = (
@@ -58147,6 +58206,11 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/bot_white,
+/obj/machinery/button/door/prison_lockdown{
+	req_access_txt = "2";
+	id = "Prisongate";
+	pixel_x = -32
+	},
 /turf/open/floor/iron/dark,
 /area/security/prison)
 "tsO" = (
@@ -62555,7 +62619,13 @@
 	dir = 10
 	},
 /obj/structure/closet/crate/bin,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/machinery/button/door/prison_lockdown{
+	req_access_txt = "2";
+	id = "Prisongate";
+	pixel_x = -32
+	},
+/obj/effect/spawner/lootdrop/prison_contraband,
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "vcZ" = (
@@ -62640,6 +62710,7 @@
 /obj/item/stack/package_wrap,
 /obj/structure/rack,
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/prison,
 /area/security/prison)
 "vdA" = (
@@ -68735,6 +68806,7 @@
 	},
 /obj/effect/turf_decal/siding/wideplating_new,
 /obj/item/kirbyplants/random,
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/prison,
 /area/security/prison)
 "xtS" = (
@@ -69853,8 +69925,8 @@
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/structure/closet/secure_closet/personal/empty,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/prison_contraband,
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/prison,
 /area/security/prison)
 "xSo" = (
@@ -95751,7 +95823,7 @@ whN
 fVF
 oMJ
 miv
-nxG
+dAc
 hSl
 hkm
 iIU
@@ -96276,7 +96348,7 @@ paI
 plX
 gWk
 pQK
-ajo
+wHs
 aqR
 aqR
 rwW
@@ -96533,7 +96605,7 @@ dtm
 gNK
 luO
 hmZ
-ajo
+wHs
 kwm
 aqR
 qVj
@@ -96790,7 +96862,7 @@ epw
 fch
 kzy
 mgw
-ajo
+wHs
 ceh
 aqR
 gfW
@@ -97040,14 +97112,14 @@ aai
 bYj
 aai
 aai
-acd
-acd
-acd
-acd
+aai
+aai
+aai
+aai
 amr
 rSO
 amr
-ajo
+wHs
 aqR
 aqR
 gfW
